@@ -1,4 +1,5 @@
-#include <centurion_everything.h>
+#include <ctn_centurion.h>
+#include <centurion_visuals.h>
 #include "model.h"
 #include "model_factory.h"
 #include "controller.h"
@@ -15,10 +16,14 @@ static void Run() {
   using namespace wanderer::model;
   using namespace wanderer::view;
   using namespace wanderer::controller;
+  using namespace centurion::visuals;
+  using namespace std;
 
-  std::shared_ptr<IModel> model = CreateModel();
-  std::unique_ptr<IView> view = CreateView(model);
-  std::unique_ptr<IController> controller = CreateController(model, std::move(view));
+  auto window = Window::CreateUnique(800, 600);
+
+  shared_ptr<IModel> model = CreateModel();
+  unique_ptr<IView> view = CreateView(model, window->GetRenderer());
+  unique_ptr<IController> controller = CreateController(model, std::move(view), std::move(window));
   controller->Run();
 }
 

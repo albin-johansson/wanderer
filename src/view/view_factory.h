@@ -5,8 +5,9 @@
 
 namespace wanderer::view {
 
-inline IView_uptr CreateView(wanderer::model::IModel_wptr model) {
-  return std::unique_ptr<ViewImpl>(new ViewImpl(std::move(model)));
+inline IView_uptr CreateView(wanderer::model::IModel_wptr model,
+                             centurion::visuals::IRenderer_sptr renderer) {
+  return std::unique_ptr<ViewImpl>(new ViewImpl(std::move(model), std::move(renderer)));
 }
 
 }

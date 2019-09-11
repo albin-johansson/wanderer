@@ -2,6 +2,7 @@
 #include "view.h"
 #include "model.h"
 #include <memory>
+#include <ctn_renderer_interface.h>
 
 namespace wanderer::view {
 
@@ -13,12 +14,16 @@ namespace wanderer::view {
 class ViewImpl : public IView {
  private:
   wanderer::model::IModel_wptr model;
+  centurion::visuals::IRenderer_sptr renderer;
 
   /**
    * \param model a weak pointer to the associated IModel instance.
+   * \param renderer a shared pointer to the associated IRenderer instance.
+   * \throws invalid_argument if the supplied renderer pointer is null.
    * \since 0.1.0
    */
-  explicit ViewImpl(wanderer::model::IModel_wptr model);
+  explicit ViewImpl(wanderer::model::IModel_wptr model,
+                    centurion::visuals::IRenderer_sptr renderer);
 
  public:
   ~ViewImpl() override;
@@ -31,10 +36,13 @@ class ViewImpl : public IView {
    * Creates and returns a unique pointer to an IView instance.
    *
    * \param model a weak pointer to the associated IModel instance.
+   * \param renderer a shared pointer to the assoicated IRenderer instance.
    * \return a unique pointer to an IView instance.
+   * \throws invalid_argument if the supplied renderer pointer is null.
    * \since 0.1.0
    */
-  friend IView_uptr CreateView(wanderer::model::IModel_wptr model);
+  friend IView_uptr CreateView(wanderer::model::IModel_wptr model,
+                               centurion::visuals::IRenderer_sptr renderer);
 
 };
 

@@ -9,10 +9,10 @@ using namespace centurion::input;
 
 namespace wanderer::controller {
 
-ControllerImpl::ControllerImpl(IModel_sptr model, IView_uptr view) {
+ControllerImpl::ControllerImpl(IModel_sptr model, IView_uptr view, IWindow_uptr window) {
   this->model = Objects::RequireNonNull(std::move(model));
   this->view = Objects::RequireNonNull(std::move(view));
-  window = Window::CreateUnique(800, 600);
+  this->window = Objects::RequireNonNull(std::move(window));
   inputDispatcher = InputDispatcher::CreateUnique();
 }
 
@@ -31,6 +31,11 @@ void ControllerImpl::Run() {
     }
 
     model->Update(0);
+
+    window->SetColor(Color::GRAY);
+    window->RenderClear();
+    window->ApplyRendering();
+
     SDL_Delay(30);
   }
 

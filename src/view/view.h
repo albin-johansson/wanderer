@@ -1,6 +1,7 @@
 #pragma once
 #include "model.h"
 #include <memory>
+#include <ctn_renderer_interface.h>
 
 namespace wanderer::view {
 

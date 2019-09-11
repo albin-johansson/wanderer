@@ -3,8 +3,8 @@
 #include "model.h"
 #include "view.h"
 #include <memory>
-#include <centurion_visuals.h>
-#include <centurion_input.h>
+#include <ctn_window_interface.h>
+#include <ctn_input_dispatcher.h>
 
 namespace wanderer::controller {
 
@@ -23,10 +23,13 @@ class ControllerImpl final : public IController {
   /**
    * \param model a shared pointer to the associated model instance.
    * \param view a unique pointer to the associated view instance.
+   * \param window a unique pointer to the associated parent window instance.
    * \throws invalid_argument if any of the supplied arguments are nullptr.
    * \since 0.1.0
    */
-  ControllerImpl(wanderer::model::IModel_sptr model, wanderer::view::IView_uptr view);
+  ControllerImpl(wanderer::model::IModel_sptr model,
+                 wanderer::view::IView_uptr view,
+                 centurion::visuals::IWindow_uptr window);
 
  public:
   ~ControllerImpl() override;
@@ -40,12 +43,14 @@ class ControllerImpl final : public IController {
    *
    * \param model a shared pointer to the associated IModel instance, may not be nullptr.
    * \param view a unique pointer to the associated IView instance, may not be nullptr.
+   * \param window a unique pointer to the associated parent window instance.
    * \return a unique pointer to an IController instance.
    * \throws invalid_argument if any of the supplied arguments are nullptr.
    * \since 0.1.0
    */
-  friend std::unique_ptr<IController> CreateController(wanderer::model::IModel_sptr model,
-                                                       wanderer::view::IView_uptr view);
+  friend IController_uptr CreateController(wanderer::model::IModel_sptr model,
+                                           wanderer::view::IView_uptr view,
+                                           centurion::visuals::IWindow_uptr window);
 
   void Run() override;
 
