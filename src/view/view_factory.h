@@ -5,7 +5,7 @@
 
 namespace wanderer::view {
 
-std::unique_ptr<IView> CreateView(std::weak_ptr<wanderer::model::IModel> model) {
+inline IView_uptr CreateView(wanderer::model::IModel_wptr model) {
   return std::unique_ptr<ViewImpl>(new ViewImpl(std::move(model)));
 }
 

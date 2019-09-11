@@ -1,4 +1,5 @@
 #pragma once
+#include <memory>
 
 namespace wanderer::model {
 
@@ -15,6 +16,12 @@ class IModel {
  public:
   virtual ~IModel() = default;
 
+  virtual void Update(double delta) = 0;
+
 };
+
+using IModel_uptr = std::unique_ptr<IModel>;
+using IModel_sptr = std::shared_ptr<IModel>;
+using IModel_wptr = std::weak_ptr<IModel>;
 
 }

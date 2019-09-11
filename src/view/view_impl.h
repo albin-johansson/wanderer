@@ -12,13 +12,13 @@ namespace wanderer::view {
  */
 class ViewImpl : public IView {
  private:
-  std::weak_ptr<wanderer::model::IModel> model;
+  wanderer::model::IModel_wptr model;
 
   /**
    * \param model a weak pointer to the associated IModel instance.
    * \since 0.1.0
    */
-  explicit ViewImpl(std::weak_ptr<wanderer::model::IModel> model);
+  explicit ViewImpl(wanderer::model::IModel_wptr model);
 
  public:
   ~ViewImpl() override;
@@ -34,7 +34,7 @@ class ViewImpl : public IView {
    * \return a unique pointer to an IView instance.
    * \since 0.1.0
    */
-  friend std::unique_ptr<IView> CreateView(std::weak_ptr<wanderer::model::IModel> model);
+  friend IView_uptr CreateView(wanderer::model::IModel_wptr model);
 
 };
 

@@ -1,8 +1,9 @@
 #include "model_impl.h"
-#include <iostream>
 
 namespace wanderer::model {
 
-  // TODO...
+void ModelImpl::Update(double delta) {
+
+}
 
 }

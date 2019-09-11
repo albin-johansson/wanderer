@@ -26,7 +26,9 @@ class ModelImpl final : public IModel {
    * \return a unique pointer to an IModel instance.
    * \since 0.1.0
    */
-  friend std::unique_ptr<IModel> CreateModel();
+  friend IModel_uptr CreateModel();
+
+  void Update(double delta) override;
 };
 
 }

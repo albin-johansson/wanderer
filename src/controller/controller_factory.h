@@ -8,8 +8,8 @@
 
 namespace wanderer::controller {
 
-inline std::unique_ptr<IController> CreateController(std::shared_ptr<wanderer::model::IModel> model,
-                                                     std::unique_ptr<wanderer::view::IView> view) {
+inline IController_uptr CreateController(wanderer::model::IModel_sptr model,
+                                         wanderer::view::IView_uptr view) {
   auto controllerPtr = new ControllerImpl(std::move(model), std::move(view));
   return std::unique_ptr<ControllerImpl>(controllerPtr);
 }

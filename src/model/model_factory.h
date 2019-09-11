@@ -4,7 +4,7 @@
 
 namespace wanderer::model {
 
-inline std::unique_ptr<IModel> CreateModel() {
+inline IModel_uptr CreateModel() {
   return std::unique_ptr<IModel>(new ModelImpl());
 }
 
