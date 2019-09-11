@@ -32,9 +32,8 @@ void ControllerImpl::Run() {
 
     model->Update(0);
 
-    window->SetColor(Color::GRAY);
-    window->RenderClear();
-    window->ApplyRendering();
+    view->ClearCanvas();
+    view->ApplyRendering();
 
     SDL_Delay(30);
   }

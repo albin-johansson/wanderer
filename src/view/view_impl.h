@@ -3,6 +3,7 @@
 #include "model.h"
 #include <memory>
 #include <ctn_renderer_interface.h>
+#include <ctn_color.h>
 
 namespace wanderer::view {
 
@@ -43,6 +44,15 @@ class ViewImpl : public IView {
    */
   friend IView_uptr CreateView(wanderer::model::IModel_wptr model,
                                centurion::visuals::IRenderer_sptr renderer);
+
+  inline void ClearCanvas() noexcept override {
+    renderer->SetColor(centurion::visuals::Color::BLACK);
+    renderer->RenderClear();
+  }
+
+  inline void ApplyRendering() noexcept override {
+    renderer->ApplyRendering();
+  };
 
 };
 

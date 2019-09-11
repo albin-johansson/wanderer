@@ -17,6 +17,20 @@ class IView {
  public:
   virtual ~IView() = default;
 
+  /**
+   * Clears the entire rendering area.
+   *
+   * \since 0.1.0
+   */
+  virtual void ClearCanvas() = 0;
+
+  /**
+   * Applies the previous rendering operations.
+   *
+   * \since 0.1.0
+   */
+  virtual void ApplyRendering() = 0;
+
 };
 
 using IView_uptr = std::unique_ptr<IView>;

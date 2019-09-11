@@ -1,5 +1,4 @@
 #include "view_impl.h"
-#include <utility>
 #include "objects.h"
 
 using namespace wanderer::model;
@@ -15,4 +14,3 @@ ViewImpl::ViewImpl(IModel_wptr model, IRenderer_sptr renderer) {
 ViewImpl::~ViewImpl() = default;
 
 }
-
