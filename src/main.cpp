@@ -21,9 +21,9 @@ static void Run() {
 
   auto window = Window::CreateUnique(800, 600);
 
-  shared_ptr<IModel> model = CreateModel();
-  unique_ptr<IView> view = CreateView(model, window->GetRenderer());
-  unique_ptr<IController> controller = CreateController(model, std::move(view), std::move(window));
+  IModel_sptr model = CreateModel();
+  IView_uptr view = CreateView(model, window->GetRenderer());
+  IController_uptr controller = CreateController(model, std::move(view), std::move(window));
   controller->Run();
 }
 
