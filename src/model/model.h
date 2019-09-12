@@ -7,7 +7,7 @@ namespace wanderer::model {
  * The IModel class is an interface that specifies the facade for the model component of the
  * application.
  *
- * \since 0.1.0
+ * @since 0.1.0
  */
 class IModel {
  protected:
@@ -19,8 +19,8 @@ class IModel {
   /**
    * Updates the model state.
    *
-   * \param delta the delta time that will be used.
-   * \since 0.1.0
+   * @param delta the delta time that will be used.
+   * @since 0.1.0
    */
   virtual void Update(double delta) = 0;
 

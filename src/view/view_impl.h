@@ -10,7 +10,7 @@ namespace wanderer::view {
 /**
  * The ViewImpl class is an implementation of the IView interface.
  *
- * \since 0.1.0
+ * @since 0.1.0
  */
 class ViewImpl : public IView {
  private:
@@ -18,10 +18,10 @@ class ViewImpl : public IView {
   centurion::visuals::IRenderer_sptr renderer;
 
   /**
-   * \param model a weak pointer to the associated IModel instance.
-   * \param renderer a shared pointer to the associated IRenderer instance.
-   * \throws invalid_argument if the supplied renderer pointer is null.
-   * \since 0.1.0
+   * @param model a weak pointer to the associated IModel instance.
+   * @param renderer a shared pointer to the associated IRenderer instance.
+   * @throws invalid_argument if the supplied renderer pointer is null.
+   * @since 0.1.0
    */
   explicit ViewImpl(wanderer::model::IModel_wptr model,
                     centurion::visuals::IRenderer_sptr renderer);
@@ -36,11 +36,11 @@ class ViewImpl : public IView {
   /**
    * Creates and returns a unique pointer to an IView instance.
    *
-   * \param model a weak pointer to the associated IModel instance.
-   * \param renderer a shared pointer to the assoicated IRenderer instance.
+   * @param model a weak pointer to the associated IModel instance.
+   * @param renderer a shared pointer to the assoicated IRenderer instance.
    * \return a unique pointer to an IView instance.
-   * \throws invalid_argument if the supplied renderer pointer is null.
-   * \since 0.1.0
+   * @throws invalid_argument if the supplied renderer pointer is null.
+   * @since 0.1.0
    */
   friend IView_uptr CreateView(wanderer::model::IModel_wptr model,
                                centurion::visuals::IRenderer_sptr renderer);

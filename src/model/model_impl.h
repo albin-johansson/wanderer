@@ -8,7 +8,7 @@ namespace wanderer::model {
 /**
  * The ModelImpl class is an implementation of the IModel interface.
  *
- * \since 0.1.0
+ * @since 0.1.0
  */
 class ModelImpl final : public IModel {
  private:
@@ -27,15 +27,15 @@ class ModelImpl final : public IModel {
    * Creates and returns a unique pointer to an IModel instance.
    *
    * \return a unique pointer to an IModel instance.
-   * \since 0.1.0
+   * @since 0.1.0
    */
   friend IModel_uptr CreateModel();
 
   /**
    * Updates the state of the model.
    *
-   * \param delta the delta time that will be used.
-   * \since 0.1.0
+   * @param delta the delta time that will be used.
+   * @since 0.1.0
    */
   void Update(double delta) override;
 };

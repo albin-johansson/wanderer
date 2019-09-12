@@ -8,7 +8,7 @@ namespace wanderer::view {
 /**
  * The IView class is an interface that specifies the view component facade for the application.
  *
- * \since 0.1.0
+ * @since 0.1.0
  */
 class IView {
  protected:
@@ -20,14 +20,14 @@ class IView {
   /**
    * Clears the entire rendering area.
    *
-   * \since 0.1.0
+   * @since 0.1.0
    */
   virtual void ClearCanvas() = 0;
 
   /**
    * Applies the previous rendering operations.
    *
-   * \since 0.1.0
+   * @since 0.1.0
    */
   virtual void ApplyRendering() = 0;
 

@@ -12,7 +12,7 @@
 /**
  * Initializes the model, view and controller and runs the application.
  *
- * \since 0.1.0
+ * @since 0.1.0
  */
 static void Run() {
   using namespace wanderer::model;

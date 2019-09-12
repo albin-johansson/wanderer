@@ -7,7 +7,7 @@ namespace wanderer::model {
  * The ILevel class is an interface that specifies objects that represent different kind of levels
  * contained in the game world, such as houses and dungeons.
  *
- * \since 0.1.0
+ * @since 0.1.0
  */
 class ILevel {
  protected:
@@ -19,8 +19,8 @@ class ILevel {
   /**
    * Updates the state of the level.
    *
-   * \param delta the delta time that will be used.
-   * \since 0.1.0
+   * @param delta the delta time that will be used.
+   * @since 0.1.0
    */
   virtual void Update(double delta) = 0;
 

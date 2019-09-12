@@ -4,9 +4,9 @@
 namespace wanderer::controller {
 
 /**
- * \brief The Controller class is an interface that specifies the controller facade for the application.
+ * The Controller class is an interface that specifies the controller facade for the application.
  *
- * \since 0.1.0
+ * @since 0.1.0
  */
 class IController {
  protected:
@@ -18,7 +18,7 @@ class IController {
   /**
    * Runs the application.
    *
-   * \since 0.1.0
+   * @since 0.1.0
    */
   virtual void Run() = 0;
 
