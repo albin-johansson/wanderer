@@ -2,10 +2,26 @@ cmake_minimum_required(VERSION 3.14)
 
 project(Wanderer)
 
+# TODO: decide on how to deal with resources, preferably use one resource-folder that is linked by CMake
+
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-set(SOURCE_FILES src/main.cpp src/model/model.h src/controller/controller.h src/controller/controller_impl.cpp src/controller/controller_impl.h src/controller/controller_factory.h src/model/model_impl.cpp src/model/model_impl.h src/model/model_factory.h src/view/view.h src/model/objects.h src/view/view_factory.h src/view/view_impl.cpp src/view/view_impl.h)
+set(SOURCE_FILES
+        src/main.cpp
+        src/model/model.h
+        src/controller/controller.h
+        src/controller/controller_impl.cpp
+        src/controller/controller_impl.h
+        src/controller/controller_factory.h
+        src/model/model_impl.cpp
+        src/model/model_impl.h
+        src/model/model_factory.h
+        src/view/view.h
+        src/model/objects.h
+        src/view/view_factory.h
+        src/view/view_impl.cpp
+        src/view/view_impl.h src/controller/input_handler.cpp src/controller/input_handler.h src/model/level/level.h src/model/level/world.cpp src/model/level/world.h)
 
 set(SDL2_ROOT ${PROJECT_SOURCE_DIR}/lib/SDL2)
 set(CENTURION_ROOT ${PROJECT_SOURCE_DIR}/lib/Centurion)

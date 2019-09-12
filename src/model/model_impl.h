@@ -1,5 +1,6 @@
 #pragma once
 #include "model.h"
+#include "level/world.h"
 #include <memory>
 
 namespace wanderer::model {
@@ -11,7 +12,9 @@ namespace wanderer::model {
  */
 class ModelImpl final : public IModel {
  private:
-  ModelImpl() = default;
+  World_uptr world;
+
+  ModelImpl();
 
  public:
   ~ModelImpl() override = default;
@@ -28,7 +31,13 @@ class ModelImpl final : public IModel {
    */
   friend IModel_uptr CreateModel();
 
+  /**
+   * Updates the state of the model.
+   *
+   * \param delta the delta time that will be used.
+   * \since 0.1.0
+   */
   void Update(double delta) override;
 };
 
-}
+} // namespace wanderer::model

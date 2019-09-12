@@ -1,5 +1,6 @@
 #include "controller_impl.h"
 #include "objects.h"
+#include "input_handler.h"
 #include <utility>
 
 using namespace wanderer::model;
@@ -14,6 +15,9 @@ ControllerImpl::ControllerImpl(IModel_sptr model, IView_uptr view, IWindow_uptr 
   this->view = Objects::RequireNonNull(std::move(view));
   this->window = Objects::RequireNonNull(std::move(window));
   inputDispatcher = InputDispatcher::CreateUnique();
+
+  auto inputHandler = std::make_shared<InputHandler>();
+  inputDispatcher->AddKeyListener(inputHandler);
 }
 
 ControllerImpl::~ControllerImpl() = default;

@@ -65,4 +65,4 @@ class Objects final {
   }
 };
 
-}
+} // namespace wanderer::model
