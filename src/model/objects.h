@@ -15,7 +15,7 @@ class Objects final {
    *
    * \tparam T the type of the instance that the supplied pointer is pointing to.
    * @param ptr the raw pointer that will be checked.
-   * \return the supplied raw pointer.
+   * @return the supplied raw pointer.
    * @throws invalid_argument if the supplied pointer is a null pointer.
    * @since 0.1.0
    */
@@ -33,7 +33,7 @@ class Objects final {
    *
    * \tparam T the type parameter of the unique pointer.
    * @param ptr the unique pointer that will be checked.
-   * \return the supplied unique pointer.
+   * @return the supplied unique pointer.
    * @throws invalid_argument if the supplied pointer is a null pointer.
    * @since 0.1.0
    */
@@ -51,7 +51,7 @@ class Objects final {
    *
    * \tparam T the type parameter of the shared pointer.
    * @param ptr the shared pointer that will be checked.
-   * \return the supplied shared pointer.
+   * @return the supplied shared pointer.
    * @throws invalid_argument if the supplied pointer is a null pointer.
    * @since 0.1.0
    */

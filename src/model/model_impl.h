@@ -26,7 +26,7 @@ class ModelImpl final : public IModel {
   /**
    * Creates and returns a unique pointer to an IModel instance.
    *
-   * \return a unique pointer to an IModel instance.
+   * @return a unique pointer to an IModel instance.
    * @since 0.1.0
    */
   friend IModel_uptr CreateModel();

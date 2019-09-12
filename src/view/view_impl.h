@@ -38,7 +38,7 @@ class ViewImpl : public IView {
    *
    * @param model a weak pointer to the associated IModel instance.
    * @param renderer a shared pointer to the assoicated IRenderer instance.
-   * \return a unique pointer to an IView instance.
+   * @return a unique pointer to an IView instance.
    * @throws invalid_argument if the supplied renderer pointer is null.
    * @since 0.1.0
    */

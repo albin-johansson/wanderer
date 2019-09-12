@@ -44,7 +44,7 @@ class ControllerImpl final : public IController {
    * @param model a shared pointer to the associated IModel instance, may not be nullptr.
    * @param view a unique pointer to the associated IView instance, may not be nullptr.
    * @param window a unique pointer to the associated parent window instance.
-   * \return a unique pointer to an IController instance.
+   * @return a unique pointer to an IController instance.
    * @throws invalid_argument if any of the supplied arguments are nullptr.
    * @since 0.1.0
    */
