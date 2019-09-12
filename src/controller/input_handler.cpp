@@ -24,4 +24,4 @@ void InputHandler::KeyStateUpdated(const KeyState& state) {
 
 }
 
-}
+} // namespace wanderer::controller

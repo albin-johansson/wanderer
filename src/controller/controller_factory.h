@@ -15,4 +15,4 @@ inline IController_uptr CreateController(wanderer::model::IModel_sptr model,
   return std::unique_ptr<ControllerImpl>(controllerPtr);
 }
 
-}
+} // namespace wanderer::controller

@@ -56,4 +56,4 @@ class ControllerImpl final : public IController {
 
 };
 
-}
+} // namespace wanderer::controller

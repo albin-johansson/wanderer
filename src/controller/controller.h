@@ -26,4 +26,4 @@ class IController {
 
 using IController_uptr = std::unique_ptr<IController>;
 
-}
+} // namespace wanderer::controller

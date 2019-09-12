@@ -1,8 +1,7 @@
 #pragma once
 #include "ctn_key_listener.h"
 
-namespace wanderer {
-namespace controller {
+namespace wanderer::controller {
 
 class InputHandler : public centurion::input::IKeyListener {
  public:
@@ -10,5 +9,4 @@ class InputHandler : public centurion::input::IKeyListener {
 
 };
 
-}
-}
+} // namespace wanderer::controller
