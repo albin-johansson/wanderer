@@ -56,4 +56,4 @@ class ViewImpl : public IView {
 
 };
 
-}
+} // namespace wanderer::view

@@ -10,4 +10,4 @@ inline IView_uptr CreateView(wanderer::model::IModel_wptr model,
   return std::unique_ptr<ViewImpl>(new ViewImpl(std::move(model), std::move(renderer)));
 }
 
-}
+} // namespace wanderer::view

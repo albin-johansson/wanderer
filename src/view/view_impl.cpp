@@ -13,4 +13,4 @@ ViewImpl::ViewImpl(IModel_wptr model, IRenderer_sptr renderer) {
 
 ViewImpl::~ViewImpl() = default;
 
-}
+} // namespace wanderer::view

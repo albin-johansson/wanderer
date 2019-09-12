@@ -35,4 +35,4 @@ class IView {
 
 using IView_uptr = std::unique_ptr<IView>;
 
-}
+} // namespace wanderer::view
