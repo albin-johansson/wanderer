@@ -17,8 +17,8 @@ class ControllerImpl final : public IController {
  private:
   wanderer::model::IModel_sptr model;
   wanderer::view::IView_uptr view;
-  centurion::input::InputDispatcher_uptr inputDispatcher;
   centurion::visuals::IWindow_uptr window;
+  centurion::input::InputDispatcher_uptr inputDispatcher;
 
   /**
    * @param model a shared pointer to the associated model instance.

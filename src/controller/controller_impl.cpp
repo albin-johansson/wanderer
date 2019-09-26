@@ -1,10 +1,12 @@
 #include "controller_impl.h"
 #include "objects.h"
 #include "input_handler.h"
+#include "delta_time_handler.h"
 #include <utility>
 
 using namespace wanderer::model;
 using namespace wanderer::view;
+using namespace wanderer::util;
 using namespace centurion::visuals;
 using namespace centurion::input;
 
@@ -26,23 +28,28 @@ void ControllerImpl::Run() {
   window->Show();
 
   bool running = true;
-  while (running) {
-    inputDispatcher->Update();
+  DeltaTimeHandler deltaTimeHandler;
 
+  while (running) {
+    deltaTimeHandler.BeginIteration();
+
+    inputDispatcher->Update();
     if (inputDispatcher->ReceivedQuit()) {
       running = false;
       continue;
     }
 
-    model->Update(0);
+    model->Update(deltaTimeHandler.GetDelta());
 
-    view->ClearCanvas();
-    view->ApplyRendering();
+    if (deltaTimeHandler.GetSkips() == 0) {
+      view->Render();
+    } else {
+      deltaTimeHandler.DecreaseSkips();
+    }
 
-    SDL_Delay(30);
+    deltaTimeHandler.EndIteration();
   }
-
   window->Hide();
 }
 
-}
+} // namespace wanderer::controller

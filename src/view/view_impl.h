@@ -4,6 +4,10 @@
 #include <memory>
 #include <ctn_renderer_interface.h>
 #include <ctn_color.h>
+#include "font_bundle.h"
+
+using namespace centurion::visuals;
+using namespace centurion::geo;
 
 namespace wanderer::view {
 
@@ -14,8 +18,9 @@ namespace wanderer::view {
  */
 class ViewImpl : public IView {
  private:
-  wanderer::model::IModel_wptr model;
-  centurion::visuals::IRenderer_sptr renderer;
+  centurion::visuals::IRenderer_sptr renderer = nullptr;
+  IFontBundle_uptr fontBundle = nullptr;
+  model::IModel_wptr model;
 
   /**
    * @param model a weak pointer to the associated IModel instance.
@@ -23,7 +28,7 @@ class ViewImpl : public IView {
    * @throws invalid_argument if the supplied renderer pointer is null.
    * @since 0.1.0
    */
-  explicit ViewImpl(wanderer::model::IModel_wptr model,
+  explicit ViewImpl(model::IModel_wptr model,
                     centurion::visuals::IRenderer_sptr renderer);
 
  public:
@@ -42,18 +47,23 @@ class ViewImpl : public IView {
    * @throws invalid_argument if the supplied renderer pointer is null.
    * @since 0.1.0
    */
-  friend IView_uptr CreateView(wanderer::model::IModel_wptr model,
+  friend IView_uptr CreateView(model::IModel_wptr model,
                                centurion::visuals::IRenderer_sptr renderer);
 
-  inline void ClearCanvas() noexcept override {
-    renderer->SetColor(centurion::visuals::Color::BLACK);
-    renderer->RenderClear();
-  }
+  /**
+   * Renders everything.
+   *
+   * @since 0.1.0
+   */
+  void Render() noexcept override;
 
-  inline void ApplyRendering() noexcept override {
-    renderer->ApplyRendering();
-  };
-
+  /**
+   * Sets the font bundle that will be used by the view.
+   *
+   * @param fontBundle a unique pointer to the font bundle that will be used, may be nullptr.
+   * @since 0.1.0
+   */
+  void SetFontBundle(IFontBundle_uptr fontBundle) noexcept;
 };
 
 } // namespace wanderer::view
