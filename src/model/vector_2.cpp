@@ -31,7 +31,7 @@ void Vector2::Scale(double factor) noexcept {
   }
 }
 
-void Vector2::SetMagnitude(double mag) noexcept {
+void Vector2::SetMagnitude(double mag) {
   if (mag < 0) {
     throw std::invalid_argument("Invalid magnitude!");
   }
@@ -49,7 +49,7 @@ void Vector2::SetY(int y) noexcept {
 }
 
 int Vector2::GetMagnitude() const noexcept {
-  return static_cast<int>(round(sqrt((x * x) + (y * y)));
+  return static_cast<int>(round(sqrt((x * x) + (y * y))));
 }
 
 }

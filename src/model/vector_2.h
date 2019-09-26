@@ -59,9 +59,10 @@ class Vector2 final {
    * Sets the magnitude (length) of the vector.
    *
    * @param mag the new magnitude of the vector.
+   * @throws invalid_argument if the supplied factor is less than zero.
    * @since 0.1.0
    */
-  void SetMagnitude(double mag) noexcept;
+  void SetMagnitude(double mag);
 
   /**
    * Sets the x-coordinate of the vector.
