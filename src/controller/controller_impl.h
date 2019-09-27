@@ -19,6 +19,7 @@ class ControllerImpl final : public IController {
   view::IView_uptr view;
   centurion::visuals::IWindow_uptr window;
   centurion::input::InputDispatcher_uptr inputDispatcher;
+  bool running = false;
 
   /**
    * @param model a shared pointer to the associated model instance.
@@ -55,6 +56,8 @@ class ControllerImpl final : public IController {
                                            centurion::visuals::IWindow_uptr window);
 
   void Run() override;
+
+  void Exit() override;
 
 };
 

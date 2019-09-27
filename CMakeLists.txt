@@ -9,34 +9,34 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(SOURCE_FILES
         src/main.cpp
+
         src/model/model.h
-        src/controller/controller.h
-        src/controller/controller_impl.cpp
-        src/controller/controller_impl.h
-        src/controller/controller_factory.h
         src/model/model_impl.cpp
         src/model/model_impl.h
         src/model/model_factory.h
-        src/view/view.h
         src/model/objects.h
-        src/view/view_factory.h
-        src/view/view_impl.cpp
-        src/view/view_impl.h
-        src/controller/input_handler.cpp
-        src/controller/input_handler.h
         src/model/level/level.h
         src/model/level/world.cpp
         src/model/level/world.h
-        src/view/font_bundle.h
-        src/model/iterable.h
-        src/service/font_bundle_impl.cpp
-        src/service/font_bundle_impl.h
-        src/util/delta_time_handler.h
         src/model/entity/player.cpp
         src/model/entity/player.h
         src/model/vector_2.cpp
         src/model/vector_2.h
-        src/model/direction.h)
+        src/model/direction.h
+
+        src/controller/controller.h
+        src/controller/controller_impl.cpp
+        src/controller/controller_impl.h
+        src/controller/controller_factory.h
+        src/controller/input_handler.cpp
+        src/controller/input_handler.h
+
+        src/view/view.h
+        src/view/view_factory.h
+        src/view/view_impl.cpp
+        src/view/view_impl.h
+
+        src/util/delta_time_handler.h)
 
 set(SDL2_ROOT ${PROJECT_SOURCE_DIR}/lib/SDL2)
 set(CENTURION_ROOT ${PROJECT_SOURCE_DIR}/lib/Centurion)

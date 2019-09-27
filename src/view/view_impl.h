@@ -4,7 +4,6 @@
 #include <memory>
 #include <ctn_renderer_interface.h>
 #include <ctn_color.h>
-#include "font_bundle.h"
 
 using namespace centurion::visuals;
 using namespace centurion::geo;
@@ -19,7 +18,6 @@ namespace wanderer::view {
 class ViewImpl : public IView {
  private:
   centurion::visuals::IRenderer_sptr renderer = nullptr;
-  IFontBundle_uptr fontBundle = nullptr;
   model::IModel_wptr model;
 
   /**
@@ -56,14 +54,6 @@ class ViewImpl : public IView {
    * @since 0.1.0
    */
   void Render() noexcept override;
-
-  /**
-   * Sets the font bundle that will be used by the view.
-   *
-   * @param fontBundle a unique pointer to the font bundle that will be used, may be nullptr.
-   * @since 0.1.0
-   */
-  void SetFontBundle(IFontBundle_uptr fontBundle) noexcept;
 };
 
 } // namespace wanderer::view

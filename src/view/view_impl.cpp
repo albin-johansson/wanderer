@@ -30,10 +30,6 @@ void ViewImpl::Render() noexcept {
   renderer->ApplyRendering();
 }
 
-void ViewImpl::SetFontBundle(IFontBundle_uptr fontBundle) noexcept {
-  this->fontBundle = std::move(fontBundle);
-}
-
 ViewImpl::~ViewImpl() = default;
 
 } // namespace wanderer::view

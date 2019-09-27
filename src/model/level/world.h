@@ -1,5 +1,6 @@
 #pragma once
 #include "level/level.h"
+#include <vector>
 #include <memory>
 
 namespace wanderer::model {
@@ -25,7 +26,8 @@ namespace wanderer::model {
  */
 class World final {
  private:
-  ILevel_sptr activeLevel;
+  std::vector<ILevel_sptr> levels;
+  ILevel_sptr activeLevel = nullptr;
 
  public:
   World();

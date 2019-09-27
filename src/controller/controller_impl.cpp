@@ -18,8 +18,9 @@ ControllerImpl::ControllerImpl(IModel_sptr model, IView_uptr view, IWindow_uptr 
   this->window = Objects::RequireNonNull(std::move(window));
   inputDispatcher = InputDispatcher::CreateUnique();
 
-  auto inputHandler = std::make_shared<InputHandler>();
+  auto inputHandler = std::make_shared<InputHandler>(this);
   inputDispatcher->AddKeyListener(inputHandler);
+  inputDispatcher->AddMouseListener(inputHandler);
 
   InitFonts();
 }
@@ -33,8 +34,8 @@ ControllerImpl::~ControllerImpl() = default;
 
 void ControllerImpl::Run() {
   window->Show();
+  running = true;
 
-  bool running = true;
   DeltaTimeHandler deltaTimeHandler;
 
   while (running) {
@@ -57,6 +58,10 @@ void ControllerImpl::Run() {
     deltaTimeHandler.EndIteration();
   }
   window->Hide();
+}
+
+void ControllerImpl::Exit() {
+  running = false;
 }
 
 } // namespace wanderer::controller

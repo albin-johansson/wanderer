@@ -5,7 +5,7 @@ using namespace centurion::input;
 
 namespace wanderer::controller {
 
-void InputHandler::KeyStateUpdated(const KeyState& state) {
+void InputHandler::CheckMovementInput(const centurion::input::KeyState& state) {
   if (state.IsHeldDown(SDL_SCANCODE_W)) {
     std::cout << "Holding the 'W' key!\n";
   }
@@ -21,7 +21,19 @@ void InputHandler::KeyStateUpdated(const KeyState& state) {
   if (state.IsHeldDown(SDL_SCANCODE_A)) {
     std::cout << "Holding the 'A' key!\n";
   }
+}
 
+void InputHandler::KeyStateUpdated(const KeyState& state) {
+  if (state.WasReleased(SDL_SCANCODE_ESCAPE)) {
+    controller->Exit();
+    return;
+  }
+
+  CheckMovementInput(state);
+}
+
+void InputHandler::MouseStateUpdated(const centurion::input::MouseState& mouse) {
+  // TODO delegate to mouse handler
 }
 
 } // namespace wanderer::controller
