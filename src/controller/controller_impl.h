@@ -15,8 +15,8 @@ namespace wanderer::controller {
  */
 class ControllerImpl final : public IController {
  private:
-  wanderer::model::IModel_sptr model;
-  wanderer::view::IView_uptr view;
+  model::IModel_sptr model;
+  view::IView_uptr view;
   centurion::visuals::IWindow_uptr window;
   centurion::input::InputDispatcher_uptr inputDispatcher;
 
@@ -27,9 +27,11 @@ class ControllerImpl final : public IController {
    * @throws invalid_argument if any of the supplied arguments are nullptr.
    * @since 0.1.0
    */
-  ControllerImpl(wanderer::model::IModel_sptr model,
-                 wanderer::view::IView_uptr view,
+  ControllerImpl(model::IModel_sptr model,
+                 view::IView_uptr view,
                  centurion::visuals::IWindow_uptr window);
+
+  void InitFonts();
 
  public:
   ~ControllerImpl() override;
@@ -48,8 +50,8 @@ class ControllerImpl final : public IController {
    * @throws invalid_argument if any of the supplied arguments are nullptr.
    * @since 0.1.0
    */
-  friend IController_uptr CreateController(wanderer::model::IModel_sptr model,
-                                           wanderer::view::IView_uptr view,
+  friend IController_uptr CreateController(model::IModel_sptr model,
+                                           view::IView_uptr view,
                                            centurion::visuals::IWindow_uptr window);
 
   void Run() override;

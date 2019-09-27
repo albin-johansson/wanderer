@@ -1,6 +1,6 @@
 #pragma once
 #include "model.h"
-#include "level/world.h"
+#include "world.h"
 #include <memory>
 
 namespace wanderer::model {

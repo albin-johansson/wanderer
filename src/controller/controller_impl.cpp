@@ -20,6 +20,13 @@ ControllerImpl::ControllerImpl(IModel_sptr model, IView_uptr view, IWindow_uptr 
 
   auto inputHandler = std::make_shared<InputHandler>();
   inputDispatcher->AddKeyListener(inputHandler);
+
+  InitFonts();
+}
+
+void ControllerImpl::InitFonts() {
+  Font_sptr typeWriterFont = Font::CreateShared("resources/type_writer.ttf", 16);
+  window->SetFont(typeWriterFont);
 }
 
 ControllerImpl::~ControllerImpl() = default;

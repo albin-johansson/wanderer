@@ -7,8 +7,6 @@
 #include "view.h"
 #include "view_factory.h"
 
-// TODO: look into Doxygen for documentation
-
 /**
  * Initializes the model, view and controller and runs the application.
  *

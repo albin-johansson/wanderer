@@ -13,7 +13,19 @@ class Vector2 final {
   int y = 0;
 
  public:
+  /**
+   * @param x the initial x-coordinate of the vector.
+   * @param y the initial y-coordinate of the vector.
+   * @since 0.1.0
+   */
   Vector2(int x, int y) noexcept : x(x), y(y) {}
+
+  /**
+   * Creates a vector with the coordinates (0, 0).
+   *
+   * @since 0.1.0
+   */
+  Vector2() noexcept : Vector2(0, 0) {}
 
   Vector2(const Vector2& vec) noexcept : Vector2(vec.x, vec.y) {
     x = vec.x;
