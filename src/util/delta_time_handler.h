@@ -1,6 +1,7 @@
 #pragma once
 #include <SDL_types.h>
 #include <SDL_timer.h>
+#include <iostream>
 
 namespace wanderer::util {
 
@@ -11,15 +12,21 @@ namespace wanderer::util {
  */
 class DeltaTimeHandler final {
  private:
-  static constexpr int TARGET_DELTA_TIME_MS = 8;
+  const int targetIterationTimeMs;
 
   Uint64 then;
   Uint64 now;
+
   double delta;
   int nSkips;
 
  public:
-  DeltaTimeHandler() noexcept {
+  /**
+   * @param targetIterationTime the target duration of each iteration time in milliseconds.
+   * @since 0.1.0
+   */
+  explicit DeltaTimeHandler(int targetIterationTime) noexcept
+      : targetIterationTimeMs(targetIterationTime) {
     delta = 0;
     nSkips = 0;
     then = 0;
@@ -37,9 +44,7 @@ class DeltaTimeHandler final {
   inline void BeginIteration() noexcept {
     then = now;
     now = SDL_GetPerformanceCounter();
-
-    Uint64 diff = now - then;
-    delta = static_cast<double>((diff * 1000.0) / SDL_GetPerformanceFrequency());
+    delta = static_cast<double>(now - then) / static_cast<double>(SDL_GetPerformanceFrequency());
   }
 
   /**
@@ -50,8 +55,10 @@ class DeltaTimeHandler final {
    * @since 0.1.0
    */
   inline void EndIteration() noexcept {
-    if (delta <= TARGET_DELTA_TIME_MS) {
-      SDL_Delay(TARGET_DELTA_TIME_MS - delta);
+    // TODO check if the value is actually in milliseconds
+    auto deltaMillis = static_cast<Uint32>(delta / 1000.0);
+    if (deltaMillis <= targetIterationTimeMs) {
+      SDL_Delay(targetIterationTimeMs - deltaMillis);
     } else {
       nSkips++;
     }
@@ -63,12 +70,12 @@ class DeltaTimeHandler final {
    *
    * @since 0.1.0
    */
-  inline void DecreaseSkips() noexcept {
+  inline void DecrementSkips() noexcept {
     nSkips = (nSkips == 0) ? nSkips : --nSkips;
   }
 
   /**
-   * Returns the value of the latest calculated delta time. The returned value is in milliseconds.
+   * Returns the value of the latest calculated delta time.
    *
    * @return the value of the latest calculated delta time.
    * @since 0.1.0

@@ -21,7 +21,7 @@ class InputHandler final : public centurion::input::IKeyListener,
  public:
   /**
    * @param controller a raw pointer to the parent controller instance, the created input handler
-   * will not take ownership of the pointer.
+   * will NOT delete the pointer upon finalization.
    * @throws invalid_argument if the supplied pointer is null.
    * @since 0.1.0
    */

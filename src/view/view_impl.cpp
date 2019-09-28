@@ -12,20 +12,18 @@ ViewImpl::ViewImpl(IModel_wptr model, IRenderer_sptr renderer) {
 }
 
 void ViewImpl::Render() noexcept {
-  renderer->SetColor(Color::BLACK);
+  renderer->SetColor(Color::WHITE);
   renderer->RenderClear();
 
-  static int i = 0;
+  IModel_sptr tmpModel = model.lock();
+  if (tmpModel != nullptr) {
+    Player_sptr player = tmpModel->GetPlayer();
 
-  ++i;
-  if (i > 100) {
-    i = 0;
+    Rectangle rect(player->GetX(), player->GetY(), player->GetWidth(), player->GetHeight());
+
+    renderer->SetColor(Color::RED);
+    renderer->RenderFilledRect(rect);
   }
-
-  renderer->SetColor(Color::RED);
-  renderer->RenderFilledRect(Rectangle(100 + (i * 5), 200, 200, 200));
-
-  renderer->RenderString("Wanderer!", 100, 100);
 
   renderer->ApplyRendering();
 }

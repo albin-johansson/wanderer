@@ -2,7 +2,7 @@
 #include "objects.h"
 #include "input_handler.h"
 #include "delta_time_handler.h"
-#include <utility>
+#include <iostream>
 
 using namespace wanderer::model;
 using namespace wanderer::view;
@@ -36,7 +36,8 @@ void ControllerImpl::Run() {
   window->Show();
   running = true;
 
-  DeltaTimeHandler deltaTimeHandler;
+  auto targetIterationTime = static_cast<int>(1000.0 / 144.0);
+  DeltaTimeHandler deltaTimeHandler(targetIterationTime);
 
   while (running) {
     deltaTimeHandler.BeginIteration();
@@ -47,12 +48,14 @@ void ControllerImpl::Run() {
       continue;
     }
 
-    model->Update(deltaTimeHandler.GetDelta());
+    auto delta = deltaTimeHandler.GetDelta() * 20;
+
+    model->Update(delta);
 
     if (deltaTimeHandler.GetSkips() == 0) {
       view->Render();
     } else {
-      deltaTimeHandler.DecreaseSkips();
+      deltaTimeHandler.DecrementSkips();
     }
 
     deltaTimeHandler.EndIteration();
@@ -62,6 +65,14 @@ void ControllerImpl::Run() {
 
 void ControllerImpl::Exit() {
   running = false;
+}
+
+void ControllerImpl::MovePlayer(Direction direction) {
+  model->MovePlayer(direction);
+}
+
+void ControllerImpl::StopPlayer(Direction direction) {
+  model->StopPlayer(direction);
 }
 
 } // namespace wanderer::controller

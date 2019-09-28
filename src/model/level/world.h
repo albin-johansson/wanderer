@@ -1,5 +1,6 @@
 #pragma once
-#include "level/level.h"
+#include "level.h"
+#include "player.h"
 #include <vector>
 #include <memory>
 
@@ -28,6 +29,7 @@ class World final {
  private:
   std::vector<ILevel_sptr> levels;
   ILevel_sptr activeLevel = nullptr;
+  Player_sptr player = nullptr;
 
  public:
   World();
@@ -49,6 +51,8 @@ class World final {
    * @since 0.1.0
    */
   void SetLevel(ILevel_sptr level) noexcept;
+
+  Player_sptr GetPlayer();
 
 };
 

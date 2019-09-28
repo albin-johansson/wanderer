@@ -19,7 +19,7 @@ static void Run() {
   using namespace centurion::visuals;
   using namespace std;
 
-  auto window = FullscreenWindow::CreateUnique();
+  auto window = Window::CreateUnique(800, 600);
 
   IModel_sptr model = CreateModel();
   IView_uptr view = CreateView(model, window->GetRenderer());

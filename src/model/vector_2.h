@@ -98,7 +98,7 @@ class Vector2 final {
    * @return the magnitude of the vector.
    * @since 0.1.0
    */
-  [[nodiscard]]  int GetMagnitude() const noexcept;
+  [[nodiscard]] int GetMagnitude() const noexcept;
 
   /**
    * Returns the x-coordinate of the vector.

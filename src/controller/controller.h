@@ -1,5 +1,6 @@
 #pragma once
 #include <memory>
+#include "direction.h"
 
 namespace wanderer::controller {
 
@@ -28,6 +29,10 @@ class IController {
    * @since 0.1.0
    */
   virtual void Exit() = 0;
+
+  virtual void MovePlayer(model::Direction direction) = 0;
+
+  virtual void StopPlayer(model::Direction direction) = 0;
 
 };
 

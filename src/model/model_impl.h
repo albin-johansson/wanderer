@@ -38,6 +38,12 @@ class ModelImpl final : public IModel {
    * @since 0.1.0
    */
   void Update(double delta) override;
+
+  void MovePlayer(Direction direction) override;
+
+  void StopPlayer(Direction direction) override;
+
+  Player_sptr GetPlayer() override;
 };
 
 } // namespace wanderer::model

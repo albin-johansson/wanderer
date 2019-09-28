@@ -59,6 +59,10 @@ class ControllerImpl final : public IController {
 
   void Exit() override;
 
+  void MovePlayer(model::Direction direction) override;
+
+  void StopPlayer(model::Direction direction) override;
+
 };
 
 } // namespace wanderer::controller

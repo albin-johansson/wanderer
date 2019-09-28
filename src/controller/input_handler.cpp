@@ -1,25 +1,56 @@
 #include "input_handler.h"
-#include <iostream>
 
 using namespace centurion::input;
+using namespace wanderer::model;
 
 namespace wanderer::controller {
 
 void InputHandler::CheckMovementInput(const centurion::input::KeyState& state) {
-  if (state.IsHeldDown(SDL_SCANCODE_W)) {
-    std::cout << "Holding the 'W' key!\n";
+  const bool up = state.IsHeldDown(SDL_SCANCODE_W);
+  const bool down = state.IsHeldDown(SDL_SCANCODE_S);
+
+  if (up && down) {
+    controller->StopPlayer(Direction::UP);
+    controller->StopPlayer(Direction::DOWN);
+  } else {
+    if (up) {
+      controller->MovePlayer(Direction::UP);
+    }
+
+    if (down) {
+      controller->MovePlayer(Direction::DOWN);
+    }
   }
 
-  if (state.IsHeldDown(SDL_SCANCODE_S)) {
-    std::cout << "Holding the 'S' key!\n";
+  if (state.WasReleased(SDL_SCANCODE_W)) {
+    controller->StopPlayer(Direction::UP);
   }
 
-  if (state.IsHeldDown(SDL_SCANCODE_D)) {
-    std::cout << "Holding the 'D' key!\n";
+  if (state.WasReleased(SDL_SCANCODE_S)) {
+    controller->StopPlayer(Direction::DOWN);
   }
 
-  if (state.IsHeldDown(SDL_SCANCODE_A)) {
-    std::cout << "Holding the 'A' key!\n";
+  const bool right = state.IsHeldDown(SDL_SCANCODE_D);
+  const bool left = state.IsHeldDown(SDL_SCANCODE_A);
+  if (right && left) {
+    controller->StopPlayer(Direction::RIGHT);
+    controller->StopPlayer(Direction::LEFT);
+  } else {
+    if (right) {
+      controller->MovePlayer(Direction::RIGHT);
+    }
+
+    if (left) {
+      controller->MovePlayer(Direction::LEFT);
+    }
+  }
+
+  if (state.WasReleased(SDL_SCANCODE_A)) {
+    controller->StopPlayer(Direction::LEFT);
+  }
+
+  if (state.WasReleased(SDL_SCANCODE_D)) {
+    controller->StopPlayer(Direction::RIGHT);
   }
 }
 
