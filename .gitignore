@@ -31,7 +31,10 @@
 *.out
 *.app
 
-.idea/
-lib/
-cmake-build-debug/
-cmake-build-release/
+*.filters
+*.user
+
+lib
+out
+.vs
+packages
