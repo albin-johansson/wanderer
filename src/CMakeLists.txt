@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 3.15)
 project(${CMAKE_PROJECT_NAME}_src)
 
 set(SOURCE_FILES
-        main.cpp
         core/some_class.h
         core/some_class.cpp
         service/bool_converter.h
