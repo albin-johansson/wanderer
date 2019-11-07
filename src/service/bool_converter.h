@@ -1,7 +1,7 @@
 #pragma once
 #include <SDL.h>
 
-namespace wanderer::util {
+namespace wanderer::service {
 
 /**
  * The BoolConverter class is a service for converting C++ boolean values to the
@@ -27,4 +27,4 @@ class BoolConverter final {
   }
 };
 
-}  // namespace wanderer::util
+}  // namespace wanderer::service

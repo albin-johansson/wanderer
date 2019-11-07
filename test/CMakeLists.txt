@@ -7,7 +7,8 @@ target_include_directories(Catch INTERFACE ${CATCH_INCLUDE_DIR})
 
 add_executable(${WANDERER_TEST}
         test_main.cpp
-        window_test.cpp)
+        window_test.cpp
+        bool_converter_test.cpp)
 
 target_link_directories(${WANDERER_TEST} PUBLIC ${SDL2_LIBRARY})
 target_link_directories(${WANDERER_TEST} PUBLIC ${SDL2_IMAGE_LIBRARIES})
