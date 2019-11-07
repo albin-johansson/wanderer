@@ -3,6 +3,7 @@ project(Wanderer)
 
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 set(BINARIES_DIR ${PROJECT_SOURCE_DIR}/bin)
+set(RESOURCES_DIR ${PROJECT_SOURCE_DIR}/resources)
 
 find_package(SDL2 REQUIRED)
 find_package(SDL2_image REQUIRED)

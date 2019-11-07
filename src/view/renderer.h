@@ -23,7 +23,7 @@ class Renderer final {
    * @throws invalid_argument if the supplied pointer is null.
    * @since 0.1.0
    */
-  Renderer(SDL_Renderer* renderer);
+  explicit Renderer(SDL_Renderer* renderer);
 
   /**
    * Creates a renderer based on the supplied SDL_Window.
@@ -33,7 +33,7 @@ class Renderer final {
    * @throws invalid_argument if the supplied pointer is null.
    * @since 0.1.0
    */
-  Renderer(SDL_Window* window);
+  explicit Renderer(SDL_Window* window);
 
   ~Renderer();
 
@@ -109,6 +109,10 @@ class Renderer final {
    * @since 0.1.0
    */
   void SetColor(Uint8 red, Uint8 green, Uint8 blue) noexcept;
+
+  [[nodiscard]] inline SDL_Renderer* GetInternalRenderer() noexcept {
+    return renderer;
+  }
 };
 
 }  // namespace wanderer::view
