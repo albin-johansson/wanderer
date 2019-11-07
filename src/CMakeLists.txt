@@ -7,6 +7,7 @@ set(SOURCE_FILES
         view/window.cpp
         view/renderer.h
         view/renderer.cpp
+        core/wanderer_core.h
         core/tickable.h)
 
 # Prepares the Wanderer "library", which excludes linking and the main.cpp file
