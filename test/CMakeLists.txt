@@ -16,7 +16,7 @@ target_link_directories(${WANDERER_TEST} PUBLIC ${SDL2_IMAGE_LIBRARIES})
 target_link_directories(${WANDERER_TEST} PUBLIC ${SDL2_MIXER_LIBRARIES})
 target_link_directories(${WANDERER_TEST} PUBLIC ${SDL2_TTF_LIBRARIES})
 
-target_link_libraries (${WANDERER_TEST}
+target_link_libraries(${WANDERER_TEST}
         mingw32
         Catch
         ${WANDERER_LIB}
