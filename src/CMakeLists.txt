@@ -11,6 +11,7 @@ set(SOURCE_FILES
         core/wanderer_core_impl.cpp
         core/wanderer_core_impl.h
         core/wanderer_core_factory.h
+        controller/wanderer_controller.h
         core/tickable.h)
 
 # Prepares the Wanderer "library", which excludes linking and the main.cpp file
