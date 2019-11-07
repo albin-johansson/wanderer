@@ -37,39 +37,9 @@ target_link_libraries(${PROJECT_NAME}
         ${SDL2_MIXER_LIBRARIES}
         ${SDL2_TTF_LIBRARIES})
 
-#add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-#        COMMAND ${CMAKE_COMMAND} -E copy_directory
-#        "${BINARIES_DIR}"
-#        ${CMAKE_BINARY_DIR})
-
-#add_custom_command(
-#        TARGET foo POST_BUILD
-#        COMMAND ${CMAKE_COMMAND} -E copy
-#        ${CMAKE_SOURCE_DIR}/test/input.txt
-#        ${CMAKE_CURRENT_BINARY_DIR}/input.txt)
-
-#add_custom_command(TARGET MyTarget PRE_BUILD
-#        COMMAND ${CMAKE_COMMAND} -E copy_directory
-#        ${CMAKE_SOURCE_DIR}/config/ $<TARGET_FILE_DIR:MyTarget>)
-
-message(${CMAKE_BINARY_DIR}/src!)
-configure_file(${BINARIES_DIR}/SDL2.dll ${CMAKE_BINARY_DIR}/src COPYONLY)
-configure_file(${BINARIES_DIR}/SDL2_image.dll ${CMAKE_BINARY_DIR}/src COPYONLY)
-configure_file(${BINARIES_DIR}/SDL2_mixer.dll ${CMAKE_BINARY_DIR}/src COPYONLY)
-configure_file(${BINARIES_DIR}/SDL2_ttf.dll ${CMAKE_BINARY_DIR}/src COPYONLY)
-configure_file(${BINARIES_DIR}/SDL2_image.dll ${CMAKE_BINARY_DIR}/src COPYONLY)
-
-configure_file(${BINARIES_DIR}/libFLAC-8.dll ${CMAKE_BINARY_DIR}/src COPYONLY)
-configure_file(${BINARIES_DIR}/libfreetype-6.dll ${CMAKE_BINARY_DIR}/src COPYONLY)
-configure_file(${BINARIES_DIR}/libjpeg-9.dll ${CMAKE_BINARY_DIR}/src COPYONLY)
-configure_file(${BINARIES_DIR}/libmodplug-1.dll ${CMAKE_BINARY_DIR}/src COPYONLY)
-configure_file(${BINARIES_DIR}/libmpg123-0.dll ${CMAKE_BINARY_DIR}/src COPYONLY)
-configure_file(${BINARIES_DIR}/libogg-0.dll ${CMAKE_BINARY_DIR}/src COPYONLY)
-configure_file(${BINARIES_DIR}/libopus-0.dll ${CMAKE_BINARY_DIR}/src COPYONLY)
-configure_file(${BINARIES_DIR}/libpng16-16.dll ${CMAKE_BINARY_DIR}/src COPYONLY)
-configure_file(${BINARIES_DIR}/libtiff-5.dll ${CMAKE_BINARY_DIR}/src COPYONLY)
-configure_file(${BINARIES_DIR}/libvorbis-0.dll ${CMAKE_BINARY_DIR}/src COPYONLY)
-configure_file(${BINARIES_DIR}/libvorbisfile-3.dll ${CMAKE_BINARY_DIR}/src COPYONLY)
-configure_file(${BINARIES_DIR}/libwebp-7.dll ${CMAKE_BINARY_DIR}/src COPYONLY)
-configure_file(${BINARIES_DIR}/zlib1.dll ${CMAKE_BINARY_DIR}/src COPYONLY)
+# Copies all of the files in the bin folder next to the executable
+add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+        "${BINARIES_DIR}"
+        ${CMAKE_BINARY_DIR}/src)
 

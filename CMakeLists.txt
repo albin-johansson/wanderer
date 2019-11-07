@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 3.15)
 project(Wanderer)
 
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
-
 set(BINARIES_DIR ${PROJECT_SOURCE_DIR}/bin)
 
 find_package(SDL2 REQUIRED)
