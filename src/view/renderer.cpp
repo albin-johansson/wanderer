@@ -49,8 +49,10 @@ void Renderer::RenderTexture(SDL_Texture* texture, int x, int y, int width,
 }
 
 void Renderer::RenderFillRect(int x, int y, int width, int height) noexcept {
-  SDL_Rect rect = {x, y, width, height};
-  SDL_RenderFillRect(renderer, &rect);
+  if ((width > 0) && (height > 0)) {
+    SDL_Rect rect = {x, y, width, height};
+    SDL_RenderFillRect(renderer, &rect);
+  }
 }
 
 void Renderer::SetColor(Uint8 red, Uint8 green, Uint8 blue,

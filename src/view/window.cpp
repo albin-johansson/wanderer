@@ -2,7 +2,7 @@
 #include <stdexcept>
 #include "bool_converter.h"
 
-using namespace wanderer::util;
+using namespace wanderer::service;
 
 namespace wanderer::view {
 

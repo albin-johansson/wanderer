@@ -8,6 +8,7 @@ namespace wanderer::view {
  * The Renderer class is a wrapper class for the SDL_Renderer struct.
  *
  * @see SDL_Renderer
+ * @since 0.0.1
  */
 class Renderer final {
  private:
@@ -21,7 +22,7 @@ class Renderer final {
    * renderer. Note! The created renderer will take ownership of the supplied
    * pointer, and as such, will free it upon destruction.
    * @throws invalid_argument if the supplied pointer is null.
-   * @since 0.1.0
+   * @since 0.0.1
    */
   explicit Renderer(SDL_Renderer* renderer);
 
@@ -31,7 +32,7 @@ class Renderer final {
    * @param window a pointer to the SDL_Window that will be used to create the
    * renderer.
    * @throws invalid_argument if the supplied pointer is null.
-   * @since 0.1.0
+   * @since 0.0.1
    */
   explicit Renderer(SDL_Window* window);
 
@@ -40,14 +41,14 @@ class Renderer final {
   /**
    * Clears the rendering target with the currently selected color.
    *
-   * @since 0.1.0
+   * @since 0.0.1
    */
   void Clear() noexcept;
 
   /**
    * Applies the previous rendering calls to the rendering target.
    *
-   * @since 0.1.0
+   * @since 0.0.1
    */
   void Present() noexcept;
 
@@ -58,7 +59,7 @@ class Renderer final {
    * @param texture a pointer to the texture that will be rendered.
    * @param x the x-coordinate of the rendered texture.
    * @param y the y-coordinate of the rendered texture.
-   * @since 0.1.0
+   * @since 0.0.1
    */
   void RenderTexture(SDL_Texture* texture, int x, int y) noexcept;
 
@@ -72,19 +73,20 @@ class Renderer final {
    * @param y the y-coordinate of the rendered texture.
    * @param width the width of the rendered texture.
    * @param height the height of the rendered texture.
-   * @since 0.1.0
+   * @since 0.0.1
    */
   void RenderTexture(SDL_Texture* texture, int x, int y, int width,
                      int height) noexcept;
 
   /**
-   * Renders a filled rect with the currently selected color.
+   * Renders a filled rect with the currently selected color. This method has no effect if the
+   * supplied width and/or height isn't greater than zero.
    *
    * @param x the x-coordinate of the rendered rectangle.
    * @param y the y-coordinate of the rendered rectangle.
    * @param width the width of the rendered rectangle.
    * @param height the height of the rendered rectangle.
-   * @since 0.1.0
+   * @since 0.0.1
    */
   void RenderFillRect(int x, int y, int width, int height) noexcept;
 
@@ -95,7 +97,7 @@ class Renderer final {
    * @param green the green component value, in the range [0, 255].
    * @param blue the blue component value, in the range [0, 255].
    * @param alpha the alpha component value, in the range [0, 255].
-   * @since 0.1.0
+   * @since 0.0.1
    */
   void SetColor(Uint8 red, Uint8 green, Uint8 blue, Uint8 alpha) noexcept;
 
@@ -106,10 +108,16 @@ class Renderer final {
    * @param red the red component value, in the range [0, 255].
    * @param green the green component value, in the range [0, 255].
    * @param blue the blue component value, in the range [0, 255].
-   * @since 0.1.0
+   * @since 0.0.1
    */
   void SetColor(Uint8 red, Uint8 green, Uint8 blue) noexcept;
 
+  /**
+   * Returns a pointer to the internal SDL_Renderer instance.
+   *
+   * @return a pointer to the internal SDL_Renderer instance.
+   * @since 0.0.1
+   */
   [[nodiscard]] inline SDL_Renderer* GetInternalRenderer() noexcept {
     return renderer;
   }

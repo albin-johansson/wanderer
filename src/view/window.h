@@ -6,7 +6,7 @@ namespace wanderer::view {
 /**
  * The Window class is a wrapper around an SDL_Window instance.
  *
- * @since 0.1.0
+ * @since 0.0.1
  */
 class Window final {
  private:
@@ -20,7 +20,7 @@ class Window final {
    * @param height the height of the window, must be greater than zero.
    * @throws invalid_argument if the supplied width or height values aren't
    * greater than zero.
-   * @since 0.1.0
+   * @since 0.0.1
    */
   Window(const std::string& title, int width, int height);
 
@@ -29,14 +29,14 @@ class Window final {
   /**
    * Makes the window visible.
    *
-   * @since 0.1.0
+   * @since 0.0.1
    */
   void Show() noexcept;
 
   /**
    * Makes the window invisible.
    *
-   * @since 0.1.0
+   * @since 0.0.1
    */
   void Hide() noexcept;
 
@@ -45,7 +45,7 @@ class Window final {
    *
    * @param isFullscreen true if the window should enable fullscreen mode; false
    * otherwise.
-   * @since 0.1.0
+   * @since 0.0.1
    */
   void SetFullscreen(bool isFullscreen) noexcept;
 
@@ -53,7 +53,7 @@ class Window final {
    * Sets whether or not the window should be resizable.
    *
    * @param isResizable true if the window should be resizable; false otherwise.
-   * @since 0.1.0
+   * @since 0.0.1
    */
   void SetResizable(bool isResizable) noexcept;
 
@@ -62,7 +62,7 @@ class Window final {
    *
    * @param width the new width of the window.
    * @throws invalid_argument if the supplied width isn't greater than zero.
-   * @since 0.1.0
+   * @since 0.0.1
    */
   void SetWidth(int width);
 
@@ -72,7 +72,7 @@ class Window final {
    * @param height the new height of the window.
    * @throws invalid_argument if the supplied height isn't greater than
    * zero.
-   * @since 0.1.0
+   * @since 0.0.1
    */
   void SetHeight(int height);
 
@@ -80,7 +80,7 @@ class Window final {
    * Indicates whether or not the window is resizable.
    *
    * @return true if the window is resizable; false otherwise.
-   * @since 0.1.0
+   * @since 0.0.1
    */
   [[nodiscard]] bool IsResizable() const noexcept;
 
@@ -88,7 +88,7 @@ class Window final {
    * Indicates whether or not the window is in fullscreen mode.
    *
    * @return true if the window is in fullscreen mode; false otherwise.
-   * @since 0.1.0
+   * @since 0.0.1
    */
   [[nodiscard]] bool IsFullscreen() const noexcept;
 
@@ -96,7 +96,7 @@ class Window final {
    * Indicates whether or not the window is visible.
    *
    * @return true if the window is visible; false otherwise.
-   * @since 0.1.0
+   * @since 0.0.1
    */
   [[nodiscard]] bool IsVisible() const noexcept;
 
@@ -104,7 +104,7 @@ class Window final {
    * Returns the current width of the window.
    *
    * @return the current width of the window.
-   * @since 0.1.0
+   * @since 0.0.1
    */
   [[nodiscard]] int GetWidth() const noexcept;
 
@@ -112,7 +112,7 @@ class Window final {
    * Returns the current height of the window.
    *
    * @return the current height of the window.
-   * @since 0.1.0
+   * @since 0.0.1
    */
   [[nodiscard]] int GetHeight() const noexcept;
 
@@ -121,7 +121,7 @@ class Window final {
    * the SDL_Window referenced by the returned pointer!
    *
    * @return the internal representation of the window.
-   * @since 0.1.0
+   * @since 0.0.1
    */
   [[nodiscard]] inline SDL_Window* GetInternalWindow() noexcept {
     return window;

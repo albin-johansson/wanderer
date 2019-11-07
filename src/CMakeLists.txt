@@ -2,8 +2,6 @@ cmake_minimum_required(VERSION 3.15)
 project(${CMAKE_PROJECT_NAME}_src)
 
 set(SOURCE_FILES
-        core/some_class.h
-        core/some_class.cpp
         service/bool_converter.h
         view/window.h
         view/window.cpp
