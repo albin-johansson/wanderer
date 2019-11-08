@@ -43,6 +43,52 @@ TEST_CASE("Vector2::Scale", "[Vector2]") {
   CHECK(vector.IsZero());
 }
 
+TEST_CASE("Vector2::Add1", "[Vector2]") {
+  float x = 19.9f;
+  float y = 27.2f;
+  Vector2 vector(x, y);
+
+  float dx = 53;
+  float dy = -23;
+
+  Vector2 other(dx, dy);
+  vector.Add(other);
+
+  CHECK(other.GetX() == dx);
+  CHECK(other.GetY() == dy);
+
+  CHECK(vector.GetX() == Approx(x + dx));
+  CHECK(vector.GetY() == Approx(y + dy));
+}
+
+TEST_CASE("Vector2::Add2", "[Vector2]") {
+  float x = 44.1f;
+  float y = 38.6f;
+  Vector2 vector(x, y);
+
+  float dx = -29;
+  float dy = 12;
+
+  vector.Add(dx, dy);
+  CHECK(vector.GetX() == Approx(x + dx));
+  CHECK(vector.GetY() == Approx(y + dy));
+}
+
+TEST_CASE("Vector2::Sub", "[Vector2]") {
+  float x = 24.5f;
+  float y = 83.7f;
+  Vector2 vector(x, y);
+
+  float x1 = 88.2f;
+  float y1 = 24.8f;
+
+  Vector2 other(x1, y1);
+
+  vector.Sub(other);
+  CHECK(vector.GetX() == Approx(x - x1));
+  CHECK(vector.GetY() == Approx(y - y1));
+}
+
 TEST_CASE("Vector2::Norm", "[Vector2]") {
   Vector2 vector(12.0f, 92.3f);
 
@@ -50,6 +96,22 @@ TEST_CASE("Vector2::Norm", "[Vector2]") {
 
   CHECK(vector.IsUnit());
   CHECK(vector.GetLength() == Approx(1));
+}
+
+TEST_CASE("Vector2::SetX", "[Vector2]") {
+  Vector2 vector(91, 3);
+
+  float x = 82.4f;
+  vector.SetX(x);
+  CHECK(vector.GetX() == Approx(x));
+}
+
+TEST_CASE("Vector2::SetY", "[Vector2]") {
+  Vector2 vector(4, 77);
+
+  float y = 33.4f;
+  vector.SetY(y);
+  CHECK(vector.GetY() == Approx(y));
 }
 
 TEST_CASE("Vector2::SetLength", "[Vector2]") {

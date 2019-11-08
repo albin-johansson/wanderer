@@ -29,6 +29,19 @@ void Vector2::Norm() {
   }
 }
 
+void Vector2::SetX(float x) noexcept {
+  this->x = x;
+}
+
+void Vector2::Add(float x, float y) noexcept {
+  this->x += x;
+  this->y += y;
+}
+
+void Vector2::SetY(float y) noexcept {
+  this->y = y;
+}
+
 void Vector2::SetLength(float length) noexcept {
   if (length == 0) {
     x = 0;

@@ -99,6 +99,15 @@ class Vector2 final {
   void Add(const Vector2& vector) noexcept;
 
   /**
+   * Adds the supplied offsets to the coordinates of the vector.
+   *
+   * @param x the x-axis value that will be added to the current x-coordinate.
+   * @param y the y-axis value that will be added to the current y-coordinate.
+   * @since 0.1.0
+   */
+  void Add(float x, float y) noexcept;
+
+  /**
    * Subtracts the coordinates of the supplied vector from the vector. The invoked vector is the one
    * that is affected by the operation.
    *
@@ -106,6 +115,22 @@ class Vector2 final {
    * @since 0.1.0
    */
   void Sub(const Vector2& vector) noexcept;
+
+  /**
+   * Sets the x-coordinate of the vector.
+   *
+   * @param x the new x-coordinate of the vector.
+   * @since 0.1.0
+   */
+  void SetX(float x) noexcept;
+
+  /**
+   * Sets the y-coordinate of the vector.
+   *
+   * @param y the new y-coordinate of the vector.
+   * @since 0.1.0
+   */
+  void SetY(float y) noexcept;
 
   /**
    * Sets the total length of the vector.
