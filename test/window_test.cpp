@@ -3,7 +3,7 @@
 
 using namespace wanderer::view;
 
-TEST_CASE("Ctor", "[Window]") {
+TEST_CASE("WindowCtor", "[Window]") {
   CHECK_THROWS_AS(Window("", 0, 10), std::invalid_argument);
   CHECK_THROWS_AS(Window("", 10, 0), std::invalid_argument);
 
@@ -15,21 +15,21 @@ TEST_CASE("Ctor", "[Window]") {
   CHECK(window.GetHeight() == height);
 }
 
-TEST_CASE("Show", "[Window]") {
+TEST_CASE("Window::Show", "[Window]") {
   Window window("Foo", 100, 100);
 
   window.Show();
   CHECK(window.IsVisible());
 }
 
-TEST_CASE("Hide", "[Window]") {
+TEST_CASE("Window::Hide", "[Window]") {
   Window window("Foo", 100, 100);
 
   window.Hide();
   CHECK(!window.IsVisible());
 }
 
-TEST_CASE("SetFullscreen", "[Window]") {
+TEST_CASE("Window::SetFullscreen", "[Window]") {
   Window window("Foo", 100, 100);
 
   window.SetFullscreen(true);
@@ -39,7 +39,7 @@ TEST_CASE("SetFullscreen", "[Window]") {
   CHECK(!window.IsFullscreen());
 }
 
-TEST_CASE("SetResizable", "[Window]") {
+TEST_CASE("Window::SetResizable", "[Window]") {
   Window window("Foo", 100, 100);
 
   window.SetResizable(true);
@@ -49,7 +49,7 @@ TEST_CASE("SetResizable", "[Window]") {
   CHECK(!window.IsResizable());
 }
 
-TEST_CASE("SetWidth", "[Window]") {
+TEST_CASE("Window::SetWidth", "[Window]") {
   Window window("Foo", 100, 100);
 
   int width = 812;
@@ -57,7 +57,7 @@ TEST_CASE("SetWidth", "[Window]") {
   CHECK(window.GetWidth() == width);
 }
 
-TEST_CASE("SetHeight", "[Window]") {
+TEST_CASE("Window::SetHeight", "[Window]") {
   Window window("Foo", 100, 100);
 
   int height = 327;
@@ -65,7 +65,7 @@ TEST_CASE("SetHeight", "[Window]") {
   CHECK(window.GetHeight() == height);
 }
 
-TEST_CASE("GetInternalWindow", "[Window]") {
+TEST_CASE("Window::GetInternalWindow", "[Window]") {
   Window window("Foo", 100, 100);
   SDL_Window* sdlWindow = window.GetInternalWindow();
   CHECK(sdlWindow != nullptr);
