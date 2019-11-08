@@ -44,11 +44,11 @@ class Window final {
   /**
    * Sets whether or not the window is in fullscreen mode.
    *
-   * @param isFullscreen true if the window should enable fullscreen mode; false
+   * @param fullscreen true if the window should enable fullscreen mode; false
    * otherwise.
    * @since 0.1.0
    */
-  void SetFullscreen(bool isFullscreen) noexcept;
+  void SetFullscreen(bool fullscreen) noexcept;
 
   /**
    * Sets whether or not the window should be resizable.

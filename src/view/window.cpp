@@ -26,10 +26,10 @@ void Window::Show() noexcept { SDL_ShowWindow(window); }
 
 void Window::Hide() noexcept { SDL_HideWindow(window); }
 
-void Window::SetFullscreen(bool isFullscreen) noexcept {
+void Window::SetFullscreen(bool fullscreen) noexcept {
   Uint32 flags = SDL_GetWindowFlags(window);
-  flags = (isFullscreen) ? (flags |= SDL_WINDOW_FULLSCREEN)
-                         : (flags &= ~SDL_WINDOW_FULLSCREEN);
+  flags = (fullscreen) ? (flags | SDL_WINDOW_FULLSCREEN)
+                       : (flags & ~SDL_WINDOW_FULLSCREEN);
   SDL_SetWindowFullscreen(window, flags);
 }
 
