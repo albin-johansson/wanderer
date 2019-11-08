@@ -1,5 +1,6 @@
 #include <SDL.h>
 #include <string>
+#include <memory>
 
 namespace wanderer::view {
 
@@ -127,5 +128,7 @@ class Window final {
     return window;
   }
 };
+
+using Window_uptr = std::unique_ptr<Window>;
 
 }  // namespace wanderer::view

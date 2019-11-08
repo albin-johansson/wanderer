@@ -48,6 +48,24 @@ void Renderer::RenderTexture(SDL_Texture* texture, int x, int y, int width,
   }
 }
 
+void Renderer::RenderTexture(SDL_Texture* texture,
+                             float x,
+                             float y,
+                             int width,
+                             int height) noexcept {
+  if ((texture != nullptr) && (width > 0) && (height > 0)) {
+    SDL_FRect dst = {x, y, static_cast<float>(width), static_cast<float>(height)};
+    SDL_RenderCopyF(renderer, texture, nullptr, &dst);
+  }
+}
+
+void Renderer::RenderFillRect(float x, float y, int width, int height) noexcept {
+  if ((width > 0) && (height > 0)) {
+    SDL_FRect rect = {x, y, static_cast<float>(width), static_cast<float>(height)};
+    SDL_RenderFillRectF(renderer, &rect);
+  }
+}
+
 void Renderer::RenderFillRect(int x, int y, int width, int height) noexcept {
   if ((width > 0) && (height > 0)) {
     SDL_Rect rect = {x, y, width, height};

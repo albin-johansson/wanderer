@@ -2,71 +2,37 @@
 #include <SDL_image.h>
 
 #include <iostream>
-#include "renderer.h"
-#include "window.h"
+#include "wanderer_core.h"
+#include "wanderer_core_factory.h"
+#include "wanderer_controller.h"
+#include "wanderer_controller_factory.h"
 
-using namespace wanderer::view;
+static void Init() {
+  if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
+    std::cerr << "Failed to initialize SDL!" << std::endl;
+  }
+  IMG_Init(IMG_INIT_PNG);
+}
+
+static void Run() {
+  using namespace wanderer::core;
+  using namespace wanderer::controller;
+  using namespace wanderer::view;
+
+  IWandererCore_uptr core = CreateCore();
+  IWandererController_uptr controller = CreateController(std::move(core));
+
+  controller->Run();
+}
+
+static void Quit() {
+  IMG_Quit();
+  SDL_Quit();
+}
 
 int main(int argc, char** argv) {
-  std::cout << "HelloWorld!" << std::endl;
-
-  if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
-    std::cout << "Failed to initialize SDL!" << std::endl;
-    return -1;
-  } else {
-    std::cout << "Success initializing SDL!" << std::endl;
-  }
-
-  SDL_SetHint(SDL_HINT_VIDEO_HIGHDPI_DISABLED, "1");
-
-  SDL_Event event;
-  bool running = true;
-
-  Window window("Wanderer", 1500, 600);
-  Renderer renderer(window.GetInternalWindow());
-
-  SDL_Texture* texture = IMG_LoadTexture(renderer.GetInternalRenderer(), "resources/grass.png");
-
-  if (texture != nullptr) {
-    std::cout << "Success loading texture!\n";
-  }
-
-  window.SetResizable(true);
-  std::cout << "Resizable: " << window.IsResizable() << "\n";
-
-  window.Show();
-
-  while (running) {
-    while (SDL_PollEvent(&event)) {
-      if (event.type == SDL_QUIT || event.key.keysym.sym == SDLK_ESCAPE) {
-        running = false;
-        continue;
-      }
-
-      if (event.key.keysym.sym == SDLK_f) {
-        window.SetFullscreen(true);
-      }
-    }
-
-    static int x = 10;
-    renderer.SetColor(0, 0, 0);
-    renderer.Clear();
-
-//    renderer.SetColor(0xFF, 0, 0);
-//    renderer.RenderFillRect(x++, 10, 250, 250);
-    renderer.RenderTexture(texture, x++, 10, 250, 250);
-
-    renderer.Present();
-
-    SDL_Delay(10);
-  }
-
-  window.Hide();
-
-  if (texture != nullptr) {
-    SDL_DestroyTexture(texture);
-  }
-  SDL_Quit();
-
+  Init();
+  Run();
+  Quit();
   return 0;
 }

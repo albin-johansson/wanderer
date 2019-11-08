@@ -1,5 +1,6 @@
 #pragma once
 #include <memory>
+#include "renderer.h"
 
 namespace wanderer::core {
 
@@ -33,9 +34,14 @@ class IWandererCore {
   /**
    * Renders the components in the core model.
    *
+   * @param renderer a reference to the renderer that will be used.
    * @since 0.1.0
    */
-  virtual void Render() = 0;
+  virtual void Render(view::Renderer& renderer) = 0;
+
+  virtual void SavePositions() = 0;
+
+  virtual void Interpolate(float alpha) = 0;
 
 };
 

@@ -1,6 +1,7 @@
 #pragma once
 #include <SDL.h>
 #include <SDL_image.h>
+#include <memory>
 
 namespace wanderer::view {
 
@@ -78,6 +79,8 @@ class Renderer final {
   void RenderTexture(SDL_Texture* texture, int x, int y, int width,
                      int height) noexcept;
 
+  void RenderTexture(SDL_Texture* texture, float x, float y, int width, int height) noexcept;
+
   /**
    * Renders a filled rect with the currently selected color. This method has no effect if the
    * supplied width and/or height isn't greater than zero.
@@ -89,6 +92,8 @@ class Renderer final {
    * @since 0.1.0
    */
   void RenderFillRect(int x, int y, int width, int height) noexcept;
+
+  void RenderFillRect(float x, float y, int width, int height) noexcept;
 
   /**
    * Sets the color that will be used by the renderer.
@@ -122,5 +127,7 @@ class Renderer final {
     return renderer;
   }
 };
+
+using Renderer_uptr = std::unique_ptr<Renderer>;
 
 }  // namespace wanderer::view

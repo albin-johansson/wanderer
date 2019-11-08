@@ -1,5 +1,6 @@
 #pragma once
 #include "wanderer_core.h"
+#include "vector_2.h"
 
 namespace wanderer::core {
 
@@ -12,7 +13,15 @@ class WandererCoreImpl final : public IWandererCore {
  private:
   WandererCoreImpl();
 
+  Vector2 position;
+  Vector2 oldPosition;
+
+  Vector2 velocity;
+  float speed = 200;
+
  public:
+  void Interpolate(float alpha) override;
+
   /**
    * Creates and returns a unique pointer to an IWandererCore instance.
    *
@@ -25,7 +34,9 @@ class WandererCoreImpl final : public IWandererCore {
 
   void Update() override;
 
-  void Render() override;
+  void Render(view::Renderer& renderer) override;
+
+  void SavePositions() override;
 };
 
 }

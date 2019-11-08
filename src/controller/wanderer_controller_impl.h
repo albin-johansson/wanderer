@@ -1,6 +1,8 @@
 #pragma once
 #include "wanderer_controller.h"
 #include "wanderer_core.h"
+#include "renderer.h"
+#include "window.h"
 
 namespace wanderer::controller {
 
@@ -11,24 +13,36 @@ namespace wanderer::controller {
  */
 class WandererControllerImpl final : public IWandererController {
  private:
-  core::IWandererCore_uptr core = nullptr;
+  static constexpr float MAX_FRAME_TIME = 0.25f;
+  float accumulator = 0;
+  bool running = false;
 
-  WandererControllerImpl();
+  core::IWandererCore_uptr core = nullptr;
+  view::Window_uptr window = nullptr;
+  view::Renderer_uptr renderer = nullptr;
+
+  explicit WandererControllerImpl(core::IWandererCore_uptr core);
+
+  void HandleInput();
+
+  void UpdateLoop(float delta);
 
  public:
   /**
    * Creates and returns a unique pointer to an IWandererController instance.
    *
+   * @param core the associated IWandererCore instance.
    * @return a unique pointer to an IWandererController instance.
    * @since 0.1.0
    */
-  friend IWandererController_uptr CreateController();
+  friend IWandererController_uptr CreateController(core::IWandererCore_uptr core);
 
   ~WandererControllerImpl() override;
 
   void Run() override;
 
   void Quit() override;
+
 };
 
 }
