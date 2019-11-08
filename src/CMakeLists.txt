@@ -17,7 +17,8 @@ set(SOURCE_FILES
         controller/wanderer_controller_factory.h
         core/tickable.h
         core/math/vector_2.cpp
-        core/math/vector_2.h)
+        core/math/vector_2.h
+        core/objects.h)
 
 # Prepares the Wanderer "library", which excludes linking and the main.cpp file
 add_library(${WANDERER_LIB} ${SOURCE_FILES})
