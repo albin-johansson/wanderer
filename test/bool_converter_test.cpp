@@ -3,7 +3,7 @@
 
 using namespace wanderer::service;
 
-TEST_CASE("Convert", "[BoolConverter]") {
+TEST_CASE("BoolConverter::Convert", "[BoolConverter]") {
   CHECK(BoolConverter::Convert(true) == SDL_TRUE);
   CHECK(BoolConverter::Convert(false) == SDL_FALSE);
 }
