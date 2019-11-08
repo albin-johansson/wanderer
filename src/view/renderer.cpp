@@ -1,19 +1,16 @@
 #include "renderer.h"
-#include <stdexcept>
+#include "objects.h"
+
+using namespace wanderer::core;
 
 namespace wanderer::view {
 
 Renderer::Renderer(SDL_Renderer* renderer) {
-  if (renderer == nullptr) {
-    throw std::invalid_argument("Null renderer!");
-  }
-  this->renderer = renderer;
+  this->renderer = Objects::RequireNonNull(renderer);
 }
 
 Renderer::Renderer(SDL_Window* window) {
-  if (window == nullptr) {
-    throw std::invalid_argument("Null window!");
-  }
+  Objects::RequireNonNull(window);
   renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 }
 

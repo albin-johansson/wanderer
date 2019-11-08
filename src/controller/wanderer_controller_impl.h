@@ -25,7 +25,7 @@ class WandererControllerImpl final : public IWandererController {
 
   void HandleInput();
 
-  void UpdateLoop(float delta);
+  void Update(float delta);
 
  public:
   /**

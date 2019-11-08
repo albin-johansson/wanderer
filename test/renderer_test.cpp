@@ -1,16 +1,18 @@
 #include "catch.hpp"
 #include "renderer.h"
+#include "objects.h"
 
 using namespace wanderer::view;
+using namespace wanderer::core;
 
 TEST_CASE("RendererCtor1", "[Renderer]") {
   SDL_Renderer* r = nullptr;
-  CHECK_THROWS_AS(Renderer(r), std::invalid_argument);
+  CHECK_THROWS_AS(Renderer(r), Objects::NullPointerException);
 }
 
 TEST_CASE("RendererCtor2", "[Renderer]") {
   SDL_Window* w = nullptr;
-  CHECK_THROWS_AS(Renderer(w), std::invalid_argument);
+  CHECK_THROWS_AS(Renderer(w), Objects::NullPointerException);
 }
 
 TEST_CASE("Renderer::RenderTexture1", "[Renderer]") {

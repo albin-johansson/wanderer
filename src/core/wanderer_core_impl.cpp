@@ -11,7 +11,6 @@ WandererCoreImpl::WandererCoreImpl() {
 WandererCoreImpl::~WandererCoreImpl() = default;
 
 void WandererCoreImpl::Update() {
-//  position.Add(velocity);
   position.Add(velocity.GetX() * TIME_STEP, velocity.GetY() * TIME_STEP);
 }
 

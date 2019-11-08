@@ -22,7 +22,7 @@ class Renderer final {
    * @param renderer a pointer to the SDL_Renderer that will be used by the
    * renderer. Note! The created renderer will take ownership of the supplied
    * pointer, and as such, will free it upon destruction.
-   * @throws invalid_argument if the supplied pointer is null.
+   * @throws NullPointerException if the supplied pointer is null.
    * @since 0.1.0
    */
   explicit Renderer(SDL_Renderer* renderer);
@@ -32,7 +32,7 @@ class Renderer final {
    *
    * @param window a pointer to the SDL_Window that will be used to create the
    * renderer.
-   * @throws invalid_argument if the supplied pointer is null.
+   * @throws NullPointerException if the supplied pointer is null.
    * @since 0.1.0
    */
   explicit Renderer(SDL_Window* window);
@@ -79,6 +79,18 @@ class Renderer final {
   void RenderTexture(SDL_Texture* texture, int x, int y, int width,
                      int height) noexcept;
 
+  /**
+   * Renders a texture. This method has no effect if the supplied texture
+   * pointer is null OR if the supplied width and/or height isn't greater than
+   * zero.
+   *
+   * @param texture a pointer to the texture that will be rendered.
+   * @param x the x-coordinate of the rendered texture.
+   * @param y the y-coordinate of the rendered texture.
+   * @param width the width of the rendered texture.
+   * @param height the height of the rendered texture.
+   * @since 0.1.0
+   */
   void RenderTexture(SDL_Texture* texture, float x, float y, int width, int height) noexcept;
 
   /**
@@ -93,6 +105,16 @@ class Renderer final {
    */
   void RenderFillRect(int x, int y, int width, int height) noexcept;
 
+  /**
+   * Renders a filled rect with the currently selected color. This method has no effect if the
+   * supplied width and/or height isn't greater than zero.
+   *
+   * @param x the x-coordinate of the rendered rectangle.
+   * @param y the y-coordinate of the rendered rectangle.
+   * @param width the width of the rendered rectangle.
+   * @param height the height of the rendered rectangle.
+   * @since 0.1.0
+   */
   void RenderFillRect(float x, float y, int width, int height) noexcept;
 
   /**
