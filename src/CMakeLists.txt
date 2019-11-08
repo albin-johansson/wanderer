@@ -14,7 +14,7 @@ set(SOURCE_FILES
         controller/wanderer_controller.h
         controller/wanderer_controller_impl.cpp
         controller/wanderer_controller_impl.h
-        controller/wanderer_controller_factory.h.cpp
+        controller/wanderer_controller_factory.h
         core/tickable.h
         core/math/vector_2.cpp
         core/math/vector_2.h)
