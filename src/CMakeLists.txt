@@ -18,7 +18,11 @@ set(SOURCE_FILES
         core/tickable.h
         core/math/vector_2.cpp
         core/math/vector_2.h
-        core/objects.h)
+        core/objects.h
+        core/tile/tile.cpp
+        core/tile/tile.h
+        core/tile/tile_map.cpp
+        core/tile/tile_map.h)
 
 # Prepares the Wanderer "library", which excludes linking and the main.cpp file
 add_library(${WANDERER_LIB} ${SOURCE_FILES})
@@ -33,6 +37,7 @@ target_include_directories(${WANDERER_LIB} PUBLIC view)
 target_include_directories(${WANDERER_LIB} PUBLIC util)
 target_include_directories(${WANDERER_LIB} PUBLIC service)
 target_include_directories(${WANDERER_LIB} PUBLIC core/math)
+target_include_directories(${WANDERER_LIB} PUBLIC core/tile)
 
 # Prepares the actual executable
 add_executable(${WANDERER_EXECUTABLE} main.cpp)

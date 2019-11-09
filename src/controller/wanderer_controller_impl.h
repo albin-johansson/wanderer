@@ -14,7 +14,7 @@ namespace wanderer::controller {
 class WandererControllerImpl final : public IWandererController {
  private:
   static constexpr float MAX_FRAME_TIME = 0.25f;
-  float accumulator = 0;
+//  float accumulator = 0;
   bool running = false;
 
   core::IWandererCore_uptr core = nullptr;
@@ -25,7 +25,13 @@ class WandererControllerImpl final : public IWandererController {
 
   void HandleInput();
 
+  void SavePositions();
+
   void Update(float delta);
+
+  void Render(float delta);
+
+  void Interpolate(float alpha);
 
  public:
   /**

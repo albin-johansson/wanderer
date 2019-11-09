@@ -6,6 +6,9 @@ namespace wanderer::core {
 
 WandererCoreImpl::WandererCoreImpl() {
   velocity.SetX(speed);
+  velocity.SetY(speed);
+  velocity.Norm();
+  velocity.Scale(speed);
 }
 
 WandererCoreImpl::~WandererCoreImpl() = default;
@@ -29,7 +32,8 @@ void WandererCoreImpl::Render(Renderer& renderer) {
 }
 
 void WandererCoreImpl::SavePositions() {
-  oldPosition = Vector2(position);
+  oldPosition.SetX(position.GetX());
+  oldPosition.SetY(position.GetY());
 }
 
 void WandererCoreImpl::Interpolate(float alpha) {
