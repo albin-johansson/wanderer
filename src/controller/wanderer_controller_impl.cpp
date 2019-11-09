@@ -38,17 +38,15 @@ void WandererControllerImpl::Run() {
   running = true;
   window->Show();
 
-  Uint32 now = SDL_GetTicks();
-  Uint32 then = 0;
-  double delta = 0;
-  double accumulator = 0;
-  double timeStep = IWandererCore::TIME_STEP;
+  auto now = static_cast<double>(SDL_GetTicks());
+  auto then = 0.0;
+  auto delta = 0.0;
+  auto accumulator = 0.0;
 
   while (running) {
     then = now;
     now = static_cast<double>(SDL_GetTicks());
-    auto ms = now - then;
-    delta = static_cast<double >(ms / 1000.0);
+    delta = (now - then) / 1000.0;
 
     UpdateInput();
 
@@ -58,12 +56,12 @@ void WandererControllerImpl::Run() {
 
     accumulator += delta;
 
-    while (accumulator >= timeStep) {
+    while (accumulator >= IWandererCore::TIME_STEP) {
       core->SavePositions();
       core->Update();
 
-      accumulator -= timeStep;
-      core->Interpolate(accumulator / timeStep);
+      accumulator -= IWandererCore::TIME_STEP;
+      core->Interpolate(accumulator / IWandererCore::TIME_STEP);
     }
 
     core->Render(*renderer);
