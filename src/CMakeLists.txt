@@ -60,5 +60,5 @@ add_custom_command(TARGET ${WANDERER_EXECUTABLE} POST_BUILD
 add_custom_command(TARGET ${WANDERER_EXECUTABLE} POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_directory
         "${RESOURCES_DIR}"
-        ${CMAKE_BINARY_DIR}/test/resources)
+        ${CMAKE_BINARY_DIR}/src/resources)
 
