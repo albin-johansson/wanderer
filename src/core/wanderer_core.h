@@ -39,10 +39,20 @@ class IWandererCore {
    */
   virtual void Render(view::Renderer& renderer) = 0;
 
+  /**
+   * Saves the positions of all movable game objects.
+   *
+   * @since 0.1.0
+   */
   virtual void SavePositions() = 0;
 
+  /**
+   * Interpolates the movable game objects.
+   *
+   * @param alpha the interpolation coefficient.
+   * @since 0.1.0
+   */
   virtual void Interpolate(float alpha) = 0;
-
 };
 
 using IWandererCore_uptr = std::unique_ptr<IWandererCore>;

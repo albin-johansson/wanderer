@@ -1,6 +1,5 @@
 #include "wanderer_controller_impl.h"
 #include <SDL.h>
-#include <SDL_image.h>
 #include "objects.h"
 #include <iostream>
 
@@ -11,8 +10,11 @@ namespace wanderer::controller {
 
 WandererControllerImpl::WandererControllerImpl(IWandererCore_uptr core) {
   this->core = Objects::RequireNonNull(std::move(core));
-  window = std::make_unique<Window>("Wanderer", 1500, 800);
-  window->SetFullscreen(false);
+
+  // FIXME avoid hardcoded window size
+  window = std::make_unique<Window>("Wanderer", 1920, 1080);
+  window->SetFullscreen(true);
+
   renderer = std::make_unique<Renderer>(window->GetInternalWindow());
 }
 

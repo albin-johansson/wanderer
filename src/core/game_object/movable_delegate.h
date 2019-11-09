@@ -16,6 +16,7 @@ class MovableObjectDelegate final : public IMovableObject {
   Vector2 velocity;
   Vector2 currPosition;
   Vector2 prevPosition;
+  Vector2 interpolatedPosition;
   float speed = 0;
   int width;
   int height;
@@ -46,21 +47,23 @@ class MovableObjectDelegate final : public IMovableObject {
 
   void SetSpeed(float speed) noexcept override;
 
-  [[nodiscard]] Rectangle GetHitbox() const noexcept override;
-
-  [[nodiscard]] Vector2 GetVelocity() const noexcept override;
-
-  [[nodiscard]] Vector2 GetPosition() const noexcept override;
-
-  [[nodiscard]] Vector2 GetPreviousPosition() const noexcept override;
-
   [[nodiscard]] float GetX() const noexcept override;
 
   [[nodiscard]] float GetY() const noexcept override;
 
-  [[nodiscard]] int GetWidth() const noexcept override;
+  [[nodiscard]] inline int GetWidth() const noexcept override { return width; }
 
-  [[nodiscard]] int GetHeight() const noexcept override;
+  [[nodiscard]] inline int GetHeight() const noexcept override { return height; }
+
+  [[nodiscard]] Rectangle GetHitbox() const noexcept override;
+
+  [[nodiscard]] inline Vector2 GetVelocity() const noexcept override { return velocity; }
+
+  [[nodiscard]] inline Vector2 GetPosition() const noexcept override { return currPosition; }
+
+  [[nodiscard]] inline Vector2 GetInterpolatedPosition() const noexcept override {
+    return interpolatedPosition;
+  }
 };
 
 }

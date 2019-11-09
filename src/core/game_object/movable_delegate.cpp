@@ -63,29 +63,14 @@ void MovableObjectDelegate::SavePosition() noexcept {
 }
 
 void MovableObjectDelegate::Interpolate(float alpha) noexcept {
-  prevPosition.Interpolate(currPosition, alpha);
+  interpolatedPosition.Set(currPosition);
+  interpolatedPosition.Interpolate(prevPosition, alpha);
 }
 
 void MovableObjectDelegate::SetSpeed(float speed) noexcept {
   this->speed = speed;
   velocity.Norm();
   velocity.Scale(speed);
-}
-
-Rectangle MovableObjectDelegate::GetHitbox() const noexcept {
-  return Rectangle(currPosition.GetX(), currPosition.GetY(), width, height);
-}
-
-Vector2 MovableObjectDelegate::GetVelocity() const noexcept {
-  return velocity;
-}
-
-Vector2 MovableObjectDelegate::GetPosition() const noexcept {
-  return currPosition;
-}
-
-Vector2 MovableObjectDelegate::GetPreviousPosition() const noexcept {
-  return prevPosition;
 }
 
 float MovableObjectDelegate::GetX() const noexcept {
@@ -96,12 +81,8 @@ float MovableObjectDelegate::GetY() const noexcept {
   return currPosition.GetY();
 }
 
-int MovableObjectDelegate::GetWidth() const noexcept {
-  return width;
-}
-
-int MovableObjectDelegate::GetHeight() const noexcept {
-  return height;
+Rectangle MovableObjectDelegate::GetHitbox() const noexcept {
+  return Rectangle(currPosition.GetX(), currPosition.GetY(), width, height);
 }
 
 }

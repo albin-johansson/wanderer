@@ -54,8 +54,8 @@ class Player final : public IEntity {
     return movableObject->GetPosition();
   }
 
-  [[nodiscard]] inline Vector2 GetPreviousPosition() const noexcept override {
-    return movableObject->GetPreviousPosition();
+  [[nodiscard]] inline Vector2 GetInterpolatedPosition() const noexcept override {
+    return movableObject->GetInterpolatedPosition();
   }
 
   [[nodiscard]] inline float GetX() const noexcept override {

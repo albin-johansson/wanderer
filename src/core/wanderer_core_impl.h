@@ -12,18 +12,12 @@ namespace wanderer::core {
  */
 class WandererCoreImpl final : public IWandererCore {
  private:
-  WandererCoreImpl();
-
-//  Vector2 position;
-//  Vector2 oldPosition;
-
-//  Vector2 velocity;
-//  float speed = 200;
-
   IEntity_uptr player = nullptr;
 
+  WandererCoreImpl();
+
  public:
-  void Interpolate(float alpha) override;
+  ~WandererCoreImpl() override;
 
   /**
    * Creates and returns a unique pointer to an IWandererCore instance.
@@ -33,13 +27,13 @@ class WandererCoreImpl final : public IWandererCore {
    */
   friend IWandererCore_uptr CreateCore();
 
-  ~WandererCoreImpl() override;
-
   void Update() override;
 
   void Render(view::Renderer& renderer) override;
 
   void SavePositions() override;
+
+  void Interpolate(float alpha) override;
 };
 
 }

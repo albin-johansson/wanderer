@@ -14,7 +14,11 @@ void Player::Tick(float delta) {
 
 void Player::Draw(view::Renderer& renderer) const noexcept {
   renderer.SetColor(0xFF, 0, 0);
-  renderer.RenderFillRect(GetX(), GetY(), GetWidth(), GetHeight());
+  Vector2 interpolatedPosition = GetInterpolatedPosition();
+  renderer.RenderFillRect(interpolatedPosition.GetX(),
+                          interpolatedPosition.GetY(),
+                          GetWidth(),
+                          GetHeight());
 }
 
 }

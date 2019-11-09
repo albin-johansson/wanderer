@@ -6,8 +6,9 @@ namespace wanderer::core {
 
 WandererCoreImpl::WandererCoreImpl() {
   player = std::make_unique<Player>();
-  player->SetSpeed(100);
+  player->SetSpeed(400);
   player->Move(Direction::RIGHT);
+  player->Move(Direction::DOWN);
 }
 
 WandererCoreImpl::~WandererCoreImpl() = default;

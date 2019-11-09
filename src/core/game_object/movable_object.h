@@ -47,8 +47,7 @@ class IMovableObject : public IGameObject {
   virtual void Stop() noexcept = 0;
 
   /**
-   * Saves the current position of the object. The saved position is used when the
-   * IMovable::Interpolate(float) method is invoked.
+   * Saves the current position of the object.
    *
    * @since 0.1.0
    */
@@ -56,12 +55,12 @@ class IMovableObject : public IGameObject {
 
   /**
    * Interpolates the previous position of the object with the current position. Use the
-   * IMovable::GetPreviousPosition method to obtain the affected vector.
+   * IMovable::GetInterpolatedPosition method to obtain the affected vector.
    *
    * @param alpha the interpolation coefficient, in the range [0, 1].
    * @since 0.1.0
    */
-  virtual void Interpolate(float alpha) noexcept = 0;
+  virtual void Interpolate(float alpha) noexcept = 0; // TODO check doc
 
   /**
    * Sets the total speed of the movable.
@@ -88,13 +87,12 @@ class IMovableObject : public IGameObject {
   [[nodiscard]] virtual Vector2 GetPosition() const noexcept = 0;
 
   /**
-   * Returns the previous position of the object. This property is affected by calls to the
-   * IMovable::Interpolate(float) method.
+   * Returns the interpolated position of the object.
    *
-   * @return the previous position of the object.
+   * @return the interpolated position of the object.
    * @since 0.1.0
    */
-  [[nodiscard]] virtual Vector2 GetPreviousPosition() const noexcept = 0;
+  [[nodiscard]] virtual Vector2 GetInterpolatedPosition() const noexcept = 0;
 };
 
 using IMovableObject_uptr = std::unique_ptr<IMovableObject>;
