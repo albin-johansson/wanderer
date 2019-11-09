@@ -35,7 +35,7 @@ class Objects final {
    * @throws NullPointerException if the supplied pointer is a null pointer.
    * @since 0.1.0
    */
-  template<typename T>
+  template<class T>
   inline static T* RequireNonNull(T* pointer) {
     if (pointer == nullptr) {
       throw NullPointerException();
@@ -53,7 +53,7 @@ class Objects final {
    * @throws NullPointerException if the supplied pointer is a null pointer.
    * @since 0.1.0
    */
-  template<typename T>
+  template<class T>
   inline static std::unique_ptr<T> RequireNonNull(std::unique_ptr<T> uniquePtr) {
     if (uniquePtr == nullptr) {
       throw NullPointerException();
@@ -71,7 +71,7 @@ class Objects final {
    * @throws NullPointerException if the supplied pointer is a null pointer.
    * @since 0.1.0
    */
-  template<typename T>
+  template<class T>
   inline static std::shared_ptr<T> RequireNonNull(std::shared_ptr<T> sharedPtr) {
     if (sharedPtr == nullptr) {
       throw NullPointerException();

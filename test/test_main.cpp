@@ -7,13 +7,13 @@
 #include <SDL_ttf.h>
 #include <stdexcept>
 
-int main( int argc, char** argv) {
+int main(int argc, char** argv) {
   SDL_Init(SDL_INIT_EVERYTHING);
   IMG_Init(IMG_INIT_PNG);
   Mix_Init(MIX_INIT_MP3 | MIX_INIT_OGG);
   TTF_Init();
 
-  int result = Catch::Session().run( argc, argv );
+  int result = Catch::Session().run(argc, argv);
 
   IMG_Quit();
   Mix_Quit();
