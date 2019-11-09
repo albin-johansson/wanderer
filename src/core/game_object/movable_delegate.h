@@ -46,21 +46,21 @@ class MovableObjectDelegate final : public IMovableObject {
 
   void SetSpeed(float speed) noexcept override;
 
-  Rectangle GetHitbox() const noexcept override;
+  [[nodiscard]] Rectangle GetHitbox() const noexcept override;
 
-  Vector2 GetVelocity() const noexcept override;
+  [[nodiscard]] Vector2 GetVelocity() const noexcept override;
 
-  Vector2 GetPosition() const noexcept override;
+  [[nodiscard]] Vector2 GetPosition() const noexcept override;
 
-  Vector2 GetPreviousPosition() const noexcept override;
+  [[nodiscard]] Vector2 GetPreviousPosition() const noexcept override;
 
-  float GetX() const noexcept override;
+  [[nodiscard]] float GetX() const noexcept override;
 
-  float GetY() const noexcept override;
+  [[nodiscard]] float GetY() const noexcept override;
 
-  int GetWidth() const noexcept override;
+  [[nodiscard]] int GetWidth() const noexcept override;
 
-  int GetHeight() const noexcept override;
+  [[nodiscard]] int GetHeight() const noexcept override;
 };
 
 }

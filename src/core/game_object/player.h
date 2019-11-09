@@ -46,35 +46,35 @@ class Player final : public IEntity {
     movableObject->SetSpeed(speed);
   }
 
-  inline Vector2 GetVelocity() const noexcept override {
+  [[nodiscard]] inline Vector2 GetVelocity() const noexcept override {
     return movableObject->GetVelocity();
   }
 
-  inline Vector2 GetPosition() const noexcept override {
+  [[nodiscard]] inline Vector2 GetPosition() const noexcept override {
     return movableObject->GetPosition();
   }
 
-  inline Vector2 GetPreviousPosition() const noexcept override {
+  [[nodiscard]] inline Vector2 GetPreviousPosition() const noexcept override {
     return movableObject->GetPreviousPosition();
   }
 
-  inline float GetX() const noexcept override {
+  [[nodiscard]] inline float GetX() const noexcept override {
     return movableObject->GetX();
   }
 
-  inline float GetY() const noexcept override {
+  [[nodiscard]] inline float GetY() const noexcept override {
     return movableObject->GetY();
   }
 
-  inline int GetWidth() const noexcept override {
+  [[nodiscard]] inline int GetWidth() const noexcept override {
     return movableObject->GetWidth();
   }
 
-  inline int GetHeight() const noexcept override {
+  [[nodiscard]] inline int GetHeight() const noexcept override {
     return movableObject->GetHeight();
   }
 
-  inline Rectangle GetHitbox() const noexcept override {
+  [[nodiscard]] inline Rectangle GetHitbox() const noexcept override {
     return movableObject->GetHitbox();
   }
 };

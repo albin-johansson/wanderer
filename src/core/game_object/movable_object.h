@@ -77,7 +77,7 @@ class IMovableObject : public IGameObject {
    * @return the current velocity of the object.
    * @since 0.1.0
    */
-  virtual Vector2 GetVelocity() const noexcept = 0;
+  [[nodiscard]] virtual Vector2 GetVelocity() const noexcept = 0;
 
   /**
    * Returns the current position of the object.
@@ -85,7 +85,7 @@ class IMovableObject : public IGameObject {
    * @return the current position of the object.
    * @since 0.1.0
    */
-  virtual Vector2 GetPosition() const noexcept = 0;
+  [[nodiscard]] virtual Vector2 GetPosition() const noexcept = 0;
 
   /**
    * Returns the previous position of the object. This property is affected by calls to the
@@ -94,7 +94,7 @@ class IMovableObject : public IGameObject {
    * @return the previous position of the object.
    * @since 0.1.0
    */
-  virtual Vector2 GetPreviousPosition() const noexcept = 0;
+  [[nodiscard]] virtual Vector2 GetPreviousPosition() const noexcept = 0;
 };
 
 using IMovableObject_uptr = std::unique_ptr<IMovableObject>;
