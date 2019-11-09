@@ -1,20 +1,36 @@
 #pragma once
-#include "movable.h"
+#include "movable_object.h"
 #include "vector_2.h"
 
 namespace wanderer::core {
 
-class MovableDelegate final : public IMovable {
+/**
+ * The MovableObjectDelegate class is an implementation of the IGameObject interface that is meant
+ * to be used as a delegate.
+ *
+ * @see IMovableObject
+ * @since 0.1.0
+ */
+class MovableObjectDelegate final : public IMovableObject {
  private:
   Vector2 velocity;
   Vector2 currPosition;
   Vector2 prevPosition;
   float speed = 0;
+  int width;
+  int height;
 
  public:
-  MovableDelegate();
+  /**
+   * @param width the width of the object.
+   * @param height the height of the object.
+   * @since 0.1.0
+   */
+  MovableObjectDelegate(int width, int height); // TODO should throw if bad dimensions?
 
-  ~MovableDelegate() override;
+  ~MovableObjectDelegate() override;
+
+  void Draw(view::Renderer& renderer) const noexcept override { /* do nothing */ }
 
   void Tick(float delta) override;
 
@@ -30,11 +46,21 @@ class MovableDelegate final : public IMovable {
 
   void SetSpeed(float speed) noexcept override;
 
+  Rectangle GetHitbox() const noexcept override;
+
   Vector2 GetVelocity() const noexcept override;
 
   Vector2 GetPosition() const noexcept override;
 
   Vector2 GetPreviousPosition() const noexcept override;
+
+  float GetX() const noexcept override;
+
+  float GetY() const noexcept override;
+
+  int GetWidth() const noexcept override;
+
+  int GetHeight() const noexcept override;
 };
 
 }

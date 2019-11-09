@@ -2,15 +2,16 @@
 
 namespace wanderer::core {
 
-MovableDelegate::MovableDelegate() = default;
+MovableObjectDelegate::MovableObjectDelegate(int width, int height)
+    : width(width), height(height) {}
 
-MovableDelegate::~MovableDelegate() = default;
+MovableObjectDelegate::~MovableObjectDelegate() = default;
 
-void MovableDelegate::Tick(float delta) {
+void MovableObjectDelegate::Tick(float delta) {
   currPosition.Add(velocity.GetX() * delta, velocity.GetY() * delta);
 }
 
-void MovableDelegate::Move(Direction direction) noexcept {
+void MovableObjectDelegate::Move(Direction direction) noexcept {
   switch (direction) {
     case Direction::RIGHT: {
       velocity.SetX(speed);
@@ -33,7 +34,7 @@ void MovableDelegate::Move(Direction direction) noexcept {
   velocity.Scale(speed);
 }
 
-void MovableDelegate::Stop(Direction direction) noexcept {
+void MovableObjectDelegate::Stop(Direction direction) noexcept {
   switch (direction) {
     case Direction::RIGHT:
     case Direction::LEFT: {
@@ -50,37 +51,57 @@ void MovableDelegate::Stop(Direction direction) noexcept {
   velocity.Scale(speed);
 }
 
-void MovableDelegate::Stop() noexcept {
+void MovableObjectDelegate::Stop() noexcept {
   velocity.SetX(0);
   velocity.SetY(0);
   velocity.Norm();
   velocity.Scale(speed);
 }
 
-void MovableDelegate::SavePosition() noexcept {
+void MovableObjectDelegate::SavePosition() noexcept {
   prevPosition.Set(currPosition);
 }
 
-void MovableDelegate::Interpolate(float alpha) noexcept {
+void MovableObjectDelegate::Interpolate(float alpha) noexcept {
   prevPosition.Interpolate(currPosition, alpha);
 }
 
-void MovableDelegate::SetSpeed(float speed) noexcept {
+void MovableObjectDelegate::SetSpeed(float speed) noexcept {
   this->speed = speed;
   velocity.Norm();
   velocity.Scale(speed);
 }
 
-Vector2 MovableDelegate::GetVelocity() const noexcept {
+Rectangle MovableObjectDelegate::GetHitbox() const noexcept {
+  return Rectangle(currPosition.GetX(), currPosition.GetY(), width, height);
+}
+
+Vector2 MovableObjectDelegate::GetVelocity() const noexcept {
   return velocity;
 }
 
-Vector2 MovableDelegate::GetPosition() const noexcept {
+Vector2 MovableObjectDelegate::GetPosition() const noexcept {
   return currPosition;
 }
 
-Vector2 MovableDelegate::GetPreviousPosition() const noexcept {
+Vector2 MovableObjectDelegate::GetPreviousPosition() const noexcept {
   return prevPosition;
+}
+
+float MovableObjectDelegate::GetX() const noexcept {
+  return currPosition.GetX();
+}
+
+float MovableObjectDelegate::GetY() const noexcept {
+  return currPosition.GetY();
+}
+
+int MovableObjectDelegate::GetWidth() const noexcept {
+  return width;
+}
+
+int MovableObjectDelegate::GetHeight() const noexcept {
+  return height;
 }
 
 }

@@ -1,17 +1,17 @@
 #pragma once
-#include "game_object.h"
-#include "movable.h"
-#include "direction.h"
+#include "movable_object.h"
 #include <memory>
 
 namespace wanderer::core {
 
-class IEntity : public IGameObject, public IMovable {
+class IEntity : public IMovableObject {
  protected:
   IEntity() = default;
 
  public:
   ~IEntity() override = default;
+
+  // TODO ...
 };
 
 using IEntity_uptr = std::unique_ptr<IEntity>;

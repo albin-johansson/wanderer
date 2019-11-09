@@ -31,9 +31,7 @@ set(SOURCE_FILES
         core/direction.h
         core/game_object/player.cpp
         core/game_object/player.h
-        core/game_object/game_object_delegate.cpp
-        core/game_object/game_object_delegate.h
-        core/game_object/movable.h
+        core/game_object/movable_object.h
         core/game_object/movable_delegate.cpp
         core/game_object/movable_delegate.h)
 
