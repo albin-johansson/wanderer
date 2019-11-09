@@ -2,7 +2,7 @@
 #include <string>
 #include <memory>
 
-namespace wanderer::view {
+namespace wanderer::visuals {
 
 /**
  * The Window class is a wrapper around an SDL_Window instance.
@@ -131,4 +131,4 @@ class Window final {
 
 using Window_uptr = std::unique_ptr<Window>;
 
-}  // namespace wanderer::view
+}

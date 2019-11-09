@@ -4,7 +4,7 @@
 #include "objects.h"
 
 using namespace wanderer::core;
-using namespace wanderer::view;
+using namespace wanderer::visuals;
 
 namespace wanderer::controller {
 

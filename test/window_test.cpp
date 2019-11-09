@@ -1,7 +1,7 @@
 #include "catch.hpp"
 #include "window.h"
 
-using namespace wanderer::view;
+using namespace wanderer::visuals;
 
 TEST_CASE("WindowCtor", "[Window]") {
   CHECK_THROWS_AS(Window("", 0, 10), std::invalid_argument);

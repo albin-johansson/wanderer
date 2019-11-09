@@ -3,7 +3,7 @@
 #include <SDL_image.h>
 #include <memory>
 
-namespace wanderer::view {
+namespace wanderer::visuals {
 
 /**
  * The Renderer class is a wrapper class for the SDL_Renderer struct.
@@ -152,4 +152,4 @@ class Renderer final {
 
 using Renderer_uptr = std::unique_ptr<Renderer>;
 
-}  // namespace wanderer::view
+}

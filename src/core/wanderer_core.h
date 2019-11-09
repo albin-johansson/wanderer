@@ -38,7 +38,7 @@ class IWandererCore {
    * @param renderer a reference to the renderer that will be used.
    * @since 0.1.0
    */
-  virtual void Render(view::Renderer& renderer) = 0;
+  virtual void Render(visuals::Renderer& renderer) = 0;
 
   /**
    * Saves the positions of all movable game objects.

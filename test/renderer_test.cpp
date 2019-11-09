@@ -2,7 +2,7 @@
 #include "renderer.h"
 #include "objects.h"
 
-using namespace wanderer::view;
+using namespace wanderer::visuals;
 using namespace wanderer::core;
 
 TEST_CASE("RendererCtor1", "[Renderer]") {

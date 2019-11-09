@@ -17,7 +17,7 @@ static void Init() {
 static void Run() {
   using namespace wanderer::core;
   using namespace wanderer::controller;
-  using namespace wanderer::view;
+  using namespace wanderer::visuals;
 
   IWandererCore_uptr core = CreateCore();
   IWandererController_uptr controller = CreateController(std::move(core));

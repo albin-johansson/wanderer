@@ -4,7 +4,7 @@
 
 using namespace wanderer::service;
 
-namespace wanderer::view {
+namespace wanderer::visuals {
 
 Window::Window(const std::string& title, int width, int height) {
   if ((width < 1) || (height < 1)) {
@@ -79,4 +79,4 @@ int Window::GetHeight() const noexcept {
   return height;
 }
 
-}  // namespace wanderer::view
+}  // namespace wanderer::visuals

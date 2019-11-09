@@ -3,10 +3,10 @@ project(${CMAKE_PROJECT_NAME}_src)
 
 set(SOURCE_FILES
         service/bool_converter.h
-        view/window.h
-        view/window.cpp
-        view/renderer.h
-        view/renderer.cpp
+        visuals/window.h
+        visuals/window.cpp
+        visuals/renderer.h
+        visuals/renderer.cpp
         core/wanderer_core.h
         core/wanderer_core_impl.cpp
         core/wanderer_core_impl.h
@@ -48,7 +48,7 @@ target_include_directories(${WANDERER_LIB} PUBLIC ${SDL2_MIXER_INCLUDE_DIRS})
 target_include_directories(${WANDERER_LIB} PUBLIC ${SDL2_TTF_INCLUDE_DIRS})
 target_include_directories(${WANDERER_LIB} PUBLIC controller)
 target_include_directories(${WANDERER_LIB} PUBLIC core)
-target_include_directories(${WANDERER_LIB} PUBLIC view)
+target_include_directories(${WANDERER_LIB} PUBLIC visuals)
 target_include_directories(${WANDERER_LIB} PUBLIC util)
 target_include_directories(${WANDERER_LIB} PUBLIC service)
 target_include_directories(${WANDERER_LIB} PUBLIC core/math)

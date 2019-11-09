@@ -3,7 +3,7 @@
 
 using namespace wanderer::core;
 
-namespace wanderer::view {
+namespace wanderer::visuals {
 
 Renderer::Renderer(SDL_Renderer* renderer) {
   this->renderer = Objects::RequireNonNull(renderer);
@@ -79,4 +79,4 @@ void Renderer::SetColor(Uint8 red, Uint8 green, Uint8 blue) noexcept {
   SDL_SetRenderDrawColor(renderer, red, green, blue, SDL_ALPHA_OPAQUE);
 }
 
-}  // namespace wanderer::view
+}  // namespace wanderer::visuals

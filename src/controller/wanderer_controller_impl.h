@@ -20,8 +20,8 @@ class WandererControllerImpl final : public IWandererController {
   bool running = false;
 
   core::IWandererCore_uptr core = nullptr;
-  view::Window_uptr window = nullptr;
-  view::Renderer_uptr renderer = nullptr;
+  visuals::Window_uptr window = nullptr;
+  visuals::Renderer_uptr renderer = nullptr;
   KeyStateManager_uptr keyStateManager = nullptr;
 
   PlayerController playerController;

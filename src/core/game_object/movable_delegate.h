@@ -31,7 +31,7 @@ class MovableObjectDelegate final : public IMovableObject {
 
   ~MovableObjectDelegate() override;
 
-  void Draw(view::Renderer& renderer) const noexcept override { /* do nothing */ }
+  void Draw(visuals::Renderer& renderer) const noexcept override { /* do nothing */ }
 
   void Tick(float delta) override;
 

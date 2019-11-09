@@ -29,7 +29,7 @@ class WandererCoreImpl final : public IWandererCore {
 
   void Update() override;
 
-  void Render(view::Renderer& renderer) override;
+  void Render(visuals::Renderer& renderer) override;
 
   void SavePositions() override;
 

@@ -1,6 +1,6 @@
 #include "wanderer_core_impl.h"
 
-using namespace wanderer::view;
+using namespace wanderer::visuals;
 
 namespace wanderer::core {
 
