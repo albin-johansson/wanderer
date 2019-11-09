@@ -24,7 +24,18 @@ set(SOURCE_FILES
         core/tile/tile_map.cpp
         core/tile/tile_map.h
         core/math/rectangle.cpp
-        core/math/rectangle.h)
+        core/math/rectangle.h
+        core/game_object/game_object.h
+        core/drawable.h
+        core/game_object/entity.h
+        core/direction.h
+        core/game_object/player.cpp
+        core/game_object/player.h
+        core/game_object/game_object_delegate.cpp
+        core/game_object/game_object_delegate.h
+        core/game_object/movable.h
+        core/game_object/movable_delegate.cpp
+        core/game_object/movable_delegate.h)
 
 # Prepares the Wanderer "library", which excludes linking and the main.cpp file
 add_library(${WANDERER_LIB} ${SOURCE_FILES})
@@ -40,6 +51,7 @@ target_include_directories(${WANDERER_LIB} PUBLIC util)
 target_include_directories(${WANDERER_LIB} PUBLIC service)
 target_include_directories(${WANDERER_LIB} PUBLIC core/math)
 target_include_directories(${WANDERER_LIB} PUBLIC core/tile)
+target_include_directories(${WANDERER_LIB} PUBLIC core/game_object)
 
 # Prepares the actual executable
 add_executable(${WANDERER_EXECUTABLE} main.cpp)

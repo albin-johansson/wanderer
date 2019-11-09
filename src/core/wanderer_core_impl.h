@@ -1,6 +1,7 @@
 #pragma once
 #include "wanderer_core.h"
 #include "vector_2.h"
+#include "player.h"
 
 namespace wanderer::core {
 
@@ -13,11 +14,13 @@ class WandererCoreImpl final : public IWandererCore {
  private:
   WandererCoreImpl();
 
-  Vector2 position;
-  Vector2 oldPosition;
+//  Vector2 position;
+//  Vector2 oldPosition;
 
-  Vector2 velocity;
-  float speed = 200;
+//  Vector2 velocity;
+//  float speed = 200;
+
+  IEntity_uptr player = nullptr;
 
  public:
   void Interpolate(float alpha) override;
