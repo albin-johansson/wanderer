@@ -33,7 +33,11 @@ set(SOURCE_FILES
         core/game_object/player.h
         core/game_object/movable_object.h
         core/game_object/movable_delegate.cpp
-        core/game_object/movable_delegate.h)
+        core/game_object/movable_delegate.h
+        controller/key_state_manager.cpp
+        controller/key_state_manager.h
+        controller/player_controller.cpp
+        controller/player_controller.h)
 
 # Prepares the Wanderer "library", which excludes linking and the main.cpp file
 add_library(${WANDERER_LIB} ${SOURCE_FILES})

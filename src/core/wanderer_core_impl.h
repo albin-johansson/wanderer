@@ -33,7 +33,11 @@ class WandererCoreImpl final : public IWandererCore {
 
   void SavePositions() override;
 
-  void Interpolate(float alpha) override;
+  void Interpolate(double alpha) override;
+
+  void MovePlayer(Direction direction) override;
+
+  void StopPlayer(Direction direction) override;
 };
 
 }

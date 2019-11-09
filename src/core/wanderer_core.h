@@ -1,6 +1,7 @@
 #pragma once
 #include <memory>
 #include "renderer.h"
+#include "direction.h"
 
 namespace wanderer::core {
 
@@ -20,7 +21,7 @@ class IWandererCore {
    *
    * @since 0.1.0
    */
-  static constexpr float TIME_STEP = 0.0166f;
+  static constexpr float TIME_STEP = 0.0166f; // ~60 Hz
 
   virtual ~IWandererCore() = default;
 
@@ -52,7 +53,11 @@ class IWandererCore {
    * @param alpha the interpolation coefficient.
    * @since 0.1.0
    */
-  virtual void Interpolate(float alpha) = 0;
+  virtual void Interpolate(double alpha) = 0;
+
+  virtual void MovePlayer(Direction direction) = 0;
+
+  virtual void StopPlayer(Direction direction) = 0;
 };
 
 using IWandererCore_uptr = std::unique_ptr<IWandererCore>;

@@ -7,8 +7,8 @@ namespace wanderer::core {
 WandererCoreImpl::WandererCoreImpl() {
   player = std::make_unique<Player>();
   player->SetSpeed(400);
-  player->Move(Direction::RIGHT);
-  player->Move(Direction::DOWN);
+//  player->Move(Direction::RIGHT);
+//  player->Move(Direction::DOWN);
 }
 
 WandererCoreImpl::~WandererCoreImpl() = default;
@@ -30,8 +30,16 @@ void WandererCoreImpl::SavePositions() {
   player->SavePosition();
 }
 
-void WandererCoreImpl::Interpolate(float alpha) {
+void WandererCoreImpl::Interpolate(double alpha) {
   player->Interpolate(alpha);
+}
+
+void WandererCoreImpl::MovePlayer(Direction direction) {
+  player->Move(direction);
+}
+
+void WandererCoreImpl::StopPlayer(Direction direction) {
+  player->Stop(direction);
 }
 
 }

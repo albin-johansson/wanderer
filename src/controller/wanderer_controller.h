@@ -1,5 +1,6 @@
 #pragma once
 #include <memory>
+#include "direction.h"
 
 namespace wanderer::controller {
 
@@ -29,6 +30,11 @@ class IWandererController {
    * @since 0.1.0
    */
   virtual void Quit() = 0;
+
+  virtual void MovePlayer(core::Direction direction) = 0;
+
+  virtual void StopPlayer(core::Direction direction) = 0;
+
 };
 
 using IWandererController_uptr = std::unique_ptr<IWandererController>;

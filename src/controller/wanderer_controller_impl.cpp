@@ -1,32 +1,37 @@
 #include "wanderer_controller_impl.h"
 #include <SDL.h>
+#include <memory>
 #include "objects.h"
-#include <iostream>
 
 using namespace wanderer::core;
 using namespace wanderer::view;
 
 namespace wanderer::controller {
 
-WandererControllerImpl::WandererControllerImpl(IWandererCore_uptr core) {
+WandererControllerImpl::WandererControllerImpl(IWandererCore_uptr core)
+    : playerController(PlayerController(this)) {
   this->core = Objects::RequireNonNull(std::move(core));
 
   // FIXME avoid hardcoded window size
-  window = std::make_unique<Window>("Wanderer", 1920, 1080);
-  window->SetFullscreen(true);
+  window = std::make_unique<Window>("Wanderer", 1500, 800);
+  window->SetFullscreen(false);
 
   renderer = std::make_unique<Renderer>(window->GetInternalWindow());
+  keyStateManager = std::make_unique<KeyStateManager>();
 }
 
 WandererControllerImpl::~WandererControllerImpl() = default;
 
-void WandererControllerImpl::HandleInput() {
-  SDL_Event event;
-  while (SDL_PollEvent(&event)) {
-    if (event.type == SDL_QUIT || event.key.keysym.sym == SDLK_ESCAPE) {
-      Quit();
-    }
+void WandererControllerImpl::UpdateInput() {
+  keyStateManager->Update();
+  SDL_PumpEvents();
+
+  if (SDL_PeepEvents(nullptr, 0, SDL_PEEKEVENT, SDL_QUIT, SDL_QUIT) > 0
+      || keyStateManager->WasReleased(SDL_SCANCODE_ESCAPE)) {
+    Quit();
   }
+
+  playerController.Update(*keyStateManager);
 }
 
 void WandererControllerImpl::Run() {
@@ -35,17 +40,17 @@ void WandererControllerImpl::Run() {
 
   Uint32 now = SDL_GetTicks();
   Uint32 then = 0;
-  float delta = 0;
-  float accumulator = 0;
-  float timeStep = IWandererCore::TIME_STEP;
+  double delta = 0;
+  double accumulator = 0;
+  double timeStep = IWandererCore::TIME_STEP;
 
   while (running) {
     then = now;
-    now = SDL_GetTicks();
+    now = static_cast<double>(SDL_GetTicks());
     auto ms = now - then;
-    delta = static_cast<float>(ms / 1000.0f);
+    delta = static_cast<double >(ms / 1000.0);
 
-    HandleInput();
+    UpdateInput();
 
     if (delta > MAX_FRAME_TIME) {
       delta = MAX_FRAME_TIME;
@@ -62,6 +67,10 @@ void WandererControllerImpl::Run() {
     }
 
     core->Render(*renderer);
+
+    if (delta < MIN_FRAME_TIME) {
+      SDL_Delay(1);
+    }
   }
 
   window->Hide();
@@ -69,6 +78,14 @@ void WandererControllerImpl::Run() {
 
 void WandererControllerImpl::Quit() {
   running = false;
+}
+
+void WandererControllerImpl::MovePlayer(core::Direction direction) {
+  core->MovePlayer(direction);
+}
+
+void WandererControllerImpl::StopPlayer(core::Direction direction) {
+  core->StopPlayer(direction);
 }
 
 }

@@ -3,6 +3,8 @@
 #include "wanderer_core.h"
 #include "renderer.h"
 #include "window.h"
+#include "key_state_manager.h"
+#include "player_controller.h"
 
 namespace wanderer::controller {
 
@@ -13,17 +15,20 @@ namespace wanderer::controller {
  */
 class WandererControllerImpl final : public IWandererController {
  private:
-  static constexpr float MAX_FRAME_TIME = 0.25f;
-//  float accumulator = 0;
+  static constexpr double MAX_FRAME_TIME = 0.25;
+  static constexpr double MIN_FRAME_TIME = 0.0083; // limited at approx 120 FPS
   bool running = false;
 
   core::IWandererCore_uptr core = nullptr;
   view::Window_uptr window = nullptr;
   view::Renderer_uptr renderer = nullptr;
+  KeyStateManager_uptr keyStateManager = nullptr;
+
+  PlayerController playerController;
 
   explicit WandererControllerImpl(core::IWandererCore_uptr core);
 
-  void HandleInput();
+  void UpdateInput();
 
  public:
   /**
@@ -40,6 +45,10 @@ class WandererControllerImpl final : public IWandererController {
   void Run() override;
 
   void Quit() override;
+
+  void MovePlayer(core::Direction direction) override;
+
+  void StopPlayer(core::Direction direction) override;
 
 };
 
