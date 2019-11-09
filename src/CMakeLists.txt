@@ -22,7 +22,9 @@ set(SOURCE_FILES
         core/tile/tile.cpp
         core/tile/tile.h
         core/tile/tile_map.cpp
-        core/tile/tile_map.h)
+        core/tile/tile_map.h
+        core/math/rectangle.cpp
+        core/math/rectangle.h)
 
 # Prepares the Wanderer "library", which excludes linking and the main.cpp file
 add_library(${WANDERER_LIB} ${SOURCE_FILES})
