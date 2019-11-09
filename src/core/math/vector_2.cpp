@@ -33,6 +33,11 @@ void Vector2::SetX(float x) noexcept {
   this->x = x;
 }
 
+void Vector2::Set(const Vector2& vector) noexcept {
+  x = vector.x;
+  y = vector.y;
+}
+
 void Vector2::Add(float x, float y) noexcept {
   this->x += x;
   this->y += y;

@@ -117,6 +117,14 @@ class Vector2 final {
   void Sub(const Vector2& vector) noexcept;
 
   /**
+   * Adopts the values of the supplied vector.
+   *
+   * @param vector the vector whose values will be adopted.
+   * @since 0.1.0
+   */
+  void Set(const Vector2& vector) noexcept;
+
+  /**
    * Sets the x-coordinate of the vector.
    *
    * @param x the new x-coordinate of the vector.

@@ -32,8 +32,7 @@ void WandererCoreImpl::Render(Renderer& renderer) {
 }
 
 void WandererCoreImpl::SavePositions() {
-  oldPosition.SetX(position.GetX());
-  oldPosition.SetY(position.GetY());
+  oldPosition.Set(position);
 }
 
 void WandererCoreImpl::Interpolate(float alpha) {

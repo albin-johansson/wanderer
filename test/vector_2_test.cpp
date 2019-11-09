@@ -98,6 +98,16 @@ TEST_CASE("Vector2::Norm", "[Vector2]") {
   CHECK(vector.GetLength() == Approx(1));
 }
 
+TEST_CASE("Vector2::Set", "[Vector2]") {
+  Vector2 vector(91, 3);
+  Vector2 other(123, 45);
+
+  vector.Set(other);
+
+  CHECK(vector.GetX() == Approx(other.GetX()));
+  CHECK(vector.GetY() == Approx(other.GetY()));
+}
+
 TEST_CASE("Vector2::SetX", "[Vector2]") {
   Vector2 vector(91, 3);
 
