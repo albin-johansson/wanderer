@@ -11,7 +11,7 @@ namespace wanderer::controller {
 
 WandererControllerImpl::WandererControllerImpl(IWandererCore_uptr core) {
   this->core = Objects::RequireNonNull(std::move(core));
-  window = std::make_unique<Window>("Wanderer", 1000, 800);
+  window = std::make_unique<Window>("Wanderer", 1500, 800);
   window->SetFullscreen(false);
   renderer = std::make_unique<Renderer>(window->GetInternalWindow());
 }
@@ -21,26 +21,10 @@ WandererControllerImpl::~WandererControllerImpl() = default;
 void WandererControllerImpl::HandleInput() {
   SDL_Event event;
   while (SDL_PollEvent(&event)) {
-    if (event.type==SDL_QUIT || event.key.keysym.sym==SDLK_ESCAPE) {
+    if (event.type == SDL_QUIT || event.key.keysym.sym == SDLK_ESCAPE) {
       Quit();
     }
   }
-}
-
-void WandererControllerImpl::SavePositions() {
-  core->SavePositions();
-}
-
-void WandererControllerImpl::Update(float delta) {
-  core->Update();
-}
-
-void WandererControllerImpl::Render(float delta) {
-  core->Render(*renderer);
-}
-
-void WandererControllerImpl::Interpolate(float alpha) {
-  core->Interpolate(alpha);
 }
 
 void WandererControllerImpl::Run() {
@@ -57,7 +41,7 @@ void WandererControllerImpl::Run() {
     then = now;
     now = SDL_GetTicks();
     auto ms = now - then;
-    delta = static_cast<float>(ms/1000.0f);
+    delta = static_cast<float>(ms / 1000.0f);
 
     HandleInput();
 
@@ -68,15 +52,14 @@ void WandererControllerImpl::Run() {
     accumulator += delta;
 
     while (accumulator >= timeStep) {
-      SavePositions();
-      Update(timeStep);
+      core->SavePositions();
+      core->Update();
+
       accumulator -= timeStep;
-      Interpolate(accumulator/timeStep);
+      core->Interpolate(accumulator / timeStep);
     }
 
-    Render(delta);
-
-    renderer->Present();
+    core->Render(*renderer);
   }
 
   window->Hide();

@@ -25,14 +25,6 @@ class WandererControllerImpl final : public IWandererController {
 
   void HandleInput();
 
-  void SavePositions();
-
-  void Update(float delta);
-
-  void Render(float delta);
-
-  void Interpolate(float alpha);
-
  public:
   /**
    * Creates and returns a unique pointer to an IWandererController instance.
