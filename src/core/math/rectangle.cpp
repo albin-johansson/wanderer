@@ -10,6 +10,22 @@ Rectangle::Rectangle(float x, float y, int width, int height) noexcept
 Rectangle::Rectangle(const Rectangle& rectangle) noexcept
     : Rectangle(rectangle.x, rectangle.y, rectangle.width, rectangle.height) {}
 
+void Rectangle::SetX(int x) noexcept {
+  this->x = x;
+}
+
+void Rectangle::SetY(int y) noexcept {
+  this->y = y;
+}
+
+void Rectangle::SetWidth(int width) noexcept {
+  this->width = width;
+}
+
+void Rectangle::SetHeight(int height) noexcept {
+  this->height = height;
+}
+
 bool Rectangle::Contains(float px, float py) const noexcept {
   return !(px < x || py < y || px > GetMaxX() || py > GetMaxY());
 }

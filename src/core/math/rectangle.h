@@ -41,6 +41,38 @@ class Rectangle final {
   Rectangle(const Rectangle& rectangle) noexcept;
 
   /**
+   * Sets the x-coordinate of the rectangle.
+   *
+   * @param x the new x-coordinate of the rectangle.
+   * @since 0.1.0
+   */
+  void SetX(int x) noexcept;
+
+  /**
+   * Sets the y-coordinate of the rectangle.
+   *
+   * @param x the new y-coordinate of the rectangle.
+   * @since 0.1.0
+   */
+  void SetY(int y) noexcept;
+
+  /**
+   * Sets the width of the rectangle.
+   *
+   * @param x the new width of the rectangle.
+   * @since 0.1.0
+   */
+  void SetWidth(int width) noexcept;
+
+  /**
+   * Sets the height of the rectangle.
+   *
+   * @param x the new height of the rectangle.
+   * @since 0.1.0
+   */
+  void SetHeight(int height) noexcept;
+
+  /**
    * Indicates whether or not the rectangle contains the point represented by the supplied
    * coordinates.
    *
