@@ -16,7 +16,6 @@ namespace wanderer::controller {
 class WandererControllerImpl final : public IWandererController {
  private:
   static constexpr double MAX_FRAME_TIME = 0.25;
-  static constexpr double MIN_FRAME_TIME = 0.0083; // limited at approx 120 FPS
   bool running = false;
 
   core::IWandererCore_uptr core = nullptr;

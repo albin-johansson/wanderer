@@ -38,15 +38,18 @@ void WandererControllerImpl::Run() {
   running = true;
   window->Show();
 
-  auto now = static_cast<double>(SDL_GetTicks());
-  auto then = 0.0;
-  auto delta = 0.0;
-  auto accumulator = 0.0;
+  Uint64 now = SDL_GetPerformanceCounter();
+  Uint64 then = 0;
+
+  double delta;
+  double accumulator = 0.0;
 
   while (running) {
     then = now;
-    now = static_cast<double>(SDL_GetTicks());
-    delta = (now - then) / 1000.0;
+    now = SDL_GetPerformanceCounter();
+
+    auto diff = static_cast<double>(now - then);
+    delta = diff / SDL_GetPerformanceFrequency();
 
     UpdateInput();
 
@@ -65,10 +68,6 @@ void WandererControllerImpl::Run() {
     }
 
     core->Render(*renderer);
-
-    if (delta < MIN_FRAME_TIME) {
-      SDL_Delay(1);
-    }
   }
 
   window->Hide();
