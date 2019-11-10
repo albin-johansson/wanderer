@@ -13,7 +13,7 @@ void Player::Tick(float delta) {
 }
 
 void Player::Draw(visuals::Renderer& renderer) const noexcept {
-  renderer.SetColor(0xFF, 0, 0);
+  renderer.SetColor(0, 0, 0);
   Vector2 interpolatedPosition = GetInterpolatedPosition();
   renderer.RenderFillRect(interpolatedPosition.GetX(),
                           interpolatedPosition.GetY(),

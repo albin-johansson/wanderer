@@ -5,10 +5,10 @@ using namespace wanderer::visuals;
 namespace wanderer::core {
 
 WandererCoreImpl::WandererCoreImpl() {
+  tileMap = std::make_unique<TileMap>(10, 10);
+
   player = std::make_unique<Player>();
   player->SetSpeed(400);
-//  player->Move(Direction::RIGHT);
-//  player->Move(Direction::DOWN);
 }
 
 WandererCoreImpl::~WandererCoreImpl() = default;
@@ -21,6 +21,7 @@ void WandererCoreImpl::Render(Renderer& renderer) {
   renderer.SetColor(0, 0, 0);
   renderer.Clear();
 
+  tileMap->Draw(renderer);
   player->Draw(renderer);
 
   renderer.Present();
@@ -31,7 +32,7 @@ void WandererCoreImpl::SavePositions() {
 }
 
 void WandererCoreImpl::Interpolate(double alpha) {
-  player->Interpolate(alpha);
+  player->Interpolate(static_cast<float>(alpha)); // TODO only use floats or doubles
 }
 
 void WandererCoreImpl::MovePlayer(Direction direction) {
