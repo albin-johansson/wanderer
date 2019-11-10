@@ -20,7 +20,7 @@ class Tile : public IDrawable {
 
   ~Tile() = default;
 
-  void Draw(visuals::Renderer& renderer) const noexcept override;
+  void Draw(visuals::Renderer& renderer, const Viewport& viewport) const noexcept override;
 
   [[nodiscard]] inline int GetRow() const noexcept { return row; }
 

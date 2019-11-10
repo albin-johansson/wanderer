@@ -21,11 +21,10 @@ TileMap::TileMap(int nRows, int nCols) : nRows(nRows), nCols(nCols) {
 
 TileMap::~TileMap() = default;
 
-void TileMap::Draw(visuals::Renderer& renderer) const noexcept {
-  auto bounds = Rectangle(0, 0, nRows * Tile::SIZE, nCols * Tile::SIZE);
-  auto tiles = GetTiles(bounds);
+void TileMap::Draw(visuals::Renderer& renderer, const Viewport& viewport) const noexcept {
+  auto tiles = GetTiles(viewport.GetBounds());
   for (Tile_sptr tile : tiles) {
-    tile->Draw(renderer);
+    tile->Draw(renderer, viewport);
   }
 }
 

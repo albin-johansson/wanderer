@@ -94,7 +94,7 @@ class Renderer final {
   void RenderTexture(SDL_Texture* texture, float x, float y, int width, int height) noexcept;
 
   /**
-   * Renders a filled rect with the currently selected color. This method has no effect if the
+   * Renders a filled rectangle with the currently selected color. This method has no effect if the
    * supplied width and/or height isn't greater than zero.
    *
    * @param x the x-coordinate of the rendered rectangle.
@@ -106,7 +106,7 @@ class Renderer final {
   void RenderFillRect(int x, int y, int width, int height) noexcept;
 
   /**
-   * Renders a filled rect with the currently selected color. This method has no effect if the
+   * Renders a filled rectangle with the currently selected color. This method has no effect if the
    * supplied width and/or height isn't greater than zero.
    *
    * @param x the x-coordinate of the rendered rectangle.
@@ -116,6 +116,30 @@ class Renderer final {
    * @since 0.1.0
    */
   void RenderFillRect(float x, float y, int width, int height) noexcept;
+
+  /**
+   * Renders an outlined rectangle with the currently selected color. This method has no effect if
+   * the supplied width and/or height isn't greater than zero.
+   *
+   * @param x the x-coordinate of the rendered rectangle.
+   * @param y the y-coordinate of the rendered rectangle.
+   * @param width the width of the rendered rectangle.
+   * @param height the height of the rendered rectangle.
+   * @since 0.1.0
+   */
+  void RenderRect(float x, float y, int width, int height) noexcept;
+
+  /**
+   * Renders an outlined rectangle with the currently selected color. This method has no effect if
+   * the supplied width and/or height isn't greater than zero.
+   *
+   * @param x the x-coordinate of the rendered rectangle.
+   * @param y the y-coordinate of the rendered rectangle.
+   * @param width the width of the rendered rectangle.
+   * @param height the height of the rendered rectangle.
+   * @since 0.1.0
+   */
+  void RenderRect(int x, int y, int width, int height) noexcept;
 
   /**
    * Sets the color that will be used by the renderer.

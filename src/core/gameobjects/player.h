@@ -20,7 +20,7 @@ class Player final : public IEntity {
 
   void Tick(float delta) override;
 
-  void Draw(visuals::Renderer& renderer) const noexcept override;
+  void Draw(visuals::Renderer& renderer, const Viewport& viewport) const noexcept override;
 
   inline void Move(Direction direction) noexcept override {
     movableObject->Move(direction);

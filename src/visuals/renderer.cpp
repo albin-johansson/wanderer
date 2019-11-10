@@ -70,6 +70,20 @@ void Renderer::RenderFillRect(int x, int y, int width, int height) noexcept {
   }
 }
 
+void Renderer::RenderRect(float x, float y, int width, int height) noexcept {
+  if ((width > 0) && (height > 0)) {
+    SDL_FRect rect = {x, y, static_cast<float>(width), static_cast<float>(height)};
+    SDL_RenderDrawRectF(renderer, &rect);
+  }
+}
+
+void Renderer::RenderRect(int x, int y, int width, int height) noexcept {
+  if ((width > 0) && (height > 0)) {
+    SDL_Rect rect = {x, y, width, height};
+    SDL_RenderDrawRect(renderer, &rect);
+  }
+}
+
 void Renderer::SetColor(Uint8 red, Uint8 green, Uint8 blue,
                         Uint8 alpha) noexcept {
   SDL_SetRenderDrawColor(renderer, red, green, blue, alpha);

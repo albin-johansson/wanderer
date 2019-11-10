@@ -3,6 +3,7 @@
 #include "vector_2.h"
 #include "player.h"
 #include "tile_map.h"
+#include "viewport.h"
 
 namespace wanderer::core {
 
@@ -15,6 +16,7 @@ class WandererCoreImpl final : public IWandererCore {
  private:
   TileMap_uptr tileMap = nullptr;
   IEntity_uptr player = nullptr;
+  Viewport viewport;
 
   WandererCoreImpl();
 

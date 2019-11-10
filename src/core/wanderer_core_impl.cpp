@@ -4,11 +4,13 @@ using namespace wanderer::visuals;
 
 namespace wanderer::core {
 
-WandererCoreImpl::WandererCoreImpl() {
-  tileMap = std::make_unique<TileMap>(10, 10);
+WandererCoreImpl::WandererCoreImpl()
+    : viewport(Viewport(1500, 800, 2000, 2000)) {
 
+  tileMap = std::make_unique<TileMap>(10, 10);
   player = std::make_unique<Player>();
   player->SetSpeed(400);
+
 }
 
 WandererCoreImpl::~WandererCoreImpl() = default;
@@ -21,8 +23,10 @@ void WandererCoreImpl::Render(Renderer& renderer) {
   renderer.SetColor(0, 0, 0);
   renderer.Clear();
 
-  tileMap->Draw(renderer);
-  player->Draw(renderer);
+  viewport.Center(player->GetX(), player->GetY(), player->GetWidth(), player->GetHeight());
+
+  tileMap->Draw(renderer, viewport);
+  player->Draw(renderer, viewport);
 
   renderer.Present();
 }

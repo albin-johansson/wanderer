@@ -30,7 +30,7 @@ class TileMap final : public IDrawable {
 
   ~TileMap() override;
 
-  void Draw(visuals::Renderer& renderer) const noexcept override;
+  void Draw(visuals::Renderer& renderer, const Viewport& viewport) const noexcept override;
 
   // TODO SetTile, ...
 

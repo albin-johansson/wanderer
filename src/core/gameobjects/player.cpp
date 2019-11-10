@@ -12,13 +12,12 @@ void Player::Tick(float delta) {
   movableObject->Tick(delta);
 }
 
-void Player::Draw(visuals::Renderer& renderer) const noexcept {
+void Player::Draw(visuals::Renderer& renderer, const Viewport& viewport) const noexcept {
   renderer.SetColor(0, 0, 0);
   Vector2 interpolatedPosition = GetInterpolatedPosition();
-  renderer.RenderFillRect(interpolatedPosition.GetX(),
-                          interpolatedPosition.GetY(),
-                          GetWidth(),
-                          GetHeight());
+  auto x = viewport.GetTranslatedX(interpolatedPosition.GetX());
+  auto y = viewport.GetTranslatedY(interpolatedPosition.GetY());
+  renderer.RenderFillRect(x, y, GetWidth(), GetHeight());
 }
 
 }
