@@ -8,46 +8,56 @@ namespace wanderer::core {
 // TODO see the solution Notch used for one of his ludum dare games, where only the ID is stored
 //  and there are only one actual instance of the Tile class that describes the different types.
 
-class Tile : public IGameObject {
- private:
-  int row;
-  int col;
-  int id;
+/**
+ * The ITile interface specifies objects that represent tiles.
+ *
+ * @see IGameObject
+ * @since 0.1.0
+ */
+class ITile : public IGameObject {
+ protected:
+  ITile() = default;
 
  public:
   static constexpr int SIZE = 200;
 
-  Tile(int row, int col, int id);
+  ~ITile() override = default;
 
-  ~Tile() override = default;
+  /**
+   * Returns the row index of the tile.
+   *
+   * @return the row index of the tile.
+   * @since 0.1.0
+   */
+  [[nodiscard]] virtual int GetRow() const noexcept = 0;
 
-  void Tick(float delta) override;
+  /**
+   * Returns the column index of the tile.
+   *
+   * @return the column index of the tile.
+   * @since 0.1.0
+   */
+  [[nodiscard]] virtual int GetCol() const noexcept = 0;
 
-  void Draw(visuals::Renderer& renderer, const Viewport& viewport) const noexcept override;
+  /**
+   * Returns the type ID the tile.
+   *
+   * @return the type ID the tile.
+   * @since 0.1.0
+   */
+  [[nodiscard]] virtual int GetId() const noexcept = 0;
 
-  Rectangle GetHitbox() const noexcept override;
-
-  [[nodiscard]] inline float GetX() const noexcept override {
-    return static_cast<float>(col) * SIZE;
-  }
-
-  [[nodiscard]] inline float GetY() const noexcept override {
-    return static_cast<float>(row) * SIZE;
-  }
-
-  [[nodiscard]] inline int GetWidth() const noexcept override { return SIZE; }
-
-  [[nodiscard]] inline int GetHeight() const noexcept override { return SIZE; }
-
-  [[nodiscard]] inline int GetRow() const noexcept { return row; }
-
-  [[nodiscard]] inline int GetCol() const noexcept { return col; }
-
-  [[nodiscard]] inline int GetId() const noexcept { return id; }
+  /**
+   * Indicates whether or not the tile is blocked.
+   *
+   * @return true if the tile is blocked; false otherwise.
+   * @since 0.1.0
+   */
+  [[nodiscard]] virtual bool IsBlocked() const noexcept = 0;
 };
 
-using Tile_uptr = std::unique_ptr<Tile>;
-using Tile_sptr = std::shared_ptr<Tile>;
-using Tile_wptr = std::weak_ptr<Tile>;
+using ITile_uptr = std::unique_ptr<ITile>;
+using ITile_sptr = std::shared_ptr<ITile>;
+using ITile_wptr = std::weak_ptr<ITile>;
 
 }

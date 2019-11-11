@@ -11,8 +11,8 @@ WandererCoreImpl::WandererCoreImpl()
   player = std::make_unique<Player>();
   player->SetSpeed(400);
 
-  viewport.SetLevelWidth(tileMap->GetCols() * Tile::SIZE);
-  viewport.SetLevelHeight(tileMap->GetRows() * Tile::SIZE);
+  viewport.SetLevelWidth(tileMap->GetCols() * ITile::SIZE);
+  viewport.SetLevelHeight(tileMap->GetRows() * ITile::SIZE);
 }
 
 WandererCoreImpl::~WandererCoreImpl() = default;
@@ -35,8 +35,8 @@ void WandererCoreImpl::SavePositions() {
   player->SavePosition();
 }
 
-void WandererCoreImpl::Interpolate(double alpha) {
-  player->Interpolate(static_cast<float>(alpha)); // TODO only use floats or doubles
+void WandererCoreImpl::Interpolate(float alpha) {
+  player->Interpolate(alpha);
 }
 
 void WandererCoreImpl::UpdateViewport() {

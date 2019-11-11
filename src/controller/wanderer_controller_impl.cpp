@@ -44,14 +44,14 @@ void WandererControllerImpl::Run() {
   Uint64 now = SDL_GetPerformanceCounter();
   Uint64 then = 0;
 
-  double delta;
-  double accumulator = 0.0;
+  float delta;
+  float accumulator = 0.0f;
 
   while (running) {
     then = now;
     now = SDL_GetPerformanceCounter();
 
-    auto diff = static_cast<double>(now - then);
+    auto diff = static_cast<float>(now - then);
     delta = diff / SDL_GetPerformanceFrequency();
 
     UpdateInput();

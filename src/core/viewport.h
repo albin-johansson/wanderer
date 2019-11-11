@@ -11,8 +11,8 @@ namespace wanderer::core {
 class Viewport final {
  private:
   Rectangle bounds;
-  int levelWidth;
-  int levelHeight;
+  float levelWidth;
+  float levelHeight;
 
  public:
   /**

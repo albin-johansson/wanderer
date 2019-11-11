@@ -37,7 +37,7 @@ class WandererCoreImpl final : public IWandererCore {
 
   void SavePositions() override;
 
-  void Interpolate(double alpha) override;
+  void Interpolate(float alpha) override;
 
   void UpdateViewport() override;
 

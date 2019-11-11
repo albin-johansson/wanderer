@@ -7,7 +7,7 @@
 
 namespace wanderer::core {
 
-using TileMatrix = std::vector<std::vector<Tile_sptr>>;
+using TileMatrix = std::vector<std::vector<ITile_sptr>>;
 
 /**
  * The TileMap class represents a map of tiles, used to build the game world.
@@ -41,7 +41,7 @@ class TileMap final : public IDrawable {
    * @return a vector that contains all of the tiles inside the specified bounds.
    * @since 0.1.0
    */
-  std::vector<Tile_sptr> GetTiles(const Rectangle& bounds) const;
+  std::vector<ITile_sptr> GetTiles(const Rectangle& bounds) const;
 
   /**
    * Returns the number of rows in the tile map.

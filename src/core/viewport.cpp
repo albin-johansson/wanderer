@@ -9,13 +9,14 @@ Viewport::Viewport(int vpWidth, int vpHeight, int levelWidth, int levelHeight) n
 }
 
 void Viewport::Center(float ox, float oy, int width, int height) noexcept {
-  static double moveSpeed = 0.1;
+  const static float moveSpeed = 0.1f;
+  const auto boundsWidth = float(bounds.GetWidth());
+  const auto boundsHeight = float(bounds.GetHeight());
 
-  auto targetX = (ox + (width / 2.0)) - (bounds.GetWidth() / 2.0);
-  auto targetY = (oy + (height / 2.0)) - (bounds.GetHeight() / 2.0);
-
-  auto x = bounds.GetX() + (targetX - bounds.GetX()) * moveSpeed;
-  auto y = bounds.GetY() + (targetY - bounds.GetY()) * moveSpeed;
+  float targetX = (ox + (float(width) / 2.0f) - (boundsWidth / 2.0f));
+  float targetY = (oy + (float(height) / 2.0f)) - (boundsHeight / 2.0f);
+  float x = bounds.GetX() + (targetX - bounds.GetX()) * moveSpeed;
+  float y = bounds.GetY() + (targetY - bounds.GetY()) * moveSpeed;
 
   if (x < 0) {
     x = 0;
@@ -25,12 +26,11 @@ void Viewport::Center(float ox, float oy, int width, int height) noexcept {
     y = 0;
   }
 
-  if (x > (levelWidth - bounds.GetWidth())) {
-    x = levelWidth - bounds.GetWidth();
-  }
-  if (y > (levelHeight - bounds.GetHeight())) {
-    y = levelHeight - bounds.GetHeight();
-  }
+  float widthDiff = levelWidth - boundsWidth;
+  x = (x > widthDiff) ? widthDiff : x;
+
+  float heightDiff = levelHeight - boundsHeight;
+  y = (y > heightDiff) ? heightDiff : y;
 
   bounds.SetX(x);
   bounds.SetY(y);
