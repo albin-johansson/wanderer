@@ -25,15 +25,15 @@ set(SOURCE_FILES
         core/tiles/tile_map.h
         core/math/rectangle.cpp
         core/math/rectangle.h
-        core/gameobjects/game_object.h
+        core/game_object.h
         core/drawable.h
-        core/gameobjects/entity.h
+        core/entities/entity.h
         core/direction.h
-        core/gameobjects/player.cpp
-        core/gameobjects/player.h
-        core/gameobjects/movable_object.h
-        core/gameobjects/movable_delegate.cpp
-        core/gameobjects/movable_delegate.h
+        core/entities/player.cpp
+        core/entities/player.h
+        core/entities/movable_object.h
+        core/entities/movable_delegate.cpp
+        core/entities/movable_delegate.h
         controller/key_state_manager.cpp
         controller/key_state_manager.h
         controller/player_controller.cpp
@@ -55,7 +55,7 @@ target_include_directories(${WANDERER_LIB} PUBLIC util)
 target_include_directories(${WANDERER_LIB} PUBLIC service)
 target_include_directories(${WANDERER_LIB} PUBLIC core/math)
 target_include_directories(${WANDERER_LIB} PUBLIC core/tiles)
-target_include_directories(${WANDERER_LIB} PUBLIC core/gameobjects)
+target_include_directories(${WANDERER_LIB} PUBLIC core/entities)
 
 # Prepares the actual executable
 add_executable(${WANDERER_EXECUTABLE} main.cpp)
