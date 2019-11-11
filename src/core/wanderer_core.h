@@ -56,6 +56,13 @@ class IWandererCore {
   virtual void Interpolate(double alpha) = 0;
 
   /**
+   * Updates the position of the viewport.
+   *
+   * @since 0.1.0
+   */
+  virtual void UpdateViewport() = 0;
+
+  /**
    * Sets the width of the viewport.
    *
    * @param width the new width of the viewport.

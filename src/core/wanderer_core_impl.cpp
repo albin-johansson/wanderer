@@ -19,7 +19,6 @@ WandererCoreImpl::~WandererCoreImpl() = default;
 
 void WandererCoreImpl::Update() {
   player->Tick(TIME_STEP);
-  viewport.Center(player->GetX(), player->GetY(), player->GetWidth(), player->GetHeight());
 }
 
 void WandererCoreImpl::Render(Renderer& renderer) {
@@ -38,6 +37,14 @@ void WandererCoreImpl::SavePositions() {
 
 void WandererCoreImpl::Interpolate(double alpha) {
   player->Interpolate(static_cast<float>(alpha)); // TODO only use floats or doubles
+}
+
+void WandererCoreImpl::UpdateViewport() {
+  auto interpolatedPosition = player->GetInterpolatedPosition();
+  viewport.Center(interpolatedPosition.GetX(),
+                  interpolatedPosition.GetY(),
+                  player->GetWidth(),
+                  player->GetHeight());
 }
 
 void WandererCoreImpl::MovePlayer(Direction direction) {

@@ -68,6 +68,7 @@ void WandererControllerImpl::Run() {
 
       accumulator -= IWandererCore::TIME_STEP;
       core->Interpolate(accumulator / IWandererCore::TIME_STEP);
+      core->UpdateViewport();
     }
 
     core->Render(*renderer);
