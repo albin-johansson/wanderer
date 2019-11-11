@@ -11,7 +11,8 @@ Renderer::Renderer(SDL_Renderer* renderer) {
 
 Renderer::Renderer(SDL_Window* window) {
   Objects::RequireNonNull(window);
-  renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+  Uint32 flags = SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC;
+  renderer = SDL_CreateRenderer(window, -1, flags);
 }
 
 Renderer::~Renderer() {

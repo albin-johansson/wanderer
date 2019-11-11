@@ -22,9 +22,14 @@ class WandererControllerImpl final : public IWandererController {
   visuals::Window_uptr window = nullptr;
   visuals::Renderer_uptr renderer = nullptr;
   KeyStateManager_uptr keyStateManager = nullptr;
-
   PlayerController playerController;
 
+  /**
+   * @param core a unique pointer to the associated core instance.
+   * @throws BadStateException if the desktop dimensions cannot be deduced.
+   * @throws NullPointerException if the supplied pointer is nullptr.
+   * @since 0.1.0
+   */
   explicit WandererControllerImpl(core::IWandererCore_uptr core);
 
   void UpdateInput();
@@ -33,8 +38,9 @@ class WandererControllerImpl final : public IWandererController {
   /**
    * Creates and returns a unique pointer to an IWandererController instance.
    *
-   * @param core the associated IWandererCore instance.
-   * @return a unique pointer to an IWandererController instance.
+   * @param core a unique pointer to the associated core instance.
+   * @throws BadStateException if the desktop dimensions cannot be deduced.
+   * @throws NullPointerException if the supplied pointer is nullptr.
    * @since 0.1.0
    */
   friend IWandererController_uptr CreateController(core::IWandererCore_uptr core);

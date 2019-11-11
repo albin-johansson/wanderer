@@ -1,6 +1,7 @@
 #include "wanderer_controller_impl.h"
 #include <SDL.h>
 #include <memory>
+#include "bad_state_exception.h"
 #include "objects.h"
 
 using namespace wanderer::core;
@@ -12,9 +13,17 @@ WandererControllerImpl::WandererControllerImpl(IWandererCore_uptr core)
     : playerController(PlayerController(this)) {
   this->core = Objects::RequireNonNull(std::move(core));
 
-  // FIXME avoid hardcoded window size
-  window = std::make_unique<Window>("Wanderer", 1500, 800);
-  window->SetFullscreen(false);
+  SDL_DisplayMode dm;
+  if (SDL_GetDesktopDisplayMode(0, &dm) != 0) {
+    SDL_Log("SDL_GetDesktopDisplayMode failed: %s", SDL_GetError());
+    throw BadStateException();
+  }
+//  SDL_Log("Width: %i", dm.w);
+//  SDL_Log("Height: %i", dm.h);
+//  SDL_Log("Refresh rate: %i", dm.refresh_rate);
+
+  window = std::make_unique<Window>("Wanderer", dm.w, dm.h);
+  window->SetFullscreen(true);
 
   this->core->SetViewportWidth(window->GetWidth());
   this->core->SetViewportHeight(window->GetHeight());
@@ -81,11 +90,11 @@ void WandererControllerImpl::Quit() {
   running = false;
 }
 
-void WandererControllerImpl::MovePlayer(core::Direction direction) {
+void WandererControllerImpl::MovePlayer(Direction direction) {
   core->MovePlayer(direction);
 }
 
-void WandererControllerImpl::StopPlayer(core::Direction direction) {
+void WandererControllerImpl::StopPlayer(Direction direction) {
   core->StopPlayer(direction);
 }
 

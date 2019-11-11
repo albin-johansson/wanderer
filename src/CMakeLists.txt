@@ -38,7 +38,13 @@ set(SOURCE_FILES
         controller/player_controller.cpp
         controller/player_controller.h
         core/viewport.cpp
-        core/viewport.h core/tiles/grass_tile.cpp core/tiles/grass_tile.h core/tiles/abstract_tile.cpp core/tiles/abstract_tile.h)
+        core/viewport.h
+        core/tiles/grass_tile.cpp
+        core/tiles/grass_tile.h
+        core/tiles/abstract_tile.cpp
+        core/tiles/abstract_tile.h
+        core/bad_state_exception.cpp
+        core/bad_state_exception.h)
 
 # Prepares the Wanderer "library", which excludes linking and the main.cpp file
 add_library(${WANDERER_LIB} ${SOURCE_FILES})

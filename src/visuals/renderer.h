@@ -16,6 +16,8 @@ class Renderer final {
   SDL_Renderer* renderer = nullptr;
 
  public:
+  // TODO ctor with flags arg
+
   /**
    * Creates a renderer based on the supplied SDL_Renderer.
    *
@@ -28,7 +30,8 @@ class Renderer final {
   explicit Renderer(SDL_Renderer* renderer);
 
   /**
-   * Creates a renderer based on the supplied SDL_Window.
+   * Creates a renderer based on the supplied SDL_Window. The internal renderer will be created
+   * using the SDL_RENDERER_ACCELERATED and SDL_RENDERER_PRESENTVSYNC flags.
    *
    * @param window a pointer to the SDL_Window that will be used to create the
    * renderer.
