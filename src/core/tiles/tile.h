@@ -1,4 +1,5 @@
 #pragma once
+#include "game_object.h"
 #include "drawable.h"
 #include <memory>
 
@@ -7,7 +8,7 @@ namespace wanderer::core {
 // TODO see the solution Notch used for one of his ludum dare games, where only the ID is stored
 //  and there are only one actual instance of the Tile class that describes the different types.
 
-class Tile : public IDrawable {
+class Tile : public IGameObject {
  private:
   int row;
   int col;
@@ -18,9 +19,25 @@ class Tile : public IDrawable {
 
   Tile(int row, int col, int id);
 
-  ~Tile() = default;
+  ~Tile() override = default;
+
+  void Tick(float delta) override;
 
   void Draw(visuals::Renderer& renderer, const Viewport& viewport) const noexcept override;
+
+  Rectangle GetHitbox() const noexcept override;
+
+  [[nodiscard]] inline float GetX() const noexcept override {
+    return static_cast<float>(col) * SIZE;
+  }
+
+  [[nodiscard]] inline float GetY() const noexcept override {
+    return static_cast<float>(row) * SIZE;
+  }
+
+  [[nodiscard]] inline int GetWidth() const noexcept override { return SIZE; }
+
+  [[nodiscard]] inline int GetHeight() const noexcept override { return SIZE; }
 
   [[nodiscard]] inline int GetRow() const noexcept { return row; }
 
