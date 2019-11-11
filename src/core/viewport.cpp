@@ -35,6 +35,14 @@ void Viewport::SetLevelWidth(int levelWidth) noexcept {
   this->levelWidth = levelWidth;
 }
 
+void Viewport::SetWidth(int width) noexcept {
+  bounds.SetWidth(width);
+}
+
+void Viewport::SetHeight(int height) noexcept {
+  bounds.SetHeight(height);
+}
+
 void Viewport::SetLevelHeight(int levelHeight) noexcept {
   this->levelHeight = levelHeight;
 }

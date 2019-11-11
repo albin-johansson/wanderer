@@ -39,6 +39,10 @@ class WandererCoreImpl final : public IWandererCore {
 
   void Interpolate(double alpha) override;
 
+  void SetViewportWidth(int width) override;
+
+  void SetViewportHeight(int height) override;
+
   void MovePlayer(Direction direction) override;
 
   void StopPlayer(Direction direction) override;

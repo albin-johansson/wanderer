@@ -36,6 +36,22 @@ class Viewport final {
   void Center(float ox, float oy, int width, int height) noexcept;
 
   /**
+   * Sets the width of the viewport.
+   *
+   * @param width the new width of the viewport.
+   * @since 0.1.0
+   */
+  void SetWidth(int width) noexcept;
+
+  /**
+   * Sets the height of the viewport.
+   *
+   * @param height the new height of the viewport.
+   * @since 0.1.0
+   */
+  void SetHeight(int height) noexcept;
+
+  /**
    * Sets the width of the level.
    *
    * @param levelWidth the width of the level.

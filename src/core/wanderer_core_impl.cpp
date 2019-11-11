@@ -5,12 +5,14 @@ using namespace wanderer::visuals;
 namespace wanderer::core {
 
 WandererCoreImpl::WandererCoreImpl()
-    : viewport(Viewport(1500, 800, 2000, 2000)) {
+    : viewport(Viewport(10, 10, 10, 10)) {
 
   tileMap = std::make_unique<TileMap>(10, 10);
   player = std::make_unique<Player>();
   player->SetSpeed(400);
 
+  viewport.SetLevelWidth(tileMap->GetCols() * Tile::SIZE);
+  viewport.SetLevelHeight(tileMap->GetRows() * Tile::SIZE);
 }
 
 WandererCoreImpl::~WandererCoreImpl() = default;
@@ -45,6 +47,14 @@ void WandererCoreImpl::MovePlayer(Direction direction) {
 
 void WandererCoreImpl::StopPlayer(Direction direction) {
   player->Stop(direction);
+}
+
+void WandererCoreImpl::SetViewportWidth(int width) {
+  viewport.SetWidth(width);
+}
+
+void WandererCoreImpl::SetViewportHeight(int height) {
+  viewport.SetHeight(height);
 }
 
 }

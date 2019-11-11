@@ -55,8 +55,36 @@ class IWandererCore {
    */
   virtual void Interpolate(double alpha) = 0;
 
+  /**
+   * Sets the width of the viewport.
+   *
+   * @param width the new width of the viewport.
+   * @since 0.1.0
+   */
+  virtual void SetViewportWidth(int width) = 0;
+
+  /**
+   * Sets the height of the viewport.
+   *
+   * @param height the new height of the viewport.
+   * @since 0.1.0
+   */
+  virtual void SetViewportHeight(int height) = 0;
+
+  /**
+   * Moves the player entity.
+   *
+   * @param direction the direction in which the player will attempt to move.
+   * @since 0.1.0
+   */
   virtual void MovePlayer(Direction direction) = 0;
 
+  /**
+   * Stops the player entity from moving in the specified direction.
+   *
+   * @param direction the direction in which the player will stop moving in.
+   * @since 0.1.0
+   */
   virtual void StopPlayer(Direction direction) = 0;
 };
 

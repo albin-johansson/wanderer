@@ -16,6 +16,9 @@ WandererControllerImpl::WandererControllerImpl(IWandererCore_uptr core)
   window = std::make_unique<Window>("Wanderer", 1500, 800);
   window->SetFullscreen(false);
 
+  this->core->SetViewportWidth(window->GetWidth());
+  this->core->SetViewportHeight(window->GetHeight());
+
   renderer = std::make_unique<Renderer>(window->GetInternalWindow());
   keyStateManager = std::make_unique<KeyStateManager>();
 }
