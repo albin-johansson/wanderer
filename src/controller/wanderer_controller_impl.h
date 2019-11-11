@@ -15,7 +15,14 @@ namespace wanderer::controller {
  */
 class WandererControllerImpl final : public IWandererController {
  private:
+  /**
+   * A constant that denotes the maximum allowed frame time (delta time) in seconds. This is used
+   * to avoid the "spiral of death" in the game loop.
+   *
+   * @since 0.1.0
+   */
   static constexpr double MAX_FRAME_TIME = 0.25;
+
   bool running = false;
 
   core::IWandererCore_uptr core = nullptr;
