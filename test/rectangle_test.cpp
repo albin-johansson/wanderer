@@ -39,6 +39,26 @@ TEST_CASE("Rectangle(Rectangle&)", "[Rectangle]") {
   CHECK(rect.GetHeight() == copy.GetHeight());
 }
 
+TEST_CASE("Rectangle::MoveX", "[Rectangle]") {
+  float x = 41.2;
+  Rectangle rect(x, 10, 10, 10);
+
+  float dx = 24;
+  rect.MoveX(dx);
+
+  CHECK(rect.GetX() == Approx(x + dx));
+}
+
+TEST_CASE("Rectangle::MoveY", "[Rectangle]") {
+  float y = 77.6;
+  Rectangle rect(10, y, 10, 10);
+
+  float dy = 4.5;
+  rect.MoveY(dy);
+
+  CHECK(rect.GetY() == Approx(y + dy));
+}
+
 TEST_CASE("Rectangle::Contains", "[Rectangle]") {
   SECTION("Edge case when the point is positioned on the edge of the rectangle") {
     Rectangle rect(10, 10, 10, 10);

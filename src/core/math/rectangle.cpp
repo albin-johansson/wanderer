@@ -10,11 +10,19 @@ Rectangle::Rectangle(float x, float y, int width, int height) noexcept
 Rectangle::Rectangle(const Rectangle& rectangle) noexcept
     : Rectangle(rectangle.x, rectangle.y, rectangle.width, rectangle.height) {}
 
-void Rectangle::SetX(int x) noexcept {
+void Rectangle::MoveX(float dx) noexcept {
+  x += dx;
+}
+
+void Rectangle::MoveY(float dy) noexcept {
+  y += dy;
+}
+
+void Rectangle::SetX(float x) noexcept {
   this->x = x;
 }
 
-void Rectangle::SetY(int y) noexcept {
+void Rectangle::SetY(float y) noexcept {
   this->y = y;
 }
 

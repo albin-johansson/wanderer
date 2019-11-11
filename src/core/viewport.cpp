@@ -9,8 +9,13 @@ Viewport::Viewport(int vpWidth, int vpHeight, int levelWidth, int levelHeight) n
 }
 
 void Viewport::Center(float ox, float oy, int width, int height) noexcept {
-  auto x = (ox + (width / 2.0)) - (bounds.GetWidth() / 2.0);
-  auto y = (oy + (height / 2.0)) - (bounds.GetHeight() / 2.0);
+  static double moveSpeed = 0.1;
+
+  auto targetX = (ox + (width / 2.0)) - (bounds.GetWidth() / 2.0);
+  auto targetY = (oy + (height / 2.0)) - (bounds.GetHeight() / 2.0);
+
+  auto x = bounds.GetX() + (targetX - bounds.GetX()) * moveSpeed;
+  auto y = bounds.GetY() + (targetY - bounds.GetY()) * moveSpeed;
 
   if (x < 0) {
     x = 0;

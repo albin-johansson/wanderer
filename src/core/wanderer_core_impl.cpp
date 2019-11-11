@@ -19,13 +19,12 @@ WandererCoreImpl::~WandererCoreImpl() = default;
 
 void WandererCoreImpl::Update() {
   player->Tick(TIME_STEP);
+  viewport.Center(player->GetX(), player->GetY(), player->GetWidth(), player->GetHeight());
 }
 
 void WandererCoreImpl::Render(Renderer& renderer) {
   renderer.SetColor(0, 0, 0);
   renderer.Clear();
-
-  viewport.Center(player->GetX(), player->GetY(), player->GetWidth(), player->GetHeight());
 
   tileMap->Draw(renderer, viewport);
   player->Draw(renderer, viewport);

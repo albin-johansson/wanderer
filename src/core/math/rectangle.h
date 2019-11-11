@@ -41,12 +41,28 @@ class Rectangle final {
   Rectangle(const Rectangle& rectangle) noexcept;
 
   /**
+   * Moves the rectangle by the specified amount along the x-axis.
+   *
+   * @param dx the x-axis offset, may be negative.
+   * @since 0.1.0
+   */
+  void MoveX(float dx) noexcept;
+
+  /**
+   * Moves the rectangle by the specified amount along the y-axis.
+   *
+   * @param dy the y-axis offset, may be negative.
+   * @since 0.1.0
+   */
+  void MoveY(float dy) noexcept;
+
+  /**
    * Sets the x-coordinate of the rectangle.
    *
    * @param x the new x-coordinate of the rectangle.
    * @since 0.1.0
    */
-  void SetX(int x) noexcept;
+  void SetX(float x) noexcept;
 
   /**
    * Sets the y-coordinate of the rectangle.
@@ -54,7 +70,7 @@ class Rectangle final {
    * @param x the new y-coordinate of the rectangle.
    * @since 0.1.0
    */
-  void SetY(int y) noexcept;
+  void SetY(float y) noexcept;
 
   /**
    * Sets the width of the rectangle.
