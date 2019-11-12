@@ -35,7 +35,7 @@ class MovableObjectDelegate final : public IMovableObject {
     /* do nothing */
   }
 
-  void Tick(float delta) override;
+  void Tick(float delta) override { /* do nothing */ }
 
   void Move(Direction direction) noexcept override;
 
@@ -46,6 +46,14 @@ class MovableObjectDelegate final : public IMovableObject {
   void SavePosition() noexcept override;
 
   void Interpolate(float alpha) noexcept override;
+
+  void AddX(float dx) noexcept override;
+
+  void AddY(float dy) noexcept override;
+
+  void SetX(float x) noexcept override;
+
+  void SetY(float y) noexcept override;
 
   void SetSpeed(float speed) noexcept override;
 

@@ -2,6 +2,7 @@
 #include <memory>
 #include "renderer.h"
 #include "direction.h"
+#include "input.h"
 
 namespace wanderer::core {
 
@@ -21,9 +22,11 @@ class IWandererCore {
    *
    * @since 0.1.0
    */
-  static constexpr float TIME_STEP = 0.01667f; // ~60 Hz
+  static constexpr float TIME_STEP = 1.0f / 60.0f;
 
   virtual ~IWandererCore() = default;
+  
+  virtual void HandleInput(const Input& input) = 0;
 
   /**
    * Updates the state of the core.

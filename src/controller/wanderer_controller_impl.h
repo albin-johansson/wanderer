@@ -24,11 +24,12 @@ class WandererControllerImpl final : public IWandererController {
   static constexpr double MAX_FRAME_TIME = 0.25;
 
   bool running = false;
+  float vsyncDelta;
 
   core::IWandererCore_uptr core = nullptr;
   visuals::Window_uptr window = nullptr;
   visuals::Renderer_uptr renderer = nullptr;
-  KeyStateManager_uptr keyStateManager = nullptr;
+  KeyStateManager_sptr keyStateManager = nullptr;
   PlayerController playerController;
 
   /**
@@ -40,6 +41,8 @@ class WandererControllerImpl final : public IWandererController {
   explicit WandererControllerImpl(core::IWandererCore_uptr core);
 
   void UpdateInput();
+
+//  void SmoothDelta(float& delta);
 
  public:
   /**

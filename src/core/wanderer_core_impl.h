@@ -31,6 +31,8 @@ class WandererCoreImpl final : public IWandererCore {
    */
   friend IWandererCore_uptr CreateCore();
 
+  void HandleInput(const Input& input) override;
+
   void Update() override;
 
   void Render(visuals::Renderer& renderer) override;

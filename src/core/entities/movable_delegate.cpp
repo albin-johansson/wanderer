@@ -7,10 +7,6 @@ MovableObjectDelegate::MovableObjectDelegate(int width, int height)
 
 MovableObjectDelegate::~MovableObjectDelegate() = default;
 
-void MovableObjectDelegate::Tick(float delta) {
-  currPosition.Add(velocity.GetX() * delta, velocity.GetY() * delta);
-}
-
 void MovableObjectDelegate::Move(Direction direction) noexcept {
   switch (direction) {
     case Direction::RIGHT: {
@@ -83,6 +79,22 @@ float MovableObjectDelegate::GetY() const noexcept {
 
 Rectangle MovableObjectDelegate::GetHitbox() const noexcept {
   return Rectangle(currPosition.GetX(), currPosition.GetY(), width, height);
+}
+
+void MovableObjectDelegate::AddX(float dx) noexcept {
+  currPosition.Add(dx, 0);
+}
+
+void MovableObjectDelegate::AddY(float dy) noexcept {
+  currPosition.Add(0, dy);
+}
+
+void MovableObjectDelegate::SetX(float x) noexcept {
+  currPosition.SetX(x);
+}
+
+void MovableObjectDelegate::SetY(float y) noexcept {
+  currPosition.SetY(y);
 }
 
 }

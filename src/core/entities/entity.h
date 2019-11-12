@@ -1,5 +1,7 @@
 #pragma once
 #include "movable_object.h"
+#include "entity_state_id.h"
+#include "input.h"
 #include <memory>
 
 namespace wanderer::core {
@@ -18,6 +20,15 @@ class IEntity : public IMovableObject {
  public:
   ~IEntity() override = default;
 
+  virtual void HandleInput(const Input& input) = 0;
+
+  /**
+   * Sets the entity state that will be used by the entity.
+   *
+   * @param id the id of the state that will be used.
+   * @since 0.1.0
+   */
+  virtual void SetState(EntityStateID id) = 0;
   // TODO ...
 };
 

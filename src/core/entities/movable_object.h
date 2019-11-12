@@ -63,6 +63,38 @@ class IMovableObject : public IGameObject {
   virtual void Interpolate(float alpha) noexcept = 0; // TODO check doc
 
   /**
+   * Adds the supplied offset to the x-coordinate of the object.
+   *
+   * @param dx the x-axis offset, may be negative.
+   * @since 0.1.0
+   */
+  virtual void AddX(float dx) noexcept = 0;
+
+  /**
+   * Adds the supplied offset to the y-coordinate of the object.
+   *
+   * @param dy the y-axis offset, may be negative.
+   * @since 0.1.0
+   */
+  virtual void AddY(float dy) noexcept = 0;
+
+  /**
+   * Sets the x-coordinate of the object.
+   *
+   * @param x the new x-coordinate of the object.
+   * @since 0.1.0
+   */
+  virtual void SetX(float x) noexcept = 0;
+
+  /**
+   * Sets the y-coordinate of the object.
+   *
+   * @param y the new y-coordinate of the object.
+   * @since 0.1.0
+   */
+  virtual void SetY(float y) noexcept = 0;
+
+  /**
    * Sets the total speed of the movable.
    *
    * @param speed the new total speed of the movable.

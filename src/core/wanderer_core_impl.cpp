@@ -7,7 +7,7 @@ namespace wanderer::core {
 WandererCoreImpl::WandererCoreImpl()
     : viewport(Viewport(10, 10, 10, 10)) {
 
-  tileMap = std::make_unique<TileMap>(10, 10);
+  tileMap = std::make_unique<TileMap>(20, 20);
   player = std::make_unique<Player>();
   player->SetSpeed(400);
 
@@ -16,6 +16,11 @@ WandererCoreImpl::WandererCoreImpl()
 }
 
 WandererCoreImpl::~WandererCoreImpl() = default;
+
+
+void WandererCoreImpl::HandleInput(const Input& input) {
+  player->HandleInput(input);
+}
 
 void WandererCoreImpl::Update() {
   player->Tick(TIME_STEP);

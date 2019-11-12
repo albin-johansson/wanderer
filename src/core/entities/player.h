@@ -1,5 +1,6 @@
 #pragma once
 #include "entity.h"
+#include "entity_state_machine.h"
 
 namespace wanderer::core {
 
@@ -12,15 +13,36 @@ namespace wanderer::core {
 class Player final : public IEntity {
  private:
   IMovableObject_uptr movableObject = nullptr;
+  IEntityStateMachine_uptr entityStateMachine = nullptr;
 
  public:
   Player();
 
   ~Player() override = default;
 
+  void HandleInput(const Input& input) override;
+
   void Tick(float delta) override;
 
   void Draw(visuals::Renderer& renderer, const Viewport& viewport) const noexcept override;
+
+  void SetState(EntityStateID id) override;
+
+  inline void AddX(float dx) noexcept override {
+    movableObject->AddX(dx);
+  }
+
+  inline void AddY(float dy) noexcept override {
+    movableObject->AddY(dy);
+  }
+
+  inline void SetX(float x) noexcept override {
+    movableObject->SetX(x);
+  }
+
+  inline void SetY(float y) noexcept override {
+    movableObject->SetY(y);
+  }
 
   inline void Move(Direction direction) noexcept override {
     movableObject->Move(direction);

@@ -3,52 +3,71 @@ project(${CMAKE_PROJECT_NAME}_src)
 
 set(SOURCE_FILES
         service/bool_converter.h
-        visuals/window.h
-        visuals/window.cpp
-        visuals/renderer.h
-        visuals/renderer.cpp
-        core/wanderer_core.h
-        core/wanderer_core_impl.cpp
-        core/wanderer_core_impl.h
-        core/wanderer_core_factory.h
+
+        controller/key_state_manager.cpp
+        controller/key_state_manager.h
+        controller/player_controller.cpp
+        controller/player_controller.h
         controller/wanderer_controller.h
         controller/wanderer_controller_impl.cpp
         controller/wanderer_controller_impl.h
         controller/wanderer_controller_factory.h
+
+        core/wanderer_core.h
+        core/wanderer_core_impl.cpp
+        core/wanderer_core_impl.h
+        core/wanderer_core_factory.h
         core/tickable.h
-        core/math/vector_2.cpp
-        core/math/vector_2.h
         core/objects.h
-        core/tiles/tile.h
-        core/tiles/tile_map.cpp
-        core/tiles/tile_map.h
-        core/math/rectangle.cpp
-        core/math/rectangle.h
         core/game_object.h
         core/drawable.h
-        core/entities/entity.h
         core/direction.h
+
+        core/math/rectangle.cpp
+        core/math/rectangle.h
+        core/math/vector_2.cpp
+        core/math/vector_2.h
+
+        core/entities/entity.h
         core/entities/player.cpp
         core/entities/player.h
         core/entities/movable_object.h
         core/entities/movable_delegate.cpp
         core/entities/movable_delegate.h
-        controller/key_state_manager.cpp
-        controller/key_state_manager.h
-        controller/player_controller.cpp
-        controller/player_controller.h
-        core/viewport.cpp
-        core/viewport.h
+
+        core/tiles/tile.h
+        core/tiles/tile_map.cpp
+        core/tiles/tile_map.h
         core/tiles/grass_tile.cpp
         core/tiles/grass_tile.h
         core/tiles/abstract_tile.cpp
         core/tiles/abstract_tile.h
+
         core/bad_state_exception.cpp
         core/bad_state_exception.h
+        core/input.cpp
+        core/input.h
+        core/viewport.cpp
+        core/viewport.h
+
+        core/entities/entitystate/entity_moving_state.cpp
+        core/entities/entitystate/entity_moving_state.h
+        core/entities/entitystate/entity_state.h
+        core/entities/entitystate/entity_state_machine.h
+        core/entities/entitystate/entity_state_id.h
+        core/entities/entitystate/entity_idle_state.cpp
+        core/entities/entitystate/entity_idle_state.h
+        core/entities/entitystate/entity_state_machine_impl.cpp
+        core/entities/entitystate/entity_state_machine_impl.h
+
+        visuals/window.h
+        visuals/window.cpp
+        visuals/renderer.h
+        visuals/renderer.cpp
         visuals/image.cpp
         visuals/image.h
         visuals/animation.cpp
-        visuals/animation.h
+        visuals/animation.h)
 
 # Prepares the Wanderer "library", which excludes linking and the main.cpp file
 add_library(${WANDERER_LIB} ${SOURCE_FILES})
@@ -65,6 +84,7 @@ target_include_directories(${WANDERER_LIB} PUBLIC service)
 target_include_directories(${WANDERER_LIB} PUBLIC core/math)
 target_include_directories(${WANDERER_LIB} PUBLIC core/tiles)
 target_include_directories(${WANDERER_LIB} PUBLIC core/entities)
+target_include_directories(${WANDERER_LIB} PUBLIC core/entities/entitystate)
 
 # Prepares the actual executable
 add_executable(${WANDERER_EXECUTABLE} main.cpp)
