@@ -44,7 +44,9 @@ set(SOURCE_FILES
         core/tiles/abstract_tile.cpp
         core/tiles/abstract_tile.h
         core/bad_state_exception.cpp
-        core/bad_state_exception.h)
+        core/bad_state_exception.h
+        visuals/animation.cpp
+        visuals/animation.h
 
 # Prepares the Wanderer "library", which excludes linking and the main.cpp file
 add_library(${WANDERER_LIB} ${SOURCE_FILES})
