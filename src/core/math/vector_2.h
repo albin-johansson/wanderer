@@ -52,6 +52,8 @@ class Vector2 final {
    */
   Vector2(const Vector2& vector);
 
+  // TODO distance, multiply (ScalarMul, ScrMul, Mul, Multiply)
+
   /**
    * Scales the vector. The supplied factor is multiplied with both of the coordinates of the
    * vector.
