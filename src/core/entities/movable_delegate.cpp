@@ -2,7 +2,7 @@
 
 namespace wanderer::core {
 
-MovableObjectDelegate::MovableObjectDelegate(int width, int height)
+MovableObjectDelegate::MovableObjectDelegate(float width, float height)
     : width(width), height(height) {}
 
 MovableObjectDelegate::~MovableObjectDelegate() = default;

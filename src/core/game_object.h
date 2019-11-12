@@ -44,7 +44,7 @@ class IGameObject : public ITickable, public IDrawable {
    * @return the width of the object.
    * @since 0.1.0
    */
-  [[nodiscard]] virtual int GetWidth() const noexcept = 0;
+  [[nodiscard]] virtual float GetWidth() const noexcept = 0;
 
   /**
    * Returns the height of the object.
@@ -52,7 +52,7 @@ class IGameObject : public ITickable, public IDrawable {
    * @return the height of the object.
    * @since 0.1.0
    */
-  [[nodiscard]] virtual int GetHeight() const noexcept = 0;
+  [[nodiscard]] virtual float GetHeight() const noexcept = 0;
 
   /**
    * Returns a rectangle that represents the hitbox of the object.

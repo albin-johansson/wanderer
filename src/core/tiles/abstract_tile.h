@@ -44,9 +44,9 @@ class AbstractTile : public ITile {
     return static_cast<float>(row) * static_cast<float>(SIZE);
   }
 
-  [[nodiscard]] inline int GetWidth() const noexcept final { return SIZE; }
+  [[nodiscard]] inline float GetWidth() const noexcept final { return SIZE; }
 
-  [[nodiscard]] inline int GetHeight() const noexcept final { return SIZE; }
+  [[nodiscard]] inline float GetHeight() const noexcept final { return SIZE; }
 };
 
 }

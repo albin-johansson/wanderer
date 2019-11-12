@@ -18,8 +18,8 @@ class MovableObjectDelegate final : public IMovableObject {
   Vector2 prevPosition;
   Vector2 interpolatedPosition;
   float speed = 0;
-  int width;
-  int height;
+  float width;
+  float height;
 
  public:
   /**
@@ -27,7 +27,7 @@ class MovableObjectDelegate final : public IMovableObject {
    * @param height the height of the object.
    * @since 0.1.0
    */
-  MovableObjectDelegate(int width, int height); // TODO should throw if bad dimensions?
+  MovableObjectDelegate(float width, float height); // TODO should throw if bad dimensions?
 
   ~MovableObjectDelegate() override;
 
@@ -61,9 +61,9 @@ class MovableObjectDelegate final : public IMovableObject {
 
   [[nodiscard]] float GetY() const noexcept override;
 
-  [[nodiscard]] inline int GetWidth() const noexcept override { return width; }
+  [[nodiscard]] inline float GetWidth() const noexcept override { return width; }
 
-  [[nodiscard]] inline int GetHeight() const noexcept override { return height; }
+  [[nodiscard]] inline float GetHeight() const noexcept override { return height; }
 
   [[nodiscard]] Rectangle GetHitbox() const noexcept override;
 

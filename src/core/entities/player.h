@@ -88,11 +88,11 @@ class Player final : public IEntity {
     return movableObject->GetY();
   }
 
-  [[nodiscard]] inline int GetWidth() const noexcept override {
+  [[nodiscard]] inline float GetWidth() const noexcept override {
     return movableObject->GetWidth();
   }
 
-  [[nodiscard]] inline int GetHeight() const noexcept override {
+  [[nodiscard]] inline float GetHeight() const noexcept override {
     return movableObject->GetHeight();
   }
 
