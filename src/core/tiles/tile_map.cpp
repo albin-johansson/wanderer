@@ -1,5 +1,6 @@
 #include "tile_map.h"
 #include "grass_tile.h"
+#include "objects.h"
 
 namespace wanderer::core {
 
@@ -23,10 +24,13 @@ TileMap::TileMap(int nRows, int nCols) : nRows(nRows), nCols(nCols) {
 TileMap::~TileMap() = default;
 
 void TileMap::Draw(visuals::Renderer& renderer, const Viewport& viewport) const noexcept {
-  auto tiles = GetTiles(viewport.GetBounds());
-  for (ITile_sptr tile : tiles) {
+  for (const ITile_sptr& tile : GetTiles(viewport.GetBounds())) {
     tile->Draw(renderer, viewport);
   }
+}
+
+void TileMap::SetTile(int row, int col, ITile_sptr tile) {
+  tiles->at(row).at(col) = Objects::RequireNonNull(std::move(tile));
 }
 
 std::vector<ITile_sptr> TileMap::GetTiles(const Rectangle& bounds) const { // TODO shouldn't be const

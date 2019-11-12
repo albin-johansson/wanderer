@@ -20,6 +20,15 @@ class TileMap final : public IDrawable {
   int nRows;
   int nCols;
 
+  /**
+   * Returns a vector that contains all of the tiles inside the specified bounds.
+   *
+   * @param bounds the rectangle that serves as the bounds to look for tiles in.
+   * @return a vector that contains all of the tiles inside the specified bounds.
+   * @since 0.1.0
+   */
+  std::vector<ITile_sptr> GetTiles(const Rectangle& bounds) const;
+
  public:
   /**
    * @param nRows the number of rows in the tile map.
@@ -32,16 +41,17 @@ class TileMap final : public IDrawable {
 
   void Draw(visuals::Renderer& renderer, const Viewport& viewport) const noexcept override;
 
-  // TODO SetTile, ...
-
   /**
-   * Returns a vector that contains all of the tiles inside the specified bounds.
+   * Sets the tile at the specified position.
    *
-   * @param bounds the rectangle that serves as the bounds to look for tiles in.
-   * @return a vector that contains all of the tiles inside the specified bounds.
+   * @param row the row index of the position that will be set.
+   * @param col the column index of the position that will be set.
+   * @param tile a shared pointer to the tile that will be used.
+   * @throws std::out_of_range if the specified position is out-of-bounds.
+   * @throws NullPointerException if the supplied tile pointer is null.
    * @since 0.1.0
    */
-  std::vector<ITile_sptr> GetTiles(const Rectangle& bounds) const;
+  void SetTile(int row, int col, ITile_sptr tile);
 
   /**
    * Returns the number of rows in the tile map.
