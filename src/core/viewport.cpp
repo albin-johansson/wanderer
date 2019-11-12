@@ -2,19 +2,19 @@
 
 namespace wanderer::core {
 
-Viewport::Viewport(int vpWidth, int vpHeight, int levelWidth, int levelHeight) noexcept
+Viewport::Viewport(float vpWidth, float vpHeight, float levelWidth, float levelHeight) noexcept
     : levelWidth(levelWidth), levelHeight(levelHeight) {
   bounds.SetWidth(vpWidth);
   bounds.SetHeight(vpHeight);
 }
 
-void Viewport::Center(float ox, float oy, int width, int height) noexcept {
+void Viewport::Center(float ox, float oy, float width, float height) noexcept {
   const static float moveSpeed = 0.1f;
-  const auto boundsWidth = float(bounds.GetWidth());
-  const auto boundsHeight = float(bounds.GetHeight());
+  const auto boundsWidth = bounds.GetWidth();
+  const auto boundsHeight = bounds.GetHeight();
 
-  float targetX = (ox + (float(width) / 2.0f) - (boundsWidth / 2.0f));
-  float targetY = (oy + (float(height) / 2.0f)) - (boundsHeight / 2.0f);
+  float targetX = (ox + (width / 2.0f)) - (boundsWidth / 2.0f);
+  float targetY = (oy + (height / 2.0f)) - (boundsHeight / 2.0f);
   float x = bounds.GetX() + (targetX - bounds.GetX()) * moveSpeed;
   float y = bounds.GetY() + (targetY - bounds.GetY()) * moveSpeed;
 
@@ -36,19 +36,19 @@ void Viewport::Center(float ox, float oy, int width, int height) noexcept {
   bounds.SetY(y);
 }
 
-void Viewport::SetLevelWidth(int levelWidth) noexcept {
+void Viewport::SetLevelWidth(float levelWidth) noexcept {
   this->levelWidth = levelWidth;
 }
 
-void Viewport::SetWidth(int width) noexcept {
+void Viewport::SetWidth(float width) noexcept {
   bounds.SetWidth(width);
 }
 
-void Viewport::SetHeight(int height) noexcept {
+void Viewport::SetHeight(float height) noexcept {
   bounds.SetHeight(height);
 }
 
-void Viewport::SetLevelHeight(int levelHeight) noexcept {
+void Viewport::SetLevelHeight(float levelHeight) noexcept {
   this->levelHeight = levelHeight;
 }
 

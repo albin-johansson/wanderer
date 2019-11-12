@@ -12,8 +12,8 @@ class Rectangle final {
  private:
   float x;
   float y;
-  int width;
-  int height;
+  float width;
+  float height;
 
  public:
   /**
@@ -30,7 +30,7 @@ class Rectangle final {
    * @param height the height of the rectangle.
    * @since 0.1.0
    */
-  Rectangle(float x, float y, int width, int height) noexcept;
+  Rectangle(float x, float y, float width, float height) noexcept;
 
   /**
    * Creates a copy of the supplied rectangle.
@@ -78,7 +78,7 @@ class Rectangle final {
    * @param x the new width of the rectangle.
    * @since 0.1.0
    */
-  void SetWidth(int width) noexcept;
+  void SetWidth(float width) noexcept;
 
   /**
    * Sets the height of the rectangle.
@@ -86,7 +86,7 @@ class Rectangle final {
    * @param x the new height of the rectangle.
    * @since 0.1.0
    */
-  void SetHeight(int height) noexcept;
+  void SetHeight(float height) noexcept;
 
   /**
    * Indicates whether or not the rectangle contains the point represented by the supplied
@@ -129,7 +129,7 @@ class Rectangle final {
    * @return the width of the rectangle.
    * @since 0.1.0
    */
-  [[nodiscard]] inline int GetWidth() const noexcept { return width; }
+  [[nodiscard]] inline float GetWidth() const noexcept { return width; }
 
   /**
    * Returns the height of the rectangle.
@@ -137,7 +137,7 @@ class Rectangle final {
    * @return the height of the rectangle.
    * @since 0.1.0
    */
-  [[nodiscard]] inline int GetHeight() const noexcept { return height; }
+  [[nodiscard]] inline float GetHeight() const noexcept { return height; }
 
   /**
    * Returns the maximum x-coordinate of the rectangle.
@@ -145,7 +145,7 @@ class Rectangle final {
    * @return the maximum x-coordinate.
    * @since 0.1.0
    */
-  [[nodiscard]] inline float GetMaxX() const noexcept { return x + static_cast<float>(width); }
+  [[nodiscard]] inline float GetMaxX() const noexcept { return x + width; }
 
   /**
    * Returns the maximum y-coordinate of the rectangle.
@@ -153,7 +153,7 @@ class Rectangle final {
    * @return the maximum y-coordinate.
    * @since 0.1.0
    */
-  [[nodiscard]] inline float GetMaxY() const noexcept { return y + static_cast<float>(height); }
+  [[nodiscard]] inline float GetMaxY() const noexcept { return y + height; }
 
 };
 

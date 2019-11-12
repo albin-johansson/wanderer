@@ -22,7 +22,7 @@ class Viewport final {
    * @param levelHeight the initial level height.
    * @since 0.1.0
    */
-  Viewport(int vpWidth, int vpHeight, int levelWidth, int levelHeight) noexcept;
+  Viewport(float vpWidth, float vpHeight, float levelWidth, float levelHeight) noexcept;
 
   /**
    * Centers the viewport over the object with the specified properties.
@@ -33,7 +33,7 @@ class Viewport final {
    * @param height the height of the object.
    * @since 0.1.0
    */
-  void Center(float ox, float oy, int width, int height) noexcept;
+  void Center(float ox, float oy, float width, float height) noexcept;
 
   /**
    * Sets the width of the viewport.
@@ -41,7 +41,7 @@ class Viewport final {
    * @param width the new width of the viewport.
    * @since 0.1.0
    */
-  void SetWidth(int width) noexcept;
+  void SetWidth(float width) noexcept;
 
   /**
    * Sets the height of the viewport.
@@ -49,7 +49,7 @@ class Viewport final {
    * @param height the new height of the viewport.
    * @since 0.1.0
    */
-  void SetHeight(int height) noexcept;
+  void SetHeight(float height) noexcept;
 
   /**
    * Sets the width of the level.
@@ -57,7 +57,7 @@ class Viewport final {
    * @param levelWidth the width of the level.
    * @since 0.1.0
    */
-  void SetLevelWidth(int levelWidth) noexcept;
+  void SetLevelWidth(float levelWidth) noexcept;
 
   /**
    * Sets the height of the level.
@@ -65,7 +65,7 @@ class Viewport final {
    * @param levelHeight the height of the level.
    * @since 0.1.0
    */
-  void SetLevelHeight(int levelHeight) noexcept;
+  void SetLevelHeight(float levelHeight) noexcept;
 
   /**
    * Returns the current bounds of the viewport.

@@ -4,7 +4,7 @@ namespace wanderer::core {
 
 Rectangle::Rectangle() noexcept : Rectangle(0, 0, 10, 10) {}
 
-Rectangle::Rectangle(float x, float y, int width, int height) noexcept
+Rectangle::Rectangle(float x, float y, float width, float height) noexcept
     : x(x), y(y), width(width), height(height) {}
 
 Rectangle::Rectangle(const Rectangle& rectangle) noexcept
@@ -26,11 +26,11 @@ void Rectangle::SetY(float y) noexcept {
   this->y = y;
 }
 
-void Rectangle::SetWidth(int width) noexcept {
+void Rectangle::SetWidth(float width) noexcept {
   this->width = width;
 }
 
-void Rectangle::SetHeight(int height) noexcept {
+void Rectangle::SetHeight(float height) noexcept {
   this->height = height;
 }
 
