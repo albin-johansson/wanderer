@@ -1,7 +1,6 @@
 #include "entity_idle_state.h"
 #include "entity_state_machine.h"
 #include "objects.h"
-#include "vector_2.h"
 #include "entity_sheet.h"
 
 namespace wanderer::core {

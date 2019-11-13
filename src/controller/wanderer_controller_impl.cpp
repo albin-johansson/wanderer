@@ -31,23 +31,21 @@ WandererControllerImpl::WandererControllerImpl() {
   }
   renderer = std::make_shared<Renderer>(window->GetInternalWindow());
 
-  float logicalWidth = 1600;
-  float logicalHeight = 900;
   auto windowWidth = static_cast<float>(window->GetWidth());
   auto windowHeight = static_cast<float>(window->GetHeight());
 
-  renderer->SetLogicalSize(logicalWidth, logicalHeight);
+  renderer->SetLogicalSize(LOGICAL_WIDTH, LOGICAL_HEIGHT);
   renderer->SetLogicalIntegerScale(false);
   renderer->SetViewport(Rectangle(0, 0, windowWidth, windowHeight));
-  renderer->SetScale(windowWidth / logicalWidth, windowHeight / logicalHeight);
+  renderer->SetScale(windowWidth / LOGICAL_WIDTH, windowHeight / LOGICAL_HEIGHT);
 
   SDL_Log("Logical width: %i", renderer->GetLogicalWidth());
   SDL_Log("Logical height: %i", renderer->GetLogicalHeight());
 
   auto imgGen = std::make_shared<ImageGenerator>(renderer);
   core = CreateCore(imgGen);
-  core->SetViewportWidth(logicalWidth);
-  core->SetViewportHeight(logicalHeight);
+  core->SetViewportWidth(LOGICAL_WIDTH);
+  core->SetViewportHeight(LOGICAL_HEIGHT);
 
   keyStateManager = std::make_shared<KeyStateManager>();
 

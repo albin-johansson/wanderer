@@ -15,6 +15,10 @@ namespace wanderer::controller {
  */
 class WandererControllerImpl final : public IWandererController {
  private:
+  // 1280x720, 1366x768, 1600x900
+  static constexpr float LOGICAL_WIDTH = 1366;
+  static constexpr float LOGICAL_HEIGHT = 768;
+
   bool running = false;
   core::IWandererCore_uptr core = nullptr;
   visuals::Window_uptr window = nullptr;
