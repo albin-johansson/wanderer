@@ -6,7 +6,7 @@ using namespace wanderer::visuals;
 namespace wanderer::core {
 
 WandererCoreImpl::WandererCoreImpl(visuals::ImageGenerator_sptr imgGenerator)
-    : viewport(Viewport(10, 10, 10, 10)) {
+    : viewport(Viewport(1, 1, 1, 1)) {
   imageGenerator = Objects::RequireNonNull(std::move(imgGenerator));
 
   tileMap = std::make_unique<TileMap>(50, 50);

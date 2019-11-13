@@ -15,6 +15,9 @@ namespace wanderer::core {
  */
 class WandererCoreImpl final : public IWandererCore {
  private:
+//  static constexpr float GAME_LOGICAL_WIDTH = 800;
+//  static constexpr float GAME_LOGICAL_HEIGHT = 600;
+
   TileMap_uptr tileMap = nullptr;
   IEntity_uptr player = nullptr;
   visuals::ImageGenerator_sptr imageGenerator = nullptr;

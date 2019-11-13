@@ -171,6 +171,18 @@ class Renderer final {
    */
   void SetColor(Uint8 red, Uint8 green, Uint8 blue) noexcept;
 
+  void SetViewport(const core::Rectangle& viewport) noexcept;
+
+  void SetScale(float xScale, float yScale) noexcept;
+
+  void SetLogicalSize(float width, float height) noexcept;
+
+  void SetLogicalIntegerScale(bool useLogicalIntegerScale) noexcept;
+
+  [[nodiscard]] int GetLogicalWidth() const noexcept;
+
+  [[nodiscard]] int GetLogicalHeight() const noexcept;
+
   /**
    * Returns a pointer to the internal SDL_Renderer instance.
    *

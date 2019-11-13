@@ -1,7 +1,10 @@
 #include "renderer.h"
 #include "objects.h"
+#include "bool_converter.h"
+#include <SDL_log.h>
 
 using namespace wanderer::core;
+using namespace wanderer::service;
 
 namespace wanderer::visuals {
 
@@ -102,6 +105,43 @@ void Renderer::SetColor(Uint8 red, Uint8 green, Uint8 blue,
 
 void Renderer::SetColor(Uint8 red, Uint8 green, Uint8 blue) noexcept {
   SDL_SetRenderDrawColor(renderer, red, green, blue, SDL_ALPHA_OPAQUE);
+}
+
+void Renderer::SetViewport(const core::Rectangle& viewport) noexcept {
+  SDL_Rect rect = viewport.ToSdlRect();
+  SDL_RenderSetViewport(renderer, &rect);
+}
+
+void Renderer::SetScale(float xScale, float yScale) noexcept {
+  SDL_RenderSetScale(renderer, xScale, yScale);
+}
+
+void Renderer::SetLogicalSize(float width, float height) noexcept {
+  int result = SDL_RenderSetLogicalSize(renderer,
+                                        static_cast<int>(width),
+                                        static_cast<int>(height));
+  if (result != 0) {
+    SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION,
+                   SDL_LOG_PRIORITY_WARN,
+                   "Failed to set logical size! %s",
+                   SDL_GetError());
+  }
+}
+
+void Renderer::SetLogicalIntegerScale(bool useLogicalIntegerScale) noexcept {
+  SDL_RenderSetIntegerScale(renderer, BoolConverter::Convert(useLogicalIntegerScale));
+}
+
+int Renderer::GetLogicalWidth() const noexcept {
+  int w = 0;
+  SDL_RenderGetLogicalSize(renderer, &w, nullptr);
+  return w;
+}
+
+int Renderer::GetLogicalHeight() const noexcept {
+  int h = 0;
+  SDL_RenderGetLogicalSize(renderer, nullptr, &h);
+  return h;
 }
 
 }  // namespace wanderer::visuals
