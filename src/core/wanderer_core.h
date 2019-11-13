@@ -17,23 +17,17 @@ class IWandererCore {
   IWandererCore() = default;
 
  public:
-  /**
-   * A constant that describes the fixed time step of logic updates, in seconds.
-   *
-   * @since 0.1.0
-   */
-  static constexpr float TIME_STEP = 1.0f / 60.0f;
-
   virtual ~IWandererCore() = default;
-  
+
   virtual void HandleInput(const Input& input) = 0;
 
   /**
    * Updates the state of the core.
    *
+   * @param delta the delta time, in seconds.
    * @since 0.1.0
    */
-  virtual void Update() = 0;
+  virtual void Update(float delta) = 0;
 
   /**
    * Renders the components in the core model.
@@ -44,13 +38,6 @@ class IWandererCore {
   virtual void Render(visuals::Renderer& renderer) = 0;
 
   /**
-   * Saves the positions of all movable game objects.
-   *
-   * @since 0.1.0
-   */
-  virtual void SavePositions() = 0;
-
-  /**
    * Interpolates the movable game objects.
    *
    * @param alpha the interpolation coefficient.
@@ -59,19 +46,12 @@ class IWandererCore {
   virtual void Interpolate(float alpha) = 0;
 
   /**
-   * Updates the position of the viewport.
-   *
-   * @since 0.1.0
-   */
-  virtual void UpdateViewport() = 0;
-
-  /**
    * Sets the width of the viewport.
    *
    * @param width the new width of the viewport.
    * @since 0.1.0
    */
-  virtual void SetViewportWidth(int width) = 0;
+  virtual void SetViewportWidth(float width) = 0;
 
   /**
    * Sets the height of the viewport.
@@ -79,7 +59,7 @@ class IWandererCore {
    * @param height the new height of the viewport.
    * @since 0.1.0
    */
-  virtual void SetViewportHeight(int height) = 0;
+  virtual void SetViewportHeight(float height) = 0;
 
   /**
    * Moves the player entity.
@@ -99,5 +79,7 @@ class IWandererCore {
 };
 
 using IWandererCore_uptr = std::unique_ptr<IWandererCore>;
+using IWandererCore_sptr = std::shared_ptr<IWandererCore>;
+using IWandererCore_wptr = std::weak_ptr<IWandererCore>;
 
 }

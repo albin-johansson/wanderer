@@ -9,7 +9,7 @@ class Input final {
   controller::KeyStateManager_sptr keyStateManager = nullptr;
 
  public:
-  Input(controller::KeyStateManager_sptr keyStateManager); // FIXME dependency
+  explicit Input(controller::KeyStateManager_sptr keyStateManager); // FIXME dependency
 
   ~Input();
 

@@ -20,6 +20,20 @@ class WandererCoreImpl final : public IWandererCore {
 
   WandererCoreImpl();
 
+  /**
+   * Saves the positions of all movable game objects.
+   *
+   * @since 0.1.0
+   */
+  void SavePositions();
+
+  /**
+   * Updates the position of the viewport.
+   *
+   * @since 0.1.0
+   */
+  void UpdateViewport();
+
  public:
   ~WandererCoreImpl() override;
 
@@ -33,19 +47,15 @@ class WandererCoreImpl final : public IWandererCore {
 
   void HandleInput(const Input& input) override;
 
-  void Update() override;
+  void Update(float delta) override;
 
   void Render(visuals::Renderer& renderer) override;
 
-  void SavePositions() override;
-
   void Interpolate(float alpha) override;
 
-  void UpdateViewport() override;
+  void SetViewportWidth(float width) override;
 
-  void SetViewportWidth(int width) override;
-
-  void SetViewportHeight(int height) override;
+  void SetViewportHeight(float height) override;
 
   void MovePlayer(Direction direction) override;
 

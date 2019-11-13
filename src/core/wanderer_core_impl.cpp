@@ -11,19 +11,20 @@ WandererCoreImpl::WandererCoreImpl()
   player = std::make_unique<Player>();
   player->SetSpeed(400);
 
-  viewport.SetLevelWidth(tileMap->GetCols() * ITile::SIZE);
-  viewport.SetLevelHeight(tileMap->GetRows() * ITile::SIZE);
+  viewport.SetLevelWidth(static_cast<float>(tileMap->GetCols()) * ITile::SIZE);
+  viewport.SetLevelHeight(static_cast<float>(tileMap->GetRows()) * ITile::SIZE);
 }
 
 WandererCoreImpl::~WandererCoreImpl() = default;
-
 
 void WandererCoreImpl::HandleInput(const Input& input) {
   player->HandleInput(input);
 }
 
-void WandererCoreImpl::Update() {
-  player->Tick(TIME_STEP);
+void WandererCoreImpl::Update(float delta) {
+  SavePositions();
+  player->Tick(delta);
+  UpdateViewport();
 }
 
 void WandererCoreImpl::Render(Renderer& renderer) {
@@ -60,11 +61,11 @@ void WandererCoreImpl::StopPlayer(Direction direction) {
   player->Stop(direction);
 }
 
-void WandererCoreImpl::SetViewportWidth(int width) {
+void WandererCoreImpl::SetViewportWidth(float width) {
   viewport.SetWidth(width);
 }
 
-void WandererCoreImpl::SetViewportHeight(int height) {
+void WandererCoreImpl::SetViewportHeight(float height) {
   viewport.SetHeight(height);
 }
 

@@ -94,7 +94,7 @@ class Renderer final {
    * @param height the height of the rendered texture.
    * @since 0.1.0
    */
-  void RenderTexture(SDL_Texture* texture, float x, float y, int width, int height) noexcept;
+  void RenderTexture(SDL_Texture* texture, float x, float y, float width, float height) noexcept;
 
   /**
    * Renders a filled rectangle with the currently selected color. This method has no effect if the
@@ -118,7 +118,7 @@ class Renderer final {
    * @param height the height of the rendered rectangle.
    * @since 0.1.0
    */
-  void RenderFillRect(float x, float y, int width, int height) noexcept;
+  void RenderFillRect(float x, float y, float width, float height) noexcept;
 
   /**
    * Renders an outlined rectangle with the currently selected color. This method has no effect if
@@ -130,7 +130,7 @@ class Renderer final {
    * @param height the height of the rendered rectangle.
    * @since 0.1.0
    */
-  void RenderRect(float x, float y, int width, int height) noexcept;
+  void RenderRect(float x, float y, float width, float height) noexcept;
 
   /**
    * Renders an outlined rectangle with the currently selected color. This method has no effect if
