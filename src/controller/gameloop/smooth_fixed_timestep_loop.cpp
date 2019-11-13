@@ -8,15 +8,22 @@ using namespace wanderer::visuals;
 
 namespace wanderer::controller {
 
-// TODO interface for game loops, should allow for swapping between different implementations
-
 SmoothFixedTimestepLoop::SmoothFixedTimestepLoop(KeyStateManager_sptr keyStateManager,
                                                  float vsyncRate)
-    : vsyncRate(vsyncRate), timeStep(1.0f / vsyncRate) {
+    : vsyncRate(vsyncRate), timeStep(1.0f / vsyncRate), counterFreq(SDL_GetPerformanceFrequency()) {
   this->keyStateManager = Objects::RequireNonNull(std::move(keyStateManager));
   quit = false;
   now = SDL_GetPerformanceCounter();
   then = now;
+
+  SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION,
+                 SDL_LOG_PRIORITY_INFO,
+                 "Using fixed timestep loop with delta time smoothing.");
+
+  SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION,
+                 SDL_LOG_PRIORITY_INFO,
+                 "High-performance counter frequency: %f",
+                 counterFreq);
 }
 
 SmoothFixedTimestepLoop::~SmoothFixedTimestepLoop() = default;
@@ -44,7 +51,7 @@ void SmoothFixedTimestepLoop::SmoothDelta() {
     frameCount = 1;
   }
 
-  const float oldDelta = delta;
+  float oldDelta = delta;
   delta = static_cast<float>(frameCount) / vsyncRate;
   deltaBuffer = oldDelta - delta;
 }
@@ -55,7 +62,7 @@ void SmoothFixedTimestepLoop::Update(IWandererCore& core, Renderer& renderer) {
   then = now;
   now = SDL_GetPerformanceCounter();
 
-  delta = static_cast<float>(now - then) / SDL_GetPerformanceFrequency();
+  delta = static_cast<float>(now - then) / counterFreq;
 
   if (delta > MAX_FRAME_TIME) {
     delta = MAX_FRAME_TIME;

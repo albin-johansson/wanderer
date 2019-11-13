@@ -15,6 +15,9 @@ WandererControllerImpl::WandererControllerImpl(IWandererCore_uptr core) {
   this->core = Objects::RequireNonNull(std::move(core));
 
   SDL_DisplayMode desktop = GetDesktopInfo();
+  SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION,
+                 SDL_LOG_PRIORITY_INFO,
+                 "Desktop refresh rate: %i", desktop.refresh_rate);
 
   window = std::make_unique<Window>("Wanderer", desktop.w, desktop.h);
   window->SetFullscreen(true);
@@ -23,7 +26,9 @@ WandererControllerImpl::WandererControllerImpl(IWandererCore_uptr core) {
   if (icon != nullptr) {
     window->SetIcon(icon);
   } else {
-    SDL_Log("Failed to load window icon: %s", SDL_GetError());
+    SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION,
+                   SDL_LOG_PRIORITY_WARN,
+                   "Failed to load window icon! %s", SDL_GetError());
   }
 
   this->core->SetViewportWidth(static_cast<float>(window->GetWidth()));
