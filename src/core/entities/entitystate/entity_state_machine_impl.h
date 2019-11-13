@@ -7,6 +7,12 @@
 
 namespace wanderer::core {
 
+/**
+ * The EntityStateMachineImpl class is an implementation of the IEntityStateMachine interface.
+ *
+ * @see IEntityStateMachine
+ * @since 0.1.0
+ */
 class EntityStateMachineImpl final : public IEntityStateMachine {
  private:
   std::map<EntityStateID, IEntityState_sptr> states;
@@ -16,6 +22,12 @@ class EntityStateMachineImpl final : public IEntityStateMachine {
   void Put(EntityStateID id, IEntityState_sptr state);
 
  public:
+  /**
+   * @param entity a pointer to the associated entity instance, will not be freed by the created
+   * state machine.
+   * @throws NullPointerException if the supplied pointer is null.
+   * @since 0.1.0
+   */
   explicit EntityStateMachineImpl(IEntity* entity);
 
   ~EntityStateMachineImpl() override;

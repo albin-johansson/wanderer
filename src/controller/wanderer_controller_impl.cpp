@@ -16,8 +16,8 @@ WandererControllerImpl::WandererControllerImpl(IWandererCore_uptr core) {
 
   SDL_DisplayMode desktop = GetDesktopInfo();
 
-  window = std::make_unique<Window>("Wanderer", desktop.w / 2, desktop.h / 2);
-  window->SetFullscreen(false);
+  window = std::make_unique<Window>("Wanderer", desktop.w, desktop.h);
+  window->SetFullscreen(true);
 
   SDL_Surface* icon = IMG_Load("resources/tactile_icon.png");
   if (icon != nullptr) {

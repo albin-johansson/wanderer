@@ -11,7 +11,8 @@ namespace wanderer::controller {
 // TODO interface for game loops, should allow for swapping between different implementations
 
 SmoothFixedTimestepLoop::SmoothFixedTimestepLoop(KeyStateManager_sptr keyStateManager,
-                                                 float vsyncRate) : vsyncRate(vsyncRate) {
+                                                 float vsyncRate)
+    : vsyncRate(vsyncRate), timeStep(1.0f / vsyncRate) {
   this->keyStateManager = Objects::RequireNonNull(std::move(keyStateManager));
   quit = false;
   now = SDL_GetPerformanceCounter();
@@ -56,20 +57,20 @@ void SmoothFixedTimestepLoop::Update(IWandererCore& core, Renderer& renderer) {
 
   delta = static_cast<float>(now - then) / SDL_GetPerformanceFrequency();
 
-  SmoothDelta();
-
   if (delta > MAX_FRAME_TIME) {
     delta = MAX_FRAME_TIME;
   }
 
+  SmoothDelta();
+
   accumulator += delta;
 
-  while (accumulator >= FIXED_TIME_STEP) {
-    accumulator -= FIXED_TIME_STEP;
-    core.Update(FIXED_TIME_STEP);
+  while (accumulator >= timeStep) {
+    accumulator -= timeStep;
+    core.Update(timeStep);
   }
 
-  float alpha = accumulator / FIXED_TIME_STEP;
+  float alpha = accumulator / timeStep;
   if (alpha > 1.0f) {
     alpha = 1.0f;
   }

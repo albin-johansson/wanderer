@@ -23,16 +23,10 @@ class SmoothFixedTimestepLoop final : public IGameLoop {
    */
   static constexpr float MAX_FRAME_TIME = 0.25f;
 
-  /**
-   * A constant that represents the size of the fixed time steps, in seconds.
-   *
-   * @since 0.1.0
-   */
-  static constexpr float FIXED_TIME_STEP = 1.0f / 60.0f;
-
   KeyStateManager_sptr keyStateManager = nullptr;
   Uint32 then = 0;
   Uint32 now = 0;
+  const float timeStep;
   float vsyncRate = 0;
   float accumulator = 0;
   float delta = 0;
