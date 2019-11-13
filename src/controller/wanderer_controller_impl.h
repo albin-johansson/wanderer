@@ -4,7 +4,6 @@
 #include "renderer.h"
 #include "window.h"
 #include "key_state_manager.h"
-#include "player_controller.h"
 #include "fixed_timestep_loop.h"
 
 namespace wanderer::controller {
@@ -22,7 +21,6 @@ class WandererControllerImpl final : public IWandererController {
   visuals::Renderer_uptr renderer = nullptr;
   KeyStateManager_sptr keyStateManager = nullptr;
   FixedTimestepLoop* fixedTimestepLoop = nullptr;
-  PlayerController playerController;
 
   /**
    * @param core a unique pointer to the associated core instance.

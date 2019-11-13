@@ -6,8 +6,6 @@ set(SOURCE_FILES
 
         controller/key_state_manager.cpp
         controller/key_state_manager.h
-        controller/player_controller.cpp
-        controller/player_controller.h
         controller/wanderer_controller.h
         controller/wanderer_controller_impl.cpp
         controller/wanderer_controller_impl.h

@@ -10,8 +10,7 @@ using namespace wanderer::visuals;
 
 namespace wanderer::controller {
 
-WandererControllerImpl::WandererControllerImpl(IWandererCore_uptr core)
-    : playerController(PlayerController(this)) {
+WandererControllerImpl::WandererControllerImpl(IWandererCore_uptr core) {
   this->core = Objects::RequireNonNull(std::move(core));
 
   SDL_DisplayMode dm;

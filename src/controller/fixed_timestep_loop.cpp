@@ -37,11 +37,11 @@ void FixedTimestepLoop::Update(IWandererCore& core, Renderer& renderer) {
   now = SDL_GetPerformanceCounter();
   delta = static_cast<float>(now - then) / SDL_GetPerformanceFrequency();
 
-  delta += deltaBuffer;           // add in whatever time we currently have saved in the buffer
+  delta += deltaBuffer;
   const float oldDelta = delta;
 
-  delta = vsyncDelta;             // use refresh rate as delta
-  deltaBuffer = oldDelta - delta; // update delta buffer so we keep the same time on average
+  delta = vsyncDelta;
+  deltaBuffer = oldDelta - delta;
 
   if (delta > MAX_FRAME_TIME) {
     delta = MAX_FRAME_TIME;
