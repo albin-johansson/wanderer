@@ -49,10 +49,10 @@ void WandererCoreImpl::Interpolate(float alpha) {
 
 void WandererCoreImpl::UpdateViewport() {
   auto interpolatedPosition = player->GetInterpolatedPosition();
-  viewport.Center(interpolatedPosition.GetX(),
-                  interpolatedPosition.GetY(),
-                  player->GetWidth(),
-                  player->GetHeight());
+  viewport.Track(interpolatedPosition.GetX(),
+                 interpolatedPosition.GetY(),
+                 player->GetWidth(),
+                 player->GetHeight());
 }
 
 void WandererCoreImpl::MovePlayer(Direction direction) {

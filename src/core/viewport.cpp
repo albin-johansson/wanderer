@@ -8,7 +8,7 @@ Viewport::Viewport(float vpWidth, float vpHeight, float levelWidth, float levelH
   bounds.SetHeight(vpHeight);
 }
 
-void Viewport::Center(float ox, float oy, float width, float height) noexcept {
+void Viewport::Track(float ox, float oy, float width, float height) noexcept {
   const static float panSpeed = 0.08f;
 
   float targetX = (ox + (width / 2.0f)) - (bounds.GetWidth() / 2.0f);

@@ -25,7 +25,7 @@ class Viewport final {
   Viewport(float vpWidth, float vpHeight, float levelWidth, float levelHeight) noexcept;
 
   /**
-   * Centers the viewport over the object with the specified properties.
+   * Tracks the viewport towards the object with the specified properties.
    *
    * @param ox the x-coordinate of the object.
    * @param oy the y-coordinate of the object.
@@ -33,7 +33,7 @@ class Viewport final {
    * @param height the height of the object.
    * @since 0.1.0
    */
-  void Center(float ox, float oy, float width, float height) noexcept;
+  void Track(float ox, float oy, float width, float height) noexcept;
 
   /**
    * Sets the width of the viewport.
