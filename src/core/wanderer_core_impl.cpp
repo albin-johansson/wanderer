@@ -27,7 +27,9 @@ void WandererCoreImpl::Update(float delta) {
   UpdateViewport();
 }
 
-void WandererCoreImpl::Render(Renderer& renderer) {
+void WandererCoreImpl::Render(Renderer& renderer, float alpha) {
+  Interpolate(alpha);
+
   renderer.SetColor(0, 0, 0);
   renderer.Clear();
 

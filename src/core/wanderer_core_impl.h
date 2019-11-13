@@ -28,6 +28,14 @@ class WandererCoreImpl final : public IWandererCore {
   void SavePositions();
 
   /**
+   * Interpolates the movable game objects.
+   *
+   * @param alpha the interpolation coefficient.
+   * @since 0.1.0
+   */
+  void Interpolate(float alpha);
+
+  /**
    * Updates the position of the viewport.
    *
    * @since 0.1.0
@@ -49,9 +57,7 @@ class WandererCoreImpl final : public IWandererCore {
 
   void Update(float delta) override;
 
-  void Render(visuals::Renderer& renderer) override;
-
-  void Interpolate(float alpha) override;
+  void Render(visuals::Renderer& renderer, float alpha) override;
 
   void SetViewportWidth(float width) override;
 

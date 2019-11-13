@@ -19,6 +19,12 @@ class IWandererCore {
  public:
   virtual ~IWandererCore() = default;
 
+  /**
+   * Handles the supplied input.
+   *
+   * @param input a reference to the input state object.
+   * @since 0.1.0
+   */
   virtual void HandleInput(const Input& input) = 0;
 
   /**
@@ -30,20 +36,13 @@ class IWandererCore {
   virtual void Update(float delta) = 0;
 
   /**
-   * Renders the components in the core model.
+   * Renders the components in the core model using interpolation.
    *
    * @param renderer a reference to the renderer that will be used.
+   * @param alpha the interpolation coefficient, in the range [0, 1].
    * @since 0.1.0
    */
-  virtual void Render(visuals::Renderer& renderer) = 0;
-
-  /**
-   * Interpolates the movable game objects.
-   *
-   * @param alpha the interpolation coefficient.
-   * @since 0.1.0
-   */
-  virtual void Interpolate(float alpha) = 0;
+  virtual void Render(visuals::Renderer& renderer, float alpha) = 0;
 
   /**
    * Sets the width of the viewport.

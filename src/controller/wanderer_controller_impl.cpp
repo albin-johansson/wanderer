@@ -32,7 +32,7 @@ WandererControllerImpl::WandererControllerImpl(IWandererCore_uptr core) {
   renderer = std::make_unique<Renderer>(window->GetInternalWindow());
   keyStateManager = std::make_shared<KeyStateManager>();
 
-  auto vsyncDelta = 1.0f / static_cast<float>(dm.refresh_rate);
+  auto vsyncDelta = static_cast<float>(dm.refresh_rate);
   fixedTimestepLoop = new SmoothFixedTimestepLoop(keyStateManager, vsyncDelta);
 }
 
