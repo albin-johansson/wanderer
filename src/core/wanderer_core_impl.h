@@ -4,6 +4,7 @@
 #include "player.h"
 #include "tile_map.h"
 #include "viewport.h"
+#include "image_generator.h"
 
 namespace wanderer::core {
 
@@ -16,9 +17,10 @@ class WandererCoreImpl final : public IWandererCore {
  private:
   TileMap_uptr tileMap = nullptr;
   IEntity_uptr player = nullptr;
+  visuals::ImageGenerator_sptr imageGenerator = nullptr;
   Viewport viewport;
 
-  WandererCoreImpl();
+  explicit WandererCoreImpl(visuals::ImageGenerator_sptr imageGenerator);
 
   /**
    * Saves the positions of all movable game objects.
@@ -51,7 +53,7 @@ class WandererCoreImpl final : public IWandererCore {
    * @return a unique pointer to an IWandererCore instance.
    * @since 0.1.0
    */
-  friend IWandererCore_uptr CreateCore();
+  friend IWandererCore_uptr CreateCore(visuals::ImageGenerator_sptr imageGenerator);
 
   void HandleInput(const Input& input) override;
 

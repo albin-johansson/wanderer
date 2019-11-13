@@ -1,15 +1,18 @@
 #include "wanderer_core_impl.h"
+#include "objects.h"
 
 using namespace wanderer::visuals;
 
 namespace wanderer::core {
 
-WandererCoreImpl::WandererCoreImpl()
+WandererCoreImpl::WandererCoreImpl(visuals::ImageGenerator_sptr imgGenerator)
     : viewport(Viewport(10, 10, 10, 10)) {
+  imageGenerator = Objects::RequireNonNull(std::move(imgGenerator));
 
   tileMap = std::make_unique<TileMap>(20, 20);
-  player = std::make_unique<Player>();
-  player->SetSpeed(400);
+
+  player = std::make_unique<Player>(imageGenerator->Load("resources/player.png"));
+  player->SetSpeed(300);
 
   viewport.SetLevelWidth(static_cast<float>(tileMap->GetCols()) * ITile::SIZE);
   viewport.SetLevelHeight(static_cast<float>(tileMap->GetRows()) * ITile::SIZE);

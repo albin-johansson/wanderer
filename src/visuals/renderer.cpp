@@ -57,6 +57,16 @@ void Renderer::RenderTexture(SDL_Texture* texture,
   }
 }
 
+void Renderer::RenderTexture(SDL_Texture* texture,
+                             const core::Rectangle& s,
+                             const core::Rectangle& d) noexcept {
+  if (texture != nullptr) {
+    SDL_Rect src = s.ToSdlRect();
+    SDL_FRect dst = {d.GetX(), d.GetY(), d.GetWidth(), d.GetHeight()};
+    SDL_RenderCopyF(renderer, texture, &src, &dst);
+  }
+}
+
 void Renderer::RenderFillRect(float x, float y, float width, float height) noexcept {
   if ((width > 0) && (height > 0)) {
     SDL_FRect rect = {x, y, width, height};

@@ -32,6 +32,8 @@ class EntityStateMachineImpl final : public IEntityStateMachine {
 
   ~EntityStateMachineImpl() override;
 
+  void Draw(visuals::Renderer& renderer, const Viewport& viewport) const noexcept override;
+
   void HandleInput(const Input& input) override;
 
   void Change(EntityStateID id) override;

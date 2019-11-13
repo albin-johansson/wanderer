@@ -1,7 +1,7 @@
 #pragma once
 #include "tickable.h"
+#include "drawable.h"
 #include "input.h"
-#include "entity.h"
 #include <memory>
 
 namespace wanderer::core {
@@ -11,46 +11,34 @@ namespace wanderer::core {
  *
  * @since 0.1.0
  */
-class IEntityState {
+class IEntityState : public ITickable, public IDrawable {
  protected:
   IEntityState() = default;
 
  public:
-  virtual ~IEntityState() = default;
-
-  /**
-   * Updates the entity state object.
-   *
-   * @param entity a reference to the associated entity instance.
-   * @param delta the delta time, in seconds.
-   * @since 0.1.0
-   */
-  virtual void Update(IEntity& entity, float delta) = 0;
+  ~IEntityState() override = default;
 
   /**
    * Reacts to the supplied input
    *
-   * @param entity a reference to the associated entity instance.
    * @param input a reference to the input state.
    * @since 0.1.0
    */
-  virtual void HandleInput(IEntity& entity, const Input& input) = 0;
+  virtual void HandleInput(const Input& input) = 0;
 
   /**
    * Enters the entity state.
    *
-   * @param entity a reference to the associated entity instance.
    * @since 0.1.0
    */
-  virtual void EnterState(IEntity& entity) = 0;
+  virtual void EnterState() = 0;
 
   /**
    * Exits the entity state.
    *
-   * @param entity a reference to the associated entity instance.
    * @since 0.1.0
    */
-  virtual void ExitState(IEntity& entity) = 0;
+  virtual void ExitState() = 0;
 
 };
 

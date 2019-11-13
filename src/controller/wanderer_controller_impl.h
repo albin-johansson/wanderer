@@ -18,17 +18,15 @@ class WandererControllerImpl final : public IWandererController {
   bool running = false;
   core::IWandererCore_uptr core = nullptr;
   visuals::Window_uptr window = nullptr;
-  visuals::Renderer_uptr renderer = nullptr;
+  visuals::Renderer_sptr renderer = nullptr;
   KeyStateManager_sptr keyStateManager = nullptr;
   IGameLoop_uptr gameLoop = nullptr;
 
   /**
-   * @param core a unique pointer to the associated core instance.
    * @throws BadStateException if the desktop dimensions cannot be deduced.
-   * @throws NullPointerException if the supplied pointer is nullptr.
    * @since 0.1.0
    */
-  explicit WandererControllerImpl(core::IWandererCore_uptr core);
+  WandererControllerImpl();
 
   /**
    * Returns the desktop display mode.
@@ -43,12 +41,10 @@ class WandererControllerImpl final : public IWandererController {
   /**
    * Creates and returns a unique pointer to an IWandererController instance.
    *
-   * @param core a unique pointer to the associated core instance.
    * @throws BadStateException if the desktop dimensions cannot be deduced.
-   * @throws NullPointerException if the supplied pointer is nullptr.
    * @since 0.1.0
    */
-  friend IWandererController_uptr CreateController(core::IWandererCore_uptr core);
+  friend IWandererController_uptr CreateController();
 
   ~WandererControllerImpl() override;
 

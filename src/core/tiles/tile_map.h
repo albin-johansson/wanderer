@@ -4,6 +4,7 @@
 #include <vector>
 #include <memory>
 #include "rectangle.h"
+#include "image.h"
 
 namespace wanderer::core {
 

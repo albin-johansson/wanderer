@@ -2,18 +2,17 @@
 #include <SDL.h>
 #include <memory>
 #include "bad_state_exception.h"
-#include "objects.h"
 #include "input.h"
 #include "smooth_fixed_timestep_loop.h"
+#include "wanderer_core_factory.h"
+#include "image_generator.h"
 
 using namespace wanderer::core;
 using namespace wanderer::visuals;
 
 namespace wanderer::controller {
 
-WandererControllerImpl::WandererControllerImpl(IWandererCore_uptr core) {
-  this->core = Objects::RequireNonNull(std::move(core));
-
+WandererControllerImpl::WandererControllerImpl() {
   SDL_DisplayMode desktop = GetDesktopInfo();
   SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION,
                  SDL_LOG_PRIORITY_INFO,
@@ -30,11 +29,13 @@ WandererControllerImpl::WandererControllerImpl(IWandererCore_uptr core) {
                    SDL_LOG_PRIORITY_WARN,
                    "Failed to load window icon! %s", SDL_GetError());
   }
+  renderer = std::make_shared<Renderer>(window->GetInternalWindow());
 
-  this->core->SetViewportWidth(static_cast<float>(window->GetWidth()));
-  this->core->SetViewportHeight(static_cast<float>(window->GetHeight()));
+  auto imgGen = std::make_shared<ImageGenerator>(renderer);
+  core = CreateCore(imgGen);
+  core->SetViewportWidth(static_cast<float>(window->GetWidth()));
+  core->SetViewportHeight(static_cast<float>(window->GetHeight()));
 
-  renderer = std::make_unique<Renderer>(window->GetInternalWindow());
   keyStateManager = std::make_shared<KeyStateManager>();
 
   auto vsyncDelta = static_cast<float>(desktop.refresh_rate);

@@ -1,6 +1,7 @@
 #pragma once
 #include <memory>
 #include "tickable.h"
+#include "drawable.h"
 #include "entity_state_id.h"
 #include "input.h"
 
@@ -12,7 +13,7 @@ namespace wanderer::core {
  *
  * @since 0.1.0
  */
-class IEntityStateMachine : public ITickable {
+class IEntityStateMachine : public ITickable, public IDrawable {
  protected:
   IEntityStateMachine() = default;
 

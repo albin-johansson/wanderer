@@ -2,8 +2,8 @@
 
 namespace wanderer::controller {
 
-IWandererController_uptr CreateController(core::IWandererCore_uptr core) {
-  return std::unique_ptr<IWandererController>(new WandererControllerImpl(std::move(core)));
+IWandererController_uptr CreateController() {
+  return std::unique_ptr<IWandererController>(new WandererControllerImpl());
 }
 
 }

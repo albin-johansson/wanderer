@@ -1,10 +1,10 @@
 #pragma once
 #include "entity_state.h"
+#include "entity_state_machine.h"
 #include "entity.h"
+#include "animation.h"
 
 namespace wanderer::core {
-
-class IEntityStateMachine;
 
 /**
  * The EntityMovingState class is an implementation of the IEntityState interface that represents
@@ -15,29 +15,34 @@ class IEntityStateMachine;
 class EntityMovingState final : public IEntityState {
  private:
   IEntityStateMachine* parent = nullptr;
+  IEntity* entity = nullptr;
+  visuals::Animation animation;
   bool areMoveKeysDown = false;
 
-  void CheckPressed(IEntity& entity, const Input& input);
+  void CheckPressed(const Input& input);
 
-  void CheckReleased(IEntity& entity, const Input& input);
+  void CheckReleased(const Input& input);
 
  public:
   /**
+   * @param entity a pointer to the associated entity instance.
    * @param parent a pointer to the parent entity state machine.
-   * @throws NullPointerException if the supplied pointer is null.
+   * @throws NullPointerException if any pointers are pointer null.
    * @since 0.1.0
    */
-  explicit EntityMovingState(IEntityStateMachine* parent);
+  EntityMovingState(IEntity* entity, IEntityStateMachine* parent);
 
   ~EntityMovingState() override;
 
-  void Update(IEntity& entity, float delta) override;
+  void Tick(float delta) override;
 
-  void HandleInput(IEntity& entity, const Input& input) override;
+  void Draw(visuals::Renderer& renderer, const Viewport& viewport) const noexcept override;
 
-  void EnterState(IEntity& entity) override;
+  void HandleInput(const Input& input) override;
 
-  void ExitState(IEntity& entity) override;
+  void EnterState() override;
+
+  void ExitState() override;
 };
 
 }

@@ -1,6 +1,7 @@
 #pragma once
 #include <SDL_render.h>
 #include <string>
+#include <memory>
 
 namespace wanderer::visuals {
 
@@ -68,5 +69,9 @@ class Image final {
     return texture;
   }
 };
+
+using Image_uptr = std::unique_ptr<Image>;
+using Image_sptr = std::shared_ptr<Image>;
+using Image_wptr = std::weak_ptr<Image>;
 
 }

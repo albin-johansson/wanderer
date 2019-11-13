@@ -1,5 +1,6 @@
 #pragma once
 #include "entity_state.h"
+#include "entity.h"
 
 namespace wanderer::core {
 
@@ -14,6 +15,7 @@ class IEntityStateMachine;
 class EntityIdleState final : public IEntityState {
  private:
   IEntityStateMachine* parent = nullptr;
+  IEntity* entity = nullptr;
 
  public:
   /**
@@ -21,17 +23,19 @@ class EntityIdleState final : public IEntityState {
    * @throws NullPointerException if the supplied pointer is null.
    * @since 0.1.0
    */
-  explicit EntityIdleState(IEntityStateMachine* parent);
+  explicit EntityIdleState(IEntity* entity, IEntityStateMachine* parent);
 
   ~EntityIdleState() override;
 
-  void Update(IEntity& entity, float delta) override;
+  void Tick(float delta) override;
 
-  void HandleInput(IEntity& entity, const Input& input) override;
+  void Draw(visuals::Renderer& renderer, const Viewport& viewport) const noexcept override;
 
-  void EnterState(IEntity& entity) override;
+  void HandleInput(const Input& input) override;
 
-  void ExitState(IEntity& entity) override;
+  void EnterState() override;
+
+  void ExitState() override;
 
 };
 

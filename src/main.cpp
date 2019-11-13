@@ -6,6 +6,7 @@
 #include "wanderer_core_factory.h"
 #include "wanderer_controller.h"
 #include "wanderer_controller_factory.h"
+#include "image_generator.h"
 
 static void Init() {
   if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
@@ -19,9 +20,7 @@ static void Run() {
   using namespace wanderer::controller;
   using namespace wanderer::visuals;
 
-  IWandererCore_uptr core = CreateCore();
-  IWandererController_uptr controller = CreateController(std::move(core));
-
+  IWandererController_uptr controller = CreateController();
   controller->Run();
 }
 

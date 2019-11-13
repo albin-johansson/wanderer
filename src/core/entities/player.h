@@ -1,6 +1,7 @@
 #pragma once
 #include "entity.h"
 #include "entity_state_machine.h"
+#include "image.h"
 
 namespace wanderer::core {
 
@@ -14,9 +15,10 @@ class Player final : public IEntity {
  private:
   IMovableObject_uptr movableObject = nullptr;
   IEntityStateMachine_uptr entityStateMachine = nullptr;
+  visuals::Image_sptr sheet = nullptr;
 
  public:
-  Player();
+  explicit Player(visuals::Image_sptr sheet);
 
   ~Player() override = default;
 
@@ -98,6 +100,14 @@ class Player final : public IEntity {
 
   [[nodiscard]] inline Rectangle GetHitbox() const noexcept override {
     return movableObject->GetHitbox();
+  }
+
+  [[nodiscard]] inline Direction GetDominantDirection() const noexcept override {
+    return movableObject->GetDominantDirection();
+  }
+
+  visuals::Image& GetTileSheet() const noexcept override {
+    return *sheet;
   }
 };
 

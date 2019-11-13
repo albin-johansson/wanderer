@@ -17,9 +17,12 @@ class MovableObjectDelegate final : public IMovableObject {
   Vector2 currPosition;
   Vector2 prevPosition;
   Vector2 interpolatedPosition;
+  Direction dominantDirection;
   float speed = 0;
   float width;
   float height;
+
+  void UpdateDirection();
 
  public:
   /**
@@ -36,7 +39,7 @@ class MovableObjectDelegate final : public IMovableObject {
     /* do nothing */
   }
 
-  void Tick(float delta) override { /* do nothing */ }
+  void Tick(float delta) override { UpdateDirection(); }
 
   void Move(Direction direction) noexcept override;
 
@@ -67,6 +70,10 @@ class MovableObjectDelegate final : public IMovableObject {
   [[nodiscard]] inline float GetHeight() const noexcept override { return height; }
 
   [[nodiscard]] Rectangle GetHitbox() const noexcept override;
+
+  [[nodiscard]] inline Direction GetDominantDirection() const noexcept override {
+    return dominantDirection;
+  }
 
   [[nodiscard]] inline Vector2 GetVelocity() const noexcept override { return velocity; }
 

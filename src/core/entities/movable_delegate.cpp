@@ -8,9 +8,24 @@ MovableObjectDelegate::MovableObjectDelegate(float width, float height)
   if (width < 1 || height < 1) {
     throw std::invalid_argument("Invalid dimensions!");
   }
+  dominantDirection = Direction::DOWN;
 }
 
 MovableObjectDelegate::~MovableObjectDelegate() = default;
+
+void MovableObjectDelegate::UpdateDirection() {
+  if (velocity.GetX() > 0) {
+    dominantDirection = Direction::RIGHT;
+  } else if (velocity.GetX() < 0) {
+    dominantDirection = Direction::LEFT;
+  } else {
+    if (velocity.GetY() < 0) {
+      dominantDirection = Direction::UP;
+    } else if (velocity.GetY() > 0) {
+      dominantDirection = Direction::DOWN;
+    }
+  }
+}
 
 void MovableObjectDelegate::Move(Direction direction) noexcept {
   switch (direction) {

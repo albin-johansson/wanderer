@@ -1,4 +1,5 @@
 #pragma once
+#include <SDL_rect.h>
 
 namespace wanderer::core {
 
@@ -154,6 +155,14 @@ class Rectangle final {
    * @since 0.1.0
    */
   [[nodiscard]] inline float GetMaxY() const noexcept { return y + height; }
+
+  [[nodiscard]] inline SDL_Rect ToSdlRect() const noexcept {
+    int ix = static_cast<int>(x);
+    int iy = static_cast<int>(y);
+    int iw = static_cast<int>(width);
+    int ih = static_cast<int>(height);
+    return {ix, iy, iw, ih};
+  }
 
 };
 

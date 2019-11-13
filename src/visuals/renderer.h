@@ -2,6 +2,7 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <memory>
+#include "rectangle.h"
 
 namespace wanderer::visuals {
 
@@ -96,6 +97,10 @@ class Renderer final {
    */
   void RenderTexture(SDL_Texture* texture, float x, float y, float width, float height) noexcept;
 
+  void RenderTexture(SDL_Texture* texture,
+                     const core::Rectangle& src,
+                     const core::Rectangle& dst) noexcept;
+
   /**
    * Renders a filled rectangle with the currently selected color. This method has no effect if the
    * supplied width and/or height isn't greater than zero.
@@ -178,5 +183,7 @@ class Renderer final {
 };
 
 using Renderer_uptr = std::unique_ptr<Renderer>;
+using Renderer_sptr = std::shared_ptr<Renderer>;
+using Renderer_wptr = std::weak_ptr<Renderer>;
 
 }

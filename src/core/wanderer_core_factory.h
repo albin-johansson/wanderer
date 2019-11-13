@@ -1,10 +1,11 @@
 #pragma once
 #include "wanderer_core_impl.h"
+#include "image_generator.h"
 
 namespace wanderer::core {
 
-IWandererCore_uptr CreateCore() {
-  return std::unique_ptr<IWandererCore>(new WandererCoreImpl());
+inline IWandererCore_uptr CreateCore(visuals::ImageGenerator_sptr imageGenerator) {
+  return std::unique_ptr<IWandererCore>(new WandererCoreImpl(std::move(imageGenerator)));
 }
 
 }

@@ -102,6 +102,8 @@ class IMovableObject : public IGameObject {
    */
   virtual void SetSpeed(float speed) noexcept = 0;
 
+  [[nodiscard]] virtual Direction GetDominantDirection() const noexcept = 0;
+
   /**
    * Returns the current velocity of the object.
    *

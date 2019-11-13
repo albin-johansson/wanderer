@@ -69,7 +69,7 @@ set(SOURCE_FILES
         visuals/image.cpp
         visuals/image.h
         visuals/animation.cpp
-        visuals/animation.h)
+        visuals/animation.h visuals/image_generator.cpp visuals/image_generator.h core/entities/entitystate/entity_draw_delegate.cpp core/entities/entitystate/entity_draw_delegate.h)
 
 # Prepares the Wanderer "library", which excludes linking and the main.cpp file
 add_library(${WANDERER_LIB} ${SOURCE_FILES})

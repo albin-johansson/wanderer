@@ -2,6 +2,7 @@
 #include "movable_object.h"
 #include "entity_state_id.h"
 #include "input.h"
+#include "image.h"
 #include <memory>
 
 namespace wanderer::core {
@@ -35,6 +36,8 @@ class IEntity : public IMovableObject {
    * @since 0.1.0
    */
   virtual void SetState(EntityStateID id) = 0;
+
+  virtual visuals::Image& GetTileSheet() const noexcept = 0;
 };
 
 using IEntity_uptr = std::unique_ptr<IEntity>;

@@ -8,8 +8,8 @@ namespace wanderer::core {
 EntityStateMachineImpl::EntityStateMachineImpl(IEntity* entity) {
   this->entity = Objects::RequireNonNull(entity);
 
-  Put(EntityStateID::WALK, std::make_shared<EntityMovingState>(this));
-  Put(EntityStateID::IDLE, std::make_shared<EntityIdleState>(this));
+  Put(EntityStateID::WALK, std::make_shared<EntityMovingState>(entity, this));
+  Put(EntityStateID::IDLE, std::make_shared<EntityIdleState>(entity, this));
 
   Change(EntityStateID::IDLE);
 }
@@ -22,23 +22,30 @@ void EntityStateMachineImpl::Put(EntityStateID id, IEntityState_sptr state) {
 
 void EntityStateMachineImpl::HandleInput(const Input& input) {
   if (currentState != nullptr) {
-    currentState->HandleInput(*entity, input);
+    currentState->HandleInput(input);
   }
 }
 
 void EntityStateMachineImpl::Change(EntityStateID id) {
   if (currentState != nullptr) {
-    currentState->ExitState(*entity);
+    currentState->ExitState();
   }
 
   auto next = states.at(id);
-  next->EnterState(*entity);
+  next->EnterState();
   currentState = next;
 }
 
 void EntityStateMachineImpl::Tick(float delta) {
   if (currentState != nullptr) {
-    currentState->Update(*entity, delta);
+    currentState->Tick(delta);
+  }
+}
+
+void EntityStateMachineImpl::Draw(visuals::Renderer& renderer,
+                                  const Viewport& viewport) const noexcept {
+  if (currentState != nullptr) {
+    currentState->Draw(renderer, viewport);
   }
 }
 
