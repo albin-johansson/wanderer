@@ -1,4 +1,5 @@
 #pragma once
+#include "game_loop.h"
 #include "wanderer_core.h"
 #include "renderer.h"
 #include "key_state_manager.h"
@@ -8,11 +9,11 @@ namespace wanderer::controller {
 
 /**
  * The SmoothFixedTimestepLoop class represents a fixed timestep game loop that uses delta time
- * smoothing and interpolation.
+ * smoothing and interpolation. Note! This game loop assumes that VSync is enabled.
  *
  * @since 0.1.0
  */
-class SmoothFixedTimestepLoop final {
+class SmoothFixedTimestepLoop final : public IGameLoop {
  private:
   /**
    * A constant that denotes the maximum allowed frame time (delta time) in seconds. This is used
@@ -37,8 +38,19 @@ class SmoothFixedTimestepLoop final {
   float delta = 0;
   bool quit = false;
 
+  /**
+   * Updates the input state.
+   *
+   * @param core a reference to the associated core model.
+   * @since 0.1.0
+   */
   void UpdateInput(core::IWandererCore& core);
 
+  /**
+   * Smoothes the current delta value.
+   *
+   * @since 0.1.0
+   */
   void SmoothDelta();
 
  public:
@@ -50,24 +62,11 @@ class SmoothFixedTimestepLoop final {
    */
   SmoothFixedTimestepLoop(KeyStateManager_sptr keyStateManager, float vsyncRate);
 
-  ~SmoothFixedTimestepLoop();
+  ~SmoothFixedTimestepLoop() override;
 
-  /**
-   * Updates the state of the loop.
-   *
-   * @param core a reference to the wanderer core that will be updated.
-   * @param renderer a reference to the renderer that will be used.
-   * @since 0.1.0
-   */
-  void Update(core::IWandererCore& core, visuals::Renderer& renderer);
+  void Update(core::IWandererCore& core, visuals::Renderer& renderer) override;
 
-  /**
-   * Indicates whether or not the game should quit.
-   *
-   * @return true if the game should quit; false otherwise.
-   * @since 0.1.0
-   */
-  [[nodiscard]] inline bool ShouldQuit() const noexcept {
+  [[nodiscard]] inline bool ShouldQuit() const noexcept override {
     return quit;
   }
 };

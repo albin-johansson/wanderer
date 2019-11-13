@@ -8,6 +8,8 @@ using namespace wanderer::visuals;
 
 namespace wanderer::controller {
 
+// TODO interface for game loops, should allow for swapping between different implementations
+
 SmoothFixedTimestepLoop::SmoothFixedTimestepLoop(KeyStateManager_sptr keyStateManager,
                                                  float vsyncRate) : vsyncRate(vsyncRate) {
   this->keyStateManager = Objects::RequireNonNull(std::move(keyStateManager));
@@ -31,11 +33,12 @@ void SmoothFixedTimestepLoop::UpdateInput(core::IWandererCore& core) {
 }
 
 void SmoothFixedTimestepLoop::SmoothDelta() {
+  /* Reference for delta smoothing: https://frankforce.com/?p=2636 */
+
   static float deltaBuffer = 0;
   delta += deltaBuffer;
 
-//  float frameCount = (delta * vsyncRate);
-  int frameCount = (int) (delta * vsyncRate + 1);
+  int frameCount = static_cast<int>(delta * vsyncRate + 1);
   if (frameCount <= 0) {
     frameCount = 1;
   }
@@ -45,7 +48,6 @@ void SmoothFixedTimestepLoop::SmoothDelta() {
   deltaBuffer = oldDelta - delta;
 }
 
-/* Reference for delta smoothing: https://frankforce.com/?p=2636 */
 void SmoothFixedTimestepLoop::Update(IWandererCore& core, Renderer& renderer) {
   UpdateInput(core);
 

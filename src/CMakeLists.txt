@@ -10,8 +10,10 @@ set(SOURCE_FILES
         controller/wanderer_controller_impl.cpp
         controller/wanderer_controller_impl.h
         controller/wanderer_controller_factory.h
-        controller/smooth_fixed_timestep_loop.cpp
-        controller/smooth_fixed_timestep_loop.h
+
+        controller/gameloop/game_loop.h
+        controller/gameloop/smooth_fixed_timestep_loop.cpp
+        controller/gameloop/smooth_fixed_timestep_loop.h
 
         core/wanderer_core.h
         core/wanderer_core_impl.cpp
@@ -77,6 +79,7 @@ target_include_directories(${WANDERER_LIB} PUBLIC ${SDL2_IMAGE_INCLUDE_DIRS})
 target_include_directories(${WANDERER_LIB} PUBLIC ${SDL2_MIXER_INCLUDE_DIRS})
 target_include_directories(${WANDERER_LIB} PUBLIC ${SDL2_TTF_INCLUDE_DIRS})
 target_include_directories(${WANDERER_LIB} PUBLIC controller)
+target_include_directories(${WANDERER_LIB} PUBLIC controller/gameloop)
 target_include_directories(${WANDERER_LIB} PUBLIC core)
 target_include_directories(${WANDERER_LIB} PUBLIC visuals)
 target_include_directories(${WANDERER_LIB} PUBLIC util)

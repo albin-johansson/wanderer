@@ -4,7 +4,7 @@
 #include "renderer.h"
 #include "window.h"
 #include "key_state_manager.h"
-#include "smooth_fixed_timestep_loop.h"
+#include "game_loop.h"
 
 namespace wanderer::controller {
 
@@ -20,7 +20,7 @@ class WandererControllerImpl final : public IWandererController {
   visuals::Window_uptr window = nullptr;
   visuals::Renderer_uptr renderer = nullptr;
   KeyStateManager_sptr keyStateManager = nullptr;
-  SmoothFixedTimestepLoop* fixedTimestepLoop = nullptr;
+  IGameLoop_uptr gameLoop = nullptr;
 
   /**
    * @param core a unique pointer to the associated core instance.
@@ -29,6 +29,15 @@ class WandererControllerImpl final : public IWandererController {
    * @since 0.1.0
    */
   explicit WandererControllerImpl(core::IWandererCore_uptr core);
+
+  /**
+   * Returns the desktop display mode.
+   *
+   * @return the desktop display mode.
+   * @throws BadStateException if the desktop info cannot be deduced.
+   * @since 0.1.0
+   */
+  SDL_DisplayMode GetDesktopInfo();
 
  public:
   /**

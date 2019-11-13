@@ -4,6 +4,7 @@
 #include "bad_state_exception.h"
 #include "objects.h"
 #include "input.h"
+#include "smooth_fixed_timestep_loop.h"
 
 using namespace wanderer::core;
 using namespace wanderer::visuals;
@@ -13,17 +14,9 @@ namespace wanderer::controller {
 WandererControllerImpl::WandererControllerImpl(IWandererCore_uptr core) {
   this->core = Objects::RequireNonNull(std::move(core));
 
-  SDL_DisplayMode dm;
-  if (SDL_GetDesktopDisplayMode(0, &dm) != 0) {
-    SDL_Log("SDL_GetDesktopDisplayMode failed: %s", SDL_GetError());
-    throw BadStateException();
-  }
+  SDL_DisplayMode desktop = GetDesktopInfo();
 
-  SDL_SetHintWithPriority(SDL_HINT_VIDEO_DOUBLE_BUFFER, "1", SDL_HINT_OVERRIDE);
-  SDL_SetHintWithPriority(SDL_HINT_RENDER_VSYNC, "1", SDL_HINT_OVERRIDE);
-//  SDL_SetHintWithPriority(SDL_HINT_RENDER_DRIVER, "opengl", SDL_HINT_NORMAL);
-
-  window = std::make_unique<Window>("Wanderer", dm.w, dm.h);
+  window = std::make_unique<Window>("Wanderer", desktop.w, desktop.h);
   window->SetFullscreen(true);
 
   this->core->SetViewportWidth(static_cast<float>(window->GetWidth()));
@@ -32,20 +25,27 @@ WandererControllerImpl::WandererControllerImpl(IWandererCore_uptr core) {
   renderer = std::make_unique<Renderer>(window->GetInternalWindow());
   keyStateManager = std::make_shared<KeyStateManager>();
 
-  auto vsyncDelta = static_cast<float>(dm.refresh_rate);
-  fixedTimestepLoop = new SmoothFixedTimestepLoop(keyStateManager, vsyncDelta);
+  auto vsyncDelta = static_cast<float>(desktop.refresh_rate);
+  gameLoop = std::make_unique<SmoothFixedTimestepLoop>(keyStateManager, vsyncDelta);
 }
 
-WandererControllerImpl::~WandererControllerImpl() {
-  delete fixedTimestepLoop;
+WandererControllerImpl::~WandererControllerImpl() = default;
+
+SDL_DisplayMode WandererControllerImpl::GetDesktopInfo() {
+  SDL_DisplayMode dm;
+  if (SDL_GetDesktopDisplayMode(0, &dm) != 0) {
+    SDL_Log("SDL_GetDesktopDisplayMode failed: %s", SDL_GetError());
+    throw BadStateException();
+  }
+  return dm;
 }
 
 void WandererControllerImpl::Run() {
   running = true;
   window->Show();
 
-  while (running && !fixedTimestepLoop->ShouldQuit()) {
-    fixedTimestepLoop->Update(*core, *renderer); // TODO test variable time step loop
+  while (running && !gameLoop->ShouldQuit()) {
+    gameLoop->Update(*core, *renderer);
   }
 
   window->Hide();
