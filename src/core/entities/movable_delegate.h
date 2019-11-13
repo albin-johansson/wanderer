@@ -35,11 +35,9 @@ class MovableObjectDelegate final : public IMovableObject {
 
   ~MovableObjectDelegate() override;
 
-  void Draw(visuals::Renderer& renderer, const Viewport& viewport) const noexcept override {
-    /* do nothing */
-  }
+  void Draw(visuals::Renderer& renderer, const Viewport& viewport) const noexcept override;
 
-  void Tick(float delta) override { UpdateDirection(); }
+  void Tick(float delta) override;
 
   void Move(Direction direction) noexcept override;
 

@@ -9,7 +9,7 @@ Viewport::Viewport(float vpWidth, float vpHeight, float levelWidth, float levelH
 }
 
 void Viewport::Track(float ox, float oy, float width, float height) noexcept {
-  const static float panSpeed = 0.08f;
+  const static float panSpeed = 0.1f;
 
   float targetX = (ox + (width / 2.0f)) - (bounds.GetWidth() / 2.0f);
   float targetY = (oy + (height / 2.0f)) - (bounds.GetHeight() / 2.0f);

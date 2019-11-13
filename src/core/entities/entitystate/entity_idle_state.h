@@ -1,6 +1,7 @@
 #pragma once
 #include "entity_state.h"
 #include "entity.h"
+#include "entity_draw_delegate.h"
 
 namespace wanderer::core {
 
@@ -16,6 +17,7 @@ class EntityIdleState final : public IEntityState {
  private:
   IEntityStateMachine* parent = nullptr;
   IEntity* entity = nullptr;
+  const EntityDrawDelegate drawDelegate;
 
  public:
   /**

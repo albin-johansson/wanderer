@@ -2,6 +2,7 @@
 #include "entity_state_machine.h"
 #include "objects.h"
 #include "vector_2.h"
+#include "entity_sheet.h"
 
 namespace wanderer::core {
 
@@ -34,33 +35,8 @@ void EntityIdleState::ExitState() {
 }
 
 void EntityIdleState::Draw(visuals::Renderer& renderer, const Viewport& viewport) const noexcept {
-  Vector2 interpolatedPosition = entity->GetInterpolatedPosition();
-  auto x = viewport.GetTranslatedX(interpolatedPosition.GetX());
-  auto y = viewport.GetTranslatedY(interpolatedPosition.GetY());
-
-  float srcY;
-  switch (entity->GetDominantDirection()) {
-    case Direction::UP: {
-      srcY = 512;
-      break;
-    }
-    case Direction::RIGHT: {
-      srcY = 704;
-      break;
-    }
-    case Direction::DOWN: {
-      srcY = 640;
-      break;
-    }
-    case Direction::LEFT: {
-      srcY = 576;
-      break;
-    }
-  }
-
-  auto src = Rectangle(0, srcY, 64, 64);
-  auto dst = Rectangle(x, y, entity->GetWidth(), entity->GetHeight());
-  renderer.RenderTexture(entity->GetTileSheet().GetTexture(), src, dst);
+  float srcY = EntitySheet::GetSourceY(512, entity->GetDominantDirection());
+  drawDelegate.Draw(renderer, viewport, *entity, 0, srcY);
 }
 
 }

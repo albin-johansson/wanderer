@@ -2,6 +2,7 @@
 #include "entity_state.h"
 #include "entity_state_machine.h"
 #include "entity.h"
+#include "entity_draw_delegate.h"
 #include "animation.h"
 
 namespace wanderer::core {
@@ -16,6 +17,7 @@ class EntityMovingState final : public IEntityState {
  private:
   IEntityStateMachine* parent = nullptr;
   IEntity* entity = nullptr;
+  const EntityDrawDelegate drawDelegate;
   visuals::Animation animation;
   bool areMoveKeysDown = false;
 

@@ -13,6 +13,15 @@ MovableObjectDelegate::MovableObjectDelegate(float width, float height)
 
 MovableObjectDelegate::~MovableObjectDelegate() = default;
 
+void MovableObjectDelegate::Draw(visuals::Renderer& renderer,
+                                 const Viewport& viewport) const noexcept {
+  /* do nothing */
+}
+
+void MovableObjectDelegate::Tick(float delta) {
+  UpdateDirection();
+}
+
 void MovableObjectDelegate::UpdateDirection() {
   if (velocity.GetX() > 0) {
     dominantDirection = Direction::RIGHT;

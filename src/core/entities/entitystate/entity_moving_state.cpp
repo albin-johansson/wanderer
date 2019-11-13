@@ -2,6 +2,7 @@
 #include "movable_delegate.h"
 #include "entity_state_machine.h"
 #include "objects.h"
+#include "entity_sheet.h"
 
 using namespace wanderer::visuals;
 
@@ -12,7 +13,7 @@ EntityMovingState::EntityMovingState(IEntity* entity, IEntityStateMachine* paren
   this->parent = Objects::RequireNonNull(parent);
   animation.SetFrame(0);
   animation.SetNumberOfFrames(9);
-  animation.SetDelay(75);
+  animation.SetDelay(65);
 }
 
 EntityMovingState::~EntityMovingState() = default;
@@ -76,40 +77,9 @@ void EntityMovingState::Tick(float delta) {
 }
 
 void EntityMovingState::Draw(visuals::Renderer& renderer, const Viewport& viewport) const noexcept {
-  Vector2 interpolatedPosition = entity->GetInterpolatedPosition();
-  auto x = viewport.GetTranslatedX(interpolatedPosition.GetX());
-  auto y = viewport.GetTranslatedY(interpolatedPosition.GetY());
-
-  auto srcX = animation.GetIndex() * 64;
-
-  if (entity->GetVelocity().IsZero()) {
-    srcX = 0;
-  }
-
-  float srcY;
-  switch (entity->GetDominantDirection()) {
-    case Direction::UP: {
-      srcY = 512;
-      break;
-    }
-    case Direction::RIGHT: {
-      srcY = 704;
-      break;
-    }
-    case Direction::DOWN: {
-      srcY = 640;
-      break;
-    }
-    case Direction::LEFT: {
-      srcY = 576;
-      break;
-    }
-  }
-
-  auto src = Rectangle(srcX, srcY, 64, 64);
-
-  auto dst = Rectangle(x, y, entity->GetWidth(), entity->GetHeight());
-  renderer.RenderTexture(entity->GetTileSheet().GetTexture(), src, dst);
+  auto srcX = (entity->GetVelocity().IsZero()) ? 0 : animation.GetIndex() * 64;
+  auto srcY = EntitySheet::GetSourceY(512, entity->GetDominantDirection());
+  drawDelegate.Draw(renderer, viewport, *entity, srcX, srcY);
 }
 
 void EntityMovingState::HandleInput(const Input& input) {

@@ -19,7 +19,7 @@ class ITile : public IGameObject {
   ITile() = default;
 
  public:
-  static constexpr float SIZE = 200;
+  static constexpr float SIZE = 100;
 
   ~ITile() override = default;
 

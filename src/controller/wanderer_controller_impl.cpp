@@ -16,7 +16,7 @@ WandererControllerImpl::WandererControllerImpl() {
   SDL_DisplayMode desktop = GetDesktopInfo();
   SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION,
                  SDL_LOG_PRIORITY_INFO,
-                 "Desktop refresh rate: %i", desktop.refresh_rate);
+                 "Desktop refresh rate: %i Hz", desktop.refresh_rate);
 
   window = std::make_unique<Window>("Wanderer", desktop.w, desktop.h);
   window->SetFullscreen(true);
