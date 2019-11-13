@@ -10,12 +10,14 @@ namespace wanderer::visuals {
 
 Renderer::Renderer(SDL_Renderer* renderer) {
   this->renderer = Objects::RequireNonNull(renderer);
+  SetLogicalIntegerScale(false);
 }
 
 Renderer::Renderer(SDL_Window* window) {
   Objects::RequireNonNull(window);
   Uint32 flags = SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC;
   renderer = SDL_CreateRenderer(window, -1, flags);
+  SetLogicalIntegerScale(false);
 }
 
 Renderer::~Renderer() {
@@ -113,18 +115,22 @@ void Renderer::SetViewport(const core::Rectangle& viewport) noexcept {
 }
 
 void Renderer::SetScale(float xScale, float yScale) noexcept {
-  SDL_RenderSetScale(renderer, xScale, yScale);
+  if ((xScale > 0) && (yScale > 0)) {
+    SDL_RenderSetScale(renderer, xScale, yScale);
+  }
 }
 
 void Renderer::SetLogicalSize(float width, float height) noexcept {
-  int result = SDL_RenderSetLogicalSize(renderer,
-                                        static_cast<int>(width),
-                                        static_cast<int>(height));
-  if (result != 0) {
-    SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION,
-                   SDL_LOG_PRIORITY_WARN,
-                   "Failed to set logical size! %s",
-                   SDL_GetError());
+  if ((width > 0) && (height > 0)) {
+    int result = SDL_RenderSetLogicalSize(renderer,
+                                          static_cast<int>(width),
+                                          static_cast<int>(height));
+    if (result != 0) {
+      SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION,
+                     SDL_LOG_PRIORITY_WARN,
+                     "Failed to set logical size! %s",
+                     SDL_GetError());
+    }
   }
 }
 
@@ -142,6 +148,31 @@ int Renderer::GetLogicalHeight() const noexcept {
   int h = 0;
   SDL_RenderGetLogicalSize(renderer, nullptr, &h);
   return h;
+}
+
+float Renderer::GetXScale() const noexcept {
+  float xScale = 0;
+  SDL_RenderGetScale(renderer, &xScale, nullptr);
+  return xScale;
+}
+
+float Renderer::GetYScale() const noexcept {
+  float yScale = 0;
+  SDL_RenderGetScale(renderer, nullptr, &yScale);
+  return yScale;
+}
+
+core::Rectangle Renderer::GetViewport() const noexcept {
+  SDL_Rect viewport = {0, 0, 0, 0};
+  SDL_RenderGetViewport(renderer, &viewport);
+  return Rectangle(static_cast<float>(viewport.x),
+                   static_cast<float>(viewport.y),
+                   static_cast<float>(viewport.w),
+                   static_cast<float>(viewport.h));
+}
+
+bool Renderer::GetUsingIntegerLogicalScaling() const noexcept {
+  return SDL_RenderGetIntegerScale(renderer);
 }
 
 }  // namespace wanderer::visuals

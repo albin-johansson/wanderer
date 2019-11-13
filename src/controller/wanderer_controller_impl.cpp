@@ -35,7 +35,7 @@ WandererControllerImpl::WandererControllerImpl() {
   auto windowHeight = static_cast<float>(window->GetHeight());
 
   renderer->SetLogicalSize(LOGICAL_WIDTH, LOGICAL_HEIGHT);
-  renderer->SetLogicalIntegerScale(false);
+  renderer->SetLogicalIntegerScale(true);
   renderer->SetViewport(Rectangle(0, 0, windowWidth, windowHeight));
   renderer->SetScale(windowWidth / LOGICAL_WIDTH, windowHeight / LOGICAL_HEIGHT);
 

@@ -171,17 +171,92 @@ class Renderer final {
    */
   void SetColor(Uint8 red, Uint8 green, Uint8 blue) noexcept;
 
+  /**
+   * Sets the viewport that will be used by the renderer.
+   *
+   * @param viewport the viewport that will be used by the renderer.
+   * @since 0.1.0
+   */
   void SetViewport(const core::Rectangle& viewport) noexcept;
 
+  /**
+   * Sets the viewport that will be used by the renderer. This method has no effect if any of the
+   * arguments are less than or equal to zero.
+   *
+   * @param xScale the x-axis scale that will be used.
+   * @param yScale the y-axis scale that will be used.
+   * @since 0.1.0
+   */
   void SetScale(float xScale, float yScale) noexcept;
 
+  /**
+   * Sets the logical dimensions of the renderer, which is useful for achieving
+   * resolution-independent rendering. This method has no effect if either of the supplied
+   * dimensions aren't greater than zero.
+   *
+   * @param width the logical width that will be used.
+   * @param height the logical height that will be used.
+   * @since 0.1.0
+   */
   void SetLogicalSize(float width, float height) noexcept;
 
+  /**
+   * Sets whether or not to force integer scaling for the logical viewport. By default, this
+   * property is set to false.
+   *
+   * @param useLogicalIntegerScale true if integer scaling should be used; false otherwise.
+   * @since 0.1.0
+   */
   void SetLogicalIntegerScale(bool useLogicalIntegerScale) noexcept;
 
+  /**
+   * Returns the logical width that the renderer uses.
+   *
+   * @return the logical width that the renderer uses.
+   * @since 0.1.0
+   */
   [[nodiscard]] int GetLogicalWidth() const noexcept;
 
+  /**
+   * Returns the logical height that the renderer uses.
+   *
+   * @return the logical height that the renderer uses.
+   * @since 0.1.0
+   */
   [[nodiscard]] int GetLogicalHeight() const noexcept;
+
+  /**
+   * Returns the x-axis scale that the renderer uses.
+   *
+   * @return the x-axis scale that the renderer uses.
+   * @since 0.1.0
+   */
+  [[nodiscard]] float GetXScale() const noexcept;
+
+  /**
+   * Returns the y-axis scale that the renderer uses.
+   *
+   * @return the y-axis scale that the renderer uses.
+   * @since 0.1.0
+   */
+  [[nodiscard]] float GetYScale() const noexcept;
+
+  /**
+   * Indicates whether or not the renderer uses integer scaling values for logical viewports. By
+   * default, this property is set to false.
+   *
+   * @return true if the renderer uses integer scaling for logical viewports; false otherwise.
+   * @since 0.1.0
+   */
+  [[nodiscard]] bool GetUsingIntegerLogicalScaling() const noexcept;
+
+  /**
+   * Returns the viewport that the renderer uses.
+   *
+   * @return the viewport that the renderer uses.
+   * @since 0.1.0
+   */
+  [[nodiscard]] core::Rectangle GetViewport() const noexcept;
 
   /**
    * Returns a pointer to the internal SDL_Renderer instance.
