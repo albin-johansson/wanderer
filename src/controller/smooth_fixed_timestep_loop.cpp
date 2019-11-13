@@ -1,4 +1,4 @@
-#include "fixed_timestep_loop.h"
+#include "smooth_fixed_timestep_loop.h"
 #include "objects.h"
 #include <SDL.h>
 
@@ -7,17 +7,17 @@ using namespace wanderer::visuals;
 
 namespace wanderer::controller {
 
-FixedTimestepLoop::FixedTimestepLoop(KeyStateManager_sptr keyStateManager, float vsyncDelta)
-    : vsyncDelta(vsyncDelta) {
+SmoothFixedTimestepLoop::SmoothFixedTimestepLoop(KeyStateManager_sptr keyStateManager,
+                                                 float vsyncDelta) : vsyncDelta(vsyncDelta) {
   this->keyStateManager = Objects::RequireNonNull(std::move(keyStateManager));
   quit = false;
   now = SDL_GetPerformanceCounter();
   then = now;
 }
 
-FixedTimestepLoop::~FixedTimestepLoop() = default;
+SmoothFixedTimestepLoop::~SmoothFixedTimestepLoop() = default;
 
-void FixedTimestepLoop::UpdateInput(core::IWandererCore& core) {
+void SmoothFixedTimestepLoop::UpdateInput(core::IWandererCore& core) {
   keyStateManager->Update();
   SDL_PumpEvents();
 
@@ -30,12 +30,12 @@ void FixedTimestepLoop::UpdateInput(core::IWandererCore& core) {
 }
 
 /* Reference for delta smoothing: https://frankforce.com/?p=2636 */
-void FixedTimestepLoop::Update(IWandererCore& core, Renderer& renderer) {
+void SmoothFixedTimestepLoop::Update(IWandererCore& core, Renderer& renderer) {
   UpdateInput(core);
 
-  then = now;
-  now = SDL_GetPerformanceCounter();
-  delta = static_cast<float>(now - then) / SDL_GetPerformanceFrequency();
+//  then = now;
+//  now = SDL_GetPerformanceCounter();
+//  delta = static_cast<float>(now - then) / SDL_GetPerformanceFrequency();
 
   delta += deltaBuffer;
   const float oldDelta = delta;

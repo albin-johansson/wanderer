@@ -12,7 +12,7 @@ namespace wanderer::controller {
  *
  * @since 0.1.0
  */
-class FixedTimestepLoop final {
+class SmoothFixedTimestepLoop final {
  private:
   /**
    * A constant that denotes the maximum allowed frame time (delta time) in seconds. This is used
@@ -40,9 +40,9 @@ class FixedTimestepLoop final {
    * @throws NullPointerException if the supplied pointer is null.
    * @since 0.1.0
    */
-  FixedTimestepLoop(KeyStateManager_sptr keyStateManager, float vsyncDelta);
+  SmoothFixedTimestepLoop(KeyStateManager_sptr keyStateManager, float vsyncDelta);
 
-  ~FixedTimestepLoop();
+  ~SmoothFixedTimestepLoop();
 
   /**
    * Updates the state of the loop.

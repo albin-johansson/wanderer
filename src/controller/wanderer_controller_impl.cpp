@@ -23,8 +23,8 @@ WandererControllerImpl::WandererControllerImpl(IWandererCore_uptr core) {
   SDL_SetHintWithPriority(SDL_HINT_RENDER_VSYNC, "1", SDL_HINT_OVERRIDE);
 //  SDL_SetHintWithPriority(SDL_HINT_RENDER_DRIVER, "opengl", SDL_HINT_NORMAL);
 
-  window = std::make_unique<Window>("Wanderer", 800, 600);
-  window->SetFullscreen(false);
+  window = std::make_unique<Window>("Wanderer", dm.w, dm.h);
+  window->SetFullscreen(true);
 
   this->core->SetViewportWidth(static_cast<float>(window->GetWidth()));
   this->core->SetViewportHeight(static_cast<float>(window->GetHeight()));
@@ -33,7 +33,7 @@ WandererControllerImpl::WandererControllerImpl(IWandererCore_uptr core) {
   keyStateManager = std::make_shared<KeyStateManager>();
 
   auto vsyncDelta = 1.0f / static_cast<float>(dm.refresh_rate);
-  fixedTimestepLoop = new FixedTimestepLoop(keyStateManager, vsyncDelta);
+  fixedTimestepLoop = new SmoothFixedTimestepLoop(keyStateManager, vsyncDelta);
 }
 
 WandererControllerImpl::~WandererControllerImpl() {
