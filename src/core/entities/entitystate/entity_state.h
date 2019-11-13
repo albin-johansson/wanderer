@@ -7,8 +7,11 @@
 namespace wanderer::core {
 
 /**
- * The IEntityState interface specifies .
+ * The IEntityState interface specifies objects that represent the state of an entity at some
+ * point in time.
  *
+ * @see ITickable
+ * @see IDrawable
  * @since 0.1.0
  */
 class IEntityState : public ITickable, public IDrawable {
