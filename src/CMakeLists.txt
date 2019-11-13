@@ -12,6 +12,8 @@ set(SOURCE_FILES
         controller/wanderer_controller_impl.cpp
         controller/wanderer_controller_impl.h
         controller/wanderer_controller_factory.h
+        controller/fixed_timestep_loop.cpp
+        controller/fixed_timestep_loop.h
 
         core/wanderer_core.h
         core/wanderer_core_impl.cpp

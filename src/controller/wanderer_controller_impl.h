@@ -5,6 +5,7 @@
 #include "window.h"
 #include "key_state_manager.h"
 #include "player_controller.h"
+#include "fixed_timestep_loop.h"
 
 namespace wanderer::controller {
 
@@ -15,21 +16,12 @@ namespace wanderer::controller {
  */
 class WandererControllerImpl final : public IWandererController {
  private:
-  /**
-   * A constant that denotes the maximum allowed frame time (delta time) in seconds. This is used
-   * to avoid the "spiral of death" in the game loop.
-   *
-   * @since 0.1.0
-   */
-  static constexpr double MAX_FRAME_TIME = 0.25;
-
   bool running = false;
-  float vsyncDelta;
-
   core::IWandererCore_uptr core = nullptr;
   visuals::Window_uptr window = nullptr;
   visuals::Renderer_uptr renderer = nullptr;
   KeyStateManager_sptr keyStateManager = nullptr;
+  FixedTimestepLoop* fixedTimestepLoop = nullptr;
   PlayerController playerController;
 
   /**
@@ -39,10 +31,6 @@ class WandererControllerImpl final : public IWandererController {
    * @since 0.1.0
    */
   explicit WandererControllerImpl(core::IWandererCore_uptr core);
-
-  void UpdateInput();
-
-//  void SmoothDelta(float& delta);
 
  public:
   /**
@@ -64,7 +52,6 @@ class WandererControllerImpl final : public IWandererController {
   void MovePlayer(core::Direction direction) override;
 
   void StopPlayer(core::Direction direction) override;
-
 };
 
 }
