@@ -1,9 +1,14 @@
 #include "movable_delegate.h"
+#include <stdexcept>
 
 namespace wanderer::core {
 
 MovableObjectDelegate::MovableObjectDelegate(float width, float height)
-    : width(width), height(height) {}
+    : width(width), height(height) {
+  if (width < 1 || height < 1) {
+    throw std::invalid_argument("Invalid dimensions!");
+  }
+}
 
 MovableObjectDelegate::~MovableObjectDelegate() = default;
 

@@ -20,6 +20,12 @@ class IEntity : public IMovableObject {
  public:
   ~IEntity() override = default;
 
+  /**
+   * Handles the supplied input.
+   *
+   * @param input a reference to the input state.
+   * @since 0.1.0
+   */
   virtual void HandleInput(const Input& input) = 0;
 
   /**
@@ -29,7 +35,6 @@ class IEntity : public IMovableObject {
    * @since 0.1.0
    */
   virtual void SetState(EntityStateID id) = 0;
-  // TODO ...
 };
 
 using IEntity_uptr = std::unique_ptr<IEntity>;

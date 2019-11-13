@@ -25,9 +25,10 @@ class MovableObjectDelegate final : public IMovableObject {
   /**
    * @param width the width of the object.
    * @param height the height of the object.
+   * @throws std::invalid_argument if either of the supplied dimensions are less than one.
    * @since 0.1.0
    */
-  MovableObjectDelegate(float width, float height); // TODO should throw if bad dimensions?
+  MovableObjectDelegate(float width, float height);
 
   ~MovableObjectDelegate() override;
 

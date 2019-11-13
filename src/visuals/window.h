@@ -78,6 +78,14 @@ class Window final {
   void SetHeight(int height);
 
   /**
+   * Sets the icon that will be used by the window.
+   *
+   * @param icon a pointer to the surface that will serve as the icon of the window.
+   * @since 0.1.0
+   */
+  void SetIcon(SDL_Surface* icon);
+
+  /**
    * Indicates whether or not the window is resizable.
    *
    * @return true if the window is resizable; false otherwise.

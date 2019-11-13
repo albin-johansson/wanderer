@@ -18,12 +18,38 @@ class IEntityState {
  public:
   virtual ~IEntityState() = default;
 
+  /**
+   * Updates the entity state object.
+   *
+   * @param entity a reference to the associated entity instance.
+   * @param delta the delta time, in seconds.
+   * @since 0.1.0
+   */
   virtual void Update(IEntity& entity, float delta) = 0;
 
+  /**
+   * Reacts to the supplied input
+   *
+   * @param entity a reference to the associated entity instance.
+   * @param input a reference to the input state.
+   * @since 0.1.0
+   */
   virtual void HandleInput(IEntity& entity, const Input& input) = 0;
 
+  /**
+   * Enters the entity state.
+   *
+   * @param entity a reference to the associated entity instance.
+   * @since 0.1.0
+   */
   virtual void EnterState(IEntity& entity) = 0;
 
+  /**
+   * Exits the entity state.
+   *
+   * @param entity a reference to the associated entity instance.
+   * @since 0.1.0
+   */
   virtual void ExitState(IEntity& entity) = 0;
 
 };

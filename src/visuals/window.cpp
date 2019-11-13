@@ -1,7 +1,9 @@
 #include "window.h"
 #include <stdexcept>
+#include "objects.h"
 #include "bool_converter.h"
 
+using namespace wanderer::core;
 using namespace wanderer::service;
 
 namespace wanderer::visuals {
@@ -51,6 +53,11 @@ void Window::SetHeight(int height) {
   } else {
     SDL_SetWindowSize(window, GetWidth(), height);
   }
+}
+
+void Window::SetIcon(SDL_Surface* icon) {
+  Objects::RequireNonNull(icon);
+  SDL_SetWindowIcon(window, icon);
 }
 
 bool Window::IsResizable() const noexcept {

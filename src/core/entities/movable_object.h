@@ -60,7 +60,7 @@ class IMovableObject : public IGameObject {
    * @param alpha the interpolation coefficient, in the range [0, 1].
    * @since 0.1.0
    */
-  virtual void Interpolate(float alpha) noexcept = 0; // TODO check doc
+  virtual void Interpolate(float alpha) noexcept = 0;
 
   /**
    * Adds the supplied offset to the x-coordinate of the object.
