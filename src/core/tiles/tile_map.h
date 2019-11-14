@@ -1,14 +1,16 @@
 #pragma once
+#include "image_generator.h"
 #include "drawable.h"
 #include "tile.h"
 #include <vector>
 #include <memory>
 #include "rectangle.h"
 #include "image.h"
+#include "tile_set.h"
 
 namespace wanderer::core {
 
-using TileMatrix = std::vector<std::vector<ITile_sptr>>;
+using TileMatrix = std::vector<std::vector<int>>;
 
 /**
  * The TileMap class represents a map of tiles, used to build the game world.
@@ -18,17 +20,15 @@ using TileMatrix = std::vector<std::vector<ITile_sptr>>;
 class TileMap final : public IDrawable {
  private:
   std::unique_ptr<TileMatrix> tiles = nullptr;
+  TileSet tileSet;
   int nRows;
   int nCols;
 
-  /**
-   * Returns a vector that contains all of the tiles inside the specified bounds.
-   *
-   * @param bounds the rectangle that serves as the bounds to look for tiles in.
-   * @return a vector that contains all of the tiles inside the specified bounds.
-   * @since 0.1.0
-   */
-  std::vector<ITile_sptr> GetTiles(const Rectangle& bounds) const;
+  void CalculateRenderBounds(const Rectangle& bounds,
+                             int& minRow,
+                             int& maxRow,
+                             int& minCol,
+                             int& maxCol) const noexcept;
 
  public:
   /**
@@ -36,7 +36,7 @@ class TileMap final : public IDrawable {
    * @param nCols the number of columns in the tile map.
    * @since 0.1.0
    */
-  TileMap(int nRows, int nCols);
+  TileMap(visuals::ImageGenerator_sptr imageGenerator, int nRows, int nCols);
 
   ~TileMap() override;
 
@@ -47,12 +47,11 @@ class TileMap final : public IDrawable {
    *
    * @param row the row index of the position that will be set.
    * @param col the column index of the position that will be set.
-   * @param tile a shared pointer to the tile that will be used.
+   * @param id the tile ID that will be set..
    * @throws std::out_of_range if the specified position is out-of-bounds.
-   * @throws NullPointerException if the supplied tile pointer is null.
    * @since 0.1.0
    */
-  void SetTile(int row, int col, ITile_sptr tile);
+  void SetTile(int row, int col, int id);
 
   /**
    * Returns the number of rows in the tile map.

@@ -12,4 +12,8 @@ void AbstractTile::Tick(float delta) {
   /* do nothing */
 }
 
+void AbstractTile::SetImage(visuals::Image_sptr image) noexcept {
+  this->image = image;
+}
+
 }

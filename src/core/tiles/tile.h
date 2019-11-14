@@ -1,12 +1,10 @@
 #pragma once
 #include "game_object.h"
 #include "drawable.h"
+#include "image.h"
 #include <memory>
 
 namespace wanderer::core {
-
-// TODO see the solution Notch used for one of his ludum dare games, where only the ID is stored
-//  and there are only one actual instance of the Tile class that describes the different types.
 
 /**
  * The ITile interface specifies objects that represent tiles.
@@ -14,7 +12,7 @@ namespace wanderer::core {
  * @see IGameObject
  * @since 0.1.0
  */
-class ITile : public IGameObject {
+class ITile : public IGameObject { // FIXME tiles should probably not implement IGameObject
  protected:
   ITile() = default;
 
@@ -23,21 +21,9 @@ class ITile : public IGameObject {
 
   ~ITile() override = default;
 
-  /**
-   * Returns the row index of the tile.
-   *
-   * @return the row index of the tile.
-   * @since 0.1.0
-   */
-  [[nodiscard]] virtual int GetRow() const noexcept = 0;
+  virtual void SetImage(visuals::Image_sptr image) noexcept = 0;
 
-  /**
-   * Returns the column index of the tile.
-   *
-   * @return the column index of the tile.
-   * @since 0.1.0
-   */
-  [[nodiscard]] virtual int GetCol() const noexcept = 0;
+  [[nodiscard]] virtual visuals::Image_sptr GetImage() const noexcept = 0;
 
   /**
    * Returns the type ID the tile.

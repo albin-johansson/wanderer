@@ -1,6 +1,7 @@
 #pragma once
 #include "tile.h"
-#include <SDL_render.h>
+
+using namespace wanderer::visuals;
 
 namespace wanderer::core {
 
@@ -17,7 +18,7 @@ class AbstractTile : public ITile {
   const int id;
 
  protected:
-  SDL_Texture* texture = nullptr;
+  visuals::Image_sptr image = nullptr;
 
   AbstractTile(int row, int col, int id);
 
@@ -26,15 +27,17 @@ class AbstractTile : public ITile {
 
   void Tick(float delta) override;
 
+  void SetImage(visuals::Image_sptr image) noexcept final;
+
+  [[nodiscard]] inline Image_sptr GetImage() const noexcept final {
+    return image;
+  }
+
   [[nodiscard]] inline Rectangle GetHitbox() const noexcept override {
     return Rectangle(GetX(), GetY(), SIZE, SIZE);
   }
 
   [[nodiscard]] inline int GetId() const noexcept final { return id; }
-
-  [[nodiscard]] inline int GetRow() const noexcept final { return row; }
-
-  [[nodiscard]] inline int GetCol() const noexcept final { return col; }
 
   [[nodiscard]] inline float GetX() const noexcept final { return static_cast<float>(col) * SIZE; }
 

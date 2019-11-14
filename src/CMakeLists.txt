@@ -36,6 +36,8 @@ set(SOURCE_FILES
         core/entities/movable_object.h
         core/entities/movable_delegate.cpp
         core/entities/movable_delegate.h
+        core/entities/entity_sheet.cpp
+        core/entities/entity_sheet.h
 
         core/tiles/tile.h
         core/tiles/tile_map.cpp
@@ -44,6 +46,8 @@ set(SOURCE_FILES
         core/tiles/grass_tile.h
         core/tiles/abstract_tile.cpp
         core/tiles/abstract_tile.h
+        core/tiles/tile_set.cpp
+        core/tiles/tile_set.h
 
         core/bad_state_exception.cpp
         core/bad_state_exception.h
@@ -52,6 +56,8 @@ set(SOURCE_FILES
         core/viewport.cpp
         core/viewport.h
 
+        core/entities/entitystate/entity_draw_delegate.cpp
+        core/entities/entitystate/entity_draw_delegate.h
         core/entities/entitystate/entity_moving_state.cpp
         core/entities/entitystate/entity_moving_state.h
         core/entities/entitystate/entity_state.h
@@ -69,7 +75,9 @@ set(SOURCE_FILES
         visuals/image.cpp
         visuals/image.h
         visuals/animation.cpp
-        visuals/animation.h visuals/image_generator.cpp visuals/image_generator.h core/entities/entitystate/entity_draw_delegate.cpp core/entities/entitystate/entity_draw_delegate.h core/entities/entity_sheet.cpp core/entities/entity_sheet.h)
+        visuals/animation.h
+        visuals/image_generator.cpp
+        visuals/image_generator.h)
 
 # Prepares the Wanderer "library", which excludes linking and the main.cpp file
 add_library(${WANDERER_LIB} ${SOURCE_FILES})

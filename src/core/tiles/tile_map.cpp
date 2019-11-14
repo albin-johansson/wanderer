@@ -4,40 +4,39 @@
 
 namespace wanderer::core {
 
-TileMap::TileMap(int nRows, int nCols) : nRows(nRows), nCols(nCols) {
+TileMap::TileMap(visuals::ImageGenerator_sptr imageGenerator, int nRows, int nCols)
+    : nRows(nRows), nCols(nCols) {
   tiles = std::make_unique<TileMatrix>();
   tiles->reserve(nRows);
 
   for (int row = 0; row < nRows; row++) {
 
-    auto rowVector = std::vector<ITile_sptr>();
+    auto rowVector = std::vector<int>();
     rowVector.reserve(nCols);
 
     for (int col = 0; col < nCols; col++) {
-      rowVector.push_back(std::make_shared<GrassTile>(row, col, 0));
+      rowVector.push_back(0);
     }
+    rowVector.shrink_to_fit();
 
     tiles->push_back(rowVector);
   }
+  tiles->shrink_to_fit();
+
+  tileSet.SetImage(0, imageGenerator->Load("resources/grass.png"));
 }
 
 TileMap::~TileMap() = default;
 
-void TileMap::Draw(visuals::Renderer& renderer, const Viewport& viewport) const noexcept {
-  for (const ITile_sptr& tile : GetTiles(viewport.GetBounds())) {
-    tile->Draw(renderer, viewport);
-  }
-}
-
-void TileMap::SetTile(int row, int col, ITile_sptr tile) {
-  tiles->at(row).at(col) = Objects::RequireNonNull(std::move(tile));
-}
-
-std::vector<ITile_sptr> TileMap::GetTiles(const Rectangle& bounds) const { // TODO shouldn't be const
-  auto minCol = static_cast<int>(bounds.GetX() / ITile::SIZE);
-  auto minRow = static_cast<int>(bounds.GetY() / ITile::SIZE);
-  auto maxCol = static_cast<int>((bounds.GetMaxX() / ITile::SIZE) + 1);
-  auto maxRow = static_cast<int>((bounds.GetMaxY() / ITile::SIZE) + 1);
+void TileMap::CalculateRenderBounds(const Rectangle& bounds,
+                                    int& minRow,
+                                    int& maxRow,
+                                    int& minCol,
+                                    int& maxCol) const noexcept {
+  minCol = static_cast<int>(bounds.GetX() / ITile::SIZE);
+  minRow = static_cast<int>(bounds.GetY() / ITile::SIZE);
+  maxCol = static_cast<int>((bounds.GetMaxX() / ITile::SIZE) + 1);
+  maxRow = static_cast<int>((bounds.GetMaxY() / ITile::SIZE) + 1);
 
   if (minCol < 0) {
     minCol = 0;
@@ -54,18 +53,28 @@ std::vector<ITile_sptr> TileMap::GetTiles(const Rectangle& bounds) const { // TO
   if (maxCol > nCols) {
     maxCol = nCols;
   }
+}
 
-  int size = (maxCol - minCol) * (maxRow - minRow);
-  auto result = std::vector<ITile_sptr>();
-  result.reserve(size);
+void TileMap::Draw(visuals::Renderer& renderer, const Viewport& viewport) const noexcept {
+  auto bounds = viewport.GetBounds();
+  int minRow, maxRow, minCol, maxCol;
+  CalculateRenderBounds(bounds, minRow, maxRow, minCol, maxCol);
 
-  for (int row = minRow; row < maxRow; row++) {
-    for (int col = minCol; col < maxCol; col++) {
-      result.push_back(tiles->at(row).at(col));
+  for (int r = minRow; r < maxRow; r++) {
+    for (int c = minCol; c < maxCol; c++) {
+      int id = tiles->at(r).at(c);
+      Image_sptr image = tileSet.GetImage(id);
+      if (image != nullptr) {
+        auto x = viewport.GetTranslatedX(static_cast<float>(c) * ITile::SIZE);
+        auto y = viewport.GetTranslatedY(static_cast<float>(r) * ITile::SIZE);
+        renderer.RenderTexture(image->GetTexture(), x, y, ITile::SIZE, ITile::SIZE);
+      }
     }
   }
+}
 
-  return result;
+void TileMap::SetTile(int row, int col, int id) {
+  tiles->at(row).at(col) = id;
 }
 
 }
