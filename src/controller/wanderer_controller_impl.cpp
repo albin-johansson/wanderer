@@ -48,7 +48,7 @@ WandererControllerImpl::WandererControllerImpl() {
   core->SetViewportWidth(LOGICAL_WIDTH);
   core->SetViewportHeight(LOGICAL_HEIGHT);
 
-  keyStateManager = std::make_shared<KeyStateManager>();
+  keyStateManager = KeyStateManager::CreateUnique();
 
   auto vsyncDelta = static_cast<float>(desktop.refresh_rate);
   gameLoop = std::make_unique<SmoothFixedTimestepLoop>(keyStateManager, vsyncDelta);

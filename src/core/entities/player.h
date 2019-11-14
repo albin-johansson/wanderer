@@ -22,6 +22,8 @@ class Player final : public IEntity {
 
   ~Player() override = default;
 
+  static IEntity_uptr CreateUnique(visuals::Image_sptr sheet);
+
   void HandleInput(const Input& input) override;
 
   void Tick(float delta) override;

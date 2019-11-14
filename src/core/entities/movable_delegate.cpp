@@ -13,6 +13,10 @@ MovableObjectDelegate::MovableObjectDelegate(float width, float height)
 
 MovableObjectDelegate::~MovableObjectDelegate() = default;
 
+IMovableObject_uptr MovableObjectDelegate::CreateUnique(float width, float height) {
+  return std::make_unique<MovableObjectDelegate>(width, height);
+}
+
 void MovableObjectDelegate::Draw(visuals::Renderer& renderer,
                                  const Viewport& viewport) const noexcept {
   /* do nothing */

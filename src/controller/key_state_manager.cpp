@@ -16,6 +16,10 @@ KeyStateManager::~KeyStateManager() {
   stateArr = nullptr;
 }
 
+KeyStateManager_uptr KeyStateManager::CreateUnique() {
+  return std::make_unique<KeyStateManager>();
+}
+
 void KeyStateManager::CopyStates() {
   for (int i = 0; i < nKeys; i++) {
     prevStates.at(i) = stateArr[i];

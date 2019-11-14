@@ -9,9 +9,9 @@ WandererCoreImpl::WandererCoreImpl(visuals::ImageGenerator_sptr imgGenerator)
     : viewport(Viewport(1, 1, 1, 1)) {
   imageGenerator = Objects::RequireNonNull(std::move(imgGenerator));
 
-  tileMap = std::make_unique<TileMap>(imageGenerator, 50, 50);
+  tileMap = TileMap::CreateUnique(imageGenerator, 50, 50);
 
-  player = std::make_unique<Player>(imageGenerator->Load("resources/player.png"));
+  player = Player::CreateUnique(imageGenerator->Load("resources/player.png"));
   player->SetSpeed(300);
 
   viewport.SetLevelWidth(static_cast<float>(tileMap->GetCols()) * ITile::SIZE);

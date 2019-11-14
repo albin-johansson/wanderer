@@ -8,8 +8,12 @@ namespace wanderer::core {
 
 Player::Player(visuals::Image_sptr sheet) {
   this->sheet = Objects::RequireNonNull(std::move(sheet));
-  movableObject = std::make_unique<MovableObjectDelegate>(200, 200);
-  entityStateMachine = std::make_unique<EntityStateMachineImpl>(this);
+  movableObject = MovableObjectDelegate::CreateUnique(200, 200);
+  entityStateMachine = EntityStateMachineImpl::CreateUnique(this);
+}
+
+IEntity_uptr Player::CreateUnique(visuals::Image_sptr sheet) {
+  return std::make_unique<Player>(sheet);
 }
 
 void Player::HandleInput(const Input& input) {
@@ -23,14 +27,6 @@ void Player::Tick(float delta) {
 
 void Player::Draw(visuals::Renderer& renderer, const Viewport& viewport) const noexcept {
   entityStateMachine->Draw(renderer, viewport);
-//  renderer.SetColor(0, 0, 0);
-//  Vector2 interpolatedPosition = GetInterpolatedPosition();
-//  auto x = viewport.GetTranslatedX(interpolatedPosition.GetX());
-//  auto y = viewport.GetTranslatedY(interpolatedPosition.GetY());
-//
-//  auto src = Rectangle(0, 0, 64, 64);
-//  auto dst = Rectangle(x, y, GetWidth(), GetHeight());
-//  renderer.RenderTexture(sheet->GetTexture(), src, dst);
 }
 
 void Player::SetState(EntityStateID id) {

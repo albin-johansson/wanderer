@@ -12,6 +12,12 @@ namespace wanderer::core {
 
 using TileMatrix = std::vector<std::vector<int>>;
 
+class TileMap;
+
+using TileMap_uptr = std::unique_ptr<TileMap>;
+using TileMap_sptr = std::shared_ptr<TileMap>;
+using TileMap_wptr = std::weak_ptr<TileMap>;
+
 /**
  * The TileMap class represents a map of tiles, used to build the game world.
  *
@@ -39,6 +45,10 @@ class TileMap final : public IDrawable {
   TileMap(visuals::ImageGenerator_sptr imageGenerator, int nRows, int nCols);
 
   ~TileMap() override;
+
+  static TileMap_uptr CreateUnique(visuals::ImageGenerator_sptr imageGenerator,
+                                   int nRows,
+                                   int nCols);
 
   void Draw(visuals::Renderer& renderer, const Viewport& viewport) const noexcept override;
 
@@ -70,9 +80,5 @@ class TileMap final : public IDrawable {
   [[nodiscard]] inline int GetCols() const noexcept { return nCols; }
 
 };
-
-using TileMap_uptr = std::unique_ptr<TileMap>;
-using TileMap_sptr = std::shared_ptr<TileMap>;
-using TileMap_wptr = std::weak_ptr<TileMap>;
 
 }

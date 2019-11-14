@@ -5,6 +5,12 @@
 
 namespace wanderer::controller {
 
+class KeyStateManager;
+
+using KeyStateManager_uptr = std::unique_ptr<KeyStateManager>;
+using KeyStateManager_sptr = std::shared_ptr<KeyStateManager>;
+using KeyStateManager_wptr = std::weak_ptr<KeyStateManager>;
+
 class KeyStateManager final {
  private:
   std::vector<Uint8> prevStates;
@@ -17,6 +23,8 @@ class KeyStateManager final {
   KeyStateManager();
 
   ~KeyStateManager();
+
+  static KeyStateManager_uptr CreateUnique();
 
   /**
    * Updates the key state.
@@ -54,10 +62,6 @@ class KeyStateManager final {
   bool WasReleased(SDL_Scancode scancode) const;
 
 };
-
-using KeyStateManager_uptr = std::unique_ptr<KeyStateManager>;
-using KeyStateManager_sptr = std::shared_ptr<KeyStateManager>;
-using KeyStateManager_wptr = std::weak_ptr<KeyStateManager>;
 
 }
 

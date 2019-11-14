@@ -13,7 +13,7 @@ EntityMovingState::EntityMovingState(IEntity* entity, IEntityStateMachine* paren
   this->parent = Objects::RequireNonNull(parent);
   animation.SetFrame(0);
   animation.SetNumberOfFrames(9);
-  animation.SetDelay(65);
+  animation.SetDelay(60);
 }
 
 EntityMovingState::~EntityMovingState() = default;

@@ -28,6 +28,12 @@ TileMap::TileMap(visuals::ImageGenerator_sptr imageGenerator, int nRows, int nCo
 
 TileMap::~TileMap() = default;
 
+TileMap_uptr TileMap::CreateUnique(visuals::ImageGenerator_sptr imageGenerator,
+                                   int nRows,
+                                   int nCols) {
+  return std::make_unique<TileMap>(imageGenerator, nRows, nCols);
+}
+
 void TileMap::CalculateRenderBounds(const Rectangle& bounds,
                                     int& minRow,
                                     int& maxRow,

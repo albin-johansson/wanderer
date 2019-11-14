@@ -35,6 +35,8 @@ class MovableObjectDelegate final : public IMovableObject {
 
   ~MovableObjectDelegate() override;
 
+  static IMovableObject_uptr CreateUnique(float width, float height);
+
   void Draw(visuals::Renderer& renderer, const Viewport& viewport) const noexcept override;
 
   void Tick(float delta) override;

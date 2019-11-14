@@ -16,6 +16,10 @@ EntityStateMachineImpl::EntityStateMachineImpl(IEntity* entity) {
 
 EntityStateMachineImpl::~EntityStateMachineImpl() = default;
 
+IEntityStateMachine_uptr EntityStateMachineImpl::CreateUnique(IEntity* entity) {
+  return std::make_unique<EntityStateMachineImpl>(entity);
+}
+
 void EntityStateMachineImpl::Put(EntityStateID id, IEntityState_sptr state) {
   states.insert(std::pair<EntityStateID, IEntityState_sptr>(id, state));
 }
