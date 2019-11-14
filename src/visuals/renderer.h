@@ -6,6 +6,12 @@
 
 namespace wanderer::visuals {
 
+class Renderer;
+
+using Renderer_uptr = std::unique_ptr<Renderer>;
+using Renderer_sptr = std::shared_ptr<Renderer>;
+using Renderer_wptr = std::weak_ptr<Renderer>;
+
 /**
  * The Renderer class is a wrapper class for the SDL_Renderer struct.
  *
@@ -40,6 +46,10 @@ class Renderer final {
    * @since 0.1.0
    */
   explicit Renderer(SDL_Window* window);
+
+  static Renderer_uptr CreateUnique(SDL_Window* window);
+
+  static Renderer_uptr CreateUnique(SDL_Renderer* renderer);
 
   ~Renderer();
 
@@ -268,9 +278,5 @@ class Renderer final {
     return renderer;
   }
 };
-
-using Renderer_uptr = std::unique_ptr<Renderer>;
-using Renderer_sptr = std::shared_ptr<Renderer>;
-using Renderer_wptr = std::weak_ptr<Renderer>;
 
 }

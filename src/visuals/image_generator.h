@@ -6,6 +6,12 @@
 
 namespace wanderer::visuals {
 
+class ImageGenerator;
+
+using ImageGenerator_uptr = std::unique_ptr<ImageGenerator>;
+using ImageGenerator_sptr = std::shared_ptr<ImageGenerator>;
+using ImageGenerator_wptr = std::weak_ptr<ImageGenerator>;
+
 /**
  * The ImageGenerator class is used to load images.
  *
@@ -25,6 +31,8 @@ class ImageGenerator final {
 
   ~ImageGenerator();
 
+  static ImageGenerator_uptr CreateUnique(Renderer_sptr renderer);
+
   /**
    * Loads the image at the specified path.
    *
@@ -34,9 +42,5 @@ class ImageGenerator final {
   Image_uptr Load(const std::string& path) const;
 
 };
-
-using ImageGenerator_uptr = std::unique_ptr<ImageGenerator>;
-using ImageGenerator_sptr = std::shared_ptr<ImageGenerator>;
-using ImageGenerator_wptr = std::weak_ptr<ImageGenerator>;
 
 }

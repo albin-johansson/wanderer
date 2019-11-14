@@ -18,7 +18,7 @@ WandererControllerImpl::WandererControllerImpl() {
                  SDL_LOG_PRIORITY_INFO,
                  "Desktop refresh rate: %i Hz", desktop.refresh_rate);
 
-  window = std::make_unique<Window>("Wanderer", desktop.w, desktop.h);
+  window = Window::CreateUnique("Wanderer", desktop.w, desktop.h);
   window->SetFullscreen(true);
 
   SDL_Surface* icon = IMG_Load("resources/tactile_icon.png");
@@ -29,7 +29,8 @@ WandererControllerImpl::WandererControllerImpl() {
                    SDL_LOG_PRIORITY_WARN,
                    "Failed to load window icon! %s", SDL_GetError());
   }
-  renderer = std::make_shared<Renderer>(window->GetInternalWindow());
+
+  renderer = Renderer::CreateUnique(window->GetInternalWindow());
 
   auto windowWidth = static_cast<float>(window->GetWidth());
   auto windowHeight = static_cast<float>(window->GetHeight());
@@ -42,8 +43,8 @@ WandererControllerImpl::WandererControllerImpl() {
   SDL_Log("Logical width: %i", renderer->GetLogicalWidth());
   SDL_Log("Logical height: %i", renderer->GetLogicalHeight());
 
-  auto imgGen = std::make_shared<ImageGenerator>(renderer);
-  core = CreateCore(imgGen);
+  ImageGenerator_sptr imageGen = ImageGenerator::CreateUnique(renderer);
+  core = CreateCore(imageGen);
   core->SetViewportWidth(LOGICAL_WIDTH);
   core->SetViewportHeight(LOGICAL_HEIGHT);
 

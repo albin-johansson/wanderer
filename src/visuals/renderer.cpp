@@ -26,6 +26,14 @@ Renderer::~Renderer() {
   }
 }
 
+Renderer_uptr Renderer::CreateUnique(SDL_Renderer* renderer) {
+  return std::make_unique<Renderer>(renderer);
+}
+
+Renderer_uptr Renderer::CreateUnique(SDL_Window* window) {
+  return std::make_unique<Renderer>(window);
+}
+
 void Renderer::Clear() noexcept { SDL_RenderClear(renderer); }
 
 void Renderer::Present() noexcept { SDL_RenderPresent(renderer); }

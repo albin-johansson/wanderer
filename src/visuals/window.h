@@ -4,6 +4,10 @@
 
 namespace wanderer::visuals {
 
+class Window;
+
+using Window_uptr = std::unique_ptr<Window>;
+
 /**
  * The Window class is a wrapper around an SDL_Window instance.
  *
@@ -26,6 +30,8 @@ class Window final {
   Window(const std::string& title, int width, int height);
 
   ~Window();
+
+  static Window_uptr CreateUnique(const std::string& title, int width, int height);
 
   /**
    * Makes the window visible.
@@ -136,7 +142,5 @@ class Window final {
     return window;
   }
 };
-
-using Window_uptr = std::unique_ptr<Window>;
 
 }

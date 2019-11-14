@@ -11,6 +11,10 @@ ImageGenerator::ImageGenerator(Renderer_sptr renderer) {
 
 ImageGenerator::~ImageGenerator() = default;
 
+ImageGenerator_uptr ImageGenerator::CreateUnique(Renderer_sptr renderer) {
+  return std::make_unique<ImageGenerator>(renderer);
+}
+
 Image_uptr ImageGenerator::Load(const std::string& path) const {
   return std::make_unique<Image>(renderer->GetInternalRenderer(), path);
 }

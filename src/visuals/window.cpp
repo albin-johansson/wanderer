@@ -24,6 +24,10 @@ Window::~Window() {
   }
 }
 
+Window_uptr Window::CreateUnique(const std::string& title, int width, int height) {
+  return std::make_unique<Window>(title, width, height);
+}
+
 void Window::Show() noexcept { SDL_ShowWindow(window); }
 
 void Window::Hide() noexcept { SDL_HideWindow(window); }
