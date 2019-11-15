@@ -5,6 +5,7 @@
 #include "tile_map.h"
 #include "viewport.h"
 #include "image_generator.h"
+#include "menu_state_machine.h"
 
 namespace wanderer::core {
 
@@ -15,13 +16,12 @@ namespace wanderer::core {
  */
 class WandererCoreImpl final : public IWandererCore {
  private:
-//  static constexpr float GAME_LOGICAL_WIDTH = 800;
-//  static constexpr float GAME_LOGICAL_HEIGHT = 600;
-
+  IMenuStateMachine_uptr menuStateMachine = nullptr;
   TileMap_uptr tileMap = nullptr;
   IEntity_uptr player = nullptr;
-  visuals::ImageGenerator_sptr imageGenerator = nullptr;
   Viewport viewport;
+
+  visuals::ImageGenerator_sptr imageGenerator = nullptr;
 
   explicit WandererCoreImpl(visuals::ImageGenerator_sptr imageGenerator);
 

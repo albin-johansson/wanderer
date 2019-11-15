@@ -13,6 +13,10 @@ MenuStateMachineImpl::MenuStateMachineImpl() {
 
 MenuStateMachineImpl::~MenuStateMachineImpl() = default;
 
+IMenuStateMachine_uptr MenuStateMachineImpl::Create() {
+  return std::make_unique<MenuStateMachineImpl>();
+}
+
 void MenuStateMachineImpl::Draw(visuals::Renderer& renderer,
                                 const core::Viewport& viewport) const noexcept {
   activeMenu->Draw(renderer, viewport);

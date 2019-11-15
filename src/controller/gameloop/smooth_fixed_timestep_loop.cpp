@@ -1,6 +1,5 @@
 #include "smooth_fixed_timestep_loop.h"
 #include "objects.h"
-#include "menu_state_machine_impl.h"
 #include <SDL.h>
 #include <iostream>
 
@@ -22,13 +21,9 @@ SmoothFixedTimestepLoop::SmoothFixedTimestepLoop(KeyStateManager_sptr keyStateMa
   SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION,
                  SDL_LOG_PRIORITY_INFO,
                  "Using fixed timestep loop with delta time smoothing.");
-
-  menuStateMachine = new MenuStateMachineImpl();
 }
 
-SmoothFixedTimestepLoop::~SmoothFixedTimestepLoop() {
-  delete menuStateMachine;
-}
+SmoothFixedTimestepLoop::~SmoothFixedTimestepLoop() = default;
 
 SmoothFixedTimestepLoop_uptr SmoothFixedTimestepLoop::CreateUnique(KeyStateManager_sptr keyStateManager,
                                                                    MouseStateManager_sptr mouseStateManager,
@@ -48,11 +43,7 @@ void SmoothFixedTimestepLoop::UpdateInput(core::IWandererCore& core) {
   }
 
   auto input = Input(keyStateManager, mouseStateManager);
-  menuStateMachine->HandleInput(input);
-
-  if (!menuStateMachine->IsBlocking()) {
-    core.HandleInput(input);
-  }
+  core.HandleInput(input);
 }
 
 void SmoothFixedTimestepLoop::SmoothDelta() {
@@ -89,9 +80,7 @@ void SmoothFixedTimestepLoop::Update(IWandererCore& core, Renderer& renderer) {
 
   while (accumulator >= timeStep) {
     accumulator -= timeStep;
-    if (!menuStateMachine->IsBlocking()) {
-      core.Update(timeStep);
-    }
+    core.Update(timeStep);
   }
 
   float alpha = accumulator / timeStep;
@@ -103,7 +92,6 @@ void SmoothFixedTimestepLoop::Update(IWandererCore& core, Renderer& renderer) {
   renderer.Clear();
 
   core.Render(renderer, alpha);
-  menuStateMachine->Draw(renderer, core.GetViewport());
 
   renderer.Present();
 }

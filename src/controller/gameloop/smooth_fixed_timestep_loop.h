@@ -6,7 +6,6 @@
 #include "mouse_state_manager.h"
 #include <memory>
 #include <SDL_types.h>
-#include <menu_state_machine.h>
 
 namespace wanderer::controller {
 
@@ -43,8 +42,6 @@ class SmoothFixedTimestepLoop final : public IGameLoop {
   float accumulator = 0;
   float delta = 0;
   bool quit = false;
-
-  core::IMenuStateMachine* menuStateMachine = nullptr;
 
   /**
    * Updates the input state.
