@@ -51,6 +51,18 @@ set(SOURCE_FILES
         core/tiles/tile_set.cpp
         core/tiles/tile_set.h
 
+        core/menu/menu.h
+        core/menu/menu_id.h
+        core/menu/menu_state_machine.h
+        core/menu/menu_state_machine_impl.cpp
+        core/menu/menu_state_machine_impl.h
+        core/menu/home_menu.cpp
+        core/menu/home_menu.h
+        core/menu/in_game_menu.cpp
+        core/menu/in_game_menu.h
+        core/menu/menu_button.cpp
+        core/menu/menu_button.h
+
         core/bad_state_exception.cpp
         core/bad_state_exception.h
         core/input.cpp
@@ -79,19 +91,7 @@ set(SOURCE_FILES
         visuals/animation.cpp
         visuals/animation.h
         visuals/image_generator.cpp
-        visuals/image_generator.h
-        visuals/menu/menu.h
-
-        visuals/menu/menu_id.h
-        visuals/menu/menu_state_machine.h
-        visuals/menu/menu_state_machine_impl.cpp
-        visuals/menu/menu_state_machine_impl.h
-        visuals/menu/home_menu.cpp
-        visuals/menu/home_menu.h
-        visuals/menu/in_game_menu.cpp
-        visuals/menu/in_game_menu.h
-        visuals/menu/menu_button.cpp
-        visuals/menu/menu_button.h)
+        visuals/image_generator.h)
 
 # Prepares the Wanderer "library", which excludes linking and the main.cpp file
 add_library(${WANDERER_LIB} ${SOURCE_FILES})
@@ -104,7 +104,7 @@ target_include_directories(${WANDERER_LIB} PUBLIC controller)
 target_include_directories(${WANDERER_LIB} PUBLIC controller/gameloop)
 target_include_directories(${WANDERER_LIB} PUBLIC core)
 target_include_directories(${WANDERER_LIB} PUBLIC visuals)
-target_include_directories(${WANDERER_LIB} PUBLIC visuals/menu)
+target_include_directories(${WANDERER_LIB} PUBLIC core/menu)
 target_include_directories(${WANDERER_LIB} PUBLIC util)
 target_include_directories(${WANDERER_LIB} PUBLIC service)
 target_include_directories(${WANDERER_LIB} PUBLIC core/math)

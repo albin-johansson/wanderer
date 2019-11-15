@@ -30,14 +30,7 @@ WandererControllerImpl::WandererControllerImpl() {
   }
 
   renderer = Renderer::CreateUnique(window->GetInternalWindow());
-
-  auto windowWidth = static_cast<float>(window->GetWidth());
-  auto windowHeight = static_cast<float>(window->GetHeight());
-
   renderer->SetLogicalSize(LOGICAL_WIDTH, LOGICAL_HEIGHT);
-//  renderer->SetLogicalIntegerScale(false);
-//  renderer->SetViewport(Rectangle(0, 0, windowWidth, windowHeight));
-//  renderer->SetScale(windowWidth / LOGICAL_WIDTH, windowHeight / LOGICAL_HEIGHT);
 
   SDL_Log("Logical width: %i", renderer->GetLogicalWidth());
   SDL_Log("Logical height: %i", renderer->GetLogicalHeight());
