@@ -44,7 +44,7 @@ class SmoothFixedTimestepLoop final : public IGameLoop {
   float delta = 0;
   bool quit = false;
 
-  visuals::IMenuStateMachine* menuStateMachine = nullptr;
+  core::IMenuStateMachine* menuStateMachine = nullptr;
 
   /**
    * Updates the input state.

@@ -1,7 +1,13 @@
 #pragma once
 
-namespace wanderer::visuals {
+namespace wanderer::core {
 
+/**
+ * The MenuID enum class provides values that serve as identifiers (keys) for the various menus
+ * in the game.
+ *
+ * @since 0.1.0
+ */
 enum class MenuID {
   IN_GAME,
   HOME,

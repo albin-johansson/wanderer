@@ -2,7 +2,7 @@
 #include "home_menu.h"
 #include "in_game_menu.h"
 
-namespace wanderer::visuals {
+namespace wanderer::core {
 
 MenuStateMachineImpl::MenuStateMachineImpl() {
   menus.insert(std::pair<MenuID, IMenu_sptr>(MenuID::HOME, std::make_shared<HomeMenu>(this)));
@@ -30,7 +30,7 @@ void MenuStateMachineImpl::HandleInput(const core::Input& input) noexcept {
   activeMenu->HandleInput(input);
 }
 
-bool MenuStateMachineImpl::IsActiveMenuBlocking() const noexcept {
+bool MenuStateMachineImpl::IsBlocking() const noexcept {
   return activeMenu->IsBlocking();
 }
 

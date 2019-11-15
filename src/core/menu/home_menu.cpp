@@ -3,7 +3,7 @@
 
 using namespace wanderer::core;
 
-namespace wanderer::visuals {
+namespace wanderer::core {
 
 HomeMenu::HomeMenu(IMenuStateMachine* parent)
     : startButton(MenuButton(100, 100, 200, 200)) {

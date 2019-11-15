@@ -50,7 +50,7 @@ void SmoothFixedTimestepLoop::UpdateInput(core::IWandererCore& core) {
   auto input = Input(keyStateManager, mouseStateManager);
   menuStateMachine->HandleInput(input);
 
-  if (!menuStateMachine->IsActiveMenuBlocking()) {
+  if (!menuStateMachine->IsBlocking()) {
     core.HandleInput(input);
   }
 }
@@ -89,7 +89,7 @@ void SmoothFixedTimestepLoop::Update(IWandererCore& core, Renderer& renderer) {
 
   while (accumulator >= timeStep) {
     accumulator -= timeStep;
-    if (!menuStateMachine->IsActiveMenuBlocking()) {
+    if (!menuStateMachine->IsBlocking()) {
       core.Update(timeStep);
     }
   }

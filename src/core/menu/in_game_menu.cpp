@@ -3,7 +3,7 @@
 
 using namespace wanderer::core;
 
-namespace wanderer::visuals {
+namespace wanderer::core {
 
 InGameMenu::InGameMenu(IMenuStateMachine* parent) {
   this->parent = Objects::RequireNonNull(parent);
@@ -14,8 +14,7 @@ InGameMenu::~InGameMenu() {
 
 }
 
-void InGameMenu::Draw(Renderer& renderer,
-                      const wanderer::core::Viewport& viewport) const noexcept {
+void InGameMenu::Draw(visuals::Renderer& renderer, const core::Viewport& viewport) const noexcept {
 
 }
 

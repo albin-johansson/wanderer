@@ -2,7 +2,7 @@
 #include "rectangle.h"
 #include "drawable.h"
 
-namespace wanderer::visuals {
+namespace wanderer::core {
 
 class MenuButton final : public core::IDrawable {
  private:

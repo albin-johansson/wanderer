@@ -1,6 +1,6 @@
 #include "menu_button.h"
 
-namespace wanderer::visuals {
+namespace wanderer::core {
 
 MenuButton::MenuButton(float x, float y, float width, float height) {
   bounds.SetY(x);

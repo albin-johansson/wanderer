@@ -1,9 +1,8 @@
 #pragma once
 #include "menu_state_machine.h"
-#include "menu.h"
 #include <map>
 
-namespace wanderer::visuals {
+namespace wanderer::core {
 
 class MenuStateMachineImpl final : public IMenuStateMachine {
  private:
@@ -17,9 +16,9 @@ class MenuStateMachineImpl final : public IMenuStateMachine {
 
   void Draw(visuals::Renderer& renderer, const core::Viewport& viewport) const noexcept override;
 
-  void HandleInput(const core::Input& input) noexcept override;
+  void HandleInput(const Input& input) noexcept override;
 
-  bool IsActiveMenuBlocking() const noexcept override;
+  bool IsBlocking() const noexcept override;
 
   void SetMenu(MenuID id) noexcept override;
 

@@ -2,7 +2,7 @@
 #include "menu_state_machine.h"
 #include "menu.h"
 
-namespace wanderer::visuals {
+namespace wanderer::core {
 
 class InGameMenu final : public IMenu {
  private:

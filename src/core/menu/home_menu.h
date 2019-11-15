@@ -3,7 +3,7 @@
 #include "menu_state_machine.h"
 #include "menu_button.h"
 
-namespace wanderer::visuals {
+namespace wanderer::core {
 
 class HomeMenu final : public IMenu {
  private:

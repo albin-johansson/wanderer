@@ -1,22 +1,17 @@
 #pragma once
+#include "menu.h"
 #include "menu_id.h"
-#include "input.h"
-#include "drawable.h"
 
-namespace wanderer::visuals {
+namespace wanderer::core {
 
-class IMenuStateMachine : public core::IDrawable {
+class IMenuStateMachine : public IMenu {
  protected:
   IMenuStateMachine() = default;
 
  public:
   ~IMenuStateMachine() override = default;
 
-  virtual void HandleInput(const core::Input& input) noexcept = 0;
-
   virtual void SetMenu(MenuID id) = 0;
-
-  [[nodiscard]] virtual bool IsActiveMenuBlocking() const noexcept = 0;
 
   [[nodiscard]] virtual MenuID GetActiveMenuID() const noexcept = 0;
 };
