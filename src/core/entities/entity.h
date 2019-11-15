@@ -37,6 +37,12 @@ class IEntity : public IMovableObject {
    */
   virtual void SetState(EntityStateID id) = 0;
 
+  /**
+   * Returns a reference to the internal tile sheet.
+   *
+   * @return a reference to the internal tile sheet.
+   * @since 0.1.0
+   */
   virtual visuals::Image& GetTileSheet() const noexcept = 0;
 };
 

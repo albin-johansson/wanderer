@@ -156,6 +156,12 @@ class Rectangle final {
    */
   [[nodiscard]] inline float GetMaxY() const noexcept { return y + height; }
 
+  /**
+   * Returns an SDL_Rect representation of the rectangle.
+   *
+   * @return an SDL_Rect representation of the rectangle.
+   * @since 0.1.0
+   */
   [[nodiscard]] inline SDL_Rect ToSdlRect() const noexcept {
     int ix = static_cast<int>(x);
     int iy = static_cast<int>(y);
@@ -163,7 +169,6 @@ class Rectangle final {
     int ih = static_cast<int>(height);
     return {ix, iy, iw, ih};
   }
-
 };
 
 }

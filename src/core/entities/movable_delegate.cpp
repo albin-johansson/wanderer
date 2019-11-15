@@ -13,7 +13,7 @@ MovableObjectDelegate::MovableObjectDelegate(float width, float height)
 
 MovableObjectDelegate::~MovableObjectDelegate() = default;
 
-IMovableObject_uptr MovableObjectDelegate::CreateUnique(float width, float height) {
+IMovableObject_uptr MovableObjectDelegate::Create(float width, float height) {
   return std::make_unique<MovableObjectDelegate>(width, height);
 }
 

@@ -18,11 +18,24 @@ class Player final : public IEntity {
   visuals::Image_sptr sheet = nullptr;
 
  public:
+  /**
+   * @param sheet a shared pointer to the tile sheet image which will be used by the player.
+   * @throws NullPointerException if the supplied image pointer is null.
+   * @since 0.1.0
+   */
   explicit Player(visuals::Image_sptr sheet);
 
   ~Player() override = default;
 
-  static IEntity_uptr CreateUnique(visuals::Image_sptr sheet);
+  /**
+   * Creates and returns a unique pointer to a player instance.
+   *
+   * @param sheet a shared pointer to the tile sheet image which will be used by the player.
+   * @return a unique pointer to a player instance.
+   * @throws NullPointerException if the supplied image pointer is null.
+   * @since 0.1.0
+   */
+  static IEntity_uptr Create(visuals::Image_sptr sheet);
 
   void HandleInput(const Input& input) override;
 

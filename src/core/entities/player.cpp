@@ -8,11 +8,11 @@ namespace wanderer::core {
 
 Player::Player(visuals::Image_sptr sheet) {
   this->sheet = Objects::RequireNonNull(std::move(sheet));
-  movableObject = MovableObjectDelegate::CreateUnique(200, 200);
+  movableObject = MovableObjectDelegate::Create(200, 200);
   entityStateMachine = EntityStateMachineImpl::CreateUnique(this);
 }
 
-IEntity_uptr Player::CreateUnique(visuals::Image_sptr sheet) {
+IEntity_uptr Player::Create(visuals::Image_sptr sheet) {
   return std::make_unique<Player>(sheet);
 }
 
