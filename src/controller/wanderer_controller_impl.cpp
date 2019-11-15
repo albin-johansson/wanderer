@@ -1,6 +1,5 @@
 #include "wanderer_controller_impl.h"
 #include <SDL.h>
-#include <memory>
 #include "bad_state_exception.h"
 #include "input.h"
 #include "smooth_fixed_timestep_loop.h"
@@ -36,9 +35,9 @@ WandererControllerImpl::WandererControllerImpl() {
   auto windowHeight = static_cast<float>(window->GetHeight());
 
   renderer->SetLogicalSize(LOGICAL_WIDTH, LOGICAL_HEIGHT);
-  renderer->SetLogicalIntegerScale(true);
-  renderer->SetViewport(Rectangle(0, 0, windowWidth, windowHeight));
-  renderer->SetScale(windowWidth / LOGICAL_WIDTH, windowHeight / LOGICAL_HEIGHT);
+//  renderer->SetLogicalIntegerScale(false);
+//  renderer->SetViewport(Rectangle(0, 0, windowWidth, windowHeight));
+//  renderer->SetScale(windowWidth / LOGICAL_WIDTH, windowHeight / LOGICAL_HEIGHT);
 
   SDL_Log("Logical width: %i", renderer->GetLogicalWidth());
   SDL_Log("Logical height: %i", renderer->GetLogicalHeight());
@@ -50,8 +49,18 @@ WandererControllerImpl::WandererControllerImpl() {
 
   keyStateManager = KeyStateManager::CreateUnique();
 
+  mouseStateManager = MouseStateManager::CreateUnique();
+  mouseStateManager->SetLogicalWidth(LOGICAL_WIDTH);
+  mouseStateManager->SetLogicalHeight(LOGICAL_HEIGHT);
+
+  // TODO setters need to be called every time the window size changes
+  mouseStateManager->SetWindowWidth(window->GetWidth());
+  mouseStateManager->SetWindowHeight(window->GetHeight());
+
   auto vsyncDelta = static_cast<float>(desktop.refresh_rate);
-  gameLoop = std::make_unique<SmoothFixedTimestepLoop>(keyStateManager, vsyncDelta);
+  gameLoop = SmoothFixedTimestepLoop::CreateUnique(keyStateManager,
+                                                   mouseStateManager,
+                                                   vsyncDelta);
 }
 
 WandererControllerImpl::~WandererControllerImpl() = default;

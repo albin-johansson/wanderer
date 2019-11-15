@@ -4,6 +4,7 @@
 #include "renderer.h"
 #include "window.h"
 #include "key_state_manager.h"
+#include "mouse_state_manager.h"
 #include "game_loop.h"
 
 namespace wanderer::controller {
@@ -23,7 +24,10 @@ class WandererControllerImpl final : public IWandererController {
   core::IWandererCore_uptr core = nullptr;
   visuals::Window_uptr window = nullptr;
   visuals::Renderer_sptr renderer = nullptr;
+
   KeyStateManager_sptr keyStateManager = nullptr;
+  MouseStateManager_sptr mouseStateManager = nullptr;
+
   IGameLoop_uptr gameLoop = nullptr;
 
   /**

@@ -1,11 +1,14 @@
 #include "input.h"
-
+#include "objects.h"
 #include <utility>
+
+using namespace wanderer::controller;
 
 namespace wanderer::core {
 
-Input::Input(controller::KeyStateManager_sptr keyStateManager) {
-  this->keyStateManager = std::move(keyStateManager);
+Input::Input(KeyStateManager_sptr keyStateManager, MouseStateManager_sptr mouseStateManager) {
+  this->keyStateManager = Objects::RequireNonNull(std::move(keyStateManager));
+  this->mouseStateManager = Objects::RequireNonNull(std::move(mouseStateManager));
 }
 
 Input::~Input() = default;
@@ -20,6 +23,30 @@ bool Input::WasJustPressed(SDL_Scancode scancode) const {
 
 bool Input::WasReleased(SDL_Scancode scancode) const {
   return keyStateManager->WasReleased(scancode);
+}
+
+float Input::GetMouseX() const noexcept {
+  return mouseStateManager->GetMouseX();
+}
+
+float Input::GetMouseY() const noexcept {
+  return mouseStateManager->GetMouseY();
+}
+
+bool Input::IsLeftButtonPressed() const noexcept {
+  return mouseStateManager->IsLeftButtonPressed();
+}
+
+bool Input::IsRightButtonPressed() const noexcept {
+  return mouseStateManager->IsRightButtonPressed();
+}
+
+bool Input::WasLeftButtonReleased() const noexcept {
+  return mouseStateManager->WasLeftButtonReleased();
+}
+
+bool Input::WasRightButtonReleased() const noexcept {
+  return mouseStateManager->WasRightButtonReleased();
 }
 
 }

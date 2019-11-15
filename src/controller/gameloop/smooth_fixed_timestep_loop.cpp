@@ -1,5 +1,6 @@
 #include "smooth_fixed_timestep_loop.h"
 #include "objects.h"
+#include "menu_state_machine_impl.h"
 #include <SDL.h>
 #include <iostream>
 
@@ -9,9 +10,11 @@ using namespace wanderer::visuals;
 namespace wanderer::controller {
 
 SmoothFixedTimestepLoop::SmoothFixedTimestepLoop(KeyStateManager_sptr keyStateManager,
+                                                 MouseStateManager_sptr mouseStateManager,
                                                  float vsyncRate)
     : vsyncRate(vsyncRate), timeStep(1.0f / vsyncRate), counterFreq(SDL_GetPerformanceFrequency()) {
   this->keyStateManager = Objects::RequireNonNull(std::move(keyStateManager));
+  this->mouseStateManager = Objects::RequireNonNull(std::move(mouseStateManager));
   quit = false;
   now = SDL_GetPerformanceCounter();
   then = now;
@@ -20,24 +23,36 @@ SmoothFixedTimestepLoop::SmoothFixedTimestepLoop(KeyStateManager_sptr keyStateMa
                  SDL_LOG_PRIORITY_INFO,
                  "Using fixed timestep loop with delta time smoothing.");
 
-  SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION,
-                 SDL_LOG_PRIORITY_INFO,
-                 "High-performance counter frequency: %f",
-                 counterFreq);
+  menuStateMachine = new MenuStateMachineImpl();
 }
 
-SmoothFixedTimestepLoop::~SmoothFixedTimestepLoop() = default;
+SmoothFixedTimestepLoop::~SmoothFixedTimestepLoop() {
+  delete menuStateMachine;
+}
+
+SmoothFixedTimestepLoop_uptr SmoothFixedTimestepLoop::CreateUnique(KeyStateManager_sptr keyStateManager,
+                                                                   MouseStateManager_sptr mouseStateManager,
+                                                                   float vsyncRate) {
+  return std::make_unique<SmoothFixedTimestepLoop>(keyStateManager, mouseStateManager, vsyncRate);
+}
 
 void SmoothFixedTimestepLoop::UpdateInput(core::IWandererCore& core) {
+  mouseStateManager->Update();
   keyStateManager->Update();
+
   SDL_PumpEvents();
 
   if (SDL_PeepEvents(nullptr, 0, SDL_PEEKEVENT, SDL_QUIT, SDL_QUIT) > 0
-      || keyStateManager->WasReleased(SDL_SCANCODE_ESCAPE)) {
+      || keyStateManager->WasReleased(SDL_SCANCODE_O)) {
     quit = true;
   }
 
-  core.HandleInput(Input(keyStateManager));
+  auto input = Input(keyStateManager, mouseStateManager);
+  menuStateMachine->HandleInput(input);
+
+  if (!menuStateMachine->IsActiveMenuBlocking()) {
+    core.HandleInput(input);
+  }
 }
 
 void SmoothFixedTimestepLoop::SmoothDelta() {
@@ -74,7 +89,9 @@ void SmoothFixedTimestepLoop::Update(IWandererCore& core, Renderer& renderer) {
 
   while (accumulator >= timeStep) {
     accumulator -= timeStep;
-    core.Update(timeStep);
+    if (!menuStateMachine->IsActiveMenuBlocking()) {
+      core.Update(timeStep);
+    }
   }
 
   float alpha = accumulator / timeStep;
@@ -82,7 +99,13 @@ void SmoothFixedTimestepLoop::Update(IWandererCore& core, Renderer& renderer) {
     alpha = 1.0f;
   }
 
+  renderer.SetColor(0, 0, 0);
+  renderer.Clear();
+
   core.Render(renderer, alpha);
+  menuStateMachine->Draw(renderer, core.GetViewport());
+
+  renderer.Present();
 }
 
 }

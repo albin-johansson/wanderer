@@ -17,6 +17,8 @@ Renderer::Renderer(SDL_Window* window) {
   Objects::RequireNonNull(window);
   Uint32 flags = SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC;
   renderer = SDL_CreateRenderer(window, -1, flags);
+
+  SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
   SetLogicalIntegerScale(false);
 }
 

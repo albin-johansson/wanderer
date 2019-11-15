@@ -10,6 +10,8 @@ set(SOURCE_FILES
         controller/wanderer_controller_impl.cpp
         controller/wanderer_controller_impl.h
         controller/wanderer_controller_factory.h
+        controller/mouse_state_manager.cpp
+        controller/mouse_state_manager.h
 
         controller/gameloop/game_loop.h
         controller/gameloop/smooth_fixed_timestep_loop.cpp
@@ -77,7 +79,19 @@ set(SOURCE_FILES
         visuals/animation.cpp
         visuals/animation.h
         visuals/image_generator.cpp
-        visuals/image_generator.h)
+        visuals/image_generator.h
+        visuals/menu/menu.h
+
+        visuals/menu/menu_id.h
+        visuals/menu/menu_state_machine.h
+        visuals/menu/menu_state_machine_impl.cpp
+        visuals/menu/menu_state_machine_impl.h
+        visuals/menu/home_menu.cpp
+        visuals/menu/home_menu.h
+        visuals/menu/in_game_menu.cpp
+        visuals/menu/in_game_menu.h
+        visuals/menu/menu_button.cpp
+        visuals/menu/menu_button.h)
 
 # Prepares the Wanderer "library", which excludes linking and the main.cpp file
 add_library(${WANDERER_LIB} ${SOURCE_FILES})
@@ -90,6 +104,7 @@ target_include_directories(${WANDERER_LIB} PUBLIC controller)
 target_include_directories(${WANDERER_LIB} PUBLIC controller/gameloop)
 target_include_directories(${WANDERER_LIB} PUBLIC core)
 target_include_directories(${WANDERER_LIB} PUBLIC visuals)
+target_include_directories(${WANDERER_LIB} PUBLIC visuals/menu)
 target_include_directories(${WANDERER_LIB} PUBLIC util)
 target_include_directories(${WANDERER_LIB} PUBLIC service)
 target_include_directories(${WANDERER_LIB} PUBLIC core/math)

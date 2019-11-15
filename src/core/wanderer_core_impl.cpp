@@ -32,14 +32,8 @@ void WandererCoreImpl::Update(float delta) {
 
 void WandererCoreImpl::Render(Renderer& renderer, float alpha) {
   Interpolate(alpha);
-
-  renderer.SetColor(0, 0, 0);
-  renderer.Clear();
-
   tileMap->Draw(renderer, viewport);
   player->Draw(renderer, viewport);
-
-  renderer.Present();
 }
 
 void WandererCoreImpl::SavePositions() {
@@ -72,6 +66,10 @@ void WandererCoreImpl::SetViewportWidth(float width) {
 
 void WandererCoreImpl::SetViewportHeight(float height) {
   viewport.SetHeight(height);
+}
+
+const Viewport& WandererCoreImpl::GetViewport() const noexcept {
+  return viewport;
 }
 
 }

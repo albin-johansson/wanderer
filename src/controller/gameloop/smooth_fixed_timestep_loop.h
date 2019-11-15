@@ -3,9 +3,18 @@
 #include "wanderer_core.h"
 #include "renderer.h"
 #include "key_state_manager.h"
+#include "mouse_state_manager.h"
+#include <memory>
 #include <SDL_types.h>
+#include <menu_state_machine.h>
 
 namespace wanderer::controller {
+
+class SmoothFixedTimestepLoop;
+
+using SmoothFixedTimestepLoop_uptr = std::unique_ptr<SmoothFixedTimestepLoop>;
+using SmoothFixedTimestepLoop_sptr = std::shared_ptr<SmoothFixedTimestepLoop>;
+using SmoothFixedTimestepLoop_wptr = std::weak_ptr<SmoothFixedTimestepLoop>;
 
 /**
  * The SmoothFixedTimestepLoop class represents a fixed timestep game loop that uses delta time
@@ -24,6 +33,8 @@ class SmoothFixedTimestepLoop final : public IGameLoop {
   static constexpr float MAX_FRAME_TIME = 0.25f;
 
   KeyStateManager_sptr keyStateManager = nullptr;
+  MouseStateManager_sptr mouseStateManager = nullptr;
+
   Uint32 then = 0;
   Uint32 now = 0;
   const float timeStep;
@@ -32,6 +43,8 @@ class SmoothFixedTimestepLoop final : public IGameLoop {
   float accumulator = 0;
   float delta = 0;
   bool quit = false;
+
+  visuals::IMenuStateMachine* menuStateMachine = nullptr;
 
   /**
    * Updates the input state.
@@ -55,9 +68,15 @@ class SmoothFixedTimestepLoop final : public IGameLoop {
    * @throws NullPointerException if the supplied pointer is null.
    * @since 0.1.0
    */
-  SmoothFixedTimestepLoop(KeyStateManager_sptr keyStateManager, float vsyncRate);
+  SmoothFixedTimestepLoop(KeyStateManager_sptr keyStateManager,
+                          MouseStateManager_sptr mouseStateManager,
+                          float vsyncRate);
 
   ~SmoothFixedTimestepLoop() override;
+
+  static SmoothFixedTimestepLoop_uptr CreateUnique(KeyStateManager_sptr keyStateManager,
+                                                   MouseStateManager_sptr mouseStateManager,
+                                                   float vsyncRate);
 
   void Update(core::IWandererCore& core, visuals::Renderer& renderer) override;
 

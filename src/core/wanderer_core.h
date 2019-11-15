@@ -3,6 +3,7 @@
 #include "renderer.h"
 #include "direction.h"
 #include "input.h"
+#include "viewport.h"
 
 namespace wanderer::core {
 
@@ -75,6 +76,8 @@ class IWandererCore {
    * @since 0.1.0
    */
   virtual void StopPlayer(Direction direction) = 0;
+
+  [[nodiscard]] virtual const Viewport& GetViewport() const noexcept = 0;
 };
 
 using IWandererCore_uptr = std::unique_ptr<IWandererCore>;

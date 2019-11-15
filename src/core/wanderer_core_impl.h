@@ -71,6 +71,8 @@ class WandererCoreImpl final : public IWandererCore {
   void MovePlayer(Direction direction) override;
 
   void StopPlayer(Direction direction) override;
+
+  [[nodiscard]] const Viewport& GetViewport() const noexcept override;
 };
 
 }
