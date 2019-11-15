@@ -1,4 +1,4 @@
-# Wanderer [![version](https://img.shields.io/badge/versiob-0.1.0-blue.svg)](https://semver.org)
+# Wanderer [![version](https://img.shields.io/badge/version-0.1.0-blue.svg)](https://semver.org)
 
 An exploration based 2D game written in C++. 
 

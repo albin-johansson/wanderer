@@ -91,7 +91,9 @@ set(SOURCE_FILES
         visuals/animation.cpp
         visuals/animation.h
         visuals/image_generator.cpp
-        visuals/image_generator.h)
+        visuals/image_generator.h
+        visuals/font.cpp
+        visuals/font.h)
 
 # Prepares the Wanderer "library", which excludes linking and the main.cpp file
 add_library(${WANDERER_LIB} ${SOURCE_FILES})
