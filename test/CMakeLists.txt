@@ -12,7 +12,8 @@ add_executable(${WANDERER_TEST}
         renderer_test.cpp
         vector_2_test.cpp
         objects_test.cpp
-        rectangle_test.cpp)
+        rectangle_test.cpp
+        font_test.cpp)
 
 target_link_directories(${WANDERER_TEST} PUBLIC ${SDL2_LIBRARY})
 target_link_directories(${WANDERER_TEST} PUBLIC ${SDL2_IMAGE_LIBRARIES})
