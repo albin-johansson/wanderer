@@ -4,6 +4,12 @@
 
 namespace wanderer::core {
 
+/**
+ * The MenuStateMachineImpl class is an implementation of the IMenuStateMachine interface.
+ *
+ * @see IMenuStateMachine
+ * @since 0.1.0
+ */
 class MenuStateMachineImpl final : public IMenuStateMachine {
  private:
   std::map<MenuID, IMenu_sptr> menus;
@@ -23,8 +29,6 @@ class MenuStateMachineImpl final : public IMenuStateMachine {
   bool IsBlocking() const noexcept override;
 
   void SetMenu(MenuID id) noexcept override;
-
-  MenuID GetActiveMenuID() const noexcept override;
 };
 
 }

@@ -7,15 +7,11 @@ namespace wanderer::core {
 
 InGameMenu::InGameMenu(IMenuStateMachine* parent) {
   this->parent = Objects::RequireNonNull(parent);
-
 }
 
-InGameMenu::~InGameMenu() {
-
-}
+InGameMenu::~InGameMenu() = default;
 
 void InGameMenu::Draw(visuals::Renderer& renderer, const core::Viewport& viewport) const noexcept {
-
 }
 
 void InGameMenu::HandleInput(const wanderer::core::Input& input) noexcept {

@@ -18,7 +18,7 @@ IMenuStateMachine_uptr MenuStateMachineImpl::Create() {
 }
 
 void MenuStateMachineImpl::Draw(visuals::Renderer& renderer,
-                                const core::Viewport& viewport) const noexcept {
+                                const Viewport& viewport) const noexcept {
   activeMenu->Draw(renderer, viewport);
 }
 
@@ -26,11 +26,7 @@ void MenuStateMachineImpl::SetMenu(MenuID id) noexcept {
   activeMenu = menus.at(id);
 }
 
-MenuID MenuStateMachineImpl::GetActiveMenuID() const noexcept {
-  return MenuID::HOME; // TODO give getter to menus
-}
-
-void MenuStateMachineImpl::HandleInput(const core::Input& input) noexcept {
+void MenuStateMachineImpl::HandleInput(const Input& input) noexcept {
   activeMenu->HandleInput(input);
 }
 

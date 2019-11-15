@@ -5,14 +5,23 @@
 
 namespace wanderer::core {
 
+/**
+ * The HomeMenu class is an implementation of the IMenu interface that represents the main menu.
+ *
+ * @see IMenu
+ * @since 0.1.0
+ */
 class HomeMenu final : public IMenu {
  private:
   IMenuStateMachine* parent = nullptr;
   MenuButton startButton;
 
-  float mx, my;
-
  public:
+  /**
+  * @param parent a pointer to the parent state machine, will not be freed.
+  * @throws NullPointerException if the supplied parent pointer is null.
+  * @since 0.1.0
+  */
   explicit HomeMenu(IMenuStateMachine* parent);
 
   ~HomeMenu() override;
