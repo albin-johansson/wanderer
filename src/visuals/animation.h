@@ -68,6 +68,16 @@ class Animation final {
   [[nodiscard]] inline int GetIndex() const noexcept {
     return index;
   }
+
+  /**
+   * Indicates whether or not the animation has reached the final frame.
+   *
+   * @return true if the animation has reached the final frame; false otherwise.
+   * @since 0.1.0
+   */
+  [[nodiscard]] inline bool IsDone() const noexcept {
+    return index == (nFrames - 1);
+  }
 };
 
 }

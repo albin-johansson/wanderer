@@ -8,12 +8,11 @@ Viewport::Viewport(float vpWidth, float vpHeight, float levelWidth, float levelH
   bounds.SetHeight(vpHeight);
 }
 
-// TODO the pan speed is not the same with different refresh rates
-void Viewport::Track(float ox, float oy, float width, float height) noexcept {
-  const static float panSpeed = 0.1f;
+void Viewport::Track(float tx, float ty, float w, float h, float delta) noexcept {
+  const static float panSpeed = 6 * delta;
 
-  float targetX = (ox + (width / 2.0f)) - (bounds.GetWidth() / 2.0f);
-  float targetY = (oy + (height / 2.0f)) - (bounds.GetHeight() / 2.0f);
+  float targetX = (tx + (w / 2.0f)) - (bounds.GetWidth() / 2.0f);
+  float targetY = (ty + (h / 2.0f)) - (bounds.GetHeight() / 2.0f);
   float x = bounds.GetX() + (targetX - bounds.GetX()) * panSpeed;
   float y = bounds.GetY() + (targetY - bounds.GetY()) * panSpeed;
 

@@ -88,17 +88,18 @@ void EntityMovingState::HandleInput(const Input& input) {
   CheckPressed(input);
   CheckReleased(input);
 
-  // TODO check for attack
-
   if (!areMoveKeysDown && entity->GetVelocity().IsZero()) {
     parent->Change(EntityStateID::IDLE);
+  } else if (input.IsPressed(SDL_SCANCODE_SPACE)) {
+    parent->Change(EntityStateID::ATTACK);
   }
 }
 
-void EntityMovingState::EnterState() {
+void EntityMovingState::Enter() {
+  animation.SetFrame(0);
 }
 
-void EntityMovingState::ExitState() {
+void EntityMovingState::Exit() {
 }
 
 }

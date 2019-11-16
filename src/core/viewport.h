@@ -27,13 +27,14 @@ class Viewport final {
   /**
    * Tracks the viewport towards the object with the specified properties.
    *
-   * @param ox the x-coordinate of the object.
-   * @param oy the y-coordinate of the object.
-   * @param width the width of the object.
-   * @param height the height of the object.
+   * @param tx the target x-coordinate.
+   * @param ty the target y-coordinate.
+   * @param w the width of the target.
+   * @param h the height of the target.
+   * @param delta the delta time, in seconds.
    * @since 0.1.0
    */
-  void Track(float ox, float oy, float width, float height) noexcept;
+  void Track(float tx, float ty, float w, float h, float delta) noexcept;
 
   /**
    * Sets the width of the viewport.

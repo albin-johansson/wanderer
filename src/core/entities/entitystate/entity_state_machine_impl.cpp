@@ -2,6 +2,7 @@
 #include "objects.h"
 #include "entity_moving_state.h"
 #include "entity_idle_state.h"
+#include "entity_attack_state.h"
 
 namespace wanderer::core {
 
@@ -10,6 +11,7 @@ EntityStateMachineImpl::EntityStateMachineImpl(IEntity* entity) {
 
   Put(EntityStateID::WALK, std::make_shared<EntityMovingState>(entity, this));
   Put(EntityStateID::IDLE, std::make_shared<EntityIdleState>(entity, this));
+  Put(EntityStateID::ATTACK, std::make_shared<EntityAttackState>(entity, this));
 
   Change(EntityStateID::IDLE);
 }
@@ -32,11 +34,11 @@ void EntityStateMachineImpl::HandleInput(const Input& input) {
 
 void EntityStateMachineImpl::Change(EntityStateID id) {
   if (currentState != nullptr) {
-    currentState->ExitState();
+    currentState->Exit();
   }
 
   auto next = states.at(id);
-  next->EnterState();
+  next->Enter();
   currentState = next;
 }
 

@@ -35,9 +35,9 @@ class EntityIdleState final : public IEntityState {
 
   void HandleInput(const Input& input) override;
 
-  void EnterState() override;
+  void Enter() override;
 
-  void ExitState() override;
+  void Exit() override;
 
 };
 

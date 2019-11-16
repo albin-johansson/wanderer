@@ -24,13 +24,18 @@ void EntityIdleState::HandleInput(const Input& input) {
     return;
   }
 
+  if (input.IsPressed(SDL_SCANCODE_SPACE)) {
+    parent->Change(EntityStateID::ATTACK);
+    return;
+  }
+
   // TODO attack...
 }
 
-void EntityIdleState::EnterState() {
+void EntityIdleState::Enter() {
 }
 
-void EntityIdleState::ExitState() {
+void EntityIdleState::Exit() {
 }
 
 void EntityIdleState::Draw(visuals::Renderer& renderer, const Viewport& viewport) noexcept {

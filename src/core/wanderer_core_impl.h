@@ -40,13 +40,6 @@ class WandererCoreImpl final : public IWandererCore {
    */
   void Interpolate(float alpha);
 
-  /**
-   * Updates the position of the viewport.
-   *
-   * @since 0.1.0
-   */
-  void UpdateViewport();
-
  public:
   ~WandererCoreImpl() override;
 

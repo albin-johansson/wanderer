@@ -34,14 +34,14 @@ class IEntityState : public ITickable, public IDrawable {
    *
    * @since 0.1.0
    */
-  virtual void EnterState() = 0;
+  virtual void Enter() = 0;
 
   /**
    * Exits the entity state.
    *
    * @since 0.1.0
    */
-  virtual void ExitState() = 0;
+  virtual void Exit() = 0;
 
 };
 
