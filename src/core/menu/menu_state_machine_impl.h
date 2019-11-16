@@ -1,5 +1,6 @@
 #pragma once
 #include "menu_state_machine.h"
+#include "wanderer_core.h"
 #include <map>
 
 namespace wanderer::core {
@@ -16,11 +17,11 @@ class MenuStateMachineImpl final : public IMenuStateMachine {
   IMenu_sptr activeMenu = nullptr;
 
  public:
-  MenuStateMachineImpl();
+  explicit MenuStateMachineImpl(IWandererCore* core);
 
   ~MenuStateMachineImpl() override;
 
-  static IMenuStateMachine_uptr Create();
+  static IMenuStateMachine_uptr Create(IWandererCore* core);
 
   void Draw(visuals::Renderer& renderer, const core::Viewport& viewport) noexcept override;
 

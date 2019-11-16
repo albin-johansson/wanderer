@@ -2,6 +2,7 @@
 #include "abstract_menu.h"
 #include "menu_state_machine.h"
 #include "menu_button.h"
+#include "wanderer_core.h"
 #include <memory>
 
 namespace wanderer::core {
@@ -14,6 +15,7 @@ namespace wanderer::core {
  */
 class HomeMenu final : public AbstractMenu {
  private:
+  IWandererCore* core = nullptr;
   MenuButton startButton;
   MenuButton settingsButton;
   MenuButton controlsButton;
@@ -22,14 +24,15 @@ class HomeMenu final : public AbstractMenu {
  public:
   /**
   * @param parent a pointer to the parent state machine, will not be freed.
-  * @throws NullPointerException if the supplied parent pointer is null.
+  * @param core the associated wanderer core instance.
+  * @throws NullPointerException if any pointers are null.
   * @since 0.1.0
   */
-  explicit HomeMenu(IMenuStateMachine* parent);
+  HomeMenu(IMenuStateMachine* parent, IWandererCore* core);
 
   ~HomeMenu() noexcept override;
 
-  static IMenu_uptr Create(IMenuStateMachine* parent);
+  static IMenu_uptr Create(IMenuStateMachine* parent, IWandererCore* core);
 
   void Draw(visuals::Renderer& renderer, const core::Viewport& viewport) override;
 

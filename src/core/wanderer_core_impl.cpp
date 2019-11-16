@@ -18,7 +18,7 @@ WandererCoreImpl::WandererCoreImpl(visuals::ImageGenerator_sptr imgGenerator)
   soundEngine = SoundEngine::Create();
   soundEngine->Register("swing", SoundEffect::Create("resources/audio/swing.wav"));
 
-  menuStateMachine = MenuStateMachineImpl::Create();
+  menuStateMachine = MenuStateMachineImpl::Create(this);
 
   player = Player::Create(imageGenerator->Load("resources/img/player.png"));
   player->SetSpeed(300);
@@ -66,10 +66,6 @@ void WandererCoreImpl::SetViewportWidth(float width) {
 
 void WandererCoreImpl::SetViewportHeight(float height) {
   viewport.SetHeight(height);
-}
-
-const Viewport& WandererCoreImpl::GetViewport() const noexcept {
-  return viewport;
 }
 
 void WandererCoreImpl::Quit() noexcept {

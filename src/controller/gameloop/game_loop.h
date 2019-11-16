@@ -27,13 +27,13 @@ class IGameLoop {
    */
   virtual void Update(core::IWandererCore& core, visuals::Renderer& renderer) = 0;
 
-  /**
-   * Indicates whether or not the game should quit.
-   *
-   * @return true if the game should quit; false otherwise.
-   * @since 0.1.0
-   */
-  [[nodiscard]] virtual bool ShouldQuit() const noexcept = 0;
+//  /**
+//   * Indicates whether or not the game should quit.
+//   *
+//   * @return true if the game should quit; false otherwise.
+//   * @since 0.1.0
+//   */
+//  [[nodiscard]] virtual bool ShouldQuit() const noexcept = 0;
 };
 
 using IGameLoop_uptr = std::unique_ptr<IGameLoop>;

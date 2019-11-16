@@ -6,8 +6,8 @@
 
 namespace wanderer::core {
 
-MenuStateMachineImpl::MenuStateMachineImpl() {
-  menus.insert(std::pair<MenuID, IMenu_sptr>(MenuID::HOME, HomeMenu::Create(this)));
+MenuStateMachineImpl::MenuStateMachineImpl(IWandererCore* core) {
+  menus.insert(std::pair<MenuID, IMenu_sptr>(MenuID::HOME, HomeMenu::Create(this, core)));
   menus.insert(std::pair<MenuID, IMenu_sptr>(MenuID::IN_GAME, InGameMenu::Create(this)));
   menus.insert(std::pair<MenuID, IMenu_sptr>(MenuID::SETTINGS, SettingsMenu::Create(this)));
   menus.insert(std::pair<MenuID, IMenu_sptr>(MenuID::CONTROLS, ControlsMenu::Create(this)));
@@ -16,8 +16,8 @@ MenuStateMachineImpl::MenuStateMachineImpl() {
 
 MenuStateMachineImpl::~MenuStateMachineImpl() = default;
 
-IMenuStateMachine_uptr MenuStateMachineImpl::Create() {
-  return std::make_unique<MenuStateMachineImpl>();
+IMenuStateMachine_uptr MenuStateMachineImpl::Create(IWandererCore* core) {
+  return std::make_unique<MenuStateMachineImpl>(core);
 }
 
 void MenuStateMachineImpl::Draw(visuals::Renderer& renderer,

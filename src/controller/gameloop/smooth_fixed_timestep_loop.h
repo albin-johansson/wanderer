@@ -41,7 +41,6 @@ class SmoothFixedTimestepLoop final : public IGameLoop {
   const float vsyncRate;
   float accumulator = 0;
   float delta = 0;
-  bool quit = false;
 
   /**
    * Updates the input state.
@@ -76,10 +75,6 @@ class SmoothFixedTimestepLoop final : public IGameLoop {
                                              float vsyncRate);
 
   void Update(core::IWandererCore& core, visuals::Renderer& renderer) override;
-
-  [[nodiscard]] inline bool ShouldQuit() const noexcept override {
-    return quit;
-  }
 };
 
 }

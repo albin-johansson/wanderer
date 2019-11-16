@@ -14,7 +14,7 @@ SmoothFixedTimestepLoop::SmoothFixedTimestepLoop(KeyStateManager_sptr keyStateMa
     : vsyncRate(vsyncRate), timeStep(1.0f / vsyncRate), counterFreq(SDL_GetPerformanceFrequency()) {
   this->keyStateManager = Objects::RequireNonNull(std::move(keyStateManager));
   this->mouseStateManager = Objects::RequireNonNull(std::move(mouseStateManager));
-  quit = false;
+
   now = SDL_GetPerformanceCounter();
   then = now;
 
@@ -39,7 +39,7 @@ void SmoothFixedTimestepLoop::UpdateInput(core::IWandererCore& core) {
 
   if (SDL_PeepEvents(nullptr, 0, SDL_PEEKEVENT, SDL_QUIT, SDL_QUIT) > 0
       || keyStateManager->WasReleased(SDL_SCANCODE_O)) {
-    quit = true;
+    core.Quit();
   }
 
   auto input = Input(keyStateManager, mouseStateManager);

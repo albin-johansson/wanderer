@@ -55,8 +55,6 @@ class WandererCoreImpl final : public IWandererCore {
 
   void StopPlayer(Direction direction) override;
 
-  [[nodiscard]] const Viewport& GetViewport() const noexcept override;
-
   [[nodiscard]] inline bool ShouldQuit() const noexcept override {
     return shouldQuit;
   }

@@ -67,7 +67,7 @@ void WandererControllerImpl::Run() {
   running = true;
   window->Show();
 
-  while (running && !gameLoop->ShouldQuit()) {
+  while (running && !core->ShouldQuit()) {
     gameLoop->Update(*core, *renderer);
   }
 

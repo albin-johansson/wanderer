@@ -5,19 +5,19 @@ using namespace wanderer::core;
 
 namespace wanderer::core {
 
-HomeMenu::HomeMenu(IMenuStateMachine* parent) :
+HomeMenu::HomeMenu(IMenuStateMachine* parent, IWandererCore* core) :
     AbstractMenu(parent),
     startButton(MenuButton("Start", 633, 250, 100, 40)),
     settingsButton("Settings", 633, 320, 100, 40),
     controlsButton("Controls", 633, 390, 100, 40),
     quitButton(MenuButton("Quit", 633, 460, 100, 40)) {
-  this->parent = Objects::RequireNonNull(parent);
+  this->core = Objects::RequireNonNull(core);
 }
 
 HomeMenu::~HomeMenu() noexcept = default;
 
-IMenu_uptr HomeMenu::Create(IMenuStateMachine* parent) {
-  return std::make_unique<HomeMenu>(parent);
+IMenu_uptr HomeMenu::Create(IMenuStateMachine* parent, IWandererCore* core) {
+  return std::make_unique<HomeMenu>(parent, core);
 }
 
 void HomeMenu::HandleInput(const Input& input) noexcept {
@@ -39,7 +39,7 @@ void HomeMenu::HandleInput(const Input& input) noexcept {
     parent->SetMenu(MenuID::CONTROLS);
 
   } else if (leftReleased && quitButton.Contains(mx, my)) {
-    // TODO quit...
+    core->Quit();
   }
 }
 

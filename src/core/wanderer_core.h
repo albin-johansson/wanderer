@@ -79,8 +79,6 @@ class IWandererCore {
    */
   virtual void StopPlayer(Direction direction) = 0;
 
-  [[nodiscard]] virtual const Viewport& GetViewport() const noexcept = 0;
-
   [[nodiscard]] virtual bool ShouldQuit() const noexcept = 0;
 };
 
