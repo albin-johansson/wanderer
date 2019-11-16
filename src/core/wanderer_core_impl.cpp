@@ -18,13 +18,15 @@ WandererCoreImpl::WandererCoreImpl(visuals::ImageGenerator_sptr imgGenerator)
 
   menuStateMachine = MenuStateMachineImpl::Create();
 
-  tileMap = TileMap::CreateUnique(imageGenerator, 50, 50);
+  tileMap = TileMap::Create(imageGenerator, 50, 50);
 
   player = Player::Create(imageGenerator->Load("resources/img/player.png"));
   player->SetSpeed(300);
 
   viewport.SetLevelWidth(static_cast<float>(tileMap->GetCols()) * ITile::SIZE);
   viewport.SetLevelHeight(static_cast<float>(tileMap->GetRows()) * ITile::SIZE);
+
+//  soundEngine->Play("swing");
 }
 
 WandererCoreImpl::~WandererCoreImpl() = default;

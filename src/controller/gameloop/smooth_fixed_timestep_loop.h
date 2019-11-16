@@ -71,9 +71,9 @@ class SmoothFixedTimestepLoop final : public IGameLoop {
 
   ~SmoothFixedTimestepLoop() override;
 
-  static SmoothFixedTimestepLoop_uptr CreateUnique(KeyStateManager_sptr keyStateManager,
-                                                   MouseStateManager_sptr mouseStateManager,
-                                                   float vsyncRate);
+  static SmoothFixedTimestepLoop_uptr Create(KeyStateManager_sptr keyStateManager,
+                                             MouseStateManager_sptr mouseStateManager,
+                                             float vsyncRate);
 
   void Update(core::IWandererCore& core, visuals::Renderer& renderer) override;
 

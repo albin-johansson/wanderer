@@ -20,7 +20,7 @@ EntityStateMachineImpl::EntityStateMachineImpl(IEntity* entity) {
 
 EntityStateMachineImpl::~EntityStateMachineImpl() = default;
 
-IEntityStateMachine_uptr EntityStateMachineImpl::CreateUnique(IEntity* entity) {
+IEntityStateMachine_uptr EntityStateMachineImpl::Create(IEntity* entity) {
   return std::make_unique<EntityStateMachineImpl>(entity);
 }
 

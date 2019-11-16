@@ -46,9 +46,9 @@ class TileMap final : public IDrawable {
 
   ~TileMap() override;
 
-  static TileMap_uptr CreateUnique(visuals::ImageGenerator_sptr imageGenerator,
-                                   int nRows,
-                                   int nCols);
+  static TileMap_uptr Create(visuals::ImageGenerator_sptr imageGenerator,
+                             int nRows,
+                             int nCols);
 
   void Draw(visuals::Renderer& renderer, const Viewport& viewport) noexcept override;
 

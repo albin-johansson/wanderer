@@ -32,7 +32,7 @@ class EntityStateMachineImpl final : public IEntityStateMachine {
 
   ~EntityStateMachineImpl() override;
 
-  static IEntityStateMachine_uptr CreateUnique(IEntity* entity);
+  static IEntityStateMachine_uptr Create(IEntity* entity);
 
   void Draw(visuals::Renderer& renderer, const Viewport& viewport) noexcept override;
 

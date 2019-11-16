@@ -25,9 +25,9 @@ SmoothFixedTimestepLoop::SmoothFixedTimestepLoop(KeyStateManager_sptr keyStateMa
 
 SmoothFixedTimestepLoop::~SmoothFixedTimestepLoop() = default;
 
-SmoothFixedTimestepLoop_uptr SmoothFixedTimestepLoop::CreateUnique(KeyStateManager_sptr keyStateManager,
-                                                                   MouseStateManager_sptr mouseStateManager,
-                                                                   float vsyncRate) {
+SmoothFixedTimestepLoop_uptr SmoothFixedTimestepLoop::Create(KeyStateManager_sptr keyStateManager,
+                                                             MouseStateManager_sptr mouseStateManager,
+                                                             float vsyncRate) {
   return std::make_unique<SmoothFixedTimestepLoop>(keyStateManager, mouseStateManager, vsyncRate);
 }
 

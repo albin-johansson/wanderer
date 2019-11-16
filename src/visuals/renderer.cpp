@@ -30,11 +30,11 @@ Renderer::~Renderer() {
   }
 }
 
-Renderer_uptr Renderer::CreateUnique(SDL_Renderer* renderer) {
+Renderer_uptr Renderer::Create(SDL_Renderer* renderer) {
   return std::make_unique<Renderer>(renderer);
 }
 
-Renderer_uptr Renderer::CreateUnique(SDL_Window* window) {
+Renderer_uptr Renderer::Create(SDL_Window* window) {
   return std::make_unique<Renderer>(window);
 }
 

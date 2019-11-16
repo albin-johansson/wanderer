@@ -28,7 +28,7 @@ class MouseStateManager final {
 
   ~MouseStateManager();
 
-  static MouseStateManager_uptr CreateUnique();
+  static MouseStateManager_uptr Create();
 
   void Update();
 

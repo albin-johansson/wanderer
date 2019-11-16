@@ -24,7 +24,7 @@ class KeyStateManager final {
 
   ~KeyStateManager();
 
-  static KeyStateManager_uptr CreateUnique();
+  static KeyStateManager_uptr Create();
 
   /**
    * Updates the key state.

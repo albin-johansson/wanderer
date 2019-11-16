@@ -49,9 +49,9 @@ class Renderer final {
    */
   explicit Renderer(SDL_Window* window);
 
-  static Renderer_uptr CreateUnique(SDL_Window* window);
+  static Renderer_uptr Create(SDL_Window* window);
 
-  static Renderer_uptr CreateUnique(SDL_Renderer* renderer);
+  static Renderer_uptr Create(SDL_Renderer* renderer);
 
   ~Renderer();
 

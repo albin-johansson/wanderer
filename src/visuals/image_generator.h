@@ -31,7 +31,7 @@ class ImageGenerator final {
 
   ~ImageGenerator();
 
-  static ImageGenerator_uptr CreateUnique(Renderer_sptr renderer);
+  static ImageGenerator_uptr Create(Renderer_sptr renderer);
 
   /**
    * Loads the image at the specified path.

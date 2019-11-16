@@ -16,7 +16,7 @@ KeyStateManager::~KeyStateManager() {
   stateArr = nullptr;
 }
 
-KeyStateManager_uptr KeyStateManager::CreateUnique() {
+KeyStateManager_uptr KeyStateManager::Create() {
   return std::make_unique<KeyStateManager>();
 }
 

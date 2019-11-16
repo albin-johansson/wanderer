@@ -12,7 +12,7 @@ MouseStateManager::MouseStateManager() {
 
 MouseStateManager::~MouseStateManager() = default;
 
-MouseStateManager_uptr MouseStateManager::CreateUnique() {
+MouseStateManager_uptr MouseStateManager::Create() {
   return std::make_unique<MouseStateManager>();
 }
 

@@ -11,7 +11,7 @@ ImageGenerator::ImageGenerator(Renderer_sptr renderer) {
 
 ImageGenerator::~ImageGenerator() = default;
 
-ImageGenerator_uptr ImageGenerator::CreateUnique(Renderer_sptr renderer) {
+ImageGenerator_uptr ImageGenerator::Create(Renderer_sptr renderer) {
   return std::make_unique<ImageGenerator>(renderer);
 }
 

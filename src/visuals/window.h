@@ -31,7 +31,7 @@ class Window final {
 
   ~Window();
 
-  static Window_uptr CreateUnique(const std::string& title, int width, int height);
+  static Window_uptr Create(const std::string& title, int width, int height);
 
   /**
    * Makes the window visible.
