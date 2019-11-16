@@ -33,7 +33,7 @@ void EntityIdleState::EnterState() {
 void EntityIdleState::ExitState() {
 }
 
-void EntityIdleState::Draw(visuals::Renderer& renderer, const Viewport& viewport) const noexcept {
+void EntityIdleState::Draw(visuals::Renderer& renderer, const Viewport& viewport) noexcept {
   float srcY = EntitySheet::GetSourceY(512, entity->GetDominantDirection());
   drawDelegate.Draw(renderer, viewport, *entity, 0, srcY);
 }

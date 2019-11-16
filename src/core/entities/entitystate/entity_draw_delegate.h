@@ -15,7 +15,7 @@ class EntityDrawDelegate final {
             const Viewport& viewport,
             const IEntity& entity,
             float srcX,
-            float srcY) const noexcept;
+            float srcY) noexcept;
 
 };
 

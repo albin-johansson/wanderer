@@ -25,7 +25,7 @@ void Player::Tick(float delta) {
   entityStateMachine->Tick(delta);
 }
 
-void Player::Draw(visuals::Renderer& renderer, const Viewport& viewport) const noexcept {
+void Player::Draw(visuals::Renderer& renderer, const Viewport& viewport) noexcept {
   entityStateMachine->Draw(renderer, viewport);
 }
 

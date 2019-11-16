@@ -25,7 +25,7 @@ class InGameMenu final : public IMenu {
 
   ~InGameMenu() override;
 
-  void Draw(visuals::Renderer& renderer, const Viewport& viewport) const noexcept override;
+  void Draw(visuals::Renderer& renderer, const Viewport& viewport) noexcept override;
 
   void HandleInput(const core::Input& input) noexcept override;
 

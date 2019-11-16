@@ -47,7 +47,7 @@ void EntityStateMachineImpl::Tick(float delta) {
 }
 
 void EntityStateMachineImpl::Draw(visuals::Renderer& renderer,
-                                  const Viewport& viewport) const noexcept {
+                                  const Viewport& viewport) noexcept {
   if (currentState != nullptr) {
     currentState->Draw(renderer, viewport);
   }

@@ -3,6 +3,8 @@
 #include "bool_converter.h"
 #include <SDL_log.h>
 
+#include <utility>
+
 using namespace wanderer::core;
 using namespace wanderer::service;
 
@@ -45,11 +47,22 @@ void Renderer::RenderTexture(SDL_Texture* texture, int x, int y) noexcept {
     int width = 0;
     int height = 0;
 
-    // TODO check if OK
     SDL_QueryTexture(texture, nullptr, nullptr, &width, &height);
 
     SDL_Rect dst = {x, y, width, height};
     SDL_RenderCopy(renderer, texture, nullptr, &dst);
+  }
+}
+
+void Renderer::RenderTexture(SDL_Texture* texture, float x, float y) noexcept {
+  if (texture != nullptr) {
+    int width = 0;
+    int height = 0;
+
+    SDL_QueryTexture(texture, nullptr, nullptr, &width, &height);
+
+    SDL_FRect dst = {x, y, static_cast<float>(width), static_cast<float>(height)};
+    SDL_RenderCopyF(renderer, texture, nullptr, &dst);
   }
 }
 
@@ -110,13 +123,29 @@ void Renderer::RenderRect(int x, int y, int width, int height) noexcept {
   }
 }
 
-void Renderer::SetColor(Uint8 red, Uint8 green, Uint8 blue,
-                        Uint8 alpha) noexcept {
+void Renderer::RenderText(const std::string& text, float x, float y) {
+  if (font != nullptr && !text.empty()) {
+    SDL_Texture* texture = CreateTexture(text);
+
+    if (texture == nullptr) {
+      return;
+    }
+
+    RenderTexture(texture, x, y);
+    SDL_DestroyTexture(texture);
+  }
+}
+
+void Renderer::SetColor(Uint8 red, Uint8 green, Uint8 blue, Uint8 alpha) noexcept {
   SDL_SetRenderDrawColor(renderer, red, green, blue, alpha);
 }
 
 void Renderer::SetColor(Uint8 red, Uint8 green, Uint8 blue) noexcept {
   SDL_SetRenderDrawColor(renderer, red, green, blue, SDL_ALPHA_OPAQUE);
+}
+
+void Renderer::SetFont(Font_sptr font) noexcept {
+  this->font = std::move(font);
 }
 
 void Renderer::SetViewport(const core::Rectangle& viewport) noexcept {
@@ -183,6 +212,26 @@ core::Rectangle Renderer::GetViewport() const noexcept {
 
 bool Renderer::GetUsingIntegerLogicalScaling() const noexcept {
   return SDL_RenderGetIntegerScale(renderer);
+}
+
+SDL_Texture* Renderer::CreateTexture(const std::string& s) const {
+  if (font == nullptr) {
+    return nullptr;
+  }
+
+  Uint8 r = 0, g = 0, b = 0, a = 0;
+  SDL_GetRenderDrawColor(renderer, &r, &g, &b, &a);
+  SDL_Color color = {r, g, b, a};
+  SDL_Surface* surface = TTF_RenderText_Blended(font->GetInternalFont(), s.c_str(), color);
+
+  if (surface == nullptr) {
+    return nullptr;
+  }
+
+  SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+  SDL_FreeSurface(surface);
+
+  return texture;
 }
 
 }  // namespace wanderer::visuals

@@ -6,7 +6,7 @@ using namespace wanderer::core;
 namespace wanderer::core {
 
 HomeMenu::HomeMenu(IMenuStateMachine* parent)
-    : startButton(MenuButton(100, 100, 200, 200)) {
+    : startButton(MenuButton("Start", 500, 500, 150, 100)) {
   this->parent = Objects::RequireNonNull(parent);
 }
 
@@ -22,14 +22,20 @@ void HomeMenu::HandleInput(const Input& input) noexcept {
   }
 }
 
-void HomeMenu::Draw(visuals::Renderer& renderer, const Viewport& viewport) const noexcept {
-  renderer.SetColor(0, 0, 0, 0xAA);
+void HomeMenu::Draw(visuals::Renderer& renderer, const Viewport& viewport) {
+  static bool first = true;
+
+  if (first) {
+    startButton.LoadTexture(renderer);
+    first = false;
+  }
 
   auto bounds = viewport.GetBounds();
+  renderer.SetColor(0, 0, 0, 0xAA);
   renderer.RenderFillRect(-1.0f, -1.0f, bounds.GetWidth() + 1, bounds.GetHeight() + 1);
 
-  renderer.SetColor(0xFF, 0, 0);
-  renderer.RenderFillRect(50, 50, 100, 100);
+  renderer.SetColor(0xFF, 0xFF, 0xFF);
+  renderer.RenderText("Main menu", 100, 100);
 
   startButton.Draw(renderer, viewport);
 }

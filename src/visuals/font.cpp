@@ -22,6 +22,10 @@ Font::~Font() {
   TTF_CloseFont(font);
 }
 
+Font_uptr Font::Create(const std::string& file, int size) {
+  return std::make_unique<Font>(file, size);
+}
+
 void Font::Reset() noexcept {
   style = TTF_STYLE_NORMAL;
   TTF_SetFontStyle(font, style);

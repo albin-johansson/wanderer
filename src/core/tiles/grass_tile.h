@@ -15,7 +15,7 @@ class GrassTile final : public AbstractTile {
 
   ~GrassTile() override;
 
-  void Draw(visuals::Renderer& renderer, const Viewport& viewport) const noexcept override;
+  void Draw(visuals::Renderer& renderer, const Viewport& viewport) noexcept override;
 
   [[nodiscard]] inline bool IsBlocked() const noexcept override { return false; }
 };

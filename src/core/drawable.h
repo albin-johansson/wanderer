@@ -22,7 +22,7 @@ class IDrawable {
    * @param renderer the renderer that will be used.
    * @since 0.1.0
    */
-  virtual void Draw(visuals::Renderer& renderer, const Viewport& viewport) const noexcept = 0;
+  virtual void Draw(visuals::Renderer& renderer, const Viewport& viewport) = 0;
 };
 
 }

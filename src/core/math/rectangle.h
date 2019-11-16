@@ -140,6 +140,10 @@ class Rectangle final {
    */
   [[nodiscard]] inline float GetHeight() const noexcept { return height; }
 
+  [[nodiscard]] inline float GetCenterX() const noexcept { return x + (width / 2.0f); }
+
+  [[nodiscard]] inline float GetCenterY() const noexcept { return y + (height / 2.0f); }
+
   /**
    * Returns the maximum x-coordinate of the rectangle.
    *

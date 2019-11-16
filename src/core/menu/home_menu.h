@@ -26,7 +26,7 @@ class HomeMenu final : public IMenu {
 
   ~HomeMenu() override;
 
-  void Draw(visuals::Renderer& renderer, const core::Viewport& viewport) const noexcept override;
+  void Draw(visuals::Renderer& renderer, const core::Viewport& viewport) override;
 
   void HandleInput(const core::Input& input) noexcept override;
 

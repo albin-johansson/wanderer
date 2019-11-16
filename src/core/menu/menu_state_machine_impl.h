@@ -22,7 +22,7 @@ class MenuStateMachineImpl final : public IMenuStateMachine {
 
   static IMenuStateMachine_uptr Create();
 
-  void Draw(visuals::Renderer& renderer, const core::Viewport& viewport) const noexcept override;
+  void Draw(visuals::Renderer& renderer, const core::Viewport& viewport) noexcept override;
 
   void HandleInput(const Input& input) noexcept override;
 

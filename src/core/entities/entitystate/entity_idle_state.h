@@ -17,7 +17,7 @@ class EntityIdleState final : public IEntityState {
  private:
   IEntityStateMachine* parent = nullptr;
   IEntity* entity = nullptr;
-  const EntityDrawDelegate drawDelegate;
+  EntityDrawDelegate drawDelegate;
 
  public:
   /**
@@ -31,7 +31,7 @@ class EntityIdleState final : public IEntityState {
 
   void Tick(float delta) override;
 
-  void Draw(visuals::Renderer& renderer, const Viewport& viewport) const noexcept override;
+  void Draw(visuals::Renderer& renderer, const Viewport& viewport) noexcept override;
 
   void HandleInput(const Input& input) override;
 

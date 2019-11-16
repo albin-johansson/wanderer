@@ -17,8 +17,7 @@ IMovableObject_uptr MovableObjectDelegate::Create(float width, float height) {
   return std::make_unique<MovableObjectDelegate>(width, height);
 }
 
-void MovableObjectDelegate::Draw(visuals::Renderer& renderer,
-                                 const Viewport& viewport) const noexcept {
+void MovableObjectDelegate::Draw(visuals::Renderer& renderer, const Viewport& viewport) noexcept {
   /* do nothing */
 }
 

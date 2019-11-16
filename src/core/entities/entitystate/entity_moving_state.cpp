@@ -76,7 +76,7 @@ void EntityMovingState::Tick(float delta) {
   entity->AddY(velocity.GetY() * delta);
 }
 
-void EntityMovingState::Draw(visuals::Renderer& renderer, const Viewport& viewport) const noexcept {
+void EntityMovingState::Draw(visuals::Renderer& renderer, const Viewport& viewport) noexcept {
   auto srcX = (entity->GetVelocity().IsZero()) ? 0 : animation.GetIndex() * 64;
   auto srcY = EntitySheet::GetSourceY(512, entity->GetDominantDirection());
   drawDelegate.Draw(renderer, viewport, *entity, srcX, srcY);

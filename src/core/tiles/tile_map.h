@@ -50,7 +50,7 @@ class TileMap final : public IDrawable {
                                    int nRows,
                                    int nCols);
 
-  void Draw(visuals::Renderer& renderer, const Viewport& viewport) const noexcept override;
+  void Draw(visuals::Renderer& renderer, const Viewport& viewport) noexcept override;
 
   /**
    * Sets the tile at the specified position.

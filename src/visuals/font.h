@@ -1,8 +1,15 @@
 #pragma once
 #include <SDL_ttf.h>
 #include <string>
+#include <memory>
 
 namespace wanderer::visuals {
+
+class Font;
+
+using Font_uptr = std::unique_ptr<Font>;
+using Font_sptr = std::shared_ptr<Font>;
+using Font_wptr = std::weak_ptr<Font>;
 
 /**
  * The Font class represents a TrueType font.
@@ -44,6 +51,17 @@ class Font final {
   Font(const std::string& file, int size);
 
   ~Font();
+
+  /**
+   * Creates and returns a unique pointer to a Font instance.
+   *
+   * @param file the file path of the TrueType font file.
+   * @param size the font size, must be greater than zero.
+   * @throws std::invalid_argument if the supplied size isn't greater than zero.
+   * @throws BadStateException if the font cannot be loaded.
+   * @since 0.1.0
+   */
+  static Font_uptr Create(const std::string& file, int size);
 
   /**
    * Resets the style of the font.

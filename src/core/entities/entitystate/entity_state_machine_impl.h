@@ -34,7 +34,7 @@ class EntityStateMachineImpl final : public IEntityStateMachine {
 
   static IEntityStateMachine_uptr CreateUnique(IEntity* entity);
 
-  void Draw(visuals::Renderer& renderer, const Viewport& viewport) const noexcept override;
+  void Draw(visuals::Renderer& renderer, const Viewport& viewport) noexcept override;
 
   void HandleInput(const Input& input) override;
 

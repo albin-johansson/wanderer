@@ -41,7 +41,7 @@ class Player final : public IEntity {
 
   void Tick(float delta) override;
 
-  void Draw(visuals::Renderer& renderer, const Viewport& viewport) const noexcept override;
+  void Draw(visuals::Renderer& renderer, const Viewport& viewport) noexcept override;
 
   void SetState(EntityStateID id) override;
 

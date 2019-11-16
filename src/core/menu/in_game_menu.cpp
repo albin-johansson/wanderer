@@ -11,7 +11,7 @@ InGameMenu::InGameMenu(IMenuStateMachine* parent) {
 
 InGameMenu::~InGameMenu() = default;
 
-void InGameMenu::Draw(visuals::Renderer& renderer, const core::Viewport& viewport) const noexcept {
+void InGameMenu::Draw(visuals::Renderer& renderer, const core::Viewport& viewport) noexcept {
 }
 
 void InGameMenu::HandleInput(const wanderer::core::Input& input) noexcept {

@@ -5,6 +5,7 @@
 #include "smooth_fixed_timestep_loop.h"
 #include "wanderer_core_factory.h"
 #include "image_generator.h"
+#include "font.h"
 
 using namespace wanderer::core;
 using namespace wanderer::visuals;
@@ -30,6 +31,10 @@ WandererControllerImpl::WandererControllerImpl() {
   }
 
   renderer = Renderer::CreateUnique(window->GetInternalWindow());
+
+  Font_sptr typewriter24 = Font::Create("resources/type_writer.ttf", 24);
+  renderer->SetFont(typewriter24);
+
   renderer->SetLogicalSize(LOGICAL_WIDTH, LOGICAL_HEIGHT);
 
   SDL_Log("Logical width: %i", renderer->GetLogicalWidth());
