@@ -18,8 +18,8 @@ bool MenuButton::Contains(float mx, float my) const noexcept {
 }
 
 void MenuButton::Draw(visuals::Renderer& renderer, const Viewport& viewport) {
-  renderer.SetColor(0, 0xFF, 0);
-  renderer.RenderFillRect(bounds.GetX(), bounds.GetY(), bounds.GetWidth(), bounds.GetHeight());
+//  renderer.SetColor(0x88, 0x88, 0x88);
+//  renderer.RenderFillRect(bounds.GetX(), bounds.GetY(), bounds.GetWidth(), bounds.GetHeight());
 
   auto font = renderer.GetFont();
   if (!text.empty() && font != nullptr) {
@@ -29,7 +29,7 @@ void MenuButton::Draw(visuals::Renderer& renderer, const Viewport& viewport) {
     auto y = bounds.GetCenterY() - (height / 2.0f);
 
     if (texture == nullptr) {
-      renderer.SetColor(0xFF, 0, 0);
+      renderer.SetColor(0xFF, 0xFF, 0xFF);
       renderer.RenderText(text, x, y);
     } else {
       renderer.RenderTexture(texture, x, y);

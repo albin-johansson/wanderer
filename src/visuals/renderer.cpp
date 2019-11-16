@@ -201,7 +201,7 @@ float Renderer::GetYScale() const noexcept {
   return yScale;
 }
 
-core::Rectangle Renderer::GetViewport() const noexcept {
+Rectangle Renderer::GetViewport() const noexcept {
   SDL_Rect viewport = {0, 0, 0, 0};
   SDL_RenderGetViewport(renderer, &viewport);
   return Rectangle(static_cast<float>(viewport.x),

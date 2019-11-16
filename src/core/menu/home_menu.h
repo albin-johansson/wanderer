@@ -14,7 +14,11 @@ namespace wanderer::core {
 class HomeMenu final : public IMenu {
  private:
   IMenuStateMachine* parent = nullptr;
+
   MenuButton startButton;
+  MenuButton optionsButton;
+  MenuButton controlsButton;
+  MenuButton quitButton;
 
  public:
   /**
