@@ -51,6 +51,10 @@ set(SOURCE_FILES
         core/tiles/tile_set.cpp
         core/tiles/tile_set.h
 
+        core/level/level.h
+        core/level/world.cpp
+        core/level/world.h
+
         core/menu/menu.h
         core/menu/menu_id.h
         core/menu/menu_state_machine.h
@@ -122,6 +126,7 @@ target_include_directories(${WANDERER_LIB} PUBLIC util)
 target_include_directories(${WANDERER_LIB} PUBLIC service)
 target_include_directories(${WANDERER_LIB} PUBLIC core/math)
 target_include_directories(${WANDERER_LIB} PUBLIC core/tiles)
+target_include_directories(${WANDERER_LIB} PUBLIC core/level)
 target_include_directories(${WANDERER_LIB} PUBLIC core/entities)
 target_include_directories(${WANDERER_LIB} PUBLIC core/entities/entitystate)
 target_include_directories(${WANDERER_LIB} PUBLIC audio)

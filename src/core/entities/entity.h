@@ -27,7 +27,7 @@ class IEntity : public IMovableObject {
    * @param input a reference to the input state.
    * @since 0.1.0
    */
-  virtual void HandleInput(const Input& input) = 0;
+  virtual void HandleInput(const Input& input) = 0; // FIXME this is only used by the player
 
   /**
    * Sets the entity state that will be used by the entity.

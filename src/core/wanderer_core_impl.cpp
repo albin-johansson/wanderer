@@ -1,4 +1,6 @@
 #include "wanderer_core_impl.h"
+
+#include <utility>
 #include "menu_state_machine_impl.h"
 #include "objects.h"
 
@@ -18,15 +20,13 @@ WandererCoreImpl::WandererCoreImpl(visuals::ImageGenerator_sptr imgGenerator)
 
   menuStateMachine = MenuStateMachineImpl::Create();
 
-  tileMap = TileMap::Create(imageGenerator, 50, 50);
-
   player = Player::Create(imageGenerator->Load("resources/img/player.png"));
   player->SetSpeed(300);
 
-  viewport.SetLevelWidth(static_cast<float>(tileMap->GetCols()) * ITile::SIZE);
-  viewport.SetLevelHeight(static_cast<float>(tileMap->GetRows()) * ITile::SIZE);
+  world = World::Create(imageGenerator, player);
 
-//  soundEngine->Play("swing");
+  viewport.SetLevelWidth(world->GetWidth());
+  viewport.SetLevelHeight(world->GetHeight());
 }
 
 WandererCoreImpl::~WandererCoreImpl() = default;
@@ -40,8 +40,7 @@ void WandererCoreImpl::HandleInput(const Input& input) {
 
 void WandererCoreImpl::Update(float delta) {
   if (!menuStateMachine->IsBlocking()) {
-    SavePositions();
-    player->Tick(delta);
+    world->Tick(delta);
 
     auto pos = player->GetInterpolatedPosition();
     viewport.Track(pos.GetX(), pos.GetY(), player->GetWidth(), player->GetHeight(), delta);
@@ -49,18 +48,8 @@ void WandererCoreImpl::Update(float delta) {
 }
 
 void WandererCoreImpl::Render(Renderer& renderer, float alpha) {
-  Interpolate(alpha);
-  tileMap->Draw(renderer, viewport);
-  player->Draw(renderer, viewport);
+  world->Render(renderer, viewport, alpha);
   menuStateMachine->Draw(renderer, viewport);
-}
-
-void WandererCoreImpl::SavePositions() {
-  player->SavePosition();
-}
-
-void WandererCoreImpl::Interpolate(float alpha) {
-  player->Interpolate(alpha);
 }
 
 void WandererCoreImpl::MovePlayer(Direction direction) {

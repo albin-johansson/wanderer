@@ -17,7 +17,7 @@ class ITile : public IGameObject { // FIXME tiles should probably not implement 
   ITile() = default;
 
  public:
-  static constexpr float SIZE = 100;
+  static constexpr float SIZE = 150;
 
   ~ITile() override = default;
 

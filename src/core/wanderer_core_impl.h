@@ -7,6 +7,7 @@
 #include "image_generator.h"
 #include "menu_state_machine.h"
 #include "sound_engine.h"
+#include "world.h"
 
 namespace wanderer::core {
 
@@ -18,30 +19,14 @@ namespace wanderer::core {
 class WandererCoreImpl final : public IWandererCore {
  private:
   IMenuStateMachine_uptr menuStateMachine = nullptr;
-  TileMap_uptr tileMap = nullptr;
-  IEntity_uptr player = nullptr;
+  World_uptr world = nullptr;
+  IEntity_sptr player = nullptr;
+  audio::SoundEngine_uptr soundEngine = nullptr;
+  visuals::ImageGenerator_sptr imageGenerator = nullptr;
   Viewport viewport;
   bool shouldQuit = false;
 
-  audio::SoundEngine_uptr soundEngine = nullptr;
-  visuals::ImageGenerator_sptr imageGenerator = nullptr;
-
   explicit WandererCoreImpl(visuals::ImageGenerator_sptr imageGenerator);
-
-  /**
-   * Saves the positions of all movable game objects.
-   *
-   * @since 0.1.0
-   */
-  void SavePositions();
-
-  /**
-   * Interpolates the movable game objects.
-   *
-   * @param alpha the interpolation coefficient.
-   * @since 0.1.0
-   */
-  void Interpolate(float alpha);
 
  public:
   ~WandererCoreImpl() override;

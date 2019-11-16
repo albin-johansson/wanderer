@@ -31,23 +31,16 @@ WandererControllerImpl::WandererControllerImpl() {
   }
 
   renderer = Renderer::Create(window->GetInternalWindow());
-
-  Font_sptr typewriter24 = Font::Create("resources/font/type_writer.ttf", 24);
-  renderer->SetFont(typewriter24);
-
+  renderer->SetFont(Font::Create("resources/font/type_writer.ttf", 24));
   renderer->SetLogicalSize(LOGICAL_WIDTH, LOGICAL_HEIGHT);
 
-  SDL_Log("Logical width: %i", renderer->GetLogicalWidth());
-  SDL_Log("Logical height: %i", renderer->GetLogicalHeight());
-
-  ImageGenerator_sptr imageGen = ImageGenerator::Create(renderer);
-  core = CreateCore(imageGen);
+  core = CreateCore(ImageGenerator::Create(renderer));
   core->SetViewportWidth(LOGICAL_WIDTH);
   core->SetViewportHeight(LOGICAL_HEIGHT);
 
   keyStateManager = KeyStateManager::Create();
-
   mouseStateManager = MouseStateManager::Create();
+
   mouseStateManager->SetLogicalWidth(LOGICAL_WIDTH);
   mouseStateManager->SetLogicalHeight(LOGICAL_HEIGHT);
 
@@ -55,10 +48,9 @@ WandererControllerImpl::WandererControllerImpl() {
   mouseStateManager->SetWindowWidth(window->GetWidth());
   mouseStateManager->SetWindowHeight(window->GetHeight());
 
-  auto vsyncDelta = static_cast<float>(desktop.refresh_rate);
   gameLoop = SmoothFixedTimestepLoop::Create(keyStateManager,
                                              mouseStateManager,
-                                             vsyncDelta);
+                                             static_cast<float>(desktop.refresh_rate));
 }
 
 WandererControllerImpl::~WandererControllerImpl() = default;
@@ -66,8 +58,7 @@ WandererControllerImpl::~WandererControllerImpl() = default;
 SDL_DisplayMode WandererControllerImpl::GetDesktopInfo() {
   SDL_DisplayMode dm;
   if (SDL_GetDesktopDisplayMode(0, &dm) != 0) {
-    SDL_Log("SDL_GetDesktopDisplayMode failed: %s", SDL_GetError());
-    throw BadStateException();
+    throw BadStateException(SDL_GetError());
   }
   return dm;
 }
