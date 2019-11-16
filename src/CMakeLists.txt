@@ -83,6 +83,8 @@ set(SOURCE_FILES
         core/entities/entitystate/entity_state_machine_impl.h
         core/entities/entitystate/entity_attack_state.cpp
         core/entities/entitystate/entity_attack_state.h
+        core/entities/entitystate/entity_dying_state.cpp
+        core/entities/entitystate/entity_dying_state.h
 
         visuals/window.h
         visuals/window.cpp

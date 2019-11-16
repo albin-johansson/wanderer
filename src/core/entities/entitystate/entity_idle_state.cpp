@@ -21,12 +21,10 @@ void EntityIdleState::HandleInput(const Input& input) {
       || input.IsPressed(SDL_SCANCODE_W)
       || input.IsPressed(SDL_SCANCODE_S)) {
     parent->Change(EntityStateID::WALK);
-    return;
-  }
-
-  if (input.IsPressed(SDL_SCANCODE_SPACE)) {
+  } else if (input.IsPressed(SDL_SCANCODE_SPACE)) {
     parent->Change(EntityStateID::ATTACK);
-    return;
+  } else if (input.IsPressed(SDL_SCANCODE_U)) {
+    parent->Change(EntityStateID::DIE);
   }
 
   // TODO attack...
