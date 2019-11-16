@@ -1,6 +1,6 @@
 # Wanderer [![version](https://img.shields.io/badge/version-0.1.0-blue.svg)](https://semver.org)
 
-An exploration based 2D game written in C++. 
+An exploration based 2D game that is currently in development. 
 
 ## Installation
 Wanderer is developed and compiled for Windows, so if you want to run the game on another OS, you'll
