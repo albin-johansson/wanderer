@@ -1,5 +1,4 @@
 #include "entity_dying_state.h"
-#include "entity_sheet.h"
 #include "objects.h"
 
 namespace wanderer::core {
@@ -19,8 +18,7 @@ void EntityDyingState::Tick(float delta) {
 
 void EntityDyingState::Draw(visuals::Renderer& renderer, const Viewport& viewport) {
   auto srcX = animation.GetIndex() * 64;
-  auto srcY = EntitySheet::GetSourceY(1152, entity->GetDominantDirection());
-  drawDelegate.Draw(renderer, viewport, *entity, srcX, srcY);
+  drawDelegate.Draw(renderer, viewport, *entity, srcX, 1280);
 }
 
 void EntityDyingState::HandleInput(const Input& input) {
