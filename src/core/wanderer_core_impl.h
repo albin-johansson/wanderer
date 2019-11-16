@@ -6,6 +6,7 @@
 #include "viewport.h"
 #include "image_generator.h"
 #include "menu_state_machine.h"
+#include "sound_engine.h"
 
 namespace wanderer::core {
 
@@ -21,6 +22,7 @@ class WandererCoreImpl final : public IWandererCore {
   IEntity_uptr player = nullptr;
   Viewport viewport;
 
+  audio::SoundEngine_uptr soundEngine = nullptr;
   visuals::ImageGenerator_sptr imageGenerator = nullptr;
 
   explicit WandererCoreImpl(visuals::ImageGenerator_sptr imageGenerator);

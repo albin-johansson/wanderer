@@ -1,5 +1,6 @@
 #pragma once
 #include <stdexcept>
+#include <string>
 
 namespace wanderer::core {
 
@@ -10,10 +11,19 @@ namespace wanderer::core {
  * @since 0.1.0
  */
 class BadStateException final : public std::exception {
+ private:
+  const char* message;
+
  public:
   BadStateException();
 
+  explicit BadStateException(const std::string& what);
+
+  explicit BadStateException(const char* what);
+
   ~BadStateException() override;
+
+  const char* what() const noexcept override;
 };
 
 }

@@ -2,13 +2,19 @@
 #include "menu_state_machine_impl.h"
 #include "objects.h"
 
+#include "sound_effect.h"
+
 using namespace wanderer::visuals;
+using namespace wanderer::audio;
 
 namespace wanderer::core {
 
 WandererCoreImpl::WandererCoreImpl(visuals::ImageGenerator_sptr imgGenerator)
     : viewport(Viewport(1, 1, 1, 1)) {
   imageGenerator = Objects::RequireNonNull(std::move(imgGenerator));
+
+  soundEngine = SoundEngine::Create();
+  soundEngine->Register("swing", SoundEffect::Create("resources/audio/swing.wav"));
 
   menuStateMachine = MenuStateMachineImpl::Create();
 

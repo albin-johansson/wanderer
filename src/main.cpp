@@ -19,9 +19,14 @@ static void Init() {
     std::cerr << "Failed to initialize SDL_ttf! Error: " << SDL_GetError() << "\n";
   }
 
-  if (Mix_Init(MIX_INIT_MP3 | MIX_INIT_OGG | MIX_INIT_FLAC) == 0) {
+  if (Mix_Init(MIX_INIT_MP3 | MIX_INIT_OGG | MIX_INIT_FLAC | MIX_INIT_MID | MIX_INIT_OPUS) == 0) {
     std::cerr << "Failed to initialize SDL_mixer! Error: " << SDL_GetError() << "\n";
   }
+
+  if (Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 4096) == -1) {
+    std::cerr << "Failed to open audio device! Error: " << SDL_GetError() << "\n";
+  }
+
 }
 
 static void Run() {
@@ -34,7 +39,10 @@ static void Run() {
 static void Quit() {
   IMG_Quit();
   TTF_Quit();
+
+  Mix_CloseAudio();
   Mix_Quit();
+
   SDL_Quit();
 }
 

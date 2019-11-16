@@ -97,7 +97,7 @@ set(SOURCE_FILES
         visuals/image_generator.cpp
         visuals/image_generator.h
         visuals/font.cpp
-        visuals/font.h)
+        visuals/font.h audio/sound_effect.cpp audio/sound_effect.h audio/sound_engine.cpp audio/sound_engine.h)
 
 # Prepares the Wanderer "library", which excludes linking and the main.cpp file
 add_library(${WANDERER_LIB} ${SOURCE_FILES})
@@ -117,6 +117,7 @@ target_include_directories(${WANDERER_LIB} PUBLIC core/math)
 target_include_directories(${WANDERER_LIB} PUBLIC core/tiles)
 target_include_directories(${WANDERER_LIB} PUBLIC core/entities)
 target_include_directories(${WANDERER_LIB} PUBLIC core/entities/entitystate)
+target_include_directories(${WANDERER_LIB} PUBLIC audio)
 
 # Prepares the actual executable
 add_executable(${WANDERER_EXECUTABLE} main.cpp)

@@ -5,7 +5,7 @@ namespace wanderer::core {
 
 MenuButton::MenuButton(std::string text, float x, float y, float width, float height)
     : text(std::move(text)) {
-  bounds.SetY(x);
+  bounds.SetX(x);
   bounds.SetY(y);
   bounds.SetWidth(width);
   bounds.SetHeight(height);
