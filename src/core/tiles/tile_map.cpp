@@ -23,7 +23,7 @@ TileMap::TileMap(visuals::ImageGenerator_sptr imageGenerator, int nRows, int nCo
   }
   tiles->shrink_to_fit();
 
-  tileSet.SetImage(0, imageGenerator->Load("resources/grass.png"));
+  tileSet.SetImage(0, imageGenerator->Load("resources/img/grass.png"));
 }
 
 TileMap::~TileMap() = default;

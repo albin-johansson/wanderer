@@ -11,7 +11,7 @@ TEST_CASE("Font(string&, int)", "[Font]") {
 }
 
 TEST_CASE("Font::Reset", "[Font]") {
-  Font f("resources/type_writer.ttf", 12);
+  Font f("resources/font/type_writer.ttf", 12);
 
   f.SetBold(true);
   f.SetItalic(true);
@@ -26,7 +26,7 @@ TEST_CASE("Font::Reset", "[Font]") {
 }
 
 TEST_CASE("Font::SetBold", "[Font]") {
-  Font f("resources/type_writer.ttf", 12);
+  Font f("resources/font/type_writer.ttf", 12);
 
   CHECK(!f.IsBold());
 
@@ -38,7 +38,7 @@ TEST_CASE("Font::SetBold", "[Font]") {
 }
 
 TEST_CASE("Font::SetItalic", "[Font]") {
-  Font f("resources/type_writer.ttf", 12);
+  Font f("resources/font/type_writer.ttf", 12);
 
   CHECK(!f.IsItalic());
 
@@ -50,7 +50,7 @@ TEST_CASE("Font::SetItalic", "[Font]") {
 }
 
 TEST_CASE("Font::SetUnderlined", "[Font]") {
-  Font f("resources/type_writer.ttf", 12);
+  Font f("resources/font/type_writer.ttf", 12);
 
   CHECK(!f.IsUnderlined());
 
@@ -62,7 +62,7 @@ TEST_CASE("Font::SetUnderlined", "[Font]") {
 }
 
 TEST_CASE("Font::SetStrikethrough", "[Font]") {
-  Font f("resources/type_writer.ttf", 12);
+  Font f("resources/font/type_writer.ttf", 12);
 
   CHECK(!f.IsStrikethrough());
 
@@ -74,7 +74,7 @@ TEST_CASE("Font::SetStrikethrough", "[Font]") {
 }
 
 TEST_CASE("Font::SetOutlined", "[Font]") {
-  Font f("resources/type_writer.ttf", 12);
+  Font f("resources/font/type_writer.ttf", 12);
 
   CHECK(!f.IsOutlined());
 
@@ -87,20 +87,20 @@ TEST_CASE("Font::SetOutlined", "[Font]") {
 
 TEST_CASE("Font::GetSize", "[Font]") {
   int size = 12;
-  Font f("resources/type_writer.ttf", size);
+  Font f("resources/font/type_writer.ttf", size);
 
   CHECK(size == f.GetSize());
 }
 
 TEST_CASE("Font::IsFixedWidth", "[Font]") {
-  Font firacode("resources/fira_code.ttf", 12); // Fixed width
-  Font daniel("resources/daniel.ttf", 12);      // Not fixed width
+  Font firacode("resources/font/fira_code.ttf", 12); // Fixed width
+  Font daniel("resources/font/daniel.ttf", 12);      // Not fixed width
 
   CHECK(firacode.IsFixedWidth());
   CHECK(!daniel.IsFixedWidth());
 }
 
 TEST_CASE("Font::GetInternalFont", "[Font]") {
-  Font f("resources/type_writer.ttf", 12);
+  Font f("resources/font/type_writer.ttf", 12);
   CHECK(f.GetInternalFont() != nullptr);
 }

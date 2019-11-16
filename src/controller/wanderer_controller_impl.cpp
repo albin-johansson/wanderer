@@ -21,7 +21,7 @@ WandererControllerImpl::WandererControllerImpl() {
   window = Window::CreateUnique("Wanderer", desktop.w, desktop.h);
   window->SetFullscreen(true);
 
-  SDL_Surface* icon = IMG_Load("resources/tactile_icon.png");
+  SDL_Surface* icon = IMG_Load("resources/img/tactile_icon.png");
   if (icon != nullptr) {
     window->SetIcon(icon);
   } else {
@@ -32,7 +32,7 @@ WandererControllerImpl::WandererControllerImpl() {
 
   renderer = Renderer::CreateUnique(window->GetInternalWindow());
 
-  Font_sptr typewriter24 = Font::Create("resources/type_writer.ttf", 24);
+  Font_sptr typewriter24 = Font::Create("resources/font/type_writer.ttf", 24);
   renderer->SetFont(typewriter24);
 
   renderer->SetLogicalSize(LOGICAL_WIDTH, LOGICAL_HEIGHT);

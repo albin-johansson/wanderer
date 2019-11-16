@@ -24,7 +24,7 @@ TEST_CASE("Renderer::RenderTexture2", "[Renderer]") {
   Renderer renderer(SDL_CreateWindow("", 0, 0, 100, 100, SDL_WINDOW_HIDDEN));
   CHECK_NOTHROW(renderer.RenderTexture(nullptr, 0, 0, 10, 10));
 
-  SDL_Texture* img = IMG_LoadTexture(renderer.GetInternalRenderer(), "resources/grass.png");
+  SDL_Texture* img = IMG_LoadTexture(renderer.GetInternalRenderer(), "resources/img/grass.png");
   CHECK_NOTHROW(renderer.RenderTexture(img, 0, 0, 0, 0));
   SDL_DestroyTexture(img);
 }
