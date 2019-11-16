@@ -5,8 +5,9 @@
 namespace wanderer::core {
 
 MenuStateMachineImpl::MenuStateMachineImpl() {
-  menus.insert(std::pair<MenuID, IMenu_sptr>(MenuID::HOME, std::make_shared<HomeMenu>(this)));
-  menus.insert(std::pair<MenuID, IMenu_sptr>(MenuID::IN_GAME, std::make_shared<InGameMenu>(this)));
+
+  menus.insert(std::pair<MenuID, IMenu_sptr>(MenuID::HOME, HomeMenu::Create(this)));
+  menus.insert(std::pair<MenuID, IMenu_sptr>(MenuID::IN_GAME, InGameMenu::Create(this)));
 
   activeMenu = menus.at(MenuID::HOME);
 }

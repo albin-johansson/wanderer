@@ -45,6 +45,8 @@ class IWandererCore {
    */
   virtual void Render(visuals::Renderer& renderer, float alpha) = 0;
 
+  virtual void Quit() noexcept = 0;
+
   /**
    * Sets the width of the viewport.
    *
@@ -78,6 +80,8 @@ class IWandererCore {
   virtual void StopPlayer(Direction direction) = 0;
 
   [[nodiscard]] virtual const Viewport& GetViewport() const noexcept = 0;
+
+  [[nodiscard]] virtual bool ShouldQuit() const noexcept = 0;
 };
 
 using IWandererCore_uptr = std::unique_ptr<IWandererCore>;

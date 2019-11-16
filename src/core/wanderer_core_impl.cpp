@@ -83,4 +83,8 @@ const Viewport& WandererCoreImpl::GetViewport() const noexcept {
   return viewport;
 }
 
+void WandererCoreImpl::Quit() noexcept {
+  shouldQuit = true;
+}
+
 }

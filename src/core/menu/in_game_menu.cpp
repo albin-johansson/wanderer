@@ -11,6 +11,10 @@ InGameMenu::InGameMenu(IMenuStateMachine* parent) {
 
 InGameMenu::~InGameMenu() = default;
 
+InGameMenu_uptr InGameMenu::Create(IMenuStateMachine* parent) {
+  return std::make_unique<InGameMenu>(parent);
+}
+
 void InGameMenu::Draw(visuals::Renderer& renderer, const core::Viewport& viewport) noexcept {
 }
 

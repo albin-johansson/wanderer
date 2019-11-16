@@ -21,6 +21,7 @@ class WandererCoreImpl final : public IWandererCore {
   TileMap_uptr tileMap = nullptr;
   IEntity_uptr player = nullptr;
   Viewport viewport;
+  bool shouldQuit = false;
 
   audio::SoundEngine_uptr soundEngine = nullptr;
   visuals::ImageGenerator_sptr imageGenerator = nullptr;
@@ -59,6 +60,8 @@ class WandererCoreImpl final : public IWandererCore {
 
   void Render(visuals::Renderer& renderer, float alpha) override;
 
+  void Quit() noexcept override;
+
   void SetViewportWidth(float width) override;
 
   void SetViewportHeight(float height) override;
@@ -68,6 +71,10 @@ class WandererCoreImpl final : public IWandererCore {
   void StopPlayer(Direction direction) override;
 
   [[nodiscard]] const Viewport& GetViewport() const noexcept override;
+
+  [[nodiscard]] inline bool ShouldQuit() const noexcept override {
+    return shouldQuit;
+  }
 };
 
 }

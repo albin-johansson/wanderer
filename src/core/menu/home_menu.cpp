@@ -15,6 +15,10 @@ HomeMenu::HomeMenu(IMenuStateMachine* parent) :
 
 HomeMenu::~HomeMenu() = default;
 
+HomeMenu_uptr HomeMenu::Create(IMenuStateMachine* parent) {
+  return std::make_unique<HomeMenu>(parent);
+}
+
 void HomeMenu::HandleInput(const Input& input) noexcept {
   if (input.WasReleased(SDL_SCANCODE_ESCAPE)) {
     parent->SetMenu(MenuID::IN_GAME);

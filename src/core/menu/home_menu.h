@@ -2,9 +2,13 @@
 #include "menu.h"
 #include "menu_state_machine.h"
 #include "menu_button.h"
+#include <memory>
 
 namespace wanderer::core {
 
+class HomeMenu;
+
+using HomeMenu_uptr = std::unique_ptr<HomeMenu>;
 /**
  * The HomeMenu class is an implementation of the IMenu interface that represents the main menu.
  *
@@ -29,6 +33,8 @@ class HomeMenu final : public IMenu {
   explicit HomeMenu(IMenuStateMachine* parent);
 
   ~HomeMenu() override;
+
+  static HomeMenu_uptr Create(IMenuStateMachine* parent);
 
   void Draw(visuals::Renderer& renderer, const core::Viewport& viewport) override;
 
