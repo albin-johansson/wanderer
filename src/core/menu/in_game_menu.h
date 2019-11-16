@@ -1,13 +1,9 @@
 #pragma once
+#include "abstract_menu.h"
 #include "menu_state_machine.h"
-#include "menu.h"
 #include <memory>
 
 namespace wanderer::core {
-
-class InGameMenu;
-
-using InGameMenu_uptr = std::unique_ptr<InGameMenu>;
 
 /**
  * The InGameMenu class is an implementation of the IMenu interface that represents the in-game
@@ -16,10 +12,7 @@ using InGameMenu_uptr = std::unique_ptr<InGameMenu>;
  * @see IMenu
  * @since 0.1.0
  */
-class InGameMenu final : public IMenu {
- private:
-  IMenuStateMachine* parent = nullptr;
-
+class InGameMenu final : public AbstractMenu {
  public:
   /**
    * @param parent a pointer to the parent state machine, will not be freed.
@@ -30,7 +23,7 @@ class InGameMenu final : public IMenu {
 
   ~InGameMenu() override;
 
-  static InGameMenu_uptr Create(IMenuStateMachine* parent);
+  static IMenu_uptr Create(IMenuStateMachine* parent);
 
   void Draw(visuals::Renderer& renderer, const Viewport& viewport) noexcept override;
 

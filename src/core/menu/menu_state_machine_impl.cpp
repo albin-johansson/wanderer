@@ -1,14 +1,16 @@
 #include "menu_state_machine_impl.h"
 #include "home_menu.h"
 #include "in_game_menu.h"
+#include "settings_menu.h"
+#include "controls_menu.h"
 
 namespace wanderer::core {
 
 MenuStateMachineImpl::MenuStateMachineImpl() {
-
   menus.insert(std::pair<MenuID, IMenu_sptr>(MenuID::HOME, HomeMenu::Create(this)));
   menus.insert(std::pair<MenuID, IMenu_sptr>(MenuID::IN_GAME, InGameMenu::Create(this)));
-
+  menus.insert(std::pair<MenuID, IMenu_sptr>(MenuID::SETTINGS, SettingsMenu::Create(this)));
+  menus.insert(std::pair<MenuID, IMenu_sptr>(MenuID::CONTROLS, ControlsMenu::Create(this)));
   activeMenu = menus.at(MenuID::HOME);
 }
 

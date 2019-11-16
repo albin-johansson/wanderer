@@ -1,26 +1,21 @@
 #pragma once
-#include "menu.h"
+#include "abstract_menu.h"
 #include "menu_state_machine.h"
 #include "menu_button.h"
 #include <memory>
 
 namespace wanderer::core {
 
-class HomeMenu;
-
-using HomeMenu_uptr = std::unique_ptr<HomeMenu>;
 /**
  * The HomeMenu class is an implementation of the IMenu interface that represents the main menu.
  *
  * @see IMenu
  * @since 0.1.0
  */
-class HomeMenu final : public IMenu {
+class HomeMenu final : public AbstractMenu {
  private:
-  IMenuStateMachine* parent = nullptr;
-
   MenuButton startButton;
-  MenuButton optionsButton;
+  MenuButton settingsButton;
   MenuButton controlsButton;
   MenuButton quitButton;
 
@@ -32,9 +27,9 @@ class HomeMenu final : public IMenu {
   */
   explicit HomeMenu(IMenuStateMachine* parent);
 
-  ~HomeMenu() override;
+  ~HomeMenu() noexcept override;
 
-  static HomeMenu_uptr Create(IMenuStateMachine* parent);
+  static IMenu_uptr Create(IMenuStateMachine* parent);
 
   void Draw(visuals::Renderer& renderer, const core::Viewport& viewport) override;
 

@@ -66,6 +66,12 @@ set(SOURCE_FILES
         core/menu/in_game_menu.h
         core/menu/menu_button.cpp
         core/menu/menu_button.h
+        core/menu/settings_menu.cpp
+        core/menu/settings_menu.h
+        core/menu/abstract_menu.cpp
+        core/menu/abstract_menu.h
+        core/menu/controls_menu.cpp
+        core/menu/controls_menu.h
 
         core/bad_state_exception.cpp
         core/bad_state_exception.h
