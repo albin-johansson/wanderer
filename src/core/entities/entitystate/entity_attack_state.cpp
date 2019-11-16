@@ -1,15 +1,12 @@
 #include "entity_attack_state.h"
-#include "objects.h"
 #include "entity_sheet.h"
 
 using namespace wanderer::visuals;
 
 namespace wanderer::core {
 
-EntityAttackState::EntityAttackState(IEntity* entity, IEntityStateMachine* parent) {
-  this->entity = Objects::RequireNonNull(entity);
-  this->parent = Objects::RequireNonNull(parent);
-}
+EntityAttackState::EntityAttackState(IEntity* entity, IEntityStateMachine* parent)
+    : AbstractEntityState(entity, parent) {}
 
 EntityAttackState::~EntityAttackState() = default;
 
@@ -20,6 +17,16 @@ void EntityAttackState::Draw(visuals::Renderer& renderer, const Viewport& viewpo
 }
 
 void EntityAttackState::HandleInput(const Input& input) {
+}
+
+void EntityAttackState::Tick(float delta) {
+  animation.Update();
+  if (animation.IsDone()) {
+
+    // TODO damage and stuff...
+
+    parent->Change(EntityStateID::IDLE);
+  }
 }
 
 void EntityAttackState::Enter() {
@@ -34,16 +41,6 @@ void EntityAttackState::Enter() {
 }
 
 void EntityAttackState::Exit() {
-}
-
-void EntityAttackState::Tick(float delta) {
-  animation.Update();
-  if (animation.IsDone()) {
-
-    // TODO damage and stuff...
-
-    parent->Change(EntityStateID::IDLE);
-  }
 }
 
 }

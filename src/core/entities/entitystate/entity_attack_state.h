@@ -1,19 +1,11 @@
 #pragma once
-#include "entity_state.h"
+#include "abstract_entity_state.h"
 #include "entity.h"
 #include "entity_state_machine.h"
-#include "animation.h"
-#include "entity_draw_delegate.h"
 
 namespace wanderer::core {
 
-class EntityAttackState final : public IEntityState {
- private:
-  IEntity* entity = nullptr;
-  IEntityStateMachine* parent = nullptr;
-  visuals::Animation animation;
-  EntityDrawDelegate drawDelegate;
-
+class EntityAttackState final : public AbstractEntityState {
  public :
   EntityAttackState(IEntity* entity, IEntityStateMachine* parent);
 
@@ -23,11 +15,12 @@ class EntityAttackState final : public IEntityState {
 
   void HandleInput(const Input& input) override;
 
+  void Tick(float delta) override;
+
   void Enter() override;
 
   void Exit() override;
 
-  void Tick(float delta) override;
 };
 
 }

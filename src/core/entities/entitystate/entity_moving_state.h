@@ -1,9 +1,7 @@
 #pragma once
-#include "entity_state.h"
+#include "abstract_entity_state.h"
 #include "entity_state_machine.h"
 #include "entity.h"
-#include "entity_draw_delegate.h"
-#include "animation.h"
 
 namespace wanderer::core {
 
@@ -13,12 +11,8 @@ namespace wanderer::core {
  *
  * @since 0.1.0
  */
-class EntityMovingState final : public IEntityState {
+class EntityMovingState final : public AbstractEntityState {
  private:
-  IEntityStateMachine* parent = nullptr;
-  IEntity* entity = nullptr;
-  EntityDrawDelegate drawDelegate;
-  visuals::Animation animation;
   bool areMoveKeysDown = false;
 
   void CheckPressed(const Input& input);
@@ -36,11 +30,11 @@ class EntityMovingState final : public IEntityState {
 
   ~EntityMovingState() override;
 
-  void Tick(float delta) override;
-
   void Draw(visuals::Renderer& renderer, const Viewport& viewport) noexcept override;
 
   void HandleInput(const Input& input) override;
+
+  void Tick(float delta) override;
 
   void Enter() override;
 

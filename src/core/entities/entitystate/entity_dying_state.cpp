@@ -1,20 +1,11 @@
 #include "entity_dying_state.h"
-#include "objects.h"
 
 namespace wanderer::core {
 
-EntityDyingState::EntityDyingState(IEntity* entity, IEntityStateMachine* parent) {
-  this->entity = Objects::RequireNonNull(entity);
-  this->parent = Objects::RequireNonNull(parent);
-}
+EntityDyingState::EntityDyingState(IEntity* entity, IEntityStateMachine* parent)
+    : AbstractEntityState(entity, parent) {}
 
 EntityDyingState::~EntityDyingState() = default;
-
-void EntityDyingState::Tick(float delta) {
-  if (!animation.IsDone()) {
-    animation.Update();
-  }
-}
 
 void EntityDyingState::Draw(visuals::Renderer& renderer, const Viewport& viewport) {
   auto srcX = animation.GetIndex() * 64;
@@ -22,6 +13,12 @@ void EntityDyingState::Draw(visuals::Renderer& renderer, const Viewport& viewpor
 }
 
 void EntityDyingState::HandleInput(const Input& input) {
+}
+
+void EntityDyingState::Tick(float delta) {
+  if (!animation.IsDone()) {
+    animation.Update();
+  }
 }
 
 void EntityDyingState::Enter() {

@@ -85,6 +85,8 @@ set(SOURCE_FILES
         core/entities/entitystate/entity_attack_state.h
         core/entities/entitystate/entity_dying_state.cpp
         core/entities/entitystate/entity_dying_state.h
+        core/entities/entitystate/abstract_entity_state.cpp
+        core/entities/entitystate/abstract_entity_state.h
 
         visuals/window.h
         visuals/window.cpp
@@ -97,7 +99,12 @@ set(SOURCE_FILES
         visuals/image_generator.cpp
         visuals/image_generator.h
         visuals/font.cpp
-        visuals/font.h audio/sound_effect.cpp audio/sound_effect.h audio/sound_engine.cpp audio/sound_engine.h)
+        visuals/font.h
+
+        audio/sound_effect.cpp
+        audio/sound_effect.h
+        audio/sound_engine.cpp
+        audio/sound_engine.h)
 
 # Prepares the Wanderer "library", which excludes linking and the main.cpp file
 add_library(${WANDERER_LIB} ${SOURCE_FILES})
