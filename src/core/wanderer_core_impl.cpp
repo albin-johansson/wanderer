@@ -1,10 +1,8 @@
 #include "wanderer_core_impl.h"
-
-#include <utility>
 #include "menu_state_machine_impl.h"
 #include "objects.h"
-
 #include "sound_effect.h"
+#include <utility>
 
 using namespace wanderer::visuals;
 using namespace wanderer::audio;
@@ -20,13 +18,13 @@ WandererCoreImpl::WandererCoreImpl(visuals::ImageGenerator_sptr imgGenerator)
 
   menuStateMachine = MenuStateMachineImpl::Create(this);
 
-  player = Player::Create(imageGenerator->Load("resources/img/player.png"));
+  player = Player::Create(imageGenerator->Load("resources/img/player2.png"));
   player->SetSpeed(300);
 
   world = World::Create(imageGenerator, player);
 
-  viewport.SetLevelWidth(world->GetWidth());
-  viewport.SetLevelHeight(world->GetHeight());
+  viewport.SetLevelWidth(static_cast<float>(world->GetWidth()));
+  viewport.SetLevelHeight(static_cast<float>(world->GetHeight()));
 }
 
 WandererCoreImpl::~WandererCoreImpl() = default;

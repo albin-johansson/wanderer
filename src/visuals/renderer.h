@@ -22,7 +22,7 @@ using Renderer_wptr = std::weak_ptr<Renderer>;
 class Renderer final {
  private:
   SDL_Renderer* renderer = nullptr;
-  Font_sptr font = nullptr;
+  Font_sptr font = nullptr; // TODO consider removing and replace with const& arg to methods
 
  public:
   // TODO ctor with flags arg
