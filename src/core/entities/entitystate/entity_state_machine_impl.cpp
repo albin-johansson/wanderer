@@ -5,17 +5,20 @@
 #include "entity_attack_state.h"
 #include "entity_dying_state.h"
 
+using namespace wanderer::visuals;
+
 namespace wanderer::core {
 
 EntityStateMachineImpl::EntityStateMachineImpl(IEntity* entity) {
   this->entity = Objects::RequireNonNull(entity);
 
-  Put(EntityStateID::WALK, std::make_shared<EntityMovingState>(entity, this));
-  Put(EntityStateID::IDLE, std::make_shared<EntityIdleState>(entity, this));
-  Put(EntityStateID::ATTACK, std::make_shared<EntityAttackState>(entity, this));
-  Put(EntityStateID::DIE, std::make_shared<EntityDyingState>(entity, this));
+  Put(EntityStateID::WALK, std::make_unique<EntityMovingState>(entity, this));
+  Put(EntityStateID::IDLE, std::make_unique<EntityIdleState>(entity, this));
+  Put(EntityStateID::ATTACK, std::make_unique<EntityAttackState>(entity, this));
+  Put(EntityStateID::DIE, std::make_unique<EntityDyingState>(entity, this));
 
-  Change(EntityStateID::IDLE);
+  activeStateID = EntityStateID::IDLE;
+  Change(activeStateID);
 }
 
 EntityStateMachineImpl::~EntityStateMachineImpl() = default;
@@ -24,37 +27,27 @@ IEntityStateMachine_uptr EntityStateMachineImpl::Create(IEntity* entity) {
   return std::make_unique<EntityStateMachineImpl>(entity);
 }
 
-void EntityStateMachineImpl::Put(EntityStateID id, IEntityState_sptr state) {
-  states.insert(std::pair<EntityStateID, IEntityState_sptr>(id, state));
+void EntityStateMachineImpl::Put(EntityStateID id, IEntityState_uptr state) {
+  states.insert(std::pair<EntityStateID, IEntityState_uptr>(id, std::move(state)));
 }
 
 void EntityStateMachineImpl::HandleInput(const Input& input) {
-  if (currentState != nullptr) {
-    currentState->HandleInput(input);
-  }
+  states.at(activeStateID)->HandleInput(input);
 }
 
 void EntityStateMachineImpl::Change(EntityStateID id) {
-  if (currentState != nullptr) {
-    currentState->Exit();
-  }
+  states.at(activeStateID)->Exit();
 
-  auto next = states.at(id);
-  next->Enter();
-  currentState = next;
+  activeStateID = id;
+  states.at(activeStateID)->Enter();
 }
 
 void EntityStateMachineImpl::Tick(float delta) {
-  if (currentState != nullptr) {
-    currentState->Tick(delta);
-  }
+  states.at(activeStateID)->Tick(delta);
 }
 
-void EntityStateMachineImpl::Draw(visuals::Renderer& renderer,
-                                  const Viewport& viewport) noexcept {
-  if (currentState != nullptr) {
-    currentState->Draw(renderer, viewport);
-  }
+void EntityStateMachineImpl::Draw(Renderer& renderer, const Viewport& viewport) noexcept {
+  states.at(activeStateID)->Draw(renderer, viewport);
 }
 
 }

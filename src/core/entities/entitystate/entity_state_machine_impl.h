@@ -15,11 +15,11 @@ namespace wanderer::core {
  */
 class EntityStateMachineImpl final : public IEntityStateMachine {
  private:
-  std::map<EntityStateID, IEntityState_sptr> states;
-  IEntityState_sptr currentState = nullptr;
+  std::map<EntityStateID, IEntityState_uptr> states;
+  EntityStateID activeStateID;
   IEntity* entity = nullptr;
 
-  void Put(EntityStateID id, IEntityState_sptr state);
+  void Put(EntityStateID id, IEntityState_uptr state);
 
  public:
   /**
