@@ -9,7 +9,7 @@ need to compile the code by yourself. However, the code should be OS-independent
  
 - Install the [MinGW-w64](https://sourceforge.net/projects/mingw-w64/)
  runtime environment.
-- Add C:/MinGW and C:/MinGW/bin to your PATH env. variable.
+- Add the MinGW and MinGW/bin folders to your system PATH environment variable.
 
 As long you're using Windows and have the MinGW environment installed correctly, you should be
  able to simply run the executable.
