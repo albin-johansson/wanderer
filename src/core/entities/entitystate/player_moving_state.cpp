@@ -9,7 +9,6 @@ namespace wanderer::core {
 
 PlayerMovingState::PlayerMovingState(IEntity* entity, IEntityStateMachine* parent)
     : moveDelegate(entity) {
-  this->entity = Objects::RequireNonNull(entity);
   this->parent = Objects::RequireNonNull(parent);
 }
 
@@ -20,6 +19,7 @@ void PlayerMovingState::CheckPressed(const Input& input) {
   bool right = input.IsPressed(SDL_SCANCODE_D);
   bool up = input.IsPressed(SDL_SCANCODE_W);
   bool down = input.IsPressed(SDL_SCANCODE_S);
+  IEntity* entity = moveDelegate.GetEntity();
 
   if (left && right) {
     entity->Stop(Direction::LEFT);
@@ -47,6 +47,7 @@ void PlayerMovingState::CheckReleased(const Input& input) {
   bool right = input.WasReleased(SDL_SCANCODE_D);
   bool up = input.WasReleased(SDL_SCANCODE_W);
   bool down = input.WasReleased(SDL_SCANCODE_S);
+  IEntity* entity = moveDelegate.GetEntity();
 
   if (left) {
     entity->Stop(Direction::LEFT);
@@ -71,10 +72,10 @@ void PlayerMovingState::HandleInput(const Input& input) {
   CheckPressed(input);
   CheckReleased(input);
 
-  if (!areMoveKeysDown && entity->GetVelocity().IsZero()) {
-    parent->Change(EntityStateID::IDLE);
+  if (!areMoveKeysDown && moveDelegate.GetEntity()->GetVelocity().IsZero()) {
+    parent->SetState(EntityStateID::IDLE);
   } else if (input.IsPressed(SDL_SCANCODE_SPACE)) {
-    parent->Change(EntityStateID::ATTACK);
+    parent->SetState(EntityStateID::ATTACK);
   }
 }
 

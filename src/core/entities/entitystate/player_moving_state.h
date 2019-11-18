@@ -6,9 +6,15 @@
 
 namespace wanderer::core {
 
+/**
+ * The PlayerMovingState class is an implementation of the IPlayerState interface that represents
+ * the state of the player when moving.
+ *
+ * @see IPlayerState
+ * @since 0.1.0
+ */
 class PlayerMovingState final : public IPlayerState {
  private:
-  IEntity* entity = nullptr;
   IEntityStateMachine* parent = nullptr;
   EntityMoveDelegate moveDelegate;
   bool areMoveKeysDown = false;

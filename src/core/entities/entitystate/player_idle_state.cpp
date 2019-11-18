@@ -13,11 +13,11 @@ void PlayerIdleState::HandleInput(const Input& input) {
       || input.IsPressed(SDL_SCANCODE_A)
       || input.IsPressed(SDL_SCANCODE_W)
       || input.IsPressed(SDL_SCANCODE_S)) {
-    idleDelegate.GetParent()->Change(EntityStateID::WALK);
+    idleDelegate.GetParent()->SetState(EntityStateID::WALK);
   } else if (input.IsPressed(SDL_SCANCODE_SPACE)) {
-    idleDelegate.GetParent()->Change(EntityStateID::ATTACK);
+    idleDelegate.GetParent()->SetState(EntityStateID::ATTACK);
   } else if (input.IsPressed(SDL_SCANCODE_U)) {
-    idleDelegate.GetParent()->Change(EntityStateID::DIE);
+    idleDelegate.GetParent()->SetState(EntityStateID::DIE);
   }
 
   // TODO attack...

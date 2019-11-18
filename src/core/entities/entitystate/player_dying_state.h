@@ -6,11 +6,24 @@
 
 namespace wanderer::core {
 
+/**
+ * The PlayerDyingState class is an implementation of the IPlayerState interface that represents
+ * the state of the player when dying.
+ *
+ * @see IPlayerState
+ * @since 0.1.0
+ */
 class PlayerDyingState final : public IPlayerState {
  private:
   EntityDyingDelegate dyingDelegate;
 
  public:
+  /**
+   * @param entity a pointer to the associated entity.
+   * @param parent a pointer to the parent state machine.
+   * @throws NullPointerException if any pointers are null.
+   * @since 0.1.0
+   */
   PlayerDyingState(IEntity* entity, IEntityStateMachine* parent);
 
   ~PlayerDyingState() override;
@@ -25,7 +38,7 @@ class PlayerDyingState final : public IPlayerState {
 
   inline void Enter() override { dyingDelegate.Enter(); }
 
-  inline void Exit() override { dyingDelegate.Exit(); }
+  inline void Exit() override { dyingDelegate.Exit(); } // TODO game over stuff
 };
 
 }

@@ -45,6 +45,8 @@ class Player final : public IEntity {
    */
   static Player_uptr Create(visuals::Image_sptr sheet);
 
+  void Tick(float delta) override;
+
   /**
    * Handles the supplied input.
    *
@@ -53,13 +55,11 @@ class Player final : public IEntity {
    */
   inline void HandleInput(const Input& input) { playerStateMachine->HandleInput(input); }
 
-  void Tick(float delta) override;
-
   inline void Draw(visuals::Renderer& renderer, const Viewport& viewport) noexcept override {
     playerStateMachine->Draw(renderer, viewport);
   }
 
-  inline void SetState(EntityStateID id) override { playerStateMachine->Change(id); }
+  inline void SetState(EntityStateID id) override { playerStateMachine->SetState(id); }
 
   inline void AddX(float dx) noexcept override {
     movableObject->AddX(dx);
@@ -137,7 +137,7 @@ class Player final : public IEntity {
     return movableObject->GetDominantDirection();
   }
 
-  visuals::Image& GetTileSheet() const noexcept override {
+  [[nodiscard]] inline visuals::Image& GetTileSheet() const noexcept override {
     return *sheet;
   }
 };

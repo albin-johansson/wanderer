@@ -18,7 +18,7 @@ PlayerStateMachineImpl::PlayerStateMachineImpl(IEntity* entity) {
   Put(EntityStateID::ATTACK, std::make_unique<PlayerAttackState>(entity, this));
 
   activeStateID = EntityStateID::IDLE;
-  Change(activeStateID);
+  SetState(activeStateID);
 }
 
 PlayerStateMachineImpl::~PlayerStateMachineImpl() = default;
@@ -35,7 +35,7 @@ void PlayerStateMachineImpl::HandleInput(const Input& input) {
   states.at(activeStateID)->HandleInput(input);
 }
 
-void PlayerStateMachineImpl::Change(EntityStateID id) {
+void PlayerStateMachineImpl::SetState(EntityStateID id) {
   states.at(activeStateID)->Exit();
 
   activeStateID = id;

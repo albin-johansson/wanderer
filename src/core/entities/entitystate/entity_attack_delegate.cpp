@@ -35,7 +35,7 @@ void EntityAttackDelegate::Tick(float delta) {
 
     // TODO damage and stuff...
 
-    parent->Change(EntityStateID::IDLE);
+    parent->SetState(EntityStateID::IDLE);
   }
 }
 

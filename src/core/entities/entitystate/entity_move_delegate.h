@@ -23,6 +23,7 @@ class EntityMoveDelegate final : public IEntityState {
 
   void Tick(float delta) override;
 
+  [[nodiscard]] inline IEntity* GetEntity() noexcept { return entity; }
 };
 
 }
