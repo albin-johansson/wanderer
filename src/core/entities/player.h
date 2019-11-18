@@ -137,7 +137,7 @@ class Player final : public IEntity {
     return movableObject->GetDominantDirection();
   }
 
-  [[nodiscard]] inline visuals::Image& GetTileSheet() const noexcept override {
+  [[nodiscard]] inline visuals::Image& GetSpriteSheet() const noexcept override {
     return *sheet;
   }
 };

@@ -32,12 +32,13 @@ class IEntity : public IMovableObject {
   virtual void SetState(EntityStateID id) = 0;
 
   /**
-   * Returns a reference to the internal tile sheet.
+   * Returns a reference to the internal sprite sheet.
    *
-   * @return a reference to the internal tile sheet.
+   * @return a reference to the internal sprite sheet.
    * @since 0.1.0
    */
-  virtual visuals::Image& GetTileSheet() const noexcept = 0;
+  virtual visuals::Image& GetSpriteSheet() const noexcept = 0;
+
 };
 
 using IEntity_uptr = std::unique_ptr<IEntity>;

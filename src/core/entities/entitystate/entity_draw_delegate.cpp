@@ -9,7 +9,7 @@ void EntityDrawDelegate::Draw(visuals::Renderer& renderer, const Viewport& viewp
   auto y = viewport.GetTranslatedY(interpolatedPosition.GetY());
   auto src = Rectangle(srcX, srcY, 64, 64);
   auto dst = Rectangle(x, y, entity.GetWidth(), entity.GetHeight());
-  renderer.RenderTexture(entity.GetTileSheet().GetTexture(), src, dst);
+  renderer.RenderTexture(entity.GetSpriteSheet().GetTexture(), src, dst);
 }
 
 }
