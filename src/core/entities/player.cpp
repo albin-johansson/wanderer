@@ -12,7 +12,7 @@ Player::Player(visuals::Image_sptr sheet) {
   entityStateMachine = EntityStateMachineImpl::Create(this);
 }
 
-IEntity_uptr Player::Create(visuals::Image_sptr sheet) {
+Player_uptr Player::Create(visuals::Image_sptr sheet) {
   return std::make_unique<Player>(sheet);
 }
 

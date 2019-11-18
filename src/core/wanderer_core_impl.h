@@ -20,7 +20,7 @@ class WandererCoreImpl final : public IWandererCore {
  private:
   IMenuStateMachine_uptr menuStateMachine = nullptr;
   World_uptr world = nullptr;
-  IEntity_sptr player = nullptr;
+  Player_sptr player = nullptr;
   audio::SoundEngine_uptr soundEngine = nullptr;
   visuals::ImageGenerator_sptr imageGenerator = nullptr;
   Viewport viewport;

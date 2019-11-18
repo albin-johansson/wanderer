@@ -2,8 +2,15 @@
 #include "entity.h"
 #include "entity_state_machine.h"
 #include "image.h"
+#include <memory>
 
 namespace wanderer::core {
+
+class Player;
+
+using Player_uptr = std::unique_ptr<Player>;
+using Player_sptr = std::shared_ptr<Player>;
+using Player_wptr = std::weak_ptr<Player>;
 
 /**
  * The Player class represents the entity that is controlled by the player.
@@ -35,9 +42,15 @@ class Player final : public IEntity {
    * @throws NullPointerException if the supplied image pointer is null.
    * @since 0.1.0
    */
-  static IEntity_uptr Create(visuals::Image_sptr sheet);
+  static Player_uptr Create(visuals::Image_sptr sheet);
 
-  void HandleInput(const Input& input) override;
+  /**
+   * Handles the supplied input.
+   *
+   * @param input a reference to the input state.
+   * @since 0.1.0
+   */
+  void HandleInput(const Input& input);
 
   void Tick(float delta) override;
 
