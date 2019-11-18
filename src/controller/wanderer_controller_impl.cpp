@@ -18,8 +18,11 @@ WandererControllerImpl::WandererControllerImpl() {
                  SDL_LOG_PRIORITY_INFO,
                  "Desktop refresh rate: %i Hz", desktop.refresh_rate);
 
-  window = Window::Create("Wanderer", desktop.w, desktop.h);
-  window->SetFullscreen(true);
+//  window = Window::Create("Wanderer", desktop.w, desktop.h);
+//  window->SetFullscreen(true);
+
+  window = Window::Create("Wanderer", 1280, 720);
+  window->SetFullscreen(false);
 
   SDL_Surface* icon = IMG_Load("resources/img/tactile_icon.png");
   if (icon != nullptr) {

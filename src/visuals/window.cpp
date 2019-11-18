@@ -90,4 +90,8 @@ int Window::GetHeight() const noexcept {
   return height;
 }
 
+std::string Window::GetTitle() const noexcept {
+  return SDL_GetWindowTitle(window);
+}
+
 }  // namespace wanderer::visuals

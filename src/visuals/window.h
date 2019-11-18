@@ -21,6 +21,7 @@ class Window final {
   /**
    * Creates a window instance. The window will be hidden by default.
    *
+   * @param title the title of thw window.
    * @param width the width of the window, must be greater than zero.
    * @param height the height of the window, must be greater than zero.
    * @throws invalid_argument if the supplied width or height values aren't
@@ -31,6 +32,17 @@ class Window final {
 
   ~Window();
 
+  /**
+   * Creates and returns a unique pointer to a window instance. The window will be hidden by
+   * default.
+   *
+   * @param title the title of the window.
+   * @param width the width of the window, must be greater than zero.
+   * @param height the height of the window, must be greater than zero.
+   * @return a unique pointer to a window instance.
+   * @throws invalid_argument if the supplied width or height values aren't greater than zero.
+   * @since 0.1.0
+   */
   static Window_uptr Create(const std::string& title, int width, int height);
 
   /**
@@ -130,6 +142,14 @@ class Window final {
    * @since 0.1.0
    */
   [[nodiscard]] int GetHeight() const noexcept;
+
+  /**
+   * Returns the title of the window.
+   *
+   * @return the title of the window.
+   * @since 0.1.0
+   */
+  [[nodiscard]] std::string GetTitle() const noexcept;
 
   /**
    * Returns the internal representation of the window. Do not free

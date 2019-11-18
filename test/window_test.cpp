@@ -3,7 +3,7 @@
 
 using namespace wanderer::visuals;
 
-TEST_CASE("WindowCtor", "[Window]") {
+TEST_CASE("Window(string, int, int)", "[Window]") {
   CHECK_THROWS_AS(Window("", 0, 10), std::invalid_argument);
   CHECK_THROWS_AS(Window("", 10, 0), std::invalid_argument);
 
@@ -13,6 +13,20 @@ TEST_CASE("WindowCtor", "[Window]") {
 
   CHECK(window.GetWidth() == width);
   CHECK(window.GetHeight() == height);
+}
+
+TEST_CASE("Window::Create", "[Window]") {
+  CHECK_THROWS_AS(Window::Create("", 0, 1), std::invalid_argument);
+  CHECK_THROWS_AS(Window::Create("", 1, 0), std::invalid_argument);
+
+  auto title = "Foo";
+  int width = 831;
+  int height = 351;
+  Window_uptr window = Window::Create(title, width, height);
+
+  CHECK(window->GetTitle() == title);
+  CHECK(window->GetWidth() == width);
+  CHECK(window->GetHeight() == height);
 }
 
 TEST_CASE("Window::Show", "[Window]") {
@@ -69,4 +83,10 @@ TEST_CASE("Window::GetInternalWindow", "[Window]") {
   Window window("Foo", 100, 100);
   SDL_Window* sdlWindow = window.GetInternalWindow();
   CHECK(sdlWindow != nullptr);
+}
+
+TEST_CASE("Window::GetTitle", "[Window]") {
+  auto title = "HelloWorld";
+  Window window(title, 100, 100);
+  CHECK(window.GetTitle() == title);
 }
