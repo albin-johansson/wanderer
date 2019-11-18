@@ -25,6 +25,7 @@ class IEntity : public IMovableObject, public IAnimated {
 
   // TODO GetHealth, Hurt, IsDead, IsAlive
 
+  // TODO the GetSpriteSheet method might belong in IAnimated
   /**
    * Returns a reference to the internal sprite sheet.
    *
