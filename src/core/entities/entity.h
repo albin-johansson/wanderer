@@ -26,14 +26,6 @@ class IEntity : public IMovableObject, public IAnimated {
   // TODO GetHealth, Hurt, IsDead, IsAlive
 
   /**
-   * Sets the entity state that will be used by the entity.
-   *
-   * @param id the id of the state that will be used.
-   * @since 0.1.0
-   */
-  virtual void SetState(EntityStateID id) = 0; // TODO investigate
-
-  /**
    * Returns a reference to the internal sprite sheet.
    *
    * @return a reference to the internal sprite sheet.

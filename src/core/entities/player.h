@@ -60,8 +60,6 @@ class Player final : public IEntity {
     playerStateMachine->Draw(renderer, viewport);
   }
 
-  inline void SetState(EntityStateID id) override { playerStateMachine->SetState(id); }
-
   inline void AddX(float dx) noexcept override {
     movableObject->AddX(dx);
   }
