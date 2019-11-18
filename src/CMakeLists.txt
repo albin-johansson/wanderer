@@ -81,6 +81,7 @@ set(SOURCE_FILES
         core/input.h
         core/viewport.cpp
         core/viewport.h
+        core/animated.h
 
         core/entities/entitystate/entity_draw_delegate.cpp
         core/entities/entitystate/entity_draw_delegate.h
@@ -124,7 +125,7 @@ set(SOURCE_FILES
         audio/sound_effect.cpp
         audio/sound_effect.h
         audio/sound_engine.cpp
-        audio/sound_engine.h )
+        audio/sound_engine.h)
 
 # Prepares the Wanderer "library", which excludes linking and the main.cpp file
 add_library(${WANDERER_LIB} ${SOURCE_FILES})

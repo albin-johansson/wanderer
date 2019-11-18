@@ -12,13 +12,13 @@ EntityMoveDelegate::EntityMoveDelegate(IEntity* entity) {
 EntityMoveDelegate::~EntityMoveDelegate() = default;
 
 void EntityMoveDelegate::Draw(visuals::Renderer& renderer, const Viewport& viewport) {
-  auto srcX = entity->GetVelocity().IsZero() ? 0 : animation.GetIndex() * 64;
+  auto srcX = entity->GetVelocity().IsZero() ? 0 : entity->GetAnimationFrame() * 64;
   auto srcY = EntitySheet::GetSourceY(512, entity->GetDominantDirection());
   EntityDrawDelegate::Draw(renderer, viewport, *entity, srcX, srcY);
 }
 
 void EntityMoveDelegate::Tick(float delta) {
-  animation.Update();
+  entity->UpdateAnimation();
 
   Vector2 velocity = entity->GetVelocity();
   entity->AddX(velocity.GetX() * delta);
@@ -26,9 +26,9 @@ void EntityMoveDelegate::Tick(float delta) {
 }
 
 void EntityMoveDelegate::Enter() {
-  animation.SetFrame(0);
-  animation.SetNumberOfFrames(9);
-  animation.SetDelay(60);
+  entity->SetAnimationFrame(0);
+  entity->SetAnimationFrameAmount(9);
+  entity->SetAnimationDelay(60);
 }
 
 void EntityMoveDelegate::Exit() {}

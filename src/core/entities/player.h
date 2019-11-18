@@ -2,6 +2,7 @@
 #include "entity.h"
 #include "player_state_machine.h"
 #include "image.h"
+#include "animation.h"
 #include <memory>
 
 namespace wanderer::core {
@@ -20,10 +21,10 @@ using Player_wptr = std::weak_ptr<Player>;
  */
 class Player final : public IEntity {
  private:
-  // TODO maybe entities should hold an Animation instance, since almost all states uses one
   IMovableObject_uptr movableObject = nullptr;
   IPlayerStateMachine_uptr playerStateMachine = nullptr;
   visuals::Image_sptr sheet = nullptr;
+  visuals::Animation animation;
 
  public:
   /**
@@ -101,6 +102,20 @@ class Player final : public IEntity {
     movableObject->SetSpeed(speed);
   }
 
+  inline void UpdateAnimation() noexcept override { animation.Update(); }
+
+  inline void SetAnimationFrame(int index) noexcept override { animation.SetFrame(index); }
+
+  inline void SetAnimationFrameAmount(int nFrames) override { animation.SetNumberOfFrames(nFrames); }
+
+  inline void SetAnimationDelay(Uint32 ms) override { animation.SetDelay(ms); }
+
+  [[nodiscard]] inline bool IsAnimationDone() const noexcept override { return animation.IsDone(); }
+
+  [[nodiscard]] inline int GetAnimationFrame() const noexcept override {
+    return animation.GetIndex();
+  }
+
   [[nodiscard]] inline Vector2 GetVelocity() const noexcept override {
     return movableObject->GetVelocity();
   }
@@ -137,9 +152,7 @@ class Player final : public IEntity {
     return movableObject->GetDominantDirection();
   }
 
-  [[nodiscard]] inline visuals::Image& GetSpriteSheet() const noexcept override {
-    return *sheet;
-  }
+  [[nodiscard]] inline visuals::Image& GetSpriteSheet() const noexcept override { return *sheet; }
 };
 
 }

@@ -13,7 +13,7 @@ EntityAttackDelegate::EntityAttackDelegate(IEntity* entity, IEntityStateMachine*
 EntityAttackDelegate::~EntityAttackDelegate() = default;
 
 void EntityAttackDelegate::Draw(visuals::Renderer& renderer, const Viewport& viewport) {
-  auto srcX = animation.GetIndex() * 64;
+  auto srcX = entity->GetAnimationFrame() * 64;
   auto srcY = EntitySheet::GetSourceY(0, entity->GetDominantDirection());
   EntityDrawDelegate::Draw(renderer, viewport, *entity, srcX, srcY);
 }
@@ -22,16 +22,16 @@ void EntityAttackDelegate::Enter() {
   entity->Stop();
 
   // TODO determine what kind of animation to use from the entity's weapon
-  animation.SetNumberOfFrames(7);
-  animation.SetFrame(0);
-  animation.SetDelay(65);
+  entity->SetAnimationFrameAmount(7);
+  entity->SetAnimationFrame(0);
+  entity->SetAnimationDelay(65);
 }
 
 void EntityAttackDelegate::Exit() {}
 
 void EntityAttackDelegate::Tick(float delta) {
-  animation.Update();
-  if (animation.IsDone()) {
+  entity->UpdateAnimation();
+  if (entity->IsAnimationDone()) {
 
     // TODO damage and stuff...
 

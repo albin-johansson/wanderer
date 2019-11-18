@@ -1,7 +1,6 @@
 #pragma once
 #include "entity_state.h"
 #include "entity.h"
-#include "animation.h"
 
 namespace wanderer::core {
 
@@ -15,7 +14,6 @@ namespace wanderer::core {
 class EntityDyingDelegate final : public IEntityState {
  private:
   IEntity* entity = nullptr;
-  visuals::Animation animation;
 
  public:
   /**

@@ -1,5 +1,6 @@
 #pragma once
 #include "movable_object.h"
+#include "animated.h"
 #include "entity_state_id.h"
 #include "input.h"
 #include "image.h"
@@ -12,9 +13,10 @@ namespace wanderer::core {
  * "alive" in the game world.
  *
  * @see IMovableObject
+ * @see IAnimated
  * @since 0.1.0
  */
-class IEntity : public IMovableObject {
+class IEntity : public IMovableObject, public IAnimated {
  protected:
   IEntity() = default;
 
@@ -29,7 +31,7 @@ class IEntity : public IMovableObject {
    * @param id the id of the state that will be used.
    * @since 0.1.0
    */
-  virtual void SetState(EntityStateID id) = 0;
+  virtual void SetState(EntityStateID id) = 0; // TODO investigate
 
   /**
    * Returns a reference to the internal sprite sheet.
@@ -37,7 +39,7 @@ class IEntity : public IMovableObject {
    * @return a reference to the internal sprite sheet.
    * @since 0.1.0
    */
-  virtual visuals::Image& GetSpriteSheet() const noexcept = 0;
+  [[nodiscard]] virtual visuals::Image& GetSpriteSheet() const noexcept = 0;
 
 };
 

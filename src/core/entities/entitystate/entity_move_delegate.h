@@ -1,6 +1,5 @@
 #pragma once
 #include "entity_state.h"
-#include "animation.h"
 #include "entity.h"
 
 namespace wanderer::core {
@@ -8,7 +7,6 @@ namespace wanderer::core {
 class EntityMoveDelegate final : public IEntityState {
  private:
   IEntity* entity = nullptr;
-  visuals::Animation animation;
 
  public:
   explicit EntityMoveDelegate(IEntity* entity);

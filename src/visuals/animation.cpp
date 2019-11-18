@@ -41,7 +41,7 @@ void Animation::SetFrame(int frameIndex) noexcept {
 }
 
 void Animation::SetNumberOfFrames(int nFrames) noexcept {
-  this->nFrames = nFrames;
+  this->nFrames = nFrames; // TODO guard for valid input?
 }
 
 }

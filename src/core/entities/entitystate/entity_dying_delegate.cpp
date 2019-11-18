@@ -11,20 +11,20 @@ EntityDyingDelegate::EntityDyingDelegate(IEntity* entity) {
 EntityDyingDelegate::~EntityDyingDelegate() = default;
 
 void EntityDyingDelegate::Draw(visuals::Renderer& renderer, const Viewport& viewport) {
-  auto srcX = animation.GetIndex() * 64;
+  auto srcX = entity->GetAnimationFrame() * 64;
   EntityDrawDelegate::Draw(renderer, viewport, *entity, srcX, 1280);
 }
 
 void EntityDyingDelegate::Tick(float delta) {
-  if (!animation.IsDone()) {
-    animation.Update();
+  if (!entity->IsAnimationDone()) {
+    entity->UpdateAnimation();
   }
 }
 
 void EntityDyingDelegate::Enter() {
-  animation.SetNumberOfFrames(6);
-  animation.SetFrame(0);
-  animation.SetDelay(65);
+  entity->SetAnimationFrameAmount(6);
+  entity->SetAnimationFrame(0);
+  entity->SetAnimationDelay(65);
 }
 
 void EntityDyingDelegate::Exit() {

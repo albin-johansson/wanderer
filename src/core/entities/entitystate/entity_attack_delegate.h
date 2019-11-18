@@ -2,7 +2,6 @@
 #include "entity_state.h"
 #include "entity.h"
 #include "entity_state_machine.h"
-#include "animation.h"
 
 namespace wanderer::core {
 
@@ -17,7 +16,6 @@ class EntityAttackDelegate final : public IEntityState {
  private:
   IEntity* entity = nullptr;
   IEntityStateMachine* parent = nullptr;
-  visuals::Animation animation;
 
  public:
   /**
