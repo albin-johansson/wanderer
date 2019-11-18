@@ -1,25 +1,19 @@
 #pragma once
-#include "entity_state_machine.h"
-#include "entity_state.h"
+#include "player_state_machine.h"
+#include "player_state.h"
 #include <memory>
 #include <map>
 #include "entity.h"
 
 namespace wanderer::core {
 
-/**
- * The EntityStateMachineImpl class is an implementation of the IEntityStateMachine interface.
- *
- * @see IEntityStateMachine
- * @since 0.1.0
- */
-class EntityStateMachineImpl final : public IEntityStateMachine {
+class PlayerStateMachineImpl final : public IPlayerStateMachine {
  private:
-  std::map<EntityStateID, IEntityState_uptr> states;
+  std::map<EntityStateID, IPlayerState_uptr> states;
   EntityStateID activeStateID;
   IEntity* entity = nullptr;
 
-  void Put(EntityStateID id, IEntityState_uptr state);
+  void Put(EntityStateID id, IPlayerState_uptr state);
 
  public:
   /**
@@ -28,11 +22,11 @@ class EntityStateMachineImpl final : public IEntityStateMachine {
    * @throws NullPointerException if the supplied pointer is null.
    * @since 0.1.0
    */
-  explicit EntityStateMachineImpl(IEntity* entity);
+  explicit PlayerStateMachineImpl(IEntity* entity);
 
-  ~EntityStateMachineImpl() override;
+  ~PlayerStateMachineImpl() override;
 
-  static IEntityStateMachine_uptr Create(IEntity* entity);
+  static IPlayerStateMachine_uptr Create(IEntity* entity);
 
   void Draw(visuals::Renderer& renderer, const Viewport& viewport) noexcept override;
 

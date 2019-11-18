@@ -1,17 +1,21 @@
-#include "entity_moving_state.h"
+#include "player_moving_state.h"
 #include "entity_state_machine.h"
 #include "entity_sheet.h"
+#include "objects.h"
 
 using namespace wanderer::visuals;
 
 namespace wanderer::core {
 
-EntityMovingState::EntityMovingState(IEntity* entity, IEntityStateMachine* parent)
-    : AbstractEntityState(entity, parent) {}
+PlayerMovingState::PlayerMovingState(IEntity* entity, IEntityStateMachine* parent)
+    : moveDelegate(entity) {
+  this->entity = Objects::RequireNonNull(entity);
+  this->parent = Objects::RequireNonNull(parent);
+}
 
-EntityMovingState::~EntityMovingState() = default;
+PlayerMovingState::~PlayerMovingState() = default;
 
-void EntityMovingState::CheckPressed(const Input& input) {
+void PlayerMovingState::CheckPressed(const Input& input) {
   bool left = input.IsPressed(SDL_SCANCODE_A);
   bool right = input.IsPressed(SDL_SCANCODE_D);
   bool up = input.IsPressed(SDL_SCANCODE_W);
@@ -38,7 +42,7 @@ void EntityMovingState::CheckPressed(const Input& input) {
   areMoveKeysDown = up || down || right || left;
 }
 
-void EntityMovingState::CheckReleased(const Input& input) {
+void PlayerMovingState::CheckReleased(const Input& input) {
   bool left = input.WasReleased(SDL_SCANCODE_A);
   bool right = input.WasReleased(SDL_SCANCODE_D);
   bool up = input.WasReleased(SDL_SCANCODE_W);
@@ -61,13 +65,7 @@ void EntityMovingState::CheckReleased(const Input& input) {
   }
 }
 
-void EntityMovingState::Draw(visuals::Renderer& renderer, const Viewport& viewport) noexcept {
-  auto srcX = (entity->GetVelocity().IsZero()) ? 0 : animation.GetIndex() * 64;
-  auto srcY = EntitySheet::GetSourceY(512, entity->GetDominantDirection());
-  drawDelegate.Draw(renderer, viewport, *entity, srcX, srcY);
-}
-
-void EntityMovingState::HandleInput(const Input& input) {
+void PlayerMovingState::HandleInput(const Input& input) {
   areMoveKeysDown = false; // assume no movement keys are down
 
   CheckPressed(input);
@@ -78,23 +76,6 @@ void EntityMovingState::HandleInput(const Input& input) {
   } else if (input.IsPressed(SDL_SCANCODE_SPACE)) {
     parent->Change(EntityStateID::ATTACK);
   }
-}
-
-void EntityMovingState::Tick(float delta) {
-  animation.Update();
-
-  Vector2 velocity = entity->GetVelocity();
-  entity->AddX(velocity.GetX() * delta);
-  entity->AddY(velocity.GetY() * delta);
-}
-
-void EntityMovingState::Enter() {
-  animation.SetFrame(0);
-  animation.SetNumberOfFrames(9);
-  animation.SetDelay(60);
-}
-
-void EntityMovingState::Exit() {
 }
 
 }

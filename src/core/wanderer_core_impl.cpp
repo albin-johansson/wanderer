@@ -10,7 +10,7 @@ using namespace wanderer::audio;
 namespace wanderer::core {
 
 WandererCoreImpl::WandererCoreImpl(visuals::ImageGenerator_sptr imgGenerator)
-    : viewport(Viewport(1, 1, 1, 1)) {
+    : viewport(Viewport(1, 1, 1, 1)) { // TODO default vp ctor
   imageGenerator = Objects::RequireNonNull(std::move(imgGenerator));
 
   soundEngine = SoundEngine::Create();

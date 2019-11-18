@@ -1,6 +1,6 @@
 #pragma once
 #include "entity.h"
-#include "entity_state_machine.h"
+#include "player_state_machine.h"
 #include "image.h"
 #include <memory>
 
@@ -20,8 +20,9 @@ using Player_wptr = std::weak_ptr<Player>;
  */
 class Player final : public IEntity {
  private:
+  // TODO maybe entities should hold an Animation instance, since almost all states uses one
   IMovableObject_uptr movableObject = nullptr;
-  IEntityStateMachine_uptr entityStateMachine = nullptr;
+  IPlayerStateMachine_uptr playerStateMachine = nullptr;
   visuals::Image_sptr sheet = nullptr;
 
  public:
@@ -50,13 +51,15 @@ class Player final : public IEntity {
    * @param input a reference to the input state.
    * @since 0.1.0
    */
-  void HandleInput(const Input& input);
+  inline void HandleInput(const Input& input) { playerStateMachine->HandleInput(input); }
 
   void Tick(float delta) override;
 
-  void Draw(visuals::Renderer& renderer, const Viewport& viewport) noexcept override;
+  inline void Draw(visuals::Renderer& renderer, const Viewport& viewport) noexcept override {
+    playerStateMachine->Draw(renderer, viewport);
+  }
 
-  void SetState(EntityStateID id) override;
+  inline void SetState(EntityStateID id) override { playerStateMachine->Change(id); }
 
   inline void AddX(float dx) noexcept override {
     movableObject->AddX(dx);

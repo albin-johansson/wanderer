@@ -82,21 +82,29 @@ set(SOURCE_FILES
 
         core/entities/entitystate/entity_draw_delegate.cpp
         core/entities/entitystate/entity_draw_delegate.h
-        core/entities/entitystate/entity_moving_state.cpp
-        core/entities/entitystate/entity_moving_state.h
+        core/entities/entitystate/player_moving_state.cpp
+        core/entities/entitystate/player_moving_state.h
         core/entities/entitystate/entity_state.h
         core/entities/entitystate/entity_state_machine.h
         core/entities/entitystate/entity_state_id.h
-        core/entities/entitystate/entity_idle_state.cpp
-        core/entities/entitystate/entity_idle_state.h
-        core/entities/entitystate/entity_state_machine_impl.cpp
-        core/entities/entitystate/entity_state_machine_impl.h
-        core/entities/entitystate/entity_attack_state.cpp
-        core/entities/entitystate/entity_attack_state.h
-        core/entities/entitystate/entity_dying_state.cpp
-        core/entities/entitystate/entity_dying_state.h
-        core/entities/entitystate/abstract_entity_state.cpp
-        core/entities/entitystate/abstract_entity_state.h
+        core/entities/entitystate/player_idle_state.cpp
+        core/entities/entitystate/player_idle_state.h
+        core/entities/entitystate/player_state_machine_impl.cpp
+        core/entities/entitystate/player_state_machine_impl.h
+        core/entities/entitystate/player_attack_state.cpp
+        core/entities/entitystate/player_attack_state.h
+        core/entities/entitystate/player_dying_state.cpp
+        core/entities/entitystate/player_dying_state.h
+        core/entities/entitystate/entity_move_delegate.cpp
+        core/entities/entitystate/entity_move_delegate.h
+        core/entities/entitystate/entity_dying_delegate.cpp
+        core/entities/entitystate/entity_dying_delegate.h
+        core/entities/entitystate/entity_attack_delegate.cpp
+        core/entities/entitystate/entity_attack_delegate.h
+        core/entities/entitystate/entity_idle_delegate.cpp
+        core/entities/entitystate/entity_idle_delegate.h
+        core/entities/entitystate/player_state.h
+        core/entities/entitystate/player_state_machine.h
 
         visuals/window.h
         visuals/window.cpp

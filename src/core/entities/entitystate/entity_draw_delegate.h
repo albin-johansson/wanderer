@@ -7,15 +7,15 @@ namespace wanderer::core {
 
 class EntityDrawDelegate final {
  public:
-  EntityDrawDelegate();
+  EntityDrawDelegate() = delete;
 
-  ~EntityDrawDelegate();
+  ~EntityDrawDelegate() = default;
 
-  void Draw(visuals::Renderer& renderer,
-            const Viewport& viewport,
-            const IEntity& entity,
-            float srcX,
-            float srcY) noexcept;
+  static void Draw(visuals::Renderer& renderer,
+                   const Viewport& viewport,
+                   const IEntity& entity,
+                   float srcX,
+                   float srcY) noexcept;
 
 };
 

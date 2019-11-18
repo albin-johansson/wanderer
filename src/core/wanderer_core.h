@@ -79,6 +79,12 @@ class IWandererCore {
    */
   virtual void StopPlayer(Direction direction) = 0;
 
+  /**
+   * Indicates whether or not the game should quit.
+   *
+   * @return true if the game should quit; false otherwise.
+   * @since 0.1.0
+   */
   [[nodiscard]] virtual bool ShouldQuit() const noexcept = 0;
 };
 

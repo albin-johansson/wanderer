@@ -21,13 +21,13 @@ class IEntityState : public ITickable, public IDrawable {
  public:
   ~IEntityState() override = default;
 
-  /**
-   * Reacts to the supplied input
-   *
-   * @param input a reference to the input state.
-   * @since 0.1.0
-   */
-  virtual void HandleInput(const Input& input) = 0; // FIXME not needed by NPC states
+//  /**
+//   * Reacts to the supplied input
+//   *
+//   * @param input a reference to the input state.
+//   * @since 0.1.0
+//   */
+//  virtual void HandleInput(const Input& input) = 0; // FIXME not needed by NPC states
 
   /**
    * Enters the entity state.
