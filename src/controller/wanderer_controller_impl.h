@@ -36,15 +36,6 @@ class WandererControllerImpl final : public IWandererController {
    */
   WandererControllerImpl();
 
-  /**
-   * Returns the desktop display mode.
-   *
-   * @return the desktop display mode.
-   * @throws BadStateException if the desktop info cannot be deduced.
-   * @since 0.1.0
-   */
-  SDL_DisplayMode GetDesktopInfo();
-
  public:
   /**
    * Creates and returns a unique pointer to an IWandererController instance.

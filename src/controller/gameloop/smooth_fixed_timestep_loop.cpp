@@ -17,10 +17,6 @@ SmoothFixedTimestepLoop::SmoothFixedTimestepLoop(KeyStateManager_sptr keyStateMa
 
   now = SDL_GetPerformanceCounter();
   then = now;
-
-  SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION,
-                 SDL_LOG_PRIORITY_INFO,
-                 "Using fixed timestep loop with delta time smoothing.");
 }
 
 SmoothFixedTimestepLoop::~SmoothFixedTimestepLoop() = default;

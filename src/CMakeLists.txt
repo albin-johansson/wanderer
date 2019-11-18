@@ -3,6 +3,8 @@ project(${CMAKE_PROJECT_NAME}_src)
 
 set(SOURCE_FILES
         service/bool_converter.h
+        service/display_modes.cpp
+        service/display_modes.h
 
         controller/key_state_manager.cpp
         controller/key_state_manager.h
@@ -122,7 +124,7 @@ set(SOURCE_FILES
         audio/sound_effect.cpp
         audio/sound_effect.h
         audio/sound_engine.cpp
-        audio/sound_engine.h)
+        audio/sound_engine.h )
 
 # Prepares the Wanderer "library", which excludes linking and the main.cpp file
 add_library(${WANDERER_LIB} ${SOURCE_FILES})

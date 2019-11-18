@@ -1,27 +1,21 @@
 #include "wanderer_controller_impl.h"
 #include <SDL.h>
-#include "bad_state_exception.h"
 #include "input.h"
 #include "smooth_fixed_timestep_loop.h"
 #include "wanderer_core_factory.h"
 #include "image_generator.h"
 #include "font.h"
+#include "display_modes.h"
 
 using namespace wanderer::core;
 using namespace wanderer::visuals;
+using namespace wanderer::service;
 
 namespace wanderer::controller {
 
 WandererControllerImpl::WandererControllerImpl() {
-  SDL_DisplayMode desktop = GetDesktopInfo();
-  SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION,
-                 SDL_LOG_PRIORITY_INFO,
-                 "Desktop refresh rate: %i Hz", desktop.refresh_rate);
-
-//  window = Window::Create("Wanderer", desktop.w, desktop.h);
-//  window->SetFullscreen(true);
-
-  window = Window::Create("Wanderer", 1280, 720);
+  SDL_DisplayMode desktop = DisplayModes::GetDesktopInfo();
+  window = Window::Create("Wanderer", desktop.w, desktop.h);
   window->SetFullscreen(false);
 
   SDL_Surface* icon = IMG_Load("resources/img/tactile_icon.png");
@@ -57,14 +51,6 @@ WandererControllerImpl::WandererControllerImpl() {
 }
 
 WandererControllerImpl::~WandererControllerImpl() = default;
-
-SDL_DisplayMode WandererControllerImpl::GetDesktopInfo() {
-  SDL_DisplayMode dm;
-  if (SDL_GetDesktopDisplayMode(0, &dm) != 0) {
-    throw BadStateException(SDL_GetError());
-  }
-  return dm;
-}
 
 void WandererControllerImpl::Run() {
   running = true;
