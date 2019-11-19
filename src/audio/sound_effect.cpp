@@ -43,9 +43,25 @@ void SoundEffect::Loop(int nLoops) noexcept {
 }
 
 void SoundEffect::Stop() noexcept {
-  if ((channel != UNDEFINED_CHANNEL) && Mix_Playing(channel)) {
+  if (IsPlaying()) {
     Mix_Pause(channel);
     channel = UNDEFINED_CHANNEL;
+  }
+}
+
+void SoundEffect::FadeIn(Uint32 ms) noexcept {
+  if (ms > 0 && !IsPlaying()) {
+    if (channel != UNDEFINED_CHANNEL) {
+      Mix_FadeInChannelTimed(channel, chunk, 0, ms, -1);
+    } else {
+      channel = Mix_FadeInChannelTimed(UNDEFINED_CHANNEL, chunk, 0, ms, -1);
+    }
+  }
+}
+
+void SoundEffect::FadeOut(Uint32 ms) noexcept {
+  if ((ms > 0) && IsPlaying()) {
+    Mix_FadeOutChannel(channel, ms);
   }
 }
 

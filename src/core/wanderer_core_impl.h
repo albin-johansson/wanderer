@@ -28,6 +28,8 @@ class WandererCoreImpl final : public IWandererCore {
 
   explicit WandererCoreImpl(visuals::ImageGenerator_sptr imageGenerator);
 
+  void LoadSoundEffects();
+
  public:
   ~WandererCoreImpl() override;
 

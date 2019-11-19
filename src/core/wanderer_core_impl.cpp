@@ -3,6 +3,7 @@
 #include "objects.h"
 #include "sound_effect.h"
 #include <utility>
+#include <fstream>
 
 using namespace wanderer::visuals;
 using namespace wanderer::audio;
@@ -14,7 +15,7 @@ WandererCoreImpl::WandererCoreImpl(visuals::ImageGenerator_sptr imgGenerator)
   imageGenerator = Objects::RequireNonNull(std::move(imgGenerator));
 
   soundEngine = SoundEngine::Create();
-  soundEngine->Register("swing", SoundEffect::Create("resources/audio/swing.wav"));
+  LoadSoundEffects();
 
   menuStateMachine = MenuStateMachineImpl::Create(this);
 
@@ -28,6 +29,21 @@ WandererCoreImpl::WandererCoreImpl(visuals::ImageGenerator_sptr imgGenerator)
 }
 
 WandererCoreImpl::~WandererCoreImpl() = default;
+
+void WandererCoreImpl::LoadSoundEffects() {
+  try {
+    std::ifstream infile("resources/audio/sfx.txt");
+    std::string line;
+    while (std::getline(infile, line)) {
+      auto i = line.find(';');
+      std::string id = line.substr(0, i);
+      std::string path = line.substr(i + 1);
+      soundEngine->Register(id, SoundEffect::Create(path));
+    }
+  } catch (std::exception& e) {
+    SDL_Log("Failed to load sound effects! Error: %s", e.what());
+  }
+}
 
 void WandererCoreImpl::HandleInput(const Input& input) {
   menuStateMachine->HandleInput(input);

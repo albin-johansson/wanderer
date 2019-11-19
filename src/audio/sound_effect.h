@@ -76,6 +76,24 @@ class SoundEffect final {
   void Stop() noexcept;
 
   /**
+   * Fades in the sound effect. This method has no effect if the supplied duration isn't greater
+   * than zero or if the sound effect is currently playing.
+   *
+   * @param ms the duration to fade in, in milliseconds.
+   * @since 0.1.0
+   */
+  void FadeIn(Uint32 ms) noexcept;
+
+  /**
+   * Fades out the sound effect. This method has no effect if the supplied duration isn't greater
+   * than zero or if the sound effect isn't currently playing.
+   *
+   * @param ms the duration to fade in, in milliseconds.
+   * @since 0.1.0
+   */
+  void FadeOut(Uint32 ms) noexcept;
+
+  /**
    * Sets the volume of the sound effect.
    *
    * @param volume the volume of the sound effect, in the range [0, MIX_MAX_VOLUME].
@@ -91,6 +109,16 @@ class SoundEffect final {
    */
   [[nodiscard]] inline int GetVolume() const noexcept {
     return chunk->volume;
+  }
+
+  /**
+   * Indicates whether or not the sound effect is currently playing.
+   *
+   * @return true if the sound effect is playing; false otherwise.
+   * @since 0.1.0
+   */
+  [[nodiscard]] inline bool IsPlaying() const noexcept {
+    return (channel != UNDEFINED_CHANNEL) && Mix_Playing(channel);
   }
 };
 
