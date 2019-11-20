@@ -1,5 +1,6 @@
 #pragma once
 #include <SDL_types.h>
+#include "image.h"
 
 namespace wanderer::core {
 
@@ -63,6 +64,14 @@ class IAnimated {
    * @since 0.1.0
    */
   [[nodiscard]] virtual bool IsAnimationDone() const noexcept = 0;
+
+  /**
+   * Returns a reference to the internal sprite sheet.
+   *
+   * @return a reference to the internal sprite sheet.
+   * @since 0.1.0
+   */
+  [[nodiscard]] virtual visuals::Image& GetSpriteSheet() const noexcept = 0;
 
 };
 

@@ -1,9 +1,6 @@
 #pragma once
 #include "movable_object.h"
 #include "animated.h"
-#include "entity_state_id.h"
-#include "input.h"
-#include "image.h"
 #include <memory>
 
 namespace wanderer::core {
@@ -24,16 +21,6 @@ class IEntity : public IMovableObject, public IAnimated {
   ~IEntity() override = default;
 
   // TODO GetHealth, Hurt, IsDead, IsAlive
-
-  // TODO the GetSpriteSheet method might belong in IAnimated
-  /**
-   * Returns a reference to the internal sprite sheet.
-   *
-   * @return a reference to the internal sprite sheet.
-   * @since 0.1.0
-   */
-  [[nodiscard]] virtual visuals::Image& GetSpriteSheet() const noexcept = 0;
-
 };
 
 using IEntity_uptr = std::unique_ptr<IEntity>;
