@@ -6,15 +6,17 @@ add_library(Catch INTERFACE)
 target_include_directories(Catch INTERFACE ${CATCH_INCLUDE_DIR})
 
 add_executable(${WANDERER_TEST}
-        test_main.cpp
-        window_test.cpp
-        bool_converter_test.cpp
-        renderer_test.cpp
-        vector_2_test.cpp
-        objects_test.cpp
-        rectangle_test.cpp
-        font_test.cpp
-        image_test.cpp)
+        unittests/test_main.cpp
+        unittests/window_test.cpp
+        unittests/bool_converter_test.cpp
+        unittests/renderer_test.cpp
+        unittests/vector_2_test.cpp
+        unittests/objects_test.cpp
+        unittests/rectangle_test.cpp
+        unittests/font_test.cpp
+        unittests/image_test.cpp)
+
+target_include_directories(${WANDERER_TEST} PUBLIC unittests)
 
 target_link_directories(${WANDERER_TEST} PUBLIC ${SDL2_LIBRARY})
 target_link_directories(${WANDERER_TEST} PUBLIC ${SDL2_IMAGE_LIBRARIES})
