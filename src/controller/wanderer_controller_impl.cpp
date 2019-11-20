@@ -15,8 +15,8 @@ namespace wanderer::controller {
 
 WandererControllerImpl::WandererControllerImpl() {
   SDL_DisplayMode desktop = DisplayModes::GetDesktopInfo();
-  window = Window::Create("Wanderer", 1280, 720);
-  window->SetFullscreen(false);
+  window = Window::Create("Wanderer", desktop.w, desktop.h);
+  window->SetFullscreen(true);
 
   SDL_Surface* icon = IMG_Load("resources/img/tactile_icon.png");
   if (icon != nullptr) {
@@ -35,9 +35,7 @@ WandererControllerImpl::WandererControllerImpl() {
   core = CreateCore(imggen);
   core->SetViewportWidth(LOGICAL_WIDTH);
   core->SetViewportHeight(LOGICAL_HEIGHT);
-
-//  core->CreatePlayer(imggen);
-
+  
   keyStateManager = KeyStateManager::Create();
   mouseStateManager = MouseStateManager::Create();
 
@@ -56,18 +54,13 @@ WandererControllerImpl::WandererControllerImpl() {
 WandererControllerImpl::~WandererControllerImpl() = default;
 
 void WandererControllerImpl::Run() {
-  running = true;
   window->Show();
 
-  while (running && !core->ShouldQuit()) {
+  while (!core->ShouldQuit()) {
     gameLoop->Update(*core, *renderer);
   }
 
   window->Hide();
-}
-
-void WandererControllerImpl::Quit() {
-  running = false;
 }
 
 }

@@ -11,17 +11,17 @@ using MouseStateManager_wptr = std::weak_ptr<MouseStateManager>;
 
 class MouseStateManager final {
  private:
-  int windowWidth;
-  int windowHeight;
-  int logicalWidth;
-  int logicalHeight;
+  float windowWidth = 1;
+  float windowHeight = 1;
+  float logicalWidth = 1;
+  float logicalHeight = 1;
 
-  int mouseX;
-  int mouseY;
-  bool prevLeftPressed;
-  bool prevRightPressed;
-  bool leftPressed;
-  bool rightPressed;
+  float mouseX = 0;
+  float mouseY = 0;
+  bool prevLeftPressed = false;
+  bool prevRightPressed = false;
+  bool leftPressed = false;
+  bool rightPressed = false;
 
  public:
   MouseStateManager();
@@ -41,11 +41,11 @@ class MouseStateManager final {
   void SetLogicalHeight(int logicalHeight);
 
   [[nodiscard]] inline float GetMouseX() const noexcept {
-    return static_cast<float>(mouseX);
+    return mouseX;
   }
 
   [[nodiscard]] inline float GetMouseY() const noexcept {
-    return static_cast<float>(mouseY);
+    return mouseY;
   }
 
   [[nodiscard]] inline bool IsLeftButtonPressed() const noexcept {

@@ -3,12 +3,7 @@
 
 namespace wanderer::controller {
 
-MouseStateManager::MouseStateManager() {
-  prevLeftPressed = false;
-  prevRightPressed = false;
-  leftPressed = false;
-  rightPressed = false;
-}
+MouseStateManager::MouseStateManager() = default;
 
 MouseStateManager::~MouseStateManager() = default;
 
@@ -20,32 +15,35 @@ void MouseStateManager::Update() {
   prevLeftPressed = leftPressed;
   prevRightPressed = rightPressed;
 
-  Uint32 mask = SDL_GetMouseState(&mouseX, &mouseY);
+  auto newX = 0;
+  auto newY = 0;
+  Uint32 mask = SDL_GetMouseState(&newX, &newY);
+  mouseX = static_cast<float>(newX);
+  mouseY = static_cast<float>(newY);
 
   leftPressed = mask & SDL_BUTTON(SDL_BUTTON_LEFT);
   rightPressed = mask & SDL_BUTTON(SDL_BUTTON_RIGHT);
 
-  // TODO switch to floats instead of ints to avoid casting every update
-  auto adjustedX = (float(mouseX) / float(windowWidth)) * float(logicalWidth);
-  auto adjustedY = (float(mouseY) / float(windowHeight)) * float(logicalHeight);
+  auto adjustedX = (mouseX / windowWidth) * logicalWidth;
+  auto adjustedY = (mouseY / windowHeight) * logicalHeight;
   mouseX = adjustedX;
   mouseY = adjustedY;
 }
 
 void MouseStateManager::SetWindowWidth(int width) {
-  windowWidth = width;
+  windowWidth = static_cast<float>(width);
 }
 
 void MouseStateManager::SetWindowHeight(int height) {
-  windowHeight = height;
+  windowHeight = static_cast<float>(height);
 }
 
 void MouseStateManager::SetLogicalWidth(int width) {
-  logicalWidth = width;
+  logicalWidth = static_cast<float>(width);
 }
 
 void MouseStateManager::SetLogicalHeight(int height) {
-  logicalHeight = height;
+  logicalHeight = static_cast<float>(height);
 }
 
 }

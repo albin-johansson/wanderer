@@ -5,8 +5,6 @@
 
 namespace wanderer::audio {
 
-// TODO add fade effects
-
 class SoundEffect;
 
 using SoundEffect_uptr = std::unique_ptr<SoundEffect>;

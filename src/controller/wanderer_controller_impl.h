@@ -20,7 +20,6 @@ class WandererControllerImpl final : public IWandererController {
   static constexpr float LOGICAL_WIDTH = 1366;
   static constexpr float LOGICAL_HEIGHT = 768;
 
-  bool running = false;
   core::IWandererCore_uptr core = nullptr;
   visuals::Window_uptr window = nullptr;
   visuals::Renderer_sptr renderer = nullptr;
@@ -48,8 +47,6 @@ class WandererControllerImpl final : public IWandererController {
   ~WandererControllerImpl() override;
 
   void Run() override;
-
-  void Quit() override;
 };
 
 }

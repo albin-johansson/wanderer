@@ -24,13 +24,6 @@ class IWandererController {
    */
   virtual void Run() = 0;
 
-  /**
-   * Quits the application.
-   *
-   * @since 0.1.0
-   */
-  virtual void Quit() = 0; // TODO remove?
-
 };
 
 using IWandererController_uptr = std::unique_ptr<IWandererController>;
