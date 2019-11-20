@@ -59,7 +59,7 @@ class Player final : public IEntity {
     playerStateMachine->HandleInput(input, game);
   }
 
-  inline void Draw(visuals::Renderer& renderer, const Viewport& viewport) noexcept override {
+  inline void Draw(visuals::Renderer& renderer, const Viewport& viewport) const noexcept override {
     playerStateMachine->Draw(renderer, viewport);
   }
 

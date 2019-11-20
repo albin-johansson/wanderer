@@ -13,7 +13,7 @@ IMenu_uptr InGameMenu::Create(IMenuStateMachine* parent) {
   return std::make_unique<InGameMenu>(parent);
 }
 
-void InGameMenu::Draw(visuals::Renderer& renderer, const core::Viewport& viewport) noexcept {}
+void InGameMenu::Draw(visuals::Renderer& renderer, const core::Viewport& viewport) const noexcept {}
 
 void InGameMenu::HandleInput(const wanderer::core::Input& input) noexcept {
   if (input.WasReleased(SDL_SCANCODE_ESCAPE)) {

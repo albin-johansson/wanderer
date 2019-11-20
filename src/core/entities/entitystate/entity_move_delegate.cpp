@@ -11,7 +11,7 @@ EntityMoveDelegate::EntityMoveDelegate(IEntity* entity) {
 
 EntityMoveDelegate::~EntityMoveDelegate() = default;
 
-void EntityMoveDelegate::Draw(visuals::Renderer& renderer, const Viewport& viewport) {
+void EntityMoveDelegate::Draw(visuals::Renderer& renderer, const Viewport& viewport) const {
   auto srcX = entity->GetVelocity().IsZero() ? 0 : entity->GetAnimationFrame() * 64;
   auto srcY = EntitySheet::GetSourceY(512, entity->GetDominantDirection());
   EntityDrawDelegate::Draw(renderer, viewport, *entity, srcX, srcY);

@@ -30,7 +30,7 @@ class PlayerAttackState final : public IPlayerState {
 
   void HandleInput(const Input& input, const IGame& game) override;
 
-  inline void Draw(visuals::Renderer& renderer, const Viewport& viewport) override {
+  inline void Draw(visuals::Renderer& renderer, const Viewport& viewport) const override {
     attackDelegate.Draw(renderer, viewport);
   }
 

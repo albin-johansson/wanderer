@@ -30,7 +30,7 @@ class MenuButton final : public IDrawable {
 
   ~MenuButton() noexcept override;
 
-  void Draw(visuals::Renderer& renderer, const Viewport& viewport) override;
+  void Draw(visuals::Renderer& renderer, const Viewport& viewport) const override;
 
   void LoadTexture(const visuals::Renderer& renderer);
 

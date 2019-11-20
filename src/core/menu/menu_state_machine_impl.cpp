@@ -21,7 +21,7 @@ IMenuStateMachine_uptr MenuStateMachineImpl::Create(IWandererCore* core) {
 }
 
 void MenuStateMachineImpl::Draw(visuals::Renderer& renderer,
-                                const Viewport& viewport) noexcept {
+                                const Viewport& viewport) const noexcept {
   activeMenu->Draw(renderer, viewport);
 }
 

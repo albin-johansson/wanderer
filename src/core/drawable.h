@@ -16,15 +16,14 @@ class IDrawable {
  public:
   virtual ~IDrawable() = default;
 
-  // TODO make const again
-
   /**
    * Draws the object.
    *
    * @param renderer the renderer that will be used.
+   * @param viewport a reference to the viewport that will be used.
    * @since 0.1.0
    */
-  virtual void Draw(visuals::Renderer& renderer, const Viewport& viewport) = 0;
+  virtual void Draw(visuals::Renderer& renderer, const Viewport& viewport) const = 0;
 };
 
 }

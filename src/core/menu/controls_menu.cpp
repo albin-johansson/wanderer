@@ -12,7 +12,7 @@ IMenu_uptr ControlsMenu::Create(IMenuStateMachine* parent) {
   return std::make_unique<ControlsMenu>(parent);
 }
 
-void ControlsMenu::Draw(Renderer& renderer, const Viewport& viewport) {
+void ControlsMenu::Draw(Renderer& renderer, const Viewport& viewport) const {
   AbstractMenu::Draw(renderer, viewport);
 
   renderer.SetColor(0xFF, 0xFF, 0xFF);

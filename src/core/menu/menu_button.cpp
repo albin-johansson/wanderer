@@ -17,7 +17,7 @@ bool MenuButton::Contains(float mx, float my) const noexcept {
   return bounds.Contains(mx, my);
 }
 
-void MenuButton::Draw(visuals::Renderer& renderer, const Viewport& viewport) {
+void MenuButton::Draw(visuals::Renderer& renderer, const Viewport& viewport) const {
 //  renderer.SetColor(0x88, 0x88, 0x88);
 //  renderer.RenderFillRect(bounds.GetX(), bounds.GetY(), bounds.GetWidth(), bounds.GetHeight());
 

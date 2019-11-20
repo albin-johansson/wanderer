@@ -45,7 +45,7 @@ void PlayerStateMachineImpl::Tick(const IGame& w, float delta) {
   states.at(activeStateID)->Tick(w, delta);
 }
 
-void PlayerStateMachineImpl::Draw(Renderer& renderer, const Viewport& viewport) noexcept {
+void PlayerStateMachineImpl::Draw(Renderer& renderer, const Viewport& viewport) const noexcept {
   states.at(activeStateID)->Draw(renderer, viewport);
 }
 

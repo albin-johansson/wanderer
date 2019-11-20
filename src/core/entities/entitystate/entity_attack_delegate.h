@@ -28,7 +28,7 @@ class EntityAttackDelegate final : public IEntityState {
 
   ~EntityAttackDelegate() override;
 
-  void Draw(visuals::Renderer& renderer, const Viewport& viewport) override;
+  void Draw(visuals::Renderer& renderer, const Viewport& viewport) const override;
 
   void Tick(const IGame& game, float delta) override;
 

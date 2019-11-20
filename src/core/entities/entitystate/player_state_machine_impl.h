@@ -52,7 +52,7 @@ class PlayerStateMachineImpl final : public IPlayerStateMachine {
    */
   static IPlayerStateMachine_uptr Create(IEntity* entity);
 
-  void Draw(visuals::Renderer& renderer, const Viewport& viewport) noexcept override;
+  void Draw(visuals::Renderer& renderer, const Viewport& viewport) const noexcept override;
 
   void HandleInput(const Input& input, const IGame& game) override;
 

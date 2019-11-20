@@ -16,10 +16,10 @@ namespace wanderer::core {
 class HomeMenu final : public AbstractMenu {
  private:
   IWandererCore* core = nullptr;
-  MenuButton startButton;
-  MenuButton settingsButton;
-  MenuButton controlsButton;
-  MenuButton quitButton;
+  mutable MenuButton startButton;
+  mutable MenuButton settingsButton;
+  mutable MenuButton controlsButton;
+  mutable MenuButton quitButton;
 
  public:
   /**
@@ -34,7 +34,7 @@ class HomeMenu final : public AbstractMenu {
 
   static IMenu_uptr Create(IMenuStateMachine* parent, IWandererCore* core);
 
-  void Draw(visuals::Renderer& renderer, const core::Viewport& viewport) override;
+  void Draw(visuals::Renderer& renderer, const core::Viewport& viewport) const override;
 
   void HandleInput(const core::Input& input) noexcept override;
 

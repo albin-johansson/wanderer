@@ -12,7 +12,7 @@ EntityAttackDelegate::EntityAttackDelegate(IEntity* entity, IEntityStateMachine*
 
 EntityAttackDelegate::~EntityAttackDelegate() = default;
 
-void EntityAttackDelegate::Draw(visuals::Renderer& renderer, const Viewport& viewport) {
+void EntityAttackDelegate::Draw(visuals::Renderer& renderer, const Viewport& viewport) const {
   auto srcX = entity->GetAnimationFrame() * 64;
   auto srcY = EntitySheet::GetSourceY(0, entity->GetDominantDirection());
   EntityDrawDelegate::Draw(renderer, viewport, *entity, srcX, srcY);

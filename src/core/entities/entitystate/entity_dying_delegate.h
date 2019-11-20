@@ -25,7 +25,7 @@ class EntityDyingDelegate final : public IEntityState {
 
   ~EntityDyingDelegate() override;
 
-  void Draw(visuals::Renderer& renderer, const Viewport& viewport) override;
+  void Draw(visuals::Renderer& renderer, const Viewport& viewport) const override;
 
   void Enter(const IGame& game) override;
 

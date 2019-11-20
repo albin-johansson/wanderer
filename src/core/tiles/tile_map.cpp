@@ -59,7 +59,7 @@ void TileMap::CalculateRenderBounds(const Rectangle& bounds,
   }
 }
 
-void TileMap::Draw(visuals::Renderer& renderer, const Viewport& viewport) noexcept {
+void TileMap::Draw(visuals::Renderer& renderer, const Viewport& viewport) const noexcept {
   auto bounds = viewport.GetBounds();
   int minRow, maxRow, minCol, maxCol;
   CalculateRenderBounds(bounds, minRow, maxRow, minCol, maxCol);

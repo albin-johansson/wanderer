@@ -43,7 +43,7 @@ void HomeMenu::HandleInput(const Input& input) noexcept {
   }
 }
 
-void HomeMenu::Draw(visuals::Renderer& renderer, const Viewport& viewport) {
+void HomeMenu::Draw(visuals::Renderer& renderer, const Viewport& viewport) const {
   static bool first = true;
 
   if (first) {

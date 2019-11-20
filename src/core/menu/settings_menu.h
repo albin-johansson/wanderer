@@ -13,7 +13,7 @@ class SettingsMenu final : public AbstractMenu {
 
   static IMenu_uptr Create(IMenuStateMachine* parent);
 
-  void Draw(visuals::Renderer& renderer, const Viewport& viewport) override;
+  void Draw(visuals::Renderer& renderer, const Viewport& viewport) const override;
 
   void HandleInput(const Input& input) noexcept override;
 

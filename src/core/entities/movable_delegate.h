@@ -51,7 +51,7 @@ class MovableObjectDelegate final : public IMovableObject {
    */
   static IMovableObject_uptr Create(float width, float height);
 
-  void Draw(visuals::Renderer& renderer, const Viewport& viewport) noexcept override;
+  void Draw(visuals::Renderer& renderer, const Viewport& viewport) const noexcept override;
 
   void Tick(const IGame& game, float delta) override;
 

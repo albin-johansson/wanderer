@@ -13,7 +13,7 @@ class AbstractMenu : public IMenu {
  public:
   ~AbstractMenu() noexcept override;
 
-  void Draw(visuals::Renderer& renderer, const Viewport& viewport) override;
+  void Draw(visuals::Renderer& renderer, const Viewport& viewport) const override;
 
 };
 

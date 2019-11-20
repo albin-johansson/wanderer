@@ -10,7 +10,7 @@ EntityDyingDelegate::EntityDyingDelegate(IEntity* entity) {
 
 EntityDyingDelegate::~EntityDyingDelegate() = default;
 
-void EntityDyingDelegate::Draw(visuals::Renderer& renderer, const Viewport& viewport) {
+void EntityDyingDelegate::Draw(visuals::Renderer& renderer, const Viewport& viewport) const {
   auto srcX = entity->GetAnimationFrame() * 64;
   EntityDrawDelegate::Draw(renderer, viewport, *entity, srcX, 1280);
 }
