@@ -12,10 +12,10 @@ namespace wanderer::core {
 PlayerStateMachineImpl::PlayerStateMachineImpl(IEntity* entity) {
   this->entity = Objects::RequireNonNull(entity);
 
-  Put(EntityStateID::IDLE, std::make_unique<PlayerIdleState>(entity, this));
-  Put(EntityStateID::DIE, std::make_unique<PlayerDyingState>(entity, this));
-  Put(EntityStateID::WALK, std::make_unique<PlayerMovingState>(entity, this));
-  Put(EntityStateID::ATTACK, std::make_unique<PlayerAttackState>(entity, this));
+  Put(EntityStateID::IDLE, std::make_unique<PlayerIdleState>(this));
+  Put(EntityStateID::DIE, std::make_unique<PlayerDyingState>(entity));
+  Put(EntityStateID::WALK, std::make_unique<PlayerMovingState>(this));
+  Put(EntityStateID::ATTACK, std::make_unique<PlayerAttackState>(this));
 
   activeStateID = EntityStateID::IDLE;
 }
@@ -47,6 +47,10 @@ void PlayerStateMachineImpl::Tick(const IGame& w, float delta) {
 
 void PlayerStateMachineImpl::Draw(Renderer& renderer, const Viewport& viewport) const noexcept {
   states.at(activeStateID)->Draw(renderer, viewport);
+}
+
+IEntity& PlayerStateMachineImpl::GetEntity() {
+  return *entity;
 }
 
 }

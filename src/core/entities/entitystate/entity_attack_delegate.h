@@ -1,6 +1,5 @@
 #pragma once
 #include "entity_state.h"
-#include "entity.h"
 #include "entity_state_machine.h"
 
 namespace wanderer::core {
@@ -19,17 +18,15 @@ class EntityAttackDelegate final : public IEntityState {
   static constexpr int MELEE_FRAMES = 6;
   static constexpr int MAGIC_FRAMES = 7;
 
-  IEntity* entity = nullptr;
   IEntityStateMachine* parent = nullptr;
 
  public:
   /**
-   * @param entity a pointer to the associated entity instance.
    * @param parent a pointer to the parent state machine.
-   * @throws NullPointerException if any of the pointers are null.
+   * @throws NullPointerException if the supplied pointer is null.
    * @since 0.1.0
    */
-  EntityAttackDelegate(IEntity* entity, IEntityStateMachine* parent);
+  explicit EntityAttackDelegate(IEntityStateMachine* parent);
 
   ~EntityAttackDelegate() override;
 

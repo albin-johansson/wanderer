@@ -1,15 +1,15 @@
 #pragma once
 #include "entity_state.h"
-#include "entity.h"
+#include "entity_state_machine.h"
 
 namespace wanderer::core {
 
 class EntityMoveDelegate final : public IEntityState {
  private:
-  IEntity* entity = nullptr;
+  IEntityStateMachine* parent = nullptr;
 
  public:
-  explicit EntityMoveDelegate(IEntity* entity);
+  explicit EntityMoveDelegate(IEntityStateMachine* parent);
 
   ~EntityMoveDelegate() override;
 
@@ -21,7 +21,7 @@ class EntityMoveDelegate final : public IEntityState {
 
   void Tick(const IGame& game, float delta) override;
 
-  [[nodiscard]] inline IEntity* GetEntity() noexcept { return entity; }
+  [[nodiscard]] inline IEntity& GetEntity() { return parent->GetEntity(); }
 };
 
 }

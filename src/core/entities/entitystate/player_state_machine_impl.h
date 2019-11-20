@@ -59,6 +59,8 @@ class PlayerStateMachineImpl final : public IPlayerStateMachine {
   void SetState(EntityStateID id, const IGame& game) override;
 
   void Tick(const IGame& game, float delta) override;
+
+  IEntity& GetEntity() override;
 };
 
 }

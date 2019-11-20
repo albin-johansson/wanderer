@@ -2,7 +2,7 @@
 
 namespace wanderer::core {
 
-PlayerDyingState::PlayerDyingState(IEntity* entity, IEntityStateMachine* parent)
+PlayerDyingState::PlayerDyingState(IEntity* entity)
     : dyingDelegate(entity) {}
 
 PlayerDyingState::~PlayerDyingState() = default;

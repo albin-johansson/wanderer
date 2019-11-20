@@ -7,8 +7,8 @@ using namespace wanderer::visuals;
 
 namespace wanderer::core {
 
-PlayerMovingState::PlayerMovingState(IEntity* entity, IEntityStateMachine* parent)
-    : moveDelegate(entity) {
+PlayerMovingState::PlayerMovingState(IEntityStateMachine* parent)
+    : moveDelegate(parent) {
   this->parent = Objects::RequireNonNull(parent);
 }
 
@@ -19,24 +19,24 @@ void PlayerMovingState::CheckPressed(const Input& input) {
   bool right = input.IsPressed(SDL_SCANCODE_D);
   bool up = input.IsPressed(SDL_SCANCODE_W);
   bool down = input.IsPressed(SDL_SCANCODE_S);
-  IEntity* entity = moveDelegate.GetEntity();
+  IEntity& entity = moveDelegate.GetEntity();
 
   if (left && right) {
-    entity->Stop(Direction::LEFT);
-    entity->Stop(Direction::RIGHT);
+    entity.Stop(Direction::LEFT);
+    entity.Stop(Direction::RIGHT);
   } else if (left) {
-    entity->Move(Direction::LEFT);
+    entity.Move(Direction::LEFT);
   } else if (right) {
-    entity->Move(Direction::RIGHT);
+    entity.Move(Direction::RIGHT);
   }
 
   if (up && down) {
-    entity->Stop(Direction::UP);
-    entity->Stop(Direction::DOWN);
+    entity.Stop(Direction::UP);
+    entity.Stop(Direction::DOWN);
   } else if (up) {
-    entity->Move(Direction::UP);
+    entity.Move(Direction::UP);
   } else if (down) {
-    entity->Move(Direction::DOWN);
+    entity.Move(Direction::DOWN);
   }
 
   areMoveKeysDown = up || down || right || left;
@@ -47,22 +47,22 @@ void PlayerMovingState::CheckReleased(const Input& input) {
   bool right = input.WasReleased(SDL_SCANCODE_D);
   bool up = input.WasReleased(SDL_SCANCODE_W);
   bool down = input.WasReleased(SDL_SCANCODE_S);
-  IEntity* entity = moveDelegate.GetEntity();
+  IEntity& entity = moveDelegate.GetEntity();
 
   if (left) {
-    entity->Stop(Direction::LEFT);
+    entity.Stop(Direction::LEFT);
   }
 
   if (right) {
-    entity->Stop(Direction::RIGHT);
+    entity.Stop(Direction::RIGHT);
   }
 
   if (up) {
-    entity->Stop(Direction::UP);
+    entity.Stop(Direction::UP);
   }
 
   if (down) {
-    entity->Stop(Direction::DOWN);
+    entity.Stop(Direction::DOWN);
   }
 }
 
@@ -72,7 +72,7 @@ void PlayerMovingState::HandleInput(const Input& input, const IGame& game) {
   CheckPressed(input);
   CheckReleased(input);
 
-  if (!areMoveKeysDown && moveDelegate.GetEntity()->GetVelocity().IsZero()) {
+  if (!areMoveKeysDown && moveDelegate.GetEntity().GetVelocity().IsZero()) {
     parent->SetState(EntityStateID::IDLE, game);
   } else if (input.IsPressed(SDL_SCANCODE_SPACE)) {
     parent->SetState(EntityStateID::ATTACK, game);

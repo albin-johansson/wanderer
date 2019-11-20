@@ -1,6 +1,5 @@
 #pragma once
 #include "entity_state.h"
-#include "entity.h"
 #include "entity_state_machine.h"
 
 namespace wanderer::core {
@@ -14,17 +13,15 @@ namespace wanderer::core {
  */
 class EntityIdleDelegate final : public IEntityState {
  private:
-  IEntity* entity = nullptr;
   IEntityStateMachine* parent = nullptr;
 
  public:
   /**
-   * @param entity a pointer to the associated entity instance.
    * @param parent a pointer to the parent state machine.
-   * @throws NullPointerException if any pointers are null.
+   * @throws NullPointerException if the supplied pointer is null.
    * @since 0.1.0
    */
-  EntityIdleDelegate(IEntity* entity, IEntityStateMachine* parent);
+  explicit EntityIdleDelegate(IEntityStateMachine* parent);
 
   ~EntityIdleDelegate() override;
 
@@ -37,12 +34,12 @@ class EntityIdleDelegate final : public IEntityState {
   void Tick(const IGame& game, float delta) override;
 
   /**
-   * Returns a pointer to the associated entity instance.
+   * Returns a reference to the associated entity state machine.
    *
-   * @return a pointer to the associated entity instance.
+   * @return a reference to the associated entity state machine.
    * @since 0.1.0
    */
-  [[nodiscard]] inline IEntityStateMachine* GetParent() noexcept { return parent; }
+  [[nodiscard]] inline IEntityStateMachine& GetParent() noexcept { return *parent; }
 };
 
 }

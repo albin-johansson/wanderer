@@ -19,12 +19,11 @@ class PlayerAttackState final : public IPlayerState {
 
  public:
   /**
-   * @param entity a pointer to the associated entity.
    * @param parent a pointer to the parent state machine.
-   * @throws NullPointerException if any pointers are null.
+   * @throws NullPointerException if the supplied pointer is null.
    * @since 0.1.0
    */
-  PlayerAttackState(IEntity* entity, IEntityStateMachine* parent);
+  explicit PlayerAttackState(IEntityStateMachine* parent);
 
   ~PlayerAttackState() override;
 

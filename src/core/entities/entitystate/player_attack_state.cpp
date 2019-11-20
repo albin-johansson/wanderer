@@ -2,8 +2,8 @@
 
 namespace wanderer::core {
 
-PlayerAttackState::PlayerAttackState(IEntity* entity, IEntityStateMachine* parent)
-    : attackDelegate(EntityAttackDelegate(entity, parent)) {}
+PlayerAttackState::PlayerAttackState(IEntityStateMachine* parent)
+    : attackDelegate(EntityAttackDelegate(parent)) {}
 
 PlayerAttackState::~PlayerAttackState() = default;
 

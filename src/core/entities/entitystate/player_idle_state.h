@@ -20,10 +20,10 @@ class PlayerIdleState final : public IPlayerState {
  public:
   /**
    * @param parent a pointer to the parent entity state machine.
-   * @throws NullPointerException if any pointers are null.
+   * @throws NullPointerException if the supplied pointer is null.
    * @since 0.1.0
    */
-  explicit PlayerIdleState(IEntity* entity, IEntityStateMachine* parent);
+  explicit PlayerIdleState(IEntityStateMachine* parent);
 
   ~PlayerIdleState() override;
 

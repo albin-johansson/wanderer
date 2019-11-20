@@ -5,16 +5,17 @@
 
 namespace wanderer::core {
 
-EntityIdleDelegate::EntityIdleDelegate(IEntity* entity, IEntityStateMachine* parent) {
-  this->entity = Objects::RequireNonNull(entity);
+EntityIdleDelegate::EntityIdleDelegate(IEntityStateMachine* parent) {
   this->parent = Objects::RequireNonNull(parent);
 }
 
 EntityIdleDelegate::~EntityIdleDelegate() = default;
 
 void EntityIdleDelegate::Draw(visuals::Renderer& renderer, const Viewport& viewport) const {
-  float srcY = EntitySheet::GetSourceY(512, entity->GetDominantDirection());
-  EntityDrawDelegate::Draw(renderer, viewport, *entity, 0, srcY);
+  IEntity& entity = parent->GetEntity();
+
+  float srcY = EntitySheet::GetSourceY(512, entity.GetDominantDirection());
+  EntityDrawDelegate::Draw(renderer, viewport, entity, 0, srcY);
 }
 
 void EntityIdleDelegate::Enter(const IGame& world) {}

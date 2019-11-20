@@ -29,6 +29,8 @@ class IEntityStateMachine : public ITickable, public IDrawable {
    * @since 0.1.0
    */
   virtual void SetState(EntityStateID id, const IGame& game) = 0;
+
+  [[nodiscard]] virtual IEntity& GetEntity() = 0;
 };
 
 using IEntityStateMachine_uptr = std::unique_ptr<IEntityStateMachine>;
