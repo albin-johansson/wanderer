@@ -33,7 +33,7 @@ class Player final : public IEntity {
    * @throws NullPointerException if the supplied image pointer is null.
    * @since 0.1.0
    */
-  explicit Player(visuals::Image_sptr sheet, const IGame& game);
+  explicit Player(visuals::Image_sptr sheet);
 
   ~Player() override = default;
 
@@ -45,7 +45,7 @@ class Player final : public IEntity {
    * @throws NullPointerException if the supplied image pointer is null.
    * @since 0.1.0
    */
-  static Player_uptr Create(visuals::Image_sptr sheet, const IGame& game);
+  static Player_uptr Create(visuals::Image_sptr sheet);
 
   void Tick(const IGame& game, float delta) override;
 

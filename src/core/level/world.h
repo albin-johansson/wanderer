@@ -17,11 +17,21 @@ class IWorld : public ITickable {
  public:
   ~IWorld() override = default;
 
+  virtual void PlayerHandleInput(const Input& input, const IGame& game) = 0;
+
   virtual void Render(visuals::Renderer& renderer, const Viewport& viewport, float alpha) = 0;
 
   [[nodiscard]] virtual int GetWidth() const noexcept = 0;
 
   [[nodiscard]] virtual int GetHeight() const noexcept = 0;
+
+  [[nodiscard]] virtual float GetPlayerWidth() const noexcept = 0;
+
+  [[nodiscard]] virtual float GetPlayerHeight() const noexcept = 0;
+
+  [[nodiscard]] virtual Vector2 GetPlayerPosition() const noexcept = 0;
+
+  [[nodiscard]] virtual Vector2 GetPlayerInterpolatedPosition() const noexcept = 0;
 };
 
 using IWorld_uptr = std::unique_ptr<IWorld>;

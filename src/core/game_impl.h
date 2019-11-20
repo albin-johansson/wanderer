@@ -10,7 +10,6 @@ namespace wanderer::core {
 class GameImpl final : public IGame {
  private:
   IWorld_uptr world = nullptr;
-  Player_sptr player = nullptr; // TODO this should probably be stored in GameImpl
   audio::SoundEngine_uptr soundEngine = nullptr;
 
   void LoadSoundEffects();
@@ -22,25 +21,38 @@ class GameImpl final : public IGame {
 
   static IGame_uptr Create(visuals::ImageGenerator& imageGenerator);
 
-  void PlayerHandleInput(const Input& input) override;
+  inline void PlayerHandleInput(const Input& input) override {
+    world->PlayerHandleInput(input, *this);
+  }
 
-  void Render(visuals::Renderer& renderer, const Viewport& viewport, float alpha) override;
+  inline void Render(visuals::Renderer& renderer, const Viewport& viewport, float alpha) override {
+    world->Render(renderer, viewport, alpha);
+  }
 
   void Update(float delta) override;
 
   void PlaySound(const std::string& name) const override;
 
-  [[nodiscard]] float GetPlayerWidth() const noexcept override;
+  [[nodiscard]] inline float GetPlayerWidth() const noexcept override {
+    return world->GetPlayerWidth();
+  }
 
-  [[nodiscard]] float GetPlayerHeight() const noexcept override;
+  [[nodiscard]] inline float GetPlayerHeight() const noexcept override {
+    return world->GetPlayerHeight();
+  }
 
-  [[nodiscard]] int GetLevelWidth() const noexcept override;
+  // TODO look over level dimension getters
+  [[nodiscard]] inline int GetLevelWidth() const noexcept override { return world->GetWidth(); }
 
-  [[nodiscard]] int GetLevelHeight() const noexcept override;
+  [[nodiscard]] inline int GetLevelHeight() const noexcept override { return world->GetHeight(); }
 
-  [[nodiscard]] Vector2 GetPlayerPosition() const noexcept override;
+  [[nodiscard]] inline Vector2 GetPlayerPosition() const noexcept override {
+    return world->GetPlayerPosition();
+  }
 
-  [[nodiscard]] Vector2 GetPlayerInterpolatedPosition() const noexcept override;
+  [[nodiscard]] inline Vector2 GetPlayerInterpolatedPosition() const noexcept override {
+    return world->GetPlayerInterpolatedPosition();
+  }
 };
 
 }

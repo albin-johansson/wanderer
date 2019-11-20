@@ -13,27 +13,36 @@ namespace wanderer::core {
 class WorldImpl final : public IWorld {
  private:
   TileMap_uptr tileMap = nullptr;
-  Player_sptr player = nullptr;
+  Player_uptr player = nullptr;
 
   void SavePositions();
 
   void Interpolate(float alpha);
 
  public:
-  WorldImpl(visuals::ImageGenerator& imageGenerator, Player_sptr player);
+  explicit WorldImpl(visuals::ImageGenerator& imageGenerator);
 
   ~WorldImpl() override;
 
-  static IWorld_uptr Create(visuals::ImageGenerator& imageGenerator, Player_sptr player);
+  static IWorld_uptr Create(visuals::ImageGenerator& imageGenerator);
+
+  void PlayerHandleInput(const Input& input, const IGame& game) override;
 
   void Tick(const IGame& game, float delta) override;
 
   void Render(visuals::Renderer& renderer, const Viewport& viewport, float alpha) override;
 
-  [[nodiscard]] int GetWidth() const noexcept override;
+  int GetWidth() const noexcept override;
 
-  [[nodiscard]] int GetHeight() const noexcept override;
+  int GetHeight() const noexcept override;
 
+  float GetPlayerWidth() const noexcept override;
+
+  float GetPlayerHeight() const noexcept override;
+
+  Vector2 GetPlayerPosition() const noexcept override;
+
+  Vector2 GetPlayerInterpolatedPosition() const noexcept override;
 };
 
 }
