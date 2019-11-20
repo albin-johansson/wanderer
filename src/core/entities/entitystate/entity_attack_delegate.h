@@ -14,6 +14,11 @@ namespace wanderer::core {
  */
 class EntityAttackDelegate final : public IEntityState {
  private:
+  static constexpr int SOURCE_MELEE_Y = 768;
+  static constexpr int SOURCE_MAGIC_Y = 0;
+  static constexpr int MELEE_FRAMES = 6;
+  static constexpr int MAGIC_FRAMES = 7;
+
   IEntity* entity = nullptr;
   IEntityStateMachine* parent = nullptr;
 
