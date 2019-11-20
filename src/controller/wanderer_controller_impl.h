@@ -50,10 +50,6 @@ class WandererControllerImpl final : public IWandererController {
   void Run() override;
 
   void Quit() override;
-
-  void MovePlayer(core::Direction direction) override;
-
-  void StopPlayer(core::Direction direction) override;
 };
 
 }

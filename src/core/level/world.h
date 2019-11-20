@@ -1,43 +1,31 @@
 #pragma once
 #include "tickable.h"
-#include "drawable.h"
-#include "level.h"
-#include "entity.h"
-#include "tile_map.h"
-#include "image_generator.h"
+#include "renderer.h"
+#include "viewport.h"
+#include "direction.h"
+#include "vector_2.h"
+#include "input.h"
+#include <memory>
+#include <string>
 
 namespace wanderer::core {
 
-class World;
-
-using World_uptr = std::unique_ptr<World>;
-using World_sptr = std::shared_ptr<World>;
-using World_wptr = std::weak_ptr<World>;
-
-class World final : public ITickable {
- private:
-  visuals::ImageGenerator_sptr imageGenerator = nullptr;
-  IEntity_sptr player = nullptr;
-  TileMap_uptr tileMap = nullptr;
-
-  void SavePositions();
-
-  void Interpolate(float alpha);
+class IWorld : public ITickable {
+ protected:
+  IWorld() = default;
 
  public:
-  World(visuals::ImageGenerator_sptr imageGenerator, IEntity_sptr player);
+  ~IWorld() override = default;
 
-  ~World() override;
+  virtual void Render(visuals::Renderer& renderer, const Viewport& viewport, float alpha) = 0;
 
-  static World_uptr Create(visuals::ImageGenerator_sptr imageGenerator, IEntity_sptr player);
+  [[nodiscard]] virtual int GetWidth() const noexcept = 0;
 
-  void Tick(float delta) override;
-
-  void Render(visuals::Renderer& renderer, const Viewport& viewport, float alpha);
-
-  [[nodiscard]] int GetWidth() const noexcept;
-
-  [[nodiscard]] int GetHeight() const noexcept;
+  [[nodiscard]] virtual int GetHeight() const noexcept = 0;
 };
+
+using IWorld_uptr = std::unique_ptr<IWorld>;
+using IWorld_sptr = std::shared_ptr<IWorld>;
+using IWorld_wptr = std::weak_ptr<IWorld>;
 
 }

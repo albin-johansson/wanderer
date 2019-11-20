@@ -53,7 +53,7 @@ class MovableObjectDelegate final : public IMovableObject {
 
   void Draw(visuals::Renderer& renderer, const Viewport& viewport) noexcept override;
 
-  void Tick(float delta) override;
+  void Tick(const IGame& game, float delta) override;
 
   void Move(Direction direction) noexcept override;
 

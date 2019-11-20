@@ -34,17 +34,17 @@ class PlayerMovingState final : public IPlayerState {
 
   ~PlayerMovingState() override;
 
-  void HandleInput(const Input& input) override;
+  void HandleInput(const Input& input, const IGame& game) override;
 
   inline void Draw(visuals::Renderer& renderer, const Viewport& viewport) noexcept override {
     moveDelegate.Draw(renderer, viewport);
   }
 
-  inline void Tick(float delta) override { moveDelegate.Tick(delta); }
+  inline void Tick(const IGame& game, float delta) override { moveDelegate.Tick(game, delta); }
 
-  inline void Enter() override { moveDelegate.Enter(); }
+  inline void Enter(const IGame& game) override { moveDelegate.Enter(game); }
 
-  inline void Exit() override { moveDelegate.Exit(); }
+  inline void Exit(const IGame& game) override { moveDelegate.Exit(game); }
 };
 
 }

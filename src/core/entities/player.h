@@ -2,6 +2,7 @@
 #include "entity.h"
 #include "player_state_machine.h"
 #include "image.h"
+#include "game.h"
 #include "animation.h"
 #include <memory>
 
@@ -32,7 +33,7 @@ class Player final : public IEntity {
    * @throws NullPointerException if the supplied image pointer is null.
    * @since 0.1.0
    */
-  explicit Player(visuals::Image_sptr sheet);
+  explicit Player(visuals::Image_sptr sheet, const IGame& game);
 
   ~Player() override = default;
 
@@ -44,9 +45,9 @@ class Player final : public IEntity {
    * @throws NullPointerException if the supplied image pointer is null.
    * @since 0.1.0
    */
-  static Player_uptr Create(visuals::Image_sptr sheet);
+  static Player_uptr Create(visuals::Image_sptr sheet, const IGame& game);
 
-  void Tick(float delta) override;
+  void Tick(const IGame& game, float delta) override;
 
   /**
    * Handles the supplied input.
@@ -54,7 +55,9 @@ class Player final : public IEntity {
    * @param input a reference to the input state.
    * @since 0.1.0
    */
-  inline void HandleInput(const Input& input) { playerStateMachine->HandleInput(input); }
+  inline void HandleInput(const Input& input, const IGame& game) {
+    playerStateMachine->HandleInput(input, game);
+  }
 
   inline void Draw(visuals::Renderer& renderer, const Viewport& viewport) noexcept override {
     playerStateMachine->Draw(renderer, viewport);

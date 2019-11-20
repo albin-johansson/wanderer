@@ -15,7 +15,7 @@ namespace wanderer::controller {
 
 WandererControllerImpl::WandererControllerImpl() {
   SDL_DisplayMode desktop = DisplayModes::GetDesktopInfo();
-  window = Window::Create("Wanderer", desktop.w, desktop.h);
+  window = Window::Create("Wanderer", 1280, 720);
   window->SetFullscreen(false);
 
   SDL_Surface* icon = IMG_Load("resources/img/tactile_icon.png");
@@ -31,9 +31,12 @@ WandererControllerImpl::WandererControllerImpl() {
   renderer->SetFont(Font::Create("resources/font/type_writer.ttf", 24));
   renderer->SetLogicalSize(LOGICAL_WIDTH, LOGICAL_HEIGHT);
 
-  core = CreateCore(ImageGenerator::Create(renderer));
+  ImageGenerator_sptr imggen = ImageGenerator::Create(renderer);
+  core = CreateCore(imggen);
   core->SetViewportWidth(LOGICAL_WIDTH);
   core->SetViewportHeight(LOGICAL_HEIGHT);
+
+//  core->CreatePlayer(imggen);
 
   keyStateManager = KeyStateManager::Create();
   mouseStateManager = MouseStateManager::Create();
@@ -65,14 +68,6 @@ void WandererControllerImpl::Run() {
 
 void WandererControllerImpl::Quit() {
   running = false;
-}
-
-void WandererControllerImpl::MovePlayer(Direction direction) {
-  core->MovePlayer(direction);
-}
-
-void WandererControllerImpl::StopPlayer(Direction direction) {
-  core->StopPlayer(direction);
 }
 
 }

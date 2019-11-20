@@ -25,7 +25,7 @@ class AbstractTile : public ITile {
  public:
   ~AbstractTile() override;
 
-  void Tick(float delta) override;
+  void Tick(const IGame& game, float delta) override;
 
   void SetImage(visuals::Image_sptr image) noexcept final;
 

@@ -54,8 +54,8 @@ set(SOURCE_FILES
         core/tiles/tile_set.h
 
         core/level/level.h
-        core/level/world.cpp
-        core/level/world.h
+        core/level/world_impl.cpp
+        core/level/world_impl.h
 
         core/menu/menu.h
         core/menu/menu_id.h
@@ -125,7 +125,12 @@ set(SOURCE_FILES
         audio/sound_effect.cpp
         audio/sound_effect.h
         audio/sound_engine.cpp
-        audio/sound_engine.h)
+        audio/sound_engine.h
+
+        core/level/world.h
+        core/game.h
+        core/game_impl.cpp
+        core/game_impl.h)
 
 # Prepares the Wanderer "library", which excludes linking and the main.cpp file
 add_library(${WANDERER_LIB} ${SOURCE_FILES})

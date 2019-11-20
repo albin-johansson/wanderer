@@ -21,7 +21,7 @@ void MovableObjectDelegate::Draw(visuals::Renderer& renderer, const Viewport& vi
   /* do nothing */
 }
 
-void MovableObjectDelegate::Tick(float delta) {
+void MovableObjectDelegate::Tick(const IGame& game, float delta) {
   UpdateDirection();
 }
 

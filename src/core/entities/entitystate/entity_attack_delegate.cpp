@@ -18,24 +18,26 @@ void EntityAttackDelegate::Draw(visuals::Renderer& renderer, const Viewport& vie
   EntityDrawDelegate::Draw(renderer, viewport, *entity, srcX, srcY);
 }
 
-void EntityAttackDelegate::Enter() {
+void EntityAttackDelegate::Enter(const IGame& game) {
   entity->Stop();
 
   // TODO determine what kind of animation to use from the entity's weapon
   entity->SetAnimationFrameAmount(7);
   entity->SetAnimationFrame(0);
   entity->SetAnimationDelay(65);
+
+  game.PlaySound("swing");
 }
 
-void EntityAttackDelegate::Exit() {}
+void EntityAttackDelegate::Exit(const IGame& game) {}
 
-void EntityAttackDelegate::Tick(float delta) {
+void EntityAttackDelegate::Tick(const IGame& game, float delta) {
   entity->UpdateAnimation();
   if (entity->IsAnimationDone()) {
 
     // TODO damage and stuff...
 
-    parent->SetState(EntityStateID::IDLE);
+    parent->SetState(EntityStateID::IDLE, game);
   }
 }
 

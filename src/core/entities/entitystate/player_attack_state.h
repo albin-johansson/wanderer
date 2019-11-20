@@ -28,17 +28,17 @@ class PlayerAttackState final : public IPlayerState {
 
   ~PlayerAttackState() override;
 
-  void HandleInput(const Input& input) override;
+  void HandleInput(const Input& input, const IGame& game) override;
 
   inline void Draw(visuals::Renderer& renderer, const Viewport& viewport) override {
     attackDelegate.Draw(renderer, viewport);
   }
 
-  inline void Tick(float delta) override { attackDelegate.Tick(delta); }
+  inline void Tick(const IGame& game, float delta) override { attackDelegate.Tick(game, delta); }
 
-  inline void Enter() override { attackDelegate.Enter(); }
+  inline void Enter(const IGame& game) override { attackDelegate.Enter(game); }
 
-  inline void Exit() override { attackDelegate.Exit(); }
+  inline void Exit(const IGame& game) override { attackDelegate.Exit(game); }
 
 };
 

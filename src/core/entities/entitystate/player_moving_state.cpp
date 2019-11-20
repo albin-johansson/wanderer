@@ -66,16 +66,16 @@ void PlayerMovingState::CheckReleased(const Input& input) {
   }
 }
 
-void PlayerMovingState::HandleInput(const Input& input) {
+void PlayerMovingState::HandleInput(const Input& input, const IGame& game) {
   areMoveKeysDown = false; // assume no movement keys are down
 
   CheckPressed(input);
   CheckReleased(input);
 
   if (!areMoveKeysDown && moveDelegate.GetEntity()->GetVelocity().IsZero()) {
-    parent->SetState(EntityStateID::IDLE);
+    parent->SetState(EntityStateID::IDLE, game);
   } else if (input.IsPressed(SDL_SCANCODE_SPACE)) {
-    parent->SetState(EntityStateID::ATTACK);
+    parent->SetState(EntityStateID::ATTACK, game);
   }
 }
 

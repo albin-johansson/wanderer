@@ -30,11 +30,11 @@ class EntityAttackDelegate final : public IEntityState {
 
   void Draw(visuals::Renderer& renderer, const Viewport& viewport) override;
 
-  void Tick(float delta) override;
+  void Tick(const IGame& game, float delta) override;
 
-  void Enter() override;
+  void Enter(const IGame& game) override;
 
-  void Exit() override;
+  void Exit(const IGame& game) override;
 
 };
 

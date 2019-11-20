@@ -4,6 +4,7 @@
 #include "direction.h"
 #include "input.h"
 #include "viewport.h"
+#include "image_generator.h"
 
 namespace wanderer::core {
 
@@ -62,22 +63,6 @@ class IWandererCore {
    * @since 0.1.0
    */
   virtual void SetViewportHeight(float height) = 0;
-
-  /**
-   * Moves the player entity.
-   *
-   * @param direction the direction in which the player will attempt to move.
-   * @since 0.1.0
-   */
-  virtual void MovePlayer(Direction direction) = 0;
-
-  /**
-   * Stops the player entity from moving in the specified direction.
-   *
-   * @param direction the direction in which the player will stop moving in.
-   * @since 0.1.0
-   */
-  virtual void StopPlayer(Direction direction) = 0;
 
   /**
    * Indicates whether or not the game should quit.

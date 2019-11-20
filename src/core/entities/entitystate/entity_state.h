@@ -24,16 +24,18 @@ class IEntityState : public ITickable, public IDrawable {
   /**
    * Enters the entity state.
    *
+   * @param game a reference to the game.
    * @since 0.1.0
    */
-  virtual void Enter() = 0;
+  virtual void Enter(const IGame& game) = 0;
 
   /**
    * Exits the entity state.
    *
+   * @param game a reference to the game.
    * @since 0.1.0
    */
-  virtual void Exit() = 0;
+  virtual void Exit(const IGame& game) = 0;
 
 };
 

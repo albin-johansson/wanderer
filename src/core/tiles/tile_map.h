@@ -42,11 +42,11 @@ class TileMap final : public IDrawable {
    * @param nCols the number of columns in the tile map.
    * @since 0.1.0
    */
-  TileMap(visuals::ImageGenerator_sptr imageGenerator, int nRows, int nCols);
+  TileMap(visuals::ImageGenerator& imageGenerator, int nRows, int nCols);
 
   ~TileMap() override;
 
-  static TileMap_uptr Create(visuals::ImageGenerator_sptr imageGenerator,
+  static TileMap_uptr Create(visuals::ImageGenerator& imageGenerator,
                              int nRows,
                              int nCols);
 

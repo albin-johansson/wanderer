@@ -29,11 +29,7 @@ class IWandererController {
    *
    * @since 0.1.0
    */
-  virtual void Quit() = 0;
-
-  virtual void MovePlayer(core::Direction direction) = 0;
-
-  virtual void StopPlayer(core::Direction direction) = 0;
+  virtual void Quit() = 0; // TODO remove?
 
 };
 

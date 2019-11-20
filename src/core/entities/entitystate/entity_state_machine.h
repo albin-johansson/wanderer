@@ -5,6 +5,7 @@
 #include "entity_state_id.h"
 #include "entity.h"
 #include "input.h"
+#include "game.h"
 
 namespace wanderer::core {
 
@@ -27,7 +28,7 @@ class IEntityStateMachine : public ITickable, public IDrawable {
    * @param id the id of the desired entity state.
    * @since 0.1.0
    */
-  virtual void SetState(EntityStateID id) = 0;
+  virtual void SetState(EntityStateID id, const IGame& game) = 0;
 };
 
 using IEntityStateMachine_uptr = std::unique_ptr<IEntityStateMachine>;

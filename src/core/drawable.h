@@ -16,6 +16,8 @@ class IDrawable {
  public:
   virtual ~IDrawable() = default;
 
+  // TODO make const again
+
   /**
    * Draws the object.
    *

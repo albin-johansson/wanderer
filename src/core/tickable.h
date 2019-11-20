@@ -1,4 +1,5 @@
 #pragma once
+#include "game.h"
 
 namespace wanderer::core {
 
@@ -17,10 +18,11 @@ class ITickable {
   /**
    * Updates the state of the object.
    *
+   * @param game a reference to the game.
    * @param delta the delta time that will be used, in seconds.
    * @since 0.1.0
    */
-  virtual void Tick(float delta) = 0;
+  virtual void Tick(const IGame& game, float delta) = 0;
 
 };
 

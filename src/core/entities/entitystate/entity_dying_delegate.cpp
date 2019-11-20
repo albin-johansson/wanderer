@@ -15,19 +15,19 @@ void EntityDyingDelegate::Draw(visuals::Renderer& renderer, const Viewport& view
   EntityDrawDelegate::Draw(renderer, viewport, *entity, srcX, 1280);
 }
 
-void EntityDyingDelegate::Tick(float delta) {
+void EntityDyingDelegate::Tick(const IGame& game, float delta) {
   if (!entity->IsAnimationDone()) {
     entity->UpdateAnimation();
   }
 }
 
-void EntityDyingDelegate::Enter() {
+void EntityDyingDelegate::Enter(const IGame& game) {
   entity->SetAnimationFrameAmount(6);
   entity->SetAnimationFrame(0);
   entity->SetAnimationDelay(65);
 }
 
-void EntityDyingDelegate::Exit() {
+void EntityDyingDelegate::Exit(const IGame& game) {
   // TODO set entity to be dead
 }
 

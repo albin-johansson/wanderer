@@ -8,7 +8,7 @@ AbstractTile::AbstractTile(int row, int col, int id)
 
 AbstractTile::~AbstractTile() = default;
 
-void AbstractTile::Tick(float delta) {
+void AbstractTile::Tick(const IGame& game, float delta) {
   /* do nothing */
 }
 

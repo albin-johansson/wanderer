@@ -17,10 +17,10 @@ void EntityIdleDelegate::Draw(visuals::Renderer& renderer, const Viewport& viewp
   EntityDrawDelegate::Draw(renderer, viewport, *entity, 0, srcY);
 }
 
-void EntityIdleDelegate::Enter() {}
+void EntityIdleDelegate::Enter(const IGame& world) {}
 
-void EntityIdleDelegate::Exit() {}
+void EntityIdleDelegate::Exit(const IGame& world) {}
 
-void EntityIdleDelegate::Tick(float delta) {}
+void EntityIdleDelegate::Tick(const IGame& game, float delta) {}
 
 }

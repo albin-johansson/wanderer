@@ -1,8 +1,6 @@
 #pragma once
 #include "wanderer_core.h"
-#include "vector_2.h"
 #include "player.h"
-#include "tile_map.h"
 #include "viewport.h"
 #include "image_generator.h"
 #include "menu_state_machine.h"
@@ -19,16 +17,11 @@ namespace wanderer::core {
 class WandererCoreImpl final : public IWandererCore {
  private:
   IMenuStateMachine_uptr menuStateMachine = nullptr;
-  World_uptr world = nullptr;
-  Player_sptr player = nullptr;
-  audio::SoundEngine_uptr soundEngine = nullptr;
-  visuals::ImageGenerator_sptr imageGenerator = nullptr;
+  IGame_sptr game = nullptr;
   Viewport viewport;
   bool shouldQuit = false;
 
   explicit WandererCoreImpl(visuals::ImageGenerator_sptr imageGenerator);
-
-  void LoadSoundEffects();
 
  public:
   ~WandererCoreImpl() override;
@@ -52,10 +45,6 @@ class WandererCoreImpl final : public IWandererCore {
   void SetViewportWidth(float width) override;
 
   void SetViewportHeight(float height) override;
-
-  void MovePlayer(Direction direction) override;
-
-  void StopPlayer(Direction direction) override;
 
   [[nodiscard]] inline bool ShouldQuit() const noexcept override {
     return shouldQuit;

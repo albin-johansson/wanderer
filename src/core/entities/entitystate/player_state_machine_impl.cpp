@@ -18,7 +18,6 @@ PlayerStateMachineImpl::PlayerStateMachineImpl(IEntity* entity) {
   Put(EntityStateID::ATTACK, std::make_unique<PlayerAttackState>(entity, this));
 
   activeStateID = EntityStateID::IDLE;
-  SetState(activeStateID);
 }
 
 PlayerStateMachineImpl::~PlayerStateMachineImpl() = default;
@@ -31,19 +30,19 @@ void PlayerStateMachineImpl::Put(EntityStateID id, IPlayerState_uptr state) {
   states.insert(std::pair<EntityStateID, IPlayerState_uptr>(id, std::move(state)));
 }
 
-void PlayerStateMachineImpl::HandleInput(const Input& input) {
-  states.at(activeStateID)->HandleInput(input);
+void PlayerStateMachineImpl::HandleInput(const Input& input, const IGame& game) {
+  states.at(activeStateID)->HandleInput(input, game);
 }
 
-void PlayerStateMachineImpl::SetState(EntityStateID id) {
-  states.at(activeStateID)->Exit();
+void PlayerStateMachineImpl::SetState(EntityStateID id, const IGame& game) {
+  states.at(activeStateID)->Exit(game);
 
   activeStateID = id;
-  states.at(activeStateID)->Enter();
+  states.at(activeStateID)->Enter(game);
 }
 
-void PlayerStateMachineImpl::Tick(float delta) {
-  states.at(activeStateID)->Tick(delta);
+void PlayerStateMachineImpl::Tick(const IGame& w, float delta) {
+  states.at(activeStateID)->Tick(w, delta);
 }
 
 void PlayerStateMachineImpl::Draw(Renderer& renderer, const Viewport& viewport) noexcept {

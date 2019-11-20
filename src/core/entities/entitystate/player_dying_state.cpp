@@ -7,6 +7,6 @@ PlayerDyingState::PlayerDyingState(IEntity* entity, IEntityStateMachine* parent)
 
 PlayerDyingState::~PlayerDyingState() = default;
 
-void PlayerDyingState::HandleInput(const Input& input) {}
+void PlayerDyingState::HandleInput(const Input& input, const IGame& game) {}
 
 }

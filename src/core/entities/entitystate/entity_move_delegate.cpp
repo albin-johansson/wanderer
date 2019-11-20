@@ -17,7 +17,7 @@ void EntityMoveDelegate::Draw(visuals::Renderer& renderer, const Viewport& viewp
   EntityDrawDelegate::Draw(renderer, viewport, *entity, srcX, srcY);
 }
 
-void EntityMoveDelegate::Tick(float delta) {
+void EntityMoveDelegate::Tick(const IGame& game, float delta) {
   entity->UpdateAnimation();
 
   Vector2 velocity = entity->GetVelocity();
@@ -25,12 +25,12 @@ void EntityMoveDelegate::Tick(float delta) {
   entity->AddY(velocity.GetY() * delta);
 }
 
-void EntityMoveDelegate::Enter() {
+void EntityMoveDelegate::Enter(const IGame& game) {
   entity->SetAnimationFrame(0);
   entity->SetAnimationFrameAmount(9);
   entity->SetAnimationDelay(60);
 }
 
-void EntityMoveDelegate::Exit() {}
+void EntityMoveDelegate::Exit(const IGame& game) {}
 
 }

@@ -4,7 +4,7 @@
 
 namespace wanderer::core {
 
-TileMap::TileMap(visuals::ImageGenerator_sptr imageGenerator, int nRows, int nCols)
+TileMap::TileMap(visuals::ImageGenerator& imageGenerator, int nRows, int nCols)
     : nRows(nRows), nCols(nCols) {
   tiles = std::make_unique<TileMatrix>();
   tiles->reserve(nRows);
@@ -23,12 +23,12 @@ TileMap::TileMap(visuals::ImageGenerator_sptr imageGenerator, int nRows, int nCo
   }
   tiles->shrink_to_fit();
 
-  tileSet.SetImage(0, imageGenerator->Load("resources/img/grass.png"));
+  tileSet.SetImage(0, imageGenerator.Load("resources/img/grass.png"));
 }
 
 TileMap::~TileMap() = default;
 
-TileMap_uptr TileMap::Create(visuals::ImageGenerator_sptr imageGenerator, int nRows, int nCols) {
+TileMap_uptr TileMap::Create(visuals::ImageGenerator& imageGenerator, int nRows, int nCols) {
   return std::make_unique<TileMap>(imageGenerator, nRows, nCols);
 }
 
