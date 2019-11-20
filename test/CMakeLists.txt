@@ -14,7 +14,8 @@ add_executable(${WANDERER_TEST}
         unittests/objects_test.cpp
         unittests/rectangle_test.cpp
         unittests/font_test.cpp
-        unittests/image_test.cpp)
+        unittests/image_test.cpp
+        unittests/viewport_test.cpp)
 
 target_include_directories(${WANDERER_TEST} PUBLIC unittests)
 

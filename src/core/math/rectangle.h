@@ -29,9 +29,10 @@ class Rectangle final {
    * @param y the y-coordinate of the rectangle.
    * @param width the width of the rectangle.
    * @param height the height of the rectangle.
+   * @throws invalid_argument if either the width or height isn't greater than zero.
    * @since 0.1.0
    */
-  Rectangle(float x, float y, float width, float height) noexcept;
+  Rectangle(float x, float y, float width, float height); // TODO use Area struct
 
   /**
    * Creates a copy of the supplied rectangle.
@@ -40,6 +41,8 @@ class Rectangle final {
    * @since 0.1.0
    */
   Rectangle(const Rectangle& rectangle) noexcept;
+
+  ~Rectangle() = default;
 
   /**
    * Moves the rectangle by the specified amount along the x-axis.
@@ -77,17 +80,19 @@ class Rectangle final {
    * Sets the width of the rectangle.
    *
    * @param x the new width of the rectangle.
+   * @throws invalid_argument if the supplied width isn't greater than zero.
    * @since 0.1.0
    */
-  void SetWidth(float width) noexcept;
+  void SetWidth(float width);
 
   /**
    * Sets the height of the rectangle.
    *
    * @param x the new height of the rectangle.
+   * @throws invalid_argument if the supplied width isn't greater than zero.
    * @since 0.1.0
    */
-  void SetHeight(float height) noexcept;
+  void SetHeight(float height);
 
   /**
    * Indicates whether or not the rectangle contains the point represented by the supplied

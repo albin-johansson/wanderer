@@ -1,18 +1,23 @@
 #include "viewport.h"
+#include <stdexcept>
 
 namespace wanderer::core {
 
-Viewport::Viewport(float vpWidth, float vpHeight, float levelWidth, float levelHeight) noexcept
-    : levelWidth(levelWidth), levelHeight(levelHeight) {
-  bounds.SetWidth(vpWidth);
-  bounds.SetHeight(vpHeight);
+Viewport::Viewport() : Viewport({10, 10}, {10, 10}) {}
+
+Viewport::Viewport(Area viewport, Area level) : level(level) {
+  if (viewport.width < 1 || viewport.height < 1 || level.width < 1 || level.height < 1) {
+    throw std::invalid_argument("Invalid dimensions!");
+  }
+  bounds.SetWidth(viewport.width);
+  bounds.SetHeight(viewport.height);
 }
 
-void Viewport::Track(float tx, float ty, float w, float h, float delta) noexcept {
+void Viewport::Track(float tx, float ty, Area size, float delta) noexcept {
   static const float panSpeed = 10 * delta;
 
-  float targetX = (tx + (w / 2.0f)) - (bounds.GetWidth() / 2.0f);
-  float targetY = (ty + (h / 2.0f)) - (bounds.GetHeight() / 2.0f);
+  float targetX = (tx + (size.width / 2.0f)) - (bounds.GetWidth() / 2.0f);
+  float targetY = (ty + (size.height / 2.0f)) - (bounds.GetHeight() / 2.0f);
   float x = bounds.GetX() + (targetX - bounds.GetX()) * panSpeed;
   float y = bounds.GetY() + (targetY - bounds.GetY()) * panSpeed;
 
@@ -24,30 +29,38 @@ void Viewport::Track(float tx, float ty, float w, float h, float delta) noexcept
     y = 0;
   }
 
-  float widthDiff = levelWidth - bounds.GetWidth();
+  float widthDiff = level.width - bounds.GetWidth();
   x = (x > widthDiff) ? widthDiff : x;
 
-  float heightDiff = levelHeight - bounds.GetHeight();
+  float heightDiff = level.height - bounds.GetHeight();
   y = (y > heightDiff) ? heightDiff : y;
 
   bounds.SetX(x);
   bounds.SetY(y);
 }
 
-void Viewport::SetLevelWidth(float levelWidth) noexcept {
-  this->levelWidth = levelWidth;
-}
-
-void Viewport::SetWidth(float width) noexcept {
+void Viewport::SetWidth(float width) {
   bounds.SetWidth(width);
 }
 
-void Viewport::SetHeight(float height) noexcept {
+void Viewport::SetHeight(float height) {
   bounds.SetHeight(height);
 }
 
-void Viewport::SetLevelHeight(float levelHeight) noexcept {
-  this->levelHeight = levelHeight;
+void Viewport::SetLevelWidth(float levelWidth) {
+  if (levelWidth <= 0) {
+    throw std::invalid_argument("Invalid level width!");
+  } else {
+    level.width = levelWidth;
+  }
+}
+
+void Viewport::SetLevelHeight(float levelHeight) {
+  if (levelHeight <= 0) {
+    throw std::invalid_argument("Invalid level height!");
+  } else {
+    level.height = levelHeight;
+  }
 }
 
 }

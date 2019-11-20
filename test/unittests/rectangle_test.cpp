@@ -15,14 +15,17 @@ TEST_CASE("Rectangle()", "[Rectangle]") {
 TEST_CASE("Rectangle(float, float, int, int)", "[Rectangle]") {
   float x = 24.4;
   float y = -2.5;
-  int width = 92;
-  int height = 27;
+  float width = 92.3;
+  float height = 27;
   Rectangle r(x, y, width, height);
 
   CHECK(r.GetX() == x);
   CHECK(r.GetY() == y);
   CHECK(r.GetWidth() == width);
   CHECK(r.GetHeight() == height);
+
+  CHECK_THROWS_AS(Rectangle(0, 0, 0, 1), std::invalid_argument);
+  CHECK_THROWS_AS(Rectangle(0, 0, 1, 0), std::invalid_argument);
 }
 
 TEST_CASE("Rectangle(Rectangle&)", "[Rectangle]") {
@@ -140,4 +143,16 @@ TEST_CASE("Rectangle::GetMaxY", "[Rectangle]") {
   Rectangle rect(10, y, 10, height);
 
   CHECK(rect.GetMaxY() == (y + height));
+}
+
+TEST_CASE("Rectangle::SetWidth", "[Rectangle]") {
+  Rectangle rect;
+  CHECK_THROWS_AS(rect.SetWidth(0), std::invalid_argument);
+  CHECK_THROWS_AS(rect.SetWidth(-1), std::invalid_argument);
+}
+
+TEST_CASE("Rectangle::SetHeight", "[Rectangle]") {
+  Rectangle rect;
+  CHECK_THROWS_AS(rect.SetHeight(0), std::invalid_argument);
+  CHECK_THROWS_AS(rect.SetHeight(-1), std::invalid_argument);
 }

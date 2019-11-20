@@ -8,8 +8,7 @@ using namespace wanderer::audio;
 
 namespace wanderer::core {
 
-WandererCoreImpl::WandererCoreImpl(visuals::ImageGenerator_sptr imageGenerator)
-    : viewport(Viewport(1, 1, 1, 1)) { // TODO default vp ctor
+WandererCoreImpl::WandererCoreImpl(visuals::ImageGenerator_sptr imageGenerator) {
   Objects::RequireNonNull(imageGenerator);
 
   menuStateMachine = MenuStateMachineImpl::Create(this); // TODO fix "this" parameter
@@ -33,10 +32,10 @@ void WandererCoreImpl::Update(float delta) {
   if (!menuStateMachine->IsBlocking()) {
     game->Update(delta);
 
-    auto pos = game->GetPlayerInterpolatedPosition();
-    viewport.Track(pos.GetX(), pos.GetY(),
-                   game->GetPlayerWidth(),
-                   game->GetPlayerHeight(),
+    auto interpolatedPosition = game->GetPlayerInterpolatedPosition();
+    viewport.Track(interpolatedPosition.GetX(),
+                   interpolatedPosition.GetY(),
+                   {game->GetPlayerWidth(), game->GetPlayerHeight()},
                    delta);
   }
 }
