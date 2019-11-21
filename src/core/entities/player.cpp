@@ -9,7 +9,7 @@ namespace wanderer::core {
 
 Player::Player(Image_sptr sheet) {
   this->sheet = Objects::RequireNonNull(std::move(sheet));
-  movableObject = MovableObjectDelegate::Create(200, 200);
+  movable = MovableObjectDelegate::Create(200, 200);
   playerStateMachine = PlayerStateMachineImpl::Create(this);
 }
 
@@ -18,7 +18,7 @@ Player_uptr Player::Create(Image_sptr sheet) {
 }
 
 void Player::Tick(const IGame& game, float delta) {
-  movableObject->Tick(game, delta);
+  movable->Tick(game, delta);
   playerStateMachine->Tick(game, delta);
 }
 

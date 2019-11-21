@@ -22,6 +22,8 @@ class EntityMoveDelegate final : public IEntityState {
   void Tick(const IGame& game, float delta) override;
 
   [[nodiscard]] inline IEntity& GetEntity() { return parent->GetEntity(); }
+
+  [[nodiscard]] IEntityStateMachine& GetParent() noexcept { return *parent; }
 };
 
 }

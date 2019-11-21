@@ -102,6 +102,10 @@ class IMovableObject : public IGameObject {
    */
   virtual void SetSpeed(float speed) noexcept = 0;
 
+  virtual void SetVelocity(const Vector2& v) noexcept = 0;
+
+  virtual float GetSpeed() const noexcept = 0;
+
   /**
    * Returns the dominant direction of the movable object.
    *

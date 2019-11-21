@@ -1,7 +1,6 @@
 #pragma once
 #include "player_state_machine.h"
 #include "player_state.h"
-#include "game.h"
 #include <memory>
 #include <map>
 #include "entity.h"
@@ -17,7 +16,6 @@ namespace wanderer::core {
 class PlayerStateMachineImpl final : public IPlayerStateMachine {
  private:
   IEntity* entity = nullptr;
-  IGame_sptr game = nullptr;
   EntityStateID activeStateID;
   std::map<EntityStateID, IPlayerState_uptr> states;
 

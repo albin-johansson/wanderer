@@ -14,6 +14,7 @@ class WorldImpl final : public IWorld {
  private:
   TileMap_uptr tileMap = nullptr;
   Player_uptr player = nullptr;
+  IEntity_uptr skeleton = nullptr;
 
   void SavePositions();
 

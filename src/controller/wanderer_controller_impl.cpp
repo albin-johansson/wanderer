@@ -15,8 +15,8 @@ namespace wanderer::controller {
 
 WandererControllerImpl::WandererControllerImpl() {
   SDL_DisplayMode desktop = DisplayModes::GetDesktopInfo();
-  window = Window::Create("Wanderer", 1280, 720);
-  window->SetFullscreen(false);
+  window = Window::Create("Wanderer", desktop.w, desktop.h);
+  window->SetFullscreen(true);
 
   SDL_Surface* icon = IMG_Load("resources/img/tactile_icon.png");
   if (icon != nullptr) {

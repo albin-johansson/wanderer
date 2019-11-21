@@ -75,6 +75,10 @@ class MovableObjectDelegate final : public IMovableObject {
 
   void SetSpeed(float speed) noexcept override;
 
+  void SetVelocity(const Vector2& v) noexcept override;
+
+  [[nodiscard]] inline float GetSpeed() const noexcept override { return speed; }
+
   [[nodiscard]] float GetX() const noexcept override;
 
   [[nodiscard]] float GetY() const noexcept override;

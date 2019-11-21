@@ -13,15 +13,15 @@ Vector2::Vector2(float x, float y) {
 Vector2::Vector2(const Vector2& vector) : Vector2(vector.x, vector.y) {}
 
 bool Vector2::AreEqual(float a, float b, float epsilon) const noexcept {
-  return fabsf(a - b) < epsilon;
+  return std::abs(a - b) < epsilon;
 }
 
-void Vector2::Scale(float factor) {
+void Vector2::Scale(float factor) noexcept {
   x *= factor;
   y *= factor;
 }
 
-void Vector2::Norm() {
+void Vector2::Norm() noexcept {
   float length = GetLength();
   if (length != 0) {
     x /= length;
@@ -81,8 +81,59 @@ void Vector2::Sub(const Vector2& vector) noexcept {
   y -= vector.y;
 }
 
+void Vector2::LookAt(const Vector2& target) noexcept {
+  auto magnitude = GetLength();
+  x = (target.x - x);
+  y = (target.y - y);
+  Norm();
+  Scale(magnitude);
+}
+
+void Vector2::LookAt(const Vector2& target, float length) noexcept {
+  if (length <= 0) {
+    x = 0;
+    y = 0;
+  } else {
+    x = (target.x - x);
+    y = (target.y - y);
+    Norm();
+    Scale(length);
+  }
+}
+
+//void Vector2::SetAngle(float angle) noexcept {
+//  static constexpr float TO_RADIANS = 3.14f / 180.0f;
+//
+//  x = GetLength();
+//  y = 0;
+//
+//  float radians = angle * TO_RADIANS;
+//
+//  float cos = std::cos(radians);
+//  float sin = std::sin(radians);
+//
+//  x = (x * cos) - (y * sin);
+//  y = (x * sin) + (y * cos);
+//}
+
+float Vector2::DistanceTo(const Vector2& vector) const noexcept {
+  auto xDiff = vector.x - x;
+  auto yDiff = vector.y - y;
+  return std::sqrt((xDiff * xDiff) + (yDiff * yDiff));
+}
+
+float Vector2::DistanceTo2(const Vector2& vector) const noexcept {
+  auto xDiff = vector.x - x;
+  auto yDiff = vector.y - y;
+  return (xDiff * xDiff) + (yDiff * yDiff);
+}
+
+//float Vector2::GetAngle() const noexcept {
+//  return (std::atan2(y, x) / 3.14f) * 180.0f;
+//}
+
 float Vector2::GetLength() const noexcept {
-  return sqrtf((x * x) + (y * y));
+  return std::sqrt((x * x) + (y * y));
 }
 
 float Vector2::GetLength2() const noexcept {

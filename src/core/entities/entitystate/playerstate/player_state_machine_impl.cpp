@@ -16,7 +16,7 @@ PlayerStateMachineImpl::PlayerStateMachineImpl(IEntity* entity) {
   Put(EntityStateID::DIE, std::make_unique<PlayerDyingState>(entity));
   Put(EntityStateID::WALK, std::make_unique<PlayerMovingState>(this));
   Put(EntityStateID::ATTACK, std::make_unique<PlayerAttackState>(this));
-
+  
   activeStateID = EntityStateID::IDLE;
 }
 

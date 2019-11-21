@@ -130,4 +130,8 @@ void MovableObjectDelegate::SetY(float y) noexcept {
   currPosition.SetY(y);
 }
 
+void MovableObjectDelegate::SetVelocity(const Vector2& v) noexcept {
+  velocity.Set(v);
+}
+
 }

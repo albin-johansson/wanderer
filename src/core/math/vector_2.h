@@ -52,7 +52,7 @@ class Vector2 final {
    */
   Vector2(const Vector2& vector);
 
-  // TODO distance, multiply (ScalarMul, ScrMul, Mul, Multiply)
+  // TODO dot multiplication, angle stuff (rotation)
 
   /**
    * Scales the vector. The supplied factor is multiplied with both of the coordinates of the
@@ -61,14 +61,14 @@ class Vector2 final {
    * @param factor the factor that is used when scaling the vector.
    * @since 0.1.0
    */
-  void Scale(float factor);
+  void Scale(float factor) noexcept;
 
   /**
    * Normalizes the vector. The vector will have length 1 after invoking this method.
    *
    * @since 0.1.0
    */
-  void Norm();
+  void Norm() noexcept;
 
   /**
    * Linearly interpolates between this vector and the specified target vector. This vector is
@@ -149,6 +149,44 @@ class Vector2 final {
    * @since 0.1.0
    */
   void SetLength(float length) noexcept;
+
+  /**
+   * Makes the vector point at the target vector. The magnitude of the vector will remain unchanged
+   * after invoking this method.
+   *
+   * @param target the target vector.
+   * @since 0.1.0
+   */
+  void LookAt(const Vector2& target) noexcept;
+
+  /**
+   * Makes the vector point at the target vector. The supplied length value will be the new
+   * magnitude of the vector after invoking this method.
+   *
+   * @param target the target vector.
+   * @param length the magnitude of the vector after performing the transformation, will be
+   * clamped to zero if negative.
+   * @since 0.1.0
+   */
+  void LookAt(const Vector2& target, float length) noexcept;
+
+  /**
+   * Returns the distance between the vector and the supplied vector.
+   *
+   * @param vector the vector to calculate the distance to.
+   * @return the distance between the vector and the supplied vector.
+   * @since 0.1.0
+   */
+  [[nodiscard]] float DistanceTo(const Vector2& vector) const noexcept;
+
+  /**
+   * Returns the squared distance between the vector and the supplied vector.
+   *
+   * @param vector the vector to calculate the distance to.
+   * @return the squared distance between the vector and the supplied vector.
+   * @since 0.1.0
+   */
+  [[nodiscard]] float DistanceTo2(const Vector2& vector) const noexcept;
 
   /**
    * Returns the x-coordinate of the vector.
