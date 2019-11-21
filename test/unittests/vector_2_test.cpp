@@ -1,5 +1,6 @@
 #include "catch.hpp"
 #include "vector_2.h"
+#include <cmath>
 
 using namespace wanderer::core;
 
@@ -130,6 +131,34 @@ TEST_CASE("Vector2::SetLength", "[Vector2]") {
   float length = 4;
   vector.SetLength(length);
   CHECK(vector.GetLength() == Approx(length));
+}
+
+TEST_CASE("Vector2::LookAt(Vector2, float)", "[Vector2]") {
+  Vector2 vector(412, 287);
+
+  CHECK_NOTHROW(vector.LookAt(vector, 0));
+  CHECK_NOTHROW(vector.LookAt(vector, -1));
+}
+
+TEST_CASE("Vector2::DistanceTo", "[Vector2]") {
+  Vector2 vector(377, 518);
+  Vector2 other(123, 411);
+
+  auto dx = other.GetX() - vector.GetX();
+  auto dy = other.GetY() - vector.GetY();
+  auto expected = std::sqrt(dx * dx + dy * dy);
+  CHECK(expected == vector.DistanceTo(other));
+  CHECK(vector.DistanceTo(other) == other.DistanceTo(vector));
+
+  CHECK(vector.DistanceTo(vector) == 0);
+}
+
+TEST_CASE("Vector2::DistanceTo2", "[Vector2]") {
+  Vector2 vector(58, 832);
+  Vector2 other(284, 550);
+
+  CHECK(std::sqrt(vector.DistanceTo2(other)) == vector.DistanceTo(other));
+  CHECK(vector.DistanceTo2(vector) == 0);
 }
 
 TEST_CASE("Vector2::GetLength", "[Vector2]") {
