@@ -19,6 +19,8 @@ void SkeletonMovingState::ChasePlayer(const IGame& game, float distance) {
     entityVelocity.LookAt(game.GetPlayerPosition(), entity.GetSpeed());
 
     entity.SetVelocity(entityVelocity);
+
+    // TODO manually set dominant direction
   }
 }
 
