@@ -8,7 +8,7 @@ class RandomUtils final {
 
   ~RandomUtils() = default;
 
-  [[nodiscard]] static int GetRand(int min, int max);
+  [[nodiscard]] static int GetInt(int min, int max);
 
   [[nodiscard]] static bool GetBool();
 };

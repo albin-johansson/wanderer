@@ -3,12 +3,12 @@
 
 namespace wanderer::core {
 
-int RandomUtils::GetRand(int min, int max) {
+int RandomUtils::GetInt(int min, int max) {
   return (rand() % (max + 1 - min)) + min;
 }
 
 bool RandomUtils::GetBool() {
-  return GetRand(0, 1);
+  return GetInt(0, 1);
 }
 
 }

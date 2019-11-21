@@ -88,6 +88,7 @@ set(SOURCE_FILES
         core/entities/movable_delegate.h
         core/entities/entity_sheet.cpp
         core/entities/entity_sheet.h
+
         core/entities/mob/skeleton.cpp
         core/entities/mob/skeleton.h
         core/entities/mob/skeleton_state_machine.cpp
@@ -96,6 +97,8 @@ set(SOURCE_FILES
         core/entities/mob/skeleton_idle_state.h
         core/entities/mob/skeleton_moving_state.cpp
         core/entities/mob/skeleton_moving_state.h
+        core/entities/mob/skeleton_attack_state.cpp
+        core/entities/mob/skeleton_attack_state.h
 
         core/entities/entitystate/entity_draw_delegate.cpp
         core/entities/entitystate/entity_draw_delegate.h

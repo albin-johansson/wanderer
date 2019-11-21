@@ -3,8 +3,7 @@
 
 namespace wanderer::core {
 
-SkeletonMovingState::SkeletonMovingState(IEntityStateMachine* parent)
-    : moveDelegate(parent) {}
+SkeletonMovingState::SkeletonMovingState(IEntityStateMachine* parent) : moveDelegate(parent) {}
 
 SkeletonMovingState::~SkeletonMovingState() = default;
 
@@ -12,9 +11,7 @@ void SkeletonMovingState::ChasePlayer(const IGame& game, float distance) {
   auto& entity = moveDelegate.GetEntity();
 
   if (distance <= 75) {
-
-    entity.Stop();
-    // TODO go into attack mode.
+    moveDelegate.GetParent().SetState(EntityStateID::ATTACK, game);
   } else {
     auto entityVelocity = entity.GetVelocity();
 
@@ -43,12 +40,11 @@ void SkeletonMovingState::Roam(const IGame& game) {
 }
 
 Direction SkeletonMovingState::GetRandomDirection() const noexcept {
-  return static_cast<Direction>(RandomUtils::GetRand(0, 3));
+  return static_cast<Direction>(RandomUtils::GetInt(0, 3));
 }
 
 void SkeletonMovingState::Tick(const IGame& game, float delta) {
   moveDelegate.Tick(game, delta);
-
   float distance = moveDelegate.GetEntity().GetPosition().DistanceTo(game.GetPlayerPosition());
   if (distance <= 400) {
     ChasePlayer(game, distance);
