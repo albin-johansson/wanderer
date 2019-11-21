@@ -1,5 +1,4 @@
 #include "player_moving_state.h"
-#include "entity_state_machine.h"
 #include "entity_sheet.h"
 #include "objects.h"
 
@@ -47,7 +46,7 @@ void PlayerMovingState::CheckReleased(const Input& input) {
   bool right = input.WasReleased(SDL_SCANCODE_D);
   bool up = input.WasReleased(SDL_SCANCODE_W);
   bool down = input.WasReleased(SDL_SCANCODE_S);
-  IEntity& entity = moveDelegate.GetEntity();
+  auto& entity = moveDelegate.GetEntity();
 
   if (left) {
     entity.Stop(Direction::LEFT);
