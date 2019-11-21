@@ -1,10 +1,7 @@
 #pragma once
 #include <memory>
 #include "renderer.h"
-#include "direction.h"
 #include "input.h"
-#include "viewport.h"
-#include "image_generator.h"
 
 namespace wanderer::core {
 
@@ -46,6 +43,11 @@ class IWandererCore {
    */
   virtual void Render(visuals::Renderer& renderer, float alpha) = 0;
 
+  /**
+   * Enables the hint that the game should quit as soon as possible.
+   *
+   * @since 0.1.0
+   */
   virtual void Quit() noexcept = 0;
 
   /**

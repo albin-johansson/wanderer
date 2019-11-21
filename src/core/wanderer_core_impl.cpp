@@ -1,6 +1,5 @@
 #include "wanderer_core_impl.h"
 #include "menu_state_machine_impl.h"
-#include "objects.h"
 #include "game_impl.h"
 
 using namespace wanderer::visuals;
@@ -8,12 +7,10 @@ using namespace wanderer::audio;
 
 namespace wanderer::core {
 
-WandererCoreImpl::WandererCoreImpl(visuals::ImageGenerator_sptr imageGenerator) {
-  Objects::RequireNonNull(imageGenerator);
-
+WandererCoreImpl::WandererCoreImpl(ImageGenerator& imageGenerator) {
   menuStateMachine = MenuStateMachineImpl::Create(this); // TODO fix "this" parameter
 
-  game = GameImpl::Create(*imageGenerator);
+  game = GameImpl::Create(imageGenerator);
 
   viewport.SetLevelWidth(static_cast<float>(game->GetLevelWidth()));
   viewport.SetLevelHeight(static_cast<float>(game->GetLevelHeight()));

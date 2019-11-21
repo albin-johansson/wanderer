@@ -1,11 +1,9 @@
 #pragma once
 #include "wanderer_core.h"
-#include "player.h"
+#include "game.h"
 #include "viewport.h"
 #include "image_generator.h"
 #include "menu_state_machine.h"
-#include "sound_engine.h"
-#include "world.h"
 
 namespace wanderer::core {
 
@@ -21,7 +19,7 @@ class WandererCoreImpl final : public IWandererCore {
   Viewport viewport;
   bool shouldQuit = false;
 
-  explicit WandererCoreImpl(visuals::ImageGenerator_sptr imageGenerator);
+  explicit WandererCoreImpl(visuals::ImageGenerator& imageGenerator);
 
  public:
   ~WandererCoreImpl() override;
@@ -29,10 +27,11 @@ class WandererCoreImpl final : public IWandererCore {
   /**
    * Creates and returns a unique pointer to an IWandererCore instance.
    *
+   * @param imageGenerator a reference to an image generator.
    * @return a unique pointer to an IWandererCore instance.
    * @since 0.1.0
    */
-  friend IWandererCore_uptr CreateCore(visuals::ImageGenerator_sptr imageGenerator);
+  friend IWandererCore_uptr CreateCore(visuals::ImageGenerator& imageGenerator);
 
   void HandleInput(const Input& input) override;
 

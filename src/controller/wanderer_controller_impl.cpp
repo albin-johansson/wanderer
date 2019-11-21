@@ -15,8 +15,8 @@ namespace wanderer::controller {
 
 WandererControllerImpl::WandererControllerImpl() {
   SDL_DisplayMode desktop = DisplayModes::GetDesktopInfo();
-  window = Window::Create("Wanderer", desktop.w, desktop.h);
-  window->SetFullscreen(true);
+  window = Window::Create("Wanderer", 1280, 720);
+  window->SetFullscreen(false);
 
   SDL_Surface* icon = IMG_Load("resources/img/tactile_icon.png");
   if (icon != nullptr) {
@@ -31,8 +31,8 @@ WandererControllerImpl::WandererControllerImpl() {
   renderer->SetFont(Font::Create("resources/font/type_writer.ttf", 24));
   renderer->SetLogicalSize(LOGICAL_WIDTH, LOGICAL_HEIGHT);
 
-  ImageGenerator_sptr imggen = ImageGenerator::Create(renderer);
-  core = CreateCore(imggen);
+  auto imageGenerator = ImageGenerator::Create(renderer);
+  core = CreateCore(*imageGenerator);
   core->SetViewportWidth(LOGICAL_WIDTH);
   core->SetViewportHeight(LOGICAL_HEIGHT);
   
