@@ -3,9 +3,7 @@
 
 namespace wanderer::audio {
 
-SoundEngine::SoundEngine() {
-
-}
+SoundEngine::SoundEngine() = default;
 
 SoundEngine::~SoundEngine() = default;
 
@@ -21,7 +19,13 @@ void SoundEngine::Register(std::string id, SoundEffect_uptr sound) {
 }
 
 void SoundEngine::Play(const std::string& id) {
-  sounds.at(id)->Play();
+  if (enabled) {
+    sounds.at(id)->Play();
+  }
+}
+
+void SoundEngine::SetEnabled(bool enabled) noexcept {
+  this->enabled = enabled;
 }
 
 }
