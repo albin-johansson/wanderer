@@ -7,6 +7,8 @@
 #include "wanderer_controller.h"
 #include "wanderer_controller_factory.h"
 
+// TODO change all namespaces to albinjohansson::wanderer?
+
 static void Init() {
   if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
     std::cerr << "Failed to initialize SDL! Error: " << SDL_GetError() << "\n";
