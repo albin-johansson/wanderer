@@ -2,6 +2,7 @@
 #include "objects.h"
 #include "player.h"
 #include "skeleton.h"
+#include <algorithm>
 
 using namespace wanderer::visuals;
 
@@ -11,12 +12,17 @@ WorldImpl::WorldImpl(visuals::ImageGenerator& imageGenerator) {
   player = Player::Create(imageGenerator.Load("resources/img/player2.png"));
   player->SetSpeed(300);
 
-  skeleton = std::make_unique<Skeleton>(imageGenerator.Load("resources/img/skeleton.png"));
+  IEntity_sptr skeleton = std::make_unique<Skeleton>(
+      imageGenerator.Load("resources/img/skeleton.png"));
   skeleton->SetSpeed(200);
   skeleton->SetX(500);
   skeleton->SetY(100);
 
   tileMap = TileMap::Create(imageGenerator, 50, 50);
+
+  entities.reserve(20);
+  entities.push_back(player);
+  entities.push_back(skeleton);
 }
 
 WorldImpl::~WorldImpl() = default;
@@ -25,31 +31,42 @@ IWorld_uptr WorldImpl::Create(visuals::ImageGenerator& imageGenerator) {
   return std::make_unique<WorldImpl>(imageGenerator);
 }
 
+void WorldImpl::SortEntities() {
+  std::sort(entities.begin(), entities.end(), WorldImpl::CompareEntities);
+}
+
 void WorldImpl::PlayerHandleInput(const Input& input, const IGame& game) {
   player->HandleInput(input, game);
 }
 
 void WorldImpl::SavePositions() {
-  player->SavePosition();
-  skeleton->SavePosition();
+  for (auto& entity : entities) {
+    entity->SavePosition();
+  }
 }
 
 void WorldImpl::Tick(const IGame& game, float delta) {
   SavePositions();
-  player->Tick(game, delta);
-  skeleton->Tick(game, delta);
+  for (auto& entity : entities) {
+    entity->Tick(game, delta);
+  }
 }
 
 void WorldImpl::Interpolate(float alpha) {
-  player->Interpolate(alpha);
-  skeleton->Interpolate(alpha);
+  for (auto& entity : entities) {
+    entity->Interpolate(alpha);
+  }
 }
 
 void WorldImpl::Render(visuals::Renderer& renderer, const Viewport& viewport, float alpha) {
   Interpolate(alpha);
   tileMap->Draw(renderer, viewport);
-  skeleton->Draw(renderer, viewport);
-  player->Draw(renderer, viewport);
+
+  SortEntities();
+
+  for (auto& entity : entities) {
+    entity->Draw(renderer, viewport);
+  }
 }
 
 int WorldImpl::GetWidth() const noexcept {
@@ -74,6 +91,10 @@ Vector2 WorldImpl::GetPlayerPosition() const noexcept {
 
 Vector2 WorldImpl::GetPlayerInterpolatedPosition() const noexcept {
   return player->GetInterpolatedPosition();
+}
+
+bool WorldImpl::CompareEntities(const IEntity_sptr& first, const IEntity_sptr& second) noexcept {
+  return first->GetY() < second->GetY();
 }
 
 }

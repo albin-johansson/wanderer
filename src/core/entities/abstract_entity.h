@@ -10,6 +10,7 @@ class AbstractEntity : public IEntity {
   IMovableObject_uptr movable = nullptr;
   visuals::Image_sptr sheet = nullptr;
   visuals::Animation animation;
+  int health = 100;
 
  public:
   explicit AbstractEntity(visuals::Image_sptr sheet);
@@ -82,6 +83,11 @@ class AbstractEntity : public IEntity {
 
   [[nodiscard]] bool IsAnimationDone() const noexcept override { return animation.IsDone(); }
 
+  void Hurt(int dmg) noexcept override;
+
+  [[nodiscard]] int GetHealth() const noexcept override { return health; }
+
+  [[nodiscard]] bool IsDead() const noexcept override { return health <= 0; }
 };
 
 }

@@ -7,25 +7,28 @@
 #include "tile_map.h"
 #include "image_generator.h"
 #include "player.h"
+#include <vector>
 
 namespace wanderer::core {
 
 class WorldImpl final : public IWorld {
  private:
+  std::vector<IEntity_sptr> entities;
+  Player_sptr player = nullptr;
   TileMap_uptr tileMap = nullptr;
-  Player_uptr player = nullptr;
-  IEntity_uptr skeleton = nullptr;
 
   void SavePositions();
 
   void Interpolate(float alpha);
+
+  void SortEntities();
 
  public:
   explicit WorldImpl(visuals::ImageGenerator& imageGenerator);
 
   ~WorldImpl() override;
 
-  static IWorld_uptr Create(visuals::ImageGenerator& imageGenerator);
+  [[nodiscard]] static IWorld_uptr Create(visuals::ImageGenerator& imageGenerator);
 
   void PlayerHandleInput(const Input& input, const IGame& game) override;
 
@@ -33,17 +36,21 @@ class WorldImpl final : public IWorld {
 
   void Render(visuals::Renderer& renderer, const Viewport& viewport, float alpha) override;
 
-  int GetWidth() const noexcept override;
+  [[nodiscard]] int GetWidth() const noexcept override;
 
-  int GetHeight() const noexcept override;
+  [[nodiscard]] int GetHeight() const noexcept override;
 
-  float GetPlayerWidth() const noexcept override;
+  [[nodiscard]] float GetPlayerWidth() const noexcept override;
 
-  float GetPlayerHeight() const noexcept override;
+  [[nodiscard]] float GetPlayerHeight() const noexcept override;
 
-  Vector2 GetPlayerPosition() const noexcept override;
+  [[nodiscard]] Vector2 GetPlayerPosition() const noexcept override;
 
-  Vector2 GetPlayerInterpolatedPosition() const noexcept override;
+  [[nodiscard]] Vector2 GetPlayerInterpolatedPosition() const noexcept override;
+
+  [[nodiscard]] static bool CompareEntities(const IEntity_sptr& first,
+                                            const IEntity_sptr& second) noexcept;
+
 };
 
 }

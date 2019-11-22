@@ -11,4 +11,11 @@ AbstractEntity::AbstractEntity(visuals::Image_sptr sheet) {
 
 AbstractEntity::~AbstractEntity() = default;
 
+void AbstractEntity::Hurt(int dmg) noexcept {
+  health -= dmg;
+  if (health < 0) {
+    health = 0;
+  }
+}
+
 }

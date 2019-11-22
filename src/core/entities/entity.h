@@ -19,8 +19,12 @@ class IEntity : public IMovableObject, public IAnimated {
 
  public:
   ~IEntity() override = default;
+  
+  virtual void Hurt(int dmg) noexcept = 0;
 
-  // TODO GetHealth, Hurt, IsDead, IsAlive
+  [[nodiscard]] virtual int GetHealth() const noexcept = 0;
+
+  [[nodiscard]] virtual bool IsDead() const noexcept = 0;
 };
 
 using IEntity_uptr = std::unique_ptr<IEntity>;
