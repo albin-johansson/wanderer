@@ -88,6 +88,8 @@ set(SOURCE_FILES
         core/entities/movable_delegate.h
         core/entities/entity_sheet.cpp
         core/entities/entity_sheet.h
+        core/entities/abstract_entity.cpp
+        core/entities/abstract_entity.h
 
         core/entities/mob/skeleton/skeleton.cpp
         core/entities/mob/skeleton/skeleton.h
@@ -113,6 +115,7 @@ set(SOURCE_FILES
         core/entities/entitystate/playerstate/player_state.h
         core/entities/entitystate/playerstate/player_state_machine.h
 
+        core/entities/entitystate/abstract_entity_state_machine.h
         core/entities/entitystate/entity_draw_delegate.cpp
         core/entities/entitystate/entity_draw_delegate.h
         core/entities/entitystate/entity_state.h

@@ -13,7 +13,7 @@ namespace wanderer::core {
  * @see IEntityStateMachine
  * @since 0.1.0
  */
-class IPlayerStateMachine : public IEntityStateMachine {
+class IPlayerStateMachine : public virtual IEntityStateMachine {
  protected:
   IPlayerStateMachine() = default;
 

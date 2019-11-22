@@ -1,9 +1,7 @@
 #pragma once
-#include "entity.h"
+#include "abstract_entity.h"
 #include "player_state_machine.h"
 #include "image.h"
-#include "game.h"
-#include "animation.h"
 #include <memory>
 
 namespace wanderer::core {
@@ -20,12 +18,9 @@ using Player_wptr = std::weak_ptr<Player>;
  * @see IEntity
  * @since 0.1.0
  */
-class Player final : public IEntity {
+class Player final : public AbstractEntity {
  private:
-  IMovableObject_uptr movable = nullptr;
   IPlayerStateMachine_uptr playerStateMachine = nullptr;
-  visuals::Image_sptr sheet = nullptr;
-  visuals::Animation animation;
 
  public:
   /**
@@ -55,109 +50,13 @@ class Player final : public IEntity {
    * @param input a reference to the input state.
    * @since 0.1.0
    */
-  inline void HandleInput(const Input& input, const IGame& game) {
+  void HandleInput(const Input& input, const IGame& game) {
     playerStateMachine->HandleInput(input, game);
   }
 
-  inline void Draw(visuals::Renderer& renderer, const Viewport& viewport) const noexcept override {
+  void Draw(visuals::Renderer& renderer, const Viewport& viewport) const noexcept override {
     playerStateMachine->Draw(renderer, viewport);
   }
-
-  inline void AddX(float dx) noexcept override {
-    movable->AddX(dx);
-  }
-
-  inline void AddY(float dy) noexcept override {
-    movable->AddY(dy);
-  }
-
-  inline void SetX(float x) noexcept override {
-    movable->SetX(x);
-  }
-
-  inline void SetY(float y) noexcept override {
-    movable->SetY(y);
-  }
-
-  inline void Move(Direction direction) noexcept override {
-    movable->Move(direction);
-  }
-
-  inline void Stop(Direction direction) noexcept override {
-    movable->Stop(direction);
-  }
-
-  inline void Stop() noexcept override {
-    movable->Stop();
-  }
-
-  inline void SavePosition() noexcept override {
-    movable->SavePosition();
-  }
-
-  inline void Interpolate(float alpha) noexcept override {
-    movable->Interpolate(alpha);
-  }
-
-  inline void SetSpeed(float speed) noexcept override {
-    movable->SetSpeed(speed);
-  }
-
-  inline void UpdateAnimation() noexcept override { animation.Update(); }
-
-  inline void SetAnimationFrame(int index) noexcept override { animation.SetFrame(index); }
-
-  inline void SetAnimationFrameAmount(int nFrames) override { animation.SetNumberOfFrames(nFrames); }
-
-  inline void SetAnimationDelay(Uint32 ms) override { animation.SetDelay(ms); }
-
-  void SetVelocity(const Vector2& v) noexcept override { movable->SetVelocity(v); }
-
-  [[nodiscard]] float GetSpeed() const noexcept override { return movable->GetSpeed(); }
-
-  [[nodiscard]] inline bool IsAnimationDone() const noexcept override { return animation.IsDone(); }
-
-  [[nodiscard]] inline int GetAnimationFrame() const noexcept override {
-    return animation.GetIndex();
-  }
-
-  [[nodiscard]] inline Vector2 GetVelocity() const noexcept override {
-    return movable->GetVelocity();
-  }
-
-  [[nodiscard]] inline Vector2 GetPosition() const noexcept override {
-    return movable->GetPosition();
-  }
-
-  [[nodiscard]] inline Vector2 GetInterpolatedPosition() const noexcept override {
-    return movable->GetInterpolatedPosition();
-  }
-
-  [[nodiscard]] inline float GetX() const noexcept override {
-    return movable->GetX();
-  }
-
-  [[nodiscard]] inline float GetY() const noexcept override {
-    return movable->GetY();
-  }
-
-  [[nodiscard]] inline float GetWidth() const noexcept override {
-    return movable->GetWidth();
-  }
-
-  [[nodiscard]] inline float GetHeight() const noexcept override {
-    return movable->GetHeight();
-  }
-
-  [[nodiscard]] inline Rectangle GetHitbox() const noexcept override {
-    return movable->GetHitbox();
-  }
-
-  [[nodiscard]] inline Direction GetDominantDirection() const noexcept override {
-    return movable->GetDominantDirection();
-  }
-
-  [[nodiscard]] inline visuals::Image& GetSpriteSheet() const noexcept override { return *sheet; }
 };
 
 }

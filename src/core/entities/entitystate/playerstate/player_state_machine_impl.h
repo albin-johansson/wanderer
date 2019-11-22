@@ -1,8 +1,7 @@
 #pragma once
+#include "abstract_entity_state_machine.h"
 #include "player_state_machine.h"
 #include "player_state.h"
-#include <memory>
-#include <map>
 #include "entity.h"
 
 namespace wanderer::core {
@@ -13,21 +12,8 @@ namespace wanderer::core {
  * @see IPlayerStateMachine
  * @since 0.1.0
  */
-class PlayerStateMachineImpl final : public IPlayerStateMachine {
- private:
-  IEntity* entity = nullptr;
-  EntityStateID activeStateID;
-  std::map<EntityStateID, IPlayerState_uptr> states;
-
-  /**
-   * Registers an entity state ID key with a pointer to a player state value.
-   *
-   * @param id the entity state ID that will serve as the key for the player state value.
-   * @param state a unique pointer to the player state instance value.
-   * @since 0.1.0
-   */
-  void Put(EntityStateID id, IPlayerState_uptr state);
-
+class PlayerStateMachineImpl final : public IPlayerStateMachine,
+                                     public AbstractEntityStateMachine<IPlayerState> {
  public:
   /**
    * @param entity a pointer to the associated entity instance, will not be freed by the created
@@ -50,15 +36,7 @@ class PlayerStateMachineImpl final : public IPlayerStateMachine {
    */
   static IPlayerStateMachine_uptr Create(IEntity* entity);
 
-  void Draw(visuals::Renderer& renderer, const Viewport& viewport) const noexcept override;
-
   void HandleInput(const Input& input, const IGame& game) override;
-
-  void SetState(EntityStateID id, const IGame& game) override;
-
-  void Tick(const IGame& game, float delta) override;
-
-  IEntity& GetEntity() override;
 };
 
 }
