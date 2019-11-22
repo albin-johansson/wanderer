@@ -89,24 +89,19 @@ set(SOURCE_FILES
         core/entities/entity_sheet.cpp
         core/entities/entity_sheet.h
 
-        core/entities/mob/skeleton.cpp
-        core/entities/mob/skeleton.h
-        core/entities/mob/skeleton_state_machine.cpp
-        core/entities/mob/skeleton_state_machine.h
-        core/entities/mob/skeleton_idle_state.cpp
-        core/entities/mob/skeleton_idle_state.h
-        core/entities/mob/skeleton_moving_state.cpp
-        core/entities/mob/skeleton_moving_state.h
-        core/entities/mob/skeleton_attack_state.cpp
-        core/entities/mob/skeleton_attack_state.h
+        core/entities/mob/skeleton/skeleton.cpp
+        core/entities/mob/skeleton/skeleton.h
+        core/entities/mob/skeleton/skeleton_state_machine.cpp
+        core/entities/mob/skeleton/skeleton_state_machine.h
+        core/entities/mob/skeleton/skeleton_idle_state.cpp
+        core/entities/mob/skeleton/skeleton_idle_state.h
+        core/entities/mob/skeleton/skeleton_moving_state.cpp
+        core/entities/mob/skeleton/skeleton_moving_state.h
+        core/entities/mob/skeleton/skeleton_attack_state.cpp
+        core/entities/mob/skeleton/skeleton_attack_state.h
 
-        core/entities/entitystate/entity_draw_delegate.cpp
-        core/entities/entitystate/entity_draw_delegate.h
         core/entities/entitystate/playerstate/player_moving_state.cpp
         core/entities/entitystate/playerstate/player_moving_state.h
-        core/entities/entitystate/entity_state.h
-        core/entities/entitystate/entity_state_machine.h
-        core/entities/entitystate/entity_state_id.h
         core/entities/entitystate/playerstate/player_idle_state.cpp
         core/entities/entitystate/playerstate/player_idle_state.h
         core/entities/entitystate/playerstate/player_state_machine_impl.cpp
@@ -115,6 +110,14 @@ set(SOURCE_FILES
         core/entities/entitystate/playerstate/player_attack_state.h
         core/entities/entitystate/playerstate/player_dying_state.cpp
         core/entities/entitystate/playerstate/player_dying_state.h
+        core/entities/entitystate/playerstate/player_state.h
+        core/entities/entitystate/playerstate/player_state_machine.h
+
+        core/entities/entitystate/entity_draw_delegate.cpp
+        core/entities/entitystate/entity_draw_delegate.h
+        core/entities/entitystate/entity_state.h
+        core/entities/entitystate/entity_state_machine.h
+        core/entities/entitystate/entity_state_id.h
         core/entities/entitystate/entity_move_delegate.cpp
         core/entities/entitystate/entity_move_delegate.h
         core/entities/entitystate/entity_dying_delegate.cpp
@@ -123,8 +126,6 @@ set(SOURCE_FILES
         core/entities/entitystate/entity_attack_delegate.h
         core/entities/entitystate/entity_idle_delegate.cpp
         core/entities/entitystate/entity_idle_delegate.h
-        core/entities/entitystate/playerstate/player_state.h
-        core/entities/entitystate/playerstate/player_state_machine.h
 
         visuals/window.h
         visuals/window.cpp
@@ -165,6 +166,7 @@ target_include_directories(${WANDERER_LIB} PUBLIC core/entities)
 target_include_directories(${WANDERER_LIB} PUBLIC core/entities/entitystate)
 target_include_directories(${WANDERER_LIB} PUBLIC core/entities/entitystate/playerstate)
 target_include_directories(${WANDERER_LIB} PUBLIC core/entities/mob)
+target_include_directories(${WANDERER_LIB} PUBLIC core/entities/mob/skeleton)
 target_include_directories(${WANDERER_LIB} PUBLIC audio)
 
 # Prepares the actual executable
