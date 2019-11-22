@@ -113,4 +113,8 @@ int Font::GetStringHeight(const std::string& s) const noexcept {
   return height;
 }
 
+std::string Font::GetFamilyName() const {
+  return std::string(TTF_FontFaceFamilyName(font));
+}
+
 }

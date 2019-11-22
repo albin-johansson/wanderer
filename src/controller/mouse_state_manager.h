@@ -16,6 +16,8 @@ class MouseStateManager final {
   float logicalWidth = 1;
   float logicalHeight = 1;
 
+  float oldX = 0;
+  float oldY = 0;
   float mouseX = 0;
   float mouseY = 0;
   bool prevLeftPressed = false;
@@ -62,6 +64,10 @@ class MouseStateManager final {
 
   [[nodiscard]] inline bool WasRightButtonReleased() const noexcept {
     return !rightPressed && prevRightPressed;
+  }
+
+  [[nodiscard]] bool WasMouseMoved() const noexcept {
+    return oldX != mouseX || oldY != mouseY;
   }
 };
 

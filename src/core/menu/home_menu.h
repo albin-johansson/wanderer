@@ -3,6 +3,7 @@
 #include "menu_state_machine.h"
 #include "menu_button.h"
 #include "wanderer_core.h"
+#include "font_bundle.h"
 #include <memory>
 
 namespace wanderer::core {
@@ -16,6 +17,7 @@ namespace wanderer::core {
 class HomeMenu final : public AbstractMenu {
  private:
   IWandererCore* core = nullptr;
+  visuals::FontBundle_uptr fonts = nullptr;
   mutable MenuButton startButton;
   mutable MenuButton settingsButton;
   mutable MenuButton controlsButton;

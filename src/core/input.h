@@ -74,6 +74,10 @@ class Input final {
     return mouseStateManager->WasRightButtonReleased();
   }
 
+  [[nodiscard]] bool WasMouseMoved() const noexcept {
+    return mouseStateManager->WasMouseMoved();
+  }
+
 };
 
 }

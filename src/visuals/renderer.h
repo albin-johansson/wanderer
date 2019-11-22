@@ -27,6 +27,8 @@ class Renderer final {
  public:
   // TODO ctor with flags arg
 
+  // TODO only use Image references instead of raw pointers
+
   /**
    * Creates a renderer based on the supplied SDL_Renderer.
    *
@@ -165,6 +167,8 @@ class Renderer final {
 
   void RenderText(const std::string& text, float x, float y);
 
+  void RenderText(const std::string& text, float x, float y, Font& font);
+
   /**
    * Sets the color that will be used by the renderer.
    *
@@ -279,6 +283,8 @@ class Renderer final {
    * unsuccessful.
    */
   [[nodiscard]] SDL_Texture* CreateTexture(const std::string& s) const;
+
+  [[nodiscard]] SDL_Texture* CreateTexture(const std::string& s, Font& font) const;
 
   /**
    * Returns the viewport that the renderer uses.

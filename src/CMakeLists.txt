@@ -146,7 +146,7 @@ set(SOURCE_FILES
         audio/sound_effect.cpp
         audio/sound_effect.h
         audio/sound_engine.cpp
-        audio/sound_engine.h)
+        audio/sound_engine.h visuals/font_bundle.cpp visuals/font_bundle.h core/menu/menu_drawable.h)
 
 # Prepares the Wanderer "library", which excludes linking and the main.cpp file
 add_library(${WANDERER_LIB} ${SOURCE_FILES})

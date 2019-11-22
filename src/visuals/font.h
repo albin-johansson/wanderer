@@ -167,6 +167,14 @@ class Font final {
   [[nodiscard]] bool IsFixedWidth() const noexcept;
 
   /**
+   * Returns the family name of the font.
+   *
+   * @return the family name of the font.
+   * @since 0.1.0
+   */
+  [[nodiscard]] std::string GetFamilyName() const;
+
+  /**
    * Returns a raw pointer to the internal TTF_Font instance.
    *
    * @return a raw pointer to the internal TTF_Font instance.

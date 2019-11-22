@@ -104,3 +104,8 @@ TEST_CASE("Font::GetInternalFont", "[Font]") {
   Font f("resources/font/type_writer.ttf", 12);
   CHECK(f.GetInternalFont() != nullptr);
 }
+
+TEST_CASE("Font::GetFamilyName", "[Font]") {
+  Font f("resources/font/type_writer.ttf", 12);
+  CHECK(f.GetFamilyName() == "Type Writer");
+}

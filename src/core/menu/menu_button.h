@@ -1,6 +1,6 @@
 #pragma once
 #include "rectangle.h"
-#include "drawable.h"
+#include "menu_drawable.h"
 #include <string>
 #include <SDL_render.h>
 
@@ -11,11 +11,13 @@ namespace wanderer::core {
  *
  * @since 0.1.0
  */
-class MenuButton final : public IDrawable {
+class MenuButton final : public IMenuDrawable {
  private:
   Rectangle bounds;
-  const std::string text;
-  SDL_Texture* texture = nullptr;
+  mutable SDL_Texture* texture = nullptr;
+  mutable SDL_Texture* enlargedTexture = nullptr;
+  const std::string text = "";
+  bool enlarged = false;
 
  public:
   /**
@@ -28,13 +30,13 @@ class MenuButton final : public IDrawable {
    */
   MenuButton(std::string text, float x, float y, float width, float height);
 
-  ~MenuButton() noexcept override;
+  ~MenuButton() override;
 
-  void Draw(visuals::Renderer& renderer, const Viewport& viewport) const override;
+  void Draw(visuals::Renderer& renderer, visuals::FontBundle& fonts) const override;
 
-  void LoadTexture(const visuals::Renderer& renderer);
+  void SetEnlarged(bool enlarged) noexcept;
 
-  bool Contains(float mx, float my) const noexcept;
+  [[nodiscard]] bool Contains(float mx, float my) const noexcept;
 };
 
 }

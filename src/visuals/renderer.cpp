@@ -136,6 +136,19 @@ void Renderer::RenderText(const std::string& text, float x, float y) {
   }
 }
 
+void Renderer::RenderText(const std::string& text, float x, float y, Font& font) {
+  if (!text.empty()) {
+    SDL_Texture* texture = CreateTexture(text, font);
+
+    if (texture == nullptr) {
+      return;
+    }
+
+    RenderTexture(texture, x, y);
+    SDL_DestroyTexture(texture);
+  }
+}
+
 void Renderer::SetColor(Uint8 red, Uint8 green, Uint8 blue, Uint8 alpha) noexcept {
   SDL_SetRenderDrawColor(renderer, red, green, blue, alpha);
 }
@@ -217,12 +230,20 @@ bool Renderer::GetUsingIntegerLogicalScaling() const noexcept {
 SDL_Texture* Renderer::CreateTexture(const std::string& s) const {
   if (font == nullptr) {
     return nullptr;
+  } else {
+    return CreateTexture(s, *font);
+  }
+}
+
+SDL_Texture* Renderer::CreateTexture(const std::string& s, Font& font) const {
+  if (s.empty()) {
+    return nullptr;
   }
 
   Uint8 r = 0, g = 0, b = 0, a = 0;
   SDL_GetRenderDrawColor(renderer, &r, &g, &b, &a);
   SDL_Color color = {r, g, b, a};
-  SDL_Surface* surface = TTF_RenderText_Blended(font->GetInternalFont(), s.c_str(), color);
+  SDL_Surface* surface = TTF_RenderText_Blended(font.GetInternalFont(), s.c_str(), color);
 
   if (surface == nullptr) {
     return nullptr;

@@ -15,6 +15,8 @@ void MouseStateManager::Update() {
   prevLeftPressed = leftPressed;
   prevRightPressed = rightPressed;
 
+  oldX = mouseX;
+  oldY = mouseY;
   auto newX = 0;
   auto newY = 0;
   Uint32 mask = SDL_GetMouseState(&newX, &newY);
