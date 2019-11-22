@@ -102,8 +102,21 @@ class IMovableObject : public IGameObject {
    */
   virtual void SetSpeed(float speed) noexcept = 0;
 
+  /**
+   * Sets the current velocity of the movable.
+   *
+   * @param v the vector that represents the new velocity.
+   * @since 0.1.0
+   */
   virtual void SetVelocity(const Vector2& v) noexcept = 0;
 
+  /**
+   * Returns the movement speed of the movable. Note! This is not the same as the velocity
+   * of the movable, but merely the maximum allowed speed.
+   *
+   * @return the movement speed of the movable.
+   * @since 0.1.0
+   */
   virtual float GetSpeed() const noexcept = 0;
 
   /**

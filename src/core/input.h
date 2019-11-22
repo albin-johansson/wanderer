@@ -23,7 +23,9 @@ class Input final {
    * @return true if the key associated with the specified scancode is pressed; false otherwise.
    * @since 0.1.0
    */
-  [[nodiscard]] bool IsPressed(SDL_Scancode scancode) const;
+  [[nodiscard]] bool IsPressed(SDL_Scancode scancode) const {
+    return keyStateManager->IsPressed(scancode);
+  }
 
   /**
    * Indicates whether or not the key associated with the specified scancode was just pressed.
@@ -33,7 +35,9 @@ class Input final {
    * otherwise.
    * @since 0.1.0
    */
-  [[nodiscard]] bool WasJustPressed(SDL_Scancode scancode) const;
+  [[nodiscard]] bool WasJustPressed(SDL_Scancode scancode) const {
+    return keyStateManager->WasJustPressed(scancode);
+  }
 
   /**
    * Indicates whether or not the key associated with the specified scancode was released.
@@ -42,19 +46,33 @@ class Input final {
    * @return true if the key associated with the specified scancode was released; false otherwise.
    * @since 0.1.0
    */
-  [[nodiscard]] bool WasReleased(SDL_Scancode scancode) const;
+  [[nodiscard]] bool WasReleased(SDL_Scancode scancode) const {
+    return keyStateManager->WasReleased(scancode);
+  }
 
-  [[nodiscard]] float GetMouseX() const noexcept;
+  [[nodiscard]] float GetMouseX() const noexcept {
+    return mouseStateManager->GetMouseX();
+  }
 
-  [[nodiscard]] float GetMouseY() const noexcept;
+  [[nodiscard]] float GetMouseY() const noexcept {
+    return mouseStateManager->GetMouseY();
+  }
 
-  [[nodiscard]] bool IsLeftButtonPressed() const noexcept;
+  [[nodiscard]] bool IsLeftButtonPressed() const noexcept {
+    return mouseStateManager->IsLeftButtonPressed();
+  }
 
-  [[nodiscard]] bool IsRightButtonPressed() const noexcept;
+  [[nodiscard]] bool IsRightButtonPressed() const noexcept {
+    return mouseStateManager->IsRightButtonPressed();
+  }
 
-  [[nodiscard]] bool WasLeftButtonReleased() const noexcept;
+  [[nodiscard]] bool WasLeftButtonReleased() const noexcept {
+    return mouseStateManager->WasLeftButtonReleased();
+  }
 
-  [[nodiscard]] bool WasRightButtonReleased() const noexcept;
+  [[nodiscard]] bool WasRightButtonReleased() const noexcept {
+    return mouseStateManager->WasRightButtonReleased();
+  }
 
 };
 
