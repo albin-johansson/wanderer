@@ -28,13 +28,12 @@ void WandererCoreImpl::HandleInput(const Input& input) {
 void WandererCoreImpl::Update(float delta) {
   if (!menuStateMachine->IsBlocking()) {
     game->Update(delta);
-
-    auto interpolatedPosition = game->GetPlayerInterpolatedPosition();
-    viewport.Track(interpolatedPosition.GetX(),
-                   interpolatedPosition.GetY(),
-                   {game->GetPlayerWidth(), game->GetPlayerHeight()},
-                   delta);
   }
+  auto interpolatedPosition = game->GetPlayerInterpolatedPosition();
+  viewport.Track(interpolatedPosition.GetX(),
+                 interpolatedPosition.GetY(),
+                 {game->GetPlayerWidth(), game->GetPlayerHeight()},
+                 delta);
 }
 
 void WandererCoreImpl::Render(Renderer& renderer, float alpha) {

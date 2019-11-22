@@ -11,9 +11,11 @@ namespace wanderer::core {
 WorldImpl::WorldImpl(visuals::ImageGenerator& imageGenerator) {
   player = Player::Create(imageGenerator.Load("resources/img/player2.png"));
   player->SetSpeed(300);
+  player->SetX(1000);
+  player->SetY(500);
 
-  IEntity_sptr skeleton = std::make_unique<Skeleton>(
-      imageGenerator.Load("resources/img/skeleton.png"));
+  IEntity_sptr skeleton =
+      std::make_unique<Skeleton>(imageGenerator.Load("resources/img/skeleton.png"));
   skeleton->SetSpeed(200);
   skeleton->SetX(500);
   skeleton->SetY(100);
@@ -29,10 +31,6 @@ WorldImpl::~WorldImpl() = default;
 
 IWorld_uptr WorldImpl::Create(visuals::ImageGenerator& imageGenerator) {
   return std::make_unique<WorldImpl>(imageGenerator);
-}
-
-void WorldImpl::SortEntities() {
-  std::sort(entities.begin(), entities.end(), WorldImpl::CompareEntities);
 }
 
 void WorldImpl::PlayerHandleInput(const Input& input, const IGame& game) {
@@ -62,7 +60,7 @@ void WorldImpl::Render(visuals::Renderer& renderer, const Viewport& viewport, fl
   Interpolate(alpha);
   tileMap->Draw(renderer, viewport);
 
-  SortEntities();
+  std::sort(entities.begin(), entities.end(), WorldImpl::CompareGameObjects);
 
   for (auto& entity : entities) {
     entity->Draw(renderer, viewport);
@@ -93,7 +91,8 @@ Vector2 WorldImpl::GetPlayerInterpolatedPosition() const noexcept {
   return player->GetInterpolatedPosition();
 }
 
-bool WorldImpl::CompareEntities(const IEntity_sptr& first, const IEntity_sptr& second) noexcept {
+bool WorldImpl::CompareGameObjects(const IGameObject_sptr& first,
+                                   const IGameObject_sptr& second) noexcept {
   return first->GetY() < second->GetY();
 }
 

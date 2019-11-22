@@ -21,8 +21,6 @@ class WorldImpl final : public IWorld {
 
   void Interpolate(float alpha);
 
-  void SortEntities();
-
  public:
   explicit WorldImpl(visuals::ImageGenerator& imageGenerator);
 
@@ -48,8 +46,8 @@ class WorldImpl final : public IWorld {
 
   [[nodiscard]] Vector2 GetPlayerInterpolatedPosition() const noexcept override;
 
-  [[nodiscard]] static bool CompareEntities(const IEntity_sptr& first,
-                                            const IEntity_sptr& second) noexcept;
+  [[nodiscard]] static bool CompareGameObjects(const IGameObject_sptr& first,
+                                               const IGameObject_sptr& second) noexcept;
 
 };
 
