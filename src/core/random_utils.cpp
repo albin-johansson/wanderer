@@ -8,7 +8,7 @@ int RandomUtils::GetInt(int min, int max) {
 }
 
 bool RandomUtils::GetBool() {
-  return GetInt(0, 1);
+  return GetInt(0, 100) < 50;
 }
 
 }
