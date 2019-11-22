@@ -15,18 +15,11 @@ TEST_CASE("RendererCtor2", "[Renderer]") {
   CHECK_THROWS_AS(Renderer(w), Objects::NullPointerException);
 }
 
-TEST_CASE("Renderer::RenderTexture1", "[Renderer]") {
-  Renderer renderer(SDL_CreateWindow("", 0, 0, 100, 100, SDL_WINDOW_HIDDEN));
-  CHECK_NOTHROW(renderer.RenderTexture(nullptr, 0, 0));
-}
-
 TEST_CASE("Renderer::RenderTexture2", "[Renderer]") {
   Renderer renderer(SDL_CreateWindow("", 0, 0, 100, 100, SDL_WINDOW_HIDDEN));
-  CHECK_NOTHROW(renderer.RenderTexture(nullptr, 0, 0, 10, 10));
+  auto img = Image::Create(renderer.GetInternalRenderer(), "resources/img/grass.png");
 
-  SDL_Texture* img = IMG_LoadTexture(renderer.GetInternalRenderer(), "resources/img/grass.png");
-  CHECK_NOTHROW(renderer.RenderTexture(img, 0, 0, 0, 0));
-  SDL_DestroyTexture(img);
+  CHECK_NOTHROW(renderer.RenderTexture(*img, 0, 0, 0, 0));
 }
 
 TEST_CASE("Renderer::RenderFillRect", "[Renderer]") {
