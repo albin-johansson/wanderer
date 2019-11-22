@@ -28,7 +28,7 @@ WandererControllerImpl::WandererControllerImpl() {
   }
 
   renderer = Renderer::Create(window->GetInternalWindow());
-  renderer->SetFont(Font::Create("resources/font/type_writer.ttf", 24));
+//  renderer->SetFont(Font::Create("resources/font/type_writer.ttf", 24));
   renderer->SetLogicalSize(LOGICAL_WIDTH, LOGICAL_HEIGHT);
 
   auto imageGenerator = ImageGenerator::Create(renderer);

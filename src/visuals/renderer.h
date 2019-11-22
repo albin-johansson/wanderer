@@ -4,6 +4,7 @@
 #include <memory>
 #include "rectangle.h"
 #include "font.h"
+#include "image.h"
 
 namespace wanderer::visuals {
 
@@ -22,7 +23,6 @@ using Renderer_wptr = std::weak_ptr<Renderer>;
 class Renderer final {
  private:
   SDL_Renderer* renderer = nullptr;
-  Font_sptr font = nullptr; // TODO consider removing and replace with const& arg to methods
 
  public:
   // TODO ctor with flags arg
@@ -72,48 +72,44 @@ class Renderer final {
   void Present() noexcept;
 
   /**
-   * Renders a texture. This method has no effect if the supplied texture
-   * pointer is null.
+   * Renders a texture.
    *
-   * @param texture a pointer to the texture that will be rendered.
+   * @param texture a reference to the texture that will be rendered.
    * @param x the x-coordinate of the rendered texture.
    * @param y the y-coordinate of the rendered texture.
    * @since 0.1.0
    */
-  void RenderTexture(SDL_Texture* texture, int x, int y) noexcept;
+  void RenderTexture(Image& texture, int x, int y) noexcept;
 
-  void RenderTexture(SDL_Texture* texture, float x, float y) noexcept;
+  void RenderTexture(Image& texture, float x, float y) noexcept;
 
   /**
-   * Renders a texture. This method has no effect if the supplied texture
-   * pointer is null OR if the supplied width and/or height isn't greater than
-   * zero.
+   * Renders a texture. This method has no effect if the supplied width and/or height isn't
+   * greater than zero.
    *
-   * @param texture a pointer to the texture that will be rendered.
+   * @param texture a reference to the texture that will be rendered.
    * @param x the x-coordinate of the rendered texture.
    * @param y the y-coordinate of the rendered texture.
    * @param width the width of the rendered texture.
    * @param height the height of the rendered texture.
    * @since 0.1.0
    */
-  void RenderTexture(SDL_Texture* texture, int x, int y, int width,
-                     int height) noexcept;
+  void RenderTexture(Image& texture, int x, int y, int width, int height) noexcept;
 
   /**
-   * Renders a texture. This method has no effect if the supplied texture
-   * pointer is null OR if the supplied width and/or height isn't greater than
-   * zero.
+   * Renders a texture. This method has no effect if the supplied width and/or height isn't greater
+   * than zero.
    *
-   * @param texture a pointer to the texture that will be rendered.
+   * @param texture a reference to the texture that will be rendered.
    * @param x the x-coordinate of the rendered texture.
    * @param y the y-coordinate of the rendered texture.
    * @param width the width of the rendered texture.
    * @param height the height of the rendered texture.
    * @since 0.1.0
    */
-  void RenderTexture(SDL_Texture* texture, float x, float y, float width, float height) noexcept;
+  void RenderTexture(Image& texture, float x, float y, float width, float height) noexcept;
 
-  void RenderTexture(SDL_Texture* texture,
+  void RenderTexture(Image& texture,
                      const core::Rectangle& src,
                      const core::Rectangle& dst) noexcept;
 
@@ -165,7 +161,7 @@ class Renderer final {
    */
   void RenderRect(int x, int y, int width, int height) noexcept;
 
-  void RenderText(const std::string& text, float x, float y);
+//  void RenderText(const std::string& text, float x, float y);
 
   void RenderText(const std::string& text, float x, float y, Font& font);
 
@@ -190,8 +186,6 @@ class Renderer final {
    * @since 0.1.0
    */
   void SetColor(Uint8 red, Uint8 green, Uint8 blue) noexcept;
-
-  void SetFont(Font_sptr font) noexcept;
 
   /**
    * Sets the viewport that will be used by the renderer.
@@ -274,17 +268,15 @@ class Renderer final {
 
   /**
    * Attempts to create and return a pointer to an SDL_Texture instance that represents the
-   * supplied string rendered with the currently selected font. This method will not throw any
+   * supplied string rendered with the supplied font. This method will not throw any
    * exception by itself, but dynamic memory allocation will occur behind-the-scenes.
    *
    * @param s the string that contains the content that will be rendered to a texture.
-   * @returna a pointer to an SDL_Texture instance that represents the
-   * supplied string rendered with the currently selected font; nullptr if the operation is
-   * unsuccessful.
+   * @param font a reference to the font that will be used.
+   * @return a unique pointer to an image that represents the supplied string rendered with the
+   * currently selected font; nullptr if the operation is unsuccessful.
    */
-  [[nodiscard]] SDL_Texture* CreateTexture(const std::string& s) const;
-
-  [[nodiscard]] SDL_Texture* CreateTexture(const std::string& s, Font& font) const;
+  [[nodiscard]] Image_uptr CreateTexture(const std::string& s, Font& font) const;
 
   /**
    * Returns the viewport that the renderer uses.
@@ -293,17 +285,6 @@ class Renderer final {
    * @since 0.1.0
    */
   [[nodiscard]] core::Rectangle GetViewport() const noexcept;
-
-  /**
-   * Returns a shared pointer to the internal font. The returned pointer might be null, if there
-   * is no selected font.
-   *
-   * @return a shared pointer to the selected font; nullptr if there is no selected font.
-   * @since 0.1.0
-   */
-  [[nodiscard]] inline Font_sptr GetFont() const noexcept {
-    return font;
-  }
 
   /**
    * Returns a pointer to the internal SDL_Renderer instance.

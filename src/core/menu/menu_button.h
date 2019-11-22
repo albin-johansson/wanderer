@@ -2,7 +2,7 @@
 #include "rectangle.h"
 #include "menu_drawable.h"
 #include <string>
-#include <SDL_render.h>
+#include <image.h>
 
 namespace wanderer::core {
 
@@ -14,8 +14,8 @@ namespace wanderer::core {
 class MenuButton final : public IMenuDrawable {
  private:
   Rectangle bounds;
-  mutable SDL_Texture* texture = nullptr;
-  mutable SDL_Texture* enlargedTexture = nullptr;
+  mutable visuals::Image_uptr normalImg = nullptr;
+  mutable visuals::Image_uptr enlargedImg = nullptr;
   const std::string text = "";
   bool enlarged = false;
 

@@ -3,8 +3,6 @@
 #include "bool_converter.h"
 #include <SDL_log.h>
 
-#include <utility>
-
 using namespace wanderer::core;
 using namespace wanderer::service;
 
@@ -42,57 +40,43 @@ void Renderer::Clear() noexcept { SDL_RenderClear(renderer); }
 
 void Renderer::Present() noexcept { SDL_RenderPresent(renderer); }
 
-void Renderer::RenderTexture(SDL_Texture* texture, int x, int y) noexcept {
-  if (texture != nullptr) {
-    int width = 0;
-    int height = 0;
-
-    SDL_QueryTexture(texture, nullptr, nullptr, &width, &height);
-
-    SDL_Rect dst = {x, y, width, height};
-    SDL_RenderCopy(renderer, texture, nullptr, &dst);
-  }
+void Renderer::RenderTexture(Image& texture, int x, int y) noexcept {
+  SDL_Rect dst = {x, y, texture.GetWidth(), texture.GetHeight()};
+  SDL_RenderCopy(renderer, texture.GetTexture(), nullptr, &dst);
 }
 
-void Renderer::RenderTexture(SDL_Texture* texture, float x, float y) noexcept {
-  if (texture != nullptr) {
-    int width = 0;
-    int height = 0;
-
-    SDL_QueryTexture(texture, nullptr, nullptr, &width, &height);
-
-    SDL_FRect dst = {x, y, static_cast<float>(width), static_cast<float>(height)};
-    SDL_RenderCopyF(renderer, texture, nullptr, &dst);
-  }
+void Renderer::RenderTexture(Image& texture, float x, float y) noexcept {
+  SDL_FRect dst = {x, y,
+                   static_cast<float>(texture.GetWidth()),
+                   static_cast<float>(texture.GetHeight())};
+  SDL_RenderCopyF(renderer, texture.GetTexture(), nullptr, &dst);
 }
 
-void Renderer::RenderTexture(SDL_Texture* texture, int x, int y, int width,
+void Renderer::RenderTexture(Image& texture, int x, int y, int width,
                              int height) noexcept {
-  if ((texture != nullptr) && (width > 0) && (height > 0)) {
+  if ((width > 0) && (height > 0)) {
     SDL_Rect dst = {x, y, width, height};
-    SDL_RenderCopy(renderer, texture, nullptr, &dst);
+    SDL_RenderCopy(renderer, texture.GetTexture(), nullptr, &dst);
   }
 }
 
-void Renderer::RenderTexture(SDL_Texture* texture,
+void Renderer::RenderTexture(Image& texture,
                              float x,
                              float y,
                              float width,
                              float height) noexcept {
-  if ((texture != nullptr) && (width > 0) && (height > 0)) {
+  if ((width > 0) && (height > 0)) {
     SDL_FRect dst = {x, y, width, height};
-    SDL_RenderCopyF(renderer, texture, nullptr, &dst);
+    SDL_RenderCopyF(renderer, texture.GetTexture(), nullptr, &dst);
   }
 }
 
-void Renderer::RenderTexture(SDL_Texture* texture,
+void Renderer::RenderTexture(Image& texture,
                              const core::Rectangle& s,
                              const core::Rectangle& d) noexcept {
-  if (texture != nullptr) {
-    SDL_Rect src = s.ToSdlRect();
-    SDL_FRect dst = {d.GetX(), d.GetY(), d.GetWidth(), d.GetHeight()};
-    SDL_RenderCopyF(renderer, texture, &src, &dst);
-  }
+  SDL_Rect src = s.ToSdlRect();
+  SDL_FRect dst = {d.GetX(), d.GetY(), d.GetWidth(), d.GetHeight()};
+  SDL_RenderCopyF(renderer, texture.GetTexture(), &src, &dst);
 }
 
 void Renderer::RenderFillRect(float x, float y, float width, float height) noexcept {
@@ -123,29 +107,15 @@ void Renderer::RenderRect(int x, int y, int width, int height) noexcept {
   }
 }
 
-void Renderer::RenderText(const std::string& text, float x, float y) {
-  if (font != nullptr && !text.empty()) {
-    SDL_Texture* texture = CreateTexture(text);
-
-    if (texture == nullptr) {
-      return;
-    }
-
-    RenderTexture(texture, x, y);
-    SDL_DestroyTexture(texture);
-  }
-}
-
 void Renderer::RenderText(const std::string& text, float x, float y, Font& font) {
   if (!text.empty()) {
-    SDL_Texture* texture = CreateTexture(text, font);
+    auto texture = CreateTexture(text, font);
 
     if (texture == nullptr) {
       return;
     }
 
-    RenderTexture(texture, x, y);
-    SDL_DestroyTexture(texture);
+    RenderTexture(*texture, x, y);
   }
 }
 
@@ -155,10 +125,6 @@ void Renderer::SetColor(Uint8 red, Uint8 green, Uint8 blue, Uint8 alpha) noexcep
 
 void Renderer::SetColor(Uint8 red, Uint8 green, Uint8 blue) noexcept {
   SDL_SetRenderDrawColor(renderer, red, green, blue, SDL_ALPHA_OPAQUE);
-}
-
-void Renderer::SetFont(Font_sptr font) noexcept {
-  this->font = std::move(font);
 }
 
 void Renderer::SetViewport(const core::Rectangle& viewport) noexcept {
@@ -227,15 +193,7 @@ bool Renderer::GetUsingIntegerLogicalScaling() const noexcept {
   return SDL_RenderGetIntegerScale(renderer);
 }
 
-SDL_Texture* Renderer::CreateTexture(const std::string& s) const {
-  if (font == nullptr) {
-    return nullptr;
-  } else {
-    return CreateTexture(s, *font);
-  }
-}
-
-SDL_Texture* Renderer::CreateTexture(const std::string& s, Font& font) const {
+Image_uptr Renderer::CreateTexture(const std::string& s, Font& font) const {
   if (s.empty()) {
     return nullptr;
   }
@@ -252,7 +210,7 @@ SDL_Texture* Renderer::CreateTexture(const std::string& s, Font& font) const {
   SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
   SDL_FreeSurface(surface);
 
-  return texture;
+  return Image::Create(texture);
 }
 
-}  // namespace wanderer::visuals
+}

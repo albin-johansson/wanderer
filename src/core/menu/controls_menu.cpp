@@ -16,7 +16,7 @@ void ControlsMenu::Draw(Renderer& renderer, const Viewport& viewport) const {
   AbstractMenu::Draw(renderer, viewport);
 
   renderer.SetColor(0xFF, 0xFF, 0xFF);
-  renderer.RenderText("Controls", 500, 100);
+//  renderer.RenderText("Controls", 500, 100);
 }
 
 void ControlsMenu::HandleInput(const Input& input) noexcept {

@@ -11,15 +11,7 @@ MenuButton::MenuButton(std::string text, float x, float y, float width, float he
   bounds.SetHeight(height);
 }
 
-MenuButton::~MenuButton() {
-  if (texture) {
-    SDL_DestroyTexture(texture);
-  }
-
-  if (enlargedTexture) {
-    SDL_DestroyTexture(enlargedTexture);
-  }
-}
+MenuButton::~MenuButton() = default;
 
 bool MenuButton::Contains(float mx, float my) const noexcept {
   return bounds.Contains(mx, my);
@@ -38,17 +30,17 @@ void MenuButton::Draw(visuals::Renderer& renderer, visuals::FontBundle& fonts) c
     renderer.SetColor(0xFF, 0xFF, 0xFF);
 
     if (enlarged) {
-      if (enlargedTexture == nullptr) {
-        enlargedTexture = renderer.CreateTexture(text, font);
+      if (enlargedImg == nullptr) {
+        enlargedImg = renderer.CreateTexture(text, font);
       }
 
-      renderer.RenderTexture(enlargedTexture, x, y);
+      renderer.RenderTexture(*enlargedImg, x, y);
     } else {
-      if (texture == nullptr) {
-        texture = renderer.CreateTexture(text, font);
+      if (normalImg == nullptr) {
+        normalImg = renderer.CreateTexture(text, font);
       }
 
-      renderer.RenderTexture(texture, x, y);
+      renderer.RenderTexture(*normalImg, x, y);
     }
   }
 }

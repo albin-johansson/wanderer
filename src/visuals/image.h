@@ -5,6 +5,12 @@
 
 namespace wanderer::visuals {
 
+class Image;
+
+using Image_uptr = std::unique_ptr<Image>;
+using Image_sptr = std::shared_ptr<Image>;
+using Image_wptr = std::weak_ptr<Image>;
+
 /**
  * The Image class represents an image that is hardware-accelerated.
  *
@@ -25,7 +31,13 @@ class Image final {
    */
   Image(SDL_Renderer* renderer, const std::string& path);
 
+  explicit Image(SDL_Texture* texture);
+
   ~Image();
+
+  [[nodiscard]] static Image_uptr Create(SDL_Renderer* renderer, const std::string& path);
+
+  [[nodiscard]] static Image_uptr Create(SDL_Texture* texture);
 
   /**
    * Returns the format of the internal SDL_Texture.
@@ -69,9 +81,5 @@ class Image final {
     return texture;
   }
 };
-
-using Image_uptr = std::unique_ptr<Image>;
-using Image_sptr = std::shared_ptr<Image>;
-using Image_wptr = std::weak_ptr<Image>;
 
 }

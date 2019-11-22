@@ -15,7 +15,7 @@ void SettingsMenu::Draw(visuals::Renderer& renderer, const Viewport& viewport) c
   AbstractMenu::Draw(renderer, viewport);
 
   renderer.SetColor(0xFF, 0xFF, 0xFF);
-  renderer.RenderText("Settings", 500, 100);
+//  renderer.RenderText("Settings", 500, 100);
 }
 
 void SettingsMenu::HandleInput(const Input& input) noexcept {

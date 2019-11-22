@@ -14,7 +14,7 @@ using FontBundle_wptr = std::weak_ptr<FontBundle>;
 class FontBundle final {
  private:
   Font font12;
-  Font font16;
+  Font font18;
   Font font24;
   Font font36;
 
@@ -27,7 +27,7 @@ class FontBundle final {
 
   [[nodiscard]] Font& GetFont12() noexcept { return font12; }
 
-  [[nodiscard]] Font& GetFont16() noexcept { return font16; }
+  [[nodiscard]] Font& GetFont18() noexcept { return font18; }
 
   [[nodiscard]] Font& GetFont24() noexcept { return font24; }
 

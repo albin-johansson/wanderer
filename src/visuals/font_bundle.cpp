@@ -4,7 +4,7 @@ namespace wanderer::visuals {
 
 FontBundle::FontBundle(const std::string& file)
     : font12(file, 12),
-      font16(file, 16),
+      font18(file, 18),
       font24(file, 24),
       font36(file, 36) {}
 

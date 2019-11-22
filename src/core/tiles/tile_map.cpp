@@ -71,7 +71,7 @@ void TileMap::Draw(visuals::Renderer& renderer, const Viewport& viewport) const 
       if (image != nullptr) {
         auto x = viewport.GetTranslatedX(static_cast<float>(c) * ITile::SIZE);
         auto y = viewport.GetTranslatedY(static_cast<float>(r) * ITile::SIZE);
-        renderer.RenderTexture(image->GetTexture(), x, y, ITile::SIZE, ITile::SIZE);
+        renderer.RenderTexture(*image, x, y, ITile::SIZE, ITile::SIZE);
       }
     }
   }
