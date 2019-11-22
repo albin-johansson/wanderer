@@ -18,7 +18,6 @@ bool MenuButton::Contains(float mx, float my) const noexcept {
 }
 
 void MenuButton::Draw(visuals::Renderer& renderer, visuals::FontBundle& fonts) const {
-
   if (!text.empty()) {
     auto& font = enlarged ? fonts.GetFont36() : fonts.GetFont24();
 
@@ -33,13 +32,11 @@ void MenuButton::Draw(visuals::Renderer& renderer, visuals::FontBundle& fonts) c
       if (enlargedImg == nullptr) {
         enlargedImg = renderer.CreateTexture(text, font);
       }
-
       renderer.RenderTexture(*enlargedImg, x, y);
     } else {
       if (normalImg == nullptr) {
         normalImg = renderer.CreateTexture(text, font);
       }
-
       renderer.RenderTexture(*normalImg, x, y);
     }
   }
