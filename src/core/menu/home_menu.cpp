@@ -31,7 +31,7 @@ void HomeMenu::HandleInput(const Input& input) noexcept {
   auto my = input.GetMouseY();
   bool leftReleased = input.WasLeftButtonReleased();
 
-  startButton.SetEnlarged(!leftReleased and startButton.Contains(mx, my));
+  startButton.SetEnlarged(!leftReleased && startButton.Contains(mx, my));
   settingsButton.SetEnlarged(!leftReleased && settingsButton.Contains(mx, my));
   controlsButton.SetEnlarged(!leftReleased && controlsButton.Contains(mx, my));
   quitButton.SetEnlarged(!leftReleased && quitButton.Contains(mx, my));
