@@ -4,7 +4,7 @@
 namespace albinjohansson::wanderer {
 
 int RandomUtils::GetInt(int min, int max) {
-  return (rand() % (max + 1 - min)) + min;
+  return (std::rand() % (max + 1 - min)) + min;
 }
 
 bool RandomUtils::GetBool() {
