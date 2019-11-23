@@ -5,6 +5,8 @@
 
 namespace albinjohansson::wanderer {
 
+// TODO merchant, citizen, wizard, orc
+
 /**
  * The IEntity interface is a subinterface of IMovableObject that specifies objects that are
  * "alive" in the game world.
