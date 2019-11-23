@@ -22,11 +22,30 @@ class IEntity : public IMovableObject, public IAnimated {
  public:
   ~IEntity() override = default;
 
+  /**
+   * Hurts the entity by the supplied damage amount.
+   *
+   * @param dmg the amount of damage that will be inflicted upon the entity.
+   * @since 0.1.0
+   */
   virtual void Hurt(int dmg) noexcept = 0;
 
+  /**
+   * Returns the health of the entity.
+   *
+   * @return the health of the entity.
+   * @since 0.1.0
+   */
   [[nodiscard]] virtual int GetHealth() const noexcept = 0;
 
+  /**
+   * Indicates whether or not the entity is dead.
+   *
+   * @return true if the entity is dead; false otherwise.
+   * @since 0.1.0
+   */
   [[nodiscard]] virtual bool IsDead() const noexcept = 0;
+
 };
 
 using IEntity_uptr = std::unique_ptr<IEntity>;
