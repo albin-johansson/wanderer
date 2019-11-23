@@ -3,7 +3,7 @@
 #include "renderer.h"
 #include "input.h"
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 /**
  * The IWandererCore interface specifies the facade of the core component of the Wanderer
@@ -41,7 +41,7 @@ class IWandererCore {
    * @param alpha the interpolation coefficient, in the range [0, 1].
    * @since 0.1.0
    */
-  virtual void Render(visuals::Renderer& renderer, float alpha) = 0;
+  virtual void Render(Renderer& renderer, float alpha) = 0;
 
   /**
    * Enables the hint that the game should quit as soon as possible.

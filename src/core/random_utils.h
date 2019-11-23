@@ -1,6 +1,6 @@
 #pragma once
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 class RandomUtils final {
  public:

@@ -4,11 +4,9 @@
 #include "world_impl.h"
 #include <fstream>
 
-using namespace wanderer::audio;
+namespace albinjohansson::wanderer {
 
-namespace wanderer::core {
-
-GameImpl::GameImpl(visuals::ImageGenerator& imageGenerator) {
+GameImpl::GameImpl(ImageGenerator& imageGenerator) {
   soundEngine = SoundEngine::Create();
   LoadSoundEffects();
 
@@ -17,7 +15,7 @@ GameImpl::GameImpl(visuals::ImageGenerator& imageGenerator) {
 
 GameImpl::~GameImpl() = default;
 
-IGame_uptr GameImpl::Create(visuals::ImageGenerator& imageGenerator) {
+IGame_uptr GameImpl::Create(ImageGenerator& imageGenerator) {
   return std::make_unique<GameImpl>(imageGenerator);
 }
 

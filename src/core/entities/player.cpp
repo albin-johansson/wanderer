@@ -2,10 +2,9 @@
 #include "movable_delegate.h"
 #include "player_state_machine_impl.h"
 #include "objects.h"
+;
 
-using namespace wanderer::visuals;
-
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 Player::Player(Image_sptr sheet) : AbstractEntity(sheet) {
   playerStateMachine = PlayerStateMachineImpl::Create(this);

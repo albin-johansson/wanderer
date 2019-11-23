@@ -1,9 +1,8 @@
 #pragma once
 #include "tile.h"
+;
 
-using namespace wanderer::visuals;
-
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 /**
  * The AbstractTile class is an abstract class that partially implements the ITile interface.
@@ -18,7 +17,7 @@ class AbstractTile : public ITile {
   const int id;
 
  protected:
-  visuals::Image_sptr image = nullptr;
+  Image_sptr image = nullptr;
 
   AbstractTile(int row, int col, int id);
 
@@ -27,7 +26,7 @@ class AbstractTile : public ITile {
 
   void Tick(const IGame& game, float delta) override;
 
-  void SetImage(visuals::Image_sptr image) noexcept final;
+  void SetImage(Image_sptr image) noexcept final;
 
   [[nodiscard]] inline Image_sptr GetImage() const noexcept final {
     return image;

@@ -1,6 +1,6 @@
 #include "animation.h"
 
-namespace wanderer::visuals {
+namespace albinjohansson::wanderer {
 
 Animation::Animation() noexcept {
   index = 0;

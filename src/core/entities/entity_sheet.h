@@ -1,7 +1,7 @@
 #pragma once
 #include "direction.h"
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 /**
  * The EntitySheet class is a utility for calculating the correct source coordinate in an entity

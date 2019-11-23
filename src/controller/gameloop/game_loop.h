@@ -3,7 +3,7 @@
 #include "renderer.h"
 #include <memory>
 
-namespace wanderer::controller {
+namespace albinjohansson::wanderer {
 
 /**
  * The IGameLoop interface specifies objects that represent various kinds of game loops that serve
@@ -25,7 +25,7 @@ class IGameLoop {
    * @param renderer a reference to the renderer that will be used.
    * @since 0.1.0
    */
-  virtual void Update(core::IWandererCore& core, visuals::Renderer& renderer) = 0;
+  virtual void Update(IWandererCore& core, Renderer& renderer) = 0;
 
 //  /**
 //   * Indicates whether or not the game should quit.

@@ -2,9 +2,7 @@
 #include <bad_state_exception.h>
 #include <stdexcept>
 
-using namespace wanderer::core;
-
-namespace wanderer::visuals {
+namespace albinjohansson::wanderer {
 
 Font::Font(const std::string& file, int size) : size(size) {
   if (size <= 0) {

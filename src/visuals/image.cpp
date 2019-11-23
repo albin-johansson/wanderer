@@ -3,9 +3,7 @@
 #include <SDL_image.h>
 #include "bad_state_exception.h"
 
-using namespace wanderer::core;
-
-namespace wanderer::visuals {
+namespace albinjohansson::wanderer {
 
 Image::Image(SDL_Renderer* renderer, const std::string& path) {
   Objects::RequireNonNull(renderer);

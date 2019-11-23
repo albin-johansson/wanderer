@@ -1,7 +1,7 @@
 #pragma once
 #include "rectangle.h"
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 /**
    * A simple struct that describes an area, using floating-point values.

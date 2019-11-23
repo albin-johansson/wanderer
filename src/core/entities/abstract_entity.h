@@ -3,17 +3,17 @@
 #include "animation.h"
 #include "image.h"
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 class AbstractEntity : public IEntity {
  private:
   IMovableObject_uptr movable = nullptr;
-  visuals::Image_sptr sheet = nullptr;
-  visuals::Animation animation;
+  Image_sptr sheet = nullptr;
+  Animation animation;
   int health = 100;
 
  public:
-  explicit AbstractEntity(visuals::Image_sptr sheet);
+  explicit AbstractEntity(Image_sptr sheet);
 
   ~AbstractEntity() override;
 
@@ -59,7 +59,7 @@ class AbstractEntity : public IEntity {
     return movable->GetInterpolatedPosition();
   }
 
-  [[nodiscard]] visuals::Image& GetSpriteSheet() const noexcept override { return *sheet; }
+  [[nodiscard]] Image& GetSpriteSheet() const noexcept override { return *sheet; }
 
   [[nodiscard]] float GetX() const noexcept override { return movable->GetX(); }
 

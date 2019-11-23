@@ -1,7 +1,7 @@
 #pragma once
 #include <SDL.h>
 
-namespace wanderer::service {
+namespace albinjohansson::wanderer {
 
 /**
  * The DisplayModes class is a service that provides information about display modes.

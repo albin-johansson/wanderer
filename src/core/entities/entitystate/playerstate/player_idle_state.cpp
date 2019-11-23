@@ -1,7 +1,7 @@
 #include "player_idle_state.h"
 #include "entity_state_machine.h"
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 PlayerIdleState::PlayerIdleState(IEntityStateMachine* parent)
     : idleDelegate(EntityIdleDelegate(parent)) {}

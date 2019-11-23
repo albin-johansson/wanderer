@@ -7,7 +7,7 @@
 #include <map>
 #include <memory>
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 template<class T>
 class AbstractEntityStateMachine : public virtual IEntityStateMachine {
@@ -36,7 +36,7 @@ class AbstractEntityStateMachine : public virtual IEntityStateMachine {
     states.at(activeStateID)->Tick(game, delta);
   }
 
-  void Draw(visuals::Renderer& renderer, const Viewport& viewport) const final {
+  void Draw(Renderer& renderer, const Viewport& viewport) const final {
     states.at(activeStateID)->Draw(renderer, viewport);
   }
 

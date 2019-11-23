@@ -2,7 +2,7 @@
 #include <memory>
 #include <stdexcept>
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 /**
  * The Objects class provides utility methods related to objects, such as fail-fast null checks.

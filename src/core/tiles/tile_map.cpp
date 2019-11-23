@@ -2,9 +2,9 @@
 #include "grass_tile.h"
 #include "objects.h"
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
-TileMap::TileMap(visuals::ImageGenerator& imageGenerator, int nRows, int nCols)
+TileMap::TileMap(ImageGenerator& imageGenerator, int nRows, int nCols)
     : nRows(nRows), nCols(nCols) {
   tiles = std::make_unique<TileMatrix>();
   tiles->reserve(nRows);
@@ -28,7 +28,7 @@ TileMap::TileMap(visuals::ImageGenerator& imageGenerator, int nRows, int nCols)
 
 TileMap::~TileMap() = default;
 
-TileMap_uptr TileMap::Create(visuals::ImageGenerator& imageGenerator, int nRows, int nCols) {
+TileMap_uptr TileMap::Create(ImageGenerator& imageGenerator, int nRows, int nCols) {
   return std::make_unique<TileMap>(imageGenerator, nRows, nCols);
 }
 
@@ -59,7 +59,7 @@ void TileMap::CalculateRenderBounds(const Rectangle& bounds,
   }
 }
 
-void TileMap::Draw(visuals::Renderer& renderer, const Viewport& viewport) const noexcept {
+void TileMap::Draw(Renderer& renderer, const Viewport& viewport) const noexcept {
   auto bounds = viewport.GetBounds();
   int minRow, maxRow, minCol, maxCol;
   CalculateRenderBounds(bounds, minRow, maxRow, minCol, maxCol);

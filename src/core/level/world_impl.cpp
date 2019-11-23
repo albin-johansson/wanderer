@@ -3,12 +3,11 @@
 #include "player.h"
 #include "skeleton.h"
 #include <algorithm>
+;
 
-using namespace wanderer::visuals;
+namespace albinjohansson::wanderer {
 
-namespace wanderer::core {
-
-WorldImpl::WorldImpl(visuals::ImageGenerator& imageGenerator) {
+WorldImpl::WorldImpl(ImageGenerator& imageGenerator) {
   player = Player::Create(imageGenerator.Load("resources/img/player2.png"));
   player->SetSpeed(300);
   player->SetX(1000);
@@ -29,7 +28,7 @@ WorldImpl::WorldImpl(visuals::ImageGenerator& imageGenerator) {
 
 WorldImpl::~WorldImpl() = default;
 
-IWorld_uptr WorldImpl::Create(visuals::ImageGenerator& imageGenerator) {
+IWorld_uptr WorldImpl::Create(ImageGenerator& imageGenerator) {
   return std::make_unique<WorldImpl>(imageGenerator);
 }
 
@@ -56,7 +55,7 @@ void WorldImpl::Interpolate(float alpha) {
   }
 }
 
-void WorldImpl::Render(visuals::Renderer& renderer, const Viewport& viewport, float alpha) {
+void WorldImpl::Render(Renderer& renderer, const Viewport& viewport, float alpha) {
   Interpolate(alpha);
   tileMap->Draw(renderer, viewport);
 

@@ -2,7 +2,7 @@
 #include "movable_object.h"
 #include "vector_2.h"
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 /**
  * The MovableObjectDelegate class is an implementation of the IGameObject interface that is meant
@@ -51,7 +51,7 @@ class MovableObjectDelegate final : public IMovableObject {
    */
   static IMovableObject_uptr Create(float width, float height);
 
-  void Draw(visuals::Renderer& renderer, const Viewport& viewport) const noexcept override;
+  void Draw(Renderer& renderer, const Viewport& viewport) const noexcept override;
 
   void Tick(const IGame& game, float delta) override;
 

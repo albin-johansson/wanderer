@@ -8,7 +8,7 @@
 #include "image.h"
 #include "tile_set.h"
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 using TileMatrix = std::vector<std::vector<int>>;
 
@@ -42,15 +42,15 @@ class TileMap final : public IDrawable {
    * @param nCols the number of columns in the tile map.
    * @since 0.1.0
    */
-  TileMap(visuals::ImageGenerator& imageGenerator, int nRows, int nCols);
+  TileMap(ImageGenerator& imageGenerator, int nRows, int nCols);
 
   ~TileMap() override;
 
-  static TileMap_uptr Create(visuals::ImageGenerator& imageGenerator,
+  static TileMap_uptr Create(ImageGenerator& imageGenerator,
                              int nRows,
                              int nCols);
 
-  void Draw(visuals::Renderer& renderer, const Viewport& viewport) const noexcept override;
+  void Draw(Renderer& renderer, const Viewport& viewport) const noexcept override;
 
   /**
    * Sets the tile at the specified position.

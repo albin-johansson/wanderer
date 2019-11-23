@@ -7,7 +7,7 @@
 #include "mouse_state_manager.h"
 #include "game_loop.h"
 
-namespace wanderer::controller {
+namespace albinjohansson::wanderer {
 
 /**
  * The WandererControllerImpl class is an implementation of the IWandererController interface.
@@ -20,9 +20,9 @@ class WandererControllerImpl final : public IWandererController {
   static constexpr float LOGICAL_WIDTH = 1366;
   static constexpr float LOGICAL_HEIGHT = 768;
 
-  core::IWandererCore_uptr core = nullptr;
-  visuals::Window_uptr window = nullptr;
-  visuals::Renderer_sptr renderer = nullptr;
+  IWandererCore_uptr core = nullptr;
+  Window_uptr window = nullptr;
+  Renderer_sptr renderer = nullptr;
 
   KeyStateManager_sptr keyStateManager = nullptr;
   MouseStateManager_sptr mouseStateManager = nullptr;

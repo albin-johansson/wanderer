@@ -3,7 +3,7 @@
 #include "viewport.h"
 #include "entity.h"
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 /**
  * The EntityDrawDelegate provides a method that renders an entity.
@@ -26,7 +26,7 @@ class EntityDrawDelegate final {
    * @param srcY the source y-coordinate of the area in the sprite sheet that will be rendered.
    * @since 0.1.0
    */
-  static void Draw(visuals::Renderer& renderer,
+  static void Draw(Renderer& renderer,
                    const Viewport& viewport,
                    const IEntity& entity,
                    float srcX,

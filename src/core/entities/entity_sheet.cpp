@@ -1,6 +1,6 @@
 #include "entity_sheet.h"
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 float EntitySheet::GetSourceY(int y, Direction direction) noexcept {
   switch (direction) {

@@ -2,7 +2,7 @@
 #include "renderer.h"
 #include "viewport.h"
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 /**
  * The IDrawable interface specifies objects that can be drawn using a renderer.
@@ -23,7 +23,7 @@ class IDrawable {
    * @param viewport a reference to the viewport that will be used.
    * @since 0.1.0
    */
-  virtual void Draw(visuals::Renderer& renderer, const Viewport& viewport) const = 0;
+  virtual void Draw(Renderer& renderer, const Viewport& viewport) const = 0;
 };
 
 }

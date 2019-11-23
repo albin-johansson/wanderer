@@ -3,10 +3,9 @@
 #include <utility>
 #include "objects.h"
 #include "skeleton_state_machine.h"
+;
 
-using namespace wanderer::visuals;
-
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 Skeleton::Skeleton(Image_sptr sheet) : AbstractEntity(std::move(sheet)) {
   stateMachine = std::make_unique<SkeletonStateMachine>(this);

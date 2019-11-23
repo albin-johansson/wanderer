@@ -3,7 +3,7 @@
 #include "objects.h"
 #include "entity_draw_delegate.h"
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 EntityMoveDelegate::EntityMoveDelegate(IEntityStateMachine* parent) {
   this->parent = Objects::RequireNonNull(parent);
@@ -11,7 +11,7 @@ EntityMoveDelegate::EntityMoveDelegate(IEntityStateMachine* parent) {
 
 EntityMoveDelegate::~EntityMoveDelegate() = default;
 
-void EntityMoveDelegate::Draw(visuals::Renderer& renderer, const Viewport& viewport) const {
+void EntityMoveDelegate::Draw(Renderer& renderer, const Viewport& viewport) const {
   IEntity& entity = parent->GetEntity();
 
   auto srcX = entity.GetVelocity().IsZero() ? 0 : entity.GetAnimationFrame() * 64;
@@ -23,7 +23,7 @@ void EntityMoveDelegate::Tick(const IGame& game, float delta) {
   IEntity& entity = parent->GetEntity();
 
   entity.UpdateAnimation();
-  
+
   Vector2 velocity = entity.GetVelocity();
   entity.AddX(velocity.GetX() * delta);
   entity.AddY(velocity.GetY() * delta);

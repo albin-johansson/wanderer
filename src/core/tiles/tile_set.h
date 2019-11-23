@@ -5,7 +5,7 @@
 #include "renderer.h"
 #include "viewport.h"
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 class TileSet final {
  private:
@@ -16,13 +16,13 @@ class TileSet final {
 
   ~TileSet();
 
-//  void Draw(visuals::Renderer& renderer, const Viewport& viewport, int row, int col, int id);
+//  void Draw(Renderer& renderer, const Viewport& viewport, int row, int col, int id);
 
   bool IsBlocked(int id) const;
 
-  void SetImage(int id, visuals::Image_sptr img);
+  void SetImage(int id, Image_sptr img);
 
-  visuals::Image_sptr GetImage(int id) const;
+  Image_sptr GetImage(int id) const;
 };
 
 }

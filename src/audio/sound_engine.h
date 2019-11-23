@@ -4,7 +4,7 @@
 #include <memory>
 #include "sound_effect.h"
 
-namespace wanderer::audio {
+namespace albinjohansson::wanderer {
 
 class SoundEngine;
 

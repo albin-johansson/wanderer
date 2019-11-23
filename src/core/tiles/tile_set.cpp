@@ -1,9 +1,8 @@
 #include "tile_set.h"
 #include "grass_tile.h"
+;
 
-using namespace wanderer::visuals;
-
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 TileSet::TileSet() {
   tiles.insert(std::pair<int, ITile_uptr>(0, std::make_unique<GrassTile>(0, 0, 0)));
@@ -11,7 +10,7 @@ TileSet::TileSet() {
 
 TileSet::~TileSet() = default;
 
-void TileSet::SetImage(int id, visuals::Image_sptr img) {
+void TileSet::SetImage(int id, Image_sptr img) {
   tiles.at(id)->SetImage(img);
 }
 

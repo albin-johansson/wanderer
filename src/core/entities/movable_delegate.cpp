@@ -1,7 +1,7 @@
 #include "movable_delegate.h"
 #include <stdexcept>
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 MovableObjectDelegate::MovableObjectDelegate(float width, float height)
     : width(width), height(height) {
@@ -17,7 +17,7 @@ IMovableObject_uptr MovableObjectDelegate::Create(float width, float height) {
   return std::make_unique<MovableObjectDelegate>(width, height);
 }
 
-void MovableObjectDelegate::Draw(visuals::Renderer& renderer,
+void MovableObjectDelegate::Draw(Renderer& renderer,
                                  const Viewport& viewport) const noexcept {
   /* do nothing */
 }

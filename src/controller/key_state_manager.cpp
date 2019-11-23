@@ -1,6 +1,6 @@
 #include "key_state_manager.h"
 
-namespace wanderer::controller {
+namespace albinjohansson::wanderer {
 
 KeyStateManager::KeyStateManager() {
   nKeys = 0;

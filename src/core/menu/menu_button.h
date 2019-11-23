@@ -4,7 +4,7 @@
 #include <string>
 #include <image.h>
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 /**
  * The MenuButton class is a simple representation of a graphical button.
@@ -14,8 +14,8 @@ namespace wanderer::core {
 class MenuButton final : public IMenuDrawable {
  private:
   Rectangle bounds;
-  mutable visuals::Image_uptr normalImg = nullptr;
-  mutable visuals::Image_uptr enlargedImg = nullptr;
+  mutable Image_uptr normalImg = nullptr;
+  mutable Image_uptr enlargedImg = nullptr;
   const std::string text = "";
   bool enlarged = false;
 
@@ -32,7 +32,7 @@ class MenuButton final : public IMenuDrawable {
 
   ~MenuButton() override;
 
-  void Draw(visuals::Renderer& renderer, visuals::FontBundle& fonts) const override;
+  void Draw(Renderer& renderer, FontBundle& fonts) const override;
 
   void SetEnlarged(bool enlarged) noexcept;
 

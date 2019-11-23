@@ -3,7 +3,7 @@
 #include "animated.h"
 #include <memory>
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 /**
  * The IEntity interface is a subinterface of IMovableObject that specifies objects that are
@@ -19,7 +19,7 @@ class IEntity : public IMovableObject, public IAnimated {
 
  public:
   ~IEntity() override = default;
-  
+
   virtual void Hurt(int dmg) noexcept = 0;
 
   [[nodiscard]] virtual int GetHealth() const noexcept = 0;

@@ -5,7 +5,7 @@
 #include "image_generator.h"
 #include "menu_state_machine.h"
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 /**
  * The WandererCoreImpl class is an implementation of the IWandererCore interface.
@@ -19,7 +19,7 @@ class WandererCoreImpl final : public IWandererCore {
   Viewport viewport;
   bool shouldQuit = false;
 
-  explicit WandererCoreImpl(visuals::ImageGenerator& imageGenerator);
+  explicit WandererCoreImpl(ImageGenerator& imageGenerator);
 
  public:
   ~WandererCoreImpl() override;
@@ -31,13 +31,13 @@ class WandererCoreImpl final : public IWandererCore {
    * @return a unique pointer to an IWandererCore instance.
    * @since 0.1.0
    */
-  friend IWandererCore_uptr CreateCore(visuals::ImageGenerator& imageGenerator);
+  friend IWandererCore_uptr CreateCore(ImageGenerator& imageGenerator);
 
   void HandleInput(const Input& input) override;
 
   void Update(float delta) override;
 
-  void Render(visuals::Renderer& renderer, float alpha) override;
+  void Render(Renderer& renderer, float alpha) override;
 
   void Quit() noexcept override;
 

@@ -4,7 +4,7 @@
 #include "entity_idle_delegate.h"
 #include <SDL_timer.h>
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 class SkeletonIdleState : public IEntityState {
  private:
@@ -18,7 +18,7 @@ class SkeletonIdleState : public IEntityState {
 
   void Tick(const IGame& game, float delta) override;
 
-  void Draw(visuals::Renderer& renderer, const Viewport& viewport) const override;
+  void Draw(Renderer& renderer, const Viewport& viewport) const override;
 
   void Enter(const IGame& game) override;
 

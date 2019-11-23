@@ -3,10 +3,9 @@
 #include "in_game_menu.h"
 #include "settings_menu.h"
 #include "controls_menu.h"
+;
 
-using namespace wanderer::visuals;
-
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 MenuStateMachineImpl::MenuStateMachineImpl(IWandererCore* core)
     : typewriterFonts("resources/font/type_writer.ttf") {

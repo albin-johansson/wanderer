@@ -3,10 +3,7 @@
 #include <SDL.h>
 #include <iostream>
 
-using namespace wanderer::core;
-using namespace wanderer::visuals;
-
-namespace wanderer::controller {
+namespace albinjohansson::wanderer {
 
 SmoothFixedTimestepLoop::SmoothFixedTimestepLoop(KeyStateManager_sptr keyStateManager,
                                                  MouseStateManager_sptr mouseStateManager,
@@ -27,7 +24,7 @@ SmoothFixedTimestepLoop_uptr SmoothFixedTimestepLoop::Create(KeyStateManager_spt
   return std::make_unique<SmoothFixedTimestepLoop>(keyStateManager, mouseStateManager, vsyncRate);
 }
 
-void SmoothFixedTimestepLoop::UpdateInput(core::IWandererCore& core) {
+void SmoothFixedTimestepLoop::UpdateInput(IWandererCore& core) {
   mouseStateManager->Update();
   keyStateManager->Update();
 

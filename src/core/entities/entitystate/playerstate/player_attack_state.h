@@ -4,7 +4,7 @@
 #include "entity_state_machine.h"
 #include "entity_attack_delegate.h"
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 /**
  * The PlayerAttackState class is an implementation of the IPlayerState interface that represents
@@ -29,7 +29,7 @@ class PlayerAttackState final : public IPlayerState {
 
   void HandleInput(const Input& input, const IGame& game) override;
 
-  inline void Draw(visuals::Renderer& renderer, const Viewport& viewport) const override {
+  inline void Draw(Renderer& renderer, const Viewport& viewport) const override {
     attackDelegate.Draw(renderer, viewport);
   }
 

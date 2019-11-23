@@ -3,7 +3,7 @@
 #include "entity_sheet.h"
 #include "entity_draw_delegate.h"
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 EntityAttackDelegate::EntityAttackDelegate(IEntityStateMachine* parent) {
   this->parent = Objects::RequireNonNull(parent);
@@ -11,7 +11,7 @@ EntityAttackDelegate::EntityAttackDelegate(IEntityStateMachine* parent) {
 
 EntityAttackDelegate::~EntityAttackDelegate() = default;
 
-void EntityAttackDelegate::Draw(visuals::Renderer& renderer, const Viewport& viewport) const {
+void EntityAttackDelegate::Draw(Renderer& renderer, const Viewport& viewport) const {
   IEntity& entity = parent->GetEntity();
 
   auto srcX = entity.GetAnimationFrame() * 64;

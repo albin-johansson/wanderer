@@ -2,7 +2,7 @@
 #include <stdexcept>
 #include <string>
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 /**
  * The BadStateException class is a subclass of std::exception that represents an exception caused

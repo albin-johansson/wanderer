@@ -2,7 +2,7 @@
 #include <SDL_types.h>
 #include "image.h"
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 /**
  * The IAnimated interface specifies objects that can be animated.
@@ -71,7 +71,7 @@ class IAnimated {
    * @return a reference to the internal sprite sheet.
    * @since 0.1.0
    */
-  [[nodiscard]] virtual visuals::Image& GetSpriteSheet() const noexcept = 0;
+  [[nodiscard]] virtual Image& GetSpriteSheet() const noexcept = 0;
 
 };
 

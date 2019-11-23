@@ -1,7 +1,7 @@
 #pragma once
 #include <SDL_timer.h>
 
-namespace wanderer::visuals {
+namespace albinjohansson::wanderer {
 
 /**
  * The Animation class represents an arbitrary animation of a set of frames.

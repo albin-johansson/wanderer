@@ -4,7 +4,7 @@
 #include "font_bundle.h"
 #include <map>
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 /**
  * The MenuStateMachineImpl class is an implementation of the IMenuStateMachine interface.
@@ -14,7 +14,7 @@ namespace wanderer::core {
  */
 class MenuStateMachineImpl final : public IMenuStateMachine {
  private:
-  visuals::FontBundle typewriterFonts;
+  FontBundle typewriterFonts;
   std::map<MenuID, IMenu_uptr> menus;
   MenuID activeMenuID = MenuID::HOME;
 
@@ -27,7 +27,7 @@ class MenuStateMachineImpl final : public IMenuStateMachine {
 
   static IMenuStateMachine_uptr Create(IWandererCore* core);
 
-  void Draw(visuals::Renderer& renderer, const core::Viewport& viewport) const noexcept override;
+  void Draw(Renderer& renderer, const Viewport& viewport) const noexcept override;
 
   void HandleInput(const Input& input) noexcept override;
 

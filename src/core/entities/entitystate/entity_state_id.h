@@ -1,6 +1,6 @@
 #pragma once
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 /**
  * The EntityStateID enum class provides values that serve as identifiers (or keys) for the various

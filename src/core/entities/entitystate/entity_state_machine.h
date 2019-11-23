@@ -7,7 +7,7 @@
 #include "input.h"
 #include "game.h"
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 /**
  * The IEntityStateMachine interface specifies objects that represent state machines related to

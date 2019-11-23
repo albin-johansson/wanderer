@@ -3,10 +3,7 @@
 #include "objects.h"
 #include "bool_converter.h"
 
-using namespace wanderer::core;
-using namespace wanderer::service;
-
-namespace wanderer::visuals {
+namespace albinjohansson::wanderer {
 
 Window::Window(const std::string& title, int width, int height) {
   if ((width < 1) || (height < 1)) {
@@ -94,4 +91,4 @@ std::string Window::GetTitle() const noexcept {
   return SDL_GetWindowTitle(window);
 }
 
-}  // namespace wanderer::visuals
+}  // namespace albinjohansson::wanderer

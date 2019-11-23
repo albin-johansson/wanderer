@@ -4,7 +4,7 @@
 #include "image.h"
 #include <memory>
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 /**
  * The ITile interface specifies objects that represent tiles.
@@ -21,9 +21,9 @@ class ITile : public IGameObject { // FIXME tiles should probably not implement 
 
   ~ITile() override = default;
 
-  virtual void SetImage(visuals::Image_sptr image) noexcept = 0;
+  virtual void SetImage(Image_sptr image) noexcept = 0;
 
-  [[nodiscard]] virtual visuals::Image_sptr GetImage() const noexcept = 0;
+  [[nodiscard]] virtual Image_sptr GetImage() const noexcept = 0;
 
   /**
    * Returns the type ID the tile.

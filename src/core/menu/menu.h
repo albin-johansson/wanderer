@@ -3,7 +3,7 @@
 #include "drawable.h"
 #include <memory>
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 /**
  * The IMenu interface specifies objects that represent interactive menus in the game.

@@ -7,7 +7,7 @@
 #include <memory>
 #include <SDL_types.h>
 
-namespace wanderer::controller {
+namespace albinjohansson::wanderer {
 
 class SmoothFixedTimestepLoop;
 
@@ -48,7 +48,7 @@ class SmoothFixedTimestepLoop final : public IGameLoop {
    * @param core a reference to the associated core model.
    * @since 0.1.0
    */
-  void UpdateInput(core::IWandererCore& core);
+  void UpdateInput(IWandererCore& core);
 
   /**
    * Smoothes the current delta value.
@@ -74,7 +74,7 @@ class SmoothFixedTimestepLoop final : public IGameLoop {
                                              MouseStateManager_sptr mouseStateManager,
                                              float vsyncRate);
 
-  void Update(core::IWandererCore& core, visuals::Renderer& renderer) override;
+  void Update(IWandererCore& core, Renderer& renderer) override;
 };
 
 }

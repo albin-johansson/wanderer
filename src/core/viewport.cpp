@@ -1,7 +1,7 @@
 #include "viewport.h"
 #include <stdexcept>
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 Viewport::Viewport() : Viewport({10, 10}, {10, 10}) {}
 

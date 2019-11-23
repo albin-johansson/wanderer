@@ -1,10 +1,9 @@
 #include "player_moving_state.h"
 #include "entity_sheet.h"
 #include "objects.h"
+;
 
-using namespace wanderer::visuals;
-
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 PlayerMovingState::PlayerMovingState(IEntityStateMachine* parent)
     : moveDelegate(parent) {

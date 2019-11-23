@@ -1,6 +1,6 @@
 #pragma once
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 /**
  * The Vector2 class represents a floating-point two-dimensional vector. This class is inspired

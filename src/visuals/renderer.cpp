@@ -3,10 +3,7 @@
 #include "bool_converter.h"
 #include <SDL_log.h>
 
-using namespace wanderer::core;
-using namespace wanderer::service;
-
-namespace wanderer::visuals {
+namespace albinjohansson::wanderer {
 
 Renderer::Renderer(SDL_Renderer* renderer) {
   this->renderer = Objects::RequireNonNull(renderer);
@@ -72,8 +69,8 @@ void Renderer::RenderTexture(Image& texture,
 }
 
 void Renderer::RenderTexture(Image& texture,
-                             const core::Rectangle& s,
-                             const core::Rectangle& d) noexcept {
+                             const Rectangle& s,
+                             const Rectangle& d) noexcept {
   SDL_Rect src = s.ToSdlRect();
   SDL_FRect dst = {d.GetX(), d.GetY(), d.GetWidth(), d.GetHeight()};
   SDL_RenderCopyF(renderer, texture.GetTexture(), &src, &dst);
@@ -127,7 +124,7 @@ void Renderer::SetColor(Uint8 red, Uint8 green, Uint8 blue) noexcept {
   SDL_SetRenderDrawColor(renderer, red, green, blue, SDL_ALPHA_OPAQUE);
 }
 
-void Renderer::SetViewport(const core::Rectangle& viewport) noexcept {
+void Renderer::SetViewport(const Rectangle& viewport) noexcept {
   SDL_Rect rect = viewport.ToSdlRect();
   SDL_RenderSetViewport(renderer, &rect);
 }

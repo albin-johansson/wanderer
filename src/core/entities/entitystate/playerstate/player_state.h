@@ -3,7 +3,7 @@
 #include "input.h"
 #include <memory>
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 /**
  * The IPlayerState interface is a subinterface of IEntityState that specifies objects that

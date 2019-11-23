@@ -1,6 +1,6 @@
 #include "abstract_tile.h"
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 AbstractTile::AbstractTile(int row, int col, int id)
     : row(row), col(col), id(id) {
@@ -12,7 +12,7 @@ void AbstractTile::Tick(const IGame& game, float delta) {
   /* do nothing */
 }
 
-void AbstractTile::SetImage(visuals::Image_sptr image) noexcept {
+void AbstractTile::SetImage(Image_sptr image) noexcept {
   this->image = image;
 }
 

@@ -1,7 +1,7 @@
 #pragma once
 #include <memory>
 
-namespace wanderer::controller {
+namespace albinjohansson::wanderer {
 
 class MouseStateManager;
 

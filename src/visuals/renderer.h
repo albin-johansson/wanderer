@@ -6,7 +6,7 @@
 #include "font.h"
 #include "image.h"
 
-namespace wanderer::visuals {
+namespace albinjohansson::wanderer {
 
 class Renderer;
 
@@ -110,8 +110,8 @@ class Renderer final {
   void RenderTexture(Image& texture, float x, float y, float width, float height) noexcept;
 
   void RenderTexture(Image& texture,
-                     const core::Rectangle& src,
-                     const core::Rectangle& dst) noexcept;
+                     const Rectangle& src,
+                     const Rectangle& dst) noexcept;
 
   /**
    * Renders a filled rectangle with the currently selected color. This method has no effect if the
@@ -193,7 +193,7 @@ class Renderer final {
    * @param viewport the viewport that will be used by the renderer.
    * @since 0.1.0
    */
-  void SetViewport(const core::Rectangle& viewport) noexcept;
+  void SetViewport(const Rectangle& viewport) noexcept;
 
   /**
    * Sets the viewport that will be used by the renderer. This method has no effect if any of the
@@ -284,7 +284,7 @@ class Renderer final {
    * @return the viewport that the renderer uses.
    * @since 0.1.0
    */
-  [[nodiscard]] core::Rectangle GetViewport() const noexcept;
+  [[nodiscard]] Rectangle GetViewport() const noexcept;
 
   /**
    * Returns a pointer to the internal SDL_Renderer instance.

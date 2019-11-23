@@ -4,7 +4,7 @@
 #include "rectangle.h"
 #include <memory>
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 /**
  * The IGameObject interface specifies the common interface for all game objects that are present

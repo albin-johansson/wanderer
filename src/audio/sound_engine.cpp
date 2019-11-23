@@ -1,7 +1,7 @@
 #include "sound_engine.h"
 #include <stdexcept>
 
-namespace wanderer::audio {
+namespace albinjohansson::wanderer {
 
 SoundEngine::SoundEngine() = default;
 

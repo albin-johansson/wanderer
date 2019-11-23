@@ -1,8 +1,8 @@
 #include "entity_draw_delegate.h"
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
-void EntityDrawDelegate::Draw(visuals::Renderer& renderer, const Viewport& viewport,
+void EntityDrawDelegate::Draw(Renderer& renderer, const Viewport& viewport,
                               const IEntity& entity, float srcX, float srcY) noexcept {
   Vector2 interpolatedPosition = entity.GetInterpolatedPosition();
   auto x = viewport.GetTranslatedX(interpolatedPosition.GetX());

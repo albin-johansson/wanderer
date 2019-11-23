@@ -1,7 +1,7 @@
 #pragma once
 #include <SDL_rect.h>
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 /**
  * The Rectangle class represents a rectangle with floating-point coordinates and integer

@@ -3,7 +3,7 @@
 #include "entity_sheet.h"
 #include "entity_draw_delegate.h"
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 EntityIdleDelegate::EntityIdleDelegate(IEntityStateMachine* parent) {
   this->parent = Objects::RequireNonNull(parent);
@@ -11,7 +11,7 @@ EntityIdleDelegate::EntityIdleDelegate(IEntityStateMachine* parent) {
 
 EntityIdleDelegate::~EntityIdleDelegate() = default;
 
-void EntityIdleDelegate::Draw(visuals::Renderer& renderer, const Viewport& viewport) const {
+void EntityIdleDelegate::Draw(Renderer& renderer, const Viewport& viewport) const {
   IEntity& entity = parent->GetEntity();
 
   float srcY = EntitySheet::GetSourceY(512, entity.GetDominantDirection());

@@ -4,7 +4,7 @@
 #include "entity_state_machine.h"
 #include <SDL_timer.h>
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 class SkeletonMovingState final : public IEntityState {
  private:
@@ -24,7 +24,7 @@ class SkeletonMovingState final : public IEntityState {
 
   void Tick(const IGame& game, float delta) override;
 
-  void Draw(visuals::Renderer& renderer, const Viewport& viewport) const override;
+  void Draw(Renderer& renderer, const Viewport& viewport) const override;
 
   void Enter(const IGame& game) override;
 

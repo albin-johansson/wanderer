@@ -32,7 +32,7 @@ static void Init() {
 }
 
 static void Run() {
-  using namespace wanderer::controller;
+  using namespace albinjohansson::wanderer;
 
   IWandererController_uptr controller = CreateController();
   controller->Run();

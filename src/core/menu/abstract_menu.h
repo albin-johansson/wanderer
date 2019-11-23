@@ -2,7 +2,7 @@
 #include "menu.h"
 #include "menu_state_machine.h"
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 class AbstractMenu : public IMenu {
  protected:
@@ -13,7 +13,7 @@ class AbstractMenu : public IMenu {
  public:
   ~AbstractMenu() noexcept override;
 
-  void Draw(visuals::Renderer& renderer, const Viewport& viewport) const override;
+  void Draw(Renderer& renderer, const Viewport& viewport) const override;
 
 };
 

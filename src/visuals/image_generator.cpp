@@ -1,9 +1,7 @@
 #include "image_generator.h"
 #include "objects.h"
 
-using namespace wanderer::core;
-
-namespace wanderer::visuals {
+namespace albinjohansson::wanderer {
 
 ImageGenerator::ImageGenerator(Renderer_sptr renderer) {
   this->renderer = Objects::RequireNonNull(std::move(renderer));

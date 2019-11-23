@@ -1,6 +1,6 @@
 #include "bad_state_exception.h"
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 BadStateException::BadStateException() : BadStateException("N/A") {}
 

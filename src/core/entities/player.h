@@ -4,7 +4,7 @@
 #include "image.h"
 #include <memory>
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 class Player;
 
@@ -28,7 +28,7 @@ class Player final : public AbstractEntity {
    * @throws NullPointerException if the supplied image pointer is null.
    * @since 0.1.0
    */
-  explicit Player(visuals::Image_sptr sheet);
+  explicit Player(Image_sptr sheet);
 
   ~Player() override = default;
 
@@ -40,7 +40,7 @@ class Player final : public AbstractEntity {
    * @throws NullPointerException if the supplied image pointer is null.
    * @since 0.1.0
    */
-  static Player_uptr Create(visuals::Image_sptr sheet);
+  static Player_uptr Create(Image_sptr sheet);
 
   void Tick(const IGame& game, float delta) override;
 
@@ -54,7 +54,7 @@ class Player final : public AbstractEntity {
     playerStateMachine->HandleInput(input, game);
   }
 
-  void Draw(visuals::Renderer& renderer, const Viewport& viewport) const noexcept override {
+  void Draw(Renderer& renderer, const Viewport& viewport) const noexcept override {
     playerStateMachine->Draw(renderer, viewport);
   }
 };

@@ -3,7 +3,7 @@
 #include <string>
 #include <memory>
 
-namespace wanderer::audio {
+namespace albinjohansson::wanderer {
 
 class SoundEffect;
 

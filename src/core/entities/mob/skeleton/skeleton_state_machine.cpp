@@ -3,7 +3,7 @@
 #include "skeleton_moving_state.h"
 #include "skeleton_attack_state.h"
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 SkeletonStateMachine::SkeletonStateMachine(IEntity* entity)
     : AbstractEntityStateMachine(entity) {

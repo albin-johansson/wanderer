@@ -2,7 +2,7 @@
 #include "entity_state.h"
 #include "entity.h"
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 /**
  * The EntityDyingDelegate class is an implementation of IEntityState that is meant to be used for
@@ -25,7 +25,7 @@ class EntityDyingDelegate final : public IEntityState {
 
   ~EntityDyingDelegate() override;
 
-  void Draw(visuals::Renderer& renderer, const Viewport& viewport) const override;
+  void Draw(Renderer& renderer, const Viewport& viewport) const override;
 
   void Enter(const IGame& game) override;
 

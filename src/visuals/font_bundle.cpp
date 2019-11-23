@@ -1,6 +1,6 @@
 #include "font_bundle.h"
 
-namespace wanderer::visuals {
+namespace albinjohansson::wanderer {
 
 FontBundle::FontBundle(const std::string& file)
     : font12(file, 12),

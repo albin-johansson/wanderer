@@ -1,7 +1,7 @@
 #include "menu_button.h"
 #include <utility>
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 MenuButton::MenuButton(std::string text, float x, float y, float width, float height)
     : text(std::move(text)) {
@@ -17,7 +17,7 @@ bool MenuButton::Contains(float mx, float my) const noexcept {
   return bounds.Contains(mx, my);
 }
 
-void MenuButton::Draw(visuals::Renderer& renderer, visuals::FontBundle& fonts) const {
+void MenuButton::Draw(Renderer& renderer, FontBundle& fonts) const {
   if (!text.empty()) {
     auto& font = enlarged ? fonts.GetFont36() : fonts.GetFont24();
 

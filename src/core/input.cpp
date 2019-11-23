@@ -2,9 +2,7 @@
 #include "objects.h"
 #include <utility>
 
-using namespace wanderer::controller;
-
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 Input::Input(KeyStateManager_sptr keyStateManager, MouseStateManager_sptr mouseStateManager) {
   this->keyStateManager = Objects::RequireNonNull(std::move(keyStateManager));

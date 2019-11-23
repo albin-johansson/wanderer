@@ -1,6 +1,6 @@
 #pragma once
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 /**
  * The Direction enum provides values for 4 different directions: up, right, down and left.

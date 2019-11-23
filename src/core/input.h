@@ -3,16 +3,16 @@
 #include "key_state_manager.h"
 #include "mouse_state_manager.h"
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 class Input final {
  private:
-  controller::KeyStateManager_sptr keyStateManager = nullptr;
-  controller::MouseStateManager_sptr mouseStateManager = nullptr;
+  KeyStateManager_sptr keyStateManager = nullptr;
+  MouseStateManager_sptr mouseStateManager = nullptr;
 
  public:
-  explicit Input(controller::KeyStateManager_sptr keyStateManager,
-                 controller::MouseStateManager_sptr mouseStateManager); // FIXME dependency
+  explicit Input(KeyStateManager_sptr keyStateManager,
+                 MouseStateManager_sptr mouseStateManager); // FIXME dependency
 
   ~Input();
 

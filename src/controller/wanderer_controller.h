@@ -2,7 +2,7 @@
 #include <memory>
 #include "direction.h"
 
-namespace wanderer::controller {
+namespace albinjohansson::wanderer {
 
 /**
  * The IWandererController interface specifies the facade for the main controller of the Wanderer

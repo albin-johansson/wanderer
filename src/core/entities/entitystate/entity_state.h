@@ -4,7 +4,7 @@
 #include "input.h"
 #include <memory>
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 /**
  * The IEntityState interface specifies objects that represent the state of an entity at some

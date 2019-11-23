@@ -3,7 +3,7 @@
 #include "entity_attack_delegate.h"
 #include "entity_state_machine.h"
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 class SkeletonAttackState final : public IEntityState {
  private:
@@ -16,7 +16,7 @@ class SkeletonAttackState final : public IEntityState {
 
   void Tick(const IGame& game, float delta) override;
 
-  void Draw(visuals::Renderer& renderer, const Viewport& viewport) const override;
+  void Draw(Renderer& renderer, const Viewport& viewport) const override;
 
   void Enter(const IGame& game) override;
 

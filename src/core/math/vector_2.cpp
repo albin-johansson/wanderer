@@ -1,7 +1,7 @@
 #include "vector_2.h"
 #include <cmath>
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 Vector2::Vector2() : Vector2(0, 0) {}
 

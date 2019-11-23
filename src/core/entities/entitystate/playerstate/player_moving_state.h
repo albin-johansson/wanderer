@@ -4,7 +4,7 @@
 #include "entity_move_delegate.h"
 #include "entity.h"
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 /**
  * The PlayerMovingState class is an implementation of the IPlayerState interface that represents
@@ -35,7 +35,7 @@ class PlayerMovingState final : public IPlayerState {
 
   void HandleInput(const Input& input, const IGame& game) override;
 
-  inline void Draw(visuals::Renderer& renderer, const Viewport& viewport) const noexcept override {
+  inline void Draw(Renderer& renderer, const Viewport& viewport) const noexcept override {
     moveDelegate.Draw(renderer, viewport);
   }
 

@@ -9,7 +9,7 @@
 #include "player.h"
 #include <vector>
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 class WorldImpl final : public IWorld {
  private:
@@ -22,17 +22,17 @@ class WorldImpl final : public IWorld {
   void Interpolate(float alpha);
 
  public:
-  explicit WorldImpl(visuals::ImageGenerator& imageGenerator);
+  explicit WorldImpl(ImageGenerator& imageGenerator);
 
   ~WorldImpl() override;
 
-  [[nodiscard]] static IWorld_uptr Create(visuals::ImageGenerator& imageGenerator);
+  [[nodiscard]] static IWorld_uptr Create(ImageGenerator& imageGenerator);
 
   void PlayerHandleInput(const Input& input, const IGame& game) override;
 
   void Tick(const IGame& game, float delta) override;
 
-  void Render(visuals::Renderer& renderer, const Viewport& viewport, float alpha) override;
+  void Render(Renderer& renderer, const Viewport& viewport, float alpha) override;
 
   [[nodiscard]] int GetWidth() const noexcept override;
 

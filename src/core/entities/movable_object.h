@@ -4,7 +4,7 @@
 #include "vector_2.h"
 #include <memory>
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 /**
  * The IMovableObject interface specifies game objects that are movable.

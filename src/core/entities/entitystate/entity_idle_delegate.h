@@ -2,7 +2,7 @@
 #include "entity_state.h"
 #include "entity_state_machine.h"
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 /**
  * The EntityIdleDelegate class is an implementation of IEntityState that is meant to be used for
@@ -25,7 +25,7 @@ class EntityIdleDelegate final : public IEntityState {
 
   ~EntityIdleDelegate() override;
 
-  void Draw(visuals::Renderer& renderer, const Viewport& viewport) const override;
+  void Draw(Renderer& renderer, const Viewport& viewport) const override;
 
   void Enter(const IGame& game) override;
 

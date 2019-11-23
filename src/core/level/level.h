@@ -1,7 +1,7 @@
 #pragma once
 #include <memory>
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 class ILevel { // TODO remove or use
  protected:

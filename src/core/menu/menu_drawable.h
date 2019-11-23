@@ -2,7 +2,7 @@
 #include "renderer.h"
 #include "font_bundle.h"
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 class IMenuDrawable {
  protected:
@@ -11,7 +11,7 @@ class IMenuDrawable {
  public:
   virtual ~IMenuDrawable() = default;
 
-  virtual void Draw(visuals::Renderer& renderer, visuals::FontBundle& fonts) const = 0;
+  virtual void Draw(Renderer& renderer, FontBundle& fonts) const = 0;
 };
 
 }

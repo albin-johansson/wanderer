@@ -1,6 +1,6 @@
 #include "player_attack_state.h"
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 PlayerAttackState::PlayerAttackState(IEntityStateMachine* parent)
     : attackDelegate(EntityAttackDelegate(parent)) {}

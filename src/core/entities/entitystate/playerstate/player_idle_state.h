@@ -4,7 +4,7 @@
 #include "entity_draw_delegate.h"
 #include "entity_idle_delegate.h"
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 /**
  * The PlayerIdleState class is an implementation of the IPlayerState interface that represents
@@ -29,7 +29,7 @@ class PlayerIdleState final : public IPlayerState {
 
   void HandleInput(const Input& input, const IGame& game) override;
 
-  inline void Draw(visuals::Renderer& renderer, const Viewport& viewport) const noexcept override {
+  inline void Draw(Renderer& renderer, const Viewport& viewport) const noexcept override {
     idleDelegate.Draw(renderer, viewport);
   }
 

@@ -1,9 +1,7 @@
 #include "sound_effect.h"
 #include "bad_state_exception.h"
 
-using namespace wanderer::core;
-
-namespace wanderer::audio {
+namespace albinjohansson::wanderer {
 
 SoundEffect::SoundEffect(const std::string& file) {
   chunk = Mix_LoadWAV(file.c_str());

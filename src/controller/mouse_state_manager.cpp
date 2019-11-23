@@ -1,7 +1,7 @@
 #include "mouse_state_manager.h"
 #include <SDL.h>
 
-namespace wanderer::controller {
+namespace albinjohansson::wanderer {
 
 MouseStateManager::MouseStateManager() = default;
 

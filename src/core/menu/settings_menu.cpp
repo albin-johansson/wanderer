@@ -1,7 +1,7 @@
 #include "settings_menu.h"
 #include "objects.h"
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 SettingsMenu::SettingsMenu(IMenuStateMachine* parent) : AbstractMenu(parent) {}
 
@@ -11,7 +11,7 @@ IMenu_uptr SettingsMenu::Create(IMenuStateMachine* parent) {
   return std::make_unique<SettingsMenu>(parent);
 }
 
-void SettingsMenu::Draw(visuals::Renderer& renderer, const Viewport& viewport) const {
+void SettingsMenu::Draw(Renderer& renderer, const Viewport& viewport) const {
   AbstractMenu::Draw(renderer, viewport);
 
   renderer.SetColor(0xFF, 0xFF, 0xFF);

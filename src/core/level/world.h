@@ -8,7 +8,7 @@
 #include <memory>
 #include <string>
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 class IWorld : public ITickable {
  protected:
@@ -19,7 +19,7 @@ class IWorld : public ITickable {
 
   virtual void PlayerHandleInput(const Input& input, const IGame& game) = 0;
 
-  virtual void Render(visuals::Renderer& renderer, const Viewport& viewport, float alpha) = 0;
+  virtual void Render(Renderer& renderer, const Viewport& viewport, float alpha) = 0;
 
   [[nodiscard]] virtual int GetWidth() const noexcept = 0;
 

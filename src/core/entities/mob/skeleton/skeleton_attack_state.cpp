@@ -1,13 +1,13 @@
 #include "skeleton_attack_state.h"
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 SkeletonAttackState::SkeletonAttackState(IEntityStateMachine* parent)
     : attackDelegate(EntityAttackDelegate(parent)) {}
 
 SkeletonAttackState::~SkeletonAttackState() = default;
 
-void SkeletonAttackState::Draw(visuals::Renderer& renderer, const Viewport& viewport) const {
+void SkeletonAttackState::Draw(Renderer& renderer, const Viewport& viewport) const {
   attackDelegate.Draw(renderer, viewport);
 }
 

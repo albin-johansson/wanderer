@@ -1,10 +1,8 @@
 #include "home_menu.h"
 #include "objects.h"
+;;
 
-using namespace wanderer::core;
-using namespace wanderer::visuals;
-
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 HomeMenu::HomeMenu(IMenuStateMachine* parent, IWandererCore* core) :
     AbstractMenu(parent),
@@ -50,7 +48,7 @@ void HomeMenu::HandleInput(const Input& input) noexcept {
   }
 }
 
-void HomeMenu::Draw(visuals::Renderer& renderer, const Viewport& viewport) const {
+void HomeMenu::Draw(Renderer& renderer, const Viewport& viewport) const {
   AbstractMenu::Draw(renderer, viewport);
 
   startButton.Draw(renderer, *fonts);

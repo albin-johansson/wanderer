@@ -2,7 +2,7 @@
 #include "entity_state.h"
 #include "entity_state_machine.h"
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 class EntityMoveDelegate final : public IEntityState {
  private:
@@ -13,7 +13,7 @@ class EntityMoveDelegate final : public IEntityState {
 
   ~EntityMoveDelegate() override;
 
-  void Draw(visuals::Renderer& renderer, const Viewport& viewport) const override;
+  void Draw(Renderer& renderer, const Viewport& viewport) const override;
 
   void Enter(const IGame& world) override;
 

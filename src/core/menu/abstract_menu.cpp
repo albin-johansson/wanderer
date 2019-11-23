@@ -1,9 +1,8 @@
 #include "abstract_menu.h"
 #include "objects.h"
+;
 
-using namespace wanderer::visuals;
-
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 AbstractMenu::AbstractMenu(IMenuStateMachine* parent) {
   this->parent = Objects::RequireNonNull(parent);

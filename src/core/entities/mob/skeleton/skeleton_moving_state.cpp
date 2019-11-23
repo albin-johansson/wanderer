@@ -1,7 +1,7 @@
 #include "skeleton_moving_state.h"
 #include "random_utils.h"
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 SkeletonMovingState::SkeletonMovingState(IEntityStateMachine* parent) : moveDelegate(parent) {}
 
@@ -55,7 +55,7 @@ void SkeletonMovingState::Tick(const IGame& game, float delta) {
   }
 }
 
-void SkeletonMovingState::Draw(visuals::Renderer& renderer, const Viewport& viewport) const {
+void SkeletonMovingState::Draw(Renderer& renderer, const Viewport& viewport) const {
   moveDelegate.Draw(renderer, viewport);
 }
 

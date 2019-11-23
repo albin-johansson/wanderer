@@ -1,7 +1,7 @@
 #pragma once
 #include "game.h"
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 /**
  * The ITickable interface specifies objects that can be updated using a delta time factor.

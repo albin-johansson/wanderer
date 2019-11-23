@@ -1,6 +1,6 @@
 #include "skeleton_idle_state.h"
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 SkeletonIdleState::SkeletonIdleState(IEntityStateMachine* parent)
     : idleDelegate(EntityIdleDelegate(parent)) {}
@@ -17,7 +17,7 @@ void SkeletonIdleState::Tick(const IGame& game, float delta) {
   }
 }
 
-void SkeletonIdleState::Draw(visuals::Renderer& renderer, const Viewport& viewport) const {
+void SkeletonIdleState::Draw(Renderer& renderer, const Viewport& viewport) const {
   idleDelegate.Draw(renderer, viewport);
 }
 

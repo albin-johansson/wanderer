@@ -5,27 +5,27 @@
 #include "game.h"
 #include "sound_engine.h"
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 class GameImpl final : public IGame {
  private:
   IWorld_uptr world = nullptr;
-  audio::SoundEngine_uptr soundEngine = nullptr;
+  SoundEngine_uptr soundEngine = nullptr;
 
   void LoadSoundEffects();
 
  public:
-  explicit GameImpl(visuals::ImageGenerator& imageGenerator);
+  explicit GameImpl(ImageGenerator& imageGenerator);
 
   ~GameImpl() override;
 
-  static IGame_uptr Create(visuals::ImageGenerator& imageGenerator);
+  static IGame_uptr Create(ImageGenerator& imageGenerator);
 
   inline void PlayerHandleInput(const Input& input) override {
     world->PlayerHandleInput(input, *this);
   }
 
-  inline void Render(visuals::Renderer& renderer, const Viewport& viewport, float alpha) override {
+  inline void Render(Renderer& renderer, const Viewport& viewport, float alpha) override {
     world->Render(renderer, viewport, alpha);
   }
 

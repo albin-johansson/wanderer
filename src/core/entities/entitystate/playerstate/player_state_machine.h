@@ -4,7 +4,7 @@
 #include "game.h"
 #include <memory>
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 /**
  * The IPlayerStateMachine interface is a subinterface of IEntityStateMachine that specifies

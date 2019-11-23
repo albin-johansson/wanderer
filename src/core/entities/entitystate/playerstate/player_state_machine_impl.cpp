@@ -3,10 +3,9 @@
 #include "player_idle_state.h"
 #include "player_attack_state.h"
 #include "player_dying_state.h"
+;
 
-using namespace wanderer::visuals;
-
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 PlayerStateMachineImpl::PlayerStateMachineImpl(IEntity* entity)
     : AbstractEntityStateMachine(entity) {

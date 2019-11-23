@@ -6,7 +6,7 @@
 #include <string>
 #include <memory>
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 class IGame {
  protected:
@@ -19,7 +19,7 @@ class IGame {
 
   virtual void Update(float delta) = 0;
 
-  virtual void Render(visuals::Renderer& renderer, const Viewport& viewport, float alpha) = 0;
+  virtual void Render(Renderer& renderer, const Viewport& viewport, float alpha) = 0;
 
   virtual void PlaySound(const std::string& name) const = 0;
 

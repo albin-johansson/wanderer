@@ -7,11 +7,7 @@
 #include "font.h"
 #include "display_modes.h"
 
-using namespace wanderer::core;
-using namespace wanderer::visuals;
-using namespace wanderer::service;
-
-namespace wanderer::controller {
+namespace albinjohansson::wanderer {
 
 WandererControllerImpl::WandererControllerImpl() {
   SDL_DisplayMode desktop = DisplayModes::GetDesktopInfo();
@@ -35,7 +31,7 @@ WandererControllerImpl::WandererControllerImpl() {
   core = CreateCore(*imageGenerator);
   core->SetViewportWidth(LOGICAL_WIDTH);
   core->SetViewportHeight(LOGICAL_HEIGHT);
-  
+
   keyStateManager = KeyStateManager::Create();
   mouseStateManager = MouseStateManager::Create();
 

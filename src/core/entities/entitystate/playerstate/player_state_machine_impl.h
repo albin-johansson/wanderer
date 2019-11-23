@@ -4,7 +4,7 @@
 #include "player_state.h"
 #include "entity.h"
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 /**
  * The PlayerStateMachineImpl class is an implementation of the IPlayerStateMachine interface.

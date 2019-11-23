@@ -1,11 +1,9 @@
 #include "wanderer_core_impl.h"
 #include "menu_state_machine_impl.h"
 #include "game_impl.h"
+;
 
-using namespace wanderer::visuals;
-using namespace wanderer::audio;
-
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 WandererCoreImpl::WandererCoreImpl(ImageGenerator& imageGenerator) {
   menuStateMachine = MenuStateMachineImpl::Create(this); // TODO fix "this" parameter

@@ -3,7 +3,7 @@
 #include "menu_id.h"
 #include <memory>
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 /**
  * The IMenuStateMachine interface is a subinterface of IMenu that specifies objects that

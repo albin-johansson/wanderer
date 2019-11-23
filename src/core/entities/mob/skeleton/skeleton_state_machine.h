@@ -1,7 +1,7 @@
 #pragma once
 #include "abstract_entity_state_machine.h"
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 class SkeletonStateMachine final : public AbstractEntityStateMachine<IEntityState> {
  public:

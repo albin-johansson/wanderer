@@ -3,7 +3,7 @@
 #include <vector>
 #include <memory>
 
-namespace wanderer::controller {
+namespace albinjohansson::wanderer {
 
 class KeyStateManager;
 

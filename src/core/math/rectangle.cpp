@@ -1,7 +1,7 @@
 #include "rectangle.h"
 #include <stdexcept>
 
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 Rectangle::Rectangle() noexcept : Rectangle(0, 0, 10, 10) {}
 

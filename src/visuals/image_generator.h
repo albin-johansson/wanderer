@@ -4,7 +4,7 @@
 #include <string>
 #include <memory>
 
-namespace wanderer::visuals {
+namespace albinjohansson::wanderer {
 
 class ImageGenerator;
 

@@ -1,8 +1,7 @@
 #include "controls_menu.h"
+;
 
-using namespace wanderer::visuals;
-
-namespace wanderer::core {
+namespace albinjohansson::wanderer {
 
 ControlsMenu::ControlsMenu(IMenuStateMachine* parent) : AbstractMenu(parent) {}
 

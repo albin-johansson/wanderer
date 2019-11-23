@@ -1,9 +1,7 @@
 #include "display_modes.h"
 #include "bad_state_exception.h"
 
-using namespace wanderer::core;
-
-namespace wanderer::service {
+namespace albinjohansson::wanderer {
 
 SDL_DisplayMode DisplayModes::GetDesktopInfo() {
   SDL_DisplayMode dm;
