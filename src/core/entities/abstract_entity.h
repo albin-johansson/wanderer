@@ -5,6 +5,12 @@
 
 namespace albinjohansson::wanderer {
 
+/**
+ * The AbstractEntity class is an abstract class that implements the IEntity interface.
+ *
+ * @see IEntity
+ * @since 0.1.0
+ */
 class AbstractEntity : public IEntity {
  private:
   IMovableObject_uptr movable = nullptr;
@@ -13,6 +19,11 @@ class AbstractEntity : public IEntity {
   int health = 100;
 
  public:
+  /**
+   * @param sheet a shared pointer to the associated sprite sheet.
+   * @throws NullPointerException if the supplied pointer is null.
+   * @since 0.1.0
+   */
   explicit AbstractEntity(Image_sptr sheet);
 
   ~AbstractEntity() override;
