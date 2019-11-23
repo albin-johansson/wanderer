@@ -2,7 +2,7 @@
 #include "objects.h"
 #include "vector_2.h"
 
-using namespace wanderer::core;
+using namespace albinjohansson::wanderer;
 
 TEST_CASE("Objects::RequireNonNull(T*)", "[Objects]") {
   Vector2* badPtr = nullptr;

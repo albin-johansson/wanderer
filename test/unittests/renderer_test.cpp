@@ -2,8 +2,7 @@
 #include "renderer.h"
 #include "objects.h"
 
-using namespace wanderer::visuals;
-using namespace wanderer::core;
+using namespace albinjohansson::wanderer;
 
 TEST_CASE("RendererCtor1", "[Renderer]") {
   SDL_Renderer* r = nullptr;

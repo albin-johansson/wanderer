@@ -5,8 +5,7 @@
 #include "objects.h"
 #include "bad_state_exception.h"
 
-using namespace wanderer::visuals;
-using namespace wanderer::core;
+using namespace albinjohansson::wanderer;
 
 TEST_CASE("Image(string)", "[Image]") {
   Window window("foo", 10, 10);

@@ -1,7 +1,7 @@
 #include "catch.hpp"
 #include "rectangle.h"
 
-using namespace wanderer::core;
+using namespace albinjohansson::wanderer;
 
 TEST_CASE("Rectangle()", "[Rectangle]") {
   Rectangle r;

@@ -2,7 +2,7 @@
 #include "viewport.h"
 #include <stdexcept>
 
-using namespace wanderer::core;
+using namespace albinjohansson::wanderer;
 
 TEST_CASE("Viewport()", "[Viewport]") {
   Viewport viewport;

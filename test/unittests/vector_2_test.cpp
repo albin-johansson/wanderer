@@ -2,7 +2,7 @@
 #include "vector_2.h"
 #include <cmath>
 
-using namespace wanderer::core;
+using namespace albinjohansson::wanderer;
 
 TEST_CASE("Vector2DefaultCtor", "[Vector2]") {
   Vector2 vector; // should be (0, 0)

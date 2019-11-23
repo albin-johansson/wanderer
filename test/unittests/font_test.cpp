@@ -2,8 +2,7 @@
 #include "font.h"
 #include "bad_state_exception.h"
 
-using namespace wanderer::core;
-using namespace wanderer::visuals;
+using namespace albinjohansson::wanderer;
 
 TEST_CASE("Font(string&, int)", "[Font]") {
   CHECK_THROWS_AS(Font("", 1), BadStateException);
