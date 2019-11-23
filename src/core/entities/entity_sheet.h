@@ -5,7 +5,7 @@ namespace albinjohansson::wanderer {
 
 /**
  * The EntitySheet class is a utility for calculating the correct source coordinate in an entity
- * sheet when rendering an entity.
+ * sprite sheet when rendering an entity.
  *
  * @since 0.1.0
  */
