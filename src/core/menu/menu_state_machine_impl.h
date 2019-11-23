@@ -1,6 +1,7 @@
 #pragma once
 #include "menu_state_machine.h"
 #include "wanderer_core.h"
+#include "font_bundle.h"
 #include <map>
 
 namespace wanderer::core {
@@ -13,8 +14,11 @@ namespace wanderer::core {
  */
 class MenuStateMachineImpl final : public IMenuStateMachine {
  private:
-  std::map<MenuID, IMenu_sptr> menus;
-  IMenu_sptr activeMenu = nullptr;
+  visuals::FontBundle typewriterFonts;
+  std::map<MenuID, IMenu_uptr> menus;
+  MenuID activeMenuID = MenuID::HOME;
+
+  void Put(MenuID id, IMenu_uptr menu);
 
  public:
   explicit MenuStateMachineImpl(IWandererCore* core);
