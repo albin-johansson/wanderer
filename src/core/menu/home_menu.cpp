@@ -46,7 +46,7 @@ void HomeMenu::HandleInput(const Input& input) noexcept {
     parent->SetMenu(MenuID::CONTROLS);
 
   } else if (leftReleased && quitButton.Contains(mx, my)) {
-    core->Quit();
+    core->Quit(); // FIXME perhaps the core should look for quit flag from menus instead?
   }
 }
 
