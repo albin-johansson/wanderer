@@ -1,6 +1,6 @@
 #pragma once
 #include "tile.h"
-;
+#include "level.h"
 
 namespace albinjohansson::wanderer {
 
@@ -24,7 +24,7 @@ class AbstractTile : public ITile {
  public:
   ~AbstractTile() override;
 
-  void Tick(const IGame& game, float delta) override;
+  void Tick(const ILevel& level, float delta) override;
 
   void SetImage(Image_sptr image) noexcept final;
 

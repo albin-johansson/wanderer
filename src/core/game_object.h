@@ -1,26 +1,27 @@
 #pragma once
-#include "tickable.h"
 #include "drawable.h"
 #include "rectangle.h"
 #include <memory>
 
 namespace albinjohansson::wanderer {
 
+class ILevel;
+
 /**
  * The IGameObject interface specifies the common interface for all game objects that are present
- * in the game. Game objects must be be drawable. However, there is no requirement for game
- * objects to do anything in their implementation of the ITickable::Tick(float) method.
+ * in the game.
  *
- * @see ITickable
  * @see IDrawable
  * @since 0.1.0
  */
-class IGameObject : public ITickable, public IDrawable {
+class IGameObject : public virtual IDrawable {
  protected:
   IGameObject() = default;
 
  public:
   ~IGameObject() override = default;
+
+  virtual void Tick(const ILevel& level, float delta) = 0;
 
   /**
    * Returns the x-coordinate of the object.

@@ -1,4 +1,5 @@
 #include "skeleton_idle_state.h"
+#include "player.h"
 
 namespace albinjohansson::wanderer {
 
@@ -7,13 +8,13 @@ SkeletonIdleState::SkeletonIdleState(IEntityStateMachine* parent)
 
 SkeletonIdleState::~SkeletonIdleState() = default;
 
-void SkeletonIdleState::Tick(const IGame& game, float delta) {
+void SkeletonIdleState::Tick(const ILevel& level, float delta) {
 
   auto& entity = idleDelegate.GetParent().GetEntity();
-  float distance = entity.GetPosition().DistanceTo(game.GetPlayerPosition());
+  float distance = entity.GetPosition().DistanceTo(level.GetPlayer().GetPosition());
 
   if (distance <= 400 || (SDL_GetTicks() - enterTime) >= 2000) {
-    idleDelegate.GetParent().SetState(EntityStateID::WALK, game);
+    idleDelegate.GetParent().SetState(EntityStateID::WALK, level);
   }
 }
 
@@ -21,13 +22,13 @@ void SkeletonIdleState::Draw(Renderer& renderer, const Viewport& viewport) const
   idleDelegate.Draw(renderer, viewport);
 }
 
-void SkeletonIdleState::Enter(const IGame& game) {
-  idleDelegate.Enter(game);
+void SkeletonIdleState::Enter(const ILevel& level) {
+  idleDelegate.Enter(level);
   enterTime = SDL_GetTicks();
 }
 
-void SkeletonIdleState::Exit(const IGame& game) {
-  idleDelegate.Exit(game);
+void SkeletonIdleState::Exit(const ILevel& level) {
+  idleDelegate.Exit(level);
 }
 
 }

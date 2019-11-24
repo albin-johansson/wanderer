@@ -1,6 +1,6 @@
 #pragma once
-#include "tickable.h"
 #include "drawable.h"
+#include "level.h"
 #include "input.h"
 #include <memory>
 
@@ -14,28 +14,30 @@ namespace albinjohansson::wanderer {
  * @see IDrawable
  * @since 0.1.0
  */
-class IEntityState : public ITickable, public IDrawable {
+class IEntityState : public IDrawable {
  protected:
   IEntityState() = default;
 
  public:
   ~IEntityState() override = default;
 
+  virtual void Tick(const ILevel& level, float delta) = 0;
+
   /**
    * Enters the entity state.
    *
-   * @param game a reference to the game.
+   * @param level a reference to the level.
    * @since 0.1.0
    */
-  virtual void Enter(const IGame& game) = 0;
+  virtual void Enter(const ILevel& level) = 0;
 
   /**
    * Exits the entity state.
    *
-   * @param game a reference to the game.
+   * @param level a reference to the level.
    * @since 0.1.0
    */
-  virtual void Exit(const IGame& game) = 0;
+  virtual void Exit(const ILevel& level) = 0;
 
 };
 

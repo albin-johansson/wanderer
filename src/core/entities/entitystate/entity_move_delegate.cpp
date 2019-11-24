@@ -19,7 +19,7 @@ void EntityMoveDelegate::Draw(Renderer& renderer, const Viewport& viewport) cons
   EntityDrawDelegate::Draw(renderer, viewport, entity, srcX, srcY);
 }
 
-void EntityMoveDelegate::Tick(const IGame& game, float delta) {
+void EntityMoveDelegate::Tick(const ILevel& level, float delta) {
   IEntity& entity = parent->GetEntity();
 
   entity.UpdateAnimation();
@@ -29,7 +29,7 @@ void EntityMoveDelegate::Tick(const IGame& game, float delta) {
   entity.AddY(velocity.GetY() * delta);
 }
 
-void EntityMoveDelegate::Enter(const IGame& game) {
+void EntityMoveDelegate::Enter(const ILevel& level) {
   IEntity& entity = parent->GetEntity();
 
   entity.SetAnimationFrame(0);
@@ -37,6 +37,6 @@ void EntityMoveDelegate::Enter(const IGame& game) {
   entity.SetAnimationDelay(60);
 }
 
-void EntityMoveDelegate::Exit(const IGame& game) {}
+void EntityMoveDelegate::Exit(const ILevel& level) {}
 
 }

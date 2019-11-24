@@ -1,6 +1,7 @@
 #pragma once
 #include "movable_object.h"
 #include "animated.h"
+#include "level.h"
 #include <memory>
 
 namespace albinjohansson::wanderer {
@@ -15,7 +16,7 @@ namespace albinjohansson::wanderer {
  * @see IAnimated
  * @since 0.1.0
  */
-class IEntity : public IMovableObject, public IAnimated {
+class IEntity : public virtual IMovableObject, public virtual IAnimated {
  protected:
   IEntity() = default;
 

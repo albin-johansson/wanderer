@@ -1,11 +1,10 @@
 #pragma once
 #include <memory>
-#include "tickable.h"
 #include "drawable.h"
 #include "entity_state_id.h"
 #include "entity.h"
 #include "input.h"
-#include "game.h"
+#include "level.h"
 
 namespace albinjohansson::wanderer {
 
@@ -15,12 +14,14 @@ namespace albinjohansson::wanderer {
  *
  * @since 0.1.0
  */
-class IEntityStateMachine : public ITickable, public IDrawable {
+class IEntityStateMachine : public IDrawable {
  protected:
   IEntityStateMachine() = default;
 
  public:
   ~IEntityStateMachine() override = default;
+
+  virtual void Tick(const ILevel& level, float delta) = 0;
 
   /**
    * Changes the currently active entity state.
@@ -28,7 +29,7 @@ class IEntityStateMachine : public ITickable, public IDrawable {
    * @param id the id of the desired entity state.
    * @since 0.1.0
    */
-  virtual void SetState(EntityStateID id, const IGame& game) = 0;
+  virtual void SetState(EntityStateID id, const ILevel& level) = 0;
 
   [[nodiscard]] virtual IEntity& GetEntity() = 0;
 };

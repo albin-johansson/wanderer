@@ -1,5 +1,6 @@
 #include "skeleton_moving_state.h"
 #include "random_utils.h"
+#include "player.h"
 
 namespace albinjohansson::wanderer {
 
@@ -7,16 +8,16 @@ SkeletonMovingState::SkeletonMovingState(IEntityStateMachine* parent) : moveDele
 
 SkeletonMovingState::~SkeletonMovingState() = default;
 
-void SkeletonMovingState::ChasePlayer(const IGame& game, float distance) {
+void SkeletonMovingState::ChasePlayer(const ILevel& level, float distance) {
   auto& entity = moveDelegate.GetEntity();
 
   if (distance <= 75) {
-    moveDelegate.GetParent().SetState(EntityStateID::ATTACK, game);
+    moveDelegate.GetParent().SetState(EntityStateID::ATTACK, level);
   } else {
     auto entityVelocity = entity.GetVelocity();
 
     entityVelocity.Set(entity.GetPosition());
-    entityVelocity.LookAt(game.GetPlayerPosition(), entity.GetSpeed());
+    entityVelocity.LookAt(level.GetPlayer().GetPosition(), entity.GetSpeed());
 
     entity.SetVelocity(entityVelocity);
 
@@ -24,12 +25,12 @@ void SkeletonMovingState::ChasePlayer(const IGame& game, float distance) {
   }
 }
 
-void SkeletonMovingState::Roam(const IGame& game) {
+void SkeletonMovingState::Roam(const ILevel& level) {
   auto& entity = moveDelegate.GetEntity();
 
   if (SDL_GetTicks() - enterTime >= 500) {
     entity.Stop();
-    moveDelegate.GetParent().SetState(EntityStateID::IDLE, game);
+    moveDelegate.GetParent().SetState(EntityStateID::IDLE, level);
     return;
   }
 
@@ -45,13 +46,16 @@ Direction SkeletonMovingState::GetRandomDirection() const noexcept {
   return static_cast<Direction>(RandomUtils::GetInt(0, 3));
 }
 
-void SkeletonMovingState::Tick(const IGame& game, float delta) {
-  moveDelegate.Tick(game, delta);
-  float distance = moveDelegate.GetEntity().GetPosition().DistanceTo(game.GetPlayerPosition());
+void SkeletonMovingState::Tick(const ILevel& level, float delta) {
+  moveDelegate.Tick(level, delta);
+
+  Vector2 playerPos = level.GetPlayer().GetPosition();
+
+  float distance = moveDelegate.GetEntity().GetPosition().DistanceTo(playerPos);
   if (distance <= 400) {
-    ChasePlayer(game, distance);
+    ChasePlayer(level, distance);
   } else {
-    Roam(game);
+    Roam(level);
   }
 }
 
@@ -59,13 +63,13 @@ void SkeletonMovingState::Draw(Renderer& renderer, const Viewport& viewport) con
   moveDelegate.Draw(renderer, viewport);
 }
 
-void SkeletonMovingState::Enter(const IGame& game) {
-  moveDelegate.Enter(game);
+void SkeletonMovingState::Enter(const ILevel& level) {
+  moveDelegate.Enter(level);
   enterTime = SDL_GetTicks();
 }
 
-void SkeletonMovingState::Exit(const IGame& game) {
-  moveDelegate.Exit(game);
+void SkeletonMovingState::Exit(const ILevel& level) {
+  moveDelegate.Exit(level);
 }
 
 }

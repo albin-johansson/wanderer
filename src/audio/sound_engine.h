@@ -22,8 +22,6 @@ class SoundEngine final { // TODO expand
 
   ~SoundEngine();
 
-  [[nodiscard]] static SoundEngine_uptr Create();
-
   void Register(std::string id, SoundEffect_uptr sound);
 
   void Play(const std::string& id);

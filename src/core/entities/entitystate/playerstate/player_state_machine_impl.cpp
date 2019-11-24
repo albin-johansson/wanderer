@@ -21,8 +21,8 @@ IPlayerStateMachine_uptr PlayerStateMachineImpl::Create(IEntity* entity) {
   return std::make_unique<PlayerStateMachineImpl>(entity);
 }
 
-void PlayerStateMachineImpl::HandleInput(const Input& input, const IGame& game) {
-  GetActiveState().HandleInput(input, game);
+void PlayerStateMachineImpl::HandleInput(const Input& input, const ILevel& level) {
+  GetActiveState().HandleInput(input, level);
 }
 
 }

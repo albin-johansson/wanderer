@@ -2,6 +2,7 @@
 #include "entity.h"
 #include "animation.h"
 #include "image.h"
+#include "level.h"
 
 namespace albinjohansson::wanderer {
 
@@ -11,14 +12,14 @@ namespace albinjohansson::wanderer {
  * @see IEntity
  * @since 0.1.0
  */
-class AbstractEntity : public IEntity {
+class AbstractEntity : public virtual IEntity {
  private:
   IMovableObject_uptr movable = nullptr;
   Image_sptr sheet = nullptr;
   Animation animation;
   int health = 100;
 
- public:
+ protected:
   /**
    * @param sheet a shared pointer to the associated sprite sheet.
    * @throws NullPointerException if the supplied pointer is null.
@@ -26,9 +27,10 @@ class AbstractEntity : public IEntity {
    */
   explicit AbstractEntity(Image_sptr sheet);
 
+ public:
   ~AbstractEntity() override;
 
-  void Tick(const IGame& game, float delta) override { movable->Tick(game, delta); }
+  void Tick(const ILevel& level, float delta) override { movable->Tick(level, delta); }
 
   void Move(Direction direction) noexcept override { movable->Move(direction); }
 

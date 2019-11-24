@@ -23,14 +23,10 @@ set(SOURCE_FILES
         core/wanderer_core_impl.cpp
         core/wanderer_core_impl.h
         core/wanderer_core_factory.h
-        core/tickable.h
         core/objects.h
         core/game_object.h
         core/drawable.h
         core/direction.h
-        core/game.h
-        core/game_impl.cpp
-        core/game_impl.h
 
         core/math/rectangle.cpp
         core/math/rectangle.h
@@ -48,9 +44,6 @@ set(SOURCE_FILES
         core/tiles/tile_set.h
 
         core/level/level.h
-        core/level/world_impl.cpp
-        core/level/world_impl.h
-        core/level/world.h
 
         core/menu/menu.h
         core/menu/menu_id.h
@@ -81,8 +74,8 @@ set(SOURCE_FILES
         core/random_utils.h
 
         core/entities/entity.h
-        core/entities/player.cpp
-        core/entities/player.h
+        core/entities/player_impl.cpp
+        core/entities/player_impl.h
         core/entities/movable_object.h
         core/entities/movable_delegate.cpp
         core/entities/movable_delegate.h
@@ -146,7 +139,16 @@ set(SOURCE_FILES
         audio/sound_effect.cpp
         audio/sound_effect.h
         audio/sound_engine.cpp
-        audio/sound_engine.h visuals/font_bundle.cpp visuals/font_bundle.h core/menu/menu_drawable.h)
+        audio/sound_engine.h
+
+        visuals/font_bundle.cpp
+        visuals/font_bundle.h
+        core/menu/menu_drawable.h
+        core/level/abstract_level.cpp
+        core/level/abstract_level.h
+
+        core/level/world_level.cpp
+        core/level/world_level.h core/entities/player.h)
 
 # Prepares the Wanderer "library", which excludes linking and the main.cpp file
 add_library(${WANDERER_LIB} ${SOURCE_FILES})

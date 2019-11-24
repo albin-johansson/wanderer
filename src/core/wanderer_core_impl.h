@@ -1,7 +1,9 @@
 #pragma once
 #include "wanderer_core.h"
-#include "game.h"
+#include "level.h"
+#include "player.h"
 #include "viewport.h"
+#include "sound_engine.h"
 #include "image_generator.h"
 #include "menu_state_machine.h"
 
@@ -15,11 +17,16 @@ namespace albinjohansson::wanderer {
 class WandererCoreImpl final : public IWandererCore {
  private:
   IMenuStateMachine_uptr menuStateMachine = nullptr;
-  IGame_uptr game = nullptr;
+  ILevel_uptr level = nullptr;
+  IPlayer_sptr player = nullptr;
+  SoundEngine_sptr soundEngine = nullptr;
+
   Viewport viewport;
   bool shouldQuit = false;
 
   explicit WandererCoreImpl(ImageGenerator& imageGenerator);
+
+  void LoadSounds();
 
  public:
   ~WandererCoreImpl() override;

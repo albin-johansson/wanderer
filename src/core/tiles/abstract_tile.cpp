@@ -8,8 +8,8 @@ AbstractTile::AbstractTile(int row, int col, int id)
 
 AbstractTile::~AbstractTile() = default;
 
-void AbstractTile::Tick(const IGame& game, float delta) {
-  /* do nothing */
+void AbstractTile::Tick(const ILevel& level, float delta) {
+/* do nothing */
 }
 
 void AbstractTile::SetImage(Image_sptr image) noexcept {

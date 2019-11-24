@@ -19,7 +19,7 @@ void EntityAttackDelegate::Draw(Renderer& renderer, const Viewport& viewport) co
   EntityDrawDelegate::Draw(renderer, viewport, entity, srcX, srcY);
 }
 
-void EntityAttackDelegate::Enter(const IGame& game) {
+void EntityAttackDelegate::Enter(const ILevel& level) {
   IEntity& entity = parent->GetEntity();
   entity.Stop();
 
@@ -27,16 +27,16 @@ void EntityAttackDelegate::Enter(const IGame& game) {
   entity.SetAnimationFrameAmount(MELEE_FRAMES);
   entity.SetAnimationFrame(0);
   entity.SetAnimationDelay(65);
-  game.PlaySound("swing");
+  level.PlaySound("swing");
 }
 
-void EntityAttackDelegate::Exit(const IGame& game) {}
+void EntityAttackDelegate::Exit(const ILevel& level) {}
 
-void EntityAttackDelegate::Tick(const IGame& game, float delta) {
+void EntityAttackDelegate::Tick(const ILevel& level, float delta) {
   IEntity& entity = parent->GetEntity();
   if (entity.IsAnimationDone()) {
     // TODO damage and stuff...
-    parent->SetState(EntityStateID::IDLE, game);
+    parent->SetState(EntityStateID::IDLE, level);
   } else {
     entity.UpdateAnimation();
   }

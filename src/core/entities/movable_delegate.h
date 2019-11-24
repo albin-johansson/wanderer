@@ -53,7 +53,7 @@ class MovableObjectDelegate final : public IMovableObject {
 
   void Draw(Renderer& renderer, const Viewport& viewport) const noexcept override;
 
-  void Tick(const IGame& game, float delta) override;
+  void Tick(const ILevel& level, float delta) override;
 
   void Move(Direction direction) noexcept override;
 

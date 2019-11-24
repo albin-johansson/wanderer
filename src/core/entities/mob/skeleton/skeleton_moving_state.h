@@ -11,9 +11,9 @@ class SkeletonMovingState final : public IEntityState {
   EntityMoveDelegate moveDelegate;
   Uint32 enterTime = 0;
 
-  void ChasePlayer(const IGame& game, float distance);
+  void ChasePlayer(const ILevel& level, float distance);
 
-  void Roam(const IGame& game);
+  void Roam(const ILevel& level);
 
   [[nodiscard]] Direction GetRandomDirection() const noexcept;
 
@@ -22,13 +22,13 @@ class SkeletonMovingState final : public IEntityState {
 
   ~SkeletonMovingState() override;
 
-  void Tick(const IGame& game, float delta) override;
+  void Tick(const ILevel& level, float delta) override;
 
   void Draw(Renderer& renderer, const Viewport& viewport) const override;
 
-  void Enter(const IGame& game) override;
+  void Enter(const ILevel& level) override;
 
-  void Exit(const IGame& game) override;
+  void Exit(const ILevel& level) override;
 
 };
 

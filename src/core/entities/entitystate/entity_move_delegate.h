@@ -15,11 +15,11 @@ class EntityMoveDelegate final : public IEntityState {
 
   void Draw(Renderer& renderer, const Viewport& viewport) const override;
 
-  void Enter(const IGame& world) override;
+  void Enter(const ILevel& level) override;
 
-  void Exit(const IGame& world) override;
+  void Exit(const ILevel& level) override;
 
-  void Tick(const IGame& game, float delta) override;
+  void Tick(const ILevel& level, float delta) override;
 
   [[nodiscard]] inline IEntity& GetEntity() { return parent->GetEntity(); }
 

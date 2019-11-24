@@ -22,7 +22,7 @@ void MovableObjectDelegate::Draw(Renderer& renderer,
   /* do nothing */
 }
 
-void MovableObjectDelegate::Tick(const IGame& game, float delta) {
+void MovableObjectDelegate::Tick(const ILevel& level, float delta) {
   UpdateDirection();
 }
 

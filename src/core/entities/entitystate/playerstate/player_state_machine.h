@@ -1,7 +1,6 @@
 #pragma once
 #include "entity_state_machine.h"
 #include "input.h"
-#include "game.h"
 #include <memory>
 
 namespace albinjohansson::wanderer {
@@ -26,7 +25,7 @@ class IPlayerStateMachine : public virtual IEntityStateMachine {
    * @param input a reference to the input state.
    * @since 0.1.0
    */
-  virtual void HandleInput(const Input& input, const IGame& game) = 0;
+  virtual void HandleInput(const Input& input, const ILevel& level) = 0;
 };
 
 using IPlayerStateMachine_uptr = std::unique_ptr<IPlayerStateMachine>;

@@ -1,41 +1,65 @@
 #include "wanderer_core_impl.h"
 #include "menu_state_machine_impl.h"
-#include "game_impl.h"
-;
+#include "world_level.h"
+#include "player_impl.h"
+#include <fstream>
+#include <memory>
 
 namespace albinjohansson::wanderer {
 
 WandererCoreImpl::WandererCoreImpl(ImageGenerator& imageGenerator) {
   menuStateMachine = MenuStateMachineImpl::Create(this); // TODO fix "this" parameter
 
-  game = GameImpl::Create(imageGenerator);
+  player = std::make_unique<PlayerImpl>(imageGenerator.Load("resources/img/player2.png"));
+  player->SetSpeed(300);
 
-  viewport.SetLevelWidth(static_cast<float>(game->GetLevelWidth()));
-  viewport.SetLevelHeight(static_cast<float>(game->GetLevelHeight()));
+  soundEngine = std::make_unique<SoundEngine>();
+  LoadSounds();
+
+  level = std::make_unique<WorldLevel>(player, soundEngine, imageGenerator);
+
+  // TODO listener for viewport dimensions
+  viewport.SetLevelWidth(static_cast<float>(level->GetWidth()));
+  viewport.SetLevelHeight(static_cast<float>(level->GetHeight()));
 }
 
 WandererCoreImpl::~WandererCoreImpl() = default;
 
+void WandererCoreImpl::LoadSounds() {
+  try {
+    std::ifstream infile("resources/audio/sfx.txt");
+    std::string line;
+    while (std::getline(infile, line)) {
+      auto i = line.find(';');
+      std::string id = line.substr(0, i);
+      std::string path = line.substr(i + 1);
+      soundEngine->Register(id, SoundEffect::Create(path));
+    }
+  } catch (std::exception& e) {
+    SDL_Log("Failed to load sound effects! Error: %s", e.what());
+  }
+}
+
 void WandererCoreImpl::HandleInput(const Input& input) {
   menuStateMachine->HandleInput(input);
   if (!menuStateMachine->IsBlocking()) {
-    game->PlayerHandleInput(input);
+    player->HandleInput(input, *level);
   }
 }
 
 void WandererCoreImpl::Update(float delta) {
   if (!menuStateMachine->IsBlocking()) {
-    game->Update(delta);
+    level->Update(delta);
   }
-  auto interpolatedPosition = game->GetPlayerInterpolatedPosition();
+  auto interpolatedPosition = player->GetInterpolatedPosition();
   viewport.Track(interpolatedPosition.GetX(),
                  interpolatedPosition.GetY(),
-                 {game->GetPlayerWidth(), game->GetPlayerHeight()},
+                 {player->GetWidth(), player->GetHeight()},
                  delta);
 }
 
 void WandererCoreImpl::Render(Renderer& renderer, float alpha) {
-  game->Render(renderer, viewport, alpha);
+  level->Render(renderer, viewport, alpha);
   menuStateMachine->Draw(renderer, viewport);
 }
 

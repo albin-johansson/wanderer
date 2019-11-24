@@ -12,7 +12,7 @@ namespace albinjohansson::wanderer {
  * @see IGameObject
  * @since 0.1.0
  */
-class IMovableObject : public IGameObject {
+class IMovableObject : public virtual IGameObject {
  protected:
   IMovableObject() = default;
 

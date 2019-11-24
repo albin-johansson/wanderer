@@ -11,16 +11,16 @@ void SkeletonAttackState::Draw(Renderer& renderer, const Viewport& viewport) con
   attackDelegate.Draw(renderer, viewport);
 }
 
-void SkeletonAttackState::Enter(const IGame& game) {
-  attackDelegate.Enter(game);
+void SkeletonAttackState::Enter(const ILevel& level) {
+  attackDelegate.Enter(level);
 }
 
-void SkeletonAttackState::Exit(const IGame& game) {
-  attackDelegate.Exit(game);
+void SkeletonAttackState::Exit(const ILevel& level) {
+  attackDelegate.Exit(level);
 }
 
-void SkeletonAttackState::Tick(const IGame& game, float delta) {
-  attackDelegate.Tick(game, delta);
+void SkeletonAttackState::Tick(const ILevel& level, float delta) {
+  attackDelegate.Tick(level, delta);
 }
 
 }

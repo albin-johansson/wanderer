@@ -7,7 +7,7 @@ PlayerAttackState::PlayerAttackState(IEntityStateMachine* parent)
 
 PlayerAttackState::~PlayerAttackState() = default;
 
-void PlayerAttackState::HandleInput(const Input& input, const IGame& game) {
+void PlayerAttackState::HandleInput(const Input& input, const ILevel& level) {
 }
 
 }

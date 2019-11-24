@@ -1,9 +1,7 @@
 #include "skeleton.h"
-
 #include <utility>
 #include "objects.h"
 #include "skeleton_state_machine.h"
-;
 
 namespace albinjohansson::wanderer {
 
@@ -17,9 +15,9 @@ void Skeleton::Draw(Renderer& renderer, const Viewport& viewport) const {
   stateMachine->Draw(renderer, viewport);
 }
 
-void Skeleton::Tick(const IGame& game, float delta) {
-  AbstractEntity::Tick(game, delta);
-  stateMachine->Tick(game, delta);
+void Skeleton::Tick(const ILevel& level, float delta) {
+  AbstractEntity::Tick(level, delta);
+  stateMachine->Tick(level, delta);
 }
 
 }

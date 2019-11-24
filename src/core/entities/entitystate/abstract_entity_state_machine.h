@@ -32,18 +32,18 @@ class AbstractEntityStateMachine : public virtual IEntityStateMachine {
  public:
   ~AbstractEntityStateMachine() override = default;
 
-  void Tick(const IGame& game, float delta) final {
-    states.at(activeStateID)->Tick(game, delta);
+  void Tick(const ILevel& level, float delta) final {
+    states.at(activeStateID)->Tick(level, delta);
   }
 
   void Draw(Renderer& renderer, const Viewport& viewport) const final {
     states.at(activeStateID)->Draw(renderer, viewport);
   }
 
-  void SetState(EntityStateID id, const IGame& game) final {
-    states.at(activeStateID)->Exit(game);
+  void SetState(EntityStateID id, const ILevel& level) final {
+    states.at(activeStateID)->Exit(level);
     activeStateID = id;
-    states.at(activeStateID)->Enter(game);
+    states.at(activeStateID)->Enter(level);
   }
 
   [[nodiscard]] IEntity& GetEntity() final { return *entity; }
