@@ -17,9 +17,9 @@ namespace albinjohansson::wanderer {
 class WandererCoreImpl final : public IWandererCore {
  private:
   IMenuStateMachine_uptr menuStateMachine = nullptr;
-  ILevel_uptr level = nullptr;
-  IPlayer_sptr player = nullptr;
   SoundEngine_sptr soundEngine = nullptr;
+  IPlayer_sptr player = nullptr;
+  ILevel_uptr level = nullptr;
 
   Viewport viewport;
   bool shouldQuit = false;
