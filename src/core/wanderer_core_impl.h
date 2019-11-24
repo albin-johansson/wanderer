@@ -15,7 +15,7 @@ namespace albinjohansson::wanderer {
 class WandererCoreImpl final : public IWandererCore {
  private:
   IMenuStateMachine_uptr menuStateMachine = nullptr;
-  IGame_sptr game = nullptr;
+  IGame_uptr game = nullptr;
   Viewport viewport;
   bool shouldQuit = false;
 
