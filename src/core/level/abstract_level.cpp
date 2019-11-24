@@ -15,6 +15,8 @@ AbstractLevel::AbstractLevel(IPlayer_sptr player,
   IEntity_sptr skeleton =
       std::make_shared<Skeleton>(imageGenerator.Load("resources/img/skeleton.png"));
   skeleton->SetSpeed(200);
+  skeleton->SetX(700);
+  skeleton->SetY(500);
 
   entities.reserve(10);
   entities.push_back(this->player);
