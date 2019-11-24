@@ -4,7 +4,6 @@
 #include "smooth_fixed_timestep_loop.h"
 #include "wanderer_core_factory.h"
 #include "image_generator.h"
-#include "font.h"
 #include "display_modes.h"
 
 namespace albinjohansson::wanderer {
