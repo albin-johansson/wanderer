@@ -21,7 +21,14 @@ class IGameObject : public virtual IDrawable {
  public:
   ~IGameObject() override = default;
 
-  virtual void Tick(const ILevel& level, float delta) = 0;
+  /**
+   * Updates the state of the game object.
+   *
+   * @param level a reference to the level that the object is located in.
+   * @param delta the delta time, in seconds.
+   * @since 0.1.0
+   */
+  virtual void Tick(ILevel& level, float delta) = 0;
 
   /**
    * Returns the x-coordinate of the object.

@@ -15,7 +15,7 @@ void Skeleton::Draw(Renderer& renderer, const Viewport& viewport) const {
   stateMachine->Draw(renderer, viewport);
 }
 
-void Skeleton::Tick(const ILevel& level, float delta) {
+void Skeleton::Tick(ILevel& level, float delta) {
   AbstractEntity::Tick(level, delta);
   stateMachine->Tick(level, delta);
 }

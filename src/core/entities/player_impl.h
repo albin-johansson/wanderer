@@ -28,7 +28,7 @@ class PlayerImpl final : public AbstractEntity, public IPlayer {
 
   ~PlayerImpl() override = default;
 
-  void Tick(const ILevel& level, float delta) override;
+  void Tick(ILevel& level, float delta) override;
 
   /**
    * Handles the supplied input.

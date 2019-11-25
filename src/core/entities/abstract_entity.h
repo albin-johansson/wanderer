@@ -30,7 +30,7 @@ class AbstractEntity : public virtual IEntity {
  public:
   ~AbstractEntity() override;
 
-  void Tick(const ILevel& level, float delta) override { movable->Tick(level, delta); }
+  void Tick(ILevel& level, float delta) override { movable->Tick(level, delta); }
 
   void Move(Direction direction) noexcept override { movable->Move(direction); }
 

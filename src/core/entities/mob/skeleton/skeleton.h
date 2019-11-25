@@ -15,7 +15,7 @@ class Skeleton final : public AbstractEntity {
 
   ~Skeleton() override;
 
-  void Tick(const ILevel& level, float delta) override;
+  void Tick(ILevel& level, float delta) override;
 
   void Draw(Renderer& renderer, const Viewport& viewport) const override;
 

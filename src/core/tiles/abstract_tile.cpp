@@ -8,7 +8,7 @@ AbstractTile::AbstractTile(int row, int col, int id)
 
 AbstractTile::~AbstractTile() = default;
 
-void AbstractTile::Tick(const ILevel& level, float delta) {
+void AbstractTile::Tick(ILevel& level, float delta) {
 /* do nothing */
 }
 
