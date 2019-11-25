@@ -11,6 +11,7 @@ EntityDyingDelegate::EntityDyingDelegate(IEntity* entity) {
 EntityDyingDelegate::~EntityDyingDelegate() = default;
 
 void EntityDyingDelegate::Draw(Renderer& renderer, const Viewport& viewport) const {
+  // TODO fade entity transparency after finishing animation
   auto srcX = entity->GetAnimationFrame() * 64;
   EntityDrawDelegate::Draw(renderer, viewport, *entity, srcX, 1280);
 }
