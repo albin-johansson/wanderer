@@ -1,6 +1,5 @@
 #include "in_game_menu.h"
 #include "objects.h"
-;
 
 namespace albinjohansson::wanderer {
 
@@ -17,6 +16,8 @@ void InGameMenu::Draw(Renderer& renderer, const Viewport& viewport) const noexce
 void InGameMenu::HandleInput(const wanderer::Input& input) noexcept {
   if (input.WasReleased(SDL_SCANCODE_ESCAPE)) {
     parent->SetMenu(MenuID::HOME); // TODO need to stop any player movement here
+  } else if (input.WasReleased(SDL_SCANCODE_I)) {
+    parent->SetMenu(MenuID::INVENTORY);
   }
 }
 

@@ -12,7 +12,8 @@ enum class MenuID {
   IN_GAME,
   HOME,
   SETTINGS,
-  CONTROLS
+  CONTROLS,
+  INVENTORY
 };
 
 }

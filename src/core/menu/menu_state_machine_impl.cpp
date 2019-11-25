@@ -3,7 +3,7 @@
 #include "in_game_menu.h"
 #include "settings_menu.h"
 #include "controls_menu.h"
-;
+#include "inventory_menu.h"
 
 namespace albinjohansson::wanderer {
 
@@ -14,6 +14,7 @@ MenuStateMachineImpl::MenuStateMachineImpl(IWandererCore* core)
   Put(MenuID::IN_GAME, InGameMenu::Create(this));
   Put(MenuID::SETTINGS, SettingsMenu::Create(this));
   Put(MenuID::CONTROLS, ControlsMenu::Create(this));
+  Put(MenuID::INVENTORY, std::make_unique<InventoryMenu>(this));
 }
 
 MenuStateMachineImpl::~MenuStateMachineImpl() = default;
@@ -38,6 +39,7 @@ void MenuStateMachineImpl::HandleInput(const Input& input) noexcept {
   menus.at(activeMenuID)->HandleInput(input);
 }
 
+// FIXME problem with time based entities and blocking menus, where the NPC cooldowns are affected
 bool MenuStateMachineImpl::IsBlocking() const noexcept {
   return menus.at(activeMenuID)->IsBlocking();
 }

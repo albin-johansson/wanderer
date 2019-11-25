@@ -62,6 +62,9 @@ set(SOURCE_FILES
         core/menu/abstract_menu.h
         core/menu/controls_menu.cpp
         core/menu/controls_menu.h
+        core/menu/inventory_menu.cpp
+        core/menu/inventory_menu.h
+        core/menu/menu_drawable.h
 
         core/bad_state_exception.cpp
         core/bad_state_exception.h
@@ -73,7 +76,15 @@ set(SOURCE_FILES
         core/random_utils.cpp
         core/random_utils.h
 
+        core/level/abstract_level.cpp
+        core/level/abstract_level.h
+        core/level/world_level.cpp
+        core/level/world_level.h
+
+        core/item/item.h
+
         core/entities/entity.h
+        core/entities/player.h
         core/entities/player_impl.cpp
         core/entities/player_impl.h
         core/entities/movable_object.h
@@ -142,13 +153,7 @@ set(SOURCE_FILES
         audio/sound_engine.h
 
         visuals/font_bundle.cpp
-        visuals/font_bundle.h
-        core/menu/menu_drawable.h
-        core/level/abstract_level.cpp
-        core/level/abstract_level.h
-
-        core/level/world_level.cpp
-        core/level/world_level.h core/entities/player.h)
+        visuals/font_bundle.h)
 
 # Prepares the Wanderer "library", which excludes linking and the main.cpp file
 add_library(${WANDERER_LIB} ${SOURCE_FILES})
