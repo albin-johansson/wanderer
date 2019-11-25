@@ -3,7 +3,7 @@
 namespace albinjohansson::wanderer {
 
 /**
- * The Vector2 class represents a floating-point two-dimensional vector. This class is inspired
+ * The Vector2 struct represents a floating-point two-dimensional vector. This struct is inspired
  * by the libGDX class with the same name.
  *
  * <a href=
@@ -12,11 +12,11 @@ namespace albinjohansson::wanderer {
  * @see
  * @since 0.1.0
  */
-class Vector2 final {
- private:
-  float x;
-  float y;
+struct Vector2 final {
+  float x = 0;
+  float y = 0;
 
+ private:
   /**
    * Indicates whether or not the supplied floats are "equal", by checking if the absolute value
    * of the difference of the values is less than the supplied epsilon value.
@@ -127,22 +127,6 @@ class Vector2 final {
   void Set(const Vector2& vector) noexcept;
 
   /**
-   * Sets the x-coordinate of the vector.
-   *
-   * @param x the new x-coordinate of the vector.
-   * @since 0.1.0
-   */
-  void SetX(float x) noexcept;
-
-  /**
-   * Sets the y-coordinate of the vector.
-   *
-   * @param y the new y-coordinate of the vector.
-   * @since 0.1.0
-   */
-  void SetY(float y) noexcept;
-
-  /**
    * Sets the total length of the vector.
    *
    * @param length the new length of the vector.
@@ -189,24 +173,20 @@ class Vector2 final {
   [[nodiscard]] float DistanceTo2(const Vector2& vector) const noexcept;
 
   /**
-   * Returns the x-coordinate of the vector.
+   * Returns the integer representation of the x-coordinate of the vector.
    *
    * @return the x-coordinate of the vector.
    * @since 0.1.0
    */
-  [[nodiscard]] inline float GetX() const noexcept {
-    return x;
-  }
+  [[nodiscard]] int GetX() const noexcept { return static_cast<int>(x); }
 
   /**
-   * Returns the y-coordinate of the vector.
+   * Returns the the integer representation of the y-coordinate of the vector.
    *
    * @return the y-coordinate of the vector.
    * @since 0.1.0
    */
-  [[nodiscard]] inline float GetY() const noexcept {
-    return y;
-  }
+  [[nodiscard]] int GetY() const noexcept { return static_cast<int>(y); }
 
   /**
    * Calculates and returns the length of the vector.

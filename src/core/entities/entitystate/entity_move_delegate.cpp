@@ -24,9 +24,9 @@ void EntityMoveDelegate::Tick(const ILevel& level, float delta) {
 
   entity.UpdateAnimation();
 
-  Vector2 velocity = entity.GetVelocity();
-  entity.AddX(velocity.GetX() * delta);
-  entity.AddY(velocity.GetY() * delta);
+  auto[velocityX, velocityY] = entity.GetVelocity();
+  entity.AddX(velocityX * delta);
+  entity.AddY(velocityY * delta);
 }
 
 void EntityMoveDelegate::Enter(const ILevel& level) {

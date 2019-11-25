@@ -51,11 +51,9 @@ void WandererCoreImpl::Update(float delta) {
   if (!menuStateMachine->GetMenu().IsBlocking()) {
     level->Update(delta);
   }
-  auto interpolatedPosition = player->GetInterpolatedPosition();
-  viewport.Track(interpolatedPosition.GetX(),
-                 interpolatedPosition.GetY(),
-                 {player->GetWidth(), player->GetHeight()},
-                 delta);
+
+  auto[ix, iy] = player->GetInterpolatedPosition();
+  viewport.Track(ix, iy, {player->GetWidth(), player->GetHeight()}, delta);
 }
 
 void WandererCoreImpl::Render(Renderer& renderer, float alpha) {

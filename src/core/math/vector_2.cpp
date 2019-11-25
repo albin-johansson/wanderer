@@ -29,10 +29,6 @@ void Vector2::Norm() noexcept {
   }
 }
 
-void Vector2::SetX(float x) noexcept {
-  this->x = x;
-}
-
 void Vector2::Set(const Vector2& vector) noexcept {
   x = vector.x;
   y = vector.y;
@@ -41,10 +37,6 @@ void Vector2::Set(const Vector2& vector) noexcept {
 void Vector2::Add(float x, float y) noexcept {
   this->x += x;
   this->y += y;
-}
-
-void Vector2::SetY(float y) noexcept {
-  this->y = y;
 }
 
 void Vector2::SetLength(float length) noexcept {

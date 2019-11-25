@@ -6,8 +6,8 @@ using namespace albinjohansson::wanderer;
 
 TEST_CASE("Vector2DefaultCtor", "[Vector2]") {
   Vector2 vector; // should be (0, 0)
-  CHECK(vector.GetX() == 0);
-  CHECK(vector.GetY() == 0);
+  CHECK(vector.x == 0);
+  CHECK(vector.y == 0);
   CHECK(vector.IsZero());
 }
 
@@ -16,8 +16,8 @@ TEST_CASE("Vector2Ctor", "[Vector2]") {
   float y = 125.2;
   auto vector = Vector2(x, y);
 
-  CHECK(vector.GetX() == x);
-  CHECK(vector.GetY() == y);
+  CHECK(vector.x == x);
+  CHECK(vector.y == y);
   CHECK(!vector.IsZero());
 }
 
@@ -25,8 +25,8 @@ TEST_CASE("Vector2CopyCtor", "[Vector2]") {
   auto original = Vector2(87.3f, 39.5f);
   auto copy = Vector2(original);
 
-  CHECK(original.GetX() == copy.GetX());
-  CHECK(original.GetY() == copy.GetY());
+  CHECK(original.x == copy.x);
+  CHECK(original.y == copy.y);
 }
 
 TEST_CASE("Vector2::Scale", "[Vector2]") {
@@ -37,8 +37,8 @@ TEST_CASE("Vector2::Scale", "[Vector2]") {
   float factor = 3.2f;
   vector.Scale(factor);
 
-  CHECK(vector.GetX() == Approx(x * factor));
-  CHECK(vector.GetY() == Approx(y * factor));
+  CHECK(vector.x == Approx(x * factor));
+  CHECK(vector.y == Approx(y * factor));
 
   vector.Scale(0);
   CHECK(vector.IsZero());
@@ -55,11 +55,11 @@ TEST_CASE("Vector2::Add1", "[Vector2]") {
   Vector2 other(dx, dy);
   vector.Add(other);
 
-  CHECK(other.GetX() == dx);
-  CHECK(other.GetY() == dy);
+  CHECK(other.x == dx);
+  CHECK(other.y == dy);
 
-  CHECK(vector.GetX() == Approx(x + dx));
-  CHECK(vector.GetY() == Approx(y + dy));
+  CHECK(vector.x == Approx(x + dx));
+  CHECK(vector.y == Approx(y + dy));
 }
 
 TEST_CASE("Vector2::Add2", "[Vector2]") {
@@ -71,8 +71,8 @@ TEST_CASE("Vector2::Add2", "[Vector2]") {
   float dy = 12;
 
   vector.Add(dx, dy);
-  CHECK(vector.GetX() == Approx(x + dx));
-  CHECK(vector.GetY() == Approx(y + dy));
+  CHECK(vector.x == Approx(x + dx));
+  CHECK(vector.y == Approx(y + dy));
 }
 
 TEST_CASE("Vector2::Sub", "[Vector2]") {
@@ -86,8 +86,8 @@ TEST_CASE("Vector2::Sub", "[Vector2]") {
   Vector2 other(x1, y1);
 
   vector.Sub(other);
-  CHECK(vector.GetX() == Approx(x - x1));
-  CHECK(vector.GetY() == Approx(y - y1));
+  CHECK(vector.x == Approx(x - x1));
+  CHECK(vector.y == Approx(y - y1));
 }
 
 TEST_CASE("Vector2::Norm", "[Vector2]") {
@@ -105,24 +105,8 @@ TEST_CASE("Vector2::Set", "[Vector2]") {
 
   vector.Set(other);
 
-  CHECK(vector.GetX() == Approx(other.GetX()));
-  CHECK(vector.GetY() == Approx(other.GetY()));
-}
-
-TEST_CASE("Vector2::SetX", "[Vector2]") {
-  Vector2 vector(91, 3);
-
-  float x = 82.4f;
-  vector.SetX(x);
-  CHECK(vector.GetX() == Approx(x));
-}
-
-TEST_CASE("Vector2::SetY", "[Vector2]") {
-  Vector2 vector(4, 77);
-
-  float y = 33.4f;
-  vector.SetY(y);
-  CHECK(vector.GetY() == Approx(y));
+  CHECK(vector.x == Approx(other.x));
+  CHECK(vector.y == Approx(other.y));
 }
 
 TEST_CASE("Vector2::SetLength", "[Vector2]") {
@@ -144,8 +128,8 @@ TEST_CASE("Vector2::DistanceTo", "[Vector2]") {
   Vector2 vector(377, 518);
   Vector2 other(123, 411);
 
-  auto dx = other.GetX() - vector.GetX();
-  auto dy = other.GetY() - vector.GetY();
+  auto dx = other.x - vector.x;
+  auto dy = other.y - vector.y;
   auto expected = std::sqrt(dx * dx + dy * dy);
   CHECK(expected == vector.DistanceTo(other));
   CHECK(vector.DistanceTo(other) == other.DistanceTo(vector));
