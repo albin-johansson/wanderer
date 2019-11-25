@@ -1,6 +1,6 @@
 #pragma once
 #include "input.h"
-#include "drawable.h"
+#include "menu_drawable.h"
 #include <memory>
 
 namespace albinjohansson::wanderer {
@@ -11,7 +11,7 @@ namespace albinjohansson::wanderer {
  * @see IDrawable
  * @since 0.1.0
  */
-class IMenu : public IDrawable {
+class IMenu : public IMenuDrawable {
  protected:
   IMenu() = default;
 

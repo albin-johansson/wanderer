@@ -17,7 +17,7 @@ bool MenuButton::Contains(float mx, float my) const noexcept {
   return bounds.Contains(mx, my);
 }
 
-void MenuButton::Draw(Renderer& renderer, FontBundle& fonts) const {
+void MenuButton::Draw(Renderer& renderer, const Viewport& viewport, FontBundle& fonts) const {
   if (!text.empty()) {
     auto& font = enlarged ? fonts.GetFont36() : fonts.GetFont24();
 

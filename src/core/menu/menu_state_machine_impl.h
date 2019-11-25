@@ -14,7 +14,7 @@ namespace albinjohansson::wanderer {
  */
 class MenuStateMachineImpl final : public IMenuStateMachine {
  private:
-  FontBundle typewriterFonts;
+  mutable FontBundle typewriterFonts;
   std::map<MenuID, IMenu_uptr> menus;
   MenuID activeMenuID = MenuID::HOME;
 
@@ -27,13 +27,13 @@ class MenuStateMachineImpl final : public IMenuStateMachine {
 
   static IMenuStateMachine_uptr Create(IWandererCore* core);
 
-  void Draw(Renderer& renderer, const Viewport& viewport) const noexcept override;
+  void Draw(Renderer& renderer, const Viewport& viewport) const override;
 
   void HandleInput(const Input& input) noexcept override;
 
-  bool IsBlocking() const noexcept override;
-
   void SetMenu(MenuID id) noexcept override;
+
+  const IMenu& GetMenu() const override;
 };
 
 }

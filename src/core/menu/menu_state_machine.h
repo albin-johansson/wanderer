@@ -5,19 +5,16 @@
 
 namespace albinjohansson::wanderer {
 
-/**
- * The IMenuStateMachine interface is a subinterface of IMenu that specifies objects that
- * represent a state machine that can switch between different menu states by itself.
- *
- * @see IMenu
- * @since 0.1.0
- */
-class IMenuStateMachine : public IMenu {
+class IMenuStateMachine {
  protected:
   IMenuStateMachine() = default;
 
  public:
-  ~IMenuStateMachine() override = default;
+  virtual ~IMenuStateMachine() = default;
+
+  virtual void HandleInput(const Input& input) = 0;
+
+  virtual void Draw(Renderer& renderer, const Viewport& viewport) const = 0;
 
   /**
    * Sets the active menu.
@@ -26,6 +23,8 @@ class IMenuStateMachine : public IMenu {
    * @since 0.1.0
    */
   virtual void SetMenu(MenuID id) = 0;
+
+  [[nodiscard]] virtual const IMenu& GetMenu() const = 0;
 };
 
 using IMenuStateMachine_uptr = std::unique_ptr<IMenuStateMachine>;

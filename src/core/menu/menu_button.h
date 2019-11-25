@@ -32,7 +32,7 @@ class MenuButton final : public IMenuDrawable {
 
   ~MenuButton() override;
 
-  void Draw(Renderer& renderer, FontBundle& fonts) const override;
+  void Draw(Renderer& renderer, const Viewport& viewport, FontBundle& fonts) const override;
 
   void SetEnlarged(bool enlarged) noexcept;
 

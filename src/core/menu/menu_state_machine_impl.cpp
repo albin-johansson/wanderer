@@ -27,8 +27,8 @@ void MenuStateMachineImpl::Put(MenuID id, IMenu_uptr menu) {
   menus.insert(std::pair<MenuID, IMenu_uptr>(id, std::move(menu)));
 }
 
-void MenuStateMachineImpl::Draw(Renderer& renderer, const Viewport& viewport) const noexcept {
-  menus.at(activeMenuID)->Draw(renderer, viewport);
+void MenuStateMachineImpl::Draw(Renderer& renderer, const Viewport& viewport) const {
+  menus.at(activeMenuID)->Draw(renderer, viewport, typewriterFonts);
 }
 
 void MenuStateMachineImpl::SetMenu(MenuID id) noexcept {
@@ -39,9 +39,10 @@ void MenuStateMachineImpl::HandleInput(const Input& input) noexcept {
   menus.at(activeMenuID)->HandleInput(input);
 }
 
-// FIXME problem with time based entities and blocking menus, where the NPC cooldowns are affected
-bool MenuStateMachineImpl::IsBlocking() const noexcept {
-  return menus.at(activeMenuID)->IsBlocking();
+const IMenu& MenuStateMachineImpl::GetMenu() const {
+  return *menus.at(activeMenuID);
 }
+
+// FIXME problem with time based entities and blocking menus, where the NPC cooldowns are affected
 
 }

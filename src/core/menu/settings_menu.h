@@ -12,8 +12,8 @@ class SettingsMenu final : public AbstractMenu {
   ~SettingsMenu() noexcept override;
 
   static IMenu_uptr Create(IMenuStateMachine* parent);
-
-  void Draw(Renderer& renderer, const Viewport& viewport) const override;
+  
+  void Draw(Renderer& renderer, const Viewport& viewport, FontBundle& fonts) const override;
 
   void HandleInput(const Input& input) noexcept override;
 

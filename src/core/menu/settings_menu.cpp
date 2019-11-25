@@ -11,8 +11,8 @@ IMenu_uptr SettingsMenu::Create(IMenuStateMachine* parent) {
   return std::make_unique<SettingsMenu>(parent);
 }
 
-void SettingsMenu::Draw(Renderer& renderer, const Viewport& viewport) const {
-  AbstractMenu::Draw(renderer, viewport);
+void SettingsMenu::Draw(Renderer& renderer, const Viewport& viewport, FontBundle& fonts) const {
+  AbstractMenu::Draw(renderer, viewport, fonts);
 
   renderer.SetColor(0xFF, 0xFF, 0xFF);
 //  renderer.RenderText("Settings", 500, 100);

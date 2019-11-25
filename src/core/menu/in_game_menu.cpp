@@ -11,7 +11,9 @@ IMenu_uptr InGameMenu::Create(IMenuStateMachine* parent) {
   return std::make_unique<InGameMenu>(parent);
 }
 
-void InGameMenu::Draw(Renderer& renderer, const Viewport& viewport) const noexcept {}
+void InGameMenu::Draw(Renderer& renderer,
+                      const Viewport& viewport,
+                      FontBundle& fonts) const {}
 
 void InGameMenu::HandleInput(const wanderer::Input& input) noexcept {
   if (input.WasReleased(SDL_SCANCODE_ESCAPE)) {

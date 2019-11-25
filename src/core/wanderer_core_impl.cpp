@@ -42,13 +42,13 @@ void WandererCoreImpl::LoadSounds() {
 
 void WandererCoreImpl::HandleInput(const Input& input) {
   menuStateMachine->HandleInput(input);
-  if (!menuStateMachine->IsBlocking()) {
+  if (!menuStateMachine->GetMenu().IsBlocking()) {
     player->HandleInput(input, *level);
   }
 }
 
 void WandererCoreImpl::Update(float delta) {
-  if (!menuStateMachine->IsBlocking()) {
+  if (!menuStateMachine->GetMenu().IsBlocking()) {
     level->Update(delta);
   }
   auto interpolatedPosition = player->GetInterpolatedPosition();

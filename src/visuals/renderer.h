@@ -27,8 +27,6 @@ class Renderer final {
  public:
   // TODO ctor with flags arg
 
-  // TODO only use Image references instead of raw pointers
-
   /**
    * Creates a renderer based on the supplied SDL_Renderer.
    *

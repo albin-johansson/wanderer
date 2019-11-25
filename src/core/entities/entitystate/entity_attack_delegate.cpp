@@ -12,8 +12,7 @@ EntityAttackDelegate::EntityAttackDelegate(IEntityStateMachine* parent) {
 EntityAttackDelegate::~EntityAttackDelegate() = default;
 
 void EntityAttackDelegate::Draw(Renderer& renderer, const Viewport& viewport) const {
-  IEntity& entity = parent->GetEntity();
-
+  auto& entity = parent->GetEntity();
   auto srcX = entity.GetAnimationFrame() * 64;
   auto srcY = EntitySheet::GetSourceY(SOURCE_MELEE_Y, entity.GetDominantDirection());
   EntityDrawDelegate::Draw(renderer, viewport, entity, srcX, srcY);
@@ -33,7 +32,7 @@ void EntityAttackDelegate::Enter(const ILevel& level) {
 void EntityAttackDelegate::Exit(const ILevel& level) {}
 
 void EntityAttackDelegate::Tick(const ILevel& level, float delta) {
-  IEntity& entity = parent->GetEntity();
+  auto& entity = parent->GetEntity();
   if (entity.IsAnimationDone()) {
     // TODO damage and stuff...
     parent->SetState(EntityStateID::IDLE, level);

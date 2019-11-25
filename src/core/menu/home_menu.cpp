@@ -48,13 +48,13 @@ void HomeMenu::HandleInput(const Input& input) noexcept {
   }
 }
 
-void HomeMenu::Draw(Renderer& renderer, const Viewport& viewport) const {
-  AbstractMenu::Draw(renderer, viewport);
+void HomeMenu::Draw(Renderer& renderer, const Viewport& viewport, FontBundle& fonts) const {
+  AbstractMenu::Draw(renderer, viewport, fonts);
 
-  startButton.Draw(renderer, *fonts);
-  settingsButton.Draw(renderer, *fonts);
-  controlsButton.Draw(renderer, *fonts);
-  quitButton.Draw(renderer, *fonts);
+  startButton.Draw(renderer, viewport, fonts);
+  settingsButton.Draw(renderer, viewport, fonts);
+  controlsButton.Draw(renderer, viewport, fonts);
+  quitButton.Draw(renderer, viewport, fonts);
 }
 
 }

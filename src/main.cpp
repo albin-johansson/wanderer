@@ -2,12 +2,9 @@
 #include <SDL_image.h>
 #include <SDL_ttf.h>
 #include <SDL_mixer.h>
-
 #include <iostream>
 #include "wanderer_controller.h"
 #include "wanderer_controller_factory.h"
-
-// TODO change all namespaces to albinjohansson::wanderer?
 
 static void Init() {
   if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {

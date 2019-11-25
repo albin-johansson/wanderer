@@ -36,7 +36,7 @@ class HomeMenu final : public AbstractMenu {
 
   static IMenu_uptr Create(IMenuStateMachine* parent, IWandererCore* core);
 
-  void Draw(Renderer& renderer, const Viewport& viewport) const override;
+  void Draw(Renderer& renderer, const Viewport& viewport, FontBundle& fonts) const override;
 
   void HandleInput(const Input& input) noexcept override;
 

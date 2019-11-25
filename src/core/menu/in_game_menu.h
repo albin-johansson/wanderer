@@ -25,7 +25,7 @@ class InGameMenu final : public AbstractMenu {
 
   static IMenu_uptr Create(IMenuStateMachine* parent);
 
-  void Draw(Renderer& renderer, const Viewport& viewport) const noexcept override;
+  void Draw(Renderer& renderer, const Viewport& viewport, FontBundle& fonts) const override;
 
   void HandleInput(const Input& input) noexcept override;
 
