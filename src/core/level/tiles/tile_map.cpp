@@ -1,7 +1,6 @@
 #include "tile_map.h"
 #include "grass_tile.h"
 #include "objects.h"
-#include "tiled_map_parser.h"
 
 namespace albinjohansson::wanderer {
 
@@ -23,8 +22,6 @@ TileMap::TileMap(ImageGenerator& imageGenerator, int nRows, int nCols)
     tiles->push_back(rowVector);
   }
   tiles->shrink_to_fit();
-
-  TiledMapParser parser("resources/map/world/world_demo.tmx");
 }
 
 TileMap::~TileMap() = default;

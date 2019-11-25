@@ -2,6 +2,7 @@
 #include "menu_state_machine_impl.h"
 #include "world_level.h"
 #include "player_impl.h"
+#include "tiled_map_parser.h"
 #include <fstream>
 #include <memory>
 
@@ -21,6 +22,8 @@ WandererCoreImpl::WandererCoreImpl(ImageGenerator& imageGenerator) {
   // TODO listener for viewport dimensions
   viewport.SetLevelWidth(static_cast<float>(level->GetWidth()));
   viewport.SetLevelHeight(static_cast<float>(level->GetHeight()));
+
+  TiledMapParser parser(imageGenerator,"resources/map/world/world_demo.tmx");
 }
 
 WandererCoreImpl::~WandererCoreImpl() = default;
