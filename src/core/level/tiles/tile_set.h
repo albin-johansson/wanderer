@@ -4,6 +4,7 @@
 #include "image.h"
 #include "renderer.h"
 #include "viewport.h"
+#include "image_generator.h"
 
 namespace albinjohansson::wanderer {
 
@@ -11,18 +12,14 @@ class TileSet final {
  private:
   std::map<int, ITile_uptr> tiles;
 
+  [[nodiscard]] static std::map<int, Image_sptr> LoadTileImages(ImageGenerator& imageGenerator);
+
  public:
-  TileSet();
+  explicit TileSet(ImageGenerator& imageGenerator);
 
   ~TileSet();
 
-//  void Draw(Renderer& renderer, const Viewport& viewport, int row, int col, int id);
-
-  bool IsBlocked(int id) const;
-
-  void SetImage(int id, Image_sptr img);
-
-  Image_sptr GetImage(int id) const;
+  [[nodiscard]] const ITile& GetTile(int id) const;
 };
 
 }

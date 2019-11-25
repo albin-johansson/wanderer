@@ -12,7 +12,7 @@ AbstractLevel::AbstractLevel(IPlayer_sptr player,
   this->soundEngine = Objects::RequireNonNull(std::move(soundEngine));
   tileMap = TileMap::Create(imageGenerator, 25, 25);
 
-  IEntity_sptr skeleton =
+  auto skeleton =
       std::make_shared<Skeleton>(imageGenerator.Load("resources/img/skeleton.png"));
   skeleton->SetSpeed(200);
   skeleton->SetX(700);
@@ -52,6 +52,12 @@ void AbstractLevel::Render(Renderer& renderer, const Viewport& viewport, float a
 
 void AbstractLevel::PlaySound(const std::string& name) const {
   soundEngine->Play(name);
+}
+
+void AbstractLevel::Interact(const IEntity& source) {
+}
+
+void AbstractLevel::Attack(const IEntity& source) {
 }
 
 int AbstractLevel::GetTile(int row, int col) {

@@ -31,6 +31,10 @@ class AbstractLevel : public ILevel {
 
   void PlaySound(const std::string& name) const override;
 
+  void Interact(const IEntity& source) override;
+
+  void Attack(const IEntity& source) override;
+
   [[nodiscard]] int GetTile(int row, int col) override;
 
   [[nodiscard]] int GetWidth() const noexcept override;

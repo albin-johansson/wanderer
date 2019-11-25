@@ -33,18 +33,6 @@ set(SOURCE_FILES
         core/math/vector_2.cpp
         core/math/vector_2.h
 
-        core/tiles/tile.h
-        core/tiles/tile_map.cpp
-        core/tiles/tile_map.h
-        core/tiles/grass_tile.cpp
-        core/tiles/grass_tile.h
-        core/tiles/abstract_tile.cpp
-        core/tiles/abstract_tile.h
-        core/tiles/tile_set.cpp
-        core/tiles/tile_set.h
-
-        core/level/level.h
-
         core/menu/menu.h
         core/menu/menu_id.h
         core/menu/menu_state_machine.h
@@ -76,10 +64,25 @@ set(SOURCE_FILES
         core/random_utils.cpp
         core/random_utils.h
 
+        core/level/level.h
         core/level/abstract_level.cpp
         core/level/abstract_level.h
         core/level/world_level.cpp
         core/level/world_level.h
+
+        core/level/tiles/tile.h
+        core/level/tiles/tile_map.cpp
+        core/level/tiles/tile_map.h
+        core/level/tiles/grass_tile.cpp
+        core/level/tiles/grass_tile.h
+        core/level/tiles/abstract_tile.cpp
+        core/level/tiles/abstract_tile.h
+        core/level/tiles/tile_set.cpp
+        core/level/tiles/tile_set.h
+
+        core/level/pugixml/pugixml.hpp
+        core/level/pugixml/pugixml.cpp
+        core/level/pugixml/pugiconfig.hpp
 
         core/item/item.h
 
@@ -153,7 +156,10 @@ set(SOURCE_FILES
         audio/sound_engine.h
 
         visuals/font_bundle.cpp
-        visuals/font_bundle.h)
+        visuals/font_bundle.h
+
+        core/level/tiled_map_parser.cpp
+        core/level/tiled_map_parser.h core/level/tiles/tile_map_layer.cpp core/level/tiles/tile_map_layer.h core/level/tiles/render_bounds.h)
 
 # Prepares the Wanderer "library", which excludes linking and the main.cpp file
 add_library(${WANDERER_LIB} ${SOURCE_FILES})
@@ -170,8 +176,9 @@ target_include_directories(${WANDERER_LIB} PUBLIC core/menu)
 target_include_directories(${WANDERER_LIB} PUBLIC util)
 target_include_directories(${WANDERER_LIB} PUBLIC service)
 target_include_directories(${WANDERER_LIB} PUBLIC core/math)
-target_include_directories(${WANDERER_LIB} PUBLIC core/tiles)
 target_include_directories(${WANDERER_LIB} PUBLIC core/level)
+target_include_directories(${WANDERER_LIB} PUBLIC core/level/tiles)
+target_include_directories(${WANDERER_LIB} PUBLIC core/level/pugixml)
 target_include_directories(${WANDERER_LIB} PUBLIC core/entities)
 target_include_directories(${WANDERER_LIB} PUBLIC core/entities/entitystate)
 target_include_directories(${WANDERER_LIB} PUBLIC core/entities/entitystate/playerstate)

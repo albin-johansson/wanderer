@@ -7,8 +7,13 @@
 #include "rectangle.h"
 #include "image.h"
 #include "tile_set.h"
+#include "render_bounds.h"
 
 namespace albinjohansson::wanderer {
+
+// TODO Tiled map loading
+//  - Layers
+//  - Animated tiles
 
 using TileMatrix = std::vector<std::vector<int>>;
 
@@ -30,11 +35,7 @@ class TileMap final : public IDrawable {
   int nRows;
   int nCols;
 
-  void CalculateRenderBounds(const Rectangle& bounds,
-                             int& minRow,
-                             int& maxRow,
-                             int& minCol,
-                             int& maxCol) const noexcept;
+  [[nodiscard]] RenderBounds CalculateRenderBounds(const Rectangle& bounds) const noexcept;
 
  public:
   /**

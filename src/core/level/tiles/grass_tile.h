@@ -11,11 +11,13 @@ namespace albinjohansson::wanderer {
  */
 class GrassTile final : public AbstractTile {
  public:
-  GrassTile(int row, int col, int id);
+  GrassTile(Image_sptr image, int id);
 
   ~GrassTile() override;
 
-  void Draw(Renderer& renderer, const Viewport& viewport) const noexcept override;
+  void Hurt(int x, int y, const IEntity& source, int dmg) override;
+
+  void BumpInto(int x, int y, const IEntity& source) override;
 
   [[nodiscard]] inline bool IsBlocked() const noexcept override { return false; }
 };

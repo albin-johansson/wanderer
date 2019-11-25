@@ -1,11 +1,12 @@
 #include "tile_map.h"
 #include "grass_tile.h"
 #include "objects.h"
+#include "tiled_map_parser.h"
 
 namespace albinjohansson::wanderer {
 
 TileMap::TileMap(ImageGenerator& imageGenerator, int nRows, int nCols)
-    : nRows(nRows), nCols(nCols) {
+    : nRows(nRows), nCols(nCols), tileSet(imageGenerator) {
   tiles = std::make_unique<TileMatrix>();
   tiles->reserve(nRows);
 
@@ -23,7 +24,7 @@ TileMap::TileMap(ImageGenerator& imageGenerator, int nRows, int nCols)
   }
   tiles->shrink_to_fit();
 
-  tileSet.SetImage(0, imageGenerator.Load("resources/img/grass.png"));
+  TiledMapParser parser("resources/map/world/world_demo.tmx");
 }
 
 TileMap::~TileMap() = default;
@@ -32,15 +33,11 @@ TileMap_uptr TileMap::Create(ImageGenerator& imageGenerator, int nRows, int nCol
   return std::make_unique<TileMap>(imageGenerator, nRows, nCols);
 }
 
-void TileMap::CalculateRenderBounds(const Rectangle& bounds,
-                                    int& minRow,
-                                    int& maxRow,
-                                    int& minCol,
-                                    int& maxCol) const noexcept {
-  minCol = static_cast<int>(bounds.GetX() / ITile::SIZE);
-  minRow = static_cast<int>(bounds.GetY() / ITile::SIZE);
-  maxCol = static_cast<int>((bounds.GetMaxX() / ITile::SIZE) + 1);
-  maxRow = static_cast<int>((bounds.GetMaxY() / ITile::SIZE) + 1);
+RenderBounds TileMap::CalculateRenderBounds(const Rectangle& bounds) const noexcept {
+  auto minCol = static_cast<int>(bounds.GetX() / ITile::SIZE);
+  auto minRow = static_cast<int>(bounds.GetY() / ITile::SIZE);
+  auto maxCol = static_cast<int>((bounds.GetMaxX() / ITile::SIZE) + 1);
+  auto maxRow = static_cast<int>((bounds.GetMaxY() / ITile::SIZE) + 1);
 
   if (minCol < 0) {
     minCol = 0;
@@ -57,22 +54,17 @@ void TileMap::CalculateRenderBounds(const Rectangle& bounds,
   if (maxCol > nCols) {
     maxCol = nCols;
   }
+
+  return {minRow, maxRow, minCol, maxCol};
 }
 
 void TileMap::Draw(Renderer& renderer, const Viewport& viewport) const noexcept {
-  auto bounds = viewport.GetBounds();
-  int minRow, maxRow, minCol, maxCol;
-  CalculateRenderBounds(bounds, minRow, maxRow, minCol, maxCol);
+  auto[minRow, maxRow, minCol, maxCol] = CalculateRenderBounds(viewport.GetBounds());
 
   for (int r = minRow; r < maxRow; r++) {
     for (int c = minCol; c < maxCol; c++) {
-      int id = tiles->at(r).at(c);
-      Image_sptr image = tileSet.GetImage(id);
-      if (image != nullptr) {
-        auto x = viewport.GetTranslatedX(static_cast<float>(c) * ITile::SIZE);
-        auto y = viewport.GetTranslatedY(static_cast<float>(r) * ITile::SIZE);
-        renderer.RenderTexture(*image, x, y, ITile::SIZE, ITile::SIZE);
-      }
+      auto& tile = tileSet.GetTile(tiles->at(r).at(c));
+      tile.Draw({r, c}, renderer, viewport);
     }
   }
 }

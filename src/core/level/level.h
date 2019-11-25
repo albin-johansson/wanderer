@@ -7,6 +7,7 @@
 namespace albinjohansson::wanderer {
 
 class IPlayer;
+class IEntity;
 
 class ILevel {
  protected:
@@ -21,7 +22,11 @@ class ILevel {
 
   virtual void PlaySound(const std::string& name) const = 0;
 
-  virtual int GetTile(int row, int col) = 0;
+  virtual void Interact(const IEntity& source) = 0;
+
+  virtual void Attack(const IEntity& source) = 0;
+
+  [[nodiscard]] virtual int GetTile(int row, int col) = 0;
 
   [[nodiscard]] virtual int GetWidth() const noexcept = 0;
 
