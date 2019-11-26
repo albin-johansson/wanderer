@@ -1,5 +1,6 @@
 #include "skeleton_idle_state.h"
 #include "player.h"
+#include "skeleton.h"
 
 namespace albinjohansson::wanderer {
 
@@ -13,7 +14,7 @@ void SkeletonIdleState::Tick(const ILevel& level, float delta) {
   auto& entity = idleDelegate.GetParent().GetEntity();
   float distance = entity.GetPosition().DistanceTo(level.GetPlayer().GetPosition());
 
-  if (distance <= 400 || (SDL_GetTicks() - enterTime) >= 2000) {
+  if (distance <= Skeleton::HOMING_RANGE || (SDL_GetTicks() - enterTime) >= 2000) {
     idleDelegate.GetParent().SetState(EntityStateID::WALK, level);
   }
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.0" orientation="orthogonal" renderorder="right-down" compressionlevel="-1" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="1">
+<map version="1.2" tiledversion="1.3.0" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="1">
  <tileset firstgid="1" source="terrain.tsx"/>
  <tileset firstgid="1025" source="outside.tsx"/>
  <layer id="1" name="Ground" width="50" height="50">
@@ -56,7 +56,7 @@
 355,355,353,354,354,354,353,353,355,355,355,354,354,355,353,355,355,353,355,1021,1022,361,360,361,361,360,360,359,361,360,361,359,360,360,361,361,361,360,359,360,361,359,360,360,361,360,360,359,361,360
 </data>
  </layer>
- <layer id="3" name="Ground details" width="50" height="50" opacity="1">
+ <layer id="3" name="Ground details" width="50" height="50">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,297,828,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,297,828,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,

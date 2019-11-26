@@ -24,7 +24,7 @@ class ITile {
   ITile() = default;
 
  public:
-  static constexpr float SIZE = 150;
+  static constexpr float SIZE = 64;
 
   virtual ~ITile() = default;
 

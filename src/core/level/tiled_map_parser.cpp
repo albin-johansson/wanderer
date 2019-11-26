@@ -2,37 +2,18 @@
 #include "pugixml.hpp"
 #include "tile_map_layer.h"
 #include "image.h"
+#include "sprite_sheet.h"
+#include "tile_image_set.h"
 #include <SDL.h>
 #include <string>
+#include <memory>
 #include <sstream>
 #include <vector>
 #include <bad_state_exception.h>
 
 namespace albinjohansson::wanderer {
 
-TiledMapParser::TiledMapParser(ImageGenerator& imageGenerator, const std::string& file) {
-  pugi::xml_document doc;
-  pugi::xml_parse_result result = doc.load_file(file.c_str());
-  if (result) {
-    SDL_Log("Success reading TSX file!");
-  } else {
-    throw BadStateException("Failed to load tiled map! Error:" + std::string(result.description()));
-  }
-
-  auto mapNode = doc.child("map");
-
-  for (auto tileset : mapNode.children("tileset")) {
-    Image_uptr sheet = CreateTileSheet(tileset, imageGenerator, file);
-
-    // TODO save sprite sheets.
-  }
-
-  for (auto layerNode : mapNode.children("layer")) {
-    TileMapLayer layer = CreateTileMapLayer(layerNode);
-  }
-
-// TODO create tile map
-}
+TiledMapParser::TiledMapParser() = default;
 
 TiledMapParser::~TiledMapParser() = default;
 
@@ -59,7 +40,7 @@ Image_uptr TiledMapParser::CreateTileSheet(const pugi::xml_node& sheetNode,
   return imageGenerator.Load(path);
 }
 
-TileMapLayer TiledMapParser::CreateTileMapLayer(const pugi::xml_node& layerNode) {
+std::unique_ptr<TileMapLayer> TiledMapParser::CreateTileMapLayer(const pugi::xml_node& layerNode) {
   auto width = layerNode.attribute("width");
   auto height = layerNode.attribute("height");
   auto data = layerNode.child("data").text().as_string();
@@ -68,17 +49,50 @@ TileMapLayer TiledMapParser::CreateTileMapLayer(const pugi::xml_node& layerNode)
   const int nRows = height.as_int();
 
   std::vector<int> tiles;
-  tiles.reserve(nCols * nRows);
+  tiles.reserve(nCols * nRows + 1);
 
   std::stringstream strStream(data);
   std::string token;
 
-  int i = 0;
   while (std::getline(strStream, token, ',')) {
-    tiles[i++] = std::stoi(token);
+    tiles.push_back(std::stoi(token));
   }
 
-  return TileMapLayer(nRows, nCols, std::move(tiles)); // TODO maybe return unique pointer
+  return std::make_unique<TileMapLayer>(nRows, nCols, tiles);
+}
+
+std::unique_ptr<TileMap> TiledMapParser::LoadMap(ImageGenerator& imageGenerator,
+                                                 const std::string& file) {
+  pugi::xml_document doc;
+  pugi::xml_parse_result result = doc.load_file(file.c_str());
+  if (result) {
+    SDL_Log("Success reading TSX file!");
+  } else {
+    throw BadStateException("Failed to load tiled map! Error:" + std::string(result.description()));
+  }
+
+  auto mapNode = doc.child("map");
+
+  auto imageSet = std::make_unique<TileImageSet>();
+
+  int accumulator = 0;
+  for (auto tileset : mapNode.children("tileset")) {
+    auto firstID = tileset.attribute("firstgid").as_int();
+
+    accumulator += firstID;
+
+    Image_uptr img = CreateTileSheet(tileset, imageGenerator, file);
+    Range range = {accumulator, accumulator + 1024}; // FIXME
+
+    imageSet->Add(std::make_unique<SpriteSheet>(std::move(img), range, 32));
+  }
+
+  auto map = std::make_unique<TileMap>(std::move(imageSet), 50, 50); // FIXME
+  for (auto layerNode : mapNode.children("layer")) {
+    map->AddLayer(CreateTileMapLayer(layerNode));
+  }
+
+  return map;
 }
 
 }

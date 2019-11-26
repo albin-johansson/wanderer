@@ -12,18 +12,19 @@ WandererCoreImpl::WandererCoreImpl(ImageGenerator& imageGenerator) {
   menuStateMachine = MenuStateMachineImpl::Create(this); // TODO fix "this" parameter
 
   player = std::make_unique<PlayerImpl>(imageGenerator.Load("resources/img/player2.png"));
-  player->SetSpeed(300);
+  player->SetSpeed(230);
 
   soundEngine = std::make_unique<SoundEngine>();
   LoadSounds();
 
-  level = std::make_unique<WorldLevel>(player, soundEngine, imageGenerator);
+  TiledMapParser parser;
+
+  auto map = parser.LoadMap(imageGenerator, "resources/map/world/world_demo.tmx");
+  level = std::make_unique<WorldLevel>(std::move(map), player, soundEngine, imageGenerator);
 
   // TODO listener for viewport dimensions
   viewport.SetLevelWidth(static_cast<float>(level->GetWidth()));
   viewport.SetLevelHeight(static_cast<float>(level->GetHeight()));
-
-  TiledMapParser parser(imageGenerator,"resources/map/world/world_demo.tmx");
 }
 
 WandererCoreImpl::~WandererCoreImpl() = default;

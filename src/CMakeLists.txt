@@ -73,12 +73,6 @@ set(SOURCE_FILES
         core/level/tiles/tile.h
         core/level/tiles/tile_map.cpp
         core/level/tiles/tile_map.h
-        core/level/tiles/grass_tile.cpp
-        core/level/tiles/grass_tile.h
-        core/level/tiles/abstract_tile.cpp
-        core/level/tiles/abstract_tile.h
-        core/level/tiles/tile_set.cpp
-        core/level/tiles/tile_set.h
 
         core/level/pugixml/pugixml.hpp
         core/level/pugixml/pugixml.cpp
@@ -159,7 +153,7 @@ set(SOURCE_FILES
         visuals/font_bundle.h
 
         core/level/tiled_map_parser.cpp
-        core/level/tiled_map_parser.h core/level/tiles/tile_map_layer.cpp core/level/tiles/tile_map_layer.h core/level/tiles/render_bounds.h)
+        core/level/tiled_map_parser.h core/level/tiles/tile_map_layer.cpp core/level/tiles/tile_map_layer.h core/level/tiles/render_bounds.h core/level/tiles/sprite_sheet.cpp core/level/tiles/sprite_sheet.h core/level/tiles/tile_image_set.cpp core/level/tiles/tile_image_set.h)
 
 # Prepares the Wanderer "library", which excludes linking and the main.cpp file
 add_library(${WANDERER_LIB} ${SOURCE_FILES})

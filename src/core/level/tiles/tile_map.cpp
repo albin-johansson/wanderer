@@ -1,34 +1,14 @@
 #include "tile_map.h"
-#include "grass_tile.h"
 #include "objects.h"
 
 namespace albinjohansson::wanderer {
 
-TileMap::TileMap(ImageGenerator& imageGenerator, int nRows, int nCols)
-    : nRows(nRows), nCols(nCols), tileSet(imageGenerator) {
-  tiles = std::make_unique<TileMatrix>();
-  tiles->reserve(nRows);
-
-  for (int row = 0; row < nRows; row++) {
-
-    auto rowVector = std::vector<int>();
-    rowVector.reserve(nCols);
-
-    for (int col = 0; col < nCols; col++) {
-      rowVector.push_back(0);
-    }
-    rowVector.shrink_to_fit();
-
-    tiles->push_back(rowVector);
-  }
-  tiles->shrink_to_fit();
+TileMap::TileMap(std::unique_ptr<TileImageSet> tileImages, int nRows, int nCols)
+    : nRows(nRows), nCols(nCols) {
+  this->tileImages = Objects::RequireNonNull(std::move(tileImages));
 }
 
 TileMap::~TileMap() = default;
-
-TileMap_uptr TileMap::Create(ImageGenerator& imageGenerator, int nRows, int nCols) {
-  return std::make_unique<TileMap>(imageGenerator, nRows, nCols);
-}
 
 RenderBounds TileMap::CalculateRenderBounds(const Rectangle& bounds) const noexcept {
   auto minCol = static_cast<int>(bounds.GetX() / ITile::SIZE);
@@ -56,18 +36,14 @@ RenderBounds TileMap::CalculateRenderBounds(const Rectangle& bounds) const noexc
 }
 
 void TileMap::Draw(Renderer& renderer, const Viewport& viewport) const noexcept {
-  auto[minRow, maxRow, minCol, maxCol] = CalculateRenderBounds(viewport.GetBounds());
-
-  for (int r = minRow; r < maxRow; r++) {
-    for (int c = minCol; c < maxCol; c++) {
-      auto& tile = tileSet.GetTile(tiles->at(r).at(c));
-      tile.Draw({r, c}, renderer, viewport);
-    }
+  auto bounds = CalculateRenderBounds(viewport.GetBounds());
+  for (const auto& layer : layers) {
+    layer->Draw(renderer, bounds, viewport, *tileImages);
   }
 }
 
-void TileMap::SetTile(int row, int col, int id) {
-  tiles->at(row).at(col) = id;
+void TileMap::AddLayer(TileMapLayer_uptr layer) {
+  layers.push_back(std::move(layer));
 }
 
 }

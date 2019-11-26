@@ -2,6 +2,7 @@
 #include "movable_object.h"
 #include "animated.h"
 #include "level.h"
+#include "tile.h"
 #include <memory>
 
 namespace albinjohansson::wanderer {
@@ -21,6 +22,8 @@ class IEntity : public virtual IMovableObject, public virtual IAnimated {
   IEntity() = default;
 
  public:
+  static constexpr float SIZE = ITile::SIZE * (7.0f / 3.0f);
+
   ~IEntity() override = default;
 
   /**

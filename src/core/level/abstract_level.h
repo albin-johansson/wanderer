@@ -20,7 +20,10 @@ class AbstractLevel : public ILevel {
   void Interpolate(float alpha);
 
  protected:
-  AbstractLevel(IPlayer_sptr player, SoundEngine_sptr soundEngine, ImageGenerator& imageGenerator);
+  AbstractLevel(TileMap_uptr tileMap,
+                IPlayer_sptr player,
+                SoundEngine_sptr soundEngine,
+                ImageGenerator& imageGenerator);
 
  public:
   ~AbstractLevel() override;

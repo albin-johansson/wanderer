@@ -5,7 +5,10 @@ namespace albinjohansson::wanderer {
 
 class WorldLevel final : public AbstractLevel {
  public:
-  WorldLevel(IPlayer_sptr player, SoundEngine_sptr soundEngine, ImageGenerator& imageGenerator);
+  WorldLevel(TileMap_uptr tileMap,
+             IPlayer_sptr player,
+             SoundEngine_sptr soundEngine,
+             ImageGenerator& imageGenerator);
 
   ~WorldLevel() override;
 };

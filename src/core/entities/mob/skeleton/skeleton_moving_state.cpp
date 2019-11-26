@@ -1,6 +1,7 @@
 #include "skeleton_moving_state.h"
 #include "random_utils.h"
 #include "player.h"
+#include "skeleton.h"
 
 namespace albinjohansson::wanderer {
 
@@ -28,7 +29,7 @@ void SkeletonMovingState::ChasePlayer(const ILevel& level, float distance) {
 void SkeletonMovingState::Roam(const ILevel& level) {
   auto& entity = moveDelegate.GetEntity();
 
-  if (SDL_GetTicks() - enterTime >= 500) {
+  if (SDL_GetTicks() - enterTime >= Skeleton::HOMING_RANGE) {
     entity.Stop();
     moveDelegate.GetParent().SetState(EntityStateID::IDLE, level);
     return;

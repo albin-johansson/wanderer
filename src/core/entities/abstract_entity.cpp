@@ -6,7 +6,7 @@ namespace albinjohansson::wanderer {
 
 AbstractEntity::AbstractEntity(Image_sptr sheet) {
   this->sheet = Objects::RequireNonNull(std::move(sheet));
-  movable = MovableObjectDelegate::Create(200, 200);
+  movable = MovableObjectDelegate::Create(SIZE, SIZE);
 }
 
 AbstractEntity::~AbstractEntity() = default;

@@ -3,6 +3,7 @@
 #include "entity_state_machine.h"
 #include "image.h"
 #include "level.h"
+#include "tile.h"
 
 namespace albinjohansson::wanderer {
 
@@ -11,6 +12,8 @@ class Skeleton final : public AbstractEntity {
   IEntityStateMachine_uptr stateMachine = nullptr;
 
  public:
+  static constexpr float HOMING_RANGE = ITile::SIZE * 4.0f;
+  
   explicit Skeleton(Image_sptr sheet);
 
   ~Skeleton() override;

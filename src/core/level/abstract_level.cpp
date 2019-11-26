@@ -5,16 +5,17 @@
 
 namespace albinjohansson::wanderer {
 
-AbstractLevel::AbstractLevel(IPlayer_sptr player,
+AbstractLevel::AbstractLevel(TileMap_uptr tileMap,
+                             IPlayer_sptr player,
                              SoundEngine_sptr soundEngine,
                              ImageGenerator& imageGenerator) {
+  this->tileMap = Objects::RequireNonNull(std::move(tileMap));
   this->player = Objects::RequireNonNull(std::move(player));
   this->soundEngine = Objects::RequireNonNull(std::move(soundEngine));
-  tileMap = TileMap::Create(imageGenerator, 25, 25);
 
   auto skeleton =
       std::make_shared<Skeleton>(imageGenerator.Load("resources/img/skeleton.png"));
-  skeleton->SetSpeed(200);
+  skeleton->SetSpeed(130);
   skeleton->SetX(700);
   skeleton->SetY(500);
 

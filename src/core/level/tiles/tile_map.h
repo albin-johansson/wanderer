@@ -6,16 +6,15 @@
 #include <memory>
 #include "rectangle.h"
 #include "image.h"
-#include "tile_set.h"
 #include "render_bounds.h"
+#include "tile_map_layer.h"
+#include "tile_image_set.h"
 
 namespace albinjohansson::wanderer {
 
 // TODO Tiled map loading
 //  - Layers
 //  - Animated tiles
-
-using TileMatrix = std::vector<std::vector<int>>;
 
 class TileMap;
 
@@ -30,8 +29,8 @@ using TileMap_wptr = std::weak_ptr<TileMap>;
  */
 class TileMap final : public IDrawable {
  private:
-  std::unique_ptr<TileMatrix> tiles = nullptr;
-  TileSet tileSet;
+  std::unique_ptr<TileImageSet> tileImages = nullptr;
+  std::vector<TileMapLayer_uptr> layers; // TODO separate different layers such as ground, etc?
   int nRows;
   int nCols;
 
@@ -43,26 +42,13 @@ class TileMap final : public IDrawable {
    * @param nCols the number of columns in the tile map.
    * @since 0.1.0
    */
-  TileMap(ImageGenerator& imageGenerator, int nRows, int nCols);
+  TileMap(std::unique_ptr<TileImageSet> tileImages, int nRows, int nCols);
 
   ~TileMap() override;
 
-  static TileMap_uptr Create(ImageGenerator& imageGenerator,
-                             int nRows,
-                             int nCols);
-
   void Draw(Renderer& renderer, const Viewport& viewport) const noexcept override;
 
-  /**
-   * Sets the tile at the specified position.
-   *
-   * @param row the row index of the position that will be set.
-   * @param col the column index of the position that will be set.
-   * @param id the tile ID that will be set..
-   * @throws std::out_of_range if the specified position is out-of-bounds.
-   * @since 0.1.0
-   */
-  void SetTile(int row, int col, int id);
+  void AddLayer(TileMapLayer_uptr layer);
 
   /**
    * Returns the number of rows in the tile map.
