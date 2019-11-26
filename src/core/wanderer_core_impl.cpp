@@ -13,6 +13,8 @@ WandererCoreImpl::WandererCoreImpl(ImageGenerator& imageGenerator) {
 
   player = std::make_unique<PlayerImpl>(imageGenerator.Load("resources/img/player2.png"));
   player->SetSpeed(230);
+  player->SetX(750);
+  player->SetY(1900);
 
   soundEngine = std::make_unique<SoundEngine>();
   LoadSounds();
@@ -25,6 +27,12 @@ WandererCoreImpl::WandererCoreImpl(ImageGenerator& imageGenerator) {
   // TODO listener for viewport dimensions
   viewport.SetLevelWidth(static_cast<float>(level->GetWidth()));
   viewport.SetLevelHeight(static_cast<float>(level->GetHeight()));
+  viewport.SetWidth(1280); // FIXME hardcoded
+  viewport.SetHeight(720); // FIXME hardcoded
+
+  viewport.Center(player->GetX(),
+                  player->GetY(),
+                  {player->GetWidth(), player->GetHeight()});
 }
 
 WandererCoreImpl::~WandererCoreImpl() = default;
@@ -54,10 +62,10 @@ void WandererCoreImpl::HandleInput(const Input& input) {
 void WandererCoreImpl::Update(float delta) {
   if (!menuStateMachine->GetMenu().IsBlocking()) {
     level->Update(delta);
-  }
 
-  auto[ix, iy] = player->GetInterpolatedPosition();
-  viewport.Track(ix, iy, {player->GetWidth(), player->GetHeight()}, delta);
+    auto[ix, iy] = player->GetInterpolatedPosition();
+    viewport.Track(ix, iy, {player->GetWidth(), player->GetHeight()}, delta);
+  }
 }
 
 void WandererCoreImpl::Render(Renderer& renderer, float alpha) {

@@ -56,6 +56,8 @@ std::unique_ptr<TileMapLayer> TiledMapParser::CreateTileMapLayer(const pugi::xml
 
   while (std::getline(strStream, token, ',')) {
     tiles.push_back(std::stoi(token));
+
+    // TODO create tile set with properties for collisions, animations, etc...
   }
 
   return std::make_unique<TileMapLayer>(nRows, nCols, tiles);

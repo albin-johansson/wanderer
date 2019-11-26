@@ -53,6 +53,12 @@ class Viewport final {
    */
   void Track(float tx, float ty, Area size, float delta) noexcept;
 
+  void Center(float x, float y, Area size) noexcept;
+
+  void SetX(float x) noexcept;
+
+  void SetY(float y) noexcept;
+
   /**
    * Sets the width of the viewport.
    *
