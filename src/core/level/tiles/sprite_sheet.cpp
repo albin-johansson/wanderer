@@ -1,10 +1,9 @@
 #include "sprite_sheet.h"
 #include "objects.h"
-#include <SDL.h>
 
 namespace albinjohansson::wanderer {
 
-SpriteSheet::SpriteSheet(Image_uptr sheet, Range range, int size)
+SpriteSheet::SpriteSheet(Image_sptr sheet, Range range, int size)
     : range(range),
       size(static_cast<float>(size)) {
   this->sheet = Objects::RequireNonNull(std::move(sheet));

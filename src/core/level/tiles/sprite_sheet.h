@@ -12,7 +12,7 @@ struct Range {
 
 class SpriteSheet final {
  private:
-  Image_uptr sheet = nullptr;
+  Image_sptr sheet = nullptr;
   const Range range;
   const float size;
 
@@ -21,7 +21,7 @@ class SpriteSheet final {
   int nSprites;
 
  public:
-  SpriteSheet(Image_uptr sheet, Range range, int size);
+  SpriteSheet(Image_sptr sheet, Range range, int size);
 
   ~SpriteSheet();
 
@@ -37,7 +37,7 @@ class SpriteSheet final {
 
   [[nodiscard]] float GetSpriteSize() const noexcept { return size; }
 
-  [[nodiscard]] Image& GetImage() noexcept { return *sheet; }
+  [[nodiscard]] Image_sptr GetImage() noexcept { return sheet; }
 };
 
 using SpriteSheet_uptr = std::unique_ptr<SpriteSheet>;

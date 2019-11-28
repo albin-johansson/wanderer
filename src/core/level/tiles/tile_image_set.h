@@ -18,7 +18,9 @@ class TileImageSet final {
 
   [[nodiscard]] Rectangle GetSource(int tileId) const;
 
-  [[nodiscard]] Image& GetImage(int tileId) const;
+  [[nodiscard]] Image_sptr GetImage(int tileId) const;
+
+  [[nodiscard]] int GetAmountOfIdentifiers() const;
 
 };
 

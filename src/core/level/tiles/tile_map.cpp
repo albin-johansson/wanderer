@@ -11,10 +11,10 @@ TileMap::TileMap(std::unique_ptr<TileImageSet> tileImages, int nRows, int nCols)
 TileMap::~TileMap() = default;
 
 RenderBounds TileMap::CalculateRenderBounds(const Rectangle& bounds) const noexcept {
-  auto minCol = static_cast<int>(bounds.GetX() / ITile::SIZE);
-  auto minRow = static_cast<int>(bounds.GetY() / ITile::SIZE);
-  auto maxCol = static_cast<int>((bounds.GetMaxX() / ITile::SIZE) + 1);
-  auto maxRow = static_cast<int>((bounds.GetMaxY() / ITile::SIZE) + 1);
+  auto minCol = static_cast<int>(bounds.GetX() / Tile::SIZE);
+  auto minRow = static_cast<int>(bounds.GetY() / Tile::SIZE);
+  auto maxCol = static_cast<int>((bounds.GetMaxX() / Tile::SIZE) + 1);
+  auto maxRow = static_cast<int>((bounds.GetMaxY() / Tile::SIZE) + 1);
 
   if (minCol < 0) {
     minCol = 0;

@@ -159,7 +159,7 @@ set(SOURCE_FILES
         audio/sound_engine.h
 
         visuals/font_bundle.cpp
-        visuals/font_bundle.h)
+        visuals/font_bundle.h core/level/tiles/tile.cpp core/level/tiles/tile_set.cpp core/level/tiles/tile_set.h)
 
 # Prepares the Wanderer "library", which excludes linking and the main.cpp file
 add_library(${WANDERER_LIB} ${SOURCE_FILES})

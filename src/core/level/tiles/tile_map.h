@@ -67,11 +67,11 @@ class TileMap final : public IDrawable {
   [[nodiscard]] inline int GetCols() const noexcept { return nCols; }
 
   [[nodiscard]] inline int GetWidth() const noexcept {
-    return nCols * static_cast<int>(ITile::SIZE);
+    return nCols * static_cast<int>(Tile::SIZE);
   }
 
   [[nodiscard]] inline int GetHeight() const noexcept {
-    return nRows * static_cast<int>(ITile::SIZE);
+    return nRows * static_cast<int>(Tile::SIZE);
   }
 
 };

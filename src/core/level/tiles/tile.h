@@ -2,6 +2,7 @@
 #include "game_object.h"
 #include "drawable.h"
 #include "image.h"
+#include <cstdint>
 #include <memory>
 
 namespace albinjohansson::wanderer {
@@ -11,32 +12,28 @@ struct TilePos {
   int col = 0;
 };
 
-class IEntity;
+struct TileProperties {
+  Image_sptr sheet;
+  uint16_t id;
+  bool blocked;
+};
 
-/**
- * The ITile interface specifies objects that represent tiles.
- *
- * @see IGameObject
- * @since 0.1.0
- */
-class ITile {
- protected:
-  ITile() = default;
+class Tile {
+ private:
+  TileProperties properties;
 
  public:
   static constexpr float SIZE = 64;
 
-  virtual ~ITile() = default;
+  explicit Tile(TileProperties properties);
 
-  virtual void Draw(TilePos pos, Renderer& renderer, const Viewport& viewport) const = 0;
+  ~Tile();
 
-  virtual void Tick(ILevel& level, float delta) = 0;
+  void Draw(TilePos pos, Renderer& renderer, const Viewport& viewport) const;
 
-  virtual void Hurt(int x, int y, const IEntity& source, int dmg) = 0;
+  void Tick(ILevel& level);
 
-  virtual void BumpInto(int x, int y, const IEntity& source) = 0;
-
-  [[nodiscard]] virtual Image& GetImage() const = 0;
+  [[nodiscard]] Image& GetImage() const noexcept { return *properties.sheet; }
 
   /**
    * Returns the type ID the tile.
@@ -44,7 +41,7 @@ class ITile {
    * @return the type ID the tile.
    * @since 0.1.0
    */
-  [[nodiscard]] virtual int GetId() const noexcept = 0;
+  [[nodiscard]] int GetId() const noexcept { return properties.id; }
 
   /**
    * Indicates whether or not the tile is blocked.
@@ -52,11 +49,11 @@ class ITile {
    * @return true if the tile is blocked; false otherwise.
    * @since 0.1.0
    */
-  [[nodiscard]] virtual bool IsBlocked() const noexcept = 0;
+  [[nodiscard]] bool IsBlocked() const noexcept { return properties.blocked; }
 };
 
-using ITile_uptr = std::unique_ptr<ITile>;
-using ITile_sptr = std::shared_ptr<ITile>;
-using ITile_wptr = std::weak_ptr<ITile>;
+using ITile_uptr = std::unique_ptr<Tile>;
+using ITile_sptr = std::shared_ptr<Tile>;
+using ITile_wptr = std::weak_ptr<Tile>;
 
 }

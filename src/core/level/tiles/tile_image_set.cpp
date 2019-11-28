@@ -28,7 +28,7 @@ Rectangle TileImageSet::GetSource(int tileId) const {
   throw BadStateException("Invalid tile ID: " + std::to_string(tileId));
 }
 
-Image& TileImageSet::GetImage(int tileId) const {
+Image_sptr TileImageSet::GetImage(int tileId) const {
   for (const auto& sheet : sheets) {
     if (sheet->Contains(tileId)) {
       return sheet->GetImage();
@@ -36,6 +36,10 @@ Image& TileImageSet::GetImage(int tileId) const {
   }
 
   throw BadStateException("Invalid tile ID: " + std::to_string(tileId));
+}
+
+int TileImageSet::GetAmountOfIdentifiers() const {
+  return sheets.at(sheets.size() - 1)->GetMaxID() - 1;
 }
 
 }

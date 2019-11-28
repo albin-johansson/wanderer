@@ -22,12 +22,12 @@ void TileMapLayer::Draw(Renderer& renderer,
       }
 
       Rectangle src = images.GetSource(tileId);
-      Rectangle dst = {viewport.GetTranslatedX(col * ITile::SIZE),
-                       viewport.GetTranslatedY(row * ITile::SIZE),
-                       ITile::SIZE,
-                       ITile::SIZE};
+      Rectangle dst = {viewport.GetTranslatedX(col * Tile::SIZE),
+                       viewport.GetTranslatedY(row * Tile::SIZE),
+                       Tile::SIZE,
+                       Tile::SIZE};
 
-      renderer.RenderTexture(images.GetImage(tileId), src, dst);
+      renderer.RenderTexture(*images.GetImage(tileId), src, dst);
     }
   }
 }

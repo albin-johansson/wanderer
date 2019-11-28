@@ -9,7 +9,7 @@ Image::Image(SDL_Renderer* renderer, const std::string& path) {
   Objects::RequireNonNull(renderer);
   texture = IMG_LoadTexture(renderer, path.c_str());
   if (texture == nullptr) {
-    throw BadStateException();
+    throw BadStateException("Failed to load image from " + path);
   }
 }
 

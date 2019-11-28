@@ -22,7 +22,7 @@ class IEntity : public virtual IMovableObject, public virtual IAnimated {
   IEntity() = default;
 
  public:
-  static constexpr float SIZE = ITile::SIZE * (7.0f / 3.0f);
+  static constexpr float SIZE = Tile::SIZE * (7.0f / 3.0f);
 
   ~IEntity() override = default;
 
