@@ -3,8 +3,7 @@
 
 namespace albinjohansson::wanderer {
 
-Tile::Tile(TileProperties properties)
-    : properties(std::move(properties)) {}
+Tile::Tile(TileProperties properties) : properties(std::move(properties)) {}
 
 Tile::~Tile() = default;
 
