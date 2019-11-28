@@ -3,11 +3,7 @@
 #include "sprite_sheet.h"
 #include "bad_state_exception.h"
 #include <SDL.h>
-#include <string>
-#include <memory>
 #include <sstream>
-#include <vector>
-#include <cstdint>
 
 using namespace std;
 
@@ -26,24 +22,8 @@ pugi::xml_document TiledMapParser::LoadDocument(const std::string& path) {
   return doc;
 }
 
-unique_ptr<TileMap> TiledMapParser::LoadMap(ImageGenerator& imageGenerator, const string& file) {
-  auto mapDocument = LoadDocument(file);
-  auto mapRootNode = mapDocument.child("map");
-
-  auto mapWidth = mapRootNode.attribute("width").as_int();
-  auto mapHeight = mapRootNode.attribute("height").as_int();
-  auto tileWidth = mapRootNode.attribute("tilewidth").as_int();
-  auto tileHeight = mapRootNode.attribute("tileheight").as_int();
-
-  struct TTS { // temp tile set
-    Image_sptr img = nullptr;
-    int tilecount;
-    int size;
-    uint16_t firstgid;
-    uint16_t lastgid;
-  };
-
-  int nTiles = 0;
+vector<TTS> TiledMapParser::CreateTileSetInfo(ImageGenerator& imageGenerator,
+                                              const pugi::xml_node& mapRootNode) {
   vector<TTS> tmps;
   tmps.reserve(20);
 
@@ -55,13 +35,13 @@ unique_ptr<TileMap> TiledMapParser::LoadMap(ImageGenerator& imageGenerator, cons
     auto tsRootNode = tsDocument.child("tileset");
 
     auto twidth = tsRootNode.attribute("tilewidth").as_int();
-    auto theight = tsRootNode.attribute("tileheight").as_int();
+//    auto theight = tsRootNode.attribute("tileheight").as_int();
     auto tilecount = tsRootNode.attribute("tilecount").as_int();
 
     auto imageNode = tsRootNode.child("image");
     auto imgSource = string(imageNode.attribute("source").as_string()); // Relative to map
-    auto imgWidth = imageNode.attribute("width").as_int();
-    auto imgHeight = imageNode.attribute("height").as_int();
+//    auto imgWidth = imageNode.attribute("width").as_int();
+//    auto imgHeight = imageNode.attribute("height").as_int();
 
     // TODO tile properties
 
@@ -77,50 +57,73 @@ unique_ptr<TileMap> TiledMapParser::LoadMap(ImageGenerator& imageGenerator, cons
     tmps.push_back(tts);
   }
 
-  auto images = make_unique<TileImageSet>();
-  auto tileSet = make_unique<TileSet>(nTiles);
+  return tmps;
+}
 
-  uint16_t i = 1;
-  for (auto& tts : tmps) {
-    Range range = {tts.firstgid, tts.lastgid};
-    images->Add(make_unique<SpriteSheet>(tts.img, range, 32));
+std::vector<std::unique_ptr<TileMapLayer>> TiledMapParser::CreateTileMapLayers(const pugi::xml_node& mapRootNode) {
 
-    TileProperties properties = {tts.img, i, false};
-    tileSet->Insert(i, Tile(properties));
-
-    ++i;
-  }
-
-  vector<unique_ptr<TileMapLayer>> layers;
+  std::vector<std::unique_ptr<TileMapLayer>> layers;
   int nLayers = 0;
   for (auto layerNode : mapRootNode.children("layer")) {
     auto nCols = layerNode.attribute("width").as_int();
     auto nRows = layerNode.attribute("height").as_int();
     auto data = layerNode.child("data").text().as_string();
 
-    vector<int> tiles;
+    std::vector<int> tiles;
     tiles.reserve(nRows * nCols);
 
-    stringstream stream(data);
-    string token;
+    std::stringstream stream(data);
+    std::string token;
 
-    while (getline(stream, token, ',')) {
-      tiles.push_back(stoi(token));
+    while (std::getline(stream, token, ',')) {
+      tiles.push_back(std::stoi(token));
     }
 
-    layers.push_back(make_unique<TileMapLayer>(nRows, nCols, move(tiles)));
+    layers.push_back(std::make_unique<TileMapLayer>(nRows, nCols, std::move(tiles)));
     ++nLayers;
   }
 
-  SDL_Log("Loaded %i layers!", nLayers);
+  return layers;
+}
 
-  auto tmap = make_unique<TileMap>(move(images), mapHeight, mapWidth);
+void TiledMapParser::PrepareTileSets(const std::vector<TTS>& tempTileSets,
+                                     TileSet& tileSet,
+                                     TileImageSet& imageSet) {
+  uint16_t tileId = 1;
+  for (auto& tts : tempTileSets) {
+    Range range = {tts.firstgid, tts.lastgid};
+    imageSet.Add(std::make_unique<SpriteSheet>(tts.img, range, 32));
 
-  for (auto& layer : layers) {
-    tmap->AddLayer(move(layer));
+    TileProperties properties = {tts.img, tileId, false};
+    tileSet.Insert(tileId, Tile(properties));
+
+    ++tileId;
+  }
+}
+
+unique_ptr<TileMap> TiledMapParser::LoadMap(ImageGenerator& imageGenerator, const string& file) {
+  auto mapDocument = LoadDocument(file);
+  auto mapRootNode = mapDocument.child("map");
+
+  auto mapWidth = mapRootNode.attribute("width").as_int();
+  auto mapHeight = mapRootNode.attribute("height").as_int();
+//  auto tileWidth = mapRootNode.attribute("tilewidth").as_int();
+//  auto tileHeight = mapRootNode.attribute("tileheight").as_int();
+
+  std::vector<TTS> tempTileSets = CreateTileSetInfo(imageGenerator, mapRootNode);
+
+  auto tileImageSet = std::make_unique<TileImageSet>();
+  auto tileSet = std::make_unique<TileSet>(nTiles);
+
+  PrepareTileSets(tempTileSets, *tileSet, *tileImageSet);
+
+  auto tileMap = std::make_unique<TileMap>(std::move(tileImageSet), mapHeight, mapWidth);
+
+  for (auto& layer : CreateTileMapLayers(mapRootNode)) {
+    tileMap->AddLayer(std::move(layer));
   }
 
-  return tmap;
+  return tileMap;
 }
 
 }
