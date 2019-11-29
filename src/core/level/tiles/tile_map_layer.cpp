@@ -17,6 +17,7 @@ void TileMapLayer::Draw(Renderer& renderer,
   for (auto row = bounds.minRow; row < bounds.maxRow; row++) {
     for (auto col = bounds.minCol; col < bounds.maxCol; col++) {
       int tileId = GetTile(row, col);
+
       if (tileId == 0) {
         continue;
       }
