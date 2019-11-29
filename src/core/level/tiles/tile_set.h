@@ -7,7 +7,7 @@
 
 namespace albinjohansson::wanderer {
 
-using TileID = uint16_t; // in order to be able to switch easily
+using TileID = uint16_t; // used in order to be able to switch easily.
 
 class TileSet final {
  private:
