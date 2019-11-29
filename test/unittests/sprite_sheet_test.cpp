@@ -126,7 +126,7 @@ TEST_CASE("SpriteSheet::Contains", "[SpriteSheet]") {
   CHECK(sheet.Contains(range.max));
 }
 
-TEST_CASE("SpriteSheet::Contains", "[SpriteSheet]") {
+TEST_CASE("SpriteSheet::GetSpriteSize", "[SpriteSheet]") {
   Window window("foo", 10, 10);
   Renderer renderer(window.GetInternalWindow());
 
