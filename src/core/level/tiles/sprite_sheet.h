@@ -31,6 +31,8 @@ class SpriteSheet final {
 
   [[nodiscard]] int GetMaxID() const noexcept { return range.max; }
 
+  [[nodiscard]] int GetTileCount() const noexcept { return range.max - range.min; }
+
   [[nodiscard]] bool Contains(int tileId) const noexcept {
     return tileId >= range.min && tileId <= range.max;
   }
