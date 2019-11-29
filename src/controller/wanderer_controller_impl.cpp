@@ -10,14 +10,19 @@ namespace albinjohansson::wanderer {
 
 WandererControllerImpl::WandererControllerImpl() {
   SDL_DisplayMode desktop = DisplayModes::GetDesktopInfo();
-//  window = Window::Create("Wanderer", desktop.w, desktop.h);
-//  window->SetFullscreen(true);
+
+#ifndef NDEBUG
   window = Window::Create("Wanderer", 1280, 720);
   window->SetFullscreen(false);
+#else
+  window = Window::Create("Wanderer", desktop.w, desktop.h);
+  window->SetFullscreen(true);
+#endif
 
   SDL_Surface* icon = IMG_Load("resources/img/tactile_icon.png");
   if (icon != nullptr) {
     window->SetIcon(icon);
+    SDL_FreeSurface(icon);
   } else {
     SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION,
                    SDL_LOG_PRIORITY_WARN,
