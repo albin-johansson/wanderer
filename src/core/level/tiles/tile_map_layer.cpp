@@ -16,24 +16,29 @@ void TileMapLayer::Draw(Renderer& renderer,
   // TODO need to sort and draw entities as well
   for (auto row = bounds.minRow; row < bounds.maxRow; row++) {
     for (auto col = bounds.minCol; col < bounds.maxCol; col++) {
-      int tileId = GetTile(row, col);
+      int tileId = GetTileId(row, col);
 
       if (tileId == 0) {
         continue;
       }
 
-      Rectangle src = images.GetSource(tileId);
-      Rectangle dst = {viewport.GetTranslatedX(col * Tile::SIZE),
-                       viewport.GetTranslatedY(row * Tile::SIZE),
-                       Tile::SIZE,
-                       Tile::SIZE};
+      try {
+        const Rectangle& src = images.GetSource(tileId);
 
-      renderer.RenderTexture(*images.GetImage(tileId), src, dst);
+        Rectangle dst = {viewport.GetTranslatedX(col * Tile::SIZE),
+                         viewport.GetTranslatedY(row * Tile::SIZE),
+                         Tile::SIZE,
+                         Tile::SIZE};
+
+        renderer.RenderTexture(*images.GetImage(tileId), src, dst);
+      } catch (std::exception& e) {
+        throw;
+      }
     }
   }
 }
 
-int TileMapLayer::GetTile(int row, int col) const {
+int TileMapLayer::GetTileId(int row, int col) const {
   return tiles.at(GetIndex(row, col));
 }
 

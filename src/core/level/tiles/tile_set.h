@@ -1,6 +1,7 @@
 #pragma once
 #include "tile.h"
 #include <vector>
+#include <unordered_map>
 #include <memory>
 
 namespace albinjohansson::wanderer {
@@ -8,7 +9,7 @@ namespace albinjohansson::wanderer {
 class TileSet final {
  private:
   const int nTiles;
-  std::vector<Tile> tiles;
+  std::unordered_map<int, Tile> tiles;
 
  public:
   explicit TileSet(int nTiles);

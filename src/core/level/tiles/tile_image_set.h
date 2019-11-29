@@ -16,11 +16,9 @@ class TileImageSet final {
 
   void Add(SpriteSheet_uptr sheet);
 
-  [[nodiscard]] Rectangle GetSource(int tileId) const;
+  [[nodiscard]] const Rectangle& GetSource(int tileId) const;
 
   [[nodiscard]] Image_sptr GetImage(int tileId) const;
-
-  [[nodiscard]] int GetAmountOfIdentifiers() const;
 
 };
 

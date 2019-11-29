@@ -12,17 +12,11 @@ void TileImageSet::Add(SpriteSheet_uptr sheet) {
   sheets.push_back(std::move(sheet));
 }
 
-Rectangle TileImageSet::GetSource(int tileId) const {
-  // TODO see if the index stuff can be simplified
-
-  int nBefore = 1;
+const Rectangle& TileImageSet::GetSource(int tileId) const {
   for (const auto& sheet : sheets) {
     if (sheet->Contains(tileId)) {
-      int index = tileId - nBefore;
-      return sheet->GetSource(index);
+      return sheet->GetSource(tileId);
     }
-
-    nBefore += (sheet->GetMaxID() - 1);
   }
 
   throw BadStateException("Invalid tile ID: " + std::to_string(tileId));
@@ -36,10 +30,6 @@ Image_sptr TileImageSet::GetImage(int tileId) const {
   }
 
   throw BadStateException("Invalid tile ID: " + std::to_string(tileId));
-}
-
-int TileImageSet::GetAmountOfIdentifiers() const {
-  return sheets.at(sheets.size() - 1)->GetMaxID() - 1;
 }
 
 }

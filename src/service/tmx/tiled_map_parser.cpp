@@ -49,7 +49,7 @@ std::vector<TTS> TiledMapParser::CreateTileSetInfo(ImageGenerator& imageGenerato
     auto pathToImage = "resources/img/" + imgSource.substr(imgSource.find_last_of('/') + 1);
     Image_sptr img = imageGenerator.Load(pathToImage);
 
-    uint16_t lastgid = firstgid + static_cast<uint16_t>(tilecount);
+    uint16_t lastgid = firstgid + static_cast<uint16_t>(tilecount) - 1;
 
     TTS tts = {img, tilecount, twidth, firstgid, lastgid};
     tmps.push_back(tts);

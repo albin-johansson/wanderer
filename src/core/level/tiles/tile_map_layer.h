@@ -24,9 +24,7 @@ class TileMapLayer final {
             const Viewport& viewport,
             const TileImageSet& images) const;
 
-//  void SetTile(int row, int col, int id);
-
-  [[nodiscard]] int GetTile(int row, int col) const;
+  [[nodiscard]] int GetTileId(int row, int col) const;
 
   [[nodiscard]] int GetIndex(int row, int col) const noexcept {
     return row * nCols + col;
