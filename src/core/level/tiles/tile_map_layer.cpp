@@ -22,18 +22,15 @@ void TileMapLayer::Draw(Renderer& renderer,
         continue;
       }
 
-      try {
-        const Rectangle& src = images.GetSource(tileId);
+      const Rectangle& src = images.GetSource(tileId);
 
-        Rectangle dst = {viewport.GetTranslatedX(col * Tile::SIZE),
-                         viewport.GetTranslatedY(row * Tile::SIZE),
-                         Tile::SIZE,
-                         Tile::SIZE};
+      Rectangle dst = {viewport.GetTranslatedX(col * Tile::SIZE),
+                       viewport.GetTranslatedY(row * Tile::SIZE),
+                       Tile::SIZE,
+                       Tile::SIZE};
 
-        renderer.RenderTexture(*images.GetImage(tileId), src, dst);
-      } catch (std::exception& e) {
-        throw;
-      }
+      renderer.RenderTexture(*images.GetImage(tileId), src, dst);
+
     }
   }
 }
