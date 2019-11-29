@@ -3,24 +3,27 @@
 #include <vector>
 #include <unordered_map>
 #include <memory>
+#include <cstdint>
 
 namespace albinjohansson::wanderer {
+
+using TileID = uint16_t; // in order to be able to switch easily
 
 class TileSet final {
  private:
   const int nTiles;
-  std::unordered_map<int, Tile> tiles;
+  std::unordered_map<TileID, Tile> tiles;
 
  public:
   explicit TileSet(int nTiles);
 
   ~TileSet();
 
-  void Tick(int index, ILevel& level);
+  void Tick(TileID index, ILevel& level);
 
-  void Insert(int index, const Tile& tile);
+  void Insert(TileID index, const Tile& tile);
 
-  [[nodiscard]] const Tile& GetTile(int index) { return tiles.at(index); }
+  [[nodiscard]] const Tile& GetTile(TileID index) { return tiles.at(index); }
 };
 
 using TileSet_uptr = std::unique_ptr<TileSet>;
