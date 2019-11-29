@@ -67,17 +67,17 @@ std::vector<std::unique_ptr<TileMapLayer>> TiledMapParser::CreateTileMapLayers(c
     auto nRows = layerNode.attribute("height").as_int();
     auto data = layerNode.child("data").text().as_string();
 
-    std::vector<int> tiles;
-    tiles.reserve(nRows * nCols);
+    std::vector<int> tileIds;
+    tileIds.reserve(nRows * nCols);
 
     std::stringstream stream(data);
     std::string token;
 
     while (std::getline(stream, token, ',')) {
-      tiles.push_back(std::stoi(token));
+      tileIds.push_back(std::stoi(token));
     }
 
-    layers.push_back(std::make_unique<TileMapLayer>(nRows, nCols, std::move(tiles)));
+    layers.push_back(std::make_unique<TileMapLayer>(nRows, nCols, std::move(tileIds)));
     ++nLayers;
   }
 
