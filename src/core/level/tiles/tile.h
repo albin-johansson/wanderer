@@ -7,6 +7,8 @@
 
 namespace albinjohansson::wanderer {
 
+using TileID = uint16_t; // used in order to be able to switch easily.
+
 struct TilePos {
   int row = 0;
   int col = 0;
@@ -14,7 +16,7 @@ struct TilePos {
 
 struct TileProperties {
   Image_sptr sheet;
-  uint16_t id;
+  TileID id;
   bool blocked;
 };
 
@@ -41,7 +43,7 @@ class Tile {
    * @return the type ID the tile.
    * @since 0.1.0
    */
-  [[nodiscard]] int GetId() const noexcept { return properties.id; }
+  [[nodiscard]] TileID GetId() const noexcept { return properties.id; }
 
   /**
    * Indicates whether or not the tile is blocked.

@@ -30,7 +30,6 @@ using TileMap_wptr = std::weak_ptr<TileMap>;
 class TileMap final : public IDrawable {
  private:
   std::unique_ptr<TileImageSet> tileImages = nullptr;
-
   std::vector<TileMapLayer_uptr> layers; // TODO separate different layers such as ground, etc?
 
   // std::vector<TileMapLayer_uptr> groundLayers;

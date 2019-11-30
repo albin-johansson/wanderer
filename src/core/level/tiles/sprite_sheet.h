@@ -1,6 +1,7 @@
 #pragma once
 #include "image.h"
 #include "rectangle.h"
+#include "tile.h"
 #include <memory>
 #include <unordered_map>
 
@@ -29,7 +30,7 @@ class SpriteSheet final {
   int nRows;
   int nCols;
   int nSprites;
-  std::unordered_map<int, Rectangle> sourceRectangles;
+  std::unordered_map<TileID, Rectangle> sourceRectangles;
 
  public:
   /**
@@ -45,12 +46,12 @@ class SpriteSheet final {
   /**
    * Returns a reference to the source rectangle associated with the supplied sprite ID.
    *
-   * @param spriteId the sprite ID of the desired source rectangle.
+   * @param id the sprite ID of the desired source rectangle.
    * @return a reference to the source rectangle associated with the supplied sprite ID.
    * @throws out_of_range if the sprite ID isn't located in the sprite sheet.
    * @since 0.1.0
    */
-  [[nodiscard]] const Rectangle& GetSource(int spriteId) const;
+  [[nodiscard]] const Rectangle& GetSource(TileID id) const;
 
   /**
    * Returns the minimum sprite ID value contained in the sprite sheet.
@@ -87,12 +88,12 @@ class SpriteSheet final {
   /**
    * Indicates whether or not the sprite sheet contains the supplied sprite ID.
    *
-   * @param spriteId the sprite ID that will be checked.
+   * @param id the sprite ID that will be checked.
    * @return true if the supplied ID is contained in the sprite sheet; false otherwise.
    * @since 0.1.0
    */
-  [[nodiscard]] bool Contains(int spriteId) const noexcept {
-    return (spriteId >= range.min) && (spriteId <= range.max);
+  [[nodiscard]] bool Contains(TileID id) const noexcept {
+    return (id >= range.min) && (id <= range.max);
   }
 
   /**

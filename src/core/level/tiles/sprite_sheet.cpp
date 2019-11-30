@@ -12,19 +12,19 @@ SpriteSheet::SpriteSheet(Image_sptr otherSheet, Range range, int otherSize)
   nRows = static_cast<int>(sheet->GetHeight() / size);
   nSprites = nRows * nCols;
 
-  int id = range.min;
+  TileID id = range.min;
   for (int i = 0; i < nSprites; i++, id++) {
     auto row = i / nCols;
     auto col = i % nCols;
     Rectangle rect(col * size, row * size, size, size);
 
-    sourceRectangles.insert(std::pair<int, Rectangle>(id, rect));
+    sourceRectangles.insert(std::pair<TileID, Rectangle>(id, rect));
   }
 }
 
 SpriteSheet::~SpriteSheet() = default;
 
-const Rectangle& SpriteSheet::GetSource(int spriteId) const {
+const Rectangle& SpriteSheet::GetSource(TileID spriteId) const {
   try {
     return sourceRectangles.at(spriteId);
   } catch (std::exception& e) {

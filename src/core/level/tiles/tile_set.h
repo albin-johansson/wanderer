@@ -7,8 +7,6 @@
 
 namespace albinjohansson::wanderer {
 
-using TileID = uint16_t; // used in order to be able to switch easily.
-
 /**
  * The TileSet class represents a set of tiles that are unique.
  *

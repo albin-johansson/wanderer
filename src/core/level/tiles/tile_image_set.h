@@ -2,6 +2,7 @@
 #include <vector>
 #include <memory>
 #include "sprite_sheet.h"
+#include "tile.h"
 
 namespace albinjohansson::wanderer {
 
@@ -16,9 +17,9 @@ class TileImageSet final {
 
   void Add(SpriteSheet_uptr sheet);
 
-  [[nodiscard]] const Rectangle& GetSource(int tileId) const;
+  [[nodiscard]] const Rectangle& GetSource(TileID id) const;
 
-  [[nodiscard]] Image_sptr GetImage(int tileId) const;
+  [[nodiscard]] Image_sptr GetImage(TileID id) const;
 
 };
 

@@ -26,7 +26,7 @@ std::vector<TTS> TiledMapParser::CreateTileSetInfo(ImageGenerator& imageGenerato
   tmps.reserve(20);
 
   for (auto ts : mapRootNode.children("tileset")) {
-    auto firstgid = static_cast<uint16_t>(ts.attribute("firstgid").as_int());
+    auto firstgid = static_cast<TileID>(ts.attribute("firstgid").as_int());
     auto source = std::string(ts.attribute("source").as_string());
 
     auto tsDocument = LoadDocument("resources/map/world/" + source); // FIXME
@@ -49,7 +49,7 @@ std::vector<TTS> TiledMapParser::CreateTileSetInfo(ImageGenerator& imageGenerato
     auto pathToImage = "resources/img/" + imgSource.substr(imgSource.find_last_of('/') + 1);
     Image_sptr img = imageGenerator.Load(pathToImage);
 
-    uint16_t lastgid = firstgid + static_cast<uint16_t>(tilecount) - 1;
+    TileID lastgid = firstgid + static_cast<TileID>(tilecount) - 1;
 
     TTS tts = {img, tilecount, twidth, firstgid, lastgid};
     tmps.push_back(tts);
@@ -67,14 +67,14 @@ std::vector<std::unique_ptr<TileMapLayer>> TiledMapParser::CreateTileMapLayers(c
     auto nRows = layerNode.attribute("height").as_int();
     auto data = layerNode.child("data").text().as_string();
 
-    std::vector<int> tileIds;
+    std::vector<TileID> tileIds;
     tileIds.reserve(nRows * nCols);
 
     std::stringstream stream(data);
     std::string token;
 
     while (std::getline(stream, token, ',')) {
-      tileIds.push_back(std::stoi(token));
+      tileIds.push_back(static_cast<TileID>(std::stoi(token)));
     }
 
     layers.push_back(std::make_unique<TileMapLayer>(nRows, nCols, std::move(tileIds)));
@@ -90,7 +90,7 @@ void TiledMapParser::PrepareTileSets(const std::vector<TTS>& tempTileSets,
   TileID id = 1;
   for (auto& tts : tempTileSets) {
     Range range = {tts.firstgid, tts.lastgid};
-    imageSet.Add(std::make_unique<SpriteSheet>(tts.img, range, 32));
+    imageSet.Add(std::make_unique<SpriteSheet>(tts.img, range, tts.size));
 
     TileProperties properties = {tts.img, id, false};
     tileSet.Insert(id, Tile(properties));

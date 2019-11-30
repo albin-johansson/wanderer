@@ -1,4 +1,5 @@
 #pragma once
+#include "tile.h"
 #include "renderer.h"
 #include "render_bounds.h"
 #include "tile_image_set.h"
@@ -12,10 +13,10 @@ class TileMapLayer final {
  private:
   const int nRows;
   const int nCols;
-  std::vector<int> tiles;
+  std::vector<TileID> tiles;
 
  public:
-  TileMapLayer(int nRows, int nCols, std::vector<int> tiles);
+  TileMapLayer(int nRows, int nCols, std::vector<TileID> tiles);
 
   ~TileMapLayer();
 
@@ -24,7 +25,7 @@ class TileMapLayer final {
             const Viewport& viewport,
             const TileImageSet& images) const;
 
-  [[nodiscard]] int GetTileId(int row, int col) const;
+  [[nodiscard]] TileID GetTileId(int row, int col) const;
 
   [[nodiscard]] int GetIndex(int row, int col) const noexcept {
     return row * nCols + col;

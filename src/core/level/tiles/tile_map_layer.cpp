@@ -3,7 +3,7 @@
 
 namespace albinjohansson::wanderer {
 
-TileMapLayer::TileMapLayer(int nRows, int nCols, std::vector<int> tiles)
+TileMapLayer::TileMapLayer(int nRows, int nCols, std::vector<TileID> tiles)
     : nRows(nRows), nCols(nCols), tiles(std::move(tiles)) {}
 
 TileMapLayer::~TileMapLayer() = default;
@@ -35,7 +35,7 @@ void TileMapLayer::Draw(Renderer& renderer,
   }
 }
 
-int TileMapLayer::GetTileId(int row, int col) const {
+TileID TileMapLayer::GetTileId(int row, int col) const {
   return tiles.at(GetIndex(row, col));
 }
 
