@@ -2,7 +2,7 @@
 #include "tile.h"
 #include "renderer.h"
 #include "render_bounds.h"
-#include "tile_image_set.h"
+#include "tile_set.h"
 #include "viewport.h"
 #include <vector>
 #include <memory>
@@ -23,9 +23,13 @@ class TileMapLayer final {
   void Draw(Renderer& renderer,
             RenderBounds bounds,
             const Viewport& viewport,
-            const TileImageSet& images) const;
+            const TileSet& tileSet) const;
 
   [[nodiscard]] TileID GetTileId(int row, int col) const;
+
+  [[nodiscard]] const std::vector<TileID>& GetTiles() const noexcept {
+    return tiles;
+  }
 
   [[nodiscard]] int GetIndex(int row, int col) const noexcept {
     return row * nCols + col;

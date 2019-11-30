@@ -6,7 +6,10 @@
 
 namespace albinjohansson::wanderer {
 
-TiledMapParser::TiledMapParser() = default;
+TiledMapParser::TiledMapParser(ImageGenerator& imageGenerator, const std::string& file)
+    : imageGenerator(imageGenerator), file(file) {
+  LoadMap();
+}
 
 TiledMapParser::~TiledMapParser() = default;
 
@@ -20,45 +23,7 @@ pugi::xml_document TiledMapParser::LoadDocument(const std::string& path) {
   return doc;
 }
 
-std::vector<TTS> TiledMapParser::CreateTileSetInfo(ImageGenerator& imageGenerator,
-                                                   const pugi::xml_node& mapRootNode) {
-  std::vector<TTS> tmps;
-  tmps.reserve(20);
-
-  for (auto ts : mapRootNode.children("tileset")) {
-    auto firstgid = static_cast<TileID>(ts.attribute("firstgid").as_int());
-    auto source = std::string(ts.attribute("source").as_string());
-
-    auto tsDocument = LoadDocument("resources/map/world/" + source); // FIXME
-    auto tsRootNode = tsDocument.child("tileset");
-
-    auto twidth = tsRootNode.attribute("tilewidth").as_int();
-//    auto theight = tsRootNode.attribute("tileheight").as_int();
-    auto tilecount = tsRootNode.attribute("tilecount").as_int();
-
-    auto imageNode = tsRootNode.child("image");
-    auto imgSource = std::string(imageNode.attribute("source").as_string()); // Relative to map
-//    auto imgWidth = imageNode.attribute("width").as_int();
-//    auto imgHeight = imageNode.attribute("height").as_int();
-
-    // TODO tile properties
-
-    nTiles += tilecount;
-
-    // FIXME not very pretty
-    auto pathToImage = "resources/img/" + imgSource.substr(imgSource.find_last_of('/') + 1);
-    Image_sptr img = imageGenerator.Load(pathToImage);
-
-    TileID lastgid = firstgid + static_cast<TileID>(tilecount) - 1;
-
-    TTS tts = {img, tilecount, twidth, firstgid, lastgid};
-    tmps.push_back(tts);
-  }
-
-  return tmps;
-}
-
-std::vector<TileMapLayer_uptr> TiledMapParser::CreateTileMapLayers(const pugi::xml_node& mapRootNode) {
+std::vector<TileMapLayer_uptr> TiledMapParser::LoadLayers(const pugi::xml_node& mapRootNode) {
 
   std::vector<TileMapLayer_uptr> layers;
   int nLayers = 0;
@@ -84,45 +49,67 @@ std::vector<TileMapLayer_uptr> TiledMapParser::CreateTileMapLayers(const pugi::x
   return layers;
 }
 
-void TiledMapParser::PrepareTileSets(const std::vector<TTS>& tempTileSets,
-                                     TileSet& tileSet,
-                                     TileImageSet& imageSet) {
-  TileID id = 1;
-  for (auto& tts : tempTileSets) {
-    Range range = {tts.firstgid, tts.lastgid};
-    imageSet.Add(std::make_unique<SpriteSheet>(tts.img, range, tts.size));
+void TiledMapParser::LoadMap() {
+  pugi::xml_document mapDocument = LoadDocument(file);
+  pugi::xml_node mapRoot = mapDocument.child("map");
 
-    TileProperties properties = {tts.img, id, false};
-    tileSet.Insert(id, Tile(properties));
+  int nCols = mapRoot.attribute("width").as_int();
+  int nRows = mapRoot.attribute("height").as_int();
 
-    ++id;
+  std::vector<TileMapLayer_uptr> layers = LoadLayers(mapRoot);
+
+  // Process all tile sheets
+
+  TileSet_uptr tileSet = std::make_unique<TileSet>(3000); // FIXME
+
+  for (pugi::xml_node ts : mapRoot.children("tileset")) {
+    std::string tsFileName = ts.attribute("source").as_string();
+
+    pugi::xml_document tsDocument = LoadDocument("resources/map/world/" + tsFileName); // FIXME
+    pugi::xml_node tsRoot = tsDocument.child("tileset");
+
+    int tileWidth = tsRoot.attribute("tilewidth").as_int();
+    int tileHeight = tsRoot.attribute("tileheight").as_int();
+    int tileCount = tsRoot.attribute("tilecount").as_int();
+
+    auto size = tileWidth;
+
+    TileID firstgid = static_cast<TileID>(ts.attribute("firstgid").as_uint());
+    TileID lastgid = firstgid + static_cast<TileID>(tileCount) - 1;
+
+    // Tile sheet image
+    pugi::xml_node img = tsRoot.child("image");
+
+    // FIXME ugly file paths
+    std::string imgPath = img.attribute("source").as_string();
+    std::string pathToImage = "resources/img/" + imgPath.substr(imgPath.find_last_of('/') + 1);
+    Image_sptr sheetImage = imageGenerator.Load(pathToImage);
+
+    // Process special tile properties
+//    for (pugi::xml_node t : ts.children("tile")) {
+    // TODO...
+//    }
+
+    int sheetRows = sheetImage->GetHeight() / size;
+    int sheetCols = sheetImage->GetHeight() / size;
+
+    int i = 0;
+    for (TileID id = firstgid; id <= lastgid; id++, i++) {
+      TileProperties properties = {sheetImage, id}; // img, id, animation, hitbox, blocked
+
+      auto row = i / sheetCols;
+      auto col = i % sheetCols;
+      Rectangle srcRect(col * size, row * size, size, size);
+
+      tileSet->Insert(id, Tile(properties), srcRect);
+    }
   }
-}
 
-std::unique_ptr<TileMap> TiledMapParser::LoadMap(ImageGenerator& imageGenerator,
-                                                 const std::string& file) {
-  auto mapDocument = LoadDocument(file);
-  auto mapRootNode = mapDocument.child("map");
+  map = std::make_unique<TileMap>(std::move(tileSet), nRows, nCols);
 
-  auto mapWidth = mapRootNode.attribute("width").as_int();
-  auto mapHeight = mapRootNode.attribute("height").as_int();
-//  auto tileWidth = mapRootNode.attribute("tilewidth").as_int();
-//  auto tileHeight = mapRootNode.attribute("tileheight").as_int();
-
-  std::vector<TTS> tempTileSets = CreateTileSetInfo(imageGenerator, mapRootNode);
-
-  auto tileImageSet = std::make_unique<TileImageSet>();
-  auto tileSet = std::make_unique<TileSet>(nTiles);
-
-  PrepareTileSets(tempTileSets, *tileSet, *tileImageSet);
-
-  auto tileMap = std::make_unique<TileMap>(std::move(tileImageSet), mapHeight, mapWidth);
-
-  for (auto& layer : CreateTileMapLayers(mapRootNode)) {
-    tileMap->AddLayer(std::move(layer));
+  for (auto& layer : layers) {
+    map->AddLayer(std::move(layer));
   }
-
-  return tileMap;
 }
 
 }

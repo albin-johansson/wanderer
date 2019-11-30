@@ -2,6 +2,7 @@
 #include "game_object.h"
 #include "drawable.h"
 #include "image.h"
+#include "animation.h"
 #include <cstdint>
 #include <memory>
 
@@ -14,10 +15,12 @@ struct TilePos {
   int col = 0;
 };
 
-struct TileProperties {
-  Image_sptr sheet;
-  TileID id;
-  bool blocked;
+struct TileProperties { // TODO reorder fields
+  Image_sptr sheet = nullptr;
+  TileID id = 0;
+  Animation animation;
+  Rectangle hitbox = {0, 0, 1, 1};
+  bool blocked = false;
 };
 
 class Tile {
@@ -31,7 +34,7 @@ class Tile {
 
   ~Tile();
 
-  void Draw(TilePos pos, Renderer& renderer, const Viewport& viewport) const;
+  void Draw(TilePos pos, Renderer& renderer, const Viewport& viewport, const Rectangle& src) const;
 
   void Tick(ILevel& level);
 
@@ -52,6 +55,8 @@ class Tile {
    * @since 0.1.0
    */
   [[nodiscard]] bool IsBlocked() const noexcept { return properties.blocked; }
+
+//  [[nodiscard]] bool IsAnimated() const noexcept { return false; }
 };
 
 using ITile_uptr = std::unique_ptr<Tile>;

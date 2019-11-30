@@ -6,7 +6,7 @@
 
 namespace albinjohansson::wanderer {
 
-class TileImageSet final {
+class TileImageSet final { // TODO remove
  private:
   std::vector<SpriteSheet_uptr> sheets;
 

@@ -19,10 +19,8 @@ WandererCoreImpl::WandererCoreImpl(ImageGenerator& imageGenerator) {
   soundEngine = std::make_unique<SoundEngine>();
   LoadSounds();
 
-  TiledMapParser parser;
-
-  auto map = parser.LoadMap(imageGenerator, "resources/map/world/world_demo.tmx");
-  level = std::make_unique<WorldLevel>(std::move(map), player, soundEngine, imageGenerator);
+  TiledMapParser parser(imageGenerator, "resources/map/world/world_demo.tmx");
+  level = std::make_unique<WorldLevel>(parser.GetMap(), player, soundEngine, imageGenerator);
 
   // TODO listener for viewport dimensions
   viewport.SetLevelWidth(static_cast<float>(level->GetWidth()));

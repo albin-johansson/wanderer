@@ -3,9 +3,9 @@
 
 namespace albinjohansson::wanderer {
 
-TileMap::TileMap(std::unique_ptr<TileImageSet> tileImages, int nRows, int nCols)
+TileMap::TileMap(std::unique_ptr<TileSet> tileSet, int nRows, int nCols)
     : nRows(nRows), nCols(nCols) {
-  this->tileImages = Objects::RequireNonNull(std::move(tileImages));
+  this->tileSet = Objects::RequireNonNull(std::move(tileSet));
 }
 
 TileMap::~TileMap() = default;
@@ -38,7 +38,7 @@ RenderBounds TileMap::CalculateRenderBounds(const Rectangle& bounds) const noexc
 void TileMap::Draw(Renderer& renderer, const Viewport& viewport) const noexcept {
   auto bounds = CalculateRenderBounds(viewport.GetBounds());
   for (const auto& layer : layers) {
-    layer->Draw(renderer, bounds, viewport, *tileImages);
+    layer->Draw(renderer, bounds, viewport, *tileSet);
   }
 }
 

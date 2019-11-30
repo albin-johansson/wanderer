@@ -8,7 +8,7 @@
 #include "image.h"
 #include "render_bounds.h"
 #include "tile_map_layer.h"
-#include "tile_image_set.h"
+#include "tile_set.h"
 
 namespace albinjohansson::wanderer {
 
@@ -29,7 +29,7 @@ using TileMap_wptr = std::weak_ptr<TileMap>;
  */
 class TileMap final : public IDrawable {
  private:
-  std::unique_ptr<TileImageSet> tileImages = nullptr;
+  std::unique_ptr<TileSet> tileSet = nullptr;
   std::vector<TileMapLayer_uptr> layers; // TODO separate different layers such as ground, etc?
 
   // std::vector<TileMapLayer_uptr> groundLayers;
@@ -42,11 +42,12 @@ class TileMap final : public IDrawable {
 
  public:
   /**
+   * @param tileSet a unique pointer associated to the tile set.
    * @param nRows the number of rows in the tile map.
    * @param nCols the number of columns in the tile map.
    * @since 0.1.0
    */
-  TileMap(std::unique_ptr<TileImageSet> tileImages, int nRows, int nCols);
+  TileMap(std::unique_ptr<TileSet> tileSet, int nRows, int nCols);
 
   ~TileMap() override;
 

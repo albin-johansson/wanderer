@@ -5,10 +5,13 @@
 #include "tile_set.h"
 #include "image_generator.h"
 #include "image.h"
+#include "animation.h"
+#include "rectangle.h"
 #include <string>
 #include <vector>
 #include <memory>
 #include <cstdint>
+#include <map>
 
 namespace albinjohansson::wanderer {
 
@@ -18,30 +21,29 @@ struct TTS { // temp tile set
   int size;
   TileID firstgid;
   TileID lastgid;
+  std::map<TileID, Animation> animations;
+  std::map<TileID, Rectangle> hitboxes;
 };
 
 class TiledMapParser {
  private:
-  int nTiles = 0;
+  TileMap_uptr map = nullptr;
+  const std::string& file;
+  ImageGenerator& imageGenerator;
+
+  void LoadMap();
 
   [[nodiscard]] pugi::xml_document LoadDocument(const std::string& path);
 
-  [[nodiscard]] std::vector<TTS> CreateTileSetInfo(ImageGenerator& imageGenerator,
-                                                   const pugi::xml_node& mapRootNode);
-
-  [[nodiscard]] std::vector<TileMapLayer_uptr> CreateTileMapLayers(
-      const pugi::xml_node& mapRootNode);
-
-  void PrepareTileSets(const std::vector<TTS>& tempTileSets,
-                       TileSet& tileSet,
-                       TileImageSet& imageSet);
+  [[nodiscard]] std::vector<TileMapLayer_uptr> LoadLayers(const pugi::xml_node& mapRootNode);
 
  public:
-  TiledMapParser();
+
+  TiledMapParser(ImageGenerator& imageGenerator, const std::string& file);
 
   ~TiledMapParser();
 
-  std::unique_ptr<TileMap> LoadMap(ImageGenerator& imageGenerator, const std::string& file);
+  [[nodiscard]] TileMap_uptr GetMap() noexcept { return std::move(map); }
 };
 
 }

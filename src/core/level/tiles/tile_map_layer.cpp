@@ -11,26 +11,20 @@ TileMapLayer::~TileMapLayer() = default;
 void TileMapLayer::Draw(Renderer& renderer,
                         RenderBounds bounds,
                         const Viewport& viewport,
-                        const TileImageSet& images) const {
+                        const TileSet& tileSet) const {
 
   // TODO need to sort and draw entities as well
   for (auto row = bounds.minRow; row < bounds.maxRow; row++) {
     for (auto col = bounds.minCol; col < bounds.maxCol; col++) {
-      int tileId = GetTileId(row, col);
-
-      if (tileId == 0) {
+      TileID id = GetTileId(row, col);
+      if (id == 0) {
         continue;
       }
 
-      const Rectangle& src = images.GetSource(tileId);
+      const TilePos pos = {row, col};
+      const auto& tile = tileSet.GetTile(id);
 
-      Rectangle dst = {viewport.GetTranslatedX(col * Tile::SIZE),
-                       viewport.GetTranslatedY(row * Tile::SIZE),
-                       Tile::SIZE,
-                       Tile::SIZE};
-
-      renderer.RenderTexture(*images.GetImage(tileId), src, dst);
-
+      tile.Draw(pos, renderer, viewport, tileSet.GetSource(id));
     }
   }
 }

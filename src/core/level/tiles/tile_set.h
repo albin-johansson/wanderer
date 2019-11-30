@@ -1,5 +1,6 @@
 #pragma once
 #include "tile.h"
+#include "rectangle.h"
 #include <vector>
 #include <unordered_map>
 #include <memory>
@@ -14,8 +15,8 @@ namespace albinjohansson::wanderer {
  */
 class TileSet final {
  private:
-  const int nTiles;
   std::unordered_map<TileID, Tile> tiles;
+  std::unordered_map<TileID, Rectangle> sourceRectangles;
 
  public:
   /**
@@ -42,9 +43,11 @@ class TileSet final {
    * @param tile the tile to associated with the ID.
    * @since 0.1.0
    */
-  void Insert(TileID id, const Tile& tile);
+  void Insert(TileID id, const Tile& tile, const Rectangle& srcRect);
 
   [[nodiscard]] const Tile& GetTile(TileID id) const { return tiles.at(id); }
+
+  [[nodiscard]] const Rectangle& GetSource(TileID id) const;
 };
 
 using TileSet_uptr = std::unique_ptr<TileSet>;
