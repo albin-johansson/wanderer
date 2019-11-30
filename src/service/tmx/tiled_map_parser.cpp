@@ -87,15 +87,15 @@ std::vector<std::unique_ptr<TileMapLayer>> TiledMapParser::CreateTileMapLayers(c
 void TiledMapParser::PrepareTileSets(const std::vector<TTS>& tempTileSets,
                                      TileSet& tileSet,
                                      TileImageSet& imageSet) {
-  TileID tileId = 1;
+  TileID id = 1;
   for (auto& tts : tempTileSets) {
     Range range = {tts.firstgid, tts.lastgid};
     imageSet.Add(std::make_unique<SpriteSheet>(tts.img, range, 32));
 
-    TileProperties properties = {tts.img, tileId, false};
-    tileSet.Insert(tileId, Tile(properties));
+    TileProperties properties = {tts.img, id, false};
+    tileSet.Insert(id, Tile(properties));
 
-    ++tileId;
+    ++id;
   }
 }
 

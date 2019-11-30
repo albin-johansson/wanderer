@@ -8,12 +8,12 @@ TileSet::TileSet(int nTiles) : nTiles(nTiles) {
 
 TileSet::~TileSet() = default;
 
-void TileSet::Tick(TileID index, ILevel& level) {
-  tiles.at(index).Tick(level);
+void TileSet::Tick(TileID id, ILevel& level) {
+  tiles.at(id).Tick(level);
 }
 
-void TileSet::Insert(TileID index, const Tile& tile) {
-  tiles.insert(std::pair<TileID, Tile>(index, tile));
+void TileSet::Insert(TileID id, const Tile& tile) {
+  tiles.insert(std::pair<TileID, Tile>(id, tile));
 }
 
 }
