@@ -16,8 +16,8 @@ struct TTS { // temp tile set
   Image_sptr img = nullptr;
   int tilecount;
   int size;
-  uint16_t firstgid;
-  uint16_t lastgid;
+  TileID firstgid;
+  TileID lastgid;
 };
 
 class TiledMapParser {
@@ -29,7 +29,7 @@ class TiledMapParser {
   [[nodiscard]] std::vector<TTS> CreateTileSetInfo(ImageGenerator& imageGenerator,
                                                    const pugi::xml_node& mapRootNode);
 
-  [[nodiscard]] std::vector<std::unique_ptr<TileMapLayer>> CreateTileMapLayers(
+  [[nodiscard]] std::vector<TileMapLayer_uptr> CreateTileMapLayers(
       const pugi::xml_node& mapRootNode);
 
   void PrepareTileSets(const std::vector<TTS>& tempTileSets,

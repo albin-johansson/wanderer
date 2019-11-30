@@ -58,9 +58,9 @@ std::vector<TTS> TiledMapParser::CreateTileSetInfo(ImageGenerator& imageGenerato
   return tmps;
 }
 
-std::vector<std::unique_ptr<TileMapLayer>> TiledMapParser::CreateTileMapLayers(const pugi::xml_node& mapRootNode) {
+std::vector<TileMapLayer_uptr> TiledMapParser::CreateTileMapLayers(const pugi::xml_node& mapRootNode) {
 
-  std::vector<std::unique_ptr<TileMapLayer>> layers;
+  std::vector<TileMapLayer_uptr> layers;
   int nLayers = 0;
   for (auto layerNode : mapRootNode.children("layer")) {
     auto nCols = layerNode.attribute("width").as_int();
