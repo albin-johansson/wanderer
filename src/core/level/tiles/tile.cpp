@@ -28,13 +28,13 @@ void Tile::Draw(TilePos pos,
 
   renderer.RenderTexture(*properties.sheet, src, dst);
 
-//  if (IsBlocked()) {
+  if (IsBlocked()) {
     renderer.SetColor(0xFF, 0, 0);
     renderer.RenderRect(dst.GetX() + properties.hitbox.GetX(),
                         dst.GetY() + properties.hitbox.GetY(),
                         properties.hitbox.GetWidth(),
                         properties.hitbox.GetHeight());
-//  }
+  }
 }
 
 }
