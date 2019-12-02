@@ -105,7 +105,7 @@ void TiledMapParser::LoadSpecialProperties(const pugi::xml_node& tileSetNode,
                                            TileID firstgid,
                                            int tileSize) {
   for (pugi::xml_node tileNode : tileSetNode.children("tile")) {
-    TileID id = firstgid + static_cast<TileID>(tileNode.attribute("id").as_uint());
+    auto id = firstgid + static_cast<TileID>(tileNode.attribute("id").as_uint());
     TileProperties properties;
 
     pugi::xml_node animationNode = tileNode.child("animation");
@@ -169,14 +169,14 @@ Image_sptr TiledMapParser::LoadSheetImage(const pugi::xml_node& imageNode) {
 
 void TiledMapParser::LoadMap() {
   pugi::xml_document mapDocument = LoadDocument(file);
-  pugi::xml_node mapRoot = mapDocument.child("map");
+  pugi::xml_node mapRootNode = mapDocument.child("map");
 
-  int nCols = mapRoot.attribute("width").as_int();
-  int nRows = mapRoot.attribute("height").as_int();
+  int nCols = mapRootNode.attribute("width").as_int();
+  int nRows = mapRootNode.attribute("height").as_int();
 
-  map = std::make_unique<TileMap>(LoadTileSet(mapRoot), nRows, nCols);
+  map = std::make_unique<TileMap>(LoadTileSet(mapRootNode), nRows, nCols);
 
-  std::vector<TileMapLayer_uptr> layers = LoadLayers(mapRoot);
+  std::vector<TileMapLayer_uptr> layers = LoadLayers(mapRootNode);
   for (auto& layer : layers) {
     map->AddLayer(std::move(layer));
   }

@@ -25,12 +25,7 @@ SpriteSheet::SpriteSheet(Image_sptr otherSheet, Range range, int otherSize)
 SpriteSheet::~SpriteSheet() = default;
 
 const Rectangle& SpriteSheet::GetSource(TileID spriteId) const {
-  try {
-    return sourceRectangles.at(spriteId);
-  } catch (std::exception& e) {
-    SDL_Log("Bad tile ID: %i, in sprite sheet with range [%i, %i]", spriteId, range.min, range.max);
-    throw;
-  }
+  return sourceRectangles.at(spriteId);
 }
 
 }
