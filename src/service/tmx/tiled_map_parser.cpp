@@ -3,6 +3,7 @@
 #include "sprite_sheet.h"
 #include "bad_state_exception.h"
 #include <sstream>
+#include <map>
 
 namespace albinjohansson::wanderer {
 
@@ -49,18 +50,9 @@ std::vector<TileMapLayer_uptr> TiledMapParser::LoadLayers(const pugi::xml_node& 
   return layers;
 }
 
-void TiledMapParser::LoadMap() {
-  pugi::xml_document mapDocument = LoadDocument(file);
-  pugi::xml_node mapRoot = mapDocument.child("map");
-
-  int nCols = mapRoot.attribute("width").as_int();
-  int nRows = mapRoot.attribute("height").as_int();
-
-  std::vector<TileMapLayer_uptr> layers = LoadLayers(mapRoot);
-
-  // Process all tile sheets
-
+TileSet_uptr TiledMapParser::LoadTileSet(const pugi::xml_node& mapRoot) {
   TileSet_uptr tileSet = std::make_unique<TileSet>(3000); // FIXME
+  std::map<TileID, TileProperties> specialProperties;
 
   for (pugi::xml_node ts : mapRoot.children("tileset")) {
     std::string tsFileName = ts.attribute("source").as_string();
@@ -69,7 +61,7 @@ void TiledMapParser::LoadMap() {
     pugi::xml_node tsRoot = tsDocument.child("tileset");
 
     int tileWidth = tsRoot.attribute("tilewidth").as_int();
-    int tileHeight = tsRoot.attribute("tileheight").as_int();
+//    int tileHeight = tsRoot.attribute("tileheight").as_int();
     int tileCount = tsRoot.attribute("tilecount").as_int();
 
     auto size = tileWidth;
@@ -86,16 +78,52 @@ void TiledMapParser::LoadMap() {
     Image_sptr sheetImage = imageGenerator.Load(pathToImage);
 
     // Process special tile properties
-//    for (pugi::xml_node t : ts.children("tile")) {
-    // TODO...
-//    }
+    for (pugi::xml_node t : tsRoot.children("tile")) {
+      TileID specialId = firstgid + static_cast<TileID>(t.attribute("id").as_uint());
+      TileProperties props;
 
-    int sheetRows = sheetImage->GetHeight() / size;
+      pugi::xml_node anim = t.child("animation");
+      if (!anim.empty()) {
+
+        props.animated = true;
+
+        // TODO...
+      }
+
+      pugi::xml_node obj = t.child("objectgroup").child("object");
+      if (!obj.empty()) {
+        float x = obj.attribute("x").as_float();
+        float y = obj.attribute("y").as_float();
+        float w = obj.attribute("width").as_float();
+        float h = obj.attribute("height").as_float();
+
+        auto wscale = w / size;
+        auto hscale = h / size;
+
+        Rectangle rect(x, y, wscale * Tile::SIZE, hscale * Tile::SIZE);
+
+        props.hitbox = rect;
+        props.blocked = true;
+      }
+
+      specialProperties.insert(std::pair<TileID, TileProperties>(specialId, props));
+    }
+
+//    int sheetRows = sheetImage->GetHeight() / size;
     int sheetCols = sheetImage->GetHeight() / size;
 
     int i = 0;
     for (TileID id = firstgid; id <= lastgid; id++, i++) {
       TileProperties properties = {sheetImage, id}; // img, id, animation, hitbox, blocked
+
+      if (specialProperties.count(id)) {
+        const TileProperties& tp = specialProperties.at(id);
+
+        properties.hitbox = tp.hitbox;
+        properties.blocked = tp.blocked;
+        properties.animated = tp.animated;
+        properties.animation = tp.animation;
+      }
 
       auto row = i / sheetCols;
       auto col = i % sheetCols;
@@ -105,8 +133,19 @@ void TiledMapParser::LoadMap() {
     }
   }
 
-  map = std::make_unique<TileMap>(std::move(tileSet), nRows, nCols);
+  return tileSet;
+}
 
+void TiledMapParser::LoadMap() {
+  pugi::xml_document mapDocument = LoadDocument(file);
+  pugi::xml_node mapRoot = mapDocument.child("map");
+
+  int nCols = mapRoot.attribute("width").as_int();
+  int nRows = mapRoot.attribute("height").as_int();
+
+  map = std::make_unique<TileMap>(LoadTileSet(mapRoot), nRows, nCols);
+
+  std::vector<TileMapLayer_uptr> layers = LoadLayers(mapRoot);
   for (auto& layer : layers) {
     map->AddLayer(std::move(layer));
   }

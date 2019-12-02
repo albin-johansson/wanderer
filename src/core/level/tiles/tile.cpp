@@ -1,9 +1,11 @@
 #include "tile.h"
-#include "objects.h"
+#include <utility>
 
 namespace albinjohansson::wanderer {
 
-Tile::Tile(TileProperties properties) : properties(std::move(properties)) {}
+Tile::Tile(TileProperties properties) : properties(std::move(properties)) {
+
+}
 
 Tile::~Tile() = default;
 
@@ -15,7 +17,7 @@ void Tile::Draw(TilePos pos,
                 Renderer& renderer,
                 const Viewport& viewport,
                 const Rectangle& src) const {
-  if (GetId() == 0) {
+  if (GetId() == EMPTY) {
     return;
   }
 
@@ -26,6 +28,13 @@ void Tile::Draw(TilePos pos,
 
   renderer.RenderTexture(*properties.sheet, src, dst);
 
+//  if (IsBlocked()) {
+    renderer.SetColor(0xFF, 0, 0);
+    renderer.RenderRect(dst.GetX() + properties.hitbox.GetX(),
+                        dst.GetY() + properties.hitbox.GetY(),
+                        properties.hitbox.GetWidth(),
+                        properties.hitbox.GetHeight());
+//  }
 }
 
 }

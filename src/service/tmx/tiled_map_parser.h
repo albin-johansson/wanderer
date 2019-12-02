@@ -5,27 +5,12 @@
 #include "tile_set.h"
 #include "image_generator.h"
 #include "image.h"
-#include "animation.h"
-#include "rectangle.h"
 #include <string>
 #include <vector>
-#include <memory>
-#include <cstdint>
-#include <map>
 
 namespace albinjohansson::wanderer {
 
-struct TTS { // temp tile set
-  Image_sptr img = nullptr;
-  int tilecount;
-  int size;
-  TileID firstgid;
-  TileID lastgid;
-  std::map<TileID, Animation> animations;
-  std::map<TileID, Rectangle> hitboxes;
-};
-
-class TiledMapParser {
+class TiledMapParser final {
  private:
   TileMap_uptr map = nullptr;
   const std::string& file;
@@ -36,6 +21,8 @@ class TiledMapParser {
   [[nodiscard]] pugi::xml_document LoadDocument(const std::string& path);
 
   [[nodiscard]] std::vector<TileMapLayer_uptr> LoadLayers(const pugi::xml_node& mapRootNode);
+
+  [[nodiscard]] TileSet_uptr LoadTileSet(const pugi::xml_node& mapRootNode);
 
  public:
 

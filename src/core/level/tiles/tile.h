@@ -21,6 +21,7 @@ struct TileProperties { // TODO reorder fields
   Animation animation;
   Rectangle hitbox = {0, 0, 1, 1};
   bool blocked = false;
+  bool animated = false;
 };
 
 class Tile {
@@ -29,6 +30,7 @@ class Tile {
 
  public:
   static constexpr float SIZE = 64;
+  static constexpr TileID EMPTY = 0;
 
   explicit Tile(TileProperties properties);
 
