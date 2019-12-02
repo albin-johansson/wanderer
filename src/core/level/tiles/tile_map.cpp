@@ -10,7 +10,7 @@ TileMap::TileMap(std::unique_ptr<TileSet> tileSet, int nRows, int nCols)
 
 TileMap::~TileMap() = default;
 
-RenderBounds TileMap::CalculateRenderBounds(const Rectangle& bounds) const noexcept {
+TileMapBounds TileMap::CalculateMapBounds(const Rectangle& bounds) const noexcept {
   auto minCol = static_cast<int>(bounds.GetX() / Tile::SIZE);
   auto minRow = static_cast<int>(bounds.GetY() / Tile::SIZE);
   auto maxCol = static_cast<int>((bounds.GetMaxX() / Tile::SIZE) + 1);
@@ -35,8 +35,15 @@ RenderBounds TileMap::CalculateRenderBounds(const Rectangle& bounds) const noexc
   return {minRow, maxRow, minCol, maxCol};
 }
 
+void TileMap::Tick(const Viewport& viewport) {
+  auto bounds = CalculateMapBounds(viewport.GetBounds());
+  for (const auto& layer : layers) {
+    layer->Update(bounds, *tileSet);
+  }
+}
+
 void TileMap::Draw(Renderer& renderer, const Viewport& viewport) const noexcept {
-  auto bounds = CalculateRenderBounds(viewport.GetBounds());
+  auto bounds = CalculateMapBounds(viewport.GetBounds());
   for (const auto& layer : layers) {
     layer->Draw(renderer, bounds, viewport, *tileSet);
   }

@@ -32,7 +32,9 @@ void AbstractLevel::Interpolate(float alpha) {
   }
 }
 
-void AbstractLevel::Update(float delta) {
+void AbstractLevel::Update(const Viewport& viewport, float delta) {
+  tileMap->Tick(viewport);
+
   for (auto& entity : entities) {
     entity->SavePosition(); // TODO don't update entities too far away?
     entity->Tick(*this, delta);

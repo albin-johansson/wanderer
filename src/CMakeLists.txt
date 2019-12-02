@@ -83,6 +83,9 @@ set(SOURCE_FILES
         core/level/tiles/sprite_sheet.h
         core/level/tiles/tile_image_set.cpp
         core/level/tiles/tile_image_set.h
+        core/level/tiles/tile_animation.cpp
+        core/level/tiles/tile_animation.h
+        core/level/tiles/tile_id.h
 
         service/tmx/pugixml/pugixml.hpp
         service/tmx/pugixml/pugixml.cpp

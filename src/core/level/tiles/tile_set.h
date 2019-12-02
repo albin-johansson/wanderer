@@ -31,10 +31,9 @@ class TileSet final {
    * Updates the state of the tile associated with the supplied ID.
    *
    * @param id the ID associated with the tile that will be updated.
-   * @param level the level that the tile is located in.
    * @since 0.1.0
    */
-  void Tick(TileID id, ILevel& level);
+  void Tick(TileID id);
 
   /**
    * Associates the supplied ID with the supplied tile.

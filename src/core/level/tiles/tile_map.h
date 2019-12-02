@@ -38,7 +38,7 @@ class TileMap final : public IDrawable {
   int nRows;
   int nCols;
 
-  [[nodiscard]] RenderBounds CalculateRenderBounds(const Rectangle& bounds) const noexcept;
+  [[nodiscard]] TileMapBounds CalculateMapBounds(const Rectangle& bounds) const noexcept;
 
  public:
   /**
@@ -50,6 +50,8 @@ class TileMap final : public IDrawable {
   TileMap(std::unique_ptr<TileSet> tileSet, int nRows, int nCols);
 
   ~TileMap() override;
+
+  void Tick(const Viewport& viewport);
 
   void Draw(Renderer& renderer, const Viewport& viewport) const noexcept override;
 

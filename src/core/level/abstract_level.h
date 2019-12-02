@@ -28,7 +28,7 @@ class AbstractLevel : public ILevel {
  public:
   ~AbstractLevel() override;
 
-  void Update(float delta) override;
+  void Update(const Viewport& viewport, float delta) override;
 
   void Render(Renderer& renderer, const Viewport& viewport, float alpha) override;
 

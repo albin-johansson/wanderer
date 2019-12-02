@@ -59,7 +59,7 @@ void WandererCoreImpl::HandleInput(const Input& input) {
 
 void WandererCoreImpl::Update(float delta) {
   if (!menuStateMachine->GetMenu().IsBlocking()) {
-    level->Update(delta);
+    level->Update(viewport, delta);
 
     auto[ix, iy] = player->GetInterpolatedPosition();
     viewport.Track(ix, iy, {player->GetWidth(), player->GetHeight()}, delta);

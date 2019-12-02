@@ -23,8 +23,13 @@ TileSet::TileSet(int nTiles) {
 
 TileSet::~TileSet() = default;
 
-void TileSet::Tick(TileID id, ILevel& level) {
-  tiles.at(id).Tick(level);
+void TileSet::Tick(TileID id) {
+  try {
+    tiles.at(id).Tick();
+  } catch (std::exception& e) {
+    SDL_Log("Invalid tile ID in tile set: %u (Tile set size: %llull)", id, tiles.size());
+    throw;
+  }
 }
 
 void TileSet::Insert(TileID id, const Tile& tile, const Rectangle& srcRect) {

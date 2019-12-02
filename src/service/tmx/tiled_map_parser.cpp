@@ -2,10 +2,13 @@
 #include "pugixml.hpp"
 #include "sprite_sheet.h"
 #include "bad_state_exception.h"
+#include "tile_animation.h"
 #include <sstream>
 #include <map>
 
 namespace albinjohansson::wanderer {
+
+// TODO entity parsing, item parsing...
 
 TiledMapParser::TiledMapParser(ImageGenerator& imageGenerator, const std::string& file)
     : imageGenerator(imageGenerator), file(file) {
@@ -25,7 +28,6 @@ pugi::xml_document TiledMapParser::LoadDocument(const std::string& path) {
 }
 
 std::vector<TileMapLayer_uptr> TiledMapParser::LoadLayers(const pugi::xml_node& mapRootNode) {
-
   std::vector<TileMapLayer_uptr> layers;
   int nLayers = 0;
   for (auto layerNode : mapRootNode.children("layer")) {
@@ -60,80 +62,109 @@ TileSet_uptr TiledMapParser::LoadTileSet(const pugi::xml_node& mapRoot) {
     pugi::xml_document tsDocument = LoadDocument("resources/map/world/" + tsFileName); // FIXME
     pugi::xml_node tsRoot = tsDocument.child("tileset");
 
-    int tileWidth = tsRoot.attribute("tilewidth").as_int();
+    const int tileWidth = tsRoot.attribute("tilewidth").as_int();
 //    int tileHeight = tsRoot.attribute("tileheight").as_int();
-    int tileCount = tsRoot.attribute("tilecount").as_int();
-
-    auto size = tileWidth;
+    const int tileCount = tsRoot.attribute("tilecount").as_int();
+    const int tileSize = tileWidth;
 
     TileID firstgid = static_cast<TileID>(ts.attribute("firstgid").as_uint());
     TileID lastgid = firstgid + static_cast<TileID>(tileCount) - 1;
 
-    // Tile sheet image
-    pugi::xml_node img = tsRoot.child("image");
+    Image_sptr sheetImage = LoadSheetImage(tsRoot.child("image"));
+    const int sheetCols = sheetImage->GetHeight() / tileSize;
 
-    // FIXME ugly file paths
-    std::string imgPath = img.attribute("source").as_string();
-    std::string pathToImage = "resources/img/" + imgPath.substr(imgPath.find_last_of('/') + 1);
-    Image_sptr sheetImage = imageGenerator.Load(pathToImage);
-
-    // Process special tile properties
-    for (pugi::xml_node t : tsRoot.children("tile")) {
-      TileID specialId = firstgid + static_cast<TileID>(t.attribute("id").as_uint());
-      TileProperties props;
-
-      pugi::xml_node anim = t.child("animation");
-      if (!anim.empty()) {
-
-        props.animated = true;
-
-        // TODO...
-      }
-
-      pugi::xml_node obj = t.child("objectgroup").child("object");
-      if (!obj.empty()) {
-        float x = obj.attribute("x").as_float();
-        float y = obj.attribute("y").as_float();
-        float w = obj.attribute("width").as_float();
-        float h = obj.attribute("height").as_float();
-
-        auto wscale = w / size;
-        auto hscale = h / size;
-
-        Rectangle rect(x, y, wscale * Tile::SIZE, hscale * Tile::SIZE);
-
-        props.hitbox = rect;
-        props.blocked = true;
-      }
-
-      specialProperties.insert(std::pair<TileID, TileProperties>(specialId, props));
-    }
-
-//    int sheetRows = sheetImage->GetHeight() / size;
-    int sheetCols = sheetImage->GetHeight() / size;
+    LoadSpecialProperties(tsRoot, specialProperties, firstgid, tileSize);
 
     int i = 0;
     for (TileID id = firstgid; id <= lastgid; id++, i++) {
       TileProperties properties = {sheetImage, id}; // img, id, animation, hitbox, blocked
 
       if (specialProperties.count(id)) {
-        const TileProperties& tp = specialProperties.at(id);
-
-        properties.hitbox = tp.hitbox;
-        properties.blocked = tp.blocked;
-        properties.animated = tp.animated;
-        properties.animation = tp.animation;
+        const TileProperties& specProps = specialProperties.at(id);
+        properties.hitbox = specProps.hitbox; // TODO just use the special version
+        properties.blocked = specProps.blocked;
+        properties.animated = specProps.animated;
+        properties.animation = specProps.animation;
       }
 
-      auto row = i / sheetCols;
-      auto col = i % sheetCols;
-      Rectangle srcRect(col * size, row * size, size, size);
+      float row = i / sheetCols;
+      float col = i % sheetCols;
 
-      tileSet->Insert(id, Tile(properties), srcRect);
+      tileSet->Insert(id, Tile(properties), Rectangle(col * tileSize,
+                                                      row * tileSize,
+                                                      tileSize,
+                                                      tileSize));
     }
   }
 
   return tileSet;
+}
+
+void TiledMapParser::LoadSpecialProperties(const pugi::xml_node& tileSetNode,
+                                           std::map<TileID, TileProperties>& specialProperties,
+                                           TileID firstgid,
+                                           int tileSize) {
+  for (pugi::xml_node tileNode : tileSetNode.children("tile")) {
+    TileID id = firstgid + static_cast<TileID>(tileNode.attribute("id").as_uint());
+    TileProperties properties;
+
+    pugi::xml_node animationNode = tileNode.child("animation");
+    LoadTileAnimations(animationNode, properties, firstgid);
+
+    pugi::xml_node objectNode = tileNode.child("objectgroup").child("object");
+    LoadTileHitbox(objectNode, properties, tileSize);
+
+    specialProperties.insert(std::pair<TileID, TileProperties>(id, properties));
+  }
+}
+
+void TiledMapParser::LoadTileAnimations(const pugi::xml_node& animationNode,
+                                        TileProperties& properties,
+                                        TileID firstgid) {
+  if (!animationNode.empty()) {
+    int nFrames = std::distance(animationNode.children("frame").begin(),
+                                animationNode.children("frame").end());
+    TileAnimation animation(nFrames);
+
+    int i = 0;
+    for (pugi::xml_node frameNode : animationNode.children("frame")) {
+      TileID id = firstgid + static_cast<TileID>(frameNode.attribute("tileid").as_uint());
+      uint32_t duration = frameNode.attribute("duration").as_uint();
+
+      Frame frame = {id, duration};
+      animation.SetFrame(i, frame);
+      ++i;
+    }
+
+    properties.animated = true;
+    properties.animation = animation;
+  }
+}
+
+void TiledMapParser::LoadTileHitbox(const pugi::xml_node& objectNode,
+                                    TileProperties& properties,
+                                    int tileSize) {
+  if (!objectNode.empty()) {
+    float x = objectNode.attribute("x").as_float();
+    float y = objectNode.attribute("y").as_float();
+    float w = objectNode.attribute("width").as_float();
+    float h = objectNode.attribute("height").as_float();
+
+    auto wscale = w / tileSize;
+    auto hscale = h / tileSize;
+
+    Rectangle hitbox(x, y, wscale * Tile::SIZE, hscale * Tile::SIZE);
+
+    properties.hitbox = hitbox;
+    properties.blocked = true;
+  }
+}
+
+Image_sptr TiledMapParser::LoadSheetImage(const pugi::xml_node& imageNode) {
+  // FIXME ugly file paths
+  std::string source = imageNode.attribute("source").as_string();
+  std::string path = "resources/img/" + source.substr(source.find_last_of('/') + 1);
+  return imageGenerator.Load(path);
 }
 
 void TiledMapParser::LoadMap() {

@@ -16,7 +16,7 @@ class ILevel {
  public:
   virtual ~ILevel() = default;
 
-  virtual void Update(float delta) = 0;
+  virtual void Update(const Viewport& viewport, float delta) = 0;
 
   virtual void Render(Renderer& renderer, const Viewport& viewport, float alpha) = 0;
 

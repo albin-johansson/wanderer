@@ -20,8 +20,10 @@ class TileMapLayer final {
 
   ~TileMapLayer();
 
+  void Update(const TileMapBounds& bounds, TileSet& tileSet);
+
   void Draw(Renderer& renderer,
-            RenderBounds bounds,
+            const TileMapBounds& bounds,
             const Viewport& viewport,
             const TileSet& tileSet) const;
 

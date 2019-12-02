@@ -7,6 +7,7 @@
 #include "image.h"
 #include <string>
 #include <vector>
+#include <map>
 
 namespace albinjohansson::wanderer {
 
@@ -23,6 +24,21 @@ class TiledMapParser final {
   [[nodiscard]] std::vector<TileMapLayer_uptr> LoadLayers(const pugi::xml_node& mapRootNode);
 
   [[nodiscard]] TileSet_uptr LoadTileSet(const pugi::xml_node& mapRootNode);
+
+  void LoadSpecialProperties(const pugi::xml_node& tileSetNode,
+                             std::map<TileID, TileProperties>& specialProperties,
+                             TileID firstgid,
+                             int tileSize);
+
+  void LoadTileAnimations(const pugi::xml_node& animationNode,
+                          TileProperties& properties,
+                          TileID firstgid);
+
+  void LoadTileHitbox(const pugi::xml_node& objectNode,
+                      TileProperties& properties,
+                      int tileSize);
+
+  Image_sptr LoadSheetImage(const pugi::xml_node& imageNode);
 
  public:
 

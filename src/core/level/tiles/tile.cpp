@@ -3,14 +3,14 @@
 
 namespace albinjohansson::wanderer {
 
-Tile::Tile(TileProperties properties) : properties(std::move(properties)) {
-
-}
+Tile::Tile(TileProperties properties) : properties(std::move(properties)) {}
 
 Tile::~Tile() = default;
 
-void Tile::Tick(ILevel& level) {
-  properties.animation.Update();
+void Tile::Tick() {
+  if (properties.animated) {
+    properties.animation.Update();
+  }
 }
 
 void Tile::Draw(TilePos pos,
