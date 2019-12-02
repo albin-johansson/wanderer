@@ -34,6 +34,26 @@ void Vector2::Set(const Vector2& vector) noexcept {
   y = vector.y;
 }
 
+Vector2 Vector2::operator+(const Vector2& v) const noexcept {
+  return Vector2(x + v.x, y + v.y);
+}
+
+Vector2 Vector2::operator-(const Vector2& v) const noexcept {
+  return Vector2(x - v.x, y - v.y);
+}
+
+bool Vector2::operator==(const Vector2& v) const noexcept {
+  return AreEqual(x, v.x, DEFAULT_EPSILON) && AreEqual(y, v.y, DEFAULT_EPSILON);
+}
+
+bool Vector2::operator!=(const Vector2& v) const noexcept {
+  return !(*this == v);
+}
+
+//Vector2 Vector2::operator^(float exp) const noexcept {
+//  return Vector2(std::pow(x, exp), std::pow(y, exp));
+//}
+
 void Vector2::Add(float x, float y) noexcept {
   this->x += x;
   this->y += y;
@@ -133,11 +153,11 @@ float Vector2::GetLength2() const noexcept {
 }
 
 bool Vector2::IsZero() const noexcept {
-  return AreEqual(x, 0, 0.001f) && AreEqual(y, 0, 0.001f);
+  return AreEqual(x, 0, DEFAULT_EPSILON) && AreEqual(y, 0, DEFAULT_EPSILON);
 }
 
 bool Vector2::IsUnit() const noexcept {
-  return AreEqual(GetLength2(), 1.0f, 0.001f);
+  return AreEqual(GetLength2(), 1.0f, DEFAULT_EPSILON);
 }
 
 }

@@ -44,6 +44,58 @@ TEST_CASE("Vector2::Scale", "[Vector2]") {
   CHECK(vector.IsZero());
 }
 
+TEST_CASE("Vector2::operator+", "[Vector2]") {
+  const Vector2 lhs(123.4f, 614.9f);
+  const Vector2 rhs(981.1f, -234.7f);
+
+  Vector2 res1 = lhs + rhs;
+  Vector2 res2 = rhs + lhs;
+
+  CHECK(((res1.x == (lhs.x + rhs.x)) && (res2.x == (lhs.x + rhs.x))));
+  CHECK(((res1.y == (lhs.y + rhs.y)) && (res2.y == (lhs.y + rhs.y))));
+}
+
+TEST_CASE("Vector2::operator-", "[Vector2]") {
+  const Vector2 lhs(517.9f, 1774);
+  const Vector2 rhs(181.1f, 734.2f);
+
+  SECTION("Normal operator test") {
+    Vector2 res1 = lhs - rhs;
+
+    CHECK(res1.x == (lhs.x - rhs.x));
+    CHECK(res1.y == (lhs.y - rhs.y));
+  }
+
+  SECTION("Reversed operands") {
+    Vector2 res2 = rhs - lhs;
+
+    CHECK(res2.x == (rhs.x - lhs.x));
+    CHECK(res2.y == (rhs.y - lhs.y));
+  }
+}
+
+TEST_CASE("Vector2::operator==", "[Vector2]") {
+  Vector2 vector(712.8f, 913.3f);
+  Vector2 copy(vector);
+  Vector2 other(193.f, 385.f);
+
+  CHECK(vector == vector);
+  CHECK(vector == copy);
+  CHECK(copy == vector);
+  CHECK(!(vector == other));
+}
+
+TEST_CASE("Vector2::operator!=", "[Vector2]") {
+  Vector2 vector(389.4f, 4143.3f);
+  Vector2 copy(vector);
+  Vector2 other(-133.3f, 471.5f);
+
+  CHECK(!(vector != vector));
+  CHECK(!(vector != copy));
+  CHECK(!(copy != vector));
+  CHECK(vector != other);
+}
+
 TEST_CASE("Vector2::Add1", "[Vector2]") {
   float x = 19.9f;
   float y = 27.2f;

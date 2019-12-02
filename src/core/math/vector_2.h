@@ -30,6 +30,8 @@ struct Vector2 final {
   [[nodiscard]] inline bool AreEqual(float a, float b, float epsilon) const noexcept;
 
  public:
+  static constexpr float DEFAULT_EPSILON = 0.001f;
+
   /**
    * Creates a vector with coordinates (0, 0).
    *
@@ -90,6 +92,16 @@ struct Vector2 final {
    * @since 0.1.0
    */
   void Interpolate(const Vector2& target, float alpha) noexcept;
+
+  Vector2 operator+(const Vector2& v) const noexcept;
+
+  Vector2 operator-(const Vector2& v) const noexcept;
+
+  bool operator==(const Vector2& v) const noexcept;
+
+  bool operator!=(const Vector2& v) const noexcept;
+
+//  Vector2 operator^(float exp) const noexcept;
 
   /**
    * Adds the coordinates of the supplied vector to the vector. The invoked vector is the one
