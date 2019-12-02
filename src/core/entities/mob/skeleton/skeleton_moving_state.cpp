@@ -15,7 +15,7 @@ void SkeletonMovingState::ChasePlayer(const ILevel& level, float distance) {
   if (distance <= 75) {
     moveDelegate.GetParent().SetState(EntityStateID::ATTACK, level);
   } else {
-    auto entityVelocity = entity.GetVelocity();
+    Vector2 entityVelocity = entity.GetVelocity();
 
     entityVelocity.Set(entity.GetPosition());
     entityVelocity.LookAt(level.GetPlayer().GetPosition(), entity.GetSpeed());
@@ -43,7 +43,7 @@ void SkeletonMovingState::Roam(const ILevel& level) {
   }
 }
 
-Direction SkeletonMovingState::GetRandomDirection() const noexcept {
+Direction SkeletonMovingState::GetRandomDirection() noexcept { // TODO move elsewhere
   return static_cast<Direction>(RandomUtils::GetInt(0, 3));
 }
 

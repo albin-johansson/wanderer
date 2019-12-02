@@ -15,7 +15,7 @@ class SkeletonMovingState final : public IEntityState {
 
   void Roam(const ILevel& level);
 
-  [[nodiscard]] Direction GetRandomDirection() const noexcept;
+  [[nodiscard]] static Direction GetRandomDirection() noexcept;
 
  public:
   explicit SkeletonMovingState(IEntityStateMachine* parent);
