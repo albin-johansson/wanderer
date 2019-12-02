@@ -12,10 +12,10 @@ void EntityDrawDelegate::Draw(Renderer& renderer, const Viewport& viewport,
   renderer.RenderTexture(entity.GetSpriteSheet(), src, dst);
 
   // TODO remove
-  auto hbWidth = (static_cast<float>(entity.GetHealth()) / 100.0f) * 120.0f;
-  auto hbX = (x + (entity.GetWidth() / 2.0f)) - (hbWidth / 2);
-  renderer.SetColor(0xff, 0, 0);
-  renderer.RenderFillRect(hbX, y, hbWidth, 5.0f);
+//  auto hbWidth = (static_cast<float>(entity.GetHealth()) / 100.0f) * 120.0f;
+//  auto hbX = (x + (entity.GetWidth() / 2.0f)) - (hbWidth / 2);
+//  renderer.SetColor(0xff, 0, 0);
+//  renderer.RenderFillRect(hbX, y, hbWidth, 5.0f);
 }
 
 }
