@@ -1,7 +1,7 @@
 #pragma once
 #include "entity.h"
 #include "input.h"
-#include "level.h"
+#include "wanderer_core.h"
 #include <memory>
 
 namespace albinjohansson::wanderer {
@@ -13,7 +13,7 @@ class IPlayer : public virtual IEntity {
  public:
   ~IPlayer() override = default;
 
-  virtual void HandleInput(const Input& input, const ILevel& level) = 0;
+  virtual void HandleInput(const Input& input, const IWandererCore& core) = 0;
 };
 
 using IPlayer_uptr = std::unique_ptr<IPlayer>;

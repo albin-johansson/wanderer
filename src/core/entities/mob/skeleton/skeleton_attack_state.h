@@ -14,13 +14,13 @@ class SkeletonAttackState final : public IEntityState {
 
   ~SkeletonAttackState() override;
 
-  void Tick(const ILevel& level, float delta) override;
+  void Tick(const IWandererCore& core, float delta) override;
 
   void Draw(Renderer& renderer, const Viewport& viewport) const override;
 
-  void Enter(const ILevel& level) override;
+  void Enter(const IWandererCore& core) override;
 
-  void Exit(const ILevel& level) override;
+  void Exit(const IWandererCore& core) override;
 
 };
 

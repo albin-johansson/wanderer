@@ -32,11 +32,11 @@ class EntityAttackDelegate final : public IEntityState {
 
   void Draw(Renderer& renderer, const Viewport& viewport) const override;
 
-  void Tick(const ILevel& level, float delta) override;
+  void Tick(const IWandererCore& core, float delta) override;
 
-  void Enter(const ILevel& level) override;
+  void Enter(const IWandererCore& core) override;
 
-  void Exit(const ILevel& level) override;
+  void Exit(const IWandererCore& core) override;
 
 };
 

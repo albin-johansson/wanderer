@@ -1,6 +1,5 @@
 #include "wanderer_core_impl.h"
 #include "menu_state_machine_impl.h"
-#include "world_level.h"
 #include "player_impl.h"
 #include "tiled_map_parser.h"
 #include <fstream>
@@ -10,21 +9,26 @@ namespace albinjohansson::wanderer {
 
 WandererCoreImpl::WandererCoreImpl(ImageGenerator& imageGenerator) {
   menuStateMachine = MenuStateMachineImpl::Create(this); // TODO fix "this" parameter
-
-  player = std::make_unique<PlayerImpl>(imageGenerator.Load("resources/img/player2.png"));
-  player->SetSpeed(230);
-  player->SetX(750);
-  player->SetY(1900);
-
   soundEngine = std::make_unique<SoundEngine>();
   LoadSounds();
 
+  player = std::make_shared<PlayerImpl>(imageGenerator.Load("resources/img/player2.png"));
+  player->SetSpeed(230);
+
   TiledMapParser parser(imageGenerator, "resources/map/world/world_demo.tmx");
-  level = std::make_unique<WorldLevel>(parser.GetMap(), player, soundEngine, imageGenerator);
+
+  world = parser.GetMap();
+  world->SetPlayer(player);
+
+  activeMap = world;
+
+  auto[playerX, playerY] = activeMap->GetPlayerSpawnPosition();
+  player->SetX(playerX);
+  player->SetY(playerY);
 
   // TODO listener for viewport dimensions
-  viewport.SetLevelWidth(static_cast<float>(level->GetWidth()));
-  viewport.SetLevelHeight(static_cast<float>(level->GetHeight()));
+  viewport.SetLevelWidth(static_cast<float>(activeMap->GetWidth()));
+  viewport.SetLevelHeight(static_cast<float>(activeMap->GetHeight()));
   viewport.SetWidth(1280); // FIXME hardcoded
   viewport.SetHeight(720); // FIXME hardcoded
 
@@ -53,13 +57,13 @@ void WandererCoreImpl::LoadSounds() {
 void WandererCoreImpl::HandleInput(const Input& input) {
   menuStateMachine->HandleInput(input);
   if (!menuStateMachine->GetMenu().IsBlocking()) {
-    player->HandleInput(input, *level);
+    player->HandleInput(input, *this);
   }
 }
 
 void WandererCoreImpl::Update(float delta) {
   if (!menuStateMachine->GetMenu().IsBlocking()) {
-    level->Update(viewport, delta);
+    activeMap->Tick(*this, viewport, delta);
 
     auto[ix, iy] = player->GetInterpolatedPosition();
     viewport.Track(ix, iy, {player->GetWidth(), player->GetHeight()}, delta);
@@ -67,7 +71,7 @@ void WandererCoreImpl::Update(float delta) {
 }
 
 void WandererCoreImpl::Render(Renderer& renderer, float alpha) {
-  level->Render(renderer, viewport, alpha);
+  activeMap->Draw(renderer, viewport, alpha);
   menuStateMachine->Draw(renderer, viewport);
 }
 
@@ -81,6 +85,10 @@ void WandererCoreImpl::SetViewportHeight(float height) {
 
 void WandererCoreImpl::Quit() noexcept {
   shouldQuit = true;
+}
+
+void WandererCoreImpl::PlaySound(const std::string& id) const {
+  soundEngine->Play(id);
 }
 
 }

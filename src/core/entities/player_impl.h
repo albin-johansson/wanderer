@@ -3,7 +3,6 @@
 #include "abstract_entity.h"
 #include "player_state_machine.h"
 #include "image.h"
-#include "level.h"
 #include <memory>
 
 namespace albinjohansson::wanderer {
@@ -28,7 +27,7 @@ class PlayerImpl final : public AbstractEntity, public IPlayer {
 
   ~PlayerImpl() override = default;
 
-  void Tick(ILevel& level, float delta) override;
+  void Tick(IWandererCore& core, float delta) override;
 
   /**
    * Handles the supplied input.
@@ -36,8 +35,8 @@ class PlayerImpl final : public AbstractEntity, public IPlayer {
    * @param input a reference to the input state.
    * @since 0.1.0
    */
-  void HandleInput(const Input& input, const ILevel& level) override {
-    playerStateMachine->HandleInput(input, level);
+  void HandleInput(const Input& input, const IWandererCore& core) override {
+    playerStateMachine->HandleInput(input, core);
   }
 
   void Draw(Renderer& renderer, const Viewport& viewport) const noexcept override {

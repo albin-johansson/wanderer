@@ -2,7 +2,6 @@
 #include "entity.h"
 #include "animation.h"
 #include "image.h"
-#include "level.h"
 
 namespace albinjohansson::wanderer {
 
@@ -30,7 +29,7 @@ class AbstractEntity : public virtual IEntity {
  public:
   ~AbstractEntity() override;
 
-  void Tick(ILevel& level, float delta) override { movable->Tick(level, delta); }
+  void Tick(IWandererCore& core, float delta) override { movable->Tick(core, delta); }
 
   void Move(Direction direction) noexcept override { movable->Move(direction); }
 

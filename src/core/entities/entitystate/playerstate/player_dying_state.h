@@ -27,18 +27,18 @@ class PlayerDyingState final : public IPlayerState {
 
   ~PlayerDyingState() override;
 
-  void HandleInput(const Input& input, const ILevel& level) override;
+  void HandleInput(const Input& input, const IWandererCore& core) override;
 
   inline void Draw(Renderer& renderer, const Viewport& viewport) const override {
     dyingDelegate.Draw(renderer, viewport);
   }
 
-  inline void Tick(const ILevel& level, float delta) override { dyingDelegate.Tick(level, delta); }
+  inline void Tick(const IWandererCore& core, float delta) override { dyingDelegate.Tick(core, delta); }
 
-  inline void Enter(const ILevel& level) override { dyingDelegate.Enter(level); }
+  inline void Enter(const IWandererCore& core) override { dyingDelegate.Enter(core); }
 
   // TODO level over stuff
-  inline void Exit(const ILevel& level) override { dyingDelegate.Exit(level); }
+  inline void Exit(const IWandererCore& core) override { dyingDelegate.Exit(core); }
 };
 
 }

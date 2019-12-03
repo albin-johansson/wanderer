@@ -8,9 +8,9 @@ PlayerImpl::PlayerImpl(Image_sptr sheet) : AbstractEntity(std::move(sheet)) {
   playerStateMachine = PlayerStateMachineImpl::Create(static_cast<IEntity*>(this));
 }
 
-void PlayerImpl::Tick(ILevel& level, float delta) {
-  AbstractEntity::Tick(level, delta);
-  playerStateMachine->Tick(level, delta);
+void PlayerImpl::Tick(IWandererCore& core, float delta) {
+  AbstractEntity::Tick(core, delta);
+  playerStateMachine->Tick(core, delta);
 }
 
 }

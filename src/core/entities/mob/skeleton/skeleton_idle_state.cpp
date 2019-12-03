@@ -9,13 +9,13 @@ SkeletonIdleState::SkeletonIdleState(IEntityStateMachine* parent)
 
 SkeletonIdleState::~SkeletonIdleState() = default;
 
-void SkeletonIdleState::Tick(const ILevel& level, float delta) {
+void SkeletonIdleState::Tick(const IWandererCore& core, float delta) {
 
   auto& entity = idleDelegate.GetParent().GetEntity();
-  float distance = entity.GetPosition().DistanceTo(level.GetPlayer().GetPosition());
+  float distance = entity.GetPosition().DistanceTo(core.GetPlayer().GetPosition());
 
   if (distance <= Skeleton::HOMING_RANGE || (SDL_GetTicks() - enterTime) >= 2000) {
-    idleDelegate.GetParent().SetState(EntityStateID::WALK, level);
+    idleDelegate.GetParent().SetState(EntityStateID::WALK, core);
   }
 }
 
@@ -23,13 +23,13 @@ void SkeletonIdleState::Draw(Renderer& renderer, const Viewport& viewport) const
   idleDelegate.Draw(renderer, viewport);
 }
 
-void SkeletonIdleState::Enter(const ILevel& level) {
-  idleDelegate.Enter(level);
+void SkeletonIdleState::Enter(const IWandererCore& core) {
+  idleDelegate.Enter(core);
   enterTime = SDL_GetTicks();
 }
 
-void SkeletonIdleState::Exit(const ILevel& level) {
-  idleDelegate.Exit(level);
+void SkeletonIdleState::Exit(const IWandererCore& core) {
+  idleDelegate.Exit(core);
 }
 
 }

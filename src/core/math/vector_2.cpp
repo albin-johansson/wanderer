@@ -43,7 +43,7 @@ Vector2 Vector2::operator-(const Vector2& v) const noexcept {
 }
 
 bool Vector2::operator==(const Vector2& v) const noexcept {
-  return AreEqual(x, v.x, DEFAULT_EPSILON) && AreEqual(y, v.y, DEFAULT_EPSILON);
+  return AreEqual(x, v.x) && AreEqual(y, v.y);
 }
 
 bool Vector2::operator!=(const Vector2& v) const noexcept {
@@ -153,11 +153,11 @@ float Vector2::GetLength2() const noexcept {
 }
 
 bool Vector2::IsZero() const noexcept {
-  return AreEqual(x, 0, DEFAULT_EPSILON) && AreEqual(y, 0, DEFAULT_EPSILON);
+  return AreEqual(x, 0) && AreEqual(y, 0);
 }
 
 bool Vector2::IsUnit() const noexcept {
-  return AreEqual(GetLength2(), 1.0f, DEFAULT_EPSILON);
+  return AreEqual(GetLength2(), 1.0f);
 }
 
 }

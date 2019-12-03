@@ -176,7 +176,7 @@ void TiledMapParser::LoadMap() {
   int nCols = mapRootNode.attribute("width").as_int();
   int nRows = mapRootNode.attribute("height").as_int();
 
-  map = std::make_unique<TileMapImpl>(LoadTileSet(mapRootNode), nRows, nCols);
+  map = std::make_unique<TileMapImpl>(LoadTileSet(mapRootNode), nRows, nCols, imageGenerator);
 
   std::vector<ITileMapLayer_uptr> layers = LoadLayers(mapRootNode);
   for (auto& layer : layers) {

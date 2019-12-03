@@ -4,7 +4,6 @@
 #include "entity_state_id.h"
 #include "entity.h"
 #include "input.h"
-#include "level.h"
 
 namespace albinjohansson::wanderer {
 
@@ -21,7 +20,7 @@ class IEntityStateMachine : public IDrawable {
  public:
   ~IEntityStateMachine() override = default;
 
-  virtual void Tick(const ILevel& level, float delta) = 0;
+  virtual void Tick(const IWandererCore& core, float delta) = 0;
 
   /**
    * Changes the currently active entity state.
@@ -29,7 +28,7 @@ class IEntityStateMachine : public IDrawable {
    * @param id the id of the desired entity state.
    * @since 0.1.0
    */
-  virtual void SetState(EntityStateID id, const ILevel& level) = 0;
+  virtual void SetState(EntityStateID id, const IWandererCore& core) = 0;
 
   [[nodiscard]] virtual IEntity& GetEntity() = 0;
 };

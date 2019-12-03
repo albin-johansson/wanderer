@@ -64,12 +64,6 @@ set(SOURCE_FILES
         core/random_utils.cpp
         core/random_utils.h
 
-        core/level/level.h
-        core/level/abstract_level.cpp
-        core/level/abstract_level.h
-        core/level/world_level.cpp
-        core/level/world_level.h
-
         core/level/tiles/tile.h
         core/level/tiles/tile.cpp
         core/level/tiles/tile_set.cpp

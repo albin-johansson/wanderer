@@ -1,7 +1,6 @@
 #pragma once
 #include "movable_object.h"
 #include "animated.h"
-#include "level.h"
 #include "tile.h"
 #include <memory>
 

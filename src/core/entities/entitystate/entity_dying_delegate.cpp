@@ -16,19 +16,19 @@ void EntityDyingDelegate::Draw(Renderer& renderer, const Viewport& viewport) con
   EntityDrawDelegate::Draw(renderer, viewport, *entity, srcX, 1280);
 }
 
-void EntityDyingDelegate::Tick(const ILevel& level, float delta) {
+void EntityDyingDelegate::Tick(const IWandererCore& core, float delta) {
   if (!entity->IsAnimationDone()) {
     entity->UpdateAnimation();
   }
 }
 
-void EntityDyingDelegate::Enter(const ILevel& level) {
+void EntityDyingDelegate::Enter(const IWandererCore& core) {
   entity->SetAnimationFrameAmount(6);
   entity->SetAnimationFrame(0);
   entity->SetAnimationDelay(65);
 }
 
-void EntityDyingDelegate::Exit(const ILevel& level) {
+void EntityDyingDelegate::Exit(const IWandererCore& core) {
   // TODO set entity to be dead
 }
 

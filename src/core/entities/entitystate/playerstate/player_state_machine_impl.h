@@ -36,7 +36,7 @@ class PlayerStateMachineImpl final : public IPlayerStateMachine,
    */
   static IPlayerStateMachine_uptr Create(IEntity* entity);
 
-  void HandleInput(const Input& input, const ILevel& level) override;
+  void HandleInput(const Input& input, const IWandererCore& core) override;
 };
 
 }

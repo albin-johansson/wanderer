@@ -1,9 +1,11 @@
 #pragma once
-#include <memory>
 #include "renderer.h"
 #include "input.h"
+#include <memory>
 
 namespace albinjohansson::wanderer {
+
+class IPlayer;
 
 /**
  * The IWandererCore interface specifies the facade of the core component of the Wanderer
@@ -43,6 +45,8 @@ class IWandererCore {
    */
   virtual void Render(Renderer& renderer, float alpha) = 0;
 
+  virtual void PlaySound(const std::string& id) const = 0;
+
   /**
    * Enables the hint that the game should quit as soon as possible.
    *
@@ -73,6 +77,8 @@ class IWandererCore {
    * @since 0.1.0
    */
   [[nodiscard]] virtual bool ShouldQuit() const noexcept = 0;
+
+  [[nodiscard]] virtual const IPlayer& GetPlayer() const = 0;
 };
 
 using IWandererCore_uptr = std::unique_ptr<IWandererCore>;

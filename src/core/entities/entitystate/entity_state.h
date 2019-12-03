@@ -1,7 +1,7 @@
 #pragma once
 #include "drawable.h"
-#include "level.h"
 #include "input.h"
+#include "wanderer_core.h"
 #include <memory>
 
 namespace albinjohansson::wanderer {
@@ -21,23 +21,23 @@ class IEntityState : public IDrawable {
  public:
   ~IEntityState() override = default;
 
-  virtual void Tick(const ILevel& level, float delta) = 0;
+  virtual void Tick(const IWandererCore& core, float delta) = 0;
 
   /**
    * Enters the entity state.
    *
-   * @param level a reference to the level.
+   * @param core a reference to the level.
    * @since 0.1.0
    */
-  virtual void Enter(const ILevel& level) = 0;
+  virtual void Enter(const IWandererCore& core) = 0;
 
   /**
    * Exits the entity state.
    *
-   * @param level a reference to the level.
+   * @param core a reference to the level.
    * @since 0.1.0
    */
-  virtual void Exit(const ILevel& level) = 0;
+  virtual void Exit(const IWandererCore& core) = 0;
 
 };
 

@@ -1,6 +1,6 @@
 #pragma once
 #include "wanderer_core.h"
-#include "level.h"
+#include "tile_map.h"
 #include "player.h"
 #include "viewport.h"
 #include "sound_engine.h"
@@ -17,9 +17,11 @@ namespace albinjohansson::wanderer {
 class WandererCoreImpl final : public IWandererCore {
  private:
   IMenuStateMachine_uptr menuStateMachine = nullptr;
+
   SoundEngine_sptr soundEngine = nullptr;
   IPlayer_sptr player = nullptr;
-  ILevel_uptr level = nullptr;
+  ITileMap_sptr world = nullptr;
+  ITileMap_sptr activeMap = nullptr;
 
   Viewport viewport;
   bool shouldQuit = false;
@@ -46,6 +48,8 @@ class WandererCoreImpl final : public IWandererCore {
 
   void Render(Renderer& renderer, float alpha) override;
 
+  void PlaySound(const std::string& id) const override;
+
   void Quit() noexcept override;
 
   void SetViewportWidth(float width) override;
@@ -54,6 +58,10 @@ class WandererCoreImpl final : public IWandererCore {
 
   [[nodiscard]] inline bool ShouldQuit() const noexcept override {
     return shouldQuit;
+  }
+
+  [[nodiscard]] const IPlayer& GetPlayer() const override {
+    return *player;
   }
 };
 

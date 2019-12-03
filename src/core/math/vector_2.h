@@ -3,7 +3,7 @@
 namespace albinjohansson::wanderer {
 
 /**
- * The Vector2 struct represents a floating-point two-dimensional vector. This struct is inspired
+ * The Vector2 class represents a floating-point two-dimensional vector. This class is inspired
  * by the libGDX class with the same name.
  *
  * <a href=
@@ -12,10 +12,7 @@ namespace albinjohansson::wanderer {
  * @see
  * @since 0.1.0
  */
-struct Vector2 final {
-  float x = 0;
-  float y = 0;
-
+class Vector2 final {
  private:
   /**
    * Indicates whether or not the supplied floats are "equal", by checking if the absolute value
@@ -23,14 +20,19 @@ struct Vector2 final {
    *
    * @param a the first value.
    * @param b the second value.
-   * @param epsilon the epsilon value.
+   * @param epsilon the epsilon value. Defaults to DEFAULT_EPSILON.
    * @return true if the supplied floats are close enough to be considered equal; false otherwise.
    * @since 0.1.0
    */
-  [[nodiscard]] inline bool AreEqual(float a, float b, float epsilon) const noexcept;
+  [[nodiscard]] bool AreEqual(float a,
+                              float b,
+                              float epsilon = DEFAULT_EPSILON) const noexcept;
 
  public:
   static constexpr float DEFAULT_EPSILON = 0.001f;
+
+  float x = 0;
+  float y = 0;
 
   /**
    * Creates a vector with coordinates (0, 0).

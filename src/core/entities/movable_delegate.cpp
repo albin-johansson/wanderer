@@ -22,7 +22,7 @@ void MovableObjectDelegate::Draw(Renderer& renderer,
   /* do nothing */
 }
 
-void MovableObjectDelegate::Tick(ILevel& level, float delta) {
+void MovableObjectDelegate::Tick(IWandererCore& core, float delta) {
   UpdateDirection();
 }
 

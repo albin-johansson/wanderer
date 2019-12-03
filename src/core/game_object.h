@@ -1,11 +1,12 @@
 #pragma once
 #include "drawable.h"
 #include "rectangle.h"
+#include "wanderer_core.h"
 #include <memory>
 
 namespace albinjohansson::wanderer {
 
-class ILevel;
+class IWandererCore;
 
 /**
  * The IGameObject interface specifies the common interface for all game objects that are present
@@ -24,11 +25,11 @@ class IGameObject : public virtual IDrawable {
   /**
    * Updates the state of the game object.
    *
-   * @param level a reference to the level that the object is located in.
+   * @param core a reference to the associated wanderer core instance.
    * @param delta the delta time, in seconds.
    * @since 0.1.0
    */
-  virtual void Tick(ILevel& level, float delta) = 0;
+  virtual void Tick(IWandererCore& core, float delta) = 0;
 
   /**
    * Returns the x-coordinate of the object.

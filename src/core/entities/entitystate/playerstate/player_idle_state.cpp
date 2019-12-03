@@ -8,16 +8,16 @@ PlayerIdleState::PlayerIdleState(IEntityStateMachine* parent)
 
 PlayerIdleState::~PlayerIdleState() = default;
 
-void PlayerIdleState::HandleInput(const Input& input, const ILevel& level) {
+void PlayerIdleState::HandleInput(const Input& input, const IWandererCore& core) {
   if (input.IsPressed(SDL_SCANCODE_D)
       || input.IsPressed(SDL_SCANCODE_A)
       || input.IsPressed(SDL_SCANCODE_W)
       || input.IsPressed(SDL_SCANCODE_S)) {
-    idleDelegate.GetParent().SetState(EntityStateID::WALK, level);
+    idleDelegate.GetParent().SetState(EntityStateID::WALK, core);
   } else if (input.IsPressed(SDL_SCANCODE_SPACE)) {
-    idleDelegate.GetParent().SetState(EntityStateID::ATTACK, level);
+    idleDelegate.GetParent().SetState(EntityStateID::ATTACK, core);
   } else if (input.IsPressed(SDL_SCANCODE_U)) {
-    idleDelegate.GetParent().SetState(EntityStateID::DIE, level);
+    idleDelegate.GetParent().SetState(EntityStateID::DIE, core);
   }
 
   // TODO attack...

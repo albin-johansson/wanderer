@@ -18,10 +18,10 @@ void EntityIdleDelegate::Draw(Renderer& renderer, const Viewport& viewport) cons
   EntityDrawDelegate::Draw(renderer, viewport, entity, 0, srcY);
 }
 
-void EntityIdleDelegate::Enter(const ILevel& level) {}
+void EntityIdleDelegate::Enter(const IWandererCore& core) {}
 
-void EntityIdleDelegate::Exit(const ILevel& level) {}
+void EntityIdleDelegate::Exit(const IWandererCore& core) {}
 
-void EntityIdleDelegate::Tick(const ILevel& level, float delta) {}
+void EntityIdleDelegate::Tick(const IWandererCore& core, float delta) {}
 
 }

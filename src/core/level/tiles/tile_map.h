@@ -2,6 +2,8 @@
 #include "tile_map_layer.h"
 #include "renderer.h"
 #include "viewport.h"
+#include "entity.h"
+#include "vector_2.h"
 #include <memory>
 
 namespace albinjohansson::wanderer {
@@ -13,11 +15,13 @@ class ITileMap {
  public:
   virtual ~ITileMap() = default;
 
-  virtual void Tick(const Viewport& viewport) = 0;
+  virtual void Tick(IWandererCore& core, const Viewport& viewport, float delta) = 0;
 
-  virtual void Draw(Renderer& renderer, const Viewport& viewport) const noexcept = 0;
+  virtual void Draw(Renderer& renderer, const Viewport& viewport, float alpha) noexcept = 0;
 
   virtual void AddLayer(ITileMapLayer_uptr layer) = 0;
+
+  virtual void SetPlayer(IEntity_sptr player) = 0;
 
   /**
    * Returns the number of rows in the tile map.
@@ -50,6 +54,12 @@ class ITileMap {
    * @since 0.1.0
    */
   [[nodiscard]] virtual int GetHeight() const noexcept = 0;
+
+  [[nodiscard]] virtual bool HasParent() const noexcept = 0;
+
+  [[nodiscard]] virtual ITileMap* GetParent() const noexcept = 0;
+
+  [[nodiscard]] virtual Vector2 GetPlayerSpawnPosition() const = 0;
 
 };
 

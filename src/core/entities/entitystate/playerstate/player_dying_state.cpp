@@ -7,6 +7,6 @@ PlayerDyingState::PlayerDyingState(IEntity* entity)
 
 PlayerDyingState::~PlayerDyingState() = default;
 
-void PlayerDyingState::HandleInput(const Input& input, const ILevel& level) {}
+void PlayerDyingState::HandleInput(const Input& input, const IWandererCore& core) {}
 
 }

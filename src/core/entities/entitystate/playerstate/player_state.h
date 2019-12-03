@@ -25,7 +25,7 @@ class IPlayerState : public IEntityState {
    * @param input a reference to the input state.
    * @since 0.1.0
    */
-  virtual void HandleInput(const Input& input, const ILevel& level) = 0;
+  virtual void HandleInput(const Input& input, const IWandererCore& core) = 0;
 };
 
 using IPlayerState_uptr = std::unique_ptr<IPlayerState>;
