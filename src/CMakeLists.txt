@@ -81,8 +81,6 @@ set(SOURCE_FILES
         core/level/tiles/tile_map_bounds.h
         core/level/tiles/sprite_sheet.cpp
         core/level/tiles/sprite_sheet.h
-        core/level/tiles/tile_image_set.cpp
-        core/level/tiles/tile_image_set.h
         core/level/tiles/tile_animation.cpp
         core/level/tiles/tile_animation.h
         core/level/tiles/tile_id.h
