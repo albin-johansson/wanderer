@@ -5,7 +5,7 @@
 
 namespace albinjohansson::wanderer {
 
-AbstractLevel::AbstractLevel(TileMap_uptr tileMap,
+AbstractLevel::AbstractLevel(ITileMap_uptr tileMap,
                              IPlayer_sptr player,
                              SoundEngine_sptr soundEngine,
                              ImageGenerator& imageGenerator) {

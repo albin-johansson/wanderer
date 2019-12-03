@@ -1,46 +1,37 @@
 #pragma once
-#include "tile.h"
-#include "renderer.h"
-#include "render_bounds.h"
+#include "tile_id.h"
+#include "tile_map_bounds.h"
 #include "tile_set.h"
+#include "renderer.h"
 #include "viewport.h"
-#include <vector>
 #include <memory>
 
 namespace albinjohansson::wanderer {
 
-class TileMapLayer final {
- private:
-  const int nRows;
-  const int nCols;
-  std::vector<TileID> tiles;
+class ITileMapLayer {
+ protected:
+  ITileMapLayer() = default;
 
  public:
-  TileMapLayer(int nRows, int nCols, std::vector<TileID> tiles);
+  virtual ~ITileMapLayer() = default;
 
-  ~TileMapLayer();
+  virtual void Update(const TileMapBounds& bounds, TileSet& tileSet) = 0;
 
-  void Update(const TileMapBounds& bounds, TileSet& tileSet);
+  virtual void Draw(Renderer& renderer,
+                    const TileMapBounds& bounds,
+                    const Viewport& viewport,
+                    const TileSet& tileSet) const = 0;
 
-  void Draw(Renderer& renderer,
-            const TileMapBounds& bounds,
-            const Viewport& viewport,
-            const TileSet& tileSet) const;
+  [[nodiscard]] virtual TileID GetTileId(int row, int col) const = 0;
 
-  [[nodiscard]] TileID GetTileId(int row, int col) const;
+  [[nodiscard]] virtual const std::vector<TileID>& GetTiles() const noexcept = 0;
 
-  [[nodiscard]] const std::vector<TileID>& GetTiles() const noexcept {
-    return tiles;
-  }
-
-  [[nodiscard]] int GetIndex(int row, int col) const noexcept {
-    return row * nCols + col;
-  }
+  [[nodiscard]] virtual int GetIndex(int row, int col) const noexcept = 0;
 
 };
 
-using TileMapLayer_uptr = std::unique_ptr<TileMapLayer>;
-using TileMapLayer_sptr = std::shared_ptr<TileMapLayer>;
-using TileMapLayer_wptr = std::weak_ptr<TileMapLayer>;
+using ITileMapLayer_uptr = std::unique_ptr<ITileMapLayer>;
+using ITileMapLayer_sptr = std::shared_ptr<ITileMapLayer>;
+using ITileMapLayer_wptr = std::weak_ptr<ITileMapLayer>;
 
 }

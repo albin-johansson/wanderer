@@ -1,5 +1,7 @@
 #include "tiled_map_parser.h"
 #include "pugixml.hpp"
+#include "tile_map_impl.h"
+#include "tile_map_layer_impl.h"
 #include "sprite_sheet.h"
 #include "bad_state_exception.h"
 #include "tile_animation.h"
@@ -27,8 +29,8 @@ pugi::xml_document TiledMapParser::LoadDocument(const std::string& path) {
   return doc;
 }
 
-std::vector<TileMapLayer_uptr> TiledMapParser::LoadLayers(const pugi::xml_node& mapRootNode) {
-  std::vector<TileMapLayer_uptr> layers;
+std::vector<ITileMapLayer_uptr> TiledMapParser::LoadLayers(const pugi::xml_node& mapRootNode) {
+  std::vector<ITileMapLayer_uptr> layers;
   int nLayers = 0;
   for (auto layerNode : mapRootNode.children("layer")) {
     auto nCols = layerNode.attribute("width").as_int();
@@ -45,7 +47,7 @@ std::vector<TileMapLayer_uptr> TiledMapParser::LoadLayers(const pugi::xml_node& 
       tileIds.push_back(static_cast<TileID>(std::stoi(token)));
     }
 
-    layers.push_back(std::make_unique<TileMapLayer>(nRows, nCols, std::move(tileIds)));
+    layers.push_back(std::make_unique<TileMapLayerImpl>(nRows, nCols, std::move(tileIds)));
     ++nLayers;
   }
 
@@ -174,9 +176,9 @@ void TiledMapParser::LoadMap() {
   int nCols = mapRootNode.attribute("width").as_int();
   int nRows = mapRootNode.attribute("height").as_int();
 
-  map = std::make_unique<TileMap>(LoadTileSet(mapRootNode), nRows, nCols);
+  map = std::make_unique<TileMapImpl>(LoadTileSet(mapRootNode), nRows, nCols);
 
-  std::vector<TileMapLayer_uptr> layers = LoadLayers(mapRootNode);
+  std::vector<ITileMapLayer_uptr> layers = LoadLayers(mapRootNode);
   for (auto& layer : layers) {
     map->AddLayer(std::move(layer));
   }

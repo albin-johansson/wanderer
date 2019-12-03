@@ -11,7 +11,7 @@ namespace albinjohansson::wanderer {
 
 class AbstractLevel : public ILevel {
  private:
-  TileMap_uptr tileMap = nullptr;
+  ITileMap_uptr tileMap = nullptr;
   IPlayer_sptr player = nullptr;
   SoundEngine_sptr soundEngine = nullptr;
 
@@ -20,7 +20,7 @@ class AbstractLevel : public ILevel {
   void Interpolate(float alpha);
 
  protected:
-  AbstractLevel(TileMap_uptr tileMap,
+  AbstractLevel(ITileMap_uptr tileMap,
                 IPlayer_sptr player,
                 SoundEngine_sptr soundEngine,
                 ImageGenerator& imageGenerator);

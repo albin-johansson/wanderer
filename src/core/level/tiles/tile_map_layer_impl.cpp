@@ -1,14 +1,14 @@
-#include "tile_map_layer.h"
+#include "tile_map_layer_impl.h"
 #include "tile.h"
 
 namespace albinjohansson::wanderer {
 
-TileMapLayer::TileMapLayer(int nRows, int nCols, std::vector<TileID> tiles)
+TileMapLayerImpl::TileMapLayerImpl(int nRows, int nCols, std::vector<TileID> tiles)
     : nRows(nRows), nCols(nCols), tiles(std::move(tiles)) {}
 
-TileMapLayer::~TileMapLayer() = default;
+TileMapLayerImpl::~TileMapLayerImpl() = default;
 
-void TileMapLayer::Update(const TileMapBounds& bounds, TileSet& tileSet) {
+void TileMapLayerImpl::Update(const TileMapBounds& bounds, TileSet& tileSet) {
   for (auto row = bounds.minRow; row < bounds.maxRow; row++) {
     for (auto col = bounds.minCol; col < bounds.maxCol; col++) {
       TileID id = GetTileId(row, col);
@@ -20,10 +20,10 @@ void TileMapLayer::Update(const TileMapBounds& bounds, TileSet& tileSet) {
   }
 }
 
-void TileMapLayer::Draw(Renderer& renderer,
-                        const TileMapBounds& bounds,
-                        const Viewport& viewport,
-                        const TileSet& tileSet) const {
+void TileMapLayerImpl::Draw(Renderer& renderer,
+                            const TileMapBounds& bounds,
+                            const Viewport& viewport,
+                            const TileSet& tileSet) const {
 
   // TODO need to sort and draw entities as well
   for (auto row = bounds.minRow; row < bounds.maxRow; row++) {
@@ -50,7 +50,7 @@ void TileMapLayer::Draw(Renderer& renderer,
   }
 }
 
-TileID TileMapLayer::GetTileId(int row, int col) const {
+TileID TileMapLayerImpl::GetTileId(int row, int col) const {
   return tiles.at(GetIndex(row, col));
 }
 

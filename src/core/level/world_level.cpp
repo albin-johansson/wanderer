@@ -2,7 +2,7 @@
 
 namespace albinjohansson::wanderer {
 
-WorldLevel::WorldLevel(TileMap_uptr tileMap,
+WorldLevel::WorldLevel(ITileMap_uptr tileMap,
                        IPlayer_sptr player,
                        SoundEngine_sptr soundEngine,
                        ImageGenerator& imageGenerator)

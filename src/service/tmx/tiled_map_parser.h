@@ -13,7 +13,7 @@ namespace albinjohansson::wanderer {
 
 class TiledMapParser final {
  private:
-  TileMap_uptr map = nullptr;
+  ITileMap_uptr map = nullptr;
   const std::string& file;
   ImageGenerator& imageGenerator;
 
@@ -21,7 +21,7 @@ class TiledMapParser final {
 
   [[nodiscard]] pugi::xml_document LoadDocument(const std::string& path);
 
-  [[nodiscard]] std::vector<TileMapLayer_uptr> LoadLayers(const pugi::xml_node& mapRootNode);
+  [[nodiscard]] std::vector<ITileMapLayer_uptr> LoadLayers(const pugi::xml_node& mapRootNode);
 
   [[nodiscard]] TileSet_uptr LoadTileSet(const pugi::xml_node& mapRootNode);
 
@@ -46,7 +46,7 @@ class TiledMapParser final {
 
   ~TiledMapParser();
 
-  [[nodiscard]] TileMap_uptr GetMap() noexcept { return std::move(map); }
+  [[nodiscard]] ITileMap_uptr GetMap() noexcept { return std::move(map); }
 };
 
 }

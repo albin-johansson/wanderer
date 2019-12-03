@@ -74,11 +74,11 @@ set(SOURCE_FILES
         core/level/tiles/tile.cpp
         core/level/tiles/tile_set.cpp
         core/level/tiles/tile_set.h
-        core/level/tiles/tile_map.cpp
-        core/level/tiles/tile_map.h
-        core/level/tiles/tile_map_layer.cpp
-        core/level/tiles/tile_map_layer.h
-        core/level/tiles/render_bounds.h
+        core/level/tiles/tile_map_impl.cpp
+        core/level/tiles/tile_map_impl.h
+        core/level/tiles/tile_map_layer_impl.cpp
+        core/level/tiles/tile_map_layer_impl.h
+        core/level/tiles/tile_map_bounds.h
         core/level/tiles/sprite_sheet.cpp
         core/level/tiles/sprite_sheet.h
         core/level/tiles/tile_image_set.cpp
@@ -165,7 +165,7 @@ set(SOURCE_FILES
         audio/sound_engine.h
 
         visuals/font_bundle.cpp
-        visuals/font_bundle.h)
+        visuals/font_bundle.h core/level/portal.cpp core/level/portal.h core/level/tiles/tile_map.h core/level/tiles/tile_map_layer.h)
 
 # Prepares the Wanderer "library", which excludes linking and the main.cpp file
 add_library(${WANDERER_LIB} ${SOURCE_FILES})
