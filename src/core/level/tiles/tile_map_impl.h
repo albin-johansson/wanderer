@@ -22,7 +22,7 @@ namespace albinjohansson::wanderer {
  */
 class TileMapImpl final : public ITileMap {
  private:
-//  ITileMap_wptr parent; bool HasParentLevel(); void ExitLevel();
+  ITileMap_wptr parent; // bool HasParentLevel(); void ExitLevel();
 
   std::unique_ptr<TileSet> tileSet = nullptr;
   std::vector<ITileMapLayer_uptr> layers; // TODO separate different layers such as ground, etc?
@@ -62,6 +62,8 @@ class TileMapImpl final : public ITileMap {
 
   void SetPlayer(IEntity_sptr player) override;
 
+  void SetParent(ITileMap_wptr parent) override;
+
   [[nodiscard]] inline int GetRows() const noexcept override { return nRows; }
 
   [[nodiscard]] int GetCols() const noexcept override { return nCols; }
@@ -78,7 +80,7 @@ class TileMapImpl final : public ITileMap {
 
   [[nodiscard]] bool HasParent() const noexcept override;
 
-  [[nodiscard]] ITileMap* GetParent() const noexcept override;
+  [[nodiscard]] ITileMap_wptr GetParent() const noexcept override;
 
   [[nodiscard]] static bool CompareGameObjects(const IGameObject_sptr& first,
                                                const IGameObject_sptr& second) noexcept;

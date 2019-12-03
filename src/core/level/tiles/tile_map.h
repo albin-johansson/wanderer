@@ -8,6 +8,12 @@
 
 namespace albinjohansson::wanderer {
 
+class ITileMap;
+
+using ITileMap_uptr = std::unique_ptr<ITileMap>;
+using ITileMap_sptr = std::shared_ptr<ITileMap>;
+using ITileMap_wptr = std::weak_ptr<ITileMap>;
+
 class ITileMap {
  protected:
   ITileMap() = default;
@@ -22,6 +28,8 @@ class ITileMap {
   virtual void AddLayer(ITileMapLayer_uptr layer) = 0;
 
   virtual void SetPlayer(IEntity_sptr player) = 0;
+
+  virtual void SetParent(ITileMap_wptr parent) = 0;
 
   /**
    * Returns the number of rows in the tile map.
@@ -57,14 +65,10 @@ class ITileMap {
 
   [[nodiscard]] virtual bool HasParent() const noexcept = 0;
 
-  [[nodiscard]] virtual ITileMap* GetParent() const noexcept = 0;
+  [[nodiscard]] virtual ITileMap_wptr GetParent() const noexcept = 0;
 
   [[nodiscard]] virtual Vector2 GetPlayerSpawnPosition() const = 0;
 
 };
-
-using ITileMap_uptr = std::unique_ptr<ITileMap>;
-using ITileMap_sptr = std::shared_ptr<ITileMap>;
-using ITileMap_wptr = std::weak_ptr<ITileMap>;
 
 }

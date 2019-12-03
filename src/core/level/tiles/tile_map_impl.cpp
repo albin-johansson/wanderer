@@ -105,11 +105,16 @@ Vector2 TileMapImpl::GetPlayerSpawnPosition() const {
 }
 
 bool TileMapImpl::HasParent() const noexcept {
-  return false; // TODO
+  auto p = parent.lock();
+  return p != nullptr;
 }
 
-ITileMap* TileMapImpl::GetParent() const noexcept {
-  return nullptr; // TODO
+ITileMap_wptr TileMapImpl::GetParent() const noexcept {
+  return parent;
+}
+
+void TileMapImpl::SetParent(ITileMap_wptr parent) {
+  this->parent = parent;
 }
 
 }

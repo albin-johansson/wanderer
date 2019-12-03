@@ -48,6 +48,8 @@ class WandererCoreImpl final : public IWandererCore {
 
   void Render(Renderer& renderer, float alpha) override;
 
+  void SetMap(std::shared_ptr<ITileMap> map) override;
+
   void PlaySound(const std::string& id) const override;
 
   void Quit() noexcept override;

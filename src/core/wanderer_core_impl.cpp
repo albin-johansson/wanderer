@@ -91,4 +91,17 @@ void WandererCoreImpl::PlaySound(const std::string& id) const {
   soundEngine->Play(id);
 }
 
+void WandererCoreImpl::SetMap(std::shared_ptr<ITileMap> map) {
+  if (map != nullptr) {
+    activeMap = map;
+
+    auto[px, py] = map->GetPlayerSpawnPosition();
+    player->SetX(px);
+    player->SetY(py);
+
+    viewport.SetLevelWidth(static_cast<float>(map->GetWidth()));
+    viewport.SetLevelHeight(static_cast<float>(map->GetHeight()));
+  }
+}
+
 }

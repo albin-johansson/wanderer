@@ -6,6 +6,7 @@
 namespace albinjohansson::wanderer {
 
 class IPlayer;
+class ITileMap;
 
 /**
  * The IWandererCore interface specifies the facade of the core component of the Wanderer
@@ -44,6 +45,8 @@ class IWandererCore {
    * @since 0.1.0
    */
   virtual void Render(Renderer& renderer, float alpha) = 0;
+
+  virtual void SetMap(std::shared_ptr<ITileMap> map) = 0;
 
   virtual void PlaySound(const std::string& id) const = 0;
 
