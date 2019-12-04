@@ -8,6 +8,8 @@
 #include <sstream>
 #include <map>
 
+#include "tiled_tile_set.h"
+
 namespace albinjohansson::wanderer {
 
 // TODO entity parsing, item parsing...
@@ -71,6 +73,19 @@ TileSet_uptr TiledMapParser::LoadTileSet(const pugi::xml_node& mapRoot) {
 
     TileID firstgid = static_cast<TileID>(ts.attribute("firstgid").as_uint());
     TileID lastgid = firstgid + static_cast<TileID>(tileCount) - 1;
+
+    tiled::TiledTileSet tts(tsRoot, firstgid, lastgid);
+
+    if (tts.HasProperty(firstgid + 333, "blocked")) {
+//      auto blocked = tts.GetProperty<bool>(firstgid + 333, "blocked");
+
+    }
+//    try {
+//      auto p = tts.GetProperty<bool>(firstgid + 333, "blocked");
+//
+//      SDL_Log("Tile %u has a property called blocked!", firstgid + 333);
+//
+//    } catch (std::exception& e) {}
 
     Image_sptr sheetImage = LoadSheetImage(tsRoot.child("image"));
     const int sheetCols = sheetImage->GetHeight() / tileSize;

@@ -79,11 +79,11 @@ set(SOURCE_FILES
         core/level/tiles/tile_animation.h
         core/level/tiles/tile_id.h
 
-        service/tmx/pugixml/pugixml.hpp
-        service/tmx/pugixml/pugixml.cpp
-        service/tmx/pugixml/pugiconfig.hpp
-        service/tmx/tiled_map_parser.cpp
-        service/tmx/tiled_map_parser.h
+        service/tiled/pugixml/pugixml.hpp
+        service/tiled/pugixml/pugixml.cpp
+        service/tiled/pugixml/pugiconfig.hpp
+        service/tiled/tiled_map_parser.cpp
+        service/tiled/tiled_map_parser.h
 
         core/item/item.h
 
@@ -157,7 +157,20 @@ set(SOURCE_FILES
         audio/sound_engine.h
 
         visuals/font_bundle.cpp
-        visuals/font_bundle.h core/level/portal.cpp core/level/portal.h core/level/tiles/tile_map.h core/level/tiles/tile_map_layer.h)
+        visuals/font_bundle.h
+
+        core/level/portal.cpp
+        core/level/portal.h
+        core/level/tiles/tile_map.h
+        core/level/tiles/tile_map_layer.h
+
+        service/tiled/tiled_map.cpp
+        service/tiled/tiled_map.h
+        service/tiled/tiled_tile_set.cpp
+        service/tiled/tiled_tile_set.h
+        service/tiled/tiled_animation.cpp
+        service/tiled/tiled_animation.h
+        )
 
 # Prepares the Wanderer "library", which excludes linking and the main.cpp file
 add_library(${WANDERER_LIB} ${SOURCE_FILES})
@@ -173,8 +186,8 @@ target_include_directories(${WANDERER_LIB} PUBLIC visuals)
 target_include_directories(${WANDERER_LIB} PUBLIC core/menu)
 target_include_directories(${WANDERER_LIB} PUBLIC util)
 target_include_directories(${WANDERER_LIB} PUBLIC service)
-target_include_directories(${WANDERER_LIB} PUBLIC service/tmx)
-target_include_directories(${WANDERER_LIB} PUBLIC service/tmx/pugixml)
+target_include_directories(${WANDERER_LIB} PUBLIC service/tiled)
+target_include_directories(${WANDERER_LIB} PUBLIC service/tiled/pugixml)
 target_include_directories(${WANDERER_LIB} PUBLIC core/math)
 target_include_directories(${WANDERER_LIB} PUBLIC core/level)
 target_include_directories(${WANDERER_LIB} PUBLIC core/level/tiles)
