@@ -66,42 +66,51 @@ TileSet_uptr TiledMapParser::LoadTileSet(const pugi::xml_node& mapRoot) {
     pugi::xml_document tsDocument = LoadDocument("resources/map/world/" + tsFileName); // FIXME
     pugi::xml_node tsRoot = tsDocument.child("tileset");
 
-    const int tileWidth = tsRoot.attribute("tilewidth").as_int();
 //    int tileHeight = tsRoot.attribute("tileheight").as_int();
     const int tileCount = tsRoot.attribute("tilecount").as_int();
-    const int tileSize = tileWidth;
 
     TileID firstgid = static_cast<TileID>(ts.attribute("firstgid").as_uint());
     TileID lastgid = firstgid + static_cast<TileID>(tileCount) - 1;
 
-    tiled::TiledTileSet tts(tsRoot, firstgid, lastgid);
+    tiled::TiledTileSet tts(tsRoot, firstgid, lastgid); // TODO switch to using the tiled:: comps
 
-    if (tts.HasProperty(firstgid + 333, "blocked")) {
-//      auto blocked = tts.GetProperty<bool>(firstgid + 333, "blocked");
-
-    }
-//    try {
-//      auto p = tts.GetProperty<bool>(firstgid + 333, "blocked");
-//
-//      SDL_Log("Tile %u has a property called blocked!", firstgid + 333);
-//
-//    } catch (std::exception& e) {}
+    const int tileWidth = tsRoot.attribute("tilewidth").as_int();
+    const int tileSize = tileWidth;
 
     Image_sptr sheetImage = LoadSheetImage(tsRoot.child("image"));
-    const int sheetCols = sheetImage->GetHeight() / tileSize;
 
-    LoadSpecialProperties(tsRoot, specialProperties, firstgid, tileSize);
+    const int sheetCols = tts.GetCols();
+
+//    LoadSpecialProperties(tsRoot, specialProperties, firstgid, tileSize);
 
     int i = 0;
     for (TileID id = firstgid; id <= lastgid; id++, i++) {
       TileProperties properties = {sheetImage, id}; // img, id, animation, hitbox, blocked
 
-      if (specialProperties.count(id)) {
-        const TileProperties& specProps = specialProperties.at(id);
-        properties.hitbox = specProps.hitbox; // TODO just use the special version
-        properties.blocked = specProps.blocked;
-        properties.animated = specProps.animated;
-        properties.animation = specProps.animation;
+      if (tts.HasAnimation(id)) {
+        TileAnimation animation = CreateAnimation(tts.GetAnimation(id));
+        properties.animation = animation;
+        properties.animated = true;
+      }
+
+      if (tts.HasObject(id)) {
+        tiled::TiledObject object = tts.GetObject(id);
+
+        if (object.HasAttribute("name") &&
+            object.GetAttribute("name") == "hitbox") {
+          float x = std::stof(object.GetAttribute("x"));
+          float y = std::stof(object.GetAttribute("y"));
+          float w = std::stof(object.GetAttribute("width"));
+          float h = std::stof(object.GetAttribute("height"));
+
+          auto wscale = w / tileSize;
+          auto hscale = h / tileSize;
+
+          Rectangle hitbox(x, y, wscale * Tile::SIZE, hscale * Tile::SIZE);
+
+          properties.hitbox = hitbox;
+          properties.blocked = true;
+        }
       }
 
       float row = i / sheetCols;
@@ -115,47 +124,6 @@ TileSet_uptr TiledMapParser::LoadTileSet(const pugi::xml_node& mapRoot) {
   }
 
   return tileSet;
-}
-
-void TiledMapParser::LoadSpecialProperties(const pugi::xml_node& tileSetNode,
-                                           std::map<TileID, TileProperties>& specialProperties,
-                                           TileID firstgid,
-                                           int tileSize) {
-  for (pugi::xml_node tileNode : tileSetNode.children("tile")) {
-    auto id = firstgid + static_cast<TileID>(tileNode.attribute("id").as_uint());
-    TileProperties properties;
-
-    pugi::xml_node animationNode = tileNode.child("animation");
-    LoadTileAnimations(animationNode, properties, firstgid);
-
-    pugi::xml_node objectNode = tileNode.child("objectgroup").child("object");
-    LoadTileHitbox(objectNode, properties, tileSize);
-
-    specialProperties.insert(std::pair<TileID, TileProperties>(id, properties));
-  }
-}
-
-void TiledMapParser::LoadTileAnimations(const pugi::xml_node& animationNode,
-                                        TileProperties& properties,
-                                        TileID firstgid) {
-  if (!animationNode.empty()) {
-    int nFrames = std::distance(animationNode.children("frame").begin(),
-                                animationNode.children("frame").end());
-    TileAnimation animation(nFrames);
-
-    int i = 0;
-    for (pugi::xml_node frameNode : animationNode.children("frame")) {
-      TileID id = firstgid + static_cast<TileID>(frameNode.attribute("tileid").as_uint());
-      uint32_t duration = frameNode.attribute("duration").as_uint();
-
-      Frame frame = {id, duration};
-      animation.SetFrame(i, frame);
-      ++i;
-    }
-
-    properties.animated = true;
-    properties.animation = animation;
-  }
 }
 
 void TiledMapParser::LoadTileHitbox(const pugi::xml_node& objectNode,
@@ -175,6 +143,19 @@ void TiledMapParser::LoadTileHitbox(const pugi::xml_node& objectNode,
     properties.hitbox = hitbox;
     properties.blocked = true;
   }
+}
+
+TileAnimation TiledMapParser::CreateAnimation(tiled::TiledAnimation animation) {
+  TileAnimation result(animation.GetFrames().size());
+
+  int i = 0;
+  for (const auto f : animation.GetFrames()) {
+    Frame frame = {static_cast<TileID>(f.tileId), static_cast<uint32_t>(f.duration)};
+    result.SetFrame(i, frame);
+    ++i;
+  }
+
+  return result;
 }
 
 Image_sptr TiledMapParser::LoadSheetImage(const pugi::xml_node& imageNode) {

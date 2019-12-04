@@ -18,6 +18,8 @@ class TiledAnimation {
   ~TiledAnimation();
 
   void AddFrame(int index, Frame frame);
+
+  const std::vector<Frame>& GetFrames();
 };
 
 }

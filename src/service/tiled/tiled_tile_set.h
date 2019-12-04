@@ -1,5 +1,6 @@
 #pragma once
 #include "tiled_animation.h"
+#include "tiled_object.h"
 #include <stdexcept>
 #include <pugixml.hpp>
 #include <string>
@@ -17,6 +18,7 @@ struct TilePropertyData {
 class TiledTileSet final {
  private:
   pugi::xml_node tileSetNode;
+  std::map<int, TiledObject> objects;
   std::map<int, TiledAnimation> animations;
   std::map<int, std::vector<TilePropertyData>> propertyData;
   const int firstId;
@@ -24,11 +26,11 @@ class TiledTileSet final {
 
   void Init();
 
-  void ProcessAnimation(int tileId);
+  void ProcessAnimation(int tileId, const pugi::xml_node& tileNode);
 
   void ProcessProperties(int tileId, const pugi::xml_node& tileNode);
 
-  void ProcessObjectGroup(int tileId);
+  void ProcessObjectGroup(int tileId, const pugi::xml_node& tileNode);
 
   [[nodiscard]] const TilePropertyData& GetData(int tileId, const std::string& name) const;
 
@@ -131,6 +133,10 @@ class TiledTileSet final {
    */
   [[nodiscard]] int GetLastTileId() const noexcept { return lastId; }
 
+  [[nodiscard]] bool HasAnimation(int tileId) const noexcept;
+
+  [[nodiscard]] TiledAnimation GetAnimation(int tileId) const;
+
   /**
    * Indicates whether or not the tile associated with the supplied ID has a property with the
    * specified name.
@@ -182,6 +188,10 @@ class TiledTileSet final {
    * @since 0.1.0
    */
   [[nodiscard]] std::string GetString(int tileId, const std::string& name) const;
+
+  [[nodiscard]] bool HasObject(int tileId) const noexcept;
+
+  [[nodiscard]] TiledObject GetObject(int tileId) const;
 //  /**
 //   * Attempts to obtain a property of the tile with the specified ID.
 //   *

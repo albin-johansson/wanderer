@@ -5,6 +5,7 @@
 #include "tile_set.h"
 #include "image_generator.h"
 #include "image.h"
+#include "tiled_animation.h"
 #include <string>
 #include <vector>
 #include <map>
@@ -25,18 +26,11 @@ class TiledMapParser final {
 
   [[nodiscard]] TileSet_uptr LoadTileSet(const pugi::xml_node& mapRootNode);
 
-  void LoadSpecialProperties(const pugi::xml_node& tileSetNode,
-                             std::map<TileID, TileProperties>& specialProperties,
-                             TileID firstgid,
-                             int tileSize);
-
-  void LoadTileAnimations(const pugi::xml_node& animationNode,
-                          TileProperties& properties,
-                          TileID firstgid);
-
   void LoadTileHitbox(const pugi::xml_node& objectNode,
                       TileProperties& properties,
                       int tileSize);
+
+  TileAnimation CreateAnimation(tiled::TiledAnimation animation);
 
   Image_sptr LoadSheetImage(const pugi::xml_node& imageNode);
 

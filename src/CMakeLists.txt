@@ -170,7 +170,7 @@ set(SOURCE_FILES
         service/tiled/tiled_tile_set.h
         service/tiled/tiled_animation.cpp
         service/tiled/tiled_animation.h
-        )
+        service/tiled/tiled_object.cpp service/tiled/tiled_object.h)
 
 # Prepares the Wanderer "library", which excludes linking and the main.cpp file
 add_library(${WANDERER_LIB} ${SOURCE_FILES})

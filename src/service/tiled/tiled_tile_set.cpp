@@ -18,14 +18,14 @@ TiledTileSet::~TiledTileSet() = default;
 void TiledTileSet::Init() {
   for (auto tileNode : tileSetNode.children("tile")) {
     const int id = firstId + tileNode.attribute("id").as_int();
-    ProcessAnimation(id);
+    ProcessAnimation(id, tileNode);
     ProcessProperties(id, tileNode);
-    ProcessObjectGroup(id);
+    ProcessObjectGroup(id, tileNode);
   }
 }
 
-void TiledTileSet::ProcessAnimation(int tileId) {
-  for (auto animationNode : tileSetNode.children("animation")) {
+void TiledTileSet::ProcessAnimation(int tileId, const pugi::xml_node& tileNode) {
+  for (auto animationNode : tileNode.children("animation")) {
 
     const int nFrames = std::distance(animationNode.children("frame").begin(),
                                       animationNode.children("frame").end());
@@ -63,8 +63,17 @@ void TiledTileSet::ProcessProperties(int tileId, const pugi::xml_node& tileNode)
   }
 }
 
-void TiledTileSet::ProcessObjectGroup(int tileId) {
-  // TODO...
+void TiledTileSet::ProcessObjectGroup(int tileId, const pugi::xml_node& tileNode) {
+  pugi::xml_node groupNode = tileNode.child("objectgroup");
+  for (auto objectNode : groupNode.children("object")) {
+
+    TiledObject object;
+    for (auto attribute : objectNode.attributes()) {
+      object.AddProperty(attribute.name(), attribute.value());
+    }
+
+    objects.insert(std::pair<int, TiledObject>(tileId, object));
+  }
 }
 
 std::string TiledTileSet::GetName() const {
@@ -162,6 +171,22 @@ std::string TiledTileSet::GetString(int tileId, const std::string& name) const {
   }
 
   return "";
+}
+
+bool TiledTileSet::HasAnimation(int tileId) const noexcept {
+  return animations.count(tileId);
+}
+
+TiledAnimation TiledTileSet::GetAnimation(int tileId) const {
+  return animations.at(tileId);
+}
+
+bool TiledTileSet::HasObject(int tileId) const noexcept {
+  return objects.count(tileId);
+}
+
+TiledObject TiledTileSet::GetObject(int tileId) const {
+  return objects.at(tileId);
 }
 
 }
