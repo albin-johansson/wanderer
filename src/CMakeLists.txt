@@ -170,7 +170,17 @@ set(SOURCE_FILES
         service/tiled/tiled_tile_set.h
         service/tiled/tiled_animation.cpp
         service/tiled/tiled_animation.h
-        service/tiled/tiled_object.cpp service/tiled/tiled_object.h service/tiled/tiled_layer.cpp service/tiled/tiled_layer.h core/sortable_drawable.h core/level/tiles/drawable_tile.cpp core/level/tiles/drawable_tile.h core/level/tiles/tile_group.cpp core/level/tiles/tile_group.h core/level/tiles/tile_rendering_group.cpp core/level/tiles/tile_rendering_group.h)
+        service/tiled/tiled_object.cpp
+        service/tiled/tiled_object.h
+        service/tiled/tiled_layer.cpp
+        service/tiled/tiled_layer.h
+        service/tiled/tiled_tile.cpp
+        service/tiled/tiled_tile.h
+        service/tiled/tiled_property.h
+
+        core/sortable_drawable.h
+        core/level/tiles/drawable_tile.cpp
+        core/level/tiles/drawable_tile.h)
 
 # Prepares the Wanderer "library", which excludes linking and the main.cpp file
 add_library(${WANDERER_LIB} ${SOURCE_FILES})
