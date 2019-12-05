@@ -13,11 +13,13 @@ class TiledAnimation {
   std::vector<Frame> frames;
 
  public:
+  TiledAnimation();
+
   explicit TiledAnimation(int nFrames);
 
   ~TiledAnimation();
 
-  void AddFrame(int index, Frame frame);
+  void AddFrame(Frame frame);
 
   const std::vector<Frame>& GetFrames();
 };

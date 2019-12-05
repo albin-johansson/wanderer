@@ -14,11 +14,13 @@ void DrawableTile::Draw(Renderer& renderer, const Viewport& viewport) const {
     return;
   }
 
-  auto ts = tileSet.lock();
+  const auto ts = tileSet.lock();
   if (ts) {
     const TilePos pos = {static_cast<int>(y / Tile::SIZE), static_cast<int>(x / Tile::SIZE)};
     const auto& tile = ts->GetTile(id);
-    tile.Draw(pos, renderer, viewport, ts->GetSource(tile.GetFrameId()));
+
+    const auto srcRectId = (tile.IsAnimated()) ? tile.GetFrameId() : id;
+    tile.Draw(pos, renderer, viewport, ts->GetSource(srcRectId));
   }
 }
 

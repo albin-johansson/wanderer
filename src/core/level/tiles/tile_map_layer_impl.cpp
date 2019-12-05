@@ -31,13 +31,16 @@ void TileMapLayerImpl::Draw(Renderer& renderer,
                             const Viewport& viewport) const {
   for (auto row = bounds.minRow; row < bounds.maxRow; row++) {
     for (auto col = bounds.minCol; col < bounds.maxCol; col++) {
+      // FIXME duplicated rendering code from DrawableTile
+
       TileID id = GetTileId(row, col);
-      if (id == 0) {
+      if (id == Tile::EMPTY) {
         continue;
       }
 
       const TilePos pos = {row, col};
       const auto& tile = tileSet->GetTile(id);
+
       TileID frameId = tile.GetFrameId();
 
       tile.Draw(pos, renderer, viewport, tileSet->GetSource(frameId));
@@ -59,10 +62,8 @@ std::vector<DrawableTile_sptr> TileMapLayerImpl::CreateDrawableTiles() const {
   auto i = 0;
   for (const auto& tileId : tiles) {
     if (tileId != Tile::EMPTY) {
-      auto x = (i % nCols) * Tile::SIZE;
-      auto y = (i / nCols) * Tile::SIZE;
-
-//      SDL_Log("DT | X: %f, Y: %f", x, y);
+      auto x = static_cast<float>(i % nCols) * Tile::SIZE;
+      auto y = (static_cast<float>(i) / static_cast<float>(nCols)) * Tile::SIZE;
 
       drawables.push_back(std::make_unique<DrawableTile>(x, y, tileId, tileSet));
     }
