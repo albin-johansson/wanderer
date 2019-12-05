@@ -6,51 +6,51 @@
 
 using namespace albinjohansson::wanderer;
 
-TEST_CASE("SpriteSheet::GetSource", "[SpriteSheet]") {
-  Window window("foo", 10, 10);
-  Renderer renderer(window.GetInternalWindow());
-
-  Image_sptr img = Image::Create(renderer.GetInternalRenderer(), "resources/img/outside.png");
-
-  const Range range = {1, 1024};
-  const int size = 32;
-
-  auto sheet = SpriteSheet(img, range, size);
-
-  SECTION("First source rectangle") {
-    auto& rect = sheet.GetSource(sheet.GetMinId());
-
-    CHECK(rect.GetX() == 0);
-    CHECK(rect.GetY() == 0);
-    CHECK(rect.GetWidth() == size);
-    CHECK(rect.GetHeight() == size);
-  }
-
-//  SECTION("Misc source rectangle") {
-//    auto i = (sheet.GetMaxID() - sheet.GetMinID()) / 2;
+//TEST_CASE("SpriteSheet::GetSource", "[SpriteSheet]") {
+//  Window window("foo", 10, 10);
+//  Renderer renderer(window.GetInternalWindow());
 //
-//    auto row = i / sheet.GetCols();
-//    auto col = i % sheet.GetCols();
+//  Image_sptr img = Image::Create(renderer.GetInternalRenderer(), "resources/img/outside.png");
 //
-//    auto id = range.min + 10;
-//    auto& rect = sheet.GetSource(id);
+//  const Range range = {1, 1024};
+//  const int size = 32;
 //
-//    CHECK(rect.GetX() == col * size);
-//    CHECK(rect.GetY() == row * size);
+//  auto sheet = SpriteSheet(img, range, size);
+//
+//  SECTION("First source rectangle") {
+//    auto& rect = sheet.GetSource(sheet.GetMinId());
+//
+//    CHECK(rect.GetX() == 0);
+//    CHECK(rect.GetY() == 0);
 //    CHECK(rect.GetWidth() == size);
 //    CHECK(rect.GetHeight() == size);
 //  }
-
-  SECTION("Last source rectangle") {
-    auto& rect = sheet.GetSource(sheet.GetMaxId());
-
-    CHECK(rect.GetX() == ((sheet.GetCols() - 1) * sheet.GetSpriteSize()));
-    CHECK(rect.GetY() == ((sheet.GetRows() - 1) * sheet.GetSpriteSize()));
-    CHECK(rect.GetWidth() == size);
-    CHECK(rect.GetHeight() == size);
-  }
-
-}
+//
+////  SECTION("Misc source rectangle") {
+////    auto i = (sheet.GetMaxID() - sheet.GetMinID()) / 2;
+////
+////    auto row = i / sheet.GetCols();
+////    auto col = i % sheet.GetCols();
+////
+////    auto id = range.min + 10;
+////    auto& rect = sheet.GetSource(id);
+////
+////    CHECK(rect.GetX() == col * size);
+////    CHECK(rect.GetY() == row * size);
+////    CHECK(rect.GetWidth() == size);
+////    CHECK(rect.GetHeight() == size);
+////  }
+//
+//  SECTION("Last source rectangle") {
+//    auto& rect = sheet.GetSource(sheet.GetMaxId());
+//
+//    CHECK(rect.GetX() == ((sheet.GetCols() - 1) * sheet.GetSpriteSize()));
+//    CHECK(rect.GetY() == ((sheet.GetRows() - 1) * sheet.GetSpriteSize()));
+//    CHECK(rect.GetWidth() == size);
+//    CHECK(rect.GetHeight() == size);
+//  }
+//
+//}
 
 TEST_CASE("SpriteSheet::GetMinId", "[SpriteSheet]") {
   Window window("foo", 10, 10);

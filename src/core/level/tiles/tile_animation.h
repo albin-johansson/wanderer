@@ -2,6 +2,7 @@
 #include "tile_id.h"
 #include "rectangle.h"
 #include <unordered_map>
+#include <SDL.h>
 
 namespace albinjohansson::wanderer {
 
@@ -27,7 +28,12 @@ class TileAnimation final {
   void SetFrame(int index, Frame frame);
 
   [[nodiscard]] Frame GetFrame() const {
-    return frames.at(index);
+    try {
+      return frames.at(index);
+    } catch (std::exception& e) {
+      SDL_Log("Failed to get frame at index: %i", index);
+      throw;
+    }
   }
 
 };

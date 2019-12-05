@@ -49,7 +49,12 @@ void TileMapLayerImpl::Draw(Renderer& renderer,
 }
 
 TileID TileMapLayerImpl::GetTileId(int row, int col) const {
-  return tiles.at(GetIndex(row, col));
+  try {
+    return tiles.at(GetIndex(row, col));
+  } catch (std::exception& e) {
+    SDL_Log("Failed to get tile ID of tile at (%i, %i)", row, col);
+    throw;
+  }
 }
 
 void TileMapLayerImpl::SetGroundLayer(bool isGroundLayer) noexcept {

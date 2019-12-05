@@ -3,7 +3,6 @@
 #include "rectangle.h"
 #include "tile.h"
 #include <memory>
-#include <unordered_map>
 
 namespace albinjohansson::wanderer {
 
@@ -30,7 +29,7 @@ class SpriteSheet final {
   int nRows;
   int nCols;
   int nSprites;
-  std::unordered_map<TileID, Rectangle> sourceRectangles;
+//  std::unordered_map<TileID, Rectangle> sourceRectangles;
 
  public:
   /**
@@ -43,15 +42,15 @@ class SpriteSheet final {
 
   ~SpriteSheet();
 
-  /**
-   * Returns a reference to the source rectangle associated with the supplied sprite ID.
-   *
-   * @param id the sprite ID of the desired source rectangle.
-   * @return a reference to the source rectangle associated with the supplied sprite ID.
-   * @throws out_of_range if the sprite ID isn't located in the sprite sheet.
-   * @since 0.1.0
-   */
-  [[nodiscard]] const Rectangle& GetSource(TileID id) const;
+//  /**
+//   * Returns a reference to the source rectangle associated with the supplied sprite ID.
+//   *
+//   * @param id the sprite ID of the desired source rectangle.
+//   * @return a reference to the source rectangle associated with the supplied sprite ID.
+//   * @throws out_of_range if the sprite ID isn't located in the sprite sheet.
+//   * @since 0.1.0
+//   */
+//  [[nodiscard]] const Rectangle& GetSource(TileID id) const;
 
   /**
    * Returns the minimum sprite ID value contained in the sprite sheet.

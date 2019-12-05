@@ -1,38 +1,23 @@
 #pragma once
 #include "tiled_animation.h"
 #include "tiled_object.h"
+#include "tiled_tile.h"
 #include <stdexcept>
 #include <pugixml.hpp>
 #include <string>
-#include <map>
+#include <unordered_map>
 #include <vector>
 
 namespace albinjohansson::tiled {
 
-struct TilePropertyData {
-  std::string name = "";
-  std::string type = "";
-  std::string value = "";
-};
-
 class TiledTileSet final {
  private:
   pugi::xml_node tileSetNode;
-  std::map<int, TiledObject> objects;
-  std::map<int, TiledAnimation> animations;
-  std::map<int, std::vector<TilePropertyData>> propertyData;
+  std::unordered_map<int, TiledTile> tiles;
   const int firstId;
   const int lastId;
 
   void Init();
-
-  void ProcessAnimation(int tileId, const pugi::xml_node& tileNode);
-
-  void ProcessProperties(int tileId, const pugi::xml_node& tileNode);
-
-  void ProcessObjectGroup(int tileId, const pugi::xml_node& tileNode);
-
-  [[nodiscard]] const TilePropertyData& GetData(int tileId, const std::string& name) const;
 
  public:
   /**
@@ -135,101 +120,9 @@ class TiledTileSet final {
    */
   [[nodiscard]] int GetLastTileId() const noexcept { return lastId; }
 
-  [[nodiscard]] bool HasAnimation(int tileId) const noexcept;
+  [[nodiscard]] bool HasTile(int id) const noexcept;
 
-  [[nodiscard]] TiledAnimation GetAnimation(int tileId) const;
-
-  /**
-   * Indicates whether or not the tile associated with the supplied ID has a property with the
-   * specified name.
-   *
-   * @param tileId the ID of the tile to check.
-   * @param name the name of the property to look for.
-   * @return true if the tile has a property with the specified name; false otherwise.
-   * @since 0.1.0
-   */
-  [[nodiscard]] bool HasProperty(int tileId, const std::string& name) const noexcept;
-
-  /**
-   * Attempts to find a boolean property for a tile and return its value.
-   *
-   * @param tileId the ID of the tile that owns the boolean property.
-   * @param name the name of the boolean property.
-   * @return the boolean value of the specified property; false if the property isn't found.
-   * @since 0.1.0
-   */
-  [[nodiscard]] bool GetBool(int tileId, const std::string& name) const;
-
-  /**
-   * Attempts to find an integer property for a tile and return its value.
-   *
-   * @param tileId the ID of the tile that owns the integer property.
-   * @param name the name of the integer property.
-   * @return the integer value of the specified property; 0 if the property isn't found.
-   * @since 0.1.0
-   */
-  [[nodiscard]] int GetInt(int tileId, const std::string& name) const;
-
-  /**
-   * Attempts to find a float property for a tile and return its value.
-   *
-   * @param tileId the ID of the tile that owns the float property.
-   * @param name the name of the float property.
-   * @return the float value of the specified property; 0 if the property isn't found.
-   * @since 0.1.0
-   */
-  [[nodiscard]] float GetFloat(int tileId, const std::string& name) const;
-
-  /**
-   * Attempts to find a string property for a tile and return its value.
-   *
-   * @param tileId the ID of the tile that owns the string property.
-   * @param name the name of the string property.
-   * @return the string value of the specified property; the empty string is returned if the
-   * property isn't found.
-   * @since 0.1.0
-   */
-  [[nodiscard]] std::string GetString(int tileId, const std::string& name) const;
-
-  [[nodiscard]] bool HasObject(int tileId) const noexcept;
-
-  [[nodiscard]] TiledObject GetObject(int tileId) const;
-//  /**
-//   * Attempts to obtain a property of the tile with the specified ID.
-//   *
-//   * @tparam T the type of the value in the property.
-//   * @param tileId the ID of the tile that owns the desired property.
-//   * @param name the name of the property to look for.
-//   * @return a tiled property.
-//   * @throws invalid_argument if the there are no properties for the tile associated with the
-//   * supplied ID, or if the specified type isn't supported.
-//   * @since 0.1.0
-//   */
-//  template<typename T>
-//  [[nodiscard]] TiledProperty<T> GetProperty(int tileId, const std::string& name) const {
-//    if (propertyData.count(tileId)) {
-//      std::vector<TilePropertyData> properties = propertyData.at(tileId);
-//
-//      for (TilePropertyData data : properties) {
-//        // TODO does not support "color and "file"
-//        if (data.type == "bool") {
-//          return TiledProperty<T>(data.name, data.value == "true");
-//        } else if (data.type == "int") {
-//          return TiledProperty<T>(data.name, std::stoi(data.value));
-//        } else if (data.type == "float") {
-//          return TiledProperty<T>(data.name, std::stof(data.value));
-//        }
-////        else if (data.type == "string") {
-////          return TiledProperty<T>(data.name, data.value);
-////        }
-//      }
-//
-//      throw std::invalid_argument("Failed to obtain property: " + name
-//                                      + ", for tile with ID: " + std::to_string(tileId));
-//    }
-//
-//    throw std::invalid_argument("Found no properties for tile: " + std::to_string(tileId));
-//  }
+  [[nodiscard]] const TiledTile& GetTile(int id) const;
 };
 
 }
