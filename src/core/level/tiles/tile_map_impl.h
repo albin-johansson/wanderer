@@ -7,6 +7,7 @@
 #include "tile_map_bounds.h"
 #include "tile_set.h"
 #include "wanderer_core.h"
+#include "sortable_drawable.h"
 #include <vector>
 
 namespace albinjohansson::wanderer {
@@ -22,16 +23,14 @@ namespace albinjohansson::wanderer {
  */
 class TileMapImpl final : public ITileMap {
  private:
-  ITileMap_wptr parent; // bool HasParentLevel(); void ExitLevel();
-
-  std::unique_ptr<TileSet> tileSet = nullptr;
-  std::vector<ITileMapLayer_uptr> layers; // TODO separate different layers such as ground, etc?
-
-  // std::vector<TileMapLayer_uptr> groundLayers;
-  // std::vector<TileMapLayer_uptr> objectLayers
-
-  std::vector<IEntity_sptr> entities;
+  ITileMap_wptr parent;
+  TileSet_sptr tileSet = nullptr;
   IEntity_sptr player = nullptr;
+
+  std::vector<ITileMapLayer_uptr> groundLayers;
+  std::vector<ITileMapLayer_uptr> objectLayers;
+  std::vector<IEntity_sptr> entities;
+  std::vector<ISortableDrawable_sptr> drawables;
 
   int nRows;
   int nCols;
@@ -42,12 +41,12 @@ class TileMapImpl final : public ITileMap {
 
  public:
   /**
-   * @param tileSet a unique pointer associated to the tile set.
+   * @param tileSet a shared pointer associated to the tile set.
    * @param nRows the number of rows in the tile map.
    * @param nCols the number of columns in the tile map.
    * @since 0.1.0
    */
-  TileMapImpl(std::unique_ptr<TileSet> tileSet,
+  TileMapImpl(TileSet_sptr tileSet,
               int nRows,
               int nCols,
               ImageGenerator& imageGenerator);
@@ -82,8 +81,8 @@ class TileMapImpl final : public ITileMap {
 
   [[nodiscard]] ITileMap_wptr GetParent() const noexcept override;
 
-  [[nodiscard]] static bool CompareGameObjects(const IGameObject_sptr& first,
-                                               const IGameObject_sptr& second) noexcept;
+  [[nodiscard]] static bool CompareDrawables(const ISortableDrawable_sptr& first,
+                                             const ISortableDrawable_sptr& second) noexcept;
 
 };
 

@@ -22,17 +22,11 @@ class TiledMapParser final {
 
   [[nodiscard]] pugi::xml_document LoadDocument(const std::string& path);
 
-  [[nodiscard]] std::vector<ITileMapLayer_uptr> LoadLayers(const pugi::xml_node& mapRootNode);
-
   [[nodiscard]] TileSet_uptr LoadTileSet(const pugi::xml_node& mapRootNode);
-
-  void LoadTileHitbox(const pugi::xml_node& objectNode,
-                      TileProperties& properties,
-                      int tileSize);
 
   TileAnimation CreateAnimation(tiled::TiledAnimation animation);
 
-  Image_sptr LoadSheetImage(const pugi::xml_node& imageNode);
+  [[nodiscard]] std::vector<TileID> CreateTileVector(const std::vector<int>& tiles) const;
 
  public:
 

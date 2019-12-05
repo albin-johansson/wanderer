@@ -27,6 +27,15 @@ class Tile {
  private:
   TileProperties properties;
 
+  /*
+   * Image_sptr image = nullptr;
+   * Rectangle hitbox;
+   * TileAnimation animation;
+   * TileID id = EMPTY;
+   * int renderGroup = 0;
+   * int group = 0;
+   * */
+
  public:
   static constexpr float SIZE = 64;
   static constexpr TileID EMPTY = 0;

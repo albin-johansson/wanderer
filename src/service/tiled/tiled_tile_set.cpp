@@ -69,7 +69,7 @@ void TiledTileSet::ProcessObjectGroup(int tileId, const pugi::xml_node& tileNode
 
     TiledObject object;
     for (auto attribute : objectNode.attributes()) {
-      object.AddProperty(attribute.name(), attribute.value());
+      object.AddAttribute(attribute.name(), attribute.value());
     }
 
     objects.insert(std::pair<int, TiledObject>(tileId, object));
@@ -98,6 +98,11 @@ int TiledTileSet::GetCols() const {
 
 std::string TiledTileSet::GetImageSource() const {
   return tileSetNode.child("image").attribute("source").as_string();
+}
+
+std::string TiledTileSet::GetImageName() const {
+  std::string source = GetImageSource();
+  return source.substr(source.find_last_of('/') + 1);
 }
 
 int TiledTileSet::GetImageWidth() const {
@@ -142,10 +147,7 @@ bool TiledTileSet::GetBool(int tileId, const std::string& name) const {
 
 int TiledTileSet::GetInt(int tileId, const std::string& name) const {
   if (propertyData.count(tileId)) {
-    auto& data = GetData(tileId, name);
-    if (data.value == "int") {
-      return std::stoi(data.value);
-    }
+    return std::stoi(GetData(tileId, name).value);
   }
 
   return 0;
@@ -153,10 +155,7 @@ int TiledTileSet::GetInt(int tileId, const std::string& name) const {
 
 float TiledTileSet::GetFloat(int tileId, const std::string& name) const {
   if (propertyData.count(tileId)) {
-    auto& data = GetData(tileId, name);
-    if (data.value == "float") {
-      return std::stof(data.value);
-    }
+    return std::stof(GetData(tileId, name).value);
   }
 
   return 0;
@@ -164,10 +163,7 @@ float TiledTileSet::GetFloat(int tileId, const std::string& name) const {
 
 std::string TiledTileSet::GetString(int tileId, const std::string& name) const {
   if (propertyData.count(tileId)) {
-    auto& data = GetData(tileId, name);
-    if (data.value == "float") {
-      return data.value;
-    }
+    return GetData(tileId, name).value;
   }
 
   return "";

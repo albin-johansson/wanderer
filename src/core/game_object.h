@@ -1,5 +1,5 @@
 #pragma once
-#include "drawable.h"
+#include "sortable_drawable.h"
 #include "rectangle.h"
 #include "wanderer_core.h"
 #include <memory>
@@ -15,7 +15,7 @@ class IWandererCore;
  * @see IDrawable
  * @since 0.1.0
  */
-class IGameObject : public virtual IDrawable {
+class IGameObject : public virtual ISortableDrawable {
  protected:
   IGameObject() = default;
 
@@ -31,21 +31,21 @@ class IGameObject : public virtual IDrawable {
    */
   virtual void Tick(IWandererCore& core, float delta) = 0;
 
-  /**
-   * Returns the x-coordinate of the object.
-   *
-   * @return the x-coordinate of the object.
-   * @since 0.1.0
-   */
-  [[nodiscard]] virtual float GetX() const noexcept = 0;
-
-  /**
-   * Returns the y-coordinate of the object.
-   *
-   * @return the y-coordinate of the object.
-   * @since 0.1.0
-   */
-  [[nodiscard]] virtual float GetY() const noexcept = 0;
+//  /**
+//   * Returns the x-coordinate of the object.
+//   *
+//   * @return the x-coordinate of the object.
+//   * @since 0.1.0
+//   */
+//  [[nodiscard]] virtual float GetX() const noexcept = 0;
+//
+//  /**
+//   * Returns the y-coordinate of the object.
+//   *
+//   * @return the y-coordinate of the object.
+//   * @since 0.1.0
+//   */
+//  [[nodiscard]] virtual float GetY() const noexcept = 0;
 
   /**
    * Returns the width of the object.

@@ -1,6 +1,7 @@
 #pragma once
 #include "renderer.h"
 #include "viewport.h"
+#include <memory>
 
 namespace albinjohansson::wanderer {
 
@@ -25,5 +26,9 @@ class IDrawable {
    */
   virtual void Draw(Renderer& renderer, const Viewport& viewport) const = 0;
 };
+
+using IDrawable_uptr = std::unique_ptr<IDrawable>;
+using IDrawable_sptr = std::shared_ptr<IDrawable>;
+using IDrawable_wptr = std::weak_ptr<IDrawable>;
 
 }

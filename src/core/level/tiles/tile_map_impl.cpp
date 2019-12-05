@@ -5,10 +5,7 @@
 
 namespace albinjohansson::wanderer {
 
-TileMapImpl::TileMapImpl(std::unique_ptr<TileSet> tileSet,
-                         int nRows,
-                         int nCols,
-                         ImageGenerator& imageGenerator)
+TileMapImpl::TileMapImpl(TileSet_sptr tileSet, int nRows, int nCols, ImageGenerator& imageGenerator)
     : nRows(nRows), nCols(nCols) {
   this->tileSet = Objects::RequireNonNull(std::move(tileSet));
 
@@ -20,6 +17,10 @@ TileMapImpl::TileMapImpl(std::unique_ptr<TileSet> tileSet,
 
   entities.reserve(10);
   entities.push_back(skeleton);
+
+  for (const auto& entity : entities) {
+    drawables.push_back(entity);
+  }
 }
 
 TileMapImpl::~TileMapImpl() = default;
@@ -57,8 +58,13 @@ TileMapBounds TileMapImpl::CalculateMapBounds(const Rectangle& bounds) const noe
 
 void TileMapImpl::Tick(IWandererCore& core, const Viewport& viewport, float delta) {
   auto bounds = CalculateMapBounds(viewport.GetBounds());
-  for (const auto& layer : layers) {
-    layer->Update(bounds, *tileSet);
+
+  for (const auto& layer : groundLayers) {
+    layer->Update(bounds);
+  }
+
+  for (const auto& layer : objectLayers) {
+    layer->Update(bounds);
   }
 
   for (const auto& entity : entities) {
@@ -70,33 +76,42 @@ void TileMapImpl::Tick(IWandererCore& core, const Viewport& viewport, float delt
 void TileMapImpl::Draw(Renderer& renderer, const Viewport& viewport, float alpha) noexcept {
   Interpolate(alpha);
 
-  std::sort(entities.begin(), entities.end(), CompareGameObjects);
+  const auto bounds = CalculateMapBounds(viewport.GetBounds());
 
-  auto bounds = CalculateMapBounds(viewport.GetBounds());
-
-  // TODO use ground layers and sort the object layers
-  for (const auto& layer : layers) {
-    layer->Draw(renderer, bounds, viewport, *tileSet);
+  for (const auto& layer : groundLayers) {
+    layer->Draw(renderer, bounds, viewport);
   }
 
-  for (const auto& entity : entities) {
-    entity->Draw(renderer, viewport);
+  std::sort(drawables.begin(), drawables.end(), CompareDrawables);
+
+  for (const auto& d : drawables) {
+    d->Draw(renderer, viewport);
   }
 }
 
 void TileMapImpl::AddLayer(ITileMapLayer_uptr layer) {
-  layers.push_back(std::move(layer));
-}
+  if (layer->IsGroundLayer()) {
+    groundLayers.push_back(std::move(layer));
+  } else {
 
-void TileMapImpl::SetPlayer(IEntity_sptr player) {
-  if (player != nullptr) {
-    this->player = player;
-    entities.push_back(player);
+    for (const auto& dt : layer->CreateDrawableTiles()) { // TODO TileObject class?
+      drawables.push_back(dt);
+    }
+
+    objectLayers.push_back(std::move(layer));
   }
 }
 
-bool TileMapImpl::CompareGameObjects(const IGameObject_sptr& first,
-                                     const IGameObject_sptr& second) noexcept {
+void TileMapImpl::SetPlayer(IEntity_sptr player) {
+  if (player) {
+    this->player = player;
+    entities.push_back(player);
+    drawables.push_back(player);
+  }
+}
+
+bool TileMapImpl::CompareDrawables(const ISortableDrawable_sptr& first,
+                                   const ISortableDrawable_sptr& second) noexcept {
   return first->GetY() < second->GetY();
 }
 

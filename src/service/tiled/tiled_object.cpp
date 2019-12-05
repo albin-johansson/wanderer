@@ -6,7 +6,7 @@ TiledObject::TiledObject() = default;
 
 TiledObject::~TiledObject() = default;
 
-void TiledObject::AddProperty(const std::string& id, const std::string& value) {
+void TiledObject::AddAttribute(const std::string& id, const std::string& value) {
   attributes.insert(std::pair<std::string, std::string>(id, value));
 }
 

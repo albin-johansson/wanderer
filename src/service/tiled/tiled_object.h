@@ -7,13 +7,13 @@ namespace albinjohansson::tiled {
 class TiledObject final {
  private:
   std::map<std::string, std::string> attributes;
-  
+
  public:
   TiledObject();
 
   ~TiledObject();
 
-  void AddProperty(const std::string& id, const std::string& value);
+  void AddAttribute(const std::string& id, const std::string& value);
 
   [[nodiscard]] const std::string& GetAttribute(const std::string& id) const;
 

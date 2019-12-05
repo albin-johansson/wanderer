@@ -101,6 +101,8 @@ class TiledTileSet final {
    */
   [[nodiscard]] std::string GetImageSource() const;
 
+  [[nodiscard]] std::string GetImageName() const;
+
   /**
    * Returns the width of the image associated with the tile set.
    *

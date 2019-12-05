@@ -117,7 +117,7 @@ class IMovableObject : public virtual IGameObject {
    * @return the movement speed of the movable.
    * @since 0.1.0
    */
-  virtual float GetSpeed() const noexcept = 0;
+  [[nodiscard]] virtual float GetSpeed() const noexcept = 0;
 
   /**
    * Returns the dominant direction of the movable object.
