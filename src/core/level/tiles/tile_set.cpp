@@ -9,12 +9,7 @@ TileSet::TileSet(int nTiles) {
 TileSet::~TileSet() = default;
 
 void TileSet::Tick(TileID id) {
-  try {
-    tiles.at(id).Tick();
-  } catch (std::exception& e) {
-    SDL_Log("Failed to tick tile %u!", id);
-    throw;
-  }
+  tiles.at(id).Tick();
 }
 
 void TileSet::Insert(TileID id, const Tile& tile, const Rectangle& srcRect) {
@@ -23,12 +18,11 @@ void TileSet::Insert(TileID id, const Tile& tile, const Rectangle& srcRect) {
 }
 
 const Rectangle& TileSet::GetSource(TileID id) const {
-  try {
-    return sourceRectangles.at(id);
-  } catch (std::exception& e) {
-    SDL_Log("Failed get source rectangle for: %u", id);
-    throw;
-  }
+  return sourceRectangles.at(id);
+}
+
+const Tile& TileSet::GetTile(TileID id) const {
+  return tiles.at(id);
 }
 
 }

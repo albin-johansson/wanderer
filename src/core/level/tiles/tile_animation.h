@@ -27,14 +27,7 @@ class TileAnimation final {
 
   void SetFrame(int index, Frame frame);
 
-  [[nodiscard]] Frame GetFrame() const {
-    try {
-      return frames.at(index);
-    } catch (std::exception& e) {
-      SDL_Log("Failed to get frame at index: %i", index);
-      throw;
-    }
-  }
+  [[nodiscard]] Frame GetFrame() const;
 
 };
 

@@ -78,4 +78,16 @@ std::vector<DrawableTile_sptr> TileMapLayerImpl::CreateDrawableTiles() const {
   return drawables;
 }
 
+const std::vector<TileID>& TileMapLayerImpl::GetTiles() const noexcept {
+  return tiles;
+}
+
+int TileMapLayerImpl::GetIndex(int row, int col) const noexcept {
+  return row * nCols + col;
+}
+
+bool TileMapLayerImpl::IsGroundLayer() const noexcept {
+  return isGroundLayer;
+}
+
 }

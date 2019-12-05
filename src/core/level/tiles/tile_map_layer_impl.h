@@ -30,17 +30,13 @@ class TileMapLayerImpl final : public ITileMapLayer {
 
   [[nodiscard]] std::vector<DrawableTile_sptr> CreateDrawableTiles() const override;
 
-  [[nodiscard]] const std::vector<TileID>& GetTiles() const noexcept override {
-    return tiles;
-  }
+  [[nodiscard]] const std::vector<TileID>& GetTiles() const noexcept override;
 
-  [[nodiscard]] int GetIndex(int row, int col) const noexcept override {
-    return row * nCols + col;
-  }
+  [[nodiscard]] int GetIndex(int row, int col) const noexcept override;
 
   void SetGroundLayer(bool isGroundLayer) noexcept override;
 
-  [[nodiscard]] bool IsGroundLayer() const noexcept override { return isGroundLayer; }
+  [[nodiscard]] bool IsGroundLayer() const noexcept override;
 };
 
 }

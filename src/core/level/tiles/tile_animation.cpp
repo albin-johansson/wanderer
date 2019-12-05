@@ -28,4 +28,8 @@ void TileAnimation::SetFrame(int index, Frame frame) {
   }
 }
 
+Frame TileAnimation::GetFrame() const {
+  return frames.at(index);
+}
+
 }

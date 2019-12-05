@@ -44,14 +44,7 @@ class TileSet final {
    */
   void Insert(TileID id, const Tile& tile, const Rectangle& srcRect);
 
-  [[nodiscard]] const Tile& GetTile(TileID id) const {
-    try {
-      return tiles.at(id);
-    } catch (std::exception& e) {
-      SDL_Log("Failed to get tile with ID: %u", id);
-      throw;
-    }
-  }
+  [[nodiscard]] const Tile& GetTile(TileID id) const;
 
   [[nodiscard]] const Rectangle& GetSource(TileID id) const;
 };
