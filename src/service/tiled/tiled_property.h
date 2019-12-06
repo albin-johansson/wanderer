@@ -10,8 +10,8 @@ namespace albinjohansson::tiled {
  */
 struct TiledProperty final {
   std::string name = "";
-  std::string value = "";
   std::string type = "";
+  std::string value = "";
 };
 
 }
