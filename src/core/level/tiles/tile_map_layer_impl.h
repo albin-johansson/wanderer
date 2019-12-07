@@ -26,9 +26,13 @@ class TileMapLayerImpl final : public ITileMapLayer {
             const TileMapBounds& bounds,
             const Viewport& viewport) const override;
 
+
+
   [[nodiscard]] TileID GetTileId(int row, int col) const override;
 
-  [[nodiscard]] std::vector<DrawableTile_sptr> CreateDrawableTiles() const override;
+//  [[nodiscard]] std::vector<DrawableTile_sptr> CreateDrawableTiles() const override;
+
+//  [[nodiscard]] std::vector<ISortableDrawable_sptr> CreateDrawables() const override;
 
   [[nodiscard]] const std::vector<TileID>& GetTiles() const noexcept override;
 

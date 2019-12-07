@@ -89,17 +89,27 @@ void TileMapImpl::Draw(Renderer& renderer, const Viewport& viewport, float alpha
   }
 }
 
-void TileMapImpl::AddLayer(ITileMapLayer_uptr layer) {
-  if (layer->IsGroundLayer()) {
+void TileMapImpl::AddGroundLayer(ITileMapLayer_uptr layer) {
+  if (layer) {
     groundLayers.push_back(std::move(layer));
-  } else {
+  }
+}
 
-    for (const auto& dt : layer->CreateDrawableTiles()) { // TODO TileObject class?
-      drawables.push_back(dt);
-    }
-
+void TileMapImpl::AddObjectLayer(ITileMapLayer_uptr layer) {
+  if (layer) {
+//    for (const auto& dt : layer->CreateDrawables()) { // TODO TileObject class?
+//      drawables.push_back(dt);
+//    }
     objectLayers.push_back(std::move(layer));
   }
+//  if (layer->IsGroundLayer()) {
+//    groundLayers.push_back(std::move(layer));
+//  } else {
+//
+
+//
+//    objectLayers.push_back(std::move(layer));
+//  }
 }
 
 void TileMapImpl::SetPlayer(IEntity_sptr player) {
@@ -130,6 +140,12 @@ ITileMap_wptr TileMapImpl::GetParent() const noexcept {
 
 void TileMapImpl::SetParent(ITileMap_wptr parent) {
   this->parent = parent;
+}
+
+void TileMapImpl::AddDrawable(ISortableDrawable_sptr drawable) {
+  if (drawable) {
+    drawables.push_back(drawable);
+  }
 }
 
 }

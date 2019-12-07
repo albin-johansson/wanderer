@@ -28,7 +28,9 @@ class ITileMapLayer {
 
   [[nodiscard]] virtual const std::vector<TileID>& GetTiles() const noexcept = 0;
 
-  [[nodiscard]] virtual std::vector<DrawableTile_sptr> CreateDrawableTiles() const = 0;
+//  [[nodiscard]] virtual std::vector<DrawableTile_sptr> CreateDrawableTiles() const = 0;
+
+//  [[nodiscard]] virtual std::vector<ISortableDrawable_sptr> CreateDrawables() const = 0;
 
   [[nodiscard]] virtual int GetIndex(int row, int col) const noexcept = 0;
 

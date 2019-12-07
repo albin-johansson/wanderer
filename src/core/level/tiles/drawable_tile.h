@@ -4,15 +4,15 @@
 #include "tile_set.h"
 #include "renderer.h"
 #include "viewport.h"
+#include "vector_2.h"
 #include <memory>
 
 namespace albinjohansson::wanderer {
 
 class DrawableTile : public ISortableDrawable {
  private:
-  const float x = 0;
-  const float y = 0;
   TileSet_wptr tileSet;
+  const Vector2 position;
 
  public:
   const TileID id = 0;

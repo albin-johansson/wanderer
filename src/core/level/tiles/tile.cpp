@@ -1,4 +1,5 @@
 #include "tile.h"
+#include "vector_2.h"
 #include <utility>
 
 namespace albinjohansson::wanderer {
@@ -13,7 +14,7 @@ void Tile::Tick() {
   }
 }
 
-void Tile::Draw(TilePos pos,
+void Tile::Draw(const Vector2& pos,
                 Renderer& renderer,
                 const Viewport& viewport,
                 const Rectangle& src) const {
@@ -21,8 +22,8 @@ void Tile::Draw(TilePos pos,
     return;
   }
 
-  Rectangle dst = {viewport.GetTranslatedX(pos.col * SIZE),
-                   viewport.GetTranslatedY(pos.row * SIZE),
+  Rectangle dst = {viewport.GetTranslatedX(pos.x),
+                   viewport.GetTranslatedY(pos.y),
                    SIZE,
                    SIZE};
 
@@ -35,6 +36,22 @@ void Tile::Draw(TilePos pos,
                         properties.hitbox.GetWidth(),
                         properties.hitbox.GetHeight());
   }
+}
+
+bool Tile::HasGroup() const noexcept {
+  return properties.group != 0;
+}
+
+bool Tile::IsPivot() const noexcept {
+  return properties.isPivot;
+}
+
+int Tile::GetGroup() const noexcept {
+  return properties.group;
+}
+
+int Tile::GetRenderGroup() const noexcept {
+  return properties.renderGroup;
 }
 
 }

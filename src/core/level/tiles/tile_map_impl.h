@@ -57,13 +57,17 @@ class TileMapImpl final : public ITileMap {
 
   void Draw(Renderer& renderer, const Viewport& viewport, float alpha) noexcept override;
 
-  void AddLayer(ITileMapLayer_uptr layer) override;
+  void AddObjectLayer(ITileMapLayer_uptr layer) override;
+
+  void AddGroundLayer(ITileMapLayer_uptr layer) override;
 
   void SetPlayer(IEntity_sptr player) override;
 
   void SetParent(ITileMap_wptr parent) override;
 
-  [[nodiscard]] inline int GetRows() const noexcept override { return nRows; }
+  void AddDrawable(ISortableDrawable_sptr drawable) override;
+
+  [[nodiscard]] int GetRows() const noexcept override { return nRows; }
 
   [[nodiscard]] int GetCols() const noexcept override { return nCols; }
 

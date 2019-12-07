@@ -14,6 +14,9 @@ using ITileMap_uptr = std::unique_ptr<ITileMap>;
 using ITileMap_sptr = std::shared_ptr<ITileMap>;
 using ITileMap_wptr = std::weak_ptr<ITileMap>;
 
+class ISortableDrawable;
+using ISortableDrawable_sptr = std::shared_ptr<ISortableDrawable>;
+
 class ITileMap {
  protected:
   ITileMap() = default;
@@ -25,7 +28,11 @@ class ITileMap {
 
   virtual void Draw(Renderer& renderer, const Viewport& viewport, float alpha) noexcept = 0;
 
-  virtual void AddLayer(ITileMapLayer_uptr layer) = 0;
+  virtual void AddObjectLayer(ITileMapLayer_uptr layer) = 0;
+
+  virtual void AddGroundLayer(ITileMapLayer_uptr layer) = 0;
+
+  virtual void AddDrawable(ISortableDrawable_sptr drawable) = 0;
 
   virtual void SetPlayer(IEntity_sptr player) = 0;
 

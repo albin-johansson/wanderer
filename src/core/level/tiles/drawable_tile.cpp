@@ -3,7 +3,7 @@
 namespace albinjohansson::wanderer {
 
 DrawableTile::DrawableTile(float x, float y, TileID id, TileSet_wptr tileSet)
-    : x(x), y(y), id(id) {
+    : position(x, y), id(id) {
   this->tileSet = std::move(tileSet);
 }
 
@@ -16,20 +16,24 @@ void DrawableTile::Draw(Renderer& renderer, const Viewport& viewport) const {
 
   const auto ts = tileSet.lock();
   if (ts) {
-    const TilePos pos = {static_cast<int>(y / Tile::SIZE), static_cast<int>(x / Tile::SIZE)};
     const auto& tile = ts->GetTile(id);
-
     const auto srcRectId = (tile.IsAnimated()) ? tile.GetFrameId() : id;
-    tile.Draw(pos, renderer, viewport, ts->GetSource(srcRectId));
+    tile.Draw(position, renderer, viewport, ts->GetSource(srcRectId));
+
+    renderer.SetColor(0, 0, 0);
+    renderer.RenderRect(viewport.GetTranslatedX(position.x),
+                        viewport.GetTranslatedY(position.y),
+                        Tile::SIZE,
+                        Tile::SIZE);
   }
 }
 
 float DrawableTile::GetX() const noexcept {
-  return x;
+  return position.x;
 }
 
 float DrawableTile::GetY() const noexcept {
-  return y;
+  return position.y;
 }
 
 }

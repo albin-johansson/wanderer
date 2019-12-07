@@ -9,6 +9,8 @@
 
 namespace albinjohansson::wanderer {
 
+class Vector2;
+
 struct TilePos {
   int row = 0;
   int col = 0;
@@ -21,20 +23,14 @@ struct TileProperties { // TODO reorder fields
   Rectangle hitbox = {0, 0, 1, 1};
   bool blocked = false;
   bool animated = false;
+  int group = 0;
+  int renderGroup = 0;
+  bool isPivot = false;
 };
 
 class Tile {
  private:
   TileProperties properties;
-
-  /*
-   * Image_sptr image = nullptr;
-   * Rectangle hitbox;
-   * TileAnimation animation;
-   * TileID id = EMPTY;
-   * int renderGroup = 0;
-   * int group = 0;
-   * */
 
  public:
   static constexpr float SIZE = 64;
@@ -44,7 +40,10 @@ class Tile {
 
   ~Tile();
 
-  void Draw(TilePos pos, Renderer& renderer, const Viewport& viewport, const Rectangle& src) const;
+  void Draw(const Vector2& pos,
+            Renderer& renderer,
+            const Viewport& viewport,
+            const Rectangle& src) const;
 
   void Tick();
 
@@ -67,6 +66,14 @@ class Tile {
   [[nodiscard]] bool IsBlocked() const noexcept { return properties.blocked; }
 
   [[nodiscard]] bool IsAnimated() const noexcept { return properties.animated; }
+
+  [[nodiscard]] bool IsPivot() const noexcept;
+
+  [[nodiscard]] bool HasGroup() const noexcept;
+
+  [[nodiscard]] int GetGroup() const noexcept;
+
+  [[nodiscard]] int GetRenderGroup() const noexcept;
 
   [[nodiscard]] TileID GetFrameId() const {
     return properties.animated ? properties.animation.GetFrame().frameId : properties.id;

@@ -1,10 +1,14 @@
 #include "tiled_map_parser.h"
 #include "pugixml.hpp"
+
 #include "tile_map_impl.h"
 #include "tile_map_layer_impl.h"
+#include "tile_render_group.h"
+#include "tile_animation.h"
+#include "tile_object.h"
+
 #include "sprite_sheet.h"
 #include "bad_state_exception.h"
-#include "tile_animation.h"
 
 #include "tiled_tile_set.h"
 #include "tiled_map.h"
@@ -56,12 +60,26 @@ TileSet_uptr TiledMapParser::LoadTileSet(const pugi::xml_node& mapRoot) {
     const TileID firstId = tiledTileSet.GetFirstTileId();
     const TileID lastId = tiledTileSet.GetLastTileId();
 
+//    std::map<int, std::vector<tiled::TiledTile>> groups;
+
     int i = 0;
     for (TileID id = firstId; id <= lastId; id++, i++) {
       TileProperties properties = {sheetImage, id}; // img, id, animation, hitbox, blocked
 
       if (tiledTileSet.HasTile(id)) {
         const auto& tile = tiledTileSet.GetTile(id);
+
+        if (tile.HasProperty("group")) {
+          properties.group = tile.GetInt("group");
+
+          if (tile.HasProperty("renderGroup")) {
+            properties.renderGroup = tile.GetInt("renderGroup");
+          }
+
+          if (tile.HasProperty("isPivot")) {
+            properties.isPivot = tile.GetBool("isPivot");
+          }
+        }
 
         if (tile.IsAnimated()) {
           TileAnimation animation = CreateAnimation(tile.GetAnimation());
@@ -85,37 +103,8 @@ TileSet_uptr TiledMapParser::LoadTileSet(const pugi::xml_node& mapRoot) {
           properties.hitbox = hitbox;
           properties.blocked = true;
         }
-      }
 
-//      if (tiledTileSet.HasProperty(id, "group")) {
-//        SDL_Log("Tile %u belongs to group %i!", id, tiledTileSet.GetInt(id, "group"));
-//      }
-//
-//      if (tiledTileSet.HasAnimation(id)) {
-//        TileAnimation animation = CreateAnimation(tiledTileSet.GetAnimation(id));
-//        properties.animation = animation;
-//        properties.animated = true;
-//      }
-//
-//      if (tiledTileSet.HasObject(id)) {
-//        tiled::TiledObject object = tiledTileSet.GetObject(id);
-//
-//        if (object.HasAttribute("name") &&
-//            object.GetAttribute("name") == "hitbox") {
-//          float x = std::stof(object.GetAttribute("x"));
-//          float y = std::stof(object.GetAttribute("y"));
-//          float w = std::stof(object.GetAttribute("width"));
-//          float h = std::stof(object.GetAttribute("height"));
-//
-//          auto wscale = w / tileSize;
-//          auto hscale = h / tileSize;
-//
-//          Rectangle hitbox(x, y, wscale * Tile::SIZE, hscale * Tile::SIZE);
-//
-//          properties.hitbox = hitbox;
-//          properties.blocked = true;
-//        }
-//      }
+      }
 
       float row = i / sheetCols;
       float col = i % sheetCols;
@@ -153,27 +142,99 @@ std::vector<TileID> TiledMapParser::CreateTileVector(const std::vector<int>& til
 }
 
 void TiledMapParser::LoadMap() {
-  pugi::xml_document mapDocument = LoadDocument(file);
-  pugi::xml_node mapNode = mapDocument.child("map");
-
-  int nCols = mapNode.attribute("width").as_int();
-  int nRows = mapNode.attribute("height").as_int();
+  const auto mapDocument = LoadDocument(file);
+  const auto mapNode = mapDocument.child("map");
+  const auto nCols = mapNode.attribute("width").as_int();
+  const auto nRows = mapNode.attribute("height").as_int();
 
   tiled::TiledMap tmap(mapNode);
 
   TileSet_sptr tileSet = LoadTileSet(mapNode);
   map = std::make_unique<TileMapImpl>(tileSet, nRows, nCols, imageGenerator);
 
-  for (auto& l : tmap.GetLayers()) {
+  for (const auto& tiledLayer : tmap.GetLayers()) {
     auto layer = std::make_unique<TileMapLayerImpl>(tileSet,
                                                     nRows,
                                                     nCols,
-                                                    CreateTileVector(l->GetTiles()));
-    layer->SetGroundLayer(l->GetBool("ground"));
+                                                    CreateTileVector(tiledLayer->GetTiles()));
+    layer->SetGroundLayer(tiledLayer->GetBool("ground")); // TODO might be redundant
 
-    // TODO more properties...
+    if (layer->IsGroundLayer()) {
+      map->AddGroundLayer(std::move(layer));
+    } else {
 
-    map->AddLayer(std::move(layer));
+      std::map<int, std::vector<TileObject>> groups;
+
+      int index = 0;
+      for (const auto id : layer->GetTiles()) {
+        if (id == Tile::EMPTY) {
+          ++index;
+          continue;
+        }
+
+        const auto& tile = tileSet->GetTile(id);
+
+        const int col = index % nCols;
+        const int row = index / nCols;
+
+        const auto x = static_cast<float>(col) * Tile::SIZE;
+        const auto y = static_cast<float>(row) * Tile::SIZE;
+
+        if (tile.HasGroup()) {
+          const auto groupId = tile.GetGroup();
+          const auto renderGroupId = tile.GetRenderGroup();
+
+          TileObject object = {x, y, id, groupId, renderGroupId, tile.IsPivot()};
+
+          if (groups.count(groupId)) {
+            groups.at(groupId).emplace_back(object);
+
+          } else {
+            std::vector<TileObject> group;
+            group.emplace_back(object);
+            groups.emplace(groupId, group);
+          }
+        } else {
+          map->AddDrawable(std::make_shared<DrawableTile>(x, y, id, tileSet));
+        }
+
+        ++index;
+      }
+
+      for (const auto& group : groups) {
+        const auto groupID = group.first;
+        const auto objects = group.second;
+
+        std::map<int, std::vector<TileObject>> renderGroups;
+        for (const auto& object : objects) {
+          if (renderGroups.count(object.renderGroup)) {
+            renderGroups.at(object.renderGroup).push_back(object);
+          } else {
+            std::vector<TileObject> renderGroup;
+            renderGroup.push_back(object);
+            renderGroups.emplace(object.renderGroup, renderGroup);
+          }
+        }
+
+        float pivotX = 0;
+        float pivotY = 0;
+        for (const auto& renderGroupPair : renderGroups) {
+          std::vector<DrawableTile_sptr> drawables;
+          for (const auto& object : renderGroupPair.second) {
+            if (object.pivot) {
+              pivotX = object.x;
+              pivotY = object.y;
+            }
+            drawables.push_back(std::make_shared<DrawableTile>(object.x,
+                                                               object.y,
+                                                               object.id,
+                                                               tileSet));
+          }
+          map->AddDrawable(std::make_shared<TileRenderGroup>(pivotX, pivotY, drawables));
+        }
+      }
+      map->AddObjectLayer(std::move(layer));
+    }
   }
 }
 
