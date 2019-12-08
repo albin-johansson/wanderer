@@ -97,19 +97,8 @@ void TileMapImpl::AddGroundLayer(ITileMapLayer_uptr layer) {
 
 void TileMapImpl::AddObjectLayer(ITileMapLayer_uptr layer) {
   if (layer) {
-//    for (const auto& dt : layer->CreateDrawables()) { // TODO TileObject class?
-//      drawables.push_back(dt);
-//    }
     objectLayers.push_back(std::move(layer));
   }
-//  if (layer->IsGroundLayer()) {
-//    groundLayers.push_back(std::move(layer));
-//  } else {
-//
-
-//
-//    objectLayers.push_back(std::move(layer));
-//  }
 }
 
 void TileMapImpl::SetPlayer(IEntity_sptr player) {

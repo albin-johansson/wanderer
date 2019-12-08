@@ -223,7 +223,7 @@ void TiledMapParser::LoadMap() {
           for (const auto& object : renderGroupPair.second) {
             SDL_Log("(%f, %f)", object.x, object.y);
             if (object.pivot) {
-              pivotX = object.x;
+              pivotX = object.x; // FIXME wrong
               pivotY = object.y;
             }
             drawables.push_back(std::make_shared<DrawableTile>(object.x,
