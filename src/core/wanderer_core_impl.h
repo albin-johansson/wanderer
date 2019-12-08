@@ -1,13 +1,16 @@
 #pragma once
 #include "wanderer_core.h"
-#include "tile_map.h"
-#include "player.h"
 #include "viewport.h"
-#include "sound_engine.h"
 #include "image_generator.h"
+
 #include "menu_state_machine.h"
 
 namespace albinjohansson::wanderer {
+
+class IMenuStateMachine;
+class SoundEngine;
+class IPlayer;
+class ITileMap;
 
 /**
  * The WandererCoreImpl class is an implementation of the IWandererCore interface.
@@ -16,13 +19,11 @@ namespace albinjohansson::wanderer {
  */
 class WandererCoreImpl final : public IWandererCore {
  private:
-  IMenuStateMachine_uptr menuStateMachine = nullptr;
-
-  SoundEngine_sptr soundEngine = nullptr;
-  IPlayer_sptr player = nullptr;
-  ITileMap_sptr world = nullptr;
-  ITileMap_sptr activeMap = nullptr;
-
+  std::unique_ptr<IMenuStateMachine> menuStateMachine = nullptr;
+  std::shared_ptr<SoundEngine> soundEngine = nullptr;
+  std::shared_ptr<IPlayer> player = nullptr;
+  std::shared_ptr<ITileMap> world = nullptr;
+  std::shared_ptr<ITileMap> activeMap = nullptr;
   Viewport viewport;
   bool shouldQuit = false;
 

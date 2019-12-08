@@ -1,9 +1,10 @@
 #pragma once
-#include "renderer.h"
-#include "viewport.h"
-#include "entity.h"
 
 namespace albinjohansson::wanderer {
+
+class Renderer;
+class Viewport;
+class IEntity;
 
 /**
  * The EntityDrawDelegate provides a method that renders an entity.

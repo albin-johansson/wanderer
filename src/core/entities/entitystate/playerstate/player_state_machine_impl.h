@@ -2,9 +2,10 @@
 #include "abstract_entity_state_machine.h"
 #include "player_state_machine.h"
 #include "player_state.h"
-#include "entity.h"
 
 namespace albinjohansson::wanderer {
+
+class IEntity;
 
 /**
  * The PlayerStateMachineImpl class is an implementation of the IPlayerStateMachine interface.

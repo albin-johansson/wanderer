@@ -1,9 +1,10 @@
 #pragma once
-#include "renderer.h"
-#include "viewport.h"
 #include <memory>
 
 namespace albinjohansson::wanderer {
+
+class Renderer;
+class Viewport;
 
 /**
  * The IDrawable interface specifies objects that can be drawn using a renderer.

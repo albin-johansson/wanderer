@@ -1,13 +1,15 @@
 #pragma once
 #include "wanderer_controller.h"
 #include "wanderer_core.h"
-#include "renderer.h"
-#include "window.h"
-#include "key_state_manager.h"
-#include "mouse_state_manager.h"
 #include "game_loop.h"
+#include "window.h"
+#include <memory>
 
 namespace albinjohansson::wanderer {
+
+class Renderer;
+class KeyStateManager;
+class MouseStateManager;
 
 /**
  * The WandererControllerImpl class is an implementation of the IWandererController interface.
@@ -20,14 +22,12 @@ class WandererControllerImpl final : public IWandererController {
   static constexpr float LOGICAL_WIDTH = 1280;
   static constexpr float LOGICAL_HEIGHT = 720;
 
-  IWandererCore_uptr core = nullptr;
-  Window_uptr window = nullptr;
-  Renderer_sptr renderer = nullptr;
-
-  KeyStateManager_sptr keyStateManager = nullptr;
-  MouseStateManager_sptr mouseStateManager = nullptr;
-
-  IGameLoop_uptr gameLoop = nullptr;
+  std::unique_ptr<Window> window = nullptr;
+  std::unique_ptr<IWandererCore> core = nullptr;
+  std::unique_ptr<IGameLoop> gameLoop = nullptr;
+  std::shared_ptr<Renderer> renderer = nullptr;
+  std::shared_ptr<KeyStateManager> keyStateManager = nullptr;
+  std::shared_ptr<MouseStateManager> mouseStateManager = nullptr;
 
   /**
    * @throws BadStateException if the desktop dimensions cannot be deduced.

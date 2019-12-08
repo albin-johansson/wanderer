@@ -1,12 +1,9 @@
+#pragma once
 #include <SDL.h>
 #include <string>
 #include <memory>
 
 namespace albinjohansson::wanderer {
-
-class Window;
-
-using Window_uptr = std::unique_ptr<Window>;
 
 /**
  * The Window class is a wrapper around an SDL_Window instance.
@@ -43,7 +40,7 @@ class Window final {
    * @throws invalid_argument if the supplied width or height values aren't greater than zero.
    * @since 0.1.0
    */
-  static Window_uptr Create(const std::string& title, int width, int height);
+  static std::unique_ptr<Window> Create(const std::string& title, int width, int height);
 
   /**
    * Makes the window visible.

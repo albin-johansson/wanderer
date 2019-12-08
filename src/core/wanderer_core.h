@@ -1,12 +1,12 @@
 #pragma once
-#include "renderer.h"
-#include "input.h"
 #include <memory>
 
 namespace albinjohansson::wanderer {
 
+class Renderer;
 class IPlayer;
 class ITileMap;
+class Input;
 
 /**
  * The IWandererCore interface specifies the facade of the core component of the Wanderer

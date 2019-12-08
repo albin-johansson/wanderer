@@ -3,7 +3,7 @@
 #include "player_idle_state.h"
 #include "player_attack_state.h"
 #include "player_dying_state.h"
-;
+#include "entity.h"
 
 namespace albinjohansson::wanderer {
 

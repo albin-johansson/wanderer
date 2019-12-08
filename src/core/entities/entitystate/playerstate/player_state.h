@@ -1,9 +1,11 @@
 #pragma once
 #include "entity_state.h"
-#include "input.h"
 #include <memory>
 
 namespace albinjohansson::wanderer {
+
+class Input;
+class IWandererCore;
 
 /**
  * The IPlayerState interface is a subinterface of IEntityState that specifies objects that

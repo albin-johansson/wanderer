@@ -1,5 +1,6 @@
 #include "smooth_fixed_timestep_loop.h"
 #include "objects.h"
+#include "input.h"
 #include <SDL.h>
 #include <iostream>
 

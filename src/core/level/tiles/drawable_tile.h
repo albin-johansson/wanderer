@@ -1,9 +1,7 @@
 #pragma once
-#include "tile_id.h"
 #include "sortable_drawable.h"
+#include "tile_id.h"
 #include "tile_set.h"
-#include "renderer.h"
-#include "viewport.h"
 #include "vector_2.h"
 #include <memory>
 

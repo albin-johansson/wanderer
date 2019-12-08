@@ -1,10 +1,10 @@
 #pragma once
 #include "drawable.h"
-#include "input.h"
-#include "wanderer_core.h"
 #include <memory>
 
 namespace albinjohansson::wanderer {
+
+class IWandererCore;
 
 /**
  * The IEntityState interface specifies objects that represent the state of an entity at some

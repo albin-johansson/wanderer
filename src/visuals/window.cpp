@@ -21,7 +21,7 @@ Window::~Window() {
   }
 }
 
-Window_uptr Window::Create(const std::string& title, int width, int height) {
+std::unique_ptr<Window> Window::Create(const std::string& title, int width, int height) {
   return std::make_unique<Window>(title, width, height);
 }
 

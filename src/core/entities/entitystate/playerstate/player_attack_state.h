@@ -1,10 +1,11 @@
 #pragma once
 #include "player_state.h"
-#include "entity.h"
-#include "entity_state_machine.h"
 #include "entity_attack_delegate.h"
 
 namespace albinjohansson::wanderer {
+
+class IWandererCore;
+class IEntityStateMachine;
 
 /**
  * The PlayerAttackState class is an implementation of the IPlayerState interface that represents
@@ -29,15 +30,15 @@ class PlayerAttackState final : public IPlayerState {
 
   void HandleInput(const Input& input, const IWandererCore& core) override;
 
-  inline void Draw(Renderer& renderer, const Viewport& viewport) const override {
+  void Draw(Renderer& renderer, const Viewport& viewport) const override {
     attackDelegate.Draw(renderer, viewport);
   }
 
-  inline void Tick(const IWandererCore& core, float delta) override { attackDelegate.Tick(core, delta); }
+  void Tick(const IWandererCore& core, float delta) override { attackDelegate.Tick(core, delta); }
 
-  inline void Enter(const IWandererCore& core) override { attackDelegate.Enter(core); }
+  void Enter(const IWandererCore& core) override { attackDelegate.Enter(core); }
 
-  inline void Exit(const IWandererCore& core) override { attackDelegate.Exit(core); }
+  void Exit(const IWandererCore& core) override { attackDelegate.Exit(core); }
 
 };
 

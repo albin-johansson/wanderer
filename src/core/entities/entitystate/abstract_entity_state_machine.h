@@ -2,8 +2,8 @@
 #include "entity_state_machine.h"
 #include "entity_state.h"
 #include "entity_state_id.h"
-#include "entity.h"
 #include "objects.h"
+#include "entity.h"
 #include <map>
 #include <memory>
 

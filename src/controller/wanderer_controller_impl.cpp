@@ -1,22 +1,23 @@
 #include "wanderer_controller_impl.h"
-#include <SDL.h>
+#include "window.h"
 #include "input.h"
 #include "smooth_fixed_timestep_loop.h"
 #include "wanderer_core_factory.h"
 #include "image_generator.h"
 #include "display_modes.h"
+#include <SDL.h>
 
 namespace albinjohansson::wanderer {
 
 WandererControllerImpl::WandererControllerImpl() {
   SDL_DisplayMode desktop = DisplayModes::GetDesktopInfo();
 
-#ifndef NDEBUG
-  window = Window::Create("Wanderer", 1280, 720);
-  window->SetFullscreen(false);
-#else
+#ifdef NDEBUG
   window = Window::Create("Wanderer", desktop.w, desktop.h);
   window->SetFullscreen(true);
+#else
+  window = Window::Create("Wanderer", 1280, 720);
+  window->SetFullscreen(false);
 #endif
 
   SDL_Surface* icon = IMG_Load("resources/img/tactile_icon.png");

@@ -1,6 +1,5 @@
 #pragma once
 #include <memory>
-#include "direction.h"
 
 namespace albinjohansson::wanderer {
 

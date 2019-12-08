@@ -1,5 +1,7 @@
 #include "tile.h"
 #include "vector_2.h"
+#include "viewport.h"
+#include "renderer.h"
 #include <utility>
 
 namespace albinjohansson::wanderer {

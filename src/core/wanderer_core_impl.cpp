@@ -1,6 +1,8 @@
 #include "wanderer_core_impl.h"
 #include "menu_state_machine_impl.h"
+#include "sound_engine.h"
 #include "player_impl.h"
+#include "tile_map.h"
 #include "tiled_map_parser.h"
 #include <fstream>
 #include <memory>
