@@ -1,16 +1,28 @@
 #pragma once
 #include "pugixml.hpp"
+#include "tile_id.h"
 #include "tile_map.h"
 #include "tile_map_layer.h"
-#include "tile_set.h"
-#include "image_generator.h"
 #include "image.h"
-#include "tiled_animation.h"
 #include <string>
 #include <vector>
 #include <map>
 
+namespace albinjohansson::tiled {
+
+class TiledAnimation;
+
+}
+
 namespace albinjohansson::wanderer {
+
+struct TileObject;
+
+class ImageGenerator;
+
+class TileSet;
+
+using TileSet_sptr = std::shared_ptr<TileSet>;
 
 class TiledMapParser final {
  private:
@@ -27,6 +39,13 @@ class TiledMapParser final {
   TileAnimation CreateAnimation(tiled::TiledAnimation animation);
 
   [[nodiscard]] std::vector<TileID> CreateTileVector(const std::vector<int>& tiles) const;
+
+  [[nodiscard]] std::map<int, std::vector<TileObject>> CreateTileGroups(const TileSet_sptr& tileSet,
+                                                                        const std::vector<TileID>& tiles,
+                                                                        int nCols);
+
+  [[nodiscard]] std::map<int, std::vector<TileObject>> CreateRenderGroups(
+      const std::vector<TileObject>& objects);
 
  public:
 
