@@ -188,7 +188,6 @@ void TiledMapParser::LoadMap() {
 
           if (groups.count(groupId)) {
             groups.at(groupId).emplace_back(object);
-
           } else {
             std::vector<TileObject> group;
             group.emplace_back(object);
@@ -219,8 +218,10 @@ void TiledMapParser::LoadMap() {
         float pivotX = 0;
         float pivotY = 0;
         for (const auto& renderGroupPair : renderGroups) {
+          SDL_Log("Creating render group %i!", renderGroupPair.first);
           std::vector<DrawableTile_sptr> drawables;
           for (const auto& object : renderGroupPair.second) {
+            SDL_Log("(%f, %f)", object.x, object.y);
             if (object.pivot) {
               pivotX = object.x;
               pivotY = object.y;
@@ -230,6 +231,8 @@ void TiledMapParser::LoadMap() {
                                                                object.id,
                                                                tileSet));
           }
+
+          SDL_Log("Pivot X: %f, Y: %f", pivotX, pivotY);
           map->AddDrawable(std::make_shared<TileRenderGroup>(pivotX, pivotY, drawables));
         }
       }
