@@ -17,14 +17,8 @@ void DrawableTile::Draw(Renderer& renderer, const Viewport& viewport) const {
   const auto ts = tileSet.lock();
   if (ts) {
     const auto& tile = ts->GetTile(id);
-    const auto srcRectId = (tile.IsAnimated()) ? tile.GetFrameId() : id;
+    const auto srcRectId = tile.IsAnimated() ? tile.GetFrameId() : id;
     tile.Draw(position, renderer, viewport, ts->GetSource(srcRectId));
-
-    renderer.SetColor(0, 0, 0);
-    renderer.RenderRect(viewport.GetTranslatedX(position.x),
-                        viewport.GetTranslatedY(position.y),
-                        Tile::SIZE,
-                        Tile::SIZE);
   }
 }
 

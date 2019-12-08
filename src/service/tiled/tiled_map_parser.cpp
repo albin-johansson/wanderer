@@ -188,7 +188,6 @@ void TiledMapParser::LoadMap() {
 
           if (groups.count(groupId)) {
             groups.at(groupId).emplace_back(object);
-
           } else {
             std::vector<TileObject> group;
             group.emplace_back(object);
@@ -222,7 +221,7 @@ void TiledMapParser::LoadMap() {
           std::vector<DrawableTile_sptr> drawables;
           for (const auto& object : renderGroupPair.second) {
             if (object.pivot) {
-              pivotX = object.x;
+              pivotX = object.x; // FIXME wrong
               pivotY = object.y;
             }
             drawables.push_back(std::make_shared<DrawableTile>(object.x,
