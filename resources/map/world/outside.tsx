@@ -121,6 +121,7 @@
  <tile id="206" type="Object">
   <properties>
    <property name="group" type="int" value="2"/>
+   <property name="isPivot" type="bool" value="true"/>
    <property name="renderGroup" type="int" value="1"/>
   </properties>
  </tile>
@@ -150,6 +151,7 @@
   <properties>
    <property name="blocked" type="bool" value="true"/>
    <property name="group" type="int" value="2"/>
+   <property name="isPivot" type="bool" value="true"/>
    <property name="renderGroup" type="int" value="2"/>
   </properties>
   <objectgroup draworder="index" id="2">
@@ -190,8 +192,8 @@
  <tile id="301" type="Object">
   <properties>
    <property name="group" value="1"/>
+   <property name="isPivot" type="bool" value="true"/>
    <property name="renderGroup" type="int" value="1"/>
-   <property name="renderPivot" type="bool" value="true"/>
   </properties>
  </tile>
  <tile id="302" type="Object">
@@ -210,8 +212,8 @@
   <properties>
    <property name="blocked" type="bool" value="true"/>
    <property name="group" value="1"/>
+   <property name="isPivot" type="bool" value="true"/>
    <property name="renderGroup" type="int" value="2"/>
-   <property name="renderPivot" type="bool" value="true"/>
   </properties>
   <objectgroup draworder="index" id="2">
    <object id="1" name="hitbox" x="2.18182" y="0.0909091" width="24.6364" height="15.0909"/>
