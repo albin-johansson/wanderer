@@ -1,7 +1,6 @@
 #pragma once
 #include "sortable_drawable.h"
 #include "rectangle.h"
-#include <memory>
 
 namespace albinjohansson::wanderer {
 
@@ -70,9 +69,5 @@ class IGameObject : public virtual ISortableDrawable {
    */
   [[nodiscard]] virtual Rectangle GetHitbox() const noexcept = 0;
 };
-
-using IGameObject_uptr = std::unique_ptr<IGameObject>;
-using IGameObject_sptr = std::shared_ptr<IGameObject>;
-using IGameObject_wptr = std::weak_ptr<IGameObject>;
 
 }
