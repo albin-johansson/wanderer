@@ -21,14 +21,7 @@ void TileObject::Tick(IWandererCore& core, float delta) {
 }
 
 void TileObject::Draw(Renderer& renderer, const Viewport& viewport) const {
-  const auto& tile = tileSet->GetTile(id);
-  tile.Draw(position, renderer, viewport, *tileSet);
-
-  renderer.SetColor(0xff, 0, 0);
-  renderer.RenderFillRect(viewport.GetTranslatedX(GetX() + (Tile::SIZE / 2.0f) - 2),
-                          viewport.GetTranslatedY(centerY - 2),
-                          5.0f,
-                          5.0f);
+  tileSet->GetTile(id).Draw(position, renderer, viewport, *tileSet);
 }
 
 void TileObject::SetDepth(int depth) noexcept {
