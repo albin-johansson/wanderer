@@ -29,7 +29,7 @@ void SkeletonMovingState::ChasePlayer(const IWandererCore& core, float distance)
 void SkeletonMovingState::Roam(const IWandererCore& core) {
   auto& entity = moveDelegate.GetEntity();
 
-  if (SDL_GetTicks() - enterTime >= Skeleton::HOMING_RANGE) {
+  if (SDL_GetTicks() - enterTime >= 1000) {
     entity.Stop();
     moveDelegate.GetParent().SetState(EntityStateID::IDLE, core);
     return;
