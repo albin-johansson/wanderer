@@ -5,13 +5,13 @@
 namespace albinjohansson::wanderer {
 
 /**
- * The MovableObjectDelegate class is an implementation of the IGameObject interface that is meant
+ * The MovableDelegate class is an implementation of the IGameObject interface that is meant
  * to be used as a delegate.
  *
  * @see IMovableObject
  * @since 0.1.0
  */
-class MovableObjectDelegate final : public IMovableObject {
+class MovableDelegate final : public IMovableObject {
  private:
   Vector2 velocity;
   Vector2 currPosition;
@@ -38,9 +38,9 @@ class MovableObjectDelegate final : public IMovableObject {
    * @throws std::invalid_argument if either of the supplied dimensions are less than one.
    * @since 0.1.0
    */
-  MovableObjectDelegate(int depth, float width, float height);
+  MovableDelegate(int depth, float width, float height);
 
-  ~MovableObjectDelegate() override;
+  ~MovableDelegate() override;
 
   void Draw(Renderer& renderer, const Viewport& viewport) const noexcept override;
 
@@ -68,7 +68,9 @@ class MovableObjectDelegate final : public IMovableObject {
 
   void SetVelocity(const Vector2& v) noexcept override;
 
-  [[nodiscard]] inline float GetSpeed() const noexcept override { return speed; }
+  [[nodiscard]] int GetDepth() const noexcept override;
+
+  [[nodiscard]] float GetSpeed() const noexcept override;
 
   [[nodiscard]] float GetX() const noexcept override;
 
@@ -76,25 +78,20 @@ class MovableObjectDelegate final : public IMovableObject {
 
   [[nodiscard]] float GetCenterY() const noexcept override;
 
-  [[nodiscard]] int GetDepth() const noexcept override;
+  [[nodiscard]] float GetWidth() const noexcept override;
 
-  [[nodiscard]] inline float GetWidth() const noexcept override { return width; }
-
-  [[nodiscard]] inline float GetHeight() const noexcept override { return height; }
+  [[nodiscard]] float GetHeight() const noexcept override;
 
   [[nodiscard]] Rectangle GetHitbox() const noexcept override;
 
-  [[nodiscard]] inline Direction GetDominantDirection() const noexcept override {
-    return dominantDirection;
-  }
+  [[nodiscard]] Direction GetDominantDirection() const noexcept override;
 
-  [[nodiscard]] inline Vector2 GetVelocity() const noexcept override { return velocity; }
+  [[nodiscard]] Vector2 GetVelocity() const noexcept override;
 
-  [[nodiscard]] inline Vector2 GetPosition() const noexcept override { return currPosition; }
+  [[nodiscard]] Vector2 GetPosition() const noexcept override;
 
-  [[nodiscard]] inline Vector2 GetInterpolatedPosition() const noexcept override {
-    return interpolatedPosition;
-  }
+  [[nodiscard]] Vector2 GetInterpolatedPosition() const noexcept override;
+
 };
 
 }

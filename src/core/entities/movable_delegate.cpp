@@ -1,10 +1,9 @@
 #include "movable_delegate.h"
-#include "render_depth.h"
 #include <stdexcept>
 
 namespace albinjohansson::wanderer {
 
-MovableObjectDelegate::MovableObjectDelegate(int depth, float width, float height)
+MovableDelegate::MovableDelegate(int depth, float width, float height)
     : depth(depth), width(width), height(height) {
   if (width < 1 || height < 1) {
     throw std::invalid_argument("Invalid dimensions!");
@@ -12,18 +11,18 @@ MovableObjectDelegate::MovableObjectDelegate(int depth, float width, float heigh
   dominantDirection = Direction::DOWN;
 }
 
-MovableObjectDelegate::~MovableObjectDelegate() = default;
+MovableDelegate::~MovableDelegate() = default;
 
-void MovableObjectDelegate::Draw(Renderer& renderer,
-                                 const Viewport& viewport) const noexcept {
+void MovableDelegate::Draw(Renderer& renderer,
+                           const Viewport& viewport) const noexcept {
   /* do nothing */
 }
 
-void MovableObjectDelegate::Tick(IWandererCore& core, float delta) {
+void MovableDelegate::Tick(IWandererCore& core, float delta) {
   UpdateDirection();
 }
 
-void MovableObjectDelegate::UpdateDirection() {
+void MovableDelegate::UpdateDirection() {
   if (velocity.x > 0) {
     dominantDirection = Direction::RIGHT;
   } else if (velocity.x < 0) {
@@ -37,7 +36,7 @@ void MovableObjectDelegate::UpdateDirection() {
   }
 }
 
-void MovableObjectDelegate::Move(Direction direction) noexcept {
+void MovableDelegate::Move(Direction direction) noexcept {
   switch (direction) {
     case Direction::RIGHT: {
       velocity.x = speed;
@@ -60,7 +59,7 @@ void MovableObjectDelegate::Move(Direction direction) noexcept {
   velocity.Scale(speed);
 }
 
-void MovableObjectDelegate::Stop(Direction direction) noexcept {
+void MovableDelegate::Stop(Direction direction) noexcept {
   switch (direction) {
     case Direction::RIGHT:
     case Direction::LEFT: {
@@ -77,66 +76,94 @@ void MovableObjectDelegate::Stop(Direction direction) noexcept {
   velocity.Scale(speed);
 }
 
-void MovableObjectDelegate::Stop() noexcept {
+void MovableDelegate::Stop() noexcept {
   velocity.x = 0;
   velocity.y = 0;
   velocity.Norm();
   velocity.Scale(speed);
 }
 
-void MovableObjectDelegate::SavePosition() noexcept {
+void MovableDelegate::SavePosition() noexcept {
   prevPosition.Set(currPosition);
 }
 
-void MovableObjectDelegate::Interpolate(float alpha) noexcept {
+void MovableDelegate::Interpolate(float alpha) noexcept {
   interpolatedPosition.Set(currPosition);
   interpolatedPosition.Interpolate(prevPosition, alpha);
 }
 
-void MovableObjectDelegate::SetSpeed(float speed) noexcept {
+void MovableDelegate::SetSpeed(float speed) noexcept {
   this->speed = speed;
   velocity.Norm();
   velocity.Scale(speed);
 }
 
-float MovableObjectDelegate::GetX() const noexcept {
-  return currPosition.x;
-}
-
-float MovableObjectDelegate::GetY() const noexcept {
-  return currPosition.y;
-}
-
-Rectangle MovableObjectDelegate::GetHitbox() const noexcept {
-  return Rectangle(currPosition.x, currPosition.y, width, height);
-}
-
-void MovableObjectDelegate::AddX(float dx) noexcept {
+void MovableDelegate::AddX(float dx) noexcept {
   currPosition.Add(dx, 0);
 }
 
-void MovableObjectDelegate::AddY(float dy) noexcept {
+void MovableDelegate::AddY(float dy) noexcept {
   currPosition.Add(0, dy);
 }
 
-void MovableObjectDelegate::SetX(float x) noexcept {
+void MovableDelegate::SetX(float x) noexcept {
   currPosition.x = x;
 }
 
-void MovableObjectDelegate::SetY(float y) noexcept {
+void MovableDelegate::SetY(float y) noexcept {
   currPosition.y = y;
 }
 
-void MovableObjectDelegate::SetVelocity(const Vector2& v) noexcept {
+void MovableDelegate::SetVelocity(const Vector2& v) noexcept {
   velocity.Set(v);
 }
 
-float MovableObjectDelegate::GetCenterY() const noexcept {
+int MovableDelegate::GetDepth() const noexcept {
+  return depth;
+}
+
+float MovableDelegate::GetCenterY() const noexcept {
   return currPosition.y + (height / 2.0f);
 }
 
-int MovableObjectDelegate::GetDepth() const noexcept {
-  return depth;
+float MovableDelegate::GetSpeed() const noexcept {
+  return speed;
+}
+
+float MovableDelegate::GetWidth() const noexcept {
+  return width;
+}
+
+float MovableDelegate::GetHeight() const noexcept {
+  return height;
+}
+
+float MovableDelegate::GetX() const noexcept {
+  return currPosition.x;
+}
+
+float MovableDelegate::GetY() const noexcept {
+  return currPosition.y;
+}
+
+Rectangle MovableDelegate::GetHitbox() const noexcept {
+  return Rectangle(currPosition.x, currPosition.y, width, height);
+}
+
+Direction MovableDelegate::GetDominantDirection() const noexcept {
+  return dominantDirection;
+}
+
+Vector2 MovableDelegate::GetVelocity() const noexcept {
+  return velocity;
+}
+
+Vector2 MovableDelegate::GetPosition() const noexcept {
+  return currPosition;
+}
+
+Vector2 MovableDelegate::GetInterpolatedPosition() const noexcept {
+  return interpolatedPosition;
 }
 
 }
