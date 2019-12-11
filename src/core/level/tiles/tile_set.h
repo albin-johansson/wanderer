@@ -3,7 +3,6 @@
 #include "tile_id.h"
 #include "rectangle.h"
 #include <unordered_map>
-#include <memory>
 
 namespace albinjohansson::wanderer {
 
@@ -47,9 +46,5 @@ class TileSet final {
 
   [[nodiscard]] const Rectangle& GetSource(TileID id) const;
 };
-
-using TileSet_uptr = std::unique_ptr<TileSet>;
-using TileSet_sptr = std::shared_ptr<TileSet>;
-using TileSet_wptr = std::weak_ptr<TileSet>;
 
 }
