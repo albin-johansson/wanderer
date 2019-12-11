@@ -57,4 +57,28 @@ bool Rectangle::Intersects(const Rectangle& r) const noexcept {
   return !(x >= r.GetMaxX() || GetMaxX() <= r.x || y >= r.GetMaxY() || GetMaxY() <= r.y);
 }
 
+float Rectangle::GetX() const noexcept { return x; }
+
+float Rectangle::GetY() const noexcept { return y; }
+
+float Rectangle::GetWidth() const noexcept { return width; }
+
+float Rectangle::GetHeight() const noexcept { return height; }
+
+float Rectangle::GetCenterX() const noexcept { return x + (width / 2.0f); }
+
+float Rectangle::GetCenterY() const noexcept { return y + (height / 2.0f); }
+
+float Rectangle::GetMaxX() const noexcept { return x + width; }
+
+float Rectangle::GetMaxY() const noexcept { return y + height; }
+
+SDL_Rect Rectangle::ToSdlRect() const noexcept {
+  int ix = static_cast<int>(x);
+  int iy = static_cast<int>(y);
+  int iw = static_cast<int>(width);
+  int ih = static_cast<int>(height);
+  return {ix, iy, iw, ih};
+}
+
 }

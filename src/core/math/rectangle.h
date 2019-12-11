@@ -119,7 +119,7 @@ class Rectangle final {
    * @return the x-coordinate of the rectangle.
    * @since 0.1.0
    */
-  [[nodiscard]] inline float GetX() const noexcept { return x; }
+  [[nodiscard]] float GetX() const noexcept;
 
   /**
    * Returns the y-coordinate of the rectangle.
@@ -127,7 +127,7 @@ class Rectangle final {
    * @return the y-coordinate of the rectangle.
    * @since 0.1.0
    */
-  [[nodiscard]] inline float GetY() const noexcept { return y; }
+  [[nodiscard]] float GetY() const noexcept;
 
   /**
    * Returns the width of the rectangle.
@@ -135,7 +135,7 @@ class Rectangle final {
    * @return the width of the rectangle.
    * @since 0.1.0
    */
-  [[nodiscard]] inline float GetWidth() const noexcept { return width; }
+  [[nodiscard]] float GetWidth() const noexcept;
 
   /**
    * Returns the height of the rectangle.
@@ -143,11 +143,11 @@ class Rectangle final {
    * @return the height of the rectangle.
    * @since 0.1.0
    */
-  [[nodiscard]] inline float GetHeight() const noexcept { return height; }
+  [[nodiscard]] float GetHeight() const noexcept;
 
-  [[nodiscard]] inline float GetCenterX() const noexcept { return x + (width / 2.0f); }
+  [[nodiscard]] float GetCenterX() const noexcept;
 
-  [[nodiscard]] inline float GetCenterY() const noexcept { return y + (height / 2.0f); }
+  [[nodiscard]] float GetCenterY() const noexcept;
 
   /**
    * Returns the maximum x-coordinate of the rectangle.
@@ -155,7 +155,7 @@ class Rectangle final {
    * @return the maximum x-coordinate.
    * @since 0.1.0
    */
-  [[nodiscard]] inline float GetMaxX() const noexcept { return x + width; }
+  [[nodiscard]] float GetMaxX() const noexcept;
 
   /**
    * Returns the maximum y-coordinate of the rectangle.
@@ -163,7 +163,7 @@ class Rectangle final {
    * @return the maximum y-coordinate.
    * @since 0.1.0
    */
-  [[nodiscard]] inline float GetMaxY() const noexcept { return y + height; }
+  [[nodiscard]] float GetMaxY() const noexcept;
 
   /**
    * Returns an SDL_Rect representation of the rectangle.
@@ -171,13 +171,7 @@ class Rectangle final {
    * @return an SDL_Rect representation of the rectangle.
    * @since 0.1.0
    */
-  [[nodiscard]] inline SDL_Rect ToSdlRect() const noexcept {
-    int ix = static_cast<int>(x);
-    int iy = static_cast<int>(y);
-    int iw = static_cast<int>(width);
-    int ih = static_cast<int>(height);
-    return {ix, iy, iw, ih};
-  }
+  [[nodiscard]] SDL_Rect ToSdlRect() const noexcept;
 };
 
 }
