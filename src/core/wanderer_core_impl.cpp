@@ -94,7 +94,7 @@ void WandererCoreImpl::PlaySound(const std::string& id) const {
 }
 
 void WandererCoreImpl::SetMap(std::shared_ptr<ITileMap> map) {
-  if (map != nullptr) {
+  if (map) {
     activeMap = map;
 
     auto[px, py] = map->GetPlayerSpawnPosition();
