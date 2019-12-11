@@ -179,8 +179,6 @@ set(SOURCE_FILES
         service/tiled/tiled_property.h
 
         core/sortable_drawable.h
-        core/level/tiles/drawable_tile.cpp
-        core/level/tiles/drawable_tile.h
         core/level/tiles/tile_object.cpp
         core/level/tiles/tile_object.h core/level/tiles/map_position.h core/render_depth.h)
 
