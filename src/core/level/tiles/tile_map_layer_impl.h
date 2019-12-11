@@ -2,6 +2,7 @@
 #include "tile_map_layer.h"
 #include "tile_id.h"
 #include "vector_2.h"
+#include <memory>
 #include <vector>
 #include <unordered_map>
 

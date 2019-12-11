@@ -12,13 +12,13 @@ namespace albinjohansson::wanderer {
 
 class TileSet;
 
-class TileObject final : public IGameObject { // TODO rename to StaticTileObject?
+class TileObject final : public IGameObject {
  private:
   std::shared_ptr<TileSet> tileSet = nullptr;
   Vector2 position;
-  const TileID id;
   int depth = RenderDepth::MAX;
   float centerY = 0;
+  const TileID id;
 
  public:
   TileObject(TileID id, const Vector2& position, std::shared_ptr<TileSet> tileSet);
@@ -43,7 +43,7 @@ class TileObject final : public IGameObject { // TODO rename to StaticTileObject
 
   [[nodiscard]] float GetHeight() const noexcept override;
 
-  [[nodiscard]] Rectangle GetHitbox() const noexcept override;
+  [[nodiscard]] Rectangle GetHitbox() const noexcept override; // TODO pre-compute
 };
 
 }

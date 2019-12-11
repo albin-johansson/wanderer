@@ -19,7 +19,7 @@ class ISortableDrawable;
 class TileMapImpl final : public ITileMap {
  private:
   std::weak_ptr<ITileMap> parent; // TODO doesn't need to be a weak pointer
-  std::shared_ptr<TileSet> tileSet = nullptr;
+  std::shared_ptr<TileSet> tileSet = nullptr; // FIXME not needed as field
   std::shared_ptr<IEntity> player = nullptr;
 
   std::vector<std::unique_ptr<ITileMapLayer>> groundLayers;
