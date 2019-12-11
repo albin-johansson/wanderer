@@ -2,7 +2,7 @@
 
 namespace albinjohansson::wanderer {
 
-struct MapPosition {
+struct MapPosition final {
   int row = 0;
   int col = 0;
 };
