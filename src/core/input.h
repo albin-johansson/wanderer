@@ -1,18 +1,20 @@
 #pragma once
 #include <SDL_scancode.h>
-#include "key_state_manager.h"
-#include "mouse_state_manager.h"
+#include <memory>
 
 namespace albinjohansson::wanderer {
 
+class KeyStateManager;
+class MouseStateManager;
+
 class Input final {
  private:
-  KeyStateManager_sptr keyStateManager = nullptr;
-  MouseStateManager_sptr mouseStateManager = nullptr;
+  std::shared_ptr<KeyStateManager> keyStateManager = nullptr;
+  std::shared_ptr<MouseStateManager> mouseStateManager = nullptr;
 
  public:
-  explicit Input(KeyStateManager_sptr keyStateManager,
-                 MouseStateManager_sptr mouseStateManager); // FIXME dependency
+  Input(std::shared_ptr<KeyStateManager> keyStateManager,
+        std::shared_ptr<MouseStateManager> mouseStateManager); // FIXME dependency
 
   ~Input();
 
@@ -23,9 +25,7 @@ class Input final {
    * @return true if the key associated with the specified scancode is pressed; false otherwise.
    * @since 0.1.0
    */
-  [[nodiscard]] bool IsPressed(SDL_Scancode scancode) const {
-    return keyStateManager->IsPressed(scancode);
-  }
+  [[nodiscard]] bool IsPressed(SDL_Scancode scancode) const;
 
   /**
    * Indicates whether or not the key associated with the specified scancode was just pressed.
@@ -35,9 +35,7 @@ class Input final {
    * otherwise.
    * @since 0.1.0
    */
-  [[nodiscard]] bool WasJustPressed(SDL_Scancode scancode) const {
-    return keyStateManager->WasJustPressed(scancode);
-  }
+  [[nodiscard]] bool WasJustPressed(SDL_Scancode scancode) const;
 
   /**
    * Indicates whether or not the key associated with the specified scancode was released.
@@ -46,37 +44,21 @@ class Input final {
    * @return true if the key associated with the specified scancode was released; false otherwise.
    * @since 0.1.0
    */
-  [[nodiscard]] bool WasReleased(SDL_Scancode scancode) const {
-    return keyStateManager->WasReleased(scancode);
-  }
+  [[nodiscard]] bool WasReleased(SDL_Scancode scancode) const;
 
-  [[nodiscard]] float GetMouseX() const noexcept {
-    return mouseStateManager->GetMouseX();
-  }
+  [[nodiscard]] float GetMouseX() const noexcept;
 
-  [[nodiscard]] float GetMouseY() const noexcept {
-    return mouseStateManager->GetMouseY();
-  }
+  [[nodiscard]] float GetMouseY() const noexcept;
 
-  [[nodiscard]] bool IsLeftButtonPressed() const noexcept {
-    return mouseStateManager->IsLeftButtonPressed();
-  }
+  [[nodiscard]] bool IsLeftButtonPressed() const noexcept;
 
-  [[nodiscard]] bool IsRightButtonPressed() const noexcept {
-    return mouseStateManager->IsRightButtonPressed();
-  }
+  [[nodiscard]] bool IsRightButtonPressed() const noexcept;
 
-  [[nodiscard]] bool WasLeftButtonReleased() const noexcept {
-    return mouseStateManager->WasLeftButtonReleased();
-  }
+  [[nodiscard]] bool WasLeftButtonReleased() const noexcept;
 
-  [[nodiscard]] bool WasRightButtonReleased() const noexcept {
-    return mouseStateManager->WasRightButtonReleased();
-  }
+  [[nodiscard]] bool WasRightButtonReleased() const noexcept;
 
-  [[nodiscard]] bool WasMouseMoved() const noexcept {
-    return mouseStateManager->WasMouseMoved();
-  }
+  [[nodiscard]] bool WasMouseMoved() const noexcept;
 
 };
 
