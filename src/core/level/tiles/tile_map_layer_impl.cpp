@@ -8,7 +8,6 @@
 #include "viewport.h"
 #include "objects.h"
 #include <memory>
-#include <map>
 
 namespace albinjohansson::wanderer {
 
@@ -49,17 +48,6 @@ void TileMapLayerImpl::Update(const TileMapBounds& bounds) {
       }
       tileSet->Tick(id);
     }
-  }
-}
-
-void TileMapLayerImpl::DrawTile(Renderer& renderer,
-                                const MapPosition& position,
-                                const Viewport& viewport) const {
-  const auto id = GetTileId(position.row, position.col);
-  if (id != Tile::EMPTY) {
-    const Vector2 pos = {static_cast<float>(position.col) * Tile::SIZE,
-                         static_cast<float>(position.row) * Tile::SIZE};
-    tileSet->GetTile(id).Draw(pos, renderer, viewport, *tileSet);
   }
 }
 

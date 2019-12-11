@@ -21,10 +21,6 @@ class ITileMapLayer {
 
   virtual void Update(const TileMapBounds& bounds) = 0;
 
-  virtual void DrawTile(Renderer& renderer,
-                        const MapPosition& position,
-                        const Viewport& viewport) const = 0;
-
   virtual void SetGroundLayer(bool isGroundLayer) noexcept = 0;
 
   virtual void AddObjects(const TileMapBounds& bounds,

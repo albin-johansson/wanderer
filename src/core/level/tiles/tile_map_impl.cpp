@@ -97,9 +97,15 @@ void TileMapImpl::Draw(Renderer& renderer, const Viewport& viewport, float alpha
   // Note! All loops takes constant time.
   for (auto row = bounds.minRow; row < bounds.maxRow; row++) {
     for (auto col = bounds.minCol; col < bounds.maxCol; col++) {
+
       auto drawTile = [&](const auto& layer) {
-        layer->DrawTile(renderer, MapPosition{row, col}, viewport);
+        const auto id = layer->GetTileId(row, col);
+        if (id != Tile::EMPTY) {
+          const auto& tile = tileSet->GetTile(id);
+          tile.Draw(Vector2(col * Tile::SIZE, row * Tile::SIZE), renderer, viewport, *tileSet);
+        }
       };
+
       std::for_each(groundLayers.begin(), groundLayers.end(), drawTile);
     }
   }

@@ -33,10 +33,6 @@ class TileMapLayerImpl final : public ITileMapLayer {
 
   void Update(const TileMapBounds& bounds) override;
 
-  void DrawTile(Renderer& renderer,
-                const MapPosition& position,
-                const Viewport& viewport) const override;
-
   void SetGroundLayer(bool isGroundLayer) noexcept override;
 
   void AddObjects(const TileMapBounds& bounds,
