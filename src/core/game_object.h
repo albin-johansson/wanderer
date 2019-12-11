@@ -1,7 +1,6 @@
 #pragma once
 #include "sortable_drawable.h"
 #include "rectangle.h"
-#include "wanderer_core.h"
 #include <memory>
 
 namespace albinjohansson::wanderer {

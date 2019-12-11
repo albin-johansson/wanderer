@@ -1,5 +1,6 @@
 #pragma once
 #include "entity.h"
+#include "wanderer_core.h"
 #include "animation.h"
 #include "image.h"
 #include "render_depth.h"
