@@ -13,8 +13,8 @@ void TileSet::Tick(TileID id) {
 }
 
 void TileSet::Insert(TileID id, const Tile& tile, const Rectangle& srcRect) {
-  tiles.insert(std::pair<TileID, Tile>(id, tile));
-  sourceRectangles.insert(std::pair<TileID, Rectangle>(id, srcRect));
+  tiles.emplace(id, tile);
+  sourceRectangles.emplace(id, srcRect);
 }
 
 const Rectangle& TileSet::GetSource(TileID id) const {

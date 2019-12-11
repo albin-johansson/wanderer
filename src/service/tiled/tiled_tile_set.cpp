@@ -18,9 +18,8 @@ TiledTileSet::~TiledTileSet() = default;
 void TiledTileSet::Init() {
   for (auto tileNode : tileSetNode.children("tile")) {
     const int id = firstId + tileNode.attribute("id").as_int();
-
     // TODO could be replace by vector, alg. for finding tile is then: id -> t.at(id - firstId)
-    tiles.insert(std::pair<int, TiledTile>(id, TiledTile(tileNode, id, firstId)));
+    tiles.emplace(id, TiledTile(tileNode, id, firstId));
   }
 }
 

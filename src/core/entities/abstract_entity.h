@@ -2,6 +2,7 @@
 #include "entity.h"
 #include "animation.h"
 #include "image.h"
+#include "render_depth.h"
 
 namespace albinjohansson::wanderer {
 
@@ -13,6 +14,8 @@ namespace albinjohansson::wanderer {
  */
 class AbstractEntity : public virtual IEntity {
  private:
+  static constexpr int DEPTH = RenderDepth::RANGE / 2;
+
   IMovableObject_uptr movable = nullptr;
   Image_sptr sheet = nullptr;
   Animation animation;
@@ -76,6 +79,10 @@ class AbstractEntity : public virtual IEntity {
   [[nodiscard]] float GetX() const noexcept override { return movable->GetX(); }
 
   [[nodiscard]] float GetY() const noexcept override { return movable->GetY(); }
+
+  [[nodiscard]] float GetCenterY() const noexcept override { return movable->GetCenterY(); }
+
+  [[nodiscard]] int GetDepth() const noexcept final { return DEPTH; }
 
   [[nodiscard]] float GetWidth() const noexcept override { return movable->GetWidth(); }
 

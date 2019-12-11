@@ -1,4 +1,5 @@
 #include "movable_delegate.h"
+#include "render_depth.h"
 #include <stdexcept>
 
 namespace albinjohansson::wanderer {
@@ -132,6 +133,14 @@ void MovableObjectDelegate::SetY(float y) noexcept {
 
 void MovableObjectDelegate::SetVelocity(const Vector2& v) noexcept {
   velocity.Set(v);
+}
+
+float MovableObjectDelegate::GetCenterY() const noexcept {
+  return currPosition.y + (height / 2.0f);
+}
+
+int MovableObjectDelegate::GetDepth() const noexcept {
+  return RenderDepth::MAX;
 }
 
 }

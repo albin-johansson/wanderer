@@ -2,6 +2,7 @@
 #include "vector_2.h"
 #include "viewport.h"
 #include "renderer.h"
+#include "tile_set.h"
 #include <utility>
 
 namespace albinjohansson::wanderer {
@@ -19,11 +20,15 @@ void Tile::Tick() {
 void Tile::Draw(const Vector2& pos,
                 Renderer& renderer,
                 const Viewport& viewport,
-                const Rectangle& src) const {
+                const TileSet& tileSet) const {
   if (GetId() == EMPTY) {
     return;
   }
 
+  Rectangle src = IsAnimated() ? tileSet.GetSource(GetFrameId())
+                               : tileSet.GetSource(GetId());
+
+  // TODO this could be pre-computed
   Rectangle dst = {viewport.GetTranslatedX(pos.x),
                    viewport.GetTranslatedY(pos.y),
                    SIZE,
@@ -40,20 +45,16 @@ void Tile::Draw(const Vector2& pos,
   }
 }
 
-bool Tile::HasGroup() const noexcept {
-  return properties.group != 0;
+int Tile::GetDepth() const noexcept {
+  return properties.depth;
 }
 
-bool Tile::IsPivot() const noexcept {
-  return properties.isPivot;
+bool Tile::IsObject() const noexcept {
+  return properties.isObject;
 }
 
-int Tile::GetGroup() const noexcept {
-  return properties.group;
-}
-
-int Tile::GetRenderGroup() const noexcept {
-  return properties.renderGroup;
+TileID Tile::GetFrameId() const {
+  return properties.animated ? properties.animation.GetFrame().frameId : properties.id;
 }
 
 }

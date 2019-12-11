@@ -11,9 +11,9 @@ class ISortableDrawable : public IDrawable {
  public:
   ~ISortableDrawable() override = default;
 
-  [[nodiscard]] virtual float GetX() const noexcept = 0;
+  [[nodiscard]] virtual float GetCenterY() const noexcept = 0;
 
-  [[nodiscard]] virtual float GetY() const noexcept = 0;
+  [[nodiscard]] virtual int GetDepth() const noexcept = 0;
 };
 
 using ISortableDrawable_uptr = std::unique_ptr<ISortableDrawable>;

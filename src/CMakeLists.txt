@@ -181,10 +181,8 @@ set(SOURCE_FILES
         core/sortable_drawable.h
         core/level/tiles/drawable_tile.cpp
         core/level/tiles/drawable_tile.h
-        core/level/tiles/tile_render_group.cpp
-        core/level/tiles/tile_render_group.h
         core/level/tiles/tile_object.cpp
-        core/level/tiles/tile_object.h)
+        core/level/tiles/tile_object.h core/level/tiles/map_position.h core/render_depth.h)
 
 # Prepares the Wanderer "library", which excludes linking and the main.cpp file
 add_library(${WANDERER_LIB} ${SOURCE_FILES})

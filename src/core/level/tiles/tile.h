@@ -10,6 +10,7 @@
 namespace albinjohansson::wanderer {
 
 class Vector2;
+class TileSet;
 
 struct TilePos {
   int row = 0;
@@ -26,6 +27,8 @@ struct TileProperties { // TODO reorder fields
   int group = 0;
   int renderGroup = 0;
   bool isPivot = false;
+  int depth = 0;
+  bool isObject = false;
 };
 
 class Tile {
@@ -43,7 +46,7 @@ class Tile {
   void Draw(const Vector2& pos,
             Renderer& renderer,
             const Viewport& viewport,
-            const Rectangle& src) const;
+            const TileSet& tileSet) const;
 
   void Tick();
 
@@ -67,17 +70,11 @@ class Tile {
 
   [[nodiscard]] bool IsAnimated() const noexcept { return properties.animated; }
 
-  [[nodiscard]] bool IsPivot() const noexcept;
+  [[nodiscard]] bool IsObject() const noexcept;
 
-  [[nodiscard]] bool HasGroup() const noexcept;
+  [[nodiscard]] int GetDepth() const noexcept;
 
-  [[nodiscard]] int GetGroup() const noexcept;
-
-  [[nodiscard]] int GetRenderGroup() const noexcept;
-
-  [[nodiscard]] TileID GetFrameId() const {
-    return properties.animated ? properties.animation.GetFrame().frameId : properties.id;
-  }
+  [[nodiscard]] TileID GetFrameId() const;
 };
 
 using ITile_uptr = std::unique_ptr<Tile>;

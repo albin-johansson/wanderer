@@ -1,22 +1,23 @@
 #pragma once
-#include "tile_map.h"
 #include <memory>
 
 namespace albinjohansson::wanderer {
 
+class ITileMap;
+
 class Portal final {
  private:
-  ITileMap_wptr from;
-  ITileMap_wptr target;
+  std::weak_ptr<ITileMap> from;
+  std::weak_ptr<ITileMap> target;
 
  public:
-  Portal(ITileMap_wptr from, ITileMap_wptr target);
+  Portal(std::weak_ptr<ITileMap> from, std::weak_ptr<ITileMap> target);
 
   ~Portal();
 
-  [[nodiscard]] ITileMap_wptr GetFrom() const noexcept { return from; }
+  [[nodiscard]] std::weak_ptr<ITileMap> GetFrom() const noexcept { return from; }
 
-  [[nodiscard]] ITileMap_wptr GetTarget() const noexcept { return target; }
+  [[nodiscard]] std::weak_ptr<ITileMap> GetTarget() const noexcept { return target; }
 };
 
 }

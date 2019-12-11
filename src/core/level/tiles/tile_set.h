@@ -1,10 +1,9 @@
 #pragma once
 #include "tile.h"
+#include "tile_id.h"
 #include "rectangle.h"
-#include <vector>
 #include <unordered_map>
 #include <memory>
-#include <cstdint>
 
 namespace albinjohansson::wanderer {
 

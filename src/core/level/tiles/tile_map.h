@@ -1,21 +1,15 @@
 #pragma once
-#include "tile_map_layer.h"
-#include "renderer.h"
-#include "viewport.h"
-#include "entity.h"
 #include "vector_2.h"
 #include <memory>
 
 namespace albinjohansson::wanderer {
 
-class ITileMap;
-
-using ITileMap_uptr = std::unique_ptr<ITileMap>;
-using ITileMap_sptr = std::shared_ptr<ITileMap>;
-using ITileMap_wptr = std::weak_ptr<ITileMap>;
-
-class ISortableDrawable;
-using ISortableDrawable_sptr = std::shared_ptr<ISortableDrawable>;
+class IWandererCore;
+class TileObject;
+class ITileMapLayer;
+class IEntity;
+class Viewport;
+class Renderer;
 
 class ITileMap {
  protected:
@@ -28,15 +22,11 @@ class ITileMap {
 
   virtual void Draw(Renderer& renderer, const Viewport& viewport, float alpha) noexcept = 0;
 
-  virtual void AddObjectLayer(ITileMapLayer_uptr layer) = 0;
+  virtual void AddLayer(std::unique_ptr<ITileMapLayer> layer) = 0;
 
-  virtual void AddGroundLayer(ITileMapLayer_uptr layer) = 0;
+  virtual void SetPlayer(std::shared_ptr<IEntity> player) = 0;
 
-  virtual void AddDrawable(ISortableDrawable_sptr drawable) = 0;
-
-  virtual void SetPlayer(IEntity_sptr player) = 0;
-
-  virtual void SetParent(ITileMap_wptr parent) = 0;
+  virtual void SetParent(std::weak_ptr<ITileMap> parent) = 0;
 
   /**
    * Returns the number of rows in the tile map.
@@ -72,7 +62,7 @@ class ITileMap {
 
   [[nodiscard]] virtual bool HasParent() const noexcept = 0;
 
-  [[nodiscard]] virtual ITileMap_wptr GetParent() const noexcept = 0;
+  [[nodiscard]] virtual std::weak_ptr<ITileMap> GetParent() const noexcept = 0;
 
   [[nodiscard]] virtual Vector2 GetPlayerSpawnPosition() const = 0;
 

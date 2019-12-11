@@ -15,17 +15,18 @@ namespace albinjohansson::tiled {
  */
 class TiledTile final {
  private:
-  const int id = 0;
+  pugi::xml_node tileNode;
   TiledAnimation animation;
   std::vector<TiledProperty> properties;
   std::vector<TiledObject> objects;
+  const int id = 0;
   bool animated = false;
 
-  void ProcessAnimation(const pugi::xml_node& tileNode, int firstTileSetId);
+  void ProcessAnimation(int firstTileSetId);
 
-  void ProcessProperties(const pugi::xml_node& tileNode);
+  void ProcessProperties();
 
-  void ProcessObjectGroup(const pugi::xml_node& tileNode);
+  void ProcessObjectGroup();
 
   /**
    * Attempts to find and return a property.
@@ -58,6 +59,8 @@ class TiledTile final {
    */
   [[nodiscard]] const TiledAnimation& GetAnimation() const noexcept;
 
+  [[nodiscard]] bool HasAttribute(const std::string& name) const noexcept;
+
   /**
    * Indicates whether or not the tile has a property with the specified name.
    *
@@ -85,7 +88,7 @@ class TiledTile final {
    * @throws invalid_argument if the property doesn't exist.
    * @since 0.1.0
    */
-  [[nodiscard]] int GetInt(const std::string& name) const;
+  [[nodiscard]] int GetIntProperty(const std::string& name) const;
 
   /**
    * Returns the value of the property with the specified name as a float. This method might
@@ -96,7 +99,7 @@ class TiledTile final {
    * @throws invalid_argument if the property doesn't exist.
    * @since 0.1.0
    */
-  [[nodiscard]] float GetFloat(const std::string& name) const;
+  [[nodiscard]] float GetFloatProperty(const std::string& name) const;
 
   /**
    * Returns the value of the property with the specified name as a bool. This method might
@@ -109,7 +112,7 @@ class TiledTile final {
    * @throws invalid_argument if the property doesn't exist.
    * @since 0.1.0
    */
-  [[nodiscard]] bool GetBool(const std::string& name) const;
+  [[nodiscard]] bool GetBoolProperty(const std::string& name) const;
 
   /**
    * Returns the value of the property with the specified name as a string.
@@ -119,7 +122,11 @@ class TiledTile final {
    * @throws invalid_argument if the property doesn't exist.
    * @since 0.1.0
    */
-  [[nodiscard]] const std::string& GetString(const std::string& name) const;
+  [[nodiscard]] const std::string& GetStringProperty(const std::string& name) const;
+
+  [[nodiscard]] int GetIntAttribute(const std::string& name) const;
+
+  [[nodiscard]] std::string GetStringAttribute(const std::string& name) const;
 
   /**
    * Returns the object with the specified name.

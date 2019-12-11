@@ -1,20 +1,15 @@
 #pragma once
 #include "tile_map.h"
-#include "image_generator.h"
-#include "tile.h"
-#include "rectangle.h"
-#include "image.h"
 #include "tile_map_bounds.h"
-#include "tile_set.h"
-#include "wanderer_core.h"
-#include "sortable_drawable.h"
+#include <memory>
 #include <vector>
 
 namespace albinjohansson::wanderer {
 
-// TODO Tiled map loading
-//  - Layers
-//  - Animated tiles
+class Rectangle;
+class ImageGenerator;
+class TileSet;
+class ISortableDrawable;
 
 /**
  * The TileMapImpl class represents a map of tiles, used to build the game world.
@@ -23,14 +18,15 @@ namespace albinjohansson::wanderer {
  */
 class TileMapImpl final : public ITileMap {
  private:
-  ITileMap_wptr parent;
-  TileSet_sptr tileSet = nullptr;
-  IEntity_sptr player = nullptr;
+  std::weak_ptr<ITileMap> parent; // TODO doesn't need to be a weak pointer
+  std::shared_ptr<TileSet> tileSet = nullptr;
+  std::shared_ptr<IEntity> player = nullptr;
 
-  std::vector<ITileMapLayer_uptr> groundLayers;
-  std::vector<ITileMapLayer_uptr> objectLayers;
-  std::vector<IEntity_sptr> entities;
-  std::vector<ISortableDrawable_sptr> drawables;
+  std::vector<std::unique_ptr<ITileMapLayer>> groundLayers;
+  std::vector<std::unique_ptr<ITileMapLayer>> objectLayers;
+
+  std::vector<std::shared_ptr<IEntity>> entities;
+  std::vector<std::shared_ptr<ISortableDrawable>> drawables;
 
   int nRows;
   int nCols;
@@ -41,12 +37,12 @@ class TileMapImpl final : public ITileMap {
 
  public:
   /**
-   * @param tileSet a shared pointer associated to the tile set.
+   * @param tileSet a pointer to the associated tile set.
    * @param nRows the number of rows in the tile map.
    * @param nCols the number of columns in the tile map.
    * @since 0.1.0
    */
-  TileMapImpl(TileSet_sptr tileSet,
+  TileMapImpl(std::shared_ptr<TileSet> tileSet,
               int nRows,
               int nCols,
               ImageGenerator& imageGenerator);
@@ -57,37 +53,25 @@ class TileMapImpl final : public ITileMap {
 
   void Draw(Renderer& renderer, const Viewport& viewport, float alpha) noexcept override;
 
-  void AddObjectLayer(ITileMapLayer_uptr layer) override;
+  void AddLayer(std::unique_ptr<ITileMapLayer> layer) override;
 
-  void AddGroundLayer(ITileMapLayer_uptr layer) override;
+  void SetPlayer(std::shared_ptr<IEntity> player) override;
 
-  void SetPlayer(IEntity_sptr player) override;
+  void SetParent(std::weak_ptr<ITileMap> parent) override;
 
-  void SetParent(ITileMap_wptr parent) override;
+  [[nodiscard]] int GetRows() const noexcept override;
 
-  void AddDrawable(ISortableDrawable_sptr drawable) override;
+  [[nodiscard]] int GetCols() const noexcept override;
 
-  [[nodiscard]] int GetRows() const noexcept override { return nRows; }
+  [[nodiscard]] int GetWidth() const noexcept override;
 
-  [[nodiscard]] int GetCols() const noexcept override { return nCols; }
-
-  [[nodiscard]] int GetWidth() const noexcept override {
-    return nCols * static_cast<int>(Tile::SIZE);
-  }
-
-  [[nodiscard]] inline int GetHeight() const noexcept override {
-    return nRows * static_cast<int>(Tile::SIZE);
-  }
-
-  [[nodiscard]] Vector2 GetPlayerSpawnPosition() const override;
+  [[nodiscard]] int GetHeight() const noexcept override;
 
   [[nodiscard]] bool HasParent() const noexcept override;
 
-  [[nodiscard]] ITileMap_wptr GetParent() const noexcept override;
+  [[nodiscard]] Vector2 GetPlayerSpawnPosition() const override;
 
-  [[nodiscard]] static bool CompareDrawables(const ISortableDrawable_sptr& first,
-                                             const ISortableDrawable_sptr& second) noexcept;
-
+  [[nodiscard]] std::weak_ptr<ITileMap> GetParent() const noexcept override;
 };
 
 }

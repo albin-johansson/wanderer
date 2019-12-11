@@ -1,9 +1,10 @@
 #include "portal.h"
+#include "tile_map.h"
 #include <utility>
 
 namespace albinjohansson::wanderer {
 
-Portal::Portal(ITileMap_wptr from, ITileMap_wptr target) {
+Portal::Portal(std::weak_ptr<ITileMap> from, std::weak_ptr<ITileMap> target) {
   this->from = std::move(from);
   this->target = std::move(target);
 }

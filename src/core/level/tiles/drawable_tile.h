@@ -7,10 +7,10 @@
 
 namespace albinjohansson::wanderer {
 
-class DrawableTile : public ISortableDrawable {
+class DrawableTile : public ISortableDrawable { // FIXME remove
  private:
   TileSet_wptr tileSet;
-  const Vector2 position;
+  Vector2 position;
 
  public:
   const TileID id = 0;
@@ -21,9 +21,7 @@ class DrawableTile : public ISortableDrawable {
 
   void Draw(Renderer& renderer, const Viewport& viewport) const override;
 
-  [[nodiscard]] float GetX() const noexcept override;
-
-  [[nodiscard]] float GetY() const noexcept override;
+  [[nodiscard]] float GetCenterY() const noexcept override;
 };
 
 using DrawableTile_uptr = std::unique_ptr<DrawableTile>;

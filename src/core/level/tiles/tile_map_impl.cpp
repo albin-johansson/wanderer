@@ -1,11 +1,25 @@
 #include "tile_map_impl.h"
+#include "tile_map_layer.h"
+#include "tile_map_bounds.h"
+#include "tile_set.h"
+#include "renderer.h"
+#include "viewport.h"
+#include "entity.h"
+#include "image_generator.h"
+#include "rectangle.h"
+#include "wanderer_core.h"
 #include "objects.h"
 #include "skeleton.h"
 #include <algorithm>
+#include <memory>
+#include <vector>
 
 namespace albinjohansson::wanderer {
 
-TileMapImpl::TileMapImpl(TileSet_sptr tileSet, int nRows, int nCols, ImageGenerator& imageGenerator)
+TileMapImpl::TileMapImpl(std::shared_ptr<TileSet> tileSet,
+                         int nRows,
+                         int nCols,
+                         ImageGenerator& imageGenerator)
     : nRows(nRows), nCols(nCols) {
   this->tileSet = Objects::RequireNonNull(std::move(tileSet));
 
@@ -17,10 +31,6 @@ TileMapImpl::TileMapImpl(TileSet_sptr tileSet, int nRows, int nCols, ImageGenera
 
   entities.reserve(10);
   entities.push_back(skeleton);
-
-  for (const auto& entity : entities) {
-    drawables.push_back(entity);
-  }
 }
 
 TileMapImpl::~TileMapImpl() = default;
@@ -57,19 +67,25 @@ TileMapBounds TileMapImpl::CalculateMapBounds(const Rectangle& bounds) const noe
 }
 
 void TileMapImpl::Tick(IWandererCore& core, const Viewport& viewport, float delta) {
-  auto bounds = CalculateMapBounds(viewport.GetBounds());
+  const auto viewportBounds = viewport.GetBounds();
+  const auto bounds = CalculateMapBounds(viewportBounds);
+  const auto update = [&](auto& layer) { layer->Update(bounds); };
+  std::for_each(groundLayers.begin(), groundLayers.end(), update);
+  std::for_each(objectLayers.begin(), objectLayers.end(), update);
 
-  for (const auto& layer : groundLayers) {
-    layer->Update(bounds);
+  drawables.clear();
+
+  for (const auto& entity : entities) {
+    if (viewportBounds.Intersects(entity->GetHitbox())) {
+      entity->SavePosition(); // FIXME should probably be automatic
+      entity->Tick(core, delta);
+
+      drawables.push_back(entity);
+    }
   }
 
   for (const auto& layer : objectLayers) {
-    layer->Update(bounds);
-  }
-
-  for (const auto& entity : entities) {
-    entity->SavePosition();
-    entity->Tick(core, delta);
+    layer->AddObjects(bounds, drawables);
   }
 }
 
@@ -78,44 +94,72 @@ void TileMapImpl::Draw(Renderer& renderer, const Viewport& viewport, float alpha
 
   const auto bounds = CalculateMapBounds(viewport.GetBounds());
 
-  for (const auto& layer : groundLayers) {
-    layer->Draw(renderer, bounds, viewport);
+  // Note! All loops takes constant time.
+  for (auto row = bounds.minRow; row < bounds.maxRow; row++) {
+    for (auto col = bounds.minCol; col < bounds.maxCol; col++) {
+      auto drawTile = [&](const auto& layer) {
+        layer->DrawTile(renderer, MapPosition{row, col}, viewport);
+      };
+      std::for_each(groundLayers.begin(), groundLayers.end(), drawTile);
+    }
   }
 
-  std::sort(drawables.begin(), drawables.end(), CompareDrawables);
+  auto comparator = [&](const auto& fst, const auto& snd) noexcept {
+    const auto leftFirst = fst->GetDepth();
+    const auto leftSecond = fst->GetCenterY();
 
-  for (const auto& d : drawables) {
-    d->Draw(renderer, viewport);
+    const auto rightFirst = snd->GetDepth();
+    const auto rightSecond = snd->GetCenterY();
+
+    return (leftFirst < rightFirst || (!(rightFirst < leftFirst) && leftSecond < rightSecond));
+  };
+
+  std::sort(drawables.begin(), drawables.end(), comparator);
+
+  for (const auto& drawable : drawables) {
+    drawable->Draw(renderer, viewport);
   }
 }
 
-void TileMapImpl::AddGroundLayer(ITileMapLayer_uptr layer) {
+void TileMapImpl::AddLayer(std::unique_ptr<ITileMapLayer> layer) {
   if (layer) {
-    groundLayers.push_back(std::move(layer));
+    if (layer->IsGroundLayer()) {
+      groundLayers.push_back(std::move(layer));
+    } else {
+      objectLayers.push_back(std::move(layer));
+    }
   }
 }
 
-void TileMapImpl::AddObjectLayer(ITileMapLayer_uptr layer) {
-  if (layer) {
-    objectLayers.push_back(std::move(layer));
-  }
-}
-
-void TileMapImpl::SetPlayer(IEntity_sptr player) {
+void TileMapImpl::SetPlayer(std::shared_ptr<IEntity> player) {
   if (player) {
     this->player = player;
     entities.push_back(player);
-    drawables.push_back(player);
   }
 }
 
-bool TileMapImpl::CompareDrawables(const ISortableDrawable_sptr& first,
-                                   const ISortableDrawable_sptr& second) noexcept {
-  return first->GetY() < second->GetY();
+std::weak_ptr<ITileMap> TileMapImpl::GetParent() const noexcept {
+  return parent;
 }
 
-Vector2 TileMapImpl::GetPlayerSpawnPosition() const {
-  return Vector2(0, 0); // TODO
+void TileMapImpl::SetParent(std::weak_ptr<ITileMap> parent) {
+  this->parent = parent;
+}
+
+int TileMapImpl::GetRows() const noexcept {
+  return nRows;
+}
+
+int TileMapImpl::GetCols() const noexcept {
+  return nCols;
+}
+
+int TileMapImpl::GetWidth() const noexcept {
+  return nCols * static_cast<int>(Tile::SIZE);
+}
+
+int TileMapImpl::GetHeight() const noexcept {
+  return nRows * static_cast<int>(Tile::SIZE);
 }
 
 bool TileMapImpl::HasParent() const noexcept {
@@ -123,18 +167,8 @@ bool TileMapImpl::HasParent() const noexcept {
   return p != nullptr;
 }
 
-ITileMap_wptr TileMapImpl::GetParent() const noexcept {
-  return parent;
-}
-
-void TileMapImpl::SetParent(ITileMap_wptr parent) {
-  this->parent = parent;
-}
-
-void TileMapImpl::AddDrawable(ISortableDrawable_sptr drawable) {
-  if (drawable) {
-    drawables.push_back(drawable);
-  }
+Vector2 TileMapImpl::GetPlayerSpawnPosition() const {
+  return Vector2(0, 0); // TODO
 }
 
 }

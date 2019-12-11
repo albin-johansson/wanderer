@@ -1,5 +1,6 @@
 #include "catch.hpp"
 #include "window.h"
+#include <memory>
 
 using namespace albinjohansson::wanderer;
 
@@ -22,7 +23,7 @@ TEST_CASE("Window::Create", "[Window]") {
   auto title = "Foo";
   int width = 831;
   int height = 351;
-  Window_uptr window = Window::Create(title, width, height);
+  std::unique_ptr<Window> window = Window::Create(title, width, height);
 
   CHECK(window->GetTitle() == title);
   CHECK(window->GetWidth() == width);

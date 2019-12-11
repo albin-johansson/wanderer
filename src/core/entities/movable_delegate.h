@@ -83,6 +83,10 @@ class MovableObjectDelegate final : public IMovableObject {
 
   [[nodiscard]] float GetY() const noexcept override;
 
+  [[nodiscard]] float GetCenterY() const noexcept override;
+
+  [[nodiscard]] int GetDepth() const noexcept override;
+
   [[nodiscard]] inline float GetWidth() const noexcept override { return width; }
 
   [[nodiscard]] inline float GetHeight() const noexcept override { return height; }

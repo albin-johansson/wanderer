@@ -1,46 +1,56 @@
 #pragma once
 #include "tile_map_layer.h"
-#include "tile_set.h"
 #include "tile_id.h"
-#include "drawable_tile.h"
+#include "vector_2.h"
 #include <vector>
+#include <unordered_map>
 
 namespace albinjohansson::wanderer {
+
+class TileSet;
 
 class TileMapLayerImpl final : public ITileMapLayer {
  private:
   const int nRows;
   const int nCols;
-  TileSet_sptr tileSet = nullptr;
+  std::shared_ptr<TileSet> tileSet = nullptr;
   std::vector<TileID> tiles;
+  std::unordered_map<int, std::shared_ptr<TileObject>> tileObjects;
   bool isGroundLayer = false;
 
- public:
-  TileMapLayerImpl(TileSet_sptr tileSet, int nRows, int nCols, std::vector<TileID> tiles);
+  void InitTileObjects();
 
-  ~TileMapLayerImpl() override;
+  [[nodiscard]] Vector2 CreatePosition(int index) const;
+
+ public:
+  TileMapLayerImpl(std::shared_ptr<TileSet> tileSet,
+                   int nRows,
+                   int nCols,
+                   std::vector<TileID> tiles);
+
+  ~TileMapLayerImpl() noexcept override;
 
   void Update(const TileMapBounds& bounds) override;
 
-  void Draw(Renderer& renderer,
-            const TileMapBounds& bounds,
-            const Viewport& viewport) const override;
-
-
-
-  [[nodiscard]] TileID GetTileId(int row, int col) const override;
-
-//  [[nodiscard]] std::vector<DrawableTile_sptr> CreateDrawableTiles() const override;
-
-//  [[nodiscard]] std::vector<ISortableDrawable_sptr> CreateDrawables() const override;
-
-  [[nodiscard]] const std::vector<TileID>& GetTiles() const noexcept override;
-
-  [[nodiscard]] int GetIndex(int row, int col) const noexcept override;
+  void DrawTile(Renderer& renderer,
+                const MapPosition& position,
+                const Viewport& viewport) const override;
 
   void SetGroundLayer(bool isGroundLayer) noexcept override;
 
+  void AddObjects(const TileMapBounds& bounds,
+                  std::vector<std::shared_ptr<ISortableDrawable>>& drawables) override;
+
+  [[nodiscard]] TileID GetTileId(int row, int col) const override;
+
   [[nodiscard]] bool IsGroundLayer() const noexcept override;
+
+  [[nodiscard]] MapPosition GetPosition(int index) const noexcept override;
+
+  [[nodiscard]] int GetIndex(int row, int col) const noexcept override;
+
+  [[nodiscard]] const std::vector<TileID>& GetTiles() const noexcept override;
+
 };
 
 }
