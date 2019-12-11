@@ -18,9 +18,10 @@ class MovableObjectDelegate final : public IMovableObject {
   Vector2 prevPosition;
   Vector2 interpolatedPosition;
   Direction dominantDirection;
+  const int depth;
+  const float width;
+  const float height;
   float speed = 0;
-  float width;
-  float height;
 
   /**
    * Updates the dominant direction.
@@ -31,25 +32,15 @@ class MovableObjectDelegate final : public IMovableObject {
 
  public:
   /**
+   * @param depth the depth value of the object.
    * @param width the width of the object.
    * @param height the height of the object.
    * @throws std::invalid_argument if either of the supplied dimensions are less than one.
    * @since 0.1.0
    */
-  MovableObjectDelegate(float width, float height);
+  MovableObjectDelegate(int depth, float width, float height);
 
   ~MovableObjectDelegate() override;
-
-  /**
-   * Creates an returns a unique pointer to a movable object delegate instance.
-   *
-   * @param width the width of the object.
-   * @param height the height of the object.
-   * @return a unique pointer to a movable object delegate instance.
-   * @throws std::invalid_argument if either of the supplied dimensions are less than one.
-   * @since 0.1.0
-   */
-  static IMovableObject_uptr Create(float width, float height);
 
   void Draw(Renderer& renderer, const Viewport& viewport) const noexcept override;
 

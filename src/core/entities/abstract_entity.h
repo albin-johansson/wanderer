@@ -1,11 +1,12 @@
 #pragma once
 #include "entity.h"
-#include "wanderer_core.h"
 #include "animation.h"
-#include "image.h"
 #include "render_depth.h"
+#include <cstdint>
 
 namespace albinjohansson::wanderer {
+
+class IWandererCore;
 
 /**
  * The AbstractEntity class is an abstract class that implements the IEntity interface.
@@ -17,97 +18,89 @@ class AbstractEntity : public virtual IEntity {
  private:
   static constexpr int DEPTH = RenderDepth::RANGE / 2;
 
-  IMovableObject_uptr movable = nullptr;
-  Image_sptr sheet = nullptr;
+  std::unique_ptr<IMovableObject> movable = nullptr;
+  std::shared_ptr<Image> sheet = nullptr;
   Animation animation;
   int health = 100;
 
  protected:
   /**
-   * @param sheet a shared pointer to the associated sprite sheet.
+   * @param sheet a pointer to the associated sprite sheet.
    * @throws NullPointerException if the supplied pointer is null.
    * @since 0.1.0
    */
-  explicit AbstractEntity(Image_sptr sheet);
+  explicit AbstractEntity(std::shared_ptr<Image> sheet);
 
  public:
   ~AbstractEntity() override;
 
-  void Tick(IWandererCore& core, float delta) override { movable->Tick(core, delta); }
+  void Tick(IWandererCore& core, float delta) override;
 
-  void Move(Direction direction) noexcept override { movable->Move(direction); }
+  void UpdateAnimation() noexcept override;
 
-  void Stop(Direction direction) noexcept override { movable->Stop(direction); }
+  void SetAnimationFrame(int index) noexcept override;
 
-  void Stop() noexcept override { movable->Stop(); }
+  void SetAnimationFrameAmount(int nFrames) override;
 
-  void SavePosition() noexcept override { movable->SavePosition(); }
-
-  void Interpolate(float alpha) noexcept override { movable->Interpolate(alpha); }
-
-  void AddX(float dx) noexcept override { movable->AddX(dx); }
-
-  void AddY(float dy) noexcept override { movable->AddY(dy); }
-
-  void SetX(float x) noexcept override { movable->SetX(x); }
-
-  void SetY(float y) noexcept override { movable->SetY(y); }
-
-  void SetSpeed(float speed) noexcept override { movable->SetSpeed(speed); }
-
-  void SetVelocity(const Vector2& v) noexcept override { movable->SetVelocity(v); }
-
-  [[nodiscard]] float GetSpeed() const noexcept override { return movable->GetSpeed(); }
-
-  [[nodiscard]] Direction GetDominantDirection() const noexcept override {
-    return movable->GetDominantDirection();
-  }
-
-  [[nodiscard]] Vector2 GetVelocity() const noexcept override {
-    return movable->GetVelocity();
-  }
-
-  [[nodiscard]] Vector2 GetPosition() const noexcept override {
-    return movable->GetPosition();
-  }
-
-  [[nodiscard]] Vector2 GetInterpolatedPosition() const noexcept override {
-    return movable->GetInterpolatedPosition();
-  }
-
-  [[nodiscard]] Image& GetSpriteSheet() const noexcept override { return *sheet; }
-
-  [[nodiscard]] float GetX() const noexcept override { return movable->GetX(); }
-
-  [[nodiscard]] float GetY() const noexcept override { return movable->GetY(); }
-
-  [[nodiscard]] float GetCenterY() const noexcept override { return movable->GetCenterY(); }
-
-  [[nodiscard]] int GetDepth() const noexcept final { return DEPTH; }
-
-  [[nodiscard]] float GetWidth() const noexcept override { return movable->GetWidth(); }
-
-  [[nodiscard]] float GetHeight() const noexcept override { return movable->GetHeight(); }
-
-  [[nodiscard]] Rectangle GetHitbox() const noexcept override { return movable->GetHitbox(); }
-
-  void UpdateAnimation() noexcept override { animation.Update(); }
-
-  void SetAnimationFrame(int index) noexcept override { animation.SetFrame(index); }
-
-  void SetAnimationFrameAmount(int nFrames) override { animation.SetNumberOfFrames(nFrames); }
-
-  void SetAnimationDelay(uint32_t ms) override { animation.SetDelay(ms); }
-
-  [[nodiscard]] int GetAnimationFrame() const noexcept override { return animation.GetIndex(); }
-
-  [[nodiscard]] bool IsAnimationDone() const noexcept override { return animation.IsDone(); }
+  void SetAnimationDelay(uint32_t ms) override;
 
   void Hurt(int dmg) noexcept override;
 
-  [[nodiscard]] int GetHealth() const noexcept override { return health; }
+  void Move(Direction direction) noexcept override;
 
-  [[nodiscard]] bool IsDead() const noexcept override { return health <= 0; }
+  void Stop(Direction direction) noexcept override;
+
+  void Stop() noexcept override;
+
+  void SavePosition() noexcept override;
+
+  void Interpolate(float alpha) noexcept override;
+
+  void AddX(float dx) noexcept override;
+
+  void AddY(float dy) noexcept override;
+
+  void SetX(float x) noexcept override;
+
+  void SetY(float y) noexcept override;
+
+  void SetSpeed(float speed) noexcept override;
+
+  void SetVelocity(const Vector2& velocity) noexcept override;
+
+  [[nodiscard]] float GetSpeed() const noexcept override;
+
+  [[nodiscard]] int GetAnimationFrame() const noexcept override;
+
+  [[nodiscard]] bool IsAnimationDone() const noexcept override;
+
+  [[nodiscard]] Image& GetSpriteSheet() const noexcept override;
+
+  [[nodiscard]] int GetHealth() const noexcept override;
+
+  [[nodiscard]] bool IsDead() const noexcept override;
+
+  [[nodiscard]] Direction GetDominantDirection() const noexcept override;
+
+  [[nodiscard]] Vector2 GetVelocity() const noexcept override;
+
+  [[nodiscard]] Vector2 GetPosition() const noexcept override;
+
+  [[nodiscard]] Vector2 GetInterpolatedPosition() const noexcept override;
+
+  [[nodiscard]] float GetX() const noexcept override;
+
+  [[nodiscard]] float GetY() const noexcept override;
+
+  [[nodiscard]] float GetWidth() const noexcept override;
+
+  [[nodiscard]] float GetHeight() const noexcept override;
+
+  [[nodiscard]] Rectangle GetHitbox() const noexcept override;
+
+  [[nodiscard]] float GetCenterY() const noexcept override;
+
+  [[nodiscard]] int GetDepth() const noexcept override;
 };
 
 }

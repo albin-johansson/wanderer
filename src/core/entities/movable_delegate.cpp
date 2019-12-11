@@ -4,8 +4,8 @@
 
 namespace albinjohansson::wanderer {
 
-MovableObjectDelegate::MovableObjectDelegate(float width, float height)
-    : width(width), height(height) {
+MovableObjectDelegate::MovableObjectDelegate(int depth, float width, float height)
+    : depth(depth), width(width), height(height) {
   if (width < 1 || height < 1) {
     throw std::invalid_argument("Invalid dimensions!");
   }
@@ -13,10 +13,6 @@ MovableObjectDelegate::MovableObjectDelegate(float width, float height)
 }
 
 MovableObjectDelegate::~MovableObjectDelegate() = default;
-
-IMovableObject_uptr MovableObjectDelegate::Create(float width, float height) {
-  return std::make_unique<MovableObjectDelegate>(width, height);
-}
 
 void MovableObjectDelegate::Draw(Renderer& renderer,
                                  const Viewport& viewport) const noexcept {
@@ -140,7 +136,7 @@ float MovableObjectDelegate::GetCenterY() const noexcept {
 }
 
 int MovableObjectDelegate::GetDepth() const noexcept {
-  return RenderDepth::MAX;
+  return depth;
 }
 
 }

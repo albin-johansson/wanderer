@@ -2,7 +2,6 @@
 #include "game_object.h"
 #include "direction.h"
 #include "vector_2.h"
-#include <memory>
 
 namespace albinjohansson::wanderer {
 
@@ -151,9 +150,5 @@ class IMovableObject : public virtual IGameObject {
    */
   [[nodiscard]] virtual Vector2 GetInterpolatedPosition() const noexcept = 0;
 };
-
-using IMovableObject_uptr = std::unique_ptr<IMovableObject>;
-using IMovableObject_sptr = std::shared_ptr<IMovableObject>;
-using IMovableObject_wptr = std::weak_ptr<IMovableObject>;
 
 }
