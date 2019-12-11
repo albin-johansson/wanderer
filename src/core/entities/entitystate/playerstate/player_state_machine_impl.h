@@ -26,18 +26,8 @@ class PlayerStateMachineImpl final : public IPlayerStateMachine,
 
   ~PlayerStateMachineImpl() override;
 
-  /**
-   * Creates and returns a unique pointer to a player state machine instance.
-   *
-   * @param entity a pointer to the associated entity instance, will not be freed by the created
-   * state machine.
-   * @return a unique pointer to a player state machine instance.
-   * @throws NullPointerException if any pointers are null.
-   * @since 0.1.0
-   */
-  static IPlayerStateMachine_uptr Create(IEntity* entity);
-
   void HandleInput(const Input& input, const IWandererCore& core) override;
+
 };
 
 }

@@ -3,6 +3,7 @@
 #include "tile_id.h"
 #include "render_depth.h"
 #include "tile_animation.h"
+#include <memory>
 
 namespace albinjohansson::wanderer {
 

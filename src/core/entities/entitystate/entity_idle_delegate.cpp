@@ -1,5 +1,6 @@
 #include "entity_idle_delegate.h"
 #include "objects.h"
+#include "entity.h"
 #include "entity_sheet.h"
 #include "entity_draw_delegate.h"
 

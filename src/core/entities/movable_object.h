@@ -104,10 +104,10 @@ class IMovableObject : public virtual IGameObject {
   /**
    * Sets the current velocity of the movable.
    *
-   * @param v the vector that represents the new velocity.
+   * @param velocity the vector that represents the new velocity.
    * @since 0.1.0
    */
-  virtual void SetVelocity(const Vector2& v) noexcept = 0;
+  virtual void SetVelocity(const Vector2& velocity) noexcept = 0;
 
   /**
    * Returns the movement speed of the movable. Note! This is not the same as the velocity

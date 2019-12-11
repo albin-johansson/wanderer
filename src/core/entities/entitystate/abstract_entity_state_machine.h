@@ -4,7 +4,7 @@
 #include "entity_state_id.h"
 #include "objects.h"
 #include "entity.h"
-#include <map>
+#include <unordered_map>
 #include <memory>
 
 namespace albinjohansson::wanderer {
@@ -14,7 +14,7 @@ class AbstractEntityStateMachine : public virtual IEntityStateMachine {
  private:
   IEntity* entity = nullptr;
   EntityStateID activeStateID = EntityStateID::IDLE;
-  std::map<EntityStateID, std::unique_ptr<T>> states;
+  std::unordered_map<EntityStateID, std::unique_ptr<T>> states;
 
  protected:
   explicit AbstractEntityStateMachine(IEntity* entity) {

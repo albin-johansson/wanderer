@@ -1,7 +1,7 @@
 #include "player_moving_state.h"
 #include "entity_sheet.h"
 #include "objects.h"
-;
+#include "input.h"
 
 namespace albinjohansson::wanderer {
 

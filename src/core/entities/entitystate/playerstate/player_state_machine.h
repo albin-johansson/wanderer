@@ -1,10 +1,11 @@
 #pragma once
 #include "entity_state_machine.h"
-#include "input.h"
-#include "wanderer_core.h"
 #include <memory>
 
 namespace albinjohansson::wanderer {
+
+class Input;
+class IWandererCore;
 
 /**
  * The IPlayerStateMachine interface is a subinterface of IEntityStateMachine that specifies
@@ -28,9 +29,5 @@ class IPlayerStateMachine : public virtual IEntityStateMachine {
    */
   virtual void HandleInput(const Input& input, const IWandererCore& core) = 0;
 };
-
-using IPlayerStateMachine_uptr = std::unique_ptr<IPlayerStateMachine>;
-using IPlayerStateMachine_sptr = std::shared_ptr<IPlayerStateMachine>;
-using IPlayerStateMachine_wptr = std::weak_ptr<IPlayerStateMachine>;
 
 }

@@ -2,7 +2,6 @@
 #include "movable_object.h"
 #include "animated.h"
 #include "tile.h"
-#include <memory>
 
 namespace albinjohansson::wanderer {
 
@@ -50,9 +49,5 @@ class IEntity : public virtual IMovableObject, public virtual IAnimated {
   [[nodiscard]] virtual bool IsDead() const noexcept = 0;
 
 };
-
-using IEntity_uptr = std::unique_ptr<IEntity>;
-using IEntity_sptr = std::shared_ptr<IEntity>;
-using IEntity_wptr = std::weak_ptr<IEntity>;
 
 }

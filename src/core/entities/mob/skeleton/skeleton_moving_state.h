@@ -2,6 +2,7 @@
 #include "entity_state.h"
 #include "entity_move_delegate.h"
 #include "entity_state_machine.h"
+#include "direction.h"
 #include <SDL_timer.h>
 
 namespace albinjohansson::wanderer {

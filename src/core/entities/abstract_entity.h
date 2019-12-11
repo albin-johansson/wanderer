@@ -7,6 +7,7 @@
 namespace albinjohansson::wanderer {
 
 class IWandererCore;
+class Image;
 
 /**
  * The AbstractEntity class is an abstract class that implements the IEntity interface.

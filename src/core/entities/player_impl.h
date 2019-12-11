@@ -1,11 +1,12 @@
 #pragma once
 #include "player.h"
 #include "abstract_entity.h"
-#include "player_state_machine.h"
-#include "image.h"
+#include "player_state_machine.h" // FIXME shouldn't be required, but is seems to be
 #include <memory>
 
 namespace albinjohansson::wanderer {
+
+class IPlayerStateMachine;
 
 /**
  * The Player class represents the entity that is controlled by the player.
@@ -15,33 +16,23 @@ namespace albinjohansson::wanderer {
  */
 class PlayerImpl final : public AbstractEntity, public IPlayer {
  private:
-  IPlayerStateMachine_uptr playerStateMachine = nullptr;
+  std::unique_ptr<IPlayerStateMachine> playerStateMachine = nullptr;
 
  public:
   /**
-   * @param sheet a shared pointer to the tile sheet image which will be used by the player.
+   * @param sheet a pointer to the tile sheet image which will be used by the player.
    * @throws NullPointerException if the supplied image pointer is null.
    * @since 0.1.0
    */
-  explicit PlayerImpl(Image_sptr sheet);
+  explicit PlayerImpl(std::shared_ptr<Image> sheet);
 
   ~PlayerImpl() override = default;
 
   void Tick(IWandererCore& core, float delta) override;
 
-  /**
-   * Handles the supplied input.
-   *
-   * @param input a reference to the input state.
-   * @since 0.1.0
-   */
-  void HandleInput(const Input& input, const IWandererCore& core) override {
-    playerStateMachine->HandleInput(input, core);
-  }
+  void HandleInput(const Input& input, const IWandererCore& core) override;
 
-  void Draw(Renderer& renderer, const Viewport& viewport) const noexcept override {
-    playerStateMachine->Draw(renderer, viewport);
-  }
+  void Draw(Renderer& renderer, const Viewport& viewport) const noexcept override;
 };
 
 }

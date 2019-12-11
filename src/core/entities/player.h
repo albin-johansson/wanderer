@@ -1,10 +1,9 @@
 #pragma once
 #include "entity.h"
-#include "input.h"
-#include "wanderer_core.h"
-#include <memory>
 
 namespace albinjohansson::wanderer {
+
+class Input;
 
 class IPlayer : public virtual IEntity {
  protected:
@@ -15,9 +14,5 @@ class IPlayer : public virtual IEntity {
 
   virtual void HandleInput(const Input& input, const IWandererCore& core) = 0;
 };
-
-using IPlayer_uptr = std::unique_ptr<IPlayer>;
-using IPlayer_sptr = std::shared_ptr<IPlayer>;
-using IPlayer_wptr = std::weak_ptr<IPlayer>;
 
 }

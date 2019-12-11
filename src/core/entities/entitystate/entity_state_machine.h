@@ -1,11 +1,12 @@
 #pragma once
-#include <memory>
 #include "drawable.h"
 #include "entity_state_id.h"
-#include "entity.h"
-#include "input.h"
+#include <memory>
 
 namespace albinjohansson::wanderer {
+
+class IWandererCore;
+class IEntity;
 
 /**
  * The IEntityStateMachine interface specifies objects that represent state machines related to
@@ -32,9 +33,5 @@ class IEntityStateMachine : public IDrawable {
 
   [[nodiscard]] virtual IEntity& GetEntity() = 0;
 };
-
-using IEntityStateMachine_uptr = std::unique_ptr<IEntityStateMachine>;
-using IEntityStateMachine_sptr = std::shared_ptr<IEntityStateMachine>;
-using IEntityStateMachine_wptr = std::weak_ptr<IEntityStateMachine>;
 
 }

@@ -2,6 +2,7 @@
 #include "random_utils.h"
 #include "player.h"
 #include "skeleton.h"
+#include "wanderer_core.h"
 
 namespace albinjohansson::wanderer {
 

@@ -1,6 +1,7 @@
 #include "skeleton_idle_state.h"
 #include "player.h"
 #include "skeleton.h"
+#include "wanderer_core.h"
 
 namespace albinjohansson::wanderer {
 

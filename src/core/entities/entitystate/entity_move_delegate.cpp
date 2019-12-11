@@ -2,6 +2,7 @@
 #include "entity_sheet.h"
 #include "objects.h"
 #include "entity_draw_delegate.h"
+#include "entity.h"
 
 namespace albinjohansson::wanderer {
 

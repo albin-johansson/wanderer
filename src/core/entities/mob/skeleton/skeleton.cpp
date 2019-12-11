@@ -1,11 +1,15 @@
 #include "skeleton.h"
-#include <utility>
-#include "objects.h"
 #include "skeleton_state_machine.h"
+#include "image.h"
+#include "renderer.h"
+#include "viewport.h"
+#include "wanderer_core.h"
+#include "objects.h"
+#include <utility>
 
 namespace albinjohansson::wanderer {
 
-Skeleton::Skeleton(Image_sptr sheet) : AbstractEntity(std::move(sheet)) {
+Skeleton::Skeleton(std::shared_ptr<Image> sheet) : AbstractEntity(std::move(sheet)) {
   stateMachine = std::make_unique<SkeletonStateMachine>(this);
 }
 

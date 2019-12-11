@@ -17,10 +17,6 @@ PlayerStateMachineImpl::PlayerStateMachineImpl(IEntity* entity)
 
 PlayerStateMachineImpl::~PlayerStateMachineImpl() = default;
 
-IPlayerStateMachine_uptr PlayerStateMachineImpl::Create(IEntity* entity) {
-  return std::make_unique<PlayerStateMachineImpl>(entity);
-}
-
 void PlayerStateMachineImpl::HandleInput(const Input& input, const IWandererCore& core) {
   GetActiveState().HandleInput(input, core);
 }
