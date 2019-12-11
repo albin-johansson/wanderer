@@ -97,7 +97,7 @@ class AbstractEntity : public virtual IEntity {
 
   void SetAnimationFrameAmount(int nFrames) override { animation.SetNumberOfFrames(nFrames); }
 
-  void SetAnimationDelay(Uint32 ms) override { animation.SetDelay(ms); }
+  void SetAnimationDelay(uint32_t ms) override { animation.SetDelay(ms); }
 
   [[nodiscard]] int GetAnimationFrame() const noexcept override { return animation.GetIndex(); }
 

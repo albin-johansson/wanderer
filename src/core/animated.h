@@ -1,8 +1,9 @@
 #pragma once
-#include <SDL_types.h>
-#include "image.h"
+#include <cstdint>
 
 namespace albinjohansson::wanderer {
+
+class Image;
 
 /**
  * The IAnimated interface specifies objects that can be animated.
@@ -46,7 +47,7 @@ class IAnimated {
    * @param ms the delay in between frames, in milliseconds.
    * @since 0.1.0
    */
-  virtual void SetAnimationDelay(Uint32 ms) = 0;
+  virtual void SetAnimationDelay(uint32_t ms) = 0;
 
   /**
    * Returns the index of the currently active animation frame.
