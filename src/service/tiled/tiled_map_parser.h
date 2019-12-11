@@ -26,7 +26,7 @@ class TiledMapParser final {
 
   void LoadMap();
 
-  [[nodiscard]] pugi::xml_document LoadDocument(const std::string& path);
+  [[nodiscard]] static pugi::xml_document LoadDocument(const std::string& path);
 
   [[nodiscard]] std::unique_ptr<TileSet> LoadTileSet(const pugi::xml_node& mapRootNode);
 

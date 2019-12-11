@@ -3,9 +3,10 @@
 
 namespace albinjohansson::wanderer {
 
+TileAnimation::TileAnimation() noexcept = default;
+
 TileAnimation::TileAnimation(int nFrames) : nFrames(nFrames) {
-  frames.reserve(nFrames);
-  index = 0;
+//  frames.reserve(nFrames);
   previous = SDL_GetTicks();
 }
 

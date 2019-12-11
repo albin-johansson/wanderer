@@ -1,47 +1,44 @@
 #pragma once
 #include "game_object.h"
-#include "drawable.h"
-#include "image.h"
-#include "animation.h"
-#include "tile_animation.h"
 #include "tile_id.h"
-#include <memory>
+#include "render_depth.h"
+#include "tile_animation.h"
 
 namespace albinjohansson::wanderer {
 
+class Image;
 class Vector2;
 class TileSet;
+class Frame;
 
-struct TilePos {
-  int row = 0;
-  int col = 0;
-};
-
-struct TileProperties { // TODO reorder fields
-  Image_sptr sheet = nullptr;
-  TileID id = 0;
-  TileAnimation animation = TileAnimation(1);
-  Rectangle hitbox = {0, 0, 1, 1};
-  bool blocked = false;
-  bool animated = false;
-  int group = 0;
-  int renderGroup = 0;
-  bool isPivot = false;
-  int depth = 0;
-  bool isObject = false;
-};
-
-class Tile {
+/**
+ * The Tile class represents a type of tile. Note! The Tile class is designed to represent a type
+ * of tile, and as such, only one instance is meant to be created for each type. For storage of a
+ * tile map, all that is needed is a matrix of tile identifiers.
+ *
+ * @since 0.1.0
+ */
+class Tile final {
  private:
-  TileProperties properties;
+  std::shared_ptr<Image> sheet = nullptr;
+  Rectangle hitbox; // TODO create Hitbox class which holds multiple rectangles
+
+  TileAnimation animation;
+
+  TileID id = Tile::EMPTY;
+  int depth = RenderDepth::MIN;
+
+  bool isBlocked = false;
+  bool isAnimated = false;
+  bool isObject = false;
 
  public:
   static constexpr float SIZE = 64;
   static constexpr TileID EMPTY = 0;
 
-  explicit Tile(TileProperties properties);
+  Tile() noexcept;
 
-  ~Tile();
+  ~Tile() noexcept;
 
   void Draw(const Vector2& pos,
             Renderer& renderer,
@@ -50,15 +47,21 @@ class Tile {
 
   void Tick();
 
-  [[nodiscard]] Image& GetImage() const noexcept { return *properties.sheet; }
+  void SetSheet(std::shared_ptr<Image> sheet);
 
-  /**
-   * Returns the type ID the tile.
-   *
-   * @return the type ID the tile.
-   * @since 0.1.0
-   */
-  [[nodiscard]] TileID GetId() const noexcept { return properties.id; }
+  void SetBlocked(bool isBlocked) noexcept;
+
+  void SetAnimated(bool isAnimated) noexcept;
+
+  void SetObject(bool isObject) noexcept;
+
+  void SetDepth(int depth) noexcept;
+
+  void SetId(TileID id) noexcept;
+
+  void SetAnimation(const TileAnimation& animation) noexcept;
+
+  void SetHitbox(const Rectangle& hitbox) noexcept;
 
   /**
    * Indicates whether or not the tile is blocked.
@@ -66,19 +69,26 @@ class Tile {
    * @return true if the tile is blocked; false otherwise.
    * @since 0.1.0
    */
-  [[nodiscard]] bool IsBlocked() const noexcept { return properties.blocked; }
+  [[nodiscard]] bool IsBlocked() const noexcept;
 
-  [[nodiscard]] bool IsAnimated() const noexcept { return properties.animated; }
+  [[nodiscard]] bool IsAnimated() const noexcept;
 
   [[nodiscard]] bool IsObject() const noexcept;
 
   [[nodiscard]] int GetDepth() const noexcept;
 
   [[nodiscard]] TileID GetFrameId() const;
-};
 
-using ITile_uptr = std::unique_ptr<Tile>;
-using ITile_sptr = std::shared_ptr<Tile>;
-using ITile_wptr = std::weak_ptr<Tile>;
+  /**
+   * Returns the type ID the tile.
+   *
+   * @return the type ID the tile.
+   * @since 0.1.0
+   */
+  [[nodiscard]] TileID GetId() const noexcept;
+
+  [[nodiscard]] Image& GetImage() const noexcept;
+
+};
 
 }

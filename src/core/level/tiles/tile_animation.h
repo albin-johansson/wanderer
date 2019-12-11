@@ -1,8 +1,7 @@
 #pragma once
 #include "tile_id.h"
-#include "rectangle.h"
 #include <unordered_map>
-#include <SDL.h>
+#include <cstdint>
 
 namespace albinjohansson::wanderer {
 
@@ -19,6 +18,8 @@ class TileAnimation final {
   uint32_t previous = 0;
 
  public:
+  TileAnimation() noexcept;
+
   explicit TileAnimation(int nFrames);
 
   ~TileAnimation();

@@ -1,19 +1,21 @@
 #include "tile.h"
-#include "vector_2.h"
-#include "viewport.h"
-#include "renderer.h"
-#include "tile_set.h"
+
 #include <utility>
+#include "vector_2.h"
+#include "renderer.h"
+#include "viewport.h"
+#include "tile_set.h"
+#include "rectangle.h"
 
 namespace albinjohansson::wanderer {
 
-Tile::Tile(TileProperties properties) : properties(std::move(properties)) {}
+Tile::Tile() noexcept = default;
 
-Tile::~Tile() = default;
+Tile::~Tile() noexcept = default;
 
 void Tile::Tick() {
-  if (properties.animated) {
-    properties.animation.Update();
+  if (isAnimated) {
+    animation.Update();
   }
 }
 
@@ -21,40 +23,81 @@ void Tile::Draw(const Vector2& pos,
                 Renderer& renderer,
                 const Viewport& viewport,
                 const TileSet& tileSet) const {
-  if (GetId() == EMPTY) {
-    return;
+  if (GetId() != EMPTY) {
+    Rectangle src = IsAnimated() ? tileSet.GetSource(GetFrameId()) : tileSet.GetSource(GetId());
+    Rectangle dst = {viewport.GetTranslatedX(pos.x), viewport.GetTranslatedY(pos.y), SIZE, SIZE};
+    renderer.RenderTexture(*sheet, src, dst);
+
+    if (IsBlocked()) {
+      renderer.SetColor(0xFF, 0, 0);
+      renderer.RenderRect(dst.GetX() + hitbox.GetX(),
+                          dst.GetY() + hitbox.GetY(),
+                          hitbox.GetWidth(),
+                          hitbox.GetHeight());
+    }
   }
+}
 
-  Rectangle src = IsAnimated() ? tileSet.GetSource(GetFrameId())
-                               : tileSet.GetSource(GetId());
+void Tile::SetSheet(std::shared_ptr<Image> sheet) {
+  this->sheet = std::move(sheet);
+}
 
-  // TODO this could be pre-computed
-  Rectangle dst = {viewport.GetTranslatedX(pos.x),
-                   viewport.GetTranslatedY(pos.y),
-                   SIZE,
-                   SIZE};
+void Tile::SetBlocked(bool isBlocked) noexcept {
+  this->isBlocked = isBlocked;
+}
 
-  renderer.RenderTexture(*properties.sheet, src, dst);
+void Tile::SetAnimated(bool isAnimated) noexcept {
+  this->isAnimated = isAnimated;
+}
 
-  if (IsBlocked()) {
-    renderer.SetColor(0xFF, 0, 0);
-    renderer.RenderRect(dst.GetX() + properties.hitbox.GetX(),
-                        dst.GetY() + properties.hitbox.GetY(),
-                        properties.hitbox.GetWidth(),
-                        properties.hitbox.GetHeight());
-  }
+void Tile::SetObject(bool isObject) noexcept {
+  this->isObject = isObject;
+}
+
+void Tile::SetDepth(int depth) noexcept {
+  if (depth < RenderDepth::MIN) { depth = RenderDepth::MIN; }
+  if (depth > RenderDepth::MAX) { depth = RenderDepth::MAX; }
+  this->depth = depth;
+}
+
+void Tile::SetId(TileID id) noexcept {
+  this->id = id;
+}
+
+void Tile::SetAnimation(const TileAnimation& animation) noexcept {
+  this->animation = animation;
+}
+
+void Tile::SetHitbox(const Rectangle& hitbox) noexcept {
+  this->hitbox = hitbox;
+}
+
+Image& Tile::GetImage() const noexcept {
+  return *sheet;
+}
+
+TileID Tile::GetId() const noexcept {
+  return id;
 }
 
 int Tile::GetDepth() const noexcept {
-  return properties.depth;
+  return depth;
 }
 
 bool Tile::IsObject() const noexcept {
-  return properties.isObject;
+  return isObject;
+}
+
+bool Tile::IsBlocked() const noexcept {
+  return isBlocked;
+}
+
+bool Tile::IsAnimated() const noexcept {
+  return isAnimated;
 }
 
 TileID Tile::GetFrameId() const {
-  return properties.animated ? properties.animation.GetFrame().frameId : properties.id;
+  return isAnimated ? animation.GetFrame().frameId : id;
 }
 
 }

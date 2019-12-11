@@ -56,36 +56,31 @@ std::unique_ptr<TileSet> TiledMapParser::LoadTileSet(const pugi::xml_node& mapRo
     const TileID firstId = tiledTileSet.GetFirstTileId();
     const TileID lastId = tiledTileSet.GetLastTileId();
 
-//    std::map<int, std::vector<tiled::TiledTile>> groups;
-
     int i = 0;
     for (TileID id = firstId; id <= lastId; id++, i++) {
-      TileProperties properties = {sheetImage, id};
+      Tile tile;
+
+      tile.SetSheet(sheetImage);
+      tile.SetId(id);
 
       if (tiledTileSet.HasTile(id)) {
-        const auto& tile = tiledTileSet.GetTile(id);
+        const auto& tiledTile = tiledTileSet.GetTile(id);
 
-        if (tile.HasProperty("depth")) {
-          properties.depth = tile.GetIntProperty("depth");
+        if (tiledTile.HasProperty("depth")) {
+          tile.SetDepth(tiledTile.GetIntProperty("depth"));
         }
 
-//        if (tile.HasAttribute("type") &&
-//            tile.GetStringAttribute("type") == "Object") { // TODO rename type
-//          properties.isObject = true;
-//        }
-
-        if (tile.HasProperty("isObject")) { // TODO remove
-          properties.isObject = tile.GetBoolProperty("isObject");
+        if (tiledTile.HasProperty("isObject")) { // TODO remove?
+          tile.SetObject(tiledTile.GetBoolProperty("isObject"));
         }
 
-        if (tile.IsAnimated()) {
-          TileAnimation animation = CreateAnimation(tile.GetAnimation());
-          properties.animation = animation;
-          properties.animated = true;
+        if (tiledTile.IsAnimated()) {
+          tile.SetAnimation(CreateAnimation(tiledTile.GetAnimation()));
+          tile.SetAnimated(true);
         }
 
-        if (tile.HasObject("hitbox")) {
-          const auto& object = tile.GetObject("hitbox");
+        if (tiledTile.HasObject("hitbox")) {
+          const auto& object = tiledTile.GetObject("hitbox");
 
           const float x = std::stof(object.GetAttribute("x"));
           const float y = std::stof(object.GetAttribute("y"));
@@ -95,21 +90,14 @@ std::unique_ptr<TileSet> TiledMapParser::LoadTileSet(const pugi::xml_node& mapRo
           const auto wscale = w / tileSize;
           const auto hscale = h / tileSize;
 
-          Rectangle hitbox(x, y, wscale * Tile::SIZE, hscale * Tile::SIZE);
-
-          properties.hitbox = hitbox;
-          properties.blocked = true;
+          tile.SetHitbox(Rectangle(x, y, wscale * Tile::SIZE, hscale * Tile::SIZE));
+          tile.SetBlocked(true);
         }
-
       }
 
-      const int row = i / sheetCols;
-      const int col = i % sheetCols;
-
-      tileSet->Insert(id, Tile(properties), Rectangle(col * tileSize,
-                                                      row * tileSize,
-                                                      tileSize,
-                                                      tileSize));
+      const int x = (i % sheetCols) * static_cast<int>(tileSize);
+      const int y = (i / sheetCols) * static_cast<int>(tileSize);
+      tileSet->Insert(id, tile, Rectangle(x, y, tileSize, tileSize));
     }
   }
 
