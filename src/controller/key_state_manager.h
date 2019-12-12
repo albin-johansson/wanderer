@@ -1,21 +1,15 @@
 #pragma once
 #include <SDL.h>
 #include <vector>
-#include <memory>
+#include <cstdint>
 
 namespace albinjohansson::wanderer {
 
-class KeyStateManager;
-
-using KeyStateManager_uptr = std::unique_ptr<KeyStateManager>;
-using KeyStateManager_sptr = std::shared_ptr<KeyStateManager>;
-using KeyStateManager_wptr = std::weak_ptr<KeyStateManager>;
-
 class KeyStateManager final {
  private:
-  std::vector<Uint8> prevStates;
-  const Uint8* stateArr;
-  int nKeys;
+  std::vector<uint8_t> prevStates;
+  const uint8_t* stateArr = nullptr;
+  int nKeys = 0;
 
   void CopyStates();
 
@@ -23,8 +17,6 @@ class KeyStateManager final {
   KeyStateManager();
 
   ~KeyStateManager();
-
-  static KeyStateManager_uptr Create();
 
   /**
    * Updates the key state.
@@ -40,7 +32,7 @@ class KeyStateManager final {
    * @return true if the key associated with the specified scancode is pressed; false otherwise.
    * @since 0.1.0
    */
-  bool IsPressed(SDL_Scancode scancode) const;
+  [[nodiscard]] bool IsPressed(SDL_Scancode scancode) const;
 
   /**
    * Indicates whether or not the key associated with the specified scancode was just pressed.
@@ -50,7 +42,7 @@ class KeyStateManager final {
    * otherwise.
    * @since 0.1.0
    */
-  bool WasJustPressed(SDL_Scancode scancode) const;
+  [[nodiscard]] bool WasJustPressed(SDL_Scancode scancode) const;
 
   /**
    * Indicates whether or not the key associated with the specified scancode was released.
@@ -59,7 +51,7 @@ class KeyStateManager final {
    * @return true if the key associated with the specified scancode was released; false otherwise.
    * @since 0.1.0
    */
-  bool WasReleased(SDL_Scancode scancode) const;
+  [[nodiscard]] bool WasReleased(SDL_Scancode scancode) const;
 
 };
 

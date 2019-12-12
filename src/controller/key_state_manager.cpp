@@ -3,10 +3,9 @@
 namespace albinjohansson::wanderer {
 
 KeyStateManager::KeyStateManager() {
-  nKeys = 0;
   stateArr = SDL_GetKeyboardState(&nKeys);
 
-  prevStates = std::vector<Uint8>(nKeys);
+  prevStates = std::vector<uint8_t>(nKeys);
   for (int i = 0; i < nKeys; i++) {
     prevStates[i] = 0;
   }
@@ -14,10 +13,6 @@ KeyStateManager::KeyStateManager() {
 
 KeyStateManager::~KeyStateManager() {
   stateArr = nullptr;
-}
-
-KeyStateManager_uptr KeyStateManager::Create() {
-  return std::make_unique<KeyStateManager>();
 }
 
 void KeyStateManager::CopyStates() {
@@ -37,10 +32,6 @@ bool KeyStateManager::IsPressed(const SDL_Scancode scancode) const {
 bool KeyStateManager::WasJustPressed(const SDL_Scancode scancode) const {
   return stateArr[scancode] && !prevStates.at(scancode);
 }
-
-//bool KeyStateManager::IsDown(const SDL_Scancode scancode) const {
-//  return false;
-//}
 
 bool KeyStateManager::WasReleased(const SDL_Scancode scancode) const {
   return !stateArr[scancode] && prevStates.at(scancode);
