@@ -1,6 +1,5 @@
 #pragma once
 #include "entity_state.h"
-#include <memory>
 
 namespace albinjohansson::wanderer {
 
@@ -29,9 +28,5 @@ class IPlayerState : public IEntityState {
    */
   virtual void HandleInput(const Input& input, const IWandererCore& core) = 0;
 };
-
-using IPlayerState_uptr = std::unique_ptr<IPlayerState>;
-using IPlayerState_sptr = std::shared_ptr<IPlayerState>;
-using IPlayerState_wptr = std::weak_ptr<IPlayerState>;
 
 }
