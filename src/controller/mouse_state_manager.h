@@ -1,13 +1,6 @@
 #pragma once
-#include <memory>
 
 namespace albinjohansson::wanderer {
-
-class MouseStateManager;
-
-using MouseStateManager_uptr = std::unique_ptr<MouseStateManager>;
-using MouseStateManager_sptr = std::shared_ptr<MouseStateManager>;
-using MouseStateManager_wptr = std::weak_ptr<MouseStateManager>;
 
 class MouseStateManager final {
  private:
@@ -26,11 +19,9 @@ class MouseStateManager final {
   bool rightPressed = false;
 
  public:
-  MouseStateManager();
+  MouseStateManager() noexcept;
 
-  ~MouseStateManager();
-
-  static MouseStateManager_uptr Create();
+  ~MouseStateManager() noexcept;
 
   void Update();
 
@@ -42,33 +33,19 @@ class MouseStateManager final {
 
   void SetLogicalHeight(int logicalHeight);
 
-  [[nodiscard]] inline float GetMouseX() const noexcept {
-    return mouseX;
-  }
+  [[nodiscard]] float GetMouseX() const noexcept;
 
-  [[nodiscard]] inline float GetMouseY() const noexcept {
-    return mouseY;
-  }
+  [[nodiscard]] float GetMouseY() const noexcept;
 
-  [[nodiscard]] inline bool IsLeftButtonPressed() const noexcept {
-    return leftPressed;
-  }
+  [[nodiscard]] bool IsLeftButtonPressed() const noexcept;
 
-  [[nodiscard]] inline bool IsRightButtonPressed() const noexcept {
-    return rightPressed;
-  }
+  [[nodiscard]] bool IsRightButtonPressed() const noexcept;
 
-  [[nodiscard]] inline bool WasLeftButtonReleased() const noexcept {
-    return !leftPressed && prevLeftPressed;
-  }
+  [[nodiscard]] bool WasLeftButtonReleased() const noexcept;
 
-  [[nodiscard]] inline bool WasRightButtonReleased() const noexcept {
-    return !rightPressed && prevRightPressed;
-  }
+  [[nodiscard]] bool WasRightButtonReleased() const noexcept;
 
-  [[nodiscard]] bool WasMouseMoved() const noexcept {
-    return oldX != mouseX || oldY != mouseY;
-  }
+  [[nodiscard]] bool WasMouseMoved() const noexcept;
 };
 
 }

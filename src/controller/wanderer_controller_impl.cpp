@@ -1,8 +1,9 @@
 #include "wanderer_controller_impl.h"
 #include "window.h"
-#include "input.h"
 #include "smooth_fixed_timestep_loop.h"
 #include "wanderer_core_factory.h"
+#include "key_state_manager.h"
+#include "mouse_state_manager.h"
 #include "image_generator.h"
 #include "display_modes.h"
 #include <SDL.h>
@@ -20,6 +21,34 @@ WandererControllerImpl::WandererControllerImpl() {
   window->SetFullscreen(false);
 #endif
 
+  InitIcon();
+
+  renderer = Renderer::Create(window->GetInternalWindow());
+  renderer->SetLogicalSize(LOGICAL_WIDTH, LOGICAL_HEIGHT);
+
+  auto imageGenerator = std::make_unique<ImageGenerator>(renderer);
+  core = CreateCore(*imageGenerator);
+  core->SetViewportWidth(LOGICAL_WIDTH);
+  core->SetViewportHeight(LOGICAL_HEIGHT);
+
+  keyStateManager = std::make_shared<KeyStateManager>();
+  mouseStateManager = std::make_shared<MouseStateManager>();
+
+  mouseStateManager->SetLogicalWidth(LOGICAL_WIDTH);
+  mouseStateManager->SetLogicalHeight(LOGICAL_HEIGHT);
+
+  // TODO setters need to be called every time the window size changes
+  mouseStateManager->SetWindowWidth(window->GetWidth());
+  mouseStateManager->SetWindowHeight(window->GetHeight());
+
+  gameLoop = std::make_unique<SmoothFixedTimestepLoop>(keyStateManager,
+                                                       mouseStateManager,
+                                                       static_cast<float>(desktop.refresh_rate));
+}
+
+WandererControllerImpl::~WandererControllerImpl() = default;
+
+void WandererControllerImpl::InitIcon() {
   SDL_Surface* icon = IMG_Load("resources/img/tactile_icon.png");
   if (icon != nullptr) {
     window->SetIcon(icon);
@@ -29,32 +58,7 @@ WandererControllerImpl::WandererControllerImpl() {
                    SDL_LOG_PRIORITY_WARN,
                    "Failed to load window icon! %s", SDL_GetError());
   }
-
-  renderer = Renderer::Create(window->GetInternalWindow());
-//  renderer->SetFont(Font::Create("resources/font/type_writer.ttf", 24));
-  renderer->SetLogicalSize(LOGICAL_WIDTH, LOGICAL_HEIGHT);
-
-  auto imageGenerator = ImageGenerator::Create(renderer);
-  core = CreateCore(*imageGenerator);
-  core->SetViewportWidth(LOGICAL_WIDTH);
-  core->SetViewportHeight(LOGICAL_HEIGHT);
-
-  keyStateManager = KeyStateManager::Create();
-  mouseStateManager = MouseStateManager::Create();
-
-  mouseStateManager->SetLogicalWidth(LOGICAL_WIDTH);
-  mouseStateManager->SetLogicalHeight(LOGICAL_HEIGHT);
-
-  // TODO setters need to be called every time the window size changes
-  mouseStateManager->SetWindowWidth(window->GetWidth());
-  mouseStateManager->SetWindowHeight(window->GetHeight());
-
-  gameLoop = SmoothFixedTimestepLoop::Create(keyStateManager,
-                                             mouseStateManager,
-                                             static_cast<float>(desktop.refresh_rate));
 }
-
-WandererControllerImpl::~WandererControllerImpl() = default;
 
 void WandererControllerImpl::Run() {
   window->Show();

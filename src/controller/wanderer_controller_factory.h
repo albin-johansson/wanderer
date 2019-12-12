@@ -2,7 +2,7 @@
 
 namespace albinjohansson::wanderer {
 
-IWandererController_uptr CreateController() {
+std::unique_ptr<IWandererController> CreateController() {
   return std::unique_ptr<IWandererController>(new WandererControllerImpl());
 }
 

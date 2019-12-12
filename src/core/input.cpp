@@ -6,9 +6,9 @@
 
 namespace albinjohansson::wanderer {
 
-Input::Input(KeyStateManager_sptr keyStateManager, MouseStateManager_sptr mouseStateManager) {
-  this->keyStateManager = Objects::RequireNonNull(std::move(keyStateManager));
-  this->mouseStateManager = Objects::RequireNonNull(std::move(mouseStateManager));
+Input::Input(std::shared_ptr<KeyStateManager> ksm, std::shared_ptr<MouseStateManager> msm) {
+  this->keyStateManager = Objects::RequireNonNull(std::move(ksm));
+  this->mouseStateManager = Objects::RequireNonNull(std::move(msm));
 }
 
 Input::~Input() = default;

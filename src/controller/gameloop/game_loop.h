@@ -1,9 +1,9 @@
 #pragma once
-#include "wanderer_core.h"
-#include "renderer.h"
-#include <memory>
 
 namespace albinjohansson::wanderer {
+
+class IWandererCore;
+class Renderer;
 
 /**
  * The IGameLoop interface specifies objects that represent various kinds of game loops that serve
@@ -26,18 +26,6 @@ class IGameLoop {
    * @since 0.1.0
    */
   virtual void Update(IWandererCore& core, Renderer& renderer) = 0;
-
-//  /**
-//   * Indicates whether or not the game should quit.
-//   *
-//   * @return true if the game should quit; false otherwise.
-//   * @since 0.1.0
-//   */
-//  [[nodiscard]] virtual bool ShouldQuit() const noexcept = 0;
 };
-
-using IGameLoop_uptr = std::unique_ptr<IGameLoop>;
-using IGameLoop_sptr = std::shared_ptr<IGameLoop>;
-using IGameLoop_wptr = std::weak_ptr<IGameLoop>;
 
 }

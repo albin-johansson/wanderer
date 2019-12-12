@@ -3,13 +3,9 @@
 
 namespace albinjohansson::wanderer {
 
-MouseStateManager::MouseStateManager() = default;
+MouseStateManager::MouseStateManager() noexcept = default;
 
-MouseStateManager::~MouseStateManager() = default;
-
-MouseStateManager_uptr MouseStateManager::Create() {
-  return std::make_unique<MouseStateManager>();
-}
+MouseStateManager::~MouseStateManager() noexcept = default;
 
 void MouseStateManager::Update() {
   prevLeftPressed = leftPressed;
@@ -46,6 +42,34 @@ void MouseStateManager::SetLogicalWidth(int width) {
 
 void MouseStateManager::SetLogicalHeight(int height) {
   logicalHeight = static_cast<float>(height);
+}
+
+float MouseStateManager::GetMouseX() const noexcept {
+  return mouseX;
+}
+
+float MouseStateManager::GetMouseY() const noexcept {
+  return mouseY;
+}
+
+bool MouseStateManager::IsLeftButtonPressed() const noexcept {
+  return leftPressed;
+}
+
+bool MouseStateManager::IsRightButtonPressed() const noexcept {
+  return rightPressed;
+}
+
+bool MouseStateManager::WasMouseMoved() const noexcept {
+  return oldX != mouseX || oldY != mouseY;
+}
+
+bool MouseStateManager::WasLeftButtonReleased() const noexcept {
+  return !leftPressed && prevLeftPressed;
+}
+
+bool MouseStateManager::WasRightButtonReleased() const noexcept {
+  return !rightPressed && prevRightPressed;
 }
 
 }

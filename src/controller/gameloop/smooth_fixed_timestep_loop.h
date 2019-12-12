@@ -1,19 +1,12 @@
 #pragma once
 #include "game_loop.h"
-#include "wanderer_core.h"
-#include "renderer.h"
-#include "key_state_manager.h"
-#include "mouse_state_manager.h"
 #include <memory>
-#include <SDL_types.h>
+#include <cstdint>
 
 namespace albinjohansson::wanderer {
 
-class SmoothFixedTimestepLoop;
-
-using SmoothFixedTimestepLoop_uptr = std::unique_ptr<SmoothFixedTimestepLoop>;
-using SmoothFixedTimestepLoop_sptr = std::shared_ptr<SmoothFixedTimestepLoop>;
-using SmoothFixedTimestepLoop_wptr = std::weak_ptr<SmoothFixedTimestepLoop>;
+class KeyStateManager;
+class MouseStateManager;
 
 /**
  * The SmoothFixedTimestepLoop class represents a fixed timestep game loop that uses delta time
@@ -31,11 +24,11 @@ class SmoothFixedTimestepLoop final : public IGameLoop {
    */
   static constexpr float MAX_FRAME_TIME = 0.25f;
 
-  KeyStateManager_sptr keyStateManager = nullptr;
-  MouseStateManager_sptr mouseStateManager = nullptr;
+  std::shared_ptr<KeyStateManager> keyStateManager = nullptr;
+  std::shared_ptr<MouseStateManager> mouseStateManager = nullptr;
 
-  Uint32 then = 0;
-  Uint32 now = 0;
+  uint32_t then = 0;
+  uint32_t now = 0;
   const float timeStep;
   const float counterFreq;
   const float vsyncRate;
@@ -64,15 +57,11 @@ class SmoothFixedTimestepLoop final : public IGameLoop {
    * @throws NullPointerException if the supplied pointer is null.
    * @since 0.1.0
    */
-  SmoothFixedTimestepLoop(KeyStateManager_sptr keyStateManager,
-                          MouseStateManager_sptr mouseStateManager,
+  SmoothFixedTimestepLoop(std::shared_ptr<KeyStateManager> keyStateManager,
+                          std::shared_ptr<MouseStateManager> mouseStateManager,
                           float vsyncRate);
 
   ~SmoothFixedTimestepLoop() override;
-
-  static SmoothFixedTimestepLoop_uptr Create(KeyStateManager_sptr keyStateManager,
-                                             MouseStateManager_sptr mouseStateManager,
-                                             float vsyncRate);
 
   void Update(IWandererCore& core, Renderer& renderer) override;
 };

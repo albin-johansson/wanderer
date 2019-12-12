@@ -35,6 +35,8 @@ class WandererControllerImpl final : public IWandererController {
    */
   WandererControllerImpl();
 
+  void InitIcon();
+
  public:
   /**
    * Creates and returns a unique pointer to an IWandererController instance.
@@ -42,7 +44,7 @@ class WandererControllerImpl final : public IWandererController {
    * @throws BadStateException if the desktop dimensions cannot be deduced.
    * @since 0.1.0
    */
-  friend IWandererController_uptr CreateController();
+  friend std::unique_ptr<IWandererController> CreateController();
 
   ~WandererControllerImpl() override;
 

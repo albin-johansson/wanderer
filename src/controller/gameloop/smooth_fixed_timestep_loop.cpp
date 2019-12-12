@@ -1,4 +1,8 @@
 #include "smooth_fixed_timestep_loop.h"
+#include "wanderer_core.h"
+#include "renderer.h"
+#include "key_state_manager.h"
+#include "mouse_state_manager.h"
 #include "objects.h"
 #include "input.h"
 #include <SDL.h>
@@ -6,8 +10,8 @@
 
 namespace albinjohansson::wanderer {
 
-SmoothFixedTimestepLoop::SmoothFixedTimestepLoop(KeyStateManager_sptr keyStateManager,
-                                                 MouseStateManager_sptr mouseStateManager,
+SmoothFixedTimestepLoop::SmoothFixedTimestepLoop(std::shared_ptr<KeyStateManager> keyStateManager,
+                                                 std::shared_ptr<MouseStateManager> mouseStateManager,
                                                  float vsyncRate)
     : vsyncRate(vsyncRate), timeStep(1.0f / vsyncRate), counterFreq(SDL_GetPerformanceFrequency()) {
   this->keyStateManager = Objects::RequireNonNull(std::move(keyStateManager));
@@ -18,12 +22,6 @@ SmoothFixedTimestepLoop::SmoothFixedTimestepLoop(KeyStateManager_sptr keyStateMa
 }
 
 SmoothFixedTimestepLoop::~SmoothFixedTimestepLoop() = default;
-
-SmoothFixedTimestepLoop_uptr SmoothFixedTimestepLoop::Create(KeyStateManager_sptr keyStateManager,
-                                                             MouseStateManager_sptr mouseStateManager,
-                                                             float vsyncRate) {
-  return std::make_unique<SmoothFixedTimestepLoop>(keyStateManager, mouseStateManager, vsyncRate);
-}
 
 void SmoothFixedTimestepLoop::UpdateInput(IWandererCore& core) {
   mouseStateManager->Update();
