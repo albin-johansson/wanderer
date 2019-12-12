@@ -46,13 +46,6 @@ class IMovableObject : public virtual IGameObject {
   virtual void Stop() noexcept = 0;
 
   /**
-   * Saves the current position of the object.
-   *
-   * @since 0.1.0
-   */
-  virtual void SavePosition() noexcept = 0;
-
-  /**
    * Interpolates the previous position of the object with the current position. Use the
    * IMovable::GetInterpolatedPosition method to obtain the affected vector.
    *

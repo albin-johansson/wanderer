@@ -21,7 +21,8 @@ class IGameObject : public virtual ISortableDrawable {
   ~IGameObject() override = default;
 
   /**
-   * Updates the state of the game object.
+   * Updates the state of the game object. This method should save the position of the object
+   * if the object is movable.
    *
    * @param core a reference to the associated wanderer core instance.
    * @param delta the delta time, in seconds.

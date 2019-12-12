@@ -19,7 +19,12 @@ void MovableDelegate::Draw(Renderer& renderer,
 }
 
 void MovableDelegate::Tick(IWandererCore& core, float delta) {
+  SavePosition();
   UpdateDirection();
+}
+
+void MovableDelegate::SavePosition() noexcept {
+  prevPosition.Set(currPosition);
 }
 
 void MovableDelegate::UpdateDirection() {
@@ -81,10 +86,6 @@ void MovableDelegate::Stop() noexcept {
   velocity.y = 0;
   velocity.Norm();
   velocity.Scale(speed);
-}
-
-void MovableDelegate::SavePosition() noexcept {
-  prevPosition.Set(currPosition);
 }
 
 void MovableDelegate::Interpolate(float alpha) noexcept {

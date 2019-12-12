@@ -77,9 +77,7 @@ void TileMapImpl::Tick(IWandererCore& core, const Viewport& viewport, float delt
 
   for (const auto& entity : entities) {
     if (viewportBounds.Intersects(entity->GetHitbox())) {
-      entity->SavePosition(); // FIXME should probably be automatic
       entity->Tick(core, delta);
-
       drawables.push_back(entity);
     }
   }

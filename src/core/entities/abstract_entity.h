@@ -53,8 +53,6 @@ class AbstractEntity : public virtual IEntity {
 
   void Stop() noexcept override;
 
-  void SavePosition() noexcept override;
-
   void Interpolate(float alpha) noexcept override;
 
   void AddX(float dx) noexcept override;

@@ -23,6 +23,8 @@ class MovableDelegate final : public IMovableObject {
   const float height;
   float speed = 0;
 
+  void SavePosition() noexcept;
+
   /**
    * Updates the dominant direction.
    *
@@ -51,8 +53,6 @@ class MovableDelegate final : public IMovableObject {
   void Stop(Direction direction) noexcept override;
 
   void Stop() noexcept override;
-
-  void SavePosition() noexcept override;
 
   void Interpolate(float alpha) noexcept override;
 

@@ -51,10 +51,6 @@ void AbstractEntity::Stop() noexcept {
   movable->Stop();
 }
 
-void AbstractEntity::SavePosition() noexcept {
-  movable->SavePosition();
-}
-
 void AbstractEntity::Interpolate(float alpha) noexcept {
   movable->Interpolate(alpha);
 }
