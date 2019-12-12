@@ -1,15 +1,11 @@
 #include "in_game_menu.h"
-#include "objects.h"
+#include "input.h"
 
 namespace albinjohansson::wanderer {
 
 InGameMenu::InGameMenu(IMenuStateMachine* parent) : AbstractMenu(parent) {}
 
 InGameMenu::~InGameMenu() = default;
-
-IMenu_uptr InGameMenu::Create(IMenuStateMachine* parent) {
-  return std::make_unique<InGameMenu>(parent);
-}
 
 void InGameMenu::Draw(Renderer& renderer,
                       const Viewport& viewport,
@@ -21,6 +17,10 @@ void InGameMenu::HandleInput(const wanderer::Input& input) noexcept {
   } else if (input.WasReleased(SDL_SCANCODE_I)) {
     parent->SetMenu(MenuID::INVENTORY);
   }
+}
+
+bool InGameMenu::IsBlocking() const noexcept {
+  return false;
 }
 
 }

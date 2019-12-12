@@ -1,15 +1,11 @@
 #include "settings_menu.h"
-#include "objects.h"
+#include "input.h"
 
 namespace albinjohansson::wanderer {
 
 SettingsMenu::SettingsMenu(IMenuStateMachine* parent) : AbstractMenu(parent) {}
 
 SettingsMenu::~SettingsMenu() noexcept = default;
-
-IMenu_uptr SettingsMenu::Create(IMenuStateMachine* parent) {
-  return std::make_unique<SettingsMenu>(parent);
-}
 
 void SettingsMenu::Draw(Renderer& renderer, const Viewport& viewport, FontBundle& fonts) const {
   AbstractMenu::Draw(renderer, viewport, fonts);
@@ -22,6 +18,10 @@ void SettingsMenu::HandleInput(const Input& input) noexcept {
   if (input.WasReleased(SDL_SCANCODE_ESCAPE)) {
     parent->SetMenu(MenuID::HOME);
   }
+}
+
+bool SettingsMenu::IsBlocking() const noexcept {
+  return true;
 }
 
 }

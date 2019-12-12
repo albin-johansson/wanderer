@@ -1,15 +1,11 @@
 #include "controls_menu.h"
-;
+#include "input.h"
 
 namespace albinjohansson::wanderer {
 
 ControlsMenu::ControlsMenu(IMenuStateMachine* parent) : AbstractMenu(parent) {}
 
 ControlsMenu::~ControlsMenu() noexcept = default;
-
-IMenu_uptr ControlsMenu::Create(IMenuStateMachine* parent) {
-  return std::make_unique<ControlsMenu>(parent);
-}
 
 void ControlsMenu::Draw(Renderer& renderer, const Viewport& viewport, FontBundle& fonts) const {
   AbstractMenu::Draw(renderer, viewport, fonts);

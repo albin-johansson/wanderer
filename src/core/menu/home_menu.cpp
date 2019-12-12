@@ -1,6 +1,6 @@
 #include "home_menu.h"
 #include "objects.h"
-;;
+#include "input.h"
 
 namespace albinjohansson::wanderer {
 
@@ -15,10 +15,6 @@ HomeMenu::HomeMenu(IMenuStateMachine* parent, IWandererCore* core) :
 }
 
 HomeMenu::~HomeMenu() noexcept = default;
-
-IMenu_uptr HomeMenu::Create(IMenuStateMachine* parent, IWandererCore* core) {
-  return std::make_unique<HomeMenu>(parent, core);
-}
 
 void HomeMenu::HandleInput(const Input& input) noexcept {
   if (input.WasReleased(SDL_SCANCODE_ESCAPE)) {

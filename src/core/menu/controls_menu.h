@@ -11,8 +11,6 @@ class ControlsMenu final : public AbstractMenu {
 
   ~ControlsMenu() noexcept override;
 
-  static IMenu_uptr Create(IMenuStateMachine* parent);
-
   void Draw(Renderer& renderer, const Viewport& viewport, FontBundle& fonts) const override;
 
   void HandleInput(const Input& input) noexcept override;

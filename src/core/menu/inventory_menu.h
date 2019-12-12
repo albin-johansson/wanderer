@@ -12,7 +12,7 @@ class InventoryMenu final : public AbstractMenu {
 
   void HandleInput(const Input& input) noexcept override;
 
-  [[nodiscard]] bool IsBlocking() const noexcept override { return true; }
+  [[nodiscard]] bool IsBlocking() const noexcept override;
 
 };
 

@@ -1,9 +1,9 @@
 #pragma once
-#include "input.h"
 #include "menu_drawable.h"
-#include <memory>
 
 namespace albinjohansson::wanderer {
+
+class Input;
 
 /**
  * The IMenu interface specifies objects that represent interactive menus in the game.
@@ -35,9 +35,5 @@ class IMenu : public IMenuDrawable {
    */
   [[nodiscard]] virtual bool IsBlocking() const noexcept = 0;
 };
-
-using IMenu_uptr = std::unique_ptr<IMenu>;
-using IMenu_sptr = std::shared_ptr<IMenu>;
-using IMenu_wptr = std::weak_ptr<IMenu>;
 
 }

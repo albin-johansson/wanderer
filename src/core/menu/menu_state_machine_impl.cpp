@@ -15,10 +15,10 @@ namespace albinjohansson::wanderer {
 MenuStateMachineImpl::MenuStateMachineImpl(IWandererCore* core)
     : typewriterFonts("resources/font/type_writer.ttf") {
 
-  Put(MenuID::HOME, HomeMenu::Create(this, core));
-  Put(MenuID::IN_GAME, InGameMenu::Create(this));
-  Put(MenuID::SETTINGS, SettingsMenu::Create(this));
-  Put(MenuID::CONTROLS, ControlsMenu::Create(this));
+  Put(MenuID::HOME, std::make_unique<HomeMenu>(this, core));
+  Put(MenuID::IN_GAME, std::make_unique<InGameMenu>(this));
+  Put(MenuID::SETTINGS, std::make_unique<SettingsMenu>(this));
+  Put(MenuID::CONTROLS, std::make_unique<ControlsMenu>(this));
   Put(MenuID::INVENTORY, std::make_unique<InventoryMenu>(this));
 }
 

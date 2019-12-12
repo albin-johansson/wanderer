@@ -1,4 +1,5 @@
 #include "inventory_menu.h"
+#include "input.h"
 
 namespace albinjohansson::wanderer {
 
@@ -11,5 +12,7 @@ void InventoryMenu::HandleInput(const Input& input) noexcept {
     parent->SetMenu(MenuID::IN_GAME);
   }
 }
+
+bool InventoryMenu::IsBlocking() const noexcept { return true; }
 
 }
