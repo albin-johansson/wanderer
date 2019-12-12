@@ -1,6 +1,5 @@
 #pragma once
 #include "drawable.h"
-#include <memory>
 
 namespace albinjohansson::wanderer {
 
@@ -40,9 +39,5 @@ class IEntityState : public IDrawable {
   virtual void Exit(const IWandererCore& core) = 0;
 
 };
-
-using IEntityState_uptr = std::unique_ptr<IEntityState>;
-using IEntityState_sptr = std::shared_ptr<IEntityState>;
-using IEntityState_wptr = std::weak_ptr<IEntityState>;
 
 }
