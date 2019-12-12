@@ -70,8 +70,8 @@ std::unique_ptr<TileSet> TiledMapParser::LoadTileSet(const pugi::xml_node& mapRo
           tile.SetDepth(tiledTile.GetIntProperty("depth"));
         }
 
-        if (tiledTile.HasProperty("isObject")) { // TODO remove?
-          tile.SetObject(tiledTile.GetBoolProperty("isObject"));
+        if (tiledTile.HasAttribute("type")) {
+          tile.SetObject(tiledTile.GetStringAttribute("type") == "Object");
         }
 
         if (tiledTile.IsAnimated()) {
@@ -82,15 +82,19 @@ std::unique_ptr<TileSet> TiledMapParser::LoadTileSet(const pugi::xml_node& mapRo
         if (tiledTile.HasObject("hitbox")) {
           const auto& object = tiledTile.GetObject("hitbox");
 
-          const float x = std::stof(object.GetAttribute("x"));
-          const float y = std::stof(object.GetAttribute("y"));
-          const float w = std::stof(object.GetAttribute("width"));
-          const float h = std::stof(object.GetAttribute("height"));
+          float x = std::stof(object.GetAttribute("x"));
+          x = (x / tileSize) * Tile::SIZE;
 
-          const auto wscale = w / tileSize;
-          const auto hscale = h / tileSize;
+          float y = std::stof(object.GetAttribute("y"));
+          y = (y / tileSize) * Tile::SIZE;
 
-          tile.SetHitbox(Rectangle(x, y, wscale * Tile::SIZE, hscale * Tile::SIZE));
+          float w = std::stof(object.GetAttribute("width"));
+          w = (w / tileSize) * Tile::SIZE;
+
+          float h = std::stof(object.GetAttribute("height"));
+          h = (h / tileSize) * Tile::SIZE;
+
+          tile.SetHitbox(Rectangle(x, y, w, h));
           tile.SetBlocked(true);
         }
       }
@@ -99,6 +103,7 @@ std::unique_ptr<TileSet> TiledMapParser::LoadTileSet(const pugi::xml_node& mapRo
       const int y = (i / sheetCols) * static_cast<int>(tileSize);
       tileSet->Insert(id, tile, Rectangle(x, y, tileSize, tileSize));
     }
+    int ix;
   }
 
   return tileSet;
