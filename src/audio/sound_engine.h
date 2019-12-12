@@ -1,20 +1,14 @@
 #pragma once
+#include "sound_effect.h"
 #include <map>
 #include <string>
 #include <memory>
-#include "sound_effect.h"
 
 namespace albinjohansson::wanderer {
 
-class SoundEngine;
-
-using SoundEngine_uptr = std::unique_ptr<SoundEngine>;
-using SoundEngine_sptr = std::shared_ptr<SoundEngine>;
-using SoundEngine_wptr = std::weak_ptr<SoundEngine>;
-
 class SoundEngine final { // TODO expand
  private:
-  std::map<std::string, SoundEffect_uptr> sounds;
+  std::map<std::string, std::unique_ptr<SoundEffect>> sounds;
   bool enabled = true;
 
  public:
@@ -22,13 +16,13 @@ class SoundEngine final { // TODO expand
 
   ~SoundEngine();
 
-  void Register(std::string id, SoundEffect_uptr sound);
+  void Register(std::string id, std::unique_ptr<SoundEffect> sound);
 
   void Play(const std::string& id);
 
   void SetEnabled(bool enabled) noexcept;
 
-  [[nodiscard]] bool IsEnabled() const noexcept { return enabled; }
+  [[nodiscard]] bool IsEnabled() const noexcept;
 };
 
 }

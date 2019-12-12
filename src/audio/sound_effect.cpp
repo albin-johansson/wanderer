@@ -16,10 +16,6 @@ SoundEffect::~SoundEffect() {
   Mix_FreeChunk(chunk);
 }
 
-SoundEffect_uptr SoundEffect::Create(const std::string& file) {
-  return std::make_unique<SoundEffect>(file);
-}
-
 void SoundEffect::Activate(int nLoops) noexcept {
   if (channel != UNDEFINED_CHANNEL) {
     Mix_PlayChannel(channel, chunk, nLoops);
@@ -73,6 +69,14 @@ void SoundEffect::SetVolume(int volume) noexcept {
   }
 
   Mix_VolumeChunk(chunk, volume);
+}
+
+int SoundEffect::GetVolume() const noexcept {
+  return chunk->volume;
+}
+
+bool SoundEffect::IsPlaying() const noexcept {
+  return (channel != UNDEFINED_CHANNEL) && Mix_Playing(channel);
 }
 
 }

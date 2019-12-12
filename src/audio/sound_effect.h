@@ -1,15 +1,9 @@
 #pragma once
 #include <SDL_mixer.h>
+#include <cstdint>
 #include <string>
-#include <memory>
 
 namespace albinjohansson::wanderer {
-
-class SoundEffect;
-
-using SoundEffect_uptr = std::unique_ptr<SoundEffect>;
-using SoundEffect_sptr = std::shared_ptr<SoundEffect>;
-using SoundEffect_wptr = std::weak_ptr<SoundEffect>;
 
 /**
  * The SoundEffect class represents sound effects in various file formats.
@@ -42,15 +36,6 @@ class SoundEffect final {
   ~SoundEffect();
 
   /**
-   * Creates and returns a unique pointer to a sound effect instance.
-   *
-   * @param file the file path of the audio file.
-   * @throws BadStateException if the audio file cannot be loaded.
-   * @since 0.1.0
-   */
-  static SoundEffect_uptr Create(const std::string& file);
-
-  /**
    * Plays the sound effect.
    *
    * @since 0.1.0
@@ -80,7 +65,7 @@ class SoundEffect final {
    * @param ms the duration to fade in, in milliseconds.
    * @since 0.1.0
    */
-  void FadeIn(Uint32 ms) noexcept;
+  void FadeIn(uint32_t ms) noexcept;
 
   /**
    * Fades out the sound effect. This method has no effect if the supplied duration isn't greater
@@ -89,7 +74,7 @@ class SoundEffect final {
    * @param ms the duration to fade in, in milliseconds.
    * @since 0.1.0
    */
-  void FadeOut(Uint32 ms) noexcept;
+  void FadeOut(uint32_t ms) noexcept;
 
   /**
    * Sets the volume of the sound effect.
@@ -105,19 +90,14 @@ class SoundEffect final {
    * @return the current volume of the sound effect.
    * @since 0.1.0
    */
-  [[nodiscard]] inline int GetVolume() const noexcept {
-    return chunk->volume;
-  }
-
+  [[nodiscard]] int GetVolume() const noexcept;
   /**
    * Indicates whether or not the sound effect is currently playing.
    *
    * @return true if the sound effect is playing; false otherwise.
    * @since 0.1.0
    */
-  [[nodiscard]] inline bool IsPlaying() const noexcept {
-    return (channel != UNDEFINED_CHANNEL) && Mix_Playing(channel);
-  }
+  [[nodiscard]] bool IsPlaying() const noexcept;
 };
 
 }

@@ -1,18 +1,15 @@
 #include "wanderer_core_impl.h"
-
 #include "renderer.h"
 #include "player_impl.h"
 #include "tile_map.h"
 #include "input.h"
 #include "sound_engine.h"
-
 #include "menu_state_machine_impl.h"
 #include "menu.h"
 #include "tiled_map_parser.h"
 #include "image_generator.h"
 #include "image.h"
 #include "window.h"
-
 #include <fstream>
 #include <memory>
 
@@ -59,7 +56,7 @@ void WandererCoreImpl::LoadSounds() {
       auto i = line.find(';');
       std::string id = line.substr(0, i);
       std::string path = line.substr(i + 1);
-      soundEngine->Register(id, SoundEffect::Create(path));
+      soundEngine->Register(id, std::make_unique<SoundEffect>(path));
     }
   } catch (std::exception& e) {
     SDL_Log("Failed to load sound effects! Error: %s", e.what());

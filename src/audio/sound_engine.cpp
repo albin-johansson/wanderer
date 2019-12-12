@@ -7,11 +7,11 @@ SoundEngine::SoundEngine() = default;
 
 SoundEngine::~SoundEngine() = default;
 
-void SoundEngine::Register(std::string id, SoundEffect_uptr sound) {
+void SoundEngine::Register(std::string id, std::unique_ptr<SoundEffect> sound) {
   if (sound == nullptr) {
     throw std::invalid_argument("Null sound!");
   }
-  sounds.insert(std::pair<std::string, SoundEffect_uptr>(id, std::move(sound)));
+  sounds.emplace(id, std::move(sound));
 }
 
 void SoundEngine::Play(const std::string& id) {
@@ -22,6 +22,10 @@ void SoundEngine::Play(const std::string& id) {
 
 void SoundEngine::SetEnabled(bool enabled) noexcept {
   this->enabled = enabled;
+}
+
+bool SoundEngine::IsEnabled() const noexcept {
+  return enabled;
 }
 
 }
