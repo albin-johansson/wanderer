@@ -1,6 +1,8 @@
 #include "catch.hpp"
 #include "renderer.h"
 #include "objects.h"
+#include "image.h"
+#include <memory>
 
 using namespace albinjohansson::wanderer;
 
@@ -16,7 +18,7 @@ TEST_CASE("RendererCtor2", "[Renderer]") {
 
 TEST_CASE("Renderer::RenderTexture2", "[Renderer]") {
   Renderer renderer(SDL_CreateWindow("", 0, 0, 100, 100, SDL_WINDOW_HIDDEN));
-  auto img = Image::Create(renderer.GetInternalRenderer(), "resources/img/grass.png");
+  auto img = std::make_unique<Image>(renderer.GetInternalRenderer(), "resources/img/grass.png");
 
   CHECK_NOTHROW(renderer.RenderTexture(*img, 0, 0, 0, 0));
 }

@@ -17,13 +17,13 @@ TEST_CASE("Window(string, int, int)", "[Window]") {
 }
 
 TEST_CASE("Window::Create", "[Window]") {
-  CHECK_THROWS_AS(Window::Create("", 0, 1), std::invalid_argument);
-  CHECK_THROWS_AS(Window::Create("", 1, 0), std::invalid_argument);
+  CHECK_THROWS_AS(std::make_unique<Window>("", 0, 1), std::invalid_argument);
+  CHECK_THROWS_AS(std::make_unique<Window>("", 1, 0), std::invalid_argument);
 
   auto title = "Foo";
   int width = 831;
   int height = 351;
-  std::unique_ptr<Window> window = Window::Create(title, width, height);
+  auto window = std::make_unique<Window>(title, width, height);
 
   CHECK(window->GetTitle() == title);
   CHECK(window->GetWidth() == width);
