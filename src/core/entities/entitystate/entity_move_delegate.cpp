@@ -3,6 +3,7 @@
 #include "objects.h"
 #include "entity_draw_delegate.h"
 #include "entity.h"
+#include "wanderer_core.h"
 
 namespace albinjohansson::wanderer {
 
@@ -28,6 +29,8 @@ void EntityMoveDelegate::Tick(const IWandererCore& core, float delta) {
   auto[velocityX, velocityY] = entity.GetVelocity();
   entity.AddX(velocityX * delta);
   entity.AddY(velocityY * delta);
+
+  // TODO collision detection
 }
 
 void EntityMoveDelegate::Enter(const IWandererCore& core) {
