@@ -1,4 +1,9 @@
 #include "menu_state_machine_impl.h"
+#include "wanderer_core.h"
+#include "menu.h"
+#include "viewport.h"
+#include "input.h"
+#include "renderer.h"
 #include "home_menu.h"
 #include "in_game_menu.h"
 #include "settings_menu.h"
@@ -19,12 +24,8 @@ MenuStateMachineImpl::MenuStateMachineImpl(IWandererCore* core)
 
 MenuStateMachineImpl::~MenuStateMachineImpl() = default;
 
-IMenuStateMachine_uptr MenuStateMachineImpl::Create(IWandererCore* core) {
-  return std::make_unique<MenuStateMachineImpl>(core);
-}
-
-void MenuStateMachineImpl::Put(MenuID id, IMenu_uptr menu) {
-  menus.insert(std::pair<MenuID, IMenu_uptr>(id, std::move(menu)));
+void MenuStateMachineImpl::Put(MenuID id, std::unique_ptr<IMenu> menu) {
+  menus.emplace(id, std::move(menu));
 }
 
 void MenuStateMachineImpl::Draw(Renderer& renderer, const Viewport& viewport) const {

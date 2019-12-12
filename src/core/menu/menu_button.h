@@ -3,6 +3,7 @@
 #include "menu_drawable.h"
 #include <string>
 #include <image.h>
+#include <memory>
 
 namespace albinjohansson::wanderer {
 
@@ -14,8 +15,8 @@ namespace albinjohansson::wanderer {
 class MenuButton final : public IMenuDrawable {
  private:
   Rectangle bounds;
-  mutable Image_uptr normalImg = nullptr;
-  mutable Image_uptr enlargedImg = nullptr;
+  mutable std::unique_ptr<Image> normalImg = nullptr;
+  mutable std::unique_ptr<Image> enlargedImg = nullptr;
   const std::string text = "";
   bool enlarged = false;
 

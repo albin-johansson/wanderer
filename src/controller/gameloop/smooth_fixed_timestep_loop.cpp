@@ -1,8 +1,10 @@
 #include "smooth_fixed_timestep_loop.h"
+
 #include "wanderer_core.h"
 #include "renderer.h"
 #include "key_state_manager.h"
 #include "mouse_state_manager.h"
+
 #include "objects.h"
 #include "input.h"
 #include <SDL.h>

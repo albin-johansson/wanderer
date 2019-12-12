@@ -21,14 +21,6 @@ Image::~Image() {
   SDL_DestroyTexture(texture);
 }
 
-Image_uptr Image::Create(SDL_Renderer* renderer, const std::string& path) {
-  return std::make_unique<Image>(renderer, path);
-}
-
-Image_uptr Image::Create(SDL_Texture* texture) {
-  return std::make_unique<Image>(texture);
-}
-
 Uint32 Image::GetFormat() const noexcept {
   Uint32 format = 0;
   SDL_QueryTexture(texture, &format, nullptr, nullptr, nullptr);
@@ -51,6 +43,10 @@ int Image::GetHeight() const noexcept {
   int height = 0;
   SDL_QueryTexture(texture, nullptr, nullptr, nullptr, &height);
   return height;
+}
+
+SDL_Texture* Image::GetTexture() noexcept {
+  return texture;
 }
 
 }

@@ -1,18 +1,15 @@
 #pragma once
+#include "rectangle.h"
 #include <SDL.h>
 #include <SDL_image.h>
+#include <cstdint>
+#include <string>
 #include <memory>
-#include "rectangle.h"
-#include "font.h"
-#include "image.h"
 
 namespace albinjohansson::wanderer {
 
-class Renderer;
-
-using Renderer_uptr = std::unique_ptr<Renderer>;
-using Renderer_sptr = std::shared_ptr<Renderer>;
-using Renderer_wptr = std::weak_ptr<Renderer>;
+class Image;
+class Font;
 
 /**
  * The Renderer class is a wrapper class for the SDL_Renderer struct.
@@ -48,10 +45,6 @@ class Renderer final {
    * @since 0.1.0
    */
   explicit Renderer(SDL_Window* window);
-
-  static Renderer_uptr Create(SDL_Window* window);
-
-  static Renderer_uptr Create(SDL_Renderer* renderer);
 
   ~Renderer();
 
@@ -172,7 +165,7 @@ class Renderer final {
    * @param alpha the alpha component value, in the range [0, 255].
    * @since 0.1.0
    */
-  void SetColor(Uint8 red, Uint8 green, Uint8 blue, Uint8 alpha) noexcept;
+  void SetColor(uint8_t red, uint8_t green, uint8_t blue, uint8_t alpha) noexcept;
 
   /**
    * Sets the color that will be used by the renderer. This method will assume
@@ -183,7 +176,7 @@ class Renderer final {
    * @param blue the blue component value, in the range [0, 255].
    * @since 0.1.0
    */
-  void SetColor(Uint8 red, Uint8 green, Uint8 blue) noexcept;
+  void SetColor(uint8_t red, uint8_t green, uint8_t blue) noexcept;
 
   /**
    * Sets the viewport that will be used by the renderer.
@@ -274,7 +267,7 @@ class Renderer final {
    * @return a unique pointer to an image that represents the supplied string rendered with the
    * currently selected font; nullptr if the operation is unsuccessful.
    */
-  [[nodiscard]] Image_uptr CreateTexture(const std::string& s, Font& font) const;
+  [[nodiscard]] std::unique_ptr<Image> CreateTexture(const std::string& s, Font& font) const;
 
   /**
    * Returns the viewport that the renderer uses.
@@ -290,9 +283,7 @@ class Renderer final {
    * @return a pointer to the internal SDL_Renderer instance.
    * @since 0.1.0
    */
-  [[nodiscard]] inline SDL_Renderer* GetInternalRenderer() noexcept {
-    return renderer;
-  }
+  [[nodiscard]] SDL_Renderer* GetInternalRenderer() noexcept;
 };
 
 }

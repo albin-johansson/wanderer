@@ -84,8 +84,4 @@ class IWandererCore {
   [[nodiscard]] virtual const IPlayer& GetPlayer() const = 0;
 };
 
-using IWandererCore_uptr = std::unique_ptr<IWandererCore>;
-using IWandererCore_sptr = std::shared_ptr<IWandererCore>;
-using IWandererCore_wptr = std::weak_ptr<IWandererCore>;
-
 }

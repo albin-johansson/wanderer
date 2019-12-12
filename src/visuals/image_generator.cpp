@@ -1,19 +1,17 @@
 #include "image_generator.h"
+#include "renderer.h"
+#include "image.h"
 #include "objects.h"
 
 namespace albinjohansson::wanderer {
 
-ImageGenerator::ImageGenerator(Renderer_sptr renderer) {
+ImageGenerator::ImageGenerator(std::shared_ptr<Renderer> renderer) {
   this->renderer = Objects::RequireNonNull(std::move(renderer));
 }
 
 ImageGenerator::~ImageGenerator() = default;
 
-ImageGenerator_uptr ImageGenerator::Create(Renderer_sptr renderer) {
-  return std::make_unique<ImageGenerator>(renderer);
-}
-
-Image_uptr ImageGenerator::Load(const std::string& path) const {
+std::unique_ptr<Image> ImageGenerator::Load(const std::string& path) const {
   return std::make_unique<Image>(renderer->GetInternalRenderer(), path);
 }
 

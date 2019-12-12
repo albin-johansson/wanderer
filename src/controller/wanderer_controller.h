@@ -1,5 +1,4 @@
 #pragma once
-#include <memory>
 
 namespace albinjohansson::wanderer {
 
@@ -24,7 +23,5 @@ class IWandererController {
   virtual void Run() = 0;
 
 };
-
-using IWandererController_uptr = std::unique_ptr<IWandererController>;
 
 }

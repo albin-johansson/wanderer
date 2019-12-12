@@ -1,12 +1,15 @@
 #pragma once
 #include "wanderer_controller.h"
+#include "window.h"
 #include "wanderer_core.h"
 #include "game_loop.h"
-#include "window.h"
 #include <memory>
 
 namespace albinjohansson::wanderer {
 
+//class IGameLoop;
+//class IWandererCore;
+//class Window;
 class Renderer;
 class KeyStateManager;
 class MouseStateManager;

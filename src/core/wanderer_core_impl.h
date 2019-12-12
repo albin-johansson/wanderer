@@ -2,15 +2,13 @@
 #include "wanderer_core.h"
 #include "viewport.h"
 #include "image_generator.h"
-
-#include "menu_state_machine.h"
+#include "menu_state_machine.h" // FIXME remove
+#include <memory>
 
 namespace albinjohansson::wanderer {
 
-class IMenuStateMachine;
+//class IMenuStateMachine;
 class SoundEngine;
-class IPlayer;
-class ITileMap;
 
 /**
  * The WandererCoreImpl class is an implementation of the IWandererCore interface.
@@ -41,7 +39,7 @@ class WandererCoreImpl final : public IWandererCore {
    * @return a unique pointer to an IWandererCore instance.
    * @since 0.1.0
    */
-  friend IWandererCore_uptr CreateCore(ImageGenerator& imageGenerator);
+  friend std::unique_ptr<IWandererCore> CreateCore(ImageGenerator& imageGenerator);
 
   void HandleInput(const Input& input) override;
 

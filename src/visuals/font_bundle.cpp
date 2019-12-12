@@ -10,8 +10,20 @@ FontBundle::FontBundle(const std::string& file)
 
 FontBundle::~FontBundle() = default;
 
-FontBundle_uptr FontBundle::Create(const std::string& file) {
-  return std::make_unique<FontBundle>(file);
+Font& FontBundle::GetFont12() noexcept {
+  return font12;
+}
+
+Font& FontBundle::GetFont18() noexcept {
+  return font18;
+}
+
+Font& FontBundle::GetFont24() noexcept {
+  return font24;
+}
+
+Font& FontBundle::GetFont36() noexcept {
+  return font36;
 }
 
 }

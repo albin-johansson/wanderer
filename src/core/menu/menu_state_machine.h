@@ -1,9 +1,12 @@
 #pragma once
-#include "menu.h"
 #include "menu_id.h"
-#include <memory>
 
 namespace albinjohansson::wanderer {
+
+class Input;
+class Viewport;
+class Renderer;
+class IMenu;
 
 class IMenuStateMachine {
  protected:
@@ -26,9 +29,5 @@ class IMenuStateMachine {
 
   [[nodiscard]] virtual const IMenu& GetMenu() const = 0;
 };
-
-using IMenuStateMachine_uptr = std::unique_ptr<IMenuStateMachine>;
-using IMenuStateMachine_sptr = std::shared_ptr<IMenuStateMachine>;
-using IMenuStateMachine_wptr = std::weak_ptr<IMenuStateMachine>;
 
 }

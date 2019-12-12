@@ -1,4 +1,6 @@
 #include "renderer.h"
+#include "image.h"
+#include "font.h"
 #include "objects.h"
 #include "bool_converter.h"
 #include <SDL_log.h>
@@ -23,14 +25,6 @@ Renderer::~Renderer() {
   if (renderer != nullptr) {
     SDL_DestroyRenderer(renderer);
   }
-}
-
-Renderer_uptr Renderer::Create(SDL_Renderer* renderer) {
-  return std::make_unique<Renderer>(renderer);
-}
-
-Renderer_uptr Renderer::Create(SDL_Window* window) {
-  return std::make_unique<Renderer>(window);
 }
 
 void Renderer::Clear() noexcept { SDL_RenderClear(renderer); }
@@ -190,7 +184,7 @@ bool Renderer::GetUsingIntegerLogicalScaling() const noexcept {
   return SDL_RenderGetIntegerScale(renderer);
 }
 
-Image_uptr Renderer::CreateTexture(const std::string& s, Font& font) const {
+std::unique_ptr<Image> Renderer::CreateTexture(const std::string& s, Font& font) const {
   if (s.empty()) {
     return nullptr;
   }
@@ -207,7 +201,11 @@ Image_uptr Renderer::CreateTexture(const std::string& s, Font& font) const {
   SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
   SDL_FreeSurface(surface);
 
-  return Image::Create(texture);
+  return std::make_unique<Image>(texture);
+}
+
+SDL_Renderer* Renderer::GetInternalRenderer() noexcept {
+  return renderer;
 }
 
 }

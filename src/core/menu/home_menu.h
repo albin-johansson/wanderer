@@ -17,7 +17,7 @@ namespace albinjohansson::wanderer {
 class HomeMenu final : public AbstractMenu {
  private:
   IWandererCore* core = nullptr;
-  FontBundle_uptr fonts = nullptr;
+  std::unique_ptr<FontBundle> fonts = nullptr;
   mutable MenuButton startButton;
   mutable MenuButton settingsButton;
   mutable MenuButton controlsButton;

@@ -1,16 +1,11 @@
 #pragma once
-#include "image.h"
-#include "renderer.h"
 #include <string>
 #include <memory>
 
 namespace albinjohansson::wanderer {
 
-class ImageGenerator;
-
-using ImageGenerator_uptr = std::unique_ptr<ImageGenerator>;
-using ImageGenerator_sptr = std::shared_ptr<ImageGenerator>;
-using ImageGenerator_wptr = std::weak_ptr<ImageGenerator>;
+class Renderer;
+class Image;
 
 /**
  * The ImageGenerator class is used to load images.
@@ -19,7 +14,7 @@ using ImageGenerator_wptr = std::weak_ptr<ImageGenerator>;
  */
 class ImageGenerator final {
  private:
-  Renderer_sptr renderer = nullptr;
+  std::shared_ptr<Renderer> renderer = nullptr;
 
  public:
   /**
@@ -27,11 +22,9 @@ class ImageGenerator final {
    * @throws NullPointerException if the supplied pointer is null.
    * @since 0.1.0
    */
-  explicit ImageGenerator(Renderer_sptr renderer);
+  explicit ImageGenerator(std::shared_ptr<Renderer> renderer);
 
   ~ImageGenerator();
-
-  static ImageGenerator_uptr Create(Renderer_sptr renderer);
 
   /**
    * Loads the image at the specified path.
@@ -39,7 +32,7 @@ class ImageGenerator final {
    * @param path the path of the image that will be loaded, including the file extension.
    * @return 0.1.0
    */
-  Image_uptr Load(const std::string& path) const;
+  [[nodiscard]] std::unique_ptr<Image> Load(const std::string& path) const;
 
 };
 

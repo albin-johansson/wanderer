@@ -1,10 +1,12 @@
 #pragma once
 #include "menu_state_machine.h"
-#include "wanderer_core.h"
 #include "font_bundle.h"
 #include <map>
+#include <memory>
 
 namespace albinjohansson::wanderer {
+
+class IWandererCore;
 
 /**
  * The MenuStateMachineImpl class is an implementation of the IMenuStateMachine interface.
@@ -15,17 +17,15 @@ namespace albinjohansson::wanderer {
 class MenuStateMachineImpl final : public IMenuStateMachine {
  private:
   mutable FontBundle typewriterFonts;
-  std::map<MenuID, IMenu_uptr> menus;
+  std::map<MenuID, std::unique_ptr<IMenu>> menus;
   MenuID activeMenuID = MenuID::HOME;
 
-  void Put(MenuID id, IMenu_uptr menu);
+  void Put(MenuID id, std::unique_ptr<IMenu> menu);
 
  public:
   explicit MenuStateMachineImpl(IWandererCore* core);
 
   ~MenuStateMachineImpl() override;
-
-  static IMenuStateMachine_uptr Create(IWandererCore* core);
 
   void Draw(Renderer& renderer, const Viewport& viewport) const override;
 

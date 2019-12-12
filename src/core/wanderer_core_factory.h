@@ -4,7 +4,7 @@
 
 namespace albinjohansson::wanderer {
 
-inline IWandererCore_uptr CreateCore(ImageGenerator& imageGenerator) {
+inline std::unique_ptr<IWandererCore> CreateCore(ImageGenerator& imageGenerator) {
   return std::unique_ptr<IWandererCore>(new WandererCoreImpl(imageGenerator));
 }
 

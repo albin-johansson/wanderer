@@ -1,15 +1,8 @@
 #pragma once
 #include <SDL_render.h>
 #include <string>
-#include <memory>
 
 namespace albinjohansson::wanderer {
-
-class Image;
-
-using Image_uptr = std::unique_ptr<Image>;
-using Image_sptr = std::shared_ptr<Image>;
-using Image_wptr = std::weak_ptr<Image>;
 
 /**
  * The Image class represents an image that is hardware-accelerated.
@@ -34,10 +27,6 @@ class Image final {
   explicit Image(SDL_Texture* texture);
 
   ~Image();
-
-  [[nodiscard]] static Image_uptr Create(SDL_Renderer* renderer, const std::string& path);
-
-  [[nodiscard]] static Image_uptr Create(SDL_Texture* texture);
 
   /**
    * Returns the format of the internal SDL_Texture.
@@ -77,9 +66,7 @@ class Image final {
    * @return a pointer to the internal SDL_Texture of the image.
    * @since 0.1.0
    */
-  [[nodiscard]] inline SDL_Texture* GetTexture() noexcept {
-    return texture;
-  }
+  [[nodiscard]] SDL_Texture* GetTexture() noexcept;
 };
 
 }

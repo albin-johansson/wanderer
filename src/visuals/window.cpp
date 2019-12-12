@@ -1,7 +1,8 @@
 #include "window.h"
-#include <stdexcept>
 #include "objects.h"
 #include "bool_converter.h"
+#include <stdexcept>
+#include <cstdint>
 
 namespace albinjohansson::wanderer {
 
@@ -21,16 +22,12 @@ Window::~Window() {
   }
 }
 
-std::unique_ptr<Window> Window::Create(const std::string& title, int width, int height) {
-  return std::make_unique<Window>(title, width, height);
-}
-
 void Window::Show() noexcept { SDL_ShowWindow(window); }
 
 void Window::Hide() noexcept { SDL_HideWindow(window); }
 
 void Window::SetFullscreen(bool fullscreen) noexcept {
-  Uint32 flags = SDL_GetWindowFlags(window);
+  uint32_t flags = SDL_GetWindowFlags(window);
   flags = (fullscreen) ? (flags | SDL_WINDOW_FULLSCREEN)
                        : (flags & ~SDL_WINDOW_FULLSCREEN);
   SDL_SetWindowFullscreen(window, flags);
@@ -91,4 +88,8 @@ std::string Window::GetTitle() const noexcept {
   return SDL_GetWindowTitle(window);
 }
 
-}  // namespace albinjohansson::wanderer
+SDL_Window* Window::GetInternalWindow() noexcept {
+  return window;
+}
+
+}

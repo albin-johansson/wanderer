@@ -1,16 +1,26 @@
 #include "wanderer_core_impl.h"
-#include "menu_state_machine_impl.h"
-#include "sound_engine.h"
+
+#include "renderer.h"
 #include "player_impl.h"
 #include "tile_map.h"
+#include "input.h"
+#include "sound_engine.h"
+
+#include "menu_state_machine_impl.h"
+#include "menu.h"
 #include "tiled_map_parser.h"
+#include "image_generator.h"
+#include "image.h"
+#include "window.h"
+
 #include <fstream>
 #include <memory>
 
 namespace albinjohansson::wanderer {
 
 WandererCoreImpl::WandererCoreImpl(ImageGenerator& imageGenerator) {
-  menuStateMachine = MenuStateMachineImpl::Create(this); // TODO fix "this" parameter
+  // TODO fix "this" parameter
+  menuStateMachine = std::make_unique<MenuStateMachineImpl>(this);
   soundEngine = std::make_unique<SoundEngine>();
   LoadSounds();
 

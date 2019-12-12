@@ -1,9 +1,14 @@
 #include "wanderer_controller_impl.h"
+
 #include "window.h"
-#include "smooth_fixed_timestep_loop.h"
-#include "wanderer_core_factory.h"
+#include "wanderer_core.h"
+#include "game_loop.h"
+#include "renderer.h"
 #include "key_state_manager.h"
 #include "mouse_state_manager.h"
+
+#include "smooth_fixed_timestep_loop.h"
+#include "wanderer_core_factory.h"
 #include "image_generator.h"
 #include "display_modes.h"
 #include <SDL.h>
@@ -14,16 +19,16 @@ WandererControllerImpl::WandererControllerImpl() {
   SDL_DisplayMode desktop = DisplayModes::GetDesktopInfo();
 
 #ifdef NDEBUG
-  window = Window::Create("Wanderer", desktop.w, desktop.h);
+  window = std::make_unique<Window>("Wanderer", desktop.w, desktop.h);
   window->SetFullscreen(true);
 #else
-  window = Window::Create("Wanderer", 1280, 720);
+  window = std::make_unique<Window>("Wanderer", 1280, 720);
   window->SetFullscreen(false);
 #endif
 
   InitIcon();
 
-  renderer = Renderer::Create(window->GetInternalWindow());
+  renderer = std::make_unique<Renderer>(window->GetInternalWindow());
   renderer->SetLogicalSize(LOGICAL_WIDTH, LOGICAL_HEIGHT);
 
   auto imageGenerator = std::make_unique<ImageGenerator>(renderer);

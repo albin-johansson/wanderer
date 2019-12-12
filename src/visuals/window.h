@@ -1,7 +1,6 @@
 #pragma once
 #include <SDL.h>
 #include <string>
-#include <memory>
 
 namespace albinjohansson::wanderer {
 
@@ -28,19 +27,6 @@ class Window final {
   Window(const std::string& title, int width, int height);
 
   ~Window();
-
-  /**
-   * Creates and returns a unique pointer to a window instance. The window will be hidden by
-   * default.
-   *
-   * @param title the title of the window.
-   * @param width the width of the window, must be greater than zero.
-   * @param height the height of the window, must be greater than zero.
-   * @return a unique pointer to a window instance.
-   * @throws invalid_argument if the supplied width or height values aren't greater than zero.
-   * @since 0.1.0
-   */
-  static std::unique_ptr<Window> Create(const std::string& title, int width, int height);
 
   /**
    * Makes the window visible.
@@ -155,9 +141,7 @@ class Window final {
    * @return the internal representation of the window.
    * @since 0.1.0
    */
-  [[nodiscard]] inline SDL_Window* GetInternalWindow() noexcept {
-    return window;
-  }
+  [[nodiscard]] SDL_Window* GetInternalWindow() noexcept;
 };
 
 }

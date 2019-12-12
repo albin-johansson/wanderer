@@ -5,6 +5,7 @@
 #include "renderer.h"
 #include "viewport.h"
 #include "entity.h"
+#include "image.h"
 #include "image_generator.h"
 #include "rectangle.h"
 #include "wanderer_core.h"

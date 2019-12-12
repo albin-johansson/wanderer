@@ -11,7 +11,7 @@ HomeMenu::HomeMenu(IMenuStateMachine* parent, IWandererCore* core) :
     controlsButton("Controls", 633, 390, 100, 40),
     quitButton("Quit", 633, 460, 100, 40) {
   this->core = Objects::RequireNonNull(core);
-  fonts = FontBundle::Create("resources/font/type_writer.ttf");
+  fonts = std::make_unique<FontBundle>("resources/font/type_writer.ttf");
 }
 
 HomeMenu::~HomeMenu() noexcept = default;
