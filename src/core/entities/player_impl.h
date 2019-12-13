@@ -9,8 +9,10 @@ namespace albinjohansson::wanderer {
 class IPlayerStateMachine;
 
 /**
- * The Player class represents the entity that is controlled by the player.
+ * The Player class is an implementation of the IPlayer interface, the class also extends the
+ * AbstractEntity class.
  *
+ * @see AbstractEntity
  * @see IEntity
  * @since 0.1.0
  */
