@@ -83,8 +83,6 @@ set(SOURCE_FILES
         service/tiled/tiled_map_parser.cpp
         service/tiled/tiled_map_parser.h
 
-        core/item/item.h
-
         core/entities/entity.h
         core/entities/player.h
         core/entities/player_impl.cpp
