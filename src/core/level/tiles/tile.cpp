@@ -1,11 +1,10 @@
 #include "tile.h"
-
-#include <utility>
 #include "vector_2.h"
 #include "renderer.h"
 #include "viewport.h"
 #include "tile_set.h"
 #include "rectangle.h"
+#include <utility>
 
 namespace albinjohansson::wanderer {
 
@@ -24,7 +23,8 @@ void Tile::Draw(const Vector2& pos,
                 const Viewport& viewport,
                 const TileSet& tileSet) const {
   if (GetId() != EMPTY) {
-    Rectangle src = IsAnimated() ? tileSet.GetSource(GetFrameId()) : tileSet.GetSource(GetId());
+    const auto& src = IsAnimated() ? tileSet.GetSource(GetFrameId())
+                                   : tileSet.GetSource(GetId());
     Rectangle dst = {viewport.GetTranslatedX(pos.x), viewport.GetTranslatedY(pos.y), SIZE, SIZE};
     renderer.RenderTexture(*sheet, src, dst);
 
