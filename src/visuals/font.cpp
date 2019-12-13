@@ -5,23 +5,16 @@
 namespace albinjohansson::wanderer {
 
 Font::Font(const std::string& file, int size) : size(size) {
-  if (size <= 0) {
-    throw std::invalid_argument("Bad font size!");
-  }
+  if (size <= 0) { throw std::invalid_argument("Bad font size!"); }
 
   font = TTF_OpenFont(file.c_str(), size);
-  if (font == nullptr) {
-    throw BadStateException();
-  }
+  if (!font) { throw BadStateException(); }
+
   style = TTF_GetFontStyle(font);
 }
 
 Font::~Font() {
   TTF_CloseFont(font);
-}
-
-Font_uptr Font::Create(const std::string& file, int size) {
-  return std::make_unique<Font>(file, size);
 }
 
 void Font::Reset() noexcept {
@@ -111,8 +104,16 @@ int Font::GetStringHeight(const std::string& s) const noexcept {
   return height;
 }
 
+int Font::GetSize() const noexcept {
+  return size;
+}
+
+TTF_Font* Font::GetInternalFont() noexcept {
+  return font;
+}
+
 std::string Font::GetFamilyName() const {
-  return std::string(TTF_FontFaceFamilyName(font));
+  return TTF_FontFaceFamilyName(font);
 }
 
 }
