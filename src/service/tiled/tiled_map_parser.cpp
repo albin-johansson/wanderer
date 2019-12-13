@@ -101,9 +101,10 @@ std::unique_ptr<TileSet> TiledMapParser::LoadTileSet(const pugi::xml_node& mapRo
 
       const int x = (i % sheetCols) * static_cast<int>(tileSize);
       const int y = (i / sheetCols) * static_cast<int>(tileSize);
-      tileSet->Insert(id, tile, Rectangle(x, y, tileSize, tileSize));
+      tile.SetSource(Rectangle(x, y, tileSize, tileSize));
+
+      tileSet->Insert(id, tile);
     }
-    int ix;
   }
 
   return tileSet;

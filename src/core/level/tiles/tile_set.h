@@ -1,7 +1,6 @@
 #pragma once
 #include "tile.h"
 #include "tile_id.h"
-#include "rectangle.h"
 #include <unordered_map>
 
 namespace albinjohansson::wanderer {
@@ -14,7 +13,6 @@ namespace albinjohansson::wanderer {
 class TileSet final {
  private:
   std::unordered_map<TileID, Tile> tiles;
-  std::unordered_map<TileID, Rectangle> sourceRectangles;
 
  public:
   /**
@@ -40,11 +38,17 @@ class TileSet final {
    * @param tile the tile to associated with the ID.
    * @since 0.1.0
    */
-  void Insert(TileID id, const Tile& tile, const Rectangle& srcRect);
+  void Insert(TileID id, const Tile& tile);
 
+  /**
+   * Returns the tile associated with the supplied tile ID. This method will throw an exception
+   * if the ID isn't associated with a tile in this tile set.
+   *
+   * @param id the ID associated with the desired tile.
+   * @return the tile associated with the supplied tile ID.
+   * @since 0.1.0
+   */
   [[nodiscard]] const Tile& GetTile(TileID id) const;
-
-  [[nodiscard]] const Rectangle& GetSource(TileID id) const;
 };
 
 }

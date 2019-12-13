@@ -22,6 +22,7 @@ class Frame;
 class Tile final {
  private:
   std::shared_ptr<Image> sheet = nullptr;
+  Rectangle source;
   Rectangle hitbox; // TODO create Hitbox class which holds multiple rectangles
 
   TileAnimation animation;
@@ -139,6 +140,14 @@ class Tile final {
   void SetHitbox(const Rectangle& hitbox) noexcept;
 
   /**
+   * Sets the source rectangle for the tile.
+   *
+   * @param source the source rectangle for the tile.
+   * @since 0.1.0
+   */
+  void SetSource(const Rectangle& source) noexcept;
+
+  /**
    * Indicates whether or not the tile is blocked.
    *
    * @return true if the tile is blocked; false otherwise.
@@ -194,6 +203,15 @@ class Tile final {
    * @since 0.1.0
    */
   [[nodiscard]] Image& GetImage() const noexcept;
+
+  /**
+   * Returns the source rectangle associated with the tile. The source rectangle
+   * represents the area in the tile sheet that holds the texture for the tile.
+   *
+   * @return the source rectangle associated with the tile.
+   * @since 0.1.0
+   */
+  [[nodiscard]] const Rectangle& GetSource() const noexcept;
 
 };
 

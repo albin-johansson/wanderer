@@ -23,8 +23,7 @@ void Tile::Draw(const Vector2& pos,
                 const Viewport& viewport,
                 const TileSet& tileSet) const {
   if (GetId() != EMPTY) {
-    const auto& src = IsAnimated() ? tileSet.GetSource(GetFrameId())
-                                   : tileSet.GetSource(GetId());
+    const auto& src = IsAnimated() ? tileSet.GetTile(GetFrameId()).GetSource() : source;
     Rectangle dst = {viewport.GetTranslatedX(pos.x), viewport.GetTranslatedY(pos.y), SIZE, SIZE};
     renderer.RenderTexture(*sheet, src, dst);
 
@@ -72,6 +71,10 @@ void Tile::SetHitbox(const Rectangle& hitbox) noexcept {
   this->hitbox = hitbox;
 }
 
+void Tile::SetSource(const Rectangle& source) noexcept {
+  this->source = source;
+}
+
 Image& Tile::GetImage() const noexcept {
   return *sheet;
 }
@@ -98,6 +101,10 @@ bool Tile::IsAnimated() const noexcept {
 
 TileID Tile::GetFrameId() const {
   return isAnimated ? animation.GetFrame().frameId : id;
+}
+
+const Rectangle& Tile::GetSource() const noexcept {
+  return source;
 }
 
 }
