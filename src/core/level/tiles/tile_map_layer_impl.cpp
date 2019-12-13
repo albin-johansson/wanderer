@@ -11,12 +11,12 @@
 
 namespace albinjohansson::wanderer {
 
-TileMapLayerImpl::TileMapLayerImpl(std::shared_ptr<TileSet> tileSet,
+TileMapLayerImpl::TileMapLayerImpl(const std::shared_ptr<TileSet>& tileSet,
                                    int nRows,
                                    int nCols,
                                    std::vector<TileID> tiles)
     : nRows(nRows), nCols(nCols), tiles(std::move(tiles)) {
-  this->tileSet = Objects::RequireNonNull(std::move(tileSet));
+  this->tileSet = Objects::RequireNonNull(tileSet);
   InitTileObjects();
 }
 
