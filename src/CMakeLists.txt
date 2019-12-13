@@ -58,8 +58,8 @@ set(SOURCE_FILES
 
         core/bad_state_exception.cpp
         core/bad_state_exception.h
-        core/input.cpp
-        core/input.h
+        controller/input.cpp
+        controller/input.h
         core/viewport.cpp
         core/viewport.h
         core/animated.h
