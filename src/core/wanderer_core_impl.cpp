@@ -114,4 +114,12 @@ void WandererCoreImpl::SetMap(std::shared_ptr<ITileMap> map) {
   }
 }
 
+bool WandererCoreImpl::ShouldQuit() const noexcept {
+  return shouldQuit;
+}
+
+const IPlayer& WandererCoreImpl::GetPlayer() const {
+  return *player;
+}
+
 }
