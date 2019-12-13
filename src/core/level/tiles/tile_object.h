@@ -5,8 +5,6 @@
 #include "vector_2.h"
 #include "render_depth.h"
 #include <memory>
-#include <vector>
-#include <utility>
 
 namespace albinjohansson::wanderer {
 
