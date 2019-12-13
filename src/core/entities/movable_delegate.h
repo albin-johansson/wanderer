@@ -17,12 +17,17 @@ class MovableDelegate final : public IMovableObject {
   Vector2 currPosition;
   Vector2 prevPosition;
   Vector2 interpolatedPosition;
-  Direction dominantDirection;
+  Direction dominantDirection = Direction::DOWN;
   const int depth;
   const float width;
   const float height;
   float speed = 0;
 
+  /**
+   * Saves the position of the movable.
+   *
+   * @since 0.1.0
+   */
   void SavePosition() noexcept;
 
   /**

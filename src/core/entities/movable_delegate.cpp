@@ -8,7 +8,6 @@ MovableDelegate::MovableDelegate(int depth, float width, float height)
   if (width < 1 || height < 1) {
     throw std::invalid_argument("Invalid dimensions!");
   }
-  dominantDirection = Direction::DOWN;
 }
 
 MovableDelegate::~MovableDelegate() = default;
