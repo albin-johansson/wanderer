@@ -52,7 +52,7 @@ class TileMapLayerImpl final : public ITileMapLayer {
   TileMapLayerImpl(const std::shared_ptr<TileSet>& tileSet,
                    int nRows,
                    int nCols,
-                   std::vector<TileID> tiles);
+                   std::vector<TileID>&& tiles);
 
   ~TileMapLayerImpl() noexcept override;
 
