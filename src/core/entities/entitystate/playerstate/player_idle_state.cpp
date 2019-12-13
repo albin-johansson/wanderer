@@ -24,4 +24,20 @@ void PlayerIdleState::HandleInput(const Input& input, const IWandererCore& core)
   // TODO attack...
 }
 
+void PlayerIdleState::Draw(Renderer& renderer, const Viewport& viewport) const noexcept {
+  idleDelegate.Draw(renderer, viewport);
+}
+
+void PlayerIdleState::Tick(const IWandererCore& core, float delta) {
+  idleDelegate.Tick(core, delta);
+}
+
+void PlayerIdleState::Enter(const IWandererCore& core) {
+  idleDelegate.Enter(core);
+}
+
+void PlayerIdleState::Exit(const IWandererCore& core) {
+  idleDelegate.Exit(core);
+}
+
 }

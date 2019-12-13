@@ -29,15 +29,13 @@ class PlayerIdleState final : public IPlayerState {
 
   void HandleInput(const Input& input, const IWandererCore& core) override;
 
-  inline void Draw(Renderer& renderer, const Viewport& viewport) const noexcept override {
-    idleDelegate.Draw(renderer, viewport);
-  }
+  void Draw(Renderer& renderer, const Viewport& viewport) const noexcept override;
 
-  inline void Tick(const IWandererCore& core, float delta) override { idleDelegate.Tick(core, delta); }
+  void Tick(const IWandererCore& core, float delta) override;
 
-  inline void Enter(const IWandererCore& core) override { idleDelegate.Enter(core); }
+  void Enter(const IWandererCore& core) override;
 
-  inline void Exit(const IWandererCore& core) override { idleDelegate.Exit(core); }
+  void Exit(const IWandererCore& core) override;
 };
 
 }
