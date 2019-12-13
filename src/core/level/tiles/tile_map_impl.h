@@ -18,7 +18,6 @@ class ISortableDrawable;
  */
 class TileMapImpl final : public ITileMap {
  private:
-  std::weak_ptr<ITileMap> parent; // TODO doesn't need to be a weak pointer
   std::shared_ptr<TileSet> tileSet = nullptr; // FIXME not needed as field
   std::shared_ptr<IEntity> player = nullptr;
 
@@ -28,11 +27,24 @@ class TileMapImpl final : public ITileMap {
   std::vector<std::shared_ptr<IEntity>> entities;
   std::vector<std::shared_ptr<ISortableDrawable>> drawables;
 
-  int nRows;
-  int nCols;
+  const int nRows;
+  const int nCols;
 
+  /**
+   * Interpolates all movable game objects.
+   *
+   * @param alpha the interpolation coefficient, in the range [0, 1].
+   * @since 0.1.0
+   */
   void Interpolate(float alpha);
 
+  /**
+   * Calculates the tile map bounds.
+   *
+   * @param bounds the bounds of the viewport.
+   * @return the tile map bounds.
+   * @since 0.1.0
+   */
   [[nodiscard]] TileMapBounds CalculateMapBounds(const Rectangle& bounds) const noexcept;
 
  public:
@@ -40,9 +52,10 @@ class TileMapImpl final : public ITileMap {
    * @param tileSet a pointer to the associated tile set.
    * @param nRows the number of rows in the tile map.
    * @param nCols the number of columns in the tile map.
+   * @param imageGenerator a reference to the image generator that will be used.
    * @since 0.1.0
    */
-  TileMapImpl(std::shared_ptr<TileSet> tileSet,
+  TileMapImpl(const std::shared_ptr<TileSet>& tileSet,
               int nRows,
               int nCols,
               ImageGenerator& imageGenerator);
@@ -55,9 +68,7 @@ class TileMapImpl final : public ITileMap {
 
   void AddLayer(std::unique_ptr<ITileMapLayer> layer) override;
 
-  void SetPlayer(std::shared_ptr<IEntity> player) override;
-
-  void SetParent(std::weak_ptr<ITileMap> parent) override;
+  void SetPlayer(const std::shared_ptr<IEntity>& player) override;
 
   [[nodiscard]] int GetRows() const noexcept override;
 
@@ -67,11 +78,7 @@ class TileMapImpl final : public ITileMap {
 
   [[nodiscard]] int GetHeight() const noexcept override;
 
-  [[nodiscard]] bool HasParent() const noexcept override;
-
   [[nodiscard]] Vector2 GetPlayerSpawnPosition() const override;
-
-  [[nodiscard]] std::weak_ptr<ITileMap> GetParent() const noexcept override;
 };
 
 }

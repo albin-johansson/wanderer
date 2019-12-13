@@ -17,12 +17,12 @@
 
 namespace albinjohansson::wanderer {
 
-TileMapImpl::TileMapImpl(std::shared_ptr<TileSet> tileSet,
+TileMapImpl::TileMapImpl(const std::shared_ptr<TileSet>& tileSet,
                          int nRows,
                          int nCols,
                          ImageGenerator& imageGenerator)
     : nRows(nRows), nCols(nCols) {
-  this->tileSet = Objects::RequireNonNull(std::move(tileSet));
+  this->tileSet = Objects::RequireNonNull(tileSet);
 
   auto skeleton =
       std::make_shared<Skeleton>(imageGenerator.Load("resources/img/skeleton.png"));
@@ -136,19 +136,11 @@ void TileMapImpl::AddLayer(std::unique_ptr<ITileMapLayer> layer) {
   }
 }
 
-void TileMapImpl::SetPlayer(std::shared_ptr<IEntity> player) {
+void TileMapImpl::SetPlayer(const std::shared_ptr<IEntity>& player) {
   if (player) {
     this->player = player;
     entities.push_back(player);
   }
-}
-
-std::weak_ptr<ITileMap> TileMapImpl::GetParent() const noexcept {
-  return parent;
-}
-
-void TileMapImpl::SetParent(std::weak_ptr<ITileMap> parent) {
-  this->parent = parent;
 }
 
 int TileMapImpl::GetRows() const noexcept {
@@ -165,11 +157,6 @@ int TileMapImpl::GetWidth() const noexcept {
 
 int TileMapImpl::GetHeight() const noexcept {
   return nRows * static_cast<int>(Tile::SIZE);
-}
-
-bool TileMapImpl::HasParent() const noexcept {
-  auto p = parent.lock();
-  return p != nullptr;
 }
 
 Vector2 TileMapImpl::GetPlayerSpawnPosition() const {
