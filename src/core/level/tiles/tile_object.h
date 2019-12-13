@@ -3,6 +3,7 @@
 #include "tile_id.h"
 #include "tile.h"
 #include "vector_2.h"
+#include "rectangle.h"
 #include "render_depth.h"
 #include <memory>
 
@@ -10,16 +11,30 @@ namespace albinjohansson::wanderer {
 
 class TileSet;
 
+/**
+ * The TileObject class represents a tile object, a special kind of tile.
+ *
+ * @see IGameObject
+ * @since 0.1.0
+ */
 class TileObject final : public IGameObject {
  private:
   std::shared_ptr<TileSet> tileSet = nullptr;
   Vector2 position;
+  Rectangle hitbox;
   int depth = RenderDepth::MAX;
   float centerY = 0;
   const TileID id;
 
  public:
-  TileObject(TileID id, const Vector2& position, std::shared_ptr<TileSet> tileSet);
+  /**
+   * @param id the tile ID associated with the object.
+   * @param position the position of the tile object.
+   * @param tileSet the associated tile set.
+   * @throws NullPointerException if the supplied tile set is null.
+   * @since 0.1.0
+   */
+  TileObject(TileID id, const Vector2& position, const std::shared_ptr<TileSet>& tileSet);
 
   ~TileObject() noexcept override;
 
@@ -41,7 +56,7 @@ class TileObject final : public IGameObject {
 
   [[nodiscard]] float GetHeight() const noexcept override;
 
-  [[nodiscard]] Rectangle GetHitbox() const noexcept override; // TODO pre-compute
+  [[nodiscard]] Rectangle GetHitbox() const noexcept override; // TODO don't copy
 };
 
 }

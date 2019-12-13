@@ -4,13 +4,12 @@
 #include "viewport.h"
 #include "wanderer_core.h"
 #include "objects.h"
-#include <utility>
 
 namespace albinjohansson::wanderer {
 
-TileObject::TileObject(TileID id, const Vector2& position, std::shared_ptr<TileSet> tileSet)
-    : id(id), position(position) {
-  this->tileSet = Objects::RequireNonNull(std::move(tileSet));
+TileObject::TileObject(TileID id, const Vector2& position, const std::shared_ptr<TileSet>& tileSet)
+    : id(id), position(position), hitbox(position.x, position.y, Tile::SIZE, Tile::SIZE) {
+  this->tileSet = Objects::RequireNonNull(tileSet);
   centerY = GetY() + (GetHeight() / 2.0f);
 }
 
@@ -51,7 +50,7 @@ float TileObject::GetHeight() const noexcept {
 }
 
 Rectangle TileObject::GetHitbox() const noexcept {
-  return Rectangle(position.x, position.y, Tile::SIZE, Tile::SIZE);
+  return hitbox;
 }
 
 int TileObject::GetDepth() const noexcept {
