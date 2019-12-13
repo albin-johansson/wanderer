@@ -32,6 +32,8 @@ set(SOURCE_FILES
         core/math/rectangle.h
         core/math/vector_2.cpp
         core/math/vector_2.h
+        core/math/random_utils.cpp
+        core/math/random_utils.h
 
         core/menu/menu.h
         core/menu/menu_id.h
@@ -61,8 +63,6 @@ set(SOURCE_FILES
         core/viewport.cpp
         core/viewport.h
         core/animated.h
-        core/random_utils.cpp
-        core/random_utils.h
 
         core/level/tiles/tile.h
         core/level/tiles/tile.cpp
