@@ -34,34 +34,37 @@ pugi::xml_document TiledMapParser::LoadDocument(const std::string& path) {
 std::unique_ptr<TileSet> TiledMapParser::LoadTileSet(const pugi::xml_node& mapRoot) {
   auto tileSet = std::make_unique<TileSet>(3000); // FIXME
 
-  for (pugi::xml_node ts : mapRoot.children("tileset")) {
-    const std::string tsFileName = ts.attribute("source").as_string();
+  for (pugi::xml_node tsInfoNode : mapRoot.children("tileset")) {
+    const std::string tsFileName = tsInfoNode.attribute("source").as_string();
 
     const pugi::xml_document tsDocument = LoadDocument("resources/map/world/" + tsFileName);
-    const pugi::xml_node tsRoot = tsDocument.child("tileset");
+    const pugi::xml_node tileSetNode = tsDocument.child("tileset");
 
-    const auto tileCount = tsRoot.attribute("tilecount").as_int();
-    const auto firstgid = static_cast<TileID>(ts.attribute("firstgid").as_uint());
-    const auto lastgid = firstgid + static_cast<TileID>(tileCount) - 1;
+    const auto firstId = static_cast<TileID>(tsInfoNode.attribute("firstgid").as_uint());
+    tiled::TiledTileSet tiledTileSet = CreateTiledTileSet(tileSetNode, firstId);
 
-    const tiled::TiledTileSet tiledTileSet(tsRoot, firstgid, lastgid);
-
-    const int tileWidth = tsRoot.attribute("tilewidth").as_int();
+    const int tileWidth = tileSetNode.attribute("tilewidth").as_int();
     const int tileSize = tileWidth;
 
-    const std::string path = "resources/img/" + tiledTileSet.GetImageName();
-    std::shared_ptr<Image> sheetImage = imageGenerator.Load(path);
+    const auto path = "resources/img/" + tiledTileSet.GetImageName();
+    std::shared_ptr<Image> image = imageGenerator.Load(path);
 
-    const TileID firstId = tiledTileSet.GetFirstTileId();
     const TileID lastId = tiledTileSet.GetLastTileId();
-    int i = 0;
+    int index = 0;
 
-    for (TileID id = firstId; id <= lastId; id++, i++) {
-      tileSet->Insert(id, CreateTile(sheetImage, id, i, tileSize, tiledTileSet));
+    for (TileID id = firstId; id <= lastId; id++, index++) {
+      tileSet->Insert(id, CreateTile(image, id, index, tileSize, tiledTileSet));
     }
   }
 
   return tileSet;
+}
+
+tiled::TiledTileSet TiledMapParser::CreateTiledTileSet(const pugi::xml_node& tileSetNode,
+                                                       TileID firstId) {
+  const auto tileCount = tileSetNode.attribute("tilecount").as_int();
+  const auto lastgid = firstId + static_cast<TileID>(tileCount) - 1;
+  return tiled::TiledTileSet(tileSetNode, firstId, lastgid);
 }
 
 Tile TiledMapParser::CreateTile(const std::shared_ptr<Image>& image,

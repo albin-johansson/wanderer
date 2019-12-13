@@ -33,11 +33,14 @@ class TiledMapParser final {
 
   [[nodiscard]] std::unique_ptr<TileSet> LoadTileSet(const pugi::xml_node& mapRootNode);
 
+  [[nodiscard]] static tiled::TiledTileSet CreateTiledTileSet(const pugi::xml_node& tileSetNode,
+                                                              TileID firstId);
+
   [[nodiscard]] static Tile CreateTile(const std::shared_ptr<Image>& image,
-                                TileID id,
-                                int index,
-                                int size,
-                                const tiled::TiledTileSet& tiledTileSet);
+                                       TileID id,
+                                       int index,
+                                       int size,
+                                       const tiled::TiledTileSet& tiledTileSet);
 
   [[nodiscard]] static TileAnimation CreateAnimation(tiled::TiledAnimation animation);
 
