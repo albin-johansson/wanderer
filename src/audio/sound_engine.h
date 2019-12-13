@@ -1,10 +1,11 @@
 #pragma once
-#include "sound_effect.h"
 #include <map>
 #include <string>
 #include <memory>
 
 namespace albinjohansson::wanderer {
+
+class SoundEffect;
 
 class SoundEngine final { // TODO expand
  private:

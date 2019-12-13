@@ -1,4 +1,5 @@
 #include "sound_engine.h"
+#include "sound_effect.h"
 #include <stdexcept>
 
 namespace albinjohansson::wanderer {
