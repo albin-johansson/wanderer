@@ -5,7 +5,7 @@ namespace albinjohansson::wanderer {
 
 SoundEffect::SoundEffect(const std::string& file) {
   chunk = Mix_LoadWAV(file.c_str());
-  if (chunk == nullptr) {
+  if (!chunk) {
     throw BadStateException(SDL_GetError());
   }
   SetVolume(MIX_MAX_VOLUME / 2);
@@ -29,10 +29,7 @@ void SoundEffect::Play() noexcept {
 }
 
 void SoundEffect::Loop(int nLoops) noexcept {
-  if (nLoops < 0) {
-    nLoops = -1;
-  }
-
+  if (nLoops < 0) { nLoops = -1; }
   Activate(nLoops);
 }
 
@@ -60,14 +57,8 @@ void SoundEffect::FadeOut(Uint32 ms) noexcept {
 }
 
 void SoundEffect::SetVolume(int volume) noexcept {
-  if (volume < 0) {
-    volume = 0;
-  }
-
-  if (volume > MIX_MAX_VOLUME) {
-    volume = MIX_MAX_VOLUME;
-  }
-
+  if (volume < 0) { volume = 0; }
+  if (volume > MIX_MAX_VOLUME) { volume = MIX_MAX_VOLUME; }
   Mix_VolumeChunk(chunk, volume);
 }
 

@@ -27,6 +27,14 @@ class SoundEffect final {
 
  public:
   /**
+   * A constant that can be used as the argument to the SoundEffect::Loop method, in order to make
+   * the call more readable.
+   *
+   * @since 0.1.0
+   */
+  static constexpr int LOOP_INDEFINITELY = -10;
+
+  /**
    * @param file the file path of the audio file.
    * @throws BadStateException if the audio file cannot be loaded.
    * @since 0.1.0
@@ -48,6 +56,7 @@ class SoundEffect final {
    * @param nLoops the amount of loops. A negative value indicates that the sound effect should
    * be looped indefinitely.
    * @since 0.1.0
+   * @see SoundEffect::LOOP_INDEFINITELY
    */
   void Loop(int nLoops) noexcept;
 
@@ -77,7 +86,8 @@ class SoundEffect final {
   void FadeOut(uint32_t ms) noexcept;
 
   /**
-   * Sets the volume of the sound effect.
+   * Sets the volume of the sound effect. This method will adjust input values outside
+   * the legal range to the closest legal value.
    *
    * @param volume the volume of the sound effect, in the range [0, MIX_MAX_VOLUME].
    * @since 0.1.0
@@ -91,6 +101,7 @@ class SoundEffect final {
    * @since 0.1.0
    */
   [[nodiscard]] int GetVolume() const noexcept;
+
   /**
    * Indicates whether or not the sound effect is currently playing.
    *
