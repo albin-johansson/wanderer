@@ -20,7 +20,7 @@ class IEntity : public virtual IMovableObject, public virtual IAnimated {
   IEntity() = default;
 
  public:
-  static constexpr float SIZE = Tile::SIZE * (7.0f / 3.0f);
+  static constexpr float SIZE = Tile::SIZE * (7.0f / 3.0f); // FIXME maybe use distinct w & h?
 
   ~IEntity() override = default;
 
