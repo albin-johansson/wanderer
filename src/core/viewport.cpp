@@ -93,4 +93,16 @@ void Viewport::SetLevelHeight(float levelHeight) {
   }
 }
 
+Rectangle Viewport::GetBounds() const noexcept {
+  return bounds;
+}
+
+float Viewport::GetTranslatedX(float x) const noexcept {
+  return x - bounds.GetX();
+}
+
+float Viewport::GetTranslatedY(float y) const noexcept {
+  return y - bounds.GetY();
+}
+
 }

@@ -4,10 +4,10 @@
 namespace albinjohansson::wanderer {
 
 /**
-   * A simple struct that describes an area, using floating-point values.
-   *
-   * @since 0.1.0
-   */
+ * A simple struct that describes an area, using floating-point values.
+ *
+ * @since 0.1.0
+ */
 struct Area {
   float width;
   float height;
@@ -53,10 +53,30 @@ class Viewport final {
    */
   void Track(float tx, float ty, Area size, float delta) noexcept;
 
+  /**
+   * Centers the viewport over a target position.
+   *
+   * @param x the target x-coordinate.
+   * @param y the target y-coordinate.
+   * @param size the size of the target.
+   * @since 0.1.0
+   */
   void Center(float x, float y, Area size) noexcept;
 
+  /**
+   * Sets the x-coordinate of the viewport.
+   *
+   * @param x the new x-coordinate.
+   * @since 0.1.0
+   */
   void SetX(float x) noexcept;
 
+  /**
+   * Sets the y-coordinate of the viewport.
+   *
+   * @param y the new y-coordinate.
+   * @since 0.1.0
+   */
   void SetY(float y) noexcept;
 
   /**
@@ -101,7 +121,7 @@ class Viewport final {
    * @return the current bounds of the viewport.
    * @since 0.1.0
    */
-  [[nodiscard]] inline Rectangle GetBounds() const noexcept { return bounds; }
+  [[nodiscard]] Rectangle GetBounds() const noexcept;
 
   /**
    * Calculates and returns the translated value for the supplied x-coordinate.
@@ -110,9 +130,7 @@ class Viewport final {
    * @return the translated value for the supplied x-coordinate.
    * @since 0.1.0
    */
-  [[nodiscard]] inline float GetTranslatedX(float x) const noexcept {
-    return x - bounds.GetX();
-  }
+  [[nodiscard]] float GetTranslatedX(float x) const noexcept;
 
   /**
    * Calculates and returns the translated value for the supplied y-coordinate.
@@ -121,9 +139,7 @@ class Viewport final {
    * @return the translated value for the supplied y-coordinate.
    * @since 0.1.0
    */
-  [[nodiscard]] inline float GetTranslatedY(float y) const noexcept {
-    return y - bounds.GetY();
-  }
+  [[nodiscard]] float GetTranslatedY(float y) const noexcept;
 };
 
 }
