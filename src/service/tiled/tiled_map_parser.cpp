@@ -52,62 +52,62 @@ std::unique_ptr<TileSet> TiledMapParser::LoadTileSet(const pugi::xml_node& mapRo
     const std::string path = "resources/img/" + tiledTileSet.GetImageName();
     std::shared_ptr<Image> sheetImage = imageGenerator.Load(path);
 
-    const int sheetCols = tiledTileSet.GetCols();
     const TileID firstId = tiledTileSet.GetFirstTileId();
     const TileID lastId = tiledTileSet.GetLastTileId();
-
     int i = 0;
+
     for (TileID id = firstId; id <= lastId; id++, i++) {
-      Tile tile;
-
-      tile.SetSheet(sheetImage);
-      tile.SetId(id);
-
-      if (tiledTileSet.HasTile(id)) {
-        const auto& tiledTile = tiledTileSet.GetTile(id);
-
-        if (tiledTile.HasProperty("depth")) {
-          tile.SetDepth(tiledTile.GetIntProperty("depth"));
-        }
-
-        if (tiledTile.HasAttribute("type")) {
-          tile.SetObject(tiledTile.GetStringAttribute("type") == "Object");
-        }
-
-        if (tiledTile.IsAnimated()) {
-          tile.SetAnimation(CreateAnimation(tiledTile.GetAnimation()));
-          tile.SetAnimated(true);
-        }
-
-        if (tiledTile.HasObject("hitbox")) {
-          const auto& object = tiledTile.GetObject("hitbox");
-
-          float x = std::stof(object.GetAttribute("x"));
-          x = (x / tileSize) * Tile::SIZE;
-
-          float y = std::stof(object.GetAttribute("y"));
-          y = (y / tileSize) * Tile::SIZE;
-
-          float w = std::stof(object.GetAttribute("width"));
-          w = (w / tileSize) * Tile::SIZE;
-
-          float h = std::stof(object.GetAttribute("height"));
-          h = (h / tileSize) * Tile::SIZE;
-
-          tile.SetHitbox(Rectangle(x, y, w, h));
-          tile.SetBlocked(true);
-        }
-      }
-
-      const int x = (i % sheetCols) * static_cast<int>(tileSize);
-      const int y = (i / sheetCols) * static_cast<int>(tileSize);
-      tile.SetSource(Rectangle(x, y, tileSize, tileSize));
-
-      tileSet->Insert(id, tile);
+      tileSet->Insert(id, CreateTile(sheetImage, id, i, tileSize, tiledTileSet));
     }
   }
 
   return tileSet;
+}
+
+Tile TiledMapParser::CreateTile(const std::shared_ptr<Image>& image,
+                                TileID id,
+                                int index,
+                                int size,
+                                const tiled::TiledTileSet& tiledTileSet) {
+  Tile tile;
+
+  tile.SetSheet(image);
+  tile.SetId(id);
+
+  if (tiledTileSet.HasTile(id)) {
+    const auto& tiledTile = tiledTileSet.GetTile(id);
+
+    if (tiledTile.HasProperty("depth")) {
+      tile.SetDepth(tiledTile.GetIntProperty("depth"));
+    }
+
+    if (tiledTile.HasAttribute("type")) {
+      tile.SetObject(tiledTile.GetStringAttribute("type") == "Object");
+    }
+
+    if (tiledTile.IsAnimated()) {
+      tile.SetAnimation(CreateAnimation(tiledTile.GetAnimation()));
+      tile.SetAnimated(true);
+    }
+
+    if (tiledTile.HasObject("hitbox")) {
+      const auto& object = tiledTile.GetObject("hitbox");
+
+      const auto x = (std::stof(object.GetAttribute("x")) / size) * Tile::SIZE;
+      const auto y = (std::stof(object.GetAttribute("y")) / size) * Tile::SIZE;
+      const auto w = (std::stof(object.GetAttribute("width")) / size) * Tile::SIZE;
+      const auto h = (std::stof(object.GetAttribute("height")) / size) * Tile::SIZE;
+
+      tile.SetHitbox(Rectangle(x, y, w, h));
+      tile.SetBlocked(true);
+    }
+  }
+
+  const int x = (index % tiledTileSet.GetCols()) * size;
+  const int y = (index / tiledTileSet.GetCols()) * size;
+  tile.SetSource(Rectangle(x, y, size, size));
+
+  return tile;
 }
 
 TileAnimation TiledMapParser::CreateAnimation(tiled::TiledAnimation animation) {
@@ -149,7 +149,7 @@ void TiledMapParser::LoadMap() {
                                                     nRows,
                                                     nCols,
                                                     CreateTileVector(tiledLayer->GetTiles()));
-    layer->SetGroundLayer(tiledLayer->GetBool("ground")); // TODO might be redundant
+    layer->SetGroundLayer(tiledLayer->GetBool("ground"));
     map->AddLayer(std::move(layer));
   }
 }
