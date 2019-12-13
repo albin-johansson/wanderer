@@ -46,8 +46,20 @@ class IWandererCore {
    */
   virtual void Render(Renderer& renderer, float alpha) = 0;
 
+  /**
+   * Sets the currently active map.
+   *
+   * @param map the map that should be made active.
+   * @since 0.1.0
+   */
   virtual void SetMap(std::shared_ptr<ITileMap> map) = 0;
 
+  /**
+   * Plays a sound.
+   *
+   * @param id the ID of the sound that will be played.
+   * @since 0.1.0
+   */
   virtual void PlaySound(const std::string& id) const = 0;
 
   /**
@@ -81,6 +93,12 @@ class IWandererCore {
    */
   [[nodiscard]] virtual bool ShouldQuit() const noexcept = 0;
 
+  /**
+   * Returns a reference to the player.
+   *
+   * @return a reference to the player.
+   * @since 0.1.0
+   */
   [[nodiscard]] virtual const IPlayer& GetPlayer() const = 0;
 };
 
