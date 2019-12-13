@@ -197,14 +197,6 @@ class Tile final {
   [[nodiscard]] TileID GetId() const noexcept;
 
   /**
-   * Returns a reference to the associated image.
-   *
-   * @return a reference to the associated image.
-   * @since 0.1.0
-   */
-  [[nodiscard]] Image& GetImage() const noexcept;
-
-  /**
    * Returns the source rectangle associated with the tile. The source rectangle
    * represents the area in the tile sheet that holds the texture for the tile.
    *

@@ -75,10 +75,6 @@ void Tile::SetSource(const Rectangle& source) noexcept {
   this->source = source;
 }
 
-Image& Tile::GetImage() const noexcept {
-  return *sheet;
-}
-
 TileID Tile::GetId() const noexcept {
   return id;
 }
