@@ -17,12 +17,12 @@ class Image;
  */
 class AbstractEntity : public virtual IEntity {
  private:
-  static constexpr int DEPTH = RenderDepth::RANGE / 2;
+  static constexpr int DEPTH = RenderDepth::RANGE / 2; // TODO maybe move to IEntity
 
   std::unique_ptr<IMovableObject> movable = nullptr;
   std::shared_ptr<Image> sheet = nullptr;
   Animation animation;
-  int health = 100;
+  int health = 100; // FIXME hard-coded
 
  protected:
   /**
