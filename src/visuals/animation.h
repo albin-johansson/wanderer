@@ -1,5 +1,6 @@
 #pragma once
 #include <SDL_timer.h>
+#include <cstdint>
 
 namespace albinjohansson::wanderer {
 
@@ -10,10 +11,10 @@ namespace albinjohansson::wanderer {
  */
 class Animation final {
  private:
-  int nFrames;
-  int index;
-  Uint32 delay;
-  Uint32 previous;
+  int nFrames = 1;
+  int index = 0;
+  uint32_t delay = 100;
+  uint32_t previous = 0;
 
  public:
   Animation() noexcept;
@@ -40,7 +41,7 @@ class Animation final {
    * @param delay the time in between frames, in milliseconds.
    * @since 0.1.0
    */
-  void SetDelay(Uint32 delay) noexcept;
+  void SetDelay(uint32_t delay) noexcept;
 
   /**
    * Sets the currently active frame. An invalid frame index will be clamped to match the closest
@@ -65,9 +66,7 @@ class Animation final {
    * @return the currently active frame index.
    * @since 0.1.0
    */
-  [[nodiscard]] inline int GetIndex() const noexcept {
-    return index;
-  }
+  [[nodiscard]] int GetIndex() const noexcept;
 
   /**
    * Indicates whether or not the animation has reached the final frame.
@@ -75,9 +74,7 @@ class Animation final {
    * @return true if the animation has reached the final frame; false otherwise.
    * @since 0.1.0
    */
-  [[nodiscard]] inline bool IsDone() const noexcept {
-    return index == (nFrames - 1);
-  }
+  [[nodiscard]] bool IsDone() const noexcept;
 };
 
 }

@@ -3,16 +3,13 @@
 namespace albinjohansson::wanderer {
 
 Animation::Animation() noexcept {
-  index = 0;
-  nFrames = 1;
   previous = SDL_GetTicks();
-  delay = 100;
 }
 
 Animation::~Animation() noexcept = default;
 
 void Animation::Update() noexcept {
-  Uint32 elapsed = SDL_GetTicks() - previous;
+  const auto elapsed = SDL_GetTicks() - previous;
   if (elapsed >= delay) {
     previous = SDL_GetTicks();
     ++index;
@@ -27,7 +24,7 @@ void Animation::Reset() noexcept {
   previous = 0;
 }
 
-void Animation::SetDelay(Uint32 delay) noexcept {
+void Animation::SetDelay(uint32_t delay) noexcept {
   this->delay = delay;
 }
 
@@ -42,6 +39,14 @@ void Animation::SetFrame(int frameIndex) noexcept {
 
 void Animation::SetNumberOfFrames(int nFrames) noexcept {
   this->nFrames = nFrames; // TODO guard for valid input?
+}
+
+int Animation::GetIndex() const noexcept {
+  return index;
+}
+
+bool Animation::IsDone() const noexcept {
+  return index == (nFrames - 1);
 }
 
 }
