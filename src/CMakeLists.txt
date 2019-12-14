@@ -30,9 +30,9 @@ set(SOURCE_FILES
         core/sortable_drawable.h
         core/render_depth.h
 
-        core/objects.h # TODO move to service or utils
-        core/bad_state_exception.h
-        core/bad_state_exception.cpp
+        core/util/objects.h # TODO move to service or utils
+        core/util/bad_state_exception.h
+        core/util/bad_state_exception.cpp
 
         core/math/rectangle.cpp
         core/math/rectangle.h
@@ -198,6 +198,7 @@ target_include_directories(${WANDERER_LIB} PUBLIC service/tiled/pugixml)
 target_include_directories(${WANDERER_LIB} PUBLIC core/math)
 target_include_directories(${WANDERER_LIB} PUBLIC core/level)
 target_include_directories(${WANDERER_LIB} PUBLIC core/level/tiles)
+target_include_directories(${WANDERER_LIB} PUBLIC core/util)
 target_include_directories(${WANDERER_LIB} PUBLIC core/entities)
 target_include_directories(${WANDERER_LIB} PUBLIC core/entities/player)
 target_include_directories(${WANDERER_LIB} PUBLIC core/entities/skeleton)

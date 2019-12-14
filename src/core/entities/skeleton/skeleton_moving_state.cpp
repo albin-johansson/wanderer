@@ -23,8 +23,6 @@ void SkeletonMovingState::ChasePlayer(const IWandererCore& core, float distance)
     entityVelocity.LookAt(core.GetPlayer().GetPosition(), entity.GetSpeed());
 
     entity.SetVelocity(entityVelocity);
-
-    // TODO manually set dominant direction
   }
 }
 

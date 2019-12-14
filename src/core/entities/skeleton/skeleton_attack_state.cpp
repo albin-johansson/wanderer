@@ -1,5 +1,7 @@
 #include "skeleton_attack_state.h"
 #include "entity_state_machine.h"
+#include "wanderer_core.h"
+#include "player.h"
 
 namespace albinjohansson::wanderer {
 
@@ -22,6 +24,9 @@ void SkeletonAttackState::Exit(const IWandererCore& core) {
 
 void SkeletonAttackState::Tick(const IWandererCore& core, float delta) {
   attackDelegate.Tick(core, delta);
+
+//    entity.SetDominantDirection(Direction::RIGHT);
+  // TODO update dominant direction
 }
 
 }
