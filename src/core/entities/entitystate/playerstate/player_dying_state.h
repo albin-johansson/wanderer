@@ -1,10 +1,10 @@
 #pragma once
 #include "player_state.h"
-#include "entity.h"
-#include "entity_state_machine.h"
 #include "entity_dying_delegate.h"
 
 namespace albinjohansson::wanderer {
+
+class IEntity;
 
 /**
  * The PlayerDyingState class is an implementation of the IPlayerState interface that represents

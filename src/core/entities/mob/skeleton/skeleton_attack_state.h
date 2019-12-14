@@ -1,9 +1,10 @@
 #pragma once
 #include "entity_state.h"
 #include "entity_attack_delegate.h"
-#include "entity_state_machine.h"
 
 namespace albinjohansson::wanderer {
+
+class IEntityStateMachine;
 
 class SkeletonAttackState final : public IEntityState {
  private:

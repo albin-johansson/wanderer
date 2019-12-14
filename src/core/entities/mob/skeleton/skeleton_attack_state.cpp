@@ -1,4 +1,5 @@
 #include "skeleton_attack_state.h"
+#include "entity_state_machine.h"
 
 namespace albinjohansson::wanderer {
 

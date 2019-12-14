@@ -1,7 +1,6 @@
 #pragma once
 #include "drawable.h"
 #include "entity_state_id.h"
-#include <memory>
 
 namespace albinjohansson::wanderer {
 
@@ -21,16 +20,30 @@ class IEntityStateMachine : public IDrawable {
  public:
   ~IEntityStateMachine() override = default;
 
+  /**
+   * Updates the state of the state machine.
+   *
+   * @param core the associated core instance.
+   * @param delta the delta time, in seconds.
+   * @since 0.1.0
+   */
   virtual void Tick(const IWandererCore& core, float delta) = 0;
 
   /**
    * Changes the currently active entity state.
    *
    * @param id the id of the desired entity state.
+   * @param core the associated core instance.
    * @since 0.1.0
    */
   virtual void SetState(EntityStateID id, const IWandererCore& core) = 0;
 
+  /**
+   * Returns the associated entity instance.
+   *
+   * @return the associated entity instance.
+   * @since 0.1.0
+   */
   [[nodiscard]] virtual IEntity& GetEntity() = 0;
 };
 

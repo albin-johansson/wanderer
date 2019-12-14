@@ -1,8 +1,9 @@
 #pragma once
 #include "entity_state.h"
-#include "entity_state_machine.h"
 
 namespace albinjohansson::wanderer {
+
+class IEntityStateMachine;
 
 class EntityMoveDelegate final : public IEntityState {
  private:
@@ -21,9 +22,7 @@ class EntityMoveDelegate final : public IEntityState {
 
   void Tick(const IWandererCore& core, float delta) override;
 
-  [[nodiscard]] inline IEntity& GetEntity() { return parent->GetEntity(); }
-
-  [[nodiscard]] IEntityStateMachine& GetParent() noexcept { return *parent; }
+  [[nodiscard]] IEntityStateMachine& GetParent() noexcept;
 };
 
 }

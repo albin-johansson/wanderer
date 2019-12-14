@@ -21,9 +21,10 @@ class IPlayerState : public IEntityState {
   ~IPlayerState() override = default;
 
   /**
-   * Reacts to the supplied input
+   * Reacts to the supplied input.
    *
    * @param input a reference to the input state.
+   * @param core the associated core instance.
    * @since 0.1.0
    */
   virtual void HandleInput(const Input& input, const IWandererCore& core) = 0;

@@ -8,7 +8,7 @@
 
 namespace albinjohansson::wanderer {
 
-PlayerImpl::PlayerImpl(std::shared_ptr<Image> sheet) : AbstractEntity(std::move(sheet)) {
+PlayerImpl::PlayerImpl(const std::shared_ptr<Image>& sheet) : AbstractEntity(sheet) {
   playerStateMachine = std::make_unique<PlayerStateMachineImpl>(static_cast<IEntity*>(this));
 }
 

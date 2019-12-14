@@ -1,4 +1,6 @@
 #include "player_moving_state.h"
+#include "entity_state_machine.h"
+#include "entity.h"
 #include "entity_sheet.h"
 #include "objects.h"
 #include "input.h"
@@ -17,7 +19,7 @@ void PlayerMovingState::CheckPressed(const Input& input) {
   bool right = input.IsPressed(SDL_SCANCODE_D);
   bool up = input.IsPressed(SDL_SCANCODE_W);
   bool down = input.IsPressed(SDL_SCANCODE_S);
-  IEntity& entity = moveDelegate.GetEntity();
+  IEntity& entity = moveDelegate.GetParent().GetEntity();
 
   if (left && right) {
     entity.Stop(Direction::LEFT);
@@ -45,7 +47,7 @@ void PlayerMovingState::CheckReleased(const Input& input) {
   bool right = input.WasReleased(SDL_SCANCODE_D);
   bool up = input.WasReleased(SDL_SCANCODE_W);
   bool down = input.WasReleased(SDL_SCANCODE_S);
-  auto& entity = moveDelegate.GetEntity();
+  auto& entity = moveDelegate.GetParent().GetEntity();
 
   if (left) {
     entity.Stop(Direction::LEFT);
@@ -70,11 +72,27 @@ void PlayerMovingState::HandleInput(const Input& input, const IWandererCore& cor
   CheckPressed(input);
   CheckReleased(input);
 
-  if (!areMoveKeysDown && moveDelegate.GetEntity().GetVelocity().IsZero()) {
+  if (!areMoveKeysDown && moveDelegate.GetParent().GetEntity().GetVelocity().IsZero()) {
     parent->SetState(EntityStateID::IDLE, core);
   } else if (input.IsPressed(SDL_SCANCODE_SPACE)) {
     parent->SetState(EntityStateID::ATTACK, core);
   }
+}
+
+void PlayerMovingState::Tick(const IWandererCore& core, float delta) {
+  moveDelegate.Tick(core, delta);
+}
+
+void PlayerMovingState::Draw(Renderer& renderer, const Viewport& viewport) const noexcept {
+  moveDelegate.Draw(renderer, viewport);
+}
+
+void PlayerMovingState::Exit(const IWandererCore& core) {
+  moveDelegate.Exit(core);
+}
+
+void PlayerMovingState::Enter(const IWandererCore& core) {
+  moveDelegate.Enter(core);
 }
 
 }

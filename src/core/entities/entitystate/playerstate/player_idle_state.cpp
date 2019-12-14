@@ -1,5 +1,6 @@
 #include "player_idle_state.h"
 #include "entity_state_machine.h"
+#include "entity.h"
 #include "input.h"
 
 namespace albinjohansson::wanderer {

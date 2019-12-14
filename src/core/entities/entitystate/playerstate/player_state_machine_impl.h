@@ -1,6 +1,6 @@
 #pragma once
-#include "abstract_entity_state_machine.h"
 #include "player_state_machine.h"
+#include "abstract_entity_state_machine.h"
 #include "player_state.h"
 
 namespace albinjohansson::wanderer {
@@ -17,9 +17,8 @@ class PlayerStateMachineImpl final : public IPlayerStateMachine,
                                      public AbstractEntityStateMachine<IPlayerState> {
  public:
   /**
-   * @param entity a pointer to the associated entity instance, will not be freed by the created
-   * state machine.
-   * @throws NullPointerException if any pointers are null.
+   * @param entity a raw pointer to the associated entity instance.
+   * @throws NullPointerException if the supplied entity is null.
    * @since 0.1.0
    */
   explicit PlayerStateMachineImpl(IEntity* entity);

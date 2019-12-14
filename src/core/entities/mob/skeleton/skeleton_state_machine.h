@@ -3,7 +3,7 @@
 
 namespace albinjohansson::wanderer {
 
-class SkeletonStateMachine final : public AbstractEntityStateMachine<IEntityState> {
+class SkeletonStateMachine final : public AbstractEntityStateMachine<> {
  public:
   explicit SkeletonStateMachine(IEntity* entity);
 

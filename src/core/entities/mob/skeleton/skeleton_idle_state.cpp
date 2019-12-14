@@ -1,7 +1,9 @@
 #include "skeleton_idle_state.h"
+#include "entity_state_machine.h"
 #include "player.h"
 #include "skeleton.h"
 #include "wanderer_core.h"
+#include <SDL_timer.h>
 
 namespace albinjohansson::wanderer {
 

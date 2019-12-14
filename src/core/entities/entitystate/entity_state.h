@@ -9,7 +9,6 @@ class IWandererCore;
  * The IEntityState interface specifies objects that represent the state of an entity at some
  * point in time.
  *
- * @see ITickable
  * @see IDrawable
  * @since 0.1.0
  */
@@ -20,12 +19,19 @@ class IEntityState : public IDrawable {
  public:
   ~IEntityState() override = default;
 
+  /**
+   * Updates the state.
+   *
+   * @param core the associated core instance.
+   * @param delta the delta time, in seconds.
+   * @since 0.1.0
+   */
   virtual void Tick(const IWandererCore& core, float delta) = 0;
 
   /**
    * Enters the entity state.
    *
-   * @param core a reference to the level.
+   * @param core the associated core instance.
    * @since 0.1.0
    */
   virtual void Enter(const IWandererCore& core) = 0;
@@ -33,7 +39,7 @@ class IEntityState : public IDrawable {
   /**
    * Exits the entity state.
    *
-   * @param core a reference to the level.
+   * @param core the associated core instance.
    * @since 0.1.0
    */
   virtual void Exit(const IWandererCore& core) = 0;

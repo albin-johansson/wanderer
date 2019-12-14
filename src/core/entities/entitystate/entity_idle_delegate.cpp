@@ -1,8 +1,9 @@
 #include "entity_idle_delegate.h"
-#include "objects.h"
+#include "entity_state_machine.h"
+#include "entity_draw_delegate.h"
 #include "entity.h"
 #include "entity_sheet.h"
-#include "entity_draw_delegate.h"
+#include "objects.h"
 
 namespace albinjohansson::wanderer {
 
@@ -24,5 +25,9 @@ void EntityIdleDelegate::Enter(const IWandererCore& core) {}
 void EntityIdleDelegate::Exit(const IWandererCore& core) {}
 
 void EntityIdleDelegate::Tick(const IWandererCore& core, float delta) {}
+
+IEntityStateMachine& EntityIdleDelegate::GetParent() noexcept {
+  return *parent;
+}
 
 }

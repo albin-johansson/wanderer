@@ -1,8 +1,9 @@
 #include "skeleton_moving_state.h"
+#include "entity_state_machine.h"
 #include "random_utils.h"
 #include "player.h"
-#include "skeleton.h"
 #include "wanderer_core.h"
+#include <SDL_timer.h>
 
 namespace albinjohansson::wanderer {
 
@@ -11,7 +12,7 @@ SkeletonMovingState::SkeletonMovingState(IEntityStateMachine* parent) : moveDele
 SkeletonMovingState::~SkeletonMovingState() = default;
 
 void SkeletonMovingState::ChasePlayer(const IWandererCore& core, float distance) {
-  auto& entity = moveDelegate.GetEntity();
+  auto& entity = moveDelegate.GetParent().GetEntity();
 
   if (distance <= 75) {
     moveDelegate.GetParent().SetState(EntityStateID::ATTACK, core);
@@ -28,7 +29,7 @@ void SkeletonMovingState::ChasePlayer(const IWandererCore& core, float distance)
 }
 
 void SkeletonMovingState::Roam(const IWandererCore& core) {
-  auto& entity = moveDelegate.GetEntity();
+  auto& entity = moveDelegate.GetParent().GetEntity();
 
   if (SDL_GetTicks() - enterTime >= 1000) {
     entity.Stop();
@@ -53,7 +54,7 @@ void SkeletonMovingState::Tick(const IWandererCore& core, float delta) {
 
   Vector2 playerPos = core.GetPlayer().GetPosition();
 
-  float distance = moveDelegate.GetEntity().GetPosition().DistanceTo(playerPos);
+  float distance = moveDelegate.GetParent().GetEntity().GetPosition().DistanceTo(playerPos);
   if (distance <= 400) {
     ChasePlayer(core, distance);
   } else {

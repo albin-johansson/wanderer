@@ -30,15 +30,13 @@ class PlayerAttackState final : public IPlayerState {
 
   void HandleInput(const Input& input, const IWandererCore& core) override;
 
-  void Draw(Renderer& renderer, const Viewport& viewport) const override {
-    attackDelegate.Draw(renderer, viewport);
-  }
+  void Draw(Renderer& renderer, const Viewport& viewport) const override;
 
-  void Tick(const IWandererCore& core, float delta) override { attackDelegate.Tick(core, delta); }
+  void Tick(const IWandererCore& core, float delta) override;
 
-  void Enter(const IWandererCore& core) override { attackDelegate.Enter(core); }
+  void Enter(const IWandererCore& core) override;
 
-  void Exit(const IWandererCore& core) override { attackDelegate.Exit(core); }
+  void Exit(const IWandererCore& core) override;
 
 };
 

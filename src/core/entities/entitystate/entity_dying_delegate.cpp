@@ -1,6 +1,7 @@
 #include "entity_dying_delegate.h"
-#include "objects.h"
+#include "entity.h"
 #include "entity_draw_delegate.h"
+#include "objects.h"
 
 namespace albinjohansson::wanderer {
 

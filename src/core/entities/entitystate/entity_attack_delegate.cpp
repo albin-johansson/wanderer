@@ -1,4 +1,5 @@
 #include "entity_attack_delegate.h"
+#include "entity_state_machine.h"
 #include "objects.h"
 #include "entity.h"
 #include "entity_sheet.h"

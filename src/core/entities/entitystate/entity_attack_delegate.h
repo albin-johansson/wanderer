@@ -1,8 +1,9 @@
 #pragma once
 #include "entity_state.h"
-#include "entity_state_machine.h"
 
 namespace albinjohansson::wanderer {
+
+class IEntityStateMachine;
 
 /**
  * The EntityAttackDelegate class is an implementation of IEntityState that is meant to be used for

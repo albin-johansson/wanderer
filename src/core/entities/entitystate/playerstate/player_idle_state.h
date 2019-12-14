@@ -1,7 +1,5 @@
 #pragma once
 #include "player_state.h"
-#include "entity.h"
-#include "entity_draw_delegate.h"
 #include "entity_idle_delegate.h"
 
 namespace albinjohansson::wanderer {

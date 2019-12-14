@@ -1,4 +1,5 @@
 #include "player_dying_state.h"
+#include "entity.h"
 
 namespace albinjohansson::wanderer {
 

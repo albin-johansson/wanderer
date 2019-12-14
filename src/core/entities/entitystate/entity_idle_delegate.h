@@ -1,8 +1,9 @@
 #pragma once
 #include "entity_state.h"
-#include "entity_state_machine.h"
 
 namespace albinjohansson::wanderer {
+
+class IEntityStateMachine;
 
 /**
  * The EntityIdleDelegate class is an implementation of IEntityState that is meant to be used for
@@ -39,7 +40,7 @@ class EntityIdleDelegate final : public IEntityState {
    * @return a reference to the associated entity state machine.
    * @since 0.1.0
    */
-  [[nodiscard]] inline IEntityStateMachine& GetParent() noexcept { return *parent; }
+  [[nodiscard]] IEntityStateMachine& GetParent() noexcept;
 };
 
 }

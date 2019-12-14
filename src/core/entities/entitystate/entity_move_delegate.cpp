@@ -1,9 +1,10 @@
 #include "entity_move_delegate.h"
-#include "entity_sheet.h"
-#include "objects.h"
+#include "entity_state_machine.h"
 #include "entity_draw_delegate.h"
+#include "entity_sheet.h"
 #include "entity.h"
 #include "wanderer_core.h"
+#include "objects.h"
 
 namespace albinjohansson::wanderer {
 
@@ -42,5 +43,7 @@ void EntityMoveDelegate::Enter(const IWandererCore& core) {
 }
 
 void EntityMoveDelegate::Exit(const IWandererCore& core) {}
+
+IEntityStateMachine& EntityMoveDelegate::GetParent() noexcept { return *parent; }
 
 }

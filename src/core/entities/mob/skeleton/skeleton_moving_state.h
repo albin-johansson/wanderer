@@ -1,24 +1,36 @@
 #pragma once
 #include "entity_state.h"
 #include "entity_move_delegate.h"
-#include "entity_state_machine.h"
 #include "direction.h"
-#include <SDL_timer.h>
+#include <cstdint>
 
 namespace albinjohansson::wanderer {
 
+class IEntityStateMachine;
+
+/**
+ * The SkeletonMovingState class represents the state of a moving skeleton.
+ *
+ * @see IEntityState
+ * @since 0.1.0
+ */
 class SkeletonMovingState final : public IEntityState {
  private:
   EntityMoveDelegate moveDelegate;
-  Uint32 enterTime = 0;
+  uint32_t enterTime = 0;
 
   void ChasePlayer(const IWandererCore& core, float distance);
 
   void Roam(const IWandererCore& core);
 
-  [[nodiscard]] static Direction GetRandomDirection() noexcept;
+  [[nodiscard]] static Direction GetRandomDirection() noexcept; // TODO move to move delegate
 
  public:
+  /**
+   * @param parent a raw pointer to the parent state machine.
+   * @throws NullPointerException if the supplied pointer is null.
+   * @since 0.1.0
+   */
   explicit SkeletonMovingState(IEntityStateMachine* parent);
 
   ~SkeletonMovingState() override;

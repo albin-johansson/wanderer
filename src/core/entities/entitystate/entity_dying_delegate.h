@@ -1,8 +1,9 @@
 #pragma once
 #include "entity_state.h"
-#include "entity.h"
 
 namespace albinjohansson::wanderer {
+
+class IEntity;
 
 /**
  * The EntityDyingDelegate class is an implementation of IEntityState that is meant to be used for
