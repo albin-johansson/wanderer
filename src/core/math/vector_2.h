@@ -13,24 +13,7 @@ namespace albinjohansson::wanderer {
  * @since 0.1.0
  */
 class Vector2 final {
- private:
-  /**
-   * Indicates whether or not the supplied floats are "equal", by checking if the absolute value
-   * of the difference of the values is less than the supplied epsilon value.
-   *
-   * @param a the first value.
-   * @param b the second value.
-   * @param epsilon the epsilon value. Defaults to DEFAULT_EPSILON.
-   * @return true if the supplied floats are close enough to be considered equal; false otherwise.
-   * @since 0.1.0
-   */
-  [[nodiscard]] bool AreEqual(float a,
-                              float b,
-                              float epsilon = DEFAULT_EPSILON) const noexcept;
-
  public:
-  static constexpr float DEFAULT_EPSILON = 0.001f;
-
   float x = 0;
   float y = 0;
 

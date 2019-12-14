@@ -1,4 +1,5 @@
 #include "vector_2.h"
+#include "math_utils.h"
 #include <cmath>
 
 namespace albinjohansson::wanderer {
@@ -11,10 +12,6 @@ Vector2::Vector2(float x, float y) {
 }
 
 Vector2::Vector2(const Vector2& vector) : Vector2(vector.x, vector.y) {}
-
-bool Vector2::AreEqual(float a, float b, float epsilon) const noexcept {
-  return std::abs(a - b) < epsilon;
-}
 
 void Vector2::Scale(float factor) noexcept {
   x *= factor;
@@ -43,7 +40,8 @@ Vector2 Vector2::operator-(const Vector2& v) const noexcept {
 }
 
 bool Vector2::operator==(const Vector2& v) const noexcept {
-  return AreEqual(x, v.x) && AreEqual(y, v.y);
+  return MathUtils::AlmostEqual(x, v.x)
+      && MathUtils::AlmostEqual(y, v.y);
 }
 
 bool Vector2::operator!=(const Vector2& v) const noexcept {
@@ -153,11 +151,12 @@ float Vector2::GetLength2() const noexcept {
 }
 
 bool Vector2::IsZero() const noexcept {
-  return AreEqual(x, 0) && AreEqual(y, 0);
+  return MathUtils::AlmostEqual(x, 0)
+      && MathUtils::AlmostEqual(y, 0);
 }
 
 bool Vector2::IsUnit() const noexcept {
-  return AreEqual(GetLength2(), 1.0f);
+  return MathUtils::AlmostEqual(GetLength2(), 1.0f);
 }
 
 }
