@@ -2,18 +2,16 @@ cmake_minimum_required(VERSION 3.15)
 project(${CMAKE_PROJECT_NAME}_src)
 
 set(SOURCE_FILES
-        service/bool_converter.h
-        service/display_modes.cpp
-        service/display_modes.h
-
-        controller/key_state_manager.cpp
-        controller/key_state_manager.h
         controller/wanderer_controller.h
         controller/wanderer_controller_impl.cpp
         controller/wanderer_controller_impl.h
         controller/wanderer_controller_factory.h
         controller/mouse_state_manager.cpp
         controller/mouse_state_manager.h
+        controller/key_state_manager.cpp
+        controller/key_state_manager.h
+        controller/input.cpp
+        controller/input.h
 
         controller/gameloop/game_loop.h
         controller/gameloop/smooth_fixed_timestep_loop.cpp
@@ -23,10 +21,18 @@ set(SOURCE_FILES
         core/wanderer_core_impl.cpp
         core/wanderer_core_impl.h
         core/wanderer_core_factory.h
-        core/objects.h
         core/game_object.h
         core/drawable.h
         core/direction.h
+        core/viewport.cpp
+        core/viewport.h
+        core/animated.h
+        core/sortable_drawable.h
+        core/render_depth.h
+
+        core/objects.h # TODO move to service or utils
+        core/bad_state_exception.h
+        core/bad_state_exception.cpp
 
         core/math/rectangle.cpp
         core/math/rectangle.h
@@ -56,13 +62,8 @@ set(SOURCE_FILES
         core/menu/inventory_menu.h
         core/menu/menu_drawable.h
 
-        core/bad_state_exception.cpp
-        core/bad_state_exception.h
-        controller/input.cpp
-        controller/input.h
-        core/viewport.cpp
-        core/viewport.h
-        core/animated.h
+        core/level/portal.cpp
+        core/level/portal.h
 
         core/level/tiles/tile.h
         core/level/tiles/tile.cpp
@@ -76,17 +77,13 @@ set(SOURCE_FILES
         core/level/tiles/tile_animation.cpp
         core/level/tiles/tile_animation.h
         core/level/tiles/tile_id.h
-
-        service/tiled/pugixml/pugixml.hpp
-        service/tiled/pugixml/pugixml.cpp
-        service/tiled/pugixml/pugiconfig.hpp
-        service/tiled/tiled_map_parser.cpp
-        service/tiled/tiled_map_parser.h
+        core/level/tiles/tile_object.cpp
+        core/level/tiles/tile_object.h
+        core/level/tiles/map_position.h
+        core/level/tiles/tile_map.h
+        core/level/tiles/tile_map_layer.h
 
         core/entities/entity.h
-        core/entities/player/player.h
-        core/entities/player/player_impl.cpp
-        core/entities/player/player_impl.h
         core/entities/movable_object.h
         core/entities/movable_delegate.cpp
         core/entities/movable_delegate.h
@@ -106,6 +103,9 @@ set(SOURCE_FILES
         core/entities/skeleton/skeleton_attack_state.cpp
         core/entities/skeleton/skeleton_attack_state.h
 
+        core/entities/player/player.h
+        core/entities/player/player_impl.cpp
+        core/entities/player/player_impl.h
         core/entities/player/player_moving_state.cpp
         core/entities/player/player_moving_state.h
         core/entities/player/player_idle_state.cpp
@@ -120,12 +120,12 @@ set(SOURCE_FILES
         core/entities/player/player_state_machine.h
 
         core/entities/entitystate/abstract_entity_state_machine.h
-        core/entities/entitystate/delegates/entity_draw_delegate.cpp
-        core/entities/entitystate/delegates/entity_draw_delegate.h
         core/entities/entitystate/entity_state.h
         core/entities/entitystate/entity_state_machine.h
         core/entities/entitystate/entity_state_id.h
 
+        core/entities/entitystate/delegates/entity_draw_delegate.cpp
+        core/entities/entitystate/delegates/entity_draw_delegate.h
         core/entities/entitystate/delegates/entity_move_delegate.cpp
         core/entities/entitystate/delegates/entity_move_delegate.h
         core/entities/entitystate/delegates/entity_dying_delegate.cpp
@@ -147,20 +147,23 @@ set(SOURCE_FILES
         visuals/image_generator.h
         visuals/font.cpp
         visuals/font.h
+        visuals/font_bundle.cpp
+        visuals/font_bundle.h
 
         audio/sound_effect.cpp
         audio/sound_effect.h
         audio/sound_engine.cpp
         audio/sound_engine.h
 
-        visuals/font_bundle.cpp
-        visuals/font_bundle.h
+        service/bool_converter.h
+        service/display_modes.cpp
+        service/display_modes.h
 
-        core/level/portal.cpp
-        core/level/portal.h
-        core/level/tiles/tile_map.h
-        core/level/tiles/tile_map_layer.h
-
+        service/tiled/pugixml/pugixml.hpp
+        service/tiled/pugixml/pugixml.cpp
+        service/tiled/pugixml/pugiconfig.hpp
+        service/tiled/tiled_map_parser.cpp
+        service/tiled/tiled_map_parser.h
         service/tiled/tiled_map.cpp
         service/tiled/tiled_map.h
         service/tiled/tiled_tile_set.cpp
@@ -173,13 +176,7 @@ set(SOURCE_FILES
         service/tiled/tiled_layer.h
         service/tiled/tiled_tile.cpp
         service/tiled/tiled_tile.h
-        service/tiled/tiled_property.h
-
-        core/sortable_drawable.h
-        core/level/tiles/tile_object.cpp
-        core/level/tiles/tile_object.h
-        core/level/tiles/map_position.h
-        core/render_depth.h)
+        service/tiled/tiled_property.h)
 
 # Prepares the Wanderer "library", which excludes linking and the main.cpp file
 add_library(${WANDERER_LIB} ${SOURCE_FILES})
