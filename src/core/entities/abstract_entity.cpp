@@ -5,8 +5,8 @@
 
 namespace albinjohansson::wanderer {
 
-AbstractEntity::AbstractEntity(std::shared_ptr<Image> sheet) {
-  this->sheet = Objects::RequireNonNull(std::move(sheet));
+AbstractEntity::AbstractEntity(const std::shared_ptr<Image>& sheet) {
+  this->sheet = Objects::RequireNonNull(sheet);
   movable = std::make_unique<MovableDelegate>(DEPTH, SIZE, SIZE);
 }
 

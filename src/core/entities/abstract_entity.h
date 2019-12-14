@@ -30,7 +30,7 @@ class AbstractEntity : public virtual IEntity {
    * @throws NullPointerException if the supplied pointer is null.
    * @since 0.1.0
    */
-  explicit AbstractEntity(std::shared_ptr<Image> sheet);
+  explicit AbstractEntity(const std::shared_ptr<Image>& sheet);
 
  public:
   ~AbstractEntity() override;
