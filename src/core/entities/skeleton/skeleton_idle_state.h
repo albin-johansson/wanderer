@@ -1,19 +1,21 @@
 #pragma once
 #include "entity_state.h"
-#include "entity_attack_delegate.h"
+#include "entities/entitystate/delegates/entity_idle_delegate.h"
+#include <cstdint>
 
 namespace albinjohansson::wanderer {
 
 class IEntityStateMachine;
 
-class SkeletonAttackState final : public IEntityState {
+class SkeletonIdleState : public IEntityState {
  private:
-  EntityAttackDelegate attackDelegate;
+  EntityIdleDelegate idleDelegate;
+  uint32_t enterTime = 0;
 
  public:
-  explicit SkeletonAttackState(IEntityStateMachine* parent);
+  explicit SkeletonIdleState(IEntityStateMachine* parent);
 
-  ~SkeletonAttackState() override;
+  ~SkeletonIdleState() override;
 
   void Tick(const IWandererCore& core, float delta) override;
 
