@@ -14,7 +14,7 @@ Renderer::Renderer(SDL_Renderer* renderer) {
 
 Renderer::Renderer(SDL_Window* window) {
   Objects::RequireNonNull(window);
-  Uint32 flags = SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC;
+  uint32_t flags = SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC;
   renderer = SDL_CreateRenderer(window, -1, flags);
 
   SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
@@ -22,7 +22,7 @@ Renderer::Renderer(SDL_Window* window) {
 }
 
 Renderer::~Renderer() {
-  if (renderer != nullptr) {
+  if (renderer) {
     SDL_DestroyRenderer(renderer);
   }
 }
@@ -110,11 +110,11 @@ void Renderer::RenderText(const std::string& text, float x, float y, Font& font)
   }
 }
 
-void Renderer::SetColor(Uint8 red, Uint8 green, Uint8 blue, Uint8 alpha) noexcept {
+void Renderer::SetColor(uint8_t red, uint8_t green, uint8_t blue, uint8_t alpha) noexcept {
   SDL_SetRenderDrawColor(renderer, red, green, blue, alpha);
 }
 
-void Renderer::SetColor(Uint8 red, Uint8 green, Uint8 blue) noexcept {
+void Renderer::SetColor(uint8_t red, uint8_t green, uint8_t blue) noexcept {
   SDL_SetRenderDrawColor(renderer, red, green, blue, SDL_ALPHA_OPAQUE);
 }
 
