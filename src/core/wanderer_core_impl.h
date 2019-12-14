@@ -2,12 +2,11 @@
 #include "wanderer_core.h"
 #include "viewport.h"
 #include "image_generator.h"
-#include "menu_state_machine.h" // FIXME remove
+#include "menu_state_machine.h"
 #include <memory>
 
 namespace albinjohansson::wanderer {
 
-//class IMenuStateMachine;
 class SoundEngine;
 
 /**
