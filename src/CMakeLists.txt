@@ -84,9 +84,9 @@ set(SOURCE_FILES
         service/tiled/tiled_map_parser.h
 
         core/entities/entity.h
-        core/entities/player.h
-        core/entities/player_impl.cpp
-        core/entities/player_impl.h
+        core/entities/player/player.h
+        core/entities/player/player_impl.cpp
+        core/entities/player/player_impl.h
         core/entities/movable_object.h
         core/entities/movable_delegate.cpp
         core/entities/movable_delegate.h
