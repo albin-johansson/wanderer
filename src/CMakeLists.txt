@@ -177,7 +177,7 @@ set(SOURCE_FILES
         service/tiled/tiled_layer.h
         service/tiled/tiled_tile.cpp
         service/tiled/tiled_tile.h
-        service/tiled/tiled_property.h)
+        service/tiled/tiled_property.h core/hitbox.cpp core/hitbox.h)
 
 # Prepares the Wanderer "library", which excludes linking and the main.cpp file
 add_library(${WANDERER_LIB} ${SOURCE_FILES})

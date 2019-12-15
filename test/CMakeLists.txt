@@ -17,7 +17,7 @@ add_executable(${WANDERER_TEST}
         unittests/image_test.cpp
         unittests/viewport_test.cpp
         unittests/sound_effect_test.cpp
-        )
+        unittests/hitbox_test.cpp)
 
 target_include_directories(${WANDERER_TEST} PUBLIC unittests)
 

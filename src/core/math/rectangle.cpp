@@ -25,6 +25,13 @@ void Rectangle::MoveY(float dy) noexcept {
   y += dy;
 }
 
+void Rectangle::Set(const Rectangle& other) noexcept {
+  x = other.x;
+  y = other.y;
+  width = other.width;
+  height = other.height;
+}
+
 void Rectangle::SetX(float x) noexcept {
   this->x = x;
 }

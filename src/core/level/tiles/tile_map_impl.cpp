@@ -43,10 +43,12 @@ void TileMapImpl::Interpolate(float alpha) {
 }
 
 TileMapBounds TileMapImpl::CalculateMapBounds(const Rectangle& bounds) const noexcept {
-  auto minCol = static_cast<int>(bounds.GetX() / Tile::SIZE);
-  auto minRow = static_cast<int>(bounds.GetY() / Tile::SIZE);
-  auto maxCol = static_cast<int>((bounds.GetMaxX() / Tile::SIZE) + 1);
-  auto maxRow = static_cast<int>((bounds.GetMaxY() / Tile::SIZE) + 1);
+  const int tileSize = Tile::SIZE;
+
+  auto minCol = static_cast<int>(bounds.GetX()) / tileSize;
+  auto minRow = static_cast<int>(bounds.GetY()) / tileSize;
+  auto maxCol = static_cast<int>((bounds.GetMaxX()) / tileSize) + 1;
+  auto maxRow = static_cast<int>((bounds.GetMaxY()) / tileSize) + 1;
 
   if (minCol < 0) {
     minCol = 0;

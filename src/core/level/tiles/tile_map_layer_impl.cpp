@@ -42,11 +42,10 @@ Vector2 TileMapLayerImpl::CreatePosition(int index) const {
 void TileMapLayerImpl::Update(const TileMapBounds& bounds) {
   for (auto row = bounds.minRow; row < bounds.maxRow; row++) {
     for (auto col = bounds.minCol; col < bounds.maxCol; col++) {
-      TileID id = GetTileId(row, col);
-      if (id == 0) {
-        continue;
+      const auto id = GetTileId(row, col);
+      if (id != Tile::EMPTY) {
+        tileSet->Tick(id);
       }
-      tileSet->Tick(id);
     }
   }
 }

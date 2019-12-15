@@ -61,6 +61,14 @@ class Rectangle final {
   void MoveY(float dy) noexcept;
 
   /**
+   * Copies all of the values from the other rectangle to this rectangle.
+   *
+   * @param other the rectangle that will be copied.
+   * @since 0.1.0
+   */
+  void Set(const Rectangle& other) noexcept;
+
+  /**
    * Sets the x-coordinate of the rectangle.
    *
    * @param x the new x-coordinate of the rectangle.
