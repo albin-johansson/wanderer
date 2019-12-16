@@ -24,6 +24,8 @@ class Renderer final {
  public:
   // TODO ctor with flags arg
 
+  // TODO a lot of rendering class would be prettier if there was a viewport-translated
+  // alternative for all methods, ex: RenderTranslatedRect, RenderTranslatedImage, etc.
   /**
    * Creates a renderer based on the supplied SDL_Renderer.
    *

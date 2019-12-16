@@ -1,4 +1,5 @@
 #pragma once
+#include "hitbox.h"
 #include "movable_object.h"
 #include "vector_2.h"
 
@@ -17,6 +18,7 @@ class MovableDelegate final : public IMovableObject {
   Vector2 currPosition;
   Vector2 prevPosition;
   Vector2 interpolatedPosition;
+  Hitbox hitbox;
   Direction dominantDirection = Direction::DOWN;
   const int depth;
   const float width;
@@ -29,6 +31,8 @@ class MovableDelegate final : public IMovableObject {
    * @since 0.1.0
    */
   void SavePosition() noexcept;
+
+  void UpdatePosition();
 
   /**
    * Updates the dominant direction.
@@ -73,6 +77,8 @@ class MovableDelegate final : public IMovableObject {
 
   void SetVelocity(const Vector2& v) noexcept override;
 
+  void AddHitbox(const Rectangle& rectangle) override;
+
   [[nodiscard]] int GetDepth() const noexcept override;
 
   [[nodiscard]] float GetSpeed() const noexcept override;
@@ -87,7 +93,7 @@ class MovableDelegate final : public IMovableObject {
 
   [[nodiscard]] float GetHeight() const noexcept override;
 
-  [[nodiscard]] Rectangle GetHitbox() const noexcept override;
+  [[nodiscard]] const Hitbox& GetHitbox() const noexcept override;
 
   [[nodiscard]] Direction GetDominantDirection() const noexcept override;
 

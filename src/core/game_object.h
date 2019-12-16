@@ -1,10 +1,11 @@
 #pragma once
 #include "sortable_drawable.h"
-#include "rectangle.h"
 
 namespace albinjohansson::wanderer {
 
 class IWandererCore;
+class Hitbox;
+class Rectangle;
 
 /**
  * The IGameObject interface specifies the common interface for all game objects that are present
@@ -29,6 +30,8 @@ class IGameObject : public virtual ISortableDrawable {
    * @since 0.1.0
    */
   virtual void Tick(IWandererCore& core, float delta) = 0;
+
+  virtual void AddHitbox(const Rectangle& rectangle) = 0;
 
   /**
    * Returns the x-coordinate of the object.
@@ -63,12 +66,12 @@ class IGameObject : public virtual ISortableDrawable {
   [[nodiscard]] virtual float GetHeight() const noexcept = 0;
 
   /**
-   * Returns a rectangle that represents the hitbox of the object.
+   * Returns the hitbox of the object.
    *
-   * @return a rectangle that represents the hitbox of the object.
+   * @return the hitbox of the object.
    * @since 0.1.0
    */
-  [[nodiscard]] virtual Rectangle GetHitbox() const noexcept = 0;
+  [[nodiscard]] virtual const Hitbox& GetHitbox() const noexcept = 0;
 };
 
 }

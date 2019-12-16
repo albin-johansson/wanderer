@@ -49,7 +49,7 @@ class ITileMap {
    * @param layer the layer that will be added.
    * @since 0.1.0
    */
-  virtual void AddLayer(std::unique_ptr<ITileMapLayer> layer) = 0;
+  virtual void AddLayer(std::unique_ptr<ITileMapLayer>&& layer) = 0;
 
   /**
    * Sets the player instance used by the map.

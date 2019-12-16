@@ -9,6 +9,7 @@ namespace albinjohansson::wanderer {
 class TileObject;
 class TileMapBounds;
 class ISortableDrawable;
+class IGameObject;
 class Renderer;
 class Viewport;
 
@@ -41,14 +42,14 @@ class ITileMapLayer {
   virtual void SetGroundLayer(bool isGroundLayer) noexcept = 0;
 
   /**
-   * Adds all of the drawables in the layer within the supplied bounds to the supplied vector.
+   * Adds all of the game objects in the layer within the supplied bounds to the supplied vector.
    *
    * @param bounds the tile map bounds to look for drawables.
-   * @param drawables the vector of drawables which the drawables will be added to.
+   * @param objects the vector of objects which the objects will be added to.
    * @since 0.1.0
    */
   virtual void AddObjects(const TileMapBounds& bounds,
-                          std::vector<std::shared_ptr<ISortableDrawable>>& drawables) = 0;
+                          std::vector<IGameObject*>& objects) = 0;
 
   /**
    * Returns the tile ID of the tile at the specified position.

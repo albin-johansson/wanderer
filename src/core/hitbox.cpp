@@ -9,7 +9,9 @@ Hitbox::~Hitbox() = default;
 void Hitbox::CalcBounds() {
   bool first = true;
 
-  for (const auto& rect : rectangles) {
+  for (auto& pair : rectangles) {
+    const auto& rect = pair.first;
+
     if (first) {
       bounds.Set(rect);
       first = false;
@@ -29,32 +31,73 @@ void Hitbox::CalcBounds() {
     }
 
     if (rectMaxX > bounds.GetMaxX()) {
-      const auto xDiff = rectX - bounds.GetMaxX();
-      bounds.SetWidth(bounds.GetWidth() + rect.GetWidth() + xDiff);
+      bounds.SetWidth(rectMaxX - bounds.GetX());
     }
 
     if (rectMaxY > bounds.GetMaxY()) {
-      const auto yDiff = rectY - bounds.GetMaxY();
-      bounds.SetHeight(bounds.GetHeight() + rect.GetHeight() + yDiff);
+      bounds.SetHeight(rectMaxY - bounds.GetY());
     }
+
+    pair.second.x = rectX - bounds.GetX();
+    pair.second.y = rectY - bounds.GetY();
   }
 }
 
 void Hitbox::AddRectangle(const Rectangle& rect) {
-  rectangles.push_back(rect);
+  rectangles.emplace_back(rect, Vector2(0, 0));
   CalcBounds();
 }
 
+void Hitbox::SetX(float x) noexcept {
+  // TODO...
+  bounds.SetX(x);
+  for (auto& pair : rectangles) {
+    pair.first.SetX(x + pair.second.x);
+  }
+}
+
+void Hitbox::SetY(float y) noexcept {
+  bounds.SetY(y);
+  for (auto& pair : rectangles) {
+    pair.first.SetY(y + pair.second.y);
+  }
+}
+
 bool Hitbox::Intersects(const Hitbox& other) const noexcept {
+  if (other.IsUnit()) {
+    return Intersects(other.rectangles.front().first);
+  }
+
   // FIXME quadratic complexity
-  for (const auto& rect : rectangles) {
-    for (const auto& otherRect : other.rectangles) {
-      if (otherRect.Intersects(rect)) {
+  for (const auto& pair : rectangles) {
+    for (const auto& otherPair : other.rectangles) {
+      if (otherPair.first.Intersects(pair.first)) {
         return true;
       }
     }
   }
   return false;
+}
+
+bool Hitbox::Intersects(const Rectangle& other) const noexcept {
+  for (const auto& pair : rectangles) {
+    if (pair.first.Intersects(other)) {
+      return true;
+    }
+  }
+  return false;
+}
+
+const Rectangle& Hitbox::GetBounds() const noexcept {
+  return bounds;
+}
+
+int Hitbox::GetSubhitboxAmount() const noexcept {
+  return rectangles.size();
+}
+
+bool Hitbox::IsUnit() const noexcept {
+  return rectangles.size() == 1;
 }
 
 }

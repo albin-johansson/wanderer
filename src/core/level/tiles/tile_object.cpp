@@ -8,9 +8,10 @@
 namespace albinjohansson::wanderer {
 
 TileObject::TileObject(TileID id, const Vector2& position, const std::shared_ptr<TileSet>& tileSet)
-    : id(id), position(position), hitbox(position.x, position.y, Tile::SIZE, Tile::SIZE) {
+    : id(id), position(position) {
   this->tileSet = Objects::RequireNonNull(tileSet);
   centerY = GetY() + (GetHeight() / 2.0f);
+  hitbox.AddRectangle(Rectangle(position.x, position.y, Tile::SIZE, Tile::SIZE));
 }
 
 TileObject::~TileObject() noexcept = default;
@@ -49,12 +50,16 @@ float TileObject::GetHeight() const noexcept {
   return Tile::SIZE;
 }
 
-Rectangle TileObject::GetHitbox() const noexcept {
+const Hitbox& TileObject::GetHitbox() const noexcept {
   return hitbox;
 }
 
 int TileObject::GetDepth() const noexcept {
   return depth;
+}
+
+void TileObject::AddHitbox(const Rectangle& rectangle) {
+  hitbox.AddRectangle(rectangle);
 }
 
 }

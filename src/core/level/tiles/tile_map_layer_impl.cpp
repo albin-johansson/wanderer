@@ -4,6 +4,7 @@
 #include "tile_object.h"
 #include "tile_map_bounds.h"
 #include "sortable_drawable.h"
+#include "game_object.h"
 #include "renderer.h"
 #include "viewport.h"
 #include "objects.h"
@@ -64,12 +65,12 @@ void TileMapLayerImpl::SetGroundLayer(bool isGroundLayer) noexcept {
 }
 
 void TileMapLayerImpl::AddObjects(const TileMapBounds& bounds,
-                                  std::vector<std::shared_ptr<ISortableDrawable>>& drawables) {
+                                  std::vector<IGameObject*>& objects) {
   for (auto row = bounds.minRow; row < bounds.maxRow; row++) {
     for (auto col = bounds.minCol; col < bounds.maxCol; col++) {
       const auto index = GetIndex(row, col);
       if (tileObjects.count(index)) {
-        drawables.push_back(tileObjects.at(index));
+        objects.push_back(tileObjects.at(index).get());
       }
     }
   }

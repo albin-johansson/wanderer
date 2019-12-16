@@ -3,6 +3,8 @@
 #include "tile_id.h"
 #include "render_depth.h"
 #include "tile_animation.h"
+#include "hitbox.h"
+#include "rectangle.h"
 #include <memory>
 
 namespace albinjohansson::wanderer {
@@ -23,7 +25,7 @@ class Tile final {
  private:
   std::shared_ptr<Image> sheet = nullptr;
   Rectangle source;
-  Rectangle hitbox; // TODO create Hitbox class which holds multiple rectangles
+  Hitbox hitbox;
 
   TileAnimation animation;
 
@@ -49,9 +51,9 @@ class Tile final {
    */
   static constexpr TileID EMPTY = 0;
 
-  Tile() noexcept;
+  Tile();
 
-  ~Tile() noexcept;
+  ~Tile();
 
   /**
    * Renders the tile at a specific position.
@@ -80,7 +82,7 @@ class Tile final {
    * @param sheet the associated tile sheet image.
    * @since 0.1.0
    */
-  void SetSheet(std::shared_ptr<Image> sheet);
+  void SetSheet(const std::shared_ptr<Image>& sheet);
 
   /**
    * Sets whether or not the tile is blocked. By default, this property is set to false.
@@ -137,7 +139,7 @@ class Tile final {
    * @param hitbox the hitbox that will be used.
    * @since 0.1.0
    */
-  void SetHitbox(const Rectangle& hitbox) noexcept;
+  void SetHitbox(const Hitbox& hitbox) noexcept;
 
   /**
    * Sets the source rectangle for the tile.
@@ -146,6 +148,8 @@ class Tile final {
    * @since 0.1.0
    */
   void SetSource(const Rectangle& source) noexcept;
+
+  void AddRectangle(const Rectangle& rect);
 
   /**
    * Indicates whether or not the tile is blocked.

@@ -26,7 +26,7 @@ TEST_CASE("Hitbox::AddRectangle", "[Hitbox]") {
      *           |_ _ _|
      */
     Rectangle fst(10, 10, 140, 50);
-    Rectangle snd(fst.GetMaxX(), fst.GetY() + (fst.GetHeight() / 2), 50, fst.GetWidth());
+    Rectangle snd(fst.GetMaxX(), 80, 50, fst.GetWidth());
 
     Hitbox hitbox;
 
@@ -38,7 +38,7 @@ TEST_CASE("Hitbox::AddRectangle", "[Hitbox]") {
     CHECK(bounds.GetX() == fst.GetX());
     CHECK(bounds.GetY() == fst.GetY());
     CHECK(bounds.GetWidth() == (fst.GetWidth() + snd.GetWidth()));
-    CHECK(bounds.GetHeight() == (fst.GetHeight() + snd.GetHeight()));
+    CHECK(bounds.GetHeight() == 50 + 140 - 70);
   }
 
   SECTION("Multiple subhitboxes 2") {

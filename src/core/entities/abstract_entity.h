@@ -3,6 +3,7 @@
 #include "animation.h"
 #include "render_depth.h"
 #include <cstdint>
+#include <hitbox.h>
 
 namespace albinjohansson::wanderer {
 
@@ -55,6 +56,8 @@ class AbstractEntity : public virtual IEntity {
 
   void Interpolate(float alpha) noexcept override;
 
+  void AddHitbox(const Rectangle& rectangle) override;
+
   void AddX(float dx) noexcept override;
 
   void AddY(float dy) noexcept override;
@@ -95,7 +98,7 @@ class AbstractEntity : public virtual IEntity {
 
   [[nodiscard]] float GetHeight() const noexcept override;
 
-  [[nodiscard]] Rectangle GetHitbox() const noexcept override;
+  [[nodiscard]] const Hitbox& GetHitbox() const noexcept override;
 
   [[nodiscard]] float GetCenterY() const noexcept override;
 

@@ -3,9 +3,11 @@
 #include "tile_id.h"
 #include "tile.h"
 #include "vector_2.h"
+#include "hitbox.h"
 #include "rectangle.h"
 #include "render_depth.h"
 #include <memory>
+#include <hitbox.h>
 
 namespace albinjohansson::wanderer {
 
@@ -21,7 +23,7 @@ class TileObject final : public IGameObject {
  private:
   std::shared_ptr<TileSet> tileSet = nullptr;
   Vector2 position;
-  Rectangle hitbox;
+  Hitbox hitbox;
   int depth = RenderDepth::MAX;
   float centerY = 0;
   const TileID id;
@@ -44,6 +46,8 @@ class TileObject final : public IGameObject {
 
   void SetDepth(int depth) noexcept;
 
+  void AddHitbox(const Rectangle& rectangle) override;
+
   [[nodiscard]] float GetX() const noexcept override;
 
   [[nodiscard]] float GetY() const noexcept override;
@@ -56,7 +60,7 @@ class TileObject final : public IGameObject {
 
   [[nodiscard]] float GetHeight() const noexcept override;
 
-  [[nodiscard]] Rectangle GetHitbox() const noexcept override; // TODO don't copy
+  [[nodiscard]] const Hitbox& GetHitbox() const noexcept override;
 };
 
 }

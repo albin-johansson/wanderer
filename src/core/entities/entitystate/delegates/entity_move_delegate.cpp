@@ -32,6 +32,7 @@ void EntityMoveDelegate::Tick(const IWandererCore& core, float delta) {
   entity.AddY(velocityY * delta);
 
   // TODO collision detection
+//  core.IsBlocked(entity);
 }
 
 void EntityMoveDelegate::Enter(const IWandererCore& core) {

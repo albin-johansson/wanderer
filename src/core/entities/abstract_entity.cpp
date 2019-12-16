@@ -2,12 +2,17 @@
 #include "image.h"
 #include "objects.h"
 #include "movable_delegate.h"
+#include "hitbox.h"
 
 namespace albinjohansson::wanderer {
 
 AbstractEntity::AbstractEntity(const std::shared_ptr<Image>& sheet) {
   this->sheet = Objects::RequireNonNull(sheet);
   movable = std::make_unique<MovableDelegate>(DEPTH, SIZE, SIZE);
+  movable->AddHitbox(Rectangle(movable->GetX(),
+                               movable->GetY(),
+                               movable->GetWidth(),
+                               movable->GetHeight()));
 }
 
 AbstractEntity::~AbstractEntity() = default;
@@ -79,6 +84,10 @@ void AbstractEntity::SetVelocity(const Vector2& velocity) noexcept {
   movable->SetVelocity(velocity);
 }
 
+void AbstractEntity::AddHitbox(const Rectangle& rectangle) {
+  movable->AddHitbox(rectangle);
+}
+
 int AbstractEntity::GetAnimationFrame() const noexcept {
   return animation.GetIndex();
 }
@@ -135,7 +144,7 @@ float AbstractEntity::GetHeight() const noexcept {
   return movable->GetHeight();
 }
 
-Rectangle AbstractEntity::GetHitbox() const noexcept {
+const Hitbox& AbstractEntity::GetHitbox() const noexcept {
   return movable->GetHitbox();
 }
 

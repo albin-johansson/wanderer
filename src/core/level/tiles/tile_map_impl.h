@@ -10,6 +10,7 @@ class Rectangle;
 class ImageGenerator;
 class TileSet;
 class ISortableDrawable;
+class IGameObject;
 
 /**
  * The TileMapImpl class represents a map of tiles, used to build the game world.
@@ -25,7 +26,7 @@ class TileMapImpl final : public ITileMap {
   std::vector<std::unique_ptr<ITileMapLayer>> objectLayers;
 
   std::vector<std::shared_ptr<IEntity>> entities;
-  std::vector<std::shared_ptr<ISortableDrawable>> drawables;
+  std::vector<IGameObject*> activeObjects;
 
   const int nRows;
   const int nCols;
@@ -66,7 +67,7 @@ class TileMapImpl final : public ITileMap {
 
   void Draw(Renderer& renderer, const Viewport& viewport, float alpha) noexcept override;
 
-  void AddLayer(std::unique_ptr<ITileMapLayer> layer) override;
+  void AddLayer(std::unique_ptr<ITileMapLayer>&& layer) override;
 
   void SetPlayer(const std::shared_ptr<IEntity>& player) override;
 

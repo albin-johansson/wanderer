@@ -1,4 +1,5 @@
 #include "movable_delegate.h"
+#include "rectangle.h"
 #include <stdexcept>
 
 namespace albinjohansson::wanderer {
@@ -19,11 +20,17 @@ void MovableDelegate::Draw(Renderer& renderer,
 
 void MovableDelegate::Tick(IWandererCore& core, float delta) {
   SavePosition();
+  UpdatePosition();
   UpdateDirection();
 }
 
 void MovableDelegate::SavePosition() noexcept {
   prevPosition.Set(currPosition);
+}
+
+void MovableDelegate::UpdatePosition() {
+  hitbox.SetX(currPosition.x);
+  hitbox.SetY(currPosition.y);
 }
 
 void MovableDelegate::UpdateDirection() {
@@ -118,6 +125,10 @@ void MovableDelegate::SetVelocity(const Vector2& v) noexcept {
   velocity.Set(v);
 }
 
+void MovableDelegate::AddHitbox(const Rectangle& rectangle) {
+  hitbox.AddRectangle(rectangle);
+}
+
 int MovableDelegate::GetDepth() const noexcept {
   return depth;
 }
@@ -146,8 +157,8 @@ float MovableDelegate::GetY() const noexcept {
   return currPosition.y;
 }
 
-Rectangle MovableDelegate::GetHitbox() const noexcept {
-  return Rectangle(currPosition.x, currPosition.y, width, height);
+const Hitbox& MovableDelegate::GetHitbox() const noexcept {
+  return hitbox;
 }
 
 Direction MovableDelegate::GetDominantDirection() const noexcept {

@@ -61,7 +61,7 @@ class TileMapLayerImpl final : public ITileMapLayer {
   void SetGroundLayer(bool isGroundLayer) noexcept override;
 
   void AddObjects(const TileMapBounds& bounds,
-                  std::vector<std::shared_ptr<ISortableDrawable>>& drawables) override;
+                  std::vector<IGameObject*>& objects) override;
 
   [[nodiscard]] TileID GetTileId(int row, int col) const override;
 

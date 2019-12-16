@@ -4,13 +4,12 @@
 #include "viewport.h"
 #include "tile_set.h"
 #include "rectangle.h"
-#include <utility>
 
 namespace albinjohansson::wanderer {
 
-Tile::Tile() noexcept = default;
+Tile::Tile() = default;
 
-Tile::~Tile() noexcept = default;
+Tile::~Tile() = default;
 
 void Tile::Tick() {
   if (isAnimated) {
@@ -27,18 +26,20 @@ void Tile::Draw(const Vector2& pos,
     Rectangle dst = {viewport.GetTranslatedX(pos.x), viewport.GetTranslatedY(pos.y), SIZE, SIZE};
     renderer.RenderTexture(*sheet, src, dst);
 
-    if (IsBlocked()) {
-      renderer.SetColor(0xFF, 0, 0);
-      renderer.RenderRect(dst.GetX() + hitbox.GetX(),
-                          dst.GetY() + hitbox.GetY(),
-                          hitbox.GetWidth(),
-                          hitbox.GetHeight());
-    }
+//    if (IsBlocked()) {
+//      const auto& bounds = hitbox.GetBounds();
+//
+//      renderer.SetColor(0xFF, 0, 0);
+//      renderer.RenderRect(dst.GetX() + bounds.GetX(),
+//                          dst.GetY() + bounds.GetY(),
+//                          bounds.GetWidth(),
+//                          bounds.GetHeight());
+//    }
   }
 }
 
-void Tile::SetSheet(std::shared_ptr<Image> sheet) {
-  this->sheet = std::move(sheet);
+void Tile::SetSheet(const std::shared_ptr<Image>& sheet) {
+  this->sheet = sheet;
 }
 
 void Tile::SetBlocked(bool isBlocked) noexcept {
@@ -67,12 +68,16 @@ void Tile::SetAnimation(const TileAnimation& animation) noexcept {
   this->animation = animation;
 }
 
-void Tile::SetHitbox(const Rectangle& hitbox) noexcept {
+void Tile::SetHitbox(const Hitbox& hitbox) noexcept {
   this->hitbox = hitbox;
 }
 
 void Tile::SetSource(const Rectangle& source) noexcept {
   this->source = source;
+}
+
+void Tile::AddRectangle(const Rectangle& rect) {
+  hitbox.AddRectangle(rect);
 }
 
 TileID Tile::GetId() const noexcept {

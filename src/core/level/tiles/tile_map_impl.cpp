@@ -76,17 +76,17 @@ void TileMapImpl::Tick(IWandererCore& core, const Viewport& viewport, float delt
   std::for_each(groundLayers.begin(), groundLayers.end(), update);
   std::for_each(objectLayers.begin(), objectLayers.end(), update);
 
-  drawables.clear();
+  activeObjects.clear();
 
   for (const auto& entity : entities) {
-    if (viewportBounds.Intersects(entity->GetHitbox())) {
+    if (entity->GetHitbox().Intersects(viewportBounds)) {
       entity->Tick(core, delta);
-      drawables.push_back(entity);
+      activeObjects.push_back(entity.get());
     }
   }
 
   for (const auto& layer : objectLayers) {
-    layer->AddObjects(bounds, drawables);
+    layer->AddObjects(bounds, activeObjects);
   }
 }
 
@@ -111,7 +111,7 @@ void TileMapImpl::Draw(Renderer& renderer, const Viewport& viewport, float alpha
     }
   }
 
-  auto comparator = [&](const auto& fst, const auto& snd) noexcept {
+  const auto comparator = [&](const auto& fst, const auto& snd) noexcept {
     const auto leftFirst = fst->GetDepth();
     const auto leftSecond = fst->GetCenterY();
 
@@ -121,14 +121,14 @@ void TileMapImpl::Draw(Renderer& renderer, const Viewport& viewport, float alpha
     return (leftFirst < rightFirst || (!(rightFirst < leftFirst) && leftSecond < rightSecond));
   };
 
-  std::sort(drawables.begin(), drawables.end(), comparator);
+  std::sort(activeObjects.begin(), activeObjects.end(), comparator);
 
-  for (const auto& drawable : drawables) {
-    drawable->Draw(renderer, viewport);
+  for (const auto& object : activeObjects) {
+    object->Draw(renderer, viewport);
   }
 }
 
-void TileMapImpl::AddLayer(std::unique_ptr<ITileMapLayer> layer) {
+void TileMapImpl::AddLayer(std::unique_ptr<ITileMapLayer>&& layer) {
   if (layer) {
     if (layer->IsGroundLayer()) {
       groundLayers.push_back(std::move(layer));
