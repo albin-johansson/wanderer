@@ -3,7 +3,8 @@
 #include "random_utils.h"
 #include "player.h"
 #include "wanderer_core.h"
-#include <SDL_timer.h>
+#include "tile_map.h"
+#include <SDL.h>
 
 namespace albinjohansson::wanderer {
 
@@ -49,6 +50,19 @@ Direction SkeletonMovingState::GetRandomDirection() noexcept { // TODO move else
 
 void SkeletonMovingState::Tick(const IWandererCore& core, float delta) {
   moveDelegate.Tick(core, delta);
+
+  auto& entity = moveDelegate.GetParent().GetEntity();
+  if (core.GetActiveMap().IsBlocked(&entity, 0)) {
+
+    const auto& prevPos = entity.GetPreviousPosition();
+    entity.SetX(prevPos.x);
+    entity.SetY(prevPos.y);
+
+    // TODO set position of entity to be next to the blocking object
+
+    moveDelegate.GetParent().SetState(EntityStateID::IDLE, core);
+    return;
+  }
 
   Vector2 playerPos = core.GetPlayer().GetPosition();
 

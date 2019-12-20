@@ -59,6 +59,8 @@ class WandererCoreImpl final : public IWandererCore {
   [[nodiscard]] bool ShouldQuit() const noexcept override;
 
   [[nodiscard]] const IPlayer& GetPlayer() const override;
+
+  [[nodiscard]] const ITileMap& GetActiveMap() const override;
 };
 
 }

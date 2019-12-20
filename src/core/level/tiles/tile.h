@@ -45,6 +45,14 @@ class Tile final {
   static constexpr float SIZE = 64;
 
   /**
+   * The logical size (width and height) of all tiles. This constant is the same as Tile::SIZE,
+   * represented as an integer.
+   *
+   * @since 0.1.0
+   */
+  static constexpr int SIZE_INT = static_cast<int>(SIZE);
+
+  /**
    * The tile ID of all empty tiles.
    *
    * @since 0.1.0
@@ -149,7 +157,7 @@ class Tile final {
    */
   void SetSource(const Rectangle& source) noexcept;
 
-  void AddRectangle(const Rectangle& rect);
+  void AddRectangle(const Rectangle& rect, const Vector2& offset);
 
   /**
    * Indicates whether or not the tile is blocked.
@@ -208,6 +216,8 @@ class Tile final {
    * @since 0.1.0
    */
   [[nodiscard]] const Rectangle& GetSource() const noexcept;
+
+  [[nodiscard]] Hitbox GetHitbox() const noexcept;
 
 };
 

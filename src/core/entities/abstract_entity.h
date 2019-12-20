@@ -2,7 +2,6 @@
 #include "entity.h"
 #include "animation.h"
 #include "render_depth.h"
-#include <cstdint>
 #include <hitbox.h>
 
 namespace albinjohansson::wanderer {
@@ -56,7 +55,7 @@ class AbstractEntity : public virtual IEntity {
 
   void Interpolate(float alpha) noexcept override;
 
-  void AddHitbox(const Rectangle& rectangle) override;
+  void AddHitbox(const Rectangle& rectangle, const Vector2& offset) override;
 
   void AddX(float dx) noexcept override;
 
@@ -82,13 +81,19 @@ class AbstractEntity : public virtual IEntity {
 
   [[nodiscard]] bool IsDead() const noexcept override;
 
+  [[nodiscard]] bool WillIntersect(const IGameObject* other, float delta) const override;
+
   [[nodiscard]] Direction GetDominantDirection() const noexcept override;
+
+  [[nodiscard]] const Vector2& GetPreviousPosition() const noexcept override;
 
   [[nodiscard]] Vector2 GetVelocity() const noexcept override;
 
   [[nodiscard]] Vector2 GetPosition() const noexcept override;
 
   [[nodiscard]] Vector2 GetInterpolatedPosition() const noexcept override;
+
+  [[nodiscard]] Vector2 GetNextPosition(float delta) const noexcept override;
 
   [[nodiscard]] float GetX() const noexcept override;
 
@@ -98,11 +103,15 @@ class AbstractEntity : public virtual IEntity {
 
   [[nodiscard]] float GetHeight() const noexcept override;
 
+  [[nodiscard]] bool IsBlocking() const noexcept override;
+
   [[nodiscard]] const Hitbox& GetHitbox() const noexcept override;
 
   [[nodiscard]] float GetCenterY() const noexcept override;
 
   [[nodiscard]] int GetDepth() const noexcept override;
+
+  [[nodiscard]] uint64_t GetUniqueID() const noexcept override;
 };
 
 }

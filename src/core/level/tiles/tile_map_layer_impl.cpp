@@ -26,10 +26,23 @@ TileMapLayerImpl::~TileMapLayerImpl() noexcept = default;
 void TileMapLayerImpl::InitTileObjects() {
   int index = 0;
   for (const auto id : tiles) {
-    if (id != Tile::EMPTY && tileSet->GetTile(id).IsObject()) {
-      auto object = std::make_shared<TileObject>(id, CreatePosition(index), tileSet);
-      object->SetDepth(tileSet->GetTile(id).GetDepth());
-      tileObjects.emplace(index, object);
+    if (id != Tile::EMPTY) {
+      const auto& tile = tileSet->GetTile(id);
+      if (tile.IsObject()) {
+        auto object = std::make_shared<TileObject>(id, CreatePosition(index), tileSet);
+        object->SetDepth(tile.GetDepth());
+
+        if (tile.IsBlocked()) {
+          Hitbox hitbox = tile.GetHitbox();
+
+          hitbox.SetX(object->GetX());
+          hitbox.SetY(object->GetY());
+
+          object->SetHitbox(hitbox);
+        }
+
+        tileObjects.emplace(index, object);
+      }
     }
     ++index;
   }

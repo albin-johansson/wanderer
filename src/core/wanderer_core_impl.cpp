@@ -122,4 +122,8 @@ const IPlayer& WandererCoreImpl::GetPlayer() const {
   return *player;
 }
 
+const ITileMap& WandererCoreImpl::GetActiveMap() const {
+  return *activeMap;
+}
+
 }

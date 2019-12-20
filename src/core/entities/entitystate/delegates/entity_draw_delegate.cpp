@@ -13,6 +13,14 @@ void EntityDrawDelegate::Draw(Renderer& renderer, const Viewport& viewport,
   auto src = Rectangle(srcX, srcY, 64, 64);
   auto dst = Rectangle(x, y, entity.GetWidth(), entity.GetHeight());
   renderer.RenderTexture(entity.GetSpriteSheet(), src, dst);
+
+  renderer.SetColor(0xFF, 0, 0);
+
+  const auto& b = entity.GetHitbox().GetBounds();
+  renderer.RenderRect(viewport.GetTranslatedX(b.GetX()),
+                      viewport.GetTranslatedY(b.GetY()),
+                      b.GetWidth(),
+                      b.GetHeight());
 }
 
 }

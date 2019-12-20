@@ -43,23 +43,28 @@ void Hitbox::CalcBounds() {
   }
 }
 
-void Hitbox::AddRectangle(const Rectangle& rect) {
-  rectangles.emplace_back(rect, Vector2(0, 0));
+void Hitbox::AddRectangle(const Rectangle& rect, const Vector2& offset) {
+  rectangles.emplace_back(rect, offset);
   CalcBounds();
 }
 
 void Hitbox::SetX(float x) noexcept {
-  // TODO...
   bounds.SetX(x);
   for (auto& pair : rectangles) {
-    pair.first.SetX(x + pair.second.x);
+    auto& rect = pair.first;
+    const auto& offset = pair.second;
+
+    rect.SetX(x + offset.x);
   }
 }
 
 void Hitbox::SetY(float y) noexcept {
   bounds.SetY(y);
   for (auto& pair : rectangles) {
-    pair.first.SetY(y + pair.second.y);
+    auto& rect = pair.first;
+    const auto& offset = pair.second;
+
+    rect.SetY(y + offset.y);
   }
 }
 
@@ -70,22 +75,44 @@ bool Hitbox::Intersects(const Hitbox& other) const noexcept {
 
   // FIXME quadratic complexity
   for (const auto& pair : rectangles) {
+    const auto& rect = pair.first;
+
     for (const auto& otherPair : other.rectangles) {
-      if (otherPair.first.Intersects(pair.first)) {
+      const auto& otherRect = otherPair.first;
+      if (rect.Intersects(otherRect)) {
         return true;
       }
     }
+
   }
   return false;
 }
 
 bool Hitbox::Intersects(const Rectangle& other) const noexcept {
   for (const auto& pair : rectangles) {
-    if (pair.first.Intersects(other)) {
+    const auto& rect = pair.first;
+    if (rect.Intersects(other)) {
       return true;
     }
   }
   return false;
+}
+
+bool Hitbox::WillIntersect(const Hitbox& other, const Vector2& nextPos) const noexcept {
+  const auto oldX = bounds.GetX();
+  const auto oldY = bounds.GetY();
+
+  auto tmp = const_cast<Hitbox*>(this); // Not great, but will remain unaffected
+
+  tmp->SetX(nextPos.x);
+  tmp->SetY(nextPos.y);
+
+  bool intersects = Intersects(other);
+
+  tmp->SetX(oldX);
+  tmp->SetY(oldY);
+
+  return intersects;
 }
 
 const Rectangle& Hitbox::GetBounds() const noexcept {

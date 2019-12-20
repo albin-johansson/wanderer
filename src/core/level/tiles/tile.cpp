@@ -25,16 +25,6 @@ void Tile::Draw(const Vector2& pos,
     const auto& src = IsAnimated() ? tileSet.GetTile(GetFrameId()).GetSource() : source;
     Rectangle dst = {viewport.GetTranslatedX(pos.x), viewport.GetTranslatedY(pos.y), SIZE, SIZE};
     renderer.RenderTexture(*sheet, src, dst);
-
-//    if (IsBlocked()) {
-//      const auto& bounds = hitbox.GetBounds();
-//
-//      renderer.SetColor(0xFF, 0, 0);
-//      renderer.RenderRect(dst.GetX() + bounds.GetX(),
-//                          dst.GetY() + bounds.GetY(),
-//                          bounds.GetWidth(),
-//                          bounds.GetHeight());
-//    }
   }
 }
 
@@ -76,8 +66,8 @@ void Tile::SetSource(const Rectangle& source) noexcept {
   this->source = source;
 }
 
-void Tile::AddRectangle(const Rectangle& rect) {
-  hitbox.AddRectangle(rect);
+void Tile::AddRectangle(const Rectangle& rect, const Vector2& offset) {
+  hitbox.AddRectangle(rect, offset);
 }
 
 TileID Tile::GetId() const noexcept {
@@ -106,6 +96,10 @@ TileID Tile::GetFrameId() const {
 
 const Rectangle& Tile::GetSource() const noexcept {
   return source;
+}
+
+Hitbox Tile::GetHitbox() const noexcept {
+  return hitbox;
 }
 
 }

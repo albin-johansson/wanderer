@@ -1,6 +1,9 @@
 #include "movable_delegate.h"
+#include "game_object.h"
 #include "rectangle.h"
+#include "random_utils.h"
 #include <stdexcept>
+#include <cstdint>
 
 namespace albinjohansson::wanderer {
 
@@ -9,6 +12,7 @@ MovableDelegate::MovableDelegate(int depth, float width, float height)
   if (width < 1 || height < 1) {
     throw std::invalid_argument("Invalid dimensions!");
   }
+  uniqueId = RandomUtils::GetRand();
 }
 
 MovableDelegate::~MovableDelegate() = default;
@@ -107,26 +111,32 @@ void MovableDelegate::SetSpeed(float speed) noexcept {
 
 void MovableDelegate::AddX(float dx) noexcept {
   currPosition.Add(dx, 0);
+  UpdatePosition();
 }
 
 void MovableDelegate::AddY(float dy) noexcept {
   currPosition.Add(0, dy);
+  UpdatePosition();
 }
 
 void MovableDelegate::SetX(float x) noexcept {
   currPosition.x = x;
+  UpdatePosition();
 }
 
 void MovableDelegate::SetY(float y) noexcept {
   currPosition.y = y;
+  UpdatePosition();
 }
 
 void MovableDelegate::SetVelocity(const Vector2& v) noexcept {
   velocity.Set(v);
 }
 
-void MovableDelegate::AddHitbox(const Rectangle& rectangle) {
-  hitbox.AddRectangle(rectangle);
+void MovableDelegate::AddHitbox(const Rectangle& rectangle, const Vector2& offset) {
+  hitbox.AddRectangle(rectangle, offset);
+  isBlocking = true; // TODO document that this happens
+  UpdatePosition();
 }
 
 int MovableDelegate::GetDepth() const noexcept {
@@ -175,6 +185,30 @@ Vector2 MovableDelegate::GetPosition() const noexcept {
 
 Vector2 MovableDelegate::GetInterpolatedPosition() const noexcept {
   return interpolatedPosition;
+}
+
+bool MovableDelegate::IsBlocking() const noexcept {
+  return isBlocking;
+}
+
+const Vector2& MovableDelegate::GetPreviousPosition() const noexcept {
+  return prevPosition;
+}
+
+bool MovableDelegate::WillIntersect(const IGameObject* other, float delta) const {
+  if (!other) {
+    return false;
+  }
+
+  return other->IsBlocking() && hitbox.WillIntersect(other->GetHitbox(), GetNextPosition(delta));
+}
+
+uint64_t MovableDelegate::GetUniqueID() const noexcept {
+  return uniqueId;
+}
+
+Vector2 MovableDelegate::GetNextPosition(float delta) const noexcept {
+  return {currPosition.x + (velocity.x * delta), currPosition.y + (velocity.y * delta)};
 }
 
 }

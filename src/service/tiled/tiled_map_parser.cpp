@@ -101,7 +101,7 @@ Tile TiledMapParser::CreateTile(const std::shared_ptr<Image>& image,
       const auto w = (std::stof(object.GetAttribute("width")) / size) * Tile::SIZE;
       const auto h = (std::stof(object.GetAttribute("height")) / size) * Tile::SIZE;
 
-      tile.AddRectangle(Rectangle(x, y, w, h));
+      tile.AddRectangle(Rectangle(x, y, w, h), Vector2(x, y));
       tile.SetBlocked(true);
     }
   }

@@ -1,5 +1,7 @@
 #pragma once
 #include "sortable_drawable.h"
+#include <cstdint>
+#include <vector_2.h>
 
 namespace albinjohansson::wanderer {
 
@@ -15,9 +17,6 @@ class Rectangle;
  * @since 0.1.0
  */
 class IGameObject : public virtual ISortableDrawable {
- protected:
-  IGameObject() = default;
-
  public:
   ~IGameObject() override = default;
 
@@ -31,7 +30,8 @@ class IGameObject : public virtual ISortableDrawable {
    */
   virtual void Tick(IWandererCore& core, float delta) = 0;
 
-  virtual void AddHitbox(const Rectangle& rectangle) = 0;
+  virtual void AddHitbox(const Rectangle& rectangle,
+                         const albinjohansson::wanderer::Vector2& offset) = 0;
 
   /**
    * Returns the x-coordinate of the object.
@@ -66,12 +66,23 @@ class IGameObject : public virtual ISortableDrawable {
   [[nodiscard]] virtual float GetHeight() const noexcept = 0;
 
   /**
+   * Indicates whether or not the object can block others.
+   *
+   * @return true if the object is blocking; false otherwise.
+   * @since 0.1.0
+   */
+  [[nodiscard]] virtual bool IsBlocking() const noexcept = 0;
+
+  /**
    * Returns the hitbox of the object.
    *
    * @return the hitbox of the object.
    * @since 0.1.0
    */
   [[nodiscard]] virtual const Hitbox& GetHitbox() const noexcept = 0;
+
+  [[nodiscard]] virtual uint64_t GetUniqueID() const noexcept = 0;
+
 };
 
 }

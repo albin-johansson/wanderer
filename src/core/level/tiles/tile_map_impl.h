@@ -71,6 +71,8 @@ class TileMapImpl final : public ITileMap {
 
   void SetPlayer(const std::shared_ptr<IEntity>& player) override;
 
+  [[nodiscard]] bool IsBlocked(const IMovableObject* self, float delta) const override;
+
   [[nodiscard]] int GetRows() const noexcept override;
 
   [[nodiscard]] int GetCols() const noexcept override;

@@ -5,6 +5,8 @@
 
 namespace albinjohansson::wanderer {
 
+class IGameObject;
+
 /**
  * The IMovableObject interface specifies game objects that are movable.
  *
@@ -102,6 +104,8 @@ class IMovableObject : public virtual IGameObject {
    */
   virtual void SetVelocity(const Vector2& velocity) noexcept = 0;
 
+  [[nodiscard]] virtual bool WillIntersect(const IGameObject* other, float delta) const = 0;
+
   /**
    * Returns the movement speed of the movable. Note! This is not the same as the velocity
    * of the movable, but merely the maximum allowed speed.
@@ -118,6 +122,8 @@ class IMovableObject : public virtual IGameObject {
    * @since 0.1.0
    */
   [[nodiscard]] virtual Direction GetDominantDirection() const noexcept = 0;
+
+  [[nodiscard]] virtual const Vector2& GetPreviousPosition() const noexcept = 0;
 
   /**
    * Returns the current velocity of the object.
@@ -142,6 +148,8 @@ class IMovableObject : public virtual IGameObject {
    * @since 0.1.0
    */
   [[nodiscard]] virtual Vector2 GetInterpolatedPosition() const noexcept = 0;
+
+  [[nodiscard]] virtual Vector2 GetNextPosition(float delta) const noexcept = 0;
 };
 
 }

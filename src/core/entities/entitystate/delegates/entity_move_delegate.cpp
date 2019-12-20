@@ -5,6 +5,7 @@
 #include "entity.h"
 #include "wanderer_core.h"
 #include "objects.h"
+#include "tile_map.h"
 
 namespace albinjohansson::wanderer {
 
@@ -23,16 +24,8 @@ void EntityMoveDelegate::Draw(Renderer& renderer, const Viewport& viewport) cons
 }
 
 void EntityMoveDelegate::Tick(const IWandererCore& core, float delta) {
-  IEntity& entity = parent->GetEntity();
-
-  entity.UpdateAnimation();
-
-  auto[velocityX, velocityY] = entity.GetVelocity();
-  entity.AddX(velocityX * delta);
-  entity.AddY(velocityY * delta);
-
-  // TODO collision detection
-//  core.IsBlocked(entity);
+  UpdateAnimation();
+  UpdatePosition(delta);
 }
 
 void EntityMoveDelegate::Enter(const IWandererCore& core) {
@@ -44,6 +37,17 @@ void EntityMoveDelegate::Enter(const IWandererCore& core) {
 }
 
 void EntityMoveDelegate::Exit(const IWandererCore& core) {}
+
+void EntityMoveDelegate::UpdateAnimation() {
+  parent->GetEntity().UpdateAnimation();
+}
+
+void EntityMoveDelegate::UpdatePosition(float delta) {
+  auto& entity = parent->GetEntity();
+  auto[velocityX, velocityY] = entity.GetVelocity();
+  entity.AddX(velocityX * delta);
+  entity.AddY(velocityY * delta);
+}
 
 IEntityStateMachine& EntityMoveDelegate::GetParent() noexcept { return *parent; }
 

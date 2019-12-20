@@ -29,7 +29,7 @@ class Hitbox final {
    * @param rect a rectangle that will serve as a part of the hitbox.
    * @since 0.1.0
    */
-  void AddRectangle(const Rectangle& rect);
+  void AddRectangle(const Rectangle& rect, const Vector2& offset);
 
   /**
    * Sets the x-coordinate of the hitbox.
@@ -73,6 +73,8 @@ class Hitbox final {
   [[nodiscard]] bool Intersects(const Hitbox& other) const noexcept;
 
   [[nodiscard]] bool Intersects(const Rectangle& other) const noexcept;
+
+  [[nodiscard]] bool WillIntersect(const Hitbox& other, const Vector2& nextPos) const noexcept;
 
   [[nodiscard]] const Rectangle& GetBounds() const noexcept;
 };

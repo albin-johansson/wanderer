@@ -12,7 +12,7 @@ AbstractEntity::AbstractEntity(const std::shared_ptr<Image>& sheet) {
   movable->AddHitbox(Rectangle(movable->GetX(),
                                movable->GetY(),
                                movable->GetWidth(),
-                               movable->GetHeight()));
+                               movable->GetHeight()), Vector2(0, 0));
 }
 
 AbstractEntity::~AbstractEntity() = default;
@@ -84,8 +84,8 @@ void AbstractEntity::SetVelocity(const Vector2& velocity) noexcept {
   movable->SetVelocity(velocity);
 }
 
-void AbstractEntity::AddHitbox(const Rectangle& rectangle) {
-  movable->AddHitbox(rectangle);
+void AbstractEntity::AddHitbox(const Rectangle& rectangle, const Vector2& offset) {
+  movable->AddHitbox(rectangle, offset);
 }
 
 int AbstractEntity::GetAnimationFrame() const noexcept {
@@ -154,6 +154,26 @@ float AbstractEntity::GetCenterY() const noexcept {
 
 int AbstractEntity::GetDepth() const noexcept {
   return movable->GetDepth();
+}
+
+bool AbstractEntity::IsBlocking() const noexcept {
+  return movable->IsBlocking();
+}
+
+const Vector2& AbstractEntity::GetPreviousPosition() const noexcept {
+  return movable->GetPreviousPosition();
+}
+
+bool AbstractEntity::WillIntersect(const IGameObject* other, float delta) const {
+  return movable->WillIntersect(other, delta);
+}
+
+uint64_t AbstractEntity::GetUniqueID() const noexcept {
+  return movable->GetUniqueID();
+}
+
+Vector2 AbstractEntity::GetNextPosition(float delta) const noexcept {
+  return movable->GetNextPosition(delta);
 }
 
 }

@@ -1,4 +1,5 @@
 #pragma once
+#include <cstdint>
 
 namespace albinjohansson::wanderer {
 
@@ -12,6 +13,8 @@ class RandomUtils final {
   RandomUtils() = delete;
 
   ~RandomUtils() = default;
+
+  [[nodiscard]] static uint64_t GetRand();
 
   /**
    * Returns a random integer in the specified interval. The generated value will be in the range

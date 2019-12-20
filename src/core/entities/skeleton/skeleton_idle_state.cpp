@@ -3,7 +3,7 @@
 #include "player.h"
 #include "skeleton.h"
 #include "wanderer_core.h"
-#include <SDL_timer.h>
+#include "time_utils.h"
 
 namespace albinjohansson::wanderer {
 
@@ -17,7 +17,7 @@ void SkeletonIdleState::Tick(const IWandererCore& core, float delta) {
   auto& entity = idleDelegate.GetParent().GetEntity();
   float distance = entity.GetPosition().DistanceTo(core.GetPlayer().GetPosition());
 
-  if (distance <= Skeleton::HOMING_RANGE || (SDL_GetTicks() - enterTime) >= 2000) {
+  if (distance <= Skeleton::HOMING_RANGE || (TimeUtils::GetMillis() - enterTime) >= 2000) {
     idleDelegate.GetParent().SetState(EntityStateID::WALK, core);
   }
 }
@@ -28,7 +28,7 @@ void SkeletonIdleState::Draw(Renderer& renderer, const Viewport& viewport) const
 
 void SkeletonIdleState::Enter(const IWandererCore& core) {
   idleDelegate.Enter(core);
-  enterTime = SDL_GetTicks();
+  enterTime = TimeUtils::GetMillis();
 }
 
 void SkeletonIdleState::Exit(const IWandererCore& core) {

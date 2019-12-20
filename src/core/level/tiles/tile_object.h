@@ -24,6 +24,7 @@ class TileObject final : public IGameObject {
   std::shared_ptr<TileSet> tileSet = nullptr;
   Vector2 position;
   Hitbox hitbox;
+  uint64_t uniqueId = 0;
   int depth = RenderDepth::MAX;
   float centerY = 0;
   const TileID id;
@@ -46,7 +47,9 @@ class TileObject final : public IGameObject {
 
   void SetDepth(int depth) noexcept;
 
-  void AddHitbox(const Rectangle& rectangle) override;
+  void SetHitbox(const Hitbox& hitbox) noexcept;
+
+  void AddHitbox(const Rectangle& rectangle, const Vector2& offset) override;
 
   [[nodiscard]] float GetX() const noexcept override;
 
@@ -61,6 +64,10 @@ class TileObject final : public IGameObject {
   [[nodiscard]] float GetHeight() const noexcept override;
 
   [[nodiscard]] const Hitbox& GetHitbox() const noexcept override;
+
+  [[nodiscard]] bool IsBlocking() const noexcept override;
+
+  [[nodiscard]] uint64_t GetUniqueID() const noexcept override;
 };
 
 }

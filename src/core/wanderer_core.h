@@ -100,6 +100,8 @@ class IWandererCore {
    * @since 0.1.0
    */
   [[nodiscard]] virtual const IPlayer& GetPlayer() const = 0;
+
+  [[nodiscard]] virtual const ITileMap& GetActiveMap() const = 0;
 };
 
 }

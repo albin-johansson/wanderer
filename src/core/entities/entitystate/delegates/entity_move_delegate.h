@@ -22,6 +22,10 @@ class EntityMoveDelegate final : public IEntityState {
 
   void Tick(const IWandererCore& core, float delta) override;
 
+  void UpdateAnimation();
+
+  void UpdatePosition(float delta);
+
   [[nodiscard]] IEntityStateMachine& GetParent() noexcept;
 };
 

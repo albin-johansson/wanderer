@@ -4,6 +4,7 @@
 #include "viewport.h"
 #include "wanderer_core.h"
 #include "objects.h"
+#include "random_utils.h"
 
 namespace albinjohansson::wanderer {
 
@@ -11,7 +12,9 @@ TileObject::TileObject(TileID id, const Vector2& position, const std::shared_ptr
     : id(id), position(position) {
   this->tileSet = Objects::RequireNonNull(tileSet);
   centerY = GetY() + (GetHeight() / 2.0f);
-  hitbox.AddRectangle(Rectangle(position.x, position.y, Tile::SIZE, Tile::SIZE));
+  uniqueId = RandomUtils::GetRand();
+  hitbox.SetX(GetX());
+  hitbox.SetY(GetY());
 }
 
 TileObject::~TileObject() noexcept = default;
@@ -22,12 +25,27 @@ void TileObject::Tick(IWandererCore& core, float delta) {
 
 void TileObject::Draw(Renderer& renderer, const Viewport& viewport) const {
   tileSet->GetTile(id).Draw(position, renderer, viewport, *tileSet);
+
+  renderer.SetColor(0xFF, 0, 0);
+
+  const auto& b = hitbox.GetBounds();
+  renderer.RenderRect(viewport.GetTranslatedX(b.GetX()),
+                      viewport.GetTranslatedY(b.GetY()),
+                      b.GetWidth(),
+                      b.GetHeight());
 }
 
 void TileObject::SetDepth(int depth) noexcept {
   if (depth < RenderDepth::MIN) { depth = RenderDepth::MIN; }
   if (depth > RenderDepth::MAX) { depth = RenderDepth::MAX; }
   this->depth = depth;
+}
+
+void TileObject::SetHitbox(const Hitbox& h) noexcept {
+  this->hitbox = h;
+
+  hitbox.SetX(GetX());
+  hitbox.SetY(GetY());
 }
 
 float TileObject::GetX() const noexcept {
@@ -58,8 +76,16 @@ int TileObject::GetDepth() const noexcept {
   return depth;
 }
 
-void TileObject::AddHitbox(const Rectangle& rectangle) {
-  hitbox.AddRectangle(rectangle);
+void TileObject::AddHitbox(const Rectangle& rectangle, const Vector2& offset) {
+  hitbox.AddRectangle(rectangle, offset);
+}
+
+bool TileObject::IsBlocking() const noexcept {
+  return hitbox.GetSubhitboxAmount() != 0;
+}
+
+uint64_t TileObject::GetUniqueID() const noexcept {
+  return uniqueId;
 }
 
 }

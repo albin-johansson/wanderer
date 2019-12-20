@@ -19,11 +19,13 @@ class MovableDelegate final : public IMovableObject {
   Vector2 prevPosition;
   Vector2 interpolatedPosition;
   Hitbox hitbox;
+  uint64_t uniqueId = 0;
   Direction dominantDirection = Direction::DOWN;
   const int depth;
   const float width;
   const float height;
   float speed = 0;
+  bool isBlocking = false;
 
   /**
    * Saves the position of the movable.
@@ -77,7 +79,7 @@ class MovableDelegate final : public IMovableObject {
 
   void SetVelocity(const Vector2& v) noexcept override;
 
-  void AddHitbox(const Rectangle& rectangle) override;
+  void AddHitbox(const Rectangle& rectangle, const Vector2& offset) override;
 
   [[nodiscard]] int GetDepth() const noexcept override;
 
@@ -95,13 +97,23 @@ class MovableDelegate final : public IMovableObject {
 
   [[nodiscard]] const Hitbox& GetHitbox() const noexcept override;
 
+  [[nodiscard]] bool IsBlocking() const noexcept override;
+
+  [[nodiscard]] bool WillIntersect(const IGameObject* other, float delta) const override;
+
   [[nodiscard]] Direction GetDominantDirection() const noexcept override;
+
+  [[nodiscard]] const Vector2& GetPreviousPosition() const noexcept override;
 
   [[nodiscard]] Vector2 GetVelocity() const noexcept override;
 
   [[nodiscard]] Vector2 GetPosition() const noexcept override;
 
   [[nodiscard]] Vector2 GetInterpolatedPosition() const noexcept override;
+
+  [[nodiscard]] uint64_t GetUniqueID() const noexcept override;
+
+  [[nodiscard]] Vector2 GetNextPosition(float delta) const noexcept override;
 
 };
 

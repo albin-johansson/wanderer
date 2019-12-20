@@ -4,6 +4,9 @@
 #include "entity_sheet.h"
 #include "objects.h"
 #include "input.h"
+#include "wanderer_core.h"
+#include "tile_map.h"
+#include <SDL.h>
 
 namespace albinjohansson::wanderer {
 
@@ -81,6 +84,20 @@ void PlayerMovingState::HandleInput(const Input& input, const IWandererCore& cor
 
 void PlayerMovingState::Tick(const IWandererCore& core, float delta) {
   moveDelegate.Tick(core, delta);
+
+  auto& player = moveDelegate.GetParent().GetEntity();
+
+  if (core.GetActiveMap().IsBlocked(&player, delta)) {
+
+    const auto& prevPos = player.GetPreviousPosition();
+    player.SetX(prevPos.x);
+    player.SetY(prevPos.y);
+
+    // TODO set position of entity to be next to the blocking object
+
+    moveDelegate.GetParent().SetState(EntityStateID::IDLE, core);
+    return;
+  }
 }
 
 void PlayerMovingState::Draw(Renderer& renderer, const Viewport& viewport) const noexcept {

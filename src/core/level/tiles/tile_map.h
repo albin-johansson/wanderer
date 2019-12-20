@@ -8,6 +8,7 @@ class IWandererCore;
 class TileObject;
 class ITileMapLayer;
 class IEntity;
+class IMovableObject;
 class Viewport;
 class Renderer;
 
@@ -58,6 +59,8 @@ class ITileMap {
    * @since 0.1.0
    */
   virtual void SetPlayer(const std::shared_ptr<IEntity>& player) = 0;
+
+  [[nodiscard]] virtual bool IsBlocked(const IMovableObject* object, float delta) const = 0;
 
   /**
    * Returns the number of rows in the tile map.
