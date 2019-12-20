@@ -3,11 +3,10 @@
 #include "viewport.h"
 #include "image_generator.h"
 #include "menu_state_machine.h"
+#include "sound_engine.h"
 #include <memory>
 
 namespace albinjohansson::wanderer {
-
-class SoundEngine;
 
 /**
  * The WandererCoreImpl class is an implementation of the IWandererCore interface.
@@ -17,7 +16,7 @@ class SoundEngine;
 class WandererCoreImpl final : public IWandererCore {
  private:
   std::unique_ptr<IMenuStateMachine> menuStateMachine = nullptr;
-  std::shared_ptr<SoundEngine> soundEngine = nullptr;
+  std::unique_ptr<SoundEngine> soundEngine = nullptr;
   std::shared_ptr<IPlayer> player = nullptr;
   std::shared_ptr<ITileMap> world = nullptr;
   std::shared_ptr<ITileMap> activeMap = nullptr;
