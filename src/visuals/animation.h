@@ -1,5 +1,4 @@
 #pragma once
-#include <SDL_timer.h>
 #include <cstdint>
 
 namespace albinjohansson::wanderer {

@@ -1,17 +1,18 @@
 #include "animation.h"
+#include "time_utils.h"
 
 namespace albinjohansson::wanderer {
 
 Animation::Animation() noexcept {
-  previous = SDL_GetTicks();
+  previous = TimeUtils::GetMillis();
 }
 
 Animation::~Animation() noexcept = default;
 
 void Animation::Update() noexcept {
-  const auto elapsed = SDL_GetTicks() - previous;
+  const auto elapsed = TimeUtils::GetMillis() - previous;
   if (elapsed >= delay) {
-    previous = SDL_GetTicks();
+    previous = TimeUtils::GetMillis();
     ++index;
     if (index >= nFrames) {
       index -= nFrames;
