@@ -1,25 +1,25 @@
 #include "smooth_fixed_timestep_loop.h"
-
 #include "wanderer_core.h"
 #include "renderer.h"
 #include "key_state_manager.h"
 #include "mouse_state_manager.h"
-
 #include "objects.h"
 #include "input.h"
+#include "time_utils.h"
 #include <SDL.h>
-#include <iostream>
 
 namespace albinjohansson::wanderer {
 
-SmoothFixedTimestepLoop::SmoothFixedTimestepLoop(std::shared_ptr<KeyStateManager> keyStateManager,
-                                                 std::shared_ptr<MouseStateManager> mouseStateManager,
+SmoothFixedTimestepLoop::SmoothFixedTimestepLoop(const std::shared_ptr<KeyStateManager>& ksm,
+                                                 const std::shared_ptr<MouseStateManager>& msm,
                                                  float vsyncRate)
-    : vsyncRate(vsyncRate), timeStep(1.0f / vsyncRate), counterFreq(SDL_GetPerformanceFrequency()) {
-  this->keyStateManager = Objects::RequireNonNull(std::move(keyStateManager));
-  this->mouseStateManager = Objects::RequireNonNull(std::move(mouseStateManager));
+    : vsyncRate(vsyncRate),
+      timeStep(1.0f / vsyncRate),
+      counterFreq(TimeUtils::GetHighResFreq()) {
+  this->keyStateManager = Objects::RequireNonNull(ksm);
+  this->mouseStateManager = Objects::RequireNonNull(msm);
 
-  now = SDL_GetPerformanceCounter();
+  now = TimeUtils::GetHighResTime();
   then = now;
 }
 
@@ -43,7 +43,6 @@ void SmoothFixedTimestepLoop::UpdateInput(IWandererCore& core) {
 void SmoothFixedTimestepLoop::SmoothDelta() {
   /* Reference for delta smoothing: https://frankforce.com/?p=2636 */
 
-  static float deltaBuffer = 0;
   delta += deltaBuffer;
 
   int frameCount = static_cast<int>(delta * vsyncRate + 1);
@@ -60,7 +59,7 @@ void SmoothFixedTimestepLoop::Update(IWandererCore& core, Renderer& renderer) {
   UpdateInput(core);
 
   then = now;
-  now = SDL_GetPerformanceCounter();
+  now = TimeUtils::GetHighResTime();
 
   delta = static_cast<float>(now - then) / counterFreq;
 

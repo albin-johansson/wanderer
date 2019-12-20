@@ -34,6 +34,7 @@ class SmoothFixedTimestepLoop final : public IGameLoop {
   const float vsyncRate;
   float accumulator = 0;
   float delta = 0;
+  float deltaBuffer = 0;
 
   /**
    * Updates the input state.
@@ -52,13 +53,14 @@ class SmoothFixedTimestepLoop final : public IGameLoop {
 
  public:
   /**
-   * @param keyStateManager a shared pointer to the associated key state manager.
+   * @param keyStateManager the associated key state manager.
+   * @param mouseStateManager the associated mouse state manager.
    * @param vsyncRate the vsync rate, in Hz.
-   * @throws NullPointerException if the supplied pointer is null.
+   * @throws NullPointerException if any pointers are null.
    * @since 0.1.0
    */
-  SmoothFixedTimestepLoop(std::shared_ptr<KeyStateManager> keyStateManager,
-                          std::shared_ptr<MouseStateManager> mouseStateManager,
+  SmoothFixedTimestepLoop(const std::shared_ptr<KeyStateManager>& keyStateManager,
+                          const std::shared_ptr<MouseStateManager>& mouseStateManager,
                           float vsyncRate);
 
   ~SmoothFixedTimestepLoop() override;
