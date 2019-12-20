@@ -36,7 +36,7 @@ class TimeUtils final {
    * @return the frequency of the high-resolution counter.
    * @since 0.1.0
    */
-  [[nodiscard]] uint64_t GetHighResFreq() noexcept;
+  [[nodiscard]] static uint64_t GetHighResFreq() noexcept;
 };
 
 }
