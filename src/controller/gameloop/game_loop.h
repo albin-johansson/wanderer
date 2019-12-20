@@ -12,9 +12,6 @@ class Renderer;
  * @since 0.1.0
  */
 class IGameLoop {
- protected:
-  IGameLoop() = default;
-
  public:
   virtual ~IGameLoop() = default;
 

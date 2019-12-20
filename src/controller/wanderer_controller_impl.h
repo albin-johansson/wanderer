@@ -7,12 +7,7 @@
 
 namespace albinjohansson::wanderer {
 
-//class IGameLoop;
-//class IWandererCore;
-//class Window;
 class Renderer;
-class KeyStateManager;
-class MouseStateManager;
 
 /**
  * The WandererControllerImpl class is an implementation of the IWandererController interface.
@@ -29,8 +24,6 @@ class WandererControllerImpl final : public IWandererController {
   std::unique_ptr<IWandererCore> core = nullptr;
   std::unique_ptr<IGameLoop> gameLoop = nullptr;
   std::shared_ptr<Renderer> renderer = nullptr;
-  std::shared_ptr<KeyStateManager> keyStateManager = nullptr;
-  std::shared_ptr<MouseStateManager> mouseStateManager = nullptr;
 
   /**
    * @throws BadStateException if the desktop dimensions cannot be deduced.

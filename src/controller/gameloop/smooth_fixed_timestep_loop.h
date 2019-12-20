@@ -1,12 +1,10 @@
 #pragma once
 #include "game_loop.h"
+#include "input.h"
 #include <memory>
 #include <cstdint>
 
 namespace albinjohansson::wanderer {
-
-class KeyStateManager;
-class MouseStateManager;
 
 /**
  * The SmoothFixedTimestepLoop class represents a fixed timestep game loop that uses delta time
@@ -24,8 +22,7 @@ class SmoothFixedTimestepLoop final : public IGameLoop {
    */
   static constexpr float MAX_FRAME_TIME = 0.25f;
 
-  std::shared_ptr<KeyStateManager> keyStateManager = nullptr;
-  std::shared_ptr<MouseStateManager> mouseStateManager = nullptr;
+  std::unique_ptr<Input> input = nullptr;
 
   uint32_t then = 0;
   uint32_t now = 0;
@@ -59,8 +56,8 @@ class SmoothFixedTimestepLoop final : public IGameLoop {
    * @throws NullPointerException if any pointers are null.
    * @since 0.1.0
    */
-  SmoothFixedTimestepLoop(const std::shared_ptr<KeyStateManager>& keyStateManager,
-                          const std::shared_ptr<MouseStateManager>& mouseStateManager,
+  SmoothFixedTimestepLoop(std::unique_ptr<KeyStateManager> keyStateManager,
+                          std::unique_ptr<MouseStateManager> mouseStateManager,
                           float vsyncRate);
 
   ~SmoothFixedTimestepLoop() override;

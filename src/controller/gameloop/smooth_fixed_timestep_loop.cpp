@@ -3,22 +3,20 @@
 #include "renderer.h"
 #include "key_state_manager.h"
 #include "mouse_state_manager.h"
-#include "objects.h"
 #include "input.h"
 #include "time_utils.h"
+#include "objects.h"
 #include <SDL.h>
 
 namespace albinjohansson::wanderer {
 
-SmoothFixedTimestepLoop::SmoothFixedTimestepLoop(const std::shared_ptr<KeyStateManager>& ksm,
-                                                 const std::shared_ptr<MouseStateManager>& msm,
+SmoothFixedTimestepLoop::SmoothFixedTimestepLoop(std::unique_ptr<KeyStateManager> ksm,
+                                                 std::unique_ptr<MouseStateManager> msm,
                                                  float vsyncRate)
     : vsyncRate(vsyncRate),
       timeStep(1.0f / vsyncRate),
       counterFreq(TimeUtils::GetHighResFreq()) {
-  this->keyStateManager = Objects::RequireNonNull(ksm);
-  this->mouseStateManager = Objects::RequireNonNull(msm);
-
+  input = std::make_unique<Input>(std::move(ksm), std::move(msm));
   now = TimeUtils::GetHighResTime();
   then = now;
 }
@@ -26,18 +24,13 @@ SmoothFixedTimestepLoop::SmoothFixedTimestepLoop(const std::shared_ptr<KeyStateM
 SmoothFixedTimestepLoop::~SmoothFixedTimestepLoop() = default;
 
 void SmoothFixedTimestepLoop::UpdateInput(IWandererCore& core) {
-  mouseStateManager->Update();
-  keyStateManager->Update();
+  input->Update();
 
-  SDL_PumpEvents();
-
-  if (SDL_PeepEvents(nullptr, 0, SDL_PEEKEVENT, SDL_QUIT, SDL_QUIT) > 0
-      || keyStateManager->WasReleased(SDL_SCANCODE_O)) {
+  if (input->WasQuitRequested() || input->WasReleased(SDL_SCANCODE_O)) {
     core.Quit();
   }
 
-  auto input = Input(keyStateManager, mouseStateManager);
-  core.HandleInput(input);
+  core.HandleInput(*input);
 }
 
 void SmoothFixedTimestepLoop::SmoothDelta() {

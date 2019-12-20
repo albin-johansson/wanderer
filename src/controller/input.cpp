@@ -2,16 +2,22 @@
 #include "key_state_manager.h"
 #include "mouse_state_manager.h"
 #include "objects.h"
-#include <utility>
 
 namespace albinjohansson::wanderer {
 
-Input::Input(std::shared_ptr<KeyStateManager> ksm, std::shared_ptr<MouseStateManager> msm) {
+Input::Input(std::unique_ptr<KeyStateManager> ksm,
+             std::unique_ptr<MouseStateManager> msm) {
   this->keyStateManager = Objects::RequireNonNull(std::move(ksm));
   this->mouseStateManager = Objects::RequireNonNull(std::move(msm));
 }
 
 Input::~Input() = default;
+
+void Input::Update() {
+  mouseStateManager->Update();
+  keyStateManager->Update();
+  SDL_PumpEvents();
+}
 
 bool Input::IsPressed(SDL_Scancode scancode) const {
   return keyStateManager->IsPressed(scancode);
@@ -51,6 +57,10 @@ bool Input::WasRightButtonReleased() const noexcept {
 
 bool Input::WasMouseMoved() const noexcept {
   return mouseStateManager->WasMouseMoved();
+}
+
+bool Input::WasQuitRequested() const noexcept {
+  return SDL_PeepEvents(nullptr, 0, SDL_PEEKEVENT, SDL_QUIT, SDL_QUIT) > 0;
 }
 
 }

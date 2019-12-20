@@ -1,22 +1,23 @@
 #pragma once
+#include "mouse_state_manager.h"
+#include "key_state_manager.h"
 #include <SDL_scancode.h>
 #include <memory>
 
 namespace albinjohansson::wanderer {
 
-class KeyStateManager;
-class MouseStateManager;
-
 class Input final {
  private:
-  std::shared_ptr<KeyStateManager> keyStateManager = nullptr;
-  std::shared_ptr<MouseStateManager> mouseStateManager = nullptr;
+  std::unique_ptr<KeyStateManager> keyStateManager = nullptr;
+  std::unique_ptr<MouseStateManager> mouseStateManager = nullptr;
 
  public:
-  Input(std::shared_ptr<KeyStateManager> keyStateManager,
-        std::shared_ptr<MouseStateManager> mouseStateManager); // FIXME dependency
+  Input(std::unique_ptr<KeyStateManager> keyStateManager,
+        std::unique_ptr<MouseStateManager> mouseStateManager);
 
   ~Input();
+
+  void Update();
 
   /**
    * Indicates whether or not the key associated with the specified scancode is pressed.
@@ -59,6 +60,8 @@ class Input final {
   [[nodiscard]] bool WasRightButtonReleased() const noexcept;
 
   [[nodiscard]] bool WasMouseMoved() const noexcept;
+
+  [[nodiscard]] bool WasQuitRequested() const noexcept;
 
 };
 

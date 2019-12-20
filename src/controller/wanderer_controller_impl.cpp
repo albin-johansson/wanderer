@@ -1,12 +1,9 @@
 #include "wanderer_controller_impl.h"
-
 #include "window.h"
 #include "wanderer_core.h"
-#include "game_loop.h"
 #include "renderer.h"
 #include "key_state_manager.h"
 #include "mouse_state_manager.h"
-
 #include "smooth_fixed_timestep_loop.h"
 #include "wanderer_core_factory.h"
 #include "image_generator.h"
@@ -36,8 +33,8 @@ WandererControllerImpl::WandererControllerImpl() {
   core->SetViewportWidth(LOGICAL_WIDTH);
   core->SetViewportHeight(LOGICAL_HEIGHT);
 
-  keyStateManager = std::make_shared<KeyStateManager>();
-  mouseStateManager = std::make_shared<MouseStateManager>();
+  auto keyStateManager = std::make_unique<KeyStateManager>();
+  auto mouseStateManager = std::make_unique<MouseStateManager>();
 
   mouseStateManager->SetLogicalWidth(LOGICAL_WIDTH);
   mouseStateManager->SetLogicalHeight(LOGICAL_HEIGHT);
@@ -46,8 +43,8 @@ WandererControllerImpl::WandererControllerImpl() {
   mouseStateManager->SetWindowWidth(window->GetWidth());
   mouseStateManager->SetWindowHeight(window->GetHeight());
 
-  gameLoop = std::make_unique<SmoothFixedTimestepLoop>(keyStateManager,
-                                                       mouseStateManager,
+  gameLoop = std::make_unique<SmoothFixedTimestepLoop>(std::move(keyStateManager),
+                                                       std::move(mouseStateManager),
                                                        static_cast<float>(desktop.refresh_rate));
 }
 
