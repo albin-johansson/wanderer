@@ -12,7 +12,7 @@ namespace albinjohansson::wanderer {
  */
 class BadStateException final : public std::exception {
  private:
-  const char* message = nullptr;
+  const std::string message;
 
  public:
   /**
@@ -25,6 +25,12 @@ class BadStateException final : public std::exception {
    * @since 0.1.0
    */
   explicit BadStateException(const std::string& what);
+
+  /**
+   * @param what the error message.
+   * @since 0.1.0
+   */
+  explicit BadStateException(std::string&& what);
 
   /**
    * @param what the error message.
