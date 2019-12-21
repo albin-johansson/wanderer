@@ -67,11 +67,7 @@ class TileMapLayerImpl final : public ITileMapLayer {
 
   [[nodiscard]] bool IsGroundLayer() const noexcept override;
 
-  [[nodiscard]] MapPosition GetPosition(int index) const noexcept override;
-
   [[nodiscard]] int GetIndex(int row, int col) const noexcept override;
-
-  [[nodiscard]] const std::vector<TileID>& GetTiles() const noexcept override;
 
 };
 

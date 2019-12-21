@@ -9,6 +9,7 @@
 #include "tile_map_layer_impl.h"
 #include "tile_object.h"
 #include "tile_set.h"
+#include "math_utils.h"
 
 namespace albinjohansson::wanderer {
 
@@ -106,8 +107,10 @@ Tile TiledMapParser::CreateTile(const std::shared_ptr<Image>& image,
     }
   }
 
-  const int x = (index % tiledTileSet.GetCols()) * size;
-  const int y = (index / tiledTileSet.GetCols()) * size;
+  const auto pos = MathUtils::IndexToMatrixPos(index, tiledTileSet.GetCols());
+  const int x = pos.second * size;
+  const int y = pos.first * size;
+
   tile.SetSource(Rectangle(x, y, size, size));
 
   return tile;

@@ -8,6 +8,7 @@
 #include "renderer.h"
 #include "viewport.h"
 #include "objects.h"
+#include "math_utils.h"
 #include <memory>
 
 namespace albinjohansson::wanderer {
@@ -49,8 +50,8 @@ void TileMapLayerImpl::InitTileObjects() {
 }
 
 Vector2 TileMapLayerImpl::CreatePosition(int index) const {
-  const auto mapPosition = GetPosition(index);
-  return Vector2(mapPosition.col * Tile::SIZE, mapPosition.row * Tile::SIZE);
+  const auto pos = MathUtils::IndexToMatrixPos(index, nCols);
+  return Vector2(pos.second * Tile::SIZE, pos.first * Tile::SIZE);
 }
 
 void TileMapLayerImpl::Update(const TileMapBounds& bounds) {
@@ -87,14 +88,6 @@ void TileMapLayerImpl::AddObjects(const TileMapBounds& bounds,
       }
     }
   }
-}
-
-const std::vector<TileID>& TileMapLayerImpl::GetTiles() const noexcept {
-  return tiles;
-}
-
-MapPosition TileMapLayerImpl::GetPosition(int index) const noexcept {
-  return {index / nCols, index % nCols};
 }
 
 int TileMapLayerImpl::GetIndex(int row, int col) const noexcept {

@@ -1,4 +1,5 @@
 #pragma once
+#include <utility>
 #include <cmath>
 
 namespace albinjohansson::wanderer {
@@ -13,6 +14,19 @@ class MathUtils final {
   MathUtils() = delete;
 
   ~MathUtils() = default;
+
+  /**
+   * Calculates and returns the matrix position from an index and the amount of columns in the
+   * matrix.
+   *
+   * @param index the index that will be converted.
+   * @param nCols the number of columns in the matrix, can't be zero.
+   * @return a pair of values that represent the matrix position in the format (row, col).
+   * @since 0.1.0
+   */
+  [[nodiscard]] static constexpr std::pair<int, int> IndexToMatrixPos(int index, int nCols) {
+    return {index / nCols, index % nCols};
+  }
 
   /**
    * Indicates whether or not two doubles are almost equal. The two values are considered equal
