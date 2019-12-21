@@ -25,14 +25,6 @@ void TileObject::Tick(IWandererCore& core, float delta) {
 
 void TileObject::Draw(Renderer& renderer, const Viewport& viewport) const {
   tileSet->GetTile(id).Draw(position, renderer, viewport, *tileSet);
-
-  renderer.SetColor(0xFF, 0, 0);
-
-  const auto& b = hitbox.GetBounds();
-  renderer.RenderRect(viewport.GetTranslatedX(b.GetX()),
-                      viewport.GetTranslatedY(b.GetY()),
-                      b.GetWidth(),
-                      b.GetHeight());
 }
 
 void TileObject::SetDepth(int depth) noexcept {
