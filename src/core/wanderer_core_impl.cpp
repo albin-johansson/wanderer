@@ -43,7 +43,7 @@ WandererCoreImpl::WandererCoreImpl(ImageGenerator& imageGenerator) {
 
   viewport.Center(player->GetX(),
                   player->GetY(),
-                  {player->GetWidth(), player->GetHeight()});
+                  Area{player->GetWidth(), player->GetHeight()});
 }
 
 WandererCoreImpl::~WandererCoreImpl() = default;
