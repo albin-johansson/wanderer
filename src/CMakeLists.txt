@@ -179,8 +179,8 @@ set(SOURCE_FILES
         service/tiled/tiled_tile.h
         service/tiled/tiled_property.h
 
-        core/hitbox.cpp
-        core/hitbox.h
+        core/math/hitbox.cpp
+        core/math/hitbox.h
         core/util/time_utils.cpp
         core/util/time_utils.h)
 
