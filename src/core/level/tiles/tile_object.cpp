@@ -80,12 +80,12 @@ void TileObject::AddHitbox(const Rectangle& rectangle, const Vector2& offset) {
   hitbox.AddRectangle(rectangle, offset);
 }
 
-bool TileObject::IsBlocking() const noexcept {
-  return hitbox.GetSubhitboxAmount() != 0;
-}
-
 uint64_t TileObject::GetUniqueID() const noexcept {
   return uniqueId;
+}
+
+void TileObject::SetBlocked(bool blocked) noexcept{
+  hitbox.SetEnabled(blocked);
 }
 
 }

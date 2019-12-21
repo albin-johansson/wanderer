@@ -4,9 +4,6 @@
 namespace albinjohansson::wanderer {
 
 class ISortableDrawable : public IDrawable {
- protected:
-  ISortableDrawable() = default;
-
  public:
   ~ISortableDrawable() override = default;
 

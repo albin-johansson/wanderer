@@ -14,9 +14,6 @@ class IGameObject;
  * @since 0.1.0
  */
 class IMovableObject : public virtual IGameObject {
- protected:
-  IMovableObject() = default;
-
  public:
   ~IMovableObject() override = default;
 

@@ -139,6 +139,10 @@ void MovableDelegate::AddHitbox(const Rectangle& rectangle, const Vector2& offse
   UpdatePosition();
 }
 
+void MovableDelegate::SetBlocked(bool blocked) noexcept {
+  hitbox.SetEnabled(blocked);
+}
+
 int MovableDelegate::GetDepth() const noexcept {
   return depth;
 }
@@ -187,20 +191,12 @@ Vector2 MovableDelegate::GetInterpolatedPosition() const noexcept {
   return interpolatedPosition;
 }
 
-bool MovableDelegate::IsBlocking() const noexcept {
-  return isBlocking;
-}
-
 const Vector2& MovableDelegate::GetPreviousPosition() const noexcept {
   return prevPosition;
 }
 
 bool MovableDelegate::WillIntersect(const IGameObject* other, float delta) const {
-  if (!other) {
-    return false;
-  }
-
-  return other->IsBlocking() && hitbox.WillIntersect(other->GetHitbox(), GetNextPosition(delta));
+  return other && hitbox.WillIntersect(other->GetHitbox(), GetNextPosition(delta));
 }
 
 uint64_t MovableDelegate::GetUniqueID() const noexcept {

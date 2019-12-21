@@ -69,6 +69,8 @@ class AbstractEntity : public virtual IEntity {
 
   void SetVelocity(const Vector2& velocity) noexcept override;
 
+  void SetBlocked(bool blocked) noexcept override;
+
   [[nodiscard]] float GetSpeed() const noexcept override;
 
   [[nodiscard]] int GetAnimationFrame() const noexcept override;
@@ -102,8 +104,6 @@ class AbstractEntity : public virtual IEntity {
   [[nodiscard]] float GetWidth() const noexcept override;
 
   [[nodiscard]] float GetHeight() const noexcept override;
-
-  [[nodiscard]] bool IsBlocking() const noexcept override;
 
   [[nodiscard]] const Hitbox& GetHitbox() const noexcept override;
 

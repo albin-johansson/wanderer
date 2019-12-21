@@ -11,9 +11,6 @@ class Viewport;
  * @since 0.1.0
  */
 class IDrawable {
- protected:
-  IDrawable() = default;
-
  public:
   virtual ~IDrawable() = default;
 

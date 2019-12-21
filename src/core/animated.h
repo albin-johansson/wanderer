@@ -11,9 +11,6 @@ class Image;
  * @since 0.1.0
  */
 class IAnimated {
- protected:
-  IAnimated() = default;
-
  public:
   virtual ~IAnimated() = default;
 

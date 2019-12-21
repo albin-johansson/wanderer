@@ -79,6 +79,8 @@ class MovableDelegate final : public IMovableObject {
 
   void SetVelocity(const Vector2& v) noexcept override;
 
+  void SetBlocked(bool blocked) noexcept override;
+
   void AddHitbox(const Rectangle& rectangle, const Vector2& offset) override;
 
   [[nodiscard]] int GetDepth() const noexcept override;
@@ -96,8 +98,6 @@ class MovableDelegate final : public IMovableObject {
   [[nodiscard]] float GetHeight() const noexcept override;
 
   [[nodiscard]] const Hitbox& GetHitbox() const noexcept override;
-
-  [[nodiscard]] bool IsBlocking() const noexcept override;
 
   [[nodiscard]] bool WillIntersect(const IGameObject* other, float delta) const override;
 

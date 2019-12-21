@@ -38,8 +38,9 @@ void Hitbox::CalcBounds() {
       bounds.SetHeight(rectMaxY - bounds.GetY());
     }
 
-    pair.second.x = rectX - bounds.GetX();
-    pair.second.y = rectY - bounds.GetY();
+    auto& offset = pair.second;
+    offset.x = rectX - bounds.GetX();
+    offset.y = rectY - bounds.GetY();
   }
 }
 
@@ -68,12 +69,19 @@ void Hitbox::SetY(float y) noexcept {
   }
 }
 
+void Hitbox::SetEnabled(bool enabled) noexcept {
+  this->enabled = enabled;
+}
+
 bool Hitbox::Intersects(const Hitbox& other) const noexcept {
+  if (!enabled) {
+    return false;
+  }
+
   if (other.IsUnit()) {
     return Intersects(other.rectangles.front().first);
   }
 
-  // FIXME quadratic complexity
   for (const auto& pair : rectangles) {
     const auto& rect = pair.first;
 
@@ -89,6 +97,10 @@ bool Hitbox::Intersects(const Hitbox& other) const noexcept {
 }
 
 bool Hitbox::Intersects(const Rectangle& other) const noexcept {
+  if (!enabled) {
+    return false;
+  }
+
   for (const auto& pair : rectangles) {
     const auto& rect = pair.first;
     if (rect.Intersects(other)) {
@@ -99,6 +111,10 @@ bool Hitbox::Intersects(const Rectangle& other) const noexcept {
 }
 
 bool Hitbox::WillIntersect(const Hitbox& other, const Vector2& nextPos) const noexcept {
+  if (!enabled) {
+    return false;
+  }
+
   const auto oldX = bounds.GetX();
   const auto oldY = bounds.GetY();
 
@@ -125,6 +141,10 @@ int Hitbox::GetSubhitboxAmount() const noexcept {
 
 bool Hitbox::IsUnit() const noexcept {
   return rectangles.size() == 1;
+}
+
+bool Hitbox::IsEnabled() const noexcept {
+  return enabled;
 }
 
 }

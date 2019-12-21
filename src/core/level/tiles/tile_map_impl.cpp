@@ -129,16 +129,6 @@ void TileMapImpl::Draw(Renderer& renderer, const Viewport& viewport, float alpha
   }
 }
 
-const auto comparator = [](const auto& fst, const auto& snd) noexcept {
-  const auto leftFirst = fst->GetDepth();
-  const auto leftSecond = fst->GetCenterY();
-
-  const auto rightFirst = snd->GetDepth();
-  const auto rightSecond = snd->GetCenterY();
-
-  return (leftFirst < rightFirst || (!(rightFirst < leftFirst) && leftSecond < rightSecond));
-};
-
 void TileMapImpl::AddLayer(std::unique_ptr<ITileMapLayer>&& layer) {
   if (layer) {
     if (layer->IsGroundLayer()) {

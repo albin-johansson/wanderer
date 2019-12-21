@@ -16,9 +16,6 @@ namespace albinjohansson::wanderer {
  * @since 0.1.0
  */
 class IEntity : public virtual IMovableObject, public virtual IAnimated {
- protected:
-  IEntity() = default;
-
  public:
   static constexpr float SIZE = Tile::SIZE * (7.0f / 3.0f); // FIXME maybe use distinct w & h?
 

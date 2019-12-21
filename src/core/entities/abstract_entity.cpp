@@ -13,6 +13,7 @@ AbstractEntity::AbstractEntity(const std::shared_ptr<Image>& sheet) {
                                movable->GetY(),
                                movable->GetWidth(),
                                movable->GetHeight()), Vector2(0, 0));
+  movable->SetBlocked(true);
 }
 
 AbstractEntity::~AbstractEntity() = default;
@@ -88,6 +89,10 @@ void AbstractEntity::AddHitbox(const Rectangle& rectangle, const Vector2& offset
   movable->AddHitbox(rectangle, offset);
 }
 
+void AbstractEntity::SetBlocked(bool blocked) noexcept {
+  movable->SetBlocked(blocked);
+}
+
 int AbstractEntity::GetAnimationFrame() const noexcept {
   return animation.GetIndex();
 }
@@ -154,10 +159,6 @@ float AbstractEntity::GetCenterY() const noexcept {
 
 int AbstractEntity::GetDepth() const noexcept {
   return movable->GetDepth();
-}
-
-bool AbstractEntity::IsBlocking() const noexcept {
-  return movable->IsBlocking();
 }
 
 const Vector2& AbstractEntity::GetPreviousPosition() const noexcept {

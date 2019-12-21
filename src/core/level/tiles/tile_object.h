@@ -51,6 +51,8 @@ class TileObject final : public IGameObject {
 
   void AddHitbox(const Rectangle& rectangle, const Vector2& offset) override;
 
+  void SetBlocked(bool blocked) noexcept override;
+
   [[nodiscard]] float GetX() const noexcept override;
 
   [[nodiscard]] float GetY() const noexcept override;
@@ -64,8 +66,6 @@ class TileObject final : public IGameObject {
   [[nodiscard]] float GetHeight() const noexcept override;
 
   [[nodiscard]] const Hitbox& GetHitbox() const noexcept override;
-
-  [[nodiscard]] bool IsBlocking() const noexcept override;
 
   [[nodiscard]] uint64_t GetUniqueID() const noexcept override;
 };

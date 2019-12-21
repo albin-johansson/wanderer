@@ -15,6 +15,7 @@ class Hitbox final {
  private:
   Rectangle bounds;
   std::vector<std::pair<Rectangle, Vector2>> rectangles;
+  bool enabled = false;
 
   void CalcBounds();
 
@@ -48,6 +49,15 @@ class Hitbox final {
   void SetY(float y) noexcept;
 
   /**
+   * Sets whether or not the hitbox is enabled. A hitbox that is disabled cannot intersect other
+   * hitboxes.
+   *
+   * @param enabled true if the hitbox should be enabled; false otherwise.
+   * @since 0.1.0
+   */
+  void SetEnabled(bool enabled) noexcept;
+
+  /**
    * Returns the total amount of subhitboxes.
    *
    * @return the total amount of subhitboxes.
@@ -76,6 +86,20 @@ class Hitbox final {
 
   [[nodiscard]] bool WillIntersect(const Hitbox& other, const Vector2& nextPos) const noexcept;
 
+  /**
+   * Indicates whether or not the hitbox is enabled.
+   *
+   * @return true if the hitbox is enabled; false otherwise.
+   * @since 0.1.0
+   */
+  [[nodiscard]] bool IsEnabled() const noexcept;
+
+  /**
+   * Returns the rectangle that represents the bounds of the hitbox.
+   *
+   * @return the rectangle that represents the bounds of the hitbox.
+   * @since 0.1.0
+   */
   [[nodiscard]] const Rectangle& GetBounds() const noexcept;
 };
 

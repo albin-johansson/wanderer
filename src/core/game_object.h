@@ -30,8 +30,15 @@ class IGameObject : public virtual ISortableDrawable {
    */
   virtual void Tick(IWandererCore& core, float delta) = 0;
 
-  virtual void AddHitbox(const Rectangle& rectangle,
-                         const albinjohansson::wanderer::Vector2& offset) = 0;
+  virtual void AddHitbox(const Rectangle& rectangle, const Vector2& offset) = 0;
+
+  /**
+   * Sets whether or not the game object can block other game objects.
+   *
+   * @param blocked true if the object is blocking; false otherwise.
+   * @since 0.1.0
+   */
+  virtual void SetBlocked(bool blocked) noexcept = 0;
 
   /**
    * Returns the x-coordinate of the object.
@@ -64,14 +71,6 @@ class IGameObject : public virtual ISortableDrawable {
    * @since 0.1.0
    */
   [[nodiscard]] virtual float GetHeight() const noexcept = 0;
-
-  /**
-   * Indicates whether or not the object can block others.
-   *
-   * @return true if the object is blocking; false otherwise.
-   * @since 0.1.0
-   */
-  [[nodiscard]] virtual bool IsBlocking() const noexcept = 0;
 
   /**
    * Returns the hitbox of the object.
