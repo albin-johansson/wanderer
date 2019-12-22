@@ -12,7 +12,7 @@ MovableDelegate::MovableDelegate(int depth, float width, float height)
   if (width < 1 || height < 1) {
     throw std::invalid_argument("Invalid dimensions!");
   }
-  uniqueId = RandomUtils::GetRand();
+  uniqueId = RandomUtils::GetRand(); // FIXME
 }
 
 MovableDelegate::~MovableDelegate() = default;
