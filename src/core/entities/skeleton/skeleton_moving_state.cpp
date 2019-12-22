@@ -18,7 +18,7 @@ void SkeletonMovingState::ChasePlayer(const IWandererCore& core, float distance)
   if (distance <= 75) {
     moveDelegate.GetParent().SetState(EntityStateID::ATTACK, core);
   } else {
-    Vector2 entityVelocity = entity.GetVelocity();
+    auto entityVelocity = entity.GetVelocity();
 
     entityVelocity.Set(entity.GetPosition());
     entityVelocity.LookAt(core.GetPlayer().GetPosition(), entity.GetSpeed());
@@ -31,7 +31,6 @@ void SkeletonMovingState::Roam(const IWandererCore& core) {
   auto& entity = moveDelegate.GetParent().GetEntity();
 
   if (SDL_GetTicks() - enterTime >= 1000) {
-    entity.Stop();
     moveDelegate.GetParent().SetState(EntityStateID::IDLE, core);
     return;
   }
@@ -52,7 +51,7 @@ void SkeletonMovingState::Tick(const IWandererCore& core, float delta) {
   moveDelegate.Tick(core, delta);
 
   auto& entity = moveDelegate.GetParent().GetEntity();
-  if (core.GetActiveMap().IsBlocked(&entity, 0)) {
+  if (core.GetActiveMap().IsBlocked(&entity, delta)) {
 
     const auto& prevPos = entity.GetPreviousPosition();
     entity.SetX(prevPos.x);
@@ -64,9 +63,9 @@ void SkeletonMovingState::Tick(const IWandererCore& core, float delta) {
     return;
   }
 
-  Vector2 playerPos = core.GetPlayer().GetPosition();
+  auto playerPos = core.GetPlayer().GetPosition();
 
-  float distance = moveDelegate.GetParent().GetEntity().GetPosition().DistanceTo(playerPos);
+  float distance = entity.GetPosition().DistanceTo(playerPos);
   if (distance <= 400) {
     ChasePlayer(core, distance);
   } else {
