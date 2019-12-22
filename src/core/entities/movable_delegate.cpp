@@ -135,7 +135,6 @@ void MovableDelegate::SetVelocity(const Vector2& v) noexcept {
 
 void MovableDelegate::AddHitbox(const Rectangle& rectangle, const Vector2& offset) {
   hitbox.AddRectangle(rectangle, offset);
-  isBlocking = true; // TODO document that this happens
   UpdatePosition();
 }
 

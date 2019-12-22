@@ -25,7 +25,6 @@ class MovableDelegate final : public IMovableObject {
   const float width;
   const float height;
   float speed = 0;
-  bool isBlocking = false;
 
   /**
    * Saves the position of the movable.
