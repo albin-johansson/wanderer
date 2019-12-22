@@ -21,7 +21,10 @@ void EntityIdleDelegate::Draw(Renderer& renderer, const Viewport& viewport) cons
 }
 
 void EntityIdleDelegate::Enter(const IWandererCore& core) {
-  parent->GetEntity().Stop();
+  auto& entity = parent->GetEntity();
+
+  entity.Stop();
+  entity.SetAnimationFrame(0);
 }
 
 void EntityIdleDelegate::Exit(const IWandererCore& core) {}
