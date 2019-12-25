@@ -183,12 +183,12 @@ std::unique_ptr<Image> Renderer::CreateTexture(const std::string& s, Font& font)
     return nullptr;
   }
 
-  Uint8 r = 0, g = 0, b = 0, a = 0;
+  uint8_t r = 0, g = 0, b = 0, a = 0;
   SDL_GetRenderDrawColor(renderer, &r, &g, &b, &a);
   SDL_Color color = {r, g, b, a};
-  SDL_Surface* surface = TTF_RenderText_Blended(font.GetInternalFont(), s.c_str(), color);
+  SDL_Surface* surface = TTF_RenderText_Blended(font, s.c_str(), color);
 
-  if (surface == nullptr) {
+  if (!surface) {
     return nullptr;
   }
 

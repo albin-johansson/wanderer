@@ -182,6 +182,8 @@ class Font final {
    */
   [[nodiscard]] int GetStringHeight(const std::string& s) const noexcept;
 
+  operator TTF_Font*() const noexcept;
+
 };
 
 }

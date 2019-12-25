@@ -116,4 +116,8 @@ std::string Font::GetFamilyName() const {
   return TTF_FontFaceFamilyName(font);
 }
 
+Font::operator TTF_Font*() const noexcept {
+  return font;
+}
+
 }
