@@ -44,6 +44,8 @@ WandererCoreImpl::WandererCoreImpl(ImageGenerator& imageGenerator) {
   viewport.Center(player->GetX(),
                   player->GetY(),
                   Area{player->GetWidth(), player->GetHeight()});
+
+  activeMap->Tick(*this, viewport, 0); // needed for first render iteration
 }
 
 WandererCoreImpl::~WandererCoreImpl() = default;
@@ -76,7 +78,6 @@ void WandererCoreImpl::Update(float delta) {
 
     auto[ix, iy] = player->GetInterpolatedPosition();
     viewport.Center(ix, iy, {player->GetWidth(), player->GetHeight()});
-//    viewport.Track(ix, iy, {player->GetWidth(), player->GetHeight()}, delta);
   }
 }
 
