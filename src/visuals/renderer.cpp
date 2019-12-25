@@ -4,7 +4,6 @@
 #include "objects.h"
 #include "bool_converter.h"
 #include <SDL_log.h>
-#include <cmath>
 
 namespace albinjohansson::wanderer {
 
@@ -34,14 +33,14 @@ void Renderer::Present() noexcept { SDL_RenderPresent(renderer); }
 
 void Renderer::RenderTexture(Image& texture, int x, int y) noexcept {
   SDL_Rect dst = {x, y, texture.GetWidth(), texture.GetHeight()};
-  SDL_RenderCopy(renderer, texture.GetTexture(), nullptr, &dst);
+  SDL_RenderCopy(renderer, texture, nullptr, &dst);
 }
 
 void Renderer::RenderTexture(Image& texture, float x, float y) noexcept {
   SDL_FRect dst = {x, y,
                    static_cast<float>(texture.GetWidth()),
                    static_cast<float>(texture.GetHeight())};
-  SDL_RenderCopyF(renderer, texture.GetTexture(), nullptr, &dst);
+  SDL_RenderCopyF(renderer, texture, nullptr, &dst);
 }
 
 void Renderer::RenderTexture(Image& texture, int x, int y, int width,
@@ -55,7 +54,7 @@ void Renderer::RenderTexture(Image& texture, int x, int y, int width,
 void Renderer::RenderTexture(Image& texture, float x, float y, float width, float height) noexcept {
   if ((width > 0) && (height > 0)) {
     SDL_FRect dst = {x, y, width, height};
-    SDL_RenderCopyF(renderer, texture.GetTexture(), nullptr, &dst);
+    SDL_RenderCopyF(renderer, texture, nullptr, &dst);
   }
 }
 
@@ -64,7 +63,7 @@ void Renderer::RenderTexture(Image& texture,
                              const FRectangle& d) noexcept {
   SDL_Rect src = s.ToSdlRect();
   SDL_FRect dst = {d.GetX(), d.GetY(), d.GetWidth(), d.GetHeight()};
-  SDL_RenderCopyF(renderer, texture.GetTexture(), &src, &dst);
+  SDL_RenderCopyF(renderer, texture, &src, &dst);
 }
 
 void Renderer::RenderFillRect(float x, float y, float width, float height) noexcept {

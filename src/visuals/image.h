@@ -24,7 +24,9 @@ class Image final {
    */
   Image(SDL_Renderer* renderer, const std::string& path);
 
-  explicit Image(SDL_Texture* texture);
+  Image(SDL_Texture* texture);
+
+  Image(SDL_Renderer* renderer, SDL_Surface* surface);
 
   ~Image();
 
@@ -67,6 +69,10 @@ class Image final {
    * @since 0.1.0
    */
   [[nodiscard]] SDL_Texture* GetTexture() noexcept;
+
+  operator std::string() noexcept;
+
+  operator SDL_Texture*() noexcept;
 };
 
 }

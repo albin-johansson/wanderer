@@ -1,20 +1,31 @@
 #include "image.h"
 #include "objects.h"
-#include <SDL_image.h>
 #include "bad_state_exception.h"
+#include <SDL_image.h>
+#include <sstream>
 
 namespace albinjohansson::wanderer {
 
 Image::Image(SDL_Renderer* renderer, const std::string& path) {
   Objects::RequireNonNull(renderer);
   texture = IMG_LoadTexture(renderer, path.c_str());
-  if (texture == nullptr) {
+  if (!texture) {
     throw BadStateException("Failed to load image from " + path);
   }
 }
 
 Image::Image(SDL_Texture* texture) {
   this->texture = Objects::RequireNonNull(texture);
+}
+
+Image::Image(SDL_Renderer* renderer, SDL_Surface* surface) {
+  Objects::RequireNonNull(renderer);
+  Objects::RequireNonNull(surface);
+
+  this->texture = SDL_CreateTextureFromSurface(renderer, surface);
+  if (!texture) {
+    throw BadStateException("Failed to create image from surface!");
+  }
 }
 
 Image::~Image() {
@@ -47,6 +58,20 @@ int Image::GetHeight() const noexcept {
 
 SDL_Texture* Image::GetTexture() noexcept {
   return texture;
+}
+
+Image::operator SDL_Texture*() noexcept {
+  return texture;
+}
+
+Image::operator std::string() noexcept {
+  std::ostringstream address;
+  address << (void const*) this;
+
+  auto w = std::to_string(GetWidth());
+  auto h = std::to_string(GetHeight());
+
+  return "(Image@" + address.str() + " | Width: " + w + ", Height: " + h + ")";
 }
 
 }
