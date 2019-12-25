@@ -1,5 +1,4 @@
 #pragma once
-#include "f_rectangle.h"
 #include "rectangle.h"
 #include <SDL.h>
 #include <SDL_image.h>

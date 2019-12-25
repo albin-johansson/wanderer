@@ -2,7 +2,7 @@
 #include "renderer.h"
 #include "viewport.h"
 #include "tile_set.h"
-#include "f_rectangle.h"
+#include "rectangle.h"
 
 namespace albinjohansson::wanderer {
 

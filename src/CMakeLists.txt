@@ -40,8 +40,6 @@ set(SOURCE_FILES
         core/math/hitbox.h
         core/math/rectangle.cpp
         core/math/rectangle.h
-        core/math/f_rectangle.cpp
-        core/math/f_rectangle.h
         core/math/vector_2.cpp
         core/math/vector_2.h
         core/math/random_utils.cpp

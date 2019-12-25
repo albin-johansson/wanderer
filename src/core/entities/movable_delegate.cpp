@@ -1,6 +1,6 @@
 #include "movable_delegate.h"
 #include "game_object.h"
-#include "f_rectangle.h"
+#include "rectangle.h"
 #include "random_utils.h"
 #include <stdexcept>
 #include <cstdint>

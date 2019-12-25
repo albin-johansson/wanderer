@@ -8,7 +8,7 @@
 #include "entity.h"
 #include "image.h"
 #include "image_generator.h"
-#include "f_rectangle.h"
+#include "rectangle.h"
 #include "wanderer_core.h"
 #include "objects.h"
 #include "skeleton.h"

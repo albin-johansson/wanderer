@@ -4,7 +4,7 @@
 #include "tile.h"
 #include "vector_2.h"
 #include "hitbox.h"
-#include "f_rectangle.h"
+#include "rectangle.h"
 #include "render_depth.h"
 #include <memory>
 #include <hitbox.h>

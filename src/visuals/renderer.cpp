@@ -52,11 +52,7 @@ void Renderer::RenderTexture(Image& texture, int x, int y, int width,
   }
 }
 
-void Renderer::RenderTexture(Image& texture,
-                             float x,
-                             float y,
-                             float width,
-                             float height) noexcept {
+void Renderer::RenderTexture(Image& texture, float x, float y, float width, float height) noexcept {
   if ((width > 0) && (height > 0)) {
     SDL_FRect dst = {x, y, width, height};
     SDL_RenderCopyF(renderer, texture.GetTexture(), nullptr, &dst);
@@ -120,10 +116,7 @@ void Renderer::SetColor(uint8_t red, uint8_t green, uint8_t blue) noexcept {
 }
 
 void Renderer::SetViewport(const FRectangle& viewport) noexcept {
-  SDL_Rect rect = {static_cast<int>(std::ceil(viewport.GetX())),
-                   static_cast<int>(std::ceil(viewport.GetY())),
-                   static_cast<int>(std::ceil(viewport.GetWidth())),
-                   static_cast<int>(std::ceil(viewport.GetHeight()))};
+  auto rect = static_cast<SDL_Rect>(viewport);
   SDL_RenderSetViewport(renderer, &rect);
 }
 
@@ -178,10 +171,7 @@ float Renderer::GetYScale() const noexcept {
 FRectangle Renderer::GetViewport() const noexcept {
   SDL_Rect viewport = {0, 0, 0, 0};
   SDL_RenderGetViewport(renderer, &viewport);
-  return FRectangle(static_cast<float>(viewport.x),
-                    static_cast<float>(viewport.y),
-                    static_cast<float>(viewport.w),
-                    static_cast<float>(viewport.h));
+  return viewport;
 }
 
 bool Renderer::GetUsingIntegerLogicalScaling() const noexcept {
