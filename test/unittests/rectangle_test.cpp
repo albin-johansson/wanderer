@@ -1,5 +1,5 @@
 #include "catch.hpp"
-#include "f_rectangle.h"
+#include "rectangle.h"
 
 using namespace albinjohansson::wanderer;
 
