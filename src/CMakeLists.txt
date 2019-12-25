@@ -30,7 +30,7 @@ set(SOURCE_FILES
         core/sortable_drawable.h
         core/render_depth.h
 
-        core/util/require.h # TODO move to service or utils
+        core/util/require.h
         core/util/bad_state_exception.h
         core/util/bad_state_exception.cpp
         core/util/time_utils.cpp
