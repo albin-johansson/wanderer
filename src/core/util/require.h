@@ -5,11 +5,12 @@
 namespace albinjohansson::wanderer {
 
 /**
- * The Objects class provides utility methods related to objects, such as fail-fast null checks.
+ * The Require class provides utility methods related to different kinds of requirements, such as
+ * fail-fast null checks.
  *
  * @since 0.1.0
  */
-class Objects final {
+class Require final {
  public:
   /**
    * The NullPointerException class is a subclass of std::exception that describes an exception
@@ -22,9 +23,9 @@ class Objects final {
     NullPointerException() : std::exception() {}
   };
 
-  Objects() = delete;
+  Require() = delete;
 
-  ~Objects() = default;
+  ~Require() = default;
 
   /**
    * Requires that the supplied raw pointer isn't a null pointer.
@@ -36,7 +37,7 @@ class Objects final {
    * @since 0.1.0
    */
   template<class T>
-  inline static T* RequireNonNull(T* pointer) {
+  inline static T* NotNull(T* pointer) {
     if (pointer == nullptr) {
       throw NullPointerException();
     } else {
@@ -54,7 +55,7 @@ class Objects final {
    * @since 0.1.0
    */
   template<class T>
-  inline static std::unique_ptr<T> RequireNonNull(std::unique_ptr<T> uniquePtr) {
+  inline static std::unique_ptr<T> NotNull(std::unique_ptr<T> uniquePtr) {
     if (uniquePtr == nullptr) {
       throw NullPointerException();
     } else {
@@ -72,7 +73,7 @@ class Objects final {
    * @since 0.1.0
    */
   template<class T>
-  inline static std::shared_ptr<T> RequireNonNull(std::shared_ptr<T> sharedPtr) {
+  inline static std::shared_ptr<T> NotNull(const std::shared_ptr<T>& sharedPtr) {
     if (sharedPtr == nullptr) {
       throw NullPointerException();
     } else {

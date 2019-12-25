@@ -7,7 +7,7 @@
 #include "game_object.h"
 #include "renderer.h"
 #include "viewport.h"
-#include "objects.h"
+#include "require.h"
 #include "math_utils.h"
 #include <memory>
 
@@ -18,7 +18,7 @@ TileMapLayerImpl::TileMapLayerImpl(const std::shared_ptr<TileSet>& tileSet,
                                    int nCols,
                                    std::vector<TileID>&& tiles)
     : nRows(nRows), nCols(nCols), tiles(tiles) {
-  this->tileSet = Objects::RequireNonNull(tileSet);
+  this->tileSet = Require::NotNull(tileSet);
   InitTileObjects();
 }
 

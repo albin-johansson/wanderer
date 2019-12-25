@@ -5,7 +5,7 @@
 #include "mouse_state_manager.h"
 #include "input.h"
 #include "time_utils.h"
-#include "objects.h"
+#include "require.h"
 #include <SDL.h>
 
 namespace albinjohansson::wanderer {

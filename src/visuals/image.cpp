@@ -1,5 +1,5 @@
 #include "image.h"
-#include "objects.h"
+#include "require.h"
 #include "bad_state_exception.h"
 #include <SDL_image.h>
 #include <sstream>
@@ -7,7 +7,7 @@
 namespace albinjohansson::wanderer {
 
 Image::Image(SDL_Renderer* renderer, const std::string& path) {
-  Objects::RequireNonNull(renderer);
+  Require::NotNull(renderer);
   texture = IMG_LoadTexture(renderer, path.c_str());
   if (!texture) {
     throw BadStateException("Failed to load image from " + path);
@@ -15,12 +15,12 @@ Image::Image(SDL_Renderer* renderer, const std::string& path) {
 }
 
 Image::Image(SDL_Texture* texture) {
-  this->texture = Objects::RequireNonNull(texture);
+  this->texture = Require::NotNull(texture);
 }
 
 Image::Image(SDL_Renderer* renderer, SDL_Surface* surface) {
-  Objects::RequireNonNull(renderer);
-  Objects::RequireNonNull(surface);
+  Require::NotNull(renderer);
+  Require::NotNull(surface);
 
   this->texture = SDL_CreateTextureFromSurface(renderer, surface);
   if (!texture) {

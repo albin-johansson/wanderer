@@ -3,12 +3,12 @@
 #include "entity_draw_delegate.h"
 #include "entity.h"
 #include "entity_sheet.h"
-#include "objects.h"
+#include "require.h"
 
 namespace albinjohansson::wanderer {
 
 EntityIdleDelegate::EntityIdleDelegate(IEntityStateMachine* parent) {
-  this->parent = Objects::RequireNonNull(parent);
+  this->parent = Require::NotNull(parent);
 }
 
 EntityIdleDelegate::~EntityIdleDelegate() = default;

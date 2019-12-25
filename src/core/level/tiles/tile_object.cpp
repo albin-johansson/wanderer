@@ -3,14 +3,14 @@
 #include "renderer.h"
 #include "viewport.h"
 #include "wanderer_core.h"
-#include "objects.h"
+#include "require.h"
 #include "random_utils.h"
 
 namespace albinjohansson::wanderer {
 
 TileObject::TileObject(TileID id, const Vector2& position, const std::shared_ptr<TileSet>& tileSet)
     : id(id), position(position) {
-  this->tileSet = Objects::RequireNonNull(tileSet);
+  this->tileSet = Require::NotNull(tileSet);
   centerY = GetY() + (GetHeight() / 2.0f);
   uniqueId = RandomUtils::GetRand();
   hitbox.SetX(GetX());

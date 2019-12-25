@@ -2,7 +2,7 @@
 #include "entity_state_machine.h"
 #include "entity_state.h"
 #include "entity_state_id.h"
-#include "objects.h"
+#include "require.h"
 #include "entity.h"
 #include <unordered_map>
 #include <memory>
@@ -32,7 +32,7 @@ class AbstractEntityStateMachine : public virtual IEntityStateMachine {
    * @since 0.1.0
    */
   explicit AbstractEntityStateMachine(IEntity* entity) {
-    this->entity = Objects::RequireNonNull(entity);
+    this->entity = Require::NotNull(entity);
   }
 
   /**

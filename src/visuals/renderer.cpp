@@ -1,19 +1,19 @@
 #include "renderer.h"
 #include "image.h"
 #include "font.h"
-#include "objects.h"
+#include "require.h"
 #include "bool_converter.h"
 #include <SDL_log.h>
 
 namespace albinjohansson::wanderer {
 
 Renderer::Renderer(SDL_Renderer* renderer) {
-  this->renderer = Objects::RequireNonNull(renderer);
+  this->renderer = Require::NotNull(renderer);
   SetLogicalIntegerScale(false);
 }
 
 Renderer::Renderer(SDL_Window* window) {
-  Objects::RequireNonNull(window);
+  Require::NotNull(window);
   uint32_t flags = SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC;
   renderer = SDL_CreateRenderer(window, -1, flags);
 

@@ -2,7 +2,7 @@
 #include "entity_state_machine.h"
 #include "entity.h"
 #include "entity_sheet.h"
-#include "objects.h"
+#include "require.h"
 #include "input.h"
 #include "wanderer_core.h"
 #include "tile_map.h"
@@ -12,7 +12,7 @@ namespace albinjohansson::wanderer {
 
 PlayerMovingState::PlayerMovingState(IEntityStateMachine* parent)
     : moveDelegate(parent) {
-  this->parent = Objects::RequireNonNull(parent);
+  this->parent = Require::NotNull(parent);
 }
 
 PlayerMovingState::~PlayerMovingState() = default;

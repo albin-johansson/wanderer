@@ -10,7 +10,7 @@
 #include "image_generator.h"
 #include "rectangle.h"
 #include "wanderer_core.h"
-#include "objects.h"
+#include "require.h"
 #include "skeleton.h"
 #include <algorithm>
 #include <memory>
@@ -23,7 +23,7 @@ TileMapImpl::TileMapImpl(const std::shared_ptr<TileSet>& tileSet,
                          int nCols,
                          ImageGenerator& imageGenerator)
     : nRows(nRows), nCols(nCols) {
-  this->tileSet = Objects::RequireNonNull(tileSet);
+  this->tileSet = Require::NotNull(tileSet);
 
   auto skeleton =
       std::make_shared<Skeleton>(imageGenerator.Load("resources/img/skeleton.png"));

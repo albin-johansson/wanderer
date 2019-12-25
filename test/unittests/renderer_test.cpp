@@ -1,6 +1,6 @@
 #include "catch.hpp"
 #include "renderer.h"
-#include "objects.h"
+#include "require.h"
 #include "image.h"
 #include <memory>
 
@@ -8,12 +8,12 @@ using namespace albinjohansson::wanderer;
 
 TEST_CASE("RendererCtor1", "[Renderer]") {
   SDL_Renderer* r = nullptr;
-  CHECK_THROWS_AS(Renderer(r), Objects::NullPointerException);
+  CHECK_THROWS_AS(Renderer(r), Require::NullPointerException);
 }
 
 TEST_CASE("RendererCtor2", "[Renderer]") {
   SDL_Window* w = nullptr;
-  CHECK_THROWS_AS(Renderer(w), Objects::NullPointerException);
+  CHECK_THROWS_AS(Renderer(w), Require::NullPointerException);
 }
 
 TEST_CASE("Renderer::RenderTexture2", "[Renderer]") {

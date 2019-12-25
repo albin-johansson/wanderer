@@ -1,6 +1,6 @@
 #include "entity_attack_delegate.h"
 #include "entity_state_machine.h"
-#include "objects.h"
+#include "require.h"
 #include "entity.h"
 #include "entity_sheet.h"
 #include "entity_draw_delegate.h"
@@ -9,7 +9,7 @@
 namespace albinjohansson::wanderer {
 
 EntityAttackDelegate::EntityAttackDelegate(IEntityStateMachine* parent) {
-  this->parent = Objects::RequireNonNull(parent);
+  this->parent = Require::NotNull(parent);
 }
 
 EntityAttackDelegate::~EntityAttackDelegate() = default;

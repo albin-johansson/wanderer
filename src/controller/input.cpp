@@ -1,14 +1,14 @@
 #include "input.h"
 #include "key_state_manager.h"
 #include "mouse_state_manager.h"
-#include "objects.h"
+#include "require.h"
 
 namespace albinjohansson::wanderer {
 
 Input::Input(std::unique_ptr<KeyStateManager> ksm,
              std::unique_ptr<MouseStateManager> msm) {
-  this->keyStateManager = Objects::RequireNonNull(std::move(ksm));
-  this->mouseStateManager = Objects::RequireNonNull(std::move(msm));
+  this->keyStateManager = Require::NotNull(std::move(ksm));
+  this->mouseStateManager = Require::NotNull(std::move(msm));
 }
 
 Input::~Input() = default;

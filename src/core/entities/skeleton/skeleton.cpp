@@ -5,7 +5,7 @@
 #include "renderer.h"
 #include "viewport.h"
 #include "wanderer_core.h"
-#include "objects.h"
+#include "require.h"
 
 namespace albinjohansson::wanderer {
 

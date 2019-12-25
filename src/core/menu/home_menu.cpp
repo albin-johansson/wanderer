@@ -1,5 +1,5 @@
 #include "home_menu.h"
-#include "objects.h"
+#include "require.h"
 #include "input.h"
 
 namespace albinjohansson::wanderer {
@@ -10,7 +10,7 @@ HomeMenu::HomeMenu(IMenuStateMachine* parent, IWandererCore* core) :
     settingsButton("Settings", 633, 320, 100, 40),
     controlsButton("Controls", 633, 390, 100, 40),
     quitButton("Quit", 633, 460, 100, 40) {
-  this->core = Objects::RequireNonNull(core);
+  this->core = Require::NotNull(core);
   fonts = std::make_unique<FontBundle>("resources/font/type_writer.ttf");
 }
 

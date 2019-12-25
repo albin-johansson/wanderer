@@ -4,13 +4,13 @@
 #include "entity_sheet.h"
 #include "entity.h"
 #include "wanderer_core.h"
-#include "objects.h"
+#include "require.h"
 #include "tile_map.h"
 
 namespace albinjohansson::wanderer {
 
 EntityMoveDelegate::EntityMoveDelegate(IEntityStateMachine* parent) {
-  this->parent = Objects::RequireNonNull(parent);
+  this->parent = Require::NotNull(parent);
 }
 
 EntityMoveDelegate::~EntityMoveDelegate() = default;

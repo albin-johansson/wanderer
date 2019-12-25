@@ -1,5 +1,5 @@
 #include "window.h"
-#include "objects.h"
+#include "require.h"
 #include "bool_converter.h"
 #include <stdexcept>
 #include <cstdint>
@@ -54,7 +54,7 @@ void Window::SetHeight(int height) {
 }
 
 void Window::SetIcon(SDL_Surface* icon) {
-  Objects::RequireNonNull(icon);
+  Require::NotNull(icon);
   SDL_SetWindowIcon(window, icon);
 }
 

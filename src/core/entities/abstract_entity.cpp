@@ -1,13 +1,13 @@
 #include "abstract_entity.h"
 #include "image.h"
-#include "objects.h"
+#include "require.h"
 #include "movable_delegate.h"
 #include "hitbox.h"
 
 namespace albinjohansson::wanderer {
 
 AbstractEntity::AbstractEntity(const std::shared_ptr<Image>& sheet) {
-  this->sheet = Objects::RequireNonNull(sheet);
+  this->sheet = Require::NotNull(sheet);
   movable = std::make_unique<MovableDelegate>(DEPTH, SIZE, SIZE);
   movable->AddHitbox(FRectangle(movable->GetX(),
                                 movable->GetY(),

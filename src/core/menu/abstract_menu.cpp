@@ -1,11 +1,11 @@
 #include "abstract_menu.h"
-#include "objects.h"
+#include "require.h"
 ;
 
 namespace albinjohansson::wanderer {
 
 AbstractMenu::AbstractMenu(IMenuStateMachine* parent) {
-  this->parent = Objects::RequireNonNull(parent);
+  this->parent = Require::NotNull(parent);
 }
 
 AbstractMenu::~AbstractMenu() noexcept = default;

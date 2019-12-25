@@ -1,12 +1,12 @@
 #include "entity_dying_delegate.h"
 #include "entity.h"
 #include "entity_draw_delegate.h"
-#include "objects.h"
+#include "require.h"
 
 namespace albinjohansson::wanderer {
 
 EntityDyingDelegate::EntityDyingDelegate(IEntity* entity) {
-  this->entity = Objects::RequireNonNull(entity);
+  this->entity = Require::NotNull(entity);
 }
 
 EntityDyingDelegate::~EntityDyingDelegate() = default;
