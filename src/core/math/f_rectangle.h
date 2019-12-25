@@ -1,23 +1,48 @@
 #pragma once
-#include <SDL.h>
+#include <SDL_rect.h>
 
 namespace albinjohansson::wanderer {
 
-class Rectangle final {
+/**
+ * The Rectangle class represents a rectangle with floating-point coordinates and integer
+ * dimensions.
+ *
+ * @since 0.1.0
+ */
+class FRectangle final {
  private:
-  int x = 0;
-  int y = 0;
-  int width = 0;
-  int height = 0;
+  float x;
+  float y;
+  float width;
+  float height;
 
  public:
-  Rectangle();
+  /**
+   * Creates a 10x10 rectangle located at (0, 0).
+   *
+   * @since 0.1.0
+   */
+  FRectangle() noexcept;
 
-  Rectangle(int x, int y, int width, int height);
+  /**
+   * @param x the x-coordinate of the rectangle.
+   * @param y the y-coordinate of the rectangle.
+   * @param width the width of the rectangle.
+   * @param height the height of the rectangle.
+   * @throws invalid_argument if either the width or height isn't greater than zero.
+   * @since 0.1.0
+   */
+  FRectangle(float x, float y, float width, float height); // TODO use Area struct
 
-  Rectangle(const Rectangle& other);
+  /**
+   * Creates a copy of the supplied rectangle.
+   *
+   * @param rectangle the rectangle that will be copied.
+   * @since 0.1.0
+   */
+  FRectangle(const FRectangle& rectangle) noexcept;
 
-  ~Rectangle() noexcept;
+  ~FRectangle() = default;
 
   /**
    * Moves the rectangle by the specified amount along the x-axis.
@@ -25,7 +50,7 @@ class Rectangle final {
    * @param dx the x-axis offset, may be negative.
    * @since 0.1.0
    */
-  void MoveX(int dx) noexcept;
+  void MoveX(float dx) noexcept;
 
   /**
    * Moves the rectangle by the specified amount along the y-axis.
@@ -33,7 +58,7 @@ class Rectangle final {
    * @param dy the y-axis offset, may be negative.
    * @since 0.1.0
    */
-  void MoveY(int dy) noexcept;
+  void MoveY(float dy) noexcept;
 
   /**
    * Copies all of the values from the other rectangle to this rectangle.
@@ -41,7 +66,7 @@ class Rectangle final {
    * @param other the rectangle that will be copied.
    * @since 0.1.0
    */
-  void Set(const Rectangle& other) noexcept;
+  void Set(const FRectangle& other) noexcept;
 
   /**
    * Sets the x-coordinate of the rectangle.
@@ -49,7 +74,7 @@ class Rectangle final {
    * @param x the new x-coordinate of the rectangle.
    * @since 0.1.0
    */
-  void SetX(int x) noexcept;
+  void SetX(float x) noexcept;
 
   /**
    * Sets the y-coordinate of the rectangle.
@@ -57,7 +82,7 @@ class Rectangle final {
    * @param x the new y-coordinate of the rectangle.
    * @since 0.1.0
    */
-  void SetY(int y) noexcept;
+  void SetY(float y) noexcept;
 
   /**
    * Sets the width of the rectangle.
@@ -66,7 +91,7 @@ class Rectangle final {
    * @throws invalid_argument if the supplied width isn't greater than zero.
    * @since 0.1.0
    */
-  void SetWidth(int width);
+  void SetWidth(float width);
 
   /**
    * Sets the height of the rectangle.
@@ -75,7 +100,7 @@ class Rectangle final {
    * @throws invalid_argument if the supplied width isn't greater than zero.
    * @since 0.1.0
    */
-  void SetHeight(int height);
+  void SetHeight(float height);
 
   /**
    * Indicates whether or not the rectangle contains the point represented by the supplied
@@ -85,7 +110,7 @@ class Rectangle final {
    * @param py the y-coordinate of the point that will be checked.
    * @return true if the supplied point is contained in the rectangle; false otherwise.
    */
-  [[nodiscard]] bool Contains(int px, int py) const noexcept;
+  [[nodiscard]] bool Contains(float px, float py) const noexcept;
 
   /**
    * Indicates whether or not the rectangle intersects the supplied rectangle.
@@ -94,7 +119,7 @@ class Rectangle final {
    * @return true if the rectangle intersects the supplied rectangle; false otherwise.
    * @since 0.1.0
    */
-  [[nodiscard]] bool Intersects(const Rectangle& rectangle) const noexcept;
+  [[nodiscard]] bool Intersects(const FRectangle& rectangle) const noexcept;
 
   /**
    * Returns the x-coordinate of the rectangle.
@@ -102,7 +127,7 @@ class Rectangle final {
    * @return the x-coordinate of the rectangle.
    * @since 0.1.0
    */
-  [[nodiscard]] int GetX() const noexcept;
+  [[nodiscard]] float GetX() const noexcept;
 
   /**
    * Returns the y-coordinate of the rectangle.
@@ -110,7 +135,7 @@ class Rectangle final {
    * @return the y-coordinate of the rectangle.
    * @since 0.1.0
    */
-  [[nodiscard]] int GetY() const noexcept;
+  [[nodiscard]] float GetY() const noexcept;
 
   /**
    * Returns the width of the rectangle.
@@ -118,7 +143,7 @@ class Rectangle final {
    * @return the width of the rectangle.
    * @since 0.1.0
    */
-  [[nodiscard]] int GetWidth() const noexcept;
+  [[nodiscard]] float GetWidth() const noexcept;
 
   /**
    * Returns the height of the rectangle.
@@ -126,11 +151,11 @@ class Rectangle final {
    * @return the height of the rectangle.
    * @since 0.1.0
    */
-  [[nodiscard]] int GetHeight() const noexcept;
+  [[nodiscard]] float GetHeight() const noexcept;
 
-  [[nodiscard]] int GetCenterX() const noexcept;
+  [[nodiscard]] float GetCenterX() const noexcept;
 
-  [[nodiscard]] int GetCenterY() const noexcept;
+  [[nodiscard]] float GetCenterY() const noexcept;
 
   /**
    * Returns the maximum x-coordinate of the rectangle.
@@ -138,7 +163,7 @@ class Rectangle final {
    * @return the maximum x-coordinate.
    * @since 0.1.0
    */
-  [[nodiscard]] int GetMaxX() const noexcept;
+  [[nodiscard]] float GetMaxX() const noexcept;
 
   /**
    * Returns the maximum y-coordinate of the rectangle.
@@ -146,15 +171,15 @@ class Rectangle final {
    * @return the maximum y-coordinate.
    * @since 0.1.0
    */
-  [[nodiscard]] int GetMaxY() const noexcept;
+  [[nodiscard]] float GetMaxY() const noexcept;
 
   /**
-   * Returns an SDL_Rect representation of the rectangle.
+   * Returns an SDL_FRect representation of the rectangle.
    *
-   * @return an SDL_Rect representation of the rectangle.
+   * @return an SDL_FRect representation of the rectangle.
    * @since 0.1.0
    */
-  [[nodiscard]] SDL_Rect ToSdlRect() const noexcept;
+  [[nodiscard]] SDL_FRect ToSdlRect() const noexcept;
 };
 
 }

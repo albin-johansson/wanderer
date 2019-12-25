@@ -1,5 +1,5 @@
 #pragma once
-#include "rectangle.h"
+#include "f_rectangle.h"
 #include "vector_2.h"
 #include <vector>
 #include <utility>
@@ -13,8 +13,8 @@ namespace albinjohansson::wanderer {
  */
 class Hitbox final {
  private:
-  Rectangle bounds;
-  std::vector<std::pair<Rectangle, Vector2>> rectangles;
+  FRectangle bounds;
+  std::vector<std::pair<FRectangle, Vector2>> rectangles;
   bool enabled = false;
 
   void CalcBounds();
@@ -30,7 +30,7 @@ class Hitbox final {
    * @param rect a rectangle that will serve as a part of the hitbox.
    * @since 0.1.0
    */
-  void AddRectangle(const Rectangle& rect, const Vector2& offset);
+  void AddRectangle(const FRectangle& rect, const Vector2& offset);
 
   /**
    * Sets the x-coordinate of the hitbox.
@@ -82,7 +82,7 @@ class Hitbox final {
    */
   [[nodiscard]] bool Intersects(const Hitbox& other) const noexcept;
 
-  [[nodiscard]] bool Intersects(const Rectangle& other) const noexcept;
+  [[nodiscard]] bool Intersects(const FRectangle& other) const noexcept;
 
   [[nodiscard]] bool WillIntersect(const Hitbox& other, const Vector2& nextPos) const noexcept;
 
@@ -100,7 +100,7 @@ class Hitbox final {
    * @return the rectangle that represents the bounds of the hitbox.
    * @since 0.1.0
    */
-  [[nodiscard]] const Rectangle& GetBounds() const noexcept;
+  [[nodiscard]] const FRectangle& GetBounds() const noexcept;
 };
 
 }

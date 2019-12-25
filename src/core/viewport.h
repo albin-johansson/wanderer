@@ -1,5 +1,5 @@
 #pragma once
-#include "rectangle.h"
+#include "f_rectangle.h"
 
 namespace albinjohansson::wanderer {
 
@@ -20,7 +20,7 @@ struct Area {
  */
 class Viewport final {
  private:
-  Rectangle bounds;
+  FRectangle bounds;
   Area level;
 
  public:
@@ -121,7 +121,7 @@ class Viewport final {
    * @return the current bounds of the viewport.
    * @since 0.1.0
    */
-  [[nodiscard]] Rectangle GetBounds() const noexcept;
+  [[nodiscard]] FRectangle GetBounds() const noexcept;
 
   /**
    * Calculates and returns the translated value for the supplied x-coordinate.

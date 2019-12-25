@@ -7,7 +7,7 @@ namespace albinjohansson::wanderer {
 
 class IWandererCore;
 class Hitbox;
-class Rectangle;
+class FRectangle;
 
 /**
  * The IGameObject interface specifies the common interface for all game objects that are present
@@ -30,7 +30,7 @@ class IGameObject : public virtual ISortableDrawable {
    */
   virtual void Tick(IWandererCore& core, float delta) = 0;
 
-  virtual void AddHitbox(const Rectangle& rectangle, const Vector2& offset) = 0;
+  virtual void AddHitbox(const FRectangle& rectangle, const Vector2& offset) = 0;
 
   /**
    * Sets whether or not the game object can block other game objects.

@@ -30,8 +30,8 @@ class EntityDrawDelegate final {
   static void Draw(Renderer& renderer,
                    const Viewport& viewport,
                    const IEntity& entity,
-                   float srcX,
-                   float srcY) noexcept;
+                   int srcX,
+                   int srcY) noexcept;
 
 };
 

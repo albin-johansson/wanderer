@@ -1,5 +1,5 @@
 #pragma once
-#include "rectangle.h"
+#include "f_rectangle.h"
 #include "menu_drawable.h"
 #include <string>
 #include <image.h>
@@ -14,7 +14,7 @@ namespace albinjohansson::wanderer {
  */
 class MenuButton final : public IMenuDrawable {
  private:
-  Rectangle bounds;
+  FRectangle bounds;
   mutable std::unique_ptr<Image> normalImg = nullptr;
   mutable std::unique_ptr<Image> enlargedImg = nullptr;
   const std::string text = "";

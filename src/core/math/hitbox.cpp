@@ -44,7 +44,7 @@ void Hitbox::CalcBounds() {
   }
 }
 
-void Hitbox::AddRectangle(const Rectangle& rect, const Vector2& offset) {
+void Hitbox::AddRectangle(const FRectangle& rect, const Vector2& offset) {
   rectangles.emplace_back(rect, offset);
   CalcBounds();
 }
@@ -96,7 +96,7 @@ bool Hitbox::Intersects(const Hitbox& other) const noexcept {
   return false;
 }
 
-bool Hitbox::Intersects(const Rectangle& other) const noexcept {
+bool Hitbox::Intersects(const FRectangle& other) const noexcept {
   if (!enabled) {
     return false;
   }
@@ -131,7 +131,7 @@ bool Hitbox::WillIntersect(const Hitbox& other, const Vector2& nextPos) const no
   return intersects;
 }
 
-const Rectangle& Hitbox::GetBounds() const noexcept {
+const FRectangle& Hitbox::GetBounds() const noexcept {
   return bounds;
 }
 

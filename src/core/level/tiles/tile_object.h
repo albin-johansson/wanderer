@@ -4,7 +4,7 @@
 #include "tile.h"
 #include "vector_2.h"
 #include "hitbox.h"
-#include "rectangle.h"
+#include "f_rectangle.h"
 #include "render_depth.h"
 #include <memory>
 #include <hitbox.h>
@@ -49,7 +49,7 @@ class TileObject final : public IGameObject {
 
   void SetHitbox(const Hitbox& hitbox) noexcept;
 
-  void AddHitbox(const Rectangle& rectangle, const Vector2& offset) override;
+  void AddHitbox(const FRectangle& rectangle, const Vector2& offset) override;
 
   void SetBlocked(bool blocked) noexcept override;
 

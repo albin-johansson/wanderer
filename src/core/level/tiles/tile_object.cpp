@@ -68,7 +68,7 @@ int TileObject::GetDepth() const noexcept {
   return depth;
 }
 
-void TileObject::AddHitbox(const Rectangle& rectangle, const Vector2& offset) {
+void TileObject::AddHitbox(const FRectangle& rectangle, const Vector2& offset) {
   hitbox.AddRectangle(rectangle, offset);
 }
 

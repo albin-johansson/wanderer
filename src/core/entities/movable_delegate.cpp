@@ -1,6 +1,6 @@
 #include "movable_delegate.h"
 #include "game_object.h"
-#include "rectangle.h"
+#include "f_rectangle.h"
 #include "random_utils.h"
 #include <stdexcept>
 #include <cstdint>
@@ -94,6 +94,8 @@ void MovableDelegate::Stop(Direction direction) noexcept {
 void MovableDelegate::Stop() noexcept {
   velocity.x = 0;
   velocity.y = 0;
+
+  // FIXME remove
   velocity.Norm();
   velocity.Scale(speed);
 }
@@ -133,7 +135,7 @@ void MovableDelegate::SetVelocity(const Vector2& v) noexcept {
   velocity.Set(v);
 }
 
-void MovableDelegate::AddHitbox(const Rectangle& rectangle, const Vector2& offset) {
+void MovableDelegate::AddHitbox(const FRectangle& rectangle, const Vector2& offset) {
   hitbox.AddRectangle(rectangle, offset);
   UpdatePosition();
 }

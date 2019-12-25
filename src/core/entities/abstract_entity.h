@@ -55,7 +55,7 @@ class AbstractEntity : public virtual IEntity {
 
   void Interpolate(float alpha) noexcept override;
 
-  void AddHitbox(const Rectangle& rectangle, const Vector2& offset) override;
+  void AddHitbox(const FRectangle& rectangle, const Vector2& offset) override;
 
   void AddX(float dx) noexcept override;
 

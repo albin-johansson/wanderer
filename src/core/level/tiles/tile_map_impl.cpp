@@ -8,7 +8,7 @@
 #include "entity.h"
 #include "image.h"
 #include "image_generator.h"
-#include "rectangle.h"
+#include "f_rectangle.h"
 #include "wanderer_core.h"
 #include "objects.h"
 #include "skeleton.h"
@@ -43,7 +43,7 @@ void TileMapImpl::Interpolate(float alpha) {
   }
 }
 
-TileMapBounds TileMapImpl::CalculateMapBounds(const Rectangle& bounds) const noexcept {
+TileMapBounds TileMapImpl::CalculateMapBounds(const FRectangle& bounds) const noexcept {
   const int tileSize = Tile::SIZE;
 
   auto minCol = static_cast<int>(bounds.GetX()) / tileSize;
@@ -102,13 +102,7 @@ void TileMapImpl::Draw(Renderer& renderer, const Viewport& viewport, float alpha
   // Note! All loops takes constant time.
   for (auto row = bounds.minRow; row < bounds.maxRow; row++) {
     for (auto col = bounds.minCol; col < bounds.maxCol; col++) {
-      for (const auto& layer : groundLayers) {
-        const auto id = layer->GetTileId(row, col);
-        if (id != Tile::EMPTY) {
-          const auto& tile = tileSet->GetTile(id);
-          tile.Draw(Vector2(col * Tile::SIZE, row * Tile::SIZE), renderer, viewport, *tileSet);
-        }
-      }
+      RenderTilesAt(row, col, renderer, viewport);
     }
   }
 
@@ -126,6 +120,17 @@ void TileMapImpl::Draw(Renderer& renderer, const Viewport& viewport, float alpha
 
   for (const auto& object : activeObjects) {
     object->Draw(renderer, viewport);
+  }
+}
+
+void TileMapImpl::RenderTilesAt(int row, int col, Renderer& renderer, const Viewport& viewport) {
+  for (const auto& layer : groundLayers) {
+    const auto id = layer->GetTileId(row, col);
+    if (id != Tile::EMPTY) {
+      const auto& tile = tileSet->GetTile(id);
+      Vector2 pos(col * Tile::SIZE, row * Tile::SIZE);
+      tile.Draw(pos, renderer, viewport, *tileSet);
+    }
   }
 }
 

@@ -14,7 +14,7 @@ Viewport::Viewport(Area viewport, Area level) : level(level) {
 }
 
 void Viewport::Track(float tx, float ty, Area size, float delta) noexcept {
-  const float panSpeed = 15 * delta;
+  const float panSpeed = 15.0f * delta;
 
   float targetX = (tx + (size.width / 2.0f)) - (bounds.GetWidth() / 2.0f);
   float targetY = (ty + (size.height / 2.0f)) - (bounds.GetHeight() / 2.0f);
@@ -93,7 +93,7 @@ void Viewport::SetLevelHeight(float levelHeight) {
   }
 }
 
-Rectangle Viewport::GetBounds() const noexcept {
+FRectangle Viewport::GetBounds() const noexcept {
   return bounds;
 }
 

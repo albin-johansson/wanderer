@@ -4,6 +4,7 @@
 #include "objects.h"
 #include "bool_converter.h"
 #include <SDL_log.h>
+#include <cmath>
 
 namespace albinjohansson::wanderer {
 
@@ -64,7 +65,7 @@ void Renderer::RenderTexture(Image& texture,
 
 void Renderer::RenderTexture(Image& texture,
                              const Rectangle& s,
-                             const Rectangle& d) noexcept {
+                             const FRectangle& d) noexcept {
   SDL_Rect src = s.ToSdlRect();
   SDL_FRect dst = {d.GetX(), d.GetY(), d.GetWidth(), d.GetHeight()};
   SDL_RenderCopyF(renderer, texture.GetTexture(), &src, &dst);
@@ -118,8 +119,11 @@ void Renderer::SetColor(uint8_t red, uint8_t green, uint8_t blue) noexcept {
   SDL_SetRenderDrawColor(renderer, red, green, blue, SDL_ALPHA_OPAQUE);
 }
 
-void Renderer::SetViewport(const Rectangle& viewport) noexcept {
-  SDL_Rect rect = viewport.ToSdlRect();
+void Renderer::SetViewport(const FRectangle& viewport) noexcept {
+  SDL_Rect rect = {static_cast<int>(std::ceil(viewport.GetX())),
+                   static_cast<int>(std::ceil(viewport.GetY())),
+                   static_cast<int>(std::ceil(viewport.GetWidth())),
+                   static_cast<int>(std::ceil(viewport.GetHeight()))};
   SDL_RenderSetViewport(renderer, &rect);
 }
 
@@ -171,13 +175,13 @@ float Renderer::GetYScale() const noexcept {
   return yScale;
 }
 
-Rectangle Renderer::GetViewport() const noexcept {
+FRectangle Renderer::GetViewport() const noexcept {
   SDL_Rect viewport = {0, 0, 0, 0};
   SDL_RenderGetViewport(renderer, &viewport);
-  return Rectangle(static_cast<float>(viewport.x),
-                   static_cast<float>(viewport.y),
-                   static_cast<float>(viewport.w),
-                   static_cast<float>(viewport.h));
+  return FRectangle(static_cast<float>(viewport.x),
+                    static_cast<float>(viewport.y),
+                    static_cast<float>(viewport.w),
+                    static_cast<float>(viewport.h));
 }
 
 bool Renderer::GetUsingIntegerLogicalScaling() const noexcept {

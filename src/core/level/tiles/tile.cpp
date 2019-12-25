@@ -2,7 +2,7 @@
 #include "renderer.h"
 #include "viewport.h"
 #include "tile_set.h"
-#include "rectangle.h"
+#include "f_rectangle.h"
 
 namespace albinjohansson::wanderer {
 
@@ -22,7 +22,7 @@ void Tile::Draw(const Vector2& pos,
                 const TileSet& tileSet) const {
   if (GetId() != EMPTY) {
     const auto& src = IsAnimated() ? tileSet.GetTile(GetFrameId()).GetSource() : source;
-    Rectangle dst = {viewport.GetTranslatedX(pos.x), viewport.GetTranslatedY(pos.y), SIZE, SIZE};
+    FRectangle dst = {viewport.GetTranslatedX(pos.x), viewport.GetTranslatedY(pos.y), SIZE, SIZE};
     renderer.RenderTexture(*sheet, src, dst);
   }
 }
@@ -65,7 +65,7 @@ void Tile::SetSource(const Rectangle& source) noexcept {
   this->source = source;
 }
 
-void Tile::AddRectangle(const Rectangle& rect, const Vector2& offset) {
+void Tile::AddRectangle(const FRectangle& rect, const Vector2& offset) {
   hitbox.AddRectangle(rect, offset);
 }
 

@@ -6,7 +6,7 @@
 
 namespace albinjohansson::wanderer {
 
-class Rectangle;
+class FRectangle;
 class ImageGenerator;
 class TileSet;
 class ISortableDrawable;
@@ -31,6 +31,8 @@ class TileMapImpl final : public ITileMap {
   const int nRows;
   const int nCols;
 
+  void RenderTilesAt(int row, int col, Renderer& renderer, const Viewport& viewport);
+
   /**
    * Interpolates all movable game objects.
    *
@@ -46,7 +48,7 @@ class TileMapImpl final : public ITileMap {
    * @return the tile map bounds.
    * @since 0.1.0
    */
-  [[nodiscard]] TileMapBounds CalculateMapBounds(const Rectangle& bounds) const noexcept;
+  [[nodiscard]] TileMapBounds CalculateMapBounds(const FRectangle& bounds) const noexcept;
 
  public:
   /**

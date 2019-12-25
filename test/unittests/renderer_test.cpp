@@ -31,7 +31,7 @@ TEST_CASE("Renderer::RenderFillRect", "[Renderer]") {
 TEST_CASE("Renderer::SetViewport", "[Renderer]") {
   Renderer renderer(SDL_CreateWindow("", 0, 0, 100, 100, SDL_WINDOW_HIDDEN));
 
-  auto viewport = Rectangle(12, 5, 43, 95);
+  auto viewport = FRectangle(12, 5, 43, 95);
   renderer.SetViewport(viewport);
 
   auto rendererViewport = renderer.GetViewport();

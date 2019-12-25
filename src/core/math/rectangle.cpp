@@ -1,27 +1,21 @@
 #include "rectangle.h"
-#include <stdexcept>
 
 namespace albinjohansson::wanderer {
 
-Rectangle::Rectangle() noexcept : Rectangle(0, 0, 10, 10) {}
+Rectangle::Rectangle() = default;
 
-Rectangle::Rectangle(float x, float y, float width, float height) : x(x),
-                                                                    y(y),
-                                                                    width(width),
-                                                                    height(height) {
-  if (width <= 0 || height <= 0) {
-    throw std::invalid_argument("Invalid dimensions!");
-  }
-}
+Rectangle::Rectangle(int x, int y, int width, int height)
+    : x(x), y(y), width(width), height(height) {}
 
-Rectangle::Rectangle(const Rectangle& rectangle) noexcept
-    : Rectangle(rectangle.x, rectangle.y, rectangle.width, rectangle.height) {}
+Rectangle::Rectangle(const Rectangle& other) = default;
 
-void Rectangle::MoveX(float dx) noexcept {
+Rectangle::~Rectangle() noexcept = default;
+
+void Rectangle::MoveX(int dx) noexcept {
   x += dx;
 }
 
-void Rectangle::MoveY(float dy) noexcept {
+void Rectangle::MoveY(int dy) noexcept {
   y += dy;
 }
 
@@ -32,31 +26,23 @@ void Rectangle::Set(const Rectangle& other) noexcept {
   height = other.height;
 }
 
-void Rectangle::SetX(float x) noexcept {
+void Rectangle::SetX(int x) noexcept {
   this->x = x;
 }
 
-void Rectangle::SetY(float y) noexcept {
+void Rectangle::SetY(int y) noexcept {
   this->y = y;
 }
 
-void Rectangle::SetWidth(float width) {
-  if (width <= 0) {
-    throw std::invalid_argument("Invalid width!");
-  } else {
-    this->width = width;
-  }
+void Rectangle::SetWidth(int width) {
+  this->width = width;
 }
 
-void Rectangle::SetHeight(float height) {
-  if (height <= 0) {
-    throw std::invalid_argument("Invalid height!");
-  } else {
-    this->height = height;
-  }
+void Rectangle::SetHeight(int height) {
+  this->height = height;
 }
 
-bool Rectangle::Contains(float px, float py) const noexcept {
+bool Rectangle::Contains(int px, int py) const noexcept {
   return !(px < x || py < y || px > GetMaxX() || py > GetMaxY());
 }
 
@@ -64,28 +50,40 @@ bool Rectangle::Intersects(const Rectangle& r) const noexcept {
   return !(x >= r.GetMaxX() || GetMaxX() <= r.x || y >= r.GetMaxY() || GetMaxY() <= r.y);
 }
 
-float Rectangle::GetX() const noexcept { return x; }
+int Rectangle::GetX() const noexcept {
+  return x;
+}
 
-float Rectangle::GetY() const noexcept { return y; }
+int Rectangle::GetY() const noexcept {
+  return y;
+}
 
-float Rectangle::GetWidth() const noexcept { return width; }
+int Rectangle::GetWidth() const noexcept {
+  return width;
+}
 
-float Rectangle::GetHeight() const noexcept { return height; }
+int Rectangle::GetHeight() const noexcept {
+  return height;
+}
 
-float Rectangle::GetCenterX() const noexcept { return x + (width / 2.0f); }
+int Rectangle::GetCenterX() const noexcept {
+  return x + (width / 2);
+}
 
-float Rectangle::GetCenterY() const noexcept { return y + (height / 2.0f); }
+int Rectangle::GetCenterY() const noexcept {
+  return y + (height / 2);
+}
 
-float Rectangle::GetMaxX() const noexcept { return x + width; }
+int Rectangle::GetMaxX() const noexcept {
+  return x + width;
+}
 
-float Rectangle::GetMaxY() const noexcept { return y + height; }
+int Rectangle::GetMaxY() const noexcept {
+  return y + height;
+}
 
 SDL_Rect Rectangle::ToSdlRect() const noexcept {
-  int ix = static_cast<int>(x);
-  int iy = static_cast<int>(y);
-  int iw = static_cast<int>(width);
-  int ih = static_cast<int>(height);
-  return {ix, iy, iw, ih};
+  return {x, y, width, height};
 }
 
 }

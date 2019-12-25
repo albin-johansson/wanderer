@@ -157,7 +157,7 @@ class Tile final {
    */
   void SetSource(const Rectangle& source) noexcept;
 
-  void AddRectangle(const Rectangle& rect, const Vector2& offset);
+  void AddRectangle(const FRectangle& rect, const Vector2& offset);
 
   /**
    * Indicates whether or not the tile is blocked.

@@ -33,9 +33,15 @@ set(SOURCE_FILES
         core/util/objects.h # TODO move to service or utils
         core/util/bad_state_exception.h
         core/util/bad_state_exception.cpp
+        core/util/time_utils.cpp
+        core/util/time_utils.h
 
+        core/math/hitbox.cpp
+        core/math/hitbox.h
         core/math/rectangle.cpp
         core/math/rectangle.h
+        core/math/f_rectangle.cpp
+        core/math/f_rectangle.h
         core/math/vector_2.cpp
         core/math/vector_2.h
         core/math/random_utils.cpp
@@ -177,12 +183,7 @@ set(SOURCE_FILES
         service/tiled/tiled_layer.h
         service/tiled/tiled_tile.cpp
         service/tiled/tiled_tile.h
-        service/tiled/tiled_property.h
-
-        core/math/hitbox.cpp
-        core/math/hitbox.h
-        core/util/time_utils.cpp
-        core/util/time_utils.h)
+        service/tiled/tiled_property.h)
 
 # Prepares the Wanderer "library", which excludes linking and the main.cpp file
 add_library(${WANDERER_LIB} ${SOURCE_FILES})

@@ -75,7 +75,8 @@ void WandererCoreImpl::Update(float delta) {
     activeMap->Tick(*this, viewport, delta);
 
     auto[ix, iy] = player->GetInterpolatedPosition();
-    viewport.Track(ix, iy, {player->GetWidth(), player->GetHeight()}, delta);
+    viewport.Center(ix, iy, {player->GetWidth(), player->GetHeight()});
+//    viewport.Track(ix, iy, {player->GetWidth(), player->GetHeight()}, delta);
   }
 }
 

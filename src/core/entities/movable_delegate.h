@@ -80,7 +80,7 @@ class MovableDelegate final : public IMovableObject {
 
   void SetBlocked(bool blocked) noexcept override;
 
-  void AddHitbox(const Rectangle& rectangle, const Vector2& offset) override;
+  void AddHitbox(const FRectangle& rectangle, const Vector2& offset) override;
 
   [[nodiscard]] int GetDepth() const noexcept override;
 
