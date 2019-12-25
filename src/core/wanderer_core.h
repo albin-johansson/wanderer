@@ -15,9 +15,6 @@ class Input;
  * @since 0.1.0
  */
 class IWandererCore {
- protected:
-  IWandererCore() = default;
-
  public:
   virtual ~IWandererCore() = default;
 
@@ -101,6 +98,12 @@ class IWandererCore {
    */
   [[nodiscard]] virtual const IPlayer& GetPlayer() const = 0;
 
+  /**
+   * Returns the currently active map.
+   *
+   * @return the currently active map.
+   * @since 0.1.0
+   */
   [[nodiscard]] virtual const ITileMap& GetActiveMap() const = 0;
 };
 
