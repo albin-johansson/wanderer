@@ -26,6 +26,10 @@ void Vector2::Norm() noexcept {
   }
 }
 
+void Vector2::Zero() noexcept {
+  x = y = 0;
+}
+
 void Vector2::Set(const Vector2& vector) noexcept {
   x = vector.x;
   y = vector.y;

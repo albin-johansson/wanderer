@@ -92,8 +92,7 @@ void MovableDelegate::Stop(Direction direction) noexcept {
 }
 
 void MovableDelegate::Stop() noexcept {
-  velocity.x = 0;
-  velocity.y = 0;
+  velocity.Zero();
 }
 
 void MovableDelegate::Interpolate(float alpha) noexcept {

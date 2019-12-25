@@ -151,6 +151,13 @@ TEST_CASE("Vector2::Norm", "[Vector2]") {
   CHECK(vector.GetLength() == Approx(1));
 }
 
+TEST_CASE("Vector2::Zero", "[Vector2]") {
+  Vector2 vector(859.0f, 229.3f);
+
+  vector.Zero();
+  CHECK(vector.IsZero());
+}
+
 TEST_CASE("Vector2::Set", "[Vector2]") {
   Vector2 vector(91, 3);
   Vector2 other(123, 45);

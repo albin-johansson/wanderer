@@ -58,6 +58,13 @@ class Vector2 final {
   void Norm() noexcept;
 
   /**
+   * Sets the components of the vector to be zero.
+   *
+   * @since 0.1.0
+   */
+  void Zero() noexcept;
+
+  /**
    * Linearly interpolates between this vector and the specified target vector. This vector is
    * the one that is affected by the operation.
    *
