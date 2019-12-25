@@ -94,10 +94,6 @@ void MovableDelegate::Stop(Direction direction) noexcept {
 void MovableDelegate::Stop() noexcept {
   velocity.x = 0;
   velocity.y = 0;
-
-  // FIXME remove
-  velocity.Norm();
-  velocity.Scale(speed);
 }
 
 void MovableDelegate::Interpolate(float alpha) noexcept {
