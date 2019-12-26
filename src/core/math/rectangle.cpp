@@ -207,10 +207,11 @@ FRectangle::operator Rectangle() const noexcept {
 }
 
 FRectangle::operator SDL_Rect() const noexcept {
-  return {static_cast<int>(std::ceil(x)),
-          static_cast<int>(std::ceil(y)),
-          static_cast<int>(std::ceil(width)),
-          static_cast<int>(std::ceil(height))};
+  return {static_cast<int>(std::round(x)),
+          static_cast<int>(std::round(y)),
+          static_cast<int>(std::round(width)),
+          static_cast<int>(std::round(height))
+  };
 }
 
 FRectangle::operator SDL_FRect() const noexcept {

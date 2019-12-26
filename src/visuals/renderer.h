@@ -72,9 +72,9 @@ class Renderer final {
    * @param y the y-coordinate of the rendered texture.
    * @since 0.1.0
    */
-  void RenderTexture(Image& texture, int x, int y) noexcept;
+  void RenderTexture(const Image& texture, int x, int y) noexcept;
 
-  void RenderTexture(Image& texture, float x, float y) noexcept;
+  void RenderTexture(const Image& texture, float x, float y) noexcept;
 
   /**
    * Renders a texture. This method has no effect if the supplied width and/or height isn't
@@ -87,7 +87,7 @@ class Renderer final {
    * @param height the height of the rendered texture.
    * @since 0.1.0
    */
-  void RenderTexture(Image& texture, int x, int y, int width, int height) noexcept;
+  void RenderTexture(const Image& texture, int x, int y, int width, int height) noexcept;
 
   /**
    * Renders a texture. This method has no effect if the supplied width and/or height isn't greater
@@ -100,11 +100,11 @@ class Renderer final {
    * @param height the height of the rendered texture.
    * @since 0.1.0
    */
-  void RenderTexture(Image& texture, float x, float y, float width, float height) noexcept;
+  void RenderTexture(const Image& texture, float x, float y, float width, float height) noexcept;
 
-  void RenderTexture(Image& texture,
-                     const Rectangle& s,
-                     const FRectangle& d) noexcept;
+  void RenderTexture(const Image& texture,
+                     const Rectangle& source,
+                     const FRectangle& destination) noexcept;
 
   /**
    * Renders a filled rectangle with the currently selected color. This method has no effect if the

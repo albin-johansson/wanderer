@@ -14,6 +14,7 @@ Renderer::Renderer(SDL_Renderer* renderer) {
 
 Renderer::Renderer(SDL_Window* window) {
   Require::NotNull(window);
+
   uint32_t flags = SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC;
   renderer = SDL_CreateRenderer(window, -1, flags);
 
@@ -27,42 +28,54 @@ Renderer::~Renderer() {
   }
 }
 
-void Renderer::Clear() noexcept { SDL_RenderClear(renderer); }
+void Renderer::Clear() noexcept {
+  SDL_RenderClear(renderer);
+}
 
-void Renderer::Present() noexcept { SDL_RenderPresent(renderer); }
+void Renderer::Present() noexcept {
+  SDL_RenderPresent(renderer);
+}
 
-void Renderer::RenderTexture(Image& texture, int x, int y) noexcept {
+void Renderer::RenderTexture(const Image& texture, int x, int y) noexcept {
   SDL_Rect dst = {x, y, texture.GetWidth(), texture.GetHeight()};
   SDL_RenderCopy(renderer, texture, nullptr, &dst);
 }
 
-void Renderer::RenderTexture(Image& texture, float x, float y) noexcept {
-  SDL_FRect dst = {x, y,
+void Renderer::RenderTexture(const Image& texture, float x, float y) noexcept {
+  SDL_FRect dst = {x,
+                   y,
                    static_cast<float>(texture.GetWidth()),
                    static_cast<float>(texture.GetHeight())};
   SDL_RenderCopyF(renderer, texture, nullptr, &dst);
 }
 
-void Renderer::RenderTexture(Image& texture, int x, int y, int width,
+void Renderer::RenderTexture(const Image& texture,
+                             int x,
+                             int y,
+                             int width,
                              int height) noexcept {
   if ((width > 0) && (height > 0)) {
     SDL_Rect dst = {x, y, width, height};
-    SDL_RenderCopy(renderer, texture.GetTexture(), nullptr, &dst);
+    SDL_RenderCopy(renderer, texture, nullptr, &dst);
   }
 }
 
-void Renderer::RenderTexture(Image& texture, float x, float y, float width, float height) noexcept {
+void Renderer::RenderTexture(const Image& texture,
+                             float x,
+                             float y,
+                             float width,
+                             float height) noexcept {
   if ((width > 0) && (height > 0)) {
     SDL_FRect dst = {x, y, width, height};
     SDL_RenderCopyF(renderer, texture, nullptr, &dst);
   }
 }
 
-void Renderer::RenderTexture(Image& texture,
-                             const Rectangle& s,
-                             const FRectangle& d) noexcept {
-  SDL_Rect src = s.ToSdlRect();
-  SDL_FRect dst = {d.GetX(), d.GetY(), d.GetWidth(), d.GetHeight()};
+void Renderer::RenderTexture(const Image& texture,
+                             const Rectangle& source,
+                             const FRectangle& destination) noexcept {
+  SDL_Rect src = source;
+  SDL_FRect dst = destination;
   SDL_RenderCopyF(renderer, texture, &src, &dst);
 }
 
