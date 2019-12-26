@@ -52,7 +52,8 @@ class Animation final {
   void SetFrame(int frameIndex) noexcept;
 
   /**
-   * Sets the number of frames in the animation.
+   * Sets the number of frames in the animation. This method has no effect if the supplied number
+   * of frames isn't greater than zero.
    *
    * @param nFrames the number of frames.
    * @since 0.1.0

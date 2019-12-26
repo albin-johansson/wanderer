@@ -1,5 +1,6 @@
 #include "animation.h"
 #include "time_utils.h"
+#include "require.h"
 
 namespace albinjohansson::wanderer {
 
@@ -39,7 +40,9 @@ void Animation::SetFrame(int frameIndex) noexcept {
 }
 
 void Animation::SetNumberOfFrames(int nFrames) noexcept {
-  this->nFrames = nFrames; // TODO guard for valid input?
+  if (nFrames > 0) {
+    this->nFrames = nFrames;
+  }
 }
 
 int Animation::GetIndex() const noexcept {
