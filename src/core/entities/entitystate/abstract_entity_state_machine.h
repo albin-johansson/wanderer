@@ -61,7 +61,7 @@ class AbstractEntityStateMachine : public virtual IEntityStateMachine {
     states.at(activeStateID)->Tick(core, delta);
   }
 
-  void Draw(Renderer& renderer, const Viewport& viewport) const final {
+  void Draw(const Renderer& renderer, const Viewport& viewport) const final {
     states.at(activeStateID)->Draw(renderer, viewport);
   }
 

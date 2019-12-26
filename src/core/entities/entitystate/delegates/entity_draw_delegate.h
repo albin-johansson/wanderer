@@ -27,8 +27,7 @@ class EntityDrawDelegate final {
    * @param srcY the source y-coordinate of the area in the sprite sheet that will be rendered.
    * @since 0.1.0
    */
-  static void Draw(Renderer& renderer,
-                   const Viewport& viewport,
+  static void Draw(const Renderer& renderer,
                    const IEntity& entity,
                    int srcX,
                    int srcY) noexcept;

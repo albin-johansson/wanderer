@@ -100,7 +100,7 @@ void PlayerMovingState::Tick(const IWandererCore& core, float delta) {
   }
 }
 
-void PlayerMovingState::Draw(Renderer& renderer, const Viewport& viewport) const noexcept {
+void PlayerMovingState::Draw(const Renderer& renderer, const Viewport& viewport) const noexcept {
   moveDelegate.Draw(renderer, viewport);
 }
 

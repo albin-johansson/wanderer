@@ -21,7 +21,7 @@ void PlayerImpl::Tick(IWandererCore& core, float delta) {
   playerStateMachine->Tick(core, delta);
 }
 
-void PlayerImpl::Draw(Renderer& renderer, const Viewport& viewport) const noexcept {
+void PlayerImpl::Draw(const Renderer& renderer, const Viewport& viewport) const noexcept {
   playerStateMachine->Draw(renderer, viewport);
 }
 

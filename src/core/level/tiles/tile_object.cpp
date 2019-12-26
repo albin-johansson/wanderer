@@ -23,7 +23,7 @@ void TileObject::Tick(IWandererCore& core, float delta) {
   tileSet->Tick(id);
 }
 
-void TileObject::Draw(Renderer& renderer, const Viewport& viewport) const {
+void TileObject::Draw(const Renderer& renderer, const Viewport& viewport) const {
   tileSet->GetTile(id).Draw(position, renderer, viewport, *tileSet);
 }
 

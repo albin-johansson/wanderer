@@ -54,7 +54,7 @@ class MovableDelegate final : public IMovableObject {
 
   ~MovableDelegate() override;
 
-  void Draw(Renderer& renderer, const Viewport& viewport) const noexcept override;
+  void Draw(const Renderer& renderer, const Viewport& viewport) const noexcept override;
 
   void Tick(IWandererCore& core, float delta) override;
 

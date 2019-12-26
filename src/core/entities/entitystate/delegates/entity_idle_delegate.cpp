@@ -13,11 +13,11 @@ EntityIdleDelegate::EntityIdleDelegate(IEntityStateMachine* parent) {
 
 EntityIdleDelegate::~EntityIdleDelegate() = default;
 
-void EntityIdleDelegate::Draw(Renderer& renderer, const Viewport& viewport) const {
+void EntityIdleDelegate::Draw(const Renderer& renderer, const Viewport& viewport) const {
   IEntity& entity = parent->GetEntity();
 
   float srcY = EntitySheet::GetSourceY(512, entity.GetDominantDirection());
-  EntityDrawDelegate::Draw(renderer, viewport, entity, 0, srcY);
+  EntityDrawDelegate::Draw(renderer, entity, 0, srcY);
 }
 
 void EntityIdleDelegate::Enter(const IWandererCore& core) {

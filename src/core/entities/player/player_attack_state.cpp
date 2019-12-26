@@ -10,7 +10,7 @@ PlayerAttackState::~PlayerAttackState() = default;
 void PlayerAttackState::HandleInput(const Input& input, const IWandererCore& core) {
 }
 
-void PlayerAttackState::Draw(Renderer& renderer, const Viewport& viewport) const {
+void PlayerAttackState::Draw(const Renderer& renderer, const Viewport& viewport) const {
   attackDelegate.Draw(renderer, viewport);
 }
 

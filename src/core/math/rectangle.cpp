@@ -1,4 +1,5 @@
 #include "rectangle.h"
+#include "math_utils.h"
 #include <stdexcept>
 #include <cmath>
 
@@ -194,23 +195,19 @@ float FRectangle::GetMaxX() const noexcept { return x + width; }
 
 float FRectangle::GetMaxY() const noexcept { return y + height; }
 
-SDL_FRect FRectangle::ToSdlRect() const noexcept {
-  return {x, y, width, height};
-}
-
 FRectangle::operator Rectangle() const noexcept {
-  return {static_cast<int>(x),
-          static_cast<int>(y),
-          static_cast<int>(width),
-          static_cast<int>(height)
+  return {MathUtils::Round(x),
+          MathUtils::Round(y),
+          MathUtils::Round(width),
+          MathUtils::Round(height)
   };
 }
 
 FRectangle::operator SDL_Rect() const noexcept {
-  return {static_cast<int>(std::round(x)),
-          static_cast<int>(std::round(y)),
-          static_cast<int>(std::round(width)),
-          static_cast<int>(std::round(height))
+  return {MathUtils::Round(x),
+          MathUtils::Round(y),
+          MathUtils::Round(width),
+          MathUtils::Round(height)
   };
 }
 

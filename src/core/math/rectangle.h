@@ -341,14 +341,6 @@ class FRectangle final {
    */
   [[nodiscard]] float GetMaxY() const noexcept;
 
-  /**
-   * Returns an SDL_FRect representation of the rectangle.
-   *
-   * @return an SDL_FRect representation of the rectangle.
-   * @since 0.1.0
-   */
-  [[nodiscard]] SDL_FRect ToSdlRect() const noexcept;
-
   explicit operator Rectangle() const noexcept;
 
   explicit operator SDL_Rect() const noexcept;

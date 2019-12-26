@@ -43,7 +43,7 @@ class TileObject final : public IGameObject {
 
   void Tick(IWandererCore& core, float delta) override;
 
-  void Draw(Renderer& renderer, const Viewport& viewport) const override;
+  void Draw(const Renderer& renderer, const Viewport& viewport) const override;
 
   void SetDepth(int depth) noexcept;
 

@@ -10,7 +10,7 @@ PlayerDyingState::~PlayerDyingState() = default;
 
 void PlayerDyingState::HandleInput(const Input& input, const IWandererCore& core) {}
 
-void PlayerDyingState::Draw(Renderer& renderer, const Viewport& viewport) const {
+void PlayerDyingState::Draw(const Renderer& renderer, const Viewport& viewport) const {
   dyingDelegate.Draw(renderer, viewport);
 }
 

@@ -14,11 +14,11 @@ EntityAttackDelegate::EntityAttackDelegate(IEntityStateMachine* parent) {
 
 EntityAttackDelegate::~EntityAttackDelegate() = default;
 
-void EntityAttackDelegate::Draw(Renderer& renderer, const Viewport& viewport) const {
+void EntityAttackDelegate::Draw(const Renderer& renderer, const Viewport& viewport) const {
   auto& entity = parent->GetEntity();
   auto srcX = entity.GetAnimationFrame() * 64;
   auto srcY = EntitySheet::GetSourceY(SOURCE_MELEE_Y, entity.GetDominantDirection());
-  EntityDrawDelegate::Draw(renderer, viewport, entity, srcX, srcY);
+  EntityDrawDelegate::Draw(renderer, entity, srcX, srcY);
 }
 
 void EntityAttackDelegate::Enter(const IWandererCore& core) {

@@ -5,18 +5,14 @@
 
 namespace albinjohansson::wanderer {
 
-void EntityDrawDelegate::Draw(Renderer& renderer,
-                              const Viewport& viewport,
+void EntityDrawDelegate::Draw(const Renderer& renderer,
                               const IEntity& entity,
                               int srcX,
                               int srcY) noexcept {
-  auto[ix, iy] = entity.GetInterpolatedPosition();
-  auto x = viewport.GetTranslatedX(ix);
-  auto y = viewport.GetTranslatedY(iy);
-
+  auto[x, y] = entity.GetInterpolatedPosition();
   auto src = Rectangle(srcX, srcY, 64, 64);
   auto dst = FRectangle(x, y, entity.GetWidth(), entity.GetHeight());
-  renderer.RenderTexture(entity.GetSpriteSheet(), src, dst);
+  renderer.RenderTextureTranslated(entity.GetSpriteSheet(), src, dst);
 }
 
 }

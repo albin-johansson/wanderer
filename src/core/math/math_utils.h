@@ -15,6 +15,10 @@ class MathUtils final {
 
   ~MathUtils() = default;
 
+  [[nodiscard]] static constexpr int Round(float f) {
+    return static_cast<int>(std::round(f));
+  }
+
   /**
    * Calculates and returns the matrix position from an index and the amount of columns in the
    * matrix.

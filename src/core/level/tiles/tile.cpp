@@ -17,13 +17,13 @@ void Tile::Tick() {
 }
 
 void Tile::Draw(const Vector2& pos,
-                Renderer& renderer,
+                const Renderer& renderer,
                 const Viewport& viewport,
                 const TileSet& tileSet) const {
   if (GetId() != EMPTY) {
     const auto& src = IsAnimated() ? tileSet.GetTile(GetFrameId()).GetSource() : source;
-    FRectangle dst = {viewport.GetTranslatedX(pos.x), viewport.GetTranslatedY(pos.y), SIZE, SIZE};
-    renderer.RenderTexture(*sheet, src, dst);
+    FRectangle dst = {pos.x, pos.y, SIZE, SIZE};
+    renderer.RenderTextureTranslated(*sheet, src, dst);
   }
 }
 

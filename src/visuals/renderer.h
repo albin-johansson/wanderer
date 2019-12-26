@@ -1,5 +1,6 @@
 #pragma once
 #include "rectangle.h"
+#include "viewport.h"
 #include <SDL.h>
 #include <SDL_image.h>
 #include <cstdint>
@@ -20,6 +21,7 @@ class Font;
 class Renderer final {
  private:
   SDL_Renderer* renderer = nullptr;
+  Viewport translationViewport;
 
  public:
   // TODO ctor with flags arg
@@ -55,14 +57,14 @@ class Renderer final {
    *
    * @since 0.1.0
    */
-  void Clear() noexcept;
+  void Clear() const noexcept;
 
   /**
    * Applies the previous rendering calls to the rendering target.
    *
    * @since 0.1.0
    */
-  void Present() noexcept;
+  void Present() const noexcept;
 
   /**
    * Renders a texture.
@@ -72,9 +74,9 @@ class Renderer final {
    * @param y the y-coordinate of the rendered texture.
    * @since 0.1.0
    */
-  void RenderTexture(const Image& texture, int x, int y) noexcept;
+  void RenderTexture(const Image& texture, int x, int y) const noexcept;
 
-  void RenderTexture(const Image& texture, float x, float y) noexcept;
+  void RenderTexture(const Image& texture, float x, float y) const noexcept;
 
   /**
    * Renders a texture. This method has no effect if the supplied width and/or height isn't
@@ -87,7 +89,7 @@ class Renderer final {
    * @param height the height of the rendered texture.
    * @since 0.1.0
    */
-  void RenderTexture(const Image& texture, int x, int y, int width, int height) noexcept;
+  void RenderTexture(const Image& texture, int x, int y, int width, int height) const noexcept;
 
   /**
    * Renders a texture. This method has no effect if the supplied width and/or height isn't greater
@@ -100,11 +102,19 @@ class Renderer final {
    * @param height the height of the rendered texture.
    * @since 0.1.0
    */
-  void RenderTexture(const Image& texture, float x, float y, float width, float height) noexcept;
+  void RenderTexture(const Image& texture,
+                     float x,
+                     float y,
+                     float width,
+                     float height) const noexcept;
 
   void RenderTexture(const Image& texture,
                      const Rectangle& source,
-                     const FRectangle& destination) noexcept;
+                     const FRectangle& destination) const noexcept;
+
+  void RenderTextureTranslated(const Image& texture,
+                               const Rectangle& source,
+                               const FRectangle& destination) const noexcept;
 
   /**
    * Renders a filled rectangle with the currently selected color. This method has no effect if the
@@ -116,7 +126,7 @@ class Renderer final {
    * @param height the height of the rendered rectangle.
    * @since 0.1.0
    */
-  void RenderFillRect(int x, int y, int width, int height) noexcept;
+  void RenderFillRect(int x, int y, int width, int height) const noexcept;
 
   /**
    * Renders a filled rectangle with the currently selected color. This method has no effect if the
@@ -128,7 +138,7 @@ class Renderer final {
    * @param height the height of the rendered rectangle.
    * @since 0.1.0
    */
-  void RenderFillRect(float x, float y, float width, float height) noexcept;
+  void RenderFillRect(float x, float y, float width, float height) const noexcept;
 
   /**
    * Renders an outlined rectangle with the currently selected color. This method has no effect if
@@ -140,7 +150,7 @@ class Renderer final {
    * @param height the height of the rendered rectangle.
    * @since 0.1.0
    */
-  void RenderRect(float x, float y, float width, float height) noexcept;
+  void RenderRect(float x, float y, float width, float height) const noexcept;
 
   /**
    * Renders an outlined rectangle with the currently selected color. This method has no effect if
@@ -152,11 +162,13 @@ class Renderer final {
    * @param height the height of the rendered rectangle.
    * @since 0.1.0
    */
-  void RenderRect(int x, int y, int width, int height) noexcept;
+  void RenderRect(int x, int y, int width, int height) const noexcept;
 
 //  void RenderText(const std::string& text, float x, float y);
 
-  void RenderText(const std::string& text, float x, float y, const Font& font);
+  void RenderText(const std::string& text, float x, float y, const Font& font) const;
+
+  // FIXME setColor are not really const methods
 
   /**
    * Sets the color that will be used by the renderer.
@@ -167,7 +179,7 @@ class Renderer final {
    * @param alpha the alpha component value, in the range [0, 255].
    * @since 0.1.0
    */
-  void SetColor(uint8_t red, uint8_t green, uint8_t blue, uint8_t alpha) noexcept;
+  void SetColor(uint8_t red, uint8_t green, uint8_t blue, uint8_t alpha) const noexcept;
 
   /**
    * Sets the color that will be used by the renderer. This method will assume
@@ -178,7 +190,7 @@ class Renderer final {
    * @param blue the blue component value, in the range [0, 255].
    * @since 0.1.0
    */
-  void SetColor(uint8_t red, uint8_t green, uint8_t blue) noexcept;
+  void SetColor(uint8_t red, uint8_t green, uint8_t blue) const noexcept;
 
   /**
    * Sets the viewport that will be used by the renderer.
@@ -187,6 +199,8 @@ class Renderer final {
    * @since 0.1.0
    */
   void SetViewport(const FRectangle& viewport) noexcept;
+
+  void SetTranslationViewport(const Viewport& viewport) noexcept;
 
   /**
    * Sets the viewport that will be used by the renderer. This method has no effect if any of the
@@ -278,6 +292,8 @@ class Renderer final {
    * @since 0.1.0
    */
   [[nodiscard]] FRectangle GetViewport() const noexcept;
+
+  [[nodiscard]] const Viewport& GetTranslationViewport() const noexcept;
 
   /**
    * Returns a pointer to the internal SDL_Renderer instance.

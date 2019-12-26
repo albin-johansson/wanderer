@@ -73,7 +73,7 @@ void SkeletonMovingState::Tick(const IWandererCore& core, float delta) {
   }
 }
 
-void SkeletonMovingState::Draw(Renderer& renderer, const Viewport& viewport) const {
+void SkeletonMovingState::Draw(const Renderer& renderer, const Viewport& viewport) const {
   moveDelegate.Draw(renderer, viewport);
 }
 

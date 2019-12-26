@@ -25,7 +25,7 @@ void PlayerIdleState::HandleInput(const Input& input, const IWandererCore& core)
   // TODO attack...
 }
 
-void PlayerIdleState::Draw(Renderer& renderer, const Viewport& viewport) const noexcept {
+void PlayerIdleState::Draw(const Renderer& renderer, const Viewport& viewport) const noexcept {
   idleDelegate.Draw(renderer, viewport);
 }
 

@@ -3,6 +3,7 @@
 #include "font.h"
 #include "require.h"
 #include "bool_converter.h"
+#include "math_utils.h"
 #include <SDL_log.h>
 
 namespace albinjohansson::wanderer {
@@ -28,20 +29,20 @@ Renderer::~Renderer() {
   }
 }
 
-void Renderer::Clear() noexcept {
+void Renderer::Clear() const noexcept {
   SDL_RenderClear(renderer);
 }
 
-void Renderer::Present() noexcept {
+void Renderer::Present() const noexcept {
   SDL_RenderPresent(renderer);
 }
 
-void Renderer::RenderTexture(const Image& texture, int x, int y) noexcept {
+void Renderer::RenderTexture(const Image& texture, int x, int y) const noexcept {
   SDL_Rect dst = {x, y, texture.GetWidth(), texture.GetHeight()};
   SDL_RenderCopy(renderer, texture, nullptr, &dst);
 }
 
-void Renderer::RenderTexture(const Image& texture, float x, float y) noexcept {
+void Renderer::RenderTexture(const Image& texture, float x, float y) const noexcept {
   SDL_FRect dst = {x,
                    y,
                    static_cast<float>(texture.GetWidth()),
@@ -53,7 +54,7 @@ void Renderer::RenderTexture(const Image& texture,
                              int x,
                              int y,
                              int width,
-                             int height) noexcept {
+                             int height) const noexcept {
   if ((width > 0) && (height > 0)) {
     SDL_Rect dst = {x, y, width, height};
     SDL_RenderCopy(renderer, texture, nullptr, &dst);
@@ -64,7 +65,7 @@ void Renderer::RenderTexture(const Image& texture,
                              float x,
                              float y,
                              float width,
-                             float height) noexcept {
+                             float height) const noexcept {
   if ((width > 0) && (height > 0)) {
     SDL_FRect dst = {x, y, width, height};
     SDL_RenderCopyF(renderer, texture, nullptr, &dst);
@@ -73,41 +74,53 @@ void Renderer::RenderTexture(const Image& texture,
 
 void Renderer::RenderTexture(const Image& texture,
                              const Rectangle& source,
-                             const FRectangle& destination) noexcept {
+                             const FRectangle& destination) const noexcept {
   SDL_Rect src = source;
   SDL_FRect dst = destination;
   SDL_RenderCopyF(renderer, texture, &src, &dst);
 }
 
-void Renderer::RenderFillRect(float x, float y, float width, float height) noexcept {
+void Renderer::RenderTextureTranslated(const Image& texture,
+                                       const Rectangle& source,
+                                       const FRectangle& destination) const noexcept {
+  SDL_Rect src = source;
+  SDL_FRect dst = destination;
+
+  dst.x = translationViewport.GetTranslatedX(dst.x);
+  dst.y = translationViewport.GetTranslatedY(dst.y);
+
+  SDL_RenderCopyF(renderer, texture, &src, &dst);
+}
+
+void Renderer::RenderFillRect(float x, float y, float width, float height) const noexcept {
   if ((width > 0) && (height > 0)) {
     SDL_FRect rect = {x, y, width, height};
     SDL_RenderFillRectF(renderer, &rect);
   }
 }
 
-void Renderer::RenderFillRect(int x, int y, int width, int height) noexcept {
+void Renderer::RenderFillRect(int x, int y, int width, int height) const noexcept {
   if ((width > 0) && (height > 0)) {
     SDL_Rect rect = {x, y, width, height};
     SDL_RenderFillRect(renderer, &rect);
   }
 }
 
-void Renderer::RenderRect(float x, float y, float width, float height) noexcept {
+void Renderer::RenderRect(float x, float y, float width, float height) const noexcept {
   if ((width > 0) && (height > 0)) {
     SDL_FRect rect = {x, y, width, height};
     SDL_RenderDrawRectF(renderer, &rect);
   }
 }
 
-void Renderer::RenderRect(int x, int y, int width, int height) noexcept {
+void Renderer::RenderRect(int x, int y, int width, int height) const noexcept {
   if ((width > 0) && (height > 0)) {
     SDL_Rect rect = {x, y, width, height};
     SDL_RenderDrawRect(renderer, &rect);
   }
 }
 
-void Renderer::RenderText(const std::string& text, float x, float y, const Font& font) {
+void Renderer::RenderText(const std::string& text, float x, float y, const Font& font) const {
   if (!text.empty()) {
     auto texture = CreateTexture(text, font);
 
@@ -119,17 +132,21 @@ void Renderer::RenderText(const std::string& text, float x, float y, const Font&
   }
 }
 
-void Renderer::SetColor(uint8_t red, uint8_t green, uint8_t blue, uint8_t alpha) noexcept {
+void Renderer::SetColor(uint8_t red, uint8_t green, uint8_t blue, uint8_t alpha) const noexcept {
   SDL_SetRenderDrawColor(renderer, red, green, blue, alpha);
 }
 
-void Renderer::SetColor(uint8_t red, uint8_t green, uint8_t blue) noexcept {
+void Renderer::SetColor(uint8_t red, uint8_t green, uint8_t blue) const noexcept {
   SDL_SetRenderDrawColor(renderer, red, green, blue, SDL_ALPHA_OPAQUE);
 }
 
 void Renderer::SetViewport(const FRectangle& viewport) noexcept {
   auto rect = static_cast<SDL_Rect>(viewport);
   SDL_RenderSetViewport(renderer, &rect);
+}
+
+void Renderer::SetTranslationViewport(const Viewport& viewport) noexcept {
+  translationViewport = viewport;
 }
 
 void Renderer::SetScale(float xScale, float yScale) noexcept {
@@ -141,8 +158,8 @@ void Renderer::SetScale(float xScale, float yScale) noexcept {
 void Renderer::SetLogicalSize(float width, float height) noexcept {
   if ((width > 0) && (height > 0)) {
     int result = SDL_RenderSetLogicalSize(renderer,
-                                          static_cast<int>(width),
-                                          static_cast<int>(height));
+                                          MathUtils::Round(width),
+                                          MathUtils::Round(height));
     if (result != 0) {
       SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION,
                      SDL_LOG_PRIORITY_WARN,
@@ -184,6 +201,10 @@ FRectangle Renderer::GetViewport() const noexcept {
   SDL_Rect viewport = {0, 0, 0, 0};
   SDL_RenderGetViewport(renderer, &viewport);
   return viewport;
+}
+
+const Viewport& Renderer::GetTranslationViewport() const noexcept {
+  return translationViewport;
 }
 
 bool Renderer::GetUsingIntegerLogicalScaling() const noexcept {

@@ -31,7 +31,7 @@ class EntityAttackDelegate final : public IEntityState {
 
   ~EntityAttackDelegate() override;
 
-  void Draw(Renderer& renderer, const Viewport& viewport) const override;
+  void Draw(const Renderer& renderer, const Viewport& viewport) const override;
 
   void Tick(const IWandererCore& core, float delta) override;
 

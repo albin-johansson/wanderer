@@ -15,12 +15,12 @@ EntityMoveDelegate::EntityMoveDelegate(IEntityStateMachine* parent) {
 
 EntityMoveDelegate::~EntityMoveDelegate() = default;
 
-void EntityMoveDelegate::Draw(Renderer& renderer, const Viewport& viewport) const {
+void EntityMoveDelegate::Draw(const Renderer& renderer, const Viewport& viewport) const {
   IEntity& entity = parent->GetEntity();
 
   auto srcX = entity.GetVelocity().IsZero() ? 0 : entity.GetAnimationFrame() * 64;
   auto srcY = EntitySheet::GetSourceY(512, entity.GetDominantDirection());
-  EntityDrawDelegate::Draw(renderer, viewport, entity, srcX, srcY);
+  EntityDrawDelegate::Draw(renderer, entity, srcX, srcY);
 }
 
 void EntityMoveDelegate::Tick(const IWandererCore& core, float delta) {

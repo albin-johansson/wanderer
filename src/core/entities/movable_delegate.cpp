@@ -17,7 +17,7 @@ MovableDelegate::MovableDelegate(int depth, float width, float height)
 
 MovableDelegate::~MovableDelegate() = default;
 
-void MovableDelegate::Draw(Renderer& renderer,
+void MovableDelegate::Draw(const Renderer& renderer,
                            const Viewport& viewport) const noexcept {
   /* do nothing */
 }

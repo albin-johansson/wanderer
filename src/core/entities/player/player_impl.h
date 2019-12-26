@@ -32,7 +32,7 @@ class PlayerImpl final : public AbstractEntity, public IPlayer {
 
   void HandleInput(const Input& input, const IWandererCore& core) override;
 
-  void Draw(Renderer& renderer, const Viewport& viewport) const noexcept override;
+  void Draw(const Renderer& renderer, const Viewport& viewport) const noexcept override;
 };
 
 }

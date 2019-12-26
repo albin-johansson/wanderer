@@ -17,7 +17,7 @@ class SkeletonAttackState final : public IEntityState {
 
   void Tick(const IWandererCore& core, float delta) override;
 
-  void Draw(Renderer& renderer, const Viewport& viewport) const override;
+  void Draw(const Renderer& renderer, const Viewport& viewport) const override;
 
   void Enter(const IWandererCore& core) override;
 

@@ -73,7 +73,7 @@ class Tile final {
    * @since 0.1.0
    */
   void Draw(const Vector2& pos,
-            Renderer& renderer,
+            const Renderer& renderer,
             const Viewport& viewport,
             const TileSet& tileSet) const;
 

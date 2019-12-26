@@ -15,7 +15,7 @@ Skeleton::Skeleton(const std::shared_ptr<Image>& sheet) : AbstractEntity(sheet) 
 
 Skeleton::~Skeleton() = default;
 
-void Skeleton::Draw(Renderer& renderer, const Viewport& viewport) const {
+void Skeleton::Draw(const Renderer& renderer, const Viewport& viewport) const {
   stateMachine->Draw(renderer, viewport);
 }
 

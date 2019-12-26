@@ -10,7 +10,7 @@ SkeletonAttackState::SkeletonAttackState(IEntityStateMachine* parent)
 
 SkeletonAttackState::~SkeletonAttackState() = default;
 
-void SkeletonAttackState::Draw(Renderer& renderer, const Viewport& viewport) const {
+void SkeletonAttackState::Draw(const Renderer& renderer, const Viewport& viewport) const {
   attackDelegate.Draw(renderer, viewport);
 }
 

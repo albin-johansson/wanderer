@@ -22,7 +22,7 @@ void SkeletonIdleState::Tick(const IWandererCore& core, float delta) {
   }
 }
 
-void SkeletonIdleState::Draw(Renderer& renderer, const Viewport& viewport) const {
+void SkeletonIdleState::Draw(const Renderer& renderer, const Viewport& viewport) const {
   idleDelegate.Draw(renderer, viewport);
 }
 

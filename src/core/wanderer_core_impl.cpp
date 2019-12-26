@@ -82,6 +82,8 @@ void WandererCoreImpl::Update(float delta) {
 }
 
 void WandererCoreImpl::Render(Renderer& renderer, float alpha) {
+  renderer.SetTranslationViewport(viewport);
+
   activeMap->Draw(renderer, viewport, alpha);
   menuStateMachine->Draw(renderer, viewport);
 }
