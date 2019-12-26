@@ -60,18 +60,22 @@ SDL_Texture* Image::GetTexture() noexcept {
   return texture;
 }
 
-Image::operator SDL_Texture*() noexcept {
-  return texture;
-}
-
-Image::operator std::string() noexcept {
+std::string Image::ToString() const noexcept {
   std::ostringstream address;
-  address << (void const*) this;
+  address << static_cast<void const*>(this);
 
   auto w = std::to_string(GetWidth());
   auto h = std::to_string(GetHeight());
 
   return "(Image@" + address.str() + " | Width: " + w + ", Height: " + h + ")";
+}
+
+Image::operator SDL_Texture*() const noexcept {
+  return texture;
+}
+
+Image::operator std::string() noexcept {
+  return ToString();
 }
 
 }

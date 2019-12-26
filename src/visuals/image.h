@@ -1,11 +1,13 @@
 #pragma once
-#include <SDL_render.h>
 #include <string>
+#include <cstdint>
+#include <SDL_render.h>
 
 namespace albinjohansson::wanderer {
 
 /**
- * The Image class represents an image that is hardware-accelerated.
+ * The Image class represents an image that is hardware-accelerated. Instances of the Image class
+ * can be converted to std::string (explicitly using static_cast) and SDL_Texture* (implicitly).
  *
  * @see SDL_Texture
  * @since 0.1.0
@@ -36,7 +38,7 @@ class Image final {
    * @return the format of the internal SDL_Texture.
    * @since 0.1.0
    */
-  [[nodiscard]] Uint32 GetFormat() const noexcept; // TODO check
+  [[nodiscard]] uint32_t GetFormat() const noexcept; // TODO check
 
   /**
    * Returns the texture access of the internal SDL_Texture.
@@ -70,9 +72,23 @@ class Image final {
    */
   [[nodiscard]] SDL_Texture* GetTexture() noexcept;
 
-  operator std::string() noexcept;
+  [[nodiscard]] std::string ToString() const noexcept;
 
-  operator SDL_Texture*() noexcept;
+  /**
+   * Returns a string representation of the image.
+   *
+   * @return a string representation of the image.
+   * @since 0.1.0
+   */
+  explicit operator std::string() noexcept;
+
+  /**
+   * Returns a pointer to the internal SDL_Texture.
+   *
+   * @return a pointer to the internal SDL_Texture.
+   * @since 0.1.0
+   */
+  operator SDL_Texture*() const noexcept;
 };
 
 }

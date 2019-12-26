@@ -286,6 +286,8 @@ class Renderer final {
    * @since 0.1.0
    */
   [[nodiscard]] SDL_Renderer* GetInternalRenderer() noexcept;
+
+  operator SDL_Renderer*() const noexcept;
 };
 
 }

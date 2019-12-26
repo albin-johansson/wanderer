@@ -201,4 +201,8 @@ SDL_Renderer* Renderer::GetInternalRenderer() noexcept {
   return renderer;
 }
 
+Renderer::operator SDL_Renderer*() const noexcept {
+  return renderer;
+}
+
 }
