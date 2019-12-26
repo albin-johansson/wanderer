@@ -111,7 +111,7 @@ void Renderer::RenderText(const std::string& text, float x, float y, const Font&
   if (!text.empty()) {
     auto texture = CreateTexture(text, font);
 
-    if (texture == nullptr) {
+    if (!texture) {
       return;
     }
 
