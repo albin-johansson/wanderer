@@ -1,11 +1,18 @@
 #include "mouse_state_manager.h"
+#include "window.h"
 #include <SDL.h>
+#include <cstdint>
 
 namespace albinjohansson::wanderer {
 
 MouseStateManager::MouseStateManager() noexcept = default;
 
-MouseStateManager::~MouseStateManager() noexcept = default;
+MouseStateManager::~MouseStateManager() = default;
+
+void MouseStateManager::WindowUpdated(const Window& window) noexcept {
+  windowWidth = static_cast<float>(window.GetWidth());
+  windowHeight = static_cast<float>(window.GetHeight());
+}
 
 void MouseStateManager::Update() {
   prevLeftPressed = leftPressed;
@@ -15,7 +22,7 @@ void MouseStateManager::Update() {
   oldY = mouseY;
   auto newX = 0;
   auto newY = 0;
-  Uint32 mask = SDL_GetMouseState(&newX, &newY);
+  uint32_t mask = SDL_GetMouseState(&newX, &newY);
   mouseX = static_cast<float>(newX);
   mouseY = static_cast<float>(newY);
 
@@ -26,14 +33,6 @@ void MouseStateManager::Update() {
   auto adjustedY = (mouseY / windowHeight) * logicalHeight;
   mouseX = adjustedX;
   mouseY = adjustedY;
-}
-
-void MouseStateManager::SetWindowWidth(int width) {
-  windowWidth = static_cast<float>(width);
-}
-
-void MouseStateManager::SetWindowHeight(int height) {
-  windowHeight = static_cast<float>(height);
 }
 
 void MouseStateManager::SetLogicalWidth(int width) {

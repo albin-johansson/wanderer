@@ -142,6 +142,7 @@ set(SOURCE_FILES
 
         visuals/window.h
         visuals/window.cpp
+        visuals/window_listener.h
         visuals/renderer.h
         visuals/renderer.cpp
         visuals/image.cpp
@@ -181,7 +182,8 @@ set(SOURCE_FILES
         service/tiled/tiled_layer.h
         service/tiled/tiled_tile.cpp
         service/tiled/tiled_tile.h
-        service/tiled/tiled_property.h)
+        service/tiled/tiled_property.h
+        )
 
 # Prepares the Wanderer "library", which excludes linking and the main.cpp file
 add_library(${WANDERER_LIB} ${SOURCE_FILES})

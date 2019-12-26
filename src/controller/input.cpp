@@ -5,8 +5,8 @@
 
 namespace albinjohansson::wanderer {
 
-Input::Input(std::unique_ptr<KeyStateManager> ksm,
-             std::unique_ptr<MouseStateManager> msm) {
+Input::Input(std::unique_ptr<KeyStateManager>&& ksm,
+             std::unique_ptr<MouseStateManager>&& msm) {
   this->keyStateManager = Require::NotNull(std::move(ksm));
   this->mouseStateManager = Require::NotNull(std::move(msm));
 }

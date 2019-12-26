@@ -73,7 +73,7 @@ class Require final {
    * @since 0.1.0
    */
   template<class T>
-  inline static std::shared_ptr<T> NotNull(const std::shared_ptr<T>& sharedPtr) {
+  inline static const std::shared_ptr<T>& NotNull(const std::shared_ptr<T>& sharedPtr) {
     if (sharedPtr == nullptr) {
       throw NullPointerException();
     } else {

@@ -1,8 +1,11 @@
 #pragma once
 #include <SDL.h>
 #include <string>
+#include <vector>
 
 namespace albinjohansson::wanderer {
+
+class IWindowListener;
 
 /**
  * The Window class is a wrapper around an SDL_Window instance.
@@ -12,6 +15,9 @@ namespace albinjohansson::wanderer {
 class Window final {
  private:
   SDL_Window* window = nullptr;
+  std::vector<IWindowListener*> windowListeners;
+
+  void NotifyWindowListeners() noexcept;
 
  public:
   /**
@@ -29,21 +35,30 @@ class Window final {
   ~Window();
 
   /**
-   * Makes the window visible.
+   * Makes the window visible. Triggers a window listener update.
    *
    * @since 0.1.0
    */
   void Show() noexcept;
 
   /**
-   * Makes the window invisible.
+   * Makes the window invisible. Triggers a window listener update.
    *
    * @since 0.1.0
    */
   void Hide() noexcept;
 
   /**
-   * Sets whether or not the window is in fullscreen mode.
+   * Adds a window listener to the window. Null listener are always silently ignored. The window
+   * takes no ownership of supplied pointers.
+   *
+   * @param listener a window listener, may be null.
+   * @since 0.1.0
+   */
+  void AddWindowListener(IWindowListener* listener) noexcept;
+
+  /**
+   * Sets whether or not the window is in fullscreen mode. Triggers a window listener update.
    *
    * @param fullscreen true if the window should enable fullscreen mode; false
    * otherwise.
@@ -52,7 +67,7 @@ class Window final {
   void SetFullscreen(bool fullscreen) noexcept;
 
   /**
-   * Sets whether or not the window should be resizable.
+   * Sets whether or not the window should be resizable. Triggers a window listener update.
    *
    * @param isResizable true if the window should be resizable; false otherwise.
    * @since 0.1.0
@@ -60,7 +75,7 @@ class Window final {
   void SetResizable(bool isResizable) noexcept;
 
   /**
-   * Sets the width of the window.
+   * Sets the width of the window. Triggers a window listener update.
    *
    * @param width the new width of the window.
    * @throws invalid_argument if the supplied width isn't greater than zero.
@@ -69,7 +84,7 @@ class Window final {
   void SetWidth(int width);
 
   /**
-   * Sets the height of the window.
+   * Sets the height of the window. Triggers a window listener update.
    *
    * @param height the new height of the window.
    * @throws invalid_argument if the supplied height isn't greater than
@@ -79,7 +94,7 @@ class Window final {
   void SetHeight(int height);
 
   /**
-   * Sets the icon that will be used by the window.
+   * Sets the icon that will be used by the window. Triggers a window listener update.
    *
    * @param icon a pointer to the surface that will serve as the icon of the window.
    * @since 0.1.0
@@ -142,6 +157,8 @@ class Window final {
    * @since 0.1.0
    */
   [[nodiscard]] SDL_Window* GetInternalWindow() noexcept;
+
+  operator SDL_Window*() noexcept;
 };
 
 }

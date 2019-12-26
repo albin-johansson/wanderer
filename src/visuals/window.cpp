@@ -1,4 +1,5 @@
 #include "window.h"
+#include "window_listener.h"
 #include "require.h"
 #include "bool_converter.h"
 #include <stdexcept>
@@ -22,19 +23,42 @@ Window::~Window() {
   }
 }
 
-void Window::Show() noexcept { SDL_ShowWindow(window); }
+void Window::NotifyWindowListeners() noexcept {
+  const auto& self = *this;
+  for (auto listener : windowListeners) {
+    if (listener) {
+      listener->WindowUpdated(self); // FIXME not noexcept
+    }
+  }
+}
 
-void Window::Hide() noexcept { SDL_HideWindow(window); }
+void Window::Show() noexcept {
+  SDL_ShowWindow(window);
+  NotifyWindowListeners();
+}
+
+void Window::Hide() noexcept {
+  SDL_HideWindow(window);
+  NotifyWindowListeners();
+}
+
+void Window::AddWindowListener(IWindowListener* listener) noexcept {
+  if (listener) {
+    windowListeners.push_back(listener);
+  }
+}
 
 void Window::SetFullscreen(bool fullscreen) noexcept {
   uint32_t flags = SDL_GetWindowFlags(window);
   flags = (fullscreen) ? (flags | SDL_WINDOW_FULLSCREEN)
                        : (flags & ~SDL_WINDOW_FULLSCREEN);
   SDL_SetWindowFullscreen(window, flags);
+  NotifyWindowListeners();
 }
 
 void Window::SetResizable(bool isResizable) noexcept {
   SDL_SetWindowResizable(window, BoolConverter::Convert(isResizable));
+  NotifyWindowListeners();
 }
 
 void Window::SetWidth(int width) {
@@ -42,6 +66,7 @@ void Window::SetWidth(int width) {
     throw std::invalid_argument("Invalid width!");
   } else {
     SDL_SetWindowSize(window, width, GetHeight());
+    NotifyWindowListeners();
   }
 }
 
@@ -50,12 +75,14 @@ void Window::SetHeight(int height) {
     throw std::invalid_argument("Invalid height!");
   } else {
     SDL_SetWindowSize(window, GetWidth(), height);
+    NotifyWindowListeners();
   }
 }
 
 void Window::SetIcon(SDL_Surface* icon) {
   Require::NotNull(icon);
   SDL_SetWindowIcon(window, icon);
+  NotifyWindowListeners();
 }
 
 bool Window::IsResizable() const noexcept {
@@ -89,6 +116,10 @@ std::string Window::GetTitle() const noexcept {
 }
 
 SDL_Window* Window::GetInternalWindow() noexcept {
+  return window;
+}
+
+Window::operator SDL_Window*() noexcept {
   return window;
 }
 

@@ -12,8 +12,8 @@ class Input final {
   std::unique_ptr<MouseStateManager> mouseStateManager = nullptr;
 
  public:
-  Input(std::unique_ptr<KeyStateManager> keyStateManager,
-        std::unique_ptr<MouseStateManager> mouseStateManager);
+  Input(std::unique_ptr<KeyStateManager>&& keyStateManager,
+        std::unique_ptr<MouseStateManager>&& mouseStateManager);
 
   ~Input();
 

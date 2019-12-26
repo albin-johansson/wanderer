@@ -1,8 +1,9 @@
 #pragma once
+#include "window_listener.h"
 
 namespace albinjohansson::wanderer {
 
-class MouseStateManager final {
+class MouseStateManager final : public IWindowListener {
  private:
   float windowWidth = 1;
   float windowHeight = 1;
@@ -21,13 +22,11 @@ class MouseStateManager final {
  public:
   MouseStateManager() noexcept;
 
-  ~MouseStateManager() noexcept;
+  ~MouseStateManager() override;
+
+  void WindowUpdated(const Window& window) noexcept override;
 
   void Update();
-
-  void SetWindowWidth(int width);
-
-  void SetWindowHeight(int height);
 
   void SetLogicalWidth(int width);
 

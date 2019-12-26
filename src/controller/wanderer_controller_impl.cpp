@@ -33,17 +33,13 @@ WandererControllerImpl::WandererControllerImpl() {
   core->SetViewportWidth(LOGICAL_WIDTH);
   core->SetViewportHeight(LOGICAL_HEIGHT);
 
-  auto keyStateManager = std::make_unique<KeyStateManager>();
   auto mouseStateManager = std::make_unique<MouseStateManager>();
-
   mouseStateManager->SetLogicalWidth(LOGICAL_WIDTH);
   mouseStateManager->SetLogicalHeight(LOGICAL_HEIGHT);
 
-  // TODO setters need to be called every time the window size changes
-  mouseStateManager->SetWindowWidth(window->GetWidth());
-  mouseStateManager->SetWindowHeight(window->GetHeight());
+  window->AddWindowListener(mouseStateManager.get());
 
-  gameLoop = std::make_unique<SmoothFixedTimestepLoop>(std::move(keyStateManager),
+  gameLoop = std::make_unique<SmoothFixedTimestepLoop>(std::make_unique<KeyStateManager>(),
                                                        std::move(mouseStateManager),
                                                        static_cast<float>(desktop.refresh_rate));
 }
