@@ -156,7 +156,7 @@ class Renderer final {
 
 //  void RenderText(const std::string& text, float x, float y);
 
-  void RenderText(const std::string& text, float x, float y, Font& font);
+  void RenderText(const std::string& text, float x, float y, const Font& font);
 
   /**
    * Sets the color that will be used by the renderer.
@@ -269,7 +269,7 @@ class Renderer final {
    * @return a unique pointer to an image that represents the supplied string rendered with the
    * currently selected font; nullptr if the operation is unsuccessful.
    */
-  [[nodiscard]] std::unique_ptr<Image> CreateTexture(const std::string& s, Font& font) const;
+  [[nodiscard]] std::unique_ptr<Image> CreateTexture(const std::string& s, const Font& font) const;
 
   /**
    * Returns the viewport that the renderer uses.

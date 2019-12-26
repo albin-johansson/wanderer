@@ -60,7 +60,7 @@ SDL_Texture* Image::GetTexture() noexcept {
   return texture;
 }
 
-std::string Image::ToString() const noexcept {
+std::string Image::ToString() const {
   std::ostringstream address;
   address << static_cast<void const*>(this);
 
@@ -74,7 +74,7 @@ Image::operator SDL_Texture*() const noexcept {
   return texture;
 }
 
-Image::operator std::string() noexcept {
+Image::operator std::string() {
   return ToString();
 }
 

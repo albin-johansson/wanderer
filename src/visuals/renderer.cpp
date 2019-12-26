@@ -107,7 +107,7 @@ void Renderer::RenderRect(int x, int y, int width, int height) noexcept {
   }
 }
 
-void Renderer::RenderText(const std::string& text, float x, float y, Font& font) {
+void Renderer::RenderText(const std::string& text, float x, float y, const Font& font) {
   if (!text.empty()) {
     auto texture = CreateTexture(text, font);
 
@@ -190,7 +190,7 @@ bool Renderer::GetUsingIntegerLogicalScaling() const noexcept {
   return SDL_RenderGetIntegerScale(renderer);
 }
 
-std::unique_ptr<Image> Renderer::CreateTexture(const std::string& s, Font& font) const {
+std::unique_ptr<Image> Renderer::CreateTexture(const std::string& s, const Font& font) const {
   if (s.empty()) {
     return nullptr;
   }

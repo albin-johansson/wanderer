@@ -72,7 +72,13 @@ class Image final {
    */
   [[nodiscard]] SDL_Texture* GetTexture() noexcept;
 
-  [[nodiscard]] std::string ToString() const noexcept;
+  /**
+   * Returns a string representation of the image.
+   *
+   * @return a string representation of the image.
+   * @since 0.1.0
+   */
+  [[nodiscard]] std::string ToString() const;
 
   /**
    * Returns a string representation of the image.
@@ -80,7 +86,7 @@ class Image final {
    * @return a string representation of the image.
    * @since 0.1.0
    */
-  explicit operator std::string() noexcept;
+  explicit operator std::string();
 
   /**
    * Returns a pointer to the internal SDL_Texture.
