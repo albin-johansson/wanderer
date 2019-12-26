@@ -94,8 +94,6 @@ class Vector2 final {
 
   bool operator!=(const Vector2& v) const noexcept;
 
-//  Vector2 operator^(float exp) const noexcept;
-
   /**
    * Adds the coordinates of the supplied vector to the vector. The invoked vector is the one
    * that is affected by the operation.

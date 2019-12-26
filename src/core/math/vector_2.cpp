@@ -52,10 +52,6 @@ bool Vector2::operator!=(const Vector2& v) const noexcept {
   return !(*this == v);
 }
 
-//Vector2 Vector2::operator^(float exp) const noexcept {
-//  return Vector2(std::pow(x, exp), std::pow(y, exp));
-//}
-
 void Vector2::Add(float x, float y) noexcept {
   this->x += x;
   this->y += y;
