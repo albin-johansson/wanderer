@@ -13,7 +13,8 @@ class Image;
 class Font;
 
 /**
- * The Renderer class is a wrapper class for the SDL_Renderer struct.
+ * The Renderer class is a wrapper class for the SDL_Renderer struct. Rendering operations are
+ * treated as const methods.
  *
  * @see SDL_Renderer
  * @since 0.1.0
@@ -164,11 +165,7 @@ class Renderer final {
    */
   void RenderRect(int x, int y, int width, int height) const noexcept;
 
-//  void RenderText(const std::string& text, float x, float y);
-
   void RenderText(const std::string& text, float x, float y, const Font& font) const;
-
-  // FIXME setColor are not really const methods
 
   /**
    * Sets the color that will be used by the renderer.
@@ -176,21 +173,13 @@ class Renderer final {
    * @param red the red component value, in the range [0, 255].
    * @param green the green component value, in the range [0, 255].
    * @param blue the blue component value, in the range [0, 255].
-   * @param alpha the alpha component value, in the range [0, 255].
+   * @param alpha the alpha component value, in the range [0, 255]. Set to 255 by default.
    * @since 0.1.0
    */
-  void SetColor(uint8_t red, uint8_t green, uint8_t blue, uint8_t alpha) const noexcept;
-
-  /**
-   * Sets the color that will be used by the renderer. This method will assume
-   * that the desired color is fully opaque.
-   *
-   * @param red the red component value, in the range [0, 255].
-   * @param green the green component value, in the range [0, 255].
-   * @param blue the blue component value, in the range [0, 255].
-   * @since 0.1.0
-   */
-  void SetColor(uint8_t red, uint8_t green, uint8_t blue) const noexcept;
+  void SetColor(uint8_t red,
+                uint8_t green,
+                uint8_t blue,
+                uint8_t alpha = SDL_ALPHA_OPAQUE) const noexcept; // FIXME const
 
   /**
    * Sets the viewport that will be used by the renderer.

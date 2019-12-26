@@ -136,10 +136,6 @@ void Renderer::SetColor(uint8_t red, uint8_t green, uint8_t blue, uint8_t alpha)
   SDL_SetRenderDrawColor(renderer, red, green, blue, alpha);
 }
 
-void Renderer::SetColor(uint8_t red, uint8_t green, uint8_t blue) const noexcept {
-  SDL_SetRenderDrawColor(renderer, red, green, blue, SDL_ALPHA_OPAQUE);
-}
-
 void Renderer::SetViewport(const FRectangle& viewport) noexcept {
   auto rect = static_cast<SDL_Rect>(viewport);
   SDL_RenderSetViewport(renderer, &rect);
