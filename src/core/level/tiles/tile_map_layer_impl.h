@@ -9,6 +9,7 @@
 namespace albinjohansson::wanderer {
 
 class TileSet;
+class TileObject;
 
 /**
  * The TileMapLayerImpl class is an implementation of the ITileMapLayer interface.
