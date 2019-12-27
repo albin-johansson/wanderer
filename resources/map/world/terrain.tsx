@@ -29,22 +29,68 @@
    <frame tileid="559" duration="1000"/>
   </animation>
  </tile>
- <tile id="977">
+ <tile id="945" type="Object">
+  <properties>
+   <property name="depth" type="int" value="6"/>
+  </properties>
+ </tile>
+ <tile id="946" type="Object">
+  <properties>
+   <property name="depth" type="int" value="6"/>
+  </properties>
+ </tile>
+ <tile id="949" type="Object">
+  <properties>
+   <property name="depth" type="int" value="6"/>
+  </properties>
+ </tile>
+ <tile id="950" type="Object">
+  <properties>
+   <property name="depth" type="int" value="6"/>
+  </properties>
+ </tile>
+ <tile id="977" type="Object">
+  <properties>
+   <property name="blocked" type="bool" value="true"/>
+   <property name="depth" type="int" value="5"/>
+  </properties>
   <objectgroup draworder="index" id="2">
    <object id="1" name="hitbox" x="7" y="0" width="25" height="20"/>
   </objectgroup>
  </tile>
- <tile id="978">
+ <tile id="978" type="Object">
+  <properties>
+   <property name="blocked" type="bool" value="true"/>
+   <property name="depth" type="int" value="5"/>
+  </properties>
   <objectgroup draworder="index" id="2">
    <object id="1" name="hitbox" x="0" y="0" width="20" height="18"/>
   </objectgroup>
  </tile>
- <tile id="1013">
+ <tile id="981" type="Object">
+  <properties>
+   <property name="depth" type="int" value="6"/>
+  </properties>
+ </tile>
+ <tile id="982" type="Object">
+  <properties>
+   <property name="depth" type="int" value="6"/>
+  </properties>
+ </tile>
+ <tile id="1013" type="Object">
+  <properties>
+   <property name="blocked" type="bool" value="true"/>
+   <property name="depth" type="int" value="5"/>
+  </properties>
   <objectgroup draworder="index" id="2">
    <object id="1" name="hitbox" x="7" y="0" width="25" height="23"/>
   </objectgroup>
  </tile>
- <tile id="1014">
+ <tile id="1014" type="Object">
+  <properties>
+   <property name="blocked" type="bool" value="true"/>
+   <property name="depth" type="int" value="5"/>
+  </properties>
   <objectgroup draworder="index" id="3">
    <object id="3" name="hitbox" x="0" y="0" width="20" height="25"/>
   </objectgroup>
