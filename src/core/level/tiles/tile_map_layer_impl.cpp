@@ -42,7 +42,10 @@ void TileMapLayerImpl::InitTileObjects() {
           object->SetHitbox(hitbox);
         }
 
-        tileObjects.emplace(index, object);
+        const auto matrixPos = MathUtils::IndexToMatrixPos(index, nCols);
+        MapPosition mapPos = {matrixPos.first, matrixPos.second};
+
+        tileObjects.emplace(mapPos, object);
       }
     }
     ++index;
@@ -82,9 +85,10 @@ void TileMapLayerImpl::AddObjects(const TileMapBounds& bounds,
                                   std::vector<IGameObject*>& objects) {
   for (auto row = bounds.minRow; row < bounds.maxRow; row++) {
     for (auto col = bounds.minCol; col < bounds.maxCol; col++) {
-      const auto index = GetIndex(row, col);
-      if (tileObjects.count(index)) {
-        objects.push_back(tileObjects.at(index).get());
+      const MapPosition pos = {row, col};
+      const auto iter = tileObjects.find(pos);
+      if (iter != tileObjects.end()) {
+        objects.push_back(iter->second.get());
       }
     }
   }

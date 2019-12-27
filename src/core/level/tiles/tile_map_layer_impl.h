@@ -2,6 +2,7 @@
 #include "tile_map_layer.h"
 #include "tile_id.h"
 #include "vector_2.h"
+#include "map_position.h"
 #include <memory>
 #include <vector>
 #include <unordered_map>
@@ -22,7 +23,7 @@ class TileMapLayerImpl final : public ITileMapLayer {
   const int nCols;
   std::shared_ptr<TileSet> tileSet = nullptr;
   std::vector<TileID> tiles;
-  std::unordered_map<int, std::shared_ptr<TileObject>> tileObjects;
+  std::unordered_map<MapPosition, std::shared_ptr<TileObject>> tileObjects;
   bool isGroundLayer = false;
 
   /**
