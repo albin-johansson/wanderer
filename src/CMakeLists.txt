@@ -96,6 +96,8 @@ set(SOURCE_FILES
         core/entities/entity_sheet.h
         core/entities/abstract_entity.cpp
         core/entities/abstract_entity.h
+        core/entities/entity_manager.cpp
+        core/entities/entity_manager.h
 
         core/entities/skeleton/skeleton.cpp
         core/entities/skeleton/skeleton.h
@@ -182,8 +184,7 @@ set(SOURCE_FILES
         service/tiled/tiled_layer.h
         service/tiled/tiled_tile.cpp
         service/tiled/tiled_tile.h
-        service/tiled/tiled_property.h
-        )
+        service/tiled/tiled_property.h)
 
 # Prepares the Wanderer "library", which excludes linking and the main.cpp file
 add_library(${WANDERER_LIB} ${SOURCE_FILES})

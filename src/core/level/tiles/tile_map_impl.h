@@ -1,6 +1,7 @@
 #pragma once
 #include "tile_map.h"
 #include "tile_map_bounds.h"
+#include "entity_manager.h"
 #include <memory>
 #include <vector>
 
@@ -25,8 +26,9 @@ class TileMapImpl final : public ITileMap {
   std::vector<std::unique_ptr<ITileMapLayer>> groundLayers;
   std::vector<std::unique_ptr<ITileMapLayer>> objectLayers;
 
-  std::vector<std::shared_ptr<IEntity>> entities;
   std::vector<IGameObject*> activeObjects;
+
+  EntityManager entityManager;
 
   const int nRows;
   const int nCols;
