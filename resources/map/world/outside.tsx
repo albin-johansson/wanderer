@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.3.0" name="outside" tilewidth="32" tileheight="32" tilecount="1024" columns="32">
+<tileset version="1.2" tiledversion="1.3.1" name="outside" tilewidth="32" tileheight="32" tilecount="1024" columns="32">
  <image source="../../img/outside.png" width="1024" height="1024"/>
  <tile id="0" type="Object"/>
  <tile id="1" type="Object"/>
@@ -450,8 +450,12 @@
  </tile>
  <tile id="167" type="Object">
   <properties>
+   <property name="blocked" type="bool" value="true"/>
    <property name="depth" type="int" value="2"/>
   </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" name="hitbox" x="0" y="0" width="32" height="22.5"/>
+  </objectgroup>
  </tile>
  <tile id="168" type="Object">
   <properties>
@@ -751,6 +755,14 @@
    <property name="depth" type="int" value="6"/>
   </properties>
  </tile>
+ <tile id="272">
+  <animation>
+   <frame tileid="272" duration="200"/>
+   <frame tileid="273" duration="200"/>
+   <frame tileid="274" duration="200"/>
+   <frame tileid="275" duration="200"/>
+  </animation>
+ </tile>
  <tile id="275" type="Object"/>
  <tile id="276" type="Object"/>
  <tile id="277" type="Object"/>
@@ -799,6 +811,21 @@
   <properties>
    <property name="depth" value="5"/>
   </properties>
+ </tile>
+ <tile id="291">
+  <objectgroup draworder="index" id="2">
+   <object id="1" name="hitbox" x="9" y="0" width="23" height="15"/>
+  </objectgroup>
+ </tile>
+ <tile id="292">
+  <objectgroup draworder="index" id="2">
+   <object id="1" name="hitbox" x="0" y="0" width="32" height="24"/>
+  </objectgroup>
+ </tile>
+ <tile id="293">
+  <objectgroup draworder="index" id="2">
+   <object id="1" name="hitbox" x="0" y="0" width="19" height="16"/>
+  </objectgroup>
  </tile>
  <tile id="300" type="Object">
   <properties>
