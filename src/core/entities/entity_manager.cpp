@@ -19,6 +19,8 @@ void EntityManager::CalculateCloseEntities(const FRectangle& bounds) {
       closeEntities.push_back(entity.get());
     }
   }
+
+  nTicksSinceUpdate = 0;
 }
 
 void EntityManager::Update(const FRectangle& bounds) {
