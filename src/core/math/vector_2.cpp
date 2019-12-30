@@ -11,7 +11,7 @@ Vector2::Vector2(float x, float y) {
   this->y = y;
 }
 
-Vector2::Vector2(const Vector2& vector) : Vector2(vector.x, vector.y) {}
+Vector2::Vector2(const Vector2& other) : Vector2(other.x, other.y) {}
 
 void Vector2::Scale(float factor) noexcept {
   x *= factor;
@@ -30,9 +30,9 @@ void Vector2::Zero() noexcept {
   x = y = 0;
 }
 
-void Vector2::Set(const Vector2& vector) noexcept {
-  x = vector.x;
-  y = vector.y;
+void Vector2::Set(const Vector2& other) noexcept {
+  x = other.x;
+  y = other.y;
 }
 
 void Vector2::Set(float x, float y) noexcept {
@@ -64,9 +64,9 @@ void Vector2::Interpolate(const Vector2& target, float alpha) noexcept {
   Lerp(target, alpha * alpha * alpha * (alpha * (alpha * 6 - 15) + 10));
 }
 
-void Vector2::Add(const Vector2& vector) noexcept {
-  x += vector.x;
-  y += vector.y;
+void Vector2::Add(const Vector2& other) noexcept {
+  x += other.x;
+  y += other.y;
 }
 
 void Vector2::Add(float x, float y) noexcept {
@@ -74,9 +74,9 @@ void Vector2::Add(float x, float y) noexcept {
   this->y += y;
 }
 
-void Vector2::Sub(const Vector2& vector) noexcept {
-  x -= vector.x;
-  y -= vector.y;
+void Vector2::Sub(const Vector2& other) noexcept {
+  x -= other.x;
+  y -= other.y;
 }
 
 void Vector2::Sub(float x, float y) noexcept {
@@ -119,32 +119,36 @@ void Vector2::LookAt(const Vector2& target, float length) noexcept {
 //  y = (x * sin) + (y * cos);
 //}
 
-Vector2 Vector2::operator+(const Vector2& v) const noexcept {
-  return Vector2(x + v.x, y + v.y);
+Vector2 Vector2::operator+(const Vector2& other) const noexcept {
+  return Vector2(x + other.x, y + other.y);
 }
 
-Vector2 Vector2::operator-(const Vector2& v) const noexcept {
-  return Vector2(x - v.x, y - v.y);
+Vector2 Vector2::operator-(const Vector2& other) const noexcept {
+  return Vector2(x - other.x, y - other.y);
 }
 
-bool Vector2::operator==(const Vector2& v) const noexcept {
-  return MathUtils::AlmostEqual(x, v.x)
-      && MathUtils::AlmostEqual(y, v.y);
+bool Vector2::operator==(const Vector2& other) const noexcept {
+  return MathUtils::AlmostEqual(x, other.x)
+      && MathUtils::AlmostEqual(y, other.y);
 }
 
-bool Vector2::operator!=(const Vector2& v) const noexcept {
-  return !(*this == v);
+bool Vector2::operator!=(const Vector2& other) const noexcept {
+  return !(*this == other);
 }
 
-float Vector2::DistanceTo(const Vector2& vector) const noexcept {
-  auto xDiff = vector.x - x;
-  auto yDiff = vector.y - y;
+float Vector2::Dot(const Vector2& other) const noexcept {
+  return (x * other.x) + (y * other.y);
+}
+
+float Vector2::DistanceTo(const Vector2& other) const noexcept {
+  auto xDiff = other.x - x;
+  auto yDiff = other.y - y;
   return std::sqrt((xDiff * xDiff) + (yDiff * yDiff));
 }
 
-float Vector2::DistanceTo2(const Vector2& vector) const noexcept {
-  auto xDiff = vector.x - x;
-  auto yDiff = vector.y - y;
+float Vector2::DistanceTo2(const Vector2& other) const noexcept {
+  auto xDiff = other.x - x;
+  auto yDiff = other.y - y;
   return (xDiff * xDiff) + (yDiff * yDiff);
 }
 

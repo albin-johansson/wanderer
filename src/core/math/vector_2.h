@@ -35,10 +35,10 @@ class Vector2 final {
   /**
    * Creates a copy of the supplied vector.
    *
-   * @param vector the vector that will be copied.
+   * @param other the vector that will be copied.
    * @since 0.1.0
    */
-  Vector2(const Vector2& vector);
+  Vector2(const Vector2& other);
 
   // TODO dot multiplication, angle stuff (rotation)
 
@@ -90,10 +90,10 @@ class Vector2 final {
    * Adds the coordinates of the supplied vector to the vector. The invoked vector is the one
    * that is affected by the operation.
    *
-   * @param vector the vector that will be added to this vector.
+   * @param other the vector that will be added to this vector.
    * @since 0.1.0
    */
-  void Add(const Vector2& vector) noexcept;
+  void Add(const Vector2& other) noexcept;
 
   /**
    * Adds the supplied offsets to the coordinates of the vector.
@@ -108,10 +108,10 @@ class Vector2 final {
    * Subtracts the coordinates of the supplied vector from the vector. The invoked vector is the one
    * that is affected by the operation.
    *
-   * @param vector the vector that will be subtracted to this vector.
+   * @param other the vector that will be subtracted to this vector.
    * @since 0.1.0
    */
-  void Sub(const Vector2& vector) noexcept;
+  void Sub(const Vector2& other) noexcept;
 
   /**
    * Subtracts the supplied coordinates from the vector.
@@ -125,10 +125,10 @@ class Vector2 final {
   /**
    * Adopts the values of the supplied vector.
    *
-   * @param vector the vector whose values will be adopted.
+   * @param other the vector whose values will be adopted.
    * @since 0.1.0
    */
-  void Set(const Vector2& vector) noexcept;
+  void Set(const Vector2& other) noexcept;
 
   /**
    * Sets the x- and y-coordinates of the vector.
@@ -167,31 +167,40 @@ class Vector2 final {
    */
   void LookAt(const Vector2& target, float length) noexcept;
 
-  [[nodiscard]] Vector2 operator+(const Vector2& v) const noexcept;
+  [[nodiscard]] Vector2 operator+(const Vector2& other) const noexcept;
 
-  [[nodiscard]] Vector2 operator-(const Vector2& v) const noexcept;
+  [[nodiscard]] Vector2 operator-(const Vector2& other) const noexcept;
 
-  [[nodiscard]] bool operator==(const Vector2& v) const noexcept;
+  [[nodiscard]] bool operator==(const Vector2& other) const noexcept;
 
-  [[nodiscard]] bool operator!=(const Vector2& v) const noexcept;
+  [[nodiscard]] bool operator!=(const Vector2& other) const noexcept;
+
+  /**
+   * Returns the dot product of this vector with the supplied vector.
+   *
+   * @param other the other operand of the dot product.
+   * @return the dot product of this vector with the supplied vector.
+   * @since 0.1.0
+   */
+  [[nodiscard]] float Dot(const Vector2& other) const noexcept;
 
   /**
    * Returns the distance between the vector and the supplied vector.
    *
-   * @param vector the vector to calculate the distance to.
+   * @param other the vector to calculate the distance to.
    * @return the distance between the vector and the supplied vector.
    * @since 0.1.0
    */
-  [[nodiscard]] float DistanceTo(const Vector2& vector) const noexcept;
+  [[nodiscard]] float DistanceTo(const Vector2& other) const noexcept;
 
   /**
    * Returns the squared distance between the vector and the supplied vector.
    *
-   * @param vector the vector to calculate the distance to.
+   * @param other the vector to calculate the distance to.
    * @return the squared distance between the vector and the supplied vector.
    * @since 0.1.0
    */
-  [[nodiscard]] float DistanceTo2(const Vector2& vector) const noexcept;
+  [[nodiscard]] float DistanceTo2(const Vector2& other) const noexcept;
 
   /**
    * Returns the integer representation of the x-coordinate of the vector.
