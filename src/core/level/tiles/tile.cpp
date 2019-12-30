@@ -22,7 +22,7 @@ void Tile::Draw(const Vector2& pos,
                 const TileSet& tileSet) const {
   if (GetId() != EMPTY) {
     const auto& src = IsAnimated() ? tileSet.GetTile(GetFrameId()).GetSource() : source;
-    FRectangle dst = {pos.x, pos.y, SIZE, SIZE};
+    FRectangle dst = {pos.x, pos.y, {SIZE, SIZE}};
     renderer.RenderTextureTranslated(*sheet, src, dst);
   }
 }

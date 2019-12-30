@@ -53,7 +53,7 @@ Tile TileBuilder::Create(const std::shared_ptr<Image>& image,
       const auto w = (std::stof(object.GetAttribute("width")) / tileWidth) * Tile::SIZE;
       const auto h = (std::stof(object.GetAttribute("height")) / tileHeight) * Tile::SIZE;
 
-      tile.AddRectangle(FRectangle(x, y, w, h), Vector2(x, y));
+      tile.AddRectangle(FRectangle(x, y, {w, h}), Vector2(x, y));
       tile.SetBlocked(true);
     }
   }

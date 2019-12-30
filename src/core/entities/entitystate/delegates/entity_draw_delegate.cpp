@@ -11,7 +11,7 @@ void EntityDrawDelegate::Draw(const Renderer& renderer,
                               int srcY) noexcept {
   auto[x, y] = entity.GetInterpolatedPosition();
   auto src = Rectangle(srcX, srcY, 64, 64);
-  auto dst = FRectangle(x, y, entity.GetWidth(), entity.GetHeight());
+  auto dst = FRectangle(x, y, {entity.GetWidth(), entity.GetHeight()});
   renderer.RenderTextureTranslated(entity.GetSpriteSheet(), src, dst);
 }
 

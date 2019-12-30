@@ -1,4 +1,5 @@
 #pragma once
+#include "area.h"
 #include <SDL.h>
 
 namespace albinjohansson::wanderer {
@@ -192,11 +193,10 @@ class FRectangle final {
    * @param x the x-coordinate of the rectangle.
    * @param y the y-coordinate of the rectangle.
    * @param width the width of the rectangle.
-   * @param height the height of the rectangle.
    * @throws invalid_argument if either the width or height isn't greater than zero.
    * @since 0.1.0
    */
-  FRectangle(float x, float y, float width, float height); // TODO use Area struct
+  FRectangle(float x, float y, Area area);
 
   FRectangle(SDL_FRect rect);
 

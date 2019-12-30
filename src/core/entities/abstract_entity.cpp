@@ -11,8 +11,8 @@ AbstractEntity::AbstractEntity(const std::shared_ptr<Image>& sheet) {
   movable = std::make_unique<MovableDelegate>(DEPTH, SIZE, SIZE);
   movable->AddHitbox(FRectangle(movable->GetX(),
                                 movable->GetY(),
-                                movable->GetWidth(),
-                                movable->GetHeight()), Vector2(0, 0));
+                                {movable->GetWidth(),
+                                 movable->GetHeight()}), Vector2(0, 0));
   movable->SetBlocked(true);
 }
 

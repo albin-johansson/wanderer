@@ -94,9 +94,10 @@ SDL_Rect Rectangle::ToSdlRect() const noexcept {
 Rectangle::operator FRectangle() const noexcept {
   return {static_cast<float>(x),
           static_cast<float>(y),
-          static_cast<float>(width),
-          static_cast<float>(height)
-  };
+          {
+              static_cast<float>(width),
+              static_cast<float>(height)
+          }};
 }
 
 Rectangle::operator SDL_Rect() const noexcept {
@@ -111,12 +112,12 @@ Rectangle::operator SDL_FRect() const noexcept {
   };
 }
 
-FRectangle::FRectangle() noexcept : FRectangle(0, 0, 10, 10) {}
+FRectangle::FRectangle() noexcept : FRectangle(0, 0, {10, 10}) {}
 
-FRectangle::FRectangle(float x, float y, float width, float height) : x(x),
-                                                                      y(y),
-                                                                      width(width),
-                                                                      height(height) {
+FRectangle::FRectangle(float x, float y, Area area) : x(x),
+                                                      y(y),
+                                                      width(area.width),
+                                                      height(area.height) {
   if (width <= 0 || height <= 0) {
     throw std::invalid_argument("Invalid dimensions!");
   }
@@ -130,7 +131,7 @@ FRectangle::FRectangle(SDL_Rect rect) : x(static_cast<float>(rect.x)),
                                         height(static_cast<float>(rect.h)) {}
 
 FRectangle::FRectangle(const FRectangle& rectangle) noexcept
-    : FRectangle(rectangle.x, rectangle.y, rectangle.width, rectangle.height) {}
+    : FRectangle(rectangle.x, rectangle.y, {rectangle.width, rectangle.height}) {}
 
 void FRectangle::MoveX(float dx) noexcept {
   x += dx;
