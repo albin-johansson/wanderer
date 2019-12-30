@@ -86,14 +86,6 @@ class Vector2 final {
    */
   void Interpolate(const Vector2& target, float alpha) noexcept;
 
-  Vector2 operator+(const Vector2& v) const noexcept;
-
-  Vector2 operator-(const Vector2& v) const noexcept;
-
-  bool operator==(const Vector2& v) const noexcept;
-
-  bool operator!=(const Vector2& v) const noexcept;
-
   /**
    * Adds the coordinates of the supplied vector to the vector. The invoked vector is the one
    * that is affected by the operation.
@@ -120,6 +112,15 @@ class Vector2 final {
    * @since 0.1.0
    */
   void Sub(const Vector2& vector) noexcept;
+
+  /**
+   * Subtracts the supplied coordinates from the vector.
+   *
+   * @param x the value that will be subtracted from the x-coordinate of the vector.
+   * @param y the value that will be subtracted from the y-coordinate of the vector.
+   * @since 0.1.0
+   */
+  void Sub(float x, float y) noexcept;
 
   /**
    * Adopts the values of the supplied vector.
@@ -165,6 +166,14 @@ class Vector2 final {
    * @since 0.1.0
    */
   void LookAt(const Vector2& target, float length) noexcept;
+
+  [[nodiscard]] Vector2 operator+(const Vector2& v) const noexcept;
+
+  [[nodiscard]] Vector2 operator-(const Vector2& v) const noexcept;
+
+  [[nodiscard]] bool operator==(const Vector2& v) const noexcept;
+
+  [[nodiscard]] bool operator!=(const Vector2& v) const noexcept;
 
   /**
    * Returns the distance between the vector and the supplied vector.

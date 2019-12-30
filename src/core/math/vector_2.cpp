@@ -40,28 +40,6 @@ void Vector2::Set(float x, float y) noexcept {
   this->y = y;
 }
 
-Vector2 Vector2::operator+(const Vector2& v) const noexcept {
-  return Vector2(x + v.x, y + v.y);
-}
-
-Vector2 Vector2::operator-(const Vector2& v) const noexcept {
-  return Vector2(x - v.x, y - v.y);
-}
-
-bool Vector2::operator==(const Vector2& v) const noexcept {
-  return MathUtils::AlmostEqual(x, v.x)
-      && MathUtils::AlmostEqual(y, v.y);
-}
-
-bool Vector2::operator!=(const Vector2& v) const noexcept {
-  return !(*this == v);
-}
-
-void Vector2::Add(float x, float y) noexcept {
-  this->x += x;
-  this->y += y;
-}
-
 void Vector2::SetLength(float length) noexcept {
   if (length == 0) {
     x = 0;
@@ -91,9 +69,19 @@ void Vector2::Add(const Vector2& vector) noexcept {
   y += vector.y;
 }
 
+void Vector2::Add(float x, float y) noexcept {
+  this->x += x;
+  this->y += y;
+}
+
 void Vector2::Sub(const Vector2& vector) noexcept {
   x -= vector.x;
   y -= vector.y;
+}
+
+void Vector2::Sub(float x, float y) noexcept {
+  this->x -= x;
+  this->y -= y;
 }
 
 void Vector2::LookAt(const Vector2& target) noexcept {
@@ -130,6 +118,23 @@ void Vector2::LookAt(const Vector2& target, float length) noexcept {
 //  x = (x * cos) - (y * sin);
 //  y = (x * sin) + (y * cos);
 //}
+
+Vector2 Vector2::operator+(const Vector2& v) const noexcept {
+  return Vector2(x + v.x, y + v.y);
+}
+
+Vector2 Vector2::operator-(const Vector2& v) const noexcept {
+  return Vector2(x - v.x, y - v.y);
+}
+
+bool Vector2::operator==(const Vector2& v) const noexcept {
+  return MathUtils::AlmostEqual(x, v.x)
+      && MathUtils::AlmostEqual(y, v.y);
+}
+
+bool Vector2::operator!=(const Vector2& v) const noexcept {
+  return !(*this == v);
+}
 
 float Vector2::DistanceTo(const Vector2& vector) const noexcept {
   auto xDiff = vector.x - x;
