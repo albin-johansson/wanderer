@@ -45,6 +45,7 @@ set(SOURCE_FILES
         core/math/random_utils.cpp
         core/math/random_utils.h
         core/math/math_utils.h
+        core/math/area.h
 
         core/menu/menu.h
         core/menu/menu_id.h

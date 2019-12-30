@@ -1,17 +1,8 @@
 #pragma once
 #include "rectangle.h"
+#include "area.h"
 
 namespace albinjohansson::wanderer {
-
-/**
- * A simple struct that describes an area, using floating-point values.
- *
- * @since 0.1.0
- */
-struct Area {
-  float width;
-  float height;
-};
 
 /**
  * The Viewport class represents the area that the user sees of the game world.
