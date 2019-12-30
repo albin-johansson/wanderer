@@ -14,21 +14,16 @@ namespace albinjohansson::wanderer {
 
 // TODO entity parsing, item parsing...
 
-TiledMapParser::TiledMapParser() = default;
-
-TiledMapParser::~TiledMapParser() = default;
-
 std::unique_ptr<ITileMap> TiledMapParser::Load(ImageGenerator& imageGenerator,
-                                               const std::string& file) const {
+                                               const std::string& file) {
   const auto mapDocument = PugiUtils::LoadDocument(file);
   const auto mapNode = mapDocument.child("map");
 
   tiled::TiledMap tiledMap(mapNode);
 
-  TileSetBuilder tileSetBuilder;
-  std::shared_ptr<TileSet> tileSet = tileSetBuilder.Create(mapNode, imageGenerator);
+  std::shared_ptr<TileSet> tileSet = TileSetBuilder::Create(mapNode, imageGenerator);
 
-  auto map = TileMapBuilder().Create(tileSet, tiledMap);
+  auto map = TileMapBuilder::Create(tileSet, tiledMap);
 
   TileMapLayerBuilder layerBuilder;
   for (const auto& tiledLayer : tiledMap.GetLayers()) {

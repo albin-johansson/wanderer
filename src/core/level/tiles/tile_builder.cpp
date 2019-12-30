@@ -4,10 +4,6 @@
 
 namespace albinjohansson::wanderer {
 
-TileBuilder::TileBuilder() = default;
-
-TileBuilder::~TileBuilder() = default;
-
 TileAnimation TileBuilder::CreateAnimation(tiled::TiledAnimation animation) {
   const auto& frames = animation.GetFrames();
   TileAnimation result(frames.size());
@@ -24,7 +20,7 @@ TileAnimation TileBuilder::CreateAnimation(tiled::TiledAnimation animation) {
 Tile TileBuilder::Create(const std::shared_ptr<Image>& image,
                          const tiled::TiledTileSet& tiledTileSet,
                          TileID id,
-                         int index) const {
+                         int index) {
   Tile tile;
 
   tile.SetSheet(image);

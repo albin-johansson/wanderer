@@ -6,10 +6,6 @@
 
 namespace albinjohansson::wanderer {
 
-TileSetBuilder::TileSetBuilder() = default;
-
-TileSetBuilder::~TileSetBuilder() = default;
-
 tiled::TiledTileSet TileSetBuilder::CreateTiledTileSet(const pugi::xml_node& tileSetNode,
                                                        TileID firstId) {
   const auto tileCount = tileSetNode.attribute("tilecount").as_int();
@@ -18,10 +14,10 @@ tiled::TiledTileSet TileSetBuilder::CreateTiledTileSet(const pugi::xml_node& til
 }
 
 std::unique_ptr<TileSet> TileSetBuilder::Create(const pugi::xml_node& mapRoot,
-                                                ImageGenerator& imageGenerator) const {
+                                                ImageGenerator& imageGenerator) {
   auto tileSet = std::make_unique<TileSet>(3000); // FIXME
 
-  for (pugi::xml_node tsInfoNode : mapRoot.children("tileset")) {
+  for (auto tsInfoNode : mapRoot.children("tileset")) {
     const std::string tsFileName = tsInfoNode.attribute("source").as_string();
 
     const auto tsDocument = PugiUtils::LoadDocument("resources/map/world/" + tsFileName);
@@ -36,9 +32,8 @@ std::unique_ptr<TileSet> TileSetBuilder::Create(const pugi::xml_node& mapRoot,
     const TileID lastId = tiledTileSet.GetLastTileId();
     int index = 0;
 
-    TileBuilder tileBuilder;
     for (TileID id = firstId; id <= lastId; id++, index++) {
-      tileSet->Insert(id, tileBuilder.Create(image, tiledTileSet, id, index));
+      tileSet->Insert(id, TileBuilder::Create(image, tiledTileSet, id, index));
     }
   }
 

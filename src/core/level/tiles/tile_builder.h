@@ -17,14 +17,14 @@ class TileBuilder {
   [[nodiscard]] static TileAnimation CreateAnimation(tiled::TiledAnimation animation);
 
  public:
-  TileBuilder();
+  TileBuilder() = delete;
 
-  ~TileBuilder();
+  ~TileBuilder() = default;
 
-  [[nodiscard]] Tile Create(const std::shared_ptr<Image>& image,
-                            const tiled::TiledTileSet& tiledTileSet,
-                            TileID id,
-                            int index) const;
+  [[nodiscard]] static Tile Create(const std::shared_ptr<Image>& image,
+                                   const tiled::TiledTileSet& tiledTileSet,
+                                   TileID id,
+                                   int index);
 
 };
 

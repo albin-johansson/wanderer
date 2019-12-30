@@ -9,12 +9,12 @@ class ImageGenerator;
 
 class TiledMapParser final {
  public:
-  TiledMapParser();
+  TiledMapParser() = delete;
 
-  ~TiledMapParser();
+  ~TiledMapParser() = default;
 
-  [[nodiscard]] std::unique_ptr<ITileMap> Load(ImageGenerator& imageGenerator,
-                                               const std::string& file) const;
+  [[nodiscard]] static std::unique_ptr<ITileMap> Load(ImageGenerator& imageGenerator,
+                                                      const std::string& file);
 
 };
 

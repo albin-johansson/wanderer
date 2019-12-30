@@ -14,12 +14,12 @@ class TileSet;
 
 class TileMapBuilder final {
  public:
-  TileMapBuilder();
+  TileMapBuilder() = delete;
 
-  ~TileMapBuilder();
+  ~TileMapBuilder() = default;
 
-  [[nodiscard]] std::unique_ptr<ITileMap> Create(const std::shared_ptr<TileSet>& tileSet,
-                                                 const tiled::TiledMap& tiledMap) const;
+  [[nodiscard]] static std::unique_ptr<ITileMap> Create(const std::shared_ptr<TileSet>& tileSet,
+                                                        const tiled::TiledMap& tiledMap);
 };
 
 }

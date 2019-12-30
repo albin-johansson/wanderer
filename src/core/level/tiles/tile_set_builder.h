@@ -14,12 +14,12 @@ class TileSetBuilder final {
                                                               TileID firstId);
 
  public:
-  TileSetBuilder();
+  TileSetBuilder() = delete;
 
-  ~TileSetBuilder();
+  ~TileSetBuilder() = default;
 
-  [[nodiscard]] std::unique_ptr<TileSet> Create(const pugi::xml_node& mapRoot,
-                                                ImageGenerator& imageGenerator) const;
+  [[nodiscard]] static std::unique_ptr<TileSet> Create(const pugi::xml_node& mapRoot,
+                                                       ImageGenerator& imageGenerator);
 
 };
 

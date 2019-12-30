@@ -6,12 +6,8 @@
 
 namespace albinjohansson::wanderer {
 
-TileMapBuilder::TileMapBuilder() = default;
-
-TileMapBuilder::~TileMapBuilder() = default;
-
 std::unique_ptr<ITileMap> TileMapBuilder::Create(const std::shared_ptr<TileSet>& tileSet,
-                                                 const tiled::TiledMap& tiledMap) const {
+                                                 const tiled::TiledMap& tiledMap) {
   auto map = std::unique_ptr<TileMapImpl>(new TileMapImpl(tileSet));
 
   map->nRows = tiledMap.GetHeight();

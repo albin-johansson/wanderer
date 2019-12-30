@@ -23,7 +23,7 @@ WandererCoreImpl::WandererCoreImpl(ImageGenerator& imageGenerator) {
   player = std::make_shared<PlayerImpl>(imageGenerator.Load("resources/img/player2.png"));
   player->SetSpeed(230);
 
-  world = TiledMapParser().Load(imageGenerator, "resources/map/world/world_demo.tmx");
+  world = TiledMapParser::Load(imageGenerator, "resources/map/world/world_demo.tmx");
   world->SetPlayer(player);
 
   activeMap = world;
