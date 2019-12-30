@@ -14,24 +14,28 @@ class ISortableDrawable;
 class IGameObject;
 
 /**
- * The TileMapImpl class represents a map of tiles, used to build the game world.
+ * The TileMapImpl class represents a map of tiles, used to build the game world. Use the
+ * TileMapBuilder class to create instances of this class.
  *
+ * @see TileMapBuilder
  * @since 0.1.0
  */
 class TileMapImpl final : public ITileMap {
  private:
-  std::shared_ptr<TileSet> tileSet = nullptr; // FIXME not needed as field
+  friend class TileMapBuilder;
+
+  int nRows = 0;
+  int nCols = 0;
+  Vector2 playerSpawnPos;
+
+  std::shared_ptr<TileSet> tileSet = nullptr;
   std::shared_ptr<IEntity> player = nullptr;
 
   std::vector<std::unique_ptr<ITileMapLayer>> groundLayers;
   std::vector<std::unique_ptr<ITileMapLayer>> objectLayers;
-
   std::vector<IGameObject*> activeObjects;
 
   EntityManager entityManager;
-
-  const int nRows;
-  const int nCols;
 
   void RenderTilesAt(int row, int col, Renderer& renderer, const Viewport& viewport);
 
@@ -52,19 +56,13 @@ class TileMapImpl final : public ITileMap {
    */
   [[nodiscard]] TileMapBounds CalculateMapBounds(const FRectangle& bounds) const noexcept;
 
- public:
   /**
-   * @param tileSet a pointer to the associated tile set.
-   * @param nRows the number of rows in the tile map.
-   * @param nCols the number of columns in the tile map.
-   * @param imageGenerator a reference to the image generator that will be used.
+   * @param tileSet the associated tile set.
    * @since 0.1.0
    */
-  TileMapImpl(const std::shared_ptr<TileSet>& tileSet,
-              int nRows,
-              int nCols,
-              ImageGenerator& imageGenerator);
+  explicit TileMapImpl(const std::shared_ptr<TileSet>& tileSet);
 
+ public:
   ~TileMapImpl() override;
 
   void Tick(IWandererCore& core, const Viewport& viewport, float delta) override;

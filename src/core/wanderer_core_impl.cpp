@@ -16,7 +16,6 @@
 namespace albinjohansson::wanderer {
 
 WandererCoreImpl::WandererCoreImpl(ImageGenerator& imageGenerator) {
-  // TODO fix "this" parameter
   menuStateMachine = std::make_unique<MenuStateMachineImpl>(this);
   soundEngine = std::make_unique<SoundEngine>();
   LoadSounds();
@@ -24,9 +23,7 @@ WandererCoreImpl::WandererCoreImpl(ImageGenerator& imageGenerator) {
   player = std::make_shared<PlayerImpl>(imageGenerator.Load("resources/img/player2.png"));
   player->SetSpeed(230);
 
-  TiledMapParser parser(imageGenerator, "resources/map/world/world_demo.tmx");
-
-  world = parser.GetMap();
+  world = TiledMapParser().Load(imageGenerator, "resources/map/world/world_demo.tmx");
   world->SetPlayer(player);
 
   activeMap = world;

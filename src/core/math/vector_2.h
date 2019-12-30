@@ -130,6 +130,15 @@ class Vector2 final {
   void Set(const Vector2& vector) noexcept;
 
   /**
+   * Sets the x- and y-coordinates of the vector.
+   *
+   * @param x the new x-coordinate.
+   * @param y the new y-coordinate.
+   * @since 0.1.0
+   */
+  void Set(float x, float y) noexcept;
+
+  /**
    * Sets the total length of the vector.
    *
    * @param length the new length of the vector.

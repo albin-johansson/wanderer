@@ -34,14 +34,6 @@ class ITileMapLayer {
   virtual void Update(const TileMapBounds& bounds) = 0;
 
   /**
-   * Sets whether or not the layer is a ground layer.
-   *
-   * @param isGroundLayer true if the layer is a ground layer; false otherwise.
-   * @since 0.1.0
-   */
-  virtual void SetGroundLayer(bool isGroundLayer) noexcept = 0;
-
-  /**
    * Adds all of the game objects in the layer within the supplied bounds to the supplied vector.
    *
    * @param bounds the tile map bounds to look for drawables.
@@ -78,6 +70,10 @@ class ITileMapLayer {
    * @since 0.1.0
    */
   [[nodiscard]] virtual bool IsGroundLayer() const noexcept = 0;
+
+  [[nodiscard]] virtual int GetRows() const noexcept = 0;
+
+  [[nodiscard]] virtual int GetCols() const noexcept = 0;
 };
 
 }

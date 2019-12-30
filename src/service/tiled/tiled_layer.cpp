@@ -1,13 +1,12 @@
 #include "tiled_layer.h"
 #include <sstream>
-
-#include <SDL.h>
+#include <iostream>
 
 namespace albinjohansson::tiled {
 
 TiledLayer::TiledLayer(const pugi::xml_node& layerNode) : layerNode(layerNode) {
-  const auto nCols = layerNode.attribute("width").as_int();
-  const auto nRows = layerNode.attribute("height").as_int();
+  nCols = layerNode.attribute("width").as_int();
+  nRows = layerNode.attribute("height").as_int();
   tiles.reserve(nRows * nCols);
 
   auto data = layerNode.child("data").text().as_string();
@@ -19,7 +18,6 @@ TiledLayer::TiledLayer(const pugi::xml_node& layerNode) : layerNode(layerNode) {
       const auto id = propertyNode.attribute("name").value();
       const auto value = propertyNode.attribute("value").value();
 
-      int i;
       object.AddAttribute(id, value);
 
       properties.push_back(object);
@@ -39,6 +37,17 @@ std::vector<int> TiledLayer::GetTiles() const {
   return tiles;
 }
 
+int TiledLayer::GetInt(const std::string& id) const {
+  for (auto& property : properties) {
+    if (property.HasAttribute(id)) {
+      return std::stoi(property.GetAttribute(id));
+    }
+  }
+
+  std::cout << "Failed to find layer property: " << id.c_str() << "\n";
+  return 0;
+}
+
 bool TiledLayer::GetBool(const std::string& id) const {
   for (auto& property : properties) {
     if (property.HasAttribute(id)) {
@@ -46,8 +55,16 @@ bool TiledLayer::GetBool(const std::string& id) const {
     }
   }
 
-  SDL_Log("Failed to find layer property: %s", id.c_str());
+  std::cout << "Failed to find layer property: " << id.c_str() << "\n";
   return false;
+}
+
+int TiledLayer::GetRows() const noexcept {
+  return nRows;
+}
+
+int TiledLayer::GetCols() const noexcept {
+  return nCols;
 }
 
 }

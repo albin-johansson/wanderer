@@ -35,6 +35,11 @@ void Vector2::Set(const Vector2& vector) noexcept {
   y = vector.y;
 }
 
+void Vector2::Set(float x, float y) noexcept {
+  this->x = x;
+  this->y = y;
+}
+
 Vector2 Vector2::operator+(const Vector2& v) const noexcept {
   return Vector2(x + v.x, y + v.y);
 }

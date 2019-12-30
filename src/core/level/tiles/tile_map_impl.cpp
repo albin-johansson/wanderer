@@ -1,37 +1,20 @@
 #include "tile_map_impl.h"
 #include "tile_map_layer.h"
-#include "tile_map_bounds.h"
 #include "tile_set.h"
 #include "renderer.h"
 #include "viewport.h"
 #include "movable_object.h"
 #include "entity.h"
 #include "image.h"
-#include "image_generator.h"
 #include "rectangle.h"
 #include "wanderer_core.h"
 #include "require.h"
-#include "skeleton.h"
 #include <algorithm>
-#include <memory>
-#include <vector>
 
 namespace albinjohansson::wanderer {
 
-TileMapImpl::TileMapImpl(const std::shared_ptr<TileSet>& tileSet,
-                         int nRows,
-                         int nCols,
-                         ImageGenerator& imageGenerator)
-    : nRows(nRows), nCols(nCols) {
+TileMapImpl::TileMapImpl(const std::shared_ptr<TileSet>& tileSet) {
   this->tileSet = Require::NotNull(tileSet);
-
-  auto skeleton =
-      std::make_shared<Skeleton>(imageGenerator.Load("resources/img/skeleton.png"));
-  skeleton->SetSpeed(130);
-  skeleton->SetX(1000);
-  skeleton->SetY(500);
-
-  entityManager.AddEntity(skeleton);
 }
 
 TileMapImpl::~TileMapImpl() = default;
@@ -185,7 +168,7 @@ int TileMapImpl::GetHeight() const noexcept {
 }
 
 Vector2 TileMapImpl::GetPlayerSpawnPosition() const {
-  return Vector2(50, 50); // TODO
+  return playerSpawnPos;
 }
 
 }

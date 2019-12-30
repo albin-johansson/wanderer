@@ -87,6 +87,14 @@ set(SOURCE_FILES
         core/level/tiles/map_position.h
         core/level/tiles/tile_map.h
         core/level/tiles/tile_map_layer.h
+        core/level/tiles/tile_map_layer_builder.cpp
+        core/level/tiles/tile_map_layer_builder.h
+        core/level/tiles/tile_map_builder.cpp
+        core/level/tiles/tile_map_builder.h
+        core/level/tiles/tile_builder.cpp
+        core/level/tiles/tile_builder.h
+        core/level/tiles/tile_set_builder.cpp
+        core/level/tiles/tile_set_builder.h
 
         core/entities/entity.h
         core/entities/movable_object.h
@@ -166,6 +174,8 @@ set(SOURCE_FILES
         service/bool_converter.h
         service/display_modes.cpp
         service/display_modes.h
+        service/pugi_utils.cpp
+        service/pugi_utils.h
 
         service/tiled/pugixml/pugixml.hpp
         service/tiled/pugixml/pugixml.cpp
@@ -184,7 +194,9 @@ set(SOURCE_FILES
         service/tiled/tiled_layer.h
         service/tiled/tiled_tile.cpp
         service/tiled/tiled_tile.h
-        service/tiled/tiled_property.h)
+        service/tiled/tiled_property.h
+        service/tiled/tiled_object_group.cpp
+        service/tiled/tiled_object_group.h)
 
 # Prepares the Wanderer "library", which excludes linking and the main.cpp file
 add_library(${WANDERER_LIB} ${SOURCE_FILES})
