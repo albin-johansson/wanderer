@@ -135,10 +135,6 @@ const FRectangle& Hitbox::GetBounds() const noexcept {
   return bounds;
 }
 
-int Hitbox::GetSubhitboxAmount() const noexcept {
-  return rectangles.size();
-}
-
 bool Hitbox::IsUnit() const noexcept {
   return rectangles.size() == 1;
 }
