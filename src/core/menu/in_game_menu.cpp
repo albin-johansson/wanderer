@@ -9,7 +9,7 @@ InGameMenu::~InGameMenu() = default;
 
 void InGameMenu::Draw(Renderer& renderer,
                       const Viewport& viewport,
-                      FontBundle& fonts) const {}
+                      const FontBundle& fonts) const {}
 
 void InGameMenu::HandleInput(const wanderer::Input& input) noexcept {
   if (input.WasReleased(SDL_SCANCODE_ESCAPE)) {

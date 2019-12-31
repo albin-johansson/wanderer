@@ -7,7 +7,7 @@ SettingsMenu::SettingsMenu(IMenuStateMachine* parent) : AbstractMenu(parent) {}
 
 SettingsMenu::~SettingsMenu() noexcept = default;
 
-void SettingsMenu::Draw(Renderer& renderer, const Viewport& viewport, FontBundle& fonts) const {
+void SettingsMenu::Draw(Renderer& renderer, const Viewport& viewport, const FontBundle& fonts) const {
   AbstractMenu::Draw(renderer, viewport, fonts);
 
   renderer.SetColor(0xFF, 0xFF, 0xFF);

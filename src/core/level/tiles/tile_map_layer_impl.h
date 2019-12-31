@@ -27,6 +27,7 @@ class TileMapLayerImpl final : public ITileMapLayer {
   int nCols = 0;
   std::shared_ptr<TileSet> tileSet = nullptr;
   std::vector<TileID> tiles;
+  
   std::unordered_map<MapPosition, std::shared_ptr<TileObject>> tileObjects;
   bool isGroundLayer = false;
 

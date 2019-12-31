@@ -13,31 +13,36 @@ MenuButton::MenuButton(std::string text, float x, float y, float width, float he
 
 MenuButton::~MenuButton() = default;
 
+void MenuButton::RenderText(const Renderer& renderer,
+                            float x,
+                            float y,
+                            std::unique_ptr<Image>& img,
+                            const Font& font) const {
+  if (!img) {
+    img = renderer.CreateTexture(text, font);
+  }
+  renderer.RenderTexture(*img, x, y);
+}
+
 bool MenuButton::Contains(float mx, float my) const noexcept {
   return bounds.Contains(mx, my);
 }
 
-void MenuButton::Draw(Renderer& renderer, const Viewport& viewport, FontBundle& fonts) const {
+void MenuButton::Draw(Renderer& renderer, const Viewport& viewport, const FontBundle& fonts) const {
   if (!text.empty()) {
-    auto& font = enlarged ? fonts.GetFont36() : fonts.GetFont24();
+    const auto& font = enlarged ? fonts.GetFont36() : fonts.GetFont24();
 
-    auto width = font.GetStringWidth(text);
-    auto height = font.GetStringHeight(text);
-    auto x = bounds.GetCenterX() - (width / 2.0f);
-    auto y = bounds.GetCenterY() - (height / 2.0f);
+    const auto width = font.GetStringWidth(text);
+    const auto height = font.GetStringHeight(text);
+    const auto x = bounds.GetCenterX() - (width / 2.0f);
+    const auto y = bounds.GetCenterY() - (height / 2.0f);
 
     renderer.SetColor(0xFF, 0xFF, 0xFF);
 
     if (enlarged) {
-      if (enlargedImg == nullptr) {
-        enlargedImg = renderer.CreateTexture(text, font);
-      }
-      renderer.RenderTexture(*enlargedImg, x, y);
+      RenderText(renderer, x, y, enlargedImg, font);
     } else {
-      if (normalImg == nullptr) {
-        normalImg = renderer.CreateTexture(text, font);
-      }
-      renderer.RenderTexture(*normalImg, x, y);
+      RenderText(renderer, x, y, normalImg, font);
     }
   }
 }

@@ -20,6 +20,12 @@ class MenuButton final : public IMenuDrawable {
   const std::string text = "";
   bool enlarged = false;
 
+  void RenderText(const Renderer& renderer,
+                  float x,
+                  float y,
+                  std::unique_ptr<Image>& img,
+                  const Font& font) const;
+
  public:
   /**
    * @param text the text of the button.
@@ -33,7 +39,7 @@ class MenuButton final : public IMenuDrawable {
 
   ~MenuButton() override;
 
-  void Draw(Renderer& renderer, const Viewport& viewport, FontBundle& fonts) const override;
+  void Draw(Renderer& renderer, const Viewport& viewport, const FontBundle& fonts) const override;
 
   void SetEnlarged(bool enlarged) noexcept;
 

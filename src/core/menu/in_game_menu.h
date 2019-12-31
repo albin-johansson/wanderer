@@ -22,7 +22,7 @@ class InGameMenu final : public AbstractMenu {
 
   ~InGameMenu() override;
 
-  void Draw(Renderer& renderer, const Viewport& viewport, FontBundle& fonts) const override;
+  void Draw(Renderer& renderer, const Viewport& viewport, const FontBundle& fonts) const override;
 
   void HandleInput(const Input& input) noexcept override;
 

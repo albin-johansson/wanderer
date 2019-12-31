@@ -44,7 +44,7 @@ void HomeMenu::HandleInput(const Input& input) noexcept {
   }
 }
 
-void HomeMenu::Draw(Renderer& renderer, const Viewport& viewport, FontBundle& fonts) const {
+void HomeMenu::Draw(Renderer& renderer, const Viewport& viewport, const FontBundle& fonts) const {
   AbstractMenu::Draw(renderer, viewport, fonts);
 
   startButton.Draw(renderer, viewport, fonts);

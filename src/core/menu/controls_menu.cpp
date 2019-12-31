@@ -7,7 +7,7 @@ ControlsMenu::ControlsMenu(IMenuStateMachine* parent) : AbstractMenu(parent) {}
 
 ControlsMenu::~ControlsMenu() noexcept = default;
 
-void ControlsMenu::Draw(Renderer& renderer, const Viewport& viewport, FontBundle& fonts) const {
+void ControlsMenu::Draw(Renderer& renderer, const Viewport& viewport, const FontBundle& fonts) const {
   AbstractMenu::Draw(renderer, viewport, fonts);
 
   renderer.SetColor(0xFF, 0xFF, 0xFF);

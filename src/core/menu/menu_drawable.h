@@ -12,7 +12,7 @@ class IMenuDrawable {
  public:
   virtual ~IMenuDrawable() = default;
 
-  virtual void Draw(Renderer& renderer, const Viewport& viewport, FontBundle& fonts) const = 0;
+  virtual void Draw(Renderer& renderer, const Viewport& viewport, const FontBundle& fonts) const = 0;
 };
 
 }

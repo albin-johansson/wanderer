@@ -10,19 +10,19 @@ FontBundle::FontBundle(const std::string& file)
 
 FontBundle::~FontBundle() = default;
 
-Font& FontBundle::GetFont12() noexcept {
+const Font& FontBundle::GetFont12() const noexcept {
   return font12;
 }
 
-Font& FontBundle::GetFont18() noexcept {
+const Font& FontBundle::GetFont18() const noexcept {
   return font18;
 }
 
-Font& FontBundle::GetFont24() noexcept {
+const Font& FontBundle::GetFont24() const noexcept {
   return font24;
 }
 
-Font& FontBundle::GetFont36() noexcept {
+const Font& FontBundle::GetFont36() const noexcept {
   return font36;
 }
 
