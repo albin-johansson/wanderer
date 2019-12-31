@@ -16,7 +16,7 @@ void TileMapLayerBuilder::InitTileObjects(TileMapLayerImpl& layer) const {
     if (id != Tile::EMPTY) {
       const auto& tile = layer.tileSet->GetTile(id);
       if (tile.IsObject()) {
-        auto object = std::make_shared<TileObject>(id,
+        auto object = std::make_unique<TileObject>(id,
                                                    CreatePosition(index, layer.nCols),
                                                    layer.tileSet);
         object->SetDepth(tile.GetDepth());
@@ -33,7 +33,7 @@ void TileMapLayerBuilder::InitTileObjects(TileMapLayerImpl& layer) const {
         const auto matrixPos = MathUtils::IndexToMatrixPos(index, layer.nCols);
         MapPosition mapPos = {matrixPos.first, matrixPos.second};
 
-        layer.tileObjects.emplace(mapPos, object);
+        layer.tileObjects.emplace(mapPos, std::move(object));
       }
     }
     ++index;

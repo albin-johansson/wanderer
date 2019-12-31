@@ -1,7 +1,6 @@
 #include "tile_map_layer_impl.h"
 #include "tile.h"
 #include "tile_set.h"
-#include "tile_object.h"
 #include "tile_map_bounds.h"
 #include "game_object.h"
 #include "renderer.h"

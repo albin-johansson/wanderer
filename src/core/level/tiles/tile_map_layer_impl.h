@@ -1,5 +1,6 @@
 #pragma once
 #include "tile_map_layer.h"
+#include "tile_object.h"
 #include "tile_id.h"
 #include "vector_2.h"
 #include "map_position.h"
@@ -10,7 +11,6 @@
 namespace albinjohansson::wanderer {
 
 class TileSet;
-class TileObject;
 
 /**
  * The TileMapLayerImpl class is an implementation of the ITileMapLayer interface. In order to
@@ -28,7 +28,7 @@ class TileMapLayerImpl final : public ITileMapLayer {
   std::shared_ptr<TileSet> tileSet = nullptr;
   std::vector<TileID> tiles;
   
-  std::unordered_map<MapPosition, std::shared_ptr<TileObject>> tileObjects;
+  std::unordered_map<MapPosition, std::unique_ptr<TileObject>> tileObjects;
   bool isGroundLayer = false;
 
   explicit TileMapLayerImpl(const std::shared_ptr<TileSet>& tileSet);
