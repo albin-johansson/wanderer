@@ -5,7 +5,7 @@ using namespace albinjohansson::wanderer;
 
 TEST_CASE("Hitbox::AddRectangle", "[Hitbox]") {
   SECTION("A hitbox with only one rectangle has the rectangle as its bounds.") {
-    FRectangle rect(10, 10, 100, 160);
+    FRectangle rect(10, 10, {100, 160});
 
     Hitbox hitbox;
     hitbox.AddRectangle(rect, {0, 0});
@@ -25,8 +25,8 @@ TEST_CASE("Hitbox::AddRectangle", "[Hitbox]") {
      *           |     |
      *           |_ _ _|
      */
-    FRectangle fst(10, 10, 140, 50);
-    FRectangle snd(fst.GetMaxX(), 80, 50, fst.GetWidth());
+    FRectangle fst(10, 10, {140, 50});
+    FRectangle snd(fst.GetMaxX(), 80, {50, fst.GetWidth()});
 
     Hitbox hitbox;
 
@@ -50,10 +50,10 @@ TEST_CASE("Hitbox::AddRectangle", "[Hitbox]") {
      *             |     |
      *             |_ _ _|
      */
-    FRectangle fst(10, 10, 140, 50);
+    FRectangle fst(10, 10, {140, 50});
     FRectangle snd(fst.GetMaxX() + 10,
                    fst.GetY() + (fst.GetHeight() / 2),
-                   50, fst.GetWidth());
+                   {50, fst.GetWidth()});
 
     Hitbox hitbox;
 
