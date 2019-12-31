@@ -97,7 +97,7 @@ const Rectangle& Tile::GetSource() const noexcept {
   return source;
 }
 
-Hitbox Tile::GetHitbox() const noexcept {
+const Hitbox& Tile::GetHitbox() const noexcept {
   return hitbox;
 }
 

@@ -165,7 +165,8 @@ class Tile final {
    * @return true if the tile is blocked; false otherwise.
    * @since 0.1.0
    */
-  [[nodiscard]] bool IsBlocked() const noexcept;
+  [[nodiscard]]
+  bool IsBlocked() const noexcept;
 
   /**
    * Indicates whether or not the tile is animated.
@@ -173,7 +174,8 @@ class Tile final {
    * @return true if the tile is animated; false otherwise.
    * @since 0.1.0
    */
-  [[nodiscard]] bool IsAnimated() const noexcept;
+  [[nodiscard]]
+  bool IsAnimated() const noexcept;
 
   /**
    * Indicates whether or not the tile is an "object".
@@ -181,7 +183,8 @@ class Tile final {
    * @return true if the tile represents an object; false otherwise.
    * @since 0.1.0
    */
-  [[nodiscard]] bool IsObject() const noexcept;
+  [[nodiscard]]
+  bool IsObject() const noexcept;
 
   /**
    * Returns the render depth of the tile.
@@ -189,7 +192,8 @@ class Tile final {
    * @return the render depth of the tile.
    * @since 0.1.0
    */
-  [[nodiscard]] int GetDepth() const noexcept;
+  [[nodiscard]]
+  int GetDepth() const noexcept;
 
   /**
    * Returns the tile ID that will be used for rendering the tile. If the tile isn't animated,
@@ -198,7 +202,8 @@ class Tile final {
    * @return the tile ID that will be used for rendering the tile.
    * @since 0.1.0
    */
-  [[nodiscard]] TileID GetFrameId() const;
+  [[nodiscard]]
+  TileID GetFrameId() const;
 
   /**
    * Returns the type ID the tile.
@@ -206,7 +211,8 @@ class Tile final {
    * @return the type ID the tile.
    * @since 0.1.0
    */
-  [[nodiscard]] TileID GetId() const noexcept;
+  [[nodiscard]]
+  TileID GetId() const noexcept;
 
   /**
    * Returns the source rectangle associated with the tile. The source rectangle
@@ -215,9 +221,11 @@ class Tile final {
    * @return the source rectangle associated with the tile.
    * @since 0.1.0
    */
-  [[nodiscard]] const Rectangle& GetSource() const noexcept;
+  [[nodiscard]]
+  const Rectangle& GetSource() const noexcept;
 
-  [[nodiscard]] Hitbox GetHitbox() const noexcept;
+  [[nodiscard]]
+  const Hitbox& GetHitbox() const noexcept;
 
 };
 

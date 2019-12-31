@@ -22,7 +22,7 @@ void TileMapLayerBuilder::InitTileObjects(TileMapLayerImpl& layer) const {
         object->SetDepth(tile.GetDepth());
 
         if (tile.IsBlocked()) {
-          Hitbox hitbox = tile.GetHitbox();
+          auto hitbox = tile.GetHitbox();
 
           hitbox.SetX(object->GetX());
           hitbox.SetY(object->GetY());
