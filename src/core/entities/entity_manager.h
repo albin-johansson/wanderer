@@ -15,10 +15,11 @@ class FRectangle;
  */
 class EntityManager final {
  private:
+  static constexpr int CALC_ENTITIES_THRESHOLD = 100;
+
   std::vector<std::shared_ptr<IEntity>> entities;
   std::vector<IEntity*> closeEntities;
 
-  static constexpr int CALC_ENTITIES_THRESHOLD = 100;
   int nTicksSinceUpdate = 0;
   bool firstTick = true;
 
