@@ -168,7 +168,7 @@ class Vector2 final {
   void LookAt(const Vector2& target, float length) noexcept;
 
   /**
-   * Inverts the coordiantes of the vector. For example, (4, 8) becomes (-4, -8).
+   * Inverts the coordinates of the vector. For example, (4, 8) becomes (-4, -8).
    *
    * @since 0.1.0
    */
