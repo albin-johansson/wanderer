@@ -227,7 +227,8 @@ class Renderer final {
    * @return the logical width that the renderer uses.
    * @since 0.1.0
    */
-  [[nodiscard]] int GetLogicalWidth() const noexcept;
+  [[nodiscard]]
+  int GetLogicalWidth() const noexcept;
 
   /**
    * Returns the logical height that the renderer uses.
@@ -235,7 +236,8 @@ class Renderer final {
    * @return the logical height that the renderer uses.
    * @since 0.1.0
    */
-  [[nodiscard]] int GetLogicalHeight() const noexcept;
+  [[nodiscard]]
+  int GetLogicalHeight() const noexcept;
 
   /**
    * Returns the x-axis scale that the renderer uses.
@@ -243,7 +245,8 @@ class Renderer final {
    * @return the x-axis scale that the renderer uses.
    * @since 0.1.0
    */
-  [[nodiscard]] float GetXScale() const noexcept;
+  [[nodiscard]]
+  float GetXScale() const noexcept;
 
   /**
    * Returns the y-axis scale that the renderer uses.
@@ -251,7 +254,8 @@ class Renderer final {
    * @return the y-axis scale that the renderer uses.
    * @since 0.1.0
    */
-  [[nodiscard]] float GetYScale() const noexcept;
+  [[nodiscard]]
+  float GetYScale() const noexcept;
 
   /**
    * Indicates whether or not the renderer uses integer scaling values for logical viewports. By
@@ -260,7 +264,8 @@ class Renderer final {
    * @return true if the renderer uses integer scaling for logical viewports; false otherwise.
    * @since 0.1.0
    */
-  [[nodiscard]] bool GetUsingIntegerLogicalScaling() const noexcept;
+  [[nodiscard]]
+  bool GetUsingIntegerLogicalScaling() const noexcept;
 
   /**
    * Attempts to create and return a pointer to an SDL_Texture instance that represents the
@@ -272,7 +277,8 @@ class Renderer final {
    * @return a unique pointer to an image that represents the supplied string rendered with the
    * currently selected font; nullptr if the operation is unsuccessful.
    */
-  [[nodiscard]] std::unique_ptr<Image> CreateTexture(const std::string& s, const Font& font) const;
+  [[nodiscard]]
+  std::unique_ptr<Image> CreateTexture(const std::string& s, const Font& font) const;
 
   /**
    * Returns the viewport that the renderer uses.
@@ -280,9 +286,11 @@ class Renderer final {
    * @return the viewport that the renderer uses.
    * @since 0.1.0
    */
-  [[nodiscard]] FRectangle GetViewport() const noexcept;
+  [[nodiscard]]
+  FRectangle GetViewport() const noexcept;
 
-  [[nodiscard]] const Viewport& GetTranslationViewport() const noexcept;
+  [[nodiscard]]
+  const Viewport& GetTranslationViewport() const noexcept;
 
   /**
    * Returns a pointer to the internal SDL_Renderer instance.
@@ -290,7 +298,8 @@ class Renderer final {
    * @return a pointer to the internal SDL_Renderer instance.
    * @since 0.1.0
    */
-  [[nodiscard]] SDL_Renderer* GetInternalRenderer() noexcept;
+  [[nodiscard]]
+  SDL_Renderer* GetInternalRenderer() noexcept;
 
   operator SDL_Renderer*() const noexcept;
 };

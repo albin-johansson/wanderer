@@ -71,47 +71,68 @@ class AbstractEntity : public virtual IEntity {
 
   void SetBlocked(bool blocked) noexcept override;
 
-  [[nodiscard]] float GetSpeed() const noexcept override;
+  [[nodiscard]]
+  float GetSpeed() const noexcept override;
 
-  [[nodiscard]] int GetAnimationFrame() const noexcept override;
+  [[nodiscard]]
+  int GetAnimationFrame() const noexcept override;
 
-  [[nodiscard]] bool IsAnimationDone() const noexcept override;
+  [[nodiscard]]
+  bool IsAnimationDone() const noexcept override;
 
-  [[nodiscard]] Image& GetSpriteSheet() const noexcept override;
+  [[nodiscard]]
+  Image& GetSpriteSheet() const noexcept override;
 
-  [[nodiscard]] int GetHealth() const noexcept override;
+  [[nodiscard]]
+  int GetHealth() const noexcept override;
 
-  [[nodiscard]] bool IsDead() const noexcept override;
+  [[nodiscard]]
+  bool IsDead() const noexcept override;
 
-  [[nodiscard]] bool WillIntersect(const IGameObject* other, float delta) const override;
+  [[nodiscard]]
+  bool WillIntersect(const IGameObject* other, float delta) const override;
 
-  [[nodiscard]] Direction GetDominantDirection() const noexcept override;
+  [[nodiscard]]
+  Direction GetDominantDirection() const noexcept override;
 
-  [[nodiscard]] const Vector2& GetPreviousPosition() const noexcept override;
+  [[nodiscard]]
+  const Vector2& GetPreviousPosition() const noexcept override;
 
-  [[nodiscard]] Vector2 GetVelocity() const noexcept override;
+  [[nodiscard]]
+  Vector2 GetVelocity() const noexcept override;
 
-  [[nodiscard]] Vector2 GetPosition() const noexcept override;
+  [[nodiscard]]
+  Vector2 GetPosition() const noexcept override;
 
-  [[nodiscard]] Vector2 GetInterpolatedPosition() const noexcept override;
+  [[nodiscard]]
+  Vector2 GetInterpolatedPosition() const noexcept override;
 
-  [[nodiscard]] Vector2 GetNextPosition(float delta) const noexcept override;
+  [[nodiscard]]
+  Vector2 GetNextPosition(float delta) const noexcept override;
 
-  [[nodiscard]] float GetX() const noexcept override;
+  [[nodiscard]]
+  float GetX() const noexcept override;
 
-  [[nodiscard]] float GetY() const noexcept override;
+  [[nodiscard]]
+  float GetY() const noexcept override;
 
-  [[nodiscard]] float GetWidth() const noexcept override;
+  [[nodiscard]]
+  float GetWidth() const noexcept override;
 
-  [[nodiscard]] float GetHeight() const noexcept override;
+  [[nodiscard]]
+  float GetHeight() const noexcept override;
 
-  [[nodiscard]] const Hitbox& GetHitbox() const noexcept override;
+  [[nodiscard]]
+  const Hitbox& GetHitbox() const noexcept override;
 
-  [[nodiscard]] float GetCenterY() const noexcept override;
+  [[nodiscard]]
+  float GetCenterY() const noexcept override;
 
-  [[nodiscard]] int GetDepth() const noexcept override;
+  [[nodiscard]]
+  int GetDepth() const noexcept override;
 
-  [[nodiscard]] uint64_t GetUniqueID() const noexcept override;
+  [[nodiscard]]
+  uint64_t GetUniqueID() const noexcept override;
 };
 
 }

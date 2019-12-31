@@ -26,7 +26,8 @@ class EntityMoveDelegate final : public IEntityState {
 
   void UpdatePosition(float delta);
 
-  [[nodiscard]] IEntityStateMachine& GetParent() noexcept;
+  [[nodiscard]]
+  IEntityStateMachine& GetParent() noexcept;
 };
 
 }

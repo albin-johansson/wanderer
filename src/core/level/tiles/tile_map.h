@@ -60,7 +60,8 @@ class ITileMap {
    */
   virtual void SetPlayer(const std::shared_ptr<IEntity>& player) = 0;
 
-  [[nodiscard]] virtual bool IsBlocked(const IMovableObject* object, float delta) const = 0;
+  [[nodiscard]]
+  virtual bool IsBlocked(const IMovableObject* object, float delta) const = 0;
 
   /**
    * Returns the number of rows in the tile map.
@@ -68,7 +69,8 @@ class ITileMap {
    * @return the number of rows in the tile map.
    * @since 0.1.0
    */
-  [[nodiscard]] virtual int GetRows() const noexcept = 0;
+  [[nodiscard]]
+  virtual int GetRows() const noexcept = 0;
 
   /**
    * Returns the number of columns in the tile map.
@@ -76,7 +78,8 @@ class ITileMap {
    * @return the number of columns in the tile map.
    * @since 0.1.0
    */
-  [[nodiscard]] virtual int GetCols() const noexcept = 0;
+  [[nodiscard]]
+  virtual int GetCols() const noexcept = 0;
 
   /**
    * Returns the width of the tile map.
@@ -84,7 +87,8 @@ class ITileMap {
    * @return the width of the tile map.
    * @since 0.1.0
    */
-  [[nodiscard]] virtual int GetWidth() const noexcept = 0;
+  [[nodiscard]]
+  virtual int GetWidth() const noexcept = 0;
 
   /**
    * Returns the height of the tile map.
@@ -92,7 +96,8 @@ class ITileMap {
    * @return the height of the tile map.
    * @since 0.1.0
    */
-  [[nodiscard]] virtual int GetHeight() const noexcept = 0;
+  [[nodiscard]]
+  virtual int GetHeight() const noexcept = 0;
 
   /**
    * Returns the spawn position of the player in the map.
@@ -100,7 +105,8 @@ class ITileMap {
    * @return the spawn position of the player in the map.
    * @since 0.1.0
    */
-  [[nodiscard]] virtual Vector2 GetPlayerSpawnPosition() const = 0;
+  [[nodiscard]]
+  virtual Vector2 GetPlayerSpawnPosition() const = 0;
 
 };
 

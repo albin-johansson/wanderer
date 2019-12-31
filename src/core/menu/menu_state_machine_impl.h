@@ -33,6 +33,7 @@ class MenuStateMachineImpl final : public IMenuStateMachine {
 
   void SetMenu(MenuID id) noexcept override;
 
+  [[nodiscard]]
   const IMenu& GetMenu() const override;
 };
 

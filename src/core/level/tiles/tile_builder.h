@@ -14,7 +14,8 @@ class Image;
 
 class TileBuilder {
  private:
-  [[nodiscard]] static TileAnimation CreateAnimation(tiled::TiledAnimation animation);
+  [[nodiscard]]
+  static TileAnimation CreateAnimation(tiled::TiledAnimation animation);
 
  public:
   TileBuilder() = delete;

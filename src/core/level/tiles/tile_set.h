@@ -48,7 +48,8 @@ class TileSet final {
    * @return the tile associated with the supplied tile ID.
    * @since 0.1.0
    */
-  [[nodiscard]] const Tile& GetTile(TileID id) const;
+  [[nodiscard]]
+  const Tile& GetTile(TileID id) const;
 };
 
 }

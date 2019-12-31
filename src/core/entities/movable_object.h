@@ -101,7 +101,8 @@ class IMovableObject : public virtual IGameObject {
    */
   virtual void SetVelocity(const Vector2& velocity) noexcept = 0;
 
-  [[nodiscard]] virtual bool WillIntersect(const IGameObject* other, float delta) const = 0;
+  [[nodiscard]]
+  virtual bool WillIntersect(const IGameObject* other, float delta) const = 0;
 
   /**
    * Returns the movement speed of the movable. Note! This is not the same as the velocity
@@ -110,7 +111,8 @@ class IMovableObject : public virtual IGameObject {
    * @return the movement speed of the movable.
    * @since 0.1.0
    */
-  [[nodiscard]] virtual float GetSpeed() const noexcept = 0;
+  [[nodiscard]]
+  virtual float GetSpeed() const noexcept = 0;
 
   /**
    * Returns the dominant direction of the movable object.
@@ -118,9 +120,11 @@ class IMovableObject : public virtual IGameObject {
    * @return the dominant direction of the movable object.
    * @since 0.1.0
    */
-  [[nodiscard]] virtual Direction GetDominantDirection() const noexcept = 0;
+  [[nodiscard]]
+  virtual Direction GetDominantDirection() const noexcept = 0;
 
-  [[nodiscard]] virtual const Vector2& GetPreviousPosition() const noexcept = 0;
+  [[nodiscard]]
+  virtual const Vector2& GetPreviousPosition() const noexcept = 0;
 
   /**
    * Returns the current velocity of the object.
@@ -128,7 +132,8 @@ class IMovableObject : public virtual IGameObject {
    * @return the current velocity of the object.
    * @since 0.1.0
    */
-  [[nodiscard]] virtual Vector2 GetVelocity() const noexcept = 0;
+  [[nodiscard]]
+  virtual Vector2 GetVelocity() const noexcept = 0;
 
   /**
    * Returns the current position of the object.
@@ -136,7 +141,8 @@ class IMovableObject : public virtual IGameObject {
    * @return the current position of the object.
    * @since 0.1.0
    */
-  [[nodiscard]] virtual Vector2 GetPosition() const noexcept = 0;
+  [[nodiscard]]
+  virtual Vector2 GetPosition() const noexcept = 0;
 
   /**
    * Returns the interpolated position of the object.
@@ -144,9 +150,11 @@ class IMovableObject : public virtual IGameObject {
    * @return the interpolated position of the object.
    * @since 0.1.0
    */
-  [[nodiscard]] virtual Vector2 GetInterpolatedPosition() const noexcept = 0;
+  [[nodiscard]]
+  virtual Vector2 GetInterpolatedPosition() const noexcept = 0;
 
-  [[nodiscard]] virtual Vector2 GetNextPosition(float delta) const noexcept = 0;
+  [[nodiscard]]
+  virtual Vector2 GetNextPosition(float delta) const noexcept = 0;
 };
 
 }

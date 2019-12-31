@@ -23,7 +23,8 @@ class SkeletonMovingState final : public IEntityState {
 
   void Roam(const IWandererCore& core);
 
-  [[nodiscard]] static Direction GetRandomDirection() noexcept; // TODO move to move delegate
+  [[nodiscard]]
+  static Direction GetRandomDirection() noexcept; // TODO move to move delegate
 
  public:
   /**

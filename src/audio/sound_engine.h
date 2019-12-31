@@ -23,7 +23,8 @@ class SoundEngine final { // TODO expand
 
   void SetEnabled(bool enabled) noexcept;
 
-  [[nodiscard]] bool IsEnabled() const noexcept;
+  [[nodiscard]]
+  bool IsEnabled() const noexcept;
 };
 
 }

@@ -16,13 +16,17 @@ class FontBundle final {
 
   ~FontBundle();
 
-  [[nodiscard]] Font& GetFont12() noexcept;
+  [[nodiscard]]
+  Font& GetFont12() noexcept;
 
-  [[nodiscard]] Font& GetFont18() noexcept;
+  [[nodiscard]]
+  Font& GetFont18() noexcept;
 
-  [[nodiscard]] Font& GetFont24() noexcept;
+  [[nodiscard]]
+  Font& GetFont24() noexcept;
 
-  [[nodiscard]] Font& GetFont36() noexcept;
+  [[nodiscard]]
+  Font& GetFont36() noexcept;
 
 };
 

@@ -32,19 +32,26 @@ class MouseStateManager final : public IWindowListener {
 
   void SetLogicalHeight(int logicalHeight);
 
-  [[nodiscard]] float GetMouseX() const noexcept;
+  [[nodiscard]]
+  float GetMouseX() const noexcept;
 
-  [[nodiscard]] float GetMouseY() const noexcept;
+  [[nodiscard]]
+  float GetMouseY() const noexcept;
 
-  [[nodiscard]] bool IsLeftButtonPressed() const noexcept;
+  [[nodiscard]]
+  bool IsLeftButtonPressed() const noexcept;
 
-  [[nodiscard]] bool IsRightButtonPressed() const noexcept;
+  [[nodiscard]]
+  bool IsRightButtonPressed() const noexcept;
 
-  [[nodiscard]] bool WasLeftButtonReleased() const noexcept;
+  [[nodiscard]]
+  bool WasLeftButtonReleased() const noexcept;
 
-  [[nodiscard]] bool WasRightButtonReleased() const noexcept;
+  [[nodiscard]]
+  bool WasRightButtonReleased() const noexcept;
 
-  [[nodiscard]] bool WasMouseMoved() const noexcept;
+  [[nodiscard]]
+  bool WasMouseMoved() const noexcept;
 };
 
 }

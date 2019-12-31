@@ -88,7 +88,8 @@ class IWandererCore {
    * @return true if the game should quit; false otherwise.
    * @since 0.1.0
    */
-  [[nodiscard]] virtual bool ShouldQuit() const noexcept = 0;
+  [[nodiscard]]
+  virtual bool ShouldQuit() const noexcept = 0;
 
   /**
    * Returns a reference to the player.
@@ -96,7 +97,8 @@ class IWandererCore {
    * @return a reference to the player.
    * @since 0.1.0
    */
-  [[nodiscard]] virtual const IPlayer& GetPlayer() const = 0;
+  [[nodiscard]]
+  virtual const IPlayer& GetPlayer() const = 0;
 
   /**
    * Returns the currently active map.
@@ -104,7 +106,8 @@ class IWandererCore {
    * @return the currently active map.
    * @since 0.1.0
    */
-  [[nodiscard]] virtual const ITileMap& GetActiveMap() const = 0;
+  [[nodiscard]]
+  virtual const ITileMap& GetActiveMap() const = 0;
 };
 
 }

@@ -24,23 +24,32 @@ class TiledMap final {
 
   ~TiledMap();
 
-  [[nodiscard]] int GetWidth() const;
+  [[nodiscard]]
+  int GetWidth() const;
 
-  [[nodiscard]] int GetHeight() const;
+  [[nodiscard]]
+  int GetHeight() const;
 
-  [[nodiscard]] int GetTileWidth() const;
+  [[nodiscard]]
+  int GetTileWidth() const;
 
-  [[nodiscard]] int GetTileHeight() const;
+  [[nodiscard]]
+  int GetTileHeight() const;
 
-  [[nodiscard]] int GetAmountOfLayers() const;
+  [[nodiscard]]
+  int GetAmountOfLayers() const;
 
-  [[nodiscard]] float ConvertX(float x, float tileSize) const noexcept;
+  [[nodiscard]]
+  float ConvertX(float x, float tileSize) const noexcept;
 
-  [[nodiscard]] float ConvertY(float y, float tileSize) const noexcept;
+  [[nodiscard]]
+  float ConvertY(float y, float tileSize) const noexcept;
 
-  [[nodiscard]] const std::vector<std::unique_ptr<TiledLayer>>& GetLayers() const;
+  [[nodiscard]]
+  const std::vector<std::unique_ptr<TiledLayer>>& GetLayers() const;
 
-  [[nodiscard]] const std::vector<std::unique_ptr<TiledObjectGroup>>& GetTiledObjectGroups() const;
+  [[nodiscard]]
+  const std::vector<std::unique_ptr<TiledObjectGroup>>& GetTiledObjectGroups() const;
 
 };
 

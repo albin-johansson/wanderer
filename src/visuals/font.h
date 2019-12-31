@@ -98,7 +98,8 @@ class Font final {
    * @return the size of the font.
    * @since 0.1.0
    */
-  [[nodiscard]] int GetSize() const noexcept;
+  [[nodiscard]]
+  int GetSize() const noexcept;
 
   /**
    * Indicates whether or not the font is bold.
@@ -106,7 +107,8 @@ class Font final {
    * @return true if the font is bold; false otherwise.
    * @since 0.1.0
    */
-  [[nodiscard]] bool IsBold() const noexcept;
+  [[nodiscard]]
+  bool IsBold() const noexcept;
 
   /**
    * Indicates whether or not the font is italic.
@@ -114,7 +116,8 @@ class Font final {
    * @return true if the font is italic; false otherwise.
    * @since 0.1.0
    */
-  [[nodiscard]] bool IsItalic() const noexcept;
+  [[nodiscard]]
+  bool IsItalic() const noexcept;
 
   /**
    * Indicates whether or not the font is underlined.
@@ -122,7 +125,8 @@ class Font final {
    * @return true if the font is underlined; false otherwise.
    * @since 0.1.0
    */
-  [[nodiscard]] bool IsUnderlined() const noexcept;
+  [[nodiscard]]
+  bool IsUnderlined() const noexcept;
 
   /**
    * Indicates whether or not the font is a strikethrough font.
@@ -130,7 +134,8 @@ class Font final {
    * @return true if the font is a strikethrough font; false otherwise.
    * @since 0.1.0
    */
-  [[nodiscard]] bool IsStrikethrough() const noexcept;
+  [[nodiscard]]
+  bool IsStrikethrough() const noexcept;
 
   /**
    * Indicates whether or not the font is outlined.
@@ -138,7 +143,8 @@ class Font final {
    * @return true if the font is outlined; false otherwise.
    * @since 0.1.0
    */
-  [[nodiscard]] bool IsOutlined() const noexcept;
+  [[nodiscard]]
+  bool IsOutlined() const noexcept;
 
   /**
    * Indicates whether or not the font is fixed width.
@@ -146,7 +152,8 @@ class Font final {
    * @return true if the font is fixed width; false otherwise.
    * @since 0.1.0
    */
-  [[nodiscard]] bool IsFixedWidth() const noexcept;
+  [[nodiscard]]
+  bool IsFixedWidth() const noexcept;
 
   /**
    * Returns the family name of the font.
@@ -154,7 +161,8 @@ class Font final {
    * @return the family name of the font.
    * @since 0.1.0
    */
-  [[nodiscard]] std::string GetFamilyName() const;
+  [[nodiscard]]
+  std::string GetFamilyName() const;
 
   /**
    * Returns a raw pointer to the internal TTF_Font instance.
@@ -162,7 +170,8 @@ class Font final {
    * @return a raw pointer to the internal TTF_Font instance.
    * @since 0.1.0
    */
-  [[nodiscard]] TTF_Font* GetInternalFont() noexcept;
+  [[nodiscard]]
+  TTF_Font* GetInternalFont() noexcept;
 
   /**
    * Returns the width of the supplied string, if it was rendered using the font.
@@ -171,7 +180,8 @@ class Font final {
    * @return the width of the supplied string, if it was rendered using the font.
    * @since 0.1.0
    */
-  [[nodiscard]] int GetStringWidth(const std::string& s) const noexcept;
+  [[nodiscard]]
+  int GetStringWidth(const std::string& s) const noexcept;
 
   /**
    * Returns the height of the supplied string, if it was rendered using the font.
@@ -180,7 +190,8 @@ class Font final {
    * @return the height of the supplied string, if it was rendered using the font.
    * @since 0.1.0
    */
-  [[nodiscard]] int GetStringHeight(const std::string& s) const noexcept;
+  [[nodiscard]]
+  int GetStringHeight(const std::string& s) const noexcept;
 
   operator TTF_Font*() const noexcept;
 

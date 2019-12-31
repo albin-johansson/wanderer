@@ -33,7 +33,8 @@ class IMenu : public IMenuDrawable {
    * @return true if the menu is a blocking menu; false otherwise.
    * @since 0.1.0
    */
-  [[nodiscard]] virtual bool IsBlocking() const noexcept = 0;
+  [[nodiscard]]
+  virtual bool IsBlocking() const noexcept = 0;
 };
 
 }

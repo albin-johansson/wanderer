@@ -54,7 +54,8 @@ class TileMapImpl final : public ITileMap {
    * @return the tile map bounds.
    * @since 0.1.0
    */
-  [[nodiscard]] TileMapBounds CalculateMapBounds(const FRectangle& bounds) const noexcept;
+  [[nodiscard]]
+  TileMapBounds CalculateMapBounds(const FRectangle& bounds) const noexcept;
 
   /**
    * @param tileSet the associated tile set.
@@ -73,17 +74,23 @@ class TileMapImpl final : public ITileMap {
 
   void SetPlayer(const std::shared_ptr<IEntity>& player) override;
 
-  [[nodiscard]] bool IsBlocked(const IMovableObject* self, float delta) const override;
+  [[nodiscard]]
+  bool IsBlocked(const IMovableObject* self, float delta) const override;
 
-  [[nodiscard]] int GetRows() const noexcept override;
+  [[nodiscard]]
+  int GetRows() const noexcept override;
 
-  [[nodiscard]] int GetCols() const noexcept override;
+  [[nodiscard]]
+  int GetCols() const noexcept override;
 
-  [[nodiscard]] int GetWidth() const noexcept override;
+  [[nodiscard]]
+  int GetWidth() const noexcept override;
 
-  [[nodiscard]] int GetHeight() const noexcept override;
+  [[nodiscard]]
+  int GetHeight() const noexcept override;
 
-  [[nodiscard]] Vector2 GetPlayerSpawnPosition() const override;
+  [[nodiscard]]
+  Vector2 GetPlayerSpawnPosition() const override;
 };
 
 }

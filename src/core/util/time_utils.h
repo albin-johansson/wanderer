@@ -20,7 +20,8 @@ class TimeUtils final {
    * @return the amount of milliseconds since the SDL library was initialized.
    * @since 0.1.0
    */
-  [[nodiscard]] static uint64_t GetMillis() noexcept;
+  [[nodiscard]]
+  static uint64_t GetMillis() noexcept;
 
   /**
    * Returns the value of the high-resolution counter.
@@ -28,7 +29,8 @@ class TimeUtils final {
    * @return the value of the high-resolution counter.
    * @since 0.1.0
    */
-  [[nodiscard]] static uint64_t GetHighResTime() noexcept;
+  [[nodiscard]]
+  static uint64_t GetHighResTime() noexcept;
 
   /**
    * Returns the frequency of the high-resolution counter.
@@ -36,7 +38,8 @@ class TimeUtils final {
    * @return the frequency of the high-resolution counter.
    * @since 0.1.0
    */
-  [[nodiscard]] static uint64_t GetHighResFreq() noexcept;
+  [[nodiscard]]
+  static uint64_t GetHighResFreq() noexcept;
 };
 
 }

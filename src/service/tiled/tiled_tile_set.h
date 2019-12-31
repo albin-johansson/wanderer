@@ -44,7 +44,8 @@ class TiledTileSet final {
    * @return the name of the tile set.
    * @since 0.1.0
    */
-  [[nodiscard]] std::string GetName() const;
+  [[nodiscard]]
+  std::string GetName() const;
 
   /**
    * Returns the width of all tiles in the tile set.
@@ -52,7 +53,8 @@ class TiledTileSet final {
    * @return the width of all tiles in the tile set.
    * @since 0.1.0
    */
-  [[nodiscard]] int GetTileWidth() const;
+  [[nodiscard]]
+  int GetTileWidth() const;
 
   /**
    * Returns the height of all tiles in the tile set.
@@ -60,7 +62,8 @@ class TiledTileSet final {
    * @return the height of all tiles in the tile set.
    * @since 0.1.0
    */
-  [[nodiscard]] int GetTileHeight() const;
+  [[nodiscard]]
+  int GetTileHeight() const;
 
   /**
    * Returns the total amount of tiles in the tile set.
@@ -68,7 +71,8 @@ class TiledTileSet final {
    * @return the total amount of tiles in the tile set.
    * @since 0.1.0
    */
-  [[nodiscard]] int GetTileCount() const;
+  [[nodiscard]]
+  int GetTileCount() const;
 
   /**
    * Returns the amount of columns in the tile set.
@@ -76,7 +80,8 @@ class TiledTileSet final {
    * @return the amount of columns in the tile set.
    * @since 0.1.0
    */
-  [[nodiscard]] int GetCols() const;
+  [[nodiscard]]
+  int GetCols() const;
 
   /**
    * Returns the image source path for the image associated with the tile set.
@@ -84,9 +89,11 @@ class TiledTileSet final {
    * @return the image source path for the image associated with the tile set.
    * @since 0.1.0
    */
-  [[nodiscard]] std::string GetImageSource() const;
+  [[nodiscard]]
+  std::string GetImageSource() const;
 
-  [[nodiscard]] std::string GetImageName() const;
+  [[nodiscard]]
+  std::string GetImageName() const;
 
   /**
    * Returns the width of the image associated with the tile set.
@@ -94,7 +101,8 @@ class TiledTileSet final {
    * @return the width of the image associated with the tile set.
    * @since 0.1.0
    */
-  [[nodiscard]] int GetImageWidth() const;
+  [[nodiscard]]
+  int GetImageWidth() const;
 
   /**
    * Returns the height of the image associated with the tile set.
@@ -102,7 +110,8 @@ class TiledTileSet final {
    * @return the height of the image associated with the tile set.
    * @since 0.1.0
    */
-  [[nodiscard]] int GetImageHeight() const;
+  [[nodiscard]]
+  int GetImageHeight() const;
 
   /**
    * Returns the first valid tile ID in the tile set.
@@ -110,7 +119,8 @@ class TiledTileSet final {
    * @return the first valid tile ID in the tile set.
    * @since 0.1.0
    */
-  [[nodiscard]] int GetFirstTileId() const noexcept { return firstId; }
+  [[nodiscard]]
+  int GetFirstTileId() const noexcept { return firstId; }
 
   /**
    * Returns the last valid tile ID in the tile set.
@@ -118,11 +128,14 @@ class TiledTileSet final {
    * @return the last valid tile ID in the tile set.
    * @since 0.1.0
    */
-  [[nodiscard]] int GetLastTileId() const noexcept { return lastId; }
+  [[nodiscard]]
+  int GetLastTileId() const noexcept { return lastId; }
 
-  [[nodiscard]] bool HasTile(int id) const noexcept;
+  [[nodiscard]]
+  bool HasTile(int id) const noexcept;
 
-  [[nodiscard]] const TiledTile& GetTile(int id) const;
+  [[nodiscard]]
+  const TiledTile& GetTile(int id) const;
 };
 
 }

@@ -21,6 +21,7 @@ class DisplayModes final {
    * @throws BadStateException if the desktop info cannot be deduced.
    * @since 0.1.0
    */
+  [[nodiscard]]
   static SDL_DisplayMode GetDesktopInfo();
 };
 

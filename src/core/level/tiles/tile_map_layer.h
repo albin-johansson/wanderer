@@ -51,7 +51,8 @@ class ITileMapLayer {
    * @return the tile ID of the tile at the specified position.
    * @since 0.1.0
    */
-  [[nodiscard]] virtual TileID GetTileId(int row, int col) const = 0;
+  [[nodiscard]]
+  virtual TileID GetTileId(int row, int col) const = 0;
 
   /**
    * Returns the index of the tile at the specified position.
@@ -61,7 +62,8 @@ class ITileMapLayer {
    * @return the index of the tile at the specified position.
    * @since 0.1.0
    */
-  [[nodiscard]] virtual int GetIndex(int row, int col) const noexcept = 0;
+  [[nodiscard]]
+  virtual int GetIndex(int row, int col) const noexcept = 0;
 
   /**
    * Indicates whether or not the layer is a ground layer.
@@ -69,11 +71,14 @@ class ITileMapLayer {
    * @return true if the layer is a ground layer; false otherwise.
    * @since 0.1.0
    */
-  [[nodiscard]] virtual bool IsGroundLayer() const noexcept = 0;
+  [[nodiscard]]
+  virtual bool IsGroundLayer() const noexcept = 0;
 
-  [[nodiscard]] virtual int GetRows() const noexcept = 0;
+  [[nodiscard]]
+  virtual int GetRows() const noexcept = 0;
 
-  [[nodiscard]] virtual int GetCols() const noexcept = 0;
+  [[nodiscard]]
+  virtual int GetCols() const noexcept = 0;
 };
 
 }

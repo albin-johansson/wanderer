@@ -59,7 +59,8 @@ class EntityManager final {
    * @return all of the close entities.
    * @since 0.1.0
    */
-  [[nodiscard]] const std::vector<IEntity*>& GetCloseEntities() const;
+  [[nodiscard]]
+  const std::vector<IEntity*>& GetCloseEntities() const;
 };
 
 }

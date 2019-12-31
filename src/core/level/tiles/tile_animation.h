@@ -28,7 +28,8 @@ class TileAnimation final {
 
   void SetFrame(int index, Frame frame);
 
-  [[nodiscard]] Frame GetFrame() const;
+  [[nodiscard]]
+  Frame GetFrame() const;
 
 };
 

@@ -37,7 +37,8 @@ class MenuButton final : public IMenuDrawable {
 
   void SetEnlarged(bool enlarged) noexcept;
 
-  [[nodiscard]] bool Contains(float mx, float my) const noexcept;
+  [[nodiscard]]
+  bool Contains(float mx, float my) const noexcept;
 };
 
 }

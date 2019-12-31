@@ -15,7 +15,8 @@ class TiledObjectGroup final {
 
   ~TiledObjectGroup();
 
-  [[nodiscard]] const std::vector<TiledObject>& GetObjects() const noexcept;
+  [[nodiscard]]
+  const std::vector<TiledObject>& GetObjects() const noexcept;
 };
 
 }

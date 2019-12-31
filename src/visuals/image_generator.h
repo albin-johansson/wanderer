@@ -32,7 +32,8 @@ class ImageGenerator final {
    * @param path the path of the image that will be loaded, including the file extension.
    * @return 0.1.0
    */
-  [[nodiscard]] std::unique_ptr<Image> Load(const std::string& path) const;
+  [[nodiscard]]
+  std::unique_ptr<Image> Load(const std::string& path) const;
 
 };
 

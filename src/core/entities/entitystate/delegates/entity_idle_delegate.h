@@ -40,7 +40,8 @@ class EntityIdleDelegate final : public IEntityState {
    * @return a reference to the associated entity state machine.
    * @since 0.1.0
    */
-  [[nodiscard]] IEntityStateMachine& GetParent() noexcept;
+  [[nodiscard]]
+  IEntityStateMachine& GetParent() noexcept;
 };
 
 }

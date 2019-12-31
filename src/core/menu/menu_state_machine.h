@@ -27,7 +27,8 @@ class IMenuStateMachine {
    */
   virtual void SetMenu(MenuID id) = 0;
 
-  [[nodiscard]] virtual const IMenu& GetMenu() const = 0;
+  [[nodiscard]]
+  virtual const IMenu& GetMenu() const = 0;
 };
 
 }

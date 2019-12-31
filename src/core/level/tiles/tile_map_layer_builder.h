@@ -40,9 +40,11 @@ class TileMapLayerBuilder final {
    * @return a position.
    * @since 0.1.0
    */
-  [[nodiscard]] Vector2 CreatePosition(int index, int nCols) const;
+  [[nodiscard]]
+  Vector2 CreatePosition(int index, int nCols) const;
 
-  [[nodiscard]] static std::vector<TileID> CreateTileVector(const std::vector<int>& tiles);
+  [[nodiscard]]
+  static std::vector<TileID> CreateTileVector(const std::vector<int>& tiles);
 
  public:
   TileMapLayerBuilder();
@@ -57,6 +59,7 @@ class TileMapLayerBuilder final {
    * @return a unique pointer to a tile map layer.
    * @since 0.1.0
    */
+  [[nodiscard]]
   std::unique_ptr<ITileMapLayer> Create(const std::shared_ptr<TileSet>& tileSet,
                                         const tiled::TiledLayer& tiledLayer) const;
 };

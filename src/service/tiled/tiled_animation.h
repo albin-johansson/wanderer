@@ -21,6 +21,7 @@ class TiledAnimation {
 
   void AddFrame(Frame frame);
 
+  [[nodiscard]]
   const std::vector<Frame>& GetFrames();
 };
 

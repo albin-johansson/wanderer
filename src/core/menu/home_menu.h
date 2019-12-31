@@ -38,7 +38,8 @@ class HomeMenu final : public AbstractMenu {
 
   void HandleInput(const Input& input) noexcept override;
 
-  [[nodiscard]] inline bool IsBlocking() const noexcept override {
+  [[nodiscard]]
+  inline bool IsBlocking() const noexcept override {
     return true;
   }
 };

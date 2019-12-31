@@ -93,7 +93,7 @@ void Viewport::SetLevelHeight(float levelHeight) {
   }
 }
 
-FRectangle Viewport::GetBounds() const noexcept {
+const FRectangle& Viewport::GetBounds() const noexcept {
   return bounds;
 }
 

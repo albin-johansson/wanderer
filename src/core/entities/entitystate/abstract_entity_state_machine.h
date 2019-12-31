@@ -52,7 +52,8 @@ class AbstractEntityStateMachine : public virtual IEntityStateMachine {
    * @return the currently active state.
    * @since 0.1.0
    */
-  [[nodiscard]] T& GetActiveState() { return *states.at(activeStateID); }
+  [[nodiscard]]
+  T& GetActiveState() { return *states.at(activeStateID); }
 
  public:
   ~AbstractEntityStateMachine() override = default;
@@ -71,7 +72,8 @@ class AbstractEntityStateMachine : public virtual IEntityStateMachine {
     states.at(activeStateID)->Enter(core);
   }
 
-  [[nodiscard]] IEntity& GetEntity() final { return *entity; }
+  [[nodiscard]]
+  IEntity& GetEntity() final { return *entity; }
 
 };
 

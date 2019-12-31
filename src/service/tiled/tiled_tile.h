@@ -36,7 +36,8 @@ class TiledTile final {
    * @throws invalid_argument if there is no property with the specified name.
    * @since 0.1.0
    */
-  [[nodiscard]] const TiledProperty& GetProperty(const std::string& name) const;
+  [[nodiscard]]
+  const TiledProperty& GetProperty(const std::string& name) const;
 
  public:
   TiledTile(const pugi::xml_node& tileNode, int id, int firstTileSetId);
@@ -49,7 +50,8 @@ class TiledTile final {
    * @return the integer ID associated with the tile.
    * @since 0.1.0
    */
-  [[nodiscard]] int GetId() const noexcept;
+  [[nodiscard]]
+  int GetId() const noexcept;
 
   /**
    * Returns a reference to the animation associated with the tile.
@@ -57,9 +59,11 @@ class TiledTile final {
    * @return a reference to the animation associated with the tile.
    * @since 0.1.0
    */
-  [[nodiscard]] const TiledAnimation& GetAnimation() const noexcept;
+  [[nodiscard]]
+  const TiledAnimation& GetAnimation() const noexcept;
 
-  [[nodiscard]] bool HasAttribute(const std::string& name) const noexcept;
+  [[nodiscard]]
+  bool HasAttribute(const std::string& name) const noexcept;
 
   /**
    * Indicates whether or not the tile has a property with the specified name.
@@ -68,7 +72,8 @@ class TiledTile final {
    * @return true if a property with the specified name is found; false otherwise.
    * @since 0.1.0
    */
-  [[nodiscard]] bool HasProperty(const std::string& name) const noexcept;
+  [[nodiscard]]
+  bool HasProperty(const std::string& name) const noexcept;
 
   /**
    * Indicates whether or not the tile has an object with the specified name.
@@ -77,7 +82,8 @@ class TiledTile final {
    * @return true if a object with the specified name is found; false otherwise.
    * @since 0.1.0
    */
-  [[nodiscard]] bool HasObject(const std::string& name) const noexcept;
+  [[nodiscard]]
+  bool HasObject(const std::string& name) const noexcept;
 
   /**
    * Returns the value of the property with the specified name as an integer. This method might
@@ -88,7 +94,8 @@ class TiledTile final {
    * @throws invalid_argument if the property doesn't exist.
    * @since 0.1.0
    */
-  [[nodiscard]] int GetIntProperty(const std::string& name) const;
+  [[nodiscard]]
+  int GetIntProperty(const std::string& name) const;
 
   /**
    * Returns the value of the property with the specified name as a float. This method might
@@ -99,7 +106,8 @@ class TiledTile final {
    * @throws invalid_argument if the property doesn't exist.
    * @since 0.1.0
    */
-  [[nodiscard]] float GetFloatProperty(const std::string& name) const;
+  [[nodiscard]]
+  float GetFloatProperty(const std::string& name) const;
 
   /**
    * Returns the value of the property with the specified name as a bool. This method might
@@ -112,7 +120,8 @@ class TiledTile final {
    * @throws invalid_argument if the property doesn't exist.
    * @since 0.1.0
    */
-  [[nodiscard]] bool GetBoolProperty(const std::string& name) const;
+  [[nodiscard]]
+  bool GetBoolProperty(const std::string& name) const;
 
   /**
    * Returns the value of the property with the specified name as a string.
@@ -122,11 +131,14 @@ class TiledTile final {
    * @throws invalid_argument if the property doesn't exist.
    * @since 0.1.0
    */
-  [[nodiscard]] const std::string& GetStringProperty(const std::string& name) const;
+  [[nodiscard]]
+  const std::string& GetStringProperty(const std::string& name) const;
 
-  [[nodiscard]] int GetIntAttribute(const std::string& name) const;
+  [[nodiscard]]
+  int GetIntAttribute(const std::string& name) const;
 
-  [[nodiscard]] std::string GetStringAttribute(const std::string& name) const;
+  [[nodiscard]]
+  std::string GetStringAttribute(const std::string& name) const;
 
   /**
    * Returns the object with the specified name.
@@ -136,7 +148,8 @@ class TiledTile final {
    * @throws invalid_argument if the object doesn't exist.
    * @since 0.1.0
    */
-  [[nodiscard]] const TiledObject& GetObject(const std::string& name) const;
+  [[nodiscard]]
+  const TiledObject& GetObject(const std::string& name) const;
 
   /**
    * Indicates whether or not the tile is animated.
@@ -144,7 +157,8 @@ class TiledTile final {
    * @return true if the tile is animated; false otherwise.
    * @since 0.1.0
    */
-  [[nodiscard]] bool IsAnimated() const noexcept;
+  [[nodiscard]]
+  bool IsAnimated() const noexcept;
 };
 
 }

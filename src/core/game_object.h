@@ -46,7 +46,8 @@ class IGameObject : public virtual ISortableDrawable {
    * @return the x-coordinate of the object.
    * @since 0.1.0
    */
-  [[nodiscard]] virtual float GetX() const noexcept = 0;
+  [[nodiscard]]
+  virtual float GetX() const noexcept = 0;
 
   /**
    * Returns the y-coordinate of the object.
@@ -54,7 +55,8 @@ class IGameObject : public virtual ISortableDrawable {
    * @return the y-coordinate of the object.
    * @since 0.1.0
    */
-  [[nodiscard]] virtual float GetY() const noexcept = 0;
+  [[nodiscard]]
+  virtual float GetY() const noexcept = 0;
 
   /**
    * Returns the width of the object.
@@ -62,7 +64,8 @@ class IGameObject : public virtual ISortableDrawable {
    * @return the width of the object.
    * @since 0.1.0
    */
-  [[nodiscard]] virtual float GetWidth() const noexcept = 0;
+  [[nodiscard]]
+  virtual float GetWidth() const noexcept = 0;
 
   /**
    * Returns the height of the object.
@@ -70,7 +73,8 @@ class IGameObject : public virtual ISortableDrawable {
    * @return the height of the object.
    * @since 0.1.0
    */
-  [[nodiscard]] virtual float GetHeight() const noexcept = 0;
+  [[nodiscard]]
+  virtual float GetHeight() const noexcept = 0;
 
   /**
    * Returns the hitbox of the object.
@@ -78,9 +82,11 @@ class IGameObject : public virtual ISortableDrawable {
    * @return the hitbox of the object.
    * @since 0.1.0
    */
-  [[nodiscard]] virtual const Hitbox& GetHitbox() const noexcept = 0;
+  [[nodiscard]]
+  virtual const Hitbox& GetHitbox() const noexcept = 0;
 
-  [[nodiscard]] virtual uint64_t GetUniqueID() const noexcept = 0;
+  [[nodiscard]]
+  virtual uint64_t GetUniqueID() const noexcept = 0;
 
 };
 

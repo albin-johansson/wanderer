@@ -52,7 +52,8 @@ class IAnimated {
    * @return the index of the currently active animation frame.
    * @since 0.1.0
    */
-  [[nodiscard]] virtual int GetAnimationFrame() const noexcept = 0;
+  [[nodiscard]]
+  virtual int GetAnimationFrame() const noexcept = 0;
 
   /**
    * Indicates whether or not the animation is "done", the animation is considered done every
@@ -61,7 +62,8 @@ class IAnimated {
    * @return true if the animation index is equal to the index of the final frame; false otherwise.
    * @since 0.1.0
    */
-  [[nodiscard]] virtual bool IsAnimationDone() const noexcept = 0;
+  [[nodiscard]]
+  virtual bool IsAnimationDone() const noexcept = 0;
 
   /**
    * Returns a reference to the internal sprite sheet.
@@ -69,7 +71,8 @@ class IAnimated {
    * @return a reference to the internal sprite sheet.
    * @since 0.1.0
    */
-  [[nodiscard]] virtual Image& GetSpriteSheet() const noexcept = 0;
+  [[nodiscard]]
+  virtual Image& GetSpriteSheet() const noexcept = 0;
 
 };
 

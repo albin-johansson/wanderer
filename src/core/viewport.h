@@ -112,7 +112,8 @@ class Viewport final {
    * @return the current bounds of the viewport.
    * @since 0.1.0
    */
-  [[nodiscard]] FRectangle GetBounds() const noexcept;
+  [[nodiscard]]
+  const FRectangle& GetBounds() const noexcept;
 
   /**
    * Calculates and returns the translated value for the supplied x-coordinate.
@@ -121,7 +122,8 @@ class Viewport final {
    * @return the translated value for the supplied x-coordinate.
    * @since 0.1.0
    */
-  [[nodiscard]] float GetTranslatedX(float x) const noexcept;
+  [[nodiscard]]
+  float GetTranslatedX(float x) const noexcept;
 
   /**
    * Calculates and returns the translated value for the supplied y-coordinate.
@@ -130,7 +132,8 @@ class Viewport final {
    * @return the translated value for the supplied y-coordinate.
    * @since 0.1.0
    */
-  [[nodiscard]] float GetTranslatedY(float y) const noexcept;
+  [[nodiscard]]
+  float GetTranslatedY(float y) const noexcept;
 };
 
 }

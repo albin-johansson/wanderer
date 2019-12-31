@@ -100,7 +100,8 @@ class SoundEffect final {
    * @return the current volume of the sound effect.
    * @since 0.1.0
    */
-  [[nodiscard]] int GetVolume() const noexcept;
+  [[nodiscard]]
+  int GetVolume() const noexcept;
 
   /**
    * Indicates whether or not the sound effect is currently playing.
@@ -108,7 +109,8 @@ class SoundEffect final {
    * @return true if the sound effect is playing; false otherwise.
    * @since 0.1.0
    */
-  [[nodiscard]] bool IsPlaying() const noexcept;
+  [[nodiscard]]
+  bool IsPlaying() const noexcept;
 };
 
 }

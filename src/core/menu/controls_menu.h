@@ -15,7 +15,8 @@ class ControlsMenu final : public AbstractMenu {
 
   void HandleInput(const Input& input) noexcept override;
 
-  [[nodiscard]] inline bool IsBlocking() const noexcept override { return true; }
+  [[nodiscard]]
+  inline bool IsBlocking() const noexcept override { return true; }
 };
 
 }

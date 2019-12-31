@@ -66,7 +66,8 @@ class Animation final {
    * @return the currently active frame index.
    * @since 0.1.0
    */
-  [[nodiscard]] int GetIndex() const noexcept;
+  [[nodiscard]]
+  int GetIndex() const noexcept;
 
   /**
    * Indicates whether or not the animation has reached the final frame.
@@ -74,7 +75,8 @@ class Animation final {
    * @return true if the animation has reached the final frame; false otherwise.
    * @since 0.1.0
    */
-  [[nodiscard]] bool IsDone() const noexcept;
+  [[nodiscard]]
+  bool IsDone() const noexcept;
 };
 
 }

@@ -24,6 +24,7 @@ class EntitySheet final {
    * @return the source y-coordinate in the entity sheet.
    * @since 0.1.0
    */
+  [[nodiscard]]
   static int GetSourceY(int y, Direction direction) noexcept;
 
 };

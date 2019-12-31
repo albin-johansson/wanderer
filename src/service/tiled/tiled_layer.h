@@ -19,15 +19,20 @@ class TiledLayer final {
 
   ~TiledLayer();
 
-  [[nodiscard]] std::vector<int> GetTiles() const;
+  [[nodiscard]]
+  std::vector<int> GetTiles() const;
 
-  [[nodiscard]] int GetInt(const std::string& id) const;
+  [[nodiscard]]
+  int GetInt(const std::string& id) const;
 
-  [[nodiscard]] bool GetBool(const std::string& id) const;
+  [[nodiscard]]
+  bool GetBool(const std::string& id) const;
 
-  [[nodiscard]] int GetRows() const noexcept;
+  [[nodiscard]]
+  int GetRows() const noexcept;
 
-  [[nodiscard]] int GetCols() const noexcept;
+  [[nodiscard]]
+  int GetCols() const noexcept;
 };
 
 }

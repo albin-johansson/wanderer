@@ -35,7 +35,8 @@ class IEntity : public virtual IMovableObject, public virtual IAnimated {
    * @return the health of the entity.
    * @since 0.1.0
    */
-  [[nodiscard]] virtual int GetHealth() const noexcept = 0;
+  [[nodiscard]]
+  virtual int GetHealth() const noexcept = 0;
 
   /**
    * Indicates whether or not the entity is dead.
@@ -43,7 +44,8 @@ class IEntity : public virtual IMovableObject, public virtual IAnimated {
    * @return true if the entity is dead; false otherwise.
    * @since 0.1.0
    */
-  [[nodiscard]] virtual bool IsDead() const noexcept = 0;
+  [[nodiscard]]
+  virtual bool IsDead() const noexcept = 0;
 
 };
 

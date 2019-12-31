@@ -107,7 +107,8 @@ class Window final {
    * @return true if the window is resizable; false otherwise.
    * @since 0.1.0
    */
-  [[nodiscard]] bool IsResizable() const noexcept;
+  [[nodiscard]]
+  bool IsResizable() const noexcept;
 
   /**
    * Indicates whether or not the window is in fullscreen mode.
@@ -115,7 +116,8 @@ class Window final {
    * @return true if the window is in fullscreen mode; false otherwise.
    * @since 0.1.0
    */
-  [[nodiscard]] bool IsFullscreen() const noexcept;
+  [[nodiscard]]
+  bool IsFullscreen() const noexcept;
 
   /**
    * Indicates whether or not the window is visible.
@@ -123,7 +125,8 @@ class Window final {
    * @return true if the window is visible; false otherwise.
    * @since 0.1.0
    */
-  [[nodiscard]] bool IsVisible() const noexcept;
+  [[nodiscard]]
+  bool IsVisible() const noexcept;
 
   /**
    * Returns the current width of the window.
@@ -131,7 +134,8 @@ class Window final {
    * @return the current width of the window.
    * @since 0.1.0
    */
-  [[nodiscard]] int GetWidth() const noexcept;
+  [[nodiscard]]
+  int GetWidth() const noexcept;
 
   /**
    * Returns the current height of the window.
@@ -139,7 +143,8 @@ class Window final {
    * @return the current height of the window.
    * @since 0.1.0
    */
-  [[nodiscard]] int GetHeight() const noexcept;
+  [[nodiscard]]
+  int GetHeight() const noexcept;
 
   /**
    * Returns the title of the window.
@@ -147,7 +152,8 @@ class Window final {
    * @return the title of the window.
    * @since 0.1.0
    */
-  [[nodiscard]] std::string GetTitle() const noexcept;
+  [[nodiscard]]
+  std::string GetTitle() const noexcept;
 
   /**
    * Returns the internal representation of the window. Do not free
@@ -156,7 +162,8 @@ class Window final {
    * @return the internal representation of the window.
    * @since 0.1.0
    */
-  [[nodiscard]] SDL_Window* GetInternalWindow() noexcept;
+  [[nodiscard]]
+  SDL_Window* GetInternalWindow() noexcept;
 
   operator SDL_Window*() noexcept;
 };

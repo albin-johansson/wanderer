@@ -55,11 +55,14 @@ class WandererCoreImpl final : public IWandererCore {
 
   void SetViewportHeight(float height) override;
 
-  [[nodiscard]] bool ShouldQuit() const noexcept override;
+  [[nodiscard]]
+  bool ShouldQuit() const noexcept override;
 
-  [[nodiscard]] const IPlayer& GetPlayer() const override;
+  [[nodiscard]]
+  const IPlayer& GetPlayer() const override;
 
-  [[nodiscard]] const ITileMap& GetActiveMap() const override;
+  [[nodiscard]]
+  const ITileMap& GetActiveMap() const override;
 };
 
 }

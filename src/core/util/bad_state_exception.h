@@ -40,7 +40,8 @@ class BadStateException final : public std::exception {
 
   ~BadStateException() override;
 
-  [[nodiscard]] const char* what() const noexcept override;
+  [[nodiscard]]
+  const char* what() const noexcept override;
 };
 
 }

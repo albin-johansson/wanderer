@@ -12,7 +12,8 @@ class InventoryMenu final : public AbstractMenu {
 
   void HandleInput(const Input& input) noexcept override;
 
-  [[nodiscard]] bool IsBlocking() const noexcept override;
+  [[nodiscard]]
+  bool IsBlocking() const noexcept override;
 
 };
 

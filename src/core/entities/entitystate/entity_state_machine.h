@@ -44,7 +44,8 @@ class IEntityStateMachine : public IDrawable {
    * @return the associated entity instance.
    * @since 0.1.0
    */
-  [[nodiscard]] virtual IEntity& GetEntity() = 0;
+  [[nodiscard]]
+  virtual IEntity& GetEntity() = 0;
 };
 
 }

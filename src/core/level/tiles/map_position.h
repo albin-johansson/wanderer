@@ -12,7 +12,8 @@ struct MapPosition final {
   int row = 0;
   int col = 0;
 
-  [[nodiscard]] bool operator==(const MapPosition& other) const noexcept {
+  [[nodiscard]]
+  bool operator==(const MapPosition& other) const noexcept {
     return row == other.row && col == other.col;
   }
 };

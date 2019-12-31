@@ -53,21 +53,29 @@ class TileObject final : public IGameObject {
 
   void SetBlocked(bool blocked) noexcept override;
 
-  [[nodiscard]] float GetX() const noexcept override;
+  [[nodiscard]]
+  float GetX() const noexcept override;
 
-  [[nodiscard]] float GetY() const noexcept override;
+  [[nodiscard]]
+  float GetY() const noexcept override;
 
-  [[nodiscard]] float GetCenterY() const noexcept override;
+  [[nodiscard]]
+  float GetCenterY() const noexcept override;
 
-  [[nodiscard]] int GetDepth() const noexcept override;
+  [[nodiscard]]
+  int GetDepth() const noexcept override;
 
-  [[nodiscard]] float GetWidth() const noexcept override;
+  [[nodiscard]]
+  float GetWidth() const noexcept override;
 
-  [[nodiscard]] float GetHeight() const noexcept override;
+  [[nodiscard]]
+  float GetHeight() const noexcept override;
 
-  [[nodiscard]] const Hitbox& GetHitbox() const noexcept override;
+  [[nodiscard]]
+  const Hitbox& GetHitbox() const noexcept override;
 
-  [[nodiscard]] uint64_t GetUniqueID() const noexcept override;
+  [[nodiscard]]
+  uint64_t GetUniqueID() const noexcept override;
 };
 
 }
