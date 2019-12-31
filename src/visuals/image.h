@@ -39,7 +39,7 @@ class Image final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  uint32_t GetFormat() const noexcept; // TODO check
+  uint32_t GetFormat() const noexcept;
 
   /**
    * Returns the texture access of the internal SDL_Texture.
@@ -48,7 +48,7 @@ class Image final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  int GetAccess() const noexcept; // TODO check
+  int GetAccess() const noexcept;
 
   /**
    * Returns the width of the image.
