@@ -90,7 +90,8 @@ class Rectangle final {
    * @param py the y-coordinate of the point that will be checked.
    * @return true if the supplied point is contained in the rectangle; false otherwise.
    */
-  [[nodiscard]] bool Contains(int px, int py) const noexcept;
+  [[nodiscard]]
+  bool Contains(int px, int py) const noexcept;
 
   /**
    * Indicates whether or not the rectangle intersects the supplied rectangle.
@@ -99,7 +100,8 @@ class Rectangle final {
    * @return true if the rectangle intersects the supplied rectangle; false otherwise.
    * @since 0.1.0
    */
-  [[nodiscard]] bool Intersects(const Rectangle& rectangle) const noexcept;
+  [[nodiscard]]
+  bool Intersects(const Rectangle& rectangle) const noexcept;
 
   /**
    * Returns the x-coordinate of the rectangle.
@@ -107,7 +109,8 @@ class Rectangle final {
    * @return the x-coordinate of the rectangle.
    * @since 0.1.0
    */
-  [[nodiscard]] int GetX() const noexcept;
+  [[nodiscard]]
+  int GetX() const noexcept;
 
   /**
    * Returns the y-coordinate of the rectangle.
@@ -115,7 +118,8 @@ class Rectangle final {
    * @return the y-coordinate of the rectangle.
    * @since 0.1.0
    */
-  [[nodiscard]] int GetY() const noexcept;
+  [[nodiscard]]
+  int GetY() const noexcept;
 
   /**
    * Returns the width of the rectangle.
@@ -123,7 +127,8 @@ class Rectangle final {
    * @return the width of the rectangle.
    * @since 0.1.0
    */
-  [[nodiscard]] int GetWidth() const noexcept;
+  [[nodiscard]]
+  int GetWidth() const noexcept;
 
   /**
    * Returns the height of the rectangle.
@@ -131,11 +136,14 @@ class Rectangle final {
    * @return the height of the rectangle.
    * @since 0.1.0
    */
-  [[nodiscard]] int GetHeight() const noexcept;
+  [[nodiscard]]
+  int GetHeight() const noexcept;
 
-  [[nodiscard]] int GetCenterX() const noexcept;
+  [[nodiscard]]
+  int GetCenterX() const noexcept;
 
-  [[nodiscard]] int GetCenterY() const noexcept;
+  [[nodiscard]]
+  int GetCenterY() const noexcept;
 
   /**
    * Returns the maximum x-coordinate of the rectangle.
@@ -143,7 +151,8 @@ class Rectangle final {
    * @return the maximum x-coordinate.
    * @since 0.1.0
    */
-  [[nodiscard]] int GetMaxX() const noexcept;
+  [[nodiscard]]
+  int GetMaxX() const noexcept;
 
   /**
    * Returns the maximum y-coordinate of the rectangle.
@@ -151,7 +160,8 @@ class Rectangle final {
    * @return the maximum y-coordinate.
    * @since 0.1.0
    */
-  [[nodiscard]] int GetMaxY() const noexcept;
+  [[nodiscard]]
+  int GetMaxY() const noexcept;
 
   /**
    * Returns an SDL_Rect representation of the rectangle.
@@ -159,7 +169,8 @@ class Rectangle final {
    * @return an SDL_Rect representation of the rectangle.
    * @since 0.1.0
    */
-  [[nodiscard]] SDL_Rect ToSdlRect() const noexcept;
+  [[nodiscard]]
+  SDL_Rect ToSdlRect() const noexcept;
 
   explicit operator FRectangle() const noexcept;
 
@@ -278,7 +289,8 @@ class FRectangle final {
    * @param py the y-coordinate of the point that will be checked.
    * @return true if the supplied point is contained in the rectangle; false otherwise.
    */
-  [[nodiscard]] bool Contains(float px, float py) const noexcept;
+  [[nodiscard]]
+  bool Contains(float px, float py) const noexcept;
 
   /**
    * Indicates whether or not the rectangle intersects the supplied rectangle.
@@ -287,7 +299,8 @@ class FRectangle final {
    * @return true if the rectangle intersects the supplied rectangle; false otherwise.
    * @since 0.1.0
    */
-  [[nodiscard]] bool Intersects(const FRectangle& rectangle) const noexcept;
+  [[nodiscard]]
+  bool Intersects(const FRectangle& rectangle) const noexcept;
 
   /**
    * Returns the x-coordinate of the rectangle.
@@ -295,7 +308,8 @@ class FRectangle final {
    * @return the x-coordinate of the rectangle.
    * @since 0.1.0
    */
-  [[nodiscard]] float GetX() const noexcept;
+  [[nodiscard]]
+  float GetX() const noexcept;
 
   /**
    * Returns the y-coordinate of the rectangle.
@@ -303,7 +317,8 @@ class FRectangle final {
    * @return the y-coordinate of the rectangle.
    * @since 0.1.0
    */
-  [[nodiscard]] float GetY() const noexcept;
+  [[nodiscard]]
+  float GetY() const noexcept;
 
   /**
    * Returns the width of the rectangle.
@@ -311,7 +326,8 @@ class FRectangle final {
    * @return the width of the rectangle.
    * @since 0.1.0
    */
-  [[nodiscard]] float GetWidth() const noexcept;
+  [[nodiscard]]
+  float GetWidth() const noexcept;
 
   /**
    * Returns the height of the rectangle.
@@ -319,11 +335,14 @@ class FRectangle final {
    * @return the height of the rectangle.
    * @since 0.1.0
    */
-  [[nodiscard]] float GetHeight() const noexcept;
+  [[nodiscard]]
+  float GetHeight() const noexcept;
 
-  [[nodiscard]] float GetCenterX() const noexcept;
+  [[nodiscard]]
+  float GetCenterX() const noexcept;
 
-  [[nodiscard]] float GetCenterY() const noexcept;
+  [[nodiscard]]
+  float GetCenterY() const noexcept;
 
   /**
    * Returns the maximum x-coordinate of the rectangle.
@@ -331,7 +350,8 @@ class FRectangle final {
    * @return the maximum x-coordinate.
    * @since 0.1.0
    */
-  [[nodiscard]] float GetMaxX() const noexcept;
+  [[nodiscard]]
+  float GetMaxX() const noexcept;
 
   /**
    * Returns the maximum y-coordinate of the rectangle.
@@ -339,7 +359,8 @@ class FRectangle final {
    * @return the maximum y-coordinate.
    * @since 0.1.0
    */
-  [[nodiscard]] float GetMaxY() const noexcept;
+  [[nodiscard]]
+  float GetMaxY() const noexcept;
 
   explicit operator Rectangle() const noexcept;
 
