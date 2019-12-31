@@ -14,7 +14,8 @@ class RandomUtils final {
 
   ~RandomUtils() = default;
 
-  [[nodiscard]] static uint64_t GetRand();
+  [[nodiscard]]
+  static uint64_t GetRand();
 
   /**
    * Returns a random integer in the specified interval. The generated value will be in the range
@@ -25,7 +26,8 @@ class RandomUtils final {
    * @return a random integer in the specified interval.
    * @since 0.1.0
    */
-  [[nodiscard]] static int GetInt(int min, int max);
+  [[nodiscard]]
+  static int GetInt(int min, int max);
 
   /**
    * Returns a random bool value.
@@ -33,7 +35,8 @@ class RandomUtils final {
    * @return a random bool value.
    * @since 0.1.0
    */
-  [[nodiscard]] static bool GetBool();
+  [[nodiscard]]
+  static bool GetBool();
 };
 
 }
