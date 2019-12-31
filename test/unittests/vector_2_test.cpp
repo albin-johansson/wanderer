@@ -204,11 +204,51 @@ TEST_CASE("Vector2::DistanceTo2", "[Vector2]") {
   CHECK(vector.DistanceTo2(vector) == 0);
 }
 
+TEST_CASE("Vector2::Angle", "[Vector2]") {
+  const Vector2 nx(-1, 0);
+  const Vector2 ny(0, -1);
+
+  CHECK(X_UNIT.Angle(Y_UNIT) == 90);
+  CHECK(Y_UNIT.Angle(X_UNIT) == 90);
+  CHECK(X_UNIT.Angle(ny) == 90);
+  CHECK(Y_UNIT.Angle(nx) == 90);
+
+  CHECK(X_UNIT.Angle(X_UNIT) == 0);
+
+  SECTION("Maximum possible angle") {
+    CHECK(nx.Angle(X_UNIT) == 180);
+    CHECK(X_UNIT.Angle(nx) == 180);
+  }
+
+  SECTION("1 degree step") {
+    Vector2 v(std::cos(MathUtils::ToRadians(1.0f)),
+              std::sin(MathUtils::ToRadians(1.0f)));
+    CHECK(X_UNIT.Angle(v) == 1);
+  }
+}
+
+TEST_CASE("Vector2::Invert", "[Vector2]") {
+  const auto x = 4;
+  const auto y = 8;
+
+  Vector2 vector(x, y);
+  vector.Invert();
+
+  CHECK(vector.x == (-1 * x));
+  CHECK(vector.y == (-1 * y));
+}
+
 TEST_CASE("Vector2::GetLength", "[Vector2]") {
   Vector2 vector;
 
   CHECK(vector.GetLength() == 0);
   CHECK(vector.IsZero());
+
+  CHECK(X_UNIT.GetLength() == 1);
+  CHECK(X_UNIT.IsUnit());
+
+  CHECK(Y_UNIT.GetLength() == 1);
+  CHECK(Y_UNIT.IsUnit());
 }
 
 TEST_CASE("Vector2::GetLength2", "[Vector2]") {

@@ -4,12 +4,9 @@
 
 namespace albinjohansson::wanderer {
 
-Vector2::Vector2() : Vector2(0, 0) {}
+using M = MathUtils;
 
-Vector2::Vector2(float x, float y) {
-  this->x = x;
-  this->y = y;
-}
+Vector2::Vector2() : Vector2(0, 0) {}
 
 Vector2::Vector2(const Vector2& other) : Vector2(other.x, other.y) {}
 
@@ -104,20 +101,10 @@ void Vector2::LookAt(const Vector2& target, float length) noexcept {
   }
 }
 
-//void Vector2::SetAngle(float angle) noexcept {
-//  static constexpr float TO_RADIANS = 3.14f / 180.0f;
-//
-//  x = GetLength();
-//  y = 0;
-//
-//  float radians = angle * TO_RADIANS;
-//
-//  float cos = std::cos(radians);
-//  float sin = std::sin(radians);
-//
-//  x = (x * cos) - (y * sin);
-//  y = (x * sin) + (y * cos);
-//}
+void Vector2::Invert() noexcept {
+  x *= -1;
+  y *= -1;
+}
 
 Vector2 Vector2::operator+(const Vector2& other) const noexcept {
   return Vector2(x + other.x, y + other.y);
@@ -127,9 +114,13 @@ Vector2 Vector2::operator-(const Vector2& other) const noexcept {
   return Vector2(x - other.x, y - other.y);
 }
 
+float Vector2::operator*(const Vector2& other) const noexcept {
+  return Dot(other);
+}
+
 bool Vector2::operator==(const Vector2& other) const noexcept {
-  return MathUtils::AlmostEqual(x, other.x)
-      && MathUtils::AlmostEqual(y, other.y);
+  return M::AlmostEqual(x, other.x)
+      && M::AlmostEqual(y, other.y);
 }
 
 bool Vector2::operator!=(const Vector2& other) const noexcept {
@@ -152,9 +143,9 @@ float Vector2::DistanceTo2(const Vector2& other) const noexcept {
   return (xDiff * xDiff) + (yDiff * yDiff);
 }
 
-//float Vector2::GetAngle() const noexcept {
-//  return (std::atan2(y, x) / 3.14f) * 180.0f;
-//}
+int Vector2::Angle(const Vector2& other) const noexcept {
+  return M::Round(M::ToDegrees(std::acos(Dot(other))));
+}
 
 float Vector2::GetLength() const noexcept {
   return std::sqrt((x * x) + (y * y));
@@ -165,12 +156,12 @@ float Vector2::GetLength2() const noexcept {
 }
 
 bool Vector2::IsZero() const noexcept {
-  return MathUtils::AlmostEqual(x, 0)
-      && MathUtils::AlmostEqual(y, 0);
+  return M::AlmostEqual(x, 0)
+      && M::AlmostEqual(y, 0);
 }
 
 bool Vector2::IsUnit() const noexcept {
-  return MathUtils::AlmostEqual(GetLength2(), 1.0f);
+  return M::AlmostEqual(GetLength2(), 1.0f);
 }
 
 }
