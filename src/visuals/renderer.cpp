@@ -13,13 +13,12 @@ Renderer::Renderer(SDL_Renderer* renderer) {
   SetLogicalIntegerScale(false);
 }
 
-Renderer::Renderer(SDL_Window* window) {
+Renderer::Renderer(SDL_Window* window, uint32_t flags) {
   Require::NotNull(window);
 
-  uint32_t flags = SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC;
   renderer = SDL_CreateRenderer(window, -1, flags);
 
-  SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
+  SetBlendMode(SDL_BLENDMODE_BLEND);
   SetLogicalIntegerScale(false);
 }
 
@@ -55,10 +54,8 @@ void Renderer::RenderTexture(const Image& texture,
                              int y,
                              int width,
                              int height) const noexcept {
-  if ((width > 0) && (height > 0)) {
-    SDL_Rect dst = {x, y, width, height};
-    SDL_RenderCopy(renderer, texture, nullptr, &dst);
-  }
+  SDL_Rect dst = {x, y, width, height};
+  SDL_RenderCopy(renderer, texture, nullptr, &dst);
 }
 
 void Renderer::RenderTexture(const Image& texture,
@@ -66,10 +63,8 @@ void Renderer::RenderTexture(const Image& texture,
                              float y,
                              float width,
                              float height) const noexcept {
-  if ((width > 0) && (height > 0)) {
-    SDL_FRect dst = {x, y, width, height};
-    SDL_RenderCopyF(renderer, texture, nullptr, &dst);
-  }
+  SDL_FRect dst = {x, y, width, height};
+  SDL_RenderCopyF(renderer, texture, nullptr, &dst);
 }
 
 void Renderer::RenderTexture(const Image& texture,
@@ -93,31 +88,23 @@ void Renderer::RenderTextureTranslated(const Image& texture,
 }
 
 void Renderer::RenderFillRect(float x, float y, float width, float height) const noexcept {
-  if ((width > 0) && (height > 0)) {
-    SDL_FRect rect = {x, y, width, height};
-    SDL_RenderFillRectF(renderer, &rect);
-  }
+  SDL_FRect rect = {x, y, width, height};
+  SDL_RenderFillRectF(renderer, &rect);
 }
 
 void Renderer::RenderFillRect(int x, int y, int width, int height) const noexcept {
-  if ((width > 0) && (height > 0)) {
-    SDL_Rect rect = {x, y, width, height};
-    SDL_RenderFillRect(renderer, &rect);
-  }
+  SDL_Rect rect = {x, y, width, height};
+  SDL_RenderFillRect(renderer, &rect);
 }
 
 void Renderer::RenderRect(float x, float y, float width, float height) const noexcept {
-  if ((width > 0) && (height > 0)) {
-    SDL_FRect rect = {x, y, width, height};
-    SDL_RenderDrawRectF(renderer, &rect);
-  }
+  SDL_FRect rect = {x, y, width, height};
+  SDL_RenderDrawRectF(renderer, &rect);
 }
 
 void Renderer::RenderRect(int x, int y, int width, int height) const noexcept {
-  if ((width > 0) && (height > 0)) {
-    SDL_Rect rect = {x, y, width, height};
-    SDL_RenderDrawRect(renderer, &rect);
-  }
+  SDL_Rect rect = {x, y, width, height};
+  SDL_RenderDrawRect(renderer, &rect);
 }
 
 void Renderer::RenderText(const std::string& text, float x, float y, const Font& font) const {
@@ -145,23 +132,20 @@ void Renderer::SetTranslationViewport(const Viewport& viewport) noexcept {
   translationViewport = viewport;
 }
 
+void Renderer::SetBlendMode(const SDL_BlendMode& blendMode) noexcept {
+  SDL_SetRenderDrawBlendMode(renderer, blendMode);
+}
+
 void Renderer::SetScale(float xScale, float yScale) noexcept {
-  if ((xScale > 0) && (yScale > 0)) {
-    SDL_RenderSetScale(renderer, xScale, yScale);
-  }
+  SDL_RenderSetScale(renderer, xScale, yScale);
 }
 
 void Renderer::SetLogicalSize(float width, float height) noexcept {
-  if ((width > 0) && (height > 0)) {
-    int result = SDL_RenderSetLogicalSize(renderer,
-                                          MathUtils::Round(width),
-                                          MathUtils::Round(height));
-    if (result != 0) {
-      SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION,
-                     SDL_LOG_PRIORITY_WARN,
-                     "Failed to set logical size! %s",
-                     SDL_GetError());
-    }
+  int result = SDL_RenderSetLogicalSize(renderer,
+                                        MathUtils::Round(width),
+                                        MathUtils::Round(height));
+  if (result != 0) {
+    SDL_Log("Failed to set logical size! %s", SDL_GetError());
   }
 }
 

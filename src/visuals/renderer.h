@@ -25,10 +25,9 @@ class Renderer final {
   Viewport translationViewport;
 
  public:
-  // TODO ctor with flags arg
-
   // TODO a lot of rendering class would be prettier if there was a viewport-translated
   // alternative for all methods, ex: RenderTranslatedRect, RenderTranslatedImage, etc.
+
   /**
    * Creates a renderer based on the supplied SDL_Renderer.
    *
@@ -49,7 +48,8 @@ class Renderer final {
    * @throws NullPointerException if the supplied pointer is null.
    * @since 0.1.0
    */
-  explicit Renderer(SDL_Window* window);
+  explicit Renderer(SDL_Window* window,
+                    uint32_t flags = SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
   ~Renderer();
 
@@ -190,6 +190,8 @@ class Renderer final {
   void SetViewport(const FRectangle& viewport) noexcept;
 
   void SetTranslationViewport(const Viewport& viewport) noexcept;
+
+  void SetBlendMode(const SDL_BlendMode& blendMode) noexcept;
 
   /**
    * Sets the viewport that will be used by the renderer. This method has no effect if any of the
