@@ -62,7 +62,6 @@ endif ()
 find_library(SDL2_TTF_LIBRARY
         NAMES SDL2_ttf
         HINTS
-        C:/SDL_ttf
         ENV SDL2TTFDIR
         ENV SDL2DIR
         PATH_SUFFIXES lib ${VC_LIB_PATH_SUFFIX}

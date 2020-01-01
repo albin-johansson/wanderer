@@ -44,7 +44,6 @@
 
 find_path(SDL2_MIXER_INCLUDE_DIR SDL_mixer.h
         HINTS
-        C:/SDL_mixer
         ENV SDL2MIXERDIR
         ENV SDL2DIR
         PATH_SUFFIXES SDL2

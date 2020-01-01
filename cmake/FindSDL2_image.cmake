@@ -44,7 +44,7 @@
 
 find_path(SDL2_IMAGE_INCLUDE_DIR SDL_image.h
         HINTS
-        C:/SDL_image
+        C:/
         ENV SDL2IMAGEDIR
         ENV SDL2DIR
         PATH_SUFFIXES SDL2
