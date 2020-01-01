@@ -2,7 +2,8 @@
 #include "entity.h"
 #include "animation.h"
 #include "render_depth.h"
-#include <hitbox.h>
+#include "hitbox.h"
+#include <type_traits>
 
 namespace albinjohansson::wanderer {
 
@@ -99,13 +100,13 @@ class AbstractEntity : public virtual IEntity {
   const Vector2& GetPreviousPosition() const noexcept override;
 
   [[nodiscard]]
-  Vector2 GetVelocity() const noexcept override;
+  const Vector2& GetVelocity() const noexcept override;
 
   [[nodiscard]]
-  Vector2 GetPosition() const noexcept override;
+  const Vector2& GetPosition() const noexcept override;
 
   [[nodiscard]]
-  Vector2 GetInterpolatedPosition() const noexcept override;
+  const Vector2& GetInterpolatedPosition() const noexcept override;
 
   [[nodiscard]]
   Vector2 GetNextPosition(float delta) const noexcept override;
@@ -134,5 +135,7 @@ class AbstractEntity : public virtual IEntity {
   [[nodiscard]]
   uint64_t GetUniqueID() const noexcept override;
 };
+
+static_assert(std::has_virtual_destructor_v<AbstractEntity>);
 
 }

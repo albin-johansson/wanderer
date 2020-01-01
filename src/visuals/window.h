@@ -165,7 +165,7 @@ class Window final {
   [[nodiscard]]
   SDL_Window* GetInternalWindow() noexcept;
 
-  operator SDL_Window*() noexcept;
+  operator SDL_Window*() const noexcept;
 };
 
 }

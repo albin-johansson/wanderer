@@ -175,15 +175,15 @@ Direction MovableDelegate::GetDominantDirection() const noexcept {
   return dominantDirection;
 }
 
-Vector2 MovableDelegate::GetVelocity() const noexcept {
+const Vector2& MovableDelegate::GetVelocity() const noexcept {
   return velocity;
 }
 
-Vector2 MovableDelegate::GetPosition() const noexcept {
+const Vector2& MovableDelegate::GetPosition() const noexcept {
   return currPosition;
 }
 
-Vector2 MovableDelegate::GetInterpolatedPosition() const noexcept {
+const Vector2& MovableDelegate::GetInterpolatedPosition() const noexcept {
   return interpolatedPosition;
 }
 

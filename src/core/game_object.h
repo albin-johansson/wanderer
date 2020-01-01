@@ -1,7 +1,8 @@
 #pragma once
 #include "sortable_drawable.h"
+#include "vector_2.h"
 #include <cstdint>
-#include <vector_2.h>
+#include <type_traits>
 
 namespace albinjohansson::wanderer {
 
@@ -89,5 +90,7 @@ class IGameObject : public virtual ISortableDrawable {
   virtual uint64_t GetUniqueID() const noexcept = 0;
 
 };
+
+static_assert(std::has_virtual_destructor_v<IGameObject>);
 
 }

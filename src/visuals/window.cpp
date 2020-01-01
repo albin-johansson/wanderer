@@ -119,7 +119,7 @@ SDL_Window* Window::GetInternalWindow() noexcept {
   return window;
 }
 
-Window::operator SDL_Window*() noexcept {
+Window::operator SDL_Window*() const noexcept {
   return window;
 }
 

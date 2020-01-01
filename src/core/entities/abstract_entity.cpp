@@ -121,15 +121,15 @@ Direction AbstractEntity::GetDominantDirection() const noexcept {
   return movable->GetDominantDirection();
 }
 
-Vector2 AbstractEntity::GetVelocity() const noexcept {
+const Vector2& AbstractEntity::GetVelocity() const noexcept {
   return movable->GetVelocity();
 }
 
-Vector2 AbstractEntity::GetPosition() const noexcept {
+const Vector2& AbstractEntity::GetPosition() const noexcept {
   return movable->GetPosition();
 }
 
-Vector2 AbstractEntity::GetInterpolatedPosition() const noexcept {
+const Vector2& AbstractEntity::GetInterpolatedPosition() const noexcept {
   return movable->GetInterpolatedPosition();
 }
 

@@ -25,10 +25,10 @@ WandererControllerImpl::WandererControllerImpl() {
 
   InitIcon();
 
-  renderer = std::make_unique<Renderer>(window->GetInternalWindow());
+  renderer = std::make_unique<Renderer>(*window);
   renderer->SetLogicalSize(LOGICAL_WIDTH, LOGICAL_HEIGHT);
 
-  auto imageGenerator = ImageGenerator(renderer);
+  ImageGenerator imageGenerator(renderer);
   core = CreateCore(imageGenerator);
   core->SetViewportWidth(LOGICAL_WIDTH);
   core->SetViewportHeight(LOGICAL_HEIGHT);
@@ -48,13 +48,11 @@ WandererControllerImpl::~WandererControllerImpl() = default;
 
 void WandererControllerImpl::InitIcon() {
   SDL_Surface* icon = IMG_Load("resources/img/tactile_icon.png");
-  if (icon != nullptr) {
+  if (icon) {
     window->SetIcon(icon);
     SDL_FreeSurface(icon);
   } else {
-    SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION,
-                   SDL_LOG_PRIORITY_WARN,
-                   "Failed to load window icon! %s", SDL_GetError());
+    SDL_Log("Failed to load window icon! %s", SDL_GetError());
   }
 }
 

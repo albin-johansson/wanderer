@@ -116,13 +116,13 @@ class MovableDelegate final : public IMovableObject {
   const Vector2& GetPreviousPosition() const noexcept override;
 
   [[nodiscard]]
-  Vector2 GetVelocity() const noexcept override;
+  const Vector2& GetVelocity() const noexcept override;
 
   [[nodiscard]]
-  Vector2 GetPosition() const noexcept override;
+  const Vector2& GetPosition() const noexcept override;
 
   [[nodiscard]]
-  Vector2 GetInterpolatedPosition() const noexcept override;
+  const Vector2& GetInterpolatedPosition() const noexcept override;
 
   [[nodiscard]]
   uint64_t GetUniqueID() const noexcept override;

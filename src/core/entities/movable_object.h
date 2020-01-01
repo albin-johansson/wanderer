@@ -2,6 +2,7 @@
 #include "game_object.h"
 #include "direction.h"
 #include "vector_2.h"
+#include <type_traits>
 
 namespace albinjohansson::wanderer {
 
@@ -123,6 +124,12 @@ class IMovableObject : public virtual IGameObject {
   [[nodiscard]]
   virtual Direction GetDominantDirection() const noexcept = 0;
 
+  /**
+   * Returns the previous position of the movable object.
+   *
+   * @return the previous position of the movable object.
+   * @since 0.1.0
+   */
   [[nodiscard]]
   virtual const Vector2& GetPreviousPosition() const noexcept = 0;
 
@@ -133,7 +140,7 @@ class IMovableObject : public virtual IGameObject {
    * @since 0.1.0
    */
   [[nodiscard]]
-  virtual Vector2 GetVelocity() const noexcept = 0;
+  virtual const Vector2& GetVelocity() const noexcept = 0;
 
   /**
    * Returns the current position of the object.
@@ -142,7 +149,7 @@ class IMovableObject : public virtual IGameObject {
    * @since 0.1.0
    */
   [[nodiscard]]
-  virtual Vector2 GetPosition() const noexcept = 0;
+  virtual const Vector2& GetPosition() const noexcept = 0;
 
   /**
    * Returns the interpolated position of the object.
@@ -151,10 +158,19 @@ class IMovableObject : public virtual IGameObject {
    * @since 0.1.0
    */
   [[nodiscard]]
-  virtual Vector2 GetInterpolatedPosition() const noexcept = 0;
+  virtual const Vector2& GetInterpolatedPosition() const noexcept = 0;
 
+  /**
+   * Returns the calculated next position of the movable object.
+   *
+   * @param delta the delta time, in seconds.
+   * @return the calculated next position of the movable object.
+   * @since 0.1.0
+   */
   [[nodiscard]]
   virtual Vector2 GetNextPosition(float delta) const noexcept = 0;
 };
+
+static_assert(std::has_virtual_destructor_v<IMovableObject>);
 
 }
