@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.15)
 project(Wanderer)
 
 set(CMAKE_CXX_FLAGS "-std=c++17")
+add_compile_options("/std:c++17")
 
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 set(BINARIES_DIR ${PROJECT_SOURCE_DIR}/bin)
