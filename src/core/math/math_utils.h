@@ -42,7 +42,7 @@ class MathUtils final {
   }
 
   [[nodiscard]]
-  static constexpr int Round(float f) noexcept {
+  static int Round(float f) noexcept {
     return static_cast<int>(std::round(f));
   }
 
@@ -71,7 +71,7 @@ class MathUtils final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  static constexpr bool AlmostEqual(double a, double b, double epsilon = 0.001) noexcept {
+  static bool AlmostEqual(double a, double b, double epsilon = 0.001) noexcept {
     return std::abs(a - b) < epsilon;
   }
 
@@ -86,7 +86,7 @@ class MathUtils final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  static constexpr bool AlmostEqual(float a, float b, float epsilon = 0.001f) noexcept {
+  static bool AlmostEqual(float a, float b, float epsilon = 0.001f) noexcept {
     return std::abs(a - b) < epsilon;
   }
 };

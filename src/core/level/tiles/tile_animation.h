@@ -18,7 +18,7 @@ class TileAnimation final {
   uint32_t previous = 0;
 
  public:
-  TileAnimation() noexcept;
+  TileAnimation();
 
   explicit TileAnimation(int nFrames);
 
