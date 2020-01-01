@@ -32,8 +32,12 @@ Image::~Image() {
   SDL_DestroyTexture(texture);
 }
 
-Uint32 Image::GetFormat() const noexcept {
-  Uint32 format = 0;
+void Image::SetAlpha(uint8_t alpha) noexcept {
+  SDL_SetTextureAlphaMod(texture, alpha);
+}
+
+uint32_t Image::GetFormat() const noexcept {
+  uint32_t format = 0;
   SDL_QueryTexture(texture, &format, nullptr, nullptr, nullptr);
   return format;
 }

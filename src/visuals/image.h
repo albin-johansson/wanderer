@@ -32,6 +32,8 @@ class Image final {
 
   ~Image();
 
+  void SetAlpha(uint8_t alpha) noexcept;
+
   /**
    * Returns the format of the internal SDL_Texture.
    *
