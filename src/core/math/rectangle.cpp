@@ -1,7 +1,6 @@
 #include "rectangle.h"
 #include "math_utils.h"
 #include <stdexcept>
-#include <cmath>
 
 namespace albinjohansson::wanderer {
 
