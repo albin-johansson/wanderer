@@ -15,9 +15,11 @@ tiled::TiledTileSet TileSetBuilder::CreateTiledTileSet(const pugi::xml_node& til
 
 std::unique_ptr<TileSet> TileSetBuilder::Create(const pugi::xml_node& mapRoot,
                                                 ImageGenerator& imageGenerator) {
-  auto tileSet = std::make_unique<TileSet>(3000); // FIXME
+  const auto tsChildren = mapRoot.children("tileset");
+  const auto nTilesets = std::distance(tsChildren.begin(), tsChildren.end());
+  auto tileSet = std::make_unique<TileSet>(nTilesets * 1024); // Guess the amount of tiles
 
-  for (auto tsInfoNode : mapRoot.children("tileset")) {
+  for (const auto tsInfoNode : tsChildren) {
     const std::string tsFileName = tsInfoNode.attribute("source").as_string();
 
     const auto tsDocument = PugiUtils::LoadDocument("resources/map/world/" + tsFileName);
