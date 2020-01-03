@@ -23,12 +23,11 @@ class TileMapLayerImpl final : public ITileMapLayer {
  private:
   friend class TileMapLayerBuilder;
 
+  std::shared_ptr<TileSet> tileSet = nullptr;
+  std::unordered_map<MapPosition, std::unique_ptr<TileObject>> tileObjects;
+  std::vector<TileID> tiles;
   int nRows = 0;
   int nCols = 0;
-  std::shared_ptr<TileSet> tileSet = nullptr;
-  std::vector<TileID> tiles;
-  
-  std::unordered_map<MapPosition, std::unique_ptr<TileObject>> tileObjects;
   bool isGroundLayer = false;
 
   explicit TileMapLayerImpl(const std::shared_ptr<TileSet>& tileSet);
@@ -54,7 +53,6 @@ class TileMapLayerImpl final : public ITileMapLayer {
 
   [[nodiscard]]
   int GetCols() const noexcept override;
-
 };
 
 }

@@ -27,7 +27,12 @@ TiledLayer::TiledLayer(const pugi::xml_node& layerNode) : layerNode(layerNode) {
   std::stringstream stream(data);
   std::string token;
   while (std::getline(stream, token, ',')) {
-    tiles.push_back(std::stoi(token));
+    const auto i = std::stoi(token);
+    tiles.push_back(i);
+
+    if (i != 0) {
+      ++nNonEmptyTiles;
+    }
   }
 }
 
@@ -57,6 +62,10 @@ bool TiledLayer::GetBool(const std::string& id) const {
 
   std::cout << "Failed to find layer property: " << id.c_str() << "\n";
   return false;
+}
+
+int TiledLayer::GetNonEmptyTiles() const noexcept {
+  return nNonEmptyTiles;
 }
 
 int TiledLayer::GetRows() const noexcept {

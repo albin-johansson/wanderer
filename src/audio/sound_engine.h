@@ -1,5 +1,5 @@
 #pragma once
-#include <map>
+#include <unordered_map>
 #include <string>
 #include <memory>
 
@@ -9,15 +9,17 @@ class SoundEffect;
 
 class SoundEngine final { // TODO expand
  private:
-  std::map<std::string, std::unique_ptr<SoundEffect>> sounds;
+  std::unordered_map<std::string, std::unique_ptr<SoundEffect>> sounds;
   bool enabled = true;
 
+  void LoadSounds(const std::string& file);
+
+  void Register(const std::string& id, std::unique_ptr<SoundEffect> sound);
+
  public:
-  SoundEngine();
+  explicit SoundEngine(const std::string& file);
 
   ~SoundEngine();
-
-  void Register(std::string id, std::unique_ptr<SoundEffect> sound);
 
   void Play(const std::string& id);
 

@@ -7,9 +7,7 @@ InGameMenu::InGameMenu(IMenuStateMachine* parent) : AbstractMenu(parent) {}
 
 InGameMenu::~InGameMenu() = default;
 
-void InGameMenu::Draw(Renderer& renderer,
-                      const Viewport& viewport,
-                      const FontBundle& fonts) const {}
+void InGameMenu::Draw(Renderer&, const Viewport&, const FontBundle&) const {}
 
 void InGameMenu::HandleInput(const wanderer::Input& input) noexcept {
   if (input.WasReleased(SDL_SCANCODE_ESCAPE)) {

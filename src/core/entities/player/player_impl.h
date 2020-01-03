@@ -18,6 +18,8 @@ class PlayerImpl final : public AbstractEntity, public IPlayer {
  private:
   std::unique_ptr<IPlayerStateMachine> playerStateMachine = nullptr;
 
+  void Init();
+
  public:
   /**
    * @param sheet a pointer to the tile sheet image which will be used by the player.
@@ -26,7 +28,7 @@ class PlayerImpl final : public AbstractEntity, public IPlayer {
    */
   explicit PlayerImpl(const std::shared_ptr<Image>& sheet);
 
-  ~PlayerImpl() override = default;
+  ~PlayerImpl() override;
 
   void Tick(IWandererCore& core, float delta) override;
 

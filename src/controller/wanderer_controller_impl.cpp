@@ -8,6 +8,7 @@
 #include "wanderer_core_factory.h"
 #include "image_generator.h"
 #include "display_modes.h"
+#include "game_constants.h"
 #include <SDL.h>
 
 namespace albinjohansson::wanderer {
@@ -26,16 +27,16 @@ WandererControllerImpl::WandererControllerImpl() {
   InitIcon();
 
   renderer = std::make_unique<Renderer>(*window);
-  renderer->SetLogicalSize(LOGICAL_WIDTH, LOGICAL_HEIGHT);
+  renderer->SetLogicalSize(GAME_LOGICAL_WIDTH, GAME_LOGICAL_HEIGHT);
 
   ImageGenerator imageGenerator(renderer);
   core = CreateCore(imageGenerator);
-  core->SetViewportWidth(LOGICAL_WIDTH);
-  core->SetViewportHeight(LOGICAL_HEIGHT);
+  core->SetViewportWidth(GAME_LOGICAL_WIDTH);
+  core->SetViewportHeight(GAME_LOGICAL_HEIGHT);
 
   auto mouseStateManager = std::make_unique<MouseStateManager>();
-  mouseStateManager->SetLogicalWidth(LOGICAL_WIDTH);
-  mouseStateManager->SetLogicalHeight(LOGICAL_HEIGHT);
+  mouseStateManager->SetLogicalWidth(GAME_LOGICAL_WIDTH);
+  mouseStateManager->SetLogicalHeight(GAME_LOGICAL_HEIGHT);
 
   window->AddWindowListener(mouseStateManager.get());
 

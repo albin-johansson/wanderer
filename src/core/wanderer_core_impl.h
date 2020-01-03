@@ -4,6 +4,7 @@
 #include "image_generator.h"
 #include "menu_state_machine.h"
 #include "sound_engine.h"
+#include "hud.h"
 #include <memory>
 
 namespace albinjohansson::wanderer {
@@ -17,15 +18,18 @@ class WandererCoreImpl final : public IWandererCore {
  private:
   std::unique_ptr<IMenuStateMachine> menuStateMachine = nullptr;
   std::unique_ptr<SoundEngine> soundEngine = nullptr;
+
   std::shared_ptr<IPlayer> player = nullptr;
   std::shared_ptr<ITileMap> world = nullptr;
-  std::shared_ptr<ITileMap> activeMap = nullptr;
+  std::shared_ptr<ITileMap> activeMap = nullptr; // could maybe be a raw pointer
+
   Viewport viewport;
+  HUD hud;
   bool shouldQuit = false;
 
-  explicit WandererCoreImpl(ImageGenerator& imageGenerator);
+  void InitViewport();
 
-  void LoadSounds();
+  explicit WandererCoreImpl(ImageGenerator& imageGenerator);
 
  public:
   ~WandererCoreImpl() override;

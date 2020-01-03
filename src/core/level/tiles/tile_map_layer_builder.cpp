@@ -12,6 +12,7 @@ TileMapLayerBuilder::~TileMapLayerBuilder() = default;
 
 void TileMapLayerBuilder::InitTileObjects(TileMapLayerImpl& layer) const {
   int index = 0;
+
   for (const auto id : layer.tiles) {
     if (id != Tile::EMPTY) {
       const auto& tile = layer.tileSet->GetTile(id);
@@ -30,8 +31,8 @@ void TileMapLayerBuilder::InitTileObjects(TileMapLayerImpl& layer) const {
           object->SetHitbox(hitbox);
         }
 
-        const auto matrixPos = MathUtils::IndexToMatrixPos(index, layer.nCols);
-        MapPosition mapPos = {matrixPos.first, matrixPos.second};
+        const auto[row, col] = MathUtils::IndexToMatrixPos(index, layer.nCols);
+        const MapPosition mapPos{row, col};
 
         layer.tileObjects.emplace(mapPos, std::move(object));
       }
@@ -62,6 +63,8 @@ std::unique_ptr<ITileMapLayer> TileMapLayerBuilder::Create(const std::shared_ptr
   layer->nCols = tiledLayer.GetCols();
   layer->isGroundLayer = tiledLayer.GetBool("ground");
   layer->tiles = CreateTileVector(tiledLayer.GetTiles());
+
+  layer->tileObjects.reserve(tiledLayer.GetNonEmptyTiles());
 
   InitTileObjects(*layer);
 

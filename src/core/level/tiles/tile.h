@@ -12,7 +12,7 @@ namespace albinjohansson::wanderer {
 class Image;
 class Vector2;
 class TileSet;
-class Frame;
+struct Frame;
 
 /**
  * The Tile class represents a type of tile. Note! The Tile class is designed to represent a type

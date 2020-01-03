@@ -5,11 +5,19 @@
 #include "renderer.h"
 #include "viewport.h"
 #include "wanderer_core.h"
+#include "game_constants.h"
 
 namespace albinjohansson::wanderer {
 
 PlayerImpl::PlayerImpl(const std::shared_ptr<Image>& sheet) : AbstractEntity(sheet) {
   playerStateMachine = std::make_unique<PlayerStateMachineImpl>(static_cast<IEntity*>(this));
+  Init();
+}
+
+PlayerImpl::~PlayerImpl() = default;
+
+void PlayerImpl::Init() {
+  SetSpeed(PLAYER_SPEED);
 }
 
 void PlayerImpl::HandleInput(const Input& input, const IWandererCore& core) {
