@@ -9,7 +9,7 @@
 namespace albinjohansson::wanderer {
 
 TileObject::TileObject(TileID id, const Vector2& position, const std::shared_ptr<TileSet>& tileSet)
-    : id(id), position(position) {
+    : position(position), id(id) {
   this->tileSet = Require::NotNull(tileSet);
   centerY = GetY() + (GetHeight() / 2.0f);
   uniqueId = RandomUtils::GetRand();
@@ -19,12 +19,12 @@ TileObject::TileObject(TileID id, const Vector2& position, const std::shared_ptr
 
 TileObject::~TileObject() noexcept = default;
 
-void TileObject::Tick(IWandererCore& core, float delta) {
+void TileObject::Tick(IWandererCore&, float /*delta*/) {
   tileSet->Tick(id);
 }
 
-void TileObject::Draw(const Renderer& renderer, const Viewport& viewport) const {
-  tileSet->GetTile(id).Draw(position, renderer, viewport, *tileSet);
+void TileObject::Draw(const Renderer& renderer, const Viewport&) const {
+  tileSet->GetTile(id).Draw(position, renderer, *tileSet);
 }
 
 void TileObject::SetDepth(int depth) noexcept {
@@ -76,7 +76,7 @@ uint64_t TileObject::GetUniqueID() const noexcept {
   return uniqueId;
 }
 
-void TileObject::SetBlocked(bool blocked) noexcept{
+void TileObject::SetBlocked(bool blocked) noexcept {
   hitbox.SetEnabled(blocked);
 }
 

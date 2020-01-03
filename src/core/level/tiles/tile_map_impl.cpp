@@ -84,7 +84,7 @@ void TileMapImpl::Draw(Renderer& renderer, const Viewport& viewport, float alpha
 
   for (auto row = bounds.minRow; row < bounds.maxRow; row++) {
     for (auto col = bounds.minCol; col < bounds.maxCol; col++) {
-      RenderTilesAt(row, col, renderer, viewport);
+      RenderTilesAt(row, col, renderer);
     }
   }
 
@@ -105,12 +105,12 @@ void TileMapImpl::Draw(Renderer& renderer, const Viewport& viewport, float alpha
   }
 }
 
-void TileMapImpl::RenderTilesAt(int row, int col, Renderer& renderer, const Viewport& viewport) {
+void TileMapImpl::RenderTilesAt(int row, int col, Renderer& renderer) {
   for (const auto& layer : groundLayers) {
     const auto id = layer->GetTileId(row, col);
     if (id != Tile::EMPTY) {
       Vector2 pos(static_cast<float>(col) * Tile::SIZE, static_cast<float>(row) * Tile::SIZE);
-      tileSet->GetTile(id).Draw(pos, renderer, viewport, *tileSet);
+      tileSet->GetTile(id).Draw(pos, renderer, *tileSet);
     }
   }
 }
@@ -137,7 +137,6 @@ bool TileMapImpl::IsBlocked(const IMovableObject* self, float delta) const {
     return false;
   }
 
-  const auto& hitbox = self->GetHitbox();
   for (auto other : activeObjects) {
     if (other->GetUniqueID() == self->GetUniqueID()) {
       continue;

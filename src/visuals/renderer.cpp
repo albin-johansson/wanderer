@@ -137,15 +137,19 @@ void Renderer::SetBlendMode(const SDL_BlendMode& blendMode) noexcept {
 }
 
 void Renderer::SetScale(float xScale, float yScale) noexcept {
-  SDL_RenderSetScale(renderer, xScale, yScale);
+  if (xScale > 0 && yScale > 0) {
+    SDL_RenderSetScale(renderer, xScale, yScale);
+  }
 }
 
 void Renderer::SetLogicalSize(float width, float height) noexcept {
-  int result = SDL_RenderSetLogicalSize(renderer,
-                                        MathUtils::Round(width),
-                                        MathUtils::Round(height));
-  if (result != 0) {
-    SDL_Log("Failed to set logical size! %s", SDL_GetError());
+  if (width > 0 && height > 0) {
+    int result = SDL_RenderSetLogicalSize(renderer,
+                                          MathUtils::Round(width),
+                                          MathUtils::Round(height));
+    if (result != 0) {
+      SDL_Log("Failed to set logical size! %s", SDL_GetError());
+    }
   }
 }
 

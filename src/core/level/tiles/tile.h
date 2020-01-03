@@ -68,13 +68,11 @@ class Tile final {
    *
    * @param pos the position of the rendered tile.
    * @param renderer the renderer that will be used.
-   * @param viewport the viewport that will be used.
    * @param tileSet the associated tile set.
    * @since 0.1.0
    */
   void Draw(const Vector2& pos,
             const Renderer& renderer,
-            const Viewport& viewport,
             const TileSet& tileSet) const;
 
   /**

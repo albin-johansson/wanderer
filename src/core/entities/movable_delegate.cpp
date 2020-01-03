@@ -17,12 +17,11 @@ MovableDelegate::MovableDelegate(int depth, float width, float height)
 
 MovableDelegate::~MovableDelegate() = default;
 
-void MovableDelegate::Draw(const Renderer& renderer,
-                           const Viewport& viewport) const noexcept {
+void MovableDelegate::Draw(const Renderer&, const Viewport&) const noexcept {
   /* do nothing */
 }
 
-void MovableDelegate::Tick(IWandererCore& core, float delta) {
+void MovableDelegate::Tick(IWandererCore&, float /*delta*/) {
   SavePosition();
   UpdatePosition();
   UpdateDirection();

@@ -202,6 +202,11 @@ set(SOURCE_FILES
 # Prepares the Wanderer "library", which excludes linking and the main.cpp file
 add_library(${WANDERER_LIB} ${SOURCE_FILES})
 
+target_compile_options(${WANDERER_LIB} PRIVATE -Wall -Wextra -Wpedantic)
+
+set_target_properties(${WANDERER_LIB} PROPERTIES
+        CXX_STANDARD 17)
+
 target_include_directories(${WANDERER_LIB} PUBLIC ${SDL2_INCLUDE_DIR})
 target_include_directories(${WANDERER_LIB} PUBLIC ${SDL2_IMAGE_INCLUDE_DIRS})
 target_include_directories(${WANDERER_LIB} PUBLIC ${SDL2_MIXER_INCLUDE_DIRS})
