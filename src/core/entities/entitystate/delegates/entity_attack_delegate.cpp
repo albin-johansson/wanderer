@@ -14,7 +14,7 @@ EntityAttackDelegate::EntityAttackDelegate(IEntityStateMachine* parent) {
 
 EntityAttackDelegate::~EntityAttackDelegate() = default;
 
-void EntityAttackDelegate::Draw(const Renderer& renderer, const Viewport& viewport) const {
+void EntityAttackDelegate::Draw(const Renderer& renderer, const Viewport&) const {
   auto& entity = parent->GetEntity();
   auto srcX = entity.GetAnimationFrame() * 64;
   auto srcY = EntitySheet::GetSourceY(SOURCE_MELEE_Y, entity.GetDominantDirection());
@@ -32,9 +32,9 @@ void EntityAttackDelegate::Enter(const IWandererCore& core) {
   core.PlaySound("swing");
 }
 
-void EntityAttackDelegate::Exit(const IWandererCore& core) {}
+void EntityAttackDelegate::Exit(const IWandererCore&) {}
 
-void EntityAttackDelegate::Tick(const IWandererCore& core, float delta) {
+void EntityAttackDelegate::Tick(const IWandererCore& core, float /*delta*/) {
   auto& entity = parent->GetEntity();
   if (entity.IsAnimationDone()) {
     // TODO damage and stuff...

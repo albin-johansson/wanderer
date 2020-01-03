@@ -26,9 +26,9 @@ class SmoothFixedTimestepLoop final : public IGameLoop {
 
   uint32_t then = 0;
   uint32_t now = 0;
+  const float vsyncRate;
   const float timeStep;
   const float counterFreq;
-  const float vsyncRate;
   float accumulator = 0;
   float delta = 0;
   float deltaBuffer = 0;

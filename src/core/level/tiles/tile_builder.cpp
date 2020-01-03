@@ -58,9 +58,9 @@ Tile TileBuilder::Create(const std::shared_ptr<Image>& image,
     }
   }
 
-  const auto pos = MathUtils::IndexToMatrixPos(index, tiledTileSet.GetCols());
-  const int x = pos.second * tileWidth;
-  const int y = pos.first * tileHeight;
+  const auto[row, col] = MathUtils::IndexToMatrixPos(index, tiledTileSet.GetCols());
+  const int x = col * tileWidth;
+  const int y = row * tileHeight;
 
   tile.SetSource(Rectangle(x, y, tileWidth, tileHeight));
 

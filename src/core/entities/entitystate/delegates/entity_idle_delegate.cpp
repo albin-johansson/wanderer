@@ -13,23 +13,23 @@ EntityIdleDelegate::EntityIdleDelegate(IEntityStateMachine* parent) {
 
 EntityIdleDelegate::~EntityIdleDelegate() = default;
 
-void EntityIdleDelegate::Draw(const Renderer& renderer, const Viewport& viewport) const {
+void EntityIdleDelegate::Draw(const Renderer& renderer, const Viewport&) const {
   IEntity& entity = parent->GetEntity();
 
-  float srcY = EntitySheet::GetSourceY(512, entity.GetDominantDirection());
+  const auto srcY = EntitySheet::GetSourceY(512, entity.GetDominantDirection());
   EntityDrawDelegate::Draw(renderer, entity, 0, srcY);
 }
 
-void EntityIdleDelegate::Enter(const IWandererCore& core) {
+void EntityIdleDelegate::Enter(const IWandererCore&) {
   auto& entity = parent->GetEntity();
 
   entity.Stop();
   entity.SetAnimationFrame(0);
 }
 
-void EntityIdleDelegate::Exit(const IWandererCore& core) {}
+void EntityIdleDelegate::Exit(const IWandererCore&) {}
 
-void EntityIdleDelegate::Tick(const IWandererCore& core, float delta) {}
+void EntityIdleDelegate::Tick(const IWandererCore&, float /*delta*/) {}
 
 IEntityStateMachine& EntityIdleDelegate::GetParent() noexcept {
   return *parent;

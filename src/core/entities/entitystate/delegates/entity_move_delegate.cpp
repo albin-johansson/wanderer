@@ -15,7 +15,7 @@ EntityMoveDelegate::EntityMoveDelegate(IEntityStateMachine* parent) {
 
 EntityMoveDelegate::~EntityMoveDelegate() = default;
 
-void EntityMoveDelegate::Draw(const Renderer& renderer, const Viewport& viewport) const {
+void EntityMoveDelegate::Draw(const Renderer& renderer, const Viewport&) const {
   IEntity& entity = parent->GetEntity();
 
   auto srcX = entity.GetVelocity().IsZero() ? 0 : entity.GetAnimationFrame() * 64;
@@ -23,12 +23,12 @@ void EntityMoveDelegate::Draw(const Renderer& renderer, const Viewport& viewport
   EntityDrawDelegate::Draw(renderer, entity, srcX, srcY);
 }
 
-void EntityMoveDelegate::Tick(const IWandererCore& core, float delta) {
+void EntityMoveDelegate::Tick(const IWandererCore&, float delta) {
   UpdateAnimation();
   UpdatePosition(delta);
 }
 
-void EntityMoveDelegate::Enter(const IWandererCore& core) {
+void EntityMoveDelegate::Enter(const IWandererCore&) {
   IEntity& entity = parent->GetEntity();
 
   entity.SetAnimationFrame(0);
@@ -36,7 +36,7 @@ void EntityMoveDelegate::Enter(const IWandererCore& core) {
   entity.SetAnimationDelay(60);
 }
 
-void EntityMoveDelegate::Exit(const IWandererCore& core) {}
+void EntityMoveDelegate::Exit(const IWandererCore&) {}
 
 void EntityMoveDelegate::UpdateAnimation() {
   parent->GetEntity().UpdateAnimation();

@@ -18,7 +18,6 @@ void Tile::Tick() {
 
 void Tile::Draw(const Vector2& pos,
                 const Renderer& renderer,
-                const Viewport& viewport,
                 const TileSet& tileSet) const {
   if (GetId() != EMPTY) {
     const auto& src = IsAnimated() ? tileSet.GetTile(GetFrameId()).GetSource() : source;

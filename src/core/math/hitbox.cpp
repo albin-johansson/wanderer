@@ -9,8 +9,7 @@ Hitbox::~Hitbox() = default;
 void Hitbox::CalcBounds() {
   bool first = true;
 
-  for (auto& pair : rectangles) {
-    const auto& rect = pair.first;
+  for (auto&[rect, offset] : rectangles) {
 
     if (first) {
       bounds.Set(rect);
@@ -38,7 +37,6 @@ void Hitbox::CalcBounds() {
       bounds.SetHeight(rectMaxY - bounds.GetY());
     }
 
-    auto& offset = pair.second;
     offset.x = rectX - bounds.GetX();
     offset.y = rectY - bounds.GetY();
   }
@@ -51,20 +49,14 @@ void Hitbox::AddRectangle(const FRectangle& rect, const Vector2& offset) {
 
 void Hitbox::SetX(float x) noexcept {
   bounds.SetX(x);
-  for (auto& pair : rectangles) {
-    auto& rect = pair.first;
-    const auto& offset = pair.second;
-
+  for (auto&[rect, offset] : rectangles) {
     rect.SetX(x + offset.x);
   }
 }
 
 void Hitbox::SetY(float y) noexcept {
   bounds.SetY(y);
-  for (auto& pair : rectangles) {
-    auto& rect = pair.first;
-    const auto& offset = pair.second;
-
+  for (auto&[rect, offset] : rectangles) {
     rect.SetY(y + offset.y);
   }
 }
@@ -82,16 +74,12 @@ bool Hitbox::Intersects(const Hitbox& other) const noexcept {
     return Intersects(other.rectangles.front().first);
   }
 
-  for (const auto& pair : rectangles) {
-    const auto& rect = pair.first;
-
-    for (const auto& otherPair : other.rectangles) {
-      const auto& otherRect = otherPair.first;
+  for (const auto&[rect, offset] : rectangles) {
+    for (const auto&[otherRect, otherOffset] : other.rectangles) {
       if (rect.Intersects(otherRect)) {
         return true;
       }
     }
-
   }
   return false;
 }
@@ -101,8 +89,7 @@ bool Hitbox::Intersects(const FRectangle& other) const noexcept {
     return false;
   }
 
-  for (const auto& pair : rectangles) {
-    const auto& rect = pair.first;
+  for (const auto&[rect, offset] : rectangles) {
     if (rect.Intersects(other)) {
       return true;
     }

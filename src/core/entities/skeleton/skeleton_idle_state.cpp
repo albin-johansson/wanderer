@@ -12,7 +12,7 @@ SkeletonIdleState::SkeletonIdleState(IEntityStateMachine* parent)
 
 SkeletonIdleState::~SkeletonIdleState() = default;
 
-void SkeletonIdleState::Tick(const IWandererCore& core, float delta) {
+void SkeletonIdleState::Tick(const IWandererCore& core, float /*delta*/) {
 
   auto& entity = idleDelegate.GetParent().GetEntity();
   float distance = entity.GetPosition().DistanceTo(core.GetPlayer().GetPosition());

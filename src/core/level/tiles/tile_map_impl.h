@@ -37,7 +37,7 @@ class TileMapImpl final : public ITileMap {
 
   EntityManager entityManager;
 
-  void RenderTilesAt(int row, int col, Renderer& renderer, const Viewport& viewport);
+  void RenderTilesAt(int row, int col, Renderer& renderer);
 
   /**
    * Interpolates all movable game objects.

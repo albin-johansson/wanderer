@@ -19,6 +19,9 @@ add_executable(${WANDERER_TEST}
         unittests/sound_effect_test.cpp
         unittests/hitbox_test.cpp)
 
+set_target_properties(${WANDERER_TEST} PROPERTIES
+        CXX_STANDARD 17)
+
 target_include_directories(${WANDERER_TEST} PUBLIC unittests)
 
 target_link_directories(${WANDERER_TEST} PUBLIC ${SDL2_LIBRARY})
