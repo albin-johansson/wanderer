@@ -197,7 +197,9 @@ set(SOURCE_FILES
         service/tiled/tiled_tile.h
         service/tiled/tiled_property.h
         service/tiled/tiled_object_group.cpp
-        service/tiled/tiled_object_group.h)
+        service/tiled/tiled_object_group.h
+
+        core/math/spooky_rect.h)
 
 # Prepares the Wanderer "library", which excludes linking and the main.cpp file
 add_library(${WANDERER_LIB} ${SOURCE_FILES})
