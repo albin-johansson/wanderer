@@ -17,6 +17,16 @@ Window::Window(const std::string& title, int width, int height) {
   const auto pos = SDL_WINDOWPOS_CENTERED;
   window = SDL_CreateWindow(title.c_str(), pos, pos, width, height,
                             SDL_WINDOW_HIDDEN);
+
+  // TODO...
+//    SDL_SetWindowBrightness(window, 1);
+//    SDL_SetWindowDisplayMode(window, ...)
+//    SDL_SetWindowGrab(window, ...)
+//    SDL_SetWindowOpacity(window, ...)
+//    SDL_RaiseWindow(window)
+//    SDL_SetWindowMinimumSize(window, ...)
+//    SDL_SetWindowMaximumSize(window, ...)
+//    SDL_SetWindowPosition(window, ...)
 }
 
 Window::~Window() {
@@ -51,10 +61,14 @@ void Window::add_window_listener(IWindowListener* listener) noexcept {
 }
 
 void Window::set_fullscreen(bool fullscreen) noexcept {
-//  uint32_t flags = SDL_GetWindowFlags(window);
   const auto flags = (fullscreen) ? (SDL_GetWindowFlags(window) | SDL_WINDOW_FULLSCREEN)
                                   : (SDL_GetWindowFlags(window) & ~SDL_WINDOW_FULLSCREEN);
   SDL_SetWindowFullscreen(window, flags);
+  notify_window_listeners();
+}
+
+void Window::set_decorated(bool decorated) noexcept {
+  SDL_SetWindowBordered(window, BoolConverter::convert(decorated));
   notify_window_listeners();
 }
 

@@ -23,14 +23,16 @@ class Window final {
   /**
    * Creates a window instance. The window will be hidden by default.
    *
-   * @param title the title of thw window.
-   * @param width the width of the window, must be greater than zero.
-   * @param height the height of the window, must be greater than zero.
+   * @param title the title of thw window. "Centurion window" by default.
+   * @param width the width of the window, must be greater than zero. 800 by default.
+   * @param height the height of the window, must be greater than zero. 600 by default.
    * @throws invalid_argument if the supplied width or height values aren't
    * greater than zero.
    * @since 0.1.0
    */
-  Window(const std::string& title, int width, int height);
+  explicit Window(const std::string& title = "Centurion window",
+                  int width = 800,
+                  int height = 600);
 
   ~Window();
 
@@ -65,6 +67,15 @@ class Window final {
    * @since 0.1.0
    */
   void set_fullscreen(bool fullscreen) noexcept;
+
+  /**
+   * Sets whether or not the window is decorated. Triggers a window listener update. This property
+   * is enabled by default.
+   *
+   * @param decorated true if the window should be decorated; false otherwise.
+   * @since 0.1.0
+   */
+  void set_decorated(bool decorated) noexcept;
 
   /**
    * Sets whether or not the window should be resizable. Triggers a window listener update.
