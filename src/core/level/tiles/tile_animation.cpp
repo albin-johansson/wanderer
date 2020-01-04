@@ -6,7 +6,6 @@ namespace albinjohansson::wanderer {
 TileAnimation::TileAnimation() = default;
 
 TileAnimation::TileAnimation(int nFrames) : nFrames(nFrames) {
-//  frames.reserve(nFrames);
   previous = SDL_GetTicks();
 }
 
@@ -25,7 +24,7 @@ void TileAnimation::Update() {
 
 void TileAnimation::SetFrame(int index, Frame frame) {
   if (!frames.count(index)) {
-    frames.insert(std::pair<int, Frame>(index, frame));
+    frames.emplace(index, frame);
   }
 }
 

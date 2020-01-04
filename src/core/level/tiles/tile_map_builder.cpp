@@ -3,6 +3,7 @@
 #include "tiled_map.h"
 #include "tiled_object.h"
 #include "tile.h"
+#include "game_constants.h"
 
 namespace albinjohansson::wanderer {
 
@@ -20,8 +21,8 @@ std::unique_ptr<ITileMap> TileMapBuilder::Create(const std::shared_ptr<TileSet>&
         object.HasProperty("name") &&
         object.GetProperty("name").value == "player") {
 
-      const auto x = tiledMap.ConvertX(std::stof(object.GetAttribute("x")), Tile::SIZE);
-      const auto y = tiledMap.ConvertY(std::stof(object.GetAttribute("y")), Tile::SIZE);
+      const auto x = tiledMap.ConvertX(std::stof(object.GetAttribute("x")), TILE_SIZE);
+      const auto y = tiledMap.ConvertY(std::stof(object.GetAttribute("y")), TILE_SIZE);
       map->playerSpawnPos.Set(x, y);
     }
   }

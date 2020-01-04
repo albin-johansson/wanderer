@@ -5,16 +5,16 @@ namespace albinjohansson::wanderer {
 int EntitySheet::GetSourceY(int y, Direction direction) noexcept {
   switch (direction) {
     default:
-    case Direction::UP: {
+    case Direction::Up: {
       return y;
     }
-    case Direction::RIGHT: {
+    case Direction::Right: {
       return y + 192;
     }
-    case Direction::DOWN: {
+    case Direction::Down: {
       return y + 128;
     }
-    case Direction::LEFT: {
+    case Direction::Left: {
       return y + 64;
     }
   }

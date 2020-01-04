@@ -38,33 +38,33 @@ void MovableDelegate::UpdatePosition() {
 
 void MovableDelegate::UpdateDirection() {
   if (velocity.x > 0) {
-    dominantDirection = Direction::RIGHT;
+    dominantDirection = Direction::Right;
   } else if (velocity.x < 0) {
-    dominantDirection = Direction::LEFT;
+    dominantDirection = Direction::Left;
   } else {
     if (velocity.y < 0) {
-      dominantDirection = Direction::UP;
+      dominantDirection = Direction::Up;
     } else if (velocity.y > 0) {
-      dominantDirection = Direction::DOWN;
+      dominantDirection = Direction::Down;
     }
   }
 }
 
 void MovableDelegate::Move(Direction direction) noexcept {
   switch (direction) {
-    case Direction::RIGHT: {
+    case Direction::Right: {
       velocity.x = speed;
       break;
     }
-    case Direction::LEFT: {
+    case Direction::Left: {
       velocity.x = -speed;
       break;
     }
-    case Direction::UP: {
+    case Direction::Up: {
       velocity.y = -speed;
       break;
     }
-    case Direction::DOWN: {
+    case Direction::Down: {
       velocity.y = speed;
       break;
     }
@@ -75,13 +75,13 @@ void MovableDelegate::Move(Direction direction) noexcept {
 
 void MovableDelegate::Stop(Direction direction) noexcept {
   switch (direction) {
-    case Direction::RIGHT:
-    case Direction::LEFT: {
+    case Direction::Right:
+    case Direction::Left: {
       velocity.x = 0;
       break;
     }
-    case Direction::UP:
-    case Direction::DOWN: {
+    case Direction::Up:
+    case Direction::Down: {
       velocity.y = 0;
       break;
     }

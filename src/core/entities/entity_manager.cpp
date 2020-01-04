@@ -1,6 +1,7 @@
 #include "entity_manager.h"
 #include "entity.h"
 #include "rectangle.h"
+#include "hitbox.h"
 
 namespace albinjohansson::wanderer {
 

@@ -73,7 +73,6 @@ class IAnimated {
    */
   [[nodiscard]]
   virtual Image& GetSpriteSheet() const noexcept = 0;
-
 };
 
 }

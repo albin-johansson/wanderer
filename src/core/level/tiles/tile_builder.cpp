@@ -1,6 +1,7 @@
 #include "tile_builder.h"
 #include "tiled_tile_set.h"
 #include "image.h"
+#include "game_constants.h"
 
 namespace albinjohansson::wanderer {
 
@@ -48,12 +49,12 @@ Tile TileBuilder::Create(const std::shared_ptr<Image>& image,
     if (tiledTile.HasObject("hitbox")) {
       const auto& object = tiledTile.GetObject("hitbox");
 
-      const auto x = (std::stof(object.GetAttribute("x")) / tileWidth) * Tile::SIZE;
-      const auto y = (std::stof(object.GetAttribute("y")) / tileHeight) * Tile::SIZE;
-      const auto w = (std::stof(object.GetAttribute("width")) / tileWidth) * Tile::SIZE;
-      const auto h = (std::stof(object.GetAttribute("height")) / tileHeight) * Tile::SIZE;
+      const auto x = (std::stof(object.GetAttribute("x")) / tileWidth) * TILE_SIZE;
+      const auto y = (std::stof(object.GetAttribute("y")) / tileHeight) * TILE_SIZE;
+      const auto w = (std::stof(object.GetAttribute("width")) / tileWidth) * TILE_SIZE;
+      const auto h = (std::stof(object.GetAttribute("height")) / tileHeight) * TILE_SIZE;
 
-      tile.AddRectangle(FRectangle(x, y, {w, h}), Vector2(x, y));
+      tile.AddRectangle(FRectangle{x, y, Area{w, h}}, Vector2{x, y});
       tile.SetBlocked(true);
     }
   }

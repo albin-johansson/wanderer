@@ -3,6 +3,7 @@
 #include "tile_set.h"
 #include "tile_object.h"
 #include "tiled_layer.h"
+#include "game_constants.h"
 
 namespace albinjohansson::wanderer {
 
@@ -43,7 +44,7 @@ void TileMapLayerBuilder::InitTileObjects(TileMapLayerImpl& layer) const {
 
 Vector2 TileMapLayerBuilder::CreatePosition(int index, int nCols) const {
   const auto[row, col] = MathUtils::IndexToMatrixPos(index, nCols);
-  return Vector2(col * Tile::SIZE, row * Tile::SIZE);
+  return Vector2(col * TILE_SIZE, row * TILE_SIZE);
 }
 
 std::vector<TileID> TileMapLayerBuilder::CreateTileVector(const std::vector<int>& tiles) {

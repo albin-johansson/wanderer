@@ -88,7 +88,6 @@ class IGameObject : public virtual ISortableDrawable {
 
   [[nodiscard]]
   virtual uint64_t GetUniqueID() const noexcept = 0;
-
 };
 
 static_assert(std::has_virtual_destructor_v<IGameObject>);

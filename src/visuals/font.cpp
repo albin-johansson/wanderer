@@ -4,11 +4,15 @@
 
 namespace albinjohansson::wanderer {
 
-Font::Font(const std::string& file, int size) : size(size) {
-  if (size <= 0) { throw std::invalid_argument("Bad font size!"); }
+Font::Font(const std::string& file, int size) : size{size} {
+  if (size <= 0) {
+    throw std::invalid_argument{"Bad font size!"};
+  }
 
   font = TTF_OpenFont(file.c_str(), size);
-  if (!font) { throw BadStateException(); }
+  if (!font) {
+    throw BadStateException{};
+  }
 
   style = TTF_GetFontStyle(font);
 }
@@ -106,10 +110,6 @@ int Font::GetStringHeight(const std::string& s) const noexcept {
 
 int Font::GetSize() const noexcept {
   return size;
-}
-
-TTF_Font* Font::GetInternalFont() noexcept {
-  return font;
 }
 
 std::string Font::GetFamilyName() const {

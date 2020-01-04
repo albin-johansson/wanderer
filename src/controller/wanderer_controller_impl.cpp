@@ -29,7 +29,7 @@ WandererControllerImpl::WandererControllerImpl() {
   renderer = std::make_unique<Renderer>(*window);
   renderer->SetLogicalSize(GAME_LOGICAL_WIDTH, GAME_LOGICAL_HEIGHT);
 
-  ImageGenerator imageGenerator(renderer);
+  ImageGenerator imageGenerator{renderer};
   core = CreateCore(imageGenerator);
   core->SetViewportWidth(GAME_LOGICAL_WIDTH);
   core->SetViewportHeight(GAME_LOGICAL_HEIGHT);

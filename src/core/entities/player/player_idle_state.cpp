@@ -6,7 +6,7 @@
 namespace albinjohansson::wanderer {
 
 PlayerIdleState::PlayerIdleState(IEntityStateMachine* parent)
-    : idleDelegate(EntityIdleDelegate(parent)) {}
+    : idleDelegate{parent} {}
 
 PlayerIdleState::~PlayerIdleState() = default;
 

@@ -24,34 +24,19 @@ struct Frame;
 class Tile final {
  private:
   std::shared_ptr<Image> sheet = nullptr;
-  Rectangle source;
-  Hitbox hitbox;
-
-  TileAnimation animation;
 
   TileID id = Tile::EMPTY;
   int depth = RenderDepth::MIN;
+
+  Rectangle source;
+  Hitbox hitbox;
+  TileAnimation animation;
 
   bool isBlocked = false;
   bool isAnimated = false;
   bool isObject = false;
 
  public:
-  /**
-   * The logical size (width and height) of all tiles.
-   *
-   * @since 0.1.0
-   */
-  static constexpr float SIZE = 64;
-
-  /**
-   * The logical size (width and height) of all tiles. This constant is the same as Tile::SIZE,
-   * represented as an integer.
-   *
-   * @since 0.1.0
-   */
-  static constexpr int SIZE_INT = static_cast<int>(SIZE);
-
   /**
    * The tile ID of all empty tiles.
    *

@@ -1,8 +1,8 @@
 #include "tile.h"
 #include "renderer.h"
-#include "viewport.h"
 #include "tile_set.h"
 #include "rectangle.h"
+#include "game_constants.h"
 
 namespace albinjohansson::wanderer {
 
@@ -20,8 +20,9 @@ void Tile::Draw(const Vector2& pos,
                 const Renderer& renderer,
                 const TileSet& tileSet) const {
   if (GetId() != EMPTY) {
-    const auto& src = IsAnimated() ? tileSet.GetTile(GetFrameId()).GetSource() : source;
-    FRectangle dst = {pos.x, pos.y, {SIZE, SIZE}};
+    const auto& src = IsAnimated() ? tileSet.GetTile(GetFrameId()).GetSource()
+                                   : source;
+    FRectangle dst{pos.x, pos.y, Area{TILE_SIZE, TILE_SIZE}};
     renderer.RenderTextureTranslated(*sheet, src, dst);
   }
 }

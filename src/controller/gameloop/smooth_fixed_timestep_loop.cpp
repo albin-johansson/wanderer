@@ -12,9 +12,9 @@ namespace albinjohansson::wanderer {
 SmoothFixedTimestepLoop::SmoothFixedTimestepLoop(std::unique_ptr<KeyStateManager> ksm,
                                                  std::unique_ptr<MouseStateManager> msm,
                                                  float vsyncRate)
-    : vsyncRate(vsyncRate),
-      timeStep(1.0f / vsyncRate),
-      counterFreq(TimeUtils::GetHighResFreq()) {
+    : vsyncRate{vsyncRate},
+      timeStep{1.0f / vsyncRate},
+      counterFreq{static_cast<float>(TimeUtils::GetHighResFreq())} {
   input = std::make_unique<Input>(std::move(ksm), std::move(msm));
   now = TimeUtils::GetHighResTime();
   then = now;

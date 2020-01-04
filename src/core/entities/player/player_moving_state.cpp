@@ -25,21 +25,21 @@ void PlayerMovingState::CheckPressed(const Input& input) {
   IEntity& entity = moveDelegate.GetParent().GetEntity();
 
   if (left && right) {
-    entity.Stop(Direction::LEFT);
-    entity.Stop(Direction::RIGHT);
+    entity.Stop(Direction::Left);
+    entity.Stop(Direction::Right);
   } else if (left) {
-    entity.Move(Direction::LEFT);
+    entity.Move(Direction::Left);
   } else if (right) {
-    entity.Move(Direction::RIGHT);
+    entity.Move(Direction::Right);
   }
 
   if (up && down) {
-    entity.Stop(Direction::UP);
-    entity.Stop(Direction::DOWN);
+    entity.Stop(Direction::Up);
+    entity.Stop(Direction::Down);
   } else if (up) {
-    entity.Move(Direction::UP);
+    entity.Move(Direction::Up);
   } else if (down) {
-    entity.Move(Direction::DOWN);
+    entity.Move(Direction::Down);
   }
 
   areMoveKeysDown = up || down || right || left;
@@ -53,19 +53,19 @@ void PlayerMovingState::CheckReleased(const Input& input) {
   auto& entity = moveDelegate.GetParent().GetEntity();
 
   if (left) {
-    entity.Stop(Direction::LEFT);
+    entity.Stop(Direction::Left);
   }
 
   if (right) {
-    entity.Stop(Direction::RIGHT);
+    entity.Stop(Direction::Right);
   }
 
   if (up) {
-    entity.Stop(Direction::UP);
+    entity.Stop(Direction::Up);
   }
 
   if (down) {
-    entity.Stop(Direction::DOWN);
+    entity.Stop(Direction::Down);
   }
 }
 

@@ -7,6 +7,6 @@ namespace albinjohansson::wanderer {
  *
  * @since 0.1.0
  */
-enum class Direction { UP, RIGHT, DOWN, LEFT };
+enum class Direction { Up, Right, Down, Left };
 
 }

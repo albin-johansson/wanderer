@@ -18,13 +18,14 @@ class MovableDelegate final : public IMovableObject {
   Vector2 currPosition;
   Vector2 prevPosition;
   Vector2 interpolatedPosition;
+
   Hitbox hitbox;
-  uint64_t uniqueId = 0;
-  Direction dominantDirection = Direction::DOWN;
+  float speed = 0;
   const int depth;
   const float width;
   const float height;
-  float speed = 0;
+  Direction dominantDirection = Direction::Down;
+  uint64_t uniqueId = 0;
 
   /**
    * Saves the position of the movable.

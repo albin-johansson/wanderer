@@ -1,6 +1,5 @@
 #include "skeleton.h"
 #include "skeleton_state_machine.h"
-#include "tile.h"
 #include "image.h"
 #include "renderer.h"
 #include "viewport.h"
@@ -14,6 +13,10 @@ Skeleton::Skeleton(const std::shared_ptr<Image>& sheet) : AbstractEntity(sheet) 
 }
 
 Skeleton::~Skeleton() = default;
+
+void Skeleton::Init() {
+  SetSpeed(MOB_SPEED);
+}
 
 void Skeleton::Draw(const Renderer& renderer, const Viewport& viewport) const {
   stateMachine->Draw(renderer, viewport);

@@ -5,6 +5,7 @@
 #include "wanderer_core.h"
 #include "require.h"
 #include "random_utils.h"
+#include "game_constants.h"
 
 namespace albinjohansson::wanderer {
 
@@ -53,11 +54,11 @@ float TileObject::GetCenterY() const noexcept {
 }
 
 float TileObject::GetWidth() const noexcept {
-  return Tile::SIZE;
+  return TILE_SIZE;
 }
 
 float TileObject::GetHeight() const noexcept {
-  return Tile::SIZE;
+  return TILE_SIZE;
 }
 
 const Hitbox& TileObject::GetHitbox() const noexcept {

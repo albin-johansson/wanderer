@@ -4,6 +4,7 @@
 #include "render_depth.h"
 #include "hitbox.h"
 #include <type_traits>
+#include <memory>
 
 namespace albinjohansson::wanderer {
 

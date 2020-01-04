@@ -9,6 +9,7 @@
 #include "rectangle.h"
 #include "wanderer_core.h"
 #include "require.h"
+#include "game_constants.h"
 #include <algorithm>
 
 namespace albinjohansson::wanderer {
@@ -26,12 +27,10 @@ void TileMapImpl::Interpolate(float alpha) {
 }
 
 TileMapBounds TileMapImpl::CalculateMapBounds(const FRectangle& bounds) const noexcept {
-  const int tileSize = Tile::SIZE;
-
-  auto minCol = static_cast<int>(bounds.GetX()) / tileSize;
-  auto minRow = static_cast<int>(bounds.GetY()) / tileSize;
-  auto maxCol = static_cast<int>((bounds.GetMaxX()) / tileSize) + 1;
-  auto maxRow = static_cast<int>((bounds.GetMaxY()) / tileSize) + 1;
+  auto minCol = static_cast<int>(bounds.GetX()) / TILE_SIZE_INT;
+  auto minRow = static_cast<int>(bounds.GetY()) / TILE_SIZE_INT;
+  auto maxCol = static_cast<int>((bounds.GetMaxX()) / TILE_SIZE_INT) + 1;
+  auto maxRow = static_cast<int>((bounds.GetMaxY()) / TILE_SIZE_INT) + 1;
 
   if (minCol < 0) {
     minCol = 0;
@@ -53,7 +52,7 @@ TileMapBounds TileMapImpl::CalculateMapBounds(const FRectangle& bounds) const no
 }
 
 void TileMapImpl::Tick(IWandererCore& core, const Viewport& viewport, float delta) {
-  const auto viewportBounds = viewport.GetBounds();
+  const auto& viewportBounds = viewport.GetBounds();
   const auto bounds = CalculateMapBounds(viewportBounds);
   const auto update = [&](auto& layer) { layer->Update(bounds); };
 
@@ -109,7 +108,7 @@ void TileMapImpl::RenderTilesAt(int row, int col, Renderer& renderer) {
   for (const auto& layer : groundLayers) {
     const auto id = layer->GetTileId(row, col);
     if (id != Tile::EMPTY) {
-      Vector2 pos(static_cast<float>(col) * Tile::SIZE, static_cast<float>(row) * Tile::SIZE);
+      Vector2 pos{static_cast<float>(col) * TILE_SIZE, static_cast<float>(row) * TILE_SIZE};
       tileSet->GetTile(id).Draw(pos, renderer, *tileSet);
     }
   }
@@ -159,11 +158,11 @@ int TileMapImpl::GetCols() const noexcept {
 }
 
 int TileMapImpl::GetWidth() const noexcept {
-  return nCols * Tile::SIZE_INT;
+  return nCols * TILE_SIZE_INT;
 }
 
 int TileMapImpl::GetHeight() const noexcept {
-  return nRows * Tile::SIZE_INT;
+  return nRows * TILE_SIZE_INT;
 }
 
 Vector2 TileMapImpl::GetPlayerSpawnPosition() const {

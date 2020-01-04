@@ -165,15 +165,6 @@ class Font final {
   std::string GetFamilyName() const;
 
   /**
-   * Returns a raw pointer to the internal TTF_Font instance.
-   *
-   * @return a raw pointer to the internal TTF_Font instance.
-   * @since 0.1.0
-   */
-  [[nodiscard]]
-  TTF_Font* GetInternalFont() noexcept;
-
-  /**
    * Returns the width of the supplied string, if it was rendered using the font.
    *
    * @param s the string to determine the width of.

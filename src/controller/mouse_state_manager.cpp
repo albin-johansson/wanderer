@@ -20,17 +20,18 @@ void MouseStateManager::Update() {
 
   oldX = mouseX;
   oldY = mouseY;
+
   auto newX = 0;
   auto newY = 0;
-  uint32_t mask = SDL_GetMouseState(&newX, &newY);
+  const auto mask = SDL_GetMouseState(&newX, &newY);
   mouseX = static_cast<float>(newX);
   mouseY = static_cast<float>(newY);
 
   leftPressed = mask & SDL_BUTTON(SDL_BUTTON_LEFT);
   rightPressed = mask & SDL_BUTTON(SDL_BUTTON_RIGHT);
 
-  auto adjustedX = (mouseX / windowWidth) * logicalWidth;
-  auto adjustedY = (mouseY / windowHeight) * logicalHeight;
+  const auto adjustedX = (mouseX / windowWidth) * logicalWidth;
+  const auto adjustedY = (mouseY / windowHeight) * logicalHeight;
   mouseX = adjustedX;
   mouseY = adjustedY;
 }

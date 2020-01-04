@@ -9,10 +9,10 @@ namespace albinjohansson::wanderer {
 AbstractEntity::AbstractEntity(const std::shared_ptr<Image>& sheet) {
   this->sheet = Require::NotNull(sheet);
   movable = std::make_unique<MovableDelegate>(DEPTH, SIZE, SIZE);
-  movable->AddHitbox(FRectangle(movable->GetX(),
+  movable->AddHitbox(FRectangle{movable->GetX(),
                                 movable->GetY(),
-                                {movable->GetWidth(),
-                                 movable->GetHeight()}), Vector2(0, 0));
+                                Area{movable->GetWidth(), movable->GetHeight()}},
+                     Vector2{});
   movable->SetBlocked(true);
 }
 
