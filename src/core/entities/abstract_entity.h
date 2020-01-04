@@ -37,7 +37,7 @@ class AbstractEntity : public virtual IEntity {
  public:
   ~AbstractEntity() override;
 
-  void Tick(IWandererCore& core, float delta) override;
+  void tick(IWandererCore& core, float delta) override;
 
   void UpdateAnimation() noexcept override;
 
@@ -49,32 +49,32 @@ class AbstractEntity : public virtual IEntity {
 
   void Hurt(int dmg) noexcept override;
 
-  void Move(Direction direction) noexcept override;
+  void move(Direction direction) noexcept override;
 
-  void Stop(Direction direction) noexcept override;
+  void stop(Direction direction) noexcept override;
 
-  void Stop() noexcept override;
+  void stop() noexcept override;
 
-  void Interpolate(float alpha) noexcept override;
+  void interpolate(float alpha) noexcept override;
 
-  void AddHitbox(const FRectangle& rectangle, const Vector2& offset) override;
+  void add_hitbox(const FRectangle& rectangle, const Vector2& offset) override;
 
-  void AddX(float dx) noexcept override;
+  void add_x(float dx) noexcept override;
 
-  void AddY(float dy) noexcept override;
+  void add_y(float dy) noexcept override;
 
-  void SetX(float x) noexcept override;
+  void set_x(float x) noexcept override;
 
-  void SetY(float y) noexcept override;
+  void set_y(float y) noexcept override;
 
-  void SetSpeed(float speed) noexcept override;
+  void set_speed(float speed) noexcept override;
 
-  void SetVelocity(const Vector2& velocity) noexcept override;
+  void set_velocity(const Vector2& velocity) noexcept override;
 
-  void SetBlocked(bool blocked) noexcept override;
+  void set_blocked(bool blocked) noexcept override;
 
   [[nodiscard]]
-  float GetSpeed() const noexcept override;
+  float get_speed() const noexcept override;
 
   [[nodiscard]]
   int GetAnimationFrame() const noexcept override;
@@ -92,40 +92,40 @@ class AbstractEntity : public virtual IEntity {
   bool IsDead() const noexcept override;
 
   [[nodiscard]]
-  bool WillIntersect(const IGameObject* other, float delta) const override;
+  bool will_intersect(const IGameObject* other, float delta) const override;
 
   [[nodiscard]]
-  Direction GetDominantDirection() const noexcept override;
+  Direction get_dominant_direction() const noexcept override;
 
   [[nodiscard]]
-  const Vector2& GetPreviousPosition() const noexcept override;
+  const Vector2& get_previous_position() const noexcept override;
 
   [[nodiscard]]
-  const Vector2& GetVelocity() const noexcept override;
+  const Vector2& get_velocity() const noexcept override;
 
   [[nodiscard]]
-  const Vector2& GetPosition() const noexcept override;
+  const Vector2& get_position() const noexcept override;
 
   [[nodiscard]]
-  const Vector2& GetInterpolatedPosition() const noexcept override;
+  const Vector2& get_interpolated_position() const noexcept override;
 
   [[nodiscard]]
-  Vector2 GetNextPosition(float delta) const noexcept override;
+  Vector2 get_next_position(float delta) const noexcept override;
 
   [[nodiscard]]
-  float GetX() const noexcept override;
+  float get_x() const noexcept override;
 
   [[nodiscard]]
-  float GetY() const noexcept override;
+  float get_y() const noexcept override;
 
   [[nodiscard]]
-  float GetWidth() const noexcept override;
+  float get_width() const noexcept override;
 
   [[nodiscard]]
-  float GetHeight() const noexcept override;
+  float get_height() const noexcept override;
 
   [[nodiscard]]
-  const Hitbox& GetHitbox() const noexcept override;
+  const Hitbox& get_hitbox() const noexcept override;
 
   [[nodiscard]]
   float GetCenterY() const noexcept override;
@@ -134,7 +134,7 @@ class AbstractEntity : public virtual IEntity {
   int GetDepth() const noexcept override;
 
   [[nodiscard]]
-  uint64_t GetUniqueID() const noexcept override;
+  uint64_t get_unique_id() const noexcept override;
 };
 
 static_assert(std::has_virtual_destructor_v<AbstractEntity>);

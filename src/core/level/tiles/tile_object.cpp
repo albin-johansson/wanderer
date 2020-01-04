@@ -12,15 +12,15 @@ namespace albinjohansson::wanderer {
 TileObject::TileObject(TileID id, const Vector2& position, const std::shared_ptr<TileSet>& tileSet)
     : position(position), id(id) {
   this->tileSet = Require::NotNull(tileSet);
-  centerY = GetY() + (GetHeight() / 2.0f);
+  centerY = get_y() + (get_height() / 2.0f);
   uniqueId = RandomUtils::GetRand();
-  hitbox.SetX(GetX());
-  hitbox.SetY(GetY());
+  hitbox.SetX(get_x());
+  hitbox.SetY(get_y());
 }
 
 TileObject::~TileObject() noexcept = default;
 
-void TileObject::Tick(IWandererCore&, float /*delta*/) {
+void TileObject::tick(IWandererCore&, float /*delta*/) {
   tileSet->Tick(id);
 }
 
@@ -37,15 +37,15 @@ void TileObject::SetDepth(int depth) noexcept {
 void TileObject::SetHitbox(const Hitbox& h) noexcept {
   this->hitbox = h;
 
-  hitbox.SetX(GetX());
-  hitbox.SetY(GetY());
+  hitbox.SetX(get_x());
+  hitbox.SetY(get_y());
 }
 
-float TileObject::GetX() const noexcept {
+float TileObject::get_x() const noexcept {
   return position.x;
 }
 
-float TileObject::GetY() const noexcept {
+float TileObject::get_y() const noexcept {
   return position.y;
 }
 
@@ -53,15 +53,15 @@ float TileObject::GetCenterY() const noexcept {
   return centerY;
 }
 
-float TileObject::GetWidth() const noexcept {
+float TileObject::get_width() const noexcept {
   return tileSize;
 }
 
-float TileObject::GetHeight() const noexcept {
+float TileObject::get_height() const noexcept {
   return tileSize;
 }
 
-const Hitbox& TileObject::GetHitbox() const noexcept {
+const Hitbox& TileObject::get_hitbox() const noexcept {
   return hitbox;
 }
 
@@ -69,15 +69,15 @@ int TileObject::GetDepth() const noexcept {
   return depth;
 }
 
-void TileObject::AddHitbox(const FRectangle& rectangle, const Vector2& offset) {
+void TileObject::add_hitbox(const FRectangle& rectangle, const Vector2& offset) {
   hitbox.AddRectangle(rectangle, offset);
 }
 
-uint64_t TileObject::GetUniqueID() const noexcept {
+uint64_t TileObject::get_unique_id() const noexcept {
   return uniqueId;
 }
 
-void TileObject::SetBlocked(bool blocked) noexcept {
+void TileObject::set_blocked(bool blocked) noexcept {
   hitbox.SetEnabled(blocked);
 }
 

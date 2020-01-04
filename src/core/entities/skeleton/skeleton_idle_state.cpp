@@ -15,7 +15,7 @@ SkeletonIdleState::~SkeletonIdleState() = default;
 void SkeletonIdleState::Tick(const IWandererCore& core, float /*delta*/) {
 
   auto& entity = idleDelegate.GetParent().GetEntity();
-  float distance = entity.GetPosition().DistanceTo(core.GetPlayer().GetPosition());
+  float distance = entity.get_position().DistanceTo(core.get_player().get_position());
 
   if (distance <= Skeleton::HOMING_RANGE || (TimeUtils::GetMillis() - enterTime) >= 2000) {
     idleDelegate.GetParent().SetState(EntityStateID::WALK, core);

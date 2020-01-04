@@ -26,10 +26,10 @@ void SmoothFixedTimestepLoop::UpdateInput(IWandererCore& core) {
   input->Update();
 
   if (input->WasQuitRequested() || input->WasReleased(SDL_SCANCODE_O)) {
-    core.Quit();
+    core.quit();
   }
 
-  core.HandleInput(*input);
+  core.handle_input(*input);
 }
 
 void SmoothFixedTimestepLoop::SmoothDelta() {
@@ -65,7 +65,7 @@ void SmoothFixedTimestepLoop::Update(IWandererCore& core, Renderer& renderer) {
 
   while (accumulator >= timeStep) {
     accumulator -= timeStep;
-    core.Update(timeStep);
+    core.update(timeStep);
   }
 
   float alpha = accumulator / timeStep;
@@ -76,7 +76,7 @@ void SmoothFixedTimestepLoop::Update(IWandererCore& core, Renderer& renderer) {
   renderer.SetColor(0, 0, 0);
   renderer.Clear();
 
-  core.Render(renderer, alpha);
+  core.render(renderer, alpha);
 
   renderer.Present();
 }

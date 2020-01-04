@@ -17,15 +17,15 @@ PlayerImpl::PlayerImpl(const std::shared_ptr<Image>& sheet) : AbstractEntity(she
 PlayerImpl::~PlayerImpl() = default;
 
 void PlayerImpl::Init() {
-  SetSpeed(playerSpeed);
+  set_speed(playerSpeed);
 }
 
 void PlayerImpl::HandleInput(const Input& input, const IWandererCore& core) {
   playerStateMachine->HandleInput(input, core);
 }
 
-void PlayerImpl::Tick(IWandererCore& core, float delta) {
-  AbstractEntity::Tick(core, delta);
+void PlayerImpl::tick(IWandererCore& core, float delta) {
+  AbstractEntity::tick(core, delta);
   playerStateMachine->Tick(core, delta);
 }
 

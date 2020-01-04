@@ -41,7 +41,7 @@ class TileObject final : public IGameObject {
 
   ~TileObject() noexcept override;
 
-  void Tick(IWandererCore& core, float delta) override;
+  void tick(IWandererCore& core, float delta) override;
 
   void Draw(const Renderer& renderer, const Viewport& viewport) const override;
 
@@ -49,15 +49,15 @@ class TileObject final : public IGameObject {
 
   void SetHitbox(const Hitbox& hitbox) noexcept;
 
-  void AddHitbox(const FRectangle& rectangle, const Vector2& offset) override;
+  void add_hitbox(const FRectangle& rectangle, const Vector2& offset) override;
 
-  void SetBlocked(bool blocked) noexcept override;
-
-  [[nodiscard]]
-  float GetX() const noexcept override;
+  void set_blocked(bool blocked) noexcept override;
 
   [[nodiscard]]
-  float GetY() const noexcept override;
+  float get_x() const noexcept override;
+
+  [[nodiscard]]
+  float get_y() const noexcept override;
 
   [[nodiscard]]
   float GetCenterY() const noexcept override;
@@ -66,16 +66,16 @@ class TileObject final : public IGameObject {
   int GetDepth() const noexcept override;
 
   [[nodiscard]]
-  float GetWidth() const noexcept override;
+  float get_width() const noexcept override;
 
   [[nodiscard]]
-  float GetHeight() const noexcept override;
+  float get_height() const noexcept override;
 
   [[nodiscard]]
-  const Hitbox& GetHitbox() const noexcept override;
+  const Hitbox& get_hitbox() const noexcept override;
 
   [[nodiscard]]
-  uint64_t GetUniqueID() const noexcept override;
+  uint64_t get_unique_id() const noexcept override;
 };
 
 }

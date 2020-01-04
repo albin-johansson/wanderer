@@ -22,7 +22,7 @@ TileMapImpl::~TileMapImpl() = default;
 
 void TileMapImpl::Interpolate(float alpha) {
   for (auto& entity : entityManager.GetCloseEntities()) {
-    entity->Interpolate(alpha);
+    entity->interpolate(alpha);
   }
 }
 
@@ -72,7 +72,7 @@ void TileMapImpl::Tick(IWandererCore& core, const Viewport& viewport, float delt
   }
 
   for (const auto& object : activeObjects) {
-    object->Tick(core, delta);
+    object->tick(core, delta);
   }
 }
 
@@ -137,11 +137,11 @@ bool TileMapImpl::IsBlocked(const IMovableObject* self, float delta) const {
   }
 
   for (auto other : activeObjects) {
-    if (other->GetUniqueID() == self->GetUniqueID()) {
+    if (other->get_unique_id() == self->get_unique_id()) {
       continue;
     }
 
-    if (self->WillIntersect(other, delta)) {
+    if (self->will_intersect(other, delta)) {
       return true;
     }
   }

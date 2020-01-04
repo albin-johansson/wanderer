@@ -18,7 +18,7 @@ WandererControllerImpl::WandererControllerImpl() {
 
 #ifdef NDEBUG
   window = std::make_unique<Window>("Wanderer", desktop.w, desktop.h);
-  window->SetFullscreen(true);
+  window->set_fullscreen(true);
 #else
   window = std::make_unique<Window>("Wanderer", 1280, 720);
   window->set_fullscreen(false);
@@ -31,8 +31,8 @@ WandererControllerImpl::WandererControllerImpl() {
 
   ImageGenerator imageGenerator{renderer};
   core = CreateCore(imageGenerator);
-  core->SetViewportWidth(gameLogicalWidth);
-  core->SetViewportHeight(gameLogicalHeight);
+  core->set_viewport_width(gameLogicalWidth);
+  core->set_viewport_height(gameLogicalHeight);
 
   auto mouseStateManager = std::make_unique<MouseStateManager>();
   mouseStateManager->SetLogicalWidth(gameLogicalWidth);
@@ -60,7 +60,7 @@ void WandererControllerImpl::InitIcon() {
 void WandererControllerImpl::Run() {
   window->show();
 
-  while (!core->ShouldQuit()) {
+  while (!core->should_quit()) {
     gameLoop->Update(*core, *renderer);
   }
 

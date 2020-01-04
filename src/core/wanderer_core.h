@@ -25,7 +25,7 @@ class IWandererCore {
    * @param input a reference to the input state object.
    * @since 0.1.0
    */
-  virtual void HandleInput(const Input& input) = 0;
+  virtual void handle_input(const Input& input) = 0;
 
   /**
    * Updates the state of the core.
@@ -33,7 +33,7 @@ class IWandererCore {
    * @param delta the delta time, in seconds.
    * @since 0.1.0
    */
-  virtual void Update(float delta) = 0;
+  virtual void update(float delta) = 0;
 
   /**
    * Renders the components in the core model using interpolation.
@@ -42,7 +42,7 @@ class IWandererCore {
    * @param alpha the interpolation coefficient, in the range [0, 1].
    * @since 0.1.0
    */
-  virtual void Render(Renderer& renderer, float alpha) = 0;
+  virtual void render(Renderer& renderer, float alpha) = 0;
 
   /**
    * Sets the currently active map.
@@ -50,7 +50,7 @@ class IWandererCore {
    * @param map the map that should be made active.
    * @since 0.1.0
    */
-  virtual void SetMap(std::shared_ptr<ITileMap> map) = 0;
+  virtual void set_map(std::shared_ptr<ITileMap> map) = 0;
 
   /**
    * Plays a sound.
@@ -58,14 +58,14 @@ class IWandererCore {
    * @param id the ID of the sound that will be played.
    * @since 0.1.0
    */
-  virtual void PlaySound(const std::string& id) const = 0;
+  virtual void play_sound(const std::string& id) const = 0;
 
   /**
    * Enables the hint that the game should quit as soon as possible.
    *
    * @since 0.1.0
    */
-  virtual void Quit() noexcept = 0;
+  virtual void quit() noexcept = 0;
 
   /**
    * Sets the width of the viewport.
@@ -73,7 +73,7 @@ class IWandererCore {
    * @param width the new width of the viewport.
    * @since 0.1.0
    */
-  virtual void SetViewportWidth(float width) = 0;
+  virtual void set_viewport_width(float width) = 0;
 
   /**
    * Sets the height of the viewport.
@@ -81,7 +81,7 @@ class IWandererCore {
    * @param height the new height of the viewport.
    * @since 0.1.0
    */
-  virtual void SetViewportHeight(float height) = 0;
+  virtual void set_viewport_height(float height) = 0;
 
   /**
    * Indicates whether or not the game should quit.
@@ -90,7 +90,7 @@ class IWandererCore {
    * @since 0.1.0
    */
   [[nodiscard]]
-  virtual bool ShouldQuit() const noexcept = 0;
+  virtual bool should_quit() const noexcept = 0;
 
   /**
    * Returns a reference to the player.
@@ -99,7 +99,7 @@ class IWandererCore {
    * @since 0.1.0
    */
   [[nodiscard]]
-  virtual const IPlayer& GetPlayer() const = 0;
+  virtual const IPlayer& get_player() const = 0;
 
   /**
    * Returns the currently active map.
@@ -108,7 +108,7 @@ class IWandererCore {
    * @since 0.1.0
    */
   [[nodiscard]]
-  virtual const ITileMap& GetActiveMap() const = 0;
+  virtual const ITileMap& get_active_map() const = 0;
 };
 
 }

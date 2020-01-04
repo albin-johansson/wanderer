@@ -30,7 +30,7 @@ class PlayerImpl final : public AbstractEntity, public IPlayer {
 
   ~PlayerImpl() override;
 
-  void Tick(IWandererCore& core, float delta) override;
+  void tick(IWandererCore& core, float delta) override;
 
   void HandleInput(const Input& input, const IWandererCore& core) override;
 

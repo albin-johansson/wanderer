@@ -27,7 +27,7 @@ class IMovableObject : public virtual IGameObject {
    * up to two different directions at once).
    * @since 0.1.0
    */
-  virtual void Move(Direction direction) noexcept = 0;
+  virtual void move(Direction direction) noexcept = 0;
 
   /**
    * Stops the movement of the object in the specified direction. Note! This doesn't necessarily
@@ -36,14 +36,14 @@ class IMovableObject : public virtual IGameObject {
    * @param direction the direction in which movement should be ceased.
    * @since 0.1.0
    */
-  virtual void Stop(Direction direction) noexcept = 0;
+  virtual void stop(Direction direction) noexcept = 0;
 
   /**
    * Ceases any movement of the object.
    *
    * @since 0.1.0
    */
-  virtual void Stop() noexcept = 0;
+  virtual void stop() noexcept = 0;
 
   /**
    * Interpolates the previous position of the object with the current position. Use the
@@ -52,7 +52,7 @@ class IMovableObject : public virtual IGameObject {
    * @param alpha the interpolation coefficient, in the range [0, 1].
    * @since 0.1.0
    */
-  virtual void Interpolate(float alpha) noexcept = 0;
+  virtual void interpolate(float alpha) noexcept = 0;
 
   /**
    * Adds the supplied offset to the x-coordinate of the object.
@@ -60,7 +60,7 @@ class IMovableObject : public virtual IGameObject {
    * @param dx the x-axis offset, may be negative.
    * @since 0.1.0
    */
-  virtual void AddX(float dx) noexcept = 0;
+  virtual void add_x(float dx) noexcept = 0;
 
   /**
    * Adds the supplied offset to the y-coordinate of the object.
@@ -68,7 +68,7 @@ class IMovableObject : public virtual IGameObject {
    * @param dy the y-axis offset, may be negative.
    * @since 0.1.0
    */
-  virtual void AddY(float dy) noexcept = 0;
+  virtual void add_y(float dy) noexcept = 0;
 
   /**
    * Sets the x-coordinate of the object.
@@ -76,7 +76,7 @@ class IMovableObject : public virtual IGameObject {
    * @param x the new x-coordinate of the object.
    * @since 0.1.0
    */
-  virtual void SetX(float x) noexcept = 0;
+  virtual void set_x(float x) noexcept = 0;
 
   /**
    * Sets the y-coordinate of the object.
@@ -84,7 +84,7 @@ class IMovableObject : public virtual IGameObject {
    * @param y the new y-coordinate of the object.
    * @since 0.1.0
    */
-  virtual void SetY(float y) noexcept = 0;
+  virtual void set_y(float y) noexcept = 0;
 
   /**
    * Sets the total speed of the movable.
@@ -92,7 +92,7 @@ class IMovableObject : public virtual IGameObject {
    * @param speed the new total speed of the movable.
    * @since 0.1.0
    */
-  virtual void SetSpeed(float speed) noexcept = 0;
+  virtual void set_speed(float speed) noexcept = 0;
 
   /**
    * Sets the current velocity of the movable.
@@ -100,10 +100,10 @@ class IMovableObject : public virtual IGameObject {
    * @param velocity the vector that represents the new velocity.
    * @since 0.1.0
    */
-  virtual void SetVelocity(const Vector2& velocity) noexcept = 0;
+  virtual void set_velocity(const Vector2& velocity) noexcept = 0;
 
   [[nodiscard]]
-  virtual bool WillIntersect(const IGameObject* other, float delta) const = 0;
+  virtual bool will_intersect(const IGameObject* other, float delta) const = 0;
 
   /**
    * Returns the movement speed of the movable. Note! This is not the same as the velocity
@@ -113,7 +113,7 @@ class IMovableObject : public virtual IGameObject {
    * @since 0.1.0
    */
   [[nodiscard]]
-  virtual float GetSpeed() const noexcept = 0;
+  virtual float get_speed() const noexcept = 0;
 
   /**
    * Returns the dominant direction of the movable object.
@@ -122,7 +122,7 @@ class IMovableObject : public virtual IGameObject {
    * @since 0.1.0
    */
   [[nodiscard]]
-  virtual Direction GetDominantDirection() const noexcept = 0;
+  virtual Direction get_dominant_direction() const noexcept = 0;
 
   /**
    * Returns the previous position of the movable object.
@@ -131,7 +131,7 @@ class IMovableObject : public virtual IGameObject {
    * @since 0.1.0
    */
   [[nodiscard]]
-  virtual const Vector2& GetPreviousPosition() const noexcept = 0;
+  virtual const Vector2& get_previous_position() const noexcept = 0;
 
   /**
    * Returns the current velocity of the object.
@@ -140,7 +140,7 @@ class IMovableObject : public virtual IGameObject {
    * @since 0.1.0
    */
   [[nodiscard]]
-  virtual const Vector2& GetVelocity() const noexcept = 0;
+  virtual const Vector2& get_velocity() const noexcept = 0;
 
   /**
    * Returns the current position of the object.
@@ -149,7 +149,7 @@ class IMovableObject : public virtual IGameObject {
    * @since 0.1.0
    */
   [[nodiscard]]
-  virtual const Vector2& GetPosition() const noexcept = 0;
+  virtual const Vector2& get_position() const noexcept = 0;
 
   /**
    * Returns the interpolated position of the object.
@@ -158,7 +158,7 @@ class IMovableObject : public virtual IGameObject {
    * @since 0.1.0
    */
   [[nodiscard]]
-  virtual const Vector2& GetInterpolatedPosition() const noexcept = 0;
+  virtual const Vector2& get_interpolated_position() const noexcept = 0;
 
   /**
    * Returns the calculated next position of the movable object.
@@ -168,7 +168,7 @@ class IMovableObject : public virtual IGameObject {
    * @since 0.1.0
    */
   [[nodiscard]]
-  virtual Vector2 GetNextPosition(float delta) const noexcept = 0;
+  virtual Vector2 get_next_position(float delta) const noexcept = 0;
 };
 
 static_assert(std::has_virtual_destructor_v<IMovableObject>);

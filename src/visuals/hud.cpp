@@ -11,7 +11,7 @@ HUD::HUD() = default;
 HUD::~HUD() = default;
 
 void HUD::DrawHealthBar(Renderer& renderer, IWandererCore& core) const {
-  const auto& player = core.GetPlayer();
+  const auto& player = core.get_player();
 
   const auto hp = player.GetHealth();
   const auto hpBarWidth = (hp / playerMaxHealth) * 100;

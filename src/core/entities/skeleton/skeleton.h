@@ -20,7 +20,7 @@ class Skeleton final : public AbstractEntity {
 
   ~Skeleton() override;
 
-  void Tick(IWandererCore& core, float delta) override;
+  void tick(IWandererCore& core, float delta) override;
 
   void Draw(const Renderer& renderer, const Viewport& viewport) const override;
 

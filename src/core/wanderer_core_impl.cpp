@@ -27,8 +27,8 @@ WandererCoreImpl::WandererCoreImpl(ImageGenerator& imageGenerator) {
   activeMap = world;
 
   const auto[playerX, playerY] = activeMap->GetPlayerSpawnPosition();
-  player->SetX(playerX);
-  player->SetY(playerY);
+  player->set_x(playerX);
+  player->set_y(playerY);
 
   InitViewport();
 
@@ -44,28 +44,28 @@ void WandererCoreImpl::InitViewport() {
   viewport.SetWidth(gameLogicalWidth);
   viewport.SetHeight(gameLogicalHeight);
 
-  viewport.Center(player->GetX(),
-                  player->GetY(),
-                  Area{player->GetWidth(), player->GetHeight()});
+  viewport.Center(player->get_x(),
+                  player->get_y(),
+                  Area{player->get_width(), player->get_height()});
 }
 
-void WandererCoreImpl::HandleInput(const Input& input) {
+void WandererCoreImpl::handle_input(const Input& input) {
   menuStateMachine->HandleInput(input);
   if (!menuStateMachine->GetMenu().IsBlocking()) {
     player->HandleInput(input, *this);
   }
 }
 
-void WandererCoreImpl::Update(float delta) {
+void WandererCoreImpl::update(float delta) {
   if (!menuStateMachine->GetMenu().IsBlocking()) {
     activeMap->Tick(*this, viewport, delta);
 
-    const auto[ix, iy] = player->GetInterpolatedPosition();
-    viewport.Track(ix, iy, Area{player->GetWidth(), player->GetHeight()}, delta);
+    const auto[ix, iy] = player->get_interpolated_position();
+    viewport.Track(ix, iy, Area{player->get_width(), player->get_height()}, delta);
   }
 }
 
-void WandererCoreImpl::Render(Renderer& renderer, float alpha) {
+void WandererCoreImpl::render(Renderer& renderer, float alpha) {
   renderer.SetTranslationViewport(viewport);
 
   activeMap->Draw(renderer, viewport, alpha);
@@ -73,44 +73,44 @@ void WandererCoreImpl::Render(Renderer& renderer, float alpha) {
   menuStateMachine->Draw(renderer, viewport);
 }
 
-void WandererCoreImpl::SetViewportWidth(float width) {
+void WandererCoreImpl::set_viewport_width(float width) {
   viewport.SetWidth(width);
 }
 
-void WandererCoreImpl::SetViewportHeight(float height) {
+void WandererCoreImpl::set_viewport_height(float height) {
   viewport.SetHeight(height);
 }
 
-void WandererCoreImpl::Quit() noexcept {
+void WandererCoreImpl::quit() noexcept {
   shouldQuit = true;
 }
 
-void WandererCoreImpl::PlaySound(const std::string& id) const {
+void WandererCoreImpl::play_sound(const std::string& id) const {
   soundEngine->Play(id);
 }
 
-void WandererCoreImpl::SetMap(std::shared_ptr<ITileMap> map) {
+void WandererCoreImpl::set_map(std::shared_ptr<ITileMap> map) {
   if (map) {
     activeMap = map;
 
     const auto[px, py] = map->GetPlayerSpawnPosition();
-    player->SetX(px);
-    player->SetY(py);
+    player->set_x(px);
+    player->set_y(py);
 
     viewport.SetLevelWidth(static_cast<float>(map->GetWidth()));
     viewport.SetLevelHeight(static_cast<float>(map->GetHeight()));
   }
 }
 
-bool WandererCoreImpl::ShouldQuit() const noexcept {
+bool WandererCoreImpl::should_quit() const noexcept {
   return shouldQuit;
 }
 
-const IPlayer& WandererCoreImpl::GetPlayer() const {
+const IPlayer& WandererCoreImpl::get_player() const {
   return *player;
 }
 
-const ITileMap& WandererCoreImpl::GetActiveMap() const {
+const ITileMap& WandererCoreImpl::get_active_map() const {
   return *activeMap;
 }
 

@@ -16,7 +16,7 @@ void EntityManager::CalculateCloseEntities(const FRectangle& bounds) {
   closeEntities.clear();
 
   for (const auto& entity : entities) {
-    if (entity->GetHitbox().Intersects(bounds)) {
+    if (entity->get_hitbox().Intersects(bounds)) {
       closeEntities.push_back(entity.get());
     }
   }

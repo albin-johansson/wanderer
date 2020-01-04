@@ -18,8 +18,8 @@ EntityMoveDelegate::~EntityMoveDelegate() = default;
 void EntityMoveDelegate::Draw(const Renderer& renderer, const Viewport&) const {
   IEntity& entity = parent->GetEntity();
 
-  auto srcX = entity.GetVelocity().IsZero() ? 0 : entity.GetAnimationFrame() * 64;
-  auto srcY = EntitySheet::GetSourceY(512, entity.GetDominantDirection());
+  auto srcX = entity.get_velocity().IsZero() ? 0 : entity.GetAnimationFrame() * 64;
+  auto srcY = EntitySheet::GetSourceY(512, entity.get_dominant_direction());
   EntityDrawDelegate::Draw(renderer, entity, srcX, srcY);
 }
 
@@ -44,9 +44,9 @@ void EntityMoveDelegate::UpdateAnimation() {
 
 void EntityMoveDelegate::UpdatePosition(float delta) {
   auto& entity = parent->GetEntity();
-  auto[velocityX, velocityY] = entity.GetVelocity();
-  entity.AddX(velocityX * delta);
-  entity.AddY(velocityY * delta);
+  auto[velocityX, velocityY] = entity.get_velocity();
+  entity.add_x(velocityX * delta);
+  entity.add_y(velocityY * delta);
 }
 
 IEntityStateMachine& EntityMoveDelegate::GetParent() noexcept { return *parent; }

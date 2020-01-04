@@ -25,21 +25,21 @@ void PlayerMovingState::CheckPressed(const Input& input) {
   IEntity& entity = moveDelegate.GetParent().GetEntity();
 
   if (left && right) {
-    entity.Stop(Direction::Left);
-    entity.Stop(Direction::Right);
+    entity.stop(Direction::Left);
+    entity.stop(Direction::Right);
   } else if (left) {
-    entity.Move(Direction::Left);
+    entity.move(Direction::Left);
   } else if (right) {
-    entity.Move(Direction::Right);
+    entity.move(Direction::Right);
   }
 
   if (up && down) {
-    entity.Stop(Direction::Up);
-    entity.Stop(Direction::Down);
+    entity.stop(Direction::Up);
+    entity.stop(Direction::Down);
   } else if (up) {
-    entity.Move(Direction::Up);
+    entity.move(Direction::Up);
   } else if (down) {
-    entity.Move(Direction::Down);
+    entity.move(Direction::Down);
   }
 
   areMoveKeysDown = up || down || right || left;
@@ -53,19 +53,19 @@ void PlayerMovingState::CheckReleased(const Input& input) {
   auto& entity = moveDelegate.GetParent().GetEntity();
 
   if (left) {
-    entity.Stop(Direction::Left);
+    entity.stop(Direction::Left);
   }
 
   if (right) {
-    entity.Stop(Direction::Right);
+    entity.stop(Direction::Right);
   }
 
   if (up) {
-    entity.Stop(Direction::Up);
+    entity.stop(Direction::Up);
   }
 
   if (down) {
-    entity.Stop(Direction::Down);
+    entity.stop(Direction::Down);
   }
 }
 
@@ -75,7 +75,7 @@ void PlayerMovingState::HandleInput(const Input& input, const IWandererCore& cor
   CheckPressed(input);
   CheckReleased(input);
 
-  if (!areMoveKeysDown && moveDelegate.GetParent().GetEntity().GetVelocity().IsZero()) {
+  if (!areMoveKeysDown && moveDelegate.GetParent().GetEntity().get_velocity().IsZero()) {
     parent->SetState(EntityStateID::IDLE, core);
   } else if (input.IsPressed(SDL_SCANCODE_SPACE)) {
     parent->SetState(EntityStateID::ATTACK, core);
@@ -87,11 +87,11 @@ void PlayerMovingState::Tick(const IWandererCore& core, float delta) {
 
   auto& player = moveDelegate.GetParent().GetEntity();
 
-  if (core.GetActiveMap().IsBlocked(&player, delta)) {
+  if (core.get_active_map().IsBlocked(&player, delta)) {
 
-    const auto& prevPos = player.GetPreviousPosition();
-    player.SetX(prevPos.x);
-    player.SetY(prevPos.y);
+    const auto& prevPos = player.get_previous_position();
+    player.set_x(prevPos.x);
+    player.set_y(prevPos.y);
 
     // TODO set position of entity to be next to the blocking object
 

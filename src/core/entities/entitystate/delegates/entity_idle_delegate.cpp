@@ -16,14 +16,14 @@ EntityIdleDelegate::~EntityIdleDelegate() = default;
 void EntityIdleDelegate::Draw(const Renderer& renderer, const Viewport&) const {
   IEntity& entity = parent->GetEntity();
 
-  const auto srcY = EntitySheet::GetSourceY(512, entity.GetDominantDirection());
+  const auto srcY = EntitySheet::GetSourceY(512, entity.get_dominant_direction());
   EntityDrawDelegate::Draw(renderer, entity, 0, srcY);
 }
 
 void EntityIdleDelegate::Enter(const IWandererCore&) {
   auto& entity = parent->GetEntity();
 
-  entity.Stop();
+  entity.stop();
   entity.SetAnimationFrame(0);
 }
 

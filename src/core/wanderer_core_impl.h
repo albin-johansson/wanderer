@@ -43,30 +43,30 @@ class WandererCoreImpl final : public IWandererCore {
    */
   friend std::unique_ptr<IWandererCore> CreateCore(ImageGenerator& imageGenerator);
 
-  void HandleInput(const Input& input) override;
+  void handle_input(const Input& input) override;
 
-  void Update(float delta) override;
+  void update(float delta) override;
 
-  void Render(Renderer& renderer, float alpha) override;
+  void render(Renderer& renderer, float alpha) override;
 
-  void SetMap(std::shared_ptr<ITileMap> map) override;
+  void set_map(std::shared_ptr<ITileMap> map) override;
 
-  void PlaySound(const std::string& id) const override;
+  void play_sound(const std::string& id) const override;
 
-  void Quit() noexcept override;
+  void quit() noexcept override;
 
-  void SetViewportWidth(float width) override;
+  void set_viewport_width(float width) override;
 
-  void SetViewportHeight(float height) override;
-
-  [[nodiscard]]
-  bool ShouldQuit() const noexcept override;
+  void set_viewport_height(float height) override;
 
   [[nodiscard]]
-  const IPlayer& GetPlayer() const override;
+  bool should_quit() const noexcept override;
 
   [[nodiscard]]
-  const ITileMap& GetActiveMap() const override;
+  const IPlayer& get_player() const override;
+
+  [[nodiscard]]
+  const ITileMap& get_active_map() const override;
 };
 
 }

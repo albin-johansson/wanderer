@@ -17,19 +17,19 @@ EntityAttackDelegate::~EntityAttackDelegate() = default;
 void EntityAttackDelegate::Draw(const Renderer& renderer, const Viewport&) const {
   auto& entity = parent->GetEntity();
   auto srcX = entity.GetAnimationFrame() * 64;
-  auto srcY = EntitySheet::GetSourceY(SOURCE_MELEE_Y, entity.GetDominantDirection());
+  auto srcY = EntitySheet::GetSourceY(SOURCE_MELEE_Y, entity.get_dominant_direction());
   EntityDrawDelegate::Draw(renderer, entity, srcX, srcY);
 }
 
 void EntityAttackDelegate::Enter(const IWandererCore& core) {
   IEntity& entity = parent->GetEntity();
-  entity.Stop();
+  entity.stop();
 
   // TODO determine what kind of animation to use from the entity's weapon
   entity.SetAnimationFrameAmount(MELEE_FRAMES);
   entity.SetAnimationFrame(0);
   entity.SetAnimationDelay(65);
-  core.PlaySound("swing");
+  core.play_sound("swing");
 }
 
 void EntityAttackDelegate::Exit(const IWandererCore&) {}

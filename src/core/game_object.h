@@ -29,9 +29,9 @@ class IGameObject : public virtual ISortableDrawable {
    * @param delta the delta time, in seconds.
    * @since 0.1.0
    */
-  virtual void Tick(IWandererCore& core, float delta) = 0;
+  virtual void tick(IWandererCore& core, float delta) = 0;
 
-  virtual void AddHitbox(const FRectangle& rectangle, const Vector2& offset) = 0;
+  virtual void add_hitbox(const FRectangle& rectangle, const Vector2& offset) = 0;
 
   /**
    * Sets whether or not the game object can block other game objects.
@@ -39,7 +39,7 @@ class IGameObject : public virtual ISortableDrawable {
    * @param blocked true if the object is blocking; false otherwise.
    * @since 0.1.0
    */
-  virtual void SetBlocked(bool blocked) noexcept = 0;
+  virtual void set_blocked(bool blocked) noexcept = 0;
 
   /**
    * Returns the x-coordinate of the object.
@@ -48,7 +48,7 @@ class IGameObject : public virtual ISortableDrawable {
    * @since 0.1.0
    */
   [[nodiscard]]
-  virtual float GetX() const noexcept = 0;
+  virtual float get_x() const noexcept = 0;
 
   /**
    * Returns the y-coordinate of the object.
@@ -57,7 +57,7 @@ class IGameObject : public virtual ISortableDrawable {
    * @since 0.1.0
    */
   [[nodiscard]]
-  virtual float GetY() const noexcept = 0;
+  virtual float get_y() const noexcept = 0;
 
   /**
    * Returns the width of the object.
@@ -66,7 +66,7 @@ class IGameObject : public virtual ISortableDrawable {
    * @since 0.1.0
    */
   [[nodiscard]]
-  virtual float GetWidth() const noexcept = 0;
+  virtual float get_width() const noexcept = 0;
 
   /**
    * Returns the height of the object.
@@ -75,7 +75,7 @@ class IGameObject : public virtual ISortableDrawable {
    * @since 0.1.0
    */
   [[nodiscard]]
-  virtual float GetHeight() const noexcept = 0;
+  virtual float get_height() const noexcept = 0;
 
   /**
    * Returns the hitbox of the object.
@@ -84,10 +84,10 @@ class IGameObject : public virtual ISortableDrawable {
    * @since 0.1.0
    */
   [[nodiscard]]
-  virtual const Hitbox& GetHitbox() const noexcept = 0;
+  virtual const Hitbox& get_hitbox() const noexcept = 0;
 
   [[nodiscard]]
-  virtual uint64_t GetUniqueID() const noexcept = 0;
+  virtual uint64_t get_unique_id() const noexcept = 0;
 };
 
 static_assert(std::has_virtual_destructor_v<IGameObject>);
