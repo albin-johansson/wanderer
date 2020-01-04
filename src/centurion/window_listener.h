@@ -21,7 +21,6 @@ class IWindowListener {
    * @since 0.1.0
    */
   virtual void window_updated(const Window& window) noexcept = 0;
-
 };
 
 }

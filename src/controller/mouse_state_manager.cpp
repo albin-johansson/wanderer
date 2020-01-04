@@ -25,7 +25,7 @@ void MouseStateManager::update() {
 
   auto newX = 0;
   auto newY = 0;
-  const auto mask = SDL_GetMouseState(&newX, &newY);
+  const uint32_t mask = SDL_GetMouseState(&newX, &newY);
   mouseX = static_cast<float>(newX);
   mouseY = static_cast<float>(newY);
 
@@ -43,7 +43,7 @@ void MouseStateManager::set_logical_width(int width) {
 }
 
 void MouseStateManager::set_logical_height(int height) {
-  logicalHeight = static_cast<float>(logicalHeight);
+  logicalHeight = static_cast<float>(height);
 }
 
 float MouseStateManager::get_mouse_x() const noexcept {

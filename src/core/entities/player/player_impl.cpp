@@ -22,7 +22,7 @@ void PlayerImpl::Init() {
   set_speed(playerSpeed);
 }
 
-void PlayerImpl::HandleInput(const Input& input, const IWandererCore& core) {
+void PlayerImpl::handle_input(const Input& input, const IWandererCore& core) {
   playerStateMachine->HandleInput(input, core);
 }
 

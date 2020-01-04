@@ -15,7 +15,7 @@ void SettingsMenu::draw(Renderer& renderer,
                         const FontBundle& fonts) const {
   AbstractMenu::draw(renderer, viewport, fonts);
 
-  renderer.SetColor(0xFF, 0xFF, 0xFF);
+  renderer.set_color(0xFF, 0xFF, 0xFF);
 //  renderer.RenderText("Settings", 500, 100);
 }
 

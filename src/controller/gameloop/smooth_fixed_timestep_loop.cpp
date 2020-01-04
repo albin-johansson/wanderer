@@ -75,12 +75,12 @@ void SmoothFixedTimestepLoop::update(IWandererCore& core, Renderer& renderer) {
     alpha = 1.0f;
   }
 
-  renderer.SetColor(0, 0, 0);
-  renderer.Clear();
+  renderer.set_color(0, 0, 0);
+  renderer.clear();
 
   core.render(renderer, alpha);
 
-  renderer.Present();
+  renderer.present();
 }
 
 }

@@ -58,14 +58,14 @@ class Renderer final {
    *
    * @since 0.1.0
    */
-  void Clear() const noexcept;
+  void clear() const noexcept;
 
   /**
    * Applies the previous rendering calls to the rendering target.
    *
    * @since 0.1.0
    */
-  void Present() const noexcept;
+  void present() const noexcept;
 
   /**
    * Renders a texture.
@@ -75,9 +75,9 @@ class Renderer final {
    * @param y the y-coordinate of the rendered texture.
    * @since 0.1.0
    */
-  void RenderTexture(const Image& texture, int x, int y) const noexcept;
+  void draw_image(const Image& texture, int x, int y) const noexcept;
 
-  void RenderTexture(const Image& texture, float x, float y) const noexcept;
+  void draw_image(const Image& texture, float x, float y) const noexcept;
 
   /**
    * Renders a texture. This method has no effect if the supplied width and/or height isn't
@@ -90,7 +90,7 @@ class Renderer final {
    * @param height the height of the rendered texture.
    * @since 0.1.0
    */
-  void RenderTexture(const Image& texture, int x, int y, int width, int height) const noexcept;
+  void draw_image(const Image& texture, int x, int y, int width, int height) const noexcept;
 
   /**
    * Renders a texture. This method has no effect if the supplied width and/or height isn't greater
@@ -103,31 +103,19 @@ class Renderer final {
    * @param height the height of the rendered texture.
    * @since 0.1.0
    */
-  void RenderTexture(const Image& texture,
-                     float x,
-                     float y,
-                     float width,
-                     float height) const noexcept;
+  void draw_image(const Image& texture,
+                  float x,
+                  float y,
+                  float width,
+                  float height) const noexcept;
 
-  void RenderTexture(const Image& texture,
-                     const albinjohansson::wanderer::Rectangle& source,
-                     const albinjohansson::wanderer::FRectangle& destination) const noexcept;
+  void draw_image(const Image& texture,
+                  const albinjohansson::wanderer::Rectangle& source,
+                  const albinjohansson::wanderer::FRectangle& destination) const noexcept;
 
-  void RenderTextureTranslated(const Image& texture,
-                               const albinjohansson::wanderer::Rectangle& source,
-                               const albinjohansson::wanderer::FRectangle& destination) const noexcept;
-
-  /**
-   * Renders a filled rectangle with the currently selected color. This method has no effect if the
-   * supplied width and/or height isn't greater than zero.
-   *
-   * @param x the x-coordinate of the rendered rectangle.
-   * @param y the y-coordinate of the rendered rectangle.
-   * @param width the width of the rendered rectangle.
-   * @param height the height of the rendered rectangle.
-   * @since 0.1.0
-   */
-  void RenderFillRect(int x, int y, int width, int height) const noexcept;
+  void draw_image_translated(const Image& texture,
+                             const albinjohansson::wanderer::Rectangle& source,
+                             const albinjohansson::wanderer::FRectangle& destination) const noexcept;
 
   /**
    * Renders a filled rectangle with the currently selected color. This method has no effect if the
@@ -139,7 +127,19 @@ class Renderer final {
    * @param height the height of the rendered rectangle.
    * @since 0.1.0
    */
-  void RenderFillRect(float x, float y, float width, float height) const noexcept;
+  void fill_rect(int x, int y, int width, int height) const noexcept;
+
+  /**
+   * Renders a filled rectangle with the currently selected color. This method has no effect if the
+   * supplied width and/or height isn't greater than zero.
+   *
+   * @param x the x-coordinate of the rendered rectangle.
+   * @param y the y-coordinate of the rendered rectangle.
+   * @param width the width of the rendered rectangle.
+   * @param height the height of the rendered rectangle.
+   * @since 0.1.0
+   */
+  void fill_rect(float x, float y, float width, float height) const noexcept;
 
   /**
    * Renders an outlined rectangle with the currently selected color. This method has no effect if
@@ -151,7 +151,7 @@ class Renderer final {
    * @param height the height of the rendered rectangle.
    * @since 0.1.0
    */
-  void RenderRect(float x, float y, float width, float height) const noexcept;
+  void draw_rect(float x, float y, float width, float height) const noexcept;
 
   /**
    * Renders an outlined rectangle with the currently selected color. This method has no effect if
@@ -163,9 +163,9 @@ class Renderer final {
    * @param height the height of the rendered rectangle.
    * @since 0.1.0
    */
-  void RenderRect(int x, int y, int width, int height) const noexcept;
+  void draw_rect(int x, int y, int width, int height) const noexcept;
 
-  void RenderText(const std::string& text, float x, float y, const Font& font) const;
+  void draw_text(const std::string& text, float x, float y, const Font& font) const;
 
   /**
    * Sets the color that will be used by the renderer.
@@ -176,10 +176,10 @@ class Renderer final {
    * @param alpha the alpha component value, in the range [0, 255]. Set to 255 by default.
    * @since 0.1.0
    */
-  void SetColor(uint8_t red,
-                uint8_t green,
-                uint8_t blue,
-                uint8_t alpha = SDL_ALPHA_OPAQUE) const noexcept; // FIXME const
+  void set_color(uint8_t red,
+                 uint8_t green,
+                 uint8_t blue,
+                 uint8_t alpha = SDL_ALPHA_OPAQUE) const noexcept; // FIXME const
 
   /**
    * Sets the viewport that will be used by the renderer.
@@ -187,11 +187,11 @@ class Renderer final {
    * @param viewport the viewport that will be used by the renderer.
    * @since 0.1.0
    */
-  void SetViewport(const albinjohansson::wanderer::FRectangle& viewport) noexcept;
+  void set_viewport(const albinjohansson::wanderer::FRectangle& viewport) noexcept;
 
-  void SetTranslationViewport(const albinjohansson::wanderer::Viewport& viewport) noexcept;
+  void set_translation_viewport(const albinjohansson::wanderer::Viewport& viewport) noexcept;
 
-  void SetBlendMode(const SDL_BlendMode& blendMode) noexcept;
+  void set_blend_mode(const SDL_BlendMode& blendMode) noexcept;
 
   /**
    * Sets the viewport that will be used by the renderer. This method has no effect if any of the
@@ -201,7 +201,7 @@ class Renderer final {
    * @param yScale the y-axis scale that will be used.
    * @since 0.1.0
    */
-  void SetScale(float xScale, float yScale) noexcept;
+  void set_scale(float xScale, float yScale) noexcept;
 
   /**
    * Sets the logical dimensions of the renderer, which is useful for achieving
@@ -212,7 +212,7 @@ class Renderer final {
    * @param height the logical height that will be used.
    * @since 0.1.0
    */
-  void SetLogicalSize(float width, float height) noexcept;
+  void set_logical_size(float width, float height) noexcept;
 
   /**
    * Sets whether or not to force integer scaling for the logical viewport. By default, this
@@ -221,7 +221,7 @@ class Renderer final {
    * @param useLogicalIntegerScale true if integer scaling should be used; false otherwise.
    * @since 0.1.0
    */
-  void SetLogicalIntegerScale(bool useLogicalIntegerScale) noexcept;
+  void set_logical_integer_scale(bool useLogicalIntegerScale) noexcept;
 
   /**
    * Returns the logical width that the renderer uses.
@@ -230,7 +230,7 @@ class Renderer final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  int GetLogicalWidth() const noexcept;
+  int get_logical_width() const noexcept;
 
   /**
    * Returns the logical height that the renderer uses.
@@ -239,7 +239,7 @@ class Renderer final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  int GetLogicalHeight() const noexcept;
+  int get_logical_height() const noexcept;
 
   /**
    * Returns the x-axis scale that the renderer uses.
@@ -248,7 +248,7 @@ class Renderer final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  float GetXScale() const noexcept;
+  float get_x_scale() const noexcept;
 
   /**
    * Returns the y-axis scale that the renderer uses.
@@ -257,7 +257,7 @@ class Renderer final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  float GetYScale() const noexcept;
+  float get_y_scale() const noexcept;
 
   /**
    * Indicates whether or not the renderer uses integer scaling values for logical viewports. By
@@ -267,7 +267,7 @@ class Renderer final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  bool GetUsingIntegerLogicalScaling() const noexcept;
+  bool is_using_integer_logical_scaling() const noexcept;
 
   /**
    * Attempts to create and return a pointer to an SDL_Texture instance that represents the
@@ -280,7 +280,7 @@ class Renderer final {
    * currently selected font; nullptr if the operation is unsuccessful.
    */
   [[nodiscard]]
-  std::unique_ptr<Image> CreateTexture(const std::string& s, const Font& font) const;
+  std::unique_ptr<Image> create_image(const std::string& s, const Font& font) const;
 
   /**
    * Returns the viewport that the renderer uses.
@@ -289,10 +289,10 @@ class Renderer final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  albinjohansson::wanderer::FRectangle GetViewport() const noexcept;
+  albinjohansson::wanderer::FRectangle get_viewport() const noexcept;
 
   [[nodiscard]]
-  const albinjohansson::wanderer::Viewport& GetTranslationViewport() const noexcept;
+  const albinjohansson::wanderer::Viewport& get_translation_viewport() const noexcept;
 
   operator SDL_Renderer*() const noexcept;
 };

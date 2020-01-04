@@ -32,7 +32,7 @@ class PlayerImpl final : public AbstractEntity, public IPlayer {
 
   void tick(IWandererCore& core, float delta) override;
 
-  void HandleInput(const Input& input, const IWandererCore& core) override;
+  void handle_input(const Input& input, const IWandererCore& core) override;
 
   void draw(const centurion::Renderer& renderer, const Viewport& viewport) const noexcept override;
 };

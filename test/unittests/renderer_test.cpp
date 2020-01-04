@@ -21,21 +21,21 @@ TEST_CASE("Renderer::RenderTexture2", "[Renderer]") {
   Renderer renderer(SDL_CreateWindow("", 0, 0, 100, 100, SDL_WINDOW_HIDDEN));
   auto img = std::make_unique<Image>(renderer, "resources/img/grass.png");
 
-  CHECK_NOTHROW(renderer.RenderTexture(*img, 0, 0, 0, 0));
+  CHECK_NOTHROW(renderer.draw_image(*img, 0, 0, 0, 0));
 }
 
 TEST_CASE("Renderer::RenderFillRect", "[Renderer]") {
   Renderer renderer(SDL_CreateWindow("", 0, 0, 100, 100, SDL_WINDOW_HIDDEN));
-  CHECK_NOTHROW(renderer.RenderFillRect(0, 0, 0, 0));
+  CHECK_NOTHROW(renderer.fill_rect(0, 0, 0, 0));
 }
 
 TEST_CASE("Renderer::SetViewport", "[Renderer]") {
   Renderer renderer(SDL_CreateWindow("", 0, 0, 100, 100, SDL_WINDOW_HIDDEN));
 
   auto viewport = FRectangle(12, 5, {43, 95});
-  renderer.SetViewport(viewport);
+  renderer.set_viewport(viewport);
 
-  auto rendererViewport = renderer.GetViewport();
+  auto rendererViewport = renderer.get_viewport();
   CHECK(viewport.GetX() == rendererViewport.GetX());
   CHECK(viewport.GetY() == rendererViewport.GetY());
   CHECK(viewport.GetWidth() == rendererViewport.GetWidth());
@@ -46,57 +46,57 @@ TEST_CASE("Renderer::SetScale", "[Renderer]") {
   Renderer renderer(SDL_CreateWindow("", 0, 0, 100, 100, SDL_WINDOW_HIDDEN));
 
   SECTION("Check default scale values.") {
-    CHECK(renderer.GetXScale() == 1);
-    CHECK(renderer.GetYScale() == 1);
+    CHECK(renderer.get_x_scale() == 1);
+    CHECK(renderer.get_y_scale() == 1);
   }
 
   SECTION("Ensure tolerance of bad args.") {
-    float beforeXScale = renderer.GetXScale();
-    float beforeYScale = renderer.GetYScale();
-    CHECK_NOTHROW(renderer.SetScale(0, 0));
-    CHECK_NOTHROW(renderer.SetScale(-1, -1));
+    float beforeXScale = renderer.get_x_scale();
+    float beforeYScale = renderer.get_y_scale();
+    CHECK_NOTHROW(renderer.set_scale(0, 0));
+    CHECK_NOTHROW(renderer.set_scale(-1, -1));
 
-    CHECK(beforeXScale == renderer.GetXScale());
-    CHECK(beforeYScale == renderer.GetYScale());
+    CHECK(beforeXScale == renderer.get_x_scale());
+    CHECK(beforeYScale == renderer.get_y_scale());
   }
 
   float xScale = 1.5f;
   float yScale = 0.4f;
 
-  renderer.SetScale(xScale, yScale);
-  CHECK(renderer.GetXScale() == xScale);
-  CHECK(renderer.GetYScale() == yScale);
+  renderer.set_scale(xScale, yScale);
+  CHECK(renderer.get_x_scale() == xScale);
+  CHECK(renderer.get_y_scale() == yScale);
 }
 
 TEST_CASE("Renderer::SetLogicalSize", "[Renderer]") {
   Renderer renderer(SDL_CreateWindow("", 0, 0, 100, 100, SDL_WINDOW_HIDDEN));
 
   SECTION("Ensure tolerance of bad args.") {
-    float beforeWidth = renderer.GetLogicalWidth();
-    float beforeHeight = renderer.GetLogicalHeight();
-    CHECK_NOTHROW(renderer.SetLogicalSize(0, 0));
-    CHECK_NOTHROW(renderer.SetLogicalSize(-1, -1));
+    float beforeWidth = renderer.get_logical_width();
+    float beforeHeight = renderer.get_logical_height();
+    CHECK_NOTHROW(renderer.set_logical_size(0, 0));
+    CHECK_NOTHROW(renderer.set_logical_size(-1, -1));
 
-    CHECK(beforeWidth == renderer.GetLogicalWidth());
-    CHECK(beforeHeight == renderer.GetLogicalHeight());
+    CHECK(beforeWidth == renderer.get_logical_width());
+    CHECK(beforeHeight == renderer.get_logical_height());
   }
 
   float width = 1284;
   float height = 834;
-  renderer.SetLogicalSize(width, height);
+  renderer.set_logical_size(width, height);
 
-  CHECK(width == renderer.GetLogicalWidth());
-  CHECK(height == renderer.GetLogicalHeight());
+  CHECK(width == renderer.get_logical_width());
+  CHECK(height == renderer.get_logical_height());
 }
 
 TEST_CASE("Renderer::SetLogicalIntegerScale", "[Renderer]") {
   Renderer renderer(SDL_CreateWindow("", 0, 0, 100, 100, SDL_WINDOW_HIDDEN));
 
-  CHECK(!renderer.GetUsingIntegerLogicalScaling());
+  CHECK(!renderer.is_using_integer_logical_scaling());
 
-  renderer.SetLogicalIntegerScale(true);
-  CHECK(renderer.GetUsingIntegerLogicalScaling());
+  renderer.set_logical_integer_scale(true);
+  CHECK(renderer.is_using_integer_logical_scaling());
 
-  renderer.SetLogicalIntegerScale(false);
-  CHECK(!renderer.GetUsingIntegerLogicalScaling());
+  renderer.set_logical_integer_scale(false);
+  CHECK(!renderer.is_using_integer_logical_scaling());
 }

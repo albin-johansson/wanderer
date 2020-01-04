@@ -15,7 +15,7 @@ void EntityDrawDelegate::draw(const Renderer& renderer,
   auto[x, y] = entity.get_interpolated_position();
   auto src = Rectangle{srcX, srcY, 64, 64};
   auto dst = FRectangle{x, y, Area{entity.get_width(), entity.get_height()}};
-  renderer.RenderTextureTranslated(entity.get_sprite_sheet(), src, dst);
+  renderer.draw_image_translated(entity.get_sprite_sheet(), src, dst);
 }
 
 }

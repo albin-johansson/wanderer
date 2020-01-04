@@ -34,44 +34,44 @@ Image::~Image() {
   SDL_DestroyTexture(texture);
 }
 
-void Image::SetAlpha(uint8_t alpha) noexcept {
+void Image::set_alpha(uint8_t alpha) noexcept {
   SDL_SetTextureAlphaMod(texture, alpha);
 }
 
-uint32_t Image::GetFormat() const noexcept {
+uint32_t Image::get_format() const noexcept {
   uint32_t format = 0;
   SDL_QueryTexture(texture, &format, nullptr, nullptr, nullptr);
   return format;
 }
 
-int Image::GetAccess() const noexcept {
+int Image::get_access() const noexcept {
   int access = 0;
   SDL_QueryTexture(texture, nullptr, &access, nullptr, nullptr);
   return access;
 }
 
-int Image::GetWidth() const noexcept {
+int Image::get_width() const noexcept {
   int width = 0;
   SDL_QueryTexture(texture, nullptr, nullptr, &width, nullptr);
   return width;
 }
 
-int Image::GetHeight() const noexcept {
+int Image::get_height() const noexcept {
   int height = 0;
   SDL_QueryTexture(texture, nullptr, nullptr, nullptr, &height);
   return height;
 }
 
-SDL_Texture* Image::GetTexture() noexcept {
+SDL_Texture* Image::get_texture() noexcept {
   return texture;
 }
 
-std::string Image::ToString() const {
+std::string Image::to_string() const {
   std::ostringstream address;
   address << static_cast<void const*>(this);
 
-  auto w = std::to_string(GetWidth());
-  auto h = std::to_string(GetHeight());
+  auto w = std::to_string(get_width());
+  auto h = std::to_string(get_height());
 
   return "(Image@" + address.str() + " | Width: " + w + ", Height: " + h + ")";
 }
@@ -81,7 +81,7 @@ Image::operator SDL_Texture*() const noexcept {
 }
 
 Image::operator std::string() {
-  return ToString();
+  return to_string();
 }
 
 }

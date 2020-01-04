@@ -22,9 +22,9 @@ void MenuButton::RenderText(const Renderer& renderer,
                             std::unique_ptr<Image>& img,
                             const centurion::Font& font) const {
   if (!img) {
-    img = renderer.CreateTexture(text, font);
+    img = renderer.create_image(text, font);
   }
-  renderer.RenderTexture(*img, x, y);
+  renderer.draw_image(*img, x, y);
 }
 
 bool MenuButton::Contains(float mx, float my) const noexcept {
@@ -40,7 +40,7 @@ void MenuButton::draw(Renderer& renderer, const Viewport&, const FontBundle& fon
     const auto x = bounds.GetCenterX() - (width / 2.0f);
     const auto y = bounds.GetCenterY() - (height / 2.0f);
 
-    renderer.SetColor(0xFF, 0xFF, 0xFF);
+    renderer.set_color(0xFF, 0xFF, 0xFF);
 
     if (enlarged) {
       RenderText(renderer, x, y, enlargedImg, font);

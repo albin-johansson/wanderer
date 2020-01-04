@@ -50,7 +50,7 @@ void WandererCoreImpl::init_viewport() {
 void WandererCoreImpl::handle_input(const Input& input) {
   menuStateMachine->handle_input(input);
   if (!menuStateMachine->get_menu().is_blocking()) {
-    player->HandleInput(input, *this);
+    player->handle_input(input, *this);
   }
 }
 
@@ -64,7 +64,7 @@ void WandererCoreImpl::update(float delta) {
 }
 
 void WandererCoreImpl::render(centurion::Renderer& renderer, float alpha) {
-  renderer.SetTranslationViewport(viewport);
+  renderer.set_translation_viewport(viewport);
 
   activeMap->draw(renderer, viewport, alpha);
   hud.draw(renderer, *this);

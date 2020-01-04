@@ -17,11 +17,11 @@ void HUD::draw_health_bar(centurion::Renderer& renderer, IWandererCore& core) co
   const auto hpBarWidth = (hp / playerMaxHealth) * 100;
   const auto hpBarHeight = 20;
 
-  renderer.SetColor(0xFF, 0, 0);
-  renderer.RenderFillRect(10, 720 - hpBarHeight - 10, hpBarWidth, hpBarHeight);
+  renderer.set_color(0xFF, 0, 0);
+  renderer.fill_rect(10, 720 - hpBarHeight - 10, hpBarWidth, hpBarHeight);
 
-  renderer.SetColor(0, 0, 0);
-  renderer.RenderRect(10, 720 - hpBarHeight - 10, hpBarWidth, hpBarHeight);
+  renderer.set_color(0, 0, 0);
+  renderer.draw_rect(10, 720 - hpBarHeight - 10, hpBarWidth, hpBarHeight);
 }
 
 void HUD::draw(centurion::Renderer& renderer, IWandererCore& core) const {

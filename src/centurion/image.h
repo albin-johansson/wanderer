@@ -32,7 +32,7 @@ class Image final {
 
   ~Image();
 
-  void SetAlpha(uint8_t alpha) noexcept;
+  void set_alpha(uint8_t alpha) noexcept;
 
   /**
    * Returns the format of the internal SDL_Texture.
@@ -41,7 +41,7 @@ class Image final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  uint32_t GetFormat() const noexcept;
+  uint32_t get_format() const noexcept;
 
   /**
    * Returns the texture access of the internal SDL_Texture.
@@ -50,7 +50,7 @@ class Image final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  int GetAccess() const noexcept;
+  int get_access() const noexcept;
 
   /**
    * Returns the width of the image.
@@ -59,7 +59,7 @@ class Image final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  int GetWidth() const noexcept;
+  int get_width() const noexcept;
 
   /**
    * Returns the height of the image.
@@ -68,7 +68,7 @@ class Image final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  int GetHeight() const noexcept;
+  int get_height() const noexcept;
 
   /**
    * Returns a pointer to the internal SDL_Texture of the image.
@@ -77,7 +77,7 @@ class Image final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  SDL_Texture* GetTexture() noexcept;
+  SDL_Texture* get_texture() noexcept;
 
   /**
    * Returns a string representation of the image.
@@ -86,7 +86,7 @@ class Image final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  std::string ToString() const;
+  std::string to_string() const;
 
   /**
    * Returns a string representation of the image.

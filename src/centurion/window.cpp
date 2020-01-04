@@ -51,9 +51,9 @@ void Window::add_window_listener(IWindowListener* listener) noexcept {
 }
 
 void Window::set_fullscreen(bool fullscreen) noexcept {
-  uint32_t flags = SDL_GetWindowFlags(window);
-  flags = (fullscreen) ? (flags | SDL_WINDOW_FULLSCREEN)
-                       : (flags & ~SDL_WINDOW_FULLSCREEN);
+//  uint32_t flags = SDL_GetWindowFlags(window);
+  const auto flags = (fullscreen) ? (SDL_GetWindowFlags(window) | SDL_WINDOW_FULLSCREEN)
+                                  : (SDL_GetWindowFlags(window) & ~SDL_WINDOW_FULLSCREEN);
   SDL_SetWindowFullscreen(window, flags);
   notify_window_listeners();
 }

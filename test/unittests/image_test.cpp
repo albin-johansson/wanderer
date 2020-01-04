@@ -18,8 +18,8 @@ TEST_CASE("Image(string)", "[Image]") {
   Image img(renderer, "resources/img/grass.png");
 
   // The grass.png image is 108x108
-  CHECK(img.GetWidth() == 108);
-  CHECK(img.GetHeight() == 108);
+  CHECK(img.get_width() == 108);
+  CHECK(img.get_height() == 108);
 }
 
 TEST_CASE("Image::GetFormat", "[Image]") {
@@ -27,12 +27,12 @@ TEST_CASE("Image::GetFormat", "[Image]") {
   Renderer renderer(window);
 
   Image img(renderer, "resources/img/grass.png");
-  SDL_Texture* texture = img.GetTexture();
+  SDL_Texture* texture = img.get_texture();
 
   uint32_t format = 0;
   SDL_QueryTexture(texture, &format, nullptr, nullptr, nullptr);
 
-  CHECK(img.GetFormat() == format);
+  CHECK(img.get_format() == format);
 }
 
 TEST_CASE("Image::GetAccess", "[Image]") {
@@ -40,12 +40,12 @@ TEST_CASE("Image::GetAccess", "[Image]") {
   Renderer renderer(window);
 
   Image img(renderer, "resources/img/grass.png");
-  SDL_Texture* texture = img.GetTexture();
+  SDL_Texture* texture = img.get_texture();
 
   int access = 0;
   SDL_QueryTexture(texture, nullptr, &access, nullptr, nullptr);
 
-  CHECK(img.GetAccess() == access);
+  CHECK(img.get_access() == access);
 }
 
 TEST_CASE("Image::GetWidth", "[Image]") {
@@ -53,13 +53,13 @@ TEST_CASE("Image::GetWidth", "[Image]") {
   Renderer renderer(window);
 
   Image img(renderer, "resources/img/grass.png");
-  SDL_Texture* texture = img.GetTexture();
+  SDL_Texture* texture = img.get_texture();
 
-  CHECK(img.GetWidth() == 108);
+  CHECK(img.get_width() == 108);
 
   int width = 0;
   SDL_QueryTexture(texture, nullptr, nullptr, &width, nullptr);
-  CHECK(img.GetWidth() == width);
+  CHECK(img.get_width() == width);
 }
 
 TEST_CASE("Image::GetHeight", "[Image]") {
@@ -67,11 +67,11 @@ TEST_CASE("Image::GetHeight", "[Image]") {
   Renderer renderer(window);
 
   Image img(renderer, "resources/img/grass.png");
-  SDL_Texture* texture = img.GetTexture();
+  SDL_Texture* texture = img.get_texture();
 
-  CHECK(img.GetHeight() == 108);
+  CHECK(img.get_height() == 108);
 
   int height = 0;
   SDL_QueryTexture(texture, nullptr, nullptr, nullptr, &height);
-  CHECK(img.GetHeight() == height);
+  CHECK(img.get_height() == height);
 }
