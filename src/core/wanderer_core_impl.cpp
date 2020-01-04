@@ -10,8 +10,6 @@
 #include "image_generator.h"
 #include "image.h"
 #include "window.h"
-#include "game_constants.h"
-#include <memory>
 
 namespace albinjohansson::wanderer {
 
@@ -65,7 +63,7 @@ void WandererCoreImpl::update(float delta) {
   }
 }
 
-void WandererCoreImpl::render(Renderer& renderer, float alpha) {
+void WandererCoreImpl::render(centurion::Renderer& renderer, float alpha) {
   renderer.SetTranslationViewport(viewport);
 
   activeMap->Draw(renderer, viewport, alpha);

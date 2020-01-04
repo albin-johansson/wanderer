@@ -10,7 +10,7 @@ HUD::HUD() = default;
 
 HUD::~HUD() = default;
 
-void HUD::DrawHealthBar(Renderer& renderer, IWandererCore& core) const {
+void HUD::DrawHealthBar(centurion::Renderer& renderer, IWandererCore& core) const {
   const auto& player = core.get_player();
 
   const auto hp = player.GetHealth();
@@ -24,7 +24,7 @@ void HUD::DrawHealthBar(Renderer& renderer, IWandererCore& core) const {
   renderer.RenderRect(10, 720 - hpBarHeight - 10, hpBarWidth, hpBarHeight);
 }
 
-void HUD::Draw(Renderer& renderer, IWandererCore& core) const {
+void HUD::Draw(centurion::Renderer& renderer, IWandererCore& core) const {
   DrawHealthBar(renderer, core);
 }
 

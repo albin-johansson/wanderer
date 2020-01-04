@@ -4,6 +4,8 @@
 #include "movable_delegate.h"
 #include "hitbox.h"
 
+using namespace centurion;
+
 namespace albinjohansson::wanderer {
 
 AbstractEntity::AbstractEntity(const std::shared_ptr<Image>& sheet) {

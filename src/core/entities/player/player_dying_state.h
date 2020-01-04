@@ -29,7 +29,7 @@ class PlayerDyingState final : public IPlayerState {
 
   void HandleInput(const Input& input, const IWandererCore& core) override;
 
-  void Draw(const Renderer& renderer, const Viewport& viewport) const override;
+  void Draw(const centurion::Renderer& renderer, const Viewport& viewport) const override;
 
   void Tick(const IWandererCore& core, float delta) override;
 

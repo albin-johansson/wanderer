@@ -3,6 +3,8 @@
 #include <SDL.h>
 #include <cstdint>
 
+using namespace centurion;
+
 namespace albinjohansson::wanderer {
 
 MouseStateManager::MouseStateManager() noexcept = default;

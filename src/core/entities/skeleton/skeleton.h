@@ -16,13 +16,13 @@ class Skeleton final : public AbstractEntity {
  public:
   static constexpr float HOMING_RANGE = tileSize * 4.0f;
 
-  explicit Skeleton(const std::shared_ptr<Image>& sheet);
+  explicit Skeleton(const std::shared_ptr<centurion::Image>& sheet);
 
   ~Skeleton() override;
 
   void tick(IWandererCore& core, float delta) override;
 
-  void Draw(const Renderer& renderer, const Viewport& viewport) const override;
+  void Draw(const centurion::Renderer& renderer, const Viewport& viewport) const override;
 
 };
 

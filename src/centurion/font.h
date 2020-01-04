@@ -2,7 +2,7 @@
 #include <SDL_ttf.h>
 #include <string>
 
-namespace albinjohansson::wanderer {
+namespace centurion {
 
 /**
  * The Font class represents a TrueType font.
@@ -22,7 +22,7 @@ class Font final {
    * @param mask the bit mask of the font style to enable.
    * @since 0.1.0
    */
-  void add_style(int mask);
+  void add_style(int mask) noexcept;
 
   /**
    * Removes the font style associated with the supplied bit mask. The possible values are
@@ -31,14 +31,14 @@ class Font final {
    * @param mask the bit mask of the font style to disable.
    * @since 0.1.0
    */
-  void remove_style(int mask);
+  void remove_style(int mask) noexcept;
 
  public:
   /**
    * @param file the file path of the TrueType font file.
    * @param size the font size, must be greater than zero.
    * @throws std::invalid_argument if the supplied size isn't greater than zero.
-   * @throws BadStateException if the font cannot be loaded.
+   * @throws CenturionException if the font cannot be loaded.
    * @since 0.1.0
    */
   Font(const std::string& file, int size);
@@ -162,7 +162,7 @@ class Font final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  std::string get_family_name() const;
+  std::string get_family_name() const noexcept;
 
   /**
    * Returns the width of the supplied string, if it was rendered using the font.

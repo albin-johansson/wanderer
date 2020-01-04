@@ -3,16 +3,17 @@
 #include "window.h"
 #include "renderer.h"
 #include "require.h"
-#include "bad_state_exception.h"
+#include "centurion_exception.h"
 
 using namespace albinjohansson::wanderer;
+using namespace centurion;
 
 TEST_CASE("Image(string)", "[Image]") {
   Window window("foo", 10, 10);
   Renderer renderer(window);
 
   CHECK_THROWS_AS(Image(nullptr, ""), Require::NullPointerException);
-  CHECK_THROWS_AS(Image(renderer, "badpath"), BadStateException);
+  CHECK_THROWS_AS(Image(renderer, "badpath"), CenturionException);
 
   Image img(renderer, "resources/img/grass.png");
 

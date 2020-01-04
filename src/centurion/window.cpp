@@ -5,7 +5,9 @@
 #include <stdexcept>
 #include <cstdint>
 
-namespace albinjohansson::wanderer {
+using namespace albinjohansson::wanderer;
+
+namespace centurion {
 
 Window::Window(const std::string& title, int width, int height) {
   if ((width < 1) || (height < 1)) {
@@ -57,7 +59,7 @@ void Window::set_fullscreen(bool fullscreen) noexcept {
 }
 
 void Window::set_resizable(bool isResizable) noexcept {
-  SDL_SetWindowResizable(window, BoolConverter::Convert(isResizable));
+  SDL_SetWindowResizable(window, BoolConverter::convert(isResizable));
   notify_window_listeners();
 }
 

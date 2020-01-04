@@ -1,5 +1,7 @@
 #include "player_attack_state.h"
 
+using namespace centurion;
+
 namespace albinjohansson::wanderer {
 
 PlayerAttackState::PlayerAttackState(IEntityStateMachine* parent)

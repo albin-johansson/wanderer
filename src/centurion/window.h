@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 
-namespace albinjohansson::wanderer {
+namespace centurion {
 
 class IWindowListener;
 

@@ -27,7 +27,7 @@ class MenuStateMachineImpl final : public IMenuStateMachine {
 
   ~MenuStateMachineImpl() override;
 
-  void Draw(Renderer& renderer, const Viewport& viewport) const override;
+  void Draw(centurion::Renderer& renderer, const Viewport& viewport) const override;
 
   void HandleInput(const Input& input) noexcept override;
 

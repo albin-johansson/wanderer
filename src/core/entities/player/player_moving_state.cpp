@@ -8,6 +8,8 @@
 #include "tile_map.h"
 #include <SDL.h>
 
+using namespace centurion;
+
 namespace albinjohansson::wanderer {
 
 PlayerMovingState::PlayerMovingState(IEntityStateMachine* parent)

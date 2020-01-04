@@ -2,6 +2,12 @@
 #include "vector_2.h"
 #include <memory>
 
+namespace centurion {
+
+class Renderer;
+
+}
+
 namespace albinjohansson::wanderer {
 
 class IWandererCore;
@@ -10,7 +16,6 @@ class ITileMapLayer;
 class IEntity;
 class IMovableObject;
 class Viewport;
-class Renderer;
 
 /**
  * The ITileMap interface specifies objects that represent maps that are constructed from tiles.
@@ -42,7 +47,9 @@ class ITileMap {
    * @param alpha the interpolation coefficient, in the range [0, 1].
    * @since 0.1.0
    */
-  virtual void Draw(Renderer& renderer, const Viewport& viewport, float alpha) noexcept = 0;
+  virtual void Draw(centurion::Renderer& renderer,
+                    const Viewport& viewport,
+                    float alpha) noexcept = 0;
 
   /**
    * Adds a layer to the tile map.

@@ -1,6 +1,6 @@
 #pragma once
 #include "entity_state.h"
-#include "entities/entitystate/delegates/entity_attack_delegate.h"
+#include "entity_attack_delegate.h"
 
 namespace albinjohansson::wanderer {
 
@@ -17,7 +17,7 @@ class SkeletonAttackState final : public IEntityState {
 
   void Tick(const IWandererCore& core, float delta) override;
 
-  void Draw(const Renderer& renderer, const Viewport& viewport) const override;
+  void Draw(const centurion::Renderer& renderer, const Viewport& viewport) const override;
 
   void Enter(const IWandererCore& core) override;
 

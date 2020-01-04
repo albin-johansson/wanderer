@@ -2,6 +2,12 @@
 #include "tile.h"
 #include "tiled_animation.h"
 
+namespace centurion {
+
+class Image;
+
+}
+
 namespace albinjohansson::tiled {
 
 class TiledTileSet;
@@ -9,8 +15,6 @@ class TiledTileSet;
 }
 
 namespace albinjohansson::wanderer {
-
-class Image;
 
 class TileBuilder {
  private:
@@ -22,7 +26,7 @@ class TileBuilder {
 
   ~TileBuilder() = default;
 
-  [[nodiscard]] static Tile Create(const std::shared_ptr<Image>& image,
+  [[nodiscard]] static Tile Create(const std::shared_ptr<centurion::Image>& image,
                                    const tiled::TiledTileSet& tiledTileSet,
                                    TileID id,
                                    int index);

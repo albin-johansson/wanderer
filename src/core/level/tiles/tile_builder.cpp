@@ -3,6 +3,8 @@
 #include "image.h"
 #include "game_constants.h"
 
+using namespace centurion;
+
 namespace albinjohansson::wanderer {
 
 TileAnimation TileBuilder::CreateAnimation(tiled::TiledAnimation animation) {

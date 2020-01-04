@@ -5,10 +5,12 @@
 #include "wanderer_core.h"
 #include "time_utils.h"
 
+using namespace centurion;
+
 namespace albinjohansson::wanderer {
 
 SkeletonIdleState::SkeletonIdleState(IEntityStateMachine* parent)
-    : idleDelegate(EntityIdleDelegate(parent)) {}
+    : idleDelegate{parent} {}
 
 SkeletonIdleState::~SkeletonIdleState() = default;
 

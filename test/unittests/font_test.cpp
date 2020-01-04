@@ -1,15 +1,15 @@
 #include "catch.hpp"
 #include "font.h"
-#include "bad_state_exception.h"
+#include "centurion_exception.h"
 
-using namespace albinjohansson::wanderer;
+using namespace centurion;
 
 TEST_CASE("Font(string&, int)", "[Font]") {
-  CHECK_THROWS_AS(Font("", 1), BadStateException);
+  CHECK_THROWS_AS(Font("", 1), CenturionException);
   CHECK_THROWS_AS(Font("", 0), std::invalid_argument);
 }
 
-TEST_CASE("Font::Reset", "[Font]") {
+TEST_CASE("Font::reset", "[Font]") {
   Font f("resources/font/type_writer.ttf", 12);
 
   f.set_bold(true);
@@ -24,7 +24,7 @@ TEST_CASE("Font::Reset", "[Font]") {
   CHECK(!f.is_strikethrough());
 }
 
-TEST_CASE("Font::SetBold", "[Font]") {
+TEST_CASE("Font::set_bold", "[Font]") {
   Font f("resources/font/type_writer.ttf", 12);
 
   CHECK(!f.is_bold());
@@ -36,7 +36,7 @@ TEST_CASE("Font::SetBold", "[Font]") {
   CHECK(!f.is_bold());
 }
 
-TEST_CASE("Font::SetItalic", "[Font]") {
+TEST_CASE("Font::set_italic", "[Font]") {
   Font f("resources/font/type_writer.ttf", 12);
 
   CHECK(!f.is_italic());
@@ -48,7 +48,7 @@ TEST_CASE("Font::SetItalic", "[Font]") {
   CHECK(!f.is_italic());
 }
 
-TEST_CASE("Font::SetUnderlined", "[Font]") {
+TEST_CASE("Font::set_underlined", "[Font]") {
   Font f("resources/font/type_writer.ttf", 12);
 
   CHECK(!f.is_underlined());
@@ -60,7 +60,7 @@ TEST_CASE("Font::SetUnderlined", "[Font]") {
   CHECK(!f.is_underlined());
 }
 
-TEST_CASE("Font::SetStrikethrough", "[Font]") {
+TEST_CASE("Font::set_strikethrough", "[Font]") {
   Font f("resources/font/type_writer.ttf", 12);
 
   CHECK(!f.is_strikethrough());
@@ -72,7 +72,7 @@ TEST_CASE("Font::SetStrikethrough", "[Font]") {
   CHECK(!f.is_strikethrough());
 }
 
-TEST_CASE("Font::SetOutlined", "[Font]") {
+TEST_CASE("Font::set_outlined", "[Font]") {
   Font f("resources/font/type_writer.ttf", 12);
 
   CHECK(!f.is_outlined());
@@ -84,14 +84,14 @@ TEST_CASE("Font::SetOutlined", "[Font]") {
   CHECK(!f.is_outlined());
 }
 
-TEST_CASE("Font::GetSize", "[Font]") {
+TEST_CASE("Font::get_size", "[Font]") {
   int size = 12;
   Font f("resources/font/type_writer.ttf", size);
 
   CHECK(size == f.get_size());
 }
 
-TEST_CASE("Font::IsFixedWidth", "[Font]") {
+TEST_CASE("Font::is_fixed_width", "[Font]") {
   Font firacode("resources/font/fira_code.ttf", 12); // Fixed width
   Font daniel("resources/font/daniel.ttf", 12);      // Not fixed width
 
@@ -99,12 +99,7 @@ TEST_CASE("Font::IsFixedWidth", "[Font]") {
   CHECK(!daniel.is_fixed_width());
 }
 
-TEST_CASE("Font::GetInternalFont", "[Font]") {
-  Font f("resources/font/type_writer.ttf", 12);
-  CHECK(f.GetInternalFont() != nullptr);
-}
-
-TEST_CASE("Font::GetFamilyName", "[Font]") {
+TEST_CASE("Font::get_family_name", "[Font]") {
   Font f("resources/font/type_writer.ttf", 12);
   CHECK(f.get_family_name() == "Type Writer");
 }

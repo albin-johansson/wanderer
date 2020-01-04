@@ -1,6 +1,8 @@
 #include "player_dying_state.h"
 #include "entity.h"
 
+using namespace centurion;
+
 namespace albinjohansson::wanderer {
 
 PlayerDyingState::PlayerDyingState(IEntity* entity)

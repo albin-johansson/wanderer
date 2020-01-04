@@ -3,10 +3,12 @@
 #include "wanderer_core.h"
 #include "player.h"
 
+using namespace centurion;
+
 namespace albinjohansson::wanderer {
 
 SkeletonAttackState::SkeletonAttackState(IEntityStateMachine* parent)
-    : attackDelegate(EntityAttackDelegate(parent)) {}
+    : attackDelegate{parent} {}
 
 SkeletonAttackState::~SkeletonAttackState() = default;
 

@@ -5,9 +5,13 @@
 #include "game_loop.h"
 #include <memory>
 
-namespace albinjohansson::wanderer {
+namespace centurion {
 
 class Renderer;
+
+}
+
+namespace albinjohansson::wanderer {
 
 /**
  * The WandererControllerImpl class is an implementation of the IWandererController interface.
@@ -16,10 +20,10 @@ class Renderer;
  */
 class WandererControllerImpl final : public IWandererController {
  private:
-  std::unique_ptr<Window> window = nullptr;
   std::unique_ptr<IWandererCore> core = nullptr;
   std::unique_ptr<IGameLoop> gameLoop = nullptr;
-  std::shared_ptr<Renderer> renderer = nullptr;
+  std::shared_ptr<centurion::Renderer> renderer = nullptr;
+  std::unique_ptr<centurion::Window> window = nullptr;
 
   /**
    * @throws BadStateException if the desktop dimensions cannot be deduced.

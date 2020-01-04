@@ -10,6 +10,8 @@
 #include "controls_menu.h"
 #include "inventory_menu.h"
 
+using namespace centurion;
+
 namespace albinjohansson::wanderer {
 
 MenuStateMachineImpl::MenuStateMachineImpl(IWandererCore* core)

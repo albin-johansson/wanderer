@@ -1,8 +1,13 @@
 #pragma once
 
-namespace albinjohansson::wanderer {
+namespace centurion {
 
 class Renderer;
+
+}
+
+namespace albinjohansson::wanderer {
+
 class Viewport;
 
 /**
@@ -21,7 +26,7 @@ class IDrawable {
    * @param viewport a reference to the viewport that will be used.
    * @since 0.1.0
    */
-  virtual void Draw(const Renderer& renderer, const Viewport& viewport) const = 0;
+  virtual void Draw(const centurion::Renderer& renderer, const Viewport& viewport) const = 0;
 };
 
 }

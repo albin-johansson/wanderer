@@ -6,6 +6,8 @@
 #include "entity_draw_delegate.h"
 #include "wanderer_core.h"
 
+using namespace centurion;
+
 namespace albinjohansson::wanderer {
 
 EntityAttackDelegate::EntityAttackDelegate(IEntityStateMachine* parent) {

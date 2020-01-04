@@ -3,6 +3,8 @@
 #include "entity.h"
 #include "input.h"
 
+using namespace centurion;
+
 namespace albinjohansson::wanderer {
 
 PlayerIdleState::PlayerIdleState(IEntityStateMachine* parent)

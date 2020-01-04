@@ -5,6 +5,12 @@
 #include <memory>
 #include <vector>
 
+namespace centurion {
+
+class Renderer;
+
+}
+
 namespace albinjohansson::wanderer {
 
 class FRectangle;
@@ -37,7 +43,7 @@ class TileMapImpl final : public ITileMap {
 
   EntityManager entityManager;
 
-  void RenderTilesAt(int row, int col, Renderer& renderer);
+  void RenderTilesAt(int row, int col, centurion::Renderer& renderer);
 
   /**
    * Interpolates all movable game objects.
@@ -68,7 +74,7 @@ class TileMapImpl final : public ITileMap {
 
   void Tick(IWandererCore& core, const Viewport& viewport, float delta) override;
 
-  void Draw(Renderer& renderer, const Viewport& viewport, float alpha) noexcept override;
+  void Draw(centurion::Renderer& renderer, const Viewport& viewport, float alpha) noexcept override;
 
   void AddLayer(std::unique_ptr<ITileMapLayer>&& layer) override;
 

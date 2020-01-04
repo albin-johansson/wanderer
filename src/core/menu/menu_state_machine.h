@@ -1,11 +1,16 @@
 #pragma once
 #include "menu_id.h"
 
+namespace centurion {
+
+class Renderer;
+
+}
+
 namespace albinjohansson::wanderer {
 
 class Input;
 class Viewport;
-class Renderer;
 class IMenu;
 
 class IMenuStateMachine {
@@ -17,7 +22,7 @@ class IMenuStateMachine {
 
   virtual void HandleInput(const Input& input) = 0;
 
-  virtual void Draw(Renderer& renderer, const Viewport& viewport) const = 0;
+  virtual void Draw(centurion::Renderer& renderer, const Viewport& viewport) const = 0;
 
   /**
    * Sets the active menu.

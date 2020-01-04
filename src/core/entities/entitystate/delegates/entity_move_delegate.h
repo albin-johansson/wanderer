@@ -14,7 +14,7 @@ class EntityMoveDelegate final : public IEntityState {
 
   ~EntityMoveDelegate() override;
 
-  void Draw(const Renderer& renderer, const Viewport& viewport) const override;
+  void Draw(const centurion::Renderer& renderer, const Viewport& viewport) const override;
 
   void Enter(const IWandererCore& core) override;
 

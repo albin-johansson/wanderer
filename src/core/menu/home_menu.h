@@ -34,7 +34,9 @@ class HomeMenu final : public AbstractMenu {
 
   ~HomeMenu() noexcept override;
 
-  void Draw(Renderer& renderer, const Viewport& viewport, const FontBundle& fonts) const override;
+  void Draw(centurion::Renderer& renderer,
+            const Viewport& viewport,
+            const FontBundle& fonts) const override;
 
   void HandleInput(const Input& input) noexcept override;
 

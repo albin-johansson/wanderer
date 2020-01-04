@@ -6,10 +6,15 @@
 #include <type_traits>
 #include <memory>
 
+namespace centurion {
+
+class Image;
+
+}
+
 namespace albinjohansson::wanderer {
 
 class IWandererCore;
-class Image;
 
 /**
  * The AbstractEntity class is an abstract class that implements the IEntity interface.
@@ -22,7 +27,7 @@ class AbstractEntity : public virtual IEntity {
   static constexpr int DEPTH = RenderDepth::RANGE / 2; // TODO maybe move to IEntity
 
   std::unique_ptr<IMovableObject> movable = nullptr;
-  std::shared_ptr<Image> sheet = nullptr;
+  std::shared_ptr<centurion::Image> sheet = nullptr;
   Animation animation;
   int health = 100; // FIXME hard-coded
 
@@ -32,7 +37,7 @@ class AbstractEntity : public virtual IEntity {
    * @throws NullPointerException if the supplied pointer is null.
    * @since 0.1.0
    */
-  explicit AbstractEntity(const std::shared_ptr<Image>& sheet);
+  explicit AbstractEntity(const std::shared_ptr<centurion::Image>& sheet);
 
  public:
   ~AbstractEntity() override;
@@ -83,7 +88,7 @@ class AbstractEntity : public virtual IEntity {
   bool IsAnimationDone() const noexcept override;
 
   [[nodiscard]]
-  Image& GetSpriteSheet() const noexcept override;
+  centurion::Image& GetSpriteSheet() const noexcept override;
 
   [[nodiscard]]
   int GetHealth() const noexcept override;

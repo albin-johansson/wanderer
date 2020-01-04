@@ -3,6 +3,9 @@
 #include "tile_set.h"
 #include "rectangle.h"
 #include "game_constants.h"
+#include "image.h"
+
+using namespace centurion;
 
 namespace albinjohansson::wanderer {
 
@@ -16,9 +19,7 @@ void Tile::Tick() {
   }
 }
 
-void Tile::Draw(const Vector2& pos,
-                const Renderer& renderer,
-                const TileSet& tileSet) const {
+void Tile::Draw(const Vector2& pos, const Renderer& renderer, const TileSet& tileSet) const {
   if (GetId() != EMPTY) {
     const auto& src = IsAnimated() ? tileSet.GetTile(GetFrameId()).GetSource()
                                    : source;

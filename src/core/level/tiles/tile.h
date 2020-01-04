@@ -7,9 +7,15 @@
 #include "rectangle.h"
 #include <memory>
 
+namespace centurion {
+
+class Renderer;
+class Image;
+
+}
+
 namespace albinjohansson::wanderer {
 
-class Image;
 class Vector2;
 class TileSet;
 struct Frame;
@@ -23,7 +29,7 @@ struct Frame;
  */
 class Tile final {
  private:
-  std::shared_ptr<Image> sheet = nullptr;
+  std::shared_ptr<centurion::Image> sheet = nullptr;
 
   TileID id = Tile::EMPTY;
   int depth = RenderDepth::MIN;
@@ -57,7 +63,7 @@ class Tile final {
    * @since 0.1.0
    */
   void Draw(const Vector2& pos,
-            const Renderer& renderer,
+            const centurion::Renderer& renderer,
             const TileSet& tileSet) const;
 
   /**
@@ -73,7 +79,7 @@ class Tile final {
    * @param sheet the associated tile sheet image.
    * @since 0.1.0
    */
-  void SetSheet(const std::shared_ptr<Image>& sheet);
+  void SetSheet(const std::shared_ptr<centurion::Image>& sheet);
 
   /**
    * Sets whether or not the tile is blocked. By default, this property is set to false.

@@ -2,7 +2,7 @@
 #include "window.h"
 #include <memory>
 
-using namespace albinjohansson::wanderer;
+using namespace centurion;
 
 TEST_CASE("Window(string, int, int)", "[Window]") {
   CHECK_THROWS_AS(Window("", 0, 10), std::invalid_argument);

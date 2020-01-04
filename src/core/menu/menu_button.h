@@ -15,16 +15,16 @@ namespace albinjohansson::wanderer {
 class MenuButton final : public IMenuDrawable {
  private:
   FRectangle bounds;
-  mutable std::unique_ptr<Image> normalImg = nullptr;
-  mutable std::unique_ptr<Image> enlargedImg = nullptr;
+  mutable std::unique_ptr<centurion::Image> normalImg = nullptr;
+  mutable std::unique_ptr<centurion::Image> enlargedImg = nullptr;
   const std::string text = "";
   bool enlarged = false;
 
-  void RenderText(const Renderer& renderer,
+  void RenderText(const centurion::Renderer& renderer,
                   float x,
                   float y,
-                  std::unique_ptr<Image>& img,
-                  const Font& font) const;
+                  std::unique_ptr<centurion::Image>& img,
+                  const centurion::Font& font) const;
 
  public:
   /**
@@ -39,7 +39,9 @@ class MenuButton final : public IMenuDrawable {
 
   ~MenuButton() override;
 
-  void Draw(Renderer& renderer, const Viewport& viewport, const FontBundle& fonts) const override;
+  void Draw(centurion::Renderer& renderer,
+            const Viewport& viewport,
+            const FontBundle& fonts) const override;
 
   void SetEnlarged(bool enlarged) noexcept;
 

@@ -1,9 +1,14 @@
 #pragma once
 
+namespace centurion {
+
+class Renderer;
+
+}
+
 namespace albinjohansson::wanderer {
 
 class IWandererCore;
-class Renderer;
 
 /**
  * The IGameLoop interface specifies objects that represent various kinds of game loops that serve
@@ -22,7 +27,7 @@ class IGameLoop {
    * @param renderer a reference to the renderer that will be used.
    * @since 0.1.0
    */
-  virtual void Update(IWandererCore& core, Renderer& renderer) = 0;
+  virtual void Update(IWandererCore& core, centurion::Renderer& renderer) = 0;
 };
 
 }

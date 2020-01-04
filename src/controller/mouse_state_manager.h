@@ -3,7 +3,7 @@
 
 namespace albinjohansson::wanderer {
 
-class MouseStateManager final : public IWindowListener {
+class MouseStateManager final : public centurion::IWindowListener {
  private:
   float windowWidth = 1;
   float windowHeight = 1;
@@ -24,7 +24,7 @@ class MouseStateManager final : public IWindowListener {
 
   ~MouseStateManager() override;
 
-  void WindowUpdated(const Window& window) noexcept override;
+  void WindowUpdated(const centurion::Window& window) noexcept override;
 
   void Update();
 

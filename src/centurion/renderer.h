@@ -7,7 +7,7 @@
 #include <string>
 #include <memory>
 
-namespace albinjohansson::wanderer {
+namespace centurion {
 
 class Image;
 class Font;
@@ -22,7 +22,7 @@ class Font;
 class Renderer final {
  private:
   SDL_Renderer* renderer = nullptr;
-  Viewport translationViewport;
+  albinjohansson::wanderer::Viewport translationViewport;
 
  public:
   // TODO a lot of rendering class would be prettier if there was a viewport-translated
@@ -110,12 +110,12 @@ class Renderer final {
                      float height) const noexcept;
 
   void RenderTexture(const Image& texture,
-                     const Rectangle& source,
-                     const FRectangle& destination) const noexcept;
+                     const albinjohansson::wanderer::Rectangle& source,
+                     const albinjohansson::wanderer::FRectangle& destination) const noexcept;
 
   void RenderTextureTranslated(const Image& texture,
-                               const Rectangle& source,
-                               const FRectangle& destination) const noexcept;
+                               const albinjohansson::wanderer::Rectangle& source,
+                               const albinjohansson::wanderer::FRectangle& destination) const noexcept;
 
   /**
    * Renders a filled rectangle with the currently selected color. This method has no effect if the
@@ -187,9 +187,9 @@ class Renderer final {
    * @param viewport the viewport that will be used by the renderer.
    * @since 0.1.0
    */
-  void SetViewport(const FRectangle& viewport) noexcept;
+  void SetViewport(const albinjohansson::wanderer::FRectangle& viewport) noexcept;
 
-  void SetTranslationViewport(const Viewport& viewport) noexcept;
+  void SetTranslationViewport(const albinjohansson::wanderer::Viewport& viewport) noexcept;
 
   void SetBlendMode(const SDL_BlendMode& blendMode) noexcept;
 
@@ -289,19 +289,10 @@ class Renderer final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  FRectangle GetViewport() const noexcept;
+  albinjohansson::wanderer::FRectangle GetViewport() const noexcept;
 
   [[nodiscard]]
-  const Viewport& GetTranslationViewport() const noexcept;
-
-  /**
-   * Returns a pointer to the internal SDL_Renderer instance.
-   *
-   * @return a pointer to the internal SDL_Renderer instance.
-   * @since 0.1.0
-   */
-  [[nodiscard]]
-  SDL_Renderer* GetInternalRenderer() noexcept;
+  const albinjohansson::wanderer::Viewport& GetTranslationViewport() const noexcept;
 
   operator SDL_Renderer*() const noexcept;
 };

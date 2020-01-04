@@ -2,10 +2,14 @@
 #include <string>
 #include <memory>
 
-namespace albinjohansson::wanderer {
+namespace centurion {
 
 class Renderer;
 class Image;
+
+}
+
+namespace albinjohansson::wanderer {
 
 /**
  * The ImageGenerator class is used to load images.
@@ -14,7 +18,7 @@ class Image;
  */
 class ImageGenerator final {
  private:
-  std::shared_ptr<Renderer> renderer = nullptr;
+  std::shared_ptr<centurion::Renderer> renderer = nullptr;
 
  public:
   /**
@@ -22,7 +26,7 @@ class ImageGenerator final {
    * @throws NullPointerException if the supplied pointer is null.
    * @since 0.1.0
    */
-  explicit ImageGenerator(std::shared_ptr<Renderer> renderer);
+  explicit ImageGenerator(const std::shared_ptr<centurion::Renderer>& renderer);
 
   ~ImageGenerator();
 
@@ -33,7 +37,7 @@ class ImageGenerator final {
    * @return 0.1.0
    */
   [[nodiscard]]
-  std::unique_ptr<Image> Load(const std::string& path) const;
+  std::unique_ptr<centurion::Image> Load(const std::string& path) const;
 
 };
 

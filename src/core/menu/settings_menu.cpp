@@ -1,5 +1,8 @@
 #include "settings_menu.h"
 #include "input.h"
+#include "renderer.h"
+
+using namespace centurion;
 
 namespace albinjohansson::wanderer {
 
@@ -7,7 +10,9 @@ SettingsMenu::SettingsMenu(IMenuStateMachine* parent) : AbstractMenu(parent) {}
 
 SettingsMenu::~SettingsMenu() noexcept = default;
 
-void SettingsMenu::Draw(Renderer& renderer, const Viewport& viewport, const FontBundle& fonts) const {
+void SettingsMenu::Draw(Renderer& renderer,
+                        const Viewport& viewport,
+                        const FontBundle& fonts) const {
   AbstractMenu::Draw(renderer, viewport, fonts);
 
   renderer.SetColor(0xFF, 0xFF, 0xFF);

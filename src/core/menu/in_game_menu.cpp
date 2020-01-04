@@ -1,6 +1,8 @@
 #include "in_game_menu.h"
 #include "input.h"
 
+using namespace centurion;
+
 namespace albinjohansson::wanderer {
 
 InGameMenu::InGameMenu(IMenuStateMachine* parent) : AbstractMenu(parent) {}

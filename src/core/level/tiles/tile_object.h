@@ -9,6 +9,12 @@
 #include <memory>
 #include <hitbox.h>
 
+namespace centurion {
+
+class Renderer;
+
+}
+
 namespace albinjohansson::wanderer {
 
 class TileSet;
@@ -43,7 +49,7 @@ class TileObject final : public IGameObject {
 
   void tick(IWandererCore& core, float delta) override;
 
-  void Draw(const Renderer& renderer, const Viewport& viewport) const override;
+  void Draw(const centurion::Renderer& renderer, const Viewport& viewport) const override;
 
   void SetDepth(int depth) noexcept;
 

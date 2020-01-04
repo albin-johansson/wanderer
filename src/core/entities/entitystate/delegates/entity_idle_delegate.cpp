@@ -5,6 +5,8 @@
 #include "entity_sheet.h"
 #include "require.h"
 
+using namespace centurion;
+
 namespace albinjohansson::wanderer {
 
 EntityIdleDelegate::EntityIdleDelegate(IEntityStateMachine* parent) {

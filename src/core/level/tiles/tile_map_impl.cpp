@@ -12,6 +12,8 @@
 #include "game_constants.h"
 #include <algorithm>
 
+using namespace centurion;
+
 namespace albinjohansson::wanderer {
 
 TileMapImpl::TileMapImpl(const std::shared_ptr<TileSet>& tileSet) {

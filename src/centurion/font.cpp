@@ -1,8 +1,8 @@
 #include "font.h"
-#include <bad_state_exception.h>
+#include "centurion_exception.h"
 #include <stdexcept>
 
-namespace albinjohansson::wanderer {
+namespace centurion {
 
 Font::Font(const std::string& file, int size) : size{size} {
   if (size <= 0) {
@@ -11,7 +11,7 @@ Font::Font(const std::string& file, int size) : size{size} {
 
   font = TTF_OpenFont(file.c_str(), size);
   if (!font) {
-    throw BadStateException{};
+    throw CenturionException{"Failed to open font! Error: " + std::string{TTF_GetError()}};
   }
 
   style = TTF_GetFontStyle(font);
@@ -26,12 +26,12 @@ void Font::reset() noexcept {
   TTF_SetFontStyle(font, style);
 }
 
-void Font::add_style(int mask) {
+void Font::add_style(int mask) noexcept {
   style |= mask;
   TTF_SetFontStyle(font, style);
 }
 
-void Font::remove_style(int mask) {
+void Font::remove_style(int mask) noexcept {
   style &= ~mask;
   TTF_SetFontStyle(font, style);
 }
@@ -112,7 +112,7 @@ int Font::get_size() const noexcept {
   return size;
 }
 
-std::string Font::get_family_name() const {
+std::string Font::get_family_name() const noexcept {
   return TTF_FontFaceFamilyName(font);
 }
 

@@ -7,6 +7,8 @@
 #include "require.h"
 #include "tile_map.h"
 
+using namespace centurion;
+
 namespace albinjohansson::wanderer {
 
 EntityMoveDelegate::EntityMoveDelegate(IEntityStateMachine* parent) {

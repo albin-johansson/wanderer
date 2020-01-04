@@ -1,20 +1,25 @@
 #pragma once
 
-namespace albinjohansson::wanderer {
+namespace centurion {
 
 class Renderer;
+
+}
+
+namespace albinjohansson::wanderer {
+
 class IWandererCore;
 
 class HUD final {
  private:
-  void DrawHealthBar(Renderer& renderer, IWandererCore& core) const;
+  void DrawHealthBar(centurion::Renderer& renderer, IWandererCore& core) const;
 
  public:
   HUD();
 
   ~HUD();
 
-  void Draw(Renderer& renderer, IWandererCore& core) const;
+  void Draw(centurion::Renderer& renderer, IWandererCore& core) const;
 };
 
 }

@@ -62,7 +62,7 @@ class SmoothFixedTimestepLoop final : public IGameLoop {
 
   ~SmoothFixedTimestepLoop() override;
 
-  void Update(IWandererCore& core, Renderer& renderer) override;
+  void Update(IWandererCore& core, centurion::Renderer& renderer) override;
 };
 
 }

@@ -47,7 +47,7 @@ class WandererCoreImpl final : public IWandererCore {
 
   void update(float delta) override;
 
-  void render(Renderer& renderer, float alpha) override;
+  void render(centurion::Renderer& renderer, float alpha) override;
 
   void set_map(std::shared_ptr<ITileMap> map) override;
 

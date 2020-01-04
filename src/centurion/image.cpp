@@ -1,16 +1,18 @@
 #include "image.h"
 #include "require.h"
-#include "bad_state_exception.h"
+#include "centurion_exception.h"
 #include <SDL_image.h>
 #include <sstream>
 
-namespace albinjohansson::wanderer {
+using namespace albinjohansson::wanderer;
+
+namespace centurion {
 
 Image::Image(SDL_Renderer* renderer, const std::string& path) {
   Require::NotNull(renderer);
   texture = IMG_LoadTexture(renderer, path.c_str());
   if (!texture) {
-    throw BadStateException("Failed to load image from " + path);
+    throw CenturionException("Failed to load image from " + path);
   }
 }
 
@@ -24,7 +26,7 @@ Image::Image(SDL_Renderer* renderer, SDL_Surface* surface) {
 
   this->texture = SDL_CreateTextureFromSurface(renderer, surface);
   if (!texture) {
-    throw BadStateException("Failed to create image from surface!");
+    throw CenturionException("Failed to create image from surface!");
   }
 }
 

@@ -3,7 +3,7 @@
 #include <cstdint>
 #include <SDL_render.h>
 
-namespace albinjohansson::wanderer {
+namespace centurion {
 
 /**
  * The Image class represents an image that is hardware-accelerated. Instances of the Image class

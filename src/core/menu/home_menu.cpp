@@ -2,6 +2,8 @@
 #include "require.h"
 #include "input.h"
 
+using namespace centurion;
+
 namespace albinjohansson::wanderer {
 
 HomeMenu::HomeMenu(IMenuStateMachine* parent, IWandererCore* core) :

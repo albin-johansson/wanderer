@@ -2,9 +2,14 @@
 #include <memory>
 #include <string>
 
-namespace albinjohansson::wanderer {
+namespace centurion {
 
 class Renderer;
+
+}
+
+namespace albinjohansson::wanderer {
+
 class IPlayer;
 class ITileMap;
 class Input;
@@ -42,7 +47,7 @@ class IWandererCore {
    * @param alpha the interpolation coefficient, in the range [0, 1].
    * @since 0.1.0
    */
-  virtual void render(Renderer& renderer, float alpha) = 0;
+  virtual void render(centurion::Renderer& renderer, float alpha) = 0;
 
   /**
    * Sets the currently active map.

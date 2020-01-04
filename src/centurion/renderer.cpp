@@ -6,7 +6,9 @@
 #include "math_utils.h"
 #include <SDL_log.h>
 
-namespace albinjohansson::wanderer {
+using namespace albinjohansson::wanderer;
+
+namespace centurion {
 
 Renderer::Renderer(SDL_Renderer* renderer) {
   this->renderer = Require::NotNull(renderer);
@@ -37,15 +39,15 @@ void Renderer::Present() const noexcept {
 }
 
 void Renderer::RenderTexture(const Image& texture, int x, int y) const noexcept {
-  SDL_Rect dst = {x, y, texture.GetWidth(), texture.GetHeight()};
+  SDL_Rect dst{x, y, texture.GetWidth(), texture.GetHeight()};
   SDL_RenderCopy(renderer, texture, nullptr, &dst);
 }
 
 void Renderer::RenderTexture(const Image& texture, float x, float y) const noexcept {
-  SDL_FRect dst = {x,
-                   y,
-                   static_cast<float>(texture.GetWidth()),
-                   static_cast<float>(texture.GetHeight())};
+  SDL_FRect dst{x,
+                y,
+                static_cast<float>(texture.GetWidth()),
+                static_cast<float>(texture.GetHeight())};
   SDL_RenderCopyF(renderer, texture, nullptr, &dst);
 }
 
@@ -54,7 +56,7 @@ void Renderer::RenderTexture(const Image& texture,
                              int y,
                              int width,
                              int height) const noexcept {
-  SDL_Rect dst = {x, y, width, height};
+  SDL_Rect dst{x, y, width, height};
   SDL_RenderCopy(renderer, texture, nullptr, &dst);
 }
 
@@ -63,7 +65,7 @@ void Renderer::RenderTexture(const Image& texture,
                              float y,
                              float width,
                              float height) const noexcept {
-  SDL_FRect dst = {x, y, width, height};
+  SDL_FRect dst{x, y, width, height};
   SDL_RenderCopyF(renderer, texture, nullptr, &dst);
 }
 
@@ -88,22 +90,22 @@ void Renderer::RenderTextureTranslated(const Image& texture,
 }
 
 void Renderer::RenderFillRect(float x, float y, float width, float height) const noexcept {
-  SDL_FRect rect = {x, y, width, height};
+  SDL_FRect rect{x, y, width, height};
   SDL_RenderFillRectF(renderer, &rect);
 }
 
 void Renderer::RenderFillRect(int x, int y, int width, int height) const noexcept {
-  SDL_Rect rect = {x, y, width, height};
+  SDL_Rect rect{x, y, width, height};
   SDL_RenderFillRect(renderer, &rect);
 }
 
 void Renderer::RenderRect(float x, float y, float width, float height) const noexcept {
-  SDL_FRect rect = {x, y, width, height};
+  SDL_FRect rect{x, y, width, height};
   SDL_RenderDrawRectF(renderer, &rect);
 }
 
 void Renderer::RenderRect(int x, int y, int width, int height) const noexcept {
-  SDL_Rect rect = {x, y, width, height};
+  SDL_Rect rect{x, y, width, height};
   SDL_RenderDrawRect(renderer, &rect);
 }
 
@@ -154,7 +156,7 @@ void Renderer::SetLogicalSize(float width, float height) noexcept {
 }
 
 void Renderer::SetLogicalIntegerScale(bool useLogicalIntegerScale) noexcept {
-  SDL_RenderSetIntegerScale(renderer, BoolConverter::Convert(useLogicalIntegerScale));
+  SDL_RenderSetIntegerScale(renderer, BoolConverter::convert(useLogicalIntegerScale));
 }
 
 int Renderer::GetLogicalWidth() const noexcept {
@@ -182,7 +184,7 @@ float Renderer::GetYScale() const noexcept {
 }
 
 FRectangle Renderer::GetViewport() const noexcept {
-  SDL_Rect viewport = {0, 0, 0, 0};
+  SDL_Rect viewport{0, 0, 0, 0};
   SDL_RenderGetViewport(renderer, &viewport);
   return viewport;
 }
@@ -202,7 +204,7 @@ std::unique_ptr<Image> Renderer::CreateTexture(const std::string& s, const Font&
 
   uint8_t r = 0, g = 0, b = 0, a = 0;
   SDL_GetRenderDrawColor(renderer, &r, &g, &b, &a);
-  SDL_Color color = {r, g, b, a};
+  SDL_Color color{r, g, b, a};
   SDL_Surface* surface = TTF_RenderText_Blended(font, s.c_str(), color);
 
   if (!surface) {
@@ -213,10 +215,6 @@ std::unique_ptr<Image> Renderer::CreateTexture(const std::string& s, const Font&
   SDL_FreeSurface(surface);
 
   return std::make_unique<Image>(texture);
-}
-
-SDL_Renderer* Renderer::GetInternalRenderer() noexcept {
-  return renderer;
 }
 
 Renderer::operator SDL_Renderer*() const noexcept {

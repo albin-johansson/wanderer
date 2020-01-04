@@ -7,6 +7,8 @@
 #include "time_utils.h"
 #include <SDL.h>
 
+using namespace centurion;
+
 namespace albinjohansson::wanderer {
 
 SmoothFixedTimestepLoop::SmoothFixedTimestepLoop(std::unique_ptr<KeyStateManager> ksm,

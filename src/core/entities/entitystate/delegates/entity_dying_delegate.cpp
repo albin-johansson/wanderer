@@ -3,6 +3,8 @@
 #include "entity_draw_delegate.h"
 #include "require.h"
 
+using namespace centurion;
+
 namespace albinjohansson::wanderer {
 
 EntityDyingDelegate::EntityDyingDelegate(IEntity* entity) {

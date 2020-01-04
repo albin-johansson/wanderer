@@ -7,6 +7,8 @@
 #include "random_utils.h"
 #include "game_constants.h"
 
+using namespace centurion;
+
 namespace albinjohansson::wanderer {
 
 TileObject::TileObject(TileID id, const Vector2& position, const std::shared_ptr<TileSet>& tileSet)

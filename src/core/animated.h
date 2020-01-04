@@ -1,9 +1,13 @@
 #pragma once
 #include <cstdint>
 
-namespace albinjohansson::wanderer {
+namespace centurion {
 
 class Image;
+
+}
+
+namespace albinjohansson::wanderer {
 
 /**
  * The IAnimated interface specifies objects that can be animated.
@@ -72,7 +76,7 @@ class IAnimated {
    * @since 0.1.0
    */
   [[nodiscard]]
-  virtual Image& GetSpriteSheet() const noexcept = 0;
+  virtual centurion::Image& GetSpriteSheet() const noexcept = 0;
 };
 
 }

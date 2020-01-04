@@ -6,10 +6,10 @@ namespace albinjohansson::wanderer {
 
 class FontBundle final {
  private:
-  Font font12;
-  Font font18;
-  Font font24;
-  Font font36;
+  centurion::Font font12;
+  centurion::Font font18;
+  centurion::Font font24;
+  centurion::Font font36;
 
  public:
   explicit FontBundle(const std::string& file);
@@ -17,16 +17,16 @@ class FontBundle final {
   ~FontBundle();
 
   [[nodiscard]]
-  const Font& GetFont12() const noexcept;
+  const centurion::Font& GetFont12() const noexcept;
 
   [[nodiscard]]
-  const Font& GetFont18() const noexcept;
+  const centurion::Font& GetFont18() const noexcept;
 
   [[nodiscard]]
-  const Font& GetFont24() const noexcept;
+  const centurion::Font& GetFont24() const noexcept;
 
   [[nodiscard]]
-  const Font& GetFont36() const noexcept;
+  const centurion::Font& GetFont36() const noexcept;
 
 };
 

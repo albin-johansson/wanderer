@@ -7,6 +7,8 @@
 #include "wanderer_core.h"
 #include "game_constants.h"
 
+using namespace centurion;
+
 namespace albinjohansson::wanderer {
 
 PlayerImpl::PlayerImpl(const std::shared_ptr<Image>& sheet) : AbstractEntity(sheet) {

@@ -1,5 +1,8 @@
 #include "menu_button.h"
+#include "renderer.h"
 #include <utility>
+
+using namespace centurion;
 
 namespace albinjohansson::wanderer {
 
@@ -17,7 +20,7 @@ void MenuButton::RenderText(const Renderer& renderer,
                             float x,
                             float y,
                             std::unique_ptr<Image>& img,
-                            const Font& font) const {
+                            const centurion::Font& font) const {
   if (!img) {
     img = renderer.CreateTexture(text, font);
   }

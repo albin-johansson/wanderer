@@ -1,7 +1,7 @@
 #pragma once
 #include <SDL.h>
 
-namespace albinjohansson::wanderer {
+namespace centurion {
 
 /**
  * The BoolConverter class is a service for converting C++ boolean values to the
@@ -23,9 +23,9 @@ class BoolConverter final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  inline static SDL_bool Convert(bool b) noexcept {
+  inline static SDL_bool convert(bool b) noexcept {
     return (b) ? SDL_TRUE : SDL_FALSE;
   }
 };
 
-}  // namespace albinjohansson::wanderer
+}

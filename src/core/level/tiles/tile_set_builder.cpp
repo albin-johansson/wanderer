@@ -4,6 +4,8 @@
 #include "image_generator.h"
 #include "image.h"
 
+using namespace centurion;
+
 namespace albinjohansson::wanderer {
 
 tiled::TiledTileSet TileSetBuilder::CreateTiledTileSet(const pugi::xml_node& tileSetNode,

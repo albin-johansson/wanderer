@@ -151,19 +151,19 @@ set(SOURCE_FILES
         core/entities/entitystate/delegates/entity_idle_delegate.cpp
         core/entities/entitystate/delegates/entity_idle_delegate.h
 
-        visuals/window.h
-        visuals/window.cpp
-        visuals/window_listener.h
-        visuals/renderer.h
-        visuals/renderer.cpp
-        visuals/image.cpp
-        visuals/image.h
+        centurion/window.h
+        centurion/window.cpp
+        centurion/window_listener.h
+        centurion/renderer.h
+        centurion/renderer.cpp
+        centurion/image.cpp
+        centurion/image.h
         visuals/animation.cpp
         visuals/animation.h
         visuals/image_generator.cpp
         visuals/image_generator.h
-        visuals/font.cpp
-        visuals/font.h
+        centurion/font.cpp
+        centurion/font.h
         visuals/font_bundle.cpp
         visuals/font_bundle.h
 
@@ -172,7 +172,7 @@ set(SOURCE_FILES
         audio/sound_engine.cpp
         audio/sound_engine.h
 
-        service/bool_converter.h
+        centurion/bool_converter.h
         service/display_modes.cpp
         service/display_modes.h
         service/pugi_utils.cpp
@@ -199,7 +199,7 @@ set(SOURCE_FILES
         service/tiled/tiled_object_group.cpp
         service/tiled/tiled_object_group.h
 
-        core/math/spooky_rect.h visuals/hud.cpp visuals/hud.h core/game_constants.h)
+        core/math/spooky_rect.h visuals/hud.cpp visuals/hud.h core/game_constants.h centurion/centurion_exception.cpp centurion/centurion_exception.h)
 
 # Prepares the Wanderer "library", which excludes linking and the main.cpp file
 add_library(${WANDERER_LIB} ${SOURCE_FILES})
@@ -232,6 +232,7 @@ target_include_directories(${WANDERER_LIB} PUBLIC core/entities/skeleton)
 target_include_directories(${WANDERER_LIB} PUBLIC core/entities/entitystate)
 target_include_directories(${WANDERER_LIB} PUBLIC core/entities/entitystate/delegates)
 target_include_directories(${WANDERER_LIB} PUBLIC audio)
+target_include_directories(${WANDERER_LIB} PUBLIC centurion)
 
 # Prepares the actual executable
 add_executable(${WANDERER_EXECUTABLE} main.cpp)

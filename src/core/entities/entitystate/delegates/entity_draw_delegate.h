@@ -1,8 +1,13 @@
 #pragma once
 
-namespace albinjohansson::wanderer {
+namespace centurion {
 
 class Renderer;
+
+}
+
+namespace albinjohansson::wanderer {
+
 class Viewport;
 class IEntity;
 
@@ -27,7 +32,7 @@ class EntityDrawDelegate final {
    * @param srcY the source y-coordinate of the area in the sprite sheet that will be rendered.
    * @since 0.1.0
    */
-  static void Draw(const Renderer& renderer,
+  static void Draw(const centurion::Renderer& renderer,
                    const IEntity& entity,
                    int srcX,
                    int srcY) noexcept;

@@ -4,13 +4,18 @@
 #include <memory>
 #include <vector>
 
+namespace centurion {
+
+class Renderer;
+
+}
+
 namespace albinjohansson::wanderer {
 
+struct TileMapBounds;
 class TileObject;
-class TileMapBounds;
 class ISortableDrawable;
 class IGameObject;
-class Renderer;
 class Viewport;
 
 /**

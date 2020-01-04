@@ -6,6 +6,8 @@
 #include "wanderer_core.h"
 #include "require.h"
 
+using namespace centurion;
+
 namespace albinjohansson::wanderer {
 
 Skeleton::Skeleton(const std::shared_ptr<Image>& sheet) : AbstractEntity(sheet) {

@@ -11,6 +11,8 @@
 #include "game_constants.h"
 #include <SDL.h>
 
+using namespace centurion;
+
 namespace albinjohansson::wanderer {
 
 WandererControllerImpl::WandererControllerImpl() {

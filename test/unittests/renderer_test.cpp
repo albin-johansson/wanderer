@@ -4,6 +4,7 @@
 #include "image.h"
 #include <memory>
 
+using namespace centurion;
 using namespace albinjohansson::wanderer;
 
 TEST_CASE("RendererCtor1", "[Renderer]") {
@@ -18,7 +19,7 @@ TEST_CASE("RendererCtor2", "[Renderer]") {
 
 TEST_CASE("Renderer::RenderTexture2", "[Renderer]") {
   Renderer renderer(SDL_CreateWindow("", 0, 0, 100, 100, SDL_WINDOW_HIDDEN));
-  auto img = std::make_unique<Image>(renderer.GetInternalRenderer(), "resources/img/grass.png");
+  auto img = std::make_unique<Image>(renderer, "resources/img/grass.png");
 
   CHECK_NOTHROW(renderer.RenderTexture(*img, 0, 0, 0, 0));
 }
