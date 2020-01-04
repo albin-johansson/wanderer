@@ -84,7 +84,7 @@ void WandererCoreImpl::quit() noexcept {
 }
 
 void WandererCoreImpl::play_sound(const std::string& id) const {
-  soundEngine->Play(id);
+  soundEngine->play(id);
 }
 
 void WandererCoreImpl::set_map(std::shared_ptr<ITileMap> map) {

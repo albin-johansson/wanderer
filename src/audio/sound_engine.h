@@ -12,21 +12,21 @@ class SoundEngine final { // TODO expand
   std::unordered_map<std::string, std::unique_ptr<SoundEffect>> sounds;
   bool enabled = true;
 
-  void LoadSounds(const std::string& file);
+  void load_sounds(const std::string& file);
 
-  void Register(const std::string& id, std::unique_ptr<SoundEffect> sound);
+  void registerSound(const std::string& id, std::unique_ptr<SoundEffect> sound);
 
  public:
   explicit SoundEngine(const std::string& file);
 
   ~SoundEngine();
 
-  void Play(const std::string& id);
+  void play(const std::string& id);
 
-  void SetEnabled(bool enabled) noexcept;
+  void set_enabled(bool enabled) noexcept;
 
   [[nodiscard]]
-  bool IsEnabled() const noexcept;
+  bool is_enabled() const noexcept;
 };
 
 }

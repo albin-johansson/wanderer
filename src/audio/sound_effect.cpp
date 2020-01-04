@@ -8,66 +8,66 @@ SoundEffect::SoundEffect(const std::string& file) {
   if (!chunk) {
     throw BadStateException(SDL_GetError());
   }
-  SetVolume(MIX_MAX_VOLUME / 2);
+  set_volume(MIX_MAX_VOLUME / 2);
 }
 
 SoundEffect::~SoundEffect() {
-  Stop();
+  stop();
   Mix_FreeChunk(chunk);
 }
 
-void SoundEffect::Activate(int nLoops) noexcept {
-  if (channel != UNDEFINED_CHANNEL) {
+void SoundEffect::activate(int nLoops) noexcept {
+  if (channel != undefinedChannel) {
     Mix_PlayChannel(channel, chunk, nLoops);
   } else {
-    channel = Mix_PlayChannel(UNDEFINED_CHANNEL, chunk, nLoops);
+    channel = Mix_PlayChannel(undefinedChannel, chunk, nLoops);
   }
 }
 
-void SoundEffect::Play() noexcept {
-  Activate(0);
+void SoundEffect::play() noexcept {
+  activate(0);
 }
 
-void SoundEffect::Loop(int nLoops) noexcept {
+void SoundEffect::loop(int nLoops) noexcept {
   if (nLoops < 0) { nLoops = -1; }
-  Activate(nLoops);
+  activate(nLoops);
 }
 
-void SoundEffect::Stop() noexcept {
-  if (IsPlaying()) {
+void SoundEffect::stop() noexcept {
+  if (is_playing()) {
     Mix_Pause(channel);
-    channel = UNDEFINED_CHANNEL;
+    channel = undefinedChannel;
   }
 }
 
-void SoundEffect::FadeIn(Uint32 ms) noexcept {
-  if (ms > 0 && !IsPlaying()) {
-    if (channel != UNDEFINED_CHANNEL) {
+void SoundEffect::fade_in(Uint32 ms) noexcept {
+  if (ms > 0 && !is_playing()) {
+    if (channel != undefinedChannel) {
       Mix_FadeInChannelTimed(channel, chunk, 0, ms, -1);
     } else {
-      channel = Mix_FadeInChannelTimed(UNDEFINED_CHANNEL, chunk, 0, ms, -1);
+      channel = Mix_FadeInChannelTimed(undefinedChannel, chunk, 0, ms, -1);
     }
   }
 }
 
-void SoundEffect::FadeOut(Uint32 ms) noexcept {
-  if ((ms > 0) && IsPlaying()) {
+void SoundEffect::fade_out(Uint32 ms) noexcept {
+  if ((ms > 0) && is_playing()) {
     Mix_FadeOutChannel(channel, ms);
   }
 }
 
-void SoundEffect::SetVolume(int volume) noexcept {
+void SoundEffect::set_volume(int volume) noexcept {
   if (volume < 0) { volume = 0; }
   if (volume > MIX_MAX_VOLUME) { volume = MIX_MAX_VOLUME; }
   Mix_VolumeChunk(chunk, volume);
 }
 
-int SoundEffect::GetVolume() const noexcept {
+int SoundEffect::get_volume() const noexcept {
   return chunk->volume;
 }
 
-bool SoundEffect::IsPlaying() const noexcept {
-  return (channel != UNDEFINED_CHANNEL) && Mix_Playing(channel);
+bool SoundEffect::is_playing() const noexcept {
+  return (channel != undefinedChannel) && Mix_Playing(channel);
 }
 
 }

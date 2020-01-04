@@ -12,10 +12,10 @@ namespace albinjohansson::wanderer {
  */
 class SoundEffect final {
  private:
-  static constexpr int UNDEFINED_CHANNEL = -1;
+  static constexpr int undefinedChannel = -1;
 
   Mix_Chunk* chunk = nullptr;
-  int channel = UNDEFINED_CHANNEL;
+  int channel = undefinedChannel;
 
   /**
    * Activates the sound effect by playing it the specified amount of times.
@@ -23,7 +23,7 @@ class SoundEffect final {
    * @param nLoops the amount of times to play the sound effect.
    * @since 0.1.0
    */
-  void Activate(int nLoops) noexcept;
+  void activate(int nLoops) noexcept;
 
  public:
   /**
@@ -32,7 +32,7 @@ class SoundEffect final {
    *
    * @since 0.1.0
    */
-  static constexpr int LOOP_INDEFINITELY = -10;
+  static constexpr int loopIndefinitely = -10;
 
   /**
    * @param file the file path of the audio file.
@@ -48,7 +48,7 @@ class SoundEffect final {
    *
    * @since 0.1.0
    */
-  void Play() noexcept;
+  void play() noexcept;
 
   /**
    * Loops the sound effect by the specified amount of times.
@@ -56,16 +56,16 @@ class SoundEffect final {
    * @param nLoops the amount of loops. A negative value indicates that the sound effect should
    * be looped indefinitely.
    * @since 0.1.0
-   * @see SoundEffect::LOOP_INDEFINITELY
+   * @see SoundEffect::loopIndefinitely
    */
-  void Loop(int nLoops) noexcept;
+  void loop(int nLoops) noexcept;
 
   /**
    * Stops the sound effect from playing.
    *
    * @since 0.1.0
    */
-  void Stop() noexcept;
+  void stop() noexcept;
 
   /**
    * Fades in the sound effect. This method has no effect if the supplied duration isn't greater
@@ -74,7 +74,7 @@ class SoundEffect final {
    * @param ms the duration to fade in, in milliseconds.
    * @since 0.1.0
    */
-  void FadeIn(uint32_t ms) noexcept;
+  void fade_in(uint32_t ms) noexcept;
 
   /**
    * Fades out the sound effect. This method has no effect if the supplied duration isn't greater
@@ -83,7 +83,7 @@ class SoundEffect final {
    * @param ms the duration to fade in, in milliseconds.
    * @since 0.1.0
    */
-  void FadeOut(uint32_t ms) noexcept;
+  void fade_out(uint32_t ms) noexcept;
 
   /**
    * Sets the volume of the sound effect. This method will adjust input values outside
@@ -92,7 +92,7 @@ class SoundEffect final {
    * @param volume the volume of the sound effect, in the range [0, MIX_MAX_VOLUME].
    * @since 0.1.0
    */
-  void SetVolume(int volume) noexcept;
+  void set_volume(int volume) noexcept;
 
   /**
    * Returns the current volume of the sound effect.
@@ -101,7 +101,7 @@ class SoundEffect final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  int GetVolume() const noexcept;
+  int get_volume() const noexcept;
 
   /**
    * Indicates whether or not the sound effect is currently playing.
@@ -110,7 +110,7 @@ class SoundEffect final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  bool IsPlaying() const noexcept;
+  bool is_playing() const noexcept;
 };
 
 }

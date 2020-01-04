@@ -11,62 +11,62 @@ TEST_CASE("SoundEffect::SoundEffect", "[SoundEffect]") {
 TEST_CASE("SoundEffect::Play && SoundEffect::Stop", "[SoundEffect]") {
   SoundEffect sound("resources/audio/swing.wav");
 
-  CHECK(!sound.IsPlaying());
+  CHECK(!sound.is_playing());
 
-  sound.SetVolume(1);
-  sound.Loop(10);
+  sound.set_volume(1);
+  sound.loop(10);
 
-  CHECK(sound.IsPlaying());
+  CHECK(sound.is_playing());
 
-  sound.Stop();
-  CHECK(!sound.IsPlaying());
+  sound.stop();
+  CHECK(!sound.is_playing());
 }
 
 TEST_CASE("SoundEffect::FadeIn && SoundEffect::FadeOut", "[SoundEffect]") {
   SoundEffect sound("resources/audio/swing.wav");
 
-  CHECK_NOTHROW(sound.FadeIn(0));
-  CHECK_NOTHROW(sound.FadeIn(-1));
+  CHECK_NOTHROW(sound.fade_in(0));
+  CHECK_NOTHROW(sound.fade_in(-1));
 
-  CHECK_NOTHROW(sound.FadeOut(0));
-  CHECK_NOTHROW(sound.FadeOut(-1));
+  CHECK_NOTHROW(sound.fade_out(0));
+  CHECK_NOTHROW(sound.fade_out(-1));
 }
 
 TEST_CASE("SoundEffect::Loop", "[SoundEffect]") {
   SoundEffect sound("resources/audio/swing.wav");
-  sound.SetVolume(1);
+  sound.set_volume(1);
 
-  sound.Loop(10);
-  CHECK(sound.IsPlaying());
-  sound.Stop();
+  sound.loop(10);
+  CHECK(sound.is_playing());
+  sound.stop();
 
-  CHECK(SoundEffect::LOOP_INDEFINITELY < 0);
+  CHECK(SoundEffect::loopIndefinitely < 0);
 
-  CHECK_NOTHROW(sound.Loop(SoundEffect::LOOP_INDEFINITELY));
-  CHECK(sound.IsPlaying());
+  CHECK_NOTHROW(sound.loop(SoundEffect::loopIndefinitely));
+  CHECK(sound.is_playing());
 
-  sound.Stop();
-  CHECK(!sound.IsPlaying());
+  sound.stop();
+  CHECK(!sound.is_playing());
 }
 
 TEST_CASE("SoundEffect::SetVolume && SoundEffect::GetVolume", "[SoundEffect]") {
   SoundEffect sound("resources/audio/swing.wav");
 
-  sound.SetVolume(MIX_MAX_VOLUME);
-  CHECK(sound.GetVolume() == MIX_MAX_VOLUME);
+  sound.set_volume(MIX_MAX_VOLUME);
+  CHECK(sound.get_volume() == MIX_MAX_VOLUME);
 
-  sound.SetVolume(-1);
-  CHECK(sound.GetVolume() == 0);
+  sound.set_volume(-1);
+  CHECK(sound.get_volume() == 0);
 
-  sound.SetVolume(MIX_MAX_VOLUME + 1);
-  CHECK(sound.GetVolume() == MIX_MAX_VOLUME);
+  sound.set_volume(MIX_MAX_VOLUME + 1);
+  CHECK(sound.get_volume() == MIX_MAX_VOLUME);
 }
 
 TEST_CASE("SoundEffect::IsPlaying", "[SoundEffect]") {
   SoundEffect sound("resources/audio/swing.wav");
 
-  CHECK(!sound.IsPlaying());
-  sound.SetVolume(1); // So that I don't scare myself...
-  sound.Loop(2);
-  CHECK(sound.IsPlaying());
+  CHECK(!sound.is_playing());
+  sound.set_volume(1); // So that I don't scare myself...
+  sound.loop(2);
+  CHECK(sound.is_playing());
 }

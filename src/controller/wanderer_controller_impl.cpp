@@ -23,7 +23,6 @@ WandererControllerImpl::WandererControllerImpl() {
   window->set_fullscreen(true);
 #else
   window = std::make_unique<Window>("Wanderer", 1280, 720);
-  window->set_fullscreen(false);
 #endif
 
   InitIcon();
