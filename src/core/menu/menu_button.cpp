@@ -32,8 +32,8 @@ void MenuButton::Draw(Renderer& renderer, const Viewport&, const FontBundle& fon
   if (!text.empty()) {
     const auto& font = enlarged ? fonts.GetFont36() : fonts.GetFont24();
 
-    const auto width = font.GetStringWidth(text);
-    const auto height = font.GetStringHeight(text);
+    const auto width = font.get_string_width(text);
+    const auto height = font.get_string_height(text);
     const auto x = bounds.GetCenterX() - (width / 2.0f);
     const auto y = bounds.GetCenterY() - (height / 2.0f);
 

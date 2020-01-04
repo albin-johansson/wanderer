@@ -22,7 +22,7 @@ class Font final {
    * @param mask the bit mask of the font style to enable.
    * @since 0.1.0
    */
-  void AddStyle(int mask);
+  void add_style(int mask);
 
   /**
    * Removes the font style associated with the supplied bit mask. The possible values are
@@ -31,7 +31,7 @@ class Font final {
    * @param mask the bit mask of the font style to disable.
    * @since 0.1.0
    */
-  void RemoveStyle(int mask);
+  void remove_style(int mask);
 
  public:
   /**
@@ -50,7 +50,7 @@ class Font final {
    *
    * @since 0.1.0
    */
-  void Reset() noexcept;
+  void reset() noexcept;
 
   /**
    * Sets the bold property of the font.
@@ -58,7 +58,7 @@ class Font final {
    * @param bold true if the font should be bold; false otherwise.
    * @since 0.1.0
    */
-  void SetBold(bool bold) noexcept;
+  void set_bold(bool bold) noexcept;
 
   /**
    * Sets the italic property of the font.
@@ -66,7 +66,7 @@ class Font final {
    * @param bold true if the font should be italic; false otherwise.
    * @since 0.1.0
    */
-  void SetItalic(bool italic) noexcept;
+  void set_italic(bool italic) noexcept;
 
   /**
    * Sets the underlined property of the font.
@@ -74,7 +74,7 @@ class Font final {
    * @param bold true if the font should be underlined; false otherwise.
    * @since 0.1.0
    */
-  void SetUnderlined(bool underlined) noexcept;
+  void set_underlined(bool underlined) noexcept;
 
   /**
    * Sets the strikethrough property of the font.
@@ -82,7 +82,7 @@ class Font final {
    * @param bold true if the font should be strikethrough; false otherwise.
    * @since 0.1.0
    */
-  void SetStrikethrough(bool strikethrough) noexcept;
+  void set_strikethrough(bool strikethrough) noexcept;
 
   /**
    * Sets the outlined property of the font.
@@ -90,7 +90,7 @@ class Font final {
    * @param bold true if the font should be outlined; false otherwise.
    * @since 0.1.0
    */
-  void SetOutlined(bool outlined) noexcept;
+  void set_outlined(bool outlined) noexcept;
 
   /**
    * Returns the size of the font.
@@ -99,7 +99,7 @@ class Font final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  int GetSize() const noexcept;
+  int get_size() const noexcept;
 
   /**
    * Indicates whether or not the font is bold.
@@ -108,7 +108,7 @@ class Font final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  bool IsBold() const noexcept;
+  bool is_bold() const noexcept;
 
   /**
    * Indicates whether or not the font is italic.
@@ -117,7 +117,7 @@ class Font final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  bool IsItalic() const noexcept;
+  bool is_italic() const noexcept;
 
   /**
    * Indicates whether or not the font is underlined.
@@ -126,7 +126,7 @@ class Font final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  bool IsUnderlined() const noexcept;
+  bool is_underlined() const noexcept;
 
   /**
    * Indicates whether or not the font is a strikethrough font.
@@ -135,7 +135,7 @@ class Font final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  bool IsStrikethrough() const noexcept;
+  bool is_strikethrough() const noexcept;
 
   /**
    * Indicates whether or not the font is outlined.
@@ -144,7 +144,7 @@ class Font final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  bool IsOutlined() const noexcept;
+  bool is_outlined() const noexcept;
 
   /**
    * Indicates whether or not the font is fixed width.
@@ -153,7 +153,7 @@ class Font final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  bool IsFixedWidth() const noexcept;
+  bool is_fixed_width() const noexcept;
 
   /**
    * Returns the family name of the font.
@@ -162,7 +162,7 @@ class Font final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  std::string GetFamilyName() const;
+  std::string get_family_name() const;
 
   /**
    * Returns the width of the supplied string, if it was rendered using the font.
@@ -172,7 +172,7 @@ class Font final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  int GetStringWidth(const std::string& s) const noexcept;
+  int get_string_width(const std::string& s) const noexcept;
 
   /**
    * Returns the height of the supplied string, if it was rendered using the font.
@@ -182,7 +182,7 @@ class Font final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  int GetStringHeight(const std::string& s) const noexcept;
+  int get_string_height(const std::string& s) const noexcept;
 
   operator TTF_Font*() const noexcept;
 

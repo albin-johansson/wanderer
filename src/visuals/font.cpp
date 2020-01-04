@@ -21,98 +21,98 @@ Font::~Font() {
   TTF_CloseFont(font);
 }
 
-void Font::Reset() noexcept {
+void Font::reset() noexcept {
   style = TTF_STYLE_NORMAL;
   TTF_SetFontStyle(font, style);
 }
 
-void Font::AddStyle(int mask) {
+void Font::add_style(int mask) {
   style |= mask;
   TTF_SetFontStyle(font, style);
 }
 
-void Font::RemoveStyle(int mask) {
+void Font::remove_style(int mask) {
   style &= ~mask;
   TTF_SetFontStyle(font, style);
 }
 
-void Font::SetBold(bool bold) noexcept {
+void Font::set_bold(bool bold) noexcept {
   if (bold) {
-    AddStyle(TTF_STYLE_BOLD);
+    add_style(TTF_STYLE_BOLD);
   } else {
-    RemoveStyle(TTF_STYLE_BOLD);
+    remove_style(TTF_STYLE_BOLD);
   }
 }
 
-void Font::SetItalic(bool italic) noexcept {
+void Font::set_italic(bool italic) noexcept {
   if (italic) {
-    AddStyle(TTF_STYLE_ITALIC);
+    add_style(TTF_STYLE_ITALIC);
   } else {
-    RemoveStyle(TTF_STYLE_ITALIC);
+    remove_style(TTF_STYLE_ITALIC);
   }
 }
 
-void Font::SetUnderlined(bool underlined) noexcept {
+void Font::set_underlined(bool underlined) noexcept {
   if (underlined) {
-    AddStyle(TTF_STYLE_UNDERLINE);
+    add_style(TTF_STYLE_UNDERLINE);
   } else {
-    RemoveStyle(TTF_STYLE_UNDERLINE);
+    remove_style(TTF_STYLE_UNDERLINE);
   }
 }
 
-void Font::SetStrikethrough(bool strikethrough) noexcept {
+void Font::set_strikethrough(bool strikethrough) noexcept {
   if (strikethrough) {
-    AddStyle(TTF_STYLE_STRIKETHROUGH);
+    add_style(TTF_STYLE_STRIKETHROUGH);
   } else {
-    RemoveStyle(TTF_STYLE_STRIKETHROUGH);
+    remove_style(TTF_STYLE_STRIKETHROUGH);
   }
 }
 
-void Font::SetOutlined(bool outlined) noexcept {
+void Font::set_outlined(bool outlined) noexcept {
   TTF_SetFontOutline(font, outlined ? 1 : 0);
 }
 
-bool Font::IsBold() const noexcept {
+bool Font::is_bold() const noexcept {
   return style & TTF_STYLE_BOLD;
 }
 
-bool Font::IsItalic() const noexcept {
+bool Font::is_italic() const noexcept {
   return style & TTF_STYLE_ITALIC;
 }
 
-bool Font::IsUnderlined() const noexcept {
+bool Font::is_underlined() const noexcept {
   return style & TTF_STYLE_UNDERLINE;
 }
 
-bool Font::IsStrikethrough() const noexcept {
+bool Font::is_strikethrough() const noexcept {
   return style & TTF_STYLE_STRIKETHROUGH;
 }
 
-bool Font::IsOutlined() const noexcept {
+bool Font::is_outlined() const noexcept {
   return TTF_GetFontOutline(font);
 }
 
-bool Font::IsFixedWidth() const noexcept {
+bool Font::is_fixed_width() const noexcept {
   return TTF_FontFaceIsFixedWidth(font);
 }
 
-int Font::GetStringWidth(const std::string& s) const noexcept {
+int Font::get_string_width(const std::string& s) const noexcept {
   int width = 0;
   TTF_SizeText(font, s.c_str(), &width, nullptr);
   return width;
 }
 
-int Font::GetStringHeight(const std::string& s) const noexcept {
+int Font::get_string_height(const std::string& s) const noexcept {
   int height = 0;
   TTF_SizeText(font, s.c_str(), nullptr, &height);
   return height;
 }
 
-int Font::GetSize() const noexcept {
+int Font::get_size() const noexcept {
   return size;
 }
 
-std::string Font::GetFamilyName() const {
+std::string Font::get_family_name() const {
   return TTF_FontFaceFamilyName(font);
 }
 

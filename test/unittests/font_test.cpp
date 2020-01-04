@@ -12,91 +12,91 @@ TEST_CASE("Font(string&, int)", "[Font]") {
 TEST_CASE("Font::Reset", "[Font]") {
   Font f("resources/font/type_writer.ttf", 12);
 
-  f.SetBold(true);
-  f.SetItalic(true);
-  f.SetUnderlined(true);
-  f.SetStrikethrough(true);
+  f.set_bold(true);
+  f.set_italic(true);
+  f.set_underlined(true);
+  f.set_strikethrough(true);
 
-  f.Reset();
-  CHECK(!f.IsBold());
-  CHECK(!f.IsItalic());
-  CHECK(!f.IsUnderlined());
-  CHECK(!f.IsStrikethrough());
+  f.reset();
+  CHECK(!f.is_bold());
+  CHECK(!f.is_italic());
+  CHECK(!f.is_underlined());
+  CHECK(!f.is_strikethrough());
 }
 
 TEST_CASE("Font::SetBold", "[Font]") {
   Font f("resources/font/type_writer.ttf", 12);
 
-  CHECK(!f.IsBold());
+  CHECK(!f.is_bold());
 
-  f.SetBold(true);
-  CHECK(f.IsBold());
+  f.set_bold(true);
+  CHECK(f.is_bold());
 
-  f.SetBold(false);
-  CHECK(!f.IsBold());
+  f.set_bold(false);
+  CHECK(!f.is_bold());
 }
 
 TEST_CASE("Font::SetItalic", "[Font]") {
   Font f("resources/font/type_writer.ttf", 12);
 
-  CHECK(!f.IsItalic());
+  CHECK(!f.is_italic());
 
-  f.SetItalic(true);
-  CHECK(f.IsItalic());
+  f.set_italic(true);
+  CHECK(f.is_italic());
 
-  f.SetItalic(false);
-  CHECK(!f.IsItalic());
+  f.set_italic(false);
+  CHECK(!f.is_italic());
 }
 
 TEST_CASE("Font::SetUnderlined", "[Font]") {
   Font f("resources/font/type_writer.ttf", 12);
 
-  CHECK(!f.IsUnderlined());
+  CHECK(!f.is_underlined());
 
-  f.SetUnderlined(true);
-  CHECK(f.IsUnderlined());
+  f.set_underlined(true);
+  CHECK(f.is_underlined());
 
-  f.SetUnderlined(false);
-  CHECK(!f.IsUnderlined());
+  f.set_underlined(false);
+  CHECK(!f.is_underlined());
 }
 
 TEST_CASE("Font::SetStrikethrough", "[Font]") {
   Font f("resources/font/type_writer.ttf", 12);
 
-  CHECK(!f.IsStrikethrough());
+  CHECK(!f.is_strikethrough());
 
-  f.SetStrikethrough(true);
-  CHECK(f.IsStrikethrough());
+  f.set_strikethrough(true);
+  CHECK(f.is_strikethrough());
 
-  f.SetStrikethrough(false);
-  CHECK(!f.IsStrikethrough());
+  f.set_strikethrough(false);
+  CHECK(!f.is_strikethrough());
 }
 
 TEST_CASE("Font::SetOutlined", "[Font]") {
   Font f("resources/font/type_writer.ttf", 12);
 
-  CHECK(!f.IsOutlined());
+  CHECK(!f.is_outlined());
 
-  f.SetOutlined(true);
-  CHECK(f.IsOutlined());
+  f.set_outlined(true);
+  CHECK(f.is_outlined());
 
-  f.SetOutlined(false);
-  CHECK(!f.IsOutlined());
+  f.set_outlined(false);
+  CHECK(!f.is_outlined());
 }
 
 TEST_CASE("Font::GetSize", "[Font]") {
   int size = 12;
   Font f("resources/font/type_writer.ttf", size);
 
-  CHECK(size == f.GetSize());
+  CHECK(size == f.get_size());
 }
 
 TEST_CASE("Font::IsFixedWidth", "[Font]") {
   Font firacode("resources/font/fira_code.ttf", 12); // Fixed width
   Font daniel("resources/font/daniel.ttf", 12);      // Not fixed width
 
-  CHECK(firacode.IsFixedWidth());
-  CHECK(!daniel.IsFixedWidth());
+  CHECK(firacode.is_fixed_width());
+  CHECK(!daniel.is_fixed_width());
 }
 
 TEST_CASE("Font::GetInternalFont", "[Font]") {
@@ -106,5 +106,5 @@ TEST_CASE("Font::GetInternalFont", "[Font]") {
 
 TEST_CASE("Font::GetFamilyName", "[Font]") {
   Font f("resources/font/type_writer.ttf", 12);
-  CHECK(f.GetFamilyName() == "Type Writer");
+  CHECK(f.get_family_name() == "Type Writer");
 }
