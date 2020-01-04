@@ -15,21 +15,21 @@ namespace albinjohansson::wanderer {
  *
  * @since 0.1.0
  */
-constexpr int GAME_LOGICAL_WIDTH = 1280;
+constexpr int gameLogicalWidth = 1280;
 
 /**
  * The logical height of the game.
  *
  * @since 0.1.0
  */
-constexpr int GAME_LOGICAL_HEIGHT = 720;
+constexpr int gameLogicalHeight = 720;
 
 /**
  * The size (width and height) of all tiles in the game.
  *
  * @since 0.1.0
  */
-constexpr float TILE_SIZE = 64;
+constexpr float tileSize = 64;
 
 /**
  * The logical size (width and height) of all tiles. This constant is the same as TILE_SIZE,
@@ -37,27 +37,27 @@ constexpr float TILE_SIZE = 64;
  *
  * @since 0.1.0
  */
-constexpr int TILE_SIZE_INT = 64;
+constexpr int tileSizeInt = 64;
 
 /**
  * The speed of the player.
  *
  * @since 0.1.0
  */
-constexpr float PLAYER_SPEED = 230;
+constexpr float playerSpeed = 230;
 
 /**
  * The speed of mobs.
  *
  * @since 0.1.0
  */
-constexpr float MOB_SPEED = 200;
+constexpr float mobSpeed = 200;
 
 /**
  * The maximum health of the player.
  *
  * @since 0.1.0
  */
-constexpr int PLAYER_MAX_HEALTH = 100;
+constexpr int playerMaxHealth = 100;
 
 }

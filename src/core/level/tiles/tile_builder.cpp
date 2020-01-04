@@ -49,10 +49,10 @@ Tile TileBuilder::Create(const std::shared_ptr<Image>& image,
     if (tiledTile.HasObject("hitbox")) {
       const auto& object = tiledTile.GetObject("hitbox");
 
-      const auto x = (std::stof(object.GetAttribute("x")) / tileWidth) * TILE_SIZE;
-      const auto y = (std::stof(object.GetAttribute("y")) / tileHeight) * TILE_SIZE;
-      const auto w = (std::stof(object.GetAttribute("width")) / tileWidth) * TILE_SIZE;
-      const auto h = (std::stof(object.GetAttribute("height")) / tileHeight) * TILE_SIZE;
+      const auto x = (std::stof(object.GetAttribute("x")) / tileWidth) * tileSize;
+      const auto y = (std::stof(object.GetAttribute("y")) / tileHeight) * tileSize;
+      const auto w = (std::stof(object.GetAttribute("width")) / tileWidth) * tileSize;
+      const auto h = (std::stof(object.GetAttribute("height")) / tileHeight) * tileSize;
 
       tile.AddRectangle(FRectangle{x, y, Area{w, h}}, Vector2{x, y});
       tile.SetBlocked(true);

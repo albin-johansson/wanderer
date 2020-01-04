@@ -54,11 +54,11 @@ float TileObject::GetCenterY() const noexcept {
 }
 
 float TileObject::GetWidth() const noexcept {
-  return TILE_SIZE;
+  return tileSize;
 }
 
 float TileObject::GetHeight() const noexcept {
-  return TILE_SIZE;
+  return tileSize;
 }
 
 const Hitbox& TileObject::GetHitbox() const noexcept {

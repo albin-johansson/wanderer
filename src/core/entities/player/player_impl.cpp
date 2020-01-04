@@ -17,7 +17,7 @@ PlayerImpl::PlayerImpl(const std::shared_ptr<Image>& sheet) : AbstractEntity(she
 PlayerImpl::~PlayerImpl() = default;
 
 void PlayerImpl::Init() {
-  SetSpeed(PLAYER_SPEED);
+  SetSpeed(playerSpeed);
 }
 
 void PlayerImpl::HandleInput(const Input& input, const IWandererCore& core) {

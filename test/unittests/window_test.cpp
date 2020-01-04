@@ -12,8 +12,8 @@ TEST_CASE("Window(string, int, int)", "[Window]") {
   int height = 321;
   Window window("Foo", width, height); // TODO test title
 
-  CHECK(window.GetWidth() == width);
-  CHECK(window.GetHeight() == height);
+  CHECK(window.get_width() == width);
+  CHECK(window.get_height() == height);
 }
 
 TEST_CASE("Window::Create", "[Window]") {
@@ -25,69 +25,63 @@ TEST_CASE("Window::Create", "[Window]") {
   int height = 351;
   auto window = std::make_unique<Window>(title, width, height);
 
-  CHECK(window->GetTitle() == title);
-  CHECK(window->GetWidth() == width);
-  CHECK(window->GetHeight() == height);
+  CHECK(window->get_title() == title);
+  CHECK(window->get_width() == width);
+  CHECK(window->get_height() == height);
 }
 
 TEST_CASE("Window::Show", "[Window]") {
   Window window("Foo", 100, 100);
 
-  window.Show();
-  CHECK(window.IsVisible());
+  window.show();
+  CHECK(window.is_visible());
 }
 
 TEST_CASE("Window::Hide", "[Window]") {
   Window window("Foo", 100, 100);
 
-  window.Hide();
-  CHECK(!window.IsVisible());
+  window.hide();
+  CHECK(!window.is_visible());
 }
 
 TEST_CASE("Window::SetFullscreen", "[Window]") {
   Window window("Foo", 100, 100);
 
-  window.SetFullscreen(true);
-  CHECK(window.IsFullscreen());
+  window.set_fullscreen(true);
+  CHECK(window.is_fullscreen());
 
-  window.SetFullscreen(false);
-  CHECK(!window.IsFullscreen());
+  window.set_fullscreen(false);
+  CHECK(!window.is_fullscreen());
 }
 
 TEST_CASE("Window::SetResizable", "[Window]") {
   Window window("Foo", 100, 100);
 
-  window.SetResizable(true);
-  CHECK(window.IsResizable());
+  window.set_resizable(true);
+  CHECK(window.is_resizable());
 
-  window.SetResizable(false);
-  CHECK(!window.IsResizable());
+  window.set_resizable(false);
+  CHECK(!window.is_resizable());
 }
 
 TEST_CASE("Window::SetWidth", "[Window]") {
   Window window("Foo", 100, 100);
 
   int width = 812;
-  window.SetWidth(width);
-  CHECK(window.GetWidth() == width);
+  window.set_width(width);
+  CHECK(window.get_width() == width);
 }
 
 TEST_CASE("Window::SetHeight", "[Window]") {
   Window window("Foo", 100, 100);
 
   int height = 327;
-  window.SetHeight(height);
-  CHECK(window.GetHeight() == height);
-}
-
-TEST_CASE("Window::GetInternalWindow", "[Window]") {
-  Window window("Foo", 100, 100);
-  SDL_Window* sdlWindow = window.GetInternalWindow();
-  CHECK(sdlWindow != nullptr);
+  window.set_height(height);
+  CHECK(window.get_height() == height);
 }
 
 TEST_CASE("Window::GetTitle", "[Window]") {
   auto title = "HelloWorld";
   Window window(title, 100, 100);
-  CHECK(window.GetTitle() == title);
+  CHECK(window.get_title() == title);
 }

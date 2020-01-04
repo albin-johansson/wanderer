@@ -21,8 +21,8 @@ std::unique_ptr<ITileMap> TileMapBuilder::Create(const std::shared_ptr<TileSet>&
         object.HasProperty("name") &&
         object.GetProperty("name").value == "player") {
 
-      const auto x = tiledMap.ConvertX(std::stof(object.GetAttribute("x")), TILE_SIZE);
-      const auto y = tiledMap.ConvertY(std::stof(object.GetAttribute("y")), TILE_SIZE);
+      const auto x = tiledMap.ConvertX(std::stof(object.GetAttribute("x")), tileSize);
+      const auto y = tiledMap.ConvertY(std::stof(object.GetAttribute("y")), tileSize);
       map->playerSpawnPos.Set(x, y);
     }
   }

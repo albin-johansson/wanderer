@@ -15,7 +15,7 @@ Skeleton::Skeleton(const std::shared_ptr<Image>& sheet) : AbstractEntity(sheet) 
 Skeleton::~Skeleton() = default;
 
 void Skeleton::Init() {
-  SetSpeed(MOB_SPEED);
+  SetSpeed(mobSpeed);
 }
 
 void Skeleton::Draw(const Renderer& renderer, const Viewport& viewport) const {

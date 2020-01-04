@@ -14,7 +14,7 @@ void HUD::DrawHealthBar(Renderer& renderer, IWandererCore& core) const {
   const auto& player = core.GetPlayer();
 
   const auto hp = player.GetHealth();
-  const auto hpBarWidth = (hp / PLAYER_MAX_HEALTH) * 100;
+  const auto hpBarWidth = (hp / playerMaxHealth) * 100;
   const auto hpBarHeight = 20;
 
   renderer.SetColor(0xFF, 0, 0);

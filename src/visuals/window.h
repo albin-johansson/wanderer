@@ -17,7 +17,7 @@ class Window final {
   SDL_Window* window = nullptr;
   std::vector<IWindowListener*> windowListeners;
 
-  void NotifyWindowListeners() noexcept;
+  void notify_window_listeners() noexcept;
 
  public:
   /**
@@ -39,14 +39,14 @@ class Window final {
    *
    * @since 0.1.0
    */
-  void Show() noexcept;
+  void show() noexcept;
 
   /**
    * Makes the window invisible. Triggers a window listener update.
    *
    * @since 0.1.0
    */
-  void Hide() noexcept;
+  void hide() noexcept;
 
   /**
    * Adds a window listener to the window. Null listener are always silently ignored. The window
@@ -55,7 +55,7 @@ class Window final {
    * @param listener a window listener, may be null.
    * @since 0.1.0
    */
-  void AddWindowListener(IWindowListener* listener) noexcept;
+  void add_window_listener(IWindowListener* listener) noexcept;
 
   /**
    * Sets whether or not the window is in fullscreen mode. Triggers a window listener update.
@@ -64,7 +64,7 @@ class Window final {
    * otherwise.
    * @since 0.1.0
    */
-  void SetFullscreen(bool fullscreen) noexcept;
+  void set_fullscreen(bool fullscreen) noexcept;
 
   /**
    * Sets whether or not the window should be resizable. Triggers a window listener update.
@@ -72,7 +72,7 @@ class Window final {
    * @param isResizable true if the window should be resizable; false otherwise.
    * @since 0.1.0
    */
-  void SetResizable(bool isResizable) noexcept;
+  void set_resizable(bool isResizable) noexcept;
 
   /**
    * Sets the width of the window. Triggers a window listener update.
@@ -81,7 +81,7 @@ class Window final {
    * @throws invalid_argument if the supplied width isn't greater than zero.
    * @since 0.1.0
    */
-  void SetWidth(int width);
+  void set_width(int width);
 
   /**
    * Sets the height of the window. Triggers a window listener update.
@@ -91,7 +91,7 @@ class Window final {
    * zero.
    * @since 0.1.0
    */
-  void SetHeight(int height);
+  void set_height(int height);
 
   /**
    * Sets the icon that will be used by the window. Triggers a window listener update.
@@ -99,7 +99,7 @@ class Window final {
    * @param icon a pointer to the surface that will serve as the icon of the window.
    * @since 0.1.0
    */
-  void SetIcon(SDL_Surface* icon);
+  void set_icon(SDL_Surface* icon);
 
   /**
    * Indicates whether or not the window is resizable.
@@ -108,7 +108,7 @@ class Window final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  bool IsResizable() const noexcept;
+  bool is_resizable() const noexcept;
 
   /**
    * Indicates whether or not the window is in fullscreen mode.
@@ -117,7 +117,7 @@ class Window final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  bool IsFullscreen() const noexcept;
+  bool is_fullscreen() const noexcept;
 
   /**
    * Indicates whether or not the window is visible.
@@ -126,7 +126,7 @@ class Window final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  bool IsVisible() const noexcept;
+  bool is_visible() const noexcept;
 
   /**
    * Returns the current width of the window.
@@ -135,7 +135,7 @@ class Window final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  int GetWidth() const noexcept;
+  int get_width() const noexcept;
 
   /**
    * Returns the current height of the window.
@@ -144,7 +144,7 @@ class Window final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  int GetHeight() const noexcept;
+  int get_height() const noexcept;
 
   /**
    * Returns the title of the window.
@@ -153,17 +153,7 @@ class Window final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  std::string GetTitle() const noexcept;
-
-  /**
-   * Returns the internal representation of the window. Do not free
-   * the SDL_Window referenced by the returned pointer!
-   *
-   * @return the internal representation of the window.
-   * @since 0.1.0
-   */
-  [[nodiscard]]
-  SDL_Window* GetInternalWindow() noexcept;
+  std::string get_title() const noexcept;
 
   operator SDL_Window*() const noexcept;
 };

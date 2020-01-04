@@ -10,8 +10,8 @@ MouseStateManager::MouseStateManager() noexcept = default;
 MouseStateManager::~MouseStateManager() = default;
 
 void MouseStateManager::WindowUpdated(const Window& window) noexcept {
-  windowWidth = static_cast<float>(window.GetWidth());
-  windowHeight = static_cast<float>(window.GetHeight());
+  windowWidth = static_cast<float>(window.get_width());
+  windowHeight = static_cast<float>(window.get_height());
 }
 
 void MouseStateManager::Update() {

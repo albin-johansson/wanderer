@@ -14,7 +14,7 @@ class Skeleton final : public AbstractEntity {
   void Init();
 
  public:
-  static constexpr float HOMING_RANGE = TILE_SIZE * 4.0f;
+  static constexpr float HOMING_RANGE = tileSize * 4.0f;
 
   explicit Skeleton(const std::shared_ptr<Image>& sheet);
 

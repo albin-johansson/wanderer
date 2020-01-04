@@ -41,8 +41,8 @@ void WandererCoreImpl::InitViewport() {
   // TODO listener for viewport dimensions
   viewport.SetLevelWidth(static_cast<float>(activeMap->GetWidth()));
   viewport.SetLevelHeight(static_cast<float>(activeMap->GetHeight()));
-  viewport.SetWidth(GAME_LOGICAL_WIDTH);
-  viewport.SetHeight(GAME_LOGICAL_HEIGHT);
+  viewport.SetWidth(gameLogicalWidth);
+  viewport.SetHeight(gameLogicalHeight);
 
   viewport.Center(player->GetX(),
                   player->GetY(),

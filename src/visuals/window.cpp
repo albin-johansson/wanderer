@@ -12,18 +12,18 @@ Window::Window(const std::string& title, int width, int height) {
     throw std::invalid_argument("Invalid width or height!");
   }
 
-  auto pos = SDL_WINDOWPOS_CENTERED;
+  const auto pos = SDL_WINDOWPOS_CENTERED;
   window = SDL_CreateWindow(title.c_str(), pos, pos, width, height,
                             SDL_WINDOW_HIDDEN);
 }
 
 Window::~Window() {
-  if (window != nullptr) {
+  if (window) {
     SDL_DestroyWindow(window);
   }
 }
 
-void Window::NotifyWindowListeners() noexcept {
+void Window::notify_window_listeners() noexcept {
   const auto& self = *this;
   for (auto listener : windowListeners) {
     if (listener) {
@@ -32,91 +32,87 @@ void Window::NotifyWindowListeners() noexcept {
   }
 }
 
-void Window::Show() noexcept {
+void Window::show() noexcept {
   SDL_ShowWindow(window);
-  NotifyWindowListeners();
+  notify_window_listeners();
 }
 
-void Window::Hide() noexcept {
+void Window::hide() noexcept {
   SDL_HideWindow(window);
-  NotifyWindowListeners();
+  notify_window_listeners();
 }
 
-void Window::AddWindowListener(IWindowListener* listener) noexcept {
+void Window::add_window_listener(IWindowListener* listener) noexcept {
   if (listener) {
     windowListeners.push_back(listener);
   }
 }
 
-void Window::SetFullscreen(bool fullscreen) noexcept {
+void Window::set_fullscreen(bool fullscreen) noexcept {
   uint32_t flags = SDL_GetWindowFlags(window);
   flags = (fullscreen) ? (flags | SDL_WINDOW_FULLSCREEN)
                        : (flags & ~SDL_WINDOW_FULLSCREEN);
   SDL_SetWindowFullscreen(window, flags);
-  NotifyWindowListeners();
+  notify_window_listeners();
 }
 
-void Window::SetResizable(bool isResizable) noexcept {
+void Window::set_resizable(bool isResizable) noexcept {
   SDL_SetWindowResizable(window, BoolConverter::Convert(isResizable));
-  NotifyWindowListeners();
+  notify_window_listeners();
 }
 
-void Window::SetWidth(int width) {
+void Window::set_width(int width) {
   if (width < 1) {
     throw std::invalid_argument("Invalid width!");
   } else {
-    SDL_SetWindowSize(window, width, GetHeight());
-    NotifyWindowListeners();
+    SDL_SetWindowSize(window, width, get_height());
+    notify_window_listeners();
   }
 }
 
-void Window::SetHeight(int height) {
+void Window::set_height(int height) {
   if (height < 1) {
     throw std::invalid_argument("Invalid height!");
   } else {
-    SDL_SetWindowSize(window, GetWidth(), height);
-    NotifyWindowListeners();
+    SDL_SetWindowSize(window, get_width(), height);
+    notify_window_listeners();
   }
 }
 
-void Window::SetIcon(SDL_Surface* icon) {
+void Window::set_icon(SDL_Surface* icon) {
   Require::NotNull(icon);
   SDL_SetWindowIcon(window, icon);
-  NotifyWindowListeners();
+  notify_window_listeners();
 }
 
-bool Window::IsResizable() const noexcept {
+bool Window::is_resizable() const noexcept {
   return SDL_GetWindowFlags(window) & SDL_WINDOW_RESIZABLE;
 }
 
-bool Window::IsFullscreen() const noexcept {
+bool Window::is_fullscreen() const noexcept {
   return SDL_GetWindowFlags(window) & SDL_WINDOW_FULLSCREEN;
 }
 
-bool Window::IsVisible() const noexcept {
+bool Window::is_visible() const noexcept {
   return SDL_GetWindowFlags(window) & SDL_WINDOW_SHOWN;
 }
 
-int Window::GetWidth() const noexcept {
+int Window::get_width() const noexcept {
   int width = 0;
   SDL_GetWindowSize(window, &width, nullptr);
 
   return width;
 }
 
-int Window::GetHeight() const noexcept {
+int Window::get_height() const noexcept {
   int height = 0;
   SDL_GetWindowSize(window, nullptr, &height);
 
   return height;
 }
 
-std::string Window::GetTitle() const noexcept {
+std::string Window::get_title() const noexcept {
   return SDL_GetWindowTitle(window);
-}
-
-SDL_Window* Window::GetInternalWindow() noexcept {
-  return window;
 }
 
 Window::operator SDL_Window*() const noexcept {
