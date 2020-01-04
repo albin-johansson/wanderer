@@ -47,12 +47,12 @@ class Viewport final {
   /**
    * Centers the viewport over a target position.
    *
-   * @param x the target x-coordinate.
-   * @param y the target y-coordinate.
+   * @param tx the target x-coordinate.
+   * @param ty the target y-coordinate.
    * @param size the size of the target.
    * @since 0.1.0
    */
-  void center(float x, float y, Area size) noexcept;
+  void center(float tx, float ty, Area size) noexcept;
 
   /**
    * Sets the x-coordinate of the viewport.

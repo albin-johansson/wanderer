@@ -39,9 +39,9 @@ void Viewport::track(float tx, float ty, Area size, float delta) noexcept {
   bounds.SetY(y);
 }
 
-void Viewport::center(float x, float y, Area size) noexcept {
-  float x = (x + (size.width / 2.0f)) - (bounds.GetWidth() / 2.0f);
-  float y = (y + (size.height / 2.0f)) - (bounds.GetHeight() / 2.0f);
+void Viewport::center(float tx, float ty, Area size) noexcept {
+  float x = (tx + (size.width / 2.0f)) - (bounds.GetWidth() / 2.0f);
+  float y = (ty + (size.height / 2.0f)) - (bounds.GetHeight() / 2.0f);
 
   if (x < 0) {
     x = 0;
