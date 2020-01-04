@@ -13,21 +13,21 @@ struct RenderDepth final {
    *
    * @since 0.1.0
    */
-  static constexpr int MIN = 0;
+  static constexpr int min = 0;
 
   /**
    * The highest possible render depth value.
    *
    * @since 0.1.0
    */
-  static constexpr int MAX = 9;
+  static constexpr int max = 9;
 
   /**
    * The amount of possible render depth values.
    *
    * @since 0.1.0
    */
-  static constexpr int RANGE = MAX + 1;
+  static constexpr int range = max + 1;
 
   RenderDepth() = delete;
 

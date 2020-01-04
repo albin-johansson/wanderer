@@ -15,45 +15,45 @@ SkeletonMovingState::SkeletonMovingState(IEntityStateMachine* parent) : moveDele
 SkeletonMovingState::~SkeletonMovingState() = default;
 
 void SkeletonMovingState::ChasePlayer(const IWandererCore& core, float distance) {
-  auto& entity = moveDelegate.GetParent().GetEntity();
+  auto& entity = moveDelegate.GetParent().get_entity();
 
   if (distance <= 75) {
-    moveDelegate.GetParent().SetState(EntityStateID::ATTACK, core);
+    moveDelegate.GetParent().set_state(EntityStateID::Attack, core);
   } else {
     auto entityVelocity = entity.get_velocity();
 
-    entityVelocity.Set(entity.get_position());
-    entityVelocity.LookAt(core.get_player().get_position(), entity.get_speed());
+    entityVelocity.set(entity.get_position());
+    entityVelocity.look_at(core.get_player().get_position(), entity.get_speed());
 
     entity.set_velocity(entityVelocity);
   }
 }
 
 void SkeletonMovingState::Roam(const IWandererCore& core) {
-  auto& entity = moveDelegate.GetParent().GetEntity();
+  auto& entity = moveDelegate.GetParent().get_entity();
 
   if (SDL_GetTicks() - enterTime >= 1000) {
-    moveDelegate.GetParent().SetState(EntityStateID::IDLE, core);
+    moveDelegate.GetParent().set_state(EntityStateID::Idle, core);
     return;
   }
 
-  if (entity.get_velocity().IsZero()) {
+  if (entity.get_velocity().is_zero()) {
     entity.move(GetRandomDirection());
-    if (RandomUtils::GetBool()) {
+    if (RandomUtils::get_bool()) {
       entity.move(GetRandomDirection());
     }
   }
 }
 
 Direction SkeletonMovingState::GetRandomDirection() noexcept { // TODO move elsewhere
-  return static_cast<Direction>(RandomUtils::GetInt(0, 3));
+  return static_cast<Direction>(RandomUtils::get_int(0, 3));
 }
 
-void SkeletonMovingState::Tick(const IWandererCore& core, float delta) {
-  moveDelegate.Tick(core, delta);
+void SkeletonMovingState::tick(const IWandererCore& core, float delta) {
+  moveDelegate.tick(core, delta);
 
-  auto& entity = moveDelegate.GetParent().GetEntity();
-  if (core.get_active_map().IsBlocked(&entity, delta)) {
+  auto& entity = moveDelegate.GetParent().get_entity();
+  if (core.get_active_map().is_blocked(&entity, delta)) {
 
     const auto& prevPos = entity.get_previous_position();
     entity.set_x(prevPos.x);
@@ -61,13 +61,13 @@ void SkeletonMovingState::Tick(const IWandererCore& core, float delta) {
 
     // TODO set position of entity to be next to the blocking object
 
-    moveDelegate.GetParent().SetState(EntityStateID::IDLE, core);
+    moveDelegate.GetParent().set_state(EntityStateID::Idle, core);
     return;
   }
 
   auto playerPos = core.get_player().get_position();
 
-  float distance = entity.get_position().DistanceTo(playerPos);
+  float distance = entity.get_position().distance_to(playerPos);
   if (distance <= 400) {
     ChasePlayer(core, distance);
   } else {
@@ -75,17 +75,17 @@ void SkeletonMovingState::Tick(const IWandererCore& core, float delta) {
   }
 }
 
-void SkeletonMovingState::Draw(const Renderer& renderer, const Viewport& viewport) const {
-  moveDelegate.Draw(renderer, viewport);
+void SkeletonMovingState::draw(const Renderer& renderer, const Viewport& viewport) const {
+  moveDelegate.draw(renderer, viewport);
 }
 
-void SkeletonMovingState::Enter(const IWandererCore& core) {
-  moveDelegate.Enter(core);
+void SkeletonMovingState::enter(const IWandererCore& core) {
+  moveDelegate.enter(core);
   enterTime = SDL_GetTicks();
 }
 
-void SkeletonMovingState::Exit(const IWandererCore& core) {
-  moveDelegate.Exit(core);
+void SkeletonMovingState::exit(const IWandererCore& core) {
+  moveDelegate.exit(core);
 }
 
 }

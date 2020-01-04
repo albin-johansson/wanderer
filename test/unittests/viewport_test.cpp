@@ -7,10 +7,10 @@ using namespace albinjohansson::wanderer;
 TEST_CASE("Viewport()", "[Viewport]") {
   Viewport viewport;
 
-  CHECK(viewport.GetBounds().GetX() == 0);
-  CHECK(viewport.GetBounds().GetY() == 0);
-  CHECK(viewport.GetBounds().GetWidth() == 10);
-  CHECK(viewport.GetBounds().GetHeight() == 10);
+  CHECK(viewport.get_bounds().GetX() == 0);
+  CHECK(viewport.get_bounds().GetY() == 0);
+  CHECK(viewport.get_bounds().GetWidth() == 10);
+  CHECK(viewport.get_bounds().GetHeight() == 10);
 }
 
 TEST_CASE("Viewport(float, float, float, float)", "[Viewport]") {
@@ -24,38 +24,38 @@ TEST_CASE("Viewport(float, float, float, float)", "[Viewport]") {
 
   Viewport viewport(vp, level);
 
-  CHECK(viewport.GetBounds().GetWidth() == Approx(vp.width));
-  CHECK(viewport.GetBounds().GetHeight() == Approx(vp.height));
+  CHECK(viewport.get_bounds().GetWidth() == Approx(vp.width));
+  CHECK(viewport.get_bounds().GetHeight() == Approx(vp.height));
 }
 
 TEST_CASE("Viewport::SetWidth", "[Viewport]") {
   Viewport viewport;
 
   float width = 1935.8f;
-  viewport.SetWidth(width);
+  viewport.set_width(width);
 
-  CHECK(viewport.GetBounds().GetWidth() == Approx(width));
-  CHECK_THROWS_AS(viewport.SetWidth(0), std::invalid_argument);
+  CHECK(viewport.get_bounds().GetWidth() == Approx(width));
+  CHECK_THROWS_AS(viewport.set_width(0), std::invalid_argument);
 }
 
 TEST_CASE("Viewport::SetHeight", "[Viewport]") {
   Viewport viewport;
 
   float height = 3197.2f;
-  viewport.SetHeight(height);
+  viewport.set_height(height);
 
-  CHECK(viewport.GetBounds().GetHeight() == Approx(height));
-  CHECK_THROWS_AS(viewport.SetHeight(0), std::invalid_argument);
+  CHECK(viewport.get_bounds().GetHeight() == Approx(height));
+  CHECK_THROWS_AS(viewport.set_height(0), std::invalid_argument);
 }
 
 TEST_CASE("Viewport::SetLevelWidth", "[Viewport]") {
   Viewport viewport;
-  CHECK_THROWS_AS(viewport.SetLevelWidth(0), std::invalid_argument);
-  CHECK_THROWS_AS(viewport.SetLevelWidth(-1), std::invalid_argument);
+  CHECK_THROWS_AS(viewport.set_level_width(0), std::invalid_argument);
+  CHECK_THROWS_AS(viewport.set_level_width(-1), std::invalid_argument);
 }
 
 TEST_CASE("Viewport::SetLevelHeight", "[Viewport]") {
   Viewport viewport;
-  CHECK_THROWS_AS(viewport.SetLevelHeight(0), std::invalid_argument);
-  CHECK_THROWS_AS(viewport.SetLevelHeight(-1), std::invalid_argument);
+  CHECK_THROWS_AS(viewport.set_level_height(0), std::invalid_argument);
+  CHECK_THROWS_AS(viewport.set_level_height(-1), std::invalid_argument);
 }

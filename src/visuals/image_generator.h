@@ -37,7 +37,7 @@ class ImageGenerator final {
    * @return 0.1.0
    */
   [[nodiscard]]
-  std::unique_ptr<centurion::Image> Load(const std::string& path) const;
+  std::unique_ptr<centurion::Image> load(const std::string& path) const;
 
 };
 

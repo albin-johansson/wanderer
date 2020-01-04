@@ -8,12 +8,12 @@ TEST_CASE("Hitbox::AddRectangle", "[Hitbox]") {
     FRectangle rect(10, 10, {100, 160});
 
     Hitbox hitbox;
-    hitbox.AddRectangle(rect, {0, 0});
+    hitbox.add_rectangle(rect, {0, 0});
 
-    CHECK(hitbox.GetBounds().GetX() == rect.GetX());
-    CHECK(hitbox.GetBounds().GetY() == rect.GetY());
-    CHECK(hitbox.GetBounds().GetWidth() == rect.GetWidth());
-    CHECK(hitbox.GetBounds().GetHeight() == rect.GetHeight());
+    CHECK(hitbox.get_bounds().GetX() == rect.GetX());
+    CHECK(hitbox.get_bounds().GetY() == rect.GetY());
+    CHECK(hitbox.get_bounds().GetWidth() == rect.GetWidth());
+    CHECK(hitbox.get_bounds().GetHeight() == rect.GetHeight());
   }
 
   SECTION("Multiple subhitboxes 1") {
@@ -30,10 +30,10 @@ TEST_CASE("Hitbox::AddRectangle", "[Hitbox]") {
 
     Hitbox hitbox;
 
-    hitbox.AddRectangle(fst, {0, 0});
-    hitbox.AddRectangle(snd, {0, 0});
+    hitbox.add_rectangle(fst, {0, 0});
+    hitbox.add_rectangle(snd, {0, 0});
 
-    const auto& bounds = hitbox.GetBounds();
+    const auto& bounds = hitbox.get_bounds();
 
     CHECK(bounds.GetX() == fst.GetX());
     CHECK(bounds.GetY() == fst.GetY());
@@ -57,10 +57,10 @@ TEST_CASE("Hitbox::AddRectangle", "[Hitbox]") {
 
     Hitbox hitbox;
 
-    hitbox.AddRectangle(fst, {0, 0});
-    hitbox.AddRectangle(snd, {0, 0});
+    hitbox.add_rectangle(fst, {0, 0});
+    hitbox.add_rectangle(snd, {0, 0});
 
-    const auto& bounds = hitbox.GetBounds();
+    const auto& bounds = hitbox.get_bounds();
 
     CHECK(bounds.GetX() == fst.GetX());
     CHECK(bounds.GetY() == fst.GetY());

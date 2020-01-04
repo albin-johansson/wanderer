@@ -34,7 +34,7 @@ class PlayerImpl final : public AbstractEntity, public IPlayer {
 
   void HandleInput(const Input& input, const IWandererCore& core) override;
 
-  void Draw(const centurion::Renderer& renderer, const Viewport& viewport) const noexcept override;
+  void draw(const centurion::Renderer& renderer, const Viewport& viewport) const noexcept override;
 };
 
 }

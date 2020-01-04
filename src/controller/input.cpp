@@ -7,59 +7,59 @@ namespace albinjohansson::wanderer {
 
 Input::Input(std::unique_ptr<KeyStateManager>&& ksm,
              std::unique_ptr<MouseStateManager>&& msm) {
-  this->keyStateManager = Require::NotNull(std::move(ksm));
-  this->mouseStateManager = Require::NotNull(std::move(msm));
+  this->keyStateManager = Require::not_null(std::move(ksm));
+  this->mouseStateManager = Require::not_null(std::move(msm));
 }
 
 Input::~Input() = default;
 
-void Input::Update() {
-  mouseStateManager->Update();
-  keyStateManager->Update();
+void Input::update() {
+  mouseStateManager->update();
+  keyStateManager->update();
   SDL_PumpEvents();
 }
 
-bool Input::IsPressed(SDL_Scancode scancode) const {
-  return keyStateManager->IsPressed(scancode);
+bool Input::is_pressed(SDL_Scancode scancode) const {
+  return keyStateManager->is_pressed(scancode);
 }
 
-bool Input::WasJustPressed(SDL_Scancode scancode) const {
-  return keyStateManager->WasJustPressed(scancode);
+bool Input::was_just_pressed(SDL_Scancode scancode) const {
+  return keyStateManager->was_just_pressed(scancode);
 }
 
-bool Input::WasReleased(SDL_Scancode scancode) const {
-  return keyStateManager->WasReleased(scancode);
+bool Input::was_released(SDL_Scancode scancode) const {
+  return keyStateManager->was_released(scancode);
 }
 
-float Input::GetMouseX() const noexcept {
-  return mouseStateManager->GetMouseX();
+float Input::get_mouse_x() const noexcept {
+  return mouseStateManager->get_mouse_x();
 }
 
-float Input::GetMouseY() const noexcept {
-  return mouseStateManager->GetMouseY();
+float Input::get_mouse_y() const noexcept {
+  return mouseStateManager->get_mouse_y();
 }
 
-bool Input::IsLeftButtonPressed() const noexcept {
-  return mouseStateManager->IsLeftButtonPressed();
+bool Input::is_left_button_pressed() const noexcept {
+  return mouseStateManager->is_left_button_pressed();
 }
 
-bool Input::IsRightButtonPressed() const noexcept {
-  return mouseStateManager->IsRightButtonPressed();
+bool Input::is_right_button_pressed() const noexcept {
+  return mouseStateManager->is_right_button_pressed();
 }
 
-bool Input::WasLeftButtonReleased() const noexcept {
-  return mouseStateManager->WasLeftButtonReleased();
+bool Input::was_left_button_released() const noexcept {
+  return mouseStateManager->was_left_button_released();
 }
 
-bool Input::WasRightButtonReleased() const noexcept {
-  return mouseStateManager->WasRightButtonReleased();
+bool Input::was_right_button_released() const noexcept {
+  return mouseStateManager->was_right_button_released();
 }
 
-bool Input::WasMouseMoved() const noexcept {
-  return mouseStateManager->WasMouseMoved();
+bool Input::was_mouse_moved() const noexcept {
+  return mouseStateManager->was_mouse_moved();
 }
 
-bool Input::WasQuitRequested() const noexcept {
+bool Input::was_quit_requested() const noexcept {
   return SDL_PeepEvents(nullptr, 0, SDL_PEEKEVENT, SDL_QUIT, SDL_QUIT) > 0;
 }
 

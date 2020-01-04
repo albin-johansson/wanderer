@@ -32,13 +32,13 @@ WandererControllerImpl::WandererControllerImpl() {
   renderer->SetLogicalSize(gameLogicalWidth, gameLogicalHeight);
 
   ImageGenerator imageGenerator{renderer};
-  core = CreateCore(imageGenerator);
+  core = create_core(imageGenerator);
   core->set_viewport_width(gameLogicalWidth);
   core->set_viewport_height(gameLogicalHeight);
 
   auto mouseStateManager = std::make_unique<MouseStateManager>();
-  mouseStateManager->SetLogicalWidth(gameLogicalWidth);
-  mouseStateManager->SetLogicalHeight(gameLogicalHeight);
+  mouseStateManager->set_logical_width(gameLogicalWidth);
+  mouseStateManager->set_logical_height(gameLogicalHeight);
 
   window->add_window_listener(mouseStateManager.get());
 
@@ -59,11 +59,11 @@ void WandererControllerImpl::InitIcon() {
   }
 }
 
-void WandererControllerImpl::Run() {
+void WandererControllerImpl::run() {
   window->show();
 
   while (!core->should_quit()) {
-    gameLoop->Update(*core, *renderer);
+    gameLoop->update(*core, *renderer);
   }
 
   window->hide();

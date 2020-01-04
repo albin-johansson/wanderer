@@ -196,18 +196,18 @@ float FRectangle::GetMaxX() const noexcept { return x + width; }
 float FRectangle::GetMaxY() const noexcept { return y + height; }
 
 FRectangle::operator Rectangle() const noexcept {
-  return {MathUtils::Round(x),
-          MathUtils::Round(y),
-          MathUtils::Round(width),
-          MathUtils::Round(height)
+  return {MathUtils::round(x),
+          MathUtils::round(y),
+          MathUtils::round(width),
+          MathUtils::round(height)
   };
 }
 
 FRectangle::operator SDL_Rect() const noexcept {
-  return {MathUtils::Round(x),
-          MathUtils::Round(y),
-          MathUtils::Round(width),
-          MathUtils::Round(height)
+  return {MathUtils::round(x),
+          MathUtils::round(y),
+          MathUtils::round(width),
+          MathUtils::round(height)
   };
 }
 

@@ -10,28 +10,28 @@ using namespace centurion;
 namespace albinjohansson::wanderer {
 
 EntityIdleDelegate::EntityIdleDelegate(IEntityStateMachine* parent) {
-  this->parent = Require::NotNull(parent);
+  this->parent = Require::not_null(parent);
 }
 
 EntityIdleDelegate::~EntityIdleDelegate() = default;
 
-void EntityIdleDelegate::Draw(const Renderer& renderer, const Viewport&) const {
-  IEntity& entity = parent->GetEntity();
+void EntityIdleDelegate::draw(const Renderer& renderer, const Viewport&) const {
+  IEntity& entity = parent->get_entity();
 
-  const auto srcY = EntitySheet::GetSourceY(512, entity.get_dominant_direction());
-  EntityDrawDelegate::Draw(renderer, entity, 0, srcY);
+  const auto srcY = EntitySheet::get_source_y(512, entity.get_dominant_direction());
+  EntityDrawDelegate::draw(renderer, entity, 0, srcY);
 }
 
-void EntityIdleDelegate::Enter(const IWandererCore&) {
-  auto& entity = parent->GetEntity();
+void EntityIdleDelegate::enter(const IWandererCore&) {
+  auto& entity = parent->get_entity();
 
   entity.stop();
-  entity.SetAnimationFrame(0);
+  entity.set_animation_frame(0);
 }
 
-void EntityIdleDelegate::Exit(const IWandererCore&) {}
+void EntityIdleDelegate::exit(const IWandererCore&) {}
 
-void EntityIdleDelegate::Tick(const IWandererCore&, float /*delta*/) {}
+void EntityIdleDelegate::tick(const IWandererCore&, float /*delta*/) {}
 
 IEntityStateMachine& EntityIdleDelegate::GetParent() noexcept {
   return *parent;

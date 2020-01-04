@@ -14,27 +14,27 @@ SkeletonIdleState::SkeletonIdleState(IEntityStateMachine* parent)
 
 SkeletonIdleState::~SkeletonIdleState() = default;
 
-void SkeletonIdleState::Tick(const IWandererCore& core, float /*delta*/) {
+void SkeletonIdleState::tick(const IWandererCore& core, float /*delta*/) {
 
-  auto& entity = idleDelegate.GetParent().GetEntity();
-  float distance = entity.get_position().DistanceTo(core.get_player().get_position());
+  auto& entity = idleDelegate.GetParent().get_entity();
+  float distance = entity.get_position().distance_to(core.get_player().get_position());
 
-  if (distance <= Skeleton::HOMING_RANGE || (TimeUtils::GetMillis() - enterTime) >= 2000) {
-    idleDelegate.GetParent().SetState(EntityStateID::WALK, core);
+  if (distance <= Skeleton::HOMING_RANGE || (TimeUtils::get_millis() - enterTime) >= 2000) {
+    idleDelegate.GetParent().set_state(EntityStateID::Walk, core);
   }
 }
 
-void SkeletonIdleState::Draw(const Renderer& renderer, const Viewport& viewport) const {
-  idleDelegate.Draw(renderer, viewport);
+void SkeletonIdleState::draw(const Renderer& renderer, const Viewport& viewport) const {
+  idleDelegate.draw(renderer, viewport);
 }
 
-void SkeletonIdleState::Enter(const IWandererCore& core) {
-  idleDelegate.Enter(core);
-  enterTime = TimeUtils::GetMillis();
+void SkeletonIdleState::enter(const IWandererCore& core) {
+  idleDelegate.enter(core);
+  enterTime = TimeUtils::get_millis();
 }
 
-void SkeletonIdleState::Exit(const IWandererCore& core) {
-  idleDelegate.Exit(core);
+void SkeletonIdleState::exit(const IWandererCore& core) {
+  idleDelegate.exit(core);
 }
 
 }

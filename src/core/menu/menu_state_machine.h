@@ -14,15 +14,12 @@ class Viewport;
 class IMenu;
 
 class IMenuStateMachine {
- protected:
-  IMenuStateMachine() = default;
-
  public:
   virtual ~IMenuStateMachine() = default;
 
-  virtual void HandleInput(const Input& input) = 0;
+  virtual void handle_input(const Input& input) = 0;
 
-  virtual void Draw(centurion::Renderer& renderer, const Viewport& viewport) const = 0;
+  virtual void draw(centurion::Renderer& renderer, const Viewport& viewport) const = 0;
 
   /**
    * Sets the active menu.
@@ -30,10 +27,10 @@ class IMenuStateMachine {
    * @param id the identifier associated with the desired menu.
    * @since 0.1.0
    */
-  virtual void SetMenu(MenuID id) = 0;
+  virtual void set_menu(MenuID id) = 0;
 
   [[nodiscard]]
-  virtual const IMenu& GetMenu() const = 0;
+  virtual const IMenu& get_menu() const = 0;
 };
 
 }

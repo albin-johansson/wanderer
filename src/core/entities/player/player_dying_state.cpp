@@ -12,20 +12,20 @@ PlayerDyingState::~PlayerDyingState() = default;
 
 void PlayerDyingState::HandleInput(const Input&, const IWandererCore&) {}
 
-void PlayerDyingState::Draw(const Renderer& renderer, const Viewport& viewport) const {
-  dyingDelegate.Draw(renderer, viewport);
+void PlayerDyingState::draw(const Renderer& renderer, const Viewport& viewport) const {
+  dyingDelegate.draw(renderer, viewport);
 }
 
-void PlayerDyingState::Tick(const IWandererCore& core, float delta) {
-  dyingDelegate.Tick(core, delta);
+void PlayerDyingState::tick(const IWandererCore& core, float delta) {
+  dyingDelegate.tick(core, delta);
 }
 
-void PlayerDyingState::Enter(const IWandererCore& core) {
-  dyingDelegate.Enter(core);
+void PlayerDyingState::enter(const IWandererCore& core) {
+  dyingDelegate.enter(core);
 }
 
-void PlayerDyingState::Exit(const IWandererCore& core) {
-  dyingDelegate.Exit(core);
+void PlayerDyingState::exit(const IWandererCore& core) {
+  dyingDelegate.exit(core);
 }
 
 }

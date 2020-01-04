@@ -23,11 +23,11 @@ std::unique_ptr<ITileMap> TiledMapParser::Load(ImageGenerator& imageGenerator,
 
   std::shared_ptr<TileSet> tileSet = TileSetBuilder::Create(mapNode, imageGenerator);
 
-  auto map = TileMapBuilder::Create(tileSet, tiledMap);
+  auto map = TileMapBuilder::create(tileSet, tiledMap);
 
   TileMapLayerBuilder layerBuilder;
   for (const auto& tiledLayer : tiledMap.GetLayers()) {
-    map->AddLayer(layerBuilder.Create(tileSet, *tiledLayer));
+    map->add_layer(layerBuilder.create(tileSet, *tiledLayer));
   }
 
   return map;

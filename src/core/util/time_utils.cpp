@@ -3,15 +3,15 @@
 
 namespace albinjohansson::wanderer {
 
-uint64_t TimeUtils::GetMillis() noexcept {
+uint64_t TimeUtils::get_millis() noexcept {
   return SDL_GetTicks();
 }
 
-uint64_t TimeUtils::GetHighResTime() noexcept {
+uint64_t TimeUtils::get_high_res_time() noexcept {
   return SDL_GetPerformanceCounter();
 }
 
-uint64_t TimeUtils::GetHighResFreq() noexcept {
+uint64_t TimeUtils::get_high_res_freq() noexcept {
   return SDL_GetPerformanceFrequency();
 }
 

@@ -20,21 +20,21 @@ class MenuStateMachineImpl final : public IMenuStateMachine {
   std::map<MenuID, std::unique_ptr<IMenu>> menus;
   MenuID activeMenuID = MenuID::HOME;
 
-  void Put(MenuID id, std::unique_ptr<IMenu> menu);
+  void put(MenuID id, std::unique_ptr<IMenu> menu);
 
  public:
   explicit MenuStateMachineImpl(IWandererCore* core);
 
   ~MenuStateMachineImpl() override;
 
-  void Draw(centurion::Renderer& renderer, const Viewport& viewport) const override;
+  void draw(centurion::Renderer& renderer, const Viewport& viewport) const override;
 
-  void HandleInput(const Input& input) noexcept override;
+  void handle_input(const Input& input) noexcept override;
 
-  void SetMenu(MenuID id) noexcept override;
+  void set_menu(MenuID id) noexcept override;
 
   [[nodiscard]]
-  const IMenu& GetMenu() const override;
+  const IMenu& get_menu() const override;
 };
 
 }

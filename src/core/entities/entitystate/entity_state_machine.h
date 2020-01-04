@@ -27,7 +27,7 @@ class IEntityStateMachine : public IDrawable {
    * @param delta the delta time, in seconds.
    * @since 0.1.0
    */
-  virtual void Tick(const IWandererCore& core, float delta) = 0;
+  virtual void tick(const IWandererCore& core, float delta) = 0;
 
   /**
    * Changes the currently active entity state.
@@ -36,7 +36,7 @@ class IEntityStateMachine : public IDrawable {
    * @param core the associated core instance.
    * @since 0.1.0
    */
-  virtual void SetState(EntityStateID id, const IWandererCore& core) = 0;
+  virtual void set_state(EntityStateID id, const IWandererCore& core) = 0;
 
   /**
    * Returns the associated entity instance.
@@ -45,7 +45,7 @@ class IEntityStateMachine : public IDrawable {
    * @since 0.1.0
    */
   [[nodiscard]]
-  virtual IEntity& GetEntity() = 0;
+  virtual IEntity& get_entity() = 0;
 };
 
 }

@@ -39,7 +39,7 @@ class MenuButton final : public IMenuDrawable {
 
   ~MenuButton() override;
 
-  void Draw(centurion::Renderer& renderer,
+  void draw(centurion::Renderer& renderer,
             const Viewport& viewport,
             const FontBundle& fonts) const override;
 

@@ -12,14 +12,14 @@ class IWandererCore;
 
 class HUD final {
  private:
-  void DrawHealthBar(centurion::Renderer& renderer, IWandererCore& core) const;
+  void draw_health_bar(centurion::Renderer& renderer, IWandererCore& core) const;
 
  public:
   HUD();
 
   ~HUD();
 
-  void Draw(centurion::Renderer& renderer, IWandererCore& core) const;
+  void draw(centurion::Renderer& renderer, IWandererCore& core) const;
 };
 
 }

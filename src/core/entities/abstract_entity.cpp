@@ -9,7 +9,7 @@ using namespace centurion;
 namespace albinjohansson::wanderer {
 
 AbstractEntity::AbstractEntity(const std::shared_ptr<Image>& sheet) {
-  this->sheet = Require::NotNull(sheet);
+  this->sheet = Require::not_null(sheet);
   movable = std::make_unique<MovableDelegate>(DEPTH, SIZE, SIZE);
   movable->add_hitbox(FRectangle{movable->get_x(),
                                  movable->get_y(),
@@ -24,23 +24,23 @@ void AbstractEntity::tick(IWandererCore& core, float delta) {
   movable->tick(core, delta);
 }
 
-void AbstractEntity::UpdateAnimation() noexcept {
-  animation.Update();
+void AbstractEntity::update_animation() noexcept {
+  animation.update();
 }
 
-void AbstractEntity::SetAnimationFrame(int index) noexcept {
-  animation.SetFrame(index);
+void AbstractEntity::set_animation_frame(int index) noexcept {
+  animation.set_frame(index);
 }
 
-void AbstractEntity::SetAnimationFrameAmount(int nFrames) {
-  animation.SetNumberOfFrames(nFrames);
+void AbstractEntity::set_animation_frame_amount(int nFrames) {
+  animation.set_number_of_frames(nFrames);
 }
 
-void AbstractEntity::SetAnimationDelay(uint32_t ms) {
-  animation.SetDelay(ms);
+void AbstractEntity::set_animation_delay(uint32_t ms) {
+  animation.set_delay(ms);
 }
 
-void AbstractEntity::Hurt(int dmg) noexcept {
+void AbstractEntity::hurt(int dmg) noexcept {
   health -= dmg;
   if (health < 0) {
     health = 0;
@@ -95,19 +95,19 @@ void AbstractEntity::set_blocked(bool blocked) noexcept {
   movable->set_blocked(blocked);
 }
 
-int AbstractEntity::GetAnimationFrame() const noexcept {
-  return animation.GetIndex();
+int AbstractEntity::get_animation_frame() const noexcept {
+  return animation.get_index();
 }
 
-bool AbstractEntity::IsAnimationDone() const noexcept {
-  return animation.IsDone();
+bool AbstractEntity::is_animation_done() const noexcept {
+  return animation.is_done();
 }
 
-int AbstractEntity::GetHealth() const noexcept {
+int AbstractEntity::get_health() const noexcept {
   return health;
 }
 
-bool AbstractEntity::IsDead() const noexcept {
+bool AbstractEntity::is_dead() const noexcept {
   return health <= 0;
 }
 
@@ -115,7 +115,7 @@ float AbstractEntity::get_speed() const noexcept {
   return movable->get_speed();
 }
 
-Image& AbstractEntity::GetSpriteSheet() const noexcept {
+Image& AbstractEntity::get_sprite_sheet() const noexcept {
   return *sheet;
 }
 
@@ -155,12 +155,12 @@ const Hitbox& AbstractEntity::get_hitbox() const noexcept {
   return movable->get_hitbox();
 }
 
-float AbstractEntity::GetCenterY() const noexcept {
-  return movable->GetCenterY();
+float AbstractEntity::get_center_y() const noexcept {
+  return movable->get_center_y();
 }
 
-int AbstractEntity::GetDepth() const noexcept {
-  return movable->GetDepth();
+int AbstractEntity::get_depth() const noexcept {
+  return movable->get_depth();
 }
 
 const Vector2& AbstractEntity::get_previous_position() const noexcept {

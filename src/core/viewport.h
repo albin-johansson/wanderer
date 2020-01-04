@@ -42,7 +42,7 @@ class Viewport final {
    * @param delta the delta time, in seconds.
    * @since 0.1.0
    */
-  void Track(float tx, float ty, Area size, float delta) noexcept;
+  void track(float tx, float ty, Area size, float delta) noexcept;
 
   /**
    * Centers the viewport over a target position.
@@ -52,7 +52,7 @@ class Viewport final {
    * @param size the size of the target.
    * @since 0.1.0
    */
-  void Center(float x, float y, Area size) noexcept;
+  void center(float x, float y, Area size) noexcept;
 
   /**
    * Sets the x-coordinate of the viewport.
@@ -60,7 +60,7 @@ class Viewport final {
    * @param x the new x-coordinate.
    * @since 0.1.0
    */
-  void SetX(float x) noexcept;
+  void set_x(float x) noexcept;
 
   /**
    * Sets the y-coordinate of the viewport.
@@ -68,7 +68,7 @@ class Viewport final {
    * @param y the new y-coordinate.
    * @since 0.1.0
    */
-  void SetY(float y) noexcept;
+  void set_y(float y) noexcept;
 
   /**
    * Sets the width of the viewport.
@@ -77,7 +77,7 @@ class Viewport final {
    * @throws invalid_argument if the width isn't greater than zero.
    * @since 0.1.0
    */
-  void SetWidth(float width);
+  void set_width(float width);
 
   /**
    * Sets the height of the viewport.
@@ -86,7 +86,7 @@ class Viewport final {
    * @throws invalid_argument if the height isn't greater than zero.
    * @since 0.1.0
    */
-  void SetHeight(float height);
+  void set_height(float height);
 
   /**
    * Sets the width of the level.
@@ -95,7 +95,7 @@ class Viewport final {
    * @throws invalid_argument if the supplied width isn't greater than zero.
    * @since 0.1.0
    */
-  void SetLevelWidth(float levelWidth);
+  void set_level_width(float levelWidth);
 
   /**
    * Sets the height of the level.
@@ -104,7 +104,7 @@ class Viewport final {
    * @throws invalid_argument if the supplied height isn't greater than zero.
    * @since 0.1.0
    */
-  void SetLevelHeight(float levelHeight);
+  void set_level_height(float levelHeight);
 
   /**
    * Returns the current bounds of the viewport.
@@ -113,7 +113,7 @@ class Viewport final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  const FRectangle& GetBounds() const noexcept;
+  const FRectangle& get_bounds() const noexcept;
 
   /**
    * Calculates and returns the translated value for the supplied x-coordinate.
@@ -123,7 +123,7 @@ class Viewport final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  float GetTranslatedX(float x) const noexcept;
+  float get_translated_x(float x) const noexcept;
 
   /**
    * Calculates and returns the translated value for the supplied y-coordinate.
@@ -133,7 +133,7 @@ class Viewport final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  float GetTranslatedY(float y) const noexcept;
+  float get_translated_y(float y) const noexcept;
 };
 
 }

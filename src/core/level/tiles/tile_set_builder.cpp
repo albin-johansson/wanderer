@@ -31,13 +31,13 @@ std::unique_ptr<TileSet> TileSetBuilder::Create(const pugi::xml_node& mapRoot,
     auto tiledTileSet = CreateTiledTileSet(tileSetNode, firstId);
 
     const auto path = "resources/img/" + tiledTileSet.GetImageName();
-    std::shared_ptr<Image> image = imageGenerator.Load(path);
+    std::shared_ptr<Image> image = imageGenerator.load(path);
 
     const TileID lastId = tiledTileSet.GetLastTileId();
     int index = 0;
 
     for (TileID id = firstId; id <= lastId; id++, index++) {
-      tileSet->Insert(id, TileBuilder::Create(image, tiledTileSet, id, index));
+      tileSet->Insert(id, TileBuilder::create(image, tiledTileSet, id, index));
     }
   }
 

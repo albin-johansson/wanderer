@@ -10,10 +10,10 @@ class InventoryMenu final : public AbstractMenu {
 
   ~InventoryMenu() override;
 
-  void HandleInput(const Input& input) noexcept override;
+  void handle_input(const Input& input) noexcept override;
 
   [[nodiscard]]
-  bool IsBlocking() const noexcept override;
+  bool is_blocking() const noexcept override;
 
 };
 

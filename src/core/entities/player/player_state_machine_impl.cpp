@@ -9,16 +9,16 @@ namespace albinjohansson::wanderer {
 
 PlayerStateMachineImpl::PlayerStateMachineImpl(IEntity* entity)
     : AbstractEntityStateMachine(entity) {
-  Put(EntityStateID::IDLE, std::make_unique<PlayerIdleState>(this));
-  Put(EntityStateID::DIE, std::make_unique<PlayerDyingState>(entity));
-  Put(EntityStateID::WALK, std::make_unique<PlayerMovingState>(this));
-  Put(EntityStateID::ATTACK, std::make_unique<PlayerAttackState>(this));
+  put(EntityStateID::Idle, std::make_unique<PlayerIdleState>(this));
+  put(EntityStateID::Die, std::make_unique<PlayerDyingState>(entity));
+  put(EntityStateID::Walk, std::make_unique<PlayerMovingState>(this));
+  put(EntityStateID::Attack, std::make_unique<PlayerAttackState>(this));
 }
 
 PlayerStateMachineImpl::~PlayerStateMachineImpl() = default;
 
 void PlayerStateMachineImpl::HandleInput(const Input& input, const IWandererCore& core) {
-  GetActiveState().HandleInput(input, core);
+  get_active_state().HandleInput(input, core);
 }
 
 }

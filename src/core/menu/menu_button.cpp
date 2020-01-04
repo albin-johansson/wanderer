@@ -31,9 +31,9 @@ bool MenuButton::Contains(float mx, float my) const noexcept {
   return bounds.Contains(mx, my);
 }
 
-void MenuButton::Draw(Renderer& renderer, const Viewport&, const FontBundle& fonts) const {
+void MenuButton::draw(Renderer& renderer, const Viewport&, const FontBundle& fonts) const {
   if (!text.empty()) {
-    const auto& font = enlarged ? fonts.GetFont36() : fonts.GetFont24();
+    const auto& font = enlarged ? fonts.get_font_36() : fonts.get_font_24();
 
     const auto width = font.get_string_width(text);
     const auto height = font.get_string_height(text);

@@ -20,7 +20,7 @@ class IWindowListener {
    * @param window the window that was updated.
    * @since 0.1.0
    */
-  virtual void WindowUpdated(const Window& window) noexcept = 0;
+  virtual void window_updated(const Window& window) noexcept = 0;
 
 };
 

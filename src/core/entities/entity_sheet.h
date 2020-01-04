@@ -25,7 +25,7 @@ class EntitySheet final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  static int GetSourceY(int y, Direction direction) noexcept;
+  static int get_source_y(int y, Direction direction) noexcept;
 
 };
 

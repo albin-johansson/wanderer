@@ -6,7 +6,7 @@ Hitbox::Hitbox() = default;
 
 Hitbox::~Hitbox() = default;
 
-void Hitbox::CalcBounds() {
+void Hitbox::calc_bounds() {
   bool first = true;
 
   for (auto&[rect, offset] : rectangles) {
@@ -42,36 +42,36 @@ void Hitbox::CalcBounds() {
   }
 }
 
-void Hitbox::AddRectangle(const FRectangle& rect, const Vector2& offset) {
+void Hitbox::add_rectangle(const FRectangle& rect, const Vector2& offset) {
   rectangles.emplace_back(rect, offset);
-  CalcBounds();
+  calc_bounds();
 }
 
-void Hitbox::SetX(float x) noexcept {
+void Hitbox::set_x(float x) noexcept {
   bounds.SetX(x);
   for (auto&[rect, offset] : rectangles) {
     rect.SetX(x + offset.x);
   }
 }
 
-void Hitbox::SetY(float y) noexcept {
+void Hitbox::set_y(float y) noexcept {
   bounds.SetY(y);
   for (auto&[rect, offset] : rectangles) {
     rect.SetY(y + offset.y);
   }
 }
 
-void Hitbox::SetEnabled(bool enabled) noexcept {
+void Hitbox::set_enabled(bool enabled) noexcept {
   this->enabled = enabled;
 }
 
-bool Hitbox::Intersects(const Hitbox& other) const noexcept {
+bool Hitbox::intersects(const Hitbox& other) const noexcept {
   if (!enabled) {
     return false;
   }
 
-  if (other.IsUnit()) {
-    return Intersects(other.rectangles.front().first);
+  if (other.is_unit()) {
+    return intersects(other.rectangles.front().first);
   }
 
   for (const auto&[rect, offset] : rectangles) {
@@ -84,7 +84,7 @@ bool Hitbox::Intersects(const Hitbox& other) const noexcept {
   return false;
 }
 
-bool Hitbox::Intersects(const FRectangle& other) const noexcept {
+bool Hitbox::intersects(const FRectangle& other) const noexcept {
   if (!enabled) {
     return false;
   }
@@ -97,7 +97,7 @@ bool Hitbox::Intersects(const FRectangle& other) const noexcept {
   return false;
 }
 
-bool Hitbox::WillIntersect(const Hitbox& other, const Vector2& nextPos) const noexcept {
+bool Hitbox::will_intersect(const Hitbox& other, const Vector2& nextPos) const noexcept {
   if (!enabled) {
     return false;
   }
@@ -107,26 +107,26 @@ bool Hitbox::WillIntersect(const Hitbox& other, const Vector2& nextPos) const no
 
   auto tmp = const_cast<Hitbox*>(this); // Not great, but will remain unaffected
 
-  tmp->SetX(nextPos.x);
-  tmp->SetY(nextPos.y);
+  tmp->set_x(nextPos.x);
+  tmp->set_y(nextPos.y);
 
-  bool intersects = Intersects(other);
+  bool intersection = intersects(other);
 
-  tmp->SetX(oldX);
-  tmp->SetY(oldY);
+  tmp->set_x(oldX);
+  tmp->set_y(oldY);
 
-  return intersects;
+  return intersection;
 }
 
-const FRectangle& Hitbox::GetBounds() const noexcept {
+const FRectangle& Hitbox::get_bounds() const noexcept {
   return bounds;
 }
 
-bool Hitbox::IsUnit() const noexcept {
+bool Hitbox::is_unit() const noexcept {
   return rectangles.size() == 1;
 }
 
-bool Hitbox::IsEnabled() const noexcept {
+bool Hitbox::is_enabled() const noexcept {
   return enabled;
 }
 

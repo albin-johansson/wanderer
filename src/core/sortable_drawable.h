@@ -8,10 +8,10 @@ class ISortableDrawable : public IDrawable {
   ~ISortableDrawable() override = default;
 
   [[nodiscard]]
-  virtual float GetCenterY() const noexcept = 0;
+  virtual float get_center_y() const noexcept = 0;
 
   [[nodiscard]]
-  virtual int GetDepth() const noexcept = 0;
+  virtual int get_depth() const noexcept = 0;
 };
 
 }

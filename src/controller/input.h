@@ -17,7 +17,7 @@ class Input final {
 
   ~Input();
 
-  void Update();
+  void update();
 
   /**
    * Indicates whether or not the key associated with the specified scancode is pressed.
@@ -27,7 +27,7 @@ class Input final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  bool IsPressed(SDL_Scancode scancode) const;
+  bool is_pressed(SDL_Scancode scancode) const;
 
   /**
    * Indicates whether or not the key associated with the specified scancode was just pressed.
@@ -38,7 +38,7 @@ class Input final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  bool WasJustPressed(SDL_Scancode scancode) const;
+  bool was_just_pressed(SDL_Scancode scancode) const;
 
   /**
    * Indicates whether or not the key associated with the specified scancode was released.
@@ -48,31 +48,31 @@ class Input final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  bool WasReleased(SDL_Scancode scancode) const;
+  bool was_released(SDL_Scancode scancode) const;
 
   [[nodiscard]]
-  float GetMouseX() const noexcept;
+  float get_mouse_x() const noexcept;
 
   [[nodiscard]]
-  float GetMouseY() const noexcept;
+  float get_mouse_y() const noexcept;
 
   [[nodiscard]]
-  bool IsLeftButtonPressed() const noexcept;
+  bool is_left_button_pressed() const noexcept;
 
   [[nodiscard]]
-  bool IsRightButtonPressed() const noexcept;
+  bool is_right_button_pressed() const noexcept;
 
   [[nodiscard]]
-  bool WasLeftButtonReleased() const noexcept;
+  bool was_left_button_released() const noexcept;
 
   [[nodiscard]]
-  bool WasRightButtonReleased() const noexcept;
+  bool was_right_button_released() const noexcept;
 
   [[nodiscard]]
-  bool WasMouseMoved() const noexcept;
+  bool was_mouse_moved() const noexcept;
 
   [[nodiscard]]
-  bool WasQuitRequested() const noexcept;
+  bool was_quit_requested() const noexcept;
 
 };
 

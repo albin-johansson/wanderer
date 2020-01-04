@@ -7,12 +7,12 @@ InventoryMenu::InventoryMenu(IMenuStateMachine* parent) : AbstractMenu(parent) {
 
 InventoryMenu::~InventoryMenu() = default;
 
-void InventoryMenu::HandleInput(const Input& input) noexcept {
-  if (input.WasReleased(SDL_SCANCODE_ESCAPE) || input.WasReleased(SDL_SCANCODE_I)) {
-    parent->SetMenu(MenuID::IN_GAME);
+void InventoryMenu::handle_input(const Input& input) noexcept {
+  if (input.was_released(SDL_SCANCODE_ESCAPE) || input.was_released(SDL_SCANCODE_I)) {
+    parent->set_menu(MenuID::IN_GAME);
   }
 }
 
-bool InventoryMenu::IsBlocking() const noexcept { return true; }
+bool InventoryMenu::is_blocking() const noexcept { return true; }
 
 }

@@ -13,7 +13,7 @@ class AbstractMenu : public IMenu {
  public:
   ~AbstractMenu() noexcept override;
 
-  void Draw(centurion::Renderer& renderer,
+  void draw(centurion::Renderer& renderer,
             const Viewport& viewport,
             const FontBundle& fonts) const override;
 

@@ -10,18 +10,18 @@ ControlsMenu::ControlsMenu(IMenuStateMachine* parent) : AbstractMenu(parent) {}
 
 ControlsMenu::~ControlsMenu() noexcept = default;
 
-void ControlsMenu::Draw(Renderer& renderer,
+void ControlsMenu::draw(Renderer& renderer,
                         const Viewport& viewport,
                         const FontBundle& fonts) const {
-  AbstractMenu::Draw(renderer, viewport, fonts);
+  AbstractMenu::draw(renderer, viewport, fonts);
 
   renderer.SetColor(0xFF, 0xFF, 0xFF);
 //  renderer.RenderText("Controls", 500, 100);
 }
 
-void ControlsMenu::HandleInput(const Input& input) noexcept {
-  if (input.WasReleased(SDL_SCANCODE_ESCAPE)) {
-    parent->SetMenu(MenuID::HOME);
+void ControlsMenu::handle_input(const Input& input) noexcept {
+  if (input.was_released(SDL_SCANCODE_ESCAPE)) {
+    parent->set_menu(MenuID::HOME);
   }
 }
 

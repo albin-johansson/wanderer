@@ -20,7 +20,7 @@ class SmoothFixedTimestepLoop final : public IGameLoop {
    *
    * @since 0.1.0
    */
-  static constexpr float MAX_FRAME_TIME = 0.25f;
+  static constexpr float maxFrameTime = 0.25f;
 
   std::unique_ptr<Input> input = nullptr;
 
@@ -39,14 +39,14 @@ class SmoothFixedTimestepLoop final : public IGameLoop {
    * @param core a reference to the associated core model.
    * @since 0.1.0
    */
-  void UpdateInput(IWandererCore& core);
+  void update_input(IWandererCore& core);
 
   /**
    * Smoothes the current delta value.
    *
    * @since 0.1.0
    */
-  void SmoothDelta();
+  void smooth_delta();
 
  public:
   /**
@@ -62,7 +62,7 @@ class SmoothFixedTimestepLoop final : public IGameLoop {
 
   ~SmoothFixedTimestepLoop() override;
 
-  void Update(IWandererCore& core, centurion::Renderer& renderer) override;
+  void update(IWandererCore& core, centurion::Renderer& renderer) override;
 };
 
 }

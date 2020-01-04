@@ -12,20 +12,20 @@ SkeletonAttackState::SkeletonAttackState(IEntityStateMachine* parent)
 
 SkeletonAttackState::~SkeletonAttackState() = default;
 
-void SkeletonAttackState::Draw(const Renderer& renderer, const Viewport& viewport) const {
-  attackDelegate.Draw(renderer, viewport);
+void SkeletonAttackState::draw(const Renderer& renderer, const Viewport& viewport) const {
+  attackDelegate.draw(renderer, viewport);
 }
 
-void SkeletonAttackState::Enter(const IWandererCore& core) {
-  attackDelegate.Enter(core);
+void SkeletonAttackState::enter(const IWandererCore& core) {
+  attackDelegate.enter(core);
 }
 
-void SkeletonAttackState::Exit(const IWandererCore& core) {
-  attackDelegate.Exit(core);
+void SkeletonAttackState::exit(const IWandererCore& core) {
+  attackDelegate.exit(core);
 }
 
-void SkeletonAttackState::Tick(const IWandererCore& core, float delta) {
-  attackDelegate.Tick(core, delta);
+void SkeletonAttackState::tick(const IWandererCore& core, float delta) {
+  attackDelegate.tick(core, delta);
 
 //    entity.SetDominantDirection(Direction::RIGHT);
   // TODO update dominant direction

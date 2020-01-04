@@ -23,7 +23,7 @@ class AbstractEntityStateMachine : public virtual IEntityStateMachine {
  private:
   IEntity* entity = nullptr;
   std::unordered_map<EntityStateID, std::unique_ptr<T>> states;
-  EntityStateID activeStateID = EntityStateID::IDLE;
+  EntityStateID activeStateID = EntityStateID::Idle;
 
  protected:
   /**
@@ -32,7 +32,7 @@ class AbstractEntityStateMachine : public virtual IEntityStateMachine {
    * @since 0.1.0
    */
   explicit AbstractEntityStateMachine(IEntity* entity) {
-    this->entity = Require::NotNull(entity);
+    this->entity = Require::not_null(entity);
   }
 
   /**
@@ -42,7 +42,7 @@ class AbstractEntityStateMachine : public virtual IEntityStateMachine {
    * @param state a unique pointer to the state, mustn't be null!
    * @since 0.1.0
    */
-  void Put(EntityStateID id, std::unique_ptr<T>&& state) {
+  void put(EntityStateID id, std::unique_ptr<T>&& state) {
     states.emplace(id, std::move(state));
   }
 
@@ -53,27 +53,27 @@ class AbstractEntityStateMachine : public virtual IEntityStateMachine {
    * @since 0.1.0
    */
   [[nodiscard]]
-  T& GetActiveState() { return *states.at(activeStateID); }
+  T& get_active_state() { return *states.at(activeStateID); }
 
  public:
   ~AbstractEntityStateMachine() override = default;
 
-  void Tick(const IWandererCore& core, float delta) final {
-    states.at(activeStateID)->Tick(core, delta);
+  void tick(const IWandererCore& core, float delta) final {
+    states.at(activeStateID)->tick(core, delta);
   }
 
-  void Draw(const centurion::Renderer& renderer, const Viewport& viewport) const final {
-    states.at(activeStateID)->Draw(renderer, viewport);
+  void draw(const centurion::Renderer& renderer, const Viewport& viewport) const final {
+    states.at(activeStateID)->draw(renderer, viewport);
   }
 
-  void SetState(EntityStateID id, const IWandererCore& core) final {
-    states.at(activeStateID)->Exit(core);
+  void set_state(EntityStateID id, const IWandererCore& core) final {
+    states.at(activeStateID)->exit(core);
     activeStateID = id;
-    states.at(activeStateID)->Enter(core);
+    states.at(activeStateID)->enter(core);
   }
 
   [[nodiscard]]
-  IEntity& GetEntity() final { return *entity; }
+  IEntity& get_entity() final { return *entity; }
 
 };
 

@@ -7,27 +7,27 @@ using namespace centurion;
 
 namespace albinjohansson::wanderer {
 
-TileAnimation TileBuilder::CreateAnimation(tiled::TiledAnimation animation) {
+TileAnimation TileBuilder::create_animation(tiled::TiledAnimation animation) {
   const auto& frames = animation.GetFrames();
-  TileAnimation result(frames.size());
+  TileAnimation result{static_cast<int>(frames.size())};
 
   int i = 0;
   for (const auto frame : frames) {
-    result.SetFrame(i, {static_cast<TileID>(frame.tileId), static_cast<uint32_t>(frame.duration)});
+    result.set_frame(i, {static_cast<TileID>(frame.tileId), static_cast<uint32_t>(frame.duration)});
     ++i;
   }
 
   return result;
 }
 
-Tile TileBuilder::Create(const std::shared_ptr<Image>& image,
+Tile TileBuilder::create(const std::shared_ptr<Image>& image,
                          const tiled::TiledTileSet& tiledTileSet,
                          TileID id,
                          int index) {
   Tile tile;
 
-  tile.SetSheet(image);
-  tile.SetId(id);
+  tile.sheet = image;
+  tile.id = id;
 
   const auto tileWidth = tiledTileSet.GetTileWidth();
   const auto tileHeight = tiledTileSet.GetTileHeight();
@@ -36,16 +36,16 @@ Tile TileBuilder::Create(const std::shared_ptr<Image>& image,
     const auto& tiledTile = tiledTileSet.GetTile(id);
 
     if (tiledTile.HasProperty("depth")) {
-      tile.SetDepth(tiledTile.GetIntProperty("depth"));
+      tile.set_depth(tiledTile.GetIntProperty("depth"));
     }
 
     if (tiledTile.HasAttribute("type")) {
-      tile.SetObject(tiledTile.GetStringAttribute("type") == "Object");
+      tile.isObject = tiledTile.GetStringAttribute("type") == "Object";
     }
 
     if (tiledTile.IsAnimated()) {
-      tile.SetAnimation(CreateAnimation(tiledTile.GetAnimation()));
-      tile.SetAnimated(true);
+      tile.animation = create_animation(tiledTile.GetAnimation());
+      tile.isAnimated = true;
     }
 
     if (tiledTile.HasObject("hitbox")) {
@@ -56,16 +56,16 @@ Tile TileBuilder::Create(const std::shared_ptr<Image>& image,
       const auto w = (std::stof(object.GetAttribute("width")) / tileWidth) * tileSize;
       const auto h = (std::stof(object.GetAttribute("height")) / tileHeight) * tileSize;
 
-      tile.AddRectangle(FRectangle{x, y, Area{w, h}}, Vector2{x, y});
-      tile.SetBlocked(true);
+      tile.hitbox.add_rectangle(FRectangle{x, y, Area{w, h}}, Vector2{x, y});
+      tile.isBlocked = true;
     }
   }
 
-  const auto[row, col] = MathUtils::IndexToMatrixPos(index, tiledTileSet.GetCols());
+  const auto[row, col] = MathUtils::index_to_matrix_pos(index, tiledTileSet.GetCols());
   const int x = col * tileWidth;
   const int y = row * tileHeight;
 
-  tile.SetSource(Rectangle(x, y, tileWidth, tileHeight));
+  tile.source = {x, y, tileWidth, tileHeight};
 
   return tile;
 }

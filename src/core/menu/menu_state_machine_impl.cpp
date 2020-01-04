@@ -17,32 +17,32 @@ namespace albinjohansson::wanderer {
 MenuStateMachineImpl::MenuStateMachineImpl(IWandererCore* core)
     : typewriterFonts("resources/font/type_writer.ttf") {
 
-  Put(MenuID::HOME, std::make_unique<HomeMenu>(this, core));
-  Put(MenuID::IN_GAME, std::make_unique<InGameMenu>(this));
-  Put(MenuID::SETTINGS, std::make_unique<SettingsMenu>(this));
-  Put(MenuID::CONTROLS, std::make_unique<ControlsMenu>(this));
-  Put(MenuID::INVENTORY, std::make_unique<InventoryMenu>(this));
+  put(MenuID::HOME, std::make_unique<HomeMenu>(this, core));
+  put(MenuID::IN_GAME, std::make_unique<InGameMenu>(this));
+  put(MenuID::SETTINGS, std::make_unique<SettingsMenu>(this));
+  put(MenuID::CONTROLS, std::make_unique<ControlsMenu>(this));
+  put(MenuID::INVENTORY, std::make_unique<InventoryMenu>(this));
 }
 
 MenuStateMachineImpl::~MenuStateMachineImpl() = default;
 
-void MenuStateMachineImpl::Put(MenuID id, std::unique_ptr<IMenu> menu) {
+void MenuStateMachineImpl::put(MenuID id, std::unique_ptr<IMenu> menu) {
   menus.emplace(id, std::move(menu));
 }
 
-void MenuStateMachineImpl::Draw(Renderer& renderer, const Viewport& viewport) const {
-  menus.at(activeMenuID)->Draw(renderer, viewport, typewriterFonts);
+void MenuStateMachineImpl::draw(Renderer& renderer, const Viewport& viewport) const {
+  menus.at(activeMenuID)->draw(renderer, viewport, typewriterFonts);
 }
 
-void MenuStateMachineImpl::SetMenu(MenuID id) noexcept {
+void MenuStateMachineImpl::set_menu(MenuID id) noexcept {
   activeMenuID = id;
 }
 
-void MenuStateMachineImpl::HandleInput(const Input& input) noexcept {
-  menus.at(activeMenuID)->HandleInput(input);
+void MenuStateMachineImpl::handle_input(const Input& input) noexcept {
+  menus.at(activeMenuID)->handle_input(input);
 }
 
-const IMenu& MenuStateMachineImpl::GetMenu() const {
+const IMenu& MenuStateMachineImpl::get_menu() const {
   return *menus.at(activeMenuID);
 }
 

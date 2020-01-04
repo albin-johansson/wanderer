@@ -24,7 +24,7 @@ class IWandererCore;
  */
 class AbstractEntity : public virtual IEntity {
  private:
-  static constexpr int DEPTH = RenderDepth::RANGE / 2; // TODO maybe move to IEntity
+  static constexpr int DEPTH = RenderDepth::range / 2; // TODO maybe move to IEntity
 
   std::unique_ptr<IMovableObject> movable = nullptr;
   std::shared_ptr<centurion::Image> sheet = nullptr;
@@ -44,15 +44,15 @@ class AbstractEntity : public virtual IEntity {
 
   void tick(IWandererCore& core, float delta) override;
 
-  void UpdateAnimation() noexcept override;
+  void update_animation() noexcept override;
 
-  void SetAnimationFrame(int index) noexcept override;
+  void set_animation_frame(int index) noexcept override;
 
-  void SetAnimationFrameAmount(int nFrames) override;
+  void set_animation_frame_amount(int nFrames) override;
 
-  void SetAnimationDelay(uint32_t ms) override;
+  void set_animation_delay(uint32_t ms) override;
 
-  void Hurt(int dmg) noexcept override;
+  void hurt(int dmg) noexcept override;
 
   void move(Direction direction) noexcept override;
 
@@ -82,19 +82,19 @@ class AbstractEntity : public virtual IEntity {
   float get_speed() const noexcept override;
 
   [[nodiscard]]
-  int GetAnimationFrame() const noexcept override;
+  int get_animation_frame() const noexcept override;
 
   [[nodiscard]]
-  bool IsAnimationDone() const noexcept override;
+  bool is_animation_done() const noexcept override;
 
   [[nodiscard]]
-  centurion::Image& GetSpriteSheet() const noexcept override;
+  centurion::Image& get_sprite_sheet() const noexcept override;
 
   [[nodiscard]]
-  int GetHealth() const noexcept override;
+  int get_health() const noexcept override;
 
   [[nodiscard]]
-  bool IsDead() const noexcept override;
+  bool is_dead() const noexcept override;
 
   [[nodiscard]]
   bool will_intersect(const IGameObject* other, float delta) const override;
@@ -133,10 +133,10 @@ class AbstractEntity : public virtual IEntity {
   const Hitbox& get_hitbox() const noexcept override;
 
   [[nodiscard]]
-  float GetCenterY() const noexcept override;
+  float get_center_y() const noexcept override;
 
   [[nodiscard]]
-  int GetDepth() const noexcept override;
+  int get_depth() const noexcept override;
 
   [[nodiscard]]
   uint64_t get_unique_id() const noexcept override;

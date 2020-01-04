@@ -23,9 +23,6 @@ class Viewport;
  * @since 0.1.0
  */
 class ITileMap {
- protected:
-  ITileMap() = default;
-
  public:
   virtual ~ITileMap() = default;
 
@@ -37,7 +34,7 @@ class ITileMap {
    * @param delta the delta time, in seconds.
    * @since 0.1.0
    */
-  virtual void Tick(IWandererCore& core, const Viewport& viewport, float delta) = 0;
+  virtual void tick(IWandererCore& core, const Viewport& viewport, float delta) = 0;
 
   /**
    * Renders the tile map.
@@ -47,7 +44,7 @@ class ITileMap {
    * @param alpha the interpolation coefficient, in the range [0, 1].
    * @since 0.1.0
    */
-  virtual void Draw(centurion::Renderer& renderer,
+  virtual void draw(centurion::Renderer& renderer,
                     const Viewport& viewport,
                     float alpha) noexcept = 0;
 
@@ -57,7 +54,7 @@ class ITileMap {
    * @param layer the layer that will be added.
    * @since 0.1.0
    */
-  virtual void AddLayer(std::unique_ptr<ITileMapLayer>&& layer) = 0;
+  virtual void add_layer(std::unique_ptr<ITileMapLayer>&& layer) = 0;
 
   /**
    * Sets the player instance used by the map.
@@ -65,10 +62,10 @@ class ITileMap {
    * @param player the player instance that will be added.
    * @since 0.1.0
    */
-  virtual void SetPlayer(const std::shared_ptr<IEntity>& player) = 0;
+  virtual void set_player(const std::shared_ptr<IEntity>& player) = 0;
 
   [[nodiscard]]
-  virtual bool IsBlocked(const IMovableObject* object, float delta) const = 0;
+  virtual bool is_blocked(const IMovableObject* object, float delta) const = 0;
 
   /**
    * Returns the number of rows in the tile map.
@@ -77,7 +74,7 @@ class ITileMap {
    * @since 0.1.0
    */
   [[nodiscard]]
-  virtual int GetRows() const noexcept = 0;
+  virtual int get_rows() const noexcept = 0;
 
   /**
    * Returns the number of columns in the tile map.
@@ -86,7 +83,7 @@ class ITileMap {
    * @since 0.1.0
    */
   [[nodiscard]]
-  virtual int GetCols() const noexcept = 0;
+  virtual int get_cols() const noexcept = 0;
 
   /**
    * Returns the width of the tile map.
@@ -95,7 +92,7 @@ class ITileMap {
    * @since 0.1.0
    */
   [[nodiscard]]
-  virtual int GetWidth() const noexcept = 0;
+  virtual int get_width() const noexcept = 0;
 
   /**
    * Returns the height of the tile map.
@@ -104,7 +101,7 @@ class ITileMap {
    * @since 0.1.0
    */
   [[nodiscard]]
-  virtual int GetHeight() const noexcept = 0;
+  virtual int get_height() const noexcept = 0;
 
   /**
    * Returns the spawn position of the player in the map.
@@ -113,7 +110,7 @@ class ITileMap {
    * @since 0.1.0
    */
   [[nodiscard]]
-  virtual Vector2 GetPlayerSpawnPosition() const = 0;
+  virtual Vector2 get_player_spawn_position() const = 0;
 
 };
 

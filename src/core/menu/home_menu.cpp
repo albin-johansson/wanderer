@@ -12,20 +12,20 @@ HomeMenu::HomeMenu(IMenuStateMachine* parent, IWandererCore* core) :
     settingsButton("Settings", 633, 320, 100, 40),
     controlsButton("Controls", 633, 390, 100, 40),
     quitButton("Quit", 633, 460, 100, 40) {
-  this->core = Require::NotNull(core);
+  this->core = Require::not_null(core);
   fonts = std::make_unique<FontBundle>("resources/font/type_writer.ttf");
 }
 
 HomeMenu::~HomeMenu() noexcept = default;
 
-void HomeMenu::HandleInput(const Input& input) noexcept {
-  if (input.WasReleased(SDL_SCANCODE_ESCAPE)) {
-    parent->SetMenu(MenuID::IN_GAME);
+void HomeMenu::handle_input(const Input& input) noexcept {
+  if (input.was_released(SDL_SCANCODE_ESCAPE)) {
+    parent->set_menu(MenuID::IN_GAME);
   }
 
-  auto mx = input.GetMouseX();
-  auto my = input.GetMouseY();
-  bool leftReleased = input.WasLeftButtonReleased();
+  auto mx = input.get_mouse_x();
+  auto my = input.get_mouse_y();
+  bool leftReleased = input.was_left_button_released();
 
   startButton.SetEnlarged(!leftReleased && startButton.Contains(mx, my));
   settingsButton.SetEnlarged(!leftReleased && settingsButton.Contains(mx, my));
@@ -33,26 +33,26 @@ void HomeMenu::HandleInput(const Input& input) noexcept {
   quitButton.SetEnlarged(!leftReleased && quitButton.Contains(mx, my));
 
   if (leftReleased && startButton.Contains(mx, my)) {
-    parent->SetMenu(MenuID::IN_GAME);
+    parent->set_menu(MenuID::IN_GAME);
 
   } else if (leftReleased && settingsButton.Contains(mx, my)) {
-    parent->SetMenu(MenuID::SETTINGS);
+    parent->set_menu(MenuID::SETTINGS);
 
   } else if (leftReleased && controlsButton.Contains(mx, my)) {
-    parent->SetMenu(MenuID::CONTROLS);
+    parent->set_menu(MenuID::CONTROLS);
 
   } else if (leftReleased && quitButton.Contains(mx, my)) {
     core->quit(); // FIXME perhaps the core should look for quit flag from menus instead?
   }
 }
 
-void HomeMenu::Draw(Renderer& renderer, const Viewport& viewport, const FontBundle& fonts) const {
-  AbstractMenu::Draw(renderer, viewport, fonts);
+void HomeMenu::draw(Renderer& renderer, const Viewport& viewport, const FontBundle& fonts) const {
+  AbstractMenu::draw(renderer, viewport, fonts);
 
-  startButton.Draw(renderer, viewport, fonts);
-  settingsButton.Draw(renderer, viewport, fonts);
-  controlsButton.Draw(renderer, viewport, fonts);
-  quitButton.Draw(renderer, viewport, fonts);
+  startButton.draw(renderer, viewport, fonts);
+  settingsButton.draw(renderer, viewport, fonts);
+  controlsButton.draw(renderer, viewport, fonts);
+  quitButton.draw(renderer, viewport, fonts);
 }
 
 }

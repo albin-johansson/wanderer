@@ -13,34 +13,34 @@ PlayerIdleState::PlayerIdleState(IEntityStateMachine* parent)
 PlayerIdleState::~PlayerIdleState() = default;
 
 void PlayerIdleState::HandleInput(const Input& input, const IWandererCore& core) {
-  if (input.IsPressed(SDL_SCANCODE_D)
-      || input.IsPressed(SDL_SCANCODE_A)
-      || input.IsPressed(SDL_SCANCODE_W)
-      || input.IsPressed(SDL_SCANCODE_S)) {
-    idleDelegate.GetParent().SetState(EntityStateID::WALK, core);
-  } else if (input.IsPressed(SDL_SCANCODE_SPACE)) {
-    idleDelegate.GetParent().SetState(EntityStateID::ATTACK, core);
-  } else if (input.IsPressed(SDL_SCANCODE_U)) {
-    idleDelegate.GetParent().SetState(EntityStateID::DIE, core);
+  if (input.is_pressed(SDL_SCANCODE_D)
+      || input.is_pressed(SDL_SCANCODE_A)
+      || input.is_pressed(SDL_SCANCODE_W)
+      || input.is_pressed(SDL_SCANCODE_S)) {
+    idleDelegate.GetParent().set_state(EntityStateID::Walk, core);
+  } else if (input.is_pressed(SDL_SCANCODE_SPACE)) {
+    idleDelegate.GetParent().set_state(EntityStateID::Attack, core);
+  } else if (input.is_pressed(SDL_SCANCODE_U)) {
+    idleDelegate.GetParent().set_state(EntityStateID::Die, core);
   }
 
   // TODO attack...
 }
 
-void PlayerIdleState::Draw(const Renderer& renderer, const Viewport& viewport) const noexcept {
-  idleDelegate.Draw(renderer, viewport);
+void PlayerIdleState::draw(const Renderer& renderer, const Viewport& viewport) const noexcept {
+  idleDelegate.draw(renderer, viewport);
 }
 
-void PlayerIdleState::Tick(const IWandererCore& core, float delta) {
-  idleDelegate.Tick(core, delta);
+void PlayerIdleState::tick(const IWandererCore& core, float delta) {
+  idleDelegate.tick(core, delta);
 }
 
-void PlayerIdleState::Enter(const IWandererCore& core) {
-  idleDelegate.Enter(core);
+void PlayerIdleState::enter(const IWandererCore& core) {
+  idleDelegate.enter(core);
 }
 
-void PlayerIdleState::Exit(const IWandererCore& core) {
-  idleDelegate.Exit(core);
+void PlayerIdleState::exit(const IWandererCore& core) {
+  idleDelegate.exit(core);
 }
 
 }

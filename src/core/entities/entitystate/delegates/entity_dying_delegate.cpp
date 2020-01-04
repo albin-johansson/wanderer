@@ -8,30 +8,30 @@ using namespace centurion;
 namespace albinjohansson::wanderer {
 
 EntityDyingDelegate::EntityDyingDelegate(IEntity* entity) {
-  this->entity = Require::NotNull(entity);
+  this->entity = Require::not_null(entity);
 }
 
 EntityDyingDelegate::~EntityDyingDelegate() = default;
 
-void EntityDyingDelegate::Draw(const Renderer& renderer, const Viewport&) const {
+void EntityDyingDelegate::draw(const Renderer& renderer, const Viewport&) const {
   // TODO fade entity transparency after finishing animation
-  auto srcX = entity->GetAnimationFrame() * 64;
-  EntityDrawDelegate::Draw(renderer, *entity, srcX, 1280);
+  auto srcX = entity->get_animation_frame() * 64;
+  EntityDrawDelegate::draw(renderer, *entity, srcX, 1280);
 }
 
-void EntityDyingDelegate::Tick(const IWandererCore&, float /*delta*/) {
-  if (!entity->IsAnimationDone()) {
-    entity->UpdateAnimation();
+void EntityDyingDelegate::tick(const IWandererCore&, float /*delta*/) {
+  if (!entity->is_animation_done()) {
+    entity->update_animation();
   }
 }
 
-void EntityDyingDelegate::Enter(const IWandererCore&) {
-  entity->SetAnimationFrameAmount(6);
-  entity->SetAnimationFrame(0);
-  entity->SetAnimationDelay(65);
+void EntityDyingDelegate::enter(const IWandererCore&) {
+  entity->set_animation_frame_amount(6);
+  entity->set_animation_frame(0);
+  entity->set_animation_delay(65);
 }
 
-void EntityDyingDelegate::Exit(const IWandererCore&) {
+void EntityDyingDelegate::exit(const IWandererCore&) {
   // TODO set entity to be dead
 }
 

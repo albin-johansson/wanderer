@@ -16,17 +16,17 @@ Skeleton::Skeleton(const std::shared_ptr<Image>& sheet) : AbstractEntity(sheet) 
 
 Skeleton::~Skeleton() = default;
 
-void Skeleton::Init() {
+void Skeleton::init() {
   set_speed(mobSpeed);
 }
 
-void Skeleton::Draw(const Renderer& renderer, const Viewport& viewport) const {
-  stateMachine->Draw(renderer, viewport);
+void Skeleton::draw(const Renderer& renderer, const Viewport& viewport) const {
+  stateMachine->draw(renderer, viewport);
 }
 
 void Skeleton::tick(IWandererCore& core, float delta) {
   AbstractEntity::tick(core, delta);
-  stateMachine->Tick(core, delta);
+  stateMachine->tick(core, delta);
 }
 
 }

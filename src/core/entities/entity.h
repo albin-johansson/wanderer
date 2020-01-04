@@ -27,7 +27,7 @@ class IEntity : public virtual IMovableObject, public virtual IAnimated {
    * @param dmg the amount of damage that will be inflicted upon the entity.
    * @since 0.1.0
    */
-  virtual void Hurt(int dmg) noexcept = 0;
+  virtual void hurt(int dmg) noexcept = 0;
 
   /**
    * Returns the health of the entity.
@@ -36,7 +36,7 @@ class IEntity : public virtual IMovableObject, public virtual IAnimated {
    * @since 0.1.0
    */
   [[nodiscard]]
-  virtual int GetHealth() const noexcept = 0;
+  virtual int get_health() const noexcept = 0;
 
   /**
    * Indicates whether or not the entity is dead.
@@ -45,7 +45,7 @@ class IEntity : public virtual IMovableObject, public virtual IAnimated {
    * @since 0.1.0
    */
   [[nodiscard]]
-  virtual bool IsDead() const noexcept = 0;
+  virtual bool is_dead() const noexcept = 0;
 
 };
 

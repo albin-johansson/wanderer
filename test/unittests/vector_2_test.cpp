@@ -8,7 +8,7 @@ TEST_CASE("Vector2DefaultCtor", "[Vector2]") {
   Vector2 vector; // should be (0, 0)
   CHECK(vector.x == 0);
   CHECK(vector.y == 0);
-  CHECK(vector.IsZero());
+  CHECK(vector.is_zero());
 }
 
 TEST_CASE("Vector2Ctor", "[Vector2]") {
@@ -18,7 +18,7 @@ TEST_CASE("Vector2Ctor", "[Vector2]") {
 
   CHECK(vector.x == x);
   CHECK(vector.y == y);
-  CHECK(!vector.IsZero());
+  CHECK(!vector.is_zero());
 }
 
 TEST_CASE("Vector2CopyCtor", "[Vector2]") {
@@ -35,13 +35,13 @@ TEST_CASE("Vector2::Scale", "[Vector2]") {
   Vector2 vector(x, y);
 
   float factor = 3.2f;
-  vector.Scale(factor);
+  vector.scale(factor);
 
   CHECK(vector.x == Approx(x * factor));
   CHECK(vector.y == Approx(y * factor));
 
-  vector.Scale(0);
-  CHECK(vector.IsZero());
+  vector.scale(0);
+  CHECK(vector.is_zero());
 }
 
 TEST_CASE("Vector2::operator+", "[Vector2]") {
@@ -105,7 +105,7 @@ TEST_CASE("Vector2::Add1", "[Vector2]") {
   float dy = -23;
 
   Vector2 other(dx, dy);
-  vector.Add(other);
+  vector.add(other);
 
   CHECK(other.x == dx);
   CHECK(other.y == dy);
@@ -122,7 +122,7 @@ TEST_CASE("Vector2::Add2", "[Vector2]") {
   float dx = -29;
   float dy = 12;
 
-  vector.Add(dx, dy);
+  vector.add(dx, dy);
   CHECK(vector.x == Approx(x + dx));
   CHECK(vector.y == Approx(y + dy));
 }
@@ -137,7 +137,7 @@ TEST_CASE("Vector2::Sub", "[Vector2]") {
 
   Vector2 other(x1, y1);
 
-  vector.Sub(other);
+  vector.sub(other);
   CHECK(vector.x == Approx(x - x1));
   CHECK(vector.y == Approx(y - y1));
 }
@@ -145,24 +145,24 @@ TEST_CASE("Vector2::Sub", "[Vector2]") {
 TEST_CASE("Vector2::Norm", "[Vector2]") {
   Vector2 vector(12.0f, 92.3f);
 
-  vector.Norm();
+  vector.norm();
 
-  CHECK(vector.IsUnit());
-  CHECK(vector.GetLength() == Approx(1));
+  CHECK(vector.is_unit());
+  CHECK(vector.get_length() == Approx(1));
 }
 
 TEST_CASE("Vector2::Zero", "[Vector2]") {
   Vector2 vector(859.0f, 229.3f);
 
-  vector.Zero();
-  CHECK(vector.IsZero());
+  vector.zero();
+  CHECK(vector.is_zero());
 }
 
 TEST_CASE("Vector2::Set", "[Vector2]") {
   Vector2 vector(91, 3);
   Vector2 other(123, 45);
 
-  vector.Set(other);
+  vector.set(other);
 
   CHECK(vector.x == Approx(other.x));
   CHECK(vector.y == Approx(other.y));
@@ -172,15 +172,15 @@ TEST_CASE("Vector2::SetLength", "[Vector2]") {
   Vector2 vector(52, 93);
 
   float length = 4;
-  vector.SetLength(length);
-  CHECK(vector.GetLength() == Approx(length));
+  vector.set_length(length);
+  CHECK(vector.get_length() == Approx(length));
 }
 
 TEST_CASE("Vector2::LookAt(Vector2, float)", "[Vector2]") {
   Vector2 vector(412, 287);
 
-  CHECK_NOTHROW(vector.LookAt(vector, 0));
-  CHECK_NOTHROW(vector.LookAt(vector, -1));
+  CHECK_NOTHROW(vector.look_at(vector, 0));
+  CHECK_NOTHROW(vector.look_at(vector, -1));
 }
 
 TEST_CASE("Vector2::DistanceTo", "[Vector2]") {
@@ -190,40 +190,40 @@ TEST_CASE("Vector2::DistanceTo", "[Vector2]") {
   auto dx = other.x - vector.x;
   auto dy = other.y - vector.y;
   auto expected = std::sqrt(dx * dx + dy * dy);
-  CHECK(expected == vector.DistanceTo(other));
-  CHECK(vector.DistanceTo(other) == other.DistanceTo(vector));
+  CHECK(expected == vector.distance_to(other));
+  CHECK(vector.distance_to(other) == other.distance_to(vector));
 
-  CHECK(vector.DistanceTo(vector) == 0);
+  CHECK(vector.distance_to(vector) == 0);
 }
 
 TEST_CASE("Vector2::DistanceTo2", "[Vector2]") {
   Vector2 vector(58, 832);
   Vector2 other(284, 550);
 
-  CHECK(std::sqrt(vector.DistanceTo2(other)) == vector.DistanceTo(other));
-  CHECK(vector.DistanceTo2(vector) == 0);
+  CHECK(std::sqrt(vector.distance_to_2(other)) == vector.distance_to(other));
+  CHECK(vector.distance_to_2(vector) == 0);
 }
 
 TEST_CASE("Vector2::Angle", "[Vector2]") {
   const Vector2 nx(-1, 0);
   const Vector2 ny(0, -1);
 
-  CHECK(X_UNIT.Angle(Y_UNIT) == 90);
-  CHECK(Y_UNIT.Angle(X_UNIT) == 90);
-  CHECK(X_UNIT.Angle(ny) == 90);
-  CHECK(Y_UNIT.Angle(nx) == 90);
+  CHECK(xUnit.angle(yUnit) == 90);
+  CHECK(yUnit.angle(xUnit) == 90);
+  CHECK(xUnit.angle(ny) == 90);
+  CHECK(yUnit.angle(nx) == 90);
 
-  CHECK(X_UNIT.Angle(X_UNIT) == 0);
+  CHECK(xUnit.angle(xUnit) == 0);
 
   SECTION("Maximum possible angle") {
-    CHECK(nx.Angle(X_UNIT) == 180);
-    CHECK(X_UNIT.Angle(nx) == 180);
+    CHECK(nx.angle(xUnit) == 180);
+    CHECK(xUnit.angle(nx) == 180);
   }
 
   SECTION("1 degree step") {
-    Vector2 v(std::cos(MathUtils::ToRadians(1.0f)),
-              std::sin(MathUtils::ToRadians(1.0f)));
-    CHECK(X_UNIT.Angle(v) == 1);
+    Vector2 v(std::cos(MathUtils::to_radians(1.0f)),
+              std::sin(MathUtils::to_radians(1.0f)));
+    CHECK(xUnit.angle(v) == 1);
   }
 }
 
@@ -232,7 +232,7 @@ TEST_CASE("Vector2::Invert", "[Vector2]") {
   const auto y = 8;
 
   Vector2 vector(x, y);
-  vector.Invert();
+  vector.invert();
 
   CHECK(vector.x == (-1 * x));
   CHECK(vector.y == (-1 * y));
@@ -241,38 +241,38 @@ TEST_CASE("Vector2::Invert", "[Vector2]") {
 TEST_CASE("Vector2::GetLength", "[Vector2]") {
   Vector2 vector;
 
-  CHECK(vector.GetLength() == 0);
-  CHECK(vector.IsZero());
+  CHECK(vector.get_length() == 0);
+  CHECK(vector.is_zero());
 
-  CHECK(X_UNIT.GetLength() == 1);
-  CHECK(X_UNIT.IsUnit());
+  CHECK(xUnit.get_length() == 1);
+  CHECK(xUnit.is_unit());
 
-  CHECK(Y_UNIT.GetLength() == 1);
-  CHECK(Y_UNIT.IsUnit());
+  CHECK(yUnit.get_length() == 1);
+  CHECK(yUnit.is_unit());
 }
 
 TEST_CASE("Vector2::GetLength2", "[Vector2]") {
   Vector2 vector;
 
-  CHECK(vector.GetLength2() == 0);
-  CHECK(vector.IsZero());
+  CHECK(vector.get_length_2() == 0);
+  CHECK(vector.is_zero());
 }
 
 TEST_CASE("Vector2::IsZero", "[Vector2]") {
   Vector2 first;
-  CHECK(first.IsZero());
+  CHECK(first.is_zero());
 
   Vector2 other(12, 95);
-  CHECK(!other.IsZero());
+  CHECK(!other.is_zero());
 }
 
 TEST_CASE("Vector2::IsUnit", "[Vector2]") {
   Vector2 vector(1, 0);
-  CHECK(vector.IsUnit());
+  CHECK(vector.is_unit());
 
-  vector.Scale(0.5f);
-  CHECK(!vector.IsUnit());
+  vector.scale(0.5f);
+  CHECK(!vector.is_unit());
 
-  vector.Norm();
-  CHECK(vector.IsUnit());
+  vector.norm();
+  CHECK(vector.is_unit());
 }

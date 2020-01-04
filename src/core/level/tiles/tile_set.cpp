@@ -9,7 +9,7 @@ TileSet::TileSet(int nTiles) {
 TileSet::~TileSet() = default;
 
 void TileSet::Tick(TileID id) {
-  tiles.at(id).Tick();
+  tiles.at(id).tick();
 }
 
 void TileSet::Insert(TileID id, const Tile& tile) {

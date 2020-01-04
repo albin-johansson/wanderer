@@ -7,7 +7,7 @@
 
 namespace albinjohansson::wanderer {
 
-std::unique_ptr<ITileMap> TileMapBuilder::Create(const std::shared_ptr<TileSet>& tileSet,
+std::unique_ptr<ITileMap> TileMapBuilder::create(const std::shared_ptr<TileSet>& tileSet,
                                                  const tiled::TiledMap& tiledMap) {
   auto map = std::unique_ptr<TileMapImpl>(new TileMapImpl(tileSet));
 
@@ -23,7 +23,7 @@ std::unique_ptr<ITileMap> TileMapBuilder::Create(const std::shared_ptr<TileSet>&
 
       const auto x = tiledMap.ConvertX(std::stof(object.GetAttribute("x")), tileSize);
       const auto y = tiledMap.ConvertY(std::stof(object.GetAttribute("y")), tileSize);
-      map->playerSpawnPos.Set(x, y);
+      map->playerSpawnPos.set(x, y);
     }
   }
 

@@ -11,12 +11,12 @@ MouseStateManager::MouseStateManager() noexcept = default;
 
 MouseStateManager::~MouseStateManager() = default;
 
-void MouseStateManager::WindowUpdated(const Window& window) noexcept {
+void MouseStateManager::window_updated(const Window& window) noexcept {
   windowWidth = static_cast<float>(window.get_width());
   windowHeight = static_cast<float>(window.get_height());
 }
 
-void MouseStateManager::Update() {
+void MouseStateManager::update() {
   prevLeftPressed = leftPressed;
   prevRightPressed = rightPressed;
 
@@ -38,39 +38,39 @@ void MouseStateManager::Update() {
   mouseY = adjustedY;
 }
 
-void MouseStateManager::SetLogicalWidth(int width) {
+void MouseStateManager::set_logical_width(int width) {
   logicalWidth = static_cast<float>(width);
 }
 
-void MouseStateManager::SetLogicalHeight(int height) {
-  logicalHeight = static_cast<float>(height);
+void MouseStateManager::set_logical_height(int height) {
+  logicalHeight = static_cast<float>(logicalHeight);
 }
 
-float MouseStateManager::GetMouseX() const noexcept {
+float MouseStateManager::get_mouse_x() const noexcept {
   return mouseX;
 }
 
-float MouseStateManager::GetMouseY() const noexcept {
+float MouseStateManager::get_mouse_y() const noexcept {
   return mouseY;
 }
 
-bool MouseStateManager::IsLeftButtonPressed() const noexcept {
+bool MouseStateManager::is_left_button_pressed() const noexcept {
   return leftPressed;
 }
 
-bool MouseStateManager::IsRightButtonPressed() const noexcept {
+bool MouseStateManager::is_right_button_pressed() const noexcept {
   return rightPressed;
 }
 
-bool MouseStateManager::WasMouseMoved() const noexcept {
+bool MouseStateManager::was_mouse_moved() const noexcept {
   return oldX != mouseX || oldY != mouseY;
 }
 
-bool MouseStateManager::WasLeftButtonReleased() const noexcept {
+bool MouseStateManager::was_left_button_released() const noexcept {
   return !leftPressed && prevLeftPressed;
 }
 
-bool MouseStateManager::WasRightButtonReleased() const noexcept {
+bool MouseStateManager::was_right_button_released() const noexcept {
   return !rightPressed && prevRightPressed;
 }
 

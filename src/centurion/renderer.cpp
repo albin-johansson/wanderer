@@ -11,12 +11,12 @@ using namespace albinjohansson::wanderer;
 namespace centurion {
 
 Renderer::Renderer(SDL_Renderer* renderer) {
-  this->renderer = Require::NotNull(renderer);
+  this->renderer = Require::not_null(renderer);
   SetLogicalIntegerScale(false);
 }
 
 Renderer::Renderer(SDL_Window* window, uint32_t flags) {
-  Require::NotNull(window);
+  Require::not_null(window);
 
   renderer = SDL_CreateRenderer(window, -1, flags);
 
@@ -83,8 +83,8 @@ void Renderer::RenderTextureTranslated(const Image& texture,
   SDL_Rect src = source;
   SDL_FRect dst = destination;
 
-  dst.x = translationViewport.GetTranslatedX(dst.x);
-  dst.y = translationViewport.GetTranslatedY(dst.y);
+  dst.x = translationViewport.get_translated_x(dst.x);
+  dst.y = translationViewport.get_translated_y(dst.y);
 
   SDL_RenderCopyF(renderer, texture, &src, &dst);
 }
@@ -147,8 +147,8 @@ void Renderer::SetScale(float xScale, float yScale) noexcept {
 void Renderer::SetLogicalSize(float width, float height) noexcept {
   if (width > 0 && height > 0) {
     int result = SDL_RenderSetLogicalSize(renderer,
-                                          MathUtils::Round(width),
-                                          MathUtils::Round(height));
+                                          MathUtils::round(width),
+                                          MathUtils::round(height));
     if (result != 0) {
       SDL_Log("Failed to set logical size! %s", SDL_GetError());
     }

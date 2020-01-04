@@ -30,7 +30,7 @@ class TileMapLayerBuilder final {
    * @param layer the layer that holds the tile objects.
    * @since 0.1.0
    */
-  void InitTileObjects(TileMapLayerImpl& layer) const;
+  void init_tile_objects(TileMapLayerImpl& layer) const;
 
   /**
    * Converts an index into a position.
@@ -41,10 +41,10 @@ class TileMapLayerBuilder final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  Vector2 CreatePosition(int index, int nCols) const;
+  Vector2 create_position(int index, int nCols) const;
 
   [[nodiscard]]
-  static std::vector<TileID> CreateTileVector(const std::vector<int>& tiles);
+  static std::vector<TileID> create_tile_vector(const std::vector<int>& tiles);
 
  public:
   TileMapLayerBuilder();
@@ -60,7 +60,7 @@ class TileMapLayerBuilder final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  std::unique_ptr<ITileMapLayer> Create(const std::shared_ptr<TileSet>& tileSet,
+  std::unique_ptr<ITileMapLayer> create(const std::shared_ptr<TileSet>& tileSet,
                                         const tiled::TiledLayer& tiledLayer) const;
 };
 

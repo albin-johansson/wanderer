@@ -14,31 +14,31 @@ MovableDelegate::MovableDelegate(int depth, float width, float height)
   if (width < 1 || height < 1) {
     throw std::invalid_argument("Invalid dimensions!");
   }
-  uniqueId = RandomUtils::GetRand(); // FIXME
+  uniqueId = RandomUtils::get_rand(); // FIXME
 }
 
 MovableDelegate::~MovableDelegate() = default;
 
-void MovableDelegate::Draw(const Renderer&, const Viewport&) const noexcept {
+void MovableDelegate::draw(const Renderer&, const Viewport&) const noexcept {
   /* do nothing */
 }
 
 void MovableDelegate::tick(IWandererCore&, float /*delta*/) {
-  SavePosition();
-  UpdatePosition();
-  UpdateDirection();
+  save_position();
+  update_position();
+  update_direction();
 }
 
-void MovableDelegate::SavePosition() noexcept {
-  prevPosition.Set(currPosition);
+void MovableDelegate::save_position() noexcept {
+  prevPosition.set(currPosition);
 }
 
-void MovableDelegate::UpdatePosition() {
-  hitbox.SetX(currPosition.x);
-  hitbox.SetY(currPosition.y);
+void MovableDelegate::update_position() {
+  hitbox.set_x(currPosition.x);
+  hitbox.set_y(currPosition.y);
 }
 
-void MovableDelegate::UpdateDirection() {
+void MovableDelegate::update_direction() {
   if (velocity.x > 0) {
     dominantDirection = Direction::Right;
   } else if (velocity.x < 0) {
@@ -71,8 +71,8 @@ void MovableDelegate::move(Direction direction) noexcept {
       break;
     }
   }
-  velocity.Norm();
-  velocity.Scale(speed);
+  velocity.norm();
+  velocity.scale(speed);
 }
 
 void MovableDelegate::stop(Direction direction) noexcept {
@@ -88,63 +88,63 @@ void MovableDelegate::stop(Direction direction) noexcept {
       break;
     }
   }
-  velocity.Norm();
-  velocity.Scale(speed);
+  velocity.norm();
+  velocity.scale(speed);
 }
 
 void MovableDelegate::stop() noexcept {
-  velocity.Zero();
+  velocity.zero();
 }
 
 void MovableDelegate::interpolate(float alpha) noexcept {
-  interpolatedPosition.Set(currPosition);
-  interpolatedPosition.Interpolate(prevPosition, alpha);
+  interpolatedPosition.set(currPosition);
+  interpolatedPosition.interpolate(prevPosition, alpha);
 }
 
 void MovableDelegate::set_speed(float speed) noexcept {
   this->speed = speed;
-  velocity.Norm();
-  velocity.Scale(speed);
+  velocity.norm();
+  velocity.scale(speed);
 }
 
 void MovableDelegate::add_x(float dx) noexcept {
-  currPosition.Add(dx, 0);
-  UpdatePosition();
+  currPosition.add(dx, 0);
+  update_position();
 }
 
 void MovableDelegate::add_y(float dy) noexcept {
-  currPosition.Add(0, dy);
-  UpdatePosition();
+  currPosition.add(0, dy);
+  update_position();
 }
 
 void MovableDelegate::set_x(float x) noexcept {
   currPosition.x = x;
-  UpdatePosition();
+  update_position();
 }
 
 void MovableDelegate::set_y(float y) noexcept {
   currPosition.y = y;
-  UpdatePosition();
+  update_position();
 }
 
 void MovableDelegate::set_velocity(const Vector2& v) noexcept {
-  velocity.Set(v);
+  velocity.set(v);
 }
 
 void MovableDelegate::add_hitbox(const FRectangle& rectangle, const Vector2& offset) {
-  hitbox.AddRectangle(rectangle, offset);
-  UpdatePosition();
+  hitbox.add_rectangle(rectangle, offset);
+  update_position();
 }
 
 void MovableDelegate::set_blocked(bool blocked) noexcept {
-  hitbox.SetEnabled(blocked);
+  hitbox.set_enabled(blocked);
 }
 
-int MovableDelegate::GetDepth() const noexcept {
+int MovableDelegate::get_depth() const noexcept {
   return depth;
 }
 
-float MovableDelegate::GetCenterY() const noexcept {
+float MovableDelegate::get_center_y() const noexcept {
   return currPosition.y + (height / 2.0f);
 }
 
@@ -193,7 +193,7 @@ const Vector2& MovableDelegate::get_previous_position() const noexcept {
 }
 
 bool MovableDelegate::will_intersect(const IGameObject* other, float delta) const {
-  return other && hitbox.WillIntersect(other->get_hitbox(), get_next_position(delta));
+  return other && hitbox.will_intersect(other->get_hitbox(), get_next_position(delta));
 }
 
 uint64_t MovableDelegate::get_unique_id() const noexcept {

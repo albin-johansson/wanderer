@@ -13,11 +13,11 @@ namespace albinjohansson::wanderer {
 
 TileObject::TileObject(TileID id, const Vector2& position, const std::shared_ptr<TileSet>& tileSet)
     : position(position), id(id) {
-  this->tileSet = Require::NotNull(tileSet);
+  this->tileSet = Require::not_null(tileSet);
   centerY = get_y() + (get_height() / 2.0f);
-  uniqueId = RandomUtils::GetRand();
-  hitbox.SetX(get_x());
-  hitbox.SetY(get_y());
+  uniqueId = RandomUtils::get_rand();
+  hitbox.set_x(get_x());
+  hitbox.set_y(get_y());
 }
 
 TileObject::~TileObject() noexcept = default;
@@ -26,21 +26,21 @@ void TileObject::tick(IWandererCore&, float /*delta*/) {
   tileSet->Tick(id);
 }
 
-void TileObject::Draw(const Renderer& renderer, const Viewport&) const {
-  tileSet->GetTile(id).Draw(position, renderer, *tileSet);
+void TileObject::draw(const Renderer& renderer, const Viewport&) const {
+  tileSet->GetTile(id).draw(position, renderer, *tileSet);
 }
 
 void TileObject::SetDepth(int depth) noexcept {
-  if (depth < RenderDepth::MIN) { depth = RenderDepth::MIN; }
-  if (depth > RenderDepth::MAX) { depth = RenderDepth::MAX; }
+  if (depth < RenderDepth::min) { depth = RenderDepth::min; }
+  if (depth > RenderDepth::max) { depth = RenderDepth::max; }
   this->depth = depth;
 }
 
 void TileObject::SetHitbox(const Hitbox& h) noexcept {
   this->hitbox = h;
 
-  hitbox.SetX(get_x());
-  hitbox.SetY(get_y());
+  hitbox.set_x(get_x());
+  hitbox.set_y(get_y());
 }
 
 float TileObject::get_x() const noexcept {
@@ -51,7 +51,7 @@ float TileObject::get_y() const noexcept {
   return position.y;
 }
 
-float TileObject::GetCenterY() const noexcept {
+float TileObject::get_center_y() const noexcept {
   return centerY;
 }
 
@@ -67,12 +67,12 @@ const Hitbox& TileObject::get_hitbox() const noexcept {
   return hitbox;
 }
 
-int TileObject::GetDepth() const noexcept {
+int TileObject::get_depth() const noexcept {
   return depth;
 }
 
 void TileObject::add_hitbox(const FRectangle& rectangle, const Vector2& offset) {
-  hitbox.AddRectangle(rectangle, offset);
+  hitbox.add_rectangle(rectangle, offset);
 }
 
 uint64_t TileObject::get_unique_id() const noexcept {
@@ -80,7 +80,7 @@ uint64_t TileObject::get_unique_id() const noexcept {
 }
 
 void TileObject::set_blocked(bool blocked) noexcept {
-  hitbox.SetEnabled(blocked);
+  hitbox.set_enabled(blocked);
 }
 
 }

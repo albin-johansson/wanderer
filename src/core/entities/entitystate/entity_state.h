@@ -26,7 +26,7 @@ class IEntityState : public IDrawable {
    * @param delta the delta time, in seconds.
    * @since 0.1.0
    */
-  virtual void Tick(const IWandererCore& core, float delta) = 0;
+  virtual void tick(const IWandererCore& core, float delta) = 0;
 
   /**
    * Enters the entity state.
@@ -34,7 +34,7 @@ class IEntityState : public IDrawable {
    * @param core the associated core instance.
    * @since 0.1.0
    */
-  virtual void Enter(const IWandererCore& core) = 0;
+  virtual void enter(const IWandererCore& core) = 0;
 
   /**
    * Exits the entity state.
@@ -42,7 +42,7 @@ class IEntityState : public IDrawable {
    * @param core the associated core instance.
    * @since 0.1.0
    */
-  virtual void Exit(const IWandererCore& core) = 0;
+  virtual void exit(const IWandererCore& core) = 0;
 
 };
 

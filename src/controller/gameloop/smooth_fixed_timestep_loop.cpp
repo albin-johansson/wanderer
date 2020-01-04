@@ -16,25 +16,25 @@ SmoothFixedTimestepLoop::SmoothFixedTimestepLoop(std::unique_ptr<KeyStateManager
                                                  float vsyncRate)
     : vsyncRate{vsyncRate},
       timeStep{1.0f / vsyncRate},
-      counterFreq{static_cast<float>(TimeUtils::GetHighResFreq())} {
+      counterFreq{static_cast<float>(TimeUtils::get_high_res_freq())} {
   input = std::make_unique<Input>(std::move(ksm), std::move(msm));
-  now = TimeUtils::GetHighResTime();
+  now = TimeUtils::get_high_res_time();
   then = now;
 }
 
 SmoothFixedTimestepLoop::~SmoothFixedTimestepLoop() = default;
 
-void SmoothFixedTimestepLoop::UpdateInput(IWandererCore& core) {
-  input->Update();
+void SmoothFixedTimestepLoop::update_input(IWandererCore& core) {
+  input->update();
 
-  if (input->WasQuitRequested() || input->WasReleased(SDL_SCANCODE_O)) {
+  if (input->was_quit_requested() || input->was_released(SDL_SCANCODE_O)) {
     core.quit();
   }
 
   core.handle_input(*input);
 }
 
-void SmoothFixedTimestepLoop::SmoothDelta() {
+void SmoothFixedTimestepLoop::smooth_delta() {
   /* Reference for delta smoothing: https://frankforce.com/?p=2636 */
 
   delta += deltaBuffer;
@@ -49,19 +49,19 @@ void SmoothFixedTimestepLoop::SmoothDelta() {
   deltaBuffer = oldDelta - delta;
 }
 
-void SmoothFixedTimestepLoop::Update(IWandererCore& core, Renderer& renderer) {
-  UpdateInput(core);
+void SmoothFixedTimestepLoop::update(IWandererCore& core, Renderer& renderer) {
+  update_input(core);
 
   then = now;
-  now = TimeUtils::GetHighResTime();
+  now = TimeUtils::get_high_res_time();
 
   delta = static_cast<float>(now - then) / counterFreq;
 
-  if (delta > MAX_FRAME_TIME) {
-    delta = MAX_FRAME_TIME;
+  if (delta > maxFrameTime) {
+    delta = maxFrameTime;
   }
 
-  SmoothDelta();
+  smooth_delta();
 
   accumulator += delta;
 

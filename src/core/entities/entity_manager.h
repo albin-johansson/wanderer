@@ -15,7 +15,7 @@ class FRectangle;
  */
 class EntityManager final {
  private:
-  static constexpr int CALC_ENTITIES_THRESHOLD = 100;
+  static constexpr int calcEntitiesThreshold = 100;
 
   std::vector<std::shared_ptr<IEntity>> entities;
   std::vector<IEntity*> closeEntities;
@@ -29,7 +29,7 @@ class EntityManager final {
    * @param bounds the viewport bounds.
    * @since 0.1.0
    */
-  void CalculateCloseEntities(const FRectangle& bounds);
+  void calculate_close_entities(const FRectangle& bounds);
 
  public:
   EntityManager();
@@ -42,9 +42,9 @@ class EntityManager final {
    *
    * @param bounds the viewport bounds.
    * @since 0.1.0
-   * @see EntityManager::CALC_ENTITIES_THRESHOLD
+   * @see EntityManager::calcEntitiesThreshold
    */
-  void Update(const FRectangle& bounds);
+  void update(const FRectangle& bounds);
 
   /**
    * Adds an entity to the entity manager.
@@ -52,7 +52,7 @@ class EntityManager final {
    * @param entity the entity that will be added, a null pointer will be silently ignored.
    * @since 0.1.0
    */
-  void AddEntity(const std::shared_ptr<IEntity>& entity);
+  void add_entity(const std::shared_ptr<IEntity>& entity);
 
   /**
    * Returns all of the close entities.
@@ -61,7 +61,7 @@ class EntityManager final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  const std::vector<IEntity*>& GetCloseEntities() const;
+  const std::vector<IEntity*>& get_close_entities() const;
 };
 
 }

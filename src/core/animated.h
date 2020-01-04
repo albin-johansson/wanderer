@@ -23,7 +23,7 @@ class IAnimated {
    *
    * @since 0.1.0
    */
-  virtual void UpdateAnimation() noexcept = 0;
+  virtual void update_animation() noexcept = 0;
 
   /**
    * Sets the current animation frame by index. An invalid index will be clamped to the closest
@@ -32,7 +32,7 @@ class IAnimated {
    * @param index the index of the desired animation frame (zero-indexed).
    * @since 0.1.0
    */
-  virtual void SetAnimationFrame(int index) noexcept = 0;
+  virtual void set_animation_frame(int index) noexcept = 0;
 
   /**
    * Sets the amount of animation frames that will be iterated by the animation.
@@ -40,7 +40,7 @@ class IAnimated {
    * @param nFrames the number of animation frames, must be greater than zero.
    * @since 0.1.0
    */
-  virtual void SetAnimationFrameAmount(int nFrames) = 0;
+  virtual void set_animation_frame_amount(int nFrames) = 0;
 
   /**
    * Sets the delay in between frames.
@@ -48,7 +48,7 @@ class IAnimated {
    * @param ms the delay in between frames, in milliseconds.
    * @since 0.1.0
    */
-  virtual void SetAnimationDelay(uint32_t ms) = 0;
+  virtual void set_animation_delay(uint32_t ms) = 0;
 
   /**
    * Returns the index of the currently active animation frame.
@@ -57,7 +57,7 @@ class IAnimated {
    * @since 0.1.0
    */
   [[nodiscard]]
-  virtual int GetAnimationFrame() const noexcept = 0;
+  virtual int get_animation_frame() const noexcept = 0;
 
   /**
    * Indicates whether or not the animation is "done", the animation is considered done every
@@ -67,7 +67,7 @@ class IAnimated {
    * @since 0.1.0
    */
   [[nodiscard]]
-  virtual bool IsAnimationDone() const noexcept = 0;
+  virtual bool is_animation_done() const noexcept = 0;
 
   /**
    * Returns a reference to the internal sprite sheet.
@@ -76,7 +76,7 @@ class IAnimated {
    * @since 0.1.0
    */
   [[nodiscard]]
-  virtual centurion::Image& GetSpriteSheet() const noexcept = 0;
+  virtual centurion::Image& get_sprite_sheet() const noexcept = 0;
 };
 
 }

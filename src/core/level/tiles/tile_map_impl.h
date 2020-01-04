@@ -72,31 +72,31 @@ class TileMapImpl final : public ITileMap {
  public:
   ~TileMapImpl() override;
 
-  void Tick(IWandererCore& core, const Viewport& viewport, float delta) override;
+  void tick(IWandererCore& core, const Viewport& viewport, float delta) override;
 
-  void Draw(centurion::Renderer& renderer, const Viewport& viewport, float alpha) noexcept override;
+  void draw(centurion::Renderer& renderer, const Viewport& viewport, float alpha) noexcept override;
 
-  void AddLayer(std::unique_ptr<ITileMapLayer>&& layer) override;
+  void add_layer(std::unique_ptr<ITileMapLayer>&& layer) override;
 
-  void SetPlayer(const std::shared_ptr<IEntity>& player) override;
-
-  [[nodiscard]]
-  bool IsBlocked(const IMovableObject* self, float delta) const override;
+  void set_player(const std::shared_ptr<IEntity>& player) override;
 
   [[nodiscard]]
-  int GetRows() const noexcept override;
+  bool is_blocked(const IMovableObject* self, float delta) const override;
 
   [[nodiscard]]
-  int GetCols() const noexcept override;
+  int get_rows() const noexcept override;
 
   [[nodiscard]]
-  int GetWidth() const noexcept override;
+  int get_cols() const noexcept override;
 
   [[nodiscard]]
-  int GetHeight() const noexcept override;
+  int get_width() const noexcept override;
 
   [[nodiscard]]
-  Vector2 GetPlayerSpawnPosition() const override;
+  int get_height() const noexcept override;
+
+  [[nodiscard]]
+  Vector2 get_player_spawn_position() const override;
 };
 
 }

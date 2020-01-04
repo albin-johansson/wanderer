@@ -11,38 +11,38 @@ using namespace centurion;
 namespace albinjohansson::wanderer {
 
 EntityAttackDelegate::EntityAttackDelegate(IEntityStateMachine* parent) {
-  this->parent = Require::NotNull(parent);
+  this->parent = Require::not_null(parent);
 }
 
 EntityAttackDelegate::~EntityAttackDelegate() = default;
 
-void EntityAttackDelegate::Draw(const Renderer& renderer, const Viewport&) const {
-  auto& entity = parent->GetEntity();
-  auto srcX = entity.GetAnimationFrame() * 64;
-  auto srcY = EntitySheet::GetSourceY(SOURCE_MELEE_Y, entity.get_dominant_direction());
-  EntityDrawDelegate::Draw(renderer, entity, srcX, srcY);
+void EntityAttackDelegate::draw(const Renderer& renderer, const Viewport&) const {
+  auto& entity = parent->get_entity();
+  auto srcX = entity.get_animation_frame() * 64;
+  auto srcY = EntitySheet::get_source_y(SOURCE_MELEE_Y, entity.get_dominant_direction());
+  EntityDrawDelegate::draw(renderer, entity, srcX, srcY);
 }
 
-void EntityAttackDelegate::Enter(const IWandererCore& core) {
-  IEntity& entity = parent->GetEntity();
+void EntityAttackDelegate::enter(const IWandererCore& core) {
+  IEntity& entity = parent->get_entity();
   entity.stop();
 
   // TODO determine what kind of animation to use from the entity's weapon
-  entity.SetAnimationFrameAmount(MELEE_FRAMES);
-  entity.SetAnimationFrame(0);
-  entity.SetAnimationDelay(65);
+  entity.set_animation_frame_amount(MELEE_FRAMES);
+  entity.set_animation_frame(0);
+  entity.set_animation_delay(65);
   core.play_sound("swing");
 }
 
-void EntityAttackDelegate::Exit(const IWandererCore&) {}
+void EntityAttackDelegate::exit(const IWandererCore&) {}
 
-void EntityAttackDelegate::Tick(const IWandererCore& core, float /*delta*/) {
-  auto& entity = parent->GetEntity();
-  if (entity.IsAnimationDone()) {
+void EntityAttackDelegate::tick(const IWandererCore& core, float /*delta*/) {
+  auto& entity = parent->get_entity();
+  if (entity.is_animation_done()) {
     // TODO damage and stuff...
-    parent->SetState(EntityStateID::IDLE, core);
+    parent->set_state(EntityStateID::Idle, core);
   } else {
-    entity.UpdateAnimation();
+    entity.update_animation();
   }
 }
 

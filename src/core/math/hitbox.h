@@ -17,7 +17,7 @@ class Hitbox final {
   std::vector<std::pair<FRectangle, Vector2>> rectangles;
   bool enabled = false;
 
-  void CalcBounds();
+  void calc_bounds();
 
  public:
   Hitbox();
@@ -30,7 +30,7 @@ class Hitbox final {
    * @param rect a rectangle that will serve as a part of the hitbox.
    * @since 0.1.0
    */
-  void AddRectangle(const FRectangle& rect, const Vector2& offset);
+  void add_rectangle(const FRectangle& rect, const Vector2& offset);
 
   /**
    * Sets the x-coordinate of the hitbox.
@@ -38,7 +38,7 @@ class Hitbox final {
    * @param x the new x-coordinate of the hitbox.
    * @since 0.1.0
    */
-  void SetX(float x) noexcept;
+  void set_x(float x) noexcept;
 
   /**
    * Sets the y-coordinate of the hitbox.
@@ -46,7 +46,7 @@ class Hitbox final {
    * @param y the new y-coordinate of the hitbox.
    * @since 0.1.0
    */
-  void SetY(float y) noexcept;
+  void set_y(float y) noexcept;
 
   /**
    * Sets whether or not the hitbox is enabled. A hitbox that is disabled cannot intersect other
@@ -55,7 +55,7 @@ class Hitbox final {
    * @param enabled true if the hitbox should be enabled; false otherwise.
    * @since 0.1.0
    */
-  void SetEnabled(bool enabled) noexcept;
+  void set_enabled(bool enabled) noexcept;
 
   /**
    * Indicates whether or not the hitbox only contains one rectangle.
@@ -64,7 +64,7 @@ class Hitbox final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  bool IsUnit() const noexcept;
+  bool is_unit() const noexcept;
 
   /**
    * Indicates whether or not the supplied hitbox intersects this hitbox.
@@ -74,13 +74,13 @@ class Hitbox final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  bool Intersects(const Hitbox& other) const noexcept;
+  bool intersects(const Hitbox& other) const noexcept;
 
   [[nodiscard]]
-  bool Intersects(const FRectangle& other) const noexcept;
+  bool intersects(const FRectangle& other) const noexcept;
 
   [[nodiscard]]
-  bool WillIntersect(const Hitbox& other, const Vector2& nextPos) const noexcept;
+  bool will_intersect(const Hitbox& other, const Vector2& nextPos) const noexcept;
 
   /**
    * Indicates whether or not the hitbox is enabled.
@@ -89,7 +89,7 @@ class Hitbox final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  bool IsEnabled() const noexcept;
+  bool is_enabled() const noexcept;
 
   /**
    * Returns the rectangle that represents the bounds of the hitbox.
@@ -98,7 +98,7 @@ class Hitbox final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  const FRectangle& GetBounds() const noexcept;
+  const FRectangle& get_bounds() const noexcept;
 };
 
 }

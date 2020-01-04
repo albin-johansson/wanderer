@@ -29,7 +29,7 @@ void Window::notify_window_listeners() noexcept {
   const auto& self = *this;
   for (auto listener : windowListeners) {
     if (listener) {
-      listener->WindowUpdated(self); // FIXME not noexcept
+      listener->window_updated(self); // FIXME not noexcept
     }
   }
 }
@@ -82,7 +82,7 @@ void Window::set_height(int height) {
 }
 
 void Window::set_icon(SDL_Surface* icon) {
-  Require::NotNull(icon);
+  Require::not_null(icon);
   SDL_SetWindowIcon(window, icon);
   notify_window_listeners();
 }

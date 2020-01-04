@@ -27,13 +27,13 @@ class PlayerIdleState final : public IPlayerState {
 
   void HandleInput(const Input& input, const IWandererCore& core) override;
 
-  void Draw(const centurion::Renderer& renderer, const Viewport& viewport) const noexcept override;
+  void draw(const centurion::Renderer& renderer, const Viewport& viewport) const noexcept override;
 
-  void Tick(const IWandererCore& core, float delta) override;
+  void tick(const IWandererCore& core, float delta) override;
 
-  void Enter(const IWandererCore& core) override;
+  void enter(const IWandererCore& core) override;
 
-  void Exit(const IWandererCore& core) override;
+  void exit(const IWandererCore& core) override;
 };
 
 }

@@ -9,9 +9,9 @@ SkeletonStateMachine::SkeletonStateMachine(IEntity* entity)
     : AbstractEntityStateMachine(entity) {
 
   // TODO add different states
-  Put(EntityStateID::IDLE, std::make_unique<SkeletonIdleState>(this));
-  Put(EntityStateID::WALK, std::make_unique<SkeletonMovingState>(this));
-  Put(EntityStateID::ATTACK, std::make_unique<SkeletonAttackState>(this));
+  put(EntityStateID::Idle, std::make_unique<SkeletonIdleState>(this));
+  put(EntityStateID::Walk, std::make_unique<SkeletonMovingState>(this));
+  put(EntityStateID::Attack, std::make_unique<SkeletonAttackState>(this));
 }
 
 SkeletonStateMachine::~SkeletonStateMachine() = default;

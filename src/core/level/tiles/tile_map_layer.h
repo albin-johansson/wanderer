@@ -36,7 +36,7 @@ class ITileMapLayer {
    * @param bounds the tile map bounds, in which all tiles will be updated.
    * @since 0.1.0
    */
-  virtual void Update(const TileMapBounds& bounds) = 0;
+  virtual void update(const TileMapBounds& bounds) = 0;
 
   /**
    * Adds all of the game objects in the layer within the supplied bounds to the supplied vector.
@@ -45,8 +45,8 @@ class ITileMapLayer {
    * @param objects the vector of objects which the objects will be added to.
    * @since 0.1.0
    */
-  virtual void AddObjects(const TileMapBounds& bounds,
-                          std::vector<IGameObject*>& objects) = 0;
+  virtual void add_objects(const TileMapBounds& bounds,
+                           std::vector<IGameObject*>& objects) = 0;
 
   /**
    * Returns the tile ID of the tile at the specified position.
@@ -57,7 +57,7 @@ class ITileMapLayer {
    * @since 0.1.0
    */
   [[nodiscard]]
-  virtual TileID GetTileId(int row, int col) const = 0;
+  virtual TileID get_tile_id(int row, int col) const = 0;
 
   /**
    * Returns the index of the tile at the specified position.
@@ -68,7 +68,7 @@ class ITileMapLayer {
    * @since 0.1.0
    */
   [[nodiscard]]
-  virtual int GetIndex(int row, int col) const noexcept = 0;
+  virtual int get_index(int row, int col) const noexcept = 0;
 
   /**
    * Indicates whether or not the layer is a ground layer.
@@ -77,13 +77,13 @@ class ITileMapLayer {
    * @since 0.1.0
    */
   [[nodiscard]]
-  virtual bool IsGroundLayer() const noexcept = 0;
+  virtual bool is_ground_layer() const noexcept = 0;
 
   [[nodiscard]]
-  virtual int GetRows() const noexcept = 0;
+  virtual int get_rows() const noexcept = 0;
 
   [[nodiscard]]
-  virtual int GetCols() const noexcept = 0;
+  virtual int get_cols() const noexcept = 0;
 };
 
 }

@@ -24,12 +24,12 @@ class TileAnimation final {
 
   ~TileAnimation();
 
-  void Update();
+  void update();
 
-  void SetFrame(int index, Frame frame);
+  void set_frame(int index, Frame frame);
 
   [[nodiscard]]
-  Frame GetFrame() const;
+  Frame get_frame() const;
 
 };
 

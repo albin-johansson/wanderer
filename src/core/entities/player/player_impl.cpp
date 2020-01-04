@@ -28,11 +28,11 @@ void PlayerImpl::HandleInput(const Input& input, const IWandererCore& core) {
 
 void PlayerImpl::tick(IWandererCore& core, float delta) {
   AbstractEntity::tick(core, delta);
-  playerStateMachine->Tick(core, delta);
+  playerStateMachine->tick(core, delta);
 }
 
-void PlayerImpl::Draw(const Renderer& renderer, const Viewport& viewport) const noexcept {
-  playerStateMachine->Draw(renderer, viewport);
+void PlayerImpl::draw(const Renderer& renderer, const Viewport& viewport) const noexcept {
+  playerStateMachine->draw(renderer, viewport);
 }
 
 }

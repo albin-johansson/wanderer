@@ -5,15 +5,15 @@
 namespace albinjohansson::wanderer {
 
 Animation::Animation() noexcept {
-  previous = TimeUtils::GetMillis();
+  previous = TimeUtils::get_millis();
 }
 
 Animation::~Animation() noexcept = default;
 
-void Animation::Update() noexcept {
-  const auto elapsed = TimeUtils::GetMillis() - previous;
+void Animation::update() noexcept {
+  const auto elapsed = TimeUtils::get_millis() - previous;
   if (elapsed >= delay) {
-    previous = TimeUtils::GetMillis();
+    previous = TimeUtils::get_millis();
     ++index;
     if (index >= nFrames) {
       index -= nFrames;
@@ -21,16 +21,16 @@ void Animation::Update() noexcept {
   }
 }
 
-void Animation::Reset() noexcept {
+void Animation::reset() noexcept {
   index = 0;
   previous = 0;
 }
 
-void Animation::SetDelay(uint32_t delay) noexcept {
+void Animation::set_delay(uint32_t delay) noexcept {
   this->delay = delay;
 }
 
-void Animation::SetFrame(int frameIndex) noexcept {
+void Animation::set_frame(int frameIndex) noexcept {
   index = frameIndex;
   if (index >= nFrames) {
     index -= nFrames;
@@ -39,17 +39,17 @@ void Animation::SetFrame(int frameIndex) noexcept {
   }
 }
 
-void Animation::SetNumberOfFrames(int nFrames) noexcept {
+void Animation::set_number_of_frames(int nFrames) noexcept {
   if (nFrames > 0) {
     this->nFrames = nFrames;
   }
 }
 
-int Animation::GetIndex() const noexcept {
+int Animation::get_index() const noexcept {
   return index;
 }
 
-bool Animation::IsDone() const noexcept {
+bool Animation::is_done() const noexcept {
   return index == (nFrames - 1);
 }
 

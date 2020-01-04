@@ -17,7 +17,7 @@ class IMenuDrawable {
  public:
   virtual ~IMenuDrawable() = default;
 
-  virtual void Draw(centurion::Renderer& renderer,
+  virtual void draw(centurion::Renderer& renderer,
                     const Viewport& viewport,
                     const FontBundle& fonts) const = 0;
 };

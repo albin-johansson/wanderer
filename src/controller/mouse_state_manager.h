@@ -24,34 +24,34 @@ class MouseStateManager final : public centurion::IWindowListener {
 
   ~MouseStateManager() override;
 
-  void WindowUpdated(const centurion::Window& window) noexcept override;
+  void window_updated(const centurion::Window& window) noexcept override;
 
-  void Update();
+  void update();
 
-  void SetLogicalWidth(int width);
+  void set_logical_width(int width);
 
-  void SetLogicalHeight(int logicalHeight);
-
-  [[nodiscard]]
-  float GetMouseX() const noexcept;
+  void set_logical_height(int logicalHeight);
 
   [[nodiscard]]
-  float GetMouseY() const noexcept;
+  float get_mouse_x() const noexcept;
 
   [[nodiscard]]
-  bool IsLeftButtonPressed() const noexcept;
+  float get_mouse_y() const noexcept;
 
   [[nodiscard]]
-  bool IsRightButtonPressed() const noexcept;
+  bool is_left_button_pressed() const noexcept;
 
   [[nodiscard]]
-  bool WasLeftButtonReleased() const noexcept;
+  bool is_right_button_pressed() const noexcept;
 
   [[nodiscard]]
-  bool WasRightButtonReleased() const noexcept;
+  bool was_left_button_released() const noexcept;
 
   [[nodiscard]]
-  bool WasMouseMoved() const noexcept;
+  bool was_right_button_released() const noexcept;
+
+  [[nodiscard]]
+  bool was_mouse_moved() const noexcept;
 };
 
 }

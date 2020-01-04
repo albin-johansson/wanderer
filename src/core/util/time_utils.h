@@ -21,7 +21,7 @@ class TimeUtils final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  static uint64_t GetMillis() noexcept;
+  static uint64_t get_millis() noexcept;
 
   /**
    * Returns the value of the high-resolution counter.
@@ -30,7 +30,7 @@ class TimeUtils final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  static uint64_t GetHighResTime() noexcept;
+  static uint64_t get_high_res_time() noexcept;
 
   /**
    * Returns the frequency of the high-resolution counter.
@@ -39,7 +39,7 @@ class TimeUtils final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  static uint64_t GetHighResFreq() noexcept;
+  static uint64_t get_high_res_freq() noexcept;
 };
 
 }

@@ -49,21 +49,21 @@ class Vector2 final {
    * @param factor the factor that is used when scaling the vector.
    * @since 0.1.0
    */
-  void Scale(float factor) noexcept;
+  void scale(float factor) noexcept;
 
   /**
    * Normalizes the vector. The vector will have length 1 after invoking this method.
    *
    * @since 0.1.0
    */
-  void Norm() noexcept;
+  void norm() noexcept;
 
   /**
    * Sets the components of the vector to be zero.
    *
    * @since 0.1.0
    */
-  void Zero() noexcept;
+  void zero() noexcept;
 
   /**
    * Linearly interpolates between this vector and the specified target vector. This vector is
@@ -73,7 +73,7 @@ class Vector2 final {
    * @param alpha the interpolation coefficient, in the range [0, 1].
    * @since 0.1.0
    */
-  void Lerp(const Vector2& target, float alpha) noexcept;
+  void lerp(const Vector2& target, float alpha) noexcept;
 
   /**
    * Interpolates between this vector and the specified target vector, using a special algorithm
@@ -84,7 +84,7 @@ class Vector2 final {
    * @param alpha the interpolation coefficient, in the range [0, 1].
    * @since 0.1.0
    */
-  void Interpolate(const Vector2& target, float alpha) noexcept;
+  void interpolate(const Vector2& target, float alpha) noexcept;
 
   /**
    * Adds the coordinates of the supplied vector to the vector. The invoked vector is the one
@@ -93,7 +93,7 @@ class Vector2 final {
    * @param other the vector that will be added to this vector.
    * @since 0.1.0
    */
-  void Add(const Vector2& other) noexcept;
+  void add(const Vector2& other) noexcept;
 
   /**
    * Adds the supplied offsets to the coordinates of the vector.
@@ -102,7 +102,7 @@ class Vector2 final {
    * @param y the y-axis value that will be added to the current y-coordinate.
    * @since 0.1.0
    */
-  void Add(float x, float y) noexcept;
+  void add(float x, float y) noexcept;
 
   /**
    * Subtracts the coordinates of the supplied vector from the vector. The invoked vector is the one
@@ -111,7 +111,7 @@ class Vector2 final {
    * @param other the vector that will be subtracted to this vector.
    * @since 0.1.0
    */
-  void Sub(const Vector2& other) noexcept;
+  void sub(const Vector2& other) noexcept;
 
   /**
    * Subtracts the supplied coordinates from the vector.
@@ -120,7 +120,7 @@ class Vector2 final {
    * @param y the value that will be subtracted from the y-coordinate of the vector.
    * @since 0.1.0
    */
-  void Sub(float x, float y) noexcept;
+  void sub(float x, float y) noexcept;
 
   /**
    * Adopts the values of the supplied vector.
@@ -128,7 +128,7 @@ class Vector2 final {
    * @param other the vector whose values will be adopted.
    * @since 0.1.0
    */
-  void Set(const Vector2& other) noexcept;
+  void set(const Vector2& other) noexcept;
 
   /**
    * Sets the x- and y-coordinates of the vector.
@@ -137,7 +137,7 @@ class Vector2 final {
    * @param y the new y-coordinate.
    * @since 0.1.0
    */
-  void Set(float x, float y) noexcept;
+  void set(float x, float y) noexcept;
 
   /**
    * Sets the total length of the vector.
@@ -145,7 +145,7 @@ class Vector2 final {
    * @param length the new length of the vector.
    * @since 0.1.0
    */
-  void SetLength(float length) noexcept;
+  void set_length(float length) noexcept;
 
   /**
    * Makes the vector point at the target vector. The magnitude of the vector will remain unchanged
@@ -154,7 +154,7 @@ class Vector2 final {
    * @param target the target vector.
    * @since 0.1.0
    */
-  void LookAt(const Vector2& target) noexcept;
+  void look_at(const Vector2& target) noexcept;
 
   /**
    * Makes the vector point at the target vector. The supplied length value will be the new
@@ -165,14 +165,14 @@ class Vector2 final {
    * clamped to zero if negative.
    * @since 0.1.0
    */
-  void LookAt(const Vector2& target, float length) noexcept;
+  void look_at(const Vector2& target, float length) noexcept;
 
   /**
    * Inverts the coordinates of the vector. For example, (4, 8) becomes (-4, -8).
    *
    * @since 0.1.0
    */
-  void Invert() noexcept;
+  void invert() noexcept;
 
   /**
    * Returns the result of adding the two vectors.
@@ -235,7 +235,7 @@ class Vector2 final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  float Dot(const Vector2& other) const noexcept;
+  float dot(const Vector2& other) const noexcept;
 
   /**
    * Returns the distance between the vector and the supplied vector.
@@ -245,7 +245,7 @@ class Vector2 final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  float DistanceTo(const Vector2& other) const noexcept;
+  float distance_to(const Vector2& other) const noexcept;
 
   /**
    * Returns the squared distance between the vector and the supplied vector.
@@ -255,7 +255,7 @@ class Vector2 final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  float DistanceTo2(const Vector2& other) const noexcept;
+  float distance_to_2(const Vector2& other) const noexcept;
 
   /**
    * Returns the angle between this vector and the supplied vector. The returned value is in
@@ -267,7 +267,7 @@ class Vector2 final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  int Angle(const Vector2& other) const noexcept;
+  int angle(const Vector2& other) const noexcept;
 
   /**
    * Returns the integer representation of the x-coordinate of the vector.
@@ -276,7 +276,7 @@ class Vector2 final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  int GetX() const noexcept { return MathUtils::Round(x); }
+  int get_x() const noexcept { return MathUtils::round(x); }
 
   /**
    * Returns the the integer representation of the y-coordinate of the vector.
@@ -285,7 +285,7 @@ class Vector2 final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  int GetY() const noexcept { return MathUtils::Round(y); }
+  int get_y() const noexcept { return MathUtils::round(y); }
 
   /**
    * Calculates and returns the length of the vector.
@@ -294,7 +294,7 @@ class Vector2 final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  float GetLength() const noexcept;
+  float get_length() const noexcept;
 
   /**
    * Calculates and returns the squared length of the vector. This method is useful when
@@ -305,7 +305,7 @@ class Vector2 final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  float GetLength2() const noexcept;
+  float get_length_2() const noexcept;
 
   /**
    * Indicates whether or not the vector is the zero vector.
@@ -314,7 +314,7 @@ class Vector2 final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  bool IsZero() const noexcept;
+  bool is_zero() const noexcept;
 
   /**
    * Indicates whether or not the vector is a unit vector (a vector with length 1).
@@ -323,7 +323,7 @@ class Vector2 final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  bool IsUnit() const noexcept;
+  bool is_unit() const noexcept;
 };
 
 /**
@@ -331,13 +331,13 @@ class Vector2 final {
  *
  * @since 0.1.0
  */
-static constexpr Vector2 X_UNIT = Vector2(1, 0);
+static constexpr Vector2 xUnit = Vector2(1, 0);
 
 /**
  * A unit vector with the coordinates (0, 1).
  *
  * @since 0.1.0
  */
-static constexpr Vector2 Y_UNIT = Vector2(0, 1);
+static constexpr Vector2 yUnit = Vector2(0, 1);
 
 }

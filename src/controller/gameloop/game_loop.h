@@ -27,7 +27,7 @@ class IGameLoop {
    * @param renderer a reference to the renderer that will be used.
    * @since 0.1.0
    */
-  virtual void Update(IWandererCore& core, centurion::Renderer& renderer) = 0;
+  virtual void update(IWandererCore& core, centurion::Renderer& renderer) = 0;
 };
 
 }

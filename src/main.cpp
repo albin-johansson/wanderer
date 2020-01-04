@@ -30,8 +30,8 @@ static void Init() {
 
 static void Run() {
   using namespace albinjohansson::wanderer;
-  auto controller = CreateController();
-  controller->Run();
+  auto controller = create_controller();
+  controller->run();
 }
 
 static void Quit() {

@@ -31,7 +31,7 @@ class TileObject final : public IGameObject {
   Vector2 position;
   Hitbox hitbox;
   uint64_t uniqueId = 0;
-  int depth = RenderDepth::MAX;
+  int depth = RenderDepth::max;
   float centerY = 0;
   const TileID id;
 
@@ -49,7 +49,7 @@ class TileObject final : public IGameObject {
 
   void tick(IWandererCore& core, float delta) override;
 
-  void Draw(const centurion::Renderer& renderer, const Viewport& viewport) const override;
+  void draw(const centurion::Renderer& renderer, const Viewport& viewport) const override;
 
   void SetDepth(int depth) noexcept;
 
@@ -66,10 +66,10 @@ class TileObject final : public IGameObject {
   float get_y() const noexcept override;
 
   [[nodiscard]]
-  float GetCenterY() const noexcept override;
+  float get_center_y() const noexcept override;
 
   [[nodiscard]]
-  int GetDepth() const noexcept override;
+  int get_depth() const noexcept override;
 
   [[nodiscard]]
   float get_width() const noexcept override;

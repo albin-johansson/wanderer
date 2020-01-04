@@ -9,10 +9,10 @@ namespace albinjohansson::wanderer {
  * @since 0.1.0
  */
 enum class EntityStateID {
-  IDLE,
-  WALK,
-  ATTACK,
-  DIE
+  Idle,
+  Walk,
+  Attack,
+  Die
 };
 
 }

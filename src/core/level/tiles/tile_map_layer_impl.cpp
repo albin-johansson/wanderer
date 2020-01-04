@@ -12,15 +12,15 @@
 namespace albinjohansson::wanderer {
 
 TileMapLayerImpl::TileMapLayerImpl(const std::shared_ptr<TileSet>& tileSet) {
-  this->tileSet = Require::NotNull(tileSet);
+  this->tileSet = Require::not_null(tileSet);
 }
 
 TileMapLayerImpl::~TileMapLayerImpl() noexcept = default;
 
-void TileMapLayerImpl::Update(const TileMapBounds& bounds) {
+void TileMapLayerImpl::update(const TileMapBounds& bounds) {
   for (auto row = bounds.minRow; row < bounds.maxRow; row++) {
     for (auto col = bounds.minCol; col < bounds.maxCol; col++) {
-      const auto id = GetTileId(row, col);
+      const auto id = get_tile_id(row, col);
       if (id != Tile::EMPTY) {
         tileSet->Tick(id);
       }
@@ -28,17 +28,17 @@ void TileMapLayerImpl::Update(const TileMapBounds& bounds) {
   }
 }
 
-TileID TileMapLayerImpl::GetTileId(int row, int col) const {
+TileID TileMapLayerImpl::get_tile_id(int row, int col) const {
   try {
-    return tiles.at(GetIndex(row, col));
+    return tiles.at(get_index(row, col));
   } catch (std::exception& e) {
     SDL_Log("Failed to get tile ID of tile at (%i, %i)", row, col);
     throw;
   }
 }
 
-void TileMapLayerImpl::AddObjects(const TileMapBounds& bounds,
-                                  std::vector<IGameObject*>& objects) {
+void TileMapLayerImpl::add_objects(const TileMapBounds& bounds,
+                                   std::vector<IGameObject*>& objects) {
   for (auto row = bounds.minRow; row < bounds.maxRow; row++) {
     for (auto col = bounds.minCol; col < bounds.maxCol; col++) {
       const auto pos = MapPosition{row, col};
@@ -50,19 +50,19 @@ void TileMapLayerImpl::AddObjects(const TileMapBounds& bounds,
   }
 }
 
-int TileMapLayerImpl::GetIndex(int row, int col) const noexcept {
+int TileMapLayerImpl::get_index(int row, int col) const noexcept {
   return row * nCols + col;
 }
 
-bool TileMapLayerImpl::IsGroundLayer() const noexcept {
+bool TileMapLayerImpl::is_ground_layer() const noexcept {
   return isGroundLayer;
 }
 
-int TileMapLayerImpl::GetRows() const noexcept {
+int TileMapLayerImpl::get_rows() const noexcept {
   return nRows;
 }
 
-int TileMapLayerImpl::GetCols() const noexcept {
+int TileMapLayerImpl::get_cols() const noexcept {
   return nCols;
 }
 

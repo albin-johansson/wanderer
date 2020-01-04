@@ -32,16 +32,16 @@ class MovableDelegate final : public IMovableObject {
    *
    * @since 0.1.0
    */
-  void SavePosition() noexcept;
+  void save_position() noexcept;
 
-  void UpdatePosition();
+  void update_position();
 
   /**
    * Updates the dominant direction.
    *
    * @since 0.1.0
    */
-  void UpdateDirection();
+  void update_direction();
 
  public:
   /**
@@ -55,7 +55,7 @@ class MovableDelegate final : public IMovableObject {
 
   ~MovableDelegate() override;
 
-  void Draw(const centurion::Renderer& renderer, const Viewport& viewport) const noexcept override;
+  void draw(const centurion::Renderer& renderer, const Viewport& viewport) const noexcept override;
 
   void tick(IWandererCore& core, float delta) override;
 
@@ -84,7 +84,7 @@ class MovableDelegate final : public IMovableObject {
   void add_hitbox(const FRectangle& rectangle, const Vector2& offset) override;
 
   [[nodiscard]]
-  int GetDepth() const noexcept override;
+  int get_depth() const noexcept override;
 
   [[nodiscard]]
   float get_speed() const noexcept override;
@@ -96,7 +96,7 @@ class MovableDelegate final : public IMovableObject {
   float get_y() const noexcept override;
 
   [[nodiscard]]
-  float GetCenterY() const noexcept override;
+  float get_center_y() const noexcept override;
 
   [[nodiscard]]
   float get_width() const noexcept override;

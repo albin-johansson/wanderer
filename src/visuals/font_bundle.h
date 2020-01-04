@@ -17,16 +17,16 @@ class FontBundle final {
   ~FontBundle();
 
   [[nodiscard]]
-  const centurion::Font& GetFont12() const noexcept;
+  const centurion::Font& get_font_12() const noexcept;
 
   [[nodiscard]]
-  const centurion::Font& GetFont18() const noexcept;
+  const centurion::Font& get_font_18() const noexcept;
 
   [[nodiscard]]
-  const centurion::Font& GetFont24() const noexcept;
+  const centurion::Font& get_font_24() const noexcept;
 
   [[nodiscard]]
-  const centurion::Font& GetFont36() const noexcept;
+  const centurion::Font& get_font_36() const noexcept;
 
 };
 

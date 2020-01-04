@@ -19,30 +19,27 @@ class MathUtils final {
   ~MathUtils() = default;
 
   [[nodiscard]]
-  static constexpr float ToDegrees(float radians) noexcept {
-    // degrees = (radians * 180) / pi
+  static constexpr float to_degrees(float radians) noexcept {
     return (radians * 180.0f) / PI_F;
   }
 
   [[nodiscard]]
-  static constexpr double ToDegrees(double radians) noexcept {
-    // degrees = (radians * 180) / pi
+  static constexpr double to_degrees(double radians) noexcept {
     return (radians * 180.0) / PI_D;
   }
 
   [[nodiscard]]
-  static constexpr float ToRadians(float degrees) noexcept {
-    // radians = degrees × pi / 180°
+  static constexpr float to_radians(float degrees) noexcept {
     return (degrees * PI_F) / 180.0f;
   }
 
   [[nodiscard]]
-  static constexpr double ToRadians(double degrees) noexcept {
+  static constexpr double to_radians(double degrees) noexcept {
     return (degrees * PI_D) / 180.0;
   }
 
   [[nodiscard]]
-  static int Round(float f) noexcept {
+  static int round(float f) noexcept {
     return static_cast<int>(std::round(f));
   }
 
@@ -56,7 +53,7 @@ class MathUtils final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  static constexpr std::pair<int, int> IndexToMatrixPos(int index, int nCols) noexcept {
+  static constexpr std::pair<int, int> index_to_matrix_pos(int index, int nCols) noexcept {
     return {index / nCols, index % nCols};
   }
 
@@ -71,7 +68,7 @@ class MathUtils final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  static bool AlmostEqual(double a, double b, double epsilon = 0.001) noexcept {
+  static bool almost_equal(double a, double b, double epsilon = 0.001) noexcept {
     return std::abs(a - b) < epsilon;
   }
 
@@ -86,7 +83,7 @@ class MathUtils final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  static bool AlmostEqual(float a, float b, float epsilon = 0.001f) noexcept {
+  static bool almost_equal(float a, float b, float epsilon = 0.001f) noexcept {
     return std::abs(a - b) < epsilon;
   }
 };

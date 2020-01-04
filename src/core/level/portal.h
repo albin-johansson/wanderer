@@ -15,9 +15,9 @@ class Portal final {
 
   ~Portal();
 
-  [[nodiscard]] std::weak_ptr<ITileMap> GetFrom() const noexcept { return from; }
+  [[nodiscard]] std::weak_ptr<ITileMap> get_from() const noexcept { return from; }
 
-  [[nodiscard]] std::weak_ptr<ITileMap> GetTarget() const noexcept { return target; }
+  [[nodiscard]] std::weak_ptr<ITileMap> get_target() const noexcept { return target; }
 };
 
 }

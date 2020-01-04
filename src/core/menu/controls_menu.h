@@ -11,14 +11,14 @@ class ControlsMenu final : public AbstractMenu {
 
   ~ControlsMenu() noexcept override;
 
-  void Draw(centurion::Renderer& renderer,
+  void draw(centurion::Renderer& renderer,
             const Viewport& viewport,
             const FontBundle& fonts) const override;
 
-  void HandleInput(const Input& input) noexcept override;
+  void handle_input(const Input& input) noexcept override;
 
   [[nodiscard]]
-  inline bool IsBlocking() const noexcept override { return true; }
+  inline bool is_blocking() const noexcept override { return true; }
 };
 
 }

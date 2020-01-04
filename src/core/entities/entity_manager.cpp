@@ -12,11 +12,11 @@ EntityManager::EntityManager() {
 
 EntityManager::~EntityManager() = default;
 
-void EntityManager::CalculateCloseEntities(const FRectangle& bounds) {
+void EntityManager::calculate_close_entities(const FRectangle& bounds) {
   closeEntities.clear();
 
   for (const auto& entity : entities) {
-    if (entity->get_hitbox().Intersects(bounds)) {
+    if (entity->get_hitbox().intersects(bounds)) {
       closeEntities.push_back(entity.get());
     }
   }
@@ -24,27 +24,27 @@ void EntityManager::CalculateCloseEntities(const FRectangle& bounds) {
   nTicksSinceUpdate = 0;
 }
 
-void EntityManager::Update(const FRectangle& bounds) {
+void EntityManager::update(const FRectangle& bounds) {
   if (firstTick) {
-    CalculateCloseEntities(bounds);
+    calculate_close_entities(bounds);
     firstTick = false;
     return;
   }
 
   ++nTicksSinceUpdate;
 
-  if (nTicksSinceUpdate >= CALC_ENTITIES_THRESHOLD) {
-    CalculateCloseEntities(bounds);
+  if (nTicksSinceUpdate >= calcEntitiesThreshold) {
+    calculate_close_entities(bounds);
   }
 }
 
-void EntityManager::AddEntity(const std::shared_ptr<IEntity>& entity) {
+void EntityManager::add_entity(const std::shared_ptr<IEntity>& entity) {
   if (entity) {
     entities.push_back(entity);
   }
 }
 
-const std::vector<IEntity*>& EntityManager::GetCloseEntities() const {
+const std::vector<IEntity*>& EntityManager::get_close_entities() const {
   return closeEntities;
 }
 

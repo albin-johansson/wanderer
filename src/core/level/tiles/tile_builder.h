@@ -19,14 +19,14 @@ namespace albinjohansson::wanderer {
 class TileBuilder {
  private:
   [[nodiscard]]
-  static TileAnimation CreateAnimation(tiled::TiledAnimation animation);
+  static TileAnimation create_animation(tiled::TiledAnimation animation);
 
  public:
   TileBuilder() = delete;
 
   ~TileBuilder() = default;
 
-  [[nodiscard]] static Tile Create(const std::shared_ptr<centurion::Image>& image,
+  [[nodiscard]] static Tile create(const std::shared_ptr<centurion::Image>& image,
                                    const tiled::TiledTileSet& tiledTileSet,
                                    TileID id,
                                    int index);

@@ -9,9 +9,6 @@ namespace albinjohansson::wanderer {
  * @since 0.1.0
  */
 class IWandererController {
- protected:
-  IWandererController() = default;
-
  public:
   virtual ~IWandererController() = default;
 
@@ -20,7 +17,7 @@ class IWandererController {
    *
    * @since 0.1.0
    */
-  virtual void Run() = 0;
+  virtual void run() = 0;
 
 };
 

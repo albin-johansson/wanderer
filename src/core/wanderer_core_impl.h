@@ -27,7 +27,7 @@ class WandererCoreImpl final : public IWandererCore {
   HUD hud;
   bool shouldQuit = false;
 
-  void InitViewport();
+  void init_viewport();
 
   explicit WandererCoreImpl(ImageGenerator& imageGenerator);
 
@@ -41,7 +41,7 @@ class WandererCoreImpl final : public IWandererCore {
    * @return a unique pointer to an IWandererCore instance.
    * @since 0.1.0
    */
-  friend std::unique_ptr<IWandererCore> CreateCore(ImageGenerator& imageGenerator);
+  friend std::unique_ptr<IWandererCore> create_core(ImageGenerator& imageGenerator);
 
   void handle_input(const Input& input) override;
 

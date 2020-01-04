@@ -9,7 +9,7 @@ using namespace albinjohansson::wanderer;
 namespace centurion {
 
 Image::Image(SDL_Renderer* renderer, const std::string& path) {
-  Require::NotNull(renderer);
+  Require::not_null(renderer);
   texture = IMG_LoadTexture(renderer, path.c_str());
   if (!texture) {
     throw CenturionException("Failed to load image from " + path);
@@ -17,12 +17,12 @@ Image::Image(SDL_Renderer* renderer, const std::string& path) {
 }
 
 Image::Image(SDL_Texture* texture) {
-  this->texture = Require::NotNull(texture);
+  this->texture = Require::not_null(texture);
 }
 
 Image::Image(SDL_Renderer* renderer, SDL_Surface* surface) {
-  Require::NotNull(renderer);
-  Require::NotNull(surface);
+  Require::not_null(renderer);
+  Require::not_null(surface);
 
   this->texture = SDL_CreateTextureFromSurface(renderer, surface);
   if (!texture) {

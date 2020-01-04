@@ -11,7 +11,7 @@ class Skeleton final : public AbstractEntity {
  private:
   std::unique_ptr<IEntityStateMachine> stateMachine = nullptr;
 
-  void Init();
+  void init();
 
  public:
   static constexpr float HOMING_RANGE = tileSize * 4.0f;
@@ -22,7 +22,7 @@ class Skeleton final : public AbstractEntity {
 
   void tick(IWandererCore& core, float delta) override;
 
-  void Draw(const centurion::Renderer& renderer, const Viewport& viewport) const override;
+  void draw(const centurion::Renderer& renderer, const Viewport& viewport) const override;
 
 };
 

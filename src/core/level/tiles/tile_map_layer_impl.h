@@ -35,24 +35,24 @@ class TileMapLayerImpl final : public ITileMapLayer {
  public:
   ~TileMapLayerImpl() noexcept override;
 
-  void Update(const TileMapBounds& bounds) override;
+  void update(const TileMapBounds& bounds) override;
 
-  void AddObjects(const TileMapBounds& bounds, std::vector<IGameObject*>& objects) override;
-
-  [[nodiscard]]
-  TileID GetTileId(int row, int col) const override;
+  void add_objects(const TileMapBounds& bounds, std::vector<IGameObject*>& objects) override;
 
   [[nodiscard]]
-  bool IsGroundLayer() const noexcept override;
+  TileID get_tile_id(int row, int col) const override;
 
   [[nodiscard]]
-  int GetIndex(int row, int col) const noexcept override;
+  bool is_ground_layer() const noexcept override;
 
   [[nodiscard]]
-  int GetRows() const noexcept override;
+  int get_index(int row, int col) const noexcept override;
 
   [[nodiscard]]
-  int GetCols() const noexcept override;
+  int get_rows() const noexcept override;
+
+  [[nodiscard]]
+  int get_cols() const noexcept override;
 };
 
 }

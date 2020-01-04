@@ -29,10 +29,12 @@ struct Frame;
  */
 class Tile final {
  private:
+  friend class TileBuilder;
+
   std::shared_ptr<centurion::Image> sheet = nullptr;
 
   TileID id = Tile::EMPTY;
-  int depth = RenderDepth::MIN;
+  int depth = RenderDepth::min;
 
   Rectangle source;
   Hitbox hitbox;
@@ -42,6 +44,17 @@ class Tile final {
   bool isAnimated = false;
   bool isObject = false;
 
+  Tile();
+
+  /**
+   * Sets the render depth of the tile. An illegal value will be adjusted to the closest legal
+   * value.
+   *
+   * @param depth the render depth value that will be used.
+   * @since 0.1.0
+   */
+  void set_depth(int depth) noexcept;
+
  public:
   /**
    * The tile ID of all empty tiles.
@@ -49,8 +62,6 @@ class Tile final {
    * @since 0.1.0
    */
   static constexpr TileID EMPTY = 0;
-
-  Tile();
 
   ~Tile();
 
@@ -62,7 +73,7 @@ class Tile final {
    * @param tileSet the associated tile set.
    * @since 0.1.0
    */
-  void Draw(const Vector2& pos,
+  void draw(const Vector2& pos,
             const centurion::Renderer& renderer,
             const TileSet& tileSet) const;
 
@@ -71,82 +82,7 @@ class Tile final {
    *
    * @since 0.1.0
    */
-  void Tick();
-
-  /**
-   * Sets the associated tile sheet image.
-   *
-   * @param sheet the associated tile sheet image.
-   * @since 0.1.0
-   */
-  void SetSheet(const std::shared_ptr<centurion::Image>& sheet);
-
-  /**
-   * Sets whether or not the tile is blocked. By default, this property is set to false.
-   *
-   * @param isBlocked true if the tile is blocked; false otherwise.
-   * @since 0.1.0
-   */
-  void SetBlocked(bool isBlocked) noexcept;
-
-  /**
-   * Sets whether or not the tile is animated. By default, this property is set to false.
-   *
-   * @param isAnimated true if the tile is animated; false otherwise.
-   * @since 0.1.0
-   */
-  void SetAnimated(bool isAnimated) noexcept;
-
-  /**
-   * Sets whether or not the tile is an object tile. By default, this property is set to false.
-   *
-   * @param isObject true if the tile should be regarded as an object tile; false otherwise.
-   * @since 0.1.0
-   */
-  void SetObject(bool isObject) noexcept;
-
-  /**
-   * Sets the render depth of the tile.
-   *
-   * @param depth the render depth value that will be used.
-   * @since 0.1.0
-   */
-  void SetDepth(int depth) noexcept;
-
-  /**
-   * Sets the ID that should be associated with the tile. Note, this value should be unique
-   * for the tile!
-   *
-   * @param id the ID that will be associated with the tile.
-   * @since 0.1.0
-   */
-  void SetId(TileID id) noexcept;
-
-  /**
-   * Sets the animation that will be used by the tile.
-   *
-   * @param animation the animation that will be used.
-   * @since 0.1.0
-   */
-  void SetAnimation(const TileAnimation& animation) noexcept;
-
-  /**
-   * Sets the hitbox of the tile.
-   *
-   * @param hitbox the hitbox that will be used.
-   * @since 0.1.0
-   */
-  void SetHitbox(const Hitbox& hitbox) noexcept;
-
-  /**
-   * Sets the source rectangle for the tile.
-   *
-   * @param source the source rectangle for the tile.
-   * @since 0.1.0
-   */
-  void SetSource(const Rectangle& source) noexcept;
-
-  void AddRectangle(const FRectangle& rect, const Vector2& offset);
+  void tick();
 
   /**
    * Indicates whether or not the tile is blocked.
@@ -155,7 +91,7 @@ class Tile final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  bool IsBlocked() const noexcept;
+  bool is_blocked() const noexcept { return isBlocked; }
 
   /**
    * Indicates whether or not the tile is animated.
@@ -164,7 +100,7 @@ class Tile final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  bool IsAnimated() const noexcept;
+  bool is_animated() const noexcept { return isAnimated; }
 
   /**
    * Indicates whether or not the tile is an "object".
@@ -173,7 +109,7 @@ class Tile final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  bool IsObject() const noexcept;
+  bool is_object() const noexcept { return isObject; }
 
   /**
    * Returns the render depth of the tile.
@@ -182,7 +118,7 @@ class Tile final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  int GetDepth() const noexcept;
+  int get_depth() const noexcept { return depth; }
 
   /**
    * Returns the tile ID that will be used for rendering the tile. If the tile isn't animated,
@@ -192,7 +128,7 @@ class Tile final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  TileID GetFrameId() const;
+  TileID get_frame_id() const;
 
   /**
    * Returns the type ID the tile.
@@ -201,7 +137,7 @@ class Tile final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  TileID GetId() const noexcept;
+  TileID get_id() const noexcept { return id; }
 
   /**
    * Returns the source rectangle associated with the tile. The source rectangle
@@ -211,10 +147,10 @@ class Tile final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  const Rectangle& GetSource() const noexcept;
+  const Rectangle& get_source() const noexcept { return source; }
 
   [[nodiscard]]
-  const Hitbox& GetHitbox() const noexcept;
+  const Hitbox& get_hitbox() const noexcept { return hitbox; }
 
 };
 

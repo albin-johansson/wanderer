@@ -12,40 +12,40 @@ using namespace centurion;
 namespace albinjohansson::wanderer {
 
 EntityMoveDelegate::EntityMoveDelegate(IEntityStateMachine* parent) {
-  this->parent = Require::NotNull(parent);
+  this->parent = Require::not_null(parent);
 }
 
 EntityMoveDelegate::~EntityMoveDelegate() = default;
 
-void EntityMoveDelegate::Draw(const Renderer& renderer, const Viewport&) const {
-  IEntity& entity = parent->GetEntity();
+void EntityMoveDelegate::draw(const Renderer& renderer, const Viewport&) const {
+  IEntity& entity = parent->get_entity();
 
-  auto srcX = entity.get_velocity().IsZero() ? 0 : entity.GetAnimationFrame() * 64;
-  auto srcY = EntitySheet::GetSourceY(512, entity.get_dominant_direction());
-  EntityDrawDelegate::Draw(renderer, entity, srcX, srcY);
+  auto srcX = entity.get_velocity().is_zero() ? 0 : entity.get_animation_frame() * 64;
+  auto srcY = EntitySheet::get_source_y(512, entity.get_dominant_direction());
+  EntityDrawDelegate::draw(renderer, entity, srcX, srcY);
 }
 
-void EntityMoveDelegate::Tick(const IWandererCore&, float delta) {
+void EntityMoveDelegate::tick(const IWandererCore&, float delta) {
   UpdateAnimation();
   UpdatePosition(delta);
 }
 
-void EntityMoveDelegate::Enter(const IWandererCore&) {
-  IEntity& entity = parent->GetEntity();
+void EntityMoveDelegate::enter(const IWandererCore&) {
+  auto& entity = parent->get_entity();
 
-  entity.SetAnimationFrame(0);
-  entity.SetAnimationFrameAmount(9);
-  entity.SetAnimationDelay(60);
+  entity.set_animation_frame(0);
+  entity.set_animation_frame_amount(9);
+  entity.set_animation_delay(60);
 }
 
-void EntityMoveDelegate::Exit(const IWandererCore&) {}
+void EntityMoveDelegate::exit(const IWandererCore&) {}
 
 void EntityMoveDelegate::UpdateAnimation() {
-  parent->GetEntity().UpdateAnimation();
+  parent->get_entity().update_animation();
 }
 
 void EntityMoveDelegate::UpdatePosition(float delta) {
-  auto& entity = parent->GetEntity();
+  auto& entity = parent->get_entity();
   auto[velocityX, velocityY] = entity.get_velocity();
   entity.add_x(velocityX * delta);
   entity.add_y(velocityY * delta);

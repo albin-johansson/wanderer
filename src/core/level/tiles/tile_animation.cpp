@@ -11,9 +11,9 @@ TileAnimation::TileAnimation(int nFrames) : nFrames(nFrames) {
 
 TileAnimation::~TileAnimation() = default;
 
-void TileAnimation::Update() {
+void TileAnimation::update() {
   uint32_t elapsed = SDL_GetTicks() - previous;
-  if (elapsed >= GetFrame().duration) {
+  if (elapsed >= get_frame().duration) {
     previous = SDL_GetTicks();
     ++index;
     if (index >= nFrames) {
@@ -22,13 +22,13 @@ void TileAnimation::Update() {
   }
 }
 
-void TileAnimation::SetFrame(int index, Frame frame) {
+void TileAnimation::set_frame(int index, Frame frame) {
   if (!frames.count(index)) {
     frames.emplace(index, frame);
   }
 }
 
-Frame TileAnimation::GetFrame() const {
+Frame TileAnimation::get_frame() const {
   return frames.at(index);
 }
 

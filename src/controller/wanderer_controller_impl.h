@@ -40,11 +40,11 @@ class WandererControllerImpl final : public IWandererController {
    * @throws BadStateException if the desktop dimensions cannot be deduced.
    * @since 0.1.0
    */
-  friend std::unique_ptr<IWandererController> CreateController();
+  friend std::unique_ptr<IWandererController> create_controller();
 
   ~WandererControllerImpl() override;
 
-  void Run() override;
+  void run() override;
 };
 
 }

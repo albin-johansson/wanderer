@@ -24,7 +24,7 @@ class IMenu : public IMenuDrawable {
    * @param input a reference to the current input state.
    * @since 0.1.0
    */
-  virtual void HandleInput(const Input& input) noexcept = 0;
+  virtual void handle_input(const Input& input) noexcept = 0;
 
   /**
    * Indicates whether or not the menu is blocking. A blocking menu should prevent the game from
@@ -34,7 +34,7 @@ class IMenu : public IMenuDrawable {
    * @since 0.1.0
    */
   [[nodiscard]]
-  virtual bool IsBlocking() const noexcept = 0;
+  virtual bool is_blocking() const noexcept = 0;
 };
 
 }
