@@ -66,7 +66,7 @@ void Hitbox::set_enabled(bool enabled) noexcept {
 }
 
 bool Hitbox::intersects(const Hitbox& other) const noexcept {
-  if (!enabled) {
+  if (!enabled || &other == this) {
     return false;
   }
 
