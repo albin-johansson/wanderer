@@ -1,5 +1,4 @@
 #include "wanderer_controller_impl.h"
-#include "window.h"
 #include "wanderer_core.h"
 #include "renderer.h"
 #include "key_state_manager.h"
@@ -25,7 +24,7 @@ WandererControllerImpl::WandererControllerImpl() {
   window = std::make_unique<Window>("Wanderer", 1280, 720);
 #endif
 
-  InitIcon();
+  init_icon();
 
   renderer = std::make_unique<Renderer>(*window);
   renderer->set_logical_size(gameLogicalWidth, gameLogicalHeight);
@@ -48,7 +47,7 @@ WandererControllerImpl::WandererControllerImpl() {
 
 WandererControllerImpl::~WandererControllerImpl() = default;
 
-void WandererControllerImpl::InitIcon() {
+void WandererControllerImpl::init_icon() {
   SDL_Surface* icon = IMG_Load("resources/img/tactile_icon.png");
   if (icon) {
     window->set_icon(icon);

@@ -31,7 +31,7 @@ class WandererControllerImpl final : public IWandererController {
    */
   WandererControllerImpl();
 
-  void InitIcon();
+  void init_icon();
 
  public:
   /**

@@ -16,7 +16,7 @@ void TileMapLayerBuilder::init_tile_objects(TileMapLayerImpl& layer) const {
 
   for (const auto id : layer.tiles) {
     if (id != Tile::EMPTY) {
-      const auto& tile = layer.tileSet->GetTile(id);
+      const auto& tile = layer.tileSet->get_tile(id);
       if (tile.is_object()) {
         auto object = std::make_unique<TileObject>(id,
                                                    create_position(index, layer.nCols),
@@ -60,12 +60,12 @@ std::unique_ptr<ITileMapLayer> TileMapLayerBuilder::create(const std::shared_ptr
                                                            const tiled::TiledLayer& tiledLayer) const {
   auto layer = std::unique_ptr<TileMapLayerImpl>(new TileMapLayerImpl(tileSet));
 
-  layer->nRows = tiledLayer.GetRows();
-  layer->nCols = tiledLayer.GetCols();
-  layer->isGroundLayer = tiledLayer.GetBool("ground");
-  layer->tiles = create_tile_vector(tiledLayer.GetTiles());
+  layer->nRows = tiledLayer.get_rows();
+  layer->nCols = tiledLayer.get_cols();
+  layer->isGroundLayer = tiledLayer.get_bool("ground");
+  layer->tiles = create_tile_vector(tiledLayer.get_tiles());
 
-  layer->tileObjects.reserve(tiledLayer.GetNonEmptyTiles());
+  layer->tileObjects.reserve(tiledLayer.get_non_empty_tiles());
 
   init_tile_objects(*layer);
 

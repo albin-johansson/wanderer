@@ -14,7 +14,7 @@ class TiledMapParser final {
   ~TiledMapParser() = default;
 
   [[nodiscard]]
-  static std::unique_ptr<ITileMap> Load(ImageGenerator& imageGenerator,
+  static std::unique_ptr<ITileMap> load(ImageGenerator& imageGenerator,
                                         const std::string& file);
 
 };

@@ -29,7 +29,7 @@ class TileSet final {
    * @param id the ID associated with the tile that will be updated.
    * @since 0.1.0
    */
-  void Tick(TileID id);
+  void tick(TileID id);
 
   /**
    * Associates the supplied ID with the supplied tile.
@@ -38,7 +38,7 @@ class TileSet final {
    * @param tile the tile to associated with the ID.
    * @since 0.1.0
    */
-  void Insert(TileID id, const Tile& tile);
+  void insert(TileID id, const Tile& tile);
 
   /**
    * Returns the tile associated with the supplied tile ID. This method will throw an exception
@@ -49,7 +49,7 @@ class TileSet final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  const Tile& GetTile(TileID id) const;
+  const Tile& get_tile(TileID id) const;
 };
 
 }

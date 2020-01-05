@@ -2,7 +2,7 @@
 #include "rectangle.h"
 #include "menu_drawable.h"
 #include <string>
-#include <image.h>
+#include <centurion/image.h>
 #include <memory>
 
 namespace albinjohansson::wanderer {

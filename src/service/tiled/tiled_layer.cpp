@@ -18,7 +18,7 @@ TiledLayer::TiledLayer(const pugi::xml_node& layerNode) : layerNode(layerNode) {
       const auto id = propertyNode.attribute("name").value();
       const auto value = propertyNode.attribute("value").value();
 
-      object.AddAttribute(id, value);
+      object.add_attribute(id, value);
 
       properties.push_back(object);
     }
@@ -38,14 +38,14 @@ TiledLayer::TiledLayer(const pugi::xml_node& layerNode) : layerNode(layerNode) {
 
 TiledLayer::~TiledLayer() = default;
 
-std::vector<int> TiledLayer::GetTiles() const {
+std::vector<int> TiledLayer::get_tiles() const {
   return tiles;
 }
 
-int TiledLayer::GetInt(const std::string& id) const {
+int TiledLayer::get_int(const std::string& id) const {
   for (auto& property : properties) {
-    if (property.HasAttribute(id)) {
-      return std::stoi(property.GetAttribute(id));
+    if (property.has_attribute(id)) {
+      return std::stoi(property.get_attribute(id));
     }
   }
 
@@ -53,10 +53,10 @@ int TiledLayer::GetInt(const std::string& id) const {
   return 0;
 }
 
-bool TiledLayer::GetBool(const std::string& id) const {
+bool TiledLayer::get_bool(const std::string& id) const {
   for (auto& property : properties) {
-    if (property.HasAttribute(id)) {
-      return property.GetAttribute(id) == "true";
+    if (property.has_attribute(id)) {
+      return property.get_attribute(id) == "true";
     }
   }
 
@@ -64,15 +64,15 @@ bool TiledLayer::GetBool(const std::string& id) const {
   return false;
 }
 
-int TiledLayer::GetNonEmptyTiles() const noexcept {
+int TiledLayer::get_non_empty_tiles() const noexcept {
   return nNonEmptyTiles;
 }
 
-int TiledLayer::GetRows() const noexcept {
+int TiledLayer::get_rows() const noexcept {
   return nRows;
 }
 
-int TiledLayer::GetCols() const noexcept {
+int TiledLayer::get_cols() const noexcept {
   return nCols;
 }
 

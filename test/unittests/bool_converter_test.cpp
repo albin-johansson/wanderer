@@ -1,5 +1,5 @@
 #include "catch.hpp"
-#include "bool_converter.h"
+#include "centurion/bool_converter.h"
 
 using namespace centurion;
 

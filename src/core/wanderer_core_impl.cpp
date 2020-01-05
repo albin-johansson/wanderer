@@ -19,7 +19,7 @@ WandererCoreImpl::WandererCoreImpl(ImageGenerator& imageGenerator) {
 
   player = std::make_shared<PlayerImpl>(imageGenerator.load("resources/img/player2.png"));
 
-  world = TiledMapParser::Load(imageGenerator, "resources/map/world/world_demo.tmx");
+  world = TiledMapParser::load(imageGenerator, "resources/map/world/world_demo.tmx");
   world->set_player(player);
 
   activeMap = world;

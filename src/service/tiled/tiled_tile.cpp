@@ -5,14 +5,14 @@ namespace albinjohansson::tiled {
 
 TiledTile::TiledTile(const pugi::xml_node& tileNode, int id, int firstTileSetId)
     : tileNode(tileNode), id(id) {
-  ProcessAnimation(firstTileSetId);
-  ProcessProperties();
-  ProcessObjectGroup();
+  process_animation(firstTileSetId);
+  process_properties();
+  process_object_groups();
 }
 
 TiledTile::~TiledTile() = default;
 
-void TiledTile::ProcessAnimation(int firstTileSetId) {
+void TiledTile::process_animation(int firstTileSetId) {
   for (const auto animationNode : tileNode.children("animation")) {
 
     auto index = 0;
@@ -20,15 +20,15 @@ void TiledTile::ProcessAnimation(int firstTileSetId) {
       const auto frameId = firstTileSetId + frameNode.attribute("tileid").as_int();
       const auto duration = frameNode.attribute("duration").as_int();
 
-      animation.AddFrame(Frame{frameId, duration});
+      animation.add_frame(Frame{frameId, duration});
       ++index;
     }
   }
 
-  animated = !animation.GetFrames().empty();
+  animated = !animation.get_frames().empty();
 }
 
-void TiledTile::ProcessProperties() {
+void TiledTile::process_properties() {
   const auto propertiesNode = tileNode.child("properties");
   for (const auto propertyNode : propertiesNode.children("property")) {
     const auto name = propertyNode.attribute("name").as_string();
@@ -39,30 +39,30 @@ void TiledTile::ProcessProperties() {
   }
 }
 
-void TiledTile::ProcessObjectGroup() {
+void TiledTile::process_object_groups() {
   const auto objectGroupNode = tileNode.child("objectgroup");
   for (const auto objectNode : objectGroupNode.children("object")) {
     TiledObject object;
     for (const auto attribute : objectNode.attributes()) {
-      object.AddAttribute(attribute.name(), attribute.value());
+      object.add_attribute(attribute.name(), attribute.value());
     }
     objects.push_back(object);
   }
 }
 
-int TiledTile::GetId() const noexcept {
+int TiledTile::get_id() const noexcept {
   return id;
 }
 
-const TiledAnimation& TiledTile::GetAnimation() const noexcept {
+const TiledAnimation& TiledTile::get_animation() const noexcept {
   return animation;
 }
 
-bool TiledTile::HasAttribute(const std::string& name) const noexcept {
+bool TiledTile::has_attribute(const std::string& name) const noexcept {
   return !tileNode.attribute(name.c_str()).empty();
 }
 
-bool TiledTile::HasProperty(const std::string& name) const noexcept {
+bool TiledTile::has_property(const std::string& name) const noexcept {
   for (const auto& property : properties) {
     if (property.name == name) {
       return true;
@@ -71,9 +71,9 @@ bool TiledTile::HasProperty(const std::string& name) const noexcept {
   return false;
 }
 
-bool TiledTile::HasObject(const std::string& name) const noexcept {
+bool TiledTile::has_object(const std::string& name) const noexcept {
   for (const auto& object : objects) {
-    if (object.GetAttribute("name") == name) { // may theoretically throw, but shouldn't
+    if (object.get_attribute("name") == name) { // may theoretically throw, but shouldn't
       return true;
     }
   }
@@ -81,7 +81,7 @@ bool TiledTile::HasObject(const std::string& name) const noexcept {
   return false;
 }
 
-const TiledProperty& TiledTile::GetProperty(const std::string& name) const {
+const TiledProperty& TiledTile::get_property(const std::string& name) const {
   for (const auto& property : properties) {
     if (property.name == name) {
       return property;
@@ -92,33 +92,33 @@ const TiledProperty& TiledTile::GetProperty(const std::string& name) const {
   throw std::invalid_argument(msg);
 }
 
-int TiledTile::GetIntProperty(const std::string& name) const {
-  return std::stoi(GetProperty(name).value);
+int TiledTile::get_int_property(const std::string& name) const {
+  return std::stoi(get_property(name).value);
 }
 
-float TiledTile::GetFloatProperty(const std::string& name) const {
-  return std::stof(GetProperty(name).value);
+float TiledTile::get_float_property(const std::string& name) const {
+  return std::stof(get_property(name).value);
 }
 
-bool TiledTile::GetBoolProperty(const std::string& name) const {
-  return GetProperty(name).value == "true";
+bool TiledTile::get_bool_property(const std::string& name) const {
+  return get_property(name).value == "true";
 }
 
-const std::string& TiledTile::GetStringProperty(const std::string& name) const {
-  return GetProperty(name).value;
+const std::string& TiledTile::get_string_property(const std::string& name) const {
+  return get_property(name).value;
 }
 
-int TiledTile::GetIntAttribute(const std::string& name) const {
+int TiledTile::get_int_attribute(const std::string& name) const {
   return tileNode.attribute(name.c_str()).as_int();
 }
 
-std::string TiledTile::GetStringAttribute(const std::string& name) const {
+std::string TiledTile::get_string_attribute(const std::string& name) const {
   return tileNode.attribute(name.c_str()).as_string();
 }
 
-const TiledObject& TiledTile::GetObject(const std::string& name) const {
+const TiledObject& TiledTile::get_object(const std::string& name) const {
   for (const auto& object : objects) {
-    if (object.GetAttribute("name") == name) {
+    if (object.get_attribute("name") == name) {
       return object;
     }
   }
@@ -127,7 +127,7 @@ const TiledObject& TiledTile::GetObject(const std::string& name) const {
   throw std::invalid_argument(msg);
 }
 
-bool TiledTile::IsAnimated() const noexcept {
+bool TiledTile::is_animated() const noexcept {
   return animated;
 }
 

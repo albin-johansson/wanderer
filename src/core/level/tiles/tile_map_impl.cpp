@@ -111,7 +111,7 @@ void TileMapImpl::RenderTilesAt(int row, int col, Renderer& renderer) {
     const auto id = layer->get_tile_id(row, col);
     if (id != Tile::EMPTY) {
       Vector2 pos{static_cast<float>(col) * tileSize, static_cast<float>(row) * tileSize};
-      tileSet->GetTile(id).draw(pos, renderer, *tileSet);
+      tileSet->get_tile(id).draw(pos, renderer, *tileSet);
     }
   }
 }

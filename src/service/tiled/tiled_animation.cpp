@@ -10,11 +10,11 @@ TiledAnimation::TiledAnimation(int nFrames) {
 
 TiledAnimation::~TiledAnimation() = default;
 
-void TiledAnimation::AddFrame(Frame frame) {
+void TiledAnimation::add_frame(Frame frame) {
   frames.push_back(frame);
 }
 
-const std::vector<Frame>& TiledAnimation::GetFrames() {
+const std::vector<Frame>& TiledAnimation::get_frames() {
   return frames;
 }
 

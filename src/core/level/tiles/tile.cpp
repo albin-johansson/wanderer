@@ -21,7 +21,7 @@ void Tile::tick() {
 
 void Tile::draw(const Vector2& pos, const Renderer& renderer, const TileSet& tileSet) const {
   if (get_id() != EMPTY) {
-    const auto& src = is_animated() ? tileSet.GetTile(get_frame_id()).get_source()
+    const auto& src = is_animated() ? tileSet.get_tile(get_frame_id()).get_source()
                                     : source;
     FRectangle dst{pos.x, pos.y, Area{tileSize, tileSize}};
     renderer.draw_image_translated(*sheet, src, dst);

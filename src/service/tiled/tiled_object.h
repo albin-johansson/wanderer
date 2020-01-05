@@ -16,24 +16,24 @@ class TiledObject final {
 
   ~TiledObject();
 
-  void AddAttribute(const std::string& id, const std::string& value);
+  void add_attribute(const std::string& id, const std::string& value);
 
-  void AddProperty(const TiledProperty& property);
-
-  [[nodiscard]]
-  const std::string& GetAttribute(const std::string& id) const;
+  void add_property(const TiledProperty& property);
 
   [[nodiscard]]
-  bool HasAttribute(const std::string& id) const;
+  const std::string& get_attribute(const std::string& id) const;
 
   [[nodiscard]]
-  const TiledProperty& GetProperty(const std::string& id) const;
+  bool has_attribute(const std::string& id) const;
 
   [[nodiscard]]
-  bool HasProperty(const std::string& id) const noexcept;
+  const TiledProperty& get_property(const std::string& id) const;
 
   [[nodiscard]]
-  const std::vector<TiledProperty>& GetProperties() const noexcept;
+  bool has_property(const std::string& id) const noexcept;
+
+  [[nodiscard]]
+  const std::vector<TiledProperty>& get_properties() const noexcept;
 };
 
 }

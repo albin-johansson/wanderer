@@ -22,7 +22,7 @@ void TileMapLayerImpl::update(const TileMapBounds& bounds) {
     for (auto col = bounds.minCol; col < bounds.maxCol; col++) {
       const auto id = get_tile_id(row, col);
       if (id != Tile::EMPTY) {
-        tileSet->Tick(id);
+        tileSet->tick(id);
       }
     }
   }

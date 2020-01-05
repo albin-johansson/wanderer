@@ -29,6 +29,7 @@ set(SOURCE_FILES
         core/animated.h
         core/sortable_drawable.h
         core/render_depth.h
+        core/game_constants.h
 
         core/util/require.h
         core/util/bad_state_exception.h
@@ -46,6 +47,7 @@ set(SOURCE_FILES
         core/math/random_utils.h
         core/math/math_utils.h
         core/math/area.h
+        core/math/spooky_rect.h
 
         core/menu/menu.h
         core/menu/menu_id.h
@@ -151,36 +153,38 @@ set(SOURCE_FILES
         core/entities/entitystate/delegates/entity_idle_delegate.cpp
         core/entities/entitystate/delegates/entity_idle_delegate.h
 
-        centurion/window.h
-        centurion/window.cpp
-        centurion/window_listener.h
-        centurion/renderer.h
-        centurion/renderer.cpp
-        centurion/image.cpp
-        centurion/image.h
+        lib/centurion/window.h
+        lib/centurion/window.cpp
+        lib/centurion/window_listener.h
+        lib/centurion/renderer.h
+        lib/centurion/renderer.cpp
+        lib/centurion/image.cpp
+        lib/centurion/image.h
+        lib/centurion/centurion_exception.cpp
+        lib/centurion/centurion_exception.h
+        lib/centurion/font.cpp
+        lib/centurion/font.h
+        lib/centurion/bool_converter.h
+
         visuals/animation.cpp
         visuals/animation.h
         visuals/image_generator.cpp
         visuals/image_generator.h
-        centurion/font.cpp
-        centurion/font.h
         visuals/font_bundle.cpp
         visuals/font_bundle.h
+        visuals/hud.cpp
+        visuals/hud.h
 
         audio/sound_effect.cpp
         audio/sound_effect.h
         audio/sound_engine.cpp
         audio/sound_engine.h
 
-        centurion/bool_converter.h
         service/display_modes.cpp
         service/display_modes.h
         service/pugi_utils.cpp
         service/pugi_utils.h
 
-        service/tiled/pugixml/pugixml.hpp
-        service/tiled/pugixml/pugixml.cpp
-        service/tiled/pugixml/pugiconfig.hpp
         service/tiled/tiled_map_parser.cpp
         service/tiled/tiled_map_parser.h
         service/tiled/tiled_map.cpp
@@ -199,7 +203,9 @@ set(SOURCE_FILES
         service/tiled/tiled_object_group.cpp
         service/tiled/tiled_object_group.h
 
-        core/math/spooky_rect.h visuals/hud.cpp visuals/hud.h core/game_constants.h centurion/centurion_exception.cpp centurion/centurion_exception.h)
+        lib/pugixml/pugixml.hpp
+        lib/pugixml/pugixml.cpp
+        lib/pugixml/pugiconfig.hpp)
 
 # Prepares the Wanderer "library", which excludes linking and the main.cpp file
 add_library(${WANDERER_LIB} ${SOURCE_FILES})
@@ -221,7 +227,6 @@ target_include_directories(${WANDERER_LIB} PUBLIC core/menu)
 target_include_directories(${WANDERER_LIB} PUBLIC util)
 target_include_directories(${WANDERER_LIB} PUBLIC service)
 target_include_directories(${WANDERER_LIB} PUBLIC service/tiled)
-target_include_directories(${WANDERER_LIB} PUBLIC service/tiled/pugixml)
 target_include_directories(${WANDERER_LIB} PUBLIC core/math)
 target_include_directories(${WANDERER_LIB} PUBLIC core/level)
 target_include_directories(${WANDERER_LIB} PUBLIC core/level/tiles)
@@ -232,7 +237,11 @@ target_include_directories(${WANDERER_LIB} PUBLIC core/entities/skeleton)
 target_include_directories(${WANDERER_LIB} PUBLIC core/entities/entitystate)
 target_include_directories(${WANDERER_LIB} PUBLIC core/entities/entitystate/delegates)
 target_include_directories(${WANDERER_LIB} PUBLIC audio)
-target_include_directories(${WANDERER_LIB} PUBLIC centurion)
+
+target_include_directories(${WANDERER_LIB} PUBLIC lib)
+target_include_directories(${WANDERER_LIB} PUBLIC lib/gsl)
+target_include_directories(${WANDERER_LIB} PUBLIC lib/pugixml)
+target_include_directories(${WANDERER_LIB} PUBLIC lib/centurion)
 
 # Prepares the actual executable
 add_executable(${WANDERER_EXECUTABLE} main.cpp)

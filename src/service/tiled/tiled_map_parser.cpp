@@ -14,19 +14,19 @@ namespace albinjohansson::wanderer {
 
 // TODO entity parsing, item parsing...
 
-std::unique_ptr<ITileMap> TiledMapParser::Load(ImageGenerator& imageGenerator,
+std::unique_ptr<ITileMap> TiledMapParser::load(ImageGenerator& imageGenerator,
                                                const std::string& file) {
   const auto mapDocument = PugiUtils::LoadDocument(file);
   const auto mapNode = mapDocument.child("map");
 
   tiled::TiledMap tiledMap(mapNode);
 
-  std::shared_ptr<TileSet> tileSet = TileSetBuilder::Create(mapNode, imageGenerator);
+  std::shared_ptr<TileSet> tileSet = TileSetBuilder::create(mapNode, imageGenerator);
 
   auto map = TileMapBuilder::create(tileSet, tiledMap);
 
   TileMapLayerBuilder layerBuilder;
-  for (const auto& tiledLayer : tiledMap.GetLayers()) {
+  for (const auto& tiledLayer : tiledMap.get_layers()) {
     map->add_layer(layerBuilder.create(tileSet, *tiledLayer));
   }
 

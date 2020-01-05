@@ -22,11 +22,11 @@ class TiledTile final {
   const int id = 0;
   bool animated = false;
 
-  void ProcessAnimation(int firstTileSetId);
+  void process_animation(int firstTileSetId);
 
-  void ProcessProperties();
+  void process_properties();
 
-  void ProcessObjectGroup();
+  void process_object_groups();
 
   /**
    * Attempts to find and return a property.
@@ -37,7 +37,7 @@ class TiledTile final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  const TiledProperty& GetProperty(const std::string& name) const;
+  const TiledProperty& get_property(const std::string& name) const;
 
  public:
   TiledTile(const pugi::xml_node& tileNode, int id, int firstTileSetId);
@@ -51,7 +51,7 @@ class TiledTile final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  int GetId() const noexcept;
+  int get_id() const noexcept;
 
   /**
    * Returns a reference to the animation associated with the tile.
@@ -60,10 +60,10 @@ class TiledTile final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  const TiledAnimation& GetAnimation() const noexcept;
+  const TiledAnimation& get_animation() const noexcept;
 
   [[nodiscard]]
-  bool HasAttribute(const std::string& name) const noexcept;
+  bool has_attribute(const std::string& name) const noexcept;
 
   /**
    * Indicates whether or not the tile has a property with the specified name.
@@ -73,7 +73,7 @@ class TiledTile final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  bool HasProperty(const std::string& name) const noexcept;
+  bool has_property(const std::string& name) const noexcept;
 
   /**
    * Indicates whether or not the tile has an object with the specified name.
@@ -83,7 +83,7 @@ class TiledTile final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  bool HasObject(const std::string& name) const noexcept;
+  bool has_object(const std::string& name) const noexcept;
 
   /**
    * Returns the value of the property with the specified name as an integer. This method might
@@ -95,7 +95,7 @@ class TiledTile final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  int GetIntProperty(const std::string& name) const;
+  int get_int_property(const std::string& name) const;
 
   /**
    * Returns the value of the property with the specified name as a float. This method might
@@ -107,7 +107,7 @@ class TiledTile final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  float GetFloatProperty(const std::string& name) const;
+  float get_float_property(const std::string& name) const;
 
   /**
    * Returns the value of the property with the specified name as a bool. This method might
@@ -121,7 +121,7 @@ class TiledTile final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  bool GetBoolProperty(const std::string& name) const;
+  bool get_bool_property(const std::string& name) const;
 
   /**
    * Returns the value of the property with the specified name as a string.
@@ -132,13 +132,13 @@ class TiledTile final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  const std::string& GetStringProperty(const std::string& name) const;
+  const std::string& get_string_property(const std::string& name) const;
 
   [[nodiscard]]
-  int GetIntAttribute(const std::string& name) const;
+  int get_int_attribute(const std::string& name) const;
 
   [[nodiscard]]
-  std::string GetStringAttribute(const std::string& name) const;
+  std::string get_string_attribute(const std::string& name) const;
 
   /**
    * Returns the object with the specified name.
@@ -149,7 +149,7 @@ class TiledTile final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  const TiledObject& GetObject(const std::string& name) const;
+  const TiledObject& get_object(const std::string& name) const;
 
   /**
    * Indicates whether or not the tile is animated.
@@ -158,7 +158,7 @@ class TiledTile final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  bool IsAnimated() const noexcept;
+  bool is_animated() const noexcept;
 };
 
 }

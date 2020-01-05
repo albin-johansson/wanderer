@@ -4,16 +4,16 @@
 namespace albinjohansson::tiled {
 
 TiledMap::TiledMap(pugi::xml_node mapNode) : mapNode(mapNode) {
-  Init();
+  init();
 }
 
 TiledMap::TiledMap(pugi::xml_node&& mapNode) : mapNode(mapNode) {
-  Init();
+  init();
 }
 
 TiledMap::~TiledMap() = default;
 
-void TiledMap::Init() {
+void TiledMap::init() {
   for (auto layerNode : mapNode.children("layer")) {
     layers.push_back(std::make_unique<TiledLayer>(layerNode));
   }
@@ -23,39 +23,39 @@ void TiledMap::Init() {
   }
 }
 
-int TiledMap::GetWidth() const {
+int TiledMap::get_width() const {
   return mapNode.attribute("width").as_int();
 }
 
-int TiledMap::GetHeight() const {
+int TiledMap::get_height() const {
   return mapNode.attribute("height").as_int();
 }
 
-int TiledMap::GetTileWidth() const {
+int TiledMap::get_tile_width() const {
   return mapNode.attribute("tilewidth").as_int();
 }
 
-int TiledMap::GetTileHeight() const {
+int TiledMap::get_tile_height() const {
   return mapNode.attribute("tileheight").as_int();
 }
 
-int TiledMap::GetAmountOfLayers() const {
+int TiledMap::get_amount_of_layers() const {
   return layers.size();
 }
 
-float TiledMap::ConvertX(float x, float tileSize) const noexcept {
-  return (x / static_cast<float>(GetTileWidth())) * tileSize;
+float TiledMap::convert_x(float x, float tileSize) const noexcept {
+  return (x / static_cast<float>(get_tile_width())) * tileSize;
 }
 
-float TiledMap::ConvertY(float y, float tileSize) const noexcept {
-  return (y / static_cast<float>(GetTileHeight())) * tileSize;
+float TiledMap::convert_y(float y, float tileSize) const noexcept {
+  return (y / static_cast<float>(get_tile_height())) * tileSize;
 }
 
-const std::vector<std::unique_ptr<TiledLayer>>& TiledMap::GetLayers() const {
+const std::vector<std::unique_ptr<TiledLayer>>& TiledMap::get_layers() const {
   return layers;
 }
 
-const std::vector<std::unique_ptr<TiledObjectGroup>>& TiledMap::GetTiledObjectGroups() const {
+const std::vector<std::unique_ptr<TiledObjectGroup>>& TiledMap::get_tiled_object_groups() const {
   return tiledObjectGroups;
 }
 

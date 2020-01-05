@@ -23,7 +23,7 @@ class BoolConverter final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  inline static SDL_bool convert(bool b) noexcept {
+  inline static constexpr SDL_bool convert(bool b) noexcept {
     return (b) ? SDL_TRUE : SDL_FALSE;
   }
 };

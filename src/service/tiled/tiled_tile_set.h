@@ -17,7 +17,7 @@ class TiledTileSet final {
   const int firstId;
   const int lastId;
 
-  void Init();
+  void init();
 
  public:
   /**
@@ -45,7 +45,7 @@ class TiledTileSet final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  std::string GetName() const;
+  std::string get_name() const;
 
   /**
    * Returns the width of all tiles in the tile set.
@@ -54,7 +54,7 @@ class TiledTileSet final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  int GetTileWidth() const;
+  int get_tile_width() const;
 
   /**
    * Returns the height of all tiles in the tile set.
@@ -63,7 +63,7 @@ class TiledTileSet final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  int GetTileHeight() const;
+  int get_tile_height() const;
 
   /**
    * Returns the total amount of tiles in the tile set.
@@ -72,7 +72,7 @@ class TiledTileSet final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  int GetTileCount() const;
+  int get_tile_count() const;
 
   /**
    * Returns the amount of columns in the tile set.
@@ -81,7 +81,7 @@ class TiledTileSet final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  int GetCols() const;
+  int get_cols() const;
 
   /**
    * Returns the image source path for the image associated with the tile set.
@@ -90,10 +90,10 @@ class TiledTileSet final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  std::string GetImageSource() const;
+  std::string get_image_source() const;
 
   [[nodiscard]]
-  std::string GetImageName() const;
+  std::string get_image_name() const;
 
   /**
    * Returns the width of the image associated with the tile set.
@@ -102,7 +102,7 @@ class TiledTileSet final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  int GetImageWidth() const;
+  int get_image_width() const;
 
   /**
    * Returns the height of the image associated with the tile set.
@@ -111,7 +111,7 @@ class TiledTileSet final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  int GetImageHeight() const;
+  int get_image_height() const;
 
   /**
    * Returns the first valid tile ID in the tile set.
@@ -120,7 +120,7 @@ class TiledTileSet final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  int GetFirstTileId() const noexcept { return firstId; }
+  int get_first_tile_id() const noexcept { return firstId; }
 
   /**
    * Returns the last valid tile ID in the tile set.
@@ -129,13 +129,13 @@ class TiledTileSet final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  int GetLastTileId() const noexcept { return lastId; }
+  int get_last_tile_id() const noexcept { return lastId; }
 
   [[nodiscard]]
-  bool HasTile(int id) const noexcept;
+  bool has_tile(int id) const noexcept;
 
   [[nodiscard]]
-  const TiledTile& GetTile(int id) const;
+  const TiledTile& get_tile(int id) const;
 };
 
 }

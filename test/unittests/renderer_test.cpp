@@ -1,7 +1,7 @@
 #include "catch.hpp"
-#include "renderer.h"
+#include "centurion/renderer.h"
 #include "require.h"
-#include "image.h"
+#include "centurion/image.h"
 #include <memory>
 
 using namespace centurion;

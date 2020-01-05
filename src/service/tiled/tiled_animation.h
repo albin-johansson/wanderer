@@ -19,10 +19,10 @@ class TiledAnimation {
 
   ~TiledAnimation();
 
-  void AddFrame(Frame frame);
+  void add_frame(Frame frame);
 
   [[nodiscard]]
-  const std::vector<Frame>& GetFrames();
+  const std::vector<Frame>& get_frames();
 };
 
 }

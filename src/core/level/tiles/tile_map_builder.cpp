@@ -11,18 +11,18 @@ std::unique_ptr<ITileMap> TileMapBuilder::create(const std::shared_ptr<TileSet>&
                                                  const tiled::TiledMap& tiledMap) {
   auto map = std::unique_ptr<TileMapImpl>(new TileMapImpl(tileSet));
 
-  map->nRows = tiledMap.GetHeight();
-  map->nCols = tiledMap.GetWidth();
+  map->nRows = tiledMap.get_height();
+  map->nCols = tiledMap.get_width();
 
-  auto& objectGroup = tiledMap.GetTiledObjectGroups().front();
-  for (const auto& object : objectGroup->GetObjects()) {
-    if (object.HasAttribute("type") &&
-        object.GetAttribute("type") == "Spawnpoint" &&
-        object.HasProperty("name") &&
-        object.GetProperty("name").value == "player") {
+  auto& objectGroup = tiledMap.get_tiled_object_groups().front();
+  for (const auto& object : objectGroup->get_objects()) {
+    if (object.has_attribute("type") &&
+        object.get_attribute("type") == "Spawnpoint" &&
+        object.has_property("name") &&
+        object.get_property("name").value == "player") {
 
-      const auto x = tiledMap.ConvertX(std::stof(object.GetAttribute("x")), tileSize);
-      const auto y = tiledMap.ConvertY(std::stof(object.GetAttribute("y")), tileSize);
+      const auto x = tiledMap.convert_x(std::stof(object.get_attribute("x")), tileSize);
+      const auto y = tiledMap.convert_y(std::stof(object.get_attribute("y")), tileSize);
       map->playerSpawnPos.set(x, y);
     }
   }

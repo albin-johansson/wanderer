@@ -15,7 +15,7 @@ class TiledMap final {
   std::vector<std::unique_ptr<TiledLayer>> layers;
   std::vector<std::unique_ptr<TiledObjectGroup>> tiledObjectGroups;
 
-  void Init();
+  void init();
 
  public:
   explicit TiledMap(pugi::xml_node mapNode);
@@ -25,31 +25,31 @@ class TiledMap final {
   ~TiledMap();
 
   [[nodiscard]]
-  int GetWidth() const;
+  int get_width() const;
 
   [[nodiscard]]
-  int GetHeight() const;
+  int get_height() const;
 
   [[nodiscard]]
-  int GetTileWidth() const;
+  int get_tile_width() const;
 
   [[nodiscard]]
-  int GetTileHeight() const;
+  int get_tile_height() const;
 
   [[nodiscard]]
-  int GetAmountOfLayers() const;
+  int get_amount_of_layers() const;
 
   [[nodiscard]]
-  float ConvertX(float x, float tileSize) const noexcept;
+  float convert_x(float x, float tileSize) const noexcept;
 
   [[nodiscard]]
-  float ConvertY(float y, float tileSize) const noexcept;
+  float convert_y(float y, float tileSize) const noexcept;
 
   [[nodiscard]]
-  const std::vector<std::unique_ptr<TiledLayer>>& GetLayers() const;
+  const std::vector<std::unique_ptr<TiledLayer>>& get_layers() const;
 
   [[nodiscard]]
-  const std::vector<std::unique_ptr<TiledObjectGroup>>& GetTiledObjectGroups() const;
+  const std::vector<std::unique_ptr<TiledObjectGroup>>& get_tiled_object_groups() const;
 
 };
 

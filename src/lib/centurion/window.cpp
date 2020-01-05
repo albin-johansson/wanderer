@@ -1,11 +1,8 @@
 #include "window.h"
 #include "window_listener.h"
-#include "require.h"
 #include "bool_converter.h"
 #include <stdexcept>
 #include <cstdint>
-
-using namespace albinjohansson::wanderer;
 
 namespace centurion {
 
@@ -19,15 +16,10 @@ Window::Window(const std::string& title, int width, int height) {
                             SDL_WINDOW_HIDDEN);
 
   // TODO...
-//    SDL_SetWindowBrightness(window, 1);
 //    SDL_SetWindowDisplayMode(window, ...)
-//    SDL_SetWindowGrab(window, ...)
-//    SDL_SetWindowOpacity(window, ...)
-//    SDL_RaiseWindow(window)
-//    SDL_SetWindowMinimumSize(window, ...)
-//    SDL_SetWindowMaximumSize(window, ...)
-//    SDL_SetWindowPosition(window, ...)
 }
+
+Window::Window(int width, int height) : Window("Centurion window", width, height) {}
 
 Window::~Window() {
   if (window) {
@@ -39,7 +31,7 @@ void Window::notify_window_listeners() noexcept {
   const auto& self = *this;
   for (auto listener : windowListeners) {
     if (listener) {
-      listener->window_updated(self); // FIXME not noexcept
+      listener->window_updated(self);
     }
   }
 }
@@ -52,6 +44,14 @@ void Window::show() noexcept {
 void Window::hide() noexcept {
   SDL_HideWindow(window);
   notify_window_listeners();
+}
+
+void Window::center() noexcept {
+  set_position(SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
+}
+
+void Window::raise() noexcept {
+  SDL_RaiseWindow(window);
 }
 
 void Window::add_window_listener(IWindowListener* listener) noexcept {
@@ -95,10 +95,37 @@ void Window::set_height(int height) {
   }
 }
 
-void Window::set_icon(SDL_Surface* icon) {
-  Require::not_null(icon);
+void Window::set_icon(gsl::not_null<SDL_Surface*> icon) noexcept {
   SDL_SetWindowIcon(window, icon);
   notify_window_listeners();
+}
+
+void Window::set_title(const std::string& title) noexcept {
+  SDL_SetWindowTitle(window, title.c_str());
+}
+
+void Window::set_gamma(float gamma) noexcept {
+  SDL_SetWindowBrightness(window, gamma);
+}
+
+void Window::set_opacity(float opacity) noexcept {
+  SDL_SetWindowOpacity(window, opacity);
+}
+
+void Window::set_min_size(int width, int height) noexcept {
+  SDL_SetWindowMinimumSize(window, width, height);
+}
+
+void Window::set_max_size(int width, int height) noexcept {
+  SDL_SetWindowMaximumSize(window, width, height);
+}
+
+void Window::set_position(int x, int y) noexcept {
+  SDL_SetWindowPosition(window, x, y);
+}
+
+void Window::set_grab_mouse(bool grabMouse) noexcept {
+  SDL_SetWindowGrab(window, BoolConverter::convert(grabMouse));
 }
 
 bool Window::is_resizable() const noexcept {

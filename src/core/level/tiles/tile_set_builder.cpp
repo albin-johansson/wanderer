@@ -8,14 +8,14 @@ using namespace centurion;
 
 namespace albinjohansson::wanderer {
 
-tiled::TiledTileSet TileSetBuilder::CreateTiledTileSet(const pugi::xml_node& tileSetNode,
-                                                       TileID firstId) {
+tiled::TiledTileSet TileSetBuilder::create_tiled_tile_set(const pugi::xml_node& tileSetNode,
+                                                          TileID firstId) {
   const auto tileCount = tileSetNode.attribute("tilecount").as_int();
   const auto lastgid = firstId + static_cast<TileID>(tileCount) - 1;
   return tiled::TiledTileSet(tileSetNode, firstId, lastgid);
 }
 
-std::unique_ptr<TileSet> TileSetBuilder::Create(const pugi::xml_node& mapRoot,
+std::unique_ptr<TileSet> TileSetBuilder::create(const pugi::xml_node& mapRoot,
                                                 ImageGenerator& imageGenerator) {
   const auto tsChildren = mapRoot.children("tileset");
   const auto nTilesets = std::distance(tsChildren.begin(), tsChildren.end());
@@ -28,16 +28,16 @@ std::unique_ptr<TileSet> TileSetBuilder::Create(const pugi::xml_node& mapRoot,
     const auto tileSetNode = tsDocument.child("tileset");
 
     const auto firstId = static_cast<TileID>(tsInfoNode.attribute("firstgid").as_uint());
-    auto tiledTileSet = CreateTiledTileSet(tileSetNode, firstId);
+    auto tiledTileSet = create_tiled_tile_set(tileSetNode, firstId);
 
-    const auto path = "resources/img/" + tiledTileSet.GetImageName();
+    const auto path = "resources/img/" + tiledTileSet.get_image_name();
     std::shared_ptr<Image> image = imageGenerator.load(path);
 
-    const TileID lastId = tiledTileSet.GetLastTileId();
+    const TileID lastId = tiledTileSet.get_last_tile_id();
     int index = 0;
 
     for (TileID id = firstId; id <= lastId; id++, index++) {
-      tileSet->Insert(id, TileBuilder::create(image, tiledTileSet, id, index));
+      tileSet->insert(id, TileBuilder::create(image, tiledTileSet, id, index));
     }
   }
 

@@ -23,11 +23,11 @@ TileObject::TileObject(TileID id, const Vector2& position, const std::shared_ptr
 TileObject::~TileObject() noexcept = default;
 
 void TileObject::tick(IWandererCore&, float /*delta*/) {
-  tileSet->Tick(id);
+  tileSet->tick(id);
 }
 
 void TileObject::draw(const Renderer& renderer, const Viewport&) const {
-  tileSet->GetTile(id).draw(position, renderer, *tileSet);
+  tileSet->get_tile(id).draw(position, renderer, *tileSet);
 }
 
 void TileObject::SetDepth(int depth) noexcept {

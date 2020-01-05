@@ -11,7 +11,7 @@ TiledObjectGroup::TiledObjectGroup(pugi::xml_node objectGroupNode)
     TiledObject object;
 
     for (const auto attribute : o.attributes()) {
-      object.AddAttribute(attribute.name(), attribute.value());
+      object.add_attribute(attribute.name(), attribute.value());
     }
 
     const auto propertiesNode = o.child("properties");
@@ -19,7 +19,7 @@ TiledObjectGroup::TiledObjectGroup(pugi::xml_node objectGroupNode)
       TiledProperty property;
       property.name = p.attribute("name").as_string();
       property.value = p.attribute("value").as_string();
-      object.AddProperty(property);
+      object.add_property(property);
     }
 
     objects.push_back(object);
@@ -28,7 +28,7 @@ TiledObjectGroup::TiledObjectGroup(pugi::xml_node objectGroupNode)
 
 TiledObjectGroup::~TiledObjectGroup() = default;
 
-const std::vector<TiledObject>& TiledObjectGroup::GetObjects() const noexcept {
+const std::vector<TiledObject>& TiledObjectGroup::get_objects() const noexcept {
   return objects;
 }
 

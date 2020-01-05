@@ -1,5 +1,5 @@
 #include "catch.hpp"
-#include "window.h"
+#include "centurion/window.h"
 #include <memory>
 
 using namespace centurion;

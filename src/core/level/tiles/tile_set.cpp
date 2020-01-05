@@ -8,15 +8,15 @@ TileSet::TileSet(int nTiles) {
 
 TileSet::~TileSet() = default;
 
-void TileSet::Tick(TileID id) {
+void TileSet::tick(TileID id) {
   tiles.at(id).tick();
 }
 
-void TileSet::Insert(TileID id, const Tile& tile) {
+void TileSet::insert(TileID id, const Tile& tile) {
   tiles.emplace(id, tile);
 }
 
-const Tile& TileSet::GetTile(TileID id) const {
+const Tile& TileSet::get_tile(TileID id) const {
   return tiles.at(id);
 }
 

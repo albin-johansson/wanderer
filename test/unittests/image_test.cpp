@@ -1,9 +1,9 @@
 #include "catch.hpp"
-#include "image.h"
-#include "window.h"
-#include "renderer.h"
+#include "centurion/image.h"
+#include "centurion/window.h"
+#include "centurion/renderer.h"
 #include "require.h"
-#include "centurion_exception.h"
+#include "centurion/centurion_exception.h"
 
 using namespace albinjohansson::wanderer;
 using namespace centurion;
