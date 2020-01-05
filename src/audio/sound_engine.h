@@ -11,7 +11,7 @@ class SoundEffect;
 
 namespace albinjohansson::wanderer {
 
-class SoundEngine final { // TODO expand
+class SoundEngine final {
  private:
   std::unordered_map<std::string, std::unique_ptr<centurion::SoundEffect>> sounds;
 
