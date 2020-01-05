@@ -40,8 +40,6 @@ class Vector2 final {
    */
   Vector2(const Vector2& other);
 
-  // TODO dot multiplication,
-
   /**
    * Scales the vector. The supplied factor is multiplied with both of the coordinates of the
    * vector.
