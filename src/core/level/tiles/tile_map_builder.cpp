@@ -9,7 +9,7 @@ namespace albinjohansson::wanderer {
 
 std::unique_ptr<ITileMap> TileMapBuilder::create(const std::shared_ptr<TileSet>& tileSet,
                                                  const tiled::TiledMap& tiledMap) {
-  auto map = std::unique_ptr<TileMapImpl>(new TileMapImpl(tileSet));
+  auto map = std::unique_ptr<TileMapImpl>(new TileMapImpl{tileSet});
 
   map->nRows = tiledMap.get_height();
   map->nCols = tiledMap.get_width();

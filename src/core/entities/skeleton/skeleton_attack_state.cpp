@@ -27,6 +27,7 @@ void SkeletonAttackState::exit(const IWandererCore& core) {
 void SkeletonAttackState::tick(const IWandererCore& core, float delta) {
   attackDelegate.tick(core, delta);
 
+
 //    entity.SetDominantDirection(Direction::RIGHT);
   // TODO update dominant direction
 }

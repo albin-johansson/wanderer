@@ -120,6 +120,8 @@ set(SOURCE_FILES
         core/entities/skeleton/skeleton_moving_state.h
         core/entities/skeleton/skeleton_attack_state.cpp
         core/entities/skeleton/skeleton_attack_state.h
+        core/entities/skeleton/skeleton_dying_state.cpp
+        core/entities/skeleton/skeleton_dying_state.h
 
         core/entities/player/player.h
         core/entities/player/player_impl.cpp
