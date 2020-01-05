@@ -17,7 +17,7 @@ enum class Direction { Up, Right, Down, Left };
  * @since 0.1.0
  */
 [[nodiscard]]
-Direction get_random_direction() noexcept {
+inline Direction get_random_direction() noexcept {
   return static_cast<Direction>(RandomUtils::get_int(0, 3));
 }
 
