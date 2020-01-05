@@ -4,6 +4,8 @@
 #include <fstream>
 #include <iostream>
 
+using namespace centurion;
+
 namespace albinjohansson::wanderer {
 
 SoundEngine::SoundEngine(const std::string& file) {
@@ -34,18 +36,8 @@ void SoundEngine::registerSound(const std::string& id, std::unique_ptr<SoundEffe
   sounds.emplace(id, std::move(sound));
 }
 
-void SoundEngine::play(const std::string& id) {
-  if (enabled) {
-    sounds.at(id)->play();
-  }
-}
-
-void SoundEngine::set_enabled(bool enabled) noexcept {
-  this->enabled = enabled;
-}
-
-bool SoundEngine::is_enabled() const noexcept {
-  return enabled;
+centurion::SoundEffect& SoundEngine::get_sound(const std::string& id) const noexcept {
+  return *sounds.at(id);
 }
 
 }

@@ -1,12 +1,12 @@
 #include "sound_effect.h"
-#include "bad_state_exception.h"
+#include "centurion_exception.h"
 
-namespace albinjohansson::wanderer {
+namespace centurion {
 
 SoundEffect::SoundEffect(const std::string& file) {
   chunk = Mix_LoadWAV(file.c_str());
   if (!chunk) {
-    throw BadStateException(SDL_GetError());
+    throw CenturionException(SDL_GetError());
   }
   set_volume(MIX_MAX_VOLUME / 2);
 }
@@ -40,7 +40,7 @@ void SoundEffect::stop() noexcept {
   }
 }
 
-void SoundEffect::fade_in(Uint32 ms) noexcept {
+void SoundEffect::fade_in(uint32_t ms) noexcept {
   if (ms > 0 && !is_playing()) {
     if (channel != undefinedChannel) {
       Mix_FadeInChannelTimed(channel, chunk, 0, ms, -1);
@@ -50,7 +50,7 @@ void SoundEffect::fade_in(Uint32 ms) noexcept {
   }
 }
 
-void SoundEffect::fade_out(Uint32 ms) noexcept {
+void SoundEffect::fade_out(uint32_t ms) noexcept {
   if ((ms > 0) && is_playing()) {
     Mix_FadeOutChannel(channel, ms);
   }

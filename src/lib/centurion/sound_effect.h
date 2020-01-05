@@ -3,7 +3,7 @@
 #include <cstdint>
 #include <string>
 
-namespace albinjohansson::wanderer {
+namespace centurion {
 
 /**
  * The SoundEffect class represents sound effects in various file formats.
@@ -36,7 +36,7 @@ class SoundEffect final {
 
   /**
    * @param file the file path of the audio file.
-   * @throws BadStateException if the audio file cannot be loaded.
+   * @throws CenturionException if the audio file cannot be loaded.
    * @since 0.1.0
    */
   explicit SoundEffect(const std::string& file);

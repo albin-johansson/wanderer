@@ -3,30 +3,29 @@
 #include <string>
 #include <memory>
 
-namespace albinjohansson::wanderer {
+namespace centurion {
 
 class SoundEffect;
 
+}
+
+namespace albinjohansson::wanderer {
+
 class SoundEngine final { // TODO expand
  private:
-  std::unordered_map<std::string, std::unique_ptr<SoundEffect>> sounds;
-  bool enabled = true;
+  std::unordered_map<std::string, std::unique_ptr<centurion::SoundEffect>> sounds;
 
   void load_sounds(const std::string& file);
 
-  void registerSound(const std::string& id, std::unique_ptr<SoundEffect> sound);
+  void registerSound(const std::string& id, std::unique_ptr<centurion::SoundEffect> sound);
 
  public:
   explicit SoundEngine(const std::string& file);
 
   ~SoundEngine();
 
-  void play(const std::string& id);
-
-  void set_enabled(bool enabled) noexcept;
-
   [[nodiscard]]
-  bool is_enabled() const noexcept;
+  centurion::SoundEffect& get_sound(const std::string& id) const noexcept;
 };
 
 }

@@ -175,8 +175,8 @@ set(SOURCE_FILES
         visuals/hud.cpp
         visuals/hud.h
 
-        audio/sound_effect.cpp
-        audio/sound_effect.h
+        lib/centurion/sound_effect.cpp
+        lib/centurion/sound_effect.h
         audio/sound_engine.cpp
         audio/sound_engine.h
 
