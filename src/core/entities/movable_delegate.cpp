@@ -1,7 +1,7 @@
 #include "movable_delegate.h"
 #include "game_object.h"
 #include "rectangle.h"
-#include "random_utils.h"
+#include "game_object_id.h"
 #include <stdexcept>
 #include <cstdint>
 
@@ -14,7 +14,7 @@ MovableDelegate::MovableDelegate(int depth, float width, float height)
   if (width < 1 || height < 1) {
     throw std::invalid_argument("Invalid dimensions!");
   }
-  uniqueId = RandomUtils::get_rand(); // FIXME
+  uniqueId = GameObjectID::next();
 }
 
 MovableDelegate::~MovableDelegate() = default;
