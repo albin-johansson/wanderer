@@ -138,7 +138,7 @@ bool TileMapImpl::is_blocked(const IMovableObject* self, float delta) const {
     return false;
   }
 
-  for (auto other : activeObjects) {
+  for (const auto other : activeObjects) {
     if (other->get_unique_id() == self->get_unique_id()) {
       continue;
     }
