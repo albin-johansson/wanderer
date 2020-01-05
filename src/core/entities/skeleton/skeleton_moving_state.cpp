@@ -38,15 +38,11 @@ void SkeletonMovingState::Roam(const IWandererCore& core) {
   }
 
   if (entity.get_velocity().is_zero()) {
-    entity.move(GetRandomDirection());
+    entity.move(get_random_direction());
     if (RandomUtils::get_bool()) {
-      entity.move(GetRandomDirection());
+      entity.move(get_random_direction());
     }
   }
-}
-
-Direction SkeletonMovingState::GetRandomDirection() noexcept { // TODO move elsewhere
-  return static_cast<Direction>(RandomUtils::get_int(0, 3));
 }
 
 void SkeletonMovingState::tick(const IWandererCore& core, float delta) {
