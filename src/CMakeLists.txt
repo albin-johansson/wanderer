@@ -187,23 +187,23 @@ set(SOURCE_FILES
         service/pugi_utils.cpp
         service/pugi_utils.h
 
-        service/tiled/tiled_map_parser.cpp
-        service/tiled/tiled_map_parser.h
-        service/tiled/tiled_map.cpp
-        service/tiled/tiled_map.h
-        service/tiled/tiled_tile_set.cpp
-        service/tiled/tiled_tile_set.h
-        service/tiled/tiled_animation.cpp
-        service/tiled/tiled_animation.h
-        service/tiled/tiled_object.cpp
-        service/tiled/tiled_object.h
-        service/tiled/tiled_layer.cpp
-        service/tiled/tiled_layer.h
-        service/tiled/tiled_tile.cpp
-        service/tiled/tiled_tile.h
-        service/tiled/tiled_property.h
-        service/tiled/tiled_object_group.cpp
-        service/tiled/tiled_object_group.h
+        lib/tiled/tiled_map_parser.cpp
+        lib/tiled/tiled_map_parser.h
+        lib/tiled/tiled_map.cpp
+        lib/tiled/tiled_map.h
+        lib/tiled/tiled_tile_set.cpp
+        lib/tiled/tiled_tile_set.h
+        lib/tiled/tiled_animation.cpp
+        lib/tiled/tiled_animation.h
+        lib/tiled/tiled_object.cpp
+        lib/tiled/tiled_object.h
+        lib/tiled/tiled_layer.cpp
+        lib/tiled/tiled_layer.h
+        lib/tiled/tiled_tile.cpp
+        lib/tiled/tiled_tile.h
+        lib/tiled/tiled_property.h
+        lib/tiled/tiled_object_group.cpp
+        lib/tiled/tiled_object_group.h
 
         lib/pugixml/pugixml.hpp
         lib/pugixml/pugixml.cpp
@@ -224,11 +224,7 @@ target_include_directories(${WANDERER_LIB} PUBLIC ${SDL2_TTF_INCLUDE_DIRS})
 target_include_directories(${WANDERER_LIB} PUBLIC controller)
 target_include_directories(${WANDERER_LIB} PUBLIC controller/gameloop)
 target_include_directories(${WANDERER_LIB} PUBLIC core)
-target_include_directories(${WANDERER_LIB} PUBLIC visuals)
 target_include_directories(${WANDERER_LIB} PUBLIC core/menu)
-target_include_directories(${WANDERER_LIB} PUBLIC util)
-target_include_directories(${WANDERER_LIB} PUBLIC service)
-target_include_directories(${WANDERER_LIB} PUBLIC service/tiled)
 target_include_directories(${WANDERER_LIB} PUBLIC core/math)
 target_include_directories(${WANDERER_LIB} PUBLIC core/level)
 target_include_directories(${WANDERER_LIB} PUBLIC core/level/tiles)
@@ -238,12 +234,15 @@ target_include_directories(${WANDERER_LIB} PUBLIC core/entities/player)
 target_include_directories(${WANDERER_LIB} PUBLIC core/entities/skeleton)
 target_include_directories(${WANDERER_LIB} PUBLIC core/entities/entitystate)
 target_include_directories(${WANDERER_LIB} PUBLIC core/entities/entitystate/delegates)
+target_include_directories(${WANDERER_LIB} PUBLIC visuals)
+target_include_directories(${WANDERER_LIB} PUBLIC util)
+target_include_directories(${WANDERER_LIB} PUBLIC service)
 target_include_directories(${WANDERER_LIB} PUBLIC audio)
-
 target_include_directories(${WANDERER_LIB} PUBLIC lib)
 target_include_directories(${WANDERER_LIB} PUBLIC lib/gsl)
 target_include_directories(${WANDERER_LIB} PUBLIC lib/pugixml)
 target_include_directories(${WANDERER_LIB} PUBLIC lib/centurion)
+target_include_directories(${WANDERER_LIB} PUBLIC lib/tiled)
 
 # Prepares the actual executable
 add_executable(${WANDERER_EXECUTABLE} main.cpp)
