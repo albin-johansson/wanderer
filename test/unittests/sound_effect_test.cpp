@@ -1,11 +1,11 @@
 #include "catch.hpp"
 #include "sound_effect.h"
-#include "bad_state_exception.h"
+#include "centurion_exception.h"
 
-using namespace albinjohansson::wanderer;
+using namespace centurion;
 
 TEST_CASE("SoundEffect::SoundEffect", "[SoundEffect]") {
-  CHECK_THROWS_AS(SoundEffect("somebadpath"), BadStateException);
+  CHECK_THROWS_AS(SoundEffect("somebadpath"), CenturionException);
 }
 
 TEST_CASE("SoundEffect::Play && SoundEffect::Stop", "[SoundEffect]") {
