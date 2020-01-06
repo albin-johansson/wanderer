@@ -48,13 +48,14 @@ Tile TileBuilder::create(const std::shared_ptr<Image>& image,
       tile.isAnimated = true;
     }
 
+    const auto tile_size = GameConstants::tile_size;
     if (tiledTile.has_object("hitbox")) {
       const auto& object = tiledTile.get_object("hitbox");
 
-      const auto x = (std::stof(object.get_attribute("x")) / tileWidth) * tileSize;
-      const auto y = (std::stof(object.get_attribute("y")) / tileHeight) * tileSize;
-      const auto w = (std::stof(object.get_attribute("width")) / tileWidth) * tileSize;
-      const auto h = (std::stof(object.get_attribute("height")) / tileHeight) * tileSize;
+      const auto x = (std::stof(object.get_attribute("x")) / tileWidth) * tile_size;
+      const auto y = (std::stof(object.get_attribute("y")) / tileHeight) * tile_size;
+      const auto w = (std::stof(object.get_attribute("width")) / tileWidth) * tile_size;
+      const auto h = (std::stof(object.get_attribute("height")) / tileHeight) * tile_size;
 
       tile.hitbox.add_rectangle(FRectangle{x, y, Area{w, h}}, Vector2{x, y});
       tile.isBlocked = true;

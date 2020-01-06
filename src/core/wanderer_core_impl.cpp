@@ -39,8 +39,8 @@ void WandererCoreImpl::init_viewport() {
   // TODO listener for viewport dimensions
   viewport.set_level_width(static_cast<float>(activeMap->get_width()));
   viewport.set_level_height(static_cast<float>(activeMap->get_height()));
-  viewport.set_width(gameLogicalWidth);
-  viewport.set_height(gameLogicalHeight);
+  viewport.set_width(GameConstants::logical_width);
+  viewport.set_height(GameConstants::logical_height);
 
   viewport.center(player->get_x(),
                   player->get_y(),

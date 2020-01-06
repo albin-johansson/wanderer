@@ -27,16 +27,16 @@ WandererControllerImpl::WandererControllerImpl() {
   init_icon();
 
   renderer = std::make_unique<Renderer>(*window);
-  renderer->set_logical_size(gameLogicalWidth, gameLogicalHeight);
+  renderer->set_logical_size(GameConstants::logical_width, GameConstants::logical_height);
 
   ImageGenerator imageGenerator{renderer};
   core = create_core(imageGenerator);
-  core->set_viewport_width(gameLogicalWidth);
-  core->set_viewport_height(gameLogicalHeight);
+  core->set_viewport_width(GameConstants::logical_width);
+  core->set_viewport_height(GameConstants::logical_height);
 
   auto mouseStateManager = std::make_unique<MouseStateManager>();
-  mouseStateManager->set_logical_width(gameLogicalWidth);
-  mouseStateManager->set_logical_height(gameLogicalHeight);
+  mouseStateManager->set_logical_width(GameConstants::logical_width);
+  mouseStateManager->set_logical_height(GameConstants::logical_height);
 
   window->add_window_listener(mouseStateManager.get());
 

@@ -14,7 +14,7 @@ void HUD::draw_health_bar(centurion::Renderer& renderer, IWandererCore& core) co
   const auto& player = core.get_player();
 
   const auto hp = player.get_health();
-  const auto hpBarWidth = (hp / playerMaxHealth) * 100;
+  const auto hpBarWidth = (hp / GameConstants::player_max_health) * 100;
   const auto hpBarHeight = 20;
 
   renderer.set_color(0xFF, 0, 0);

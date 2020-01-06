@@ -29,10 +29,10 @@ void TileMapImpl::Interpolate(float alpha) {
 }
 
 TileMapBounds TileMapImpl::CalculateMapBounds(const FRectangle& bounds) const noexcept {
-  auto minCol = static_cast<int>(bounds.GetX()) / tileSizeInt;
-  auto minRow = static_cast<int>(bounds.GetY()) / tileSizeInt;
-  auto maxCol = static_cast<int>((bounds.GetMaxX()) / tileSizeInt) + 1;
-  auto maxRow = static_cast<int>((bounds.GetMaxY()) / tileSizeInt) + 1;
+  auto minCol = static_cast<int>(bounds.GetX()) / GameConstants::tile_size_int;
+  auto minRow = static_cast<int>(bounds.GetY()) / GameConstants::tile_size_int;
+  auto maxCol = static_cast<int>((bounds.GetMaxX()) / GameConstants::tile_size_int) + 1;
+  auto maxRow = static_cast<int>((bounds.GetMaxY()) / GameConstants::tile_size_int) + 1;
 
   if (minCol < 0) {
     minCol = 0;
@@ -110,7 +110,8 @@ void TileMapImpl::RenderTilesAt(int row, int col, Renderer& renderer) {
   for (const auto& layer : groundLayers) {
     const auto id = layer->get_tile_id(row, col);
     if (id != Tile::EMPTY) {
-      Vector2 pos{static_cast<float>(col) * tileSize, static_cast<float>(row) * tileSize};
+      Vector2 pos{static_cast<float>(col) * GameConstants::tile_size,
+                  static_cast<float>(row) * GameConstants::tile_size};
       tileSet->get_tile(id).draw(pos, renderer, *tileSet);
     }
   }
@@ -160,11 +161,11 @@ int TileMapImpl::get_cols() const noexcept {
 }
 
 int TileMapImpl::get_width() const noexcept {
-  return nCols * tileSizeInt;
+  return nCols * GameConstants::tile_size_int;
 }
 
 int TileMapImpl::get_height() const noexcept {
-  return nRows * tileSizeInt;
+  return nRows * GameConstants::tile_size_int;
 }
 
 Vector2 TileMapImpl::get_player_spawn_position() const {

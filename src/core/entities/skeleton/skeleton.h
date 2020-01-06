@@ -14,7 +14,7 @@ class Skeleton final : public AbstractEntity {
   void init();
 
  public:
-  static constexpr float HOMING_RANGE = tileSize * 4.0f;
+  static constexpr float HOMING_RANGE = GameConstants::tile_size * 4.0f;
 
   explicit Skeleton(const std::shared_ptr<centurion::Image>& sheet);
 
