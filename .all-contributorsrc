@@ -1,0 +1,25 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "theowiik",
+      "name": "theowiik",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/42991003?v=4",
+      "profile": "https://github.com/theowiik",
+      "contributions": [
+        "maintenance",
+        "review"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "Wanderer",
+  "projectOwner": "albin-johansson",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
