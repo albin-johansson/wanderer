@@ -1,5 +1,9 @@
 #pragma once
 #include <cstdint>
+#include <random>
+#include <type_traits>
+#include <limits>
+#include "time_utils.h"
 
 namespace albinjohansson::wanderer {
 
@@ -14,8 +18,21 @@ class RandomUtils final {
 
   ~RandomUtils() = default;
 
-  [[nodiscard]]
-  static uint64_t get_rand();
+  /**
+   * Returns a random floating-point or integral value.
+   *
+   * @tparam T the type of returned value, int by default. Must be an integral or floating-point
+   * type.
+   * @return a random floating-point or integral value.
+   * @since 0.1.0
+   */
+  template<typename T = int>
+  [[nodiscard]] static T get_rand() noexcept {
+    static_assert(std::is_floating_point_v<T> || std::is_integral_v<T>);
+
+    std::ranlux24_base rnd(TimeUtils::get_high_res_time());
+    return static_cast<T>(rnd());
+  }
 
   /**
    * Returns a random integer in the specified interval. The generated value will be in the range
@@ -23,11 +40,18 @@ class RandomUtils final {
    *
    * @param min the smallest possible value.
    * @param max the largest possible value.
+   * @tparam the type of the random value, int by default. Must be an integral or floating-point
+   * type.
    * @return a random integer in the specified interval.
    * @since 0.1.0
    */
-  [[nodiscard]]
-  static int get_int(int min, int max);
+  template<typename T = int>
+  [[nodiscard]] static int get_int(T min, T max) noexcept {
+    static_assert(std::is_floating_point_v<T> || std::is_integral_v<T>);
+
+    std::ranlux24_base rnd(TimeUtils::get_high_res_time());
+    return static_cast<T>((rnd() % (max + 1 - min)) + min);
+  }
 
   /**
    * Returns a random bool value.
