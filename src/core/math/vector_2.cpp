@@ -82,11 +82,7 @@ void Vector2::sub(float x, float y) noexcept {
 }
 
 void Vector2::look_at(const Vector2& target) noexcept {
-  auto magnitude = get_length();
-  x = (target.x - x);
-  y = (target.y - y);
-  norm();
-  scale(magnitude);
+  look_at(target, get_length());
 }
 
 void Vector2::look_at(const Vector2& target, float length) noexcept {
