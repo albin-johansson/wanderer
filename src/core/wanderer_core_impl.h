@@ -16,15 +16,15 @@ namespace albinjohansson::wanderer {
  */
 class WandererCoreImpl final : public IWandererCore {
  private:
+  std::shared_ptr<ITileMap> activeMap = nullptr; // could maybe be a raw pointer
   std::unique_ptr<IMenuStateMachine> menuStateMachine = nullptr;
-  std::unique_ptr<SoundEngine> soundEngine = nullptr;
+  HUD hud;
 
   std::shared_ptr<IPlayer> player = nullptr;
   std::shared_ptr<ITileMap> world = nullptr;
-  std::shared_ptr<ITileMap> activeMap = nullptr; // could maybe be a raw pointer
+  std::unique_ptr<SoundEngine> soundEngine = nullptr;
 
   Viewport viewport;
-  HUD hud;
   bool shouldQuit = false;
 
   void init_viewport();
