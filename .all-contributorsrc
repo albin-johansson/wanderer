@@ -14,6 +14,16 @@
         "maintenance",
         "review"
       ]
+    },
+    {
+      "login": "oscaralmstrom",
+      "name": "oscaralmstrom",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/42993328?v=4",
+      "profile": "https://github.com/oscaralmstrom",
+      "contributions": [
+        "review",
+        "ideas"
+      ]
     }
   ],
   "contributorsPerLine": 7,
