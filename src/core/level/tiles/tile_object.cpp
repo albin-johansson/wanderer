@@ -4,7 +4,7 @@
 #include "viewport.h"
 #include "wanderer_core.h"
 #include "require.h"
-#include "random_utils.h"
+#include "game_object_id.h"
 #include "game_constants.h"
 
 using namespace centurion;
@@ -15,7 +15,7 @@ TileObject::TileObject(TileID id, const Vector2& position, const std::shared_ptr
     : position(position), id(id) {
   this->tileSet = Require::not_null(tileSet);
   centerY = get_y() + (get_height() / 2.0f);
-  uniqueId = RandomUtils::get_rand();
+  uniqueId = GameObjectID::next();
   hitbox.set_x(get_x());
   hitbox.set_y(get_y());
 }
