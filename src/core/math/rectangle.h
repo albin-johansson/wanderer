@@ -1,6 +1,6 @@
 #pragma once
-#include "area.h"
 #include <SDL.h>
+#include "area.h"
 
 namespace albinjohansson::wanderer {
 
