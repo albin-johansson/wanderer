@@ -30,6 +30,8 @@ set(SOURCE_FILES
         core/sortable_drawable.h
         core/render_depth.h
         core/game_constants.h
+        core/game_object_id.h
+        core/game_object_id.cpp
 
         core/util/require.h
         core/util/bad_state_exception.h
@@ -48,6 +50,7 @@ set(SOURCE_FILES
         core/math/math_utils.h
         core/math/area.h
         core/math/spooky_rect.h
+        core/math/tvector.h
 
         core/menu/menu.h
         core/menu/menu_id.h
@@ -109,6 +112,9 @@ set(SOURCE_FILES
         core/entities/abstract_entity.h
         core/entities/entity_manager.cpp
         core/entities/entity_manager.h
+        core/entities/entity_id.h
+        core/entities/spawnpoint.cpp
+        core/entities/spawnpoint.h
 
         core/entities/skeleton/skeleton.cpp
         core/entities/skeleton/skeleton.h
@@ -207,12 +213,7 @@ set(SOURCE_FILES
 
         lib/pugixml/pugixml.hpp
         lib/pugixml/pugixml.cpp
-        lib/pugixml/pugiconfig.hpp 
-
-        core/game_object_id.cpp
-        core/game_object_id.h
-
-        core/math/tvector.h)
+        lib/pugixml/pugiconfig.hpp)
 
 # Prepares the Wanderer "library", which excludes linking and the main.cpp file
 add_library(${WANDERER_LIB} ${SOURCE_FILES})

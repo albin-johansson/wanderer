@@ -1,8 +1,9 @@
 #pragma once
-#include "tiled_property.h"
 #include <string>
 #include <map>
 #include <vector>
+#include <optional>
+#include "tiled_property.h"
 
 namespace albinjohansson::tiled {
 
@@ -22,6 +23,12 @@ class TiledObject final {
 
   [[nodiscard]]
   const std::string& get_attribute(const std::string& id) const;
+
+  [[nodiscard]]
+  std::optional<std::string> attribute(const std::string& id) const;
+
+  [[nodiscard]]
+  std::optional<std::string> property(const std::string& id) const;
 
   [[nodiscard]]
   bool has_attribute(const std::string& id) const;

@@ -16,6 +16,7 @@ class ITileMapLayer;
 class IEntity;
 class IMovableObject;
 class Viewport;
+class Spawnpoint;
 
 /**
  * The ITileMap interface specifies objects that represent maps that are constructed from tiles.
@@ -63,6 +64,8 @@ class ITileMap {
    * @since 0.1.0
    */
   virtual void set_player(const std::shared_ptr<IEntity>& player) = 0;
+
+  virtual void add_spawnpoint(const Spawnpoint& spawnpoint) = 0;
 
   [[nodiscard]]
   virtual bool is_blocked(const IMovableObject* object, float delta) const = 0;

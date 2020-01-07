@@ -172,4 +172,11 @@ Vector2 TileMapImpl::get_player_spawn_position() const {
   return playerSpawnPos;
 }
 
+void TileMapImpl::add_spawnpoint(const Spawnpoint& spawnpoint) {
+  spawnpoints.push_back(spawnpoint);
+  if (spawnpoint.get_entity_id() == EntityID::Player) {
+    playerSpawnPos = spawnpoint.get_position();
+  }
+}
+
 }

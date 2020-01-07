@@ -4,6 +4,7 @@
 #include "tiled_object.h"
 #include "tile.h"
 #include "game_constants.h"
+#include "spawnpoint.h"
 
 namespace albinjohansson::wanderer {
 
@@ -14,22 +15,24 @@ std::unique_ptr<ITileMap> TileMapBuilder::create(const std::shared_ptr<TileSet>&
   map->nRows = tiledMap.get_height();
   map->nCols = tiledMap.get_width();
 
-  auto& objectGroup = tiledMap.get_tiled_object_groups().front();
+  auto& objectGroup = tiledMap.get_tiled_object_groups().front(); // FIXME
   for (const auto& object : objectGroup->get_objects()) {
-    if (object.has_attribute("type") &&
-        object.get_attribute("type") == "Spawnpoint" &&
-        object.has_property("name") &&
-        object.get_property("name").value == "player") {
 
-      const auto x = tiledMap.convert_x(std::stof(object.get_attribute("x")),
-                                        GameConstants::tile_size);
-      const auto y = tiledMap.convert_y(std::stof(object.get_attribute("y")),
-                                        GameConstants::tile_size);
-      map->playerSpawnPos.set(x, y);
+    const auto type_attr = object.attribute("type");
+    if (type_attr && type_attr == "Spawnpoint") {
+      const auto x_attr = object.attribute("x");
+      const auto y_attr = object.attribute("y");
+      const auto id_prop = object.property("entity_id");
+      if (x_attr && y_attr && id_prop) {
+        const auto x = tiledMap.convert_x(std::stof(*x_attr), GameConstants::tile_size);
+        const auto y = tiledMap.convert_y(std::stof(*y_attr), GameConstants::tile_size);
+        const auto id = std::stoi(*id_prop);
+        map->add_spawnpoint(Spawnpoint{static_cast<EntityID>(id), {x, y}});
+      } else {
+        SDL_Log("Failed to load spawnpoint!");
+      }
     }
   }
-
-  // TODO spawn points for entities
 
   return map;
 }

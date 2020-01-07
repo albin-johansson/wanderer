@@ -1,9 +1,10 @@
 #pragma once
+#include <memory>
+#include <vector>
 #include "tile_map.h"
 #include "tile_map_bounds.h"
 #include "entity_manager.h"
-#include <memory>
-#include <vector>
+#include "spawnpoint.h"
 
 namespace centurion {
 
@@ -43,6 +44,8 @@ class TileMapImpl final : public ITileMap {
 
   EntityManager entityManager;
 
+  std::vector<Spawnpoint> spawnpoints;
+
   void RenderTilesAt(int row, int col, centurion::Renderer& renderer);
 
   /**
@@ -77,6 +80,8 @@ class TileMapImpl final : public ITileMap {
   void draw(centurion::Renderer& renderer, const Viewport& viewport, float alpha) noexcept override;
 
   void add_layer(std::unique_ptr<ITileMapLayer>&& layer) override;
+
+  void add_spawnpoint(const Spawnpoint& spawnpoint) override;
 
   void set_player(const std::shared_ptr<IEntity>& player) override;
 
