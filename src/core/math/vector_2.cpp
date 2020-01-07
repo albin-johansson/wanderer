@@ -1,5 +1,4 @@
 #include "vector_2.h"
-#include "math_utils.h"
 #include <cmath>
 
 namespace albinjohansson::wanderer {
