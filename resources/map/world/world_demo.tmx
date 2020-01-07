@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.1" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="6">
+<map version="1.2" tiledversion="1.3.0" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="6">
  <tileset firstgid="1" source="terrain.tsx"/>
  <tileset firstgid="1025" source="outside.tsx"/>
  <layer id="1" name="Ground" width="50" height="50">
@@ -180,7 +180,7 @@
    </properties>
    <point/>
   </object>
-  <object id="5" type="Spawnpoint" x="404.667" y="740.667">
+  <object id="5" type="Spawnpoint" x="580.667" y="1029.67">
    <properties>
     <property name="entity_id" type="int" value="1"/>
     <property name="name" value="player"/>
