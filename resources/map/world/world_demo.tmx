@@ -176,12 +176,13 @@
  <objectgroup id="7" name="Experimental">
   <object id="2" type="Spawnpoint" x="551" y="276">
    <properties>
-    <property name="name" value="skeleton"/>
+    <property name="entity_id" type="int" value="2"/>
    </properties>
    <point/>
   </object>
-  <object id="5" type="Spawnpoint" x="626.667" y="994.667">
+  <object id="5" type="Spawnpoint" x="404.667" y="740.667">
    <properties>
+    <property name="entity_id" type="int" value="1"/>
     <property name="name" value="player"/>
    </properties>
    <point/>
