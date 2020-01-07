@@ -1,8 +1,8 @@
 #pragma once
-#include "rectangle.h"
-#include "vector_2.h"
 #include <vector>
 #include <utility>
+#include "rectangle.h"
+#include "vector_2.h"
 
 namespace albinjohansson::wanderer {
 
