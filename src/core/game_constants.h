@@ -29,6 +29,9 @@ struct GameConstants final {
    */
   static constexpr float tile_size = 64;
 
+  static constexpr float entity_width = 150;
+  static constexpr float entity_height = 150;
+
   /**
    * The logical size (width and height) of all tiles. This constant is the same as tile_size,
    * represented as an integer.

@@ -10,7 +10,9 @@ namespace albinjohansson::wanderer {
 
 AbstractEntity::AbstractEntity(const std::shared_ptr<Image>& sheet) {
   this->sheet = Require::not_null(sheet);
-  movable = std::make_unique<MovableDelegate>(DEPTH, SIZE, SIZE);
+  movable = std::make_unique<MovableDelegate>(DEPTH,
+                                              GameConstants::entity_width,
+                                              GameConstants::entity_height);
   movable->add_hitbox(FRectangle{movable->get_x(),
                                  movable->get_y(),
                                  Area{movable->get_width(), movable->get_height()}},
