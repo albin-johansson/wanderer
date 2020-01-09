@@ -1,8 +1,8 @@
 #pragma once
+#include <memory>
+#include <pugixml.hpp>
 #include "tile_set.h"
 #include "tiled_tile_set.h"
-#include <pugixml.hpp>
-#include <memory>
 
 namespace albinjohansson::wanderer {
 

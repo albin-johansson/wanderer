@@ -1,8 +1,8 @@
 #pragma once
-#include "menu_state_machine.h"
-#include "font_bundle.h"
 #include <map>
 #include <memory>
+#include "menu_state_machine.h"
+#include "font_bundle.h"
 
 namespace albinjohansson::wanderer {
 

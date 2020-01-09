@@ -1,8 +1,8 @@
 #pragma once
-#include "game_loop.h"
-#include "input.h"
 #include <memory>
 #include <cstdint>
+#include "game_loop.h"
+#include "input.h"
 
 namespace albinjohansson::wanderer {
 

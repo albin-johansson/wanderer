@@ -1,11 +1,11 @@
 #pragma once
+#include <unordered_map>
+#include <memory>
 #include "entity_state_machine.h"
 #include "entity_state.h"
 #include "entity_state_id.h"
 #include "require.h"
 #include "entity.h"
-#include <unordered_map>
-#include <memory>
 
 namespace albinjohansson::wanderer {
 

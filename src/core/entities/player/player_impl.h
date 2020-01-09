@@ -1,8 +1,8 @@
 #pragma once
+#include <memory>
 #include "player.h"
 #include "abstract_entity.h"
 #include "player_state_machine.h"
-#include <memory>
 
 namespace albinjohansson::wanderer {
 

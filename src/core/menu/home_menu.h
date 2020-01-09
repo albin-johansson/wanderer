@@ -1,10 +1,10 @@
 #pragma once
+#include <memory>
 #include "abstract_menu.h"
 #include "menu_state_machine.h"
 #include "menu_button.h"
 #include "wanderer_core.h"
 #include "font_bundle.h"
-#include <memory>
 
 namespace albinjohansson::wanderer {
 

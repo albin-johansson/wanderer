@@ -1,12 +1,12 @@
 #pragma once
+#include <string>
+#include <unordered_map>
+#include <stdexcept>
+#include <pugixml.hpp>
 #include "tiled_animation.h"
 #include "tiled_object.h"
 #include "tiled_tile.h"
 #include "tiled_object.h"
-#include <stdexcept>
-#include <pugixml.hpp>
-#include <string>
-#include <unordered_map>
 
 namespace albinjohansson::tiled {
 

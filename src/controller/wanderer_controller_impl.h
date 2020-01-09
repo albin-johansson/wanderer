@@ -1,9 +1,9 @@
 #pragma once
+#include <memory>
 #include "wanderer_controller.h"
 #include "window.h"
 #include "wanderer_core.h"
 #include "game_loop.h"
-#include <memory>
 
 namespace centurion {
 

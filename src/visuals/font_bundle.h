@@ -1,6 +1,6 @@
 #pragma once
-#include "font.h"
 #include <string>
+#include "font.h"
 
 namespace albinjohansson::wanderer {
 

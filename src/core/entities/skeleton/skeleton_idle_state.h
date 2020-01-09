@@ -1,7 +1,7 @@
 #pragma once
+#include <cstdint>
 #include "entity_state.h"
 #include "entity_idle_delegate.h"
-#include <cstdint>
 
 namespace albinjohansson::wanderer {
 

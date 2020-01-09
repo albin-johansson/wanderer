@@ -1,9 +1,9 @@
 #pragma once
+#include <vector>
+#include <pugixml.hpp>
 #include "tiled_property.h"
 #include "tiled_object.h"
 #include "tiled_animation.h"
-#include <pugixml.hpp>
-#include <vector>
 
 namespace albinjohansson::tiled {
 

@@ -1,7 +1,7 @@
 #pragma once
+#include <memory>
 #include "abstract_menu.h"
 #include "menu_state_machine.h"
-#include <memory>
 
 namespace albinjohansson::wanderer {
 

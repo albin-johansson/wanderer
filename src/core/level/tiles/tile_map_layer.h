@@ -1,8 +1,8 @@
 #pragma once
-#include "tile_id.h"
-#include "map_position.h"
 #include <memory>
 #include <vector>
+#include "tile_id.h"
+#include "map_position.h"
 
 namespace centurion {
 

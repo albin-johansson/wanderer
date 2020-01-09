@@ -1,7 +1,7 @@
 #pragma once
+#include <memory>
 #include "tile_map_layer.h"
 #include "vector_2.h"
-#include <memory>
 
 namespace albinjohansson::tiled {
 

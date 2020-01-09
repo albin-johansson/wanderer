@@ -1,8 +1,8 @@
 #pragma once
+#include <type_traits>
 #include "game_object.h"
 #include "direction.h"
 #include "vector_2.h"
-#include <type_traits>
 
 namespace albinjohansson::wanderer {
 

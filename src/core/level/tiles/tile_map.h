@@ -1,6 +1,6 @@
 #pragma once
-#include "vector_2.h"
 #include <memory>
+#include "vector_2.h"
 
 namespace centurion {
 

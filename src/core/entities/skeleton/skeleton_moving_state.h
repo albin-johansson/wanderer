@@ -1,8 +1,8 @@
 #pragma once
+#include <cstdint>
 #include "entity_state.h"
 #include "entity_move_delegate.h"
 #include "direction.h"
-#include <cstdint>
 
 namespace albinjohansson::wanderer {
 

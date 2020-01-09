@@ -1,7 +1,7 @@
 #pragma once
-#include "tile_id.h"
 #include <unordered_map>
 #include <cstdint>
+#include "tile_id.h"
 
 namespace albinjohansson::wanderer {
 

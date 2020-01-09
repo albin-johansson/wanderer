@@ -1,7 +1,7 @@
 #pragma once
-#include <SDL_mixer.h>
 #include <cstdint>
 #include <string>
+#include <SDL_mixer.h>
 
 namespace centurion {
 

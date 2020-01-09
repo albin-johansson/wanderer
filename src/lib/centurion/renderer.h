@@ -1,11 +1,11 @@
 #pragma once
-#include "rectangle.h"
-#include "viewport.h"
-#include <SDL.h>
-#include <SDL_image.h>
 #include <cstdint>
 #include <string>
 #include <memory>
+#include <SDL.h>
+#include <SDL_image.h>
+#include "rectangle.h"
+#include "viewport.h"
 
 namespace centurion {
 

@@ -1,9 +1,9 @@
 #pragma once
+#include <memory>
 #include "abstract_entity.h"
 #include "entity_state_machine.h"
 #include "tile.h"
 #include "game_constants.h"
-#include <memory>
 
 namespace albinjohansson::wanderer {
 

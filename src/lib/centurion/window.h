@@ -1,8 +1,8 @@
 #pragma once
-#include <SDL.h>
-#include <gsl>
 #include <string>
 #include <vector>
+#include <SDL.h>
+#include <gsl>
 
 namespace centurion {
 

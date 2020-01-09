@@ -1,8 +1,8 @@
 #pragma once
+#include <memory>
+#include <SDL_scancode.h>
 #include "mouse_state_manager.h"
 #include "key_state_manager.h"
-#include <SDL_scancode.h>
-#include <memory>
 
 namespace albinjohansson::wanderer {
 

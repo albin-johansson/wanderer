@@ -1,11 +1,11 @@
 #pragma once
+#include <memory>
 #include "game_object.h"
 #include "tile_id.h"
 #include "render_depth.h"
 #include "tile_animation.h"
 #include "hitbox.h"
 #include "rectangle.h"
-#include <memory>
 
 namespace centurion {
 

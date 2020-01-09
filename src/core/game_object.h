@@ -1,8 +1,8 @@
 #pragma once
-#include "sortable_drawable.h"
-#include "vector_2.h"
 #include <cstdint>
 #include <type_traits>
+#include "sortable_drawable.h"
+#include "vector_2.h"
 
 namespace albinjohansson::wanderer {
 

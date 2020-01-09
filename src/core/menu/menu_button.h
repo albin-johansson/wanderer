@@ -1,9 +1,9 @@
 #pragma once
+#include <memory>
+#include <string>
 #include "rectangle.h"
 #include "menu_drawable.h"
-#include <string>
-#include <centurion/image.h>
-#include <memory>
+#include "image.h"
 
 namespace albinjohansson::wanderer {
 

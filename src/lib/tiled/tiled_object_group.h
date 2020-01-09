@@ -1,7 +1,7 @@
 #pragma once
-#include "tiled_object.h"
-#include "pugixml.hpp"
 #include <vector>
+#include <pugixml.hpp>
+#include "tiled_object.h"
 
 namespace albinjohansson::tiled {
 
