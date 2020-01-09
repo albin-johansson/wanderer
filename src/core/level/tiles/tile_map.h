@@ -65,8 +65,6 @@ class ITileMap {
    */
   virtual void set_player(const std::shared_ptr<IEntity>& player) = 0;
 
-  virtual void add_spawnpoint(const Spawnpoint& spawnpoint) = 0;
-
   [[nodiscard]]
   virtual bool is_blocked(const IMovableObject* object, float delta) const = 0;
 

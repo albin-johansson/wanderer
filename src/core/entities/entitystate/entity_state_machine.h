@@ -14,9 +14,6 @@ class IEntity;
  * @since 0.1.0
  */
 class IEntityStateMachine : public IDrawable {
- protected:
-  IEntityStateMachine() = default;
-
  public:
   ~IEntityStateMachine() override = default;
 

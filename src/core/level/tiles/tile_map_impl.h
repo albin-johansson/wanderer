@@ -81,8 +81,6 @@ class TileMapImpl final : public ITileMap {
 
   void add_layer(std::unique_ptr<ITileMapLayer>&& layer) override;
 
-  void add_spawnpoint(const Spawnpoint& spawnpoint) override;
-
   void set_player(const std::shared_ptr<IEntity>& player) override;
 
   [[nodiscard]]

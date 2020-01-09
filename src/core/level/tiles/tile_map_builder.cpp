@@ -27,7 +27,14 @@ std::unique_ptr<ITileMap> TileMapBuilder::create(const std::shared_ptr<TileSet>&
         const auto x = tiledMap.convert_x(std::stof(*x_attr), GameConstants::tile_size);
         const auto y = tiledMap.convert_y(std::stof(*y_attr), GameConstants::tile_size);
         const auto id = std::stoi(*id_prop);
-        map->add_spawnpoint(Spawnpoint{static_cast<EntityID>(id), {x, y}});
+
+        Spawnpoint spawnpoint{static_cast<EntityID>(id), Vector2{x, y}};
+        map->spawnpoints.push_back(spawnpoint);
+
+        if (spawnpoint.get_entity_id() == EntityID::Player) {
+          map->playerSpawnPos = spawnpoint.get_position();
+        }
+
       } else {
         SDL_Log("Failed to load spawnpoint!");
       }
