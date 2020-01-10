@@ -1,8 +1,8 @@
 #pragma once
 #include <string>
 #include <vector>
-#include <SDL.h>
 #include <gsl>
+#include <SDL.h>
 
 namespace centurion {
 
@@ -25,28 +25,55 @@ class Window final {
    * Creates a window instance. The window will be hidden by default.
    *
    * @param title the title of thw window.
-   * @param width the width of the window, must be greater than zero. 800 by default.
-   * @param height the height of the window, must be greater than zero. 600 by default.
+   * @param width the width of the window, must be greater than zero.
+   * @param height the height of the window, must be greater than zero.
    * @throws invalid_argument if the supplied width or height values aren't
    * greater than zero.
    * @since 0.1.0
    */
-  explicit Window(const std::string& title,
-                  int width = 800,
-                  int height = 600);
+  explicit Window(const std::string& title, int width, int height);
 
   /**
    * Creates a window instance. The window will be hidden by default.
    *
-   * @param width the width of the window, must be greater than zero. 800 by default.
-   * @param height the height of the window, must be greater than zero. 600 by default.
+   * @param width the width of the window, must be greater than zero.
+   * @param height the height of the window, must be greater than zero.
    * @throws invalid_argument if the supplied width or height values aren't
    * greater than zero.
    * @since 0.1.0
    */
-  explicit Window(int width = 800, int height = 600);
+  explicit Window(int width, int height);
+
+  /**
+   * Creates a 800x600 window. The window will be hidden by default.
+   *
+   * @since 0.1.0
+   */
+  Window();
+
+  /**
+   * Creates a window by moving the contents of the supplied window into the new window.
+   *
+   * @param other the window that will be moved.
+   * @since 0.1.0
+   */
+  Window(Window&& other) noexcept;
+
+  Window(const Window&) noexcept = delete;
 
   ~Window();
+
+  Window& operator=(const Window&) noexcept = delete;
+
+  /**
+   * Moves the contents of the supplied window into this window.
+   *
+   * @param other the window whose contents will be moved.
+   * @return the changed window.
+   * @since 0.1.0
+   */
+  [[nodiscard]]
+  Window& operator=(Window&& other) noexcept;
 
   /**
    * Makes the window visible. Triggers a window listener update.
@@ -147,7 +174,8 @@ class Window final {
   void set_title(const std::string& title) noexcept;
 
   /**
-   * Sets the gamma brightness of the window.
+   * Sets the gamma brightness of the window. This operation is only supported if the window is
+   * in fullscreen mode. This property will be reset every time the fullscreen mode is exited.
    *
    * @param gamma the brightness value, in the range [0, 1].
    * @since 0.1.0
@@ -254,6 +282,12 @@ class Window final {
   [[nodiscard]]
   std::string get_title() const noexcept;
 
+  /**
+   * Implicit conversion to raw SDL_Window pointer.
+   *
+   * @return a pointer to the SDL_Window representation of the window.
+   * @since 0.1.0
+   */
   operator SDL_Window*() const noexcept;
 };
 

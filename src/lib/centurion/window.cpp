@@ -1,8 +1,8 @@
 #include "window.h"
+#include <cstdint>
+#include <stdexcept>
 #include "window_listener.h"
 #include "bool_converter.h"
-#include <stdexcept>
-#include <cstdint>
 
 namespace centurion {
 
@@ -21,10 +21,27 @@ Window::Window(const std::string& title, int width, int height) {
 
 Window::Window(int width, int height) : Window("Centurion window", width, height) {}
 
+Window::Window() : Window(800, 600) {}
+
+Window::Window(Window&& other) noexcept
+    : window{other.window},
+      windowListeners{std::move(other.windowListeners)} {
+  other.window = nullptr;
+}
+
 Window::~Window() {
   if (window) {
     SDL_DestroyWindow(window);
   }
+}
+
+Window& Window::operator=(Window&& other) noexcept {
+  window = other.window;
+  windowListeners = std::move(other.windowListeners);
+
+  other.window = nullptr;
+
+  return *this;
 }
 
 void Window::notify_window_listeners() noexcept {
@@ -64,6 +81,11 @@ void Window::set_fullscreen(bool fullscreen) noexcept {
   const auto flags = (fullscreen) ? (SDL_GetWindowFlags(window) | SDL_WINDOW_FULLSCREEN)
                                   : (SDL_GetWindowFlags(window) & ~SDL_WINDOW_FULLSCREEN);
   SDL_SetWindowFullscreen(window, flags);
+
+  if (!fullscreen) {
+    set_gamma(1);
+  }
+
   notify_window_listeners();
 }
 
@@ -105,7 +127,9 @@ void Window::set_title(const std::string& title) noexcept {
 }
 
 void Window::set_gamma(float gamma) noexcept {
-  SDL_SetWindowBrightness(window, gamma);
+  if (is_fullscreen()) {
+    SDL_SetWindowBrightness(window, gamma);
+  }
 }
 
 void Window::set_opacity(float opacity) noexcept {
