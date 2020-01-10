@@ -1,9 +1,8 @@
 #include "catch.hpp"
-#include "centurion/image.h"
-#include "centurion/window.h"
-#include "centurion/renderer.h"
-#include "require.h"
-#include "centurion/centurion_exception.h"
+#include "image.h"
+#include "window.h"
+#include "renderer.h"
+#include "centurion_exception.h"
 
 using namespace albinjohansson::wanderer;
 using namespace centurion;
@@ -12,14 +11,22 @@ TEST_CASE("Image(string)", "[Image]") {
   Window window("foo", 10, 10);
   Renderer renderer(window);
 
-  CHECK_THROWS_AS(Image(nullptr, ""), Require::NullPointerException);
   CHECK_THROWS_AS(Image(renderer, "badpath"), CenturionException);
 
   Image img(renderer, "resources/img/grass.png");
 
-  // The grass.png image is 108x108
   CHECK(img.get_width() == 108);
   CHECK(img.get_height() == 108);
+}
+
+TEST_CASE("Image(Image&&)", "[Image]") {
+  Window window("foo", 10, 10);
+  Renderer renderer(window);
+  Image img(renderer, "resources/img/grass.png");
+
+  Image moved_img = std::move(img);
+
+  CHECK(!img.get_texture());
 }
 
 TEST_CASE("Image::GetFormat", "[Image]") {

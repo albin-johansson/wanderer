@@ -8,30 +8,39 @@ using namespace albinjohansson::wanderer;
 
 namespace centurion {
 
-Image::Image(SDL_Renderer* renderer, const std::string& path) {
-  Require::not_null(renderer);
+Image::Image(gsl::owner<SDL_Texture*> texture) {
+  this->texture = Require::not_null(texture);
+}
+
+Image::Image(gsl::not_null<SDL_Renderer*> renderer, const std::string& path) {
   texture = IMG_LoadTexture(renderer, path.c_str());
   if (!texture) {
     throw CenturionException("Failed to load image from " + path);
   }
 }
 
-Image::Image(SDL_Texture* texture) {
-  this->texture = Require::not_null(texture);
-}
-
-Image::Image(SDL_Renderer* renderer, SDL_Surface* surface) {
-  Require::not_null(renderer);
-  Require::not_null(surface);
-
+Image::Image(gsl::not_null<SDL_Renderer*> renderer, gsl::not_null<SDL_Surface*> surface) {
   this->texture = SDL_CreateTextureFromSurface(renderer, surface);
   if (!texture) {
     throw CenturionException("Failed to create image from surface!");
   }
 }
 
-Image::~Image() {
-  SDL_DestroyTexture(texture);
+Image::Image(Image&& other) noexcept
+    : texture{other.texture} {
+  other.texture = nullptr;
+}
+
+Image::~Image() noexcept {
+  if (texture) {
+    SDL_DestroyTexture(texture);
+  }
+}
+
+Image& Image::operator=(Image&& other) noexcept {
+  texture = other.texture;
+  other.texture = nullptr;
+  return *this;
 }
 
 void Image::set_alpha(uint8_t alpha) noexcept {

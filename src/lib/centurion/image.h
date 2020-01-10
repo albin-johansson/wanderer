@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <cstdint>
+#include <gsl>
 #include <SDL_render.h>
 
 namespace centurion {
@@ -18,20 +19,65 @@ class Image final {
 
  public:
   /**
-   * @param renderer a pointer to the SDL_Renderer used to create the image.
-   * @param path the file path of the image that will be loaded.
-   * @throws NullPointerException if the supplied renderer pointer is null.
-   * @throws BadStateException if the image cannot be loaded.
+   * Creates an image from a pre-existing SDL texture. The created image WILL claim ownership of
+   * the supplied pointer!
+   *
+   * @param texture a pointer to the SDL_Texture that will be claimed, may not be null.
+   * @throws NullPointerException if the supplied pointer is null.
    * @since 0.1.0
    */
-  Image(SDL_Renderer* renderer, const std::string& path);
+  Image(gsl::owner<SDL_Texture*> texture);
 
-  Image(SDL_Texture* texture);
+  /**
+   * Creates an image by loading it from a file.
+   *
+   * @param renderer a pointer to the SDL_Renderer used to create the image, must not be null.
+   * @param path the file path of the image that will be loaded.
+   * @throws CenturionException if the image cannot be loaded.
+   * @since 0.1.0
+   */
+  Image(gsl::not_null<SDL_Renderer*> renderer, const std::string& path);
 
-  Image(SDL_Renderer* renderer, SDL_Surface* surface);
+  /**
+   * Creates an image that is a copy of the supplied SDL surface.
+   *
+   * @param renderer the associated renderer instance, may not be null.
+   * @param surface the SDL surface that the image will be based on, may not be null
+   * @throws CenturionException if the image cannot be loaded.
+   * @since 0.1.0
+   */
+  Image(gsl::not_null<SDL_Renderer*> renderer, gsl::not_null<SDL_Surface*> surface);
 
-  ~Image();
+  /**
+   * Creates an image by moving the supplied image.
+   *
+   * @param other the image that will be moved.
+   * @since 0.1.0
+   */
+  Image(Image&& other) noexcept;
 
+  Image(const Image&) noexcept = delete;
+
+  ~Image() noexcept;
+
+  Image& operator=(const Image&) noexcept = delete;
+
+  /**
+   * Moves the supplied image into this image.
+   *
+   * @param other the image that will be moved.
+   * @return the changed image.
+   * @since 0.1.0
+   */
+  [[nodiscard]]
+  Image& operator=(Image&& other) noexcept;
+
+  /**
+   * Sets the alpha value of the image.
+   *
+   * @param alpha the alpha value, in the range [0, 255].
+   * @since 0.1.0
+   */
   void set_alpha(uint8_t alpha) noexcept;
 
   /**
