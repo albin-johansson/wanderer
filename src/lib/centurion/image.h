@@ -26,7 +26,7 @@ class Image final {
    * @throws NullPointerException if the supplied pointer is null.
    * @since 0.1.0
    */
-  Image(gsl::owner<SDL_Texture*> texture);
+  explicit Image(gsl::owner<SDL_Texture*> texture);
 
   /**
    * Creates an image by loading it from a file.
