@@ -2,6 +2,7 @@
 #include <cstdint>
 #include <string>
 #include <memory>
+#include <gsl>
 #include <SDL.h>
 #include <SDL_image.h>
 #include "rectangle.h"
@@ -32,12 +33,11 @@ class Renderer final {
    * Creates a renderer based on the supplied SDL_Renderer.
    *
    * @param renderer a pointer to the SDL_Renderer that will be used by the
-   * renderer. Note! The created renderer will take ownership of the supplied
-   * pointer, and as such, will free it upon destruction.
+   * renderer.
    * @throws NullPointerException if the supplied pointer is null.
    * @since 0.1.0
    */
-  explicit Renderer(SDL_Renderer* renderer);
+  explicit Renderer(gsl::owner<SDL_Renderer*> renderer);
 
   /**
    * Creates a renderer based on the supplied SDL_Window. The internal renderer will be created
@@ -45,11 +45,20 @@ class Renderer final {
    *
    * @param window a pointer to the SDL_Window that will be used to create the
    * renderer.
-   * @throws NullPointerException if the supplied pointer is null.
+   * @param flags the SDL_RENDERER_x flags that will be used.
+   * @see SDL_RendererFlags
    * @since 0.1.0
    */
-  explicit Renderer(SDL_Window* window,
+  explicit Renderer(gsl::not_null<SDL_Window*> window,
                     uint32_t flags = SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+
+  Renderer(Renderer&& other) noexcept;
+
+  Renderer(const Renderer&) noexcept = delete;
+
+  Renderer& operator=(Renderer&& other) noexcept;
+
+  Renderer& operator=(const Renderer&) noexcept = delete;
 
   ~Renderer();
 
@@ -77,6 +86,14 @@ class Renderer final {
    */
   void draw_image(const Image& texture, int x, int y) const noexcept;
 
+  /**
+   * Renders a texture.
+   *
+   * @param texture a reference to the texture that will be rendered.
+   * @param x the x-coordinate of the rendered texture.
+   * @param y the y-coordinate of the rendered texture.
+   * @since 0.1.0
+   */
   void draw_image(const Image& texture, float x, float y) const noexcept;
 
   /**
@@ -165,10 +182,21 @@ class Renderer final {
    */
   void draw_rect(int x, int y, int width, int height) const noexcept;
 
+  /**
+   * Renders a string of text. Note that this method is rather inefficient, since it will
+   * dynamically allocate a texture based on the supplied string for every call to this method.
+   *
+   * @param text the text that will be rendered in the supplied font.
+   * @param x the x-coordinate of the rendered text.
+   * @param y the y-coordinate of the rendered text.
+   * @param font the font that will be used.
+   * @since 0.1.0
+   */
   void draw_text(const std::string& text, float x, float y, const Font& font) const;
 
   /**
-   * Sets the color that will be used by the renderer.
+   * Sets the color that will be used by the renderer. This method is considered a const-method,
+   * even if it technically changes the state of the renderer.
    *
    * @param red the red component value, in the range [0, 255].
    * @param green the green component value, in the range [0, 255].
@@ -179,7 +207,7 @@ class Renderer final {
   void set_color(uint8_t red,
                  uint8_t green,
                  uint8_t blue,
-                 uint8_t alpha = SDL_ALPHA_OPAQUE) const noexcept; // FIXME const
+                 uint8_t alpha = SDL_ALPHA_OPAQUE) const noexcept;
 
   /**
    * Sets the viewport that will be used by the renderer.
@@ -189,8 +217,21 @@ class Renderer final {
    */
   void set_viewport(const albinjohansson::wanderer::FRectangle& viewport) noexcept;
 
+  /**
+   * Sets the translation viewport that will be used by the renderer. This method can be used in
+   * order to be able to use the various X_translated-methods.
+   *
+   * @param viewport the viewport that will be used as the translation viewport.
+   * @since 0.1.0
+   */
   void set_translation_viewport(const albinjohansson::wanderer::Viewport& viewport) noexcept;
 
+  /**
+   * Sets the blend mode that will be used by the renderer.
+   *
+   * @param blendMode the blend mode that will be used by the renderer.
+   * @since 0.1.0
+   */
   void set_blend_mode(const SDL_BlendMode& blendMode) noexcept;
 
   /**
@@ -291,6 +332,12 @@ class Renderer final {
   [[nodiscard]]
   albinjohansson::wanderer::FRectangle get_viewport() const noexcept;
 
+  /**
+   * Returns the translation viewport that is currently being used.
+   *
+   * @return the translation viewport that is currently being used.
+   * @since 0.1.0
+   */
   [[nodiscard]]
   const albinjohansson::wanderer::Viewport& get_translation_viewport() const noexcept;
 

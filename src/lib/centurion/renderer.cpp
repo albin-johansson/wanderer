@@ -10,24 +10,37 @@ using namespace albinjohansson::wanderer;
 
 namespace centurion {
 
-Renderer::Renderer(SDL_Renderer* renderer) {
+Renderer::Renderer(gsl::owner<SDL_Renderer*> renderer) {
   this->renderer = Require::not_null(renderer);
   set_logical_integer_scale(false);
 }
 
-Renderer::Renderer(SDL_Window* window, uint32_t flags) {
-  Require::not_null(window);
-
+Renderer::Renderer(gsl::not_null<SDL_Window*> window, uint32_t flags) {
   renderer = SDL_CreateRenderer(window, -1, flags);
 
   set_blend_mode(SDL_BLENDMODE_BLEND);
   set_logical_integer_scale(false);
 }
 
+Renderer::Renderer(Renderer&& other) noexcept
+    : renderer{other.renderer},
+      translationViewport{std::move(other.translationViewport)} {
+  other.renderer = nullptr;
+}
+
 Renderer::~Renderer() {
   if (renderer) {
     SDL_DestroyRenderer(renderer);
   }
+}
+
+Renderer& Renderer::operator=(Renderer&& other) noexcept {
+  renderer = other.renderer;
+  translationViewport = other.translationViewport;
+
+  other.renderer = nullptr;
+
+  return *this;
 }
 
 void Renderer::clear() const noexcept {
@@ -80,10 +93,10 @@ void Renderer::draw_image_translated(const Image& texture,
                                      const Rectangle& source,
                                      const FRectangle& destination) const noexcept {
   const SDL_Rect src = source;
-  SDL_FRect dst = destination;
-
-  dst.x = translationViewport.get_translated_x(dst.x);
-  dst.y = translationViewport.get_translated_y(dst.y);
+  const SDL_FRect dst = {translationViewport.get_translated_x(destination.GetX()),
+                         translationViewport.get_translated_y(destination.GetY()),
+                         destination.GetWidth(),
+                         destination.GetHeight()};
 
   SDL_RenderCopyF(renderer, texture, &src, &dst);
 }
@@ -145,12 +158,7 @@ void Renderer::set_scale(float xScale, float yScale) noexcept {
 
 void Renderer::set_logical_size(float width, float height) noexcept {
   if (width > 0 && height > 0) {
-    const int result = SDL_RenderSetLogicalSize(renderer,
-                                                MathUtils::round(width),
-                                                MathUtils::round(height));
-    if (result != 0) {
-      SDL_Log("Failed to set logical size! %s", SDL_GetError());
-    }
+    SDL_RenderSetLogicalSize(renderer, MathUtils::round(width), MathUtils::round(height));
   }
 }
 
