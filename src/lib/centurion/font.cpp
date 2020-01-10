@@ -1,6 +1,6 @@
 #include "font.h"
-#include "centurion_exception.h"
 #include <stdexcept>
+#include "centurion_exception.h"
 
 namespace centurion {
 
@@ -17,8 +17,27 @@ Font::Font(const std::string& file, int size) : size{size} {
   style = TTF_GetFontStyle(font);
 }
 
-Font::~Font() {
-  TTF_CloseFont(font);
+Font::Font(Font&& other) noexcept
+    : font{other.font},
+      style{other.style},
+      size{other.size} {
+  other.font = nullptr;
+}
+
+Font::~Font() noexcept {
+  if (font) {
+    TTF_CloseFont(font);
+  }
+}
+
+Font& Font::operator=(Font&& other) noexcept {
+  font = other.font;
+  style = other.style;
+  size = other.size;
+
+  other.font = nullptr;
+
+  return *this;
 }
 
 void Font::reset() noexcept {

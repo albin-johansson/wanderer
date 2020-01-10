@@ -1,6 +1,6 @@
 #include "catch.hpp"
-#include "centurion/font.h"
-#include "centurion/centurion_exception.h"
+#include "font.h"
+#include "centurion_exception.h"
 
 using namespace centurion;
 

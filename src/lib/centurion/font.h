@@ -43,7 +43,39 @@ class Font final {
    */
   Font(const std::string& file, int size);
 
-  ~Font();
+  /**
+   * The copy constructor is deleted for font instances.
+   *
+   * @since 0.1.0
+   */
+  Font(const Font&) noexcept = delete;
+
+  /**
+   * Creates a font by moving the supplied font.
+   *
+   * @param other the font that will have its fields moved.
+   * @since 0.1.0
+   */
+  Font(Font&& other) noexcept;
+
+  ~Font() noexcept;
+
+  /**
+   * The copy assignment operator is deleted for font instances.
+   *
+   * @since 0.1.0
+   */
+  Font& operator=(const Font&) noexcept = delete;
+
+  /**
+   * Moves the supplied font into this font.
+   *
+   * @param other the font that will have its fields moved.
+   * @return the created font.
+   * @since 0.1.0
+   */
+  [[nodiscard]]
+  Font& operator=(Font&& other) noexcept;
 
   /**
    * Resets the style of the font.
