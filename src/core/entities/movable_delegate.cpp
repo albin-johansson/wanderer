@@ -78,11 +78,13 @@ void MovableDelegate::move(Direction direction) noexcept {
 void MovableDelegate::stop(Direction direction) noexcept {
   switch (direction) {
     case Direction::Right:
+      [[fallthrough]];
     case Direction::Left: {
       velocity.x = 0;
       break;
     }
     case Direction::Up:
+      [[fallthrough]];
     case Direction::Down: {
       velocity.y = 0;
       break;
