@@ -22,14 +22,14 @@ void SoundEngine::load_sounds(const std::string& file) {
       auto i = line.find(';');
       std::string id = line.substr(0, i);
       std::string path = line.substr(i + 1);
-      registerSound(id, std::make_unique<SoundEffect>(path));
+      register_sound(id, std::make_unique<SoundEffect>(path));
     }
   } catch (std::exception& e) {
     std::cout << "Failed to load sound effects! Error: " << e.what() << "\n";
   }
 }
 
-void SoundEngine::registerSound(const std::string& id, std::unique_ptr<SoundEffect> sound) {
+void SoundEngine::register_sound(const std::string& id, std::unique_ptr<SoundEffect> sound) {
   if (!sound) {
     throw std::invalid_argument{"Null sound!"};
   }

@@ -17,7 +17,7 @@ class SoundEngine final {
 
   void load_sounds(const std::string& file);
 
-  void registerSound(const std::string& id, std::unique_ptr<centurion::SoundEffect> sound);
+  void register_sound(const std::string& id, std::unique_ptr<centurion::SoundEffect> sound);
 
  public:
   explicit SoundEngine(const std::string& file);
