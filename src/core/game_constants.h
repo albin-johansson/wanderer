@@ -29,7 +29,18 @@ struct GameConstants final {
    */
   static constexpr float tile_size = 64;
 
+  /**
+   * The width of all entities.
+   *
+   * @since 0.1.0
+   */
   static constexpr float entity_width = 150;
+
+  /**
+   * The height of all entities.
+   *
+   * @since 0.1.0
+   */
   static constexpr float entity_height = 150;
 
   /**
