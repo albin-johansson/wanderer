@@ -9,11 +9,11 @@ namespace albinjohansson::wanderer {
  * @since 0.1.0
  */
 enum class MenuID {
-  IN_GAME,
-  HOME,
-  SETTINGS,
-  CONTROLS,
-  INVENTORY
+  InGame,
+  Home,
+  Settings,
+  Controls,
+  Inventory
 };
 
 }

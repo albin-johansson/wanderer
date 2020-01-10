@@ -21,7 +21,7 @@ void SettingsMenu::draw(Renderer& renderer,
 
 void SettingsMenu::handle_input(const Input& input) noexcept {
   if (input.was_released(SDL_SCANCODE_ESCAPE)) {
-    parent->set_menu(MenuID::HOME);
+    parent->set_menu(MenuID::Home);
   }
 }
 

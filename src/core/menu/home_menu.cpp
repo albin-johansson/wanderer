@@ -20,7 +20,7 @@ HomeMenu::~HomeMenu() noexcept = default;
 
 void HomeMenu::handle_input(const Input& input) noexcept {
   if (input.was_released(SDL_SCANCODE_ESCAPE)) {
-    parent->set_menu(MenuID::IN_GAME);
+    parent->set_menu(MenuID::InGame);
   }
 
   auto mx = input.get_mouse_x();
@@ -33,13 +33,13 @@ void HomeMenu::handle_input(const Input& input) noexcept {
   quitButton.SetEnlarged(!leftReleased && quitButton.Contains(mx, my));
 
   if (leftReleased && startButton.Contains(mx, my)) {
-    parent->set_menu(MenuID::IN_GAME);
+    parent->set_menu(MenuID::InGame);
 
   } else if (leftReleased && settingsButton.Contains(mx, my)) {
-    parent->set_menu(MenuID::SETTINGS);
+    parent->set_menu(MenuID::Settings);
 
   } else if (leftReleased && controlsButton.Contains(mx, my)) {
-    parent->set_menu(MenuID::CONTROLS);
+    parent->set_menu(MenuID::Controls);
 
   } else if (leftReleased && quitButton.Contains(mx, my)) {
     core->quit(); // FIXME perhaps the core should look for quit flag from menus instead?

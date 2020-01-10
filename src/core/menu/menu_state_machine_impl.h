@@ -18,7 +18,7 @@ class MenuStateMachineImpl final : public IMenuStateMachine {
  private:
   mutable FontBundle typewriterFonts;
   std::map<MenuID, std::unique_ptr<IMenu>> menus;
-  MenuID activeMenuID = MenuID::HOME;
+  MenuID activeMenuID = MenuID::Home;
 
   void put(MenuID id, std::unique_ptr<IMenu> menu);
 
