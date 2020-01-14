@@ -46,6 +46,9 @@ static void Quit() {
 
 int main(int argc, char** argv) {
   Init();
+
+  SDL_SetHint(SDL_HINT_RENDER_DRIVER, "opengl");
+
   Run();
   Quit();
   return 0;
