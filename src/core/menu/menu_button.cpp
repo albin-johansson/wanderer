@@ -35,8 +35,8 @@ void MenuButton::draw(Renderer& renderer, const Viewport&, const FontBundle& fon
   if (!text.empty()) {
     const auto& font = enlarged ? fonts.get_font_36() : fonts.get_font_24();
 
-    const auto width = font.get_string_width(text);
-    const auto height = font.get_string_height(text);
+    const auto width = static_cast<float>(font.get_string_width(text));
+    const auto height = static_cast<float>(font.get_string_height(text));
     const auto x = bounds.get_center_x() - (width / 2.0f);
     const auto y = bounds.get_center_y() - (height / 2.0f);
 
