@@ -7,7 +7,7 @@ namespace albinjohansson::wanderer {
 
 class IEntityStateMachine;
 
-class SkeletonIdleState : public IEntityState {
+class SkeletonIdleState final : public IEntityState {
  private:
   EntityIdleDelegate idleDelegate;
   uint32_t enterTime = 0;
@@ -15,7 +15,7 @@ class SkeletonIdleState : public IEntityState {
  public:
   explicit SkeletonIdleState(IEntityStateMachine* parent);
 
-  ~SkeletonIdleState() override;
+  ~SkeletonIdleState() final;
 
   void tick(const IWandererCore& core, float delta) override;
 
