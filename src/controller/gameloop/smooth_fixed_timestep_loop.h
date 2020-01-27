@@ -26,8 +26,8 @@ class SmoothFixedTimestepLoop final : public IGameLoop {
 
   std::unique_ptr<Input> input = nullptr;
 
-  uint32_t then = 0;
-  uint32_t now = 0;
+  uint64_t then = 0;
+  uint64_t now = 0;
   const float vsyncRate;
   const float timeStep;
   const float counterFreq;

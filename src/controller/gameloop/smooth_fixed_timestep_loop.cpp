@@ -1,9 +1,9 @@
 #include "smooth_fixed_timestep_loop.h"
-#include "wanderer_core.h"
-#include "renderer.h"
-#include "input.h"
-#include "timer.h"
 #include <SDL.h>
+#include <renderer.h>
+#include <timer.h>
+#include "wanderer_core.h"
+#include "input.h"
 
 using namespace centurion;
 
