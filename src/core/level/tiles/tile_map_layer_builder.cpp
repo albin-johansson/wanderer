@@ -44,7 +44,8 @@ void TileMapLayerBuilder::init_tile_objects(TileMapLayerImpl& layer) const {
 
 Vector2 TileMapLayerBuilder::create_position(int index, int nCols) const {
   const auto[row, col] = MathUtils::index_to_matrix_pos(index, nCols);
-  return Vector2{col * GameConstants::tile_size, row * GameConstants::tile_size};
+  return Vector2{static_cast<float>(col) * GameConstants::tile_size,
+                 static_cast<float>(row) * GameConstants::tile_size};
 }
 
 std::vector<TileID> TileMapLayerBuilder::create_tile_vector(const std::vector<int>& tiles) {
