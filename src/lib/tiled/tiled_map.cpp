@@ -40,7 +40,7 @@ int TiledMap::get_tile_height() const {
 }
 
 int TiledMap::get_amount_of_layers() const {
-  return layers.size();
+  return static_cast<int>(layers.size());
 }
 
 float TiledMap::convert_x(float x, float tileSize) const noexcept {
