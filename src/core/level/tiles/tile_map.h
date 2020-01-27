@@ -1,12 +1,7 @@
 #pragma once
 #include <memory>
 #include "vector_2.h"
-
-namespace centurion {
-
-class Renderer;
-
-}
+#include "renderer.h"
 
 namespace albinjohansson::wanderer {
 

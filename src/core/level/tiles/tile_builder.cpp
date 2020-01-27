@@ -57,7 +57,7 @@ Tile TileBuilder::create(const std::shared_ptr<Image>& image,
       const auto w = (std::stof(object.get_attribute("width")) / tileWidth) * tile_size;
       const auto h = (std::stof(object.get_attribute("height")) / tileHeight) * tile_size;
 
-      tile.hitbox.add_rectangle(FRectangle{x, y, Area{w, h}}, Vector2{x, y});
+      tile.hitbox.add_rectangle(FRect{x, y, w, h}, Vector2{x, y});
       tile.isBlocked = true;
     }
   }

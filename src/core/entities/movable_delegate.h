@@ -81,7 +81,7 @@ class MovableDelegate final : public IMovableObject {
 
   void set_blocked(bool blocked) noexcept override;
 
-  void add_hitbox(const FRectangle& rectangle, const Vector2& offset) override;
+  void add_hitbox(const centurion::FRect& rectangle, const Vector2& offset) override;
 
   [[nodiscard]]
   int get_depth() const noexcept override;

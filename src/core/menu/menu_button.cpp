@@ -8,10 +8,10 @@ namespace albinjohansson::wanderer {
 
 MenuButton::MenuButton(std::string text, float x, float y, float width, float height)
     : text(std::move(text)) {
-  bounds.SetX(x);
-  bounds.SetY(y);
-  bounds.SetWidth(width);
-  bounds.SetHeight(height);
+  bounds.set_x(x);
+  bounds.set_y(y);
+  bounds.set_width(width);
+  bounds.set_height(height);
 }
 
 MenuButton::~MenuButton() = default;
@@ -28,7 +28,7 @@ void MenuButton::RenderText(const Renderer& renderer,
 }
 
 bool MenuButton::Contains(float mx, float my) const noexcept {
-  return bounds.Contains(mx, my);
+  return bounds.contains(mx, my);
 }
 
 void MenuButton::draw(Renderer& renderer, const Viewport&, const FontBundle& fonts) const {
@@ -37,8 +37,8 @@ void MenuButton::draw(Renderer& renderer, const Viewport&, const FontBundle& fon
 
     const auto width = font.get_string_width(text);
     const auto height = font.get_string_height(text);
-    const auto x = bounds.GetCenterX() - (width / 2.0f);
-    const auto y = bounds.GetCenterY() - (height / 2.0f);
+    const auto x = bounds.get_center_x() - (width / 2.0f);
+    const auto y = bounds.get_center_y() - (height / 2.0f);
 
     renderer.set_color(0xFF, 0xFF, 0xFF);
 

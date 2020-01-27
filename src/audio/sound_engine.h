@@ -2,12 +2,7 @@
 #include <unordered_map>
 #include <string>
 #include <memory>
-
-namespace centurion {
-
-class SoundEffect;
-
-}
+#include "sound_effect.h"
 
 namespace albinjohansson::wanderer {
 

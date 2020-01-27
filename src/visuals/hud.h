@@ -1,10 +1,5 @@
 #pragma once
-
-namespace centurion {
-
-class Renderer;
-
-}
+#include "renderer.h"
 
 namespace albinjohansson::wanderer {
 

@@ -1,24 +1,22 @@
 #include "smooth_fixed_timestep_loop.h"
 #include "wanderer_core.h"
 #include "renderer.h"
-#include "key_state_manager.h"
-#include "mouse_state_manager.h"
 #include "input.h"
-#include "time_utils.h"
+#include "timer.h"
 #include <SDL.h>
 
 using namespace centurion;
 
 namespace albinjohansson::wanderer {
 
-SmoothFixedTimestepLoop::SmoothFixedTimestepLoop(std::unique_ptr<KeyStateManager> ksm,
-                                                 std::unique_ptr<MouseStateManager> msm,
+SmoothFixedTimestepLoop::SmoothFixedTimestepLoop(std::unique_ptr<KeyState> ksm,
+                                                 std::unique_ptr<MouseState> msm,
                                                  float vsyncRate)
     : vsyncRate{vsyncRate},
       timeStep{1.0f / vsyncRate},
-      counterFreq{static_cast<float>(TimeUtils::get_high_res_freq())} {
+      counterFreq{static_cast<float>(Timer::high_res_freq())} {
   input = std::make_unique<Input>(std::move(ksm), std::move(msm));
-  now = TimeUtils::get_high_res_time();
+  now = Timer::high_res();
   then = now;
 }
 
@@ -53,7 +51,7 @@ void SmoothFixedTimestepLoop::update(IWandererCore& core, Renderer& renderer) {
   update_input(core);
 
   then = now;
-  now = TimeUtils::get_high_res_time();
+  now = Timer::high_res();
 
   delta = static_cast<float>(now - then) / counterFreq;
 

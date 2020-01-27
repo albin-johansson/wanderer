@@ -1,11 +1,6 @@
 #pragma once
 #include <cstdint>
-
-namespace centurion {
-
-class Image;
-
-}
+#include "image.h"
 
 namespace albinjohansson::wanderer {
 

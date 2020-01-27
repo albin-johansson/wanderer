@@ -1,6 +1,8 @@
 #pragma once
 #include <memory>
 #include <cstdint>
+#include "key_state.h"
+#include "mouse_state.h"
 #include "game_loop.h"
 #include "input.h"
 
@@ -56,8 +58,8 @@ class SmoothFixedTimestepLoop final : public IGameLoop {
    * @throws NullPointerException if any pointers are null.
    * @since 0.1.0
    */
-  SmoothFixedTimestepLoop(std::unique_ptr<KeyStateManager> keyStateManager,
-                          std::unique_ptr<MouseStateManager> mouseStateManager,
+  SmoothFixedTimestepLoop(std::unique_ptr<centurion::KeyState> keyStateManager,
+                          std::unique_ptr<centurion::MouseState> mouseStateManager,
                           float vsyncRate);
 
   ~SmoothFixedTimestepLoop() override;

@@ -1,12 +1,7 @@
 #pragma once
 #include <memory>
 #include <string>
-
-namespace centurion {
-
-class Renderer;
-
-}
+#include "renderer.h"
 
 namespace albinjohansson::wanderer {
 

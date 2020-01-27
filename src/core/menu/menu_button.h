@@ -14,7 +14,7 @@ namespace albinjohansson::wanderer {
  */
 class MenuButton final : public IMenuDrawable {
  private:
-  FRectangle bounds;
+  centurion::FRect bounds;
   mutable std::unique_ptr<centurion::Image> normalImg = nullptr;
   mutable std::unique_ptr<centurion::Image> enlargedImg = nullptr;
   const std::string text = "";

@@ -17,7 +17,7 @@ void AbstractMenu::draw(Renderer& renderer,
                         const FontBundle&) const {
   const auto& bounds = viewport.get_bounds();
   renderer.set_color(0, 0, 0, 0xAA);
-  renderer.fill_rect(-1.0f, -1.0f, bounds.GetWidth() + 1, bounds.GetHeight() + 1);
+  renderer.fill_rect(-1.0f, -1.0f, bounds.get_width() + 1, bounds.get_height() + 1);
 }
 
 }

@@ -13,8 +13,8 @@ namespace albinjohansson::wanderer {
  */
 class Hitbox final {
  private:
-  FRectangle bounds;
-  std::vector<std::pair<FRectangle, Vector2>> rectangles;
+  centurion::FRect bounds;
+  std::vector<std::pair<centurion::FRect, Vector2>> rectangles;
   bool enabled = false;
 
   void calc_bounds();
@@ -30,7 +30,7 @@ class Hitbox final {
    * @param rect a rectangle that will serve as a part of the hitbox.
    * @since 0.1.0
    */
-  void add_rectangle(const FRectangle& rect, const Vector2& offset);
+  void add_rectangle(const centurion::FRect& rect, const Vector2& offset);
 
   /**
    * Sets the x-coordinate of the hitbox.
@@ -77,7 +77,7 @@ class Hitbox final {
   bool intersects(const Hitbox& other) const noexcept;
 
   [[nodiscard]]
-  bool intersects(const FRectangle& other) const noexcept;
+  bool intersects(const centurion::FRect& other) const noexcept;
 
   [[nodiscard]]
   bool will_intersect(const Hitbox& other, const Vector2& nextPos) const noexcept;
@@ -98,7 +98,7 @@ class Hitbox final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  const FRectangle& get_bounds() const noexcept;
+  const centurion::FRect& get_bounds() const noexcept;
 };
 
 }

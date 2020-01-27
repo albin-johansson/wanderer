@@ -1,11 +1,11 @@
 #pragma once
 #include <vector>
 #include <memory>
+#include "rectangle.h"
 
 namespace albinjohansson::wanderer {
 
 class IEntity;
-class FRectangle;
 
 /**
  * The EntityManager class is responsible for managing what entities should be updated based on
@@ -29,7 +29,7 @@ class EntityManager final {
    * @param bounds the viewport bounds.
    * @since 0.1.0
    */
-  void calculate_close_entities(const FRectangle& bounds);
+  void calculate_close_entities(const centurion::FRect& bounds);
 
  public:
   EntityManager();
@@ -44,7 +44,7 @@ class EntityManager final {
    * @since 0.1.0
    * @see EntityManager::calcEntitiesThreshold
    */
-  void update(const FRectangle& bounds);
+  void update(const centurion::FRect& bounds);
 
   /**
    * Adds an entity to the entity manager.

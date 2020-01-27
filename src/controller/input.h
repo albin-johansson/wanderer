@@ -1,19 +1,19 @@
 #pragma once
 #include <memory>
 #include <SDL_scancode.h>
-#include "mouse_state_manager.h"
-#include "key_state_manager.h"
+#include "mouse_state.h"
+#include "key_state.h"
 
 namespace albinjohansson::wanderer {
 
 class Input final {
  private:
-  std::unique_ptr<KeyStateManager> keyStateManager = nullptr;
-  std::unique_ptr<MouseStateManager> mouseStateManager = nullptr;
+  std::unique_ptr<centurion::KeyState> keyState = nullptr;
+  std::unique_ptr<centurion::MouseState> mouseState = nullptr;
 
  public:
-  Input(std::unique_ptr<KeyStateManager>&& keyStateManager,
-        std::unique_ptr<MouseStateManager>&& mouseStateManager);
+  Input(std::unique_ptr<centurion::KeyState>&& keyStateManager,
+        std::unique_ptr<centurion::MouseState>&& mouseStateManager);
 
   ~Input();
 

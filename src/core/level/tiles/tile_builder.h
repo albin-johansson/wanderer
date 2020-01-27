@@ -1,12 +1,7 @@
 #pragma once
 #include "tile.h"
 #include "tiled_animation.h"
-
-namespace centurion {
-
-class Image;
-
-}
+#include "image.h"
 
 namespace albinjohansson::tiled {
 

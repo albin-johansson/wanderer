@@ -4,6 +4,7 @@
 #include "rectangle.h"
 #include "game_constants.h"
 #include "image.h"
+#include "area.h"
 
 using namespace centurion;
 
@@ -23,7 +24,7 @@ void Tile::draw(const Vector2& pos, const Renderer& renderer, const TileSet& til
   if (get_id() != EMPTY) {
     const auto& src = is_animated() ? tileSet.get_tile(get_frame_id()).get_source()
                                     : source;
-    FRectangle dst{pos.x, pos.y, Area{GameConstants::tile_size, GameConstants::tile_size}};
+    FRect dst{pos.x, pos.y, GameConstants::tile_size, GameConstants::tile_size};
     renderer.draw_image_translated(*sheet, src, dst);
   }
 }

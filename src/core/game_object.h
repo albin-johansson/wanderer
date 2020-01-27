@@ -1,6 +1,7 @@
 #pragma once
 #include <cstdint>
 #include <type_traits>
+#include "rectangle.h"
 #include "sortable_drawable.h"
 #include "vector_2.h"
 
@@ -8,7 +9,6 @@ namespace albinjohansson::wanderer {
 
 class IWandererCore;
 class Hitbox;
-class FRectangle;
 
 /**
  * The IGameObject interface specifies the common interface for all game objects that are present
@@ -31,7 +31,7 @@ class IGameObject : public virtual ISortableDrawable {
    */
   virtual void tick(IWandererCore& core, float delta) = 0;
 
-  virtual void add_hitbox(const FRectangle& rectangle, const Vector2& offset) = 0;
+  virtual void add_hitbox(const centurion::FRect& rectangle, const Vector2& offset) = 0;
 
   /**
    * Sets whether or not the game object can block other game objects.

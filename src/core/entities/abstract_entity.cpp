@@ -13,9 +13,9 @@ AbstractEntity::AbstractEntity(const std::shared_ptr<Image>& sheet) {
   movable = std::make_unique<MovableDelegate>(DEPTH,
                                               GameConstants::entity_width,
                                               GameConstants::entity_height);
-  movable->add_hitbox(FRectangle{movable->get_x(),
-                                 movable->get_y(),
-                                 Area{movable->get_width(), movable->get_height()}},
+  movable->add_hitbox(FRect{movable->get_x(),
+                            movable->get_y(),
+                            movable->get_width(), movable->get_height()},
                       Vector2{});
   movable->set_blocked(true);
 }
@@ -89,7 +89,7 @@ void AbstractEntity::set_velocity(const Vector2& velocity) noexcept {
   movable->set_velocity(velocity);
 }
 
-void AbstractEntity::add_hitbox(const FRectangle& rectangle, const Vector2& offset) {
+void AbstractEntity::add_hitbox(const FRect& rectangle, const Vector2& offset) {
   movable->add_hitbox(rectangle, offset);
 }
 

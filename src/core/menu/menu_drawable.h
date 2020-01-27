@@ -1,12 +1,7 @@
 #pragma once
 #include "viewport.h"
 #include "font_bundle.h"
-
-namespace centurion {
-
-class Renderer;
-
-}
+#include "renderer.h"
 
 namespace albinjohansson::wanderer {
 

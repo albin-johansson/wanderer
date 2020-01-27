@@ -1,21 +1,15 @@
 #pragma once
 #include <memory>
 #include <vector>
+#include <rectangle.h>
 #include "tile_map.h"
 #include "tile_map_bounds.h"
 #include "entity_manager.h"
 #include "spawnpoint.h"
-
-namespace centurion {
-
-class Renderer;
-
-}
+#include "renderer.h"
 
 namespace albinjohansson::wanderer {
 
-class FRectangle;
-class ImageGenerator;
 class TileSet;
 class ISortableDrawable;
 class IGameObject;
@@ -64,7 +58,7 @@ class TileMapImpl final : public ITileMap {
    * @since 0.1.0
    */
   [[nodiscard]]
-  TileMapBounds CalculateMapBounds(const FRectangle& bounds) const noexcept;
+  TileMapBounds CalculateMapBounds(const centurion::FRect& bounds) const noexcept;
 
   /**
    * @param tileSet the associated tile set.

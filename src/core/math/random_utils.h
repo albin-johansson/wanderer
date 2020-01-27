@@ -3,7 +3,7 @@
 #include <random>
 #include <type_traits>
 #include <limits>
-#include "time_utils.h"
+#include "timer.h"
 
 namespace albinjohansson::wanderer {
 
@@ -30,7 +30,7 @@ class RandomUtils final {
   [[nodiscard]] static T get_rand() noexcept {
     static_assert(std::is_floating_point_v<T> || std::is_integral_v<T>);
 
-    std::ranlux24_base rnd(TimeUtils::get_high_res_time());
+    std::ranlux24_base rnd(centurion::Timer::high_res());
     return static_cast<T>(rnd());
   }
 
@@ -49,7 +49,7 @@ class RandomUtils final {
   [[nodiscard]] static int get_int(T min, T max) noexcept {
     static_assert(std::is_floating_point_v<T> || std::is_integral_v<T>);
 
-    std::ranlux24_base rnd(TimeUtils::get_high_res_time());
+    std::ranlux24_base rnd(centurion::Timer::high_res());
     return static_cast<T>((rnd() % (max + 1 - min)) + min);
   }
 

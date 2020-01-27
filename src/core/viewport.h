@@ -11,7 +11,7 @@ namespace albinjohansson::wanderer {
  */
 class Viewport final {
  private:
-  FRectangle bounds;
+  centurion::FRect bounds;
   Area level;
 
  public:
@@ -113,7 +113,7 @@ class Viewport final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  const FRectangle& get_bounds() const noexcept;
+  const centurion::FRect& get_bounds() const noexcept;
 
   /**
    * Calculates and returns the translated value for the supplied x-coordinate.
@@ -134,6 +134,11 @@ class Viewport final {
    */
   [[nodiscard]]
   float get_translated_y(float y) const noexcept;
+
+  [[nodiscard]]
+  operator const SDL_FRect&() const noexcept {
+    return bounds;
+  }
 };
 
 }

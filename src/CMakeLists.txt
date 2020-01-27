@@ -6,10 +6,6 @@ set(SOURCE_FILES
         controller/wanderer_controller_impl.cpp
         controller/wanderer_controller_impl.h
         controller/wanderer_controller_factory.h
-        controller/mouse_state_manager.cpp
-        controller/mouse_state_manager.h
-        controller/key_state_manager.cpp
-        controller/key_state_manager.h
         controller/input.cpp
         controller/input.h
 
@@ -36,20 +32,15 @@ set(SOURCE_FILES
         core/util/require.h
         core/util/bad_state_exception.h
         core/util/bad_state_exception.cpp
-        core/util/time_utils.cpp
-        core/util/time_utils.h
 
         core/math/hitbox.cpp
         core/math/hitbox.h
-        core/math/rectangle.cpp
-        core/math/rectangle.h
         core/math/vector_2.cpp
         core/math/vector_2.h
         core/math/random_utils.cpp
         core/math/random_utils.h
         core/math/math_utils.h
         core/math/area.h
-        core/math/spooky_rect.h
         core/math/tvector.h
 
         core/menu/menu.h
@@ -161,30 +152,13 @@ set(SOURCE_FILES
         core/entities/entitystate/delegates/entity_idle_delegate.cpp
         core/entities/entitystate/delegates/entity_idle_delegate.h
 
-        lib/centurion/window.h
-        lib/centurion/window.cpp
-        lib/centurion/window_listener.h
-        lib/centurion/renderer.h
-        lib/centurion/renderer.cpp
-        lib/centurion/image.cpp
-        lib/centurion/image.h
-        lib/centurion/centurion_exception.cpp
-        lib/centurion/centurion_exception.h
-        lib/centurion/font.cpp
-        lib/centurion/font.h
-        lib/centurion/bool_converter.h
-
         visuals/animation.cpp
         visuals/animation.h
-        visuals/image_generator.cpp
-        visuals/image_generator.h
         visuals/font_bundle.cpp
         visuals/font_bundle.h
         visuals/hud.cpp
         visuals/hud.h
 
-        lib/centurion/sound_effect.cpp
-        lib/centurion/sound_effect.h
         audio/sound_engine.cpp
         audio/sound_engine.h
 
@@ -211,22 +185,40 @@ set(SOURCE_FILES
         lib/tiled/tiled_object_group.cpp
         lib/tiled/tiled_object_group.h
 
-        lib/pugixml/pugixml.hpp
-        lib/pugixml/pugixml.cpp
-        lib/pugixml/pugiconfig.hpp)
+        core/util/wanderer_utils.h)
 
-# Prepares the Wanderer "library", which excludes linking and the main.cpp file
 add_library(${WANDERER_LIB} ${SOURCE_FILES})
 
-target_compile_options(${WANDERER_LIB} PRIVATE -Wall -Wextra -Wpedantic)
+target_compile_options(${WANDERER_LIB} PRIVATE
+        -Wall
+        -Wextra
+        -Wpedantic
+        -Wdouble-promotion
+        -Wswitch-default
+        -Wswitch-enum
+        -Wunused
+        -Wuninitialized
+        -Wsuggest-final-types
+        -Wsuggest-final-methods
+        -Wsuggest-override
+        -Wduplicated-cond
+        -Wconversion)
 
 set_target_properties(${WANDERER_LIB} PROPERTIES
-        CXX_STANDARD 17)
+        CXX_STANDARD 17
+        CXX_STANDARD_REQUIRED ON)
 
-target_include_directories(${WANDERER_LIB} PUBLIC ${SDL2_INCLUDE_DIR})
-target_include_directories(${WANDERER_LIB} PUBLIC ${SDL2_IMAGE_INCLUDE_DIRS})
-target_include_directories(${WANDERER_LIB} PUBLIC ${SDL2_MIXER_INCLUDE_DIRS})
-target_include_directories(${WANDERER_LIB} PUBLIC ${SDL2_TTF_INCLUDE_DIRS})
+target_include_directories(${WANDERER_LIB} SYSTEM PUBLIC ${SDL2_INCLUDE_DIR})
+target_include_directories(${WANDERER_LIB} SYSTEM PUBLIC ${SDL2_IMAGE_INCLUDE_DIRS})
+target_include_directories(${WANDERER_LIB} SYSTEM PUBLIC ${SDL2_MIXER_INCLUDE_DIRS})
+target_include_directories(${WANDERER_LIB} SYSTEM PUBLIC ${SDL2_TTF_INCLUDE_DIRS})
+
+target_include_directories(${WANDERER_LIB} SYSTEM PUBLIC lib)
+target_include_directories(${WANDERER_LIB} SYSTEM PUBLIC lib/gsl)
+target_include_directories(${WANDERER_LIB} SYSTEM PUBLIC lib/pugixml)
+target_include_directories(${WANDERER_LIB} SYSTEM PUBLIC lib/centurion)
+target_include_directories(${WANDERER_LIB} SYSTEM PUBLIC lib/tiled)
+
 target_include_directories(${WANDERER_LIB} PUBLIC controller)
 target_include_directories(${WANDERER_LIB} PUBLIC controller/gameloop)
 target_include_directories(${WANDERER_LIB} PUBLIC core)
@@ -244,37 +236,50 @@ target_include_directories(${WANDERER_LIB} PUBLIC visuals)
 target_include_directories(${WANDERER_LIB} PUBLIC util)
 target_include_directories(${WANDERER_LIB} PUBLIC service)
 target_include_directories(${WANDERER_LIB} PUBLIC audio)
-target_include_directories(${WANDERER_LIB} PUBLIC lib)
-target_include_directories(${WANDERER_LIB} PUBLIC lib/gsl)
-target_include_directories(${WANDERER_LIB} PUBLIC lib/pugixml)
-target_include_directories(${WANDERER_LIB} PUBLIC lib/centurion)
-target_include_directories(${WANDERER_LIB} PUBLIC lib/tiled)
+
+#include(CheckIPOSupported)
+#check_ipo_supported(RESULT supported OUTPUT error)
+
+#if (supported)
+#    message(STATUS "IPO / LTO enabled")
+#    set_property(TARGET ${WANDERER_LIB} PROPERTY INTERPROCEDURAL_OPTIMIZATION TRUE)
+#else ()
+#    message(STATUS "IPO / LTO not supported: <${error}>")
+#endif ()
+
+target_link_libraries(${WANDERER_LIB}
+        PUBLIC ${CENTURION_LIBRARIES}
+        PUBLIC ${SDL2_LIBRARY}
+        PUBLIC ${SDL2_IMAGE_LIBRARIES}
+        PUBLIC ${SDL2_MIXER_LIBRARIES}
+        PUBLIC ${SDL2_TTF_LIBRARIES})
 
 # Prepares the actual executable
 add_executable(${WANDERER_EXECUTABLE} main.cpp)
-
-target_link_directories(${WANDERER_EXECUTABLE} PUBLIC ${SDL2_LIBRARY})
-target_link_directories(${WANDERER_EXECUTABLE} PUBLIC ${SDL2_IMAGE_LIBRARIES})
-target_link_directories(${WANDERER_EXECUTABLE} PUBLIC ${SDL2_MIXER_LIBRARIES})
-target_link_directories(${WANDERER_EXECUTABLE} PUBLIC ${SDL2_TTF_LIBRARIES})
+set_target_properties(${WANDERER_EXECUTABLE} PROPERTIES
+        CXX_STANDARD 17
+        CXX_STANDARD_REQUIRED ON)
 
 target_link_libraries(${WANDERER_EXECUTABLE}
-        mingw32
-        ${WANDERER_LIB}
-        ${SDL2_LIBRARY}
-        ${SDL2_IMAGE_LIBRARIES}
-        ${SDL2_MIXER_LIBRARIES}
-        ${SDL2_TTF_LIBRARIES})
+        PUBLIC mingw32
+        PUBLIC ${WANDERER_LIB}
+        PUBLIC ${CENTURION_LIBRARIES}
+        PUBLIC ${SDL2_LIBRARY}
+        PUBLIC ${SDL2_IMAGE_LIBRARIES}
+        PUBLIC ${SDL2_MIXER_LIBRARIES}
+        PUBLIC ${SDL2_TTF_LIBRARIES})
 
 # Copies all of the files in the bin folder and puts them next to the executable
-add_custom_command(TARGET ${WANDERER_EXECUTABLE} POST_BUILD
+add_custom_command(
+        TARGET ${WANDERER_EXECUTABLE} POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_directory
-        "${BINARIES_DIR}"
-        ${CMAKE_BINARY_DIR}/src)
+        ${BINARIES_DIR}
+        ${CMAKE_CURRENT_BINARY_DIR})
 
 # Copies all of the resources and puts the in the build folder
-add_custom_command(TARGET ${WANDERER_EXECUTABLE} POST_BUILD
+add_custom_command(
+        TARGET ${WANDERER_EXECUTABLE} POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_directory
-        "${RESOURCES_DIR}"
-        ${CMAKE_BINARY_DIR}/src/resources)
+        ${RESOURCES_DIR}
+        ${CMAKE_CURRENT_BINARY_DIR}/resources)
 

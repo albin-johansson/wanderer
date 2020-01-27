@@ -133,7 +133,7 @@ void MovableDelegate::set_velocity(const Vector2& v) noexcept {
   velocity.set(v);
 }
 
-void MovableDelegate::add_hitbox(const FRectangle& rectangle, const Vector2& offset) {
+void MovableDelegate::add_hitbox(const FRect& rectangle, const Vector2& offset) {
   hitbox.add_rectangle(rectangle, offset);
   update_position();
 }

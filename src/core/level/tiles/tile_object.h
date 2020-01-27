@@ -8,12 +8,7 @@
 #include "rectangle.h"
 #include "render_depth.h"
 #include "hitbox.h"
-
-namespace centurion {
-
-class Renderer;
-
-}
+#include "renderer.h"
 
 namespace albinjohansson::wanderer {
 
@@ -55,7 +50,7 @@ class TileObject final : public IGameObject {
 
   void SetHitbox(const Hitbox& hitbox) noexcept;
 
-  void add_hitbox(const FRectangle& rectangle, const Vector2& offset) override;
+  void add_hitbox(const centurion::FRect& rectangle, const Vector2& offset) override;
 
   void set_blocked(bool blocked) noexcept override;
 

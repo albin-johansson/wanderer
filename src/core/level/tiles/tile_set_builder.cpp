@@ -31,7 +31,7 @@ std::unique_ptr<TileSet> TileSetBuilder::create(const pugi::xml_node& mapRoot,
     auto tiledTileSet = create_tiled_tile_set(tileSetNode, firstId);
 
     const auto path = "resources/img/" + tiledTileSet.get_image_name();
-    std::shared_ptr<Image> image = imageGenerator.load(path);
+    auto image = imageGenerator.shared_img(path);
 
     const TileID lastId = tiledTileSet.get_last_tile_id();
     int index = 0;

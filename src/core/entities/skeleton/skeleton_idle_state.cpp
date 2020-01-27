@@ -3,7 +3,7 @@
 #include "player.h"
 #include "skeleton.h"
 #include "wanderer_core.h"
-#include "time_utils.h"
+#include "timer.h"
 
 using namespace centurion;
 
@@ -19,7 +19,7 @@ void SkeletonIdleState::tick(const IWandererCore& core, float /*delta*/) {
   auto& entity = idleDelegate.GetParent().get_entity();
   float distance = entity.get_position().distance_to(core.get_player().get_position());
 
-  if (distance <= Skeleton::HOMING_RANGE || (TimeUtils::get_millis() - enterTime) >= 2000) {
+  if (distance <= Skeleton::HOMING_RANGE || (Timer::millis() - enterTime) >= 2000) {
     idleDelegate.GetParent().set_state(EntityStateID::Walk, core);
   }
 }
@@ -30,7 +30,7 @@ void SkeletonIdleState::draw(const Renderer& renderer, const Viewport& viewport)
 
 void SkeletonIdleState::enter(const IWandererCore& core) {
   idleDelegate.enter(core);
-  enterTime = TimeUtils::get_millis();
+  enterTime = Timer::millis();
 }
 
 void SkeletonIdleState::exit(const IWandererCore& core) {

@@ -11,13 +11,15 @@
 #include "image.h"
 #include "window.h"
 
+using namespace centurion;
+
 namespace albinjohansson::wanderer {
 
 WandererCoreImpl::WandererCoreImpl(ImageGenerator& imageGenerator) {
   menuStateMachine = std::make_unique<MenuStateMachineImpl>(this);
   soundEngine = std::make_unique<SoundEngine>("resources/audio/sfx.txt");
 
-  player = std::make_shared<PlayerImpl>(imageGenerator.load("resources/img/player2.png"));
+  player = std::make_shared<PlayerImpl>(imageGenerator.shared_img("resources/img/player2.png"));
 
   world = TiledMapParser::load(imageGenerator, "resources/map/world/world_demo.tmx");
   world->set_player(player);

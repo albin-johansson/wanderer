@@ -3,15 +3,15 @@
 #include <pugixml.hpp>
 #include "tile_set.h"
 #include "tiled_tile_set.h"
+#include "image_generator.h"
 
 namespace albinjohansson::wanderer {
-
-class ImageGenerator;
 
 class TileSetBuilder final {
  private:
   [[nodiscard]]
-  static tiled::TiledTileSet create_tiled_tile_set(const pugi::xml_node& tileSetNode, TileID firstId);
+  static tiled::TiledTileSet create_tiled_tile_set(const pugi::xml_node& tileSetNode,
+                                                   TileID firstId);
 
  public:
   TileSetBuilder() = delete;
@@ -20,7 +20,7 @@ class TileSetBuilder final {
 
   [[nodiscard]]
   static std::unique_ptr<TileSet> create(const pugi::xml_node& mapRoot,
-                                         ImageGenerator& imageGenerator);
+                                         centurion::ImageGenerator& imageGenerator);
 
 };
 

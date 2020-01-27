@@ -6,13 +6,8 @@
 #include "tile_animation.h"
 #include "hitbox.h"
 #include "rectangle.h"
-
-namespace centurion {
-
-class Renderer;
-class Image;
-
-}
+#include "renderer.h"
+#include "image.h"
 
 namespace albinjohansson::wanderer {
 
@@ -36,7 +31,7 @@ class Tile final {
   TileID id = Tile::EMPTY;
   int depth = RenderDepth::min;
 
-  Rectangle source;
+  centurion::Rect source;
   Hitbox hitbox;
   TileAnimation animation;
 
@@ -147,7 +142,7 @@ class Tile final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  const Rectangle& get_source() const noexcept { return source; }
+  const centurion::Rect& get_source() const noexcept { return source; }
 
   [[nodiscard]]
   const Hitbox& get_hitbox() const noexcept { return hitbox; }

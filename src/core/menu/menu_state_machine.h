@@ -1,11 +1,6 @@
 #pragma once
 #include "menu_id.h"
-
-namespace centurion {
-
-class Renderer;
-
-}
+#include "renderer.h"
 
 namespace albinjohansson::wanderer {
 

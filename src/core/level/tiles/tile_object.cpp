@@ -71,7 +71,7 @@ int TileObject::get_depth() const noexcept {
   return depth;
 }
 
-void TileObject::add_hitbox(const FRectangle& rectangle, const Vector2& offset) {
+void TileObject::add_hitbox(const FRect& rectangle, const Vector2& offset) {
   hitbox.add_rectangle(rectangle, offset);
 }
 

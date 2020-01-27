@@ -5,12 +5,7 @@
 #include "animation.h"
 #include "render_depth.h"
 #include "hitbox.h"
-
-namespace centurion {
-
-class Image;
-
-}
+#include "image.h"
 
 namespace albinjohansson::wanderer {
 
@@ -62,7 +57,7 @@ class AbstractEntity : public virtual IEntity {
 
   void interpolate(float alpha) noexcept override;
 
-  void add_hitbox(const FRectangle& rectangle, const Vector2& offset) override;
+  void add_hitbox(const centurion::FRect& rectangle, const Vector2& offset) override;
 
   void add_x(float dx) noexcept override;
 

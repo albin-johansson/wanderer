@@ -3,6 +3,8 @@
 #include "rectangle.h"
 #include "hitbox.h"
 
+using namespace centurion;
+
 namespace albinjohansson::wanderer {
 
 EntityManager::EntityManager() {
@@ -12,7 +14,7 @@ EntityManager::EntityManager() {
 
 EntityManager::~EntityManager() = default;
 
-void EntityManager::calculate_close_entities(const FRectangle& bounds) {
+void EntityManager::calculate_close_entities(const FRect& bounds) {
   closeEntities.clear();
 
   for (const auto& entity : entities) {
@@ -24,7 +26,7 @@ void EntityManager::calculate_close_entities(const FRectangle& bounds) {
   nTicksSinceUpdate = 0;
 }
 
-void EntityManager::update(const FRectangle& bounds) {
+void EntityManager::update(const FRect& bounds) {
   if (firstTick) {
     calculate_close_entities(bounds);
     firstTick = false;

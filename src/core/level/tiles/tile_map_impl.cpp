@@ -28,11 +28,11 @@ void TileMapImpl::Interpolate(float alpha) {
   }
 }
 
-TileMapBounds TileMapImpl::CalculateMapBounds(const FRectangle& bounds) const noexcept {
-  auto minCol = static_cast<int>(bounds.GetX()) / GameConstants::tile_size_int;
-  auto minRow = static_cast<int>(bounds.GetY()) / GameConstants::tile_size_int;
-  auto maxCol = static_cast<int>((bounds.GetMaxX()) / GameConstants::tile_size_int) + 1;
-  auto maxRow = static_cast<int>((bounds.GetMaxY()) / GameConstants::tile_size_int) + 1;
+TileMapBounds TileMapImpl::CalculateMapBounds(const FRect& bounds) const noexcept {
+  auto minCol = static_cast<int>(bounds.get_x()) / GameConstants::tile_size_int;
+  auto minRow = static_cast<int>(bounds.get_y()) / GameConstants::tile_size_int;
+  auto maxCol = static_cast<int>((bounds.get_max_x()) / GameConstants::tile_size_int) + 1;
+  auto maxRow = static_cast<int>((bounds.get_max_y()) / GameConstants::tile_size_int) + 1;
 
   if (minCol < 0) {
     minCol = 0;

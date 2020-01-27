@@ -3,12 +3,7 @@
 #include <vector>
 #include "tile_id.h"
 #include "map_position.h"
-
-namespace centurion {
-
-class Renderer;
-
-}
+#include "renderer.h"
 
 namespace albinjohansson::wanderer {
 

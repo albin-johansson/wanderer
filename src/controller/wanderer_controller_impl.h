@@ -4,12 +4,7 @@
 #include "window.h"
 #include "wanderer_core.h"
 #include "game_loop.h"
-
-namespace centurion {
-
-class Renderer;
-
-}
+#include "renderer.h"
 
 namespace albinjohansson::wanderer {
 
@@ -30,8 +25,6 @@ class WandererControllerImpl final : public IWandererController {
    * @since 0.1.0
    */
   WandererControllerImpl();
-
-  void init_icon();
 
  public:
   /**

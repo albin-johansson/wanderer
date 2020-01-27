@@ -10,6 +10,8 @@
 #include "tiled_map.h"
 #include "pugi_utils.h"
 
+using namespace centurion;
+
 namespace albinjohansson::wanderer {
 
 // TODO entity parsing, item parsing...

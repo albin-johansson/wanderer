@@ -1,19 +1,21 @@
 #include "catch.hpp"
 #include "hitbox.h"
+#include "rectangle.h"
 
+using namespace centurion;
 using namespace albinjohansson::wanderer;
 
 TEST_CASE("Hitbox::AddRectangle", "[Hitbox]") {
   SECTION("A hitbox with only one rectangle has the rectangle as its bounds.") {
-    FRectangle rect(10, 10, {100, 160});
+    FRect rect(10.0f, 10.0f, 100.0f, 160.0f);
 
     Hitbox hitbox;
     hitbox.add_rectangle(rect, {0, 0});
 
-    CHECK(hitbox.get_bounds().GetX() == rect.GetX());
-    CHECK(hitbox.get_bounds().GetY() == rect.GetY());
-    CHECK(hitbox.get_bounds().GetWidth() == rect.GetWidth());
-    CHECK(hitbox.get_bounds().GetHeight() == rect.GetHeight());
+    CHECK(hitbox.get_bounds().get_x() == rect.get_x());
+    CHECK(hitbox.get_bounds().get_y() == rect.get_y());
+    CHECK(hitbox.get_bounds().get_width() == rect.get_width());
+    CHECK(hitbox.get_bounds().get_height() == rect.get_height());
   }
 
   SECTION("Multiple subhitboxes 1") {
@@ -25,8 +27,8 @@ TEST_CASE("Hitbox::AddRectangle", "[Hitbox]") {
      *           |     |
      *           |_ _ _|
      */
-    FRectangle fst(10, 10, {140, 50});
-    FRectangle snd(fst.GetMaxX(), 80, {50, fst.GetWidth()});
+    FRect fst(10.0f, 10.0f, 140.0f, 50.0f);
+    FRect snd(fst.get_max_x(), 80.0f, 50.0f, fst.get_width());
 
     Hitbox hitbox;
 
@@ -35,9 +37,9 @@ TEST_CASE("Hitbox::AddRectangle", "[Hitbox]") {
 
     const auto& bounds = hitbox.get_bounds();
 
-    CHECK(bounds.GetX() == fst.GetX());
-    CHECK(bounds.GetY() == fst.GetY());
-    CHECK(bounds.GetWidth() == (fst.GetWidth() + snd.GetWidth()));
+    CHECK(bounds.get_x() == fst.get_x());
+    CHECK(bounds.get_y() == fst.get_y());
+    CHECK(bounds.get_width() == (fst.get_width() + snd.get_width()));
 //    CHECK(bounds.GetHeight() == 50 + 140 - 70);
   }
 
@@ -50,10 +52,10 @@ TEST_CASE("Hitbox::AddRectangle", "[Hitbox]") {
      *             |     |
      *             |_ _ _|
      */
-    FRectangle fst(10, 10, {140, 50});
-    FRectangle snd(fst.GetMaxX() + 10,
-                   fst.GetY() + (fst.GetHeight() / 2),
-                   {50, fst.GetWidth()});
+    FRect fst(10.0f, 10.0f, 140.0f, 50.0f);
+    FRect snd(fst.get_x() + 10,
+              fst.get_y() + (fst.get_height() / 2),
+              50, fst.get_width());
 
     Hitbox hitbox;
 
@@ -62,8 +64,8 @@ TEST_CASE("Hitbox::AddRectangle", "[Hitbox]") {
 
     const auto& bounds = hitbox.get_bounds();
 
-    CHECK(bounds.GetX() == fst.GetX());
-    CHECK(bounds.GetY() == fst.GetY());
+    CHECK(bounds.get_x() == fst.get_x());
+    CHECK(bounds.get_y() == fst.get_y());
 //    CHECK(bounds.GetWidth() == (fst.GetWidth() + snd.GetWidth() + 10));
 //    CHECK(bounds.GetHeight() == (fst.GetHeight() + snd.GetHeight()));
   }

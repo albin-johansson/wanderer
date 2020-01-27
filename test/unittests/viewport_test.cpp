@@ -7,10 +7,10 @@ using namespace albinjohansson::wanderer;
 TEST_CASE("Viewport()", "[Viewport]") {
   Viewport viewport;
 
-  CHECK(viewport.get_bounds().GetX() == 0);
-  CHECK(viewport.get_bounds().GetY() == 0);
-  CHECK(viewport.get_bounds().GetWidth() == 10);
-  CHECK(viewport.get_bounds().GetHeight() == 10);
+  CHECK(viewport.get_bounds().get_x() == 0);
+  CHECK(viewport.get_bounds().get_y() == 0);
+  CHECK(viewport.get_bounds().get_width() == 10);
+  CHECK(viewport.get_bounds().get_height() == 10);
 }
 
 TEST_CASE("Viewport(float, float, float, float)", "[Viewport]") {
@@ -24,8 +24,8 @@ TEST_CASE("Viewport(float, float, float, float)", "[Viewport]") {
 
   Viewport viewport(vp, level);
 
-  CHECK(viewport.get_bounds().GetWidth() == Approx(vp.width));
-  CHECK(viewport.get_bounds().GetHeight() == Approx(vp.height));
+  CHECK(viewport.get_bounds().get_width() == Approx(vp.width));
+  CHECK(viewport.get_bounds().get_height() == Approx(vp.height));
 }
 
 TEST_CASE("Viewport::SetWidth", "[Viewport]") {
@@ -34,8 +34,7 @@ TEST_CASE("Viewport::SetWidth", "[Viewport]") {
   float width = 1935.8f;
   viewport.set_width(width);
 
-  CHECK(viewport.get_bounds().GetWidth() == Approx(width));
-  CHECK_THROWS_AS(viewport.set_width(0), std::invalid_argument);
+  CHECK(viewport.get_bounds().get_width() == Approx(width));
 }
 
 TEST_CASE("Viewport::SetHeight", "[Viewport]") {
@@ -44,18 +43,5 @@ TEST_CASE("Viewport::SetHeight", "[Viewport]") {
   float height = 3197.2f;
   viewport.set_height(height);
 
-  CHECK(viewport.get_bounds().GetHeight() == Approx(height));
-  CHECK_THROWS_AS(viewport.set_height(0), std::invalid_argument);
-}
-
-TEST_CASE("Viewport::SetLevelWidth", "[Viewport]") {
-  Viewport viewport;
-  CHECK_THROWS_AS(viewport.set_level_width(0), std::invalid_argument);
-  CHECK_THROWS_AS(viewport.set_level_width(-1), std::invalid_argument);
-}
-
-TEST_CASE("Viewport::SetLevelHeight", "[Viewport]") {
-  Viewport viewport;
-  CHECK_THROWS_AS(viewport.set_level_height(0), std::invalid_argument);
-  CHECK_THROWS_AS(viewport.set_level_height(-1), std::invalid_argument);
+  CHECK(viewport.get_bounds().get_height() == Approx(height));
 }

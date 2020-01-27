@@ -1,19 +1,20 @@
 #include "animation.h"
-#include "time_utils.h"
-#include "require.h"
+#include "timer.h"
+
+using namespace centurion;
 
 namespace albinjohansson::wanderer {
 
 Animation::Animation() noexcept {
-  previous = TimeUtils::get_millis();
+  previous = Timer::millis();
 }
 
 Animation::~Animation() noexcept = default;
 
 void Animation::update() noexcept {
-  const auto elapsed = TimeUtils::get_millis() - previous;
+  const auto elapsed = Timer::millis() - previous;
   if (elapsed >= delay) {
-    previous = TimeUtils::get_millis();
+    previous = Timer::millis();
     ++index;
     if (index >= nFrames) {
       index -= nFrames;

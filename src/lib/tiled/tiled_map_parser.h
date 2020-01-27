@@ -1,11 +1,11 @@
 #pragma once
 #include <memory>
 #include <string>
+#include "image_generator.h"
 
 namespace albinjohansson::wanderer {
 
 class ITileMap;
-class ImageGenerator;
 
 class TiledMapParser final {
  public:
@@ -14,7 +14,7 @@ class TiledMapParser final {
   ~TiledMapParser() = default;
 
   [[nodiscard]]
-  static std::unique_ptr<ITileMap> load(ImageGenerator& imageGenerator,
+  static std::unique_ptr<ITileMap> load(centurion::ImageGenerator& imageGenerator,
                                         const std::string& file);
 
 };
