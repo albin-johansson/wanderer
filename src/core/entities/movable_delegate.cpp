@@ -70,6 +70,7 @@ void MovableDelegate::move(Direction direction) noexcept {
       velocity.y = speed;
       break;
     }
+    default: break;
   }
   velocity.norm();
   velocity.scale(speed);
@@ -77,18 +78,17 @@ void MovableDelegate::move(Direction direction) noexcept {
 
 void MovableDelegate::stop(Direction direction) noexcept {
   switch (direction) {
-    case Direction::Right:
-      [[fallthrough]];
+    case Direction::Right: [[fallthrough]];
     case Direction::Left: {
       velocity.x = 0;
       break;
     }
-    case Direction::Up:
-      [[fallthrough]];
+    case Direction::Up: [[fallthrough]];
     case Direction::Down: {
       velocity.y = 0;
       break;
     }
+    default: break;
   }
   velocity.norm();
   velocity.scale(speed);
