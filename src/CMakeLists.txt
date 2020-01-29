@@ -162,8 +162,6 @@ set(SOURCE_FILES
         audio/sound_engine.cpp
         audio/sound_engine.h
 
-        service/display_modes.cpp
-        service/display_modes.h
         service/pugi_utils.cpp
         service/pugi_utils.h
 
