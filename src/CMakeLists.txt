@@ -185,7 +185,7 @@ set(SOURCE_FILES
         lib/tiled/tiled_object_group.cpp
         lib/tiled/tiled_object_group.h
 
-        core/util/wanderer_utils.h)
+        core/util/wanderer_stdinc.h)
 
 add_library(${WANDERER_LIB} ${SOURCE_FILES})
 
