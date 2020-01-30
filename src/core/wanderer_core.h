@@ -1,6 +1,7 @@
 #pragma once
 #include <memory>
 #include <string>
+#include "wanderer_stdinc.h"
 #include "renderer.h"
 
 namespace albinjohansson::wanderer {
@@ -50,7 +51,7 @@ class IWandererCore {
    * @param map the map that should be made active.
    * @since 0.1.0
    */
-  virtual void set_map(std::shared_ptr<ITileMap> map) = 0;
+  virtual void set_map(shared<ITileMap> map) = 0;
 
   /**
    * Plays a sound.

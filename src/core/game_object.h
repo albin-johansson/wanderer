@@ -1,9 +1,10 @@
 #pragma once
+#include "sortable_drawable.h"
 #include <cstdint>
 #include <type_traits>
 #include "rectangle.h"
-#include "sortable_drawable.h"
 #include "vector_2.h"
+#include "wanderer_stdinc.h"
 
 namespace albinjohansson::wanderer {
 
@@ -87,7 +88,7 @@ class IGameObject : public virtual ISortableDrawable {
   virtual const Hitbox& get_hitbox() const noexcept = 0;
 
   [[nodiscard]]
-  virtual uint64_t get_unique_id() const noexcept = 0;
+  virtual uint64 get_unique_id() const noexcept = 0;
 };
 
 static_assert(std::has_virtual_destructor_v<IGameObject>);

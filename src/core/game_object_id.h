@@ -1,4 +1,5 @@
 #pragma once
+#include "wanderer_stdinc.h"
 
 namespace albinjohansson::wanderer {
 
@@ -9,7 +10,7 @@ namespace albinjohansson::wanderer {
  */
 class GameObjectID final {
  private:
-  static int count;
+  static uint64 count;
 
  public:
   GameObjectID() = delete;
@@ -23,7 +24,7 @@ class GameObjectID final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  static int next() noexcept;
+  static uint64 next() noexcept;
 
   /**
    * Returns the last generated game object ID.
@@ -32,7 +33,7 @@ class GameObjectID final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  static int peek() noexcept;
+  static uint64 peek() noexcept;
 };
 
 }

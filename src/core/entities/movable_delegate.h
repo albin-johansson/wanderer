@@ -1,6 +1,7 @@
 #pragma once
-#include "hitbox.h"
 #include "movable_object.h"
+#include "hitbox.h"
+#include "wanderer_stdinc.h"
 #include "vector_2.h"
 
 namespace albinjohansson::wanderer {
@@ -25,7 +26,7 @@ class MovableDelegate final : public IMovableObject {
   const float width;
   const float height;
   Direction dominantDirection = Direction::Down;
-  uint64_t uniqueId = 0;
+  uint64 uniqueId = 0;
 
   /**
    * Saves the position of the movable.
@@ -126,7 +127,7 @@ class MovableDelegate final : public IMovableObject {
   const Vector2& get_interpolated_position() const noexcept override;
 
   [[nodiscard]]
-  uint64_t get_unique_id() const noexcept override;
+  uint64 get_unique_id() const noexcept override;
 
   [[nodiscard]]
   Vector2 get_next_position(float delta) const noexcept override;

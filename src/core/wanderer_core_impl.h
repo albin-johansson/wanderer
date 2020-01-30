@@ -1,6 +1,7 @@
 #pragma once
 #include <memory>
 #include "wanderer_core.h"
+#include "wanderer_stdinc.h"
 #include "viewport.h"
 #include "image_generator.h"
 #include "menu_state_machine.h"
@@ -16,13 +17,13 @@ namespace albinjohansson::wanderer {
  */
 class WandererCoreImpl final : public IWandererCore {
  private:
-  std::shared_ptr<ITileMap> activeMap = nullptr; // could maybe be a raw pointer
-  std::unique_ptr<IMenuStateMachine> menuStateMachine = nullptr;
+  shared<ITileMap> activeMap = nullptr; // could maybe be a raw pointer
+  unique<IMenuStateMachine> menuStateMachine = nullptr;
   HUD hud;
 
-  std::shared_ptr<IPlayer> player = nullptr;
-  std::shared_ptr<ITileMap> world = nullptr;
-  std::unique_ptr<SoundEngine> soundEngine = nullptr;
+  shared<IPlayer> player = nullptr;
+  shared<ITileMap> world = nullptr;
+  unique<SoundEngine> soundEngine = nullptr;
 
   Viewport viewport;
   bool shouldQuit = false;
@@ -41,7 +42,7 @@ class WandererCoreImpl final : public IWandererCore {
    * @return a unique pointer to an IWandererCore instance.
    * @since 0.1.0
    */
-  friend std::unique_ptr<IWandererCore> create_core(centurion::ImageGenerator& imageGenerator);
+  friend unique<IWandererCore> create_core(centurion::ImageGenerator& imageGenerator);
 
   void handle_input(const Input& input) override;
 
@@ -49,7 +50,7 @@ class WandererCoreImpl final : public IWandererCore {
 
   void render(centurion::Renderer& renderer, float alpha) override;
 
-  void set_map(std::shared_ptr<ITileMap> map) override;
+  void set_map(shared<ITileMap> map) override;
 
   void play_sound(const std::string& id) const override;
 

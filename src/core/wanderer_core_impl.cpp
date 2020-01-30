@@ -8,7 +8,6 @@
 #include "menu.h"
 #include "tiled_map_parser.h"
 #include "image_generator.h"
-#include "image.h"
 #include "window.h"
 
 using namespace centurion;
@@ -89,7 +88,7 @@ void WandererCoreImpl::play_sound(const std::string& id) const {
   soundEngine->get_sound(id).play();
 }
 
-void WandererCoreImpl::set_map(std::shared_ptr<ITileMap> map) {
+void WandererCoreImpl::set_map(shared<ITileMap> map) {
   if (map) {
     activeMap = map;
 

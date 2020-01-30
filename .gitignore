@@ -39,4 +39,5 @@
 out
 cmake-build-debug
 cmake-build-release
+lib/centurion
 doc

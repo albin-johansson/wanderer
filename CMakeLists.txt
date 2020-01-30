@@ -3,10 +3,11 @@ project(Wanderer)
 
 #set(CMAKE_CXX_FLAGS "-std=c++17")
 
+set(CTN_BASE_DIR ${PROJECT_SOURCE_DIR})
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 set(BINARIES_DIR ${PROJECT_SOURCE_DIR}/bin)
 set(RESOURCES_DIR ${PROJECT_SOURCE_DIR}/resources)
-set(LIBRARY_DIR ${PROJECT_SOURCE_DIR}/src/lib)
+set(LIBRARY_DIR ${PROJECT_SOURCE_DIR}/lib)
 
 # Names of targets
 set(WANDERER_LIB ${PROJECT_NAME}_lib)
@@ -14,8 +15,11 @@ set(WANDERER_EXECUTABLE ${PROJECT_NAME}_exe)
 set(WANDERER_TEST ${PROJECT_NAME}_test)
 
 set(CENTURION_LIBRARIES ${BINARIES_DIR}/libCenturion.dll.a)
+
 set(CENTURION_INCLUDE_DIR ${LIBRARY_DIR}/centurion)
 set(GSL_INCLUDE_DIR ${LIBRARY_DIR}/gsl)
+set(PUGI_INCLUDE_DIR ${LIBRARY_DIR}/pugixml)
+set(TILED_INCLUDE_DIR ${LIBRARY_DIR}/tiled)
 
 # Checks if an environment variable is defined.
 #   envVar: the name of the actual environment variable.

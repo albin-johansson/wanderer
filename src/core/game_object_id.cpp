@@ -2,13 +2,13 @@
 
 namespace albinjohansson::wanderer {
 
-int GameObjectID::count = 0;
+uint64 GameObjectID::count = 0;
 
-int GameObjectID::next() noexcept {
+uint64 GameObjectID::next() noexcept {
   return count++;
 }
 
-int GameObjectID::peek() noexcept {
+uint64 GameObjectID::peek() noexcept {
   return count;
 }
 

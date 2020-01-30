@@ -165,23 +165,23 @@ set(SOURCE_FILES
         service/pugi_utils.cpp
         service/pugi_utils.h
 
-        lib/tiled/tiled_map_parser.cpp
-        lib/tiled/tiled_map_parser.h
-        lib/tiled/tiled_map.cpp
-        lib/tiled/tiled_map.h
-        lib/tiled/tiled_tile_set.cpp
-        lib/tiled/tiled_tile_set.h
-        lib/tiled/tiled_animation.cpp
-        lib/tiled/tiled_animation.h
-        lib/tiled/tiled_object.cpp
-        lib/tiled/tiled_object.h
-        lib/tiled/tiled_layer.cpp
-        lib/tiled/tiled_layer.h
-        lib/tiled/tiled_tile.cpp
-        lib/tiled/tiled_tile.h
-        lib/tiled/tiled_property.h
-        lib/tiled/tiled_object_group.cpp
-        lib/tiled/tiled_object_group.h
+        ${TILED_INCLUDE_DIR}/tiled_map_parser.cpp
+        ${TILED_INCLUDE_DIR}/tiled_map_parser.h
+        ${TILED_INCLUDE_DIR}/tiled_map.cpp
+        ${TILED_INCLUDE_DIR}/tiled_map.h
+        ${TILED_INCLUDE_DIR}/tiled_tile_set.cpp
+        ${TILED_INCLUDE_DIR}/tiled_tile_set.h
+        ${TILED_INCLUDE_DIR}/tiled_animation.cpp
+        ${TILED_INCLUDE_DIR}/tiled_animation.h
+        ${TILED_INCLUDE_DIR}/tiled_object.cpp
+        ${TILED_INCLUDE_DIR}/tiled_object.h
+        ${TILED_INCLUDE_DIR}/tiled_layer.cpp
+        ${TILED_INCLUDE_DIR}/tiled_layer.h
+        ${TILED_INCLUDE_DIR}/tiled_tile.cpp
+        ${TILED_INCLUDE_DIR}/tiled_tile.h
+        ${TILED_INCLUDE_DIR}/tiled_property.h
+        ${TILED_INCLUDE_DIR}/tiled_object_group.cpp
+        ${TILED_INCLUDE_DIR}/tiled_object_group.h
 
         core/util/wanderer_stdinc.h)
 
@@ -211,11 +211,11 @@ target_include_directories(${WANDERER_LIB} SYSTEM PUBLIC ${SDL2_IMAGE_INCLUDE_DI
 target_include_directories(${WANDERER_LIB} SYSTEM PUBLIC ${SDL2_MIXER_INCLUDE_DIRS})
 target_include_directories(${WANDERER_LIB} SYSTEM PUBLIC ${SDL2_TTF_INCLUDE_DIRS})
 
-target_include_directories(${WANDERER_LIB} SYSTEM PUBLIC lib)
-target_include_directories(${WANDERER_LIB} SYSTEM PUBLIC lib/gsl)
-target_include_directories(${WANDERER_LIB} SYSTEM PUBLIC lib/pugixml)
-target_include_directories(${WANDERER_LIB} SYSTEM PUBLIC lib/centurion)
-target_include_directories(${WANDERER_LIB} SYSTEM PUBLIC lib/tiled)
+target_include_directories(${WANDERER_LIB} SYSTEM PUBLIC ${LIBRARY_DIR})
+target_include_directories(${WANDERER_LIB} SYSTEM PUBLIC ${GSL_INCLUDE_DIR})
+target_include_directories(${WANDERER_LIB} SYSTEM PUBLIC ${PUGI_INCLUDE_DIR})
+target_include_directories(${WANDERER_LIB} SYSTEM PUBLIC ${CENTURION_INCLUDE_DIR})
+target_include_directories(${WANDERER_LIB} SYSTEM PUBLIC ${TILED_INCLUDE_DIR})
 
 target_include_directories(${WANDERER_LIB} PUBLIC controller)
 target_include_directories(${WANDERER_LIB} PUBLIC controller/gameloop)

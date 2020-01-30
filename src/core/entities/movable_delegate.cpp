@@ -198,7 +198,7 @@ bool MovableDelegate::will_intersect(const IGameObject* other, float delta) cons
   return other && hitbox.will_intersect(other->get_hitbox(), get_next_position(delta));
 }
 
-uint64_t MovableDelegate::get_unique_id() const noexcept {
+uint64 MovableDelegate::get_unique_id() const noexcept {
   return uniqueId;
 }
 
