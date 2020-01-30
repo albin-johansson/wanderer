@@ -1,9 +1,8 @@
 #include "entity_draw_delegate.h"
-#include "renderer.h"
-#include "image.h"
+#include <renderer.h>
+#include <rectangle.h>
 #include "viewport.h"
 #include "entity.h"
-#include "rectangle.h"
 
 using namespace centurion;
 

@@ -13,9 +13,6 @@ class IWandererCore;
  * @since 0.1.0
  */
 class IEntityState : public IDrawable {
- protected:
-  IEntityState() = default;
-
  public:
   ~IEntityState() override = default;
 

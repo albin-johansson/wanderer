@@ -1,6 +1,5 @@
 #include "tile_object.h"
 #include "tile_set.h"
-#include "renderer.h"
 #include "viewport.h"
 #include "wanderer_core.h"
 #include "require.h"
@@ -11,8 +10,8 @@ using namespace centurion;
 
 namespace albinjohansson::wanderer {
 
-TileObject::TileObject(TileID id, const Vector2& position, const std::shared_ptr<TileSet>& tileSet)
-    : position(position), id(id) {
+TileObject::TileObject(TileID id, const Vector2& position, const shared<TileSet>& tileSet)
+    : position{position}, id{id} {
   this->tileSet = Require::not_null(tileSet);
   centerY = get_y() + (get_height() / 2.0f);
   uniqueId = GameObjectID::next();
@@ -75,7 +74,7 @@ void TileObject::add_hitbox(const FRect& rectangle, const Vector2& offset) {
   hitbox.add_rectangle(rectangle, offset);
 }
 
-uint64_t TileObject::get_unique_id() const noexcept {
+uint64 TileObject::get_unique_id() const noexcept {
   return uniqueId;
 }
 

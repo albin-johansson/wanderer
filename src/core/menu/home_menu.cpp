@@ -27,21 +27,21 @@ void HomeMenu::handle_input(const Input& input) noexcept {
   auto my = input.get_mouse_y();
   bool leftReleased = input.was_left_button_released();
 
-  startButton.SetEnlarged(!leftReleased && startButton.Contains(mx, my));
-  settingsButton.SetEnlarged(!leftReleased && settingsButton.Contains(mx, my));
-  controlsButton.SetEnlarged(!leftReleased && controlsButton.Contains(mx, my));
-  quitButton.SetEnlarged(!leftReleased && quitButton.Contains(mx, my));
+  startButton.set_enlarged(!leftReleased && startButton.contains(mx, my));
+  settingsButton.set_enlarged(!leftReleased && settingsButton.contains(mx, my));
+  controlsButton.set_enlarged(!leftReleased && controlsButton.contains(mx, my));
+  quitButton.set_enlarged(!leftReleased && quitButton.contains(mx, my));
 
-  if (leftReleased && startButton.Contains(mx, my)) {
+  if (leftReleased && startButton.contains(mx, my)) {
     parent->set_menu(MenuID::InGame);
 
-  } else if (leftReleased && settingsButton.Contains(mx, my)) {
+  } else if (leftReleased && settingsButton.contains(mx, my)) {
     parent->set_menu(MenuID::Settings);
 
-  } else if (leftReleased && controlsButton.Contains(mx, my)) {
+  } else if (leftReleased && controlsButton.contains(mx, my)) {
     parent->set_menu(MenuID::Controls);
 
-  } else if (leftReleased && quitButton.Contains(mx, my)) {
+  } else if (leftReleased && quitButton.contains(mx, my)) {
     core->quit(); // FIXME perhaps the core should look for quit flag from menus instead?
   }
 }

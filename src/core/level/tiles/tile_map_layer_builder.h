@@ -1,13 +1,9 @@
 #pragma once
 #include <memory>
+#include <tiled_layer.h>
+#include "wanderer_stdinc.h"
 #include "tile_map_layer.h"
 #include "vector_2.h"
-
-namespace albinjohansson::tiled {
-
-class TiledLayer;
-
-}
 
 namespace albinjohansson::wanderer {
 
@@ -60,8 +56,8 @@ class TileMapLayerBuilder final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  std::unique_ptr<ITileMapLayer> create(const std::shared_ptr<TileSet>& tileSet,
-                                        const tiled::TiledLayer& tiledLayer) const;
+  unique<ITileMapLayer> create(const shared<TileSet>& tileSet,
+                               const tiled::TiledLayer& tiledLayer) const;
 };
 
 }

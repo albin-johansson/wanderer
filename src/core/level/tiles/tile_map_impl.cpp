@@ -1,22 +1,21 @@
 #include "tile_map_impl.h"
+#include <algorithm>
+#include <renderer.h>
+#include <rectangle.h>
 #include "tile_map_layer.h"
 #include "tile_set.h"
-#include "renderer.h"
 #include "viewport.h"
 #include "movable_object.h"
 #include "entity.h"
-#include "image.h"
-#include "rectangle.h"
 #include "wanderer_core.h"
 #include "require.h"
 #include "game_constants.h"
-#include <algorithm>
 
 using namespace centurion;
 
 namespace albinjohansson::wanderer {
 
-TileMapImpl::TileMapImpl(const std::shared_ptr<TileSet>& tileSet) {
+TileMapImpl::TileMapImpl(const shared<TileSet>& tileSet) {
   this->tileSet = Require::not_null(tileSet);
 }
 
@@ -117,7 +116,7 @@ void TileMapImpl::RenderTilesAt(int row, int col, Renderer& renderer) {
   }
 }
 
-void TileMapImpl::add_layer(std::unique_ptr<ITileMapLayer>&& layer) {
+void TileMapImpl::add_layer(unique<ITileMapLayer>&& layer) {
   if (layer) {
     if (layer->is_ground_layer()) {
       groundLayers.push_back(std::move(layer));
@@ -127,7 +126,7 @@ void TileMapImpl::add_layer(std::unique_ptr<ITileMapLayer>&& layer) {
   }
 }
 
-void TileMapImpl::set_player(const std::shared_ptr<IEntity>& player) {
+void TileMapImpl::set_player(const shared<IEntity>& player) {
   if (player) {
     this->player = player;
     entityManager.add_entity(player);

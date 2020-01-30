@@ -1,7 +1,8 @@
 #pragma once
 #include <memory>
+#include <renderer.h>
+#include "wanderer_stdinc.h"
 #include "vector_2.h"
-#include "renderer.h"
 
 namespace albinjohansson::wanderer {
 
@@ -50,7 +51,7 @@ class ITileMap {
    * @param layer the layer that will be added.
    * @since 0.1.0
    */
-  virtual void add_layer(std::unique_ptr<ITileMapLayer>&& layer) = 0;
+  virtual void add_layer(unique<ITileMapLayer>&& layer) = 0;
 
   /**
    * Sets the player instance used by the map.
@@ -58,8 +59,7 @@ class ITileMap {
    * @param player the player instance that will be added.
    * @since 0.1.0
    */
-  virtual void set_player(const std::shared_ptr<IEntity>& player) = 0;
-
+  virtual void set_player(const shared<IEntity>& player) = 0;
   [[nodiscard]]
   virtual bool is_blocked(const IMovableObject* object, float delta) const = 0;
 

@@ -1,13 +1,14 @@
 #pragma once
 #include <memory>
+#include <rectangle.h>
+#include <renderer.h>
+#include <image.h>
+#include "wanderer_stdinc.h"
 #include "game_object.h"
 #include "tile_id.h"
 #include "render_depth.h"
 #include "tile_animation.h"
 #include "hitbox.h"
-#include "rectangle.h"
-#include "renderer.h"
-#include "image.h"
 
 namespace albinjohansson::wanderer {
 
@@ -26,7 +27,7 @@ class Tile final {
  private:
   friend class TileBuilder;
 
-  std::shared_ptr<centurion::Image> sheet = nullptr;
+  shared<centurion::Image> sheet = nullptr;
 
   TileID id = Tile::EMPTY;
   int depth = RenderDepth::min;

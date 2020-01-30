@@ -1,7 +1,7 @@
 #include "tile_map_builder.h"
+#include <tiled_object.h>
 #include "tile_map_impl.h"
 #include "tiled_map.h"
-#include "tiled_object.h"
 #include "tile.h"
 #include "game_constants.h"
 #include "spawnpoint.h"

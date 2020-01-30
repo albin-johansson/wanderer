@@ -1,9 +1,8 @@
 #include "movable_delegate.h"
-#include "game_object.h"
-#include "rectangle.h"
-#include "game_object_id.h"
 #include <stdexcept>
-#include <cstdint>
+#include <rectangle.h>
+#include "game_object.h"
+#include "game_object_id.h"
 
 using namespace centurion;
 

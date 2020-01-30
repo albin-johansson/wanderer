@@ -2,6 +2,7 @@
 #include <unordered_map>
 #include <memory>
 #include "entity_state_machine.h"
+#include "wanderer_stdinc.h"
 #include "entity_state.h"
 #include "entity_state_id.h"
 #include "require.h"
@@ -22,7 +23,7 @@ template<class T = IEntityState>
 class AbstractEntityStateMachine : public virtual IEntityStateMachine {
  private:
   IEntity* entity = nullptr;
-  std::unordered_map<EntityStateID, std::unique_ptr<T>> states;
+  std::unordered_map<EntityStateID, unique<T>> states;
   EntityStateID activeStateID = EntityStateID::Idle;
 
  protected:
@@ -42,7 +43,7 @@ class AbstractEntityStateMachine : public virtual IEntityStateMachine {
    * @param state a unique pointer to the state, mustn't be null!
    * @since 0.1.0
    */
-  void put(EntityStateID id, std::unique_ptr<T>&& state) {
+  void put(EntityStateID id, unique<T>&& state) {
     states.emplace(id, std::move(state));
   }
 

@@ -1,8 +1,8 @@
 #pragma once
 #include <memory>
 #include <string>
+#include <renderer.h>
 #include "wanderer_stdinc.h"
-#include "renderer.h"
 
 namespace albinjohansson::wanderer {
 

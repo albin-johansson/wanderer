@@ -1,5 +1,5 @@
 #pragma once
-#include "rectangle.h"
+#include <rectangle.h>
 #include "area.h"
 
 namespace albinjohansson::wanderer {

@@ -1,14 +1,14 @@
 #include "wanderer_core_impl.h"
+#include <window.h>
+#include <renderer.h>
+#include <image_generator.h>
+#include <sound_effect.h>
 #include "menu_state_machine_impl.h"
 #include "player_impl.h"
-#include "renderer.h"
 #include "tile_map.h"
 #include "input.h"
-#include "sound_effect.h"
 #include "menu.h"
 #include "tiled_map_parser.h"
-#include "image_generator.h"
-#include "window.h"
 
 using namespace centurion;
 

@@ -17,9 +17,9 @@ EntityAttackDelegate::EntityAttackDelegate(IEntityStateMachine* parent) {
 EntityAttackDelegate::~EntityAttackDelegate() = default;
 
 void EntityAttackDelegate::draw(const Renderer& renderer, const Viewport&) const {
-  auto& entity = parent->get_entity();
-  auto srcX = entity.get_animation_frame() * 64;
-  auto srcY = EntitySheet::get_source_y(SOURCE_MELEE_Y, entity.get_dominant_direction());
+  const auto& entity = parent->get_entity();
+  const auto srcX = entity.get_animation_frame() * 64;
+  const auto srcY = EntitySheet::get_source_y(SOURCE_MELEE_Y, entity.get_dominant_direction());
   EntityDrawDelegate::draw(renderer, entity, srcX, srcY);
 }
 

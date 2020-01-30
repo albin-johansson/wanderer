@@ -6,7 +6,6 @@
 #include "input.h"
 #include "wanderer_core.h"
 #include "tile_map.h"
-#include <SDL.h>
 
 using namespace centurion;
 

@@ -18,8 +18,7 @@ EntityMoveDelegate::EntityMoveDelegate(IEntityStateMachine* parent) {
 EntityMoveDelegate::~EntityMoveDelegate() = default;
 
 void EntityMoveDelegate::draw(const Renderer& renderer, const Viewport&) const {
-  IEntity& entity = parent->get_entity();
-
+  const auto& entity = parent->get_entity();
   auto srcX = entity.get_velocity().is_zero() ? 0 : entity.get_animation_frame() * 64;
   auto srcY = EntitySheet::get_source_y(512, entity.get_dominant_direction());
   EntityDrawDelegate::draw(renderer, entity, srcX, srcY);

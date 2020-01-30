@@ -18,8 +18,8 @@ Viewport::Viewport(Area viewport, Area level) : level(level) {
 void Viewport::track(float tx, float ty, Area size, float delta) noexcept {
   const float panSpeed = 15.0f * delta;
 
-  float targetX = (tx + (size.width / 2.0f)) - (bounds.get_width() / 2.0f);
-  float targetY = (ty + (size.height / 2.0f)) - (bounds.get_height() / 2.0f);
+  const float targetX = (tx + (size.width / 2.0f)) - (bounds.get_width() / 2.0f);
+  const float targetY = (ty + (size.height / 2.0f)) - (bounds.get_height() / 2.0f);
   float x = bounds.get_x() + (targetX - bounds.get_x()) * panSpeed;
   float y = bounds.get_y() + (targetY - bounds.get_y()) * panSpeed;
 
@@ -31,10 +31,10 @@ void Viewport::track(float tx, float ty, Area size, float delta) noexcept {
     y = 0;
   }
 
-  float widthDiff = level.width - bounds.get_width();
+  const float widthDiff = level.width - bounds.get_width();
   x = (x > widthDiff) ? widthDiff : x;
 
-  float heightDiff = level.height - bounds.get_height();
+  const float heightDiff = level.height - bounds.get_height();
   y = (y > heightDiff) ? heightDiff : y;
 
   bounds.set_x(x);
@@ -53,10 +53,10 @@ void Viewport::center(float tx, float ty, Area size) noexcept {
     y = 0;
   }
 
-  float widthDiff = level.width - bounds.get_width();
+  const float widthDiff = level.width - bounds.get_width();
   x = (x > widthDiff) ? widthDiff : x;
 
-  float heightDiff = level.height - bounds.get_height();
+  const float heightDiff = level.height - bounds.get_height();
   y = (y > heightDiff) ? heightDiff : y;
 
   bounds.set_x(x);

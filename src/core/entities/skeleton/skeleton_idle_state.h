@@ -1,6 +1,6 @@
 #pragma once
-#include <cstdint>
 #include "entity_state.h"
+#include "wanderer_stdinc.h"
 #include "entity_idle_delegate.h"
 
 namespace albinjohansson::wanderer {
@@ -10,7 +10,7 @@ class IEntityStateMachine;
 class SkeletonIdleState final : public IEntityState {
  private:
   EntityIdleDelegate idleDelegate;
-  uint32_t enterTime = 0;
+  uint32 enterTime = 0;
 
  public:
   explicit SkeletonIdleState(IEntityStateMachine* parent);

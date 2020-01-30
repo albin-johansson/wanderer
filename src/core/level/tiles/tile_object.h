@@ -1,14 +1,14 @@
 #pragma once
-#include <memory>
 #include "game_object.h"
+#include <memory>
+#include <renderer.h>
+#include <rectangle.h>
 #include "tile_id.h"
 #include "tile.h"
 #include "vector_2.h"
 #include "hitbox.h"
-#include "rectangle.h"
 #include "render_depth.h"
 #include "hitbox.h"
-#include "renderer.h"
 
 namespace albinjohansson::wanderer {
 
@@ -22,10 +22,10 @@ class TileSet;
  */
 class TileObject final : public IGameObject {
  private:
-  std::shared_ptr<TileSet> tileSet = nullptr;
+  shared<TileSet> tileSet = nullptr;
   Vector2 position;
   Hitbox hitbox;
-  uint64_t uniqueId = 0;
+  uint64 uniqueId = 0;
   int depth = RenderDepth::max;
   float centerY = 0;
   const TileID id;
@@ -76,7 +76,7 @@ class TileObject final : public IGameObject {
   const Hitbox& get_hitbox() const noexcept override;
 
   [[nodiscard]]
-  uint64_t get_unique_id() const noexcept override;
+  uint64 get_unique_id() const noexcept override;
 };
 
 }

@@ -1,8 +1,8 @@
 #include "player_impl.h"
+#include <renderer.h>
+#include <image.h>
 #include "player_state_machine_impl.h"
-#include "image.h"
 #include "input.h"
-#include "renderer.h"
 #include "viewport.h"
 #include "wanderer_core.h"
 #include "game_constants.h"
@@ -11,7 +11,7 @@ using namespace centurion;
 
 namespace albinjohansson::wanderer {
 
-PlayerImpl::PlayerImpl(const std::shared_ptr<Image>& sheet) : AbstractEntity(sheet) {
+PlayerImpl::PlayerImpl(const shared<Image>& sheet) : AbstractEntity(sheet) {
   playerStateMachine = std::make_unique<PlayerStateMachineImpl>(static_cast<IEntity*>(this));
   Init();
 }

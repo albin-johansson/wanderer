@@ -1,13 +1,12 @@
 #include "tile_map_layer_impl.h"
+#include <renderer.h>
 #include "tile.h"
 #include "tile_set.h"
 #include "tile_map_bounds.h"
 #include "game_object.h"
-#include "renderer.h"
 #include "viewport.h"
 #include "require.h"
 #include "math_utils.h"
-#include <memory>
 
 namespace albinjohansson::wanderer {
 
@@ -30,7 +29,7 @@ void TileMapLayerImpl::update(const TileMapBounds& bounds) {
 
 TileID TileMapLayerImpl::get_tile_id(int row, int col) const {
   try {
-    return tiles.at(get_index(row, col));
+    return tiles.at(static_cast<std::size_t>(get_index(row, col)));
   } catch (std::exception& e) {
     SDL_Log("Failed to get tile ID of tile at (%i, %i)", row, col);
     throw;

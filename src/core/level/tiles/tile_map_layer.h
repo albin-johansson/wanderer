@@ -1,9 +1,9 @@
 #pragma once
 #include <memory>
 #include <vector>
+#include <renderer.h>
 #include "tile_id.h"
 #include "map_position.h"
-#include "renderer.h"
 
 namespace albinjohansson::wanderer {
 
@@ -19,9 +19,6 @@ class Viewport;
  * @since 0.1.0
  */
 class ITileMapLayer {
- protected:
-  ITileMapLayer() = default;
-
  public:
   virtual ~ITileMapLayer() = default;
 

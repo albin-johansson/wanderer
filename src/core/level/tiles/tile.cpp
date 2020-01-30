@@ -1,10 +1,6 @@
 #include "tile.h"
-#include "renderer.h"
 #include "tile_set.h"
-#include "rectangle.h"
 #include "game_constants.h"
-#include "image.h"
-#include "area.h"
 
 using namespace centurion;
 

@@ -1,11 +1,12 @@
 #pragma once
 #include <type_traits>
 #include <memory>
+#include <image.h>
+#include "wanderer_stdinc.h"
 #include "entity.h"
 #include "animation.h"
 #include "render_depth.h"
 #include "hitbox.h"
-#include "image.h"
 
 namespace albinjohansson::wanderer {
 
@@ -21,8 +22,8 @@ class AbstractEntity : public virtual IEntity {
  private:
   static constexpr int DEPTH = RenderDepth::range / 2; // TODO maybe move to IEntity
 
-  std::unique_ptr<IMovableObject> movable = nullptr;
-  std::shared_ptr<centurion::Image> sheet = nullptr;
+  unique<IMovableObject> movable = nullptr;
+  shared<centurion::Image> sheet = nullptr;
   Animation animation;
   int health = 100; // FIXME hard-coded
 
@@ -32,7 +33,7 @@ class AbstractEntity : public virtual IEntity {
    * @throws NullPointerException if the supplied pointer is null.
    * @since 0.1.0
    */
-  explicit AbstractEntity(const std::shared_ptr<centurion::Image>& sheet);
+  explicit AbstractEntity(const shared<centurion::Image>& sheet);
 
  public:
   ~AbstractEntity() override;
@@ -45,7 +46,7 @@ class AbstractEntity : public virtual IEntity {
 
   void set_animation_frame_amount(int nFrames) override;
 
-  void set_animation_delay(uint32_t ms) override;
+  void set_animation_delay(uint32 ms) override;
 
   void hurt(int dmg) noexcept override;
 
@@ -83,7 +84,7 @@ class AbstractEntity : public virtual IEntity {
   bool is_animation_done() const noexcept override;
 
   [[nodiscard]]
-  centurion::Image& get_sprite_sheet() const noexcept override;
+  centurion::Image& get_sprite_sheet() const noexcept override; // TODO make const
 
   [[nodiscard]]
   int get_health() const noexcept override;
@@ -134,7 +135,7 @@ class AbstractEntity : public virtual IEntity {
   int get_depth() const noexcept override;
 
   [[nodiscard]]
-  uint64_t get_unique_id() const noexcept override;
+  uint64 get_unique_id() const noexcept override;
 };
 
 static_assert(std::has_virtual_destructor_v<AbstractEntity>);

@@ -1,10 +1,10 @@
 #include "skeleton_moving_state.h"
+#include <timer.h>
 #include "entity_state_machine.h"
 #include "random_utils.h"
 #include "player.h"
 #include "wanderer_core.h"
 #include "tile_map.h"
-#include <SDL.h>
 
 using namespace centurion;
 
@@ -32,7 +32,7 @@ void SkeletonMovingState::ChasePlayer(const IWandererCore& core, float distance)
 void SkeletonMovingState::Roam(const IWandererCore& core) {
   auto& entity = moveDelegate.GetParent().get_entity();
 
-  if (SDL_GetTicks() - enterTime >= 1000) {
+  if (Timer::millis() - enterTime >= 1000) {
     moveDelegate.GetParent().set_state(EntityStateID::Idle, core);
     return;
   }
@@ -77,7 +77,7 @@ void SkeletonMovingState::draw(const Renderer& renderer, const Viewport& viewpor
 
 void SkeletonMovingState::enter(const IWandererCore& core) {
   moveDelegate.enter(core);
-  enterTime = SDL_GetTicks();
+  enterTime = Timer::millis();
 }
 
 void SkeletonMovingState::exit(const IWandererCore& core) {

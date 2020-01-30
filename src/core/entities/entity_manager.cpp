@@ -1,6 +1,6 @@
 #include "entity_manager.h"
+#include <rectangle.h>
 #include "entity.h"
-#include "rectangle.h"
 #include "hitbox.h"
 
 using namespace centurion;

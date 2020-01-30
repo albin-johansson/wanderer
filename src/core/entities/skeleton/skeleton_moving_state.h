@@ -1,5 +1,5 @@
 #pragma once
-#include <cstdint>
+#include "wanderer_stdinc.h"
 #include "entity_state.h"
 #include "entity_move_delegate.h"
 #include "direction.h"
@@ -17,7 +17,7 @@ class IEntityStateMachine;
 class SkeletonMovingState final : public IEntityState {
  private:
   EntityMoveDelegate moveDelegate;
-  uint32_t enterTime = 0;
+  uint32 enterTime = 0;
 
   void ChasePlayer(const IWandererCore& core, float distance);
 

@@ -16,18 +16,18 @@ MenuButton::MenuButton(std::string text, float x, float y, float width, float he
 
 MenuButton::~MenuButton() = default;
 
-void MenuButton::RenderText(const Renderer& renderer,
-                            float x,
-                            float y,
-                            std::unique_ptr<Image>& img,
-                            const centurion::Font& font) const {
+void MenuButton::render_text(const Renderer& renderer,
+                             float x,
+                             float y,
+                             std::unique_ptr<Image>& img,
+                             const centurion::Font& font) const {
   if (!img) {
     img = renderer.create_image(text, font);
   }
   renderer.draw_image(*img, x, y);
 }
 
-bool MenuButton::Contains(float mx, float my) const noexcept {
+bool MenuButton::contains(float mx, float my) const noexcept {
   return bounds.contains(mx, my);
 }
 
@@ -43,14 +43,14 @@ void MenuButton::draw(Renderer& renderer, const Viewport&, const FontBundle& fon
     renderer.set_color(0xFF, 0xFF, 0xFF);
 
     if (enlarged) {
-      RenderText(renderer, x, y, enlargedImg, font);
+      render_text(renderer, x, y, enlargedImg, font);
     } else {
-      RenderText(renderer, x, y, normalImg, font);
+      render_text(renderer, x, y, normalImg, font);
     }
   }
 }
 
-void MenuButton::SetEnlarged(bool enlarged) noexcept {
+void MenuButton::set_enlarged(bool enlarged) noexcept {
   this->enlarged = enlarged;
 }
 

@@ -1,14 +1,12 @@
 #include "abstract_entity.h"
-#include "image.h"
 #include "require.h"
 #include "movable_delegate.h"
-#include "hitbox.h"
 
 using namespace centurion;
 
 namespace albinjohansson::wanderer {
 
-AbstractEntity::AbstractEntity(const std::shared_ptr<Image>& sheet) {
+AbstractEntity::AbstractEntity(const shared<Image>& sheet) {
   this->sheet = Require::not_null(sheet);
   movable = std::make_unique<MovableDelegate>(DEPTH,
                                               GameConstants::entity_width,

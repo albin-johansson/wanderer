@@ -2,7 +2,7 @@
 #include "sortable_drawable.h"
 #include <cstdint>
 #include <type_traits>
-#include "rectangle.h"
+#include <rectangle.h>
 #include "vector_2.h"
 #include "wanderer_stdinc.h"
 

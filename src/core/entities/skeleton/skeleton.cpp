@@ -1,7 +1,7 @@
 #include "skeleton.h"
+#include <image.h>
+#include <renderer.h>
 #include "skeleton_state_machine.h"
-#include "image.h"
-#include "renderer.h"
 #include "viewport.h"
 #include "wanderer_core.h"
 #include "require.h"
@@ -10,7 +10,7 @@ using namespace centurion;
 
 namespace albinjohansson::wanderer {
 
-Skeleton::Skeleton(const std::shared_ptr<Image>& sheet) : AbstractEntity(sheet) {
+Skeleton::Skeleton(const shared<Image>& sheet) : AbstractEntity(sheet) {
   stateMachine = std::make_unique<SkeletonStateMachine>(this);
 }
 

@@ -1,9 +1,9 @@
 #pragma once
 #include <memory>
+#include <image_generator.h>
 #include "wanderer_core.h"
 #include "wanderer_stdinc.h"
 #include "viewport.h"
-#include "image_generator.h"
 #include "menu_state_machine.h"
 #include "sound_engine.h"
 #include "hud.h"

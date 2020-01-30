@@ -1,13 +1,8 @@
 #pragma once
+#include <image.h>
+#include <tiled_tile_set.h>
 #include "tile.h"
 #include "tiled_animation.h"
-#include "image.h"
-
-namespace albinjohansson::tiled {
-
-class TiledTileSet;
-
-}
 
 namespace albinjohansson::wanderer {
 

@@ -1,6 +1,6 @@
 #pragma once
 #include <cstdint>
-#include "image.h"
+#include <image.h>
 
 namespace albinjohansson::wanderer {
 

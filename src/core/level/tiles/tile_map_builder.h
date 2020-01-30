@@ -1,12 +1,7 @@
 #pragma once
 #include <memory>
+#include <tiled_map.h>
 #include "tile_map.h"
-
-namespace albinjohansson::tiled {
-
-class TiledMap;
-
-}
 
 namespace albinjohansson::wanderer {
 

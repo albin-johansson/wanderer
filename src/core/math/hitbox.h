@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 #include <utility>
-#include "rectangle.h"
+#include <rectangle.h>
 #include "vector_2.h"
 
 namespace albinjohansson::wanderer {

@@ -1,6 +1,4 @@
 #include "tile_builder.h"
-#include "tiled_tile_set.h"
-#include "image.h"
 #include "game_constants.h"
 
 using namespace centurion;

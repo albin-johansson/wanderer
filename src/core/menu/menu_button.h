@@ -1,9 +1,10 @@
 #pragma once
 #include <memory>
 #include <string>
-#include "rectangle.h"
+#include <image.h>
+#include <rectangle.h>
+#include "wanderer_stdinc.h"
 #include "menu_drawable.h"
-#include "image.h"
 
 namespace albinjohansson::wanderer {
 
@@ -15,16 +16,16 @@ namespace albinjohansson::wanderer {
 class MenuButton final : public IMenuDrawable {
  private:
   centurion::FRect bounds;
-  mutable std::unique_ptr<centurion::Image> normalImg = nullptr;
-  mutable std::unique_ptr<centurion::Image> enlargedImg = nullptr;
+  mutable unique<centurion::Image> normalImg = nullptr;
+  mutable unique<centurion::Image> enlargedImg = nullptr;
   const std::string text = "";
   bool enlarged = false;
 
-  void RenderText(const centurion::Renderer& renderer,
-                  float x,
-                  float y,
-                  std::unique_ptr<centurion::Image>& img,
-                  const centurion::Font& font) const;
+  void render_text(const centurion::Renderer& renderer,
+                   float x,
+                   float y,
+                   unique<centurion::Image>& img,
+                   const centurion::Font& font) const;
 
  public:
   /**
@@ -43,10 +44,10 @@ class MenuButton final : public IMenuDrawable {
             const Viewport& viewport,
             const FontBundle& fonts) const override;
 
-  void SetEnlarged(bool enlarged) noexcept;
+  void set_enlarged(bool enlarged) noexcept;
 
   [[nodiscard]]
-  bool Contains(float mx, float my) const noexcept;
+  bool contains(float mx, float my) const noexcept;
 };
 
 }

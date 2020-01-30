@@ -16,7 +16,7 @@ EntityIdleDelegate::EntityIdleDelegate(IEntityStateMachine* parent) {
 EntityIdleDelegate::~EntityIdleDelegate() = default;
 
 void EntityIdleDelegate::draw(const Renderer& renderer, const Viewport&) const {
-  IEntity& entity = parent->get_entity();
+  const auto& entity = parent->get_entity();
 
   const auto srcY = EntitySheet::get_source_y(512, entity.get_dominant_direction());
   EntityDrawDelegate::draw(renderer, entity, 0, srcY);

@@ -57,16 +57,15 @@ std::vector<TileID> TileMapLayerBuilder::create_tile_vector(const std::vector<in
   return result;
 }
 
-std::unique_ptr<ITileMapLayer> TileMapLayerBuilder::create(const std::shared_ptr<TileSet>& tileSet,
-                                                           const tiled::TiledLayer& tiledLayer) const {
-  auto layer = std::unique_ptr<TileMapLayerImpl>(new TileMapLayerImpl(tileSet));
+unique<ITileMapLayer> TileMapLayerBuilder::create(const shared<TileSet>& tileSet,
+                                                  const tiled::TiledLayer& tiledLayer) const {
+  auto layer = unique<TileMapLayerImpl>(new TileMapLayerImpl(tileSet));
 
   layer->nRows = tiledLayer.get_rows();
   layer->nCols = tiledLayer.get_cols();
   layer->isGroundLayer = tiledLayer.get_bool("ground");
   layer->tiles = create_tile_vector(tiledLayer.get_tiles());
-
-  layer->tileObjects.reserve(tiledLayer.get_non_empty_tiles());
+  layer->tileObjects.reserve(static_cast<unsigned>(tiledLayer.get_non_empty_tiles()));
 
   init_tile_objects(*layer);
 

@@ -2,11 +2,12 @@
 #include <memory>
 #include <vector>
 #include <rectangle.h>
+#include <renderer.h>
+#include "wanderer_stdinc.h"
 #include "tile_map.h"
 #include "tile_map_bounds.h"
 #include "entity_manager.h"
 #include "spawnpoint.h"
-#include "renderer.h"
 
 namespace albinjohansson::wanderer {
 
@@ -25,13 +26,8 @@ class TileMapImpl final : public ITileMap {
  private:
   friend class TileMapBuilder;
 
-  int nRows = 0;
-  int nCols = 0;
-  Vector2 playerSpawnPos;
-
-  std::shared_ptr<TileSet> tileSet = nullptr;
-  std::shared_ptr<IEntity> player = nullptr;
-
+  shared<TileSet> tileSet = nullptr;
+  shared<IEntity> player = nullptr;
   std::vector<std::unique_ptr<ITileMapLayer>> groundLayers;
   std::vector<std::unique_ptr<ITileMapLayer>> objectLayers;
   std::vector<IGameObject*> activeObjects;
@@ -39,6 +35,10 @@ class TileMapImpl final : public ITileMap {
   EntityManager entityManager;
 
   std::vector<Spawnpoint> spawnpoints;
+
+  int nRows = 0;
+  int nCols = 0;
+  Vector2 playerSpawnPos;
 
   void RenderTilesAt(int row, int col, centurion::Renderer& renderer);
 
@@ -64,7 +64,7 @@ class TileMapImpl final : public ITileMap {
    * @param tileSet the associated tile set.
    * @since 0.1.0
    */
-  explicit TileMapImpl(const std::shared_ptr<TileSet>& tileSet);
+  explicit TileMapImpl(const shared<TileSet>& tileSet);
 
  public:
   ~TileMapImpl() override;
@@ -73,9 +73,9 @@ class TileMapImpl final : public ITileMap {
 
   void draw(centurion::Renderer& renderer, const Viewport& viewport, float alpha) noexcept override;
 
-  void add_layer(std::unique_ptr<ITileMapLayer>&& layer) override;
+  void add_layer(unique<ITileMapLayer>&& layer) override;
 
-  void set_player(const std::shared_ptr<IEntity>& player) override;
+  void set_player(const shared<IEntity>& player) override;
 
   [[nodiscard]]
   bool is_blocked(const IMovableObject* self, float delta) const override;

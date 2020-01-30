@@ -1,8 +1,6 @@
 #include "tile_set_builder.h"
 #include "tile_builder.h"
 #include "pugi_utils.h"
-#include "image_generator.h"
-#include "image.h"
 
 using namespace centurion;
 
@@ -15,8 +13,8 @@ tiled::TiledTileSet TileSetBuilder::create_tiled_tile_set(const pugi::xml_node& 
   return tiled::TiledTileSet(tileSetNode, firstId, lastgid);
 }
 
-std::unique_ptr<TileSet> TileSetBuilder::create(const pugi::xml_node& mapRoot,
-                                                ImageGenerator& imageGenerator) {
+unique<TileSet> TileSetBuilder::create(const pugi::xml_node& mapRoot,
+                                       ImageGenerator& imageGenerator) {
   const auto tsChildren = mapRoot.children("tileset");
   const auto nTilesets = std::distance(tsChildren.begin(), tsChildren.end());
   auto tileSet = std::make_unique<TileSet>(nTilesets * 1024); // Guess the amount of tiles

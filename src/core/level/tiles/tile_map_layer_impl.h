@@ -2,6 +2,7 @@
 #include <memory>
 #include <vector>
 #include <unordered_map>
+#include "wanderer_stdinc.h"
 #include "tile_map_layer.h"
 #include "tile_object.h"
 #include "tile_id.h"
@@ -23,14 +24,14 @@ class TileMapLayerImpl final : public ITileMapLayer {
  private:
   friend class TileMapLayerBuilder;
 
-  std::shared_ptr<TileSet> tileSet = nullptr;
-  std::unordered_map<MapPosition, std::unique_ptr<TileObject>> tileObjects;
+  shared<TileSet> tileSet = nullptr;
+  std::unordered_map<MapPosition, unique<TileObject>> tileObjects;
   std::vector<TileID> tiles;
   int nRows = 0;
   int nCols = 0;
   bool isGroundLayer = false;
 
-  explicit TileMapLayerImpl(const std::shared_ptr<TileSet>& tileSet);
+  explicit TileMapLayerImpl(const shared<TileSet>& tileSet);
 
  public:
   ~TileMapLayerImpl() noexcept override;

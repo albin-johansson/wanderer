@@ -2,6 +2,7 @@
 #include <memory>
 #include "player.h"
 #include "abstract_entity.h"
+#include "wanderer_stdinc.h"
 #include "player_state_machine.h"
 
 namespace albinjohansson::wanderer {
@@ -16,7 +17,7 @@ namespace albinjohansson::wanderer {
  */
 class PlayerImpl final : public AbstractEntity, public IPlayer {
  private:
-  std::unique_ptr<IPlayerStateMachine> playerStateMachine = nullptr;
+  unique<IPlayerStateMachine> playerStateMachine = nullptr;
 
   void Init();
 
@@ -26,7 +27,7 @@ class PlayerImpl final : public AbstractEntity, public IPlayer {
    * @throws NullPointerException if the supplied image pointer is null.
    * @since 0.1.0
    */
-  explicit PlayerImpl(const std::shared_ptr<centurion::Image>& sheet);
+  explicit PlayerImpl(const shared<centurion::Image>& sheet);
 
   ~PlayerImpl() override;
 

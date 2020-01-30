@@ -1,13 +1,14 @@
 #pragma once
 #include <unordered_map>
 #include <cstdint>
+#include "wanderer_stdinc.h"
 #include "tile_id.h"
 
 namespace albinjohansson::wanderer {
 
 struct Frame {
   TileID frameId = 0;
-  uint32_t duration = 100;
+  uint32 duration = 100;
 };
 
 class TileAnimation final {
@@ -15,7 +16,7 @@ class TileAnimation final {
   std::unordered_map<int, Frame> frames;
   int nFrames = 1;
   int index = 0;
-  uint32_t previous = 0;
+  uint32 previous = 0;
 
  public:
   TileAnimation();

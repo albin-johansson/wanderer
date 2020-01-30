@@ -1,9 +1,9 @@
 #include "skeleton_idle_state.h"
+#include <timer.h>
 #include "entity_state_machine.h"
 #include "player.h"
 #include "skeleton.h"
 #include "wanderer_core.h"
-#include "timer.h"
 
 using namespace centurion;
 
