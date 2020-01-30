@@ -5,7 +5,7 @@
 using namespace centurion;
 using namespace albinjohansson::wanderer;
 
-static void Run() {
+static void run() {
   auto controller = create_controller();
   controller->run();
 }
@@ -13,6 +13,6 @@ static void Run() {
 int main(int, char**) {
   Centurion c;
   SDL_SetHint(SDL_HINT_RENDER_DRIVER, "opengl");
-  Run();
+  run();
   return 0;
 }
