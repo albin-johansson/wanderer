@@ -1,9 +1,10 @@
 #include "wanderer_controller_impl.h"
+#include "wanderer_stdinc.h"
 
 namespace albinjohansson::wanderer {
 
-std::unique_ptr<IWandererController> create_controller() {
-  return std::unique_ptr<IWandererController>(new WandererControllerImpl());
+unique<IWandererController> create_controller() {
+  return unique<IWandererController>(new WandererControllerImpl());
 }
 
 }

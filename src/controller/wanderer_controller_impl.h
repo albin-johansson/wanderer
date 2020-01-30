@@ -1,10 +1,11 @@
 #pragma once
-#include <memory>
 #include "wanderer_controller.h"
-#include "window.h"
+#include <memory>
+#include <window.h>
+#include <renderer.h>
+#include "wanderer_stdinc.h"
 #include "wanderer_core.h"
 #include "game_loop.h"
-#include "renderer.h"
 
 namespace albinjohansson::wanderer {
 
@@ -15,10 +16,10 @@ namespace albinjohansson::wanderer {
  */
 class WandererControllerImpl final : public IWandererController {
  private:
-  std::unique_ptr<IWandererCore> core = nullptr;
-  std::unique_ptr<IGameLoop> gameLoop = nullptr;
-  std::shared_ptr<centurion::Renderer> renderer = nullptr;
-  std::unique_ptr<centurion::Window> window = nullptr;
+  unique<IWandererCore> core = nullptr;
+  unique<IGameLoop> gameLoop = nullptr;
+  shared<centurion::Renderer> renderer = nullptr;
+  unique<centurion::Window> window = nullptr;
 
   /**
    * @throws BadStateException if the desktop dimensions cannot be deduced.
@@ -33,7 +34,7 @@ class WandererControllerImpl final : public IWandererController {
    * @throws BadStateException if the desktop dimensions cannot be deduced.
    * @since 0.1.0
    */
-  friend std::unique_ptr<IWandererController> create_controller();
+  friend unique<IWandererController> create_controller();
 
   ~WandererControllerImpl() override;
 

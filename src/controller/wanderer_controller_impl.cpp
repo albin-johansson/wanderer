@@ -1,14 +1,11 @@
 #include "wanderer_controller_impl.h"
-#include "wanderer_core.h"
-#include "renderer.h"
-#include "key_state.h"
-#include "mouse_state.h"
-#include "smooth_fixed_timestep_loop.h"
-#include "wanderer_core_factory.h"
-#include "image_generator.h"
-#include "game_constants.h"
+#include <image_generator.h>
 #include <system.h>
-#include <SDL.h>
+#include <key_state.h>
+#include <mouse_state.h>
+#include "wanderer_core_factory.h"
+#include "smooth_fixed_timestep_loop.h"
+#include "game_constants.h"
 
 using namespace centurion;
 
@@ -38,9 +35,10 @@ WandererControllerImpl::WandererControllerImpl() {
 
   window->add_window_listener(mouseState.get());
 
+  const auto refreshRate = static_cast<float>(Screen::get_refresh_rate());
   gameLoop = std::make_unique<SmoothFixedTimestepLoop>(std::make_unique<KeyState>(),
                                                        std::move(mouseState),
-                                                       static_cast<float>(Screen::get_refresh_rate()));
+                                                       refreshRate);
 }
 
 WandererControllerImpl::~WandererControllerImpl() = default;

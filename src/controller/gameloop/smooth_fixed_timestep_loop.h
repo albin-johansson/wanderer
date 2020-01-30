@@ -1,8 +1,8 @@
 #pragma once
 #include <memory>
 #include <cstdint>
-#include "key_state.h"
-#include "mouse_state.h"
+#include <key_state.h>
+#include <mouse_state.h>
 #include "game_loop.h"
 #include "input.h"
 
@@ -24,10 +24,10 @@ class SmoothFixedTimestepLoop final : public IGameLoop {
    */
   static constexpr float maxFrameTime = 0.25f;
 
-  std::unique_ptr<Input> input = nullptr;
+  unique<Input> input = nullptr;
 
-  uint64_t then = 0;
-  uint64_t now = 0;
+  uint64 then = 0;
+  uint64 now = 0;
   const float vsyncRate;
   const float timeStep;
   const float counterFreq;
@@ -52,14 +52,14 @@ class SmoothFixedTimestepLoop final : public IGameLoop {
 
  public:
   /**
-   * @param keyStateManager the associated key state manager.
-   * @param mouseStateManager the associated mouse state manager.
+   * @param keyState the associated key state instance.
+   * @param mouseState the associated mouse state instance.
    * @param vsyncRate the vsync rate, in Hz.
    * @throws NullPointerException if any pointers are null.
    * @since 0.1.0
    */
-  SmoothFixedTimestepLoop(std::unique_ptr<centurion::KeyState> keyStateManager,
-                          std::unique_ptr<centurion::MouseState> mouseStateManager,
+  SmoothFixedTimestepLoop(unique<centurion::KeyState> keyState,
+                          unique<centurion::MouseState> mouseState,
                           float vsyncRate);
 
   ~SmoothFixedTimestepLoop() override;

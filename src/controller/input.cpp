@@ -5,10 +5,9 @@ using namespace centurion;
 
 namespace albinjohansson::wanderer {
 
-Input::Input(std::unique_ptr<KeyState>&& ksm,
-             std::unique_ptr<MouseState>&& msm) {
-  this->keyState = Require::not_null(std::move(ksm));
-  this->mouseState = Require::not_null(std::move(msm));
+Input::Input(unique<KeyState>&& keyState, unique<MouseState>&& mouseState) {
+  this->keyState = Require::not_null(std::move(keyState));
+  this->mouseState = Require::not_null(std::move(mouseState));
 }
 
 Input::~Input() = default;

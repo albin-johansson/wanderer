@@ -9,13 +9,13 @@ using namespace centurion;
 
 namespace albinjohansson::wanderer {
 
-SmoothFixedTimestepLoop::SmoothFixedTimestepLoop(std::unique_ptr<KeyState> ksm,
-                                                 std::unique_ptr<MouseState> msm,
+SmoothFixedTimestepLoop::SmoothFixedTimestepLoop(unique<KeyState> keyState,
+                                                 unique<MouseState> mouseState,
                                                  float vsyncRate)
     : vsyncRate{vsyncRate},
       timeStep{1.0f / vsyncRate},
       counterFreq{static_cast<float>(Timer::high_res_freq())} {
-  input = std::make_unique<Input>(std::move(ksm), std::move(msm));
+  input = std::make_unique<Input>(std::move(keyState), std::move(mouseState));
   now = Timer::high_res();
   then = now;
 }
@@ -42,7 +42,7 @@ void SmoothFixedTimestepLoop::smooth_delta() {
     frameCount = 1;
   }
 
-  float oldDelta = delta;
+  const float oldDelta = delta;
   delta = static_cast<float>(frameCount) / vsyncRate;
   deltaBuffer = oldDelta - delta;
 }
