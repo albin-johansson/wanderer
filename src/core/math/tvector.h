@@ -7,7 +7,13 @@ namespace albinjohansson::wanderer::experimental {
 template<typename T = float>
 class Vector2 final {
  public:
-  static_assert(std::is_integral_v<T> || std::is_floating_point_v<T>);
+  static_assert(std::is_integral_v<T> || std::is_floating_point_v<T>,
+                "Vector2 requires a numerical type!");
+  static_assert(!std::is_pointer_v<T>,
+                "Vector2 requires non-pointer template parameter!");
+  static_assert(std::is_scalar_v<T>);
+  static_assert(std::is_trivial_v<T>,
+                "Vector2 requires a trivial template parameter!");
 
   T x = 0;
   T y = 0;
@@ -223,8 +229,8 @@ static_assert(std::is_nothrow_move_assignable_v<Vector2<>>);
 
 static_assert(std::is_final_v<Vector2<>>);
 
-using Vector2F = Vector2<float>;
-using Vector2D = Vector2<double>;
-using Vector2I = Vector2<int>;
+using Vector2f = Vector2<float>;
+using Vector2d = Vector2<double>;
+using Vector2i = Vector2<int>;
 
 }
