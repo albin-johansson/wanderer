@@ -198,7 +198,6 @@ target_compile_options(${WANDERER_LIB} PRIVATE
         -Wuninitialized
         -Wsuggest-final-types
         -Wsuggest-final-methods
-#        -Wsuggest-override
         -Wduplicated-cond
         -Wconversion)
 

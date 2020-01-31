@@ -27,7 +27,7 @@ void Animation::reset() noexcept {
   previous = 0;
 }
 
-void Animation::set_delay(uint32_t delay) noexcept {
+void Animation::set_delay(uint32 delay) noexcept {
   this->delay = delay;
 }
 

@@ -1,6 +1,6 @@
 #pragma once
-#include <cstdint>
 #include <image.h>
+#include "wanderer_stdinc.h"
 
 namespace albinjohansson::wanderer {
 
@@ -43,7 +43,7 @@ class IAnimated {
    * @param ms the delay in between frames, in milliseconds.
    * @since 0.1.0
    */
-  virtual void set_animation_delay(uint32_t ms) = 0;
+  virtual void set_animation_delay(uint32 ms) = 0;
 
   /**
    * Returns the index of the currently active animation frame.

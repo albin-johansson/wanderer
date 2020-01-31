@@ -1,8 +1,8 @@
 #pragma once
 #include <memory>
-#include <cstdint>
 #include <key_state.h>
 #include <mouse_state.h>
+#include "wanderer_stdinc.h"
 #include "game_loop.h"
 #include "input.h"
 

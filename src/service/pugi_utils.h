@@ -4,7 +4,7 @@
 
 namespace albinjohansson::wanderer {
 
-class PugiUtils {
+class PugiUtils final {
  public:
   PugiUtils() = delete;
 

@@ -1,6 +1,5 @@
 #pragma once
 #include <unordered_map>
-#include <cstdint>
 #include "wanderer_stdinc.h"
 #include "tile_id.h"
 

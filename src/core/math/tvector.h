@@ -2,25 +2,39 @@
 #include <type_traits>
 #include "math_utils.h"
 
-namespace albinjohansson::wanderer {
+namespace albinjohansson::wanderer::experimental {
 
 template<typename T = float>
-class Vector final {
+class Vector2 final {
  public:
   static_assert(std::is_integral_v<T> || std::is_floating_point_v<T>);
 
   T x = 0;
   T y = 0;
 
-  Vector() noexcept = default;
+  constexpr Vector2() noexcept = default;
 
-  Vector(const Vector<T>& other) noexcept : x{other.x}, y{other.y} {}
+  constexpr Vector2(const Vector2<T>& other) noexcept : x{other.x}, y{other.y} {}
 
-  Vector(Vector<T>&& other) noexcept : x{other.x}, y{other.y} {}
+  Vector2(Vector2<T>&& other) noexcept : x{other.x}, y{other.y} {}
 
-  constexpr Vector(T x, T y) : x{x}, y{y} {}
+  constexpr Vector2(T x, T y) : x{x}, y{y} {}
 
-  ~Vector() noexcept = default;
+  ~Vector2() noexcept = default;
+
+  auto& operator=(const Vector2<T>& other) noexcept {
+    if (this != &other) {
+      x = other.x;
+      y = other.y;
+    }
+    return *this;
+  }
+
+  auto& operator=(Vector2<T>&& other) noexcept {
+    x = other.x;
+    y = other.y;
+    return *this;
+  }
 
   void scale(T scale) noexcept {
     x *= scale;
@@ -39,7 +53,7 @@ class Vector final {
     x = y = 0;
   }
 
-  void set(const Vector<T>& other) noexcept {
+  void set(const Vector2<T>& other) noexcept {
     x = other.x;
     y = other.y;
   }
@@ -63,17 +77,17 @@ class Vector final {
     scale(length / prev);
   }
 
-  void lerp(const Vector<T>& target, T alpha) noexcept {
+  void lerp(const Vector2<T>& target, T alpha) noexcept {
     T invAlpha = 1 - alpha;
     this->x = (x * invAlpha) + (target.x * alpha);
     this->y = (y * invAlpha) + (target.y * alpha);
   }
 
-  void interpolate(const Vector<T>& target, float alpha) noexcept {
+  void interpolate(const Vector2<T>& target, float alpha) noexcept {
     lerp(target, alpha * alpha * alpha * (alpha * (alpha * 6 - 15) + 10));
   }
 
-  void add(const Vector<T>& other) noexcept {
+  void add(const Vector2<T>& other) noexcept {
     x += other.x;
     y += other.y;
   }
@@ -83,7 +97,7 @@ class Vector final {
     this->y += y;
   }
 
-  void sub(const Vector<T>& other) noexcept {
+  void sub(const Vector2<T>& other) noexcept {
     x -= other.x;
     y -= other.y;
   }
@@ -93,11 +107,11 @@ class Vector final {
     this->y -= y;
   }
 
-  void look_at(const Vector<T>& target) noexcept {
+  void look_at(const Vector2<T>& target) noexcept {
     look_at(target, get_length());
   }
 
-  void look_at(const Vector<T>& target, T length) noexcept {
+  void look_at(const Vector2<T>& target, T length) noexcept {
     if (length <= 0) {
       x = 0;
       y = 0;
@@ -115,22 +129,22 @@ class Vector final {
   }
 
   [[nodiscard]]
-  auto operator+(const Vector<T>& other) const noexcept {
-    return Vector<T>{x + other.x, y + other.y};
+  auto operator+(const Vector2<T>& other) const noexcept {
+    return Vector2<T>{x + other.x, y + other.y};
   }
 
   [[nodiscard]]
-  auto operator-(const Vector<T>& other) const noexcept {
-    return Vector<T>{x - other.x, y - other.y};
+  auto operator-(const Vector2<T>& other) const noexcept {
+    return Vector2<T>{x - other.x, y - other.y};
   }
 
   [[nodiscard]]
-  T operator*(const Vector<T>& other) const noexcept {
+  T operator*(const Vector2<T>& other) const noexcept {
     return dot(other);
   }
 
   [[nodiscard]]
-  bool operator==(const Vector<T>& other) const noexcept {
+  bool operator==(const Vector2<T>& other) const noexcept {
     if constexpr (std::is_integral_v<T>) {
       return (x == other.x) && (y == other.y);
     } else {
@@ -140,31 +154,31 @@ class Vector final {
   }
 
   [[nodiscard]]
-  bool operator!=(const Vector<T>& other) const noexcept {
+  bool operator!=(const Vector2<T>& other) const noexcept {
     return !(*this == other);
   }
 
   [[nodiscard]]
-  T dot(const Vector<T>& other) const noexcept {
+  T dot(const Vector2<T>& other) const noexcept {
     return (x * other.x) + (y * other.y);
   }
 
   [[nodiscard]]
-  T distance_to(const Vector<T>& other) const noexcept {
+  T distance_to(const Vector2<T>& other) const noexcept {
     const auto xDiff = other.x - x;
     const auto yDiff = other.y - y;
     return std::sqrt((xDiff * xDiff) + (yDiff * yDiff));
   }
 
   [[nodiscard]]
-  T distance_to_2(const Vector<T>& other) const noexcept {
+  T distance_to_2(const Vector2<T>& other) const noexcept {
     const auto xDiff = other.x - x;
     const auto yDiff = other.y - y;
     return (xDiff * xDiff) + (yDiff * yDiff);
   }
 
   [[nodiscard]]
-  int angle(const Vector<T>& other) const noexcept {
+  int angle(const Vector2<T>& other) const noexcept {
     return MathUtils::round(MathUtils::to_degrees(std::acos(dot(other))));
   }
 
@@ -198,9 +212,19 @@ class Vector final {
   }
 };
 
-using Vector2 = Vector<float>;
-//using Vector2F = Vector2<float>;
-//using Vector2D = Vector2<double>;
-//using Vector2I = Vector2<int>;
+static_assert(std::is_nothrow_default_constructible_v<Vector2<>>);
+static_assert(std::is_nothrow_destructible_v<Vector2<>>);
+
+static_assert(std::is_nothrow_copy_constructible_v<Vector2<>>);
+static_assert(std::is_nothrow_copy_assignable_v<Vector2<>>);
+
+static_assert(std::is_nothrow_move_constructible_v<Vector2<>>);
+static_assert(std::is_nothrow_move_assignable_v<Vector2<>>);
+
+static_assert(std::is_final_v<Vector2<>>);
+
+using Vector2F = Vector2<float>;
+using Vector2D = Vector2<double>;
+using Vector2I = Vector2<int>;
 
 }

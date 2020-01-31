@@ -1,5 +1,5 @@
 #pragma once
-#include <cstdint>
+#include "wanderer_stdinc.h"
 
 namespace albinjohansson::wanderer {
 
@@ -12,8 +12,8 @@ class Animation final {
  private:
   int nFrames = 1;
   int index = 0;
-  uint32_t delay = 100;
-  uint32_t previous = 0;
+  uint32 delay = 100;
+  uint32 previous = 0;
 
  public:
   Animation() noexcept;
@@ -40,7 +40,7 @@ class Animation final {
    * @param delay the time in between frames, in milliseconds.
    * @since 0.1.0
    */
-  void set_delay(uint32_t delay) noexcept;
+  void set_delay(uint32 delay) noexcept;
 
   /**
    * Sets the currently active frame. An invalid frame index will be clamped to match the closest

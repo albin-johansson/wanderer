@@ -60,6 +60,7 @@ class ITileMap {
    * @since 0.1.0
    */
   virtual void set_player(const shared<IEntity>& player) = 0;
+
   [[nodiscard]]
   virtual bool is_blocked(const IMovableObject* object, float delta) const = 0;
 
