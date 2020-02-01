@@ -60,7 +60,7 @@ Tile TileBuilder::create(const std::shared_ptr<Image>& image,
     }
   }
 
-  const auto[row, col] = MathUtils::index_to_matrix_pos(index, tiledTileSet.get_cols());
+  const auto[row, col] = Math::index_to_matrix_pos(index, tiledTileSet.get_cols());
   const int x = col * tileWidth;
   const int y = row * tileHeight;
 

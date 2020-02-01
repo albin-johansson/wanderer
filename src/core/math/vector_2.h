@@ -1,5 +1,5 @@
 #pragma once
-#include "math_utils.h"
+#include "math.h"
 
 namespace albinjohansson::wanderer {
 
@@ -274,7 +274,7 @@ class Vector2 final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  int get_x() const noexcept { return MathUtils::round(x); }
+  int get_x() const noexcept { return Math::round(x); }
 
   /**
    * Returns the the integer representation of the y-coordinate of the vector.
@@ -283,7 +283,7 @@ class Vector2 final {
    * @since 0.1.0
    */
   [[nodiscard]]
-  int get_y() const noexcept { return MathUtils::round(y); }
+  int get_y() const noexcept { return Math::round(y); }
 
   /**
    * Calculates and returns the length of the vector.

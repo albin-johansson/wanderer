@@ -4,6 +4,8 @@
 
 using namespace albinjohansson::wanderer;
 
+// TODO improve tests
+
 TEST_CASE("Vector2DefaultCtor", "[Vector2]") {
   Vector2 vector; // should be (0, 0)
   CHECK(vector.x == 0);
@@ -221,8 +223,8 @@ TEST_CASE("Vector2::Angle", "[Vector2]") {
   }
 
   SECTION("1 degree step") {
-    Vector2 v(std::cos(MathUtils::to_radians(1.0f)),
-              std::sin(MathUtils::to_radians(1.0f)));
+    Vector2 v(std::cos(Math::to_radians(1.0f)),
+              std::sin(Math::to_radians(1.0f)));
     CHECK(xUnit.angle(v) == 1);
   }
 }

@@ -39,7 +39,7 @@ set(SOURCE_FILES
         core/math/vector_2.h
         core/math/random_utils.cpp
         core/math/random_utils.h
-        core/math/math_utils.h
+        core/math/math.h
         core/math/area.h
         core/math/tvector.h
 

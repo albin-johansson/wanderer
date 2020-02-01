@@ -5,18 +5,18 @@
 namespace albinjohansson::wanderer {
 
 /**
- * The MathUtils class provides utilities related to math.
+ * The Math class provides math utilities.
  *
  * @since 0.1.0
  */
-class MathUtils final {
+class Math final {
  public:
   static constexpr float PI_F = 3.14159265358979323f;
   static constexpr double PI_D = 3.14159265358979323;
 
-  MathUtils() = delete;
+  Math() = delete;
 
-  ~MathUtils() = default;
+  ~Math() = default;
 
   [[nodiscard]]
   static constexpr float to_degrees(float radians) noexcept {

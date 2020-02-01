@@ -6,7 +6,7 @@
 #include "game_object.h"
 #include "viewport.h"
 #include "require.h"
-#include "math_utils.h"
+#include "math.h"
 
 namespace albinjohansson::wanderer {
 

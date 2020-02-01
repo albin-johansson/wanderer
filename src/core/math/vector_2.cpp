@@ -3,8 +3,6 @@
 
 namespace albinjohansson::wanderer {
 
-using M = MathUtils;
-
 Vector2::Vector2() : Vector2(0, 0) {}
 
 Vector2::Vector2(const Vector2& other) : Vector2(other.x, other.y) {}
@@ -15,7 +13,7 @@ void Vector2::scale(float factor) noexcept {
 }
 
 void Vector2::norm() noexcept {
-  float length = get_length();
+  const auto length = get_length();
   if (length != 0) {
     x /= length;
     y /= length;
@@ -43,7 +41,7 @@ void Vector2::set_length(float length) noexcept {
     return;
   }
 
-  float prevLength = get_length();
+  const auto prevLength = get_length();
   if ((prevLength == 0) || (prevLength == length)) {
     return;
   }
@@ -51,7 +49,7 @@ void Vector2::set_length(float length) noexcept {
 }
 
 void Vector2::lerp(const Vector2& target, float alpha) noexcept {
-  float invAlpha = 1.0f - alpha;
+  const float invAlpha = 1.0f - alpha;
   this->x = (x * invAlpha) + (target.x * alpha);
   this->y = (y * invAlpha) + (target.y * alpha);
 }
@@ -114,8 +112,8 @@ float Vector2::operator*(const Vector2& other) const noexcept {
 }
 
 bool Vector2::operator==(const Vector2& other) const noexcept {
-  return M::almost_equal(x, other.x)
-      && M::almost_equal(y, other.y);
+  return Math::almost_equal(x, other.x)
+      && Math::almost_equal(y, other.y);
 }
 
 bool Vector2::operator!=(const Vector2& other) const noexcept {
@@ -139,7 +137,7 @@ float Vector2::distance_to_2(const Vector2& other) const noexcept {
 }
 
 int Vector2::angle(const Vector2& other) const noexcept {
-  return M::round(M::to_degrees(std::acos(dot(other))));
+  return Math::round(Math::to_degrees(std::acos(dot(other))));
 }
 
 float Vector2::get_length() const noexcept {
@@ -151,12 +149,12 @@ float Vector2::get_length_2() const noexcept {
 }
 
 bool Vector2::is_zero() const noexcept {
-  return M::almost_equal(x, 0)
-      && M::almost_equal(y, 0);
+  return Math::almost_equal(x, 0)
+      && Math::almost_equal(y, 0);
 }
 
 bool Vector2::is_unit() const noexcept {
-  return M::almost_equal(get_length_2(), 1.0f);
+  return Math::almost_equal(get_length_2(), 1.0f);
 }
 
 }

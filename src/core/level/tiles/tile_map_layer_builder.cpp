@@ -32,7 +32,7 @@ void TileMapLayerBuilder::init_tile_objects(TileMapLayerImpl& layer) const {
           object->SetHitbox(hitbox);
         }
 
-        const auto[row, col] = MathUtils::index_to_matrix_pos(index, layer.nCols);
+        const auto[row, col] = Math::index_to_matrix_pos(index, layer.nCols);
         const MapPosition mapPos{row, col};
 
         layer.tileObjects.emplace(mapPos, std::move(object));
@@ -43,7 +43,7 @@ void TileMapLayerBuilder::init_tile_objects(TileMapLayerImpl& layer) const {
 }
 
 Vector2 TileMapLayerBuilder::create_position(int index, int nCols) const {
-  const auto[row, col] = MathUtils::index_to_matrix_pos(index, nCols);
+  const auto[row, col] = Math::index_to_matrix_pos(index, nCols);
   return Vector2{static_cast<float>(col) * GameConstants::tile_size,
                  static_cast<float>(row) * GameConstants::tile_size};
 }
