@@ -125,14 +125,14 @@ float Vector2::dot(const Vector2& other) const noexcept {
 }
 
 float Vector2::distance_to(const Vector2& other) const noexcept {
-  auto xDiff = other.x - x;
-  auto yDiff = other.y - y;
+  const auto xDiff = other.x - x;
+  const auto yDiff = other.y - y;
   return std::sqrt((xDiff * xDiff) + (yDiff * yDiff));
 }
 
 float Vector2::distance_to_2(const Vector2& other) const noexcept {
-  auto xDiff = other.x - x;
-  auto yDiff = other.y - y;
+  const auto xDiff = other.x - x;
+  const auto yDiff = other.y - y;
   return (xDiff * xDiff) + (yDiff * yDiff);
 }
 
