@@ -36,8 +36,11 @@
 
 .idea
 .vs
+.vscode
 out
 cmake-build-debug
 cmake-build-release
+build
 lib/centurion
 doc
+compile_commands.json
