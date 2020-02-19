@@ -1,27 +1,34 @@
 #include "tile_builder.h"
+
 #include "game_constants.h"
 
 using namespace centurion;
+using namespace centurion::video;
+using namespace centurion::math;
 
 namespace albinjohansson::wanderer {
 
-TileAnimation TileBuilder::create_animation(tiled::TiledAnimation animation) {
+TileAnimation TileBuilder::create_animation(tiled::TiledAnimation animation)
+{
   const auto& frames = animation.get_frames();
   TileAnimation result{static_cast<int>(frames.size())};
 
   int i = 0;
   for (const auto frame : frames) {
-    result.set_frame(i, {static_cast<TileID>(frame.tileId), static_cast<uint32_t>(frame.duration)});
+    result.set_frame(i,
+                     {static_cast<TileID>(frame.tileId),
+                      static_cast<uint32_t>(frame.duration)});
     ++i;
   }
 
   return result;
 }
 
-Tile TileBuilder::create(const std::shared_ptr<Image>& image,
+Tile TileBuilder::create(const std::shared_ptr<Texture>& image,
                          const tiled::TiledTileSet& tiledTileSet,
                          TileID id,
-                         int index) {
+                         int index)
+{
   Tile tile;
 
   tile.sheet = image;
@@ -50,17 +57,22 @@ Tile TileBuilder::create(const std::shared_ptr<Image>& image,
     if (tiledTile.has_object("hitbox")) {
       const auto& object = tiledTile.get_object("hitbox");
 
-      const auto x = (std::stof(object.get_attribute("x")) / tileWidth) * tile_size;
-      const auto y = (std::stof(object.get_attribute("y")) / tileHeight) * tile_size;
-      const auto w = (std::stof(object.get_attribute("width")) / tileWidth) * tile_size;
-      const auto h = (std::stof(object.get_attribute("height")) / tileHeight) * tile_size;
+      const auto x =
+          (std::stof(object.get_attribute("x")) / tileWidth) * tile_size;
+      const auto y =
+          (std::stof(object.get_attribute("y")) / tileHeight) * tile_size;
+      const auto w =
+          (std::stof(object.get_attribute("width")) / tileWidth) * tile_size;
+      const auto h =
+          (std::stof(object.get_attribute("height")) / tileHeight) * tile_size;
 
       tile.hitbox.add_rectangle(FRect{x, y, w, h}, Vector2{x, y});
       tile.isBlocked = true;
     }
   }
 
-  const auto[row, col] = Math::index_to_matrix_pos(index, tiledTileSet.get_cols());
+  const auto [row, col] =
+      Math::index_to_matrix_pos(index, tiledTileSet.get_cols());
   const int x = col * tileWidth;
   const int y = row * tileHeight;
 
@@ -69,4 +81,4 @@ Tile TileBuilder::create(const std::shared_ptr<Image>& image,
   return tile;
 }
 
-}
+}  // namespace albinjohansson::wanderer

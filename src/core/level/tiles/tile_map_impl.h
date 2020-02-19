@@ -1,13 +1,15 @@
 #pragma once
-#include <memory>
-#include <vector>
 #include <rectangle.h>
 #include <renderer.h>
-#include "wanderer_stdinc.h"
-#include "tile_map.h"
-#include "tile_map_bounds.h"
+
+#include <memory>
+#include <vector>
+
 #include "entity_manager.h"
 #include "spawnpoint.h"
+#include "tile_map.h"
+#include "tile_map_bounds.h"
+#include "wanderer_stdinc.h"
 
 namespace albinjohansson::wanderer {
 
@@ -16,8 +18,8 @@ class ISortableDrawable;
 class IGameObject;
 
 /**
- * The TileMapImpl class represents a map of tiles, used to build the game world. Use the
- * TileMapBuilder class to create instances of this class.
+ * The TileMapImpl class represents a map of tiles, used to build the game
+ * world. Use the TileMapBuilder class to create instances of this class.
  *
  * @see TileMapBuilder
  * @since 0.1.0
@@ -40,7 +42,7 @@ class TileMapImpl final : public ITileMap {
   int nCols = 0;
   Vector2 playerSpawnPos;
 
-  void RenderTilesAt(int row, int col, centurion::Renderer& renderer);
+  void render_tiles_at(int row, int col, centurion::video::Renderer& renderer);
 
   /**
    * Interpolates all movable game objects.
@@ -48,7 +50,7 @@ class TileMapImpl final : public ITileMap {
    * @param alpha the interpolation coefficient, in the range [0, 1].
    * @since 0.1.0
    */
-  void Interpolate(float alpha);
+  void interpolate(float alpha);
 
   /**
    * Calculates the tile map bounds.
@@ -57,8 +59,8 @@ class TileMapImpl final : public ITileMap {
    * @return the tile map bounds.
    * @since 0.1.0
    */
-  [[nodiscard]]
-  TileMapBounds CalculateMapBounds(const centurion::FRect& bounds) const noexcept;
+  [[nodiscard]] TileMapBounds CalculateMapBounds(
+      const centurion::math::FRect& bounds) const noexcept;
 
   /**
    * @param tileSet the associated tile set.
@@ -69,31 +71,30 @@ class TileMapImpl final : public ITileMap {
  public:
   ~TileMapImpl() override;
 
-  void tick(IWandererCore& core, const Viewport& viewport, float delta) override;
+  void tick(IWandererCore& core,
+            const Viewport& viewport,
+            float delta) override;
 
-  void draw(centurion::Renderer& renderer, const Viewport& viewport, float alpha) noexcept override;
+  void draw(centurion::video::Renderer& renderer,
+            const Viewport& viewport,
+            float alpha) noexcept override;
 
   void add_layer(unique<ITileMapLayer>&& layer) override;
 
   void set_player(const shared<IEntity>& player) override;
 
-  [[nodiscard]]
-  bool is_blocked(const IMovableObject* self, float delta) const override;
+  [[nodiscard]] bool is_blocked(const IMovableObject* self,
+                                float delta) const override;
 
-  [[nodiscard]]
-  int get_rows() const noexcept override;
+  [[nodiscard]] int get_rows() const noexcept override;
 
-  [[nodiscard]]
-  int get_cols() const noexcept override;
+  [[nodiscard]] int get_cols() const noexcept override;
 
-  [[nodiscard]]
-  int get_width() const noexcept override;
+  [[nodiscard]] int get_width() const noexcept override;
 
-  [[nodiscard]]
-  int get_height() const noexcept override;
+  [[nodiscard]] int get_height() const noexcept override;
 
-  [[nodiscard]]
-  Vector2 get_player_spawn_position() const override;
+  [[nodiscard]] Vector2 get_player_spawn_position() const override;
 };
 
-}
+}  // namespace albinjohansson::wanderer

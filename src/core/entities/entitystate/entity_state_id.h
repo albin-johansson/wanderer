@@ -3,16 +3,11 @@
 namespace albinjohansson::wanderer {
 
 /**
- * The EntityStateID enum class provides values that serve as identifiers (or keys) for the various
- * possible entity states.
+ * The EntityStateID enum class provides values that serve as identifiers (or
+ * keys) for the various possible entity states.
  *
  * @since 0.1.0
  */
-enum class EntityStateID {
-  Idle,
-  Walk,
-  Attack,
-  Die
-};
+enum class EntityStateID { Idle, Walk, Attack, Die };
 
-}
+}  // namespace albinjohansson::wanderer

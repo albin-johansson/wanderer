@@ -43,8 +43,8 @@ class Animation final {
   void set_delay(uint32 delay) noexcept;
 
   /**
-   * Sets the currently active frame. An invalid frame index will be clamped to match the closest
-   * valid index.
+   * Sets the currently active frame. An invalid frame index will be clamped to
+   * match the closest valid index.
    *
    * @param frameIndex the index of the frame that will be made active.
    * @since 0.1.0
@@ -52,8 +52,8 @@ class Animation final {
   void set_frame(int frameIndex) noexcept;
 
   /**
-   * Sets the number of frames in the animation. This method has no effect if the supplied number
-   * of frames isn't greater than zero.
+   * Sets the number of frames in the animation. This method has no effect if
+   * the supplied number of frames isn't greater than zero.
    *
    * @param nFrames the number of frames.
    * @since 0.1.0
@@ -66,8 +66,7 @@ class Animation final {
    * @return the currently active frame index.
    * @since 0.1.0
    */
-  [[nodiscard]]
-  int get_index() const noexcept;
+  [[nodiscard]] int get_index() const noexcept;
 
   /**
    * Indicates whether or not the animation has reached the final frame.
@@ -75,8 +74,7 @@ class Animation final {
    * @return true if the animation has reached the final frame; false otherwise.
    * @since 0.1.0
    */
-  [[nodiscard]]
-  bool is_done() const noexcept;
+  [[nodiscard]] bool is_done() const noexcept;
 };
 
-}
+}  // namespace albinjohansson::wanderer

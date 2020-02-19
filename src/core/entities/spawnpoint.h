@@ -1,6 +1,6 @@
 #pragma once
-#include "vector_2.h"
 #include "entity_id.h"
+#include "vector_2.h"
 
 namespace albinjohansson::wanderer {
 
@@ -14,11 +14,9 @@ class Spawnpoint final {
 
   ~Spawnpoint() noexcept;
 
-  [[nodiscard]]
-  EntityID get_entity_id() const noexcept;
+  [[nodiscard]] EntityID get_entity_id() const noexcept;
 
-  [[nodiscard]]
-  const Vector2& get_position() const noexcept;
+  [[nodiscard]] const Vector2& get_position() const noexcept;
 };
 
-}
+}  // namespace albinjohansson::wanderer

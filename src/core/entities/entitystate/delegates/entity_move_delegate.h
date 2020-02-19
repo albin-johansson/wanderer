@@ -14,7 +14,8 @@ class EntityMoveDelegate final : public IEntityState {
 
   ~EntityMoveDelegate() override;
 
-  void draw(const centurion::Renderer& renderer, const Viewport& viewport) const override;
+  void draw(const centurion::video::Renderer& renderer,
+            const Viewport& viewport) const override;
 
   void enter(const IWandererCore& core) override;
 
@@ -26,8 +27,7 @@ class EntityMoveDelegate final : public IEntityState {
 
   void UpdatePosition(float delta);
 
-  [[nodiscard]]
-  IEntityStateMachine& GetParent() noexcept;
+  [[nodiscard]] IEntityStateMachine& get_parent() noexcept;
 };
 
-}
+}  // namespace albinjohansson::wanderer

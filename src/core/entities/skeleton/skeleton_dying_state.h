@@ -1,6 +1,6 @@
 #pragma once
-#include "entity_state.h"
 #include "entity_dying_delegate.h"
+#include "entity_state.h"
 
 namespace albinjohansson::wanderer {
 
@@ -15,7 +15,8 @@ class SkeletonDyingState final : public IEntityState {
 
   ~SkeletonDyingState() override;
 
-  void draw(const centurion::Renderer& renderer, const Viewport& viewport) const override;
+  void draw(const centurion::video::Renderer& renderer,
+            const Viewport& viewport) const override;
 
   void tick(const IWandererCore& core, float delta) override;
 
@@ -24,4 +25,4 @@ class SkeletonDyingState final : public IEntityState {
   void exit(const IWandererCore& core) override;
 };
 
-}
+}  // namespace albinjohansson::wanderer

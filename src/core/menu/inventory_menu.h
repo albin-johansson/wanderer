@@ -12,9 +12,7 @@ class InventoryMenu final : public AbstractMenu {
 
   void handle_input(const Input& input) noexcept override;
 
-  [[nodiscard]]
-  bool is_blocking() const noexcept override;
-
+  [[nodiscard]] bool is_blocking() const noexcept override;
 };
 
-}
+}  // namespace albinjohansson::wanderer

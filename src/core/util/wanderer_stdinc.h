@@ -1,20 +1,20 @@
 #pragma once
-#include <optional>
-#include <memory>
 #include <cstdint>
+#include <memory>
+#include <optional>
 
 namespace albinjohansson::wanderer {
 
-template<typename T>
+template <typename T>
 using maybe = std::optional<T>;
 
-template<typename T>
+template <typename T>
 using unique = std::unique_ptr<T>;
 
-template<typename T>
+template <typename T>
 using shared = std::shared_ptr<T>;
 
-template<typename T>
+template <typename T>
 using weak = std::weak_ptr<T>;
 
 using int8 = std::int_fast8_t;
@@ -27,4 +27,4 @@ using uint16 = std::uint_fast16_t;
 using uint32 = std::uint_fast32_t;
 using uint64 = std::uint_fast64_t;
 
-}
+}  // namespace albinjohansson::wanderer

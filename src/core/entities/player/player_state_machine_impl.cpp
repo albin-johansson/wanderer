@@ -1,14 +1,16 @@
 #include "player_state_machine_impl.h"
-#include "player_moving_state.h"
-#include "player_idle_state.h"
+
+#include "entity.h"
 #include "player_attack_state.h"
 #include "player_dying_state.h"
-#include "entity.h"
+#include "player_idle_state.h"
+#include "player_moving_state.h"
 
 namespace albinjohansson::wanderer {
 
 PlayerStateMachineImpl::PlayerStateMachineImpl(IEntity* entity)
-    : AbstractEntityStateMachine(entity) {
+    : AbstractEntityStateMachine(entity)
+{
   put(EntityStateID::Idle, std::make_unique<PlayerIdleState>(this));
   put(EntityStateID::Die, std::make_unique<PlayerDyingState>(entity));
   put(EntityStateID::Walk, std::make_unique<PlayerMovingState>(this));
@@ -17,8 +19,10 @@ PlayerStateMachineImpl::PlayerStateMachineImpl(IEntity* entity)
 
 PlayerStateMachineImpl::~PlayerStateMachineImpl() = default;
 
-void PlayerStateMachineImpl::HandleInput(const Input& input, const IWandererCore& core) {
+void PlayerStateMachineImpl::HandleInput(const Input& input,
+                                         const IWandererCore& core)
+{
   get_active_state().HandleInput(input, core);
 }
 
-}
+}  // namespace albinjohansson::wanderer

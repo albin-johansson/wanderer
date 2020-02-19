@@ -23,15 +23,16 @@ class EntityDrawDelegate final {
    * @param renderer a reference to the renderer that will be used.
    * @param viewport a reference to the viewport that will be used.
    * @param entity a reference to the entity that will be rendered.
-   * @param srcX the source x-coordinate of the area in the sprite sheet that will be rendered.
-   * @param srcY the source y-coordinate of the area in the sprite sheet that will be rendered.
+   * @param srcX the source x-coordinate of the area in the sprite sheet that
+   * will be rendered.
+   * @param srcY the source y-coordinate of the area in the sprite sheet that
+   * will be rendered.
    * @since 0.1.0
    */
-  static void draw(const centurion::Renderer& renderer,
+  static void draw(const centurion::video::Renderer& renderer,
                    const IEntity& entity,
                    int srcX,
                    int srcY) noexcept;
-
 };
 
-}
+}  // namespace albinjohansson::wanderer

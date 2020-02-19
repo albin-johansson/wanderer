@@ -1,7 +1,8 @@
 #pragma once
 #include <unordered_map>
-#include "wanderer_stdinc.h"
+
 #include "tile_id.h"
+#include "wanderer_stdinc.h"
 
 namespace albinjohansson::wanderer {
 
@@ -28,9 +29,7 @@ class TileAnimation final {
 
   void set_frame(int index, Frame frame);
 
-  [[nodiscard]]
-  Frame get_frame() const;
-
+  [[nodiscard]] Frame get_frame() const;
 };
 
-}
+}  // namespace albinjohansson::wanderer

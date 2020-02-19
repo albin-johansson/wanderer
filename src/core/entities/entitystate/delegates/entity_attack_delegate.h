@@ -6,8 +6,8 @@ namespace albinjohansson::wanderer {
 class IEntityStateMachine;
 
 /**
- * The EntityAttackDelegate class is an implementation of IEntityState that is meant to be used for
- * delegating idle entity attack calls.
+ * The EntityAttackDelegate class is an implementation of IEntityState that is
+ * meant to be used for delegating idle entity attack calls.
  *
  * @see IEntityState
  * @since 0.1.0
@@ -31,14 +31,14 @@ class EntityAttackDelegate final : public IEntityState {
 
   ~EntityAttackDelegate() override;
 
-  void draw(const centurion::Renderer& renderer, const Viewport& viewport) const override;
+  void draw(const centurion::video::Renderer& renderer,
+            const Viewport& viewport) const override;
 
   void tick(const IWandererCore& core, float delta) override;
 
   void enter(const IWandererCore& core) override;
 
   void exit(const IWandererCore& core) override;
-
 };
 
-}
+}  // namespace albinjohansson::wanderer

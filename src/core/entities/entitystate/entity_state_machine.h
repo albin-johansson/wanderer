@@ -8,8 +8,8 @@ class IWandererCore;
 class IEntity;
 
 /**
- * The IEntityStateMachine interface specifies objects that represent state machines related to
- * the states of entities.
+ * The IEntityStateMachine interface specifies objects that represent state
+ * machines related to the states of entities.
  *
  * @since 0.1.0
  */
@@ -41,8 +41,7 @@ class IEntityStateMachine : public IDrawable {
    * @return the associated entity instance.
    * @since 0.1.0
    */
-  [[nodiscard]]
-  virtual IEntity& get_entity() = 0;
+  [[nodiscard]] virtual IEntity& get_entity() = 0;
 };
 
-}
+}  // namespace albinjohansson::wanderer

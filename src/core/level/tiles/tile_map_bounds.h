@@ -9,4 +9,4 @@ struct TileMapBounds final {
   int maxCol = 0;
 };
 
-}
+}  // namespace albinjohansson::wanderer

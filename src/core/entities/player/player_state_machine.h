@@ -7,8 +7,8 @@ class Input;
 class IWandererCore;
 
 /**
- * The IPlayerStateMachine interface is a subinterface of IEntityStateMachine that specifies
- * state machines for player instances.
+ * The IPlayerStateMachine interface is a subinterface of IEntityStateMachine
+ * that specifies state machines for player instances.
  *
  * @see IEntityStateMachine
  * @since 0.1.0
@@ -30,4 +30,4 @@ class IPlayerStateMachine : public virtual IEntityStateMachine {
   virtual void HandleInput(const Input& input, const IWandererCore& core) = 0;
 };
 
-}
+}  // namespace albinjohansson::wanderer

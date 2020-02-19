@@ -6,8 +6,8 @@ namespace albinjohansson::wanderer {
 class IWandererCore;
 
 /**
- * The IEntityState interface specifies objects that represent the state of an entity at some
- * point in time.
+ * The IEntityState interface specifies objects that represent the state of an
+ * entity at some point in time.
  *
  * @see IDrawable
  * @since 0.1.0
@@ -40,7 +40,6 @@ class IEntityState : public IDrawable {
    * @since 0.1.0
    */
   virtual void exit(const IWandererCore& core) = 0;
-
 };
 
-}
+}  // namespace albinjohansson::wanderer

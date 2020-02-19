@@ -3,8 +3,8 @@
 namespace albinjohansson::wanderer {
 
 /**
- * The IWandererController interface specifies the facade for the main controller of the Wanderer
- * application.
+ * The IWandererController interface specifies the facade for the main
+ * controller of the Wanderer application.
  *
  * @since 0.1.0
  */
@@ -18,7 +18,6 @@ class IWandererController {
    * @since 0.1.0
    */
   virtual void run() = 0;
-
 };
 
-}
+}  // namespace albinjohansson::wanderer

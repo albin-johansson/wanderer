@@ -44,8 +44,8 @@ struct GameConstants final {
   static constexpr float entity_height = 150;
 
   /**
-   * The logical size (width and height) of all tiles. This constant is the same as tile_size,
-   * represented as an integer.
+   * The logical size (width and height) of all tiles. This constant is the same
+   * as tile_size, represented as an integer.
    *
    * @since 0.1.0
    */
@@ -77,4 +77,4 @@ struct GameConstants final {
   ~GameConstants() = default;
 };
 
-}
+}  // namespace albinjohansson::wanderer

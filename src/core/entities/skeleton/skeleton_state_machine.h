@@ -10,4 +10,4 @@ class SkeletonStateMachine final : public AbstractEntityStateMachine<> {
   ~SkeletonStateMachine() override;
 };
 
-}
+}  // namespace albinjohansson::wanderer

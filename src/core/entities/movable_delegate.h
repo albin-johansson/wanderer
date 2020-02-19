@@ -1,14 +1,14 @@
 #pragma once
-#include "movable_object.h"
 #include "hitbox.h"
-#include "wanderer_stdinc.h"
+#include "movable_object.h"
 #include "vector_2.h"
+#include "wanderer_stdinc.h"
 
 namespace albinjohansson::wanderer {
 
 /**
- * The MovableDelegate class is an implementation of the IGameObject interface that is meant
- * to be used as a delegate.
+ * The MovableDelegate class is an implementation of the IGameObject interface
+ * that is meant to be used as a delegate.
  *
  * @see IMovableObject
  * @since 0.1.0
@@ -49,14 +49,16 @@ class MovableDelegate final : public IMovableObject {
    * @param depth the depth value of the object.
    * @param width the width of the object.
    * @param height the height of the object.
-   * @throws std::invalid_argument if either of the supplied dimensions are less than one.
+   * @throws std::invalid_argument if either of the supplied dimensions are less
+   * than one.
    * @since 0.1.0
    */
   MovableDelegate(int depth, float width, float height);
 
   ~MovableDelegate() override;
 
-  void draw(const centurion::Renderer& renderer, const Viewport& viewport) const noexcept override;
+  void draw(const centurion::video::Renderer& renderer,
+            const Viewport& viewport) const noexcept override;
 
   void tick(IWandererCore& core, float delta) override;
 
@@ -82,56 +84,42 @@ class MovableDelegate final : public IMovableObject {
 
   void set_blocked(bool blocked) noexcept override;
 
-  void add_hitbox(const centurion::FRect& rectangle, const Vector2& offset) override;
+  void add_hitbox(const centurion::math::FRect& rectangle,
+                  const Vector2& offset) override;
 
-  [[nodiscard]]
-  int get_depth() const noexcept override;
+  [[nodiscard]] int get_depth() const noexcept override;
 
-  [[nodiscard]]
-  float get_speed() const noexcept override;
+  [[nodiscard]] float get_speed() const noexcept override;
 
-  [[nodiscard]]
-  float get_x() const noexcept override;
+  [[nodiscard]] float get_x() const noexcept override;
 
-  [[nodiscard]]
-  float get_y() const noexcept override;
+  [[nodiscard]] float get_y() const noexcept override;
 
-  [[nodiscard]]
-  float get_center_y() const noexcept override;
+  [[nodiscard]] float get_center_y() const noexcept override;
 
-  [[nodiscard]]
-  float get_width() const noexcept override;
+  [[nodiscard]] float get_width() const noexcept override;
 
-  [[nodiscard]]
-  float get_height() const noexcept override;
+  [[nodiscard]] float get_height() const noexcept override;
 
-  [[nodiscard]]
-  const Hitbox& get_hitbox() const noexcept override;
+  [[nodiscard]] const Hitbox& get_hitbox() const noexcept override;
 
-  [[nodiscard]]
-  bool will_intersect(const IGameObject* other, float delta) const override;
+  [[nodiscard]] bool will_intersect(const IGameObject* other,
+                                    float delta) const override;
 
-  [[nodiscard]]
-  Direction get_dominant_direction() const noexcept override;
+  [[nodiscard]] Direction get_dominant_direction() const noexcept override;
 
-  [[nodiscard]]
-  const Vector2& get_previous_position() const noexcept override;
+  [[nodiscard]] const Vector2& get_previous_position() const noexcept override;
 
-  [[nodiscard]]
-  const Vector2& get_velocity() const noexcept override;
+  [[nodiscard]] const Vector2& get_velocity() const noexcept override;
 
-  [[nodiscard]]
-  const Vector2& get_position() const noexcept override;
+  [[nodiscard]] const Vector2& get_position() const noexcept override;
 
-  [[nodiscard]]
-  const Vector2& get_interpolated_position() const noexcept override;
+  [[nodiscard]] const Vector2& get_interpolated_position() const
+      noexcept override;
 
-  [[nodiscard]]
-  uint64 get_unique_id() const noexcept override;
+  [[nodiscard]] uint64 get_unique_id() const noexcept override;
 
-  [[nodiscard]]
-  Vector2 get_next_position(float delta) const noexcept override;
-
+  [[nodiscard]] Vector2 get_next_position(float delta) const noexcept override;
 };
 
-}
+}  // namespace albinjohansson::wanderer

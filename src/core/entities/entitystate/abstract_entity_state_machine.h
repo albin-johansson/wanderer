@@ -1,25 +1,28 @@
 #pragma once
-#include <unordered_map>
 #include <memory>
-#include "entity_state_machine.h"
-#include "wanderer_stdinc.h"
+#include <unordered_map>
+
+#include "entity.h"
 #include "entity_state.h"
 #include "entity_state_id.h"
+#include "entity_state_machine.h"
 #include "require.h"
-#include "entity.h"
+#include "wanderer_stdinc.h"
 
 namespace albinjohansson::wanderer {
 
 /**
- * The AbstractEntityStateMachine class is an abstract class that serves as the base class for
- * all entity-related state machines. The class implements the IEntityStateMachine interface.
+ * The AbstractEntityStateMachine class is an abstract class that serves as the
+ * base class for all entity-related state machines. The class implements the
+ * IEntityStateMachine interface.
  *
  * @see IEntityStateMachine
  * @see IEntityState
- * @tparam T the type of the entity states. By default, the type is IEntityState.
+ * @tparam T the type of the entity states. By default, the type is
+ * IEntityState.
  * @since 0.1.0
  */
-template<class T = IEntityState>
+template <class T = IEntityState>
 class AbstractEntityStateMachine : public virtual IEntityStateMachine {
  private:
   IEntity* entity = nullptr;
@@ -32,7 +35,8 @@ class AbstractEntityStateMachine : public virtual IEntityStateMachine {
    * @throws NullPointerException if the supplied entity pointer is null.
    * @since 0.1.0
    */
-  explicit AbstractEntityStateMachine(IEntity* entity) {
+  explicit AbstractEntityStateMachine(IEntity* entity)
+  {
     this->entity = Require::not_null(entity);
   }
 
@@ -43,7 +47,8 @@ class AbstractEntityStateMachine : public virtual IEntityStateMachine {
    * @param state a unique pointer to the state, mustn't be null!
    * @since 0.1.0
    */
-  void put(EntityStateID id, unique<T>&& state) {
+  void put(EntityStateID id, unique<T>&& state)
+  {
     states.emplace(id, std::move(state));
   }
 
@@ -53,29 +58,30 @@ class AbstractEntityStateMachine : public virtual IEntityStateMachine {
    * @return the currently active state.
    * @since 0.1.0
    */
-  [[nodiscard]]
-  T& get_active_state() { return *states.at(activeStateID); }
+  [[nodiscard]] T& get_active_state() { return *states.at(activeStateID); }
 
  public:
   ~AbstractEntityStateMachine() override = default;
 
-  void tick(const IWandererCore& core, float delta) final {
+  void tick(const IWandererCore& core, float delta) final
+  {
     states.at(activeStateID)->tick(core, delta);
   }
 
-  void draw(const centurion::Renderer& renderer, const Viewport& viewport) const final {
+  void draw(const centurion::video::Renderer& renderer,
+            const Viewport& viewport) const final
+  {
     states.at(activeStateID)->draw(renderer, viewport);
   }
 
-  void set_state(EntityStateID id, const IWandererCore& core) final {
+  void set_state(EntityStateID id, const IWandererCore& core) final
+  {
     states.at(activeStateID)->exit(core);
     activeStateID = id;
     states.at(activeStateID)->enter(core);
   }
 
-  [[nodiscard]]
-  IEntity& get_entity() final { return *entity; }
-
+  [[nodiscard]] IEntity& get_entity() final { return *entity; }
 };
 
-}
+}  // namespace albinjohansson::wanderer

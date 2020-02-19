@@ -5,8 +5,8 @@
 namespace albinjohansson::wanderer {
 
 /**
- * The InGameMenu class is an implementation of the IMenu interface that represents the in-game
- * menu.
+ * The InGameMenu class is an implementation of the IMenu interface that
+ * represents the in-game menu.
  *
  * @see IMenu
  * @since 0.1.0
@@ -22,14 +22,13 @@ class InGameMenu final : public AbstractMenu {
 
   ~InGameMenu() override;
 
-  void draw(centurion::Renderer& renderer,
+  void draw(centurion::video::Renderer& renderer,
             const Viewport& viewport,
             const FontBundle& fonts) const override;
 
   void handle_input(const Input& input) noexcept override;
 
-  [[nodiscard]]
-  bool is_blocking() const noexcept override;
+  [[nodiscard]] bool is_blocking() const noexcept override;
 };
 
-}
+}  // namespace albinjohansson::wanderer

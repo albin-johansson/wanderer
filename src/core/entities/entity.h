@@ -1,15 +1,15 @@
 #pragma once
-#include "movable_object.h"
 #include "animated.h"
 #include "game_constants.h"
+#include "movable_object.h"
 
 namespace albinjohansson::wanderer {
 
 // TODO merchant, citizen, wizard, orc
 
 /**
- * The IEntity interface is a subinterface of IMovableObject that specifies objects that are
- * "alive" in the game world.
+ * The IEntity interface is a subinterface of IMovableObject that specifies
+ * objects that are "alive" in the game world.
  *
  * @see IMovableObject
  * @see IAnimated
@@ -33,8 +33,7 @@ class IEntity : public virtual IMovableObject, public virtual IAnimated {
    * @return the health of the entity.
    * @since 0.1.0
    */
-  [[nodiscard]]
-  virtual int get_health() const noexcept = 0;
+  [[nodiscard]] virtual int get_health() const noexcept = 0;
 
   /**
    * Indicates whether or not the entity is dead.
@@ -42,9 +41,7 @@ class IEntity : public virtual IMovableObject, public virtual IAnimated {
    * @return true if the entity is dead; false otherwise.
    * @since 0.1.0
    */
-  [[nodiscard]]
-  virtual bool is_dead() const noexcept = 0;
-
+  [[nodiscard]] virtual bool is_dead() const noexcept = 0;
 };
 
-}
+}  // namespace albinjohansson::wanderer

@@ -5,16 +5,17 @@
 namespace albinjohansson::wanderer {
 
 /**
- * The Require class provides utility methods related to different kinds of requirements, such as
- * fail-fast null checks.
+ * The Require class provides utility methods related to different kinds of
+ * requirements, such as fail-fast null checks.
  *
  * @since 0.1.0
  */
 class Require final {
  public:
   /**
-   * The NullPointerException class is a subclass of std::exception that describes an exception
-   * caused by supplying a null pointer to one of the RequireNonNull methods.
+   * The NullPointerException class is a subclass of std::exception that
+   * describes an exception caused by supplying a null pointer to one of the
+   * RequireNonNull methods.
    *
    * @since 0.1.0
    */
@@ -36,8 +37,9 @@ class Require final {
    * @throws NullPointerException if the supplied pointer is a null pointer.
    * @since 0.1.0
    */
-  template<class T>
-  inline static T* not_null(T* pointer) {
+  template <class T>
+  inline static T* not_null(T* pointer)
+  {
     if (pointer == nullptr) {
       throw NullPointerException();
     } else {
@@ -54,8 +56,9 @@ class Require final {
    * @throws NullPointerException if the supplied pointer is a null pointer.
    * @since 0.1.0
    */
-  template<class T>
-  inline static std::unique_ptr<T> not_null(std::unique_ptr<T> uniquePtr) {
+  template <class T>
+  inline static std::unique_ptr<T> not_null(std::unique_ptr<T> uniquePtr)
+  {
     if (uniquePtr == nullptr) {
       throw NullPointerException();
     } else {
@@ -72,8 +75,10 @@ class Require final {
    * @throws NullPointerException if the supplied pointer is a null pointer.
    * @since 0.1.0
    */
-  template<class T>
-  inline static const std::shared_ptr<T>& not_null(const std::shared_ptr<T>& sharedPtr) {
+  template <class T>
+  inline static const std::shared_ptr<T>& not_null(
+      const std::shared_ptr<T>& sharedPtr)
+  {
     if (sharedPtr == nullptr) {
       throw NullPointerException();
     } else {
@@ -82,4 +87,4 @@ class Require final {
   }
 };
 
-}
+}  // namespace albinjohansson::wanderer

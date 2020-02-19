@@ -245,11 +245,11 @@ target_include_directories(${WANDERER_LIB} PUBLIC audio)
 #endif ()
 
 target_link_libraries(${WANDERER_LIB}
-        PUBLIC ${CENTURION_LIBRARIES}
-        PUBLIC ${SDL2_LIBRARY}
+        # PUBLIC ${CENTURION_LIBRARIES}
         PUBLIC ${SDL2_IMAGE_LIBRARIES}
         PUBLIC ${SDL2_MIXER_LIBRARIES}
-        PUBLIC ${SDL2_TTF_LIBRARIES})
+        PUBLIC ${SDL2_TTF_LIBRARIES}
+        PUBLIC ${SDL2_LIBRARY})
 
 # Prepares the actual executable
 add_executable(${WANDERER_EXECUTABLE} main.cpp)
@@ -260,7 +260,7 @@ set_target_properties(${WANDERER_EXECUTABLE} PROPERTIES
 target_link_libraries(${WANDERER_EXECUTABLE}
         PUBLIC mingw32
         PUBLIC ${WANDERER_LIB}
-        PUBLIC ${CENTURION_LIBRARIES}
+        # PUBLIC ${CENTURION_LIBRARIES}
         PUBLIC ${SDL2_LIBRARY}
         PUBLIC ${SDL2_IMAGE_LIBRARIES}
         PUBLIC ${SDL2_MIXER_LIBRARIES}

@@ -1,7 +1,8 @@
 #pragma once
+#include <texture_loader.h>
+
 #include <memory>
 #include <string>
-#include "image_generator.h"
 
 namespace albinjohansson::wanderer {
 
@@ -13,10 +14,8 @@ class TiledMapParser final {
 
   ~TiledMapParser() = default;
 
-  [[nodiscard]]
-  static std::unique_ptr<ITileMap> load(centurion::ImageGenerator& imageGenerator,
-                                        const std::string& file);
-
+  [[nodiscard]] static std::unique_ptr<ITileMap> load(
+      centurion::video::TextureLoader& imageGenerator, const std::string& file);
 };
 
-}
+}  // namespace albinjohansson::wanderer

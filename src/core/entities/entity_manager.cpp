@@ -1,20 +1,25 @@
 #include "entity_manager.h"
+
 #include <rectangle.h>
+
 #include "entity.h"
 #include "hitbox.h"
 
 using namespace centurion;
+using namespace centurion::math;
 
 namespace albinjohansson::wanderer {
 
-EntityManager::EntityManager() {
+EntityManager::EntityManager()
+{
   entities.reserve(10);
   closeEntities.reserve(10);
 }
 
 EntityManager::~EntityManager() = default;
 
-void EntityManager::calculate_close_entities(const FRect& bounds) {
+void EntityManager::calculate_close_entities(const FRect& bounds)
+{
   closeEntities.clear();
 
   for (const auto& entity : entities) {
@@ -26,7 +31,8 @@ void EntityManager::calculate_close_entities(const FRect& bounds) {
   nTicksSinceUpdate = 0;
 }
 
-void EntityManager::update(const FRect& bounds) {
+void EntityManager::update(const FRect& bounds)
+{
   if (firstTick) {
     calculate_close_entities(bounds);
     firstTick = false;
@@ -40,14 +46,16 @@ void EntityManager::update(const FRect& bounds) {
   }
 }
 
-void EntityManager::add_entity(const std::shared_ptr<IEntity>& entity) {
+void EntityManager::add_entity(const std::shared_ptr<IEntity>& entity)
+{
   if (entity) {
     entities.push_back(entity);
   }
 }
 
-const std::vector<IEntity*>& EntityManager::get_close_entities() const {
+const std::vector<IEntity*>& EntityManager::get_close_entities() const
+{
   return closeEntities;
 }
 
-}
+}  // namespace albinjohansson::wanderer

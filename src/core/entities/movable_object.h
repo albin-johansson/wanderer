@@ -1,7 +1,8 @@
 #pragma once
 #include <type_traits>
-#include "game_object.h"
+
 #include "direction.h"
+#include "game_object.h"
 #include "vector_2.h"
 
 namespace albinjohansson::wanderer {
@@ -19,19 +20,20 @@ class IMovableObject : public virtual IGameObject {
   ~IMovableObject() override = default;
 
   /**
-   * Specifies a direction the movable should attempt to move in. Note, movable game objects can
-   * move in up to two different directions at once. This method merely tells the game object where
-   * to move when updated, and as such, has no immediate effect on the position of the object.
+   * Specifies a direction the movable should attempt to move in. Note, movable
+   * game objects can move in up to two different directions at once. This
+   * method merely tells the game object where to move when updated, and as
+   * such, has no immediate effect on the position of the object.
    *
-   * @param direction the direction to attempt to move in when updated (a movable object can move in
-   * up to two different directions at once).
+   * @param direction the direction to attempt to move in when updated (a
+   * movable object can move in up to two different directions at once).
    * @since 0.1.0
    */
   virtual void move(Direction direction) noexcept = 0;
 
   /**
-   * Stops the movement of the object in the specified direction. Note! This doesn't necessarily
-   * stop the game object.
+   * Stops the movement of the object in the specified direction. Note! This
+   * doesn't necessarily stop the game object.
    *
    * @param direction the direction in which movement should be ceased.
    * @since 0.1.0
@@ -46,8 +48,9 @@ class IMovableObject : public virtual IGameObject {
   virtual void stop() noexcept = 0;
 
   /**
-   * Interpolates the previous position of the object with the current position. Use the
-   * IMovable::GetInterpolatedPosition method to obtain the affected vector.
+   * Interpolates the previous position of the object with the current position.
+   * Use the IMovable::GetInterpolatedPosition method to obtain the affected
+   * vector.
    *
    * @param alpha the interpolation coefficient, in the range [0, 1].
    * @since 0.1.0
@@ -102,18 +105,17 @@ class IMovableObject : public virtual IGameObject {
    */
   virtual void set_velocity(const Vector2& velocity) noexcept = 0;
 
-  [[nodiscard]]
-  virtual bool will_intersect(const IGameObject* other, float delta) const = 0;
+  [[nodiscard]] virtual bool will_intersect(const IGameObject* other,
+                                            float delta) const = 0;
 
   /**
-   * Returns the movement speed of the movable. Note! This is not the same as the velocity
-   * of the movable, but merely the maximum allowed speed.
+   * Returns the movement speed of the movable. Note! This is not the same as
+   * the velocity of the movable, but merely the maximum allowed speed.
    *
    * @return the movement speed of the movable.
    * @since 0.1.0
    */
-  [[nodiscard]]
-  virtual float get_speed() const noexcept = 0;
+  [[nodiscard]] virtual float get_speed() const noexcept = 0;
 
   /**
    * Returns the dominant direction of the movable object.
@@ -121,8 +123,7 @@ class IMovableObject : public virtual IGameObject {
    * @return the dominant direction of the movable object.
    * @since 0.1.0
    */
-  [[nodiscard]]
-  virtual Direction get_dominant_direction() const noexcept = 0;
+  [[nodiscard]] virtual Direction get_dominant_direction() const noexcept = 0;
 
   /**
    * Returns the previous position of the movable object.
@@ -130,8 +131,8 @@ class IMovableObject : public virtual IGameObject {
    * @return the previous position of the movable object.
    * @since 0.1.0
    */
-  [[nodiscard]]
-  virtual const Vector2& get_previous_position() const noexcept = 0;
+  [[nodiscard]] virtual const Vector2& get_previous_position() const
+      noexcept = 0;
 
   /**
    * Returns the current velocity of the object.
@@ -139,8 +140,7 @@ class IMovableObject : public virtual IGameObject {
    * @return the current velocity of the object.
    * @since 0.1.0
    */
-  [[nodiscard]]
-  virtual const Vector2& get_velocity() const noexcept = 0;
+  [[nodiscard]] virtual const Vector2& get_velocity() const noexcept = 0;
 
   /**
    * Returns the current position of the object.
@@ -148,8 +148,7 @@ class IMovableObject : public virtual IGameObject {
    * @return the current position of the object.
    * @since 0.1.0
    */
-  [[nodiscard]]
-  virtual const Vector2& get_position() const noexcept = 0;
+  [[nodiscard]] virtual const Vector2& get_position() const noexcept = 0;
 
   /**
    * Returns the interpolated position of the object.
@@ -157,8 +156,8 @@ class IMovableObject : public virtual IGameObject {
    * @return the interpolated position of the object.
    * @since 0.1.0
    */
-  [[nodiscard]]
-  virtual const Vector2& get_interpolated_position() const noexcept = 0;
+  [[nodiscard]] virtual const Vector2& get_interpolated_position() const
+      noexcept = 0;
 
   /**
    * Returns the calculated next position of the movable object.
@@ -167,10 +166,10 @@ class IMovableObject : public virtual IGameObject {
    * @return the calculated next position of the movable object.
    * @since 0.1.0
    */
-  [[nodiscard]]
-  virtual Vector2 get_next_position(float delta) const noexcept = 0;
+  [[nodiscard]] virtual Vector2 get_next_position(float delta) const
+      noexcept = 0;
 };
 
 static_assert(std::has_virtual_destructor_v<IMovableObject>);
 
-}
+}  // namespace albinjohansson::wanderer

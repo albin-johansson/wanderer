@@ -1,24 +1,28 @@
 #include "home_menu.h"
-#include "require.h"
+
 #include "input.h"
+#include "require.h"
 
 using namespace centurion;
+using namespace centurion::video;
 
 namespace albinjohansson::wanderer {
 
-HomeMenu::HomeMenu(IMenuStateMachine* parent, IWandererCore* core) :
-    AbstractMenu(parent),
-    startButton("Start", 633, 250, 100, 40),
-    settingsButton("Settings", 633, 320, 100, 40),
-    controlsButton("Controls", 633, 390, 100, 40),
-    quitButton("Quit", 633, 460, 100, 40) {
+HomeMenu::HomeMenu(IMenuStateMachine* parent, IWandererCore* core)
+    : AbstractMenu(parent),
+      startButton("Start", 633, 250, 100, 40),
+      settingsButton("Settings", 633, 320, 100, 40),
+      controlsButton("Controls", 633, 390, 100, 40),
+      quitButton("Quit", 633, 460, 100, 40)
+{
   this->core = Require::not_null(core);
   fonts = std::make_unique<FontBundle>("resources/font/type_writer.ttf");
 }
 
 HomeMenu::~HomeMenu() noexcept = default;
 
-void HomeMenu::handle_input(const Input& input) noexcept {
+void HomeMenu::handle_input(const Input& input) noexcept
+{
   if (input.was_released(SDL_SCANCODE_ESCAPE)) {
     parent->set_menu(MenuID::InGame);
   }
@@ -42,11 +46,15 @@ void HomeMenu::handle_input(const Input& input) noexcept {
     parent->set_menu(MenuID::Controls);
 
   } else if (leftReleased && quitButton.contains(mx, my)) {
-    core->quit(); // FIXME perhaps the core should look for quit flag from menus instead?
+    core->quit();  // FIXME perhaps the core should look for quit flag from
+                   // menus instead?
   }
 }
 
-void HomeMenu::draw(Renderer& renderer, const Viewport& viewport, const FontBundle& fonts) const {
+void HomeMenu::draw(Renderer& renderer,
+                    const Viewport& viewport,
+                    const FontBundle& fonts) const
+{
   AbstractMenu::draw(renderer, viewport, fonts);
 
   startButton.draw(renderer, viewport, fonts);
@@ -55,4 +63,4 @@ void HomeMenu::draw(Renderer& renderer, const Viewport& viewport, const FontBund
   quitButton.draw(renderer, viewport, fonts);
 }
 
-}
+}  // namespace albinjohansson::wanderer

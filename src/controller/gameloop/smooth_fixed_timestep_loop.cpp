@@ -1,11 +1,15 @@
 #include "smooth_fixed_timestep_loop.h"
+
 #include <SDL.h>
 #include <renderer.h>
 #include <timer.h>
-#include "wanderer_core.h"
+#include <colors.h>
+
 #include "input.h"
+#include "wanderer_core.h"
 
 using namespace centurion;
+using namespace centurion::video;
 
 namespace albinjohansson::wanderer {
 
@@ -14,7 +18,8 @@ SmoothFixedTimestepLoop::SmoothFixedTimestepLoop(unique<KeyState> keyState,
                                                  float vsyncRate)
     : vsyncRate{vsyncRate},
       timeStep{1.0f / vsyncRate},
-      counterFreq{static_cast<float>(Timer::high_res_freq())} {
+      counterFreq{static_cast<float>(Timer::high_res_freq())}
+{
   input = std::make_unique<Input>(std::move(keyState), std::move(mouseState));
   now = Timer::high_res();
   then = now;
@@ -22,7 +27,8 @@ SmoothFixedTimestepLoop::SmoothFixedTimestepLoop(unique<KeyState> keyState,
 
 SmoothFixedTimestepLoop::~SmoothFixedTimestepLoop() = default;
 
-void SmoothFixedTimestepLoop::update_input(IWandererCore& core) {
+void SmoothFixedTimestepLoop::update_input(IWandererCore& core)
+{
   input->update();
 
   if (input->was_quit_requested() || input->was_released(SDL_SCANCODE_O)) {
@@ -32,7 +38,8 @@ void SmoothFixedTimestepLoop::update_input(IWandererCore& core) {
   core.handle_input(*input);
 }
 
-void SmoothFixedTimestepLoop::smooth_delta() {
+void SmoothFixedTimestepLoop::smooth_delta()
+{
   /* Reference for delta smoothing: https://frankforce.com/?p=2636 */
 
   delta += deltaBuffer;
@@ -47,7 +54,8 @@ void SmoothFixedTimestepLoop::smooth_delta() {
   deltaBuffer = oldDelta - delta;
 }
 
-void SmoothFixedTimestepLoop::update(IWandererCore& core, Renderer& renderer) {
+void SmoothFixedTimestepLoop::update(IWandererCore& core, Renderer& renderer)
+{
   update_input(core);
 
   then = now;
@@ -73,7 +81,8 @@ void SmoothFixedTimestepLoop::update(IWandererCore& core, Renderer& renderer) {
     alpha = 1.0f;
   }
 
-  renderer.set_color(0, 0, 0);
+  const Color color{0,0,0};
+  renderer.set_color(color);
   renderer.clear();
 
   core.render(renderer, alpha);
@@ -81,4 +90,4 @@ void SmoothFixedTimestepLoop::update(IWandererCore& core, Renderer& renderer) {
   renderer.present();
 }
 
-}
+}  // namespace albinjohansson::wanderer

@@ -1,14 +1,16 @@
 #pragma once
-#include <memory>
 #include <rectangle.h>
 #include <renderer.h>
-#include <image.h>
-#include "wanderer_stdinc.h"
+#include <texture.h>
+
+#include <memory>
+
 #include "game_object.h"
-#include "tile_id.h"
+#include "hitbox.h"
 #include "render_depth.h"
 #include "tile_animation.h"
-#include "hitbox.h"
+#include "tile_id.h"
+#include "wanderer_stdinc.h"
 
 namespace albinjohansson::wanderer {
 
@@ -17,9 +19,10 @@ class TileSet;
 struct Frame;
 
 /**
- * The Tile class represents a type of tile. Note! The Tile class is designed to represent a type
- * of tile, and as such, only one instance is meant to be created for each type. For storage of a
- * tile map, all that is needed is a matrix of tile identifiers.
+ * The Tile class represents a type of tile. Note! The Tile class is designed to
+ * represent a type of tile, and as such, only one instance is meant to be
+ * created for each type. For storage of a tile map, all that is needed is a
+ * matrix of tile identifiers.
  *
  * @since 0.1.0
  */
@@ -27,12 +30,12 @@ class Tile final {
  private:
   friend class TileBuilder;
 
-  shared<centurion::Image> sheet = nullptr;
+  shared<centurion::video::Texture> sheet = nullptr;
 
   TileID id = Tile::EMPTY;
   int depth = RenderDepth::min;
 
-  centurion::Rect source;
+  centurion::math::IRect source;
   Hitbox hitbox;
   TileAnimation animation;
 
@@ -43,8 +46,8 @@ class Tile final {
   Tile();
 
   /**
-   * Sets the render depth of the tile. An illegal value will be adjusted to the closest legal
-   * value.
+   * Sets the render depth of the tile. An illegal value will be adjusted to the
+   * closest legal value.
    *
    * @param depth the render depth value that will be used.
    * @since 0.1.0
@@ -70,7 +73,7 @@ class Tile final {
    * @since 0.1.0
    */
   void draw(const Vector2& pos,
-            const centurion::Renderer& renderer,
+            const centurion::video::Renderer& renderer,
             const TileSet& tileSet) const;
 
   /**
@@ -86,8 +89,7 @@ class Tile final {
    * @return true if the tile is blocked; false otherwise.
    * @since 0.1.0
    */
-  [[nodiscard]]
-  bool is_blocked() const noexcept { return isBlocked; }
+  [[nodiscard]] bool is_blocked() const noexcept { return isBlocked; }
 
   /**
    * Indicates whether or not the tile is animated.
@@ -95,8 +97,7 @@ class Tile final {
    * @return true if the tile is animated; false otherwise.
    * @since 0.1.0
    */
-  [[nodiscard]]
-  bool is_animated() const noexcept { return isAnimated; }
+  [[nodiscard]] bool is_animated() const noexcept { return isAnimated; }
 
   /**
    * Indicates whether or not the tile is an "object".
@@ -104,8 +105,7 @@ class Tile final {
    * @return true if the tile represents an object; false otherwise.
    * @since 0.1.0
    */
-  [[nodiscard]]
-  bool is_object() const noexcept { return isObject; }
+  [[nodiscard]] bool is_object() const noexcept { return isObject; }
 
   /**
    * Returns the render depth of the tile.
@@ -113,18 +113,16 @@ class Tile final {
    * @return the render depth of the tile.
    * @since 0.1.0
    */
-  [[nodiscard]]
-  int get_depth() const noexcept { return depth; }
+  [[nodiscard]] int get_depth() const noexcept { return depth; }
 
   /**
-   * Returns the tile ID that will be used for rendering the tile. If the tile isn't animated,
-   * the returned will always the same as Tile::GetId().
+   * Returns the tile ID that will be used for rendering the tile. If the tile
+   * isn't animated, the returned will always the same as Tile::GetId().
    *
    * @return the tile ID that will be used for rendering the tile.
    * @since 0.1.0
    */
-  [[nodiscard]]
-  TileID get_frame_id() const;
+  [[nodiscard]] TileID get_frame_id() const;
 
   /**
    * Returns the type ID the tile.
@@ -132,8 +130,7 @@ class Tile final {
    * @return the type ID the tile.
    * @since 0.1.0
    */
-  [[nodiscard]]
-  TileID get_id() const noexcept { return id; }
+  [[nodiscard]] TileID get_id() const noexcept { return id; }
 
   /**
    * Returns the source rectangle associated with the tile. The source rectangle
@@ -142,12 +139,12 @@ class Tile final {
    * @return the source rectangle associated with the tile.
    * @since 0.1.0
    */
-  [[nodiscard]]
-  const centurion::Rect& get_source() const noexcept { return source; }
+  [[nodiscard]] const centurion::math::IRect& get_source() const noexcept
+  {
+    return source;
+  }
 
-  [[nodiscard]]
-  const Hitbox& get_hitbox() const noexcept { return hitbox; }
-
+  [[nodiscard]] const Hitbox& get_hitbox() const noexcept { return hitbox; }
 };
 
-}
+}  // namespace albinjohansson::wanderer

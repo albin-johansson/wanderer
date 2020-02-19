@@ -1,37 +1,48 @@
 #include "tile_map_impl.h"
-#include <algorithm>
-#include <renderer.h>
+
 #include <rectangle.h>
+#include <renderer.h>
+
+#include <algorithm>
+
+#include "entity.h"
+#include "game_constants.h"
+#include "movable_object.h"
+#include "require.h"
 #include "tile_map_layer.h"
 #include "tile_set.h"
 #include "viewport.h"
-#include "movable_object.h"
-#include "entity.h"
 #include "wanderer_core.h"
-#include "require.h"
-#include "game_constants.h"
 
 using namespace centurion;
+using namespace centurion::math;
+using namespace centurion::video;
 
 namespace albinjohansson::wanderer {
 
-TileMapImpl::TileMapImpl(const shared<TileSet>& tileSet) {
+TileMapImpl::TileMapImpl(const shared<TileSet>& tileSet)
+{
   this->tileSet = Require::not_null(tileSet);
 }
 
 TileMapImpl::~TileMapImpl() = default;
 
-void TileMapImpl::Interpolate(float alpha) {
+void TileMapImpl::interpolate(float alpha)
+{
   for (auto& entity : entityManager.get_close_entities()) {
     entity->interpolate(alpha);
   }
 }
 
-TileMapBounds TileMapImpl::CalculateMapBounds(const FRect& bounds) const noexcept {
+TileMapBounds TileMapImpl::CalculateMapBounds(const FRect& bounds) const
+    noexcept
+{
   auto minCol = static_cast<int>(bounds.get_x()) / GameConstants::tile_size_int;
   auto minRow = static_cast<int>(bounds.get_y()) / GameConstants::tile_size_int;
-  auto maxCol = static_cast<int>((bounds.get_max_x()) / GameConstants::tile_size_int) + 1;
-  auto maxRow = static_cast<int>((bounds.get_max_y()) / GameConstants::tile_size_int) + 1;
+  auto maxCol =
+      static_cast<int>((bounds.get_max_x()) / GameConstants::tile_size_int) + 1;
+  auto maxRow =
+      static_cast<int>((bounds.get_max_y()) / GameConstants::tile_size_int) + 1;
 
   if (minCol < 0) {
     minCol = 0;
@@ -52,7 +63,10 @@ TileMapBounds TileMapImpl::CalculateMapBounds(const FRect& bounds) const noexcep
   return {minRow, maxRow, minCol, maxCol};
 }
 
-void TileMapImpl::tick(IWandererCore& core, const Viewport& viewport, float delta) {
+void TileMapImpl::tick(IWandererCore& core,
+                       const Viewport& viewport,
+                       float delta)
+{
   const auto& viewportBounds = viewport.get_bounds();
   const auto bounds = CalculateMapBounds(viewportBounds);
   const auto update = [&](auto& layer) { layer->update(bounds); };
@@ -77,14 +91,17 @@ void TileMapImpl::tick(IWandererCore& core, const Viewport& viewport, float delt
   }
 }
 
-void TileMapImpl::draw(Renderer& renderer, const Viewport& viewport, float alpha) noexcept {
-  Interpolate(alpha);
+void TileMapImpl::draw(Renderer& renderer,
+                       const Viewport& viewport,
+                       float alpha) noexcept
+{
+  interpolate(alpha);
 
   const auto bounds = CalculateMapBounds(viewport.get_bounds());
 
   for (auto row = bounds.minRow; row < bounds.maxRow; row++) {
     for (auto col = bounds.minCol; col < bounds.maxCol; col++) {
-      RenderTilesAt(row, col, renderer);
+      render_tiles_at(row, col, renderer);
     }
   }
 
@@ -95,7 +112,8 @@ void TileMapImpl::draw(Renderer& renderer, const Viewport& viewport, float alpha
     const auto rightFirst = snd->get_depth();
     const auto rightSecond = snd->get_center_y();
 
-    return (leftFirst < rightFirst || (rightFirst >= leftFirst && leftSecond < rightSecond));
+    return (leftFirst < rightFirst ||
+            (rightFirst >= leftFirst && leftSecond < rightSecond));
   };
 
   std::sort(activeObjects.begin(), activeObjects.end(), comparator);
@@ -105,7 +123,8 @@ void TileMapImpl::draw(Renderer& renderer, const Viewport& viewport, float alpha
   }
 }
 
-void TileMapImpl::RenderTilesAt(int row, int col, Renderer& renderer) {
+void TileMapImpl::render_tiles_at(int row, int col, Renderer& renderer)
+{
   for (const auto& layer : groundLayers) {
     const auto id = layer->get_tile_id(row, col);
     if (id != Tile::EMPTY) {
@@ -116,7 +135,8 @@ void TileMapImpl::RenderTilesAt(int row, int col, Renderer& renderer) {
   }
 }
 
-void TileMapImpl::add_layer(unique<ITileMapLayer>&& layer) {
+void TileMapImpl::add_layer(unique<ITileMapLayer>&& layer)
+{
   if (layer) {
     if (layer->is_ground_layer()) {
       groundLayers.push_back(std::move(layer));
@@ -126,14 +146,16 @@ void TileMapImpl::add_layer(unique<ITileMapLayer>&& layer) {
   }
 }
 
-void TileMapImpl::set_player(const shared<IEntity>& player) {
+void TileMapImpl::set_player(const shared<IEntity>& player)
+{
   if (player) {
     this->player = player;
     entityManager.add_entity(player);
   }
 }
 
-bool TileMapImpl::is_blocked(const IMovableObject* self, float delta) const {
+bool TileMapImpl::is_blocked(const IMovableObject* self, float delta) const
+{
   if (!self) {
     return false;
   }
@@ -151,24 +173,23 @@ bool TileMapImpl::is_blocked(const IMovableObject* self, float delta) const {
   return false;
 }
 
-int TileMapImpl::get_rows() const noexcept {
-  return nRows;
-}
+int TileMapImpl::get_rows() const noexcept { return nRows; }
 
-int TileMapImpl::get_cols() const noexcept {
-  return nCols;
-}
+int TileMapImpl::get_cols() const noexcept { return nCols; }
 
-int TileMapImpl::get_width() const noexcept {
+int TileMapImpl::get_width() const noexcept
+{
   return nCols * GameConstants::tile_size_int;
 }
 
-int TileMapImpl::get_height() const noexcept {
+int TileMapImpl::get_height() const noexcept
+{
   return nRows * GameConstants::tile_size_int;
 }
 
-Vector2 TileMapImpl::get_player_spawn_position() const {
+Vector2 TileMapImpl::get_player_spawn_position() const
+{
   return playerSpawnPos;
 }
 
-}
+}  // namespace albinjohansson::wanderer

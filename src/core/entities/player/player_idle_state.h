@@ -1,12 +1,12 @@
 #pragma once
-#include "player_state.h"
 #include "entity_idle_delegate.h"
+#include "player_state.h"
 
 namespace albinjohansson::wanderer {
 
 /**
- * The PlayerIdleState class is an implementation of the IPlayerState interface that represents
- * the state of the player when idle.
+ * The PlayerIdleState class is an implementation of the IPlayerState interface
+ * that represents the state of the player when idle.
  *
  * @see IPlayerState
  * @since 0.1.0
@@ -27,7 +27,8 @@ class PlayerIdleState final : public IPlayerState {
 
   void HandleInput(const Input& input, const IWandererCore& core) override;
 
-  void draw(const centurion::Renderer& renderer, const Viewport& viewport) const noexcept override;
+  void draw(const centurion::video::Renderer& renderer,
+            const Viewport& viewport) const noexcept override;
 
   void tick(const IWandererCore& core, float delta) override;
 
@@ -36,4 +37,4 @@ class PlayerIdleState final : public IPlayerState {
   void exit(const IWandererCore& core) override;
 };
 
-}
+}  // namespace albinjohansson::wanderer

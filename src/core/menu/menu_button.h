@@ -1,10 +1,12 @@
 #pragma once
+#include <rectangle.h>
+#include <texture.h>
+
 #include <memory>
 #include <string>
-#include <image.h>
-#include <rectangle.h>
-#include "wanderer_stdinc.h"
+
 #include "menu_drawable.h"
+#include "wanderer_stdinc.h"
 
 namespace albinjohansson::wanderer {
 
@@ -15,17 +17,17 @@ namespace albinjohansson::wanderer {
  */
 class MenuButton final : public IMenuDrawable {
  private:
-  centurion::FRect bounds;
-  mutable unique<centurion::Image> normalImg = nullptr;
-  mutable unique<centurion::Image> enlargedImg = nullptr;
+  centurion::math::FRect bounds;
+  mutable unique<centurion::video::Texture> normalImg = nullptr;
+  mutable unique<centurion::video::Texture> enlargedImg = nullptr;
   const std::string text = "";
   bool enlarged = false;
 
-  void render_text(const centurion::Renderer& renderer,
+  void render_text(const centurion::video::Renderer& renderer,
                    float x,
                    float y,
-                   unique<centurion::Image>& img,
-                   const centurion::Font& font) const;
+                   unique<centurion::video::Texture>& img,
+                   const centurion::video::Font& font) const;
 
  public:
   /**
@@ -40,14 +42,13 @@ class MenuButton final : public IMenuDrawable {
 
   ~MenuButton() override;
 
-  void draw(centurion::Renderer& renderer,
+  void draw(centurion::video::Renderer& renderer,
             const Viewport& viewport,
             const FontBundle& fonts) const override;
 
   void set_enlarged(bool enlarged) noexcept;
 
-  [[nodiscard]]
-  bool contains(float mx, float my) const noexcept;
+  [[nodiscard]] bool contains(float mx, float my) const noexcept;
 };
 
-}
+}  // namespace albinjohansson::wanderer

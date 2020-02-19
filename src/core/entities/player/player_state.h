@@ -7,8 +7,8 @@ class Input;
 class IWandererCore;
 
 /**
- * The IPlayerState interface is a subinterface of IEntityState that specifies objects that
- * represent the state of a Player instance.
+ * The IPlayerState interface is a subinterface of IEntityState that specifies
+ * objects that represent the state of a Player instance.
  *
  * @see IEntityState
  * @since 0.1.0
@@ -30,4 +30,4 @@ class IPlayerState : public IEntityState {
   virtual void HandleInput(const Input& input, const IWandererCore& core) = 0;
 };
 
-}
+}  // namespace albinjohansson::wanderer

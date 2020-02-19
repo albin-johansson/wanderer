@@ -6,8 +6,8 @@ namespace albinjohansson::wanderer {
 class IEntityStateMachine;
 
 /**
- * The EntityIdleDelegate class is an implementation of IEntityState that is meant to be used for
- * delegating idle entity state calls.
+ * The EntityIdleDelegate class is an implementation of IEntityState that is
+ * meant to be used for delegating idle entity state calls.
  *
  * @see IEntityState
  * @since 0.1.0
@@ -26,7 +26,8 @@ class EntityIdleDelegate final : public IEntityState {
 
   ~EntityIdleDelegate() override;
 
-  void draw(const centurion::Renderer& renderer, const Viewport& viewport) const override;
+  void draw(const centurion::video::Renderer& renderer,
+            const Viewport& viewport) const override;
 
   void enter(const IWandererCore& core) override;
 
@@ -40,8 +41,7 @@ class EntityIdleDelegate final : public IEntityState {
    * @return a reference to the associated entity state machine.
    * @since 0.1.0
    */
-  [[nodiscard]]
-  IEntityStateMachine& GetParent() noexcept;
+  [[nodiscard]] IEntityStateMachine& get_parent() noexcept;
 };
 
-}
+}  // namespace albinjohansson::wanderer

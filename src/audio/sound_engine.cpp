@@ -1,20 +1,22 @@
 #include "sound_engine.h"
-#include "sound_effect.h"
-#include <stdexcept>
+
 #include <fstream>
 #include <iostream>
+#include <stdexcept>
+
+#include "sound_effect.h"
 
 using namespace centurion;
+using namespace centurion::audio;
 
 namespace albinjohansson::wanderer {
 
-SoundEngine::SoundEngine(const std::string& file) {
-  load_sounds(file);
-}
+SoundEngine::SoundEngine(const std::string& file) { load_sounds(file); }
 
 SoundEngine::~SoundEngine() = default;
 
-void SoundEngine::load_sounds(const std::string& file) {
+void SoundEngine::load_sounds(const std::string& file)
+{
   try {
     std::ifstream infile{file};
     std::string line;
@@ -29,15 +31,19 @@ void SoundEngine::load_sounds(const std::string& file) {
   }
 }
 
-void SoundEngine::register_sound(const std::string& id, unique<SoundEffect> sound) {
+void SoundEngine::register_sound(const std::string& id,
+                                 unique<SoundEffect> sound)
+{
   if (!sound) {
     throw std::invalid_argument{"Null sound!"};
   }
   sounds.emplace(id, std::move(sound));
 }
 
-centurion::SoundEffect& SoundEngine::get_sound(const std::string& id) const noexcept {
+SoundEffect& SoundEngine::get_sound(const std::string& id) const
+    noexcept
+{
   return *sounds.at(id);
 }
 
-}
+}  // namespace albinjohansson::wanderer

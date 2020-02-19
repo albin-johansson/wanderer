@@ -6,8 +6,8 @@ namespace albinjohansson::wanderer {
 class IWandererCore;
 
 /**
- * The IGameLoop interface specifies objects that represent various kinds of game loops that serve
- * as the heart of the game.
+ * The IGameLoop interface specifies objects that represent various kinds of
+ * game loops that serve as the heart of the game.
  *
  * @since 0.1.0
  */
@@ -22,7 +22,8 @@ class IGameLoop {
    * @param renderer a reference to the renderer that will be used.
    * @since 0.1.0
    */
-  virtual void update(IWandererCore& core, centurion::Renderer& renderer) = 0;
+  virtual void update(IWandererCore& core,
+                      centurion::video::Renderer& renderer) = 0;
 };
 
-}
+}  // namespace albinjohansson::wanderer

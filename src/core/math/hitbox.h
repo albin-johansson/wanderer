@@ -1,7 +1,9 @@
 #pragma once
-#include <vector>
-#include <utility>
 #include <rectangle.h>
+
+#include <utility>
+#include <vector>
+
 #include "vector_2.h"
 
 namespace albinjohansson::wanderer {
@@ -13,8 +15,8 @@ namespace albinjohansson::wanderer {
  */
 class Hitbox final {
  private:
-  centurion::FRect bounds;
-  std::vector<std::pair<centurion::FRect, Vector2>> rectangles;
+  centurion::math::FRect bounds;
+  std::vector<std::pair<centurion::math::FRect, Vector2>> rectangles;
   bool enabled = false;
 
   void calc_bounds();
@@ -30,7 +32,7 @@ class Hitbox final {
    * @param rect a rectangle that will serve as a part of the hitbox.
    * @since 0.1.0
    */
-  void add_rectangle(const centurion::FRect& rect, const Vector2& offset);
+  void add_rectangle(const centurion::math::FRect& rect, const Vector2& offset);
 
   /**
    * Sets the x-coordinate of the hitbox.
@@ -49,8 +51,8 @@ class Hitbox final {
   void set_y(float y) noexcept;
 
   /**
-   * Sets whether or not the hitbox is enabled. A hitbox that is disabled cannot intersect other
-   * hitboxes.
+   * Sets whether or not the hitbox is enabled. A hitbox that is disabled cannot
+   * intersect other hitboxes.
    *
    * @param enabled true if the hitbox should be enabled; false otherwise.
    * @since 0.1.0
@@ -63,8 +65,7 @@ class Hitbox final {
    * @return true if the hitbox is built by only one rectangle; false otherwise.
    * @since 0.1.0
    */
-  [[nodiscard]]
-  bool is_unit() const noexcept;
+  [[nodiscard]] bool is_unit() const noexcept;
 
   /**
    * Indicates whether or not the supplied hitbox intersects this hitbox.
@@ -73,14 +74,13 @@ class Hitbox final {
    * @return true if the hitboxes intersect; false otherwise.
    * @since 0.1.0
    */
-  [[nodiscard]]
-  bool intersects(const Hitbox& other) const noexcept;
+  [[nodiscard]] bool intersects(const Hitbox& other) const noexcept;
 
-  [[nodiscard]]
-  bool intersects(const centurion::FRect& other) const noexcept;
+  [[nodiscard]] bool intersects(const centurion::math::FRect& other) const
+      noexcept;
 
-  [[nodiscard]]
-  bool will_intersect(const Hitbox& other, const Vector2& nextPos) const noexcept;
+  [[nodiscard]] bool will_intersect(const Hitbox& other,
+                                    const Vector2& nextPos) const noexcept;
 
   /**
    * Indicates whether or not the hitbox is enabled.
@@ -88,8 +88,7 @@ class Hitbox final {
    * @return true if the hitbox is enabled; false otherwise.
    * @since 0.1.0
    */
-  [[nodiscard]]
-  bool is_enabled() const noexcept;
+  [[nodiscard]] bool is_enabled() const noexcept;
 
   /**
    * Returns the rectangle that represents the bounds of the hitbox.
@@ -97,8 +96,7 @@ class Hitbox final {
    * @return the rectangle that represents the bounds of the hitbox.
    * @since 0.1.0
    */
-  [[nodiscard]]
-  const centurion::FRect& get_bounds() const noexcept;
+  [[nodiscard]] const centurion::math::FRect& get_bounds() const noexcept;
 };
 
-}
+}  // namespace albinjohansson::wanderer

@@ -1,23 +1,26 @@
 #pragma once
+#include <texture_loader.h>
+
 #include <memory>
-#include <image_generator.h>
-#include "wanderer_core.h"
-#include "wanderer_stdinc.h"
-#include "viewport.h"
+
+#include "hud.h"
 #include "menu_state_machine.h"
 #include "sound_engine.h"
-#include "hud.h"
+#include "viewport.h"
+#include "wanderer_core.h"
+#include "wanderer_stdinc.h"
 
 namespace albinjohansson::wanderer {
 
 /**
- * The WandererCoreImpl class is an implementation of the IWandererCore interface.
+ * The WandererCoreImpl class is an implementation of the IWandererCore
+ * interface.
  *
  * @since 0.1.0
  */
 class WandererCoreImpl final : public IWandererCore {
  private:
-  shared<ITileMap> activeMap = nullptr; // could maybe be a raw pointer
+  shared<ITileMap> activeMap = nullptr;  // could maybe be a raw pointer
   unique<IMenuStateMachine> menuStateMachine = nullptr;
   HUD hud;
 
@@ -30,7 +33,7 @@ class WandererCoreImpl final : public IWandererCore {
 
   void init_viewport();
 
-  explicit WandererCoreImpl(centurion::ImageGenerator& imageGenerator);
+  explicit WandererCoreImpl(centurion::video::TextureLoader& textureLoader);
 
  public:
   ~WandererCoreImpl() override;
@@ -38,17 +41,18 @@ class WandererCoreImpl final : public IWandererCore {
   /**
    * Creates and returns a unique pointer to an IWandererCore instance.
    *
-   * @param imageGenerator a reference to an image generator.
+   * @param textureLoader a reference to an image generator.
    * @return a unique pointer to an IWandererCore instance.
    * @since 0.1.0
    */
-  friend unique<IWandererCore> create_core(centurion::ImageGenerator& imageGenerator);
+  friend unique<IWandererCore> create_core(
+      centurion::video::TextureLoader& textureLoader);
 
   void handle_input(const Input& input) override;
 
   void update(float delta) override;
 
-  void render(centurion::Renderer& renderer, float alpha) override;
+  void render(centurion::video::Renderer& renderer, float alpha) override;
 
   void set_map(shared<ITileMap> map) override;
 
@@ -60,14 +64,11 @@ class WandererCoreImpl final : public IWandererCore {
 
   void set_viewport_height(float height) override;
 
-  [[nodiscard]]
-  bool should_quit() const noexcept override;
+  [[nodiscard]] bool should_quit() const noexcept override;
 
-  [[nodiscard]]
-  const IPlayer& get_player() const override;
+  [[nodiscard]] const IPlayer& get_player() const override;
 
-  [[nodiscard]]
-  const ITileMap& get_active_map() const override;
+  [[nodiscard]] const ITileMap& get_active_map() const override;
 };
 
-}
+}  // namespace albinjohansson::wanderer

@@ -34,4 +34,4 @@ struct RenderDepth final {
   ~RenderDepth() = default;
 };
 
-}
+}  // namespace albinjohansson::wanderer

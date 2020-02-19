@@ -1,5 +1,6 @@
 #pragma once
-#include <image.h>
+#include <texture.h>
+
 #include "wanderer_stdinc.h"
 
 namespace albinjohansson::wanderer {
@@ -21,8 +22,8 @@ class IAnimated {
   virtual void update_animation() noexcept = 0;
 
   /**
-   * Sets the current animation frame by index. An invalid index will be clamped to the closest
-   * legal value.
+   * Sets the current animation frame by index. An invalid index will be clamped
+   * to the closest legal value.
    *
    * @param index the index of the desired animation frame (zero-indexed).
    * @since 0.1.0
@@ -51,18 +52,18 @@ class IAnimated {
    * @return the index of the currently active animation frame.
    * @since 0.1.0
    */
-  [[nodiscard]]
-  virtual int get_animation_frame() const noexcept = 0;
+  [[nodiscard]] virtual int get_animation_frame() const noexcept = 0;
 
   /**
-   * Indicates whether or not the animation is "done", the animation is considered done every
-   * time the index corresponds to the final animation frame.
+   * Indicates whether or not the animation is "done", the animation is
+   * considered done every time the index corresponds to the final animation
+   * frame.
    *
-   * @return true if the animation index is equal to the index of the final frame; false otherwise.
+   * @return true if the animation index is equal to the index of the final
+   * frame; false otherwise.
    * @since 0.1.0
    */
-  [[nodiscard]]
-  virtual bool is_animation_done() const noexcept = 0;
+  [[nodiscard]] virtual bool is_animation_done() const noexcept = 0;
 
   /**
    * Returns a reference to the internal sprite sheet.
@@ -70,8 +71,8 @@ class IAnimated {
    * @return a reference to the internal sprite sheet.
    * @since 0.1.0
    */
-  [[nodiscard]]
-  virtual centurion::Image& get_sprite_sheet() const noexcept = 0;
+  [[nodiscard]] virtual centurion::video::Texture& get_sprite_sheet() const
+      noexcept = 0;
 };
 
-}
+}  // namespace albinjohansson::wanderer

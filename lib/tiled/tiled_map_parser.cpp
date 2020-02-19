@@ -1,29 +1,33 @@
 #include "tiled_map_parser.h"
+
+#include <texture.h>
+
+#include "pugi_utils.h"
+#include "tile_map_builder.h"
 #include "tile_map_impl.h"
+#include "tile_map_layer_builder.h"
 #include "tile_map_layer_impl.h"
 #include "tile_set.h"
-#include "tile_map_builder.h"
-#include "tile_map_layer_builder.h"
 #include "tile_set_builder.h"
-#include "image_generator.h"
-#include "image.h"
 #include "tiled_map.h"
-#include "pugi_utils.h"
 
 using namespace centurion;
+using namespace centurion::video;
 
 namespace albinjohansson::wanderer {
 
 // TODO entity parsing, item parsing...
 
-std::unique_ptr<ITileMap> TiledMapParser::load(ImageGenerator& imageGenerator,
-                                               const std::string& file) {
+std::unique_ptr<ITileMap> TiledMapParser::load(TextureLoader& imageGenerator,
+                                               const std::string& file)
+{
   const auto mapDocument = PugiUtils::LoadDocument(file);
   const auto mapNode = mapDocument.child("map");
 
   tiled::TiledMap tiledMap(mapNode);
 
-  std::shared_ptr<TileSet> tileSet = TileSetBuilder::create(mapNode, imageGenerator);
+  std::shared_ptr<TileSet> tileSet =
+      TileSetBuilder::create(mapNode, imageGenerator);
 
   auto map = TileMapBuilder::create(tileSet, tiledMap);
 
@@ -35,4 +39,4 @@ std::unique_ptr<ITileMap> TiledMapParser::load(ImageGenerator& imageGenerator,
   return map;
 }
 
-}
+}  // namespace albinjohansson::wanderer

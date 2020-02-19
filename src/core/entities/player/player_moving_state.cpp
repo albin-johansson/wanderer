@@ -1,29 +1,33 @@
 #include "player_moving_state.h"
-#include "entity_state_machine.h"
+
 #include "entity.h"
 #include "entity_sheet.h"
-#include "require.h"
+#include "entity_state_machine.h"
 #include "input.h"
-#include "wanderer_core.h"
+#include "require.h"
 #include "tile_map.h"
+#include "wanderer_core.h"
 
 using namespace centurion;
+using namespace centurion::video;
 
 namespace albinjohansson::wanderer {
 
 PlayerMovingState::PlayerMovingState(IEntityStateMachine* parent)
-    : moveDelegate(parent) {
+    : moveDelegate(parent)
+{
   this->parent = Require::not_null(parent);
 }
 
 PlayerMovingState::~PlayerMovingState() = default;
 
-void PlayerMovingState::CheckPressed(const Input& input) {
+void PlayerMovingState::CheckPressed(const Input& input)
+{
   bool left = input.is_pressed(SDL_SCANCODE_A);
   bool right = input.is_pressed(SDL_SCANCODE_D);
   bool up = input.is_pressed(SDL_SCANCODE_W);
   bool down = input.is_pressed(SDL_SCANCODE_S);
-  IEntity& entity = moveDelegate.GetParent().get_entity();
+  IEntity& entity = moveDelegate.get_parent().get_entity();
 
   if (left && right) {
     entity.stop(Direction::Left);
@@ -46,12 +50,13 @@ void PlayerMovingState::CheckPressed(const Input& input) {
   areMoveKeysDown = up || down || right || left;
 }
 
-void PlayerMovingState::CheckReleased(const Input& input) {
+void PlayerMovingState::CheckReleased(const Input& input)
+{
   bool left = input.was_released(SDL_SCANCODE_A);
   bool right = input.was_released(SDL_SCANCODE_D);
   bool up = input.was_released(SDL_SCANCODE_W);
   bool down = input.was_released(SDL_SCANCODE_S);
-  auto& entity = moveDelegate.GetParent().get_entity();
+  auto& entity = moveDelegate.get_parent().get_entity();
 
   if (left) {
     entity.stop(Direction::Left);
@@ -70,47 +75,54 @@ void PlayerMovingState::CheckReleased(const Input& input) {
   }
 }
 
-void PlayerMovingState::HandleInput(const Input& input, const IWandererCore& core) {
-  areMoveKeysDown = false; // assume no movement keys are down
+void PlayerMovingState::HandleInput(const Input& input,
+                                    const IWandererCore& core)
+{
+  areMoveKeysDown = false;  // assume no movement keys are down
 
   CheckPressed(input);
   CheckReleased(input);
 
-  if (!areMoveKeysDown && moveDelegate.GetParent().get_entity().get_velocity().is_zero()) {
+  if (!areMoveKeysDown &&
+      moveDelegate.get_parent().get_entity().get_velocity().is_zero()) {
     parent->set_state(EntityStateID::Idle, core);
   } else if (input.is_pressed(SDL_SCANCODE_SPACE)) {
     parent->set_state(EntityStateID::Attack, core);
   }
 }
 
-void PlayerMovingState::tick(const IWandererCore& core, float delta) {
+void PlayerMovingState::tick(const IWandererCore& core, float delta)
+{
   moveDelegate.tick(core, delta);
 
-  auto& player = moveDelegate.GetParent().get_entity();
+  auto& player = moveDelegate.get_parent().get_entity();
 
   if (core.get_active_map().is_blocked(&player, delta)) {
-
     const auto& prevPos = player.get_previous_position();
     player.set_x(prevPos.x);
     player.set_y(prevPos.y);
 
     // TODO set position of entity to be next to the blocking object
 
-    moveDelegate.GetParent().set_state(EntityStateID::Idle, core);
+    moveDelegate.get_parent().set_state(EntityStateID::Idle, core);
     return;
   }
 }
 
-void PlayerMovingState::draw(const Renderer& renderer, const Viewport& viewport) const noexcept {
+void PlayerMovingState::draw(const Renderer& renderer,
+                             const Viewport& viewport) const noexcept
+{
   moveDelegate.draw(renderer, viewport);
 }
 
-void PlayerMovingState::exit(const IWandererCore& core) {
+void PlayerMovingState::exit(const IWandererCore& core)
+{
   moveDelegate.exit(core);
 }
 
-void PlayerMovingState::enter(const IWandererCore& core) {
+void PlayerMovingState::enter(const IWandererCore& core)
+{
   moveDelegate.enter(core);
 }
 
-}
+}  // namespace albinjohansson::wanderer

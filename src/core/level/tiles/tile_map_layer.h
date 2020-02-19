@@ -1,9 +1,11 @@
 #pragma once
+#include <renderer.h>
+
 #include <memory>
 #include <vector>
-#include <renderer.h>
-#include "tile_id.h"
+
 #include "map_position.h"
+#include "tile_id.h"
 
 namespace albinjohansson::wanderer {
 
@@ -31,7 +33,8 @@ class ITileMapLayer {
   virtual void update(const TileMapBounds& bounds) = 0;
 
   /**
-   * Adds all of the game objects in the layer within the supplied bounds to the supplied vector.
+   * Adds all of the game objects in the layer within the supplied bounds to the
+   * supplied vector.
    *
    * @param bounds the tile map bounds to look for drawables.
    * @param objects the vector of objects which the objects will be added to.
@@ -48,8 +51,7 @@ class ITileMapLayer {
    * @return the tile ID of the tile at the specified position.
    * @since 0.1.0
    */
-  [[nodiscard]]
-  virtual TileID get_tile_id(int row, int col) const = 0;
+  [[nodiscard]] virtual TileID get_tile_id(int row, int col) const = 0;
 
   /**
    * Returns the index of the tile at the specified position.
@@ -59,8 +61,7 @@ class ITileMapLayer {
    * @return the index of the tile at the specified position.
    * @since 0.1.0
    */
-  [[nodiscard]]
-  virtual int get_index(int row, int col) const noexcept = 0;
+  [[nodiscard]] virtual int get_index(int row, int col) const noexcept = 0;
 
   /**
    * Indicates whether or not the layer is a ground layer.
@@ -68,14 +69,11 @@ class ITileMapLayer {
    * @return true if the layer is a ground layer; false otherwise.
    * @since 0.1.0
    */
-  [[nodiscard]]
-  virtual bool is_ground_layer() const noexcept = 0;
+  [[nodiscard]] virtual bool is_ground_layer() const noexcept = 0;
 
-  [[nodiscard]]
-  virtual int get_rows() const noexcept = 0;
+  [[nodiscard]] virtual int get_rows() const noexcept = 0;
 
-  [[nodiscard]]
-  virtual int get_cols() const noexcept = 0;
+  [[nodiscard]] virtual int get_cols() const noexcept = 0;
 };
 
-}
+}  // namespace albinjohansson::wanderer

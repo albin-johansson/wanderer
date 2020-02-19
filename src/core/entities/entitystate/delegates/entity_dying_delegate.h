@@ -6,8 +6,8 @@ namespace albinjohansson::wanderer {
 class IEntity;
 
 /**
- * The EntityDyingDelegate class is an implementation of IEntityState that is meant to be used for
- * delegating idle entity dying calls.
+ * The EntityDyingDelegate class is an implementation of IEntityState that is
+ * meant to be used for delegating idle entity dying calls.
  *
  * @see IEntityState
  * @since 0.1.0
@@ -26,7 +26,8 @@ class EntityDyingDelegate final : public IEntityState {
 
   ~EntityDyingDelegate() override;
 
-  void draw(const centurion::Renderer& renderer, const Viewport& viewport) const override;
+  void draw(const centurion::video::Renderer& renderer,
+            const Viewport& viewport) const override;
 
   void enter(const IWandererCore& core) override;
 
@@ -35,4 +36,4 @@ class EntityDyingDelegate final : public IEntityState {
   void tick(const IWandererCore& core, float delta) override;
 };
 
-}
+}  // namespace albinjohansson::wanderer

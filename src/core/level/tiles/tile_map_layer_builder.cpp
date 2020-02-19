@@ -1,9 +1,10 @@
 #include "tile_map_layer_builder.h"
-#include "tile_map_layer_impl.h"
-#include "tile_set.h"
-#include "tile_object.h"
-#include "tiled_layer.h"
+
 #include "game_constants.h"
+#include "tile_map_layer_impl.h"
+#include "tile_object.h"
+#include "tile_set.h"
+#include "tiled_layer.h"
 
 namespace albinjohansson::wanderer {
 
@@ -11,16 +12,16 @@ TileMapLayerBuilder::TileMapLayerBuilder() = default;
 
 TileMapLayerBuilder::~TileMapLayerBuilder() = default;
 
-void TileMapLayerBuilder::init_tile_objects(TileMapLayerImpl& layer) const {
+void TileMapLayerBuilder::init_tile_objects(TileMapLayerImpl& layer) const
+{
   int index = 0;
 
   for (const auto id : layer.tiles) {
     if (id != Tile::EMPTY) {
       const auto& tile = layer.tileSet->get_tile(id);
       if (tile.is_object()) {
-        auto object = std::make_unique<TileObject>(id,
-                                                   create_position(index, layer.nCols),
-                                                   layer.tileSet);
+        auto object = std::make_unique<TileObject>(
+            id, create_position(index, layer.nCols), layer.tileSet);
         object->SetDepth(tile.get_depth());
 
         if (tile.is_blocked()) {
@@ -32,7 +33,7 @@ void TileMapLayerBuilder::init_tile_objects(TileMapLayerImpl& layer) const {
           object->SetHitbox(hitbox);
         }
 
-        const auto[row, col] = Math::index_to_matrix_pos(index, layer.nCols);
+        const auto [row, col] = Math::index_to_matrix_pos(index, layer.nCols);
         const MapPosition mapPos{row, col};
 
         layer.tileObjects.emplace(mapPos, std::move(object));
@@ -42,13 +43,16 @@ void TileMapLayerBuilder::init_tile_objects(TileMapLayerImpl& layer) const {
   }
 }
 
-Vector2 TileMapLayerBuilder::create_position(int index, int nCols) const {
-  const auto[row, col] = Math::index_to_matrix_pos(index, nCols);
+Vector2 TileMapLayerBuilder::create_position(int index, int nCols) const
+{
+  const auto [row, col] = Math::index_to_matrix_pos(index, nCols);
   return Vector2{static_cast<float>(col) * GameConstants::tile_size,
                  static_cast<float>(row) * GameConstants::tile_size};
 }
 
-std::vector<TileID> TileMapLayerBuilder::create_tile_vector(const std::vector<int>& tiles) {
+std::vector<TileID> TileMapLayerBuilder::create_tile_vector(
+    const std::vector<int>& tiles)
+{
   std::vector<TileID> result;
   result.reserve(tiles.size());
   for (int i : tiles) {
@@ -57,19 +61,21 @@ std::vector<TileID> TileMapLayerBuilder::create_tile_vector(const std::vector<in
   return result;
 }
 
-unique<ITileMapLayer> TileMapLayerBuilder::create(const shared<TileSet>& tileSet,
-                                                  const tiled::TiledLayer& tiledLayer) const {
+unique<ITileMapLayer> TileMapLayerBuilder::create(
+    const shared<TileSet>& tileSet, const tiled::TiledLayer& tiledLayer) const
+{
   auto layer = unique<TileMapLayerImpl>(new TileMapLayerImpl(tileSet));
 
   layer->nRows = tiledLayer.get_rows();
   layer->nCols = tiledLayer.get_cols();
   layer->isGroundLayer = tiledLayer.get_bool("ground");
   layer->tiles = create_tile_vector(tiledLayer.get_tiles());
-  layer->tileObjects.reserve(static_cast<unsigned>(tiledLayer.get_non_empty_tiles()));
+  layer->tileObjects.reserve(
+      static_cast<unsigned>(tiledLayer.get_non_empty_tiles()));
 
   init_tile_objects(*layer);
 
   return layer;
 }
 
-}
+}  // namespace albinjohansson::wanderer

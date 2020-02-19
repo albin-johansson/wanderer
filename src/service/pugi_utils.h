@@ -10,9 +10,7 @@ class PugiUtils final {
 
   ~PugiUtils() = default;
 
-  [[nodiscard]]
-  static pugi::xml_document LoadDocument(const std::string& path);
-
+  [[nodiscard]] static pugi::xml_document LoadDocument(const std::string& path);
 };
 
-}
+}  // namespace albinjohansson::wanderer

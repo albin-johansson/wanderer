@@ -1,14 +1,15 @@
 #pragma once
-#include "game_object.h"
-#include <memory>
-#include <renderer.h>
 #include <rectangle.h>
-#include "tile_id.h"
-#include "tile.h"
-#include "vector_2.h"
+#include <renderer.h>
+
+#include <memory>
+
+#include "game_object.h"
 #include "hitbox.h"
 #include "render_depth.h"
-#include "hitbox.h"
+#include "tile.h"
+#include "tile_id.h"
+#include "vector_2.h"
 
 namespace albinjohansson::wanderer {
 
@@ -38,45 +39,41 @@ class TileObject final : public IGameObject {
    * @throws NullPointerException if the supplied tile set is null.
    * @since 0.1.0
    */
-  TileObject(TileID id, const Vector2& position, const std::shared_ptr<TileSet>& tileSet);
+  TileObject(TileID id,
+             const Vector2& position,
+             const std::shared_ptr<TileSet>& tileSet);
 
   ~TileObject() noexcept override;
 
   void tick(IWandererCore& core, float delta) override;
 
-  void draw(const centurion::Renderer& renderer, const Viewport& viewport) const override;
+  void draw(const centurion::video::Renderer& renderer,
+            const Viewport& viewport) const override;
 
   void SetDepth(int depth) noexcept;
 
   void SetHitbox(const Hitbox& hitbox) noexcept;
 
-  void add_hitbox(const centurion::FRect& rectangle, const Vector2& offset) override;
+  void add_hitbox(const centurion::math::FRect& rectangle,
+                  const Vector2& offset) override;
 
   void set_blocked(bool blocked) noexcept override;
 
-  [[nodiscard]]
-  float get_x() const noexcept override;
+  [[nodiscard]] float get_x() const noexcept override;
 
-  [[nodiscard]]
-  float get_y() const noexcept override;
+  [[nodiscard]] float get_y() const noexcept override;
 
-  [[nodiscard]]
-  float get_center_y() const noexcept override;
+  [[nodiscard]] float get_center_y() const noexcept override;
 
-  [[nodiscard]]
-  int get_depth() const noexcept override;
+  [[nodiscard]] int get_depth() const noexcept override;
 
-  [[nodiscard]]
-  float get_width() const noexcept override;
+  [[nodiscard]] float get_width() const noexcept override;
 
-  [[nodiscard]]
-  float get_height() const noexcept override;
+  [[nodiscard]] float get_height() const noexcept override;
 
-  [[nodiscard]]
-  const Hitbox& get_hitbox() const noexcept override;
+  [[nodiscard]] const Hitbox& get_hitbox() const noexcept override;
 
-  [[nodiscard]]
-  uint64 get_unique_id() const noexcept override;
+  [[nodiscard]] uint64 get_unique_id() const noexcept override;
 };
 
-}
+}  // namespace albinjohansson::wanderer

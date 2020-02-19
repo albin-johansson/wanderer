@@ -14,8 +14,8 @@ class RandomUtils final {
   ~RandomUtils() = default;
 
   /**
-   * Returns a random integer in the specified interval. The generated value will be in the range
-   * [min, max].
+   * Returns a random integer in the specified interval. The generated value
+   * will be in the range [min, max].
    *
    * @param min the smallest possible value.
    * @param max the largest possible value.
@@ -30,8 +30,7 @@ class RandomUtils final {
    * @return a random bool value.
    * @since 0.1.0
    */
-  [[nodiscard]]
-  static bool get_bool();
+  [[nodiscard]] static bool get_bool();
 };
 
-}
+}  // namespace albinjohansson::wanderer

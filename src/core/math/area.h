@@ -12,4 +12,4 @@ struct Area {
   float height = 0;
 };
 
-}
+}  // namespace albinjohansson::wanderer

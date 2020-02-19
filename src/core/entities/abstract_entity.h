@@ -1,31 +1,35 @@
 #pragma once
-#include <type_traits>
+#include <texture.h>
+
 #include <memory>
-#include <image.h>
-#include "wanderer_stdinc.h"
-#include "entity.h"
+#include <type_traits>
+
 #include "animation.h"
-#include "render_depth.h"
+#include "entity.h"
 #include "hitbox.h"
+#include "render_depth.h"
+#include "wanderer_stdinc.h"
 
 namespace albinjohansson::wanderer {
 
 class IWandererCore;
 
 /**
- * The AbstractEntity class is an abstract class that implements the IEntity interface.
+ * The AbstractEntity class is an abstract class that implements the IEntity
+ * interface.
  *
  * @see IEntity
  * @since 0.1.0
  */
 class AbstractEntity : public virtual IEntity {
  private:
-  static constexpr int DEPTH = RenderDepth::range / 2; // TODO maybe move to IEntity
+  static constexpr int DEPTH =
+      RenderDepth::range / 2;  // TODO maybe move to IEntity
 
   unique<IMovableObject> movable = nullptr;
-  shared<centurion::Image> sheet = nullptr;
+  shared<centurion::video::Texture> sheet = nullptr;
   Animation animation;
-  int health = 100; // FIXME hard-coded
+  int health = 100;  // FIXME hard-coded
 
  protected:
   /**
@@ -33,7 +37,7 @@ class AbstractEntity : public virtual IEntity {
    * @throws NullPointerException if the supplied pointer is null.
    * @since 0.1.0
    */
-  explicit AbstractEntity(const shared<centurion::Image>& sheet);
+  explicit AbstractEntity(const shared<centurion::video::Texture>& sheet);
 
  public:
   ~AbstractEntity() override;
@@ -58,7 +62,8 @@ class AbstractEntity : public virtual IEntity {
 
   void interpolate(float alpha) noexcept override;
 
-  void add_hitbox(const centurion::FRect& rectangle, const Vector2& offset) override;
+  void add_hitbox(const centurion::math::FRect& rectangle,
+                  const Vector2& offset) override;
 
   void add_x(float dx) noexcept override;
 
@@ -74,70 +79,52 @@ class AbstractEntity : public virtual IEntity {
 
   void set_blocked(bool blocked) noexcept override;
 
-  [[nodiscard]]
-  float get_speed() const noexcept override;
+  [[nodiscard]] float get_speed() const noexcept override;
 
-  [[nodiscard]]
-  int get_animation_frame() const noexcept override;
+  [[nodiscard]] int get_animation_frame() const noexcept override;
 
-  [[nodiscard]]
-  bool is_animation_done() const noexcept override;
+  [[nodiscard]] bool is_animation_done() const noexcept override;
 
-  [[nodiscard]]
-  centurion::Image& get_sprite_sheet() const noexcept override; // TODO make const
+  [[nodiscard]] centurion::video::Image& get_sprite_sheet() const
+      noexcept override;  // TODO make const
 
-  [[nodiscard]]
-  int get_health() const noexcept override;
+  [[nodiscard]] int get_health() const noexcept override;
 
-  [[nodiscard]]
-  bool is_dead() const noexcept override;
+  [[nodiscard]] bool is_dead() const noexcept override;
 
-  [[nodiscard]]
-  bool will_intersect(const IGameObject* other, float delta) const override;
+  [[nodiscard]] bool will_intersect(const IGameObject* other,
+                                    float delta) const override;
 
-  [[nodiscard]]
-  Direction get_dominant_direction() const noexcept override;
+  [[nodiscard]] Direction get_dominant_direction() const noexcept override;
 
-  [[nodiscard]]
-  const Vector2& get_previous_position() const noexcept override;
+  [[nodiscard]] const Vector2& get_previous_position() const noexcept override;
 
-  [[nodiscard]]
-  const Vector2& get_velocity() const noexcept override;
+  [[nodiscard]] const Vector2& get_velocity() const noexcept override;
 
-  [[nodiscard]]
-  const Vector2& get_position() const noexcept override;
+  [[nodiscard]] const Vector2& get_position() const noexcept override;
 
-  [[nodiscard]]
-  const Vector2& get_interpolated_position() const noexcept override;
+  [[nodiscard]] const Vector2& get_interpolated_position() const
+      noexcept override;
 
-  [[nodiscard]]
-  Vector2 get_next_position(float delta) const noexcept override;
+  [[nodiscard]] Vector2 get_next_position(float delta) const noexcept override;
 
-  [[nodiscard]]
-  float get_x() const noexcept override;
+  [[nodiscard]] float get_x() const noexcept override;
 
-  [[nodiscard]]
-  float get_y() const noexcept override;
+  [[nodiscard]] float get_y() const noexcept override;
 
-  [[nodiscard]]
-  float get_width() const noexcept override;
+  [[nodiscard]] float get_width() const noexcept override;
 
-  [[nodiscard]]
-  float get_height() const noexcept override;
+  [[nodiscard]] float get_height() const noexcept override;
 
-  [[nodiscard]]
-  const Hitbox& get_hitbox() const noexcept override;
+  [[nodiscard]] const Hitbox& get_hitbox() const noexcept override;
 
-  [[nodiscard]]
-  float get_center_y() const noexcept override;
+  [[nodiscard]] float get_center_y() const noexcept override;
 
-  [[nodiscard]]
-  int get_depth() const noexcept override;
+  [[nodiscard]] int get_depth() const noexcept override;
 
-  [[nodiscard]]
-  uint64 get_unique_id() const noexcept override;
+  [[nodiscard]] uint64 get_unique_id() const noexcept override;
 };
 
 static_assert(std::has_virtual_destructor_v<AbstractEntity>);
 
-}
+}  // namespace albinjohansson::wanderer

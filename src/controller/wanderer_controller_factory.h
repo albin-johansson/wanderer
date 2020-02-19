@@ -3,8 +3,9 @@
 
 namespace albinjohansson::wanderer {
 
-unique<IWandererController> create_controller() {
+unique<IWandererController> create_controller()
+{
   return unique<IWandererController>(new WandererControllerImpl());
 }
 
-}
+}  // namespace albinjohansson::wanderer

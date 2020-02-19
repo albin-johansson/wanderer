@@ -1,7 +1,9 @@
 #pragma once
-#include "sortable_drawable.h"
-#include <type_traits>
 #include <rectangle.h>
+
+#include <type_traits>
+
+#include "sortable_drawable.h"
 #include "vector_2.h"
 #include "wanderer_stdinc.h"
 
@@ -11,8 +13,8 @@ class IWandererCore;
 class Hitbox;
 
 /**
- * The IGameObject interface specifies the common interface for all game objects that are present
- * in the game.
+ * The IGameObject interface specifies the common interface for all game objects
+ * that are present in the game.
  *
  * @see IDrawable
  * @since 0.1.0
@@ -22,8 +24,8 @@ class IGameObject : public virtual ISortableDrawable {
   ~IGameObject() override = default;
 
   /**
-   * Updates the state of the game object. This method should save the position of the object
-   * if the object is movable.
+   * Updates the state of the game object. This method should save the position
+   * of the object if the object is movable.
    *
    * @param core a reference to the associated wanderer core instance.
    * @param delta the delta time, in seconds.
@@ -31,7 +33,8 @@ class IGameObject : public virtual ISortableDrawable {
    */
   virtual void tick(IWandererCore& core, float delta) = 0;
 
-  virtual void add_hitbox(const centurion::FRect& rectangle, const Vector2& offset) = 0;
+  virtual void add_hitbox(const centurion::math::FRect& rectangle,
+                          const Vector2& offset) = 0;
 
   /**
    * Sets whether or not the game object can block other game objects.
@@ -47,8 +50,7 @@ class IGameObject : public virtual ISortableDrawable {
    * @return the x-coordinate of the object.
    * @since 0.1.0
    */
-  [[nodiscard]]
-  virtual float get_x() const noexcept = 0;
+  [[nodiscard]] virtual float get_x() const noexcept = 0;
 
   /**
    * Returns the y-coordinate of the object.
@@ -56,8 +58,7 @@ class IGameObject : public virtual ISortableDrawable {
    * @return the y-coordinate of the object.
    * @since 0.1.0
    */
-  [[nodiscard]]
-  virtual float get_y() const noexcept = 0;
+  [[nodiscard]] virtual float get_y() const noexcept = 0;
 
   /**
    * Returns the width of the object.
@@ -65,8 +66,7 @@ class IGameObject : public virtual ISortableDrawable {
    * @return the width of the object.
    * @since 0.1.0
    */
-  [[nodiscard]]
-  virtual float get_width() const noexcept = 0;
+  [[nodiscard]] virtual float get_width() const noexcept = 0;
 
   /**
    * Returns the height of the object.
@@ -74,8 +74,7 @@ class IGameObject : public virtual ISortableDrawable {
    * @return the height of the object.
    * @since 0.1.0
    */
-  [[nodiscard]]
-  virtual float get_height() const noexcept = 0;
+  [[nodiscard]] virtual float get_height() const noexcept = 0;
 
   /**
    * Returns the hitbox of the object.
@@ -83,13 +82,11 @@ class IGameObject : public virtual ISortableDrawable {
    * @return the hitbox of the object.
    * @since 0.1.0
    */
-  [[nodiscard]]
-  virtual const Hitbox& get_hitbox() const noexcept = 0;
+  [[nodiscard]] virtual const Hitbox& get_hitbox() const noexcept = 0;
 
-  [[nodiscard]]
-  virtual uint64 get_unique_id() const noexcept = 0;
+  [[nodiscard]] virtual uint64 get_unique_id() const noexcept = 0;
 };
 
 static_assert(std::has_virtual_destructor_v<IGameObject>);
 
-}
+}  // namespace albinjohansson::wanderer

@@ -1,7 +1,8 @@
 #pragma once
 #include <renderer.h>
-#include "viewport.h"
+
 #include "font_bundle.h"
+#include "viewport.h"
 
 namespace albinjohansson::wanderer {
 
@@ -12,9 +13,9 @@ class IMenuDrawable {
  public:
   virtual ~IMenuDrawable() = default;
 
-  virtual void draw(centurion::Renderer& renderer,
+  virtual void draw(centurion::video::Renderer& renderer,
                     const Viewport& viewport,
                     const FontBundle& fonts) const = 0;
 };
 
-}
+}  // namespace albinjohansson::wanderer

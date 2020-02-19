@@ -1,6 +1,8 @@
 #pragma once
-#include <memory>
 #include <tiled_map.h>
+
+#include <memory>
+
 #include "tile_map.h"
 
 namespace albinjohansson::wanderer {
@@ -13,9 +15,8 @@ class TileMapBuilder final {
 
   ~TileMapBuilder() = default;
 
-  [[nodiscard]]
-  static std::unique_ptr<ITileMap> create(const std::shared_ptr<TileSet>& tileSet,
-                                          const tiled::TiledMap& tiledMap);
+  [[nodiscard]] static std::unique_ptr<ITileMap> create(
+      const std::shared_ptr<TileSet>& tileSet, const tiled::TiledMap& tiledMap);
 };
 
-}
+}  // namespace albinjohansson::wanderer

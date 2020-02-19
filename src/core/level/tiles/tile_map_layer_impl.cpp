@@ -1,22 +1,26 @@
 #include "tile_map_layer_impl.h"
+
 #include <renderer.h>
-#include "tile.h"
-#include "tile_set.h"
-#include "tile_map_bounds.h"
+
 #include "game_object.h"
-#include "viewport.h"
-#include "require.h"
 #include "math.h"
+#include "require.h"
+#include "tile.h"
+#include "tile_map_bounds.h"
+#include "tile_set.h"
+#include "viewport.h"
 
 namespace albinjohansson::wanderer {
 
-TileMapLayerImpl::TileMapLayerImpl(const std::shared_ptr<TileSet>& tileSet) {
+TileMapLayerImpl::TileMapLayerImpl(const std::shared_ptr<TileSet>& tileSet)
+{
   this->tileSet = Require::not_null(tileSet);
 }
 
 TileMapLayerImpl::~TileMapLayerImpl() noexcept = default;
 
-void TileMapLayerImpl::update(const TileMapBounds& bounds) {
+void TileMapLayerImpl::update(const TileMapBounds& bounds)
+{
   for (auto row = bounds.minRow; row < bounds.maxRow; row++) {
     for (auto col = bounds.minCol; col < bounds.maxCol; col++) {
       const auto id = get_tile_id(row, col);
@@ -27,7 +31,8 @@ void TileMapLayerImpl::update(const TileMapBounds& bounds) {
   }
 }
 
-TileID TileMapLayerImpl::get_tile_id(int row, int col) const {
+TileID TileMapLayerImpl::get_tile_id(int row, int col) const
+{
   try {
     return tiles.at(static_cast<std::size_t>(get_index(row, col)));
   } catch (std::exception& e) {
@@ -37,7 +42,8 @@ TileID TileMapLayerImpl::get_tile_id(int row, int col) const {
 }
 
 void TileMapLayerImpl::add_objects(const TileMapBounds& bounds,
-                                   std::vector<IGameObject*>& objects) {
+                                   std::vector<IGameObject*>& objects)
+{
   for (auto row = bounds.minRow; row < bounds.maxRow; row++) {
     for (auto col = bounds.minCol; col < bounds.maxCol; col++) {
       const auto pos = MapPosition{row, col};
@@ -49,20 +55,18 @@ void TileMapLayerImpl::add_objects(const TileMapBounds& bounds,
   }
 }
 
-int TileMapLayerImpl::get_index(int row, int col) const noexcept {
+int TileMapLayerImpl::get_index(int row, int col) const noexcept
+{
   return row * nCols + col;
 }
 
-bool TileMapLayerImpl::is_ground_layer() const noexcept {
+bool TileMapLayerImpl::is_ground_layer() const noexcept
+{
   return isGroundLayer;
 }
 
-int TileMapLayerImpl::get_rows() const noexcept {
-  return nRows;
-}
+int TileMapLayerImpl::get_rows() const noexcept { return nRows; }
 
-int TileMapLayerImpl::get_cols() const noexcept {
-  return nCols;
-}
+int TileMapLayerImpl::get_cols() const noexcept { return nCols; }
 
-}
+}  // namespace albinjohansson::wanderer

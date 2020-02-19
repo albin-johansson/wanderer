@@ -10,14 +10,13 @@ class SettingsMenu final : public AbstractMenu {
 
   ~SettingsMenu() noexcept override;
 
-  void draw(centurion::Renderer& renderer,
+  void draw(centurion::video::Renderer& renderer,
             const Viewport& viewport,
             const FontBundle& fonts) const override;
 
   void handle_input(const Input& input) noexcept override;
 
-  [[nodiscard]]
-  bool is_blocking() const noexcept override;
+  [[nodiscard]] bool is_blocking() const noexcept override;
 };
 
-}
+}  // namespace albinjohansson::wanderer

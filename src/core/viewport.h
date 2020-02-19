@@ -1,5 +1,6 @@
 #pragma once
 #include <rectangle.h>
+
 #include "area.h"
 
 namespace albinjohansson::wanderer {
@@ -11,20 +12,21 @@ namespace albinjohansson::wanderer {
  */
 class Viewport final {
  private:
-  centurion::FRect bounds;
+  centurion::math::FRect bounds;
   Area level;
 
  public:
   /**
-   * Constructs a viewport with the bounds (0, 0, 10, 10) and level dimensions 10x10.
+   * Constructs a viewport with the bounds (0, 0, 10, 10) and level dimensions
+   * 10x10.
    *
    * @since 0.1.0
    */
   Viewport();
 
   /**
-   * Constructs a viewport. A dimension that isn't greater than zero will cause an exception to be
-   * thrown.
+   * Constructs a viewport. A dimension that isn't greater than zero will cause
+   * an exception to be thrown.
    *
    * @param viewport the viewport area.
    * @param level the level area.
@@ -112,8 +114,7 @@ class Viewport final {
    * @return the current bounds of the viewport.
    * @since 0.1.0
    */
-  [[nodiscard]]
-  const centurion::FRect& get_bounds() const noexcept;
+  [[nodiscard]] const centurion::math::FRect& get_bounds() const noexcept;
 
   /**
    * Calculates and returns the translated value for the supplied x-coordinate.
@@ -122,8 +123,7 @@ class Viewport final {
    * @return the translated value for the supplied x-coordinate.
    * @since 0.1.0
    */
-  [[nodiscard]]
-  float get_translated_x(float x) const noexcept;
+  [[nodiscard]] float get_translated_x(float x) const noexcept;
 
   /**
    * Calculates and returns the translated value for the supplied y-coordinate.
@@ -132,13 +132,12 @@ class Viewport final {
    * @return the translated value for the supplied y-coordinate.
    * @since 0.1.0
    */
-  [[nodiscard]]
-  float get_translated_y(float y) const noexcept;
+  [[nodiscard]] float get_translated_y(float y) const noexcept;
 
-  [[nodiscard]]
-  operator const SDL_FRect&() const noexcept {
+  [[nodiscard]] const centurion::math::FRect& get_internal() const noexcept
+  {
     return bounds;
   }
 };
 
-}
+}  // namespace albinjohansson::wanderer

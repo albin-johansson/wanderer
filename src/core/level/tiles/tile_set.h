@@ -1,5 +1,6 @@
 #pragma once
 #include <unordered_map>
+
 #include "tile.h"
 #include "tile_id.h"
 
@@ -41,15 +42,14 @@ class TileSet final {
   void insert(TileID id, const Tile& tile);
 
   /**
-   * Returns the tile associated with the supplied tile ID. This method will throw an exception
-   * if the ID isn't associated with a tile in this tile set.
+   * Returns the tile associated with the supplied tile ID. This method will
+   * throw an exception if the ID isn't associated with a tile in this tile set.
    *
    * @param id the ID associated with the desired tile.
    * @return the tile associated with the supplied tile ID.
    * @since 0.1.0
    */
-  [[nodiscard]]
-  const Tile& get_tile(TileID id) const;
+  [[nodiscard]] const Tile& get_tile(TileID id) const;
 };
 
-}
+}  // namespace albinjohansson::wanderer

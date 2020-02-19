@@ -4,7 +4,8 @@
 namespace albinjohansson::wanderer {
 
 /**
- * The Direction enum provides values for 4 different directions: up, right, down and left.
+ * The Direction enum provides values for 4 different directions: up, right,
+ * down and left.
  *
  * @since 0.1.0
  */
@@ -16,9 +17,9 @@ enum class Direction { Up, Right, Down, Left };
  * @return a random direction value.
  * @since 0.1.0
  */
-[[nodiscard]]
-inline Direction get_random_direction() noexcept {
+[[nodiscard]] inline Direction get_random_direction() noexcept
+{
   return static_cast<Direction>(RandomUtils::get_int(0, 3));
 }
 
-}
+}  // namespace albinjohansson::wanderer

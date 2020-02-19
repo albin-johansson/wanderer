@@ -1,17 +1,20 @@
 #include "tile_animation.h"
+
 #include <SDL.h>
 
 namespace albinjohansson::wanderer {
 
 TileAnimation::TileAnimation() = default;
 
-TileAnimation::TileAnimation(int nFrames) : nFrames(nFrames) {
+TileAnimation::TileAnimation(int nFrames) : nFrames(nFrames)
+{
   previous = SDL_GetTicks();
 }
 
 TileAnimation::~TileAnimation() = default;
 
-void TileAnimation::update() {
+void TileAnimation::update()
+{
   uint32_t elapsed = SDL_GetTicks() - previous;
   if (elapsed >= get_frame().duration) {
     previous = SDL_GetTicks();
@@ -22,14 +25,13 @@ void TileAnimation::update() {
   }
 }
 
-void TileAnimation::set_frame(int index, Frame frame) {
+void TileAnimation::set_frame(int index, Frame frame)
+{
   if (!frames.count(index)) {
     frames.emplace(index, frame);
   }
 }
 
-Frame TileAnimation::get_frame() const {
-  return frames.at(index);
-}
+Frame TileAnimation::get_frame() const { return frames.at(index); }
 
-}
+}  // namespace albinjohansson::wanderer

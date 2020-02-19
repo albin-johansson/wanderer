@@ -1,16 +1,19 @@
 #pragma once
-#include "wanderer_controller.h"
-#include <memory>
-#include <window.h>
 #include <renderer.h>
-#include "wanderer_stdinc.h"
-#include "wanderer_core.h"
+#include <window.h>
+
+#include <memory>
+
 #include "game_loop.h"
+#include "wanderer_controller.h"
+#include "wanderer_core.h"
+#include "wanderer_stdinc.h"
 
 namespace albinjohansson::wanderer {
 
 /**
- * The WandererControllerImpl class is an implementation of the IWandererController interface.
+ * The WandererControllerImpl class is an implementation of the
+ * IWandererController interface.
  *
  * @since 0.1.0
  */
@@ -18,8 +21,8 @@ class WandererControllerImpl final : public IWandererController {
  private:
   unique<IWandererCore> core = nullptr;
   unique<IGameLoop> gameLoop = nullptr;
-  shared<centurion::Renderer> renderer = nullptr;
-  unique<centurion::Window> window = nullptr;
+  shared<centurion::video::Renderer> renderer = nullptr;
+  unique<centurion::video::Window> window = nullptr;
 
   /**
    * @throws BadStateException if the desktop dimensions cannot be deduced.
@@ -41,4 +44,4 @@ class WandererControllerImpl final : public IWandererController {
   void run() override;
 };
 
-}
+}  // namespace albinjohansson::wanderer

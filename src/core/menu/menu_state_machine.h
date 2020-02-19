@@ -1,6 +1,7 @@
 #pragma once
+#include <renderer.h>
+
 #include "menu_id.h"
-#include "renderer.h"
 
 namespace albinjohansson::wanderer {
 
@@ -14,7 +15,8 @@ class IMenuStateMachine {
 
   virtual void handle_input(const Input& input) = 0;
 
-  virtual void draw(centurion::Renderer& renderer, const Viewport& viewport) const = 0;
+  virtual void draw(centurion::video::Renderer& renderer,
+                    const Viewport& viewport) const = 0;
 
   /**
    * Sets the active menu.
@@ -24,8 +26,7 @@ class IMenuStateMachine {
    */
   virtual void set_menu(MenuID id) = 0;
 
-  [[nodiscard]]
-  virtual const IMenu& get_menu() const = 0;
+  [[nodiscard]] virtual const IMenu& get_menu() const = 0;
 };
 
-}
+}  // namespace albinjohansson::wanderer

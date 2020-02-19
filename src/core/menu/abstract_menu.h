@@ -13,10 +13,9 @@ class AbstractMenu : public IMenu {
  public:
   ~AbstractMenu() noexcept override;
 
-  void draw(centurion::Renderer& renderer,
+  void draw(centurion::video::Renderer& renderer,
             const Viewport& viewport,
             const FontBundle& fonts) const override;
-
 };
 
-}
+}  // namespace albinjohansson::wanderer

@@ -1,7 +1,9 @@
 #pragma once
+#include <renderer.h>
+
 #include <memory>
 #include <string>
-#include <renderer.h>
+
 #include "wanderer_stdinc.h"
 
 namespace albinjohansson::wanderer {
@@ -11,8 +13,8 @@ class ITileMap;
 class Input;
 
 /**
- * The IWandererCore interface specifies the facade of the core component of the Wanderer
- * application.
+ * The IWandererCore interface specifies the facade of the core component of the
+ * Wanderer application.
  *
  * @since 0.1.0
  */
@@ -43,7 +45,7 @@ class IWandererCore {
    * @param alpha the interpolation coefficient, in the range [0, 1].
    * @since 0.1.0
    */
-  virtual void render(centurion::Renderer& renderer, float alpha) = 0;
+  virtual void render(centurion::video::Renderer& renderer, float alpha) = 0;
 
   /**
    * Sets the currently active map.
@@ -90,8 +92,7 @@ class IWandererCore {
    * @return true if the game should quit; false otherwise.
    * @since 0.1.0
    */
-  [[nodiscard]]
-  virtual bool should_quit() const noexcept = 0;
+  [[nodiscard]] virtual bool should_quit() const noexcept = 0;
 
   /**
    * Returns a reference to the player.
@@ -99,8 +100,7 @@ class IWandererCore {
    * @return a reference to the player.
    * @since 0.1.0
    */
-  [[nodiscard]]
-  virtual const IPlayer& get_player() const = 0;
+  [[nodiscard]] virtual const IPlayer& get_player() const = 0;
 
   /**
    * Returns the currently active map.
@@ -108,8 +108,7 @@ class IWandererCore {
    * @return the currently active map.
    * @since 0.1.0
    */
-  [[nodiscard]]
-  virtual const ITileMap& get_active_map() const = 0;
+  [[nodiscard]] virtual const ITileMap& get_active_map() const = 0;
 };
 
-}
+}  // namespace albinjohansson::wanderer
