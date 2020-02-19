@@ -81,8 +81,7 @@ void SmoothFixedTimestepLoop::update(IWandererCore& core, Renderer& renderer)
     alpha = 1.0f;
   }
 
-  const Color color{0,0,0};
-  renderer.set_color(color);
+  renderer.set_color(black);
   renderer.clear();
 
   core.render(renderer, alpha);
