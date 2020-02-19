@@ -3,6 +3,7 @@
 #include "rectangle.h"
 
 using namespace centurion;
+using namespace centurion::math;
 using namespace albinjohansson::wanderer;
 
 TEST_CASE("Hitbox::AddRectangle", "[Hitbox]") {
