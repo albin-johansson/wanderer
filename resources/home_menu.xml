@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<menu title="Wanderer" blocking="true" submenu="false">
+  <buttons>
+    <button text="Play" col="CENTER" row="2" image="button.png" action="" />
+  </buttons>
+</menu>

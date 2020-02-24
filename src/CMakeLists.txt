@@ -162,6 +162,8 @@ set(SOURCE_FILES
         audio/sound_engine.cpp
         audio/sound_engine.h
 
+        service/menu_parser.h
+        service/menu_parser.cpp
         service/pugi_utils.cpp
         service/pugi_utils.h
 
@@ -183,7 +185,13 @@ set(SOURCE_FILES
         ${TILED_INCLUDE_DIR}/tiled_object_group.cpp
         ${TILED_INCLUDE_DIR}/tiled_object_group.h
 
-        core/util/wanderer_stdinc.h)
+        core/util/wanderer_stdinc.h
+
+        core/menu/general_menu.h
+        core/menu/general_menu.cpp
+        core/action.h
+        core/menu/button_action.h
+        )
 
 add_library(${WANDERER_LIB} ${SOURCE_FILES})
 
