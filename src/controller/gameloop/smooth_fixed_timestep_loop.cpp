@@ -1,26 +1,29 @@
 #include "smooth_fixed_timestep_loop.h"
 
 #include <SDL.h>
+#include <colors.h>
 #include <renderer.h>
 #include <timer.h>
-#include <colors.h>
 
 #include "input.h"
 #include "wanderer_core.h"
 
 using namespace centurion;
 using namespace centurion::video;
+using namespace centurion::input;
+using namespace centurion::system;
 
 namespace albinjohansson::wanderer {
 
-SmoothFixedTimestepLoop::SmoothFixedTimestepLoop(unique<KeyState> keyState,
-                                                 unique<MouseState> mouseState,
-                                                 float vsyncRate)
+SmoothFixedTimestepLoop::SmoothFixedTimestepLoop(
+    unique<KeyState> keyState,
+    const shared<MouseState>& mouseState,
+    float vsyncRate)
     : vsyncRate{vsyncRate},
       timeStep{1.0f / vsyncRate},
       counterFreq{static_cast<float>(Timer::high_res_freq())}
 {
-  input = std::make_unique<Input>(std::move(keyState), std::move(mouseState));
+  input = std::make_unique<Input>(std::move(keyState), mouseState);
   now = Timer::high_res();
   then = now;
 }

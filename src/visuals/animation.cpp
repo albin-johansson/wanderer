@@ -3,10 +3,14 @@
 #include "timer.h"
 
 using namespace centurion;
+using namespace system;
 
 namespace albinjohansson::wanderer {
 
-Animation::Animation() noexcept { previous = Timer::millis(); }
+Animation::Animation() noexcept
+{
+  previous = Timer::millis();
+}
 
 Animation::~Animation() noexcept = default;
 
@@ -28,7 +32,10 @@ void Animation::reset() noexcept
   previous = 0;
 }
 
-void Animation::set_delay(uint32 delay) noexcept { this->delay = delay; }
+void Animation::set_delay(uint32 delay) noexcept
+{
+  this->delay = delay;
+}
 
 void Animation::set_frame(int frameIndex) noexcept
 {
@@ -47,8 +54,14 @@ void Animation::set_number_of_frames(int nFrames) noexcept
   }
 }
 
-int Animation::get_index() const noexcept { return index; }
+int Animation::get_index() const noexcept
+{
+  return index;
+}
 
-bool Animation::is_done() const noexcept { return index == (nFrames - 1); }
+bool Animation::is_done() const noexcept
+{
+  return index == (nFrames - 1);
+}
 
 }  // namespace albinjohansson::wanderer

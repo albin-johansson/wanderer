@@ -10,12 +10,24 @@ FontBundle::FontBundle(const std::string& file)
 
 FontBundle::~FontBundle() = default;
 
-const Font& FontBundle::get_font_12() const noexcept { return font12; }
+const Font& FontBundle::get_font_12() const noexcept
+{
+  return font12;
+}
 
-const Font& FontBundle::get_font_18() const noexcept { return font18; }
+const Font& FontBundle::get_font_18() const noexcept
+{
+  return font18;
+}
 
-const Font& FontBundle::get_font_24() const noexcept { return font24; }
+const Font& FontBundle::get_font_24() const noexcept
+{
+  return font24;
+}
 
-const Font& FontBundle::get_font_36() const noexcept { return font36; }
+const Font& FontBundle::get_font_36() const noexcept
+{
+  return font36;
+}
 
 }  // namespace albinjohansson::wanderer

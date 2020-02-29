@@ -1,9 +1,9 @@
 #include "wanderer_core_impl.h"
 
+#include <log.h>
 #include <renderer.h>
 #include <sound_effect.h>
 #include <window.h>
-#include <log.h>
 
 #include <memory>
 
@@ -94,7 +94,10 @@ void WandererCoreImpl::set_viewport_height(float height)
   viewport.set_height(height);
 }
 
-void WandererCoreImpl::quit() noexcept { shouldQuit = true; }
+void WandererCoreImpl::quit() noexcept
+{
+  shouldQuit = true;
+}
 
 void WandererCoreImpl::play_sound(const std::string& id) const
 {
@@ -115,10 +118,19 @@ void WandererCoreImpl::set_map(shared<ITileMap> map)
   }
 }
 
-bool WandererCoreImpl::should_quit() const noexcept { return shouldQuit; }
+bool WandererCoreImpl::should_quit() const noexcept
+{
+  return shouldQuit;
+}
 
-const IPlayer& WandererCoreImpl::get_player() const { return *player; }
+const IPlayer& WandererCoreImpl::get_player() const
+{
+  return *player;
+}
 
-const ITileMap& WandererCoreImpl::get_active_map() const { return *activeMap; }
+const ITileMap& WandererCoreImpl::get_active_map() const
+{
+  return *activeMap;
+}
 
 }  // namespace albinjohansson::wanderer

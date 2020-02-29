@@ -8,7 +8,8 @@
 #include "wanderer_core.h"
 
 using namespace centurion;
-using namespace centurion::video;
+using namespace video;
+using namespace system;
 
 namespace albinjohansson::wanderer {
 

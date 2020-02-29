@@ -44,7 +44,8 @@ void EntityMoveDelegate::enter(const IWandererCore&)
   entity.set_animation_delay(60);
 }
 
-void EntityMoveDelegate::exit(const IWandererCore&) {}
+void EntityMoveDelegate::exit(const IWandererCore&)
+{}
 
 void EntityMoveDelegate::UpdateAnimation()
 {

@@ -22,7 +22,10 @@ PlayerImpl::PlayerImpl(const shared<Texture>& sheet) : AbstractEntity(sheet)
 
 PlayerImpl::~PlayerImpl() = default;
 
-void PlayerImpl::Init() { set_speed(GameConstants::player_speed); }
+void PlayerImpl::Init()
+{
+  set_speed(GameConstants::player_speed);
+}
 
 void PlayerImpl::handle_input(const Input& input, const IWandererCore& core)
 {

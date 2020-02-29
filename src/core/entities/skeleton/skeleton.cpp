@@ -19,7 +19,10 @@ Skeleton::Skeleton(const shared<Texture>& sheet) : AbstractEntity{sheet}
 
 Skeleton::~Skeleton() = default;
 
-void Skeleton::init() { set_speed(GameConstants::mob_speed); }
+void Skeleton::init()
+{
+  set_speed(GameConstants::mob_speed);
+}
 
 void Skeleton::draw(const Renderer& renderer, const Viewport& viewport) const
 {

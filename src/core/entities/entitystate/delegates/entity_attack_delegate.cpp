@@ -40,7 +40,8 @@ void EntityAttackDelegate::enter(const IWandererCore& core)
   core.play_sound("swing");
 }
 
-void EntityAttackDelegate::exit(const IWandererCore&) {}
+void EntityAttackDelegate::exit(const IWandererCore&)
+{}
 
 void EntityAttackDelegate::tick(const IWandererCore& core, float /*delta*/)
 {

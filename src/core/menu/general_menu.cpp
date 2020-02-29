@@ -9,7 +9,6 @@ void GeneralMenu::handle_input(const Input& input) noexcept
   const auto mx = input.get_mouse_x();
   const auto my = input.get_mouse_y();
   for (const auto& button : buttons) {
-    
   }
 }
 

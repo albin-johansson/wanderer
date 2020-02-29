@@ -3,13 +3,15 @@
 #include "require.h"
 
 using namespace centurion;
+using namespace centurion::input;
 
 namespace albinjohansson::wanderer {
 
-Input::Input(unique<KeyState>&& keyState, unique<MouseState>&& mouseState)
+Input::Input(unique<KeyState>&& keyState,
+             const shared<centurion::input::MouseState>& mouseState)
 {
   this->keyState = Require::not_null(std::move(keyState));
-  this->mouseState = Require::not_null(std::move(mouseState));
+  this->mouseState = Require::not_null(mouseState);
 }
 
 Input::~Input() = default;
@@ -36,9 +38,15 @@ bool Input::was_released(SDL_Scancode scancode) const
   return keyState->was_just_released(scancode);
 }
 
-float Input::get_mouse_x() const noexcept { return mouseState->get_mouse_x(); }
+float Input::get_mouse_x() const noexcept
+{
+  return mouseState->get_mouse_x();
+}
 
-float Input::get_mouse_y() const noexcept { return mouseState->get_mouse_y(); }
+float Input::get_mouse_y() const noexcept
+{
+  return mouseState->get_mouse_y();
+}
 
 bool Input::is_left_button_pressed() const noexcept
 {

@@ -58,7 +58,10 @@ class AbstractEntityStateMachine : public virtual IEntityStateMachine {
    * @return the currently active state.
    * @since 0.1.0
    */
-  [[nodiscard]] T& get_active_state() { return *states.at(activeStateID); }
+  [[nodiscard]] T& get_active_state()
+  {
+    return *states.at(activeStateID);
+  }
 
  public:
   ~AbstractEntityStateMachine() override = default;
@@ -81,7 +84,10 @@ class AbstractEntityStateMachine : public virtual IEntityStateMachine {
     states.at(activeStateID)->enter(core);
   }
 
-  [[nodiscard]] IEntity& get_entity() final { return *entity; }
+  [[nodiscard]] IEntity& get_entity() final
+  {
+    return *entity;
+  }
 };
 
 }  // namespace albinjohansson::wanderer

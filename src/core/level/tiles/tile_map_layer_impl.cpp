@@ -65,8 +65,14 @@ bool TileMapLayerImpl::is_ground_layer() const noexcept
   return isGroundLayer;
 }
 
-int TileMapLayerImpl::get_rows() const noexcept { return nRows; }
+int TileMapLayerImpl::get_rows() const noexcept
+{
+  return nRows;
+}
 
-int TileMapLayerImpl::get_cols() const noexcept { return nCols; }
+int TileMapLayerImpl::get_cols() const noexcept
+{
+  return nCols;
+}
 
 }  // namespace albinjohansson::wanderer

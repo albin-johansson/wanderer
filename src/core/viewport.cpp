@@ -7,7 +7,8 @@ using namespace centurion::math;
 
 namespace albinjohansson::wanderer {
 
-Viewport::Viewport() : Viewport({10, 10}, {10, 10}) {}
+Viewport::Viewport() : Viewport({10, 10}, {10, 10})
+{}
 
 Viewport::Viewport(Area viewport, Area level) : level(level)
 {
@@ -71,13 +72,25 @@ void Viewport::center(float tx, float ty, Area size) noexcept
   bounds.set_y(y);
 }
 
-void Viewport::set_x(float x) noexcept { bounds.set_x(x); }
+void Viewport::set_x(float x) noexcept
+{
+  bounds.set_x(x);
+}
 
-void Viewport::set_y(float y) noexcept { bounds.set_y(y); }
+void Viewport::set_y(float y) noexcept
+{
+  bounds.set_y(y);
+}
 
-void Viewport::set_width(float width) { bounds.set_width(width); }
+void Viewport::set_width(float width)
+{
+  bounds.set_width(width);
+}
 
-void Viewport::set_height(float height) { bounds.set_height(height); }
+void Viewport::set_height(float height)
+{
+  bounds.set_height(height);
+}
 
 void Viewport::set_level_width(float levelWidth)
 {
@@ -97,7 +110,10 @@ void Viewport::set_level_height(float levelHeight)
   }
 }
 
-const FRect& Viewport::get_bounds() const noexcept { return bounds; }
+const FRect& Viewport::get_bounds() const noexcept
+{
+  return bounds;
+}
 
 float Viewport::get_translated_x(float x) const noexcept
 {

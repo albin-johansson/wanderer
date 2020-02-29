@@ -4,7 +4,7 @@
 
 #include <random>
 
-using namespace centurion;
+using namespace centurion::system;
 
 namespace albinjohansson::wanderer {
 
@@ -19,6 +19,9 @@ int RandomUtils::get_int(int min, int max) noexcept
   return dist(engine, distribution::param_type{min, max});
 }
 
-bool RandomUtils::get_bool() { return get_int(0, 99) < 50; }
+bool RandomUtils::get_bool()
+{
+  return get_int(0, 99) < 50;
+}
 
 }  // namespace albinjohansson::wanderer

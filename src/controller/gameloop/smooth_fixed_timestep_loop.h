@@ -61,9 +61,10 @@ class SmoothFixedTimestepLoop final : public IGameLoop {
    * @throws NullPointerException if any pointers are null.
    * @since 0.1.0
    */
-  SmoothFixedTimestepLoop(unique<centurion::KeyState> keyState,
-                          unique<centurion::MouseState> mouseState,
-                          float vsyncRate);
+  SmoothFixedTimestepLoop(
+      unique<centurion::input::KeyState> keyState,
+      const shared<centurion::input::MouseState>& mouseState,
+      float vsyncRate);
 
   ~SmoothFixedTimestepLoop() override;
 

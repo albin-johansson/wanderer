@@ -7,11 +7,13 @@ using namespace centurion::video;
 
 namespace albinjohansson::wanderer {
 
-InGameMenu::InGameMenu(IMenuStateMachine* parent) : AbstractMenu(parent) {}
+InGameMenu::InGameMenu(IMenuStateMachine* parent) : AbstractMenu(parent)
+{}
 
 InGameMenu::~InGameMenu() = default;
 
-void InGameMenu::draw(Renderer&, const Viewport&, const FontBundle&) const {}
+void InGameMenu::draw(Renderer&, const Viewport&, const FontBundle&) const
+{}
 
 void InGameMenu::handle_input(const Input& input) noexcept
 {
@@ -23,6 +25,9 @@ void InGameMenu::handle_input(const Input& input) noexcept
   }
 }
 
-bool InGameMenu::is_blocking() const noexcept { return false; }
+bool InGameMenu::is_blocking() const noexcept
+{
+  return false;
+}
 
 }  // namespace albinjohansson::wanderer

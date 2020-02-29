@@ -11,7 +11,8 @@ PlayerAttackState::PlayerAttackState(IEntityStateMachine* parent)
 
 PlayerAttackState::~PlayerAttackState() = default;
 
-void PlayerAttackState::HandleInput(const Input&, const IWandererCore&) {}
+void PlayerAttackState::HandleInput(const Input&, const IWandererCore&)
+{}
 
 void PlayerAttackState::draw(const Renderer& renderer,
                              const Viewport& viewport) const

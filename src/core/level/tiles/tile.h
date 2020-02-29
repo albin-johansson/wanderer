@@ -89,7 +89,10 @@ class Tile final {
    * @return true if the tile is blocked; false otherwise.
    * @since 0.1.0
    */
-  [[nodiscard]] bool is_blocked() const noexcept { return isBlocked; }
+  [[nodiscard]] bool is_blocked() const noexcept
+  {
+    return isBlocked;
+  }
 
   /**
    * Indicates whether or not the tile is animated.
@@ -97,7 +100,10 @@ class Tile final {
    * @return true if the tile is animated; false otherwise.
    * @since 0.1.0
    */
-  [[nodiscard]] bool is_animated() const noexcept { return isAnimated; }
+  [[nodiscard]] bool is_animated() const noexcept
+  {
+    return isAnimated;
+  }
 
   /**
    * Indicates whether or not the tile is an "object".
@@ -105,7 +111,10 @@ class Tile final {
    * @return true if the tile represents an object; false otherwise.
    * @since 0.1.0
    */
-  [[nodiscard]] bool is_object() const noexcept { return isObject; }
+  [[nodiscard]] bool is_object() const noexcept
+  {
+    return isObject;
+  }
 
   /**
    * Returns the render depth of the tile.
@@ -113,7 +122,10 @@ class Tile final {
    * @return the render depth of the tile.
    * @since 0.1.0
    */
-  [[nodiscard]] int get_depth() const noexcept { return depth; }
+  [[nodiscard]] int get_depth() const noexcept
+  {
+    return depth;
+  }
 
   /**
    * Returns the tile ID that will be used for rendering the tile. If the tile
@@ -130,7 +142,10 @@ class Tile final {
    * @return the type ID the tile.
    * @since 0.1.0
    */
-  [[nodiscard]] TileID get_id() const noexcept { return id; }
+  [[nodiscard]] TileID get_id() const noexcept
+  {
+    return id;
+  }
 
   /**
    * Returns the source rectangle associated with the tile. The source rectangle
@@ -144,7 +159,10 @@ class Tile final {
     return source;
   }
 
-  [[nodiscard]] const Hitbox& get_hitbox() const noexcept { return hitbox; }
+  [[nodiscard]] const Hitbox& get_hitbox() const noexcept
+  {
+    return hitbox;
+  }
 };
 
 }  // namespace albinjohansson::wanderer

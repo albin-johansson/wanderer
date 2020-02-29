@@ -9,7 +9,8 @@ using namespace centurion::video;
 
 namespace albinjohansson::wanderer {
 
-ControlsMenu::ControlsMenu(IMenuStateMachine* parent) : AbstractMenu(parent) {}
+ControlsMenu::ControlsMenu(IMenuStateMachine* parent) : AbstractMenu(parent)
+{}
 
 ControlsMenu::~ControlsMenu() noexcept = default;
 
@@ -19,7 +20,7 @@ void ControlsMenu::draw(Renderer& renderer,
 {
   AbstractMenu::draw(renderer, viewport, fonts);
 
-//  renderer.set_color(white);
+  //  renderer.set_color(white);
   //  renderer.RenderText("Controls", 500, 100);
 }
 

@@ -4,9 +4,11 @@
 
 namespace albinjohansson::wanderer {
 
-Vector2::Vector2() : Vector2(0, 0) {}
+Vector2::Vector2() : Vector2(0, 0)
+{}
 
-Vector2::Vector2(const Vector2& other) : Vector2(other.x, other.y) {}
+Vector2::Vector2(const Vector2& other) : Vector2(other.x, other.y)
+{}
 
 void Vector2::scale(float factor) noexcept
 {
@@ -23,7 +25,10 @@ void Vector2::norm() noexcept
   }
 }
 
-void Vector2::zero() noexcept { x = y = 0; }
+void Vector2::zero() noexcept
+{
+  x = y = 0;
+}
 
 void Vector2::set(const Vector2& other) noexcept
 {
@@ -166,7 +171,10 @@ float Vector2::get_length() const noexcept
   return std::sqrt((x * x) + (y * y));
 }
 
-float Vector2::get_length_2() const noexcept { return (x * x) + (y * y); }
+float Vector2::get_length_2() const noexcept
+{
+  return (x * x) + (y * y);
+}
 
 bool Vector2::is_zero() const noexcept
 {

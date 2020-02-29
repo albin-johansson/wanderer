@@ -8,7 +8,8 @@ using namespace centurion::video;
 
 namespace albinjohansson::wanderer {
 
-SettingsMenu::SettingsMenu(IMenuStateMachine* parent) : AbstractMenu(parent) {}
+SettingsMenu::SettingsMenu(IMenuStateMachine* parent) : AbstractMenu(parent)
+{}
 
 SettingsMenu::~SettingsMenu() noexcept = default;
 
@@ -18,7 +19,7 @@ void SettingsMenu::draw(Renderer& renderer,
 {
   AbstractMenu::draw(renderer, viewport, fonts);
 
-//  renderer.set_color(white);
+  //  renderer.set_color(white);
   //  renderer.RenderText("Settings", 500, 100);
 }
 
@@ -29,6 +30,9 @@ void SettingsMenu::handle_input(const Input& input) noexcept
   }
 }
 
-bool SettingsMenu::is_blocking() const noexcept { return true; }
+bool SettingsMenu::is_blocking() const noexcept
+{
+  return true;
+}
 
 }  // namespace albinjohansson::wanderer

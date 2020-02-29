@@ -28,8 +28,8 @@ void HUD::draw_health_bar(Renderer& renderer, IWandererCore& core) const
   renderer.fill_rect({10, 720 - hpBarHeight - 10, hpBarWidth, hpBarHeight});
 
   renderer.set_color({0xAA, 0xFE, 0, 0xAA});
-  renderer.fill_rect({10, 720 - hpBarHeight - 10, hpBarWidth - 100,
-                      hpBarHeight});
+  renderer.fill_rect(
+      {10, 720 - hpBarHeight - 10, hpBarWidth - 100, hpBarHeight});
 
   renderer.set_color(black);
   renderer.draw_rect({10, 720 - hpBarHeight - 10, hpBarWidth, hpBarHeight});

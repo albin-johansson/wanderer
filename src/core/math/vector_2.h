@@ -30,7 +30,8 @@ class Vector2 final {
    * @param y the y-coordinate of the vector.
    * @since 0.1.0
    */
-  constexpr Vector2(float x, float y) : x(x), y(y) {}
+  constexpr Vector2(float x, float y) : x(x), y(y)
+  {}
 
   /**
    * Creates a copy of the supplied vector.
@@ -270,7 +271,10 @@ class Vector2 final {
    * @return the x-coordinate of the vector.
    * @since 0.1.0
    */
-  [[nodiscard]] int get_x() const noexcept { return Math::round(x); }
+  [[nodiscard]] int get_x() const noexcept
+  {
+    return Math::round(x);
+  }
 
   /**
    * Returns the the integer representation of the y-coordinate of the vector.
@@ -278,7 +282,10 @@ class Vector2 final {
    * @return the y-coordinate of the vector.
    * @since 0.1.0
    */
-  [[nodiscard]] int get_y() const noexcept { return Math::round(y); }
+  [[nodiscard]] int get_y() const noexcept
+  {
+    return Math::round(y);
+  }
 
   /**
    * Calculates and returns the length of the vector.

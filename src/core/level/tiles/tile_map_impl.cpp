@@ -173,9 +173,15 @@ bool TileMapImpl::is_blocked(const IMovableObject* self, float delta) const
   return false;
 }
 
-int TileMapImpl::get_rows() const noexcept { return nRows; }
+int TileMapImpl::get_rows() const noexcept
+{
+  return nRows;
+}
 
-int TileMapImpl::get_cols() const noexcept { return nCols; }
+int TileMapImpl::get_cols() const noexcept
+{
+  return nCols;
+}
 
 int TileMapImpl::get_width() const noexcept
 {

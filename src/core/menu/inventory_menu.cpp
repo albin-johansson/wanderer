@@ -17,6 +17,9 @@ void InventoryMenu::handle_input(const Input& input) noexcept
   }
 }
 
-bool InventoryMenu::is_blocking() const noexcept { return true; }
+bool InventoryMenu::is_blocking() const noexcept
+{
+  return true;
+}
 
 }  // namespace albinjohansson::wanderer

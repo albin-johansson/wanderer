@@ -2,8 +2,10 @@
 
 #include <key_state.h>
 #include <mouse_state.h>
-#include <system.h>
+#include <screen.h>
 #include <texture_loader.h>
+
+#include <memory>
 
 #include "game_constants.h"
 #include "smooth_fixed_timestep_loop.h"
@@ -12,6 +14,7 @@
 using namespace centurion;
 using namespace centurion::video;
 using namespace centurion::system;
+using namespace centurion::input;
 
 namespace albinjohansson::wanderer {
 
@@ -34,17 +37,17 @@ WandererControllerImpl::WandererControllerImpl()
   core->set_viewport_width(GameConstants::logical_width);
   core->set_viewport_height(GameConstants::logical_height);
 
-  auto mouseState = MouseState::unique();
+  auto mouseState = MouseState::shared();
   mouseState->set_logical_width(GameConstants::logical_width);
   mouseState->set_logical_height(GameConstants::logical_height);
   mouseState->set_window_width(window->get_width());
   mouseState->set_window_height(window->get_height());
 
-  window->add_window_listener(mouseState.get());
+  window->add_window_listener(mouseState);
 
   const auto refreshRate = static_cast<float>(Screen::get_refresh_rate());
   gameLoop = std::make_unique<SmoothFixedTimestepLoop>(
-      std::make_unique<KeyState>(), std::move(mouseState), refreshRate);
+      std::make_unique<KeyState>(), mouseState, refreshRate);
 }
 
 WandererControllerImpl::~WandererControllerImpl() = default;

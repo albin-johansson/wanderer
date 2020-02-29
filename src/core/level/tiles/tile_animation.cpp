@@ -32,6 +32,9 @@ void TileAnimation::set_frame(int index, Frame frame)
   }
 }
 
-Frame TileAnimation::get_frame() const { return frames.at(index); }
+Frame TileAnimation::get_frame() const
+{
+  return frames.at(index);
+}
 
 }  // namespace albinjohansson::wanderer

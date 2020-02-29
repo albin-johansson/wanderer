@@ -35,9 +35,11 @@ void EntityIdleDelegate::enter(const IWandererCore&)
   entity.set_animation_frame(0);
 }
 
-void EntityIdleDelegate::exit(const IWandererCore&) {}
+void EntityIdleDelegate::exit(const IWandererCore&)
+{}
 
-void EntityIdleDelegate::tick(const IWandererCore&, float /*delta*/) {}
+void EntityIdleDelegate::tick(const IWandererCore&, float /*delta*/)
+{}
 
 IEntityStateMachine& EntityIdleDelegate::get_parent() noexcept
 {

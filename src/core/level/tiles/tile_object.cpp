@@ -27,7 +27,10 @@ TileObject::TileObject(TileID id,
 
 TileObject::~TileObject() noexcept = default;
 
-void TileObject::tick(IWandererCore&, float /*delta*/) { tileSet->tick(id); }
+void TileObject::tick(IWandererCore&, float /*delta*/)
+{
+  tileSet->tick(id);
+}
 
 void TileObject::draw(const Renderer& renderer, const Viewport&) const
 {
@@ -53,11 +56,20 @@ void TileObject::SetHitbox(const Hitbox& h) noexcept
   hitbox.set_y(get_y());
 }
 
-float TileObject::get_x() const noexcept { return position.x; }
+float TileObject::get_x() const noexcept
+{
+  return position.x;
+}
 
-float TileObject::get_y() const noexcept { return position.y; }
+float TileObject::get_y() const noexcept
+{
+  return position.y;
+}
 
-float TileObject::get_center_y() const noexcept { return centerY; }
+float TileObject::get_center_y() const noexcept
+{
+  return centerY;
+}
 
 float TileObject::get_width() const noexcept
 {
@@ -69,16 +81,25 @@ float TileObject::get_height() const noexcept
   return GameConstants::tile_size;
 }
 
-const Hitbox& TileObject::get_hitbox() const noexcept { return hitbox; }
+const Hitbox& TileObject::get_hitbox() const noexcept
+{
+  return hitbox;
+}
 
-int TileObject::get_depth() const noexcept { return depth; }
+int TileObject::get_depth() const noexcept
+{
+  return depth;
+}
 
 void TileObject::add_hitbox(const FRect& rectangle, const Vector2& offset)
 {
   hitbox.add_rectangle(rectangle, offset);
 }
 
-uint64 TileObject::get_unique_id() const noexcept { return uniqueId; }
+uint64 TileObject::get_unique_id() const noexcept
+{
+  return uniqueId;
+}
 
 void TileObject::set_blocked(bool blocked) noexcept
 {

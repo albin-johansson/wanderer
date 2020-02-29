@@ -71,7 +71,10 @@ void Hitbox::set_y(float y) noexcept
   }
 }
 
-void Hitbox::set_enabled(bool enabled) noexcept { this->enabled = enabled; }
+void Hitbox::set_enabled(bool enabled) noexcept
+{
+  this->enabled = enabled;
+}
 
 bool Hitbox::intersects(const Hitbox& other) const noexcept
 {
@@ -131,10 +134,19 @@ bool Hitbox::will_intersect(const Hitbox& other, const Vector2& nextPos) const
   return intersection;
 }
 
-const FRect& Hitbox::get_bounds() const noexcept { return bounds; }
+const FRect& Hitbox::get_bounds() const noexcept
+{
+  return bounds;
+}
 
-bool Hitbox::is_unit() const noexcept { return rectangles.size() == 1; }
+bool Hitbox::is_unit() const noexcept
+{
+  return rectangles.size() == 1;
+}
 
-bool Hitbox::is_enabled() const noexcept { return enabled; }
+bool Hitbox::is_enabled() const noexcept
+{
+  return enabled;
+}
 
 }  // namespace albinjohansson::wanderer

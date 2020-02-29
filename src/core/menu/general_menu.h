@@ -1,8 +1,8 @@
 #pragma once
-#include "menu.h"
-
-#include <vector>
 #include <memory>
+#include <vector>
+
+#include "menu.h"
 #include "menu_button.h"
 
 namespace albinjohansson::wanderer {

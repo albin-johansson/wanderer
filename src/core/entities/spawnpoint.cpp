@@ -8,8 +8,14 @@ Spawnpoint::Spawnpoint(EntityID id, const Vector2& position) noexcept
 
 Spawnpoint::~Spawnpoint() noexcept = default;
 
-EntityID Spawnpoint::get_entity_id() const noexcept { return entity_id; }
+EntityID Spawnpoint::get_entity_id() const noexcept
+{
+  return entity_id;
+}
 
-const Vector2& Spawnpoint::get_position() const noexcept { return position; }
+const Vector2& Spawnpoint::get_position() const noexcept
+{
+  return position;
+}
 
 }  // namespace albinjohansson::wanderer

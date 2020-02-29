@@ -4,15 +4,22 @@
 
 namespace albinjohansson::wanderer {
 
-BadStateException::BadStateException() : BadStateException("N/A") {}
+BadStateException::BadStateException() : BadStateException("N/A")
+{}
 
-BadStateException::BadStateException(const std::string& what) : message(what) {}
+BadStateException::BadStateException(const std::string& what) : message(what)
+{}
 
-BadStateException::BadStateException(std::string&& what) : message(what) {}
+BadStateException::BadStateException(std::string&& what) : message(what)
+{}
 
-BadStateException::BadStateException(const char* what) : message(what) {}
+BadStateException::BadStateException(const char* what) : message(what)
+{}
 
-const char* BadStateException::what() const noexcept { return message.c_str(); }
+const char* BadStateException::what() const noexcept
+{
+  return message.c_str();
+}
 
 BadStateException::~BadStateException() = default;
 

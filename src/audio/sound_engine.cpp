@@ -11,7 +11,10 @@ using namespace centurion::audio;
 
 namespace albinjohansson::wanderer {
 
-SoundEngine::SoundEngine(const std::string& file) { load_sounds(file); }
+SoundEngine::SoundEngine(const std::string& file)
+{
+  load_sounds(file);
+}
 
 SoundEngine::~SoundEngine() = default;
 
@@ -40,8 +43,7 @@ void SoundEngine::register_sound(const std::string& id,
   sounds.emplace(id, std::move(sound));
 }
 
-SoundEffect& SoundEngine::get_sound(const std::string& id) const
-    noexcept
+SoundEffect& SoundEngine::get_sound(const std::string& id) const noexcept
 {
   return *sounds.at(id);
 }

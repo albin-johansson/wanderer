@@ -40,7 +40,10 @@ void MenuStateMachineImpl::draw(Renderer& renderer,
   menus.at(activeMenuID)->draw(renderer, viewport, typewriterFonts);
 }
 
-void MenuStateMachineImpl::set_menu(MenuID id) noexcept { activeMenuID = id; }
+void MenuStateMachineImpl::set_menu(MenuID id) noexcept
+{
+  activeMenuID = id;
+}
 
 void MenuStateMachineImpl::handle_input(const Input& input) noexcept
 {

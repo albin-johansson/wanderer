@@ -110,7 +110,10 @@ void MovableDelegate::stop(Direction direction) noexcept
   velocity.scale(speed);
 }
 
-void MovableDelegate::stop() noexcept { velocity.zero(); }
+void MovableDelegate::stop() noexcept
+{
+  velocity.zero();
+}
 
 void MovableDelegate::interpolate(float alpha) noexcept
 {
@@ -165,24 +168,45 @@ void MovableDelegate::set_blocked(bool blocked) noexcept
   hitbox.set_enabled(blocked);
 }
 
-int MovableDelegate::get_depth() const noexcept { return depth; }
+int MovableDelegate::get_depth() const noexcept
+{
+  return depth;
+}
 
 float MovableDelegate::get_center_y() const noexcept
 {
   return currPosition.y + (height / 2.0f);
 }
 
-float MovableDelegate::get_speed() const noexcept { return speed; }
+float MovableDelegate::get_speed() const noexcept
+{
+  return speed;
+}
 
-float MovableDelegate::get_width() const noexcept { return width; }
+float MovableDelegate::get_width() const noexcept
+{
+  return width;
+}
 
-float MovableDelegate::get_height() const noexcept { return height; }
+float MovableDelegate::get_height() const noexcept
+{
+  return height;
+}
 
-float MovableDelegate::get_x() const noexcept { return currPosition.x; }
+float MovableDelegate::get_x() const noexcept
+{
+  return currPosition.x;
+}
 
-float MovableDelegate::get_y() const noexcept { return currPosition.y; }
+float MovableDelegate::get_y() const noexcept
+{
+  return currPosition.y;
+}
 
-const Hitbox& MovableDelegate::get_hitbox() const noexcept { return hitbox; }
+const Hitbox& MovableDelegate::get_hitbox() const noexcept
+{
+  return hitbox;
+}
 
 Direction MovableDelegate::get_dominant_direction() const noexcept
 {
@@ -216,7 +240,10 @@ bool MovableDelegate::will_intersect(const IGameObject* other,
          hitbox.will_intersect(other->get_hitbox(), get_next_position(delta));
 }
 
-uint64 MovableDelegate::get_unique_id() const noexcept { return uniqueId; }
+uint64 MovableDelegate::get_unique_id() const noexcept
+{
+  return uniqueId;
+}
 
 Vector2 MovableDelegate::get_next_position(float delta) const noexcept
 {

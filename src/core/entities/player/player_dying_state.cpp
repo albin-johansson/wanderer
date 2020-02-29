@@ -7,11 +7,13 @@ using namespace centurion::video;
 
 namespace albinjohansson::wanderer {
 
-PlayerDyingState::PlayerDyingState(IEntity* entity) : dyingDelegate(entity) {}
+PlayerDyingState::PlayerDyingState(IEntity* entity) : dyingDelegate(entity)
+{}
 
 PlayerDyingState::~PlayerDyingState() = default;
 
-void PlayerDyingState::HandleInput(const Input&, const IWandererCore&) {}
+void PlayerDyingState::HandleInput(const Input&, const IWandererCore&)
+{}
 
 void PlayerDyingState::draw(const Renderer& renderer,
                             const Viewport& viewport) const
