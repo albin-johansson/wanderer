@@ -9,6 +9,7 @@
 
 #include "input.h"
 #include "menu.h"
+#include "menu_parser.h"
 #include "menu_state_machine_impl.h"
 #include "player_impl.h"
 #include "tile_map.h"
@@ -21,7 +22,11 @@ namespace albinjohansson::wanderer {
 
 WandererCoreImpl::WandererCoreImpl(ImageGenerator& textureLoader)
 {
-  menuStateMachine = std::make_unique<MenuStateMachineImpl>(this);
+  menuStateMachine = std::make_shared<MenuStateMachineImpl>(this);
+
+  // TODO load menus
+  auto homeMenu = parse_menu("resources/menu/home_menu.json");
+
   soundEngine = std::make_unique<SoundEngine>("resources/audio/sfx.txt");
 
   player = std::make_shared<PlayerImpl>(

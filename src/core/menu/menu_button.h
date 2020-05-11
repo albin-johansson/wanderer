@@ -1,4 +1,5 @@
 #pragma once
+#include <action.h>
 #include <rectangle.h>
 #include <texture.h>
 
@@ -16,29 +17,18 @@ namespace albinjohansson::wanderer {
  * @since 0.1.0
  */
 class MenuButton final : public IMenuDrawable {
- private:
-  centurion::math::FRect bounds;
-  mutable unique<centurion::video::Texture> normalImg = nullptr;
-  mutable unique<centurion::video::Texture> enlargedImg = nullptr;
-  const std::string text = "";
-  bool enlarged = false;
-
-  void render_text(const centurion::video::Renderer& renderer,
-                   float x,
-                   float y,
-                   unique<centurion::video::Texture>& img,
-                   const centurion::video::Font& font) const;
-
  public:
   /**
    * @param text the text of the button.
-   * @param x the x-coordinate of the button.
-   * @param y the y-coordinate of the button.
-   * @param width the width of the button.
-   * @param height the height of the button.
+   * @param bounds the rectangle that represents the position and size of the
+   * button.
+   * @param action the action that will be executed when the button is
+   * triggered.
    * @since 0.1.0
    */
-  MenuButton(std::string text, float x, float y, float width, float height);
+  MenuButton(std::string text,
+             centurion::math::FRect bounds,
+             unique<IAction> action);
 
   ~MenuButton() override;
 
@@ -51,6 +41,22 @@ class MenuButton final : public IMenuDrawable {
   void trigger() noexcept;
 
   [[nodiscard]] bool contains(float mx, float my) const noexcept;
+
+ private:
+  centurion::math::FRect m_bounds;
+  unique<IAction> m_action;
+  // FIXME why does all button have unique textures? share them!
+  mutable unique<centurion::video::Texture> m_normalImg = nullptr;
+  mutable unique<centurion::video::Texture> m_enlargedImg = nullptr;
+
+  const std::string m_text = "";
+  bool m_enlarged = false;
+
+  void render_text(const centurion::video::Renderer& renderer,
+                   float x,
+                   float y,
+                   unique<centurion::video::Texture>& img,
+                   const centurion::video::Font& font) const;
 };
 
 }  // namespace albinjohansson::wanderer

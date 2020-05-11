@@ -4,12 +4,13 @@
 #include <renderer.h>
 
 #include "menu_button.h"
+#include "wanderer_stdinc.h"
 
 namespace albinjohansson::wanderer {
 
 class NewMenu {
  public:
-  NewMenu(const char* jsonFile);
+  NewMenu(weak<IMenuStateMachine> menuStateMachine, const char* jsonFile);
 
   void draw(centurion::video::Renderer& renderer,
             const Viewport& viewport,
@@ -20,7 +21,7 @@ class NewMenu {
   bool blocking() const noexcept;
 
  private:
-  std::vector<std::unique_ptr<MenuButton>> m_buttons;
+  std::vector<unique<MenuButton>> m_buttons;
   bool m_blocking;
 };
 

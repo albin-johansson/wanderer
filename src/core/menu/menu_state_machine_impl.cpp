@@ -26,9 +26,6 @@ MenuStateMachineImpl::MenuStateMachineImpl(IWandererCore* core)
   put(MenuID::Settings, std::make_unique<SettingsMenu>(this));
   put(MenuID::Controls, std::make_unique<ControlsMenu>(this));
   put(MenuID::Inventory, std::make_unique<InventoryMenu>(this));
-
-  auto home = parse_menu("resources/menu/home_menu.json");
-
 }
 
 MenuStateMachineImpl::~MenuStateMachineImpl() = default;

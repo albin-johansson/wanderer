@@ -46,17 +46,31 @@ inline ActionID to_action(const std::string& id)
 
 class IAction {
  public:
-  virtual ~IAction() = default;
+  virtual ~IAction() noexcept = default;
 
   virtual void execute() = 0;
 };
 
-class MenuAction: public IAction {
+class GotoMenuAction : public IAction {
  public:
+  GotoMenuAction(std::weak_ptr<IMenuStateMachine> menuStateMachine,
+                 MenuID menu) noexcept
+      : m_menuStateMachine{menuStateMachine}, m_menu{menu}
+  {}
+
+  ~GotoMenuAction() noexcept override = default;
+
+  void execute() noexcept override
+  {
+    auto machine = m_menuStateMachine.lock();
+    if (machine) {
+      machine->set_menu(m_menu);
+    }
+  }
 
  private:
-
-
+  std::weak_ptr<IMenuStateMachine> m_menuStateMachine;
+  MenuID m_menu;
 };
 
 }  // namespace albinjohansson::wanderer

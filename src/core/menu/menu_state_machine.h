@@ -18,6 +18,8 @@ class IMenuStateMachine {
   virtual void draw(centurion::video::Renderer& renderer,
                     const Viewport& viewport) const = 0;
 
+//  virtual void set_menu(MenuID
+  
   /**
    * Sets the active menu.
    *
