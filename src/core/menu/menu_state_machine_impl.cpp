@@ -1,5 +1,6 @@
 #include "menu_state_machine_impl.h"
 
+#include <menu_parser.h>
 #include <renderer.h>
 
 #include "controls_menu.h"
@@ -25,6 +26,9 @@ MenuStateMachineImpl::MenuStateMachineImpl(IWandererCore* core)
   put(MenuID::Settings, std::make_unique<SettingsMenu>(this));
   put(MenuID::Controls, std::make_unique<ControlsMenu>(this));
   put(MenuID::Inventory, std::make_unique<InventoryMenu>(this));
+
+  auto home = parse_menu("resources/menu/home_menu.json");
+
 }
 
 MenuStateMachineImpl::~MenuStateMachineImpl() = default;

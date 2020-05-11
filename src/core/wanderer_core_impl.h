@@ -21,6 +21,8 @@ namespace albinjohansson::wanderer {
 class WandererCoreImpl final : public IWandererCore {
  private:
   shared<ITileMap> activeMap = nullptr;  // could maybe be a raw pointer
+
+  // TODO make shared and let actions store a weak pointer to this
   unique<IMenuStateMachine> menuStateMachine = nullptr;
   HUD hud;
 

@@ -63,17 +63,17 @@ std::unique_ptr<IMenu> parse_menu(const char* file)
     throw std::invalid_argument{"Cannot load menu from null file path!"};
   }
 
-  const auto document = PugiUtils::LoadDocument(file);
-  const auto rootNode = document.root();
+//  const auto document = PugiUtils::LoadDocument(file);
+//  const auto rootNode = document.root();
 
   //  const auto isSubmenu = rootNode.attribute("submenu").as_string();
-  const auto blocking = rootNode.attribute("blocking").as_bool();
-  const auto buttonsRoot = rootNode.child("buttons");
+//  const auto blocking = rootNode.attribute("blocking").as_bool();
+//  const auto buttonsRoot = rootNode.child("buttons");
 
-  auto menu = std::make_unique<GeneralMenu>();
+  auto menu = std::make_unique<GeneralMenu>(file);
 
-  menu->set_blocking(blocking);
-  menu->set_buttons(load_buttons(buttonsRoot));
+//  menu->set_blocking(blocking);
+//  menu->set_buttons(load_buttons(buttonsRoot));
 
   return menu;
 }

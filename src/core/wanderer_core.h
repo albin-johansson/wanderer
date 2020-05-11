@@ -18,7 +18,7 @@ class Input;
  *
  * @since 0.1.0
  */
-class IWandererCore {
+class IWandererCore { // TODO remove
  public:
   virtual ~IWandererCore() = default;
 
@@ -109,6 +109,8 @@ class IWandererCore {
    * @since 0.1.0
    */
   [[nodiscard]] virtual const ITileMap& get_active_map() const = 0;
+
+  // TODO add method for changing active menu
 };
 
 }  // namespace albinjohansson::wanderer

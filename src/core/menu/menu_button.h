@@ -48,6 +48,8 @@ class MenuButton final : public IMenuDrawable {
 
   void set_enlarged(bool enlarged) noexcept;
 
+  void trigger() noexcept;
+
   [[nodiscard]] bool contains(float mx, float my) const noexcept;
 };
 

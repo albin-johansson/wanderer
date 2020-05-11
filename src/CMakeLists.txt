@@ -191,7 +191,7 @@ set(SOURCE_FILES
         core/menu/general_menu.cpp
         core/action.h
         core/menu/button_action.h
-        )
+        core/menu/new_menu.cpp core/menu/new_menu.h)
 
 add_library(${WANDERER_LIB} ${SOURCE_FILES})
 

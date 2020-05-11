@@ -4,6 +4,9 @@
 
 namespace albinjohansson::wanderer {
 
+GeneralMenu::GeneralMenu(const char* menuJson)
+{}
+
 void GeneralMenu::handle_input(const Input& input) noexcept
 {
   const auto mx = input.get_mouse_x();

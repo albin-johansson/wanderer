@@ -1,0 +1,24 @@
+{
+  "id": "home",
+  "parent": null,
+  "title": "Wanderer",
+  "isBlocking": true,
+  "buttons": [
+    {
+      "text": "Play",
+      "action": "GotoInGame"
+    },
+    {
+      "text": "Settings",
+      "action": "GotoSettings"
+    },
+    {
+      "text": "Controls",
+      "action": "GotoControls"
+    },
+    {
+      "text": "Quit",
+      "action": "Quit"
+    }
+  ]
+}

@@ -62,6 +62,11 @@ void MenuButton::draw(Renderer& renderer,
   }
 }
 
+void MenuButton::trigger() noexcept
+{
+
+}
+
 void MenuButton::set_enlarged(bool enlarged) noexcept
 {
   this->enlarged = enlarged;

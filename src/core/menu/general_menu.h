@@ -8,11 +8,9 @@
 namespace albinjohansson::wanderer {
 
 class GeneralMenu final : public IMenu {
- private:
-  bool blocking = true;
-  std::vector<std::unique_ptr<MenuButton>> buttons;
-
  public:
+  GeneralMenu(const char* menuJson);
+
   ~GeneralMenu() noexcept override = default;
 
   void draw(centurion::video::Renderer& renderer,
@@ -26,6 +24,10 @@ class GeneralMenu final : public IMenu {
   void set_buttons(std::vector<std::unique_ptr<MenuButton>>&& buttons);
 
   [[nodiscard]] bool is_blocking() const noexcept override;
+
+ private:
+  bool blocking = true;
+  std::vector<std::unique_ptr<MenuButton>> buttons;
 };
 
 }  // namespace albinjohansson::wanderer

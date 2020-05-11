@@ -5,75 +5,58 @@
 #include "input.h"
 #include "menu_id.h"
 #include "menu_state_machine.h"
+#include "wanderer_core.h"
 
 namespace albinjohansson::wanderer {
 
-enum class ActionID { GotoHome = 0, GotoSettings, GotoInGame };
+enum class ActionID {
+  Quit,
 
-// class Action {
-//  public:
-//   void execute()
-//   {
+  // Menu actions
+  GotoHome,
+  GotoSettings,
+  GotoControls,
+  GotoInGame,
+  GotoCredits,
+  GotoInventory,
 
-//   }
-// };
-
-template <class T>
-class Action final {
- private:
-  T callable;
-
- public:
-  explicit Action(T callable_) : callable{callable_}
-  {}
-
-  void execute() noexcept
-  {
-    callable();
-  }
+  // Player actions
+  PlayerAttack,
+  PlayerInteract,
 };
 
-template <class Action>
-class KeyBinding {
- private:
-  SDL_Scancode code;
-  Action action;
-
- public:
-  explicit KeyBinding(SDL_Scancode code_, Action action_) noexcept
-      : code{code_}, action{action_}
-  {}
-
-  void update(const Input& input) noexcept
-  {
-    if (input.was_released(code)) {
-      action();
-    }
-  }
-};
-
-template <class Action>
-auto create_key_binding(SDL_Scancode code, Action action) noexcept
+inline ActionID to_action(const std::string& id)
 {
-  KeyBinding<decltype(action)> binding{code, action};
-  return binding;
+  if (id == "Quit") {
+    return ActionID::Quit;
+  } else if (id == "GotoHome") {
+    return ActionID::GotoHome;
+  } else if (id == "GotoSettings") {
+    return ActionID::GotoSettings;
+  } else if (id == "GotoControls") {
+    return ActionID::GotoControls;
+  } else if (id == "GotoInGame") {
+    return ActionID::GotoInGame;
+  } else if (id == "GotoCredits") {
+    return ActionID::GotoCredits;
+  }
+
+  throw std::logic_error{"Failed to determine action ID!"};
 }
 
-template <class T>
-class MenuAction {
- private:
-  IMenuStateMachine* stateMachine;
-  T callable;
-
+class IAction {
  public:
-  explicit MenuAction(IMenuStateMachine* stateMachine_, T callable_)
-      : stateMachine{stateMachine_}, callable{callable_}
-  {}
+  virtual ~IAction() = default;
 
-  void update(const Input& input) noexcept
-  {
-    callable(stateMachine, input);
-  }
+  virtual void execute() = 0;
+};
+
+class MenuAction: public IAction {
+ public:
+
+ private:
+
+
 };
 
 }  // namespace albinjohansson::wanderer

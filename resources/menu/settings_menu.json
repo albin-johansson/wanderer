@@ -1,0 +1,12 @@
+{
+  "id": "settings",
+  "parent": "home",
+  "title": "Settings",
+  "isBlocking": true,
+  "buttons": [
+    {
+      "text": "Return",
+      "action": "GotoHome"
+    }
+  ]
+}
