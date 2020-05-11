@@ -6,7 +6,7 @@
 namespace albinjohansson {
 namespace wanderer {
 
-//std::unique_ptr<IMenu> parse_menu(const char* file);
+// std::unique_ptr<IMenu> parse_menu(const char* file);
 
 }
 }  // namespace albinjohansson

@@ -8,6 +8,6 @@ namespace albinjohansson::wanderer {
  *
  * @since 0.1.0
  */
-enum class MenuID { InGame, Home, Settings, Controls, Inventory };
+enum class MenuID { InGame, Home, Settings, Controls, Inventory, Credits };
 
 }  // namespace albinjohansson::wanderer

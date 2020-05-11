@@ -3,17 +3,20 @@
 #include <input.h>
 #include <renderer.h>
 
+#include <string>
+
 #include "menu.h"
 #include "menu_button.h"
+#include "menu_state_machine.h"
 #include "wanderer_stdinc.h"
 
 namespace albinjohansson::wanderer {
 
-class NewMenu : public IMenu {
+class MenuImpl : public IMenu {
  public:
-  NewMenu(weak<IMenuStateMachine> menuStateMachine, const char* jsonFile);
+  MenuImpl(weak<IMenuStateMachine> menuStateMachine, const char* jsonFile);
 
-  ~NewMenu() noexcept override = default;
+  ~MenuImpl() noexcept override = default;
 
   void draw(ctn::Renderer& renderer,
             const Viewport& viewport,
@@ -21,10 +24,14 @@ class NewMenu : public IMenu {
 
   void handle_input(const Input& input) noexcept override;
 
-  [[nodiscard]] bool is_blocking() const noexcept override;
+  [[nodiscard]] bool is_blocking() const noexcept override
+  {
+    return m_blocking;
+  }
 
  private:
   std::vector<unique<MenuButton>> m_buttons;
+  std::string m_title;
   bool m_blocking;
 };
 

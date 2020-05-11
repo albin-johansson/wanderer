@@ -174,11 +174,19 @@ set(SOURCE_FILES
         core/util/wanderer_stdinc.h
 
         core/action.h
+        core/action.cpp
+
         core/menu/button_action.h
-        core/menu/new_menu.cpp
-        core/menu/new_menu.h
+        core/menu/menu_impl.cpp
+        core/menu/menu_impl.h
+        core/menu/goto_menu_action.cpp
+        core/menu/goto_menu_action.h
+
         service/menu_parser.h
-        service/menu_parser.cpp)
+        service/menu_parser.cpp
+
+        visuals/drawable_text.cpp
+        visuals/drawable_text.h)
 
 add_library(${WANDERER_LIB} ${SOURCE_FILES})
 

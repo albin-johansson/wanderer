@@ -1,32 +1,18 @@
 #include "menu_button.h"
 
-#include <colors.h>
-
-#include <utility>
-
-#include "renderer.h"
-
 using namespace centurion;
 
 namespace albinjohansson::wanderer {
 
 MenuButton::MenuButton(std::string text, FRect bounds, unique<IAction> action)
-    : m_bounds{bounds}, m_action{std::move(action)}, m_text{std::move(text)}
-{}
+    : m_bounds{bounds},
+      m_action{std::move(action)},
+      m_text{std::make_unique<DrawableText>(text, FPoint{0, 0})}
+{
+  m_text->set_color(white);
+}
 
 MenuButton::~MenuButton() = default;
-
-void MenuButton::render_text(Renderer& renderer,
-                             float x,
-                             float y,
-                             std::unique_ptr<Texture>& img,
-                             const Font& font) const
-{
-  if (!img) {
-    img = renderer.text_blended(m_text, font);
-  }
-  renderer.render_f(*img, {x, y});
-}
 
 bool MenuButton::contains(float mx, float my) const noexcept
 {
@@ -37,24 +23,22 @@ void MenuButton::draw(Renderer& renderer,
                       const Viewport&,
                       const FontBundle& fonts) const
 {
-  if (!m_text.empty()) {
-    // FIXME this render method is very inefficient
-
-    const auto& font = m_enlarged ? fonts.get_font_36() : fonts.get_font_24();
-
-    const auto width = static_cast<float>(font.string_width(m_text));
-    const auto height = static_cast<float>(font.string_height(m_text));
-    const auto x = m_bounds.center_x() - (width / 2.0f);
-    const auto y = m_bounds.center_y() - (height / 2.0f);
-
-    renderer.set_color(white);
-
-    if (m_enlarged) {
-      render_text(renderer, x, y, m_enlargedImg, font);
-    } else {
-      render_text(renderer, x, y, m_normalImg, font);
-    }
+  if (m_enlarged) {
+    m_text->set_size(DrawableText::Size::Large);
+  } else {
+    m_text->set_size(DrawableText::Size::Medium);
   }
+
+  const auto& font = m_enlarged ? fonts.get_font_36() : fonts.get_font_24();
+
+  const auto width = static_cast<float>(font.string_width(m_text->text()));
+  const auto height = static_cast<float>(font.string_height(m_text->text()));
+
+  const auto x = m_bounds.center_x() - (width / 2.0f);
+  const auto y = m_bounds.center_y() - (height / 2.0f);
+
+  m_text->set_position({x, y});
+  m_text->draw(renderer, fonts);
 }
 
 void MenuButton::trigger() noexcept

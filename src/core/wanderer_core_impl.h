@@ -72,7 +72,7 @@ class WandererCoreImpl final
 
   void init_viewport();
 
-//  void init_menus();
+  //  void init_menus();
 };
 
 }  // namespace albinjohansson::wanderer

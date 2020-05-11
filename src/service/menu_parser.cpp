@@ -9,12 +9,12 @@
 #include "menu_button.h"
 #include "pugi_utils.h"
 
-//namespace albinjohansson {
-//namespace wanderer {
+// namespace albinjohansson {
+// namespace wanderer {
 
-//namespace {
+// namespace {
 
-//void handle_action(ActionID action)
+// void handle_action(ActionID action)
 //{
 //  switch (action) {
 //    case ActionID::GotoHome: {
@@ -24,7 +24,7 @@
 //  }
 //}
 //
-//std::unique_ptr<MenuButton> load_button(const pugi::xml_node& buttonNode)
+// std::unique_ptr<MenuButton> load_button(const pugi::xml_node& buttonNode)
 //{
 //  const auto* text = buttonNode.attribute("text").as_string();
 //
@@ -39,7 +39,7 @@
 //  return std::make_unique<MenuButton>(text, 0, 0, w, h);
 //}
 //
-//std::vector<std::unique_ptr<MenuButton>> load_buttons(
+// std::vector<std::unique_ptr<MenuButton>> load_buttons(
 //    const pugi::xml_node& buttonsNode)
 //{
 //  const auto nButtons = std::distance(buttonsNode.children().begin(),
@@ -56,7 +56,7 @@
 //
 //}  // namespace
 
-//std::unique_ptr<IMenu> parse_menu(const char* file)
+// std::unique_ptr<IMenu> parse_menu(const char* file)
 //{
 //  if (!file) {
 //    throw std::invalid_argument{"Cannot load menu from null file path!"};

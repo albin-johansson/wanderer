@@ -6,6 +6,7 @@
 #include <memory>
 #include <string>
 
+#include "drawable_text.h"
 #include "menu_drawable.h"
 #include "wanderer_stdinc.h"
 
@@ -43,18 +44,8 @@ class MenuButton final : public IMenuDrawable {
  private:
   ctn::FRect m_bounds;
   unique<IAction> m_action;
-  // FIXME why does all button have unique textures? share them!
-  mutable unique<ctn::Texture> m_normalImg = nullptr;
-  mutable unique<ctn::Texture> m_enlargedImg = nullptr;
-
-  const std::string m_text = "";
+  std::unique_ptr<DrawableText> m_text;
   bool m_enlarged = false;
-
-  void render_text(ctn::Renderer& renderer,
-                   float x,
-                   float y,
-                   unique<ctn::Texture>& img,
-                   const ctn::Font& font) const;
 };
 
 }  // namespace albinjohansson::wanderer

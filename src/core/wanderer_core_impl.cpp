@@ -9,8 +9,8 @@
 
 #include "input.h"
 #include "menu.h"
+#include "menu_impl.h"
 #include "menu_state_machine_impl.h"
-#include "new_menu.h"
 #include "player_impl.h"
 #include "tile_map.h"
 #include "tiled_map_parser.h"
@@ -24,7 +24,7 @@ WandererCoreImpl::WandererCoreImpl(TextureLoader& textureLoader)
   m_menuStateMachine = std::make_shared<MenuStateMachineImpl>();
 
   const auto mkMenu = [&](const char* file) {
-    return std::make_unique<NewMenu>(m_menuStateMachine, file);
+    return std::make_unique<MenuImpl>(m_menuStateMachine, file);
   };
 
   // TODO load menus
@@ -68,7 +68,7 @@ void WandererCoreImpl::init_viewport()
                     Area{m_player->get_width(), m_player->get_height()});
 }
 
-//void WandererCoreImpl::init_menus()
+// void WandererCoreImpl::init_menus()
 //{
 //  auto sharedThis = shared_from_this();
 //}
