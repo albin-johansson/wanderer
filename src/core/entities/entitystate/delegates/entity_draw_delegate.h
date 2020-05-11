@@ -1,5 +1,6 @@
 #pragma once
 #include "renderer.h"
+#include "wanderer_stdinc.h"
 
 namespace albinjohansson::wanderer {
 
@@ -29,7 +30,7 @@ class EntityDrawDelegate final {
    * will be rendered.
    * @since 0.1.0
    */
-  static void draw(const centurion::video::Renderer& renderer,
+  static void draw(ctn::Renderer& renderer,
                    const IEntity& entity,
                    int srcX,
                    int srcY) noexcept;

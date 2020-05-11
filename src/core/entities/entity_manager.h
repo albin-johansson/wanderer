@@ -1,8 +1,10 @@
 #pragma once
-#include <rectangle.h>
+#include <rect.h>
 
 #include <memory>
 #include <vector>
+
+#include "wanderer_stdinc.h"
 
 namespace albinjohansson::wanderer {
 
@@ -30,7 +32,7 @@ class EntityManager final {
    * @param bounds the viewport bounds.
    * @since 0.1.0
    */
-  void calculate_close_entities(const centurion::math::FRect& bounds);
+  void calculate_close_entities(const ctn::FRect& bounds);
 
  public:
   EntityManager();
@@ -45,7 +47,7 @@ class EntityManager final {
    * @since 0.1.0
    * @see EntityManager::calcEntitiesThreshold
    */
-  void update(const centurion::math::FRect& bounds);
+  void update(const ctn::FRect& bounds);
 
   /**
    * Adds an entity to the entity manager.

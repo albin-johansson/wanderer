@@ -1,5 +1,5 @@
 #pragma once
-#include <rectangle.h>
+#include <rect.h>
 #include <renderer.h>
 #include <texture.h>
 
@@ -30,12 +30,12 @@ class Tile final {
  private:
   friend class TileBuilder;
 
-  shared<centurion::video::Texture> sheet = nullptr;
+  shared<ctn::Texture> sheet = nullptr;
 
   TileID id = Tile::EMPTY;
   int depth = RenderDepth::min;
 
-  centurion::math::IRect source;
+  ctn::IRect source;
   Hitbox hitbox;
   TileAnimation animation;
 
@@ -73,7 +73,7 @@ class Tile final {
    * @since 0.1.0
    */
   void draw(const Vector2& pos,
-            const centurion::video::Renderer& renderer,
+            ctn::Renderer& renderer,
             const TileSet& tileSet) const;
 
   /**
@@ -154,7 +154,7 @@ class Tile final {
    * @return the source rectangle associated with the tile.
    * @since 0.1.0
    */
-  [[nodiscard]] const centurion::math::IRect& get_source() const noexcept
+  [[nodiscard]] const ctn::IRect& get_source() const noexcept
   {
     return source;
   }

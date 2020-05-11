@@ -3,7 +3,6 @@
 #include "entity.h"
 
 using namespace centurion;
-using namespace centurion::video;
 
 namespace albinjohansson::wanderer {
 
@@ -12,7 +11,7 @@ SkeletonDyingState::SkeletonDyingState(IEntity* entity) : dyingDelegate{entity}
 
 SkeletonDyingState::~SkeletonDyingState() = default;
 
-void SkeletonDyingState::draw(const Renderer& renderer,
+void SkeletonDyingState::draw(Renderer& renderer,
                               const Viewport& viewport) const
 {
   dyingDelegate.draw(renderer, viewport);

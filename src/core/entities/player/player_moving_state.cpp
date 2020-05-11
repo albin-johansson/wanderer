@@ -9,7 +9,6 @@
 #include "wanderer_core.h"
 
 using namespace centurion;
-using namespace centurion::video;
 
 namespace albinjohansson::wanderer {
 
@@ -109,7 +108,7 @@ void PlayerMovingState::tick(const IWandererCore& core, float delta)
   }
 }
 
-void PlayerMovingState::draw(const Renderer& renderer,
+void PlayerMovingState::draw(Renderer& renderer,
                              const Viewport& viewport) const noexcept
 {
   moveDelegate.draw(renderer, viewport);

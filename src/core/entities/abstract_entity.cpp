@@ -4,8 +4,8 @@
 #include "require.h"
 
 using namespace centurion;
-using namespace centurion::video;
-using namespace centurion::math;
+
+;
 
 namespace albinjohansson::wanderer {
 
@@ -142,7 +142,7 @@ float AbstractEntity::get_speed() const noexcept
   return movable->get_speed();
 }
 
-Image& AbstractEntity::get_sprite_sheet() const noexcept
+Texture& AbstractEntity::get_sprite_sheet() const noexcept
 {
   return *sheet;
 }

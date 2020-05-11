@@ -29,7 +29,7 @@ class PlayerImpl final : public AbstractEntity, public IPlayer {
    * @throws NullPointerException if the supplied image pointer is null.
    * @since 0.1.0
    */
-  explicit PlayerImpl(const shared<centurion::video::Texture>& sheet);
+  explicit PlayerImpl(const shared<ctn::Texture>& sheet);
 
   ~PlayerImpl() override;
 
@@ -37,7 +37,7 @@ class PlayerImpl final : public AbstractEntity, public IPlayer {
 
   void handle_input(const Input& input, const IWandererCore& core) override;
 
-  void draw(const centurion::video::Renderer& renderer,
+  void draw(ctn::Renderer& renderer,
             const Viewport& viewport) const noexcept override;
 };
 

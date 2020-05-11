@@ -35,7 +35,7 @@ class PlayerMovingState final : public IPlayerState {
 
   void HandleInput(const Input& input, const IWandererCore& core) override;
 
-  void draw(const centurion::video::Renderer& renderer,
+  void draw(ctn::Renderer& renderer,
             const Viewport& viewport) const noexcept override;
 
   void tick(const IWandererCore& core, float delta) override;

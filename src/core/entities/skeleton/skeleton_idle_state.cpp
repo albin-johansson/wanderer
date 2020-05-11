@@ -8,8 +8,6 @@
 #include "wanderer_core.h"
 
 using namespace centurion;
-using namespace video;
-using namespace system;
 
 namespace albinjohansson::wanderer {
 
@@ -31,8 +29,7 @@ void SkeletonIdleState::tick(const IWandererCore& core, float /*delta*/)
   }
 }
 
-void SkeletonIdleState::draw(const Renderer& renderer,
-                             const Viewport& viewport) const
+void SkeletonIdleState::draw(Renderer& renderer, const Viewport& viewport) const
 {
   idleDelegate.draw(renderer, viewport);
 }

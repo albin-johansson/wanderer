@@ -6,6 +6,7 @@
 #include "menu_id.h"
 #include "menu_state_machine.h"
 #include "wanderer_core.h"
+#include "wanderer_stdinc.h"
 
 namespace albinjohansson::wanderer {
 
@@ -53,8 +54,7 @@ class IAction {
 
 class GotoMenuAction : public IAction {
  public:
-  GotoMenuAction(std::weak_ptr<IMenuStateMachine> menuStateMachine,
-                 MenuID menu) noexcept
+  GotoMenuAction(weak<IMenuStateMachine> menuStateMachine, MenuID menu) noexcept
       : m_menuStateMachine{menuStateMachine}, m_menu{menu}
   {}
 
@@ -69,7 +69,7 @@ class GotoMenuAction : public IAction {
   }
 
  private:
-  std::weak_ptr<IMenuStateMachine> m_menuStateMachine;
+  weak<IMenuStateMachine> m_menuStateMachine;
   MenuID m_menu;
 };
 

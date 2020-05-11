@@ -1,6 +1,8 @@
 #pragma once
 #include <renderer.h>
 
+#include "wanderer_stdinc.h"
+
 namespace albinjohansson::wanderer {
 
 class IWandererCore;
@@ -22,8 +24,7 @@ class IGameLoop {
    * @param renderer a reference to the renderer that will be used.
    * @since 0.1.0
    */
-  virtual void update(IWandererCore& core,
-                      centurion::video::Renderer& renderer) = 0;
+  virtual void update(IWandererCore& core, ctn::Renderer& renderer) = 0;
 };
 
 }  // namespace albinjohansson::wanderer

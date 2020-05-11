@@ -1,6 +1,8 @@
 #pragma once
 #include <renderer.h>
 
+#include "wanderer_stdinc.h"
+
 namespace albinjohansson::wanderer {
 
 class Viewport;
@@ -21,7 +23,7 @@ class IDrawable {
    * @param viewport a reference to the viewport that will be used.
    * @since 0.1.0
    */
-  virtual void draw(const centurion::video::Renderer& renderer,
+  virtual void draw(ctn::Renderer& renderer,
                     const Viewport& viewport) const = 0;
 };
 

@@ -1,10 +1,11 @@
 #pragma once
-#include <rectangle.h>
+#include <rect.h>
 
 #include <utility>
 #include <vector>
 
 #include "vector_2.h"
+#include "wanderer_stdinc.h"
 
 namespace albinjohansson::wanderer {
 
@@ -14,13 +15,6 @@ namespace albinjohansson::wanderer {
  * @since 0.1.0
  */
 class Hitbox final {
- private:
-  centurion::math::FRect bounds;
-  std::vector<std::pair<centurion::math::FRect, Vector2>> rectangles;
-  bool enabled = false;
-
-  void calc_bounds();
-
  public:
   Hitbox();
 
@@ -32,7 +26,7 @@ class Hitbox final {
    * @param rect a rectangle that will serve as a part of the hitbox.
    * @since 0.1.0
    */
-  void add_rectangle(const centurion::math::FRect& rect, const Vector2& offset);
+  void add_rectangle(const ctn::FRect& rect, const Vector2& offset);
 
   /**
    * Sets the x-coordinate of the hitbox.
@@ -76,8 +70,7 @@ class Hitbox final {
    */
   [[nodiscard]] bool intersects(const Hitbox& other) const noexcept;
 
-  [[nodiscard]] bool intersects(const centurion::math::FRect& other) const
-      noexcept;
+  [[nodiscard]] bool intersects(const ctn::FRect& other) const noexcept;
 
   [[nodiscard]] bool will_intersect(const Hitbox& other,
                                     const Vector2& nextPos) const noexcept;
@@ -96,7 +89,14 @@ class Hitbox final {
    * @return the rectangle that represents the bounds of the hitbox.
    * @since 0.1.0
    */
-  [[nodiscard]] const centurion::math::FRect& get_bounds() const noexcept;
+  [[nodiscard]] const ctn::FRect& get_bounds() const noexcept;
+
+ private:
+  ctn::FRect m_bounds;
+  std::vector<std::pair<ctn::FRect, Vector2>> m_rectangles;
+  bool m_enabled = false;
+
+  void calc_bounds();
 };
 
 }  // namespace albinjohansson::wanderer

@@ -3,7 +3,6 @@
 #include "entity.h"
 
 using namespace centurion;
-using namespace centurion::video;
 
 namespace albinjohansson::wanderer {
 
@@ -15,8 +14,7 @@ PlayerDyingState::~PlayerDyingState() = default;
 void PlayerDyingState::HandleInput(const Input&, const IWandererCore&)
 {}
 
-void PlayerDyingState::draw(const Renderer& renderer,
-                            const Viewport& viewport) const
+void PlayerDyingState::draw(Renderer& renderer, const Viewport& viewport) const
 {
   dyingDelegate.draw(renderer, viewport);
 }

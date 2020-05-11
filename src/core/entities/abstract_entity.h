@@ -27,7 +27,7 @@ class AbstractEntity : public virtual IEntity {
       RenderDepth::range / 2;  // TODO maybe move to IEntity
 
   unique<IMovableObject> movable = nullptr;
-  shared<centurion::video::Texture> sheet = nullptr;
+  shared<ctn::Texture> sheet = nullptr;
   Animation animation;
   int health = 100;  // FIXME hard-coded
 
@@ -37,7 +37,7 @@ class AbstractEntity : public virtual IEntity {
    * @throws NullPointerException if the supplied pointer is null.
    * @since 0.1.0
    */
-  explicit AbstractEntity(const shared<centurion::video::Texture>& sheet);
+  explicit AbstractEntity(const shared<ctn::Texture>& sheet);
 
  public:
   ~AbstractEntity() override;
@@ -62,8 +62,7 @@ class AbstractEntity : public virtual IEntity {
 
   void interpolate(float alpha) noexcept override;
 
-  void add_hitbox(const centurion::math::FRect& rectangle,
-                  const Vector2& offset) override;
+  void add_hitbox(const ctn::FRect& rectangle, const Vector2& offset) override;
 
   void add_x(float dx) noexcept override;
 
@@ -85,8 +84,8 @@ class AbstractEntity : public virtual IEntity {
 
   [[nodiscard]] bool is_animation_done() const noexcept override;
 
-  [[nodiscard]] centurion::video::Image& get_sprite_sheet() const
-      noexcept override;  // TODO make const
+  [[nodiscard]] ctn::Texture& get_sprite_sheet()
+      const noexcept override;  // TODO make const
 
   [[nodiscard]] int get_health() const noexcept override;
 
@@ -103,8 +102,8 @@ class AbstractEntity : public virtual IEntity {
 
   [[nodiscard]] const Vector2& get_position() const noexcept override;
 
-  [[nodiscard]] const Vector2& get_interpolated_position() const
-      noexcept override;
+  [[nodiscard]] const Vector2& get_interpolated_position()
+      const noexcept override;
 
   [[nodiscard]] Vector2 get_next_position(float delta) const noexcept override;
 

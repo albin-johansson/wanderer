@@ -57,7 +57,7 @@ class MovableDelegate final : public IMovableObject {
 
   ~MovableDelegate() override;
 
-  void draw(const centurion::video::Renderer& renderer,
+  void draw(ctn::Renderer& renderer,
             const Viewport& viewport) const noexcept override;
 
   void tick(IWandererCore& core, float delta) override;
@@ -84,8 +84,7 @@ class MovableDelegate final : public IMovableObject {
 
   void set_blocked(bool blocked) noexcept override;
 
-  void add_hitbox(const centurion::math::FRect& rectangle,
-                  const Vector2& offset) override;
+  void add_hitbox(const ctn::FRect& rectangle, const Vector2& offset) override;
 
   [[nodiscard]] int get_depth() const noexcept override;
 
@@ -114,8 +113,8 @@ class MovableDelegate final : public IMovableObject {
 
   [[nodiscard]] const Vector2& get_position() const noexcept override;
 
-  [[nodiscard]] const Vector2& get_interpolated_position() const
-      noexcept override;
+  [[nodiscard]] const Vector2& get_interpolated_position()
+      const noexcept override;
 
   [[nodiscard]] uint64 get_unique_id() const noexcept override;
 

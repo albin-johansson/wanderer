@@ -1,5 +1,5 @@
 #pragma once
-#include <rectangle.h>
+#include <rect.h>
 #include <renderer.h>
 
 #include <memory>
@@ -42,7 +42,7 @@ class TileMapImpl final : public ITileMap {
   int nCols = 0;
   Vector2 playerSpawnPos;
 
-  void render_tiles_at(int row, int col, centurion::video::Renderer& renderer);
+  void render_tiles_at(int row, int col, ctn::Renderer& renderer);
 
   /**
    * Interpolates all movable game objects.
@@ -60,7 +60,7 @@ class TileMapImpl final : public ITileMap {
    * @since 0.1.0
    */
   [[nodiscard]] TileMapBounds CalculateMapBounds(
-      const centurion::math::FRect& bounds) const noexcept;
+      const ctn::FRect& bounds) const noexcept;
 
   /**
    * @param tileSet the associated tile set.
@@ -75,7 +75,7 @@ class TileMapImpl final : public ITileMap {
             const Viewport& viewport,
             float delta) override;
 
-  void draw(centurion::video::Renderer& renderer,
+  void draw(ctn::Renderer& renderer,
             const Viewport& viewport,
             float alpha) noexcept override;
 

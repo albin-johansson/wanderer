@@ -1,14 +1,10 @@
 #include "hud.h"
 
-#include <colors.h>
-#include <renderer.h>
-
 #include "game_constants.h"
 #include "player.h"
 #include "wanderer_core.h"
 
 using namespace centurion;
-using namespace centurion::video;
 
 namespace albinjohansson::wanderer {
 

@@ -1,6 +1,6 @@
 #include "movable_delegate.h"
 
-#include <rectangle.h>
+#include <rect.h>
 
 #include <stdexcept>
 
@@ -8,8 +8,8 @@
 #include "game_object_id.h"
 
 using namespace centurion;
-using namespace centurion::video;
-using namespace centurion::math;
+
+;
 
 namespace albinjohansson::wanderer {
 
@@ -24,7 +24,7 @@ MovableDelegate::MovableDelegate(int depth, float width, float height)
 
 MovableDelegate::~MovableDelegate() = default;
 
-void MovableDelegate::draw(const Renderer&, const Viewport&) const noexcept
+void MovableDelegate::draw(Renderer&, const Viewport&) const noexcept
 {
   /* do nothing */
 }

@@ -1,12 +1,12 @@
 #include "entity_manager.h"
 
-#include <rectangle.h>
+#include <rect.h>
 
 #include "entity.h"
 #include "hitbox.h"
 
 using namespace centurion;
-using namespace centurion::math;
+;
 
 namespace albinjohansson::wanderer {
 

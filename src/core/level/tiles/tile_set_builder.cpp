@@ -4,7 +4,6 @@
 #include "tile_builder.h"
 
 using namespace centurion;
-using namespace centurion::video;
 
 namespace albinjohansson::wanderer {
 

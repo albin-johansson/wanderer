@@ -26,8 +26,7 @@ class EntityDyingDelegate final : public IEntityState {
 
   ~EntityDyingDelegate() override;
 
-  void draw(const centurion::video::Renderer& renderer,
-            const Viewport& viewport) const override;
+  void draw(ctn::Renderer& renderer, const Viewport& viewport) const override;
 
   void enter(const IWandererCore& core) override;
 

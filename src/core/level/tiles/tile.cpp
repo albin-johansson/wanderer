@@ -4,8 +4,6 @@
 #include "tile_set.h"
 
 using namespace centurion;
-using namespace centurion::video;
-using namespace centurion::math;
 
 namespace albinjohansson::wanderer {
 
@@ -21,7 +19,7 @@ void Tile::tick()
 }
 
 void Tile::draw(const Vector2& pos,
-                const Renderer& renderer,
+                Renderer& renderer,
                 const TileSet& tileSet) const
 {
   if (get_id() != EMPTY) {

@@ -21,8 +21,7 @@ class TileSetBuilder final {
   ~TileSetBuilder() = default;
 
   [[nodiscard]] static unique<TileSet> create(
-      const pugi::xml_node& mapRoot,
-      centurion::video::TextureLoader& textureLoader);
+      const pugi::xml_node& mapRoot, ctn::TextureLoader& textureLoader);
 };
 
 }  // namespace albinjohansson::wanderer

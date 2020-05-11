@@ -9,42 +9,48 @@
 
 #include "input.h"
 #include "menu.h"
-#include "menu_parser.h"
 #include "menu_state_machine_impl.h"
+#include "new_menu.h"
 #include "player_impl.h"
 #include "tile_map.h"
 #include "tiled_map_parser.h"
 
 using namespace centurion;
-using namespace centurion::video;
 
 namespace albinjohansson::wanderer {
 
-WandererCoreImpl::WandererCoreImpl(ImageGenerator& textureLoader)
+WandererCoreImpl::WandererCoreImpl(TextureLoader& textureLoader)
 {
-  menuStateMachine = std::make_shared<MenuStateMachineImpl>(this);
+  m_menuStateMachine = std::make_shared<MenuStateMachineImpl>();
+
+  const auto mkMenu = [&](const char* file) {
+    return std::make_unique<NewMenu>(m_menuStateMachine, file);
+  };
 
   // TODO load menus
-  auto homeMenu = parse_menu("resources/menu/home_menu.json");
+  m_menuStateMachine->add_menu(MenuID::Home,
+                               mkMenu("resources/menu/home_menu.json"));
+  m_menuStateMachine->add_menu(MenuID::InGame,
+                               mkMenu("resources/menu/in_game_menu.json"));
 
-  soundEngine = std::make_unique<SoundEngine>("resources/audio/sfx.txt");
+  m_soundEngine = std::make_unique<SoundEngine>("resources/audio/sfx.txt");
 
-  player = std::make_shared<PlayerImpl>(
+  m_player = std::make_shared<PlayerImpl>(
       textureLoader.shared_img("resources/img/player2.png"));
 
-  world =
+  m_world =
       TiledMapParser::load(textureLoader, "resources/map/world/world_demo.tmx");
-  world->set_player(player);
+  m_world->set_player(m_player);
 
-  activeMap = world;
+  m_activeMap = m_world;
 
-  const auto [playerX, playerY] = activeMap->get_player_spawn_position();
-  player->set_x(playerX);
-  player->set_y(playerY);
+  const auto [playerX, playerY] = m_activeMap->get_player_spawn_position();
+  m_player->set_x(playerX);
+  m_player->set_y(playerY);
 
   init_viewport();
 
-  activeMap->tick(*this, viewport, 0);  // needed for first render iteration
+  m_activeMap->tick(*this, m_viewport, 0);  // needed for first render iteration
 }
 
 WandererCoreImpl::~WandererCoreImpl() = default;
@@ -52,90 +58,95 @@ WandererCoreImpl::~WandererCoreImpl() = default;
 void WandererCoreImpl::init_viewport()
 {
   // TODO listener for viewport dimensions
-  viewport.set_level_width(static_cast<float>(activeMap->get_width()));
-  viewport.set_level_height(static_cast<float>(activeMap->get_height()));
-  viewport.set_width(GameConstants::logical_width);
-  viewport.set_height(GameConstants::logical_height);
+  m_viewport.set_level_width(static_cast<float>(m_activeMap->get_width()));
+  m_viewport.set_level_height(static_cast<float>(m_activeMap->get_height()));
+  m_viewport.set_width(GameConstants::logical_width);
+  m_viewport.set_height(GameConstants::logical_height);
 
-  viewport.center(player->get_x(),
-                  player->get_y(),
-                  Area{player->get_width(), player->get_height()});
+  m_viewport.center(m_player->get_x(),
+                    m_player->get_y(),
+                    Area{m_player->get_width(), m_player->get_height()});
 }
+
+//void WandererCoreImpl::init_menus()
+//{
+//  auto sharedThis = shared_from_this();
+//}
 
 void WandererCoreImpl::handle_input(const Input& input)
 {
-  menuStateMachine->handle_input(input);
-  if (!menuStateMachine->get_menu().is_blocking()) {
-    player->handle_input(input, *this);
+  m_menuStateMachine->handle_input(input);
+  if (!m_menuStateMachine->get_menu().is_blocking()) {
+    m_player->handle_input(input, *this);
   }
 }
 
 void WandererCoreImpl::update(float delta)
 {
-  if (!menuStateMachine->get_menu().is_blocking()) {
-    activeMap->tick(*this, viewport, delta);
+  if (!m_menuStateMachine->get_menu().is_blocking()) {
+    m_activeMap->tick(*this, m_viewport, delta);
 
-    const auto [ix, iy] = player->get_interpolated_position();
-    viewport.track(
-        ix, iy, Area{player->get_width(), player->get_height()}, delta);
+    const auto [ix, iy] = m_player->get_interpolated_position();
+    m_viewport.track(
+        ix, iy, Area{m_player->get_width(), m_player->get_height()}, delta);
   }
 }
 
 void WandererCoreImpl::render(Renderer& renderer, float alpha)
 {
-  renderer.set_translation_viewport(viewport.get_internal());
-  activeMap->draw(renderer, viewport, alpha);
-  hud.draw(renderer, *this);
-  menuStateMachine->draw(renderer, viewport);
+  renderer.set_translation_viewport(m_viewport.get_internal());
+  m_activeMap->draw(renderer, m_viewport, alpha);
+  m_hud.draw(renderer, *this);
+  m_menuStateMachine->draw(renderer, m_viewport);
 }
 
 void WandererCoreImpl::set_viewport_width(float width)
 {
-  viewport.set_width(width);
+  m_viewport.set_width(width);
 }
 
 void WandererCoreImpl::set_viewport_height(float height)
 {
-  viewport.set_height(height);
+  m_viewport.set_height(height);
 }
 
 void WandererCoreImpl::quit() noexcept
 {
-  shouldQuit = true;
+  m_shouldQuit = true;
 }
 
 void WandererCoreImpl::play_sound(const std::string& id) const
 {
-  soundEngine->get_sound(id).play();
+  m_soundEngine->get_sound(id).play();
 }
 
 void WandererCoreImpl::set_map(shared<ITileMap> map)
 {
   if (map) {
-    activeMap = map;
+    m_activeMap = map;
 
     const auto [px, py] = map->get_player_spawn_position();
-    player->set_x(px);
-    player->set_y(py);
+    m_player->set_x(px);
+    m_player->set_y(py);
 
-    viewport.set_level_width(static_cast<float>(map->get_width()));
-    viewport.set_level_height(static_cast<float>(map->get_height()));
+    m_viewport.set_level_width(static_cast<float>(map->get_width()));
+    m_viewport.set_level_height(static_cast<float>(map->get_height()));
   }
 }
 
 bool WandererCoreImpl::should_quit() const noexcept
 {
-  return shouldQuit;
+  return m_shouldQuit;
 }
 
 const IPlayer& WandererCoreImpl::get_player() const
 {
-  return *player;
+  return *m_player;
 }
 
 const ITileMap& WandererCoreImpl::get_active_map() const
 {
-  return *activeMap;
+  return *m_activeMap;
 }
 
 }  // namespace albinjohansson::wanderer

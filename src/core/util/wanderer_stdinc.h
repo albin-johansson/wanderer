@@ -1,4 +1,6 @@
 #pragma once
+#include <centurion.h>
+
 #include <cstdint>
 #include <memory>
 #include <optional>
@@ -26,5 +28,7 @@ using uint8 = std::uint_fast8_t;
 using uint16 = std::uint_fast16_t;
 using uint32 = std::uint_fast32_t;
 using uint64 = std::uint_fast64_t;
+
+namespace ctn = centurion;
 
 }  // namespace albinjohansson::wanderer

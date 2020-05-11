@@ -17,11 +17,10 @@ class TileBuilder {
 
   ~TileBuilder() = default;
 
-  [[nodiscard]] static Tile create(
-      const std::shared_ptr<centurion::video::Texture>& image,
-      const tiled::TiledTileSet& tiledTileSet,
-      TileID id,
-      int index);
+  [[nodiscard]] static Tile create(const std::shared_ptr<ctn::Texture>& image,
+                                   const tiled::TiledTileSet& tiledTileSet,
+                                   TileID id,
+                                   int index);
 };
 
 }  // namespace albinjohansson::wanderer

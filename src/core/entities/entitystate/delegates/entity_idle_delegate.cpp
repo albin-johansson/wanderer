@@ -7,7 +7,6 @@
 #include "require.h"
 
 using namespace centurion;
-using namespace centurion::video;
 
 namespace albinjohansson::wanderer {
 
@@ -18,7 +17,7 @@ EntityIdleDelegate::EntityIdleDelegate(IEntityStateMachine* parent)
 
 EntityIdleDelegate::~EntityIdleDelegate() = default;
 
-void EntityIdleDelegate::draw(const Renderer& renderer, const Viewport&) const
+void EntityIdleDelegate::draw(Renderer& renderer, const Viewport&) const
 {
   const auto& entity = parent->get_entity();
 

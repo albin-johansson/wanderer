@@ -8,8 +8,8 @@
 #include "wanderer_core.h"
 
 using namespace centurion;
-using namespace centurion::video;
-using namespace centurion::math;
+
+;
 
 namespace albinjohansson::wanderer {
 
@@ -32,7 +32,7 @@ void TileObject::tick(IWandererCore&, float /*delta*/)
   tileSet->tick(id);
 }
 
-void TileObject::draw(const Renderer& renderer, const Viewport&) const
+void TileObject::draw(Renderer& renderer, const Viewport&) const
 {
   tileSet->get_tile(id).draw(position, renderer, *tileSet);
 }

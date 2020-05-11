@@ -15,8 +15,7 @@ class SkeletonDyingState final : public IEntityState {
 
   ~SkeletonDyingState() override;
 
-  void draw(const centurion::video::Renderer& renderer,
-            const Viewport& viewport) const override;
+  void draw(ctn::Renderer& renderer, const Viewport& viewport) const override;
 
   void tick(const IWandererCore& core, float delta) override;
 

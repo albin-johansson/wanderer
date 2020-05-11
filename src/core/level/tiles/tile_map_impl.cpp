@@ -1,6 +1,6 @@
 #include "tile_map_impl.h"
 
-#include <rectangle.h>
+#include <rect.h>
 #include <renderer.h>
 
 #include <algorithm>
@@ -15,8 +15,7 @@
 #include "wanderer_core.h"
 
 using namespace centurion;
-using namespace centurion::math;
-using namespace centurion::video;
+;
 
 namespace albinjohansson::wanderer {
 
@@ -34,15 +33,15 @@ void TileMapImpl::interpolate(float alpha)
   }
 }
 
-TileMapBounds TileMapImpl::CalculateMapBounds(const FRect& bounds) const
-    noexcept
+TileMapBounds TileMapImpl::CalculateMapBounds(
+    const FRect& bounds) const noexcept
 {
-  auto minCol = static_cast<int>(bounds.get_x()) / GameConstants::tile_size_int;
-  auto minRow = static_cast<int>(bounds.get_y()) / GameConstants::tile_size_int;
+  auto minCol = static_cast<int>(bounds.x()) / GameConstants::tile_size_int;
+  auto minRow = static_cast<int>(bounds.y()) / GameConstants::tile_size_int;
   auto maxCol =
-      static_cast<int>((bounds.get_max_x()) / GameConstants::tile_size_int) + 1;
+      static_cast<int>((bounds.max_x()) / GameConstants::tile_size_int) + 1;
   auto maxRow =
-      static_cast<int>((bounds.get_max_y()) / GameConstants::tile_size_int) + 1;
+      static_cast<int>((bounds.max_y()) / GameConstants::tile_size_int) + 1;
 
   if (minCol < 0) {
     minCol = 0;

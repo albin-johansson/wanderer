@@ -18,42 +18,26 @@ namespace albinjohansson::wanderer {
  *
  * @since 0.1.0
  */
-class WandererCoreImpl final : public IWandererCore {
- private:
-  shared<ITileMap> activeMap = nullptr;  // could maybe be a raw pointer
-
-  shared<IMenuStateMachine> menuStateMachine = nullptr;
-  HUD hud;
-
-  shared<IPlayer> player = nullptr;
-  shared<ITileMap> world = nullptr;
-  unique<SoundEngine> soundEngine = nullptr;
-
-  Viewport viewport;
-  bool shouldQuit = false;
-
-  void init_viewport();
-
-  explicit WandererCoreImpl(centurion::video::TextureLoader& textureLoader);
-
+class WandererCoreImpl final
+    : public IWandererCore,
+      public std::enable_shared_from_this<WandererCoreImpl> {
  public:
   ~WandererCoreImpl() override;
 
   /**
-   * Creates and returns a unique pointer to an IWandererCore instance.
+   * Creates and returns a shared pointer to an IWandererCore instance.
    *
    * @param textureLoader a reference to an image generator.
-   * @return a unique pointer to an IWandererCore instance.
+   * @return a shared pointer to an IWandererCore instance.
    * @since 0.1.0
    */
-  friend unique<IWandererCore> create_core(
-      centurion::video::TextureLoader& textureLoader);
+  friend shared<IWandererCore> create_core(ctn::TextureLoader& textureLoader);
 
   void handle_input(const Input& input) override;
 
   void update(float delta) override;
 
-  void render(centurion::video::Renderer& renderer, float alpha) override;
+  void render(ctn::Renderer& renderer, float alpha) override;
 
   void set_map(shared<ITileMap> map) override;
 
@@ -70,6 +54,25 @@ class WandererCoreImpl final : public IWandererCore {
   [[nodiscard]] const IPlayer& get_player() const override;
 
   [[nodiscard]] const ITileMap& get_active_map() const override;
+
+ private:
+  shared<ITileMap> m_activeMap = nullptr;  // could maybe be a raw
+                                           // pointer
+  shared<IMenuStateMachine> m_menuStateMachine = nullptr;
+  HUD m_hud;
+
+  shared<IPlayer> m_player = nullptr;
+  shared<ITileMap> m_world = nullptr;
+  unique<SoundEngine> m_soundEngine = nullptr;
+
+  Viewport m_viewport;
+  bool m_shouldQuit = false;
+
+  explicit WandererCoreImpl(ctn::TextureLoader& textureLoader);
+
+  void init_viewport();
+
+//  void init_menus();
 };
 
 }  // namespace albinjohansson::wanderer

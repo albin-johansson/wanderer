@@ -3,33 +3,31 @@
 #include <stdexcept>
 
 using namespace centurion;
-using namespace centurion::math;
 
 namespace albinjohansson::wanderer {
 
-Viewport::Viewport() : Viewport({10, 10}, {10, 10})
+Viewport::Viewport() : Viewport{{10, 10}, {10, 10}}
 {}
 
-Viewport::Viewport(Area viewport, Area level) : level(level)
+Viewport::Viewport(Area viewport, Area level) : m_level(level)
 {
   if (viewport.width < 1 || viewport.height < 1 || level.width < 1 ||
       level.height < 1) {
     throw std::invalid_argument("Invalid dimensions!");
   }
-  bounds.set_width(viewport.width);
-  bounds.set_height(viewport.height);
+  m_bounds.set_width(viewport.width);
+  m_bounds.set_height(viewport.height);
 }
 
 void Viewport::track(float tx, float ty, Area size, float delta) noexcept
 {
   const float panSpeed = 15.0f * delta;
 
-  const float targetX =
-      (tx + (size.width / 2.0f)) - (bounds.get_width() / 2.0f);
+  const float targetX = (tx + (size.width / 2.0f)) - (m_bounds.width() / 2.0f);
   const float targetY =
-      (ty + (size.height / 2.0f)) - (bounds.get_height() / 2.0f);
-  float x = bounds.get_x() + (targetX - bounds.get_x()) * panSpeed;
-  float y = bounds.get_y() + (targetY - bounds.get_y()) * panSpeed;
+      (ty + (size.height / 2.0f)) - (m_bounds.height() / 2.0f);
+  float x = m_bounds.x() + (targetX - m_bounds.x()) * panSpeed;
+  float y = m_bounds.y() + (targetY - m_bounds.y()) * panSpeed;
 
   if (x < 0) {
     x = 0;
@@ -39,20 +37,20 @@ void Viewport::track(float tx, float ty, Area size, float delta) noexcept
     y = 0;
   }
 
-  const float widthDiff = level.width - bounds.get_width();
+  const float widthDiff = m_level.width - m_bounds.width();
   x = (x > widthDiff) ? widthDiff : x;
 
-  const float heightDiff = level.height - bounds.get_height();
+  const float heightDiff = m_level.height - m_bounds.height();
   y = (y > heightDiff) ? heightDiff : y;
 
-  bounds.set_x(x);
-  bounds.set_y(y);
+  m_bounds.set_x(x);
+  m_bounds.set_y(y);
 }
 
 void Viewport::center(float tx, float ty, Area size) noexcept
 {
-  float x = (tx + (size.width / 2.0f)) - (bounds.get_width() / 2.0f);
-  float y = (ty + (size.height / 2.0f)) - (bounds.get_height() / 2.0f);
+  float x = (tx + (size.width / 2.0f)) - (m_bounds.width() / 2.0f);
+  float y = (ty + (size.height / 2.0f)) - (m_bounds.height() / 2.0f);
 
   if (x < 0) {
     x = 0;
@@ -62,34 +60,34 @@ void Viewport::center(float tx, float ty, Area size) noexcept
     y = 0;
   }
 
-  const float widthDiff = level.width - bounds.get_width();
+  const float widthDiff = m_level.width - m_bounds.width();
   x = (x > widthDiff) ? widthDiff : x;
 
-  const float heightDiff = level.height - bounds.get_height();
+  const float heightDiff = m_level.height - m_bounds.height();
   y = (y > heightDiff) ? heightDiff : y;
 
-  bounds.set_x(x);
-  bounds.set_y(y);
+  m_bounds.set_x(x);
+  m_bounds.set_y(y);
 }
 
 void Viewport::set_x(float x) noexcept
 {
-  bounds.set_x(x);
+  m_bounds.set_x(x);
 }
 
 void Viewport::set_y(float y) noexcept
 {
-  bounds.set_y(y);
+  m_bounds.set_y(y);
 }
 
 void Viewport::set_width(float width)
 {
-  bounds.set_width(width);
+  m_bounds.set_width(width);
 }
 
 void Viewport::set_height(float height)
 {
-  bounds.set_height(height);
+  m_bounds.set_height(height);
 }
 
 void Viewport::set_level_width(float levelWidth)
@@ -97,7 +95,7 @@ void Viewport::set_level_width(float levelWidth)
   if (levelWidth <= 0) {
     throw std::invalid_argument("Invalid level width!");
   } else {
-    level.width = levelWidth;
+    m_level.width = levelWidth;
   }
 }
 
@@ -106,23 +104,23 @@ void Viewport::set_level_height(float levelHeight)
   if (levelHeight <= 0) {
     throw std::invalid_argument("Invalid level height!");
   } else {
-    level.height = levelHeight;
+    m_level.height = levelHeight;
   }
 }
 
 const FRect& Viewport::get_bounds() const noexcept
 {
-  return bounds;
+  return m_bounds;
 }
 
 float Viewport::get_translated_x(float x) const noexcept
 {
-  return x - bounds.get_x();
+  return x - m_bounds.x();
 }
 
 float Viewport::get_translated_y(float y) const noexcept
 {
-  return y - bounds.get_y();
+  return y - m_bounds.y();
 }
 
 }  // namespace albinjohansson::wanderer

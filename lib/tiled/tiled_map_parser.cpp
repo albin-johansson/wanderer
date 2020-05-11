@@ -12,13 +12,12 @@
 #include "tiled_map.h"
 
 using namespace centurion;
-using namespace centurion::video;
 
 namespace albinjohansson::wanderer {
 
 // TODO entity parsing, item parsing...
 
-std::unique_ptr<ITileMap> TiledMapParser::load(TextureLoader& imageGenerator,
+std::unique_ptr<ITileMap> TiledMapParser::load(TextureLoader& textureLoader,
                                                const std::string& file)
 {
   const auto mapDocument = PugiUtils::LoadDocument(file);
@@ -27,7 +26,7 @@ std::unique_ptr<ITileMap> TiledMapParser::load(TextureLoader& imageGenerator,
   tiled::TiledMap tiledMap(mapNode);
 
   std::shared_ptr<TileSet> tileSet =
-      TileSetBuilder::create(mapNode, imageGenerator);
+      TileSetBuilder::create(mapNode, textureLoader);
 
   auto map = TileMapBuilder::create(tileSet, tiledMap);
 

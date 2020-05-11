@@ -9,7 +9,6 @@
 #include "wanderer_core.h"
 
 using namespace centurion;
-using namespace centurion::video;
 
 namespace albinjohansson::wanderer {
 
@@ -38,8 +37,8 @@ void PlayerImpl::tick(IWandererCore& core, float delta)
   playerStateMachine->tick(core, delta);
 }
 
-void PlayerImpl::draw(const Renderer& renderer, const Viewport& viewport) const
-    noexcept
+void PlayerImpl::draw(Renderer& renderer,
+                      const Viewport& viewport) const noexcept
 {
   playerStateMachine->draw(renderer, viewport);
 }

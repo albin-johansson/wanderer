@@ -18,14 +18,13 @@ class Skeleton final : public AbstractEntity {
  public:
   static constexpr float HOMING_RANGE = GameConstants::tile_size * 4.0f;
 
-  explicit Skeleton(const shared<centurion::video::Texture>& sheet);
+  explicit Skeleton(const shared<ctn::Texture>& sheet);
 
   ~Skeleton() override;
 
   void tick(IWandererCore& core, float delta) override;
 
-  void draw(const centurion::video::Renderer& renderer,
-            const Viewport& viewport) const override;
+  void draw(ctn::Renderer& renderer, const Viewport& viewport) const override;
 };
 
 }  // namespace albinjohansson::wanderer

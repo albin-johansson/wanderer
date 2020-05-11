@@ -9,7 +9,6 @@
 #include "wanderer_core.h"
 
 using namespace centurion;
-using namespace centurion::video;
 
 namespace albinjohansson::wanderer {
 
@@ -20,7 +19,7 @@ EntityMoveDelegate::EntityMoveDelegate(IEntityStateMachine* parent)
 
 EntityMoveDelegate::~EntityMoveDelegate() = default;
 
-void EntityMoveDelegate::draw(const Renderer& renderer, const Viewport&) const
+void EntityMoveDelegate::draw(Renderer& renderer, const Viewport&) const
 {
   const auto& entity = parent->get_entity();
   auto srcX =

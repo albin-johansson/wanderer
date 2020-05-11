@@ -131,8 +131,8 @@ class IMovableObject : public virtual IGameObject {
    * @return the previous position of the movable object.
    * @since 0.1.0
    */
-  [[nodiscard]] virtual const Vector2& get_previous_position() const
-      noexcept = 0;
+  [[nodiscard]] virtual const Vector2& get_previous_position()
+      const noexcept = 0;
 
   /**
    * Returns the current velocity of the object.
@@ -156,8 +156,8 @@ class IMovableObject : public virtual IGameObject {
    * @return the interpolated position of the object.
    * @since 0.1.0
    */
-  [[nodiscard]] virtual const Vector2& get_interpolated_position() const
-      noexcept = 0;
+  [[nodiscard]] virtual const Vector2& get_interpolated_position()
+      const noexcept = 0;
 
   /**
    * Returns the calculated next position of the movable object.
@@ -166,8 +166,8 @@ class IMovableObject : public virtual IGameObject {
    * @return the calculated next position of the movable object.
    * @since 0.1.0
    */
-  [[nodiscard]] virtual Vector2 get_next_position(float delta) const
-      noexcept = 0;
+  [[nodiscard]] virtual Vector2 get_next_position(
+      float delta) const noexcept = 0;
 };
 
 static_assert(std::has_virtual_destructor_v<IMovableObject>);

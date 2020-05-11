@@ -2,6 +2,7 @@
 #include <renderer.h>
 
 #include "menu_id.h"
+#include "wanderer_stdinc.h"
 
 namespace albinjohansson::wanderer {
 
@@ -15,11 +16,11 @@ class IMenuStateMachine {
 
   virtual void handle_input(const Input& input) = 0;
 
-  virtual void draw(centurion::video::Renderer& renderer,
+  virtual void draw(ctn::Renderer& renderer,
                     const Viewport& viewport) const = 0;
 
-//  virtual void set_menu(MenuID
-  
+  virtual void add_menu(MenuID id, unique<IMenu> menu) = 0;
+
   /**
    * Sets the active menu.
    *

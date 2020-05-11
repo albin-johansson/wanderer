@@ -7,8 +7,6 @@
 #include "renderer.h"
 
 using namespace centurion;
-using namespace centurion::video;
-using namespace centurion::math;
 
 namespace albinjohansson::wanderer {
 
@@ -18,14 +16,14 @@ MenuButton::MenuButton(std::string text, FRect bounds, unique<IAction> action)
 
 MenuButton::~MenuButton() = default;
 
-void MenuButton::render_text(const Renderer& renderer,
+void MenuButton::render_text(Renderer& renderer,
                              float x,
                              float y,
-                             std::unique_ptr<Image>& img,
+                             std::unique_ptr<Texture>& img,
                              const Font& font) const
 {
   if (!img) {
-    img = renderer.create_image(m_text, font);
+    img = renderer.text_blended(m_text, font);
   }
   renderer.render_f(*img, {x, y});
 }
@@ -44,10 +42,10 @@ void MenuButton::draw(Renderer& renderer,
 
     const auto& font = m_enlarged ? fonts.get_font_36() : fonts.get_font_24();
 
-    const auto width = static_cast<float>(font.get_string_width(m_text));
-    const auto height = static_cast<float>(font.get_string_height(m_text));
-    const auto x = m_bounds.get_center_x() - (width / 2.0f);
-    const auto y = m_bounds.get_center_y() - (height / 2.0f);
+    const auto width = static_cast<float>(font.string_width(m_text));
+    const auto height = static_cast<float>(font.string_height(m_text));
+    const auto x = m_bounds.center_x() - (width / 2.0f);
+    const auto y = m_bounds.center_y() - (height / 2.0f);
 
     renderer.set_color(white);
 

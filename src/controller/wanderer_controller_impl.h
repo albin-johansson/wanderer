@@ -18,18 +18,6 @@ namespace albinjohansson::wanderer {
  * @since 0.1.0
  */
 class WandererControllerImpl final : public IWandererController {
- private:
-  unique<IWandererCore> core = nullptr;
-  unique<IGameLoop> gameLoop = nullptr;
-  shared<centurion::video::Renderer> renderer = nullptr;
-  unique<centurion::video::Window> window = nullptr;
-
-  /**
-   * @throws BadStateException if the desktop dimensions cannot be deduced.
-   * @since 0.1.0
-   */
-  WandererControllerImpl();
-
  public:
   /**
    * Creates and returns a unique pointer to an IWandererController instance.
@@ -42,6 +30,18 @@ class WandererControllerImpl final : public IWandererController {
   ~WandererControllerImpl() override;
 
   void run() override;
+
+ private:
+  shared<IWandererCore> m_core = nullptr;
+  unique<IGameLoop> m_gameLoop = nullptr;
+  shared<ctn::Renderer> m_renderer = nullptr;
+  unique<ctn::Window> m_window = nullptr;
+
+  /**
+   * @throws BadStateException if the desktop dimensions cannot be deduced.
+   * @since 0.1.0
+   */
+  WandererControllerImpl();
 };
 
 }  // namespace albinjohansson::wanderer

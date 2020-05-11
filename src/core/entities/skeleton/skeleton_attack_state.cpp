@@ -5,7 +5,6 @@
 #include "wanderer_core.h"
 
 using namespace centurion;
-using namespace centurion::video;
 
 namespace albinjohansson::wanderer {
 
@@ -15,7 +14,7 @@ SkeletonAttackState::SkeletonAttackState(IEntityStateMachine* parent)
 
 SkeletonAttackState::~SkeletonAttackState() = default;
 
-void SkeletonAttackState::draw(const Renderer& renderer,
+void SkeletonAttackState::draw(Renderer& renderer,
                                const Viewport& viewport) const
 {
   attackDelegate.draw(renderer, viewport);

@@ -15,7 +15,7 @@ class TiledMapParser final {
   ~TiledMapParser() = default;
 
   [[nodiscard]] static std::unique_ptr<ITileMap> load(
-      centurion::video::TextureLoader& imageGenerator, const std::string& file);
+      centurion::TextureLoader& textureLoader, const std::string& file);
 };
 
 }  // namespace albinjohansson::wanderer

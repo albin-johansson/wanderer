@@ -71,8 +71,7 @@ class IAnimated {
    * @return a reference to the internal sprite sheet.
    * @since 0.1.0
    */
-  [[nodiscard]] virtual centurion::video::Texture& get_sprite_sheet() const
-      noexcept = 0;
+  [[nodiscard]] virtual ctn::Texture& get_sprite_sheet() const noexcept = 0;
 };
 
 }  // namespace albinjohansson::wanderer

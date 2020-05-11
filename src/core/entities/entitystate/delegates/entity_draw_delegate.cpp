@@ -1,18 +1,18 @@
 #include "entity_draw_delegate.h"
 
-#include <rectangle.h>
+#include <rect.h>
 #include <renderer.h>
 
 #include "entity.h"
 #include "viewport.h"
 
 using namespace centurion;
-using namespace centurion::video;
-using namespace centurion::math;
+
+;
 
 namespace albinjohansson::wanderer {
 
-void EntityDrawDelegate::draw(const Renderer& renderer,
+void EntityDrawDelegate::draw(Renderer& renderer,
                               const IEntity& entity,
                               int srcX,
                               int srcY) noexcept

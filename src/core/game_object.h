@@ -1,5 +1,5 @@
 #pragma once
-#include <rectangle.h>
+#include <rect.h>
 
 #include <type_traits>
 
@@ -33,7 +33,7 @@ class IGameObject : public virtual ISortableDrawable {
    */
   virtual void tick(IWandererCore& core, float delta) = 0;
 
-  virtual void add_hitbox(const centurion::math::FRect& rectangle,
+  virtual void add_hitbox(const ctn::FRect& rectangle,
                           const Vector2& offset) = 0;
 
   /**

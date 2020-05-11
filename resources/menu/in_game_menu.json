@@ -1,0 +1,7 @@
+{
+  "id": "in_game",
+  "parent": "home",
+  "title": "",
+  "isBlocking": false,
+  "buttons": []
+}

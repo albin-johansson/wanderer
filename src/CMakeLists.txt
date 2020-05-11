@@ -48,20 +48,8 @@ set(SOURCE_FILES
         core/menu/menu_state_machine.h
         core/menu/menu_state_machine_impl.cpp
         core/menu/menu_state_machine_impl.h
-        core/menu/home_menu.cpp
-        core/menu/home_menu.h
-        core/menu/in_game_menu.cpp
-        core/menu/in_game_menu.h
         core/menu/menu_button.cpp
         core/menu/menu_button.h
-        core/menu/settings_menu.cpp
-        core/menu/settings_menu.h
-        core/menu/abstract_menu.cpp
-        core/menu/abstract_menu.h
-        core/menu/controls_menu.cpp
-        core/menu/controls_menu.h
-        core/menu/inventory_menu.cpp
-        core/menu/inventory_menu.h
         core/menu/menu_drawable.h
 
         core/level/portal.cpp
@@ -162,8 +150,6 @@ set(SOURCE_FILES
         audio/sound_engine.cpp
         audio/sound_engine.h
 
-        service/menu_parser.h
-        service/menu_parser.cpp
         service/pugi_utils.cpp
         service/pugi_utils.h
 
@@ -187,11 +173,12 @@ set(SOURCE_FILES
 
         core/util/wanderer_stdinc.h
 
-        core/menu/general_menu.h
-        core/menu/general_menu.cpp
         core/action.h
         core/menu/button_action.h
-        core/menu/new_menu.cpp core/menu/new_menu.h)
+        core/menu/new_menu.cpp
+        core/menu/new_menu.h
+        service/menu_parser.h
+        service/menu_parser.cpp)
 
 add_library(${WANDERER_LIB} ${SOURCE_FILES})
 

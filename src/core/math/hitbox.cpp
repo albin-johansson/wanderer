@@ -1,7 +1,6 @@
 #include "hitbox.h"
 
 using namespace centurion;
-using namespace centurion::math;
 
 namespace albinjohansson::wanderer {
 
@@ -13,81 +12,77 @@ void Hitbox::calc_bounds()
 {
   bool first = true;
 
-  for (auto& [rect, offset] : rectangles) {
+  for (auto& [rect, offset] : m_rectangles) {
     if (first) {
-      bounds.set_x(rect.get_x());
-      bounds.set_y(rect.get_y());
-      bounds.set_width(rect.get_width());
-      bounds.set_height(rect.get_height());
-      //      bounds.Set(rect); // TODO add to CTN 3.1.0
+      m_bounds.set(rect);
       first = false;
     }
 
-    const auto rectX = rect.get_x();
-    const auto rectY = rect.get_y();
-    const auto rectMaxX = rect.get_max_x();
-    const auto rectMaxY = rect.get_max_y();
+    const auto rectX = rect.x();
+    const auto rectY = rect.y();
+    const auto rectMaxX = rect.max_x();
+    const auto rectMaxY = rect.max_y();
 
-    if (rectX < bounds.get_x()) {
-      bounds.set_x(rectX);
+    if (rectX < m_bounds.x()) {
+      m_bounds.set_x(rectX);
     }
 
-    if (rectY < bounds.get_y()) {
-      bounds.set_y(rectY);
+    if (rectY < m_bounds.y()) {
+      m_bounds.set_y(rectY);
     }
 
-    if (rectMaxX > bounds.get_max_x()) {
-      bounds.set_width(rectMaxX - bounds.get_x());
+    if (rectMaxX > m_bounds.max_x()) {
+      m_bounds.set_width(rectMaxX - m_bounds.x());
     }
 
-    if (rectMaxY > bounds.get_max_y()) {
-      bounds.set_height(rectMaxY - bounds.get_y());
+    if (rectMaxY > m_bounds.max_y()) {
+      m_bounds.set_height(rectMaxY - m_bounds.y());
     }
 
-    offset.x = rectX - bounds.get_x();
-    offset.y = rectY - bounds.get_y();
+    offset.x = rectX - m_bounds.x();
+    offset.y = rectY - m_bounds.y();
   }
 }
 
 void Hitbox::add_rectangle(const FRect& rect, const Vector2& offset)
 {
-  rectangles.emplace_back(rect, offset);
+  m_rectangles.emplace_back(rect, offset);
   calc_bounds();
 }
 
 void Hitbox::set_x(float x) noexcept
 {
-  bounds.set_x(x);
-  for (auto& [rect, offset] : rectangles) {
+  m_bounds.set_x(x);
+  for (auto& [rect, offset] : m_rectangles) {
     rect.set_x(x + offset.x);
   }
 }
 
 void Hitbox::set_y(float y) noexcept
 {
-  bounds.set_y(y);
-  for (auto& [rect, offset] : rectangles) {
+  m_bounds.set_y(y);
+  for (auto& [rect, offset] : m_rectangles) {
     rect.set_y(y + offset.y);
   }
 }
 
 void Hitbox::set_enabled(bool enabled) noexcept
 {
-  this->enabled = enabled;
+  this->m_enabled = enabled;
 }
 
 bool Hitbox::intersects(const Hitbox& other) const noexcept
 {
-  if (!enabled || &other == this) {
+  if (!m_enabled || &other == this) {
     return false;
   }
 
   if (other.is_unit()) {
-    return intersects(other.rectangles.front().first);
+    return intersects(other.m_rectangles.front().first);
   }
 
-  for (const auto& [rect, offset] : rectangles) {
-    for (const auto& [otherRect, otherOffset] : other.rectangles) {
+  for (const auto& [rect, offset] : m_rectangles) {
+    for (const auto& [otherRect, otherOffset] : other.m_rectangles) {
       if (rect.intersects(otherRect)) {
         return true;
       }
@@ -98,11 +93,11 @@ bool Hitbox::intersects(const Hitbox& other) const noexcept
 
 bool Hitbox::intersects(const FRect& other) const noexcept
 {
-  if (!enabled) {
+  if (!m_enabled) {
     return false;
   }
 
-  for (const auto& [rect, offset] : rectangles) {
+  for (const auto& [rect, offset] : m_rectangles) {
     if (rect.intersects(other)) {
       return true;
     }
@@ -110,18 +105,17 @@ bool Hitbox::intersects(const FRect& other) const noexcept
   return false;
 }
 
-bool Hitbox::will_intersect(const Hitbox& other, const Vector2& nextPos) const
-    noexcept
+bool Hitbox::will_intersect(const Hitbox& other,
+                            const Vector2& nextPos) const noexcept
 {
-  if (!enabled) {
+  if (!m_enabled) {
     return false;
   }
 
-  const auto oldX = bounds.get_x();
-  const auto oldY = bounds.get_y();
+  const auto oldX = m_bounds.x();
+  const auto oldY = m_bounds.y();
 
-  auto tmp =
-      const_cast<Hitbox*>(this);  // Not great, but will remain unaffected
+  auto tmp = const_cast<Hitbox*>(this);  // FIXME
 
   tmp->set_x(nextPos.x);
   tmp->set_y(nextPos.y);
@@ -136,17 +130,17 @@ bool Hitbox::will_intersect(const Hitbox& other, const Vector2& nextPos) const
 
 const FRect& Hitbox::get_bounds() const noexcept
 {
-  return bounds;
+  return m_bounds;
 }
 
 bool Hitbox::is_unit() const noexcept
 {
-  return rectangles.size() == 1;
+  return m_rectangles.size() == 1;
 }
 
 bool Hitbox::is_enabled() const noexcept
 {
-  return enabled;
+  return m_enabled;
 }
 
 }  // namespace albinjohansson::wanderer

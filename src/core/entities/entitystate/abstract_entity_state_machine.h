@@ -71,8 +71,7 @@ class AbstractEntityStateMachine : public virtual IEntityStateMachine {
     states.at(activeStateID)->tick(core, delta);
   }
 
-  void draw(const centurion::video::Renderer& renderer,
-            const Viewport& viewport) const final
+  void draw(ctn::Renderer& renderer, const Viewport& viewport) const final
   {
     states.at(activeStateID)->draw(renderer, viewport);
   }

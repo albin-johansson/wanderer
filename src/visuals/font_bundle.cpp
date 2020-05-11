@@ -1,6 +1,6 @@
 #include "font_bundle.h"
 
-using namespace centurion::video;
+using namespace centurion;
 
 namespace albinjohansson::wanderer {
 

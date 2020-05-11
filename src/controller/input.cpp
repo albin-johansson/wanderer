@@ -40,12 +40,12 @@ bool Input::was_released(SDL_Scancode scancode) const
 
 float Input::get_mouse_x() const noexcept
 {
-  return mouseState->get_mouse_x();
+  return static_cast<float>(mouseState->mouse_x());
 }
 
 float Input::get_mouse_y() const noexcept
 {
-  return mouseState->get_mouse_y();
+  return static_cast<float>(mouseState->mouse_y());
 }
 
 bool Input::is_left_button_pressed() const noexcept

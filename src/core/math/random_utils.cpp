@@ -4,7 +4,7 @@
 
 #include <random>
 
-using namespace centurion::system;
+using namespace centurion;
 
 namespace albinjohansson::wanderer {
 

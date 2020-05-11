@@ -7,28 +7,29 @@
 #include <json.hpp>
 
 using json = nlohmann::json;
-using namespace centurion::video;
+using namespace centurion;
 
 namespace albinjohansson::wanderer {
 
-inline MenuID menu_from_action(ActionID id)
+inline MenuID menu_from_action(const std::string& action)
 {
-  switch (id) {  // NOLINT
-    case ActionID::GotoHome:
-      return MenuID::Home;
-    case ActionID::GotoSettings:
-      return MenuID::Settings;
-    case ActionID::GotoControls:
-      return MenuID::Controls;
-    case ActionID::GotoInGame:
-      return MenuID::InGame;
-    case ActionID::GotoCredits:
-      return MenuID::Home;  // FIXME add MenuID::Credits
-    case ActionID::GotoInventory:
-      return MenuID::Inventory;
-    default:
-      throw std::logic_error{"Failed to deduce menu associated with action!"};
+  if (action == "GotoHome") {
+    return MenuID::Home;
+  } else if (action == "GotoSettings") {
+    return MenuID::Settings;
+  } else if (action == "GotoControls") {
+    return MenuID::Controls;
+  } else if (action == "GotoSettings") {
+    return MenuID::Settings;
+  } else if (action == "GotoInGame") {
+    return MenuID::InGame;
+  } else if (action == "GotoInventory") {
+    return MenuID::Inventory;
+  } else {
+    throw std::logic_error{"Failed to deduce menu associated with action!"};
   }
+
+  // FIXME add MenuID::Credits
 }
 
 NewMenu::NewMenu(weak<IMenuStateMachine> menuStateMachine, const char* jsonFile)
@@ -43,7 +44,7 @@ NewMenu::NewMenu(weak<IMenuStateMachine> menuStateMachine, const char* jsonFile)
   int i = 0;
   for (auto& [key, value] : json.at("buttons").items()) {
     const auto text = value.at("text").get<std::string>();
-    const auto actionID = to_action(value.at("action").get<std::string>());
+    const auto actionID = value.at("action").get<std::string>();
 
     const auto menuID = menu_from_action(actionID);
     auto action = std::make_unique<GotoMenuAction>(menuStateMachine, menuID);
@@ -52,7 +53,7 @@ NewMenu::NewMenu(weak<IMenuStateMachine> menuStateMachine, const char* jsonFile)
     const auto y = 200.0f + static_cast<float>(i * 150);
 
     auto button = std::make_unique<MenuButton>(
-        text, centurion::math::FRect{x, y, 200, 50}, std::move(action));
+        text, ctn::FRect{x, y, 200, 50}, std::move(action));
 
     m_buttons.push_back(std::move(button));
     ++i;
@@ -62,7 +63,18 @@ NewMenu::NewMenu(weak<IMenuStateMachine> menuStateMachine, const char* jsonFile)
 void NewMenu::draw(Renderer& renderer,
                    const Viewport& viewport,
                    const FontBundle& fonts) const noexcept
-{}
+{
+  if (m_blocking) {
+    const auto& bounds = viewport.get_bounds();
+    renderer.set_color({0, 0, 0, 0xAA});
+    renderer.fill_rect_f(
+        {-1.0f, -1.0f, bounds.width() + 1, bounds.height() + 1});
+  }
+
+  for (const auto& button : m_buttons) {
+    button->draw(renderer, viewport, fonts);
+  }
+}
 
 void NewMenu::handle_input(const Input& input) noexcept
 {
@@ -81,7 +93,7 @@ void NewMenu::handle_input(const Input& input) noexcept
   }
 }
 
-bool NewMenu::blocking() const noexcept
+bool NewMenu::is_blocking() const noexcept
 {
   return m_blocking;
 }

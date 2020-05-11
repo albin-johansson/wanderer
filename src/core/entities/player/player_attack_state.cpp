@@ -1,7 +1,6 @@
 #include "player_attack_state.h"
 
 using namespace centurion;
-using namespace centurion::video;
 
 namespace albinjohansson::wanderer {
 
@@ -14,8 +13,7 @@ PlayerAttackState::~PlayerAttackState() = default;
 void PlayerAttackState::HandleInput(const Input&, const IWandererCore&)
 {}
 
-void PlayerAttackState::draw(const Renderer& renderer,
-                             const Viewport& viewport) const
+void PlayerAttackState::draw(Renderer& renderer, const Viewport& viewport) const
 {
   attackDelegate.draw(renderer, viewport);
 }

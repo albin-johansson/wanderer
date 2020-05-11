@@ -5,10 +5,10 @@
 
 namespace albinjohansson::wanderer {
 
-inline std::unique_ptr<IWandererCore> create_core(
-    centurion::video::TextureLoader& textureLoader)
+inline std::shared_ptr<IWandererCore> create_core(
+    ctn::TextureLoader& textureLoader)
 {
-  return std::unique_ptr<IWandererCore>(new WandererCoreImpl(textureLoader));
+  return std::shared_ptr<IWandererCore>(new WandererCoreImpl(textureLoader));
 }
 
 }  // namespace albinjohansson::wanderer

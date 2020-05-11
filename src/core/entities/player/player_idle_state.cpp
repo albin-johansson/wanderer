@@ -5,7 +5,6 @@
 #include "input.h"
 
 using namespace centurion;
-using namespace centurion::video;
 
 namespace albinjohansson::wanderer {
 
@@ -29,7 +28,7 @@ void PlayerIdleState::HandleInput(const Input& input, const IWandererCore& core)
   // TODO attack...
 }
 
-void PlayerIdleState::draw(const Renderer& renderer,
+void PlayerIdleState::draw(Renderer& renderer,
                            const Viewport& viewport) const noexcept
 {
   idleDelegate.draw(renderer, viewport);

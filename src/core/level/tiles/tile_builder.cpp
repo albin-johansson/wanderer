@@ -3,8 +3,8 @@
 #include "game_constants.h"
 
 using namespace centurion;
-using namespace centurion::video;
-using namespace centurion::math;
+
+;
 
 namespace albinjohansson::wanderer {
 

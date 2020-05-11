@@ -8,7 +8,6 @@
 #include "wanderer_core.h"
 
 using namespace centurion;
-using namespace centurion::video;
 
 namespace albinjohansson::wanderer {
 
@@ -24,7 +23,7 @@ void Skeleton::init()
   set_speed(GameConstants::mob_speed);
 }
 
-void Skeleton::draw(const Renderer& renderer, const Viewport& viewport) const
+void Skeleton::draw(Renderer& renderer, const Viewport& viewport) const
 {
   stateMachine->draw(renderer, viewport);
 }

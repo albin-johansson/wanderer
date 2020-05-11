@@ -46,7 +46,7 @@ class ITileMap {
    * @param alpha the interpolation coefficient, in the range [0, 1].
    * @since 0.1.0
    */
-  virtual void draw(centurion::video::Renderer& renderer,
+  virtual void draw(ctn::Renderer& renderer,
                     const Viewport& viewport,
                     float alpha) noexcept = 0;
 

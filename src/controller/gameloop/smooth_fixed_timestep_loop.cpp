@@ -9,9 +9,7 @@
 #include "wanderer_core.h"
 
 using namespace centurion;
-using namespace centurion::video;
 using namespace centurion::input;
-using namespace centurion::system;
 
 namespace albinjohansson::wanderer {
 
@@ -19,67 +17,67 @@ SmoothFixedTimestepLoop::SmoothFixedTimestepLoop(
     unique<KeyState> keyState,
     const shared<MouseState>& mouseState,
     float vsyncRate)
-    : vsyncRate{vsyncRate},
-      timeStep{1.0f / vsyncRate},
-      counterFreq{static_cast<float>(Timer::high_res_freq())}
+    : m_vsyncRate{vsyncRate},
+      m_timeStep{1.0f / vsyncRate},
+      m_counterFreq{static_cast<float>(Timer::high_res_freq())}
 {
-  input = std::make_unique<Input>(std::move(keyState), mouseState);
-  now = Timer::high_res();
-  then = now;
+  m_input = std::make_unique<Input>(std::move(keyState), mouseState);
+  m_now = Timer::high_res();
+  m_then = m_now;
 }
 
 SmoothFixedTimestepLoop::~SmoothFixedTimestepLoop() = default;
 
 void SmoothFixedTimestepLoop::update_input(IWandererCore& core)
 {
-  input->update();
+  m_input->update();
 
-  if (input->was_quit_requested() || input->was_released(SDL_SCANCODE_O)) {
+  if (m_input->was_quit_requested() || m_input->was_released(SDL_SCANCODE_O)) {
     core.quit();
   }
 
-  core.handle_input(*input);
+  core.handle_input(*m_input);
 }
 
 void SmoothFixedTimestepLoop::smooth_delta()
 {
   /* Reference for delta smoothing: https://frankforce.com/?p=2636 */
 
-  delta += deltaBuffer;
+  m_delta += m_deltaBuffer;
 
-  int frameCount = static_cast<int>(delta * vsyncRate + 1);
+  int frameCount = static_cast<int>(m_delta * m_vsyncRate + 1);
   if (frameCount <= 0) {
     frameCount = 1;
   }
 
-  const float oldDelta = delta;
-  delta = static_cast<float>(frameCount) / vsyncRate;
-  deltaBuffer = oldDelta - delta;
+  const float oldDelta = m_delta;
+  m_delta = static_cast<float>(frameCount) / m_vsyncRate;
+  m_deltaBuffer = oldDelta - m_delta;
 }
 
 void SmoothFixedTimestepLoop::update(IWandererCore& core, Renderer& renderer)
 {
   update_input(core);
 
-  then = now;
-  now = Timer::high_res();
+  m_then = m_now;
+  m_now = Timer::high_res();
 
-  delta = static_cast<float>(now - then) / counterFreq;
+  m_delta = static_cast<float>(m_now - m_then) / m_counterFreq;
 
-  if (delta > maxFrameTime) {
-    delta = maxFrameTime;
+  if (m_delta > maxFrameTime) {
+    m_delta = maxFrameTime;
   }
 
   smooth_delta();
 
-  accumulator += delta;
+  m_accumulator += m_delta;
 
-  while (accumulator >= timeStep) {
-    accumulator -= timeStep;
-    core.update(timeStep);
+  while (m_accumulator >= m_timeStep) {
+    m_accumulator -= m_timeStep;
+    core.update(m_timeStep);
   }
 
-  float alpha = accumulator / timeStep;
+  float alpha = m_accumulator / m_timeStep;
   if (alpha > 1.0f) {
     alpha = 1.0f;
   }

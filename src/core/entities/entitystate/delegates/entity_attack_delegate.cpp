@@ -8,7 +8,6 @@
 #include "wanderer_core.h"
 
 using namespace centurion;
-using namespace centurion::video;
 
 namespace albinjohansson::wanderer {
 
@@ -19,7 +18,7 @@ EntityAttackDelegate::EntityAttackDelegate(IEntityStateMachine* parent)
 
 EntityAttackDelegate::~EntityAttackDelegate() = default;
 
-void EntityAttackDelegate::draw(const Renderer& renderer, const Viewport&) const
+void EntityAttackDelegate::draw(Renderer& renderer, const Viewport&) const
 {
   const auto& entity = parent->get_entity();
   const auto srcX = entity.get_animation_frame() * 64;

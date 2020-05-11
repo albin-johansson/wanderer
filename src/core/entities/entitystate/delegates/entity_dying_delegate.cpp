@@ -5,7 +5,6 @@
 #include "require.h"
 
 using namespace centurion;
-using namespace centurion::video;
 
 namespace albinjohansson::wanderer {
 
@@ -16,7 +15,7 @@ EntityDyingDelegate::EntityDyingDelegate(IEntity* entity)
 
 EntityDyingDelegate::~EntityDyingDelegate() = default;
 
-void EntityDyingDelegate::draw(const Renderer& renderer, const Viewport&) const
+void EntityDyingDelegate::draw(Renderer& renderer, const Viewport&) const
 {
   // TODO fade entity transparency after finishing animation
   auto srcX = entity->get_animation_frame() * 64;

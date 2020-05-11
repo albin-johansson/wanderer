@@ -1,5 +1,5 @@
 #pragma once
-#include <rectangle.h>
+#include <rect.h>
 #include <renderer.h>
 
 #include <memory>
@@ -47,15 +47,13 @@ class TileObject final : public IGameObject {
 
   void tick(IWandererCore& core, float delta) override;
 
-  void draw(const centurion::video::Renderer& renderer,
-            const Viewport& viewport) const override;
+  void draw(ctn::Renderer& renderer, const Viewport& viewport) const override;
 
   void SetDepth(int depth) noexcept;
 
   void SetHitbox(const Hitbox& hitbox) noexcept;
 
-  void add_hitbox(const centurion::math::FRect& rectangle,
-                  const Vector2& offset) override;
+  void add_hitbox(const ctn::FRect& rectangle, const Vector2& offset) override;
 
   void set_blocked(bool blocked) noexcept override;
 

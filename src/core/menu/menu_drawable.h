@@ -13,7 +13,7 @@ class IMenuDrawable {
  public:
   virtual ~IMenuDrawable() = default;
 
-  virtual void draw(centurion::video::Renderer& renderer,
+  virtual void draw(ctn::Renderer& renderer,
                     const Viewport& viewport,
                     const FontBundle& fonts) const = 0;
 };

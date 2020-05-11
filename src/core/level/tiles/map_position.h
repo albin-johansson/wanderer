@@ -26,8 +26,8 @@ struct MapPosition final {
 
 template <>
 struct std::hash<albinjohansson::wanderer::MapPosition> {
-  std::size_t operator()(const albinjohansson::wanderer::MapPosition& k) const
-      noexcept
+  std::size_t operator()(
+      const albinjohansson::wanderer::MapPosition& k) const noexcept
   {
     // http://stackoverflow.com/a/1646913/126995
     std::size_t res = 17;

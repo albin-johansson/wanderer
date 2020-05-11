@@ -12,8 +12,6 @@
 #include "wanderer_core_factory.h"
 
 using namespace centurion;
-using namespace centurion::video;
-using namespace centurion::system;
 using namespace centurion::input;
 
 namespace albinjohansson::wanderer {
@@ -21,32 +19,31 @@ namespace albinjohansson::wanderer {
 WandererControllerImpl::WandererControllerImpl()
 {
 #ifdef NDEBUG
-  window = std::make_unique<Window>(
-      "Wanderer", Screen::get_width(), Screen::get_height());
-  window->set_fullscreen(true);
+  m_window = Window::unique("Wanderer", Screen::width(), Screen::height());
+  m_window->set_fullscreen(true);
 #else
-  window = std::make_unique<Window>("Wanderer", 1280, 720);
+  m_window = Window::unique("Wanderer", 1280, 720);
 #endif
 
-  renderer = std::make_unique<Renderer>(*window);
-  renderer->set_logical_size(GameConstants::logical_width,
-                             GameConstants::logical_height);
+  m_renderer = std::make_unique<Renderer>(*m_window);
+  m_renderer->set_logical_size(GameConstants::logical_width,
+                               GameConstants::logical_height);
 
-  ImageGenerator imageGenerator{renderer};
-  core = create_core(imageGenerator);
-  core->set_viewport_width(GameConstants::logical_width);
-  core->set_viewport_height(GameConstants::logical_height);
+  TextureLoader textureLoader{m_renderer};
+  m_core = create_core(textureLoader);
+  m_core->set_viewport_width(GameConstants::logical_width);
+  m_core->set_viewport_height(GameConstants::logical_height);
 
   auto mouseState = MouseState::shared();
   mouseState->set_logical_width(GameConstants::logical_width);
   mouseState->set_logical_height(GameConstants::logical_height);
-  mouseState->set_window_width(window->get_width());
-  mouseState->set_window_height(window->get_height());
+  mouseState->set_window_width(m_window->width());
+  mouseState->set_window_height(m_window->height());
 
-  window->add_window_listener(mouseState);
+  m_window->add_window_listener(mouseState);
 
-  const auto refreshRate = static_cast<float>(Screen::get_refresh_rate());
-  gameLoop = std::make_unique<SmoothFixedTimestepLoop>(
+  const auto refreshRate = static_cast<float>(Screen::refresh_rate());
+  m_gameLoop = std::make_unique<SmoothFixedTimestepLoop>(
       std::make_unique<KeyState>(), mouseState, refreshRate);
 }
 
@@ -54,13 +51,13 @@ WandererControllerImpl::~WandererControllerImpl() = default;
 
 void WandererControllerImpl::run()
 {
-  window->show();
+  m_window->show();
 
-  while (!core->should_quit()) {
-    gameLoop->update(*core, *renderer);
+  while (!m_core->should_quit()) {
+    m_gameLoop->update(*m_core, *m_renderer);
   }
 
-  window->hide();
+  m_window->hide();
 }
 
 }  // namespace albinjohansson::wanderer

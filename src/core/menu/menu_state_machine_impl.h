@@ -4,6 +4,7 @@
 
 #include "font_bundle.h"
 #include "menu_state_machine.h"
+#include "wanderer_stdinc.h"
 
 namespace albinjohansson::wanderer {
 
@@ -17,26 +18,25 @@ class IWandererCore;
  * @since 0.1.0
  */
 class MenuStateMachineImpl final : public IMenuStateMachine {
- private:
-  mutable FontBundle typewriterFonts;
-  std::map<MenuID, std::unique_ptr<IMenu>> menus;
-  MenuID activeMenuID = MenuID::Home;
-
-  void put(MenuID id, std::unique_ptr<IMenu> menu);
-
  public:
-  explicit MenuStateMachineImpl(IWandererCore* core);
+  explicit MenuStateMachineImpl();
 
   ~MenuStateMachineImpl() override;
 
-  void draw(centurion::video::Renderer& renderer,
-            const Viewport& viewport) const override;
+  void draw(ctn::Renderer& renderer, const Viewport& viewport) const override;
 
   void handle_input(const Input& input) noexcept override;
+
+  void add_menu(MenuID id, unique<IMenu> menu) override;
 
   void set_menu(MenuID id) noexcept override;
 
   [[nodiscard]] const IMenu& get_menu() const override;
+
+ private:
+  mutable FontBundle m_typewriterFonts;
+  std::map<MenuID, unique<IMenu>> m_menus;
+  MenuID m_activeMenuID = MenuID::Home;
 };
 
 }  // namespace albinjohansson::wanderer

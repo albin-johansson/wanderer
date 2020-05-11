@@ -1,5 +1,5 @@
 #pragma once
-#include <rectangle.h>
+#include <rect.h>
 
 #include "area.h"
 
@@ -11,10 +11,6 @@ namespace albinjohansson::wanderer {
  * @since 0.1.0
  */
 class Viewport final {
- private:
-  centurion::math::FRect bounds;
-  Area level;
-
  public:
   /**
    * Constructs a viewport with the bounds (0, 0, 10, 10) and level dimensions
@@ -114,7 +110,7 @@ class Viewport final {
    * @return the current bounds of the viewport.
    * @since 0.1.0
    */
-  [[nodiscard]] const centurion::math::FRect& get_bounds() const noexcept;
+  [[nodiscard]] const centurion::FRect& get_bounds() const noexcept;
 
   /**
    * Calculates and returns the translated value for the supplied x-coordinate.
@@ -134,10 +130,14 @@ class Viewport final {
    */
   [[nodiscard]] float get_translated_y(float y) const noexcept;
 
-  [[nodiscard]] const centurion::math::FRect& get_internal() const noexcept
+  [[nodiscard]] const centurion::FRect& get_internal() const noexcept
   {
-    return bounds;
+    return m_bounds;
   }
+
+ private:
+  centurion::FRect m_bounds;
+  Area m_level;
 };
 
 }  // namespace albinjohansson::wanderer

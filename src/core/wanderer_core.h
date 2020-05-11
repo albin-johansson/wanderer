@@ -18,7 +18,7 @@ class Input;
  *
  * @since 0.1.0
  */
-class IWandererCore { // TODO remove
+class IWandererCore {  // TODO remove
  public:
   virtual ~IWandererCore() = default;
 
@@ -45,7 +45,7 @@ class IWandererCore { // TODO remove
    * @param alpha the interpolation coefficient, in the range [0, 1].
    * @since 0.1.0
    */
-  virtual void render(centurion::video::Renderer& renderer, float alpha) = 0;
+  virtual void render(ctn::Renderer& renderer, float alpha) = 0;
 
   /**
    * Sets the currently active map.

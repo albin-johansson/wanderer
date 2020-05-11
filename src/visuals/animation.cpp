@@ -3,7 +3,6 @@
 #include "timer.h"
 
 using namespace centurion;
-using namespace system;
 
 namespace albinjohansson::wanderer {
 

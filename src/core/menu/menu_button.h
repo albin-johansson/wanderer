@@ -1,6 +1,6 @@
 #pragma once
 #include <action.h>
-#include <rectangle.h>
+#include <rect.h>
 #include <texture.h>
 
 #include <memory>
@@ -26,13 +26,11 @@ class MenuButton final : public IMenuDrawable {
    * triggered.
    * @since 0.1.0
    */
-  MenuButton(std::string text,
-             centurion::math::FRect bounds,
-             unique<IAction> action);
+  MenuButton(std::string text, ctn::FRect bounds, unique<IAction> action);
 
   ~MenuButton() override;
 
-  void draw(centurion::video::Renderer& renderer,
+  void draw(ctn::Renderer& renderer,
             const Viewport& viewport,
             const FontBundle& fonts) const override;
 
@@ -43,20 +41,20 @@ class MenuButton final : public IMenuDrawable {
   [[nodiscard]] bool contains(float mx, float my) const noexcept;
 
  private:
-  centurion::math::FRect m_bounds;
+  ctn::FRect m_bounds;
   unique<IAction> m_action;
   // FIXME why does all button have unique textures? share them!
-  mutable unique<centurion::video::Texture> m_normalImg = nullptr;
-  mutable unique<centurion::video::Texture> m_enlargedImg = nullptr;
+  mutable unique<ctn::Texture> m_normalImg = nullptr;
+  mutable unique<ctn::Texture> m_enlargedImg = nullptr;
 
   const std::string m_text = "";
   bool m_enlarged = false;
 
-  void render_text(const centurion::video::Renderer& renderer,
+  void render_text(ctn::Renderer& renderer,
                    float x,
                    float y,
-                   unique<centurion::video::Texture>& img,
-                   const centurion::video::Font& font) const;
+                   unique<ctn::Texture>& img,
+                   const ctn::Font& font) const;
 };
 
 }  // namespace albinjohansson::wanderer
