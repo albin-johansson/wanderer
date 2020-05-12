@@ -24,7 +24,7 @@ void MenuStateMachineImpl::draw(Renderer& renderer,
   m_menus.at(m_activeMenuID)->draw(renderer, viewport, m_typewriterFonts);
 }
 
-void MenuStateMachineImpl::add_menu(MenuID id, unique<IMenu> menu)
+void MenuStateMachineImpl::add_menu(MenuID id, Unique<IMenu> menu)
 {
   m_menus.emplace(id, std::move(menu));
 }

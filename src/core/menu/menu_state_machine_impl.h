@@ -27,7 +27,7 @@ class MenuStateMachineImpl final : public IMenuStateMachine {
 
   void handle_input(const Input& input) noexcept override;
 
-  void add_menu(MenuID id, unique<IMenu> menu) override;
+  void add_menu(MenuID id, Unique<IMenu> menu) override;
 
   void set_menu(MenuID id) noexcept override;
 
@@ -35,7 +35,7 @@ class MenuStateMachineImpl final : public IMenuStateMachine {
 
  private:
   mutable FontBundle m_typewriterFonts;
-  std::map<MenuID, unique<IMenu>> m_menus;
+  std::map<MenuID, Unique<IMenu>> m_menus;
   MenuID m_activeMenuID = MenuID::Home;
 };
 

@@ -18,7 +18,7 @@ namespace albinjohansson::wanderer {
  */
 class PlayerImpl final : public AbstractEntity, public IPlayer {
  private:
-  unique<IPlayerStateMachine> playerStateMachine = nullptr;
+  Unique<IPlayerStateMachine> playerStateMachine = nullptr;
 
   void Init();
 
@@ -29,7 +29,7 @@ class PlayerImpl final : public AbstractEntity, public IPlayer {
    * @throws NullPointerException if the supplied image pointer is null.
    * @since 0.1.0
    */
-  explicit PlayerImpl(const shared<ctn::Texture>& sheet);
+  explicit PlayerImpl(const Shared<ctn::Texture>& sheet);
 
   ~PlayerImpl() override;
 

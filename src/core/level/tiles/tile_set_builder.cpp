@@ -15,7 +15,7 @@ tiled::TiledTileSet TileSetBuilder::create_tiled_tile_set(
   return tiled::TiledTileSet(tileSetNode, firstId, lastgid);
 }
 
-unique<TileSet> TileSetBuilder::create(const pugi::xml_node& mapRoot,
+Unique<TileSet> TileSetBuilder::create(const pugi::xml_node& mapRoot,
                                        TextureLoader& textureLoader)
 {
   const auto tsChildren = mapRoot.children("tileset");

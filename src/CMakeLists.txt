@@ -16,7 +16,6 @@ set(SOURCE_FILES
         core/wanderer_core.h
         core/wanderer_core_impl.cpp
         core/wanderer_core_impl.h
-        core/wanderer_core_factory.h
         core/game_object.h
         core/drawable.h
         core/direction.h
@@ -173,20 +172,24 @@ set(SOURCE_FILES
 
         core/util/wanderer_stdinc.h
 
-        core/action.h
-        core/action.cpp
+        core/action/action.h
 
         core/menu/button_action.h
         core/menu/menu_impl.cpp
         core/menu/menu_impl.h
-        core/menu/goto_menu_action.cpp
-        core/menu/goto_menu_action.h
+        core/action/goto_menu_action.cpp
+        core/action/goto_menu_action.h
 
         service/menu_parser.h
         service/menu_parser.cpp
 
         visuals/drawable_text.cpp
-        visuals/drawable_text.h)
+        visuals/drawable_text.h
+
+        core/action/action_parser.cpp
+        core/action/action_parser.h
+        core/action/quit_action.cpp
+        core/action/quit_action.h core/wanderer_core_builder.cpp core/wanderer_core_builder.h)
 
 add_library(${WANDERER_LIB} ${SOURCE_FILES})
 
@@ -227,6 +230,7 @@ target_include_directories(${WANDERER_LIB} PUBLIC core/math)
 target_include_directories(${WANDERER_LIB} PUBLIC core/level)
 target_include_directories(${WANDERER_LIB} PUBLIC core/level/tiles)
 target_include_directories(${WANDERER_LIB} PUBLIC core/util)
+target_include_directories(${WANDERER_LIB} PUBLIC core/action)
 target_include_directories(${WANDERER_LIB} PUBLIC core/entities)
 target_include_directories(${WANDERER_LIB} PUBLIC core/entities/player)
 target_include_directories(${WANDERER_LIB} PUBLIC core/entities/skeleton)

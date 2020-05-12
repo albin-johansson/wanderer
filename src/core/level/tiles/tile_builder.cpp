@@ -4,8 +4,6 @@
 
 using namespace centurion;
 
-;
-
 namespace albinjohansson::wanderer {
 
 TileAnimation TileBuilder::create_animation(tiled::TiledAnimation animation)

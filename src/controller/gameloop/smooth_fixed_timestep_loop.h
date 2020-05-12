@@ -27,8 +27,8 @@ class SmoothFixedTimestepLoop final : public IGameLoop {
    * @since 0.1.0
    */
   SmoothFixedTimestepLoop(
-      unique<centurion::input::KeyState> keyState,
-      const shared<centurion::input::MouseState>& mouseState,
+      Unique<centurion::input::KeyState> keyState,
+      const Shared<centurion::input::MouseState>& mouseState,
       float vsyncRate);
 
   ~SmoothFixedTimestepLoop() override;
@@ -44,7 +44,7 @@ class SmoothFixedTimestepLoop final : public IGameLoop {
    */
   static constexpr float maxFrameTime = 0.25f;
 
-  unique<Input> m_input = nullptr;
+  Unique<Input> m_input = nullptr;
 
   uint64 m_then = 0;
   uint64 m_now = 0;

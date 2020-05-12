@@ -5,6 +5,7 @@
 
 #include <string>
 
+#include "action_parser.h"
 #include "menu.h"
 #include "menu_button.h"
 #include "menu_state_machine.h"
@@ -14,7 +15,7 @@ namespace albinjohansson::wanderer {
 
 class MenuImpl : public IMenu {
  public:
-  MenuImpl(weak<IMenuStateMachine> menuStateMachine, const char* jsonFile);
+  MenuImpl(ActionParser& actionParser, const char* jsonFile);
 
   ~MenuImpl() noexcept override = default;
 
@@ -30,7 +31,7 @@ class MenuImpl : public IMenu {
   }
 
  private:
-  std::vector<unique<MenuButton>> m_buttons;
+  std::vector<Unique<MenuButton>> m_buttons;
   std::string m_title;
   bool m_blocking;
 };

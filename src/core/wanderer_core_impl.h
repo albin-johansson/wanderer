@@ -21,6 +21,8 @@ namespace albinjohansson::wanderer {
 class WandererCoreImpl final
     : public IWandererCore,
       public std::enable_shared_from_this<WandererCoreImpl> {
+  friend class WandererCoreBuilder;
+
  public:
   ~WandererCoreImpl() override;
 
@@ -31,7 +33,7 @@ class WandererCoreImpl final
    * @return a shared pointer to an IWandererCore instance.
    * @since 0.1.0
    */
-  friend shared<IWandererCore> create_core(ctn::TextureLoader& textureLoader);
+  friend Shared<IWandererCore> create_core(ctn::TextureLoader& textureLoader);
 
   void handle_input(const Input& input) override;
 
@@ -39,7 +41,7 @@ class WandererCoreImpl final
 
   void render(ctn::Renderer& renderer, float alpha) override;
 
-  void set_map(shared<ITileMap> map) override;
+  void set_map(Shared<ITileMap> map) override;
 
   void play_sound(const std::string& id) const override;
 
@@ -56,23 +58,18 @@ class WandererCoreImpl final
   [[nodiscard]] const ITileMap& get_active_map() const override;
 
  private:
-  shared<ITileMap> m_activeMap = nullptr;  // could maybe be a raw
-                                           // pointer
-  shared<IMenuStateMachine> m_menuStateMachine = nullptr;
+  Shared<ITileMap> m_activeMap = nullptr;
+  Shared<IMenuStateMachine> m_menuStateMachine = nullptr;
   HUD m_hud;
 
-  shared<IPlayer> m_player = nullptr;
-  shared<ITileMap> m_world = nullptr;
-  unique<SoundEngine> m_soundEngine = nullptr;
+  Shared<IPlayer> m_player = nullptr;
+  Shared<ITileMap> m_world = nullptr;
+  Unique<SoundEngine> m_soundEngine = nullptr;
 
   Viewport m_viewport;
   bool m_shouldQuit = false;
 
-  explicit WandererCoreImpl(ctn::TextureLoader& textureLoader);
-
-  void init_viewport();
-
-  //  void init_menus();
+  WandererCoreImpl() noexcept;
 };
 
 }  // namespace albinjohansson::wanderer

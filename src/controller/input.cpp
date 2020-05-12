@@ -7,8 +7,8 @@ using namespace centurion::input;
 
 namespace albinjohansson::wanderer {
 
-Input::Input(unique<KeyState>&& keyState,
-             const shared<centurion::input::MouseState>& mouseState)
+Input::Input(Unique<KeyState>&& keyState,
+             const Shared<centurion::input::MouseState>& mouseState)
 {
   this->keyState = Require::not_null(std::move(keyState));
   this->mouseState = Require::not_null(mouseState);

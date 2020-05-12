@@ -9,7 +9,7 @@
 
 #include "game_constants.h"
 #include "smooth_fixed_timestep_loop.h"
-#include "wanderer_core_factory.h"
+#include "wanderer_core_builder.h"
 
 using namespace centurion;
 using namespace centurion::input;
@@ -30,7 +30,7 @@ WandererControllerImpl::WandererControllerImpl()
                                GameConstants::logical_height);
 
   TextureLoader textureLoader{m_renderer};
-  m_core = create_core(textureLoader);
+  m_core = WandererCoreBuilder::build(textureLoader);
   m_core->set_viewport_width(GameConstants::logical_width);
   m_core->set_viewport_height(GameConstants::logical_height);
 

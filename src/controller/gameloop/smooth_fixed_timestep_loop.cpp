@@ -14,8 +14,8 @@ using namespace centurion::input;
 namespace albinjohansson::wanderer {
 
 SmoothFixedTimestepLoop::SmoothFixedTimestepLoop(
-    unique<KeyState> keyState,
-    const shared<MouseState>& mouseState,
+    Unique<KeyState> keyState,
+    const Shared<MouseState>& mouseState,
     float vsyncRate)
     : m_vsyncRate{vsyncRate},
       m_timeStep{1.0f / vsyncRate},

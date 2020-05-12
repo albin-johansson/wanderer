@@ -11,7 +11,7 @@ using namespace centurion;
 
 namespace albinjohansson::wanderer {
 
-Skeleton::Skeleton(const shared<Texture>& sheet) : AbstractEntity{sheet}
+Skeleton::Skeleton(const Shared<Texture>& sheet) : AbstractEntity{sheet}
 {
   stateMachine = std::make_unique<SkeletonStateMachine>(this);
 }

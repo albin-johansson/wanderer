@@ -2,7 +2,7 @@
 
 namespace albinjohansson::wanderer {
 
-GotoMenuAction::GotoMenuAction(weak<IMenuStateMachine> menuStateMachine,
+GotoMenuAction::GotoMenuAction(Weak<IMenuStateMachine> menuStateMachine,
                                MenuID menu) noexcept
     : m_menuStateMachine{menuStateMachine}, m_menu{menu}
 {}

@@ -25,17 +25,17 @@ class WandererControllerImpl final : public IWandererController {
    * @throws BadStateException if the desktop dimensions cannot be deduced.
    * @since 0.1.0
    */
-  friend unique<IWandererController> create_controller();
+  friend Unique<IWandererController> create_controller();
 
   ~WandererControllerImpl() override;
 
   void run() override;
 
  private:
-  shared<IWandererCore> m_core = nullptr;
-  unique<IGameLoop> m_gameLoop = nullptr;
-  shared<ctn::Renderer> m_renderer = nullptr;
-  unique<ctn::Window> m_window = nullptr;
+  Shared<IWandererCore> m_core = nullptr;
+  Unique<IGameLoop> m_gameLoop = nullptr;
+  Shared<ctn::Renderer> m_renderer = nullptr;
+  Unique<ctn::Window> m_window = nullptr;
 
   /**
    * @throws BadStateException if the desktop dimensions cannot be deduced.

@@ -35,7 +35,7 @@ void SoundEngine::load_sounds(const std::string& file)
 }
 
 void SoundEngine::register_sound(const std::string& id,
-                                 unique<SoundEffect> sound)
+                                 Unique<SoundEffect> sound)
 {
   if (!sound) {
     throw std::invalid_argument{"Null sound!"};

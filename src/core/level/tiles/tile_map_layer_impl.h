@@ -26,14 +26,14 @@ class TileMapLayerImpl final : public ITileMapLayer {
  private:
   friend class TileMapLayerBuilder;
 
-  shared<TileSet> tileSet = nullptr;
-  std::unordered_map<MapPosition, unique<TileObject>> tileObjects;
+  Shared<TileSet> tileSet = nullptr;
+  std::unordered_map<MapPosition, Unique<TileObject>> tileObjects;
   std::vector<TileID> tiles;
   int nRows = 0;
   int nCols = 0;
   bool isGroundLayer = false;
 
-  explicit TileMapLayerImpl(const shared<TileSet>& tileSet);
+  explicit TileMapLayerImpl(const Shared<TileSet>& tileSet);
 
  public:
   ~TileMapLayerImpl() noexcept override;

@@ -11,12 +11,12 @@ namespace albinjohansson::wanderer {
 
 class Input final {
  private:
-  unique<centurion::input::KeyState> keyState = nullptr;
-  shared<centurion::input::MouseState> mouseState = nullptr;
+  Unique<centurion::input::KeyState> keyState = nullptr;
+  Shared<centurion::input::MouseState> mouseState = nullptr;
 
  public:
-  Input(unique<centurion::input::KeyState>&& keyState,
-        const shared<centurion::input::MouseState>& mouseState);
+  Input(Unique<centurion::input::KeyState>&& keyState,
+        const Shared<centurion::input::MouseState>& mouseState);
 
   ~Input();
 

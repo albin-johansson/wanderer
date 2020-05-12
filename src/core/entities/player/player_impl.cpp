@@ -12,7 +12,7 @@ using namespace centurion;
 
 namespace albinjohansson::wanderer {
 
-PlayerImpl::PlayerImpl(const shared<Texture>& sheet) : AbstractEntity(sheet)
+PlayerImpl::PlayerImpl(const Shared<Texture>& sheet) : AbstractEntity(sheet)
 {
   playerStateMachine =
       std::make_unique<PlayerStateMachineImpl>(static_cast<IEntity*>(this));

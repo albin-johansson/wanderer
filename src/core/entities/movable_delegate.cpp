@@ -9,8 +9,6 @@
 
 using namespace centurion;
 
-;
-
 namespace albinjohansson::wanderer {
 
 MovableDelegate::MovableDelegate(int depth, float width, float height)

@@ -1,5 +1,5 @@
 #pragma once
-#include <action.h>
+#include <action/action.h>
 #include <rect.h>
 #include <texture.h>
 
@@ -24,10 +24,12 @@ class MenuButton final : public IMenuDrawable {
    * @param bounds the rectangle that represents the position and size of the
    * button.
    * @param action the action that will be executed when the button is
-   * triggered.
+   * triggered, can safely be null.
    * @since 0.1.0
    */
-  MenuButton(std::string text, ctn::FRect bounds, unique<IAction> action);
+  MenuButton(std::string text,
+             ctn::FRect bounds,
+             Unique<IAction> action = nullptr);
 
   ~MenuButton() override;
 
@@ -43,7 +45,7 @@ class MenuButton final : public IMenuDrawable {
 
  private:
   ctn::FRect m_bounds;
-  unique<IAction> m_action;
+  Unique<IAction> m_action;
   std::unique_ptr<DrawableText> m_text;
   bool m_enlarged = false;
 };

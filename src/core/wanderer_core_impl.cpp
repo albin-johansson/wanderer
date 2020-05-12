@@ -7,6 +7,7 @@
 
 #include <memory>
 
+#include "action/action_parser.h"
 #include "input.h"
 #include "menu.h"
 #include "menu_impl.h"
@@ -19,54 +20,23 @@ using namespace centurion;
 
 namespace albinjohansson::wanderer {
 
-WandererCoreImpl::WandererCoreImpl(TextureLoader& textureLoader)
-{
-  m_menuStateMachine = std::make_shared<MenuStateMachineImpl>();
-
-  const auto mkMenu = [&](const char* file) {
-    return std::make_unique<MenuImpl>(m_menuStateMachine, file);
-  };
-
-  // TODO load menus
-  m_menuStateMachine->add_menu(MenuID::Home,
-                               mkMenu("resources/menu/home_menu.json"));
-  m_menuStateMachine->add_menu(MenuID::InGame,
-                               mkMenu("resources/menu/in_game_menu.json"));
-
-  m_soundEngine = std::make_unique<SoundEngine>("resources/audio/sfx.txt");
-
-  m_player = std::make_shared<PlayerImpl>(
-      textureLoader.shared_img("resources/img/player2.png"));
-
-  m_world =
-      TiledMapParser::load(textureLoader, "resources/map/world/world_demo.tmx");
-  m_world->set_player(m_player);
-
-  m_activeMap = m_world;
-
-  const auto [playerX, playerY] = m_activeMap->get_player_spawn_position();
-  m_player->set_x(playerX);
-  m_player->set_y(playerY);
-
-  init_viewport();
-
-  m_activeMap->tick(*this, m_viewport, 0);  // needed for first render iteration
-}
+WandererCoreImpl::WandererCoreImpl() noexcept
+{}
 
 WandererCoreImpl::~WandererCoreImpl() = default;
 
-void WandererCoreImpl::init_viewport()
-{
-  // TODO listener for viewport dimensions
-  m_viewport.set_level_width(static_cast<float>(m_activeMap->get_width()));
-  m_viewport.set_level_height(static_cast<float>(m_activeMap->get_height()));
-  m_viewport.set_width(GameConstants::logical_width);
-  m_viewport.set_height(GameConstants::logical_height);
-
-  m_viewport.center(m_player->get_x(),
-                    m_player->get_y(),
-                    Area{m_player->get_width(), m_player->get_height()});
-}
+//void WandererCoreImpl::init_viewport()
+//{
+//  // TODO listener for viewport dimensions
+//  m_viewport.set_level_width(static_cast<float>(m_activeMap->get_width()));
+//  m_viewport.set_level_height(static_cast<float>(m_activeMap->get_height()));
+//  m_viewport.set_width(GameConstants::logical_width);
+//  m_viewport.set_height(GameConstants::logical_height);
+//
+//  m_viewport.center(m_player->get_x(),
+//                    m_player->get_y(),
+//                    Area{m_player->get_width(), m_player->get_height()});
+//}
 
 // void WandererCoreImpl::init_menus()
 //{
@@ -120,7 +90,7 @@ void WandererCoreImpl::play_sound(const std::string& id) const
   m_soundEngine->get_sound(id).play();
 }
 
-void WandererCoreImpl::set_map(shared<ITileMap> map)
+void WandererCoreImpl::set_map(Shared<ITileMap> map)
 {
   if (map) {
     m_activeMap = map;

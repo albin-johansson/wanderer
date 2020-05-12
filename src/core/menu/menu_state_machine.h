@@ -19,7 +19,7 @@ class IMenuStateMachine {
   virtual void draw(ctn::Renderer& renderer,
                     const Viewport& viewport) const = 0;
 
-  virtual void add_menu(MenuID id, unique<IMenu> menu) = 0;
+  virtual void add_menu(MenuID id, Unique<IMenu> menu) = 0;
 
   /**
    * Sets the active menu.

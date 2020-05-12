@@ -9,13 +9,11 @@
 
 using namespace centurion;
 
-;
-
 namespace albinjohansson::wanderer {
 
 TileObject::TileObject(TileID id,
                        const Vector2& position,
-                       const shared<TileSet>& tileSet)
+                       const Shared<TileSet>& tileSet)
     : position{position}, id{id}
 {
   this->tileSet = Require::not_null(tileSet);

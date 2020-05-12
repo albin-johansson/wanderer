@@ -1,0 +1,43 @@
+#pragma once
+
+#include <SDL.h>
+
+#include <json.hpp>
+
+#include "wanderer_stdinc.h"
+
+namespace albinjohansson::wanderer {
+
+enum class ActionID {
+  Quit,
+
+  // Menu actions
+  GotoHome,
+  GotoSettings,
+  GotoControls,
+  GotoInGame,
+  GotoCredits,
+  GotoInventory,
+
+  // Player actions
+  //  PlayerAttack,
+  //  PlayerInteract,
+};
+
+NLOHMANN_JSON_SERIALIZE_ENUM(ActionID,
+                             {{ActionID::Quit, "Quit"},
+                              {ActionID::GotoHome, "GotoHome"},
+                              {ActionID::GotoSettings, "GotoSettings"},
+                              {ActionID::GotoControls, "GotoControls"},
+                              {ActionID::GotoInGame, "GotoInGame"},
+                              {ActionID::GotoCredits, "GotoCredits"},
+                              {ActionID::GotoInventory, "GotoInventory"}})
+
+class IAction {
+ public:
+  virtual ~IAction() noexcept = default;
+
+  virtual void execute() = 0;
+};
+
+}  // namespace albinjohansson::wanderer

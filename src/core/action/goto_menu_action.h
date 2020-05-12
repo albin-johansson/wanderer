@@ -1,5 +1,5 @@
 #pragma once
-#include "action.h"
+#include "action/action.h"
 #include "menu_id.h"
 #include "menu_state_machine.h"
 #include "wanderer_stdinc.h"
@@ -8,7 +8,7 @@ namespace albinjohansson::wanderer {
 
 class GotoMenuAction final : public IAction {
  public:
-  GotoMenuAction(weak<IMenuStateMachine> menuStateMachine,
+  GotoMenuAction(Weak<IMenuStateMachine> menuStateMachine,
                  MenuID menu) noexcept;
 
   ~GotoMenuAction() noexcept override = default;
@@ -16,7 +16,7 @@ class GotoMenuAction final : public IAction {
   void execute() noexcept override;
 
  private:
-  weak<IMenuStateMachine> m_menuStateMachine;
+  Weak<IMenuStateMachine> m_menuStateMachine;
   MenuID m_menu;
 };
 

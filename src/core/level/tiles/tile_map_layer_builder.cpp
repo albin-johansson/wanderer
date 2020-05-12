@@ -61,10 +61,10 @@ std::vector<TileID> TileMapLayerBuilder::create_tile_vector(
   return result;
 }
 
-unique<ITileMapLayer> TileMapLayerBuilder::create(
-    const shared<TileSet>& tileSet, const tiled::TiledLayer& tiledLayer) const
+Unique<ITileMapLayer> TileMapLayerBuilder::create(
+    const Shared<TileSet>& tileSet, const tiled::TiledLayer& tiledLayer) const
 {
-  auto layer = unique<TileMapLayerImpl>(new TileMapLayerImpl(tileSet));
+  auto layer = Unique<TileMapLayerImpl>(new TileMapLayerImpl(tileSet));
 
   layer->nRows = tiledLayer.get_rows();
   layer->nCols = tiledLayer.get_cols();

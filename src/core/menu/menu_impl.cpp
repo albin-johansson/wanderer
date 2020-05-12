@@ -1,11 +1,10 @@
 #include "menu_impl.h"
 
-#include <action.h>
-
 #include <fstream>
 #include <iostream>
 #include <json.hpp>
 
+#include "action.h"
 #include "goto_menu_action.h"
 
 using json = nlohmann::json;
@@ -13,29 +12,9 @@ using namespace centurion;
 
 namespace albinjohansson::wanderer {
 
-inline MenuID menu_id_from_action_id(ActionID action)
+MenuImpl::MenuImpl(ActionParser& actionParser, const char* jsonFile)
 {
-  switch (action) {
-    case ActionID::GotoHome:
-      return MenuID::Home;
-    case ActionID::GotoSettings:
-      return MenuID::Settings;
-    case ActionID::GotoControls:
-      return MenuID::Controls;
-    case ActionID::GotoInGame:
-      return MenuID::InGame;
-    case ActionID::GotoCredits:
-      return MenuID::Credits;
-    case ActionID::GotoInventory:
-      return MenuID::Inventory;
-    default:
-      throw std::logic_error{"Failed to deduce menu associated with action!"};
-  }
-}
-
-MenuImpl::MenuImpl(weak<IMenuStateMachine> menuStateMachine,
-                   const char* jsonFile)
-{
+  // TODO create MenuParser that does the dirty work of this ctor
   std::ifstream stream{jsonFile};
   json json;
   stream >> json;
@@ -44,15 +23,12 @@ MenuImpl::MenuImpl(weak<IMenuStateMachine> menuStateMachine,
   m_blocking = json.at("isBlocking").get<bool>();
 
   int i = 0;
-  for (auto& [key, value] : json.at("buttons").items()) {
+  for (const auto& [key, value] : json.at("buttons").items()) {
     const auto text = value.at("text").get<std::string>();
-    const auto actionID = value.at("action").get<ActionID>();
 
-    const auto menuID = menu_id_from_action_id(actionID);
-    auto action = std::make_unique<GotoMenuAction>(menuStateMachine, menuID);
-
+    auto action = actionParser.parse(value.at("action"));
     const auto x = 200.0f;
-    const auto y = 200.0f + static_cast<float>(i * 150);
+    const auto y = 200.0f + static_cast<float>(i * 70);
 
     m_buttons.emplace_back(std::make_unique<MenuButton>(
         text, FRect{x, y, 200, 50}, std::move(action)));

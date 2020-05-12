@@ -30,7 +30,7 @@ class Tile final {
  private:
   friend class TileBuilder;
 
-  shared<ctn::Texture> sheet = nullptr;
+  Shared<ctn::Texture> sheet = nullptr;
 
   TileID id = Tile::EMPTY;
   int depth = RenderDepth::min;

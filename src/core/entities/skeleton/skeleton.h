@@ -11,14 +11,14 @@ namespace albinjohansson::wanderer {
 
 class Skeleton final : public AbstractEntity {
  private:
-  unique<IEntityStateMachine> stateMachine = nullptr;
+  Unique<IEntityStateMachine> stateMachine = nullptr;
 
   void init();
 
  public:
   static constexpr float HOMING_RANGE = GameConstants::tile_size * 4.0f;
 
-  explicit Skeleton(const shared<ctn::Texture>& sheet);
+  explicit Skeleton(const Shared<ctn::Texture>& sheet);
 
   ~Skeleton() override;
 

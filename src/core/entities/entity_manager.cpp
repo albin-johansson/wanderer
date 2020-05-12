@@ -6,7 +6,6 @@
 #include "hitbox.h"
 
 using namespace centurion;
-;
 
 namespace albinjohansson::wanderer {
 

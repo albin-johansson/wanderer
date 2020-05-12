@@ -7,6 +7,18 @@
     {
       "text": "Play",
       "action": "GotoInGame"
+    },
+    {
+      "text": "Settings",
+      "action": "GotoSettings"
+    },
+    {
+      "text": "Controls",
+      "action": "GotoControls"
+    },
+    {
+      "text": "Quit",
+      "action": "Quit"
     }
   ]
 }

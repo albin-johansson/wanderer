@@ -4,7 +4,7 @@ using namespace centurion;
 
 namespace albinjohansson::wanderer {
 
-MenuButton::MenuButton(std::string text, FRect bounds, unique<IAction> action)
+MenuButton::MenuButton(std::string text, FRect bounds, Unique<IAction> action)
     : m_bounds{bounds},
       m_action{std::move(action)},
       m_text{std::make_unique<DrawableText>(text, FPoint{0, 0})}
@@ -43,7 +43,9 @@ void MenuButton::draw(Renderer& renderer,
 
 void MenuButton::trigger() noexcept
 {
-  m_action->execute();
+  if (m_action) {
+    m_action->execute();
+  }
 }
 
 void MenuButton::set_enlarged(bool enlarged) noexcept
