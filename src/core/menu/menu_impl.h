@@ -1,23 +1,19 @@
 #pragma once
 
 #include <input.h>
-#include <renderer.h>
 
-#include <string>
-
-#include "action_parser.h"
+#include "key_bind.h"
 #include "menu.h"
 #include "menu_button.h"
-#include "menu_state_machine.h"
 #include "wanderer_stdinc.h"
 
 namespace albinjohansson::wanderer {
 
-class MenuImpl : public IMenu {
+class MenuImpl final : public IMenu {
  public:
-  MenuImpl(ActionParser& actionParser, const char* jsonFile);
+  friend class MenuBuilder;
 
-  ~MenuImpl() noexcept override = default;
+  ~MenuImpl() noexcept = default;
 
   void draw(ctn::Renderer& renderer,
             const Viewport& viewport,
@@ -31,9 +27,12 @@ class MenuImpl : public IMenu {
   }
 
  private:
+  MenuImpl();
+
   std::vector<UniquePtr<MenuButton>> m_buttons;
-  std::string m_title;
-  bool m_blocking;
+  std::vector<UniquePtr<KeyBind>> m_binds;
+  std::string m_title = "";
+  bool m_blocking = false;
 };
 
 }  // namespace albinjohansson::wanderer

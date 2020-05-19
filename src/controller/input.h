@@ -20,7 +20,7 @@ class Input final {
 
   ~Input();
 
-  void update(int windowWidth, int windowHeight);
+  void update(int windowWidth, int windowHeight) noexcept;
 
   /**
    * Indicates whether or not the key associated with the specified scancode is
@@ -31,7 +31,7 @@ class Input final {
    * false otherwise.
    * @since 0.1.0
    */
-  [[nodiscard]] bool is_pressed(SDL_Scancode scancode) const;
+  [[nodiscard]] bool is_pressed(SDL_Scancode scancode) const noexcept;
 
   /**
    * Indicates whether or not the key associated with the specified scancode was
@@ -42,7 +42,7 @@ class Input final {
    * pressed; false otherwise.
    * @since 0.1.0
    */
-  [[nodiscard]] bool was_just_pressed(SDL_Scancode scancode) const;
+  [[nodiscard]] bool was_just_pressed(SDL_Scancode scancode) const noexcept;
 
   /**
    * Indicates whether or not the key associated with the specified scancode was
@@ -53,7 +53,7 @@ class Input final {
    * released; false otherwise.
    * @since 0.1.0
    */
-  [[nodiscard]] bool was_released(SDL_Scancode scancode) const;
+  [[nodiscard]] bool was_released(SDL_Scancode scancode) const noexcept;
 
   [[nodiscard]] float get_mouse_x() const noexcept;
 

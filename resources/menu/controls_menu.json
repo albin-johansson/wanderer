@@ -8,5 +8,12 @@
       "text": "Return",
       "action": "GotoHome"
     }
+  ],
+  "binds": [
+    {
+      "key": "Escape",
+      "action": "GotoHome",
+      "trigger": "OnRelease"
+    }
   ]
 }

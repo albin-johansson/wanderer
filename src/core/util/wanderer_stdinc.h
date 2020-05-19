@@ -2,7 +2,9 @@
 #include <centurion.h>
 
 #include <cstdint>
+#include <json.hpp>
 #include <memory>
+#include <string>
 #include <optional>
 
 namespace albinjohansson::wanderer {
@@ -20,6 +22,13 @@ using SharedPtr = std::shared_ptr<T>;
 
 template <typename T>
 using WeakPtr = std::weak_ptr<T>;
+
+using JsonValue = nlohmann::json::value_type;
+using Json = nlohmann::json;
+
+#define WANDERER_SERIALIZE_ENUM NLOHMANN_JSON_SERIALIZE_ENUM
+
+using CZString = const char*;
 
 using int8 = std::int8_t;
 using int16 = std::int16_t;

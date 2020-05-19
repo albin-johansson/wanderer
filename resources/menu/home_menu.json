@@ -20,5 +20,12 @@
       "text": "Quit",
       "action": "Quit"
     }
+  ],
+  "binds": [
+    {
+      "key": "Escape",
+      "action": "GotoInGame",
+      "trigger": "OnRelease"
+    }
   ]
 }

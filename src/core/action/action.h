@@ -1,9 +1,5 @@
 #pragma once
 
-#include <SDL.h>
-
-#include <json.hpp>
-
 #include "wanderer_stdinc.h"
 
 namespace albinjohansson::wanderer {
@@ -24,14 +20,14 @@ enum class ActionID {
   //  PlayerInteract,
 };
 
-NLOHMANN_JSON_SERIALIZE_ENUM(ActionID,
-                             {{ActionID::Quit, "Quit"},
-                              {ActionID::GotoHome, "GotoHome"},
-                              {ActionID::GotoSettings, "GotoSettings"},
-                              {ActionID::GotoControls, "GotoControls"},
-                              {ActionID::GotoInGame, "GotoInGame"},
-                              {ActionID::GotoCredits, "GotoCredits"},
-                              {ActionID::GotoInventory, "GotoInventory"}})
+WANDERER_SERIALIZE_ENUM(ActionID,
+                        {{ActionID::Quit, "Quit"},
+                         {ActionID::GotoHome, "GotoHome"},
+                         {ActionID::GotoSettings, "GotoSettings"},
+                         {ActionID::GotoControls, "GotoControls"},
+                         {ActionID::GotoInGame, "GotoInGame"},
+                         {ActionID::GotoCredits, "GotoCredits"},
+                         {ActionID::GotoInventory, "GotoInventory"}})
 
 class IAction {
  public:

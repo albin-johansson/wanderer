@@ -191,7 +191,7 @@ set(SOURCE_FILES
         core/action/quit_action.cpp
         core/action/quit_action.h
         core/wanderer_core_builder.cpp
-        core/wanderer_core_builder.h)
+        core/wanderer_core_builder.h core/menu/key_bind.cpp core/menu/key_bind.h core/util/wanderer_exception.h core/menu/menu_builder.cpp core/menu/menu_builder.h)
 
 add_library(${WANDERER_LIB} ${SOURCE_FILES})
 

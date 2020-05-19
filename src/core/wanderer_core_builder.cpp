@@ -1,7 +1,7 @@
 #include "wanderer_core_builder.h"
 
 #include "action_parser.h"
-#include "menu_impl.h"
+#include "menu_builder.h"
 #include "menu_state_machine_impl.h"
 #include "player_impl.h"
 #include "tile_map.h"
@@ -12,7 +12,8 @@ using namespace centurion;
 
 namespace albinjohansson::wanderer {
 
-SharedPtr<IWandererCore> WandererCoreBuilder::build(TextureLoader& textureLoader)
+SharedPtr<IWandererCore> WandererCoreBuilder::build(
+    TextureLoader& textureLoader)
 {
   auto core = std::shared_ptr<WandererCoreImpl>(new WandererCoreImpl{});
 
@@ -23,7 +24,7 @@ SharedPtr<IWandererCore> WandererCoreBuilder::build(TextureLoader& textureLoader
   const auto addMenu = [&](MenuID menu, std::string fileName) {
     const auto path = "resources/menu/" + fileName;
     core->m_menuStateMachine->add_menu(
-        menu, std::make_unique<MenuImpl>(actionParser, path.c_str()));
+        menu, MenuBuilder::build(actionParser, path.c_str()));
   };
 
   // TODO load menus

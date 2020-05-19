@@ -16,24 +16,24 @@ Input::Input(UniquePtr<KeyState>&& keyState,
 
 Input::~Input() = default;
 
-void Input::update(int windowWidth, int windowHeight)
+void Input::update(int windowWidth, int windowHeight) noexcept
 {
   mouseState->update(windowWidth, windowHeight);
   keyState->update();
   SDL_PumpEvents();
 }
 
-bool Input::is_pressed(SDL_Scancode scancode) const
+bool Input::is_pressed(SDL_Scancode scancode) const noexcept
 {
   return keyState->is_pressed(scancode);
 }
 
-bool Input::was_just_pressed(SDL_Scancode scancode) const
+bool Input::was_just_pressed(SDL_Scancode scancode) const noexcept
 {
   return keyState->was_just_pressed(scancode);
 }
 
-bool Input::was_released(SDL_Scancode scancode) const
+bool Input::was_released(SDL_Scancode scancode) const noexcept
 {
   return keyState->was_just_released(scancode);
 }

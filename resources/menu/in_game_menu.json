@@ -3,5 +3,12 @@
   "parent": "home",
   "title": "",
   "isBlocking": false,
-  "buttons": []
+  "buttons": [],
+  "binds": [
+    {
+      "key": "Escape",
+      "action": "GotoHome",
+      "trigger": "OnRelease"
+    }
+  ]
 }

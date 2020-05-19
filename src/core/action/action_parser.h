@@ -20,17 +20,16 @@ class ActionParser {
    * Below is an example on how this method should be used.
    * ```
    * ActionParser parser = ...;
-   * nlohman::json json = ...;
+   * Json json = ...;
    * const auto action = parser.parse(json.at("action"));
    * ```
    *
-   * @param value the JSON value that will be parsed, should probably be
-   * obtained by <code>
+   * @param value the JSON value that will be parsed.
    * @return a unique pointer to the created action; null if the action
    * couldn't be created.
    * @since 0.1.0
    */
-  UniquePtr<IAction> parse(const nlohmann::json::value_type& value);
+  UniquePtr<IAction> parse(const JsonValue& value);
 
  private:
   WeakPtr<IWandererCore> m_core;

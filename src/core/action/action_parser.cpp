@@ -3,8 +3,6 @@
 #include "goto_menu_action.h"
 #include "quit_action.h"
 
-using namespace nlohmann;
-
 namespace albinjohansson::wanderer {
 namespace {
 
@@ -37,7 +35,7 @@ ActionParser::ActionParser(WeakPtr<IWandererCore> core,
     : m_core{core}, m_menuStateMachine{menuStateMachine}
 {}
 
-UniquePtr<IAction> ActionParser::parse(const json::value_type& value)
+UniquePtr<IAction> ActionParser::parse(const JsonValue& value)
 {
   if (value.is_null()) {
     return nullptr;
