@@ -56,97 +56,97 @@ set(SOURCE_FILES
         core/level/portal.cpp
         core/level/portal.h
 
-        core/level/tiles/tile.h
-        core/level/tiles/tile.cpp
-        core/level/tiles/tile_set.cpp
-        core/level/tiles/tile_set.h
-        core/level/tiles/tile_map_impl.cpp
-        core/level/tiles/tile_map_impl.h
-        core/level/tiles/tile_map_layer_impl.cpp
-        core/level/tiles/tile_map_layer_impl.h
-        core/level/tiles/tile_map_bounds.h
-        core/level/tiles/tile_animation.cpp
-        core/level/tiles/tile_animation.h
-        core/level/tiles/tile_id.h
-        core/level/tiles/tile_object.cpp
-        core/level/tiles/tile_object.h
-        core/level/tiles/map_position.h
-        core/level/tiles/tile_map.h
-        core/level/tiles/tile_map_layer.h
-        core/level/tiles/tile_map_layer_builder.cpp
-        core/level/tiles/tile_map_layer_builder.h
-        core/level/tiles/tile_map_builder.cpp
-        core/level/tiles/tile_map_builder.h
-        core/level/tiles/tile_builder.cpp
-        core/level/tiles/tile_builder.h
-        core/level/tiles/tile_set_builder.cpp
-        core/level/tiles/tile_set_builder.h
+        core/level/tile/tile.h
+        core/level/tile/tile.cpp
+        core/level/tile/tile_set.cpp
+        core/level/tile/tile_set.h
+        core/level/tile/tile_map_impl.cpp
+        core/level/tile/tile_map_impl.h
+        core/level/tile/tile_map_layer_impl.cpp
+        core/level/tile/tile_map_layer_impl.h
+        core/level/tile/tile_map_bounds.h
+        core/level/tile/tile_animation.cpp
+        core/level/tile/tile_animation.h
+        core/level/tile/tile_id.h
+        core/level/tile/tile_object.cpp
+        core/level/tile/tile_object.h
+        core/level/tile/map_position.h
+        core/level/tile/tile_map.h
+        core/level/tile/tile_map_layer.h
+        core/level/tile/tile_map_layer_builder.cpp
+        core/level/tile/tile_map_layer_builder.h
+        core/level/tile/tile_map_builder.cpp
+        core/level/tile/tile_map_builder.h
+        core/level/tile/tile_builder.cpp
+        core/level/tile/tile_builder.h
+        core/level/tile/tile_set_builder.cpp
+        core/level/tile/tile_set_builder.h
 
-        core/entities/entity.h
-        core/entities/movable_object.h
-        core/entities/movable_delegate.cpp
-        core/entities/movable_delegate.h
-        core/entities/entity_sheet.cpp
-        core/entities/entity_sheet.h
-        core/entities/abstract_entity.cpp
-        core/entities/abstract_entity.h
-        core/entities/entity_manager.cpp
-        core/entities/entity_manager.h
-        core/entities/entity_id.h
-        core/entities/spawnpoint.cpp
-        core/entities/spawnpoint.h
+        core/entity/entity.h
+        core/entity/movable_object.h
+        core/entity/movable_delegate.cpp
+        core/entity/movable_delegate.h
+        core/entity/entity_sheet.cpp
+        core/entity/entity_sheet.h
+        core/entity/abstract_entity.cpp
+        core/entity/abstract_entity.h
+        core/entity/entity_manager.cpp
+        core/entity/entity_manager.h
+        core/entity/entity_id.h
+        core/entity/spawnpoint.cpp
+        core/entity/spawnpoint.h
 
-        core/entities/skeleton/skeleton.cpp
-        core/entities/skeleton/skeleton.h
-        core/entities/skeleton/skeleton_state_machine.cpp
-        core/entities/skeleton/skeleton_state_machine.h
-        core/entities/skeleton/skeleton_idle_state.cpp
-        core/entities/skeleton/skeleton_idle_state.h
-        core/entities/skeleton/skeleton_moving_state.cpp
-        core/entities/skeleton/skeleton_moving_state.h
-        core/entities/skeleton/skeleton_attack_state.cpp
-        core/entities/skeleton/skeleton_attack_state.h
-        core/entities/skeleton/skeleton_dying_state.cpp
-        core/entities/skeleton/skeleton_dying_state.h
+        core/entity/skeleton/skeleton.cpp
+        core/entity/skeleton/skeleton.h
+        core/entity/skeleton/skeleton_state_machine.cpp
+        core/entity/skeleton/skeleton_state_machine.h
+        core/entity/skeleton/skeleton_idle_state.cpp
+        core/entity/skeleton/skeleton_idle_state.h
+        core/entity/skeleton/skeleton_moving_state.cpp
+        core/entity/skeleton/skeleton_moving_state.h
+        core/entity/skeleton/skeleton_attack_state.cpp
+        core/entity/skeleton/skeleton_attack_state.h
+        core/entity/skeleton/skeleton_dying_state.cpp
+        core/entity/skeleton/skeleton_dying_state.h
 
-        core/entities/player/player.h
-        core/entities/player/player_impl.cpp
-        core/entities/player/player_impl.h
-        core/entities/player/player_moving_state.cpp
-        core/entities/player/player_moving_state.h
-        core/entities/player/player_idle_state.cpp
-        core/entities/player/player_idle_state.h
-        core/entities/player/player_state_machine_impl.cpp
-        core/entities/player/player_state_machine_impl.h
-        core/entities/player/player_attack_state.cpp
-        core/entities/player/player_attack_state.h
-        core/entities/player/player_dying_state.cpp
-        core/entities/player/player_dying_state.h
-        core/entities/player/player_state.h
-        core/entities/player/player_state_machine.h
+        core/entity/player/player.h
+        core/entity/player/player_impl.cpp
+        core/entity/player/player_impl.h
+        core/entity/player/player_moving_state.cpp
+        core/entity/player/player_moving_state.h
+        core/entity/player/player_idle_state.cpp
+        core/entity/player/player_idle_state.h
+        core/entity/player/player_state_machine_impl.cpp
+        core/entity/player/player_state_machine_impl.h
+        core/entity/player/player_attack_state.cpp
+        core/entity/player/player_attack_state.h
+        core/entity/player/player_dying_state.cpp
+        core/entity/player/player_dying_state.h
+        core/entity/player/player_state.h
+        core/entity/player/player_state_machine.h
 
-        core/entities/entitystate/abstract_entity_state_machine.h
-        core/entities/entitystate/entity_state.h
-        core/entities/entitystate/entity_state_machine.h
-        core/entities/entitystate/entity_state_id.h
+        core/entity/entitystate/abstract_entity_state_machine.h
+        core/entity/entitystate/entity_state.h
+        core/entity/entitystate/entity_state_machine.h
+        core/entity/entitystate/entity_state_id.h
 
-        core/entities/entitystate/delegates/entity_draw_delegate.cpp
-        core/entities/entitystate/delegates/entity_draw_delegate.h
-        core/entities/entitystate/delegates/entity_move_delegate.cpp
-        core/entities/entitystate/delegates/entity_move_delegate.h
-        core/entities/entitystate/delegates/entity_dying_delegate.cpp
-        core/entities/entitystate/delegates/entity_dying_delegate.h
-        core/entities/entitystate/delegates/entity_attack_delegate.cpp
-        core/entities/entitystate/delegates/entity_attack_delegate.h
-        core/entities/entitystate/delegates/entity_idle_delegate.cpp
-        core/entities/entitystate/delegates/entity_idle_delegate.h
+        core/entity/entitystate/delegates/entity_draw_delegate.cpp
+        core/entity/entitystate/delegates/entity_draw_delegate.h
+        core/entity/entitystate/delegates/entity_move_delegate.cpp
+        core/entity/entitystate/delegates/entity_move_delegate.h
+        core/entity/entitystate/delegates/entity_dying_delegate.cpp
+        core/entity/entitystate/delegates/entity_dying_delegate.h
+        core/entity/entitystate/delegates/entity_attack_delegate.cpp
+        core/entity/entitystate/delegates/entity_attack_delegate.h
+        core/entity/entitystate/delegates/entity_idle_delegate.cpp
+        core/entity/entitystate/delegates/entity_idle_delegate.h
 
-        visuals/animation.cpp
-        visuals/animation.h
-        visuals/font_bundle.cpp
-        visuals/font_bundle.h
-        visuals/hud.cpp
-        visuals/hud.h
+        visual/animation.cpp
+        visual/animation.h
+        visual/font_bundle.cpp
+        visual/font_bundle.h
+        visual/hud.cpp
+        visual/hud.h
 
         audio/sound_engine.cpp
         audio/sound_engine.h
@@ -201,8 +201,8 @@ set(SOURCE_FILES
         service/menu_parser.h
         service/menu_parser.cpp
 
-        visuals/drawable_text.cpp
-        visuals/drawable_text.h)
+        visual/drawable_text.cpp
+        visual/drawable_text.h)
 
 add_library(${WANDERER_LIB} ${SOURCE_FILES})
 
@@ -242,15 +242,15 @@ target_include_directories(${WANDERER_LIB} PUBLIC core/menu)
 target_include_directories(${WANDERER_LIB} PUBLIC core/menu/button)
 target_include_directories(${WANDERER_LIB} PUBLIC core/math)
 target_include_directories(${WANDERER_LIB} PUBLIC core/level)
-target_include_directories(${WANDERER_LIB} PUBLIC core/level/tiles)
+target_include_directories(${WANDERER_LIB} PUBLIC core/level/tile)
 target_include_directories(${WANDERER_LIB} PUBLIC core/util)
 target_include_directories(${WANDERER_LIB} PUBLIC core/action)
-target_include_directories(${WANDERER_LIB} PUBLIC core/entities)
-target_include_directories(${WANDERER_LIB} PUBLIC core/entities/player)
-target_include_directories(${WANDERER_LIB} PUBLIC core/entities/skeleton)
-target_include_directories(${WANDERER_LIB} PUBLIC core/entities/entitystate)
-target_include_directories(${WANDERER_LIB} PUBLIC core/entities/entitystate/delegates)
-target_include_directories(${WANDERER_LIB} PUBLIC visuals)
+target_include_directories(${WANDERER_LIB} PUBLIC core/entity)
+target_include_directories(${WANDERER_LIB} PUBLIC core/entity/player)
+target_include_directories(${WANDERER_LIB} PUBLIC core/entity/skeleton)
+target_include_directories(${WANDERER_LIB} PUBLIC core/entity/entitystate)
+target_include_directories(${WANDERER_LIB} PUBLIC core/entity/entitystate/delegates)
+target_include_directories(${WANDERER_LIB} PUBLIC visual)
 target_include_directories(${WANDERER_LIB} PUBLIC util)
 target_include_directories(${WANDERER_LIB} PUBLIC service)
 target_include_directories(${WANDERER_LIB} PUBLIC audio)

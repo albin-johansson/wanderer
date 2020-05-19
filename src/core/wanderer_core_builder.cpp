@@ -27,7 +27,6 @@ SharedPtr<IWandererCore> WandererCoreBuilder::build(
         menu, MenuBuilder::build(actionParser, path.c_str()));
   };
 
-  // TODO load menus
   addMenu(MenuID::Home, "home_menu.json");
   addMenu(MenuID::Settings, "settings_menu.json");
   addMenu(MenuID::Controls, "controls_menu.json");
