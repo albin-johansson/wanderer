@@ -11,12 +11,12 @@ namespace albinjohansson::wanderer {
 
 class SoundEngine final {
  private:
-  std::unordered_map<std::string, Unique<centurion::SoundEffect>> sounds;
+  std::unordered_map<std::string, UniquePtr<centurion::SoundEffect>> sounds;
 
   void load_sounds(const std::string& file);
 
   void register_sound(const std::string& id,
-                      Unique<centurion::SoundEffect> sound);
+                      UniquePtr<centurion::SoundEffect> sound);
 
  public:
   explicit SoundEngine(const std::string& file);

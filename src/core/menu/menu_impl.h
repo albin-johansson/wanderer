@@ -31,7 +31,7 @@ class MenuImpl : public IMenu {
   }
 
  private:
-  std::vector<Unique<MenuButton>> m_buttons;
+  std::vector<UniquePtr<MenuButton>> m_buttons;
   std::string m_title;
   bool m_blocking;
 };

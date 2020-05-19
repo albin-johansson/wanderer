@@ -8,7 +8,7 @@ namespace albinjohansson::wanderer {
 
 class GotoMenuAction final : public IAction {
  public:
-  GotoMenuAction(Weak<IMenuStateMachine> menuStateMachine,
+  GotoMenuAction(WeakPtr<IMenuStateMachine> menuStateMachine,
                  MenuID menu) noexcept;
 
   ~GotoMenuAction() noexcept override = default;
@@ -16,7 +16,7 @@ class GotoMenuAction final : public IAction {
   void execute() noexcept override;
 
  private:
-  Weak<IMenuStateMachine> m_menuStateMachine;
+  WeakPtr<IMenuStateMachine> m_menuStateMachine;
   MenuID m_menu;
 };
 

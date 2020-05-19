@@ -2,7 +2,7 @@
 
 namespace albinjohansson::wanderer {
 
-QuitAction::QuitAction(Weak<IWandererCore> core) noexcept : m_core{core}
+QuitAction::QuitAction(WeakPtr<IWandererCore> core) noexcept : m_core{core}
 {}
 
 void QuitAction::execute() noexcept

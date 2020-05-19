@@ -29,7 +29,7 @@ class MenuButton final : public IMenuDrawable {
    */
   MenuButton(std::string text,
              ctn::FRect bounds,
-             Unique<IAction> action = nullptr);
+             UniquePtr<IAction> action = nullptr);
 
   ~MenuButton() override;
 
@@ -45,7 +45,7 @@ class MenuButton final : public IMenuDrawable {
 
  private:
   ctn::FRect m_bounds;
-  Unique<IAction> m_action;
+  UniquePtr<IAction> m_action;
   std::unique_ptr<DrawableText> m_text;
   bool m_enlarged = false;
 };

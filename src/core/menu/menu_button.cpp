@@ -4,7 +4,8 @@ using namespace centurion;
 
 namespace albinjohansson::wanderer {
 
-MenuButton::MenuButton(std::string text, FRect bounds, Unique<IAction> action)
+MenuButton::MenuButton(std::string text, FRect bounds,
+                       UniquePtr<IAction> action)
     : m_bounds{bounds},
       m_action{std::move(action)},
       m_text{std::make_unique<DrawableText>(text, FPoint{0, 0})}

@@ -10,8 +10,8 @@ namespace albinjohansson::wanderer {
 
 class ActionParser {
  public:
-  ActionParser(Weak<IWandererCore> core,
-               Weak<IMenuStateMachine> menuStateMachine);
+  ActionParser(WeakPtr<IWandererCore> core,
+               WeakPtr<IMenuStateMachine> menuStateMachine);
 
   /**
    * Attempts to parse the supplied JSON value and convert it into an action.
@@ -30,11 +30,11 @@ class ActionParser {
    * couldn't be created.
    * @since 0.1.0
    */
-  Unique<IAction> parse(const nlohmann::json::value_type& value);
+  UniquePtr<IAction> parse(const nlohmann::json::value_type& value);
 
  private:
-  Weak<IWandererCore> m_core;
-  Weak<IMenuStateMachine> m_menuStateMachine;
+  WeakPtr<IWandererCore> m_core;
+  WeakPtr<IMenuStateMachine> m_menuStateMachine;
 };
 
 }  // namespace albinjohansson::wanderer

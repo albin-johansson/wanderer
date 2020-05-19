@@ -18,7 +18,7 @@ using namespace centurion;
 
 namespace albinjohansson::wanderer {
 
-TileMapImpl::TileMapImpl(const Shared<TileSet>& tileSet)
+TileMapImpl::TileMapImpl(const SharedPtr<TileSet>& tileSet)
 {
   this->tileSet = Require::not_null(tileSet);
 }
@@ -133,7 +133,7 @@ void TileMapImpl::render_tiles_at(int row, int col, Renderer& renderer)
   }
 }
 
-void TileMapImpl::add_layer(Unique<ITileMapLayer>&& layer)
+void TileMapImpl::add_layer(UniquePtr<ITileMapLayer>&& layer)
 {
   if (layer) {
     if (layer->is_ground_layer()) {
@@ -144,7 +144,7 @@ void TileMapImpl::add_layer(Unique<ITileMapLayer>&& layer)
   }
 }
 
-void TileMapImpl::set_player(const Shared<IEntity>& player)
+void TileMapImpl::set_player(const SharedPtr<IEntity>& player)
 {
   if (player) {
     this->player = player;

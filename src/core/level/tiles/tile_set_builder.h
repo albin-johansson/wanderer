@@ -20,7 +20,7 @@ class TileSetBuilder final {
 
   ~TileSetBuilder() = default;
 
-  [[nodiscard]] static Unique<TileSet> create(
+  [[nodiscard]] static UniquePtr<TileSet> create(
       const pugi::xml_node& mapRoot, ctn::TextureLoader& textureLoader);
 };
 

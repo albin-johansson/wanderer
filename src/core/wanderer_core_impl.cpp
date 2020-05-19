@@ -90,7 +90,7 @@ void WandererCoreImpl::play_sound(const std::string& id) const
   m_soundEngine->get_sound(id).play();
 }
 
-void WandererCoreImpl::set_map(Shared<ITileMap> map)
+void WandererCoreImpl::set_map(SharedPtr<ITileMap> map)
 {
   if (map) {
     m_activeMap = map;

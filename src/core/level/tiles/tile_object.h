@@ -23,7 +23,7 @@ class TileSet;
  */
 class TileObject final : public IGameObject {
  private:
-  Shared<TileSet> tileSet = nullptr;
+  SharedPtr<TileSet> tileSet = nullptr;
   Vector2 position;
   Hitbox hitbox;
   uint64 uniqueId = 0;

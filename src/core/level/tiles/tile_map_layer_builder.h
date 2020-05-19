@@ -58,8 +58,8 @@ class TileMapLayerBuilder final {
    * @return a unique pointer to a tile map layer.
    * @since 0.1.0
    */
-  [[nodiscard]] Unique<ITileMapLayer> create(
-      const Shared<TileSet>& tileSet,
+  [[nodiscard]] UniquePtr<ITileMapLayer> create(
+      const SharedPtr<TileSet>& tileSet,
       const tiled::TiledLayer& tiledLayer) const;
 };
 

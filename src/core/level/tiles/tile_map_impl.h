@@ -28,8 +28,8 @@ class TileMapImpl final : public ITileMap {
  private:
   friend class TileMapBuilder;
 
-  Shared<TileSet> tileSet = nullptr;
-  Shared<IEntity> player = nullptr;
+  SharedPtr<TileSet> tileSet = nullptr;
+  SharedPtr<IEntity> player = nullptr;
   std::vector<std::unique_ptr<ITileMapLayer>> groundLayers;
   std::vector<std::unique_ptr<ITileMapLayer>> objectLayers;
   std::vector<IGameObject*> activeObjects;
@@ -66,7 +66,7 @@ class TileMapImpl final : public ITileMap {
    * @param tileSet the associated tile set.
    * @since 0.1.0
    */
-  explicit TileMapImpl(const Shared<TileSet>& tileSet);
+  explicit TileMapImpl(const SharedPtr<TileSet>& tileSet);
 
  public:
   ~TileMapImpl() override;
@@ -79,9 +79,9 @@ class TileMapImpl final : public ITileMap {
             const Viewport& viewport,
             float alpha) noexcept override;
 
-  void add_layer(Unique<ITileMapLayer>&& layer) override;
+  void add_layer(UniquePtr<ITileMapLayer>&& layer) override;
 
-  void set_player(const Shared<IEntity>& player) override;
+  void set_player(const SharedPtr<IEntity>& player) override;
 
   [[nodiscard]] bool is_blocked(const IMovableObject* self,
                                 float delta) const override;

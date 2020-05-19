@@ -33,7 +33,7 @@ class WandererCoreImpl final
    * @return a shared pointer to an IWandererCore instance.
    * @since 0.1.0
    */
-  friend Shared<IWandererCore> create_core(ctn::TextureLoader& textureLoader);
+  friend SharedPtr<IWandererCore> create_core(ctn::TextureLoader& textureLoader);
 
   void handle_input(const Input& input) override;
 
@@ -41,7 +41,7 @@ class WandererCoreImpl final
 
   void render(ctn::Renderer& renderer, float alpha) override;
 
-  void set_map(Shared<ITileMap> map) override;
+  void set_map(SharedPtr<ITileMap> map) override;
 
   void play_sound(const std::string& id) const override;
 
@@ -58,13 +58,13 @@ class WandererCoreImpl final
   [[nodiscard]] const ITileMap& get_active_map() const override;
 
  private:
-  Shared<ITileMap> m_activeMap = nullptr;
-  Shared<IMenuStateMachine> m_menuStateMachine = nullptr;
+  SharedPtr<ITileMap> m_activeMap = nullptr;
+  SharedPtr<IMenuStateMachine> m_menuStateMachine = nullptr;
   HUD m_hud;
 
-  Shared<IPlayer> m_player = nullptr;
-  Shared<ITileMap> m_world = nullptr;
-  Unique<SoundEngine> m_soundEngine = nullptr;
+  SharedPtr<IPlayer> m_player = nullptr;
+  SharedPtr<ITileMap> m_world = nullptr;
+  UniquePtr<SoundEngine> m_soundEngine = nullptr;
 
   Viewport m_viewport;
   bool m_shouldQuit = false;

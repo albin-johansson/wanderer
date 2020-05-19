@@ -8,7 +8,7 @@ namespace albinjohansson::wanderer {
 
 class WandererCoreBuilder {
  public:
-  static Shared<IWandererCore> build(ctn::TextureLoader& textureLoader);
+  static SharedPtr<IWandererCore> build(ctn::TextureLoader& textureLoader);
 };
 
 }  // namespace albinjohansson::wanderer

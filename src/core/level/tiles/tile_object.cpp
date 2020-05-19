@@ -13,7 +13,7 @@ namespace albinjohansson::wanderer {
 
 TileObject::TileObject(TileID id,
                        const Vector2& position,
-                       const Shared<TileSet>& tileSet)
+                       const SharedPtr<TileSet>& tileSet)
     : position{position}, id{id}
 {
   this->tileSet = Require::not_null(tileSet);

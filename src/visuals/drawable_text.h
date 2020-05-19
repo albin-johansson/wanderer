@@ -45,7 +45,7 @@ class DrawableText {
   }
 
  private:
-  mutable Unique<ctn::Texture> m_texture = nullptr;
+  mutable UniquePtr<ctn::Texture> m_texture = nullptr;
   std::string m_text = "";
   ctn::FPoint m_position = {0, 0};
   ctn::Color m_color = ctn::color::white;

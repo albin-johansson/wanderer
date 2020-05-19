@@ -9,7 +9,7 @@ using namespace centurion;
 
 namespace albinjohansson::wanderer {
 
-AbstractEntity::AbstractEntity(const Shared<Texture>& sheet)
+AbstractEntity::AbstractEntity(const SharedPtr<Texture>& sheet)
 {
   this->sheet = Require::not_null(sheet);
   movable = std::make_unique<MovableDelegate>(

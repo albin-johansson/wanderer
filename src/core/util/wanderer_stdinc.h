@@ -13,23 +13,23 @@ using Maybe = std::optional<T>;
 inline constexpr std::nullopt_t nothing = std::nullopt;
 
 template <typename T>
-using Unique = std::unique_ptr<T>;
+using UniquePtr = std::unique_ptr<T>;
 
 template <typename T>
-using Shared = std::shared_ptr<T>;
+using SharedPtr = std::shared_ptr<T>;
 
 template <typename T>
-using Weak = std::weak_ptr<T>;
+using WeakPtr = std::weak_ptr<T>;
 
-using int8 = std::int_fast8_t;
-using int16 = std::int_fast16_t;
-using int32 = std::int_fast32_t;
-using int64 = std::int_fast64_t;
+using int8 = std::int8_t;
+using int16 = std::int16_t;
+using int32 = std::int32_t;
+using int64 = std::int64_t;
 
-using uint8 = std::uint_fast8_t;
-using uint16 = std::uint_fast16_t;
-using uint32 = std::uint_fast32_t;
-using uint64 = std::uint_fast64_t;
+using uint8 = std::uint8_t;
+using uint16 = std::uint16_t;
+using uint32 = std::uint32_t;
+using uint64 = std::uint64_t;
 
 namespace ctn = centurion;
 

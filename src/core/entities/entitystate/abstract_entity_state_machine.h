@@ -26,7 +26,7 @@ template <class T = IEntityState>
 class AbstractEntityStateMachine : public virtual IEntityStateMachine {
  private:
   IEntity* entity = nullptr;
-  std::unordered_map<EntityStateID, Unique<T>> states;
+  std::unordered_map<EntityStateID, UniquePtr<T>> states;
   EntityStateID activeStateID = EntityStateID::Idle;
 
  protected:
@@ -47,7 +47,7 @@ class AbstractEntityStateMachine : public virtual IEntityStateMachine {
    * @param state a unique pointer to the state, mustn't be null!
    * @since 0.1.0
    */
-  void put(EntityStateID id, Unique<T>&& state)
+  void put(EntityStateID id, UniquePtr<T>&& state)
   {
     states.emplace(id, std::move(state));
   }

@@ -12,7 +12,7 @@ using namespace centurion;
 
 namespace albinjohansson::wanderer {
 
-Shared<IWandererCore> WandererCoreBuilder::build(TextureLoader& textureLoader)
+SharedPtr<IWandererCore> WandererCoreBuilder::build(TextureLoader& textureLoader)
 {
   auto core = std::shared_ptr<WandererCoreImpl>(new WandererCoreImpl{});
 

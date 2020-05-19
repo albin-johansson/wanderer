@@ -26,8 +26,8 @@ class AbstractEntity : public virtual IEntity {
   static constexpr int DEPTH =
       RenderDepth::range / 2;  // TODO maybe move to IEntity
 
-  Unique<IMovableObject> movable = nullptr;
-  Shared<ctn::Texture> sheet = nullptr;
+  UniquePtr<IMovableObject> movable = nullptr;
+  SharedPtr<ctn::Texture> sheet = nullptr;
   Animation animation;
   int health = 100;  // FIXME hard-coded
 
@@ -37,7 +37,7 @@ class AbstractEntity : public virtual IEntity {
    * @throws NullPointerException if the supplied pointer is null.
    * @since 0.1.0
    */
-  explicit AbstractEntity(const Shared<ctn::Texture>& sheet);
+  explicit AbstractEntity(const SharedPtr<ctn::Texture>& sheet);
 
  public:
   ~AbstractEntity() override;

@@ -32,12 +32,12 @@ inline Maybe<MenuID> menu_id_from_action_id(ActionID action)
 
 }  // namespace
 
-ActionParser::ActionParser(Weak<IWandererCore> core,
-                           Weak<IMenuStateMachine> menuStateMachine)
+ActionParser::ActionParser(WeakPtr<IWandererCore> core,
+                           WeakPtr<IMenuStateMachine> menuStateMachine)
     : m_core{core}, m_menuStateMachine{menuStateMachine}
 {}
 
-Unique<IAction> ActionParser::parse(const json::value_type& value)
+UniquePtr<IAction> ActionParser::parse(const json::value_type& value)
 {
   if (value.is_null()) {
     return nullptr;
