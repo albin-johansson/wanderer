@@ -15,6 +15,7 @@ int main(int, char**)
 {
   const Centurion c;
   SDL_SetHint(SDL_HINT_RENDER_DRIVER, "opengl");
+  Log::set_priority(Log::Priority::Warn);
   run();
   return 0;
 }
