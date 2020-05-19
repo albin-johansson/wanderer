@@ -1,16 +1,22 @@
-#include "catch.hpp"
 #include "random_utils.h"
+
 #include <string>
+
+#include "catch.hpp"
 
 using namespace albinjohansson::wanderer;
 
-TEST_CASE("RandomUtils::get_int", "[RandomUtils]") {
-  SECTION("Test that specifying the same min and max value returns the same value.") {
+TEST_CASE("RandomUtils::get_int", "[RandomUtils]")
+{
+  SECTION(
+      "Test that specifying the same min and max value returns the same value.")
+  {
     for (auto i = 0; i < 10; ++i) {
       CHECK(i == RandomUtils::get_int(i, i));
     }
   }
-  SECTION("Interval test") {
+  SECTION("Interval test")
+  {
     const auto min = 0;
     const auto max = 1'000;
     for (auto i = 0; i < 100; ++i) {

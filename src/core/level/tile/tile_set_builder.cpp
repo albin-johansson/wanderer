@@ -1,6 +1,7 @@
 #include "tile_set_builder.h"
 
 #include "pugi_utils.h"
+#include "resource.h"
 #include "tile_builder.h"
 
 using namespace centurion;
@@ -25,17 +26,17 @@ UniquePtr<TileSet> TileSetBuilder::create(const pugi::xml_node& mapRoot,
       std::make_unique<TileSet>(nTilesets * 1024);  // Guess the amount of tiles
 
   for (const auto tsInfoNode : tsChildren) {
-    const std::string tsFileName = tsInfoNode.attribute("source").as_string();
+    std::string mapPath = Resource::map("world/");
+    mapPath += tsInfoNode.attribute("source").as_string();
 
-    const auto tsDocument =
-        PugiUtils::LoadDocument("resources/map/world/" + tsFileName);
+    const auto tsDocument = PugiUtils::LoadDocument(mapPath);
     const auto tileSetNode = tsDocument.child("tileset");
 
     const auto firstId =
         static_cast<TileID>(tsInfoNode.attribute("firstgid").as_uint());
     auto tiledTileSet = create_tiled_tile_set(tileSetNode, firstId);
 
-    const auto path = "resources/img/" + tiledTileSet.get_image_name();
+    const auto path = Resource::img(tiledTileSet.get_image_name().c_str());
     auto image = textureLoader.shared_img(path.c_str());
 
     const auto lastId = static_cast<TileID>(tiledTileSet.get_last_tile_id());

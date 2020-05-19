@@ -199,7 +199,7 @@ set(SOURCE_FILES
         parse/menu_button_parser.h
 
         visual/drawable_text.cpp
-        visual/drawable_text.h audio/sound_id.h parse/sound_engine_parser.cpp parse/sound_engine_parser.h)
+        visual/drawable_text.h audio/sound_id.h parse/sound_engine_parser.cpp parse/sound_engine_parser.h core/util/resource.h core/util/resource.cpp)
 
 add_library(${WANDERER_LIB} ${SOURCE_FILES})
 

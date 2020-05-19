@@ -1,10 +1,13 @@
-#include "catch.hpp"
 #include "viewport.h"
+
 #include <stdexcept>
+
+#include "catch.hpp"
 
 using namespace albinjohansson::wanderer;
 
-TEST_CASE("Viewport()", "[Viewport]") {
+TEST_CASE("Viewport()", "[Viewport]")
+{
   Viewport viewport;
 
   CHECK(viewport.get_bounds().x() == 0);
@@ -13,7 +16,8 @@ TEST_CASE("Viewport()", "[Viewport]") {
   CHECK(viewport.get_bounds().height() == 10);
 }
 
-TEST_CASE("Viewport(float, float, float, float)", "[Viewport]") {
+TEST_CASE("Viewport(float, float, float, float)", "[Viewport]")
+{
   CHECK_THROWS_AS(Viewport({0, 1}, {1, 1}), std::invalid_argument);
   CHECK_THROWS_AS(Viewport({1, 0}, {1, 1}), std::invalid_argument);
   CHECK_THROWS_AS(Viewport({1, 1}, {0, 1}), std::invalid_argument);
@@ -28,7 +32,8 @@ TEST_CASE("Viewport(float, float, float, float)", "[Viewport]") {
   CHECK(viewport.get_bounds().height() == Approx(vp.height));
 }
 
-TEST_CASE("Viewport::SetWidth", "[Viewport]") {
+TEST_CASE("Viewport::SetWidth", "[Viewport]")
+{
   Viewport viewport;
 
   float width = 1935.8f;
@@ -37,7 +42,8 @@ TEST_CASE("Viewport::SetWidth", "[Viewport]") {
   CHECK(viewport.get_bounds().width() == Approx(width));
 }
 
-TEST_CASE("Viewport::SetHeight", "[Viewport]") {
+TEST_CASE("Viewport::SetHeight", "[Viewport]")
+{
   Viewport viewport;
 
   float height = 3197.2f;

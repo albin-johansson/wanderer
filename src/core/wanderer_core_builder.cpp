@@ -4,6 +4,7 @@
 #include "menu_parser.h"
 #include "menu_state_machine_impl.h"
 #include "player_impl.h"
+#include "resource.h"
 #include "sound_engine_parser.h"
 #include "tile_map.h"
 #include "tiled_map_parser.h"
@@ -23,23 +24,23 @@ SharedPtr<IWandererCore> WandererCoreBuilder::build(
   ActionParser actionParser{core, core->m_menuStateMachine};
 
   const auto addMenu = [&](MenuID menu, std::string fileName) {
-    const auto path = "resources/menu/" + fileName;
     core->m_menuStateMachine->add_menu(
-        menu, MenuParser::parse(actionParser, path.c_str()));
+        menu, MenuParser::parse(actionParser, fileName.c_str()));
   };
 
-  addMenu(MenuID::Home, "home_menu.json");
-  addMenu(MenuID::Settings, "settings_menu.json");
-  addMenu(MenuID::Controls, "controls_menu.json");
-  addMenu(MenuID::InGame, "in_game_menu.json");
+  addMenu(MenuID::Home, Resource::menu("home_menu.json"));
+  addMenu(MenuID::Settings, Resource::menu("settings_menu.json"));
+  addMenu(MenuID::Controls, Resource::menu("controls_menu.json"));
+  addMenu(MenuID::InGame, Resource::menu("in_game_menu.json"));
 
-  core->m_soundEngine = SoundEngineParser::parse("resources/audio/sounds.json");
+  core->m_soundEngine =
+      SoundEngineParser::parse(Resource::sfx("sounds.json").c_str());
 
   core->m_player = std::make_shared<PlayerImpl>(
-      textureLoader.shared_img("resources/img/player2.png"));
+      textureLoader.shared_img(Resource::img("player2.png").c_str()));
 
-  core->m_world =
-      TiledMapParser::load(textureLoader, "resources/map/world/world_demo.tmx");
+  core->m_world = TiledMapParser::load(textureLoader,
+                                       Resource::map("world/world_demo.tmx"));
   core->m_world->set_player(core->m_player);
 
   core->m_activeMap = core->m_world;

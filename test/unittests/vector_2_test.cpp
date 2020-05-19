@@ -1,19 +1,23 @@
-#include "catch.hpp"
 #include "vector_2.h"
+
 #include <cmath>
+
+#include "catch.hpp"
 
 using namespace albinjohansson::wanderer;
 
 // TODO improve tests
 
-TEST_CASE("Vector2DefaultCtor", "[Vector2]") {
-  Vector2 vector; // should be (0, 0)
+TEST_CASE("Vector2DefaultCtor", "[Vector2]")
+{
+  Vector2 vector;  // should be (0, 0)
   CHECK(vector.x == 0);
   CHECK(vector.y == 0);
   CHECK(vector.is_zero());
 }
 
-TEST_CASE("Vector2Ctor", "[Vector2]") {
+TEST_CASE("Vector2Ctor", "[Vector2]")
+{
   float x = 53.8;
   float y = 125.2;
   auto vector = Vector2(x, y);
@@ -23,7 +27,8 @@ TEST_CASE("Vector2Ctor", "[Vector2]") {
   CHECK(!vector.is_zero());
 }
 
-TEST_CASE("Vector2CopyCtor", "[Vector2]") {
+TEST_CASE("Vector2CopyCtor", "[Vector2]")
+{
   auto original = Vector2(87.3f, 39.5f);
   auto copy = Vector2(original);
 
@@ -31,7 +36,8 @@ TEST_CASE("Vector2CopyCtor", "[Vector2]") {
   CHECK(original.y == copy.y);
 }
 
-TEST_CASE("Vector2::Scale", "[Vector2]") {
+TEST_CASE("Vector2::Scale", "[Vector2]")
+{
   float x = 24.5f;
   float y = 83.7f;
   Vector2 vector(x, y);
@@ -46,7 +52,8 @@ TEST_CASE("Vector2::Scale", "[Vector2]") {
   CHECK(vector.is_zero());
 }
 
-TEST_CASE("Vector2::operator+", "[Vector2]") {
+TEST_CASE("Vector2::operator+", "[Vector2]")
+{
   const Vector2 lhs(123.4f, 614.9f);
   const Vector2 rhs(981.1f, -234.7f);
 
@@ -57,18 +64,21 @@ TEST_CASE("Vector2::operator+", "[Vector2]") {
   CHECK(((res1.y == (lhs.y + rhs.y)) && (res2.y == (lhs.y + rhs.y))));
 }
 
-TEST_CASE("Vector2::operator-", "[Vector2]") {
+TEST_CASE("Vector2::operator-", "[Vector2]")
+{
   const Vector2 lhs(517.9f, 1774);
   const Vector2 rhs(181.1f, 734.2f);
 
-  SECTION("Normal operator test") {
+  SECTION("Normal operator test")
+  {
     Vector2 res1 = lhs - rhs;
 
     CHECK(res1.x == (lhs.x - rhs.x));
     CHECK(res1.y == (lhs.y - rhs.y));
   }
 
-  SECTION("Reversed operands") {
+  SECTION("Reversed operands")
+  {
     Vector2 res2 = rhs - lhs;
 
     CHECK(res2.x == (rhs.x - lhs.x));
@@ -76,7 +86,8 @@ TEST_CASE("Vector2::operator-", "[Vector2]") {
   }
 }
 
-TEST_CASE("Vector2::operator==", "[Vector2]") {
+TEST_CASE("Vector2::operator==", "[Vector2]")
+{
   Vector2 vector(712.8f, 913.3f);
   Vector2 copy(vector);
   Vector2 other(193.f, 385.f);
@@ -87,7 +98,8 @@ TEST_CASE("Vector2::operator==", "[Vector2]") {
   CHECK(!(vector == other));
 }
 
-TEST_CASE("Vector2::operator!=", "[Vector2]") {
+TEST_CASE("Vector2::operator!=", "[Vector2]")
+{
   Vector2 vector(389.4f, 4143.3f);
   Vector2 copy(vector);
   Vector2 other(-133.3f, 471.5f);
@@ -98,7 +110,8 @@ TEST_CASE("Vector2::operator!=", "[Vector2]") {
   CHECK(vector != other);
 }
 
-TEST_CASE("Vector2::Add1", "[Vector2]") {
+TEST_CASE("Vector2::Add1", "[Vector2]")
+{
   float x = 19.9f;
   float y = 27.2f;
   Vector2 vector(x, y);
@@ -116,7 +129,8 @@ TEST_CASE("Vector2::Add1", "[Vector2]") {
   CHECK(vector.y == Approx(y + dy));
 }
 
-TEST_CASE("Vector2::Add2", "[Vector2]") {
+TEST_CASE("Vector2::Add2", "[Vector2]")
+{
   float x = 44.1f;
   float y = 38.6f;
   Vector2 vector(x, y);
@@ -129,7 +143,8 @@ TEST_CASE("Vector2::Add2", "[Vector2]") {
   CHECK(vector.y == Approx(y + dy));
 }
 
-TEST_CASE("Vector2::Sub", "[Vector2]") {
+TEST_CASE("Vector2::Sub", "[Vector2]")
+{
   float x = 24.5f;
   float y = 83.7f;
   Vector2 vector(x, y);
@@ -144,7 +159,8 @@ TEST_CASE("Vector2::Sub", "[Vector2]") {
   CHECK(vector.y == Approx(y - y1));
 }
 
-TEST_CASE("Vector2::Norm", "[Vector2]") {
+TEST_CASE("Vector2::Norm", "[Vector2]")
+{
   Vector2 vector(12.0f, 92.3f);
 
   vector.norm();
@@ -153,14 +169,16 @@ TEST_CASE("Vector2::Norm", "[Vector2]") {
   CHECK(vector.get_length() == Approx(1));
 }
 
-TEST_CASE("Vector2::Zero", "[Vector2]") {
+TEST_CASE("Vector2::Zero", "[Vector2]")
+{
   Vector2 vector(859.0f, 229.3f);
 
   vector.zero();
   CHECK(vector.is_zero());
 }
 
-TEST_CASE("Vector2::Set", "[Vector2]") {
+TEST_CASE("Vector2::Set", "[Vector2]")
+{
   Vector2 vector(91, 3);
   Vector2 other(123, 45);
 
@@ -170,7 +188,8 @@ TEST_CASE("Vector2::Set", "[Vector2]") {
   CHECK(vector.y == Approx(other.y));
 }
 
-TEST_CASE("Vector2::SetLength", "[Vector2]") {
+TEST_CASE("Vector2::SetLength", "[Vector2]")
+{
   Vector2 vector(52, 93);
 
   float length = 4;
@@ -178,14 +197,16 @@ TEST_CASE("Vector2::SetLength", "[Vector2]") {
   CHECK(vector.get_length() == Approx(length));
 }
 
-TEST_CASE("Vector2::LookAt(Vector2, float)", "[Vector2]") {
+TEST_CASE("Vector2::LookAt(Vector2, float)", "[Vector2]")
+{
   Vector2 vector(412, 287);
 
   CHECK_NOTHROW(vector.look_at(vector, 0));
   CHECK_NOTHROW(vector.look_at(vector, -1));
 }
 
-TEST_CASE("Vector2::DistanceTo", "[Vector2]") {
+TEST_CASE("Vector2::DistanceTo", "[Vector2]")
+{
   Vector2 vector(377, 518);
   Vector2 other(123, 411);
 
@@ -198,7 +219,8 @@ TEST_CASE("Vector2::DistanceTo", "[Vector2]") {
   CHECK(vector.distance_to(vector) == 0);
 }
 
-TEST_CASE("Vector2::DistanceTo2", "[Vector2]") {
+TEST_CASE("Vector2::DistanceTo2", "[Vector2]")
+{
   Vector2 vector(58, 832);
   Vector2 other(284, 550);
 
@@ -206,7 +228,8 @@ TEST_CASE("Vector2::DistanceTo2", "[Vector2]") {
   CHECK(vector.distance_to_2(vector) == 0);
 }
 
-TEST_CASE("Vector2::Angle", "[Vector2]") {
+TEST_CASE("Vector2::Angle", "[Vector2]")
+{
   const Vector2 nx(-1, 0);
   const Vector2 ny(0, -1);
 
@@ -217,19 +240,22 @@ TEST_CASE("Vector2::Angle", "[Vector2]") {
 
   CHECK(xUnit.angle(xUnit) == 0);
 
-  SECTION("Maximum possible angle") {
+  SECTION("Maximum possible angle")
+  {
     CHECK(nx.angle(xUnit) == 180);
     CHECK(xUnit.angle(nx) == 180);
   }
 
-  SECTION("1 degree step") {
+  SECTION("1 degree step")
+  {
     Vector2 v(std::cos(Math::to_radians(1.0f)),
               std::sin(Math::to_radians(1.0f)));
     CHECK(xUnit.angle(v) == 1);
   }
 }
 
-TEST_CASE("Vector2::Invert", "[Vector2]") {
+TEST_CASE("Vector2::Invert", "[Vector2]")
+{
   const auto x = 4;
   const auto y = 8;
 
@@ -240,7 +266,8 @@ TEST_CASE("Vector2::Invert", "[Vector2]") {
   CHECK(vector.y == (-1 * y));
 }
 
-TEST_CASE("Vector2::GetLength", "[Vector2]") {
+TEST_CASE("Vector2::GetLength", "[Vector2]")
+{
   Vector2 vector;
 
   CHECK(vector.get_length() == 0);
@@ -253,14 +280,16 @@ TEST_CASE("Vector2::GetLength", "[Vector2]") {
   CHECK(yUnit.is_unit());
 }
 
-TEST_CASE("Vector2::GetLength2", "[Vector2]") {
+TEST_CASE("Vector2::GetLength2", "[Vector2]")
+{
   Vector2 vector;
 
   CHECK(vector.get_length_2() == 0);
   CHECK(vector.is_zero());
 }
 
-TEST_CASE("Vector2::IsZero", "[Vector2]") {
+TEST_CASE("Vector2::IsZero", "[Vector2]")
+{
   Vector2 first;
   CHECK(first.is_zero());
 
@@ -268,7 +297,8 @@ TEST_CASE("Vector2::IsZero", "[Vector2]") {
   CHECK(!other.is_zero());
 }
 
-TEST_CASE("Vector2::IsUnit", "[Vector2]") {
+TEST_CASE("Vector2::IsUnit", "[Vector2]")
+{
   Vector2 vector(1, 0);
   CHECK(vector.is_unit());
 
