@@ -27,6 +27,8 @@ set(SOURCE_FILES
         core/game_constants.h
         core/game_object_id.h
         core/game_object_id.cpp
+        core/wanderer_core_builder.cpp
+        core/wanderer_core_builder.h
 
         core/util/require.h
         core/util/bad_state_exception.h
@@ -171,38 +173,36 @@ set(SOURCE_FILES
         ${TILED_INCLUDE_DIR}/tiled_object_group.h
 
         core/util/wanderer_stdinc.h
+        core/util/wanderer_exception.h
+        core/util/json_utils.h
+        core/util/json_utils.cpp
 
         core/action/action.h
-
-        core/menu/button/button_action.h
-        core/menu/menu_impl.cpp
-        core/menu/menu_impl.h
         core/action/goto_menu_action.cpp
         core/action/goto_menu_action.h
+        core/action/action_parser.cpp
+        core/action/action_parser.h
+        core/action/quit_action.cpp
+        core/action/quit_action.h
+
+        core/menu/menu_impl.cpp
+        core/menu/menu_impl.h
+        core/menu/menu_builder.cpp
+        core/menu/menu_builder.h
+        core/menu/key_bind_builder.cpp
+        core/menu/key_bind_builder.h
+        core/menu/key_bind.cpp
+        core/menu/key_bind.h
+
+        core/menu/button/button_action.h
+        core/menu/button/menu_button_builder.cpp
+        core/menu/button/menu_button_builder.h
 
         service/menu_parser.h
         service/menu_parser.cpp
 
         visuals/drawable_text.cpp
-        visuals/drawable_text.h
-
-        core/action/action_parser.cpp
-        core/action/action_parser.h
-        core/action/quit_action.cpp
-        core/action/quit_action.h
-        core/wanderer_core_builder.cpp
-        core/wanderer_core_builder.h
-        core/menu/key_bind.cpp
-        core/menu/key_bind.h
-        core/util/wanderer_exception.h
-        core/menu/menu_builder.cpp
-        core/menu/menu_builder.h
-        core/util/json_utils.h
-        core/menu/button/menu_button_builder.cpp
-        core/menu/button/menu_button_builder.h
-        core/menu/key_bind_builder.cpp
-        core/menu/key_bind_builder.h
-        core/util/json_utils.cpp)
+        visuals/drawable_text.h)
 
 add_library(${WANDERER_LIB} ${SOURCE_FILES})
 
