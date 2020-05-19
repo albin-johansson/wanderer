@@ -24,7 +24,7 @@ SharedPtr<IWandererCore> WandererCoreBuilder::build(
   const auto addMenu = [&](MenuID menu, std::string fileName) {
     const auto path = "resources/menu/" + fileName;
     core->m_menuStateMachine->add_menu(
-        menu, MenuBuilder::build(actionParser, path.c_str()));
+        menu, MenuParser::parse(actionParser, path.c_str()));
   };
 
   addMenu(MenuID::Home, "home_menu.json");

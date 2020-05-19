@@ -4,8 +4,8 @@
 
 #include "json_utils.h"
 #include "key_bind.h"
-#include "key_bind_builder.h"
-#include "menu_button_builder.h"
+#include "key_bind_parser.h"
+#include "menu_button_parser.h"
 #include "menu_impl.h"
 #include "wanderer_exception.h"
 
@@ -13,7 +13,7 @@ using namespace centurion;
 
 namespace albinjohansson::wanderer {
 
-UniquePtr<IMenu> MenuBuilder::build(ActionParser& actionParser, CZString file)
+UniquePtr<IMenu> MenuParser::parse(ActionParser& actionParser, CZString file)
 {
   Json json = parse_json(file);
 
@@ -34,7 +34,7 @@ UniquePtr<IMenu> MenuBuilder::build(ActionParser& actionParser, CZString file)
   int row = 0;
   if (json.count("buttons")) {
     for (const auto& [key, value] : json.at("buttons").items()) {
-      auto button = MenuButtonBuilder::build(actionParser, value, row);
+      auto button = MenuButtonParser::parse(actionParser, value, row);
       if (button) {
         menu->m_buttons.push_back(std::move(button));
         ++row;
@@ -47,7 +47,7 @@ UniquePtr<IMenu> MenuBuilder::build(ActionParser& actionParser, CZString file)
 
   if (json.count("binds")) {
     for (const auto& [key, value] : json.at("binds").items()) {
-      auto bind = KeyBindBuilder::build(actionParser, value);
+      auto bind = KeyBindParser::parse(actionParser, value);
       if (bind) {
         menu->m_binds.push_back(std::move(bind));
       }

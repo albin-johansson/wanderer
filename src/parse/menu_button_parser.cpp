@@ -1,4 +1,4 @@
-#include "menu_button_builder.h"
+#include "menu_button_parser.h"
 
 #include "json_utils.h"
 
@@ -6,9 +6,9 @@ using namespace centurion;
 
 namespace albinjohansson::wanderer {
 
-UniquePtr<MenuButton> MenuButtonBuilder::build(ActionParser& actionParser,
-                                               const JsonValue& json,
-                                               int row)
+UniquePtr<MenuButton> MenuButtonParser::parse(ActionParser& actionParser,
+                                              const JsonValue& json,
+                                              int row)
 {
   auto text = maybe_get<std::string>(json, "text");
   if (!text) {

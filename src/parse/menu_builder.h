@@ -6,11 +6,11 @@
 
 namespace albinjohansson::wanderer {
 
-class MenuBuilder final {
+class MenuParser final {
  public:
-  MenuBuilder() = delete;
+  MenuParser() = delete;
 
-  static UniquePtr<IMenu> build(ActionParser& actionParser, CZString file);
+  static UniquePtr<IMenu> parse(ActionParser& actionParser, CZString file);
 };
 
 }  // namespace albinjohansson::wanderer

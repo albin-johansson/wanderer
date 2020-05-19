@@ -5,11 +5,11 @@
 
 namespace albinjohansson::wanderer {
 
-class MenuButtonBuilder final {
+class MenuButtonParser final {
  public:
-  MenuButtonBuilder() = delete;
+  MenuButtonParser() = delete;
 
-  static UniquePtr<MenuButton> build(ActionParser& actionParser,
+  static UniquePtr<MenuButton> parse(ActionParser& actionParser,
                                      const JsonValue& json,
                                      int row);
 };

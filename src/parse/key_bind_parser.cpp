@@ -1,4 +1,4 @@
-#include "key_bind_builder.h"
+#include "key_bind_parser.h"
 
 #include "json_utils.h"
 
@@ -6,8 +6,8 @@ using namespace centurion;
 
 namespace albinjohansson::wanderer {
 
-UniquePtr<KeyBind> KeyBindBuilder::build(ActionParser& actionParser,
-                                         const JsonValue& json)
+UniquePtr<KeyBind> KeyBindParser::parse(ActionParser& actionParser,
+                                        const JsonValue& json)
 {
   const auto keyStr = maybe_get<std::string>(json, "key");
   if (!keyStr) {

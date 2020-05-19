@@ -1,17 +1,7 @@
 #include "wanderer_core_impl.h"
 
-#include <log.h>
-#include <renderer.h>
-#include <sound_effect.h>
-#include <window.h>
-
-#include <memory>
-
-#include "action/action_parser.h"
 #include "input.h"
 #include "menu.h"
-#include "menu_impl.h"
-#include "menu_state_machine_impl.h"
 #include "player_impl.h"
 #include "tile_map.h"
 #include "tiled_map_parser.h"

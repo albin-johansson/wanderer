@@ -180,26 +180,23 @@ set(SOURCE_FILES
         core/action/action.h
         core/action/goto_menu_action.cpp
         core/action/goto_menu_action.h
-        core/action/action_parser.cpp
-        core/action/action_parser.h
+        parse/action_parser.cpp
+        parse/action_parser.h
         core/action/quit_action.cpp
         core/action/quit_action.h
 
         core/menu/menu_impl.cpp
         core/menu/menu_impl.h
-        core/menu/menu_builder.cpp
-        core/menu/menu_builder.h
-        core/menu/key_bind_builder.cpp
-        core/menu/key_bind_builder.h
+        parse/menu_builder.cpp
+        parse/menu_builder.h
+        parse/key_bind_parser.cpp
+        parse/key_bind_parser.h
         core/menu/key_bind.cpp
         core/menu/key_bind.h
 
         core/menu/button/button_action.h
-        core/menu/button/menu_button_builder.cpp
-        core/menu/button/menu_button_builder.h
-
-        service/menu_parser.h
-        service/menu_parser.cpp
+        parse/menu_button_parser.cpp
+        parse/menu_button_parser.h
 
         visual/drawable_text.cpp
         visual/drawable_text.h)
@@ -252,6 +249,7 @@ target_include_directories(${WANDERER_LIB} PUBLIC core/entity/entitystate)
 target_include_directories(${WANDERER_LIB} PUBLIC core/entity/entitystate/delegates)
 target_include_directories(${WANDERER_LIB} PUBLIC visual)
 target_include_directories(${WANDERER_LIB} PUBLIC util)
+target_include_directories(${WANDERER_LIB} PUBLIC parse)
 target_include_directories(${WANDERER_LIB} PUBLIC service)
 target_include_directories(${WANDERER_LIB} PUBLIC audio)
 

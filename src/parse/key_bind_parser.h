@@ -5,11 +5,11 @@
 
 namespace albinjohansson::wanderer {
 
-class KeyBindBuilder final {
+class KeyBindParser final {
  public:
-  KeyBindBuilder() = delete;
+  KeyBindParser() = delete;
 
-  static UniquePtr<KeyBind> build(ActionParser& actionParser,
+  static UniquePtr<KeyBind> parse(ActionParser& actionParser,
                                   const JsonValue& json);
 };
 

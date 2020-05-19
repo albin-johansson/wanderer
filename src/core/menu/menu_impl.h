@@ -11,7 +11,7 @@ namespace albinjohansson::wanderer {
 
 class MenuImpl final : public IMenu {
  public:
-  friend class MenuBuilder;
+  friend class MenuParser;
 
   ~MenuImpl() noexcept = default;
 

@@ -1,6 +1,5 @@
 #include "menu_state_machine_impl.h"
 
-#include <menu_parser.h>
 #include <renderer.h>
 
 #include "input.h"
