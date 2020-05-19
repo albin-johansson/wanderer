@@ -7,7 +7,6 @@
 #include "sound_effect.h"
 
 using namespace centurion;
-using namespace centurion::audio;
 
 namespace albinjohansson::wanderer {
 
@@ -27,7 +26,7 @@ void SoundEngine::load_sounds(const std::string& file)
       auto i = line.find(';');
       std::string id = line.substr(0, i);
       std::string path = line.substr(i + 1);
-      register_sound(id, std::make_unique<SoundEffect>(path));
+      register_sound(id, SoundEffect::unique(path.c_str()));
     }
   } catch (std::exception& e) {
     std::cout << "Failed to load sound effects! Error: " << e.what() << "\n";

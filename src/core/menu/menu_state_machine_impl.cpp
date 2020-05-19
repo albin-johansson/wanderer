@@ -13,7 +13,7 @@ using namespace centurion;
 namespace albinjohansson::wanderer {
 
 MenuStateMachineImpl::MenuStateMachineImpl()
-    : m_typewriterFonts("resources/font/type_writer.ttf")
+    : m_typewriterFonts{"resources/font/type_writer.ttf"}
 {}
 
 MenuStateMachineImpl::~MenuStateMachineImpl() = default;

@@ -34,9 +34,9 @@ class DrawableText {
     return m_position;
   }
 
-  [[nodiscard]] const std::string& text() const noexcept
+  [[nodiscard]] const char* text() const noexcept
   {
-    return m_text;
+    return m_text.c_str();
   }
 
   [[nodiscard]] const ctn::Color& color() const noexcept
@@ -48,7 +48,7 @@ class DrawableText {
   mutable Unique<ctn::Texture> m_texture = nullptr;
   std::string m_text = "";
   ctn::FPoint m_position = {0, 0};
-  ctn::Color m_color = ctn::white;
+  ctn::Color m_color = ctn::color::white;
   Size m_size = Size::Medium;
   mutable bool m_isValid = false;
 

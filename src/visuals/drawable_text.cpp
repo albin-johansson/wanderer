@@ -16,7 +16,7 @@ void DrawableText::draw(Renderer& renderer, const FontBundle& fonts) const
 
   if (!m_texture || !m_isValid) {
     renderer.set_color(m_color);
-    m_texture = renderer.text_blended(m_text, get_font(fonts));
+    m_texture = renderer.text_blended(m_text.c_str(), get_font(fonts));
     m_isValid = true;
   }
 

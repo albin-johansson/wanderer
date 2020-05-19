@@ -20,7 +20,7 @@ class Input final {
 
   ~Input();
 
-  void update();
+  void update(int windowWidth, int windowHeight);
 
   /**
    * Indicates whether or not the key associated with the specified scancode is

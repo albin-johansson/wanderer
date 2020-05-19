@@ -9,7 +9,7 @@ MenuButton::MenuButton(std::string text, FRect bounds, Unique<IAction> action)
       m_action{std::move(action)},
       m_text{std::make_unique<DrawableText>(text, FPoint{0, 0})}
 {
-  m_text->set_color(white);
+  m_text->set_color(color::white);
 }
 
 MenuButton::~MenuButton() = default;

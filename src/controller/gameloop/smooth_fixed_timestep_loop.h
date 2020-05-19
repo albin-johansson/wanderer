@@ -59,9 +59,11 @@ class SmoothFixedTimestepLoop final : public IGameLoop {
    * Updates the input state.
    *
    * @param core a reference to the associated core model.
+   * @param windowWidth the current width of the window.
+   * @param windowHeight the current height of the window.
    * @since 0.1.0
    */
-  void update_input(IWandererCore& core);
+  void update_input(IWandererCore& core, int windowWidth, int windowHeight);
 
   /**
    * Smoothes the current delta value.

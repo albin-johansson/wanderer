@@ -28,9 +28,11 @@ SmoothFixedTimestepLoop::SmoothFixedTimestepLoop(
 
 SmoothFixedTimestepLoop::~SmoothFixedTimestepLoop() = default;
 
-void SmoothFixedTimestepLoop::update_input(IWandererCore& core)
+void SmoothFixedTimestepLoop::update_input(IWandererCore& core,
+                                           int windowWidth,
+                                           int windowHeight)
 {
-  m_input->update();
+  m_input->update(windowWidth, windowHeight);
 
   if (m_input->was_quit_requested() || m_input->was_released(SDL_SCANCODE_O)) {
     core.quit();
@@ -57,7 +59,9 @@ void SmoothFixedTimestepLoop::smooth_delta()
 
 void SmoothFixedTimestepLoop::update(IWandererCore& core, Renderer& renderer)
 {
-  update_input(core);
+  // TODO check if output width and height works for this (used to be window
+  //  size)
+  update_input(core, renderer.output_width(), renderer.output_height());
 
   m_then = m_now;
   m_now = Timer::high_res();
@@ -82,7 +86,7 @@ void SmoothFixedTimestepLoop::update(IWandererCore& core, Renderer& renderer)
     alpha = 1.0f;
   }
 
-  renderer.set_color(black);
+  renderer.set_color(color::black);
   renderer.clear();
 
   core.render(renderer, alpha);

@@ -16,9 +16,9 @@ Input::Input(Unique<KeyState>&& keyState,
 
 Input::~Input() = default;
 
-void Input::update()
+void Input::update(int windowWidth, int windowHeight)
 {
-  mouseState->update();
+  mouseState->update(windowWidth, windowHeight);
   keyState->update();
   SDL_PumpEvents();
 }

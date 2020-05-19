@@ -16,7 +16,7 @@ class [[deprecated]] FontBundle final
   ctn::Font font36;
 
  public:
-  explicit FontBundle(const std::string& file);
+  explicit FontBundle(const char* file);
 
   ~FontBundle();
 
