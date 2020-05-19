@@ -9,7 +9,7 @@
 
 using namespace centurion;
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 SkeletonIdleState::SkeletonIdleState(IEntityStateMachine* parent)
     : idleDelegate{parent}
@@ -45,4 +45,4 @@ void SkeletonIdleState::exit(const IWandererCore& core)
   idleDelegate.exit(core);
 }
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

@@ -2,7 +2,7 @@
 
 #include <SDL.h>
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 TileAnimation::TileAnimation() = default;
 
@@ -37,4 +37,4 @@ Frame TileAnimation::get_frame() const
   return frames.at(index);
 }
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

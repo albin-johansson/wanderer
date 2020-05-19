@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 
-namespace albinjohansson::tiled {
+namespace tiled {
 
 struct Frame {
   int tileId = 0;

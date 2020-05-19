@@ -1,6 +1,6 @@
 #include "goto_menu_action.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 GotoMenuAction::GotoMenuAction(WeakPtr<IMenuStateMachine> menuStateMachine,
                                MenuID menu) noexcept
@@ -15,4 +15,4 @@ void GotoMenuAction::execute() noexcept
   }
 }
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

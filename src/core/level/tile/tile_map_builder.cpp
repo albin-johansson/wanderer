@@ -8,7 +8,7 @@
 #include "tile_map_impl.h"
 #include "tiled_map.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 std::unique_ptr<ITileMap> TileMapBuilder::create(
     const std::shared_ptr<TileSet>& tileSet,
@@ -49,4 +49,4 @@ std::unique_ptr<ITileMap> TileMapBuilder::create(
   return map;
 }
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

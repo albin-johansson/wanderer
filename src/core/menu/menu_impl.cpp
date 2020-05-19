@@ -4,7 +4,7 @@
 
 using namespace centurion;
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 MenuImpl::MenuImpl() = default;
 
@@ -43,4 +43,4 @@ void MenuImpl::handle_input(const Input& input) noexcept
   }
 }
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

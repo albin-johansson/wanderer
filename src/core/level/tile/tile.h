@@ -12,7 +12,7 @@
 #include "tile_id.h"
 #include "wanderer_stdinc.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 class Vector2;
 class TileSet;
@@ -144,4 +144,4 @@ class Tile final {
   [[nodiscard]] const Hitbox& get_hitbox() const noexcept { return hitbox; }
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

@@ -2,7 +2,7 @@
 #include "entity_idle_delegate.h"
 #include "player_state.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 /**
  * The PlayerIdleState class is an implementation of the IPlayerState interface
@@ -37,4 +37,4 @@ class PlayerIdleState final : public IPlayerState {
   void exit(const IWandererCore& core) override;
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

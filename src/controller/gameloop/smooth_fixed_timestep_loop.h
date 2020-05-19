@@ -8,7 +8,7 @@
 #include "input.h"
 #include "wanderer_stdinc.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 /**
  * The SmoothFixedTimestepLoop class represents a fixed timestep game loop that
@@ -73,4 +73,4 @@ class SmoothFixedTimestepLoop final : public IGameLoop {
   void smooth_delta();
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

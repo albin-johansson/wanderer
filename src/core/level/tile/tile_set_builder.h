@@ -8,7 +8,7 @@
 #include "tile_set.h"
 #include "wanderer_stdinc.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 class TileSetBuilder final {
  private:
@@ -26,4 +26,4 @@ class TileSetBuilder final {
       ctn::TextureLoader& textureLoader);
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

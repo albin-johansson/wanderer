@@ -1,6 +1,6 @@
 #include "tiled_animation.h"
 
-namespace albinjohansson::tiled {
+namespace tiled {
 
 TiledAnimation::TiledAnimation() = default;
 

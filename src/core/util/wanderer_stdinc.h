@@ -7,7 +7,7 @@
 #include <optional>
 #include <string>
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 template <typename T>
 using Maybe = std::optional<T>;
@@ -42,4 +42,4 @@ using uint64 = std::uint64_t;
 
 namespace ctn = centurion;
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

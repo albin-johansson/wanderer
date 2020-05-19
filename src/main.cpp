@@ -3,7 +3,7 @@
 #include "wanderer_controller_factory.h"
 
 using namespace centurion;
-using namespace albinjohansson::wanderer;
+using namespace wanderer;
 
 static void run()
 {

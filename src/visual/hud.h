@@ -3,7 +3,7 @@
 
 #include "wanderer_stdinc.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 class IWandererCore;
 
@@ -19,4 +19,4 @@ class HUD final {
   void draw_health_bar(ctn::Renderer& renderer, IWandererCore& core) const;
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

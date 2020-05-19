@@ -10,7 +10,7 @@
 
 using namespace centurion;
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 MenuStateMachineImpl::MenuStateMachineImpl()
     : m_typewriterFonts{Resource::font("type_writer.ttf").c_str()}
@@ -47,4 +47,4 @@ const IMenu& MenuStateMachineImpl::get_menu() const
 // FIXME problem with time based entities and blocking menus, where the NPC
 // cooldowns are affected
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

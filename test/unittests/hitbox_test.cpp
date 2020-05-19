@@ -4,7 +4,7 @@
 #include "rect.h"
 
 using namespace centurion;
-using namespace albinjohansson::wanderer;
+using namespace wanderer;
 
 TEST_CASE("Hitbox::AddRectangle", "[Hitbox]")
 {

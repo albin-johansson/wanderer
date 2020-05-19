@@ -1,6 +1,6 @@
 #pragma once
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 /**
  * The MenuID enum class provides values that serve as identifiers (keys) for
@@ -10,4 +10,4 @@ namespace albinjohansson::wanderer {
  */
 enum class MenuID { InGame, Home, Settings, Controls, Inventory, Credits };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

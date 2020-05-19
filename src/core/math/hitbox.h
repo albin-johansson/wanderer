@@ -7,7 +7,7 @@
 #include "vector_2.h"
 #include "wanderer_stdinc.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 /**
  * The Hitbox class represents a hitbox built from rectangles.
@@ -99,4 +99,4 @@ class Hitbox final {
   void calc_bounds();
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

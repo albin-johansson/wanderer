@@ -8,7 +8,7 @@
 #include "tiled_tile.h"
 #include "tiled_object.h"
 
-namespace albinjohansson::tiled {
+namespace tiled {
 
 class TiledTileSet final {
  private:

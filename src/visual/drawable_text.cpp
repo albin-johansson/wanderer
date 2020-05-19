@@ -2,7 +2,7 @@
 
 using namespace centurion;
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 DrawableText::DrawableText(std::string text, FPoint position)
     : m_text{text}, m_position{position}
@@ -60,4 +60,4 @@ const Font& DrawableText::get_font(const FontBundle& fonts) const noexcept
   }
 }
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

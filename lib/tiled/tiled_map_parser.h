@@ -4,7 +4,7 @@
 #include <memory>
 #include <string>
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 class ITileMap;
 
@@ -18,4 +18,4 @@ class TiledMapParser final {
       centurion::TextureLoader& textureLoader, const std::string& file);
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

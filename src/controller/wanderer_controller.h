@@ -1,6 +1,6 @@
 #pragma once
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 /**
  * The IWandererController interface specifies the facade for the main
@@ -20,4 +20,4 @@ class IWandererController {
   virtual void run() = 0;
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

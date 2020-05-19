@@ -7,7 +7,7 @@
 
 #include "wanderer_stdinc.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 class IPlayer;
 class ITileMap;
@@ -114,4 +114,4 @@ class IWandererCore {  // TODO remove
   // TODO add method for changing active menu
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

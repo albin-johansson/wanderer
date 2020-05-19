@@ -2,7 +2,7 @@
 #include "renderer.h"
 #include "wanderer_stdinc.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 class Viewport;
 class IEntity;
@@ -36,4 +36,4 @@ class EntityDrawDelegate final {
                    int srcY) noexcept;
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

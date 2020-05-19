@@ -1,6 +1,6 @@
 #pragma once
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 struct TileMapBounds final {
   int minRow = 0;
@@ -9,4 +9,4 @@ struct TileMapBounds final {
   int maxCol = 0;
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

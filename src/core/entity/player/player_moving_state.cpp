@@ -10,7 +10,7 @@
 
 using namespace centurion;
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 PlayerMovingState::PlayerMovingState(IEntityStateMachine* parent)
     : moveDelegate(parent)
@@ -124,4 +124,4 @@ void PlayerMovingState::enter(const IWandererCore& core)
   moveDelegate.enter(core);
 }
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

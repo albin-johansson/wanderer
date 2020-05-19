@@ -4,7 +4,7 @@
 
 using namespace centurion;
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 UniquePtr<MenuButton> MenuButtonParser::parse(ActionParser& actionParser,
                                               const JSONValue& json,
@@ -27,4 +27,4 @@ UniquePtr<MenuButton> MenuButtonParser::parse(ActionParser& actionParser,
       *text, FRect{x, y, 200, 50}, std::move(action));
 }
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

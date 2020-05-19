@@ -5,7 +5,7 @@
 
 using namespace centurion;
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 Tile::Tile() = default;
 
@@ -46,4 +46,4 @@ TileID Tile::get_frame_id() const
   return isAnimated ? animation.get_frame().frameId : id;
 }
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

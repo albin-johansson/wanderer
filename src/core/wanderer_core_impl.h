@@ -10,7 +10,7 @@
 #include "wanderer_core.h"
 #include "wanderer_stdinc.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 /**
  * The WandererCoreImpl class is an implementation of the IWandererCore
@@ -73,4 +73,4 @@ class WandererCoreImpl final
   WandererCoreImpl() noexcept;
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

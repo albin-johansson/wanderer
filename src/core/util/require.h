@@ -2,7 +2,7 @@
 #include <memory>
 #include <stdexcept>
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 /**
  * The Require class provides utility methods related to different kinds of
@@ -87,4 +87,4 @@ class Require final {
   }
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

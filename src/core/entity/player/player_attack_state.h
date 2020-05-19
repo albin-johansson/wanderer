@@ -2,7 +2,7 @@
 #include "entity_attack_delegate.h"
 #include "player_state.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 class IWandererCore;
 class IEntityStateMachine;
@@ -39,4 +39,4 @@ class PlayerAttackState final : public IPlayerState {
   void exit(const IWandererCore& core) override;
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

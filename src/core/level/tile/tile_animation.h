@@ -4,7 +4,7 @@
 #include "tile_id.h"
 #include "wanderer_stdinc.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 struct Frame {
   TileID frameId = 0;
@@ -32,4 +32,4 @@ class TileAnimation final {
   [[nodiscard]] Frame get_frame() const;
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

@@ -1,7 +1,7 @@
 #pragma once
 #include "entity_state_machine.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 class Input;
 class IWandererCore;
@@ -30,4 +30,4 @@ class IPlayerStateMachine : public virtual IEntityStateMachine {
   virtual void HandleInput(const Input& input, const IWandererCore& core) = 0;
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

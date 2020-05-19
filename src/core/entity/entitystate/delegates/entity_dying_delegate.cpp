@@ -6,7 +6,7 @@
 
 using namespace centurion;
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 EntityDyingDelegate::EntityDyingDelegate(IEntity* entity)
 {
@@ -41,4 +41,4 @@ void EntityDyingDelegate::exit(const IWandererCore&)
   // TODO set entity to be dead
 }
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

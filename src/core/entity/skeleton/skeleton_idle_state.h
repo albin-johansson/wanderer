@@ -3,7 +3,7 @@
 #include "entity_state.h"
 #include "wanderer_stdinc.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 class IEntityStateMachine;
 
@@ -26,4 +26,4 @@ class SkeletonIdleState final : public IEntityState {
   void exit(const IWandererCore& core) override;
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

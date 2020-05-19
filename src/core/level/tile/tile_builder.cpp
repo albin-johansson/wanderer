@@ -4,7 +4,7 @@
 
 using namespace centurion;
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 TileAnimation TileBuilder::create_animation(tiled::TiledAnimation animation)
 {
@@ -79,4 +79,4 @@ Tile TileBuilder::create(const std::shared_ptr<Texture>& image,
   return tile;
 }
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

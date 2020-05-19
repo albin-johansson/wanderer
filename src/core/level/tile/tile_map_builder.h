@@ -5,7 +5,7 @@
 
 #include "tile_map.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 class TileSet;
 
@@ -20,4 +20,4 @@ class TileMapBuilder final {
       const tiled::TiledMap& tiledMap);
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

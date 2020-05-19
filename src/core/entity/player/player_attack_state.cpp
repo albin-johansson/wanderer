@@ -2,7 +2,7 @@
 
 using namespace centurion;
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 PlayerAttackState::PlayerAttackState(IEntityStateMachine* parent)
     : attackDelegate(parent)
@@ -33,4 +33,4 @@ void PlayerAttackState::exit(const IWandererCore& core)
   attackDelegate.exit(core);
 }
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

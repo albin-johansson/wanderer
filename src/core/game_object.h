@@ -7,7 +7,7 @@
 #include "vector_2.h"
 #include "wanderer_stdinc.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 class IWandererCore;
 class Hitbox;
@@ -89,4 +89,4 @@ class IGameObject : public virtual ISortableDrawable {
 
 static_assert(std::has_virtual_destructor_v<IGameObject>);
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

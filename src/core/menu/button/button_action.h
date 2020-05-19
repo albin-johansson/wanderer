@@ -5,7 +5,7 @@
 #include "menu_button.h"
 #include "menu_state_machine.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 template <class T>
 class ButtonAction final {
@@ -83,4 +83,4 @@ enum GameAction {
   OpenInventory
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

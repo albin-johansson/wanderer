@@ -1,7 +1,7 @@
 #pragma once
 #include "entity_state.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 class IEntity;
 
@@ -35,4 +35,4 @@ class EntityDyingDelegate final : public IEntityState {
   void tick(const IWandererCore& core, float delta) override;
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

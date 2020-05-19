@@ -4,7 +4,7 @@
 
 #include "wanderer_stdinc.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 JSON parse_json(CZString file);
 
@@ -18,4 +18,4 @@ Maybe<T> maybe_get(const JSONValue& json, CZString key) noexcept
   }
 }
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

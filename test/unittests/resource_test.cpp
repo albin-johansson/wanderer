@@ -2,7 +2,7 @@
 
 #include <catch.hpp>
 
-using namespace albinjohansson::wanderer;
+using namespace wanderer;
 
 TEST_CASE("Resource::img", "[Resource]")
 {

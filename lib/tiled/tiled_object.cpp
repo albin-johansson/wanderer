@@ -2,7 +2,7 @@
 #include <algorithm>
 #include <stdexcept>
 
-namespace albinjohansson::tiled {
+namespace tiled {
 
 TiledObject::TiledObject() = default;
 

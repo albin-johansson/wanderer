@@ -4,7 +4,7 @@
 
 #include "catch.hpp"
 
-using namespace albinjohansson::wanderer;
+using namespace wanderer;
 
 TEST_CASE("RandomUtils::get_int", "[RandomUtils]")
 {

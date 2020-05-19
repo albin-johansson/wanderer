@@ -5,7 +5,7 @@
 using namespace centurion;
 using namespace centurion::input;
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 Input::Input(UniquePtr<KeyState>&& keyState,
              const SharedPtr<centurion::input::MouseState>& mouseState)
@@ -78,4 +78,4 @@ bool Input::was_quit_requested() const noexcept
   return SDL_PeepEvents(nullptr, 0, SDL_PEEKEVENT, SDL_QUIT, SDL_QUIT) > 0;
 }
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

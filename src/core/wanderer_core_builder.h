@@ -4,11 +4,11 @@
 
 #include "wanderer_core.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 class WandererCoreBuilder {
  public:
   static SharedPtr<IWandererCore> build(ctn::TextureLoader& textureLoader);
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

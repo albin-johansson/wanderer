@@ -1,6 +1,6 @@
 #pragma once
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 /**
  * A simple struct that describes an area, that uses floating-point values.
@@ -12,4 +12,4 @@ struct Area {
   float height = 0;
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

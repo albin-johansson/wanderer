@@ -1,6 +1,6 @@
 #include "quit_action.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 QuitAction::QuitAction(WeakPtr<IWandererCore> core) noexcept : m_core{core}
 {}
@@ -13,4 +13,4 @@ void QuitAction::execute() noexcept
   }
 }
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

@@ -4,7 +4,7 @@
 #include "menu_id.h"
 #include "wanderer_stdinc.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 class Input;
 class Viewport;
@@ -32,4 +32,4 @@ class IMenuStateMachine {
   [[nodiscard]] virtual const IMenu& get_menu() const = 0;
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

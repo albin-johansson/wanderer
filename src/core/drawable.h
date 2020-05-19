@@ -3,7 +3,7 @@
 
 #include "wanderer_stdinc.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 class Viewport;
 
@@ -27,4 +27,4 @@ class IDrawable {
                     const Viewport& viewport) const = 0;
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

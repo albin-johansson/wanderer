@@ -9,7 +9,7 @@
 
 using namespace centurion;
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 Skeleton::Skeleton(const SharedPtr<Texture>& sheet) : AbstractEntity{sheet}
 {
@@ -34,4 +34,4 @@ void Skeleton::tick(IWandererCore& core, float delta)
   stateMachine->tick(core, delta);
 }
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

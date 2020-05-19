@@ -2,7 +2,7 @@
 
 #include "wanderer_exception.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 pugi::xml_document PugiUtils::LoadDocument(const std::string& path)
 {
@@ -15,4 +15,4 @@ pugi::xml_document PugiUtils::LoadDocument(const std::string& path)
   return doc;
 }
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

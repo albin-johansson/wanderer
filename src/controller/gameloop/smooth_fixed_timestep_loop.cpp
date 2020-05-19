@@ -11,7 +11,7 @@
 using namespace centurion;
 using namespace centurion::input;
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 SmoothFixedTimestepLoop::SmoothFixedTimestepLoop(
     UniquePtr<KeyState> keyState,
@@ -92,4 +92,4 @@ void SmoothFixedTimestepLoop::update(IWandererCore& core, Renderer& renderer)
   renderer.present();
 }
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

@@ -1,7 +1,7 @@
 #pragma once
 #include "menu_drawable.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 class Input;
 
@@ -37,4 +37,4 @@ class IMenu : public IMenuDrawable {
   [[nodiscard]] virtual bool is_blocking() const noexcept = 0;
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

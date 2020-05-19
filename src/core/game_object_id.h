@@ -1,7 +1,7 @@
 #pragma once
 #include "wanderer_stdinc.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 /**
  * The GameObjectID class is a simple class that is used to obtain game object
@@ -35,4 +35,4 @@ class GameObjectID final {
   [[nodiscard]] static uint64 peek() noexcept;
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

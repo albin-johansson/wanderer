@@ -1,6 +1,6 @@
 #include "resource.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 std::string Resource::img(CZString name) noexcept
 {
@@ -27,4 +27,4 @@ std::string Resource::menu(CZString name) noexcept
   return menuPath + (name ? name : "");
 }
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

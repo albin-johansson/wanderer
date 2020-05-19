@@ -7,7 +7,7 @@
 #include "mouse_state.h"
 #include "wanderer_stdinc.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 class Input final {
  private:
@@ -72,4 +72,4 @@ class Input final {
   [[nodiscard]] bool was_quit_requested() const noexcept;
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

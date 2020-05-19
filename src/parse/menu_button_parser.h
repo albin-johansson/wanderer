@@ -3,7 +3,7 @@
 #include "menu_button.h"
 #include "wanderer_stdinc.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 class MenuButtonParser final {
  public:
@@ -14,4 +14,4 @@ class MenuButtonParser final {
                                      int row);
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

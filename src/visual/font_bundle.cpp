@@ -2,7 +2,7 @@
 
 using namespace centurion;
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 FontBundle::FontBundle(const char* file)
     : font12{file, 12}, font18{file, 18}, font24{file, 24}, font36{file, 36}
@@ -30,4 +30,4 @@ const Font& FontBundle::get_font_36() const noexcept
   return font36;
 }
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

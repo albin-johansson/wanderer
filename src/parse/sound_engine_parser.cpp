@@ -5,7 +5,7 @@
 
 using namespace centurion;
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 namespace {
 
 UniquePtr<SoundEffect> parse_sound_effect(const JSONValue& json)
@@ -54,4 +54,4 @@ UniquePtr<SoundEngine> SoundEngineParser::parse(CZString file)
   return engine;
 }
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

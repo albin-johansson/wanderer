@@ -3,7 +3,7 @@
 #include "key_bind.h"
 #include "wanderer_stdinc.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 class KeyBindParser final {
  public:
@@ -13,4 +13,4 @@ class KeyBindParser final {
                                   const JSONValue& json);
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

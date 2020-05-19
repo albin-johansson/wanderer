@@ -7,7 +7,7 @@
 #include "menu_button.h"
 #include "wanderer_stdinc.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 class MenuImpl final : public IMenu {
  public:
@@ -35,4 +35,4 @@ class MenuImpl final : public IMenu {
   bool m_blocking = false;
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

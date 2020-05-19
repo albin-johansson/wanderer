@@ -10,7 +10,7 @@
 
 using namespace centurion;
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 EntityMoveDelegate::EntityMoveDelegate(IEntityStateMachine* parent)
 {
@@ -64,4 +64,4 @@ IEntityStateMachine& EntityMoveDelegate::get_parent() noexcept
   return *parent;
 }
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

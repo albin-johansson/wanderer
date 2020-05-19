@@ -3,7 +3,7 @@
 
 #include "wanderer_stdinc.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 class IWandererCore;
 
@@ -27,4 +27,4 @@ class IGameLoop {
   virtual void update(IWandererCore& core, ctn::Renderer& renderer) = 0;
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

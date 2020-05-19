@@ -1,7 +1,7 @@
 #pragma once
 #include "direction.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 /**
  * The EntitySheet class is a utility for calculating the correct source
@@ -27,4 +27,4 @@ class EntitySheet final {
   [[nodiscard]] static int get_source_y(int y, Direction direction) noexcept;
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

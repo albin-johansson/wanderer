@@ -6,7 +6,7 @@
 #include "wanderer_core.h"
 #include "wanderer_stdinc.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 class ActionParser {
  public:
@@ -39,4 +39,4 @@ class ActionParser {
   WeakPtr<IMenuStateMachine> m_menuStateMachine;
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

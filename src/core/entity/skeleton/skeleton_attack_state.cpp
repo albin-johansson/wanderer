@@ -6,7 +6,7 @@
 
 using namespace centurion;
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 SkeletonAttackState::SkeletonAttackState(IEntityStateMachine* parent)
     : attackDelegate{parent}
@@ -38,4 +38,4 @@ void SkeletonAttackState::tick(const IWandererCore& core, float delta)
   // TODO update dominant direction
 }
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

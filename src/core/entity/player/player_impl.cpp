@@ -10,7 +10,7 @@
 
 using namespace centurion;
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 PlayerImpl::PlayerImpl(const SharedPtr<Texture>& sheet) : AbstractEntity(sheet)
 {
@@ -43,4 +43,4 @@ void PlayerImpl::draw(Renderer& renderer,
   playerStateMachine->draw(renderer, viewport);
 }
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

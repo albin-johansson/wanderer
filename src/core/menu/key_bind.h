@@ -3,7 +3,7 @@
 #include "input.h"
 #include "wanderer_stdinc.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 class KeyBind {
  public:
@@ -23,4 +23,4 @@ WANDERER_SERIALIZE_ENUM(KeyBind::Trigger,
                         {{KeyBind::Trigger::OnPress, "OnPress"},
                          {KeyBind::Trigger::OnRelease, "OnRelease"}})
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

@@ -1,7 +1,7 @@
 #pragma once
 #include <functional>
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 /**
  * The MapPosition struct represents a map position in the format (row, col).
@@ -22,12 +22,11 @@ struct MapPosition final {
   }
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer
 
 template <>
-struct std::hash<albinjohansson::wanderer::MapPosition> {
-  std::size_t operator()(
-      const albinjohansson::wanderer::MapPosition& k) const noexcept
+struct std::hash<wanderer::MapPosition> {
+  std::size_t operator()(const wanderer::MapPosition& k) const noexcept
   {
     // http://stackoverflow.com/a/1646913/126995
     std::size_t res = 17;

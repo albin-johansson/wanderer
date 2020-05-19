@@ -2,7 +2,7 @@
 #include <exception>
 #include <string>
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 class WandererException : public std::exception {
  public:
@@ -18,4 +18,4 @@ class WandererException : public std::exception {
   std::string m_what = "N/A";
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

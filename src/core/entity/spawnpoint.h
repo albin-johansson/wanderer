@@ -2,7 +2,7 @@
 #include "entity_id.h"
 #include "vector_2.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 class Spawnpoint final {
  private:
@@ -19,4 +19,4 @@ class Spawnpoint final {
   [[nodiscard]] const Vector2& get_position() const noexcept;
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

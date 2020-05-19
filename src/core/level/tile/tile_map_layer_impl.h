@@ -10,7 +10,7 @@
 #include "vector_2.h"
 #include "wanderer_stdinc.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 class TileSet;
 
@@ -54,4 +54,4 @@ class TileMapLayerImpl final : public ITileMapLayer {
   [[nodiscard]] int get_cols() const noexcept override;
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

@@ -4,7 +4,7 @@
 #include "vector_2.h"
 #include "wanderer_stdinc.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 /**
  * The MovableDelegate class is an implementation of the IGameObject interface
@@ -121,4 +121,4 @@ class MovableDelegate final : public IMovableObject {
   [[nodiscard]] Vector2 get_next_position(float delta) const noexcept override;
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

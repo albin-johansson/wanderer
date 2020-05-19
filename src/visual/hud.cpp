@@ -6,7 +6,7 @@
 
 using namespace centurion;
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 HUD::HUD() = default;
 
@@ -36,4 +36,4 @@ void HUD::draw(Renderer& renderer, IWandererCore& core) const
   draw_health_bar(renderer, core);
 }
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

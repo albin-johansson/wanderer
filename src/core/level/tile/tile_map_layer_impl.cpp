@@ -10,7 +10,7 @@
 #include "tile_set.h"
 #include "viewport.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 TileMapLayerImpl::TileMapLayerImpl(const std::shared_ptr<TileSet>& tileSet)
 {
@@ -75,4 +75,4 @@ int TileMapLayerImpl::get_cols() const noexcept
   return nCols;
 }
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

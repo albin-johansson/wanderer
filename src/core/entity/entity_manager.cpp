@@ -7,7 +7,7 @@
 
 using namespace centurion;
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 EntityManager::EntityManager()
 {
@@ -57,4 +57,4 @@ const std::vector<IEntity*>& EntityManager::get_close_entities() const
   return closeEntities;
 }
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

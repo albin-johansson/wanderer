@@ -4,7 +4,7 @@
 #include "menu_state_machine.h"
 #include "wanderer_stdinc.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 class GotoMenuAction final : public IAction {
  public:
@@ -20,4 +20,4 @@ class GotoMenuAction final : public IAction {
   MenuID m_menu;
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

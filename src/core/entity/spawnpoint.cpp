@@ -1,6 +1,6 @@
 #include "spawnpoint.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 Spawnpoint::Spawnpoint(EntityID id, const Vector2& position) noexcept
     : entity_id{id}, position{position}
@@ -18,4 +18,4 @@ const Vector2& Spawnpoint::get_position() const noexcept
   return position;
 }
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

@@ -1,6 +1,6 @@
 #include "json_utils.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 JSON parse_json(CZString file)
 {
@@ -10,4 +10,4 @@ JSON parse_json(CZString file)
   return json;
 }
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

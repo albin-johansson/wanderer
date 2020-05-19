@@ -4,7 +4,7 @@
 
 using namespace centurion;
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 UniquePtr<KeyBind> KeyBindParser::parse(ActionParser& actionParser,
                                         const JSONValue& json)
@@ -36,4 +36,4 @@ UniquePtr<KeyBind> KeyBindParser::parse(ActionParser& actionParser,
   return std::make_unique<KeyBind>(std::move(action), key, *trigger);
 }
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

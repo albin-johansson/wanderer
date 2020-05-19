@@ -3,7 +3,7 @@
 #include "game_constants.h"
 #include "movable_object.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 // TODO merchant, citizen, wizard, orc
 
@@ -44,4 +44,4 @@ class IEntity : public virtual IMovableObject, public virtual IAnimated {
   [[nodiscard]] virtual bool is_dead() const noexcept = 0;
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

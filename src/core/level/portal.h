@@ -1,7 +1,7 @@
 #pragma once
 #include <memory>
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 class ITileMap;
 
@@ -26,4 +26,4 @@ class Portal final {
   }
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

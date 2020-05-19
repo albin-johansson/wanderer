@@ -7,7 +7,7 @@
 #include "vector_2.h"
 #include "wanderer_stdinc.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 class TileSet;
 class TileMapLayerImpl;
@@ -63,4 +63,4 @@ class TileMapLayerBuilder final {
       const tiled::TiledLayer& tiledLayer) const;
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

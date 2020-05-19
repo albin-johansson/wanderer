@@ -9,7 +9,7 @@
 
 using namespace centurion;
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 MovableDelegate::MovableDelegate(int depth, float width, float height)
     : depth(depth), width(width), height(height)
@@ -249,4 +249,4 @@ Vector2 MovableDelegate::get_next_position(float delta) const noexcept
           currPosition.y + (velocity.y * delta)};
 }
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

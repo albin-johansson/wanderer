@@ -2,7 +2,7 @@
 #include "drawable.h"
 #include "entity_state_id.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 class IWandererCore;
 class IEntity;
@@ -44,4 +44,4 @@ class IEntityStateMachine : public IDrawable {
   [[nodiscard]] virtual IEntity& get_entity() = 0;
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

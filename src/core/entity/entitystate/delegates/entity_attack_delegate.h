@@ -1,7 +1,7 @@
 #pragma once
 #include "entity_state.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 class IEntityStateMachine;
 
@@ -40,4 +40,4 @@ class EntityAttackDelegate final : public IEntityState {
   void exit(const IWandererCore& core) override;
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

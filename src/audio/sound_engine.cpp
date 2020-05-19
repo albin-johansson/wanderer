@@ -4,7 +4,7 @@
 
 using namespace centurion;
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 SoundEngine::SoundEngine()
 {}
@@ -18,4 +18,4 @@ void SoundEngine::play(SoundID id) noexcept
   }
 }
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

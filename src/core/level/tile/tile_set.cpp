@@ -1,6 +1,6 @@
 #include "tile_set.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 TileSet::TileSet(int nTiles)
 {
@@ -24,4 +24,4 @@ const Tile& TileSet::get_tile(TileID id) const
   return tiles.at(id);
 }
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

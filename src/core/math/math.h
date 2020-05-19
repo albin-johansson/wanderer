@@ -2,7 +2,7 @@
 #include <cmath>
 #include <utility>
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 /**
  * The Math class provides math utilities.
@@ -95,4 +95,4 @@ class Math final {
   }
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

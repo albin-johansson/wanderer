@@ -9,7 +9,7 @@
 
 using namespace centurion;
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 EntityAttackDelegate::EntityAttackDelegate(IEntityStateMachine* parent)
 {
@@ -53,4 +53,4 @@ void EntityAttackDelegate::tick(const IWandererCore& core, float /*delta*/)
   }
 }
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

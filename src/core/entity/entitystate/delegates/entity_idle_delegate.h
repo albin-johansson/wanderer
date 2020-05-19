@@ -1,7 +1,7 @@
 #pragma once
 #include "entity_state.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 class IEntityStateMachine;
 
@@ -43,4 +43,4 @@ class EntityIdleDelegate final : public IEntityState {
   [[nodiscard]] IEntityStateMachine& get_parent() noexcept;
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

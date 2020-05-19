@@ -6,7 +6,7 @@
 
 using namespace centurion;
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 PlayerIdleState::PlayerIdleState(IEntityStateMachine* parent)
     : idleDelegate{parent}
@@ -49,4 +49,4 @@ void PlayerIdleState::exit(const IWandererCore& core)
   idleDelegate.exit(core);
 }
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

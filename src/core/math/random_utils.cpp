@@ -6,7 +6,7 @@
 
 using namespace centurion;
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 int RandomUtils::get_int(int min, int max) noexcept
 {
@@ -24,4 +24,4 @@ bool RandomUtils::get_bool()
   return get_int(0, 99) < 50;
 }
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

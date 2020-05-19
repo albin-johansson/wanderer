@@ -4,7 +4,7 @@
 
 #include "catch.hpp"
 
-using namespace albinjohansson::wanderer;
+using namespace wanderer;
 
 // TODO improve tests
 

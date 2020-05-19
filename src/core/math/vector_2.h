@@ -1,7 +1,7 @@
 #pragma once
 #include "math.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 /**
  * The Vector2 class represents a floating-point two-dimensional vector. This
@@ -331,4 +331,4 @@ static constexpr Vector2 xUnit = Vector2(1, 0);
  */
 static constexpr Vector2 yUnit = Vector2(0, 1);
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

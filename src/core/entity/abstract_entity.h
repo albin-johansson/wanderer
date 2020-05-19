@@ -10,7 +10,7 @@
 #include "render_depth.h"
 #include "wanderer_stdinc.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 class IWandererCore;
 
@@ -126,4 +126,4 @@ class AbstractEntity : public virtual IEntity {
 
 static_assert(std::has_virtual_destructor_v<AbstractEntity>);
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

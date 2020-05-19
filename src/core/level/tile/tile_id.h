@@ -1,7 +1,7 @@
 #pragma once
 #include "wanderer_stdinc.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 using TileID = uint16;
 

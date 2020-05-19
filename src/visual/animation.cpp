@@ -4,7 +4,7 @@
 
 using namespace centurion;
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 Animation::Animation() noexcept
 {
@@ -63,4 +63,4 @@ bool Animation::is_done() const noexcept
   return index == (nFrames - 1);
 }
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

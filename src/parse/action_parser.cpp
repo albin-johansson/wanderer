@@ -5,7 +5,7 @@
 
 using namespace centurion;
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 namespace {
 
 inline Maybe<MenuID> menu_id_from_action_id(ActionID action)
@@ -84,4 +84,4 @@ UniquePtr<IAction> ActionParser::parse(const JSONValue& value, CZString key)
   return nullptr;
 }
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

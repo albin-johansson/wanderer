@@ -5,7 +5,7 @@
 #include "tiled_object.h"
 #include "tiled_animation.h"
 
-namespace albinjohansson::tiled {
+namespace tiled {
 
 /**
  * The TiledTile class represents a tile in a Tiled tile set. A tile has an integer ID, an

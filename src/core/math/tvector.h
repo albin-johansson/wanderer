@@ -3,7 +3,7 @@
 
 #include "math.h"
 
-namespace albinjohansson::wanderer::experimental {
+namespace wanderer::experimental {
 
 /**
  * The Vector2 class represents a two-dimensional vector (in the plane). The
@@ -544,4 +544,4 @@ using Vector2d = Vector2<double>;
  */
 using Vector2i = Vector2<int>;
 
-}  // namespace albinjohansson::wanderer::experimental
+}  // namespace wanderer::experimental

@@ -4,7 +4,7 @@
 
 using namespace centurion;
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 Viewport::Viewport() : Viewport{{10, 10}, {10, 10}}
 {}
@@ -123,4 +123,4 @@ float Viewport::get_translated_y(float y) const noexcept
   return y - m_bounds.y();
 }
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

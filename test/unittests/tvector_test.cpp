@@ -3,8 +3,8 @@
 //#include "math.h"
 //#include <cmath>
 //
-// using namespace albinjohansson::wanderer::experimental;
-// using namespace albinjohansson::wanderer;
+// using namespace wanderer::experimental;
+// using namespace wanderer;
 //
 // namespace {
 //

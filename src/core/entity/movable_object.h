@@ -5,7 +5,7 @@
 #include "game_object.h"
 #include "vector_2.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 class IGameObject;
 
@@ -172,4 +172,4 @@ class IMovableObject : public virtual IGameObject {
 
 static_assert(std::has_virtual_destructor_v<IMovableObject>);
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

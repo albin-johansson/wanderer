@@ -10,7 +10,7 @@ using namespace centurion;
 
 ;
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 void EntityDrawDelegate::draw(Renderer& renderer,
                               const IEntity& entity,
@@ -23,4 +23,4 @@ void EntityDrawDelegate::draw(Renderer& renderer,
   renderer.render_tf(entity.get_sprite_sheet(), src, dst);
 }
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

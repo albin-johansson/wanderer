@@ -1,6 +1,6 @@
 #pragma once
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 /**
  * The RandomUtils class provides utilities related to randomness.
@@ -33,4 +33,4 @@ class RandomUtils final {
   [[nodiscard]] static bool get_bool();
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

@@ -7,7 +7,7 @@ using namespace centurion;
 
 ;
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 AbstractEntity::AbstractEntity(const SharedPtr<Texture>& sheet)
 {
@@ -222,4 +222,4 @@ Vector2 AbstractEntity::get_next_position(float delta) const noexcept
   return movable->get_next_position(delta);
 }
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

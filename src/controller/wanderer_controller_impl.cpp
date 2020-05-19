@@ -11,7 +11,7 @@
 using namespace centurion;
 using namespace centurion::input;
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 WandererControllerImpl::WandererControllerImpl()
 {
@@ -53,4 +53,4 @@ void WandererControllerImpl::run()
   m_window->hide();
 }
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

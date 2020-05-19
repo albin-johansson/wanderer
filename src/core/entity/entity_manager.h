@@ -6,7 +6,7 @@
 
 #include "wanderer_stdinc.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 class IEntity;
 
@@ -67,4 +67,4 @@ class EntityManager final {
   [[nodiscard]] const std::vector<IEntity*>& get_close_entities() const;
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

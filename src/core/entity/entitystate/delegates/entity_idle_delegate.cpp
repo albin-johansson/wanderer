@@ -8,7 +8,7 @@
 
 using namespace centurion;
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 EntityIdleDelegate::EntityIdleDelegate(IEntityStateMachine* parent)
 {
@@ -45,4 +45,4 @@ IEntityStateMachine& EntityIdleDelegate::get_parent() noexcept
   return *parent;
 }
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

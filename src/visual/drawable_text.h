@@ -6,7 +6,7 @@
 #include "menu_drawable.h"
 #include "wanderer_stdinc.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 class DrawableText {
  public:
@@ -43,4 +43,4 @@ class DrawableText {
   const ctn::Font& get_font(const FontBundle& fonts) const noexcept;
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

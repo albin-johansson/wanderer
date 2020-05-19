@@ -7,7 +7,7 @@
 #include "tile.h"
 #include "wanderer_stdinc.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 class Skeleton final : public AbstractEntity {
  private:
@@ -27,4 +27,4 @@ class Skeleton final : public AbstractEntity {
   void draw(ctn::Renderer& renderer, const Viewport& viewport) const override;
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

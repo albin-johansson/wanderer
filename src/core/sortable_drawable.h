@@ -1,7 +1,7 @@
 #pragma once
 #include "drawable.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 class ISortableDrawable : public IDrawable {
  public:
@@ -12,4 +12,4 @@ class ISortableDrawable : public IDrawable {
   [[nodiscard]] virtual int get_depth() const noexcept = 0;
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

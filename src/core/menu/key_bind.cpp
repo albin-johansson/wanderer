@@ -2,7 +2,7 @@
 
 #include "wanderer_exception.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 KeyBind::KeyBind(UniquePtr<IAction>&& action, ctn::Key key, Trigger trigger)
     : m_action{std::move(action)}, m_key{key}, m_trigger{trigger}
@@ -28,4 +28,4 @@ void KeyBind::update(const Input& input) noexcept
   }
 }
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

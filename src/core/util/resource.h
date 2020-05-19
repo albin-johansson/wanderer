@@ -2,7 +2,7 @@
 
 #include "wanderer_stdinc.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 class Resource final {
  public:
@@ -26,4 +26,4 @@ class Resource final {
   inline static const std::string menuPath = "resources/menu/";
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

@@ -6,7 +6,7 @@
 #include "player_state_machine.h"
 #include "wanderer_stdinc.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 /**
  * The Player class is an implementation of the IPlayer interface, the class
@@ -41,4 +41,4 @@ class PlayerImpl final : public AbstractEntity, public IPlayer {
             const Viewport& viewport) const noexcept override;
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

@@ -10,7 +10,7 @@
 #include "menu_drawable.h"
 #include "wanderer_stdinc.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 /**
  * The MenuButton class is a simple representation of a graphical button.
@@ -50,4 +50,4 @@ class MenuButton final : public IMenuDrawable {
   bool m_enlarged = false;
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

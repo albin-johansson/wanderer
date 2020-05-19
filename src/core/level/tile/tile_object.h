@@ -11,7 +11,7 @@
 #include "tile_id.h"
 #include "vector_2.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 class TileSet;
 
@@ -74,4 +74,4 @@ class TileObject final : public IGameObject {
   [[nodiscard]] uint64 get_unique_id() const noexcept override;
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

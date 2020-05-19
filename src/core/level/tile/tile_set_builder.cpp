@@ -6,7 +6,7 @@
 
 using namespace centurion;
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 tiled::TiledTileSet TileSetBuilder::create_tiled_tile_set(
     const pugi::xml_node& tileSetNode,
@@ -50,4 +50,4 @@ UniquePtr<TileSet> TileSetBuilder::create(const pugi::xml_node& mapRoot,
   return tileSet;
 }
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

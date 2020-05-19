@@ -2,7 +2,7 @@
 
 using namespace centurion;
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 MenuButton::MenuButton(std::string text,
                        FRect bounds,
@@ -55,4 +55,4 @@ void MenuButton::set_enlarged(bool enlarged) noexcept
   this->m_enlarged = enlarged;
 }
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

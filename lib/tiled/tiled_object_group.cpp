@@ -2,7 +2,7 @@
 #include "tiled_object.h"
 #include "tiled_property.h"
 
-namespace albinjohansson::tiled {
+namespace tiled {
 
 TiledObjectGroup::TiledObjectGroup(pugi::xml_node objectGroupNode)
     : objectGroupNode(objectGroupNode) {

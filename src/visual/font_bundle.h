@@ -5,7 +5,7 @@
 
 #include "wanderer_stdinc.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 class [[deprecated]] FontBundle final
 {
@@ -29,4 +29,4 @@ class [[deprecated]] FontBundle final
   [[nodiscard]] const ctn::Font& get_font_36() const noexcept;
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

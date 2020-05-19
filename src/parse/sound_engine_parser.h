@@ -3,7 +3,7 @@
 #include "sound_engine.h"
 #include "wanderer_stdinc.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 class SoundEngineParser final {
  public:
@@ -12,4 +12,4 @@ class SoundEngineParser final {
   static UniquePtr<SoundEngine> parse(CZString file);
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

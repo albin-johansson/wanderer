@@ -3,7 +3,7 @@
 #include "player_state.h"
 #include "player_state_machine.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 class IEntity;
 
@@ -30,4 +30,4 @@ class PlayerStateMachineImpl final
   void HandleInput(const Input& input, const IWandererCore& core) override;
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

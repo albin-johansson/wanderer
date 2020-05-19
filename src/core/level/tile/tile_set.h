@@ -4,7 +4,7 @@
 #include "tile.h"
 #include "tile_id.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 /**
  * The TileSet class represents a set of tiles that are unique.
@@ -52,4 +52,4 @@ class TileSet final {
   [[nodiscard]] const Tile& get_tile(TileID id) const;
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

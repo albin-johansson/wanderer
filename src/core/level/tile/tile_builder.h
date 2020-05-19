@@ -5,7 +5,7 @@
 #include "tile.h"
 #include "tiled_animation.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 class TileBuilder {
  private:
@@ -23,4 +23,4 @@ class TileBuilder {
                                    int index);
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

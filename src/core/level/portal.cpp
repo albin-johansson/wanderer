@@ -4,7 +4,7 @@
 
 #include "tile_map.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 Portal::Portal(std::weak_ptr<ITileMap> from, std::weak_ptr<ITileMap> target)
 {
@@ -14,4 +14,4 @@ Portal::Portal(std::weak_ptr<ITileMap> from, std::weak_ptr<ITileMap> target)
 
 Portal::~Portal() = default;
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

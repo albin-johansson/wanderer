@@ -3,7 +3,7 @@
 
 #include "area.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 /**
  * The Viewport class represents the area that the user sees of the game world.
@@ -140,4 +140,4 @@ class Viewport final {
   Area m_level;
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

@@ -3,7 +3,7 @@
 #include "wanderer_core.h"
 #include "wanderer_stdinc.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 class QuitAction : public IAction {
  public:
@@ -17,4 +17,4 @@ class QuitAction : public IAction {
   WeakPtr<IWandererCore> m_core;
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

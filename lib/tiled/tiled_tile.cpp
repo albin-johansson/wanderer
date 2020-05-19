@@ -1,7 +1,7 @@
 #include "tiled_tile.h"
 #include <stdexcept>
 
-namespace albinjohansson::tiled {
+namespace tiled {
 
 TiledTile::TiledTile(const pugi::xml_node& tileNode, int id, int firstTileSetId)
     : tileNode(tileNode), id(id) {

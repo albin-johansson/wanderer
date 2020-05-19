@@ -2,7 +2,7 @@
 #include <pugixml.hpp>
 #include <string>
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 class PugiUtils final {
  public:
@@ -13,4 +13,4 @@ class PugiUtils final {
   [[nodiscard]] static pugi::xml_document LoadDocument(const std::string& path);
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

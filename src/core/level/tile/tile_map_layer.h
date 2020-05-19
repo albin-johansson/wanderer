@@ -7,7 +7,7 @@
 #include "map_position.h"
 #include "tile_id.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 struct TileMapBounds;
 class TileObject;
@@ -76,4 +76,4 @@ class ITileMapLayer {
   [[nodiscard]] virtual int get_cols() const noexcept = 0;
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

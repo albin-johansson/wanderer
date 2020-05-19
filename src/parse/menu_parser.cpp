@@ -11,7 +11,7 @@
 
 using namespace centurion;
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 UniquePtr<IMenu> MenuParser::parse(ActionParser& actionParser, CZString file)
 {
@@ -60,4 +60,4 @@ UniquePtr<IMenu> MenuParser::parse(ActionParser& actionParser, CZString file)
   return menu;
 }
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

@@ -5,7 +5,7 @@
 #include "sound_id.h"
 #include "wanderer_stdinc.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 class SoundEngine final {
   friend class SoundEngineParser;
@@ -21,4 +21,4 @@ class SoundEngine final {
   std::unordered_map<SoundID, UniquePtr<ctn::SoundEffect>> m_sounds;
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

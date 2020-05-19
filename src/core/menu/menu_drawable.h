@@ -4,7 +4,7 @@
 #include "font_bundle.h"
 #include "viewport.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 class IMenuDrawable {
  protected:
@@ -18,4 +18,4 @@ class IMenuDrawable {
                     const FontBundle& fonts) const = 0;
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

@@ -6,7 +6,7 @@
 #include "player_idle_state.h"
 #include "player_moving_state.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 PlayerStateMachineImpl::PlayerStateMachineImpl(IEntity* entity)
     : AbstractEntityStateMachine(entity)
@@ -25,4 +25,4 @@ void PlayerStateMachineImpl::HandleInput(const Input& input,
   get_active_state().HandleInput(input, core);
 }
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

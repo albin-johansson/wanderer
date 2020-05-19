@@ -4,7 +4,7 @@
 
 using namespace centurion;
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 PlayerDyingState::PlayerDyingState(IEntity* entity) : dyingDelegate(entity)
 {}
@@ -34,4 +34,4 @@ void PlayerDyingState::exit(const IWandererCore& core)
   dyingDelegate.exit(core);
 }
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

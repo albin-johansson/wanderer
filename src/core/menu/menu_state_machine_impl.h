@@ -6,7 +6,7 @@
 #include "menu_state_machine.h"
 #include "wanderer_stdinc.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 class IWandererCore;
 
@@ -39,4 +39,4 @@ class MenuStateMachineImpl final : public IMenuStateMachine {
   MenuID m_activeMenuID = MenuID::Home;
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

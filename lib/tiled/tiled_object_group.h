@@ -3,7 +3,7 @@
 #include <pugixml.hpp>
 #include "tiled_object.h"
 
-namespace albinjohansson::tiled {
+namespace tiled {
 
 class TiledObjectGroup final {
  private:

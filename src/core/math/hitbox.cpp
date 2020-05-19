@@ -2,7 +2,7 @@
 
 using namespace centurion;
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 Hitbox::Hitbox() = default;
 
@@ -143,4 +143,4 @@ bool Hitbox::is_enabled() const noexcept
   return m_enabled;
 }
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

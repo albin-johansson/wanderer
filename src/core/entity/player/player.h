@@ -1,7 +1,7 @@
 #pragma once
 #include "entity.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 class Input;
 
@@ -28,4 +28,4 @@ class IPlayer : public virtual IEntity {
   virtual void handle_input(const Input& input, const IWandererCore& core) = 0;
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

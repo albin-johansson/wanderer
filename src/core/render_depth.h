@@ -1,6 +1,6 @@
 #pragma once
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 /**
  * The RenderDepth struct contains constants for the possible render depths.
@@ -34,4 +34,4 @@ struct RenderDepth final {
   ~RenderDepth() = default;
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

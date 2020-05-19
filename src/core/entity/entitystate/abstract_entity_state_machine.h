@@ -9,7 +9,7 @@
 #include "require.h"
 #include "wanderer_stdinc.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 /**
  * The AbstractEntityStateMachine class is an abstract class that serves as the
@@ -83,4 +83,4 @@ class AbstractEntityStateMachine : public virtual IEntityStateMachine {
   [[nodiscard]] IEntity& get_entity() final { return *entity; }
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

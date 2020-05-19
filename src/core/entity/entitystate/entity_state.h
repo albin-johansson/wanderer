@@ -1,7 +1,7 @@
 #pragma once
 #include "drawable.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 class IWandererCore;
 
@@ -42,4 +42,4 @@ class IEntityState : public IDrawable {
   virtual void exit(const IWandererCore& core) = 0;
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

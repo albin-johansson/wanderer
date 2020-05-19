@@ -5,7 +5,7 @@
 #include "skeleton_idle_state.h"
 #include "skeleton_moving_state.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 SkeletonStateMachine::SkeletonStateMachine(IEntity* entity)
     : AbstractEntityStateMachine{entity}
@@ -18,4 +18,4 @@ SkeletonStateMachine::SkeletonStateMachine(IEntity* entity)
 
 SkeletonStateMachine::~SkeletonStateMachine() = default;
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

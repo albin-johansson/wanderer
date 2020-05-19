@@ -5,7 +5,7 @@
 #include <optional>
 #include "tiled_property.h"
 
-namespace albinjohansson::tiled {
+namespace tiled {
 
 class TiledObject final {
  private:

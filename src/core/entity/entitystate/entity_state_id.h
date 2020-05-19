@@ -1,6 +1,6 @@
 #pragma once
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 /**
  * The EntityStateID enum class provides values that serve as identifiers (or
@@ -10,4 +10,4 @@ namespace albinjohansson::wanderer {
  */
 enum class EntityStateID { Idle, Walk, Attack, Die };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

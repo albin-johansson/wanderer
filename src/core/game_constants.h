@@ -1,6 +1,6 @@
 #pragma once
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 /**
  * The GameConstants struct holds various important game constants.
@@ -77,4 +77,4 @@ struct GameConstants final {
   ~GameConstants() = default;
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

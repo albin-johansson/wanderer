@@ -1,6 +1,6 @@
 #include "entity_sheet.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 int EntitySheet::get_source_y(int y, Direction direction) noexcept
 {
@@ -21,4 +21,4 @@ int EntitySheet::get_source_y(int y, Direction direction) noexcept
   }
 }
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

@@ -12,7 +12,7 @@
 
 using namespace centurion;
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 SharedPtr<IWandererCore> WandererCoreBuilder::build(
     TextureLoader& textureLoader)
@@ -69,4 +69,4 @@ SharedPtr<IWandererCore> WandererCoreBuilder::build(
   return core;
 }
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

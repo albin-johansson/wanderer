@@ -4,7 +4,7 @@
 #include "menu.h"
 #include "wanderer_stdinc.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 class MenuParser final {
  public:
@@ -13,4 +13,4 @@ class MenuParser final {
   static UniquePtr<IMenu> parse(ActionParser& actionParser, CZString file);
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

@@ -16,7 +16,7 @@
 
 using namespace centurion;
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 TileMapImpl::TileMapImpl(const SharedPtr<TileSet>& tileSet)
 {
@@ -196,4 +196,4 @@ Vector2 TileMapImpl::get_player_spawn_position() const
   return playerSpawnPos;
 }
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

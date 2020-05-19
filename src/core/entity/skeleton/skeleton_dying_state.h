@@ -2,7 +2,7 @@
 #include "entity_dying_delegate.h"
 #include "entity_state.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 class IEntity;
 
@@ -24,4 +24,4 @@ class SkeletonDyingState final : public IEntityState {
   void exit(const IWandererCore& core) override;
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

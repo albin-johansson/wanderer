@@ -6,7 +6,7 @@
 #include "tile_set.h"
 #include "tiled_layer.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 TileMapLayerBuilder::TileMapLayerBuilder() = default;
 
@@ -79,4 +79,4 @@ UniquePtr<ITileMapLayer> TileMapLayerBuilder::create(
   return layer;
 }
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

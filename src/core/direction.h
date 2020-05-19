@@ -1,7 +1,7 @@
 #pragma once
 #include "random_utils.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 /**
  * The Direction enum provides values for 4 different directions: up, right,
@@ -22,4 +22,4 @@ enum class Direction { Up, Right, Down, Left };
   return static_cast<Direction>(RandomUtils::get_int(0, 3));
 }
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

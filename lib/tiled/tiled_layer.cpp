@@ -2,7 +2,7 @@
 #include <sstream>
 #include <iostream>
 
-namespace albinjohansson::tiled {
+namespace tiled {
 
 TiledLayer::TiledLayer(const pugi::xml_node& layerNode) : layerNode(layerNode) {
   nCols = layerNode.attribute("width").as_int();

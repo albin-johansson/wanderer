@@ -9,7 +9,7 @@
 
 using namespace centurion;
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 TileObject::TileObject(TileID id,
                        const Vector2& position,
@@ -104,4 +104,4 @@ void TileObject::set_blocked(bool blocked) noexcept
   hitbox.set_enabled(blocked);
 }
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

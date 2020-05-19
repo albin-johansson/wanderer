@@ -11,7 +11,7 @@
 #include "tile_map_bounds.h"
 #include "wanderer_stdinc.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 class TileSet;
 class ISortableDrawable;
@@ -97,4 +97,4 @@ class TileMapImpl final : public ITileMap {
   [[nodiscard]] Vector2 get_player_spawn_position() const override;
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

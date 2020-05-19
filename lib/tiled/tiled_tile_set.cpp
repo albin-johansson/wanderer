@@ -1,7 +1,7 @@
 #include "tiled_tile_set.h"
 #include <string>
 
-namespace albinjohansson::tiled {
+namespace tiled {
 
 TiledTileSet::TiledTileSet(pugi::xml_node tileSetNode, int firstId, int lastId)
     : tileSetNode(tileSetNode), firstId(firstId), lastId(lastId) {

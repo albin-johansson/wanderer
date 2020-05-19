@@ -7,7 +7,7 @@
 #include "tiled_layer.h"
 #include "tiled_object_group.h"
 
-namespace albinjohansson::tiled {
+namespace tiled {
 
 class TiledMap final {
  private:

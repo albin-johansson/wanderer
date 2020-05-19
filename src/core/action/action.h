@@ -2,7 +2,7 @@
 
 #include "wanderer_stdinc.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 enum class ActionID {
   Quit,
@@ -36,4 +36,4 @@ class IAction {
   virtual void execute() = 0;
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

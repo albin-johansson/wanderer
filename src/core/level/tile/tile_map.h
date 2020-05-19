@@ -6,7 +6,7 @@
 #include "vector_2.h"
 #include "wanderer_stdinc.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 class IWandererCore;
 class TileObject;
@@ -110,4 +110,4 @@ class ITileMap {
   [[nodiscard]] virtual Vector2 get_player_spawn_position() const = 0;
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

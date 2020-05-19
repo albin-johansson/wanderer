@@ -8,7 +8,7 @@
 
 using namespace centurion;
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 WandererCoreImpl::WandererCoreImpl() noexcept
 {}
@@ -109,4 +109,4 @@ const ITileMap& WandererCoreImpl::get_active_map() const
   return *m_activeMap;
 }
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

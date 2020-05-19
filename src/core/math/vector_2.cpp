@@ -2,7 +2,7 @@
 
 #include <cmath>
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 Vector2::Vector2() : Vector2(0, 0)
 {}
@@ -186,4 +186,4 @@ bool Vector2::is_unit() const noexcept
   return Math::almost_equal(get_length_2(), 1.0f);
 }
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

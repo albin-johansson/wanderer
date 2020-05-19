@@ -1,7 +1,7 @@
 #pragma once
 #include "wanderer_stdinc.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 /**
  * The Animation class represents an arbitrary animation of a set of frames.
@@ -77,4 +77,4 @@ class Animation final {
   [[nodiscard]] bool is_done() const noexcept;
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

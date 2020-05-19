@@ -13,7 +13,7 @@
 
 using namespace centurion;
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 // TODO entity parsing, item parsing...
 
@@ -38,4 +38,4 @@ std::unique_ptr<ITileMap> TiledMapParser::load(TextureLoader& textureLoader,
   return map;
 }
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

@@ -1,7 +1,7 @@
 #include "tiled_map.h"
 #include "tiled_object_group.h"
 
-namespace albinjohansson::tiled {
+namespace tiled {
 
 TiledMap::TiledMap(pugi::xml_node mapNode) : mapNode(mapNode) {
   init();

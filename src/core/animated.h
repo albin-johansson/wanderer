@@ -3,7 +3,7 @@
 
 #include "wanderer_stdinc.h"
 
-namespace albinjohansson::wanderer {
+namespace wanderer {
 
 /**
  * The IAnimated interface specifies objects that can be animated.
@@ -74,4 +74,4 @@ class IAnimated {
   [[nodiscard]] virtual ctn::Texture& get_sprite_sheet() const noexcept = 0;
 };
 
-}  // namespace albinjohansson::wanderer
+}  // namespace wanderer

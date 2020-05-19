@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 
-namespace albinjohansson::tiled {
+namespace tiled {
 
 /**
  * The TiledProperty struct represents a simple property for a tile.
