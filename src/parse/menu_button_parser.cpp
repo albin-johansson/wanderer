@@ -7,7 +7,7 @@ using namespace centurion;
 namespace albinjohansson::wanderer {
 
 UniquePtr<MenuButton> MenuButtonParser::parse(ActionParser& actionParser,
-                                              const JsonValue& json,
+                                              const JSONValue& json,
                                               int row)
 {
   auto text = maybe_get<std::string>(json, "text");

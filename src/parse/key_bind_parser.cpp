@@ -7,7 +7,7 @@ using namespace centurion;
 namespace albinjohansson::wanderer {
 
 UniquePtr<KeyBind> KeyBindParser::parse(ActionParser& actionParser,
-                                        const JsonValue& json)
+                                        const JSONValue& json)
 {
   const auto keyStr = maybe_get<std::string>(json, "key");
   if (!keyStr) {

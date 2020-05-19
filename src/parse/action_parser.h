@@ -30,10 +30,10 @@ class ActionParser {
    * couldn't be created.
    * @since 0.1.0
    */
-  UniquePtr<IAction> parse(const JsonValue& value, CZString key);
+  UniquePtr<IAction> parse(const JSONValue& value, CZString key);
 
  private:
-  UniquePtr<IAction> parse(const JsonValue& value);
+  UniquePtr<IAction> parse(const JSONValue& value);
 
   WeakPtr<IWandererCore> m_core;
   WeakPtr<IMenuStateMachine> m_menuStateMachine;

@@ -6,10 +6,10 @@
 
 namespace albinjohansson::wanderer {
 
-Json parse_json(CZString file);
+JSON parse_json(CZString file);
 
 template <typename T>
-Maybe<T> maybe_get(const JsonValue& json, CZString key) noexcept
+Maybe<T> maybe_get(const JSONValue& json, CZString key) noexcept
 {
   if (key && json.count(key)) {
     return json.at(key).get<T>();

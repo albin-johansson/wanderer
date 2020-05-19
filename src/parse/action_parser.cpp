@@ -37,7 +37,7 @@ ActionParser::ActionParser(WeakPtr<IWandererCore> core,
     : m_core{core}, m_menuStateMachine{menuStateMachine}
 {}
 
-UniquePtr<IAction> ActionParser::parse(const JsonValue& value)
+UniquePtr<IAction> ActionParser::parse(const JSONValue& value)
 {
   if (value.is_null()) {
     return nullptr;
@@ -67,7 +67,7 @@ UniquePtr<IAction> ActionParser::parse(const JsonValue& value)
   }
 }
 
-UniquePtr<IAction> ActionParser::parse(const JsonValue& value, CZString key)
+UniquePtr<IAction> ActionParser::parse(const JSONValue& value, CZString key)
 {
   if (!key) {
     return nullptr;

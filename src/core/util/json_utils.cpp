@@ -2,10 +2,10 @@
 
 namespace albinjohansson::wanderer {
 
-Json parse_json(CZString file)
+JSON parse_json(CZString file)
 {
   std::ifstream stream{file};
-  Json json;
+  JSON json;
   stream >> json;
   return json;
 }

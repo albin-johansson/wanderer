@@ -10,7 +10,7 @@ class MenuButtonParser final {
   MenuButtonParser() = delete;
 
   static UniquePtr<MenuButton> parse(ActionParser& actionParser,
-                                     const JsonValue& json,
+                                     const JSONValue& json,
                                      int row);
 };
 

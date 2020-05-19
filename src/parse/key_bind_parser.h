@@ -10,7 +10,7 @@ class KeyBindParser final {
   KeyBindParser() = delete;
 
   static UniquePtr<KeyBind> parse(ActionParser& actionParser,
-                                  const JsonValue& json);
+                                  const JSONValue& json);
 };
 
 }  // namespace albinjohansson::wanderer

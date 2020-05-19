@@ -15,7 +15,7 @@ namespace albinjohansson::wanderer {
 
 UniquePtr<IMenu> MenuParser::parse(ActionParser& actionParser, CZString file)
 {
-  Json json = parse_json(file);
+  JSON json = parse_json(file);
 
   auto menu = std::unique_ptr<MenuImpl>(new MenuImpl{});
 
