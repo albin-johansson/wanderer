@@ -11,7 +11,8 @@ add_executable(${WANDERER_TEST}
         unittests/objects_test.cpp
         unittests/viewport_test.cpp
         unittests/hitbox_test.cpp
-        unittests/random_utils_test.cpp unittests/tvector_test.cpp)
+        unittests/random_utils_test.cpp
+        unittests/tvector_test.cpp)
 
 set_target_properties(${WANDERER_TEST} PROPERTIES
         CXX_STANDARD 17

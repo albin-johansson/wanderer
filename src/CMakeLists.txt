@@ -189,7 +189,9 @@ set(SOURCE_FILES
         core/action/action_parser.cpp
         core/action/action_parser.h
         core/action/quit_action.cpp
-        core/action/quit_action.h core/wanderer_core_builder.cpp core/wanderer_core_builder.h)
+        core/action/quit_action.h
+        core/wanderer_core_builder.cpp
+        core/wanderer_core_builder.h)
 
 add_library(${WANDERER_LIB} ${SOURCE_FILES})
 
@@ -252,7 +254,7 @@ target_include_directories(${WANDERER_LIB} PUBLIC audio)
 #endif ()
 
 target_link_libraries(${WANDERER_LIB}
-        # PUBLIC ${CENTURION_LIBRARIES}
+        PUBLIC ${CENTURION_LIBRARIES}
         PUBLIC ${SDL2_IMAGE_LIBRARIES}
         PUBLIC ${SDL2_MIXER_LIBRARIES}
         PUBLIC ${SDL2_TTF_LIBRARIES}
@@ -267,7 +269,7 @@ set_target_properties(${WANDERER_EXECUTABLE} PROPERTIES
 target_link_libraries(${WANDERER_EXECUTABLE}
         PUBLIC mingw32
         PUBLIC ${WANDERER_LIB}
-        # PUBLIC ${CENTURION_LIBRARIES}
+        PUBLIC ${CENTURION_LIBRARIES}
         PUBLIC ${SDL2_LIBRARY}
         PUBLIC ${SDL2_IMAGE_LIBRARIES}
         PUBLIC ${SDL2_MIXER_LIBRARIES}
