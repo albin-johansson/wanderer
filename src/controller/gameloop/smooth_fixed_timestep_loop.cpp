@@ -59,8 +59,6 @@ void SmoothFixedTimestepLoop::smooth_delta()
 
 void SmoothFixedTimestepLoop::update(IWandererCore& core, Renderer& renderer)
 {
-  // TODO check if output width and height works for this (used to be window
-  //  size)
   update_input(core, renderer.output_width(), renderer.output_height());
 
   m_then = m_now;
