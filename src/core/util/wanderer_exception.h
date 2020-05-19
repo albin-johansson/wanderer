@@ -6,6 +6,9 @@ namespace albinjohansson::wanderer {
 
 class WandererException : public std::exception {
  public:
+  WandererException() noexcept
+  {}
+
   explicit WandererException(std::string what) : m_what{std::move(what)}
   {}
 
@@ -17,7 +20,7 @@ class WandererException : public std::exception {
   }
 
  private:
-  std::string m_what;
+  std::string m_what = "N/A";
 };
 
 }  // namespace albinjohansson::wanderer

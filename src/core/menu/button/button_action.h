@@ -1,6 +1,6 @@
 #pragma once
 
-#include "action/action.h"
+#include "action.h"
 #include "input.h"
 #include "menu_button.h"
 #include "menu_state_machine.h"

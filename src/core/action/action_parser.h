@@ -21,17 +21,20 @@ class ActionParser {
    * ```
    * ActionParser parser = ...;
    * Json json = ...;
-   * const auto action = parser.parse(json.at("action"));
+   * const auto action = parser.parse(json, "action");
    * ```
    *
    * @param value the JSON value that will be parsed.
+   * @param key the attribute name that stores the action ID.
    * @return a unique pointer to the created action; null if the action
    * couldn't be created.
    * @since 0.1.0
    */
-  UniquePtr<IAction> parse(const JsonValue& value);
+  UniquePtr<IAction> parse(const JsonValue& value, CZString key);
 
  private:
+  UniquePtr<IAction> parse(const JsonValue& value);
+
   WeakPtr<IWandererCore> m_core;
   WeakPtr<IMenuStateMachine> m_menuStateMachine;
 };

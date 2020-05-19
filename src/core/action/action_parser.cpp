@@ -3,6 +3,8 @@
 #include "goto_menu_action.h"
 #include "quit_action.h"
 
+using namespace centurion;
+
 namespace albinjohansson::wanderer {
 namespace {
 
@@ -63,6 +65,23 @@ UniquePtr<IAction> ActionParser::parse(const JsonValue& value)
     default:
       return nullptr;
   }
+}
+
+UniquePtr<IAction> ActionParser::parse(const JsonValue& value, CZString key)
+{
+  if (!key) {
+    return nullptr;
+  }
+
+  if (value.count(key)) {
+    auto result = parse(value.at(key));
+    if (result) {
+      return result;
+    }
+  }
+
+  Log::critical("Failed to parse action \"%s\"!", key);
+  return nullptr;
 }
 
 }  // namespace albinjohansson::wanderer

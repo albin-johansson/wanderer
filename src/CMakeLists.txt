@@ -47,8 +47,8 @@ set(SOURCE_FILES
         core/menu/menu_state_machine.h
         core/menu/menu_state_machine_impl.cpp
         core/menu/menu_state_machine_impl.h
-        core/menu/menu_button.cpp
-        core/menu/menu_button.h
+        core/menu/button/menu_button.cpp
+        core/menu/button/menu_button.h
         core/menu/menu_drawable.h
 
         core/level/portal.cpp
@@ -174,7 +174,7 @@ set(SOURCE_FILES
 
         core/action/action.h
 
-        core/menu/button_action.h
+        core/menu/button/button_action.h
         core/menu/menu_impl.cpp
         core/menu/menu_impl.h
         core/action/goto_menu_action.cpp
@@ -191,7 +191,18 @@ set(SOURCE_FILES
         core/action/quit_action.cpp
         core/action/quit_action.h
         core/wanderer_core_builder.cpp
-        core/wanderer_core_builder.h core/menu/key_bind.cpp core/menu/key_bind.h core/util/wanderer_exception.h core/menu/menu_builder.cpp core/menu/menu_builder.h)
+        core/wanderer_core_builder.h
+        core/menu/key_bind.cpp
+        core/menu/key_bind.h
+        core/util/wanderer_exception.h
+        core/menu/menu_builder.cpp
+        core/menu/menu_builder.h
+        core/util/json_utils.h
+        core/menu/button/menu_button_builder.cpp
+        core/menu/button/menu_button_builder.h
+        core/menu/key_bind_builder.cpp
+        core/menu/key_bind_builder.h
+        core/util/json_utils.cpp)
 
 add_library(${WANDERER_LIB} ${SOURCE_FILES})
 
@@ -228,6 +239,7 @@ target_include_directories(${WANDERER_LIB} PUBLIC controller)
 target_include_directories(${WANDERER_LIB} PUBLIC controller/gameloop)
 target_include_directories(${WANDERER_LIB} PUBLIC core)
 target_include_directories(${WANDERER_LIB} PUBLIC core/menu)
+target_include_directories(${WANDERER_LIB} PUBLIC core/menu/button)
 target_include_directories(${WANDERER_LIB} PUBLIC core/math)
 target_include_directories(${WANDERER_LIB} PUBLIC core/level)
 target_include_directories(${WANDERER_LIB} PUBLIC core/level/tiles)

@@ -1,5 +1,5 @@
 #pragma once
-#include <action/action.h>
+#include <action.h>
 #include <rect.h>
 #include <texture.h>
 
