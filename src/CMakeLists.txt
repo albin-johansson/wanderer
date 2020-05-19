@@ -192,7 +192,6 @@ set(SOURCE_FILES
         core/menu/key_bind.cpp
         core/menu/key_bind.h
 
-        core/menu/button/button_action.h
         parse/menu_button_parser.cpp
         parse/menu_button_parser.h
 

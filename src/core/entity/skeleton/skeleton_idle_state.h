@@ -8,10 +8,6 @@ namespace wanderer {
 class IEntityStateMachine;
 
 class SkeletonIdleState final : public IEntityState {
- private:
-  EntityIdleDelegate idleDelegate;
-  uint32 enterTime = 0;
-
  public:
   explicit SkeletonIdleState(IEntityStateMachine* parent);
 
@@ -24,6 +20,10 @@ class SkeletonIdleState final : public IEntityState {
   void enter(const IWandererCore& core) override;
 
   void exit(const IWandererCore& core) override;
+
+ private:
+  EntityIdleDelegate m_idleDelegate;
+  uint32 m_enterTime = 0;
 };
 
 }  // namespace wanderer

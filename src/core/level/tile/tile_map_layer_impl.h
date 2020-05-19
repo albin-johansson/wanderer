@@ -23,18 +23,6 @@ class TileSet;
  * @see TileMapLayerBuilder
  */
 class TileMapLayerImpl final : public ITileMapLayer {
- private:
-  friend class TileMapLayerBuilder;
-
-  SharedPtr<TileSet> tileSet = nullptr;
-  std::unordered_map<MapPosition, UniquePtr<TileObject>> tileObjects;
-  std::vector<TileID> tiles;
-  int nRows = 0;
-  int nCols = 0;
-  bool isGroundLayer = false;
-
-  explicit TileMapLayerImpl(const SharedPtr<TileSet>& tileSet);
-
  public:
   ~TileMapLayerImpl() noexcept override;
 
@@ -52,6 +40,18 @@ class TileMapLayerImpl final : public ITileMapLayer {
   [[nodiscard]] int get_rows() const noexcept override;
 
   [[nodiscard]] int get_cols() const noexcept override;
+
+ private:
+  friend class TileMapLayerBuilder;
+
+  SharedPtr<TileSet> m_tileSet = nullptr;
+  std::unordered_map<MapPosition, UniquePtr<TileObject>> m_tileObjects;
+  std::vector<TileID> m_tiles;
+  int m_nRows = 0;
+  int m_nCols = 0;
+  bool m_isGroundLayer = false;
+
+  explicit TileMapLayerImpl(const SharedPtr<TileSet>& tileSet);
 };
 
 }  // namespace wanderer

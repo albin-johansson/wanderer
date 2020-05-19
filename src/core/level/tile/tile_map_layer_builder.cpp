@@ -16,12 +16,12 @@ void TileMapLayerBuilder::init_tile_objects(TileMapLayerImpl& layer) const
 {
   int index = 0;
 
-  for (const auto id : layer.tiles) {
-    if (id != Tile::EMPTY) {
-      const auto& tile = layer.tileSet->get_tile(id);
+  for (const auto id : layer.m_tiles) {
+    if (id != Tile::empty) {
+      const auto& tile = layer.m_tileSet->get_tile(id);
       if (tile.is_object()) {
         auto object = std::make_unique<TileObject>(
-            id, create_position(index, layer.nCols), layer.tileSet);
+            id, create_position(index, layer.m_nCols), layer.m_tileSet);
         object->SetDepth(tile.get_depth());
 
         if (tile.is_blocked()) {
@@ -33,10 +33,10 @@ void TileMapLayerBuilder::init_tile_objects(TileMapLayerImpl& layer) const
           object->SetHitbox(hitbox);
         }
 
-        const auto [row, col] = Math::index_to_matrix_pos(index, layer.nCols);
+        const auto [row, col] = Math::index_to_matrix_pos(index, layer.m_nCols);
         const MapPosition mapPos{row, col};
 
-        layer.tileObjects.emplace(mapPos, std::move(object));
+        layer.m_tileObjects.emplace(mapPos, std::move(object));
       }
     }
     ++index;
@@ -67,11 +67,11 @@ UniquePtr<ITileMapLayer> TileMapLayerBuilder::create(
 {
   auto layer = UniquePtr<TileMapLayerImpl>(new TileMapLayerImpl(tileSet));
 
-  layer->nRows = tiledLayer.get_rows();
-  layer->nCols = tiledLayer.get_cols();
-  layer->isGroundLayer = tiledLayer.get_bool("ground");
-  layer->tiles = create_tile_vector(tiledLayer.get_tiles());
-  layer->tileObjects.reserve(
+  layer->m_nRows = tiledLayer.get_rows();
+  layer->m_nCols = tiledLayer.get_cols();
+  layer->m_isGroundLayer = tiledLayer.get_bool("ground");
+  layer->m_tiles = create_tile_vector(tiledLayer.get_tiles());
+  layer->m_tileObjects.reserve(
       static_cast<unsigned>(tiledLayer.get_non_empty_tiles()));
 
   init_tile_objects(*layer);

@@ -20,20 +20,19 @@ namespace wanderer {
 
 TileMapImpl::TileMapImpl(const SharedPtr<TileSet>& tileSet)
 {
-  this->tileSet = Require::not_null(tileSet);
+  this->m_tileSet = Require::not_null(tileSet);
 }
 
 TileMapImpl::~TileMapImpl() = default;
 
 void TileMapImpl::interpolate(float alpha)
 {
-  for (auto& entity : entityManager.get_close_entities()) {
+  for (auto& entity : m_entityManager.get_close_entities()) {
     entity->interpolate(alpha);
   }
 }
 
-TileMapBounds TileMapImpl::CalculateMapBounds(
-    const FRect& bounds) const noexcept
+TileMapBounds TileMapImpl::calc_map_bounds(const FRect& bounds) const noexcept
 {
   auto minCol = static_cast<int>(bounds.x()) / GameConstants::tile_size_int;
   auto minRow = static_cast<int>(bounds.y()) / GameConstants::tile_size_int;
@@ -50,12 +49,12 @@ TileMapBounds TileMapImpl::CalculateMapBounds(
     minRow = 0;
   }
 
-  if (maxRow > nRows) {
-    maxRow = nRows;
+  if (maxRow > m_nRows) {
+    maxRow = m_nRows;
   }
 
-  if (maxCol > nCols) {
-    maxCol = nCols;
+  if (maxCol > m_nCols) {
+    maxCol = m_nCols;
   }
 
   return {minRow, maxRow, minCol, maxCol};
@@ -66,25 +65,25 @@ void TileMapImpl::tick(IWandererCore& core,
                        float delta)
 {
   const auto& viewportBounds = viewport.get_bounds();
-  const auto bounds = CalculateMapBounds(viewportBounds);
+  const auto bounds = calc_map_bounds(viewportBounds);
   const auto update = [&](auto& layer) { layer->update(bounds); };
 
-  std::for_each(groundLayers.begin(), groundLayers.end(), update);
-  std::for_each(objectLayers.begin(), objectLayers.end(), update);
+  std::for_each(m_groundLayers.begin(), m_groundLayers.end(), update);
+  std::for_each(m_objectLayers.begin(), m_objectLayers.end(), update);
 
-  entityManager.update(viewportBounds);
+  m_entityManager.update(viewportBounds);
 
-  activeObjects.clear();
+  m_activeObjects.clear();
 
-  for (const auto& layer : objectLayers) {
-    layer->add_objects(bounds, activeObjects);
+  for (const auto& layer : m_objectLayers) {
+    layer->add_objects(bounds, m_activeObjects);
   }
 
-  for (const auto& entity : entityManager.get_close_entities()) {
-    activeObjects.push_back(entity);
+  for (const auto& entity : m_entityManager.get_close_entities()) {
+    m_activeObjects.push_back(entity);
   }
 
-  for (const auto& object : activeObjects) {
+  for (const auto& object : m_activeObjects) {
     object->tick(core, delta);
   }
 }
@@ -95,7 +94,7 @@ void TileMapImpl::draw(Renderer& renderer,
 {
   interpolate(alpha);
 
-  const auto bounds = CalculateMapBounds(viewport.get_bounds());
+  const auto bounds = calc_map_bounds(viewport.get_bounds());
 
   for (auto row = bounds.minRow; row < bounds.maxRow; row++) {
     for (auto col = bounds.minCol; col < bounds.maxCol; col++) {
@@ -114,21 +113,21 @@ void TileMapImpl::draw(Renderer& renderer,
             (rightFirst >= leftFirst && leftSecond < rightSecond));
   };
 
-  std::sort(activeObjects.begin(), activeObjects.end(), comparator);
+  std::sort(m_activeObjects.begin(), m_activeObjects.end(), comparator);
 
-  for (const auto& object : activeObjects) {
+  for (const auto& object : m_activeObjects) {
     object->draw(renderer, viewport);
   }
 }
 
 void TileMapImpl::render_tiles_at(int row, int col, Renderer& renderer)
 {
-  for (const auto& layer : groundLayers) {
+  for (const auto& layer : m_groundLayers) {
     const auto id = layer->get_tile_id(row, col);
-    if (id != Tile::EMPTY) {
+    if (id != Tile::empty) {
       Vector2 pos{static_cast<float>(col) * GameConstants::tile_size,
                   static_cast<float>(row) * GameConstants::tile_size};
-      tileSet->get_tile(id).draw(pos, renderer, *tileSet);
+      m_tileSet->get_tile(id).draw(pos, renderer, *m_tileSet);
     }
   }
 }
@@ -137,9 +136,9 @@ void TileMapImpl::add_layer(UniquePtr<ITileMapLayer>&& layer)
 {
   if (layer) {
     if (layer->is_ground_layer()) {
-      groundLayers.push_back(std::move(layer));
+      m_groundLayers.push_back(std::move(layer));
     } else {
-      objectLayers.push_back(std::move(layer));
+      m_objectLayers.push_back(std::move(layer));
     }
   }
 }
@@ -147,8 +146,8 @@ void TileMapImpl::add_layer(UniquePtr<ITileMapLayer>&& layer)
 void TileMapImpl::set_player(const SharedPtr<IEntity>& player)
 {
   if (player) {
-    this->player = player;
-    entityManager.add_entity(player);
+    this->m_player = player;
+    m_entityManager.add_entity(player);
   }
 }
 
@@ -158,7 +157,7 @@ bool TileMapImpl::is_blocked(const IMovableObject* self, float delta) const
     return false;
   }
 
-  for (const auto other : activeObjects) {
+  for (const auto other : m_activeObjects) {
     if (other->get_unique_id() == self->get_unique_id()) {
       continue;
     }
@@ -173,27 +172,27 @@ bool TileMapImpl::is_blocked(const IMovableObject* self, float delta) const
 
 int TileMapImpl::get_rows() const noexcept
 {
-  return nRows;
+  return m_nRows;
 }
 
 int TileMapImpl::get_cols() const noexcept
 {
-  return nCols;
+  return m_nCols;
 }
 
 int TileMapImpl::get_width() const noexcept
 {
-  return nCols * GameConstants::tile_size_int;
+  return m_nCols * GameConstants::tile_size_int;
 }
 
 int TileMapImpl::get_height() const noexcept
 {
-  return nRows * GameConstants::tile_size_int;
+  return m_nRows * GameConstants::tile_size_int;
 }
 
 Vector2 TileMapImpl::get_player_spawn_position() const
 {
-  return playerSpawnPos;
+  return m_playerSpawnPos;
 }
 
 }  // namespace wanderer

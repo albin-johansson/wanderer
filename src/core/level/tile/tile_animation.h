@@ -12,12 +12,6 @@ struct Frame {
 };
 
 class TileAnimation final {
- private:
-  std::unordered_map<int, Frame> frames;
-  int nFrames = 1;
-  int index = 0;
-  uint32 previous = 0;
-
  public:
   TileAnimation();
 
@@ -30,6 +24,12 @@ class TileAnimation final {
   void set_frame(int index, Frame frame);
 
   [[nodiscard]] Frame get_frame() const;
+
+ private:
+  std::unordered_map<int, Frame> m_frames;
+  int m_nFrames = 1;
+  int m_index = 0;
+  uint32 m_previous = 0;
 };
 
 }  // namespace wanderer

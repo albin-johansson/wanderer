@@ -8,9 +8,8 @@ class PugiUtils final {
  public:
   PugiUtils() = delete;
 
-  ~PugiUtils() = default;
-
-  [[nodiscard]] static pugi::xml_document LoadDocument(const std::string& path);
+  [[nodiscard]] static pugi::xml_document load_document(
+      const std::string& path);
 };
 
 }  // namespace wanderer

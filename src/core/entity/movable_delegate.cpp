@@ -12,12 +12,12 @@ using namespace centurion;
 namespace wanderer {
 
 MovableDelegate::MovableDelegate(int depth, float width, float height)
-    : depth(depth), width(width), height(height)
+    : m_depth(depth), m_width(width), m_height(height)
 {
   if (width < 1 || height < 1) {
     throw std::invalid_argument("Invalid dimensions!");
   }
-  uniqueId = GameObjectID::next();
+  m_uniqueId = GameObjectID::next();
 }
 
 MovableDelegate::~MovableDelegate() = default;
@@ -36,26 +36,26 @@ void MovableDelegate::tick(IWandererCore&, float /*delta*/)
 
 void MovableDelegate::save_position() noexcept
 {
-  prevPosition.set(currPosition);
+  m_prevPosition.set(m_currPosition);
 }
 
 void MovableDelegate::update_position()
 {
-  hitbox.set_x(currPosition.x);
-  hitbox.set_y(currPosition.y);
+  m_hitbox.set_x(m_currPosition.x);
+  m_hitbox.set_y(m_currPosition.y);
 }
 
 void MovableDelegate::update_direction()
 {
-  if (velocity.x > 0) {
-    dominantDirection = Direction::Right;
-  } else if (velocity.x < 0) {
-    dominantDirection = Direction::Left;
+  if (m_velocity.x > 0) {
+    m_dominantDirection = Direction::Right;
+  } else if (m_velocity.x < 0) {
+    m_dominantDirection = Direction::Left;
   } else {
-    if (velocity.y < 0) {
-      dominantDirection = Direction::Up;
-    } else if (velocity.y > 0) {
-      dominantDirection = Direction::Down;
+    if (m_velocity.y < 0) {
+      m_dominantDirection = Direction::Up;
+    } else if (m_velocity.y > 0) {
+      m_dominantDirection = Direction::Down;
     }
   }
 }
@@ -64,26 +64,26 @@ void MovableDelegate::move(Direction direction) noexcept
 {
   switch (direction) {
     case Direction::Right: {
-      velocity.x = speed;
+      m_velocity.x = m_speed;
       break;
     }
     case Direction::Left: {
-      velocity.x = -speed;
+      m_velocity.x = -m_speed;
       break;
     }
     case Direction::Up: {
-      velocity.y = -speed;
+      m_velocity.y = -m_speed;
       break;
     }
     case Direction::Down: {
-      velocity.y = speed;
+      m_velocity.y = m_speed;
       break;
     }
     default:
       break;
   }
-  velocity.norm();
-  velocity.scale(speed);
+  m_velocity.norm();
+  m_velocity.scale(m_speed);
 }
 
 void MovableDelegate::stop(Direction direction) noexcept
@@ -92,161 +92,161 @@ void MovableDelegate::stop(Direction direction) noexcept
     case Direction::Right:
       [[fallthrough]];
     case Direction::Left: {
-      velocity.x = 0;
+      m_velocity.x = 0;
       break;
     }
     case Direction::Up:
       [[fallthrough]];
     case Direction::Down: {
-      velocity.y = 0;
+      m_velocity.y = 0;
       break;
     }
     default:
       break;
   }
-  velocity.norm();
-  velocity.scale(speed);
+  m_velocity.norm();
+  m_velocity.scale(m_speed);
 }
 
 void MovableDelegate::stop() noexcept
 {
-  velocity.zero();
+  m_velocity.zero();
 }
 
 void MovableDelegate::interpolate(float alpha) noexcept
 {
-  interpolatedPosition.set(currPosition);
-  interpolatedPosition.interpolate(prevPosition, alpha);
+  m_interpolatedPosition.set(m_currPosition);
+  m_interpolatedPosition.interpolate(m_prevPosition, alpha);
 }
 
 void MovableDelegate::set_speed(float speed) noexcept
 {
-  this->speed = speed;
-  velocity.norm();
-  velocity.scale(speed);
+  this->m_speed = speed;
+  m_velocity.norm();
+  m_velocity.scale(speed);
 }
 
 void MovableDelegate::add_x(float dx) noexcept
 {
-  currPosition.add(dx, 0);
+  m_currPosition.add(dx, 0);
   update_position();
 }
 
 void MovableDelegate::add_y(float dy) noexcept
 {
-  currPosition.add(0, dy);
+  m_currPosition.add(0, dy);
   update_position();
 }
 
 void MovableDelegate::set_x(float x) noexcept
 {
-  currPosition.x = x;
+  m_currPosition.x = x;
   update_position();
 }
 
 void MovableDelegate::set_y(float y) noexcept
 {
-  currPosition.y = y;
+  m_currPosition.y = y;
   update_position();
 }
 
 void MovableDelegate::set_velocity(const Vector2& v) noexcept
 {
-  velocity.set(v);
+  m_velocity.set(v);
 }
 
 void MovableDelegate::add_hitbox(const FRect& rectangle, const Vector2& offset)
 {
-  hitbox.add_rectangle(rectangle, offset);
+  m_hitbox.add_rectangle(rectangle, offset);
   update_position();
 }
 
 void MovableDelegate::set_blocked(bool blocked) noexcept
 {
-  hitbox.set_enabled(blocked);
+  m_hitbox.set_enabled(blocked);
 }
 
 int MovableDelegate::get_depth() const noexcept
 {
-  return depth;
+  return m_depth;
 }
 
 float MovableDelegate::get_center_y() const noexcept
 {
-  return currPosition.y + (height / 2.0f);
+  return m_currPosition.y + (m_height / 2.0f);
 }
 
 float MovableDelegate::get_speed() const noexcept
 {
-  return speed;
+  return m_speed;
 }
 
 float MovableDelegate::get_width() const noexcept
 {
-  return width;
+  return m_width;
 }
 
 float MovableDelegate::get_height() const noexcept
 {
-  return height;
+  return m_height;
 }
 
 float MovableDelegate::get_x() const noexcept
 {
-  return currPosition.x;
+  return m_currPosition.x;
 }
 
 float MovableDelegate::get_y() const noexcept
 {
-  return currPosition.y;
+  return m_currPosition.y;
 }
 
 const Hitbox& MovableDelegate::get_hitbox() const noexcept
 {
-  return hitbox;
+  return m_hitbox;
 }
 
 Direction MovableDelegate::get_dominant_direction() const noexcept
 {
-  return dominantDirection;
+  return m_dominantDirection;
 }
 
 const Vector2& MovableDelegate::get_velocity() const noexcept
 {
-  return velocity;
+  return m_velocity;
 }
 
 const Vector2& MovableDelegate::get_position() const noexcept
 {
-  return currPosition;
+  return m_currPosition;
 }
 
 const Vector2& MovableDelegate::get_interpolated_position() const noexcept
 {
-  return interpolatedPosition;
+  return m_interpolatedPosition;
 }
 
 const Vector2& MovableDelegate::get_previous_position() const noexcept
 {
-  return prevPosition;
+  return m_prevPosition;
 }
 
 bool MovableDelegate::will_intersect(const IGameObject* other,
                                      float delta) const
 {
   return other &&
-         hitbox.will_intersect(other->get_hitbox(), get_next_position(delta));
+         m_hitbox.will_intersect(other->get_hitbox(), get_next_position(delta));
 }
 
 uint64 MovableDelegate::get_unique_id() const noexcept
 {
-  return uniqueId;
+  return m_uniqueId;
 }
 
 Vector2 MovableDelegate::get_next_position(float delta) const noexcept
 {
-  return {currPosition.x + (velocity.x * delta),
-          currPosition.y + (velocity.y * delta)};
+  return {m_currPosition.x + (m_velocity.x * delta),
+          m_currPosition.y + (m_velocity.y * delta)};
 }
 
 }  // namespace wanderer

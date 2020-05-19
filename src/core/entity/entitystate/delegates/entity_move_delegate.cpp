@@ -14,14 +14,14 @@ namespace wanderer {
 
 EntityMoveDelegate::EntityMoveDelegate(IEntityStateMachine* parent)
 {
-  this->parent = Require::not_null(parent);
+  this->m_parent = Require::not_null(parent);
 }
 
 EntityMoveDelegate::~EntityMoveDelegate() = default;
 
 void EntityMoveDelegate::draw(Renderer& renderer, const Viewport&) const
 {
-  const auto& entity = parent->get_entity();
+  const auto& entity = m_parent->get_entity();
   auto srcX =
       entity.get_velocity().is_zero() ? 0 : entity.get_animation_frame() * 64;
   auto srcY = EntitySheet::get_source_y(512, entity.get_dominant_direction());
@@ -30,13 +30,13 @@ void EntityMoveDelegate::draw(Renderer& renderer, const Viewport&) const
 
 void EntityMoveDelegate::tick(const IWandererCore&, float delta)
 {
-  UpdateAnimation();
-  UpdatePosition(delta);
+  update_animation();
+  update_position(delta);
 }
 
 void EntityMoveDelegate::enter(const IWandererCore&)
 {
-  auto& entity = parent->get_entity();
+  auto& entity = m_parent->get_entity();
 
   entity.set_animation_frame(0);
   entity.set_animation_frame_amount(9);
@@ -46,14 +46,14 @@ void EntityMoveDelegate::enter(const IWandererCore&)
 void EntityMoveDelegate::exit(const IWandererCore&)
 {}
 
-void EntityMoveDelegate::UpdateAnimation()
+void EntityMoveDelegate::update_animation()
 {
-  parent->get_entity().update_animation();
+  m_parent->get_entity().update_animation();
 }
 
-void EntityMoveDelegate::UpdatePosition(float delta)
+void EntityMoveDelegate::update_position(float delta)
 {
-  auto& entity = parent->get_entity();
+  auto& entity = m_parent->get_entity();
   auto [velocityX, velocityY] = entity.get_velocity();
   entity.add_x(velocityX * delta);
   entity.add_y(velocityY * delta);
@@ -61,7 +61,7 @@ void EntityMoveDelegate::UpdatePosition(float delta)
 
 IEntityStateMachine& EntityMoveDelegate::get_parent() noexcept
 {
-  return *parent;
+  return *m_parent;
 }
 
 }  // namespace wanderer

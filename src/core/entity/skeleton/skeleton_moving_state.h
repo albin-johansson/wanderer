@@ -15,14 +15,6 @@ class IEntityStateMachine;
  * @since 0.1.0
  */
 class SkeletonMovingState final : public IEntityState {
- private:
-  EntityMoveDelegate moveDelegate;
-  uint32 enterTime = 0;
-
-  void ChasePlayer(const IWandererCore& core, float distance);
-
-  void Roam(const IWandererCore& core);
-
  public:
   /**
    * @param parent a raw pointer to the parent state machine.
@@ -40,6 +32,14 @@ class SkeletonMovingState final : public IEntityState {
   void enter(const IWandererCore& core) override;
 
   void exit(const IWandererCore& core) override;
+
+ private:
+  EntityMoveDelegate m_moveDelegate;
+  uint32 m_enterTime = 0;
+
+  void chase_player(const IWandererCore& core, float distance);
+
+  void roam(const IWandererCore& core);
 };
 
 }  // namespace wanderer

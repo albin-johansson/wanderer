@@ -9,12 +9,6 @@ namespace wanderer {
 
 class [[deprecated]] FontBundle final
 {
- private:
-  ctn::Font font12;
-  ctn::Font font18;
-  ctn::Font font24;
-  ctn::Font font36;
-
  public:
   explicit FontBundle(const char* file);
 
@@ -27,6 +21,12 @@ class [[deprecated]] FontBundle final
   [[nodiscard]] const ctn::Font& get_font_24() const noexcept;
 
   [[nodiscard]] const ctn::Font& get_font_36() const noexcept;
+
+ private:
+  ctn::Font m_font12;
+  ctn::Font m_font18;
+  ctn::Font m_font24;
+  ctn::Font m_font36;
 };
 
 }  // namespace wanderer

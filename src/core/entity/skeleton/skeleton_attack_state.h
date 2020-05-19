@@ -7,9 +7,6 @@ namespace wanderer {
 class IEntityStateMachine;
 
 class SkeletonAttackState final : public IEntityState {
- private:
-  EntityAttackDelegate attackDelegate;
-
  public:
   explicit SkeletonAttackState(IEntityStateMachine* parent);
 
@@ -22,6 +19,9 @@ class SkeletonAttackState final : public IEntityState {
   void enter(const IWandererCore& core) override;
 
   void exit(const IWandererCore& core) override;
+
+ private:
+  EntityAttackDelegate m_attackDelegate;
 };
 
 }  // namespace wanderer

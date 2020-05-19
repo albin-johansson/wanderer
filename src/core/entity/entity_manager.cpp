@@ -11,36 +11,36 @@ namespace wanderer {
 
 EntityManager::EntityManager()
 {
-  entities.reserve(10);
-  closeEntities.reserve(10);
+  m_entities.reserve(10);
+  m_closeEntities.reserve(10);
 }
 
 EntityManager::~EntityManager() = default;
 
 void EntityManager::calculate_close_entities(const FRect& bounds)
 {
-  closeEntities.clear();
+  m_closeEntities.clear();
 
-  for (const auto& entity : entities) {
+  for (const auto& entity : m_entities) {
     if (entity->get_hitbox().intersects(bounds)) {
-      closeEntities.push_back(entity.get());
+      m_closeEntities.push_back(entity.get());
     }
   }
 
-  nTicksSinceUpdate = 0;
+  m_nTicksSinceUpdate = 0;
 }
 
 void EntityManager::update(const FRect& bounds)
 {
-  if (firstTick) {
+  if (m_firstTick) {
     calculate_close_entities(bounds);
-    firstTick = false;
+    m_firstTick = false;
     return;
   }
 
-  ++nTicksSinceUpdate;
+  ++m_nTicksSinceUpdate;
 
-  if (nTicksSinceUpdate >= calcEntitiesThreshold) {
+  if (m_nTicksSinceUpdate >= s_calcEntitiesThreshold) {
     calculate_close_entities(bounds);
   }
 }
@@ -48,13 +48,13 @@ void EntityManager::update(const FRect& bounds)
 void EntityManager::add_entity(const std::shared_ptr<IEntity>& entity)
 {
   if (entity) {
-    entities.push_back(entity);
+    m_entities.push_back(entity);
   }
 }
 
 const std::vector<IEntity*>& EntityManager::get_close_entities() const
 {
-  return closeEntities;
+  return m_closeEntities;
 }
 
 }  // namespace wanderer

@@ -29,7 +29,7 @@ UniquePtr<TileSet> TileSetBuilder::create(const pugi::xml_node& mapRoot,
     std::string mapPath = Resource::map("world/");
     mapPath += tsInfoNode.attribute("source").as_string();
 
-    const auto tsDocument = PugiUtils::LoadDocument(mapPath);
+    const auto tsDocument = PugiUtils::load_document(mapPath);
     const auto tileSetNode = tsDocument.child("tileset");
 
     const auto firstId =

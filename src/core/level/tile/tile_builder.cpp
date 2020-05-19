@@ -29,8 +29,8 @@ Tile TileBuilder::create(const std::shared_ptr<Texture>& image,
 {
   Tile tile;
 
-  tile.sheet = image;
-  tile.id = id;
+  tile.m_sheet = image;
+  tile.m_id = id;
 
   const auto tileWidth = tiledTileSet.get_tile_width();
   const auto tileHeight = tiledTileSet.get_tile_height();
@@ -43,12 +43,12 @@ Tile TileBuilder::create(const std::shared_ptr<Texture>& image,
     }
 
     if (tiledTile.has_attribute("type")) {
-      tile.isObject = tiledTile.get_string_attribute("type") == "Object";
+      tile.m_isObject = tiledTile.get_string_attribute("type") == "Object";
     }
 
     if (tiledTile.is_animated()) {
-      tile.animation = create_animation(tiledTile.get_animation());
-      tile.isAnimated = true;
+      tile.m_animation = create_animation(tiledTile.get_animation());
+      tile.m_isAnimated = true;
     }
 
     const auto tile_size = GameConstants::tile_size;
@@ -64,8 +64,8 @@ Tile TileBuilder::create(const std::shared_ptr<Texture>& image,
       const auto h =
           (std::stof(object.get_attribute("height")) / tileHeight) * tile_size;
 
-      tile.hitbox.add_rectangle(FRect{x, y, w, h}, Vector2{x, y});
-      tile.isBlocked = true;
+      tile.m_hitbox.add_rectangle(FRect{x, y, w, h}, Vector2{x, y});
+      tile.m_isBlocked = true;
     }
   }
 
@@ -74,7 +74,7 @@ Tile TileBuilder::create(const std::shared_ptr<Texture>& image,
   const int x = col * tileWidth;
   const int y = row * tileHeight;
 
-  tile.source = {x, y, tileWidth, tileHeight};
+  tile.m_source = {x, y, tileWidth, tileHeight};
 
   return tile;
 }

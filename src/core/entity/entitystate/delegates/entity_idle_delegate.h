@@ -13,9 +13,6 @@ class IEntityStateMachine;
  * @since 0.1.0
  */
 class EntityIdleDelegate final : public IEntityState {
- private:
-  IEntityStateMachine* parent = nullptr;
-
  public:
   /**
    * @param parent a pointer to the parent state machine.
@@ -41,6 +38,9 @@ class EntityIdleDelegate final : public IEntityState {
    * @since 0.1.0
    */
   [[nodiscard]] IEntityStateMachine& get_parent() noexcept;
+
+ private:
+  IEntityStateMachine* m_parent = nullptr;  // FIXME don't use raw pointers
 };
 
 }  // namespace wanderer

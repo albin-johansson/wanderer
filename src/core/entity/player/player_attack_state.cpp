@@ -5,32 +5,32 @@ using namespace centurion;
 namespace wanderer {
 
 PlayerAttackState::PlayerAttackState(IEntityStateMachine* parent)
-    : attackDelegate(parent)
+    : m_attackDelegate(parent)
 {}
 
 PlayerAttackState::~PlayerAttackState() = default;
 
-void PlayerAttackState::HandleInput(const Input&, const IWandererCore&)
+void PlayerAttackState::handle_input(const Input&, const IWandererCore&)
 {}
 
 void PlayerAttackState::draw(Renderer& renderer, const Viewport& viewport) const
 {
-  attackDelegate.draw(renderer, viewport);
+  m_attackDelegate.draw(renderer, viewport);
 }
 
 void PlayerAttackState::tick(const IWandererCore& core, float delta)
 {
-  attackDelegate.tick(core, delta);
+  m_attackDelegate.tick(core, delta);
 }
 
 void PlayerAttackState::enter(const IWandererCore& core)
 {
-  attackDelegate.enter(core);
+  m_attackDelegate.enter(core);
 }
 
 void PlayerAttackState::exit(const IWandererCore& core)
 {
-  attackDelegate.exit(core);
+  m_attackDelegate.exit(core);
 }
 
 }  // namespace wanderer

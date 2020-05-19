@@ -10,10 +10,6 @@
 namespace wanderer {
 
 class Input final {
- private:
-  UniquePtr<centurion::input::KeyState> keyState = nullptr;
-  SharedPtr<centurion::input::MouseState> mouseState = nullptr;
-
  public:
   Input(UniquePtr<centurion::input::KeyState>&& keyState,
         const SharedPtr<centurion::input::MouseState>& mouseState);
@@ -70,6 +66,10 @@ class Input final {
   [[nodiscard]] bool was_mouse_moved() const noexcept;
 
   [[nodiscard]] bool was_quit_requested() const noexcept;
+
+ private:
+  UniquePtr<centurion::input::KeyState> keyState = nullptr;
+  SharedPtr<centurion::input::MouseState> mouseState = nullptr;
 };
 
 }  // namespace wanderer

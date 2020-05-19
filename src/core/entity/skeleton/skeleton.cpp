@@ -13,7 +13,7 @@ namespace wanderer {
 
 Skeleton::Skeleton(const SharedPtr<Texture>& sheet) : AbstractEntity{sheet}
 {
-  stateMachine = std::make_unique<SkeletonStateMachine>(this);
+  m_stateMachine = std::make_unique<SkeletonStateMachine>(this);
 }
 
 Skeleton::~Skeleton() = default;
@@ -25,13 +25,13 @@ void Skeleton::init()
 
 void Skeleton::draw(Renderer& renderer, const Viewport& viewport) const
 {
-  stateMachine->draw(renderer, viewport);
+  m_stateMachine->draw(renderer, viewport);
 }
 
 void Skeleton::tick(IWandererCore& core, float delta)
 {
   AbstractEntity::tick(core, delta);
-  stateMachine->tick(core, delta);
+  m_stateMachine->tick(core, delta);
 }
 
 }  // namespace wanderer

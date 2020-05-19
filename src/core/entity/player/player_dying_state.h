@@ -14,9 +14,6 @@ class IEntity;
  * @since 0.1.0
  */
 class PlayerDyingState final : public IPlayerState {
- private:
-  EntityDyingDelegate dyingDelegate;
-
  public:
   /**
    * @param entity a pointer to the associated entity.
@@ -27,7 +24,7 @@ class PlayerDyingState final : public IPlayerState {
 
   ~PlayerDyingState() override;
 
-  void HandleInput(const Input& input, const IWandererCore& core) override;
+  void handle_input(const Input& input, const IWandererCore& core) override;
 
   void draw(ctn::Renderer& renderer, const Viewport& viewport) const override;
 
@@ -37,6 +34,9 @@ class PlayerDyingState final : public IPlayerState {
 
   // TODO game over stuff
   void exit(const IWandererCore& core) override;
+
+ private:
+  EntityDyingDelegate m_dyingDelegate;
 };
 
 }  // namespace wanderer

@@ -22,7 +22,7 @@ PlayerStateMachineImpl::~PlayerStateMachineImpl() = default;
 void PlayerStateMachineImpl::HandleInput(const Input& input,
                                          const IWandererCore& core)
 {
-  get_active_state().HandleInput(input, core);
+  get_active_state().handle_input(input, core);
 }
 
 }  // namespace wanderer

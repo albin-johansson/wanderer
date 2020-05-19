@@ -8,8 +8,8 @@ namespace wanderer {
 
 Portal::Portal(std::weak_ptr<ITileMap> from, std::weak_ptr<ITileMap> target)
 {
-  this->from = std::move(from);
-  this->target = std::move(target);
+  this->m_from = std::move(from);
+  this->m_target = std::move(target);
 }
 
 Portal::~Portal() = default;

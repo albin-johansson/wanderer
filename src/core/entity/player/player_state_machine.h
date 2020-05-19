@@ -14,9 +14,6 @@ class IWandererCore;
  * @since 0.1.0
  */
 class IPlayerStateMachine : public virtual IEntityStateMachine {
- protected:
-  IPlayerStateMachine() = default;
-
  public:
   ~IPlayerStateMachine() override = default;
 

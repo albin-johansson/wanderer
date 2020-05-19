@@ -14,36 +14,6 @@ namespace wanderer {
  * @since 0.1.0
  */
 class MovableDelegate final : public IMovableObject {
- private:
-  Vector2 velocity;
-  Vector2 currPosition;
-  Vector2 prevPosition;
-  Vector2 interpolatedPosition;
-
-  Hitbox hitbox;
-  float speed = 0;
-  const int depth;
-  const float width;
-  const float height;
-  Direction dominantDirection = Direction::Down;
-  uint64 uniqueId = 0;
-
-  /**
-   * Saves the position of the movable.
-   *
-   * @since 0.1.0
-   */
-  void save_position() noexcept;
-
-  void update_position();
-
-  /**
-   * Updates the dominant direction.
-   *
-   * @since 0.1.0
-   */
-  void update_direction();
-
  public:
   /**
    * @param depth the depth value of the object.
@@ -119,6 +89,36 @@ class MovableDelegate final : public IMovableObject {
   [[nodiscard]] uint64 get_unique_id() const noexcept override;
 
   [[nodiscard]] Vector2 get_next_position(float delta) const noexcept override;
+
+ private:
+  Vector2 m_velocity;
+  Vector2 m_currPosition;
+  Vector2 m_prevPosition;
+  Vector2 m_interpolatedPosition;
+
+  Hitbox m_hitbox;
+  float m_speed = 0;
+  const int m_depth;
+  const float m_width;
+  const float m_height;
+  Direction m_dominantDirection = Direction::Down;
+  uint64 m_uniqueId = 0;
+
+  /**
+   * Saves the position of the movable.
+   *
+   * @since 0.1.0
+   */
+  void save_position() noexcept;
+
+  void update_position();
+
+  /**
+   * Updates the dominant direction.
+   *
+   * @since 0.1.0
+   */
+  void update_direction();
 };
 
 }  // namespace wanderer

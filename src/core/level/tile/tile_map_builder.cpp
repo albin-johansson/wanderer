@@ -16,8 +16,8 @@ std::unique_ptr<ITileMap> TileMapBuilder::create(
 {
   auto map = std::unique_ptr<TileMapImpl>(new TileMapImpl{tileSet});
 
-  map->nRows = tiledMap.get_height();
-  map->nCols = tiledMap.get_width();
+  map->m_nRows = tiledMap.get_height();
+  map->m_nCols = tiledMap.get_width();
 
   auto& objectGroup = tiledMap.get_tiled_object_groups().front();  // FIXME
   for (const auto& object : objectGroup->get_objects()) {
@@ -34,10 +34,10 @@ std::unique_ptr<ITileMap> TileMapBuilder::create(
         const auto id = std::stoi(*id_prop);
 
         Spawnpoint spawnpoint{static_cast<EntityID>(id), Vector2{x, y}};
-        map->spawnpoints.push_back(spawnpoint);
+        map->m_spawnpoints.push_back(spawnpoint);
 
         if (spawnpoint.get_entity_id() == EntityID::Player) {
-          map->playerSpawnPos = spawnpoint.get_position();
+          map->m_playerSpawnPos = spawnpoint.get_position();
         }
 
       } else {

@@ -24,10 +24,27 @@ namespace wanderer {
  */
 template <class T = IEntityState>
 class AbstractEntityStateMachine : public virtual IEntityStateMachine {
- private:
-  IEntity* entity = nullptr;
-  std::unordered_map<EntityStateID, UniquePtr<T>> states;
-  EntityStateID activeStateID = EntityStateID::Idle;
+ public:
+  ~AbstractEntityStateMachine() override = default;
+
+  void tick(const IWandererCore& core, float delta) final
+  {
+    m_states.at(m_activeStateID)->tick(core, delta);
+  }
+
+  void draw(ctn::Renderer& renderer, const Viewport& viewport) const final
+  {
+    m_states.at(m_activeStateID)->draw(renderer, viewport);
+  }
+
+  void set_state(EntityStateID id, const IWandererCore& core) final
+  {
+    m_states.at(m_activeStateID)->exit(core);
+    m_activeStateID = id;
+    m_states.at(m_activeStateID)->enter(core);
+  }
+
+  [[nodiscard]] IEntity& get_entity() final { return *m_entity; }
 
  protected:
   /**
@@ -37,7 +54,7 @@ class AbstractEntityStateMachine : public virtual IEntityStateMachine {
    */
   explicit AbstractEntityStateMachine(IEntity* entity)
   {
-    this->entity = Require::not_null(entity);
+    this->m_entity = Require::not_null(entity);
   }
 
   /**
@@ -49,7 +66,7 @@ class AbstractEntityStateMachine : public virtual IEntityStateMachine {
    */
   void put(EntityStateID id, UniquePtr<T>&& state)
   {
-    states.emplace(id, std::move(state));
+    m_states.emplace(id, std::move(state));
   }
 
   /**
@@ -58,29 +75,12 @@ class AbstractEntityStateMachine : public virtual IEntityStateMachine {
    * @return the currently active state.
    * @since 0.1.0
    */
-  [[nodiscard]] T& get_active_state() { return *states.at(activeStateID); }
+  [[nodiscard]] T& get_active_state() { return *m_states.at(m_activeStateID); }
 
- public:
-  ~AbstractEntityStateMachine() override = default;
-
-  void tick(const IWandererCore& core, float delta) final
-  {
-    states.at(activeStateID)->tick(core, delta);
-  }
-
-  void draw(ctn::Renderer& renderer, const Viewport& viewport) const final
-  {
-    states.at(activeStateID)->draw(renderer, viewport);
-  }
-
-  void set_state(EntityStateID id, const IWandererCore& core) final
-  {
-    states.at(activeStateID)->exit(core);
-    activeStateID = id;
-    states.at(activeStateID)->enter(core);
-  }
-
-  [[nodiscard]] IEntity& get_entity() final { return *entity; }
+ private:
+  IEntity* m_entity = nullptr;
+  std::unordered_map<EntityStateID, UniquePtr<T>> m_states;
+  EntityStateID m_activeStateID = EntityStateID::Idle;
 };
 
 }  // namespace wanderer

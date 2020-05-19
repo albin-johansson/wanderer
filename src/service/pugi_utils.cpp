@@ -4,7 +4,7 @@
 
 namespace wanderer {
 
-pugi::xml_document PugiUtils::LoadDocument(const std::string& path)
+pugi::xml_document PugiUtils::load_document(const std::string& path)
 {
   pugi::xml_document doc;
   pugi::xml_parse_result result = doc.load_file(path.c_str());

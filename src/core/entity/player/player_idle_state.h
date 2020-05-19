@@ -12,9 +12,6 @@ namespace wanderer {
  * @since 0.1.0
  */
 class PlayerIdleState final : public IPlayerState {
- private:
-  EntityIdleDelegate idleDelegate;
-
  public:
   /**
    * @param parent a pointer to the parent entity state machine.
@@ -25,7 +22,7 @@ class PlayerIdleState final : public IPlayerState {
 
   ~PlayerIdleState() override;
 
-  void HandleInput(const Input& input, const IWandererCore& core) override;
+  void handle_input(const Input& input, const IWandererCore& core) override;
 
   void draw(ctn::Renderer& renderer,
             const Viewport& viewport) const noexcept override;
@@ -35,6 +32,9 @@ class PlayerIdleState final : public IPlayerState {
   void enter(const IWandererCore& core) override;
 
   void exit(const IWandererCore& core) override;
+
+ private:
+  EntityIdleDelegate m_idleDelegate;
 };
 
 }  // namespace wanderer

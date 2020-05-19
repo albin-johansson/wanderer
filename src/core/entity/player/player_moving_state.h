@@ -14,15 +14,6 @@ class IEntityStateMachine;
  * @since 0.1.0
  */
 class PlayerMovingState final : public IPlayerState {
- private:
-  IEntityStateMachine* parent = nullptr;
-  EntityMoveDelegate moveDelegate;
-  bool areMoveKeysDown = false;
-
-  void CheckPressed(const Input& input);
-
-  void CheckReleased(const Input& input);
-
  public:
   /**
    * @param parent a raw pointer to the parent entity state machine.
@@ -33,7 +24,7 @@ class PlayerMovingState final : public IPlayerState {
 
   ~PlayerMovingState() override;
 
-  void HandleInput(const Input& input, const IWandererCore& core) override;
+  void handle_input(const Input& input, const IWandererCore& core) override;
 
   void draw(ctn::Renderer& renderer,
             const Viewport& viewport) const noexcept override;
@@ -43,6 +34,15 @@ class PlayerMovingState final : public IPlayerState {
   void enter(const IWandererCore& core) override;
 
   void exit(const IWandererCore& core) override;
+
+ private:
+  IEntityStateMachine* m_parent = nullptr;  // FIXME don't use raw pointers
+  EntityMoveDelegate m_moveDelegate;
+  bool m_areMoveKeysDown = false;
+
+  void check_pressed(const Input& input);
+
+  void check_released(const Input& input);
 };
 
 }  // namespace wanderer

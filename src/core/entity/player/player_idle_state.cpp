@@ -9,20 +9,21 @@ using namespace centurion;
 namespace wanderer {
 
 PlayerIdleState::PlayerIdleState(IEntityStateMachine* parent)
-    : idleDelegate{parent}
+    : m_idleDelegate{parent}
 {}
 
 PlayerIdleState::~PlayerIdleState() = default;
 
-void PlayerIdleState::HandleInput(const Input& input, const IWandererCore& core)
+void PlayerIdleState::handle_input(const Input& input,
+                                   const IWandererCore& core)
 {
   if (input.is_pressed(SDL_SCANCODE_D) || input.is_pressed(SDL_SCANCODE_A) ||
       input.is_pressed(SDL_SCANCODE_W) || input.is_pressed(SDL_SCANCODE_S)) {
-    idleDelegate.get_parent().set_state(EntityStateID::Walk, core);
+    m_idleDelegate.get_parent().set_state(EntityStateID::Walk, core);
   } else if (input.is_pressed(SDL_SCANCODE_SPACE)) {
-    idleDelegate.get_parent().set_state(EntityStateID::Attack, core);
+    m_idleDelegate.get_parent().set_state(EntityStateID::Attack, core);
   } else if (input.is_pressed(SDL_SCANCODE_U)) {
-    idleDelegate.get_parent().set_state(EntityStateID::Die, core);
+    m_idleDelegate.get_parent().set_state(EntityStateID::Die, core);
   }
 
   // TODO attack...
@@ -31,22 +32,22 @@ void PlayerIdleState::HandleInput(const Input& input, const IWandererCore& core)
 void PlayerIdleState::draw(Renderer& renderer,
                            const Viewport& viewport) const noexcept
 {
-  idleDelegate.draw(renderer, viewport);
+  m_idleDelegate.draw(renderer, viewport);
 }
 
 void PlayerIdleState::tick(const IWandererCore& core, float delta)
 {
-  idleDelegate.tick(core, delta);
+  m_idleDelegate.tick(core, delta);
 }
 
 void PlayerIdleState::enter(const IWandererCore& core)
 {
-  idleDelegate.enter(core);
+  m_idleDelegate.enter(core);
 }
 
 void PlayerIdleState::exit(const IWandererCore& core)
 {
-  idleDelegate.exit(core);
+  m_idleDelegate.exit(core);
 }
 
 }  // namespace wanderer

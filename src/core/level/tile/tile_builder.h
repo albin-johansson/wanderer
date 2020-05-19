@@ -8,10 +8,6 @@
 namespace wanderer {
 
 class TileBuilder {
- private:
-  [[nodiscard]] static TileAnimation create_animation(
-      tiled::TiledAnimation animation);
-
  public:
   TileBuilder() = delete;
 
@@ -21,6 +17,10 @@ class TileBuilder {
                                    const tiled::TiledTileSet& tiledTileSet,
                                    TileID id,
                                    int index);
+
+ private:
+  [[nodiscard]] static TileAnimation create_animation(
+      tiled::TiledAnimation animation);
 };
 
 }  // namespace wanderer

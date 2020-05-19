@@ -10,13 +10,8 @@
 namespace wanderer {
 
 class Skeleton final : public AbstractEntity {
- private:
-  UniquePtr<IEntityStateMachine> stateMachine = nullptr;
-
-  void init();
-
  public:
-  static constexpr float HOMING_RANGE = GameConstants::tile_size * 4.0f;
+  static constexpr float homingRange = GameConstants::tile_size * 4.0f;
 
   explicit Skeleton(const SharedPtr<ctn::Texture>& sheet);
 
@@ -25,6 +20,11 @@ class Skeleton final : public AbstractEntity {
   void tick(IWandererCore& core, float delta) override;
 
   void draw(ctn::Renderer& renderer, const Viewport& viewport) const override;
+
+ private:
+  UniquePtr<IEntityStateMachine> m_stateMachine = nullptr;
+
+  void init();
 };
 
 }  // namespace wanderer

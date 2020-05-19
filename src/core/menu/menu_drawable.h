@@ -7,9 +7,6 @@
 namespace wanderer {
 
 class IMenuDrawable {
- protected:
-  IMenuDrawable() = default;
-
  public:
   virtual ~IMenuDrawable() = default;
 

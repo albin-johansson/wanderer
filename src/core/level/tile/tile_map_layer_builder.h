@@ -22,6 +22,24 @@ class TileMapLayerImpl;
  * @see TileMapLayerImpl
  */
 class TileMapLayerBuilder final {
+ public:
+  TileMapLayerBuilder();
+
+  ~TileMapLayerBuilder();
+
+  /**
+   * Creates and returns a tile map layer.
+   *
+   * @param tileSet the associated tile set.
+   * @param tiledLayer the tiled layer that will serve as the base for the
+   * created tile map layer.
+   * @return a unique pointer to a tile map layer.
+   * @since 0.1.0
+   */
+  [[nodiscard]] UniquePtr<ITileMapLayer> create(
+      const SharedPtr<TileSet>& tileSet,
+      const tiled::TiledLayer& tiledLayer) const;
+
  private:
   /**
    * Initializes all of the tile objects of the layer.
@@ -43,24 +61,6 @@ class TileMapLayerBuilder final {
 
   [[nodiscard]] static std::vector<TileID> create_tile_vector(
       const std::vector<int>& tiles);
-
- public:
-  TileMapLayerBuilder();
-
-  ~TileMapLayerBuilder();
-
-  /**
-   * Creates and returns a tile map layer.
-   *
-   * @param tileSet the associated tile set.
-   * @param tiledLayer the tiled layer that will serve as the base for the
-   * created tile map layer.
-   * @return a unique pointer to a tile map layer.
-   * @since 0.1.0
-   */
-  [[nodiscard]] UniquePtr<ITileMapLayer> create(
-      const SharedPtr<TileSet>& tileSet,
-      const tiled::TiledLayer& tiledLayer) const;
 };
 
 }  // namespace wanderer

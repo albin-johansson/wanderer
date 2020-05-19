@@ -6,7 +6,8 @@ using namespace centurion;
 
 namespace wanderer {
 
-SkeletonDyingState::SkeletonDyingState(IEntity* entity) : dyingDelegate{entity}
+SkeletonDyingState::SkeletonDyingState(IEntity* entity)
+    : m_dyingDelegate{entity}
 {}
 
 SkeletonDyingState::~SkeletonDyingState() = default;
@@ -14,22 +15,22 @@ SkeletonDyingState::~SkeletonDyingState() = default;
 void SkeletonDyingState::draw(Renderer& renderer,
                               const Viewport& viewport) const
 {
-  dyingDelegate.draw(renderer, viewport);
+  m_dyingDelegate.draw(renderer, viewport);
 }
 
 void SkeletonDyingState::tick(const IWandererCore& core, float delta)
 {
-  dyingDelegate.tick(core, delta);
+  m_dyingDelegate.tick(core, delta);
 }
 
 void SkeletonDyingState::enter(const IWandererCore& core)
 {
-  dyingDelegate.enter(core);
+  m_dyingDelegate.enter(core);
 }
 
 void SkeletonDyingState::exit(const IWandererCore& core)
 {
-  dyingDelegate.exit(core);
+  m_dyingDelegate.exit(core);
 }
 
 }  // namespace wanderer

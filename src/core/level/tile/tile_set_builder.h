@@ -11,11 +11,6 @@
 namespace wanderer {
 
 class TileSetBuilder final {
- private:
-  [[nodiscard]] static tiled::TiledTileSet create_tiled_tile_set(
-      const pugi::xml_node& tileSetNode,
-      TileID firstId);
-
  public:
   TileSetBuilder() = delete;
 
@@ -24,6 +19,11 @@ class TileSetBuilder final {
   [[nodiscard]] static UniquePtr<TileSet> create(
       const pugi::xml_node& mapRoot,
       ctn::TextureLoader& textureLoader);
+
+ private:
+  [[nodiscard]] static tiled::TiledTileSet create_tiled_tile_set(
+      const pugi::xml_node& tileSetNode,
+      TileID firstId);
 };
 
 }  // namespace wanderer

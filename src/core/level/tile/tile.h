@@ -27,40 +27,13 @@ struct Frame;
  * @since 0.1.0
  */
 class Tile final {
- private:
-  friend class TileBuilder;
-
-  SharedPtr<ctn::Texture> sheet = nullptr;
-
-  TileID id = Tile::EMPTY;
-  int depth = RenderDepth::min;
-
-  ctn::IRect source;
-  Hitbox hitbox;
-  TileAnimation animation;
-
-  bool isBlocked = false;
-  bool isAnimated = false;
-  bool isObject = false;
-
-  Tile();
-
-  /**
-   * Sets the render depth of the tile. An illegal value will be adjusted to the
-   * closest legal value.
-   *
-   * @param depth the render depth value that will be used.
-   * @since 0.1.0
-   */
-  void set_depth(int depth) noexcept;
-
  public:
   /**
    * The tile ID of all empty tiles.
    *
    * @since 0.1.0
    */
-  static constexpr TileID EMPTY = 0;
+  static constexpr TileID empty = 0;
 
   ~Tile();
 
@@ -89,7 +62,7 @@ class Tile final {
    * @return true if the tile is blocked; false otherwise.
    * @since 0.1.0
    */
-  [[nodiscard]] bool is_blocked() const noexcept { return isBlocked; }
+  [[nodiscard]] bool is_blocked() const noexcept { return m_isBlocked; }
 
   /**
    * Indicates whether or not the tile is animated.
@@ -97,7 +70,7 @@ class Tile final {
    * @return true if the tile is animated; false otherwise.
    * @since 0.1.0
    */
-  [[nodiscard]] bool is_animated() const noexcept { return isAnimated; }
+  [[nodiscard]] bool is_animated() const noexcept { return m_isAnimated; }
 
   /**
    * Indicates whether or not the tile is an "object".
@@ -105,7 +78,7 @@ class Tile final {
    * @return true if the tile represents an object; false otherwise.
    * @since 0.1.0
    */
-  [[nodiscard]] bool is_object() const noexcept { return isObject; }
+  [[nodiscard]] bool is_object() const noexcept { return m_isObject; }
 
   /**
    * Returns the render depth of the tile.
@@ -113,7 +86,7 @@ class Tile final {
    * @return the render depth of the tile.
    * @since 0.1.0
    */
-  [[nodiscard]] int get_depth() const noexcept { return depth; }
+  [[nodiscard]] int get_depth() const noexcept { return m_depth; }
 
   /**
    * Returns the tile ID that will be used for rendering the tile. If the tile
@@ -130,7 +103,7 @@ class Tile final {
    * @return the type ID the tile.
    * @since 0.1.0
    */
-  [[nodiscard]] TileID get_id() const noexcept { return id; }
+  [[nodiscard]] TileID get_id() const noexcept { return m_id; }
 
   /**
    * Returns the source rectangle associated with the tile. The source rectangle
@@ -139,9 +112,39 @@ class Tile final {
    * @return the source rectangle associated with the tile.
    * @since 0.1.0
    */
-  [[nodiscard]] const ctn::IRect& get_source() const noexcept { return source; }
+  [[nodiscard]] const ctn::IRect& get_source() const noexcept
+  {
+    return m_source;
+  }
 
-  [[nodiscard]] const Hitbox& get_hitbox() const noexcept { return hitbox; }
+  [[nodiscard]] const Hitbox& get_hitbox() const noexcept { return m_hitbox; }
+
+ private:
+  friend class TileBuilder;
+
+  SharedPtr<ctn::Texture> m_sheet = nullptr;
+
+  TileID m_id = Tile::empty;
+  int m_depth = RenderDepth::min;
+
+  ctn::IRect m_source;
+  Hitbox m_hitbox;
+  TileAnimation m_animation;
+
+  bool m_isBlocked = false;
+  bool m_isAnimated = false;
+  bool m_isObject = false;
+
+  Tile();
+
+  /**
+   * Sets the render depth of the tile. An illegal value will be adjusted to the
+   * closest legal value.
+   *
+   * @param depth the render depth value that will be used.
+   * @since 0.1.0
+   */
+  void set_depth(int depth) noexcept;
 };
 
 }  // namespace wanderer

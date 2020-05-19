@@ -12,9 +12,6 @@ class Input;
  * @since 0.1.0
  */
 class IPlayer : public virtual IEntity {
- protected:
-  IPlayer() = default;
-
  public:
   ~IPlayer() override = default;
 

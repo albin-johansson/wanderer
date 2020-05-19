@@ -13,17 +13,18 @@ using namespace centurion;
 namespace wanderer {
 
 SkeletonMovingState::SkeletonMovingState(IEntityStateMachine* parent)
-    : moveDelegate(parent)
+    : m_moveDelegate(parent)
 {}
 
 SkeletonMovingState::~SkeletonMovingState() = default;
 
-void SkeletonMovingState::ChasePlayer(const IWandererCore& core, float distance)
+void SkeletonMovingState::chase_player(const IWandererCore& core,
+                                       float distance)
 {
-  auto& entity = moveDelegate.get_parent().get_entity();
+  auto& entity = m_moveDelegate.get_parent().get_entity();
 
   if (distance <= 75) {
-    moveDelegate.get_parent().set_state(EntityStateID::Attack, core);
+    m_moveDelegate.get_parent().set_state(EntityStateID::Attack, core);
   } else {
     auto entityVelocity = entity.get_velocity();
 
@@ -35,12 +36,12 @@ void SkeletonMovingState::ChasePlayer(const IWandererCore& core, float distance)
   }
 }
 
-void SkeletonMovingState::Roam(const IWandererCore& core)
+void SkeletonMovingState::roam(const IWandererCore& core)
 {
-  auto& entity = moveDelegate.get_parent().get_entity();
+  auto& entity = m_moveDelegate.get_parent().get_entity();
 
-  if (Timer::millis() - enterTime >= 1000) {
-    moveDelegate.get_parent().set_state(EntityStateID::Idle, core);
+  if (Timer::millis() - m_enterTime >= 1000) {
+    m_moveDelegate.get_parent().set_state(EntityStateID::Idle, core);
     return;
   }
 
@@ -54,9 +55,9 @@ void SkeletonMovingState::Roam(const IWandererCore& core)
 
 void SkeletonMovingState::tick(const IWandererCore& core, float delta)
 {
-  moveDelegate.tick(core, delta);
+  m_moveDelegate.tick(core, delta);
 
-  auto& entity = moveDelegate.get_parent().get_entity();
+  auto& entity = m_moveDelegate.get_parent().get_entity();
   if (core.get_active_map().is_blocked(&entity, delta)) {
     const auto& prevPos = entity.get_previous_position();
     entity.set_x(prevPos.x);
@@ -64,7 +65,7 @@ void SkeletonMovingState::tick(const IWandererCore& core, float delta)
 
     // TODO set position of entity to be next to the blocking object
 
-    moveDelegate.get_parent().set_state(EntityStateID::Idle, core);
+    m_moveDelegate.get_parent().set_state(EntityStateID::Idle, core);
     return;
   }
 
@@ -72,27 +73,27 @@ void SkeletonMovingState::tick(const IWandererCore& core, float delta)
 
   float distance = entity.get_position().distance_to(playerPos);
   if (distance <= 400) {
-    ChasePlayer(core, distance);
+    chase_player(core, distance);
   } else {
-    Roam(core);
+    roam(core);
   }
 }
 
 void SkeletonMovingState::draw(Renderer& renderer,
                                const Viewport& viewport) const
 {
-  moveDelegate.draw(renderer, viewport);
+  m_moveDelegate.draw(renderer, viewport);
 }
 
 void SkeletonMovingState::enter(const IWandererCore& core)
 {
-  moveDelegate.enter(core);
-  enterTime = Timer::millis();
+  m_moveDelegate.enter(core);
+  m_enterTime = Timer::millis();
 }
 
 void SkeletonMovingState::exit(const IWandererCore& core)
 {
-  moveDelegate.exit(core);
+  m_moveDelegate.exit(core);
 }
 
 }  // namespace wanderer

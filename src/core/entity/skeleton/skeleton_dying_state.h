@@ -7,9 +7,6 @@ namespace wanderer {
 class IEntity;
 
 class SkeletonDyingState final : public IEntityState {
- private:
-  EntityDyingDelegate dyingDelegate;
-
  public:
   explicit SkeletonDyingState(IEntity* entity);
 
@@ -22,6 +19,9 @@ class SkeletonDyingState final : public IEntityState {
   void enter(const IWandererCore& core) override;
 
   void exit(const IWandererCore& core) override;
+
+ private:
+  EntityDyingDelegate m_dyingDelegate;
 };
 
 }  // namespace wanderer

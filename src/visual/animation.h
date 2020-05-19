@@ -9,12 +9,6 @@ namespace wanderer {
  * @since 0.1.0
  */
 class Animation final {
- private:
-  int nFrames = 1;
-  int index = 0;
-  uint32 delay = 100;
-  uint32 previous = 0;
-
  public:
   Animation() noexcept;
 
@@ -75,6 +69,12 @@ class Animation final {
    * @since 0.1.0
    */
   [[nodiscard]] bool is_done() const noexcept;
+
+ private:
+  int m_nFrames = 1;
+  int m_index = 0;
+  uint32 m_delay = 100;
+  uint32 m_previous = 0;
 };
 
 }  // namespace wanderer

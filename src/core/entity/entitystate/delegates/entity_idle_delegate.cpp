@@ -12,14 +12,14 @@ namespace wanderer {
 
 EntityIdleDelegate::EntityIdleDelegate(IEntityStateMachine* parent)
 {
-  this->parent = Require::not_null(parent);
+  this->m_parent = Require::not_null(parent);
 }
 
 EntityIdleDelegate::~EntityIdleDelegate() = default;
 
 void EntityIdleDelegate::draw(Renderer& renderer, const Viewport&) const
 {
-  const auto& entity = parent->get_entity();
+  const auto& entity = m_parent->get_entity();
 
   const auto srcY =
       EntitySheet::get_source_y(512, entity.get_dominant_direction());
@@ -28,7 +28,7 @@ void EntityIdleDelegate::draw(Renderer& renderer, const Viewport&) const
 
 void EntityIdleDelegate::enter(const IWandererCore&)
 {
-  auto& entity = parent->get_entity();
+  auto& entity = m_parent->get_entity();
 
   entity.stop();
   entity.set_animation_frame(0);
@@ -42,7 +42,7 @@ void EntityIdleDelegate::tick(const IWandererCore&, float /*delta*/)
 
 IEntityStateMachine& EntityIdleDelegate::get_parent() noexcept
 {
-  return *parent;
+  return *m_parent;
 }
 
 }  // namespace wanderer

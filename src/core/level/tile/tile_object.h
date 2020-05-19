@@ -22,15 +22,6 @@ class TileSet;
  * @since 0.1.0
  */
 class TileObject final : public IGameObject {
- private:
-  SharedPtr<TileSet> tileSet = nullptr;
-  Vector2 position;
-  Hitbox hitbox;
-  uint64 uniqueId = 0;
-  int depth = RenderDepth::max;
-  float centerY = 0;
-  const TileID id;
-
  public:
   /**
    * @param id the tile ID associated with the object.
@@ -72,6 +63,15 @@ class TileObject final : public IGameObject {
   [[nodiscard]] const Hitbox& get_hitbox() const noexcept override;
 
   [[nodiscard]] uint64 get_unique_id() const noexcept override;
+
+ private:
+  SharedPtr<TileSet> m_tileSet = nullptr;
+  Vector2 m_position;
+  Hitbox m_hitbox;
+  uint64 m_uniqueId = 0;
+  int m_depth = RenderDepth::max;
+  float m_centerY = 0;
+  const TileID m_id;
 };
 
 }  // namespace wanderer

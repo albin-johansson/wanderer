@@ -22,23 +22,6 @@ class IWandererCore;
  * @since 0.1.0
  */
 class AbstractEntity : public virtual IEntity {
- private:
-  static constexpr int DEPTH =
-      RenderDepth::range / 2;  // TODO maybe move to IEntity
-
-  UniquePtr<IMovableObject> movable = nullptr;
-  SharedPtr<ctn::Texture> sheet = nullptr;
-  Animation animation;
-  int health = 100;  // FIXME hard-coded
-
- protected:
-  /**
-   * @param sheet a pointer to the associated sprite sheet.
-   * @throws NullPointerException if the supplied pointer is null.
-   * @since 0.1.0
-   */
-  explicit AbstractEntity(const SharedPtr<ctn::Texture>& sheet);
-
  public:
   ~AbstractEntity() override;
 
@@ -85,7 +68,7 @@ class AbstractEntity : public virtual IEntity {
   [[nodiscard]] bool is_animation_done() const noexcept override;
 
   [[nodiscard]] ctn::Texture& get_sprite_sheet()
-      const noexcept override;  // TODO make const
+      const noexcept override;  // TODO make texture const
 
   [[nodiscard]] int get_health() const noexcept override;
 
@@ -122,6 +105,23 @@ class AbstractEntity : public virtual IEntity {
   [[nodiscard]] int get_depth() const noexcept override;
 
   [[nodiscard]] uint64 get_unique_id() const noexcept override;
+
+ protected:
+  /**
+   * @param sheet a pointer to the associated sprite sheet.
+   * @throws NullPointerException if the supplied pointer is null.
+   * @since 0.1.0
+   */
+  explicit AbstractEntity(const SharedPtr<ctn::Texture>& sheet);
+
+ private:
+  static constexpr int s_depth =
+      RenderDepth::range / 2;  // TODO maybe move to IEntity
+
+  UniquePtr<IMovableObject> m_movable = nullptr;
+  SharedPtr<ctn::Texture> m_sheet = nullptr;
+  Animation m_animation;
+  int m_health = 100;  // FIXME hard-coded
 };
 
 static_assert(std::has_virtual_destructor_v<AbstractEntity>);

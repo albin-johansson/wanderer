@@ -5,10 +5,6 @@
 namespace wanderer {
 
 class Spawnpoint final {
- private:
-  EntityID entity_id;
-  Vector2 position;
-
  public:
   Spawnpoint(EntityID id, const Vector2& position) noexcept;
 
@@ -17,6 +13,10 @@ class Spawnpoint final {
   [[nodiscard]] EntityID get_entity_id() const noexcept;
 
   [[nodiscard]] const Vector2& get_position() const noexcept;
+
+ private:
+  EntityID m_entityId;
+  Vector2 m_position;
 };
 
 }  // namespace wanderer

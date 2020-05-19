@@ -6,10 +6,6 @@ namespace wanderer {
 class ITileMap;
 
 class Portal final {
- private:
-  std::weak_ptr<ITileMap> from;
-  std::weak_ptr<ITileMap> target;
-
  public:
   Portal(std::weak_ptr<ITileMap> from, std::weak_ptr<ITileMap> target);
 
@@ -17,13 +13,17 @@ class Portal final {
 
   [[nodiscard]] std::weak_ptr<ITileMap> get_from() const noexcept
   {
-    return from;
+    return m_from;
   }
 
   [[nodiscard]] std::weak_ptr<ITileMap> get_target() const noexcept
   {
-    return target;
+    return m_target;
   }
+
+ private:
+  std::weak_ptr<ITileMap> m_from;
+  std::weak_ptr<ITileMap> m_target;
 };
 
 }  // namespace wanderer

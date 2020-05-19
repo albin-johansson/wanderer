@@ -25,49 +25,6 @@ class IGameObject;
  * @since 0.1.0
  */
 class TileMapImpl final : public ITileMap {
- private:
-  friend class TileMapBuilder;
-
-  SharedPtr<TileSet> tileSet = nullptr;
-  SharedPtr<IEntity> player = nullptr;
-  std::vector<std::unique_ptr<ITileMapLayer>> groundLayers;
-  std::vector<std::unique_ptr<ITileMapLayer>> objectLayers;
-  std::vector<IGameObject*> activeObjects;
-
-  EntityManager entityManager;
-
-  std::vector<Spawnpoint> spawnpoints;
-
-  int nRows = 0;
-  int nCols = 0;
-  Vector2 playerSpawnPos;
-
-  void render_tiles_at(int row, int col, ctn::Renderer& renderer);
-
-  /**
-   * Interpolates all movable game objects.
-   *
-   * @param alpha the interpolation coefficient, in the range [0, 1].
-   * @since 0.1.0
-   */
-  void interpolate(float alpha);
-
-  /**
-   * Calculates the tile map bounds.
-   *
-   * @param bounds the bounds of the viewport.
-   * @return the tile map bounds.
-   * @since 0.1.0
-   */
-  [[nodiscard]] TileMapBounds CalculateMapBounds(
-      const ctn::FRect& bounds) const noexcept;
-
-  /**
-   * @param tileSet the associated tile set.
-   * @since 0.1.0
-   */
-  explicit TileMapImpl(const SharedPtr<TileSet>& tileSet);
-
  public:
   ~TileMapImpl() override;
 
@@ -95,6 +52,49 @@ class TileMapImpl final : public ITileMap {
   [[nodiscard]] int get_height() const noexcept override;
 
   [[nodiscard]] Vector2 get_player_spawn_position() const override;
+
+ private:
+  friend class TileMapBuilder;
+
+  SharedPtr<TileSet> m_tileSet = nullptr;
+  SharedPtr<IEntity> m_player = nullptr;
+  std::vector<UniquePtr<ITileMapLayer>> m_groundLayers;
+  std::vector<UniquePtr<ITileMapLayer>> m_objectLayers;
+  std::vector<IGameObject*> m_activeObjects;
+
+  EntityManager m_entityManager;
+
+  std::vector<Spawnpoint> m_spawnpoints;
+
+  int m_nRows = 0;
+  int m_nCols = 0;
+  Vector2 m_playerSpawnPos;
+
+  void render_tiles_at(int row, int col, ctn::Renderer& renderer);
+
+  /**
+   * Interpolates all movable game objects.
+   *
+   * @param alpha the interpolation coefficient, in the range [0, 1].
+   * @since 0.1.0
+   */
+  void interpolate(float alpha);
+
+  /**
+   * Calculates the tile map bounds.
+   *
+   * @param bounds the bounds of the viewport.
+   * @return the tile map bounds.
+   * @since 0.1.0
+   */
+  [[nodiscard]] TileMapBounds calc_map_bounds(
+      const ctn::FRect& bounds) const noexcept;
+
+  /**
+   * @param tileSet the associated tile set.
+   * @since 0.1.0
+   */
+  explicit TileMapImpl(const SharedPtr<TileSet>& tileSet);
 };
 
 }  // namespace wanderer

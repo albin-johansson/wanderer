@@ -17,23 +17,6 @@ class IEntity;
  * @since 0.1.0
  */
 class EntityManager final {
- private:
-  static constexpr int calcEntitiesThreshold = 100;
-
-  std::vector<std::shared_ptr<IEntity>> entities;
-  std::vector<IEntity*> closeEntities;
-
-  int nTicksSinceUpdate = 0;
-  bool firstTick = true;
-
-  /**
-   * Calculates all of the entities that intersect the supplied bounds.
-   *
-   * @param bounds the viewport bounds.
-   * @since 0.1.0
-   */
-  void calculate_close_entities(const ctn::FRect& bounds);
-
  public:
   EntityManager();
 
@@ -65,6 +48,23 @@ class EntityManager final {
    * @since 0.1.0
    */
   [[nodiscard]] const std::vector<IEntity*>& get_close_entities() const;
+
+ private:
+  static constexpr int s_calcEntitiesThreshold = 100;
+
+  std::vector<std::shared_ptr<IEntity>> m_entities;
+  std::vector<IEntity*> m_closeEntities;
+
+  int m_nTicksSinceUpdate = 0;
+  bool m_firstTick = true;
+
+  /**
+   * Calculates all of the entities that intersect the supplied bounds.
+   *
+   * @param bounds the viewport bounds.
+   * @since 0.1.0
+   */
+  void calculate_close_entities(const ctn::FRect& bounds);
 };
 
 }  // namespace wanderer

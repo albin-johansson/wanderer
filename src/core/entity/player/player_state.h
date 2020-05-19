@@ -27,7 +27,7 @@ class IPlayerState : public IEntityState {
    * @param core the associated core instance.
    * @since 0.1.0
    */
-  virtual void HandleInput(const Input& input, const IWandererCore& core) = 0;
+  virtual void handle_input(const Input& input, const IWandererCore& core) = 0;
 };
 
 }  // namespace wanderer

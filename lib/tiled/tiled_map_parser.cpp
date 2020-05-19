@@ -20,7 +20,7 @@ namespace wanderer {
 std::unique_ptr<ITileMap> TiledMapParser::load(TextureLoader& textureLoader,
                                                const std::string& file)
 {
-  const auto mapDocument = PugiUtils::LoadDocument(file);
+  const auto mapDocument = PugiUtils::load_document(file);
   const auto mapNode = mapDocument.child("map");
 
   tiled::TiledMap tiledMap(mapNode);

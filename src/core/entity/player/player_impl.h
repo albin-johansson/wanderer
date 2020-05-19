@@ -17,11 +17,6 @@ namespace wanderer {
  * @since 0.1.0
  */
 class PlayerImpl final : public AbstractEntity, public IPlayer {
- private:
-  UniquePtr<IPlayerStateMachine> playerStateMachine = nullptr;
-
-  void Init();
-
  public:
   /**
    * @param sheet a pointer to the tile sheet image which will be used by the
@@ -39,6 +34,11 @@ class PlayerImpl final : public AbstractEntity, public IPlayer {
 
   void draw(ctn::Renderer& renderer,
             const Viewport& viewport) const noexcept override;
+
+ private:
+  UniquePtr<IPlayerStateMachine> m_playerStateMachine = nullptr;
+
+  void Init();
 };
 
 }  // namespace wanderer

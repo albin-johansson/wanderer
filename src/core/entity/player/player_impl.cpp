@@ -14,7 +14,7 @@ namespace wanderer {
 
 PlayerImpl::PlayerImpl(const SharedPtr<Texture>& sheet) : AbstractEntity(sheet)
 {
-  playerStateMachine =
+  m_playerStateMachine =
       std::make_unique<PlayerStateMachineImpl>(static_cast<IEntity*>(this));
   Init();
 }
@@ -28,19 +28,19 @@ void PlayerImpl::Init()
 
 void PlayerImpl::handle_input(const Input& input, const IWandererCore& core)
 {
-  playerStateMachine->HandleInput(input, core);
+  m_playerStateMachine->HandleInput(input, core);
 }
 
 void PlayerImpl::tick(IWandererCore& core, float delta)
 {
   AbstractEntity::tick(core, delta);
-  playerStateMachine->tick(core, delta);
+  m_playerStateMachine->tick(core, delta);
 }
 
 void PlayerImpl::draw(Renderer& renderer,
                       const Viewport& viewport) const noexcept
 {
-  playerStateMachine->draw(renderer, viewport);
+  m_playerStateMachine->draw(renderer, viewport);
 }
 
 }  // namespace wanderer

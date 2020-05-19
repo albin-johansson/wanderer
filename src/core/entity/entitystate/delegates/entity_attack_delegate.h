@@ -13,14 +13,6 @@ class IEntityStateMachine;
  * @since 0.1.0
  */
 class EntityAttackDelegate final : public IEntityState {
- private:
-  static constexpr int SOURCE_MELEE_Y = 768;
-  static constexpr int SOURCE_MAGIC_Y = 0;
-  static constexpr int MELEE_FRAMES = 6;
-  static constexpr int MAGIC_FRAMES = 7;
-
-  IEntityStateMachine* parent = nullptr;
-
  public:
   /**
    * @param parent a pointer to the parent state machine.
@@ -38,6 +30,14 @@ class EntityAttackDelegate final : public IEntityState {
   void enter(const IWandererCore& core) override;
 
   void exit(const IWandererCore& core) override;
+
+ private:
+  static constexpr int SOURCE_MELEE_Y = 768;
+  static constexpr int SOURCE_MAGIC_Y = 0;
+  static constexpr int MELEE_FRAMES = 6;
+  static constexpr int MAGIC_FRAMES = 7;
+
+  IEntityStateMachine* m_parent = nullptr;  // FIXME don't use raw pointers
 };
 
 }  // namespace wanderer

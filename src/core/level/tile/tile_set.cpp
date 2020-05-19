@@ -4,24 +4,24 @@ namespace wanderer {
 
 TileSet::TileSet(int nTiles)
 {
-  tiles.reserve(nTiles);
+  m_tiles.reserve(nTiles);
 }
 
 TileSet::~TileSet() = default;
 
 void TileSet::tick(TileID id)
 {
-  tiles.at(id).tick();
+  m_tiles.at(id).tick();
 }
 
 void TileSet::insert(TileID id, const Tile& tile)
 {
-  tiles.emplace(id, tile);
+  m_tiles.emplace(id, tile);
 }
 
 const Tile& TileSet::get_tile(TileID id) const
 {
-  return tiles.at(id);
+  return m_tiles.at(id);
 }
 
 }  // namespace wanderer

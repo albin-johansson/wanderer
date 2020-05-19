@@ -13,14 +13,14 @@ namespace wanderer {
 
 EntityAttackDelegate::EntityAttackDelegate(IEntityStateMachine* parent)
 {
-  this->parent = Require::not_null(parent);
+  this->m_parent = Require::not_null(parent);
 }
 
 EntityAttackDelegate::~EntityAttackDelegate() = default;
 
 void EntityAttackDelegate::draw(Renderer& renderer, const Viewport&) const
 {
-  const auto& entity = parent->get_entity();
+  const auto& entity = m_parent->get_entity();
   const auto srcX = entity.get_animation_frame() * 64;
   const auto srcY = EntitySheet::get_source_y(SOURCE_MELEE_Y,
                                               entity.get_dominant_direction());
@@ -29,7 +29,7 @@ void EntityAttackDelegate::draw(Renderer& renderer, const Viewport&) const
 
 void EntityAttackDelegate::enter(const IWandererCore& core)
 {
-  IEntity& entity = parent->get_entity();
+  IEntity& entity = m_parent->get_entity();
   entity.stop();
 
   // TODO determine what kind of animation to use from the entity's weapon
@@ -44,10 +44,10 @@ void EntityAttackDelegate::exit(const IWandererCore&)
 
 void EntityAttackDelegate::tick(const IWandererCore& core, float /*delta*/)
 {
-  auto& entity = parent->get_entity();
+  auto& entity = m_parent->get_entity();
   if (entity.is_animation_done()) {
     // TODO damage and stuff...
-    parent->set_state(EntityStateID::Idle, core);
+    m_parent->set_state(EntityStateID::Idle, core);
   } else {
     entity.update_animation();
   }

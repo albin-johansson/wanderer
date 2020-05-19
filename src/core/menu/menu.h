@@ -13,9 +13,6 @@ class Input;
  * @since 0.1.0
  */
 class IMenu : public IMenuDrawable {
- protected:
-  IMenu() = default;
-
  public:
   ~IMenu() override = default;
 

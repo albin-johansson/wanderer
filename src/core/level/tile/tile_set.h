@@ -12,9 +12,6 @@ namespace wanderer {
  * @since 0.1.0
  */
 class TileSet final {
- private:
-  std::unordered_map<TileID, Tile> tiles;
-
  public:
   /**
    * @param nTiles the number of tiles in the set.
@@ -50,6 +47,9 @@ class TileSet final {
    * @since 0.1.0
    */
   [[nodiscard]] const Tile& get_tile(TileID id) const;
+
+ private:
+  std::unordered_map<TileID, Tile> m_tiles;
 };
 
 }  // namespace wanderer

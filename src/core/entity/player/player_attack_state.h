@@ -15,9 +15,6 @@ class IEntityStateMachine;
  * @since 0.1.0
  */
 class PlayerAttackState final : public IPlayerState {
- private:
-  EntityAttackDelegate attackDelegate;
-
  public:
   /**
    * @param parent a pointer to the parent state machine.
@@ -28,7 +25,7 @@ class PlayerAttackState final : public IPlayerState {
 
   ~PlayerAttackState() override;
 
-  void HandleInput(const Input& input, const IWandererCore& core) override;
+  void handle_input(const Input& input, const IWandererCore& core) override;
 
   void draw(ctn::Renderer& renderer, const Viewport& viewport) const override;
 
@@ -37,6 +34,9 @@ class PlayerAttackState final : public IPlayerState {
   void enter(const IWandererCore& core) override;
 
   void exit(const IWandererCore& core) override;
+
+ private:
+  EntityAttackDelegate m_attackDelegate;
 };
 
 }  // namespace wanderer
