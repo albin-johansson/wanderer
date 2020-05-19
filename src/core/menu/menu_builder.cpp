@@ -63,8 +63,7 @@ UniquePtr<IMenu> MenuBuilder::build(ActionParser& actionParser, CZString file)
 
   stream >> json;
 
-  auto* m = new MenuImpl{};
-  auto menu = std::unique_ptr<MenuImpl>(m);
+  auto menu = std::unique_ptr<MenuImpl>(new MenuImpl{});
 
   try {
     menu->m_title = json.at("title").get<std::string>();
