@@ -42,7 +42,7 @@ class WandererCoreImpl final
 
   void render(ctn::Renderer& renderer, float alpha) override;
 
-  void set_map(SharedPtr<ITileMap> map) override;
+  void set_map(const SharedPtr<wanderer::ITileMap>& map) override;
 
   void play_sound(SoundID id) const override;
 

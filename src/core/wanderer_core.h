@@ -54,7 +54,7 @@ class IWandererCore {  // TODO remove
    * @param map the map that should be made active.
    * @since 0.1.0
    */
-  virtual void set_map(SharedPtr<ITileMap> map) = 0;
+  virtual void set_map(const SharedPtr<wanderer::ITileMap>& map) = 0;
 
   /**
    * Plays a sound.

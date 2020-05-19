@@ -80,7 +80,7 @@ void WandererCoreImpl::play_sound(SoundID id) const
   m_soundEngine->play(id);
 }
 
-void WandererCoreImpl::set_map(SharedPtr<ITileMap> map)
+void WandererCoreImpl::set_map(const SharedPtr<wanderer::ITileMap>& map)
 {
   if (map) {
     m_activeMap = map;
