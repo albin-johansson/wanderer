@@ -8,7 +8,6 @@ target_include_directories(Catch SYSTEM INTERFACE ${CATCH_INCLUDE_DIR})
 add_executable(${WANDERER_TEST}
         unittests/test_main.cpp
         unittests/vector_2_test.cpp
-        unittests/objects_test.cpp
         unittests/viewport_test.cpp
         unittests/hitbox_test.cpp
         unittests/random_utils_test.cpp

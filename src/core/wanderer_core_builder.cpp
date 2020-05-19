@@ -1,9 +1,10 @@
 #include "wanderer_core_builder.h"
 
 #include "action_parser.h"
-#include "menu_builder.h"
+#include "menu_parser.h"
 #include "menu_state_machine_impl.h"
 #include "player_impl.h"
+#include "sound_engine_parser.h"
 #include "tile_map.h"
 #include "tiled_map_parser.h"
 #include "wanderer_core_impl.h"
@@ -32,8 +33,7 @@ SharedPtr<IWandererCore> WandererCoreBuilder::build(
   addMenu(MenuID::Controls, "controls_menu.json");
   addMenu(MenuID::InGame, "in_game_menu.json");
 
-  core->m_soundEngine =
-      std::make_unique<SoundEngine>("resources/audio/sfx.txt");
+  core->m_soundEngine = SoundEngineParser::parse("resources/audio/sounds.json");
 
   core->m_player = std::make_shared<PlayerImpl>(
       textureLoader.shared_img("resources/img/player2.png"));

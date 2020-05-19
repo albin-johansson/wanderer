@@ -36,7 +36,7 @@ void EntityAttackDelegate::enter(const IWandererCore& core)
   entity.set_animation_frame_amount(MELEE_FRAMES);
   entity.set_animation_frame(0);
   entity.set_animation_delay(65);
-  core.play_sound("swing");
+  core.play_sound(SoundID::SwordSwing);
 }
 
 void EntityAttackDelegate::exit(const IWandererCore&)

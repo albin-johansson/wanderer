@@ -44,7 +44,7 @@ class WandererCoreImpl final
 
   void set_map(SharedPtr<ITileMap> map) override;
 
-  void play_sound(const std::string& id) const override;
+  void play_sound(SoundID id) const override;
 
   void quit() noexcept override;
 

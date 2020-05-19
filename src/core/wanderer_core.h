@@ -1,5 +1,6 @@
 #pragma once
 #include <renderer.h>
+#include <sound_id.h>
 
 #include <memory>
 #include <string>
@@ -61,7 +62,7 @@ class IWandererCore {  // TODO remove
    * @param id the ID of the sound that will be played.
    * @since 0.1.0
    */
-  virtual void play_sound(const std::string& id) const = 0;
+  virtual void play_sound(SoundID id) const = 0;
 
   /**
    * Enables the hint that the game should quit as soon as possible.

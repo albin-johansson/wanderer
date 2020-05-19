@@ -187,8 +187,8 @@ set(SOURCE_FILES
 
         core/menu/menu_impl.cpp
         core/menu/menu_impl.h
-        parse/menu_builder.cpp
-        parse/menu_builder.h
+        parse/menu_parser.cpp
+        parse/menu_parser.h
         parse/key_bind_parser.cpp
         parse/key_bind_parser.h
         core/menu/key_bind.cpp
@@ -199,7 +199,7 @@ set(SOURCE_FILES
         parse/menu_button_parser.h
 
         visual/drawable_text.cpp
-        visual/drawable_text.h)
+        visual/drawable_text.h audio/sound_id.h parse/sound_engine_parser.cpp parse/sound_engine_parser.h)
 
 add_library(${WANDERER_LIB} ${SOURCE_FILES})
 

@@ -75,9 +75,9 @@ void WandererCoreImpl::quit() noexcept
   m_shouldQuit = true;
 }
 
-void WandererCoreImpl::play_sound(const std::string& id) const
+void WandererCoreImpl::play_sound(SoundID id) const
 {
-  m_soundEngine->get_sound(id).play();
+  m_soundEngine->play(id);
 }
 
 void WandererCoreImpl::set_map(SharedPtr<ITileMap> map)
