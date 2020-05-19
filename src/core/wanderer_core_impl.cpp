@@ -25,7 +25,7 @@ WandererCoreImpl::WandererCoreImpl() noexcept
 
 WandererCoreImpl::~WandererCoreImpl() = default;
 
-//void WandererCoreImpl::init_viewport()
+// void WandererCoreImpl::init_viewport()
 //{
 //  // TODO listener for viewport dimensions
 //  m_viewport.set_level_width(static_cast<float>(m_activeMap->get_width()));

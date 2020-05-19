@@ -11,7 +11,8 @@
 namespace albinjohansson::wanderer {
 
 std::unique_ptr<ITileMap> TileMapBuilder::create(
-    const std::shared_ptr<TileSet>& tileSet, const tiled::TiledMap& tiledMap)
+    const std::shared_ptr<TileSet>& tileSet,
+    const tiled::TiledMap& tiledMap)
 {
   auto map = std::unique_ptr<TileMapImpl>(new TileMapImpl{tileSet});
 

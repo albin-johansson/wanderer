@@ -54,7 +54,8 @@ class Math final {
    * @since 0.1.0
    */
   [[nodiscard]] static constexpr std::pair<int, int> index_to_matrix_pos(
-      int index, int nCols) noexcept
+      int index,
+      int nCols) noexcept
   {
     return {index / nCols, index % nCols};
   }
@@ -70,8 +71,8 @@ class Math final {
    * @return true if the values are almost equal; false otherwise.
    * @since 0.1.0
    */
-  [[nodiscard]] static constexpr bool almost_equal(
-      double a, double b, double epsilon = 0.001) noexcept
+  [[nodiscard]] static constexpr bool
+  almost_equal(double a, double b, double epsilon = 0.001) noexcept
   {
     return std::abs(a - b) < epsilon;
   }
@@ -87,8 +88,8 @@ class Math final {
    * @return true if the values are almost equal; false otherwise.
    * @since 0.1.0
    */
-  [[nodiscard]] static constexpr bool almost_equal(
-      float a, float b, float epsilon = 0.001f) noexcept
+  [[nodiscard]] static constexpr bool
+  almost_equal(float a, float b, float epsilon = 0.001f) noexcept
   {
     return std::abs(a - b) < epsilon;
   }

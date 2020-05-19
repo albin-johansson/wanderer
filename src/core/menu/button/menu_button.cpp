@@ -4,7 +4,8 @@ using namespace centurion;
 
 namespace albinjohansson::wanderer {
 
-MenuButton::MenuButton(std::string text, FRect bounds,
+MenuButton::MenuButton(std::string text,
+                       FRect bounds,
                        UniquePtr<IAction> action)
     : m_bounds{bounds},
       m_action{std::move(action)},

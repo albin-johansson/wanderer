@@ -16,7 +16,8 @@ class TileMapBuilder final {
   ~TileMapBuilder() = default;
 
   [[nodiscard]] static std::unique_ptr<ITileMap> create(
-      const std::shared_ptr<TileSet>& tileSet, const tiled::TiledMap& tiledMap);
+      const std::shared_ptr<TileSet>& tileSet,
+      const tiled::TiledMap& tiledMap);
 };
 
 }  // namespace albinjohansson::wanderer

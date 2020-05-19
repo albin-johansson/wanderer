@@ -62,7 +62,8 @@ std::vector<TileID> TileMapLayerBuilder::create_tile_vector(
 }
 
 UniquePtr<ITileMapLayer> TileMapLayerBuilder::create(
-    const SharedPtr<TileSet>& tileSet, const tiled::TiledLayer& tiledLayer) const
+    const SharedPtr<TileSet>& tileSet,
+    const tiled::TiledLayer& tiledLayer) const
 {
   auto layer = UniquePtr<TileMapLayerImpl>(new TileMapLayerImpl(tileSet));
 

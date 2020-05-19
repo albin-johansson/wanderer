@@ -8,7 +8,8 @@ using namespace centurion;
 namespace albinjohansson::wanderer {
 
 tiled::TiledTileSet TileSetBuilder::create_tiled_tile_set(
-    const pugi::xml_node& tileSetNode, TileID firstId)
+    const pugi::xml_node& tileSetNode,
+    TileID firstId)
 {
   const auto tileCount = tileSetNode.attribute("tilecount").as_int();
   const auto lastgid = firstId + static_cast<TileID>(tileCount) - 1;
@@ -16,7 +17,7 @@ tiled::TiledTileSet TileSetBuilder::create_tiled_tile_set(
 }
 
 UniquePtr<TileSet> TileSetBuilder::create(const pugi::xml_node& mapRoot,
-                                       TextureLoader& textureLoader)
+                                          TextureLoader& textureLoader)
 {
   const auto tsChildren = mapRoot.children("tileset");
   const auto nTilesets = std::distance(tsChildren.begin(), tsChildren.end());

@@ -13,8 +13,7 @@ class ButtonAction final {
   T callable;
 
  public:
-  explicit ButtonAction(T callable_) : callable{callable_}
-  {}
+  explicit ButtonAction(T callable_) : callable{callable_} {}
 
   void update(const Input& input,
               const MenuButton& button,

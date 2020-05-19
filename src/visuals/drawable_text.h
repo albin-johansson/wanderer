@@ -24,25 +24,13 @@ class DrawableText {
 
   void set_color(const ctn::Color& color) noexcept;
 
-  [[nodiscard]] Size size() const noexcept
-  {
-    return m_size;
-  }
+  [[nodiscard]] Size size() const noexcept { return m_size; }
 
-  [[nodiscard]] ctn::FPoint position() const noexcept
-  {
-    return m_position;
-  }
+  [[nodiscard]] ctn::FPoint position() const noexcept { return m_position; }
 
-  [[nodiscard]] const char* text() const noexcept
-  {
-    return m_text.c_str();
-  }
+  [[nodiscard]] const char* text() const noexcept { return m_text.c_str(); }
 
-  [[nodiscard]] const ctn::Color& color() const noexcept
-  {
-    return m_color;
-  }
+  [[nodiscard]] const ctn::Color& color() const noexcept { return m_color; }
 
  private:
   mutable UniquePtr<ctn::Texture> m_texture = nullptr;

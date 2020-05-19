@@ -33,7 +33,8 @@ class WandererCoreImpl final
    * @return a shared pointer to an IWandererCore instance.
    * @since 0.1.0
    */
-  friend SharedPtr<IWandererCore> create_core(ctn::TextureLoader& textureLoader);
+  friend SharedPtr<IWandererCore> create_core(
+      ctn::TextureLoader& textureLoader);
 
   void handle_input(const Input& input) override;
 

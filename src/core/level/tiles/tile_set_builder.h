@@ -13,7 +13,8 @@ namespace albinjohansson::wanderer {
 class TileSetBuilder final {
  private:
   [[nodiscard]] static tiled::TiledTileSet create_tiled_tile_set(
-      const pugi::xml_node& tileSetNode, TileID firstId);
+      const pugi::xml_node& tileSetNode,
+      TileID firstId);
 
  public:
   TileSetBuilder() = delete;
@@ -21,7 +22,8 @@ class TileSetBuilder final {
   ~TileSetBuilder() = default;
 
   [[nodiscard]] static UniquePtr<TileSet> create(
-      const pugi::xml_node& mapRoot, ctn::TextureLoader& textureLoader);
+      const pugi::xml_node& mapRoot,
+      ctn::TextureLoader& textureLoader);
 };
 
 }  // namespace albinjohansson::wanderer

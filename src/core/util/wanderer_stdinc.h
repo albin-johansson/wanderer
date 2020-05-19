@@ -4,8 +4,8 @@
 #include <cstdint>
 #include <json.hpp>
 #include <memory>
-#include <string>
 #include <optional>
+#include <string>
 
 namespace albinjohansson::wanderer {
 

@@ -52,8 +52,7 @@ class Vector2 final {
    * @param other the constructor that will be moved.
    * @since 0.1.0
    */
-  Vector2(Vector2<T>&& other) noexcept : x{other.x}, y{other.y}
-  {}
+  Vector2(Vector2<T>&& other) noexcept : x{other.x}, y{other.y} {}
 
   /**
    * Creates a vector with the specified components.
@@ -62,8 +61,7 @@ class Vector2 final {
    * @param y the y-coordinate that will be used by the vector.
    * @since 0.1.0
    */
-  constexpr Vector2(T x, T y) noexcept : x{x}, y{y}
-  {}
+  constexpr Vector2(T x, T y) noexcept : x{x}, y{y} {}
 
   /**
    * @since 0.1.0
@@ -142,10 +140,7 @@ class Vector2 final {
    *
    * @since 0.1.0
    */
-  void zero() noexcept
-  {
-    x = y = 0;
-  }
+  void zero() noexcept { x = y = 0; }
 
   /**
    * Copies the fields of the supplied vector into this vector.
@@ -483,10 +478,7 @@ class Vector2 final {
    * @return the squared magnitude of this vector.
    * @since 0.1.0
    */
-  [[nodiscard]] T get_magnitude_2() const noexcept
-  {
-    return (x * x) + (y * y);
-  }
+  [[nodiscard]] T get_magnitude_2() const noexcept { return (x * x) + (y * y); }
 
   /**
    * Indicates whether or not the vector has zero has both of its components.

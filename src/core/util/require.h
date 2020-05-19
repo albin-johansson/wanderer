@@ -21,8 +21,7 @@ class Require final {
    */
   class NullPointerException final : public std::exception {
    public:
-    NullPointerException() : std::exception()
-    {}
+    NullPointerException() : std::exception() {}
   };
 
   Require() = delete;
