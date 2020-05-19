@@ -8,15 +8,15 @@ class Resource final {
  public:
   Resource() = delete;
 
-  static std::string img(CZString name) noexcept;
+  [[nodiscard]] static std::string img(CZString name) noexcept;
 
-  static std::string font(CZString name) noexcept;
+  [[nodiscard]] static std::string font(CZString name) noexcept;
 
-  static std::string sfx(CZString name) noexcept;
+  [[nodiscard]] static std::string sfx(CZString name) noexcept;
 
-  static std::string map(CZString name) noexcept;
+  [[nodiscard]] static std::string map(CZString name) noexcept;
 
-  static std::string menu(CZString name) noexcept;
+  [[nodiscard]] static std::string menu(CZString name) noexcept;
 
  private:
   inline static const std::string imagePath = "resources/img/";
