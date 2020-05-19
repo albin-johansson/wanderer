@@ -18,7 +18,6 @@ set(CENTURION_LIBRARIES ${BINARIES_DIR}/libCenturion${CMAKE_IMPORT_LIBRARY_SUFFI
 set(CENTURION_INCLUDE_DIR ${LIBRARY_DIR}/centurion)
 set(GSL_INCLUDE_DIR ${LIBRARY_DIR}/gsl)
 set(PUGI_INCLUDE_DIR ${LIBRARY_DIR}/pugixml)
-set(TILED_INCLUDE_DIR ${LIBRARY_DIR}/tiled)
 
 # Checks if an environment variable is defined.
 #   envVar: the name of the actual environment variable.

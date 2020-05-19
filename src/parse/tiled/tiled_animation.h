@@ -9,9 +9,6 @@ struct Frame {
 };
 
 class TiledAnimation {
- private:
-  std::vector<Frame> frames;
-
  public:
   TiledAnimation();
 
@@ -21,8 +18,10 @@ class TiledAnimation {
 
   void add_frame(Frame frame);
 
-  [[nodiscard]]
-  const std::vector<Frame>& get_frames();
+  [[nodiscard]] const std::vector<Frame>& get_frames();
+
+ private:
+  std::vector<Frame> m_frames;
 };
 
-}
+}  // namespace tiled

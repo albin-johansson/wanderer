@@ -12,10 +12,9 @@ class TiledMapParser final {
  public:
   TiledMapParser() = delete;
 
-  ~TiledMapParser() = default;
-
   [[nodiscard]] static std::unique_ptr<ITileMap> load(
-      centurion::TextureLoader& textureLoader, const std::string& file);
+      centurion::TextureLoader& textureLoader,
+      const std::string& file);
 };
 
 }  // namespace wanderer

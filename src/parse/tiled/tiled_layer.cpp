@@ -1,13 +1,15 @@
 #include "tiled_layer.h"
-#include <sstream>
+
 #include <iostream>
+#include <sstream>
 
 namespace tiled {
 
-TiledLayer::TiledLayer(const pugi::xml_node& layerNode) : layerNode(layerNode) {
-  nCols = layerNode.attribute("width").as_int();
-  nRows = layerNode.attribute("height").as_int();
-  tiles.reserve(nRows * nCols);
+TiledLayer::TiledLayer(const pugi::xml_node& layerNode) : m_layerNode(layerNode)
+{
+  m_nCols = layerNode.attribute("width").as_int();
+  m_nRows = layerNode.attribute("height").as_int();
+  m_tiles.reserve(m_nRows * m_nCols);
 
   auto data = layerNode.child("data").text().as_string();
 
@@ -20,7 +22,7 @@ TiledLayer::TiledLayer(const pugi::xml_node& layerNode) : layerNode(layerNode) {
 
       object.add_attribute(id, value);
 
-      properties.push_back(object);
+      m_properties.push_back(object);
     }
   }
 
@@ -28,22 +30,24 @@ TiledLayer::TiledLayer(const pugi::xml_node& layerNode) : layerNode(layerNode) {
   std::string token;
   while (std::getline(stream, token, ',')) {
     const auto i = std::stoi(token);
-    tiles.push_back(i);
+    m_tiles.push_back(i);
 
     if (i != 0) {
-      ++nNonEmptyTiles;
+      ++m_nNonEmptyTiles;
     }
   }
 }
 
 TiledLayer::~TiledLayer() = default;
 
-std::vector<int> TiledLayer::get_tiles() const {
-  return tiles;
+std::vector<int> TiledLayer::get_tiles() const
+{
+  return m_tiles;
 }
 
-int TiledLayer::get_int(const std::string& id) const {
-  for (auto& property : properties) {
+int TiledLayer::get_int(const std::string& id) const
+{
+  for (auto& property : m_properties) {
     if (property.has_attribute(id)) {
       return std::stoi(property.get_attribute(id));
     }
@@ -53,8 +57,9 @@ int TiledLayer::get_int(const std::string& id) const {
   return 0;
 }
 
-bool TiledLayer::get_bool(const std::string& id) const {
-  for (auto& property : properties) {
+bool TiledLayer::get_bool(const std::string& id) const
+{
+  for (auto& property : m_properties) {
     if (property.has_attribute(id)) {
       return property.get_attribute(id) == "true";
     }
@@ -64,17 +69,19 @@ bool TiledLayer::get_bool(const std::string& id) const {
   return false;
 }
 
-int TiledLayer::get_non_empty_tiles() const noexcept {
-  return nNonEmptyTiles;
+int TiledLayer::get_non_empty_tiles() const noexcept
+{
+  return m_nNonEmptyTiles;
 }
 
-int TiledLayer::get_rows() const noexcept {
-  return nRows;
+int TiledLayer::get_rows() const noexcept
+{
+  return m_nRows;
 }
 
-int TiledLayer::get_cols() const noexcept {
-  return nCols;
+int TiledLayer::get_cols() const noexcept
+{
+  return m_nCols;
 }
 
-}
-
+}  // namespace tiled

@@ -5,8 +5,6 @@
 
 using namespace centurion;
 
-;
-
 namespace wanderer {
 
 AbstractEntity::AbstractEntity(const SharedPtr<Texture>& sheet)

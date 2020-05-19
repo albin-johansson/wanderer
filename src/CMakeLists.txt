@@ -47,9 +47,14 @@ set(SOURCE_FILES
         core/menu/menu_state_machine.h
         core/menu/menu_state_machine_impl.cpp
         core/menu/menu_state_machine_impl.h
+        core/menu/menu_drawable.h
+        core/menu/key_bind.cpp
+        core/menu/key_bind.h
+        core/menu/menu_impl.cpp
+        core/menu/menu_impl.h
+
         core/menu/button/menu_button.cpp
         core/menu/button/menu_button.h
-        core/menu/menu_drawable.h
 
         core/level/portal.cpp
         core/level/portal.h
@@ -145,58 +150,57 @@ set(SOURCE_FILES
         visual/font_bundle.h
         visual/hud.cpp
         visual/hud.h
+        visual/drawable_text.cpp
+        visual/drawable_text.h
 
         audio/sound_engine.cpp
         audio/sound_engine.h
+        audio/sound_id.h
 
         service/pugi_utils.cpp
         service/pugi_utils.h
 
-        ${TILED_INCLUDE_DIR}/tiled_map_parser.cpp
-        ${TILED_INCLUDE_DIR}/tiled_map_parser.h
-        ${TILED_INCLUDE_DIR}/tiled_map.cpp
-        ${TILED_INCLUDE_DIR}/tiled_map.h
-        ${TILED_INCLUDE_DIR}/tiled_tile_set.cpp
-        ${TILED_INCLUDE_DIR}/tiled_tile_set.h
-        ${TILED_INCLUDE_DIR}/tiled_animation.cpp
-        ${TILED_INCLUDE_DIR}/tiled_animation.h
-        ${TILED_INCLUDE_DIR}/tiled_object.cpp
-        ${TILED_INCLUDE_DIR}/tiled_object.h
-        ${TILED_INCLUDE_DIR}/tiled_layer.cpp
-        ${TILED_INCLUDE_DIR}/tiled_layer.h
-        ${TILED_INCLUDE_DIR}/tiled_tile.cpp
-        ${TILED_INCLUDE_DIR}/tiled_tile.h
-        ${TILED_INCLUDE_DIR}/tiled_property.h
-        ${TILED_INCLUDE_DIR}/tiled_object_group.cpp
-        ${TILED_INCLUDE_DIR}/tiled_object_group.h
+        parse/menu_button_parser.cpp
+        parse/menu_button_parser.h
+        parse/sound_engine_parser.cpp
+        parse/sound_engine_parser.h
+        parse/menu_parser.cpp
+        parse/menu_parser.h
+        parse/key_bind_parser.cpp
+        parse/key_bind_parser.h
+        parse/action_parser.cpp
+        parse/action_parser.h
+
+        parse/tiled/tiled_map_parser.cpp
+        parse/tiled/tiled_map_parser.h
+        parse/tiled/tiled_map.cpp
+        parse/tiled/tiled_map.h
+        parse/tiled/tiled_tile_set.cpp
+        parse/tiled/tiled_tile_set.h
+        parse/tiled/tiled_animation.cpp
+        parse/tiled/tiled_animation.h
+        parse/tiled/tiled_object.cpp
+        parse/tiled/tiled_object.h
+        parse/tiled/tiled_layer.cpp
+        parse/tiled/tiled_layer.h
+        parse/tiled/tiled_tile.cpp
+        parse/tiled/tiled_tile.h
+        parse/tiled/tiled_property.h
+        parse/tiled/tiled_object_group.cpp
+        parse/tiled/tiled_object_group.h
 
         core/util/wanderer_stdinc.h
         core/util/wanderer_exception.h
         core/util/json_utils.h
         core/util/json_utils.cpp
+        core/util/resource.h
+        core/util/resource.cpp
 
         core/action/action.h
         core/action/goto_menu_action.cpp
         core/action/goto_menu_action.h
-        parse/action_parser.cpp
-        parse/action_parser.h
         core/action/quit_action.cpp
-        core/action/quit_action.h
-
-        core/menu/menu_impl.cpp
-        core/menu/menu_impl.h
-        parse/menu_parser.cpp
-        parse/menu_parser.h
-        parse/key_bind_parser.cpp
-        parse/key_bind_parser.h
-        core/menu/key_bind.cpp
-        core/menu/key_bind.h
-
-        parse/menu_button_parser.cpp
-        parse/menu_button_parser.h
-
-        visual/drawable_text.cpp
-        visual/drawable_text.h audio/sound_id.h parse/sound_engine_parser.cpp parse/sound_engine_parser.h core/util/resource.h core/util/resource.cpp)
+        core/action/quit_action.h)
 
 add_library(${WANDERER_LIB} ${SOURCE_FILES})
 
@@ -227,7 +231,6 @@ target_include_directories(${WANDERER_LIB} SYSTEM PUBLIC ${LIBRARY_DIR})
 target_include_directories(${WANDERER_LIB} SYSTEM PUBLIC ${GSL_INCLUDE_DIR})
 target_include_directories(${WANDERER_LIB} SYSTEM PUBLIC ${PUGI_INCLUDE_DIR})
 target_include_directories(${WANDERER_LIB} SYSTEM PUBLIC ${CENTURION_INCLUDE_DIR})
-target_include_directories(${WANDERER_LIB} SYSTEM PUBLIC ${TILED_INCLUDE_DIR})
 
 target_include_directories(${WANDERER_LIB} PUBLIC controller)
 target_include_directories(${WANDERER_LIB} PUBLIC controller/gameloop)
@@ -247,6 +250,7 @@ target_include_directories(${WANDERER_LIB} PUBLIC core/entity/entitystate/delega
 target_include_directories(${WANDERER_LIB} PUBLIC visual)
 target_include_directories(${WANDERER_LIB} PUBLIC util)
 target_include_directories(${WANDERER_LIB} PUBLIC parse)
+target_include_directories(${WANDERER_LIB} PUBLIC parse/tiled)
 target_include_directories(${WANDERER_LIB} PUBLIC service)
 target_include_directories(${WANDERER_LIB} PUBLIC audio)
 

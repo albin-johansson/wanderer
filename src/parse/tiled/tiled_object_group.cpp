@@ -1,12 +1,13 @@
 #include "tiled_object_group.h"
+
 #include "tiled_object.h"
 #include "tiled_property.h"
 
 namespace tiled {
 
 TiledObjectGroup::TiledObjectGroup(pugi::xml_node objectGroupNode)
-    : objectGroupNode(objectGroupNode) {
-
+    : m_objectGroupNode(objectGroupNode)
+{
   for (const auto o : objectGroupNode.children("object")) {
     TiledObject object;
 
@@ -22,14 +23,15 @@ TiledObjectGroup::TiledObjectGroup(pugi::xml_node objectGroupNode)
       object.add_property(property);
     }
 
-    objects.push_back(object);
+    m_objects.push_back(object);
   }
 }
 
 TiledObjectGroup::~TiledObjectGroup() = default;
 
-const std::vector<TiledObject>& TiledObjectGroup::get_objects() const noexcept {
-  return objects;
+const std::vector<TiledObject>& TiledObjectGroup::get_objects() const noexcept
+{
+  return m_objects;
 }
 
-}
+}  // namespace tiled

@@ -14,4 +14,4 @@ struct TiledProperty final {
   std::string value = "";
 };
 
-}
+}  // namespace tiled
