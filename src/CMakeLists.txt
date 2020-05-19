@@ -31,8 +31,6 @@ set(SOURCE_FILES
         core/wanderer_core_builder.h
 
         core/util/require.h
-        core/util/bad_state_exception.h
-        core/util/bad_state_exception.cpp
 
         core/math/hitbox.cpp
         core/math/hitbox.h
