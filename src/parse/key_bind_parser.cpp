@@ -15,9 +15,8 @@ UniquePtr<KeyBind> KeyBindParser::parse(ActionParser& actionParser,
     return nullptr;
   }
 
-  const Key key = SDL_GetKeyFromName(keyStr->c_str());  // TODO CTN 4.1
-
-  if (key.scancode() == SDL_SCANCODE_UNKNOWN) {
+  const Key key{keyStr->c_str()};
+  if (key.unknown()) {
     Log::critical("Didn't recognize the key \"%s\"!", keyStr->c_str());
     return nullptr;
   }
