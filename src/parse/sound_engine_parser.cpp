@@ -31,7 +31,7 @@ UniquePtr<SoundEngine> SoundEngineParser::parse(CZString file)
   }
 
   JSON json = parse_json(file);
-  auto engine = std::unique_ptr<SoundEngine>(new SoundEngine{});
+  auto engine = UniquePtr<SoundEngine>(new SoundEngine{});
 
   if (json.count("sounds")) {
     for (const auto& [key, value] : json.at("sounds").items()) {

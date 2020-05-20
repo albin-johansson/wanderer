@@ -15,8 +15,8 @@ class TileMapBuilder final {
 
   ~TileMapBuilder() = default;
 
-  [[nodiscard]] static std::unique_ptr<ITileMap> create(
-      const std::shared_ptr<TileSet>& tileSet,
+  [[nodiscard]] static UniquePtr<ITileMap> create(
+      const SharedPtr<TileSet>& tileSet,
       const tiled::TiledMap& tiledMap);
 };
 

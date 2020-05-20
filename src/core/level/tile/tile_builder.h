@@ -13,7 +13,7 @@ class TileBuilder {
 
   ~TileBuilder() = default;
 
-  [[nodiscard]] static Tile create(const std::shared_ptr<ctn::Texture>& image,
+  [[nodiscard]] static Tile create(const SharedPtr<ctn::Texture>& image,
                                    const tiled::TiledTileSet& tiledTileSet,
                                    TileID id,
                                    int index);

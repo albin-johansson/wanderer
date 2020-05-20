@@ -33,8 +33,7 @@ class MenuButton final : public IMenuDrawable {
 
   ~MenuButton() override;
 
-  void draw(ctn::Renderer& renderer,
-            const Viewport& viewport) const override;
+  void draw(ctn::Renderer& renderer, const Viewport& viewport) const override;
 
   void set_enlarged(bool enlarged) noexcept;
 
@@ -45,7 +44,7 @@ class MenuButton final : public IMenuDrawable {
  private:
   ctn::FRect m_bounds;
   UniquePtr<IAction> m_action;
-  std::unique_ptr<DrawableText> m_text;
+  UniquePtr<DrawableText> m_text;
   bool m_enlarged = false;
 };
 

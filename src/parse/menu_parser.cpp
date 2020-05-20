@@ -17,7 +17,7 @@ UniquePtr<IMenu> MenuParser::parse(ActionParser& actionParser, CZString file)
 {
   JSON json = parse_json(file);
 
-  auto menu = std::unique_ptr<MenuImpl>(new MenuImpl{});
+  auto menu = UniquePtr<MenuImpl>(new MenuImpl{});
 
   if (const auto title = maybe_get<std::string>(json, "title"); title) {
     menu->m_title = std::move(*title);

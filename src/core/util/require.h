@@ -57,7 +57,7 @@ class Require final {
    * @since 0.1.0
    */
   template <class T>
-  inline static std::unique_ptr<T> not_null(std::unique_ptr<T> uniquePtr)
+  inline static UniquePtr<T> not_null(UniquePtr<T> uniquePtr)
   {
     if (!uniquePtr) {
       throw NullPointerException();
@@ -76,8 +76,7 @@ class Require final {
    * @since 0.1.0
    */
   template <class T>
-  inline static const std::shared_ptr<T>& not_null(
-      const std::shared_ptr<T>& sharedPtr)
+  inline static const SharedPtr<T>& not_null(const SharedPtr<T>& sharedPtr)
   {
     if (!sharedPtr) {
       throw NullPointerException();

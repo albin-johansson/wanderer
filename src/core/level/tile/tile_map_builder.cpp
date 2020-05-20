@@ -8,13 +8,14 @@
 #include "tile_map_impl.h"
 #include "tiled_map.h"
 
+using namespace centurion;
+
 namespace wanderer {
 
-std::unique_ptr<ITileMap> TileMapBuilder::create(
-    const std::shared_ptr<TileSet>& tileSet,
-    const tiled::TiledMap& tiledMap)
+UniquePtr<ITileMap> TileMapBuilder::create(const SharedPtr<TileSet>& tileSet,
+                                           const tiled::TiledMap& tiledMap)
 {
-  auto map = std::unique_ptr<TileMapImpl>(new TileMapImpl{tileSet});
+  auto map = UniquePtr<TileMapImpl>(new TileMapImpl{tileSet});
 
   map->m_nRows = tiledMap.get_height();
   map->m_nCols = tiledMap.get_width();
@@ -41,7 +42,7 @@ std::unique_ptr<ITileMap> TileMapBuilder::create(
         }
 
       } else {
-        SDL_Log("Failed to load spawnpoint!");
+        Log::warn("Failed to load spawnpoint!");
       }
     }
   }

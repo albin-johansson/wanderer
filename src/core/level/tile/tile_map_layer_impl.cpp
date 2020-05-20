@@ -10,9 +10,11 @@
 #include "tile_set.h"
 #include "viewport.h"
 
+using namespace centurion;
+
 namespace wanderer {
 
-TileMapLayerImpl::TileMapLayerImpl(const std::shared_ptr<TileSet>& tileSet)
+TileMapLayerImpl::TileMapLayerImpl(const SharedPtr<TileSet>& tileSet)
 {
   this->m_tileSet = Require::not_null(tileSet);
 }
@@ -35,8 +37,8 @@ TileID TileMapLayerImpl::get_tile_id(int row, int col) const
 {
   try {
     return m_tiles.at(static_cast<std::size_t>(get_index(row, col)));
-  } catch (std::exception& e) {
-    SDL_Log("Failed to get tile ID of tile at (%i, %i)", row, col);
+  } catch (...) {
+    Log::critical("Failed to get tile ID of (%i, %i)!", row, col);
     throw;
   }
 }

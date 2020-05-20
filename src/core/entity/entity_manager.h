@@ -39,7 +39,7 @@ class EntityManager final {
    * silently ignored.
    * @since 0.1.0
    */
-  void add_entity(const std::shared_ptr<IEntity>& entity);
+  void add_entity(const SharedPtr<IEntity>& entity);
 
   /**
    * Returns all of the close entities.
@@ -52,7 +52,7 @@ class EntityManager final {
  private:
   static constexpr int s_calcEntitiesThreshold = 100;
 
-  std::vector<std::shared_ptr<IEntity>> m_entities;
+  std::vector<SharedPtr<IEntity>> m_entities;
   std::vector<IEntity*> m_closeEntities;
 
   int m_nTicksSinceUpdate = 0;

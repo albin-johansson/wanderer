@@ -45,7 +45,7 @@ void EntityManager::update(const FRect& bounds)
   }
 }
 
-void EntityManager::add_entity(const std::shared_ptr<IEntity>& entity)
+void EntityManager::add_entity(const SharedPtr<IEntity>& entity)
 {
   if (entity) {
     m_entities.push_back(entity);

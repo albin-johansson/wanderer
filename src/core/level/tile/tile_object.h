@@ -32,7 +32,7 @@ class TileObject final : public IGameObject {
    */
   TileObject(TileID id,
              const Vector2& position,
-             const std::shared_ptr<TileSet>& tileSet);
+             const SharedPtr<TileSet>& tileSet);
 
   ~TileObject() noexcept override;
 

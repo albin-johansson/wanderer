@@ -22,7 +22,7 @@ TileAnimation TileBuilder::create_animation(tiled::TiledAnimation animation)
   return result;
 }
 
-Tile TileBuilder::create(const std::shared_ptr<Texture>& image,
+Tile TileBuilder::create(const SharedPtr<Texture>& image,
                          const tiled::TiledTileSet& tiledTileSet,
                          TileID id,
                          int index)

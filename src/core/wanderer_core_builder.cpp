@@ -17,7 +17,7 @@ namespace wanderer {
 SharedPtr<IWandererCore> WandererCoreBuilder::build(
     TextureLoader& textureLoader)
 {
-  auto core = std::shared_ptr<WandererCoreImpl>(new WandererCoreImpl{});
+  auto core = SharedPtr<WandererCoreImpl>(new WandererCoreImpl{});
 
   core->m_menuStateMachine = std::make_shared<MenuStateMachineImpl>();
 
