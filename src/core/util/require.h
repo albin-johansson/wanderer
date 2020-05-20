@@ -40,7 +40,7 @@ class Require final {
   template <class T>
   inline static T* not_null(T* pointer)
   {
-    if (pointer == nullptr) {
+    if (!pointer) {
       throw NullPointerException();
     } else {
       return pointer;
@@ -59,7 +59,7 @@ class Require final {
   template <class T>
   inline static std::unique_ptr<T> not_null(std::unique_ptr<T> uniquePtr)
   {
-    if (uniquePtr == nullptr) {
+    if (!uniquePtr) {
       throw NullPointerException();
     } else {
       return uniquePtr;
@@ -79,7 +79,7 @@ class Require final {
   inline static const std::shared_ptr<T>& not_null(
       const std::shared_ptr<T>& sharedPtr)
   {
-    if (sharedPtr == nullptr) {
+    if (!sharedPtr) {
       throw NullPointerException();
     } else {
       return sharedPtr;
