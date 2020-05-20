@@ -40,6 +40,7 @@ WandererControllerImpl::WandererControllerImpl()
   m_renderer = Renderer::unique(*m_window);
   m_renderer->set_logical_size(
       {GameConstants::logical_width, GameConstants::logical_height});
+  m_renderer->set_logical_integer_scale(false);
 
   add_fonts(*m_renderer);
 
