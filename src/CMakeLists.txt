@@ -146,8 +146,6 @@ set(SOURCE_FILES
 
         visual/animation.cpp
         visual/animation.h
-        visual/font_bundle.cpp
-        visual/font_bundle.h
         visual/hud.cpp
         visual/hud.h
         visual/drawable_text.cpp

@@ -21,9 +21,7 @@ bool MenuButton::contains(float mx, float my) const noexcept
   return m_bounds.contains(mx, my);
 }
 
-void MenuButton::draw(Renderer& renderer,
-                      const Viewport&,
-                      const FontBundle& fonts) const
+void MenuButton::draw(Renderer& renderer, const Viewport&) const
 {
   if (m_enlarged) {
     m_text->set_size(DrawableText::Size::Large);
@@ -31,16 +29,20 @@ void MenuButton::draw(Renderer& renderer,
     m_text->set_size(DrawableText::Size::Medium);
   }
 
-  const auto& font = m_enlarged ? fonts.get_font_36() : fonts.get_font_24();
+  // FIXME these calculations do not need to be repeated if the chosen font is
+  //  the same
 
-  const auto width = static_cast<float>(font.string_width(m_text->text()));
-  const auto height = static_cast<float>(font.string_height(m_text->text()));
+  auto font = m_enlarged ? renderer.font("tp-lg") : renderer.font("tp-md");
+  if (font) {
+    const auto width = static_cast<float>(font->string_width(m_text->text()));
+    const auto height = static_cast<float>(font->string_height(m_text->text()));
 
-  const auto x = m_bounds.center_x() - (width / 2.0f);
-  const auto y = m_bounds.center_y() - (height / 2.0f);
+    const auto x = m_bounds.center_x() - (width / 2.0f);
+    const auto y = m_bounds.center_y() - (height / 2.0f);
 
-  m_text->set_position({x, y});
-  m_text->draw(renderer, fonts);
+    m_text->set_position({x, y});
+    m_text->draw(renderer);
+  }
 }
 
 void MenuButton::trigger() noexcept

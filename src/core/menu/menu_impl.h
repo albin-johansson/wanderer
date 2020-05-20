@@ -16,8 +16,7 @@ class MenuImpl final : public IMenu {
   ~MenuImpl() noexcept = default;
 
   void draw(ctn::Renderer& renderer,
-            const Viewport& viewport,
-            const FontBundle& fonts) const noexcept override;
+            const Viewport& viewport) const noexcept override;
 
   void handle_input(const Input& input) noexcept override;
 

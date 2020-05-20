@@ -8,15 +8,30 @@ DrawableText::DrawableText(std::string text, FPoint position)
     : m_text{text}, m_position{position}
 {}
 
-void DrawableText::draw(Renderer& renderer, const FontBundle& fonts) const
+void DrawableText::draw(Renderer& renderer) const
 {
   if (m_text.empty()) {
     return;
   }
 
-  if (!m_texture || !m_isValid) {
+  SharedPtr<Font> font = nullptr;
+  switch (m_size) {
+    default:
+      [[fallthrough]];
+    case Size::Small:
+      font = renderer.font("tp-sm");
+      break;
+    case Size::Medium:
+      font = renderer.font("tp-md");
+      break;
+    case Size::Large:
+      font = renderer.font("tp-lg");
+      break;
+  }
+
+  if ((!m_texture || !m_isValid) && font) {
     renderer.set_color(m_color);
-    m_texture = renderer.text_blended(m_text.c_str(), get_font(fonts));
+    m_texture = renderer.text_blended(m_text.c_str(), *font);
     m_isValid = true;
   }
 
@@ -43,20 +58,6 @@ void DrawableText::set_color(const Color& color) noexcept
   if (m_color != color) {
     m_color = color;
     m_isValid = false;
-  }
-}
-
-const Font& DrawableText::get_font(const FontBundle& fonts) const noexcept
-{
-  switch (m_size) {
-    default:
-      [[fallthrough]];
-    case Size::Small:
-      return fonts.get_font_12();
-    case Size::Medium:
-      return fonts.get_font_24();
-    case Size::Large:
-      return fonts.get_font_36();
   }
 }
 

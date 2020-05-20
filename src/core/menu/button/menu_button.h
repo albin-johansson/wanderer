@@ -34,8 +34,7 @@ class MenuButton final : public IMenuDrawable {
   ~MenuButton() override;
 
   void draw(ctn::Renderer& renderer,
-            const Viewport& viewport,
-            const FontBundle& fonts) const override;
+            const Viewport& viewport) const override;
 
   void set_enlarged(bool enlarged) noexcept;
 

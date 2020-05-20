@@ -1,8 +1,8 @@
 #pragma once
 #include <renderer.h>
 
-#include "font_bundle.h"
 #include "viewport.h"
+#include "wanderer_stdinc.h"
 
 namespace wanderer {
 
@@ -11,8 +11,7 @@ class IMenuDrawable {
   virtual ~IMenuDrawable() = default;
 
   virtual void draw(ctn::Renderer& renderer,
-                    const Viewport& viewport,
-                    const FontBundle& fonts) const = 0;
+                    const Viewport& viewport) const = 0;
 };
 
 }  // namespace wanderer

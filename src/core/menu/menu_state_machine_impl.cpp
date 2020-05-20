@@ -1,19 +1,15 @@
 #include "menu_state_machine_impl.h"
 
-#include <renderer.h>
-
 #include "input.h"
 #include "menu.h"
 #include "resource.h"
 #include "viewport.h"
-#include "wanderer_core.h"
 
 using namespace centurion;
 
 namespace wanderer {
 
 MenuStateMachineImpl::MenuStateMachineImpl()
-    : m_typewriterFonts{Resource::font("type_writer.ttf").c_str()}
 {}
 
 MenuStateMachineImpl::~MenuStateMachineImpl() = default;
@@ -21,7 +17,7 @@ MenuStateMachineImpl::~MenuStateMachineImpl() = default;
 void MenuStateMachineImpl::draw(Renderer& renderer,
                                 const Viewport& viewport) const
 {
-  m_menus.at(m_activeMenuID)->draw(renderer, viewport, m_typewriterFonts);
+  m_menus.at(m_activeMenuID)->draw(renderer, viewport);
 }
 
 void MenuStateMachineImpl::add_menu(MenuID id, UniquePtr<IMenu> menu)

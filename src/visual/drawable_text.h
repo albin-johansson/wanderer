@@ -16,7 +16,7 @@ class DrawableText {
 
   ~DrawableText() noexcept = default;
 
-  void draw(ctn::Renderer& renderer, const FontBundle& fonts) const;
+  void draw(ctn::Renderer& renderer) const;
 
   void set_size(Size size) noexcept;
 
@@ -39,8 +39,6 @@ class DrawableText {
   ctn::Color m_color = ctn::color::white;
   Size m_size = Size::Medium;
   mutable bool m_isValid = false;
-
-  const ctn::Font& get_font(const FontBundle& fonts) const noexcept;
 };
 
 }  // namespace wanderer

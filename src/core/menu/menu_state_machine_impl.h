@@ -2,7 +2,6 @@
 #include <map>
 #include <memory>
 
-#include "font_bundle.h"
 #include "menu_state_machine.h"
 #include "wanderer_stdinc.h"
 
@@ -34,7 +33,6 @@ class MenuStateMachineImpl final : public IMenuStateMachine {
   [[nodiscard]] const IMenu& get_menu() const override;
 
  private:
-  mutable FontBundle m_typewriterFonts;
   std::map<MenuID, UniquePtr<IMenu>> m_menus;
   MenuID m_activeMenuID = MenuID::Home;
 };

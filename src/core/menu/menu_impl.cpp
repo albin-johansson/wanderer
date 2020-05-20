@@ -8,19 +8,18 @@ namespace wanderer {
 
 MenuImpl::MenuImpl() = default;
 
-void MenuImpl::draw(Renderer& renderer,
-                    const Viewport& viewport,
-                    const FontBundle& fonts) const noexcept
+void MenuImpl::draw(Renderer& renderer, const Viewport& viewport) const noexcept
 {
+  static const Color overlay{0, 0, 0, 0xAA};
   if (m_blocking) {
     const auto& bounds = viewport.get_bounds();
-    renderer.set_color({0, 0, 0, 0xAA});
+    renderer.set_color(overlay);
     renderer.fill_rect_f(
         {-1.0f, -1.0f, bounds.width() + 1, bounds.height() + 1});
   }
 
   for (const auto& button : m_buttons) {
-    button->draw(renderer, viewport, fonts);
+    button->draw(renderer, viewport);
   }
 }
 
