@@ -28,11 +28,6 @@ WandererCoreImpl::~WandererCoreImpl() = default;
 //                    Area{m_player->get_width(), m_player->get_height()});
 //}
 
-// void WandererCoreImpl::init_menus()
-//{
-//  auto sharedThis = shared_from_this();
-//}
-
 void WandererCoreImpl::handle_input(const Input& input)
 {
   m_menuStateMachine->handle_input(input);
