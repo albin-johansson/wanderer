@@ -249,18 +249,9 @@ target_include_directories(${WANDERER_LIB} PUBLIC visual)
 target_include_directories(${WANDERER_LIB} PUBLIC util)
 target_include_directories(${WANDERER_LIB} PUBLIC parse)
 target_include_directories(${WANDERER_LIB} PUBLIC parse/tiled)
+target_include_directories(${WANDERER_LIB} PUBLIC parse/tiled/v2)
 target_include_directories(${WANDERER_LIB} PUBLIC service)
 target_include_directories(${WANDERER_LIB} PUBLIC audio)
-
-#include(CheckIPOSupported)
-#check_ipo_supported(RESULT supported OUTPUT error)
-
-#if (supported)
-#    message(STATUS "IPO / LTO enabled")
-#    set_property(TARGET ${WANDERER_LIB} PROPERTY INTERPROCEDURAL_OPTIMIZATION TRUE)
-#else ()
-#    message(STATUS "IPO / LTO not supported: <${error}>")
-#endif ()
 
 target_link_libraries(${WANDERER_LIB}
         PUBLIC ${CENTURION_LIBRARIES}
@@ -269,7 +260,6 @@ target_link_libraries(${WANDERER_LIB}
         PUBLIC ${SDL2_TTF_LIBRARIES}
         PUBLIC ${SDL2_LIBRARY})
 
-# Prepares the actual executable
 add_executable(${WANDERER_EXECUTABLE} main.cpp)
 set_target_properties(${WANDERER_EXECUTABLE} PROPERTIES
         CXX_STANDARD 17
