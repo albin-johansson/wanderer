@@ -229,6 +229,7 @@ target_include_directories(${WANDERER_LIB} SYSTEM PUBLIC ${LIBRARY_DIR})
 target_include_directories(${WANDERER_LIB} SYSTEM PUBLIC ${GSL_INCLUDE_DIR})
 target_include_directories(${WANDERER_LIB} SYSTEM PUBLIC ${PUGI_INCLUDE_DIR})
 target_include_directories(${WANDERER_LIB} SYSTEM PUBLIC ${CENTURION_INCLUDE_DIR})
+target_include_directories(${WANDERER_LIB} SYSTEM PUBLIC ${ENTT_INCLUDE_DIR})
 
 target_include_directories(${WANDERER_LIB} PUBLIC controller)
 target_include_directories(${WANDERER_LIB} PUBLIC controller/gameloop)
@@ -249,9 +250,10 @@ target_include_directories(${WANDERER_LIB} PUBLIC visual)
 target_include_directories(${WANDERER_LIB} PUBLIC util)
 target_include_directories(${WANDERER_LIB} PUBLIC parse)
 target_include_directories(${WANDERER_LIB} PUBLIC parse/tiled)
-target_include_directories(${WANDERER_LIB} PUBLIC parse/tiled/v2)
 target_include_directories(${WANDERER_LIB} PUBLIC service)
 target_include_directories(${WANDERER_LIB} PUBLIC audio)
+
+target_compile_definitions(${WANDERER_LIB} PUBLIC WANDERER_DEBUG)
 
 target_link_libraries(${WANDERER_LIB}
         PUBLIC ${CENTURION_LIBRARIES}
