@@ -1,24 +1,29 @@
 cmake_minimum_required(VERSION 3.15)
 project(Wanderer)
 
-#set(CMAKE_CXX_FLAGS "-std=c++17")
+# Copies a file.
+#   target: the associated target.
+#   from: the file that will be copied.
+#   to: the target destination of the copied file.
+function(copy_file_post_build [target [from [to]]])
+    add_custom_command(
+            TARGET ${ARGV0} POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy
+            ${ARGV1}
+            ${ARGV2})
+endfunction()
 
-set(CTN_BASE_DIR ${PROJECT_SOURCE_DIR})
-set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
-set(BINARIES_DIR ${PROJECT_SOURCE_DIR}/bin)
-set(RESOURCES_DIR ${PROJECT_SOURCE_DIR}/resources)
-set(LIBRARY_DIR ${PROJECT_SOURCE_DIR}/lib)
-
-# Names of targets
-set(WANDERER_LIB ${PROJECT_NAME}_lib)
-set(WANDERER_EXECUTABLE ${PROJECT_NAME}_exe)
-set(WANDERER_TEST ${PROJECT_NAME}_test)
-set(CENTURION_LIBRARIES ${BINARIES_DIR}/libCenturion${CMAKE_IMPORT_LIBRARY_SUFFIX})
-
-set(CENTURION_INCLUDE_DIR ${LIBRARY_DIR}/centurion)
-set(GSL_INCLUDE_DIR ${LIBRARY_DIR}/gsl)
-set(PUGI_INCLUDE_DIR ${LIBRARY_DIR}/pugixml)
-set(ENTT_INCLUDE_DIR ${LIBRARY_DIR}/entt)
+# Copies a directory.
+#   target: the associated target.
+#   from: the directory that will be copied.
+#   to: the target destination of the copied directory.
+function(copy_directory_post_build [target [from [to]]])
+    add_custom_command(
+            TARGET ${ARGV0} POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy_directory
+            ${ARGV1}
+            ${ARGV2})
+endfunction()
 
 # Checks if an environment variable is defined.
 #   envVar: the name of the actual environment variable.
@@ -30,6 +35,21 @@ function(find_env_var [envVar [name]])
         message("Couldn't find environment variable ${ARGV0}!")
     endif ()
 endfunction()
+
+set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
+
+# Helper variables for directory paths
+set(WANDERER_ROOT_DIR ${PROJECT_SOURCE_DIR})
+set(BINARY_DIR ${PROJECT_SOURCE_DIR}/bin)
+set(RESOURCE_DIR ${PROJECT_SOURCE_DIR}/resources)
+set(LIBRARY_DIR ${PROJECT_SOURCE_DIR}/lib)
+
+# The various targets used
+set(WANDERER_LIB_TARGET libWanderer)
+set(WANDERER_TEST_TARGET testWanderer)
+set(WANDERER_EXE_TARGET Wanderer)
+
+set(CENTURION_LIBRARY ${BINARY_DIR}/libCenturion${CMAKE_IMPORT_LIBRARY_SUFFIX})
 
 find_env_var(SDL2DIR SDL2)
 find_env_var(SDL2IMAGEDIR SDL2_image)

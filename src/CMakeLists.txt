@@ -1,292 +1,81 @@
 cmake_minimum_required(VERSION 3.15)
-project(${CMAKE_PROJECT_NAME}_src)
+project(WandererSource)
+
+function(wanderer_set_properties [target [outputName]])
+    set_target_properties(${ARGV0} PROPERTIES
+            CXX_STANDARD 17
+            CXX_STANDARD_REQUIRED ON
+            OUTPUT_NAME ${ARGV1})
+endfunction()
 
 set(SOURCE_FILES
-        controller/wanderer_controller.h
-        controller/wanderer_controller_impl.cpp
-        controller/wanderer_controller_impl.h
-        controller/wanderer_controller_factory.h
-        controller/input.cpp
-        controller/input.h
+        core/game.h
+        core/game.cpp
+        core/application.cpp
+        core/application.h
 
-        controller/gameloop/game_loop.h
-        controller/gameloop/smooth_fixed_timestep_loop.cpp
-        controller/gameloop/smooth_fixed_timestep_loop.h
+        utility/input.cpp
+        utility/input.h component/game_loop.h utility/types.h)
 
-        core/wanderer_core.h
-        core/wanderer_core_impl.cpp
-        core/wanderer_core_impl.h
-        core/game_object.h
-        core/drawable.h
-        core/direction.h
-        core/viewport.cpp
-        core/viewport.h
-        core/animated.h
-        core/sortable_drawable.h
-        core/render_depth.h
-        core/game_constants.h
-        core/game_object_id.h
-        core/game_object_id.cpp
-        core/wanderer_core_builder.cpp
-        core/wanderer_core_builder.h
+add_library(${WANDERER_LIB_TARGET} ${SOURCE_FILES})
 
-        core/util/require.h
+if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    target_compile_options(${WANDERER_LIB_TARGET} PRIVATE
+            -Wall
+            -Wextra
+            -Wpedantic
+            -Wdouble-promotion
+            -Wswitch-default
+            -Wswitch-enum
+            -Wunused
+            -Wuninitialized
+            -Wsuggest-final-types
+            -Wsuggest-final-methods
+            -Wduplicated-cond
+            -Wconversion)
+endif ()
 
-        core/math/hitbox.cpp
-        core/math/hitbox.h
-        core/math/vector_2.cpp
-        core/math/vector_2.h
-        core/math/random_utils.cpp
-        core/math/random_utils.h
-        core/math/math.h
-        core/math/area.h
-        core/math/tvector.h
+wanderer_set_properties(${WANDERER_LIB_TARGET} "libWanderer")
 
-        core/menu/menu.h
-        core/menu/menu_id.h
-        core/menu/menu_state_machine.h
-        core/menu/menu_state_machine_impl.cpp
-        core/menu/menu_state_machine_impl.h
-        core/menu/menu_drawable.h
-        core/menu/key_bind.cpp
-        core/menu/key_bind.h
-        core/menu/menu_impl.cpp
-        core/menu/menu_impl.h
+# Library directories
+target_include_directories(${WANDERER_LIB_TARGET} SYSTEM PUBLIC ${SDL2_INCLUDE_DIR})
+target_include_directories(${WANDERER_LIB_TARGET} SYSTEM PUBLIC ${SDL2_IMAGE_INCLUDE_DIRS})
+target_include_directories(${WANDERER_LIB_TARGET} SYSTEM PUBLIC ${SDL2_MIXER_INCLUDE_DIRS})
+target_include_directories(${WANDERER_LIB_TARGET} SYSTEM PUBLIC ${SDL2_TTF_INCLUDE_DIRS})
+target_include_directories(${WANDERER_LIB_TARGET} SYSTEM PUBLIC ${LIBRARY_DIR}/centurion)
+target_include_directories(${WANDERER_LIB_TARGET} SYSTEM PUBLIC ${LIBRARY_DIR}/entt)
+target_include_directories(${WANDERER_LIB_TARGET} SYSTEM PUBLIC ${LIBRARY_DIR}/json)
 
-        core/menu/button/menu_button.cpp
-        core/menu/button/menu_button.h
+# Wanderer directories
+target_include_directories(${WANDERER_LIB_TARGET} PUBLIC core)
+target_include_directories(${WANDERER_LIB_TARGET} PUBLIC component)
+target_include_directories(${WANDERER_LIB_TARGET} PUBLIC system)
+target_include_directories(${WANDERER_LIB_TARGET} PUBLIC utility)
 
-        core/level/portal.cpp
-        core/level/portal.h
+#target_compile_definitions(${WANDERER_LIB} PUBLIC WANDERER_DEBUG)
 
-        core/level/tile/tile.h
-        core/level/tile/tile.cpp
-        core/level/tile/tile_set.cpp
-        core/level/tile/tile_set.h
-        core/level/tile/tile_map_impl.cpp
-        core/level/tile/tile_map_impl.h
-        core/level/tile/tile_map_layer_impl.cpp
-        core/level/tile/tile_map_layer_impl.h
-        core/level/tile/tile_map_bounds.h
-        core/level/tile/tile_animation.cpp
-        core/level/tile/tile_animation.h
-        core/level/tile/tile_id.h
-        core/level/tile/tile_object.cpp
-        core/level/tile/tile_object.h
-        core/level/tile/map_position.h
-        core/level/tile/tile_map.h
-        core/level/tile/tile_map_layer.h
-        core/level/tile/tile_map_layer_builder.cpp
-        core/level/tile/tile_map_layer_builder.h
-        core/level/tile/tile_map_builder.cpp
-        core/level/tile/tile_map_builder.h
-        core/level/tile/tile_builder.cpp
-        core/level/tile/tile_builder.h
-        core/level/tile/tile_set_builder.cpp
-        core/level/tile/tile_set_builder.h
-
-        core/entity/entity.h
-        core/entity/movable_object.h
-        core/entity/movable_delegate.cpp
-        core/entity/movable_delegate.h
-        core/entity/entity_sheet.cpp
-        core/entity/entity_sheet.h
-        core/entity/abstract_entity.cpp
-        core/entity/abstract_entity.h
-        core/entity/entity_manager.cpp
-        core/entity/entity_manager.h
-        core/entity/entity_id.h
-        core/entity/spawnpoint.cpp
-        core/entity/spawnpoint.h
-
-        core/entity/skeleton/skeleton.cpp
-        core/entity/skeleton/skeleton.h
-        core/entity/skeleton/skeleton_state_machine.cpp
-        core/entity/skeleton/skeleton_state_machine.h
-        core/entity/skeleton/skeleton_idle_state.cpp
-        core/entity/skeleton/skeleton_idle_state.h
-        core/entity/skeleton/skeleton_moving_state.cpp
-        core/entity/skeleton/skeleton_moving_state.h
-        core/entity/skeleton/skeleton_attack_state.cpp
-        core/entity/skeleton/skeleton_attack_state.h
-        core/entity/skeleton/skeleton_dying_state.cpp
-        core/entity/skeleton/skeleton_dying_state.h
-
-        core/entity/player/player.h
-        core/entity/player/player_impl.cpp
-        core/entity/player/player_impl.h
-        core/entity/player/player_moving_state.cpp
-        core/entity/player/player_moving_state.h
-        core/entity/player/player_idle_state.cpp
-        core/entity/player/player_idle_state.h
-        core/entity/player/player_state_machine_impl.cpp
-        core/entity/player/player_state_machine_impl.h
-        core/entity/player/player_attack_state.cpp
-        core/entity/player/player_attack_state.h
-        core/entity/player/player_dying_state.cpp
-        core/entity/player/player_dying_state.h
-        core/entity/player/player_state.h
-        core/entity/player/player_state_machine.h
-
-        core/entity/entitystate/abstract_entity_state_machine.h
-        core/entity/entitystate/entity_state.h
-        core/entity/entitystate/entity_state_machine.h
-        core/entity/entitystate/entity_state_id.h
-
-        core/entity/entitystate/delegates/entity_draw_delegate.cpp
-        core/entity/entitystate/delegates/entity_draw_delegate.h
-        core/entity/entitystate/delegates/entity_move_delegate.cpp
-        core/entity/entitystate/delegates/entity_move_delegate.h
-        core/entity/entitystate/delegates/entity_dying_delegate.cpp
-        core/entity/entitystate/delegates/entity_dying_delegate.h
-        core/entity/entitystate/delegates/entity_attack_delegate.cpp
-        core/entity/entitystate/delegates/entity_attack_delegate.h
-        core/entity/entitystate/delegates/entity_idle_delegate.cpp
-        core/entity/entitystate/delegates/entity_idle_delegate.h
-
-        visual/animation.cpp
-        visual/animation.h
-        visual/hud.cpp
-        visual/hud.h
-        visual/drawable_text.cpp
-        visual/drawable_text.h
-
-        audio/sound_engine.cpp
-        audio/sound_engine.h
-        audio/sound_id.h
-
-        service/pugi_utils.cpp
-        service/pugi_utils.h
-
-        parse/menu_button_parser.cpp
-        parse/menu_button_parser.h
-        parse/sound_engine_parser.cpp
-        parse/sound_engine_parser.h
-        parse/menu_parser.cpp
-        parse/menu_parser.h
-        parse/key_bind_parser.cpp
-        parse/key_bind_parser.h
-        parse/action_parser.cpp
-        parse/action_parser.h
-
-        parse/tiled/tiled_map_parser.cpp
-        parse/tiled/tiled_map_parser.h
-        parse/tiled/tiled_map.cpp
-        parse/tiled/tiled_map.h
-        parse/tiled/tiled_tile_set.cpp
-        parse/tiled/tiled_tile_set.h
-        parse/tiled/tiled_animation.cpp
-        parse/tiled/tiled_animation.h
-        parse/tiled/tiled_object.cpp
-        parse/tiled/tiled_object.h
-        parse/tiled/tiled_layer.cpp
-        parse/tiled/tiled_layer.h
-        parse/tiled/tiled_tile.cpp
-        parse/tiled/tiled_tile.h
-        parse/tiled/tiled_property.h
-        parse/tiled/tiled_object_group.cpp
-        parse/tiled/tiled_object_group.h
-
-        core/util/wanderer_stdinc.h
-        core/util/wanderer_exception.h
-        core/util/json_utils.h
-        core/util/json_utils.cpp
-        core/util/resource.h
-        core/util/resource.cpp
-
-        core/action/action.h
-        core/action/goto_menu_action.cpp
-        core/action/goto_menu_action.h
-        core/action/quit_action.cpp
-        core/action/quit_action.h)
-
-add_library(${WANDERER_LIB} ${SOURCE_FILES})
-
-target_compile_options(${WANDERER_LIB} PRIVATE
-        -Wall
-        -Wextra
-        -Wpedantic
-        -Wdouble-promotion
-        -Wswitch-default
-        -Wswitch-enum
-        -Wunused
-        -Wuninitialized
-        -Wsuggest-final-types
-        -Wsuggest-final-methods
-        -Wduplicated-cond
-        -Wconversion)
-
-set_target_properties(${WANDERER_LIB} PROPERTIES
-        CXX_STANDARD 17
-        CXX_STANDARD_REQUIRED ON)
-
-target_include_directories(${WANDERER_LIB} SYSTEM PUBLIC ${SDL2_INCLUDE_DIR})
-target_include_directories(${WANDERER_LIB} SYSTEM PUBLIC ${SDL2_IMAGE_INCLUDE_DIRS})
-target_include_directories(${WANDERER_LIB} SYSTEM PUBLIC ${SDL2_MIXER_INCLUDE_DIRS})
-target_include_directories(${WANDERER_LIB} SYSTEM PUBLIC ${SDL2_TTF_INCLUDE_DIRS})
-
-target_include_directories(${WANDERER_LIB} SYSTEM PUBLIC ${LIBRARY_DIR})
-target_include_directories(${WANDERER_LIB} SYSTEM PUBLIC ${GSL_INCLUDE_DIR})
-target_include_directories(${WANDERER_LIB} SYSTEM PUBLIC ${PUGI_INCLUDE_DIR})
-target_include_directories(${WANDERER_LIB} SYSTEM PUBLIC ${CENTURION_INCLUDE_DIR})
-target_include_directories(${WANDERER_LIB} SYSTEM PUBLIC ${ENTT_INCLUDE_DIR})
-
-target_include_directories(${WANDERER_LIB} PUBLIC controller)
-target_include_directories(${WANDERER_LIB} PUBLIC controller/gameloop)
-target_include_directories(${WANDERER_LIB} PUBLIC core)
-target_include_directories(${WANDERER_LIB} PUBLIC core/menu)
-target_include_directories(${WANDERER_LIB} PUBLIC core/menu/button)
-target_include_directories(${WANDERER_LIB} PUBLIC core/math)
-target_include_directories(${WANDERER_LIB} PUBLIC core/level)
-target_include_directories(${WANDERER_LIB} PUBLIC core/level/tile)
-target_include_directories(${WANDERER_LIB} PUBLIC core/util)
-target_include_directories(${WANDERER_LIB} PUBLIC core/action)
-target_include_directories(${WANDERER_LIB} PUBLIC core/entity)
-target_include_directories(${WANDERER_LIB} PUBLIC core/entity/player)
-target_include_directories(${WANDERER_LIB} PUBLIC core/entity/skeleton)
-target_include_directories(${WANDERER_LIB} PUBLIC core/entity/entitystate)
-target_include_directories(${WANDERER_LIB} PUBLIC core/entity/entitystate/delegates)
-target_include_directories(${WANDERER_LIB} PUBLIC visual)
-target_include_directories(${WANDERER_LIB} PUBLIC util)
-target_include_directories(${WANDERER_LIB} PUBLIC parse)
-target_include_directories(${WANDERER_LIB} PUBLIC parse/tiled)
-target_include_directories(${WANDERER_LIB} PUBLIC service)
-target_include_directories(${WANDERER_LIB} PUBLIC audio)
-
-target_compile_definitions(${WANDERER_LIB} PUBLIC WANDERER_DEBUG)
-
-target_link_libraries(${WANDERER_LIB}
-        PUBLIC ${CENTURION_LIBRARIES}
+target_link_libraries(${WANDERER_LIB_TARGET}
+        PUBLIC ${CENTURION_LIBRARY}
         PUBLIC ${SDL2_IMAGE_LIBRARIES}
         PUBLIC ${SDL2_MIXER_LIBRARIES}
         PUBLIC ${SDL2_TTF_LIBRARIES}
         PUBLIC ${SDL2_LIBRARY})
 
-add_executable(${WANDERER_EXECUTABLE} main.cpp)
-set_target_properties(${WANDERER_EXECUTABLE} PROPERTIES
-        CXX_STANDARD 17
-        CXX_STANDARD_REQUIRED ON)
+add_executable(${WANDERER_EXE_TARGET} main.cpp)
 
-target_link_libraries(${WANDERER_EXECUTABLE}
-        PUBLIC mingw32
-        PUBLIC ${WANDERER_LIB}
-        PUBLIC ${CENTURION_LIBRARIES}
+wanderer_set_properties(${WANDERER_EXE_TARGET} "Wanderer")
+
+target_link_libraries(${WANDERER_EXE_TARGET}
+        PUBLIC mingw32 # TODO check if this is necessary
+        PUBLIC ${WANDERER_LIB_TARGET}
+        PUBLIC ${CENTURION_LIBRARY}
         PUBLIC ${SDL2_LIBRARY}
         PUBLIC ${SDL2_IMAGE_LIBRARIES}
         PUBLIC ${SDL2_MIXER_LIBRARIES}
         PUBLIC ${SDL2_TTF_LIBRARIES})
 
-# Copies all of the files in the bin folder and puts them next to the executable
-add_custom_command(
-        TARGET ${WANDERER_EXECUTABLE} POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy_directory
-        ${BINARIES_DIR}
-        ${CMAKE_CURRENT_BINARY_DIR})
-
-# Copies all of the resources and puts the in the build folder
-add_custom_command(
-        TARGET ${WANDERER_EXECUTABLE} POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy_directory
-        ${RESOURCES_DIR}
+copy_directory_post_build(${WANDERER_EXE_TARGET} ${BINARY_DIR} ${CMAKE_CURRENT_BINARY_DIR})
+copy_directory_post_build(${WANDERER_EXE_TARGET} ${RESOURCE_DIR}
         ${CMAKE_CURRENT_BINARY_DIR}/resources)
+
 
