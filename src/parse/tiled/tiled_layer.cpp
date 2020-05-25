@@ -5,11 +5,12 @@
 
 namespace tiled {
 
-TiledLayer::TiledLayer(const pugi::xml_node& layerNode) : m_layerNode(layerNode)
+TiledLayer::TiledLayer(const pugi::xml_node& layerNode)
+//: m_layerNode(layerNode)
 {
-  m_nCols = layerNode.attribute("width").as_int();
-  m_nRows = layerNode.attribute("height").as_int();
-  m_tiles.reserve(m_nRows * m_nCols);
+  m_width = layerNode.attribute("width").as_int();
+  m_height = layerNode.attribute("height").as_int();
+  m_tiles.reserve(m_height * m_width);
 
   auto data = layerNode.child("data").text().as_string();
 
@@ -33,14 +34,14 @@ TiledLayer::TiledLayer(const pugi::xml_node& layerNode) : m_layerNode(layerNode)
     m_tiles.push_back(i);
 
     if (i != 0) {
-      ++m_nNonEmptyTiles;
+      ++m_nPopulatedTiles;
     }
   }
 }
 
 TiledLayer::~TiledLayer() = default;
 
-std::vector<int> TiledLayer::get_tiles() const
+std::vector<int> TiledLayer::tiles() const
 {
   return m_tiles;
 }
@@ -67,21 +68,6 @@ bool TiledLayer::get_bool(const std::string& id) const
 
   std::cout << "Failed to find layer property: " << id.c_str() << "\n";
   return false;
-}
-
-int TiledLayer::get_non_empty_tiles() const noexcept
-{
-  return m_nNonEmptyTiles;
-}
-
-int TiledLayer::get_rows() const noexcept
-{
-  return m_nRows;
-}
-
-int TiledLayer::get_cols() const noexcept
-{
-  return m_nCols;
 }
 
 }  // namespace tiled
