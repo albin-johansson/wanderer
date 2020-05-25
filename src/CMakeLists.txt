@@ -13,9 +13,19 @@ set(SOURCE_FILES
         core/game.cpp
         core/application.cpp
         core/application.h
+        core/make_player.h
+        core/make_player.cpp
 
+        utility/types.h
         utility/input.cpp
-        utility/input.h component/game_loop.h utility/types.h)
+        utility/input.h
+
+        component/position.h
+        component/game_loop.h
+        component/player.h
+
+        system/render.cpp
+        system/render.h)
 
 add_library(${WANDERER_LIB_TARGET} ${SOURCE_FILES})
 

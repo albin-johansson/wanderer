@@ -9,6 +9,8 @@ namespace wanderer {
 
 class Game {
  public:
+  void init();
+
   void handle_input(const Input& input);
 
   void tick(float delta);

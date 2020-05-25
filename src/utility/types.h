@@ -2,6 +2,7 @@
 #include <centurion_utils.h>
 
 #include <cstdint>
+#include <entt.hpp>
 
 namespace wanderer {
 
@@ -17,5 +18,8 @@ using i8 = std::int8_t;
 
 template <typename T>
 using Maybe = centurion::Optional<T>;
+
+using Registry = entt::registry;
+using Entity = entt::entity;
 
 }  // namespace wanderer

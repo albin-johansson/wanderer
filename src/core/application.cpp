@@ -66,6 +66,8 @@ void Application::run()
   Game game;
   Input input;
 
+  game.init();
+
   window.show();
 
   bool running = true;

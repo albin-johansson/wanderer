@@ -2,9 +2,17 @@
 
 #include <colors.h>
 
+#include "make_player.h"
+#include "render.h"
+
 using namespace centurion;
 
 namespace wanderer {
+
+void Game::init()
+{
+  make_player(m_registry);
+}
 
 void Game::handle_input(const Input& input)
 {
@@ -15,7 +23,6 @@ void Game::tick(float delta)
 {
   // TODO call appropriate systems
 
-
   // movement
   // collision
   // attacks
@@ -25,8 +32,7 @@ void Game::tick(float delta)
 
 void Game::render(Renderer& renderer, float alpha)
 {
-  renderer.set_color(color::cyan);
-  renderer.clear();
+  render_player(m_registry, renderer, alpha);
 }
 
 }  // namespace wanderer
