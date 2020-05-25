@@ -67,12 +67,12 @@ UniquePtr<ITileMapLayer> TileMapLayerBuilder::create(
 {
   auto layer = UniquePtr<TileMapLayerImpl>(new TileMapLayerImpl(tileSet));
 
-  layer->m_nRows = tiledLayer.get_rows();
-  layer->m_nCols = tiledLayer.get_cols();
+  layer->m_nRows = tiledLayer.height();
+  layer->m_nCols = tiledLayer.width();
   layer->m_isGroundLayer = tiledLayer.get_bool("ground");
-  layer->m_tiles = create_tile_vector(tiledLayer.get_tiles());
+  layer->m_tiles = create_tile_vector(tiledLayer.tiles());
   layer->m_tileObjects.reserve(
-      static_cast<unsigned>(tiledLayer.get_non_empty_tiles()));
+      static_cast<unsigned>(tiledLayer.populated_tiles()));
 
   init_tile_objects(*layer);
 
