@@ -5,6 +5,7 @@
 #include "game_constants.h"
 #include "movable.h"
 #include "player.h"
+#include "binds.h"
 
 namespace wanderer {
 
@@ -21,6 +22,7 @@ entt::entity make_player(entt::registry& registry)
   movable.oldPos = movable.currentPos;
 
   registry.emplace<Collision>(player);
+  registry.emplace<Binds>(player);
   registry.emplace<EntityIdleState>(player);
 
   // TODO add facing direction, health,

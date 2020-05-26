@@ -1,5 +1,6 @@
 #include "player_idle_input.h"
 
+#include "binds.h"
 #include "direction.h"
 #include "player.h"
 
@@ -7,13 +8,15 @@ namespace wanderer {
 
 void handle_idle_input(entt::registry& registry, const Input& input)
 {
-  const auto view = registry.view<Player, EntityIdleState>();
+  const auto view = registry.view<Player, Binds, EntityIdleState>();
   for (const auto entity : view) {
+    const auto& binds = view.get<Binds>(entity);
+
     // TODO CTN 4.1 make Keys lazily initialized for their scancode/keycodes
-    const auto left = input.is_pressed(SDL_SCANCODE_A);
-    const auto right = input.is_pressed(SDL_SCANCODE_D);
-    const auto up = input.is_pressed(SDL_SCANCODE_W);
-    const auto down = input.is_pressed(SDL_SCANCODE_S);
+    const auto left = input.is_pressed(binds.left);
+    const auto right = input.is_pressed(binds.right);
+    const auto up = input.is_pressed(binds.up);
+    const auto down = input.is_pressed(binds.down);
 
     if (left || right || up || down) {
       Direction direction;
@@ -29,11 +32,11 @@ void handle_idle_input(entt::registry& registry, const Input& input)
       registry.remove_if_exists<EntityIdleState>(entity);
       registry.emplace_or_replace<EntityMoveState>(entity, direction);
     }
-//    else if (input.is_pressed(SDL_SCANCODE_SPACE)) {
-//      // TODO attack...
-//    } else if (input.is_pressed(SDL_SCANCODE_U)) {
-//      // TODO
-//    }
+    //    else if (input.is_pressed(SDL_SCANCODE_SPACE)) {
+    //      // TODO attack...
+    //    } else if (input.is_pressed(SDL_SCANCODE_U)) {
+    //      // TODO
+    //    }
   }
 }
 

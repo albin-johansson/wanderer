@@ -35,6 +35,7 @@ set(SOURCE_FILES
         component/movable.h
         component/collision.h
         component/entity_state.h
+        component/binds.h
 
         system/rendering.cpp
         system/rendering.h

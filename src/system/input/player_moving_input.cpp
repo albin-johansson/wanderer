@@ -1,5 +1,6 @@
 #include "player_moving_input.h"
 
+#include "binds.h"
 #include "direction.h"
 #include "movable.h"
 #include "player.h"
@@ -55,13 +56,13 @@ void stop(Movable& movable, Direction direction) noexcept
   movable.velocity.scale(movable.speed);
 }
 
-bool check_pressed(Movable& movable, const Input& input)
+bool check_pressed(Movable& movable, const Input& input, const Binds& binds)
 {
   // FIXME this needs to be stored somewhere else
-  const auto left = input.is_pressed(SDL_SCANCODE_A);
-  const auto right = input.is_pressed(SDL_SCANCODE_D);
-  const auto up = input.is_pressed(SDL_SCANCODE_W);
-  const auto down = input.is_pressed(SDL_SCANCODE_S);
+  const auto left = input.is_pressed(binds.left);
+  const auto right = input.is_pressed(binds.right);
+  const auto up = input.is_pressed(binds.up);
+  const auto down = input.is_pressed(binds.down);
 
   if (left && right) {
     stop(movable, Direction::Left);
@@ -84,12 +85,12 @@ bool check_pressed(Movable& movable, const Input& input)
   return up || down || right || left;
 }
 
-void check_released(Movable& movable, const Input& input)
+void check_released(Movable& movable, const Input& input, const Binds& binds)
 {
-  const auto left = input.was_released(SDL_SCANCODE_A);
-  const auto right = input.was_released(SDL_SCANCODE_D);
-  const auto up = input.was_released(SDL_SCANCODE_W);
-  const auto down = input.was_released(SDL_SCANCODE_S);
+  const auto left = input.was_released(binds.left);
+  const auto right = input.was_released(binds.right);
+  const auto up = input.was_released(binds.up);
+  const auto down = input.was_released(binds.down);
 
   if (left) {
     stop(movable, Direction::Left);
@@ -112,23 +113,24 @@ void check_released(Movable& movable, const Input& input)
 
 void handle_move_input(entt::registry& registry, const Input& input)
 {
-  const auto view = registry.view<Player, Movable, EntityMoveState>();
+  const auto view = registry.view<Player, Movable, Binds, EntityMoveState>();
   for (const auto entity : view) {
     auto& movable = view.get<Movable>(entity);
+    const auto& binds = view.get<Binds>(entity);
 
     bool areMoveKeysDown = false;  // assume no movement keys are down
 
-    areMoveKeysDown = check_pressed(movable, input);
-    check_released(movable, input);
+    areMoveKeysDown = check_pressed(movable, input, binds);
+    check_released(movable, input, binds);
 
     if (!areMoveKeysDown && movable.velocity.is_zero()) {
       registry.remove_if_exists<EntityMoveState>(entity);
       registry.emplace_or_replace<EntityIdleState>(entity);
     }
-//    else if (input.is_pressed(SDL_SCANCODE_SPACE)) { // TODO
-//      registry.remove_if_exists<EntityMoveState>(entity);
-//      registry.emplace_or_replace<EntityAttackState>(entity);
-//    }
+    //    else if (input.is_pressed(SDL_SCANCODE_SPACE)) { // TODO
+    //      registry.remove_if_exists<EntityMoveState>(entity);
+    //      registry.emplace_or_replace<EntityAttackState>(entity);
+    //    }
   }
 }
 
