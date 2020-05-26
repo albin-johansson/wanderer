@@ -21,7 +21,7 @@ set(SOURCE_FILES
         utility/input.h
 
         component/position.h
-        component/game_loop.h
+        core/game_loop.h
         component/player.h
 
         system/render.cpp
@@ -36,7 +36,10 @@ set(SOURCE_FILES
         component/collision.h
         core/hitbox.cpp
         core/hitbox.h
-        )
+        core/game_loop.cpp 
+        
+        system/player_input.cpp 
+        system/player_input.h)
 
 add_library(${WANDERER_LIB_TARGET} ${SOURCE_FILES})
 
