@@ -21,7 +21,7 @@ set(SOURCE_FILES
         utility/input.h
 
         component/position.h
-        component/game_loop.h
+        core/game_loop.h
         component/player.h
 
         system/render.cpp
@@ -30,7 +30,7 @@ set(SOURCE_FILES
         core/math/vector_2.h
         core/math/random.cpp
         core/math/random.h
-        core/math/math.h)
+        core/math/math.h core/game_loop.cpp system/player_input.cpp system/player_input.h)
 
 add_library(${WANDERER_LIB_TARGET} ${SOURCE_FILES})
 

@@ -9,7 +9,7 @@ Entity make_player(Registry& registry)
 {
   Entity player = registry.create();
   registry.emplace<Player>(player);
-  registry.emplace<Position>(player);
+  registry.emplace<Position>(player, Vector2f{100, 100});
 
   // TODO add facing direction, health, velocity
 
