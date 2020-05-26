@@ -45,7 +45,7 @@ if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
             -Wconversion)
 endif ()
 
-wanderer_set_properties(${WANDERER_LIB_TARGET} "libWanderer")
+wanderer_set_properties(${WANDERER_LIB_TARGET} "Wanderer")
 
 # Library directories
 target_include_directories(${WANDERER_LIB_TARGET} SYSTEM PUBLIC ${SDL2_INCLUDE_DIR})
