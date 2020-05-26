@@ -30,7 +30,6 @@ set(SOURCE_FILES
         utility/input.cpp
         utility/input.h
 
-        component/position.h
         component/player.h
         component/movable.h
         component/collision.h

@@ -23,7 +23,6 @@ void Game::handle_input(const Input& input)
 void Game::tick(float delta)
 {
   update_movement(m_registry, delta);
-  // movement
   // collision
   // attacks
   // interacts
