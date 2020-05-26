@@ -11,6 +11,8 @@ namespace wanderer {
 
 class Input final {
  public:
+  Input() noexcept;
+
   void update(int windowWidth, int windowHeight) noexcept;
 
   [[nodiscard]] bool is_pressed(const centurion::Key& key) const noexcept;

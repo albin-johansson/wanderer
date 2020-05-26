@@ -1,8 +1,16 @@
 #include "input.h"
 
+#include "game_constants.h"
+
 using namespace centurion;
 
 namespace wanderer {
+
+Input::Input() noexcept
+{
+  m_mouseState.set_logical_width(g_logicalWidth);
+  m_mouseState.set_logical_height(g_logicalHeight);
+}
 
 void Input::update(int windowWidth, int windowHeight) noexcept
 {

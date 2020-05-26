@@ -3,6 +3,7 @@
 #include <centurion.h>
 
 #include "game.h"
+#include "game_constants.h"
 #include "game_loop.h"
 
 using namespace centurion;
@@ -10,14 +11,14 @@ using namespace centurion;
 namespace wanderer {
 namespace {
 
-
-
 }  // namespace
 
 void Application::run()
 {
   Window window;
   Renderer renderer{window};
+  renderer.set_logical_size({g_logicalWidth, g_logicalHeight});
+  renderer.set_logical_integer_scale(false);
 
   GameLoop loop;
   Game game;

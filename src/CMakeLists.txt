@@ -20,6 +20,7 @@ set(SOURCE_FILES
         core/hitbox.h
         core/game_loop.cpp
         core/direction.h
+        core/game_constants.h
 
         core/math/vector_2.h
         core/math/random.cpp
@@ -37,13 +38,17 @@ set(SOURCE_FILES
 
         system/rendering.cpp
         system/rendering.h
-        system/input/player_input.cpp
-        system/input/player_input.h
         system/movement.cpp
         system/movement.h
         system/interpolation.h
         system/interpolation.cpp
-        system/input/player_moving_input.cpp system/input/player_moving_input.h system/input/player_idle_input.cpp system/input/player_idle_input.h)
+
+        system/input/player_input.cpp
+        system/input/player_input.h
+        system/input/player_moving_input.cpp
+        system/input/player_moving_input.h
+        system/input/player_idle_input.cpp
+        system/input/player_idle_input.h)
 
 add_library(${WANDERER_LIB_TARGET} ${SOURCE_FILES})
 

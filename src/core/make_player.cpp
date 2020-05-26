@@ -1,9 +1,10 @@
 #include "make_player.h"
 
 #include "collision.h"
+#include "entity_state.h"
+#include "game_constants.h"
 #include "movable.h"
 #include "player.h"
-#include "entity_state.h"
 
 namespace wanderer {
 
@@ -13,7 +14,7 @@ entt::entity make_player(entt::registry& registry)
   registry.emplace<Player>(player);
 
   auto& movable = registry.emplace<Movable>(player);
-  movable.speed = 230;
+  movable.speed = g_playerSpeed;
   movable.currentPos.x = 100;
   movable.currentPos.y = 100;
   movable.dominantDirection = Direction::Down;

@@ -31,6 +31,7 @@ void Game::tick(float delta)
 
 void Game::render(Renderer& renderer, float alpha)
 {
+  // TODO renderer.set_translation_viewport(...)
   interpolate(m_registry, alpha);
   render_player(m_registry, renderer);
 }
