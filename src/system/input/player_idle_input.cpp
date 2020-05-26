@@ -12,7 +12,6 @@ void handle_idle_input(entt::registry& registry, const Input& input)
   for (const auto entity : view) {
     const auto& binds = view.get<Binds>(entity);
 
-    // TODO CTN 4.1 make Keys lazily initialized for their scancode/keycodes
     const auto left = input.is_pressed(binds.left);
     const auto right = input.is_pressed(binds.right);
     const auto up = input.is_pressed(binds.up);
