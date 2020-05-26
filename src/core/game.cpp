@@ -1,7 +1,5 @@
 #include "game.h"
 
-#include <colors.h>
-
 #include "make_player.h"
 #include "render.h"
 

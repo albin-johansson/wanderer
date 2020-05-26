@@ -25,7 +25,12 @@ set(SOURCE_FILES
         component/player.h
 
         system/render.cpp
-        system/render.h)
+        system/render.h
+
+        core/math/vector_2.h
+        core/math/random.cpp
+        core/math/random.h
+        core/math/math.h)
 
 add_library(${WANDERER_LIB_TARGET} ${SOURCE_FILES})
 
@@ -58,6 +63,7 @@ target_include_directories(${WANDERER_LIB_TARGET} SYSTEM PUBLIC ${LIBRARY_DIR}/j
 
 # Wanderer directories
 target_include_directories(${WANDERER_LIB_TARGET} PUBLIC core)
+target_include_directories(${WANDERER_LIB_TARGET} PUBLIC core/math)
 target_include_directories(${WANDERER_LIB_TARGET} PUBLIC component)
 target_include_directories(${WANDERER_LIB_TARGET} PUBLIC system)
 target_include_directories(${WANDERER_LIB_TARGET} PUBLIC utility)
