@@ -1,7 +1,10 @@
 #include "game.h"
 
+#include "interpolation.h"
 #include "make_player.h"
-#include "render.h"
+#include "movement.h"
+#include "player_input.h"
+#include "rendering.h"
 
 using namespace centurion;
 
@@ -9,18 +12,17 @@ namespace wanderer {
 
 void Game::init()
 {
-  make_player(m_registry);
+  m_player = make_player(m_registry);
 }
 
 void Game::handle_input(const Input& input)
 {
-  // TODO player input system
+  update_input(m_registry, input);
 }
 
 void Game::tick(float delta)
 {
-  // TODO call appropriate systems
-
+  update_movement(m_registry, delta);
   // movement
   // collision
   // attacks
@@ -30,7 +32,8 @@ void Game::tick(float delta)
 
 void Game::render(Renderer& renderer, float alpha)
 {
-  render_player(m_registry, renderer, alpha);
+  interpolate(m_registry, alpha);
+  render_player(m_registry, renderer);
 }
 
 }  // namespace wanderer

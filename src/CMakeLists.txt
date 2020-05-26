@@ -15,31 +15,36 @@ set(SOURCE_FILES
         core/application.h
         core/make_player.h
         core/make_player.cpp
-
-        utility/types.h
-        utility/input.cpp
-        utility/input.h
-
-        component/position.h
         core/game_loop.h
-        component/player.h
-
-        system/render.cpp
-        system/render.h
+        core/hitbox.cpp
+        core/hitbox.h
+        core/game_loop.cpp
+        core/direction.h
 
         core/math/vector_2.h
         core/math/random.cpp
         core/math/random.h
         core/math/math.h
 
+        utility/types.h
+        utility/input.cpp
+        utility/input.h
+
+        component/position.h
+        component/player.h
         component/movable.h
         component/collision.h
-        core/hitbox.cpp
-        core/hitbox.h
-        core/game_loop.cpp 
-        
-        system/player_input.cpp 
-        system/player_input.h)
+        component/entity_state.h
+
+        system/rendering.cpp
+        system/rendering.h
+        system/input/player_input.cpp
+        system/input/player_input.h
+        system/movement.cpp
+        system/movement.h
+        system/interpolation.h
+        system/interpolation.cpp
+        system/input/player_moving_input.cpp system/input/player_moving_input.h system/input/player_idle_input.cpp system/input/player_idle_input.h)
 
 add_library(${WANDERER_LIB_TARGET} ${SOURCE_FILES})
 
@@ -75,6 +80,7 @@ target_include_directories(${WANDERER_LIB_TARGET} PUBLIC core)
 target_include_directories(${WANDERER_LIB_TARGET} PUBLIC core/math)
 target_include_directories(${WANDERER_LIB_TARGET} PUBLIC component)
 target_include_directories(${WANDERER_LIB_TARGET} PUBLIC system)
+target_include_directories(${WANDERER_LIB_TARGET} PUBLIC system/input)
 target_include_directories(${WANDERER_LIB_TARGET} PUBLIC utility)
 
 #target_compile_definitions(${WANDERER_LIB} PUBLIC WANDERER_DEBUG)

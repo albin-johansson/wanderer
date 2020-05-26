@@ -7,7 +7,6 @@
 namespace wanderer {
 
 void render_player(Registry& registry,
-                   centurion::Renderer& renderer,
-                   float alpha);
+                   centurion::Renderer& renderer);
 
 }

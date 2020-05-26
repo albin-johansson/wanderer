@@ -4,6 +4,6 @@
 
 namespace wanderer {
 
-Entity make_player(Registry& registry);
+entt::entity make_player(entt::registry& registry);
 
 }
