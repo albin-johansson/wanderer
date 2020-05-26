@@ -1,10 +1,10 @@
 #pragma once
+#include "vector_2.h"
 
 namespace wanderer {
 
 struct Position final {
-  float x = 0;
-  float y = 0;
+  Vector2f pos;
 };
 
 }
