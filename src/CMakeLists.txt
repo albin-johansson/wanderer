@@ -33,6 +33,9 @@ set(SOURCE_FILES
         core/math/math.h
 
         component/movable.h
+        component/collision.h
+        core/hitbox.cpp
+        core/hitbox.h
         )
 
 add_library(${WANDERER_LIB_TARGET} ${SOURCE_FILES})
