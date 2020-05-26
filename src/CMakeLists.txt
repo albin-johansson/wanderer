@@ -30,7 +30,10 @@ set(SOURCE_FILES
         core/math/vector_2.h
         core/math/random.cpp
         core/math/random.h
-        core/math/math.h)
+        core/math/math.h
+
+        component/movable.h
+        )
 
 add_library(${WANDERER_LIB_TARGET} ${SOURCE_FILES})
 

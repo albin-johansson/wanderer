@@ -2,8 +2,8 @@
 
 #include <colors.h>
 
+#include "movable.h"
 #include "player.h"
-#include "position.h"
 
 using namespace centurion;
 
@@ -11,10 +11,11 @@ namespace wanderer {
 
 void render_player(Registry& registry, Renderer& renderer, float alpha)
 {
-  const auto view = registry.view<Player, Position>();
-  for (const Entity entity : view) {
-    const auto position = view.get<Position>(entity);
-    const FRect rect = {{position.pos.x, position.pos.y}, {100, 100}};
+  const auto group = registry.group<Player>(entt::get<Movable>);
+  for (const Entity entity : group) {
+    const auto& movable = group.get<Movable>(entity);
+    const auto& interpolated = movable.interpolatedPos;
+    const FRect rect = {{interpolated.x, interpolated.y}, {100, 100}};
     renderer.set_color(color::red);
     renderer.fill_rect_tf(rect);
   }
