@@ -2,7 +2,8 @@ cmake_minimum_required(VERSION 3.15)
 project(WandererTest)
 
 set(TEST_FILES
-        unittest/test_main.cpp)
+        unittest/test_main.cpp
+        unittest/hitbox_test.cpp)
 
 add_executable(${WANDERER_TEST_TARGET} ${TEST_FILES})
 add_dependencies(${WANDERER_TEST_TARGET} ${WANDERER_LIB_TARGET})

@@ -22,4 +22,6 @@ using Maybe = centurion::Optional<T>;
 using Registry = entt::registry;
 using Entity = entt::entity;
 
+namespace ctn = centurion;
+
 }  // namespace wanderer
