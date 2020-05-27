@@ -58,7 +58,6 @@ void stop(Movable& movable, Direction direction) noexcept
 
 bool check_pressed(Movable& movable, const Input& input, const Binds& binds)
 {
-  // FIXME this needs to be stored somewhere else
   const auto left = input.is_pressed(binds.left);
   const auto right = input.is_pressed(binds.right);
   const auto up = input.is_pressed(binds.up);
