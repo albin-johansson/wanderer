@@ -20,10 +20,9 @@ void render_entities(entt::registry& registry, Renderer& renderer)
     const auto& drawable = entities.get<Drawable>(entity);
 
     const auto srcX = movable.velocity.is_zero() ? 0 : animated.frame * 64;
-    const auto srcY = 384;  // TODO determine with dominant direction and state
 
     const auto [x, y] = movable.interpolatedPos;
-    const IRect src{{static_cast<int>(srcX), static_cast<int>(srcY)}, {64, 64}};
+    const IRect src{{static_cast<int>(srcX), drawable.srcY}, {64, 64}};
     const FRect dst{{x, y}, entitySize};
 
     renderer.render_tf(*drawable.texture, src, dst);

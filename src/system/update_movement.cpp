@@ -40,18 +40,6 @@ void update_movement(entt::registry& registry, float delta)
     update_direction(movable);
     movable.currentPos.add(movable.velocity.x * delta,
                            movable.velocity.y * delta);
-
-    if (auto* animated = registry.try_get<Animated>(entity); animated) {
-      const auto now = Timer::millis();
-      const auto elapsed = now - animated->then;
-      if (elapsed >= animated->delay) {
-        animated->then = now;
-        ++animated->frame;
-        if (animated->frame >= animated->nFrames) {
-          animated->frame = 0;
-        }
-      }
-    }
   }
 }
 

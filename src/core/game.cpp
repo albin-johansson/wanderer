@@ -3,6 +3,7 @@
 #include "make_player.h"
 #include "make_viewport.h"
 #include "render_entities.h"
+#include "update_animation.h"
 #include "update_input.h"
 #include "update_interpolation.h"
 #include "update_movement.h"
@@ -28,7 +29,7 @@ void Game::tick(float delta)
   // TODO check if menu is blocking
 
   update_movement(m_registry, delta);
-
+  update_animation(m_registry);
   // update movement
   // update collision
   // update attack

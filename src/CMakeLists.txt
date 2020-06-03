@@ -60,7 +60,7 @@ set(SOURCE_FILES
         system/input/handle_idle_input.h
 
         component/animated.h
-        component/drawable.h)
+        component/drawable.h system/humanoid_animation_system.cpp system/humanoid_animation_system.h system/update_animation.cpp system/update_animation.h)
 
 add_library(${WANDERER_LIB_TARGET} ${SOURCE_FILES})
 

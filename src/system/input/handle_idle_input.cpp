@@ -2,6 +2,7 @@
 
 #include "binds.h"
 #include "direction.h"
+#include "humanoid_animation_system.h"
 #include "player.h"
 
 namespace wanderer {
@@ -30,6 +31,7 @@ void handle_idle_input(entt::registry& registry, const Input& input)
       }
       registry.remove_if_exists<EntityIdleState>(entity);
       registry.emplace_or_replace<EntityMoveState>(entity, direction);
+      enter_move(registry, entity, direction);
     }
     //    else if (input.is_pressed(SDL_SCANCODE_SPACE)) {
     //      // TODO attack...

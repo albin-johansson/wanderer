@@ -2,6 +2,7 @@
 
 #include "binds.h"
 #include "direction.h"
+#include "humanoid_animation_system.h"
 #include "movable.h"
 #include "player.h"
 
@@ -112,6 +113,7 @@ void check_released(Movable& movable, const Input& input, const Binds& binds)
 
 void handle_move_input(entt::registry& registry, const Input& input)
 {
+  // TODO replace view with player entity parameter
   const auto view = registry.view<Player, Movable, Binds, EntityMoveState>();
   for (const auto entity : view) {
     auto& movable = view.get<Movable>(entity);
@@ -122,9 +124,12 @@ void handle_move_input(entt::registry& registry, const Input& input)
     areMoveKeysDown = check_pressed(movable, input, binds);
     check_released(movable, input, binds);
 
+    // TODO "update" the moving direction (srcY)
+
     if (!areMoveKeysDown && movable.velocity.is_zero()) {
       registry.remove_if_exists<EntityMoveState>(entity);
       registry.emplace_or_replace<EntityIdleState>(entity);
+      enter_idle(registry, entity);
     }
     //    else if (input.is_pressed(SDL_SCANCODE_SPACE)) { // TODO
     //      registry.remove_if_exists<EntityMoveState>(entity);
