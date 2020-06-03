@@ -1,10 +1,10 @@
-#include "interpolation.h"
+#include "update_interpolation.h"
 
 #include "movable.h"
 
 namespace wanderer {
 
-void interpolate(entt::registry& registry, const float alpha)
+void update_interpolation(entt::registry& registry, const float alpha)
 {
   registry.view<Movable>().each([&](Movable& movable) noexcept {
     movable.interpolatedPos.set(movable.currentPos);

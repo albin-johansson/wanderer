@@ -5,6 +5,6 @@
 
 namespace wanderer {
 
-void interpolate(entt::registry& registry, float alpha);
+void update_interpolation(entt::registry& registry, float alpha);
 
 }

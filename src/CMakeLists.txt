@@ -41,23 +41,23 @@ set(SOURCE_FILES
         component/entity_state.h
         component/binds.h
 
-        system/rendering.cpp
-        system/rendering.h
-        system/movement.cpp
-        system/movement.h
-        system/interpolation.h
-        system/interpolation.cpp
+        system/render_player.cpp
+        system/render_player.h
+        system/update_movement.cpp
+        system/update_movement.h
+        system/update_interpolation.h
+        system/update_interpolation.cpp
         system/update_viewport.cpp
         system/update_viewport.h
         system/update_translation_viewport.cpp
         system/update_translation_viewport.h
 
-        system/input/player_input.cpp
-        system/input/player_input.h
-        system/input/player_moving_input.cpp
-        system/input/player_moving_input.h
-        system/input/player_idle_input.cpp
-        system/input/player_idle_input.h)
+        system/input/update_input.cpp
+        system/input/update_input.h
+        system/input/handle_move_input.cpp
+        system/input/handle_move_input.h
+        system/input/handle_idle_input.cpp
+        system/input/handle_idle_input.h)
 
 add_library(${WANDERER_LIB_TARGET} ${SOURCE_FILES})
 

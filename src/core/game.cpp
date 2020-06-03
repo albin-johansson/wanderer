@@ -1,13 +1,11 @@
 #include "game.h"
 
-#include "game_constants.h"
-#include "interpolation.h"
 #include "make_player.h"
 #include "make_viewport.h"
-#include "movable.h"
-#include "movement.h"
-#include "player_input.h"
-#include "rendering.h"
+#include "render_player.h"
+#include "update_input.h"
+#include "update_interpolation.h"
+#include "update_movement.h"
 #include "update_translation_viewport.h"
 #include "update_viewport.h"
 
@@ -43,7 +41,7 @@ void Game::tick(float delta)
 void Game::render(Renderer& renderer, float alpha)
 {
   update_translation_viewport(m_registry, m_viewport, renderer);
-  interpolate(m_registry, alpha);
+  update_interpolation(m_registry, alpha);
 
   // TODO render more stuff (think about render depth as well)
   render_player(m_registry, renderer);
