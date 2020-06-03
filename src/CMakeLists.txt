@@ -21,6 +21,10 @@ set(SOURCE_FILES
         core/game_loop.cpp
         core/direction.h
         core/game_constants.h
+        core/viewport.cpp
+        core/viewport.h
+        core/make_viewport.cpp
+        core/make_viewport.h
 
         core/math/vector_2.h
         core/math/random.cpp
@@ -43,6 +47,10 @@ set(SOURCE_FILES
         system/movement.h
         system/interpolation.h
         system/interpolation.cpp
+        system/update_viewport.cpp
+        system/update_viewport.h
+        system/update_translation_viewport.cpp
+        system/update_translation_viewport.h
 
         system/input/player_input.cpp
         system/input/player_input.h

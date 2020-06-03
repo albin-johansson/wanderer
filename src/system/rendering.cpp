@@ -15,7 +15,7 @@ void render_player(entt::registry& registry, Renderer& renderer)
   for (const auto entity : group) {
     const auto& movable = group.get<Movable>(entity);
     const auto [x, y] = movable.interpolatedPos;
-    const FRect rect = {{x, y}, {100, 100}};
+    const FRect rect = {{x, y}, {100, 100}}; // FIXME
     renderer.set_color(color::red);
     renderer.fill_rect_tf(rect);
 

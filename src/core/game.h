@@ -5,6 +5,7 @@
 
 #include "input.h"
 #include "types.h"
+#include "viewport.h"
 
 namespace wanderer {
 
@@ -21,6 +22,7 @@ class Game {
  private:
   entt::registry m_registry;
   entt::entity m_player;
+  entt::entity m_viewport;
 };
 
 }  // namespace wanderer
