@@ -5,6 +5,6 @@
 
 namespace wanderer {
 
-void update_movement(entt::registry& registry, f32 delta);
+void update_movement(entt::registry& registry, float delta);
 
 }

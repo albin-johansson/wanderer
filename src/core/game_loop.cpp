@@ -10,9 +10,9 @@ namespace wanderer {
 GameLoop::GameLoop() noexcept
     : m_now{Timer::high_res()},
       m_then{m_now},
-      m_vsyncRate{static_cast<f32>(Screen::refresh_rate())},
+      m_vsyncRate{static_cast<float>(Screen::refresh_rate())},
       m_timeStep{1.0f / m_vsyncRate},
-      m_counterFreq{static_cast<f32>(Timer::high_res_freq())}
+      m_counterFreq{static_cast<float>(Timer::high_res_freq())}
 {}
 
 void GameLoop::smooth_delta() noexcept
@@ -27,7 +27,7 @@ void GameLoop::smooth_delta() noexcept
   }
 
   const auto oldDelta = m_delta;
-  m_delta = static_cast<f32>(frameCount) / m_vsyncRate;
+  m_delta = static_cast<float>(frameCount) / m_vsyncRate;
   m_deltaBuffer = oldDelta - m_delta;
 }
 
@@ -36,7 +36,7 @@ void GameLoop::update(Game& game)
   m_then = m_now;
   m_now = Timer::high_res();
 
-  m_delta = static_cast<f32>(m_now - m_then) / m_counterFreq;
+  m_delta = static_cast<float>(m_now - m_then) / m_counterFreq;
 
   if (m_delta > max_frame_time()) {
     m_delta = max_frame_time();

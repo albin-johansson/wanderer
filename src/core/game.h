@@ -14,9 +14,9 @@ class Game {
 
   void handle_input(const Input& input);
 
-  void tick(f32 delta);
+  void tick(float delta);
 
-  void render(centurion::Renderer& renderer, f32 alpha);
+  void render(centurion::Renderer& renderer, float alpha);
 
  private:
   entt::registry m_registry;

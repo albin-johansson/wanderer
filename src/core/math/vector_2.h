@@ -500,4 +500,6 @@ class TVector2 {
   }
 };
 
+using Vector2f = TVector2<float>;
+
 }  // namespace wanderer

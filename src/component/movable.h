@@ -1,17 +1,17 @@
 #pragma once
 #include "direction.h"
-#include "types.h"
+#include "vector_2.h"
 
 namespace wanderer {
 
 struct Movable final {
-  VectorF32 velocity;         // holds the current x- and y-speed
-  VectorF32 currentPos;       // holds the current position
-  VectorF32 oldPos;           // holds the previous position
-  VectorF32 interpolatedPos;  // holds the interpolated previous position
+  Vector2f velocity;         // holds the current x- and y-speed
+  Vector2f currentPos;       // holds the current position
+  Vector2f oldPos;           // holds the previous position
+  Vector2f interpolatedPos;  // holds the interpolated previous position
   Direction dominantDirection{Direction::Down};  // holds the dominant direction
                                                  // of the movable
-  f32 speed{0};  // holds the maximum possible total speed
+  float speed{0};  // holds the maximum possible total speed
 };
 
 }  // namespace wanderer

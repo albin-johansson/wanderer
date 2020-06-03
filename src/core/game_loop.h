@@ -10,9 +10,9 @@ class GameLoop final {
 
   void update(Game& game);
 
-  [[nodiscard]] f32 alpha() const
+  [[nodiscard]] float alpha() const
   {
-    f32 alpha = m_accumulator / m_timeStep;
+    float alpha = m_accumulator / m_timeStep;
     if (alpha > 1.0f) {
       alpha = 1.0f;
     }
@@ -22,12 +22,12 @@ class GameLoop final {
  private:
   u64 m_now;
   u64 m_then;
-  f32 m_delta{0};
-  f32 m_accumulator{0};
-  f32 m_deltaBuffer{0};
-  const f32 m_vsyncRate;
-  const f32 m_timeStep;
-  const f32 m_counterFreq;
+  float m_delta{0};
+  float m_accumulator{0};
+  float m_deltaBuffer{0};
+  const float m_vsyncRate;
+  const float m_timeStep;
+  const float m_counterFreq;
 
   /**
    * Returns the maximum allowed frame time (delta time) in seconds. This is
@@ -35,7 +35,7 @@ class GameLoop final {
    *
    * @since 0.1.0
    */
-  constexpr f32 max_frame_time() noexcept { return 0.25f; }
+  constexpr float max_frame_time() noexcept { return 0.25f; }
 
   void smooth_delta() noexcept;
 };

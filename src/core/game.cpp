@@ -20,7 +20,7 @@ void Game::handle_input(const Input& input)
   update_input(m_registry, input);
 }
 
-void Game::tick(f32 delta)
+void Game::tick(float delta)
 {
   update_movement(m_registry, delta);
   // collision
@@ -29,7 +29,7 @@ void Game::tick(f32 delta)
   // enter/exit houses
 }
 
-void Game::render(Renderer& renderer, f32 alpha)
+void Game::render(Renderer& renderer, float alpha)
 {
   // TODO renderer.set_translation_viewport(...)
   interpolate(m_registry, alpha);
