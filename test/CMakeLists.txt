@@ -3,7 +3,7 @@ project(WandererTest)
 
 set(TEST_FILES
         unittest/test_main.cpp
-        unittest/hitbox_test.cpp)
+        unittest/hitbox_test.cpp unittest/animation_test.cpp)
 
 add_executable(${WANDERER_TEST_TARGET} ${TEST_FILES})
 add_dependencies(${WANDERER_TEST_TARGET} ${WANDERER_LIB_TARGET})
@@ -49,4 +49,5 @@ target_link_libraries(${WANDERER_TEST_TARGET}
 if (WIN32)
     copy_directory_post_build(${WANDERER_TEST_TARGET} ${BINARY_DIR} ${CMAKE_CURRENT_BINARY_DIR})
 endif ()
-copy_directory_post_build(${WANDERER_TEST_TARGET} ${RESOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR})
+copy_directory_post_build(${WANDERER_TEST_TARGET} ${RESOURCE_DIR}
+        "${CMAKE_CURRENT_BINARY_DIR}/resource")

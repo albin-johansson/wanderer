@@ -41,8 +41,8 @@ set(SOURCE_FILES
         component/entity_state.h
         component/binds.h
 
-        system/render_player.cpp
-        system/render_player.h
+        system/render_entities.cpp
+        system/render_entities.h
         system/update_movement.cpp
         system/update_movement.h
         system/update_interpolation.h
@@ -57,7 +57,13 @@ set(SOURCE_FILES
         system/input/handle_move_input.cpp
         system/input/handle_move_input.h
         system/input/handle_idle_input.cpp
-        system/input/handle_idle_input.h)
+        system/input/handle_idle_input.h
+
+        core/animation.cpp
+        core/animation.h
+
+        component/animated.h
+        component/drawable.h)
 
 add_library(${WANDERER_LIB_TARGET} ${SOURCE_FILES})
 
@@ -120,6 +126,6 @@ target_link_libraries(${WANDERER_EXE_TARGET}
 
 copy_directory_post_build(${WANDERER_EXE_TARGET} ${BINARY_DIR} ${CMAKE_CURRENT_BINARY_DIR})
 copy_directory_post_build(${WANDERER_EXE_TARGET} ${RESOURCE_DIR}
-        ${CMAKE_CURRENT_BINARY_DIR}/resources)
+        ${CMAKE_CURRENT_BINARY_DIR}/resource)
 
 

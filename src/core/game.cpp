@@ -2,7 +2,7 @@
 
 #include "make_player.h"
 #include "make_viewport.h"
-#include "render_player.h"
+#include "render_entities.h"
 #include "update_input.h"
 #include "update_interpolation.h"
 #include "update_movement.h"
@@ -13,11 +13,10 @@ using namespace centurion;
 
 namespace wanderer {
 
-void Game::init()
-{
-  m_player = make_player(m_registry);
-  m_viewport = make_viewport(m_registry);
-}
+Game::Game(Renderer& renderer)
+    : m_player{make_player(m_registry, renderer)},
+      m_viewport{make_viewport(m_registry)}
+{}
 
 void Game::handle_input(const Input& input)
 {
@@ -46,7 +45,7 @@ void Game::render(Renderer& renderer, float alpha)
   update_interpolation(m_registry, alpha);
 
   // TODO render more stuff (think about render depth as well)
-  render_player(m_registry, renderer);
+  render_entities(m_registry, renderer);
 
   // TODO render HUD
 

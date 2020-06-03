@@ -11,7 +11,7 @@ namespace wanderer {
 
 class Game {
  public:
-  void init();
+  explicit Game(centurion::Renderer& renderer);
 
   void handle_input(const Input& input);
 

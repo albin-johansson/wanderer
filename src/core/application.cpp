@@ -15,7 +15,7 @@ Renderer create_renderer(const Window& window)
 {
   Renderer renderer{window};
   renderer.set_logical_size({g_logicalWidth, g_logicalHeight});
-  renderer.set_logical_integer_scale(false);
+  renderer.set_logical_integer_scale(true);
   return renderer;
 }
 
@@ -33,10 +33,8 @@ void run()
   Renderer renderer{create_renderer(window)};
 
   GameLoop loop;
-  Game game;
+  Game game{renderer};
   Input input;
-
-  game.init();
 
   window.show();
 
@@ -52,7 +50,7 @@ void run()
 
     loop.update(game);
 
-    renderer.set_color(color::black);
+    renderer.set_color(color::pink);
     renderer.clear();
     game.render(renderer, loop.alpha());
     renderer.present();
