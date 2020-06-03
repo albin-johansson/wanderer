@@ -15,7 +15,7 @@ namespace wanderer {
 
 entt::entity make_player(entt::registry& registry, Renderer& renderer)
 {
-  entt::entity player = registry.create();
+  auto player = registry.create();
   registry.emplace<Player>(player);
 
   auto& movable = registry.emplace<Movable>(player);
@@ -29,7 +29,9 @@ entt::entity make_player(entt::registry& registry, Renderer& renderer)
 
   drawable.texture = Texture::shared(renderer, "resource/img/player2.png");
 
-  registry.emplace<Animated>(player);
+  auto& animated = registry.emplace<Animated>(player);
+  animated.animation.set_frames(4);  // FIXME
+
   registry.emplace<Collision>(player);
   registry.emplace<Binds>(player);
   registry.emplace<EntityIdleState>(player);
