@@ -35,6 +35,8 @@ void Game::tick(float delta)
   // interacts
   // enter/exit houses
 
+  // TODO need to update viewport level size as well when level changes
+
   update_viewport(m_registry, m_viewport, m_player, delta);
 }
 
