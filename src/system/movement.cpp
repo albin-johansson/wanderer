@@ -22,7 +22,7 @@ void update_direction(Movable& movable) noexcept
 
 }  // namespace
 
-void update_movement(entt::registry& registry, float delta)
+void update_movement(entt::registry& registry, f32 delta)
 {
   registry.view<Movable>().each([&](Movable& movable) noexcept {
     movable.oldPos = movable.currentPos;

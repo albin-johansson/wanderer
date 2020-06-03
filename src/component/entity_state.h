@@ -7,7 +7,7 @@ struct EntityIdleState {
 };
 
 struct EntityMoveState {
-  Direction desiredDirection; // TODO might be unnecessary
+  Direction desiredDirection;  // TODO might be unnecessary
 };
 
 struct EntityAttackState {

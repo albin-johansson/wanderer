@@ -11,14 +11,26 @@ using namespace centurion;
 namespace wanderer {
 namespace {
 
-}  // namespace
-
-void Application::run()
+Renderer create_renderer(const Window& window)
 {
-  Window window;
   Renderer renderer{window};
   renderer.set_logical_size({g_logicalWidth, g_logicalHeight});
   renderer.set_logical_integer_scale(false);
+  return renderer;
+}
+
+}  // namespace
+
+void run()
+{
+#ifdef NDEBUG
+  Window window{"Wanderer", Screen::size()};
+  window.set_fullscreen(true);
+#else
+  Window window{"Wanderer", {g_logicalWidth, g_logicalHeight}};
+#endif
+
+  Renderer renderer{create_renderer(window)};
 
   GameLoop loop;
   Game game;
@@ -28,7 +40,7 @@ void Application::run()
 
   window.show();
 
-  bool running = true;
+  bool running{true};
   while (running) {
     input.update(renderer.output_width(), renderer.output_height());
 

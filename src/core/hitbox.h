@@ -27,7 +27,7 @@ class Hitbox final {
    * @param offset the offset that will be used by the rectangle.
    * @since 0.1.0
    */
-  void add_rectangle(const ctn::FRect& rect, const Vector2f& offset);
+  void add_rectangle(const ctn::FRect& rect, const VectorF32& offset);
 
   /**
    * Sets the x-coordinate of the hitbox.
@@ -35,7 +35,7 @@ class Hitbox final {
    * @param x the new x-coordinate of the hitbox.
    * @since 0.1.0
    */
-  void set_x(float x) noexcept;
+  void set_x(f32 x) noexcept;
 
   /**
    * Sets the y-coordinate of the hitbox.
@@ -43,7 +43,7 @@ class Hitbox final {
    * @param y the new y-coordinate of the hitbox.
    * @since 0.1.0
    */
-  void set_y(float y) noexcept;
+  void set_y(f32 y) noexcept;
 
   /**
    * Sets whether or not the hitbox is enabled. A hitbox that is disabled cannot
@@ -66,7 +66,7 @@ class Hitbox final {
   [[nodiscard]] bool intersects(const ctn::FRect& other) const noexcept;
 
   [[nodiscard]] bool will_intersect(const Hitbox& other,
-                                    const Vector2f& nextPos) const noexcept;
+                                    const VectorF32& nextPos) const noexcept;
 
   /**
    * Indicates whether or not the hitbox only contains one rectangle.
@@ -97,7 +97,7 @@ class Hitbox final {
 
  private:
   ctn::FRect m_bounds;
-  std::vector<std::pair<ctn::FRect, Vector2f>> m_rectangles;
+  std::vector<std::pair<ctn::FRect, VectorF32>> m_rectangles;
   bool m_enabled = false;
 
   void calc_bounds();

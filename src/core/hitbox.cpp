@@ -43,13 +43,13 @@ void Hitbox::calc_bounds()
   }
 }
 
-void Hitbox::add_rectangle(const FRect& rect, const Vector2f& offset)
+void Hitbox::add_rectangle(const FRect& rect, const VectorF32& offset)
 {
   m_rectangles.emplace_back(rect, offset);
   calc_bounds();
 }
 
-void Hitbox::set_x(float x) noexcept
+void Hitbox::set_x(f32 x) noexcept
 {
   m_bounds.set_x(x);
   for (auto& [rect, offset] : m_rectangles) {
@@ -57,7 +57,7 @@ void Hitbox::set_x(float x) noexcept
   }
 }
 
-void Hitbox::set_y(float y) noexcept
+void Hitbox::set_y(f32 y) noexcept
 {
   m_bounds.set_y(y);
   for (auto& [rect, offset] : m_rectangles) {
@@ -105,7 +105,7 @@ bool Hitbox::intersects(const FRect& other) const noexcept
 }
 
 bool Hitbox::will_intersect(const Hitbox& other,
-                            const Vector2f& nextPos) const noexcept
+                            const VectorF32& nextPos) const noexcept
 {
   if (!m_enabled) {
     return false;

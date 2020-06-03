@@ -6,7 +6,6 @@
 
 namespace wanderer {
 
-void render_player(Registry& registry,
-                   centurion::Renderer& renderer);
+void render_player(entt::registry& registry, centurion::Renderer& renderer);
 
 }

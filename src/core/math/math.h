@@ -4,33 +4,36 @@
 
 namespace wanderer {
 
+template <typename T>
+inline constexpr T pi{static_cast<T>(3.14159265358979323)};
+
+inline constexpr auto pi_f = pi<float>;
+inline constexpr auto pi_d = pi<double>;
+
 class Math final {
  public:
-  static constexpr float PI_F = 3.14159265358979323f;
-  static constexpr double PI_D = 3.14159265358979323;
-
   Math() = delete;
 
   ~Math() = default;
 
   [[nodiscard]] static constexpr float to_degrees(float radians) noexcept
   {
-    return (radians * 180.0f) / PI_F;
+    return (radians * 180.0f) / pi_f;
   }
 
   [[nodiscard]] static constexpr double to_degrees(double radians) noexcept
   {
-    return (radians * 180.0) / PI_D;
+    return (radians * 180.0) / pi_d;
   }
 
   [[nodiscard]] static constexpr float to_radians(float degrees) noexcept
   {
-    return (degrees * PI_F) / 180.0f;
+    return (degrees * pi_f) / 180.0f;
   }
 
   [[nodiscard]] static constexpr double to_radians(double degrees) noexcept
   {
-    return (degrees * PI_D) / 180.0;
+    return (degrees * pi_d) / 180.0;
   }
 
   [[nodiscard]] static constexpr int round(float f) noexcept

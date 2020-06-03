@@ -6,6 +6,6 @@
 
 namespace wanderer {
 
-void update_input(Registry& registry, const Input& input);
+void update_input(entt::registry& registry, const Input& input);
 
 }  // namespace wanderer

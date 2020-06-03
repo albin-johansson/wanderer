@@ -1,11 +1,11 @@
 #include "make_player.h"
 
+#include "binds.h"
 #include "collision.h"
 #include "entity_state.h"
 #include "game_constants.h"
 #include "movable.h"
 #include "player.h"
-#include "binds.h"
 
 namespace wanderer {
 

@@ -5,7 +5,7 @@
 
 namespace wanderer {
 
-void update_input(Registry& registry, const Input& input)
+void update_input(entt::registry& registry, const Input& input)
 {
   handle_idle_input(registry, input);
   handle_move_input(registry, input);

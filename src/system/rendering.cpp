@@ -9,10 +9,10 @@ using namespace centurion;
 
 namespace wanderer {
 
-void render_player(Registry& registry, Renderer& renderer)
+void render_player(entt::registry& registry, Renderer& renderer)
 {
   const auto group = registry.group<Player>(entt::get<Movable>);
-  for (const Entity entity : group) {
+  for (const auto entity : group) {
     const auto& movable = group.get<Movable>(entity);
     const auto [x, y] = movable.interpolatedPos;
     const FRect rect = {{x, y}, {100, 100}};

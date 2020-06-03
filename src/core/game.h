@@ -2,9 +2,9 @@
 #include <renderer.h>
 
 #include <entt.hpp>
-#include <unordered_map>
 
 #include "input.h"
+#include "types.h"
 
 namespace wanderer {
 
@@ -14,9 +14,9 @@ class Game {
 
   void handle_input(const Input& input);
 
-  void tick(float delta);
+  void tick(f32 delta);
 
-  void render(centurion::Renderer& renderer, float alpha);
+  void render(centurion::Renderer& renderer, f32 alpha);
 
  private:
   entt::registry m_registry;

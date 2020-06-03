@@ -25,8 +25,7 @@ class TVector2 {
    * @param other the vector that will be copied.
    * @since 0.1.0
    */
-  constexpr TVector2(const TVector2<T>& other) noexcept
-      : x{other.x}, y{other.y}
+  constexpr TVector2(const TVector2<T>& other) noexcept : x{other.x}, y{other.y}
   {}
 
   /**
@@ -35,9 +34,7 @@ class TVector2 {
    * @param other the vector that will be moved.
    * @since 0.1.0
    */
-  constexpr TVector2(TVector2<T>&& other) noexcept
-      : x{other.x}, y{other.y}
-  {}
+  constexpr TVector2(TVector2<T>&& other) noexcept : x{other.x}, y{other.y} {}
 
   /**
    * Creates a vector with the specified components.
@@ -314,9 +311,8 @@ class TVector2 {
    * @return the result of the vector addition of the two supplied vectors.
    * @since 0.1.0
    */
-  friend constexpr TVector2<T> operator+(
-      const TVector2<T>& lhs,
-      const TVector2<T>& rhs) noexcept
+  friend constexpr TVector2<T> operator+(const TVector2<T>& lhs,
+                                         const TVector2<T>& rhs) noexcept
   {
     return {lhs.x + rhs.x, lhs.y + rhs.y};
   }
@@ -330,9 +326,8 @@ class TVector2 {
    * @return the result of the vector subtraction of the two supplied vectors.
    * @since 0.1.0
    */
-  friend constexpr TVector2<T> operator-(
-      const TVector2<T>& lhs,
-      const TVector2<T>& rhs) noexcept
+  friend constexpr TVector2<T> operator-(const TVector2<T>& lhs,
+                                         const TVector2<T>& rhs) noexcept
   {
     return {lhs.x - rhs.x, lhs.y - rhs.y};
   }
@@ -504,9 +499,5 @@ class TVector2 {
     }
   }
 };
-
-using Vector2f = TVector2<float>;
-using Vector2d = TVector2<double>;
-using Vector2i = TVector2<int>;
 
 }  // namespace wanderer

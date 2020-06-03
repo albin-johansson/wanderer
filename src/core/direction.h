@@ -2,11 +2,6 @@
 
 namespace wanderer {
 
-enum class Direction {
-  Up,
-  Right,
-  Down,
-  Left
-};
+enum class Direction { Up, Right, Down, Left };
 
 }

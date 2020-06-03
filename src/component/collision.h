@@ -7,4 +7,4 @@ struct Collision final {
   Hitbox hitbox;
 };
 
-}
+}  // namespace wanderer

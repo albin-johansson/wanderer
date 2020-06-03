@@ -2,9 +2,6 @@
 
 namespace wanderer {
 
-class Application final {
- public:
-  void run();
-};
+void run();
 
-}
+}  // namespace wanderer
