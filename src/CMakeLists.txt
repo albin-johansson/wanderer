@@ -59,9 +59,6 @@ set(SOURCE_FILES
         system/input/handle_idle_input.cpp
         system/input/handle_idle_input.h
 
-        core/animation.cpp
-        core/animation.h
-
         component/animated.h
         component/drawable.h)
 

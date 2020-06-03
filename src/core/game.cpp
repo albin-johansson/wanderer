@@ -29,10 +29,11 @@ void Game::tick(float delta)
 
   update_movement(m_registry, delta);
 
-  // collision
-  // attacks
-  // interacts
-  // enter/exit houses
+  // update movement
+  // update collision
+  // update attack
+  // update interact (NPCs/enter/exit houses)
+  // update animation
 
   // TODO need to update viewport level size as well when level changes
 

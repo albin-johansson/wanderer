@@ -30,7 +30,7 @@ entt::entity make_player(entt::registry& registry, Renderer& renderer)
   drawable.texture = Texture::shared(renderer, "resource/img/player2.png");
 
   auto& animated = registry.emplace<Animated>(player);
-  animated.animation.set_frames(4);  // FIXME
+  animated.nFrames = 4;  // FIXME
 
   registry.emplace<Collision>(player);
   registry.emplace<Binds>(player);

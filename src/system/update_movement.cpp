@@ -1,7 +1,11 @@
 #include "update_movement.h"
 
+#include <timer.h>
+
 #include "animated.h"
 #include "movable.h"
+
+using namespace centurion;
 
 namespace wanderer {
 namespace {
@@ -38,7 +42,15 @@ void update_movement(entt::registry& registry, float delta)
                            movable.velocity.y * delta);
 
     if (auto* animated = registry.try_get<Animated>(entity); animated) {
-      animated->animation.tick();
+      const auto now = Timer::millis();
+      const auto elapsed = now - animated->then;
+      if (elapsed >= animated->delay) {
+        animated->then = now;
+        ++animated->frame;
+        if (animated->frame >= animated->nFrames) {
+          animated->frame = 0;
+        }
+      }
     }
   }
 }

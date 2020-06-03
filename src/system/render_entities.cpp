@@ -18,9 +18,8 @@ void render_entities(entt::registry& registry, Renderer& renderer)
     const auto& movable = entities.get<Movable>(entity);
     const auto& animated = entities.get<Animated>(entity);
     const auto& drawable = entities.get<Drawable>(entity);
-    const auto& animation = animated.animation;
 
-    const auto srcX = movable.velocity.is_zero() ? 0 : animation.frame() * 64;
+    const auto srcX = movable.velocity.is_zero() ? 0 : animated.frame * 64;
     const auto srcY = 384;  // TODO determine with dominant direction and state
 
     const auto [x, y] = movable.interpolatedPos;

@@ -1,11 +1,14 @@
 #pragma once
-#include "animation.h"
+
+#include "types.h"
 
 namespace wanderer {
 
 struct Animated final {
-  Animation animation;
-  // TODO add some sort of image resource here
+  u32 frame{0};
+  u32 nFrames{1};
+  u32 then{0};
+  u32 delay{100};
 };
 
 }  // namespace wanderer
