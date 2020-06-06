@@ -2,6 +2,7 @@
 #include "direction.h"
 
 namespace wanderer {
+// TODO rename
 
 struct EntityIdleState {
 };
