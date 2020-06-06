@@ -33,10 +33,10 @@ void Viewport::track(const Vector2f& position, const FArea& size, float delta)
       calc(targetY, m_bounds.y(), m_levelSize.height, m_bounds.height()));
 }
 
-void Viewport::center()
-{
-  // TODO implement
-}
+//void Viewport::center()
+//{
+//  // TODO implement
+//}
 
 void Viewport::set_x(float x) noexcept
 {

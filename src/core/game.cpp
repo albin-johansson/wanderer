@@ -1,7 +1,9 @@
 #include "game.h"
 
-#include <humanoid_animation_system.h>
+#include <colors.h>
 
+#include "game_constants.h"
+#include "humanoid_animation_system.h"
 #include "make_player.h"
 #include "make_viewport.h"
 #include "render_entities.h"
@@ -52,6 +54,17 @@ void Game::render(Renderer& renderer, float alpha)
 {
   update_translation_viewport(m_registry, m_viewport, renderer);
   update_interpolation(m_registry, alpha);
+
+  renderer.set_color(color::red);
+  const auto ts = g_tileSize;
+
+  for (int i = 0; i < 20; ++i) {
+    for (int j = 0; j < 20; ++j) {
+      const auto x = static_cast<float>(j) * ts;
+      const auto y = static_cast<float>(i) * ts;
+      renderer.draw_rect_tf({{x, y}, {ts, ts}});
+    }
+  }
 
   // TODO render more stuff (think about render depth as well)
   render_entities(m_registry, renderer);

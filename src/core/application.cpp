@@ -52,6 +52,10 @@ void run()
 
     renderer.set_color(color::pink);
     renderer.clear();
+
+    renderer.set_color(color::black);
+    renderer.fill_rect({{0, 0}, {1000, 1000}});
+
     game.render(renderer, loop.alpha());
     renderer.present();
   }

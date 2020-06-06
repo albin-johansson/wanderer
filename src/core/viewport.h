@@ -18,7 +18,7 @@ class Viewport final {
              const centurion::FArea& size,
              float delta);
 
-  void center();
+//  void center();
 
   void set_x(float x) noexcept;
 

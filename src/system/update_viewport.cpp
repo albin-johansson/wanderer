@@ -1,5 +1,6 @@
 #include "update_viewport.h"
 
+#include "game_constants.h"
 #include "movable.h"
 #include "viewport.h"
 
@@ -12,7 +13,9 @@ void update_viewport(entt::registry& registry,
 {
   if (const auto* movable = registry.try_get<Movable>(player); movable) {
     if (auto* view = registry.try_get<Viewport>(viewport); view) {
-      view->track(movable->interpolatedPos, {100, 100}, delta); // FIXME
+      view->track(movable->interpolatedPos,
+                  {g_entityDrawWidth, g_entityDrawHeight},
+                  delta);
     }
   }
 }
