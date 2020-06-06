@@ -37,7 +37,6 @@ target_include_directories(${WANDERER_TEST_TARGET} SYSTEM PUBLIC ${LIBRARY_DIR}/
 target_include_directories(${WANDERER_TEST_TARGET} SYSTEM PUBLIC doctest)
 
 target_link_libraries(${WANDERER_TEST_TARGET}
-        PUBLIC mingw32 # TODO check if necessary
         PUBLIC Doctest
         PUBLIC ${WANDERER_LIB_TARGET}
         PUBLIC ${CENTURION_LIBRARY}
