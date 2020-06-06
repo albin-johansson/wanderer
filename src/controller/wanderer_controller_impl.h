@@ -34,8 +34,8 @@ class WandererControllerImpl final : public IWandererController {
  private:
   SharedPtr<IWandererCore> m_core = nullptr;
   UniquePtr<IGameLoop> m_gameLoop = nullptr;
-  SharedPtr<ctn::Renderer> m_renderer = nullptr;
-  UniquePtr<ctn::Window> m_window = nullptr;
+  SharedPtr<centurion::Renderer> m_renderer = nullptr;
+  UniquePtr<centurion::Window> m_window = nullptr;
 
   /**
    * @throws BadStateException if the desktop dimensions cannot be deduced.
