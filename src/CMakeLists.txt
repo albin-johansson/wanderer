@@ -40,6 +40,8 @@ set(SOURCE_FILES
         component/collision.h
         component/entity_state.h
         component/binds.h
+        component/animated.h
+        component/drawable.h
 
         system/render_entities.cpp
         system/render_entities.h
@@ -51,16 +53,17 @@ set(SOURCE_FILES
         system/update_viewport.h
         system/update_translation_viewport.cpp
         system/update_translation_viewport.h
+        system/humanoid_animation_system.cpp
+        system/humanoid_animation_system.h
+        system/update_animation.cpp
+        system/update_animation.h
 
         system/input/update_input.cpp
         system/input/update_input.h
         system/input/handle_move_input.cpp
         system/input/handle_move_input.h
         system/input/handle_idle_input.cpp
-        system/input/handle_idle_input.h
-
-        component/animated.h
-        component/drawable.h system/humanoid_animation_system.cpp system/humanoid_animation_system.h system/update_animation.cpp system/update_animation.h)
+        system/input/handle_idle_input.h)
 
 add_library(${WANDERER_LIB_TARGET} ${SOURCE_FILES})
 
