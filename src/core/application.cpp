@@ -27,7 +27,7 @@ void run()
   Window window{"Wanderer", Screen::size()};
   window.set_fullscreen(true);
 #else
-  Window window{"Wanderer", {g_logicalWidth, g_logicalHeight}};
+  Window window{"Wanderer", {1280, 720}};
 #endif
 
   Renderer renderer{create_renderer(window)};
