@@ -8,6 +8,9 @@
 namespace wanderer {
 namespace {
 
+inline constexpr int idleSourceY = 512;  // yes these are the same
+inline constexpr int moveSourceY = 512;
+
 template <typename Lambda>
 void update(entt::registry& registry, entt::entity entity, Lambda&& lambda)
 {
@@ -45,7 +48,7 @@ void enter_idle(entt::registry& registry, entt::entity entity)
          [](Animated& animated, Movable& movable, Drawable& drawable) noexcept {
            animated.frame = 0;
            animated.nFrames = 1;
-           drawable.srcY = source_y(512, movable.dominantDirection);
+           drawable.srcY = source_y(idleSourceY, movable.dominantDirection);
          });
 }
 
@@ -60,11 +63,26 @@ void enter_move(entt::registry& registry,
         animated.frame = 0;
         animated.nFrames = 9;
         animated.delay = 90;
-        drawable.srcY = source_y(512, direction);
+        drawable.srcY = source_y(moveSourceY, direction);
       });
 }
 
 void enter_spell(entt::registry&, entt::entity)
-{}
+{
+  // TODO
+}
+
+void humanoid_update_move(entt::registry& registry, entt::entity entity)
+{
+  update(registry,
+         entity,
+         [](Animated& animated, Movable& movable, Drawable& drawable) noexcept {
+           const auto srcY = source_y(moveSourceY, movable.dominantDirection);
+           if (drawable.srcY != srcY) {
+             animated.frame = 0;
+             drawable.srcY = srcY;
+           }
+         });
+}
 
 }  // namespace wanderer

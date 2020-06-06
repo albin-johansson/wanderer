@@ -13,4 +13,6 @@ void enter_move(entt::registry& registry,
 
 void enter_spell(entt::registry& registry, entt::entity entity);
 
+void humanoid_update_move(entt::registry& registry, entt::entity entity);
+
 }  // namespace wanderer

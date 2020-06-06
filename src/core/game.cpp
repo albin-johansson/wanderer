@@ -1,5 +1,7 @@
 #include "game.h"
 
+#include <humanoid_animation_system.h>
+
 #include "make_player.h"
 #include "make_viewport.h"
 #include "render_entities.h"
@@ -21,7 +23,7 @@ Game::Game(Renderer& renderer)
 
 void Game::handle_input(const Input& input)
 {
-  update_input(m_registry, input);
+  update_input(m_registry, m_player, input);
 }
 
 void Game::tick(float delta)
@@ -29,7 +31,12 @@ void Game::tick(float delta)
   // TODO check if menu is blocking
 
   update_movement(m_registry, delta);
+
+  //  const auto es = m_registry.view<EntityMo>()
+  humanoid_update_move(m_registry, m_player);  // FIXME hardcoded
+
   update_animation(m_registry);
+
   // update movement
   // update collision
   // update attack

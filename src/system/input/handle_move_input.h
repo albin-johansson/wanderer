@@ -5,6 +5,8 @@
 
 namespace wanderer {
 
-void handle_move_input(entt::registry& registry, const Input& input);
+void handle_move_input(entt::registry& registry,
+                       entt::entity player,
+                       const Input& input);
 
 }

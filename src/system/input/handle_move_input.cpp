@@ -111,30 +111,29 @@ void check_released(Movable& movable, const Input& input, const Binds& binds)
 
 }  // namespace
 
-void handle_move_input(entt::registry& registry, const Input& input)
+void handle_move_input(entt::registry& registry,
+                       entt::entity player,
+                       const Input& input)
 {
-  // TODO replace view with player entity parameter
-  const auto view = registry.view<Player, Movable, Binds, EntityMoveState>();
-  for (const auto entity : view) {
-    auto& movable = view.get<Movable>(entity);
-    const auto& binds = view.get<Binds>(entity);
+  if (registry.has<Player>(player) && registry.has<EntityMoveState>(player)) {
+    const auto* binds = registry.try_get<Binds>(player);
+    auto* movable = registry.try_get<Movable>(player);
+    if (movable && binds) {
+      const bool areMoveKeysDown = check_pressed(*movable, input, *binds);
+      check_released(*movable, input, *binds);
 
-    bool areMoveKeysDown = false;  // assume no movement keys are down
+      // TODO "update" the moving direction (srcY)
 
-    areMoveKeysDown = check_pressed(movable, input, binds);
-    check_released(movable, input, binds);
-
-    // TODO "update" the moving direction (srcY)
-
-    if (!areMoveKeysDown && movable.velocity.is_zero()) {
-      registry.remove_if_exists<EntityMoveState>(entity);
-      registry.emplace_or_replace<EntityIdleState>(entity);
-      enter_idle(registry, entity);
+      if (!areMoveKeysDown && movable->velocity.is_zero()) {
+        registry.remove_if_exists<EntityMoveState>(player);
+        registry.emplace_or_replace<EntityIdleState>(player);
+        enter_idle(registry, player);
+      }
+      //    else if (input.is_pressed(SDL_SCANCODE_SPACE)) { // TODO
+      //      registry.remove_if_exists<EntityMoveState>(entity);
+      //      registry.emplace_or_replace<EntityAttackState>(entity);
+      //    }
     }
-    //    else if (input.is_pressed(SDL_SCANCODE_SPACE)) { // TODO
-    //      registry.remove_if_exists<EntityMoveState>(entity);
-    //      registry.emplace_or_replace<EntityAttackState>(entity);
-    //    }
   }
 }
 

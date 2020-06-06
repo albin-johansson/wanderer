@@ -9,7 +9,7 @@
 
 namespace wanderer {
 
-class Game {
+class Game final {
  public:
   explicit Game(centurion::Renderer& renderer);
 
