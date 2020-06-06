@@ -116,7 +116,6 @@ add_executable(${WANDERER_EXE_TARGET} main.cpp)
 wanderer_set_properties(${WANDERER_EXE_TARGET} "Wanderer")
 
 target_link_libraries(${WANDERER_EXE_TARGET}
-        PUBLIC mingw32 # TODO check if this is necessary
         PUBLIC ${WANDERER_LIB_TARGET}
         PUBLIC ${CENTURION_LIBRARY}
         PUBLIC ${SDL2_LIBRARY}
