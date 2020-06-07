@@ -4,8 +4,8 @@
 #include "binds.h"
 #include "collision.h"
 #include "drawable.h"
-#include "entity_state.h"
 #include "game_constants.h"
+#include "humanoid_state.h"
 #include "movable.h"
 #include "player.h"
 
@@ -34,7 +34,8 @@ entt::entity make_player(entt::registry& registry, Renderer& renderer)
 
   registry.emplace<Collision>(player);
   registry.emplace<Binds>(player);
-  registry.emplace<EntityIdleState>(player);
+  registry.emplace<Humanoid>(player);
+  registry.emplace<HumanoidIdle>(player);
 
   return player;
 }

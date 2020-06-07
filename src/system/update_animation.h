@@ -4,6 +4,6 @@
 
 namespace wanderer {
 
-void update_animation(entt::registry& registry);
+void update_animation_state(entt::registry& registry);
 
 }

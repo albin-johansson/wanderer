@@ -27,7 +27,7 @@ void update_direction(Movable& movable) noexcept
 
 }  // namespace
 
-void update_movement(entt::registry& registry, float delta)
+void update_movables(entt::registry& registry, float delta)
 {
   const auto entities = registry.view<Movable>();
   for (const auto entity : entities) {

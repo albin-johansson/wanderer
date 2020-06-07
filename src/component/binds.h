@@ -8,6 +8,7 @@ struct Binds final {
   centurion::Key right{SDL_SCANCODE_D};
   centurion::Key down{SDL_SCANCODE_S};
   centurion::Key left{SDL_SCANCODE_A};
+  centurion::Key attack{SDL_SCANCODE_SPACE};
 };
 
 }  // namespace wanderer

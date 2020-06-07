@@ -5,14 +5,18 @@
 
 namespace wanderer {
 
-void enter_idle(entt::registry& registry, entt::entity entity);
+void humanoid_enter_idle_animation(entt::registry& registry, entt::entity entity);
 
-void enter_move(entt::registry& registry,
+void humanoid_enter_move_animation(entt::registry& registry,
                 entt::entity entity,
                 Direction direction);
 
-void enter_spell(entt::registry& registry, entt::entity entity);
+void humanoid_enter_melee_animation(entt::registry& registry, entt::entity entity);
 
-void humanoid_update_move(entt::registry& registry, entt::entity entity);
+//void humanoid_update_move_animation(entt::registry& registry, entt::entity entity);
+
+//void humanoid_update_attack_animation(entt::registry& registry, entt::entity entity);
+
+void humanoids_update_animation(entt::registry& registry);
 
 }  // namespace wanderer

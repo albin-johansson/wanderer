@@ -38,7 +38,7 @@ set(SOURCE_FILES
         component/player.h
         component/movable.h
         component/collision.h
-        component/entity_state.h
+        component/humanoid_state.h
         component/binds.h
         component/animated.h
         component/drawable.h
@@ -57,6 +57,8 @@ set(SOURCE_FILES
         system/humanoid_animation_system.h
         system/update_animation.cpp
         system/update_animation.h
+        system/humanoid_state_system.cpp
+        system/humanoid_state_system.h
 
         system/input/update_input.cpp
         system/input/update_input.h

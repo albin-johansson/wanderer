@@ -115,19 +115,17 @@ void handle_move_input(entt::registry& registry,
                        entt::entity player,
                        const Input& input)
 {
-  if (registry.has<Player>(player) && registry.has<EntityMoveState>(player)) {
+  if (registry.has<Player>(player) && registry.has<HumanoidMove>(player)) {
     const auto* binds = registry.try_get<Binds>(player);
     auto* movable = registry.try_get<Movable>(player);
     if (movable && binds) {
       const bool areMoveKeysDown = check_pressed(*movable, input, *binds);
       check_released(*movable, input, *binds);
 
-      // TODO "update" the moving direction (srcY)
-
       if (!areMoveKeysDown && movable->velocity.is_zero()) {
-        registry.remove_if_exists<EntityMoveState>(player);
-        registry.emplace_or_replace<EntityIdleState>(player);
-        enter_idle(registry, player);
+        registry.remove_if_exists<HumanoidMove>(player);
+        registry.emplace_or_replace<HumanoidIdle>(player);
+        humanoid_enter_idle_animation(registry, player);
       }
       //    else if (input.is_pressed(SDL_SCANCODE_SPACE)) { // TODO
       //      registry.remove_if_exists<EntityMoveState>(entity);

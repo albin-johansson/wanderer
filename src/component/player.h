@@ -1,5 +1,5 @@
 #pragma once
-#include "entity_state.h"
+#include "humanoid_state.h"
 
 namespace wanderer {
 

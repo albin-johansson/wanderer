@@ -1,9 +1,11 @@
 #include "game.h"
 
 #include <colors.h>
+#include <humanoid_state.h>
 
 #include "game_constants.h"
 #include "humanoid_animation_system.h"
+#include "humanoid_state_system.h"
 #include "make_player.h"
 #include "make_viewport.h"
 #include "render_movables.h"
@@ -32,21 +34,11 @@ void Game::tick(float delta)
 {
   // TODO check if menu is blocking
 
-  update_movement(m_registry, delta);
-
-  //  const auto es = m_registry.view<EntityMo>()
-  humanoid_update_move(m_registry, m_player);  // FIXME hardcoded
-
-  update_animation(m_registry);
-
-  // update movement
-  // update collision
-  // update attack
-  // update interact (NPCs/enter/exit houses)
-  // update animation
-
+  humanoids_update_state(m_registry);
+  humanoids_update_animation(m_registry);
+  update_movables(m_registry, delta);
+  update_animation_state(m_registry);
   // TODO need to update viewport level size as well when level changes
-
   update_viewport(m_registry, m_viewport, m_player, delta);
 }
 
