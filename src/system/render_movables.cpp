@@ -1,4 +1,4 @@
-#include "render_entities.h"
+#include "render_movables.h"
 
 #include "animated.h"
 #include "drawable.h"
@@ -11,18 +11,15 @@ namespace wanderer {
 
 inline constexpr FArea entitySize{g_entityDrawWidth, g_entityDrawHeight};
 
-void render_entities(entt::registry& registry, Renderer& renderer)
+void render_movables(entt::registry& registry, Renderer& renderer)
 {
-  const auto entities = registry.view<Movable, Animated, Drawable>();
+  const auto entities = registry.view<Movable, Drawable>();
   for (const auto entity : entities) {
     const auto& movable = entities.get<Movable>(entity);
-    const auto& animated = entities.get<Animated>(entity);
     const auto& drawable = entities.get<Drawable>(entity);
 
-    const auto srcX = movable.velocity.is_zero() ? 0 : animated.frame * 64;
-
     const auto [x, y] = movable.interpolatedPos;
-    const IRect src{{static_cast<int>(srcX), drawable.srcY}, {64, 64}};
+    const IRect src{{drawable.srcX, drawable.srcY}, {64, 64}};
     const FRect dst{{x, y}, entitySize};
 
     renderer.render_tf(*drawable.texture, src, dst);

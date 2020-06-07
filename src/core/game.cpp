@@ -6,7 +6,7 @@
 #include "humanoid_animation_system.h"
 #include "make_player.h"
 #include "make_viewport.h"
-#include "render_entities.h"
+#include "render_movables.h"
 #include "update_animation.h"
 #include "update_input.h"
 #include "update_interpolation.h"
@@ -67,7 +67,7 @@ void Game::render(Renderer& renderer, float alpha)
   }
 
   // TODO render more stuff (think about render depth as well)
-  render_entities(m_registry, renderer);
+  render_movables(m_registry, renderer);
 
   // TODO render HUD
 

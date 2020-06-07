@@ -48,6 +48,7 @@ void enter_idle(entt::registry& registry, entt::entity entity)
          [](Animated& animated, Movable& movable, Drawable& drawable) noexcept {
            animated.frame = 0;
            animated.nFrames = 1;
+           drawable.srcX = 0;
            drawable.srcY = source_y(idleSourceY, movable.dominantDirection);
          });
 }
@@ -63,6 +64,7 @@ void enter_move(entt::registry& registry,
         animated.frame = 0;
         animated.nFrames = 9;
         animated.delay = 90;
+        drawable.srcX = 0;
         drawable.srcY = source_y(moveSourceY, direction);
       });
 }
@@ -77,6 +79,9 @@ void humanoid_update_move(entt::registry& registry, entt::entity entity)
   update(registry,
          entity,
          [](Animated& animated, Movable& movable, Drawable& drawable) noexcept {
+           drawable.srcX = movable.velocity.is_zero()
+                               ? 0
+                               : static_cast<int>(animated.frame) * 64;
            const auto srcY = source_y(moveSourceY, movable.dominantDirection);
            if (drawable.srcY != srcY) {
              animated.frame = 0;

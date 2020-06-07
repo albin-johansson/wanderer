@@ -43,8 +43,8 @@ set(SOURCE_FILES
         component/animated.h
         component/drawable.h
 
-        system/render_entities.cpp
-        system/render_entities.h
+        system/render_movables.cpp
+        system/render_movables.h
         system/update_movement.cpp
         system/update_movement.h
         system/update_interpolation.h

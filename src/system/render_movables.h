@@ -6,6 +6,6 @@
 
 namespace wanderer {
 
-void render_entities(entt::registry& registry, centurion::Renderer& renderer);
+void render_movables(entt::registry& registry, centurion::Renderer& renderer);
 
 }
