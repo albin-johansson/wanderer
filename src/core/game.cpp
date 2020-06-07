@@ -2,6 +2,7 @@
 
 #include <colors.h>
 
+#include "animation_system.h"
 #include "game_constants.h"
 #include "humanoid_animation_system.h"
 #include "humanoid_state_system.h"
@@ -12,7 +13,6 @@
 #include "movement_system.h"
 #include "render_movables_system.h"
 #include "translation_viewport_system.h"
-#include "update_animation.h"
 #include "viewport_system.h"
 
 using namespace centurion;

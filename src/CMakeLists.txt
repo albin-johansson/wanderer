@@ -55,8 +55,8 @@ set(SOURCE_FILES
         system/translation_viewport_system.h
         system/humanoid_animation_system.cpp
         system/humanoid_animation_system.h
-        system/update_animation.cpp
-        system/update_animation.h
+        system/animation_system.cpp
+        system/animation_system.h
         system/humanoid_state_system.cpp
         system/humanoid_state_system.h
 
