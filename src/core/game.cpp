@@ -35,7 +35,7 @@ void Game::tick(const float delta)
 
   humanoids_update_state(m_registry);
   humanoids_update_animation(m_registry);
-  update_movables(m_registry, delta);
+  update_movement(m_registry, delta);
   update_animation_state(m_registry);
   // TODO need to update viewport level size as well when level changes
   update_viewport(m_registry, m_viewport, m_player, delta);

@@ -8,14 +8,26 @@
 namespace wanderer {
 namespace {
 
-inline constexpr int idleSourceY = 512;  // yes these are the same
-inline constexpr int moveSourceY = 512;
-inline constexpr int meleeSourceY = 768;
+inline constexpr int nIdleFrames{1};
+inline constexpr int nMeleeFrames{6};
+inline constexpr int nMagicFrames{7};
+inline constexpr int nSpearFrames{8};
+inline constexpr int nBowFrames{13};
+
+inline constexpr int magicSourceY{0};
+inline constexpr int spearSourceY{256};
+inline constexpr int idleSourceY{512};  // yes these are the same
+inline constexpr int moveSourceY{512};
+inline constexpr int meleeSourceY{768};
+inline constexpr int bowSourceY{1024};
 
 template <typename Lambda>
-void update(entt::registry& registry,
-            const entt::entity entity,
-            Lambda&& lambda)
+void update(
+    entt::registry& registry,
+    const entt::entity entity,
+    Lambda&& lambda) noexcept(noexcept(lambda(std::declval<Animated&>(),
+                                              std::declval<Movable&>(),
+                                              std::declval<Drawable&>())))
 {
   if (auto* animated = registry.try_get<Animated>(entity); animated) {
     if (auto* movable = registry.try_get<Movable>(entity); movable) {
@@ -26,7 +38,7 @@ void update(entt::registry& registry,
   }
 }
 
-int source_y(const int y, const Direction direction) noexcept
+[[nodiscard]] int source_y(const int y, const Direction direction) noexcept
 {
   switch (direction) {
     default:
@@ -43,7 +55,7 @@ int source_y(const int y, const Direction direction) noexcept
 }
 
 void humanoid_update_move_animation(entt::registry& registry,
-                                    const entt::entity entity)
+                                    const entt::entity entity) noexcept
 {
   update(registry,
          entity,
@@ -60,7 +72,7 @@ void humanoid_update_move_animation(entt::registry& registry,
 }
 
 void humanoid_update_attack_animation(entt::registry& registry,
-                                      const entt::entity entity)
+                                      const entt::entity entity) noexcept
 {
   update(registry,
          entity,
@@ -76,24 +88,36 @@ void humanoid_update_attack_animation(entt::registry& registry,
          });
 }
 
+void enter_animation(entt::registry& registry,
+                     const entt::entity entity,
+                     const u32 nFrames,
+                     const int sourceY) noexcept
+{
+  update(
+      registry,
+      entity,
+      [nFrames, sourceY](
+          Animated& animated, Movable& movable, Drawable& drawable) noexcept {
+        animated.frame = 0;
+        animated.nFrames = nFrames;
+        animated.delay = 90;
+        drawable.srcX = 0;
+        drawable.srcY = source_y(sourceY, movable.dominantDirection);
+      });
+}
+
 }  // namespace
 
 void humanoid_enter_idle_animation(entt::registry& registry,
-                                   const entt::entity entity)
+                                   const entt::entity entity) noexcept
 {
-  update(registry,
-         entity,
-         [](Animated& animated, Movable& movable, Drawable& drawable) noexcept {
-           animated.frame = 0;
-           animated.nFrames = 1;
-           drawable.srcX = 0;
-           drawable.srcY = source_y(idleSourceY, movable.dominantDirection);
-         });
+  enter_animation(registry, entity, nIdleFrames, idleSourceY);
 }
 
 void humanoid_enter_move_animation(entt::registry& registry,
                                    const entt::entity entity,
-                                   const Direction direction)
+                                   const Direction direction) noexcept
+// TODO the direction parameter could perhaps be removed
 {
   update(
       registry,
@@ -108,17 +132,27 @@ void humanoid_enter_move_animation(entt::registry& registry,
 }
 
 void humanoid_enter_melee_animation(entt::registry& registry,
-                                    const entt::entity entity)
+                                    const entt::entity entity) noexcept
 {
-  update(registry,
-         entity,
-         [](Animated& animated, Movable& movable, Drawable& drawable) noexcept {
-           animated.frame = 0;
-           animated.nFrames = 6;
-           animated.delay = 90;
-           drawable.srcX = 0;
-           drawable.srcY = source_y(meleeSourceY, movable.dominantDirection);
-         });
+  enter_animation(registry, entity, nMeleeFrames, meleeSourceY);
+}
+
+void humanoid_enter_spell_animation(entt::registry& registry,
+                                    const entt::entity entity) noexcept
+{
+  enter_animation(registry, entity, nMagicFrames, magicSourceY);
+}
+
+void humanoid_enter_bow_animation(entt::registry& registry,
+                                  const entt::entity entity) noexcept
+{
+  enter_animation(registry, entity, nBowFrames, bowSourceY);
+}
+
+void humanoid_enter_spear_animation(entt::registry& registry,
+                                    const entt::entity entity) noexcept
+{
+  enter_animation(registry, entity, nSpearFrames, spearSourceY);
 }
 
 void humanoids_update_animation(entt::registry& registry)
