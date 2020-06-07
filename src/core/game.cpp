@@ -56,8 +56,8 @@ void Game::render(Renderer& renderer, float alpha)
   update_interpolation(m_registry, alpha);
 
   renderer.set_color(color::red);
-  const auto ts = g_tileSize;
 
+  const auto ts = g_tileSize;
   for (int i = 0; i < 20; ++i) {
     for (int j = 0; j < 20; ++j) {
       const auto x = static_cast<float>(j) * ts;
