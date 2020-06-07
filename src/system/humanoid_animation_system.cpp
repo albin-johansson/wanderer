@@ -1,5 +1,7 @@
 #include "humanoid_animation_system.h"
 
+#include <type_traits>
+
 #include "animated.h"
 #include "drawable.h"
 #include "humanoid_state.h"
@@ -117,7 +119,6 @@ void humanoid_enter_idle_animation(entt::registry& registry,
 void humanoid_enter_move_animation(entt::registry& registry,
                                    const entt::entity entity,
                                    const Direction direction) noexcept
-// TODO the direction parameter could perhaps be removed
 {
   update(
       registry,
