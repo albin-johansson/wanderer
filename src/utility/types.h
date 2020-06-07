@@ -26,6 +26,6 @@ template <typename T>
 using Maybe = centurion::Optional<T>;
 inline constexpr auto nothing = centurion::nothing;
 
-namespace ctn = centurion;  // TODO replace with new "centurion_as_ctn.h"
+namespace ctn = centurion;
 
 }  // namespace wanderer

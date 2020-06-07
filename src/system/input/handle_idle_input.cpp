@@ -8,7 +8,7 @@
 namespace wanderer {
 
 void handle_idle_input(entt::registry& registry,
-                       entt::entity player,
+                       const entt::entity player,
                        const Input& input)
 {
   if (registry.has<Player>(player) && registry.has<HumanoidIdle>(player)) {

@@ -7,7 +7,7 @@ using namespace centurion;
 namespace wanderer {
 
 void update_translation_viewport(entt::registry& registry,
-                                 entt::entity viewport,
+                                 const entt::entity viewport,
                                  Renderer& renderer)
 {
   if (const auto* view = registry.try_get<Viewport>(viewport); view) {

@@ -1,7 +1,6 @@
 #include "game.h"
 
 #include <colors.h>
-#include <humanoid_state.h>
 
 #include "game_constants.h"
 #include "humanoid_animation_system.h"
@@ -30,7 +29,7 @@ void Game::handle_input(const Input& input)
   update_input(m_registry, m_player, input);
 }
 
-void Game::tick(float delta)
+void Game::tick(const float delta)
 {
   // TODO check if menu is blocking
 
@@ -42,7 +41,7 @@ void Game::tick(float delta)
   update_viewport(m_registry, m_viewport, m_player, delta);
 }
 
-void Game::render(Renderer& renderer, float alpha)
+void Game::render(Renderer& renderer, const float alpha)
 {
   update_translation_viewport(m_registry, m_viewport, renderer);
   update_interpolation(m_registry, alpha);

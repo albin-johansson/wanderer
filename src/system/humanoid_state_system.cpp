@@ -8,7 +8,7 @@
 namespace wanderer {
 namespace {
 
-void update_attack(entt::registry& registry, entt::entity entity)
+void update_attack(entt::registry& registry, const entt::entity entity)
 {
   if (registry.has<HumanoidAttack>(entity)) {
     const auto& attack = registry.get<HumanoidAttack>(entity);

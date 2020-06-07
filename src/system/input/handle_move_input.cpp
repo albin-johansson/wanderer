@@ -9,7 +9,7 @@
 namespace wanderer {
 namespace {
 
-void move(Movable& movable, Direction direction) noexcept
+void move(Movable& movable, const Direction direction) noexcept
 {
   switch (direction) {
     case Direction::Right: {
@@ -35,7 +35,7 @@ void move(Movable& movable, Direction direction) noexcept
   movable.velocity.scale(movable.speed);
 }
 
-void stop(Movable& movable, Direction direction) noexcept
+void stop(Movable& movable, const Direction direction) noexcept
 {
   switch (direction) {
     case Direction::Right:
@@ -112,7 +112,7 @@ void check_released(Movable& movable, const Input& input, const Binds& binds)
 }  // namespace
 
 void handle_move_input(entt::registry& registry,
-                       entt::entity player,
+                       const entt::entity player,
                        const Input& input)
 {
   if (registry.has<Player>(player) && registry.has<HumanoidMove>(player)) {

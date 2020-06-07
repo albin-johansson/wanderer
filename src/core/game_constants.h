@@ -13,6 +13,6 @@ inline constexpr float g_entityDrawWidth{96.0f};
 
 inline constexpr float g_entityDrawHeight{96.0f};
 
-inline constexpr float g_playerSpeed{120.0f}; // 240
+inline constexpr float g_playerSpeed{120.0f};  // 240
 
 }  // namespace wanderer

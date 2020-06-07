@@ -12,7 +12,7 @@ Input::Input() noexcept
   m_mouseState.set_logical_height(g_logicalHeight);
 }
 
-void Input::update(int windowWidth, int windowHeight) noexcept
+void Input::update(const int windowWidth, const int windowHeight) noexcept
 {
   m_mouseState.update(windowWidth, windowHeight);
   m_keyState.update();

@@ -13,7 +13,9 @@ inline constexpr int moveSourceY = 512;
 inline constexpr int meleeSourceY = 768;
 
 template <typename Lambda>
-void update(entt::registry& registry, entt::entity entity, Lambda&& lambda)
+void update(entt::registry& registry,
+            const entt::entity entity,
+            Lambda&& lambda)
 {
   if (auto* animated = registry.try_get<Animated>(entity); animated) {
     if (auto* movable = registry.try_get<Movable>(entity); movable) {
@@ -24,7 +26,7 @@ void update(entt::registry& registry, entt::entity entity, Lambda&& lambda)
   }
 }
 
-int source_y(int y, Direction direction) noexcept
+int source_y(const int y, const Direction direction) noexcept
 {
   switch (direction) {
     default:
@@ -41,7 +43,7 @@ int source_y(int y, Direction direction) noexcept
 }
 
 void humanoid_update_move_animation(entt::registry& registry,
-                                    entt::entity entity)
+                                    const entt::entity entity)
 {
   update(registry,
          entity,
@@ -58,7 +60,7 @@ void humanoid_update_move_animation(entt::registry& registry,
 }
 
 void humanoid_update_attack_animation(entt::registry& registry,
-                                      entt::entity entity)
+                                      const entt::entity entity)
 {
   update(registry,
          entity,
@@ -77,7 +79,7 @@ void humanoid_update_attack_animation(entt::registry& registry,
 }  // namespace
 
 void humanoid_enter_idle_animation(entt::registry& registry,
-                                   entt::entity entity)
+                                   const entt::entity entity)
 {
   update(registry,
          entity,
@@ -90,8 +92,8 @@ void humanoid_enter_idle_animation(entt::registry& registry,
 }
 
 void humanoid_enter_move_animation(entt::registry& registry,
-                                   entt::entity entity,
-                                   Direction direction)
+                                   const entt::entity entity,
+                                   const Direction direction)
 {
   update(
       registry,
@@ -106,13 +108,14 @@ void humanoid_enter_move_animation(entt::registry& registry,
 }
 
 void humanoid_enter_melee_animation(entt::registry& registry,
-                                    entt::entity entity)
+                                    const entt::entity entity)
 {
   update(registry,
          entity,
          [](Animated& animated, Movable& movable, Drawable& drawable) noexcept {
            animated.frame = 0;
            animated.nFrames = 6;
+           animated.delay = 90;
            drawable.srcX = 0;
            drawable.srcY = source_y(meleeSourceY, movable.dominantDirection);
          });

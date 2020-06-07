@@ -2,7 +2,6 @@
 #include "direction.h"
 
 namespace wanderer {
-// TODO rename
 
 struct Humanoid final {
 };

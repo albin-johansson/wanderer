@@ -49,7 +49,7 @@ void Hitbox::add_rectangle(const FRect& rect, const Vector2f& offset)
   calc_bounds();
 }
 
-void Hitbox::set_x(float x) noexcept
+void Hitbox::set_x(const float x) noexcept
 {
   m_bounds.set_x(x);
   for (auto& [rect, offset] : m_rectangles) {
@@ -57,7 +57,7 @@ void Hitbox::set_x(float x) noexcept
   }
 }
 
-void Hitbox::set_y(float y) noexcept
+void Hitbox::set_y(const float y) noexcept
 {
   m_bounds.set_y(y);
   for (auto& [rect, offset] : m_rectangles) {
@@ -65,7 +65,7 @@ void Hitbox::set_y(float y) noexcept
   }
 }
 
-void Hitbox::set_enabled(bool enabled) noexcept
+void Hitbox::set_enabled(const bool enabled) noexcept
 {
   m_enabled = enabled;
 }

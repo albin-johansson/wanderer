@@ -14,11 +14,9 @@ class Viewport final {
    * @param boundsPosComp the size of the target entity.
    * @param delta the delta time, in seconds.
    */
-  void track(const Vector2f& target,
-             const centurion::FArea& size,
-             float delta);
+  void track(const Vector2f& target, const centurion::FArea& size, float delta);
 
-//  void center();
+  //  void center();
 
   void set_x(float x) noexcept;
 

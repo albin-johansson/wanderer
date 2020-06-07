@@ -1,8 +1,5 @@
 #include "update_movement.h"
 
-#include <timer.h>
-
-#include "animated.h"
 #include "movable.h"
 
 using namespace centurion;
@@ -27,7 +24,7 @@ void update_direction(Movable& movable) noexcept
 
 }  // namespace
 
-void update_movables(entt::registry& registry, float delta)
+void update_movables(entt::registry& registry, const float delta)
 {
   const auto entities = registry.view<Movable>();
   for (const auto entity : entities) {

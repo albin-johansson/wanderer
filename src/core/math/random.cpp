@@ -13,7 +13,7 @@ Random::Random() noexcept
   m_engine.seed(static_cast<u32>(Timer::high_res()));
 }
 
-int Random::get_int(int min, int max)
+int Random::get_int(const int min, const int max)
 {
   return m_distribution(m_engine, distribution::param_type{min, max});
 }

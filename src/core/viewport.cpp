@@ -4,7 +4,9 @@ using namespace centurion;
 
 namespace wanderer {
 
-void Viewport::track(const Vector2f& position, const FArea& size, float delta)
+void Viewport::track(const Vector2f& position,
+                     const FArea& size,
+                     const float delta)
 {
   const auto panSpeed = 15.0f * delta;
 
@@ -33,17 +35,17 @@ void Viewport::track(const Vector2f& position, const FArea& size, float delta)
       calc(targetY, m_bounds.y(), m_levelSize.height, m_bounds.height()));
 }
 
-//void Viewport::center()
+// void Viewport::center()
 //{
 //  // TODO implement
 //}
 
-void Viewport::set_x(float x) noexcept
+void Viewport::set_x(const float x) noexcept
 {
   m_bounds.set_x(x);
 }
 
-void Viewport::set_y(float y) noexcept
+void Viewport::set_y(const float y) noexcept
 {
   m_bounds.set_y(y);
 }
