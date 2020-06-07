@@ -43,16 +43,16 @@ set(SOURCE_FILES
         component/animated.h
         component/drawable.h
 
-        system/render_movables.cpp
-        system/render_movables.h
-        system/update_movement.cpp
-        system/update_movement.h
-        system/update_interpolation.h
-        system/update_interpolation.cpp
-        system/update_viewport.cpp
-        system/update_viewport.h
-        system/update_translation_viewport.cpp
-        system/update_translation_viewport.h
+        system/render_movables_system.cpp
+        system/render_movables_system.h
+        system/movement_system.cpp
+        system/movement_system.h
+        system/interpolation_system.h
+        system/interpolation_system.cpp
+        system/viewport_system.cpp
+        system/viewport_system.h
+        system/translation_viewport_system.cpp
+        system/translation_viewport_system.h
         system/humanoid_animation_system.cpp
         system/humanoid_animation_system.h
         system/update_animation.cpp
@@ -60,12 +60,12 @@ set(SOURCE_FILES
         system/humanoid_state_system.cpp
         system/humanoid_state_system.h
 
-        system/input/update_input.cpp
-        system/input/update_input.h
-        system/input/handle_move_input.cpp
-        system/input/handle_move_input.h
-        system/input/handle_idle_input.cpp
-        system/input/handle_idle_input.h)
+        system/input/input_system.cpp
+        system/input/input_system.h
+        system/input/move_input_system.cpp
+        system/input/move_input_system.h
+        system/input/idle_input_system.cpp
+        system/input/idle_input_system.h)
 
 add_library(${WANDERER_LIB_TARGET} ${SOURCE_FILES})
 

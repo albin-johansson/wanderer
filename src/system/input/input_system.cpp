@@ -1,7 +1,7 @@
-#include "update_input.h"
+#include "input_system.h"
 
-#include "handle_idle_input.h"
-#include "handle_move_input.h"
+#include "idle_input_system.h"
+#include "move_input_system.h"
 
 namespace wanderer {
 

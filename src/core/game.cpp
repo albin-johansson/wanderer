@@ -5,15 +5,15 @@
 #include "game_constants.h"
 #include "humanoid_animation_system.h"
 #include "humanoid_state_system.h"
+#include "input_system.h"
+#include "interpolation_system.h"
 #include "make_player.h"
 #include "make_viewport.h"
-#include "render_movables.h"
+#include "movement_system.h"
+#include "render_movables_system.h"
+#include "translation_viewport_system.h"
 #include "update_animation.h"
-#include "update_input.h"
-#include "update_interpolation.h"
-#include "update_movement.h"
-#include "update_translation_viewport.h"
-#include "update_viewport.h"
+#include "viewport_system.h"
 
 using namespace centurion;
 

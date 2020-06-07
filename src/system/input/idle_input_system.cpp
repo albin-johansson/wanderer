@@ -1,4 +1,4 @@
-#include "handle_idle_input.h"
+#include "idle_input_system.h"
 
 #include "binds.h"
 #include "direction.h"
@@ -35,8 +35,9 @@ void handle_idle_input(entt::registry& registry,
       } else if (input.is_pressed(binds->attack)) {
         registry.remove_if_exists<HumanoidIdle>(player);
         registry.emplace_or_replace<HumanoidAttack>(player);
-        humanoid_enter_melee_animation(registry,
-                                       player);  // TODO check selected item
+
+        // TODO check selected item
+        humanoid_enter_melee_animation(registry, player);
       }
     }
   }

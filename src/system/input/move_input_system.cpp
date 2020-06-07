@@ -1,4 +1,4 @@
-#include "handle_move_input.h"
+#include "move_input_system.h"
 
 #include "binds.h"
 #include "direction.h"
@@ -57,7 +57,9 @@ void stop(Movable& movable, const Direction direction) noexcept
   movable.velocity.scale(movable.speed);
 }
 
-bool check_pressed(Movable& movable, const Input& input, const Binds& binds)
+[[nodiscard]] bool check_pressed(Movable& movable,
+                                 const Input& input,
+                                 const Binds& binds)
 {
   const auto left = input.is_pressed(binds.left);
   const auto right = input.is_pressed(binds.right);
