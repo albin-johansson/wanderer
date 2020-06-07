@@ -126,11 +126,12 @@ void handle_move_input(entt::registry& registry,
         registry.remove_if_exists<HumanoidMove>(player);
         registry.emplace_or_replace<HumanoidIdle>(player);
         humanoid_enter_idle_animation(registry, player);
+      } else if (input.is_pressed(binds->attack)) {
+        movable->velocity.zero();
+        registry.remove_if_exists<HumanoidMove>(player);
+        registry.emplace_or_replace<HumanoidAttack>(player);
+        humanoid_enter_melee_animation(registry, player);
       }
-      //    else if (input.is_pressed(SDL_SCANCODE_SPACE)) { // TODO
-      //      registry.remove_if_exists<EntityMoveState>(entity);
-      //      registry.emplace_or_replace<EntityAttackState>(entity);
-      //    }
     }
   }
 }
