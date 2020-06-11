@@ -11,7 +11,7 @@ void handle_idle_input(entt::registry& registry,
                        const entt::entity player,
                        const Input& input)
 {
-  if (registry.has<Player>(player) && registry.has<HumanoidIdle>(player)) {
+  if (registry.has<HumanoidIdle>(player)) {
     if (const auto* binds = registry.try_get<Binds>(player); binds) {
       const auto left = input.is_pressed(binds->left);
       const auto right = input.is_pressed(binds->right);

@@ -117,7 +117,7 @@ void handle_move_input(entt::registry& registry,
                        const entt::entity player,
                        const Input& input)
 {
-  if (registry.has<Player>(player) && registry.has<HumanoidMove>(player)) {
+  if (registry.has<HumanoidMove>(player)) {
     const auto* binds = registry.try_get<Binds>(player);
     auto* movable = registry.try_get<Movable>(player);
     if (movable && binds) {
