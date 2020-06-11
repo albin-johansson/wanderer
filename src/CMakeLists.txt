@@ -95,6 +95,7 @@ target_include_directories(${WANDERER_LIB_TARGET} SYSTEM PUBLIC ${SDL2_TTF_INCLU
 target_include_directories(${WANDERER_LIB_TARGET} SYSTEM PUBLIC ${LIBRARY_DIR}/centurion)
 target_include_directories(${WANDERER_LIB_TARGET} SYSTEM PUBLIC ${LIBRARY_DIR}/entt)
 target_include_directories(${WANDERER_LIB_TARGET} SYSTEM PUBLIC ${LIBRARY_DIR}/json)
+target_include_directories(${WANDERER_LIB_TARGET} SYSTEM PUBLIC ${LIBRARY_DIR}/step)
 
 # Wanderer directories
 target_include_directories(${WANDERER_LIB_TARGET} PUBLIC core)
@@ -111,7 +112,8 @@ target_link_libraries(${WANDERER_LIB_TARGET}
         PUBLIC ${SDL2_IMAGE_LIBRARIES}
         PUBLIC ${SDL2_MIXER_LIBRARIES}
         PUBLIC ${SDL2_TTF_LIBRARIES}
-        PUBLIC ${SDL2_LIBRARY})
+        PUBLIC ${SDL2_LIBRARY}
+        PUBLIC ${STEP_LIBRARY})
 
 add_executable(${WANDERER_EXE_TARGET} main.cpp)
 
