@@ -22,6 +22,9 @@ using ufast64 = std::uint_fast64_t;
 using ifast32 = std::int_fast32_t;
 using ifast64 = std::int_fast64_t;
 
+using TileID = u32;
+inline constexpr TileID g_emptyTile = 0;
+
 template <typename T>
 using Maybe = centurion::Optional<T>;
 inline constexpr auto nothing = centurion::nothing;

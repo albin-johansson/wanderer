@@ -25,6 +25,8 @@ set(SOURCE_FILES
         core/viewport.h
         core/make_viewport.cpp
         core/make_viewport.h
+        core/make_tile.cpp
+        core/make_tile.h
 
         core/math/vector_2.h
         core/math/random.cpp
@@ -42,6 +44,11 @@ set(SOURCE_FILES
         component/binds.h
         component/animated.h
         component/drawable.h
+        component/tilemap.h
+        component/tile_layer.h
+        component/tileset.h
+        component/tile.h
+        component/animated_tile.h
 
         system/render_movables_system.cpp
         system/render_movables_system.h
@@ -65,7 +72,12 @@ set(SOURCE_FILES
         system/input/move_input_system.cpp
         system/input/move_input_system.h
         system/input/idle_input_system.cpp
-        system/input/idle_input_system.h)
+        system/input/idle_input_system.h
+
+        parse/tile/make_map.h
+        parse/tile/make_map.cpp
+        parse/tile/make_tileset.cpp
+        parse/tile/make_tileset.h)
 
 add_library(${WANDERER_LIB_TARGET} ${SOURCE_FILES})
 
@@ -104,6 +116,9 @@ target_include_directories(${WANDERER_LIB_TARGET} PUBLIC component)
 target_include_directories(${WANDERER_LIB_TARGET} PUBLIC system)
 target_include_directories(${WANDERER_LIB_TARGET} PUBLIC system/input)
 target_include_directories(${WANDERER_LIB_TARGET} PUBLIC utility)
+target_include_directories(${WANDERER_LIB_TARGET} PUBLIC parse)
+target_include_directories(${WANDERER_LIB_TARGET} PUBLIC parse/tile)
+target_include_directories(${WANDERER_LIB_TARGET} PUBLIC parse/menu)
 
 #target_compile_definitions(${WANDERER_LIB} PUBLIC WANDERER_DEBUG)
 
