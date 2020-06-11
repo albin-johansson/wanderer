@@ -23,6 +23,10 @@ inline constexpr int moveSourceY{512};
 inline constexpr int meleeSourceY{768};
 inline constexpr int bowSourceY{1024};
 
+inline constexpr u32 idleDelay{90};
+inline constexpr u32 moveDelay{90};
+inline constexpr u32 attackDelay{65};
+
 template <typename Lambda>
 void update(
     entt::registry& registry,
@@ -93,16 +97,17 @@ void humanoid_update_attack_animation(entt::registry& registry,
 void enter_animation(entt::registry& registry,
                      const entt::entity entity,
                      const u32 nFrames,
+                     const u32 delay,
                      const int sourceY) noexcept
 {
   update(
       registry,
       entity,
-      [nFrames, sourceY](
+      [nFrames, sourceY, delay](
           Animated& animated, Movable& movable, Drawable& drawable) noexcept {
         animated.frame = 0;
         animated.nFrames = nFrames;
-        animated.delay = 90;
+        animated.delay = delay;
         drawable.srcX = 0;
         drawable.srcY = source_y(sourceY, movable.dominantDirection);
       });
@@ -113,7 +118,7 @@ void enter_animation(entt::registry& registry,
 void humanoid_enter_idle_animation(entt::registry& registry,
                                    const entt::entity entity) noexcept
 {
-  enter_animation(registry, entity, nIdleFrames, idleSourceY);
+  enter_animation(registry, entity, nIdleFrames, idleDelay, idleSourceY);
 }
 
 void humanoid_enter_move_animation(entt::registry& registry,
@@ -126,7 +131,7 @@ void humanoid_enter_move_animation(entt::registry& registry,
       [direction](Animated& animated, Movable&, Drawable& drawable) noexcept {
         animated.frame = 0;
         animated.nFrames = 9;
-        animated.delay = 90;
+        animated.delay = moveDelay;
         drawable.srcX = 0;
         drawable.srcY = source_y(moveSourceY, direction);
       });
@@ -135,25 +140,25 @@ void humanoid_enter_move_animation(entt::registry& registry,
 void humanoid_enter_melee_animation(entt::registry& registry,
                                     const entt::entity entity) noexcept
 {
-  enter_animation(registry, entity, nMeleeFrames, meleeSourceY);
+  enter_animation(registry, entity, nMeleeFrames, attackDelay, meleeSourceY);
 }
 
 void humanoid_enter_spell_animation(entt::registry& registry,
                                     const entt::entity entity) noexcept
 {
-  enter_animation(registry, entity, nMagicFrames, magicSourceY);
+  enter_animation(registry, entity, nMagicFrames, attackDelay, magicSourceY);
 }
 
 void humanoid_enter_bow_animation(entt::registry& registry,
                                   const entt::entity entity) noexcept
 {
-  enter_animation(registry, entity, nBowFrames, bowSourceY);
+  enter_animation(registry, entity, nBowFrames, attackDelay, bowSourceY);
 }
 
 void humanoid_enter_spear_animation(entt::registry& registry,
                                     const entt::entity entity) noexcept
 {
-  enter_animation(registry, entity, nSpearFrames, spearSourceY);
+  enter_animation(registry, entity, nSpearFrames, attackDelay, spearSourceY);
 }
 
 void humanoids_update_animation(entt::registry& registry)
