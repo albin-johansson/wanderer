@@ -21,21 +21,14 @@ void render_tile(Renderer& renderer,
                  const Tileset* tileset,
                  const int row,
                  const int col,
-                 const Tile& tile)
+                 const Tile& tile) noexcept
 {
   const auto x = static_cast<float>(col) * g_tileSize<float>;
   const auto y = static_cast<float>(row) * g_tileSize<float>;
   const FRect dst{{x, y}, {g_tileSize<float>, g_tileSize<float>}};
 
   if (tileset) {
-    //    const auto r = static_cast<std::size_t>(row);
-    //    const auto c = static_cast<std::size_t>(col);
-    //    const auto tileID = tileLayer.matrix.at(r).at(c);
-    if (tile.id != g_emptyTile) {
-      //      const auto tileEntity = tileset->tiles.at(tile.id);
-      //            const auto& tile = registry.get<Tile>(tileEntity);
-      renderer.render_tf(*tile.sheet, tile.src, dst);
-    }
+    renderer.render_tf(*tile.sheet, tile.src, dst);
   } else {
     renderer.set_color(color::red);
     renderer.draw_rect_tf(dst);
