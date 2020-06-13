@@ -28,8 +28,8 @@ void render_tile(Renderer& renderer,
   const FRect dst{{x, y}, {g_tileSize<float>, g_tileSize<float>}};
 
   if (tileset) {
-//    const auto r = static_cast<std::size_t>(row);
-//    const auto c = static_cast<std::size_t>(col);
+    //    const auto r = static_cast<std::size_t>(row);
+    //    const auto c = static_cast<std::size_t>(col);
     //    const auto tileID = tileLayer.matrix.at(r).at(c);
     if (tile.id != g_emptyTile) {
       //      const auto tileEntity = tileset->tiles.at(tile.id);
@@ -61,34 +61,14 @@ void render_ground_layers(entt::registry& registry,
     renderer.set_color(color::red);
     for (auto row = renderBounds.minRow; row < renderBounds.maxRow; ++row) {
       for (auto col = renderBounds.minCol; col < renderBounds.maxCol; ++col) {
-        const auto tileID = tileLayer.matrix.at(row).at(col);
+        const auto r = static_cast<std::size_t>(row);
+        const auto c = static_cast<std::size_t>(col);
+        const auto tileID = tileLayer.matrix.at(r).at(c);
         if (tileID != g_emptyTile) {
           const auto tileEntity = tileset->tiles.at(tileID);
           const auto& tile = registry.get<Tile>(tileEntity);
           render_tile(renderer, tileset, row, col, tile);
         }
-
-        //        render_tile(
-        //            renderer, tileset, row, col,
-        //            tileLayer.matrix.at(row).at(col));
-        //        const auto x = static_cast<float>(col) * g_tileSize<float>;
-        //        const auto y = static_cast<float>(row) * g_tileSize<float>;
-        //        const FRect dst{{x, y}, {g_tileSize<float>,
-        //        g_tileSize<float>}};
-        //
-        //        if (tileset) {
-        //          const auto r = static_cast<std::size_t>(row);
-        //          const auto c = static_cast<std::size_t>(col);
-        //          const auto tileID = tileLayer.matrix.at(r).at(c);
-        //          if (tileID != g_emptyTile) {
-        //            const auto tileEntity = tileset->tiles.at(tileID);
-        //            const auto& tile = registry.get<Tile>(tileEntity);
-        //            renderer.render_tf(*tile.sheet, tile.src, dst);
-        //          }
-        //        } else {
-        //          renderer.set_color(color::red);
-        //          renderer.draw_rect_tf(dst);
-        //        }
       }
     }
   }
