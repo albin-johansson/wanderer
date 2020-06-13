@@ -4,15 +4,19 @@
 
 #include "animation_system.h"
 #include "game_constants.h"
+#include "ground_layer_rendering_system.h"
 #include "humanoid_animation_system.h"
 #include "humanoid_state_system.h"
 #include "input_system.h"
 #include "interpolation_system.h"
+#include "make_map.h"
 #include "make_player.h"
 #include "make_viewport.h"
 #include "movement_system.h"
 #include "render_movables_system.h"
+#include "tilemap.h"
 #include "translation_viewport_system.h"
+#include "viewport.h"
 #include "viewport_system.h"
 
 using namespace centurion;
@@ -21,8 +25,13 @@ namespace wanderer {
 
 Game::Game(Renderer& renderer)
     : m_player{make_player(m_registry, renderer)},
+      m_world{make_map(m_registry, "world_demo.json", renderer)},
       m_viewport{make_viewport(m_registry)}
-{}
+{
+  auto* view = m_registry.try_get<Viewport>(m_viewport);
+  auto* level = m_registry.try_get<Tilemap>(m_world);
+  view->set_level_size({level->width, level->height});
+}
 
 void Game::handle_input(const Input& input)
 {
@@ -46,16 +55,7 @@ void Game::render(Renderer& renderer, const float alpha)
   update_translation_viewport(m_registry, m_viewport, renderer);
   update_interpolation(m_registry, alpha);
 
-  renderer.set_color(color::red);
-
-  const auto ts = g_tileSize;
-  for (int i = 0; i < 20; ++i) {
-    for (int j = 0; j < 20; ++j) {
-      const auto x = static_cast<float>(j) * ts;
-      const auto y = static_cast<float>(i) * ts;
-      renderer.draw_rect_tf({{x, y}, {ts, ts}});
-    }
-  }
+  render_ground_layers(m_registry, m_world, m_viewport, renderer);
 
   // TODO render more stuff (think about render depth as well)
   render_movables(m_registry, renderer);

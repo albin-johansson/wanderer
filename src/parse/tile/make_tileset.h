@@ -1,5 +1,6 @@
 #pragma once
 
+#include <renderer.h>
 #include <step.h>
 
 #include <vector>
@@ -8,7 +9,9 @@
 
 namespace wanderer {
 
-entt::entity make_tileset(entt::registry& registry,
-                          const std::vector<step::Tileset>& tilesets);
+[[nodiscard]] entt::entity make_tileset(
+    entt::registry& registry,
+    const std::vector<step::Tileset>& tilesets,
+    centurion::Renderer& renderer);
 
 }

@@ -5,12 +5,8 @@
 
 namespace wanderer {
 
-// A tag type for "ground" layers that are rendered first
-struct GroundLayer final {
-};
-
 struct TileLayer final {
-  using TileMatrix = std::vector<std::vector<entt::entity>>;
+  using TileMatrix = std::vector<std::vector<TileID>>;
 
   TileMatrix matrix;
   int nRows;

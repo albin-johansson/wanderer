@@ -1,14 +1,13 @@
 #pragma once
 
-#include <vector>
+#include <unordered_map>
 
-#include "tile.h"
+#include "types.h"
 
 namespace wanderer {
 
 struct Tileset final {
-  // map TileID -> Tile
-  std::vector<Tile> tiles;
+  std::unordered_map<TileID, entt::entity> tiles;
 };
 
 }  // namespace wanderer

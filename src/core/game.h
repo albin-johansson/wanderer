@@ -22,6 +22,7 @@ class Game final {
  private:
   entt::registry m_registry;
   entt::entity m_player;
+  entt::entity m_world;
   entt::entity m_viewport;
 };
 

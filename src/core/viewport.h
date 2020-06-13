@@ -16,7 +16,7 @@ class Viewport final {
    */
   void track(const Vector2f& target, const centurion::FArea& size, float delta);
 
-  //  void center();
+  void center(const Vector2f& target, const centurion::FArea& size);
 
   void set_x(float x) noexcept;
 

@@ -25,8 +25,6 @@ set(SOURCE_FILES
         core/viewport.h
         core/make_viewport.cpp
         core/make_viewport.h
-        core/make_tile.cpp
-        core/make_tile.h
 
         core/math/vector_2.h
         core/math/random.cpp
@@ -66,6 +64,8 @@ set(SOURCE_FILES
         system/animation_system.h
         system/humanoid_state_system.cpp
         system/humanoid_state_system.h
+        system/ground_layer_rendering_system.cpp
+        system/ground_layer_rendering_system.h
 
         system/input/input_system.cpp
         system/input/input_system.h
@@ -74,10 +74,12 @@ set(SOURCE_FILES
         system/input/idle_input_system.cpp
         system/input/idle_input_system.h
 
+        parse/tile/make_tile.cpp
+        parse/tile/make_tile.h
         parse/tile/make_map.h
         parse/tile/make_map.cpp
         parse/tile/make_tileset.cpp
-        parse/tile/make_tileset.h)
+        parse/tile/make_tileset.h system/render_bounds_system.cpp system/render_bounds_system.h component/render_bounds.h)
 
 add_library(${WANDERER_LIB_TARGET} ${SOURCE_FILES})
 

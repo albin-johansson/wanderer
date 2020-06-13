@@ -2,47 +2,67 @@
 
 #include "animated.h"
 #include "make_tile.h"
+#include "math.h"
 #include "tileset.h"
+
+using namespace centurion;
 
 namespace wanderer {
 namespace {
 
-void fill_tile_identifiers(std::vector<Tile>& tiles,
-                           int start,
-                           int end,
-                           TileID initialValue)
+void parse_special_tiles(const step::Tileset& stepTileset)
 {
-  tiles.reserve(tiles.capacity() + static_cast<std::size_t>(end - start));
-
-  for (auto i = start; i < end; ++i) {
-    tiles.at(static_cast<std::size_t>(i)).id = initialValue;
-    ++initialValue;
+  for (const auto& stepTile : stepTileset.tiles()) {
+    //      const auto [row, col] =
+    //          Math::index_to_matrix_pos(index, stepTileset.columns());
+    //      const IRect src{
+    //          {col * stepTileset.tile_width(), row *
+    //          stepTileset.tile_height()}, {stepTileset.tile_width(),
+    //          stepTileset.tile_height()}};
+    //
+    //      const auto tileEntity = make_tile(registry, stepTile, sheet, src);
+    //
+    //      //      auto& tile = tileset.tiles.at(stepTile.id());
+    //
   }
 }
 
 }  // namespace
 
 entt::entity make_tileset(entt::registry& registry,
-                          const std::vector<step::Tileset>& tilesets)
+                          const std::vector<step::Tileset>& tilesets,
+                          Renderer& renderer)
 {
-  const auto entity{registry.create()};
+  const auto entity = registry.create();
 
   auto& tileset = registry.emplace<Tileset>(entity);
 
-  TileID initialValue = 1;
-
   for (const auto& stepTileset : tilesets) {
-    fill_tile_identifiers(tileset.tiles,
-                          stepTileset.first_gid(),
-                          stepTileset.tile_count(),
-                          initialValue);
+    auto sheet = Texture::shared(
+        renderer, ("resource/map/" + stepTileset.image()).c_str());
+
+    for (auto id = stepTileset.first_gid(), index = 0;
+         index < stepTileset.tile_count();
+         ++id, ++index) {
+      const auto [row, col] =
+          Math::index_to_matrix_pos(index, stepTileset.columns());
+
+      const IRect src{
+          {col * stepTileset.tile_width(), row * stepTileset.tile_height()},
+          {stepTileset.tile_width(), stepTileset.tile_height()}};
+
+      const auto tileEntity =
+          make_basic_tile(registry, static_cast<TileID>(id), sheet, src);
+
+      tileset.tiles.emplace(id, tileEntity);
+    }
 
     for (const auto& stepTile : stepTileset.tiles()) {
-      const auto tile{make_tile(registry, stepTile)};
+      const auto gid =
+          static_cast<TileID>(stepTileset.first_gid() + stepTile.id());
+      parse_special_tile(registry, tileset.tiles.at(gid), stepTile);
     }
   }
-
-  tileset.tiles.shrink_to_fit();
 
   return entity;
 }
