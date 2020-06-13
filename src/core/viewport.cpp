@@ -11,9 +11,6 @@ void Viewport::track(const Vector2f& position,
                      const float delta)
 {
   auto panSpeed = 15 * delta;
-//  if (panSpeed < 1) {
-//    panSpeed = 1;
-//  }
 
   const float targetX =
       (position.x + (size.width / 2.0f)) - (m_bounds.width() / 2.0f);
