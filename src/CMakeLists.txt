@@ -47,6 +47,7 @@ set(SOURCE_FILES
         component/tileset.h
         component/tile.h
         component/animated_tile.h
+        component/render_bounds.h
 
         system/render_movables_system.cpp
         system/render_movables_system.h
@@ -66,6 +67,8 @@ set(SOURCE_FILES
         system/humanoid_state_system.h
         system/ground_layer_rendering_system.cpp
         system/ground_layer_rendering_system.h
+        system/render_bounds_system.cpp
+        system/render_bounds_system.h
 
         system/input/input_system.cpp
         system/input/input_system.h
@@ -79,7 +82,7 @@ set(SOURCE_FILES
         parse/tile/make_map.h
         parse/tile/make_map.cpp
         parse/tile/make_tileset.cpp
-        parse/tile/make_tileset.h system/render_bounds_system.cpp system/render_bounds_system.h component/render_bounds.h)
+        parse/tile/make_tileset.h)
 
 add_library(${WANDERER_LIB_TARGET} ${SOURCE_FILES})
 
