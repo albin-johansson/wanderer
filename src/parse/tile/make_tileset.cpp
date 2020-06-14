@@ -47,7 +47,7 @@ entt::entity make_tileset(entt::registry& registry,
 
     create_tiles(registry, tileset, stepTileset, sheet);
 
-    const auto firstGID = static_cast<const TileID>(stepTileset.first_gid());
+    const auto firstGID = static_cast<TileID>(stepTileset.first_gid());
     for (const auto& stepTile : stepTileset.tiles()) {
       const auto gid = firstGID + static_cast<TileID>(stepTile.id());
       parse_special_tile(registry, tileset.tiles.at(gid), stepTile, firstGID);
