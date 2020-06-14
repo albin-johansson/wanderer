@@ -14,7 +14,7 @@ namespace {
 Renderer create_renderer(const Window& window)
 {
   Renderer renderer{window};
-  renderer.set_logical_size({g_logicalWidth, g_logicalHeight});
+  renderer.set_logical_size({g_logicalWidth<>, g_logicalHeight<>});
   renderer.set_logical_integer_scale(true);
   return renderer;
 }

@@ -20,12 +20,10 @@ RenderBounds calculate_render_bounds(entt::registry& registry,
   const auto& viewportBounds = viewport->bounds();
 
   RenderBounds bounds;
-  bounds.minCol = static_cast<int>(viewportBounds.x()) / g_tileSize<int>;
-  bounds.minRow = static_cast<int>(viewportBounds.y()) / g_tileSize<int>;
-  bounds.maxCol =
-      (static_cast<int>(viewportBounds.max_x()) / g_tileSize<int>)+1;
-  bounds.maxRow =
-      (static_cast<int>(viewportBounds.max_y()) / g_tileSize<int>)+1;
+  bounds.minCol = Math::round(viewportBounds.x()) / g_tileSize<int>;
+  bounds.minRow = Math::round(viewportBounds.y()) / g_tileSize<int>;
+  bounds.maxCol = (Math::round(viewportBounds.max_x()) / g_tileSize<int>)+1;
+  bounds.maxRow = (Math::round(viewportBounds.max_y()) / g_tileSize<int>)+1;
 
   if (bounds.minCol < 0) {
     bounds.minCol = 0;

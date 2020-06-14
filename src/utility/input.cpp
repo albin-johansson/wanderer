@@ -8,8 +8,8 @@ namespace wanderer {
 
 Input::Input() noexcept
 {
-  m_mouseState.set_logical_width(g_logicalWidth);
-  m_mouseState.set_logical_height(g_logicalHeight);
+  m_mouseState.set_logical_width(g_logicalWidth<>);
+  m_mouseState.set_logical_height(g_logicalHeight<>);
 }
 
 void Input::update(const int windowWidth, const int windowHeight) noexcept

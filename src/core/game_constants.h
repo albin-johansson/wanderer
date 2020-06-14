@@ -3,11 +3,13 @@
 
 namespace wanderer {
 
-inline constexpr int g_logicalWidth{480};  // 960
+template <typename T = int>
+inline constexpr T g_logicalWidth{480};  // 960
 
-inline constexpr int g_logicalHeight{270};  // 540
+template <typename T = int>
+inline constexpr T g_logicalHeight{270};  // 540
 
-template <typename T>
+template <typename T = float>
 inline constexpr T g_tileSize{32};
 
 inline constexpr float g_entityDrawWidth{g_tileSize<float> * 2};
