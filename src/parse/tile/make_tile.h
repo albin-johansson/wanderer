@@ -12,7 +12,8 @@ namespace wanderer {
 
 void parse_special_tile(entt::registry& registry,
                         entt::entity tileEntity,
-                        const step::Tile& stepTile);
+                        const step::Tile& stepTile,
+                        TileID firstgid);
 
 [[nodiscard]] entt::entity make_basic_tile(
     entt::registry& registry,

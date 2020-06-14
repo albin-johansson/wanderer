@@ -1,7 +1,5 @@
 #include "game.h"
 
-#include <colors.h>
-
 #include "animation_system.h"
 #include "game_constants.h"
 #include "ground_layer_rendering_system.h"
@@ -14,6 +12,7 @@
 #include "make_viewport.h"
 #include "movement_system.h"
 #include "render_movables_system.h"
+#include "tile_animation_system.h"
 #include "tilemap.h"
 #include "translation_viewport_system.h"
 #include "viewport.h"
@@ -42,8 +41,14 @@ void Game::tick(const float delta)
 {
   // TODO check if menu is blocking
 
+  // Update game state
   humanoids_update_state(m_registry);
+
+  // Animations
   humanoids_update_animation(m_registry);
+  tiles_update_animation(m_registry, m_world);  // FIXME should be curr. level
+
+  // Update stuff according to state
   update_movement(m_registry, delta);
   update_animation_state(m_registry);
   // TODO need to update viewport level size as well when level changes

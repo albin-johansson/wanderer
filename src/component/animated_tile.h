@@ -13,6 +13,7 @@ struct Frame final {
 
 struct AnimatedTile final {
   u32 frame{0};
+  u32 then{};
   std::vector<Frame> frames;
 };
 

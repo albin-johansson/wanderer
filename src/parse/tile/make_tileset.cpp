@@ -18,12 +18,9 @@ entt::entity make_tileset(entt::registry& registry,
   auto& tileset = registry.emplace<Tileset>(entity);
 
   for (const auto& stepTileset : tilesets) {
-    auto sheet = Texture::shared(
-        renderer, ("resource/map/" + stepTileset.image()).c_str());
-
-    for (auto id = stepTileset.first_gid(), index = 0;
+    for (auto index = 0, id = stepTileset.first_gid();
          index < stepTileset.tile_count();
-         ++id, ++index) {
+         ++index, ++id) {
       const auto [row, col] =
           Math::index_to_matrix_pos(index, stepTileset.columns());
 
@@ -31,8 +28,12 @@ entt::entity make_tileset(entt::registry& registry,
           {col * stepTileset.tile_width(), row * stepTileset.tile_height()},
           {stepTileset.tile_width(), stepTileset.tile_height()}};
 
-      const auto tileEntity =
-          make_basic_tile(registry, static_cast<TileID>(id), sheet, src);
+      const auto tileEntity = make_basic_tile(
+          registry,
+          static_cast<TileID>(id),
+          Texture::shared(renderer,
+                          ("resource/map/" + stepTileset.image()).c_str()),
+          src);
 
       tileset.tiles.emplace(id, tileEntity);
     }
@@ -40,7 +41,10 @@ entt::entity make_tileset(entt::registry& registry,
     for (const auto& stepTile : stepTileset.tiles()) {
       const auto gid =
           static_cast<TileID>(stepTileset.first_gid() + stepTile.id());
-      parse_special_tile(registry, tileset.tiles.at(gid), stepTile);
+      parse_special_tile(registry,
+                         tileset.tiles.at(gid),
+                         stepTile,
+                         static_cast<TileID>(stepTileset.first_gid()));
     }
   }
 

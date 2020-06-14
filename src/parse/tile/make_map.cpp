@@ -2,7 +2,6 @@
 
 #include <step.h>
 
-#include <algorithm>
 #include <vector>
 
 #include "game_constants.h"

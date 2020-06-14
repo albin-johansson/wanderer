@@ -1,6 +1,7 @@
 #include "make_tile.h"
 
 #include <log.h>
+#include <timer.h>
 
 #include "animated_tile.h"
 #include "drawable.h"
@@ -13,19 +14,22 @@ namespace {
 
 void add_animation(entt::registry& registry,
                    const entt::entity tileEntity,
-                   const step::Animation& stepAnimation)
+                   const step::Animation& stepAnimation,
+                   const TileID firstgid)
 {
   auto& animatedTile = registry.emplace<AnimatedTile>(tileEntity);
   animatedTile.frame = 0;
+  animatedTile.then = Timer::millis();
 
   animatedTile.frames.reserve(static_cast<std::size_t>(stepAnimation.length()));
 
-  int index = 0;
   for (const auto& stepFrames : stepAnimation.frames()) {
     auto& frame = animatedTile.frames.emplace_back();
-    frame.tile = static_cast<TileID>(stepFrames.tile_id());
+
+//    Log::info("Adding %i to animation...", stepFrames.tile_id());
+
+    frame.tile = firstgid + static_cast<TileID>(stepFrames.tile_id());
     frame.duration = static_cast<u32>(stepFrames.duration());
-    ++index;
   }
 
   animatedTile.frames.shrink_to_fit();
@@ -35,15 +39,16 @@ void add_animation(entt::registry& registry,
 
 void parse_special_tile(entt::registry& registry,
                         const entt::entity tileEntity,
-                        const step::Tile& stepTile)
+                        const step::Tile& stepTile,
+                        const TileID firstgid)
 {
   if (const auto& stepAnimation = stepTile.animation(); stepAnimation) {
-    add_animation(registry, tileEntity, *stepAnimation);
+    add_animation(registry, tileEntity, *stepAnimation, firstgid);
   }
 
-  const auto& tileProperties = stepTile.properties();
-  if (tileProperties.has("depth")) {
-  }
+//  const auto& tileProperties = stepTile.properties();
+//  if (tileProperties.has("depth")) {
+//  }
 }
 
 entt::entity make_basic_tile(entt::registry& registry,
