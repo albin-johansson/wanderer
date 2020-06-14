@@ -8,7 +8,7 @@ using namespace centurion;
 
 namespace wanderer::system::tile {
 
-void update_animation(entt::registry& registry, entt::entity level)
+void update_animation(entt::registry& registry, entt::entity /*level*/) // TODO
 {
   const auto entities = registry.view<AnimatedTile>();
   for (const auto entity : entities) {
