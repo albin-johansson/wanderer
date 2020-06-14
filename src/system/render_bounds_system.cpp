@@ -5,7 +5,7 @@
 #include "game_constants.h"
 #include "viewport.h"
 
-namespace wanderer {
+namespace wanderer::system {
 
 RenderBounds calculate_render_bounds(entt::registry& registry,
                                      const entt::entity viewportEntity,
@@ -46,4 +46,4 @@ RenderBounds calculate_render_bounds(entt::registry& registry,
   return bounds;
 }
 
-}  // namespace wanderer
+}  // namespace wanderer::system

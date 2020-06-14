@@ -7,7 +7,7 @@
 
 using namespace centurion;
 
-namespace wanderer {
+namespace wanderer::system {
 
 inline constexpr FArea entitySize{g_entityDrawWidth, g_entityDrawHeight};
 
@@ -26,4 +26,4 @@ void render_movables(entt::registry& registry, Renderer& renderer)
   }
 }
 
-}  // namespace wanderer
+}  // namespace wanderer::system

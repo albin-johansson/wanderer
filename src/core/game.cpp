@@ -1,7 +1,6 @@
 #include "game.h"
 
 #include "animation_system.h"
-#include "game_constants.h"
 #include "ground_layer_rendering_system.h"
 #include "humanoid_animation_system.h"
 #include "humanoid_state_system.h"
@@ -11,14 +10,16 @@
 #include "make_player.h"
 #include "make_viewport.h"
 #include "movement_system.h"
+#include "render_bounds_system.h"
 #include "render_movables_system.h"
 #include "tile_animation_system.h"
 #include "tilemap.h"
 #include "translation_viewport_system.h"
-#include "viewport.h"
 #include "viewport_system.h"
 
-using namespace centurion;
+using namespace wanderer::system;
+
+using centurion::Renderer;
 
 namespace wanderer {
 
@@ -34,7 +35,7 @@ Game::Game(Renderer& renderer)
 
 void Game::handle_input(const Input& input)
 {
-  update_input(m_registry, m_player, input);
+  input::update(m_registry, m_player, input);
 }
 
 void Game::tick(const float delta)
@@ -42,11 +43,11 @@ void Game::tick(const float delta)
   // TODO check if menu is blocking
 
   // Update game state
-  humanoids_update_state(m_registry);
+  humanoid::update_state(m_registry);
 
   // Animations
-  humanoids_update_animation(m_registry);
-  tiles_update_animation(m_registry, m_world);  // FIXME should be curr. level
+  humanoid::update_animation(m_registry);
+  tile::update_animation(m_registry, m_world);  // FIXME m_world
 
   // Update stuff according to state
   update_movement(m_registry, delta);
@@ -60,7 +61,11 @@ void Game::render(Renderer& renderer, const float alpha)
   update_translation_viewport(m_registry, m_viewport, renderer);
   update_interpolation(m_registry, alpha);
 
-  render_ground_layers(m_registry, m_world, m_viewport, renderer);
+  const auto& tilemap = m_registry.get<Tilemap>(m_world);  // FIXME m_world
+  const auto bounds = calculate_render_bounds(
+      m_registry, m_viewport, tilemap.rows, tilemap.cols);
+
+  layer::render_ground(m_registry, m_world, renderer, bounds);
 
   // TODO render more stuff (think about render depth as well)
   render_movables(m_registry, renderer);

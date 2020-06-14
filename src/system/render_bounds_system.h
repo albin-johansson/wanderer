@@ -3,11 +3,11 @@
 #include "render_bounds.h"
 #include "types.h"
 
-namespace wanderer {
+namespace wanderer::system {
 
-RenderBounds calculate_render_bounds(entt::registry& registry,
-                                     entt::entity viewportEntity,
-                                     int rows,
-                                     int cols);
+[[nodiscard]] RenderBounds calculate_render_bounds(entt::registry& registry,
+                                                   entt::entity viewportEntity,
+                                                   int rows,
+                                                   int cols);
 
-}
+}  // namespace wanderer::system

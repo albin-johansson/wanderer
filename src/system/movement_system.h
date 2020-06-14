@@ -3,8 +3,8 @@
 
 #include "types.h"
 
-namespace wanderer {
+namespace wanderer::system {
 
 void update_movement(entt::registry& registry, float delta);
 
-}
+}  // namespace wanderer::system

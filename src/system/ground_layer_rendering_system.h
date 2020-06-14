@@ -2,13 +2,14 @@
 
 #include <renderer.h>
 
+#include "render_bounds.h"
 #include "types.h"
 
-namespace wanderer {
+namespace wanderer::system::layer {
 
-void render_ground_layers(entt::registry& registry,
-                          entt::entity mapEntity,
-                          entt::entity viewportEntity,
-                          centurion::Renderer& renderer);
+void render_ground(entt::registry& registry,
+                   entt::entity mapEntity,
+                   centurion::Renderer& renderer,
+                   const RenderBounds& bounds);
 
-}
+}  // namespace wanderer::system::layer

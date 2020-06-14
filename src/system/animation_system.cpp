@@ -6,9 +6,9 @@
 
 using namespace centurion;
 
-namespace wanderer {
+namespace wanderer::system {
 
-void update_animation_state(entt::registry& registry)
+void update_animation_state(entt::registry& registry) noexcept
 {
   const auto entities = registry.view<Animated>();
   for (const auto entity : entities) {
@@ -26,4 +26,4 @@ void update_animation_state(entt::registry& registry)
   }
 }
 
-}  // namespace wanderer
+}  // namespace wanderer::system

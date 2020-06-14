@@ -3,9 +3,9 @@
 #include "idle_input_system.h"
 #include "move_input_system.h"
 
-namespace wanderer {
+namespace wanderer::system::input {
 
-void update_input(entt::registry& registry,
+void update(entt::registry& registry,
                   const entt::entity player,
                   const Input& input)
 {
@@ -13,4 +13,4 @@ void update_input(entt::registry& registry,
   handle_move_input(registry, player, input);
 }
 
-}  // namespace wanderer
+}  // namespace wanderer::system

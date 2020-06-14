@@ -4,7 +4,7 @@
 
 using namespace centurion;
 
-namespace wanderer {
+namespace wanderer::system {
 
 void update_translation_viewport(entt::registry& registry,
                                  const entt::entity viewport,

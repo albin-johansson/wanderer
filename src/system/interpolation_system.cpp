@@ -2,9 +2,9 @@
 
 #include "movable.h"
 
-namespace wanderer {
+namespace wanderer::system {
 
-void update_interpolation(entt::registry& registry, const float alpha)
+void update_interpolation(entt::registry& registry, const float alpha) noexcept
 {
   registry.view<Movable>().each([&](Movable& movable) noexcept {
     movable.interpolatedPos.set(movable.currentPos);
@@ -12,4 +12,4 @@ void update_interpolation(entt::registry& registry, const float alpha)
   });
 }
 
-}  // namespace wanderer
+}  // namespace wanderer::system

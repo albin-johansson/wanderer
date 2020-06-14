@@ -5,7 +5,7 @@
 #include "humanoid_animation_system.h"
 #include "humanoid_state.h"
 
-namespace wanderer {
+namespace wanderer::system::humanoid {
 namespace {
 
 void update_attack(entt::registry& registry, const entt::entity entity)
@@ -15,14 +15,14 @@ void update_attack(entt::registry& registry, const entt::entity entity)
     if (attack.done) {
       registry.remove<HumanoidAttack>(entity);
       registry.emplace_or_replace<HumanoidIdle>(entity);
-      humanoid_enter_idle_animation(registry, entity);
+      enter_idle_animation(registry, entity);
     }
   }
 }
 
 }  // namespace
 
-void humanoids_update_state(entt::registry& registry)
+void update_state(entt::registry& registry)
 {
   const auto entities = registry.view<Humanoid>();
   for (const auto entity : entities) {
@@ -30,4 +30,4 @@ void humanoids_update_state(entt::registry& registry)
   }
 }
 
-}  // namespace wanderer
+}  // namespace wanderer::system::humanoid

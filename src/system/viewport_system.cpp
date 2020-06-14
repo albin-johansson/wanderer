@@ -4,7 +4,7 @@
 #include "movable.h"
 #include "viewport.h"
 
-namespace wanderer {
+namespace wanderer::system {
 
 void update_viewport(entt::registry& registry,
                      const entt::entity viewport,
@@ -20,4 +20,4 @@ void update_viewport(entt::registry& registry,
   }
 }
 
-}  // namespace wanderer
+}  // namespace wanderer::system

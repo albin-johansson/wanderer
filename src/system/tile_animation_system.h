@@ -2,8 +2,8 @@
 
 #include "types.h"
 
-namespace wanderer {
+namespace wanderer::system::tile {
 
-void tiles_update_animation(entt::registry& registry, entt::entity level);
+void update_animation(entt::registry& registry, entt::entity level);
 
-}
+}  // namespace wanderer::system::tile

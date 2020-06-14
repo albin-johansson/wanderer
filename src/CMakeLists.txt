@@ -71,6 +71,8 @@ set(SOURCE_FILES
         system/render_bounds_system.h
         system/tile_animation_system.cpp
         system/tile_animation_system.h
+        system/tile_rendering_system.cpp
+        system/tile_rendering_system.h
 
         system/input/input_system.cpp
         system/input/input_system.h

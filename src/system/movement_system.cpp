@@ -4,7 +4,7 @@
 
 using namespace centurion;
 
-namespace wanderer {
+namespace wanderer::system {
 namespace {
 
 void update_direction(Movable& movable) noexcept
@@ -40,4 +40,4 @@ void update_movement(entt::registry& registry, float delta)
   }
 }
 
-}  // namespace wanderer
+}  // namespace wanderer::system

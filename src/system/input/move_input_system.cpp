@@ -6,7 +6,7 @@
 #include "movable.h"
 #include "player.h"
 
-namespace wanderer {
+namespace wanderer::system::input {
 namespace {
 
 void move(Movable& movable, const Direction direction) noexcept
@@ -127,15 +127,15 @@ void handle_move_input(entt::registry& registry,
       if (!areMoveKeysDown && movable->velocity.is_zero()) {
         registry.remove_if_exists<HumanoidMove>(player);
         registry.emplace_or_replace<HumanoidIdle>(player);
-        humanoid_enter_idle_animation(registry, player);
+        humanoid::enter_idle_animation(registry, player);
       } else if (input.is_pressed(binds->attack)) {
         movable->velocity.zero();
         registry.remove_if_exists<HumanoidMove>(player);
         registry.emplace_or_replace<HumanoidAttack>(player);
-        humanoid_enter_melee_animation(registry, player);
+        humanoid::enter_melee_animation(registry, player);
       }
     }
   }
 }
 
-}  // namespace wanderer
+}  // namespace wanderer::system::input

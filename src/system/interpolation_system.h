@@ -1,10 +1,9 @@
 #pragma once
-#include <entt.hpp>
 
 #include "types.h"
 
-namespace wanderer {
+namespace wanderer::system {
 
-void update_interpolation(entt::registry& registry, float alpha);
+void update_interpolation(entt::registry& registry, float alpha) noexcept;
 
-}
+}  // namespace wanderer::system

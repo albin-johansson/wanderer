@@ -2,8 +2,8 @@
 
 #include "types.h"
 
-namespace wanderer {
+namespace wanderer::system {
 
-void update_animation_state(entt::registry& registry);
+void update_animation_state(entt::registry& registry) noexcept;
 
-}
+}  // namespace wanderer::system

@@ -7,7 +7,7 @@
 #include "humanoid_state.h"
 #include "movable.h"
 
-namespace wanderer {
+namespace wanderer::system::humanoid {
 namespace {
 
 inline constexpr int nIdleFrames{1};
@@ -115,15 +115,15 @@ void enter_animation(entt::registry& registry,
 
 }  // namespace
 
-void humanoid_enter_idle_animation(entt::registry& registry,
-                                   const entt::entity entity) noexcept
+void enter_idle_animation(entt::registry& registry,
+                          const entt::entity entity) noexcept
 {
   enter_animation(registry, entity, nIdleFrames, idleDelay, idleSourceY);
 }
 
-void humanoid_enter_move_animation(entt::registry& registry,
-                                   const entt::entity entity,
-                                   const Direction direction) noexcept
+void enter_move_animation(entt::registry& registry,
+                          const entt::entity entity,
+                          const Direction direction) noexcept
 {
   update(
       registry,
@@ -137,31 +137,31 @@ void humanoid_enter_move_animation(entt::registry& registry,
       });
 }
 
-void humanoid_enter_melee_animation(entt::registry& registry,
-                                    const entt::entity entity) noexcept
+void enter_melee_animation(entt::registry& registry,
+                           const entt::entity entity) noexcept
 {
   enter_animation(registry, entity, nMeleeFrames, attackDelay, meleeSourceY);
 }
 
-void humanoid_enter_spell_animation(entt::registry& registry,
-                                    const entt::entity entity) noexcept
+void enter_spell_animation(entt::registry& registry,
+                           const entt::entity entity) noexcept
 {
   enter_animation(registry, entity, nMagicFrames, attackDelay, magicSourceY);
 }
 
-void humanoid_enter_bow_animation(entt::registry& registry,
-                                  const entt::entity entity) noexcept
+void enter_bow_animation(entt::registry& registry,
+                         const entt::entity entity) noexcept
 {
   enter_animation(registry, entity, nBowFrames, attackDelay, bowSourceY);
 }
 
-void humanoid_enter_spear_animation(entt::registry& registry,
-                                    const entt::entity entity) noexcept
+void enter_spear_animation(entt::registry& registry,
+                           const entt::entity entity) noexcept
 {
   enter_animation(registry, entity, nSpearFrames, attackDelay, spearSourceY);
 }
 
-void humanoids_update_animation(entt::registry& registry)
+void update_animation(entt::registry& registry)
 {
   const auto entities = registry.view<Humanoid>();
   for (const auto entity : entities) {
@@ -174,4 +174,4 @@ void humanoids_update_animation(entt::registry& registry)
   }
 }
 
-}  // namespace wanderer
+}  // namespace wanderer::system::humanoid

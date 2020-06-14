@@ -5,7 +5,7 @@
 #include "humanoid_animation_system.h"
 #include "player.h"
 
-namespace wanderer {
+namespace wanderer::system::input {
 
 void handle_idle_input(entt::registry& registry,
                        const entt::entity player,
@@ -31,16 +31,16 @@ void handle_idle_input(entt::registry& registry,
         }
         registry.remove_if_exists<HumanoidIdle>(player);
         registry.emplace_or_replace<HumanoidMove>(player);
-        humanoid_enter_move_animation(registry, player, direction);
+        humanoid::enter_move_animation(registry, player, direction);
       } else if (input.is_pressed(binds->attack)) {
         registry.remove_if_exists<HumanoidIdle>(player);
         registry.emplace_or_replace<HumanoidAttack>(player);
 
         // TODO check selected item
-        humanoid_enter_melee_animation(registry, player);
+        humanoid::enter_melee_animation(registry, player);
       }
     }
   }
 }
 
-}  // namespace wanderer
+}  // namespace wanderer::system

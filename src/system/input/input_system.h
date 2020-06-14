@@ -4,10 +4,8 @@
 
 #include "types.h"
 
-namespace wanderer {
+namespace wanderer::system::input {
 
-void update_input(entt::registry& registry,
-                  entt::entity player,
-                  const Input& input);
+void update(entt::registry& registry, entt::entity player, const Input& input);
 
-}  // namespace wanderer
+}  // namespace wanderer::system::input
