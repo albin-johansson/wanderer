@@ -144,12 +144,7 @@ add_executable(${WANDERER_EXE_TARGET} main.cpp)
 wanderer_set_properties(${WANDERER_EXE_TARGET} "Wanderer")
 
 target_link_libraries(${WANDERER_EXE_TARGET}
-        PUBLIC ${WANDERER_LIB_TARGET}
-        PUBLIC ${CENTURION_LIBRARY}
-        PUBLIC ${SDL2_LIBRARY}
-        PUBLIC ${SDL2_IMAGE_LIBRARIES}
-        PUBLIC ${SDL2_MIXER_LIBRARIES}
-        PUBLIC ${SDL2_TTF_LIBRARIES})
+        PUBLIC ${WANDERER_LIB_TARGET})
 
 copy_directory_post_build(${WANDERER_EXE_TARGET} ${BINARY_DIR} ${CMAKE_CURRENT_BINARY_DIR})
 copy_directory_post_build(${WANDERER_EXE_TARGET} ${RESOURCE_DIR}
