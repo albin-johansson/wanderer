@@ -24,8 +24,8 @@ inline constexpr int meleeSourceY{768};
 inline constexpr int bowSourceY{1024};
 
 inline constexpr u32 idleDelay{90};
-inline constexpr u32 moveDelay{90};
-inline constexpr u32 attackDelay{65};
+inline constexpr u32 moveDelay{70};
+inline constexpr u32 attackDelay{70};
 
 template <typename Lambda>
 void update(
