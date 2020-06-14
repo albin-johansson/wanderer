@@ -8,26 +8,6 @@
 using namespace centurion;
 
 namespace wanderer {
-namespace {
-
-void parse_special_tiles(const step::Tileset& stepTileset)
-{
-  for (const auto& stepTile : stepTileset.tiles()) {
-    //      const auto [row, col] =
-    //          Math::index_to_matrix_pos(index, stepTileset.columns());
-    //      const IRect src{
-    //          {col * stepTileset.tile_width(), row *
-    //          stepTileset.tile_height()}, {stepTileset.tile_width(),
-    //          stepTileset.tile_height()}};
-    //
-    //      const auto tileEntity = make_tile(registry, stepTile, sheet, src);
-    //
-    //      //      auto& tile = tileset.tiles.at(stepTile.id());
-    //
-  }
-}
-
-}  // namespace
 
 entt::entity make_tileset(entt::registry& registry,
                           const std::vector<step::Tileset>& tilesets,
