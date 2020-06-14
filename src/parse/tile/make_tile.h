@@ -13,12 +13,12 @@ namespace wanderer {
 void parse_special_tile(entt::registry& registry,
                         entt::entity tileEntity,
                         const step::Tile& stepTile,
-                        TileID firstgid);
+                        TileID firstGID);
 
 [[nodiscard]] entt::entity make_basic_tile(
     entt::registry& registry,
     const TileID id,
     const std::shared_ptr<centurion::Texture>& sheet,
-    const centurion::IRect& src);
+    const centurion::IRect& src) noexcept;
 
 }  // namespace wanderer

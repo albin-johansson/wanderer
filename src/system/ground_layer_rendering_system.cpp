@@ -45,7 +45,6 @@ void render_ground_layers(entt::registry& registry,
 
     for (auto row = renderBounds.minRow; row < renderBounds.maxRow; ++row) {
       for (auto col = renderBounds.minCol; col < renderBounds.maxCol; ++col) {
-
         const auto r = static_cast<std::size_t>(row);
         const auto c = static_cast<std::size_t>(col);
         const auto tileID = tileLayer.matrix.at(r).at(c);

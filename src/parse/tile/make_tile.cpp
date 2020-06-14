@@ -25,9 +25,6 @@ void add_animation(entt::registry& registry,
 
   for (const auto& stepFrames : stepAnimation.frames()) {
     auto& frame = animatedTile.frames.emplace_back();
-
-//    Log::info("Adding %i to animation...", stepFrames.tile_id());
-
     frame.tile = firstgid + static_cast<TileID>(stepFrames.tile_id());
     frame.duration = static_cast<u32>(stepFrames.duration());
   }
@@ -40,21 +37,21 @@ void add_animation(entt::registry& registry,
 void parse_special_tile(entt::registry& registry,
                         const entt::entity tileEntity,
                         const step::Tile& stepTile,
-                        const TileID firstgid)
+                        const TileID firstGID)
 {
   if (const auto& stepAnimation = stepTile.animation(); stepAnimation) {
-    add_animation(registry, tileEntity, *stepAnimation, firstgid);
+    add_animation(registry, tileEntity, *stepAnimation, firstGID);
   }
 
-//  const auto& tileProperties = stepTile.properties();
-//  if (tileProperties.has("depth")) {
-//  }
+  //  const auto& tileProperties = stepTile.properties();
+  //  if (tileProperties.has("depth")) {
+  //  }
 }
 
 entt::entity make_basic_tile(entt::registry& registry,
                              const TileID id,
                              const std::shared_ptr<Texture>& sheet,
-                             const IRect& src)
+                             const IRect& src) noexcept
 {
   const auto tileEntity = registry.create();
 
