@@ -1,8 +1,6 @@
 #pragma once
 #include <renderer.h>
 
-#include <entt.hpp>
-
 #include "input.h"
 #include "types.h"
 #include "viewport.h"

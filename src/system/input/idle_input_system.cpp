@@ -43,4 +43,4 @@ void handle_idle_input(entt::registry& registry,
   }
 }
 
-}  // namespace wanderer::system
+}  // namespace wanderer::system::input

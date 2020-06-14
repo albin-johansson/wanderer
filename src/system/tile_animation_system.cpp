@@ -26,4 +26,4 @@ void update_animation(entt::registry& registry, entt::entity level)
   }
 }
 
-}  // namespace wanderer
+}  // namespace wanderer::system::tile

@@ -15,4 +15,4 @@ void update_translation_viewport(entt::registry& registry,
   }
 }
 
-}  // namespace wanderer
+}  // namespace wanderer::system

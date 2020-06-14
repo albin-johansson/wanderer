@@ -6,11 +6,11 @@
 namespace wanderer::system::input {
 
 void update(entt::registry& registry,
-                  const entt::entity player,
-                  const Input& input)
+            const entt::entity player,
+            const Input& input)
 {
   handle_idle_input(registry, player, input);
   handle_move_input(registry, player, input);
 }
 
-}  // namespace wanderer::system
+}  // namespace wanderer::system::input
