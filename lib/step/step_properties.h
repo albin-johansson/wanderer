@@ -28,12 +28,26 @@
 #include <algorithm>
 #include <map>
 #include <string>
+#include <string_view>
+#include <type_traits>
 
 #include "step_api.h"
+#include "step_color.h"
 #include "step_property.h"
 #include "step_types.h"
 
 namespace step {
+namespace {
+
+template <typename T>
+[[nodiscard]] constexpr bool valid_property_type() noexcept
+{
+  return std::is_same_v<T, bool> || std::is_same_v<T, int> ||
+         std::is_same_v<T, float> || std::is_same_v<T, Color> ||
+         std::is_convertible_v<T, std::string>;
+}
+
+}  // namespace
 
 /**
  * The Properties class is a helper for managing a collection of Property
@@ -81,6 +95,54 @@ class Properties final {
    * @since 0.1.0
    */
   STEP_QUERY const Property& get(const std::string& name) const;
+
+  /**
+   * Indicates whether or not the specified property is equal to the supplied
+   * value. This method does not throw any exceptions by itself and is the
+   * preferred way to check the value of a property. The returned value is
+   * always <b>false</b> if the property doesn't exist or if the property
+   * has another type. A compile-time error will be raised if the type of the
+   * supplied value isn't one of: <b>bool</b>, <b>int</b>, <b>float</b>,
+   * <b>Color</b> or <b>std::string</b> (accepts anything that is convertible
+   * to <b>std::string</b>).
+   *
+   * @tparam T the type of the value that will be compared to the value of
+   * the specified property. An unsupported type will cause a compile-time
+   * error.
+   * @param name the name of the property to check the value of.
+   * @param value the value that will be compared with the value of the
+   * specified property.
+   * @return true if the specified property had a value and it turned out to
+   * be equal to the supplied value; false otherwise.
+   * @since 0.1.0
+   */
+  template <typename T, typename = std::enable_if_t<valid_property_type<T>()>>
+  [[nodiscard]] bool is(const std::string& name, const T& value) const
+  {
+    if (!has(name)) {
+      return false;
+    }
+
+    const auto& property = get(name);
+
+    if constexpr (std::is_same_v<T, bool>) {
+      return property.as_bool().value_or(false);
+
+    } else if constexpr (std::is_same_v<T, int>) {
+      return property.is_int() && property.as_int().value() == value;
+
+    } else if constexpr (std::is_same_v<T, float>) {
+      return property.is_float() && property.as_float().value() == value;
+
+    } else if constexpr (std::is_same_v<T, Color>) {
+      return property.is_color() && property.as_color().value() == value;
+
+    } else if constexpr (std::is_convertible_v<T, std::string>) {
+      return property.is_string() && property.as_string().value() == value;
+    }
+
+    return false;
+  }
 
   /**
    * Returns the amount of Property instances handled by this instance.
