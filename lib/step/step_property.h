@@ -25,11 +25,13 @@
 #ifndef STEP_PROPERTY_HEADER
 #define STEP_PROPERTY_HEADER
 
+#include <type_traits>
 #include <variant>
 
 #include "step_api.h"
 #include "step_color.h"
 #include "step_types.h"
+#include "step_utils.h"
 
 namespace step {
 
@@ -60,6 +62,65 @@ class Property final {
   enum class Type { String, Int, Float, Bool, Color, File };
 
   STEP_API friend void from_json(const JSON&, Property&);
+
+  /**
+   * Returns the value of the property as the specified type. This method
+   * will throw an exception if the property doesn't contain the specified
+   * type. A compile-time error will be raised if the type of the
+   * supplied value isn't one of: <b>bool</b>, <b>int</b>, <b>float</b>,
+   * <b>Color</b> or <b>std::string</b> (accepts anything that is convertible
+   * to <b>std::string</b>).
+   *
+   * @tparam T the type of the value that will be returned. Must be the same
+   * type of the value stored in the property. An unsupported type will cause a
+   * compile-time error.
+   * @return the value of the property.
+   * @since 0.1.0
+   */
+  template <typename T,
+            typename = std::enable_if_t<detail::valid_property_type<T>()>>
+  [[nodiscard]] const T& get() const
+  {
+    return std::get<T>(m_value);
+  }
+
+  /**
+   * Attempts to return the value of the property as the specified type, if
+   * the property doesn't contain a value of the specified type, then the
+   * supplied default value is returned instead. This method doesn't throw
+   * any exceptions on its own. A compile-time error will be raised if the type
+   * of the supplied value isn't one of: <b>bool</b>, <b>int</b>, <b>float</b>,
+   * <b>Color</b> or <b>std::string</b> (accepts anything that is convertible
+   * to <b>std::string</b>).
+   *
+   * @tparam T the type of the value that will be obtained. An unsupported type
+   * will cause a compile-time error.
+   * @param defaultValue the backup value that will be returned if the
+   * desired value cannot be obtained.
+   * @return the value stored in the property; <code>defaultValue</code> if
+   * the property doesn't contain a value of the specified type.
+   * @since 0.1.0
+   */
+  template <typename T,
+            typename = std::enable_if_t<detail::valid_property_type<T>()>>
+  [[nodiscard]] T get_or(const T& defaultValue) const
+  {
+    if constexpr (std::is_same_v<T, bool>) {
+      return is_bool() ? as_bool().value() : defaultValue;
+
+    } else if constexpr (std::is_same_v<T, int>) {
+      return is_int() ? as_int().value() : defaultValue;
+
+    } else if constexpr (std::is_same_v<T, float>) {
+      return is_float() ? as_float().value() : defaultValue;
+
+    } else if constexpr (std::is_same_v<T, Color>) {
+      return is_color() ? as_color().value() : defaultValue;
+
+    } else /*if constexpr (std::is_convertible_v<T, std::string>)*/ {
+      return (is_string() || is_file()) ? as_string().value() : defaultValue;
+    }
+  }
 
   /**
    * Returns the string value associated with the property, if there is one.

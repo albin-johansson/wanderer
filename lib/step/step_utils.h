@@ -26,10 +26,13 @@
 #define STEP_UTILS_HEADER
 
 #include <charconv>
+#include <string>
 #include <string_view>
+#include <type_traits>
 #include <vector>
 
 #include "step_api.h"
+#include "step_color.h"
 #include "step_exception.h"
 #include "step_types.h"
 
@@ -73,7 +76,7 @@ void safe_bind(const JSON& json, std::string_view key, T& value)
  * @since 0.1.0
  */
 template <typename T>
-T convert(std::string_view str, int base = 10)
+[[nodiscard]] T convert(std::string_view str, int base = 10)
 {
   T result{};
   if (const auto [ptr, error] =
@@ -84,6 +87,14 @@ T convert(std::string_view str, int base = 10)
   } else {
     throw StepException{"Failed to convert string to integral!"};
   }
+}
+
+template <typename T>
+[[nodiscard]] constexpr bool valid_property_type() noexcept
+{
+  return std::is_same_v<T, bool> || std::is_same_v<T, int> ||
+         std::is_same_v<T, float> || std::is_same_v<T, Color> ||
+         std::is_convertible_v<T, std::string>;
 }
 
 }  // namespace step::detail

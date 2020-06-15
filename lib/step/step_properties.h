@@ -28,26 +28,14 @@
 #include <algorithm>
 #include <map>
 #include <string>
-#include <string_view>
-#include <type_traits>
 
 #include "step_api.h"
 #include "step_color.h"
 #include "step_property.h"
 #include "step_types.h"
+#include "step_utils.h"
 
 namespace step {
-namespace {
-
-template <typename T>
-[[nodiscard]] constexpr bool valid_property_type() noexcept
-{
-  return std::is_same_v<T, bool> || std::is_same_v<T, int> ||
-         std::is_same_v<T, float> || std::is_same_v<T, Color> ||
-         std::is_convertible_v<T, std::string>;
-}
-
-}  // namespace
 
 /**
  * The Properties class is a helper for managing a collection of Property
@@ -116,7 +104,8 @@ class Properties final {
    * be equal to the supplied value; false otherwise.
    * @since 0.1.0
    */
-  template <typename T, typename = std::enable_if_t<valid_property_type<T>()>>
+  template <typename T,
+            typename = std::enable_if_t<detail::valid_property_type<T>()>>
   [[nodiscard]] bool is(const std::string& name, const T& value) const
   {
     if (!has(name)) {
