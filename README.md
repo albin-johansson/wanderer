@@ -2,6 +2,11 @@
 
 An exploration based 2D game that is currently in development. The game isn't yet ready to be installed and played.
 
+<p align="middle">
+  <img src="meta/screenshot_trees.png" width="45%" />
+  <img src="meta/screenshot_plants.png" width="45%"/> 
+</p>
+
 ## Installation
 
 N/A
