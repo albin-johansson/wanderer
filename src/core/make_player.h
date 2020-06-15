@@ -6,7 +6,7 @@
 
 namespace wanderer {
 
-entt::entity make_player(entt::registry& registry,
-                         centurion::Renderer& renderer);
+[[nodiscard]] entt::entity make_player(entt::registry& registry,
+                                       centurion::Renderer& renderer);
 
-}
+}  // namespace wanderer

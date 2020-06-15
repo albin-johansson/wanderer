@@ -26,9 +26,15 @@ class Viewport final {
 
   void set_level_size(const centurion::FArea& levelSize) noexcept;
 
-  const centurion::FRect& bounds() const noexcept { return m_bounds; }
+  [[nodiscard]] const centurion::FRect& bounds() const noexcept
+  {
+    return m_bounds;
+  }
 
-  const centurion::FArea& level_size() const noexcept { return m_levelSize; }
+  [[nodiscard]] const centurion::FArea& level_size() const noexcept
+  {
+    return m_levelSize;
+  }
 
  private:
   centurion::FRect m_bounds{};

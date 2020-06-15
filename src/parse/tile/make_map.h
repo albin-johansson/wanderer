@@ -8,8 +8,8 @@
 
 namespace wanderer {
 
-entt::entity make_map(entt::registry& registry,
-                      std::string_view map,
-                      centurion::Renderer& renderer);
+[[nodiscard]] entt::entity make_map(entt::registry& registry,
+                                    std::string_view map,
+                                    centurion::Renderer& renderer);
 
 }

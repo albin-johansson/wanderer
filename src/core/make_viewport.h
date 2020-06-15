@@ -4,6 +4,6 @@
 
 namespace wanderer {
 
-entt::entity make_viewport(entt::registry& registry);
+[[nodiscard]] entt::entity make_viewport(entt::registry& registry);
 
-}
+}  // namespace wanderer

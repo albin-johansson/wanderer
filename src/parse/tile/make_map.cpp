@@ -70,12 +70,16 @@ entt::entity make_map(entt::registry& registry,
     if (stepLayer.is_tile_layer()) {
       const auto& stepTileLayer = stepLayer.as_tile_layer();
 
-      // TODO step: layerProps.is("ground", true)
-      if (layerProps.has("ground") &&
-          layerProps.get("ground").as_bool().value_or(false)) {
-        tilemap.groundLayers.push_back(
-            create_ground_layer(registry, stepLayer, stepTileLayer));
+      if (layerProps.has("ground")) {
+        if (layerProps.is("ground", true)) {
+          tilemap.groundLayers.push_back(
+              create_ground_layer(registry, stepLayer, stepTileLayer));
+        } else {
+        }
       }
+
+    } else if (stepLayer.is_object_group()) {
+      // TODO spawnpoints, etc.
     }
   }
 

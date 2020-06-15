@@ -35,7 +35,7 @@ class GameLoop final {
    *
    * @since 0.1.0
    */
-  constexpr float max_frame_time() noexcept { return 0.25f; }
+  [[nodiscard]] constexpr float max_frame_time() noexcept { return 0.25f; }
 
   void smooth_delta() noexcept;
 };
