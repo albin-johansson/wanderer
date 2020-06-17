@@ -4,6 +4,7 @@
 
 #include <cstdint>
 #include <entt.hpp>
+#include <named_type.hpp>
 
 namespace wanderer {
 
@@ -29,6 +30,15 @@ inline constexpr TileID g_emptyTile = 0;
 template <typename T>
 using Maybe = centurion::Optional<T>;
 inline constexpr auto nothing = centurion::nothing;
+
+using Delta = fluent::NamedType<float,
+                                struct DeltaTag,
+                                fluent::Comparable,
+                                fluent::Addable,
+                                fluent::Subtractable,
+                                fluent::Incrementable,
+                                fluent::Decrementable>;
+using Alpha = fluent::NamedType<float, struct AlphaTag, fluent::Comparable>;
 
 namespace ctn = centurion;
 

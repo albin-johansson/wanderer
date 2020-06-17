@@ -21,13 +21,13 @@ void GameLoop::smooth_delta() noexcept
 
   m_delta += m_deltaBuffer;
 
-  auto frameCount = static_cast<int>(m_delta * m_vsyncRate + 1);
+  auto frameCount = static_cast<int>(m_delta.get() * m_vsyncRate + 1);
   if (frameCount <= 0) {
     frameCount = 1;
   }
 
   const auto oldDelta = m_delta;
-  m_delta = static_cast<float>(frameCount) / m_vsyncRate;
+  m_delta = Delta{static_cast<float>(frameCount) / m_vsyncRate};
   m_deltaBuffer = oldDelta - m_delta;
 }
 
@@ -36,7 +36,7 @@ void GameLoop::update(Game& game)
   m_then = m_now;
   m_now = Timer::high_res();
 
-  m_delta = static_cast<float>(m_now - m_then) / m_counterFreq;
+  m_delta = Delta{static_cast<float>(m_now - m_then) / m_counterFreq};
 
   if (m_delta > max_frame_time()) {
     m_delta = max_frame_time();

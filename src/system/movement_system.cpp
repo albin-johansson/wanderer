@@ -24,7 +24,7 @@ void update_direction(Movable& movable) noexcept
 
 }  // namespace
 
-void update_movement(entt::registry& registry, float delta)
+void update_movement(entt::registry& registry, const Delta delta)
 {
   const auto entities = registry.view<Movable>();
   for (const auto entity : entities) {
@@ -35,8 +35,8 @@ void update_movement(entt::registry& registry, float delta)
     //    movable.hitbox.set_x(m_currPosition.x);
     //    movable.hitbox.set_y(m_currPosition.y);
     update_direction(movable);
-    movable.currentPos.add(movable.velocity.x * delta,
-                           movable.velocity.y * delta);
+    movable.currentPos.add(movable.velocity.x * delta.get(),
+                           movable.velocity.y * delta.get());
   }
 }
 

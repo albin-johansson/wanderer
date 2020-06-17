@@ -8,9 +8,9 @@ namespace wanderer {
 
 void Viewport::track(const Vector2f& position,
                      const FArea& size,
-                     const float delta)
+                     const Delta delta)
 {
-  auto panSpeed = 15 * delta;
+  auto panSpeed = 15 * delta.get();
 
   const float targetX =
       (position.x + (size.width / 2.0f)) - (m_bounds.width() / 2.0f);

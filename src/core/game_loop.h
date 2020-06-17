@@ -10,11 +10,11 @@ class GameLoop final {
 
   void update(Game& game);
 
-  [[nodiscard]] float alpha() const
+  [[nodiscard]] Alpha alpha() const
   {
-    float alpha = m_accumulator / m_timeStep;
-    if (alpha > 1.0f) {
-      alpha = 1.0f;
+    Alpha alpha{m_accumulator.get() / m_timeStep.get()};
+    if (alpha > Alpha{1.0f}) {
+      alpha = Alpha{1.0f};
     }
     return alpha;
   }
@@ -22,11 +22,11 @@ class GameLoop final {
  private:
   u64 m_now;
   u64 m_then;
-  float m_delta{0};
-  float m_accumulator{0};
-  float m_deltaBuffer{0};
+  Delta m_delta{0};
+  Delta m_accumulator{0};
+  Delta m_deltaBuffer{0};
   const float m_vsyncRate;
-  const float m_timeStep;
+  const Delta m_timeStep;
   const float m_counterFreq;
 
   /**
@@ -35,7 +35,10 @@ class GameLoop final {
    *
    * @since 0.1.0
    */
-  [[nodiscard]] constexpr float max_frame_time() noexcept { return 0.25f; }
+  [[nodiscard]] constexpr Delta max_frame_time() noexcept
+  {
+    return Delta{0.25f};
+  }
 
   void smooth_delta() noexcept;
 };

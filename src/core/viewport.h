@@ -2,6 +2,7 @@
 #include <rect.h>
 
 #include "vector_2.h"
+#include "wanderer_stdinc.h"
 
 namespace wanderer {
 
@@ -14,7 +15,7 @@ class Viewport final {
    * @param boundsPosComp the size of the target entity.
    * @param delta the delta time, in seconds.
    */
-  void track(const Vector2f& target, const centurion::FArea& size, float delta);
+  void track(const Vector2f& target, const centurion::FArea& size, Delta delta);
 
   void center(const Vector2f& target, const centurion::FArea& size);
 

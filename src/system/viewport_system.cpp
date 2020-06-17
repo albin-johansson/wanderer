@@ -9,7 +9,7 @@ namespace wanderer::system {
 void update_viewport(entt::registry& registry,
                      const entt::entity viewport,
                      const entt::entity player,
-                     const float delta)
+                     const Delta delta)
 {
   if (const auto* movable = registry.try_get<Movable>(player); movable) {
     if (auto* view = registry.try_get<Viewport>(viewport); view) {
