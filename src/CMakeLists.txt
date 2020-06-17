@@ -13,8 +13,6 @@ set(SOURCE_FILES
         core/game.cpp
         core/application.cpp
         core/application.h
-        core/make_player.h
-        core/make_player.cpp
         core/game_loop.h
         core/hitbox.cpp
         core/hitbox.h
@@ -41,7 +39,6 @@ set(SOURCE_FILES
         component/humanoid_state.h
         component/binds.h
         component/animated.h
-        component/drawable.h
         component/tilemap.h
         component/tile_layer.h
         component/tileset.h
@@ -86,7 +83,7 @@ set(SOURCE_FILES
         parse/tile/make_map.h
         parse/tile/make_map.cpp
         parse/tile/make_tileset.cpp
-        parse/tile/make_tileset.h)
+        parse/tile/make_tileset.h component/depth_drawable.h system/humanoid_factory_system.cpp system/humanoid_factory_system.h component/game_object.h)
 
 add_library(${WANDERER_LIB_TARGET} ${SOURCE_FILES})
 

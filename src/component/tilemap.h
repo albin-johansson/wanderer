@@ -1,6 +1,5 @@
 #pragma once
 
-#include <memory>
 #include <vector>
 
 #include "tileset.h"
@@ -11,7 +10,7 @@ namespace wanderer {
 struct Tilemap final {
   entt::entity tileset;
   std::vector<entt::entity> groundLayers;
-  // TODO std::vector<TileLayer> objectLayers;
+  std::vector<entt::entity> objectLayers;
   float width;
   float height;
   int rows;

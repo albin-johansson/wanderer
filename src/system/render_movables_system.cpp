@@ -1,7 +1,7 @@
 #include "render_movables_system.h"
 
 #include "animated.h"
-#include "drawable.h"
+#include "depth_drawable.h"
 #include "game_constants.h"
 #include "movable.h"
 
@@ -13,17 +13,21 @@ inline constexpr FArea entitySize{g_entityDrawWidth, g_entityDrawHeight};
 
 void render_movables(entt::registry& registry, Renderer& renderer)
 {
-  const auto entities = registry.view<Movable, Drawable>();
-  for (const auto entity : entities) {
-    const auto& movable = entities.get<Movable>(entity);
-    const auto& drawable = entities.get<Drawable>(entity);
+  registry.sort<DepthDrawable>(
+      [](const DepthDrawable& lhs, const DepthDrawable& rhs) noexcept {
+        return lhs.depth < rhs.depth;
+      });
 
-    const auto [x, y] = movable.interpolatedPos;
-    const IRect src{{drawable.srcX, drawable.srcY}, {64, 64}};
-    const FRect dst{{x, y}, entitySize};
+  const auto entities = registry.view<DepthDrawable>();
 
-    renderer.render_tf(*drawable.texture, src, dst);
-  }
+  entities.each([&](const auto entity, const DepthDrawable& drawable) noexcept {
+    if (const auto* movable = registry.try_get<Movable>(entity); movable) {
+      const auto [x, y] = movable->interpolatedPos;
+      const IRect src{{drawable.srcX, drawable.srcY}, {64, 64}};
+      const FRect dst{{x, y}, entitySize};
+      renderer.render_tf(*drawable.texture, src, dst);
+    }
+  });
 }
 
 }  // namespace wanderer::system

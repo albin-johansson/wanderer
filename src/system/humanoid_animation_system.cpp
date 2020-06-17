@@ -3,7 +3,7 @@
 #include <type_traits>
 
 #include "animated.h"
-#include "drawable.h"
+#include "depth_drawable.h"
 #include "humanoid_state.h"
 #include "movable.h"
 
@@ -33,11 +33,11 @@ void update(
     const entt::entity entity,
     Lambda&& lambda) noexcept(noexcept(lambda(std::declval<Animated&>(),
                                               std::declval<Movable&>(),
-                                              std::declval<Drawable&>())))
+                                              std::declval<DepthDrawable&>())))
 {
   if (auto* animated = registry.try_get<Animated>(entity); animated) {
     if (auto* movable = registry.try_get<Movable>(entity); movable) {
-      if (auto* drawable = registry.try_get<Drawable>(entity); drawable) {
+      if (auto* drawable = registry.try_get<DepthDrawable>(entity); drawable) {
         lambda(*animated, *movable, *drawable);
       }
     }
@@ -65,7 +65,9 @@ void humanoid_update_move_animation(entt::registry& registry,
 {
   update(registry,
          entity,
-         [](Animated& animated, Movable& movable, Drawable& drawable) noexcept {
+         [](Animated& animated,
+            Movable& movable,
+            DepthDrawable& drawable) noexcept {
            drawable.srcX = movable.velocity.is_zero()
                                ? 0
                                : static_cast<int>(animated.frame) * 64;
@@ -83,7 +85,7 @@ void humanoid_update_attack_animation(entt::registry& registry,
   update(registry,
          entity,
          [&registry, entity](
-             Animated& animated, Movable&, Drawable& drawable) noexcept {
+             Animated& animated, Movable&, DepthDrawable& drawable) noexcept {
            drawable.srcX = static_cast<int>(animated.frame) * 64;
            if (animated.frame == animated.nFrames - 1) {
              if (auto* attack = registry.try_get<HumanoidAttack>(entity);
@@ -100,17 +102,17 @@ void enter_animation(entt::registry& registry,
                      const u32 delay,
                      const int sourceY) noexcept
 {
-  update(
-      registry,
-      entity,
-      [nFrames, sourceY, delay](
-          Animated& animated, Movable& movable, Drawable& drawable) noexcept {
-        animated.frame = 0;
-        animated.nFrames = nFrames;
-        animated.delay = delay;
-        drawable.srcX = 0;
-        drawable.srcY = source_y(sourceY, movable.dominantDirection);
-      });
+  update(registry,
+         entity,
+         [nFrames, sourceY, delay](Animated& animated,
+                                   Movable& movable,
+                                   DepthDrawable& drawable) noexcept {
+           animated.frame = 0;
+           animated.nFrames = nFrames;
+           animated.delay = delay;
+           drawable.srcX = 0;
+           drawable.srcY = source_y(sourceY, movable.dominantDirection);
+         });
 }
 
 }  // namespace
@@ -125,16 +127,16 @@ void enter_move_animation(entt::registry& registry,
                           const entt::entity entity,
                           const Direction direction) noexcept
 {
-  update(
-      registry,
-      entity,
-      [direction](Animated& animated, Movable&, Drawable& drawable) noexcept {
-        animated.frame = 0;
-        animated.nFrames = 9;
-        animated.delay = moveDelay;
-        drawable.srcX = 0;
-        drawable.srcY = source_y(moveSourceY, direction);
-      });
+  update(registry,
+         entity,
+         [direction](
+             Animated& animated, Movable&, DepthDrawable& drawable) noexcept {
+           animated.frame = 0;
+           animated.nFrames = 9;
+           animated.delay = moveDelay;
+           drawable.srcX = 0;
+           drawable.srcY = source_y(moveSourceY, direction);
+         });
 }
 
 void enter_melee_animation(entt::registry& registry,

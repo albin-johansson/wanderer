@@ -4,7 +4,6 @@
 #include <timer.h>
 
 #include "animated_tile.h"
-#include "drawable.h"
 #include "tile.h"
 
 using namespace centurion;

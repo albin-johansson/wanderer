@@ -1,13 +1,15 @@
 #include "game.h"
 
+#include <humanoid_state.h>
+
 #include "animation_system.h"
 #include "ground_layer_rendering_system.h"
 #include "humanoid_animation_system.h"
+#include "humanoid_factory_system.h"
 #include "humanoid_state_system.h"
 #include "input_system.h"
 #include "interpolation_system.h"
 #include "make_map.h"
-#include "make_player.h"
 #include "make_viewport.h"
 #include "movement_system.h"
 #include "render_bounds_system.h"
@@ -24,13 +26,15 @@ using centurion::Renderer;
 namespace wanderer {
 
 Game::Game(Renderer& renderer)
-    : m_player{make_player(m_registry, renderer)},
+    : m_player{humanoid::add_player(m_registry, renderer)},
       m_world{make_map(m_registry, "world_demo.json", renderer)},
       m_viewport{make_viewport(m_registry)}
 {
   auto* view = m_registry.try_get<Viewport>(m_viewport);
   auto* level = m_registry.try_get<Tilemap>(m_world);
   view->set_level_size({level->width, level->height});
+
+  humanoid::add_skeleton(m_registry, renderer);
 }
 
 void Game::handle_input(const Input& input)
@@ -41,6 +45,7 @@ void Game::handle_input(const Input& input)
 void Game::tick(const float delta)
 {
   // TODO check if menu is blocking
+  m_dispatcher.update();
 
   // Update game state
   humanoid::update_state(m_registry);

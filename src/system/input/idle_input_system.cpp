@@ -1,5 +1,7 @@
 #include "idle_input_system.h"
 
+#include <demo_event.h>
+
 #include "binds.h"
 #include "direction.h"
 #include "humanoid_animation_system.h"

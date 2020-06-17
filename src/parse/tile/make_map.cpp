@@ -48,6 +48,13 @@ namespace {
   return groundLayerEntity;
 }
 
+[[nodiscard]] entt::entity create_object_layer(entt::registry& registry)
+{
+  const auto objectLayerEntity = registry.create();
+
+  return objectLayerEntity;
+}
+
 }  // namespace
 
 entt::entity make_map(entt::registry& registry,
@@ -75,6 +82,7 @@ entt::entity make_map(entt::registry& registry,
           tilemap.groundLayers.push_back(
               create_ground_layer(registry, stepLayer, stepTileLayer));
         } else {
+          tilemap.objectLayers.push_back(create_object_layer(registry));
         }
       }
 
