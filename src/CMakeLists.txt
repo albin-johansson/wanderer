@@ -118,7 +118,8 @@ if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
             -Wsuggest-final-types
             -Wsuggest-final-methods
             -Wduplicated-cond
-            -Wconversion)
+            -Wconversion
+            -fno-rtti)
 endif ()
 
 wanderer_set_properties(${WANDERER_LIB_TARGET} "Wanderer")
