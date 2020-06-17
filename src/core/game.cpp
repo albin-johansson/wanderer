@@ -38,11 +38,11 @@ Game::Game(Renderer& renderer)
 
   humanoid::add_skeleton(m_registry, renderer);
 
-  m_dispatcher.sink<BeginAttackEvent>().connect<&humanoid::on_attack_begin>();
-  m_dispatcher.sink<EndAttackEvent>().connect<&humanoid::on_attack_end>();
-  m_dispatcher.sink<BeginHumanoidMoveEvent>()
-      .connect<&humanoid::on_move_begin>();
-  m_dispatcher.sink<EndHumanoidMoveEvent>().connect<&humanoid::on_move_end>();
+  using namespace humanoid;
+  m_dispatcher.sink<BeginAttackEvent>().connect<&on_attack_begin>();
+  m_dispatcher.sink<EndAttackEvent>().connect<&on_attack_end>();
+  m_dispatcher.sink<BeginHumanoidMoveEvent>().connect<&on_move_begin>();
+  m_dispatcher.sink<EndHumanoidMoveEvent>().connect<&on_move_end>();
 }
 
 Game::~Game() noexcept
