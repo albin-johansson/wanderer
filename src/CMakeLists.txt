@@ -67,10 +67,10 @@ set(SOURCE_FILES
         system/ground_layer_rendering_system.h
         system/render_bounds_system.cpp
         system/render_bounds_system.h
-        system/tile_animation_system.cpp
-        system/tile_animation_system.h
-        system/tile_rendering_system.cpp
-        system/tile_rendering_system.h
+        system/tile/tile_animation_system.cpp
+        system/tile/tile_animation_system.h
+        system/tile/tile_rendering_system.cpp
+        system/tile/tile_rendering_system.h
 
         system/humanoid/humanoid_animation_system.cpp
         system/humanoid/humanoid_animation_system.h
@@ -133,6 +133,7 @@ target_include_directories(${WANDERER_LIB_TARGET} PUBLIC component/event)
 target_include_directories(${WANDERER_LIB_TARGET} PUBLIC system)
 target_include_directories(${WANDERER_LIB_TARGET} PUBLIC system/input)
 target_include_directories(${WANDERER_LIB_TARGET} PUBLIC system/humanoid)
+target_include_directories(${WANDERER_LIB_TARGET} PUBLIC system/tile)
 target_include_directories(${WANDERER_LIB_TARGET} PUBLIC utility)
 target_include_directories(${WANDERER_LIB_TARGET} PUBLIC parse)
 target_include_directories(${WANDERER_LIB_TARGET} PUBLIC parse/tile)
