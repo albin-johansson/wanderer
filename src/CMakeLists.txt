@@ -97,7 +97,11 @@ set(SOURCE_FILES
         parse/tile/make_map.h
         parse/tile/make_map.cpp
         parse/tile/make_tileset.cpp
-        parse/tile/make_tileset.h)
+        parse/tile/make_tileset.h
+
+        core/resource/image_loader.cpp
+        core/resource/image_loader.h
+        core/resource/image_cache.h)
 
 add_library(${WANDERER_LIB_TARGET} ${SOURCE_FILES})
 
@@ -132,6 +136,7 @@ target_include_directories(${WANDERER_LIB_TARGET} SYSTEM PUBLIC ${LIBRARY_DIR}/s
 # Wanderer directories
 target_include_directories(${WANDERER_LIB_TARGET} PUBLIC core)
 target_include_directories(${WANDERER_LIB_TARGET} PUBLIC core/math)
+target_include_directories(${WANDERER_LIB_TARGET} PUBLIC core/resource)
 target_include_directories(${WANDERER_LIB_TARGET} PUBLIC component)
 target_include_directories(${WANDERER_LIB_TARGET} PUBLIC component/event)
 target_include_directories(${WANDERER_LIB_TARGET} PUBLIC system)

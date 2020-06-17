@@ -18,7 +18,7 @@ void parse_special_tile(entt::registry& registry,
 [[nodiscard]] entt::entity make_basic_tile(
     entt::registry& registry,
     const TileID id,
-    const std::shared_ptr<centurion::Texture>& sheet,
+    const entt::handle<centurion::Texture>& sheet,
     const centurion::IRect& src) noexcept;
 
 }  // namespace wanderer

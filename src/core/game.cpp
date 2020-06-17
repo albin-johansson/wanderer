@@ -28,15 +28,15 @@ using centurion::Renderer;
 namespace wanderer {
 
 Game::Game(Renderer& renderer)
-    : m_player{humanoid::add_player(m_registry, renderer)},
-      m_world{make_map(m_registry, "world_demo.json", renderer)},
+    : m_player{humanoid::add_player(m_registry, renderer, m_imageCache)},
+      m_world{make_map(m_registry, "world_demo.json", renderer, m_imageCache)},
       m_viewport{make_viewport(m_registry)}
 {
   auto* view = m_registry.try_get<Viewport>(m_viewport);
   auto* level = m_registry.try_get<Tilemap>(m_world);
   view->set_level_size({level->width, level->height});
 
-  humanoid::add_skeleton(m_registry, renderer);
+  humanoid::add_skeleton(m_registry, renderer, m_imageCache);
 
   using namespace humanoid;
   m_dispatcher.sink<BeginAttackEvent>().connect<&on_attack_begin>();

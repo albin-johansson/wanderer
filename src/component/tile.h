@@ -16,7 +16,7 @@ namespace wanderer {
 struct Tile final {
   TileID id;
   centurion::IRect src;
-  std::shared_ptr<centurion::Texture> sheet;
+  entt::handle<centurion::Texture> sheet;
 };
 
 }  // namespace wanderer

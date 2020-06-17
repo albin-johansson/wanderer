@@ -2,10 +2,12 @@
 
 #include <texture.h>
 
+#include <entt.hpp>
+
 namespace wanderer {
 
 struct DepthDrawable final {
-  std::shared_ptr<centurion::Texture> texture;
+  entt::handle<centurion::Texture> texture;
   int srcX{0};
   int srcY{0};
   int depth{5};

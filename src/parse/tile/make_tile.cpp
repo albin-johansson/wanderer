@@ -49,7 +49,7 @@ void parse_special_tile(entt::registry& registry,
 
 entt::entity make_basic_tile(entt::registry& registry,
                              const TileID id,
-                             const std::shared_ptr<Texture>& sheet,
+                             const entt::handle<Texture>& sheet,
                              const IRect& src) noexcept
 {
   const auto tileEntity = registry.create();

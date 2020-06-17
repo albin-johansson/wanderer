@@ -2,7 +2,7 @@
 
 #include <timer.h>
 
-#include "types.h"
+#include "wanderer_stdinc.h"
 
 using namespace centurion;
 

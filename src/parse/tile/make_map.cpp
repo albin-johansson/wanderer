@@ -59,7 +59,8 @@ namespace {
 
 entt::entity make_map(entt::registry& registry,
                       std::string_view map,
-                      Renderer& renderer)
+                      Renderer& renderer,
+                      ImageCache& imageCache)
 {
   const auto stepMap = step::parse("resource/map/", map);
   const auto mapEntity = registry.create();
@@ -69,7 +70,8 @@ entt::entity make_map(entt::registry& registry,
   tilemap.height = static_cast<float>(stepMap->height()) * g_tileSize<float>;
   tilemap.rows = stepMap->height();
   tilemap.cols = stepMap->width();
-  tilemap.tileset = make_tileset(registry, stepMap->tilesets(), renderer);
+  tilemap.tileset =
+      make_tileset(registry, stepMap->tilesets(), renderer, imageCache);
 
   for (const auto& stepLayer : stepMap->layers()) {
     const auto& layerProps = stepLayer.properties();

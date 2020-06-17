@@ -2,6 +2,7 @@
 
 #include <renderer.h>
 
+#include "image_cache.h"
 #include "input.h"
 #include "viewport.h"
 #include "wanderer_stdinc.h"
@@ -23,6 +24,9 @@ class Game final {
  private:
   entt::registry m_registry;
   entt::dispatcher m_dispatcher;
+
+  ImageCache m_imageCache;
+
   entt::entity m_player;
   entt::entity m_world;
   entt::entity m_viewport;

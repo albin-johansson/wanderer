@@ -1,6 +1,9 @@
 #include "make_tileset.h"
 
+#include <cassert>
+
 #include "animated.h"
+#include "image_loader.h"
 #include "make_tile.h"
 #include "math.h"
 #include "tileset.h"
@@ -13,8 +16,10 @@ namespace {
 void create_tiles(entt::registry& registry,
                   Tileset& tileset,
                   const step::Tileset& stepTileset,
-                  const std::shared_ptr<Texture>& sheet) noexcept
+                  const entt::handle<Texture>& sheet) noexcept
 {
+  assert(sheet);
+
   auto id = static_cast<TileID>(stepTileset.first_gid());
   for (auto index = 0; index < stepTileset.tile_count(); ++index, ++id) {
     const auto [row, col] =
@@ -35,17 +40,22 @@ void create_tiles(entt::registry& registry,
 
 entt::entity make_tileset(entt::registry& registry,
                           const std::vector<step::Tileset>& tilesets,
-                          Renderer& renderer)
+                          Renderer& renderer,
+                          ImageCache& imageCache)
 {
   const auto entity = registry.create();
 
   auto& tileset = registry.emplace<Tileset>(entity);
 
   for (const auto& stepTileset : tilesets) {
-    const auto sheet = Texture::shared(
-        renderer, ("resource/map/" + stepTileset.image()).c_str());
+    const auto path = "resource/map/" + stepTileset.image();
+    const entt::hashed_string id{path.data()};
 
-    create_tiles(registry, tileset, stepTileset, sheet);
+    if (!imageCache.contains(id)) {
+      imageCache.load<ImageLoader>(id, renderer, path.c_str());
+    }
+
+    create_tiles(registry, tileset, stepTileset, imageCache.handle(id));
 
     const auto firstGID = static_cast<TileID>(stepTileset.first_gid());
     for (const auto& stepTile : stepTileset.tiles()) {
