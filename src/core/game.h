@@ -3,8 +3,8 @@
 #include <renderer.h>
 
 #include "input.h"
-#include "types.h"
 #include "viewport.h"
+#include "wanderer_stdinc.h"
 
 namespace wanderer {
 

@@ -4,8 +4,8 @@
 #include <utility>
 #include <vector>
 
-#include "types.h"
 #include "vector_2.h"
+#include "wanderer_stdinc.h"
 
 namespace wanderer {
 

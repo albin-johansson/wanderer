@@ -1,7 +1,7 @@
 #pragma once
 #include <entt.hpp>
 
-#include "types.h"
+#include "wanderer_stdinc.h"
 
 namespace wanderer::system {
 

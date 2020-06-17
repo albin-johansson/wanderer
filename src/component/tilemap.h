@@ -3,7 +3,7 @@
 #include <vector>
 
 #include "tileset.h"
-#include "types.h"
+#include "wanderer_stdinc.h"
 
 namespace wanderer {
 

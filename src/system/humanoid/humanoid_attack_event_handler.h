@@ -8,7 +8,7 @@
 
 #include "begin_attack_event.h"
 #include "end_attack_event.h"
-#include "types.h"
+#include "wanderer_stdinc.h"
 
 namespace wanderer::system::humanoid {
 

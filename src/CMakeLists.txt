@@ -29,7 +29,7 @@ set(SOURCE_FILES
         core/math/random.h
         core/math/math.h
 
-        utility/types.h
+        core/wanderer_stdinc.h
         utility/input.cpp
         utility/input.h
 
