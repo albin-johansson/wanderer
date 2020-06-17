@@ -43,8 +43,8 @@ Game::Game(Renderer& renderer)
 Game::~Game() noexcept
 {
   m_dispatcher.clear();
-  m_dispatcher.sink<BeginAttackEvent>().disconnect();
   m_dispatcher.sink<EndAttackEvent>().disconnect();
+  m_dispatcher.sink<BeginAttackEvent>().disconnect();
 }
 
 void Game::handle_input(const Input& input)
