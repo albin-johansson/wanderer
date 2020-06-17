@@ -1,4 +1,5 @@
 #pragma once
+
 #include <renderer.h>
 
 #include "input.h"
@@ -11,6 +12,8 @@ class Game final {
  public:
   explicit Game(centurion::Renderer& renderer);
 
+  ~Game() noexcept;
+
   void handle_input(const Input& input);
 
   void tick(float delta);
@@ -19,7 +22,7 @@ class Game final {
 
  private:
   entt::registry m_registry;
-//  entt::dispatcher m_dispatcher;
+  entt::dispatcher m_dispatcher;
   entt::entity m_player;
   entt::entity m_world;
   entt::entity m_viewport;

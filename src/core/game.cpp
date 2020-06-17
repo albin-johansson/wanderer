@@ -1,10 +1,10 @@
 #include "game.h"
 
-#include <humanoid_state.h>
-
 #include "animation_system.h"
+#include "begin_attack_event.h"
 #include "ground_layer_rendering_system.h"
 #include "humanoid_animation_system.h"
+#include "humanoid_attack_event_handler.h"
 #include "humanoid_factory_system.h"
 #include "humanoid_state_system.h"
 #include "input_system.h"
@@ -35,11 +35,21 @@ Game::Game(Renderer& renderer)
   view->set_level_size({level->width, level->height});
 
   humanoid::add_skeleton(m_registry, renderer);
+
+  m_dispatcher.sink<BeginAttackEvent>().connect<&humanoid::on_attack_begin>();
+  m_dispatcher.sink<EndAttackEvent>().connect<&humanoid::on_attack_end>();
+}
+
+Game::~Game() noexcept
+{
+  m_dispatcher.clear();
+  m_dispatcher.sink<BeginAttackEvent>().disconnect();
+  m_dispatcher.sink<EndAttackEvent>().disconnect();
 }
 
 void Game::handle_input(const Input& input)
 {
-  input::update(m_registry, m_player, input);
+  input::update(m_registry, m_dispatcher, m_player, input);
 }
 
 void Game::tick(const float delta)
@@ -47,14 +57,10 @@ void Game::tick(const float delta)
   // TODO check if menu is blocking
   m_dispatcher.update();
 
-  // Update game state
-  humanoid::update_state(m_registry);
-
-  // Animations
+  humanoid::update_state(m_registry, m_dispatcher);
   humanoid::update_animation(m_registry);
   tile::update_animation(m_registry, m_world);  // FIXME m_world
 
-  // Update stuff according to state
   update_movement(m_registry, delta);
   update_animation_state(m_registry);
   // TODO need to update viewport level size as well when level changes

@@ -6,6 +6,7 @@
 namespace wanderer::system::input {
 
 void handle_move_input(entt::registry& registry,
+                       entt::dispatcher& dispatcher,
                        entt::entity player,
                        const Input& input);
 

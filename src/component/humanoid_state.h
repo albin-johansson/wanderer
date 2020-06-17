@@ -1,5 +1,7 @@
 #pragma once
+
 #include "direction.h"
+#include "types.h"
 
 namespace wanderer {
 
@@ -13,6 +15,7 @@ struct HumanoidMove final {
 };
 
 struct HumanoidAttack final {
+  entt::entity weapon{entt::null};
   bool done{false};
 };
 

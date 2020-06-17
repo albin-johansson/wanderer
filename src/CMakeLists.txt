@@ -45,6 +45,11 @@ set(SOURCE_FILES
         component/tile.h
         component/animated_tile.h
         component/render_bounds.h
+        component/depth_drawable.h
+        component/game_object.h
+
+        component/event/begin_attack_event.h
+        component/event/end_attack_event.h
 
         system/render_movables_system.cpp
         system/render_movables_system.h
@@ -56,12 +61,8 @@ set(SOURCE_FILES
         system/viewport_system.h
         system/translation_viewport_system.cpp
         system/translation_viewport_system.h
-        system/humanoid_animation_system.cpp
-        system/humanoid_animation_system.h
         system/animation_system.cpp
         system/animation_system.h
-        system/humanoid_state_system.cpp
-        system/humanoid_state_system.h
         system/ground_layer_rendering_system.cpp
         system/ground_layer_rendering_system.h
         system/render_bounds_system.cpp
@@ -70,6 +71,15 @@ set(SOURCE_FILES
         system/tile_animation_system.h
         system/tile_rendering_system.cpp
         system/tile_rendering_system.h
+
+        system/humanoid/humanoid_animation_system.cpp
+        system/humanoid/humanoid_animation_system.h
+        system/humanoid/humanoid_state_system.cpp
+        system/humanoid/humanoid_state_system.h
+        system/humanoid/humanoid_factory_system.cpp
+        system/humanoid/humanoid_factory_system.h
+        system/humanoid/humanoid_attack_event_handler.cpp
+        system/humanoid/humanoid_attack_event_handler.h
 
         system/input/input_system.cpp
         system/input/input_system.h
@@ -83,7 +93,7 @@ set(SOURCE_FILES
         parse/tile/make_map.h
         parse/tile/make_map.cpp
         parse/tile/make_tileset.cpp
-        parse/tile/make_tileset.h component/depth_drawable.h system/humanoid_factory_system.cpp system/humanoid_factory_system.h component/game_object.h)
+        parse/tile/make_tileset.h)
 
 add_library(${WANDERER_LIB_TARGET} ${SOURCE_FILES})
 
@@ -119,8 +129,10 @@ target_include_directories(${WANDERER_LIB_TARGET} SYSTEM PUBLIC ${LIBRARY_DIR}/s
 target_include_directories(${WANDERER_LIB_TARGET} PUBLIC core)
 target_include_directories(${WANDERER_LIB_TARGET} PUBLIC core/math)
 target_include_directories(${WANDERER_LIB_TARGET} PUBLIC component)
+target_include_directories(${WANDERER_LIB_TARGET} PUBLIC component/event)
 target_include_directories(${WANDERER_LIB_TARGET} PUBLIC system)
 target_include_directories(${WANDERER_LIB_TARGET} PUBLIC system/input)
+target_include_directories(${WANDERER_LIB_TARGET} PUBLIC system/humanoid)
 target_include_directories(${WANDERER_LIB_TARGET} PUBLIC utility)
 target_include_directories(${WANDERER_LIB_TARGET} PUBLIC parse)
 target_include_directories(${WANDERER_LIB_TARGET} PUBLIC parse/tile)

@@ -1,5 +1,6 @@
 #include "move_input_system.h"
 
+#include "begin_attack_event.h"
 #include "binds.h"
 #include "direction.h"
 #include "humanoid_animation_system.h"
@@ -114,6 +115,7 @@ void check_released(Movable& movable, const Input& input, const Binds& binds)
 }  // namespace
 
 void handle_move_input(entt::registry& registry,
+                       entt::dispatcher& dispatcher,
                        const entt::entity player,
                        const Input& input)
 {
@@ -130,9 +132,8 @@ void handle_move_input(entt::registry& registry,
         humanoid::enter_idle_animation(registry, player);
       } else if (input.is_pressed(binds->attack)) {
         movable->velocity.zero();
-        registry.remove_if_exists<HumanoidMove>(player);
-        registry.emplace_or_replace<HumanoidAttack>(player);
-        humanoid::enter_melee_animation(registry, player);
+        dispatcher.enqueue<BeginAttackEvent>(
+            {&registry, player, entt::null, movable->dominantDirection});
       }
     }
   }

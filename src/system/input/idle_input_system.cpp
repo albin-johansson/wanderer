@@ -1,7 +1,6 @@
 #include "idle_input_system.h"
 
-#include <demo_event.h>
-
+#include "begin_attack_event.h"
 #include "binds.h"
 #include "direction.h"
 #include "humanoid_animation_system.h"
@@ -10,6 +9,7 @@
 namespace wanderer::system::input {
 
 void handle_idle_input(entt::registry& registry,
+                       entt::dispatcher& dispatcher,
                        const entt::entity player,
                        const Input& input)
 {
@@ -35,11 +35,8 @@ void handle_idle_input(entt::registry& registry,
         registry.emplace_or_replace<HumanoidMove>(player);
         humanoid::enter_move_animation(registry, player, direction);
       } else if (input.is_pressed(binds->attack)) {
-        registry.remove_if_exists<HumanoidIdle>(player);
-        registry.emplace_or_replace<HumanoidAttack>(player);
-
-        // TODO check selected item
-        humanoid::enter_melee_animation(registry, player);
+        dispatcher.enqueue<BeginAttackEvent>(
+            {&registry, player, entt::null, Direction::Down});
       }
     }
   }
