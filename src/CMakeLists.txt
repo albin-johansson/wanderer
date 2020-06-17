@@ -50,6 +50,8 @@ set(SOURCE_FILES
 
         component/event/begin_attack_event.h
         component/event/end_attack_event.h
+        component/event/begin_humanoid_move_event.h
+        component/event/end_humanoid_move_event.h
 
         system/render_movables_system.cpp
         system/render_movables_system.h
@@ -80,6 +82,8 @@ set(SOURCE_FILES
         system/humanoid/humanoid_factory_system.h
         system/humanoid/humanoid_attack_event_handler.cpp
         system/humanoid/humanoid_attack_event_handler.h
+        system/humanoid/humanoid_move_event_handler.cpp
+        system/humanoid/humanoid_move_event_handler.h
 
         system/input/input_system.cpp
         system/input/input_system.h

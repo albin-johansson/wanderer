@@ -4,19 +4,25 @@
 #include "humanoid_state.h"
 
 namespace wanderer::system::humanoid {
+namespace {
 
-void update_state(entt::registry& registry, entt::dispatcher& dispatcher)
+void update_attacking_humanoids(entt::registry& registry,
+                                entt::dispatcher& dispatcher)
 {
   registry.view<HumanoidAttack>().each(
       [&](const auto entity, const HumanoidAttack& attack) {
         if (attack.done) {
-          EndAttackEvent event;
-          event.registry = &registry;
-          event.sourceEntity = entity;
-          event.weapon = attack.weapon;
-          dispatcher.enqueue<EndAttackEvent>(event);
+          dispatcher.enqueue<EndAttackEvent>(
+              &registry, entity, attack.weapon, Direction::Down);
         }
       });
+}
+
+}  // namespace
+
+void update_state(entt::registry& registry, entt::dispatcher& dispatcher)
+{
+  update_attacking_humanoids(registry, dispatcher);
 }
 
 }  // namespace wanderer::system::humanoid

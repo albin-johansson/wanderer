@@ -2,10 +2,12 @@
 
 #include "animation_system.h"
 #include "begin_attack_event.h"
+#include "begin_humanoid_move_event.h"
 #include "ground_layer_rendering_system.h"
 #include "humanoid_animation_system.h"
 #include "humanoid_attack_event_handler.h"
 #include "humanoid_factory_system.h"
+#include "humanoid_move_event_handler.h"
 #include "humanoid_state_system.h"
 #include "input_system.h"
 #include "interpolation_system.h"
@@ -38,11 +40,16 @@ Game::Game(Renderer& renderer)
 
   m_dispatcher.sink<BeginAttackEvent>().connect<&humanoid::on_attack_begin>();
   m_dispatcher.sink<EndAttackEvent>().connect<&humanoid::on_attack_end>();
+  m_dispatcher.sink<BeginHumanoidMoveEvent>()
+      .connect<&humanoid::on_move_begin>();
+  m_dispatcher.sink<EndHumanoidMoveEvent>().connect<&humanoid::on_move_end>();
 }
 
 Game::~Game() noexcept
 {
   m_dispatcher.clear();
+  m_dispatcher.sink<EndHumanoidMoveEvent>().disconnect();
+  m_dispatcher.sink<BeginHumanoidMoveEvent>().disconnect();
   m_dispatcher.sink<EndAttackEvent>().disconnect();
   m_dispatcher.sink<BeginAttackEvent>().disconnect();
 }

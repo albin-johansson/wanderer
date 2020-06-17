@@ -1,9 +1,9 @@
 #include "idle_input_system.h"
 
 #include "begin_attack_event.h"
+#include "begin_humanoid_move_event.h"
 #include "binds.h"
 #include "direction.h"
-#include "humanoid_animation_system.h"
 #include "player.h"
 
 namespace wanderer::system::input {
@@ -31,12 +31,13 @@ void handle_idle_input(entt::registry& registry,
         } else {
           direction = Direction::Down;
         }
-        registry.remove_if_exists<HumanoidIdle>(player);
-        registry.emplace_or_replace<HumanoidMove>(player);
-        humanoid::enter_move_animation(registry, player, direction);
+
+        dispatcher.enqueue<BeginHumanoidMoveEvent>(
+            &registry, player, direction);
+
       } else if (input.is_pressed(binds->attack)) {
         dispatcher.enqueue<BeginAttackEvent>(
-            {&registry, player, entt::null, Direction::Down});
+            &registry, player, entt::null, Direction::Down);  // FIXME
       }
     }
   }

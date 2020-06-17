@@ -3,7 +3,7 @@
 #include "begin_attack_event.h"
 #include "binds.h"
 #include "direction.h"
-#include "humanoid_animation_system.h"
+#include "end_humanoid_move_event.h"
 #include "movable.h"
 #include "player.h"
 
@@ -127,13 +127,13 @@ void handle_move_input(entt::registry& registry,
       check_released(*movable, input, *binds);
 
       if (!areMoveKeysDown && movable->velocity.is_zero()) {
-        registry.remove_if_exists<HumanoidMove>(player);
-        registry.emplace_or_replace<HumanoidIdle>(player);
-        humanoid::enter_idle_animation(registry, player);
+        dispatcher.enqueue<EndHumanoidMoveEvent>(&registry, player);
       } else if (input.is_pressed(binds->attack)) {
         movable->velocity.zero();
+
+        // FIXME null weapon
         dispatcher.enqueue<BeginAttackEvent>(
-            {&registry, player, entt::null, movable->dominantDirection});
+            &registry, player, entt::null, movable->dominantDirection);
       }
     }
   }
