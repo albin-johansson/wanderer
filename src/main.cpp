@@ -1,4 +1,5 @@
 #include <centurion.h>
+#include <hints.h>
 
 #include "application.h"
 
@@ -8,7 +9,9 @@ using namespace wanderer;
 int main(int, char**)
 {
   Centurion c;
-  SDL_SetHint(SDL_HINT_RENDER_DRIVER, "opengl");  // TODO use new hint API
+
+  using namespace hint;
+  set_hint<RenderDriver>(OpenGL);
 
   Log::set_priority(Log::Priority::Info);
   run();
