@@ -12,9 +12,6 @@ void on_attack_begin(const BeginAttackEvent& event)
   assert(event.registry != nullptr);
   assert(!event.registry->has<HumanoidAttack>(event.sourceEntity));
 
-  event.registry->remove_if_exists<HumanoidIdle>(event.sourceEntity);
-  event.registry->remove_if_exists<HumanoidMove>(event.sourceEntity);
-
   auto& attack = event.registry->emplace<HumanoidAttack>(event.sourceEntity);
   attack.weapon = event.weapon;
 
@@ -27,8 +24,9 @@ void on_attack_end(const EndAttackEvent& event)
   assert(event.registry != nullptr);
   assert(event.registry->has<HumanoidAttack>(event.sourceEntity));
 
-  event.registry->remove<HumanoidAttack>(event.sourceEntity);
   event.registry->emplace<HumanoidIdle>(event.sourceEntity);
+
+  assert(!event.registry->has<HumanoidAttack>(event.sourceEntity));
 
   // TODO deal damage (need target area)
 

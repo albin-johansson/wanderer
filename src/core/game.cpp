@@ -1,5 +1,8 @@
 #include "game.h"
 
+#include <any>
+
+#include "add_humanoid_state_dependencies.h"
 #include "animation_system.h"
 #include "begin_attack_event.h"
 #include "begin_humanoid_move_event.h"
@@ -8,6 +11,7 @@
 #include "humanoid_attack_event_handler.h"
 #include "humanoid_factory_system.h"
 #include "humanoid_move_event_handler.h"
+#include "humanoid_state.h"
 #include "humanoid_state_system.h"
 #include "input_system.h"
 #include "interpolation_system.h"
@@ -28,21 +32,23 @@ using centurion::Renderer;
 namespace wanderer {
 
 Game::Game(Renderer& renderer)
-    : m_player{humanoid::add_player(m_registry, renderer, m_imageCache)},
-      m_world{make_map(m_registry, "world_demo.json", renderer, m_imageCache)},
-      m_viewport{make_viewport(m_registry)}
 {
-  auto* view = m_registry.try_get<Viewport>(m_viewport);
-  auto* level = m_registry.try_get<Tilemap>(m_world);
-  view->set_level_size({level->width, level->height});
-
-  humanoid::add_skeleton(m_registry, renderer, m_imageCache);
-
   using namespace humanoid;
   m_dispatcher.sink<BeginAttackEvent>().connect<&on_attack_begin>();
   m_dispatcher.sink<EndAttackEvent>().connect<&on_attack_end>();
   m_dispatcher.sink<BeginHumanoidMoveEvent>().connect<&on_move_begin>();
   m_dispatcher.sink<EndHumanoidMoveEvent>().connect<&on_move_end>();
+  add_humanoid_state_dependencies(m_registry);
+
+  m_world = make_map(m_registry, "world_demo.json", renderer, m_imageCache);
+  m_player = humanoid::add_player(m_registry, renderer, m_imageCache);
+  m_viewport = make_viewport(m_registry);
+
+  humanoid::add_skeleton(m_registry, renderer, m_imageCache);
+
+  auto* view = m_registry.try_get<Viewport>(m_viewport);
+  auto* level = m_registry.try_get<Tilemap>(m_world);
+  view->set_level_size({level->width, level->height});
 }
 
 Game::~Game() noexcept

@@ -101,7 +101,7 @@ set(SOURCE_FILES
 
         core/resource/image_loader.cpp
         core/resource/image_loader.h
-        core/resource/image_cache.h)
+        core/resource/image_cache.h core/add_humanoid_state_dependencies.cpp core/add_humanoid_state_dependencies.h)
 
 add_library(${WANDERER_LIB_TARGET} ${SOURCE_FILES})
 

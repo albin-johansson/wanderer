@@ -35,12 +35,11 @@ void update(
                                               std::declval<Movable&>(),
                                               std::declval<DepthDrawable&>())))
 {
-  if (auto* animated = registry.try_get<Animated>(entity); animated) {
-    if (auto* movable = registry.try_get<Movable>(entity); movable) {
-      if (auto* drawable = registry.try_get<DepthDrawable>(entity); drawable) {
-        lambda(*animated, *movable, *drawable);
-      }
-    }
+  if (registry.has<Animated, Movable, DepthDrawable>(entity)) {
+    auto& animated = registry.get<Animated>(entity);
+    auto& movable = registry.get<Movable>(entity);
+    auto& drawable = registry.get<DepthDrawable>(entity);
+    lambda(animated, movable, drawable);
   }
 }
 

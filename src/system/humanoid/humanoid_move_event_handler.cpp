@@ -12,7 +12,6 @@ void on_move_begin(const BeginHumanoidMoveEvent& event)
 
   const auto entity = event.entity;
 
-  event.registry->remove_if_exists<HumanoidIdle>(entity);
   event.registry->emplace<HumanoidMove>(entity);
 
   humanoid::enter_move_animation(*event.registry, entity, event.direction);
@@ -25,8 +24,9 @@ void on_move_end(const EndHumanoidMoveEvent& event)
 
   const auto entity = event.entity;
 
-  event.registry->remove<HumanoidMove>(entity);
+//  event.registry->remove<HumanoidMove>(entity);
   event.registry->emplace<HumanoidIdle>(entity);
+  assert(!event.registry->has<HumanoidMove>(entity));
 
   humanoid::enter_idle_animation(*event.registry, entity);
 }

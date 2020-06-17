@@ -22,7 +22,7 @@ class Game final {
   void render(centurion::Renderer& renderer, Alpha alpha);
 
  private:
-  entt::registry m_registry;
+  entt::registry m_registry; // TODO consider multiple registries
   entt::dispatcher m_dispatcher;
 
   ImageCache m_imageCache;

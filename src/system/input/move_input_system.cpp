@@ -119,22 +119,20 @@ void handle_move_input(entt::registry& registry,
                        const entt::entity player,
                        const Input& input)
 {
-  if (registry.has<HumanoidMove>(player)) {
-    const auto* binds = registry.try_get<Binds>(player);
-    auto* movable = registry.try_get<Movable>(player);
-    if (movable && binds) {
-      const bool areMoveKeysDown = check_pressed(*movable, input, *binds);
-      check_released(*movable, input, *binds);
+  if (registry.has<HumanoidMove, Binds, Movable>(player)) {
+    auto& movable = registry.get<Movable>(player);
+    const auto& binds = registry.get<Binds>(player);
+    const bool areMoveKeysDown = check_pressed(movable, input, binds);
+    check_released(movable, input, binds);
 
-      if (!areMoveKeysDown && movable->velocity.is_zero()) {
-        dispatcher.enqueue<EndHumanoidMoveEvent>(&registry, player);
-      } else if (input.is_pressed(binds->attack)) {
-        movable->velocity.zero();
+    if (!areMoveKeysDown && movable.velocity.is_zero()) {
+      dispatcher.enqueue<EndHumanoidMoveEvent>(&registry, player);
+    } else if (input.is_pressed(binds.attack)) {
+      movable.velocity.zero();
 
-        // FIXME null weapon
-        dispatcher.enqueue<BeginAttackEvent>(
-            &registry, player, entt::null, movable->dominantDirection);
-      }
+      // FIXME null weapon
+      dispatcher.enqueue<BeginAttackEvent>(
+          &registry, player, entt::null, movable.dominantDirection);
     }
   }
 }
