@@ -52,6 +52,8 @@ namespace {
 {
   const auto objectLayerEntity = registry.create();
 
+  // TODO load actual game objects (items, NPCs, portals to other levels)
+
   return objectLayerEntity;
 }
 
