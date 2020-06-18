@@ -9,6 +9,7 @@ function(wanderer_set_properties [target [outputName]])
 endfunction()
 
 set(SOURCE_FILES
+        core/wanderer_stdinc.h
         core/game.h
         core/game.cpp
         core/application.cpp
@@ -23,13 +24,20 @@ set(SOURCE_FILES
         core/viewport.h
         core/make_viewport.cpp
         core/make_viewport.h
+        core/add_humanoid_state_dependencies.cpp
+        core/add_humanoid_state_dependencies.h
+        core/event_connections.cpp
+        core/event_connections.h
+
+        core/resource/image_loader.cpp
+        core/resource/image_loader.h
+        core/resource/image_cache.h
 
         core/math/vector_2.h
         core/math/random.cpp
         core/math/random.h
         core/math/math.h
 
-        core/wanderer_stdinc.h
         utility/input.cpp
         utility/input.h
 
@@ -97,11 +105,7 @@ set(SOURCE_FILES
         parse/tile/make_map.h
         parse/tile/make_map.cpp
         parse/tile/make_tileset.cpp
-        parse/tile/make_tileset.h
-
-        core/resource/image_loader.cpp
-        core/resource/image_loader.h
-        core/resource/image_cache.h core/add_humanoid_state_dependencies.cpp core/add_humanoid_state_dependencies.h)
+        parse/tile/make_tileset.h)
 
 add_library(${WANDERER_LIB_TARGET} ${SOURCE_FILES})
 

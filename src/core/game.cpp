@@ -1,17 +1,11 @@
 #include "game.h"
 
-#include <any>
-
 #include "add_humanoid_state_dependencies.h"
 #include "animation_system.h"
-#include "begin_attack_event.h"
-#include "begin_humanoid_move_event.h"
+#include "event_connections.h"
 #include "ground_layer_rendering_system.h"
 #include "humanoid_animation_system.h"
-#include "humanoid_attack_event_handler.h"
 #include "humanoid_factory_system.h"
-#include "humanoid_move_event_handler.h"
-#include "humanoid_state.h"
 #include "humanoid_state_system.h"
 #include "input_system.h"
 #include "interpolation_system.h"
@@ -33,11 +27,7 @@ namespace wanderer {
 
 Game::Game(Renderer& renderer)
 {
-  using namespace humanoid;
-  m_dispatcher.sink<BeginAttackEvent>().connect<&on_attack_begin>();
-  m_dispatcher.sink<EndAttackEvent>().connect<&on_attack_end>();
-  m_dispatcher.sink<BeginHumanoidMoveEvent>().connect<&on_move_begin>();
-  m_dispatcher.sink<EndHumanoidMoveEvent>().connect<&on_move_end>();
+  connect_events(m_dispatcher);
   add_humanoid_state_dependencies(m_registry);
 
   m_world = make_map(m_registry, "world_demo.json", renderer, m_imageCache);
@@ -53,11 +43,7 @@ Game::Game(Renderer& renderer)
 
 Game::~Game() noexcept
 {
-  m_dispatcher.clear();
-  m_dispatcher.sink<EndHumanoidMoveEvent>().disconnect();
-  m_dispatcher.sink<BeginHumanoidMoveEvent>().disconnect();
-  m_dispatcher.sink<EndAttackEvent>().disconnect();
-  m_dispatcher.sink<BeginAttackEvent>().disconnect();
+  disconnect_events(m_dispatcher);
 }
 
 void Game::handle_input(const Input& input)
