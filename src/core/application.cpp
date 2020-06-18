@@ -25,7 +25,7 @@ Renderer create_renderer(const Window& window)
 void run()
 {
 #ifdef NDEBUG
-  Window window{"Wanderer", Screen::size()};
+  Window window{"Wanderer", centurion::Screen::size()};
   window.set_fullscreen(true);
 #else
   Window window{"Wanderer", {1440, 810}};
