@@ -8,7 +8,7 @@
 #include "tilemap.h"
 #include "tileset.h"
 
-using namespace centurion;
+using centurion::Renderer;
 
 namespace wanderer::system::layer {
 

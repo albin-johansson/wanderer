@@ -4,7 +4,7 @@
 
 #include "wanderer_stdinc.h"
 
-using namespace centurion;
+using centurion::Timer;
 
 namespace wanderer {
 

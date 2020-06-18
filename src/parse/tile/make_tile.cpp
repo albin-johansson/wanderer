@@ -6,7 +6,9 @@
 #include "animated_tile.h"
 #include "tile.h"
 
-using namespace centurion;
+using centurion::IRect;
+using centurion::Texture;
+using centurion::Timer;
 
 namespace wanderer {
 namespace {

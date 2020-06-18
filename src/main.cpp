@@ -3,14 +3,16 @@
 
 #include "application.h"
 
-using namespace centurion;
+using centurion::Centurion;
+using centurion::Log;
+
 using namespace wanderer;
 
 int main(int, char**)
 {
   Centurion c;
 
-  using namespace hint;
+  using namespace centurion::hint;
   set_hint<RenderDriver>(OpenGL);
 
   Log::set_priority(Log::Priority::Info);

@@ -5,7 +5,10 @@
 #include "game_constants.h"
 #include "movable.h"
 
-using namespace centurion;
+using centurion::FArea;
+using centurion::FRect;
+using centurion::IRect;
+using centurion::Renderer;
 
 namespace wanderer::system {
 

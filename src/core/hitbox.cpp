@@ -1,6 +1,6 @@
 #include "hitbox.h"
 
-using namespace centurion;
+using centurion::FRect;
 
 namespace wanderer {
 

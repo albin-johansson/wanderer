@@ -1,5 +1,7 @@
 #include "game.h"
 
+#include <cassert>
+
 #include "add_humanoid_state_dependencies.h"
 #include "animation_system.h"
 #include "event_connections.h"
@@ -38,6 +40,9 @@ Game::Game(Renderer& renderer)
 
   auto* view = m_registry.try_get<Viewport>(m_viewport);
   auto* level = m_registry.try_get<Tilemap>(m_world);
+  assert(view);
+  assert(level);
+
   view->set_level_size({level->width, level->height});
 }
 

@@ -2,8 +2,6 @@
 
 #include "movable.h"
 
-using namespace centurion;
-
 namespace wanderer::system {
 namespace {
 

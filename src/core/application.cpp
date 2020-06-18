@@ -6,7 +6,8 @@
 #include "game_constants.h"
 #include "game_loop.h"
 
-using namespace centurion;
+using centurion::Renderer;
+using centurion::Window;
 
 namespace wanderer {
 namespace {
@@ -50,11 +51,11 @@ void run()
 
     loop.update(game);
 
-    renderer.set_color(color::pink);
+    renderer.set_color(centurion::color::pink);
     renderer.clear();
 
-//    renderer.set_color(color::black);
-//    renderer.fill_rect({{0, 0}, {1000, 1000}});
+    //    renderer.set_color(color::black);
+    //    renderer.fill_rect({{0, 0}, {1000, 1000}});
 
     game.render(renderer, loop.alpha());
     renderer.present();

@@ -4,11 +4,11 @@
 
 #include "animated_tile.h"
 
-using namespace centurion;
+using centurion::Timer;
 
 namespace wanderer::system::tile {
 
-void update_animation(entt::registry& registry, entt::entity /*level*/) // TODO
+void update_animation(entt::registry& registry, entt::entity /*level*/)  // TODO
 {
   const auto entities = registry.view<AnimatedTile>();
   for (const auto entity : entities) {

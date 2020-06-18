@@ -2,7 +2,9 @@
 
 #include "game_constants.h"
 
-using namespace centurion;
+using centurion::FArea;
+using centurion::FRect;
+using centurion::Renderer;
 
 namespace wanderer::system::tile {
 namespace {

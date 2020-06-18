@@ -8,7 +8,9 @@
 #include "math.h"
 #include "tileset.h"
 
-using namespace centurion;
+using centurion::IRect;
+using centurion::Renderer;
+using centurion::Texture;
 
 namespace wanderer {
 namespace {

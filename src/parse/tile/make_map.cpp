@@ -10,7 +10,7 @@
 #include "tile_layer.h"
 #include "tilemap.h"
 
-using namespace centurion;
+using centurion::Renderer;
 
 namespace wanderer {
 namespace {
