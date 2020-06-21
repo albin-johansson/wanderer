@@ -14,7 +14,7 @@ namespace wanderer {
  *
  * @since 0.1.0
  */
-class Hitbox final {
+class Hitbox final { // TODO replace by Hitbox component and system
  public:
   Hitbox();
 
