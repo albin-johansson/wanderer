@@ -22,7 +22,6 @@ set(SOURCE_FILES
         core/game_loop.cpp
         core/direction.h
         core/game_constants.h
-        component/viewport.h
         core/make_viewport.cpp
         core/make_viewport.h
         core/add_humanoid_state_dependencies.cpp
@@ -56,6 +55,7 @@ set(SOURCE_FILES
         component/render_bounds.h
         component/depth_drawable.h
         component/game_object.h
+        component/viewport.h
 
         component/event/begin_attack_event.h
         component/event/end_attack_event.h
