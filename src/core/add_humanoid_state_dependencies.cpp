@@ -16,7 +16,7 @@ void mutually_exclusive(entt::registry& registry)
 
 void add_humanoid_state_dependencies(entt::registry& registry)
 {
-  using Idle = HumanoidDie;
+  using Idle = HumanoidIdle;
   using Move = HumanoidMove;
   using Attack = HumanoidAttack;
   using Die = HumanoidDie;
