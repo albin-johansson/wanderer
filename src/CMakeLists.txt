@@ -34,8 +34,8 @@ set(SOURCE_FILES
         core/resource/image_cache.h
 
         core/math/vector_2.h
-        core/math/random.cpp
-        core/math/random.h
+        core/math/random_utils.cpp
+        core/math/random_utils.h
         core/math/math_utils.h
 
         utility/input.cpp
