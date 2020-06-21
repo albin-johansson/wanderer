@@ -8,6 +8,8 @@ function(wanderer_set_properties [target [outputName]])
             OUTPUT_NAME ${ARGV1})
 endfunction()
 
+
+
 set(SOURCE_FILES
         core/wanderer_stdinc.h
         core/game.h
@@ -128,31 +130,41 @@ endif ()
 
 wanderer_set_properties(${WANDERER_LIB_TARGET} "Wanderer")
 
+# Add header-only libraries
+wanderer_add_header_only_lib(libENTT ${LIBRARY_DIR}/entt ${LIBRARY_DIR}/entt/entt.hpp)
+wanderer_add_header_only_lib(libJSON ${LIBRARY_DIR}/json ${LIBRARY_DIR}/json/json.hpp)
+
+set(NAMED_TYPE_SOURCES
+        ${LIBRARY_DIR}/namedtype/named_type.hpp
+        ${LIBRARY_DIR}/namedtype/named_type_impl.hpp
+        ${LIBRARY_DIR}/namedtype/crtp.hpp
+        ${LIBRARY_DIR}/namedtype/underlying_functionalities.hpp)
+wanderer_add_header_only_lib(libNamedType ${LIBRARY_DIR}/namedtype ${NAMED_TYPE_SOURCES})
+
 # Library directories
-target_include_directories(${WANDERER_LIB_TARGET} SYSTEM PUBLIC ${SDL2_INCLUDE_DIR})
-target_include_directories(${WANDERER_LIB_TARGET} SYSTEM PUBLIC ${SDL2_IMAGE_INCLUDE_DIRS})
-target_include_directories(${WANDERER_LIB_TARGET} SYSTEM PUBLIC ${SDL2_MIXER_INCLUDE_DIRS})
-target_include_directories(${WANDERER_LIB_TARGET} SYSTEM PUBLIC ${SDL2_TTF_INCLUDE_DIRS})
-target_include_directories(${WANDERER_LIB_TARGET} SYSTEM PUBLIC ${LIBRARY_DIR}/centurion)
-target_include_directories(${WANDERER_LIB_TARGET} SYSTEM PUBLIC ${LIBRARY_DIR}/entt)
-target_include_directories(${WANDERER_LIB_TARGET} SYSTEM PUBLIC ${LIBRARY_DIR}/json)
-target_include_directories(${WANDERER_LIB_TARGET} SYSTEM PUBLIC ${LIBRARY_DIR}/step)
-target_include_directories(${WANDERER_LIB_TARGET} SYSTEM PUBLIC ${LIBRARY_DIR}/namedtype)
+target_include_directories(${WANDERER_LIB_TARGET}
+        SYSTEM PUBLIC ${SDL2_INCLUDE_DIR}
+        SYSTEM PUBLIC ${SDL2_IMAGE_INCLUDE_DIRS}
+        SYSTEM PUBLIC ${SDL2_MIXER_INCLUDE_DIRS}
+        SYSTEM PUBLIC ${SDL2_TTF_INCLUDE_DIRS}
+        SYSTEM PUBLIC ${LIBRARY_DIR}/centurion
+        SYSTEM PUBLIC ${LIBRARY_DIR}/step)
 
 # Wanderer directories
-target_include_directories(${WANDERER_LIB_TARGET} PUBLIC core)
-target_include_directories(${WANDERER_LIB_TARGET} PUBLIC core/math)
-target_include_directories(${WANDERER_LIB_TARGET} PUBLIC core/resource)
-target_include_directories(${WANDERER_LIB_TARGET} PUBLIC component)
-target_include_directories(${WANDERER_LIB_TARGET} PUBLIC component/event)
-target_include_directories(${WANDERER_LIB_TARGET} PUBLIC system)
-target_include_directories(${WANDERER_LIB_TARGET} PUBLIC system/input)
-target_include_directories(${WANDERER_LIB_TARGET} PUBLIC system/humanoid)
-target_include_directories(${WANDERER_LIB_TARGET} PUBLIC system/tile)
-target_include_directories(${WANDERER_LIB_TARGET} PUBLIC utility)
-target_include_directories(${WANDERER_LIB_TARGET} PUBLIC parse)
-target_include_directories(${WANDERER_LIB_TARGET} PUBLIC parse/tile)
-target_include_directories(${WANDERER_LIB_TARGET} PUBLIC parse/menu)
+target_include_directories(${WANDERER_LIB_TARGET}
+        PUBLIC core
+        PUBLIC core/math
+        PUBLIC core/resource
+        PUBLIC component
+        PUBLIC component/event
+        PUBLIC system
+        PUBLIC system/input
+        PUBLIC system/humanoid
+        PUBLIC system/tile
+        PUBLIC utility
+        PUBLIC parse
+        PUBLIC parse/tile
+        PUBLIC parse/menu)
 
 #target_compile_definitions(${WANDERER_LIB} PUBLIC WANDERER_DEBUG)
 
@@ -162,7 +174,10 @@ target_link_libraries(${WANDERER_LIB_TARGET}
         PUBLIC ${SDL2_MIXER_LIBRARIES}
         PUBLIC ${SDL2_TTF_LIBRARIES}
         PUBLIC ${SDL2_LIBRARY}
-        PUBLIC ${STEP_LIBRARY})
+        PUBLIC ${STEP_LIBRARY}
+        PUBLIC libENTT
+        PUBLIC libJSON
+        PUBLIC libNamedType)
 
 add_executable(${WANDERER_EXE_TARGET} main.cpp)
 
