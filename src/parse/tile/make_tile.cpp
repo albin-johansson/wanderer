@@ -14,11 +14,11 @@ namespace wanderer {
 namespace {
 
 void add_animation(entt::registry& registry,
-                   const entt::entity tileEntity,
+                   const TileEntity tileEntity,
                    const step::Animation& stepAnimation,
                    const TileID firstgid)
 {
-  auto& animatedTile = registry.emplace<AnimatedTile>(tileEntity);
+  auto& animatedTile = registry.emplace<AnimatedTile>(tileEntity.get());
   animatedTile.frame = 0;
   animatedTile.then = Timer::millis();
 
@@ -36,7 +36,7 @@ void add_animation(entt::registry& registry,
 }  // namespace
 
 void parse_special_tile(entt::registry& registry,
-                        const entt::entity tileEntity,
+                        const TileEntity tileEntity,
                         const step::Tile& stepTile,
                         const TileID firstGID)
 {

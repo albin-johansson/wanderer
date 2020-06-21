@@ -12,8 +12,8 @@ void render(centurion::Renderer& renderer,
             int row,
             int col) noexcept;
 
-auto animated_tile(entt::registry& registry,
-                   const entt::entity tileEntity,
-                   const Tileset& tileset) -> const Tile&;
+[[nodiscard]] auto animated_tile(entt::registry& registry,
+                                 const entt::entity tileEntity,
+                                 const Tileset& tileset) -> const Tile&;
 
 }  // namespace wanderer::system::tile

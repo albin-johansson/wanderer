@@ -33,10 +33,10 @@ auto animated_tile(entt::registry& registry,
 
   const auto& animatedTile = registry.get<AnimatedTile>(tileEntity);
 
-  const auto id = animatedTile.frames.at(animatedTile.frame).tile;
-  const auto animatedTileEntity = tileset.tiles.at(id);
+  const TileID id = animatedTile.frames.at(animatedTile.frame).tile;
+  const TileEntity animated = tileset.tiles.at(id);
 
-  return registry.get<Tile>(animatedTileEntity);
+  return registry.get<Tile>(animated.get());
 }
 
 }  // namespace wanderer::system::tile

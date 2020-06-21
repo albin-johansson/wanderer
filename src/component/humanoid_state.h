@@ -15,7 +15,7 @@ struct HumanoidMove final {
 };
 
 struct HumanoidAttack final {
-  entt::entity weapon{entt::null};
+  entt::entity weapon{entt::null}; // TODO weapon component entity tag
   bool done{false};
 };
 

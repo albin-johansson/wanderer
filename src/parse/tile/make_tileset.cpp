@@ -40,10 +40,10 @@ void create_tiles(entt::registry& registry,
 
 }  // namespace
 
-entt::entity make_tileset(entt::registry& registry,
-                          const std::vector<step::Tileset>& tilesets,
-                          Renderer& renderer,
-                          ImageCache& imageCache)
+TilesetEntity make_tileset(entt::registry& registry,
+                           const std::vector<step::Tileset>& tilesets,
+                           Renderer& renderer,
+                           ImageCache& imageCache)
 {
   const auto entity = registry.create();
 
@@ -66,7 +66,7 @@ entt::entity make_tileset(entt::registry& registry,
     }
   }
 
-  return entity;
+  return TilesetEntity{entity};
 }
 
 }  // namespace wanderer

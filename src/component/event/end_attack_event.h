@@ -7,8 +7,8 @@ namespace wanderer {
 
 struct EndAttackEvent final {
   entt::registry* registry{nullptr};
-  entt::entity sourceEntity{entt::null};
-  entt::entity weapon{entt::null};
+  entt::entity sourceEntity{entt::null};  // TODO tag type
+  entt::entity weapon{entt::null};        // TODO weapon tag type
   Direction direction{Direction::Down};
 
   EndAttackEvent(entt::registry* registry,

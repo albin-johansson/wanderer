@@ -7,7 +7,7 @@ namespace wanderer {
 
 struct BeginHumanoidMoveEvent final {
   entt::registry* registry{nullptr};
-  entt::entity entity{entt::null};
+  entt::entity entity{entt::null};  // TODO tag type
   Direction direction{Direction::Down};
 
   BeginHumanoidMoveEvent(entt::registry* registry,

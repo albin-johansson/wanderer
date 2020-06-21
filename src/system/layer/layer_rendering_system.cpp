@@ -18,18 +18,18 @@ void render(entt::registry& registry,
       const auto r = static_cast<std::size_t>(row);
       const auto c = static_cast<std::size_t>(col);
 
-      const auto tileID = layer.matrix.at(r).at(c);
-      if (tileID == g_emptyTile) {
+      const TileID id = layer.matrix.at(r).at(c);
+      if (id == g_emptyTile) {
         continue;
       }
 
-      const auto tileEntity = tileset.tiles.at(tileID);
+      const TileEntity entity = tileset.tiles.at(id);
 
-      if (registry.has<AnimatedTile>(tileEntity)) {
-        const auto& tile = tile::animated_tile(registry, tileEntity, tileset);
+      if (registry.has<AnimatedTile>(entity.get())) {
+        const auto& tile = tile::animated_tile(registry, entity.get(), tileset);
         tile::render(renderer, tile, row, col);
       } else {
-        const auto& tile = registry.get<Tile>(tileEntity);
+        const auto& tile = registry.get<Tile>(entity.get());
         tile::render(renderer, tile, row, col);
       }
     }

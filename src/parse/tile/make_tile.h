@@ -6,12 +6,13 @@
 
 #include <memory>
 
+#include "tile.h"
 #include "wanderer_stdinc.h"
 
 namespace wanderer {
 
 void parse_special_tile(entt::registry& registry,
-                        entt::entity tileEntity,
+                        TileEntity tileEntity,
                         const step::Tile& stepTile,
                         TileID firstGID);
 

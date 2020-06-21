@@ -3,18 +3,16 @@
 #include <named_type.hpp>
 #include <vector>
 
+#include "tile_layer.h"
 #include "tileset.h"
 #include "wanderer_stdinc.h"
 
 namespace wanderer {
 
-using Layer =
-    fluent::NamedType<entt::entity, struct LayerTag, fluent::Comparable>;
-
 struct Tilemap final {
-  entt::entity tileset;
-  std::vector<Layer> groundLayers;
-  std::vector<Layer> objectLayers;
+  TilesetEntity tileset{entt::entity{entt::null}};
+  std::vector<TileLayerEntity> groundLayers;
+  std::vector<TileLayerEntity> objectLayers;
   float width;
   float height;
   int rows;

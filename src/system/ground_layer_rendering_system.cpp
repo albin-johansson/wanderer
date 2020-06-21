@@ -3,7 +3,6 @@
 #include "animated_tile.h"
 #include "layer_rendering_system.h"
 #include "render_bounds_system.h"
-#include "tile.h"
 #include "tile_layer.h"
 #include "tilemap.h"
 #include "tileset.h"
@@ -18,7 +17,7 @@ void render_ground(entt::registry& registry,
                    const RenderBounds& bounds)
 {
   const auto& tilemap = registry.get<Tilemap>(mapEntity);
-  const auto& tileset = registry.get<Tileset>(tilemap.tileset);
+  const auto& tileset = registry.get<Tileset>(tilemap.tileset.get());
 
   for (const auto layer : tilemap.groundLayers) {
     const auto& tileLayer = registry.get<TileLayer>(layer.get());
