@@ -39,7 +39,7 @@ Game::Game(Renderer& renderer)
   humanoid::add_skeleton(m_registry, renderer, m_imageCache);
 
   auto* view = m_registry.try_get<Viewport>(m_viewport);
-  auto* level = m_registry.try_get<Tilemap>(m_world);
+  auto* level = m_registry.try_get<Tilemap>(m_world.get());
   assert(view);
   assert(level);
 
@@ -63,7 +63,7 @@ void Game::tick(const Delta delta)
 
   humanoid::update_state(m_registry, m_dispatcher);
   humanoid::update_animation(m_registry);
-  tile::update_animation(m_registry, m_world);  // FIXME m_world
+  tile::update_animation(m_registry, m_world.get());  // FIXME m_world
 
   update_movement(m_registry, delta);
   update_animation_state(m_registry);
@@ -76,7 +76,8 @@ void Game::render(Renderer& renderer, const Alpha alpha)
   update_translation_viewport(m_registry, m_viewport, renderer);
   update_interpolation(m_registry, alpha);
 
-  const auto& tilemap = m_registry.get<Tilemap>(m_world);  // FIXME m_world
+  const auto& tilemap = m_registry.get<Tilemap>(m_world.get());  // FIXME
+                                                                 // m_world
   const auto bounds = calculate_render_bounds(
       m_registry, m_viewport, tilemap.rows, tilemap.cols);
 

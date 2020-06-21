@@ -23,7 +23,7 @@ namespace {
   return {rows, std::vector<TileID>(cols, g_emptyTile)};
 }
 
-[[nodiscard]] entt::entity create_ground_layer(
+[[nodiscard]] TileLayerEntity create_ground_layer(
     entt::registry& registry,
     const step::Layer& stepLayer,
     const step::TileLayer& stepTileLayer)
@@ -45,21 +45,21 @@ namespace {
     ++index;
   }
 
-  return groundLayerEntity;
+  return TileLayerEntity{groundLayerEntity};
 }
 
-[[nodiscard]] entt::entity create_object_layer(entt::registry& registry)
+[[nodiscard]] TileLayerEntity create_object_layer(entt::registry& registry)
 {
   const auto objectLayerEntity = registry.create();
 
   // TODO load actual game objects (items, NPCs, portals to other levels)
 
-  return objectLayerEntity;
+  return TileLayerEntity{objectLayerEntity};
 }
 
 }  // namespace
 
-entt::entity make_map(entt::registry& registry,
+TilemapEntity make_map(entt::registry& registry,
                       std::string_view map,
                       Renderer& renderer,
                       ImageCache& imageCache)
@@ -95,7 +95,7 @@ entt::entity make_map(entt::registry& registry,
     }
   }
 
-  return mapEntity;
+  return TilemapEntity{mapEntity};
 }
 
 }  // namespace wanderer

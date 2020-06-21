@@ -1,10 +1,8 @@
 #include "ground_layer_rendering_system.h"
 
-#include "animated_tile.h"
 #include "layer_rendering_system.h"
 #include "render_bounds_system.h"
 #include "tile_layer.h"
-#include "tilemap.h"
 #include "tileset.h"
 
 using centurion::Renderer;
@@ -12,11 +10,11 @@ using centurion::Renderer;
 namespace wanderer::system::layer {
 
 void render_ground(entt::registry& registry,
-                   const entt::entity mapEntity,
+                   const TilemapEntity mapEntity,
                    Renderer& renderer,
                    const RenderBounds& bounds)
 {
-  const auto& tilemap = registry.get<Tilemap>(mapEntity);
+  const auto& tilemap = registry.get<Tilemap>(mapEntity.get());
   const auto& tileset = registry.get<Tileset>(tilemap.tileset.get());
 
   for (const auto layer : tilemap.groundLayers) {

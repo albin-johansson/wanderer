@@ -49,10 +49,10 @@ void parse_special_tile(entt::registry& registry,
   //  }
 }
 
-entt::entity make_basic_tile(entt::registry& registry,
-                             const TileID id,
-                             const entt::handle<Texture>& sheet,
-                             const IRect& src) noexcept
+TileEntity make_basic_tile(entt::registry& registry,
+                           const TileID id,
+                           const entt::handle<Texture>& sheet,
+                           const IRect& src) noexcept
 {
   const auto tileEntity = registry.create();
 
@@ -61,7 +61,7 @@ entt::entity make_basic_tile(entt::registry& registry,
   tile.sheet = sheet;
   tile.src = src;
 
-  return tileEntity;
+  return TileEntity{tileEntity};
 }
 
 }  // namespace wanderer

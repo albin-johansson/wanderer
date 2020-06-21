@@ -16,7 +16,7 @@ void parse_special_tile(entt::registry& registry,
                         const step::Tile& stepTile,
                         TileID firstGID);
 
-[[nodiscard]] entt::entity make_basic_tile(
+[[nodiscard]] TileEntity make_basic_tile(
     entt::registry& registry,
     const TileID id,
     const entt::handle<centurion::Texture>& sheet,

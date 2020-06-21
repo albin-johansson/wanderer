@@ -7,13 +7,6 @@
 
 namespace wanderer::system::humanoid {
 
-/**
- *
- * @param registry
- * @param renderer
- * @param imageCache
- * @return
- */
 entt::entity add_player(entt::registry& registry,
                         centurion::Renderer& renderer,
                         ImageCache& imageCache);

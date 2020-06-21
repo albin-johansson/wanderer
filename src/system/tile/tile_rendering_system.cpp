@@ -26,12 +26,12 @@ void render(Renderer& renderer,
 }
 
 auto animated_tile(entt::registry& registry,
-                   const entt::entity tileEntity,
+                   const TileEntity tileEntity,
                    const Tileset& tileset) -> const Tile&
 {
-  assert(registry.has<AnimatedTile>(tileEntity));
+  assert(registry.has<AnimatedTile>(tileEntity.get()));
 
-  const auto& animatedTile = registry.get<AnimatedTile>(tileEntity);
+  const auto& animatedTile = registry.get<AnimatedTile>(tileEntity.get());
 
   const TileID id = animatedTile.frames.at(animatedTile.frame).tile;
   const TileEntity animated = tileset.tiles.at(id);

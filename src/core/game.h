@@ -4,6 +4,7 @@
 
 #include "image_cache.h"
 #include "input.h"
+#include "tilemap.h"
 #include "viewport.h"
 #include "wanderer_stdinc.h"
 
@@ -28,7 +29,7 @@ class Game final {
   ImageCache m_imageCache;
 
   entt::entity m_player;
-  entt::entity m_world;
+  TilemapEntity m_world{entt::entity{entt::null}};
   entt::entity m_viewport;
 };
 
