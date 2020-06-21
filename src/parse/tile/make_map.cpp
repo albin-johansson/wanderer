@@ -83,10 +83,10 @@ entt::entity make_map(entt::registry& registry,
 
       if (layerProps.has("ground")) {
         if (layerProps.is("ground", true)) {
-          tilemap.groundLayers.push_back(
+          tilemap.groundLayers.emplace_back(
               create_ground_layer(registry, stepLayer, stepTileLayer));
         } else {
-          tilemap.objectLayers.push_back(create_object_layer(registry));
+          tilemap.objectLayers.emplace_back(create_object_layer(registry));
         }
       }
 

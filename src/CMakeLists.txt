@@ -79,10 +79,14 @@ set(SOURCE_FILES
         system/ground_layer_rendering_system.h
         system/render_bounds_system.cpp
         system/render_bounds_system.h
+
         system/tile/tile_animation_system.cpp
         system/tile/tile_animation_system.h
         system/tile/tile_rendering_system.cpp
         system/tile/tile_rendering_system.h
+
+        system/layer/layer_rendering_system.cpp
+        system/layer/layer_rendering_system.h
 
         system/humanoid/humanoid_animation_system.cpp
         system/humanoid/humanoid_animation_system.h
@@ -161,6 +165,7 @@ target_include_directories(${WANDERER_LIB_TARGET}
         PUBLIC system/input
         PUBLIC system/humanoid
         PUBLIC system/tile
+        PUBLIC system/layer
         PUBLIC utility
         PUBLIC parse
         PUBLIC parse/tile

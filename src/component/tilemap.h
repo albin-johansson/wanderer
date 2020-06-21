@@ -1,5 +1,6 @@
 #pragma once
 
+#include <named_type.hpp>
 #include <vector>
 
 #include "tileset.h"
@@ -7,10 +8,13 @@
 
 namespace wanderer {
 
+using Layer =
+    fluent::NamedType<entt::entity, struct LayerTag, fluent::Comparable>;
+
 struct Tilemap final {
   entt::entity tileset;
-  std::vector<entt::entity> groundLayers;
-  std::vector<entt::entity> objectLayers;
+  std::vector<Layer> groundLayers;
+  std::vector<Layer> objectLayers;
   float width;
   float height;
   int rows;
