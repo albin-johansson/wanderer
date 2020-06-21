@@ -5,7 +5,7 @@
 #include "animated.h"
 #include "image_loader.h"
 #include "make_tile.h"
-#include "math.h"
+#include "math_utils.h"
 #include "tileset.h"
 
 using centurion::IRect;

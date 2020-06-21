@@ -22,8 +22,7 @@ set(SOURCE_FILES
         core/game_loop.cpp
         core/direction.h
         core/game_constants.h
-        core/viewport.cpp
-        core/viewport.h
+        component/viewport.h
         core/make_viewport.cpp
         core/make_viewport.h
         core/add_humanoid_state_dependencies.cpp
@@ -38,7 +37,7 @@ set(SOURCE_FILES
         core/math/vector_2.h
         core/math/random.cpp
         core/math/random.h
-        core/math/math.h
+        core/math/math_utils.h
 
         utility/input.cpp
         utility/input.h

@@ -6,7 +6,7 @@
 
 #include "game_constants.h"
 #include "make_tileset.h"
-#include "math.h"
+#include "math_utils.h"
 #include "tile_layer.h"
 #include "tilemap.h"
 

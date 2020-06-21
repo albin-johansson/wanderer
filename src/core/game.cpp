@@ -38,12 +38,13 @@ Game::Game(Renderer& renderer)
 
   humanoid::add_skeleton(m_registry, renderer, m_imageCache);
 
-  auto* view = m_registry.try_get<Viewport>(m_viewport);
+  auto* view = m_registry.try_get<Viewport>(m_viewport.get());
   auto* level = m_registry.try_get<Tilemap>(m_world.get());
   assert(view);
   assert(level);
 
-  view->set_level_size({level->width, level->height});
+  view->levelSize.width = level->width;
+  view->levelSize.height = level->height;
 }
 
 Game::~Game() noexcept
@@ -68,7 +69,7 @@ void Game::tick(const Delta delta)
   update_movement(m_registry, delta);
   update_animation_state(m_registry);
   // TODO need to update viewport level size as well when level changes
-  update_viewport(m_registry, m_viewport, m_player, delta);
+  viewport::update(m_registry, m_viewport, m_player, delta);
 }
 
 void Game::render(Renderer& renderer, const Alpha alpha)

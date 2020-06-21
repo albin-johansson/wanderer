@@ -2,7 +2,7 @@
 
 #include <type_traits>
 
-#include "math.h"
+#include "math_utils.h"
 
 namespace wanderer {
 

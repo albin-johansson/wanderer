@@ -7,11 +7,12 @@ using centurion::Renderer;
 namespace wanderer::system {
 
 void update_translation_viewport(entt::registry& registry,
-                                 const entt::entity viewport,
+                                 const ViewportEntity viewportEntity,
                                  Renderer& renderer)
 {
-  if (const auto* view = registry.try_get<Viewport>(viewport); view) {
-    renderer.set_translation_viewport(view->bounds());
+  if (const auto* view = registry.try_get<Viewport>(viewportEntity.get());
+      view) {
+    renderer.set_translation_viewport(view->bounds);
   }
 }
 

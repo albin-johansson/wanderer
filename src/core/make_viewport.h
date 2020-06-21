@@ -1,9 +1,10 @@
 #pragma once
 
+#include "viewport.h"
 #include "wanderer_stdinc.h"
 
 namespace wanderer {
 
-[[nodiscard]] entt::entity make_viewport(entt::registry& registry);
+[[nodiscard]] ViewportEntity make_viewport(entt::registry& registry);
 
 }  // namespace wanderer

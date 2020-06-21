@@ -1,23 +1,22 @@
 #include "render_bounds_system.h"
 
-#include <stdexcept>
+#include <cassert>
 
 #include "game_constants.h"
+#include "math_utils.h"
 #include "viewport.h"
 
 namespace wanderer::system {
 
 RenderBounds calculate_render_bounds(entt::registry& registry,
-                                     const entt::entity viewportEntity,
+                                     const ViewportEntity viewportEntity,
                                      const int rows,
                                      const int cols)
 {
-  const auto* viewport = registry.try_get<Viewport>(viewportEntity);
-  if (!viewport) {
-    throw std::runtime_error{"Failed to obtain viewport for render bounds!"};
-  }
+  const auto* viewport = registry.try_get<Viewport>(viewportEntity.get());
+  assert(viewport);
 
-  const auto& viewportBounds = viewport->bounds();
+  const auto& viewportBounds = viewport->bounds;
 
   RenderBounds bounds;
   bounds.minCol = Math::round(viewportBounds.x()) / g_tileSize<int>;

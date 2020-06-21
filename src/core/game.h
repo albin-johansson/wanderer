@@ -30,7 +30,7 @@ class Game final {
 
   entt::entity m_player;
   TilemapEntity m_world{entt::entity{entt::null}};
-  entt::entity m_viewport;
+  ViewportEntity m_viewport{entt::entity{entt::null}};
 };
 
 }  // namespace wanderer
