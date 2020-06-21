@@ -9,7 +9,6 @@ function(wanderer_set_properties [target [outputName]])
 endfunction()
 
 
-
 set(SOURCE_FILES
         core/wanderer_stdinc.h
         core/game.h

@@ -48,7 +48,10 @@ namespace {
   return TileLayerEntity{groundLayerEntity};
 }
 
-[[nodiscard]] TileLayerEntity create_object_layer(entt::registry& registry)
+[[nodiscard]] TileLayerEntity create_object_layer(
+    entt::registry& registry,
+    const step::Layer& stepLayer,
+    const step::TileLayer& stepTileLayer)
 {
   const auto objectLayerEntity = registry.create();
 
@@ -60,9 +63,9 @@ namespace {
 }  // namespace
 
 TilemapEntity make_map(entt::registry& registry,
-                      std::string_view map,
-                      Renderer& renderer,
-                      ImageCache& imageCache)
+                       std::string_view map,
+                       Renderer& renderer,
+                       ImageCache& imageCache)
 {
   const auto stepMap = step::parse("resource/map/", map);
   const auto mapEntity = registry.create();
@@ -86,7 +89,8 @@ TilemapEntity make_map(entt::registry& registry,
           tilemap.groundLayers.emplace_back(
               create_ground_layer(registry, stepLayer, stepTileLayer));
         } else {
-          tilemap.objectLayers.emplace_back(create_object_layer(registry));
+          tilemap.objectLayers.emplace_back(
+              create_object_layer(registry, stepLayer, stepTileLayer));
         }
       }
 
