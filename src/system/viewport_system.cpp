@@ -49,18 +49,16 @@ void track(Viewport& viewport,
 
 void update(entt::registry& registry,
             const ViewportEntity viewportEntity,
-            const entt::entity playerEntity,
+            const entt::entity movableEntity,
             const Delta delta)
 {
-  if (const auto* movable = registry.try_get<Movable>(playerEntity); movable) {
-    if (auto* viewport = registry.try_get<Viewport>(viewportEntity.get());
-        viewport) {
-      track(*viewport,
-            movable->interpolatedPos,
-            {g_humanoidDrawWidth, g_humanoidDrawHeight},
-            delta);
-    }
-  }
+  const auto& movable = registry.get<Movable>(movableEntity);
+  auto& viewport = registry.get<Viewport>(viewportEntity.get());
+
+  track(viewport,
+        movable.interpolatedPos,
+        {g_humanoidDrawWidth, g_humanoidDrawHeight},
+        delta);
 }
 
 }  // namespace wanderer::system::viewport
