@@ -10,10 +10,7 @@ namespace wanderer::system {
 
 void update_animation_state(entt::registry& registry) noexcept
 {
-  const auto entities = registry.view<Animated>();
-  for (const auto entity : entities) {
-    auto& animated = entities.get<Animated>(entity);
-
+  registry.view<Animated>().each([](Animated& animated) noexcept {
     const auto now = Timer::millis();
     const auto elapsed = now - animated.then;
     if (elapsed >= animated.delay) {
@@ -23,7 +20,7 @@ void update_animation_state(entt::registry& registry) noexcept
         animated.frame = 0;
       }
     }
-  }
+  });
 }
 
 }  // namespace wanderer::system
