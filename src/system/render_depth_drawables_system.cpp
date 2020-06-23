@@ -12,18 +12,17 @@ void render_depth_drawables(entt::registry& registry, Renderer& renderer)
   //  they are within the viewport bounds and therefore should be rendered,
   //  this would make it possible to have a "InBounds" component
 
-  registry.sort<DepthDrawable>(
+  registry.sort<DepthDrawable >(
       [](const DepthDrawable& lhs, const DepthDrawable& rhs) noexcept {
         return lhs.depth < rhs.depth ||
                (rhs.depth >= lhs.depth && lhs.centerY < rhs.centerY);
       },
       entt::insertion_sort{});
 
-  const auto entities = registry.view<DepthDrawable>();
-
-  entities.each([&renderer](const DepthDrawable& drawable) noexcept {
-    renderer.render_tf(*drawable.texture, drawable.src, drawable.dst);
-  });
+  registry.view<DepthDrawable>().each(
+      [&renderer](const DepthDrawable& drawable) noexcept {
+        renderer.render_tf(*drawable.texture, drawable.src, drawable.dst);
+      });
 }
 
 }  // namespace wanderer::system
