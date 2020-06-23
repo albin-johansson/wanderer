@@ -55,7 +55,6 @@ set(SOURCE_FILES
         component/game_object.h
         component/viewport.h
         component/map_position.h
-        component/in_bounds.h
 
         component/event/begin_attack_event.h
         component/event/end_attack_event.h
