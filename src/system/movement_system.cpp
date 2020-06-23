@@ -25,10 +25,8 @@ void update_direction(Movable& movable) noexcept
 
 void update_movement(entt::registry& registry, const Delta delta)
 {
-  const auto entities = registry.view<Movable>();
-  for (const auto entity : entities) {
-    auto& movable = entities.get<Movable>(entity);
-
+  registry.view<Movable>().each([&registry, delta](const auto entity,
+                                                   Movable& movable) noexcept {
     movable.oldPos = movable.currentPos;
     // TODO update hitbox
     //    movable.hitbox.set_x(m_currPosition.x);
@@ -42,7 +40,7 @@ void update_movement(entt::registry& registry, const Delta delta)
       drawable->centerY =
           movable.currentPos.y + (drawable->dst.height() / 2.0f);
     }
-  }
+  });
 }
 
 }  // namespace wanderer::system
