@@ -13,15 +13,17 @@
 #include "interpolation_system.h"
 #include "make_map.h"
 #include "make_viewport.h"
+#include "movable_depth_drawables_system.h"
 #include "movement_system.h"
 #include "render_bounds_system.h"
-#include "render_movables_system.h"
+#include "render_depth_drawables_system.h"
 #include "tile_animation_system.h"
 #include "tilemap.h"
 #include "translation_viewport_system.h"
 #include "viewport_system.h"
 
 using namespace wanderer::system;
+using namespace wanderer::component;
 
 using centurion::Renderer;
 
@@ -67,6 +69,7 @@ void Game::tick(const Delta delta)
   tile::update_animation(m_registry, m_world.get());  // FIXME m_world
 
   update_movement(m_registry, delta);
+
   update_animation_state(m_registry);
   // TODO need to update viewport level size as well when level changes
   viewport::update(m_registry, m_viewport, m_player, delta);
@@ -76,6 +79,7 @@ void Game::render(Renderer& renderer, const Alpha alpha)
 {
   update_translation_viewport(m_registry, m_viewport, renderer);
   update_interpolation(m_registry, alpha);
+  update_movable_depth_drawables(m_registry);
 
   const auto& tilemap = m_registry.get<Tilemap>(m_world.get());  // FIXME
                                                                  // m_world
@@ -85,7 +89,7 @@ void Game::render(Renderer& renderer, const Alpha alpha)
   layer::render_ground(m_registry, m_world, renderer, bounds);
 
   // TODO render more stuff (think about render depth as well)
-  render_movables(m_registry, renderer);
+  render_depth_drawables(m_registry, renderer);
 
   // TODO render HUD
 

@@ -4,6 +4,7 @@
 
 #include <vector>
 
+#include "depth_drawable.h"
 #include "game_constants.h"
 #include "make_tileset.h"
 #include "math_utils.h"
@@ -11,6 +12,8 @@
 #include "tilemap.h"
 
 using centurion::Renderer;
+
+using namespace wanderer::component;
 
 namespace wanderer {
 namespace {
@@ -48,16 +51,45 @@ namespace {
   return TileLayerEntity{groundLayerEntity};
 }
 
-[[nodiscard]] TileLayerEntity create_object_layer(
-    entt::registry& registry,
-    const step::Layer& stepLayer,
-    const step::TileLayer& stepTileLayer)
+void create_tile_objects(entt::registry& registry,
+                         Tilemap& tilemap,
+                         const step::Layer& stepLayer,
+                         const std::vector<step::GID>& tileData,
+                         const Tileset& tileset)
 {
-  const auto objectLayerEntity = registry.create();
+  int index = 0;
+  for (const auto gid : tileData) {
+    if (gid == g_emptyTile) {
+      ++index;
+      continue;
+    }
+
+    const auto& tile = registry.get<Tile>(tileset.tiles.at(gid).get());
+
+    const auto tileObjectEntity = registry.create();
+
+    const auto [row, col] = Math::index_to_matrix_pos(index, stepLayer.width());
+
+    const auto tileSize = g_tileSize<float>;
+
+    auto& drawable = registry.emplace<DepthDrawable>(tileObjectEntity);
+    drawable.texture = tile.sheet;
+    drawable.src = tile.src;
+
+    drawable.dst = {{static_cast<float>(col) * tileSize,
+                     static_cast<float>(row) * tileSize},
+                    {tileSize, tileSize}};
+
+    drawable.depth = Depth{5};  // FIXME
+    drawable.centerY =
+        (static_cast<float>(row) * tileSize) + (drawable.dst.height() / 2.0f);
+
+    tilemap.tileObjects.emplace(MapPosition{row, col}, tileObjectEntity);
+
+    ++index;
+  }
 
   // TODO load actual game objects (items, NPCs, portals to other levels)
-
-  return TileLayerEntity{objectLayerEntity};
 }
 
 }  // namespace
@@ -89,8 +121,12 @@ TilemapEntity make_map(entt::registry& registry,
           tilemap.groundLayers.emplace_back(
               create_ground_layer(registry, stepLayer, stepTileLayer));
         } else {
-          tilemap.objectLayers.emplace_back(
-              create_object_layer(registry, stepLayer, stepTileLayer));
+          const auto& tileset = registry.get<Tileset>(tilemap.tileset.get());
+          create_tile_objects(registry,
+                              tilemap,
+                              stepLayer,
+                              stepTileLayer.data().as_gid(),
+                              tileset);
         }
       }
 

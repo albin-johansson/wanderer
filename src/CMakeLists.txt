@@ -54,14 +54,16 @@ set(SOURCE_FILES
         component/depth_drawable.h
         component/game_object.h
         component/viewport.h
+        component/map_position.h
+        component/in_bounds.h
 
         component/event/begin_attack_event.h
         component/event/end_attack_event.h
         component/event/begin_humanoid_move_event.h
         component/event/end_humanoid_move_event.h
 
-        system/render_movables_system.cpp
-        system/render_movables_system.h
+        system/render_depth_drawables_system.cpp
+        system/render_depth_drawables_system.h
         system/movement_system.cpp
         system/movement_system.h
         system/interpolation_system.h
@@ -76,6 +78,8 @@ set(SOURCE_FILES
         system/ground_layer_rendering_system.h
         system/render_bounds_system.cpp
         system/render_bounds_system.h
+        system/movable_depth_drawables_system.cpp
+        system/movable_depth_drawables_system.h
 
         system/tile/tile_animation_system.cpp
         system/tile/tile_animation_system.h

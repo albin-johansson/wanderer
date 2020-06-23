@@ -24,7 +24,7 @@ struct DepthDrawable final {
   Depth depth{5};           // heuristic used to determine render order
   float centerY{0};         // current center point y-coordinate
   centurion::IRect src{};   // source cutout used when rendering
-  centurion::FArea size{};  // actual size of the rendered texture
+  centurion::FRect dst{};   // destination and size of the rendered texture
 };
 
 }  // namespace wanderer

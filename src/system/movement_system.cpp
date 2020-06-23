@@ -39,7 +39,8 @@ void update_movement(entt::registry& registry, const Delta delta)
 
     // FIXME
     if (auto* drawable = registry.try_get<DepthDrawable>(entity); drawable) {
-      drawable->centerY = movable.currentPos.y + (drawable->size.height / 2.0f);
+      drawable->centerY =
+          movable.currentPos.y + (drawable->dst.height() / 2.0f);
     }
   }
 }

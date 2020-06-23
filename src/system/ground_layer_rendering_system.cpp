@@ -7,6 +7,8 @@
 
 using centurion::Renderer;
 
+using namespace wanderer::component;
+
 namespace wanderer::system::layer {
 
 void render_ground(entt::registry& registry,

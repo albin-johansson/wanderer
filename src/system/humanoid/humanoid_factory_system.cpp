@@ -49,7 +49,7 @@ namespace {
   auto& drawable = registry.emplace<DepthDrawable>(entity);
   drawable.texture = texture;
   drawable.src = {{0, 0}, {64, 64}};
-  drawable.size = {g_humanoidDrawWidth, g_humanoidDrawHeight};
+  drawable.dst = {{0, 0}, {g_humanoidDrawWidth, g_humanoidDrawHeight}};
 
   auto& animated = registry.emplace<Animated>(entity);
   animated.frame = 0;

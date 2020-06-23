@@ -29,7 +29,7 @@ class Game final {
   ImageCache m_imageCache;
 
   entt::entity m_player;
-  TilemapEntity m_world{entt::entity{entt::null}};
+  component::TilemapEntity m_world{entt::entity{entt::null}};
   ViewportEntity m_viewport{entt::entity{entt::null}};
 };
 
