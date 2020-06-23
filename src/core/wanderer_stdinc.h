@@ -40,6 +40,8 @@ using Delta = fluent::NamedType<float,
                                 fluent::Decrementable>;
 using Alpha = fluent::NamedType<float, struct AlphaTag, fluent::Comparable>;
 
+using Depth = fluent::NamedType<int, struct DepthTag, fluent::Comparable>;
+
 namespace ctn = centurion;
 
 }  // namespace wanderer

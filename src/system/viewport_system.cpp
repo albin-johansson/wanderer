@@ -57,7 +57,7 @@ void update(entt::registry& registry,
         viewport) {
       track(*viewport,
             movable->interpolatedPos,
-            {g_entityDrawWidth, g_entityDrawHeight},
+            {g_humanoidDrawWidth, g_humanoidDrawHeight},
             delta);
     }
   }

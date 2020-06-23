@@ -3,8 +3,8 @@
 namespace wanderer {
 
 struct GameObject final {
-  int centerY;
-  int depth;
+  int depth{5};
+  float centerY{};
 
   [[nodiscard]] constexpr bool operator<(const GameObject& other) const noexcept
   {

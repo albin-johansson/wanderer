@@ -67,13 +67,13 @@ void humanoid_update_move_animation(entt::registry& registry,
          [](Animated& animated,
             Movable& movable,
             DepthDrawable& drawable) noexcept {
-           drawable.srcX = movable.velocity.is_zero()
-                               ? 0
-                               : static_cast<int>(animated.frame) * 64;
+           drawable.src.set_x(movable.velocity.is_zero()
+                                  ? 0
+                                  : static_cast<int>(animated.frame) * 64);
            const auto srcY = source_y(moveSourceY, movable.dominantDirection);
-           if (drawable.srcY != srcY) {
+           if (drawable.src.y() != srcY) {
              animated.frame = 0;
-             drawable.srcY = srcY;
+             drawable.src.set_y(srcY);
            }
          });
 }
@@ -85,7 +85,7 @@ void humanoid_update_attack_animation(entt::registry& registry,
          entity,
          [&registry, entity](
              Animated& animated, Movable&, DepthDrawable& drawable) noexcept {
-           drawable.srcX = static_cast<int>(animated.frame) * 64;
+           drawable.src.set_x(static_cast<int>(animated.frame) * 64);
            if (animated.frame == animated.nFrames - 1) {
              if (auto* attack = registry.try_get<HumanoidAttack>(entity);
                  attack) {
@@ -109,8 +109,8 @@ void enter_animation(entt::registry& registry,
            animated.frame = 0;
            animated.nFrames = nFrames;
            animated.delay = delay;
-           drawable.srcX = 0;
-           drawable.srcY = source_y(sourceY, movable.dominantDirection);
+           drawable.src.set_x(0);
+           drawable.src.set_y(source_y(sourceY, movable.dominantDirection));
          });
 }
 
@@ -133,8 +133,8 @@ void enter_move_animation(entt::registry& registry,
            animated.frame = 0;
            animated.nFrames = 9;
            animated.delay = moveDelay;
-           drawable.srcX = 0;
-           drawable.srcY = source_y(moveSourceY, direction);
+           drawable.src.set_x(0);
+           drawable.src.set_y(source_y(moveSourceY, direction));
          });
 }
 

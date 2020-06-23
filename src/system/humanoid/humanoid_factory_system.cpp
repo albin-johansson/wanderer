@@ -48,7 +48,8 @@ namespace {
 
   auto& drawable = registry.emplace<DepthDrawable>(entity);
   drawable.texture = texture;
-  drawable.depth = 5;
+  drawable.src = {{0, 0}, {64, 64}};
+  drawable.size = {g_humanoidDrawWidth, g_humanoidDrawHeight};
 
   auto& animated = registry.emplace<Animated>(entity);
   animated.frame = 0;
@@ -108,9 +109,6 @@ entt::entity add_skeleton(entt::registry& registry,
   movable.currentPos.x = 300;
   movable.currentPos.y = 300;
   movable.oldPos = movable.currentPos;
-
-  auto& drawable = registry.get<DepthDrawable>(skeletonEntity);
-  drawable.depth = 7;
 
   return skeletonEntity;
 }

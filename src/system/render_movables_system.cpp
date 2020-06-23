@@ -1,8 +1,6 @@
 #include "render_movables_system.h"
 
-#include "animated.h"
 #include "depth_drawable.h"
-#include "game_constants.h"
 #include "movable.h"
 
 using centurion::FArea;
@@ -12,13 +10,16 @@ using centurion::Renderer;
 
 namespace wanderer::system {
 
-inline constexpr FArea entitySize{g_entityDrawWidth, g_entityDrawHeight};
-
 void render_movables(entt::registry& registry, Renderer& renderer)
 {
+  // TODO could have movables signal events when they have moved to check if
+  //  they are within the viewport bounds and therefore should be rendered,
+  //  this would make it possible to have a "InBounds" component
+
   registry.sort<DepthDrawable>(
       [](const DepthDrawable& lhs, const DepthDrawable& rhs) noexcept {
-        return lhs.depth < rhs.depth;
+        return (lhs.depth < rhs.depth ||
+                (rhs.depth >= lhs.depth && lhs.centerY < rhs.centerY));
       });
 
   const auto entities = registry.view<DepthDrawable>();
@@ -26,9 +27,8 @@ void render_movables(entt::registry& registry, Renderer& renderer)
   entities.each([&](const auto entity, const DepthDrawable& drawable) noexcept {
     if (const auto* movable = registry.try_get<Movable>(entity); movable) {
       const auto [x, y] = movable->interpolatedPos;
-      const IRect src{{drawable.srcX, drawable.srcY}, {64, 64}};
-      const FRect dst{{x, y}, entitySize};
-      renderer.render_tf(*drawable.texture, src, dst);
+      const FRect dst{{x, y}, drawable.size};
+      renderer.render_tf(*drawable.texture, drawable.src, dst);
     }
   });
 }
