@@ -86,6 +86,18 @@ void Game::render(Renderer& renderer, const Alpha alpha)
   const auto bounds = calculate_render_bounds(
       m_registry, m_viewport, tilemap.rows, tilemap.cols);
 
+  // TODO future optimization, only render tile object DepthDrawables in bounds
+//  {
+//    for (int r = bounds.minRow; r < bounds.maxRow; ++r) {
+//      for (int c = bounds.minCol; c < bounds.maxCol; ++c) {
+//        if (const auto& iter = tilemap.tileObjects.find(MapPosition{r, c});
+//            iter != tilemap.tileObjects.end()) {
+//          m_registry.emplace_or_replace<InBounds>(iter->second);
+//        }
+//      }
+//    }
+//  }
+
   layer::render_ground(m_registry, m_world, renderer, bounds);
 
   // TODO render more stuff (think about render depth as well)
