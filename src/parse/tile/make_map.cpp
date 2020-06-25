@@ -135,6 +135,8 @@ TilemapEntity make_map(entt::registry& registry,
     }
   }
 
+  tilemap.groundLayers.shrink_to_fit();
+
   return TilemapEntity{mapEntity};
 }
 
