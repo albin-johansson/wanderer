@@ -680,7 +680,7 @@ class Renderer final {
                                SDL_RendererFlip flip) noexcept;
 
   /**
-   * Sets the color that will be used by the renderer. 
+   * Sets the color that will be used by the renderer.
    *
    * @param color the color that will be used by the renderer.
    * @since 3.0.0
@@ -1148,7 +1148,7 @@ class Renderer final {
 
  private:
   SDL_Renderer* m_renderer = nullptr;
-  FRect m_translationViewport = {0, 0, 0, 0};
+  FRect m_translationViewport = {{0, 0}, {0, 0}};
   std::unordered_map<std::string, SharedPtr<Font>> m_fonts;
 
   static constexpr SDL_RendererFlags defaultFlags =
@@ -1198,7 +1198,7 @@ class Renderer final {
     SDL_FreeSurface(surface);
 
     if (texture) {
-      return centurion::detail::make_unique<Texture>(texture);
+      return detail::make_unique<Texture>(texture);
     } else {
       return nullptr;
     }

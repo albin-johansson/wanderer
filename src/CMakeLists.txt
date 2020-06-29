@@ -138,6 +138,14 @@ wanderer_set_properties(${WANDERER_LIB_TARGET} "Wanderer")
 wanderer_add_header_only_lib(libENTT ${LIBRARY_DIR}/entt ${LIBRARY_DIR}/entt/entt.hpp)
 wanderer_add_header_only_lib(libJSON ${LIBRARY_DIR}/json ${LIBRARY_DIR}/json/json.hpp)
 
+wanderer_add_header_only_lib(libOptional
+        ${LIBRARY_DIR}/optional
+        ${LIBRARY_DIR}/optional/optional.hpp)
+
+wanderer_add_header_only_lib(libGSL
+        ${LIBRARY_DIR}/gsl-lite
+        ${LIBRARY_DIR}/gsl-lite/gsl-lite.hpp)
+
 set(NAMED_TYPE_SOURCES
         ${LIBRARY_DIR}/namedtype/named_type.hpp
         ${LIBRARY_DIR}/namedtype/named_type_impl.hpp
@@ -182,7 +190,9 @@ target_link_libraries(${WANDERER_LIB_TARGET}
         PUBLIC ${STEP_LIBRARY}
         PUBLIC libENTT
         PUBLIC libJSON
-        PUBLIC libNamedType)
+        PUBLIC libNamedType
+        PUBLIC libOptional
+        PUBLIC libGSL)
 
 add_executable(${WANDERER_EXE_TARGET} main.cpp)
 

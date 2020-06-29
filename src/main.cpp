@@ -16,7 +16,7 @@ int main(int, char**)
   Centurion c;
 
   using namespace centurion::hint;
-  set_hint<RenderDriver>(OpenGL);
+  set_hint<RenderDriver>(RenderDriver::OpenGL);
 
   Log::set_priority(Log::Priority::Info);
   run();

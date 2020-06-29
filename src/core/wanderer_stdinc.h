@@ -4,6 +4,7 @@
 
 #include <cstdint>
 #include <entt.hpp>
+#include <json.hpp>
 #include <named_type.hpp>
 
 namespace wanderer {
@@ -30,6 +31,8 @@ inline constexpr TileID g_emptyTile = 0;
 template <typename T>
 using Maybe = centurion::Optional<T>;
 inline constexpr auto nothing = centurion::nothing;
+
+using JSON = nlohmann::json;
 
 using Delta = fluent::NamedType<float,
                                 struct DeltaTag,
