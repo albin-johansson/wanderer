@@ -6,8 +6,8 @@
 #include "game_constants.h"
 #include "game_loop.h"
 
-using centurion::Renderer;
-using centurion::Window;
+using ctn::Renderer;
+using ctn::Window;
 
 namespace wanderer {
 namespace {
@@ -25,7 +25,7 @@ Renderer create_renderer(const Window& window)
 void run()
 {
 #ifdef NDEBUG
-  Window window{"Wanderer", centurion::Screen::size()};
+  Window window{"Wanderer", ctn::Screen::size()};
   window.set_fullscreen(true);
 #else
   Window window{"Wanderer", {1440, 810}};
@@ -51,7 +51,7 @@ void run()
 
     loop.update(game);
 
-    renderer.set_color(centurion::color::pink);
+    renderer.set_color(ctn::color::pink);
     renderer.clear();
 
     //    renderer.set_color(color::black);

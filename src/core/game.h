@@ -12,7 +12,7 @@ namespace wanderer {
 
 class Game final {
  public:
-  explicit Game(centurion::Renderer& renderer);
+  explicit Game(ctn::Renderer& renderer);
 
   ~Game() noexcept;
 
@@ -20,7 +20,7 @@ class Game final {
 
   void tick(Delta delta);
 
-  void render(centurion::Renderer& renderer, Alpha alpha);
+  void render(ctn::Renderer& renderer, Alpha alpha);
 
  private:
   entt::registry m_registry;  // TODO consider multiple registries

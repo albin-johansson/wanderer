@@ -16,8 +16,6 @@ set(SOURCE_FILES
         core/application.cpp
         core/application.h
         core/game_loop.h
-        core/hitbox.cpp
-        core/hitbox.h
         core/game_loop.cpp
         core/direction.h
         core/game_constants.h
@@ -41,7 +39,7 @@ set(SOURCE_FILES
 
         component/player.h
         component/movable.h
-        component/collision.h
+        component/hitbox.h
         component/humanoid_state.h
         component/binds.h
         component/animated.h
@@ -111,7 +109,7 @@ set(SOURCE_FILES
         parse/tile/make_map.h
         parse/tile/make_map.cpp
         parse/tile/make_tileset.cpp
-        parse/tile/make_tileset.h)
+        parse/tile/make_tileset.h system/hitbox_system.cpp system/hitbox_system.h)
 
 add_library(${WANDERER_LIB_TARGET} ${SOURCE_FILES})
 

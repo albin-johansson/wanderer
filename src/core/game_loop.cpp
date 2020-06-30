@@ -3,8 +3,8 @@
 #include <screen.h>
 #include <timer.h>
 
-using centurion::Screen;
-using centurion::Timer;
+using ctn::Screen;
+using ctn::Timer;
 
 namespace wanderer {
 

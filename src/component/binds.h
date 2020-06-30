@@ -1,14 +1,17 @@
 #pragma once
+
 #include <key.h>
+
+#include "wanderer_stdinc.h"
 
 namespace wanderer {
 
 struct Binds final {
-  centurion::Key up{SDL_SCANCODE_W};
-  centurion::Key right{SDL_SCANCODE_D};
-  centurion::Key down{SDL_SCANCODE_S};
-  centurion::Key left{SDL_SCANCODE_A};
-  centurion::Key attack{SDL_SCANCODE_SPACE};
+  ctn::Key up{SDL_SCANCODE_W};
+  ctn::Key right{SDL_SCANCODE_D};
+  ctn::Key down{SDL_SCANCODE_S};
+  ctn::Key left{SDL_SCANCODE_A};
+  ctn::Key attack{SDL_SCANCODE_SPACE};
 };
 
 }  // namespace wanderer

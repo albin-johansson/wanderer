@@ -16,10 +16,10 @@ void parse_special_tile(entt::registry& registry,
                         const step::Tile& stepTile,
                         TileID firstGID);
 
-[[nodiscard]] TileEntity make_basic_tile(
-    entt::registry& registry,
-    const TileID id,
-    const entt::handle<centurion::Texture>& sheet,
-    const centurion::IRect& src) noexcept;
+[[nodiscard]] auto make_basic_tile(entt::registry& registry,
+                                   const TileID id,
+                                   const entt::handle<ctn::Texture>& sheet,
+                                   const ctn::IRect& src) noexcept
+    -> TileEntity;
 
 }  // namespace wanderer

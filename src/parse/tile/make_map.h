@@ -10,9 +10,9 @@
 
 namespace wanderer {
 
-[[nodiscard]] component::TilemapEntity make_map(entt::registry& registry,
-                                                std::string_view map,
-                                                centurion::Renderer& renderer,
-                                                ImageCache& imageCache);
+[[nodiscard]] auto make_map(entt::registry& registry,
+                            std::string_view map,
+                            ctn::Renderer& renderer,
+                            ImageCache& imageCache) -> component::TilemapEntity;
 
 }

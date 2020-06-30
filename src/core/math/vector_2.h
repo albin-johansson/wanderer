@@ -311,8 +311,9 @@ class TVector2 {
    * @return the result of the vector addition of the two supplied vectors.
    * @since 0.1.0
    */
-  friend constexpr TVector2<T> operator+(const TVector2<T>& lhs,
-                                         const TVector2<T>& rhs) noexcept
+  friend constexpr auto operator+(const TVector2<T>& lhs,
+                                  const TVector2<T>& rhs) noexcept
+      -> TVector2<T>
   {
     return {lhs.x + rhs.x, lhs.y + rhs.y};
   }
@@ -326,8 +327,9 @@ class TVector2 {
    * @return the result of the vector subtraction of the two supplied vectors.
    * @since 0.1.0
    */
-  friend constexpr TVector2<T> operator-(const TVector2<T>& lhs,
-                                         const TVector2<T>& rhs) noexcept
+  friend constexpr auto operator-(const TVector2<T>& lhs,
+                                  const TVector2<T>& rhs) noexcept
+      -> TVector2<T>
   {
     return {lhs.x - rhs.x, lhs.y - rhs.y};
   }
@@ -342,8 +344,8 @@ class TVector2 {
    * @return the dot product of the two supplied vectors.
    * @since 0.1.0
    */
-  friend constexpr T operator*(const TVector2<T>& lhs,
-                               const TVector2<T>& rhs) noexcept
+  friend constexpr auto operator*(const TVector2<T>& lhs,
+                                  const TVector2<T>& rhs) noexcept -> T
   {
     return lhs.dot(rhs);
   }
@@ -356,8 +358,8 @@ class TVector2 {
    * @return true if the vectors are the same; false otherwise.
    * @since 0.1.0
    */
-  friend constexpr bool operator==(const TVector2<T>& lhs,
-                                   const TVector2<T>& rhs) noexcept
+  friend constexpr auto operator==(const TVector2<T>& lhs,
+                                   const TVector2<T>& rhs) noexcept -> bool
   {
     if constexpr (std::is_integral_v<T>) {
       return (lhs.x == rhs.x) && (lhs.y == rhs.y);
@@ -375,8 +377,8 @@ class TVector2 {
    * @return true if the vectors aren't the same; false otherwise.
    * @since 0.1.0
    */
-  friend constexpr bool operator!=(const TVector2<T>& lhs,
-                                   const TVector2<T>& rhs) noexcept
+  friend constexpr auto operator!=(const TVector2<T>& lhs,
+                                   const TVector2<T>& rhs) noexcept -> bool
   {
     return !(lhs == rhs);
   }
@@ -390,7 +392,7 @@ class TVector2 {
    * @return the dot product of this vector and the supplied vector.
    * @since 0.1.0
    */
-  [[nodiscard]] constexpr T dot(const TVector2<T>& other) const noexcept
+  [[nodiscard]] constexpr auto dot(const TVector2<T>& other) const noexcept -> T
   {
     return (x * other.x) + (y * other.y);
   }
@@ -403,7 +405,7 @@ class TVector2 {
    * @return the distance from this vector to the supplied vector.
    * @since 0.1.0
    */
-  [[nodiscard]] T distance_to(const TVector2<T>& other) const noexcept
+  [[nodiscard]] auto distance_to(const TVector2<T>& other) const noexcept -> T
   {
     const auto xDiff = other.x - x;
     const auto yDiff = other.y - y;
@@ -418,8 +420,8 @@ class TVector2 {
    * @return the squared distance from this vector to the supplied vector.
    * @since 0.1.0
    */
-  [[nodiscard]] constexpr T distance_to_2(
-      const TVector2<T>& other) const noexcept
+  [[nodiscard]] constexpr auto distance_to_2(
+      const TVector2<T>& other) const noexcept -> T
   {
     const auto xDiff = other.x - x;
     const auto yDiff = other.y - y;
@@ -434,7 +436,7 @@ class TVector2 {
    * @return the angle between this vector and the supplied vector.
    * @since 0.1.0
    */
-  [[nodiscard]] int angle(const TVector2<T>& other) const noexcept
+  [[nodiscard]] auto angle(const TVector2<T>& other) const noexcept -> int
   {
     return Math::round(Math::to_degrees(std::acos(dot(other))));
   }
@@ -445,7 +447,7 @@ class TVector2 {
    * @return the magnitude of this vector.
    * @since 0.1.0
    */
-  [[nodiscard]] T get_magnitude() const noexcept
+  [[nodiscard]] auto get_magnitude() const noexcept -> T
   {
     if constexpr (std::is_floating_point_v<T>) {
       return std::sqrt((x * x) + (y * y));
@@ -463,7 +465,7 @@ class TVector2 {
    * @return the squared magnitude of this vector.
    * @since 0.1.0
    */
-  [[nodiscard]] constexpr T get_magnitude_2() const noexcept
+  [[nodiscard]] constexpr auto get_magnitude_2() const noexcept -> T
   {
     return (x * x) + (y * y);
   }
@@ -474,7 +476,7 @@ class TVector2 {
    * @return true if both of this vectors components are zero; false otherwise.
    * @since 0.1.0
    */
-  [[nodiscard]] constexpr bool is_zero() const noexcept
+  [[nodiscard]] constexpr auto is_zero() const noexcept -> bool
   {
     if constexpr (std::is_integral_v<T>) {
       return x == 0 && y == 0;
@@ -490,7 +492,7 @@ class TVector2 {
    * @return true if this vector is a unit vector; false otherwise.
    * @since 0.1.0
    */
-  [[nodiscard]] bool is_unit() const noexcept
+  [[nodiscard]] auto is_unit() const noexcept -> bool
   {
     if constexpr (std::is_integral_v<T>) {
       return get_magnitude() == 1;

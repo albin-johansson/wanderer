@@ -16,27 +16,31 @@ class Math final {
 
   ~Math() = default;
 
-  [[nodiscard]] static constexpr float to_degrees(float radians) noexcept
+  [[nodiscard]] static constexpr auto to_degrees(float radians) noexcept
+      -> float
   {
     return (radians * 180.0f) / pi_f;
   }
 
-  [[nodiscard]] static constexpr double to_degrees(double radians) noexcept
+  [[nodiscard]] static constexpr auto to_degrees(double radians) noexcept
+      -> double
   {
     return (radians * 180.0) / pi_d;
   }
 
-  [[nodiscard]] static constexpr float to_radians(float degrees) noexcept
+  [[nodiscard]] static constexpr auto to_radians(float degrees) noexcept
+      -> float
   {
     return (degrees * pi_f) / 180.0f;
   }
 
-  [[nodiscard]] static constexpr double to_radians(double degrees) noexcept
+  [[nodiscard]] static constexpr auto to_radians(double degrees) noexcept
+      -> double
   {
     return (degrees * pi_d) / 180.0;
   }
 
-  [[nodiscard]] static constexpr int round(float f) noexcept
+  [[nodiscard]] static constexpr auto round(float f) noexcept -> int
   {
     return static_cast<int>(std::round(f));
   }
@@ -51,9 +55,9 @@ class Math final {
    * (row, col).
    * @since 0.1.0
    */
-  [[nodiscard]] static constexpr std::pair<int, int> index_to_matrix_pos(
-      int index,
-      int nCols) noexcept
+  [[nodiscard]] static constexpr auto index_to_matrix_pos(int index,
+                                                          int nCols) noexcept
+      -> std::pair<int, int>
   {
     return {index / nCols, index % nCols};
   }
@@ -69,8 +73,8 @@ class Math final {
    * @return true if the values are almost equal; false otherwise.
    * @since 0.1.0
    */
-  [[nodiscard]] static constexpr bool
-  almost_equal(double a, double b, double epsilon = 0.001) noexcept
+  [[nodiscard]] static constexpr auto
+  almost_equal(double a, double b, double epsilon = 0.001) noexcept -> bool
   {
     return std::abs(a - b) < epsilon;
   }
@@ -86,8 +90,8 @@ class Math final {
    * @return true if the values are almost equal; false otherwise.
    * @since 0.1.0
    */
-  [[nodiscard]] static constexpr bool
-  almost_equal(float a, float b, float epsilon = 0.001f) noexcept
+  [[nodiscard]] static constexpr auto
+  almost_equal(float a, float b, float epsilon = 0.001f) noexcept -> bool
   {
     return std::abs(a - b) < epsilon;
   }

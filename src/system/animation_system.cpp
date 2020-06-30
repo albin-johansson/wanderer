@@ -4,7 +4,7 @@
 
 #include "animated.h"
 
-using centurion::Timer;
+using ctn::Timer;
 
 namespace wanderer::system {
 

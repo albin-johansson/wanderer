@@ -1,5 +1,6 @@
 #pragma once
 
+#include <centurion_as_ctn.h>
 #include <centurion_utils.h>
 
 #include <cstdint>
@@ -44,7 +45,5 @@ using Delta = fluent::NamedType<float,
 using Alpha = fluent::NamedType<float, struct AlphaTag, fluent::Comparable>;
 
 using Depth = fluent::NamedType<int, struct DepthTag, fluent::Comparable>;
-
-namespace ctn = centurion;
 
 }  // namespace wanderer

@@ -6,9 +6,9 @@
 #include "animated_tile.h"
 #include "tile.h"
 
-using centurion::IRect;
-using centurion::Texture;
-using centurion::Timer;
+using ctn::IRect;
+using ctn::Texture;
+using ctn::Timer;
 
 namespace wanderer {
 namespace {
@@ -49,10 +49,10 @@ void parse_special_tile(entt::registry& registry,
   //  }
 }
 
-TileEntity make_basic_tile(entt::registry& registry,
-                           const TileID id,
-                           const entt::handle<Texture>& sheet,
-                           const IRect& src) noexcept
+auto make_basic_tile(entt::registry& registry,
+                     const TileID id,
+                     const entt::handle<Texture>& sheet,
+                     const IRect& src) noexcept -> TileEntity
 {
   const auto tileEntity = registry.create();
 

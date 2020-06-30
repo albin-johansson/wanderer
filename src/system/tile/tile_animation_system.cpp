@@ -4,7 +4,7 @@
 
 #include "animated_tile.h"
 
-using centurion::Timer;
+using ctn::Timer;
 
 namespace wanderer::system::tile {
 

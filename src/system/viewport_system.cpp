@@ -4,7 +4,7 @@
 #include "movable.h"
 #include "viewport.h"
 
-using centurion::FArea;
+using ctn::FArea;
 
 namespace wanderer::system::viewport {
 namespace {

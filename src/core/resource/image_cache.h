@@ -4,8 +4,10 @@
 
 #include <entt.hpp>
 
+#include "wanderer_stdinc.h"
+
 namespace wanderer {
 
-using ImageCache = entt::cache<centurion::Texture>;
+using ImageCache = entt::cache<ctn::Texture>;
 
 }

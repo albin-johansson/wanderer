@@ -7,7 +7,7 @@
 
 namespace wanderer::system::tile {
 
-void render(centurion::Renderer& renderer,
+void render(ctn::Renderer& renderer,
             const Tile& tile,
             int row,
             int col) noexcept;

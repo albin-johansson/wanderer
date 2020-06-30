@@ -58,9 +58,9 @@ void stop(Movable& movable, const Direction direction) noexcept
   movable.velocity.scale(movable.speed);
 }
 
-[[nodiscard]] bool check_pressed(Movable& movable,
+[[nodiscard]] auto check_pressed(Movable& movable,
                                  const Input& input,
-                                 const Binds& binds)
+                                 const Binds& binds) -> bool
 {
   const auto left = input.is_pressed(binds.left);
   const auto right = input.is_pressed(binds.right);

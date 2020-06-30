@@ -3,7 +3,7 @@
 #include "animated_tile.h"
 #include "tile_rendering_system.h"
 
-using centurion::Renderer;
+using ctn::Renderer;
 
 namespace wanderer::system::layer {
 

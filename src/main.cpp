@@ -4,8 +4,8 @@
 #include "application.h"
 #include "random_utils.h"
 
-using centurion::Centurion;
-using centurion::Log;
+using ctn::Centurion;
+using ctn::Log;
 
 using namespace wanderer;
 

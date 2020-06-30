@@ -1,11 +1,9 @@
 #pragma once
-#include <SDL_scancode.h>
-
-#include <memory>
 
 #include "key.h"
 #include "key_state.h"
 #include "mouse_state.h"
+#include "wanderer_stdinc.h"
 
 namespace wanderer {
 
@@ -15,31 +13,32 @@ class Input final {
 
   void update(int windowWidth, int windowHeight) noexcept;
 
-  [[nodiscard]] bool is_pressed(const centurion::Key& key) const noexcept;
+  [[nodiscard]] auto is_pressed(const ctn::Key& key) const noexcept -> bool;
 
-  [[nodiscard]] bool was_just_pressed(const centurion::Key& key) const noexcept;
+  [[nodiscard]] auto was_just_pressed(const ctn::Key& key) const noexcept
+      -> bool;
 
-  [[nodiscard]] bool was_released(const centurion::Key& key) const noexcept;
+  [[nodiscard]] auto was_released(const ctn::Key& key) const noexcept -> bool;
 
-  [[nodiscard]] float get_mouse_x() const noexcept;
+  [[nodiscard]] auto get_mouse_x() const noexcept -> float;
 
-  [[nodiscard]] float get_mouse_y() const noexcept;
+  [[nodiscard]] auto get_mouse_y() const noexcept -> float;
 
-  [[nodiscard]] bool is_left_button_pressed() const noexcept;
+  [[nodiscard]] auto is_left_button_pressed() const noexcept -> bool;
 
-  [[nodiscard]] bool is_right_button_pressed() const noexcept;
+  [[nodiscard]] auto is_right_button_pressed() const noexcept -> bool;
 
-  [[nodiscard]] bool was_left_button_released() const noexcept;
+  [[nodiscard]] auto was_left_button_released() const noexcept -> bool;
 
-  [[nodiscard]] bool was_right_button_released() const noexcept;
+  [[nodiscard]] auto was_right_button_released() const noexcept -> bool;
 
-  [[nodiscard]] bool was_mouse_moved() const noexcept;
+  [[nodiscard]] auto was_mouse_moved() const noexcept -> bool;
 
-  [[nodiscard]] bool was_quit_requested() const noexcept;
+  [[nodiscard]] auto was_quit_requested() const noexcept -> bool;
 
  private:
-  centurion::input::KeyState m_keyState;
-  centurion::input::MouseState m_mouseState;
+  ctn::input::KeyState m_keyState;
+  ctn::input::MouseState m_mouseState;
 };
 
 }  // namespace wanderer

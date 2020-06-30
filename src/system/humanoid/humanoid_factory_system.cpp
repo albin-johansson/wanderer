@@ -7,17 +7,17 @@
 
 #include "animated.h"
 #include "binds.h"
-#include "collision.h"
 #include "depth_drawable.h"
 #include "direction.h"
 #include "game_constants.h"
+#include "hitbox.h"
 #include "image_loader.h"
 #include "movable.h"
 #include "player.h"
 
-using centurion::Renderer;
-using centurion::Texture;
-using centurion::Timer;
+using ctn::Renderer;
+using ctn::Texture;
+using ctn::Timer;
 
 namespace wanderer::system::humanoid {
 namespace {
@@ -35,9 +35,9 @@ namespace {
  * @param texture the handle to the texture that will be used by the humanoid.
  * @return the identifier associated with the created humanoid.
  */
-[[nodiscard]] entt::entity create_basic_humanoid(
-    entt::registry& registry,
-    const entt::handle<Texture>& texture)
+[[nodiscard]] auto create_basic_humanoid(entt::registry& registry,
+                                         const entt::handle<Texture>& texture)
+    -> entt::entity
 {
   assert(texture);  // require valid handle
 
@@ -57,7 +57,7 @@ namespace {
   animated.then = Timer::millis();
   animated.nFrames = 1;
 
-  registry.emplace<Collision>(entity);
+  registry.emplace<Hitbox>(entity);
   registry.emplace<Humanoid>(entity);
   registry.emplace<HumanoidIdle>(entity);
 
@@ -66,9 +66,9 @@ namespace {
 
 }  // namespace
 
-entt::entity add_player(entt::registry& registry,
-                        Renderer& renderer,
-                        ImageCache& imageCache)
+auto add_player(entt::registry& registry,
+                Renderer& renderer,
+                ImageCache& imageCache) -> entt::entity
 {
   constexpr auto id = "player"_hs;
   if (!imageCache.contains(id)) {
@@ -92,9 +92,9 @@ entt::entity add_player(entt::registry& registry,
   return playerEntity;
 }
 
-entt::entity add_skeleton(entt::registry& registry,
-                          Renderer& renderer,
-                          ImageCache& imageCache)
+auto add_skeleton(entt::registry& registry,
+                  Renderer& renderer,
+                  ImageCache& imageCache) -> entt::entity
 {
   constexpr auto id = "skeleton"_hs;
   if (!imageCache.contains(id)) {

@@ -2,7 +2,7 @@
 
 #include "viewport.h"
 
-using centurion::Renderer;
+using ctn::Renderer;
 
 namespace wanderer::system {
 

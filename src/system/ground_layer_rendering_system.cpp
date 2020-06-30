@@ -5,7 +5,7 @@
 #include "tile_layer.h"
 #include "tileset.h"
 
-using centurion::Renderer;
+using ctn::Renderer;
 
 using namespace wanderer::component;
 

@@ -1,12 +1,12 @@
 #include "image_loader.h"
 
-using centurion::Renderer;
-using centurion::Texture;
+using ctn::Renderer;
+using ctn::Texture;
 
 namespace wanderer {
 
-std::shared_ptr<Texture> ImageLoader::load(Renderer& renderer,
-                                           std::string_view path) const
+auto ImageLoader::load(Renderer& renderer, std::string_view path) const
+    -> std::shared_ptr<Texture>
 {
   return Texture::shared(renderer, path.data());
 }

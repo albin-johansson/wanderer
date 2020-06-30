@@ -19,7 +19,7 @@ struct Tilemap final {
 
   std::vector<TileLayerEntity> groundLayers;
 
-  std::unordered_map<MapPosition, entt::entity> tileObjects; // FIXME
+  std::unordered_map<MapPosition, entt::entity> tileObjects;  // FIXME
 
   float width;
   float height;

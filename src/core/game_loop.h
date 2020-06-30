@@ -10,7 +10,7 @@ class GameLoop final {
 
   void update(Game& game);
 
-  [[nodiscard]] Alpha alpha() const
+  [[nodiscard]] auto alpha() const -> Alpha
   {
     Alpha alpha{m_accumulator.get() / m_timeStep.get()};
     if (alpha > Alpha{1.0f}) {
@@ -35,7 +35,7 @@ class GameLoop final {
    *
    * @since 0.1.0
    */
-  [[nodiscard]] constexpr Delta max_frame_time() noexcept
+  [[nodiscard]] constexpr auto max_frame_time() noexcept -> Delta
   {
     return Delta{0.25f};
   }

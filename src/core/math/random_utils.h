@@ -8,6 +8,8 @@
 
 #include <random>
 
+#include "wanderer_stdinc.h"
+
 namespace wanderer::math {
 namespace {
 
@@ -17,9 +19,9 @@ inline std::mt19937 random;
 
 void init_rnd() noexcept
 {
-  const auto seed = centurion::Timer::high_res();
+  const auto seed = ctn::Timer::high_res();
 #ifndef NDEBUG
-  centurion::Log::info("Using seed: %u (for RNG)", seed);
+  ctn::Log::info("Using seed: %u (for RNG)", seed);
 #endif  // NDEBUG
   random.seed(seed);
 }
@@ -34,7 +36,7 @@ void init_rnd() noexcept
  * @return a random integer in the specified range.
  */
 template <typename T>
-[[nodiscard]] T get_random(T min, T max) noexcept
+[[nodiscard]] auto get_random(T min, T max) noexcept -> T
 {
   if constexpr (std::is_floating_point_v<T>) {
     std::uniform_real_distribution<T> dist{min, max};

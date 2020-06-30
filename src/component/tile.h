@@ -19,8 +19,8 @@ using TileEntity =
  */
 struct Tile final {
   TileID id;
-  centurion::IRect src;
-  entt::handle<centurion::Texture> sheet;
+  ctn::IRect src;
+  entt::handle<ctn::Texture> sheet;
 };
 
 }  // namespace wanderer

@@ -8,10 +8,10 @@
 
 namespace wanderer::system {
 
-RenderBounds calculate_render_bounds(entt::registry& registry,
-                                     const ViewportEntity viewportEntity,
-                                     const int rows,
-                                     const int cols)
+auto calculate_render_bounds(entt::registry& registry,
+                             const ViewportEntity viewportEntity,
+                             const int rows,
+                             const int cols) -> RenderBounds
 {
   const auto* viewport = registry.try_get<Viewport>(viewportEntity.get());
   assert(viewport);

@@ -10,11 +10,10 @@
 
 namespace wanderer {
 
-class ImageLoader final : public entt::loader<ImageLoader, centurion::Texture> {
+class ImageLoader final : public entt::loader<ImageLoader, ctn::Texture> {
  public:
-  [[nodiscard]] std::shared_ptr<centurion::Texture> load(
-      centurion::Renderer& renderer,
-      std::string_view path) const;
+  [[nodiscard]] auto load(ctn::Renderer& renderer, std::string_view path) const
+      -> std::shared_ptr<ctn::Texture>;
 };
 
 }  // namespace wanderer

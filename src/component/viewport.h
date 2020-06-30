@@ -13,8 +13,8 @@ using ViewportEntity = fluent::
     NamedType<entt::entity, struct ViewportEntityTag, fluent::Comparable>;
 
 struct Viewport final {
-  centurion::FRect bounds{};
-  centurion::FArea levelSize{};
+  ctn::FRect bounds{};
+  ctn::FArea levelSize{};
 };
 
 }  // namespace wanderer

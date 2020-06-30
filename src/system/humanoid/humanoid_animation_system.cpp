@@ -43,7 +43,8 @@ void update(
   }
 }
 
-[[nodiscard]] int source_y(const int y, const Direction direction) noexcept
+[[nodiscard]] auto source_y(const int y, const Direction direction) noexcept
+    -> int
 {
   switch (direction) {
     default:

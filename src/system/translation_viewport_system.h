@@ -9,6 +9,6 @@ namespace wanderer::system {
 
 void update_translation_viewport(entt::registry& registry,
                                  ViewportEntity viewportEntity,
-                                 centurion::Renderer& renderer);
+                                 ctn::Renderer& renderer);
 
 }  // namespace wanderer::system

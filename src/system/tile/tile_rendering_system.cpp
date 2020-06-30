@@ -3,9 +3,9 @@
 #include "animated_tile.h"
 #include "game_constants.h"
 
-using centurion::FArea;
-using centurion::FRect;
-using centurion::Renderer;
+using ctn::FArea;
+using ctn::FRect;
+using ctn::Renderer;
 
 namespace wanderer::system::tile {
 namespace {

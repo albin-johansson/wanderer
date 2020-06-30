@@ -4,7 +4,7 @@
 
 namespace wanderer {
 
-ViewportEntity make_viewport(entt::registry& registry)
+auto make_viewport(entt::registry& registry) -> ViewportEntity
 {
   const auto entity = registry.create();
 

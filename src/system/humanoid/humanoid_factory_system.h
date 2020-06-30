@@ -7,12 +7,12 @@
 
 namespace wanderer::system::humanoid {
 
-entt::entity add_player(entt::registry& registry,
-                        centurion::Renderer& renderer,
-                        ImageCache& imageCache);
+auto add_player(entt::registry& registry,
+                ctn::Renderer& renderer,
+                ImageCache& imageCache) -> entt::entity;
 
-entt::entity add_skeleton(entt::registry& registry,
-                          centurion::Renderer& renderer,
-                          ImageCache& imageCache);
+auto add_skeleton(entt::registry& registry,
+                  ctn::Renderer& renderer,
+                  ImageCache& imageCache) -> entt::entity;
 
 }  // namespace wanderer::system::humanoid

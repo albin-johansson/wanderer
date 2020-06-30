@@ -8,9 +8,9 @@
 #include "math_utils.h"
 #include "tileset.h"
 
-using centurion::IRect;
-using centurion::Renderer;
-using centurion::Texture;
+using ctn::IRect;
+using ctn::Renderer;
+using ctn::Texture;
 
 namespace wanderer {
 namespace {
@@ -40,10 +40,10 @@ void create_tiles(entt::registry& registry,
 
 }  // namespace
 
-TilesetEntity make_tileset(entt::registry& registry,
-                           const std::vector<step::Tileset>& tilesets,
-                           Renderer& renderer,
-                           ImageCache& imageCache)
+auto make_tileset(entt::registry& registry,
+                  const std::vector<step::Tileset>& tilesets,
+                  Renderer& renderer,
+                  ImageCache& imageCache) -> TilesetEntity
 {
   const auto entity = registry.create();
 

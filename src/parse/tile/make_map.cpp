@@ -11,25 +11,25 @@
 #include "tile_layer.h"
 #include "tilemap.h"
 
-using centurion::Renderer;
+using ctn::Renderer;
 
 using namespace wanderer::component;
 
 namespace wanderer {
 namespace {
 
-[[nodiscard]] TileLayer::TileMatrix create_tile_matrix(const int nRows,
-                                                       const int nCols)
+[[nodiscard]] auto create_tile_matrix(const int nRows, const int nCols)
+    -> TileLayer::TileMatrix
 {
   const auto rows = static_cast<std::size_t>(nRows);
   const auto cols = static_cast<std::size_t>(nCols);
   return {rows, std::vector<TileID>(cols, g_emptyTile)};
 }
 
-[[nodiscard]] TileLayerEntity create_ground_layer(
-    entt::registry& registry,
-    const step::Layer& stepLayer,
-    const step::TileLayer& stepTileLayer)
+[[nodiscard]] auto create_ground_layer(entt::registry& registry,
+                                       const step::Layer& stepLayer,
+                                       const step::TileLayer& stepTileLayer)
+    -> TileLayerEntity
 {
   const auto groundLayerEntity = registry.create();
 
@@ -94,10 +94,10 @@ void create_tile_objects(entt::registry& registry,
 
 }  // namespace
 
-TilemapEntity make_map(entt::registry& registry,
-                       std::string_view map,
-                       Renderer& renderer,
-                       ImageCache& imageCache)
+auto make_map(entt::registry& registry,
+              std::string_view map,
+              Renderer& renderer,
+              ImageCache& imageCache) -> TilemapEntity
 {
   const auto stepMap = step::parse("resource/map/", map);
   const auto mapEntity = registry.create();
