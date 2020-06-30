@@ -59,4 +59,12 @@ void update(entt::registry& registry,
         delta);
 }
 
+void translate(entt::registry& registry,
+               const Viewport::entity viewportEntity,
+               ctn::Renderer& renderer)
+{
+  auto const& viewport = registry.get<Viewport>(viewportEntity.get());
+  renderer.set_translation_viewport(viewport.bounds);
+}
+
 }  // namespace wanderer::system::viewport

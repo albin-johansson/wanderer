@@ -12,15 +12,14 @@
 #include "input_system.h"
 #include "interpolation_system.h"
 #include "make_map.h"
+#include "make_viewport_system.h"
 #include "movable_depth_drawables_system.h"
 #include "movement_system.h"
 #include "render_bounds_system.h"
 #include "render_depth_drawables_system.h"
 #include "tile_animation_system.h"
 #include "tilemap.h"
-#include "viewport/make_viewport_system.h"
-#include "viewport/translation_viewport_system.h"
-#include "viewport/viewport_system.h"
+#include "viewport_system.h"
 
 using namespace wanderer::system;
 using namespace wanderer::component;

@@ -21,4 +21,8 @@ void update(entt::registry& registry,
             entt::entity movableEntity,
             Delta delta);
 
+void translate(entt::registry& registry,
+               Viewport::entity viewportEntity,
+               ctn::Renderer& renderer);
+
 }  // namespace wanderer::system::viewport

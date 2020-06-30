@@ -19,8 +19,7 @@ set(SOURCE_FILES
         core/game_loop.cpp
         core/direction.h
         core/game_constants.h
-        system/viewport/make_viewport_system.cpp
-        system/viewport/make_viewport_system.h
+
         core/add_humanoid_state_dependencies.cpp
         core/add_humanoid_state_dependencies.h
         core/event_connections.cpp
@@ -65,10 +64,6 @@ set(SOURCE_FILES
         system/movement_system.h
         system/interpolation_system.h
         system/interpolation_system.cpp
-        system/viewport/viewport_system.cpp
-        system/viewport/viewport_system.h
-        system/viewport/translation_viewport_system.cpp
-        system/viewport/translation_viewport_system.h
         system/animation_system.cpp
         system/animation_system.h
         system/ground_layer_rendering_system.cpp
@@ -79,6 +74,11 @@ set(SOURCE_FILES
         system/movable_depth_drawables_system.h
         system/hitbox_system.cpp
         system/hitbox_system.h
+
+        system/viewport/viewport_system.cpp
+        system/viewport/viewport_system.h
+        system/viewport/make_viewport_system.cpp
+        system/viewport/make_viewport_system.h
 
         system/tile/tile_animation_system.cpp
         system/tile/tile_animation_system.h
@@ -174,6 +174,7 @@ target_include_directories(${WANDERER_LIB_TARGET}
         PUBLIC system/humanoid
         PUBLIC system/tile
         PUBLIC system/layer
+        PUBLIC system/viewport
         PUBLIC utility
         PUBLIC parse
         PUBLIC parse/tile
