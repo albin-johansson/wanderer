@@ -41,5 +41,5 @@ out
 cmake-build-debug
 cmake-build-release
 build
-doc
+doc/html
 compile_commands.json
