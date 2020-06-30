@@ -1,8 +1,8 @@
-#include "make_viewport.h"
+#include "make_viewport_system.h"
 
 #include "game_constants.h"
 
-namespace wanderer {
+namespace wanderer::system {
 
 auto make_viewport(entt::registry& registry) -> Viewport::entity
 {
@@ -17,4 +17,4 @@ auto make_viewport(entt::registry& registry) -> Viewport::entity
   return Viewport::entity{entity};
 }
 
-}  // namespace wanderer
+}  // namespace wanderer::system

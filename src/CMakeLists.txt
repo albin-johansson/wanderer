@@ -19,8 +19,8 @@ set(SOURCE_FILES
         core/game_loop.cpp
         core/direction.h
         core/game_constants.h
-        core/make_viewport.cpp
-        core/make_viewport.h
+        system/make_viewport_system.cpp
+        system/make_viewport_system.h
         core/add_humanoid_state_dependencies.cpp
         core/add_humanoid_state_dependencies.h
         core/event_connections.cpp
