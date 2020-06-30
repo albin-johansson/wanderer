@@ -2,7 +2,7 @@
 
 #include "game_constants.h"
 
-namespace wanderer::system {
+namespace wanderer::system::viewport {
 
 auto make_viewport(entt::registry& registry) -> Viewport::entity
 {

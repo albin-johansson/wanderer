@@ -12,15 +12,15 @@
 #include "input_system.h"
 #include "interpolation_system.h"
 #include "make_map.h"
-#include "make_viewport_system.h"
 #include "movable_depth_drawables_system.h"
 #include "movement_system.h"
 #include "render_bounds_system.h"
 #include "render_depth_drawables_system.h"
 #include "tile_animation_system.h"
 #include "tilemap.h"
-#include "translation_viewport_system.h"
-#include "viewport_system.h"
+#include "viewport/make_viewport_system.h"
+#include "viewport/translation_viewport_system.h"
+#include "viewport/viewport_system.h"
 
 using namespace wanderer::system;
 using namespace wanderer::component;
@@ -34,17 +34,15 @@ Game::Game(ctn::Renderer& renderer)
 
   m_world = make_map(m_registry, "world_demo.json", renderer, m_imageCache);
   m_player = humanoid::add_player(m_registry, renderer, m_imageCache);
-  m_viewport = make_viewport(m_registry);
+  m_viewport = viewport::make_viewport(m_registry);
 
   humanoid::add_skeleton(m_registry, renderer, m_imageCache);
 
-  auto* view = m_registry.try_get<Viewport>(m_viewport.get());
-  auto* level = m_registry.try_get<Tilemap>(m_world.get());
-  assert(view);
-  assert(level);
+  auto& view = m_registry.get<Viewport>(m_viewport.get());
+  auto& level = m_registry.get<Tilemap>(m_world.get());
 
-  view->levelSize.width = level->width;
-  view->levelSize.height = level->height;
+  view.levelSize.width = level.width;
+  view.levelSize.height = level.height;
 }
 
 Game::~Game() noexcept
@@ -75,7 +73,7 @@ void Game::tick(const Delta delta)
 
 void Game::render(ctn::Renderer& renderer, const Alpha alpha)
 {
-  update_translation_viewport(m_registry, m_viewport, renderer);
+  viewport::translate(m_registry, m_viewport, renderer);
   update_interpolation(m_registry, alpha);
   update_movable_depth_drawables(m_registry);
 
