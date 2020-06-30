@@ -1,6 +1,5 @@
 #pragma once
 
-#include <named_type.hpp>
 #include <unordered_map>
 
 #include "tile.h"
@@ -12,7 +11,7 @@ struct Tileset final {
   using entity = fluent::
       NamedType<entt::entity, struct TilesetEntityTag, fluent::Comparable>;
 
-  std::unordered_map<TileID, TileEntity> tiles;
+  std::unordered_map<TileID, Tile::entity> tiles;
 };
 
 }  // namespace wanderer

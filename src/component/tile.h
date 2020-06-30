@@ -3,21 +3,18 @@
 #include <rect.h>
 #include <texture.h>
 
-#include <memory>
-#include <named_type.hpp>
-
 #include "wanderer_stdinc.h"
 
 namespace wanderer {
-
-using TileEntity =
-    fluent::NamedType<entt::entity, struct TileEntityTag, fluent::Comparable>;
 
 /**
  * The Tile struct represents a tile in a tileset, not an actual tile object
  * though.
  */
 struct Tile final {
+  using entity =
+      fluent::NamedType<entt::entity, struct TileEntityTag, fluent::Comparable>;
+
   TileID id;
   ctn::IRect src;
   entt::handle<ctn::Texture> sheet;

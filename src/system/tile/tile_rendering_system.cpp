@@ -22,7 +22,7 @@ void render(ctn::Renderer& renderer,
 }
 
 auto animated_tile(entt::registry& registry,
-                   const TileEntity tileEntity,
+                   const Tile::entity tileEntity,
                    const Tileset& tileset) -> const Tile&
 {
   assert(registry.has<AnimatedTile>(tileEntity.get()));
@@ -30,7 +30,7 @@ auto animated_tile(entt::registry& registry,
   const auto& animatedTile = registry.get<AnimatedTile>(tileEntity.get());
 
   const TileID id = animatedTile.frames.at(animatedTile.frame).tile;
-  const TileEntity animated = tileset.tiles.at(id);
+  const Tile::entity animated = tileset.tiles.at(id);
 
   return registry.get<Tile>(animated.get());
 }

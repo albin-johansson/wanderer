@@ -13,7 +13,7 @@ void render(ctn::Renderer& renderer,
             int col) noexcept;
 
 [[nodiscard]] auto animated_tile(entt::registry& registry,
-                                 const TileEntity tileEntity,
+                                 const Tile::entity tileEntity,
                                  const Tileset& tileset) -> const Tile&;
 
 }  // namespace wanderer::system::tile
