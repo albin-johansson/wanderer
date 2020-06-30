@@ -46,4 +46,16 @@ using Alpha = fluent::NamedType<float, struct AlphaTag, fluent::Comparable>;
 
 using Depth = fluent::NamedType<int, struct DepthTag, fluent::Comparable>;
 
+/**
+ * @brief Creates and returns a null entity identifier.
+ * @pre `EntityType` must have a public entity tag type `EntityType::entity`.
+ * @tparam EntityType the type that has a entity tag type.
+ * @return a null value of the entity tag type.
+ */
+template <typename EntityType>
+[[nodiscard]] constexpr auto null_entity() noexcept
+{
+  return typename EntityType::entity{entt::entity{entt::null}};
+}
+
 }  // namespace wanderer

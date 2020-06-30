@@ -8,7 +8,7 @@
 namespace wanderer::system {
 
 void update_translation_viewport(entt::registry& registry,
-                                 ViewportEntity viewportEntity,
+                                 Viewport::entity viewportEntity,
                                  ctn::Renderer& renderer);
 
 }  // namespace wanderer::system

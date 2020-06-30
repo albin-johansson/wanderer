@@ -9,10 +9,9 @@
 
 namespace wanderer {
 
-using ViewportEntity = fluent::
-    NamedType<entt::entity, struct ViewportEntityTag, fluent::Comparable>;
-
 struct Viewport final {
+  using entity = fluent::
+      NamedType<entt::entity, struct ViewportEntityTag, fluent::Comparable>;
   ctn::FRect bounds{};
   ctn::FArea levelSize{};
 };

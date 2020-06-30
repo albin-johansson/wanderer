@@ -8,17 +8,13 @@
 #include "math_utils.h"
 #include "tileset.h"
 
-using ctn::IRect;
-using ctn::Renderer;
-using ctn::Texture;
-
 namespace wanderer {
 namespace {
 
 void create_tiles(entt::registry& registry,
                   Tileset& tileset,
                   const step::Tileset& stepTileset,
-                  const entt::handle<Texture>& sheet) noexcept
+                  const entt::handle<ctn::Texture>& sheet) noexcept
 {
   assert(sheet);
 
@@ -29,8 +25,8 @@ void create_tiles(entt::registry& registry,
 
     const auto x = col * stepTileset.tile_width();
     const auto y = row * stepTileset.tile_height();
-    const IRect src{{x, y},
-                    {stepTileset.tile_width(), stepTileset.tile_height()}};
+    const ctn::IRect src{{x, y},
+                         {stepTileset.tile_width(), stepTileset.tile_height()}};
 
     const auto tileEntity = make_basic_tile(registry, id, sheet, src);
 
@@ -42,8 +38,8 @@ void create_tiles(entt::registry& registry,
 
 auto make_tileset(entt::registry& registry,
                   const std::vector<step::Tileset>& tilesets,
-                  Renderer& renderer,
-                  ImageCache& imageCache) -> TilesetEntity
+                  ctn::Renderer& renderer,
+                  ImageCache& imageCache) -> Tileset::entity
 {
   const auto entity = registry.create();
 
@@ -66,7 +62,7 @@ auto make_tileset(entt::registry& registry,
     }
   }
 
-  return TilesetEntity{entity};
+  return Tileset::entity{entity};
 }
 
 }  // namespace wanderer

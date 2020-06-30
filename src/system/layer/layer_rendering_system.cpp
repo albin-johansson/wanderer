@@ -3,13 +3,11 @@
 #include "animated_tile.h"
 #include "tile_rendering_system.h"
 
-using ctn::Renderer;
-
 namespace wanderer::system::layer {
 
 void render(entt::registry& registry,
             const TileLayer& layer,
-            Renderer& renderer,
+            ctn::Renderer& renderer,
             const Tileset& tileset,
             const RenderBounds& bounds)
 {

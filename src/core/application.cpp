@@ -6,15 +6,12 @@
 #include "game_constants.h"
 #include "game_loop.h"
 
-using ctn::Renderer;
-using ctn::Window;
-
 namespace wanderer {
 namespace {
 
-Renderer create_renderer(const Window& window)
+[[nodiscard]] auto create_renderer(const ctn::Window& window) -> ctn::Renderer
 {
-  Renderer renderer{window};
+  ctn::Renderer renderer{window};
   renderer.set_logical_size({g_logicalWidth<>, g_logicalHeight<>});
   renderer.set_logical_integer_scale(true);
   return renderer;
@@ -25,13 +22,13 @@ Renderer create_renderer(const Window& window)
 void run()
 {
 #ifdef NDEBUG
-  Window window{"Wanderer", ctn::Screen::size()};
+  ctn::Window window{"Wanderer", ctn::Screen::size()};
   window.set_fullscreen(true);
 #else
-  Window window{"Wanderer", {1440, 810}};
+  ctn::Window window{"Wanderer", {1440, 810}};
 #endif
 
-  Renderer renderer{create_renderer(window)};
+  ctn::Renderer renderer{create_renderer(window)};
 
   GameLoop loop;
   Game game{renderer};

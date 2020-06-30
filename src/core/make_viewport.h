@@ -5,6 +5,6 @@
 
 namespace wanderer {
 
-[[nodiscard]] auto make_viewport(entt::registry& registry) -> ViewportEntity;
+[[nodiscard]] auto make_viewport(entt::registry& registry) -> Viewport::entity;
 
 }  // namespace wanderer

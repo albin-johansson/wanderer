@@ -4,14 +4,12 @@
 #include "movable.h"
 #include "viewport.h"
 
-using ctn::FArea;
-
 namespace wanderer::system::viewport {
 namespace {
 
 void track(Viewport& viewport,
            const Vector2f& target,
-           const FArea& size,
+           const ctn::FArea& size,
            const Delta delta)
 {
   auto panSpeed = 15 * delta.get();
@@ -48,7 +46,7 @@ void track(Viewport& viewport,
 }  // namespace
 
 void update(entt::registry& registry,
-            const ViewportEntity viewportEntity,
+            const Viewport::entity viewportEntity,
             const entt::entity movableEntity,
             const Delta delta)
 {

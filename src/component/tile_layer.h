@@ -7,10 +7,9 @@
 
 namespace wanderer {
 
-using TileLayerEntity = fluent::
-    NamedType<entt::entity, struct TileLayerEntityTag, fluent::Comparable>;
-
 struct TileLayer final {
+  using entity = fluent::
+      NamedType<entt::entity, struct TileLayerEntityTag, fluent::Comparable>;
   using TileMatrix = std::vector<std::vector<TileID>>;
 
   TileMatrix matrix;

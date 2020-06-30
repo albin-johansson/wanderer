@@ -8,10 +8,10 @@
 
 namespace wanderer {
 
-using TilesetEntity = fluent::
-    NamedType<entt::entity, struct TilesetEntityTag, fluent::Comparable>;
-
 struct Tileset final {
+  using entity = fluent::
+      NamedType<entt::entity, struct TilesetEntityTag, fluent::Comparable>;
+
   std::unordered_map<TileID, TileEntity> tiles;
 };
 

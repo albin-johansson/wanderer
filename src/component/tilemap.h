@@ -11,13 +11,13 @@
 
 namespace wanderer::component {
 
-using TilemapEntity = fluent::
-    NamedType<entt::entity, struct TilemapEntityTag, fluent::Comparable>;
-
 struct Tilemap final {
-  TilesetEntity tileset{entt::entity{entt::null}};
+  using entity = fluent::
+      NamedType<entt::entity, struct TilemapEntityTag, fluent::Comparable>;
 
-  std::vector<TileLayerEntity> groundLayers;
+  Tileset::entity tileset = null_entity<Tileset>();
+
+  std::vector<TileLayer::entity> groundLayers;
 
   std::unordered_map<MapPosition, entt::entity> tileObjects;  // FIXME
 

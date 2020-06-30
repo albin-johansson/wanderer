@@ -5,15 +5,13 @@
 #include "tile_layer.h"
 #include "tileset.h"
 
-using ctn::Renderer;
-
 using namespace wanderer::component;
 
 namespace wanderer::system::layer {
 
 void render_ground(entt::registry& registry,
-                   const TilemapEntity mapEntity,
-                   Renderer& renderer,
+                   const Tilemap::entity mapEntity,
+                   ctn::Renderer& renderer,
                    const RenderBounds& bounds)
 {
   const auto& tilemap = registry.get<Tilemap>(mapEntity.get());

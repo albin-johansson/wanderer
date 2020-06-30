@@ -17,7 +17,7 @@ namespace wanderer::system::viewport {
  * @param delta the delta time, in seconds.
  */
 void update(entt::registry& registry,
-            ViewportEntity viewportEntity,
+            Viewport::entity viewportEntity,
             entt::entity movableEntity,
             Delta delta);
 

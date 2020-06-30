@@ -11,8 +11,6 @@
 #include "tile_layer.h"
 #include "tilemap.h"
 
-using ctn::Renderer;
-
 using namespace wanderer::component;
 
 namespace wanderer {
@@ -29,7 +27,7 @@ namespace {
 [[nodiscard]] auto create_ground_layer(entt::registry& registry,
                                        const step::Layer& stepLayer,
                                        const step::TileLayer& stepTileLayer)
-    -> TileLayerEntity
+    -> TileLayer::entity
 {
   const auto groundLayerEntity = registry.create();
 
@@ -48,7 +46,7 @@ namespace {
     ++index;
   }
 
-  return TileLayerEntity{groundLayerEntity};
+  return TileLayer::entity{groundLayerEntity};
 }
 
 void create_tile_objects(entt::registry& registry,
@@ -96,8 +94,8 @@ void create_tile_objects(entt::registry& registry,
 
 auto make_map(entt::registry& registry,
               std::string_view map,
-              Renderer& renderer,
-              ImageCache& imageCache) -> TilemapEntity
+              ctn::Renderer& renderer,
+              ImageCache& imageCache) -> Tilemap::entity
 {
   const auto stepMap = step::parse("resource/map/", map);
   const auto mapEntity = registry.create();
@@ -137,7 +135,7 @@ auto make_map(entt::registry& registry,
 
   tilemap.groundLayers.shrink_to_fit();
 
-  return TilemapEntity{mapEntity};
+  return Tilemap::entity{mapEntity};
 }
 
 }  // namespace wanderer

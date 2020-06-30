@@ -4,7 +4,7 @@
 
 namespace wanderer {
 
-auto make_viewport(entt::registry& registry) -> ViewportEntity
+auto make_viewport(entt::registry& registry) -> Viewport::entity
 {
   const auto entity = registry.create();
 
@@ -13,7 +13,8 @@ auto make_viewport(entt::registry& registry) -> ViewportEntity
       {{0, 0}, {g_logicalWidth<float>, g_logicalHeight<float>}});
   viewport.levelSize.width = 1000;
   viewport.levelSize.height = 1000;  // FIXME update automatically
-  return ViewportEntity{entity};
+
+  return Viewport::entity{entity};
 }
 
 }  // namespace wanderer

@@ -2,11 +2,9 @@
 
 #include "depth_drawable.h"
 
-using ctn::Renderer;
-
 namespace wanderer::system {
 
-void render_depth_drawables(entt::registry& registry, Renderer& renderer)
+void render_depth_drawables(entt::registry& registry, ctn::Renderer& renderer)
 {
   // TODO could have movables signal events when they have moved to check if
   //  they are within the viewport bounds and therefore should be rendered,

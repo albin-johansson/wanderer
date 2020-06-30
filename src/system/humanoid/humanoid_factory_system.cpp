@@ -15,10 +15,6 @@
 #include "movable.h"
 #include "player.h"
 
-using ctn::Renderer;
-using ctn::Texture;
-using ctn::Timer;
-
 namespace wanderer::system::humanoid {
 namespace {
 
@@ -35,9 +31,9 @@ namespace {
  * @param texture the handle to the texture that will be used by the humanoid.
  * @return the identifier associated with the created humanoid.
  */
-[[nodiscard]] auto create_basic_humanoid(entt::registry& registry,
-                                         const entt::handle<Texture>& texture)
-    -> entt::entity
+[[nodiscard]] auto create_basic_humanoid(
+    entt::registry& registry,
+    const entt::handle<ctn::Texture>& texture) -> entt::entity
 {
   assert(texture);  // require valid handle
 
@@ -54,7 +50,7 @@ namespace {
   auto& animated = registry.emplace<Animated>(entity);
   animated.frame = 0;
   animated.delay = 65;
-  animated.then = Timer::millis();
+  animated.then = ctn::Timer::millis();
   animated.nFrames = 1;
 
   registry.emplace<Hitbox>(entity);
@@ -67,7 +63,7 @@ namespace {
 }  // namespace
 
 auto add_player(entt::registry& registry,
-                Renderer& renderer,
+                ctn::Renderer& renderer,
                 ImageCache& imageCache) -> entt::entity
 {
   constexpr auto id = "player"_hs;
@@ -93,7 +89,7 @@ auto add_player(entt::registry& registry,
 }
 
 auto add_skeleton(entt::registry& registry,
-                  Renderer& renderer,
+                  ctn::Renderer& renderer,
                   ImageCache& imageCache) -> entt::entity
 {
   constexpr auto id = "skeleton"_hs;

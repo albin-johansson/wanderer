@@ -25,11 +25,9 @@
 using namespace wanderer::system;
 using namespace wanderer::component;
 
-using ctn::Renderer;
-
 namespace wanderer {
 
-Game::Game(Renderer& renderer)
+Game::Game(ctn::Renderer& renderer)
 {
   connect_events(m_dispatcher);
   add_humanoid_state_dependencies(m_registry);
@@ -75,7 +73,7 @@ void Game::tick(const Delta delta)
   viewport::update(m_registry, m_viewport, m_player, delta);
 }
 
-void Game::render(Renderer& renderer, const Alpha alpha)
+void Game::render(ctn::Renderer& renderer, const Alpha alpha)
 {
   update_translation_viewport(m_registry, m_viewport, renderer);
   update_interpolation(m_registry, alpha);

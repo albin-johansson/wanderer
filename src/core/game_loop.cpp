@@ -3,17 +3,14 @@
 #include <screen.h>
 #include <timer.h>
 
-using ctn::Screen;
-using ctn::Timer;
-
 namespace wanderer {
 
 GameLoop::GameLoop() noexcept
-    : m_now{Timer::high_res()},
+    : m_now{ctn::Timer::high_res()},
       m_then{m_now},
-      m_vsyncRate{static_cast<float>(Screen::refresh_rate())},
+      m_vsyncRate{static_cast<float>(ctn::Screen::refresh_rate())},
       m_timeStep{1.0f / m_vsyncRate},
-      m_counterFreq{static_cast<float>(Timer::high_res_freq())}
+      m_counterFreq{static_cast<float>(ctn::Timer::high_res_freq())}
 {}
 
 void GameLoop::smooth_delta() noexcept
@@ -35,7 +32,7 @@ void GameLoop::smooth_delta() noexcept
 void GameLoop::update(Game& game)
 {
   m_then = m_now;
-  m_now = Timer::high_res();
+  m_now = ctn::Timer::high_res();
 
   m_delta = Delta{static_cast<float>(m_now - m_then) / m_counterFreq};
 

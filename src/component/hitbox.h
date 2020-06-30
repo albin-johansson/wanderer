@@ -9,6 +9,7 @@
 namespace wanderer {
 
 struct Hitbox final {
+  using entity = fluent::NamedType<entt::entity, struct HitboxEntityTag>;
   ctn::FRect bounds;
   std::vector<ctn::FRect> boxes;
 };

@@ -4,8 +4,6 @@
 
 #include "animated_tile.h"
 
-using ctn::Timer;
-
 namespace wanderer::system::tile {
 
 void update_animation(entt::registry& registry, entt::entity /*level*/)  // TODO
@@ -14,7 +12,7 @@ void update_animation(entt::registry& registry, entt::entity /*level*/)  // TODO
   for (const auto entity : entities) {
     auto& animatedTile = entities.get<AnimatedTile>(entity);
 
-    const auto now = Timer::millis();
+    const auto now = ctn::Timer::millis();
     const auto elapsed = now - animatedTile.then;
     if (elapsed >= animatedTile.frames.at(animatedTile.frame).duration) {
       animatedTile.then = now;

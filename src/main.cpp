@@ -1,11 +1,7 @@
-#include <centurion.h>
-#include <hints.h>
+#include <centurion_as_ctn.h>
 
 #include "application.h"
 #include "random_utils.h"
-
-using ctn::Centurion;
-using ctn::Log;
 
 using namespace wanderer;
 
@@ -13,12 +9,12 @@ int main(int, char**)
 {
   math::init_rnd();
 
-  Centurion c;
+  ctn::Centurion c;
 
-  using namespace centurion::hint;
+  using namespace ctn::hint;
   set_hint<RenderDriver>(RenderDriver::OpenGL);
 
-  Log::set_priority(Log::Priority::Info);
+  ctn::Log::set_priority(ctn::Log::Priority::Info);
   run();
   return 0;
 }

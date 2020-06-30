@@ -77,7 +77,7 @@ set(SOURCE_FILES
         system/render_bounds_system.h
         system/movable_depth_drawables_system.cpp
         system/movable_depth_drawables_system.h
-        system/hitbox_system.cpp 
+        system/hitbox_system.cpp
         system/hitbox_system.h
 
         system/tile/tile_animation_system.cpp

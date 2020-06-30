@@ -19,9 +19,10 @@ struct MapPosition final {
 
 template <>
 class std::hash<wanderer::component::MapPosition> {
+  using MapPosition = wanderer::component::MapPosition;
+
  public:
-  std::size_t operator()(
-      const wanderer::component::MapPosition& key) const noexcept
+  auto operator()(const MapPosition& key) const noexcept -> std::size_t
   {
     // http://stackoverflow.com/a/1646913/126995
     std::size_t res = 17;

@@ -6,10 +6,6 @@
 #include "animated_tile.h"
 #include "tile.h"
 
-using ctn::IRect;
-using ctn::Texture;
-using ctn::Timer;
-
 namespace wanderer {
 namespace {
 
@@ -20,7 +16,7 @@ void add_animation(entt::registry& registry,
 {
   auto& animatedTile = registry.emplace<AnimatedTile>(tileEntity.get());
   animatedTile.frame = 0;
-  animatedTile.then = Timer::millis();
+  animatedTile.then = ctn::Timer::millis();
 
   animatedTile.frames.reserve(static_cast<std::size_t>(stepAnimation.length()));
 
@@ -51,8 +47,8 @@ void parse_special_tile(entt::registry& registry,
 
 auto make_basic_tile(entt::registry& registry,
                      const TileID id,
-                     const entt::handle<Texture>& sheet,
-                     const IRect& src) noexcept -> TileEntity
+                     const entt::handle<ctn::Texture>& sheet,
+                     const ctn::IRect& src) noexcept -> TileEntity
 {
   const auto tileEntity = registry.create();
 
