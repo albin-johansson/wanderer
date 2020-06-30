@@ -8,6 +8,8 @@
 #include "math_utils.h"
 #include "tileset.h"
 
+using namespace wanderer::component;
+
 namespace wanderer {
 namespace {
 

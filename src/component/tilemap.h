@@ -1,3 +1,11 @@
+/**
+ * @brief Provides the `Tilemap` component.
+ * @file tilemap.h
+ * @author Albin Johansson
+ * @copyright MIT License
+ * @date 2020
+ */
+
 #pragma once
 
 #include <named_type.hpp>
@@ -11,15 +19,36 @@
 
 namespace wanderer::component {
 
+/**
+ * @struct Tilemap
+ * @brief Represents a tilemap (a level in the game).
+ *
+ * @var Tilemap::tileset
+ * The associated tileset.
+ * @var Tilemap::layers
+ * The tile layers in the map.
+ * @var Tilemap::tileObjects
+ * The tile objects in the map.
+ * @var Tilemap::width
+ * The width of the tilemap, in pixels.
+ * @var Tilemap::height
+ * The height of the tilemap, in pixels.
+ * @var Tilemap::rows
+ * The amount of rows in the tilemap.
+ * @var Tilemap::cols
+ * The amount of columns in the tilemap.
+ *
+ * @headerfile tilemap.h
+ */
 struct Tilemap final {
   using entity = fluent::
       NamedType<entt::entity, struct TilemapEntityTag, fluent::Comparable>;
 
   Tileset::entity tileset = null_entity<Tileset>();
+  std::vector<TileLayer::entity> layers;
 
-  std::vector<TileLayer::entity> groundLayers;
-
-  std::unordered_map<MapPosition, entt::entity> tileObjects;  // FIXME
+  // TODO use tile object entity tag type
+  std::unordered_map<MapPosition, entt::entity> tileObjects;
 
   float width;
   float height;

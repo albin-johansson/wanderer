@@ -17,7 +17,7 @@ void render_ground(entt::registry& registry,
   const auto& tilemap = registry.get<Tilemap>(mapEntity.get());
   const auto& tileset = registry.get<Tileset>(tilemap.tileset.get());
 
-  for (const auto layer : tilemap.groundLayers) {
+  for (const auto layer : tilemap.layers) {
     const auto& tileLayer = registry.get<TileLayer>(layer.get());
     layer::render(registry, tileLayer, renderer, tileset, bounds);
   }

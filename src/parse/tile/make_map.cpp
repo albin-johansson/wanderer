@@ -32,13 +32,11 @@ namespace {
   const auto groundLayerEntity = registry.create();
 
   auto& tileLayer = registry.emplace<TileLayer>(groundLayerEntity);
-  tileLayer.nRows = stepLayer.height();
-  tileLayer.nCols = stepLayer.width();
-  tileLayer.matrix = create_tile_matrix(tileLayer.nRows, tileLayer.nCols);
+  tileLayer.matrix = create_tile_matrix(stepLayer.height(), stepLayer.width());
 
   int index = 0;
   for (const auto gid : stepTileLayer.data().as_gid()) {
-    const auto [row, col] = Math::index_to_matrix_pos(index, tileLayer.nCols);
+    const auto [row, col] = Math::index_to_matrix_pos(index, stepLayer.width());
 
     const auto r = static_cast<std::size_t>(row);
     const auto c = static_cast<std::size_t>(col);
@@ -116,7 +114,7 @@ auto make_map(entt::registry& registry,
 
       if (layerProps.has("ground")) {
         if (layerProps.is("ground", true)) {
-          tilemap.groundLayers.emplace_back(
+          tilemap.layers.emplace_back(
               create_ground_layer(registry, stepLayer, stepTileLayer));
         } else {
           const auto& tileset = registry.get<Tileset>(tilemap.tileset.get());
@@ -133,7 +131,7 @@ auto make_map(entt::registry& registry,
     }
   }
 
-  tilemap.groundLayers.shrink_to_fit();
+  tilemap.layers.shrink_to_fit();
 
   return Tilemap::entity{mapEntity};
 }

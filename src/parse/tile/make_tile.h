@@ -12,7 +12,7 @@
 namespace wanderer {
 
 void parse_special_tile(entt::registry& registry,
-                        Tile::entity tileEntity,
+                        component::Tile::entity tileEntity,
                         const step::Tile& stepTile,
                         TileID firstGID);
 
@@ -20,6 +20,6 @@ void parse_special_tile(entt::registry& registry,
                                    const TileID id,
                                    const entt::handle<ctn::Texture>& sheet,
                                    const ctn::IRect& src) noexcept
-    -> Tile::entity;
+    -> component::Tile::entity;
 
 }  // namespace wanderer

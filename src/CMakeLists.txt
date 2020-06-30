@@ -10,6 +10,8 @@ endfunction()
 
 
 set(SOURCE_FILES
+        doxygen_docs.h
+
         core/wanderer_stdinc.h
         core/game.h
         core/game.cpp

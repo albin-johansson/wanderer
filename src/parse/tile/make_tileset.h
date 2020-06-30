@@ -14,6 +14,7 @@ namespace wanderer {
 [[nodiscard]] auto make_tileset(entt::registry& registry,
                                 const std::vector<step::Tileset>& tilesets,
                                 ctn::Renderer& renderer,
-                                ImageCache& imageCache) -> Tileset::entity;
+                                ImageCache& imageCache)
+    -> component::Tileset::entity;
 
 }

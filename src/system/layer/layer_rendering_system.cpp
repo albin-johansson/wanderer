@@ -3,6 +3,8 @@
 #include "animated_tile.h"
 #include "tile_rendering_system.h"
 
+using namespace wanderer::component;
+
 namespace wanderer::system::layer {
 
 void render(entt::registry& registry,
