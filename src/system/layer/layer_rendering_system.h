@@ -1,7 +1,6 @@
 /**
  * This file declares the systems associated with rendering tile layers.
  *
- * @namespace wanderer::system::layer
  * @file layer_rendering_system.h
  */
 
