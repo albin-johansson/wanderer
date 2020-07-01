@@ -21,7 +21,7 @@
 #include "tilemap.h"
 #include "viewport_system.h"
 
-using namespace wanderer::system;
+using namespace wanderer::sys;
 using namespace wanderer::comp;
 
 namespace wanderer {

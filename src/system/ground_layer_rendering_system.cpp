@@ -10,7 +10,7 @@ using wanderer::comp::TileLayer;
 using wanderer::comp::Tilemap;
 using wanderer::comp::Tileset;
 
-namespace wanderer::system::layer {
+namespace wanderer::sys::layer {
 
 void render_ground(entt::registry& registry,
                    const Tilemap::entity mapEntity,
@@ -26,4 +26,4 @@ void render_ground(entt::registry& registry,
   }
 }
 
-}  // namespace wanderer::system::layer
+}  // namespace wanderer::sys::layer

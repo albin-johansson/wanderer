@@ -3,7 +3,7 @@
 #include "viewport.h"
 #include "wanderer_stdinc.h"
 
-namespace wanderer::system::viewport {
+namespace wanderer::sys::viewport {
 
 /**
  * Updates the position of the viewport by slowly tracking a movable entity.
@@ -25,4 +25,4 @@ void translate(entt::registry& registry,
                comp::Viewport::entity viewportEntity,
                ctn::Renderer& renderer);
 
-}  // namespace wanderer::system::viewport
+}  // namespace wanderer::sys::viewport

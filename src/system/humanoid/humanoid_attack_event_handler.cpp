@@ -8,7 +8,7 @@
 using wanderer::comp::HumanoidAttack;
 using wanderer::comp::HumanoidIdle;
 
-namespace wanderer::system::humanoid {
+namespace wanderer::sys::humanoid {
 
 void on_attack_begin(const BeginAttackEvent& event)
 {
@@ -36,4 +36,4 @@ void on_attack_end(const EndAttackEvent& event)
   enter_idle_animation(*event.registry, event.sourceEntity);
 }
 
-}  // namespace wanderer::system::humanoid
+}  // namespace wanderer::sys::humanoid

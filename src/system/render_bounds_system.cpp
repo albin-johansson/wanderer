@@ -9,7 +9,7 @@
 using wanderer::comp::RenderBounds;
 using wanderer::comp::Viewport;
 
-namespace wanderer::system {
+namespace wanderer::sys {
 
 auto calculate_render_bounds(entt::registry& registry,
                              const Viewport::entity viewportEntity,
@@ -46,4 +46,4 @@ auto calculate_render_bounds(entt::registry& registry,
   return bounds;
 }
 
-}  // namespace wanderer::system
+}  // namespace wanderer::sys

@@ -10,7 +10,7 @@
 #include "end_attack_event.h"
 #include "wanderer_stdinc.h"
 
-namespace wanderer::system::humanoid {
+namespace wanderer::sys::humanoid {
 
 /**
  * Handles the event of beginning a humanoid attack sequence.
@@ -32,4 +32,4 @@ void on_attack_begin(const BeginAttackEvent& event);
  */
 void on_attack_end(const EndAttackEvent& event);
 
-}  // namespace wanderer::system::humanoid
+}  // namespace wanderer::sys::humanoid

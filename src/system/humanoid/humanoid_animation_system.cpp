@@ -9,7 +9,7 @@
 
 using namespace wanderer::comp;
 
-namespace wanderer::system::humanoid {
+namespace wanderer::sys::humanoid {
 namespace {
 
 inline constexpr int nIdleFrames{1};
@@ -178,4 +178,4 @@ void update_animation(entt::registry& registry)
   }
 }
 
-}  // namespace wanderer::system::humanoid
+}  // namespace wanderer::sys::humanoid

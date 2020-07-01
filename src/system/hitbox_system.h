@@ -1,5 +1,5 @@
 #pragma once
 
-namespace wanderer::system {
+namespace wanderer::sys {
 
 }

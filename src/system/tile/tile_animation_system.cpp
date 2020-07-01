@@ -6,7 +6,7 @@
 
 using wanderer::comp::AnimatedTile;
 
-namespace wanderer::system::tile {
+namespace wanderer::sys::tile {
 
 void update_animation(entt::registry& registry, entt::entity /*level*/)  // TODO
 {
@@ -26,4 +26,4 @@ void update_animation(entt::registry& registry, entt::entity /*level*/)  // TODO
   }
 }
 
-}  // namespace wanderer::system::tile
+}  // namespace wanderer::sys::tile

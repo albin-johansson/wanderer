@@ -11,7 +11,7 @@ namespace wanderer {
 
 void connect_events(entt::dispatcher& dispatcher)
 {
-  using namespace system::humanoid;
+  using namespace sys::humanoid;
   dispatcher.sink<BeginAttackEvent>().connect<&on_attack_begin>();
   dispatcher.sink<EndAttackEvent>().connect<&on_attack_end>();
   dispatcher.sink<BeginHumanoidMoveEvent>().connect<&on_move_begin>();

@@ -7,7 +7,7 @@
 using wanderer::comp::Movable;
 using wanderer::comp::Viewport;
 
-namespace wanderer::system::viewport {
+namespace wanderer::sys::viewport {
 namespace {
 
 void track(Viewport& viewport,
@@ -70,4 +70,4 @@ void translate(entt::registry& registry,
   renderer.set_translation_viewport(viewport.bounds);
 }
 
-}  // namespace wanderer::system::viewport
+}  // namespace wanderer::sys::viewport

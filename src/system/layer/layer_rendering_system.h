@@ -14,7 +14,7 @@
 #include "tileset.h"
 #include "wanderer_stdinc.h"
 
-namespace wanderer::system::layer {
+namespace wanderer::sys::layer {
 
 /**
  * Renders a tile layer.
@@ -31,4 +31,4 @@ void render(entt::registry& registry,
             const comp::Tileset& tileset,
             const comp::RenderBounds& bounds);
 
-}  // namespace wanderer::system::layer
+}  // namespace wanderer::sys::layer

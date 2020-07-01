@@ -10,7 +10,7 @@
 #include "begin_humanoid_move_event.h"
 #include "end_humanoid_move_event.h"
 
-namespace wanderer::system::humanoid {
+namespace wanderer::sys::humanoid {
 
 /**
  * Handles the event of beginning the movement of a humanoid.
@@ -32,4 +32,4 @@ void on_move_begin(const BeginHumanoidMoveEvent& event);
  */
 void on_move_end(const EndHumanoidMoveEvent& event);
 
-}  // namespace wanderer::system::humanoid
+}  // namespace wanderer::sys::humanoid

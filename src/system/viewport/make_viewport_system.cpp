@@ -4,7 +4,7 @@
 
 using wanderer::comp::Viewport;
 
-namespace wanderer::system::viewport {
+namespace wanderer::sys::viewport {
 
 auto make_viewport(entt::registry& registry) -> Viewport::entity
 {
@@ -19,4 +19,4 @@ auto make_viewport(entt::registry& registry) -> Viewport::entity
   return Viewport::entity{entity};
 }
 
-}  // namespace wanderer::system::viewport
+}  // namespace wanderer::sys::viewport

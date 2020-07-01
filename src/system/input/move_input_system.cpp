@@ -11,7 +11,7 @@ using wanderer::comp::Binds;
 using wanderer::comp::HumanoidMove;
 using wanderer::comp::Movable;
 
-namespace wanderer::system::input {
+namespace wanderer::sys::input {
 namespace {
 
 void move(Movable& movable, const Direction direction) noexcept
@@ -141,4 +141,4 @@ void handle_move_input(entt::registry& registry,
   }
 }
 
-}  // namespace wanderer::system::input
+}  // namespace wanderer::sys::input

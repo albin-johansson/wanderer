@@ -6,11 +6,11 @@
 #include "tilemap.h"
 #include "wanderer_stdinc.h"
 
-namespace wanderer::system::layer {
+namespace wanderer::sys::layer {
 
 void render_ground(entt::registry& registry,
                    comp::Tilemap::entity mapEntity,
                    ctn::Renderer& renderer,
                    const comp::RenderBounds& bounds);
 
-}  // namespace wanderer::system::layer
+}  // namespace wanderer::sys::layer

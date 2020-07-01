@@ -9,7 +9,7 @@ using wanderer::comp::Tile;
 using wanderer::comp::TileLayer;
 using wanderer::comp::Tileset;
 
-namespace wanderer::system::layer {
+namespace wanderer::sys::layer {
 
 void render(entt::registry& registry,
             const TileLayer& layer,
@@ -40,4 +40,4 @@ void render(entt::registry& registry,
   }
 }
 
-}  // namespace wanderer::system::layer
+}  // namespace wanderer::sys::layer

@@ -3,8 +3,8 @@
 
 #include "wanderer_stdinc.h"
 
-namespace wanderer::system {
+namespace wanderer::sys {
 
 void update_movement(entt::registry& registry, Delta delta);
 
-}  // namespace wanderer::system
+}  // namespace wanderer::sys

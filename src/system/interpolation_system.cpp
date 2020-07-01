@@ -4,7 +4,7 @@
 
 using wanderer::comp::Movable;
 
-namespace wanderer::system {
+namespace wanderer::sys {
 
 void update_interpolation(entt::registry& registry, const Alpha alpha) noexcept
 {
@@ -14,4 +14,4 @@ void update_interpolation(entt::registry& registry, const Alpha alpha) noexcept
   });
 }
 
-}  // namespace wanderer::system
+}  // namespace wanderer::sys

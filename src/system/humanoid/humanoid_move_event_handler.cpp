@@ -6,7 +6,7 @@
 using wanderer::comp::HumanoidIdle;
 using wanderer::comp::HumanoidMove;
 
-namespace wanderer::system::humanoid {
+namespace wanderer::sys::humanoid {
 
 void on_move_begin(const BeginHumanoidMoveEvent& event)
 {
@@ -34,4 +34,4 @@ void on_move_end(const EndHumanoidMoveEvent& event)
   humanoid::enter_idle_animation(*event.registry, entity);
 }
 
-}  // namespace wanderer::system::humanoid
+}  // namespace wanderer::sys::humanoid

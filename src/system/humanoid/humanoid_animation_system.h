@@ -3,7 +3,7 @@
 #include "direction.h"
 #include "wanderer_stdinc.h"
 
-namespace wanderer::system::humanoid {
+namespace wanderer::sys::humanoid {
 
 void enter_idle_animation(entt::registry& registry,
                           entt::entity entity) noexcept;
@@ -26,4 +26,4 @@ void enter_spear_animation(entt::registry& registry,
 
 void update_animation(entt::registry& registry);
 
-}  // namespace wanderer::system::humanoid
+}  // namespace wanderer::sys::humanoid

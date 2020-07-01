@@ -4,7 +4,7 @@
 #include "viewport.h"
 #include "wanderer_stdinc.h"
 
-namespace wanderer::system {
+namespace wanderer::sys {
 
 [[nodiscard]] auto calculate_render_bounds(
     entt::registry& registry,
@@ -12,4 +12,4 @@ namespace wanderer::system {
     int rows,
     int cols) -> comp::RenderBounds;
 
-}  // namespace wanderer::system
+}  // namespace wanderer::sys

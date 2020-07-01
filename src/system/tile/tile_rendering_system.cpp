@@ -5,7 +5,7 @@
 
 using namespace wanderer::comp;
 
-namespace wanderer::system::tile {
+namespace wanderer::sys::tile {
 namespace {
 
 inline constexpr ctn::FArea dstSize{g_tileSize<float>, g_tileSize<float>};
@@ -37,4 +37,4 @@ auto animated_tile(entt::registry& registry,
   return registry.get<Tile>(animated.get());
 }
 
-}  // namespace wanderer::system::tile
+}  // namespace wanderer::sys::tile

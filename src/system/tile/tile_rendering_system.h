@@ -5,7 +5,7 @@
 #include "tile.h"
 #include "tileset.h"
 
-namespace wanderer::system::tile {
+namespace wanderer::sys::tile {
 
 void render(ctn::Renderer& renderer,
             const comp::Tile& tile,
@@ -17,4 +17,4 @@ void render(ctn::Renderer& renderer,
                                  const comp::Tileset& tileset)
     -> const comp::Tile&;
 
-}  // namespace wanderer::system::tile
+}  // namespace wanderer::sys::tile

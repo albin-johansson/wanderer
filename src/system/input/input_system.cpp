@@ -3,7 +3,7 @@
 #include "idle_input_system.h"
 #include "move_input_system.h"
 
-namespace wanderer::system::input {
+namespace wanderer::sys::input {
 
 void update(entt::registry& registry,
             entt::dispatcher& dispatcher,
@@ -14,4 +14,4 @@ void update(entt::registry& registry,
   handle_move_input(registry, dispatcher, player, input);
 }
 
-}  // namespace wanderer::system::input
+}  // namespace wanderer::sys::input

@@ -5,7 +5,7 @@
 
 using wanderer::comp::HumanoidAttack;
 
-namespace wanderer::system::humanoid {
+namespace wanderer::sys::humanoid {
 namespace {
 
 void update_attacking_humanoids(entt::registry& registry,
@@ -27,4 +27,4 @@ void update_state(entt::registry& registry, entt::dispatcher& dispatcher)
   update_attacking_humanoids(registry, dispatcher);
 }
 
-}  // namespace wanderer::system::humanoid
+}  // namespace wanderer::sys::humanoid

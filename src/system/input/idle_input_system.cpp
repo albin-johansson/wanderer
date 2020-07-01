@@ -9,7 +9,7 @@
 using wanderer::comp::Binds;
 using wanderer::comp::HumanoidIdle;
 
-namespace wanderer::system::input {
+namespace wanderer::sys::input {
 
 void handle_idle_input(entt::registry& registry,
                        entt::dispatcher& dispatcher,
@@ -47,4 +47,4 @@ void handle_idle_input(entt::registry& registry,
   }
 }
 
-}  // namespace wanderer::system::input
+}  // namespace wanderer::sys::input

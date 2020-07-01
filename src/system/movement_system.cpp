@@ -6,7 +6,7 @@
 using wanderer::comp::DepthDrawable;
 using wanderer::comp::Movable;
 
-namespace wanderer::system {
+namespace wanderer::sys {
 namespace {
 
 void update_direction(Movable& movable) noexcept
@@ -46,4 +46,4 @@ void update_movement(entt::registry& registry, const Delta delta)
   });
 }
 
-}  // namespace wanderer::system
+}  // namespace wanderer::sys

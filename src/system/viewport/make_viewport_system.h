@@ -3,9 +3,9 @@
 #include "viewport.h"
 #include "wanderer_stdinc.h"
 
-namespace wanderer::system::viewport {
+namespace wanderer::sys::viewport {
 
 [[nodiscard]] auto make_viewport(entt::registry& registry)
     -> comp::Viewport::entity;
 
-}  // namespace wanderer::system::viewport
+}  // namespace wanderer::sys::viewport

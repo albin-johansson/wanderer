@@ -2,8 +2,8 @@
 
 #include "wanderer_stdinc.h"
 
-namespace wanderer::system {
+namespace wanderer::sys {
 
 void update_interpolation(entt::registry& registry, Alpha alpha) noexcept;
 
-}  // namespace wanderer::system
+}  // namespace wanderer::sys

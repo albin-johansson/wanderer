@@ -6,7 +6,7 @@
 using wanderer::comp::DepthDrawable;
 using wanderer::comp::Movable;
 
-namespace wanderer::system {
+namespace wanderer::sys {
 
 void update_movable_depth_drawables(entt::registry& registry)
 {
@@ -18,4 +18,4 @@ void update_movable_depth_drawables(entt::registry& registry)
       });
 }
 
-}  // namespace wanderer::system
+}  // namespace wanderer::sys

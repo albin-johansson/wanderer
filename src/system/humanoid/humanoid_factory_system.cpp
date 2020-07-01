@@ -17,7 +17,7 @@
 
 using namespace wanderer::comp;
 
-namespace wanderer::system::humanoid {
+namespace wanderer::sys::humanoid {
 namespace {
 
 /**
@@ -111,4 +111,4 @@ auto add_skeleton(entt::registry& registry,
   return skeletonEntity;
 }
 
-}  // namespace wanderer::system::humanoid
+}  // namespace wanderer::sys::humanoid
