@@ -1,3 +1,11 @@
+/**
+ * @brief Provides the `EndHumanoidMoveEvent` component.
+ * @file end_humanoid_move_event.h
+ * @author Albin Johansson
+ * @copyright MIT License
+ * @date 2020
+ */
+
 #pragma once
 
 #include "direction.h"
@@ -5,6 +13,23 @@
 
 namespace wanderer {
 
+/**
+ * @struct EndHumanoidMoveEvent
+ * @brief Used for events dispatched when a humanoid stops moving.
+ *
+ * @note This is an event component and is meant to be dispatched through
+ * `entt::dispatcher::enqueue`.
+ * @code{.cpp}
+ * dispatcher.enqueue<EndHumanoidMoveEvent>(&registry, entity);
+ * @endcode
+ *
+ * @var EndHumanoidMoveEvent::registry
+ * A pointer to the associated registry.
+ * @var EndHumanoidMoveEvent::entity
+ * The humanoid that should stop moving.
+ *
+ * @headerfile end_humanoid_move_event.h
+ */
 struct EndHumanoidMoveEvent final {
   entt::registry* registry{nullptr};
   entt::entity entity{entt::null};  // TODO tag type

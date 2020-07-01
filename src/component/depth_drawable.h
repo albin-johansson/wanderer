@@ -12,8 +12,6 @@
 #include <rect.h>
 #include <texture.h>
 
-#include <entt.hpp>
-
 #include "wanderer_stdinc.h"
 
 namespace wanderer {  // TODO wanderer::component namespace
@@ -44,11 +42,11 @@ namespace wanderer {  // TODO wanderer::component namespace
  * @headerfile depth_drawable.h
  */
 struct DepthDrawable final {
-  entt::handle<ctn::Texture> texture;  // handle to associated texture
-  Depth depth{5};    // heuristic used to determine render order
-  float centerY{0};  // current center point y-coordinate
-  ctn::IRect src{};  // source cutout used when rendering
-  ctn::FRect dst{};  // destination and size of the rendered texture
+  entt::handle<ctn::Texture> texture;
+  Depth depth{5};
+  float centerY{0};
+  ctn::IRect src{};
+  ctn::FRect dst{};
 };
 
 }  // namespace wanderer
