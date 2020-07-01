@@ -1,3 +1,11 @@
+/**
+ * @brief Provides common utilities and aliases used in the game.
+ * @file wanderer_stdinc.h
+ * @author Albin Johansson
+ * @copyright MIT License
+ * @date 2020
+ */
+
 #pragma once
 
 #include <centurion_as_ctn.h>
@@ -42,6 +50,7 @@ using Delta = fluent::NamedType<float,
                                 fluent::Subtractable,
                                 fluent::Incrementable,
                                 fluent::Decrementable>;
+
 using Alpha = fluent::NamedType<float, struct AlphaTag, fluent::Comparable>;
 
 using Depth = fluent::NamedType<int, struct DepthTag, fluent::Comparable>;

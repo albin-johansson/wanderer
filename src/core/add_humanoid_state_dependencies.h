@@ -1,9 +1,12 @@
 /**
- * This file provides a method that adds dependencies for humanoid states to
- * a registry. The goal is to automate the mutual exclusiveness of the
+ * @brief Provides humanoid state utilities for registries.
+ * @details Provides utilities for adding dependencies for humanoid states to
+ * a registry. In order to ensure and automate the mutual exclusiveness of the
  * various humanoid states.
- *
  * @file add_humanoid_state_dependencies.h
+ * @author Albin Johansson
+ * @copyright MIT License
+ * @date 2020
  */
 
 #pragma once
@@ -13,8 +16,9 @@
 namespace wanderer {
 
 /**
- * Makes all of the humanoid states mutually exclusive for an entity in the
- * supplied registry. This is ensured every time a humanoid state is added
+ * @brief Makes humanoid states mutual exclusive for the supplied registry.
+ *
+ * @details This is enforced every time a humanoid state is added
  * to an entity with the registry.
  *
  * @param registry the registry to add the dependencies to.
