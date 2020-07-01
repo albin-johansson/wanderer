@@ -19,7 +19,7 @@ namespace wanderer::sys::viewport {
 void update(entt::registry& registry,
             comp::Viewport::entity viewportEntity,
             entt::entity movableEntity,
-            Delta delta);
+            delta delta);
 
 void translate(entt::registry& registry,
                comp::Viewport::entity viewportEntity,

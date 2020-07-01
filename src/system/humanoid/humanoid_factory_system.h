@@ -9,10 +9,10 @@ namespace wanderer::sys::humanoid {
 
 auto add_player(entt::registry& registry,
                 ctn::Renderer& renderer,
-                ImageCache& imageCache) -> entt::entity;
+                image_cache& imageCache) -> entt::entity;
 
 auto add_skeleton(entt::registry& registry,
                   ctn::Renderer& renderer,
-                  ImageCache& imageCache) -> entt::entity;
+                  image_cache& imageCache) -> entt::entity;
 
 }  // namespace wanderer::sys::humanoid

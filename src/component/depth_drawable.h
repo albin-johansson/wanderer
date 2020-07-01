@@ -43,7 +43,7 @@ namespace wanderer::comp {
  */
 struct DepthDrawable final {
   entt::handle<ctn::Texture> texture;
-  Depth depth{5};
+  depth depth{5};
   float centerY{0};
   ctn::IRect src{};
   ctn::FRect dst{};

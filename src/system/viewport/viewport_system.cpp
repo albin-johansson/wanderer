@@ -11,9 +11,9 @@ namespace wanderer::sys::viewport {
 namespace {
 
 void track(Viewport& viewport,
-           const Vector2f& target,
+           const vector2f& target,
            const ctn::FArea& size,
-           const Delta delta)
+           const delta delta)
 {
   auto panSpeed = 15 * delta.get();
 
@@ -51,7 +51,7 @@ void track(Viewport& viewport,
 void update(entt::registry& registry,
             const Viewport::entity viewportEntity,
             const entt::entity movableEntity,
-            const Delta delta)
+            const delta delta)
 {
   const auto& movable = registry.get<Movable>(movableEntity);
   auto& viewport = registry.get<Viewport>(viewportEntity.get());

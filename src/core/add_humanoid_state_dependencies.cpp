@@ -16,15 +16,15 @@ void mutually_exclusive(entt::registry& registry)
 
 void add_humanoid_state_dependencies(entt::registry& registry)
 {
-  using Idle = comp::HumanoidIdle;
-  using Move = comp::HumanoidMove;
-  using Attack = comp::HumanoidAttack;
-  using Die = comp::HumanoidDie;
+  using idle = comp::HumanoidIdle;
+  using move = comp::HumanoidMove;
+  using attack = comp::HumanoidAttack;
+  using die = comp::HumanoidDie;
 
-  mutually_exclusive<Idle, Move, Attack, Die>(registry);
-  mutually_exclusive<Move, Attack, Die, Idle>(registry);
-  mutually_exclusive<Attack, Die, Idle, Move>(registry);
-  mutually_exclusive<Die, Idle, Move, Attack>(registry);
+  mutually_exclusive<idle, move, attack, die>(registry);
+  mutually_exclusive<move, attack, die, idle>(registry);
+  mutually_exclusive<attack, die, idle, move>(registry);
+  mutually_exclusive<die, idle, move, attack>(registry);
 }
 
 }  // namespace wanderer

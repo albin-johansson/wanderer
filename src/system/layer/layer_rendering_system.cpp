@@ -22,7 +22,7 @@ void render(entt::registry& registry,
       const auto r = static_cast<std::size_t>(row);
       const auto c = static_cast<std::size_t>(col);
 
-      const TileID id = layer.matrix.at(r).at(c);
+      const tile_id id = layer.matrix.at(r).at(c);
       if (id == g_emptyTile) {
         continue;
       }

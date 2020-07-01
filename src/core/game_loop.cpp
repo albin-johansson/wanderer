@@ -25,7 +25,7 @@ void GameLoop::smooth_delta() noexcept
   }
 
   const auto oldDelta = m_delta;
-  m_delta = Delta{static_cast<float>(frameCount) / m_vsyncRate};
+  m_delta = delta{static_cast<float>(frameCount) / m_vsyncRate};
   m_deltaBuffer = oldDelta - m_delta;
 }
 
@@ -34,7 +34,7 @@ void GameLoop::update(Game& game)
   m_then = m_now;
   m_now = ctn::Timer::high_res();
 
-  m_delta = Delta{static_cast<float>(m_now - m_then) / m_counterFreq};
+  m_delta = delta{static_cast<float>(m_now - m_then) / m_counterFreq};
 
   if (m_delta > max_frame_time()) {
     m_delta = max_frame_time();

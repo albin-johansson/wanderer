@@ -26,7 +26,7 @@ void update_direction(Movable& movable) noexcept
 
 }  // namespace
 
-void update_movement(entt::registry& registry, const Delta delta)
+void update_movement(entt::registry& registry, const delta delta)
 {
   registry.view<Movable>().each([&registry, delta](const auto entity,
                                                    Movable& movable) noexcept {

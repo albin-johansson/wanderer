@@ -38,11 +38,11 @@ class GameLoop final {
    * @brief Returns the current value of the interpolation coefficient.
    * @return an interpolation coefficient (alpha) value, in the range [0, 1].
    */
-  [[nodiscard]] auto alpha() const -> Alpha
+  [[nodiscard]] auto alpha() const -> alpha
   {
-    Alpha alpha{m_accumulator.get() / m_timeStep.get()};
-    if (alpha > Alpha{1.0f}) {
-      alpha = Alpha{1.0f};
+    alpha alpha{m_accumulator.get() / m_timeStep.get()};
+    if (alpha > alpha{1.0f}) {
+      alpha = alpha{1.0f};
     }
     return alpha;
   }
@@ -50,11 +50,11 @@ class GameLoop final {
  private:
   u64 m_now;
   u64 m_then;
-  Delta m_delta{0};
-  Delta m_accumulator{0};
-  Delta m_deltaBuffer{0};
+  delta m_delta{0};
+  delta m_accumulator{0};
+  delta m_deltaBuffer{0};
   const float m_vsyncRate;
-  const Delta m_timeStep;
+  const delta m_timeStep;
   const float m_counterFreq;
 
   /**
@@ -62,9 +62,9 @@ class GameLoop final {
    * @details This is used to avoid the "spiral of death" in the game loop.
    * @since 0.1.0
    */
-  [[nodiscard]] constexpr auto max_frame_time() noexcept -> Delta
+  [[nodiscard]] constexpr auto max_frame_time() noexcept -> delta
   {
-    return Delta{0.25f};
+    return delta{0.25f};
   }
 
   void smooth_delta() noexcept;

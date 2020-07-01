@@ -40,10 +40,10 @@ namespace wanderer::comp {
  * @headerfile movable.h
  */
 struct Movable final {
-  Vector2f velocity;
-  Vector2f currentPos;
-  Vector2f oldPos;
-  Vector2f interpolatedPos;
+  vector2f velocity;
+  vector2f currentPos;
+  vector2f oldPos;
+  vector2f interpolatedPos;
   Direction dominantDirection{Direction::Down};
   float speed{0};
 };

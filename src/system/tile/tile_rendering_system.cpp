@@ -31,7 +31,7 @@ auto animated_tile(entt::registry& registry,
 
   const auto& animatedTile = registry.get<AnimatedTile>(tileEntity.get());
 
-  const TileID id = animatedTile.frames.at(animatedTile.frame).tile;
+  const tile_id id = animatedTile.frames.at(animatedTile.frame).tile;
   const Tile::entity animated = tileset.tiles.at(id);
 
   return registry.get<Tile>(animated.get());

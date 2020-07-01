@@ -29,7 +29,7 @@ struct Tileset final {
   using entity = fluent::
       NamedType<entt::entity, struct TilesetEntityTag, fluent::Comparable>;
 
-  std::unordered_map<TileID, Tile::entity> tiles;
+  std::unordered_map<tile_id, Tile::entity> tiles;
 };
 
 }  // namespace wanderer::comp

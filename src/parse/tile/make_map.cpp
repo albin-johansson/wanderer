@@ -17,11 +17,11 @@ namespace wanderer {
 namespace {
 
 [[nodiscard]] auto create_tile_matrix(const int nRows, const int nCols)
-    -> TileLayer::TileMatrix
+    -> TileLayer::tile_matrix
 {
   const auto rows = static_cast<std::size_t>(nRows);
   const auto cols = static_cast<std::size_t>(nCols);
-  return {rows, std::vector<TileID>(cols, g_emptyTile)};
+  return {rows, std::vector<tile_id>(cols, g_emptyTile)};
 }
 
 [[nodiscard]] auto create_ground_layer(entt::registry& registry,
@@ -76,7 +76,7 @@ void create_tile_objects(entt::registry& registry,
                      static_cast<float>(row) * tileSize},
                     {tileSize, tileSize}};
 
-    drawable.depth = Depth{5};  // FIXME
+    drawable.depth = depth{5};  // FIXME
     drawable.centerY =
         (static_cast<float>(row) * tileSize) + (drawable.dst.height() / 2.0f);
 
@@ -93,7 +93,7 @@ void create_tile_objects(entt::registry& registry,
 auto make_map(entt::registry& registry,
               std::string_view map,
               ctn::Renderer& renderer,
-              ImageCache& imageCache) -> Tilemap::entity
+              image_cache& imageCache) -> Tilemap::entity
 {
   const auto stepMap = step::parse("resource/map/", map);
   const auto mapEntity = registry.create();

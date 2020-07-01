@@ -26,7 +26,7 @@ namespace wanderer::comp {
  * @headerfile animated_tile.h
  */
 struct Frame final {
-  TileID tile{g_emptyTile};
+  tile_id tile{g_emptyTile};
   u32 duration{};
 };
 

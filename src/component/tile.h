@@ -27,7 +27,7 @@ struct Tile final {
   using entity =
       fluent::NamedType<entt::entity, struct TileEntityTag, fluent::Comparable>;
 
-  TileID id;                        /**< Unique ID associated with the tile. */
+  tile_id id;                       /**< Unique ID associated with the tile. */
   ctn::IRect src;                   /**< Area of associated tilesheet that the
                                      * tile represents. */
   entt::handle<ctn::Texture> sheet; /**< Handle to the associated tilesheet. */

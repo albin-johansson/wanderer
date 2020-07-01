@@ -66,7 +66,7 @@ namespace {
 
 auto add_player(entt::registry& registry,
                 ctn::Renderer& renderer,
-                ImageCache& imageCache) -> entt::entity
+                image_cache& imageCache) -> entt::entity
 {
   constexpr auto id = "player"_hs;
   if (!imageCache.contains(id)) {
@@ -92,7 +92,7 @@ auto add_player(entt::registry& registry,
 
 auto add_skeleton(entt::registry& registry,
                   ctn::Renderer& renderer,
-                  ImageCache& imageCache) -> entt::entity
+                  image_cache& imageCache) -> entt::entity
 {
   constexpr auto id = "skeleton"_hs;
   if (!imageCache.contains(id)) {

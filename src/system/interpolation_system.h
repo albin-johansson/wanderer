@@ -4,6 +4,6 @@
 
 namespace wanderer::sys {
 
-void update_interpolation(entt::registry& registry, Alpha alpha) noexcept;
+void update_interpolation(entt::registry& registry, alpha alpha) noexcept;
 
 }  // namespace wanderer::sys

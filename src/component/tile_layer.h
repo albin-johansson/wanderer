@@ -24,9 +24,9 @@ namespace wanderer::comp {
 struct TileLayer final {
   using entity = fluent::
       NamedType<entt::entity, struct TileLayerEntityTag, fluent::Comparable>;
-  using TileMatrix = std::vector<std::vector<TileID>>;
+  using tile_matrix = std::vector<std::vector<tile_id>>;
 
-  TileMatrix matrix; /**< Matrix of tile IDs that represent the layer. */
+  tile_matrix matrix; /**< Matrix of tile IDs that represent the layer. */
 };
 
 }  // namespace wanderer::comp

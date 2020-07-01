@@ -46,20 +46,20 @@ class Game final {
    * @brief Updates the state of the game.
    * @param delta the delta time, in seconds.
    */
-  void tick(Delta delta);
+  void tick(delta delta);
 
   /**
    * @brief Renders the game.
    * @param renderer the renderer used to render the game.
    * @param alpha the interpolation coefficient, in the range [0, 1].
    */
-  void render(ctn::Renderer& renderer, Alpha alpha);
+  void render(ctn::Renderer& renderer, alpha alpha);
 
  private:
   entt::registry m_registry;  // TODO consider multiple registries
   entt::dispatcher m_dispatcher;
 
-  ImageCache m_imageCache;
+  image_cache m_imageCache;
 
   entt::entity m_player;
   comp::Tilemap::entity m_world = null_entity<comp::Tilemap>();

@@ -34,16 +34,12 @@ using ufast64 = std::uint_fast64_t;
 using ifast32 = std::int_fast32_t;
 using ifast64 = std::int_fast64_t;
 
-using TileID = u32;
-inline constexpr TileID g_emptyTile = 0;
+using tile_id = u32;
+inline constexpr tile_id g_emptyTile = 0;
 
-template <typename T>
-using Maybe = centurion::Optional<T>;
-inline constexpr auto nothing = centurion::nothing;
+using json = nlohmann::json;
 
-using JSON = nlohmann::json;
-
-using Delta = fluent::NamedType<float,
+using delta = fluent::NamedType<float,
                                 struct DeltaTag,
                                 fluent::Comparable,
                                 fluent::Addable,
@@ -51,9 +47,9 @@ using Delta = fluent::NamedType<float,
                                 fluent::Incrementable,
                                 fluent::Decrementable>;
 
-using Alpha = fluent::NamedType<float, struct AlphaTag, fluent::Comparable>;
+using alpha = fluent::NamedType<float, struct AlphaTag, fluent::Comparable>;
 
-using Depth = fluent::NamedType<int, struct DepthTag, fluent::Comparable>;
+using depth = fluent::NamedType<int, struct DepthTag, fluent::Comparable>;
 
 /**
  * @brief Creates and returns a null entity identifier.
