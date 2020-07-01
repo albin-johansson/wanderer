@@ -9,8 +9,8 @@
 namespace wanderer::system::layer {
 
 void render_ground(entt::registry& registry,
-                   component::Tilemap::entity mapEntity,
+                   comp::Tilemap::entity mapEntity,
                    ctn::Renderer& renderer,
-                   const component::RenderBounds& bounds);
+                   const comp::RenderBounds& bounds);
 
 }  // namespace wanderer::system::layer

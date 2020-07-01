@@ -22,7 +22,7 @@
 #include "viewport_system.h"
 
 using namespace wanderer::system;
-using namespace wanderer::component;
+using namespace wanderer::comp;
 
 namespace wanderer {
 

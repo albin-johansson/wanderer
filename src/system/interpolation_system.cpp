@@ -2,7 +2,7 @@
 
 #include "movable.h"
 
-using wanderer::component::Movable;
+using wanderer::comp::Movable;
 
 namespace wanderer::system {
 

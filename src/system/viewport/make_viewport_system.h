@@ -6,6 +6,6 @@
 namespace wanderer::system::viewport {
 
 [[nodiscard]] auto make_viewport(entt::registry& registry)
-    -> component::Viewport::entity;
+    -> comp::Viewport::entity;
 
 }  // namespace wanderer::system::viewport

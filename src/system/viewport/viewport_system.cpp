@@ -4,8 +4,8 @@
 #include "movable.h"
 #include "viewport.h"
 
-using wanderer::component::Movable;
-using wanderer::component::Viewport;
+using wanderer::comp::Movable;
+using wanderer::comp::Viewport;
 
 namespace wanderer::system::viewport {
 namespace {

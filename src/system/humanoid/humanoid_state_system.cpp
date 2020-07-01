@@ -3,7 +3,7 @@
 #include "end_attack_event.h"
 #include "humanoid_state.h"
 
-using wanderer::component::HumanoidAttack;
+using wanderer::comp::HumanoidAttack;
 
 namespace wanderer::system::humanoid {
 namespace {

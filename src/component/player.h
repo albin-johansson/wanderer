@@ -10,7 +10,7 @@
 
 #include "humanoid_state.h"
 
-namespace wanderer::component {
+namespace wanderer::comp {
 
 /**
  * @struct Player
@@ -20,4 +20,4 @@ namespace wanderer::component {
 struct Player {
 };
 
-}  // namespace wanderer::component
+}  // namespace wanderer::comp

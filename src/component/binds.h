@@ -12,7 +12,7 @@
 
 #include "wanderer_stdinc.h"
 
-namespace wanderer::component {
+namespace wanderer::comp {
 
 /**
  * @struct Binds
@@ -39,4 +39,4 @@ struct Binds final {
   ctn::Key attack{SDL_SCANCODE_SPACE};
 };
 
-}  // namespace wanderer::component
+}  // namespace wanderer::comp

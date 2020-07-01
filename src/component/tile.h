@@ -13,7 +13,7 @@
 
 #include "wanderer_stdinc.h"
 
-namespace wanderer::component {
+namespace wanderer::comp {
 
 /**
  * @brief Represents a tile in a tileset.
@@ -33,4 +33,4 @@ struct Tile final {
   entt::handle<ctn::Texture> sheet; /**< Handle to the associated tilesheet. */
 };
 
-}  // namespace wanderer::component
+}  // namespace wanderer::comp

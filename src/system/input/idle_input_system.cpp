@@ -6,8 +6,8 @@
 #include "direction.h"
 #include "player.h"
 
-using wanderer::component::Binds;
-using wanderer::component::HumanoidIdle;
+using wanderer::comp::Binds;
+using wanderer::comp::HumanoidIdle;
 
 namespace wanderer::system::input {
 

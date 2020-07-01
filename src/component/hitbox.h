@@ -14,7 +14,7 @@
 
 #include "wanderer_stdinc.h"
 
-namespace wanderer::component {
+namespace wanderer::comp {
 
 /**
  * @struct Hitbox
@@ -33,4 +33,4 @@ struct Hitbox final {
   std::vector<ctn::FRect> boxes;
 };
 
-}  // namespace wanderer::component
+}  // namespace wanderer::comp

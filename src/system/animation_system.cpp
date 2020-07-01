@@ -4,7 +4,7 @@
 
 #include "animated.h"
 
-using wanderer::component::Animated;
+using wanderer::comp::Animated;
 
 namespace wanderer::system {
 

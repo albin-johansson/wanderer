@@ -2,7 +2,7 @@
 
 #include "depth_drawable.h"
 
-using wanderer::component::DepthDrawable;
+using wanderer::comp::DepthDrawable;
 
 namespace wanderer::system {
 

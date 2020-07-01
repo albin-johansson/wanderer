@@ -4,7 +4,7 @@
 
 #include "animated_tile.h"
 
-using wanderer::component::AnimatedTile;
+using wanderer::comp::AnimatedTile;
 
 namespace wanderer::system::tile {
 

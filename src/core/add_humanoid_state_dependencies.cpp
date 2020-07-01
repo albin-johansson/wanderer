@@ -16,10 +16,10 @@ void mutually_exclusive(entt::registry& registry)
 
 void add_humanoid_state_dependencies(entt::registry& registry)
 {
-  using Idle = component::HumanoidIdle;
-  using Move = component::HumanoidMove;
-  using Attack = component::HumanoidAttack;
-  using Die = component::HumanoidDie;
+  using Idle = comp::HumanoidIdle;
+  using Move = comp::HumanoidMove;
+  using Attack = comp::HumanoidAttack;
+  using Die = comp::HumanoidDie;
 
   mutually_exclusive<Idle, Move, Attack, Die>(registry);
   mutually_exclusive<Move, Attack, Die, Idle>(registry);

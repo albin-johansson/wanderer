@@ -11,7 +11,7 @@
 #include "tile_layer.h"
 #include "tilemap.h"
 
-using namespace wanderer::component;
+using namespace wanderer::comp;
 
 namespace wanderer {
 namespace {

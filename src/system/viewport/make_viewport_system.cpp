@@ -2,7 +2,7 @@
 
 #include "game_constants.h"
 
-using wanderer::component::Viewport;
+using wanderer::comp::Viewport;
 
 namespace wanderer::system::viewport {
 

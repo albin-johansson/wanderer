@@ -15,6 +15,6 @@ namespace wanderer {
                                 const std::vector<step::Tileset>& tilesets,
                                 ctn::Renderer& renderer,
                                 ImageCache& imageCache)
-    -> component::Tileset::entity;
+    -> comp::Tileset::entity;
 
 }

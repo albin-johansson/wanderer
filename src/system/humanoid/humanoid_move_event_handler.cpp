@@ -3,8 +3,8 @@
 #include "humanoid_animation_system.h"
 #include "humanoid_state.h"
 
-using wanderer::component::HumanoidIdle;
-using wanderer::component::HumanoidMove;
+using wanderer::comp::HumanoidIdle;
+using wanderer::comp::HumanoidMove;
 
 namespace wanderer::system::humanoid {
 

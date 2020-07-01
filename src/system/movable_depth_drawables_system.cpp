@@ -3,8 +3,8 @@
 #include "depth_drawable.h"
 #include "movable.h"
 
-using wanderer::component::DepthDrawable;
-using wanderer::component::Movable;
+using wanderer::comp::DepthDrawable;
+using wanderer::comp::Movable;
 
 namespace wanderer::system {
 

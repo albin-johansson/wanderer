@@ -29,8 +29,8 @@ class Game final {
   ImageCache m_imageCache;
 
   entt::entity m_player;
-  component::Tilemap::entity m_world = null_entity<component::Tilemap>();
-  component::Viewport::entity m_viewport = null_entity<component::Viewport>();
+  comp::Tilemap::entity m_world = null_entity<comp::Tilemap>();
+  comp::Viewport::entity m_viewport = null_entity<comp::Viewport>();
 };
 
 }  // namespace wanderer

@@ -7,7 +7,7 @@
 #include "humanoid_state.h"
 #include "movable.h"
 
-using namespace wanderer::component;
+using namespace wanderer::comp;
 
 namespace wanderer::system::humanoid {
 namespace {

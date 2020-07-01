@@ -17,7 +17,7 @@
 #include "tileset.h"
 #include "wanderer_stdinc.h"
 
-namespace wanderer::component {
+namespace wanderer::comp {
 
 /**
  * @struct Tilemap
@@ -56,4 +56,4 @@ struct Tilemap final {
   int cols;
 };
 
-}  // namespace wanderer::component
+}  // namespace wanderer::comp

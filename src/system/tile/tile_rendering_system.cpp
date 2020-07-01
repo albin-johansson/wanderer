@@ -3,7 +3,7 @@
 #include "animated_tile.h"
 #include "game_constants.h"
 
-using namespace wanderer::component;
+using namespace wanderer::comp;
 
 namespace wanderer::system::tile {
 namespace {

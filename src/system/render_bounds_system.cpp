@@ -6,8 +6,8 @@
 #include "math_utils.h"
 #include "viewport.h"
 
-using wanderer::component::RenderBounds;
-using wanderer::component::Viewport;
+using wanderer::comp::RenderBounds;
+using wanderer::comp::Viewport;
 
 namespace wanderer::system {
 

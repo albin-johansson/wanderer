@@ -13,7 +13,7 @@
 #include "tile.h"
 #include "wanderer_stdinc.h"
 
-namespace wanderer::component {
+namespace wanderer::comp {
 
 /**
  * @struct Tileset
@@ -32,4 +32,4 @@ struct Tileset final {
   std::unordered_map<TileID, Tile::entity> tiles;
 };
 
-}  // namespace wanderer::component
+}  // namespace wanderer::comp

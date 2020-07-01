@@ -14,7 +14,7 @@
 
 #include "wanderer_stdinc.h"
 
-namespace wanderer::component {
+namespace wanderer::comp {
 
 /**
  * @struct DepthDrawable
@@ -49,4 +49,4 @@ struct DepthDrawable final {
   ctn::FRect dst{};
 };
 
-}  // namespace wanderer::component
+}  // namespace wanderer::comp

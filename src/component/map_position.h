@@ -10,7 +10,7 @@
 
 #include <functional>
 
-namespace wanderer::component {
+namespace wanderer::comp {
 
 /**
  * @struct MapPosition
@@ -58,11 +58,11 @@ struct MapPosition final {
   return !(lhs == rhs);
 }
 
-}  // namespace wanderer::component
+}  // namespace wanderer::comp
 
 template <>
-class std::hash<wanderer::component::MapPosition> {
-  using MapPosition = wanderer::component::MapPosition;
+class std::hash<wanderer::comp::MapPosition> {
+  using MapPosition = wanderer::comp::MapPosition;
 
  public:
   auto operator()(const MapPosition& key) const noexcept -> std::size_t

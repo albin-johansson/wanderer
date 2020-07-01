@@ -6,7 +6,7 @@
 #include "animated_tile.h"
 #include "tile.h"
 
-using namespace wanderer::component;
+using namespace wanderer::comp;
 
 namespace wanderer {
 namespace {

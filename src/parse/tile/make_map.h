@@ -13,7 +13,6 @@ namespace wanderer {
 [[nodiscard]] auto make_map(entt::registry& registry,
                             std::string_view map,
                             ctn::Renderer& renderer,
-                            ImageCache& imageCache)
-    -> component::Tilemap::entity;
+                            ImageCache& imageCache) -> comp::Tilemap::entity;
 
 }
