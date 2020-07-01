@@ -1,7 +1,5 @@
 #include "render_bounds_system.h"
 
-#include <cassert>
-
 #include "game_constants.h"
 #include "math_utils.h"
 #include "viewport.h"
@@ -16,10 +14,8 @@ auto calculate_render_bounds(entt::registry& registry,
                              const int rows,
                              const int cols) -> RenderBounds
 {
-  const auto* viewport = registry.try_get<Viewport>(viewportEntity.get());
-  assert(viewport);
-
-  const auto& viewportBounds = viewport->bounds;
+  const auto& viewport = registry.get<Viewport>(viewportEntity.get());
+  const auto& viewportBounds = viewport.bounds;
 
   RenderBounds bounds;
   bounds.minCol = Math::round(viewportBounds.x()) / g_tileSize<int>;
