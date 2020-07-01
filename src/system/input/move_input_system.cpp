@@ -7,6 +7,10 @@
 #include "movable.h"
 #include "player.h"
 
+using wanderer::component::Binds;
+using wanderer::component::HumanoidMove;
+using wanderer::component::Movable;
+
 namespace wanderer::system::input {
 namespace {
 

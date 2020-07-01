@@ -3,7 +3,11 @@
 #include "animated_tile.h"
 #include "tile_rendering_system.h"
 
-using namespace wanderer::component;
+using wanderer::component::AnimatedTile;
+using wanderer::component::RenderBounds;
+using wanderer::component::Tile;
+using wanderer::component::TileLayer;
+using wanderer::component::Tileset;
 
 namespace wanderer::system::layer {
 

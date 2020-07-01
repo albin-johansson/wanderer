@@ -8,7 +8,7 @@
 
 #pragma once
 
-namespace wanderer {
+namespace wanderer::component {
 
 /**
  * @struct RenderBounds
@@ -32,4 +32,4 @@ struct RenderBounds final {
   int maxCol{};
 };
 
-}  // namespace wanderer
+}  // namespace wanderer::component

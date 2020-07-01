@@ -4,6 +4,8 @@
 
 #include "animated_tile.h"
 
+using wanderer::component::AnimatedTile;
+
 namespace wanderer::system::tile {
 
 void update_animation(entt::registry& registry, entt::entity /*level*/)  // TODO

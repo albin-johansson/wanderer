@@ -12,7 +12,7 @@
 
 #include "wanderer_stdinc.h"
 
-namespace wanderer {
+namespace wanderer::component {
 
 /**
  * @struct Frame
@@ -55,4 +55,4 @@ struct AnimatedTile final {
   std::vector<Frame> frames;
 };
 
-}  // namespace wanderer
+}  // namespace wanderer::component

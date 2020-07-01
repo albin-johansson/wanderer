@@ -6,9 +6,10 @@
 
 namespace wanderer::system {
 
-[[nodiscard]] auto calculate_render_bounds(entt::registry& registry,
-                                           Viewport::entity viewportEntity,
-                                           int rows,
-                                           int cols) -> RenderBounds;
+[[nodiscard]] auto calculate_render_bounds(
+    entt::registry& registry,
+    component::Viewport::entity viewportEntity,
+    int rows,
+    int cols) -> component::RenderBounds;
 
 }  // namespace wanderer::system

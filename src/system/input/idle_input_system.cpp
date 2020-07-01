@@ -6,6 +6,9 @@
 #include "direction.h"
 #include "player.h"
 
+using wanderer::component::Binds;
+using wanderer::component::HumanoidIdle;
+
 namespace wanderer::system::input {
 
 void handle_idle_input(entt::registry& registry,
@@ -14,6 +17,7 @@ void handle_idle_input(entt::registry& registry,
                        const Input& input)
 {
   if (registry.has<HumanoidIdle>(player)) {
+    // TODO make precondition
     if (const auto* binds = registry.try_get<Binds>(player); binds) {
       const auto left = input.is_pressed(binds->left);
       const auto right = input.is_pressed(binds->right);

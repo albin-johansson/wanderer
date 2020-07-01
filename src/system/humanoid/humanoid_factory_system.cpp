@@ -15,6 +15,8 @@
 #include "movable.h"
 #include "player.h"
 
+using namespace wanderer::component;
+
 namespace wanderer::system::humanoid {
 namespace {
 

@@ -13,7 +13,7 @@
 
 #include "wanderer_stdinc.h"
 
-namespace wanderer {
+namespace wanderer::component {
 
 /**
  * @struct Viewport
@@ -33,4 +33,4 @@ struct Viewport final {
   ctn::FArea levelSize{};
 };
 
-}  // namespace wanderer
+}  // namespace wanderer::component

@@ -2,6 +2,8 @@
 
 #include "movable.h"
 
+using wanderer::component::Movable;
+
 namespace wanderer::system {
 
 void update_interpolation(entt::registry& registry, const Alpha alpha) noexcept

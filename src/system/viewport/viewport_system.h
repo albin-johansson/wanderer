@@ -17,12 +17,12 @@ namespace wanderer::system::viewport {
  * @param delta the delta time, in seconds.
  */
 void update(entt::registry& registry,
-            Viewport::entity viewportEntity,
+            component::Viewport::entity viewportEntity,
             entt::entity movableEntity,
             Delta delta);
 
 void translate(entt::registry& registry,
-               Viewport::entity viewportEntity,
+               component::Viewport::entity viewportEntity,
                ctn::Renderer& renderer);
 
 }  // namespace wanderer::system::viewport

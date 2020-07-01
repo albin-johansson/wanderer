@@ -1,6 +1,6 @@
 #pragma once
 
-namespace wanderer {
+namespace wanderer::component {
 
 struct GameObject final {
   int depth{5};
@@ -13,4 +13,4 @@ struct GameObject final {
   }
 };
 
-}  // namespace wanderer
+}  // namespace wanderer::component

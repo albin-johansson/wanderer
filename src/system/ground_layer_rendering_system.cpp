@@ -5,7 +5,10 @@
 #include "tile_layer.h"
 #include "tileset.h"
 
-using namespace wanderer::component;
+using wanderer::component::RenderBounds;
+using wanderer::component::TileLayer;
+using wanderer::component::Tilemap;
+using wanderer::component::Tileset;
 
 namespace wanderer::system::layer {
 

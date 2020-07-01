@@ -2,6 +2,8 @@
 
 #include "depth_drawable.h"
 
+using wanderer::component::DepthDrawable;
+
 namespace wanderer::system {
 
 void render_depth_drawables(entt::registry& registry, ctn::Renderer& renderer)

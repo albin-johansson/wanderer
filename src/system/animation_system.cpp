@@ -4,6 +4,8 @@
 
 #include "animated.h"
 
+using wanderer::component::Animated;
+
 namespace wanderer::system {
 
 void update_animation_state(entt::registry& registry) noexcept

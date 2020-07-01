@@ -13,7 +13,7 @@
 
 #include "wanderer_stdinc.h"
 
-namespace wanderer {
+namespace wanderer::component {
 
 /**
  * @brief Represents a layer of tiles.
@@ -29,4 +29,4 @@ struct TileLayer final {
   TileMatrix matrix; /**< Matrix of tile IDs that represent the layer. */
 };
 
-}  // namespace wanderer
+}  // namespace wanderer::component

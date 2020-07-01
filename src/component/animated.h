@@ -10,7 +10,7 @@
 
 #include "wanderer_stdinc.h"
 
-namespace wanderer {
+namespace wanderer::component {
 
 /**
  * @struct Animated
@@ -34,4 +34,4 @@ struct Animated final {
   u32 delay{100};
 };
 
-}  // namespace wanderer
+}  // namespace wanderer::component

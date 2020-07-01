@@ -6,6 +6,9 @@
 #include "math_utils.h"
 #include "viewport.h"
 
+using wanderer::component::RenderBounds;
+using wanderer::component::Viewport;
+
 namespace wanderer::system {
 
 auto calculate_render_bounds(entt::registry& registry,

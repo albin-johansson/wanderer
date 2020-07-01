@@ -5,6 +5,9 @@
 #include "humanoid_animation_system.h"
 #include "humanoid_state.h"
 
+using wanderer::component::HumanoidAttack;
+using wanderer::component::HumanoidIdle;
+
 namespace wanderer::system::humanoid {
 
 void on_attack_begin(const BeginAttackEvent& event)

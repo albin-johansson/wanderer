@@ -3,6 +3,9 @@
 #include "humanoid_animation_system.h"
 #include "humanoid_state.h"
 
+using wanderer::component::HumanoidIdle;
+using wanderer::component::HumanoidMove;
+
 namespace wanderer::system::humanoid {
 
 void on_move_begin(const BeginHumanoidMoveEvent& event)

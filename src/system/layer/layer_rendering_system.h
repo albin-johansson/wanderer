@@ -26,9 +26,9 @@ namespace wanderer::system::layer {
  * @param bounds the rendering bounds that will be used.
  */
 void render(entt::registry& registry,
-            const TileLayer& layer,
+            const component::TileLayer& layer,
             ctn::Renderer& renderer,
             const component::Tileset& tileset,
-            const RenderBounds& bounds);
+            const component::RenderBounds& bounds);
 
 }  // namespace wanderer::system::layer

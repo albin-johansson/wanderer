@@ -11,7 +11,7 @@
 #include "direction.h"
 #include "vector_2.h"
 
-namespace wanderer {
+namespace wanderer::component {
 
 /**
  * @struct Movable
@@ -48,4 +48,4 @@ struct Movable final {
   float speed{0};
 };
 
-}  // namespace wanderer
+}  // namespace wanderer::component

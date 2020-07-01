@@ -3,6 +3,9 @@
 #include "depth_drawable.h"
 #include "movable.h"
 
+using wanderer::component::DepthDrawable;
+using wanderer::component::Movable;
+
 namespace wanderer::system {
 
 void update_movable_depth_drawables(entt::registry& registry)

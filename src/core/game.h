@@ -30,7 +30,7 @@ class Game final {
 
   entt::entity m_player;
   component::Tilemap::entity m_world = null_entity<component::Tilemap>();
-  Viewport::entity m_viewport = null_entity<Viewport>();
+  component::Viewport::entity m_viewport = null_entity<component::Viewport>();
 };
 
 }  // namespace wanderer

@@ -2,6 +2,8 @@
 
 #include "game_constants.h"
 
+using wanderer::component::Viewport;
+
 namespace wanderer::system::viewport {
 
 auto make_viewport(entt::registry& registry) -> Viewport::entity
@@ -17,4 +19,4 @@ auto make_viewport(entt::registry& registry) -> Viewport::entity
   return Viewport::entity{entity};
 }
 
-}  // namespace wanderer::system
+}  // namespace wanderer::system::viewport

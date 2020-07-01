@@ -11,7 +11,7 @@
 #include "direction.h"
 #include "wanderer_stdinc.h"
 
-namespace wanderer {
+namespace wanderer::component {
 
 /**
  * @struct Humanoid
@@ -61,4 +61,4 @@ struct HumanoidAttack final {
 struct HumanoidDie final {
 };
 
-}  // namespace wanderer
+}  // namespace wanderer::component

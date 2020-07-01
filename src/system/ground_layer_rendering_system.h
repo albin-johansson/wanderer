@@ -11,6 +11,6 @@ namespace wanderer::system::layer {
 void render_ground(entt::registry& registry,
                    component::Tilemap::entity mapEntity,
                    ctn::Renderer& renderer,
-                   const RenderBounds& bounds);
+                   const component::RenderBounds& bounds);
 
 }  // namespace wanderer::system::layer
