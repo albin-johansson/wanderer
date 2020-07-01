@@ -15,10 +15,10 @@
 namespace wanderer::sys::input {
 
 /**
- * @brief Handles the player input when the player is idle.
+ * @brief Handles the player input if the player is idle.
  *
- * @note This method has no effect if the player entity doesn't have the
- * `HumanoidIdle`.
+ * @note This method has no effect if the player entity doesn't have a
+ * `HumanoidIdle` component.
  *
  * @pre The player entity must feature a `Binds` component.
  *
