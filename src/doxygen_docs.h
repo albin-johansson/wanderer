@@ -27,10 +27,10 @@
 
 /**
  * @brief Contains all of the components in the game.
- * @namespace wanderer::component
+ * @namespace wanderer::comp
  */
 
 /**
  * @brief Contains all of the systems in the game.
- * @namespace wanderer::system
+ * @namespace wanderer::sys
  */
