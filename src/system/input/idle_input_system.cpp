@@ -17,32 +17,30 @@ void handle_idle_input(entt::registry& registry,
                        const Input& input)
 {
   if (registry.has<HumanoidIdle>(player)) {
-    // TODO make precondition
-    if (const auto* binds = registry.try_get<Binds>(player); binds) {
-      const auto left = input.is_pressed(binds->left);
-      const auto right = input.is_pressed(binds->right);
-      const auto up = input.is_pressed(binds->up);
-      const auto down = input.is_pressed(binds->down);
+    const auto& binds = registry.get<Binds>(player);
 
-      if (left || right || up || down) {
-        Direction direction;
-        if (left) {
-          direction = Direction::Left;
-        } else if (right) {
-          direction = Direction::Right;
-        } else if (up) {
-          direction = Direction::Up;
-        } else {
-          direction = Direction::Down;
-        }
+    const auto left = input.is_pressed(binds.left);
+    const auto right = input.is_pressed(binds.right);
+    const auto up = input.is_pressed(binds.up);
+    const auto down = input.is_pressed(binds.down);
 
-        dispatcher.enqueue<BeginHumanoidMoveEvent>(
-            &registry, player, direction);
-
-      } else if (input.is_pressed(binds->attack)) {
-        dispatcher.enqueue<BeginAttackEvent>(
-            &registry, player, entt::null, Direction::Down);  // FIXME
+    if (left || right || up || down) {
+      Direction direction;
+      if (left) {
+        direction = Direction::Left;
+      } else if (right) {
+        direction = Direction::Right;
+      } else if (up) {
+        direction = Direction::Up;
+      } else {
+        direction = Direction::Down;
       }
+
+      dispatcher.enqueue<BeginHumanoidMoveEvent>(&registry, player, direction);
+
+    } else if (input.is_pressed(binds.attack)) {
+      dispatcher.enqueue<BeginAttackEvent>(
+          &registry, player, entt::null, Direction::Down);  // FIXME
     }
   }
 }
