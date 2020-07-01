@@ -45,6 +45,17 @@ void update(
   }
 }
 
+/**
+ * @brief Returns the y-coordinate with the appropriate offset in relation to
+ * the direction.
+ *
+ * @note This method assumes that all humanoids use an LPC tilesheet.
+ *
+ * @param y the base y-coordinate for the type of animation.
+ * @param direction the direction of the humanoid used to determine the
+ * appropriate offset.
+ * @return the source y-coordinate to use for rendering a humanoid.
+ */
 [[nodiscard]] auto source_y(const int y, const Direction direction) noexcept
     -> int
 {
@@ -62,8 +73,14 @@ void update(
   }
 }
 
-void humanoid_update_move_animation(entt::registry& registry,
-                                    const entt::entity entity) noexcept
+/**
+ * @brief Updates the movement animation of a humanoid.
+ *
+ * @param registry the associated registry.
+ * @param entity the entity that will be updated.
+ */
+void update_move_animation(entt::registry& registry,
+                           const entt::entity entity) noexcept
 {
   update(registry,
          entity,
@@ -81,8 +98,16 @@ void humanoid_update_move_animation(entt::registry& registry,
          });
 }
 
-void humanoid_update_attack_animation(entt::registry& registry,
-                                      const entt::entity entity) noexcept
+/**
+ * @brief Updates the attack animation of a humanoid.
+ *
+ * @pre `entity` must have a `HumanoidAttack` component.
+ *
+ * @param registry the associated registry.
+ * @param entity the entity that will be updated.
+ */
+void update_attack_animation(entt::registry& registry,
+                             const entt::entity entity) noexcept
 {
   update(registry,
          entity,
@@ -90,14 +115,25 @@ void humanoid_update_attack_animation(entt::registry& registry,
              Animated& animated, Movable&, DepthDrawable& drawable) noexcept {
            drawable.src.set_x(static_cast<int>(animated.frame) * 64);
            if (animated.frame == animated.nFrames - 1) {
-             if (auto* attack = registry.try_get<HumanoidAttack>(entity);
-                 attack) {
-               attack->done = true;
-             }
+             auto& attack = registry.get<HumanoidAttack>(entity);
+             attack.done = true;
            }
          });
 }
 
+/**
+ * @brief General method for entering an animation.
+ *
+ * @note This method only works for LPC spritesheets. Which should be used
+ * for all humanoids.
+ *
+ * @param registry the associated registry.
+ * @param entity the entity that will enter the animation.
+ * @param nFrames the number of frames in the animation.
+ * @param delay the duration of each frame in the animation.
+ * @param sourceY the base y-coordinate in the source tilesheet for the
+ * animation.
+ */
 void enter_animation(entt::registry& registry,
                      const entt::entity entity,
                      const u32 nFrames,
@@ -170,10 +206,10 @@ void update_animation(entt::registry& registry)
   const auto entities = registry.view<Humanoid>();
   for (const auto entity : entities) {
     if (registry.has<HumanoidMove>(entity)) {
-      humanoid_update_move_animation(registry, entity);
+      update_move_animation(registry, entity);
     }
     if (registry.has<HumanoidAttack>(entity)) {
-      humanoid_update_attack_animation(registry, entity);
+      update_attack_animation(registry, entity);
     }
   }
 }
