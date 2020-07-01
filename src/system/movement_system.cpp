@@ -26,17 +26,17 @@ void update_direction(Movable& movable) noexcept
 
 }  // namespace
 
-void update_movement(entt::registry& registry, const delta delta)
+void update_movement(entt::registry& registry, const delta dt)
 {
-  registry.view<Movable>().each([&registry, delta](const auto entity,
-                                                   Movable& movable) noexcept {
+  registry.view<Movable>().each([&registry, dt](const auto entity,
+                                                Movable& movable) noexcept {
     movable.oldPos = movable.currentPos;
     // TODO update hitbox
     //    movable.hitbox.set_x(m_currPosition.x);
     //    movable.hitbox.set_y(m_currPosition.y);
     update_direction(movable);
-    movable.currentPos.add(movable.velocity.x * delta.get(),
-                           movable.velocity.y * delta.get());
+    movable.currentPos.add(movable.velocity.x * dt.get(),
+                           movable.velocity.y * dt.get());
 
     // FIXME
     if (auto* drawable = registry.try_get<DepthDrawable>(entity); drawable) {

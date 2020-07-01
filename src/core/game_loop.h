@@ -38,13 +38,13 @@ class GameLoop final {
    * @brief Returns the current value of the interpolation coefficient.
    * @return an interpolation coefficient (alpha) value, in the range [0, 1].
    */
-  [[nodiscard]] auto alpha() const -> alpha
+  [[nodiscard]] auto curr_alpha() const -> alpha
   {
-    alpha alpha{m_accumulator.get() / m_timeStep.get()};
-    if (alpha > alpha{1.0f}) {
-      alpha = alpha{1.0f};
+    alpha res{m_accumulator.get() / m_timeStep.get()};
+    if (res > alpha{1.0f}) {
+      res = alpha{1.0f};
     }
-    return alpha;
+    return res;
   }
 
  private:

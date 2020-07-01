@@ -14,12 +14,12 @@ namespace wanderer::sys::viewport {
  * @param registry the registry that holds the viewport and the player.
  * @param viewportEntity the entity ID for the viewport.
  * @param movableEntity the entity ID for the movable.
- * @param delta the delta time, in seconds.
+ * @param dt the delta time, in seconds.
  */
 void update(entt::registry& registry,
             comp::Viewport::entity viewportEntity,
             entt::entity movableEntity,
-            delta delta);
+            delta dt);
 
 void translate(entt::registry& registry,
                comp::Viewport::entity viewportEntity,

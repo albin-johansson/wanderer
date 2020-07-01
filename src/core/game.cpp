@@ -54,7 +54,7 @@ void Game::handle_input(const Input& input)
   input::update(m_registry, m_dispatcher, m_player, input);
 }
 
-void Game::tick(const delta delta)
+void Game::tick(const delta dt)
 {
   // TODO check if menu is blocking
   m_dispatcher.update();
@@ -63,11 +63,11 @@ void Game::tick(const delta delta)
   humanoid::update_animation(m_registry);
   tile::update_animation(m_registry, m_world.get());  // FIXME m_world
 
-  update_movement(m_registry, delta);
+  update_movement(m_registry, dt);
 
   update_animation_state(m_registry);
   // TODO need to update viewport level size as well when level changes
-  viewport::update(m_registry, m_viewport, m_player, delta);
+  viewport::update(m_registry, m_viewport, m_player, dt);
 }
 
 void Game::render(ctn::Renderer& renderer, const alpha alpha)

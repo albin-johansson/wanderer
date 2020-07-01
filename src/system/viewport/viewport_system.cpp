@@ -13,9 +13,9 @@ namespace {
 void track(Viewport& viewport,
            const vector2f& target,
            const ctn::FArea& size,
-           const delta delta)
+           const delta dt)
 {
-  auto panSpeed = 15 * delta.get();
+  auto panSpeed = 15 * dt.get();
 
   const float targetX =
       (target.x + (size.width / 2.0f)) - (viewport.bounds.width() / 2.0f);
@@ -51,7 +51,7 @@ void track(Viewport& viewport,
 void update(entt::registry& registry,
             const Viewport::entity viewportEntity,
             const entt::entity movableEntity,
-            const delta delta)
+            const delta dt)
 {
   const auto& movable = registry.get<Movable>(movableEntity);
   auto& viewport = registry.get<Viewport>(viewportEntity.get());
@@ -59,7 +59,7 @@ void update(entt::registry& registry,
   track(viewport,
         movable.interpolatedPos,
         {g_humanoidDrawWidth, g_humanoidDrawHeight},
-        delta);
+        dt);
 }
 
 void translate(entt::registry& registry,

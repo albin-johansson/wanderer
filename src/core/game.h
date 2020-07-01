@@ -44,9 +44,9 @@ class Game final {
 
   /**
    * @brief Updates the state of the game.
-   * @param delta the delta time, in seconds.
+   * @param dt the delta time, in seconds.
    */
-  void tick(delta delta);
+  void tick(delta dt);
 
   /**
    * @brief Renders the game.
