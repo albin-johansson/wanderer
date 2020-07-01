@@ -73,6 +73,7 @@ void Game::tick(const delta dt)
 void Game::render(ctn::Renderer& renderer, const alpha alpha)
 {
   viewport::translate(m_registry, m_viewport, renderer);
+
   update_interpolation(m_registry, alpha);
   update_movable_depth_drawables(m_registry);
 
