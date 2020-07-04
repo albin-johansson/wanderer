@@ -3,7 +3,6 @@
 #include <assert.hpp>
 
 using wanderer::comp::AABB;
-using wanderer::comp::AABBLeaf;
 using wanderer::comp::AABBNode;
 using wanderer::comp::AABBRoot;
 
@@ -17,26 +16,16 @@ using wanderer::comp::AABBRoot;
 namespace wanderer::sys::aabb {
 namespace {
 
-auto merge(const AABB& fst, const AABB& snd) -> AABB
-{
-  AABB result;
-
-  result.min.x = std::min(fst.min.x, snd.min.x);
-  result.min.y = std::min(fst.min.y, snd.min.y);
-
-  result.max.x = std::max(fst.max.x, snd.max.x);
-  result.max.y = std::max(fst.max.y, snd.max.y);
-
-  const auto width = result.max.x - result.min.x;
-  const auto height = result.max.y - result.min.y;
-  result.area = width * height;
-
-  const auto centerX = result.min.x + (width / 2.0f);
-  const auto centerY = result.min.y + (height / 2.0f);
-  result.center = {centerX, centerY};
-
-  return result;
-}
+#define WDNR_VALIDATE_AABB(X)                                          \
+  {                                                                    \
+    const auto width_ = X.max.x - X.min.x;                             \
+    const auto height_ = X.max.y - X.min.y;                            \
+    BOOST_ASSERT_MSG(X.area == (width_ * height_), "Incorrect area!"); \
+    BOOST_ASSERT_MSG(X.center.x == (X.min.x + (width_ / 2.0f)),        \
+                     "Incorrect center x!");                           \
+    BOOST_ASSERT_MSG(X.center.y == (X.min.y + (height_ / 2.0f)),       \
+                     "Incorrect center y!");                           \
+  }
 
 auto find_best_place(entt::registry& registry,
                      const entt::entity rootEntity,
@@ -61,10 +50,10 @@ auto find_best_place(entt::registry& registry,
     // use the costs to figure out whether to create a new parent here or
     // descend
 
-    const auto calc_cost = [&registry, &originNode, minPushDownCost](
+    const auto calc_cost = [&isLeaf, &originNode, minPushDownCost](
                                const auto entity, const auto& node) -> float {
       const auto merged = merge(originNode.box, node);
-      if (registry.has<AABBLeaf>(entity)) {
+      if (isLeaf(entity)) {
         return merged.area + minPushDownCost;
       } else {
         return (merged.area - node.area) + minPushDownCost;
@@ -105,7 +94,12 @@ void fix_upwards_tree(entt::registry& registry, const entt::entity entity)
     const auto& leftChildNode = registry.get<AABBNode>(currentNode.left);
     const auto& rightChildNode = registry.get<AABBNode>(currentNode.left);
 
+    WDNR_VALIDATE_AABB(leftChildNode.box);
+    WDNR_VALIDATE_AABB(rightChildNode.box);
+
     currentNode.box = merge(leftChildNode.box, rightChildNode.box);
+
+    WDNR_VALIDATE_AABB(currentNode.box);
 
     current = currentNode.parent;
   }
@@ -121,6 +115,7 @@ void insert_leaf(entt::registry& registry,
   const auto newParent = registry.create();
 
   auto& originNode = registry.get<AABBNode>(originEntity);
+  WDNR_VALIDATE_AABB(originNode.box)
 
   // the new parents aabb is the leaf aabb combined with it's siblings aabb
   auto& newParentNode = registry.emplace<AABBNode>(newParent);
@@ -128,6 +123,8 @@ void insert_leaf(entt::registry& registry,
   newParentNode.box = merge(originNode.box, originSiblingNode.box);
   newParentNode.left = originSibling;
   newParentNode.right = originEntity;
+
+  WDNR_VALIDATE_AABB(newParentNode.box)
 
   originNode.parent = newParent;
   originSiblingNode.parent = newParent;
@@ -150,6 +147,27 @@ void insert_leaf(entt::registry& registry,
 
 }  // namespace
 
+auto merge(const AABB& fst, const AABB& snd) -> AABB
+{
+  AABB result;
+
+  result.min.x = std::min(fst.min.x, snd.min.x);
+  result.min.y = std::min(fst.min.y, snd.min.y);
+
+  result.max.x = std::max(fst.max.x, snd.max.x);
+  result.max.y = std::max(fst.max.y, snd.max.y);
+
+  const auto width = result.max.x - result.min.x;
+  const auto height = result.max.y - result.min.y;
+  result.area = width * height;
+
+  const auto centerX = result.min.x + (width / 2.0f);
+  const auto centerY = result.min.y + (height / 2.0f);
+  result.center = {centerX, centerY};
+
+  return result;
+}
+
 auto create_box(const centurion::FPoint& pos,
                 const centurion::FArea& size) noexcept -> comp::AABB
 {
@@ -165,7 +183,7 @@ auto create_box(const centurion::FPoint& pos,
   result.center.y = pos.y() + (size.height / 2.0f);
   result.area = size.width * size.height;
 
-  return comp::AABB();
+  return result;
 }
 
 auto overlaps(const AABB& fst, const AABB& snd) -> bool
@@ -184,8 +202,8 @@ void insert(entt::registry& registry,
                    "Entity is already tagged as AABB root!");
   BOOST_ASSERT_MSG(!registry.has<AABBNode>(originEntity),
                    "Entity is already an AABB node!");
-  BOOST_ASSERT_MSG(!registry.has<AABBLeaf>(originEntity),
-                   "Entity is already an AABB leaf!");
+  //  BOOST_ASSERT_MSG(!registry.has<AABBLeaf>(originEntity),
+  //                   "Entity is already an AABB leaf!");
 
   //  const auto rootView = registry.view<AABBRoot>();
   //  if (rootView.empty()) {
@@ -199,6 +217,8 @@ void insert(entt::registry& registry,
   //  registry.emplace<AABBLeaf>(originEntity);
   auto& originNode = registry.emplace<AABBNode>(originEntity);
   originNode.box = box;
+
+  WDNR_VALIDATE_AABB(originNode.box);
 
   BOOST_ASSERT(originNode.parent == entt::null);
   BOOST_ASSERT(originNode.left == entt::null);
