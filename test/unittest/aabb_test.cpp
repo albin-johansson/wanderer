@@ -12,23 +12,17 @@ TEST_SUITE("AABB system")
   {
     entt::registry registry;
 
-    const auto fstEntity = registry.create();
-    const AABB fstBox = aabb::make_aabb({0, 0}, {100, 100});
-
+    const auto fstBox = aabb::make_aabb({0, 0}, {100, 100});
     CHECK(fstBox.min == wanderer::vector2f{0, 0});
     CHECK(fstBox.max == wanderer::vector2f{100, 100});
     CHECK(fstBox.area == 10'000);
+    const auto fstEntity = aabb::insert(registry, fstBox);
 
-    aabb::insert(registry, fstEntity, fstBox);
-
-    const auto sndEntity = registry.create();
-    const AABB sndBox = aabb::make_aabb({150, 150}, {100, 100});
-
+    const auto sndBox = aabb::make_aabb({150, 150}, {100, 100});
     CHECK(sndBox.min == wanderer::vector2f{150, 150});
     CHECK(sndBox.max == wanderer::vector2f{250, 250});
     CHECK(sndBox.area == 10'000);
-
-    aabb::insert(registry, sndEntity, sndBox);
+    const auto sndEntity = aabb::insert(registry, sndBox);
 
     SUBCASE("Check root")
     {
@@ -75,14 +69,10 @@ TEST_SUITE("AABB system")
   {
     entt::registry registry;
 
-    aabb::insert(
-        registry, registry.create(), aabb::make_aabb({0, 0}, {100, 100}));
-    aabb::insert(
-        registry, registry.create(), aabb::make_aabb({150, 150}, {100, 100}));
-    aabb::insert(
-        registry, registry.create(), aabb::make_aabb({175, 350}, {100, 100}));
-    aabb::insert(
-        registry, registry.create(), aabb::make_aabb({523, 120}, {33, 56}));
+    aabb::insert(registry, aabb::make_aabb({0, 0}, {100, 100}));
+    aabb::insert(registry, aabb::make_aabb({150, 150}, {100, 100}));
+    aabb::insert(registry, aabb::make_aabb({175, 350}, {100, 100}));
+    aabb::insert(registry, aabb::make_aabb({523, 120}, {33, 56}));
 
     ctn::Window window;
     ctn::Renderer renderer{window};

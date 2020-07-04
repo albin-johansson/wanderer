@@ -17,7 +17,8 @@ using wanderer::comp::AABBRoot;
 namespace wanderer::sys::aabb {
 namespace {
 
-void fix_upwards_tree(entt::registry& registry, entt::entity treeNodeEntity)
+void fix_upwards_tree(entt::registry& registry,
+                      entt::entity treeNodeEntity) noexcept
 {
   while (treeNodeEntity != entt::null) {
     auto& treeNode = registry.get<AABBNode>(treeNodeEntity);
@@ -36,54 +37,8 @@ void fix_upwards_tree(entt::registry& registry, entt::entity treeNodeEntity)
   }
 }
 
-}  // namespace
-
-auto merge(const AABB& fst, const AABB& snd) noexcept -> AABB
-{
-  AABB result;
-
-  result.min.x = std::min(fst.min.x, snd.min.x);
-  result.min.y = std::min(fst.min.y, snd.min.y);
-
-  result.max.x = std::max(fst.max.x, snd.max.x);
-  result.max.y = std::max(fst.max.y, snd.max.y);
-
-  const auto width = result.max.x - result.min.x;
-  const auto height = result.max.y - result.min.y;
-  result.area = width * height;
-
-  const auto centerX = result.min.x + (width / 2.0f);
-  const auto centerY = result.min.y + (height / 2.0f);
-  result.center = {centerX, centerY};
-
-  return result;
-}
-
-auto make_aabb(const centurion::FPoint& pos,
-                const centurion::FArea& size) noexcept -> comp::AABB
-{
-  AABB result;
-
-  result.min.x = pos.x();
-  result.min.y = pos.y();
-
-  result.max.x = pos.x() + size.width;
-  result.max.y = pos.y() + size.height;
-
-  result.center.x = pos.x() + (size.width / 2.0f);
-  result.center.y = pos.y() + (size.height / 2.0f);
-  result.area = size.width * size.height;
-
-  return result;
-}
-
-auto overlaps(const AABB& fst, const AABB& snd) -> bool
-{
-  return (fst.max.x > snd.min.x) && (fst.min.x < snd.max.x) &&
-         (fst.max.y > snd.min.y) && (fst.min.y < snd.max.y);
-}
-
-void insert_leaf(entt::registry& registry, const entt::entity leafNodeEntity)
+void insert_leaf(entt::registry& registry,
+                 const entt::entity leafNodeEntity) noexcept
 {
   // make sure we're inserting a new leaf
   const auto& node = registry.get<AABBNode>(leafNodeEntity);
@@ -114,15 +69,12 @@ void insert_leaf(entt::registry& registry, const entt::entity leafNodeEntity)
     const auto& treeNode = registry.get<AABBNode>(treeNodeEntity);
     const auto leftNodeEntity = treeNode.left;
     const auto rightNodeEntity = treeNode.right;
-    const auto& leftNode = registry.get<AABBNode>(leftNodeEntity);
-    const auto& rightNode = registry.get<AABBNode>(rightNodeEntity);
-
     const auto combined = merge(treeNode.box, leafNode.box);
 
     float newParentNodeCost = 2.0f * combined.area;
     float minimumPushDownCost = 2.0f * (combined.area - treeNode.box.area);
 
-    const auto getCost = [&](const auto nodeEntity) -> float {
+    const auto getCost = [&](const auto nodeEntity) noexcept -> float {
       const auto& node = registry.get<AABBNode>(nodeEntity);
       if (isLeaf(nodeEntity)) {
         return merge(leafNode.box, node.box).area + minimumPushDownCost;
@@ -188,15 +140,64 @@ void insert_leaf(entt::registry& registry, const entt::entity leafNodeEntity)
   fix_upwards_tree(registry, leafNode.parent);
 }
 
-void insert(entt::registry& registry,
-            const entt::entity originEntity,
-            const comp::AABB& box)
+}  // namespace
+
+auto make_aabb(const centurion::FPoint& pos,
+               const centurion::FArea& size) noexcept -> comp::AABB
+{
+  AABB result;
+
+  result.min.x = pos.x();
+  result.min.y = pos.y();
+
+  result.max.x = pos.x() + size.width;
+  result.max.y = pos.y() + size.height;
+
+  result.center.x = pos.x() + (size.width / 2.0f);
+  result.center.y = pos.y() + (size.height / 2.0f);
+  result.area = size.width * size.height;
+
+  return result;
+}
+
+auto merge(const AABB& fst, const AABB& snd) noexcept -> AABB
+{
+  AABB result;
+
+  result.min.x = std::min(fst.min.x, snd.min.x);
+  result.min.y = std::min(fst.min.y, snd.min.y);
+
+  result.max.x = std::max(fst.max.x, snd.max.x);
+  result.max.y = std::max(fst.max.y, snd.max.y);
+
+  const auto width = result.max.x - result.min.x;
+  const auto height = result.max.y - result.min.y;
+  result.area = width * height;
+
+  const auto centerX = result.min.x + (width / 2.0f);
+  const auto centerY = result.min.y + (height / 2.0f);
+  result.center = {centerX, centerY};
+
+  return result;
+}
+
+auto overlaps(const AABB& fst, const AABB& snd) noexcept -> bool
+{
+  return (fst.max.x > snd.min.x) && (fst.min.x < snd.max.x) &&
+         (fst.max.y > snd.min.y) && (fst.min.y < snd.max.y);
+}
+
+auto insert(entt::registry& registry, const comp::AABB& box) noexcept
+    -> entt::entity
 {
   const auto nodeEntity = registry.create();
+
   auto& node = registry.emplace<AABBNode>(nodeEntity);
   node.box = box;
 
   insert_leaf(registry, nodeEntity);
+
+  return nodeEntity;
 }
 
 void query(entt::registry&, entt::entity)
