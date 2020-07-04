@@ -13,7 +13,7 @@ TEST_SUITE("AABB system")
     entt::registry registry;
 
     const auto fstEntity = registry.create();
-    const AABB fstBox = aabb::create_box({0, 0}, {100, 100});
+    const AABB fstBox = aabb::make_aabb({0, 0}, {100, 100});
 
     CHECK(fstBox.min == wanderer::vector2f{0, 0});
     CHECK(fstBox.max == wanderer::vector2f{100, 100});
@@ -22,7 +22,7 @@ TEST_SUITE("AABB system")
     aabb::insert(registry, fstEntity, fstBox);
 
     const auto sndEntity = registry.create();
-    const AABB sndBox = aabb::create_box({150, 150}, {100, 100});
+    const AABB sndBox = aabb::make_aabb({150, 150}, {100, 100});
 
     CHECK(sndBox.min == wanderer::vector2f{150, 150});
     CHECK(sndBox.max == wanderer::vector2f{250, 250});
@@ -49,68 +49,12 @@ TEST_SUITE("AABB system")
     }
 
     CHECK(registry.view<AABBNode>().size() == 3);
-
-    //    ctn::Window window;
-    //    ctn::Renderer renderer{window};
-    //    ctn::event::Event event;
-    //
-    //    bool running = true;
-    //    window.show();
-    //    while (running) {
-    //      while (event.poll()) {
-    //        if (const auto quit = event.as_quit_event(); quit) {
-    //          running = false;
-    //        }
-    //
-    //        if (const auto key = event.as_keyboard_event(); key) {
-    //          if (key->is_active(SDLK_ESCAPE)) {
-    //            running = false;
-    //          }
-    //        }
-    //      }
-    //
-    //      static bool first = true;
-    //      if (first) {
-    //        renderer.set_color(ctn::color::black);
-    //        renderer.clear();
-    //
-    //        renderer.set_color(ctn::color::red);
-    //
-    //        ctn::Log::info("---");
-    //        const auto view = registry.view<AABBNode>();
-    //        for (const auto entity : view) {
-    //          const auto& node = view.get(entity);
-    //
-    //          const ctn::FPoint pos{node.box.min.x, node.box.min.y};
-    //          const ctn::FArea size{node.box.max.x - node.box.min.x,
-    //                                node.box.max.y - node.box.min.y};
-    //          const ctn::FRect rect{pos, size};
-    //
-    //          if (registry.has<AABBRoot>(entity)) {
-    //            ctn::Log::info("Drawing root...");
-    //          }
-    //
-    //          ctn::Log::info("Drawing (%f, %f, %f, %f))",
-    //                         pos.x(),
-    //                         pos.y(),
-    //                         size.width,
-    //                         size.height);
-    //
-    //          renderer.draw_rect_f(rect);
-    //
-    //          first = false;
-    //        }
-    //
-    //        renderer.present();
-    //      }
-    //    }
-    //    window.hide();
   }
 
   TEST_CASE("aabb::merge")
   {
-    const auto fst = aabb::create_box({10, 10}, {90, 90});
-    const auto snd = aabb::create_box({110, 110}, {90, 90});
+    const auto fst = aabb::make_aabb({10, 10}, {90, 90});
+    const auto snd = aabb::make_aabb({110, 110}, {90, 90});
     const auto combined = aabb::merge(fst, snd);
 
     CHECK(combined.min.x == std::min(fst.min.x, snd.min.x));
@@ -125,5 +69,81 @@ TEST_SUITE("AABB system")
     CHECK(combined.area == (width * height));
     CHECK(combined.center.x == combined.min.x + (width / 2.0f));
     CHECK(combined.center.y == combined.min.y + (height / 2.0f));
+  }
+
+  TEST_CASE("Visualization of the AABB system" * doctest::skip())
+  {
+    entt::registry registry;
+
+    aabb::insert(
+        registry, registry.create(), aabb::make_aabb({0, 0}, {100, 100}));
+    aabb::insert(
+        registry, registry.create(), aabb::make_aabb({150, 150}, {100, 100}));
+    aabb::insert(
+        registry, registry.create(), aabb::make_aabb({175, 350}, {100, 100}));
+    aabb::insert(
+        registry, registry.create(), aabb::make_aabb({523, 120}, {33, 56}));
+
+    ctn::Window window;
+    ctn::Renderer renderer{window};
+    ctn::event::Event event;
+
+    bool running = true;
+    window.show();
+    while (running) {
+      while (event.poll()) {
+        if (const auto quit = event.as_quit_event(); quit) {
+          running = false;
+        }
+
+        if (const auto key = event.as_keyboard_event(); key) {
+          if (key->is_active(SDLK_ESCAPE)) {
+            running = false;
+          }
+        }
+      }
+
+      static bool first = true;
+      if (first) {
+        renderer.set_color(ctn::color::black);
+        renderer.clear();
+
+        renderer.set_color(ctn::color::red);
+
+        ctn::Log::info("---");
+        const auto view = registry.view<AABBNode>();
+        for (const auto entity : view) {
+          const auto& node = view.get(entity);
+
+          if (node.left == entt::null) {
+            renderer.set_color(ctn::color::pink);
+          } else {
+            renderer.set_color(ctn::color::red);
+          }
+
+          const ctn::FPoint pos{node.box.min.x, node.box.min.y};
+          const ctn::FArea size{node.box.max.x - node.box.min.x,
+                                node.box.max.y - node.box.min.y};
+          const ctn::FRect rect{pos, size};
+
+          if (registry.has<AABBRoot>(entity)) {
+            ctn::Log::info("Drawing root...");
+          }
+
+          ctn::Log::info("Drawing (%f, %f, %f, %f))",
+                         pos.x(),
+                         pos.y(),
+                         size.width,
+                         size.height);
+
+          renderer.draw_rect_f(rect);
+
+          first = false;
+        }
+
+        renderer.present();
+      }
+    }
+    window.hide();
   }
 }
