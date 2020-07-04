@@ -350,6 +350,18 @@ class TVector2 {
     return lhs.dot(rhs);
   }
 
+  friend constexpr auto operator*(const TVector2<T>& vec, float scale) noexcept
+      -> TVector2<T>
+  {
+    return {vec.x * scale, vec.y * scale};
+  }
+
+  friend constexpr auto operator*(float scale, const TVector2<T>& vec) noexcept
+      -> TVector2<T>
+  {
+    return vec * scale;
+  }
+
   /**
    * Indicates whether or not two vectors are the same.
    *

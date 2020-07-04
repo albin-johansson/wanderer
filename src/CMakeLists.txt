@@ -113,7 +113,11 @@ set(SOURCE_FILES
         parse/tile/make_map.h
         parse/tile/make_map.cpp
         parse/tile/make_tileset.cpp
-        parse/tile/make_tileset.h)
+        parse/tile/make_tileset.h
+
+        system/collision/aabb_system.cpp
+        system/collision/aabb_system.h
+        component/aabb.h)
 
 add_library(${WANDERER_LIB_TARGET} ${SOURCE_FILES})
 
@@ -144,6 +148,11 @@ wanderer_add_header_only_lib(libOptional
         ${LIBRARY_DIR}/optional
         ${LIBRARY_DIR}/optional/optional.hpp)
 
+
+#wanderer_add_header_only_lib(libAABB
+#        ${LIBRARY_DIR}/aabb
+#        ${LIBRARY_DIR}/optional/optional.hpp)
+
 wanderer_add_header_only_lib(libGSL
         ${LIBRARY_DIR}/gsl-lite
         ${LIBRARY_DIR}/gsl-lite/gsl-lite.hpp)
@@ -156,12 +165,121 @@ wanderer_add_header_only_lib(libBOOST
         ${LIBRARY_DIR}/boost
         ${BOOST_SOURCES})
 
+#set(AABB_SOURCES
+#        ${LIBRARY_DIR}/aabb/AABB.h
+#        ${LIBRARY_DIR}/aabb/AABB.cc)
+#wanderer_add_header_only_lib(libAABB ${LIBRARY_DIR}/aabb ${AABB_SOURCES})
+
 set(NAMED_TYPE_SOURCES
         ${LIBRARY_DIR}/namedtype/named_type.hpp
         ${LIBRARY_DIR}/namedtype/named_type_impl.hpp
         ${LIBRARY_DIR}/namedtype/crtp.hpp
         ${LIBRARY_DIR}/namedtype/underlying_functionalities.hpp)
 wanderer_add_header_only_lib(libNamedType ${LIBRARY_DIR}/namedtype ${NAMED_TYPE_SOURCES})
+
+set(SIMPLEVOXELENGINE_TYPE_SOURCES
+        ${LIBRARY_DIR}/simplevoxelengine/AABB.h
+        ${LIBRARY_DIR}/simplevoxelengine/AABBTree.h
+        ${LIBRARY_DIR}/simplevoxelengine/AABBTree.cpp
+        ${LIBRARY_DIR}/simplevoxelengine/IAABB.h)
+wanderer_add_header_only_lib(libSVEAABB ${LIBRARY_DIR}/simplevoxelengine ${SIMPLEVOXELENGINE_TYPE_SOURCES})
+
+
+#set(BOX2D_SOURCES
+#        ${LIBRARY_DIR}/box2d/b2_broad_phase.cpp
+#        ${LIBRARY_DIR}/box2d/b2_chain_shape.cpp
+#        ${LIBRARY_DIR}/box2d/b2_circle_shape.cpp
+#        ${LIBRARY_DIR}/box2d/b2_collide_circle.cpp
+#        ${LIBRARY_DIR}/box2d/b2_collide_edge.cpp
+#        ${LIBRARY_DIR}/box2d/b2_collide_polygon.cpp
+#        ${LIBRARY_DIR}/box2d/b2_collision.cpp
+#        ${LIBRARY_DIR}/box2d/b2_distance.cpp
+#        ${LIBRARY_DIR}/box2d/b2_dynamic_tree.cpp
+#        ${LIBRARY_DIR}/box2d/b2_edge_shape.cpp
+#        ${LIBRARY_DIR}/box2d/b2_polygon_shape.cpp
+#        ${LIBRARY_DIR}/box2d/b2_time_of_impact.cpp
+#        ${LIBRARY_DIR}/box2d/b2_block_allocator.cpp
+#        ${LIBRARY_DIR}/box2d/b2_draw.cpp
+#        ${LIBRARY_DIR}/box2d/b2_math.cpp
+#        ${LIBRARY_DIR}/box2d/b2_settings.cpp
+#        ${LIBRARY_DIR}/box2d/b2_stack_allocator.cpp
+#        ${LIBRARY_DIR}/box2d/b2_timer.cpp
+#        ${LIBRARY_DIR}/box2d/b2_body.cpp
+#        ${LIBRARY_DIR}/box2d/b2_chain_circle_contact.cpp
+#        ${LIBRARY_DIR}/box2d/b2_chain_circle_contact.h
+#        ${LIBRARY_DIR}/box2d/b2_chain_polygon_contact.cpp
+#        ${LIBRARY_DIR}/box2d/b2_chain_polygon_contact.h
+#        ${LIBRARY_DIR}/box2d/b2_circle_contact.cpp
+#        ${LIBRARY_DIR}/box2d/b2_circle_contact.h
+#        ${LIBRARY_DIR}/box2d/b2_contact.cpp
+#        ${LIBRARY_DIR}/box2d/b2_contact_manager.cpp
+#        ${LIBRARY_DIR}/box2d/b2_contact_solver.cpp
+#        ${LIBRARY_DIR}/box2d/b2_contact_solver.h
+#        ${LIBRARY_DIR}/box2d/b2_distance_joint.cpp
+#        ${LIBRARY_DIR}/box2d/b2_edge_circle_contact.cpp
+#        ${LIBRARY_DIR}/box2d/b2_edge_circle_contact.h
+#        ${LIBRARY_DIR}/box2d/b2_edge_polygon_contact.cpp
+#        ${LIBRARY_DIR}/box2d/b2_edge_polygon_contact.h
+#        ${LIBRARY_DIR}/box2d/b2_fixture.cpp
+#        ${LIBRARY_DIR}/box2d/b2_friction_joint.cpp
+#        ${LIBRARY_DIR}/box2d/b2_gear_joint.cpp
+#        ${LIBRARY_DIR}/box2d/b2_island.cpp
+#        ${LIBRARY_DIR}/box2d/b2_island.h
+#        ${LIBRARY_DIR}/box2d/b2_joint.cpp
+#        ${LIBRARY_DIR}/box2d/b2_motor_joint.cpp
+#        ${LIBRARY_DIR}/box2d/b2_mouse_joint.cpp
+#        ${LIBRARY_DIR}/box2d/b2_polygon_circle_contact.cpp
+#        ${LIBRARY_DIR}/box2d/b2_polygon_circle_contact.h
+#        ${LIBRARY_DIR}/box2d/b2_polygon_contact.cpp
+#        ${LIBRARY_DIR}/box2d/b2_polygon_contact.h
+#        ${LIBRARY_DIR}/box2d/b2_prismatic_joint.cpp
+#        ${LIBRARY_DIR}/box2d/b2_pulley_joint.cpp
+#        ${LIBRARY_DIR}/box2d/b2_revolute_joint.cpp
+#        ${LIBRARY_DIR}/box2d/b2_rope_joint.cpp
+#        ${LIBRARY_DIR}/box2d/b2_weld_joint.cpp
+#        ${LIBRARY_DIR}/box2d/b2_wheel_joint.cpp
+#        ${LIBRARY_DIR}/box2d/b2_world.cpp
+#        ${LIBRARY_DIR}/box2d/b2_world_callbacks.cpp
+#        ${LIBRARY_DIR}/box2d/b2_rope.cpp
+#        ${LIBRARY_DIR}/box2d/b2_block_allocator.h
+#        ${LIBRARY_DIR}/box2d/b2_body.h
+#        ${LIBRARY_DIR}/box2d/b2_broad_phase.h
+#        ${LIBRARY_DIR}/box2d/b2_chain_shape.h
+#        ${LIBRARY_DIR}/box2d/b2_circle_shape.h
+#        ${LIBRARY_DIR}/box2d/b2_collision.h
+#        ${LIBRARY_DIR}/box2d/b2_contact.h
+#        ${LIBRARY_DIR}/box2d/b2_contact_manager.h
+#        ${LIBRARY_DIR}/box2d/b2_distance.h
+#        ${LIBRARY_DIR}/box2d/b2_distance_joint.h
+#        ${LIBRARY_DIR}/box2d/b2_draw.h
+#        ${LIBRARY_DIR}/box2d/b2_dynamic_tree.h
+#        ${LIBRARY_DIR}/box2d/b2_edge_shape.h
+#        ${LIBRARY_DIR}/box2d/b2_fixture.h
+#        ${LIBRARY_DIR}/box2d/b2_friction_joint.h
+#        ${LIBRARY_DIR}/box2d/b2_gear_joint.h
+#        ${LIBRARY_DIR}/box2d/b2_growable_stack.h
+#        ${LIBRARY_DIR}/box2d/b2_joint.h
+#        ${LIBRARY_DIR}/box2d/b2_math.h
+#        ${LIBRARY_DIR}/box2d/b2_motor_joint.h
+#        ${LIBRARY_DIR}/box2d/b2_mouse_joint.h
+#        ${LIBRARY_DIR}/box2d/b2_polygon_shape.h
+#        ${LIBRARY_DIR}/box2d/b2_prismatic_joint.h
+#        ${LIBRARY_DIR}/box2d/b2_pulley_joint.h
+#        ${LIBRARY_DIR}/box2d/b2_revolute_joint.h
+#        ${LIBRARY_DIR}/box2d/b2_rope.h
+#        ${LIBRARY_DIR}/box2d/b2_rope_joint.h
+#        ${LIBRARY_DIR}/box2d/b2_settings.h
+#        ${LIBRARY_DIR}/box2d/b2_shape.h
+#        ${LIBRARY_DIR}/box2d/b2_stack_allocator.h
+#        ${LIBRARY_DIR}/box2d/b2_time_of_impact.h
+#        ${LIBRARY_DIR}/box2d/b2_timer.h
+#        ${LIBRARY_DIR}/box2d/b2_time_step.h
+#        ${LIBRARY_DIR}/box2d/b2_weld_joint.h
+#        ${LIBRARY_DIR}/box2d/b2_wheel_joint.h
+#        ${LIBRARY_DIR}/box2d/b2_world.h
+#        ${LIBRARY_DIR}/box2d/b2_world_callbacks.h
+#        ${LIBRARY_DIR}/box2d/box2d.h)
+#wanderer_add_header_only_lib(libBox2D ${LIBRARY_DIR}/box2d ${BOX2D_SOURCES})
 
 # Library directories
 target_include_directories(${WANDERER_LIB_TARGET}
@@ -205,6 +323,7 @@ target_link_libraries(${WANDERER_LIB_TARGET}
         PUBLIC libNamedType
         PUBLIC libOptional
         PUBLIC libGSL
+        PUBLIC libSVEAABB
         PUBLIC libBOOST)
 
 add_executable(${WANDERER_EXE_TARGET} main.cpp)

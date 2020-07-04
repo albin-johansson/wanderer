@@ -5,7 +5,7 @@ set(TEST_FILES
         unittest/test_main.cpp
         unittest/hitbox_test.cpp
         unittest/humanoid_state_test.cpp
-        unittest/event_connections_test.cpp)
+        unittest/event_connections_test.cpp unittest/aabb_test.cpp)
 
 add_executable(${WANDERER_TEST_TARGET} ${TEST_FILES})
 add_dependencies(${WANDERER_TEST_TARGET} ${WANDERER_LIB_TARGET})
