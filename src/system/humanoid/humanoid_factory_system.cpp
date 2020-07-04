@@ -11,6 +11,7 @@
 #include "direction.h"
 #include "game_constants.h"
 #include "hitbox.h"
+#include "hitbox_system.h"
 #include "image_loader.h"
 #include "movable.h"
 #include "player.h"
@@ -55,7 +56,12 @@ namespace {
   animated.then = ctn::Timer::millis();
   animated.nFrames = 1;
 
-  registry.emplace<Hitbox>(entity);
+  constexpr ctn::FArea humanoidSize{g_humanoidDrawWidth, g_humanoidDrawHeight};
+
+  registry.emplace<Hitbox>(
+      entity,
+      hitbox::create({Subhitbox{vector2f{}, ctn::FRect{{}, humanoidSize}}}));
+
   registry.emplace<Humanoid>(entity);
   registry.emplace<HumanoidIdle>(entity);
 

@@ -1,6 +1,7 @@
 #include "render_depth_drawables_system.h"
 
 #include "depth_drawable.h"
+#include "hitbox.h"
 
 using wanderer::comp::DepthDrawable;
 
@@ -20,8 +21,14 @@ void render_depth_drawables(entt::registry& registry, ctn::Renderer& renderer)
       entt::insertion_sort{});
 
   registry.view<DepthDrawable>().each(
-      [&renderer](const DepthDrawable& drawable) noexcept {
+      [&](const auto entity, const DepthDrawable& drawable) noexcept {
         renderer.render_tf(*drawable.texture, drawable.src, drawable.dst);
+
+        if (const auto* hitbox = registry.try_get<comp::Hitbox>(entity);
+            hitbox) {
+          renderer.set_color(ctn::color::red);
+          renderer.draw_rect_tf(hitbox->bounds);
+        }
       });
 }
 
