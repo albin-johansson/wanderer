@@ -148,6 +148,14 @@ wanderer_add_header_only_lib(libGSL
         ${LIBRARY_DIR}/gsl-lite
         ${LIBRARY_DIR}/gsl-lite/gsl-lite.hpp)
 
+set(BOOST_SOURCES
+        ${LIBRARY_DIR}/boost/assert.hpp
+        ${LIBRARY_DIR}/boost/config.hpp
+        ${LIBRARY_DIR}/boost/current_function.hpp)
+wanderer_add_header_only_lib(libBOOST
+        ${LIBRARY_DIR}/boost
+        ${BOOST_SOURCES})
+
 set(NAMED_TYPE_SOURCES
         ${LIBRARY_DIR}/namedtype/named_type.hpp
         ${LIBRARY_DIR}/namedtype/named_type_impl.hpp
@@ -177,6 +185,7 @@ target_include_directories(${WANDERER_LIB_TARGET}
         PUBLIC system/tile
         PUBLIC system/layer
         PUBLIC system/viewport
+        PUBLIC system/collision
         PUBLIC utility
         PUBLIC parse
         PUBLIC parse/tile
@@ -195,7 +204,8 @@ target_link_libraries(${WANDERER_LIB_TARGET}
         PUBLIC libJSON
         PUBLIC libNamedType
         PUBLIC libOptional
-        PUBLIC libGSL)
+        PUBLIC libGSL
+        PUBLIC libBOOST)
 
 add_executable(${WANDERER_EXE_TARGET} main.cpp)
 
