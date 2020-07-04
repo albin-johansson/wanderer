@@ -16,13 +16,17 @@ TEST_SUITE("AABB system")
     CHECK(fstBox.min == wanderer::vector2f{0, 0});
     CHECK(fstBox.max == wanderer::vector2f{100, 100});
     CHECK(fstBox.area == 10'000);
-    const auto fstEntity = aabb::insert(registry, fstBox);
+
+    const auto fstEntity = registry.create();
+    aabb::insert(registry, fstEntity, fstBox);
 
     const auto sndBox = aabb::make_aabb({150, 150}, {100, 100});
     CHECK(sndBox.min == wanderer::vector2f{150, 150});
     CHECK(sndBox.max == wanderer::vector2f{250, 250});
     CHECK(sndBox.area == 10'000);
-    const auto sndEntity = aabb::insert(registry, sndBox);
+
+    const auto sndEntity = registry.create();
+    aabb::insert(registry, sndEntity, sndBox);
 
     SUBCASE("Check root")
     {
@@ -65,14 +69,18 @@ TEST_SUITE("AABB system")
     CHECK(combined.center.y == combined.min.y + (height / 2.0f));
   }
 
-  TEST_CASE("Visualization of the AABB system" * doctest::skip())
+  TEST_CASE("Visualization of the AABB system" * doctest::skip(false))
   {
     entt::registry registry;
 
-    aabb::insert(registry, aabb::make_aabb({0, 0}, {100, 100}));
-    aabb::insert(registry, aabb::make_aabb({150, 150}, {100, 100}));
-    aabb::insert(registry, aabb::make_aabb({175, 350}, {100, 100}));
-    aabb::insert(registry, aabb::make_aabb({523, 120}, {33, 56}));
+    const auto fst = registry.create();
+    aabb::insert(registry, fst, aabb::make_aabb({0, 0}, {100, 100}));
+    aabb::insert(
+        registry, registry.create(), aabb::make_aabb({150, 150}, {100, 100}));
+    aabb::insert(
+        registry, registry.create(), aabb::make_aabb({175, 350}, {100, 100}));
+    aabb::insert(
+        registry, registry.create(), aabb::make_aabb({523, 120}, {33, 56}));
 
     ctn::Window window;
     ctn::Renderer renderer{window};
@@ -89,50 +97,41 @@ TEST_SUITE("AABB system")
         if (const auto key = event.as_keyboard_event(); key) {
           if (key->is_active(SDLK_ESCAPE)) {
             running = false;
+          } else if (key->is_active(SDLK_RIGHT)) {
+            ctn::Log::info("Updating first AABB...");
+            const auto& node = registry.get<AABBNode>(fst);
+
+            auto copy = node.box;
+            copy.min.x -= 10;
+
+            aabb::validate(copy);
+            aabb::update(registry, fst, copy);
           }
         }
       }
 
-      static bool first = true;
-      if (first) {
-        renderer.set_color(ctn::color::black);
-        renderer.clear();
+      renderer.set_color(ctn::color::black);
+      renderer.clear();
 
-        renderer.set_color(ctn::color::red);
+      const auto view = registry.view<AABBNode>();
+      for (const auto entity : view) {
+        const auto& node = view.get(entity);
 
-        ctn::Log::info("---");
-        const auto view = registry.view<AABBNode>();
-        for (const auto entity : view) {
-          const auto& node = view.get(entity);
-
-          if (node.left == entt::null) {
-            renderer.set_color(ctn::color::pink);
-          } else {
-            renderer.set_color(ctn::color::red);
-          }
-
-          const ctn::FPoint pos{node.box.min.x, node.box.min.y};
-          const ctn::FArea size{node.box.max.x - node.box.min.x,
-                                node.box.max.y - node.box.min.y};
-          const ctn::FRect rect{pos, size};
-
-          if (registry.has<AABBRoot>(entity)) {
-            ctn::Log::info("Drawing root...");
-          }
-
-          ctn::Log::info("Drawing (%f, %f, %f, %f))",
-                         pos.x(),
-                         pos.y(),
-                         size.width,
-                         size.height);
-
-          renderer.draw_rect_f(rect);
-
-          first = false;
+        if (node.left == entt::null) {
+          renderer.set_color(ctn::color::pink);
+        } else {
+          renderer.set_color(ctn::color::red);
         }
 
-        renderer.present();
+        const ctn::FPoint pos{node.box.min.x, node.box.min.y};
+        const ctn::FArea size{node.box.max.x - node.box.min.x,
+                              node.box.max.y - node.box.min.y};
+        const ctn::FRect rect{pos, size};
+
+        renderer.draw_rect_f(rect);
       }
+
+      renderer.present();
     }
     window.hide();
   }

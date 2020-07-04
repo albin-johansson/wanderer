@@ -140,7 +140,63 @@ void insert_leaf(entt::registry& registry,
   fix_upwards_tree(registry, leafNode.parent);
 }
 
+void remove_leaf(entt::registry& registry,
+                 const entt::entity leafNodeEntity) noexcept
+{
+  // if the leaf is the root then we can just clear the root pointer and return
+  if (registry.view<AABBRoot>().front() == leafNodeEntity) {
+    registry.clear<AABBRoot>();
+    return;
+  }
+
+  auto& leafNode = registry.get<AABBNode>(leafNodeEntity);
+  const auto parentNodeEntity = leafNode.parent;
+
+  BOOST_ASSERT_MSG(parentNodeEntity != entt::null, "Parent was null!");
+
+  const auto& parentNode = registry.get<AABBNode>(leafNode.parent);
+  const auto grandParentEntity = parentNode.parent;
+  const auto siblingNodeEntity =
+      parentNode.left == leafNodeEntity ? parentNode.right : parentNode.left;
+
+  BOOST_ASSERT_MSG(siblingNodeEntity != entt::null, "Must have sibling!");
+
+  auto& siblingNode = registry.get<AABBNode>(siblingNodeEntity);
+  if (grandParentEntity != entt::null) {
+    // if we have a grand parent (i.e. the parent is not the root) then destroy
+    // the parent and connect the sibling to the grandparent in its place
+    auto& grandParentNode = registry.get<AABBNode>(grandParentEntity);
+    if (grandParentNode.left == parentNodeEntity) {
+      grandParentNode.left = siblingNodeEntity;
+    } else {
+      grandParentNode.right = siblingNodeEntity;
+    }
+
+    siblingNode.parent = grandParentEntity;
+    // FIXME registry.destroy(parentNodeEntity); // might be undesirable
+    fix_upwards_tree(registry, grandParentEntity);
+  } else {
+    // if we have no grandparent then the parent is the root and so our sibling
+    // becomes the root and has it's parent removed
+    registry.clear<AABBRoot>();
+    registry.emplace<AABBRoot>(siblingNodeEntity);
+    siblingNode.parent = entt::null;
+  }
+  leafNode.parent = entt::null;
+}
+
 }  // namespace
+
+void validate(AABB& aabb) noexcept
+{
+  const auto width = aabb.max.x - aabb.min.x;
+  const auto height = aabb.max.y - aabb.min.y;
+
+  aabb.center.x = aabb.min.x + (width / 2.0f);
+  aabb.center.y = aabb.min.y + (height / 2.0f);
+
+  aabb.area = width * height;
+}
 
 auto make_aabb(const centurion::FPoint& pos,
                const centurion::FArea& size) noexcept -> comp::AABB
@@ -153,9 +209,11 @@ auto make_aabb(const centurion::FPoint& pos,
   result.max.x = pos.x() + size.width;
   result.max.y = pos.y() + size.height;
 
-  result.center.x = pos.x() + (size.width / 2.0f);
-  result.center.y = pos.y() + (size.height / 2.0f);
-  result.area = size.width * size.height;
+  validate(result);
+
+  //  result.center.x = pos.x() + (size.width / 2.0f);
+  //  result.center.y = pos.y() + (size.height / 2.0f);
+  //  result.area = size.width * size.height;
 
   return result;
 }
@@ -187,17 +245,35 @@ auto overlaps(const AABB& fst, const AABB& snd) noexcept -> bool
          (fst.max.y > snd.min.y) && (fst.min.y < snd.max.y);
 }
 
-auto insert(entt::registry& registry, const comp::AABB& box) noexcept
-    -> entt::entity
+auto contains(const AABB& source, const AABB& other) noexcept -> bool
 {
-  const auto nodeEntity = registry.create();
+  return other.min.x >= source.min.x && other.max.x <= source.max.x &&
+         other.min.y >= source.min.y && other.max.y <= source.max.y;
+}
 
-  auto& node = registry.emplace<AABBNode>(nodeEntity);
+void insert(entt::registry& registry,
+            const entt::entity entity,
+            const comp::AABB& box) noexcept
+{
+  auto& node = registry.emplace<AABBNode>(entity);
   node.box = box;
 
-  insert_leaf(registry, nodeEntity);
+  insert_leaf(registry, entity);
+}
 
-  return nodeEntity;
+void update(entt::registry& registry,
+            entt::entity leafNodeEntity,
+            const AABB& box) noexcept
+{
+  auto& node = registry.get<AABBNode>(leafNodeEntity);
+
+  if (contains(node.box, box)) {
+    return;
+  }
+
+  remove_leaf(registry, leafNodeEntity);
+  node.box = box;
+  insert_leaf(registry, leafNodeEntity);
 }
 
 void query(entt::registry&, entt::entity)

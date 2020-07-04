@@ -25,6 +25,8 @@
  */
 namespace wanderer::sys::aabb {
 
+void validate(comp::AABB& aabb) noexcept;
+
 /**
  * @brief Creates and returns an AABB instance.
  *
@@ -62,14 +64,29 @@ namespace wanderer::sys::aabb {
                             const comp::AABB& snd) noexcept -> bool;
 
 /**
+ * @brief Indicates whether or not an AABB contains another AABB.
+ * @param source the box that will be checked to see if it contains the other
+ * box.
+ * @param other the box that will be looked for in the source box.
+ * @return `true` if `source` contains `other`; `false` otherwise.
+ */
+[[nodiscard]] auto contains(const comp::AABB& source,
+                            const comp::AABB& other) noexcept -> bool;
+
+/**
  * @brief Inserts an AABB instance into the AABB tree.
  *
  * @param registry the associated registry.
+ * @param entity the entity identifier that will be added.
  * @param box the AABB instance that will be inserted.
- * @return the entity identifier associated with the supplied box.
  */
-auto insert(entt::registry& registry, const comp::AABB& box) noexcept
-    -> entt::entity;
+void insert(entt::registry& registry,
+            entt::entity entity,
+            const comp::AABB& box) noexcept;
+
+void update(entt::registry& registry,
+            entt::entity leafNodeEntity,
+            const comp::AABB& box) noexcept;
 
 // used to obtain collision candidates, could invoke some callback
 void query(entt::registry& registry, const entt::entity entity);
