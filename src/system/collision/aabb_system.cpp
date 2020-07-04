@@ -1,5 +1,6 @@
 #include "aabb_system.h"
 
+#include <algorithm>
 #include <assert.hpp>
 
 using wanderer::comp::AABB;
@@ -16,138 +17,28 @@ using wanderer::comp::AABBRoot;
 namespace wanderer::sys::aabb {
 namespace {
 
-#define WDNR_VALIDATE_AABB(X)                                          \
-  {                                                                    \
-    const auto width_ = X.max.x - X.min.x;                             \
-    const auto height_ = X.max.y - X.min.y;                            \
-    BOOST_ASSERT_MSG(X.area == (width_ * height_), "Incorrect area!"); \
-    BOOST_ASSERT_MSG(X.center.x == (X.min.x + (width_ / 2.0f)),        \
-                     "Incorrect center x!");                           \
-    BOOST_ASSERT_MSG(X.center.y == (X.min.y + (height_ / 2.0f)),       \
-                     "Incorrect center y!");                           \
-  }
-
-auto find_best_place(entt::registry& registry,
-                     const entt::entity rootEntity,
-                     const AABBNode& originNode) -> entt::entity
+void fix_upwards_tree(entt::registry& registry, entt::entity treeNodeEntity)
 {
-  entt::entity currentEntity = rootEntity;
+  while (treeNodeEntity != entt::null) {
+    auto& treeNode = registry.get<AABBNode>(treeNodeEntity);
 
-  const auto isLeaf = [&registry](const auto entity) {
-    return registry.get<AABBNode>(entity).left == entt::null;
-  };
+    BOOST_ASSERT_MSG(
+        treeNode.left != entt::null && treeNode.right != entt::null,
+        "Every node should be a parent!");
 
-  while (!isLeaf(currentEntity)) {
-    const auto& currentNode = registry.get<AABBNode>(currentEntity);
-    const auto& leftChildNode = registry.get<AABBNode>(currentNode.left);
-    const auto& rightChildNode = registry.get<AABBNode>(currentNode.right);
+    // fix height and area
+    const auto& leftNode = registry.get<AABBNode>(treeNode.left);
+    const auto& rightNode = registry.get<AABBNode>(treeNode.right);
 
-    const auto combined = merge(currentNode.box, originNode.box);
+    treeNode.box = merge(leftNode.box, rightNode.box);
 
-    auto newParentNodeCost = 2.0f * combined.area;
-    auto minPushDownCost = 2.0f * (combined.area - currentNode.box.area);
-
-    // use the costs to figure out whether to create a new parent here or
-    // descend
-
-    const auto calc_cost = [&isLeaf, &originNode, minPushDownCost](
-                               const auto entity, const auto& node) -> float {
-      const auto merged = merge(originNode.box, node);
-      if (isLeaf(entity)) {
-        return merged.area + minPushDownCost;
-      } else {
-        return (merged.area - node.area) + minPushDownCost;
-      }
-    };
-
-    const auto costLeft = calc_cost(currentNode.left, leftChildNode.box);
-    const auto costRight = calc_cost(currentNode.right, rightChildNode.box);
-
-    // if the cost of creating a new parent node here is less than descending
-    // in either direction then we know we need to create a new parent node,
-    // errrr, here and attach the leaf to that
-
-    if (newParentNodeCost < costLeft && newParentNodeCost < costRight) {
-      break;
-    } else {
-      if (costLeft < costRight) {
-        currentEntity = currentNode.left;
-      } else {
-        currentEntity = currentNode.right;
-      }
-    }
-  }
-  return currentEntity;
-}
-
-void fix_upwards_tree(entt::registry& registry, const entt::entity entity)
-{
-  entt::entity current = entity;
-  while (current != entt::null) {
-    auto& currentNode = registry.get<AABBNode>(current);
-
-    BOOST_ASSERT_MSG(currentNode.left != entt::null,
-                     "AABB node must have children if it isn't a leaf!");
-    BOOST_ASSERT_MSG(currentNode.right != entt::null,
-                     "AABB node must have children if it isn't a leaf!");
-
-    const auto& leftChildNode = registry.get<AABBNode>(currentNode.left);
-    const auto& rightChildNode = registry.get<AABBNode>(currentNode.left);
-
-    WDNR_VALIDATE_AABB(leftChildNode.box);
-    WDNR_VALIDATE_AABB(rightChildNode.box);
-
-    currentNode.box = merge(leftChildNode.box, rightChildNode.box);
-
-    WDNR_VALIDATE_AABB(currentNode.box);
-
-    current = currentNode.parent;
-  }
-}
-
-void insert_leaf(entt::registry& registry,
-                 const entt::entity originEntity,
-                 const entt::entity originSibling)
-{
-  AABBNode& originSiblingNode = registry.get<AABBNode>(originSibling);
-
-  const auto oldParent = originSiblingNode.parent;
-  const auto newParent = registry.create();
-
-  auto& originNode = registry.get<AABBNode>(originEntity);
-  WDNR_VALIDATE_AABB(originNode.box)
-
-  // the new parents aabb is the leaf aabb combined with it's siblings aabb
-  auto& newParentNode = registry.emplace<AABBNode>(newParent);
-  newParentNode.parent = oldParent;
-  newParentNode.box = merge(originNode.box, originSiblingNode.box);
-  newParentNode.left = originSibling;
-  newParentNode.right = originEntity;
-
-  WDNR_VALIDATE_AABB(newParentNode.box)
-
-  originNode.parent = newParent;
-  originSiblingNode.parent = newParent;
-
-  if (oldParent == entt::null) {
-    // the old parent was the root and so this is now the root
-    registry.clear<AABBRoot>();
-    registry.emplace<AABBRoot>(newParent);
-  } else {
-    // the old parent was not the root and so we need to patch the left or
-    // right index to point to the new node
-    auto& oldParentNode = registry.get<AABBNode>(oldParent);
-    if (oldParentNode.left == originSibling) {
-      oldParentNode.left = newParent;
-    } else {
-      oldParentNode.right = newParent;
-    }
+    treeNodeEntity = treeNode.parent;
   }
 }
 
 }  // namespace
 
-auto merge(const AABB& fst, const AABB& snd) -> AABB
+auto merge(const AABB& fst, const AABB& snd) noexcept -> AABB
 {
   AABB result;
 
@@ -168,7 +59,7 @@ auto merge(const AABB& fst, const AABB& snd) -> AABB
   return result;
 }
 
-auto create_box(const centurion::FPoint& pos,
+auto make_aabb(const centurion::FPoint& pos,
                 const centurion::FArea& size) noexcept -> comp::AABB
 {
   AABB result;
@@ -192,51 +83,120 @@ auto overlaps(const AABB& fst, const AABB& snd) -> bool
          (fst.max.y > snd.min.y) && (fst.min.y < snd.max.y);
 }
 
+void insert_leaf(entt::registry& registry, const entt::entity leafNodeEntity)
+{
+  // make sure we're inserting a new leaf
+  const auto& node = registry.get<AABBNode>(leafNodeEntity);
+  BOOST_ASSERT(node.parent == entt::null);
+  BOOST_ASSERT(node.left == entt::null);
+  BOOST_ASSERT(node.right == entt::null);
+
+  // if the tree is empty then we make the root the leaf
+  if (registry.empty<AABBRoot>()) {
+    registry.clear<AABBRoot>();
+    registry.emplace<AABBRoot>(leafNodeEntity);
+    return;
+  }
+
+  // search for the best place to put the new leaf in the tree
+  // we use surface area and depth as search heuristics
+  auto treeNodeEntity = registry.view<AABBRoot>().front();
+  auto& leafNode = registry.get<AABBNode>(leafNodeEntity);
+
+  const auto isLeaf = [&registry](const auto entity) noexcept -> bool {
+    const auto& node = registry.get<AABBNode>(entity);
+    return node.left == entt::null;
+  };
+
+  while (!isLeaf(treeNodeEntity)) {
+    // because of the test in the while loop above we know we are never a leaf
+    // inside it
+    const auto& treeNode = registry.get<AABBNode>(treeNodeEntity);
+    const auto leftNodeEntity = treeNode.left;
+    const auto rightNodeEntity = treeNode.right;
+    const auto& leftNode = registry.get<AABBNode>(leftNodeEntity);
+    const auto& rightNode = registry.get<AABBNode>(rightNodeEntity);
+
+    const auto combined = merge(treeNode.box, leafNode.box);
+
+    float newParentNodeCost = 2.0f * combined.area;
+    float minimumPushDownCost = 2.0f * (combined.area - treeNode.box.area);
+
+    const auto getCost = [&](const auto nodeEntity) -> float {
+      const auto& node = registry.get<AABBNode>(nodeEntity);
+      if (isLeaf(nodeEntity)) {
+        return merge(leafNode.box, node.box).area + minimumPushDownCost;
+      } else {
+        return (merge(leafNode.box, node.box).area - node.box.area) +
+               minimumPushDownCost;
+      }
+    };
+
+    const auto costLeft = getCost(leftNodeEntity);
+    const auto costRight = getCost(rightNodeEntity);
+
+    // if the cost of creating a new parent node here is less than descending in
+    // either direction then we know we need to create a new parent node, errrr,
+    // here and attach the leaf to that
+    if (newParentNodeCost < costLeft && newParentNodeCost < costRight) {
+      break;
+    }
+
+    // otherwise descend in the cheapest direction
+    if (costLeft < costRight) {
+      treeNodeEntity = leftNodeEntity;
+    } else {
+      treeNodeEntity = rightNodeEntity;
+    }
+  }
+
+  // the leafs sibling is going to be the node we found above and we are going
+  // to create a new parent node and attach the leaf and this item
+  const auto leafSiblingEntity = treeNodeEntity;
+  auto& leafSiblingNode = registry.get<AABBNode>(leafSiblingEntity);
+
+  const auto oldParentEntity = leafSiblingNode.parent;
+
+  const auto newParentEntity = registry.create();
+  auto& newParent = registry.emplace<AABBNode>(newParentEntity);
+  newParent.parent = oldParentEntity;
+
+  // the new parents aabb is the leaf aabb combined with  it's siblings aabb
+  newParent.box = merge(leafNode.box, leafSiblingNode.box);
+
+  newParent.left = leafSiblingEntity;
+  newParent.right = leafNodeEntity;
+  leafNode.parent = newParentEntity;
+  leafSiblingNode.parent = newParentEntity;
+
+  if (oldParentEntity == entt::null) {
+    // the old parent was the root and so this is now the root
+    registry.clear<AABBRoot>();
+    registry.emplace<AABBRoot>(newParentEntity);
+  } else {
+    // the old parent was not the root and so we need to patch the left or right
+    // index to point to the new node
+    auto& oldParentNode = registry.get<AABBNode>(oldParentEntity);
+    if (oldParentNode.left == leafSiblingEntity) {
+      oldParentNode.left = newParentEntity;
+    } else {
+      oldParentNode.right = newParentEntity;
+    }
+  }
+
+  // finally we need to walk back up the tree fixing heights and areas
+  fix_upwards_tree(registry, leafNode.parent);
+}
+
 void insert(entt::registry& registry,
             const entt::entity originEntity,
             const comp::AABB& box)
 {
-  // TODO THIS CAN BE DONE BY CONNECTING REGISTRY AS LISTENER
+  const auto nodeEntity = registry.create();
+  auto& node = registry.emplace<AABBNode>(nodeEntity);
+  node.box = box;
 
-  BOOST_ASSERT_MSG(!registry.has<AABBRoot>(originEntity),
-                   "Entity is already tagged as AABB root!");
-  BOOST_ASSERT_MSG(!registry.has<AABBNode>(originEntity),
-                   "Entity is already an AABB node!");
-  //  BOOST_ASSERT_MSG(!registry.has<AABBLeaf>(originEntity),
-  //                   "Entity is already an AABB leaf!");
-
-  //  const auto rootView = registry.view<AABBRoot>();
-  //  if (rootView.empty()) {
-  //    registry.emplace<AABBRoot>(originEntity);
-  //    registry.emplace<AABBNode>(originEntity);
-  //    return;
-  //  }
-
-  //  BOOST_ASSERT_MSG(!registry.empty<AABBRoot>(), "There must be a root!");
-
-  //  registry.emplace<AABBLeaf>(originEntity);
-  auto& originNode = registry.emplace<AABBNode>(originEntity);
-  originNode.box = box;
-
-  WDNR_VALIDATE_AABB(originNode.box);
-
-  BOOST_ASSERT(originNode.parent == entt::null);
-  BOOST_ASSERT(originNode.left == entt::null);
-  BOOST_ASSERT(originNode.right == entt::null);
-
-  const auto rootView = registry.view<AABBRoot>();
-  if (rootView.empty()) {
-    registry.emplace<AABBRoot>(originEntity);
-    return;
-  }
-
-  auto rootEntity = rootView.front();
-
-  const auto foundEntity = find_best_place(registry, rootEntity, originNode);
-
-  insert_leaf(registry, originEntity, foundEntity);
-
-  fix_upwards_tree(registry, originNode.parent);
+  insert_leaf(registry, nodeEntity);
 }
 
 void query(entt::registry&, entt::entity)

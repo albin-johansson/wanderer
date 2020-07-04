@@ -8,10 +8,28 @@
 
 namespace wanderer::sys::aabb {
 
-auto merge(const comp::AABB& fst, const comp::AABB& snd) -> comp::AABB;
-
-auto create_box(const ctn::FPoint& pos, const ctn::FArea& size) noexcept
+/**
+ * @brief Returns an AABB for the supplied boxes.
+ *
+ * @details Creates and returns an AABB that is sized to encapsulate both of
+ * the supplied boxes.
+ *
+ * @param fst the first AABB.
+ * @param snd the second AABB.
+ * @return an AABB that is the merged result of the two supplied boxes.
+ */
+[[nodiscard]] auto merge(const comp::AABB& fst, const comp::AABB& snd) noexcept
     -> comp::AABB;
+
+/**
+ * @brief
+ *
+ * @param pos
+ * @param size
+ * @return
+ */
+[[nodiscard]] auto make_aabb(const ctn::FPoint& pos,
+                             const ctn::FArea& size) noexcept -> comp::AABB;
 
 auto overlaps(const comp::AABB& fst, const comp::AABB& snd) -> bool;
 
