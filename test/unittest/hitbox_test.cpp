@@ -2,107 +2,94 @@
 
 #include <doctest.h>
 
+#include "hitbox_system.h"
+
 using namespace wanderer;
+using namespace sys;
 using namespace centurion;
 
-// TODO update
+using comp::Hitbox;
+using comp::Subhitbox;
 
 TEST_SUITE("Hitbox")
 {
-//  TEST_CASE("add_rectangle")
-//  {
-//    Hitbox hitbox;
-//
-//    const FRect rect{{56.2f, 128.5f}, {156.3f, 100.6f}};
-//    const Vector2f offset{24.5f, 52.9f};
-//    hitbox.add_rectangle(rect, offset);
-//
-//    CHECK(hitbox.is_unit());
-//    CHECK(hitbox.bounds() == rect);
-//  }
-//
-//  TEST_CASE("set_x")
-//  {
-//    Hitbox hitbox;
-//
-//    const auto x = 839.2f;
-//    hitbox.set_x(x);
-//
-//    CHECK(hitbox.bounds().x() == x);
-//  }
-//
-//  TEST_CASE("set_y")
-//  {
-//    Hitbox hitbox;
-//
-//    const auto y = -421.8f;
-//    hitbox.set_y(y);
-//
-//    CHECK(hitbox.bounds().y() == y);
-//  }
-//
-//  TEST_CASE("Bounds test with two rectangles")
-//  {
-//    /*
-//     * Rough visualisation of the test.
-//     *  _ _ _ _ _ _ _
-//     * |  A  |      |
-//     * |_____|      |
-//     * |       _____|
-//     * |      |  B  |
-//     * |_ _ _ |_____|
-//     *
-//     */
-//    Hitbox hitbox;
-//    hitbox.set_enabled(true);
-//
-//    const FRect first = {{10, 10}, {100, 100}};
-//    const FRect second = {{first.max_x() + 10, first.max_y() + 10}, {100, 100}};
-//
-//    hitbox.add_rectangle(first, {0, 0});
-//    hitbox.add_rectangle(second, {0, 0});
-//
-//    const FRect expected = {
-//        {first.x(), first.y()},
-//        {second.max_x() - first.x(), second.max_y() - first.y()}};
-//
-//    CHECK(hitbox.bounds() == expected);
-//  }
-//
-//  TEST_CASE("Test of valid intersection")
-//  {
-//    /*
-//     * Rough visualisation of the test.
-//     *  ___
-//     * |  _|__
-//     * |_|_| |
-//     *   |___|
-//     *
-//     */
-//
-//    Hitbox first;
-//    first.set_enabled(true);
-//    first.add_rectangle({{100, 100}, {100, 100}}, {});
-//
-//    Hitbox second;
-//    second.set_enabled(true);
-//    second.add_rectangle({{150, 150}, {100, 100}}, {});
-//
-//    CHECK(first.intersects(second));
-//    CHECK(second.intersects(first));
-//
-//    CHECK(first.intersects(second.bounds()));
-//    CHECK(second.intersects(first.bounds()));
-//  }
-//
-//  TEST_CASE("set_enabled")
-//  {
-//    Hitbox hitbox;
-//
-//    hitbox.set_enabled(true);
-//    CHECK(hitbox.is_enabled());
-//
-//    hitbox.set_enabled(false);
-//    CHECK(!hitbox.is_enabled());
-//  }
+  TEST_CASE("hitbox::update_bounds | Bounds test with two rectangles")
+  {
+    /*
+     * Rough visualisation of the test.
+     *  _ _ _ _ _ _ _
+     * |  A  |      |
+     * |_____|      |
+     * |       _____|
+     * |      |  B  |
+     * |_ _ _ |_____|
+     *
+     */
+    Hitbox hitbox;
+
+    const Subhitbox fst{vector2f{0, 0}, FRect{{10, 10}, {100, 100}}};
+    const Subhitbox snd{
+        vector2f{0, 0},
+        FRect{{fst.rect.max_x() + 10, fst.rect.max_y() + 10}, {100, 100}}};
+
+    hitbox.boxes.push_back(fst);
+    hitbox.boxes.push_back(snd);
+
+    hitbox::update_bounds(hitbox);
+
+    const FRect expected{
+        {fst.rect.x(), fst.rect.y()},
+        {snd.rect.max_x() - fst.rect.x(), snd.rect.max_y() - fst.rect.y()}};
+
+    CHECK(hitbox.bounds == expected);
+  }
+
+  TEST_CASE("hitbox::intersects")
+  {
+    SUBCASE("Valid intersection")
+    {
+      /*
+       * Rough visualisation of the test.
+       *  ___
+       * |  _|__
+       * |_|_| |
+       *   |___|
+       *
+       */
+
+      const auto fst = hitbox::create({{{}, FRect{{100, 100}, {100, 100}}}});
+      const auto snd = hitbox::create({{{}, FRect{{150, 150}, {100, 100}}}});
+
+      CHECK(hitbox::intersects(fst, snd));
+      CHECK(hitbox::intersects(snd, fst));
+
+      CHECK(fst.bounds.intersects(snd.bounds));
+      CHECK(snd.bounds.intersects(fst.bounds));
+    }
+
+    SUBCASE("Bounds intersection but no actual subhitbox intersection")
+    {
+      /*
+       * Rough visualisation of the test. The bounding rectangles look
+       * something like this, but no subhitbox intersect in the hitboxes.
+       *  ___
+       * |  _|__
+       * |_|_| |
+       *   |___|
+       *
+       */
+
+      const auto fst = hitbox::create({{{}, FRect{{100, 100}, {75, 100}}},
+                                       {{}, FRect{{175, 100}, {25, 25}}}});
+
+      const auto snd = hitbox::create({{{}, FRect{{210, 150}, {100, 100}}},
+                                       {{}, FRect{{150, 210}, {25, 25}}}});
+
+      REQUIRE(fst.bounds.intersects(snd.bounds));
+      REQUIRE(snd.bounds.intersects(fst.bounds));
+
+      CHECK(!hitbox::intersects(fst, snd));
+      CHECK(!hitbox::intersects(snd, fst));
+    }
+  }
 }
