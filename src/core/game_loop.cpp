@@ -31,6 +31,7 @@ void GameLoop::smooth_delta() noexcept
 
 void GameLoop::update(Game& game)
 {
+  // TODO look into simpler game loop implementation
   m_then = m_now;
   m_now = ctn::Timer::high_res();
 
