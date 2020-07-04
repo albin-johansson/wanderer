@@ -3,6 +3,11 @@
  * @file aabb_system.h
  * @author Albin Johansson
  * @copyright MIT License
+ * @note The implementation of this system was heavily inspired by James
+ * Randall AABB system used in his <a
+ * href="https://github.com/JamesRandall/SimpleVoxelEngine">Simple Voxel
+ * Engine</a> project. A helpful article can be found <a
+ * href="https://www.azurefromthetrenches.com/introductory-guide-to-aabb-tree-collision-detection/">here</a>
  * @date 2020
  */
 
