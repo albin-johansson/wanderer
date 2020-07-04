@@ -1,3 +1,7 @@
+#ifdef NDEBUG
+#define BOOST_DISABLE_ASSERTS
+#endif
+
 #include <centurion_as_ctn.h>
 
 #include "application.h"
