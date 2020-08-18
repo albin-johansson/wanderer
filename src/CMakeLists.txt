@@ -136,6 +136,11 @@ if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
             -Wduplicated-cond
             -Wconversion
             -fno-rtti)
+else () # Assume MSVC
+    target_compile_options(${WANDERER_LIB_TARGET} PRIVATE
+            /EHsc
+            /MP
+            /W3)
 endif ()
 
 wanderer_set_properties(${WANDERER_LIB_TARGET} "Wanderer")
