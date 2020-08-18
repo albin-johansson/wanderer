@@ -22,51 +22,17 @@
  * SOFTWARE.
  */
 
-#ifndef STEP_TILE_OFFSET_HEADER
-#define STEP_TILE_OFFSET_HEADER
-
-#include "step_api.h"
-#include "step_types.h"
+#ifndef STEP_FWD_HEADER
+#define STEP_FWD_HEADER
 
 namespace step {
 
-/**
- * The TileOffset class provides offsets in pixels that are to be applied when
- * rendering a tile from a tileset.
- *
- * @since 0.1.0
- */
-class TileOffset final {
- public:
-  STEP_API friend void from_json(const JSON&, TileOffset&);
+class Layer;
 
-  /**
-   * Returns the offset in the x-axis associated with the tile offset instance.
-   *
-   * @return the offset in the x-axis.
-   * @since 0.1.0
-   */
-  [[nodiscard]] int x() const noexcept { return m_x; }
+class properties;
 
-  /**
-   * Returns the offset in the y-axis associated with the tile offset instance.
-   *
-   * @return the offset in the y-axis.
-   * @since 0.1.0
-   */
-  [[nodiscard]] int y() const noexcept { return m_y; }
-
- private:
-  int m_x;
-  int m_y;
-};
-
-STEP_API void from_json(const JSON& json, TileOffset& offset);
+class tile;
 
 }  // namespace step
 
-#ifdef STEP_HEADER_ONLY
-#include "step_tile_offset.cpp"
-#endif  // STEP_HEADER_ONLY
-
-#endif  // STEP_TILE_OFFSET_HEADER
+#endif  // STEP_FWD_HEADER

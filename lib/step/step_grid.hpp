@@ -25,8 +25,8 @@
 #ifndef STEP_GRID_HEADER
 #define STEP_GRID_HEADER
 
-#include "step_api.h"
-#include "step_types.h"
+#include "step_api.hpp"
+#include "step_types.hpp"
 
 namespace step {
 
@@ -45,7 +45,8 @@ class Grid final {
    */
   enum class Orientation { Orthogonal, Isometric };
 
-  STEP_API friend void from_json(const JSON&, Grid&);
+  STEP_API
+  friend void from_json(const json&, Grid&);
 
   /**
    * Returns the orientation of the grid. The default value of this property
@@ -81,16 +82,13 @@ class Grid final {
   int m_height;
 };
 
-STEP_API void from_json(const JSON& json, Grid& grid);
+STEP_API
+void from_json(const json& json, Grid& grid);
 
-STEP_SERIALIZE_ENUM(Grid::Orientation,
-                    {{Grid::Orientation::Orthogonal, "orthogonal"},
-                     {Grid::Orientation::Isometric, "isometric"}})
+NLOHMANN_JSON_SERIALIZE_ENUM(Grid::Orientation,
+                             {{Grid::Orientation::Orthogonal, "orthogonal"},
+                              {Grid::Orientation::Isometric, "isometric"}})
 
 }  // namespace step
-
-#ifdef STEP_HEADER_ONLY
-#include "step_grid.cpp"
-#endif  // STEP_HEADER_ONLY
 
 #endif  // STEP_GRID_HEADER

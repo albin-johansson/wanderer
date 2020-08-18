@@ -22,16 +22,48 @@
  * SOFTWARE.
  */
 
-#ifndef STEP_CFG_HEADER
-#define STEP_CFG_HEADER
+#ifndef STEP_TILE_OFFSET_HEADER
+#define STEP_TILE_OFFSET_HEADER
+
+#include "step_api.hpp"
+#include "step_types.hpp"
+
+namespace step {
 
 /**
- * Defining this macro will put the library into a pseudo-"header-only" mode
- * where you'll need to include the headers AND source files in order to use
- * the library.
+ * The TileOffset class provides offsets in pixels that are to be applied when
+ * rendering a tile from a tileset.
  *
  * @since 0.1.0
  */
-//#define STEP_HEADER_ONLY
+class TileOffset final {
+ public:
+  STEP_API
+  explicit TileOffset(const json& json);
 
-#endif  // STEP_CFG_HEADER
+  /**
+   * Returns the offset in the x-axis associated with the tile offset instance.
+   *
+   * @return the offset in the x-axis.
+   * @since 0.1.0
+   */
+  STEP_QUERY
+  int x() const noexcept;
+
+  /**
+   * Returns the offset in the y-axis associated with the tile offset instance.
+   *
+   * @return the offset in the y-axis.
+   * @since 0.1.0
+   */
+  STEP_QUERY
+  int y() const noexcept;
+
+ private:
+  int m_x;
+  int m_y;
+};
+
+}  // namespace step
+
+#endif  // STEP_TILE_OFFSET_HEADER

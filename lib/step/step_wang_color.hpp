@@ -22,69 +22,70 @@
  * SOFTWARE.
  */
 
-#ifndef STEP_GROUP_HEADER
-#define STEP_GROUP_HEADER
+#ifndef STEP_WANG_COLOR_HEADER
+#define STEP_WANG_COLOR_HEADER
 
-#include <memory>
-#include <vector>
+#include <string>
 
-#include "step_api.h"
-#include "step_types.h"
+#include "step_api.hpp"
+#include "step_color.hpp"
+#include "step_types.hpp"
+#include "step_utils.hpp"
 
 namespace step {
 
-class Layer;
-
-/**
- * The Group class represents the API for layers that represent "groups", that
- * in turn contain zero or more layers.
- *
- * @since 0.1.0
- */
-class Group final {
+class WangColor final {
  public:
-  STEP_API friend void from_json(const JSON&, Group&);
-
   /**
-   * Iterates over all of the layers store in this group.
-   *
-   * @tparam Lambda the type of the lambda object.
-   * @param lambda the lambda that takes one argument, <code>const
-   * Layer&</code>.
+   * @param json the JSON object that holds the data for a Wang color.
    * @since 0.1.0
    */
-  template <typename Lambda>
-  void each(Lambda&& lambda) const
-  {
-    for (const auto& layer : m_layers) {
-      lambda(*layer);
-    }
-  }
+  STEP_API
+  explicit WangColor(const json& json);
 
   /**
-   * Returns the layer at the specified index. This method will throw an
-   * exception if the index is out-of-bounds.
+   * Returns the name associated with the Wang color.
    *
-   * @param index the index of the desired layer.
-   * @return the layer at the specified index.
+   * @return the name associated with the Wang color.
    * @since 0.1.0
    */
-  STEP_QUERY const Layer& at(int index) const;
+  STEP_QUERY
+  const std::string& name() const;
 
   /**
-   * Returns the amount of layers that are in the group.
+   * Returns the color associated with the Wang color.
    *
-   * @return the amount of layers that are in the group.
+   * @return the color associated with the Wang color.
    * @since 0.1.0
    */
-  STEP_QUERY int layers() const noexcept;
+  STEP_QUERY
+  const color& get_color() const noexcept;
+
+  /**
+   * Returns the local ID of the tile that represents the Wang color.
+   *
+   * @return the local ID of the tile that represents the Wang color.
+   * @since 0.1.0
+   */
+  STEP_QUERY
+  local_id tile() const noexcept;
+
+  /**
+   * Returns the probability associated with the Wang color.
+   *
+   * @return the probability associated with the Wang color.
+   * @since 0.1.0
+   */
+  STEP_QUERY
+  double probability() const noexcept;
 
  private:
-  std::vector<std::unique_ptr<Layer>> m_layers;
+  std::string m_name;
+  color m_color;
+  local_id m_tile{0};
+  double m_probability{};
 };
-
-STEP_API void from_json(const JSON& json, Group& group);
 
 }  // namespace step
 
-#endif  // STEP_GROUP_HEADER
+#endif  // STEP_WANG_COLOR_HEADER

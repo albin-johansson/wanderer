@@ -22,50 +22,79 @@
  * SOFTWARE.
  */
 
-#ifndef STEP_POINT_HEADER
-#define STEP_POINT_HEADER
+#ifndef STEP_CHUNK_HEADER
+#define STEP_CHUNK_HEADER
 
-#include "step_api.h"
-#include "step_types.h"
+#include "step_api.hpp"
+#include "step_data.hpp"
+#include "step_types.hpp"
 
 namespace step {
 
 /**
- * The Point class represents a simple coordinate in the plane.
+ * The Chunk class represents so called chunks, that store the tile layer
+ * data for infinite maps.
  *
  * @since 0.1.0
  */
-class Point final {
+class Chunk final {
  public:
-  STEP_API friend void from_json(const JSON&, Point&);
+  STEP_API
+  explicit Chunk(const json& json);
 
   /**
-   * Returns the x-coordinate associated with the point.
+   * Returns the x-coordinate of the chunk.
    *
-   * @return the x-coordinate of the point.
+   * @return the x-coordinate of the chunk.
    * @since 0.1.0
    */
-  [[nodiscard]] double x() const noexcept { return m_x; }
+  STEP_QUERY
+  int x() const noexcept;
 
   /**
-   * Returns the y-coordinate associated with the point.
+   * Returns the y-coordinate of the chunk.
    *
-   * @return the y-coordinate of the point.
+   * @return the y-coordinate of the chunk.
    * @since 0.1.0
    */
-  [[nodiscard]] double y() const noexcept { return m_y; }
+  STEP_QUERY
+  int y() const noexcept;
+
+  /**
+   * Returns the width of the chunk.
+   *
+   * @return the width of the chunk.
+   * @since 0.1.0
+   */
+  STEP_QUERY
+  int width() const noexcept;
+
+  /**
+   * Returns the height of the chunk.
+   *
+   * @return the height of the chunk.
+   * @since 0.1.0
+   */
+  STEP_QUERY
+  int height() const noexcept;
+
+  /**
+   * Returns the data associated with the chunk.
+   *
+   * @return the data associated with the chunk.
+   * @since 0.1.0
+   */
+  STEP_QUERY
+  const detail::Data& data() const noexcept;
 
  private:
-  double m_x = 0;
-  double m_y = 0;
+  int m_x;
+  int m_y;
+  int m_width;
+  int m_height;
+  detail::Data m_data;
 };
-
-STEP_API void from_json(const JSON& json, Point& point);
 
 }  // namespace step
 
-#ifdef STEP_HEADER_ONLY
-#include "step_point.cpp"
-#endif  // STEP_HEADER_ONLY
-
-#endif  // STEP_POINT_HEADER
+#endif  // STEP_CHUNK_HEADER

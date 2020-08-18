@@ -27,74 +27,105 @@
 
 #include <array>
 
-#include "step_api.h"
-#include "step_utils.h"
+#include "step_api.hpp"
+#include "step_types.hpp"
+#include "step_utils.hpp"
 
 namespace step {
 
-class WangTile final {
+/**
+ * @class wang_tile
+ *
+ * @brief Represents a Wang tile.
+ *
+ * @since 0.1.0
+ *
+ * @headerfile step_wang_tile.hpp
+ */
+class wang_tile final {
  public:
+  using color_index_storage = std::array<int, 8>;
+  using value_type = typename color_index_storage::value_type;
+  using const_iterator = typename color_index_storage::const_iterator;
+
   /**
    * @param json the JSON object that holds the data for a Wang tile.
+   *
    * @since 0.1.0
    */
-  STEP_API explicit WangTile(const JSON& json);
+  STEP_API
+  explicit wang_tile(const json& json);
 
   /**
-   * Returns the local ID associated with the Wang tile.
+   * @brief Returns the local ID associated with the Wang tile.
    *
    * @return the local ID associated with the Wang tile.
+   *
    * @since 0.1.0
    */
-  STEP_QUERY int tile_id() const noexcept;
+  STEP_QUERY
+  auto tile_id() const noexcept -> local_id;
 
   /**
-   * Returns the Wang color indices associated with the Wang tile.
+   * @brief Returns the Wang color indices associated with the Wang tile.
    *
    * @return the Wang color indices associated with the Wang tile.
+   *
    * @since 0.1.0
    */
-  STEP_QUERY const std::array<int, 8>& wang_color_indices() const;
+  STEP_QUERY
+  auto wang_color_indices() const -> const std::array<int, 8>&;
 
   /**
-   * Indicates whether or not the tile is flipped diagonally. The default
-   * value of this property is false.
+   * @brief Indicates whether or not the tile is flipped diagonally.
    *
-   * @return true if the tile is flipped diagonally; false otherwise.
+   * @note The default value of this property is `false`.
+   *
+   * @return `true` if the tile is flipped diagonally; `false` otherwise.
+   *
    * @since 0.1.0
    */
-  STEP_QUERY bool flipped_diagonally() const noexcept;
+  STEP_QUERY
+  auto flipped_diagonally() const noexcept -> bool;
 
   /**
-   * Indicates whether or not the tile is flipped horizontally. The default
-   * value of this property is false.
+   * @brief Indicates whether or not the tile is flipped horizontally.
    *
-   * @return true if the tile is flipped horizontally; false otherwise.
+   * @note The default value of this property is false.
+   *
+   * @return `true` if the tile is flipped horizontally; `false` otherwise.
+   *
    * @since 0.1.0
    */
-  STEP_QUERY bool flipped_horizontally() const noexcept;
+  STEP_QUERY
+  auto flipped_horizontally() const noexcept -> bool;
 
   /**
-   * Indicates whether or not the tile is flipped vertically. The default
-   * value of this property is false.
+   * @brief Indicates whether or not the tile is flipped vertically.
    *
-   * @return true if the tile is flipped vertically; false otherwise.
+   * @note The default value of this property is false.
+   *
+   * @return `true` if the tile is flipped vertically; `false` otherwise.
+   *
    * @since 0.1.0
    */
-  STEP_QUERY bool flipped_vertically() const noexcept;
+  STEP_QUERY
+  auto flipped_vertically() const noexcept -> bool;
+
+  STEP_QUERY
+  auto begin() const noexcept -> const_iterator;
+
+  STEP_QUERY
+  auto end() const noexcept -> const_iterator;
 
  private:
-  int m_tileID{};
-  std::array<int, 8> m_wangColorIndices;
+  local_id m_tileID{0};
+  std::array<int, 8> m_wangColorIndices{};
   bool m_flippedDiagonally{false};
   bool m_flippedHorizontally{false};
   bool m_flippedVertically{false};
 };
 
 }  // namespace step
-
-#ifdef STEP_HEADER_ONLY
-#include "step_wang_tile.cpp"
-#endif  // STEP_HEADER_ONLY
 
 #endif  // STEP_WANG_TILE_HEADER

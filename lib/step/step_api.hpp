@@ -22,30 +22,22 @@
  * SOFTWARE.
  */
 
-#ifndef STEP_EXCEPTION_HEADER
-#define STEP_EXCEPTION_HEADER
+#ifndef STEP_API_HEADER
+#define STEP_API_HEADER
 
-#include <exception>
-#include <utility>
+// Define STEP_API for any platform
+// https://atomheartother.github.io/c++/2018/07/12/CPPDynLib.html
+#if defined(_WIN32) && !defined(STEP_API)
+#ifdef WIN_EXPORT
+#define STEP_API __declspec(dllexport)
+#else
+#define STEP_API __declspec(dllimport)
+#endif  // WIN_EXPORT
+#else
+#define STEP_API
+#endif  // defined(_WIN32) && !defined(STEP_API)
 
-#include "step_types.h"
+// Used for getters that aren't inlined
+#define STEP_QUERY [[nodiscard]] STEP_API
 
-namespace step {
-
-class StepException final : public std::exception {
- public:
-  StepException() noexcept = default;
-
-  explicit StepException(std::string what) : m_what{std::move(what)} {}
-
-  ~StepException() noexcept override = default;
-
-  CZString what() const noexcept override { return m_what.c_str(); }
-
- private:
-  std::string m_what;
-};
-
-}  // namespace step
-
-#endif  // STEP_EXCEPTION_HEADER
+#endif  // STEP_API_HEADER

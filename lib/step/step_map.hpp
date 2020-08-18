@@ -22,19 +22,20 @@
  * SOFTWARE.
  */
 
-#ifndef STEP_TILED_MAP_HEADER
-#define STEP_TILED_MAP_HEADER
+#ifndef STEP_MAP_HEADER
+#define STEP_MAP_HEADER
 
+#include <memory>
 #include <string>
 #include <string_view>
 #include <vector>
 
-#include "step_api.h"
-#include "step_color.h"
-#include "step_layer.h"
-#include "step_properties.h"
-#include "step_tileset.h"
-#include "step_types.h"
+#include "step_api.hpp"
+#include "step_color.hpp"
+#include "step_layer.hpp"
+#include "step_properties.hpp"
+#include "step_tileset.hpp"
+#include "step_types.hpp"
 
 namespace step {
 
@@ -50,12 +51,17 @@ class Map final {
   enum class StaggerAxis { X, Y };
   enum class StaggerIndex { Odd, Even };
 
+  STEP_API
+  explicit Map(const fs::path& path);
+
   /**
    * @param root the file path of the directory that contains the map.
    * @param file the name of the JSON map file, including the .json extension.
    * @since 0.1.0
    */
-  STEP_API Map(std::string_view root, std::string_view file);
+  [[deprecated("Use the path version instead!")]] STEP_API Map(
+      std::string_view root,
+      std::string_view file);
 
   /**
    * Returns the width of the map.
@@ -63,7 +69,8 @@ class Map final {
    * @return the width of the map.
    * @since 0.1.0
    */
-  STEP_QUERY int width() const noexcept;
+  STEP_QUERY
+  int width() const noexcept;
 
   /**
    * Returns the height of the map.
@@ -71,7 +78,8 @@ class Map final {
    * @return the height of the map.
    * @since 0.1.0
    */
-  STEP_QUERY int height() const noexcept;
+  STEP_QUERY
+  int height() const noexcept;
 
   /**
    * Returns the width of the tiles in the map.
@@ -79,7 +87,8 @@ class Map final {
    * @return the width of the tiles in the map.
    * @since 0.1.0
    */
-  STEP_QUERY int tile_width() const noexcept;
+  STEP_QUERY
+  int tile_width() const noexcept;
 
   /**
    * Returns the height of the tiles in the map.
@@ -87,7 +96,8 @@ class Map final {
    * @return the height of the tiles in the map.
    * @since 0.1.0
    */
-  STEP_QUERY int tile_height() const noexcept;
+  STEP_QUERY
+  int tile_height() const noexcept;
 
   /**
    * Returns the next layer ID, this is incremented every time an layer is
@@ -96,7 +106,8 @@ class Map final {
    * @return the next layer ID.
    * @since 0.1.0
    */
-  STEP_QUERY int next_layer_id() const noexcept;
+  STEP_QUERY
+  int next_layer_id() const noexcept;
 
   /**
    * Returns the next object ID, this is incremented every time an object is
@@ -105,7 +116,8 @@ class Map final {
    * @return the next object ID.
    * @since 0.1.0
    */
-  STEP_QUERY int next_object_id() const noexcept;
+  STEP_QUERY
+  int next_object_id() const noexcept;
 
   /**
    * Returns the tile layers associated with the map.
@@ -113,7 +125,8 @@ class Map final {
    * @return the tile layers associated with the map.
    * @since 0.1.0
    */
-  STEP_QUERY const std::vector<Layer>& layers() const noexcept;
+  STEP_QUERY
+  const std::vector<Layer>& layers() const noexcept;
 
   /**
    * Returns the tilesets associated with the map.
@@ -121,15 +134,17 @@ class Map final {
    * @return the tilesets associated with the map.
    * @since 0.1.0
    */
-  STEP_QUERY const std::vector<Tileset>& tilesets() const noexcept;
+  STEP_QUERY
+  const std::vector<Tileset>& tilesets() const noexcept;
 
   /**
    * Returns the properties associated with the map.
    *
-   * @return the properties associated with the map.
+   * @return the properties associated with the map; null if there are none.
    * @since 0.1.0
    */
-  STEP_QUERY const Properties& properties() const noexcept;
+  STEP_QUERY
+  const properties* get_properties() const noexcept;
 
   /**
    * Returns the orientation of the map.
@@ -137,7 +152,8 @@ class Map final {
    * @return the orientation of the map.
    * @since 0.1.0
    */
-  STEP_QUERY Orientation orientation() const noexcept;
+  STEP_QUERY
+  Orientation orientation() const noexcept;
 
   /**
    * Returns the render-order associated with the map. The default value of
@@ -147,7 +163,8 @@ class Map final {
    * @return the render-order associated with the map.
    * @since 0.1.0
    */
-  STEP_QUERY RenderOrder render_order() const noexcept;
+  STEP_QUERY
+  RenderOrder render_order() const noexcept;
 
   /**
    * Returns the stagger axis associated with the map. This property is only
@@ -156,7 +173,8 @@ class Map final {
    * @return the stagger axis associated with the map.
    * @since 0.1.0
    */
-  STEP_QUERY StaggerAxis stagger_axis() const noexcept;
+  STEP_QUERY
+  StaggerAxis stagger_axis() const noexcept;
 
   /**
    * Returns the stagger index associated with the map. This property is only
@@ -165,7 +183,8 @@ class Map final {
    * @return the stagger index associated with the map.
    * @since 0.1.0
    */
-  STEP_QUERY StaggerIndex stagger_index() const noexcept;
+  STEP_QUERY
+  StaggerIndex stagger_index() const noexcept;
 
   /**
    * Indicates whether or not the map is infinite.
@@ -173,7 +192,8 @@ class Map final {
    * @return true if the map is infinite; false otherwise.
    * @since 0.1.0
    */
-  STEP_QUERY bool infinite() const noexcept;
+  STEP_QUERY
+  bool infinite() const noexcept;
 
   /**
    * Returns the length of the side of a hex tile, in pixels. This property
@@ -182,7 +202,8 @@ class Map final {
    * @return the length of the side of a hex tile, in pixels.
    * @since 0.1.0
    */
-  STEP_QUERY int hex_side_length() const noexcept;
+  STEP_QUERY
+  int hex_side_length() const noexcept;
 
   /**
    * Returns the background color associated with the map. This property is
@@ -191,7 +212,8 @@ class Map final {
    * @return the background color of the map.
    * @since 0.1.0
    */
-  STEP_QUERY Maybe<Color> background_color() const noexcept;
+  STEP_QUERY
+  std::optional<color> background_color() const noexcept;
 
   /**
    * Returns the JSON format version associated with the map.
@@ -199,7 +221,8 @@ class Map final {
    * @return the JSON format version associated with the map.
    * @since 0.1.0
    */
-  STEP_QUERY double json_version() const noexcept;
+  STEP_QUERY
+  double json_version() const noexcept;
 
   /**
    * Returns the Tiled version associated with the map.
@@ -207,7 +230,8 @@ class Map final {
    * @return the Tiled version associated with the map.
    * @since 0.1.0
    */
-  STEP_QUERY std::string tiled_version() const;
+  STEP_QUERY
+  std::string tiled_version() const;
 
  private:
   int m_width{0};
@@ -218,43 +242,40 @@ class Map final {
   int m_nextObjectID{0};
   std::vector<Layer> m_layers;
   std::vector<Tileset> m_tilesets;
-  Properties m_properties;
+  std::unique_ptr<properties> m_properties;
   Orientation m_orientation{Orientation::Orthogonal};
   RenderOrder m_renderOrder{RenderOrder::RightDown};
   StaggerAxis m_staggerAxis{StaggerAxis::X};
   StaggerIndex m_staggerIndex{StaggerIndex::Odd};
   int m_hexSideLength{0};
-  Maybe<Color> m_backgroundColor;
+  std::optional<color> m_backgroundColor;
   std::string m_tiledVersion;
   double m_jsonVersion{0};
   bool m_infinite{false};
 
-  void parse(std::string_view root, const JSON& json);
+  void parse(std::string_view root, const json& json);
 };
 
-STEP_SERIALIZE_ENUM(Map::RenderOrder,
-                    {{Map::RenderOrder::RightDown, "right-down"},
-                     {Map::RenderOrder::RightUp, "right-up"},
-                     {Map::RenderOrder::LeftDown, "left-down"},
-                     {Map::RenderOrder::LeftUp, "left-up"}})
+NLOHMANN_JSON_SERIALIZE_ENUM(Map::RenderOrder,
+                             {{Map::RenderOrder::RightDown, "right-down"},
+                              {Map::RenderOrder::RightUp, "right-up"},
+                              {Map::RenderOrder::LeftDown, "left-down"},
+                              {Map::RenderOrder::LeftUp, "left-up"}})
 
-STEP_SERIALIZE_ENUM(Map::Orientation,
-                    {{Map::Orientation::Orthogonal, "orthogonal"},
-                     {Map::Orientation::Isometric, "isometric"},
-                     {Map::Orientation::Staggered, "staggered"},
-                     {Map::Orientation::Hexagonal, "hexagonal"}})
+NLOHMANN_JSON_SERIALIZE_ENUM(Map::Orientation,
+                             {{Map::Orientation::Orthogonal, "orthogonal"},
+                              {Map::Orientation::Isometric, "isometric"},
+                              {Map::Orientation::Staggered, "staggered"},
+                              {Map::Orientation::Hexagonal, "hexagonal"}})
 
-STEP_SERIALIZE_ENUM(Map::StaggerAxis,
-                    {{Map::StaggerAxis::X, "x"}, {Map::StaggerAxis::Y, "y"}})
+NLOHMANN_JSON_SERIALIZE_ENUM(Map::StaggerAxis,
+                             {{Map::StaggerAxis::X, "x"},
+                              {Map::StaggerAxis::Y, "y"}})
 
-STEP_SERIALIZE_ENUM(Map::StaggerIndex,
-                    {{Map::StaggerIndex::Odd, "odd"},
-                     {Map::StaggerIndex::Even, "even"}})
+NLOHMANN_JSON_SERIALIZE_ENUM(Map::StaggerIndex,
+                             {{Map::StaggerIndex::Odd, "odd"},
+                              {Map::StaggerIndex::Even, "even"}})
 
 }  // namespace step
 
-#ifdef STEP_HEADER_ONLY
-#include "step_map.cpp"
-#endif  // STEP_HEADER_ONLY
-
-#endif  // STEP_TILED_MAP_HEADER
+#endif  // STEP_MAP_HEADER

@@ -22,31 +22,30 @@
  * SOFTWARE.
  */
 
-#ifndef STEP_API_HEADER
-#define STEP_API_HEADER
+#ifndef STEP_EXCEPTION_HEADER
+#define STEP_EXCEPTION_HEADER
 
-#include "step_cfg.h"
+#include <exception>
+#include <utility>
 
-// Define STEP_API for any platform
-// https://atomheartother.github.io/c++/2018/07/12/CPPDynLib.html
-#if defined(_WIN32) && !defined(STEP_API)
-#ifdef WIN_EXPORT
-#define STEP_API __declspec(dllexport)
-#else
-#define STEP_API __declspec(dllimport)
-#endif  // WIN_EXPORT
-#else
-#define STEP_API
-#endif  // defined(_WIN32) && !defined(STEP_API)
+#include "step_types.hpp"
 
-// When header-only mode is enabled, definitions are specified as inline
-#if !defined(STEP_DEF) && defined(STEP_HEADER_ONLY)
-#define STEP_DEF inline
-#else
-#define STEP_DEF
-#endif  // !defined(STEP_DEF) && defined(STEP_HEADER_ONLY)
+namespace step {
 
-// Used for getters that aren't inlined
-#define STEP_QUERY [[nodiscard]] STEP_API
+class step_exception final : public std::exception {
+ public:
+  step_exception() noexcept = default;
 
-#endif  // STEP_API_HEADER
+  explicit step_exception(std::string what) : m_what{std::move(what)} {}
+
+  ~step_exception() noexcept override = default;
+
+  czstring what() const noexcept override { return m_what.c_str(); }
+
+ private:
+  std::string m_what;
+};
+
+}  // namespace step
+
+#endif  // STEP_EXCEPTION_HEADER

@@ -22,60 +22,47 @@
  * SOFTWARE.
  */
 
-#ifndef STEP_DATA_HEADER
-#define STEP_DATA_HEADER
+#ifndef STEP_FRAME_HEADER
+#define STEP_FRAME_HEADER
 
-#include <string>
-#include <variant>
-#include <vector>
+#include "step_api.hpp"
+#include "step_types.hpp"
 
-#include "step_api.h"
-#include "step_types.h"
-
-namespace step::detail {
+namespace step {
 
 /**
- * The Data class is a helper that represents either GID or Base64 tile data.
+ * The Frame class represents a frame in an animation.
  *
  * @since 0.1.0
  */
-class Data final {
+class Frame final {
  public:
-  using GIDData = std::vector<GID>;
-  using Base64Data = std::string;
-
-  STEP_API friend void from_json(const JSON&, Data&);
+  STEP_API
+  explicit Frame(const json& json);
 
   /**
-   * Returns the GID data associated with the Data instance. This method
-   * throws an exception if the internal data isn't actually GID data.
+   * Returns the local tile ID that is associated with the frame.
    *
-   * @return the GID data associated with the Data instance.
-   * @throws StepException if the data cannot be obtained.
+   * @return the local tile ID that is associated with the frame.
    * @since 0.1.0
    */
-  STEP_QUERY const GIDData& as_gid() const;
+  STEP_QUERY
+  local_id tile_id() const noexcept;
 
   /**
-   * Returns the Base64 data associated with the Data instance. This method
-   * throws an exception if the internal data isn't actually Base64 data.
+   * Returns the duration of this frame, in milliseconds.
    *
-   * @return the Base64 data associated with the Data instance.
-   * @throws StepException if the data cannot be obtained.
+   * @return the duration of this frame, in milliseconds.
    * @since 0.1.0
    */
-  STEP_QUERY const Base64Data& as_base64() const;
+  STEP_QUERY
+  int duration() const noexcept;
 
  private:
-  std::variant<GIDData, Base64Data> m_data;
+  local_id m_tileID{0};
+  int m_duration{0};
 };
 
-STEP_API void from_json(const JSON& json, Data& data);
+}  // namespace step
 
-}  // namespace step::detail
-
-#ifdef STEP_HEADER_ONLY
-#include "step_data.cpp"
-#endif  // STEP_HEADER_ONLY
-
-#endif  // STEP_DATA_HEADER
+#endif  // STEP_FRAME_HEADER

@@ -22,66 +22,69 @@
  * SOFTWARE.
  */
 
-#ifndef STEP_TERRAIN_HEADER
-#define STEP_TERRAIN_HEADER
+/*
+ * @file step_animation.hpp
+ *
+ * @brief Provides the `animation` class.
+ *
+ * @author Albin Johansson
+ *
+ * @date 2020
+ *
+ * @copyright MIT License
+ */
 
-#include <string>
+#ifndef STEP_ANIMATION_HEADER
+#define STEP_ANIMATION_HEADER
+
 #include <vector>
 
-#include "step_api.h"
-#include "step_properties.h"
+#include "step_api.hpp"
+#include "step_frame.hpp"
+#include "step_types.hpp"
 
 namespace step {
 
 /**
- * The Terrain class represents optional terrains in a tileset.
+ * @class animation
+ *
+ * @brief Represents a collection of frames, used to animate tiles.
  *
  * @since 0.1.0
+ *
+ * @todo Add begin() and end(), maybe even at() & operator[].
+ *
+ * @headerfile step_animation.hpp
  */
-class Terrain final {
+class animation final {
  public:
-  STEP_API friend void from_json(const JSON&, Terrain&);
+  STEP_API
+  explicit animation(const json& json);
 
   /**
-   * Returns the local GID of the tile associated with the terrain.
+   * @brief Returns the frames associated with the animation.
    *
-   * @return the local GID of the tile associated with the terrain.
+   * @return the frames associated with the animation.
+   *
    * @since 0.1.0
    */
-  [[nodiscard]] int tile() const noexcept { return m_tile; }
+  STEP_QUERY
+  auto frames() const -> const std::vector<Frame>&;
 
   /**
-   * Returns the name associated with the terrain.
+   * @brief Returns the amount of frames that constitute the animation.
    *
-   * @return the name associated with the terrain.
+   * @return the amount of frames that constitute the animation.
+   *
    * @since 0.1.0
    */
-  [[nodiscard]] std::string name() const { return m_name; }
-
-  /**
-   * Returns the properties associated with the terrain. This property is
-   * optional.
-   *
-   * @return the properties associated with the terrain.
-   * @since 0.1.0
-   */
-  [[nodiscard]] const Properties& properties() const noexcept
-  {
-    return m_properties;
-  }
+  STEP_QUERY
+  auto num_frames() const noexcept -> int;
 
  private:
-  int m_tile;
-  std::string m_name;
-  Properties m_properties;
+  std::vector<Frame> m_frames;
 };
-
-void from_json(const JSON& json, Terrain& terrain);
 
 }  // namespace step
 
-#ifdef STEP_HEADER_ONLY
-#include "step_terrain.cpp"
-#endif  // STEP_HEADER_ONLY
-
-#endif  // STEP_TERRAIN_HEADER
+#endif  // STEP_ANIMATION_HEADER

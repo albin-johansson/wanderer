@@ -22,55 +22,50 @@
  * SOFTWARE.
  */
 
-#ifndef STEP_ANIMATION_HEADER
-#define STEP_ANIMATION_HEADER
+#ifndef STEP_HEADER
+#define STEP_HEADER
 
-#include <vector>
+#include <string_view>
 
-#include "step_api.h"
-#include "step_frame.h"
-#include "step_types.h"
+#include "step_api.hpp"
+#include "step_map.hpp"
+#include "step_types.hpp"
 
 namespace step {
 
 /**
- * The Animation class represents a collection of frames, used to animate tiles.
+ * @brief Attempts to parse a Tiled JSON map file located at the specified path.
+ *
+ * @param path the path of the Tiled map.
+ *
+ * @return a unique pointer to a map that represents the map file.
+ *
+ * @throws step_exception if the map cannot be parsed.
+ *
+ * @since 0.2.0
+ */
+STEP_QUERY
+auto parse(const fs::path& path) -> std::unique_ptr<Map>;
+
+/**
+ * @brief Attempts to parse a Tiled JSON map file located at the specified path.
+ *
+ * @note This method will throw an exception if the map cannot be parsed for
+ * some reason.
+ *
+ * @param root the file path of the directory that contains the map file.
+ * @param file the location of the Tiled JSON map file.
+ *
+ * @return a unique pointer to a map that represents the map file.
+ *
+ * @throws step_exception if the map cannot be parsed.
  *
  * @since 0.1.0
  */
-class Animation final {
- public:
-  STEP_API friend void from_json(const JSON&, Animation&);
-
-  /**
-   * Returns the frames associated with the animation.
-   *
-   * @return the frames associated with the animation.
-   * @since 0.1.0
-   */
-  [[nodiscard]] const std::vector<Frame>& frames() const { return m_frames; }
-
-  /**
-   * Returns the amount of frames that constitute the animation.
-   *
-   * @return the amount of frames that constitute the animation.
-   * @since 0.1.0
-   */
-  [[nodiscard]] int length() const noexcept
-  {
-    return static_cast<int>(m_frames.size());
-  }
-
- private:
-  std::vector<Frame> m_frames;
-};
-
-STEP_API void from_json(const JSON& json, Animation& animation);
+[[deprecated("Use the path-based function instead!")]] STEP_QUERY auto parse(
+    std::string_view root,
+    std::string_view file) -> std::unique_ptr<Map>;
 
 }  // namespace step
 
-#ifdef STEP_HEADER_ONLY
-#include "step_animation.cpp"
-#endif  // STEP_HEADER_ONLY
-
-#endif  // STEP_ANIMATION_HEADER
+#endif  // STEP_HEADER

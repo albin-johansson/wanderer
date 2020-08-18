@@ -22,50 +22,56 @@
  * SOFTWARE.
  */
 
-#ifndef STEP_FRAME_HEADER
-#define STEP_FRAME_HEADER
+#ifndef STEP_IMAGE_LAYER_HEADER
+#define STEP_IMAGE_LAYER_HEADER
 
-#include "step_api.h"
-#include "step_types.h"
+#include <string>
+
+#include "step_api.hpp"
+#include "step_color.hpp"
+#include "step_types.hpp"
 
 namespace step {
 
 /**
- * The Frame class represents a frame in an animation.
+ * The ImageLayer class represents the API for layers that represent "image
+ * layers", that is layers that are represented by an image.
  *
  * @since 0.1.0
  */
-class Frame final {
+class ImageLayer final {
  public:
-  STEP_API friend void from_json(const JSON&, Frame&);
+  STEP_API
+  friend void from_json(const json&, ImageLayer&);
 
   /**
-   * Returns the local tile ID that is associated with the frame.
+   * Returns the image used by the image layer.
    *
-   * @return the local tile ID that is associated with the frame.
+   * @return the image associated with the image layer.
    * @since 0.1.0
    */
-  [[nodiscard]] int tile_id() const noexcept { return m_tileID; }
+  STEP_QUERY
+  std::string image() const;
 
   /**
-   * Returns the duration of this frame, in milliseconds.
+   * Returns the transparent color used by the image layer. This property is
+   * optional.
    *
-   * @return the duration of this frame, in milliseconds.
+   * @return the transparent color used by the image layer; nothing if there is
+   * none.
    * @since 0.1.0
    */
-  [[nodiscard]] int duration() const noexcept { return m_duration; }
+  STEP_QUERY
+  std::optional<color> transparent_color() const noexcept;
 
  private:
-  int m_tileID = 0;
-  int m_duration = 0;
+  std::string m_image;
+  std::optional<color> m_transparentColor;
 };
 
-STEP_API void from_json(const JSON& json, Frame& frame);
+STEP_API
+void from_json(const json& json, ImageLayer& layer);
 
 }  // namespace step
 
-#ifdef STEP_HEADER_ONLY
-#include "step_frame.cpp"
-#endif  // STEP_HEADER_ONLY
-
-#endif  // STEP_FRAME_HEADER
+#endif  // STEP_IMAGE_LAYER_HEADER

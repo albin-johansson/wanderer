@@ -22,79 +22,74 @@
  * SOFTWARE.
  */
 
-#ifndef STEP_CHUNK_HEADER
-#define STEP_CHUNK_HEADER
+/**
+ * @file step_point.hpp
+ *
+ * @brief Provides the `point` class.
+ *
+ * @author Albin Johansson
+ *
+ * @date 2020
+ *
+ * @copyright MIT License
+ */
 
-#include "step_api.h"
-#include "step_data.h"
-#include "step_types.h"
+#ifndef STEP_POINT_HEADER
+#define STEP_POINT_HEADER
+
+#include "step_api.hpp"
+#include "step_types.hpp"
 
 namespace step {
 
 /**
- * The Chunk class represents so called chunks, that store the tile layer
- * data for infinite maps.
+ * @class point
+ *
+ * @brief Represents a simple 2D-coordinate in the plane.
  *
  * @since 0.1.0
+ *
+ * @headerfile step_point.hpp
  */
-class Chunk final {
+class point final {
  public:
-  STEP_API friend void from_json(const JSON&, Chunk&);
+  point() noexcept = default;
 
   /**
-   * Returns the x-coordinate of the chunk.
+   * @brief Parses a point from a JSON object.
    *
-   * @return the x-coordinate of the chunk.
-   * @since 0.1.0
+   * @param json the JSON object that represents the point.
+   *
+   * @since 0.2.0
    */
-  STEP_QUERY int x() const noexcept;
+  STEP_API
+  explicit point(const json& json);
 
   /**
-   * Returns the y-coordinate of the chunk.
+   * @brief Returns the x-coordinate associated with the point.
    *
-   * @return the y-coordinate of the chunk.
+   * @return the x-coordinate of the point.
+   *
    * @since 0.1.0
    */
-  STEP_QUERY int y() const noexcept;
+  STEP_QUERY
+  auto x() const noexcept -> double;
 
   /**
-   * Returns the width of the chunk.
+   * @brief Returns the y-coordinate associated with the point.
    *
-   * @return the width of the chunk.
+   * @return the y-coordinate of the point.
+   *
    * @since 0.1.0
    */
-  STEP_QUERY int width() const noexcept;
-
-  /**
-   * Returns the height of the chunk.
-   *
-   * @return the height of the chunk.
-   * @since 0.1.0
-   */
-  STEP_QUERY int height() const noexcept;
-
-  /**
-   * Returns the data associated with the chunk.
-   *
-   * @return the data associated with the chunk.
-   * @since 0.1.0
-   */
-  STEP_QUERY const detail::Data& data() const noexcept;
+  STEP_QUERY
+  auto y() const noexcept -> double;
 
  private:
-  int m_x;
-  int m_y;
-  int m_width;
-  int m_height;
-  detail::Data m_data;
+  double m_x{};
+  double m_y{};
 };
-
-STEP_API void from_json(const JSON& json, Chunk& chunk);
 
 }  // namespace step
 
-#ifdef STEP_HEADER_ONLY
-#include "step_chunk.cpp"
-#endif  // STEP_HEADER_ONLY
-
-#endif  // STEP_CHUNK_HEADER
+#endif  // STEP_POINT_HEADER

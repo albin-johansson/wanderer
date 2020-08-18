@@ -22,40 +22,62 @@
  * SOFTWARE.
  */
 
-#ifndef STEP_TYPES_HEADER
-#define STEP_TYPES_HEADER
+#ifndef STEP_TERRAIN_HEADER
+#define STEP_TERRAIN_HEADER
 
-#include <json.hpp>
-#include <optional>
+#include <memory>
+#include <string>
+#include <vector>
 
-#include "step_api.h"
+#include "step_api.hpp"
+#include "step_properties.hpp"
 
 namespace step {
 
-using JSON = nlohmann::json;
-using JSONValueType = nlohmann::json::value_t;
-
-// TODO remove the error aliases
-using TypeError = nlohmann::json::type_error;
-using ParseError = nlohmann::json::parse_error;
-using OutOfRange = nlohmann::json::out_of_range;
-
 /**
- * The type used for global IDs (GIDs).
+ * The Terrain class represents optional terrains in a tileset.
  *
  * @since 0.1.0
  */
-using GID = unsigned int;
+class Terrain final {
+ public:
+  STEP_API
+  explicit Terrain(const json& json);
 
-#define STEP_SERIALIZE_ENUM NLOHMANN_JSON_SERIALIZE_ENUM
+  /**
+   * Returns the local GID of the tile associated with the terrain.
+   *
+   * @return the local GID of the tile associated with the terrain.
+   * @since 0.1.0
+   */
+  STEP_QUERY
+  auto tile() const noexcept -> local_id;
 
-using CZString = const char*;
+  /**
+   * Returns the name associated with the terrain.
+   *
+   * @return the name associated with the terrain.
+   * @since 0.1.0
+   */
+  STEP_QUERY
+  auto name() const -> std::string;
 
-template <typename T>
-using Maybe = std::optional<T>;
+  /**
+   * Returns the properties associated with the terrain. This property is
+   * optional.
+   *
+   * @return the properties associated with the terrain; null if there are none.
+   * @since 0.1.0
+   */
+  STEP_QUERY
+  auto get_properties() const noexcept -> const properties*;
 
-inline constexpr std::nullopt_t nothing = std::nullopt;
+ private:
+  local_id m_tile{0};
+  std::string m_name;
+  std::unique_ptr<properties> m_properties;
+};
 
 }  // namespace step
 
-#endif  // STEP_TYPES_HEADER
+#endif  // STEP_TERRAIN_HEADER
