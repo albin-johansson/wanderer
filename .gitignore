@@ -38,8 +38,7 @@
 .vs
 .vscode
 out
-cmake-build-debug
-cmake-build-release
+cmake-build-*
 build
 doc/html
 compile_commands.json
