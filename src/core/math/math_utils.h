@@ -40,7 +40,7 @@ class Math final {
     return (degrees * pi_d) / 180.0;
   }
 
-  [[nodiscard]] static constexpr auto round(float f) noexcept -> int
+  [[nodiscard]] static auto round(float f) noexcept -> int
   {
     return static_cast<int>(std::round(f));
   }
@@ -73,8 +73,10 @@ class Math final {
    * @return true if the values are almost equal; false otherwise.
    * @since 0.1.0
    */
-  [[nodiscard]] static constexpr auto
-  almost_equal(double a, double b, double epsilon = 0.001) noexcept -> bool
+  [[nodiscard]] static auto almost_equal(double a,
+                                         double b,
+                                         double epsilon = 0.001) noexcept
+      -> bool
   {
     return std::abs(a - b) < epsilon;
   }
@@ -90,8 +92,10 @@ class Math final {
    * @return true if the values are almost equal; false otherwise.
    * @since 0.1.0
    */
-  [[nodiscard]] static constexpr auto
-  almost_equal(float a, float b, float epsilon = 0.001f) noexcept -> bool
+  [[nodiscard]] static auto almost_equal(float a,
+                                         float b,
+                                         float epsilon = 0.001f) noexcept
+      -> bool
   {
     return std::abs(a - b) < epsilon;
   }
