@@ -31,63 +31,82 @@
 namespace step {
 
 /**
- * The Grid class provides information about the grid of tiles in a tileset.
+ * @class grid
+ *
+ * @brief Provides information about the grid of tiles in a tileset.
  *
  * @since 0.1.0
+ *
+ * @headerfile step_grid.hpp
  */
-class Grid final {
+class grid final {
  public:
   /**
-   * The Orientation enum class provides values for the different possible
-   * orientations of a grid in a tileset.
+   * @enum grid::orientation
+   *
+   * @brief Provides values for the different possible  orientations of a
+   * grid in a tileset.
    *
    * @since 0.1.0
    */
-  enum class Orientation { Orthogonal, Isometric };
+  enum class orientation { orthogonal, isometric };
 
-  STEP_API
-  friend void from_json(const json&, Grid&);
+  friend void from_json(const json&, grid&);
 
   /**
-   * Returns the orientation of the grid. The default value of this property
-   * is <code>Orthogonal</code>.
+   * @brief Returns the orientation of the grid.
+   *
+   * @details The default value of this property is `Orthogonal`.
    *
    * @return the orientation of the grid.
+   *
    * @since 0.1.0
    */
-  [[nodiscard]] Orientation orientation() const noexcept
+  [[nodiscard]] auto get_orientation() const noexcept -> orientation
   {
     return m_orientation;
   }
 
   /**
-   * Returns the width of the cells in the grid.
+   * @brief Returns the width of the cells in the grid.
    *
    * @return the width of the cells in the grid.
+   *
    * @since 0.1.0
    */
-  [[nodiscard]] int width() const noexcept { return m_width; }
+  [[nodiscard]] auto width() const noexcept -> int
+  {
+    return m_width;
+  }
 
   /**
-   * Returns the height of the cells in the grid.
+   * @brief Returns the height of the cells in the grid.
    *
    * @return the height of the cells in the grid.
+   *
    * @since 0.1.0
    */
-  [[nodiscard]] int height() const noexcept { return m_height; }
+  [[nodiscard]] auto height() const noexcept -> int
+  {
+    return m_height;
+  }
 
  private:
-  Orientation m_orientation = Orientation::Orthogonal;
-  int m_width;
-  int m_height;
+  orientation m_orientation{orientation::orthogonal};
+  int m_width{};
+  int m_height{};
 };
 
-STEP_API
-void from_json(const json& json, Grid& grid);
+inline void from_json(const json& json, grid& grid)
+{
+  json.at("width").get_to(grid.m_width);
+  json.at("height").get_to(grid.m_height);
+  json.at("orientation").get_to(grid.m_orientation);
+}
 
-NLOHMANN_JSON_SERIALIZE_ENUM(Grid::Orientation,
-                             {{Grid::Orientation::Orthogonal, "orthogonal"},
-                              {Grid::Orientation::Isometric, "isometric"}})
+NLOHMANN_JSON_SERIALIZE_ENUM(grid::orientation,
+                             {{grid::orientation::orthogonal, "orthogonal"},
+                              {grid::orientation::isometric, "isometric"}})
 
 }  // namespace step
 

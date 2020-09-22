@@ -1,7 +1,7 @@
 #include "make_tile.h"
 
-#include <log.h>
-#include <timer.h>
+#include <counter.hpp>
+#include <log.hpp>
 
 #include "animated_tile.h"
 #include "tile.h"
@@ -13,18 +13,19 @@ namespace {
 
 void add_animation(entt::registry& registry,
                    const Tile::entity tileEntity,
-                   const step::Animation& stepAnimation,
+                   const step::animation& stepAnimation,
                    const tile_id firstgid)
 {
   auto& animatedTile = registry.emplace<AnimatedTile>(tileEntity.get());
   animatedTile.frame = 0;
-  animatedTile.then = ctn::Timer::millis();
+  animatedTile.then = cen::counter::ticks().count();  // FIXME
 
-  animatedTile.frames.reserve(static_cast<std::size_t>(stepAnimation.length()));
+  animatedTile.frames.reserve(
+      static_cast<std::size_t>(stepAnimation.num_frames()));
 
   for (const auto& stepFrames : stepAnimation.frames()) {
     auto& frame = animatedTile.frames.emplace_back();
-    frame.tile = firstgid + static_cast<tile_id>(stepFrames.tile_id());
+    frame.tile = firstgid + static_cast<tile_id>(stepFrames.tile_id().get());
     frame.duration = static_cast<u32>(stepFrames.duration());
   }
 
@@ -35,10 +36,10 @@ void add_animation(entt::registry& registry,
 
 void parse_special_tile(entt::registry& registry,
                         const Tile::entity tileEntity,
-                        const step::Tile& stepTile,
+                        const step::tile& stepTile,
                         const tile_id firstGID)
 {
-  if (const auto& stepAnimation = stepTile.animation(); stepAnimation) {
+  if (const auto& stepAnimation = stepTile.get_animation(); stepAnimation) {
     add_animation(registry, tileEntity, *stepAnimation, firstGID);
   }
 
@@ -49,8 +50,8 @@ void parse_special_tile(entt::registry& registry,
 
 auto make_basic_tile(entt::registry& registry,
                      const tile_id id,
-                     const entt::handle<ctn::Texture>& sheet,
-                     const ctn::IRect& src) noexcept -> Tile::entity
+                     const entt::handle<cen::texture>& sheet,
+                     const cen::irect& src) noexcept -> Tile::entity
 {
   const auto tileEntity = registry.create();
 

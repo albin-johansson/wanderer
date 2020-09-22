@@ -13,7 +13,7 @@ namespace wanderer::sys::layer {
 
 void render(entt::registry& registry,
             const TileLayer& layer,
-            ctn::Renderer& renderer,
+            cen::renderer& renderer,
             const Tileset& tileset,
             const RenderBounds& bounds)
 {

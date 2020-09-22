@@ -25,17 +25,19 @@
 #ifndef STEP_PROPERTIES_HEADER
 #define STEP_PROPERTIES_HEADER
 
-#include <algorithm>   // for_each
-#include <functional>  // less
-#include <map>
-#include <string>
-#include <string_view>
+#include <algorithm>    // for_each
+#include <functional>   // less
+#include <map>          // map
+#include <string>       // string
+#include <string_view>  // string_view
 
 #include "step_api.hpp"
 #include "step_color.hpp"
+#include "step_exception.hpp"
 #include "step_property.hpp"
 #include "step_types.hpp"
 #include "step_utils.hpp"
+#include "step_valid_property.hpp"
 
 namespace step {
 
@@ -50,8 +52,13 @@ namespace step {
  */
 class properties final {
  public:
-  STEP_API
-  explicit properties(const json& json);
+  explicit properties(const json& json)
+  {
+    for (const auto& [key, value] : json.items()) {
+      const property property{value};
+      m_properties.emplace(property.name(), value);
+    }
+  }
 
   /**
    * @brief Iterates over all of the properties store in this instance.
@@ -80,8 +87,10 @@ class properties final {
    *
    * @since 0.1.0
    */
-  STEP_QUERY
-  auto has(std::string_view name) const -> bool;
+  [[nodiscard]] auto has(std::string_view name) const -> bool
+  {
+    return m_properties.find(name) != m_properties.end();
+  }
 
   /**
    * @brief Returns the property associated with the specified name.
@@ -97,8 +106,14 @@ class properties final {
    *
    * @since 0.1.0
    */
-  STEP_QUERY
-  auto get(std::string_view name) const -> const property&;
+  [[nodiscard]] auto get(std::string_view name) const -> const property&
+  {
+    if (const auto it = m_properties.find(name); it != m_properties.end()) {
+      return it->second;
+    } else {
+      throw step_exception{"properties > Couldn't find property!"};
+    }
+  }
 
   /**
    * @brief Indicates whether or not the specified property is equal to the
@@ -144,8 +159,10 @@ class properties final {
    *
    * @since 0.1.0
    */
-  STEP_QUERY
-  auto amount() const noexcept -> int;
+  [[nodiscard]] auto amount() const noexcept -> int
+  {
+    return static_cast<int>(m_properties.size());
+  }
 
   /**
    * @brief Indicates whether or not there are any `property` instances handled
@@ -156,8 +173,10 @@ class properties final {
    *
    * @since 0.1.0
    */
-  STEP_QUERY
-  auto empty() const noexcept -> bool;
+  [[nodiscard]] auto empty() const noexcept -> bool
+  {
+    return m_properties.empty();
+  }
 
  private:
   std::map<std::string, property, std::less<>> m_properties;

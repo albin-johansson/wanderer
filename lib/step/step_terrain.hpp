@@ -31,46 +31,67 @@
 
 #include "step_api.hpp"
 #include "step_properties.hpp"
+#include "step_utils.hpp"
 
 namespace step {
 
 /**
- * The Terrain class represents optional terrains in a tileset.
+ * @class terrain
+ *
+ * @brief Represents optional terrains in a tileset.
  *
  * @since 0.1.0
+ *
+ * @headerfile step_terrain.hpp
  */
-class Terrain final {
+class terrain final {
  public:
-  STEP_API
-  explicit Terrain(const json& json);
+  explicit terrain(const json& json)
+      : m_tile{json.at("tile").get<int>()},
+        m_name{json.at("name").get<std::string>()}
+  {
+    if (const auto it = json.find("properties"); it != json.end()) {
+      m_properties = std::make_unique<properties>(*it);
+    }
+  }
 
   /**
-   * Returns the local GID of the tile associated with the terrain.
+   * @brief Returns the local GID of the tile associated with the terrain.
    *
    * @return the local GID of the tile associated with the terrain.
+   *
    * @since 0.1.0
    */
-  STEP_QUERY
-  auto tile() const noexcept -> local_id;
+  [[nodiscard]] auto tile() const noexcept -> local_id
+  {
+    return m_tile;
+  }
 
   /**
-   * Returns the name associated with the terrain.
+   * @brief Returns the name associated with the terrain.
    *
    * @return the name associated with the terrain.
+   *
    * @since 0.1.0
    */
-  STEP_QUERY
-  auto name() const -> std::string;
+  [[nodiscard]] auto name() const -> std::string
+  {
+    return m_name;
+  }
 
   /**
-   * Returns the properties associated with the terrain. This property is
-   * optional.
+   * @brief Returns the properties associated with the terrain.
+   *
+   * @details This property is optional.
    *
    * @return the properties associated with the terrain; null if there are none.
+   *
    * @since 0.1.0
    */
-  STEP_QUERY
-  auto get_properties() const noexcept -> const properties*;
+  [[nodiscard]] auto get_properties() const noexcept -> const properties*
+  {
+    return m_properties.get();
+  }
 
  private:
   local_id m_tile{0};

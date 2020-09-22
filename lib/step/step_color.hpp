@@ -37,14 +37,42 @@
 #ifndef STEP_COLOR_HEADER
 #define STEP_COLOR_HEADER
 
+#include <charconv>
 #include <cstdint>
+#include <string>
 #include <string_view>
 
 #include "step_api.hpp"
 #include "step_exception.hpp"
 #include "step_types.hpp"
+#include "step_utils.hpp"
 
 namespace step {
+namespace detail {
+
+/**
+ * @brief Converts the supplied string that is in hex format to the
+ * corresponding value.
+ *
+ * @param view the string that will be converted, e.g "E7".
+ *
+ * @return the value of the supplied string.
+ *
+ * @throws step_exception if the conversion is unsuccessful.
+ *
+ * @since 0.1.0
+ */
+inline auto from_hex(std::string_view view) -> uint8_t
+{
+  try {
+    return convert<uint8_t>(view, 16);
+  } catch (...) {
+    using namespace std::string_literals;
+    throw step_exception{"color > Failed to parse hex string: "s.append(view)};
+  }
+}
+
+}  // namespace detail
 
 /**
  * @class color
@@ -95,8 +123,39 @@ class color final {
    *
    * @since 0.1.0
    */
-  STEP_API
-  explicit color(std::string_view value);
+  explicit color(std::string_view value)
+  {
+    if (value.length() != 7 && value.length() != 9) {
+      const auto badLen = std::to_string(value.length());
+      throw step_exception{"color > Input string has incorrect length: " +
+                           badLen};
+    }
+
+    if (value.at(0) != '#') {
+      throw step_exception{"color > Input string must begin with #"};
+    }
+
+    const auto withoutHash = value.substr(1);
+    const auto len = withoutHash.length();
+
+    try {
+      if (len == 8) {  // AARRGGBB
+        m_alpha = detail::from_hex(withoutHash.substr(0, 2));
+        m_red = detail::from_hex(withoutHash.substr(2, 2));
+        m_green = detail::from_hex(withoutHash.substr(4, 2));
+        m_blue = detail::from_hex(withoutHash.substr(6, 2));
+      } else {  // RRGGBB
+        m_red = detail::from_hex(withoutHash.substr(0, 2));
+        m_green = detail::from_hex(withoutHash.substr(2, 2));
+        m_blue = detail::from_hex(withoutHash.substr(4, 2));
+      }
+
+    } catch (const step_exception&) {
+      throw;
+    } catch (...) {
+      throw step_exception{"Couldn't create color!"};
+    }
+  }
 
   /**
    * @brief Creates a color from the supplied string that is in either ARGB or

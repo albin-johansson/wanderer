@@ -62,8 +62,10 @@ class point final {
    *
    * @since 0.2.0
    */
-  STEP_API
-  explicit point(const json& json);
+  explicit point(const json& json)
+      : m_x{json.at("x").get<double>()},
+        m_y{json.at("y").get<double>()}
+  {}
 
   /**
    * @brief Returns the x-coordinate associated with the point.
@@ -72,8 +74,10 @@ class point final {
    *
    * @since 0.1.0
    */
-  STEP_QUERY
-  auto x() const noexcept -> double;
+  [[nodiscard]] auto x() const noexcept -> double
+  {
+    return m_x;
+  }
 
   /**
    * @brief Returns the y-coordinate associated with the point.
@@ -82,8 +86,10 @@ class point final {
    *
    * @since 0.1.0
    */
-  STEP_QUERY
-  auto y() const noexcept -> double;
+  [[nodiscard]] auto y() const noexcept -> double
+  {
+    return m_y;
+  }
 
  private:
   double m_x{};

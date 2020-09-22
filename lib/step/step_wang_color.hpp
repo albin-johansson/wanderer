@@ -25,7 +25,8 @@
 #ifndef STEP_WANG_COLOR_HEADER
 #define STEP_WANG_COLOR_HEADER
 
-#include <string>
+#include <string>       // string
+#include <string_view>  // string_view
 
 #include "step_api.hpp"
 #include "step_color.hpp"
@@ -34,50 +35,66 @@
 
 namespace step {
 
-class WangColor final {
+class wang_color final {
  public:
   /**
    * @param json the JSON object that holds the data for a Wang color.
    * @since 0.1.0
    */
-  STEP_API
-  explicit WangColor(const json& json);
+  explicit wang_color(const json& json)
+      : m_name{json.at("name").get<std::string>()},
+        m_color{json.at("color").get<std::string>()},
+        m_tile{json.at("tile").get<int>()},
+        m_probability{json.at("probability").get<double>()}
+  {}
 
   /**
-   * Returns the name associated with the Wang color.
+   * @brief Returns the name associated with the Wang color.
    *
    * @return the name associated with the Wang color.
+   *
    * @since 0.1.0
    */
-  STEP_QUERY
-  const std::string& name() const;
+  [[nodiscard]] auto name() const -> std::string_view
+  {
+    return m_name;
+  }
 
   /**
-   * Returns the color associated with the Wang color.
+   * @brief Returns the color associated with the Wang color.
    *
    * @return the color associated with the Wang color.
+   *
    * @since 0.1.0
    */
-  STEP_QUERY
-  const color& get_color() const noexcept;
+  [[nodiscard]] auto get_color() const noexcept -> const color&
+  {
+    return m_color;
+  }
 
   /**
-   * Returns the local ID of the tile that represents the Wang color.
+   * @brief Returns the local ID of the tile that represents the Wang color.
    *
    * @return the local ID of the tile that represents the Wang color.
+   *
    * @since 0.1.0
    */
-  STEP_QUERY
-  local_id tile() const noexcept;
+  [[nodiscard]] auto tile() const noexcept -> local_id
+  {
+    return m_tile;
+  }
 
   /**
-   * Returns the probability associated with the Wang color.
+   * @brief Returns the probability associated with the Wang color.
    *
    * @return the probability associated with the Wang color.
+   *
    * @since 0.1.0
    */
-  STEP_QUERY
-  double probability() const noexcept;
+  [[nodiscard]] auto probability() const noexcept -> double
+  {
+    return m_probability;
+  }
 
  private:
   std::string m_name;

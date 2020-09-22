@@ -1,13 +1,13 @@
 #pragma once
 
-#include <renderer.h>
+#include <renderer.hpp>
 
 #include "tile.h"
 #include "tileset.h"
 
 namespace wanderer::sys::tile {
 
-void render(ctn::Renderer& renderer,
+void render(cen::renderer& renderer,
             const comp::Tile& tile,
             int row,
             int col) noexcept;

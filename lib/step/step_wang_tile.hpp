@@ -33,90 +33,83 @@
 
 namespace step {
 
-/**
- * @class wang_tile
- *
- * @brief Represents a Wang tile.
- *
- * @since 0.1.0
- *
- * @headerfile step_wang_tile.hpp
- */
-class wang_tile final {
+class WangTile final {
  public:
-  using color_index_storage = std::array<int, 8>;
-  using value_type = typename color_index_storage::value_type;
-  using const_iterator = typename color_index_storage::const_iterator;
-
   /**
    * @param json the JSON object that holds the data for a Wang tile.
-   *
    * @since 0.1.0
    */
-  STEP_API
-  explicit wang_tile(const json& json);
+  explicit WangTile(const json& json)
+      : m_tileID{json.at("tileid").get<int>()},
+        m_wangColorIndices{json.at("wangid").get<std::array<int, 8>>()},
+        m_flippedDiagonally{json.at("dflip").get<bool>()},
+        m_flippedHorizontally{json.at("hflip").get<bool>()},
+        m_flippedVertically{json.at("vflip").get<bool>()}
+  {}
 
   /**
-   * @brief Returns the local ID associated with the Wang tile.
+   * Returns the local ID associated with the Wang tile.
    *
    * @return the local ID associated with the Wang tile.
-   *
    * @since 0.1.0
    */
-  STEP_QUERY
-  auto tile_id() const noexcept -> local_id;
+  [[nodiscard]] auto tile_id() const noexcept -> local_id
+  {
+    return m_tileID;
+  }
 
   /**
-   * @brief Returns the Wang color indices associated with the Wang tile.
+   * Returns the Wang color indices associated with the Wang tile.
    *
    * @return the Wang color indices associated with the Wang tile.
-   *
    * @since 0.1.0
    */
-  STEP_QUERY
-  auto wang_color_indices() const -> const std::array<int, 8>&;
+  [[nodiscard]] auto wang_color_indices() const -> const std::array<int, 8>&
+  {
+    return m_wangColorIndices;
+  }
 
   /**
    * @brief Indicates whether or not the tile is flipped diagonally.
    *
-   * @note The default value of this property is `false`.
+   * @details The default value of this property is false.
    *
    * @return `true` if the tile is flipped diagonally; `false` otherwise.
    *
    * @since 0.1.0
    */
-  STEP_QUERY
-  auto flipped_diagonally() const noexcept -> bool;
+  [[nodiscard]] auto flipped_diagonally() const noexcept -> bool
+  {
+    return m_flippedDiagonally;
+  }
 
   /**
    * @brief Indicates whether or not the tile is flipped horizontally.
    *
-   * @note The default value of this property is false.
+   * @details The default value of this property is false.
    *
    * @return `true` if the tile is flipped horizontally; `false` otherwise.
    *
    * @since 0.1.0
    */
-  STEP_QUERY
-  auto flipped_horizontally() const noexcept -> bool;
+  [[nodiscard]] auto flipped_horizontally() const noexcept -> bool
+  {
+    return m_flippedHorizontally;
+  }
 
   /**
    * @brief Indicates whether or not the tile is flipped vertically.
    *
-   * @note The default value of this property is false.
+   * @details The default value of this property is false.
    *
    * @return `true` if the tile is flipped vertically; `false` otherwise.
    *
    * @since 0.1.0
    */
-  STEP_QUERY
-  auto flipped_vertically() const noexcept -> bool;
-
-  STEP_QUERY
-  auto begin() const noexcept -> const_iterator;
-
-  STEP_QUERY
-  auto end() const noexcept -> const_iterator;
+  [[nodiscard]] auto flipped_vertically() const noexcept -> bool
+  {
+    return m_flippedVertically;
+  }
 
  private:
   local_id m_tileID{0};

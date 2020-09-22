@@ -1,6 +1,6 @@
 #include "animation_system.h"
 
-#include <timer.h>
+#include <counter.hpp>
 
 #include "animated.h"
 
@@ -11,7 +11,7 @@ namespace wanderer::sys {
 void update_animation_state(entt::registry& registry) noexcept
 {
   registry.view<Animated>().each([](Animated& animated) noexcept {
-    const auto now = ctn::Timer::millis();
+    const auto now = cen::counter::ticks().count();  // FIXME
     const auto elapsed = now - animated.then;
     if (elapsed >= animated.delay) {
       animated.then = now;

@@ -26,6 +26,7 @@
 #define STEP_UTILS_HEADER
 
 #include <charconv>
+#include <fstream>
 #include <memory>
 #include <named_type.hpp>
 #include <string>
@@ -34,7 +35,6 @@
 #include <vector>
 
 #include "step_api.hpp"
-#include "step_color.hpp"
 #include "step_exception.hpp"
 #include "step_types.hpp"
 
@@ -49,7 +49,22 @@ namespace step::detail {
  * @throws step_exception if the file cannot be parsed.
  * @since 0.1.0
  */
-[[nodiscard]] STEP_API json parse_json(std::string_view file);
+[[nodiscard]] inline auto parse_json(std::string_view file) -> json
+{
+  if (!file.data()) {
+    throw step_exception{"Cannot parse JSON from null file!"};
+  }
+
+  try {
+    json json;
+    std::ifstream stream{file.data()};
+    stream >> json;
+    return json;
+  } catch (const std::exception& e) {
+    using namespace std::string_literals;
+    throw step_exception{e.what() ? e.what() : "Failed to parse JSON!"s};
+  }
+}
 
 template <typename T>
 void bind_opt(const json& json,
@@ -80,7 +95,8 @@ void safe_bind(const json& json, std::string_view key, T& value)
 }
 
 template <typename T>
-T safe_get(const json& json, const std::string& key, T defaultValue = {})
+auto safe_get(const json& json, const std::string& key, T defaultValue = {})
+    -> T
 {
   static_assert(
       std::is_default_constructible_v<T>,
@@ -93,8 +109,8 @@ T safe_get(const json& json, const std::string& key, T defaultValue = {})
 }
 
 template <typename T>
-[[nodiscard]] std::unique_ptr<T> safe_bind_unique(const json& json,
-                                                  const std::string& key)
+[[nodiscard]] auto safe_bind_unique(const json& json, const std::string& key)
+    -> std::unique_ptr<T>
 {
   if (json.contains(key)) {
     return std::make_unique<T>(json.at(key));
@@ -112,7 +128,7 @@ void emplace(const json& json, const std::string& key, T& value)
 }
 
 template <typename Container>
-[[nodiscard]] Container fill(const json& json, const std::string& key)
+[[nodiscard]] auto fill(const json& json, const std::string& key) -> Container
 {
   Container container;
   for (const auto& [key, value] : json.at(key).items()) {
@@ -122,32 +138,11 @@ template <typename Container>
 }
 
 template <typename Container>
-[[nodiscard]] Container fill(const json& json)
+[[nodiscard]] auto fill(const json& json) -> Container
 {
   Container container;
   for (const auto& [key, value] : json.items()) {
     container.emplace_back(value);
-  }
-  return container;
-}
-
-/**
- * Creates a vector of unique pointers where every element has a constructor
- * that takes a single <code>const JSON&</code> parameter.
- *
- * @tparam Type the type of the elements.
- * @param json the JSON object that holds the data.
- * @param key the key of the array that holds the objects.
- * @return a vector of unique pointers.
- * @since 0.1.0
- */
-template <typename Type>
-[[nodiscard]] auto fill_unique_vec(const json& json, const std::string& key)
-{
-  std::vector<std::unique_ptr<Type>> container;
-  container.reserve(json.size());
-  for (const auto& [_, value] : json.at(key).items()) {
-    container.emplace_back(std::make_unique<Type>(value));
   }
   return container;
 }
@@ -163,7 +158,7 @@ template <typename Type>
  * @since 0.1.0
  */
 template <typename T>
-[[nodiscard]] T convert(std::string_view str, int base = 10)
+[[nodiscard]] auto convert(std::string_view str, int base = 10) -> T
 {
   T result{};
   if (const auto [ptr, error] =
@@ -174,14 +169,6 @@ template <typename T>
   } else {
     throw step_exception{"Failed to convert string to integral!"};
   }
-}
-
-template <typename T>
-[[nodiscard]] constexpr bool valid_property_type() noexcept
-{
-  return std::is_same_v<T, bool> || std::is_same_v<T, int> ||
-         std::is_same_v<T, float> || std::is_same_v<T, color> ||
-         std::is_same_v<T, file> || std::is_convertible_v<T, std::string>;
 }
 
 }  // namespace step::detail

@@ -8,8 +8,8 @@
 
 #pragma once
 
-#include <rect.h>
-#include <texture.h>
+#include <rect.hpp>
+#include <texture.hpp>
 
 #include "wanderer_stdinc.h"
 
@@ -28,9 +28,9 @@ struct Tile final {
       fluent::NamedType<entt::entity, struct TileEntityTag, fluent::Comparable>;
 
   tile_id id;                       /**< Unique ID associated with the tile. */
-  ctn::IRect src;                   /**< Area of associated tilesheet that the
+  cen::irect src;                   /**< Area of associated tilesheet that the
                                      * tile represents. */
-  entt::handle<ctn::Texture> sheet; /**< Handle to the associated tilesheet. */
+  entt::handle<cen::texture> sheet; /**< Handle to the associated tilesheet. */
 };
 
 }  // namespace wanderer::comp

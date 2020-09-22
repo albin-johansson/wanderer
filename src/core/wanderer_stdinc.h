@@ -8,9 +8,6 @@
 
 #pragma once
 
-#include <centurion_as_ctn.h>
-#include <centurion_utils.h>
-
 #include <cstdint>
 #include <entt.hpp>
 #include <json.hpp>
@@ -58,7 +55,7 @@ using depth = fluent::NamedType<int, struct DepthTag, fluent::Comparable>;
  * @return a null value of the entity tag type.
  */
 template <typename EntityType>
-[[nodiscard]] constexpr auto null_entity() noexcept
+[[nodiscard]] constexpr auto null() noexcept
 {
   return typename EntityType::entity{entt::entity{entt::null}};
 }

@@ -2,10 +2,10 @@
 
 namespace wanderer {
 
-auto ImageLoader::load(ctn::Renderer& renderer, std::string_view path) const
-    -> std::shared_ptr<ctn::Texture>
+auto ImageLoader::load(cen::renderer& renderer, std::string_view path) const
+    -> std::shared_ptr<cen::texture>
 {
-  return ctn::Texture::shared(renderer, path.data());
+  return std::make_shared<cen::texture>(renderer, path.data());
 }
 
 }  // namespace wanderer

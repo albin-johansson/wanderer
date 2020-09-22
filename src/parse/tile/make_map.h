@@ -1,7 +1,7 @@
 #pragma once
 
-#include <renderer.h>
-
+#include <renderer.hpp>
+#include <step_types.hpp>
 #include <string_view>
 
 #include "image_cache.h"
@@ -11,8 +11,8 @@
 namespace wanderer {
 
 [[nodiscard]] auto make_map(entt::registry& registry,
-                            std::string_view map,
-                            ctn::Renderer& renderer,
+                            const step::fs::path& path,
+                            cen::renderer& renderer,
                             image_cache& imageCache) -> comp::Tilemap::entity;
 
 }

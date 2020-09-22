@@ -8,7 +8,7 @@
 
 #pragma once
 
-#include <renderer.h>
+#include <renderer.hpp>
 
 #include "image_cache.h"
 #include "input.h"
@@ -26,13 +26,14 @@ namespace wanderer {
  *
  * @headerfile game.h
  */
-class Game final {
+class Game final
+{
  public:
   /**
    * @brief Creates a `Game` instance.
    * @param renderer the renderer used to create the initial textures.
    */
-  explicit Game(ctn::Renderer& renderer);
+  explicit Game(cen::renderer& renderer);
 
   ~Game() noexcept;
 
@@ -53,17 +54,15 @@ class Game final {
    * @param renderer the renderer used to render the game.
    * @param alpha the interpolation coefficient, in the range [0, 1].
    */
-  void render(ctn::Renderer& renderer, alpha alpha);
+  void render(cen::renderer& renderer, alpha alpha);
 
  private:
   entt::registry m_registry;  // TODO consider multiple registries
   entt::dispatcher m_dispatcher;
-
   image_cache m_imageCache;
-
   entt::entity m_player;
-  comp::Tilemap::entity m_world = null_entity<comp::Tilemap>();
-  comp::Viewport::entity m_viewport = null_entity<comp::Viewport>();
+  comp::Tilemap::entity m_world{null<comp::Tilemap>()};
+  comp::Viewport::entity m_viewport{null<comp::Viewport>()};
 };
 
 }  // namespace wanderer

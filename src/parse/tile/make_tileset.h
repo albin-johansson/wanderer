@@ -1,8 +1,7 @@
 #pragma once
 
-#include <renderer.h>
-#include <step.h>
-
+#include <renderer.hpp>
+#include <step_tileset.hpp>
 #include <vector>
 
 #include "image_cache.h"
@@ -11,10 +10,10 @@
 
 namespace wanderer {
 
-[[nodiscard]] auto make_tileset(entt::registry& registry,
-                                const std::vector<step::Tileset>& tilesets,
-                                ctn::Renderer& renderer,
-                                image_cache& imageCache)
-    -> comp::Tileset::entity;
+[[nodiscard]] auto make_tileset(
+    entt::registry& registry,
+    const std::vector<std::unique_ptr<step::tileset>>& tilesets,
+    cen::renderer& renderer,
+    image_cache& imageCache) -> comp::Tileset::entity;
 
 }

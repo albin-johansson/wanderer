@@ -8,12 +8,31 @@
 
 #pragma once
 
+#include <renderer.hpp>
+#include <window.hpp>
+
+#include "game.h"
+#include "game_loop.h"
+#include "input.h"
+
 namespace wanderer {
 
-/**
- * @brief Runs the game.
- * @details Sets up and runs the game.
- */
-void run();
+class application
+{
+ public:
+  application();
+
+  /**
+   * @brief Runs the game.
+   */
+  void run();
+
+ private:
+  cen::window m_window;
+  cen::renderer m_renderer;
+  Game m_game;
+  GameLoop m_loop;
+  Input m_input;
+};
 
 }  // namespace wanderer

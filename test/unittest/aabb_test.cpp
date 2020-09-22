@@ -1,5 +1,9 @@
-#include <centurion_as_ctn.h>
 #include <doctest.h>
+
+#include <event.hpp>
+#include <log.hpp>
+#include <renderer.hpp>
+#include <window.hpp>
 
 #include "aabb_system.h"
 
@@ -82,23 +86,23 @@ TEST_SUITE("AABB system")
     aabb::insert(
         registry, registry.create(), aabb::make_aabb({523, 120}, {33, 56}));
 
-    ctn::Window window;
-    ctn::Renderer renderer{window};
-    ctn::event::Event event;
+    cen::window window;
+    cen::renderer renderer{window};
+    cen::event event;
 
     bool running = true;
     window.show();
     while (running) {
       while (event.poll()) {
-        if (const auto quit = event.as_quit_event(); quit) {
+        if (event.is<cen::quit_event>()) {
           running = false;
         }
 
-        if (const auto key = event.as_keyboard_event(); key) {
+        if (const auto* key = event.try_get<cen::keyboard_event>(); key) {
           if (key->is_active(SDLK_ESCAPE)) {
             running = false;
           } else if (key->is_active(SDLK_RIGHT)) {
-            ctn::Log::info("Updating first AABB...");
+            cen::log::info("Updating first AABB...");
             const auto& node = registry.get<AABBNode>(fst);
 
             auto copy = node.box;
@@ -110,7 +114,7 @@ TEST_SUITE("AABB system")
         }
       }
 
-      renderer.set_color(ctn::color::black);
+      renderer.set_color(cen::colors::black);
       renderer.clear();
 
       const auto view = registry.view<AABBNode>();
@@ -118,17 +122,17 @@ TEST_SUITE("AABB system")
         const auto& node = view.get(entity);
 
         if (node.left == entt::null) {
-          renderer.set_color(ctn::color::pink);
+          renderer.set_color(cen::colors::pink);
         } else {
-          renderer.set_color(ctn::color::red);
+          renderer.set_color(cen::colors::red);
         }
 
-        const ctn::FPoint pos{node.box.min.x, node.box.min.y};
-        const ctn::FArea size{node.box.max.x - node.box.min.x,
+        const cen::fpoint pos{node.box.min.x, node.box.min.y};
+        const cen::farea size{node.box.max.x - node.box.min.x,
                               node.box.max.y - node.box.min.y};
-        const ctn::FRect rect{pos, size};
+        const cen::frect rect{pos, size};
 
-        renderer.draw_rect_f(rect);
+        renderer.draw_rect(rect);
       }
 
       renderer.present();

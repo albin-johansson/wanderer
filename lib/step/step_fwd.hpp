@@ -27,7 +27,7 @@
 
 namespace step {
 
-class Layer;
+class layer;
 
 class properties;
 

@@ -1,9 +1,8 @@
 #include "humanoid_factory_system.h"
 
-#include <texture.h>
-#include <timer.h>
-
 #include <cassert>
+#include <counter.hpp>
+#include <texture.hpp>
 
 #include "animated.h"
 #include "binds.h"
@@ -36,7 +35,7 @@ namespace {
  */
 [[nodiscard]] auto create_basic_humanoid(
     entt::registry& registry,
-    const entt::handle<ctn::Texture>& texture) -> entt::entity
+    const entt::handle<cen::texture>& texture) -> entt::entity
 {
   assert(texture);  // require valid handle
 
@@ -53,14 +52,14 @@ namespace {
   auto& animated = registry.emplace<Animated>(entity);
   animated.frame = 0;
   animated.delay = 65;
-  animated.then = ctn::Timer::millis();
+  animated.then = cen::counter::ticks().count();  // FIXME count
   animated.nFrames = 1;
 
-  constexpr ctn::FArea humanoidSize{g_humanoidDrawWidth, g_humanoidDrawHeight};
+  constexpr cen::farea humanoidSize{g_humanoidDrawWidth, g_humanoidDrawHeight};
 
   registry.emplace<Hitbox>(
       entity,
-      hitbox::create({Subhitbox{vector2f{}, ctn::FRect{{}, humanoidSize}}}));
+      hitbox::create({Subhitbox{vector2f{}, cen::frect{{}, humanoidSize}}}));
 
   registry.emplace<Humanoid>(entity);
   registry.emplace<HumanoidIdle>(entity);
@@ -71,7 +70,7 @@ namespace {
 }  // namespace
 
 auto add_player(entt::registry& registry,
-                ctn::Renderer& renderer,
+                cen::renderer& renderer,
                 image_cache& imageCache) -> entt::entity
 {
   constexpr auto id = "player"_hs;
@@ -97,7 +96,7 @@ auto add_player(entt::registry& registry,
 }
 
 auto add_skeleton(entt::registry& registry,
-                  ctn::Renderer& renderer,
+                  cen::renderer& renderer,
                   image_cache& imageCache) -> entt::entity
 {
   constexpr auto id = "skeleton"_hs;

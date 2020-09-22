@@ -198,8 +198,8 @@ void validate(AABB& aabb) noexcept
   aabb.area = width * height;
 }
 
-auto make_aabb(const centurion::FPoint& pos,
-               const centurion::FArea& size) noexcept -> comp::AABB
+auto make_aabb(const cen::fpoint& pos, const cen::farea& size) noexcept
+    -> comp::AABB
 {
   AABB result;
 

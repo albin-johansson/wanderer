@@ -1,11 +1,10 @@
 #pragma once
 
 #ifndef NDEBUG
-#include <log.h>
+#include <log.hpp>
 #endif  // NDEBUG
 
-#include <timer.h>
-
+#include <counter.hpp>
 #include <random>
 
 #include "wanderer_stdinc.h"
@@ -19,9 +18,9 @@ inline std::mt19937 random;
 
 void init_rnd() noexcept
 {
-  const auto seed = ctn::Timer::high_res();
+  const auto seed = cen::counter::now();
 #ifndef NDEBUG
-  ctn::Log::info("Using seed: %u (for RNG)", seed);
+  cen::log::info("Using seed: %u (for RNG)", seed);
 #endif  // NDEBUG
   random.seed(seed);
 }

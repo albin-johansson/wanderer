@@ -31,91 +31,127 @@
 #include "step_chunk.hpp"
 #include "step_data.hpp"
 #include "step_types.hpp"
+#include "step_utils.hpp"
 
 namespace step {
 
 /**
- * The TileLayer class represents the API for layers that represent "tile
- * layers", that mainly hold tile data.
+ * @class tile_layer
+ *
+ * @brief Represents the API for layers that represent "tile layers", that
+ * mainly hold tile data.
  *
  * @since 0.1.0
+ *
+ * @headerfile step_tile_layer.hpp
  */
-class TileLayer final {
+class tile_layer final {
  public:
   /**
-   * The Compression enum class provides values for the different kinds of
-   * compression used by layers.
+   * @enum tile_layer::compression
+   *
+   * @brief Provides values for the different kinds of compression used by
+   * layers.
    *
    * @since 0.1.0
    */
-  enum class Compression { ZLib, GZip, None };
+  enum class compression { zlib, gzip, none };
 
   /**
-   * The Encoding enum class provides identifiers for the different encodings
-   * used by layers.
+   * @enum tile_layer::encoding
+   *
+   * @brief Provides identifiers for the different encodings used by layers.
    *
    * @since 0.1.0
    */
-  enum class Encoding { CSV, Base64 };
+  enum class encoding { csv, base64 };
 
-  STEP_API
-  explicit TileLayer(const json& json);
+  explicit tile_layer(const json& json)
+  {
+    detail::safe_bind(json, "compression", m_compression);
+    detail::safe_bind(json, "encoding", m_encoding);
+
+    if (json.contains("chunks")) {
+      m_chunks = detail::fill<std::vector<chunk>>(json, "chunks");
+    }
+
+    if (json.contains("data")) {
+      m_data = std::make_unique<detail::data>(json.at("data"));
+    }
+  }
 
   /**
-   * Returns the encoding used by the tile layer. The default value of this
-   * property is <code>CSV</code>.
+   * @brief Returns the encoding used by the tile layer.
+   *
+   * @details The default value of this property is `csv`.
    *
    * @return the encoding used by the tile layer.
+   *
    * @since 0.1.0
    */
-  STEP_QUERY
-  Encoding encoding() const noexcept;
+  [[nodiscard]] auto get_encoding() const noexcept -> encoding
+  {
+    return m_encoding;
+  }
 
   /**
-   * Returns the compression used by the tile layer. The default value of
-   * this property is <code>None</code>.
+   * @brief Returns the compression used by the tile layer.
+   *
+   * @details The default value of this property is `none`.
    *
    * @return the compression used by the tile layer.
+   *
    * @since 0.1.0
    */
-  STEP_QUERY
-  Compression compression() const noexcept;
+  [[nodiscard]] auto get_compression() const noexcept -> compression
+  {
+    return m_compression;
+  }
 
   /**
-   * Returns a pointer to the tile data associated with the tile layer. This
-   * property is optional. Do not claim ownership of the returned pointer.
+   * @brief Returns a pointer to the tile data associated with the tile layer.
+   *
+   * @details This property is optional.
+   *
+   * @warning Do not claim ownership of the returned pointer.
    *
    * @return the tile data associated with the tile layer; null if there is
    * no such data.
+   *
    * @since 0.1.0
    */
-  STEP_QUERY
-  const detail::Data* data() const;
+  [[nodiscard]] auto data() const -> const detail::data*
+  {
+    return m_data.get();
+  }
 
   /**
-   * Returns the chunks associated with the tile layer.
+   * @brief Returns the chunks associated with the tile layer.
    *
    * @return the chunks associated with the tile layer.
+   *
    * @since 0.1.0
    */
-  STEP_QUERY
-  const std::vector<Chunk>& chunks() const noexcept;
+  [[nodiscard]] auto chunks() const noexcept -> const std::vector<chunk>&
+  {
+    return m_chunks;
+  }
 
  private:
-  Encoding m_encoding{Encoding::CSV};
-  Compression m_compression{Compression::None};
-  std::unique_ptr<detail::Data> m_data;
-  std::vector<Chunk> m_chunks;
+  encoding m_encoding{encoding::csv};
+  compression m_compression{compression::none};
+  std::unique_ptr<detail::data> m_data;
+  std::vector<chunk> m_chunks;
 };
 
-NLOHMANN_JSON_SERIALIZE_ENUM(TileLayer::Compression,
-                             {{TileLayer::Compression::None, ""},
-                              {TileLayer::Compression::GZip, "gzip"},
-                              {TileLayer::Compression::ZLib, "zlib"}})
+NLOHMANN_JSON_SERIALIZE_ENUM(tile_layer::compression,
+                             {{tile_layer::compression::none, ""},
+                              {tile_layer::compression::gzip, "gzip"},
+                              {tile_layer::compression::zlib, "zlib"}})
 
-NLOHMANN_JSON_SERIALIZE_ENUM(TileLayer::Encoding,
-                             {{TileLayer::Encoding::CSV, "csv"},
-                              {TileLayer::Encoding::Base64, "base64"}})
+NLOHMANN_JSON_SERIALIZE_ENUM(tile_layer::encoding,
+                             {{tile_layer::encoding::csv, "csv"},
+                              {tile_layer::encoding::base64, "base64"}})
 
 }  // namespace step
 

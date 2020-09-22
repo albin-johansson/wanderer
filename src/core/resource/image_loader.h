@@ -8,11 +8,10 @@
 
 #pragma once
 
-#include <renderer.h>
-#include <texture.h>
-
 #include <memory>
+#include <renderer.hpp>
 #include <string_view>
+#include <texture.hpp>
 
 #include "wanderer_stdinc.h"
 
@@ -26,7 +25,7 @@ namespace wanderer {
  *
  * @headerfile image_loader.h
  */
-class ImageLoader final : public entt::loader<ImageLoader, ctn::Texture> {
+class ImageLoader final : public entt::loader<ImageLoader, cen::texture> {
  public:
   /**
    * @brief Creates and returns a texture.
@@ -35,8 +34,8 @@ class ImageLoader final : public entt::loader<ImageLoader, ctn::Texture> {
    * @return a shared pointer to a texture.
    * @throws CenturionException if something goes wrong.
    */
-  [[nodiscard]] auto load(ctn::Renderer& renderer, std::string_view path) const
-      -> std::shared_ptr<ctn::Texture>;
+  [[nodiscard]] auto load(cen::renderer& renderer, std::string_view path) const
+      -> std::shared_ptr<cen::texture>;
 };
 
 }  // namespace wanderer

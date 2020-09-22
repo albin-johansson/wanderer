@@ -26,6 +26,7 @@
 #define STEP_WANG_SET_HEADER
 
 #include <string>
+#include <string_view>
 #include <vector>
 
 #include "step_api.hpp"
@@ -36,74 +37,104 @@
 
 namespace step {
 
-class WangSet final {
+class wang_set final {
+  using colors = std::vector<wang_color>;
+  using tiles = std::vector<WangTile>;
+
  public:
   /**
    * @param json the JSON object that holds the data for a Wang set.
+   *
    * @since 0.1.0
    */
-  STEP_API
-  explicit WangSet(const json& json);
+  explicit wang_set(const json& json)
+      : m_tile{json.at("tile").get<int>()},
+        m_cornerColors{detail::fill<colors>(json, "cornercolors")},
+        m_edgeColors{detail::fill<colors>(json, "edgecolors")},
+        m_wangTiles{detail::fill<tiles>(json, "wangtiles")},
+        m_properties{json.at("properties")},
+        m_name{json.at("name").get<std::string>()}
+  {}
 
   /**
-   * Returns all of the corner colors associated with the Wang set.
+   * @brief Returns all of the corner colors associated with the Wang set.
    *
    * @return all of the corner colors associated with the Wang set.
+   *
    * @since 0.1.0
    */
-  STEP_QUERY
-  const std::vector<WangColor>& corner_colors() const;
+  [[nodiscard]] auto corner_colors() const -> const colors&
+  {
+    return m_cornerColors;
+  }
 
   /**
-   * Returns all of the edge colors associated with the Wang set.
+   * @brief Returns all of the edge colors associated with the Wang set.
    *
    * @return all of the edge colors associated with the Wang set.
+   *
    * @since 0.1.0
    */
-  STEP_QUERY
-  const std::vector<WangColor>& edge_colors() const;
+  [[nodiscard]] auto edge_colors() const -> const colors&
+  {
+    return m_edgeColors;
+  }
 
   /**
-   * Returns all of the Wang tiles associated with the Wang set.
+   * @brief Returns all of the Wang tiles associated with the Wang set.
    *
    * @return all of the Wang tiles associated with the Wang set.
+   *
    * @since 0.1.0
    */
-  STEP_QUERY
-  const std::vector<wang_tile>& wang_tiles() const;
+  [[nodiscard]] auto wang_tiles() const -> const tiles&
+  {
+    return m_wangTiles;
+  }
 
   /**
-   * Returns the properties associated with the Wang set.
+   * @brief Returns the properties associated with the Wang set.
    *
    * @return the properties associated with the Wang set.
+   *
    * @since 0.1.0
    */
-  STEP_QUERY
-  const properties& get_properties() const;
+  [[nodiscard]] auto get_properties() const -> const properties&
+  {
+    return m_properties;
+  }
 
   /**
-   * Returns the name associated with the Wang set.
+   * @brief Returns the name associated with the Wang set.
    *
    * @return the name associated with the Wang set.
+   *
    * @since 0.1.0
    */
-  STEP_QUERY const std::string& name() const;
+  [[nodiscard]] auto name() const -> std::string_view
+  {
+    return m_name;
+  }
 
   /**
-   * Returns the local ID of the tile that represents the Wang set.
+   * @brief Returns the local ID of the tile that represents the Wang set.
    *
    * @return the local ID of the tile that represents the Wang set.
+   *
    * @since 0.1.0
    */
-  STEP_QUERY local_id tile_id() const noexcept;
+  [[nodiscard]] auto tile_id() const noexcept -> local_id
+  {
+    return m_tile;
+  }
 
  private:
-  std::vector<WangColor> m_cornerColors;
-  std::vector<WangColor> m_edgeColors;
-  std::vector<wang_tile> m_wangTiles;
+  local_id m_tile{0};
+  std::vector<wang_color> m_cornerColors;
+  std::vector<wang_color> m_edgeColors;
+  std::vector<WangTile> m_wangTiles;
   properties m_properties;
   std::string m_name;
-  local_id m_tile{0};
 };
 
 }  // namespace step

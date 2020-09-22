@@ -8,9 +8,9 @@
 
 #pragma once
 
-#include <area.h>
-#include <rect.h>
-#include <texture.h>
+#include <area.hpp>
+#include <rect.hpp>
+#include <texture.hpp>
 
 #include "wanderer_stdinc.h"
 
@@ -42,11 +42,11 @@ namespace wanderer::comp {
  * @headerfile depth_drawable.h
  */
 struct DepthDrawable final {
-  entt::handle<ctn::Texture> texture;
+  entt::handle<cen::texture> texture;
   depth depth{5};
   float centerY{0};
-  ctn::IRect src{};
-  ctn::FRect dst{};
+  cen::irect src{};
+  cen::frect dst{};
 };
 
 }  // namespace wanderer::comp

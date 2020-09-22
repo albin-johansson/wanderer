@@ -42,6 +42,7 @@
 #include "step_api.hpp"
 #include "step_frame.hpp"
 #include "step_types.hpp"
+#include "step_utils.hpp"
 
 namespace step {
 
@@ -58,8 +59,9 @@ namespace step {
  */
 class animation final {
  public:
-  STEP_API
-  explicit animation(const json& json);
+  explicit animation(const json& json)
+      : m_frames{detail::fill<std::vector<Frame>>(json)}
+  {}
 
   /**
    * @brief Returns the frames associated with the animation.
@@ -68,8 +70,10 @@ class animation final {
    *
    * @since 0.1.0
    */
-  STEP_QUERY
-  auto frames() const -> const std::vector<Frame>&;
+  [[nodiscard]] auto frames() const -> const std::vector<Frame>&
+  {
+    return m_frames;
+  }
 
   /**
    * @brief Returns the amount of frames that constitute the animation.
@@ -78,8 +82,10 @@ class animation final {
    *
    * @since 0.1.0
    */
-  STEP_QUERY
-  auto num_frames() const noexcept -> int;
+  [[nodiscard]] auto num_frames() const noexcept -> int
+  {
+    return static_cast<int>(m_frames.size());
+  }
 
  private:
   std::vector<Frame> m_frames;

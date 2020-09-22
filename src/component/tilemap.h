@@ -44,7 +44,7 @@ struct Tilemap final {
   using entity = fluent::
       NamedType<entt::entity, struct TilemapEntityTag, fluent::Comparable>;
 
-  Tileset::entity tileset = null_entity<Tileset>();
+  Tileset::entity tileset = null<Tileset>();
   std::vector<TileLayer::entity> layers;
 
   // TODO use tile object entity tag type

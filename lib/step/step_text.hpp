@@ -42,6 +42,7 @@
 #include "step_api.hpp"
 #include "step_color.hpp"
 #include "step_types.hpp"
+#include "step_utils.hpp"
 
 namespace step {
 
@@ -80,8 +81,29 @@ class text final {
    */
   enum class valign { center, bottom, top };
 
-  STEP_API
-  explicit text(const json& json);
+  explicit text(const json& json)
+  {
+    if (!json.count("text")) {
+      throw step_exception{"Text > Missing \"text\" attribute!"};
+    }
+
+    m_text = json.at("text").get<std::string>();
+    detail::safe_bind(json, "fontfamily", m_fontFamily);
+
+    if (const auto it = json.find("color"); it != json.end()) {
+      m_color = color{it->get<std::string>()};
+    }
+
+    detail::safe_bind(json, "halign", m_halign);
+    detail::safe_bind(json, "valign", m_valign);
+    detail::safe_bind(json, "pixelsize", m_pixelSize);
+    detail::safe_bind(json, "bold", m_bold);
+    detail::safe_bind(json, "italic", m_italic);
+    detail::safe_bind(json, "kerning", m_kerning);
+    detail::safe_bind(json, "strikeout", m_strikeout);
+    detail::safe_bind(json, "underline", m_underline);
+    detail::safe_bind(json, "wrap", m_wrap);
+  }
 
   /**
    * @brief Returns the text associated with the instance.
@@ -92,8 +114,10 @@ class text final {
    *
    * @since 0.1.0
    */
-  STEP_QUERY
-  auto get_text() const -> std::string;
+  [[nodiscard]] auto get_text() const -> const std::string&
+  {
+    return m_text;
+  }
 
   /**
    * @brief Returns the name of the font family associated with the text.
@@ -104,8 +128,10 @@ class text final {
    *
    * @since 0.1.0
    */
-  STEP_QUERY
-  auto font_family() const -> std::string;
+  [[nodiscard]] auto font_family() const -> const std::string&
+  {
+    return m_fontFamily;
+  }
 
   /**
    * @brief Returns the color associated with the text.
@@ -116,8 +142,10 @@ class text final {
    *
    * @since 0.1.0
    */
-  STEP_QUERY
-  auto get_color() const noexcept -> color;
+  [[nodiscard]] auto get_color() const noexcept -> color
+  {
+    return m_color;
+  }
 
   /**
    * @brief Returns the horizontal alignment of the text.
@@ -128,8 +156,10 @@ class text final {
    *
    * @since 0.1.0
    */
-  STEP_QUERY
-  auto horizontal_alignment() const noexcept -> halign;
+  [[nodiscard]] auto horizontal_alignment() const noexcept -> halign
+  {
+    return m_halign;
+  }
 
   /**
    * @brief Returns the vertical alignment of the text.
@@ -140,8 +170,10 @@ class text final {
    *
    * @since 0.1.0
    */
-  STEP_QUERY
-  auto vertical_alignment() const noexcept -> valign;
+  [[nodiscard]] auto vertical_alignment() const noexcept -> valign
+  {
+    return m_valign;
+  }
 
   /**
    * @brief Returns the pixel size of the associated font that the text uses.
@@ -152,8 +184,10 @@ class text final {
    *
    * @since 0.1.0
    */
-  STEP_QUERY
-  auto pixel_size() const noexcept -> int;
+  [[nodiscard]] auto pixel_size() const noexcept -> int
+  {
+    return m_pixelSize;
+  }
 
   /**
    * @brief Indicates whether or not the text is bold.
@@ -164,8 +198,10 @@ class text final {
    *
    * @since 0.1.0
    */
-  STEP_QUERY
-  auto bold() const noexcept -> bool;
+  [[nodiscard]] auto bold() const noexcept -> bool
+  {
+    return m_bold;
+  }
 
   /**
    * @brief Indicates whether or not the text is italic.
@@ -176,8 +212,10 @@ class text final {
    *
    * @since 0.1.0
    */
-  STEP_QUERY
-  auto italic() const noexcept -> bool;
+  [[nodiscard]] auto italic() const noexcept -> bool
+  {
+    return m_italic;
+  }
 
   /**
    * @brief Indicates whether or not the text uses kerning.
@@ -188,8 +226,10 @@ class text final {
    *
    * @since 0.1.0
    */
-  STEP_QUERY
-  auto kerning() const noexcept -> bool;
+  [[nodiscard]] auto kerning() const noexcept -> bool
+  {
+    return m_kerning;
+  }
 
   /**
    * @brief Indicates whether or not the text is strikethrough.
@@ -200,8 +240,10 @@ class text final {
    *
    * @since 0.1.0
    */
-  STEP_QUERY
-  auto strikeout() const noexcept -> bool;
+  [[nodiscard]] auto strikeout() const noexcept -> bool
+  {
+    return m_strikeout;
+  }
 
   /**
    * @brief Indicates whether or not the text is underlined.
@@ -212,8 +254,10 @@ class text final {
    *
    * @since 0.1.0
    */
-  STEP_QUERY
-  auto underline() const noexcept -> bool;
+  [[nodiscard]] auto underline() const noexcept -> bool
+  {
+    return m_underline;
+  }
 
   /**
    * @brief Indicates whether or not the text is wrapped within the object
@@ -226,8 +270,10 @@ class text final {
    *
    * @since 0.1.0
    */
-  STEP_QUERY
-  auto wrap() const noexcept -> bool;
+  [[nodiscard]] auto wrap() const noexcept -> bool
+  {
+    return m_wrap;
+  }
 
  private:
   std::string m_text;

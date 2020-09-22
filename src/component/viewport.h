@@ -8,8 +8,8 @@
 
 #pragma once
 
-#include <area.h>
-#include <rect.h>
+#include <area.hpp>
+#include <rect.hpp>
 
 #include "wanderer_stdinc.h"
 
@@ -29,8 +29,8 @@ namespace wanderer::comp {
 struct Viewport final {
   using entity = fluent::
       NamedType<entt::entity, struct ViewportEntityTag, fluent::Comparable>;
-  ctn::FRect bounds{};
-  ctn::FArea levelSize{};
+  cen::frect bounds{};
+  cen::farea levelSize{};
 };
 
 }  // namespace wanderer::comp

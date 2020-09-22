@@ -25,10 +25,10 @@
 #ifndef STEP_MAP_HEADER
 #define STEP_MAP_HEADER
 
-#include <memory>
-#include <string>
-#include <string_view>
-#include <vector>
+#include <memory>       // unique_ptr
+#include <string>       // string
+#include <string_view>  // string_view
+#include <vector>       // vector
 
 #include "step_api.hpp"
 #include "step_color.hpp"
@@ -40,198 +40,277 @@
 namespace step {
 
 /**
- * The Map class represents tile map files created in the Tiled editor.
+ * @class map
+ *
+ * @brief Represents tile map files created in the Tiled editor.
  *
  * @since 0.1.0
+ *
+ * @headerfile step_map.hpp
  */
-class Map final {
+class map final {
  public:
-  enum class RenderOrder { RightDown, RightUp, LeftDown, LeftUp };
-  enum class Orientation { Orthogonal, Isometric, Staggered, Hexagonal };
-  enum class StaggerAxis { X, Y };
-  enum class StaggerIndex { Odd, Even };
+  enum class render_order { right_down, right_up, left_down, left_up };
 
-  STEP_API
-  explicit Map(const fs::path& path);
+  enum class orientation { orthogonal, isometric, staggered, hexagonal };
+
+  enum class stagger_axis { x, y };
+
+  enum class stagger_index { odd, even };
+
+  explicit map(const fs::path& path)
+  {
+    auto parent = path.parent_path();
+    parent += fs::path::preferred_separator;
+
+    parse(parent.string(), detail::parse_json(path.string()));
+  }
 
   /**
    * @param root the file path of the directory that contains the map.
    * @param file the name of the JSON map file, including the .json extension.
+   *
    * @since 0.1.0
    */
-  [[deprecated("Use the path version instead!")]] STEP_API Map(
-      std::string_view root,
-      std::string_view file);
+  [[deprecated("Use the path version instead!")]] map(std::string_view root,
+                                                      std::string_view file)
+  {
+    std::string map{root.data()};
+    map += file;
+    parse(root, detail::parse_json(map));
+  }
 
   /**
-   * Returns the width of the map.
+   * @brief Returns the width of the map.
    *
    * @return the width of the map.
+   *
    * @since 0.1.0
    */
-  STEP_QUERY
-  int width() const noexcept;
+  [[nodiscard]] auto width() const noexcept -> int
+  {
+    return m_width;
+  }
 
   /**
-   * Returns the height of the map.
+   * @brief Returns the height of the map.
    *
    * @return the height of the map.
+   *
    * @since 0.1.0
    */
-  STEP_QUERY
-  int height() const noexcept;
+  [[nodiscard]] auto height() const noexcept -> int
+  {
+    return m_height;
+  }
 
   /**
-   * Returns the width of the tiles in the map.
+   * @brief Returns the width of the tiles in the map.
    *
    * @return the width of the tiles in the map.
+   *
    * @since 0.1.0
    */
-  STEP_QUERY
-  int tile_width() const noexcept;
+  [[nodiscard]] auto tile_width() const noexcept -> int
+  {
+    return m_tileWidth;
+  }
 
   /**
-   * Returns the height of the tiles in the map.
+   * @brief Returns the height of the tiles in the map.
    *
    * @return the height of the tiles in the map.
+   *
    * @since 0.1.0
    */
-  STEP_QUERY
-  int tile_height() const noexcept;
+  [[nodiscard]] auto tile_height() const noexcept -> int
+  {
+    return m_tileHeight;
+  }
 
   /**
-   * Returns the next layer ID, this is incremented every time an layer is
-   * added to the map in the Tiled editor.
+   * @brief Returns the next layer ID, this is incremented every time an layer
+   * is added to the map in the Tiled editor.
    *
    * @return the next layer ID.
+   *
    * @since 0.1.0
    */
-  STEP_QUERY
-  int next_layer_id() const noexcept;
+  [[nodiscard]] auto next_layer_id() const noexcept -> int
+  {
+    return m_nextLayerID;
+  }
 
   /**
-   * Returns the next object ID, this is incremented every time an object is
-   * placed in the map in the Tiled editor.
+   * @brief Returns the next object ID, this is incremented every time an object
+   * is placed in the map in the Tiled editor.
    *
    * @return the next object ID.
+   *
    * @since 0.1.0
    */
-  STEP_QUERY
-  int next_object_id() const noexcept;
+  [[nodiscard]] auto next_object_id() const noexcept -> int
+  {
+    return m_nextObjectID;
+  }
 
   /**
-   * Returns the tile layers associated with the map.
+   * @brief Returns the tile layers associated with the map.
    *
    * @return the tile layers associated with the map.
+   *
    * @since 0.1.0
    */
-  STEP_QUERY
-  const std::vector<Layer>& layers() const noexcept;
+  [[nodiscard]] auto layers() const -> const std::vector<layer>&
+  {
+    return m_layers;
+  }
 
   /**
-   * Returns the tilesets associated with the map.
+   * @brief Returns the tilesets associated with the map.
    *
    * @return the tilesets associated with the map.
+   *
    * @since 0.1.0
    */
-  STEP_QUERY
-  const std::vector<Tileset>& tilesets() const noexcept;
+  [[nodiscard]] auto tilesets() const
+      -> const std::vector<std::unique_ptr<tileset>>&
+  {
+    return m_tilesets;
+  }
 
   /**
-   * Returns the properties associated with the map.
+   * @brief Returns the properties associated with the map.
    *
    * @return the properties associated with the map; null if there are none.
+   *
    * @since 0.1.0
    */
-  STEP_QUERY
-  const properties* get_properties() const noexcept;
+  [[nodiscard]] auto get_properties() const noexcept -> const properties*
+  {
+    return m_properties.get();
+  }
 
   /**
-   * Returns the orientation of the map.
+   * @brief Returns the orientation of the map.
    *
    * @return the orientation of the map.
+   *
    * @since 0.1.0
    */
-  STEP_QUERY
-  Orientation orientation() const noexcept;
+  [[nodiscard]] auto get_orientation() const noexcept -> orientation
+  {
+    return m_orientation;
+  }
 
   /**
-   * Returns the render-order associated with the map. The default value of
-   * this property is <code>RightDown</code>. This property is only used by
-   * orthogonal maps.
+   * @brief Returns the render-order associated with the map.
+   *
+   * @details The default value of this property is `right_down`.
+   *
+   * @note This property is only used by orthogonal maps.
    *
    * @return the render-order associated with the map.
+   *
    * @since 0.1.0
    */
-  STEP_QUERY
-  RenderOrder render_order() const noexcept;
+  [[nodiscard]] auto get_render_order() const noexcept -> render_order
+  {
+    return m_renderOrder;
+  }
 
   /**
-   * Returns the stagger axis associated with the map. This property is only
-   * for staggered and hexagonal maps.
+   * @brief Returns the stagger axis associated with the map.
+   *
+   * @details This property is only for staggered and hexagonal maps.
    *
    * @return the stagger axis associated with the map.
+   *
    * @since 0.1.0
    */
-  STEP_QUERY
-  StaggerAxis stagger_axis() const noexcept;
+  [[nodiscard]] auto get_stagger_axis() const noexcept -> stagger_axis
+  {
+    return m_staggerAxis;
+  }
 
   /**
-   * Returns the stagger index associated with the map. This property is only
-   * for staggered and hexagonal maps.
+   * @brief Returns the stagger index associated with the map.
+   *
+   * @details This property is only for staggered and hexagonal maps.
    *
    * @return the stagger index associated with the map.
+   *
    * @since 0.1.0
    */
-  STEP_QUERY
-  StaggerIndex stagger_index() const noexcept;
+  [[nodiscard]] auto get_stagger_index() const noexcept -> stagger_index
+  {
+    return m_staggerIndex;
+  }
 
   /**
-   * Indicates whether or not the map is infinite.
+   * @brief Indicates whether or not the map is infinite.
    *
    * @return true if the map is infinite; false otherwise.
+   *
    * @since 0.1.0
    */
-  STEP_QUERY
-  bool infinite() const noexcept;
+  [[nodiscard]] auto infinite() const noexcept -> bool
+  {
+    return m_infinite;
+  }
 
   /**
-   * Returns the length of the side of a hex tile, in pixels. This property
-   * is only for hexagonal maps.
+   * @brief Returns the length of the side of a hex tile, in pixels.
+   *
+   * @details This property is only for hexagonal maps.
    *
    * @return the length of the side of a hex tile, in pixels.
+   *
    * @since 0.1.0
    */
-  STEP_QUERY
-  int hex_side_length() const noexcept;
+  [[nodiscard]] auto hex_side_length() const noexcept -> int
+  {
+    return m_hexSideLength;
+  }
 
   /**
-   * Returns the background color associated with the map. This property is
-   * optional.
+   * @brief Returns the background color associated with the map.
+   *
+   * @details This property is optional.
    *
    * @return the background color of the map.
+   *
    * @since 0.1.0
    */
-  STEP_QUERY
-  std::optional<color> background_color() const noexcept;
+  [[nodiscard]] auto background_color() const noexcept
+      -> const std::optional<color>&
+  {
+    return m_backgroundColor;
+  }
 
   /**
-   * Returns the JSON format version associated with the map.
+   * @brief Returns the JSON format version associated with the map.
    *
    * @return the JSON format version associated with the map.
+   *
    * @since 0.1.0
    */
-  STEP_QUERY
-  double json_version() const noexcept;
+  [[nodiscard]] auto json_version() const noexcept -> double
+  {
+    return m_jsonVersion;
+  }
 
   /**
-   * Returns the Tiled version associated with the map.
+   * @brief Returns the Tiled version associated with the map.
    *
    * @return the Tiled version associated with the map.
+   *
    * @since 0.1.0
    */
-  STEP_QUERY
-  std::string tiled_version() const;
+  [[nodiscard]] auto tiled_version() const -> std::string_view
+  {
+    return m_tiledVersion;
+  }
 
  private:
   int m_width{0};
@@ -240,41 +319,86 @@ class Map final {
   int m_tileHeight{0};
   int m_nextLayerID{0};
   int m_nextObjectID{0};
-  std::vector<Layer> m_layers;
-  std::vector<Tileset> m_tilesets;
+  std::vector<layer> m_layers;
+  std::vector<std::unique_ptr<tileset>> m_tilesets;
   std::unique_ptr<properties> m_properties;
-  Orientation m_orientation{Orientation::Orthogonal};
-  RenderOrder m_renderOrder{RenderOrder::RightDown};
-  StaggerAxis m_staggerAxis{StaggerAxis::X};
-  StaggerIndex m_staggerIndex{StaggerIndex::Odd};
+  orientation m_orientation{orientation::orthogonal};
+  render_order m_renderOrder{render_order::right_down};
+  stagger_axis m_staggerAxis{stagger_axis::x};
+  stagger_index m_staggerIndex{stagger_index::odd};
   int m_hexSideLength{0};
   std::optional<color> m_backgroundColor;
   std::string m_tiledVersion;
   double m_jsonVersion{0};
   bool m_infinite{false};
 
-  void parse(std::string_view root, const json& json);
+  void parse(std::string_view root, const json& json)
+  {
+    using namespace std::string_view_literals;
+    if (const auto it = json.find("type");
+        it == json.end() || it.key() == "map"sv) {
+      throw step_exception{R"(Map "type" attribute must be "map"!)"};
+    }
+
+    json.at("width").get_to(m_width);
+    json.at("height").get_to(m_height);
+    json.at("tilewidth").get_to(m_tileWidth);
+    json.at("tileheight").get_to(m_tileHeight);
+    json.at("infinite").get_to(m_infinite);
+    json.at("nextlayerid").get_to(m_nextLayerID);
+    json.at("nextobjectid").get_to(m_nextObjectID);
+    json.at("orientation").get_to(m_orientation);
+    json.at("version").get_to(m_jsonVersion);
+    json.at("tiledversion").get_to(m_tiledVersion);
+
+    if (const auto it = json.find("properties"); it != json.end()) {
+      m_properties = std::make_unique<properties>(*it);
+    }
+
+    detail::safe_bind(json, "renderorder", m_renderOrder);
+    detail::safe_bind(json, "staggeraxis", m_staggerAxis);
+    detail::safe_bind(json, "staggerindex", m_staggerIndex);
+    detail::safe_bind(json, "hexsidelength", m_hexSideLength);
+
+    if (const auto it = json.find("backgroundcolor"); it != json.end()) {
+      m_backgroundColor = color{it->get<std::string>()};
+    }
+
+    for (const auto& [key, value] : json.at("layers").items()) {
+      m_layers.emplace_back(value);
+    }
+
+    for (const auto& [key, value] : json.at("tilesets").items()) {
+      if (const auto it = value.find("source"); it != value.end()) {
+        const auto firstgid = global_id{value.at("firstgid").get<unsigned>()};
+        const auto src = it->get<std::string>();
+        m_tilesets.push_back(tileset::external(root, firstgid, src.data()));
+      } else {
+        m_tilesets.push_back(tileset::embedded(value));
+      }
+    }
+  }
 };
 
-NLOHMANN_JSON_SERIALIZE_ENUM(Map::RenderOrder,
-                             {{Map::RenderOrder::RightDown, "right-down"},
-                              {Map::RenderOrder::RightUp, "right-up"},
-                              {Map::RenderOrder::LeftDown, "left-down"},
-                              {Map::RenderOrder::LeftUp, "left-up"}})
+NLOHMANN_JSON_SERIALIZE_ENUM(map::render_order,
+                             {{map::render_order::right_down, "right-down"},
+                              {map::render_order::right_up, "right-up"},
+                              {map::render_order::left_down, "left-down"},
+                              {map::render_order::left_up, "left-up"}})
 
-NLOHMANN_JSON_SERIALIZE_ENUM(Map::Orientation,
-                             {{Map::Orientation::Orthogonal, "orthogonal"},
-                              {Map::Orientation::Isometric, "isometric"},
-                              {Map::Orientation::Staggered, "staggered"},
-                              {Map::Orientation::Hexagonal, "hexagonal"}})
+NLOHMANN_JSON_SERIALIZE_ENUM(map::orientation,
+                             {{map::orientation::orthogonal, "orthogonal"},
+                              {map::orientation::isometric, "isometric"},
+                              {map::orientation::staggered, "staggered"},
+                              {map::orientation::hexagonal, "hexagonal"}})
 
-NLOHMANN_JSON_SERIALIZE_ENUM(Map::StaggerAxis,
-                             {{Map::StaggerAxis::X, "x"},
-                              {Map::StaggerAxis::Y, "y"}})
+NLOHMANN_JSON_SERIALIZE_ENUM(map::stagger_axis,
+                             {{map::stagger_axis::x, "x"},
+                              {map::stagger_axis::y, "y"}})
 
-NLOHMANN_JSON_SERIALIZE_ENUM(Map::StaggerIndex,
-                             {{Map::StaggerIndex::Odd, "odd"},
-                              {Map::StaggerIndex::Even, "even"}})
+NLOHMANN_JSON_SERIALIZE_ENUM(map::stagger_index,
+                             {{map::stagger_index::odd, "odd"},
+                              {map::stagger_index::even, "even"}})
 
 }  // namespace step
 

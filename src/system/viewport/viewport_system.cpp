@@ -12,7 +12,7 @@ namespace {
 
 void track(Viewport& viewport,
            const vector2f& target,
-           const ctn::FArea& size,
+           const cen::farea& size,
            const delta dt)
 {
   auto panSpeed = 15 * dt.get();
@@ -64,7 +64,7 @@ void update(entt::registry& registry,
 
 void translate(entt::registry& registry,
                const Viewport::entity viewportEntity,
-               ctn::Renderer& renderer)
+               cen::renderer& renderer)
 {
   auto const& viewport = registry.get<Viewport>(viewportEntity.get());
   renderer.set_translation_viewport(viewport.bounds);

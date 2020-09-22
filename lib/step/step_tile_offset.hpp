@@ -31,33 +31,47 @@
 namespace step {
 
 /**
- * The TileOffset class provides offsets in pixels that are to be applied when
- * rendering a tile from a tileset.
+ * @class tile_offset
+ *
+ * @brief Provides offsets in pixels that are to be applied when rendering a
+ * tile from a tileset.
  *
  * @since 0.1.0
+ *
+ * @headerfile step_tile_offset.hpp
  */
-class TileOffset final {
+class tile_offset final {
  public:
-  STEP_API
-  explicit TileOffset(const json& json);
+  explicit tile_offset(const json& json)
+      : m_x{json.at("x").get<int>()},
+        m_y{json.at("y").get<int>()}
+  {}
 
   /**
-   * Returns the offset in the x-axis associated with the tile offset instance.
+   * @brief Returns the offset in the x-axis associated with the tile offset
+   * instance.
    *
    * @return the offset in the x-axis.
+   *
    * @since 0.1.0
    */
-  STEP_QUERY
-  int x() const noexcept;
+  [[nodiscard]] auto x() const noexcept -> int
+  {
+    return m_x;
+  }
 
   /**
-   * Returns the offset in the y-axis associated with the tile offset instance.
+   * @brief Returns the offset in the y-axis associated with the tile offset
+   * instance.
    *
    * @return the offset in the y-axis.
+   *
    * @since 0.1.0
    */
-  STEP_QUERY
-  int y() const noexcept;
+  [[nodiscard]] auto y() const noexcept -> int
+  {
+    return m_y;
+  }
 
  private:
   int m_x;

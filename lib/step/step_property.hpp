@@ -25,6 +25,7 @@
 #ifndef STEP_PROPERTY_HEADER
 #define STEP_PROPERTY_HEADER
 
+#include <string>
 #include <type_traits>
 #include <variant>
 
@@ -32,6 +33,7 @@
 #include "step_color.hpp"
 #include "step_types.hpp"
 #include "step_utils.hpp"
+#include "step_valid_property.hpp"
 
 namespace step {
 
@@ -68,8 +70,39 @@ class property final {
     file       ///< For file paths, e.g. `"some/path/abc.png"`.
   };
 
-  STEP_API
-  explicit property(const json& json);
+  explicit property(const json& json)
+      : m_name{json.at("name").get<std::string>()},
+        m_type{json.at("type").get<property::type>()}
+  {
+    switch (m_type) {
+      case property::type::integer: {
+        m_value.emplace<int>(json.at("value").get<int>());
+        break;
+      }
+      case property::type::floating: {
+        m_value.emplace<float>(json.at("value").get<float>());
+        break;
+      }
+      case property::type::boolean: {
+        m_value.emplace<bool>(json.at("value").get<bool>());
+        break;
+      }
+      case property::type::color: {
+        m_value.emplace<color>(json.at("value").get<std::string>());
+        break;
+      }
+      case property::type::file: {
+        m_value.emplace<file>(json.at("value").get<std::string>());
+        break;
+      }
+      case property::type::string: {
+        m_value.emplace<std::string>(json.at("value").get<std::string>());
+        break;
+      }
+      default:
+        throw step_exception{"Unknown property type!"};
+    }
+  }
 
   /**
    * @brief Returns the value of the property as the specified type.
@@ -177,8 +210,10 @@ class property final {
    *
    * @since 0.1.0
    */
-  STEP_QUERY
-  auto name() const -> std::string;
+  [[nodiscard]] auto name() const -> std::string
+  {
+    return m_name;
+  }
 
   /**
    * @brief Returns the type associated with the property.
@@ -187,8 +222,10 @@ class property final {
    *
    * @since 0.1.0
    */
-  STEP_QUERY
-  auto get_type() const noexcept -> type;
+  [[nodiscard]] auto get_type() const noexcept -> type
+  {
+    return m_type;
+  }
 
  private:
   type m_type{type::string};

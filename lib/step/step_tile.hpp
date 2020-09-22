@@ -37,14 +37,17 @@
 #ifndef STEP_TILE_HEADER
 #define STEP_TILE_HEADER
 
-#include <memory>
-#include <vector>
+#include <array>     // array
+#include <optional>  // optional
+#include <string>    // string
 
 #include "step_animation.hpp"
 #include "step_api.hpp"
 #include "step_fwd.hpp"
 #include "step_layer.hpp"
+#include "step_properties.hpp"
 #include "step_types.hpp"
+#include "step_utils.hpp"
 
 namespace step {
 
@@ -76,8 +79,31 @@ class tile final {
     bottom_right = 3
   };
 
-  STEP_API
-  explicit tile(const json& json);
+  explicit tile(const json& json) : m_id{json.at("id").get<int>()}
+  {
+    if (const auto it = json.find("properties"); it != json.end()) {
+      m_properties.emplace(*it);
+    }
+
+    if (const auto it = json.find("terrain"); it != json.end()) {
+      m_terrain.emplace();
+      for (const auto& [key, value] : it->items()) {
+        m_terrain->at(detail::convert<std::size_t>(key)) = value.get<int>();
+      }
+    }
+
+    if (const auto it = json.find("objectgroup"); it != json.end()) {
+      m_objectGroup.emplace(*it);
+    }
+
+    detail::emplace_opt(json, "animation", m_animation);
+
+    detail::bind_opt(json, "type", m_type);
+    detail::bind_opt(json, "image", m_image);
+    detail::bind_opt(json, "imagewidth", m_imageWidth);
+    detail::bind_opt(json, "imageheight", m_imageHeight);
+    detail::bind_opt(json, "probability", m_probability);
+  }
 
   /**
    * @brief Returns the local ID associated with the tile.
@@ -86,8 +112,10 @@ class tile final {
    *
    * @since 0.1.0
    */
-  STEP_QUERY
-  auto id() const noexcept -> local_id;
+  [[nodiscard]] auto id() const noexcept -> local_id
+  {
+    return m_id;
+  }
 
   /**
    * @brief Returns the animation associated with the tile.
@@ -97,8 +125,11 @@ class tile final {
    *
    * @since 0.1.0
    */
-  STEP_QUERY
-  auto get_animation() const noexcept -> std::optional<animation>;
+  [[nodiscard]] auto get_animation() const noexcept
+      -> const std::optional<animation>&
+  {
+    return m_animation;
+  }
 
   /**
    * @brief Returns the properties associated with the tile.
@@ -110,8 +141,10 @@ class tile final {
    *
    * @since 0.1.0
    */
-  STEP_QUERY
-  auto get_properties() const -> const properties*;
+  [[nodiscard]] auto get_properties() const -> const properties*
+  {
+    return m_properties ? m_properties.operator->() : nullptr;
+  }
 
   /**
    * @brief Returns the object group layer associated with the tile.
@@ -123,8 +156,10 @@ class tile final {
    *
    * @since 0.1.0
    */
-  STEP_QUERY
-  auto object_group() const noexcept -> const Layer*;
+  [[nodiscard]] auto object_group() const noexcept -> const layer*
+  {
+    return m_objectGroup ? m_objectGroup.operator->() : nullptr;
+  }
 
   /**
    * @brief Returns the type of the tile.
@@ -133,8 +168,10 @@ class tile final {
    *
    * @since 0.1.0
    */
-  STEP_QUERY
-  auto type() const -> std::optional<std::string>;
+  [[nodiscard]] auto type() const -> const std::optional<std::string>&
+  {
+    return m_type;
+  }
 
   /**
    * @brief Returns the image associated with the tile.
@@ -144,8 +181,10 @@ class tile final {
    *
    * @since 0.1.0
    */
-  STEP_QUERY
-  auto image() const -> std::optional<std::string>;
+  [[nodiscard]] auto image() const -> const std::optional<std::string>&
+  {
+    return m_image;
+  }
 
   /**
    * @brief Returns the width of the image associated with the tile.
@@ -155,8 +194,10 @@ class tile final {
    *
    * @since 0.1.0
    */
-  STEP_QUERY
-  auto image_width() const noexcept -> std::optional<int>;
+  [[nodiscard]] auto image_width() const noexcept -> std::optional<int>
+  {
+    return m_imageWidth;
+  }
 
   /**
    * @brief Returns the height of the image associated with the tile.
@@ -166,8 +207,10 @@ class tile final {
    *
    * @since 0.1.0
    */
-  STEP_QUERY
-  auto image_height() const noexcept -> std::optional<int>;
+  [[nodiscard]] auto image_height() const noexcept -> std::optional<int>
+  {
+    return m_imageHeight;
+  }
 
   /**
    * @brief Returns the probability associated with the tile.
@@ -177,8 +220,10 @@ class tile final {
    *
    * @since 0.1.0
    */
-  STEP_QUERY
-  auto probability() const noexcept -> std::optional<double>;
+  [[nodiscard]] auto probability() const noexcept -> std::optional<double>
+  {
+    return m_probability;
+  }
 
   /**
    * @brief Returns the ID of the terrain at the specified position, in relation
@@ -191,15 +236,20 @@ class tile final {
    *
    * @since 0.1.0
    */
-  STEP_QUERY
-  auto terrain_at(terrain_pos position) const noexcept -> std::optional<int>;
+  [[nodiscard]] auto terrain_at(terrain_pos position) const noexcept
+      -> std::optional<int>
+  {
+    if (m_terrain) {
+      return m_terrain->at(static_cast<std::size_t>(position));
+    } else {
+      return std::nullopt;
+    }
+  }
 
  private:
   local_id m_id{0};
-
-  std::unique_ptr<properties> m_properties;
-  std::unique_ptr<Layer> m_objectGroup;
-
+  std::optional<properties> m_properties;
+  std::optional<layer> m_objectGroup;
   std::optional<animation> m_animation;
   std::optional<std::array<int, 4>> m_terrain;
   std::optional<std::string> m_type;

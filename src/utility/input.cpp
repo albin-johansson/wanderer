@@ -2,8 +2,6 @@
 
 #include "game_constants.h"
 
-using namespace centurion;
-
 namespace wanderer {
 
 Input::Input() noexcept
@@ -19,17 +17,17 @@ void Input::update(const int windowWidth, const int windowHeight) noexcept
   SDL_PumpEvents();
 }
 
-bool Input::is_pressed(const Key& key) const noexcept
+bool Input::is_pressed(const cen::key_code& key) const noexcept
 {
   return m_keyState.is_pressed(key);
 }
 
-bool Input::was_just_pressed(const Key& key) const noexcept
+bool Input::was_just_pressed(const cen::key_code& key) const noexcept
 {
   return m_keyState.was_just_pressed(key);
 }
 
-bool Input::was_released(const Key& key) const noexcept
+bool Input::was_released(const cen::key_code& key) const noexcept
 {
   return m_keyState.was_just_released(key);
 }

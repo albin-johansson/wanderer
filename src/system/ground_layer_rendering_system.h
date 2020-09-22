@@ -1,6 +1,6 @@
 #pragma once
 
-#include <renderer.h>
+#include <renderer.hpp>
 
 #include "render_bounds.h"
 #include "tilemap.h"
@@ -10,7 +10,7 @@ namespace wanderer::sys::layer {
 
 void render_ground(entt::registry& registry,
                    comp::Tilemap::entity mapEntity,
-                   ctn::Renderer& renderer,
+                   cen::renderer& renderer,
                    const comp::RenderBounds& bounds);
 
 }  // namespace wanderer::sys::layer

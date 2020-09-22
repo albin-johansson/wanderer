@@ -13,8 +13,8 @@
 
 #pragma once
 
-#include <area.h>
-#include <point.h>
+#include <area.hpp>
+#include <point.hpp>
 
 #include "aabb.h"
 #include "wanderer_stdinc.h"
@@ -37,8 +37,8 @@ void validate(comp::AABB& aabb) noexcept;
  * @param size the size of the box.
  * @return the created AABB instance.
  */
-[[nodiscard]] auto make_aabb(const ctn::FPoint& pos,
-                             const ctn::FArea& size) noexcept -> comp::AABB;
+[[nodiscard]] auto make_aabb(const cen::fpoint& pos,
+                             const cen::farea& size) noexcept -> comp::AABB;
 
 /**
  * @brief Returns an AABB for the supplied boxes.

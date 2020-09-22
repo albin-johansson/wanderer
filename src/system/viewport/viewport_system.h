@@ -1,5 +1,7 @@
 #pragma once
 
+#include <renderer.hpp>
+
 #include "viewport.h"
 #include "wanderer_stdinc.h"
 
@@ -23,6 +25,6 @@ void update(entt::registry& registry,
 
 void translate(entt::registry& registry,
                comp::Viewport::entity viewportEntity,
-               ctn::Renderer& renderer);
+               cen::renderer& renderer);
 
 }  // namespace wanderer::sys::viewport

@@ -38,7 +38,9 @@
 #define STEP_OBJECT_HEADER
 
 #include <memory>
+#include <optional>
 #include <string>
+#include <string_view>
 #include <type_traits>
 #include <variant>
 #include <vector>
@@ -60,7 +62,7 @@ namespace step {
  *
  * @headerfile step_object.hpp
  */
-struct polygon {
+struct polygon final {
   std::vector<point> points;
 };
 
@@ -73,7 +75,7 @@ struct polygon {
  *
  * @headerfile step_object.hpp
  */
-struct polyline {
+struct polyline final {
   std::vector<point> points;
 };
 
@@ -86,7 +88,7 @@ struct polyline {
  *
  * @headerfile step_object.hpp
  */
-struct template_object {
+struct template_object final {
   std::string templateFile;
   // TODO std::shared_ptr<Tileset>
   // TODO std::shared_ptr<Object>
@@ -115,8 +117,49 @@ class object final {
    *
    * @since 0.1.0
    */
-  STEP_API
-  explicit object(const json& json);
+  explicit object(const json& json)
+      : m_id{json.at("id").get<int>()},
+        m_x{json.at("x").get<double>()},
+        m_y{json.at("y").get<double>()},
+        m_width{json.at("width").get<double>()},
+        m_height{json.at("height").get<double>()},
+        m_rotation{json.at("rotation").get<double>()},
+        m_name{json.at("name").get<std::string>()},
+        m_type{json.at("type").get<std::string>()},
+        m_isEllipse{detail::safe_get<bool>(json, "ellipse", false)},
+        m_isPoint{detail::safe_get<bool>(json, "point", false)},
+        m_visible{json.at("visible").get<bool>()}
+  {
+    if (const auto it = json.find("properties"); it != json.end()) {
+      m_properties.emplace(it.value());
+    }
+
+    if (const auto gidIt = json.find("gid"); gidIt != json.end()) {
+      m_specificData.emplace<global_id>(gidIt->get<unsigned>());
+
+    } else if (const auto textIt = json.find("text"); textIt != json.end()) {
+      m_specificData.emplace<text>(*textIt);
+
+    } else if (const auto polyIt = json.find("polygon"); polyIt != json.end()) {
+      auto& poly = m_specificData.emplace<polygon>();
+
+      for (const auto& [key, value] : polyIt->items()) {
+        poly.points.emplace_back(point{value});
+      }
+
+    } else if (const auto lineIt = json.find("polyline");
+               lineIt != json.end()) {
+      auto& line = m_specificData.emplace<polyline>();
+
+      for (const auto& [key, value] : lineIt->items()) {
+        line.points.emplace_back(point{value});
+      }
+
+    } else if (json.contains("template")) {
+      auto& templ = m_specificData.emplace<template_object>();
+      json.at("template").get_to(templ.templateFile);
+    }
+  }
 
   /**
    * @brief Returns the incremental ID associated with the object.
@@ -125,8 +168,10 @@ class object final {
    *
    * @since 0.1.0
    */
-  STEP_QUERY
-  auto id() const noexcept -> int;
+  [[nodiscard]] auto id() const noexcept -> int
+  {
+    return m_id;
+  }
 
   /**
    * @brief Returns the x-coordinate of the object.
@@ -135,8 +180,10 @@ class object final {
    *
    * @since 0.1.0
    */
-  STEP_QUERY
-  auto x() const noexcept -> double;
+  [[nodiscard]] auto x() const noexcept -> double
+  {
+    return m_x;
+  }
 
   /**
    * @brief Returns the y-coordinate of the object.
@@ -145,8 +192,10 @@ class object final {
    *
    * @since 0.1.0
    */
-  STEP_QUERY
-  auto y() const noexcept -> double;
+  [[nodiscard]] auto y() const noexcept -> double
+  {
+    return m_y;
+  }
 
   /**
    * @brief Returns the width of the object.
@@ -155,8 +204,10 @@ class object final {
    *
    * @since 0.1.0
    */
-  STEP_QUERY
-  auto width() const noexcept -> double;
+  [[nodiscard]] auto width() const noexcept -> double
+  {
+    return m_width;
+  }
 
   /**
    * @brief Returns the height of the object.
@@ -165,8 +216,10 @@ class object final {
    *
    * @since 0.1.0
    */
-  STEP_QUERY
-  auto height() const noexcept -> double;
+  [[nodiscard]] auto height() const noexcept -> double
+  {
+    return m_height;
+  }
 
   /**
    * @brief Returns the amount of clockwise rotation of the object.
@@ -175,8 +228,10 @@ class object final {
    *
    * @since 0.1.0
    */
-  STEP_QUERY
-  auto rotation() const noexcept -> double;
+  [[nodiscard]] auto rotation() const noexcept -> double
+  {
+    return m_rotation;
+  }
 
   /**
    * @brief Returns the name of the object.
@@ -185,8 +240,10 @@ class object final {
    *
    * @since 0.1.0
    */
-  STEP_QUERY
-  auto name() const -> std::string;
+  [[nodiscard]] auto name() const -> std::string_view
+  {
+    return m_name;
+  }
 
   /**
    * @brief Returns the type associated with the object.
@@ -195,8 +252,10 @@ class object final {
    *
    * @since 0.1.0
    */
-  STEP_QUERY
-  auto type() const -> std::string;
+  [[nodiscard]] auto type() const -> std::string_view
+  {
+    return m_type;
+  }
 
   /**
    * @brief Returns the properties associated with the object.
@@ -206,8 +265,10 @@ class object final {
    *
    * @since 0.1.0
    */
-  STEP_QUERY
-  auto get_properties() const noexcept -> const properties*;
+  [[nodiscard]] auto get_properties() const -> const properties*
+  {
+    return m_properties ? m_properties.operator->() : nullptr;
+  }
 
   /**
    * @brief Indicates whether or not the object is visible.
@@ -216,8 +277,34 @@ class object final {
    *
    * @since 0.1.0
    */
-  STEP_QUERY
-  auto visible() const noexcept -> bool;
+  [[nodiscard]] auto visible() const noexcept -> bool
+  {
+    return m_visible;
+  }
+
+  /**
+   * Indicates whether or not the object represents an ellipse.
+   *
+   * @return `true` if the object represents an ellipse; `false` otherwise.
+   *
+   * @since 0.1.0
+   */
+  [[nodiscard]] auto is_ellipse() const noexcept -> bool
+  {
+    return m_isEllipse;
+  }
+
+  /**
+   * @brief Indicates whether or not the object represents a point.
+   *
+   * @return `true` if the object represents a point; `false` otherwise.
+   *
+   * @since 0.1.0
+   */
+  [[nodiscard]] auto is_point() const noexcept -> bool
+  {
+    return m_isPoint;
+  }
 
   /**
    * @brief Returns a reference to the internal object type-specific data.
@@ -233,7 +320,7 @@ class object final {
    * @since 0.2.0
    */
   template <typename T, typename = std::enable_if_t<valid_object_type<T>()>>
-  [[nodiscard]] auto get() const -> const T&
+  [[nodiscard]] auto as() const -> const T&
   {
     return std::get<T>(m_specificData);
   }
@@ -252,7 +339,7 @@ class object final {
    * @since 0.2.0
    */
   template <typename T, typename = std::enable_if_t<valid_object_type<T>()>>
-  [[nodiscard]] auto try_get() const noexcept -> const T*
+  [[nodiscard]] auto try_as() const noexcept -> const T*
   {
     return std::get_if<T>(m_specificData);
   }
@@ -274,26 +361,6 @@ class object final {
     return std::holds_alternative<T>(m_specificData);
   }
 
-  /**
-   * Indicates whether or not the object represents an ellipse.
-   *
-   * @return `true` if the object represents an ellipse; `false` otherwise.
-   *
-   * @since 0.1.0
-   */
-  STEP_QUERY
-  auto is_ellipse() const noexcept -> bool;
-
-  /**
-   * @brief Indicates whether or not the object represents a point.
-   *
-   * @return `true` if the object represents a point; `false` otherwise.
-   *
-   * @since 0.1.0
-   */
-  STEP_QUERY
-  auto is_point() const noexcept -> bool;
-
  private:
   using data = std::variant<std::monostate,
                             polygon,
@@ -309,10 +376,10 @@ class object final {
   double m_rotation{0};
   std::string m_name;
   std::string m_type;
-  std::unique_ptr<properties> m_properties;
+  std::optional<properties> m_properties;
   data m_specificData;
-  bool m_ellipse{false};
-  bool m_point{false};
+  bool m_isEllipse{false};
+  bool m_isPoint{false};
   bool m_visible{true};
 
   // TODO improve template object support

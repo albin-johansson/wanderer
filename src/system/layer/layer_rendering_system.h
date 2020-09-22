@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include <renderer.h>
+#include <renderer.hpp>
 
 #include "render_bounds.h"
 #include "tile_layer.h"
@@ -26,7 +26,7 @@ namespace wanderer::sys::layer {
  */
 void render(entt::registry& registry,
             const comp::TileLayer& layer,
-            ctn::Renderer& renderer,
+            cen::renderer& renderer,
             const comp::Tileset& tileset,
             const comp::RenderBounds& bounds);
 

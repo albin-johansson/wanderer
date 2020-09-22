@@ -49,7 +49,6 @@ void update_movement(entt::registry& registry, const delta dt)
   registry.view<Movable, Hitbox>().each(
       [&registry, dt](
           const auto entity, Movable& movable, Hitbox& hitbox) noexcept {
-
         const auto nextPos = movable.currentPos + (movable.velocity * dt.get());
 
         // TODO check if the entity will collide with something at next position

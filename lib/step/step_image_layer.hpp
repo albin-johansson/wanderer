@@ -34,43 +34,60 @@
 namespace step {
 
 /**
- * The ImageLayer class represents the API for layers that represent "image
- * layers", that is layers that are represented by an image.
+ * @class image_layer
+ *
+ * @brief Represents the API for layers that represent "image layers", layers
+ * that are represented by an image.
  *
  * @since 0.1.0
+ *
+ * @headerfile step_image_layer.hpp
  */
-class ImageLayer final {
+class image_layer final {
  public:
-  STEP_API
-  friend void from_json(const json&, ImageLayer&);
+  friend void from_json(const json&, image_layer&);
 
   /**
-   * Returns the image used by the image layer.
+   * @brief Returns the image used by the image layer.
    *
    * @return the image associated with the image layer.
+   *
    * @since 0.1.0
    */
-  STEP_QUERY
-  std::string image() const;
+  [[nodiscard]] auto image() const -> const std::string&
+  {
+    return m_image;
+  }
 
   /**
-   * Returns the transparent color used by the image layer. This property is
-   * optional.
+   * @brief Returns the transparent color used by the image layer.
    *
-   * @return the transparent color used by the image layer; nothing if there is
-   * none.
+   * @details This property is optional.
+   *
+   * @return the transparent color used by the image layer; `std::nullopt` if
+   * there is none.
+   *
    * @since 0.1.0
    */
-  STEP_QUERY
-  std::optional<color> transparent_color() const noexcept;
+  [[nodiscard]] auto transparent_color() const noexcept
+      -> const std::optional<color>&
+  {
+    return m_transparentColor;
+  }
 
  private:
   std::string m_image;
   std::optional<color> m_transparentColor;
 };
 
-STEP_API
-void from_json(const json& json, ImageLayer& layer);
+inline void from_json(const json& json, image_layer& layer)
+{
+  json.at("image").get_to(layer.m_image);
+  if (json.count("transparentcolor")) {
+    layer.m_transparentColor =
+        color{json.at("transparentcolor").get<std::string>()};
+  }
+}
 
 }  // namespace step
 

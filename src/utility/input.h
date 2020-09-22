@@ -1,8 +1,9 @@
 #pragma once
 
-#include "key.h"
-#include "key_state.h"
-#include "mouse_state.h"
+#include <key_code.hpp>
+#include <key_state.hpp>
+#include <mouse_state.hpp>
+
 #include "wanderer_stdinc.h"
 
 namespace wanderer {
@@ -13,12 +14,14 @@ class Input final {
 
   void update(int windowWidth, int windowHeight) noexcept;
 
-  [[nodiscard]] auto is_pressed(const ctn::Key& key) const noexcept -> bool;
-
-  [[nodiscard]] auto was_just_pressed(const ctn::Key& key) const noexcept
+  [[nodiscard]] auto is_pressed(const cen::key_code& key) const noexcept
       -> bool;
 
-  [[nodiscard]] auto was_released(const ctn::Key& key) const noexcept -> bool;
+  [[nodiscard]] auto was_just_pressed(const cen::key_code& key) const noexcept
+      -> bool;
+
+  [[nodiscard]] auto was_released(const cen::key_code& key) const noexcept
+      -> bool;
 
   [[nodiscard]] auto get_mouse_x() const noexcept -> float;
 
@@ -37,8 +40,8 @@ class Input final {
   [[nodiscard]] auto was_quit_requested() const noexcept -> bool;
 
  private:
-  ctn::input::KeyState m_keyState;
-  ctn::input::MouseState m_mouseState;
+  cen::key_state m_keyState;
+  cen::mouse_state m_mouseState;
 };
 
 }  // namespace wanderer

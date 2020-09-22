@@ -8,19 +8,19 @@ using namespace wanderer::comp;
 namespace wanderer::sys::tile {
 namespace {
 
-inline constexpr ctn::FArea dstSize{g_tileSize<float>, g_tileSize<float>};
+inline constexpr cen::farea dstSize{g_tileSize<float>, g_tileSize<float>};
 
 }
 
-void render(ctn::Renderer& renderer,
+void render(cen::renderer& renderer,
             const Tile& tile,
             const int row,
             const int col) noexcept
 {
   const auto x = static_cast<float>(col) * g_tileSize<float>;
   const auto y = static_cast<float>(row) * g_tileSize<float>;
-  const ctn::FRect dst{{x, y}, dstSize};
-  renderer.render_tf(*tile.sheet, tile.src, dst);
+  const cen::frect dst{{x, y}, dstSize};
+  renderer.render_t(*tile.sheet, tile.src, dst);
 }
 
 auto animated_tile(entt::registry& registry,

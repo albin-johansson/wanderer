@@ -8,8 +8,7 @@
 
 #pragma once
 
-#include <rect.h>
-
+#include <rect.hpp>
 #include <vector>
 
 #include "vector_2.h"
@@ -31,7 +30,7 @@ namespace wanderer::comp {
  */
 struct Subhitbox final {
   vector2f offset;
-  ctn::FRect rect;
+  cen::frect rect;
 };
 
 /**
@@ -47,7 +46,7 @@ struct Subhitbox final {
  */
 struct Hitbox final {
   using entity = fluent::NamedType<entt::entity, struct HitboxEntityTag>;
-  ctn::FRect bounds;
+  cen::frect bounds;
   std::vector<Subhitbox> boxes;
 };
 

@@ -26,12 +26,14 @@ using namespace wanderer::comp;
 
 namespace wanderer {
 
-Game::Game(ctn::Renderer& renderer)
+Game::Game(cen::renderer& renderer)
 {
-  connect_events(m_dispatcher);
   add_humanoid_state_dependencies(m_registry);
+  connect_events(m_dispatcher);
 
-  m_world = make_map(m_registry, "world_demo.json", renderer, m_imageCache);
+  m_world = make_map(
+      m_registry, "resource/map/world_demo.json", renderer, m_imageCache);
+
   m_player = humanoid::add_player(m_registry, renderer, m_imageCache);
   m_viewport = viewport::make_viewport(m_registry);
 
@@ -70,15 +72,15 @@ void Game::tick(const delta dt)
   viewport::update(m_registry, m_viewport, m_player, dt);
 }
 
-void Game::render(ctn::Renderer& renderer, const alpha alpha)
+void Game::render(cen::renderer& renderer, const alpha alpha)
 {
   viewport::translate(m_registry, m_viewport, renderer);
 
   update_interpolation(m_registry, alpha);
   update_movable_depth_drawables(m_registry);
 
-  const auto& tilemap = m_registry.get<Tilemap>(m_world.get());  // FIXME
-                                                                 // m_world
+  // FIXME m_world
+  const auto& tilemap = m_registry.get<Tilemap>(m_world.get());
   const auto bounds = calculate_render_bounds(
       m_registry, m_viewport, tilemap.rows, tilemap.cols);
 

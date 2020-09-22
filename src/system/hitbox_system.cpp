@@ -9,7 +9,7 @@ void update_bounds(Hitbox& hitbox) noexcept
   bool first = true;
   for (auto& [offset, rect] : hitbox.boxes) {
     if (first) {
-      hitbox.bounds.set(rect);
+      hitbox.bounds = rect;
       first = false;
     }
 
@@ -59,14 +59,14 @@ auto intersects(const Hitbox& fst, const Hitbox& snd) noexcept -> bool
     return false;
   }
 
-  if (!fst.bounds.intersects(snd.bounds)) {
+  if (!cen::intersects(fst.bounds, snd.bounds)) {
     // Cannot intersect if the bounding rectangles don't intersect
     return false;
   }
 
   for (const auto& [x, fstRect] : fst.boxes) {
     for (const auto& [x, sndRect] : snd.boxes) {
-      if (fstRect.intersects(sndRect)) {
+      if (cen::intersects(fstRect, sndRect)) {
         return true;
       }
     }

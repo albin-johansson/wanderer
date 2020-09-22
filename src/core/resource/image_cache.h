@@ -8,7 +8,7 @@
 
 #pragma once
 
-#include <texture.h>
+#include <texture.hpp>
 
 #include "wanderer_stdinc.h"
 
@@ -18,6 +18,6 @@ namespace wanderer {
  * @typedef ImageCache
  * @brief Used for caches that store centurion textures.
  */
-using image_cache = entt::cache<ctn::Texture>;
+using image_cache = entt::cache<cen::texture>;
 
 }  // namespace wanderer

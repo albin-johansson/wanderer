@@ -6,7 +6,6 @@
 
 using namespace wanderer;
 using namespace sys;
-using namespace centurion;
 
 using comp::Hitbox;
 using comp::Subhitbox;
@@ -27,17 +26,17 @@ TEST_SUITE("Hitbox")
      */
     Hitbox hitbox;
 
-    const Subhitbox fst{vector2f{0, 0}, FRect{{10, 10}, {100, 100}}};
+    const Subhitbox fst{vector2f{0, 0}, cen::frect{{10, 10}, {100, 100}}};
     const Subhitbox snd{
         vector2f{0, 0},
-        FRect{{fst.rect.max_x() + 10, fst.rect.max_y() + 10}, {100, 100}}};
+        cen::frect{{fst.rect.max_x() + 10, fst.rect.max_y() + 10}, {100, 100}}};
 
     hitbox.boxes.push_back(fst);
     hitbox.boxes.push_back(snd);
 
     hitbox::update_bounds(hitbox);
 
-    const FRect expected{
+    const cen::frect expected{
         {fst.rect.x(), fst.rect.y()},
         {snd.rect.max_x() - fst.rect.x(), snd.rect.max_y() - fst.rect.y()}};
 
@@ -57,14 +56,16 @@ TEST_SUITE("Hitbox")
        *
        */
 
-      const auto fst = hitbox::create({{{}, FRect{{100, 100}, {100, 100}}}});
-      const auto snd = hitbox::create({{{}, FRect{{150, 150}, {100, 100}}}});
+      const auto fst =
+          hitbox::create({{{}, cen::frect{{100, 100}, {100, 100}}}});
+      const auto snd =
+          hitbox::create({{{}, cen::frect{{150, 150}, {100, 100}}}});
 
       CHECK(hitbox::intersects(fst, snd));
       CHECK(hitbox::intersects(snd, fst));
 
-      CHECK(fst.bounds.intersects(snd.bounds));
-      CHECK(snd.bounds.intersects(fst.bounds));
+      CHECK(cen::intersects(fst.bounds, snd.bounds));
+      CHECK(cen::intersects(snd.bounds, fst.bounds));
     }
 
     SUBCASE("Bounds intersection but no actual subhitbox intersection")
@@ -79,14 +80,14 @@ TEST_SUITE("Hitbox")
        *
        */
 
-      const auto fst = hitbox::create({{{}, FRect{{100, 100}, {75, 100}}},
-                                       {{}, FRect{{175, 100}, {25, 25}}}});
+      const auto fst = hitbox::create({{{}, cen::frect{{100, 100}, {75, 100}}},
+                                       {{}, cen::frect{{175, 100}, {25, 25}}}});
 
-      const auto snd = hitbox::create({{{}, FRect{{210, 150}, {100, 100}}},
-                                       {{}, FRect{{150, 210}, {25, 25}}}});
+      const auto snd = hitbox::create({{{}, cen::frect{{210, 150}, {100, 100}}},
+                                       {{}, cen::frect{{150, 210}, {25, 25}}}});
 
-      REQUIRE(fst.bounds.intersects(snd.bounds));
-      REQUIRE(snd.bounds.intersects(fst.bounds));
+      REQUIRE(cen::intersects(fst.bounds, snd.bounds));
+      REQUIRE(cen::intersects(snd.bounds, fst.bounds));
 
       CHECK(!hitbox::intersects(fst, snd));
       CHECK(!hitbox::intersects(snd, fst));

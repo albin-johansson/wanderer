@@ -1,7 +1,6 @@
 #include "make_map.h"
 
-#include <step.h>
-
+#include <step_map.hpp>
 #include <vector>
 
 #include "depth_drawable.h"
@@ -25,8 +24,8 @@ namespace {
 }
 
 [[nodiscard]] auto create_ground_layer(entt::registry& registry,
-                                       const step::Layer& stepLayer,
-                                       const step::TileLayer& stepTileLayer)
+                                       const step::layer& stepLayer,
+                                       const step::tile_layer& stepTileLayer)
     -> TileLayer::entity
 {
   const auto groundLayerEntity = registry.create();
@@ -35,12 +34,12 @@ namespace {
   tileLayer.matrix = create_tile_matrix(stepLayer.height(), stepLayer.width());
 
   int index = 0;
-  for (const auto gid : stepTileLayer.data().as_gid()) {
+  for (const auto gid : stepTileLayer.data()->as_gid()) {
     const auto [row, col] = Math::index_to_matrix_pos(index, stepLayer.width());
 
     const auto r = static_cast<std::size_t>(row);
     const auto c = static_cast<std::size_t>(col);
-    tileLayer.matrix.at(r).at(c) = gid;
+    tileLayer.matrix.at(r).at(c) = gid.get();
     ++index;
   }
 
@@ -49,23 +48,20 @@ namespace {
 
 void create_tile_objects(entt::registry& registry,
                          Tilemap& tilemap,
-                         const step::Layer& stepLayer,
-                         const std::vector<step::GID>& tileData,
+                         const step::layer& stepLayer,
+                         const std::vector<step::global_id>& tileData,
                          const Tileset& tileset)
 {
   int index = 0;
   for (const auto gid : tileData) {
-    if (gid == g_emptyTile) {
+    if (gid.get() == g_emptyTile) {
       ++index;
       continue;
     }
 
-    const auto& tile = registry.get<Tile>(tileset.tiles.at(gid).get());
-
+    const auto& tile = registry.get<Tile>(tileset.tiles.at(gid.get()).get());
     const auto tileObjectEntity = registry.create();
-
     const auto [row, col] = Math::index_to_matrix_pos(index, stepLayer.width());
-
     const auto tileSize = g_tileSize<float>;
 
     auto& drawable = registry.emplace<DepthDrawable>(tileObjectEntity);
@@ -91,11 +87,11 @@ void create_tile_objects(entt::registry& registry,
 }  // namespace
 
 auto make_map(entt::registry& registry,
-              std::string_view map,
-              ctn::Renderer& renderer,
+              const step::fs::path& path,
+              cen::renderer& renderer,
               image_cache& imageCache) -> Tilemap::entity
 {
-  const auto stepMap = step::parse("resource/map/", map);
+  const auto stepMap = std::make_unique<step::map>(path);
   const auto mapEntity = registry.create();
 
   auto& tilemap = registry.emplace<Tilemap>(mapEntity);
@@ -107,13 +103,13 @@ auto make_map(entt::registry& registry,
       make_tileset(registry, stepMap->tilesets(), renderer, imageCache);
 
   for (const auto& stepLayer : stepMap->layers()) {
-    const auto& layerProps = stepLayer.properties();
+    const auto* layerProps = stepLayer.get_properties();
 
-    if (stepLayer.is_tile_layer()) {
-      const auto& stepTileLayer = stepLayer.as_tile_layer();
+    if (stepLayer.is<step::tile_layer>()) {
+      const auto& stepTileLayer = stepLayer.as<step::tile_layer>();
 
-      if (layerProps.has("ground")) {
-        if (layerProps.is("ground", true)) {
+      if (layerProps->has("ground")) {
+        if (layerProps->is("ground", true)) {
           tilemap.layers.emplace_back(
               create_ground_layer(registry, stepLayer, stepTileLayer));
         } else {
@@ -121,12 +117,12 @@ auto make_map(entt::registry& registry,
           create_tile_objects(registry,
                               tilemap,
                               stepLayer,
-                              stepTileLayer.data().as_gid(),
+                              stepTileLayer.data()->as_gid(),
                               tileset);
         }
       }
 
-    } else if (stepLayer.is_object_group()) {
+    } else if (stepLayer.is<step::object_group>()) {
       // TODO spawnpoints, etc.
     }
   }

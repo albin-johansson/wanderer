@@ -14,7 +14,7 @@ namespace wanderer::sys::layer {
 
 void render_ground(entt::registry& registry,
                    const Tilemap::entity mapEntity,
-                   ctn::Renderer& renderer,
+                   cen::renderer& renderer,
                    const RenderBounds& bounds)
 {
   const auto& tilemap = registry.get<Tilemap>(mapEntity.get());
