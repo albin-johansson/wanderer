@@ -16,10 +16,15 @@ BinPackArguments: false
 
 BreakBeforeBraces: Custom
 BraceWrapping:
-  AfterEnum: false
-  AfterStruct: false
+  AfterEnum: true
+  AfterStruct: true
+  AfterClass: true
   AfterFunction: true
+  SplitEmptyRecord: false
   SplitEmptyFunction: false
 
-AllowShortFunctionsOnASingleLine: InlineOnly
+AllowShortFunctionsOnASingleLine: None
 AllowShortBlocksOnASingleLine: Never
+
+BreakConstructorInitializers: BeforeColon
+AllowAllConstructorInitializersOnNextLine: false
