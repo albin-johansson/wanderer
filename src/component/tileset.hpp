@@ -12,6 +12,7 @@ struct tileset_entity_t;
 
 /**
  * @struct tileset
+ *
  * @brief Represents a collection of tiles.
  *
  * @var tileset::tiles
