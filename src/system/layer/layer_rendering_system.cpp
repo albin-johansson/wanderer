@@ -23,7 +23,7 @@ void render(entt::registry& registry,
 
       const comp::Tile::entity entity = tileset.tiles.at(id);
 
-      if (registry.has<comp::AnimatedTile>(entity.get())) {
+      if (registry.has<comp::animated_tile>(entity.get())) {
         const auto& tile = tile::animated_tile(registry, entity, tileset);
         tile::render(renderer, tile, row, col);
       } else {

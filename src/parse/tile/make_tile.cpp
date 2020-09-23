@@ -14,8 +14,8 @@ void add_animation(entt::registry& registry,
                    const step::animation& stepAnimation,
                    const tile_id firstgid)
 {
-  auto& animatedTile = registry.emplace<comp::AnimatedTile>(tileEntity.get());
-  animatedTile.frame = 0;
+  auto& animatedTile = registry.emplace<comp::animated_tile>(tileEntity.get());
+  animatedTile.index = 0;
   animatedTile.then = cen::counter::ticks().count();  // FIXME
 
   animatedTile.frames.reserve(
