@@ -1,11 +1,3 @@
-/**
- * @brief Provides the `BeginAttackEvent` component.
- * @file begin_attack_event.hpp
- * @author Albin Johansson
- * @copyright MIT License
- * @date 2020
- */
-
 #pragma once
 
 #include "direction.hpp"
@@ -14,43 +6,35 @@
 namespace wanderer {
 
 /**
- * @struct BeginAttackEvent
+ * @struct begin_attack_event
+ *
  * @brief Represents the data associated with the start of an attack.
  *
  * @note This is an event component and is meant to be dispatched through
  * `entt::dispatcher::enqueue`.
- * @code{.cpp}
- * const entt::entity srcEntity = ...;
- * const entt::entity weapon = ...;
- * const auto direction = Direction::Down;
- * dispatcher.enqueue<BeginAttackEvent>(&registry,
- *                                      srcEntity,
- *                                      weapon,
- *                                      direction);
- * @endcode
  *
- * @var BeginAttackEvent::registry
+ * @var begin_attack_event::registry
  * A pointer to the associated registry.
- * @var BeginAttackEvent::sourceEntity
+ * @var begin_attack_event::sourceEntity
  * The entity that initiated the attack.
- * @var BeginAttackEvent::weapon
+ * @var begin_attack_event::weapon
  * The weapon that is being used for the attack.
- * @var BeginAttackEvent::direction
+ * @var begin_attack_event::direction
  * The direction in which the attack is being performed.
  *
  * @headerfile begin_attack_event.hpp
  */
-struct BeginAttackEvent final
+struct begin_attack_event final
 {
-  entt::registry* registry{nullptr};
+  entt::registry* registry{};
   entt::entity sourceEntity{entt::null};  // TODO tag type
   entt::entity weapon{entt::null};        // TODO weapon component entity tag
   Direction direction{Direction::Down};
 
-  BeginAttackEvent(entt::registry* registry,
-                   const entt::entity sourceEntity,
-                   const entt::entity weapon,
-                   const Direction direction)
+  begin_attack_event(entt::registry* registry,
+                     const entt::entity sourceEntity,
+                     const entt::entity weapon,
+                     const Direction direction)
       : registry{registry},
         sourceEntity{sourceEntity},
         weapon{weapon},

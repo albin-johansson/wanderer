@@ -1,8 +1,8 @@
 #include "idle_input_system.hpp"
 
-#include "begin_attack_event.hpp"
-#include "begin_humanoid_move_event.hpp"
 #include "component/binds.hpp"
+#include "component/event/begin_attack_event.hpp"
+#include "component/event/begin_humanoid_move_event.hpp"
 #include "component/humanoid_state.hpp"
 #include "component/player.hpp"
 #include "direction.hpp"
@@ -34,10 +34,11 @@ void handle_idle_input(entt::registry& registry,
         direction = Direction::Down;
       }
 
-      dispatcher.enqueue<BeginHumanoidMoveEvent>(&registry, player, direction);
+      dispatcher.enqueue<begin_humanoid_move_event>(
+          &registry, player, direction);
 
     } else if (input.is_pressed(binds.attack)) {
-      dispatcher.enqueue<BeginAttackEvent>(
+      dispatcher.enqueue<begin_attack_event>(
           &registry, player, entt::null, Direction::Down);  // FIXME
     }
   }

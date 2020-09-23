@@ -1,12 +1,12 @@
 #include "move_input_system.hpp"
 
-#include "begin_attack_event.hpp"
 #include "component/binds.hpp"
+#include "component/event/begin_attack_event.hpp"
+#include "component/event/end_humanoid_move_event.hpp"
 #include "component/humanoid_state.hpp"
 #include "component/movable.hpp"
 #include "component/player.hpp"
 #include "direction.hpp"
-#include "end_humanoid_move_event.hpp"
 
 namespace wanderer::sys::input {
 namespace {
@@ -129,12 +129,12 @@ void handle_move_input(entt::registry& registry,
     check_released(movable, input, binds);
 
     if (!areMoveKeysDown && movable.velocity.is_zero()) {
-      dispatcher.enqueue<EndHumanoidMoveEvent>(&registry, player);
+      dispatcher.enqueue<end_humanoid_move_event>(&registry, player);
     } else if (input.is_pressed(binds.attack)) {
       movable.velocity.zero();
 
       // FIXME null weapon
-      dispatcher.enqueue<BeginAttackEvent>(
+      dispatcher.enqueue<begin_attack_event>(
           &registry, player, entt::null, movable.dominantDirection);
     }
   }

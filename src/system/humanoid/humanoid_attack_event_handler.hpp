@@ -1,13 +1,7 @@
-/**
- * This file declares all functions related to handling humanoid attack events.
- *
- * @file humanoid_attack_event_handler.hpp
- */
-
 #pragma once
 
-#include "begin_attack_event.hpp"
-#include "end_attack_event.hpp"
+#include "component/event/begin_attack_event.hpp"
+#include "component/event/end_attack_event.hpp"
 #include "wanderer_stdinc.hpp"
 
 namespace wanderer::sys::humanoid {
@@ -20,7 +14,7 @@ namespace wanderer::sys::humanoid {
  * <code>HumanoidAttack</code> component.
  * @param event the event data associated with the start of the attack.
  */
-void on_attack_begin(const BeginAttackEvent& event);
+void on_attack_begin(const begin_attack_event& event);
 
 /**
  * Handles the event of beginning a humanoid attack sequence.
@@ -30,6 +24,6 @@ void on_attack_begin(const BeginAttackEvent& event);
  * <code>HumanoidAttack</code> component.
  * @param event the event data associated with the end of the attack.
  */
-void on_attack_end(const EndAttackEvent& event);
+void on_attack_end(const end_attack_event& event);
 
 }  // namespace wanderer::sys::humanoid

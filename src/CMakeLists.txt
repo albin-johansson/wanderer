@@ -172,7 +172,6 @@ target_include_directories(${WANDERER_LIB_TARGET}
         PUBLIC core
         PUBLIC core/math
         PUBLIC core/resource
-        PUBLIC component/event
         PUBLIC system
         PUBLIC system/input
         PUBLIC system/humanoid
