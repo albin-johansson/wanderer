@@ -1,9 +1,9 @@
 #include "ground_layer_rendering_system.hpp"
 
+#include "component/tile_layer.hpp"
+#include "component/tileset.hpp"
 #include "layer_rendering_system.hpp"
 #include "render_bounds_system.hpp"
-#include "tile_layer.hpp"
-#include "tileset.hpp"
 
 namespace wanderer::sys::layer {
 

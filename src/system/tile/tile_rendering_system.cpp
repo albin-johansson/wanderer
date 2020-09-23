@@ -1,6 +1,6 @@
 #include "tile_rendering_system.hpp"
 
-#include "animated_tile.hpp"
+#include "component/animated_tile.hpp"
 #include "game_constants.hpp"
 
 namespace wanderer::sys::tile {

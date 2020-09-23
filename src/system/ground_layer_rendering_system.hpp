@@ -2,8 +2,8 @@
 
 #include <renderer.hpp>
 
-#include "render_bounds.hpp"
-#include "tilemap.hpp"
+#include "component/render_bounds.hpp"
+#include "component/tilemap.hpp"
 #include "wanderer_stdinc.hpp"
 
 namespace wanderer::sys::layer {

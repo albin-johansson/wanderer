@@ -168,10 +168,10 @@ target_include_directories(${WANDERER_LIB_TARGET}
 
 # Wanderer directories
 target_include_directories(${WANDERER_LIB_TARGET}
+        PUBLIC .
         PUBLIC core
         PUBLIC core/math
         PUBLIC core/resource
-        PUBLIC component
         PUBLIC component/event
         PUBLIC system
         PUBLIC system/input

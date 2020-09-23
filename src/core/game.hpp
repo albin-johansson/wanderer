@@ -10,10 +10,10 @@
 
 #include <renderer.hpp>
 
+#include "component/tilemap.hpp"
+#include "component/viewport.hpp"
 #include "image_cache.hpp"
 #include "input.hpp"
-#include "tilemap.hpp"
-#include "viewport.hpp"
 #include "wanderer_stdinc.hpp"
 
 namespace wanderer {

@@ -1,7 +1,7 @@
 #include "render_depth_drawables_system.hpp"
 
-#include "depth_drawable.hpp"
-#include "hitbox.hpp"
+#include "component/depth_drawable.hpp"
+#include "component/hitbox.hpp"
 
 namespace wanderer::sys {
 

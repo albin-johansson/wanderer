@@ -1,9 +1,9 @@
 #include "movement_system.hpp"
 
-#include "depth_drawable.hpp"
-#include "hitbox.hpp"
+#include "component/depth_drawable.hpp"
+#include "component/hitbox.hpp"
+#include "component/movable.hpp"
 #include "hitbox_system.hpp"
-#include "movable.hpp"
 
 namespace wanderer::sys {
 namespace {

@@ -8,8 +8,8 @@
 
 #pragma once
 
-#include "render_bounds.hpp"
-#include "viewport.hpp"
+#include "component/render_bounds.hpp"
+#include "component/viewport.hpp"
 #include "wanderer_stdinc.hpp"
 
 namespace wanderer::sys {

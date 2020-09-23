@@ -4,6 +4,7 @@
 
 #include "add_humanoid_state_dependencies.hpp"
 #include "animation_system.hpp"
+#include "component/tilemap.hpp"
 #include "event_connections.hpp"
 #include "ground_layer_rendering_system.hpp"
 #include "humanoid_animation_system.hpp"
@@ -18,7 +19,6 @@
 #include "render_bounds_system.hpp"
 #include "render_depth_drawables_system.hpp"
 #include "tile_animation_system.hpp"
-#include "tilemap.hpp"
 #include "viewport_system.hpp"
 
 namespace wanderer {

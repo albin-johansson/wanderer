@@ -1,6 +1,6 @@
 #include "interpolation_system.hpp"
 
-#include "movable.hpp"
+#include "component/movable.hpp"
 
 namespace wanderer::sys {
 

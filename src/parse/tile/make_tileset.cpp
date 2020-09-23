@@ -2,11 +2,11 @@
 
 #include <cassert>
 
-#include "animated.hpp"
+#include "component/animated.hpp"
+#include "component/tileset.hpp"
 #include "image_loader.hpp"
 #include "make_tile.hpp"
 #include "math_utils.hpp"
-#include "tileset.hpp"
 
 namespace wanderer {
 namespace {

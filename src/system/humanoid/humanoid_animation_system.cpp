@@ -2,10 +2,10 @@
 
 #include <type_traits>
 
-#include "animated.hpp"
-#include "depth_drawable.hpp"
-#include "humanoid_state.hpp"
-#include "movable.hpp"
+#include "component/animated.hpp"
+#include "component/depth_drawable.hpp"
+#include "component/humanoid_state.hpp"
+#include "component/movable.hpp"
 
 namespace wanderer::sys::humanoid {
 namespace {

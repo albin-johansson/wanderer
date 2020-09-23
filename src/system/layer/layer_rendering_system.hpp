@@ -8,9 +8,9 @@
 
 #include <renderer.hpp>
 
-#include "render_bounds.hpp"
-#include "tile_layer.hpp"
-#include "tileset.hpp"
+#include "component/render_bounds.hpp"
+#include "component/tile_layer.hpp"
+#include "component/tileset.hpp"
 #include "wanderer_stdinc.hpp"
 
 namespace wanderer::sys::layer {

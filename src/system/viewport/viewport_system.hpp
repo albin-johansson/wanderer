@@ -2,7 +2,7 @@
 
 #include <renderer.hpp>
 
-#include "viewport.hpp"
+#include "component/viewport.hpp"
 #include "wanderer_stdinc.hpp"
 
 namespace wanderer::sys::viewport {

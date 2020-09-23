@@ -4,17 +4,17 @@
 #include <counter.hpp>
 #include <texture.hpp>
 
-#include "animated.hpp"
-#include "binds.hpp"
-#include "depth_drawable.hpp"
+#include "component/animated.hpp"
+#include "component/binds.hpp"
+#include "component/depth_drawable.hpp"
+#include "component/hitbox.hpp"
+#include "component/humanoid_state.hpp"
+#include "component/movable.hpp"
+#include "component/player.hpp"
 #include "direction.hpp"
 #include "game_constants.hpp"
-#include "hitbox.hpp"
 #include "hitbox_system.hpp"
-#include "humanoid_state.hpp"
 #include "image_loader.hpp"
-#include "movable.hpp"
-#include "player.hpp"
 
 namespace wanderer::sys::humanoid {
 namespace {

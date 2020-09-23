@@ -4,8 +4,8 @@
 #include <step_tileset.hpp>
 #include <vector>
 
+#include "component/tileset.hpp"
 #include "image_cache.hpp"
-#include "tileset.hpp"
 #include "wanderer_stdinc.hpp"
 
 namespace wanderer {

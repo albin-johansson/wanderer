@@ -3,12 +3,11 @@
 #include <step_map.hpp>
 #include <vector>
 
-#include "depth_drawable.hpp"
+#include "component/depth_drawable.hpp"
+#include "component/tile_layer.hpp"
 #include "game_constants.hpp"
 #include "make_tileset.hpp"
 #include "math_utils.hpp"
-#include "tile_layer.hpp"
-#include "tilemap.hpp"
 
 namespace wanderer {
 namespace {

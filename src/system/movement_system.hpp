@@ -1,4 +1,5 @@
 #pragma once
+
 #include <entt.hpp>
 
 #include "wanderer_stdinc.hpp"

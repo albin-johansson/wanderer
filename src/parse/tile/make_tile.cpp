@@ -3,8 +3,7 @@
 #include <counter.hpp>
 #include <log.hpp>
 
-#include "animated_tile.hpp"
-#include "tile.hpp"
+#include "component/animated_tile.hpp"
 
 namespace wanderer {
 namespace {

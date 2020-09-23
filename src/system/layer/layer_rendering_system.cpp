@@ -1,6 +1,6 @@
 #include "layer_rendering_system.hpp"
 
-#include "animated_tile.hpp"
+#include "component/animated_tile.hpp"
 #include "tile_rendering_system.hpp"
 
 namespace wanderer::sys::layer {

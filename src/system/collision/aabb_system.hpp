@@ -16,7 +16,7 @@
 #include <area.hpp>
 #include <point.hpp>
 
-#include "aabb.hpp"
+#include "component/aabb.hpp"
 #include "wanderer_stdinc.hpp"
 
 /**

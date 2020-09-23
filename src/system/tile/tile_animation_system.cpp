@@ -2,7 +2,7 @@
 
 #include <counter.hpp>
 
-#include "animated_tile.hpp"
+#include "component/animated_tile.hpp"
 
 namespace wanderer::sys::tile {
 

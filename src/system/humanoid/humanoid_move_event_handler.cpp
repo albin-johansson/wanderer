@@ -1,7 +1,7 @@
 #include "humanoid_move_event_handler.hpp"
 
+#include "component/humanoid_state.hpp"
 #include "humanoid_animation_system.hpp"
-#include "humanoid_state.hpp"
 
 namespace wanderer::sys::humanoid {
 

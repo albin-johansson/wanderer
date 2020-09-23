@@ -1,6 +1,6 @@
 #pragma once
 
-#include "hitbox.hpp"
+#include "component/hitbox.hpp"
 #include "vector_2.hpp"
 #include "wanderer_stdinc.hpp"
 

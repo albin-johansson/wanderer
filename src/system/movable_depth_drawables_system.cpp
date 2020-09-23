@@ -1,7 +1,7 @@
 #include "movable_depth_drawables_system.hpp"
 
-#include "depth_drawable.hpp"
-#include "movable.hpp"
+#include "component/depth_drawable.hpp"
+#include "component/movable.hpp"
 
 namespace wanderer::sys {
 
