@@ -1,11 +1,6 @@
 #pragma once
 
 /**
- * @brief Only provides Doxygen documentation, no code.
- * @file doxygen_docs.hpp
- */
-
-/**
  * @mainpage Wanderer
  * @brief Wanderer is an exploration based indie game.
  *
