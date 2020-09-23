@@ -14,7 +14,7 @@ namespace wanderer {
 namespace {
 
 void create_tiles(entt::registry& registry,
-                  Tileset& tileset,
+                  comp::tileset& tileset,
                   const step::tileset& stepTileset,
                   const entt::handle<cen::texture>& sheet) noexcept
 {
@@ -41,11 +41,11 @@ void create_tiles(entt::registry& registry,
 auto make_tileset(entt::registry& registry,
                   const std::vector<std::unique_ptr<step::tileset>>& tilesets,
                   cen::renderer& renderer,
-                  image_cache& imageCache) -> Tileset::entity
+                  image_cache& imageCache) -> comp::tileset::entity
 {
   const auto entity = registry.create();
 
-  auto& tileset = registry.emplace<Tileset>(entity);
+  auto& tileset = registry.emplace<comp::tileset>(entity);
 
   for (const auto& stepTileset : tilesets) {
     using namespace std::string_literals;
@@ -65,7 +65,7 @@ auto make_tileset(entt::registry& registry,
     }
   }
 
-  return Tileset::entity{entity};
+  return comp::tileset::entity{entity};
 }
 
 }  // namespace wanderer

@@ -14,7 +14,7 @@ void render(cen::renderer& renderer,
 
 [[nodiscard]] auto animated_tile(entt::registry& registry,
                                  const comp::Tile::entity tileEntity,
-                                 const comp::Tileset& tileset)
+                                 const comp::tileset& tileset)
     -> const comp::Tile&;
 
 }  // namespace wanderer::sys::tile

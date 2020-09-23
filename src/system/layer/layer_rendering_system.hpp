@@ -27,7 +27,7 @@ namespace wanderer::sys::layer {
 void render(entt::registry& registry,
             const comp::TileLayer& layer,
             cen::renderer& renderer,
-            const comp::Tileset& tileset,
+            const comp::tileset& tileset,
             const comp::RenderBounds& bounds);
 
 }  // namespace wanderer::sys::layer

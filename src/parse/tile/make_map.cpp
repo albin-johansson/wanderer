@@ -50,7 +50,7 @@ void create_tile_objects(entt::registry& registry,
                          Tilemap& tilemap,
                          const step::layer& stepLayer,
                          const std::vector<step::global_id>& tileData,
-                         const Tileset& tileset)
+                         const comp::tileset& tileset)
 {
   int index = 0;
   for (const auto gid : tileData) {
@@ -113,7 +113,7 @@ auto make_map(entt::registry& registry,
           tilemap.layers.emplace_back(
               create_ground_layer(registry, stepLayer, stepTileLayer));
         } else {
-          const auto& tileset = registry.get<Tileset>(tilemap.tileset.get());
+          const auto& tileset = registry.get<comp::tileset>(tilemap.tileset.get());
           create_tile_objects(registry,
                               tilemap,
                               stepLayer,

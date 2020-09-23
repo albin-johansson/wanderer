@@ -14,6 +14,6 @@ namespace wanderer {
     entt::registry& registry,
     const std::vector<std::unique_ptr<step::tileset>>& tilesets,
     cen::renderer& renderer,
-    image_cache& imageCache) -> comp::Tileset::entity;
+    image_cache& imageCache) -> comp::tileset::entity;
 
 }

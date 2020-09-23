@@ -25,7 +25,7 @@ void render(cen::renderer& renderer,
 
 auto animated_tile(entt::registry& registry,
                    const Tile::entity tileEntity,
-                   const Tileset& tileset) -> const Tile&
+                   const comp::tileset& tileset) -> const Tile&
 {
   assert(registry.has<AnimatedTile>(tileEntity.get()));
 
