@@ -1,6 +1,6 @@
-#include "make_viewport_system.h"
+#include "make_viewport_system.hpp"
 
-#include "game_constants.h"
+#include "game_constants.hpp"
 
 using wanderer::comp::Viewport;
 

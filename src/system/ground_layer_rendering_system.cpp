@@ -1,9 +1,9 @@
-#include "ground_layer_rendering_system.h"
+#include "ground_layer_rendering_system.hpp"
 
-#include "layer_rendering_system.h"
-#include "render_bounds_system.h"
-#include "tile_layer.h"
-#include "tileset.h"
+#include "layer_rendering_system.hpp"
+#include "render_bounds_system.hpp"
+#include "tile_layer.hpp"
+#include "tileset.hpp"
 
 using wanderer::comp::RenderBounds;
 using wanderer::comp::TileLayer;

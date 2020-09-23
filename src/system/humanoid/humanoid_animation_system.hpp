@@ -1,6 +1,6 @@
 /**
  * @brief Provides the system for dealing with humanoid animations.
- * @file humanoid_animation_system.h
+ * @file humanoid_animation_system.hpp
  * @author Albin Johansson
  * @copyright MIT License
  * @date 2020
@@ -8,8 +8,8 @@
 
 #pragma once
 
-#include "direction.h"
-#include "wanderer_stdinc.h"
+#include "direction.hpp"
+#include "wanderer_stdinc.hpp"
 
 namespace wanderer::sys::humanoid {
 

@@ -4,9 +4,9 @@
 #include <step_types.hpp>
 #include <string_view>
 
-#include "image_cache.h"
-#include "tilemap.h"
-#include "wanderer_stdinc.h"
+#include "image_cache.hpp"
+#include "tilemap.hpp"
+#include "wanderer_stdinc.hpp"
 
 namespace wanderer {
 

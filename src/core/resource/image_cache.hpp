@@ -1,6 +1,6 @@
 /**
  * @brief Provides the `ImageCache` alias.
- * @file image_cache.h
+ * @file image_cache.hpp
  * @author Albin Johansson
  * @copyright MIT License
  * @date 2020
@@ -10,7 +10,7 @@
 
 #include <texture.hpp>
 
-#include "wanderer_stdinc.h"
+#include "wanderer_stdinc.hpp"
 
 namespace wanderer {
 

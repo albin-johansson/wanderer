@@ -1,14 +1,14 @@
 /**
  * This file declares all functions related to handling humanoid attack events.
  *
- * @file humanoid_attack_event_handler.h
+ * @file humanoid_attack_event_handler.hpp
  */
 
 #pragma once
 
-#include "begin_attack_event.h"
-#include "end_attack_event.h"
-#include "wanderer_stdinc.h"
+#include "begin_attack_event.hpp"
+#include "end_attack_event.hpp"
+#include "wanderer_stdinc.hpp"
 
 namespace wanderer::sys::humanoid {
 

@@ -2,7 +2,7 @@
 
 #include <renderer.hpp>
 
-#include "wanderer_stdinc.h"
+#include "wanderer_stdinc.hpp"
 
 namespace wanderer::sys {
 

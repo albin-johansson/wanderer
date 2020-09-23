@@ -1,6 +1,6 @@
 /**
  * @brief Provides the `BeginAttackEvent` component.
- * @file begin_attack_event.h
+ * @file begin_attack_event.hpp
  * @author Albin Johansson
  * @copyright MIT License
  * @date 2020
@@ -8,8 +8,8 @@
 
 #pragma once
 
-#include "direction.h"
-#include "wanderer_stdinc.h"
+#include "direction.hpp"
+#include "wanderer_stdinc.hpp"
 
 namespace wanderer {
 
@@ -38,7 +38,7 @@ namespace wanderer {
  * @var BeginAttackEvent::direction
  * The direction in which the attack is being performed.
  *
- * @headerfile begin_attack_event.h
+ * @headerfile begin_attack_event.hpp
  */
 struct BeginAttackEvent final {
   entt::registry* registry{nullptr};

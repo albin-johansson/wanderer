@@ -1,11 +1,11 @@
-#include "event_connections.h"
+#include "event_connections.hpp"
 
-#include "begin_attack_event.h"
-#include "begin_humanoid_move_event.h"
-#include "end_attack_event.h"
-#include "end_humanoid_move_event.h"
-#include "humanoid_attack_event_handler.h"
-#include "humanoid_move_event_handler.h"
+#include "begin_attack_event.hpp"
+#include "begin_humanoid_move_event.hpp"
+#include "end_attack_event.hpp"
+#include "end_humanoid_move_event.hpp"
+#include "humanoid_attack_event_handler.hpp"
+#include "humanoid_move_event_handler.hpp"
 
 namespace wanderer {
 

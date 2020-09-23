@@ -1,6 +1,6 @@
 /**
  * @brief Provides the "entry-point" for the Wanderer game.
- * @file application.h
+ * @file application.hpp
  * @author Albin Johansson
  * @copyright MIT License
  * @date 2020
@@ -11,9 +11,9 @@
 #include <renderer.hpp>
 #include <window.hpp>
 
-#include "game.h"
-#include "game_loop.h"
-#include "input.h"
+#include "game.hpp"
+#include "game_loop.hpp"
+#include "input.hpp"
 
 namespace wanderer {
 

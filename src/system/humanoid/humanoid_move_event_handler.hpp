@@ -2,13 +2,13 @@
  * This file declares all functions related to handling humanoid movement
  * events.
  *
- * @file humanoid_move_event_handler.h
+ * @file humanoid_move_event_handler.hpp
  */
 
 #pragma once
 
-#include "begin_humanoid_move_event.h"
-#include "end_humanoid_move_event.h"
+#include "begin_humanoid_move_event.hpp"
+#include "end_humanoid_move_event.hpp"
 
 namespace wanderer::sys::humanoid {
 

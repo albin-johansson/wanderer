@@ -1,6 +1,6 @@
 /**
  * @brief Provides the `TileLayer` component.
- * @file tile_layer.h
+ * @file tile_layer.hpp
  * @author Albin Johansson
  * @copyright MIT License
  * @date 2020
@@ -11,7 +11,7 @@
 #include <named_type.hpp>
 #include <vector>
 
-#include "wanderer_stdinc.h"
+#include "wanderer_stdinc.hpp"
 
 namespace wanderer::comp {
 
@@ -19,7 +19,7 @@ namespace wanderer::comp {
  * @brief Represents a layer of tiles.
  * @details Multiple tile layers are combined to create tilemaps.
  * @struct TileLayer
- * @headerfile tile_layer.h
+ * @headerfile tile_layer.hpp
  */
 struct TileLayer final {
   using entity = fluent::

@@ -1,8 +1,8 @@
-#include "application.h"
+#include "application.hpp"
 
 #include <screen.hpp>
 
-#include "game_constants.h"
+#include "game_constants.hpp"
 
 namespace wanderer {
 namespace {

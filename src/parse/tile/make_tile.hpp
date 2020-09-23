@@ -5,8 +5,8 @@
 #include <step_tile.hpp>
 #include <texture.hpp>
 
-#include "tile.h"
-#include "wanderer_stdinc.h"
+#include "tile.hpp"
+#include "wanderer_stdinc.hpp"
 
 namespace wanderer {
 

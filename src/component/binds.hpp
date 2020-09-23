@@ -1,6 +1,6 @@
 /**
  * @brief Provides the `Binds` component.
- * @file binds.h
+ * @file binds.hpp
  * @author Albin Johansson
  * @copyright MIT License
  * @date 2020
@@ -10,7 +10,7 @@
 
 #include <key_code.hpp>
 
-#include "wanderer_stdinc.h"
+#include "wanderer_stdinc.hpp"
 
 namespace wanderer::comp {
 
@@ -29,7 +29,7 @@ namespace wanderer::comp {
  * @var Binds::attack
  * The key associated with triggering an attack.
  *
- * @headerfile binds.h
+ * @headerfile binds.hpp
  */
 struct Binds final {
   cen::key_code up{SDLK_w};

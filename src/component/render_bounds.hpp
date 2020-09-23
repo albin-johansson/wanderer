@@ -1,6 +1,6 @@
 /**
  * @brief Provides the `RenderBounds` component.
- * @file render_bounds.h
+ * @file render_bounds.hpp
  * @author Albin Johansson
  * @copyright MIT License
  * @date 2020
@@ -23,7 +23,7 @@ namespace wanderer::comp {
  * @var RenderBounds::maxCol
  * The maximum column index in the tile layers that will be rendered.
  *
- * @headerfile render_bounds.h
+ * @headerfile render_bounds.hpp
  */
 struct RenderBounds final {
   int minRow{};

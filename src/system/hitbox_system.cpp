@@ -1,4 +1,4 @@
-#include "hitbox_system.h"
+#include "hitbox_system.hpp"
 
 using wanderer::comp::Hitbox;
 

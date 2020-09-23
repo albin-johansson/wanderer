@@ -1,6 +1,6 @@
 /**
  * @brief Provides the `Tilemap` component.
- * @file tilemap.h
+ * @file tilemap.hpp
  * @author Albin Johansson
  * @copyright MIT License
  * @date 2020
@@ -12,10 +12,10 @@
 #include <unordered_map>
 #include <vector>
 
-#include "map_position.h"
-#include "tile_layer.h"
-#include "tileset.h"
-#include "wanderer_stdinc.h"
+#include "map_position.hpp"
+#include "tile_layer.hpp"
+#include "tileset.hpp"
+#include "wanderer_stdinc.hpp"
 
 namespace wanderer::comp {
 
@@ -38,7 +38,7 @@ namespace wanderer::comp {
  * @var Tilemap::cols
  * The amount of columns in the tilemap.
  *
- * @headerfile tilemap.h
+ * @headerfile tilemap.hpp
  */
 struct Tilemap final {
   using entity = fluent::

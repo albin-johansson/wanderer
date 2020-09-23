@@ -1,6 +1,6 @@
 /**
  * @brief Provides the `Movable` component.
- * @file movable.h
+ * @file movable.hpp
  * @author Albin Johansson
  * @copyright MIT License
  * @date 2020
@@ -8,8 +8,8 @@
 
 #pragma once
 
-#include "direction.h"
-#include "vector_2.h"
+#include "direction.hpp"
+#include "vector_2.hpp"
 
 namespace wanderer::comp {
 
@@ -37,7 +37,7 @@ namespace wanderer::comp {
  * that the movable doesn't move faster when traveling in more than one
  * direction.
  *
- * @headerfile movable.h
+ * @headerfile movable.hpp
  */
 struct Movable final {
   vector2f velocity;

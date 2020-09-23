@@ -1,4 +1,4 @@
-#include "game_loop.h"
+#include "game_loop.hpp"
 
 #include <counter.hpp>
 #include <screen.hpp>

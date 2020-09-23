@@ -1,8 +1,8 @@
-#include "viewport_system.h"
+#include "viewport_system.hpp"
 
-#include "game_constants.h"
-#include "movable.h"
-#include "viewport.h"
+#include "game_constants.hpp"
+#include "movable.hpp"
+#include "viewport.hpp"
 
 using wanderer::comp::Movable;
 using wanderer::comp::Viewport;

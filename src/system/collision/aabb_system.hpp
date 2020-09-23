@@ -1,6 +1,6 @@
 /**
  * @brief Provides the AABB system.
- * @file aabb_system.h
+ * @file aabb_system.hpp
  * @author Albin Johansson
  * @copyright MIT License
  * @note The implementation of this system was heavily inspired by James
@@ -16,8 +16,8 @@
 #include <area.hpp>
 #include <point.hpp>
 
-#include "aabb.h"
-#include "wanderer_stdinc.h"
+#include "aabb.hpp"
+#include "wanderer_stdinc.hpp"
 
 /**
  * @namespace wanderer::sys::aabb

@@ -1,10 +1,10 @@
-#include "make_tile.h"
+#include "make_tile.hpp"
 
 #include <counter.hpp>
 #include <log.hpp>
 
-#include "animated_tile.h"
-#include "tile.h"
+#include "animated_tile.hpp"
+#include "tile.hpp"
 
 using namespace wanderer::comp;
 

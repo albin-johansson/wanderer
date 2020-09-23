@@ -1,4 +1,4 @@
-#include "aabb_system.h"
+#include "aabb_system.hpp"
 
 #include <algorithm>
 #include <assert.hpp>

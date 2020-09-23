@@ -7,8 +7,8 @@
 #include <log.hpp>
 #include <surface.hpp>
 
-#include "application.h"
-#include "random_utils.h"
+#include "application.hpp"
+#include "random_utils.hpp"
 
 using namespace wanderer;
 

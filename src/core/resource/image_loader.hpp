@@ -1,6 +1,6 @@
 /**
  * @brief Provides the `ImageLoader` class.
- * @file image_loader.h
+ * @file image_loader.hpp
  * @author Albin Johansson
  * @copyright MIT License
  * @date 2020
@@ -13,7 +13,7 @@
 #include <string_view>
 #include <texture.hpp>
 
-#include "wanderer_stdinc.h"
+#include "wanderer_stdinc.hpp"
 
 namespace wanderer {
 
@@ -23,7 +23,7 @@ namespace wanderer {
  * @details This class is responsible for creating textures and should be the
  * way to load textures in combination with `ImageCache` caches.
  *
- * @headerfile image_loader.h
+ * @headerfile image_loader.hpp
  */
 class ImageLoader final : public entt::loader<ImageLoader, cen::texture> {
  public:

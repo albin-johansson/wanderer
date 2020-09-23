@@ -1,8 +1,8 @@
-#include "animation_system.h"
+#include "animation_system.hpp"
 
 #include <counter.hpp>
 
-#include "animated.h"
+#include "animated.hpp"
 
 using wanderer::comp::Animated;
 

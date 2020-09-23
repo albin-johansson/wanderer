@@ -1,6 +1,6 @@
 /**
  * @brief Provides the `DepthDrawable` component.
- * @file depth_drawable.h
+ * @file depth_drawable.hpp
  * @author Albin Johansson
  * @copyright MIT License
  * @date 2020
@@ -12,7 +12,7 @@
 #include <rect.hpp>
 #include <texture.hpp>
 
-#include "wanderer_stdinc.h"
+#include "wanderer_stdinc.hpp"
 
 namespace wanderer::comp {
 
@@ -39,7 +39,7 @@ namespace wanderer::comp {
  * @var DepthDrawable::dst
  * The destination position and size of the rendered texture, in pixels.
  *
- * @headerfile depth_drawable.h
+ * @headerfile depth_drawable.hpp
  */
 struct DepthDrawable final {
   entt::handle<cen::texture> texture;

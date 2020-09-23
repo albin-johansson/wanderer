@@ -1,7 +1,7 @@
-#include "tile_rendering_system.h"
+#include "tile_rendering_system.hpp"
 
-#include "animated_tile.h"
-#include "game_constants.h"
+#include "animated_tile.hpp"
+#include "game_constants.hpp"
 
 using namespace wanderer::comp;
 

@@ -1,11 +1,11 @@
-#include "humanoid_animation_system.h"
+#include "humanoid_animation_system.hpp"
 
 #include <type_traits>
 
-#include "animated.h"
-#include "depth_drawable.h"
-#include "humanoid_state.h"
-#include "movable.h"
+#include "animated.hpp"
+#include "depth_drawable.hpp"
+#include "humanoid_state.hpp"
+#include "movable.hpp"
 
 using namespace wanderer::comp;
 

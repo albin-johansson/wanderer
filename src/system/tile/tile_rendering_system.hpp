@@ -2,8 +2,8 @@
 
 #include <renderer.hpp>
 
-#include "tile.h"
-#include "tileset.h"
+#include "tile.hpp"
+#include "tileset.hpp"
 
 namespace wanderer::sys::tile {
 

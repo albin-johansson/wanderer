@@ -1,6 +1,6 @@
 /**
  * @brief Provides the `Tile` component.
- * @file tile.h
+ * @file tile.hpp
  * @author Albin Johansson
  * @copyright MIT License
  * @date 2020
@@ -11,7 +11,7 @@
 #include <rect.hpp>
 #include <texture.hpp>
 
-#include "wanderer_stdinc.h"
+#include "wanderer_stdinc.hpp"
 
 namespace wanderer::comp {
 
@@ -21,7 +21,7 @@ namespace wanderer::comp {
  * struct does not represent an actual tile object though, for efficiency
  * reasons.
  * @struct Tile
- * @headerfile tile.h
+ * @headerfile tile.hpp
  */
 struct Tile final {
   using entity =

@@ -1,6 +1,6 @@
 /**
  * @brief Provides the `BeginHumanoidMoveEvent` component.
- * @file begin_humanoid_move_event.h
+ * @file begin_humanoid_move_event.hpp
  * @author Albin Johansson
  * @copyright MIT License
  * @date 2020
@@ -8,8 +8,8 @@
 
 #pragma once
 
-#include "direction.h"
-#include "wanderer_stdinc.h"
+#include "direction.hpp"
+#include "wanderer_stdinc.hpp"
 
 namespace wanderer {
 
@@ -32,7 +32,7 @@ namespace wanderer {
  * @var BeginHumanoidMoveEvent::direction
  * The direction in which the humanoid should move in.
  *
- * @headerfile begin_humanoid_move_event.h
+ * @headerfile begin_humanoid_move_event.hpp
  */
 struct BeginHumanoidMoveEvent final {
   entt::registry* registry{nullptr};

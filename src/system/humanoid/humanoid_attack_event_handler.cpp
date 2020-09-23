@@ -1,9 +1,9 @@
-#include "humanoid_attack_event_handler.h"
+#include "humanoid_attack_event_handler.hpp"
 
 #include <cassert>
 
-#include "humanoid_animation_system.h"
-#include "humanoid_state.h"
+#include "humanoid_animation_system.hpp"
+#include "humanoid_state.hpp"
 
 using wanderer::comp::HumanoidAttack;
 using wanderer::comp::HumanoidIdle;

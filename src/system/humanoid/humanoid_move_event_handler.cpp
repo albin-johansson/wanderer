@@ -1,7 +1,7 @@
-#include "humanoid_move_event_handler.h"
+#include "humanoid_move_event_handler.hpp"
 
-#include "humanoid_animation_system.h"
-#include "humanoid_state.h"
+#include "humanoid_animation_system.hpp"
+#include "humanoid_state.hpp"
 
 using wanderer::comp::HumanoidIdle;
 using wanderer::comp::HumanoidMove;

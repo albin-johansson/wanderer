@@ -1,7 +1,7 @@
-#include "movable_depth_drawables_system.h"
+#include "movable_depth_drawables_system.hpp"
 
-#include "depth_drawable.h"
-#include "movable.h"
+#include "depth_drawable.hpp"
+#include "movable.hpp"
 
 using wanderer::comp::DepthDrawable;
 using wanderer::comp::Movable;

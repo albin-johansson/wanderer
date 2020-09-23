@@ -1,7 +1,7 @@
-#include "layer_rendering_system.h"
+#include "layer_rendering_system.hpp"
 
-#include "animated_tile.h"
-#include "tile_rendering_system.h"
+#include "animated_tile.hpp"
+#include "tile_rendering_system.hpp"
 
 using wanderer::comp::AnimatedTile;
 using wanderer::comp::RenderBounds;

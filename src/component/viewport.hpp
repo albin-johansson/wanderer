@@ -1,6 +1,6 @@
 /**
  * @brief Provides the `Viewport` component.
- * @file viewport.h
+ * @file viewport.hpp
  * @author Albin Johansson
  * @copyright MIT License
  * @date 2020
@@ -11,7 +11,7 @@
 #include <area.hpp>
 #include <rect.hpp>
 
-#include "wanderer_stdinc.h"
+#include "wanderer_stdinc.hpp"
 
 namespace wanderer::comp {
 
@@ -24,7 +24,7 @@ namespace wanderer::comp {
  * @var Viewport::levelSize
  * The size of the level that the viewport is associated with.
  *
- * @headerfile viewport.h
+ * @headerfile viewport.hpp
  */
 struct Viewport final {
   using entity = fluent::

@@ -1,6 +1,6 @@
 /**
  * @brief Provides the system for dealing with idle player input.
- * @file idle_input_system.h
+ * @file idle_input_system.hpp
  * @author Albin Johansson
  * @copyright MIT License
  * @date 2020
@@ -10,7 +10,7 @@
 
 #include <entt.hpp>
 
-#include "input.h"
+#include "input.hpp"
 
 namespace wanderer::sys::input {
 

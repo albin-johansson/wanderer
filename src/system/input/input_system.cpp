@@ -1,7 +1,7 @@
-#include "input_system.h"
+#include "input_system.hpp"
 
-#include "idle_input_system.h"
-#include "move_input_system.h"
+#include "idle_input_system.hpp"
+#include "move_input_system.hpp"
 
 namespace wanderer::sys::input {
 

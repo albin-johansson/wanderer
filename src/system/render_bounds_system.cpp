@@ -1,8 +1,8 @@
-#include "render_bounds_system.h"
+#include "render_bounds_system.hpp"
 
-#include "game_constants.h"
-#include "math_utils.h"
-#include "viewport.h"
+#include "game_constants.hpp"
+#include "math_utils.hpp"
+#include "viewport.hpp"
 
 using wanderer::comp::RenderBounds;
 using wanderer::comp::Viewport;

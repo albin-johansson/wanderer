@@ -1,6 +1,6 @@
 /**
  * @brief Provides the `AABB` component, along with related components.
- * @file aabb.h
+ * @file aabb.hpp
  * @author Albin Johansson
  * @copyright MIT License
  * @date 2020
@@ -8,8 +8,8 @@
 
 #pragma once
 
-#include "vector_2.h"
-#include "wanderer_stdinc.h"
+#include "vector_2.hpp"
+#include "wanderer_stdinc.hpp"
 
 namespace wanderer::comp {
 
@@ -39,7 +39,7 @@ namespace wanderer::comp {
  * @var AABB::area
  * The area of the box.
  *
- * @headerfile aabb.h
+ * @headerfile aabb.hpp
  */
 struct AABB {
   vector2f min;  // the NW corner coordinates
@@ -64,7 +64,7 @@ struct AABB {
  * @var AABBNode::right
  * The entity identifier of the right child node.
  *
- * @headerfile aabb.h
+ * @headerfile aabb.hpp
  */
 struct AABBNode {
   AABB box;
@@ -77,7 +77,7 @@ struct AABBNode {
  * @struct AABBRoot
  * @brief A tag type for the root of an AABB tree.
  *
- * @headerfile aabb.h
+ * @headerfile aabb.hpp
  */
 struct AABBRoot {
 };

@@ -1,6 +1,6 @@
 /**
  * @brief Provides the `Direction` enum class.
- * @file direction.h
+ * @file direction.hpp
  * @author Albin Johansson
  * @copyright MIT License
  * @date 2020
@@ -23,7 +23,7 @@ namespace wanderer {
  * @var Direction::Left
  * Represents the direction "left", or west.
  *
- * @headerfile direction.h
+ * @headerfile direction.hpp
  */
 enum class Direction { Up, Right, Down, Left };
 

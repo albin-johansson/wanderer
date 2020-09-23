@@ -4,7 +4,7 @@
 #include <key_state.hpp>
 #include <mouse_state.hpp>
 
-#include "wanderer_stdinc.h"
+#include "wanderer_stdinc.hpp"
 
 namespace wanderer {
 

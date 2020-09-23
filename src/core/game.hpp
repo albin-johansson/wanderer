@@ -1,6 +1,6 @@
 /**
  * @brief Provides the `Game` class.
- * @file game.h
+ * @file game.hpp
  * @author Albin Johansson
  * @copyright MIT License
  * @date 2020
@@ -10,11 +10,11 @@
 
 #include <renderer.hpp>
 
-#include "image_cache.h"
-#include "input.h"
-#include "tilemap.h"
-#include "viewport.h"
-#include "wanderer_stdinc.h"
+#include "image_cache.hpp"
+#include "input.hpp"
+#include "tilemap.hpp"
+#include "viewport.hpp"
+#include "wanderer_stdinc.hpp"
 
 namespace wanderer {
 
@@ -24,7 +24,7 @@ namespace wanderer {
  * @details This class is responsible for managing the game state and
  * updating the systems. This class is the core of the entire game.
  *
- * @headerfile game.h
+ * @headerfile game.hpp
  */
 class Game final
 {

@@ -1,6 +1,6 @@
 /**
  * @brief Provides the `Tileset` component.
- * @file tileset.h
+ * @file tileset.hpp
  * @author Albin Johansson
  * @copyright MIT License
  * @date 2020
@@ -10,8 +10,8 @@
 
 #include <unordered_map>
 
-#include "tile.h"
-#include "wanderer_stdinc.h"
+#include "tile.hpp"
+#include "wanderer_stdinc.hpp"
 
 namespace wanderer::comp {
 
@@ -23,7 +23,7 @@ namespace wanderer::comp {
  * The tiles contained in the tileset. Maps tile identifiers with tile entity
  * identifiers.
  *
- * @headerfile tileset.h
+ * @headerfile tileset.hpp
  */
 struct Tileset final {
   using entity = fluent::

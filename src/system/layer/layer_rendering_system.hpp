@@ -1,17 +1,17 @@
 /**
  * This file declares the systems associated with rendering tile layers.
  *
- * @file layer_rendering_system.h
+ * @file layer_rendering_system.hpp
  */
 
 #pragma once
 
 #include <renderer.hpp>
 
-#include "render_bounds.h"
-#include "tile_layer.h"
-#include "tileset.h"
-#include "wanderer_stdinc.h"
+#include "render_bounds.hpp"
+#include "tile_layer.hpp"
+#include "tileset.hpp"
+#include "wanderer_stdinc.hpp"
 
 namespace wanderer::sys::layer {
 

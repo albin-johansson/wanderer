@@ -2,9 +2,9 @@
 
 #include <renderer.hpp>
 
-#include "render_bounds.h"
-#include "tilemap.h"
-#include "wanderer_stdinc.h"
+#include "render_bounds.hpp"
+#include "tilemap.hpp"
+#include "wanderer_stdinc.hpp"
 
 namespace wanderer::sys::layer {
 

@@ -2,7 +2,7 @@
 
 /**
  * @brief Only provides Doxygen documentation, no code.
- * @file doxygen_docs.h
+ * @file doxygen_docs.hpp
  */
 
 /**

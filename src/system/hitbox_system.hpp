@@ -1,8 +1,8 @@
 #pragma once
 
-#include "hitbox.h"
-#include "vector_2.h"
-#include "wanderer_stdinc.h"
+#include "hitbox.hpp"
+#include "vector_2.hpp"
+#include "wanderer_stdinc.hpp"
 
 namespace wanderer::sys::hitbox {
 

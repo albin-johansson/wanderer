@@ -1,14 +1,14 @@
-#include "make_map.h"
+#include "make_map.hpp"
 
 #include <step_map.hpp>
 #include <vector>
 
-#include "depth_drawable.h"
-#include "game_constants.h"
-#include "make_tileset.h"
-#include "math_utils.h"
-#include "tile_layer.h"
-#include "tilemap.h"
+#include "depth_drawable.hpp"
+#include "game_constants.hpp"
+#include "make_tileset.hpp"
+#include "math_utils.hpp"
+#include "tile_layer.hpp"
+#include "tilemap.hpp"
 
 using namespace wanderer::comp;
 

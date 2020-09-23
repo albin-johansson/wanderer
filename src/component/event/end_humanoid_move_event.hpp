@@ -1,6 +1,6 @@
 /**
  * @brief Provides the `EndHumanoidMoveEvent` component.
- * @file end_humanoid_move_event.h
+ * @file end_humanoid_move_event.hpp
  * @author Albin Johansson
  * @copyright MIT License
  * @date 2020
@@ -8,8 +8,8 @@
 
 #pragma once
 
-#include "direction.h"
-#include "wanderer_stdinc.h"
+#include "direction.hpp"
+#include "wanderer_stdinc.hpp"
 
 namespace wanderer {
 
@@ -28,7 +28,7 @@ namespace wanderer {
  * @var EndHumanoidMoveEvent::entity
  * The humanoid that should stop moving.
  *
- * @headerfile end_humanoid_move_event.h
+ * @headerfile end_humanoid_move_event.hpp
  */
 struct EndHumanoidMoveEvent final {
   entt::registry* registry{nullptr};

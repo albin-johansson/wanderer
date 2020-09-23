@@ -1,8 +1,8 @@
-#include "tile_animation_system.h"
+#include "tile_animation_system.hpp"
 
 #include <counter.hpp>
 
-#include "animated_tile.h"
+#include "animated_tile.hpp"
 
 using wanderer::comp::AnimatedTile;
 

@@ -1,12 +1,12 @@
-#include "make_tileset.h"
+#include "make_tileset.hpp"
 
 #include <cassert>
 
-#include "animated.h"
-#include "image_loader.h"
-#include "make_tile.h"
-#include "math_utils.h"
-#include "tileset.h"
+#include "animated.hpp"
+#include "image_loader.hpp"
+#include "make_tile.hpp"
+#include "math_utils.hpp"
+#include "tileset.hpp"
 
 using namespace wanderer::comp;
 

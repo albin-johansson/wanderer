@@ -1,11 +1,11 @@
-#include "move_input_system.h"
+#include "move_input_system.hpp"
 
-#include "begin_attack_event.h"
-#include "binds.h"
-#include "direction.h"
-#include "end_humanoid_move_event.h"
-#include "movable.h"
-#include "player.h"
+#include "begin_attack_event.hpp"
+#include "binds.hpp"
+#include "direction.hpp"
+#include "end_humanoid_move_event.hpp"
+#include "movable.hpp"
+#include "player.hpp"
 
 using wanderer::comp::Binds;
 using wanderer::comp::HumanoidMove;

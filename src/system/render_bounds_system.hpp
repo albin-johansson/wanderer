@@ -1,6 +1,6 @@
 /**
  * @brief Provides the system for determining what should be rendered.
- * @file render_bounds_system.h
+ * @file render_bounds_system.hpp
  * @author Albin Johansson
  * @copyright MIT License
  * @date 2020
@@ -8,9 +8,9 @@
 
 #pragma once
 
-#include "render_bounds.h"
-#include "viewport.h"
-#include "wanderer_stdinc.h"
+#include "render_bounds.hpp"
+#include "viewport.hpp"
+#include "wanderer_stdinc.hpp"
 
 namespace wanderer::sys {
 

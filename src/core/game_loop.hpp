@@ -1,6 +1,6 @@
 /**
  * @brief Provides the `GameLoop` class.
- * @file game_loop.h
+ * @file game_loop.hpp
  * @author Albin Johansson
  * @copyright MIT License
  * @date 2020
@@ -8,8 +8,8 @@
 
 #pragma once
 
-#include "game.h"
-#include "wanderer_stdinc.h"
+#include "game.hpp"
+#include "wanderer_stdinc.hpp"
 
 namespace wanderer {
 
@@ -19,7 +19,7 @@ namespace wanderer {
  * @details This class is responsible for updating and managing the game loop
  * related logic, such as the delta time, interpolation coefficient, etc.
  *
- * @headerfile game_loop.h
+ * @headerfile game_loop.hpp
  */
 class GameLoop final {
  public:

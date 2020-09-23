@@ -3,7 +3,7 @@
  * @details Provides utilities for adding dependencies for humanoid states to
  * a registry. In order to ensure and automate the mutual exclusiveness of the
  * various humanoid states.
- * @file add_humanoid_state_dependencies.h
+ * @file add_humanoid_state_dependencies.hpp
  * @author Albin Johansson
  * @copyright MIT License
  * @date 2020
@@ -11,7 +11,7 @@
 
 #pragma once
 
-#include "wanderer_stdinc.h"
+#include "wanderer_stdinc.hpp"
 
 namespace wanderer {
 

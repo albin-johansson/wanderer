@@ -1,7 +1,7 @@
 #pragma once
 
-#include "viewport.h"
-#include "wanderer_stdinc.h"
+#include "viewport.hpp"
+#include "wanderer_stdinc.hpp"
 
 namespace wanderer::sys::viewport {
 

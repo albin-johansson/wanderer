@@ -1,6 +1,6 @@
 /**
  * @brief Provides the `Animated` component.
- * @file animated.h
+ * @file animated.hpp
  * @author Albin Johansson
  * @copyright MIT License
  * @date 2020
@@ -8,7 +8,7 @@
 
 #pragma once
 
-#include "wanderer_stdinc.h"
+#include "wanderer_stdinc.hpp"
 
 namespace wanderer::comp {
 
@@ -25,7 +25,7 @@ namespace wanderer::comp {
  * @var Animated::delay
  * The duration of each frame in the animation, in milliseconds.
  *
- * @headerfile animated.h
+ * @headerfile animated.hpp
  */
 struct Animated final {
   u32 frame{0};

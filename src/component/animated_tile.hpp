@@ -1,6 +1,6 @@
 /**
  * @brief Provides the `AnimatedTile` component.
- * @file animated_tile.h
+ * @file animated_tile.hpp
  * @author Albin Johansson
  * @copyright MIT License
  * @date 2020
@@ -10,7 +10,7 @@
 
 #include <vector>
 
-#include "wanderer_stdinc.h"
+#include "wanderer_stdinc.hpp"
 
 namespace wanderer::comp {
 
@@ -23,7 +23,7 @@ namespace wanderer::comp {
  * @var Frame::duration
  * The duration that the frame should be active, in milliseconds.
  *
- * @headerfile animated_tile.h
+ * @headerfile animated_tile.hpp
  */
 struct Frame final {
   tile_id tile{g_emptyTile};
@@ -47,7 +47,7 @@ struct Frame final {
  * @var AnimatedTile::frames
  * The frames that constitute the animation.
  *
- * @headerfile animated_tile.h
+ * @headerfile animated_tile.hpp
  */
 struct AnimatedTile final {
   u32 frame{0};

@@ -1,6 +1,6 @@
 /**
  * @brief Provides the `MapPosition` component.
- * @file map_position.h
+ * @file map_position.hpp
  * @author Albin Johansson
  * @copyright MIT License
  * @date 2020
@@ -25,7 +25,7 @@ namespace wanderer::comp {
  * @var MapPosition::col
  * The column index associated with the position. Starts at 0.
  *
- * @headerfile map_position.h
+ * @headerfile map_position.hpp
  */
 struct MapPosition final {
   int row{};
@@ -37,7 +37,7 @@ struct MapPosition final {
  * @param lhs the left-hand side map position.
  * @param rhs the right-hand side map position.
  * @return `true` if the map positions are equal; `false` otherwise.
- * @headerfile map_position.h
+ * @headerfile map_position.hpp
  */
 [[nodiscard]] constexpr auto operator==(const MapPosition& lhs,
                                         const MapPosition& rhs) noexcept -> bool
@@ -50,7 +50,7 @@ struct MapPosition final {
  * @param lhs the left-hand side map position.
  * @param rhs the right-hand side map position.
  * @return `true` if the map positions aren't equal; `false` otherwise.
- * @headerfile map_position.h
+ * @headerfile map_position.hpp
  */
 [[nodiscard]] constexpr auto operator!=(const MapPosition& lhs,
                                         const MapPosition& rhs) noexcept -> bool

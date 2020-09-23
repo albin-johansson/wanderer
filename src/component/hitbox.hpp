@@ -1,6 +1,6 @@
 /**
  * @brief Provides the `Hitbox` component.
- * @file hitbox.h
+ * @file hitbox.hpp
  * @author Albin Johansson
  * @copyright MIT License
  * @date 2020
@@ -11,8 +11,8 @@
 #include <rect.hpp>
 #include <vector>
 
-#include "vector_2.h"
-#include "wanderer_stdinc.h"
+#include "vector_2.hpp"
+#include "wanderer_stdinc.hpp"
 
 namespace wanderer::comp {
 
@@ -26,7 +26,7 @@ namespace wanderer::comp {
  * @var Subhitbox::rect
  * The actual rectangle that represents the position and size of the subhitbox.
  *
- * @headerfile hitbox.h
+ * @headerfile hitbox.hpp
  */
 struct Subhitbox final {
   vector2f offset;
@@ -42,7 +42,7 @@ struct Subhitbox final {
  * @var Hitbox::boxes
  * The subhitboxes contained in the hitbox.
  *
- * @headerfile hitbox.h
+ * @headerfile hitbox.hpp
  */
 struct Hitbox final {
   using entity = fluent::NamedType<entt::entity, struct HitboxEntityTag>;

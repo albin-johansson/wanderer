@@ -1,19 +1,19 @@
-#include "humanoid_factory_system.h"
+#include "humanoid_factory_system.hpp"
 
 #include <cassert>
 #include <counter.hpp>
 #include <texture.hpp>
 
-#include "animated.h"
-#include "binds.h"
-#include "depth_drawable.h"
-#include "direction.h"
-#include "game_constants.h"
-#include "hitbox.h"
-#include "hitbox_system.h"
-#include "image_loader.h"
-#include "movable.h"
-#include "player.h"
+#include "animated.hpp"
+#include "binds.hpp"
+#include "depth_drawable.hpp"
+#include "direction.hpp"
+#include "game_constants.hpp"
+#include "hitbox.hpp"
+#include "hitbox_system.hpp"
+#include "image_loader.hpp"
+#include "movable.hpp"
+#include "player.hpp"
 
 using namespace wanderer::comp;
 

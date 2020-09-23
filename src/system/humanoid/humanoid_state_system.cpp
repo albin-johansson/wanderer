@@ -1,7 +1,7 @@
-#include "humanoid_state_system.h"
+#include "humanoid_state_system.hpp"
 
-#include "end_attack_event.h"
-#include "humanoid_state.h"
+#include "end_attack_event.hpp"
+#include "humanoid_state.hpp"
 
 using wanderer::comp::HumanoidAttack;
 

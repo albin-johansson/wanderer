@@ -7,7 +7,7 @@
 #include <counter.hpp>
 #include <random>
 
-#include "wanderer_stdinc.h"
+#include "wanderer_stdinc.hpp"
 
 namespace wanderer::math {
 namespace {
