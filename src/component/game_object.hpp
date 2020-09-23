@@ -2,12 +2,13 @@
 
 namespace wanderer::comp {
 
-struct GameObject final
+struct game_object final
 {
   int depth{5};
   float centerY{};
 
-  [[nodiscard]] constexpr bool operator<(const GameObject& other) const noexcept
+  [[nodiscard]] constexpr bool operator<(
+      const game_object& other) const noexcept
   {
     return (depth < other.depth ||
             (other.depth >= depth && centerY < other.centerY));
