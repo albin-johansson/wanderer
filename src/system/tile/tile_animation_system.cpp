@@ -4,15 +4,13 @@
 
 #include "animated_tile.hpp"
 
-using wanderer::comp::AnimatedTile;
-
 namespace wanderer::sys::tile {
 
 void update_animation(entt::registry& registry, entt::entity /*level*/)  // TODO
 {
-  const auto entities = registry.view<AnimatedTile>();
+  const auto entities = registry.view<comp::AnimatedTile>();
   for (const auto entity : entities) {
-    auto& animatedTile = entities.get<AnimatedTile>(entity);
+    auto& animatedTile = entities.get<comp::AnimatedTile>(entity);
 
     const auto now = cen::counter::ticks().count();  // FIXME don't .count()
     const auto elapsed = now - animatedTile.then;

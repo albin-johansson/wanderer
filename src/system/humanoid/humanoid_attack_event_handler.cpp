@@ -5,17 +5,14 @@
 #include "humanoid_animation_system.hpp"
 #include "humanoid_state.hpp"
 
-using wanderer::comp::HumanoidAttack;
-using wanderer::comp::HumanoidIdle;
-
 namespace wanderer::sys::humanoid {
 
 void on_attack_begin(const BeginAttackEvent& event)
 {
   assert(event.registry != nullptr);
-  assert(!event.registry->has<HumanoidAttack>(event.sourceEntity));
+  assert(!event.registry->has<comp::HumanoidAttack>(event.sourceEntity));
 
-  auto& attack = event.registry->emplace<HumanoidAttack>(event.sourceEntity);
+  auto& attack = event.registry->emplace<comp::HumanoidAttack>(event.sourceEntity);
   attack.weapon = event.weapon;
 
   // TODO enter correct animation according to weapon
@@ -25,11 +22,11 @@ void on_attack_begin(const BeginAttackEvent& event)
 void on_attack_end(const EndAttackEvent& event)
 {
   assert(event.registry != nullptr);
-  assert(event.registry->has<HumanoidAttack>(event.sourceEntity));
+  assert(event.registry->has<comp::HumanoidAttack>(event.sourceEntity));
 
-  event.registry->emplace<HumanoidIdle>(event.sourceEntity);
+  event.registry->emplace<comp::HumanoidIdle>(event.sourceEntity);
 
-  assert(!event.registry->has<HumanoidAttack>(event.sourceEntity));
+  assert(!event.registry->has<comp::HumanoidAttack>(event.sourceEntity));
 
   // TODO deal damage (need target area)
 

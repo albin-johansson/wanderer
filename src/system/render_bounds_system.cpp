@@ -4,19 +4,17 @@
 #include "math_utils.hpp"
 #include "viewport.hpp"
 
-using wanderer::comp::RenderBounds;
-
 namespace wanderer::sys {
 
 auto calculate_render_bounds(entt::registry& registry,
                              const comp::viewport::entity viewportEntity,
                              const int rows,
-                             const int cols) -> RenderBounds
+                             const int cols) -> comp::RenderBounds
 {
   const auto& viewport = registry.get<comp::viewport>(viewportEntity.get());
   const auto& viewportBounds = viewport.bounds;
 
-  RenderBounds bounds;
+  comp::RenderBounds bounds;
   bounds.minCol = Math::round(viewportBounds.x()) / g_tileSize<int>;
   bounds.minRow = Math::round(viewportBounds.y()) / g_tileSize<int>;
   bounds.maxCol = (Math::round(viewportBounds.max_x()) / g_tileSize<int>)+1;

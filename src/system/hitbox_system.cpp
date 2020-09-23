@@ -1,10 +1,8 @@
 #include "hitbox_system.hpp"
 
-using wanderer::comp::Hitbox;
-
 namespace wanderer::sys::hitbox {
 
-void update_bounds(Hitbox& hitbox) noexcept
+void update_bounds(comp::Hitbox& hitbox) noexcept
 {
   bool first = true;
   for (auto& [offset, rect] : hitbox.boxes) {
@@ -41,7 +39,7 @@ void update_bounds(Hitbox& hitbox) noexcept
   }
 }
 
-void update_position(Hitbox& hitbox, const vector2f& position) noexcept
+void update_position(comp::Hitbox& hitbox, const vector2f& position) noexcept
 {
   for (auto& [offset, rect] : hitbox.boxes) {
     const auto x = position.x + offset.x;
@@ -53,7 +51,8 @@ void update_position(Hitbox& hitbox, const vector2f& position) noexcept
   hitbox.bounds.set_y(position.y);
 }
 
-auto intersects(const Hitbox& fst, const Hitbox& snd) noexcept -> bool
+auto intersects(const comp::Hitbox& fst, const comp::Hitbox& snd) noexcept
+    -> bool
 {
   if (&fst == &snd) {
     return false;

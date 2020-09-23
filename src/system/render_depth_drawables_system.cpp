@@ -3,8 +3,6 @@
 #include "depth_drawable.hpp"
 #include "hitbox.hpp"
 
-using wanderer::comp::DepthDrawable;
-
 namespace wanderer::sys {
 
 void render_depth_drawables(entt::registry& registry, cen::renderer& renderer)
@@ -13,15 +11,16 @@ void render_depth_drawables(entt::registry& registry, cen::renderer& renderer)
   //  they are within the viewport bounds and therefore should be rendered,
   //  this would make it possible to have a "InBounds" component
 
-  registry.sort<DepthDrawable>(
-      [](const DepthDrawable& lhs, const DepthDrawable& rhs) noexcept {
+  registry.sort<comp::DepthDrawable>(
+      [](const comp::DepthDrawable& lhs,
+         const comp::DepthDrawable& rhs) noexcept {
         return lhs.depth < rhs.depth ||
                (rhs.depth >= lhs.depth && lhs.centerY < rhs.centerY);
       },
       entt::insertion_sort{});
 
-  registry.view<DepthDrawable>().each(
-      [&](const auto entity, const DepthDrawable& drawable) noexcept {
+  registry.view<comp::DepthDrawable>().each(
+      [&](const auto entity, const comp::DepthDrawable& drawable) noexcept {
         renderer.render_t(*drawable.texture, drawable.src, drawable.dst);
 
         if (const auto* hitbox = registry.try_get<comp::Hitbox>(entity);

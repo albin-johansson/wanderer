@@ -15,8 +15,6 @@
 #include "movable.hpp"
 #include "player.hpp"
 
-using namespace wanderer::comp;
-
 namespace wanderer::sys::humanoid {
 namespace {
 
@@ -41,15 +39,15 @@ namespace {
 
   const auto entity = registry.create();
 
-  auto& movable = registry.emplace<Movable>(entity);
+  auto& movable = registry.emplace<comp::Movable>(entity);
   movable.dominantDirection = Direction::Down;
 
-  auto& drawable = registry.emplace<DepthDrawable>(entity);
+  auto& drawable = registry.emplace<comp::DepthDrawable>(entity);
   drawable.texture = texture;
   drawable.src = {{0, 0}, {64, 64}};
   drawable.dst = {{0, 0}, {g_humanoidDrawWidth, g_humanoidDrawHeight}};
 
-  auto& animated = registry.emplace<Animated>(entity);
+  auto& animated = registry.emplace<comp::Animated>(entity);
   animated.frame = 0;
   animated.delay = 65;
   animated.then = cen::counter::ticks().count();  // FIXME count
@@ -57,12 +55,12 @@ namespace {
 
   constexpr cen::farea humanoidSize{g_humanoidDrawWidth, g_humanoidDrawHeight};
 
-  registry.emplace<Hitbox>(
+  registry.emplace<comp::Hitbox>(
       entity,
-      hitbox::create({Subhitbox{vector2f{}, cen::frect{{}, humanoidSize}}}));
+      hitbox::create({comp::Subhitbox{vector2f{}, cen::frect{{}, humanoidSize}}}));
 
-  registry.emplace<Humanoid>(entity);
-  registry.emplace<HumanoidIdle>(entity);
+  registry.emplace<comp::Humanoid>(entity);
+  registry.emplace<comp::HumanoidIdle>(entity);
 
   return entity;
 }
@@ -81,16 +79,16 @@ auto add_player(entt::registry& registry,
   const auto playerEntity =
       create_basic_humanoid(registry, imageCache.handle(id));
 
-  registry.emplace<Player>(playerEntity);
+  registry.emplace<comp::Player>(playerEntity);
 
-  auto& movable = registry.get<Movable>(playerEntity);
+  auto& movable = registry.get<comp::Movable>(playerEntity);
   movable.speed = g_playerSpeed;
   movable.currentPos.x = 100;
   movable.currentPos.y = 100;
   movable.dominantDirection = Direction::Down;
   movable.oldPos = movable.currentPos;
 
-  registry.emplace<Binds>(playerEntity);
+  registry.emplace<comp::Binds>(playerEntity);
 
   return playerEntity;
 }
@@ -107,7 +105,7 @@ auto add_skeleton(entt::registry& registry,
   const auto skeletonEntity =
       create_basic_humanoid(registry, imageCache.handle(id));
 
-  auto& movable = registry.get<Movable>(skeletonEntity);
+  auto& movable = registry.get<comp::Movable>(skeletonEntity);
   movable.speed = g_monsterSpeed;
   movable.currentPos.x = 300;
   movable.currentPos.y = 300;

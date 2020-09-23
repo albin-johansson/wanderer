@@ -7,8 +7,6 @@
 #include "humanoid_state.hpp"
 #include "movable.hpp"
 
-using namespace wanderer::comp;
-
 namespace wanderer::sys::humanoid {
 namespace {
 
@@ -33,14 +31,16 @@ template <typename Lambda>
 void update(
     entt::registry& registry,
     const entt::entity entity,
-    Lambda&& lambda) noexcept(noexcept(lambda(std::declval<Animated&>(),
-                                              std::declval<Movable&>(),
-                                              std::declval<DepthDrawable&>())))
+    Lambda&&
+        lambda) noexcept(noexcept(lambda(std::declval<comp::Animated&>(),
+                                         std::declval<comp::Movable&>(),
+                                         std::declval<comp::DepthDrawable&>())))
 {
-  if (registry.has<Animated, Movable, DepthDrawable>(entity)) {
-    auto& animated = registry.get<Animated>(entity);
-    auto& movable = registry.get<Movable>(entity);
-    auto& drawable = registry.get<DepthDrawable>(entity);
+  if (registry.has<comp::Animated, comp::Movable, comp::DepthDrawable>(
+          entity)) {
+    auto& animated = registry.get<comp::Animated>(entity);
+    auto& movable = registry.get<comp::Movable>(entity);
+    auto& drawable = registry.get<comp::DepthDrawable>(entity);
     lambda(animated, movable, drawable);
   }
 }
@@ -84,9 +84,9 @@ void update_move_animation(entt::registry& registry,
 {
   update(registry,
          entity,
-         [](Animated& animated,
-            Movable& movable,
-            DepthDrawable& drawable) noexcept {
+         [](comp::Animated& animated,
+            comp::Movable& movable,
+            comp::DepthDrawable& drawable) noexcept {
            drawable.src.set_x(movable.velocity.is_zero()
                                   ? 0
                                   : static_cast<int>(animated.frame) * 64);
@@ -111,11 +111,12 @@ void update_attack_animation(entt::registry& registry,
 {
   update(registry,
          entity,
-         [&registry, entity](
-             Animated& animated, Movable&, DepthDrawable& drawable) noexcept {
+         [&registry, entity](comp::Animated& animated,
+                             comp::Movable&,
+                             comp::DepthDrawable& drawable) noexcept {
            drawable.src.set_x(static_cast<int>(animated.frame) * 64);
            if (animated.frame == animated.nFrames - 1) {
-             auto& attack = registry.get<HumanoidAttack>(entity);
+             auto& attack = registry.get<comp::HumanoidAttack>(entity);
              attack.done = true;
            }
          });
@@ -142,9 +143,9 @@ void enter_animation(entt::registry& registry,
 {
   update(registry,
          entity,
-         [nFrames, sourceY, delay](Animated& animated,
-                                   Movable& movable,
-                                   DepthDrawable& drawable) noexcept {
+         [nFrames, sourceY, delay](comp::Animated& animated,
+                                   comp::Movable& movable,
+                                   comp::DepthDrawable& drawable) noexcept {
            animated.frame = 0;
            animated.nFrames = nFrames;
            animated.delay = delay;
@@ -167,8 +168,9 @@ void enter_move_animation(entt::registry& registry,
 {
   update(registry,
          entity,
-         [direction](
-             Animated& animated, Movable&, DepthDrawable& drawable) noexcept {
+         [direction](comp::Animated& animated,
+                     comp::Movable&,
+                     comp::DepthDrawable& drawable) noexcept {
            animated.frame = 0;
            animated.nFrames = 9;
            animated.delay = moveDelay;
@@ -203,12 +205,12 @@ void enter_spear_animation(entt::registry& registry,
 
 void update_animation(entt::registry& registry)
 {
-  const auto entities = registry.view<Humanoid>();
+  const auto entities = registry.view<comp::Humanoid>();
   for (const auto entity : entities) {
-    if (registry.has<HumanoidMove>(entity)) {
+    if (registry.has<comp::HumanoidMove>(entity)) {
       update_move_animation(registry, entity);
     }
-    if (registry.has<HumanoidAttack>(entity)) {
+    if (registry.has<comp::HumanoidAttack>(entity)) {
       update_attack_animation(registry, entity);
     }
   }

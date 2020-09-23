@@ -3,16 +3,14 @@
 #include "end_attack_event.hpp"
 #include "humanoid_state.hpp"
 
-using wanderer::comp::HumanoidAttack;
-
 namespace wanderer::sys::humanoid {
 namespace {
 
 void update_attacking_humanoids(entt::registry& registry,
                                 entt::dispatcher& dispatcher)
 {
-  registry.view<HumanoidAttack>().each(
-      [&](const auto entity, const HumanoidAttack& attack) {
+  registry.view<comp::HumanoidAttack>().each(
+      [&](const auto entity, const comp::HumanoidAttack& attack) {
         if (attack.done) {
           dispatcher.enqueue<EndAttackEvent>(
               &registry, entity, attack.weapon, Direction::Down);

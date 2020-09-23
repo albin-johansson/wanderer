@@ -7,14 +7,10 @@
 #include "movable.hpp"
 #include "player.hpp"
 
-using wanderer::comp::Binds;
-using wanderer::comp::HumanoidMove;
-using wanderer::comp::Movable;
-
 namespace wanderer::sys::input {
 namespace {
 
-void move(Movable& movable, const Direction direction) noexcept
+void move(comp::Movable& movable, const Direction direction) noexcept
 {
   switch (direction) {
     case Direction::Right: {
@@ -40,7 +36,7 @@ void move(Movable& movable, const Direction direction) noexcept
   movable.velocity.scale(movable.speed);
 }
 
-void stop(Movable& movable, const Direction direction) noexcept
+void stop(comp::Movable& movable, const Direction direction) noexcept
 {
   switch (direction) {
     case Direction::Right:
@@ -62,9 +58,9 @@ void stop(Movable& movable, const Direction direction) noexcept
   movable.velocity.scale(movable.speed);
 }
 
-[[nodiscard]] auto check_pressed(Movable& movable,
+[[nodiscard]] auto check_pressed(comp::Movable& movable,
                                  const Input& input,
-                                 const Binds& binds) -> bool
+                                 const comp::Binds& binds) -> bool
 {
   const auto left = input.is_pressed(binds.left);
   const auto right = input.is_pressed(binds.right);
@@ -92,7 +88,9 @@ void stop(Movable& movable, const Direction direction) noexcept
   return up || down || right || left;
 }
 
-void check_released(Movable& movable, const Input& input, const Binds& binds)
+void check_released(comp::Movable& movable,
+                    const Input& input,
+                    const comp::Binds& binds)
 {
   const auto left = input.was_released(binds.left);
   const auto right = input.was_released(binds.right);
@@ -123,9 +121,9 @@ void handle_move_input(entt::registry& registry,
                        const entt::entity player,
                        const Input& input)
 {
-  if (registry.has<HumanoidMove>(player)) {
-    auto& movable = registry.get<Movable>(player);
-    const auto& binds = registry.get<Binds>(player);
+  if (registry.has<comp::HumanoidMove>(player)) {
+    auto& movable = registry.get<comp::Movable>(player);
+    const auto& binds = registry.get<comp::Binds>(player);
     const bool areMoveKeysDown = check_pressed(movable, input, binds);
     check_released(movable, input, binds);
 
