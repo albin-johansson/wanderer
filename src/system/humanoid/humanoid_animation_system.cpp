@@ -32,14 +32,14 @@ void update(
     entt::registry& registry,
     const entt::entity entity,
     Lambda&& lambda) noexcept(noexcept(lambda(std::declval<comp::animated&>(),
-                                              std::declval<comp::Movable&>(),
+                                              std::declval<comp::movable&>(),
                                               std::declval<
                                                   comp::depth_drawable&>())))
 {
-  if (registry.has<comp::animated, comp::Movable, comp::depth_drawable>(
+  if (registry.has<comp::animated, comp::movable, comp::depth_drawable>(
           entity)) {
     auto& animated = registry.get<comp::animated>(entity);
-    auto& movable = registry.get<comp::Movable>(entity);
+    auto& movable = registry.get<comp::movable>(entity);
     auto& drawable = registry.get<comp::depth_drawable>(entity);
     lambda(animated, movable, drawable);
   }
@@ -85,7 +85,7 @@ void update_move_animation(entt::registry& registry,
   update(registry,
          entity,
          [](comp::animated& animated,
-            comp::Movable& movable,
+            comp::movable& movable,
             comp::depth_drawable& drawable) noexcept {
            drawable.src.set_x(movable.velocity.is_zero()
                                   ? 0
@@ -112,7 +112,7 @@ void update_attack_animation(entt::registry& registry,
   update(registry,
          entity,
          [&registry, entity](comp::animated& animated,
-                             comp::Movable&,
+                             comp::movable&,
                              comp::depth_drawable& drawable) noexcept {
            drawable.src.set_x(static_cast<int>(animated.frame) * 64);
            if (animated.frame == animated.nFrames - 1) {
@@ -144,7 +144,7 @@ void enter_animation(entt::registry& registry,
   update(registry,
          entity,
          [nFrames, sourceY, delay](comp::animated& animated,
-                                   comp::Movable& movable,
+                                   comp::movable& movable,
                                    comp::depth_drawable& drawable) noexcept {
            animated.frame = 0;
            animated.nFrames = nFrames;
@@ -169,7 +169,7 @@ void enter_move_animation(entt::registry& registry,
   update(registry,
          entity,
          [direction](comp::animated& animated,
-                     comp::Movable&,
+                     comp::movable&,
                      comp::depth_drawable& drawable) noexcept {
            animated.frame = 0;
            animated.nFrames = 9;

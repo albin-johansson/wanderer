@@ -1,11 +1,3 @@
-/**
- * @brief Provides the `Movable` component.
- * @file movable.hpp
- * @author Albin Johansson
- * @copyright MIT License
- * @date 2020
- */
-
 #pragma once
 
 #include "direction.hpp"
@@ -14,32 +6,33 @@
 namespace wanderer::comp {
 
 /**
- * @struct Movable
+ * @struct movable
+ *
  * @brief Represents an entity that is movable.
  *
  * @note Whilst not required, movable components are expected to be drawable,
  * since the `interpolatedPos` member is solely intended for the rendered
  * position of the entity.
  *
- * @var Movable::velocity
+ * @var movable::velocity
  * The current x- and y-axis speed.
- * @var Movable::currentPos
+ * @var movable::currentPos
  * The current position.
- * @var Movable::oldPos
+ * @var movable::oldPos
  * The old position from the previous iteration.
- * @var Movable::interpolatedPos
+ * @var movable::interpolatedPos
  * The interpolated position from the previous and current position. This is
  * intended to be used as the position where the movable is rendered.
- * @var Movable::dominantDirection
+ * @var movable::dominantDirection
  * The current dominant direction.
- * @var Movable::speed
+ * @var movable::speed
  * The current maximum total speed of the movable. This is used to make sure
  * that the movable doesn't move faster when traveling in more than one
  * direction.
  *
  * @headerfile movable.hpp
  */
-struct Movable final
+struct movable final
 {
   vector2f velocity;
   vector2f currentPos;

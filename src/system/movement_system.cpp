@@ -8,7 +8,7 @@
 namespace wanderer::sys {
 namespace {
 
-void update_direction(comp::Movable& movable) noexcept
+void update_direction(comp::movable& movable) noexcept
 {
   if (movable.velocity.x > 0) {
     movable.dominantDirection = Direction::Right;
@@ -27,9 +27,9 @@ void update_direction(comp::Movable& movable) noexcept
 
 void update_movement(entt::registry& registry, const delta dt)
 {
-  registry.view<comp::Movable>(entt::exclude<comp::hitbox>)
+  registry.view<comp::movable>(entt::exclude<comp::hitbox>)
       .each(
-          [&registry, dt](const auto entity, comp::Movable& movable) noexcept {
+          [&registry, dt](const auto entity, comp::movable& movable) noexcept {
             movable.oldPos = movable.currentPos;
             movable.currentPos.add(movable.velocity.x * dt.get(),
                                    movable.velocity.y * dt.get());
@@ -43,9 +43,9 @@ void update_movement(entt::registry& registry, const delta dt)
             }
           });
 
-  registry.view<comp::Movable, comp::hitbox>().each(
+  registry.view<comp::movable, comp::hitbox>().each(
       [&registry, dt](const auto entity,
-                      comp::Movable& movable,
+                      comp::movable& movable,
                       comp::hitbox& hitbox) noexcept {
         const auto nextPos = movable.currentPos + (movable.velocity * dt.get());
 

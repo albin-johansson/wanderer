@@ -50,7 +50,7 @@ void update(entt::registry& registry,
             const entt::entity movableEntity,
             const delta dt)
 {
-  const auto& movable = registry.get<comp::Movable>(movableEntity);
+  const auto& movable = registry.get<comp::movable>(movableEntity);
   auto& viewport = registry.get<comp::viewport>(viewportEntity.get());
 
   track(viewport,

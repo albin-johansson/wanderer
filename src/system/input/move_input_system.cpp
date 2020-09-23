@@ -10,7 +10,7 @@
 namespace wanderer::sys::input {
 namespace {
 
-void move(comp::Movable& movable, const Direction direction) noexcept
+void move(comp::movable& movable, const Direction direction) noexcept
 {
   switch (direction) {
     case Direction::Right: {
@@ -36,7 +36,7 @@ void move(comp::Movable& movable, const Direction direction) noexcept
   movable.velocity.scale(movable.speed);
 }
 
-void stop(comp::Movable& movable, const Direction direction) noexcept
+void stop(comp::movable& movable, const Direction direction) noexcept
 {
   switch (direction) {
     case Direction::Right:
@@ -58,7 +58,7 @@ void stop(comp::Movable& movable, const Direction direction) noexcept
   movable.velocity.scale(movable.speed);
 }
 
-[[nodiscard]] auto check_pressed(comp::Movable& movable,
+[[nodiscard]] auto check_pressed(comp::movable& movable,
                                  const Input& input,
                                  const comp::binds& binds) -> bool
 {
@@ -88,7 +88,7 @@ void stop(comp::Movable& movable, const Direction direction) noexcept
   return up || down || right || left;
 }
 
-void check_released(comp::Movable& movable,
+void check_released(comp::movable& movable,
                     const Input& input,
                     const comp::binds& binds)
 {
@@ -122,7 +122,7 @@ void handle_move_input(entt::registry& registry,
                        const Input& input)
 {
   if (registry.has<comp::humanoid_move>(player)) {
-    auto& movable = registry.get<comp::Movable>(player);
+    auto& movable = registry.get<comp::movable>(player);
     const auto& binds = registry.get<comp::binds>(player);
     const bool areMoveKeysDown = check_pressed(movable, input, binds);
     check_released(movable, input, binds);

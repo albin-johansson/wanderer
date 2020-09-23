@@ -39,7 +39,7 @@ namespace {
 
   const auto entity = registry.create();
 
-  auto& movable = registry.emplace<comp::Movable>(entity);
+  auto& movable = registry.emplace<comp::movable>(entity);
   movable.dominantDirection = Direction::Down;
 
   auto& drawable = registry.emplace<comp::depth_drawable>(entity);
@@ -82,7 +82,7 @@ auto add_player(entt::registry& registry,
 
   registry.emplace<comp::Player>(playerEntity);
 
-  auto& movable = registry.get<comp::Movable>(playerEntity);
+  auto& movable = registry.get<comp::movable>(playerEntity);
   movable.speed = g_playerSpeed;
   movable.currentPos.x = 100;
   movable.currentPos.y = 100;
@@ -106,7 +106,7 @@ auto add_skeleton(entt::registry& registry,
   const auto skeletonEntity =
       create_basic_humanoid(registry, imageCache.handle(id));
 
-  auto& movable = registry.get<comp::Movable>(skeletonEntity);
+  auto& movable = registry.get<comp::movable>(skeletonEntity);
   movable.speed = g_monsterSpeed;
   movable.currentPos.x = 300;
   movable.currentPos.y = 300;
