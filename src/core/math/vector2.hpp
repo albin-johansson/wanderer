@@ -326,6 +326,18 @@ class basic_vector2 final
   T m_y{0};
 };
 
+/**
+ * @brief Returns the sum vector from adding two vectors.
+ *
+ * @tparam T the representation type used by the vectors.
+ *
+ * @param lhs the left-hand side vector.
+ * @param rhs the right-hand side vector.
+ *
+ * @return the resulting vector from adding the two vectors.
+ *
+ * @since 0.1.0
+ */
 template <typename T>
 [[nodiscard]] constexpr auto operator+(const basic_vector2<T>& lhs,
                                        const basic_vector2<T>& rhs) noexcept
@@ -334,6 +346,18 @@ template <typename T>
   return basic_vector2{lhs.x() + rhs.x(), lhs.y() + rhs.y()};
 }
 
+/**
+ * @brief Returns the difference vector from subtracting two vectors.
+ *
+ * @tparam T the representation type used by the vectors.
+ *
+ * @param lhs the left-hand side vector.
+ * @param rhs the right-hand side vector.
+ *
+ * @return the resulting vector from subtracting the two vectors.
+ *
+ * @since 0.1.0
+ */
 template <typename T>
 [[nodiscard]] constexpr auto operator-(const basic_vector2<T>& lhs,
                                        const basic_vector2<T>& rhs) noexcept
@@ -342,6 +366,18 @@ template <typename T>
   return basic_vector2{lhs.x() - rhs.x(), lhs.y() - rhs.y()};
 }
 
+/**
+ * @brief Returns the result from scaling the supplied vector.
+ *
+ * @tparam T the representation type used by the vectors.
+ *
+ * @param vector the vector that will be scaled.
+ * @param scalar the amount to scale the vector by.
+ *
+ * @return a scaled version of the supplied vector.
+ *
+ * @since 0.1.0
+ */
 template <typename T>
 [[nodiscard]] constexpr auto operator*(const basic_vector2<T>& vector,
                                        T scalar) noexcept -> basic_vector2<T>
@@ -349,6 +385,18 @@ template <typename T>
   return basic_vector2{vector.x() * scalar, vector.y() * scalar};
 }
 
+/**
+ * @brief Returns the result from scaling the supplied vector.
+ *
+ * @tparam T the representation type used by the vectors.
+ *
+ * @param scalar the amount to scale the vector by.
+ * @param vector the vector that will be scaled.
+ *
+ * @return a scaled version of the supplied vector.
+ *
+ * @since 0.1.0
+ */
 template <typename T>
 [[nodiscard]] constexpr auto operator*(T scalar,
                                        const basic_vector2<T>& vector) noexcept
@@ -362,6 +410,8 @@ template <typename T>
  *
  * @note The dot product is commutative, which means that the order of
  * the operands doesn't matter.
+ *
+ * @tparam T the representation type used by the vectors.
  *
  * @param lhs the left-hand side vector.
  * @param rhs the right-hand side vector.
@@ -378,6 +428,18 @@ template <typename T>
   return lhs.x() * rhs.x() + lhs.y() * rhs.y();
 }
 
+/**
+ * @brief Indicates whether or not two vectors are equal.
+ *
+ * @tparam T the representation type used by the vectors.
+ *
+ * @param lhs the left-hand side vector.
+ * @param rhs the right-hand side vector.
+ *
+ * @return `true` if the vectors are the same; `false` otherwise.
+ *
+ * @since 0.1.0
+ */
 template <typename T>
 [[nodiscard]] constexpr auto operator==(const basic_vector2<T>& lhs,
                                         const basic_vector2<T>& rhs) noexcept
@@ -386,6 +448,18 @@ template <typename T>
   return lhs.x() == rhs.x() && lhs.y() == rhs.y();
 }
 
+/**
+ * @brief Indicates whether or not two vectors aren't equal.
+ *
+ * @tparam T the representation type used by the vectors.
+ *
+ * @param lhs the left-hand side vector.
+ * @param rhs the right-hand side vector.
+ *
+ * @return `true` if the vectors aren't the same; `false` otherwise.
+ *
+ * @since 0.1.0
+ */
 template <typename T>
 [[nodiscard]] constexpr auto operator!=(const basic_vector2<T>& lhs,
                                         const basic_vector2<T>& rhs) noexcept
