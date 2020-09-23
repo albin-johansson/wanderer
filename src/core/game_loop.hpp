@@ -6,29 +6,33 @@
 namespace wanderer {
 
 /**
- * @class GameLoop
+ * @class game_loop
+ *
  * @brief Represents the game loop logic.
+ *
  * @details This class is responsible for updating and managing the game loop
  * related logic, such as the delta time, interpolation coefficient, etc.
  *
  * @headerfile game_loop.hpp
  */
-class GameLoop final
+class game_loop final
 {
  public:
   /**
-   * @brief Creates a `GameLoop` instance.
+   * @brief Creates a `game_loop` instance.
    */
-  GameLoop() noexcept;
+  game_loop() noexcept;
 
   /**
    * @brief Updates the state of the game loop.
+   *
    * @param game the game instance that will be updated.
    */
   void update(game& game);
 
   /**
    * @brief Returns the current value of the interpolation coefficient.
+   *
    * @return an interpolation coefficient (alpha) value, in the range [0, 1].
    */
   [[nodiscard]] auto curr_alpha() const -> alpha
@@ -52,10 +56,12 @@ class GameLoop final
 
   /**
    * @brief Returns the maximum allowed frame time (delta time) in seconds.
+   *
    * @details This is used to avoid the "spiral of death" in the game loop.
+   *
    * @since 0.1.0
    */
-  [[nodiscard]] constexpr auto max_frame_time() noexcept -> delta
+  [[nodiscard]] static constexpr auto max_frame_time() noexcept -> delta
   {
     return delta{0.25f};
   }

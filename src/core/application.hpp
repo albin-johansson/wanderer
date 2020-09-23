@@ -23,7 +23,7 @@ class application
   cen::window m_window;
   cen::renderer m_renderer;
   game m_game;
-  GameLoop m_loop;
+  game_loop m_loop;
   Input m_input;
 };
 

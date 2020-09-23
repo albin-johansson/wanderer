@@ -5,7 +5,7 @@
 
 namespace wanderer {
 
-GameLoop::GameLoop() noexcept
+game_loop::game_loop() noexcept
     : m_now{cen::counter::now()},
       m_then{m_now},
       m_vsyncRate{static_cast<float>(cen::screen::refresh_rate())},
@@ -13,7 +13,7 @@ GameLoop::GameLoop() noexcept
       m_counterFreq{static_cast<float>(cen::counter::high_res_freq())}
 {}
 
-void GameLoop::smooth_delta() noexcept
+void game_loop::smooth_delta() noexcept
 {
   /* Reference for delta smoothing: https://frankforce.com/?p=2636 */
 
@@ -29,7 +29,7 @@ void GameLoop::smooth_delta() noexcept
   m_deltaBuffer = oldDelta - m_delta;
 }
 
-void GameLoop::update(game& game)
+void game_loop::update(game& game)
 {
   // TODO look into simpler game loop implementation
   m_then = m_now;
