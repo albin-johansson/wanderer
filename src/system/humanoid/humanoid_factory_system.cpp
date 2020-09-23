@@ -47,7 +47,7 @@ namespace {
   drawable.src = {{0, 0}, {64, 64}};
   drawable.dst = {{0, 0}, {g_humanoidDrawWidth, g_humanoidDrawHeight}};
 
-  auto& animated = registry.emplace<comp::Animated>(entity);
+  auto& animated = registry.emplace<comp::animated>(entity);
   animated.frame = 0;
   animated.delay = 65;
   animated.then = cen::counter::ticks().count();  // FIXME count

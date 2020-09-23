@@ -1,11 +1,3 @@
-/**
- * @brief Provides the `Animated` component.
- * @file animated.hpp
- * @author Albin Johansson
- * @copyright MIT License
- * @date 2020
- */
-
 #pragma once
 
 #include "wanderer_stdinc.hpp"
@@ -13,21 +5,21 @@
 namespace wanderer::comp {
 
 /**
- * @struct Animated
+ * @struct animated
  * @brief Represents a general animation.
  *
- * @var Animated::frame
+ * @var animated::frame
  * The current frame index. Starts at 0.
- * @var Animated::nFrames
+ * @var animated::nFrames
  * The amount of frames in the animation.
- * @var Animated::then
+ * @var animated::then
  * The time of the previous update of the animation, in milliseconds.
- * @var Animated::delay
+ * @var animated::delay
  * The duration of each frame in the animation, in milliseconds.
  *
  * @headerfile animated.hpp
  */
-struct Animated final
+struct animated final
 {
   u32 frame{0};
   u32 nFrames{1};
