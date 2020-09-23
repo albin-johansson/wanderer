@@ -1,31 +1,24 @@
-/**
- * @brief Provides the `RenderBounds` component.
- * @file render_bounds.hpp
- * @author Albin Johansson
- * @copyright MIT License
- * @date 2020
- */
-
 #pragma once
 
 namespace wanderer::comp {
 
 /**
- * @struct RenderBounds
+ * @struct render_bounds
+ *
  * @brief Represents the bounds of a map that will be rendered.
  *
- * @var RenderBounds::minRow
+ * @var render_bounds::minRow
  * The minimum row index in the tile layers that will be rendered.
- * @var RenderBounds::minCol
+ * @var render_bounds::minCol
  * The minimum column index in the tile layers that will be rendered.
- * @var RenderBounds::maxRow
+ * @var render_bounds::maxRow
  * The maximum row index in the tile layers that will be rendered.
- * @var RenderBounds::maxCol
+ * @var render_bounds::maxCol
  * The maximum column index in the tile layers that will be rendered.
  *
  * @headerfile render_bounds.hpp
  */
-struct RenderBounds final
+struct render_bounds final
 {
   int minRow{};
   int minCol{};

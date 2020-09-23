@@ -28,6 +28,6 @@ void render(entt::registry& registry,
             const comp::TileLayer& layer,
             cen::renderer& renderer,
             const comp::tileset& tileset,
-            const comp::RenderBounds& bounds);
+            const comp::render_bounds& bounds);
 
 }  // namespace wanderer::sys::layer

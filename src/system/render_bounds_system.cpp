@@ -9,12 +9,12 @@ namespace wanderer::sys {
 auto calculate_render_bounds(entt::registry& registry,
                              const comp::viewport::entity viewportEntity,
                              const int rows,
-                             const int cols) -> comp::RenderBounds
+                             const int cols) -> comp::render_bounds
 {
   const auto& viewport = registry.get<comp::viewport>(viewportEntity.get());
   const auto& viewportBounds = viewport.bounds;
 
-  comp::RenderBounds bounds;
+  comp::render_bounds bounds;
   bounds.minCol = Math::round(viewportBounds.x()) / g_tileSize<int>;
   bounds.minRow = Math::round(viewportBounds.y()) / g_tileSize<int>;
   bounds.maxCol = (Math::round(viewportBounds.max_x()) / g_tileSize<int>)+1;

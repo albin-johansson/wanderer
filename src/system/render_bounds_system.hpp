@@ -29,6 +29,6 @@ namespace wanderer::sys {
     entt::registry& registry,
     comp::viewport::entity viewportEntity,
     int rows,
-    int cols) -> comp::RenderBounds;
+    int cols) -> comp::render_bounds;
 
 }  // namespace wanderer::sys
