@@ -21,13 +21,13 @@ void render(entt::registry& registry,
         continue;
       }
 
-      const comp::Tile::entity entity = tileset.tiles.at(id);
+      const auto entity = tileset.tiles.at(id);
 
       if (registry.has<comp::animated_tile>(entity.get())) {
         const auto& tile = tile::animated_tile(registry, entity, tileset);
         tile::render(renderer, tile, row, col);
       } else {
-        const auto& tile = registry.get<comp::Tile>(entity.get());
+        const auto& tile = registry.get<comp::tile>(entity.get());
         tile::render(renderer, tile, row, col);
       }
     }

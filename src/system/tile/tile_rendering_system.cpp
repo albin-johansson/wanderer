@@ -11,7 +11,7 @@ inline constexpr cen::farea dstSize{g_tileSize<float>, g_tileSize<float>};
 }
 
 void render(cen::renderer& renderer,
-            const comp::Tile& tile,
+            const comp::tile& tile,
             const int row,
             const int col) noexcept
 {
@@ -22,8 +22,8 @@ void render(cen::renderer& renderer,
 }
 
 auto animated_tile(entt::registry& registry,
-                   const comp::Tile::entity tileEntity,
-                   const comp::tileset& tileset) -> const comp::Tile&
+                   const comp::tile::entity tileEntity,
+                   const comp::tileset& tileset) -> const comp::tile&
 {
   assert(registry.has<comp::animated_tile>(tileEntity.get()));
 
@@ -31,9 +31,9 @@ auto animated_tile(entt::registry& registry,
       registry.get<comp::animated_tile>(tileEntity.get());
 
   const tile_id id = animatedTile.frames.at(animatedTile.index).tile;
-  const comp::Tile::entity animated = tileset.tiles.at(id);
+  const comp::tile::entity animated = tileset.tiles.at(id);
 
-  return registry.get<comp::Tile>(animated.get());
+  return registry.get<comp::tile>(animated.get());
 }
 
 }  // namespace wanderer::sys::tile

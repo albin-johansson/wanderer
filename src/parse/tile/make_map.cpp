@@ -57,7 +57,7 @@ void create_tile_objects(entt::registry& registry,
     }
 
     const auto& tile =
-        registry.get<comp::Tile>(tileset.tiles.at(gid.get()).get());
+        registry.get<comp::tile>(tileset.tiles.at(gid.get()).get());
     const auto tileObjectEntity = registry.create();
     const auto [row, col] = Math::index_to_matrix_pos(index, stepLayer.width());
     const auto tileSize = g_tileSize<float>;

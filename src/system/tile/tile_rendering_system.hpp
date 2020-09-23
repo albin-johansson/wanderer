@@ -8,13 +8,13 @@
 namespace wanderer::sys::tile {
 
 void render(cen::renderer& renderer,
-            const comp::Tile& tile,
+            const comp::tile& tile,
             int row,
             int col) noexcept;
 
 [[nodiscard]] auto animated_tile(entt::registry& registry,
-                                 const comp::Tile::entity tileEntity,
+                                 const comp::tile::entity tileEntity,
                                  const comp::tileset& tileset)
-    -> const comp::Tile&;
+    -> const comp::tile&;
 
 }  // namespace wanderer::sys::tile

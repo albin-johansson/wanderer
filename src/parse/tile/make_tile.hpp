@@ -11,7 +11,7 @@
 namespace wanderer {
 
 void parse_special_tile(entt::registry& registry,
-                        comp::Tile::entity tileEntity,
+                        comp::tile::entity tileEntity,
                         const step::tile& stepTile,
                         tile_id firstGID);
 
@@ -19,6 +19,6 @@ void parse_special_tile(entt::registry& registry,
                                    const tile_id id,
                                    const entt::handle<cen::texture>& sheet,
                                    const cen::irect& src) noexcept
-    -> comp::Tile::entity;
+    -> comp::tile::entity;
 
 }  // namespace wanderer

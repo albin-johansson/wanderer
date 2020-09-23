@@ -9,7 +9,7 @@ namespace wanderer {
 namespace {
 
 void add_animation(entt::registry& registry,
-                   const comp::Tile::entity tileEntity,
+                   const comp::tile::entity tileEntity,
                    const step::animation& stepAnimation,
                    const tile_id firstgid)
 {
@@ -32,7 +32,7 @@ void add_animation(entt::registry& registry,
 }  // namespace
 
 void parse_special_tile(entt::registry& registry,
-                        const comp::Tile::entity tileEntity,
+                        const comp::tile::entity tileEntity,
                         const step::tile& stepTile,
                         const tile_id firstGID)
 {
@@ -48,16 +48,16 @@ void parse_special_tile(entt::registry& registry,
 auto make_basic_tile(entt::registry& registry,
                      const tile_id id,
                      const entt::handle<cen::texture>& sheet,
-                     const cen::irect& src) noexcept -> comp::Tile::entity
+                     const cen::irect& src) noexcept -> comp::tile::entity
 {
   const auto tileEntity = registry.create();
 
-  auto& tile = registry.emplace<comp::Tile>(tileEntity);
+  auto& tile = registry.emplace<comp::tile>(tileEntity);
   tile.id = id;
   tile.sheet = sheet;
   tile.src = src;
 
-  return comp::Tile::entity{tileEntity};
+  return comp::tile::entity{tileEntity};
 }
 
 }  // namespace wanderer
