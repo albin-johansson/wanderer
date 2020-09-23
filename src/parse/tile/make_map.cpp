@@ -75,7 +75,7 @@ void create_tile_objects(entt::registry& registry,
     drawable.centerY =
         (static_cast<float>(row) * tileSize) + (drawable.dst.height() / 2.0f);
 
-    tilemap.tileObjects.emplace(comp::MapPosition{row, col}, tileObjectEntity);
+    tilemap.tileObjects.emplace(comp::map_position{row, col}, tileObjectEntity);
 
     ++index;
   }

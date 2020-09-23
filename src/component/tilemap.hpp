@@ -44,7 +44,7 @@ struct tilemap final
   std::vector<TileLayer::entity> layers;
 
   // TODO use tile object entity tag type
-  std::unordered_map<MapPosition, entt::entity> tileObjects;
+  std::unordered_map<map_position, entt::entity> tileObjects;
 
   float width;
   float height;
