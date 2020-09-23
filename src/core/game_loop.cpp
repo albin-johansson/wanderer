@@ -29,7 +29,7 @@ void GameLoop::smooth_delta() noexcept
   m_deltaBuffer = oldDelta - m_delta;
 }
 
-void GameLoop::update(Game& game)
+void GameLoop::update(game& game)
 {
   // TODO look into simpler game loop implementation
   m_then = m_now;

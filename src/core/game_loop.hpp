@@ -25,7 +25,7 @@ class GameLoop final
    * @brief Updates the state of the game loop.
    * @param game the game instance that will be updated.
    */
-  void update(Game& game);
+  void update(game& game);
 
   /**
    * @brief Returns the current value of the interpolation coefficient.

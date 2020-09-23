@@ -23,7 +23,7 @@
 
 namespace wanderer {
 
-Game::Game(cen::renderer& renderer)
+game::game(cen::renderer& renderer)
 {
   add_humanoid_state_dependencies(m_registry);
   connect_events(m_dispatcher);
@@ -43,17 +43,17 @@ Game::Game(cen::renderer& renderer)
   view.levelSize.height = level.height;
 }
 
-Game::~Game() noexcept
+game::~game() noexcept
 {
   disconnect_events(m_dispatcher);
 }
 
-void Game::handle_input(const Input& input)
+void game::handle_input(const Input& input)
 {
   sys::input::update(m_registry, m_dispatcher, m_player, input);
 }
 
-void Game::tick(const delta dt)
+void game::tick(const delta dt)
 {
   // TODO check if menu is blocking
   m_dispatcher.update();
@@ -69,7 +69,7 @@ void Game::tick(const delta dt)
   sys::viewport::update(m_registry, m_viewport, m_player, dt);
 }
 
-void Game::render(cen::renderer& renderer, const alpha alpha)
+void game::render(cen::renderer& renderer, const alpha alpha)
 {
   sys::viewport::translate(m_registry, m_viewport, renderer);
 

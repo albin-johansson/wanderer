@@ -22,7 +22,7 @@ class application
  private:
   cen::window m_window;
   cen::renderer m_renderer;
-  Game m_game;
+  game m_game;
   GameLoop m_loop;
   Input m_input;
 };

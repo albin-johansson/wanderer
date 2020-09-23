@@ -11,23 +11,25 @@
 namespace wanderer {
 
 /**
- * @class Game
+ * @class game
+ *
  * @brief Represents the Wanderer game.
+ *
  * @details This class is responsible for managing the game state and
  * updating the systems. This class is the core of the entire game.
  *
  * @headerfile game.hpp
  */
-class Game final
+class game final
 {
  public:
   /**
-   * @brief Creates a `Game` instance.
+   * @brief Creates a `game` instance.
    * @param renderer the renderer used to create the initial textures.
    */
-  explicit Game(cen::renderer& renderer);
+  explicit game(cen::renderer& renderer);
 
-  ~Game() noexcept;
+  ~game() noexcept;
 
   /**
    * @brief Responds to user input.
