@@ -1,11 +1,3 @@
-/**
- * @brief Provides the `AABB` component, along with related components.
- * @file aabb.hpp
- * @author Albin Johansson
- * @copyright MIT License
- * @date 2020
- */
-
 #pragma once
 
 #include "vector_2.hpp"
@@ -14,7 +6,7 @@
 namespace wanderer::comp {
 
 /**
- * @struct AABB
+ * @struct aabb
  * @brief Represents an AABB (Axis Aligned Bounding Box).
  *
  * @details An AABB is really just a fancy rectangle. They are mainly used
@@ -28,20 +20,20 @@ namespace wanderer::comp {
  * rectangles must be aligned (parallel in relation to each other).
  * Otherwise, the systems that rely on AABBs won't work.
  *
- * @var AABB::min
+ * @var aabb::min
  * The minimum x- and y-coordinates. Which are the coordinates of the
  * north-west corner of the box.
- * @var AABB::max
+ * @var aabb::max
  * The maximum x- and y-coordinates. Which are the coordinates of the
  * south-east corner of the box.
- * @var AABB::center
+ * @var aabb::center
  * The coordinates of the center point of the box.
- * @var AABB::area
+ * @var aabb::area
  * The area of the box.
  *
  * @headerfile aabb.hpp
  */
-struct AABB
+struct aabb
 {
   vector2f min;  // the NW corner coordinates
   vector2f max;  // the SE corner coordinates
@@ -50,38 +42,38 @@ struct AABB
 };
 
 /**
- * @struct AABBNode
+ * @struct aabb_node
  * @brief Represents a node in an AABB tree.
  *
  * @details This struct represents a node in the tree used by the AABB
  * systems. This component shouldn't be used directly.
  *
- * @var AABBNode::box
+ * @var aabb_node::box
  * The associated AABB instance.
- * @var AABBNode::parent
+ * @var aabb_node::parent
  * The entity identifier of the parent node.
- * @var AABBNode::left
+ * @var aabb_node::left
  * The entity identifier of the left child node.
- * @var AABBNode::right
+ * @var aabb_node::right
  * The entity identifier of the right child node.
  *
  * @headerfile aabb.hpp
  */
-struct AABBNode
+struct aabb_node
 {
-  AABB box;
+  aabb box;
   entt::entity parent{entt::null};
   entt::entity left{entt::null};
   entt::entity right{entt::null};
 };
 
 /**
- * @struct AABBRoot
+ * @struct aabb_root
  * @brief A tag type for the root of an AABB tree.
  *
  * @headerfile aabb.hpp
  */
-struct AABBRoot
+struct aabb_root
 {};
 
 }  // namespace wanderer::comp

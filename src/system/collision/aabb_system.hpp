@@ -25,7 +25,7 @@
  */
 namespace wanderer::sys::aabb {
 
-void validate(comp::AABB& aabb) noexcept;
+void validate(comp::aabb& aabb) noexcept;
 
 /**
  * @brief Creates and returns an AABB instance.
@@ -38,7 +38,7 @@ void validate(comp::AABB& aabb) noexcept;
  * @return the created AABB instance.
  */
 [[nodiscard]] auto make_aabb(const cen::fpoint& pos,
-                             const cen::farea& size) noexcept -> comp::AABB;
+                             const cen::farea& size) noexcept -> comp::aabb;
 
 /**
  * @brief Returns an AABB for the supplied boxes.
@@ -50,8 +50,8 @@ void validate(comp::AABB& aabb) noexcept;
  * @param snd the second AABB.
  * @return an AABB that is the merged result of the two supplied boxes.
  */
-[[nodiscard]] auto merge(const comp::AABB& fst, const comp::AABB& snd) noexcept
-    -> comp::AABB;
+[[nodiscard]] auto merge(const comp::aabb& fst, const comp::aabb& snd) noexcept
+    -> comp::aabb;
 
 /**
  * @brief Indicates whether or not two AABBs overlap.
@@ -60,8 +60,8 @@ void validate(comp::AABB& aabb) noexcept;
  * @param snd the second box.
  * @return `true` if the boxes overlap; `false` otherwise.
  */
-[[nodiscard]] auto overlaps(const comp::AABB& fst,
-                            const comp::AABB& snd) noexcept -> bool;
+[[nodiscard]] auto overlaps(const comp::aabb& fst,
+                            const comp::aabb& snd) noexcept -> bool;
 
 /**
  * @brief Indicates whether or not an AABB contains another AABB.
@@ -70,8 +70,8 @@ void validate(comp::AABB& aabb) noexcept;
  * @param other the box that will be looked for in the source box.
  * @return `true` if `source` contains `other`; `false` otherwise.
  */
-[[nodiscard]] auto contains(const comp::AABB& source,
-                            const comp::AABB& other) noexcept -> bool;
+[[nodiscard]] auto contains(const comp::aabb& source,
+                            const comp::aabb& other) noexcept -> bool;
 
 /**
  * @brief Inserts an AABB instance into the AABB tree.
@@ -82,11 +82,11 @@ void validate(comp::AABB& aabb) noexcept;
  */
 void insert(entt::registry& registry,
             entt::entity entity,
-            const comp::AABB& box) noexcept;
+            const comp::aabb& box) noexcept;
 
 void update(entt::registry& registry,
             entt::entity leafNodeEntity,
-            const comp::AABB& box) noexcept;
+            const comp::aabb& box) noexcept;
 
 // used to obtain collision candidates, could invoke some callback
 void query(entt::registry& registry, const entt::entity entity);

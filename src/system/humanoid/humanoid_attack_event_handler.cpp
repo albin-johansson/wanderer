@@ -12,7 +12,8 @@ void on_attack_begin(const BeginAttackEvent& event)
   assert(event.registry != nullptr);
   assert(!event.registry->has<comp::HumanoidAttack>(event.sourceEntity));
 
-  auto& attack = event.registry->emplace<comp::HumanoidAttack>(event.sourceEntity);
+  auto& attack =
+      event.registry->emplace<comp::HumanoidAttack>(event.sourceEntity);
   attack.weapon = event.weapon;
 
   // TODO enter correct animation according to weapon

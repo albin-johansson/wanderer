@@ -57,7 +57,8 @@ namespace {
 
   registry.emplace<comp::Hitbox>(
       entity,
-      hitbox::create({comp::Subhitbox{vector2f{}, cen::frect{{}, humanoidSize}}}));
+      hitbox::create(
+          {comp::Subhitbox{vector2f{}, cen::frect{{}, humanoidSize}}}));
 
   registry.emplace<comp::Humanoid>(entity);
   registry.emplace<comp::HumanoidIdle>(entity);
