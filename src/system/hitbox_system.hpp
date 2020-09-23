@@ -1,7 +1,7 @@
 #pragma once
 
 #include "component/hitbox.hpp"
-#include "vector_2.hpp"
+#include "vector2.hpp"
 #include "wanderer_stdinc.hpp"
 
 namespace wanderer::sys::hitbox {

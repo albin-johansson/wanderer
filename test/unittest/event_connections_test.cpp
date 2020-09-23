@@ -1,36 +1,36 @@
-#include "event_connections.h"
+#include "event_connections.hpp"
 
-#include <doctest.h>
+#include <catch.hpp>
 
-#include "begin_attack_event.h"
-#include "begin_humanoid_move_event.h"
-#include "end_attack_event.h"
-#include "end_humanoid_move_event.h"
-#include "wanderer_stdinc.h"
+#include "component/event/begin_attack_event.hpp"
+#include "component/event/begin_humanoid_move_event.hpp"
+#include "component/event/end_attack_event.hpp"
+#include "component/event/end_humanoid_move_event.hpp"
+#include "wanderer_stdinc.hpp"
 
 using namespace wanderer;
 
-TEST_SUITE("Event connections")
+TEST_CASE("Event connections", "[event_connections]")
 {
   entt::dispatcher dispatcher;
 
-  TEST_CASE("Connect the events")
+  SECTION("Connect the events")
   {
     connect_events(dispatcher);
 
-    CHECK(!dispatcher.sink<BeginAttackEvent>().empty());
-    CHECK(!dispatcher.sink<EndAttackEvent>().empty());
-    CHECK(!dispatcher.sink<BeginHumanoidMoveEvent>().empty());
-    CHECK(!dispatcher.sink<EndHumanoidMoveEvent>().empty());
+    CHECK(!dispatcher.sink<begin_attack_event>().empty());
+    CHECK(!dispatcher.sink<end_attack_event>().empty());
+    CHECK(!dispatcher.sink<begin_humanoid_move_event>().empty());
+    CHECK(!dispatcher.sink<end_humanoid_move_event>().empty());
   }
 
-  TEST_CASE("Disconnect the events")
+  SECTION("Disconnect the events")
   {
     disconnect_events(dispatcher);
 
-    CHECK(dispatcher.sink<BeginAttackEvent>().empty());
-    CHECK(dispatcher.sink<EndAttackEvent>().empty());
-    CHECK(dispatcher.sink<BeginHumanoidMoveEvent>().empty());
-    CHECK(dispatcher.sink<EndHumanoidMoveEvent>().empty());
+    CHECK(dispatcher.sink<begin_attack_event>().empty());
+    CHECK(dispatcher.sink<end_attack_event>().empty());
+    CHECK(dispatcher.sink<begin_humanoid_move_event>().empty());
+    CHECK(dispatcher.sink<end_humanoid_move_event>().empty());
   }
 }

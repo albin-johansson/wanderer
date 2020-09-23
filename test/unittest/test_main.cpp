@@ -1,15 +1,8 @@
-#define DOCTEST_CONFIG_IMPLEMENT
-#include <doctest.h>
+#define CATCH_CONFIG_RUNNER
+
+#include <catch.hpp>
 
 int main(int argc, char** argv)
 {
-  doctest::Context context;
-
-  const auto result = context.run();
-
-  if (context.shouldExit()) {
-    return result;
-  }
-
-  return result;
+  return Catch::Session().run(argc, argv);
 }

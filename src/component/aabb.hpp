@@ -1,6 +1,6 @@
 #pragma once
 
-#include "vector_2.hpp"
+#include "vector2.hpp"
 #include "wanderer_stdinc.hpp"
 
 namespace wanderer::comp {

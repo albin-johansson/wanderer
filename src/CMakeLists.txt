@@ -31,7 +31,7 @@ set(SOURCE_FILES
         core/resource/image_loader.hpp
         core/resource/image_cache.hpp
 
-        core/math/vector_2.hpp
+        core/math/vector2.hpp
         core/math/get_random.hpp
         core/math/index_to_matrix.hpp
         core/math/floating.hpp
@@ -118,7 +118,7 @@ set(SOURCE_FILES
         parse/tile/make_tileset.hpp
 
         system/collision/aabb_system.cpp
-        system/collision/aabb_system.hpp)
+        system/collision/aabb_system.hpp core/math/angles.hpp)
 
 add_library(${WANDERER_LIB_TARGET} ${SOURCE_FILES})
 

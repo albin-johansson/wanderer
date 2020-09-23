@@ -15,10 +15,10 @@ void track(comp::viewport& viewport,
   auto panSpeed = 15 * dt.get();
 
   const float targetX =
-      (target.x + (size.width / 2.0f)) - (viewport.bounds.width() / 2.0f);
+      (target.x() + (size.width / 2.0f)) - (viewport.bounds.width() / 2.0f);
 
   const float targetY =
-      (target.y + (size.height / 2.0f)) - (viewport.bounds.height() / 2.0f);
+      (target.y() + (size.height / 2.0f)) - (viewport.bounds.height() / 2.0f);
 
   const auto calc = [panSpeed](float targetPosComp,
                                float boundsPosComp,

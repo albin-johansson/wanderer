@@ -1,76 +1,73 @@
-#include "humanoid_state.h"
+#include "component/humanoid_state.hpp"
 
-#include <doctest.h>
+#include <catch.hpp>
 
-#include "add_humanoid_state_dependencies.h"
+#include "add_humanoid_state_dependencies.hpp"
 
 using namespace wanderer;
 
-TEST_SUITE("Humanoid states")
+using idle = comp::humanoid_idle;
+using move = comp::humanoid_move;
+using attack = comp::humanoid_attack;
+using die = comp::humanoid_die;
+
+TEST_CASE("Humanoid state dependencies", "[humanoid_state]")
 {
-  using idle = comp::HumanoidIdle;
-  using move = comp::HumanoidMove;
-  using attack = comp::HumanoidAttack;
-  using die = comp::HumanoidDie;
+  entt::registry registry;
+  add_humanoid_state_dependencies(registry);
 
-  TEST_CASE("Humanoid state dependencies")
+  const auto entity = registry.create();
+  registry.emplace<comp::humanoid>(entity);
+
+  SECTION("Adding Idle component")
   {
-    entt::registry registry;
-    add_humanoid_state_dependencies(registry);
+    REQUIRE(registry.valid(entity));
+    REQUIRE(!registry.has<idle>(entity));
 
-    const auto entity = registry.create();
-    registry.emplace<comp::Humanoid>(entity);
+    registry.emplace<idle>(entity);
 
-    SUBCASE("Adding Idle component")
-    {
-      REQUIRE(registry.valid(entity));
-      REQUIRE(!registry.has<idle>(entity));
+    CHECK(registry.has<idle>(entity));
+    CHECK(!registry.has<move>(entity));
+    CHECK(!registry.has<attack>(entity));
+    CHECK(!registry.has<die>(entity));
+  }
 
-      registry.emplace<idle>(entity);
+  SECTION("Adding Move component")
+  {
+    REQUIRE(registry.valid(entity));
+    REQUIRE(!registry.has<move>(entity));
 
-      CHECK(registry.has<idle>(entity));
-      CHECK(!registry.has<move>(entity));
-      CHECK(!registry.has<attack>(entity));
-      CHECK(!registry.has<die>(entity));
-    }
+    registry.emplace<move>(entity);
 
-    SUBCASE("Adding Move component")
-    {
-      REQUIRE(registry.valid(entity));
-      REQUIRE(!registry.has<move>(entity));
+    CHECK(registry.has<move>(entity));
+    CHECK(!registry.has<idle>(entity));
+    CHECK(!registry.has<attack>(entity));
+    CHECK(!registry.has<die>(entity));
+  }
 
-      registry.emplace<move>(entity);
+  SECTION("Adding Attack component")
+  {
+    REQUIRE(registry.valid(entity));
+    REQUIRE(!registry.has<attack>(entity));
 
-      CHECK(registry.has<move>(entity));
-      CHECK(!registry.has<idle>(entity));
-      CHECK(!registry.has<attack>(entity));
-      CHECK(!registry.has<die>(entity));
-    }
+    registry.emplace<attack>(entity);
 
-    SUBCASE("Adding Attack component")
-    {
-      REQUIRE(registry.valid(entity));
-      REQUIRE(!registry.has<attack>(entity));
+    CHECK(registry.has<attack>(entity));
+    CHECK(!registry.has<move>(entity));
+    CHECK(!registry.has<idle>(entity));
+    CHECK(!registry.has<die>(entity));
+  }
 
-      registry.emplace<attack>(entity);
+  SECTION("Adding Die component")
+  {
+    REQUIRE(registry.valid(entity));
+    REQUIRE(!registry.has<die>(entity));
 
-      CHECK(registry.has<attack>(entity));
-      CHECK(!registry.has<move>(entity));
-      CHECK(!registry.has<idle>(entity));
-      CHECK(!registry.has<die>(entity));
-    }
+    registry.emplace<die>(entity);
 
-    SUBCASE("Adding Die component")
-    {
-      REQUIRE(registry.valid(entity));
-      REQUIRE(!registry.has<die>(entity));
-
-      registry.emplace<die>(entity);
-
-      CHECK(registry.has<die>(entity));
-      CHECK(!registry.has<attack>(entity));
-      CHECK(!registry.has<move>(entity));
-      CHECK(!registry.has<idle>(entity));
-    }
+    CHECK(registry.has<die>(entity));
+    CHECK(!registry.has<attack>(entity));
+    CHECK(!registry.has<move>(entity));
+    CHECK(!registry.has<idle>(entity));
   }
 }

@@ -34,21 +34,21 @@ void update_bounds(comp::hitbox& hitbox) noexcept
       bounds.set_height(rectMaxY - bounds.y());
     }
 
-    offset.x = rectX - hitbox.bounds.x();
-    offset.y = rectY - hitbox.bounds.y();
+    offset.set_x(rectX - hitbox.bounds.x());
+    offset.set_y(rectY - hitbox.bounds.y());
   }
 }
 
 void update_position(comp::hitbox& hitbox, const vector2f& position) noexcept
 {
   for (auto& [offset, rect] : hitbox.boxes) {
-    const auto x = position.x + offset.x;
-    const auto y = position.y + offset.y;
+    const auto x = position.x() + offset.x();
+    const auto y = position.y() + offset.y();
     rect.set_x(x);
     rect.set_y(y);
   }
-  hitbox.bounds.set_x(position.x);
-  hitbox.bounds.set_y(position.y);
+  hitbox.bounds.set_x(position.x());
+  hitbox.bounds.set_y(position.y());
 }
 
 auto intersects(const comp::hitbox& fst, const comp::hitbox& snd) noexcept

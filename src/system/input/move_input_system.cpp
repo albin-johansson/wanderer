@@ -15,19 +15,19 @@ void move(comp::movable& movable, const Direction direction) noexcept
 {
   switch (direction) {
     case Direction::Right: {
-      movable.velocity.x = movable.speed;
+      movable.velocity.set_x(movable.speed);
       break;
     }
     case Direction::Left: {
-      movable.velocity.x = -movable.speed;
+      movable.velocity.set_x(-movable.speed);
       break;
     }
     case Direction::Up: {
-      movable.velocity.y = -movable.speed;
+      movable.velocity.set_y(-movable.speed);
       break;
     }
     case Direction::Down: {
-      movable.velocity.y = movable.speed;
+      movable.velocity.set_y(movable.speed);
       break;
     }
     default:
@@ -43,13 +43,13 @@ void stop(comp::movable& movable, const Direction direction) noexcept
     case Direction::Right:
       [[fallthrough]];
     case Direction::Left: {
-      movable.velocity.x = 0;
+      movable.velocity.set_x(0);
       break;
     }
     case Direction::Up:
       [[fallthrough]];
     case Direction::Down: {
-      movable.velocity.y = 0;
+      movable.velocity.set_y(0);
       break;
     }
     default:

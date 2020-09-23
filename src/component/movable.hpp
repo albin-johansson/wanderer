@@ -1,7 +1,7 @@
 #pragma once
 
 #include "direction.hpp"
-#include "vector_2.hpp"
+#include "vector2.hpp"
 
 namespace wanderer::comp {
 

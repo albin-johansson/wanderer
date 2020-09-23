@@ -185,12 +185,10 @@ void remove_leaf(entt::registry& registry,
 
 void validate(comp::aabb& aabb) noexcept
 {
-  const auto width = aabb.max.x - aabb.min.x;
-  const auto height = aabb.max.y - aabb.min.y;
+  const auto width = aabb.max.x() - aabb.min.x();
+  const auto height = aabb.max.y() - aabb.min.y();
 
-  aabb.center.x = aabb.min.x + (width / 2.0f);
-  aabb.center.y = aabb.min.y + (height / 2.0f);
-
+  aabb.center = {aabb.min.x() + (width / 2.0f), aabb.min.y() + (height / 2.0f)};
   aabb.area = width * height;
 }
 
@@ -199,11 +197,8 @@ auto make_aabb(const cen::fpoint& pos, const cen::farea& size) noexcept
 {
   comp::aabb result;
 
-  result.min.x = pos.x();
-  result.min.y = pos.y();
-
-  result.max.x = pos.x() + size.width;
-  result.max.y = pos.y() + size.height;
+  result.min = {pos.x(), pos.y()};
+  result.max = {pos.x() + size.width, pos.y() + size.height};
 
   validate(result);
 
@@ -218,18 +213,18 @@ auto merge(const comp::aabb& fst, const comp::aabb& snd) noexcept -> comp::aabb
 {
   comp::aabb result;
 
-  result.min.x = std::min(fst.min.x, snd.min.x);
-  result.min.y = std::min(fst.min.y, snd.min.y);
+  result.min.set_x(std::min(fst.min.x(), snd.min.x()));
+  result.min.set_y(std::min(fst.min.y(), snd.min.y()));
 
-  result.max.x = std::max(fst.max.x, snd.max.x);
-  result.max.y = std::max(fst.max.y, snd.max.y);
+  result.max.set_x(std::max(fst.max.x(), snd.max.x()));
+  result.max.set_y(std::max(fst.max.y(), snd.max.y()));
 
-  const auto width = result.max.x - result.min.x;
-  const auto height = result.max.y - result.min.y;
+  const auto width = result.max.x() - result.min.x();
+  const auto height = result.max.y() - result.min.y();
   result.area = width * height;
 
-  const auto centerX = result.min.x + (width / 2.0f);
-  const auto centerY = result.min.y + (height / 2.0f);
+  const auto centerX = result.min.x() + (width / 2.0f);
+  const auto centerY = result.min.y() + (height / 2.0f);
   result.center = {centerX, centerY};
 
   return result;
@@ -237,15 +232,15 @@ auto merge(const comp::aabb& fst, const comp::aabb& snd) noexcept -> comp::aabb
 
 auto overlaps(const comp::aabb& fst, const comp::aabb& snd) noexcept -> bool
 {
-  return (fst.max.x > snd.min.x) && (fst.min.x < snd.max.x) &&
-         (fst.max.y > snd.min.y) && (fst.min.y < snd.max.y);
+  return (fst.max.x() > snd.min.x()) && (fst.min.x() < snd.max.x()) &&
+         (fst.max.y() > snd.min.y()) && (fst.min.y() < snd.max.y());
 }
 
 auto contains(const comp::aabb& source, const comp::aabb& other) noexcept
     -> bool
 {
-  return other.min.x >= source.min.x && other.max.x <= source.max.x &&
-         other.min.y >= source.min.y && other.max.y <= source.max.y;
+  return other.min.x() >= source.min.x() && other.max.x() <= source.max.x() &&
+         other.min.y() >= source.min.y() && other.max.y() <= source.max.y();
 }
 
 void insert(entt::registry& registry,

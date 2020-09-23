@@ -10,7 +10,7 @@
 #include <random>       // mt19937, random_device, seed_seq, ...
 #include <type_traits>  // is_floating_point_v
 
-namespace wanderer::math {
+namespace wanderer {
 
 [[nodiscard]] inline auto get_seeded_engine() -> std::mt19937
 {
@@ -53,4 +53,4 @@ template <typename T>
   }
 }
 
-}  // namespace wanderer::math
+}  // namespace wanderer
