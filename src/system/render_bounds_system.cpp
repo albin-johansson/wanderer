@@ -5,16 +5,15 @@
 #include "viewport.hpp"
 
 using wanderer::comp::RenderBounds;
-using wanderer::comp::Viewport;
 
 namespace wanderer::sys {
 
 auto calculate_render_bounds(entt::registry& registry,
-                             const Viewport::entity viewportEntity,
+                             const comp::viewport::entity viewportEntity,
                              const int rows,
                              const int cols) -> RenderBounds
 {
-  const auto& viewport = registry.get<Viewport>(viewportEntity.get());
+  const auto& viewport = registry.get<comp::viewport>(viewportEntity.get());
   const auto& viewportBounds = viewport.bounds;
 
   RenderBounds bounds;

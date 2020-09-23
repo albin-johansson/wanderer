@@ -62,7 +62,7 @@ class Game final
   image_cache m_imageCache;
   entt::entity m_player;
   comp::Tilemap::entity m_world{null<comp::Tilemap>()};
-  comp::Viewport::entity m_viewport{null<comp::Viewport>()};
+  comp::viewport::entity m_viewport{null<comp::viewport>()};
 };
 
 }  // namespace wanderer

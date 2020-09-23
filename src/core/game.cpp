@@ -21,9 +21,6 @@
 #include "tilemap.hpp"
 #include "viewport_system.hpp"
 
-using namespace wanderer::sys;
-using namespace wanderer::comp;
-
 namespace wanderer {
 
 Game::Game(cen::renderer& renderer)
@@ -34,13 +31,13 @@ Game::Game(cen::renderer& renderer)
   m_world = make_map(
       m_registry, "resource/map/world_demo.json", renderer, m_imageCache);
 
-  m_player = humanoid::add_player(m_registry, renderer, m_imageCache);
-  m_viewport = viewport::make_viewport(m_registry);
+  m_player = sys::humanoid::add_player(m_registry, renderer, m_imageCache);
+  m_viewport = sys::viewport::make_viewport(m_registry);
 
-  humanoid::add_skeleton(m_registry, renderer, m_imageCache);
+  sys::humanoid::add_skeleton(m_registry, renderer, m_imageCache);
 
-  auto& view = m_registry.get<Viewport>(m_viewport.get());
-  auto& level = m_registry.get<Tilemap>(m_world.get());
+  auto& view = m_registry.get<comp::viewport>(m_viewport.get());
+  auto& level = m_registry.get<comp::Tilemap>(m_world.get());
 
   view.levelSize.width = level.width;
   view.levelSize.height = level.height;
@@ -53,7 +50,7 @@ Game::~Game() noexcept
 
 void Game::handle_input(const Input& input)
 {
-  input::update(m_registry, m_dispatcher, m_player, input);
+  sys::input::update(m_registry, m_dispatcher, m_player, input);
 }
 
 void Game::tick(const delta dt)
@@ -61,27 +58,27 @@ void Game::tick(const delta dt)
   // TODO check if menu is blocking
   m_dispatcher.update();
 
-  humanoid::update_state(m_registry, m_dispatcher);
-  humanoid::update_animation(m_registry);
-  tile::update_animation(m_registry, m_world.get());  // FIXME m_world
+  sys::humanoid::update_state(m_registry, m_dispatcher);
+  sys::humanoid::update_animation(m_registry);
+  sys::tile::update_animation(m_registry, m_world.get());  // FIXME m_world
 
-  update_movement(m_registry, dt);
+  sys::update_movement(m_registry, dt);
 
-  update_animation_state(m_registry);
+  sys::update_animation_state(m_registry);
   // TODO need to update viewport level size as well when level changes
-  viewport::update(m_registry, m_viewport, m_player, dt);
+  sys::viewport::update(m_registry, m_viewport, m_player, dt);
 }
 
 void Game::render(cen::renderer& renderer, const alpha alpha)
 {
-  viewport::translate(m_registry, m_viewport, renderer);
+  sys::viewport::translate(m_registry, m_viewport, renderer);
 
-  update_interpolation(m_registry, alpha);
-  update_movable_depth_drawables(m_registry);
+  sys::update_interpolation(m_registry, alpha);
+  sys::update_movable_depth_drawables(m_registry);
 
   // FIXME m_world
-  const auto& tilemap = m_registry.get<Tilemap>(m_world.get());
-  const auto bounds = calculate_render_bounds(
+  const auto& tilemap = m_registry.get<comp::Tilemap>(m_world.get());
+  const auto bounds = sys::calculate_render_bounds(
       m_registry, m_viewport, tilemap.rows, tilemap.cols);
 
   // TODO future optimization, only render tile object DepthDrawables in bounds
@@ -96,10 +93,10 @@ void Game::render(cen::renderer& renderer, const alpha alpha)
   //    }
   //  }
 
-  layer::render_ground(m_registry, m_world, renderer, bounds);
+  sys::layer::render_ground(m_registry, m_world, renderer, bounds);
 
   // TODO render more stuff (think about render depth as well)
-  render_depth_drawables(m_registry, renderer);
+  sys::render_depth_drawables(m_registry, renderer);
 
   // TODO render HUD
 

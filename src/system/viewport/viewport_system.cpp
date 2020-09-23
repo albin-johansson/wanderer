@@ -5,12 +5,11 @@
 #include "viewport.hpp"
 
 using wanderer::comp::Movable;
-using wanderer::comp::Viewport;
 
 namespace wanderer::sys::viewport {
 namespace {
 
-void track(Viewport& viewport,
+void track(comp::viewport& viewport,
            const vector2f& target,
            const cen::farea& size,
            const delta dt)
@@ -49,12 +48,12 @@ void track(Viewport& viewport,
 }  // namespace
 
 void update(entt::registry& registry,
-            const Viewport::entity viewportEntity,
+            const comp::viewport::entity viewportEntity,
             const entt::entity movableEntity,
             const delta dt)
 {
   const auto& movable = registry.get<Movable>(movableEntity);
-  auto& viewport = registry.get<Viewport>(viewportEntity.get());
+  auto& viewport = registry.get<comp::viewport>(viewportEntity.get());
 
   track(viewport,
         movable.interpolatedPos,
@@ -63,10 +62,10 @@ void update(entt::registry& registry,
 }
 
 void translate(entt::registry& registry,
-               const Viewport::entity viewportEntity,
+               const comp::viewport::entity viewportEntity,
                cen::renderer& renderer)
 {
-  auto const& viewport = registry.get<Viewport>(viewportEntity.get());
+  auto const& viewport = registry.get<comp::viewport>(viewportEntity.get());
   renderer.set_translation_viewport(viewport.bounds);
 }
 

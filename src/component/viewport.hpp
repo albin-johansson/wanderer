@@ -1,11 +1,3 @@
-/**
- * @brief Provides the `Viewport` component.
- * @file viewport.hpp
- * @author Albin Johansson
- * @copyright MIT License
- * @date 2020
- */
-
 #pragma once
 
 #include <area.hpp>
@@ -16,17 +8,17 @@
 namespace wanderer::comp {
 
 /**
- * @struct Viewport
+ * @struct viewport
  * @brief Represents an area that is visible for the player.
  *
- * @var Viewport::bounds
+ * @var viewport::bounds
  * The position and size of the viewport.
- * @var Viewport::levelSize
+ * @var viewport::levelSize
  * The size of the level that the viewport is associated with.
  *
  * @headerfile viewport.hpp
  */
-struct Viewport final
+struct viewport final
 {
   using entity = fluent::
       NamedType<entt::entity, struct ViewportEntityTag, fluent::Comparable>;
