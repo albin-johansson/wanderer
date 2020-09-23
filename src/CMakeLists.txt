@@ -32,7 +32,7 @@ set(SOURCE_FILES
         core/resource/image_cache.hpp
 
         core/math/vector_2.hpp
-        core/math/random_utils.hpp
+        core/math/get_random.hpp
         core/math/index_to_matrix.hpp
         core/math/floating.hpp
 
