@@ -2,7 +2,8 @@
 
 #include <type_traits>
 
-#include "math_utils.hpp"
+#include "floating.hpp"
+#include "index_to_matrix.hpp"
 
 namespace wanderer {
 
@@ -109,8 +110,8 @@ class TVector2
       if (magnitude != 0) {
         const auto fx = static_cast<float>(x) / magnitude;
         const auto fy = static_cast<float>(y) / magnitude;
-        x = Math::round(fx);
-        y = Math::round(fy);
+        x = round(fx);
+        y = round(fy);
       }
     }
   }
@@ -379,8 +380,7 @@ class TVector2
     if constexpr (std::is_integral_v<T>) {
       return (lhs.x == rhs.x) && (lhs.y == rhs.y);
     } else {
-      return Math::almost_equal(lhs.x, rhs.x) &&
-             Math::almost_equal(lhs.y, rhs.y);
+      return almost_equal(lhs.x, rhs.x) && almost_equal(lhs.y, rhs.y);
     }
   }
 
@@ -470,7 +470,7 @@ class TVector2
       const auto fx = static_cast<float>(x);
       const auto fy = static_cast<float>(y);
       const auto magnitude = std::sqrt((fx * fx) + (fy * fy));
-      return Math::round(magnitude);
+      return round(magnitude);
     }
   }
 
@@ -496,7 +496,7 @@ class TVector2
     if constexpr (std::is_integral_v<T>) {
       return x == 0 && y == 0;
     } else {
-      return Math::almost_equal(x, 0) && Math::almost_equal(y, 0);
+      return almost_equal(x, 0) && almost_equal(y, 0);
     }
   }
 
@@ -512,7 +512,7 @@ class TVector2
     if constexpr (std::is_integral_v<T>) {
       return get_magnitude() == 1;
     } else {
-      return Math::almost_equal(get_magnitude(), 1);
+      return almost_equal(get_magnitude(), 1);
     }
   }
 };

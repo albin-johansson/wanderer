@@ -1,8 +1,7 @@
 #include "render_bounds_system.hpp"
 
-#include "component/viewport.hpp"
+#include "floating.hpp"
 #include "game_constants.hpp"
-#include "math_utils.hpp"
 
 namespace wanderer::sys {
 
@@ -15,10 +14,10 @@ auto calculate_render_bounds(entt::registry& registry,
   const auto& viewportBounds = viewport.bounds;
 
   comp::render_bounds bounds;
-  bounds.minCol = Math::round(viewportBounds.x()) / g_tileSize<int>;
-  bounds.minRow = Math::round(viewportBounds.y()) / g_tileSize<int>;
-  bounds.maxCol = (Math::round(viewportBounds.max_x()) / g_tileSize<int>)+1;
-  bounds.maxRow = (Math::round(viewportBounds.max_y()) / g_tileSize<int>)+1;
+  bounds.minCol = round(viewportBounds.x()) / g_tileSize<int>;
+  bounds.minRow = round(viewportBounds.y()) / g_tileSize<int>;
+  bounds.maxCol = (round(viewportBounds.max_x()) / g_tileSize<int>)+1;
+  bounds.maxRow = (round(viewportBounds.max_y()) / g_tileSize<int>)+1;
 
   if (bounds.minCol < 0) {
     bounds.minCol = 0;

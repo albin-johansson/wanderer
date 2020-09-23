@@ -6,8 +6,8 @@
 #include "component/depth_drawable.hpp"
 #include "component/tile_layer.hpp"
 #include "game_constants.hpp"
+#include "index_to_matrix.hpp"
 #include "make_tileset.hpp"
-#include "math_utils.hpp"
 
 namespace wanderer {
 namespace {
@@ -32,7 +32,7 @@ namespace {
 
   int index = 0;
   for (const auto gid : stepTileLayer.data()->as_gid()) {
-    const auto [row, col] = Math::index_to_matrix_pos(index, stepLayer.width());
+    const auto [row, col] = index_to_matrix(index, stepLayer.width());
 
     const auto r = static_cast<std::size_t>(row);
     const auto c = static_cast<std::size_t>(col);
@@ -59,7 +59,7 @@ void create_tile_objects(entt::registry& registry,
     const auto& tile =
         registry.get<comp::tile>(tileset.tiles.at(gid.get()).get());
     const auto tileObjectEntity = registry.create();
-    const auto [row, col] = Math::index_to_matrix_pos(index, stepLayer.width());
+    const auto [row, col] = index_to_matrix(index, stepLayer.width());
     const auto tileSize = g_tileSize<float>;
 
     auto& drawable = registry.emplace<comp::depth_drawable>(tileObjectEntity);

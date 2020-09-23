@@ -33,7 +33,8 @@ set(SOURCE_FILES
 
         core/math/vector_2.hpp
         core/math/random_utils.hpp
-        core/math/math_utils.hpp
+        core/math/index_to_matrix.hpp
+        core/math/floating.hpp
 
         utility/input.cpp
         utility/input.hpp

@@ -5,8 +5,8 @@
 #include "component/animated.hpp"
 #include "component/tileset.hpp"
 #include "image_loader.hpp"
+#include "index_to_matrix.hpp"
 #include "make_tile.hpp"
-#include "math_utils.hpp"
 
 namespace wanderer {
 namespace {
@@ -20,8 +20,7 @@ void create_tiles(entt::registry& registry,
 
   auto id = static_cast<tile_id>(stepTileset.first_gid().get());
   for (auto index = 0; index < stepTileset.tile_count(); ++index, ++id) {
-    const auto [row, col] =
-        Math::index_to_matrix_pos(index, stepTileset.columns());
+    const auto [row, col] = index_to_matrix(index, stepTileset.columns());
 
     const auto x = col * stepTileset.tile_width();
     const auto y = row * stepTileset.tile_height();
