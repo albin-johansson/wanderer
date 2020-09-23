@@ -13,7 +13,7 @@ namespace wanderer {
 namespace {
 
 [[nodiscard]] auto create_tile_matrix(const int nRows, const int nCols)
-    -> comp::TileLayer::tile_matrix
+    -> comp::tile_layer::tile_matrix
 {
   const auto rows = static_cast<std::size_t>(nRows);
   const auto cols = static_cast<std::size_t>(nCols);
@@ -23,11 +23,11 @@ namespace {
 [[nodiscard]] auto create_ground_layer(entt::registry& registry,
                                        const step::layer& stepLayer,
                                        const step::tile_layer& stepTileLayer)
-    -> comp::TileLayer::entity
+    -> comp::tile_layer::entity
 {
   const auto groundLayerEntity = registry.create();
 
-  auto& tileLayer = registry.emplace<comp::TileLayer>(groundLayerEntity);
+  auto& tileLayer = registry.emplace<comp::tile_layer>(groundLayerEntity);
   tileLayer.matrix = create_tile_matrix(stepLayer.height(), stepLayer.width());
 
   int index = 0;
@@ -40,7 +40,7 @@ namespace {
     ++index;
   }
 
-  return comp::TileLayer::entity{groundLayerEntity};
+  return comp::tile_layer::entity{groundLayerEntity};
 }
 
 void create_tile_objects(entt::registry& registry,

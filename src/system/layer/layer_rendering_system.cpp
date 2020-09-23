@@ -6,7 +6,7 @@
 namespace wanderer::sys::layer {
 
 void render(entt::registry& registry,
-            const comp::TileLayer& layer,
+            const comp::tile_layer& layer,
             cen::renderer& renderer,
             const comp::tileset& tileset,
             const comp::render_bounds& bounds)

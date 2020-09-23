@@ -41,7 +41,7 @@ struct tilemap final
       NamedType<entt::entity, detail::tilemap_entity_t, fluent::Comparable>;
 
   comp::tileset::entity tileset = null<comp::tileset>();
-  std::vector<TileLayer::entity> layers;
+  std::vector<tile_layer::entity> layers;
 
   // TODO use tile object entity tag type
   std::unordered_map<map_position, entt::entity> tileObjects;
