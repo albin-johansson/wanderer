@@ -4,7 +4,6 @@
 
 #include <centurion.hpp>
 #include <font.hpp>
-#include <hints.hpp>
 #include <log.hpp>
 #include <surface.hpp>
 
@@ -18,8 +17,6 @@ int main(int, char**)
   math::init_rnd();
   cen::library lib;
 
-  using cen::hint::render_driver;
-  cen::set_hint<render_driver>(render_driver::value::opengl);
   cen::log::set_priority(cen::log::priority::info);
 
   application app;
