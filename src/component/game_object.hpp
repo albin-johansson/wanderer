@@ -2,7 +2,7 @@
 
 namespace wanderer::comp {
 
-struct game_object final
+struct game_object final // TODO use or remove
 {
   int depth{5};
   float centerY{};
