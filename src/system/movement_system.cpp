@@ -36,7 +36,7 @@ void update_movement(entt::registry& registry, const delta dt)
             update_direction(movable);
 
             // FIXME
-            if (auto* drawable = registry.try_get<comp::DepthDrawable>(entity);
+            if (auto* drawable = registry.try_get<comp::depth_drawable>(entity);
                 drawable) {
               drawable->centerY =
                   movable.currentPos.y + (drawable->dst.height() / 2.0f);
@@ -57,7 +57,7 @@ void update_movement(entt::registry& registry, const delta dt)
         update_direction(movable);
 
         // FIXME
-        if (auto* drawable = registry.try_get<comp::DepthDrawable>(entity);
+        if (auto* drawable = registry.try_get<comp::depth_drawable>(entity);
             drawable) {
           drawable->centerY =
               movable.currentPos.y + (drawable->dst.height() / 2.0f);

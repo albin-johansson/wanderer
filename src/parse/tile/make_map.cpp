@@ -63,7 +63,7 @@ void create_tile_objects(entt::registry& registry,
     const auto [row, col] = Math::index_to_matrix_pos(index, stepLayer.width());
     const auto tileSize = g_tileSize<float>;
 
-    auto& drawable = registry.emplace<comp::DepthDrawable>(tileObjectEntity);
+    auto& drawable = registry.emplace<comp::depth_drawable>(tileObjectEntity);
     drawable.texture = tile.sheet;
     drawable.src = tile.src;
 

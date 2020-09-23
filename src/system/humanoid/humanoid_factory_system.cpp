@@ -42,7 +42,7 @@ namespace {
   auto& movable = registry.emplace<comp::Movable>(entity);
   movable.dominantDirection = Direction::Down;
 
-  auto& drawable = registry.emplace<comp::DepthDrawable>(entity);
+  auto& drawable = registry.emplace<comp::depth_drawable>(entity);
   drawable.texture = texture;
   drawable.src = {{0, 0}, {64, 64}};
   drawable.dst = {{0, 0}, {g_humanoidDrawWidth, g_humanoidDrawHeight}};

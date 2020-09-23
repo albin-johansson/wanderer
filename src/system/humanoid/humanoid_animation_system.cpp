@@ -31,16 +31,16 @@ template <typename Lambda>
 void update(
     entt::registry& registry,
     const entt::entity entity,
-    Lambda&&
-        lambda) noexcept(noexcept(lambda(std::declval<comp::animated&>(),
-                                         std::declval<comp::Movable&>(),
-                                         std::declval<comp::DepthDrawable&>())))
+    Lambda&& lambda) noexcept(noexcept(lambda(std::declval<comp::animated&>(),
+                                              std::declval<comp::Movable&>(),
+                                              std::declval<
+                                                  comp::depth_drawable&>())))
 {
-  if (registry.has<comp::animated, comp::Movable, comp::DepthDrawable>(
+  if (registry.has<comp::animated, comp::Movable, comp::depth_drawable>(
           entity)) {
     auto& animated = registry.get<comp::animated>(entity);
     auto& movable = registry.get<comp::Movable>(entity);
-    auto& drawable = registry.get<comp::DepthDrawable>(entity);
+    auto& drawable = registry.get<comp::depth_drawable>(entity);
     lambda(animated, movable, drawable);
   }
 }
@@ -86,7 +86,7 @@ void update_move_animation(entt::registry& registry,
          entity,
          [](comp::animated& animated,
             comp::Movable& movable,
-            comp::DepthDrawable& drawable) noexcept {
+            comp::depth_drawable& drawable) noexcept {
            drawable.src.set_x(movable.velocity.is_zero()
                                   ? 0
                                   : static_cast<int>(animated.frame) * 64);
@@ -113,7 +113,7 @@ void update_attack_animation(entt::registry& registry,
          entity,
          [&registry, entity](comp::animated& animated,
                              comp::Movable&,
-                             comp::DepthDrawable& drawable) noexcept {
+                             comp::depth_drawable& drawable) noexcept {
            drawable.src.set_x(static_cast<int>(animated.frame) * 64);
            if (animated.frame == animated.nFrames - 1) {
              auto& attack = registry.get<comp::HumanoidAttack>(entity);
@@ -145,7 +145,7 @@ void enter_animation(entt::registry& registry,
          entity,
          [nFrames, sourceY, delay](comp::animated& animated,
                                    comp::Movable& movable,
-                                   comp::DepthDrawable& drawable) noexcept {
+                                   comp::depth_drawable& drawable) noexcept {
            animated.frame = 0;
            animated.nFrames = nFrames;
            animated.delay = delay;
@@ -170,7 +170,7 @@ void enter_move_animation(entt::registry& registry,
          entity,
          [direction](comp::animated& animated,
                      comp::Movable&,
-                     comp::DepthDrawable& drawable) noexcept {
+                     comp::depth_drawable& drawable) noexcept {
            animated.frame = 0;
            animated.nFrames = 9;
            animated.delay = moveDelay;
