@@ -8,8 +8,6 @@
 #include "math_utils.hpp"
 #include "tileset.hpp"
 
-using namespace wanderer::comp;
-
 namespace wanderer {
 namespace {
 

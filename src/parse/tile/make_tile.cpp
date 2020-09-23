@@ -6,17 +6,15 @@
 #include "animated_tile.hpp"
 #include "tile.hpp"
 
-using namespace wanderer::comp;
-
 namespace wanderer {
 namespace {
 
 void add_animation(entt::registry& registry,
-                   const Tile::entity tileEntity,
+                   const comp::Tile::entity tileEntity,
                    const step::animation& stepAnimation,
                    const tile_id firstgid)
 {
-  auto& animatedTile = registry.emplace<AnimatedTile>(tileEntity.get());
+  auto& animatedTile = registry.emplace<comp::AnimatedTile>(tileEntity.get());
   animatedTile.frame = 0;
   animatedTile.then = cen::counter::ticks().count();  // FIXME
 
@@ -35,7 +33,7 @@ void add_animation(entt::registry& registry,
 }  // namespace
 
 void parse_special_tile(entt::registry& registry,
-                        const Tile::entity tileEntity,
+                        const comp::Tile::entity tileEntity,
                         const step::tile& stepTile,
                         const tile_id firstGID)
 {
@@ -51,16 +49,16 @@ void parse_special_tile(entt::registry& registry,
 auto make_basic_tile(entt::registry& registry,
                      const tile_id id,
                      const entt::handle<cen::texture>& sheet,
-                     const cen::irect& src) noexcept -> Tile::entity
+                     const cen::irect& src) noexcept -> comp::Tile::entity
 {
   const auto tileEntity = registry.create();
 
-  auto& tile = registry.emplace<Tile>(tileEntity);
+  auto& tile = registry.emplace<comp::Tile>(tileEntity);
   tile.id = id;
   tile.sheet = sheet;
   tile.src = src;
 
-  return Tile::entity{tileEntity};
+  return comp::Tile::entity{tileEntity};
 }
 
 }  // namespace wanderer
