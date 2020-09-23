@@ -60,8 +60,8 @@ namespace {
       hitbox::create(
           {comp::subhitbox{vector2f{}, cen::frect{{}, humanoidSize}}}));
 
-  registry.emplace<comp::Humanoid>(entity);
-  registry.emplace<comp::HumanoidIdle>(entity);
+  registry.emplace<comp::humanoid>(entity);
+  registry.emplace<comp::humanoid_idle>(entity);
 
   return entity;
 }

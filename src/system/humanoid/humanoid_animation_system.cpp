@@ -116,7 +116,7 @@ void update_attack_animation(entt::registry& registry,
                              comp::depth_drawable& drawable) noexcept {
            drawable.src.set_x(static_cast<int>(animated.frame) * 64);
            if (animated.frame == animated.nFrames - 1) {
-             auto& attack = registry.get<comp::HumanoidAttack>(entity);
+             auto& attack = registry.get<comp::humanoid_attack>(entity);
              attack.done = true;
            }
          });
@@ -205,12 +205,12 @@ void enter_spear_animation(entt::registry& registry,
 
 void update_animation(entt::registry& registry)
 {
-  const auto entities = registry.view<comp::Humanoid>();
+  const auto entities = registry.view<comp::humanoid>();
   for (const auto entity : entities) {
-    if (registry.has<comp::HumanoidMove>(entity)) {
+    if (registry.has<comp::humanoid_move>(entity)) {
       update_move_animation(registry, entity);
     }
-    if (registry.has<comp::HumanoidAttack>(entity)) {
+    if (registry.has<comp::humanoid_attack>(entity)) {
       update_attack_animation(registry, entity);
     }
   }

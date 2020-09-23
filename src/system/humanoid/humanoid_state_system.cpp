@@ -9,8 +9,8 @@ namespace {
 void update_attacking_humanoids(entt::registry& registry,
                                 entt::dispatcher& dispatcher)
 {
-  registry.view<comp::HumanoidAttack>().each(
-      [&](const auto entity, const comp::HumanoidAttack& attack) {
+  registry.view<comp::humanoid_attack>().each(
+      [&](const auto entity, const comp::humanoid_attack& attack) {
         if (attack.done) {
           dispatcher.enqueue<EndAttackEvent>(
               &registry, entity, attack.weapon, Direction::Down);

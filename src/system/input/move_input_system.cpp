@@ -121,7 +121,7 @@ void handle_move_input(entt::registry& registry,
                        const entt::entity player,
                        const Input& input)
 {
-  if (registry.has<comp::HumanoidMove>(player)) {
+  if (registry.has<comp::humanoid_move>(player)) {
     auto& movable = registry.get<comp::Movable>(player);
     const auto& binds = registry.get<comp::binds>(player);
     const bool areMoveKeysDown = check_pressed(movable, input, binds);

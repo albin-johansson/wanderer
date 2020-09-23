@@ -13,7 +13,7 @@ void handle_idle_input(entt::registry& registry,
                        const entt::entity player,
                        const Input& input)
 {
-  if (registry.has<comp::HumanoidIdle>(player)) {
+  if (registry.has<comp::humanoid_idle>(player)) {
     const auto& binds = registry.get<comp::binds>(player);
 
     const auto left = input.is_pressed(binds.left);

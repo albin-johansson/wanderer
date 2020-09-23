@@ -8,11 +8,11 @@ namespace wanderer::sys::humanoid {
 void on_move_begin(const BeginHumanoidMoveEvent& event)
 {
   assert(event.registry != nullptr);
-  assert(!event.registry->has<comp::HumanoidMove>(event.entity));
+  assert(!event.registry->has<comp::humanoid_move>(event.entity));
 
   const auto entity = event.entity;
 
-  event.registry->emplace<comp::HumanoidMove>(entity);
+  event.registry->emplace<comp::humanoid_move>(entity);
 
   humanoid::enter_move_animation(*event.registry, entity, event.direction);
 }
@@ -20,13 +20,13 @@ void on_move_begin(const BeginHumanoidMoveEvent& event)
 void on_move_end(const EndHumanoidMoveEvent& event)
 {
   assert(event.registry != nullptr);
-  assert(event.registry->has<comp::HumanoidMove>(event.entity));
+  assert(event.registry->has<comp::humanoid_move>(event.entity));
 
   const auto entity = event.entity;
 
   //  event.registry->remove<HumanoidMove>(entity);
-  event.registry->emplace<comp::HumanoidIdle>(entity);
-  assert(!event.registry->has<comp::HumanoidMove>(entity));
+  event.registry->emplace<comp::humanoid_idle>(entity);
+  assert(!event.registry->has<comp::humanoid_move>(entity));
 
   humanoid::enter_idle_animation(*event.registry, entity);
 }
