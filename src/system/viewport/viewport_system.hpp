@@ -10,8 +10,8 @@ namespace wanderer::sys::viewport {
 /**
  * Updates the position of the viewport by slowly tracking a movable entity.
  *
- * @pre <code>viewportEntity</code> must have a <code>Viewport</code> component.
- * @pre <code>playerEntity</code> must have a <code>Movable</code> component.
+ * @pre `viewportEntity` must have a `Viewport` component.
+ * @pre `playerEntity` must have a `Movable` component.
  *
  * @param registry the registry that holds the viewport and the player.
  * @param viewportEntity the entity ID for the viewport.

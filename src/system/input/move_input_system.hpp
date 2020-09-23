@@ -18,7 +18,7 @@ namespace wanderer::sys::input {
  * @brief Handles the player input if the player is moving.
  *
  * @note This method has no effect if the player entity doesn't have a
- * `HumanoidMove` component.
+ * `humanoid_move` component.
  *
  * @pre The player entity must feature `Movable` and `Binds` components.
  *

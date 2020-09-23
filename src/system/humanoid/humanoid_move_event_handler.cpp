@@ -24,7 +24,7 @@ void on_move_end(const end_humanoid_move_event& event)
 
   const auto entity = event.entity;
 
-  //  event.registry->remove<HumanoidMove>(entity);
+  //  event.registry->remove<humanoid_move>(entity);
   event.registry->emplace<comp::humanoid_idle>(entity);
   assert(!event.registry->has<comp::humanoid_move>(entity));
 

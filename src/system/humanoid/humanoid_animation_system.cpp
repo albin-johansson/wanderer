@@ -101,7 +101,7 @@ void update_move_animation(entt::registry& registry,
 /**
  * @brief Updates the attack animation of a humanoid.
  *
- * @pre `entity` must have a `HumanoidAttack` component.
+ * @pre `entity` must have a `humanoid_attack` component.
  *
  * @param registry the associated registry.
  * @param entity the entity that will be updated.

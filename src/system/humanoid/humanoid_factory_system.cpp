@@ -20,16 +20,19 @@ namespace wanderer::sys::humanoid {
 namespace {
 
 /**
- * Adds a humanoid entity to the registry and returns the associated
- * identifier. The entity will have <code>Movable</code>,
- * <code>DepthDrawable</code>, <code>Animated</code>, <code>Collision</code>,
- * <code>Humanoid</code> and <code>HumanoidIdle</code> components added to it
- * . Select components will have default values assigned to them, which might
- * have to be tweaked for the specific humanoid.
+ * @brief Adds a humanoid entity to the registry and returns the associated
+ * identifier.
  *
- * @pre <code>texture</code> must be a valid handle.
+ * @details The entity will have `movable`, `depth_drawable`, `animated`,
+ * `humanoid` and `humanoid_idle` components added to it. Select components
+ * will have default values assigned to them, which might have to be tweaked
+ * for the specific humanoid.
+ *
+ * @pre `texture` must be a valid handle.
+ *
  * @param registry the registry that will be used.
  * @param texture the handle to the texture that will be used by the humanoid.
+ *
  * @return the identifier associated with the created humanoid.
  */
 [[nodiscard]] auto create_basic_humanoid(

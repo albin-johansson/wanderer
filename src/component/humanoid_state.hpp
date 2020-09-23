@@ -40,9 +40,9 @@ struct humanoid_move final
  *
  * @brief Represents the attack state of a humanoid.
  *
- * @var HumanoidAttack::weapon
+ * @var humanoid_attack::weapon
  * The weapon used for the attack.
- * @var HumanoidAttack::done
+ * @var humanoid_attack::done
  * Indicates whether or not the attack is done.
  *
  * @headerfile humanoid_state.hpp
