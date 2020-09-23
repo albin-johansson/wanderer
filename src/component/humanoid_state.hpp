@@ -18,24 +18,24 @@ namespace wanderer::comp {
  * @brief A tag type used to identify humanoids.
  * @headerfile humanoid_state.hpp
  */
-struct Humanoid final {
-};
+struct Humanoid final
+{};
 
 /**
  * @struct HumanoidIdle
  * @brief A tag type used to identify the idle state of a humanoid.
  * @headerfile humanoid_state.hpp
  */
-struct HumanoidIdle final {
-};
+struct HumanoidIdle final
+{};
 
 /**
  * @struct HumanoidMove
  * @brief A tag type used to identify the moving state of a humanoid.
  * @headerfile humanoid_state.hpp
  */
-struct HumanoidMove final {
-};
+struct HumanoidMove final
+{};
 
 /**
  * @struct HumanoidAttack
@@ -48,7 +48,8 @@ struct HumanoidMove final {
  *
  * @headerfile humanoid_state.hpp
  */
-struct HumanoidAttack final {
+struct HumanoidAttack final
+{
   entt::entity weapon{entt::null};  // TODO weapon component entity tag
   bool done{false};
 };
@@ -58,7 +59,7 @@ struct HumanoidAttack final {
  * @brief A tag type used to identify the dying state of a humanoid.
  * @headerfile humanoid_state.hpp
  */
-struct HumanoidDie final {
-};
+struct HumanoidDie final
+{};
 
 }  // namespace wanderer::comp

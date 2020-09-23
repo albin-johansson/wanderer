@@ -25,7 +25,8 @@ namespace wanderer::comp {
  *
  * @headerfile tileset.hpp
  */
-struct Tileset final {
+struct Tileset final
+{
   using entity = fluent::
       NamedType<entt::entity, struct TilesetEntityTag, fluent::Comparable>;
 

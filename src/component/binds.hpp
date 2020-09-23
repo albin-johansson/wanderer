@@ -31,7 +31,8 @@ namespace wanderer::comp {
  *
  * @headerfile binds.hpp
  */
-struct Binds final {
+struct Binds final
+{
   cen::key_code up{SDLK_w};
   cen::key_code right{SDLK_d};
   cen::key_code down{SDLK_s};

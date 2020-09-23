@@ -26,7 +26,8 @@ namespace wanderer::comp {
  *
  * @headerfile viewport.hpp
  */
-struct Viewport final {
+struct Viewport final
+{
   using entity = fluent::
       NamedType<entt::entity, struct ViewportEntityTag, fluent::Comparable>;
   cen::frect bounds{};

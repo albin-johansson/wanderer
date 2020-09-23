@@ -34,7 +34,8 @@ namespace wanderer {
  *
  * @headerfile begin_humanoid_move_event.hpp
  */
-struct BeginHumanoidMoveEvent final {
+struct BeginHumanoidMoveEvent final
+{
   entt::registry* registry{nullptr};
   entt::entity entity{entt::null};  // TODO tag type
   Direction direction{Direction::Down};
@@ -42,7 +43,9 @@ struct BeginHumanoidMoveEvent final {
   BeginHumanoidMoveEvent(entt::registry* registry,
                          const entt::entity entity,
                          const Direction direction) noexcept
-      : registry{registry}, entity{entity}, direction{direction}
+      : registry{registry},
+        entity{entity},
+        direction{direction}
   {}
 };
 

@@ -41,7 +41,8 @@ namespace wanderer::comp {
  *
  * @headerfile depth_drawable.hpp
  */
-struct DepthDrawable final {
+struct DepthDrawable final
+{
   entt::handle<cen::texture> texture;
   depth depth{5};
   float centerY{0};

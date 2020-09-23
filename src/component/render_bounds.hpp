@@ -25,7 +25,8 @@ namespace wanderer::comp {
  *
  * @headerfile render_bounds.hpp
  */
-struct RenderBounds final {
+struct RenderBounds final
+{
   int minRow{};
   int minCol{};
   int maxRow{};

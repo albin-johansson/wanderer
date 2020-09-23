@@ -8,7 +8,8 @@
 
 namespace wanderer {
 
-class Input final {
+class Input final
+{
  public:
   Input() noexcept;
 

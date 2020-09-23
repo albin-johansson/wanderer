@@ -30,13 +30,15 @@ namespace wanderer {
  *
  * @headerfile end_humanoid_move_event.hpp
  */
-struct EndHumanoidMoveEvent final {
+struct EndHumanoidMoveEvent final
+{
   entt::registry* registry{nullptr};
   entt::entity entity{entt::null};  // TODO tag type
 
   EndHumanoidMoveEvent(entt::registry* registry,
                        const entt::entity entity) noexcept
-      : registry{registry}, entity{entity}
+      : registry{registry},
+        entity{entity}
   {}
 };
 

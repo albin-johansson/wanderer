@@ -28,7 +28,8 @@ namespace wanderer::comp {
  *
  * @headerfile hitbox.hpp
  */
-struct Subhitbox final {
+struct Subhitbox final
+{
   vector2f offset;
   cen::frect rect;
 };
@@ -44,7 +45,8 @@ struct Subhitbox final {
  *
  * @headerfile hitbox.hpp
  */
-struct Hitbox final {
+struct Hitbox final
+{
   using entity = fluent::NamedType<entt::entity, struct HitboxEntityTag>;
   cen::frect bounds;
   std::vector<Subhitbox> boxes;

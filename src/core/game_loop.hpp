@@ -21,7 +21,8 @@ namespace wanderer {
  *
  * @headerfile game_loop.hpp
  */
-class GameLoop final {
+class GameLoop final
+{
  public:
   /**
    * @brief Creates a `GameLoop` instance.

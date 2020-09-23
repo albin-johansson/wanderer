@@ -7,7 +7,8 @@
 namespace wanderer {
 
 template <typename T>
-class TVector2 {
+class TVector2
+{
  public:
   T x = 0;
   T y = 0;
@@ -34,7 +35,8 @@ class TVector2 {
    * @param other the vector that will be moved.
    * @since 0.1.0
    */
-  constexpr TVector2(TVector2<T>&& other) noexcept : x{other.x}, y{other.y} {}
+  constexpr TVector2(TVector2<T>&& other) noexcept : x{other.x}, y{other.y}
+  {}
 
   /**
    * Creates a vector with the specified components.
@@ -43,7 +45,8 @@ class TVector2 {
    * @param y the y-coordinate that will be used by the vector.
    * @since 0.1.0
    */
-  constexpr TVector2(T x, T y) noexcept : x{x}, y{y} {}
+  constexpr TVector2(T x, T y) noexcept : x{x}, y{y}
+  {}
 
   /**
    * Copies the components of the supplied vector.

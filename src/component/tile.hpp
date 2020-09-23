@@ -23,7 +23,8 @@ namespace wanderer::comp {
  * @struct Tile
  * @headerfile tile.hpp
  */
-struct Tile final {
+struct Tile final
+{
   using entity =
       fluent::NamedType<entt::entity, struct TileEntityTag, fluent::Comparable>;
 

@@ -1,6 +1,6 @@
-#include "interpolation_system.h"
+#include "interpolation_system.hpp"
 
-#include "movable.h"
+#include "movable.hpp"
 
 using wanderer::comp::Movable;
 

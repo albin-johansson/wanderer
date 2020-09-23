@@ -1,9 +1,9 @@
-#include "movement_system.h"
+#include "movement_system.hpp"
 
-#include "depth_drawable.h"
-#include "hitbox.h"
-#include "hitbox_system.h"
-#include "movable.h"
+#include "depth_drawable.hpp"
+#include "hitbox.hpp"
+#include "hitbox_system.hpp"
+#include "movable.hpp"
 
 using wanderer::comp::DepthDrawable;
 using wanderer::comp::Hitbox;

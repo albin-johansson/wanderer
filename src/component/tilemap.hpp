@@ -40,7 +40,8 @@ namespace wanderer::comp {
  *
  * @headerfile tilemap.hpp
  */
-struct Tilemap final {
+struct Tilemap final
+{
   using entity = fluent::
       NamedType<entt::entity, struct TilemapEntityTag, fluent::Comparable>;
 

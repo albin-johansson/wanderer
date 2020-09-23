@@ -27,7 +27,8 @@ namespace wanderer::comp {
  *
  * @headerfile map_position.hpp
  */
-struct MapPosition final {
+struct MapPosition final
+{
   int row{};
   int col{};
 };
@@ -61,7 +62,8 @@ struct MapPosition final {
 }  // namespace wanderer::comp
 
 template <>
-class std::hash<wanderer::comp::MapPosition> {
+class std::hash<wanderer::comp::MapPosition>
+{
   using MapPosition = wanderer::comp::MapPosition;
 
  public:

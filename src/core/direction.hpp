@@ -25,6 +25,12 @@ namespace wanderer {
  *
  * @headerfile direction.hpp
  */
-enum class Direction { Up, Right, Down, Left };
+enum class Direction
+{
+  Up,
+  Right,
+  Down,
+  Left
+};
 
 }  // namespace wanderer

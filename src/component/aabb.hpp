@@ -41,7 +41,8 @@ namespace wanderer::comp {
  *
  * @headerfile aabb.hpp
  */
-struct AABB {
+struct AABB
+{
   vector2f min;  // the NW corner coordinates
   vector2f max;  // the SE corner coordinates
   vector2f center;
@@ -66,7 +67,8 @@ struct AABB {
  *
  * @headerfile aabb.hpp
  */
-struct AABBNode {
+struct AABBNode
+{
   AABB box;
   entt::entity parent{entt::null};
   entt::entity left{entt::null};
@@ -79,7 +81,7 @@ struct AABBNode {
  *
  * @headerfile aabb.hpp
  */
-struct AABBRoot {
-};
+struct AABBRoot
+{};
 
 }  // namespace wanderer::comp

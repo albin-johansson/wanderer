@@ -27,7 +27,8 @@ namespace wanderer::comp {
  *
  * @headerfile animated.hpp
  */
-struct Animated final {
+struct Animated final
+{
   u32 frame{0};
   u32 nFrames{1};
   u32 then{0};

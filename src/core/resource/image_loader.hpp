@@ -25,7 +25,8 @@ namespace wanderer {
  *
  * @headerfile image_loader.hpp
  */
-class ImageLoader final : public entt::loader<ImageLoader, cen::texture> {
+class ImageLoader final : public entt::loader<ImageLoader, cen::texture>
+{
  public:
   /**
    * @brief Creates and returns a texture.

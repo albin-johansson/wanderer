@@ -17,7 +17,7 @@ namespace wanderer::comp {
  * @brief A tag type used to identify the player.
  * @headerfile player.hpp
  */
-struct Player {
-};
+struct Player
+{};
 
 }  // namespace wanderer::comp

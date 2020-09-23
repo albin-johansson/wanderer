@@ -1,6 +1,6 @@
-#include "input.h"
+#include "input.hpp"
 
-#include "game_constants.h"
+#include "game_constants.hpp"
 
 namespace wanderer {
 

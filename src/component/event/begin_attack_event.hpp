@@ -40,7 +40,8 @@ namespace wanderer {
  *
  * @headerfile begin_attack_event.hpp
  */
-struct BeginAttackEvent final {
+struct BeginAttackEvent final
+{
   entt::registry* registry{nullptr};
   entt::entity sourceEntity{entt::null};  // TODO tag type
   entt::entity weapon{entt::null};        // TODO weapon component entity tag

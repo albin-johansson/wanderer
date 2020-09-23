@@ -39,7 +39,8 @@ namespace wanderer::comp {
  *
  * @headerfile movable.hpp
  */
-struct Movable final {
+struct Movable final
+{
   vector2f velocity;
   vector2f currentPos;
   vector2f oldPos;

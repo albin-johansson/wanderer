@@ -2,7 +2,8 @@
 
 namespace wanderer::comp {
 
-struct GameObject final {
+struct GameObject final
+{
   int depth{5};
   float centerY{};
 

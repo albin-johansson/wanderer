@@ -25,7 +25,8 @@ namespace wanderer::comp {
  *
  * @headerfile animated_tile.hpp
  */
-struct Frame final {
+struct Frame final
+{
   tile_id tile{g_emptyTile};
   u32 duration{};
 };
@@ -49,7 +50,8 @@ struct Frame final {
  *
  * @headerfile animated_tile.hpp
  */
-struct AnimatedTile final {
+struct AnimatedTile final
+{
   u32 frame{0};
   u32 then{};
   std::vector<Frame> frames;

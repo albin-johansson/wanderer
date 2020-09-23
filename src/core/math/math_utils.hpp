@@ -10,7 +10,8 @@ inline constexpr T pi{static_cast<T>(3.14159265358979323)};
 inline constexpr auto pi_f = pi<float>;
 inline constexpr auto pi_d = pi<double>;
 
-class Math final {
+class Math final
+{
  public:
   Math() = delete;
 

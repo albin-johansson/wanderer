@@ -1,7 +1,7 @@
-#include "render_depth_drawables_system.h"
+#include "render_depth_drawables_system.hpp"
 
-#include "depth_drawable.h"
-#include "hitbox.h"
+#include "depth_drawable.hpp"
+#include "hitbox.hpp"
 
 using wanderer::comp::DepthDrawable;
 
