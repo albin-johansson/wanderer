@@ -11,7 +11,6 @@
 #include <type_traits>  // is_floating_point_v
 
 namespace wanderer::math {
-namespace {
 
 [[nodiscard]] inline auto get_seeded_engine() -> std::mt19937
 {
@@ -32,8 +31,6 @@ namespace {
 }
 
 inline std::mt19937 engine{get_seeded_engine()};
-
-}  // namespace
 
 /**
  * @brief Returns a random value in the specified inclusive range.
