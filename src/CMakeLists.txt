@@ -10,114 +10,114 @@ function(wanderer_set_properties [target [outputName]])
 endfunction()
 
 set(SOURCE_FILES
-        doxygen_docs.h
+        doxygen_docs.hpp
 
-        core/wanderer_stdinc.h
-        core/game.h
+        core/wanderer_stdinc.hpp
+        core/game.hpp
         core/game.cpp
         core/application.cpp
-        core/application.h
-        core/game_loop.h
+        core/application.hpp
+        core/game_loop.hpp
         core/game_loop.cpp
-        core/direction.h
-        core/game_constants.h
+        core/direction.hpp
+        core/game_constants.hpp
 
         core/add_humanoid_state_dependencies.cpp
-        core/add_humanoid_state_dependencies.h
+        core/add_humanoid_state_dependencies.hpp
         core/event_connections.cpp
-        core/event_connections.h
+        core/event_connections.hpp
 
         core/resource/image_loader.cpp
-        core/resource/image_loader.h
-        core/resource/image_cache.h
+        core/resource/image_loader.hpp
+        core/resource/image_cache.hpp
 
-        core/math/vector_2.h
-        core/math/random_utils.h
-        core/math/math_utils.h
+        core/math/vector_2.hpp
+        core/math/random_utils.hpp
+        core/math/math_utils.hpp
 
         utility/input.cpp
-        utility/input.h
+        utility/input.hpp
 
-        component/player.h
-        component/movable.h
-        component/hitbox.h
-        component/humanoid_state.h
-        component/binds.h
-        component/animated.h
-        component/tilemap.h
-        component/tile_layer.h
-        component/tileset.h
-        component/tile.h
-        component/animated_tile.h
-        component/render_bounds.h
-        component/depth_drawable.h
-        component/game_object.h
-        component/viewport.h
-        component/map_position.h
-        component/aabb.h
+        component/player.hpp
+        component/movable.hpp
+        component/hitbox.hpp
+        component/humanoid_state.hpp
+        component/binds.hpp
+        component/animated.hpp
+        component/tilemap.hpp
+        component/tile_layer.hpp
+        component/tileset.hpp
+        component/tile.hpp
+        component/animated_tile.hpp
+        component/render_bounds.hpp
+        component/depth_drawable.hpp
+        component/game_object.hpp
+        component/viewport.hpp
+        component/map_position.hpp
+        component/aabb.hpp
 
-        component/event/begin_attack_event.h
-        component/event/end_attack_event.h
-        component/event/begin_humanoid_move_event.h
-        component/event/end_humanoid_move_event.h
+        component/event/begin_attack_event.hpp
+        component/event/end_attack_event.hpp
+        component/event/begin_humanoid_move_event.hpp
+        component/event/end_humanoid_move_event.hpp
 
         system/render_depth_drawables_system.cpp
-        system/render_depth_drawables_system.h
+        system/render_depth_drawables_system.hpp
         system/movement_system.cpp
-        system/movement_system.h
-        system/interpolation_system.h
+        system/movement_system.hpp
+        system/interpolation_system.hpp
         system/interpolation_system.cpp
         system/animation_system.cpp
-        system/animation_system.h
+        system/animation_system.hpp
         system/ground_layer_rendering_system.cpp
-        system/ground_layer_rendering_system.h
+        system/ground_layer_rendering_system.hpp
         system/render_bounds_system.cpp
-        system/render_bounds_system.h
+        system/render_bounds_system.hpp
         system/movable_depth_drawables_system.cpp
-        system/movable_depth_drawables_system.h
+        system/movable_depth_drawables_system.hpp
         system/hitbox_system.cpp
-        system/hitbox_system.h
+        system/hitbox_system.hpp
 
         system/viewport/viewport_system.cpp
-        system/viewport/viewport_system.h
+        system/viewport/viewport_system.hpp
         system/viewport/make_viewport_system.cpp
-        system/viewport/make_viewport_system.h
+        system/viewport/make_viewport_system.hpp
 
         system/tile/tile_animation_system.cpp
-        system/tile/tile_animation_system.h
+        system/tile/tile_animation_system.hpp
         system/tile/tile_rendering_system.cpp
-        system/tile/tile_rendering_system.h
+        system/tile/tile_rendering_system.hpp
 
         system/layer/layer_rendering_system.cpp
-        system/layer/layer_rendering_system.h
+        system/layer/layer_rendering_system.hpp
 
         system/humanoid/humanoid_animation_system.cpp
-        system/humanoid/humanoid_animation_system.h
+        system/humanoid/humanoid_animation_system.hpp
         system/humanoid/humanoid_state_system.cpp
-        system/humanoid/humanoid_state_system.h
+        system/humanoid/humanoid_state_system.hpp
         system/humanoid/humanoid_factory_system.cpp
-        system/humanoid/humanoid_factory_system.h
+        system/humanoid/humanoid_factory_system.hpp
         system/humanoid/humanoid_attack_event_handler.cpp
-        system/humanoid/humanoid_attack_event_handler.h
+        system/humanoid/humanoid_attack_event_handler.hpp
         system/humanoid/humanoid_move_event_handler.cpp
-        system/humanoid/humanoid_move_event_handler.h
+        system/humanoid/humanoid_move_event_handler.hpp
 
         system/input/input_system.cpp
-        system/input/input_system.h
+        system/input/input_system.hpp
         system/input/move_input_system.cpp
-        system/input/move_input_system.h
+        system/input/move_input_system.hpp
         system/input/idle_input_system.cpp
-        system/input/idle_input_system.h
+        system/input/idle_input_system.hpp
 
         parse/tile/make_tile.cpp
-        parse/tile/make_tile.h
-        parse/tile/make_map.h
+        parse/tile/make_tile.hpp
+        parse/tile/make_map.hpp
         parse/tile/make_map.cpp
         parse/tile/make_tileset.cpp
-        parse/tile/make_tileset.h
+        parse/tile/make_tileset.hpp
 
         system/collision/aabb_system.cpp
-        system/collision/aabb_system.h)
+        system/collision/aabb_system.hpp)
 
 add_library(${WANDERER_LIB_TARGET} ${SOURCE_FILES})
 
