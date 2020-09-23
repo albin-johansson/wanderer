@@ -60,7 +60,7 @@ void stop(comp::Movable& movable, const Direction direction) noexcept
 
 [[nodiscard]] auto check_pressed(comp::Movable& movable,
                                  const Input& input,
-                                 const comp::Binds& binds) -> bool
+                                 const comp::binds& binds) -> bool
 {
   const auto left = input.is_pressed(binds.left);
   const auto right = input.is_pressed(binds.right);
@@ -90,7 +90,7 @@ void stop(comp::Movable& movable, const Direction direction) noexcept
 
 void check_released(comp::Movable& movable,
                     const Input& input,
-                    const comp::Binds& binds)
+                    const comp::binds& binds)
 {
   const auto left = input.was_released(binds.left);
   const auto right = input.was_released(binds.right);
@@ -123,7 +123,7 @@ void handle_move_input(entt::registry& registry,
 {
   if (registry.has<comp::HumanoidMove>(player)) {
     auto& movable = registry.get<comp::Movable>(player);
-    const auto& binds = registry.get<comp::Binds>(player);
+    const auto& binds = registry.get<comp::binds>(player);
     const bool areMoveKeysDown = check_pressed(movable, input, binds);
     check_released(movable, input, binds);
 

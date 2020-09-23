@@ -89,7 +89,7 @@ auto add_player(entt::registry& registry,
   movable.dominantDirection = Direction::Down;
   movable.oldPos = movable.currentPos;
 
-  registry.emplace<comp::Binds>(playerEntity);
+  registry.emplace<comp::binds>(playerEntity);
 
   return playerEntity;
 }
