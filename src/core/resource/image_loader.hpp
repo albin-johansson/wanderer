@@ -21,7 +21,7 @@ namespace wanderer {
  * @class ImageLoader
  * @brief Used as a factory for creating textures.
  * @details This class is responsible for creating textures and should be the
- * way to load textures in combination with `ImageCache` caches.
+ * way to load textures in combination with `image_cache` caches.
  *
  * @headerfile image_loader.hpp
  */

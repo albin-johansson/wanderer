@@ -18,19 +18,19 @@ struct tilemap_entity_t;
  * @struct tilemap
  * @brief Represents a tilemap (a level in the game).
  *
- * @var Tilemap::tileset
+ * @var tilemap::tileset
  * The associated tileset.
- * @var Tilemap::layers
+ * @var tilemap::layers
  * The tile layers in the map.
- * @var Tilemap::tileObjects
+ * @var tilemap::tileObjects
  * The tile objects in the map.
- * @var Tilemap::width
+ * @var tilemap::width
  * The width of the tilemap, in pixels.
- * @var Tilemap::height
+ * @var tilemap::height
  * The height of the tilemap, in pixels.
- * @var Tilemap::rows
+ * @var tilemap::rows
  * The amount of rows in the tilemap.
- * @var Tilemap::cols
+ * @var tilemap::cols
  * The amount of columns in the tilemap.
  *
  * @headerfile tilemap.hpp

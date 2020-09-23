@@ -7,7 +7,7 @@
 namespace wanderer {
 
 /**
- * @typedef ImageCache
+ * @typedef image_cache
  * @brief Used for caches that store centurion textures.
  */
 using image_cache = entt::cache<cen::texture>;
