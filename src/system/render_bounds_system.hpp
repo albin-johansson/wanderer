@@ -1,11 +1,3 @@
-/**
- * @brief Provides the system for determining what should be rendered.
- * @file render_bounds_system.hpp
- * @author Albin Johansson
- * @copyright MIT License
- * @date 2020
- */
-
 #pragma once
 
 #include "component/render_bounds.hpp"

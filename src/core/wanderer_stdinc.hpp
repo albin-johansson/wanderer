@@ -1,11 +1,3 @@
-/**
- * @brief Provides common utilities and aliases used in the game.
- * @file wanderer_stdinc.hpp
- * @author Albin Johansson
- * @copyright MIT License
- * @date 2020
- */
-
 #pragma once
 
 #include <cstdint>

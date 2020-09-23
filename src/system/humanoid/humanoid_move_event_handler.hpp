@@ -1,10 +1,3 @@
-/**
- * This file declares all functions related to handling humanoid movement
- * events.
- *
- * @file humanoid_move_event_handler.hpp
- */
-
 #pragma once
 
 #include "component/event/begin_humanoid_move_event.hpp"

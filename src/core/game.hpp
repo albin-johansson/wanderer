@@ -1,11 +1,3 @@
-/**
- * @brief Provides the `Game` class.
- * @file game.hpp
- * @author Albin Johansson
- * @copyright MIT License
- * @date 2020
- */
-
 #pragma once
 
 #include <renderer.hpp>

@@ -1,11 +1,3 @@
-/**
- * @brief Provides the `Direction` enum class.
- * @file direction.hpp
- * @author Albin Johansson
- * @copyright MIT License
- * @date 2020
- */
-
 #pragma once
 
 namespace wanderer {

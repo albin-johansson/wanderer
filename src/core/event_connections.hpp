@@ -1,13 +1,3 @@
-/**
- * @brief Provides event connection utilities.
- * @details Provides the declarations of functions related to handling the
- * connections of game events to <code>entt::dispatcher</code> instances.
- * @file event_connections.hpp
- * @author Albin Johansson
- * @copyright MIT License
- * @date 2020
- */
-
 #pragma once
 
 #include "wanderer_stdinc.hpp"

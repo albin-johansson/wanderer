@@ -1,11 +1,3 @@
-/**
- * @brief Provides the `GameLoop` class.
- * @file game_loop.hpp
- * @author Albin Johansson
- * @copyright MIT License
- * @date 2020
- */
-
 #pragma once
 
 #include "game.hpp"

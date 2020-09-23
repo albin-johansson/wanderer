@@ -1,14 +1,9 @@
-/**
- * @brief Provides the AABB system.
- * @file aabb_system.hpp
- * @author Albin Johansson
- * @copyright MIT License
- * @note The implementation of this system was heavily inspired by James
- * Randall AABB system used in his <a
+/*
+ * The implementation of this system was heavily inspired by James Randall's
+ * AABB system used in his <a
  * href="https://github.com/JamesRandall/SimpleVoxelEngine">Simple Voxel
  * Engine</a> project. A helpful article can be found <a
  * href="https://www.azurefromthetrenches.com/introductory-guide-to-aabb-tree-collision-detection/">here</a>
- * @date 2020
  */
 
 #pragma once
@@ -89,6 +84,6 @@ void update(entt::registry& registry,
             const comp::aabb& box) noexcept;
 
 // used to obtain collision candidates, could invoke some callback
-void query(entt::registry& registry, const entt::entity entity);
+void query(entt::registry& registry, entt::entity entity);
 
 }  // namespace wanderer::sys::aabb

@@ -1,11 +1,3 @@
-/**
- * @brief Provides the system for dealing with idle player input.
- * @file idle_input_system.hpp
- * @author Albin Johansson
- * @copyright MIT License
- * @date 2020
- */
-
 #pragma once
 
 #include <entt.hpp>

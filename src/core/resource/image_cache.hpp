@@ -1,11 +1,3 @@
-/**
- * @brief Provides the `ImageCache` alias.
- * @file image_cache.hpp
- * @author Albin Johansson
- * @copyright MIT License
- * @date 2020
- */
-
 #pragma once
 
 #include <texture.hpp>
