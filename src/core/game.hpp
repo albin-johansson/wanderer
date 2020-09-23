@@ -25,6 +25,7 @@ class game final
  public:
   /**
    * @brief Creates a `game` instance.
+   *
    * @param renderer the renderer used to create the initial textures.
    */
   explicit game(cen::renderer& renderer);
@@ -33,18 +34,21 @@ class game final
 
   /**
    * @brief Responds to user input.
+   *
    * @param input the current state of the key and mouse input.
    */
   void handle_input(const Input& input);
 
   /**
    * @brief Updates the state of the game.
+   *
    * @param dt the delta time, in seconds.
    */
   void tick(delta dt);
 
   /**
    * @brief Renders the game.
+   *
    * @param renderer the renderer used to render the game.
    * @param alpha the interpolation coefficient, in the range [0, 1].
    */
@@ -54,8 +58,8 @@ class game final
   entt::registry m_registry;  // TODO consider multiple registries
   entt::dispatcher m_dispatcher;
   image_cache m_imageCache;
-  entt::entity m_player;
   comp::tilemap::entity m_world{null<comp::tilemap>()};
+  entt::entity m_player;
   comp::viewport::entity m_viewport{null<comp::viewport>()};
 };
 

@@ -4,7 +4,6 @@
 
 #include "add_humanoid_state_dependencies.hpp"
 #include "animation_system.hpp"
-#include "component/tilemap.hpp"
 #include "event_connections.hpp"
 #include "ground_layer_rendering_system.hpp"
 #include "humanoid_animation_system.hpp"
@@ -22,18 +21,34 @@
 #include "viewport_system.hpp"
 
 namespace wanderer {
+namespace {
+
+[[nodiscard]] auto make_registry() -> entt::registry
+{
+  entt::registry registry;
+  add_humanoid_state_dependencies(registry);
+  return registry;
+}
+
+[[nodiscard]] auto make_dispatcher() -> entt::dispatcher
+{
+  entt::dispatcher dispatcher;
+  connect_events(dispatcher);
+  return dispatcher;
+}
+
+}  // namespace
 
 game::game(cen::renderer& renderer)
+    : m_registry{make_registry()},
+      m_dispatcher{make_dispatcher()},
+      m_world{make_map(m_registry,
+                       "resource/map/world_demo.json",
+                       renderer,
+                       m_imageCache)},
+      m_player{sys::humanoid::add_player(m_registry, renderer, m_imageCache)},
+      m_viewport{sys::viewport::make_viewport(m_registry)}
 {
-  add_humanoid_state_dependencies(m_registry);
-  connect_events(m_dispatcher);
-
-  m_world = make_map(
-      m_registry, "resource/map/world_demo.json", renderer, m_imageCache);
-
-  m_player = sys::humanoid::add_player(m_registry, renderer, m_imageCache);
-  m_viewport = sys::viewport::make_viewport(m_registry);
-
   sys::humanoid::add_skeleton(m_registry, renderer, m_imageCache);
 
   auto& view = m_registry.get<comp::viewport>(m_viewport.get());
