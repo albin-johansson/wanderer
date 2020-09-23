@@ -4,6 +4,7 @@
 #include "begin_humanoid_move_event.hpp"
 #include "binds.hpp"
 #include "direction.hpp"
+#include "humanoid_state.hpp"
 #include "player.hpp"
 
 namespace wanderer::sys::input {

@@ -11,6 +11,7 @@
 #include "game_constants.hpp"
 #include "hitbox.hpp"
 #include "hitbox_system.hpp"
+#include "humanoid_state.hpp"
 #include "image_loader.hpp"
 #include "movable.hpp"
 #include "player.hpp"
@@ -80,7 +81,7 @@ auto add_player(entt::registry& registry,
   const auto playerEntity =
       create_basic_humanoid(registry, imageCache.handle(id));
 
-  registry.emplace<comp::Player>(playerEntity);
+  registry.emplace<comp::player>(playerEntity);
 
   auto& movable = registry.get<comp::movable>(playerEntity);
   movable.speed = g_playerSpeed;

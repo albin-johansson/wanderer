@@ -4,6 +4,7 @@
 #include "binds.hpp"
 #include "direction.hpp"
 #include "end_humanoid_move_event.hpp"
+#include "humanoid_state.hpp"
 #include "movable.hpp"
 #include "player.hpp"
 
