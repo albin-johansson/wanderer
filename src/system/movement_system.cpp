@@ -27,7 +27,7 @@ void update_direction(comp::Movable& movable) noexcept
 
 void update_movement(entt::registry& registry, const delta dt)
 {
-  registry.view<comp::Movable>(entt::exclude<comp::Hitbox>)
+  registry.view<comp::Movable>(entt::exclude<comp::hitbox>)
       .each(
           [&registry, dt](const auto entity, comp::Movable& movable) noexcept {
             movable.oldPos = movable.currentPos;
@@ -43,10 +43,10 @@ void update_movement(entt::registry& registry, const delta dt)
             }
           });
 
-  registry.view<comp::Movable, comp::Hitbox>().each(
+  registry.view<comp::Movable, comp::hitbox>().each(
       [&registry, dt](const auto entity,
                       comp::Movable& movable,
-                      comp::Hitbox& hitbox) noexcept {
+                      comp::hitbox& hitbox) noexcept {
         const auto nextPos = movable.currentPos + (movable.velocity * dt.get());
 
         // TODO check if the entity will collide with something at next position

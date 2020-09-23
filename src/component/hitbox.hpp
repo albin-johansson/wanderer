@@ -1,11 +1,3 @@
-/**
- * @brief Provides the `Hitbox` component.
- * @file hitbox.hpp
- * @author Albin Johansson
- * @copyright MIT License
- * @date 2020
- */
-
 #pragma once
 
 #include <rect.hpp>
@@ -15,41 +7,46 @@
 #include "wanderer_stdinc.hpp"
 
 namespace wanderer::comp {
+namespace detail {
+struct hitbox_entity_t;
+}
 
 /**
- * @struct Subhitbox
- * @brief Represents a "subhitbox", a member of a `Hitbox` instance.
+ * @struct subhitbox
  *
- * @var Subhitbox::offset
+ * @brief Represents a "subhitbox", a member of a `hitbox` instance.
+ *
+ * @var subhitbox::offset
  * The offset that the subhitbox is positioned at, relative to the origin
- * position. This is useful for updating the position of a `Hitbox`.
- * @var Subhitbox::rect
+ * position. This is useful for updating the position of a `hitbox`.
+ * @var subhitbox::rect
  * The actual rectangle that represents the position and size of the subhitbox.
  *
  * @headerfile hitbox.hpp
  */
-struct Subhitbox final
+struct subhitbox final
 {
   vector2f offset;
   cen::frect rect;
 };
 
 /**
- * @struct Hitbox
+ * @struct hitbox
+ *
  * @brief Represents a hitbox that supports multiple subhitboxes.
  *
- * @var Hitbox::bounds
+ * @var hitbox::bounds
  * The bounding area of the hitbox.
- * @var Hitbox::boxes
+ * @var hitbox::boxes
  * The subhitboxes contained in the hitbox.
  *
  * @headerfile hitbox.hpp
  */
-struct Hitbox final
+struct hitbox final
 {
-  using entity = fluent::NamedType<entt::entity, struct HitboxEntityTag>;
+  using entity = fluent::NamedType<entt::entity, detail::hitbox_entity_t>;
   cen::frect bounds;
-  std::vector<Subhitbox> boxes;
+  std::vector<subhitbox> boxes;
 };
 
 }  // namespace wanderer::comp

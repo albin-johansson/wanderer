@@ -2,7 +2,7 @@
 
 namespace wanderer::sys::hitbox {
 
-void update_bounds(comp::Hitbox& hitbox) noexcept
+void update_bounds(comp::hitbox& hitbox) noexcept
 {
   bool first = true;
   for (auto& [offset, rect] : hitbox.boxes) {
@@ -39,7 +39,7 @@ void update_bounds(comp::Hitbox& hitbox) noexcept
   }
 }
 
-void update_position(comp::Hitbox& hitbox, const vector2f& position) noexcept
+void update_position(comp::hitbox& hitbox, const vector2f& position) noexcept
 {
   for (auto& [offset, rect] : hitbox.boxes) {
     const auto x = position.x + offset.x;
@@ -51,7 +51,7 @@ void update_position(comp::Hitbox& hitbox, const vector2f& position) noexcept
   hitbox.bounds.set_y(position.y);
 }
 
-auto intersects(const comp::Hitbox& fst, const comp::Hitbox& snd) noexcept
+auto intersects(const comp::hitbox& fst, const comp::hitbox& snd) noexcept
     -> bool
 {
   if (&fst == &snd) {

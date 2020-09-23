@@ -55,10 +55,10 @@ namespace {
 
   constexpr cen::farea humanoidSize{g_humanoidDrawWidth, g_humanoidDrawHeight};
 
-  registry.emplace<comp::Hitbox>(
+  registry.emplace<comp::hitbox>(
       entity,
       hitbox::create(
-          {comp::Subhitbox{vector2f{}, cen::frect{{}, humanoidSize}}}));
+          {comp::subhitbox{vector2f{}, cen::frect{{}, humanoidSize}}}));
 
   registry.emplace<comp::Humanoid>(entity);
   registry.emplace<comp::HumanoidIdle>(entity);

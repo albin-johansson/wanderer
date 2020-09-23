@@ -16,7 +16,7 @@ void update_collision(entt::registry& registry);
  *
  * @param hitbox the hitbox that will be updated.
  */
-void update_bounds(comp::Hitbox& hitbox) noexcept;
+void update_bounds(comp::hitbox& hitbox) noexcept;
 
 /**
  * @brief Updates the position of a hitbox.
@@ -24,7 +24,7 @@ void update_bounds(comp::Hitbox& hitbox) noexcept;
  * @param hitbox the hitbox that will be moved.
  * @param position the new position of the hitbox.
  */
-void update_position(comp::Hitbox& hitbox, const vector2f& position) noexcept;
+void update_position(comp::hitbox& hitbox, const vector2f& position) noexcept;
 
 /**
  * @brief Indicates whether or not two hitboxes intersect.
@@ -43,8 +43,8 @@ void update_position(comp::Hitbox& hitbox, const vector2f& position) noexcept;
  * @param snd the second hitbox.
  * @return `true` if the hitboxes intersect; `false` otherwise.
  */
-[[nodiscard]] auto intersects(const comp::Hitbox& fst,
-                              const comp::Hitbox& snd) noexcept -> bool;
+[[nodiscard]] auto intersects(const comp::hitbox& fst,
+                              const comp::hitbox& snd) noexcept -> bool;
 
 /**
  * @brief Creates and returns a hitbox.
@@ -53,12 +53,12 @@ void update_position(comp::Hitbox& hitbox, const vector2f& position) noexcept;
  * @param boxes the subhitboxes that will be added to the hitbox.
  * @return a `Hitbox` instance.
  */
-[[nodiscard]] inline auto create(std::vector<comp::Subhitbox>&& boxes)
-    -> comp::Hitbox
+[[nodiscard]] inline auto create(std::vector<comp::subhitbox>&& boxes)
+    -> comp::hitbox
 {
-  using comp::Hitbox;
+  using comp::hitbox;
 
-  Hitbox hb;
+  hitbox hb;
   hb.boxes = std::move(boxes);
 
   update_bounds(hb);
