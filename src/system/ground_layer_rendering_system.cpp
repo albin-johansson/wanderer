@@ -8,11 +8,11 @@
 namespace wanderer::sys::layer {
 
 void render_ground(entt::registry& registry,
-                   const comp::Tilemap::entity mapEntity,
+                   const comp::tilemap::entity mapEntity,
                    cen::renderer& renderer,
                    const comp::RenderBounds& bounds)
 {
-  const auto& tilemap = registry.get<comp::Tilemap>(mapEntity.get());
+  const auto& tilemap = registry.get<comp::tilemap>(mapEntity.get());
   const auto& tileset = registry.get<comp::tileset>(tilemap.tileset.get());
 
   for (const auto layer : tilemap.layers) {

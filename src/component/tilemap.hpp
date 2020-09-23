@@ -1,11 +1,3 @@
-/**
- * @brief Provides the `Tilemap` component.
- * @file tilemap.hpp
- * @author Albin Johansson
- * @copyright MIT License
- * @date 2020
- */
-
 #pragma once
 
 #include <named_type.hpp>
@@ -18,9 +10,12 @@
 #include "wanderer_stdinc.hpp"
 
 namespace wanderer::comp {
+namespace detail {
+struct tilemap_entity_t;
+}
 
 /**
- * @struct Tilemap
+ * @struct tilemap
  * @brief Represents a tilemap (a level in the game).
  *
  * @var Tilemap::tileset
@@ -40,10 +35,10 @@ namespace wanderer::comp {
  *
  * @headerfile tilemap.hpp
  */
-struct Tilemap final
+struct tilemap final
 {
   using entity = fluent::
-      NamedType<entt::entity, struct TilemapEntityTag, fluent::Comparable>;
+      NamedType<entt::entity, detail::tilemap_entity_t, fluent::Comparable>;
 
   comp::tileset::entity tileset = null<comp::tileset>();
   std::vector<TileLayer::entity> layers;

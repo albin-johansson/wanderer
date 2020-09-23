@@ -10,13 +10,11 @@
 #include "tile_layer.hpp"
 #include "tilemap.hpp"
 
-using namespace wanderer::comp;
-
 namespace wanderer {
 namespace {
 
 [[nodiscard]] auto create_tile_matrix(const int nRows, const int nCols)
-    -> TileLayer::tile_matrix
+    -> comp::TileLayer::tile_matrix
 {
   const auto rows = static_cast<std::size_t>(nRows);
   const auto cols = static_cast<std::size_t>(nCols);
@@ -26,11 +24,11 @@ namespace {
 [[nodiscard]] auto create_ground_layer(entt::registry& registry,
                                        const step::layer& stepLayer,
                                        const step::tile_layer& stepTileLayer)
-    -> TileLayer::entity
+    -> comp::TileLayer::entity
 {
   const auto groundLayerEntity = registry.create();
 
-  auto& tileLayer = registry.emplace<TileLayer>(groundLayerEntity);
+  auto& tileLayer = registry.emplace<comp::TileLayer>(groundLayerEntity);
   tileLayer.matrix = create_tile_matrix(stepLayer.height(), stepLayer.width());
 
   int index = 0;
@@ -43,11 +41,11 @@ namespace {
     ++index;
   }
 
-  return TileLayer::entity{groundLayerEntity};
+  return comp::TileLayer::entity{groundLayerEntity};
 }
 
 void create_tile_objects(entt::registry& registry,
-                         Tilemap& tilemap,
+                         comp::tilemap& tilemap,
                          const step::layer& stepLayer,
                          const std::vector<step::global_id>& tileData,
                          const comp::tileset& tileset)
@@ -59,12 +57,12 @@ void create_tile_objects(entt::registry& registry,
       continue;
     }
 
-    const auto& tile = registry.get<Tile>(tileset.tiles.at(gid.get()).get());
+    const auto& tile = registry.get<comp::Tile>(tileset.tiles.at(gid.get()).get());
     const auto tileObjectEntity = registry.create();
     const auto [row, col] = Math::index_to_matrix_pos(index, stepLayer.width());
     const auto tileSize = g_tileSize<float>;
 
-    auto& drawable = registry.emplace<DepthDrawable>(tileObjectEntity);
+    auto& drawable = registry.emplace<comp::DepthDrawable>(tileObjectEntity);
     drawable.texture = tile.sheet;
     drawable.src = tile.src;
 
@@ -76,7 +74,7 @@ void create_tile_objects(entt::registry& registry,
     drawable.centerY =
         (static_cast<float>(row) * tileSize) + (drawable.dst.height() / 2.0f);
 
-    tilemap.tileObjects.emplace(MapPosition{row, col}, tileObjectEntity);
+    tilemap.tileObjects.emplace(comp::MapPosition{row, col}, tileObjectEntity);
 
     ++index;
   }
@@ -89,12 +87,12 @@ void create_tile_objects(entt::registry& registry,
 auto make_map(entt::registry& registry,
               const step::fs::path& path,
               cen::renderer& renderer,
-              image_cache& imageCache) -> Tilemap::entity
+              image_cache& imageCache) -> comp::tilemap::entity
 {
   const auto stepMap = std::make_unique<step::map>(path);
   const auto mapEntity = registry.create();
 
-  auto& tilemap = registry.emplace<Tilemap>(mapEntity);
+  auto& tilemap = registry.emplace<comp::tilemap>(mapEntity);
   tilemap.width = static_cast<float>(stepMap->width()) * g_tileSize<float>;
   tilemap.height = static_cast<float>(stepMap->height()) * g_tileSize<float>;
   tilemap.rows = stepMap->height();
@@ -129,7 +127,7 @@ auto make_map(entt::registry& registry,
 
   tilemap.layers.shrink_to_fit();
 
-  return Tilemap::entity{mapEntity};
+  return comp::tilemap::entity{mapEntity};
 }
 
 }  // namespace wanderer

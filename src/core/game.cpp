@@ -37,7 +37,7 @@ Game::Game(cen::renderer& renderer)
   sys::humanoid::add_skeleton(m_registry, renderer, m_imageCache);
 
   auto& view = m_registry.get<comp::viewport>(m_viewport.get());
-  auto& level = m_registry.get<comp::Tilemap>(m_world.get());
+  auto& level = m_registry.get<comp::tilemap>(m_world.get());
 
   view.levelSize.width = level.width;
   view.levelSize.height = level.height;
@@ -77,7 +77,7 @@ void Game::render(cen::renderer& renderer, const alpha alpha)
   sys::update_movable_depth_drawables(m_registry);
 
   // FIXME m_world
-  const auto& tilemap = m_registry.get<comp::Tilemap>(m_world.get());
+  const auto& tilemap = m_registry.get<comp::tilemap>(m_world.get());
   const auto bounds = sys::calculate_render_bounds(
       m_registry, m_viewport, tilemap.rows, tilemap.cols);
 

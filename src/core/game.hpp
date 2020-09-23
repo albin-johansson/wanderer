@@ -61,7 +61,7 @@ class Game final
   entt::dispatcher m_dispatcher;
   image_cache m_imageCache;
   entt::entity m_player;
-  comp::Tilemap::entity m_world{null<comp::Tilemap>()};
+  comp::tilemap::entity m_world{null<comp::tilemap>()};
   comp::viewport::entity m_viewport{null<comp::viewport>()};
 };
 
