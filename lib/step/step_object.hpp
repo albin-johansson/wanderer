@@ -341,7 +341,7 @@ class object final {
   template <typename T, typename = std::enable_if_t<valid_object_type<T>()>>
   [[nodiscard]] auto try_as() const noexcept -> const T*
   {
-    return std::get_if<T>(m_specificData);
+    return std::get_if<T>(&m_specificData);
   }
 
   /**

@@ -179,10 +179,19 @@ class layer final {
     return std::get<T>(m_layerData);
   }
 
+  /**
+   * @brief Returns specific information associated with the layer.
+   *
+   * @tparam T the type of the internal layer information.
+   *
+   * @return the layer information; null if there was a type mismatch.
+   *
+   * @since 0.2.0
+   */
   template <typename T>
-  [[nodiscard]] auto try_as() const -> const T*
+  [[nodiscard]] auto try_as() const noexcept -> const T*
   {
-    return std::get_if<T>(m_layerData);
+    return std::get_if<T>(&m_layerData);
   }
 
   /**
