@@ -140,19 +140,6 @@ wanderer_set_properties(${WANDERER_LIB_TARGET} "Wanderer")
 add_header_only_lib(libENTT ${LIBRARY_DIR}/entt ${LIBRARY_DIR}/entt/entt.hpp)
 add_header_only_lib(libJSON ${LIBRARY_DIR}/json ${LIBRARY_DIR}/json/json.hpp)
 
-set(GSL_SOURCES
-        ${LIBRARY_DIR}/microsoft/gsl
-        ${LIBRARY_DIR}/microsoft/gsl_algorithm
-        ${LIBRARY_DIR}/microsoft/gsl_assert
-        ${LIBRARY_DIR}/microsoft/gsl_byte
-        ${LIBRARY_DIR}/microsoft/gsl_util
-        ${LIBRARY_DIR}/microsoft/multi_span
-        ${LIBRARY_DIR}/microsoft/pointers
-        ${LIBRARY_DIR}/microsoft/span
-        ${LIBRARY_DIR}/microsoft/span_ext
-        ${LIBRARY_DIR}/microsoft/string_span)
-add_header_only_lib(libGSL ${LIBRARY_DIR}/microsoft ${GSL_SOURCES})
-
 set(NAMED_TYPE_SOURCES
         ${LIBRARY_DIR}/namedtype/named_type.hpp
         ${LIBRARY_DIR}/namedtype/named_type_impl.hpp
@@ -197,8 +184,7 @@ target_link_libraries(${WANDERER_LIB_TARGET}
         PUBLIC ${CENTURION_IMPORT_LIB}
         PUBLIC libENTT
         PUBLIC libJSON
-        PUBLIC libNamedType
-        PUBLIC libGSL)
+        PUBLIC libNamedType)
 
 add_executable(${WANDERER_EXE_TARGET} WIN32 main.cpp)
 

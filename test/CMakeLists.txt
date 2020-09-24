@@ -45,7 +45,6 @@ target_link_libraries(${WANDERER_TEST_TARGET}
         PUBLIC libENTT
         PUBLIC libJSON
         PUBLIC libNamedType
-        PUBLIC libGSL
         PUBLIC libCatch)
 
 copy_directory_post_build(${WANDERER_TEST_TARGET} ${BINARY_DIR} ${CMAKE_CURRENT_BINARY_DIR})
