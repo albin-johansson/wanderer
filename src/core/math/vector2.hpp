@@ -1,7 +1,6 @@
 #pragma once
 
-#include <cmath>  // acos
-#include <type_traits>
+#include <cmath>  // acos, sqrt
 
 #include "angles.hpp"
 #include "floating.hpp"
@@ -9,6 +8,19 @@
 
 namespace wanderer {
 
+/**
+ * @class basic_vector2
+ *
+ * @brief A two-dimensional vector intended to use floating point components.
+ *
+ * @tparam T the representation type, intended to be a floating-point type.
+ *
+ * @since 0.1.0
+ *
+ * @see vector2f
+ *
+ * @headerfile vector2.hpp
+ */
 template <typename T>
 class basic_vector2 final
 {
@@ -272,11 +284,7 @@ class basic_vector2 final
    */
   [[nodiscard]] constexpr auto is_zero() const noexcept -> bool
   {
-    if constexpr (std::is_integral_v<T>) {
-      return m_x == 0 && m_y == 0;
-    } else {
-      return almost_equal(m_x, 0) && almost_equal(m_y, 0);
-    }
+    return almost_equal(m_x, 0) && almost_equal(m_y, 0);
   }
 
   /**
@@ -290,11 +298,7 @@ class basic_vector2 final
    */
   [[nodiscard]] auto is_unit() const noexcept -> bool
   {
-    if constexpr (std::is_integral_v<T>) {
-      return magnitude() == 1;
-    } else {
-      return almost_equal(magnitude(), 1);
-    }
+    return almost_equal(magnitude(), 1);
   }
 
   /**
