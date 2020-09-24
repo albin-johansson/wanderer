@@ -1,7 +1,11 @@
 #pragma once
 
+#include <named_type.hpp>
+
+#include "alpha.hpp"
+#include "delta.hpp"
 #include "game.hpp"
-#include "wanderer_stdinc.hpp"
+#include "ints.hpp"
 
 namespace wanderer {
 

@@ -2,11 +2,12 @@
 
 #include <renderer.hpp>
 
+#include "alpha.hpp"
 #include "component/tilemap.hpp"
 #include "component/viewport.hpp"
+#include "delta.hpp"
 #include "image_cache.hpp"
 #include "input.hpp"
-#include "wanderer_stdinc.hpp"
 
 namespace wanderer {
 

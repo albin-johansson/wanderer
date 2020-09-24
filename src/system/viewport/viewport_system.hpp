@@ -3,7 +3,7 @@
 #include <renderer.hpp>
 
 #include "component/viewport.hpp"
-#include "wanderer_stdinc.hpp"
+#include "delta.hpp"
 
 namespace wanderer::sys::viewport {
 

@@ -21,6 +21,9 @@ set(SOURCE_FILES
         core/game_loop.cpp
         core/direction.hpp
         core/game_constants.hpp
+        core/ints.hpp
+        core/delta.hpp
+        core/alpha.hpp
 
         core/add_humanoid_state_dependencies.cpp
         core/add_humanoid_state_dependencies.hpp
@@ -35,6 +38,7 @@ set(SOURCE_FILES
         core/math/get_random.hpp
         core/math/index_to_matrix.hpp
         core/math/floating.hpp
+        core/math/angles.hpp
 
         utility/input.cpp
         utility/input.hpp
@@ -118,7 +122,7 @@ set(SOURCE_FILES
         parse/tile/make_tileset.hpp
 
         system/collision/aabb_system.cpp
-        system/collision/aabb_system.hpp core/math/angles.hpp)
+        system/collision/aabb_system.hpp)
 
 add_library(${WANDERER_LIB_TARGET} ${SOURCE_FILES})
 

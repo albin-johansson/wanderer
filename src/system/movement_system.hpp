@@ -2,6 +2,7 @@
 
 #include <entt.hpp>
 
+#include "delta.hpp"
 #include "wanderer_stdinc.hpp"
 
 namespace wanderer::sys {

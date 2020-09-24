@@ -1,5 +1,6 @@
 #pragma once
 
+#include "alpha.hpp"
 #include "wanderer_stdinc.hpp"
 
 namespace wanderer::sys {
