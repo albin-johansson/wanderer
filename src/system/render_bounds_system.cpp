@@ -8,20 +8,20 @@ namespace {
 [[nodiscard]] auto calculate_min_col(float viewportX) noexcept -> int
 {
   const auto minCol = static_cast<int>(viewportX / g_tileSize<float>);
-  if (minCol < 0) {
-    return 0;
-  } else {
+  if (minCol > 0) {
     return minCol;
+  } else {
+    return 0;
   }
 }
 
 [[nodiscard]] auto calculate_min_row(float viewportY) noexcept -> int
 {
   const auto minRow = static_cast<int>(viewportY / g_tileSize<float>);
-  if (minRow < 0) {
-    return 0;
-  } else {
+  if (minRow > 0) {
     return minRow;
+  } else {
+    return 0;
   }
 }
 
@@ -29,10 +29,10 @@ namespace {
     -> int
 {
   const auto maxCol = static_cast<int>(viewportMaxX / g_tileSize<float>) + 1;
-  if (maxCol > numCols) {
-    return numCols;
-  } else {
+  if (maxCol < numCols) {
     return maxCol;
+  } else {
+    return numCols;
   }
 }
 
@@ -40,10 +40,10 @@ namespace {
     -> int
 {
   const auto maxRow = static_cast<int>(viewportMaxY / g_tileSize<float>) + 1;
-  if (maxRow > numRows) {
-    return numRows;
-  } else {
+  if (maxRow < numRows) {
     return maxRow;
+  } else {
+    return numRows;
   }
 }
 
@@ -55,13 +55,12 @@ auto calculate_render_bounds(entt::registry& registry,
                              const int cols) -> comp::render_bounds
 {
   const auto& viewport = registry.get<comp::viewport>(viewportEntity.get());
-  const auto& viewportBounds = viewport.bounds;
 
   comp::render_bounds bounds;
-  bounds.minCol = calculate_min_col(viewportBounds.x());
-  bounds.minRow = calculate_min_row(viewportBounds.y());
-  bounds.maxCol = calculate_max_col(viewportBounds.max_x(), cols);
-  bounds.maxRow = calculate_max_row(viewportBounds.max_y(), rows);
+  bounds.minCol = calculate_min_col(viewport.bounds.x());
+  bounds.minRow = calculate_min_row(viewport.bounds.y());
+  bounds.maxCol = calculate_max_col(viewport.bounds.max_x(), cols);
+  bounds.maxRow = calculate_max_row(viewport.bounds.max_y(), rows);
 
   return bounds;
 }
