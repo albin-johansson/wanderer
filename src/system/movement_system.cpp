@@ -8,7 +8,7 @@
 namespace wanderer::sys {
 namespace {
 
-void update_direction(comp::movable& movable) noexcept
+void update_dominant_direction(comp::movable& movable) noexcept
 {
   if (movable.velocity.x() > 0) {
     movable.dominantDirection = direction::right;
@@ -23,47 +23,35 @@ void update_direction(comp::movable& movable) noexcept
   }
 }
 
+void update_movable(entt::registry& registry,
+                    entt::entity entity,
+                    comp::movable& movable,
+                    delta dt)
+{
+  movable.oldPos = movable.currentPos;
+  movable.currentPos += (movable.velocity * dt.get());
+
+  update_dominant_direction(movable);
+
+  // FIXME
+  if (auto* drawable = registry.try_get<comp::depth_drawable>(entity)) {
+    drawable->centerY =
+        movable.currentPos.y() + (drawable->dst.height() / 2.0f);
+  }
+}
+
 }  // namespace
 
-void update_movement(entt::registry& registry, const delta dt)
+void update_movement(entt::registry& registry, delta dt)
 {
-  registry.view<comp::movable>(entt::exclude<comp::hitbox>)
-      .each(
-          [&registry, dt](const auto entity, comp::movable& movable) noexcept {
-            movable.oldPos = movable.currentPos;
-            movable.currentPos += (movable.velocity * dt.get());
+  registry.view<comp::movable>().each([&](auto entity, comp::movable& movable) {
+    update_movable(registry, entity, movable, dt);
 
-            update_direction(movable);
-
-            // FIXME
-            if (auto* drawable = registry.try_get<comp::depth_drawable>(entity);
-                drawable) {
-              drawable->centerY =
-                  movable.currentPos.y() + (drawable->dst.height() / 2.0f);
-            }
-          });
-
-  registry.view<comp::movable, comp::hitbox>().each(
-      [&registry, dt](const auto entity,
-                      comp::movable& movable,
-                      comp::hitbox& hitbox) noexcept {
-        const auto nextPos = movable.currentPos + (movable.velocity * dt.get());
-
-        // TODO check if the entity will collide with something at next
-
-        movable.oldPos = movable.currentPos;
-        movable.currentPos += (movable.velocity * dt.get());
-        update_direction(movable);
-
-        // FIXME
-        if (auto* drawable = registry.try_get<comp::depth_drawable>(entity);
-            drawable) {
-          drawable->centerY =
-              movable.currentPos.y() + (drawable->dst.height() / 2.0f);
-        }
-
-        hitbox::update_position(hitbox, movable.currentPos);
-      });
+    // TODO check if the entity will collide with something at next
+    if (auto* hitbox = registry.try_get<comp::hitbox>(entity)) {
+      hitbox::update_position(*hitbox, movable.currentPos);
+    }
+  });
 }
 
 }  // namespace wanderer::sys
