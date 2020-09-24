@@ -28,15 +28,13 @@ void update_movable(entt::registry& registry,
                     comp::movable& movable,
                     delta dt)
 {
-  movable.oldPos = movable.currentPos;
-  movable.currentPos += (movable.velocity * static_cast<float>(dt.get()));
+  movable.position += (movable.velocity * static_cast<float>(dt.get()));
 
   update_dominant_direction(movable);
 
   // FIXME
   if (auto* drawable = registry.try_get<comp::depth_drawable>(entity)) {
-    drawable->centerY =
-        movable.currentPos.y() + (drawable->dst.height() / 2.0f);
+    drawable->centerY = movable.position.y() + (drawable->dst.height() / 2.0f);
   }
 }
 
@@ -49,7 +47,7 @@ void update_movement(entt::registry& registry, delta dt)
 
     // TODO check if the entity will collide with something at next
     if (auto* hitbox = registry.try_get<comp::hitbox>(entity)) {
-      hitbox::update_position(*hitbox, movable.currentPos);
+      hitbox::update_position(*hitbox, movable.position);
     }
   });
 }

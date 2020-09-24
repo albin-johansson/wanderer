@@ -12,7 +12,7 @@ void track(comp::viewport& viewport,
            const cen::farea& size,
            const delta dt)
 {
-  auto panSpeed = 15 * dt.get();
+  auto panSpeed = 15.0f * dt.get();
 
   const float targetX =
       (target.x() + (size.width / 2.0f)) - (viewport.bounds.width() / 2.0f);
@@ -54,7 +54,7 @@ void update(entt::registry& registry,
   auto& viewport = registry.get<comp::viewport>(viewportEntity.get());
 
   track(viewport,
-        movable.interpolatedPos,
+        movable.position,
         {g_humanoidDrawWidth, g_humanoidDrawHeight},
         dt);
 }

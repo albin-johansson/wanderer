@@ -1,8 +1,8 @@
 #pragma once
 
-#include "ints.hpp"
-
 #include <types.hpp>
+
+#include "ints.hpp"
 
 namespace wanderer::comp {
 

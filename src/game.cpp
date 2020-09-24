@@ -10,7 +10,6 @@
 #include "humanoid_factory_system.hpp"
 #include "humanoid_state_system.hpp"
 #include "input_system.hpp"
-#include "interpolation_system.hpp"
 #include "make_map.hpp"
 #include "make_viewport_system.hpp"
 #include "movable_depth_drawables_system.hpp"
@@ -82,11 +81,10 @@ void game::tick(delta dt)
   sys::viewport::update(m_registry, m_viewport, m_player, dt);
 }
 
-void game::render(cen::renderer& renderer, alpha alpha)
+void game::render(cen::renderer& renderer)
 {
   sys::viewport::translate(m_registry, m_viewport, renderer);
 
-  sys::update_interpolation(m_registry, alpha);
   sys::update_movable_depth_drawables(m_registry);
 
   // FIXME m_world

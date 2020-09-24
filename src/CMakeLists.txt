@@ -67,8 +67,6 @@ set(SOURCE_FILES
         system/render_depth_drawables_system.hpp
         system/movement_system.cpp
         system/movement_system.hpp
-        system/interpolation_system.hpp
-        system/interpolation_system.cpp
         system/animation_system.cpp
         system/animation_system.hpp
         system/ground_layer_rendering_system.cpp

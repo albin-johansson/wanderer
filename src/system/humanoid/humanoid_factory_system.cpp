@@ -90,9 +90,8 @@ auto add_player(entt::registry& registry,
 
   auto& movable = registry.get<comp::movable>(playerEntity);
   movable.speed = g_playerSpeed;
-  movable.currentPos = {100, 100};
+  movable.position = {100, 100};
   movable.dominantDirection = direction::down;
-  movable.oldPos = movable.currentPos;
 
   registry.emplace<comp::binds>(playerEntity);
 
@@ -113,8 +112,7 @@ auto add_skeleton(entt::registry& registry,
 
   auto& movable = registry.get<comp::movable>(skeletonEntity);
   movable.speed = g_monsterSpeed;
-  movable.currentPos = {300, 300};
-  movable.oldPos = movable.currentPos;
+  movable.position = {300, 300};
 
   return skeletonEntity;
 }

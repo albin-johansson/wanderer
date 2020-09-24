@@ -16,13 +16,8 @@ namespace wanderer::comp {
  *
  * @var movable::velocity
  * The current x- and y-axis speed.
- * @var movable::currentPos
+ * @var movable::position
  * The current position.
- * @var movable::oldPos
- * The old position from the previous iteration.
- * @var movable::interpolatedPos
- * The interpolated position from the previous and current position. This is
- * intended to be used as the position where the movable is rendered.
  * @var movable::dominantDirection
  * The current dominant direction.
  * @var movable::speed
@@ -35,9 +30,7 @@ namespace wanderer::comp {
 struct movable final
 {
   vector2f velocity;
-  vector2f currentPos;
-  vector2f oldPos;
-  vector2f interpolatedPos;
+  vector2f position;
   direction dominantDirection{direction::down};
   float speed{0};
 };

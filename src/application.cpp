@@ -28,10 +28,18 @@ namespace {
 }  // namespace
 
 application::application()
+#ifndef NDEBUG
     : m_window{"Wanderer", {1440, 810}},
+#else
+    : m_window{"Wanderer", cen::screen::size()},
+#endif
       m_renderer{create_renderer(m_window)},
       m_game{m_renderer}
-{}
+{
+#ifdef NDEBUG
+  m_window.set_fullscreen(true);
+#endif
+}
 
 auto application::handle_input() -> bool
 {
@@ -85,7 +93,7 @@ void application::run()
     }
 
     m_renderer.clear_with(cen::colors::pink);
-    m_game.render(m_renderer, alpha{0});
+    m_game.render(m_renderer);
     m_renderer.present();
   }
 

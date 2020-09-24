@@ -54,9 +54,8 @@ class game final
    * @brief Renders the game.
    *
    * @param renderer the renderer used to render the game.
-   * @param alpha the interpolation coefficient, in the range [0, 1].
    */
-  void render(cen::renderer& renderer, alpha alpha);
+  void render(cen::renderer& renderer);
 
  private:
   entt::registry m_registry;  // TODO consider multiple registries
