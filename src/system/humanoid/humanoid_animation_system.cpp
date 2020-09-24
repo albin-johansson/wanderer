@@ -86,9 +86,8 @@ void update_move_animation(entt::registry& registry,
          [](comp::animated& animated,
             comp::movable& movable,
             comp::depth_drawable& drawable) noexcept {
-           drawable.src.set_x(movable.velocity.is_zero()
-                                  ? 0
-                                  : static_cast<int>(animated.frame) * 64);
+           drawable.src.set_x(movable.velocity.is_zero() ? 0
+                                                         : animated.frame * 64);
            const auto srcY = source_y(moveSourceY, movable.dominantDirection);
            if (drawable.src.y() != srcY) {
              animated.frame = 0;
@@ -113,7 +112,7 @@ void update_attack_animation(entt::registry& registry,
          [&](comp::animated& animated,
              comp::movable&,
              comp::depth_drawable& drawable) noexcept {
-           drawable.src.set_x(static_cast<int>(animated.frame) * 64);
+           drawable.src.set_x(animated.frame * 64);
            if (animated.frame == animated.nFrames - 1) {
              auto& attack = registry.get<comp::humanoid_attack>(entity);
              attack.done = true;

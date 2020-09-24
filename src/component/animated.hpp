@@ -24,8 +24,8 @@ namespace wanderer::comp {
  */
 struct animated final
 {
-  u32 frame{0};
-  u32 nFrames{1};
+  int frame{0};
+  int nFrames{1};
   cen::milliseconds<u32> then{0};
   cen::milliseconds<u32> delay{100};
 };
