@@ -63,8 +63,8 @@ auto intersects(const comp::hitbox& fst, const comp::hitbox& snd) noexcept
     return false;
   }
 
-  for (const auto& [x, fstRect] : fst.boxes) {
-    for (const auto& [x, sndRect] : snd.boxes) {
+  for (const auto& [fstOffset, fstRect] : fst.boxes) {
+    for (const auto& [sndOffset, sndRect] : snd.boxes) {
       if (cen::intersects(fstRect, sndRect)) {
         return true;
       }
