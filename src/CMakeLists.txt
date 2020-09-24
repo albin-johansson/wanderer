@@ -10,7 +10,7 @@ function(wanderer_set_properties [target [outputName]])
 endfunction()
 
 set(SOURCE_FILES
-        doxygen_docs.hpp
+        docs.hpp
 
         core/wanderer_stdinc.hpp
         game.hpp
