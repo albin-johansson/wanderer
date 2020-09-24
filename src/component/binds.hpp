@@ -23,11 +23,11 @@ namespace wanderer::comp {
  */
 struct binds final
 {
-  cen::key_code up{SDLK_w};
-  cen::key_code right{SDLK_d};
-  cen::key_code down{SDLK_s};
-  cen::key_code left{SDLK_a};
-  cen::key_code attack{SDLK_SPACE};
+  cen::key_code up{cen::keycodes::w};
+  cen::key_code right{cen::keycodes::d};
+  cen::key_code down{cen::keycodes::s};
+  cen::key_code left{cen::keycodes::a};
+  cen::key_code attack{cen::keycodes::space};
 };
 
 }  // namespace wanderer::comp
