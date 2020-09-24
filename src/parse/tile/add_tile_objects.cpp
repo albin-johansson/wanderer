@@ -47,8 +47,8 @@ void add_tile_objects(entt::registry& registry,
     if (gid.get() != g_emptyTile) {
       const auto tileID = tileset.tiles.at(gid.get()).get();
       const auto [row, col] = index_to_matrix(index, tilemap.cols);
-      const auto entity = make_tile_object(registry, tileID, row, col);
-      tilemap.tileObjects.emplace(comp::map_position{row, col}, entity);
+      const auto tileObject = make_tile_object(registry, tileID, row, col);
+      tilemap.tileObjects.emplace(comp::map_position{row, col}, tileObject);
     }
     ++index;
   });
