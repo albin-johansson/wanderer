@@ -5,7 +5,6 @@
 #include <algorithm>  // min
 #include <counter.hpp>
 #include <key_code.hpp>
-#include <log.hpp>
 #include <screen.hpp>
 
 #include "game_constants.hpp"
