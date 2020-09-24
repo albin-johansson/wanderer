@@ -63,7 +63,7 @@ game::~game() noexcept
   disconnect_events(m_dispatcher);
 }
 
-void game::handle_input(const Input& input)
+void game::handle_input(const input& input)
 {
   sys::input::update(m_registry, m_dispatcher, m_player, input);
 }

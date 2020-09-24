@@ -24,7 +24,7 @@ class application final
   cen::renderer m_renderer;
   game m_game;
   game_loop m_loop;
-  Input m_input;
+  input m_input;
 };
 
 }  // namespace wanderer

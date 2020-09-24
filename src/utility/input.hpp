@@ -6,10 +6,10 @@
 
 namespace wanderer {
 
-class Input final
+class input final
 {
  public:
-  Input() noexcept;
+  input() noexcept;
 
   void update(int windowWidth, int windowHeight) noexcept;
 
@@ -22,9 +22,9 @@ class Input final
   [[nodiscard]] auto was_released(const cen::key_code& key) const noexcept
       -> bool;
 
-  [[nodiscard]] auto get_mouse_x() const noexcept -> float;
+  [[nodiscard]] auto mouse_x() const noexcept -> float;
 
-  [[nodiscard]] auto get_mouse_y() const noexcept -> float;
+  [[nodiscard]] auto mouse_y() const noexcept -> float;
 
   [[nodiscard]] auto is_left_button_pressed() const noexcept -> bool;
 

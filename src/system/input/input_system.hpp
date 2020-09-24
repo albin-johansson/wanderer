@@ -18,6 +18,6 @@ namespace wanderer::sys::input {
 void update(entt::registry& registry,
             entt::dispatcher& dispatcher,
             entt::entity player,
-            const Input& input);
+            const input& input);
 
 }  // namespace wanderer::sys::input

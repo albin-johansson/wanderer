@@ -38,7 +38,7 @@ class game final
    *
    * @param input the current state of the key and mouse input.
    */
-  void handle_input(const Input& input);
+  void handle_input(const input& input);
 
   /**
    * @brief Updates the state of the game.

@@ -22,6 +22,6 @@ namespace wanderer::sys::input {
 void handle_idle_input(entt::registry& registry,
                        entt::dispatcher& dispatcher,
                        entt::entity player,
-                       const Input& input);
+                       const input& input);
 
 }  // namespace wanderer::sys::input

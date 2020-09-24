@@ -12,7 +12,7 @@ namespace wanderer::sys::input {
 void handle_idle_input(entt::registry& registry,
                        entt::dispatcher& dispatcher,
                        const entt::entity player,
-                       const Input& input)
+                       const input& input)
 {
   if (registry.has<comp::humanoid_idle>(player)) {
     const auto& binds = registry.get<comp::binds>(player);

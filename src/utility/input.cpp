@@ -4,70 +4,70 @@
 
 namespace wanderer {
 
-Input::Input() noexcept
+input::input() noexcept
 {
   m_mouseState.set_logical_width(g_logicalWidth<>);
   m_mouseState.set_logical_height(g_logicalHeight<>);
 }
 
-void Input::update(const int windowWidth, const int windowHeight) noexcept
+void input::update(const int windowWidth, const int windowHeight) noexcept
 {
   m_mouseState.update(windowWidth, windowHeight);
   m_keyState.update();
   SDL_PumpEvents();
 }
 
-bool Input::is_pressed(const cen::key_code& key) const noexcept
+bool input::is_pressed(const cen::key_code& key) const noexcept
 {
   return m_keyState.is_pressed(key);
 }
 
-bool Input::was_just_pressed(const cen::key_code& key) const noexcept
+bool input::was_just_pressed(const cen::key_code& key) const noexcept
 {
   return m_keyState.was_just_pressed(key);
 }
 
-bool Input::was_released(const cen::key_code& key) const noexcept
+bool input::was_released(const cen::key_code& key) const noexcept
 {
   return m_keyState.was_just_released(key);
 }
 
-float Input::get_mouse_x() const noexcept
+float input::mouse_x() const noexcept
 {
   return static_cast<float>(m_mouseState.mouse_x());
 }
 
-float Input::get_mouse_y() const noexcept
+float input::mouse_y() const noexcept
 {
   return static_cast<float>(m_mouseState.mouse_y());
 }
 
-bool Input::is_left_button_pressed() const noexcept
+bool input::is_left_button_pressed() const noexcept
 {
   return m_mouseState.is_left_button_pressed();
 }
 
-bool Input::is_right_button_pressed() const noexcept
+bool input::is_right_button_pressed() const noexcept
 {
   return m_mouseState.is_right_button_pressed();
 }
 
-bool Input::was_left_button_released() const noexcept
+bool input::was_left_button_released() const noexcept
 {
   return m_mouseState.was_left_button_released();
 }
 
-bool Input::was_right_button_released() const noexcept
+bool input::was_right_button_released() const noexcept
 {
   return m_mouseState.was_right_button_released();
 }
 
-bool Input::was_mouse_moved() const noexcept
+bool input::was_mouse_moved() const noexcept
 {
   return m_mouseState.was_mouse_moved();
 }
 
-bool Input::was_quit_requested() const noexcept
+bool input::was_quit_requested() const noexcept
 {
   return SDL_PeepEvents(nullptr, 0, SDL_PEEKEVENT, SDL_QUIT, SDL_QUIT) > 0;
 }
