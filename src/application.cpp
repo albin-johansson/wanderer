@@ -5,6 +5,7 @@
 #include <algorithm>  // min
 #include <counter.hpp>
 #include <key_code.hpp>
+#include <log.hpp>
 #include <screen.hpp>
 
 #include "game_constants.hpp"
@@ -58,9 +59,9 @@ auto application::handle_input() -> bool
 
 void application::run()
 {
-  constexpr double tickRate{60};
   constexpr int maxSteps{5};
-  constexpr cen::seconds<double> fixedDelta{1.0 / tickRate};
+  const auto tickRate = static_cast<double>(cen::screen::refresh_rate());
+  const cen::seconds<double> fixedDelta{1.0 / tickRate};
 
   m_window.show();
 
