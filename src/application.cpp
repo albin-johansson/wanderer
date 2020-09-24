@@ -77,7 +77,7 @@ void application::run()
         break;
       }
 
-      m_game.tick(delta{static_cast<float>(deltaTime.count())});
+      m_game.tick(delta{deltaTime.count()});
 
       frameTime -= deltaTime;
 

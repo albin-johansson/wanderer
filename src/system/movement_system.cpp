@@ -29,7 +29,7 @@ void update_movable(entt::registry& registry,
                     delta dt)
 {
   movable.oldPos = movable.currentPos;
-  movable.currentPos += (movable.velocity * dt.get());
+  movable.currentPos += (movable.velocity * static_cast<float>(dt.get()));
 
   update_dominant_direction(movable);
 

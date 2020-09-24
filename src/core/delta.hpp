@@ -4,7 +4,7 @@
 
 namespace wanderer {
 
-using delta = fluent::NamedType<float,
+using delta = fluent::NamedType<double,
                                 struct delta_tag_t,
                                 fluent::Comparable,
                                 fluent::Addable,
