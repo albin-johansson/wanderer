@@ -1,11 +1,14 @@
 #pragma once
 
 #include <area.hpp>
+#include <entt.hpp>
+#include <named_type.hpp>
 #include <rect.hpp>
 
-#include "wanderer_stdinc.hpp"
-
 namespace wanderer::comp {
+namespace detail {
+struct viewport_entity_t;
+}
 
 /**
  * @struct viewport
@@ -21,7 +24,7 @@ namespace wanderer::comp {
 struct viewport final
 {
   using entity = fluent::
-      NamedType<entt::entity, struct ViewportEntityTag, fluent::Comparable>;
+      NamedType<entt::entity, detail::viewport_entity_t, fluent::Comparable>;
   cen::frect bounds{};
   cen::farea levelSize{};
 };

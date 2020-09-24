@@ -12,7 +12,6 @@ endfunction()
 set(SOURCE_FILES
         docs.hpp
 
-        core/wanderer_stdinc.hpp
         game.hpp
         game.cpp
         application.cpp
@@ -24,6 +23,9 @@ set(SOURCE_FILES
         core/ints.hpp
         core/delta.hpp
         core/alpha.hpp
+        core/tile_id.hpp
+        core/depth.hpp
+        core/null_entity.hpp
 
         core/add_humanoid_state_dependencies.cpp
         core/add_humanoid_state_dependencies.hpp

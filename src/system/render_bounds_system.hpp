@@ -1,8 +1,9 @@
 #pragma once
 
+#include <entt.hpp>
+
 #include "component/render_bounds.hpp"
 #include "component/viewport.hpp"
-#include "wanderer_stdinc.hpp"
 
 namespace wanderer::sys {
 

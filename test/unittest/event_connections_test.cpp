@@ -1,12 +1,12 @@
 #include "event_connections.hpp"
 
 #include <catch.hpp>
+#include <entt.hpp>
 
 #include "component/event/begin_attack_event.hpp"
 #include "component/event/begin_humanoid_move_event.hpp"
 #include "component/event/end_attack_event.hpp"
 #include "component/event/end_humanoid_move_event.hpp"
-#include "wanderer_stdinc.hpp"
 
 using namespace wanderer;
 

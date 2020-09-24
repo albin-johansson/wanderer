@@ -2,8 +2,6 @@
 
 #include <key_code.hpp>
 
-#include "wanderer_stdinc.hpp"
-
 namespace wanderer::comp {
 
 /**

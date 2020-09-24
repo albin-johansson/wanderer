@@ -1,16 +1,7 @@
-/**
- * @brief Provides the system for dealing with player input.
- * @file input_system.hpp
- * @author Albin Johansson
- * @copyright MIT License
- * @date 2020
- */
-
 #pragma once
 
+#include <entt.hpp>
 #include <input.hpp>
-
-#include "wanderer_stdinc.hpp"
 
 namespace wanderer::sys::input {
 

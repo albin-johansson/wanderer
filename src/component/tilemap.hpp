@@ -1,13 +1,13 @@
 #pragma once
 
 #include <named_type.hpp>
-#include <unordered_map>
-#include <vector>
+#include <unordered_map>  // unordered_map
+#include <vector>         // vector
 
 #include "map_position.hpp"
+#include "null_entity.hpp"
 #include "tile_layer.hpp"
 #include "tileset.hpp"
-#include "wanderer_stdinc.hpp"
 
 namespace wanderer::comp {
 namespace detail {
@@ -16,6 +16,7 @@ struct tilemap_entity_t;
 
 /**
  * @struct tilemap
+ *
  * @brief Represents a tilemap (a level in the game).
  *
  * @var tilemap::tileset

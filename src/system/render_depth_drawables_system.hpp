@@ -1,8 +1,7 @@
 #pragma once
 
+#include <entt.hpp>
 #include <renderer.hpp>
-
-#include "wanderer_stdinc.hpp"
 
 namespace wanderer::sys {
 

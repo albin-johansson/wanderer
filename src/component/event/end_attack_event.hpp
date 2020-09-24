@@ -1,12 +1,14 @@
 #pragma once
 
+#include <entt.hpp>
+
 #include "direction.hpp"
-#include "wanderer_stdinc.hpp"
 
 namespace wanderer {
 
 /**
  * @struct end_attack_event
+ *
  * @brief Represents the data associated with the end of an attack.
  *
  * @note This is an event component and is meant to be dispatched through

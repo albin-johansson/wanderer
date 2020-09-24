@@ -1,12 +1,14 @@
 #pragma once
 
+#include <entt.hpp>
+
 #include "direction.hpp"
-#include "wanderer_stdinc.hpp"
 
 namespace wanderer {
 
 /**
  * @struct begin_humanoid_move_event
+ *
  * @brief Used for events dispatched when a humanoid starts to move.
  *
  * @note This is an event component and is meant to be dispatched through

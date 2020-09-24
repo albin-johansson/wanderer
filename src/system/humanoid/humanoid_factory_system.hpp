@@ -1,9 +1,9 @@
 #pragma once
 
+#include <entt.hpp>
 #include <renderer.hpp>
 
 #include "image_cache.hpp"
-#include "wanderer_stdinc.hpp"
 
 namespace wanderer::sys::humanoid {
 

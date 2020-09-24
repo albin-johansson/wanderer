@@ -1,11 +1,12 @@
 #pragma once
 
-#include "wanderer_stdinc.hpp"
+#include "ints.hpp"
 
 namespace wanderer::comp {
 
 /**
  * @struct animated
+ *
  * @brief Represents a general animation.
  *
  * @var animated::frame

@@ -1,15 +1,16 @@
 #pragma once
 
-#include <area.hpp>
+#include <entt.hpp>
 #include <rect.hpp>
 #include <texture.hpp>
 
-#include "wanderer_stdinc.hpp"
+#include "depth.hpp"
 
 namespace wanderer::comp {
 
 /**
  * @struct depth_drawable
+ *
  * @brief Represents drawable entity that features a depth heuristic.
  *
  * @details Provides information required to be able to render entities in

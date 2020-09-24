@@ -2,12 +2,13 @@
 
 #include <vector>
 
-#include "wanderer_stdinc.hpp"
+#include "tile_id.hpp"
 
 namespace wanderer::comp {
 
 /**
  * @struct frame
+ *
  * @brief Represents a frame in a tile animation.
  *
  * @var frame::tile

@@ -1,7 +1,8 @@
 #pragma once
 
+#include <entt.hpp>
+
 #include "direction.hpp"
-#include "wanderer_stdinc.hpp"
 
 namespace wanderer::comp {
 

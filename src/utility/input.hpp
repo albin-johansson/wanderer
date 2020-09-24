@@ -4,8 +4,6 @@
 #include <key_state.hpp>
 #include <mouse_state.hpp>
 
-#include "wanderer_stdinc.hpp"
-
 namespace wanderer {
 
 class Input final

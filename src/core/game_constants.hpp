@@ -1,5 +1,4 @@
 #pragma once
-#include "wanderer_stdinc.hpp"
 
 namespace wanderer {
 

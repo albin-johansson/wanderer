@@ -1,10 +1,11 @@
 #pragma once
 
+#include <entt.hpp>
+#include <named_type.hpp>
 #include <rect.hpp>
-#include <vector>
+#include <vector>  // vector
 
 #include "vector2.hpp"
-#include "wanderer_stdinc.hpp"
 
 namespace wanderer::comp {
 namespace detail {

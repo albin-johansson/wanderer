@@ -1,9 +1,11 @@
 #pragma once
 
-#include <unordered_map>
+#include <entt.hpp>
+#include <named_type.hpp>
+#include <unordered_map>  // unordered_map
 
 #include "tile.hpp"
-#include "wanderer_stdinc.hpp"
+#include "tile_id.hpp"
 
 namespace wanderer::comp {
 namespace detail {

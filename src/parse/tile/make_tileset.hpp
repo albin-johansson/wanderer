@@ -1,12 +1,13 @@
 #pragma once
 
+#include <entt.hpp>
+#include <memory>  // unique_ptr
 #include <renderer.hpp>
 #include <step_tileset.hpp>
-#include <vector>
+#include <vector>  // vector
 
 #include "component/tileset.hpp"
 #include "image_cache.hpp"
-#include "wanderer_stdinc.hpp"
 
 namespace wanderer {
 

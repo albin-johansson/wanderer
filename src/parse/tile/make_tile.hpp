@@ -1,12 +1,12 @@
 #pragma once
 
-#include <memory>
+#include <entt.hpp>
 #include <rect.hpp>
 #include <step_tile.hpp>
 #include <texture.hpp>
 
 #include "component/tile.hpp"
-#include "wanderer_stdinc.hpp"
+#include "tile_id.hpp"
 
 namespace wanderer {
 

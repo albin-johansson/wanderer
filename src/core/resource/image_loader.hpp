@@ -1,11 +1,10 @@
 #pragma once
 
-#include <memory>
+#include <entt.hpp>
+#include <memory>  // shared_ptr
 #include <renderer.hpp>
-#include <string_view>
+#include <string_view>  // string_view
 #include <texture.hpp>
-
-#include "wanderer_stdinc.hpp"
 
 namespace wanderer {
 

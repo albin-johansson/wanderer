@@ -1,9 +1,10 @@
 #pragma once
 
+#include <entt.hpp>
 #include <named_type.hpp>
 #include <vector>
 
-#include "wanderer_stdinc.hpp"
+#include "tile_id.hpp"
 
 namespace wanderer::comp {
 namespace detail {

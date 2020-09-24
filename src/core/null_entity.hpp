@@ -1,20 +1,8 @@
 #pragma once
 
-#include <cstdint>
 #include <entt.hpp>
-#include <json.hpp>
-#include <named_type.hpp>
-
-#include "ints.hpp"
 
 namespace wanderer {
-
-using tile_id = u32;
-inline constexpr tile_id g_emptyTile = 0;
-
-using json = nlohmann::json;
-
-using depth = fluent::NamedType<int, struct depth_tag_t, fluent::Comparable>;
 
 /**
  * @brief Creates and returns a null entity identifier.

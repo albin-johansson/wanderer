@@ -9,10 +9,10 @@
 #pragma once
 
 #include <area.hpp>
+#include <entt.hpp>
 #include <point.hpp>
 
 #include "component/aabb.hpp"
-#include "wanderer_stdinc.hpp"
 
 /**
  * @namespace wanderer::sys::aabb

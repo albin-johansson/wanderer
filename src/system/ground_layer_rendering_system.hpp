@@ -1,10 +1,10 @@
 #pragma once
 
+#include <entt.hpp>
 #include <renderer.hpp>
 
 #include "component/render_bounds.hpp"
 #include "component/tilemap.hpp"
-#include "wanderer_stdinc.hpp"
 
 namespace wanderer::sys::layer {
 

@@ -1,8 +1,9 @@
 #pragma once
 
+#include <entt.hpp>
+
 #include "component/hitbox.hpp"
 #include "vector2.hpp"
-#include "wanderer_stdinc.hpp"
 
 namespace wanderer::sys::hitbox {
 
@@ -48,10 +49,15 @@ void update_position(comp::hitbox& hitbox, const vector2f& position) noexcept;
 
 /**
  * @brief Creates and returns a hitbox.
- * @details This method is for convenience and will update the bounds of the
+ *
+ * @details This function is for convenience and will update the bounds of the
  * created hitbox before returning it.
+ *
  * @param boxes the subhitboxes that will be added to the hitbox.
- * @return a `Hitbox` instance.
+ *
+ * @return a hitbox.
+ *
+ * @since 0.1.0
  */
 [[nodiscard]] inline auto create(std::vector<comp::subhitbox>&& boxes)
     -> comp::hitbox
