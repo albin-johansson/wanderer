@@ -12,7 +12,7 @@ void update_animation(entt::registry& registry, entt::entity /*level*/)  // TODO
   for (const auto entity : entities) {
     auto& animatedTile = entities.get<comp::animated_tile>(entity);
 
-    const auto now = cen::counter::ticks().count();  // FIXME don't .count()
+    const auto now = cen::counter::ticks();
     const auto elapsed = now - animatedTile.then;
     if (elapsed >= animatedTile.frames.at(animatedTile.index).duration) {
       animatedTile.then = now;

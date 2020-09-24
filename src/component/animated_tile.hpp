@@ -1,5 +1,6 @@
 #pragma once
 
+#include <types.hpp>
 #include <vector>
 
 #include "tile_id.hpp"
@@ -21,7 +22,7 @@ namespace wanderer::comp {
 struct frame final
 {
   tile_id tile{g_emptyTile};
-  u32 duration{};
+  cen::milliseconds<u32> duration{};
 };
 
 /**
@@ -46,8 +47,8 @@ struct frame final
  */
 struct animated_tile final
 {
-  u32 index{0};
-  u32 then{};
+  int index{0};
+  cen::milliseconds<u32> then{};
   std::vector<frame> frames;
 };
 

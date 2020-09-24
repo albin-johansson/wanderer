@@ -15,7 +15,7 @@ void add_animation(entt::registry& registry,
 {
   auto& animatedTile = registry.emplace<comp::animated_tile>(tileEntity.get());
   animatedTile.index = 0;
-  animatedTile.then = cen::counter::ticks().count();  // FIXME
+  animatedTile.then = cen::counter::ticks();
 
   animatedTile.frames.reserve(
       static_cast<std::size_t>(stepAnimation.num_frames()));
@@ -23,7 +23,7 @@ void add_animation(entt::registry& registry,
   for (const auto& stepFrames : stepAnimation.frames()) {
     auto& frame = animatedTile.frames.emplace_back();
     frame.tile = firstgid + static_cast<tile_id>(stepFrames.tile_id().get());
-    frame.duration = static_cast<u32>(stepFrames.duration());
+    frame.duration = cen::milliseconds<u32>{stepFrames.duration()};
   }
 
   animatedTile.frames.shrink_to_fit();
