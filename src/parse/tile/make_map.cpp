@@ -1,9 +1,10 @@
 #include "make_map.hpp"
 
 #include <step_map.hpp>
+#include <step_tile_layer.hpp>
 #include <vector>
 
-#include "component/depth_drawable.hpp"
+#include "add_tile_objects.hpp"
 #include "component/tile_layer.hpp"
 #include "game_constants.hpp"
 #include "index_to_matrix.hpp"
@@ -12,7 +13,7 @@
 namespace wanderer {
 namespace {
 
-[[nodiscard]] auto create_tile_matrix(const int nRows, const int nCols)
+[[nodiscard]] auto make_tile_matrix(const int nRows, const int nCols)
     -> comp::tile_layer::tile_matrix
 {
   const auto rows = static_cast<std::size_t>(nRows);
@@ -20,66 +21,43 @@ namespace {
   return {rows, std::vector<tile_id>(cols, g_emptyTile)};
 }
 
-[[nodiscard]] auto create_ground_layer(entt::registry& registry,
-                                       const step::layer& stepLayer,
-                                       const step::tile_layer& stepTileLayer)
-    -> comp::tile_layer::entity
+[[nodiscard]] auto make_ground_layer(entt::registry& registry,
+                                     const step::tile_layer& tileLayer,
+                                     int numRows,
+                                     int numColumns) -> comp::tile_layer::entity
 {
-  const auto groundLayerEntity = registry.create();
+  const auto layerEntity = registry.create();
 
-  auto& tileLayer = registry.emplace<comp::tile_layer>(groundLayerEntity);
-  tileLayer.matrix = create_tile_matrix(stepLayer.height(), stepLayer.width());
+  auto& layer = registry.emplace<comp::tile_layer>(layerEntity);
+  layer.matrix = make_tile_matrix(numRows, numColumns);
 
-  int index = 0;
-  for (const auto gid : stepTileLayer.data()->as_gid()) {
-    const auto [row, col] = index_to_matrix(index, stepLayer.width());
-
-    const auto r = static_cast<std::size_t>(row);
-    const auto c = static_cast<std::size_t>(col);
-    tileLayer.matrix.at(r).at(c) = gid.get();
+  int index{0};
+  for (const auto gid : tileLayer.data()->as_gid()) {
+    const auto [row, col] = index_to_matrix<std::size_t>(index, numColumns);
+    layer.matrix.at(row).at(col) = gid.get();
     ++index;
   }
 
-  return comp::tile_layer::entity{groundLayerEntity};
+  return comp::tile_layer::entity{layerEntity};
 }
 
-void create_tile_objects(entt::registry& registry,
-                         comp::tilemap& tilemap,
-                         const step::layer& stepLayer,
-                         const std::vector<step::global_id>& tileData,
-                         const comp::tileset& tileset)
+void parse_tile_layer(entt::registry& registry,
+                      comp::tilemap& tilemap,
+                      const step::tile_layer& layer,
+                      const step::properties* properties)
 {
-  int index = 0;
-  for (const auto gid : tileData) {
-    if (gid.get() == g_emptyTile) {
-      ++index;
-      continue;
+  if (properties->has("ground")) {
+    if (properties->is("ground", true)) {
+      tilemap.layers.emplace_back(
+          make_ground_layer(registry, layer, tilemap.rows, tilemap.cols));
+    } else {
+      const auto& tileset = registry.get<comp::tileset>(tilemap.tileset.get());
+      if (const auto* data = layer.data()) {
+        const auto& gid = data->as_gid();
+        add_tile_objects(registry, tilemap, tileset, gid.begin(), gid.end());
+      }
     }
-
-    const auto& tile =
-        registry.get<comp::tile>(tileset.tiles.at(gid.get()).get());
-    const auto tileObjectEntity = registry.create();
-    const auto [row, col] = index_to_matrix(index, stepLayer.width());
-    const auto tileSize = g_tileSize<float>;
-
-    auto& drawable = registry.emplace<comp::depth_drawable>(tileObjectEntity);
-    drawable.texture = tile.sheet;
-    drawable.src = tile.src;
-
-    drawable.dst = {{static_cast<float>(col) * tileSize,
-                     static_cast<float>(row) * tileSize},
-                    {tileSize, tileSize}};
-
-    drawable.depth = depth{5};  // FIXME
-    drawable.centerY =
-        (static_cast<float>(row) * tileSize) + (drawable.dst.height() / 2.0f);
-
-    tilemap.tileObjects.emplace(comp::map_position{row, col}, tileObjectEntity);
-
-    ++index;
   }
-
-  // TODO load actual game objects (items, NPCs, portals to other levels)
 }
 
 }  // namespace
@@ -101,27 +79,11 @@ auto make_map(entt::registry& registry,
       make_tileset(registry, stepMap->tilesets(), renderer, imageCache);
 
   for (const auto& stepLayer : stepMap->layers()) {
-    const auto* layerProps = stepLayer.get_properties();
+    const auto* properties = stepLayer.get_properties();
 
-    if (stepLayer.is<step::tile_layer>()) {
-      const auto& stepTileLayer = stepLayer.as<step::tile_layer>();
-
-      if (layerProps->has("ground")) {
-        if (layerProps->is("ground", true)) {
-          tilemap.layers.emplace_back(
-              create_ground_layer(registry, stepLayer, stepTileLayer));
-        } else {
-          const auto& tileset =
-              registry.get<comp::tileset>(tilemap.tileset.get());
-          create_tile_objects(registry,
-                              tilemap,
-                              stepLayer,
-                              stepTileLayer.data()->as_gid(),
-                              tileset);
-        }
-      }
-
-    } else if (stepLayer.is<step::object_group>()) {
+    if (const auto* tileLayer = stepLayer.try_as<step::tile_layer>()) {
+      parse_tile_layer(registry, tilemap, *tileLayer, properties);
+    } else if (const auto* group = stepLayer.try_as<step::object_group>()) {
       // TODO spawnpoints, etc.
     }
   }

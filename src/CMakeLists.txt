@@ -122,6 +122,8 @@ set(SOURCE_FILES
         parse/tile/make_map.cpp
         parse/tile/make_tileset.cpp
         parse/tile/make_tileset.hpp
+        parse/tile/add_tile_objects.cpp
+        parse/tile/add_tile_objects.hpp
 
         system/collision/aabb_system.cpp
         system/collision/aabb_system.hpp)
