@@ -68,7 +68,7 @@ void game::handle_input(const input& input)
   sys::input::update(m_registry, m_dispatcher, m_player, input);
 }
 
-void game::tick(const delta dt)
+void game::tick(delta dt)
 {
   // TODO check if menu is blocking
   m_dispatcher.update();
@@ -81,7 +81,7 @@ void game::tick(const delta dt)
   sys::viewport::update(m_registry, m_viewport, m_player, dt);
 }
 
-void game::render(cen::renderer& renderer, const alpha alpha)
+void game::render(cen::renderer& renderer, alpha alpha)
 {
   sys::viewport::translate(m_registry, m_viewport, renderer);
 
