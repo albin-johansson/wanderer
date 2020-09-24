@@ -1,7 +1,7 @@
 #include "aabb_system.hpp"
 
-#include <algorithm>
-#include <cassert>
+#include <algorithm>  // min, max
+#include <cassert>    // assert
 
 /**
  * @brief
@@ -203,10 +203,6 @@ auto make_aabb(const cen::fpoint& pos, const cen::farea& size) noexcept
 
   validate(result);
 
-  //  result.center.x = pos.x() + (size.width / 2.0f);
-  //  result.center.y = pos.y() + (size.height / 2.0f);
-  //  result.area = size.width * size.height;
-
   return result;
 }
 
@@ -267,25 +263,6 @@ void update(entt::registry& registry,
   remove_leaf(registry, leafNodeEntity);
   node.box = box;
   insert_leaf(registry, leafNodeEntity);
-}
-
-void query(entt::registry&, entt::entity)
-{
-  //  const auto& source = registry.get<AABBNode>(entity);
-  //
-  //  const auto view = registry.view<AABBNode>();
-  //
-  //  for (const auto e : view) {
-  //    auto& node = view.get(e);
-  //
-  //    if (registry.has<AABBLeaf>(e)) {
-  //      // TODO check collision
-  //
-  //    } else {
-  //      const auto& left = registry.get<AABBNode>(node.left);
-  //      const auto& right = registry.get<AABBNode>(node.right);
-  //    }
-  //  }
 }
 
 }  // namespace wanderer::sys::aabb

@@ -11,6 +11,7 @@
 #include <area.hpp>
 #include <entt.hpp>
 #include <point.hpp>
+#include <stack>  // stack
 
 #include "component/aabb.hpp"
 
@@ -30,6 +31,7 @@ void validate(comp::aabb& aabb) noexcept;
  *
  * @param pos the position of the box.
  * @param size the size of the box.
+ *
  * @return the created AABB instance.
  */
 [[nodiscard]] auto make_aabb(const cen::fpoint& pos,
@@ -43,6 +45,7 @@ void validate(comp::aabb& aabb) noexcept;
  *
  * @param fst the first AABB.
  * @param snd the second AABB.
+ *
  * @return an AABB that is the merged result of the two supplied boxes.
  */
 [[nodiscard]] auto merge(const comp::aabb& fst, const comp::aabb& snd) noexcept
@@ -60,9 +63,11 @@ void validate(comp::aabb& aabb) noexcept;
 
 /**
  * @brief Indicates whether or not an AABB contains another AABB.
+ *
  * @param source the box that will be checked to see if it contains the other
  * box.
  * @param other the box that will be looked for in the source box.
+ *
  * @return `true` if `source` contains `other`; `false` otherwise.
  */
 [[nodiscard]] auto contains(const comp::aabb& source,
@@ -84,6 +89,32 @@ void update(entt::registry& registry,
             const comp::aabb& box) noexcept;
 
 // used to obtain collision candidates, could invoke some callback
-void query(entt::registry& registry, entt::entity entity);
+template <typename T>
+void query(entt::registry& registry, entt::entity entity, T&& callback)
+{
+  std::stack<entt::entity> stack;  // use pmr instead
+
+  const auto& source = registry.get<comp::aabb_node>(entity);
+
+  stack.push(registry.view<comp::aabb_root>().front());
+  while (!stack.empty()) {
+    const auto next = stack.top();
+    stack.pop();
+
+    if (next == entt::null) {
+      continue;
+    }
+
+    const auto& nextNode = registry.get<comp::aabb_node>(next);
+    if (overlaps(source.box, nextNode.box)) {
+      if (nextNode.left == entt::null && &nextNode != &source) {
+        callback(next, nextNode);
+      } else {
+        stack.push(nextNode.left);
+        stack.push(nextNode.right);
+      }
+    }
+  }
+}
 
 }  // namespace wanderer::sys::aabb
