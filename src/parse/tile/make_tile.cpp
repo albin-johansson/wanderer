@@ -1,7 +1,6 @@
 #include "make_tile.hpp"
 
 #include <counter.hpp>
-#include <log.hpp>
 
 #include "component/animated_tile.hpp"
 
