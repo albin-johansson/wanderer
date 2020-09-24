@@ -1,6 +1,6 @@
 #pragma once
 
-#include "wanderer_stdinc.hpp"
+#include <entt.hpp>
 
 namespace wanderer {
 
