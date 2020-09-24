@@ -16,6 +16,7 @@ namespace wanderer::sys {
  * @param viewportEntity the viewport entity.
  * @param rows the number of rows in the current tilemap.
  * @param cols the number of columns in the current tilemap.
+ *
  * @return the render bounds that should be used when rendering the tilemap.
  */
 [[nodiscard]] auto calculate_render_bounds(
