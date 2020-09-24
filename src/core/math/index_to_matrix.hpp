@@ -16,11 +16,12 @@ namespace wanderer {
  *
  * @since 0.1.0
  */
+template <typename T = int>
 [[nodiscard]] static constexpr auto index_to_matrix(int index,
                                                     int nCols) noexcept
-    -> std::pair<int, int>
+    -> std::pair<T, T>
 {
-  return {index / nCols, index % nCols};
+  return {static_cast<T>(index / nCols), static_cast<T>(index % nCols)};
 }
 
 }  // namespace wanderer
