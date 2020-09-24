@@ -29,7 +29,7 @@ void enter_idle_animation(entt::registry& registry,
  */
 void enter_move_animation(entt::registry& registry,
                           entt::entity entity,
-                          Direction direction) noexcept;
+                          direction direction) noexcept;
 
 /**
  * @brief Makes a humanoid enter the melee animation.

@@ -44,7 +44,7 @@ namespace {
   const auto entity = registry.create();
 
   auto& movable = registry.emplace<comp::movable>(entity);
-  movable.dominantDirection = Direction::Down;
+  movable.dominantDirection = direction::down;
 
   auto& drawable = registry.emplace<comp::depth_drawable>(entity);
   drawable.texture = texture;
@@ -89,7 +89,7 @@ auto add_player(entt::registry& registry,
   auto& movable = registry.get<comp::movable>(playerEntity);
   movable.speed = g_playerSpeed;
   movable.currentPos = {100, 100};
-  movable.dominantDirection = Direction::Down;
+  movable.dominantDirection = direction::down;
   movable.oldPos = movable.currentPos;
 
   registry.emplace<comp::binds>(playerEntity);

@@ -38,7 +38,7 @@ struct movable final
   vector2f currentPos;
   vector2f oldPos;
   vector2f interpolatedPos;
-  Direction dominantDirection{Direction::Down};
+  direction dominantDirection{direction::down};
   float speed{0};
 };
 

@@ -9,7 +9,7 @@
 
 namespace wanderer {
 
-class application
+class application final
 {
  public:
   application();

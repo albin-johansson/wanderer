@@ -24,12 +24,6 @@ struct end_humanoid_move_event final
 {
   entt::registry* registry{nullptr};
   entt::entity entity{entt::null};  // TODO tag type
-
-  end_humanoid_move_event(entt::registry* registry,
-                          const entt::entity entity) noexcept
-      : registry{registry},
-        entity{entity}
-  {}
 };
 
 }  // namespace wanderer

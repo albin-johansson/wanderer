@@ -56,19 +56,19 @@ void update(
  * appropriate offset.
  * @return the source y-coordinate to use for rendering a humanoid.
  */
-[[nodiscard]] auto source_y(const int y, const Direction direction) noexcept
+[[nodiscard]] auto source_y(const int y, const direction direction) noexcept
     -> int
 {
   switch (direction) {
     default:
       [[fallthrough]];
-    case Direction::Up:
+    case direction::up:
       return y;
-    case Direction::Left:
+    case direction::left:
       return y + 64;
-    case Direction::Down:
+    case direction::down:
       return y + 128;
-    case Direction::Right:
+    case direction::right:
       return y + 192;
   }
 }
@@ -164,7 +164,7 @@ void enter_idle_animation(entt::registry& registry,
 
 void enter_move_animation(entt::registry& registry,
                           const entt::entity entity,
-                          const Direction direction) noexcept
+                          const direction direction) noexcept
 {
   update(registry,
          entity,

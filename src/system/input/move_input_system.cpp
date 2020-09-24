@@ -11,22 +11,22 @@
 namespace wanderer::sys::input {
 namespace {
 
-void move(comp::movable& movable, const Direction direction) noexcept
+void move(comp::movable& movable, const direction direction) noexcept
 {
   switch (direction) {
-    case Direction::Right: {
+    case direction::right: {
       movable.velocity.set_x(movable.speed);
       break;
     }
-    case Direction::Left: {
+    case direction::left: {
       movable.velocity.set_x(-movable.speed);
       break;
     }
-    case Direction::Up: {
+    case direction::up: {
       movable.velocity.set_y(-movable.speed);
       break;
     }
-    case Direction::Down: {
+    case direction::down: {
       movable.velocity.set_y(movable.speed);
       break;
     }
@@ -37,18 +37,18 @@ void move(comp::movable& movable, const Direction direction) noexcept
   movable.velocity.scale(movable.speed);
 }
 
-void stop(comp::movable& movable, const Direction direction) noexcept
+void stop(comp::movable& movable, const direction direction) noexcept
 {
   switch (direction) {
-    case Direction::Right:
+    case direction::right:
       [[fallthrough]];
-    case Direction::Left: {
+    case direction::left: {
       movable.velocity.set_x(0);
       break;
     }
-    case Direction::Up:
+    case direction::up:
       [[fallthrough]];
-    case Direction::Down: {
+    case direction::down: {
       movable.velocity.set_y(0);
       break;
     }
@@ -69,21 +69,21 @@ void stop(comp::movable& movable, const Direction direction) noexcept
   const auto down = input.is_pressed(binds.down);
 
   if (left && right) {
-    stop(movable, Direction::Left);
-    stop(movable, Direction::Right);
+    stop(movable, direction::left);
+    stop(movable, direction::right);
   } else if (left) {
-    move(movable, Direction::Left);
+    move(movable, direction::left);
   } else if (right) {
-    move(movable, Direction::Right);
+    move(movable, direction::right);
   }
 
   if (up && down) {
-    stop(movable, Direction::Up);
-    stop(movable, Direction::Down);
+    stop(movable, direction::up);
+    stop(movable, direction::down);
   } else if (up) {
-    move(movable, Direction::Up);
+    move(movable, direction::up);
   } else if (down) {
-    move(movable, Direction::Down);
+    move(movable, direction::down);
   }
 
   return up || down || right || left;
@@ -99,19 +99,19 @@ void check_released(comp::movable& movable,
   const auto down = input.was_released(binds.down);
 
   if (left) {
-    stop(movable, Direction::Left);
+    stop(movable, direction::left);
   }
 
   if (right) {
-    stop(movable, Direction::Right);
+    stop(movable, direction::right);
   }
 
   if (up) {
-    stop(movable, Direction::Up);
+    stop(movable, direction::up);
   }
 
   if (down) {
-    stop(movable, Direction::Down);
+    stop(movable, direction::down);
   }
 }
 
@@ -129,13 +129,13 @@ void handle_move_input(entt::registry& registry,
     check_released(movable, input, binds);
 
     if (!areMoveKeysDown && movable.velocity.is_zero()) {
-      dispatcher.enqueue<end_humanoid_move_event>(&registry, player);
+      dispatcher.enqueue(end_humanoid_move_event{&registry, player});
     } else if (input.is_pressed(binds.attack)) {
       movable.velocity.zero();
 
       // FIXME null weapon
-      dispatcher.enqueue<begin_attack_event>(
-          &registry, player, entt::null, movable.dominantDirection);
+      dispatcher.enqueue(begin_attack_event{
+          &registry, player, entt::null, movable.dominantDirection});
     }
   }
 }

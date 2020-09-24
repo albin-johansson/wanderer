@@ -11,14 +11,14 @@ namespace {
 void update_direction(comp::movable& movable) noexcept
 {
   if (movable.velocity.x() > 0) {
-    movable.dominantDirection = Direction::Right;
+    movable.dominantDirection = direction::right;
   } else if (movable.velocity.x() < 0) {
-    movable.dominantDirection = Direction::Left;
+    movable.dominantDirection = direction::left;
   } else {
     if (movable.velocity.y() < 0) {
-      movable.dominantDirection = Direction::Up;
+      movable.dominantDirection = direction::up;
     } else if (movable.velocity.y() > 0) {
-      movable.dominantDirection = Direction::Down;
+      movable.dominantDirection = direction::down;
     }
   }
 }

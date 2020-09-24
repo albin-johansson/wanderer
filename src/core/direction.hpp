@@ -3,26 +3,27 @@
 namespace wanderer {
 
 /**
- * @enum Direction
+ * @enum direction
+ *
  * @brief Represents four different directions.
  *
- * @var Direction::Up
+ * @var direction::up
  * Represents the direction "up", or north.
- * @var Direction::Right
+ * @var direction::right
  * Represents the direction "right", or east.
- * @var Direction::Down
+ * @var direction::down
  * Represents the direction "down", or south.
- * @var Direction::Left
+ * @var direction::left
  * Represents the direction "left", or west.
  *
  * @headerfile direction.hpp
  */
-enum class Direction
+enum class direction
 {
-  Up,
-  Right,
-  Down,
-  Left
+  up,
+  right,
+  down,
+  left
 };
 
 }  // namespace wanderer
