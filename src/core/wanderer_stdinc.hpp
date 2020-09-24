@@ -29,27 +29,30 @@ inline constexpr tile_id g_emptyTile = 0;
 using json = nlohmann::json;
 
 using delta = fluent::NamedType<float,
-                                struct DeltaTag,
+                                struct delta_tag_t,
                                 fluent::Comparable,
                                 fluent::Addable,
                                 fluent::Subtractable,
                                 fluent::Incrementable,
                                 fluent::Decrementable>;
 
-using alpha = fluent::NamedType<float, struct AlphaTag, fluent::Comparable>;
+using alpha = fluent::NamedType<float, struct alpa_tag_t, fluent::Comparable>;
 
-using depth = fluent::NamedType<int, struct DepthTag, fluent::Comparable>;
+using depth = fluent::NamedType<int, struct depth_tag_t, fluent::Comparable>;
 
 /**
  * @brief Creates and returns a null entity identifier.
- * @pre `EntityType` must have a public entity tag type `EntityType::entity`.
- * @tparam EntityType the type that has a entity tag type.
+ *
+ * @pre `T` must have a public entity tag type `T::entity`.
+ *
+ * @tparam T the type that has a entity tag type.
+ *
  * @return a null value of the entity tag type.
  */
-template <typename EntityType>
+template <typename T>
 [[nodiscard]] constexpr auto null() noexcept
 {
-  return typename EntityType::entity{entt::entity{entt::null}};
+  return typename T::entity{entt::entity{entt::null}};
 }
 
 }  // namespace wanderer

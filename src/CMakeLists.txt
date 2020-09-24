@@ -13,10 +13,10 @@ set(SOURCE_FILES
         doxygen_docs.hpp
 
         core/wanderer_stdinc.hpp
-        core/game.hpp
-        core/game.cpp
-        core/application.cpp
-        core/application.hpp
+        game.hpp
+        game.cpp
+        application.cpp
+        application.hpp
         core/game_loop.hpp
         core/game_loop.cpp
         core/direction.hpp
