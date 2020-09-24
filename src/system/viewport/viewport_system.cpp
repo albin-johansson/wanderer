@@ -12,7 +12,7 @@ void track(comp::viewport& viewport,
            const cen::farea& size,
            const delta dt)
 {
-  auto panSpeed = 15.0f * dt.get();
+  auto panSpeed = 15.0f * static_cast<float>(dt.get());
 
   const float targetX =
       (target.x() + (size.width / 2.0f)) - (viewport.bounds.width() / 2.0f);
