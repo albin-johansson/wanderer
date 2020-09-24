@@ -51,10 +51,12 @@ namespace {
   drawable.src = {{0, 0}, {64, 64}};
   drawable.dst = {{0, 0}, {g_humanoidDrawWidth, g_humanoidDrawHeight}};
 
+  using ms = cen::milliseconds<u32>;
+
   auto& animated = registry.emplace<comp::animated>(entity);
   animated.frame = 0;
-  animated.delay = 65;
-  animated.then = cen::counter::ticks().count();  // FIXME count
+  animated.delay = ms{65};
+  animated.then = cen::counter::ticks();
   animated.nFrames = 1;
 
   constexpr cen::farea humanoidSize{g_humanoidDrawWidth, g_humanoidDrawHeight};

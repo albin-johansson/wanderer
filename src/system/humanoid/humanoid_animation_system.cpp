@@ -23,14 +23,14 @@ inline constexpr int moveSourceY{512};
 inline constexpr int meleeSourceY{768};
 inline constexpr int bowSourceY{1024};
 
-inline constexpr u32 idleDelay{90};
-inline constexpr u32 moveDelay{70};
-inline constexpr u32 attackDelay{70};
+inline constexpr cen::milliseconds<u32> idleDelay{90};
+inline constexpr cen::milliseconds<u32> moveDelay{70};
+inline constexpr cen::milliseconds<u32> attackDelay{70};
 
 template <typename Lambda>
 void update(
     entt::registry& registry,
-    const entt::entity entity,
+    entt::entity entity,
     Lambda&& lambda) noexcept(noexcept(lambda(std::declval<comp::animated&>(),
                                               std::declval<comp::movable&>(),
                                               std::declval<
@@ -56,8 +56,7 @@ void update(
  * appropriate offset.
  * @return the source y-coordinate to use for rendering a humanoid.
  */
-[[nodiscard]] auto source_y(const int y, const direction direction) noexcept
-    -> int
+[[nodiscard]] auto source_y(int y, direction direction) noexcept -> int
 {
   switch (direction) {
     default:
@@ -80,7 +79,7 @@ void update(
  * @param entity the entity that will be updated.
  */
 void update_move_animation(entt::registry& registry,
-                           const entt::entity entity) noexcept
+                           entt::entity entity) noexcept
 {
   update(registry,
          entity,
@@ -107,13 +106,13 @@ void update_move_animation(entt::registry& registry,
  * @param entity the entity that will be updated.
  */
 void update_attack_animation(entt::registry& registry,
-                             const entt::entity entity) noexcept
+                             entt::entity entity) noexcept
 {
   update(registry,
          entity,
-         [&registry, entity](comp::animated& animated,
-                             comp::movable&,
-                             comp::depth_drawable& drawable) noexcept {
+         [&](comp::animated& animated,
+             comp::movable&,
+             comp::depth_drawable& drawable) noexcept {
            drawable.src.set_x(static_cast<int>(animated.frame) * 64);
            if (animated.frame == animated.nFrames - 1) {
              auto& attack = registry.get<comp::humanoid_attack>(entity);
@@ -136,16 +135,16 @@ void update_attack_animation(entt::registry& registry,
  * animation.
  */
 void enter_animation(entt::registry& registry,
-                     const entt::entity entity,
-                     const u32 nFrames,
-                     const u32 delay,
-                     const int sourceY) noexcept
+                     entt::entity entity,
+                     u32 nFrames,
+                     cen::milliseconds<u32> delay,
+                     int sourceY) noexcept
 {
   update(registry,
          entity,
-         [nFrames, sourceY, delay](comp::animated& animated,
-                                   comp::movable& movable,
-                                   comp::depth_drawable& drawable) noexcept {
+         [=](comp::animated& animated,
+             comp::movable& movable,
+             comp::depth_drawable& drawable) noexcept {
            animated.frame = 0;
            animated.nFrames = nFrames;
            animated.delay = delay;
@@ -157,20 +156,20 @@ void enter_animation(entt::registry& registry,
 }  // namespace
 
 void enter_idle_animation(entt::registry& registry,
-                          const entt::entity entity) noexcept
+                          entt::entity entity) noexcept
 {
   enter_animation(registry, entity, nIdleFrames, idleDelay, idleSourceY);
 }
 
 void enter_move_animation(entt::registry& registry,
-                          const entt::entity entity,
-                          const direction direction) noexcept
+                          entt::entity entity,
+                          direction direction) noexcept
 {
   update(registry,
          entity,
-         [direction](comp::animated& animated,
-                     comp::movable&,
-                     comp::depth_drawable& drawable) noexcept {
+         [=](comp::animated& animated,
+             comp::movable&,
+             comp::depth_drawable& drawable) noexcept {
            animated.frame = 0;
            animated.nFrames = 9;
            animated.delay = moveDelay;
@@ -180,25 +179,24 @@ void enter_move_animation(entt::registry& registry,
 }
 
 void enter_melee_animation(entt::registry& registry,
-                           const entt::entity entity) noexcept
+                           entt::entity entity) noexcept
 {
   enter_animation(registry, entity, nMeleeFrames, attackDelay, meleeSourceY);
 }
 
 void enter_spell_animation(entt::registry& registry,
-                           const entt::entity entity) noexcept
+                           entt::entity entity) noexcept
 {
   enter_animation(registry, entity, nMagicFrames, attackDelay, magicSourceY);
 }
 
-void enter_bow_animation(entt::registry& registry,
-                         const entt::entity entity) noexcept
+void enter_bow_animation(entt::registry& registry, entt::entity entity) noexcept
 {
   enter_animation(registry, entity, nBowFrames, attackDelay, bowSourceY);
 }
 
 void enter_spear_animation(entt::registry& registry,
-                           const entt::entity entity) noexcept
+                           entt::entity entity) noexcept
 {
   enter_animation(registry, entity, nSpearFrames, attackDelay, spearSourceY);
 }
