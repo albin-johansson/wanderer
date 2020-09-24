@@ -1,5 +1,10 @@
 #include "application.hpp"
 
+#include <SDL.h>
+
+#include <algorithm>  // min
+#include <counter.hpp>
+#include <key_code.hpp>
 #include <screen.hpp>
 
 #include "game_constants.hpp"
@@ -15,6 +20,11 @@ namespace {
   return renderer;
 }
 
+[[nodiscard]] auto was_quit_requested() noexcept -> bool
+{
+  return SDL_PeepEvents(nullptr, 0, SDL_PEEKEVENT, SDL_QUIT, SDL_QUIT) > 0;
+}
+
 }  // namespace
 
 application::application()
@@ -23,24 +33,59 @@ application::application()
       m_game{m_renderer}
 {}
 
+auto application::handle_input() -> bool
+{
+  m_mouseState.update(m_renderer.output_width(), m_renderer.output_height());
+  m_keyState.update();
+  SDL_PumpEvents();
+
+  const bool shouldContinue =
+      !m_keyState.was_just_released(cen::keycodes::escape) &&
+      !was_quit_requested();
+
+  m_game.handle_input(m_mouseState, m_keyState);
+
+  return shouldContinue;
+}
+
 void application::run()
 {
+  constexpr double tickRate{60};
+  constexpr int maxSteps{5};
+  constexpr cen::seconds<double> fixedDelta{1.0 / tickRate};
+
   m_window.show();
 
-  bool running{true};
-  while (running) {
-    m_input.update(m_renderer.output_width(), m_renderer.output_height());
+  auto currentTime = cen::counter::now_sec<double>();
 
-    if (m_input.was_released(SDLK_ESCAPE) || m_input.was_quit_requested()) {
-      running = false;
+  bool running = true;
+  while (running) {
+    const auto newTime = cen::counter::now_sec<double>();
+    auto frameTime = newTime - currentTime;
+    currentTime = newTime;
+
+    auto nSteps = 0;
+    while (frameTime > cen::seconds<double>::zero()) {
+      if (nSteps > maxSteps) {
+        break;  // avoids spiral-of-death by limiting maximum amount of steps
+      }
+
+      const auto deltaTime = std::min(frameTime, fixedDelta);
+
+      running = handle_input();
+      if (!running) {
+        break;
+      }
+
+      m_game.tick(delta{static_cast<float>(deltaTime.count())});
+
+      frameTime -= deltaTime;
+
+      ++nSteps;
     }
 
-    m_game.handle_input(m_input);
-
-    m_loop.update(m_game);
-
     m_renderer.clear_with(cen::colors::pink);
-    m_game.render(m_renderer, m_loop.curr_alpha());
+    m_game.render(m_renderer, alpha{0});
     m_renderer.present();
   }
 

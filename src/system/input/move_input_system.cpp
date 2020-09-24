@@ -11,7 +11,7 @@
 namespace wanderer::sys::input {
 namespace {
 
-void move(comp::movable& movable, const direction direction) noexcept
+void move(comp::movable& movable, direction direction) noexcept
 {
   switch (direction) {
     case direction::right: {
@@ -37,7 +37,7 @@ void move(comp::movable& movable, const direction direction) noexcept
   movable.velocity.scale(movable.speed);
 }
 
-void stop(comp::movable& movable, const direction direction) noexcept
+void stop(comp::movable& movable, direction direction) noexcept
 {
   switch (direction) {
     case direction::right:
@@ -60,13 +60,13 @@ void stop(comp::movable& movable, const direction direction) noexcept
 }
 
 [[nodiscard]] auto check_pressed(comp::movable& movable,
-                                 const input& input,
+                                 const cen::key_state& keyState,
                                  const comp::binds& binds) -> bool
 {
-  const auto left = input.is_pressed(binds.left);
-  const auto right = input.is_pressed(binds.right);
-  const auto up = input.is_pressed(binds.up);
-  const auto down = input.is_pressed(binds.down);
+  const auto left = keyState.is_pressed(binds.left);
+  const auto right = keyState.is_pressed(binds.right);
+  const auto up = keyState.is_pressed(binds.up);
+  const auto down = keyState.is_pressed(binds.down);
 
   if (left && right) {
     stop(movable, direction::left);
@@ -90,13 +90,13 @@ void stop(comp::movable& movable, const direction direction) noexcept
 }
 
 void check_released(comp::movable& movable,
-                    const input& input,
+                    const cen::key_state& keyState,
                     const comp::binds& binds)
 {
-  const auto left = input.was_released(binds.left);
-  const auto right = input.was_released(binds.right);
-  const auto up = input.was_released(binds.up);
-  const auto down = input.was_released(binds.down);
+  const auto left = keyState.was_just_released(binds.left);
+  const auto right = keyState.was_just_released(binds.right);
+  const auto up = keyState.was_just_released(binds.up);
+  const auto down = keyState.was_just_released(binds.down);
 
   if (left) {
     stop(movable, direction::left);
@@ -120,17 +120,17 @@ void check_released(comp::movable& movable,
 void handle_move_input(entt::registry& registry,
                        entt::dispatcher& dispatcher,
                        const entt::entity player,
-                       const input& input)
+                       const cen::key_state& keyState)
 {
   if (registry.has<comp::humanoid_move>(player)) {
     auto& movable = registry.get<comp::movable>(player);
     const auto& binds = registry.get<comp::binds>(player);
-    const bool areMoveKeysDown = check_pressed(movable, input, binds);
-    check_released(movable, input, binds);
+    const bool areMoveKeysDown = check_pressed(movable, keyState, binds);
+    check_released(movable, keyState, binds);
 
     if (!areMoveKeysDown && movable.velocity.is_zero()) {
       dispatcher.enqueue(end_humanoid_move_event{&registry, player});
-    } else if (input.is_pressed(binds.attack)) {
+    } else if (keyState.is_pressed(binds.attack)) {
       movable.velocity.zero();
 
       // FIXME null weapon

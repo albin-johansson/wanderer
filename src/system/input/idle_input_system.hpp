@@ -1,8 +1,7 @@
 #pragma once
 
 #include <entt.hpp>
-
-#include "input.hpp"
+#include <key_state.hpp>
 
 namespace wanderer::sys::input {
 
@@ -17,11 +16,11 @@ namespace wanderer::sys::input {
  * @param registry the associated registry.
  * @param dispatcher the dispatcher used for events.
  * @param player the player entity.
- * @param input the current mouse and key state.
+ * @param keyState the current keyboard input state.
  */
 void handle_idle_input(entt::registry& registry,
                        entt::dispatcher& dispatcher,
                        entt::entity player,
-                       const input& input);
+                       const cen::key_state& keyState);
 
 }  // namespace wanderer::sys::input

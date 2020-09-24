@@ -1,5 +1,7 @@
 #pragma once
 
+#include <key_state.hpp>
+#include <mouse_state.hpp>
 #include <renderer.hpp>
 
 #include "alpha.hpp"
@@ -7,7 +9,6 @@
 #include "component/viewport.hpp"
 #include "delta.hpp"
 #include "image_cache.hpp"
-#include "input.hpp"
 
 namespace wanderer {
 
@@ -36,9 +37,11 @@ class game final
   /**
    * @brief Responds to user input.
    *
-   * @param input the current state of the key and mouse input.
+   * @param mouseState the current mouse input state.
+   * @param keyState the current keyboard input state.
    */
-  void handle_input(const input& input);
+  void handle_input(const cen::mouse_state& mouseState,
+                    const cen::key_state& keyState);
 
   /**
    * @brief Updates the state of the game.

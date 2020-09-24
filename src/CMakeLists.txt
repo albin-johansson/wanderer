@@ -42,9 +42,6 @@ set(SOURCE_FILES
         core/math/floating.hpp
         core/math/angles.hpp
 
-        utility/input.cpp
-        utility/input.hpp
-
         component/player.hpp
         component/movable.hpp
         component/hitbox.hpp
@@ -169,7 +166,6 @@ target_include_directories(${WANDERER_LIB_TARGET}
         PUBLIC system/layer
         PUBLIC system/viewport
         PUBLIC system/collision
-        PUBLIC utility
         PUBLIC parse
         PUBLIC parse/tile
         PUBLIC parse/menu)

@@ -8,10 +8,10 @@ namespace wanderer::sys::input {
 void update(entt::registry& registry,
             entt::dispatcher& dispatcher,
             const entt::entity player,
-            const input& input)
+            const cen::key_state& keyState)
 {
-  handle_idle_input(registry, dispatcher, player, input);
-  handle_move_input(registry, dispatcher, player, input);
+  handle_idle_input(registry, dispatcher, player, keyState);
+  handle_move_input(registry, dispatcher, player, keyState);
 }
 
 }  // namespace wanderer::sys::input

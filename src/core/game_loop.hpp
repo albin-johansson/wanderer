@@ -19,7 +19,7 @@ namespace wanderer {
  *
  * @headerfile game_loop.hpp
  */
-class game_loop final
+class [[deprecated]] game_loop final
 {
  public:
   /**
@@ -54,9 +54,9 @@ class game_loop final
   delta m_delta{0};
   delta m_accumulator{0};
   delta m_deltaBuffer{0};
-  const float m_vsyncRate;
-  const delta m_timeStep;
-  const float m_counterFreq;
+  float m_vsyncRate;
+  delta m_timeStep;
+  float m_counterFreq;
 
   /**
    * @brief Returns the maximum allowed frame time (delta time) in seconds.
