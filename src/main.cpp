@@ -1,7 +1,3 @@
-#ifdef NDEBUG
-#define BOOST_DISABLE_ASSERTS
-#endif
-
 #include <centurion.hpp>
 #include <log.hpp>
 

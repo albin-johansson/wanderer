@@ -1,7 +1,7 @@
 #include "aabb_system.hpp"
 
 #include <algorithm>
-#include <assert.hpp>
+#include <cassert>
 
 /**
  * @brief
@@ -19,9 +19,8 @@ void fix_upwards_tree(entt::registry& registry,
   while (treeNodeEntity != entt::null) {
     auto& treeNode = registry.get<comp::aabb_node>(treeNodeEntity);
 
-    BOOST_ASSERT_MSG(
-        treeNode.left != entt::null && treeNode.right != entt::null,
-        "Every node should be a parent!");
+    // Every node should be a parent
+    assert(treeNode.left != entt::null && treeNode.right != entt::null);
 
     // fix height and area
     const auto& leftNode = registry.get<comp::aabb_node>(treeNode.left);
@@ -38,9 +37,9 @@ void insert_leaf(entt::registry& registry,
 {
   // make sure we're inserting a new leaf
   const auto& node = registry.get<comp::aabb_node>(leafNodeEntity);
-  BOOST_ASSERT(node.parent == entt::null);
-  BOOST_ASSERT(node.left == entt::null);
-  BOOST_ASSERT(node.right == entt::null);
+  assert(node.parent == entt::null);
+  assert(node.left == entt::null);
+  assert(node.right == entt::null);
 
   // if the tree is empty then we make the root the leaf
   if (registry.empty<comp::aabb_root>()) {
@@ -148,14 +147,16 @@ void remove_leaf(entt::registry& registry,
   auto& leafNode = registry.get<comp::aabb_node>(leafNodeEntity);
   const auto parentNodeEntity = leafNode.parent;
 
-  BOOST_ASSERT_MSG(parentNodeEntity != entt::null, "Parent was null!");
+  // Parent node cannot be null
+  assert(parentNodeEntity != entt::null);
 
   const auto& parentNode = registry.get<comp::aabb_node>(leafNode.parent);
   const auto grandParentEntity = parentNode.parent;
   const auto siblingNodeEntity =
       parentNode.left == leafNodeEntity ? parentNode.right : parentNode.left;
 
-  BOOST_ASSERT_MSG(siblingNodeEntity != entt::null, "Must have sibling!");
+  // The node must have a sibling
+  assert(siblingNodeEntity != entt::null);
 
   auto& siblingNode = registry.get<comp::aabb_node>(siblingNodeEntity);
   if (grandParentEntity != entt::null) {

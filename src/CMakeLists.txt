@@ -153,12 +153,6 @@ set(GSL_SOURCES
         ${LIBRARY_DIR}/microsoft/string_span)
 add_header_only_lib(libGSL ${LIBRARY_DIR}/microsoft ${GSL_SOURCES})
 
-set(BOOST_SOURCES
-        ${LIBRARY_DIR}/boost/assert.hpp
-        ${LIBRARY_DIR}/boost/config.hpp
-        ${LIBRARY_DIR}/boost/current_function.hpp)
-add_header_only_lib(libBOOST ${LIBRARY_DIR}/boost ${BOOST_SOURCES})
-
 set(NAMED_TYPE_SOURCES
         ${LIBRARY_DIR}/namedtype/named_type.hpp
         ${LIBRARY_DIR}/namedtype/named_type_impl.hpp
@@ -204,8 +198,7 @@ target_link_libraries(${WANDERER_LIB_TARGET}
         PUBLIC libENTT
         PUBLIC libJSON
         PUBLIC libNamedType
-        PUBLIC libGSL
-        PUBLIC libBOOST)
+        PUBLIC libGSL)
 
 add_executable(${WANDERER_EXE_TARGET} WIN32 main.cpp)
 
