@@ -78,7 +78,7 @@ auto add_player(entt::registry& registry,
 {
   constexpr auto id = "player"_hs;
   if (!imageCache.contains(id)) {
-    imageCache.load<ImageLoader>(id, renderer, "resource/img/player2.png");
+    imageCache.load<image_loader>(id, renderer, "resource/img/player2.png");
   }
 
   const auto playerEntity =
@@ -103,7 +103,7 @@ auto add_skeleton(entt::registry& registry,
 {
   constexpr auto id = "skeleton"_hs;
   if (!imageCache.contains(id)) {
-    imageCache.load<ImageLoader>(id, renderer, "resource/img/skeleton.png");
+    imageCache.load<image_loader>(id, renderer, "resource/img/skeleton.png");
   }
 
   const auto skeletonEntity =

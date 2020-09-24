@@ -50,7 +50,7 @@ auto make_tileset(entt::registry& registry,
     const entt::hashed_string id{path.data()};
 
     if (!imageCache.contains(id)) {
-      imageCache.load<ImageLoader>(id, renderer, path.c_str());
+      imageCache.load<image_loader>(id, renderer, path.c_str());
     }
 
     create_tiles(registry, tileset, *stepTileset, imageCache.handle(id));
