@@ -27,12 +27,16 @@
 #pragma once
 
 #include <algorithm>  // min, max
+#include <cstddef>    // byte
+#include <deque>      // deque
 #include <entt.hpp>
-#include <forward_list>  // forward_list
-#include <map>           // map
-#include <optional>      // optional
-#include <vector>        // vector
+#include <map>              // map
+#include <memory_resource>  // monotonic_buffer_resource
+#include <optional>         // optional
+#include <stack>            // stack
+#include <vector>           // vector
 
+#include "buffer.hpp"
 #include "vector2.hpp"
 
 namespace wanderer {
@@ -164,23 +168,102 @@ struct aabb_node final
  */
 class aabb_tree final
 {
+  template <typename T>
+  using pmr_stack = std::stack<T, std::pmr::deque<T>>;
+
  public:
   aabb_tree();
 
-  void insert_object(entt::entity id, const aabb& box);
+  /**
+   * @brief Inserts a new node into the tree.
+   *
+   * @param entity the entity that will be associated with the node.
+   * @param box the AABB associated with the entity.
+   */
+  void insert_object(entt::entity entity, const aabb& box);
 
-  void remove_object(entt::entity id);
+  /**
+   * @brief Removes the specified entity from the tree.
+   *
+   * @pre `entity` must have been previously inserted in the tree.
+   *
+   * @param entity the entity that will be removed.
+   */
+  void remove_object(entt::entity entity);
 
-  void update_object(entt::entity id, const aabb& box);
+  /**
+   * @brief Updates the AABB associated with the specified entity.
+   *
+   * @pre `entity` must have been previously inserted in the tree.
+   *
+   * @param entity the entity that will be updated.
+   * @param box the new AABB associated with the entity.
+   */
+  void update_object(entt::entity entity, const aabb& box);
 
-  [[nodiscard]] auto query_overlaps(entt::entity id) const
-      -> std::forward_list<entt::entity>;
-
-  [[nodiscard]] auto get_aabb(entt::entity id) const -> const aabb&
+  /**
+   * @brief Queries the tree for collision candidates for the specified entity.
+   *
+   * @pre `entity` must have been previously inserted in the tree.
+   *
+   * @details The output iterator can, for example, be obtained using
+   * `std::back_inserter`.
+   *
+   * @tparam OutputIterator the type of the output iterator.
+   *
+   * @param entity the entity to obtain collision candidates for.
+   * @param iterator an output iterator used to write the collision candidates.
+   */
+  template <typename OutputIterator>
+  void query_overlaps(entt::entity entity, OutputIterator iterator) const
   {
-    return m_nodes.at(m_entities.at(id)).box;
+    buffer_t<std::optional<int>, 20> buffer{};
+    std::pmr::monotonic_buffer_resource resource{buffer.data(), sizeof buffer};
+    pmr_stack<std::optional<int>> stack{&resource};
+
+    const auto& box = get_aabb(entity);
+
+    stack.push(m_rootIndex);
+    while (!stack.empty()) {
+      const auto nodeIndex = stack.top();
+      stack.pop();
+
+      if (!nodeIndex.has_value()) {
+        continue;
+      }
+
+      const auto& node = m_nodes.at(*nodeIndex);
+      if (overlaps(node.box, box)) {
+        if (is_leaf(node) && node.entity != entity) {
+          *iterator = node.entity;
+          ++iterator;
+        } else {
+          stack.push(node.left);
+          stack.push(node.right);
+        }
+      }
+    }
   }
 
+  /**
+   * @brief Returns the AABB associated with the specified entity.
+   *
+   * @param entity the entity associated with the desired AABB.
+   *
+   * @return an AABB.
+   */
+  [[nodiscard]] auto get_aabb(entt::entity entity) const -> const aabb&
+  {
+    return m_nodes.at(m_entities.at(entity)).box;
+  }
+
+  /**
+   * @brief Returns the amount of entity AABBs stored in the tree.
+   *
+   * @note This function does not return the amount of nodes in the tree.
+   *
+   * @return the amount of entity AABBs stored in the tree.
+   */
   [[nodiscard]] auto size() const noexcept -> int
   {
     return static_cast<int>(m_entities.size());

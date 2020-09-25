@@ -1,7 +1,11 @@
 #include "aabb_tree.hpp"
 
-#include <cassert>  // assert
-#include <stack>    // stack
+#include <array>            // array
+#include <cassert>          // assert
+#include <cstddef>          // byte
+#include <deque>            // deque
+#include <memory_resource>  // monotonic_buffer_resource
+#include <stack>            // stack
 
 namespace wanderer {
 namespace {
@@ -249,61 +253,67 @@ void aabb_tree::update_leaf(int leafIndex, const aabb& box)
   insert_leaf(leafIndex);
 }
 
-void aabb_tree::insert_object(entt::entity id, const aabb& box)
+void aabb_tree::insert_object(entt::entity entity, const aabb& box)
 {
   const auto nodeIndex = allocate_node();
   auto& node = m_nodes.at(nodeIndex);
 
   node.box = box;
-  node.entity = id;
+  node.entity = entity;
 
   insert_leaf(nodeIndex);
-  m_entities.emplace(id, nodeIndex);
+  m_entities.emplace(entity, nodeIndex);
 }
 
-void aabb_tree::remove_object(entt::entity id)
+void aabb_tree::remove_object(entt::entity entity)
 {
-  const auto nodeIndex = m_entities.at(id);
+  const auto nodeIndex = m_entities.at(entity);
   remove_leaf(nodeIndex);
   deallocate_node(nodeIndex);
-  m_entities.erase(id);
+  m_entities.erase(entity);
 }
 
-void aabb_tree::update_object(entt::entity id, const aabb& box)
+void aabb_tree::update_object(entt::entity entity, const aabb& box)
 {
-  const auto nodeIndex = m_entities.at(id);
+  const auto nodeIndex = m_entities.at(entity);
   update_leaf(nodeIndex, box);
 }
 
-auto aabb_tree::query_overlaps(entt::entity id) const
-    -> std::forward_list<entt::entity>
-{
-  std::forward_list<entt::entity> candidates;
-  std::stack<std::optional<int>> stack;
 
-  const auto& test = get_aabb(id);
-
-  stack.push(m_rootIndex);
-  while (!stack.empty()) {
-    const auto nodeIndex = stack.top();
-    stack.pop();
-
-    if (!nodeIndex.has_value()) {
-      continue;
-    }
-
-    const auto& node = m_nodes.at(*nodeIndex);
-    if (overlaps(node.box, test)) {
-      if (is_leaf(node) && node.entity != id) {
-        candidates.push_front(node.entity);
-      } else {
-        stack.push(node.left);
-        stack.push(node.right);
-      }
-    }
-  }
-
-  return candidates;
-}
+//auto aabb_tree::query_overlaps(entt::entity id) const
+//    -> std::forward_list<entt::entity>
+//{
+//  std::forward_list<entt::entity> candidates;
+//
+//  using buffer_t = std::array<std::byte, 20 * sizeof(std::optional<int>)>;
+//
+//  buffer_t buffer{};
+//  std::pmr::monotonic_buffer_resource resource{buffer.data(), sizeof buffer};
+//  pmr_stack<std::optional<int>> stack{&resource};
+//
+//  const auto& test = get_aabb(id);
+//
+//  stack.push(m_rootIndex);
+//  while (!stack.empty()) {
+//    const auto nodeIndex = stack.top();
+//    stack.pop();
+//
+//    if (!nodeIndex.has_value()) {
+//      continue;
+//    }
+//
+//    const auto& node = m_nodes.at(*nodeIndex);
+//    if (overlaps(node.box, test)) {
+//      if (is_leaf(node) && node.entity != id) {
+//        candidates.push_front(node.entity);
+//      } else {
+//        stack.push(node.left);
+//        stack.push(node.right);
+//      }
+//    }
+//  }
+//
+//  return candidates;
+//}
 
 }  // namespace wanderer

@@ -54,9 +54,10 @@ class level final
     return m_registry.try_get<Components...>(entity);
   }
 
-  [[nodiscard]] auto query_overlaps(entt::entity id) const
+  template <typename OutputIterator>
+  void query_overlaps(entt::entity id, OutputIterator iterator) const
   {
-    return m_aabbTree.query_overlaps(id);
+    return m_aabbTree.query_overlaps(id, iterator);
   }
 
   [[nodiscard]] auto get_aabb(entt::entity entity) const -> const aabb&

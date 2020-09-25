@@ -121,7 +121,8 @@ set(SOURCE_FILES
         core/aabb_tree.cpp
         core/aabb_tree.hpp
         core/level.cpp
-        core/level.hpp)
+        core/level.hpp
+        core/buffer.hpp)
 
 add_library(${WANDERER_LIB_TARGET} ${SOURCE_FILES})
 
