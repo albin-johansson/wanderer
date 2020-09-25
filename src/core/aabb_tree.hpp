@@ -1,3 +1,29 @@
+/*
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2017 James Randall
+ * Copyright (c) 2019-2020 Albin Johansson: adapted and improved original
+ * Simple Voxel Engine source code.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
 #pragma once
 
 #include <algorithm>  // min, max
@@ -10,15 +36,31 @@
 #include "vector2.hpp"
 
 namespace wanderer {
-inline namespace experimental {
 
+/**
+ * @struct aabb
+ *
+ * @brief Represents an AABB (Axis-Aligned Bounding Box).
+ *
+ * @headerfile aabb_tree.hpp
+ */
 struct aabb final
 {
-  vector2f min{};
-  vector2f max{};
-  float area{};
+  vector2f min{};  ///< The top-left corner position.
+  vector2f max{};  ///< The bottom-right corner position.
+  float area{};    ///< The area of the AABB.
 };
 
+/**
+ * @struct aabb_node
+ *
+ * @brief Represents a node in an AABB tree.
+ *
+ * @details Contains an AABB and the entity associated with the AABB, along
+ * with tree information.
+ *
+ * @headerfile aabb_tree.hpp
+ */
 struct aabb_node final
 {
   aabb box;
@@ -29,11 +71,26 @@ struct aabb_node final
   std::optional<int> next{};
 };
 
+/**
+ * @brief Indicates whether or not the node is a leaf.
+ *
+ * @param node the node that will be checked.
+ *
+ * @return `true` if the node is a leaf; `false` otherwise.
+ */
 [[nodiscard]] inline auto is_leaf(const aabb_node& node) noexcept -> bool
 {
   return !node.left;
 }
 
+/**
+ * @brief Returns an AABB that is the union of two AABBs.
+ *
+ * @param fst the first AABB.
+ * @param snd the second AABB.
+ *
+ * @return the union of the two AABBs.
+ */
 [[nodiscard]] inline auto merge(const aabb& fst, const aabb& snd) noexcept
     -> aabb
 {
@@ -49,21 +106,27 @@ struct aabb_node final
   const auto height = result.max.y() - result.min.y();
   result.area = width * height;
 
-  //  const auto centerX = result.min.x() + (width / 2.0f);
-  //  const auto centerY = result.min.y() + (height / 2.0f);
-  //  result.center = {centerX, centerY};
-
   return result;
 }
 
+/**
+ * @brief Returns an AABB based on the specified position and size.
+ *
+ * @param position the position of the AABB.
+ * @param size the size of the AABB.
+ *
+ * @return the created AABB.
+ */
 [[nodiscard]] inline auto make_aabb(const vector2f& position,
                                     const vector2f& size) -> aabb
 {
   aabb box;
 
   box.min = position;
-  box.max.set_x(box.min.x() + size.x());
-  box.max.set_y(box.min.y() + size.y());
+  box.max = box.min + size;
+
+  //  box.max.set_x(box.min.x() + size.x());
+  //  box.max.set_y(box.min.y() + size.y());
 
   const auto width = box.max.x() - box.min.x();
   const auto height = box.max.y() - box.min.y();
@@ -86,6 +149,19 @@ struct aabb_node final
          (fst.max.y() > snd.min.y()) && (fst.min.y() < snd.max.y());
 }
 
+/**
+ * @class aabb_tree
+ *
+ * @brief Represents a tree of AABBs used for efficient collision detection.
+ *
+ * @details This class was adapted from James Randall's AABB system used in
+ * his <a href="https://github.com/JamesRandall/SimpleVoxelEngine">Simple Voxel
+ * Engine</a> project, which uses the MIT license. A helpful
+ * article can be found <a
+ * href="https://www.azurefromthetrenches.com/introductory-guide-to-aabb-tree-collision-detection/">here</a>.
+ *
+ * @headerfile aabb_tree.hpp
+ */
 class aabb_tree final
 {
  public:
@@ -135,5 +211,4 @@ class aabb_tree final
   void update_leaf(int leafIndex, const aabb& box);
 };
 
-}  // namespace experimental
 }  // namespace wanderer
