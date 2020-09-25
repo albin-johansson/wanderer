@@ -4,6 +4,8 @@
 #include <counter.hpp>
 #include <texture.hpp>
 
+#include "aabb_system.hpp"
+#include "component/aabb.hpp"
 #include "component/animated.hpp"
 #include "component/binds.hpp"
 #include "component/depth_drawable.hpp"
@@ -36,10 +38,12 @@ namespace {
  * @return the identifier associated with the created humanoid.
  */
 [[nodiscard]] auto create_basic_humanoid(
-    entt::registry& registry,
+    level& level,
     const entt::handle<cen::texture>& texture) -> entt::entity
 {
   assert(texture);  // require valid handle
+
+  auto& registry = level.registry();
 
   const auto entity = registry.create();
 
@@ -61,6 +65,9 @@ namespace {
 
   constexpr cen::farea humanoidSize{g_humanoidDrawWidth, g_humanoidDrawHeight};
 
+  level.insert_aabb(
+      entity, movable.position, {humanoidSize.width, humanoidSize.height});
+
   registry.emplace<comp::hitbox>(
       entity,
       hitbox::create(
@@ -74,17 +81,17 @@ namespace {
 
 }  // namespace
 
-auto add_player(entt::registry& registry,
-                cen::renderer& renderer,
-                image_cache& imageCache) -> entt::entity
+auto add_player(level& level, cen::renderer& renderer, image_cache& imageCache)
+    -> entt::entity
 {
   constexpr auto id = "player"_hs;
   if (!imageCache.contains(id)) {
     imageCache.load<image_loader>(id, renderer, "resource/img/player2.png");
   }
 
-  const auto playerEntity =
-      create_basic_humanoid(registry, imageCache.handle(id));
+  auto& registry = level.registry();
+
+  const auto playerEntity = create_basic_humanoid(level, imageCache.handle(id));
 
   registry.emplace<comp::player>(playerEntity);
 
@@ -98,7 +105,7 @@ auto add_player(entt::registry& registry,
   return playerEntity;
 }
 
-auto add_skeleton(entt::registry& registry,
+auto add_skeleton(level& level,
                   cen::renderer& renderer,
                   image_cache& imageCache) -> entt::entity
 {
@@ -108,9 +115,9 @@ auto add_skeleton(entt::registry& registry,
   }
 
   const auto skeletonEntity =
-      create_basic_humanoid(registry, imageCache.handle(id));
+      create_basic_humanoid(level, imageCache.handle(id));
 
-  auto& movable = registry.get<comp::movable>(skeletonEntity);
+  auto& movable = level.registry().get<comp::movable>(skeletonEntity);
   movable.speed = g_monsterSpeed;
   movable.position = {300, 300};
 

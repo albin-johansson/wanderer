@@ -3,15 +3,17 @@
 #include <entt.hpp>
 #include <renderer.hpp>
 
+#include "level.hpp"
 #include "image_cache.hpp"
+#include "aabb_tree.hpp"
 
 namespace wanderer::sys::humanoid {
 
-auto add_player(entt::registry& registry,
+auto add_player(level& level,
                 cen::renderer& renderer,
                 image_cache& imageCache) -> entt::entity;
 
-auto add_skeleton(entt::registry& registry,
+auto add_skeleton(level& level,
                   cen::renderer& renderer,
                   image_cache& imageCache) -> entt::entity;
 

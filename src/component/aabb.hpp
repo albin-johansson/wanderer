@@ -34,7 +34,7 @@ namespace wanderer::comp {
  *
  * @headerfile aabb.hpp
  */
-struct aabb
+struct aabb // FIXME this isn't really a component, no entities have it directly
 {
   vector2f min;  // the NW corner coordinates
   vector2f max;  // the SE corner coordinates

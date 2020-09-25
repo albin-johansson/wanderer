@@ -6,7 +6,7 @@
 
 namespace wanderer::sys::tile {
 
-void update_animation(entt::registry& registry, entt::entity /*level*/)  // TODO
+void update_animation(entt::registry& registry)
 {
   const auto entities = registry.view<comp::animated_tile>();
   for (const auto entity : entities) {

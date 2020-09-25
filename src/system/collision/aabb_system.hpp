@@ -14,6 +14,7 @@
 #include <stack>  // stack
 
 #include "component/aabb.hpp"
+#include "vector2.hpp"
 
 /**
  * @namespace wanderer::sys::aabb
@@ -21,7 +22,27 @@
  */
 namespace wanderer::sys::aabb {
 
-void validate(comp::aabb& aabb) noexcept;
+[[nodiscard, deprecated]] inline auto is_leaf(
+    const comp::aabb_node& node) noexcept -> bool
+{
+  return node.left == entt::null;
+}
+
+[[deprecated]] void validate(comp::aabb& aabb) noexcept;
+
+//[[nodiscard]] inline auto move(const comp::aabb& aabb,
+//                               const vector2f& position) noexcept ->
+//                               comp::aabb
+//{
+//  comp::aabb moved = aabb;
+//
+//  moved.min = position;
+//  moved.max = position + (aabb.max - aabb.min);
+//
+//  validate(moved);
+//
+//  return moved;
+//}
 
 /**
  * @brief Creates and returns an AABB instance.
@@ -34,8 +55,9 @@ void validate(comp::aabb& aabb) noexcept;
  *
  * @return the created AABB instance.
  */
-[[nodiscard]] auto make_aabb(const cen::fpoint& pos,
-                             const cen::farea& size) noexcept -> comp::aabb;
+[[nodiscard, deprecated]] auto make_aabb(const cen::fpoint& pos,
+                                         const cen::farea& size) noexcept
+    -> comp::aabb;
 
 /**
  * @brief Returns an AABB for the supplied boxes.
@@ -48,7 +70,8 @@ void validate(comp::aabb& aabb) noexcept;
  *
  * @return an AABB that is the merged result of the two supplied boxes.
  */
-[[nodiscard]] auto merge(const comp::aabb& fst, const comp::aabb& snd) noexcept
+[[nodiscard, deprecated]] auto merge(const comp::aabb& fst,
+                                     const comp::aabb& snd) noexcept
     -> comp::aabb;
 
 /**
@@ -58,8 +81,8 @@ void validate(comp::aabb& aabb) noexcept;
  * @param snd the second box.
  * @return `true` if the boxes overlap; `false` otherwise.
  */
-[[nodiscard]] auto overlaps(const comp::aabb& fst,
-                            const comp::aabb& snd) noexcept -> bool;
+[[nodiscard, deprecated]] auto overlaps(const comp::aabb& fst,
+                                        const comp::aabb& snd) noexcept -> bool;
 
 /**
  * @brief Indicates whether or not an AABB contains another AABB.
@@ -70,8 +93,9 @@ void validate(comp::aabb& aabb) noexcept;
  *
  * @return `true` if `source` contains `other`; `false` otherwise.
  */
-[[nodiscard]] auto contains(const comp::aabb& source,
-                            const comp::aabb& other) noexcept -> bool;
+[[nodiscard, deprecated]] auto contains(const comp::aabb& source,
+                                        const comp::aabb& other) noexcept
+    -> bool;
 
 /**
  * @brief Inserts an AABB instance into the AABB tree.
@@ -80,17 +104,21 @@ void validate(comp::aabb& aabb) noexcept;
  * @param entity the entity identifier that will be added.
  * @param box the AABB instance that will be inserted.
  */
-void insert(entt::registry& registry,
-            entt::entity entity,
-            const comp::aabb& box) noexcept;
+[[deprecated]] void insert(entt::registry& registry,
+                           entt::entity entity,
+                           const comp::aabb& box);
 
-void update(entt::registry& registry,
-            entt::entity leafNodeEntity,
-            const comp::aabb& box) noexcept;
+[[deprecated]] void remove(entt::registry& registry, entt::entity entity);
+
+[[deprecated]] void update(entt::registry& registry,
+                           entt::entity leafNodeEntity,
+                           const comp::aabb& box);
 
 // used to obtain collision candidates, could invoke some callback
 template <typename T>
-void query(entt::registry& registry, entt::entity entity, T&& callback)
+[[deprecated]] void query(entt::registry& registry,
+                          entt::entity entity,
+                          T&& callback)
 {
   std::stack<entt::entity> stack;  // use pmr instead
 
@@ -108,7 +136,7 @@ void query(entt::registry& registry, entt::entity entity, T&& callback)
     const auto& nextNode = registry.get<comp::aabb_node>(next);
     if (overlaps(source.box, nextNode.box)) {
       if (nextNode.left == entt::null && &nextNode != &source) {
-        callback(next, nextNode);
+        callback(next);
       } else {
         stack.push(nextNode.left);
         stack.push(nextNode.right);

@@ -1,5 +1,9 @@
 #include "movement_system.hpp"
 
+#include <log.hpp>
+
+#include "aabb_system.hpp"
+#include "component/aabb.hpp"
 #include "component/depth_drawable.hpp"
 #include "component/hitbox.hpp"
 #include "component/movable.hpp"
@@ -23,33 +27,40 @@ void update_dominant_direction(comp::movable& movable) noexcept
   }
 }
 
-void update_movable(entt::registry& registry,
-                    entt::entity entity,
-                    comp::movable& movable,
-                    delta dt)
-{
-  movable.position += (movable.velocity * static_cast<float>(dt.get()));
-
-  update_dominant_direction(movable);
-
-  // FIXME
-  if (auto* drawable = registry.try_get<comp::depth_drawable>(entity)) {
-    drawable->centerY = movable.position.y() + (drawable->dst.height() / 2.0f);
-  }
-}
-
 }  // namespace
 
-void update_movement(entt::registry& registry, delta dt)
+void update_movement(level& level, delta dt)
 {
-  registry.view<comp::movable>().each([&](auto entity, comp::movable& movable) {
-    update_movable(registry, entity, movable, dt);
+  auto& registry = level.registry();
+  registry.view<comp::movable>().each(
+      [&](entt::entity entity, comp::movable& movable) {
+        const auto oldPosition = movable.position;
+        movable.position += (movable.velocity * static_cast<float>(dt.get()));
 
-    // TODO check if the entity will collide with something at next
-    if (auto* hitbox = registry.try_get<comp::hitbox>(entity)) {
-      hitbox::update_position(*hitbox, movable.position);
-    }
-  });
+        if (auto* hitbox = registry.try_get<comp::hitbox>(entity)) {
+          hitbox::update_position(*hitbox, movable.position);
+          level.move_aabb(entity, movable.position);
+
+          // TODO don't run movement animation when blocked
+
+          // TODO
+
+          for (const auto candidate : level.query_overlaps(entity)) {
+            const auto& otherHitbox = registry.get<comp::hitbox>(candidate);
+            if (hitbox::intersects(*hitbox, otherHitbox)) {
+              movable.position = oldPosition;
+              hitbox::update_position(*hitbox, oldPosition);
+              level.move_aabb(entity, oldPosition);
+            }
+          }
+        }
+
+        update_dominant_direction(movable);
+        if (auto* drawable = registry.try_get<comp::depth_drawable>(entity)) {
+          drawable->centerY =
+              movable.position.y() + (drawable->dst.height() / 2.0f);
+        }
+      });
 }
 
 }  // namespace wanderer::sys

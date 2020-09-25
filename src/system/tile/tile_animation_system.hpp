@@ -4,6 +4,6 @@
 
 namespace wanderer::sys::tile {
 
-void update_animation(entt::registry& registry, entt::entity level);
+void update_animation(entt::registry& registry);
 
 }  // namespace wanderer::sys::tile

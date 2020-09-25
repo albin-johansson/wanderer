@@ -4,6 +4,7 @@
 
 #include "add_humanoid_state_dependencies.hpp"
 #include "animation_system.hpp"
+#include "collision_system.hpp"
 #include "event_connections.hpp"
 #include "ground_layer_rendering_system.hpp"
 #include "humanoid_animation_system.hpp"
@@ -22,13 +23,6 @@
 namespace wanderer {
 namespace {
 
-[[nodiscard]] auto make_registry() -> entt::registry
-{
-  entt::registry registry;
-  add_humanoid_state_dependencies(registry);
-  return registry;
-}
-
 [[nodiscard]] auto make_dispatcher() -> entt::dispatcher
 {
   entt::dispatcher dispatcher;
@@ -39,22 +33,23 @@ namespace {
 }  // namespace
 
 game::game(cen::renderer& renderer)
-    : m_registry{make_registry()},
-      m_dispatcher{make_dispatcher()},
-      m_world{make_map(m_registry,
+    : m_dispatcher{make_dispatcher()},
+      m_world{make_map(m_level.registry(),
                        "resource/map/world_demo.json",
                        renderer,
                        m_imageCache)},
-      m_player{sys::humanoid::add_player(m_registry, renderer, m_imageCache)},
-      m_viewport{sys::viewport::make_viewport(m_registry)}
+      m_player{sys::humanoid::add_player(m_level, renderer, m_imageCache)},
+      m_viewport{sys::viewport::make_viewport(m_level.registry())}
 {
-  sys::humanoid::add_skeleton(m_registry, renderer, m_imageCache);
+  sys::humanoid::add_skeleton(m_level, renderer, m_imageCache);
 
-  auto& view = m_registry.get<comp::viewport>(m_viewport.get());
-  auto& level = m_registry.get<comp::tilemap>(m_world.get());
+  auto& view = m_level.get<comp::viewport>(m_viewport.get());
+  auto& level = m_level.get<comp::tilemap>(m_world.get());
 
   view.levelSize.width = level.width;
   view.levelSize.height = level.height;
+
+  sys::update_movement(m_level, delta{0});
 }
 
 game::~game() noexcept
@@ -65,32 +60,39 @@ game::~game() noexcept
 void game::handle_input(const cen::mouse_state& mouseState,
                         const cen::key_state& keyState)
 {
-  sys::input::update(m_registry, m_dispatcher, m_player, keyState);
+  sys::input::update(m_level.registry(), m_dispatcher, m_player, keyState);
 }
 
 void game::tick(delta dt)
 {
+  auto& registry = m_level.registry();
+
   // TODO check if menu is blocking
   m_dispatcher.update();
-  sys::humanoid::update_state(m_registry, m_dispatcher);
-  sys::humanoid::update_animation(m_registry);
-  sys::tile::update_animation(m_registry, m_world.get());  // FIXME m_world
-  sys::update_movement(m_registry, dt);
-  sys::update_animation_state(m_registry);
+  sys::humanoid::update_state(registry, m_dispatcher);
+  sys::humanoid::update_animation(registry);
+  sys::tile::update_animation(registry);
+
+  sys::update_movement(m_level, dt);
+
+  sys::update_animation_state(registry);
   // TODO need to update viewport level size as well when level changes
-  sys::viewport::update(m_registry, m_viewport, m_player, dt);
+  sys::viewport::update(registry, m_viewport, m_player, dt);
 }
 
 void game::render(cen::renderer& renderer)
 {
-  sys::viewport::translate(m_registry, m_viewport, renderer);
+  auto& registry = m_level.registry();
 
-  sys::update_movable_depth_drawables(m_registry);
+  sys::viewport::translate(registry, m_viewport, renderer);
+
+  sys::update_movable_depth_drawables(registry);
 
   // FIXME m_world
-  const auto& tilemap = m_registry.get<comp::tilemap>(m_world.get());
+  const auto& tilemap = m_level.get<comp::tilemap>(m_world.get());
+
   const auto bounds = sys::calculate_render_bounds(
-      m_registry, m_viewport, tilemap.rows, tilemap.cols);
+      m_level.registry(), m_viewport, tilemap.rows, tilemap.cols);
 
   // TODO future optimization, only render tile object DepthDrawables in bounds
   //  {
@@ -104,10 +106,10 @@ void game::render(cen::renderer& renderer)
   //    }
   //  }
 
-  sys::layer::render_ground(m_registry, m_world, renderer, bounds);
+  sys::layer::render_ground(registry, m_world, renderer, bounds);
 
   // TODO render more stuff (think about render depth as well)
-  sys::render_depth_drawables(m_registry, renderer);
+  sys::render_depth_drawables(registry, renderer);
 
   // TODO render HUD
 

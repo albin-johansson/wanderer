@@ -69,7 +69,38 @@ TEST_CASE("aabb::merge", "[aabb]")
   CHECK(combined.center.y() == combined.min.y() + (height / 2.0f));
 }
 
-TEST_CASE("Visualization of the AABB system", "[.aabb]")
+TEST_CASE("aabb::query", "[aabb]")
+{
+  entt::registry registry;
+
+  const auto make_box_and_entity = [&](float x, float y, float w, float h)
+      -> std::pair<entt::entity, comp::aabb> {
+    const auto entity = registry.create();
+    const auto box = sys::aabb::make_aabb({x, y}, {w, h});
+    return {entity, box};
+  };
+
+  const auto [e1, box1] = make_box_and_entity(0, 0, 100, 100);
+  const auto [e2, box2] = make_box_and_entity(444, 25, 100, 100);
+  const auto [e3, box3] = make_box_and_entity(50, 50, 100, 100);
+
+  sys::aabb::insert(registry, e1, box1);
+  sys::aabb::insert(registry, e2, box2);
+  sys::aabb::insert(registry, e3, box3);
+
+  sys::aabb::remove(registry, e3);
+
+  // move e2 to be a collision candidate
+//  sys::aabb::update(registry, e2, sys::aabb::make_aabb({75, 25}, {100, 100}));
+
+  cen::log::info("Number of nodes: %i", registry.size<comp::aabb_node>());
+
+  sys::aabb::query(registry, e1, [](entt::entity entity) {
+    cen::log::info("Found candidate: %i", static_cast<int>(entity));
+  });
+}
+
+TEST_CASE("Visualization of the AABB system", "[.aaabb]")
 {
   entt::registry registry;
 

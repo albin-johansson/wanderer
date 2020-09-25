@@ -4,10 +4,12 @@
 #include <mouse_state.hpp>
 #include <renderer.hpp>
 
+#include "aabb_tree.hpp"
 #include "alpha.hpp"
 #include "component/tilemap.hpp"
 #include "component/viewport.hpp"
 #include "delta.hpp"
+#include "level.hpp"
 #include "image_cache.hpp"
 
 namespace wanderer {
@@ -58,7 +60,7 @@ class game final
   void render(cen::renderer& renderer);
 
  private:
-  entt::registry m_registry;  // TODO consider multiple registries
+  level m_level{};
   entt::dispatcher m_dispatcher;
   image_cache m_imageCache;
   comp::tilemap::entity m_world{null<comp::tilemap>()};
