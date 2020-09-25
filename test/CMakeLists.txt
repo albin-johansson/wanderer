@@ -8,7 +8,6 @@ set(TEST_FILES
         unittest/hitbox_test.cpp
         unittest/humanoid_state_test.cpp
         unittest/event_connections_test.cpp
-        unittest/aabb_test.cpp
         unittest/vector2_test.cpp unittest/aabb_tree_test.cpp)
 
 add_executable(${WANDERER_TEST_TARGET} ${TEST_FILES})
