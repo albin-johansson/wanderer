@@ -3,7 +3,7 @@
 #include <cassert>  // assert
 #include <stack>    // stack
 
-namespace wanderer::experimental {
+namespace wanderer {
 namespace {
 
 [[nodiscard]] auto get_left_cost(const aabb_node& left,
@@ -306,4 +306,4 @@ auto aabb_tree::query_overlaps(entt::entity id) const
   return candidates;
 }
 
-}  // namespace wanderer::experimental
+}  // namespace wanderer
