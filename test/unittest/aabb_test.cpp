@@ -13,16 +13,16 @@ TEST_CASE("aabb::insert", "[aabb]")
   entt::registry registry;
 
   const auto fstBox = sys::aabb::make_aabb({0, 0}, {100, 100});
-  CHECK(fstBox.min == wanderer::vector2f{0, 0});
-  CHECK(fstBox.max == wanderer::vector2f{100, 100});
+  CHECK(fstBox.min == vector2f{0, 0});
+  CHECK(fstBox.max == vector2f{100, 100});
   CHECK(fstBox.area == 10'000);
 
   const auto fstEntity = registry.create();
   sys::aabb::insert(registry, fstEntity, fstBox);
 
   const auto sndBox = sys::aabb::make_aabb({150, 150}, {100, 100});
-  CHECK(sndBox.min == wanderer::vector2f{150, 150});
-  CHECK(sndBox.max == wanderer::vector2f{250, 250});
+  CHECK(sndBox.min == vector2f{150, 150});
+  CHECK(sndBox.max == vector2f{250, 250});
   CHECK(sndBox.area == 10'000);
 
   const auto sndEntity = registry.create();
@@ -41,8 +41,8 @@ TEST_CASE("aabb::insert", "[aabb]")
     const auto& node = registry.get<comp::aabb_node>(rootEntity);
     const auto& aabb = node.box;
 
-    CHECK(aabb.min == wanderer::vector2f{0, 0});
-    CHECK(aabb.max == wanderer::vector2f{250, 250});
+    CHECK(aabb.min == vector2f{0, 0});
+    CHECK(aabb.max == vector2f{250, 250});
     CHECK(aabb.area == (250 * 250));
   }
 
