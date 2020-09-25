@@ -1,10 +1,7 @@
 #include "game.hpp"
 
-#include <cassert>
-
 #include "add_humanoid_state_dependencies.hpp"
 #include "animation_system.hpp"
-#include "collision_system.hpp"
 #include "event_connections.hpp"
 #include "ground_layer_rendering_system.hpp"
 #include "humanoid_animation_system.hpp"

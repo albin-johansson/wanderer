@@ -2,7 +2,6 @@
 
 #include <log.hpp>
 
-#include "aabb_system.hpp"
 #include "component/aabb.hpp"
 #include "component/depth_drawable.hpp"
 #include "component/hitbox.hpp"

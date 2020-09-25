@@ -78,11 +78,6 @@ set(SOURCE_FILES
         system/hitbox_system.cpp
         system/hitbox_system.hpp
 
-        system/collision/aabb_system.cpp
-        system/collision/aabb_system.hpp
-        system/collision/collision_system.cpp
-        system/collision/collision_system.hpp
-
         system/viewport/viewport_system.cpp
         system/viewport/viewport_system.hpp
         system/viewport/make_viewport_system.cpp
@@ -121,7 +116,12 @@ set(SOURCE_FILES
         parse/tile/make_tileset.cpp
         parse/tile/make_tileset.hpp
         parse/tile/add_tile_objects.cpp
-        parse/tile/add_tile_objects.hpp core/aabb_tree.cpp core/aabb_tree.hpp core/level.cpp core/level.hpp)
+        parse/tile/add_tile_objects.hpp
+
+        core/aabb_tree.cpp
+        core/aabb_tree.hpp
+        core/level.cpp
+        core/level.hpp)
 
 add_library(${WANDERER_LIB_TARGET} ${SOURCE_FILES})
 
