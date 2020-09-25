@@ -212,7 +212,7 @@ class aabb_tree final
    * @param iterator an output iterator used to write the collision candidates.
    */
   template <typename OutputIterator>
-  void query_overlaps(entt::entity entity, OutputIterator iterator) const
+  void query_collisions(entt::entity entity, OutputIterator iterator) const
   {
     buffer_t<std::optional<int>, 20> buffer{};
     std::pmr::monotonic_buffer_resource resource{buffer.data(), sizeof buffer};

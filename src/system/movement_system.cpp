@@ -42,7 +42,7 @@ void update_hitbox(level& level,
   buffer_t<entt::entity, 20> buffer{};
   std::pmr::monotonic_buffer_resource resource{buffer.data(), sizeof buffer};
   std::pmr::vector<entt::entity> candidates{&resource};
-  level.query_overlaps(entity, std::back_inserter(candidates));
+  level.query_collisions(entity, std::back_inserter(candidates));
 
   for (const auto candidate : candidates) {
     const auto& otherHitbox = level.get<comp::hitbox>(candidate);

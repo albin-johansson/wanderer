@@ -55,9 +55,9 @@ class level final
   }
 
   template <typename OutputIterator>
-  void query_overlaps(entt::entity id, OutputIterator iterator) const
+  void query_collisions(entt::entity id, OutputIterator iterator) const
   {
-    return m_aabbTree.query_overlaps(id, iterator);
+    return m_aabbTree.query_collisions(id, iterator);
   }
 
   [[nodiscard]] auto get_aabb(entt::entity entity) const -> const aabb&

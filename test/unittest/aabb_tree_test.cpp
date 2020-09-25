@@ -21,7 +21,7 @@ TEST_CASE("aabb_tree::insert_object", "[aabb_tree]")
   tree.insert_object(e3, make_aabb({75, 75}, {100, 100}));
 
   std::vector<entt::entity> candidates;
-  tree.query_overlaps(e1, std::back_inserter(candidates));
+  tree.query_collisions(e1, std::back_inserter(candidates));
 
 //  const auto candidates = tree.query_overlaps(e1);
   for (const auto entity : candidates) {
