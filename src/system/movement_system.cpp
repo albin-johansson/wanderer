@@ -5,7 +5,6 @@
 #include <vector>           // vector
 
 #include "buffer.hpp"
-#include "component/aabb.hpp"
 #include "component/depth_drawable.hpp"
 #include "component/hitbox.hpp"
 #include "component/movable.hpp"

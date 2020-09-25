@@ -56,7 +56,6 @@ set(SOURCE_FILES
         component/game_object.hpp
         component/viewport.hpp
         component/map_position.hpp
-        component/aabb.hpp
 
         component/event/begin_attack_event.hpp
         component/event/end_attack_event.hpp

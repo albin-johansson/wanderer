@@ -279,8 +279,7 @@ void aabb_tree::update_object(entt::entity entity, const aabb& box)
   update_leaf(nodeIndex, box);
 }
 
-
-//auto aabb_tree::query_overlaps(entt::entity id) const
+// auto aabb_tree::query_overlaps(entt::entity id) const
 //    -> std::forward_list<entt::entity>
 //{
 //  std::forward_list<entt::entity> candidates;

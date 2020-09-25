@@ -4,7 +4,6 @@
 #include <counter.hpp>
 #include <texture.hpp>
 
-#include "component/aabb.hpp"
 #include "component/animated.hpp"
 #include "component/binds.hpp"
 #include "component/depth_drawable.hpp"

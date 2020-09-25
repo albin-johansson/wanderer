@@ -129,9 +129,6 @@ struct aabb_node final
   box.min = position;
   box.max = box.min + size;
 
-  //  box.max.set_x(box.min.x() + size.x());
-  //  box.max.set_y(box.min.y() + size.y());
-
   const auto width = box.max.x() - box.min.x();
   const auto height = box.max.y() - box.min.y();
   box.area = width * height;

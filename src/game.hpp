@@ -9,8 +9,8 @@
 #include "component/tilemap.hpp"
 #include "component/viewport.hpp"
 #include "delta.hpp"
-#include "level.hpp"
 #include "image_cache.hpp"
+#include "level.hpp"
 
 namespace wanderer {
 
