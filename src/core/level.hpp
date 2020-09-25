@@ -24,7 +24,7 @@ class level final
                    const vector2f& position,
                    const vector2f& size)
   {
-    m_aabbTree.insert_object(entity, make_aabb(position, size));
+    m_aabbTree.insert(entity, make_aabb(position, size));
   }
 
   void move_aabb(entt::entity entity, const vector2f& position)
@@ -39,7 +39,7 @@ class level final
     const auto height = newBox.max.y() - newBox.min.y();
     newBox.area = width * height;
 
-    m_aabbTree.update_object(entity, newBox);
+    m_aabbTree.update(entity, newBox);
   }
 
   template <typename... Components>

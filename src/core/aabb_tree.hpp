@@ -177,7 +177,7 @@ class aabb_tree final
    * @param entity the entity that will be associated with the node.
    * @param box the AABB associated with the entity.
    */
-  void insert_object(entt::entity entity, const aabb& box);
+  void insert(entt::entity entity, const aabb& box);
 
   /**
    * @brief Removes the specified entity from the tree.
@@ -186,7 +186,7 @@ class aabb_tree final
    *
    * @param entity the entity that will be removed.
    */
-  void remove_object(entt::entity entity);
+  void remove(entt::entity entity);
 
   /**
    * @brief Updates the AABB associated with the specified entity.
@@ -196,7 +196,7 @@ class aabb_tree final
    * @param entity the entity that will be updated.
    * @param box the new AABB associated with the entity.
    */
-  void update_object(entt::entity entity, const aabb& box);
+  void update(entt::entity entity, const aabb& box);
 
   /**
    * @brief Queries the tree for collision candidates for the specified entity.
@@ -264,6 +264,17 @@ class aabb_tree final
   [[nodiscard]] auto size() const noexcept -> int
   {
     return static_cast<int>(m_entities.size());
+  }
+
+  /**
+   * @brief Indicates whether or not there are no entity AABBs stored in the
+   * tree.
+   *
+   * @return `true` if there are no entity AABBs in the tree; `false` otherwise.
+   */
+  [[nodiscard]] auto empty() const noexcept -> bool
+  {
+    return m_entities.empty();
   }
 
  private:
