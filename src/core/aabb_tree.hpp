@@ -27,7 +27,6 @@
 #pragma once
 
 #include <algorithm>  // min, max
-#include <cstddef>    // byte
 #include <deque>      // deque
 #include <entt.hpp>
 #include <map>              // map
