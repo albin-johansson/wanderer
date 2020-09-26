@@ -36,7 +36,6 @@ set(SOURCE_FILES
         core/aliases/depth.hpp
         core/aliases/buffer.hpp
 
-        core/resource/image_loader.cpp
         core/resource/image_loader.hpp
         core/resource/image_cache.hpp
 
