@@ -1,7 +1,7 @@
 #pragma once
 
-#include <entt.hpp>
 #include <cen/renderer.hpp>
+#include <entt.hpp>
 
 #include "component/render_bounds.hpp"
 #include "component/tilemap.hpp"

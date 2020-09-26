@@ -1,9 +1,9 @@
 #pragma once
 
-#include <entt.hpp>
-#include <memory>  // shared_ptr
 #include <cen/renderer.hpp>
 #include <cen/texture.hpp>
+#include <entt.hpp>
+#include <memory>  // shared_ptr
 
 namespace wanderer {
 
