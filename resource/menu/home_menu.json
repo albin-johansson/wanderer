@@ -1,6 +1,4 @@
 {
-  "id": "home",
-  "parent": null,
   "title": "Wanderer",
   "isBlocking": true,
   "buttons": [

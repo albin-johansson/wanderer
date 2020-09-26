@@ -1,6 +1,4 @@
 {
-  "id": "controls",
-  "parent": "home",
   "title": "Controls",
   "isBlocking": true,
   "buttons": [

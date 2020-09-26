@@ -1,6 +1,4 @@
 {
-  "id": "settings",
-  "parent": "home",
   "title": "Settings",
   "isBlocking": true,
   "buttons": [
