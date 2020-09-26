@@ -18,11 +18,11 @@ set(SOURCE_FILES
         application.hpp
         core/direction.hpp
         core/game_constants.hpp
-        core/ints.hpp
-        core/delta.hpp
-        core/alpha.hpp
-        core/tile_id.hpp
-        core/depth.hpp
+        core/types/ints.hpp
+        core/types/delta.hpp
+        core/types/alpha.hpp
+        core/types/tile_id.hpp
+        core/types/depth.hpp
         core/null_entity.hpp
 
         core/add_humanoid_state_dependencies.cpp
@@ -122,7 +122,7 @@ set(SOURCE_FILES
         core/aabb_tree.hpp
         core/level.cpp
         core/level.hpp
-        core/buffer.hpp)
+        core/types/buffer.hpp)
 
 add_library(${WANDERER_LIB_TARGET} ${SOURCE_FILES})
 
@@ -158,6 +158,7 @@ target_include_directories(${WANDERER_LIB_TARGET}
         PUBLIC core
         PUBLIC core/math
         PUBLIC core/resource
+        PUBLIC core/aliases
         PUBLIC system
         PUBLIC system/input
         PUBLIC system/humanoid
