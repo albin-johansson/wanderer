@@ -1,6 +1,7 @@
 #pragma once
 
 #include <entt.hpp>
+#include <utility>  // forward
 
 #include "aabb_tree.hpp"
 
@@ -40,6 +41,12 @@ class level final
     newBox.area = width * height;
 
     m_aabbTree.update(entity, newBox);
+  }
+
+  template <typename... Components, typename T>
+  void each(T&& lambda)
+  {
+    m_registry.view<Components...>().each(std::forward<T>(lambda));
   }
 
   template <typename... Components>
