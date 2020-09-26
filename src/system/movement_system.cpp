@@ -85,11 +85,6 @@ void update_movement(level& level, delta dt)
     if (auto* hitbox = level.try_get<comp::hitbox>(entity)) {
       update_hitbox(level, entity, movable, *hitbox, oldPosition);
     }
-
-    if (auto* drawable = level.try_get<comp::depth_drawable>(entity)) {
-      drawable->centerY =
-          movable.position.y() + (drawable->dst.height() / 2.0f);
-    }
   });
 }
 
