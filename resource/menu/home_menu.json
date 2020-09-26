@@ -6,26 +6,26 @@
   "buttons": [
     {
       "text": "Play",
-      "action": "GotoInGame"
+      "action": "goto_in_game"
     },
     {
       "text": "Settings",
-      "action": "GotoSettings"
+      "action": "goto_settings"
     },
     {
       "text": "Controls",
-      "action": "GotoControls"
+      "action": "goto_controls"
     },
     {
       "text": "Quit",
-      "action": "Quit"
+      "action": "quit"
     }
   ],
   "binds": [
     {
       "key": "Escape",
-      "action": "GotoInGame",
-      "trigger": "OnRelease"
+      "action": "play",
+      "trigger": "on_released"
     }
   ]
 }

@@ -6,14 +6,14 @@
   "buttons": [
     {
       "text": "Return",
-      "action": "GotoHome"
+      "action": "goto_home"
     }
   ],
   "binds": [
     {
       "key": "Escape",
-      "action": "GotoHome",
-      "trigger": "OnRelease"
+      "action": "goto_home",
+      "trigger": "on_released"
     }
   ]
 }

@@ -1,14 +1,12 @@
 {
-  "id": "in_game",
-  "parent": "home",
   "title": "",
   "isBlocking": false,
   "buttons": [],
   "binds": [
     {
       "key": "Escape",
-      "action": "GotoHome",
-      "trigger": "OnRelease"
+      "action": "goto_home",
+      "trigger": "on_released"
     }
   ]
 }
