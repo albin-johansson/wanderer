@@ -3,7 +3,6 @@
 #include <entt.hpp>
 #include <memory>  // shared_ptr
 #include <renderer.hpp>
-#include <string_view>  // string_view
 #include <texture.hpp>
 
 namespace wanderer {
