@@ -1,7 +1,7 @@
 #pragma once
 
 #include <entt.hpp>
-#include <texture.hpp>
+#include <cen/texture.hpp>
 
 namespace wanderer {
 

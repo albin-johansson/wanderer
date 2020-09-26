@@ -1,7 +1,7 @@
 #pragma once
 
+#include <cen/key_state.hpp>
 #include <entt.hpp>
-#include <key_state.hpp>
 
 namespace wanderer::sys::input {
 

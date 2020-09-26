@@ -1,8 +1,8 @@
 #pragma once
 
+#include <cen/rect.hpp>
+#include <cen/texture.hpp>
 #include <entt.hpp>
-#include <rect.hpp>
-#include <texture.hpp>
 
 #include "depth.hpp"
 

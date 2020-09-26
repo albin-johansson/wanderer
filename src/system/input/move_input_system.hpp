@@ -1,15 +1,7 @@
-/**
- * @brief Provides the system for dealing with movement player input.
- * @file move_input_system.hpp
- * @author Albin Johansson
- * @copyright MIT License
- * @date 2020
- */
-
 #pragma once
 
+#include <cen/key_state.hpp>
 #include <entt.hpp>
-#include <key_state.hpp>
 
 namespace wanderer::sys::input {
 

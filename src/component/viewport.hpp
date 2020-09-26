@@ -1,9 +1,9 @@
 #pragma once
 
-#include <area.hpp>
+#include <cen/area.hpp>
+#include <cen/rect.hpp>
 #include <entt.hpp>
 #include <named_type.hpp>
-#include <rect.hpp>
 
 namespace wanderer::comp {
 namespace detail {

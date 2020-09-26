@@ -1,5 +1,5 @@
-#include <centurion.hpp>
-#include <log.hpp>
+#include <cen/centurion.hpp>
+#include <cen/log.hpp>
 
 #include "application.hpp"
 

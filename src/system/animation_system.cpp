@@ -1,6 +1,6 @@
 #include "animation_system.hpp"
 
-#include <counter.hpp>
+#include <cen/counter.hpp>
 
 #include "component/animated.hpp"
 

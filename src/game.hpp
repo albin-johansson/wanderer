@@ -1,8 +1,8 @@
 #pragma once
 
-#include <key_state.hpp>
-#include <mouse_state.hpp>
-#include <renderer.hpp>
+#include <cen/key_state.hpp>
+#include <cen/mouse_state.hpp>
+#include <cen/renderer.hpp>
 
 #include "aabb_tree.hpp"
 #include "alpha.hpp"

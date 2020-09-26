@@ -2,8 +2,8 @@
 
 #include <entt.hpp>
 #include <memory>  // shared_ptr
-#include <renderer.hpp>
-#include <texture.hpp>
+#include <cen/renderer.hpp>
+#include <cen/texture.hpp>
 
 namespace wanderer {
 

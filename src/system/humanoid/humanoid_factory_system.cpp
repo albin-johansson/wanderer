@@ -1,8 +1,8 @@
 #include "humanoid_factory_system.hpp"
 
 #include <cassert>
-#include <counter.hpp>
-#include <texture.hpp>
+#include <cen/counter.hpp>
+#include <cen/texture.hpp>
 
 #include "component/animated.hpp"
 #include "component/binds.hpp"

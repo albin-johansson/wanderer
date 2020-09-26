@@ -1,8 +1,8 @@
 #pragma once
 
+#include <cen/rect.hpp>
 #include <entt.hpp>
 #include <named_type.hpp>
-#include <rect.hpp>
 #include <vector>  // vector
 
 #include "vector2.hpp"

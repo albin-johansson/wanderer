@@ -3,9 +3,9 @@
 #include <SDL.h>
 
 #include <algorithm>  // min
-#include <counter.hpp>
-#include <key_code.hpp>
-#include <screen.hpp>
+#include <cen/counter.hpp>
+#include <cen/key_code.hpp>
+#include <cen/screen.hpp>
 
 #include "game_constants.hpp"
 
