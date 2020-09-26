@@ -3,15 +3,15 @@
 
 Wanderer is an 2D indie game, being developed for fun. At the time of writing, the game is still in an experimental state and isn't ready to be played.
 
-## Compatibility
-
-Wanderer is developed using MSVC, intended to run on Windows machines. As a result, the codebase occasionally takes
-advantage of minor non-standard improvements of the STL found in the MSVC STL implementation, such as better `noexcept` coverage. Other than that, the code should be platform independent.
-
 <p align="middle">
   <img src="meta/screenshot_trees.png" width="45%" />
   <img src="meta/screenshot_plants.png" width="45%"/> 
 </p>
+
+## Compatibility
+
+Wanderer is developed using MSVC, intended to run on Windows machines. As a result, the codebase occasionally takes
+advantage of minor non-standard improvements of the STL found in the MSVC STL implementation, such as better `noexcept` coverage. Other than that, the code should be platform independent.
 
 ## Dependencies
 
