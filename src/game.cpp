@@ -66,13 +66,14 @@ void game::tick(delta dt)
 
   // TODO check if menu is blocking
   m_dispatcher.update();
+
   sys::humanoid::update_state(registry, m_dispatcher);
   sys::humanoid::update_animation(registry);
   sys::tile::update_animation(registry);
 
   sys::update_movement(m_level, dt);
-
   sys::update_animation_state(registry);
+
   // TODO need to update viewport level size as well when level changes
   sys::viewport::update(registry, m_viewport, m_player, dt);
 }

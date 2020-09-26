@@ -27,6 +27,14 @@ void update_bounds(comp::hitbox& hitbox) noexcept;
  */
 void update_position(comp::hitbox& hitbox, const vector2f& position) noexcept;
 
+[[nodiscard]] inline auto move_hitbox(const comp::hitbox& hitbox,
+                                      const vector2f& position) -> comp::hitbox
+{
+  auto offset = hitbox;
+  update_position(offset, position);
+  return offset;
+}
+
 /**
  * @brief Indicates whether or not two hitboxes intersect.
  *

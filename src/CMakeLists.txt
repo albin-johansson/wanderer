@@ -76,6 +76,7 @@ set(SOURCE_FILES
         system/movable_depth_drawables_system.hpp
         system/hitbox_system.cpp
         system/hitbox_system.hpp
+        system/movable_system.hpp
 
         system/viewport/viewport_system.cpp
         system/viewport/viewport_system.hpp
