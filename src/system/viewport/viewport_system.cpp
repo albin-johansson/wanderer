@@ -1,18 +1,19 @@
 #include "viewport_system.hpp"
 
 #include "component/movable.hpp"
-#include "component/viewport.hpp"
 #include "game_constants.hpp"
 
 namespace wanderer::sys::viewport {
 namespace {
+
+inline constexpr float panSpeedMultiplier = 10.0f;
 
 void track(comp::viewport& viewport,
            const vector2f& target,
            const cen::farea& size,
            const delta dt)
 {
-  auto panSpeed = 15.0f * static_cast<float>(dt.get());
+  const auto panSpeed = panSpeedMultiplier * static_cast<float>(dt.get());
 
   const float targetX =
       (target.x() + (size.width / 2.0f)) - (viewport.bounds.width() / 2.0f);
@@ -20,10 +21,10 @@ void track(comp::viewport& viewport,
   const float targetY =
       (target.y() + (size.height / 2.0f)) - (viewport.bounds.height() / 2.0f);
 
-  const auto calc = [panSpeed](float targetPosComp,
-                               float boundsPosComp,
-                               float levelSizeComp,
-                               float boundsSizeComp) noexcept -> float {
+  const auto calc = [=](float targetPosComp,
+                        float boundsPosComp,
+                        float levelSizeComp,
+                        float boundsSizeComp) noexcept -> float {
     float value = boundsPosComp + (targetPosComp - boundsPosComp) * panSpeed;
     if (value < 0) {
       value = 0;
