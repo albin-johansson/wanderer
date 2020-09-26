@@ -13,9 +13,12 @@ advantage of minor non-standard improvements of the STL found in the MSVC STL im
   <img src="meta/screenshot_plants.png" width="45%"/> 
 </p>
 
-## Installation
+## Dependencies
 
-N/A
+- [Centurion](https://github.com/albin-johansson/Centurion) A multi-media library built on top of SDL2.
+- [EnTT](https://github.com/skypjack/entt) An amazing ECS library. One of the best libraries I've ever used!
+- [step](https://github.com/albin-johansson/step) A parsing library for the Tiled JSON format. Was originally a part of the Wanderer codebase.
+- [json](https://github.com/nlohmann/json) Very well-written JSON library, despite being limited to C++11.
 
 ## Acknowledgements
 
