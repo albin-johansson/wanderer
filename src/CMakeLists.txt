@@ -16,19 +16,25 @@ set(SOURCE_FILES
         game.cpp
         application.cpp
         application.hpp
+
         core/direction.hpp
         core/game_constants.hpp
-        core/types/ints.hpp
-        core/types/delta.hpp
-        core/types/alpha.hpp
-        core/types/tile_id.hpp
-        core/types/depth.hpp
         core/null_entity.hpp
-
         core/add_humanoid_state_dependencies.cpp
         core/add_humanoid_state_dependencies.hpp
         core/event_connections.cpp
         core/event_connections.hpp
+        core/aabb_tree.cpp
+        core/aabb_tree.hpp
+        core/level.cpp
+        core/level.hpp
+
+        core/aliases/ints.hpp
+        core/aliases/delta.hpp
+        core/aliases/alpha.hpp
+        core/aliases/tile_id.hpp
+        core/aliases/depth.hpp
+        core/aliases/buffer.hpp
 
         core/resource/image_loader.cpp
         core/resource/image_loader.hpp
@@ -116,13 +122,7 @@ set(SOURCE_FILES
         parse/tile/make_tileset.cpp
         parse/tile/make_tileset.hpp
         parse/tile/add_tile_objects.cpp
-        parse/tile/add_tile_objects.hpp
-
-        core/aabb_tree.cpp
-        core/aabb_tree.hpp
-        core/level.cpp
-        core/level.hpp
-        core/types/buffer.hpp)
+        parse/tile/add_tile_objects.hpp)
 
 add_library(${WANDERER_LIB_TARGET} ${SOURCE_FILES})
 
