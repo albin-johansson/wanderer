@@ -29,10 +29,10 @@ class image_loader final : public entt::loader<image_loader, cen::texture>
    *
    * @return a shared pointer to a texture.
    */
-  [[nodiscard]] static auto load(cen::renderer& renderer, std::string_view path)
+  [[nodiscard]] static auto load(cen::renderer& renderer, cen::czstring path)
       -> std::shared_ptr<cen::texture>
   {
-    return std::make_shared<cen::texture>(renderer, path.data());
+    return std::make_shared<cen::texture>(renderer, path);
   }
 };
 
