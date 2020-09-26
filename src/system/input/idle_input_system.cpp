@@ -1,8 +1,8 @@
 #include "idle_input_system.hpp"
 
+#include "component/begin_attack_event.hpp"
+#include "component/begin_humanoid_move_event.hpp"
 #include "component/binds.hpp"
-#include "component/event/begin_attack_event.hpp"
-#include "component/event/begin_humanoid_move_event.hpp"
 #include "component/humanoid_state.hpp"
 #include "component/player.hpp"
 #include "direction.hpp"

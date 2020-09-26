@@ -1,7 +1,7 @@
 #pragma once
 
-#include "component/event/begin_attack_event.hpp"
-#include "component/event/end_attack_event.hpp"
+#include "component/begin_attack_event.hpp"
+#include "component/end_attack_event.hpp"
 
 namespace wanderer::sys::humanoid {
 

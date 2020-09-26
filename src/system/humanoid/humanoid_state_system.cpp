@@ -1,6 +1,6 @@
 #include "humanoid_state_system.hpp"
 
-#include "component/event/end_attack_event.hpp"
+#include "component/end_attack_event.hpp"
 #include "component/humanoid_state.hpp"
 
 namespace wanderer::sys::humanoid {

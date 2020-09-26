@@ -62,11 +62,10 @@ set(SOURCE_FILES
         component/game_object.hpp
         component/viewport.hpp
         component/map_position.hpp
-
-        component/event/begin_attack_event.hpp
-        component/event/end_attack_event.hpp
-        component/event/begin_humanoid_move_event.hpp
-        component/event/end_humanoid_move_event.hpp
+        component/begin_attack_event.hpp
+        component/end_attack_event.hpp
+        component/begin_humanoid_move_event.hpp
+        component/end_humanoid_move_event.hpp
 
         system/render_depth_drawables_system.cpp
         system/render_depth_drawables_system.hpp

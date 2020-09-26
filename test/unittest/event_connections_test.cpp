@@ -3,10 +3,10 @@
 #include <catch.hpp>
 #include <entt.hpp>
 
-#include "component/event/begin_attack_event.hpp"
-#include "component/event/begin_humanoid_move_event.hpp"
-#include "component/event/end_attack_event.hpp"
-#include "component/event/end_humanoid_move_event.hpp"
+#include "component/begin_attack_event.hpp"
+#include "component/begin_humanoid_move_event.hpp"
+#include "component/end_attack_event.hpp"
+#include "component/end_humanoid_move_event.hpp"
 
 using namespace wanderer;
 

@@ -1,8 +1,8 @@
 #include "move_input_system.hpp"
 
+#include "component/begin_attack_event.hpp"
 #include "component/binds.hpp"
-#include "component/event/begin_attack_event.hpp"
-#include "component/event/end_humanoid_move_event.hpp"
+#include "component/end_humanoid_move_event.hpp"
 #include "component/humanoid_state.hpp"
 #include "component/movable.hpp"
 #include "component/player.hpp"
