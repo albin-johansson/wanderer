@@ -23,18 +23,11 @@ void update_position_after_collision(level& level,
                                      bool collidedHorizontal)
 {
   if (collidedVertical) {
-    //    if (const auto dir = get_horizontal_dominant_direction(movable); dir)
-    //    {
-    //      movable.dominantDirection = *dir;
-    //    }
     movable.position.set_y(oldPosition.y());
     movable.velocity.set_y(0);
   }
 
   if (collidedHorizontal) {
-    //    if (const auto dir = get_vertical_dominant_direction(movable); dir) {
-    //      movable.dominantDirection = *dir;
-    //    }
     movable.position.set_x(oldPosition.x());
     movable.velocity.set_x(0);
   }
