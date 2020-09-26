@@ -129,12 +129,12 @@ void handle_move_input(entt::registry& registry,
     check_released(movable, keyState, binds);
 
     if (!areMoveKeysDown && movable.velocity.is_zero()) {
-      dispatcher.enqueue(end_humanoid_move_event{&registry, player});
+      dispatcher.enqueue(comp::end_humanoid_move_event{&registry, player});
     } else if (keyState.is_pressed(binds.attack)) {
       movable.velocity.zero();
 
       // FIXME null weapon
-      dispatcher.enqueue(begin_attack_event{
+      dispatcher.enqueue(comp::begin_attack_event{
           &registry, player, entt::null, movable.dominantDirection});
     }
   }

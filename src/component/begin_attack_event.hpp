@@ -4,7 +4,7 @@
 
 #include "direction.hpp"
 
-namespace wanderer {
+namespace wanderer::comp {
 
 /**
  * @struct begin_attack_event
@@ -33,4 +33,4 @@ struct begin_attack_event final
   direction direction{direction::down};
 };
 
-}  // namespace wanderer
+}  // namespace wanderer::comp

@@ -13,7 +13,7 @@ namespace wanderer::sys::humanoid {
  * `humanoid_attack` component.
  * @param event the event data associated with the start of the attack.
  */
-void on_attack_begin(const begin_attack_event& event);
+void on_attack_begin(const comp::begin_attack_event& event);
 
 /**
  * Handles the event of beginning a humanoid attack sequence.
@@ -23,6 +23,6 @@ void on_attack_begin(const begin_attack_event& event);
  * `humanoid_attack` component.
  * @param event the event data associated with the end of the attack.
  */
-void on_attack_end(const end_attack_event& event);
+void on_attack_end(const comp::end_attack_event& event);
 
 }  // namespace wanderer::sys::humanoid

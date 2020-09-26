@@ -4,7 +4,7 @@
 
 #include "direction.hpp"
 
-namespace wanderer {
+namespace wanderer::comp {
 
 /**
  * @struct end_humanoid_move_event
@@ -27,4 +27,4 @@ struct end_humanoid_move_event final
   entt::entity entity{entt::null};  // TODO tag type
 };
 
-}  // namespace wanderer
+}  // namespace wanderer::comp

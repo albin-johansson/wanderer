@@ -35,12 +35,12 @@ void handle_idle_input(entt::registry& registry,
       }
 
       dispatcher.enqueue(
-          begin_humanoid_move_event{&registry, player, direction});
+          comp::begin_humanoid_move_event{&registry, player, direction});
 
     } else if (keyState.is_pressed(binds.attack)) {
       // FIXME
-      dispatcher.enqueue(
-          begin_attack_event{&registry, player, entt::null, direction::down});
+      dispatcher.enqueue(comp::begin_attack_event{
+          &registry, player, entt::null, direction::down});
     }
   }
 }

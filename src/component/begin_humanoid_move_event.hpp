@@ -4,7 +4,7 @@
 
 #include "direction.hpp"
 
-namespace wanderer {
+namespace wanderer::comp {
 
 /**
  * @struct begin_humanoid_move_event
@@ -30,4 +30,4 @@ struct begin_humanoid_move_event final
   direction direction{direction::down};
 };
 
-}  // namespace wanderer
+}  // namespace wanderer::comp
