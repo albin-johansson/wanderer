@@ -22,7 +22,7 @@ namespace {
 
 [[nodiscard]] auto was_quit_requested() noexcept -> bool
 {
-  return SDL_PeepEvents(nullptr, 0, SDL_PEEKEVENT, SDL_QUIT, SDL_QUIT) > 0;
+  return cen::event::num_queued(cen::event_type::quit) > 0;
 }
 
 }  // namespace
