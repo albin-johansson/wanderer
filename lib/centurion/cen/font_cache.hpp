@@ -40,8 +40,8 @@
 #include <SDL_ttf.h>
 
 #include <algorithm>
-#include <map>
 #include <memory>
+#include <unordered_map>
 #include <utility>
 
 #include "centurion_api.hpp"
@@ -605,8 +605,8 @@ class font_cache final
 
  private:
   font m_font;
-  std::map<unicode, glyph_data> m_glyphs;
-  std::map<font_id, texture> m_strings;
+  std::unordered_map<unicode, glyph_data> m_glyphs{};
+  std::unordered_map<font_id, texture> m_strings{};
 
   /**
    * @brief Creates and returns a texture for the specified glyph.
