@@ -7,6 +7,8 @@ namespace wanderer::sys {
 
 void render_depth_drawables(entt::registry& registry, cen::renderer& renderer)
 {
+  // TODO only render tile object depth_drawables in bounds
+
   // TODO could have movables signal events when they have moved to check if
   //  they are within the viewport bounds and therefore should be rendered,
   //  this would make it possible to have a "InBounds" component
