@@ -28,6 +28,8 @@ set(SOURCE_FILES
         core/aabb_tree.hpp
         core/level.cpp
         core/level.hpp
+        core/make_dispatcher.hpp
+        core/make_dispatcher.cpp
 
         core/aliases/ints.hpp
         core/aliases/delta.hpp

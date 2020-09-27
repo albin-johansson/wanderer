@@ -1,6 +1,5 @@
 #include "game.hpp"
 
-#include "add_humanoid_state_dependencies.hpp"
 #include "animation_system.hpp"
 #include "event_connections.hpp"
 #include "ground_layer_rendering_system.hpp"
@@ -8,6 +7,7 @@
 #include "humanoid_factory_system.hpp"
 #include "humanoid_state_system.hpp"
 #include "input_system.hpp"
+#include "make_dispatcher.hpp"
 #include "make_map.hpp"
 #include "make_viewport_system.hpp"
 #include "movable_depth_drawables_system.hpp"
@@ -18,16 +18,6 @@
 #include "viewport_system.hpp"
 
 namespace wanderer {
-namespace {
-
-[[nodiscard]] auto make_dispatcher() -> entt::dispatcher
-{
-  entt::dispatcher dispatcher;
-  connect_events(dispatcher);
-  return dispatcher;
-}
-
-}  // namespace
 
 game::game(cen::renderer& renderer)
     : m_dispatcher{make_dispatcher()},
@@ -45,8 +35,6 @@ game::game(cen::renderer& renderer)
 
   view.levelSize.width = level.width;
   view.levelSize.height = level.height;
-
-  sys::update_movement(m_level, delta{0});
 }
 
 game::~game() noexcept
