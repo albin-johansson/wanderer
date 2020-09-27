@@ -4,25 +4,46 @@
   "buttons": [
     {
       "text": "Play",
-      "action": "goto_in_game"
+      "action": "goto_in_game",
+      "x": 25,
+      "y": 25,
+      "width": 50,
+      "height": 25
     },
     {
       "text": "Settings",
-      "action": "goto_settings"
+      "action": "goto_settings",
+      "x": 25,
+      "y": 75,
+      "width": 50,
+      "height": 25
     },
     {
       "text": "Controls",
-      "action": "goto_controls"
+      "action": "goto_controls",
+      "x": 25,
+      "y": 125,
+      "width": 50,
+      "height": 25
     },
     {
       "text": "Quit",
-      "action": "quit"
+      "action": "quit",
+      "x": 25,
+      "y": 200,
+      "width": 50,
+      "height": 25
     }
   ],
   "binds": [
     {
       "key": "Escape",
       "action": "play",
+      "trigger": "on_released"
+    },
+    {
+      "key": "P",
+      "action": "quit",
       "trigger": "on_released"
     }
   ]
