@@ -49,6 +49,7 @@
 #include <type_traits>
 #include <utility>
 #include <variant>
+#include <optional>
 
 #include "centurion_api.hpp"
 #include "controller.hpp"
