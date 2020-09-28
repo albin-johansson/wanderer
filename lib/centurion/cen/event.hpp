@@ -45,11 +45,11 @@
 
 #include <SDL_events.h>
 
+#include <optional>
 #include <string_view>
 #include <type_traits>
 #include <utility>
 #include <variant>
-#include <optional>
 
 #include "centurion_api.hpp"
 #include "controller.hpp"
