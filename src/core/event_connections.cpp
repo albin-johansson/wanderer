@@ -13,13 +13,11 @@ using namespace comp;
 
 void connect_events(entt::dispatcher& dispatcher)
 {
-  {
-    using namespace sys::humanoid;
-    dispatcher.sink<begin_attack_event>().connect<&on_attack_begin>();
-    dispatcher.sink<end_attack_event>().connect<&on_attack_end>();
-    dispatcher.sink<begin_humanoid_move_event>().connect<&on_move_begin>();
-    dispatcher.sink<end_humanoid_move_event>().connect<&on_move_end>();
-  }
+  using namespace sys::humanoid;
+  dispatcher.sink<begin_attack_event>().connect<&on_attack_begin>();
+  dispatcher.sink<end_attack_event>().connect<&on_attack_end>();
+  dispatcher.sink<begin_humanoid_move_event>().connect<&on_move_begin>();
+  dispatcher.sink<end_humanoid_move_event>().connect<&on_move_end>();
 }
 
 void disconnect_events(entt::dispatcher& dispatcher)
