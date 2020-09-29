@@ -39,6 +39,9 @@ application::application()
 #ifdef NDEBUG
   m_window.set_fullscreen(true);
 #endif
+
+  m_mouseState.set_logical_width(g_logicalWidth<int>);
+  m_mouseState.set_logical_height(g_logicalHeight<int>);
 }
 
 auto application::handle_input() -> bool
