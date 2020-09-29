@@ -182,7 +182,12 @@ target_link_libraries(${WANDERER_LIB_TARGET}
         PUBLIC libJSON
         PUBLIC libNamedType)
 
-add_executable(${WANDERER_EXE_TARGET} WIN32 main.cpp)
+
+if (CMAKE_BUILD_TYPE STREQUAL "Release")
+    add_executable(${WANDERER_EXE_TARGET} WIN32 main.cpp)
+else ()
+    add_executable(${WANDERER_EXE_TARGET} main.cpp)
+endif ()
 
 wanderer_set_properties(${WANDERER_EXE_TARGET} "Wanderer")
 
