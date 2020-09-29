@@ -11,6 +11,7 @@
 #include "delta.hpp"
 #include "image_cache.hpp"
 #include "level.hpp"
+#include "menu/menu_manager.hpp"
 
 namespace wanderer {
 
@@ -59,7 +60,18 @@ class game final
    */
   void render(cen::renderer& renderer);
 
+  /**
+   * @brief Indicates whether or not the game should quit.
+   *
+   * @return `true` if the game should quit; `false` otherwise.
+   */
+  [[nodiscard]] auto quit_requested() const noexcept -> bool
+  {
+    return m_menus.quit_requested();
+  }
+
  private:
+  menu_manager m_menus;
   level m_level{};
   entt::dispatcher m_dispatcher;
   image_cache m_imageCache;

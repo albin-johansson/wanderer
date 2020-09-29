@@ -28,6 +28,8 @@ set(SOURCE_FILES
         core/aabb_tree.hpp
         core/level.cpp
         core/level.hpp
+        menu/menu_manager.hpp
+        menu/menu_manager.cpp
         core/make_dispatcher.hpp
         core/make_dispatcher.cpp
 
@@ -46,6 +48,15 @@ set(SOURCE_FILES
         core/math/index_to_matrix.hpp
         core/math/floating.hpp
         core/math/angles.hpp
+
+        menu/menu.hpp
+        menu/menu.cpp
+        menu/menu_button.cpp
+        menu/menu_button.hpp
+        menu/menu_action.hpp
+        menu/menu_id.hpp
+        menu/key_trigger.hpp
+        menu/key_bind.hpp
 
         component/player.hpp
         component/movable.hpp
@@ -122,7 +133,10 @@ set(SOURCE_FILES
         parse/tile/make_tileset.cpp
         parse/tile/make_tileset.hpp
         parse/tile/add_tile_objects.cpp
-        parse/tile/add_tile_objects.hpp)
+        parse/tile/add_tile_objects.hpp
+
+        parse/menu/make_menu.cpp
+        parse/menu/make_menu.hpp)
 
 add_library(${WANDERER_LIB_TARGET} ${SOURCE_FILES})
 
@@ -166,6 +180,8 @@ target_include_directories(${WANDERER_LIB_TARGET}
         PUBLIC system/layer
         PUBLIC system/viewport
         PUBLIC system/collision
+        PUBLIC system/menu
+        PUBLIC menu
         PUBLIC parse
         PUBLIC parse/tile
         PUBLIC parse/menu)

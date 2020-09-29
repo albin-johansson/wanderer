@@ -4,7 +4,7 @@
 
 #include <algorithm>  // min
 #include <cen/counter.hpp>
-#include <cen/key_code.hpp>
+#include <cen/event.hpp>
 #include <cen/screen.hpp>
 
 #include "game_constants.hpp"
@@ -55,13 +55,11 @@ auto application::handle_input() -> bool
 {
   m_mouseState.update(m_renderer.output_width(), m_renderer.output_height());
   m_keyState.update();
-
-  const bool shouldContinue =
-      !m_keyState.was_just_released(cen::keycodes::escape) &&
-      !was_quit_requested();
   cen::event::refresh();
 
   m_game.handle_input(m_mouseState, m_keyState);
+
+  const bool shouldContinue = !m_game.quit_requested() && !was_quit_requested();
 
   return shouldContinue;
 }
