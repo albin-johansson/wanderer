@@ -18,19 +18,19 @@ TEST_CASE("Event connections", "[event_connections]")
   {
     connect_events(dispatcher);
 
-    CHECK(!dispatcher.sink<begin_attack_event>().empty());
-    CHECK(!dispatcher.sink<end_attack_event>().empty());
-    CHECK(!dispatcher.sink<begin_humanoid_move_event>().empty());
-    CHECK(!dispatcher.sink<end_humanoid_move_event>().empty());
+    CHECK(!dispatcher.sink<comp::begin_attack_event>().empty());
+    CHECK(!dispatcher.sink<comp::end_attack_event>().empty());
+    CHECK(!dispatcher.sink<comp::begin_humanoid_move_event>().empty());
+    CHECK(!dispatcher.sink<comp::end_humanoid_move_event>().empty());
   }
 
   SECTION("Disconnect the events")
   {
     disconnect_events(dispatcher);
 
-    CHECK(dispatcher.sink<begin_attack_event>().empty());
-    CHECK(dispatcher.sink<end_attack_event>().empty());
-    CHECK(dispatcher.sink<begin_humanoid_move_event>().empty());
-    CHECK(dispatcher.sink<end_humanoid_move_event>().empty());
+    CHECK(dispatcher.sink<comp::begin_attack_event>().empty());
+    CHECK(dispatcher.sink<comp::end_attack_event>().empty());
+    CHECK(dispatcher.sink<comp::begin_humanoid_move_event>().empty());
+    CHECK(dispatcher.sink<comp::end_humanoid_move_event>().empty());
   }
 }
