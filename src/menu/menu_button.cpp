@@ -26,8 +26,30 @@ menu_button::menu_button(menu_action action, std::string text, int row, int col)
       m_col{col}
 {}
 
+void menu_button::calculate_bounds(cen::renderer& renderer) const
+{
+  auto& font = renderer.get_font(fontID);
+  const auto [width, height] = font.string_size(m_text.c_str());
+
+  // TODO cen: basic_rect::set_size
+  m_bounds.set_width(width * 1.25f);
+  m_bounds.set_height(height * 1.75f);
+
+  const auto x =
+      static_cast<float>(m_col * colSize) - (m_bounds.width() / 2.0f);
+  const auto y =
+      static_cast<float>(m_row * rowSize) - (m_bounds.height() / 2.0f);
+
+  m_bounds.set_x(x);
+  m_bounds.set_y(y);
+}
+
 void menu_button::render_text(cen::renderer& renderer) const
 {
+  if (m_text.empty()) {
+    return;
+  }
+
   if (!m_textPos) {
     const auto& font = renderer.get_font(fontID);
     const auto [width, height] = font.string_size(m_text.c_str());
@@ -35,8 +57,7 @@ void menu_button::render_text(cen::renderer& renderer) const
     const auto y = m_bounds.center_y() - (height / 2.0f);
     m_textPos = {x, y};
   }
-  renderer.render(m_hover ? m_hoverTexture.value() : m_texture.value(),
-                  *m_textPos);
+  renderer.render(m_texture.value(), *m_textPos);
 }
 
 void menu_button::render_background(cen::renderer& renderer) const
@@ -57,41 +78,11 @@ void menu_button::load_normal_text(cen::renderer& renderer) const
   m_texture.emplace(to_texture(renderer, m_text, renderer.get_font(fontID)));
 }
 
-void menu_button::load_hover_text(cen::renderer& renderer) const
-{
-  renderer.set_color(cen::colors::white);
-
-  auto& font = renderer.get_font(fontID);
-  font.set_bold(true);
-
-  m_hoverTexture.emplace(to_texture(renderer, m_text, font));
-
-  font.set_bold(false);
-}
-
 void menu_button::render(cen::renderer& renderer) const
 {
   if (!m_texture) {
-    auto& font = renderer.get_font(fontID);
-    const auto [width, height] = font.string_size(m_text.c_str());
-
-    // TODO cen: basic_rect::set_size
-    m_bounds.set_width(width * 1.25f);
-    m_bounds.set_height(height * 1.75f);
-
-    const auto x =
-        static_cast<float>(m_col * colSize) - (m_bounds.width() / 2.0f);
-    const auto y =
-        static_cast<float>(m_row * rowSize) - (m_bounds.height() / 2.0f);
-
-    m_bounds.set_x(x);
-    m_bounds.set_y(y);
-
+    calculate_bounds(renderer);
     load_normal_text(renderer);
-  }
-
-  if (!m_hoverTexture) {
-    load_hover_text(renderer);
   }
 
   if (m_hover) {

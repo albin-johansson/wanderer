@@ -38,17 +38,16 @@ class menu_button final
   // The mutables are obtained using renderer during first render iteration
   mutable cen::frect m_bounds;
   mutable std::optional<cen::texture> m_texture;
-  mutable std::optional<cen::texture> m_hoverTexture;
   mutable std::optional<cen::fpoint> m_textPos;
   bool m_hover{false};
+
+  void calculate_bounds(cen::renderer& renderer) const;
 
   void render_text(cen::renderer& renderer) const;
 
   void render_background(cen::renderer& renderer) const;
 
   void load_normal_text(cen::renderer& renderer) const;
-
-  void load_hover_text(cen::renderer& renderer) const;
 };
 
 }  // namespace wanderer
