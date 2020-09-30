@@ -31,6 +31,7 @@ set(SOURCE_FILES
         core/make_dispatcher.cpp
         core/make_renderer.cpp
         core/make_renderer.hpp
+        core/stack_resource.hpp
 
         core/aliases/ints.hpp
         core/aliases/delta.hpp

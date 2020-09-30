@@ -1,8 +1,7 @@
 #include "movement_system.hpp"
 
-#include <iterator>         // back_inserter
-#include <memory_resource>  // monotonic_buffer_resource
-#include <vector>           // vector
+#include <iterator>  // back_inserter
+#include <vector>    // vector
 
 #include "buffer.hpp"
 #include "component/depth_drawable.hpp"
@@ -10,6 +9,7 @@
 #include "component/movable.hpp"
 #include "hitbox_system.hpp"
 #include "movable_system.hpp"
+#include "stack_resource.hpp"
 
 namespace wanderer::sys {
 namespace {
@@ -39,9 +39,8 @@ void update_hitbox(level& level,
   hitbox::update_position(hitbox, movable.position);
   level.move_aabb(entity, movable.position);
 
-  buffer_t<entt::entity, 20> buffer{};
-  std::pmr::monotonic_buffer_resource resource{buffer.data(), sizeof buffer};
-  std::pmr::vector<entt::entity> candidates{&resource};
+  stack_resource<sizeof(entt::entity) * 20> resource;
+  std::pmr::vector<entt::entity> candidates{resource.get()};
   level.query_collisions(entity, std::back_inserter(candidates));
 
   const auto [nextVertical, nextHorizontal] =

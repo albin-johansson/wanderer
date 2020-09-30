@@ -29,13 +29,13 @@
 #include <algorithm>  // min, max
 #include <deque>      // deque
 #include <entt.hpp>
-#include <map>              // map
-#include <memory_resource>  // monotonic_buffer_resource
-#include <optional>         // optional
-#include <stack>            // stack
-#include <vector>           // vector
+#include <map>       // map
+#include <optional>  // optional
+#include <stack>     // stack
+#include <vector>    // vector
 
 #include "buffer.hpp"
+#include "stack_resource.hpp"
 #include "vector2.hpp"
 
 namespace wanderer {
@@ -213,9 +213,8 @@ class aabb_tree final
   template <typename OutputIterator>
   void query_collisions(entt::entity entity, OutputIterator iterator) const
   {
-    buffer_t<std::optional<int>, 20> buffer{};
-    std::pmr::monotonic_buffer_resource resource{buffer.data(), sizeof buffer};
-    pmr_stack<std::optional<int>> stack{&resource};
+    stack_resource<sizeof(std::optional<int>) * 20> resource;
+    pmr_stack<std::optional<int>> stack{resource.get()};
 
     const auto& box = get_aabb(entity);
 
