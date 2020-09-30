@@ -38,14 +38,8 @@ auto menu::query_binds(const cen::key_state& keyState)
     -> std::optional<menu_action>
 {
   for (const auto& bind : m_binds) {
-    if (bind.trigger == key_trigger::on_released) {
-      if (keyState.was_just_released(bind.key)) {
-        return bind.action;
-      }
-    } else {
-      if (keyState.was_just_pressed(bind.key)) {
-        return bind.action;
-      }
+    if (keyState.was_just_released(bind.key)) {
+      return bind.action;
     }
   }
 

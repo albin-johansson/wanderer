@@ -38,13 +38,11 @@
   "binds": [
     {
       "key": "Escape",
-      "action": "play",
-      "trigger": "on_released"
+      "action": "play"
     },
     {
       "key": "P",
-      "action": "quit",
-      "trigger": "on_released"
+      "action": "quit"
     }
   ]
 }

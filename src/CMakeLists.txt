@@ -55,7 +55,6 @@ set(SOURCE_FILES
         menu/menu_button.hpp
         menu/menu_action.hpp
         menu/menu_id.hpp
-        menu/key_trigger.hpp
         menu/key_bind.hpp
 
         component/player.hpp

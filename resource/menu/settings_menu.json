@@ -14,8 +14,7 @@
   "binds": [
     {
       "key": "Escape",
-      "action": "goto_home",
-      "trigger": "on_released"
+      "action": "goto_home"
     }
   ]
 }

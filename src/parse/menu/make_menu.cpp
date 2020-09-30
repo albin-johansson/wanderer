@@ -39,8 +39,6 @@ namespace {
     buttons.emplace_back(make_button(value));
   }
 
-  buttons.shrink_to_fit();
-
   return buttons;
 }
 
@@ -52,7 +50,6 @@ namespace {
   bind.key = cen::scan_code{keyName.c_str()};
 
   json.at("action").get_to(bind.action);
-  json.at("trigger").get_to(bind.trigger);
 
   return bind;
 }
@@ -67,8 +64,6 @@ namespace {
   for (const auto& [key, value] : bindsJson.items()) {
     binds.emplace_back(make_bind(value));
   }
-
-  binds.shrink_to_fit();
 
   return binds;
 }
