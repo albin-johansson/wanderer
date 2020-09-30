@@ -14,7 +14,7 @@
       "text": "Settings",
       "action": "goto_settings",
       "x": 25,
-      "y": 75,
+      "y": 55,
       "width": 50,
       "height": 25
     },
@@ -22,7 +22,7 @@
       "text": "Controls",
       "action": "goto_controls",
       "x": 25,
-      "y": 125,
+      "y": 85,
       "width": 50,
       "height": 25
     },
@@ -30,7 +30,7 @@
       "text": "Quit",
       "action": "quit",
       "x": 25,
-      "y": 200,
+      "y": 115,
       "width": 50,
       "height": 25
     }
