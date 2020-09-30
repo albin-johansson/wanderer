@@ -11,7 +11,6 @@ endfunction()
 
 set(SOURCE_FILES
         docs.hpp
-
         game.hpp
         game.cpp
         application.cpp
@@ -28,10 +27,10 @@ set(SOURCE_FILES
         core/aabb_tree.hpp
         core/level.cpp
         core/level.hpp
-        menu/menu_manager.hpp
-        menu/menu_manager.cpp
         core/make_dispatcher.hpp
         core/make_dispatcher.cpp
+        core/make_renderer.cpp
+        core/make_renderer.hpp
 
         core/aliases/ints.hpp
         core/aliases/delta.hpp
@@ -57,6 +56,8 @@ set(SOURCE_FILES
         menu/menu_id.hpp
         menu/key_bind.hpp
         menu/menu_constants.hpp
+        menu/menu_manager.hpp
+        menu/menu_manager.cpp
 
         component/player.hpp
         component/movable.hpp

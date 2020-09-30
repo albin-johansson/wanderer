@@ -1,38 +1,14 @@
 #include "application.hpp"
 
-#include <SDL.h>
-
 #include <algorithm>  // min
 #include <cen/counter.hpp>
 #include <cen/event.hpp>
 #include <cen/screen.hpp>
 
 #include "game_constants.hpp"
+#include "make_renderer.hpp"
 
 namespace wanderer {
-namespace {
-
-[[nodiscard]] auto create_renderer(const cen::window& window) -> cen::renderer
-{
-  cen::renderer renderer{window};
-
-  const auto typewriter = "resource/font/type_writer.ttf";
-  renderer.emplace_font("typewriter_s"_hs, typewriter, 8);
-  renderer.emplace_font("typewriter_m"_hs, typewriter, 16);
-  renderer.emplace_font("typewriter_l"_hs, typewriter, 24);
-
-  renderer.set_logical_size({g_logicalWidth<>, g_logicalHeight<>});
-  renderer.set_logical_integer_scale(true);
-
-  return renderer;
-}
-
-[[nodiscard]] auto was_quit_requested() noexcept -> bool
-{
-  return cen::event::num_queued(cen::event_type::quit) > 0;
-}
-
-}  // namespace
 
 application::application()
 #ifndef NDEBUG
@@ -40,7 +16,7 @@ application::application()
 #else
     : m_window{"Wanderer", cen::screen::size()},
 #endif
-      m_renderer{create_renderer(m_window)},
+      m_renderer{make_renderer(m_window)},
       m_game{m_renderer}
 {
 #ifdef NDEBUG
@@ -59,7 +35,9 @@ auto application::handle_input() -> bool
 
   m_game.handle_input(m_mouseState, m_keyState);
 
-  const bool shouldContinue = !m_game.quit_requested() && !was_quit_requested();
+  const bool shouldContinue =
+      !m_game.quit_requested() &&
+      cen::event::num_queued(cen::event_type::quit) == 0;
 
   return shouldContinue;
 }
