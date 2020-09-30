@@ -6,7 +6,7 @@
 
 namespace wanderer {
 
-menu_manager::menu_manager()
+menu_manager::menu_manager() : m_current{menu_id::home}
 {
   using namespace std::string_view_literals;
 
@@ -17,7 +17,6 @@ menu_manager::menu_manager()
                   make_menu("resource/menu/controls_menu.json"sv));
   m_menus.emplace(menu_id::settings,
                   make_menu("resource/menu/settings_menu.json"sv));
-  m_current = menu_id::home;
 }
 
 void menu_manager::update(const cen::mouse_state& mouseState,
