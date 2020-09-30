@@ -8,10 +8,10 @@ namespace {
 
 inline constexpr auto fontID = "typewriter_s"_hs;
 
-[[nodiscard]] auto to_texture(cen::renderer& renderer, const std::string& text)
-    -> cen::texture
+[[nodiscard]] auto to_texture(cen::renderer& renderer,
+                              const std::string& text,
+                              const cen::font& font) -> cen::texture
 {
-  const auto& font = renderer.get_font(fontID);
   return renderer.render_blended_utf8(text.c_str(), font);
 }
 
@@ -38,7 +38,7 @@ void menu_button::render_text(cen::renderer& renderer) const
 void menu_button::load_normal_text(cen::renderer& renderer) const
 {
   renderer.set_color(cen::colors::white);
-  m_texture.emplace(to_texture(renderer, m_text));
+  m_texture.emplace(to_texture(renderer, m_text, renderer.get_font(fontID)));
 }
 
 void menu_button::load_hover_text(cen::renderer& renderer) const
@@ -48,7 +48,7 @@ void menu_button::load_hover_text(cen::renderer& renderer) const
   auto& font = renderer.get_font(fontID);
   font.set_bold(true);
 
-  m_hoverTexture.emplace(to_texture(renderer, m_text));
+  m_hoverTexture.emplace(to_texture(renderer, m_text, font));
 
   font.set_bold(false);
 }
@@ -63,8 +63,10 @@ void menu_button::render(cen::renderer& renderer) const
     load_hover_text(renderer);
   }
 
+#ifndef NDEBUG
   renderer.set_color(cen::colors::red);
   renderer.draw_rect(m_bounds);
+#endif
 
   render_text(renderer);
 }
