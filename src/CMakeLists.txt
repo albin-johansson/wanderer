@@ -56,6 +56,7 @@ set(SOURCE_FILES
         menu/menu_action.hpp
         menu/menu_id.hpp
         menu/key_bind.hpp
+        menu/menu_constants.hpp
 
         component/player.hpp
         component/movable.hpp

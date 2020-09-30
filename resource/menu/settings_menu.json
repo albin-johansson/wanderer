@@ -5,8 +5,8 @@
     {
       "text": "Return",
       "action": "goto_home",
-      "row": 2,
-      "col": 3
+      "row": 4,
+      "col": -1
     }
   ],
   "binds": [

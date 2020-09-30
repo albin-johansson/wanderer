@@ -3,6 +3,7 @@
 #include <cen/key_state.hpp>
 #include <cen/mouse_state.hpp>
 #include <cen/renderer.hpp>
+#include <cen/texture.hpp>
 #include <filesystem>  // path
 #include <optional>    // optional
 #include <string>      // string
@@ -68,7 +69,12 @@ class menu final
   std::string m_title;
   std::vector<menu_button> m_buttons;
   std::vector<key_bind> m_binds;
+  mutable std::optional<cen::texture> m_titleTexture;
   bool m_blocking{};
+
+  void load_title_texture(cen::renderer& renderer) const;
+
+  void render_title(cen::renderer& renderer) const;
 };
 
 }  // namespace wanderer
