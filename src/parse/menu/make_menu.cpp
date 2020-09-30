@@ -15,17 +15,9 @@ namespace {
 {
   auto text = json.at("text").get<std::string>();
   const auto action = json.at("action").get<menu_action>();
-
-  menu_button button{action, std::move(text)};
-
-  const auto x = json.at("x").get<float>();
-  const auto y = json.at("y").get<float>();
-  const auto width = json.at("width").get<float>();
-  const auto height = json.at("height").get<float>();
-
-  button.set_bounds({{x, y}, {width, height}});
-
-  return button;
+  const auto row = json.at("row").get<int>();
+  const auto col = json.at("col").get<int>();
+  return menu_button{action, std::move(text), row, col};
 }
 
 [[nodiscard]] auto make_buttons(const json& json) -> std::vector<menu_button>

@@ -5,34 +5,26 @@
     {
       "text": "Play",
       "action": "goto_in_game",
-      "x": 25,
-      "y": 25,
-      "width": 50,
-      "height": 25
+      "row": 2,
+      "col": 3
     },
     {
       "text": "Settings",
       "action": "goto_settings",
-      "x": 25,
-      "y": 55,
-      "width": 50,
-      "height": 25
+      "row": 3,
+      "col": 3
     },
     {
       "text": "Controls",
       "action": "goto_controls",
-      "x": 25,
-      "y": 85,
-      "width": 50,
-      "height": 25
+      "row": 4,
+      "col": 3
     },
     {
       "text": "Quit",
       "action": "quit",
-      "x": 25,
-      "y": 115,
-      "width": 50,
-      "height": 25
+      "row": 5,
+      "col": 3
     }
   ],
   "binds": [

@@ -7,6 +7,8 @@ namespace wanderer {
 namespace {
 
 inline constexpr auto fontID = "typewriter_s"_hs;
+inline constexpr auto colSize = 20;
+inline constexpr auto rowSize = 20;
 
 [[nodiscard]] auto to_texture(cen::renderer& renderer,
                               const std::string& text,
@@ -17,9 +19,11 @@ inline constexpr auto fontID = "typewriter_s"_hs;
 
 }  // namespace
 
-menu_button::menu_button(menu_action action, std::string text)
+menu_button::menu_button(menu_action action, std::string text, int row, int col)
     : m_action{action},
-      m_text{std::move(text)}
+      m_text{std::move(text)},
+      m_row{row},
+      m_col{col}
 {}
 
 void menu_button::render_text(cen::renderer& renderer) const
@@ -33,6 +37,18 @@ void menu_button::render_text(cen::renderer& renderer) const
   }
   renderer.render(m_hover ? m_hoverTexture.value() : m_texture.value(),
                   *m_textPos);
+}
+
+void menu_button::render_background(cen::renderer& renderer) const
+{
+  // TODO cen: const auto color = cen::colors::ghost_white.with_alpha(0x22);
+  constexpr cen::color bg{0xF8, 0xF8, 0xFF, 0x22};  // ghost_white
+
+  renderer.set_color(bg);
+  renderer.fill_rect(m_bounds);
+
+  renderer.set_color(cen::colors::ghost_white);
+  renderer.draw_rect(m_bounds);
 }
 
 void menu_button::load_normal_text(cen::renderer& renderer) const
@@ -56,6 +72,21 @@ void menu_button::load_hover_text(cen::renderer& renderer) const
 void menu_button::render(cen::renderer& renderer) const
 {
   if (!m_texture) {
+    auto& font = renderer.get_font(fontID);
+    const auto [width, height] = font.string_size(m_text.c_str());
+
+    // TODO cen: basic_rect::set_size
+    m_bounds.set_width(width * 1.25f);
+    m_bounds.set_height(height * 1.75f);
+
+    const auto x =
+        static_cast<float>(m_col * colSize) - (m_bounds.width() / 2.0f);
+    const auto y =
+        static_cast<float>(m_row * rowSize) - (m_bounds.height() / 2.0f);
+
+    m_bounds.set_x(x);
+    m_bounds.set_y(y);
+
     load_normal_text(renderer);
   }
 
@@ -63,10 +94,9 @@ void menu_button::render(cen::renderer& renderer) const
     load_hover_text(renderer);
   }
 
-#ifndef NDEBUG
-  renderer.set_color(cen::colors::red);
-  renderer.draw_rect(m_bounds);
-#endif
+  if (m_hover) {
+    render_background(renderer);
+  }
 
   render_text(renderer);
 }
@@ -74,11 +104,6 @@ void menu_button::render(cen::renderer& renderer) const
 void menu_button::set_hover(bool hover)
 {
   m_hover = hover;
-}
-
-void menu_button::set_bounds(const cen::frect& bounds) noexcept
-{
-  m_bounds = bounds;
 }
 
 }  // namespace wanderer
