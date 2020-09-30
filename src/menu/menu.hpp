@@ -70,6 +70,7 @@ class menu final
   std::vector<menu_button> m_buttons;
   std::vector<key_bind> m_binds;
   mutable std::optional<cen::texture> m_titleTexture;
+  mutable std::optional<cen::ipoint> m_titlePos;
   bool m_blocking{};
 
   void load_title_texture(cen::renderer& renderer) const;
