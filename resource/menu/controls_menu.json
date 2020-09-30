@@ -5,10 +5,10 @@
     {
       "text": "Return",
       "action": "goto_home",
-      "x": 100,
-      "y": 100,
-      "width": 150,
-      "height": 75
+      "x": 25,
+      "y": 25,
+      "width": 50,
+      "height": 25
     }
   ],
   "binds": [
