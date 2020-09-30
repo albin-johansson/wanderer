@@ -25,11 +25,13 @@ void render_depth_drawables(entt::registry& registry, cen::renderer& renderer)
       [&](const auto entity, const comp::depth_drawable& drawable) noexcept {
         renderer.render_t(*drawable.texture, drawable.src, drawable.dst);
 
+#ifndef NDEBUG
         if (const auto* hitbox = registry.try_get<comp::hitbox>(entity);
             hitbox) {
           renderer.set_color(cen::colors::red);
           renderer.draw_rect_t(hitbox->bounds);
         }
+#endif
       });
 }
 
