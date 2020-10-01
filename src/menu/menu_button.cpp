@@ -29,10 +29,7 @@ void menu_button::calculate_bounds(cen::renderer& renderer) const
 {
   auto& font = renderer.get_font(g_menuSmallFont);
   const auto [width, height] = font.string_size(m_text.c_str());
-
-  // TODO cen: basic_rect::set_size
-  m_bounds.set_width(width * 1.25f);
-  m_bounds.set_height(height * 1.75f);
+  m_bounds.resize({width * 1.25f, height * 1.75f});
 
   const auto calc_x = [&]() -> int {
     const auto width = static_cast<int>(m_bounds.width());
