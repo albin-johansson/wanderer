@@ -128,14 +128,14 @@ set(SOURCE_FILES
         system/input/idle_input_system.cpp
         system/input/idle_input_system.hpp
 
-        parse/tile/make_tile.cpp
-        parse/tile/make_tile.hpp
-        parse/tile/make_map.hpp
-        parse/tile/make_map.cpp
-        parse/tile/make_tileset.cpp
-        parse/tile/make_tileset.hpp
-        parse/tile/add_tile_objects.cpp
-        parse/tile/add_tile_objects.hpp
+        parse/map/make_tile.cpp
+        parse/map/make_tile.hpp
+        parse/map/make_map.hpp
+        parse/map/make_map.cpp
+        parse/map/make_tileset.cpp
+        parse/map/make_tileset.hpp
+        parse/map/add_tile_objects.cpp
+        parse/map/add_tile_objects.hpp
 
         parse/menu/make_menu.cpp
         parse/menu/make_menu.hpp)
@@ -185,7 +185,7 @@ target_include_directories(${WANDERER_LIB_TARGET}
         PUBLIC system/menu
         PUBLIC menu
         PUBLIC parse
-        PUBLIC parse/tile
+        PUBLIC parse/map
         PUBLIC parse/menu)
 
 #target_compile_definitions(${WANDERER_LIB} PUBLIC WANDERER_DEBUG)

@@ -48,7 +48,7 @@ void menu_button::calculate_bounds(cen::renderer& renderer) const
   const auto y =
       static_cast<float>(m_row * g_menuRowSize) - (m_bounds.height() / 2.0f);
 
-  m_bounds.set_x(calc_x());
+  m_bounds.set_x(static_cast<float>(calc_x()));
   m_bounds.set_y(y);
 }
 
