@@ -29,11 +29,10 @@ auto animated_tile(entt::registry& registry,
 
   const auto& animatedTile =
       registry.get<comp::animated_tile>(tileEntity.get());
+  const auto tileId = animatedTile.frames.at(animatedTile.index).tile;
+  const auto animatedEntity = tileset.tiles.at(tileId);
 
-  const tile_id id = animatedTile.frames.at(animatedTile.index).tile;
-  const comp::tile::entity animated = tileset.tiles.at(id);
-
-  return registry.get<comp::tile>(animated.get());
+  return registry.get<comp::tile>(animatedEntity.get());
 }
 
 }  // namespace wanderer::sys::tile
