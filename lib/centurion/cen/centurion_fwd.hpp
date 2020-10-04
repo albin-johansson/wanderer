@@ -16,6 +16,8 @@
  *
  * @author Albin Johansson
  *
+ * @todo Remove this header
+ *
  * @date 2019-2020
  *
  * @copyright MIT License
@@ -44,31 +46,18 @@ class basic_joystick;
 template <typename T>
 class basic_texture;
 
+template <typename T>
+class basic_surface;
+
 class thread;
 
 class mutex;
 
 class scoped_lock;
 
-class joystick;
-
-class joystick_handle;
-
-class renderer;
-
-class renderer_handle;
-
 class texture;
 
 class texture_handle;
-
-class sharing_texture;
-
-class surface;
-
-class window;
-
-class window_handle;
 
 class font;
 
@@ -77,8 +66,6 @@ class font_cache;
 class unicode_string;
 
 class color;
-
-class cursor;
 
 class event;
 

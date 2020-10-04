@@ -42,6 +42,7 @@
 #include <memory>
 #include <ostream>
 #include <string>
+#include <type_traits>
 
 #include "centurion_api.hpp"
 #include "detail/utils.hpp"
@@ -64,10 +65,11 @@ namespace cen {
  *
  * @headerfile music.hpp
  */
-enum class fade_status {
-  none = MIX_NO_FADING, /**< No currently fading music. */
-  in = MIX_FADING_IN,   /**< Currently fading in music. */
-  out = MIX_FADING_OUT  /**< Currently fading out music. */
+enum class fade_status
+{
+  none = MIX_NO_FADING,  ///< No currently fading music.
+  in = MIX_FADING_IN,    ///< Currently fading in music.
+  out = MIX_FADING_OUT   ///< Currently fading out music.
 };
 
 /**
@@ -142,7 +144,8 @@ enum class fade_status {
  *
  * @headerfile music.hpp
  */
-enum class music_type {
+enum class music_type
+{
   unknown = MUS_NONE,
   mp3 = MUS_MP3,
   wav = MUS_WAV,
@@ -253,7 +256,7 @@ class music final
    *
    * @since 4.0.0
    */
-  inline static constexpr int loopForever = -1;
+  inline constexpr static int loopForever = -1;
 
   /**
    * @brief Creates a `music` instance based on the file at the specified path.
@@ -484,16 +487,18 @@ class music final
    *
    * @since 5.0.0
    */
-  [[nodiscard]] static constexpr auto max_volume() noexcept -> int
+  [[nodiscard]] constexpr static auto max_volume() noexcept -> int
   {
     return MIX_MAX_VOLUME;
   }
 
  private:
-  class deleter final
+  struct deleter final
   {
-   public:
-    void operator()(Mix_Music* music) noexcept { Mix_FreeMusic(music); }
+    void operator()(Mix_Music* music) noexcept
+    {
+      Mix_FreeMusic(music);
+    }
   };
 
   std::unique_ptr<Mix_Music, deleter> m_music;

@@ -39,7 +39,7 @@
 
 #include <SDL_power.h>
 
-#include <optional>
+#include <optional>  // optional
 
 #include "centurion_api.hpp"
 #include "types.hpp"
@@ -68,17 +68,14 @@ namespace cen::battery {
  *
  * @headerfile battery.hpp
  */
-enum class power_state {
-  unknown = SDL_POWERSTATE_UNKNOWN, /**< The status is unknown. */
-
+enum class power_state
+{
+  unknown = SDL_POWERSTATE_UNKNOWN,  ///< The status is unknown.
   on_battery =
-      SDL_POWERSTATE_ON_BATTERY, /**< Not plugged in and running on battery. */
-
-  no_battery = SDL_POWERSTATE_NO_BATTERY, /**< No battery available. */
-
-  charging = SDL_POWERSTATE_CHARGING, /**< Currently charging the battery. */
-
-  charged = SDL_POWERSTATE_CHARGED /**< Currently plugged in and charged. */
+      SDL_POWERSTATE_ON_BATTERY,  ///< Not plugged in and running on battery.
+  no_battery = SDL_POWERSTATE_NO_BATTERY,  ///< No battery available.
+  charging = SDL_POWERSTATE_CHARGING,      ///< Currently charging the battery.
+  charged = SDL_POWERSTATE_CHARGED  ///< Currently plugged in and charged.
 };
 
 /**

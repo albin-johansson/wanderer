@@ -37,12 +37,12 @@
 #ifndef CENTURION_DETAIL_TO_STRING_HEADER
 #define CENTURION_DETAIL_TO_STRING_HEADER
 
-#include <array>     // array
-#include <charconv>  // to_chars
-#include <memory_resource>
+#include <array>         // array
+#include <charconv>      // to_chars
 #include <optional>      // optional, nullopt
 #include <string>        // string
 #include <system_error>  // errc
+#include <type_traits>   // is_floating_point_v
 
 #include "centurion_api.hpp"
 
@@ -53,6 +53,9 @@ namespace cen::detail {
  *
  * @note This function is guaranteed to work for 32-bit integers and floats.
  * You might have to increase the buffer size for larger types.
+ *
+ * @remark On GCC, this function simply calls `std::to_string`, since the
+ * `std::to_chars` implementation seems to be lacking at the time of writing.
  *
  * @tparam bufferSize the size of the stack buffer used, must be big enough
  * to store the characters of the string representation of the value.
@@ -68,42 +71,21 @@ namespace cen::detail {
 template <std::size_t bufferSize = 16, typename T>
 [[nodiscard]] auto to_string(T value) -> std::optional<std::string>
 {
-  std::array<char, bufferSize> buffer;  // NOLINT uninitialized buffer is OK
+#if (defined(__GNUC__) && !defined(__clang__) && !defined(__INTEL_COMPILER))
+  // GCC are a bit behind on implementing the charconv header
+  return std::to_string(value);
+#else
+  std::array<char, bufferSize> buffer{};
   const auto [ptr, err] =
       std::to_chars(buffer.data(), buffer.data() + buffer.size(), value);
   if (err == std::errc{}) {
-    return std::string{buffer.data(), ptr};
+    const auto len = static_cast<std::size_t>(ptr - buffer.data());
+    return std::string{buffer.data(), len};
   } else {
     return std::nullopt;
   }
+#endif
 }
-
-// class pmr_string final
-//{
-// public:
-//  template <std::size_t size, typename T>
-//  explicit pmr_string(std::array<char, size>& buffer, T value) noexcept
-//  {
-//    const auto [ptr, err] =
-//        std::to_chars(buffer.data(), buffer.data() + buffer.size(), value);
-//    if (err == std::errc{}) {
-//      m_string.emplace(buffer.data(), ptr);
-//    }
-//  }
-//
-//  [[nodiscard]] auto ok() const noexcept -> bool
-//  {
-//    return m_string.has_value();
-//  }
-//
-//  [[nodiscard]] auto value() const -> const std::pmr::string&
-//  {
-//    return m_string.value();
-//  }
-//
-// private:
-//  std::optional<std::pmr::string> m_string;
-//};
 
 }  // namespace cen::detail
 

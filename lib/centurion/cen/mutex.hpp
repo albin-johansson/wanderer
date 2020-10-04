@@ -54,7 +54,8 @@ namespace cen {
 /// @addtogroup thread
 /// @{
 
-enum class lock_status {
+enum class lock_status
+{
   success = 0,
   timed_out = SDL_MUTEX_TIMEDOUT,
   error = -1
@@ -129,10 +130,12 @@ class mutex final
   auto get() noexcept -> SDL_mutex*;
 
  private:
-  class deleter final
+  struct deleter final
   {
-   public:
-    void operator()(SDL_mutex* mutex) noexcept { SDL_DestroyMutex(mutex); }
+    void operator()(SDL_mutex* mutex) noexcept
+    {
+      SDL_DestroyMutex(mutex);
+    }
   };
   std::unique_ptr<SDL_mutex, deleter> m_mutex;
 };

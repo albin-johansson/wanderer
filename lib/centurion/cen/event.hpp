@@ -102,7 +102,8 @@ class common_event
    *
    * @since 4.0.0
    */
-  explicit common_event(const T& event) : m_event{event} {}
+  explicit common_event(const T& event) : m_event{event}
+  {}
 
   /**
    * @brief Creates a CommonEvent and moves the contents of the supplied event.
@@ -111,7 +112,8 @@ class common_event
    *
    * @since 4.0.0
    */
-  explicit common_event(T&& event) : m_event{std::move(event)} {}
+  explicit common_event(T&& event) : m_event{std::move(event)}
+  {}
 
   /**
    * @brief Default virtual destructor.
@@ -129,7 +131,10 @@ class common_event
    *
    * @since 4.0.0
    */
-  void set_time(u32 timestamp) noexcept { m_event.timestamp = timestamp; }
+  void set_time(u32 timestamp) noexcept
+  {
+    m_event.timestamp = timestamp;
+  }
 
   /**
    * @brief Sets the event type value associated with the event.
@@ -150,7 +155,10 @@ class common_event
    *
    * @since 4.0.0
    */
-  [[nodiscard]] auto time() const noexcept -> u32 { return m_event.timestamp; }
+  [[nodiscard]] auto time() const noexcept -> u32
+  {
+    return m_event.timestamp;
+  }
 
   /**
    * @brief Returns the event type value associated with the event.
@@ -173,7 +181,10 @@ class common_event
    *
    * @since 5.0.0
    */
-  [[nodiscard]] auto get() const noexcept -> const T& { return m_event; }
+  [[nodiscard]] auto get() const noexcept -> const T&
+  {
+    return m_event;
+  }
 
  protected:
   T m_event{};
@@ -1317,7 +1328,8 @@ static_assert(validate_event<joy_device_event, SDL_JoyDeviceEvent>());
  *
  * @since 4.0.0
  */
-enum class joy_hat_position {
+enum class joy_hat_position
+{
   left_up = SDL_HAT_LEFTUP,
   left = SDL_HAT_LEFT,
   left_down = SDL_HAT_LEFTDOWN,
@@ -2102,10 +2114,10 @@ static_assert(validate_event<mouse_motion_event, SDL_MouseMotionEvent>());
  *
  * @headerfile event.hpp
  */
-enum class mouse_wheel_direction {
-  normal = SDL_MOUSEWHEEL_NORMAL,  /**< The scroll direction is normal */
-  flipped = SDL_MOUSEWHEEL_FLIPPED /**< The scroll direction is flipped /
-                                    * natural */
+enum class mouse_wheel_direction
+{
+  normal = SDL_MOUSEWHEEL_NORMAL,   ///< The scroll direction is normal
+  flipped = SDL_MOUSEWHEEL_FLIPPED  ///< The scroll direction is flipped natural
 };
 
 /**
@@ -3044,7 +3056,8 @@ static_assert(validate_event<touch_finger_event, SDL_TouchFingerEvent>());
  *
  * @headerfile event.hpp
  */
-enum class window_event_id {
+enum class window_event_id
+{
   none = SDL_WINDOWEVENT_NONE,
   shown = SDL_WINDOWEVENT_SHOWN,
   hidden = SDL_WINDOWEVENT_HIDDEN,

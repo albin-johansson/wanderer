@@ -83,7 +83,7 @@ class point_traits final
    *
    * @since 5.0.0
    */
-  inline static constexpr bool isIntegral = std::is_integral_v<T>;
+  inline constexpr static bool isIntegral = std::is_integral_v<T>;
 
   /**
    * @var isFloating
@@ -93,7 +93,7 @@ class point_traits final
    *
    * @since 5.0.0
    */
-  inline static constexpr bool isFloating = std::is_floating_point_v<T>;
+  inline constexpr static bool isFloating = std::is_floating_point_v<T>;
 
   /**
    * @typedef value_type
@@ -143,12 +143,12 @@ class basic_point final
   /**
    * @copydoc point_traits::isIntegral
    */
-  inline static constexpr bool isIntegral = point_traits<T>::isIntegral;
+  inline constexpr static bool isIntegral = point_traits<T>::isIntegral;
 
   /**
    * @copydoc point_traits::isFloating
    */
-  inline static constexpr bool isFloating = point_traits<T>::isFloating;
+  inline constexpr static bool isFloating = point_traits<T>::isFloating;
 
   /**
    * @copydoc point_traits::value_type
@@ -188,7 +188,10 @@ class basic_point final
    *
    * @since 5.0.0
    */
-  constexpr void set_x(value_type x) noexcept { m_point.x = x; }
+  constexpr void set_x(value_type x) noexcept
+  {
+    m_point.x = x;
+  }
 
   /**
    * @brief Sets the y-coordinate of the point.
@@ -197,7 +200,10 @@ class basic_point final
    *
    * @since 5.0.0
    */
-  constexpr void set_y(value_type y) noexcept { m_point.y = y; }
+  constexpr void set_y(value_type y) noexcept
+  {
+    m_point.y = y;
+  }
 
   /**
    * @brief Returns the x-coordinate of the point.
@@ -230,7 +236,10 @@ class basic_point final
    *
    * @since 5.0.0
    */
-  [[nodiscard]] constexpr auto get() noexcept -> point_type& { return m_point; }
+  [[nodiscard]] constexpr auto get() noexcept -> point_type&
+  {
+    return m_point;
+  }
 
   /**
    * @copydoc get
@@ -264,7 +273,10 @@ class basic_point final
    *
    * @since 5.0.0
    */
-  [[nodiscard]] explicit operator point_type*() noexcept { return &m_point; }
+  [[nodiscard]] explicit operator point_type*() noexcept
+  {
+    return &m_point;
+  }
 
   /**
    * @brief Returns a pointer to the internal point.

@@ -60,11 +60,10 @@ namespace cen {
  *
  * @headerfile button_state.hpp
  */
-enum class button_state {
-  released =
-      SDL_RELEASED, /**< Button is released. Corresponds to `SDL_RELEASED`.*/
-
-  pressed = SDL_PRESSED /**< Button is pressed. Corresponds to `SDL_PRESSED`.*/
+enum class button_state
+{
+  released = SDL_RELEASED,  ///< Corresponds to `SDL_RELEASED`.
+  pressed = SDL_PRESSED     ///< Corresponds to `SDL_PRESSED`.
 };
 
 }  // namespace cen

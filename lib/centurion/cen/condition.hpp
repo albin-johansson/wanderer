@@ -127,10 +127,12 @@ class condition final
   auto wait(mutex& mutex, milliseconds<u32> ms) noexcept -> lock_status;
 
  private:
-  class deleter final
+  struct deleter final
   {
-   public:
-    void operator()(SDL_cond* cond) noexcept { SDL_DestroyCond(cond); };
+    void operator()(SDL_cond* cond) noexcept
+    {
+      SDL_DestroyCond(cond);
+    };
   };
 
   std::unique_ptr<SDL_cond, deleter> m_cond{};
