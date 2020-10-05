@@ -28,7 +28,7 @@ inline constexpr cen::milliseconds<u32> moveDelay{70};
 inline constexpr cen::milliseconds<u32> attackDelay{70};
 
 template <typename Lambda>
-void update(
+void invoke_if(
     entt::registry& registry,
     entt::entity entity,
     Lambda&& lambda) noexcept(noexcept(lambda(std::declval<comp::animated&>(),
@@ -81,19 +81,20 @@ void update(
 void update_move_animation(entt::registry& registry,
                            entt::entity entity) noexcept
 {
-  update(registry,
-         entity,
-         [](comp::animated& animated,
-            comp::movable& movable,
-            comp::depth_drawable& drawable) noexcept {
-           drawable.src.set_x(movable.velocity.is_zero() ? 0
-                                                         : animated.frame * 64);
-           const auto srcY = source_y(moveSourceY, movable.dominantDirection);
-           if (drawable.src.y() != srcY) {
-             animated.frame = 0;
-             drawable.src.set_y(srcY);
-           }
-         });
+  invoke_if(registry,
+            entity,
+            [](comp::animated& animated,
+               comp::movable& movable,
+               comp::depth_drawable& drawable) noexcept {
+              drawable.src.set_x(
+                  movable.velocity.is_zero() ? 0 : animated.frame * 64);
+              const auto srcY =
+                  source_y(moveSourceY, movable.dominantDirection);
+              if (drawable.src.y() != srcY) {
+                animated.frame = 0;
+                drawable.src.set_y(srcY);
+              }
+            });
 }
 
 /**
@@ -107,17 +108,17 @@ void update_move_animation(entt::registry& registry,
 void update_attack_animation(entt::registry& registry,
                              entt::entity entity) noexcept
 {
-  update(registry,
-         entity,
-         [&](comp::animated& animated,
-             comp::movable&,
-             comp::depth_drawable& drawable) noexcept {
-           drawable.src.set_x(animated.frame * 64);
-           if (animated.frame == animated.nFrames - 1) {
-             auto& attack = registry.get<comp::humanoid_attack>(entity);
-             attack.done = true;
-           }
-         });
+  invoke_if(registry,
+            entity,
+            [&](comp::animated& animated,
+                comp::movable&,
+                comp::depth_drawable& drawable) noexcept {
+              drawable.src.set_x(animated.frame * 64);
+              if (animated.frame == animated.nFrames - 1) {
+                auto& attack = registry.get<comp::humanoid_attack>(entity);
+                attack.done = true;
+              }
+            });
 }
 
 /**
@@ -139,17 +140,17 @@ void enter_animation(entt::registry& registry,
                      cen::milliseconds<u32> delay,
                      int sourceY) noexcept
 {
-  update(registry,
-         entity,
-         [=](comp::animated& animated,
-             comp::movable& movable,
-             comp::depth_drawable& drawable) noexcept {
-           animated.frame = 0;
-           animated.nFrames = nFrames;
-           animated.delay = delay;
-           drawable.src.set_x(0);
-           drawable.src.set_y(source_y(sourceY, movable.dominantDirection));
-         });
+  invoke_if(registry,
+            entity,
+            [=](comp::animated& animated,
+                comp::movable& movable,
+                comp::depth_drawable& drawable) noexcept {
+              animated.frame = 0;
+              animated.nFrames = nFrames;
+              animated.delay = delay;
+              drawable.src.set_x(0);
+              drawable.src.set_y(source_y(sourceY, movable.dominantDirection));
+            });
 }
 
 }  // namespace
@@ -164,17 +165,17 @@ void enter_move_animation(entt::registry& registry,
                           entt::entity entity,
                           direction direction) noexcept
 {
-  update(registry,
-         entity,
-         [=](comp::animated& animated,
-             comp::movable&,
-             comp::depth_drawable& drawable) noexcept {
-           animated.frame = 0;
-           animated.nFrames = 9;
-           animated.delay = moveDelay;
-           drawable.src.set_x(0);
-           drawable.src.set_y(source_y(moveSourceY, direction));
-         });
+  invoke_if(registry,
+            entity,
+            [=](comp::animated& animated,
+                comp::movable&,
+                comp::depth_drawable& drawable) noexcept {
+              animated.frame = 0;
+              animated.nFrames = 9;
+              animated.delay = moveDelay;
+              drawable.src.set_x(0);
+              drawable.src.set_y(source_y(moveSourceY, direction));
+            });
 }
 
 void enter_melee_animation(entt::registry& registry,
