@@ -68,7 +68,7 @@ void update_position(comp::hitbox& hitbox, const vector2f& position) noexcept;
  *
  * @since 0.1.0
  */
-[[nodiscard]] auto create(std::initializer_list<comp::subhitbox> boxes)
+[[nodiscard]] inline auto create(std::initializer_list<comp::subhitbox> boxes)
     -> comp::hitbox
 {
   comp::hitbox hb;
