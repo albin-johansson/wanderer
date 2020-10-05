@@ -6,42 +6,58 @@
 namespace wanderer::sys::viewport {
 namespace {
 
-inline constexpr float panSpeedMultiplier = 10.0f;
+inline constexpr float g_cameraSpeed = 1.0f;
 
-void track(comp::viewport& viewport,
-           const vector2f& target,
-           const cen::farea& size,
-           const delta dt)
+[[nodiscard]] auto next_camera_position(const vector2f& target,
+                                        const comp::viewport& viewport,
+                                        const delta dt) -> vector2f
 {
-  const auto panSpeed = panSpeedMultiplier * static_cast<float>(dt.get());
+  const auto boundsX = viewport.bounds.x();
+  const auto boundsY = viewport.bounds.y();
+  const auto boundsWidth = viewport.bounds.width();
+  const auto boundsHeight = viewport.bounds.height();
 
-  const float targetX =
-      (target.x() + (size.width / 2.0f)) - (viewport.bounds.width() / 2.0f);
+  const auto distance = g_cameraSpeed * static_cast<float>(dt.get());
 
-  const float targetY =
-      (target.y() + (size.height / 2.0f)) - (viewport.bounds.height() / 2.0f);
-
-  const auto calc = [=](float targetPosComp,
-                        float boundsPosComp,
-                        float levelSizeComp,
-                        float boundsSizeComp) noexcept -> float {
-    float value = boundsPosComp + (targetPosComp - boundsPosComp) * panSpeed;
+  const auto getX = [&](float x) noexcept -> float {
+    const auto value = boundsX + (x - boundsX) * distance;
     if (value < 0) {
-      value = 0;
+      return 0;
+    } else {
+      const auto diff = viewport.levelSize.width - boundsWidth;
+      return (value > diff) ? diff : value;
     }
-    const float diff = levelSizeComp - boundsSizeComp;
-    value = (value > diff) ? diff : value;
-    return value;
   };
 
-  viewport.bounds.set_x(calc(targetX,
-                             viewport.bounds.x(),
-                             viewport.levelSize.width,
-                             viewport.bounds.width()));
-  viewport.bounds.set_y(calc(targetY,
-                             viewport.bounds.y(),
-                             viewport.levelSize.height,
-                             viewport.bounds.height()));
+  const auto getY = [&](float y) noexcept -> float {
+    const auto value = boundsY + (y - boundsY) * distance;
+    if (value < 0) {
+      return 0;
+    } else {
+      const auto diff = viewport.levelSize.height - boundsHeight;
+      return (value > diff) ? diff : value;
+    }
+  };
+
+  return vector2f{getX(target.x()), getY(target.y())};
+}
+
+void track(comp::viewport& viewport, const vector2f& position, const delta dt)
+{
+  constexpr cen::farea size{g_humanoidDrawWidth, g_humanoidDrawHeight};
+
+  const auto boundsWidth = viewport.bounds.width();
+  const auto boundsHeight = viewport.bounds.height();
+
+  const float targetX =
+      (position.x() + (size.width / 2.0f)) - (boundsWidth / 2.0f);
+  const float targetY =
+      (position.y() + (size.height / 2.0f)) - (boundsHeight / 2.0f);
+
+  const auto next = next_camera_position({targetX, targetY}, viewport, dt);
+
+  viewport.bounds.set_x(next.x());
+  viewport.bounds.set_y(next.y());
 }
 
 }  // namespace
@@ -53,11 +69,7 @@ void update(entt::registry& registry,
 {
   const auto& movable = registry.get<comp::movable>(movableEntity);
   auto& viewport = registry.get<comp::viewport>(viewportEntity.get());
-
-  track(viewport,
-        movable.position,
-        {g_humanoidDrawWidth, g_humanoidDrawHeight},
-        dt);
+  track(viewport, movable.position, dt);
 }
 
 void translate(entt::registry& registry,
