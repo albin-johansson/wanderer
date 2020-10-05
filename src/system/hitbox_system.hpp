@@ -1,6 +1,7 @@
 #pragma once
 
 #include <entt.hpp>
+#include <initializer_list>  // initializer_list
 
 #include "component/hitbox.hpp"
 #include "vector2.hpp"
@@ -67,13 +68,14 @@ void update_position(comp::hitbox& hitbox, const vector2f& position) noexcept;
  *
  * @since 0.1.0
  */
-[[nodiscard]] inline auto create(std::vector<comp::subhitbox>&& boxes)
+[[nodiscard]] auto create(std::initializer_list<comp::subhitbox> boxes)
     -> comp::hitbox
 {
-  using comp::hitbox;
+  comp::hitbox hb;
 
-  hitbox hb;
-  hb.boxes = std::move(boxes);
+  for (const auto& box : boxes) {
+    hb.boxes.push_back(box);
+  }
 
   update_bounds(hb);
 

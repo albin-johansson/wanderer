@@ -3,6 +3,7 @@
 #include <cassert>
 #include <cen/counter.hpp>
 #include <cen/texture.hpp>
+#include <cen/types.hpp>
 
 #include "component/animated.hpp"
 #include "component/binds.hpp"
@@ -41,8 +42,10 @@ namespace {
 {
   assert(texture);  // require valid handle
 
-  auto& registry = level.registry();
+  using namespace cen::literals;
+  constexpr cen::farea humanoidSize{g_humanoidDrawWidth, g_humanoidDrawHeight};
 
+  auto& registry = level.registry();
   const auto entity = registry.create();
 
   auto& movable = registry.emplace<comp::movable>(entity);
@@ -51,25 +54,20 @@ namespace {
   auto& drawable = registry.emplace<comp::depth_drawable>(entity);
   drawable.texture = texture;
   drawable.src = {{0, 0}, {64, 64}};
-  drawable.dst = {{0, 0}, {g_humanoidDrawWidth, g_humanoidDrawHeight}};
-
-  using ms = cen::milliseconds<u32>;
+  drawable.dst = {{0, 0}, humanoidSize};
 
   auto& animated = registry.emplace<comp::animated>(entity);
   animated.frame = 0;
-  animated.delay = ms{65};
+  animated.delay = 65_ms;
   animated.then = cen::counter::ticks();
   animated.nFrames = 1;
 
-  constexpr cen::farea humanoidSize{g_humanoidDrawWidth, g_humanoidDrawHeight};
+  level.insert_aabb(entity, movable.position, g_humanoidDrawSize); // FIXME
 
-  level.insert_aabb(
-      entity, movable.position, {humanoidSize.width, humanoidSize.height});
-
-  registry.emplace<comp::hitbox>(
-      entity,
-      hitbox::create(
-          {comp::subhitbox{vector2f{}, cen::frect{{}, humanoidSize}}}));
+  // FIXME
+  const auto hitbox = hitbox::create(
+      {comp::subhitbox{{}, cen::frect{{}, humanoidSize}}});
+  registry.emplace<comp::hitbox>(entity, hitbox);
 
   registry.emplace<comp::humanoid>(entity);
   registry.emplace<comp::humanoid_idle>(entity);
@@ -89,18 +87,17 @@ auto add_player(level& level, cen::renderer& renderer, image_cache& imageCache)
 
   auto& registry = level.registry();
 
-  const auto playerEntity = create_basic_humanoid(level, imageCache.handle(id));
+  const auto player = create_basic_humanoid(level, imageCache.handle(id));
+  registry.emplace<comp::player>(player);
 
-  registry.emplace<comp::player>(playerEntity);
-
-  auto& movable = registry.get<comp::movable>(playerEntity);
+  auto& movable = registry.get<comp::movable>(player);
   movable.speed = g_playerSpeed;
   movable.position = {100, 100};
   movable.dominantDirection = direction::down;
 
-  registry.emplace<comp::binds>(playerEntity);
+  registry.emplace<comp::binds>(player);
 
-  return playerEntity;
+  return player;
 }
 
 auto add_skeleton(level& level,
@@ -112,14 +109,13 @@ auto add_skeleton(level& level,
     imageCache.load<image_loader>(id, renderer, "resource/img/skeleton.png");
   }
 
-  const auto skeletonEntity =
-      create_basic_humanoid(level, imageCache.handle(id));
+  const auto skeleton = create_basic_humanoid(level, imageCache.handle(id));
 
-  auto& movable = level.registry().get<comp::movable>(skeletonEntity);
+  auto& movable = level.registry().get<comp::movable>(skeleton);
   movable.speed = g_monsterSpeed;
   movable.position = {300, 300};
 
-  return skeletonEntity;
+  return skeleton;
 }
 
 }  // namespace wanderer::sys::humanoid

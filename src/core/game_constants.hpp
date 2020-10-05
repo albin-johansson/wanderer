@@ -1,5 +1,7 @@
 #pragma once
 
+#include "vector2.hpp"
+
 namespace wanderer {
 
 template <typename T = int>
@@ -14,6 +16,9 @@ inline constexpr T g_tileSize{32};
 inline constexpr float g_humanoidDrawWidth{g_tileSize<float> * 2};
 
 inline constexpr float g_humanoidDrawHeight{g_tileSize<float> * 2};
+
+inline constexpr vector2f g_humanoidDrawSize{g_humanoidDrawWidth,
+                                             g_humanoidDrawHeight};
 
 inline constexpr float g_playerSpeed{1.25f * g_humanoidDrawWidth};
 
