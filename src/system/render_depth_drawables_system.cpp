@@ -22,7 +22,7 @@ void render_depth_drawables(entt::registry& registry, cen::renderer& renderer)
       entt::insertion_sort{});
 
   registry.view<comp::depth_drawable>().each(
-      [&](const auto entity, const comp::depth_drawable& drawable) noexcept {
+      [&](entt::entity entity, const comp::depth_drawable& drawable) noexcept {
         renderer.render_t(*drawable.texture, drawable.src, drawable.dst);
 
 #ifndef NDEBUG
