@@ -22,44 +22,29 @@
  * SOFTWARE.
  */
 
-/**
- * @file window_utils.hpp
- *
- * @brief Provides utilities related to windows.
- *
- * @author Albin Johansson
- *
- * @todo SDL_GetKeyboardFocus()
- * @todo SDL_GetMouseFocus()
- * @todo SDL_GetWindowSurface(window) -> surface_handle
- *
- * @date 2019-2020
- *
- * @copyright MIT License
- */
-
 #ifndef CENTURION_WINDOW_UTILS_HEADER
 #define CENTURION_WINDOW_UTILS_HEADER
 
+#include <SDL_keyboard.h>
+#include <SDL_mouse.h>
 #include <SDL_video.h>
 
 #include "centurion_api.hpp"
-#include "centurion_fwd.hpp"
 #include "renderer.hpp"
 #include "window.hpp"
 
 namespace cen {
 
-/// @addtogroup graphics
-/// @{
+/// \addtogroup graphics
+/// \{
 
 /**
- * @brief Returns a handle to the currently grabbed window.
+ * \brief Returns a handle to the currently grabbed window.
  *
- * @return a handle to the currently grabbed window, might not refer to a
+ * \return a handle to the currently grabbed window, might not refer to a
  * valid window if there is no grabbed window.
  *
- * @since 5.0.0
+ * \since 5.0.0
  */
 [[nodiscard]] inline auto get_grabbed_window() noexcept -> window_handle
 {
@@ -67,14 +52,38 @@ namespace cen {
 }
 
 /**
- * @brief Returns a handle to the window associated with the specified ID.
+ * \brief Returns a handle to the window that has mouse focus.
  *
- * @param id the ID associated with the desired window.
+ * \return a window handle.
  *
- * @return a handle to the window associated with the ID, might not refer to a
+ * \since 5.0.0
+ */
+[[nodiscard]] inline auto mouse_focus_window() noexcept -> window_handle
+{
+  return window_handle{SDL_GetMouseFocus()};
+}
+
+/**
+ * \brief Returns a handle to the window that has keyboard focus.
+ *
+ * \return a window handle.
+ *
+ * \since 5.0.0
+ */
+[[nodiscard]] inline auto keyboard_focus_window() noexcept -> window_handle
+{
+  return window_handle{SDL_GetKeyboardFocus()};
+}
+
+/**
+ * \brief Returns a handle to the window associated with the specified ID.
+ *
+ * \param id the ID associated with the desired window.
+ *
+ * \return a handle to the window associated with the ID, might not refer to a
  * valid window if there no matching window.
  *
- * @since 5.0.0
+ * \since 5.0.0
  */
 [[nodiscard]] inline auto get_window_from_id(u32 id) noexcept -> window_handle
 {
@@ -82,22 +91,22 @@ namespace cen {
 }
 
 /**
- * @brief Returns a handle to the renderer associated with a window.
+ * \brief Returns a handle to the renderer associated with a window.
  *
- * @details The returned handle will be null if the supplied window doesn't
+ * \details The returned handle will be null if the supplied window doesn't
  * have an associated renderer.
  *
- * @note You should always check whether or not the returned handle contains
+ * \note You should always check whether or not the returned handle contains
  * a valid renderer pointer before using it!
  *
- * @tparam T the type of the derived window.
+ * \tparam T the type of the derived window.
  *
- * @param window the window associated with the desired renderer.
+ * \param window the window associated with the desired renderer.
  *
- * @return a handle to the associated renderer, might not contain a valid
+ * \return a handle to the associated renderer, might not contain a valid
  * renderer pointer.
  *
- * @since 5.0.0
+ * \since 5.0.0
  */
 template <typename T>
 [[nodiscard]] auto get_renderer(const basic_window<T>& window) noexcept
@@ -106,7 +115,7 @@ template <typename T>
   return renderer_handle{SDL_GetRenderer(window.get())};
 }
 
-/// @}
+/// \}
 
 }  // namespace cen
 

@@ -22,18 +22,6 @@
  * SOFTWARE.
  */
 
-/**
- * @file mouse_button.hpp
- *
- * @brief Provides the `mouse_button` enum
- *
- * @author Albin Johansson
- *
- * @date 2019-2020
- *
- * @copyright MIT License
- */
-
 #ifndef CENTURION_MOUSE_BUTTON_HEADER
 #define CENTURION_MOUSE_BUTTON_HEADER
 
@@ -48,15 +36,15 @@
 namespace cen {
 
 /**
- * @enum mouse_button
+ * \enum mouse_button
  *
- * @ingroup input
+ * \ingroup input
  *
- * @brief Provides values that represent various mouse buttons.
+ * \brief Provides values that represent various mouse buttons.
  *
- * @since 3.1.0
+ * \since 3.1.0
  *
- * @headerfile mouse_button.hpp
+ * \headerfile mouse_button.hpp
  */
 enum class mouse_button
 {

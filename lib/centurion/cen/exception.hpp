@@ -22,24 +22,6 @@
  * SOFTWARE.
  */
 
-/**
- * @file exception.hpp
- *
- * @brief Provides the exception types used by the Centurion library.
- *
- * @see `exception`
- * @see `sdl_error`
- * @see `ttf_error`
- * @see `mix_error`
- * @see `img_error`
- *
- * @author Albin Johansson
- *
- * @date 2019-2020
- *
- * @copyright MIT License
- */
-
 #ifndef CENTURION_EXCEPTION_HEADER
 #define CENTURION_EXCEPTION_HEADER
 
@@ -58,15 +40,15 @@
 namespace cen {
 
 /**
- * @class exception
+ * \class exception
  *
- * @ingroup misc
+ * \ingroup misc
  *
- * @brief The base of all exceptions explicitly thrown by the library.
+ * \brief The base of all exceptions explicitly thrown by the library.
  *
- * @headerfile exception.hpp
+ * \headerfile exception.hpp
  *
- * @since 3.0.0
+ * \since 3.0.0
  */
 class exception : public std::exception
 {
@@ -74,10 +56,10 @@ class exception : public std::exception
   exception() = default;
 
   /**
-   * @param what the message of the exception. If the string is null, "N/A" is
+   * \param what the message of the exception. If the string is null, "N/A" is
    * used.
    *
-   * @since 3.0.0
+   * \since 3.0.0
    */
   explicit exception(czstring what)
   {
@@ -87,10 +69,10 @@ class exception : public std::exception
   }
 
   /**
-   * @param what the message of the exception. If the string is empty, "N/A"
+   * \param what the message of the exception. If the string is empty, "N/A"
    * is used.
    *
-   * @since 3.0.0
+   * \since 3.0.0
    */
   explicit exception(std::string what)
   {
@@ -120,13 +102,13 @@ static_assert(std::is_nothrow_move_constructible_v<exception>);
 static_assert(std::is_nothrow_destructible_v<exception>);
 
 /**
- * @class sdl_error
+ * \class sdl_error
  *
- * @brief Represents an error related to the core SDL2 library.
+ * \brief Represents an error related to the core SDL2 library.
  *
- * @since 5.0.0
+ * \since 5.0.0
  *
- * @headerfile exception.hpp
+ * \headerfile exception.hpp
  */
 class sdl_error final : public exception
 {
@@ -134,27 +116,27 @@ class sdl_error final : public exception
   sdl_error() = default;
 
   /**
-   * @brief Creates an `sdl_error` with the specified error message.
+   * \brief Creates an `sdl_error` with the specified error message.
    *
-   * @details The message will be formatted according to `what + ": " +
+   * \details The message will be formatted according to `what + ": " +
    * SDL_GetError()`.
    *
-   * @param what the error message that will be used.
+   * \param what the error message that will be used.
    *
-   * @since 5.0.0
+   * \since 5.0.0
    */
   CENTURION_API
   explicit sdl_error(std::string_view what);
 };
 
 /**
- * @class img_error
+ * \class img_error
  *
- * @brief Represents an error related to the SDL2_image library.
+ * \brief Represents an error related to the SDL2_image library.
  *
- * @since 5.0.0
+ * \since 5.0.0
  *
- * @headerfile exception.hpp
+ * \headerfile exception.hpp
  */
 class img_error final : public exception
 {
@@ -162,27 +144,27 @@ class img_error final : public exception
   img_error() = default;
 
   /**
-   * @brief Creates an `img_error` with the specified error message.
+   * \brief Creates an `img_error` with the specified error message.
    *
-   * @details The message will be formatted according to `what + ": " +
+   * \details The message will be formatted according to `what + ": " +
    * IMG_GetError()`.
    *
-   * @param what the error message that will be used.
+   * \param what the error message that will be used.
    *
-   * @since 5.0.0
+   * \since 5.0.0
    */
   CENTURION_API
   explicit img_error(std::string_view what);
 };
 
 /**
- * @class ttf_error
+ * \class ttf_error
  *
- * @brief Represents an error related to the SDL2_ttf library.
+ * \brief Represents an error related to the SDL2_ttf library.
  *
- * @since 5.0.0
+ * \since 5.0.0
  *
- * @headerfile exception.hpp
+ * \headerfile exception.hpp
  */
 class ttf_error final : public exception
 {
@@ -190,27 +172,27 @@ class ttf_error final : public exception
   ttf_error() = default;
 
   /**
-   * @brief Creates a `ttf_error` with the specified error message.
+   * \brief Creates a `ttf_error` with the specified error message.
    *
-   * @details The message will be formatted according to `what + ": " +
+   * \details The message will be formatted according to `what + ": " +
    * TTF_GetError()`.
    *
-   * @param what the error message that will be used.
+   * \param what the error message that will be used.
    *
-   * @since 5.0.0
+   * \since 5.0.0
    */
   CENTURION_API
   explicit ttf_error(std::string_view what);
 };
 
 /**
- * @class mix_error
+ * \class mix_error
  *
- * @brief Represents an error related to the SDL2_mixer library.
+ * \brief Represents an error related to the SDL2_mixer library.
  *
- * @since 5.0.0
+ * \since 5.0.0
  *
- * @headerfile exception.hpp
+ * \headerfile exception.hpp
  */
 class mix_error final : public exception
 {
@@ -218,14 +200,14 @@ class mix_error final : public exception
   mix_error() = default;
 
   /**
-   * @brief Creates a `mix_error` with the specified error message.
+   * \brief Creates a `mix_error` with the specified error message.
    *
-   * @details The message will be formatted according to `what + ": " +
+   * \details The message will be formatted according to `what + ": " +
    * Mix_GetError()`.
    *
-   * @param what the error message that will be used.
+   * \param what the error message that will be used.
    *
-   * @since 5.0.0
+   * \since 5.0.0
    */
   CENTURION_API
   explicit mix_error(std::string_view what);

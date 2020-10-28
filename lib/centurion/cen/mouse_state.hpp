@@ -22,18 +22,6 @@
  * SOFTWARE.
  */
 
-/**
- * @file mouse_state.hpp
- *
- * @brief Provides the `mouse_state` class.
- *
- * @author Albin Johansson
- *
- * @date 2019-2020
- *
- * @copyright MIT License
- */
-
 #ifndef CENTURION_MOUSE_STATE_HEADER
 #define CENTURION_MOUSE_STATE_HEADER
 
@@ -49,113 +37,113 @@
 namespace cen {
 
 /**
- * @class mouse_state
+ * \class mouse_state
  *
- * @ingroup input
+ * \ingroup input
  *
- * @brief Provides information about the mouse state, which is an
+ * \brief Provides information about the mouse state, which is an
  * alternative to dealing with mouse events.
  *
- * @since 3.0.0
+ * \since 3.0.0
  *
- * @headerfile mouse_state.hpp
+ * \headerfile mouse_state.hpp
  */
 class mouse_state final
 {
  public:
   /**
-   * @brief Creates a `mouse_state` instance.
+   * \brief Creates a `mouse_state` instance.
    *
-   * @since 3.0.0
+   * \since 3.0.0
    */
   CENTURION_API
   mouse_state() noexcept;
 
   /**
-   * @brief Updates the mouse state. The window width and height will be
+   * \brief Updates the mouse state. The window width and height will be
    * adjusted to be at least 1.
    *
-   * @param windowWidth the current window width, set to 1 by default.
-   * @param windowHeight the current window height, set to 1 by default.
+   * \param windowWidth the current window width, set to 1 by default.
+   * \param windowHeight the current window height, set to 1 by default.
    *
-   * @since 3.0.0
+   * \since 3.0.0
    */
   CENTURION_API
   void update(int windowWidth = 1, int windowHeight = 1) noexcept;
 
   /**
-   * @brief Resets the screen and logical dimensions of the mouse state
+   * \brief Resets the screen and logical dimensions of the mouse state
    * instance.
    *
-   * @since 3.0.0
+   * \since 3.0.0
    */
   CENTURION_API
   void reset() noexcept;
 
   /**
-   * @brief Sets the logical width that will be used to determine the mouse
+   * \brief Sets the logical width that will be used to determine the mouse
    * position.
    *
-   * @details The supplied value will be adjusted to be at least 1.
+   * \details The supplied value will be adjusted to be at least 1.
    *
-   * @param logicalWidth the logical width that will be used to determine the
+   * \param logicalWidth the logical width that will be used to determine the
    * mouse position.
    *
-   * @since 3.0.0
+   * \since 3.0.0
    */
   CENTURION_API
   void set_logical_width(int logicalWidth) noexcept;
 
   /**
-   * @brief Sets the logical height that will be used to determine the mouse
+   * \brief Sets the logical height that will be used to determine the mouse
    * position.
    *
-   * @details The supplied value will be adjusted to be at least 1.
+   * \details The supplied value will be adjusted to be at least 1.
    *
-   * @param logicalHeight the logical height that will be used to determine the
+   * \param logicalHeight the logical height that will be used to determine the
    * mouse position.
    *
-   * @since 3.0.0
+   * \since 3.0.0
    */
   CENTURION_API
   void set_logical_height(int logicalHeight) noexcept;
 
   /**
-   * @brief Indicates whether or not the left mouse button was released.
+   * \brief Indicates whether or not the left mouse button was released.
    *
-   * @return `true` if the left mouse button was released; `false` otherwise.
+   * \return `true` if the left mouse button was released; `false` otherwise.
    *
-   * @since 3.0.0
+   * \since 3.0.0
    */
   CENTURION_QUERY
   auto was_left_button_released() const noexcept -> bool;
 
   /**
-   * @brief Indicates whether or not the right mouse button was released.
+   * \brief Indicates whether or not the right mouse button was released.
    *
-   * @return `true` if the right mouse button was released; `false` otherwise.
+   * \return `true` if the right mouse button was released; `false` otherwise.
    *
-   * @since 3.0.0
+   * \since 3.0.0
    */
   CENTURION_QUERY
   auto was_right_button_released() const noexcept -> bool;
 
   /**
-   * @brief Indicates whether or not the mouse was moved.
+   * \brief Indicates whether or not the mouse was moved.
    *
-   * @return `true` if the mouse was moved; `false` otherwise.
+   * \return `true` if the mouse was moved; `false` otherwise.
    *
-   * @since 3.0.0
+   * \since 3.0.0
    */
   CENTURION_QUERY
   auto was_mouse_moved() const noexcept -> bool;
 
   /**
-   * @brief Returns the x-coordinate of the mouse.
+   * \brief Returns the x-coordinate of the mouse.
    *
-   * @return the x-coordinate of the mouse.
+   * \return the x-coordinate of the mouse.
    *
-   * @since 3.0.0
+   * \since 3.0.0
    */
   [[nodiscard]] auto mouse_x() const noexcept -> int
   {
@@ -163,11 +151,11 @@ class mouse_state final
   }
 
   /**
-   * @brief Returns the y-coordinate of the mouse.
+   * \brief Returns the y-coordinate of the mouse.
    *
-   * @return the y-coordinate of the mouse.
+   * \return the y-coordinate of the mouse.
    *
-   * @since 3.0.0
+   * \since 3.0.0
    */
   [[nodiscard]] auto mouse_y() const noexcept -> int
   {
@@ -175,11 +163,11 @@ class mouse_state final
   }
 
   /**
-   * @brief Returns the position of the mouse.
+   * \brief Returns the position of the mouse.
    *
-   * @return the current position of the mouse cursor.
+   * \return the current position of the mouse cursor.
    *
-   * @since 5.0.0
+   * \since 5.0.0
    */
   [[nodiscard]] auto mouse_pos() const noexcept -> ipoint
   {
@@ -187,12 +175,12 @@ class mouse_state final
   }
 
   /**
-   * @brief Returns the logical width used by the mouse state instance.
+   * \brief Returns the logical width used by the mouse state instance.
    *
-   * @return the logical width used by the mouse state instance, 1 is used by
+   * \return the logical width used by the mouse state instance, 1 is used by
    * default.
    *
-   * @since 3.0.0
+   * \since 3.0.0
    */
   [[nodiscard]] auto logical_width() const noexcept -> int
   {
@@ -200,12 +188,12 @@ class mouse_state final
   }
 
   /**
-   * @brief Returns the logical height used by the mouse state instance.
+   * \brief Returns the logical height used by the mouse state instance.
    *
-   * @return the logical height used by the mouse state instance, 1 is used by
+   * \return the logical height used by the mouse state instance, 1 is used by
    * default.
    *
-   * @since 3.0.0
+   * \since 3.0.0
    */
   [[nodiscard]] auto logical_height() const noexcept -> int
   {
@@ -213,11 +201,11 @@ class mouse_state final
   }
 
   /**
-   * @brief Returns the logical size used by the mouse state instance.
+   * \brief Returns the logical size used by the mouse state instance.
    *
-   * @return the logical size used.
+   * \return the logical size used.
    *
-   * @since 5.0.0
+   * \since 5.0.0
    */
   [[nodiscard]] auto logical_size() const noexcept -> iarea
   {
@@ -225,11 +213,11 @@ class mouse_state final
   }
 
   /**
-   * @brief Indicates whether or not the left mouse button is currently pressed.
+   * \brief Indicates whether or not the left mouse button is currently pressed.
    *
-   * @return `true` if the left mouse button is pressed; `false` otherwise.
+   * \return `true` if the left mouse button is pressed; `false` otherwise.
    *
-   * @since 3.0.0
+   * \since 3.0.0
    */
   [[nodiscard]] auto is_left_button_pressed() const noexcept -> bool
   {
@@ -237,12 +225,12 @@ class mouse_state final
   }
 
   /**
-   * @brief Indicates whether or not the right mouse button is currently
+   * \brief Indicates whether or not the right mouse button is currently
    * pressed.
    *
-   * @return `true` if the right mouse button is pressed; `false` otherwise.
+   * \return `true` if the right mouse button is pressed; `false` otherwise.
    *
-   * @since 3.0.0
+   * \since 3.0.0
    */
   [[nodiscard]] auto is_right_button_pressed() const noexcept -> bool
   {

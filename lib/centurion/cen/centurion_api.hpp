@@ -22,18 +22,6 @@
  * SOFTWARE.
  */
 
-/**
- * @file centurion_api.hpp
- *
- * @brief Defines various macros.
- *
- * @author Albin Johansson
- *
- * @date 2019-2020
- *
- * @copyright MIT License
- */
-
 #ifndef CENTURION_API_HEADER
 #define CENTURION_API_HEADER
 
@@ -42,13 +30,13 @@
 #include "centurion_cfg.hpp"
 
 /**
- * @def CENTURION_API
+ * \def CENTURION_API
  *
- * @brief Used for exporting entities in generated Windows DLL.
+ * \brief Used for exporting entities in generated Windows DLL.
  *
- * @headerfile centurion_api.hpp
+ * \headerfile centurion_api.hpp
  *
- * @internal https://atomheartother.github.io/c++/2018/07/12/CPPDynLib.html
+ * \internal https://atomheartother.github.io/c++/2018/07/12/CPPDynLib.html
  */
 #if defined(_WIN32)
 #ifdef WIN_EXPORT
@@ -61,11 +49,11 @@
 #endif  // defined(_WIN32)
 
 /**
- * @brief Used for methods that return something and aren't inlined.
+ * \brief Used for methods that return something and aren't inlined.
  *
- * @since 5.0.0
+ * \since 5.0.0
  *
- * @headerfile centurion_api.hpp
+ * \headerfile centurion_api.hpp
  */
 #define CENTURION_QUERY [[nodiscard]] CENTURION_API
 
