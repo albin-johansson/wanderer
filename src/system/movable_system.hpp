@@ -35,11 +35,11 @@ namespace detail {
 }  // namespace detail
 
 /**
- * @brief Returns the appropriate dominant direction for a movable component.
+ * \brief Returns the appropriate dominant direction for a movable component.
  *
- * @param movable the movable component that will be used.
+ * \param movable the movable component that will be used.
  *
- * @return the calculated dominant direction for the movable.
+ * \return the calculated dominant direction for the movable.
  */
 [[nodiscard]] auto calc_dominant_direction(
     const comp::movable& movable) noexcept -> direction

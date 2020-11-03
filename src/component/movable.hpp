@@ -6,26 +6,26 @@
 namespace wanderer::comp {
 
 /**
- * @struct movable
+ * \struct movable
  *
- * @brief Represents an entity that is movable.
+ * \brief Represents an entity that is movable.
  *
- * @note Whilst not required, movable components are expected to be drawable,
+ * \note Whilst not required, movable components are expected to be drawable,
  * since the `interpolatedPos` member is solely intended for the rendered
  * position of the entity.
  *
- * @var movable::velocity
+ * \var movable::velocity
  * The current x- and y-axis speed.
- * @var movable::position
+ * \var movable::position
  * The current position.
- * @var movable::dominantDirection
+ * \var movable::dominantDirection
  * The current dominant direction.
- * @var movable::speed
+ * \var movable::speed
  * The current maximum total speed of the movable. This is used to make sure
  * that the movable doesn't move faster when traveling in more than one
  * direction.
  *
- * @headerfile movable.hpp
+ * \headerfile movable.hpp
  */
 struct movable final
 {

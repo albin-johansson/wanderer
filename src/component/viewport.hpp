@@ -11,15 +11,15 @@ struct viewport_entity_t;
 }
 
 /**
- * @struct viewport
- * @brief Represents an area that is visible for the player.
+ * \struct viewport
+ * \brief Represents an area that is visible for the player.
  *
- * @var viewport::bounds
+ * \var viewport::bounds
  * The position and size of the viewport.
- * @var viewport::levelSize
+ * \var viewport::levelSize
  * The size of the level that the viewport is associated with.
  *
- * @headerfile viewport.hpp
+ * \headerfile viewport.hpp
  */
 struct viewport final
 {

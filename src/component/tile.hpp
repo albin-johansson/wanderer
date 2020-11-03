@@ -13,15 +13,15 @@ struct tile_entity_t;
 }
 
 /**
- * @struct tile
+ * \struct tile
  *
- * @brief Represents a tile in a tileset.
+ * \brief Represents a tile in a tileset.
  *
- * @details The `tile` struct represents a tile in a tileset. However, this
+ * \details The `tile` struct represents a tile in a tileset. However, this
  * struct does not represent an actual tile object though, for efficiency
  * reasons.
  *
- * @headerfile tile.hpp
+ * \headerfile tile.hpp
  */
 struct tile final
 {

@@ -5,18 +5,18 @@
 namespace wanderer {
 
 /**
- * @brief Indicates whether or not two floating-point values are almost equal.
+ * \brief Indicates whether or not two floating-point values are almost equal.
  *
- * @details The two values are considered equal if the absolute value of
+ * \details The two values are considered equal if the absolute value of
  * their difference is in the range [0, `epsilon`).
  *
- * @param a the first value.
- * @param b the second value.
- * @param epsilon the epsilon value.
+ * \param a the first value.
+ * \param b the second value.
+ * \param epsilon the epsilon value.
  *
- * @return `true` if the values are almost equal; `false` otherwise.
+ * \return `true` if the values are almost equal; `false` otherwise.
  *
- * @since 0.1.0
+ * \since 0.1.0
  */
 [[nodiscard]] inline auto almost_equal(double a,
                                        double b,
@@ -26,7 +26,7 @@ namespace wanderer {
 }
 
 /**
- * @copydoc almost_equal(double, double, double)
+ * \copydoc almost_equal(double, double, double)
  */
 [[nodiscard]] inline auto almost_equal(float a,
                                        float b,

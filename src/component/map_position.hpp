@@ -5,20 +5,20 @@
 namespace wanderer::comp {
 
 /**
- * @struct map_position
+ * \struct map_position
  *
- * @brief Represents a position in a tilemap using row and column coordinates.
+ * \brief Represents a position in a tilemap using row and column coordinates.
  *
- * @details It's possible to hash instances of this class, making it possible
+ * \details It's possible to hash instances of this class, making it possible
  * to use it as the key type in maps (such as `std::map` and
  * `std::unordered_map`).
  *
- * @var map_position::row
+ * \var map_position::row
  * The row index associated with the position. Starts at 0.
- * @var map_position::col
+ * \var map_position::col
  * The column index associated with the position. Starts at 0.
  *
- * @headerfile map_position.hpp
+ * \headerfile map_position.hpp
  */
 struct map_position final
 {
@@ -27,12 +27,12 @@ struct map_position final
 };
 
 /**
- * @brief Indicates whether or not two map positions are equal.
+ * \brief Indicates whether or not two map positions are equal.
  *
- * @param lhs the left-hand side map position.
- * @param rhs the right-hand side map position.
+ * \param lhs the left-hand side map position.
+ * \param rhs the right-hand side map position.
  *
- * @return `true` if the map positions are equal; `false` otherwise.
+ * \return `true` if the map positions are equal; `false` otherwise.
  */
 [[nodiscard]] constexpr auto operator==(const map_position& lhs,
                                         const map_position& rhs) noexcept
@@ -42,12 +42,12 @@ struct map_position final
 }
 
 /**
- * @brief Indicates whether or not two map positions aren't equal.
+ * \brief Indicates whether or not two map positions aren't equal.
  *
- * @param lhs the left-hand side map position.
- * @param rhs the right-hand side map position.
+ * \param lhs the left-hand side map position.
+ * \param rhs the right-hand side map position.
  *
- * @return `true` if the map positions aren't equal; `false` otherwise.
+ * \return `true` if the map positions aren't equal; `false` otherwise.
  */
 [[nodiscard]] constexpr auto operator!=(const map_position& lhs,
                                         const map_position& rhs) noexcept

@@ -6,17 +6,17 @@
 namespace wanderer::sys::input {
 
 /**
- * @brief Handles the player input if the player is moving.
+ * \brief Handles the player input if the player is moving.
  *
- * @note This method has no effect if the player entity doesn't have a
+ * \note This method has no effect if the player entity doesn't have a
  * `humanoid_move` component.
  *
- * @pre The player entity must feature `Movable` and `Binds` components.
+ * \pre The player entity must feature `Movable` and `Binds` components.
  *
- * @param registry the current registry.
- * @param dispatcher the event dispatcher that is being used.
- * @param player the player entity.
- * @param keyState the current keyboard input state.
+ * \param registry the current registry.
+ * \param dispatcher the event dispatcher that is being used.
+ * \param player the player entity.
+ * \param keyState the current keyboard input state.
  */
 void handle_move_input(entt::registry& registry,
                        entt::dispatcher& dispatcher,

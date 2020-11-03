@@ -5,21 +5,21 @@
 namespace wanderer::comp {
 
 /**
- * @struct binds
- * @brief Represents all of the key binds used by the player.
+ * \struct binds
+ * \brief Represents all of the key binds used by the player.
  *
- * @var binds::up
+ * \var binds::up
  * The key associated with moving "up".
- * @var binds::right
+ * \var binds::right
  * The key associated with moving "right".
- * @var binds::down
+ * \var binds::down
  * The key associated with moving "down".
- * @var binds::left
+ * \var binds::left
  * The key associated with moving "left".
- * @var binds::attack
+ * \var binds::attack
  * The key associated with triggering an attack.
  *
- * @headerfile binds.hpp
+ * \headerfile binds.hpp
  */
 struct binds final
 {

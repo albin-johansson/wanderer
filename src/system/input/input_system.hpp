@@ -6,14 +6,14 @@
 namespace wanderer::sys::input {
 
 /**
- * @brief Handles the current player input.
+ * \brief Handles the current player input.
  *
- * @pre The player entity must have `Binds` and `Movable` components.
+ * \pre The player entity must have `Binds` and `Movable` components.
  *
- * @param registry the current registry.
- * @param dispatcher the event dispatcher that is being used.
- * @param player the player entity.
- * @param keyState the current keyboard input state.
+ * \param registry the current registry.
+ * \param dispatcher the event dispatcher that is being used.
+ * \param player the player entity.
+ * \param keyState the current keyboard input state.
  */
 void update(entt::registry& registry,
             entt::dispatcher& dispatcher,

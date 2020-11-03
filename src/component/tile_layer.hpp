@@ -12,13 +12,13 @@ struct tile_layer_entity_t;
 }
 
 /**
- * @struct tile_layer
+ * \struct tile_layer
  *
- * @brief Represents a layer of tiles.
+ * \brief Represents a layer of tiles.
  *
- * @details Multiple tile layers are combined to create tilemaps.
+ * \details Multiple tile layers are combined to create tilemaps.
  *
- * @headerfile tile_layer.hpp
+ * \headerfile tile_layer.hpp
  */
 struct tile_layer final
 {

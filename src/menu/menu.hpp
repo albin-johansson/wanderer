@@ -22,43 +22,43 @@ class menu final
 
  public:
   /**
-   * @brief Queries the buttons and returns the action that should be executed,
+   * \brief Queries the buttons and returns the action that should be executed,
    * if any.
    *
-   * @param mouseState the current mouse state.
+   * \param mouseState the current mouse state.
    *
-   * @return the action that should be executed; `std::nullopt` if there is
+   * \return the action that should be executed; `std::nullopt` if there is
    * none.
    */
   [[nodiscard]] auto query_buttons(const cen::mouse_state& mouseState)
       -> std::optional<menu_action>;
 
   /**
-   * @brief Queries the binds and returns the action that should be executed,
+   * \brief Queries the binds and returns the action that should be executed,
    * if any.
    *
-   * @param keyState the current key state.
+   * \param keyState the current key state.
    *
-   * @return the action that should be executed; `std::nullopt` if there is
+   * \return the action that should be executed; `std::nullopt` if there is
    * none.
    */
   [[nodiscard]] auto query_binds(const cen::key_state& keyState)
       -> std::optional<menu_action>;
 
   /**
-   * @brief Renders the menu.
+   * \brief Renders the menu.
    *
-   * @param renderer the renderer that will be used.
+   * \param renderer the renderer that will be used.
    */
   void render(cen::renderer& renderer) const;
 
   /**
-   * @brief Indicates whether or not the menu is blocking.
+   * \brief Indicates whether or not the menu is blocking.
    *
-   * @details A menu is blocking if it is meant to block the game from
+   * \details A menu is blocking if it is meant to block the game from
    * updating, such as a main menu, for example.
    *
-   * @return `true` if the menu is blocking; `false` otherwise
+   * \return `true` if the menu is blocking; `false` otherwise
    */
   [[nodiscard]] auto is_blocking() const noexcept -> bool
   {

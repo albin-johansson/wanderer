@@ -7,23 +7,23 @@
 namespace wanderer::comp {
 
 /**
- * @struct begin_attack_event
+ * \struct begin_attack_event
  *
- * @brief Represents the data associated with the start of an attack.
+ * \brief Represents the data associated with the start of an attack.
  *
- * @note This is an event component and is meant to be dispatched through
+ * \note This is an event component and is meant to be dispatched through
  * `entt::dispatcher::enqueue`.
  *
- * @var begin_attack_event::registry
+ * \var begin_attack_event::registry
  * A pointer to the associated registry.
- * @var begin_attack_event::sourceEntity
+ * \var begin_attack_event::sourceEntity
  * The entity that initiated the attack.
- * @var begin_attack_event::weapon
+ * \var begin_attack_event::weapon
  * The weapon that is being used for the attack.
- * @var begin_attack_event::direction
+ * \var begin_attack_event::direction
  * The direction in which the attack is being performed.
  *
- * @headerfile begin_attack_event.hpp
+ * \headerfile begin_attack_event.hpp
  */
 struct begin_attack_event final
 {

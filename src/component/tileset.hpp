@@ -13,15 +13,15 @@ struct tileset_entity_t;
 }
 
 /**
- * @struct tileset
+ * \struct tileset
  *
- * @brief Represents a collection of tiles.
+ * \brief Represents a collection of tiles.
  *
- * @var tileset::tiles
+ * \var tileset::tiles
  * The tiles contained in the tileset. Maps tile identifiers with tile entity
  * identifiers.
  *
- * @headerfile tileset.hpp
+ * \headerfile tileset.hpp
  */
 struct tileset final
 {

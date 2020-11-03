@@ -46,15 +46,15 @@ void invoke_if(
 }
 
 /**
- * @brief Returns the y-coordinate with the appropriate offset in relation to
+ * \brief Returns the y-coordinate with the appropriate offset in relation to
  * the direction.
  *
- * @note This method assumes that all humanoids use an LPC tilesheet.
+ * \note This method assumes that all humanoids use an LPC tilesheet.
  *
- * @param y the base y-coordinate for the type of animation.
- * @param direction the direction of the humanoid used to determine the
+ * \param y the base y-coordinate for the type of animation.
+ * \param direction the direction of the humanoid used to determine the
  * appropriate offset.
- * @return the source y-coordinate to use for rendering a humanoid.
+ * \return the source y-coordinate to use for rendering a humanoid.
  */
 [[nodiscard]] auto source_y(int y, direction direction) noexcept -> int
 {
@@ -73,10 +73,10 @@ void invoke_if(
 }
 
 /**
- * @brief Updates the movement animation of a humanoid.
+ * \brief Updates the movement animation of a humanoid.
  *
- * @param registry the associated registry.
- * @param entity the entity that will be updated.
+ * \param registry the associated registry.
+ * \param entity the entity that will be updated.
  */
 void update_move_animation(entt::registry& registry,
                            entt::entity entity) noexcept
@@ -98,12 +98,12 @@ void update_move_animation(entt::registry& registry,
 }
 
 /**
- * @brief Updates the attack animation of a humanoid.
+ * \brief Updates the attack animation of a humanoid.
  *
- * @pre `entity` must have a `humanoid_attack` component.
+ * \pre `entity` must have a `humanoid_attack` component.
  *
- * @param registry the associated registry.
- * @param entity the entity that will be updated.
+ * \param registry the associated registry.
+ * \param entity the entity that will be updated.
  */
 void update_attack_animation(entt::registry& registry,
                              entt::entity entity) noexcept
@@ -122,16 +122,16 @@ void update_attack_animation(entt::registry& registry,
 }
 
 /**
- * @brief General method for entering an animation.
+ * \brief General method for entering an animation.
  *
- * @note This method only works for LPC spritesheets. Which should be used
+ * \note This method only works for LPC spritesheets. Which should be used
  * for all humanoids.
  *
- * @param registry the associated registry.
- * @param entity the entity that will enter the animation.
- * @param nFrames the number of frames in the animation.
- * @param delay the duration of each frame in the animation.
- * @param sourceY the base y-coordinate in the source tilesheet for the
+ * \param registry the associated registry.
+ * \param entity the entity that will enter the animation.
+ * \param nFrames the number of frames in the animation.
+ * \param delay the duration of each frame in the animation.
+ * \param sourceY the base y-coordinate in the source tilesheet for the
  * animation.
  */
 void enter_animation(entt::registry& registry,

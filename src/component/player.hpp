@@ -3,11 +3,11 @@
 namespace wanderer::comp {
 
 /**
- * @struct player
+ * \struct player
  *
- * @brief A tag type used to identify the player.
+ * \brief A tag type used to identify the player.
  *
- * @headerfile player.hpp
+ * \headerfile player.hpp
  */
 struct player
 {};

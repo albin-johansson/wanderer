@@ -41,11 +41,11 @@
 namespace wanderer {
 
 /**
- * @struct aabb
+ * \struct aabb
  *
- * @brief Represents an AABB (Axis-Aligned Bounding Box).
+ * \brief Represents an AABB (Axis-Aligned Bounding Box).
  *
- * @headerfile aabb_tree.hpp
+ * \headerfile aabb_tree.hpp
  */
 struct aabb final
 {
@@ -55,14 +55,14 @@ struct aabb final
 };
 
 /**
- * @struct aabb_node
+ * \struct aabb_node
  *
- * @brief Represents a node in an AABB tree.
+ * \brief Represents a node in an AABB tree.
  *
- * @details Contains an AABB and the entity associated with the AABB, along
+ * \details Contains an AABB and the entity associated with the AABB, along
  * with tree information.
  *
- * @headerfile aabb_tree.hpp
+ * \headerfile aabb_tree.hpp
  */
 struct aabb_node final
 {
@@ -75,11 +75,11 @@ struct aabb_node final
 };
 
 /**
- * @brief Indicates whether or not the node is a leaf.
+ * \brief Indicates whether or not the node is a leaf.
  *
- * @param node the node that will be checked.
+ * \param node the node that will be checked.
  *
- * @return `true` if the node is a leaf; `false` otherwise.
+ * \return `true` if the node is a leaf; `false` otherwise.
  */
 [[nodiscard]] inline auto is_leaf(const aabb_node& node) noexcept -> bool
 {
@@ -87,12 +87,12 @@ struct aabb_node final
 }
 
 /**
- * @brief Returns an AABB that is the union of two AABBs.
+ * \brief Returns an AABB that is the union of two AABBs.
  *
- * @param fst the first AABB.
- * @param snd the second AABB.
+ * \param fst the first AABB.
+ * \param snd the second AABB.
  *
- * @return the union of the two AABBs.
+ * \return the union of the two AABBs.
  */
 [[nodiscard]] inline auto merge(const aabb& fst, const aabb& snd) noexcept
     -> aabb
@@ -113,12 +113,12 @@ struct aabb_node final
 }
 
 /**
- * @brief Returns an AABB based on the specified position and size.
+ * \brief Returns an AABB based on the specified position and size.
  *
- * @param position the position of the AABB.
- * @param size the size of the AABB.
+ * \param position the position of the AABB.
+ * \param size the size of the AABB.
  *
- * @return the created AABB.
+ * \return the created AABB.
  */
 [[nodiscard]] inline auto make_aabb(const vector2f& position,
                                     const vector2f& size) -> aabb
@@ -150,17 +150,17 @@ struct aabb_node final
 }
 
 /**
- * @class aabb_tree
+ * \class aabb_tree
  *
- * @brief Represents a tree of AABBs used for efficient collision detection.
+ * \brief Represents a tree of AABBs used for efficient collision detection.
  *
- * @details This class was adapted from James Randall's AABB system used in
+ * \details This class was adapted from James Randall's AABB system used in
  * his <a href="https://github.com/JamesRandall/SimpleVoxelEngine">Simple Voxel
  * Engine</a> project, which uses the MIT license. A helpful
  * article can be found <a
  * href="https://www.azurefromthetrenches.com/introductory-guide-to-aabb-tree-collision-detection/">here</a>.
  *
- * @headerfile aabb_tree.hpp
+ * \headerfile aabb_tree.hpp
  */
 class aabb_tree final
 {
@@ -171,44 +171,44 @@ class aabb_tree final
   aabb_tree();
 
   /**
-   * @brief Inserts a new node into the tree.
+   * \brief Inserts a new node into the tree.
    *
-   * @param entity the entity that will be associated with the node.
-   * @param box the AABB associated with the entity.
+   * \param entity the entity that will be associated with the node.
+   * \param box the AABB associated with the entity.
    */
   void insert(entt::entity entity, const aabb& box);
 
   /**
-   * @brief Removes the specified entity from the tree.
+   * \brief Removes the specified entity from the tree.
    *
-   * @pre `entity` must have been previously inserted in the tree.
+   * \pre `entity` must have been previously inserted in the tree.
    *
-   * @param entity the entity that will be removed.
+   * \param entity the entity that will be removed.
    */
   void remove(entt::entity entity);
 
   /**
-   * @brief Updates the AABB associated with the specified entity.
+   * \brief Updates the AABB associated with the specified entity.
    *
-   * @pre `entity` must have been previously inserted in the tree.
+   * \pre `entity` must have been previously inserted in the tree.
    *
-   * @param entity the entity that will be updated.
-   * @param box the new AABB associated with the entity.
+   * \param entity the entity that will be updated.
+   * \param box the new AABB associated with the entity.
    */
   void update(entt::entity entity, const aabb& box);
 
   /**
-   * @brief Queries the tree for collision candidates for the specified entity.
+   * \brief Queries the tree for collision candidates for the specified entity.
    *
-   * @pre `entity` must have been previously inserted in the tree.
+   * \pre `entity` must have been previously inserted in the tree.
    *
-   * @details The output iterator can, for example, be obtained using
+   * \details The output iterator can, for example, be obtained using
    * `std::back_inserter`.
    *
-   * @tparam OutputIterator the type of the output iterator.
+   * \tparam OutputIterator the type of the output iterator.
    *
-   * @param entity the entity to obtain collision candidates for.
-   * @param iterator an output iterator used to write the collision candidates.
+   * \param entity the entity to obtain collision candidates for.
+   * \param iterator an output iterator used to write the collision candidates.
    */
   template <typename OutputIterator>
   void query_collisions(entt::entity entity, OutputIterator iterator) const
@@ -241,11 +241,11 @@ class aabb_tree final
   }
 
   /**
-   * @brief Returns the AABB associated with the specified entity.
+   * \brief Returns the AABB associated with the specified entity.
    *
-   * @param entity the entity associated with the desired AABB.
+   * \param entity the entity associated with the desired AABB.
    *
-   * @return an AABB.
+   * \return an AABB.
    */
   [[nodiscard]] auto get_aabb(entt::entity entity) const -> const aabb&
   {
@@ -253,11 +253,11 @@ class aabb_tree final
   }
 
   /**
-   * @brief Returns the amount of entity AABBs stored in the tree.
+   * \brief Returns the amount of entity AABBs stored in the tree.
    *
-   * @note This function does not return the amount of nodes in the tree.
+   * \note This function does not return the amount of nodes in the tree.
    *
-   * @return the amount of entity AABBs stored in the tree.
+   * \return the amount of entity AABBs stored in the tree.
    */
   [[nodiscard]] auto size() const noexcept -> int
   {
@@ -265,10 +265,10 @@ class aabb_tree final
   }
 
   /**
-   * @brief Indicates whether or not there are no entity AABBs stored in the
+   * \brief Indicates whether or not there are no entity AABBs stored in the
    * tree.
    *
-   * @return `true` if there are no entity AABBs in the tree; `false` otherwise.
+   * \return `true` if there are no entity AABBs in the tree; `false` otherwise.
    */
   [[nodiscard]] auto empty() const noexcept -> bool
   {

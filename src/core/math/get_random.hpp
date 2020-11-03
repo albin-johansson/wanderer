@@ -33,15 +33,15 @@ namespace wanderer {
 inline std::mt19937 engine{get_seeded_engine()};
 
 /**
- * @brief Returns a random value in the specified inclusive range.
+ * \brief Returns a random value in the specified inclusive range.
  *
- * @tparam T the type of the value to be obtained, must be either integral or
+ * \tparam T the type of the value to be obtained, must be either integral or
  * floating-point.
  *
- * @param min the minimum possible value.
- * @param max the maximum possible value.
+ * \param min the minimum possible value.
+ * \param max the maximum possible value.
  *
- * @return a random value in the specified range.
+ * \return a random value in the specified range.
  */
 template <typename T>
 [[nodiscard]] auto get_random(T min, T max) -> T

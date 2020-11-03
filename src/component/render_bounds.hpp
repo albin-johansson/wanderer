@@ -3,20 +3,20 @@
 namespace wanderer::comp {
 
 /**
- * @struct render_bounds
+ * \struct render_bounds
  *
- * @brief Represents the bounds of a map that will be rendered.
+ * \brief Represents the bounds of a map that will be rendered.
  *
- * @var render_bounds::minRow
+ * \var render_bounds::minRow
  * The minimum row index in the tile layers that will be rendered.
- * @var render_bounds::minCol
+ * \var render_bounds::minCol
  * The minimum column index in the tile layers that will be rendered.
- * @var render_bounds::maxRow
+ * \var render_bounds::maxRow
  * The maximum row index in the tile layers that will be rendered.
- * @var render_bounds::maxCol
+ * \var render_bounds::maxCol
  * The maximum column index in the tile layers that will be rendered.
  *
- * @headerfile render_bounds.hpp
+ * \headerfile render_bounds.hpp
  */
 struct render_bounds final
 {

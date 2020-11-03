@@ -15,7 +15,7 @@ class application final
   application();
 
   /**
-   * @brief Runs the game.
+   * \brief Runs the game.
    */
   void run();
 

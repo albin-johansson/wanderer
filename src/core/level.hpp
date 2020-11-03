@@ -8,13 +8,13 @@
 namespace wanderer {
 
 /**
- * @class level
+ * \class level
  *
- * @brief Represents a tilemap level.
+ * \brief Represents a tilemap level.
  *
- * @details Every level features its own registry and AABB tree.
+ * \details Every level features its own registry and AABB tree.
  *
- * @headerfile level.hpp
+ * \headerfile level.hpp
  */
 class level final
 {

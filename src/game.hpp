@@ -16,54 +16,54 @@
 namespace wanderer {
 
 /**
- * @class game
+ * \class game
  *
- * @brief Represents the Wanderer game.
+ * \brief Represents the Wanderer game.
  *
- * @details This class is responsible for managing the game state and
+ * \details This class is responsible for managing the game state and
  * updating the systems. This class is the core of the entire game.
  *
- * @headerfile game.hpp
+ * \headerfile game.hpp
  */
 class game final
 {
  public:
   /**
-   * @brief Creates a `game` instance.
+   * \brief Creates a `game` instance.
    *
-   * @param renderer the renderer used to create the initial textures.
+   * \param renderer the renderer used to create the initial textures.
    */
   explicit game(cen::renderer& renderer);
 
   ~game() noexcept;
 
   /**
-   * @brief Responds to user input.
+   * \brief Responds to user input.
    *
-   * @param mouseState the current mouse input state.
-   * @param keyState the current keyboard input state.
+   * \param mouseState the current mouse input state.
+   * \param keyState the current keyboard input state.
    */
   void handle_input(const cen::mouse_state& mouseState,
                     const cen::key_state& keyState);
 
   /**
-   * @brief Updates the state of the game.
+   * \brief Updates the state of the game.
    *
-   * @param dt the delta time, in seconds.
+   * \param dt the delta time, in seconds.
    */
   void tick(delta dt);
 
   /**
-   * @brief Renders the game.
+   * \brief Renders the game.
    *
-   * @param renderer the renderer used to render the game.
+   * \param renderer the renderer used to render the game.
    */
   void render(cen::renderer& renderer);
 
   /**
-   * @brief Indicates whether or not the game should quit.
+   * \brief Indicates whether or not the game should quit.
    *
-   * @return `true` if the game should quit; `false` otherwise.
+   * \return `true` if the game should quit; `false` otherwise.
    */
   [[nodiscard]] auto quit_requested() const noexcept -> bool
   {

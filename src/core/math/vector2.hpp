@@ -9,46 +9,46 @@
 namespace wanderer {
 
 /**
- * @class basic_vector2
+ * \class basic_vector2
  *
- * @brief A two-dimensional vector intended to use floating point components.
+ * \brief A two-dimensional vector intended to use floating point components.
  *
- * @tparam T the representation type, intended to be a floating-point type.
+ * \tparam T the representation type, intended to be a floating-point type.
  *
- * @since 0.1.0
+ * \since 0.1.0
  *
- * @see vector2f
+ * \see vector2f
  *
- * @headerfile vector2.hpp
+ * \headerfile vector2.hpp
  */
 template <typename T>
 class basic_vector2 final
 {
  public:
   /**
-   * @brief Creates a vector with components (0, 0).
+   * \brief Creates a vector with components (0, 0).
    *
-   * @since 0.1.0
+   * \since 0.1.0
    */
   constexpr basic_vector2() noexcept = default;
 
   /**
-   * @brief Creates a vector with the specified components.
+   * \brief Creates a vector with the specified components.
    *
-   * @param x the initial x-coordinate.
-   * @param y the initial y-coordinate.
+   * \param x the initial x-coordinate.
+   * \param y the initial y-coordinate.
    *
-   * @since 0.1.0
+   * \since 0.1.0
    */
   constexpr basic_vector2(T x, T y) noexcept : m_x{x}, m_y{y}
   {}
 
   /**
-   * @brief Sets the x-coordinate of the vector.
+   * \brief Sets the x-coordinate of the vector.
    *
-   * @param x the new x-coordinate of the vector.
+   * \param x the new x-coordinate of the vector.
    *
-   * @since 0.1.0
+   * \since 0.1.0
    */
   constexpr void set_x(T x) noexcept
   {
@@ -56,11 +56,11 @@ class basic_vector2 final
   }
 
   /**
-   * @brief Sets the y-coordinate of the vector.
+   * \brief Sets the y-coordinate of the vector.
    *
-   * @param y the new y-coordinate of the vector.
+   * \param y the new y-coordinate of the vector.
    *
-   * @since 0.1.0
+   * \since 0.1.0
    */
   constexpr void set_y(T y) noexcept
   {
@@ -68,11 +68,11 @@ class basic_vector2 final
   }
 
   /**
-   * @brief Scales the components of the vector by the specified amount.
+   * \brief Scales the components of the vector by the specified amount.
    *
-   * @param scale the scale that will be used, may be negative.
+   * \param scale the scale that will be used, may be negative.
    *
-   * @since 0.1.0
+   * \since 0.1.0
    */
   constexpr void scale(T scale) noexcept
   {
@@ -81,14 +81,14 @@ class basic_vector2 final
   }
 
   /**
-   * @brief Normalises the vector.
+   * \brief Normalises the vector.
    *
-   * @note If the vector is the zero vector, then this function has no effect.
+   * \note If the vector is the zero vector, then this function has no effect.
    *
-   * @details The vector will have length 1 after this operation, i.e. the
+   * \details The vector will have length 1 after this operation, i.e. the
    * vector will become a unit vector.
    *
-   * @since 0.1.0
+   * \since 0.1.0
    */
   void norm() noexcept
   {
@@ -99,11 +99,11 @@ class basic_vector2 final
   }
 
   /**
-   * @brief Turns the vector into the zero vector.
+   * \brief Turns the vector into the zero vector.
    *
-   * @post the x- and y-coordinates will be equal to `0`.
+   * \post the x- and y-coordinates will be equal to `0`.
    *
-   * @since 0.1.0
+   * \since 0.1.0
    */
   constexpr void zero() noexcept
   {
@@ -112,14 +112,14 @@ class basic_vector2 final
   }
 
   /**
-   * @brief Sets the magnitude of the vector.
+   * \brief Sets the magnitude of the vector.
    *
-   * @note If the supplied magnitude is negative, the vector becomes the zero
+   * \note If the supplied magnitude is negative, the vector becomes the zero
    * vector.
    *
-   * @param mag the new magnitude of the vector.
+   * \param mag the new magnitude of the vector.
    *
-   * @since 0.1.0
+   * \since 0.1.0
    */
   void set_magnitude(T mag) noexcept
   {
@@ -137,14 +137,14 @@ class basic_vector2 final
   }
 
   /**
-   * @brief Linearly interpolates this vector.
+   * \brief Linearly interpolates this vector.
    *
-   * @pre `alpha` must be in the range [0, 1].
+   * \pre `alpha` must be in the range [0, 1].
    *
-   * @param target the target of the interpolation.
-   * @param alpha the interpolation coefficient, in the range [0, 1].
+   * \param target the target of the interpolation.
+   * \param alpha the interpolation coefficient, in the range [0, 1].
    *
-   * @since 0.1.0
+   * \since 0.1.0
    */
   constexpr void lerp(const basic_vector2& target, T alpha) noexcept
   {
@@ -154,17 +154,17 @@ class basic_vector2 final
   }
 
   /**
-   * @brief Interpolates this vector.
+   * \brief Interpolates this vector.
    *
-   * @pre `alpha` must be in the range [0, 1].
+   * \pre `alpha` must be in the range [0, 1].
    *
-   * @details This function calls `lerp` with an alpha coefficent based on
+   * \details This function calls `lerp` with an alpha coefficent based on
    * the supplied alpha value.
    *
-   * @param target the target vector of the interpolation.
-   * @param alpha the interpolation coefficient, in the range [0, 1].
+   * \param target the target vector of the interpolation.
+   * \param alpha the interpolation coefficient, in the range [0, 1].
    *
-   * @since 0.1.0
+   * \since 0.1.0
    */
   constexpr void lerp_smooth(const basic_vector2& target, T alpha) noexcept
   {
@@ -172,14 +172,14 @@ class basic_vector2 final
   }
 
   /**
-   * @brief Makes the vector point at the supplied vector.
+   * \brief Makes the vector point at the supplied vector.
    *
-   * @details The vector will maintain its magnitude through this operation.
+   * \details The vector will maintain its magnitude through this operation.
    *
-   * @param target the target vector (or point) that this vector will be made to
+   * \param target the target vector (or point) that this vector will be made to
    * point at.
    *
-   * @since 0.1.0
+   * \since 0.1.0
    */
   void point_at(const basic_vector2<T>& target) noexcept
   {
@@ -187,16 +187,16 @@ class basic_vector2 final
   }
 
   /**
-   * @brief Makes the vector point at the supplied vector.
+   * \brief Makes the vector point at the supplied vector.
    *
-   * @details The other vector is treated as a point in the plane.
+   * \details The other vector is treated as a point in the plane.
    *
-   * @note A negative length value will turn the vector into the zero vector.
+   * \note A negative length value will turn the vector into the zero vector.
    *
-   * @param target the vector to point this vector at.
-   * @param length the length of the invoked vector after the operation.
+   * \param target the vector to point this vector at.
+   * \param length the length of the invoked vector after the operation.
    *
-   * @since 0.1.0
+   * \since 0.1.0
    */
   void point_at(const basic_vector2<T>& target, T length) noexcept
   {
@@ -211,11 +211,11 @@ class basic_vector2 final
   }
 
   /**
-   * @brief Negates the components of the vector.
+   * \brief Negates the components of the vector.
    *
-   * @details A vector with components (20, 30) becomes (-20, -30).
+   * \details A vector with components (20, 30) becomes (-20, -30).
    *
-   * @since 0.1.0
+   * \since 0.1.0
    */
   constexpr void negate() noexcept
   {
@@ -224,11 +224,11 @@ class basic_vector2 final
   }
 
   /**
-   * @brief Adds the supplied vector to this vector.
+   * \brief Adds the supplied vector to this vector.
    *
-   * @param other the vector that will be added to this vector.
+   * \param other the vector that will be added to this vector.
    *
-   * @since 0.1.0
+   * \since 0.1.0
    */
   constexpr void operator+=(const basic_vector2& other) noexcept
   {
@@ -237,11 +237,11 @@ class basic_vector2 final
   }
 
   /**
-   * @brief Subtracts the supplied vector to this vector.
+   * \brief Subtracts the supplied vector to this vector.
    *
-   * @param other the vector that will be subtracted from this vector.
+   * \param other the vector that will be subtracted from this vector.
    *
-   * @since 0.1.0
+   * \since 0.1.0
    */
   constexpr void operator-=(const basic_vector2& other) noexcept
   {
@@ -250,11 +250,11 @@ class basic_vector2 final
   }
 
   /**
-   * @brief Returns the magnitude (length) of this vector.
+   * \brief Returns the magnitude (length) of this vector.
    *
-   * @return the magnitude of this vector.
+   * \return the magnitude of this vector.
    *
-   * @since 0.1.0
+   * \since 0.1.0
    */
   [[nodiscard]] auto magnitude() const noexcept -> T
   {
@@ -262,11 +262,11 @@ class basic_vector2 final
   }
 
   /**
-   * @brief Returns the squared magnitude of this vector.
+   * \brief Returns the squared magnitude of this vector.
    *
-   * @return the squared magnitude of this vector.
+   * \return the squared magnitude of this vector.
    *
-   * @since 0.1.0
+   * \since 0.1.0
    */
   [[nodiscard]] constexpr auto magnitude2() const noexcept -> T
   {
@@ -274,13 +274,13 @@ class basic_vector2 final
   }
 
   /**
-   * @brief Indicates whether or not the vector has zero has both of its
+   * \brief Indicates whether or not the vector has zero has both of its
    * components.
    *
-   * @return `true` if both of this vectors components are zero; `false`
+   * \return `true` if both of this vectors components are zero; `false`
    * otherwise.
    *
-   * @since 0.1.0
+   * \since 0.1.0
    */
   [[nodiscard]] constexpr auto is_zero() const noexcept -> bool
   {
@@ -288,13 +288,13 @@ class basic_vector2 final
   }
 
   /**
-   * @brief Indicates whether or not this vector is a unit vector.
+   * \brief Indicates whether or not this vector is a unit vector.
    *
-   * @details A unit vector is a vector with length 1.
+   * \details A unit vector is a vector with length 1.
    *
-   * @return `true` if this vector is a unit vector; `false` otherwise.
+   * \return `true` if this vector is a unit vector; `false` otherwise.
    *
-   * @since 0.1.0
+   * \since 0.1.0
    */
   [[nodiscard]] auto is_unit() const noexcept -> bool
   {
@@ -302,11 +302,11 @@ class basic_vector2 final
   }
 
   /**
-   * @brief Returns the x-coordinate of the vector.
+   * \brief Returns the x-coordinate of the vector.
    *
-   * @return the x-coordinate of the vector.
+   * \return the x-coordinate of the vector.
    *
-   * @since 0.1.0
+   * \since 0.1.0
    */
   [[nodiscard]] constexpr auto x() const noexcept -> T
   {
@@ -314,11 +314,11 @@ class basic_vector2 final
   }
 
   /**
-   * @brief Returns the y-coordinate of the vector.
+   * \brief Returns the y-coordinate of the vector.
    *
-   * @return the y-coordinate of the vector.
+   * \return the y-coordinate of the vector.
    *
-   * @since 0.1.0
+   * \since 0.1.0
    */
   [[nodiscard]] constexpr auto y() const noexcept -> T
   {
@@ -331,16 +331,16 @@ class basic_vector2 final
 };
 
 /**
- * @brief Returns the sum vector from adding two vectors.
+ * \brief Returns the sum vector from adding two vectors.
  *
- * @tparam T the representation type used by the vectors.
+ * \tparam T the representation type used by the vectors.
  *
- * @param lhs the left-hand side vector.
- * @param rhs the right-hand side vector.
+ * \param lhs the left-hand side vector.
+ * \param rhs the right-hand side vector.
  *
- * @return the resulting vector from adding the two vectors.
+ * \return the resulting vector from adding the two vectors.
  *
- * @since 0.1.0
+ * \since 0.1.0
  */
 template <typename T>
 [[nodiscard]] constexpr auto operator+(const basic_vector2<T>& lhs,
@@ -351,16 +351,16 @@ template <typename T>
 }
 
 /**
- * @brief Returns the difference vector from subtracting two vectors.
+ * \brief Returns the difference vector from subtracting two vectors.
  *
- * @tparam T the representation type used by the vectors.
+ * \tparam T the representation type used by the vectors.
  *
- * @param lhs the left-hand side vector.
- * @param rhs the right-hand side vector.
+ * \param lhs the left-hand side vector.
+ * \param rhs the right-hand side vector.
  *
- * @return the resulting vector from subtracting the two vectors.
+ * \return the resulting vector from subtracting the two vectors.
  *
- * @since 0.1.0
+ * \since 0.1.0
  */
 template <typename T>
 [[nodiscard]] constexpr auto operator-(const basic_vector2<T>& lhs,
@@ -371,16 +371,16 @@ template <typename T>
 }
 
 /**
- * @brief Returns the result from scaling the supplied vector.
+ * \brief Returns the result from scaling the supplied vector.
  *
- * @tparam T the representation type used by the vectors.
+ * \tparam T the representation type used by the vectors.
  *
- * @param vector the vector that will be scaled.
- * @param scalar the amount to scale the vector by.
+ * \param vector the vector that will be scaled.
+ * \param scalar the amount to scale the vector by.
  *
- * @return a scaled version of the supplied vector.
+ * \return a scaled version of the supplied vector.
  *
- * @since 0.1.0
+ * \since 0.1.0
  */
 template <typename T>
 [[nodiscard]] constexpr auto operator*(const basic_vector2<T>& vector,
@@ -390,16 +390,16 @@ template <typename T>
 }
 
 /**
- * @brief Returns the result from scaling the supplied vector.
+ * \brief Returns the result from scaling the supplied vector.
  *
- * @tparam T the representation type used by the vectors.
+ * \tparam T the representation type used by the vectors.
  *
- * @param scalar the amount to scale the vector by.
- * @param vector the vector that will be scaled.
+ * \param scalar the amount to scale the vector by.
+ * \param vector the vector that will be scaled.
  *
- * @return a scaled version of the supplied vector.
+ * \return a scaled version of the supplied vector.
  *
- * @since 0.1.0
+ * \since 0.1.0
  */
 template <typename T>
 [[nodiscard]] constexpr auto operator*(T scalar,
@@ -410,19 +410,19 @@ template <typename T>
 }
 
 /**
- * @brief Returns the dot product of two vectors.
+ * \brief Returns the dot product of two vectors.
  *
- * @note The dot product is commutative, which means that the order of
+ * \note The dot product is commutative, which means that the order of
  * the operands doesn't matter.
  *
- * @tparam T the representation type used by the vectors.
+ * \tparam T the representation type used by the vectors.
  *
- * @param lhs the left-hand side vector.
- * @param rhs the right-hand side vector.
+ * \param lhs the left-hand side vector.
+ * \param rhs the right-hand side vector.
  *
- * @return the dot product of the two vectors.
+ * \return the dot product of the two vectors.
  *
- * @since 0.1.0
+ * \since 0.1.0
  */
 template <typename T>
 [[nodiscard]] constexpr auto operator*(const basic_vector2<T>& lhs,
@@ -433,16 +433,16 @@ template <typename T>
 }
 
 /**
- * @brief Indicates whether or not two vectors are equal.
+ * \brief Indicates whether or not two vectors are equal.
  *
- * @tparam T the representation type used by the vectors.
+ * \tparam T the representation type used by the vectors.
  *
- * @param lhs the left-hand side vector.
- * @param rhs the right-hand side vector.
+ * \param lhs the left-hand side vector.
+ * \param rhs the right-hand side vector.
  *
- * @return `true` if the vectors are the same; `false` otherwise.
+ * \return `true` if the vectors are the same; `false` otherwise.
  *
- * @since 0.1.0
+ * \since 0.1.0
  */
 template <typename T>
 [[nodiscard]] constexpr auto operator==(const basic_vector2<T>& lhs,
@@ -453,16 +453,16 @@ template <typename T>
 }
 
 /**
- * @brief Indicates whether or not two vectors aren't equal.
+ * \brief Indicates whether or not two vectors aren't equal.
  *
- * @tparam T the representation type used by the vectors.
+ * \tparam T the representation type used by the vectors.
  *
- * @param lhs the left-hand side vector.
- * @param rhs the right-hand side vector.
+ * \param lhs the left-hand side vector.
+ * \param rhs the right-hand side vector.
  *
- * @return `true` if the vectors aren't the same; `false` otherwise.
+ * \return `true` if the vectors aren't the same; `false` otherwise.
  *
- * @since 0.1.0
+ * \since 0.1.0
  */
 template <typename T>
 [[nodiscard]] constexpr auto operator!=(const basic_vector2<T>& lhs,
@@ -473,18 +473,18 @@ template <typename T>
 }
 
 /**
- * @brief Returns the distance between two vectors.
+ * \brief Returns the distance between two vectors.
  *
- * @details The vectors are treated as points in the plane.
+ * \details The vectors are treated as points in the plane.
  *
- * @tparam T the representation type used by the vectors.
+ * \tparam T the representation type used by the vectors.
  *
- * @param lhs the left-hand side vector.
- * @param rhs the right-hand side vector.
+ * \param lhs the left-hand side vector.
+ * \param rhs the right-hand side vector.
  *
- * @return the distance between the two vectors.
+ * \return the distance between the two vectors.
  *
- * @since 0.1.0
+ * \since 0.1.0
  */
 template <typename T>
 [[nodiscard]] auto distance(const basic_vector2<T>& lhs,
@@ -500,16 +500,16 @@ template <typename T>
 }
 
 /**
- * @brief Returns the cross product between two vectors.
+ * \brief Returns the cross product between two vectors.
  *
- * @tparam T the representation type used by the vectors.
+ * \tparam T the representation type used by the vectors.
  *
- * @param lhs the left-hand side vector.
- * @param rhs the right-hand side vector.
+ * \param lhs the left-hand side vector.
+ * \param rhs the right-hand side vector.
  *
- * @return the cross product of the vectors.
+ * \return the cross product of the vectors.
  *
- * @since 0.1.0
+ * \since 0.1.0
  */
 template <typename T>
 [[nodiscard]] constexpr auto cross(const basic_vector2<T>& lhs,
@@ -519,19 +519,19 @@ template <typename T>
 }
 
 /**
- * @brief Returns the angle between two vectors.
+ * \brief Returns the angle between two vectors.
  *
- * @note This function returns zero if any of the supplied vectors are the
+ * \note This function returns zero if any of the supplied vectors are the
  * zero vector.
  *
- * @tparam T the representation type used by the vectors.
+ * \tparam T the representation type used by the vectors.
  *
- * @param lhs the left-hand side vector.
- * @param rhs the right-hand side vector.
+ * \param lhs the left-hand side vector.
+ * \param rhs the right-hand side vector.
  *
- * @return the angle between the two vectors.
+ * \return the angle between the two vectors.
  *
- * @since 0.1.0
+ * \since 0.1.0
  */
 template <typename T>
 [[nodiscard]] auto angle(const basic_vector2<T>& lhs,

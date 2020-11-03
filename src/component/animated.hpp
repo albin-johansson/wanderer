@@ -7,20 +7,20 @@
 namespace wanderer::comp {
 
 /**
- * @struct animated
+ * \struct animated
  *
- * @brief Represents a general animation.
+ * \brief Represents a general animation.
  *
- * @var animated::frame
+ * \var animated::frame
  * The current frame index. Starts at 0.
- * @var animated::nFrames
+ * \var animated::nFrames
  * The amount of frames in the animation.
- * @var animated::then
+ * \var animated::then
  * The time of the previous update of the animation, in milliseconds.
- * @var animated::delay
+ * \var animated::delay
  * The duration of each frame in the animation, in milliseconds.
  *
- * @headerfile animated.hpp
+ * \headerfile animated.hpp
  */
 struct animated final
 {

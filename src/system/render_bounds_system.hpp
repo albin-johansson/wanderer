@@ -8,16 +8,16 @@
 namespace wanderer::sys {
 
 /**
- * @brief Calculates and returns the current render bounds.
+ * \brief Calculates and returns the current render bounds.
  *
- * @pre The viewport entity must have a `Viewport` component.
+ * \pre The viewport entity must have a `Viewport` component.
  *
- * @param registry the current registry.
- * @param viewportEntity the viewport entity.
- * @param rows the number of rows in the current tilemap.
- * @param cols the number of columns in the current tilemap.
+ * \param registry the current registry.
+ * \param viewportEntity the viewport entity.
+ * \param rows the number of rows in the current tilemap.
+ * \param cols the number of columns in the current tilemap.
  *
- * @return the render bounds that should be used when rendering the tilemap.
+ * \return the render bounds that should be used when rendering the tilemap.
  */
 [[nodiscard]] auto calculate_render_bounds(
     entt::registry& registry,

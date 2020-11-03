@@ -7,19 +7,19 @@
 namespace wanderer::comp {
 
 /**
- * @struct end_humanoid_move_event
+ * \struct end_humanoid_move_event
  *
- * @brief Used for events dispatched when a humanoid stops moving.
+ * \brief Used for events dispatched when a humanoid stops moving.
  *
- * @note This is an event component and is meant to be dispatched through
+ * \note This is an event component and is meant to be dispatched through
  * `entt::dispatcher::enqueue`.
  *
- * @var end_humanoid_move_event::registry
+ * \var end_humanoid_move_event::registry
  * A pointer to the associated registry.
- * @var end_humanoid_move_event::entity
+ * \var end_humanoid_move_event::entity
  * The humanoid that should stop moving.
  *
- * @headerfile end_humanoid_move_event.hpp
+ * \headerfile end_humanoid_move_event.hpp
  */
 struct end_humanoid_move_event final
 {

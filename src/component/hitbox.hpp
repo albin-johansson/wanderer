@@ -13,17 +13,17 @@ struct hitbox_entity_t;
 }
 
 /**
- * @struct subhitbox
+ * \struct subhitbox
  *
- * @brief Represents a "subhitbox", a member of a `hitbox` instance.
+ * \brief Represents a "subhitbox", a member of a `hitbox` instance.
  *
- * @var subhitbox::offset
+ * \var subhitbox::offset
  * The offset that the subhitbox is positioned at, relative to the origin
  * position. This is useful for updating the position of a `hitbox`.
- * @var subhitbox::rect
+ * \var subhitbox::rect
  * The actual rectangle that represents the position and size of the subhitbox.
  *
- * @headerfile hitbox.hpp
+ * \headerfile hitbox.hpp
  */
 struct subhitbox final
 {
@@ -32,16 +32,16 @@ struct subhitbox final
 };
 
 /**
- * @struct hitbox
+ * \struct hitbox
  *
- * @brief Represents a hitbox that supports multiple subhitboxes.
+ * \brief Represents a hitbox that supports multiple subhitboxes.
  *
- * @var hitbox::bounds
+ * \var hitbox::bounds
  * The bounding area of the hitbox.
- * @var hitbox::boxes
+ * \var hitbox::boxes
  * The subhitboxes contained in the hitbox.
  *
- * @headerfile hitbox.hpp
+ * \headerfile hitbox.hpp
  */
 struct hitbox final
 {
