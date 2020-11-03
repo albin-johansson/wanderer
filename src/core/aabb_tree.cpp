@@ -279,4 +279,19 @@ void aabb_tree::update(entt::entity entity, const aabb& box)
   update_leaf(nodeIndex, box);
 }
 
+void aabb_tree::move_aabb(entt::entity entity, const vector2f& position)
+{
+  const auto oldBox = get_aabb(entity);
+
+  aabb newBox;
+  newBox.min = position;
+  newBox.max = position + (oldBox.max - oldBox.min);
+
+  const auto width = newBox.max.x() - newBox.min.x();
+  const auto height = newBox.max.y() - newBox.min.y();
+  newBox.area = width * height;
+
+  update(entity, newBox);
+}
+
 }  // namespace wanderer

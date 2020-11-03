@@ -30,17 +30,7 @@ class level final
 
   void move_aabb(entt::entity entity, const vector2f& position)
   {
-    const auto oldBox = get_aabb(entity);
-
-    auto newBox = oldBox;
-    newBox.min = position;
-    newBox.max = position + (oldBox.max - oldBox.min);
-
-    const auto width = newBox.max.x() - newBox.min.x();
-    const auto height = newBox.max.y() - newBox.min.y();
-    newBox.area = width * height;
-
-    m_aabbTree.update(entity, newBox);
+    m_aabbTree.move_aabb(entity, position);
   }
 
   template <typename... Components, typename T>

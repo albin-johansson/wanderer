@@ -198,6 +198,14 @@ class aabb_tree final
   void update(entt::entity entity, const aabb& box);
 
   /**
+   * \brief Sets the position of the AABB associated with the specified entry.
+   *
+   * \param entity the ID of the AABB that will be adjusted.
+   * \param position the new position of the AABB.
+   */
+  void move_aabb(entt::entity entity, const vector2f& position);
+
+  /**
    * \brief Queries the tree for collision candidates for the specified entity.
    *
    * \pre `entity` must have been previously inserted in the tree.
