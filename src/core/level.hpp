@@ -39,6 +39,17 @@ class level final
     m_registry.view<Components...>().each(std::forward<T>(lambda));
   }
 
+  [[nodiscard]] auto add_entity() -> entt::entity
+  {
+    return m_registry.create();
+  }
+
+  template <typename Component, typename... Args>
+  decltype(auto) emplace(entt::entity entity, Args&&... args)
+  {
+    return m_registry.emplace<Component>(entity, std::forward<Args>(args)...);
+  }
+
   template <typename... Components>
   [[nodiscard]] decltype(auto) get(entt::entity entity)
   {
@@ -51,18 +62,16 @@ class level final
     return m_registry.try_get<Components...>(entity);
   }
 
+  /**
+   * \copydoc aabb_tree::query_collisions()
+   */
   template <typename OutputIterator>
   void query_collisions(entt::entity id, OutputIterator iterator) const
   {
     return m_aabbTree.query_collisions(id, iterator);
   }
 
-  [[nodiscard]] auto get_aabb(entt::entity entity) const -> const aabb&
-  {
-    return m_aabbTree.get_aabb(entity);
-  }
-
-  [[nodiscard]] auto registry() -> entt::registry&
+  [[nodiscard, deprecated]] auto registry() -> entt::registry&
   {
     return m_registry;
   }

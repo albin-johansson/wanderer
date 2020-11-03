@@ -21,20 +21,20 @@ namespace wanderer::sys::humanoid {
 namespace {
 
 /**
- * @brief Adds a humanoid entity to the registry and returns the associated
+ * \brief Adds a humanoid entity to the registry and returns the associated
  * identifier.
  *
- * @details The entity will have `movable`, `depth_drawable`, `animated`,
+ * \details The entity will have `movable`, `depth_drawable`, `animated`,
  * `humanoid` and `humanoid_idle` components added to it. Select components
  * will have default values assigned to them, which might have to be tweaked
  * for the specific humanoid.
  *
- * @pre `texture` must be a valid handle.
+ * \pre `texture` must be a valid handle.
  *
- * @param registry the registry that will be used.
- * @param texture the handle to the texture that will be used by the humanoid.
+ * \param registry the registry that will be used.
+ * \param texture the handle to the texture that will be used by the humanoid.
  *
- * @return the identifier associated with the created humanoid.
+ * \return the identifier associated with the created humanoid.
  */
 [[nodiscard]] auto create_basic_humanoid(
     level& level,
@@ -45,32 +45,31 @@ namespace {
   using namespace cen::literals;
   constexpr cen::farea humanoidSize{g_humanoidDrawWidth, g_humanoidDrawHeight};
 
-  auto& registry = level.registry();
-  const auto entity = registry.create();
+  const auto entity = level.add_entity();
 
-  auto& movable = registry.emplace<comp::movable>(entity);
+  auto& movable = level.emplace<comp::movable>(entity);
   movable.dominantDirection = direction::down;
 
-  auto& drawable = registry.emplace<comp::depth_drawable>(entity);
+  auto& drawable = level.emplace<comp::depth_drawable>(entity);
   drawable.texture = texture;
   drawable.src = {{0, 0}, {64, 64}};
   drawable.dst = {{0, 0}, humanoidSize};
 
-  auto& animated = registry.emplace<comp::animated>(entity);
+  auto& animated = level.emplace<comp::animated>(entity);
   animated.frame = 0;
   animated.delay = 65_ms;
   animated.then = cen::counter::ticks();
   animated.nFrames = 1;
 
-  level.insert_aabb(entity, movable.position, g_humanoidDrawSize); // FIXME
+  level.insert_aabb(entity, movable.position, g_humanoidDrawSize);  // FIXME
 
   // FIXME
   const auto hitbox = hitbox::create(
       {comp::subhitbox{{}, cen::frect{{}, humanoidSize}}});
-  registry.emplace<comp::hitbox>(entity, hitbox);
 
-  registry.emplace<comp::humanoid>(entity);
-  registry.emplace<comp::humanoid_idle>(entity);
+  level.emplace<comp::hitbox>(entity, hitbox);
+  level.emplace<comp::humanoid>(entity);
+  level.emplace<comp::humanoid_idle>(entity);
 
   return entity;
 }
@@ -85,17 +84,15 @@ auto add_player(level& level, cen::renderer& renderer, image_cache& imageCache)
     imageCache.load<image_loader>(id, renderer, "resource/img/player2.png");
   }
 
-  auto& registry = level.registry();
-
   const auto player = create_basic_humanoid(level, imageCache.handle(id));
-  registry.emplace<comp::player>(player);
+  level.emplace<comp::player>(player);
 
-  auto& movable = registry.get<comp::movable>(player);
+  auto& movable = level.get<comp::movable>(player);
   movable.speed = g_playerSpeed;
   movable.position = {100, 100};
   movable.dominantDirection = direction::down;
 
-  registry.emplace<comp::binds>(player);
+  level.emplace<comp::binds>(player);
 
   return player;
 }
@@ -111,7 +108,7 @@ auto add_skeleton(level& level,
 
   const auto skeleton = create_basic_humanoid(level, imageCache.handle(id));
 
-  auto& movable = level.registry().get<comp::movable>(skeleton);
+  auto& movable = level.get<comp::movable>(skeleton);
   movable.speed = g_monsterSpeed;
   movable.position = {300, 300};
 
