@@ -60,26 +60,12 @@ void parse_tile_layer(entt::registry& registry,
   }
 }
 
-}  // namespace
-
-auto make_map(entt::registry& registry,
-              const step::fs::path& path,
-              cen::renderer& renderer,
-              image_cache& imageCache) -> comp::tilemap::entity
+void parse_layers(entt::registry& registry,
+                  comp::tilemap& tilemap,
+                  const std::vector<step::layer>& layers)
 {
-  const auto stepMap = std::make_unique<step::map>(path);
-  const auto mapEntity = registry.create();
-
-  auto& tilemap = registry.emplace<comp::tilemap>(mapEntity);
-  tilemap.width = static_cast<float>(stepMap->width()) * g_tileSize<float>;
-  tilemap.height = static_cast<float>(stepMap->height()) * g_tileSize<float>;
-  tilemap.rows = stepMap->height();
-  tilemap.cols = stepMap->width();
-  tilemap.tileset =
-      make_tileset(registry, stepMap->tilesets(), renderer, imageCache);
-
-  int zIndex{0}; // Assumes that the layers are in the correct order
-  for (const auto& stepLayer : stepMap->layers()) {
+  int zIndex{0};  // Assumes that the layers are in the correct order
+  for (const auto& stepLayer : layers) {
     const auto* properties = stepLayer.get_properties();
 
     if (const auto* tileLayer = stepLayer.try_as<step::tile_layer>()) {
@@ -92,11 +78,32 @@ auto make_map(entt::registry& registry,
   }
 
   registry.sort<comp::tile_layer>(
-      [](const comp::tile_layer& fst, const comp::tile_layer& snd) {
+      [](const comp::tile_layer& fst, const comp::tile_layer& snd) noexcept {
         return fst.z < snd.z;
       });
+}
 
-  return comp::tilemap::entity{mapEntity};
+}  // namespace
+
+auto make_map(entt::registry& registry,
+              const step::fs::path& path,
+              cen::renderer& renderer,
+              image_cache& imageCache) -> comp::tilemap::entity
+{
+  const auto stepMap = std::make_unique<step::map>(path);
+  const comp::tilemap::entity mapEntity{registry.create()};
+
+  auto& tilemap = registry.emplace<comp::tilemap>(mapEntity.get());
+  tilemap.width = static_cast<float>(stepMap->width()) * g_tileSize<float>;
+  tilemap.height = static_cast<float>(stepMap->height()) * g_tileSize<float>;
+  tilemap.rows = stepMap->height();
+  tilemap.cols = stepMap->width();
+  tilemap.tileset =
+      make_tileset(registry, stepMap->tilesets(), renderer, imageCache);
+
+  parse_layers(registry, tilemap, stepMap->layers());
+
+  return mapEntity;
 }
 
 }  // namespace wanderer
