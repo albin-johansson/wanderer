@@ -87,10 +87,7 @@ template <typename T>
 using size = vec2<T>;
 
 // clang-format off
-vec2(float, float)       -> vec2<float>;
-vec2(double, double)     -> vec2<double>;
-vec2(int, int)           -> vec2<int>;
-vec2(unsigned, unsigned) -> vec2<unsigned>;
+template <typename T> vec2(T, T) -> vec2<T>;
 // clang-format on
 
 /**
@@ -252,8 +249,7 @@ struct aabb final
 };
 
 // clang-format off
-aabb(vec2<float>, vec2<float>) -> aabb<float>;
-aabb(vec2<int>, vec2<int>)     -> aabb<int>;
+template <typename T> aabb(vec2<T>, vec2<T>) -> aabb<T>;
 // clang-format on
 
 /**
@@ -313,7 +309,7 @@ template <typename T>
 [[nodiscard]] constexpr auto make_aabb(const vec2<T>& position,
                                        const vec2<T>& size) -> aabb<T>
 {
-  aabb box;
+  aabb<T> box;
 
   box.min = position;
   box.max = box.min + size;
@@ -337,7 +333,7 @@ template <typename T>
 [[nodiscard]] constexpr auto combine(const aabb<T>& fst,
                                      const aabb<T>& snd) noexcept -> aabb<T>
 {
-  aabb result;
+  aabb<T> result;
 
   result.min.x = std::min(fst.min.x, snd.min.x);
   result.min.y = std::min(fst.min.y, snd.min.y);
@@ -464,7 +460,7 @@ class aabb_tree final
   /**
    * \brief Inserts an AABB in the tree.
    *
-   * \pre `key` cannot be in use at the time of invoking the function.
+   * \pre `key` cannot be in use at the time of invoking this function.
    *
    * \param key the ID that will be associated with the box.
    * \param box the AABB that will be added.
@@ -482,6 +478,27 @@ class aabb_tree final
 
     insert_leaf(index);
     m_indexMap.emplace(key, index);
+  }
+
+  /**
+   * \brief Adds an AABB to the tree.
+   *
+   * \note This function is equivalent to calling `insert` with the AABB
+   * obtained from `make_aabb` using the supplied position and size.
+   *
+   * \pre `key` cannot be in use at the time of invoking this function.
+   *
+   * \param key the ID that will be associated with the AABB.
+   * \param position the position of the AABB.
+   * \param size the size of the AABB.
+   *
+   * \since 0.1.0
+   */
+  void emplace(const key_type& key,
+               const vector_type& position,
+               const vector_type& size)
+  {
+    insert(key, make_aabb(position, size));
   }
 
   /**
@@ -534,7 +551,7 @@ class aabb_tree final
    *
    * \since 0.1.0
    */
-  void set_position(const key_type& key, const vector_type& position)
+  void relocate(const key_type& key, const vector_type& position)
   {
     if (!m_indexMap.count(key)) {
       return;
@@ -542,7 +559,7 @@ class aabb_tree final
 
     const auto previous = get_aabb(key);
 
-    aabb newBox;
+    aabb_type newBox;
     newBox.min = position;
     newBox.max = position + (previous.max - previous.min);
 
@@ -654,7 +671,7 @@ class aabb_tree final
   using opt_index = std::optional<index_type>;
 
   std::map<key_type, index_type> m_indexMap;
-  std::vector<aabb_node<key_type, T>> m_nodes;
+  std::vector<node_type> m_nodes;
 
   opt_index m_rootIndex{};
   opt_index m_nextFreeNodeIndex{};
@@ -822,7 +839,7 @@ class aabb_tree final
     // if the leaf is the root then we can just clear the root pointer and
     // return
     if (leafIndex == m_rootIndex) {
-      m_rootIndex = std::nullopt;
+      m_rootIndex.reset();
       return;
     }
 
@@ -855,11 +872,11 @@ class aabb_tree final
       // if we have no grandparent then the parent is the root and so our
       // sibling becomes the root and has it's parent removed
       m_rootIndex = siblingNodeIndex;
-      siblingNode.parent = std::nullopt;
+      siblingNode.parent.reset();
       deallocate_node(parentNodeIndex);
     }
 
-    leafNode.parent = std::nullopt;
+    leafNode.parent.reset();
   }
 
   void update_leaf(index_type leafIndex, const aabb_type& box)
