@@ -10,7 +10,6 @@ function(wanderer_set_properties [target [outputName]])
 endfunction()
 
 set(SOURCE_FILES
-        docs.hpp
         game.hpp
         game.cpp
         application.cpp
