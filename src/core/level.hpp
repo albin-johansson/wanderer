@@ -33,13 +33,12 @@ class level final
                    const vector2f& position,
                    const vector2f& size)
   {
-    m_aabbTree.insert(
-        entity, abby::make_aabb(abby_vector(position), abby_vector(size)));
+    m_aabbTree.emplace(entity, abby_vector(position), abby_vector(size));
   }
 
   void move_aabb(entt::entity entity, const vector2f& position)
   {
-    m_aabbTree.set_position(entity, abby_vector(position));
+    m_aabbTree.relocate(entity, abby_vector(position));
   }
 
   template <typename... Components, typename T>
