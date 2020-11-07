@@ -13,10 +13,8 @@ void render(entt::registry& registry,
 {
   for (auto row = bounds.minRow; row < bounds.maxRow; ++row) {
     for (auto col = bounds.minCol; col < bounds.maxCol; ++col) {
-      const auto r = static_cast<std::size_t>(row);
-      const auto c = static_cast<std::size_t>(col);
-
-      const auto id = layer.matrix.at(r).at(c);
+      const auto id = layer.matrix.at(static_cast<std::size_t>(row))
+                          .at(static_cast<std::size_t>(col));
       if (id == g_emptyTile) {
         continue;
       }
