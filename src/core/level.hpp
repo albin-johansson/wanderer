@@ -3,9 +3,17 @@
 #include <entt.hpp>
 #include <utility>  // forward
 
-#include "aabb_tree.hpp"
+#include "abby.hpp"
+#include "vector2.hpp"
 
 namespace wanderer {
+
+template <typename T>
+[[nodiscard]] auto abby_vector(const basic_vector2<T>& vector) noexcept
+    -> abby::vec2<T>
+{
+  return abby::vec2<T>{vector.x(), vector.y()};
+}
 
 /**
  * \class level
@@ -25,12 +33,13 @@ class level final
                    const vector2f& position,
                    const vector2f& size)
   {
-    m_aabbTree.insert(entity, make_aabb(position, size));
+    m_aabbTree.insert(
+        entity, abby::make_aabb(abby_vector(position), abby_vector(size)));
   }
 
   void move_aabb(entt::entity entity, const vector2f& position)
   {
-    m_aabbTree.move_aabb(entity, position);
+    m_aabbTree.set_position(entity, abby_vector(position));
   }
 
   template <typename... Components, typename T>
@@ -78,7 +87,7 @@ class level final
 
  private:
   entt::registry m_registry;
-  aabb_tree m_aabbTree;
+  abby::aabb_tree<entt::entity> m_aabbTree;
 };
 
 }  // namespace wanderer

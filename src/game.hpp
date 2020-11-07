@@ -4,7 +4,6 @@
 #include <cen/mouse_state.hpp>
 #include <cen/renderer.hpp>
 
-#include "aabb_tree.hpp"
 #include "alpha.hpp"
 #include "component/tilemap.hpp"
 #include "component/viewport.hpp"

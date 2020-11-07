@@ -23,8 +23,6 @@ set(SOURCE_FILES
         core/add_humanoid_state_dependencies.hpp
         core/event_connections.cpp
         core/event_connections.hpp
-        core/aabb_tree.cpp
-        core/aabb_tree.hpp
         core/level.cpp
         core/level.hpp
         core/make_dispatcher.hpp
@@ -151,6 +149,7 @@ wanderer_set_properties(${WANDERER_LIB_TARGET} "Wanderer")
 
 add_header_only_lib(libENTT ${LIBRARY_DIR}/entt ${LIBRARY_DIR}/entt/entt.hpp)
 add_header_only_lib(libJSON ${LIBRARY_DIR}/json ${LIBRARY_DIR}/json/json.hpp)
+add_header_only_lib(libABBY ${LIBRARY_DIR}/abby ${LIBRARY_DIR}/abby/abby.hpp)
 
 set(NAMED_TYPE_SOURCES
         ${LIBRARY_DIR}/namedtype/named_type.hpp
@@ -198,6 +197,7 @@ target_link_libraries(${WANDERER_LIB_TARGET}
         PUBLIC ${CENTURION_IMPORT_LIB}
         PUBLIC libENTT
         PUBLIC libJSON
+        PUBLIC libABBY
         PUBLIC libNamedType)
 
 

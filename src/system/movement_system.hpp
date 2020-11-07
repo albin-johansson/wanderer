@@ -2,7 +2,6 @@
 
 #include <entt.hpp>
 
-#include "aabb_tree.hpp"
 #include "delta.hpp"
 #include "level.hpp"
 
