@@ -36,7 +36,7 @@ class level final
     m_aabbTree.emplace(entity, abby_vector(position), abby_vector(size));
   }
 
-  void move_aabb(entt::entity entity, const vector2f& position)
+  void relocate_aabb(entt::entity entity, const vector2f& position)
   {
     m_aabbTree.relocate(entity, abby_vector(position));
   }

@@ -37,7 +37,7 @@ void update_hitbox(level& level,
                    const vector2f& oldPosition)
 {
   hitbox::update_position(hitbox, movable.position);
-  level.move_aabb(entity, movable.position);
+  level.relocate_aabb(entity, movable.position);
 
   stack_resource<sizeof(entt::entity) * 20> resource;
   std::pmr::vector<entt::entity> candidates{resource.get()};
@@ -64,7 +64,7 @@ void update_hitbox(level& level,
       }
 
       hitbox::update_position(hitbox, movable.position);
-      level.move_aabb(entity, movable.position);
+      level.relocate_aabb(entity, movable.position);
 
       break;
     }
