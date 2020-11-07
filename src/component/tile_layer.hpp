@@ -26,7 +26,8 @@ struct tile_layer final
       NamedType<entt::entity, detail::tile_layer_entity_t, fluent::Comparable>;
   using tile_matrix = std::vector<std::vector<tile_id>>;
 
-  tile_matrix matrix; /**< Matrix of tile IDs that represent the layer. */
+  tile_matrix matrix;  ///< Matrix of tile IDs that represent the layer.
+  int z;  ///< Index that indicates when the layer should be rendered.
 };
 
 }  // namespace wanderer::comp

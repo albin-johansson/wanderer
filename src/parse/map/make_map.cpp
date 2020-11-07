@@ -21,15 +21,17 @@ namespace {
   return {rows, std::vector<tile_id>(cols, g_emptyTile)};
 }
 
-[[nodiscard]] auto make_ground_layer(entt::registry& registry,
-                                     const step::tile_layer& tileLayer,
-                                     int numRows,
-                                     int numColumns) -> comp::tile_layer::entity
+void add_ground_layer(entt::registry& registry,
+                      const step::tile_layer& tileLayer,
+                      int numRows,
+                      int numColumns,
+                      int zIndex)
 {
   const auto layerEntity = registry.create();
 
   auto& layer = registry.emplace<comp::tile_layer>(layerEntity);
   layer.matrix = make_tile_matrix(numRows, numColumns);
+  layer.z = zIndex;
 
   int index{0};
   for (const auto gid : tileLayer.data()->as_gid()) {
@@ -37,19 +39,17 @@ namespace {
     layer.matrix.at(row).at(col) = gid.get();
     ++index;
   }
-
-  return comp::tile_layer::entity{layerEntity};
 }
 
 void parse_tile_layer(entt::registry& registry,
                       comp::tilemap& tilemap,
                       const step::tile_layer& layer,
-                      const step::properties* properties)
+                      const step::properties* properties,
+                      int zIndex)
 {
   if (properties->has("ground")) {
     if (properties->is("ground", true)) {
-      tilemap.layers.emplace_back(
-          make_ground_layer(registry, layer, tilemap.rows, tilemap.cols));
+      add_ground_layer(registry, layer, tilemap.rows, tilemap.cols, zIndex);
     } else {
       const auto& tileset = registry.get<comp::tileset>(tilemap.tileset.get());
       if (const auto* data = layer.data()) {
@@ -78,17 +78,23 @@ auto make_map(entt::registry& registry,
   tilemap.tileset =
       make_tileset(registry, stepMap->tilesets(), renderer, imageCache);
 
+  int zIndex{0}; // Assumes that the layers are in the correct order
   for (const auto& stepLayer : stepMap->layers()) {
     const auto* properties = stepLayer.get_properties();
 
     if (const auto* tileLayer = stepLayer.try_as<step::tile_layer>()) {
-      parse_tile_layer(registry, tilemap, *tileLayer, properties);
+      parse_tile_layer(registry, tilemap, *tileLayer, properties, zIndex);
     } else if (const auto* group = stepLayer.try_as<step::object_group>()) {
       // TODO spawnpoints, etc.
     }
+
+    ++zIndex;
   }
 
-  tilemap.layers.shrink_to_fit();
+  registry.sort<comp::tile_layer>(
+      [](const comp::tile_layer& fst, const comp::tile_layer& snd) {
+        return fst.z < snd.z;
+      });
 
   return comp::tilemap::entity{mapEntity};
 }
