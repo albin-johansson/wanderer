@@ -43,11 +43,11 @@ void add_tile_objects(entt::registry& registry,
 
 {
   int index{0};
-  std::for_each(std::move(begin), std::move(end), [&](const auto gid) {
+  std::for_each(begin, end, [&](const auto gid) {
     if (gid.get() != g_emptyTile) {
-      const auto tileID = tileset.tiles.at(gid.get()).get();
+      const auto tileId = tileset.tiles.at(gid.get()).get();
       const auto [row, col] = index_to_matrix(index, tilemap.cols);
-      const auto tileObject = make_tile_object(registry, tileID, row, col);
+      const auto tileObject = make_tile_object(registry, tileId, row, col);
       tilemap.tileObjects.emplace(comp::map_position{row, col}, tileObject);
     }
     ++index;
