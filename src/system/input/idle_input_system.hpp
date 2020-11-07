@@ -3,6 +3,8 @@
 #include <cen/key_state.hpp>
 #include <entt.hpp>
 
+#include "component/player.hpp"
+
 namespace wanderer::sys::input {
 
 /**
@@ -20,7 +22,7 @@ namespace wanderer::sys::input {
  */
 void handle_idle_input(entt::registry& registry,
                        entt::dispatcher& dispatcher,
-                       entt::entity player,
+                       comp::player::entity player,
                        const cen::key_state& keyState);
 
 }  // namespace wanderer::sys::input

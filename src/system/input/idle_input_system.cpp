@@ -11,11 +11,11 @@ namespace wanderer::sys::input {
 
 void handle_idle_input(entt::registry& registry,
                        entt::dispatcher& dispatcher,
-                       const entt::entity player,
+                       const comp::player::entity player,
                        const cen::key_state& keyState)
 {
-  if (registry.has<comp::humanoid_idle>(player)) {
-    const auto& binds = registry.get<comp::binds>(player);
+  if (registry.has<comp::humanoid_idle>(player.get())) {
+    const auto& binds = registry.get<comp::binds>(player.get());
 
     const auto left = keyState.is_pressed(binds.left);
     const auto right = keyState.is_pressed(binds.right);
@@ -35,12 +35,12 @@ void handle_idle_input(entt::registry& registry,
       }
 
       dispatcher.enqueue(
-          comp::begin_humanoid_move_event{&registry, player, direction});
+          comp::begin_humanoid_move_event{&registry, player.get(), direction});
 
     } else if (keyState.is_pressed(binds.attack)) {
       // FIXME
       dispatcher.enqueue(comp::begin_attack_event{
-          &registry, player, entt::null, direction::down});
+          &registry, player.get(), entt::null, direction::down});
     }
   }
 }

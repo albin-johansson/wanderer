@@ -5,7 +5,6 @@
 #include <vector>
 
 #include "add_tile_objects.hpp"
-#include "component/tile_layer.hpp"
 #include "game_constants.hpp"
 #include "index_to_matrix.hpp"
 #include "make_tileset.hpp"
@@ -51,9 +50,9 @@ void parse_tile_layer(entt::registry& registry,
     if (properties->is("ground", true)) {
       add_ground_layer(registry, layer, tilemap.rows, tilemap.cols, zIndex);
     } else {
-      const auto& tileset = registry.get<comp::tileset>(tilemap.tileset.get());
       if (const auto* data = layer.data()) {
         const auto& gid = data->as_gid();
+        const auto& tileset = registry.get<comp::tileset>(tilemap.tileset.get());
         add_tile_objects(registry, tilemap, tileset, gid.begin(), gid.end());
       }
     }

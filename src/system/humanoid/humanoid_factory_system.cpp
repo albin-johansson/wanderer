@@ -37,7 +37,8 @@ namespace {
  * \return the identifier associated with the created humanoid.
  */
 [[nodiscard]] auto create_basic_humanoid(
-    level& level,
+    entt::registry& registry,
+    abby::aabb_tree<entt::entity>& aabbTree,
     const entt::handle<cen::texture>& texture) -> entt::entity
 {
   assert(texture);  // require valid handle
@@ -45,59 +46,65 @@ namespace {
   using namespace cen::literals;
   constexpr cen::farea humanoidSize{g_humanoidDrawWidth, g_humanoidDrawHeight};
 
-  const auto entity = level.add_entity();
+  const auto entity = registry.create();
+  ;
 
-  auto& movable = level.emplace<comp::movable>(entity);
+  auto& movable = registry.emplace<comp::movable>(entity);
   movable.dominantDirection = direction::down;
 
-  auto& drawable = level.emplace<comp::depth_drawable>(entity);
+  auto& drawable = registry.emplace<comp::depth_drawable>(entity);
   drawable.texture = texture;
   drawable.src = {{0, 0}, {64, 64}};
   drawable.dst = {{0, 0}, humanoidSize};
 
-  auto& animated = level.emplace<comp::animated>(entity);
+  auto& animated = registry.emplace<comp::animated>(entity);
   animated.frame = 0;
   animated.delay = 65_ms;
   animated.then = cen::counter::ticks();
   animated.nFrames = 1;
 
-  level.insert_aabb(entity, movable.position, g_humanoidDrawSize);  // FIXME
+  aabbTree.emplace(
+      entity, abby_vector(movable.position), abby_vector(g_humanoidDrawSize));
 
   // FIXME
-  const auto hitbox = hitbox::create(
-      {comp::subhitbox{{}, cen::frect{{}, humanoidSize}}});
+  const auto hitbox =
+      hitbox::create({comp::subhitbox{{}, cen::frect{{}, humanoidSize}}});
 
-  level.emplace<comp::hitbox>(entity, hitbox);
-  level.emplace<comp::humanoid>(entity);
-  level.emplace<comp::humanoid_idle>(entity);
+  registry.emplace<comp::hitbox>(entity, hitbox);
+  registry.emplace<comp::humanoid>(entity);
+  registry.emplace<comp::humanoid_idle>(entity);
 
   return entity;
 }
 
 }  // namespace
 
-auto add_player(level& level, cen::renderer& renderer, image_cache& imageCache)
-    -> entt::entity
+auto add_player(entt::registry& registry,
+                abby::aabb_tree<entt::entity>& aabbTree,
+                cen::renderer& renderer,
+                image_cache& imageCache) -> entt::entity
 {
   constexpr auto id = "player"_hs;
   if (!imageCache.contains(id)) {
     imageCache.load<image_loader>(id, renderer, "resource/img/player2.png");
   }
 
-  const auto player = create_basic_humanoid(level, imageCache.handle(id));
-  level.emplace<comp::player>(player);
+  const auto player =
+      create_basic_humanoid(registry, aabbTree, imageCache.handle(id));
+  registry.emplace<comp::player>(player);
 
-  auto& movable = level.get<comp::movable>(player);
+  auto& movable = registry.get<comp::movable>(player);
   movable.speed = g_playerSpeed;
   movable.position = {100, 100};
   movable.dominantDirection = direction::down;
 
-  level.emplace<comp::binds>(player);
+  registry.emplace<comp::binds>(player);
 
   return player;
 }
 
-auto add_skeleton(level& level,
+auto add_skeleton(entt::registry& registry,
+                  abby::aabb_tree<entt::entity>& aabbTree,
                   cen::renderer& renderer,
                   image_cache& imageCache) -> entt::entity
 {
@@ -106,9 +113,10 @@ auto add_skeleton(level& level,
     imageCache.load<image_loader>(id, renderer, "resource/img/skeleton.png");
   }
 
-  const auto skeleton = create_basic_humanoid(level, imageCache.handle(id));
+  const auto skeleton =
+      create_basic_humanoid(registry, aabbTree, imageCache.handle(id));
 
-  auto& movable = level.get<comp::movable>(skeleton);
+  auto& movable = registry.get<comp::movable>(skeleton);
   movable.speed = g_monsterSpeed;
   movable.position = {300, 300};
 

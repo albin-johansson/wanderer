@@ -62,13 +62,12 @@ void track(comp::viewport& viewport, const vector2f& position, const delta dt)
 
 }  // namespace
 
-void update(entt::registry& registry,
-            const comp::viewport::entity viewportEntity,
+void update(level& level,
             const entt::entity movableEntity,
             const delta dt)
 {
-  const auto& movable = registry.get<comp::movable>(movableEntity);
-  auto& viewport = registry.get<comp::viewport>(viewportEntity.get());
+  const auto& movable = level.get<comp::movable>(movableEntity);
+  auto& viewport = level.viewport_component();
   track(viewport, movable.position, dt);
 }
 

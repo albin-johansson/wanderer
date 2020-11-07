@@ -5,12 +5,10 @@
 #include <cen/renderer.hpp>
 
 #include "alpha.hpp"
-#include "component/tilemap.hpp"
-#include "component/viewport.hpp"
 #include "delta.hpp"
 #include "image_cache.hpp"
 #include "level.hpp"
-#include "menu/menu_manager.hpp"
+#include "menu_manager.hpp"
 
 namespace wanderer {
 
@@ -70,13 +68,10 @@ class game final
   }
 
  private:
-  menu_manager m_menus;
-  level m_level{};
   entt::dispatcher m_dispatcher;
   image_cache m_imageCache;
-  comp::tilemap::entity m_world{null<comp::tilemap>()};
-  entt::entity m_player;
-  comp::viewport::entity m_viewport{null<comp::viewport>()};
+  menu_manager m_menus;
+  level m_world;
 };
 
 }  // namespace wanderer

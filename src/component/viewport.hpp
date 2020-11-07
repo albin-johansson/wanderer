@@ -16,6 +16,7 @@ struct viewport_entity_t;
  *
  * \var viewport::bounds
  * The position and size of the viewport.
+ *
  * \var viewport::levelSize
  * The size of the level that the viewport is associated with.
  *

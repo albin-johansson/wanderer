@@ -24,7 +24,7 @@ namespace wanderer::comp {
 struct end_humanoid_move_event final
 {
   entt::registry* registry{nullptr};
-  entt::entity entity{entt::null};  // TODO tag type
+  entt::entity entity{entt::null};
 };
 
 }  // namespace wanderer::comp

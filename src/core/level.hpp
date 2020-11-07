@@ -1,9 +1,18 @@
 #pragma once
 
+#include <cen/renderer.hpp>
 #include <entt.hpp>
-#include <utility>  // forward
+#include <filesystem>  // path
+#include <utility>     // forward
 
 #include "abby.hpp"
+#include "component/player.hpp"
+#include "component/tilemap.hpp"
+#include "component/tileset.hpp"
+#include "component/viewport.hpp"
+#include "delta.hpp"
+#include "image_cache.hpp"
+#include "null_entity.hpp"
 #include "vector2.hpp"
 
 namespace wanderer {
@@ -27,14 +36,9 @@ template <typename T>
 class level final
 {
  public:
-  level();
-
-  void insert_aabb(entt::entity entity,
-                   const vector2f& position,
-                   const vector2f& size)
-  {
-    m_aabbTree.emplace(entity, abby_vector(position), abby_vector(size));
-  }
+  level(const std::filesystem::path& path,
+        cen::renderer& renderer,
+        image_cache& imageCache);
 
   void relocate_aabb(entt::entity entity, const vector2f& position)
   {
@@ -45,11 +49,6 @@ class level final
   void each(T&& lambda)
   {
     m_registry.view<Components...>().each(std::forward<T>(lambda));
-  }
-
-  [[nodiscard]] auto add_entity() -> entt::entity
-  {
-    return m_registry.create();
   }
 
   template <typename Component, typename... Args>
@@ -79,7 +78,37 @@ class level final
     return m_aabbTree.query_collisions(id, iterator);
   }
 
-  [[nodiscard, deprecated]] auto registry() -> entt::registry&
+  [[nodiscard]] auto row_count() const -> int
+  {
+    return m_registry.get<comp::tilemap>(m_tilemap.get()).rows;
+  }
+
+  [[nodiscard]] auto col_count() const -> int
+  {
+    return m_registry.get<comp::tilemap>(m_tilemap.get()).cols;
+  }
+
+  [[nodiscard]] auto player() const -> comp::player::entity
+  {
+    return m_player;
+  }
+
+  [[nodiscard]] auto viewport() const -> comp::viewport::entity
+  {
+    return m_viewport;
+  }
+
+  [[nodiscard]] auto tilemap() const -> comp::tilemap::entity
+  {
+    return m_tilemap;
+  }
+
+  [[nodiscard]] auto viewport_component() -> comp::viewport&
+  {
+    return m_registry.get<comp::viewport>(m_viewport.get());
+  }
+
+  [[nodiscard]] auto registry() -> entt::registry&
   {
     return m_registry;
   }
@@ -87,6 +116,10 @@ class level final
  private:
   entt::registry m_registry;
   abby::aabb_tree<entt::entity> m_aabbTree;
+  comp::tilemap::entity m_tilemap{null<comp::tilemap>()};
+  comp::tileset::entity m_tileset{null<comp::tileset>()};
+  comp::viewport::entity m_viewport{null<comp::viewport>()};
+  comp::player::entity m_player{null<comp::player>()};
 };
 
 }  // namespace wanderer

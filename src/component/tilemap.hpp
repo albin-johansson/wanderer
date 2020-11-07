@@ -41,7 +41,10 @@ struct tilemap final
 {
   using entity = entity_type<detail::tilemap_entity_t>;
 
+  // clang-format off
+  [[deprecated("Use tileset::entity member of level class instead.")]]
   comp::tileset::entity tileset{null<comp::tileset>()};
+  // clang-format on
 
   // TODO use tile object entity tag type
   std::unordered_map<map_position, entt::entity> tileObjects;

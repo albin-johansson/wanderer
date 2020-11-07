@@ -119,23 +119,24 @@ void check_released(comp::movable& movable,
 
 void handle_move_input(entt::registry& registry,
                        entt::dispatcher& dispatcher,
-                       const entt::entity player,
+                       const comp::player::entity player,
                        const cen::key_state& keyState)
 {
-  if (registry.has<comp::humanoid_move>(player)) {
-    auto& movable = registry.get<comp::movable>(player);
-    const auto& binds = registry.get<comp::binds>(player);
+  if (registry.has<comp::humanoid_move>(player.get())) {
+    auto& movable = registry.get<comp::movable>(player.get());
+    const auto& binds = registry.get<comp::binds>(player.get());
     const bool areMoveKeysDown = check_pressed(movable, keyState, binds);
     check_released(movable, keyState, binds);
 
     if (!areMoveKeysDown && movable.velocity.is_zero()) {
-      dispatcher.enqueue(comp::end_humanoid_move_event{&registry, player});
+      dispatcher.enqueue(
+          comp::end_humanoid_move_event{&registry, player.get()});
     } else if (keyState.is_pressed(binds.attack)) {
       movable.velocity.zero();
 
       // FIXME null weapon
       dispatcher.enqueue(comp::begin_attack_event{
-          &registry, player, entt::null, movable.dominantDirection});
+          &registry, player.get(), entt::null, movable.dominantDirection});
     }
   }
 }
