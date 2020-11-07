@@ -1,9 +1,8 @@
 #pragma once
 
-#include <entt.hpp>
-#include <named_type.hpp>
 #include <vector>
 
+#include "entity_type.hpp"
 #include "tile_id.hpp"
 
 namespace wanderer::comp {
@@ -22,8 +21,7 @@ struct tile_layer_entity_t;
  */
 struct tile_layer final
 {
-  using entity = fluent::
-      NamedType<entt::entity, detail::tile_layer_entity_t, fluent::Comparable>;
+  using entity = entity_type<detail::tile_layer_entity_t>;
   using tile_matrix = std::vector<std::vector<tile_id>>;
 
   tile_matrix matrix;  ///< Matrix of tile IDs that represent the layer.

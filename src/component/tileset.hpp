@@ -1,9 +1,9 @@
 #pragma once
 
 #include <entt.hpp>
-#include <named_type.hpp>
 #include <unordered_map>  // unordered_map
 
+#include "entity_type.hpp"
 #include "tile.hpp"
 #include "tile_id.hpp"
 
@@ -25,9 +25,7 @@ struct tileset_entity_t;
  */
 struct tileset final
 {
-  using entity = fluent::
-      NamedType<entt::entity, detail::tileset_entity_t, fluent::Comparable>;
-
+  using entity = entity_type<detail::tileset_entity_t>;
   std::unordered_map<tile_id, tile::entity> tiles;
 };
 

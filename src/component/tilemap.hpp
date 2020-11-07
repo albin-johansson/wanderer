@@ -4,6 +4,7 @@
 #include <unordered_map>  // unordered_map
 #include <vector>         // vector
 
+#include "entity_type.hpp"
 #include "map_position.hpp"
 #include "null_entity.hpp"
 #include "tile_layer.hpp"
@@ -38,10 +39,9 @@ struct tilemap_entity_t;
  */
 struct tilemap final
 {
-  using entity = fluent::
-      NamedType<entt::entity, detail::tilemap_entity_t, fluent::Comparable>;
+  using entity = entity_type<detail::tilemap_entity_t>;
 
-  comp::tileset::entity tileset = null<comp::tileset>();
+  comp::tileset::entity tileset{null<comp::tileset>()};
 
   // TODO use tile object entity tag type
   std::unordered_map<map_position, entt::entity> tileObjects;

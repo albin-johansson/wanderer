@@ -1,10 +1,9 @@
 #pragma once
 
 #include <cen/rect.hpp>
-#include <entt.hpp>
-#include <named_type.hpp>
 #include <vector>  // vector
 
+#include "entity_type.hpp"
 #include "vector2.hpp"
 
 namespace wanderer::comp {
@@ -45,7 +44,7 @@ struct subhitbox final
  */
 struct hitbox final
 {
-  using entity = fluent::NamedType<entt::entity, detail::hitbox_entity_t>;
+  using entity = entity_type<detail::hitbox_entity_t>;
   cen::frect bounds;
   std::vector<subhitbox> boxes;
 };

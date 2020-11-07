@@ -2,8 +2,8 @@
 
 #include <cen/area.hpp>
 #include <cen/rect.hpp>
-#include <entt.hpp>
-#include <named_type.hpp>
+
+#include "entity_type.hpp"
 
 namespace wanderer::comp {
 namespace detail {
@@ -23,8 +23,7 @@ struct viewport_entity_t;
  */
 struct viewport final
 {
-  using entity = fluent::
-      NamedType<entt::entity, detail::viewport_entity_t, fluent::Comparable>;
+  using entity = entity_type<detail::viewport_entity_t>;
   cen::frect bounds{};
   cen::farea levelSize{};
 };

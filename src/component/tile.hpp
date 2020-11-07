@@ -3,8 +3,8 @@
 #include <cen/rect.hpp>
 #include <cen/texture.hpp>
 #include <entt.hpp>
-#include <named_type.hpp>
 
+#include "entity_type.hpp"
 #include "tile_id.hpp"
 
 namespace wanderer::comp {
@@ -25,9 +25,7 @@ struct tile_entity_t;
  */
 struct tile final
 {
-  using entity = fluent::
-      NamedType<entt::entity, detail::tile_entity_t, fluent::Comparable>;
-
+  using entity = entity_type<detail::tile_entity_t>;
   tile_id id{};    ///< Unique ID associated with the tile.
   cen::irect src;  ///< Region in associated tileset that the tile represents.
   entt::handle<cen::texture> sheet;  ///< Handle to the associated tileset.

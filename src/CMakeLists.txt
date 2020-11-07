@@ -37,6 +37,7 @@ set(SOURCE_FILES
         core/aliases/tile_id.hpp
         core/aliases/depth.hpp
         core/aliases/buffer.hpp
+        core/aliases/entity_type.hpp
 
         core/resource/image_loader.hpp
         core/resource/image_cache.hpp
