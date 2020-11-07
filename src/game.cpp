@@ -22,7 +22,7 @@ namespace wanderer {
 game::game(cen::renderer& renderer)
     : m_dispatcher{make_dispatcher()},
       m_world{make_map(m_level.registry(),
-                       "resource/map/world_demo.json",
+                       "resource/map/world.json",
                        renderer,
                        m_imageCache)},
       m_player{sys::humanoid::add_player(m_level, renderer, m_imageCache)},
