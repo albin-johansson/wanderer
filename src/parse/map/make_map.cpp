@@ -110,6 +110,7 @@ void parse_layers(entt::registry& registry,
     ++zIndex;
   }
 
+  // Ensures that the layers are stored in the correct order in the registry
   registry.sort<comp::tile_layer>(
       [](const comp::tile_layer& lhs, const comp::tile_layer& rhs) noexcept {
         return lhs.z < rhs.z;
