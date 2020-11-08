@@ -135,8 +135,10 @@ void handle_move_input(entt::registry& registry,
       movable.velocity.zero();
 
       // FIXME null weapon
-      dispatcher.enqueue(comp::begin_attack_event{
-          &registry, player.get(), entt::null, movable.dominantDirection});
+      dispatcher.enqueue(comp::begin_attack_event{&registry,
+                                                  player.get(),
+                                                  entt::null,
+                                                  movable.dominantDirection});
     }
   }
 }

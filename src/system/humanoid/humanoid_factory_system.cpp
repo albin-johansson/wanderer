@@ -62,8 +62,9 @@ namespace {
   animated.then = cen::counter::ticks();
   animated.nFrames = 1;
 
-  aabbTree.emplace(
-      entity, abby_vector(movable.position), abby_vector(g_humanoidDrawSize));
+  aabbTree.emplace(entity,
+                   abby_vector(movable.position),
+                   abby_vector(g_humanoidDrawSize));
 
   // FIXME
   const auto hitbox =

@@ -80,8 +80,9 @@ void parse_layers(entt::registry& registry,
                                   static_cast<float>(object.y())};
           const auto* props = object.get_properties();
           if (props && props->is("name", "player")) {
-            registry.emplace<comp::spawnpoint>(
-                registry.create(), comp::spawnpoint_type::player, position);
+            registry.emplace<comp::spawnpoint>(registry.create(),
+                                               comp::spawnpoint_type::player,
+                                               position);
           }
         }
       }

@@ -22,7 +22,7 @@ inline constexpr float g_humanoidDrawHeight{g_tileSize<float> * 2};
 inline constexpr vector2f g_humanoidDrawSize{g_humanoidDrawWidth,
                                              g_humanoidDrawHeight};
 
-inline constexpr cen::farea g_humanoidHitboxSize {32, 32};
+inline constexpr cen::farea g_humanoidHitboxSize{32, 32};
 
 inline constexpr float g_playerSpeed{1.25f * g_humanoidDrawWidth};
 

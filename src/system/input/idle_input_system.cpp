@@ -39,8 +39,10 @@ void handle_idle_input(entt::registry& registry,
 
     } else if (keyState.is_pressed(binds.attack)) {
       // FIXME
-      dispatcher.enqueue(comp::begin_attack_event{
-          &registry, player.get(), entt::null, direction::down});
+      dispatcher.enqueue(comp::begin_attack_event{&registry,
+                                                  player.get(),
+                                                  entt::null,
+                                                  direction::down});
     }
   }
 }

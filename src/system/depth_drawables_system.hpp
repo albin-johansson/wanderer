@@ -9,4 +9,4 @@ void sort(entt::registry& registry);
 
 void render(const entt::registry& registry, cen::renderer& renderer);
 
-}  // namespace wanderer::sys::depth_drawable
+}  // namespace wanderer::sys::depthdrawable

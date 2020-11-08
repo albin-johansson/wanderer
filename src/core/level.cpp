@@ -46,8 +46,10 @@ level::level(const std::filesystem::path& path,
             break;
           }
           case comp::spawnpoint_type::skeleton: {
-            sys::humanoid::add_skeleton(
-                m_registry, m_aabbTree, renderer, imageCache);
+            sys::humanoid::add_skeleton(m_registry,
+                                        m_aabbTree,
+                                        renderer,
+                                        imageCache);
             break;
           }
         }

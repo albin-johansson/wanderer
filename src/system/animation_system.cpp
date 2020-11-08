@@ -21,4 +21,4 @@ void update(entt::registry& registry) noexcept
   });
 }
 
-}  // namespace wanderer::sys
+}  // namespace wanderer::sys::animated

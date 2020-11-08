@@ -19,4 +19,4 @@ namespace wanderer::sys::movement {
  */
 void update(level& level, delta dt);
 
-}  // namespace wanderer::sys
+}  // namespace wanderer::sys::movement

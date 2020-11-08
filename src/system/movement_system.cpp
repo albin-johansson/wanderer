@@ -88,4 +88,4 @@ void update(level& level, const delta dt)
       });
 }
 
-}  // namespace wanderer::sys
+}  // namespace wanderer::sys::movement
