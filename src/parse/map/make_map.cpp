@@ -69,25 +69,18 @@ void parse_spawnpoint(entt::registry& registry, const step::object& object)
     return;
   }
 
-  // FIXME step::properties::is doesn't actually check value equality
+  const vector2f position{static_cast<float>(object.x()),
+                          static_cast<float>(object.y())};
 
-  if (props->has("entity")) {
-    const auto& value = props->get("entity").get<std::string>();
+  std::optional<comp::spawnpoint_type> type;
+  if (props->is("entity", "player")) {
+    type = comp::spawnpoint_type::player;
 
-    std::optional<comp::spawnpoint_type> type;
-    if (value == "player") {
-      type = comp::spawnpoint_type::player;
-    } else if (value == "skeleton") {
-      type = comp::spawnpoint_type::skeleton;
-    }
-
-    const vector2f position{static_cast<float>(object.x()),
-                            static_cast<float>(object.y())};
-
-    registry.emplace<comp::spawnpoint>(registry.create(),
-                                       type.value(),
-                                       position);
+  } else if (props->is("entity", "skeleton")) {
+    type = comp::spawnpoint_type::skeleton;
   }
+
+  registry.emplace<comp::spawnpoint>(registry.create(), type.value(), position);
 }
 
 void parse_object_group(entt::registry& registry,
