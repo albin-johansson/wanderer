@@ -61,6 +61,23 @@ void parse_tile_layer(entt::registry& registry,
   }
 }
 
+void parse_object_group(entt::registry& registry,
+                        const step::object_group& group)
+{
+  for (const auto& object : group.objects()) {
+    if (object.type() == "Spawnpoint") {
+      const vector2f position{static_cast<float>(object.x()),
+                              static_cast<float>(object.y())};
+      const auto* props = object.get_properties();
+      if (props && props->is("name", "player")) {
+        registry.emplace<comp::spawnpoint>(registry.create(),
+                                           comp::spawnpoint_type::player,
+                                           position);
+      }
+    }
+  }
+}
+
 void parse_layers(entt::registry& registry,
                   comp::tilemap& tilemap,
                   const std::vector<step::layer>& layers)
@@ -72,28 +89,15 @@ void parse_layers(entt::registry& registry,
     if (const auto* tileLayer = stepLayer.try_as<step::tile_layer>()) {
       parse_tile_layer(registry, tilemap, *tileLayer, properties, zIndex);
     } else if (const auto* group = stepLayer.try_as<step::object_group>()) {
-      // TODO spawnpoints, etc.
-
-      for (const auto& object : group->objects()) {
-        if (object.type() == "Spawnpoint") {
-          const vector2f position{static_cast<float>(object.x()),
-                                  static_cast<float>(object.y())};
-          const auto* props = object.get_properties();
-          if (props && props->is("name", "player")) {
-            registry.emplace<comp::spawnpoint>(registry.create(),
-                                               comp::spawnpoint_type::player,
-                                               position);
-          }
-        }
-      }
+      parse_object_group(registry, *group);
     }
 
     ++zIndex;
   }
 
   registry.sort<comp::tile_layer>(
-      [](const comp::tile_layer& fst, const comp::tile_layer& snd) noexcept {
-        return fst.z < snd.z;
+      [](const comp::tile_layer& lhs, const comp::tile_layer& rhs) noexcept {
+        return lhs.z < rhs.z;
       });
 }
 
