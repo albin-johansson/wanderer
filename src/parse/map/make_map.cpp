@@ -1,5 +1,6 @@
 #include "make_map.hpp"
 
+#include <cassert>   // assert
 #include <optional>  // optional
 #include <step_map.hpp>
 #include <step_tile_layer.hpp>
@@ -48,16 +49,16 @@ void parse_tile_layer(entt::registry& registry,
                       const step::properties* properties,
                       int zIndex)
 {
-  if (properties->has("ground")) {
-    if (properties->is("ground", true)) {
-      add_ground_layer(registry, layer, tilemap.rows, tilemap.cols, zIndex);
-    } else {
-      if (const auto* data = layer.data()) {
-        const auto& gid = data->as_gid();
-        const auto& tileset =
-            registry.get<comp::tileset>(tilemap.tileset.get());
-        add_tile_objects(registry, tilemap, tileset, gid.begin(), gid.end());
-      }
+  assert(properties->has("ground"));
+  assert(properties->get("ground").is<bool>());
+
+  if (properties->is("ground", true)) {
+    add_ground_layer(registry, layer, tilemap.rows, tilemap.cols, zIndex);
+  } else {
+    if (const auto* data = layer.data()) {
+      const auto& gid = data->as_gid();
+      const auto& tileset = registry.get<comp::tileset>(tilemap.tileset.get());
+      add_tile_objects(registry, tilemap, tileset, gid.begin(), gid.end());
     }
   }
 }
@@ -65,9 +66,9 @@ void parse_tile_layer(entt::registry& registry,
 void parse_spawnpoint(entt::registry& registry, const step::object& object)
 {
   const auto* props = object.get_properties();
-  if (!props) {
-    return;
-  }
+  assert(props);
+  assert(props->has("entity"));
+  assert(props->get("entity").is<std::string>());
 
   const vector2f position{static_cast<float>(object.x()),
                           static_cast<float>(object.y())};
