@@ -3,12 +3,13 @@
 #include "component/depth_drawable.hpp"
 #include "component/movable.hpp"
 
-namespace wanderer::sys {
+namespace wanderer::sys::depthdrawable {
 
-void update_movable_depth_drawables(entt::registry& registry)
+void update_movable(entt::registry& registry)
 {
   registry.view<comp::movable, comp::depth_drawable>().each(
-      [](comp::movable& movable, comp::depth_drawable& drawable) noexcept {
+      [](const comp::movable& movable,
+         comp::depth_drawable& drawable) noexcept {
         drawable.dst.set_x(movable.position.x());
         drawable.dst.set_y(movable.position.y());
         drawable.centerY =

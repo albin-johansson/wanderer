@@ -11,7 +11,7 @@
 #include "movable_system.hpp"
 #include "stack_resource.hpp"
 
-namespace wanderer::sys {
+namespace wanderer::sys::movement {
 namespace {
 
 [[nodiscard]] auto get_next_hitboxes(const comp::movable& movable,
@@ -31,7 +31,7 @@ namespace {
 }
 
 void update_hitbox(level& level,
-                   entt::entity entity,
+                   const entt::entity entity,
                    comp::movable& movable,
                    comp::hitbox& hitbox,
                    const vector2f& oldPosition)
@@ -73,18 +73,19 @@ void update_hitbox(level& level,
 
 }  // namespace
 
-void update_movement(level& level, delta dt)
+void update(level& level, const delta dt)
 {
-  level.each<comp::movable>([&](entt::entity entity, comp::movable& movable) {
-    const auto oldPosition = movable.position;
+  level.each<comp::movable>(
+      [&](const entt::entity entity, comp::movable& movable) {
+        const auto oldPosition = movable.position;
 
-    movable.position += (movable.velocity * static_cast<float>(dt.get()));
-    movable.dominantDirection = movable::calc_dominant_direction(movable);
+        movable.position += (movable.velocity * static_cast<float>(dt.get()));
+        movable.dominantDirection = movable::calc_dominant_direction(movable);
 
-    if (auto* hitbox = level.try_get<comp::hitbox>(entity)) {
-      update_hitbox(level, entity, movable, *hitbox, oldPosition);
-    }
-  });
+        if (auto* hitbox = level.try_get<comp::hitbox>(entity)) {
+          update_hitbox(level, entity, movable, *hitbox, oldPosition);
+        }
+      });
 }
 
 }  // namespace wanderer::sys

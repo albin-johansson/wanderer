@@ -2,6 +2,7 @@
 
 #include "animation_system.hpp"
 #include "component/depth_drawable.hpp"
+#include "depth_drawables_system.hpp"
 #include "event_connections.hpp"
 #include "ground_layer_rendering_system.hpp"
 #include "humanoid_animation_system.hpp"
@@ -12,7 +13,6 @@
 #include "movable_depth_drawables_system.hpp"
 #include "movement_system.hpp"
 #include "render_bounds_system.hpp"
-#include "render_depth_drawables_system.hpp"
 #include "tile_animation_system.hpp"
 #include "viewport_system.hpp"
 
@@ -27,7 +27,7 @@ game::game(cen::renderer& renderer)
                            m_world.player_spawnpoint());
 
   // This syncs the movable components with depth_drawable components
-  sys::update_movable_depth_drawables(m_world.registry());
+  sys::depthdrawable::update_movable(m_world.registry());
 }
 
 game::~game() noexcept
@@ -56,9 +56,9 @@ void game::tick(const delta dt)
     sys::humanoid::update_state(registry, m_dispatcher);
     sys::humanoid::update_animation(registry);
     sys::tile::update_animation(registry);
-    sys::update_movement(m_world, dt);
-    sys::update_movable_depth_drawables(registry);
-    sys::update_animation_state(registry);
+    sys::movement::update(m_world, dt);
+    sys::depthdrawable::update_movable(registry);
+    sys::animated::update(registry);
     sys::viewport::update(m_world, m_world.player().get(), dt);
   }
 }
@@ -67,23 +67,14 @@ void game::render(cen::renderer& renderer)
 {
   auto& registry = m_world.registry();
 
-  registry.sort<comp::depth_drawable>(
-      [](const comp::depth_drawable& lhs,
-         const comp::depth_drawable& rhs) noexcept {
-        return lhs.depth < rhs.depth ||
-               (rhs.depth >= lhs.depth && lhs.centerY < rhs.centerY);
-      },
-      entt::insertion_sort{});
-
   sys::viewport::translate(registry, m_world.viewport(), renderer);
   const auto bounds = sys::calculate_render_bounds(registry,
                                                    m_world.viewport(),
                                                    m_world.row_count(),
                                                    m_world.col_count());
   sys::layer::render_ground(registry, m_world.tilemap(), renderer, bounds);
-  sys::render_depth_drawables(registry, renderer);
-
-  // TODO render HUD
+  sys::depthdrawable::sort(registry);
+  sys::depthdrawable::render(registry, renderer);
 
   if (m_menus.is_blocking()) {
     m_menus.render(renderer);

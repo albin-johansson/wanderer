@@ -4,9 +4,9 @@
 
 #include "component/animated.hpp"
 
-namespace wanderer::sys {
+namespace wanderer::sys::animated {
 
-void update_animation_state(entt::registry& registry) noexcept
+void update(entt::registry& registry) noexcept
 {
   registry.view<comp::animated>().each([](comp::animated& animated) {
     const auto now = cen::counter::ticks();

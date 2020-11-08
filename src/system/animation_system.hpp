@@ -2,8 +2,8 @@
 
 #include <entt.hpp>
 
-namespace wanderer::sys {
+namespace wanderer::sys::animated {
 
-void update_animation_state(entt::registry& registry) noexcept;
+void update(entt::registry& registry) noexcept;
 
 }  // namespace wanderer::sys

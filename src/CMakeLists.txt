@@ -80,8 +80,8 @@ set(SOURCE_FILES
         component/end_humanoid_move_event.hpp
         component/spawnpoint.hpp
 
-        system/render_depth_drawables_system.cpp
-        system/render_depth_drawables_system.hpp
+        system/depth_drawables_system.cpp
+        system/depth_drawables_system.hpp
         system/movement_system.cpp
         system/movement_system.hpp
         system/animation_system.cpp
