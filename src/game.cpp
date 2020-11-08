@@ -1,6 +1,7 @@
 #include "game.hpp"
 
 #include "animation_system.hpp"
+#include "component/depth_drawable.hpp"
 #include "event_connections.hpp"
 #include "ground_layer_rendering_system.hpp"
 #include "humanoid_animation_system.hpp"
@@ -20,7 +21,14 @@ namespace wanderer {
 game::game(cen::renderer& renderer)
     : m_dispatcher{make_dispatcher()},
       m_world{"resource/map/world.json", renderer, m_imageCache}
-{}
+{
+  sys::viewport::center_on(m_world.registry(),
+                           m_world.viewport(),
+                           m_world.player_spawnpoint());
+
+  // This syncs the movable components with depth_drawable components
+  sys::update_movable_depth_drawables(m_world.registry());
+}
 
 game::~game() noexcept
 {
@@ -32,8 +40,10 @@ void game::handle_input(const cen::mouse_state& mouseState,
 {
   m_menus.update(mouseState, keyState);
   if (!m_menus.is_blocking()) {
-    sys::input::update(
-        m_world.registry(), m_dispatcher, m_world.player(), keyState);
+    sys::input::update(m_world.registry(),
+                       m_dispatcher,
+                       m_world.player(),
+                       keyState);
   }
 }
 
@@ -57,11 +67,19 @@ void game::render(cen::renderer& renderer)
 {
   auto& registry = m_world.registry();
 
+  registry.sort<comp::depth_drawable>(
+      [](const comp::depth_drawable& lhs,
+         const comp::depth_drawable& rhs) noexcept {
+        return lhs.depth < rhs.depth ||
+               (rhs.depth >= lhs.depth && lhs.centerY < rhs.centerY);
+      },
+      entt::insertion_sort{});
+
   sys::viewport::translate(registry, m_world.viewport(), renderer);
-
-  const auto bounds = sys::calculate_render_bounds(
-      registry, m_world.viewport(), m_world.row_count(), m_world.col_count());
-
+  const auto bounds = sys::calculate_render_bounds(registry,
+                                                   m_world.viewport(),
+                                                   m_world.row_count(),
+                                                   m_world.col_count());
   sys::layer::render_ground(registry, m_world.tilemap(), renderer, bounds);
   sys::render_depth_drawables(registry, renderer);
 

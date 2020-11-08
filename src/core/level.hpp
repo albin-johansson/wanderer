@@ -3,6 +3,7 @@
 #include <cen/renderer.hpp>
 #include <entt.hpp>
 #include <filesystem>  // path
+#include <optional>    // optional
 #include <utility>     // forward
 
 #include "abby.hpp"
@@ -103,6 +104,11 @@ class level final
     return m_tilemap;
   }
 
+  [[nodiscard]] auto player_spawnpoint() const -> const vector2f&
+  {
+    return m_playerSpawnPosition.value();
+  }
+
   [[nodiscard]] auto viewport_component() -> comp::viewport&
   {
     return m_registry.get<comp::viewport>(m_viewport.get());
@@ -120,6 +126,7 @@ class level final
   comp::tileset::entity m_tileset{null<comp::tileset>()};
   comp::viewport::entity m_viewport{null<comp::viewport>()};
   comp::player::entity m_player{null<comp::player>()};
+  std::optional<vector2f> m_playerSpawnPosition;
 };
 
 }  // namespace wanderer

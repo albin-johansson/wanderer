@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "add_tile_objects.hpp"
+#include "component/spawnpoint.hpp"
 #include "game_constants.hpp"
 #include "index_to_matrix.hpp"
 #include "make_tileset.hpp"
@@ -52,7 +53,8 @@ void parse_tile_layer(entt::registry& registry,
     } else {
       if (const auto* data = layer.data()) {
         const auto& gid = data->as_gid();
-        const auto& tileset = registry.get<comp::tileset>(tilemap.tileset.get());
+        const auto& tileset =
+            registry.get<comp::tileset>(tilemap.tileset.get());
         add_tile_objects(registry, tilemap, tileset, gid.begin(), gid.end());
       }
     }
@@ -71,6 +73,18 @@ void parse_layers(entt::registry& registry,
       parse_tile_layer(registry, tilemap, *tileLayer, properties, zIndex);
     } else if (const auto* group = stepLayer.try_as<step::object_group>()) {
       // TODO spawnpoints, etc.
+
+      for (const auto& object : group->objects()) {
+        if (object.type() == "Spawnpoint") {
+          const vector2f position{static_cast<float>(object.x()),
+                                  static_cast<float>(object.y())};
+          const auto* props = object.get_properties();
+          if (props && props->is("name", "player")) {
+            registry.emplace<comp::spawnpoint>(
+                registry.create(), comp::spawnpoint_type::player, position);
+          }
+        }
+      }
     }
 
     ++zIndex;

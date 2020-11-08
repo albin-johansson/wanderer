@@ -18,7 +18,7 @@ namespace wanderer::sys::layer {
  * \param tileset the tileset that will be used to render animated tiles.
  * \param bounds the rendering bounds that will be used.
  */
-void render(entt::registry& registry,
+void render(const entt::registry& registry,
             const comp::tile_layer& layer,
             cen::renderer& renderer,
             const comp::tileset& tileset,

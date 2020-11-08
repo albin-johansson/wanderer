@@ -47,7 +47,6 @@ namespace {
   constexpr cen::farea humanoidSize{g_humanoidDrawWidth, g_humanoidDrawHeight};
 
   const auto entity = registry.create();
-  ;
 
   auto& movable = registry.emplace<comp::movable>(entity);
   movable.dominantDirection = direction::down;
@@ -81,6 +80,7 @@ namespace {
 
 auto add_player(entt::registry& registry,
                 abby::aabb_tree<entt::entity>& aabbTree,
+                const vector2f& position,
                 cen::renderer& renderer,
                 image_cache& imageCache) -> entt::entity
 {
@@ -95,7 +95,7 @@ auto add_player(entt::registry& registry,
 
   auto& movable = registry.get<comp::movable>(player);
   movable.speed = g_playerSpeed;
-  movable.position = {100, 100};
+  movable.position = position;
   movable.dominantDirection = direction::down;
 
   registry.emplace<comp::binds>(player);

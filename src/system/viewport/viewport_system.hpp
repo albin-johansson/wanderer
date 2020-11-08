@@ -5,8 +5,13 @@
 #include "component/viewport.hpp"
 #include "delta.hpp"
 #include "level.hpp"
+#include "vector2.hpp"
 
 namespace wanderer::sys::viewport {
+
+void center_on(entt::registry& registry,
+               comp::viewport::entity viewportEntity,
+               const vector2f& position);
 
 /**
  * \brief Updates the position of the viewport by slowly tracking a movable
@@ -20,7 +25,7 @@ namespace wanderer::sys::viewport {
  */
 void update(level& level, entt::entity movableEntity, delta dt);
 
-void translate(entt::registry& registry,
+void translate(const entt::registry& registry,
                comp::viewport::entity viewportEntity,
                cen::renderer& renderer);
 

@@ -49,7 +49,7 @@ namespace {
 
 }  // namespace
 
-auto calculate_render_bounds(entt::registry& registry,
+auto calculate_render_bounds(const entt::registry& registry,
                              const comp::viewport::entity viewportEntity,
                              const int rows,
                              const int cols) -> comp::render_bounds

@@ -6,7 +6,7 @@
 namespace wanderer::sys::tile {
 namespace {
 
-inline constexpr cen::farea dstSize{g_tileSize<float>, g_tileSize<float>};
+inline constexpr cen::farea g_dstSize{g_tileSize<float>, g_tileSize<float>};
 
 }
 
@@ -17,11 +17,11 @@ void render(cen::renderer& renderer,
 {
   const auto x = static_cast<float>(col) * g_tileSize<float>;
   const auto y = static_cast<float>(row) * g_tileSize<float>;
-  const cen::frect dst{{x, y}, dstSize};
+  const cen::frect dst{{x, y}, g_dstSize};
   renderer.render_t(*tile.sheet, tile.src, dst);
 }
 
-auto animated_tile(entt::registry& registry,
+auto animated_tile(const entt::registry& registry,
                    const comp::tile::entity tileEntity,
                    const comp::tileset& tileset) -> const comp::tile&
 {

@@ -42,40 +42,55 @@ inline constexpr float g_cameraSpeed = 10.0f;
   return vector2f{getX(target.x()), getY(target.y())};
 }
 
-void track(comp::viewport& viewport, const vector2f& position, const delta dt)
+[[nodiscard]] auto make_target_vector(const vector2f& position,
+                                      const comp::viewport& viewport) noexcept
+    -> vector2f
 {
   constexpr cen::farea size{g_humanoidDrawWidth, g_humanoidDrawHeight};
+  constexpr float halfWidth = size.width / 2.0f;
+  constexpr float halfHeight = size.height / 2.0f;
 
-  const auto boundsWidth = viewport.bounds.width();
-  const auto boundsHeight = viewport.bounds.height();
+  const auto halfBoundsWidth = viewport.bounds.width() / 2.0f;
+  const auto halfBoundsHeight = viewport.bounds.height() / 2.0f;
 
-  const float targetX =
-      (position.x() + (size.width / 2.0f)) - (boundsWidth / 2.0f);
-  const float targetY =
-      (position.y() + (size.height / 2.0f)) - (boundsHeight / 2.0f);
+  const auto x = (position.x() + halfWidth) - halfBoundsWidth;
+  const auto y = (position.y() + halfHeight) - halfBoundsHeight;
 
-  const auto next = next_camera_position({targetX, targetY}, viewport, dt);
+  return {x, y};
+}
 
+void track(comp::viewport& viewport, const vector2f& position, const delta dt)
+{
+  const auto next = next_camera_position(make_target_vector(position, viewport),
+                                         viewport,
+                                         dt);
   viewport.bounds.set_x(next.x());
   viewport.bounds.set_y(next.y());
 }
 
 }  // namespace
 
-void update(level& level,
-            const entt::entity movableEntity,
-            const delta dt)
+void center_on(entt::registry& registry,
+               comp::viewport::entity viewportEntity,
+               const vector2f& position)
 {
-  const auto& movable = level.get<comp::movable>(movableEntity);
-  auto& viewport = level.viewport_component();
-  track(viewport, movable.position, dt);
+  auto& viewport = registry.get<comp::viewport>(viewportEntity.get());
+  const auto target = make_target_vector(position, viewport);
+  viewport.bounds.set_x(target.x());
+  viewport.bounds.set_y(target.y());
 }
 
-void translate(entt::registry& registry,
+void update(level& level, const entt::entity movableEntity, const delta dt)
+{
+  const auto& movable = level.get<comp::movable>(movableEntity);
+  track(level.viewport_component(), movable.position, dt);
+}
+
+void translate(const entt::registry& registry,
                const comp::viewport::entity viewportEntity,
                cen::renderer& renderer)
 {
-  auto const& viewport = registry.get<comp::viewport>(viewportEntity.get());
+  const auto& viewport = registry.get<comp::viewport>(viewportEntity.get());
   renderer.set_translation_viewport(viewport.bounds);
 }
 

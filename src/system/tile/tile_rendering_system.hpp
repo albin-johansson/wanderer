@@ -12,8 +12,8 @@ void render(cen::renderer& renderer,
             int row,
             int col) noexcept;
 
-[[nodiscard]] auto animated_tile(entt::registry& registry,
-                                 const comp::tile::entity tileEntity,
+[[nodiscard]] auto animated_tile(const entt::registry& registry,
+                                 comp::tile::entity tileEntity,
                                  const comp::tileset& tileset)
     -> const comp::tile&;
 

@@ -8,7 +8,7 @@
 
 namespace wanderer::sys::layer {
 
-void render_ground(entt::registry& registry,
+void render_ground(const entt::registry& registry,
                    comp::tilemap::entity map,
                    cen::renderer& renderer,
                    const comp::render_bounds& bounds);
