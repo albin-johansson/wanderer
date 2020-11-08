@@ -6,7 +6,9 @@ Language: Cpp
 Standard: c++17
 DerivePointerAlignment: false
 PointerAlignment: Left
+
 AllowAllParametersOfDeclarationOnNextLine: false
+AllowAllArgumentsOnNextLine: false
 
 AlwaysBreakAfterDefinitionReturnType: None
 AlwaysBreakAfterReturnType: None
