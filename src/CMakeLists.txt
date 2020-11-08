@@ -29,6 +29,8 @@ set(SOURCE_FILES
         core/make_renderer.cpp
         core/make_renderer.hpp
         core/stack_resource.hpp
+        core/make_registry.cpp
+        core/make_registry.hpp
 
         core/aliases/ints.hpp
         core/aliases/delta.hpp

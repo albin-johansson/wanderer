@@ -8,6 +8,7 @@
 
 #include "abby.hpp"
 #include "component/player.hpp"
+#include "component/spawnpoint.hpp"
 #include "component/tilemap.hpp"
 #include "component/tileset.hpp"
 #include "component/viewport.hpp"
@@ -127,6 +128,10 @@ class level final
   comp::viewport::entity m_viewport{null<comp::viewport>()};
   comp::player::entity m_player{null<comp::player>()};
   std::optional<vector2f> m_playerSpawnPosition;
+
+  void load_spawnpoint(const comp::spawnpoint& spawnpoint,
+                       cen::renderer& renderer,
+                       image_cache& imageCache);
 };
 
 }  // namespace wanderer
