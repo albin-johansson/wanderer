@@ -5,7 +5,7 @@
 namespace wanderer::sys {
 namespace {
 
-[[nodiscard]] auto calculate_min_col(float viewportX) noexcept -> int
+[[nodiscard]] auto calculate_min_col(const float viewportX) noexcept -> int
 {
   const auto minCol = static_cast<int>(viewportX / g_tileSize<float>);
   if (minCol > 0) {
@@ -15,7 +15,7 @@ namespace {
   }
 }
 
-[[nodiscard]] auto calculate_min_row(float viewportY) noexcept -> int
+[[nodiscard]] auto calculate_min_row(const float viewportY) noexcept -> int
 {
   const auto minRow = static_cast<int>(viewportY / g_tileSize<float>);
   if (minRow > 0) {
@@ -25,8 +25,8 @@ namespace {
   }
 }
 
-[[nodiscard]] auto calculate_max_col(float viewportMaxX, int numCols) noexcept
-    -> int
+[[nodiscard]] auto calculate_max_col(const float viewportMaxX,
+                                     const int numCols) noexcept -> int
 {
   const auto maxCol = static_cast<int>(viewportMaxX / g_tileSize<float>) + 1;
   if (maxCol < numCols) {
@@ -36,8 +36,8 @@ namespace {
   }
 }
 
-[[nodiscard]] auto calculate_max_row(float viewportMaxY, int numRows) noexcept
-    -> int
+[[nodiscard]] auto calculate_max_row(const float viewportMaxY,
+                                     const int numRows) noexcept -> int
 {
   const auto maxRow = static_cast<int>(viewportMaxY / g_tileSize<float>) + 1;
   if (maxRow < numRows) {
