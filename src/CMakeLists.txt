@@ -78,6 +78,7 @@ set(SOURCE_FILES
         component/end_attack_event.hpp
         component/begin_humanoid_move_event.hpp
         component/end_humanoid_move_event.hpp
+        component/spawnpoint.hpp
 
         system/render_depth_drawables_system.cpp
         system/render_depth_drawables_system.hpp
