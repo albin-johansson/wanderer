@@ -1,8 +1,9 @@
 #include "make_map.hpp"
 
+#include <optional>  // optional
 #include <step_map.hpp>
 #include <step_tile_layer.hpp>
-#include <vector>
+#include <vector>  // vector
 
 #include "add_tile_objects.hpp"
 #include "component/spawnpoint.hpp"
@@ -61,19 +62,40 @@ void parse_tile_layer(entt::registry& registry,
   }
 }
 
+void parse_spawnpoint(entt::registry& registry, const step::object& object)
+{
+  const auto* props = object.get_properties();
+  if (!props) {
+    return;
+  }
+
+  // FIXME step::properties::is doesn't actually check value equality
+
+  if (props->has("entity")) {
+    const auto& value = props->get("entity").get<std::string>();
+
+    std::optional<comp::spawnpoint_type> type;
+    if (value == "player") {
+      type = comp::spawnpoint_type::player;
+    } else if (value == "skeleton") {
+      type = comp::spawnpoint_type::skeleton;
+    }
+
+    const vector2f position{static_cast<float>(object.x()),
+                            static_cast<float>(object.y())};
+
+    registry.emplace<comp::spawnpoint>(registry.create(),
+                                       type.value(),
+                                       position);
+  }
+}
+
 void parse_object_group(entt::registry& registry,
                         const step::object_group& group)
 {
   for (const auto& object : group.objects()) {
-    if (object.type() == "Spawnpoint") {
-      const vector2f position{static_cast<float>(object.x()),
-                              static_cast<float>(object.y())};
-      const auto* props = object.get_properties();
-      if (props && props->is("name", "player")) {
-        registry.emplace<comp::spawnpoint>(registry.create(),
-                                           comp::spawnpoint_type::player,
-                                           position);
-      }
+    if (object.type() == "spawnpoint") {
+      parse_spawnpoint(registry, object);
     }
   }
 }
