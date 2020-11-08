@@ -71,7 +71,6 @@ set(SOURCE_FILES
         component/animated_tile.hpp
         component/render_bounds.hpp
         component/depth_drawable.hpp
-        component/game_object.hpp
         component/viewport.hpp
         component/map_position.hpp
         component/begin_attack_event.hpp
