@@ -149,7 +149,7 @@ class properties final {
       return false;
     }
     const auto& property = get(name);
-    return property.is<T>();
+    return property.is(value);
   }
 
   /**

@@ -204,6 +204,37 @@ class property final {
   }
 
   /**
+   * @brief Indicates whether or not the property holds a value equal to the
+   * specified value.
+   *
+   * @tparam T the type of the value. An unsupported type will cause a
+   * compile-time error. If `T` is convertible to `std::string`, e.g. `const
+   * char*`, the behaviour of this function is as if `T` was `std::string`.
+   *
+   * @param value the value that will be compared with the stored value.
+   *
+   * @return `true` if the stored value is equal to the supplied value; `false`
+   * otherwise.
+   *
+   * @since 0.2.0
+   */
+  template <typename T,
+            typename = std::enable_if_t<detail::valid_property_type<T>()>>
+  [[nodiscard]] auto is(const T& value) const -> bool
+  {
+    if constexpr (std::is_convertible_v<T, std::string>) {
+      if (is<std::string>()) {
+        return get<std::string>() == value;
+      }
+    } else {
+      if (is<T>()) {
+        return get<T>() == value;
+      }
+    }
+    return false;
+  }
+
+  /**
    * @brief Returns the name associated with the property.
    *
    * @return the name associated with the property.
