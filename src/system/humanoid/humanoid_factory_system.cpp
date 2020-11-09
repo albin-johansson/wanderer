@@ -84,7 +84,7 @@ auto add_player(entt::registry& registry,
                 abby::aabb_tree<entt::entity>& aabbTree,
                 const vector2f& position,
                 cen::renderer& renderer,
-                image_cache& imageCache) -> entt::entity
+                texture_cache& imageCache) -> entt::entity
 {
   constexpr auto id = "player"_hs;
   if (!imageCache.contains(id)) {
@@ -108,7 +108,7 @@ auto add_player(entt::registry& registry,
 auto add_skeleton(entt::registry& registry,
                   abby::aabb_tree<entt::entity>& aabbTree,
                   cen::renderer& renderer,
-                  image_cache& imageCache) -> entt::entity
+                  texture_cache& imageCache) -> entt::entity
 {
   constexpr auto id = "skeleton"_hs;
   if (!imageCache.contains(id)) {

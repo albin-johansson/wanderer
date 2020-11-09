@@ -39,7 +39,7 @@ void create_tiles(entt::registry& registry,
 auto make_tileset(entt::registry& registry,
                   const std::vector<std::unique_ptr<step::tileset>>& tilesets,
                   cen::renderer& renderer,
-                  image_cache& imageCache) -> comp::tileset::entity
+                  texture_cache& imageCache) -> comp::tileset::entity
 {
   const auto entity = registry.create();
 

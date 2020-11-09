@@ -17,7 +17,7 @@ using player_entity = comp::player::entity;
 void level_factory::load_spawnpoint(level& level,
                                     const comp::spawnpoint& spawnpoint,
                                     cen::renderer& renderer,
-                                    image_cache& imageCache)
+                                    texture_cache& imageCache)
 {
   // TODO think about how to copy player data between levels
 
@@ -53,7 +53,7 @@ void level_factory::sync_viewport(level& level)
 
 auto level_factory::make(const std::filesystem::path& path,
                          cen::renderer& renderer,
-                         image_cache& imageCache) -> level
+                         texture_cache& imageCache) -> level
 {
   level level{make_registry()};
   auto& registry = level.registry();

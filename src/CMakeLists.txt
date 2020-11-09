@@ -43,7 +43,7 @@ set(SOURCE_FILES
         core/aliases/texture_handle.hpp
 
         core/resource/image_loader.hpp
-        core/resource/image_cache.hpp
+        core/aliases/texture_cache.hpp
 
         core/math/vector2.hpp
         core/math/get_random.hpp

@@ -123,7 +123,7 @@ void parse_layers(entt::registry& registry,
 auto make_map(entt::registry& registry,
               const step::fs::path& path,
               cen::renderer& renderer,
-              image_cache& imageCache) -> comp::tilemap::entity
+              texture_cache& imageCache) -> comp::tilemap::entity
 {
   const auto stepMap = std::make_unique<step::map>(path);
   const comp::tilemap::entity mapEntity{registry.create()};

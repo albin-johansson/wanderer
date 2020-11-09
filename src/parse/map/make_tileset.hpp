@@ -7,7 +7,7 @@
 #include <vector>  // vector
 
 #include "component/tileset.hpp"
-#include "image_cache.hpp"
+#include "texture_cache.hpp"
 
 namespace wanderer {
 
@@ -15,6 +15,6 @@ namespace wanderer {
     entt::registry& registry,
     const std::vector<std::unique_ptr<step::tileset>>& tilesets,
     cen::renderer& renderer,
-    image_cache& imageCache) -> comp::tileset::entity;
+    texture_cache& imageCache) -> comp::tileset::entity;
 
 }
