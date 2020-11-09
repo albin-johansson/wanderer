@@ -44,7 +44,7 @@ set(SOURCE_FILES
         core/aliases/maybe.hpp
         core/aliases/texture_cache.hpp
 
-        core/resource/image_loader.hpp
+        core/resource/texture_loader.hpp
 
         core/math/vector2.hpp
         core/math/get_random.hpp

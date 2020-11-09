@@ -4,10 +4,10 @@
 
 #include "component/animated.hpp"
 #include "component/tileset.hpp"
-#include "image_loader.hpp"
 #include "index_to_matrix.hpp"
 #include "make_tile.hpp"
 #include "texture_handle.hpp"
+#include "texture_loader.hpp"
 
 namespace wanderer {
 namespace {
@@ -51,7 +51,7 @@ auto make_tileset(entt::registry& registry,
     const entt::hashed_string id{path.data()};
 
     if (!imageCache.contains(id)) {
-      imageCache.load<image_loader>(id, renderer, path.c_str());
+      imageCache.load<texture_loader>(id, renderer, path.c_str());
     }
 
     create_tiles(registry, tileset, *stepTileset, imageCache.handle(id));

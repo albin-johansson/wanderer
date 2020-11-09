@@ -15,8 +15,8 @@
 #include "direction.hpp"
 #include "game_constants.hpp"
 #include "hitbox_system.hpp"
-#include "image_loader.hpp"
 #include "texture_handle.hpp"
+#include "texture_loader.hpp"
 
 namespace wanderer::sys::humanoid {
 namespace {
@@ -88,7 +88,7 @@ auto add_player(entt::registry& registry,
 {
   constexpr auto id = "player"_hs;
   if (!imageCache.contains(id)) {
-    imageCache.load<image_loader>(id, renderer, "resource/img/player2.png");
+    imageCache.load<texture_loader>(id, renderer, "resource/img/player2.png");
   }
 
   const auto player =
@@ -112,7 +112,7 @@ auto add_skeleton(entt::registry& registry,
 {
   constexpr auto id = "skeleton"_hs;
   if (!imageCache.contains(id)) {
-    imageCache.load<image_loader>(id, renderer, "resource/img/skeleton.png");
+    imageCache.load<texture_loader>(id, renderer, "resource/img/skeleton.png");
   }
 
   const auto skeleton =

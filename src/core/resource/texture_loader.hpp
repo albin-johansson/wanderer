@@ -8,17 +8,17 @@
 namespace wanderer {
 
 /**
- * \class image_loader
+ * \class texture_loader
  *
  * \brief Used as a factory for creating textures.
  *
  * \details This class is responsible for creating textures and should be the
  * way to load textures in combination with `image_cache` caches.
  *
- * \headerfile image_loader.hpp
+ * \headerfile texture_loader.hpp
  */
-class image_loader final
-    : public entt::resource_loader<image_loader, cen::texture>
+class texture_loader final
+    : public entt::resource_loader<texture_loader, cen::texture>
 {
  public:
   /**
