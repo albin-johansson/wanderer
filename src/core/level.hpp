@@ -1,7 +1,7 @@
 #pragma once
 
 #include <entt.hpp>
-#include <utility>   // forward
+#include <utility>  // forward
 
 #include "abby.hpp"
 #include "component/player.hpp"
@@ -11,10 +11,10 @@
 #include "component/tileset.hpp"
 #include "component/viewport.hpp"
 #include "delta.hpp"
+#include "maybe.hpp"
 #include "null_entity.hpp"
 #include "render_bounds_system.hpp"
 #include "vector2.hpp"
-#include "maybe.hpp"
 
 namespace wanderer {
 

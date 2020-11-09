@@ -41,9 +41,10 @@ set(SOURCE_FILES
         core/aliases/buffer.hpp
         core/aliases/entity_type.hpp
         core/aliases/texture_handle.hpp
+        core/aliases/maybe.hpp
+        core/aliases/texture_cache.hpp
 
         core/resource/image_loader.hpp
-        core/aliases/texture_cache.hpp
 
         core/math/vector2.hpp
         core/math/get_random.hpp
@@ -140,7 +141,7 @@ set(SOURCE_FILES
         parse/map/add_tile_objects.hpp
 
         parse/menu/make_menu.cpp
-        parse/menu/make_menu.hpp core/aliases/maybe.hpp)
+        parse/menu/make_menu.hpp)
 
 add_library(${WANDERER_LIB_TARGET} ${SOURCE_FILES})
 

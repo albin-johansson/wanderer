@@ -39,8 +39,7 @@ auto menu::query_buttons(const cen::mouse_state& mouseState)
   return action;
 }
 
-auto menu::query_binds(const cen::key_state& keyState)
-    -> maybe<menu_action>
+auto menu::query_binds(const cen::key_state& keyState) -> maybe<menu_action>
 {
   for (const auto& bind : m_binds) {
     if (keyState.was_just_released(bind.key)) {
