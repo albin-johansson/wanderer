@@ -12,12 +12,14 @@ namespace wanderer {
 
 application::application()
 #ifndef NDEBUG
-    : m_window{"Wanderer", {1440, 810}},
+    : m_window{"Wanderer", {1440, 810}}
+    ,
 #else
-    : m_window{"Wanderer", cen::screen::size()},
+    : m_window{"Wanderer", cen::screen::size()}
+    ,
 #endif
-      m_renderer{make_renderer(m_window)},
-      m_game{m_renderer}
+    m_renderer{make_renderer(m_window)}
+    , m_game{m_renderer}
 {
 #ifdef NDEBUG
   m_window.set_fullscreen(true);

@@ -19,8 +19,8 @@
 namespace wanderer {
 
 game::game(cen::renderer& renderer)
-    : m_dispatcher{make_dispatcher()},
-      m_world{"resource/map/world.json", renderer, m_imageCache}
+    : m_dispatcher{make_dispatcher()}
+    , m_world{"resource/map/world.json", renderer, m_imageCache}
 {}
 
 game::~game() noexcept

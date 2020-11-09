@@ -12,9 +12,9 @@ namespace wanderer {
 level::level(const std::filesystem::path& path,
              cen::renderer& renderer,
              image_cache& imageCache)
-    : m_registry{make_registry()},
-      m_tilemap{make_map(m_registry, path, renderer, imageCache)},
-      m_viewport{sys::viewport::make_viewport(m_registry)}
+    : m_registry{make_registry()}
+    , m_tilemap{make_map(m_registry, path, renderer, imageCache)}
+    , m_viewport{sys::viewport::make_viewport(m_registry)}
 {
   m_tileset = comp::tileset::entity{m_registry.view<comp::tileset>().front()};
 

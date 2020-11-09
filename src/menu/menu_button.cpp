@@ -19,10 +19,10 @@ namespace {
 }  // namespace
 
 menu_button::menu_button(menu_action action, std::string text, int row, int col)
-    : m_action{action},
-      m_text{std::move(text)},
-      m_row{row},
-      m_col{col}
+    : m_action{action}
+    , m_text{std::move(text)}
+    , m_row{row}
+    , m_col{col}
 {}
 
 void menu_button::calculate_bounds(cen::renderer& renderer) const
