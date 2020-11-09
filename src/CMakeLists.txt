@@ -22,7 +22,6 @@ set(SOURCE_FILES
         core/add_humanoid_state_dependencies.hpp
         core/event_connections.cpp
         core/event_connections.hpp
-        core/level.cpp
         core/level.hpp
         core/make_dispatcher.hpp
         core/make_dispatcher.cpp
@@ -31,6 +30,8 @@ set(SOURCE_FILES
         core/stack_resource.hpp
         core/make_registry.cpp
         core/make_registry.hpp
+        core/level_factory.hpp
+        core/level_factory.cpp
 
         core/aliases/ints.hpp
         core/aliases/delta.hpp

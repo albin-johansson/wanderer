@@ -9,6 +9,7 @@
 #include "humanoid_factory_system.hpp"
 #include "humanoid_state_system.hpp"
 #include "input_system.hpp"
+#include "level_factory.hpp"
 #include "make_dispatcher.hpp"
 #include "movable_depth_drawables_system.hpp"
 #include "movement_system.hpp"
@@ -20,7 +21,9 @@ namespace wanderer {
 
 game::game(cen::renderer& renderer)
     : m_dispatcher{make_dispatcher()}
-    , m_world{"resource/map/world.json", renderer, m_imageCache}
+    , m_world{level_factory::make("resource/map/world.json",
+                                  renderer,
+                                  m_imageCache)}
 {}
 
 game::~game() noexcept

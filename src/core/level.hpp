@@ -1,10 +1,8 @@
 #pragma once
 
-#include <cen/renderer.hpp>
 #include <entt.hpp>
-#include <filesystem>  // path
-#include <optional>    // optional
-#include <utility>     // forward
+#include <optional>  // optional
+#include <utility>   // forward
 
 #include "abby.hpp"
 #include "component/player.hpp"
@@ -13,7 +11,6 @@
 #include "component/tileset.hpp"
 #include "component/viewport.hpp"
 #include "delta.hpp"
-#include "image_cache.hpp"
 #include "null_entity.hpp"
 #include "vector2.hpp"
 
@@ -38,9 +35,7 @@ template <typename T>
 class level final
 {
  public:
-  level(const std::filesystem::path& path,
-        cen::renderer& renderer,
-        image_cache& imageCache);
+  friend class level_factory;
 
   void relocate_aabb(entt::entity entity, const vector2f& position)
   {
@@ -129,9 +124,8 @@ class level final
   comp::player::entity m_player{null<comp::player>()};
   std::optional<vector2f> m_playerSpawnPosition;
 
-  void load_spawnpoint(const comp::spawnpoint& spawnpoint,
-                       cen::renderer& renderer,
-                       image_cache& imageCache);
+  explicit level(entt::registry&& registry) : m_registry{std::move(registry)}
+  {}
 };
 
 }  // namespace wanderer
