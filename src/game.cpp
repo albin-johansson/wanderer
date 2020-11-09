@@ -21,14 +21,7 @@ namespace wanderer {
 game::game(cen::renderer& renderer)
     : m_dispatcher{make_dispatcher()},
       m_world{"resource/map/world.json", renderer, m_imageCache}
-{
-  sys::viewport::center_on(m_world.registry(),
-                           m_world.viewport(),
-                           m_world.player_spawnpoint());
-
-  // This syncs the movable components with depth_drawable components
-  sys::depthdrawable::update_movable(m_world.registry());
-}
+{}
 
 game::~game() noexcept
 {

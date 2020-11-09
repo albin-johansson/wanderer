@@ -4,6 +4,8 @@
 #include "make_map.hpp"
 #include "make_registry.hpp"
 #include "make_viewport_system.hpp"
+#include "movable_depth_drawables_system.hpp"
+#include "viewport_system.hpp"
 
 namespace wanderer {
 
@@ -24,6 +26,11 @@ level::level(const std::filesystem::path& path,
   each<comp::spawnpoint>([&](const comp::spawnpoint& spawnpoint) {
     load_spawnpoint(spawnpoint, renderer, imageCache);
   });
+
+  sys::viewport::center_on(m_registry, m_viewport, player_spawnpoint());
+
+  // This syncs the movable components with depth_drawable components
+  sys::depthdrawable::update_movable(m_registry);
 }
 
 void level::load_spawnpoint(const comp::spawnpoint& spawnpoint,
