@@ -1,19 +1,16 @@
 #include "game.hpp"
 
 #include "animation_system.hpp"
-#include "component/depth_drawable.hpp"
 #include "depth_drawables_system.hpp"
 #include "event_connections.hpp"
 #include "ground_layer_rendering_system.hpp"
 #include "humanoid_animation_system.hpp"
-#include "humanoid_factory_system.hpp"
 #include "humanoid_state_system.hpp"
 #include "input_system.hpp"
 #include "level_factory.hpp"
 #include "make_dispatcher.hpp"
 #include "movable_depth_drawables_system.hpp"
 #include "movement_system.hpp"
-#include "render_bounds_system.hpp"
 #include "tile_animation_system.hpp"
 #include "viewport_system.hpp"
 
@@ -64,11 +61,10 @@ void game::render(cen::renderer& renderer)
   auto& registry = m_world.registry();
 
   sys::viewport::translate(registry, m_world.viewport(), renderer);
-  const auto bounds = sys::calculate_render_bounds(registry,
-                                                   m_world.viewport(),
-                                                   m_world.row_count(),
-                                                   m_world.col_count());
-  sys::layer::render_ground(registry, m_world.tilemap(), renderer, bounds);
+  sys::layer::render_ground(registry,
+                            m_world.tilemap(),
+                            renderer,
+                            m_world.get_render_bounds());
   sys::depthdrawable::sort(registry);
   sys::depthdrawable::render(registry, renderer);
 

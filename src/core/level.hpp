@@ -6,12 +6,14 @@
 
 #include "abby.hpp"
 #include "component/player.hpp"
+#include "component/render_bounds.hpp"
 #include "component/spawnpoint.hpp"
 #include "component/tilemap.hpp"
 #include "component/tileset.hpp"
 #include "component/viewport.hpp"
 #include "delta.hpp"
 #include "null_entity.hpp"
+#include "render_bounds_system.hpp"
 #include "vector2.hpp"
 
 namespace wanderer {
@@ -66,50 +68,118 @@ class level final
     return m_registry.try_get<Components...>(entity);
   }
 
-  /**
-   * \copydoc aabb_tree::query_collisions()
-   */
   template <typename OutputIterator>
   void query_collisions(entt::entity id, OutputIterator iterator) const
   {
     return m_aabbTree.query_collisions(id, iterator);
   }
 
-  [[nodiscard]] auto row_count() const -> int
-  {
-    return m_registry.get<comp::tilemap>(m_tilemap.get()).rows;
-  }
-
-  [[nodiscard]] auto col_count() const -> int
-  {
-    return m_registry.get<comp::tilemap>(m_tilemap.get()).cols;
-  }
-
+  /**
+   * \brief Returns the player entity associated with the level.
+   *
+   * \return the player entity.
+   *
+   * \since 0.1.0
+   */
   [[nodiscard]] auto player() const -> comp::player::entity
   {
     return m_player;
   }
 
+  /**
+   * \brief Returns the viewport entity associated with the level.
+   *
+   * \return the viewport entity.
+   *
+   * \since 0.1.0
+   */
   [[nodiscard]] auto viewport() const -> comp::viewport::entity
   {
     return m_viewport;
   }
 
+  /**
+   * \brief Returns the tilemap entity associated with the level.
+   *
+   * \return the tilemap entity.
+   *
+   * \since 0.1.0
+   */
   [[nodiscard]] auto tilemap() const -> comp::tilemap::entity
   {
     return m_tilemap;
   }
 
+  /**
+   * \brief Returns the spawnpoint of the player in the level.
+   *
+   * \return the player spawnpoint.
+   *
+   * \since 0.1.0
+   */
   [[nodiscard]] auto player_spawnpoint() const -> const vector2f&
   {
     return m_playerSpawnPosition.value();
   }
 
+  /**
+   * \brief Returns the viewport component associated with the level.
+   *
+   * \return the viewport component.
+   *
+   * \since 0.1.0
+   */
   [[nodiscard]] auto viewport_component() -> comp::viewport&
   {
     return m_registry.get<comp::viewport>(m_viewport.get());
   }
 
+  /**
+   * \brief Returns the number of rows in the level tilemap.
+   *
+   * \return the amount of rows in the tilemap.
+   *
+   * \since 0.1.0
+   */
+  [[nodiscard]] auto row_count() const -> int
+  {
+    return m_registry.get<comp::tilemap>(m_tilemap.get()).rows;
+  }
+
+  /**
+   * \brief Returns the number of columns in the level tilemap.
+   *
+   * \return the amount of columns in the tilemap.
+   *
+   * \since 0.1.0
+   */
+  [[nodiscard]] auto col_count() const -> int
+  {
+    return m_registry.get<comp::tilemap>(m_tilemap.get()).cols;
+  }
+
+  /**
+   * \brief Returns the current render bounds of the level.
+   *
+   * \return the current render bounds.
+   *
+   * \since 0.1.0
+   */
+  [[nodiscard]] auto get_render_bounds() const -> comp::render_bounds
+  {
+    return sys::calculate_render_bounds(m_registry,
+                                        m_viewport,
+                                        row_count(),
+                                        col_count());
+  }
+
+  /**
+   * \brief Returns the registry associated with the level.
+   *
+   * \return the registry associated with the level.
+   *
+   * \since 0.1.0
+   */
   [[nodiscard]] auto registry() -> entt::registry&
   {
     return m_registry;
