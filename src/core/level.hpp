@@ -1,7 +1,6 @@
 #pragma once
 
 #include <entt.hpp>
-#include <optional>  // optional
 #include <utility>   // forward
 
 #include "abby.hpp"
@@ -15,6 +14,7 @@
 #include "null_entity.hpp"
 #include "render_bounds_system.hpp"
 #include "vector2.hpp"
+#include "maybe.hpp"
 
 namespace wanderer {
 
@@ -192,7 +192,7 @@ class level final
   comp::tileset::entity m_tileset{null<comp::tileset>()};
   comp::viewport::entity m_viewport{null<comp::viewport>()};
   comp::player::entity m_player{null<comp::player>()};
-  std::optional<vector2f> m_playerSpawnPosition;
+  maybe<vector2f> m_playerSpawnPosition;
 
   explicit level(entt::registry&& registry) : m_registry{std::move(registry)}
   {}

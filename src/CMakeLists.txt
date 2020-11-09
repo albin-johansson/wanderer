@@ -140,7 +140,7 @@ set(SOURCE_FILES
         parse/map/add_tile_objects.hpp
 
         parse/menu/make_menu.cpp
-        parse/menu/make_menu.hpp)
+        parse/menu/make_menu.hpp core/aliases/maybe.hpp)
 
 add_library(${WANDERER_LIB_TARGET} ${SOURCE_FILES})
 

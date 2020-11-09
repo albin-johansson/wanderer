@@ -4,16 +4,17 @@
 #include <entt.hpp>
 
 #include "game_constants.hpp"
+#include "maybe.hpp"
 #include "menu_constants.hpp"
 
 namespace wanderer {
 
 auto menu::query_buttons(const cen::mouse_state& mouseState)
-    -> std::optional<menu_action>
+    -> maybe<menu_action>
 {
   static cen::cursor hand{cen::system_cursor::hand};
 
-  std::optional<menu_action> action;
+  maybe<menu_action> action;
   const auto mousePos = cen::cast<cen::fpoint>(mouseState.mouse_pos());
   bool hover{};
 
@@ -39,7 +40,7 @@ auto menu::query_buttons(const cen::mouse_state& mouseState)
 }
 
 auto menu::query_binds(const cen::key_state& keyState)
-    -> std::optional<menu_action>
+    -> maybe<menu_action>
 {
   for (const auto& bind : m_binds) {
     if (keyState.was_just_released(bind.key)) {

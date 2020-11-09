@@ -11,6 +11,7 @@
 #include "game_constants.hpp"
 #include "index_to_matrix.hpp"
 #include "make_tileset.hpp"
+#include "maybe.hpp"
 
 namespace wanderer {
 namespace {
@@ -73,7 +74,7 @@ void parse_spawnpoint(entt::registry& registry, const step::object& object)
   const vector2f position{static_cast<float>(object.x()),
                           static_cast<float>(object.y())};
 
-  std::optional<comp::spawnpoint_type> type;
+  maybe<comp::spawnpoint_type> type;
   if (props->is("entity", "player")) {
     type = comp::spawnpoint_type::player;
 

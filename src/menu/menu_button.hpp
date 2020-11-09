@@ -4,9 +4,9 @@
 #include <cen/rect.hpp>
 #include <cen/renderer.hpp>
 #include <cen/texture.hpp>
-#include <optional>  // optional
-#include <string>    // string
+#include <string>  // string
 
+#include "maybe.hpp"
 #include "menu_action.hpp"
 
 namespace wanderer {
@@ -37,8 +37,8 @@ class menu_button final
   int m_col;
   // The mutables are obtained using renderer during first render iteration
   mutable cen::frect m_bounds;
-  mutable std::optional<cen::texture> m_texture;
-  mutable std::optional<cen::fpoint> m_textPos;
+  mutable maybe<cen::texture> m_texture;
+  mutable maybe<cen::fpoint> m_textPos;
   bool m_hover{false};
 
   void calculate_bounds(cen::renderer& renderer) const;

@@ -5,11 +5,11 @@
 #include <cen/renderer.hpp>
 #include <cen/texture.hpp>
 #include <filesystem>  // path
-#include <optional>    // optional
 #include <string>      // string
 #include <vector>      // vector
 
 #include "key_bind.hpp"
+#include "maybe.hpp"
 #include "menu_action.hpp"
 #include "menu_button.hpp"
 #include "menu_id.hpp"
@@ -31,7 +31,7 @@ class menu final
    * none.
    */
   [[nodiscard]] auto query_buttons(const cen::mouse_state& mouseState)
-      -> std::optional<menu_action>;
+      -> maybe<menu_action>;
 
   /**
    * \brief Queries the binds and returns the action that should be executed,
@@ -43,7 +43,7 @@ class menu final
    * none.
    */
   [[nodiscard]] auto query_binds(const cen::key_state& keyState)
-      -> std::optional<menu_action>;
+      -> maybe<menu_action>;
 
   /**
    * \brief Renders the menu.
@@ -69,8 +69,8 @@ class menu final
   std::string m_title;
   std::vector<menu_button> m_buttons;
   std::vector<key_bind> m_binds;
-  mutable std::optional<cen::texture> m_titleTexture;
-  mutable std::optional<cen::ipoint> m_titlePos;
+  mutable maybe<cen::texture> m_titleTexture;
+  mutable maybe<cen::ipoint> m_titlePos;
   bool m_blocking{};
 
   void load_title_texture(cen::renderer& renderer) const;

@@ -4,9 +4,9 @@
 #include <cen/key_state.hpp>
 #include <cen/mouse_state.hpp>
 #include <cen/renderer.hpp>
-#include <optional>       // optional
 #include <unordered_map>  // unordered_map
 
+#include "maybe.hpp"
 #include "menu.hpp"
 
 namespace wanderer {
@@ -34,7 +34,7 @@ class menu_manager final
   }
 
  private:
-  std::optional<menu_id> m_current;
+  maybe<menu_id> m_current;
   std::unordered_map<menu_id, menu> m_menus;
   bool m_shouldQuit{};
 

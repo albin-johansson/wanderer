@@ -1,15 +1,14 @@
 #pragma once
 
-#include <optional>  // optional
-
 #include "component/movable.hpp"
 #include "direction.hpp"
+#include "maybe.hpp"
 
 namespace wanderer::sys::movable {
 namespace detail {
 
 [[nodiscard]] auto get_horizontal_dominant_direction(
-    const comp::movable& movable) noexcept -> std::optional<direction>
+    const comp::movable& movable) noexcept -> maybe<direction>
 {
   if (movable.velocity.x() < 0) {
     return direction::left;
@@ -21,7 +20,7 @@ namespace detail {
 }
 
 [[nodiscard]] auto get_vertical_dominant_direction(
-    const comp::movable& movable) noexcept -> std::optional<direction>
+    const comp::movable& movable) noexcept -> maybe<direction>
 {
   if (movable.velocity.y() < 0) {
     return direction::up;
