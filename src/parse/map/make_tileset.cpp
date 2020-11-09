@@ -7,6 +7,7 @@
 #include "image_loader.hpp"
 #include "index_to_matrix.hpp"
 #include "make_tile.hpp"
+#include "texture_handle.hpp"
 
 namespace wanderer {
 namespace {
@@ -14,7 +15,7 @@ namespace {
 void create_tiles(entt::registry& registry,
                   comp::tileset& tileset,
                   const step::tileset& stepTileset,
-                  const entt::handle<cen::texture>& sheet) noexcept
+                  const texture_handle& sheet) noexcept
 {
   assert(sheet);
 

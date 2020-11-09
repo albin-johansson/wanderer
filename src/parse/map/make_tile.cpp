@@ -46,7 +46,7 @@ void parse_special_tile(entt::registry& registry,
 
 auto make_basic_tile(entt::registry& registry,
                      const tile_id id,
-                     const entt::handle<cen::texture>& sheet,
+                     const texture_handle& sheet,
                      const cen::irect& src) noexcept -> comp::tile::entity
 {
   const auto tileEntity = registry.create();

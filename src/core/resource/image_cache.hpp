@@ -10,6 +10,6 @@ namespace wanderer {
  *
  * \brief Used for caches that store centurion textures.
  */
-using image_cache = entt::cache<cen::texture>;
+using image_cache = entt::resource_cache<cen::texture>;
 
 }  // namespace wanderer

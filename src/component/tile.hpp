@@ -5,6 +5,7 @@
 #include <entt.hpp>
 
 #include "entity_type.hpp"
+#include "texture_handle.hpp"
 #include "tile_id.hpp"
 
 namespace wanderer::comp {
@@ -28,7 +29,7 @@ struct tile final
   using entity = entity_type<detail::tile_entity_t>;
   tile_id id{};    ///< Unique ID associated with the tile.
   cen::irect src;  ///< Region in associated tileset that the tile represents.
-  entt::handle<cen::texture> sheet;  ///< Handle to the associated tileset.
+  texture_handle sheet;  ///< Handle to the associated tileset.
 };
 
 }  // namespace wanderer::comp

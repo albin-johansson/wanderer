@@ -16,6 +16,7 @@
 #include "game_constants.hpp"
 #include "hitbox_system.hpp"
 #include "image_loader.hpp"
+#include "texture_handle.hpp"
 
 namespace wanderer::sys::humanoid {
 namespace {
@@ -39,7 +40,7 @@ namespace {
 [[nodiscard]] auto create_basic_humanoid(
     entt::registry& registry,
     abby::aabb_tree<entt::entity>& aabbTree,
-    const entt::handle<cen::texture>& texture) -> entt::entity
+    const texture_handle& texture) -> entt::entity
 {
   assert(texture);  // require valid handle
 

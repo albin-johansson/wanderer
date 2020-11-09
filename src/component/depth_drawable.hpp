@@ -5,6 +5,7 @@
 #include <entt.hpp>
 
 #include "depth.hpp"
+#include "texture_handle.hpp"
 
 namespace wanderer::comp {
 
@@ -36,7 +37,7 @@ namespace wanderer::comp {
  */
 struct depth_drawable final
 {
-  entt::handle<cen::texture> texture;
+  texture_handle texture;
   depth depth{5};
   float centerY{0};
   cen::irect src{};

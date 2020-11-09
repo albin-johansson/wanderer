@@ -39,6 +39,7 @@ set(SOURCE_FILES
         core/aliases/depth.hpp
         core/aliases/buffer.hpp
         core/aliases/entity_type.hpp
+        core/aliases/texture_handle.hpp
 
         core/resource/image_loader.hpp
         core/resource/image_cache.hpp
