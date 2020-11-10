@@ -1,10 +1,11 @@
 #include "depth_drawables_system.hpp"
 
-#include <cen/log.hpp>
-
-#include "centurion_utils.hpp"
 #include "component/depth_drawable.hpp"
+
+#ifndef NDEBUG
+#include "centurion_utils.hpp"
 #include "component/hitbox.hpp"
+#endif
 
 namespace wanderer::sys::depthdrawable {
 
@@ -32,6 +33,7 @@ void render(const entt::registry& registry, cen::renderer& renderer)
           const comp::depth_drawable& drawable) noexcept {
         renderer.render_t(*drawable.texture, drawable.src, drawable.dst);
 
+#ifndef NDEBUG
         if (const auto* hitbox = registry.try_get<comp::hitbox>(entity)) {
           const auto origin = hitbox->origin;
 
@@ -45,6 +47,7 @@ void render(const entt::registry& registry, cen::renderer& renderer)
           renderer.set_color(cen::colors::red);
           renderer.draw_rect_t(hitbox->bounds);
         }
+#endif
       });
 }
 
