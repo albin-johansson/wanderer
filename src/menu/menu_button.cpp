@@ -67,8 +67,7 @@ void menu_button::render_text(cen::renderer& renderer) const
 
 void menu_button::render_background(cen::renderer& renderer) const
 {
-  // TODO cen: const auto color = cen::colors::ghost_white.with_alpha(0x22);
-  constexpr cen::color bg{0xF8, 0xF8, 0xFF, 0x22};  // ghost_white
+  constexpr auto bg = cen::colors::ghost_white.with_alpha(0x22);
 
   renderer.set_color(bg);
   renderer.fill_rect(m_bounds);
