@@ -60,7 +60,7 @@ namespace {
   animated.then = cen::counter::ticks();
   animated.nFrames = 1;
 
-  auto hitbox = hitbox::create({{{16, 16}, {32, 48}}});
+  auto hitbox = hitbox::create({{{18, 16}, {28, 36}}});
   sys::hitbox::set_position(hitbox, movable.position);
 
   aabbTree.emplace(entity,
