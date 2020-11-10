@@ -32,6 +32,7 @@ set(SOURCE_FILES
         core/make_registry.hpp
         core/level_factory.hpp
         core/level_factory.cpp
+        core/centurion_utils.hpp
         core/abby_utils.hpp
 
         core/aliases/ints.hpp
