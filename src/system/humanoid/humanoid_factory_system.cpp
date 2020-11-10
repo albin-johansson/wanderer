@@ -64,8 +64,8 @@ namespace {
   sys::hitbox::set_position(hitbox, movable.position);
 
   aabbTree.emplace(entity,
-                   {hitbox.bounds.x(), hitbox.bounds.y()},
-                   {hitbox.bounds.width(), hitbox.bounds.height()});
+                   abby_vector(hitbox.bounds.position()),
+                   abby_vector(hitbox.bounds.size()));
 
   registry.emplace<comp::hitbox>(entity, hitbox);
   registry.emplace<comp::humanoid>(entity);
