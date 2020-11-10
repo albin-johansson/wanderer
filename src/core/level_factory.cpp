@@ -35,6 +35,7 @@ void level_factory::load_spawnpoint(level& level,
     case comp::spawnpoint_type::skeleton: {
       sys::humanoid::add_skeleton(level.m_registry,
                                   level.m_aabbTree,
+                                  spawnpoint.position,
                                   renderer,
                                   imageCache);
       break;

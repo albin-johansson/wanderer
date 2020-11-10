@@ -37,10 +37,10 @@ namespace {
  *
  * \return the identifier associated with the created humanoid.
  */
-[[nodiscard]] auto create_basic_humanoid(
-    entt::registry& registry,
-    abby::aabb_tree<entt::entity>& aabbTree,
-    const texture_handle& texture) -> entt::entity
+[[nodiscard]] auto make_basic_humanoid(entt::registry& registry,
+                                       abby::aabb_tree<entt::entity>& aabbTree,
+                                       const texture_handle& texture)
+    -> entt::entity
 {
   assert(texture);  // require valid handle
 
@@ -84,15 +84,14 @@ auto add_player(entt::registry& registry,
                 abby::aabb_tree<entt::entity>& aabbTree,
                 const vector2f& position,
                 cen::renderer& renderer,
-                texture_cache& imageCache) -> entt::entity
+                texture_cache& cache) -> entt::entity
 {
   constexpr auto id = "player"_hs;
-  if (!imageCache.contains(id)) {
-    imageCache.load<texture_loader>(id, renderer, "resource/img/player2.png");
-  }
+  const auto handle =
+      cache.load<texture_loader>(id, renderer, "resource/img/player2.png");
+  assert(handle);
 
-  const auto player =
-      create_basic_humanoid(registry, aabbTree, imageCache.handle(id));
+  const auto player = make_basic_humanoid(registry, aabbTree, handle);
   registry.emplace<comp::player>(player);
 
   auto& movable = registry.get<comp::movable>(player);
@@ -107,20 +106,18 @@ auto add_player(entt::registry& registry,
 
 auto add_skeleton(entt::registry& registry,
                   abby::aabb_tree<entt::entity>& aabbTree,
+                  const vector2f& position,
                   cen::renderer& renderer,
-                  texture_cache& imageCache) -> entt::entity
 {
   constexpr auto id = "skeleton"_hs;
-  if (!imageCache.contains(id)) {
-    imageCache.load<texture_loader>(id, renderer, "resource/img/skeleton.png");
-  }
+  const auto handle =
+      cache.load<texture_loader>(id, renderer, "resource/img/skeleton.png");
 
-  const auto skeleton =
-      create_basic_humanoid(registry, aabbTree, imageCache.handle(id));
+  const auto skeleton = make_basic_humanoid(registry, aabbTree, handle);
 
   auto& movable = registry.get<comp::movable>(skeleton);
   movable.speed = g_monsterSpeed;
-  movable.position = {300, 300};
+  movable.position = position;
 
   return skeleton;
 }

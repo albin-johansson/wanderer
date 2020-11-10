@@ -14,11 +14,12 @@ auto add_player(entt::registry& registry,
                 abby::aabb_tree<entt::entity>& aabbTree,
                 const vector2f& position,
                 cen::renderer& renderer,
-                texture_cache& imageCache) -> entt::entity;
+                texture_cache& cache) -> entt::entity;
 
 auto add_skeleton(entt::registry& registry,
                   abby::aabb_tree<entt::entity>& aabbTree,
+                  const vector2f& position,
                   cen::renderer& renderer,
-                  texture_cache& imageCache) -> entt::entity;
+                  texture_cache& cache) -> entt::entity;
 
 }  // namespace wanderer::sys::humanoid
