@@ -1,54 +1,59 @@
 #include "hitbox_system.hpp"
 
+#include <algorithm>  // min, max
+
+#include "centurion_utils.hpp"
+
 namespace wanderer::sys::hitbox {
 
 void update_bounds(comp::hitbox& hitbox) noexcept
 {
-  bool first = true;
-  for (auto& [offset, rect] : hitbox.boxes) {
-    if (first) {
-      hitbox.bounds = rect;
-      first = false;
-    }
-
-    const auto rectX = rect.x();
-    const auto rectY = rect.y();
-    const auto rectMaxX = rect.max_x();
-    const auto rectMaxY = rect.max_y();
-
-    auto& bounds = hitbox.bounds;
-
-    if (rectX < bounds.x()) {
-      bounds.set_x(rectX);
-    }
-
-    if (rectY < bounds.y()) {
-      bounds.set_y(rectY);
-    }
-
-    if (rectMaxX > bounds.max_x()) {
-      bounds.set_width(rectMaxX - bounds.x());
-    }
-
-    if (rectMaxY > bounds.max_y()) {
-      bounds.set_height(rectMaxY - bounds.y());
-    }
-
-    offset.set_x(rectX - hitbox.bounds.x());
-    offset.set_y(rectY - hitbox.bounds.y());
+  if (hitbox.boxes.empty()) {
+    return;
   }
+
+  float x{};
+  float y{};
+  float mx{};
+  float my{};
+
+  bool first{true};
+  for (const auto& [offset, size] : hitbox.boxes) {
+    if (first) {
+      x = offset.x();
+      y = offset.y();
+      mx = x + size.width;
+      my = y + size.height;
+
+      hitbox.bounds = {{x, y}, size};
+      first = false;
+      continue;
+    }
+
+    x = std::min(x, offset.x());
+    y = std::min(y, offset.y());
+    mx = std::max(mx, offset.x() + size.width);
+    my = std::max(my, offset.y() + size.height);
+  }
+
+  hitbox.bounds.set_x(hitbox.origin.x() + x);
+  hitbox.bounds.set_y(hitbox.origin.y() + y);
+  hitbox.bounds.set_width(mx - x);
+  hitbox.bounds.set_height(my - y);
 }
 
-void update_position(comp::hitbox& hitbox, const vector2f& position) noexcept
+void set_position(comp::hitbox& hitbox, const vector2f& position) noexcept
 {
-  for (auto& [offset, rect] : hitbox.boxes) {
-    const auto x = position.x() + offset.x();
-    const auto y = position.y() + offset.y();
-    rect.set_x(x);
-    rect.set_y(y);
-  }
-  hitbox.bounds.set_x(position.x());
-  hitbox.bounds.set_y(position.y());
+  hitbox.origin = position;
+  update_bounds(hitbox);
+}
+
+auto with_position(const comp::hitbox& hitbox,
+                   const vector2f& position) noexcept -> comp::hitbox
+{
+  auto result = hitbox;
+  set_position(result, position);
+  return result;
 }
 
 auto intersects(const comp::hitbox& fst, const comp::hitbox& snd) noexcept
@@ -63,15 +68,33 @@ auto intersects(const comp::hitbox& fst, const comp::hitbox& snd) noexcept
     return false;
   }
 
-  for (const auto& [fstOffset, fstRect] : fst.boxes) {
-    for (const auto& [sndOffset, sndRect] : snd.boxes) {
-      if (cen::intersects(fstRect, sndRect)) {
+  for (const auto& [fstOffset, fstSize] : fst.boxes) {
+    const cen::frect rectA{to_point(fst.origin + fstOffset), fstSize};
+
+    for (const auto& [sndOffset, sndSize] : snd.boxes) {
+      const cen::frect rectB{to_point(snd.origin + sndOffset), sndSize};
+
+      if (cen::collides(rectA, rectB)) {
         return true;
       }
     }
   }
 
   return false;
+}
+
+auto create(std::initializer_list<comp::subhitbox> boxes) -> comp::hitbox
+{
+  comp::hitbox hb;
+
+  hb.boxes.reserve(boxes.size());
+  for (const auto& box : boxes) {
+    hb.boxes.push_back(box);
+  }
+
+  set_position(hb, {});
+
+  return hb;
 }
 
 }  // namespace wanderer::sys::hitbox

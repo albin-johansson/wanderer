@@ -13,4 +13,11 @@ template <typename T>
   return abby::vec2<T>{vector.x(), vector.y()};
 }
 
+template <typename T>
+[[nodiscard]] constexpr auto to_vector(const abby::vec2<T>& vector) noexcept
+    -> basic_vector2<T>
+{
+  return basic_vector2<T>{vector.x, vector.y};
+}
+
 }  // namespace wanderer

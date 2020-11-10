@@ -4,6 +4,7 @@
 #include <utility>  // forward
 
 #include "abby.hpp"
+#include "abby_utils.hpp"
 #include "component/player.hpp"
 #include "component/render_bounds.hpp"
 #include "component/spawnpoint.hpp"
@@ -17,13 +18,6 @@
 #include "vector2.hpp"
 
 namespace wanderer {
-
-template <typename T>
-[[nodiscard]] auto abby_vector(const basic_vector2<T>& vector) noexcept
-    -> abby::vec2<T>
-{
-  return abby::vec2<T>{vector.x(), vector.y()};
-}
 
 /**
  * \class level
@@ -56,22 +50,27 @@ class level final
     return m_registry.emplace<Component>(entity, std::forward<Args>(args)...);
   }
 
-  template <typename... Components>
+  template <typename Component>
   [[nodiscard]] decltype(auto) get(entt::entity entity)
   {
-    return m_registry.get<Components...>(entity);
+    return m_registry.get<Component>(entity);
   }
 
-  template <typename... Components>
+  template <typename Component>
   [[nodiscard]] decltype(auto) try_get(entt::entity entity)
   {
-    return m_registry.try_get<Components...>(entity);
+    return m_registry.try_get<Component>(entity);
   }
 
   template <typename OutputIterator>
   void query_collisions(entt::entity id, OutputIterator iterator) const
   {
     return m_aabbTree.query_collisions(id, iterator);
+  }
+
+  [[nodiscard]] auto get_aabb(entt::entity id) const -> const abby::aabb<float>&
+  {
+    return m_aabbTree.get_aabb(id);
   }
 
   /**

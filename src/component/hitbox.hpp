@@ -19,15 +19,16 @@ struct hitbox_entity_t;
  * \var subhitbox::offset
  * The offset that the subhitbox is positioned at, relative to the origin
  * position. This is useful for updating the position of a `hitbox`.
- * \var subhitbox::rect
- * The actual rectangle that represents the position and size of the subhitbox.
+ *
+ * \var subhitbox::size
+ * The size of the subhitbox.
  *
  * \headerfile hitbox.hpp
  */
 struct subhitbox final
 {
   vector2f offset;
-  cen::frect rect;
+  cen::farea size;
 };
 
 /**
@@ -37,6 +38,7 @@ struct subhitbox final
  *
  * \var hitbox::bounds
  * The bounding area of the hitbox.
+ *
  * \var hitbox::boxes
  * The subhitboxes contained in the hitbox.
  *
@@ -45,7 +47,10 @@ struct subhitbox final
 struct hitbox final
 {
   using entity = entity_type<detail::hitbox_entity_t>;
+
+  vector2f origin;
   cen::frect bounds;
+
   std::vector<subhitbox> boxes;
 };
 

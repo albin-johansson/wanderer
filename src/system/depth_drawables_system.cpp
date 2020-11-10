@@ -1,5 +1,8 @@
 #include "depth_drawables_system.hpp"
 
+#include <cen/log.hpp>
+
+#include "centurion_utils.hpp"
 #include "component/depth_drawable.hpp"
 #include "component/hitbox.hpp"
 
@@ -29,13 +32,19 @@ void render(const entt::registry& registry, cen::renderer& renderer)
           const comp::depth_drawable& drawable) noexcept {
         renderer.render_t(*drawable.texture, drawable.src, drawable.dst);
 
-#ifndef NDEBUG
-        if (const auto* hitbox = registry.try_get<comp::hitbox>(entity);
-            hitbox) {
+        if (const auto* hitbox = registry.try_get<comp::hitbox>(entity)) {
+          const auto origin = hitbox->origin;
+
+          for (const auto& [offset, size] : hitbox->boxes) {
+            const cen::frect rect{to_point(hitbox->origin + offset), size};
+
+            renderer.set_color(cen::colors::magenta.with_alpha(100));
+            renderer.draw_rect_t(rect);
+          }
+
           renderer.set_color(cen::colors::red);
           renderer.draw_rect_t(hitbox->bounds);
         }
-#endif
       });
 }
 

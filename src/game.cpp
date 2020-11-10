@@ -47,10 +47,13 @@ void game::tick(const delta dt)
 
     auto& registry = m_world.registry();
     sys::humanoid::update_state(registry, m_dispatcher);
+
     sys::humanoid::update_animation(registry);
     sys::tile::update_animation(registry);
+
     sys::movement::update(m_world, dt);
     sys::depthdrawable::update_movable(registry);
+
     sys::animated::update(registry);
     sys::viewport::update(m_world, m_world.player().get(), dt);
   }

@@ -2,16 +2,14 @@
 
 #include <cassert>
 #include <cen/counter.hpp>
-#include <cen/texture.hpp>
-#include <cen/types.hpp>
 
+#include "abby_utils.hpp"
 #include "component/animated.hpp"
 #include "component/binds.hpp"
 #include "component/depth_drawable.hpp"
 #include "component/hitbox.hpp"
 #include "component/humanoid_state.hpp"
 #include "component/movable.hpp"
-#include "component/player.hpp"
 #include "direction.hpp"
 #include "game_constants.hpp"
 #include "hitbox_system.hpp"
@@ -37,10 +35,9 @@ namespace {
  *
  * \return the identifier associated with the created humanoid.
  */
-[[nodiscard]] auto make_basic_humanoid(entt::registry& registry,
-                                       abby::aabb_tree<entt::entity>& aabbTree,
-                                       const texture_handle& texture)
-    -> entt::entity
+[[nodiscard]] auto make_humanoid(entt::registry& registry,
+                                 abby::aabb_tree<entt::entity>& aabbTree,
+                                 const texture_handle& texture) -> entt::entity
 {
   assert(texture);  // require valid handle
 
@@ -63,13 +60,12 @@ namespace {
   animated.then = cen::counter::ticks();
   animated.nFrames = 1;
 
-  aabbTree.emplace(entity,
-                   abby_vector(movable.position),
-                   abby_vector(g_humanoidDrawSize));
+  auto hitbox = hitbox::create({{{16, 16}, {32, 48}}});
+  sys::hitbox::set_position(hitbox, movable.position);
 
-  // FIXME
-  const auto hitbox =
-      hitbox::create({comp::subhitbox{{}, cen::frect{{}, humanoidSize}}});
+  aabbTree.emplace(entity,
+                   {hitbox.bounds.x(), hitbox.bounds.y()},
+                   {hitbox.bounds.width(), hitbox.bounds.height()});
 
   registry.emplace<comp::hitbox>(entity, hitbox);
   registry.emplace<comp::humanoid>(entity);
@@ -91,7 +87,7 @@ auto add_player(entt::registry& registry,
       cache.load<texture_loader>(id, renderer, "resource/img/player2.png");
   assert(handle);
 
-  const auto player = make_basic_humanoid(registry, aabbTree, handle);
+  const auto player = make_humanoid(registry, aabbTree, handle);
   registry.emplace<comp::player>(player);
 
   auto& movable = registry.get<comp::movable>(player);
@@ -108,12 +104,13 @@ auto add_skeleton(entt::registry& registry,
                   abby::aabb_tree<entt::entity>& aabbTree,
                   const vector2f& position,
                   cen::renderer& renderer,
+                  texture_cache& cache) -> entt::entity
 {
   constexpr auto id = "skeleton"_hs;
   const auto handle =
       cache.load<texture_loader>(id, renderer, "resource/img/skeleton.png");
 
-  const auto skeleton = make_basic_humanoid(registry, aabbTree, handle);
+  const auto skeleton = make_humanoid(registry, aabbTree, handle);
 
   auto& movable = registry.get<comp::movable>(skeleton);
   movable.speed = g_monsterSpeed;

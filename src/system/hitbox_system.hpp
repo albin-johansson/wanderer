@@ -8,8 +8,6 @@
 
 namespace wanderer::sys::hitbox {
 
-void update_collision(entt::registry& registry);
-
 /**
  * \brief Updates the bounds of a hitbox.
  *
@@ -26,15 +24,11 @@ void update_bounds(comp::hitbox& hitbox) noexcept;
  * \param hitbox the hitbox that will be moved.
  * \param position the new position of the hitbox.
  */
-void update_position(comp::hitbox& hitbox, const vector2f& position) noexcept;
+void set_position(comp::hitbox& hitbox, const vector2f& position) noexcept;
 
-[[nodiscard]] inline auto move_hitbox(const comp::hitbox& hitbox,
-                                      const vector2f& position) -> comp::hitbox
-{
-  auto offset = hitbox;
-  update_position(offset, position);
-  return offset;
-}
+[[nodiscard]] auto with_position(const comp::hitbox& hitbox,
+                                 const vector2f& position) noexcept
+    -> comp::hitbox;
 
 /**
  * \brief Indicates whether or not two hitboxes intersect.
@@ -44,13 +38,10 @@ void update_position(comp::hitbox& hitbox, const vector2f& position) noexcept;
  *
  * \note Checking whether or not a hitbox intersects itself will result in the
  * method returning `false`.
- * \code{.cpp}
- * Hitbox hbox = ...;
- * bool res = hitbox::intersects(hbox, hbox); // This will always return false!
- * \endcode
  *
  * \param fst the first hitbox.
  * \param snd the second hitbox.
+ *
  * \return `true` if the hitboxes intersect; `false` otherwise.
  */
 [[nodiscard]] auto intersects(const comp::hitbox& fst,
@@ -68,18 +59,7 @@ void update_position(comp::hitbox& hitbox, const vector2f& position) noexcept;
  *
  * \since 0.1.0
  */
-[[nodiscard]] inline auto create(std::initializer_list<comp::subhitbox> boxes)
-    -> comp::hitbox
-{
-  comp::hitbox hb;
-
-  for (const auto& box : boxes) {
-    hb.boxes.push_back(box);
-  }
-
-  update_bounds(hb);
-
-  return hb;
-}
+[[nodiscard]] auto create(std::initializer_list<comp::subhitbox> boxes)
+    -> comp::hitbox;
 
 }  // namespace wanderer::sys::hitbox
