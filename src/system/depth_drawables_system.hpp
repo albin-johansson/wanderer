@@ -5,6 +5,8 @@
 
 namespace wanderer::sys::depthdrawable {
 
+void update_movable(entt::registry& registry);
+
 /**
  * \brief Sorts all depth drawables according to their depth and center
  * y-coordinate.

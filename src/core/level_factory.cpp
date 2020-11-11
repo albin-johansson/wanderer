@@ -2,11 +2,11 @@
 
 #include <entt.hpp>
 
+#include "depth_drawables_system.hpp"
 #include "humanoid_factory_system.hpp"
 #include "make_map.hpp"
 #include "make_registry.hpp"
 #include "make_viewport_system.hpp"
-#include "movable_depth_drawables_system.hpp"
 #include "viewport_system.hpp"
 
 namespace wanderer {

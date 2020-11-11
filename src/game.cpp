@@ -9,7 +9,6 @@
 #include "input_system.hpp"
 #include "level_factory.hpp"
 #include "make_dispatcher.hpp"
-#include "movable_depth_drawables_system.hpp"
 #include "movement_system.hpp"
 #include "tile_animation_system.hpp"
 #include "viewport_system.hpp"

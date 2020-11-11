@@ -96,8 +96,6 @@ set(SOURCE_FILES
         system/ground_layer_rendering_system.hpp
         system/render_bounds_system.cpp
         system/render_bounds_system.hpp
-        system/movable_depth_drawables_system.cpp
-        system/movable_depth_drawables_system.hpp
         system/hitbox_system.cpp
         system/hitbox_system.hpp
         system/movable_system.hpp
