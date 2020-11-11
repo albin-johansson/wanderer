@@ -5,6 +5,7 @@
 
 #include "component/render_bounds.hpp"
 #include "component/tile_layer.hpp"
+#include "component/tilemap.hpp"
 #include "component/tileset.hpp"
 
 namespace wanderer::sys::layer {
@@ -23,5 +24,20 @@ void render(const entt::registry& registry,
             cen::renderer& renderer,
             const comp::tileset& tileset,
             const comp::render_bounds& bounds);
+
+/**
+ * \brief Renders all of the ground layers in a map.
+ *
+ * \param registry the registry that holds the layers.
+ * \param map the map that holds the ground layers that will be rendered.
+ * \param renderer the renderer that will be used.
+ * \param bounds the render bounds that will be used.
+ *
+ * \since 0.1.0
+ */
+void render_ground(const entt::registry& registry,
+                   comp::tilemap::entity map,
+                   cen::renderer& renderer,
+                   const comp::render_bounds& bounds);
 
 }  // namespace wanderer::sys::layer
