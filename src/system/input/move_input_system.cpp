@@ -138,7 +138,7 @@ void handle_move_input(entt::registry& registry,
       dispatcher.enqueue(comp::begin_attack_event{&registry,
                                                   player.get(),
                                                   entt::null,
-                                                  movable.dominantDirection});
+                                                  movable.dir});
     }
   }
 }

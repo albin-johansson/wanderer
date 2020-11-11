@@ -7,7 +7,7 @@
 namespace wanderer::sys::movable {
 namespace detail {
 
-[[nodiscard]] auto get_horizontal_dominant_direction(
+[[nodiscard]] inline auto get_horizontal_dominant_direction(
     const comp::movable& movable) noexcept -> maybe<direction>
 {
   if (movable.velocity.x() < 0) {
@@ -19,7 +19,7 @@ namespace detail {
   }
 }
 
-[[nodiscard]] auto get_vertical_dominant_direction(
+[[nodiscard]] inline auto get_vertical_dominant_direction(
     const comp::movable& movable) noexcept -> maybe<direction>
 {
   if (movable.velocity.y() < 0) {
@@ -40,7 +40,7 @@ namespace detail {
  *
  * \return the calculated dominant direction for the movable.
  */
-[[nodiscard]] auto calc_dominant_direction(
+[[nodiscard]] inline auto dominant_direction(
     const comp::movable& movable) noexcept -> direction
 {
   if (const auto h = detail::get_horizontal_dominant_direction(movable); h) {
@@ -51,7 +51,7 @@ namespace detail {
     return *v;
   }
 
-  return movable.dominantDirection;
+  return movable.dir;
 }
 
 }  // namespace wanderer::sys::movable

@@ -149,7 +149,7 @@ void update(level& level, const delta dt)
         const auto oldPosition = movable.position;
 
         movable.position += (movable.velocity * static_cast<float>(dt.get()));
-        movable.dominantDirection = movable::calc_dominant_direction(movable);
+        movable.dir = movable::dominant_direction(movable);
 
         if (auto* hitbox = level.try_get<comp::hitbox>(entity)) {
           update_hitbox(level, entity, movable, *hitbox, oldPosition, dt);

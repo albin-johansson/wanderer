@@ -18,7 +18,7 @@ namespace wanderer::comp {
  * The current x- and y-axis speed.
  * \var movable::position
  * The current position.
- * \var movable::dominantDirection
+ * \var movable::dir
  * The current dominant direction.
  * \var movable::speed
  * The current maximum total speed of the movable. This is used to make sure
@@ -31,7 +31,7 @@ struct movable final
 {
   vector2f velocity;
   vector2f position;
-  direction dominantDirection{direction::down};
+  direction dir{direction::down};
   float speed{0};
 };
 

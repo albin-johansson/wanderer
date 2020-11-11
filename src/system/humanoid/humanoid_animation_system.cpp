@@ -88,8 +88,7 @@ void update_move_animation(entt::registry& registry,
                comp::depth_drawable& drawable) noexcept {
               drawable.src.set_x(
                   movable.velocity.is_zero() ? 0 : animated.frame * 64);
-              const auto srcY =
-                  source_y(moveSourceY, movable.dominantDirection);
+              const auto srcY = source_y(moveSourceY, movable.dir);
               if (drawable.src.y() != srcY) {
                 animated.frame = 0;
                 drawable.src.set_y(srcY);
@@ -149,7 +148,7 @@ void enter_animation(entt::registry& registry,
               animated.nFrames = nFrames;
               animated.delay = delay;
               drawable.src.set_x(0);
-              drawable.src.set_y(source_y(sourceY, movable.dominantDirection));
+              drawable.src.set_y(source_y(sourceY, movable.dir));
             });
 }
 
