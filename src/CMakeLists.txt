@@ -12,8 +12,8 @@ endfunction()
 set(SOURCE_FILES
         game.hpp
         game.cpp
-        application.cpp
-        application.hpp
+        wanderer_app.cpp
+        wanderer_app.hpp
         game_loop.hpp
 
         core/direction.hpp

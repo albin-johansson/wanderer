@@ -1,7 +1,7 @@
 #include <cen/centurion.hpp>
 #include <cen/log.hpp>
 
-#include "application.hpp"
+#include "wanderer_app.hpp"
 
 using namespace wanderer;
 
@@ -11,8 +11,6 @@ int main(int, char**)
 
   cen::log::set_priority(cen::log::priority::info);
 
-  application app;
-  app.run();
-
-  return 0;
+  wanderer_app app;
+  return app.run();
 }
