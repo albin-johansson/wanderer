@@ -9,6 +9,7 @@ PointerAlignment: Left
 
 AllowAllParametersOfDeclarationOnNextLine: false
 AllowAllArgumentsOnNextLine: false
+AllowShortLambdasOnASingleLine: None
 
 AlwaysBreakAfterDefinitionReturnType: None
 AlwaysBreakAfterReturnType: None
