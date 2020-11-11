@@ -19,10 +19,9 @@ namespace wanderer::sys {
  *
  * \return the render bounds that should be used when rendering the tilemap.
  */
-[[nodiscard]] auto calculate_render_bounds(
-    const entt::registry& registry,
-    comp::viewport::entity viewportEntity,
-    int rows,
-    int cols) -> comp::render_bounds;
+[[nodiscard]] auto get_render_bounds(const entt::registry& registry,
+                                     comp::viewport::entity viewportEntity,
+                                     int rows,
+                                     int cols) -> comp::render_bounds;
 
 }  // namespace wanderer::sys

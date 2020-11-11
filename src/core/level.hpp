@@ -12,9 +12,9 @@
 #include "component/tileset.hpp"
 #include "component/viewport.hpp"
 #include "delta.hpp"
+#include "get_render_bounds.hpp"
 #include "maybe.hpp"
 #include "null_entity.hpp"
-#include "render_bounds_system.hpp"
 #include "vector2.hpp"
 
 namespace wanderer {
@@ -166,10 +166,10 @@ class level final
    */
   [[nodiscard]] auto get_render_bounds() const -> comp::render_bounds
   {
-    return sys::calculate_render_bounds(m_registry,
-                                        m_viewport,
-                                        row_count(),
-                                        col_count());
+    return sys::get_render_bounds(m_registry,
+                                  m_viewport,
+                                  row_count(),
+                                  col_count());
   }
 
   /**

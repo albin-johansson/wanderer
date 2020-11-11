@@ -1,4 +1,4 @@
-#include "render_bounds_system.hpp"
+#include "get_render_bounds.hpp"
 
 #include "game_constants.hpp"
 
@@ -49,10 +49,10 @@ namespace {
 
 }  // namespace
 
-auto calculate_render_bounds(const entt::registry& registry,
-                             const comp::viewport::entity viewportEntity,
-                             const int rows,
-                             const int cols) -> comp::render_bounds
+auto get_render_bounds(const entt::registry& registry,
+                       comp::viewport::entity viewportEntity,
+                             int rows,
+                             int cols) -> comp::render_bounds
 {
   const auto& viewport = registry.get<comp::viewport>(viewportEntity.get());
 

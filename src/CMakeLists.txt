@@ -95,8 +95,8 @@ set(SOURCE_FILES
         system/animation_system.hpp
         system/ground_layer_rendering_system.cpp
         system/ground_layer_rendering_system.hpp
-        system/render_bounds_system.cpp
-        system/render_bounds_system.hpp
+        system/get_render_bounds.cpp
+        system/get_render_bounds.hpp
         system/hitbox_system.cpp
         system/hitbox_system.hpp
         system/movable_system.hpp
