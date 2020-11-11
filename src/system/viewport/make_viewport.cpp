@@ -1,17 +1,18 @@
-#include "make_viewport_system.hpp"
+#include "make_viewport.hpp"
 
 #include "game_constants.hpp"
 
 namespace wanderer::sys::viewport {
 
-auto make_viewport(entt::registry& registry) -> comp::viewport::entity
+auto make_viewport(entt::registry& registry, const cen::farea& levelSize)
+    -> comp::viewport::entity
 {
   const auto entity = registry.create();
 
   auto& viewport = registry.emplace<comp::viewport>(entity);
   viewport.bounds = {{}, {g_logicalWidth<float>, g_logicalHeight<float>}};
-  viewport.levelSize.width = 1000;
-  viewport.levelSize.height = 1000;  // FIXME update automatically
+  viewport.levelSize.width = levelSize.width;
+  viewport.levelSize.height = levelSize.height;
 
   return comp::viewport::entity{entity};
 }

@@ -101,8 +101,8 @@ set(SOURCE_FILES
 
         system/viewport/viewport_system.cpp
         system/viewport/viewport_system.hpp
-        system/viewport/make_viewport_system.cpp
-        system/viewport/make_viewport_system.hpp
+        system/viewport/make_viewport.cpp
+        system/viewport/make_viewport.hpp
 
         system/tile/tile_animation_system.cpp
         system/tile/tile_animation_system.hpp

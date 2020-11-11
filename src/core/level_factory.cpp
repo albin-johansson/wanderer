@@ -6,7 +6,7 @@
 #include "humanoid_factory_system.hpp"
 #include "make_map.hpp"
 #include "make_registry.hpp"
-#include "make_viewport_system.hpp"
+#include "make_viewport.hpp"
 #include "viewport_system.hpp"
 
 namespace wanderer {
@@ -43,15 +43,6 @@ void level_factory::load_spawnpoint(level& level,
   }
 }
 
-void level_factory::sync_viewport(level& level)
-{
-  const auto& tilemap =
-      level.m_registry.get<comp::tilemap>(level.m_tilemap.get());
-  auto& viewport = level.viewport_component();
-  viewport.levelSize.width = tilemap.width;
-  viewport.levelSize.height = tilemap.height;
-}
-
 auto level_factory::make(const std::filesystem::path& path,
                          cen::renderer& renderer,
                          texture_cache& imageCache) -> level
@@ -64,9 +55,9 @@ auto level_factory::make(const std::filesystem::path& path,
   assert(registry.view<comp::tileset>().size() == 1);
   level.m_tileset = tileset_entity{registry.view<comp::tileset>().front()};
 
-  level.m_viewport = sys::viewport::make_viewport(registry);
-
-  sync_viewport(level);
+  auto& tilemap = registry.get<comp::tilemap>(level.m_tilemap.get());
+  level.m_viewport =
+      sys::viewport::make_viewport(registry, {tilemap.width, tilemap.height});
 
   registry.view<comp::spawnpoint>().each(
       [&](const comp::spawnpoint& spawnpoint) {

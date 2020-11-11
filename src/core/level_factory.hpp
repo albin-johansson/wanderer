@@ -21,8 +21,6 @@ class level_factory final
                               const comp::spawnpoint& spawnpoint,
                               cen::renderer& renderer,
                               texture_cache& imageCache);
-
-  static void sync_viewport(level& level);
 };
 
 }  // namespace wanderer
