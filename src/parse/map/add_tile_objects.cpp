@@ -43,7 +43,7 @@ void add_tile_objects(entt::registry& registry,
 
 {
   int index{0};
-  std::for_each(begin, end, [&](const auto gid) {
+  std::for_each(begin, end, [&](const step::global_id gid) {
     if (gid.get() != g_emptyTile) {
       const auto tileId = tileset.tiles.at(gid.get()).get();
       const auto [row, col] = index_to_matrix(index, tilemap.cols);
