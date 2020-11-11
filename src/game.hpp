@@ -71,7 +71,7 @@ class game final
   entt::dispatcher m_dispatcher;
   texture_cache m_imageCache;
   menu_manager m_menus;
-  level m_world;
+  level m_level;
 };
 
 }  // namespace wanderer
