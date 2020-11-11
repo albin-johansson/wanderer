@@ -14,6 +14,7 @@ set(SOURCE_FILES
         game.cpp
         application.cpp
         application.hpp
+        game_loop.hpp
 
         core/direction.hpp
         core/game_constants.hpp
