@@ -7,23 +7,14 @@ namespace wanderer {
  *
  * \brief Represents four different directions.
  *
- * \var direction::up
- * Represents the direction "up", or north.
- * \var direction::right
- * Represents the direction "right", or east.
- * \var direction::down
- * Represents the direction "down", or south.
- * \var direction::left
- * Represents the direction "left", or west.
- *
  * \headerfile direction.hpp
  */
 enum class direction
 {
-  up,
-  right,
-  down,
-  left
+  up,     ///< Represents the direction "up", or north.
+  right,  ///< Represents the direction "right", or east.
+  down,   ///< Represents the direction "down", or south.
+  left    ///< Represents the direction "left", or west.
 };
 
 }  // namespace wanderer

@@ -22,8 +22,6 @@ struct tilemap_entity_t;
  *
  * \var tilemap::tileset
  * The associated tileset.
- * \var tilemap::layers
- * The tile layers in the map.
  * \var tilemap::tileObjects
  * The tile objects in the map.
  * \var tilemap::width
