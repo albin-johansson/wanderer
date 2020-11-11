@@ -98,6 +98,7 @@ set(SOURCE_FILES
         system/hitbox_system.cpp
         system/hitbox_system.hpp
         system/movable_system.hpp
+        system/movable_system.cpp
 
         system/viewport/viewport_system.cpp
         system/viewport/viewport_system.hpp
