@@ -10,9 +10,29 @@
 
 namespace wanderer {
 
+/**
+ * \class wanderer_app
+ *
+ * \brief Represents the Wanderer application.
+ *
+ * \details This is the top-level representation of the entire game that
+ * handles the application window, input, game state/logic, etc.
+ *
+ * \since 0.1.0
+ *
+ * \headerfile wanderer_app.hpp
+ */
 class wanderer_app final
 {
  public:
+  /**
+   * \brief Initializes the application.
+   *
+   * \details The application window will always be in windowed mode in debug
+   * mode, in order to be able to debug the program with breakpoints.
+   *
+   * \since 0.1.0
+   */
   wanderer_app();
 
   /**
