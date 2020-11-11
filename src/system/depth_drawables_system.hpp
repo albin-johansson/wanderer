@@ -5,6 +5,16 @@
 
 namespace wanderer::sys::depthdrawable {
 
+/**
+ * \brief Updates all depth drawables that are also movable.
+ *
+ * \details This function will update the `depth_drawable`s using the current
+ * positions of the associated `movable` components.
+ *
+ * \param registry the registry that holds the depth drawables and movables.
+ *
+ * \since 0.1.0
+ */
 void update_movable(entt::registry& registry);
 
 /**
