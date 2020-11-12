@@ -48,18 +48,16 @@ auto make_tileset(entt::registry& registry,
   for (const auto& stepTileset : tilesets) {
     using namespace std::string_literals;
     const auto path = "resource/map/"s.append(stepTileset->image());
-    const entt::hashed_string id{path.data()};
 
-    if (!imageCache.contains(id)) {
-      imageCache.load<texture_loader>(id, renderer, path.c_str());
-    }
+    const entt::hashed_string id{path.c_str()};
+    imageCache.load<texture_loader>(id, renderer, path.c_str());
 
     create_tiles(registry, tileset, *stepTileset, imageCache.handle(id));
 
-    const auto firstGID = static_cast<tile_id>(stepTileset->first_gid().get());
+    const auto firstGid = static_cast<tile_id>(stepTileset->first_gid().get());
     for (const auto& stepTile : stepTileset->tiles()) {
-      const auto gid = firstGID + static_cast<tile_id>(stepTile.id().get());
-      parse_special_tile(registry, tileset.tiles.at(gid), stepTile, firstGID);
+      const auto gid = firstGid + static_cast<tile_id>(stepTile.id().get());
+      parse_fancy_tile(registry, tileset.tiles.at(gid), stepTile, gid);
     }
   }
 

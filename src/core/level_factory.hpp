@@ -21,6 +21,10 @@ class level_factory final
                               const comp::spawnpoint& spawnpoint,
                               cen::renderer& renderer,
                               texture_cache& imageCache);
+
+  static void init_tile_objects(entt::registry& registry,
+                                const comp::tilemap& tilemap,
+                                abby::aabb_tree<entt::entity>& aabbTree);
 };
 
 }  // namespace wanderer

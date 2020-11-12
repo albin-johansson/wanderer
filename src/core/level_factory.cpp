@@ -2,7 +2,10 @@
 
 #include <entt.hpp>
 
+#include "abby_utils.hpp"
+#include "component/depth_drawable.hpp"
 #include "depth_drawables_system.hpp"
+#include "hitbox_system.hpp"
 #include "humanoid_factory_system.hpp"
 #include "make_map.hpp"
 #include "make_registry.hpp"
@@ -43,6 +46,21 @@ void level_factory::load_spawnpoint(level& level,
   }
 }
 
+void level_factory::init_tile_objects(entt::registry& registry,
+                                      const comp::tilemap& tilemap,
+                                      abby::aabb_tree<entt::entity>& aabbTree)
+{
+  for (const auto& [mapPos, tileObject] : tilemap.tileObjects) {
+    const auto& drawable = registry.get<comp::depth_drawable>(tileObject.get());
+    const auto& object = registry.get<comp::tile_object>(tileObject.get());
+    if (const auto* hitbox = registry.try_get<comp::hitbox>(tileObject.get())) {
+      aabbTree.emplace(tileObject.get(),
+                       abby_vector(hitbox->bounds.position()),
+                       abby_vector(hitbox->bounds.size()));
+    }
+  }
+}
+
 auto level_factory::make(const std::filesystem::path& path,
                          cen::renderer& renderer,
                          texture_cache& imageCache) -> level
@@ -63,6 +81,8 @@ auto level_factory::make(const std::filesystem::path& path,
       [&](const comp::spawnpoint& spawnpoint) {
         load_spawnpoint(level, spawnpoint, renderer, imageCache);
       });
+
+  init_tile_objects(registry, tilemap, level.m_aabbTree);
 
   assert(level.m_playerSpawnPosition);
   sys::viewport::center_on(registry,

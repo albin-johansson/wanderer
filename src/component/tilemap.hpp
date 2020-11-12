@@ -8,6 +8,7 @@
 #include "map_position.hpp"
 #include "null_entity.hpp"
 #include "tile_layer.hpp"
+#include "tile_object.hpp"
 #include "tileset.hpp"
 
 namespace wanderer::comp {
@@ -44,8 +45,7 @@ struct tilemap final
   comp::tileset::entity tileset{null<comp::tileset>()};
   // clang-format on
 
-  // TODO use tile object entity tag type
-  std::unordered_map<map_position, entt::entity> tileObjects;
+  std::unordered_map<map_position, tile_object::entity> tileObjects;
 
   float width;
   float height;

@@ -11,13 +11,13 @@
 
 namespace wanderer {
 
-void parse_special_tile(entt::registry& registry,
-                        comp::tile::entity tileEntity,
-                        const step::tile& stepTile,
-                        tile_id firstGID);
+void parse_fancy_tile(entt::registry& registry,
+                      comp::tile::entity tileEntity,
+                      const step::tile& stepTile,
+                      tile_id gid);
 
 [[nodiscard]] auto make_basic_tile(entt::registry& registry,
-                                   const tile_id id,
+                                   tile_id id,
                                    const texture_handle& sheet,
                                    const cen::irect& src) noexcept
     -> comp::tile::entity;
