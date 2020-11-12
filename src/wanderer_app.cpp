@@ -56,7 +56,7 @@ auto wanderer_app::run() -> int
   while (m_loop.running()) {
     m_loop.tick(input, logic);
 
-    m_renderer.clear_with(cen::colors::pink);
+    m_renderer.clear_with(cen::colors::black);
     m_game.render(m_renderer);
     m_renderer.present();
   }
