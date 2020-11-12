@@ -86,6 +86,7 @@ set(SOURCE_FILES
         component/begin_humanoid_move_event.hpp
         component/end_humanoid_move_event.hpp
         component/spawnpoint.hpp
+        component/tile_object.hpp
 
         system/depth_drawables_system.cpp
         system/depth_drawables_system.hpp
