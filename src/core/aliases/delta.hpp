@@ -12,4 +12,4 @@ using delta = fluent::NamedType<double,
                                 fluent::Incrementable,
                                 fluent::Decrementable>;
 
-}
+}  // namespace wanderer
