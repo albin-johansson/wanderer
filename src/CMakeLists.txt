@@ -112,6 +112,8 @@ set(SOURCE_FILES
 
         system/layer/layer_rendering_system.cpp
         system/layer/layer_rendering_system.hpp
+        system/layer/layer_system.cpp
+        system/layer/layer_system.hpp
 
         system/humanoid/humanoid_animation_system.cpp
         system/humanoid/humanoid_animation_system.hpp
