@@ -9,18 +9,52 @@ env:
   TTF_VERSION: 2.0.15
 
 jobs:
-  build:
+  ubuntu-test:
     runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v2
     - uses: seanmiddleditch/gha-setup-ninja@v3
     - uses: lukka/get-cmake@v3.18.3
-        
+
+    - name: Cache SDL2
+      id: cache-sdl-core
+      uses: actions/cache@v2
+      with:
+        key: ${{ runner.os }}-sdl2-core
+        path: |
+          /usr/local/lib/libSDL2*
+          /usr/local/lib/libSDL2-*
+
+    - name: Cache SDL2_image
+      id: cache-sdl-image
+      uses: actions/cache@v2
+      with:
+        key: ${{ runner.os }}-sdl2-image
+        path: |
+          /usr/local/lib/libSDL2_image*
+
+    - name: Cache SDL2_ttf
+      id: cache-sdl-ttf
+      uses: actions/cache@v2
+      with:
+        key: ${{ runner.os }}-sdl2-ttf
+        path: |
+          /usr/local/lib/libSDL2_ttf*
+
+    - name: Cache SDL2_mixer
+      id: cache-sdl-mixer
+      uses: actions/cache@v2
+      with:
+        key: ${{ runner.os }}-sdl2-mixer
+        path: |
+          /usr/local/lib/libSDL2_mixer*
+
     - name: Create build folder
       run: cmake -E make_directory ${{runner.workspace}}/build
 
-    - name: Install dependencies
+    - name: Install SDL2 core
       working-directory: ${{runner.workspace}}/build
+      if: steps.cache-sdl-core.outputs.cache-hit != 'true' 
       run: |
         echo Installing SDL2 core...
         curl -L https://www.libsdl.org/release/SDL2-$SDL_VERSION.tar.gz | tar xz
@@ -28,31 +62,36 @@ jobs:
         ./configure
         make
         sudo make install
-        cd ..
 
-        echo Installing SDL2_image...
-        curl -L https://www.libsdl.org/projects/SDL_image/release/SDL2_image-$IMG_VERSION.tar.gz | tar xz
-        cd SDL2_image-$IMG_VERSION
-        ./configure
-        make
-        sudo make install
-        cd ..
+    - name: Install SDL2_image
+      working-directory: ${{runner.workspace}}/build
+      if: steps.cache-sdl-image.outputs.cache-hit != 'true' 
+      echo Installing SDL2_image...
+      curl -L https://www.libsdl.org/projects/SDL_image/release/SDL2_image-$IMG_VERSION.tar.gz | tar xz
+      cd SDL2_image-$IMG_VERSION
+      ./configure
+      make
+      sudo make install
 
-        echo Installing SDL2_ttf...
-        curl -L https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-$TTF_VERSION.tar.gz | tar xz
-        cd SDL2_ttf-$TTF_VERSION
-        ./configure
-        make
-        sudo make install
-        cd ..
+    - name: Install SDL2_ttf
+      working-directory: ${{runner.workspace}}/build
+      if: steps.cache-sdl-ttf.outputs.cache-hit != 'true' 
+      echo Installing SDL2_ttf...
+      curl -L https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-$TTF_VERSION.tar.gz | tar xz
+      cd SDL2_ttf-$TTF_VERSION
+      ./configure
+      make
+      sudo make install
 
-        echo Installing SDL2_mixer...
-        curl -L https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-$MIX_VERSION.tar.gz | tar xz
-        cd SDL2_mixer-$MIX_VERSION
-        ./configure
-        make
-        sudo make install
-        cd ..
+    - name: Install SDL2_mixer
+      working-directory: ${{runner.workspace}}/build
+      if: steps.cache-sdl-mixer.outputs.cache-hit != 'true' 
+      echo Installing SDL2_mixer...
+      curl -L https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-$MIX_VERSION.tar.gz | tar xz
+      cd SDL2_mixer-$MIX_VERSION
+      ./configure
+      make
+      sudo make install
 
     - name: Build
       working-directory: ${{runner.workspace}}/build
