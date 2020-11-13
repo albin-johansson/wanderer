@@ -17,7 +17,7 @@ jobs:
     - uses: lukka/get-cmake@v3.18.3
 
     - name: Create build folder
-      run: cmake -E make_directory ${{runner.workspace}}/build
+      run: cmake -E make_directory $GITHUB_WORKSPACE/build
 
     - name: Cache SDL2
       id: cache-sdl-core
@@ -67,7 +67,7 @@ jobs:
         ls
 
     - name: Install SDL2 core
-      working-directory: ${{runner.workspace}}/build
+      working-directory: $GITHUB_WORKSPACE/build
       if: steps.cache-sdl-core.outputs.cache-hit != 'true' 
       run: |
         echo Installing SDL2 core...
@@ -78,7 +78,7 @@ jobs:
         sudo make install
 
     - name: Install SDL2_image
-      working-directory: ${{runner.workspace}}/build
+      working-directory: $GITHUB_WORKSPACE/build
       if: steps.cache-sdl-image.outputs.cache-hit != 'true' 
       run: |
         echo Installing SDL2_image...
@@ -89,7 +89,7 @@ jobs:
         sudo make install
 
     - name: Install SDL2_ttf
-      working-directory: ${{runner.workspace}}/build
+      working-directory: $GITHUB_WORKSPACE/build
       if: steps.cache-sdl-ttf.outputs.cache-hit != 'true' 
       run: |
         echo Installing SDL2_ttf...
@@ -100,7 +100,7 @@ jobs:
         sudo make install
 
     - name: Install SDL2_mixer
-      working-directory: ${{runner.workspace}}/build
+      working-directory: $GITHUB_WORKSPACE/build
       if: steps.cache-sdl-mixer.outputs.cache-hit != 'true' 
       run: |
         echo Installing SDL2_mixer...
@@ -111,14 +111,14 @@ jobs:
         sudo make install
 
     - name: Build
-      working-directory: ${{runner.workspace}}/build
+      working-directory: $GITHUB_WORKSPACE/build
       run: |
         echo Building project...
         cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=Debug -GNinja
         ninja
 
     - name: Run tests
-      working-directory: ${{runner.workspace}}/build/test
+      working-directory: $GITHUB_WORKSPACE/build/test
       run: |
         echo Running tests...
         ./testWanderer
