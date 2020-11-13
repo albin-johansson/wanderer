@@ -27,7 +27,7 @@ struct begin_humanoid_move_event final
 {
   entt::registry* registry{};
   entt::entity entity{entt::null};  // TODO tag type
-  direction direction{direction::down};
+  direction dir{direction::down};
 };
 
 }  // namespace wanderer::comp

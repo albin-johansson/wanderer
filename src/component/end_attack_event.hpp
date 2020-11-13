@@ -30,7 +30,7 @@ struct end_attack_event final
   entt::registry* registry{nullptr};
   entt::entity sourceEntity{entt::null};  // TODO tag type
   entt::entity weapon{entt::null};        // TODO weapon tag type
-  direction direction{direction::down};
+  direction dir{direction::down};
 };
 
 }  // namespace wanderer::comp

@@ -14,7 +14,7 @@ void on_move_begin(const comp::begin_humanoid_move_event& event)
 
   event.registry->emplace<comp::humanoid_move>(entity);
 
-  humanoid::enter_move_animation(*event.registry, entity, event.direction);
+  humanoid::enter_move_animation(*event.registry, entity, event.dir);
 }
 
 void on_move_end(const comp::end_humanoid_move_event& event)

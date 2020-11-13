@@ -30,7 +30,7 @@ struct begin_attack_event final
   entt::registry* registry{};
   entt::entity sourceEntity{entt::null};  // TODO tag type
   entt::entity weapon{entt::null};        // TODO weapon component entity tag
-  direction direction{direction::down};
+  direction dir{direction::down};
 };
 
 }  // namespace wanderer::comp
