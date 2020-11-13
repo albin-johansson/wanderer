@@ -16,39 +16,6 @@ jobs:
     - uses: seanmiddleditch/gha-setup-ninja@v3
     - uses: lukka/get-cmake@v3.18.3
 
-    - name: Cache SDL2
-      id: cache-sdl-core
-      uses: actions/cache@v2
-      with:
-        key: ${{ runner.os }}-sdl2-core
-        path: |
-          /usr/local/lib/libSDL2*
-          /usr/local/lib/libSDL2-*
-
-    - name: Cache SDL2_image
-      id: cache-sdl-image
-      uses: actions/cache@v2
-      with:
-        key: ${{ runner.os }}-sdl2-image
-        path: |
-          /usr/local/lib/libSDL2_image*
-
-    - name: Cache SDL2_ttf
-      id: cache-sdl-ttf
-      uses: actions/cache@v2
-      with:
-        key: ${{ runner.os }}-sdl2-ttf
-        path: |
-          /usr/local/lib/libSDL2_ttf*
-
-    - name: Cache SDL2_mixer
-      id: cache-sdl-mixer
-      uses: actions/cache@v2
-      with:
-        key: ${{ runner.os }}-sdl2-mixer
-        path: |
-          /usr/local/lib/libSDL2_mixer*
-
     - name: Create build folder
       run: cmake -E make_directory ${{runner.workspace}}/build
 
@@ -95,6 +62,39 @@ jobs:
         ./configure
         make
         sudo make install
+
+    - name: Cache SDL2
+      id: cache-sdl-core
+      uses: actions/cache@v2
+      with:
+        key: ${{ runner.os }}-sdl2-core
+        path: |
+          /usr/local/lib/libSDL2*
+          /usr/local/lib/libSDL2-*
+
+    - name: Cache SDL2_image
+      id: cache-sdl-image
+      uses: actions/cache@v2
+      with:
+        key: ${{ runner.os }}-sdl2-image
+        path: |
+          /usr/local/lib/libSDL2_image*
+
+    - name: Cache SDL2_ttf
+      id: cache-sdl-ttf
+      uses: actions/cache@v2
+      with:
+        key: ${{ runner.os }}-sdl2-ttf
+        path: |
+          /usr/local/lib/libSDL2_ttf*
+
+    - name: Cache SDL2_mixer
+      id: cache-sdl-mixer
+      uses: actions/cache@v2
+      with:
+        key: ${{ runner.os }}-sdl2-mixer
+        path: |
+          /usr/local/lib/libSDL2_mixer*
 
     - name: Build
       working-directory: ${{runner.workspace}}/build
