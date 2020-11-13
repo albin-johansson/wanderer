@@ -7,7 +7,6 @@ env:
   IMG_VERSION: 2.0.5
   MIX_VERSION: 2.0.4
   TTF_VERSION: 2.0.15
-  CMAKE_VERSION: 3.18.3
 
 jobs:
   build:
@@ -15,7 +14,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - uses: seanmiddleditch/gha-setup-ninja@v3
-    - uses: lukka/get-cmake@v$CMAKE_VERSION
+    - uses: lukka/get-cmake@v3.18.3
         
     - name: Create build folder
       run: cmake -E make_directory ${{runner.workspace}}/build
