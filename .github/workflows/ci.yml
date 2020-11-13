@@ -2,65 +2,69 @@ name: CI
 
 on: [push, pull_request]
 
+env:
+  SDL_VERSION: 2.0.12
+  IMG_VERSION: 2.0.5
+  MIX_VERSION: 2.0.4
+  TTF_VERSION: 2.0.15
+  CMAKE_VERSION: 3.18.3
+
 jobs:
   build:
     runs-on: ubuntu-20.04
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE
-      - uses: | 
-          actions/checkout@v2
-          seanmiddleditch/gha-setup-ninja@v3
-          lukka/get-cmake@v3.18.3
+    - uses: | 
+        actions/checkout@v2
+        seanmiddleditch/gha-setup-ninja@v3
+        lukka/get-cmake@v$CMAKE_VERSION
+        
+    - name: Create build folder
+      run: cmake -E make_directory ${{runner.workspace}}/build
 
-      - name: Install dependencies
-        env:
-          SDL_VERSION: 2.0.12
-          IMG_VERSION: 2.0.5
-          MIX_VERSION: 2.0.4
-          TTF_VERSION: 2.0.15
-        working-directory: $GITHUB_WORKSPACE
-        run: |
-          cmake --version
-          ninja --version
-          g++ --version
+    - name: Install dependencies
+      working-directory: ${{runner.workspace}}/build
+      run: |
+        cmake --version
+        ninja --version
+        g++ --version
 
-          curl -L https://www.libsdl.org/release/SDL2-$SDL_VERSION.tar.gz | tar xz
-          cd SDL2-$SDL_VERSION
-          ./configure
-          make
-          sudo make install
-          cd ..
+        curl -L https://www.libsdl.org/release/SDL2-$SDL_VERSION.tar.gz | tar xz
+        cd SDL2-$SDL_VERSION
+        ./configure
+        make
+        sudo make install
+        cd ..
 
-          curl -L https://www.libsdl.org/projects/SDL_image/release/SDL2_image-$IMG_VERSION.tar.gz | tar xz
-          cd SDL2_image-$IMG_VERSION
-          ./configure
-          make
-          sudo make install
-          cd ..
+        curl -L https://www.libsdl.org/projects/SDL_image/release/SDL2_image-$IMG_VERSION.tar.gz | tar xz
+        cd SDL2_image-$IMG_VERSION
+        ./configure
+        make
+        sudo make install
+        cd ..
 
-          curl -L https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-$TTF_VERSION.tar.gz | tar xz
-          cd SDL2_ttf-$TTF_VERSION
-          ./configure
-          make
-          sudo make install
-          cd ..
+        curl -L https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-$TTF_VERSION.tar.gz | tar xz
+        cd SDL2_ttf-$TTF_VERSION
+        ./configure
+        make
+        sudo make install
+        cd ..
 
-          curl -L https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-$MIX_VERSION.tar.gz | tar xz
-          cd SDL2_mixer-$MIX_VERSION
-          ./configure
-          make
-          sudo make install
-          cd ..
+        curl -L https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-$MIX_VERSION.tar.gz | tar xz
+        cd SDL2_mixer-$MIX_VERSION
+        ./configure
+        make
+        sudo make install
+        cd ..
 
-      - name: Build and run tests
-        working-directory: $GITHUB_WORKSPACE
-        run: |
-          echo Building project...
-          mkdir build
-          cd build
-          cmake .. -DCMAKE_BUILD_TYPE=Debug -GNinja
-          ninja
+    - name: Build and run tests
+      working-directory: ${{runner.workspace}}/build
+      run: |
+        echo Building project...
+        mkdir build
+        cd build
+        cmake .. -DCMAKE_BUILD_TYPE=Debug -GNinja
+        ninja
 
-          echo Running tests...
-          cd test
-          ./testWanderer
+        echo Running tests...
+        cd test
+        ./testWanderer
