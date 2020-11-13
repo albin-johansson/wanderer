@@ -6,7 +6,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
   
-    env: |
+    env:
       SDL_VERSION: 2.0.12
       IMG_VERSION: 2.0.5
       MIX_VERSION: 2.0.4
