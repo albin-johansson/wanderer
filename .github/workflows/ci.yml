@@ -54,15 +54,14 @@ jobs:
         sudo make install
         cd ..
 
-    - name: Build and run tests
+    - name: Build
       working-directory: ${{runner.workspace}}/build
       run: |
         echo Building project...
-        mkdir build
-        cd build
         cmake .. -DCMAKE_BUILD_TYPE=Debug -GNinja
         ninja
 
+    - name: Run tests
+      working-directory: ${{runner.workspace}}/build/test
         echo Running tests...
-        cd test
         ./testWanderer
