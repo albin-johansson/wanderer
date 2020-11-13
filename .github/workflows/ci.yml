@@ -22,6 +22,7 @@ jobs:
     - name: Install dependencies
       working-directory: ${{runner.workspace}}/build
       run: |
+        echo Installing SDL2 core...
         curl -L https://www.libsdl.org/release/SDL2-$SDL_VERSION.tar.gz | tar xz
         cd SDL2-$SDL_VERSION
         ./configure
@@ -29,6 +30,7 @@ jobs:
         sudo make install
         cd ..
 
+        echo Installing SDL2_image...
         curl -L https://www.libsdl.org/projects/SDL_image/release/SDL2_image-$IMG_VERSION.tar.gz | tar xz
         cd SDL2_image-$IMG_VERSION
         ./configure
@@ -36,6 +38,7 @@ jobs:
         sudo make install
         cd ..
 
+        echo Installing SDL2_ttf...
         curl -L https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-$TTF_VERSION.tar.gz | tar xz
         cd SDL2_ttf-$TTF_VERSION
         ./configure
@@ -43,6 +46,7 @@ jobs:
         sudo make install
         cd ..
 
+        echo Installing SDL2_mixer...
         curl -L https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-$MIX_VERSION.tar.gz | tar xz
         cd SDL2_mixer-$MIX_VERSION
         ./configure
@@ -59,5 +63,6 @@ jobs:
 
     - name: Run tests
       working-directory: ${{runner.workspace}}/build/test
+      run: |
         echo Running tests...
         ./testWanderer
