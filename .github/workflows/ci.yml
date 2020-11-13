@@ -3,14 +3,14 @@ name: CI
 on: [push, pull_request]
 
 jobs:
-  env: |
-    SDL_VERSION: 2.0.12
-    IMG_VERSION: 2.0.5
-    MIX_VERSION: 2.0.4
-    TTF_VERSION: 2.0.15
-
   build:
     runs-on: ubuntu-latest
+  
+    env: |
+      SDL_VERSION: 2.0.12
+      IMG_VERSION: 2.0.5
+      MIX_VERSION: 2.0.4
+      TTF_VERSION: 2.0.15
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
