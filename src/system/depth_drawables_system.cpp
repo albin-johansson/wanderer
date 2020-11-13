@@ -27,8 +27,8 @@ void sort(entt::registry& registry)
   registry.sort<comp::depth_drawable>(
       [](const comp::depth_drawable& lhs,
          const comp::depth_drawable& rhs) noexcept {
-        return lhs.depth < rhs.depth ||
-               (rhs.depth >= lhs.depth && lhs.centerY < rhs.centerY);
+        return lhs.zIndex < rhs.zIndex ||
+               (rhs.zIndex >= lhs.zIndex && lhs.centerY < rhs.centerY);
       },
       entt::insertion_sort{});
 }

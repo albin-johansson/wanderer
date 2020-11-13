@@ -37,7 +37,7 @@ namespace {
   drawable.src = tile.src;
   drawable.dst = {{x, y}, {tileSize, tileSize}};
   drawable.centerY = y + (drawable.dst.height() / 2.0f);
-  drawable.depth = depth.value_or(5_depth);
+  drawable.zIndex = depth.value_or(5_depth);
 
   if (const auto* hb = registry.try_get<comp::hitbox>(tileEntity.get())) {
     comp::hitbox hitbox = *hb;
