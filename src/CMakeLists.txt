@@ -148,10 +148,27 @@ set(SOURCE_FILES
 
 add_library(${WANDERER_LIB_TARGET} ${SOURCE_FILES})
 
-target_compile_options(${WANDERER_LIB_TARGET} PRIVATE
-        /EHsc
-        /MP
-        /W3)
+if (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+    target_compile_options(${WANDERER_LIB_TARGET} PRIVATE
+            /EHsc
+            /MP
+            /W3)
+elseif (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    target_compile_options(${WANDERER_LIB_TARGET} PRIVATE
+            -Wall
+            -Wextra
+            -Wpedantic
+            -Wdouble-promotion
+            -Wswitch-default
+            -Wswitch-enum
+            -Wunused
+            -Wuninitialized
+            -Wsuggest-final-types
+            -Wsuggest-final-methods
+            -Wsuggest-override
+            -Wduplicated-cond
+            -Wconversion)
+endif ()
 
 wanderer_set_properties(${WANDERER_LIB_TARGET} "Wanderer")
 
@@ -220,7 +237,8 @@ wanderer_set_properties(${WANDERER_EXE_TARGET} "Wanderer")
 target_link_libraries(${WANDERER_EXE_TARGET}
         PUBLIC ${WANDERER_LIB_TARGET})
 
-copy_directory_post_build(${WANDERER_EXE_TARGET} ${BINARY_DIR} ${CMAKE_CURRENT_BINARY_DIR})
+if (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+    copy_directory_post_build(${WANDERER_EXE_TARGET} ${BINARY_DIR} ${CMAKE_CURRENT_BINARY_DIR})
+endif ()
+
 copy_directory_post_build(${WANDERER_EXE_TARGET} ${RESOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR}/resource)
-
-
