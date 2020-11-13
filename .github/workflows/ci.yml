@@ -97,7 +97,7 @@ jobs:
       working-directory: ${{runner.workspace}}/build
       run: |
         echo Building project...
-        cmake .. -DCMAKE_BUILD_TYPE=Debug -GNinja
+        cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=Debug -GNinja
         ninja
 
     - name: Run tests
