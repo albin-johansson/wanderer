@@ -40,9 +40,9 @@
 #include <type_traits>  // is_enum_v, enable_if_t, true_type, false_type
 #include <utility>      // pair
 
-#include "centurion_api.hpp"
-#include "exception.hpp"
-#include "types.hpp"
+#include "../centurion_api.hpp"
+#include "../exception.hpp"
+#include "../types.hpp"
 
 #ifdef CENTURION_USE_PRAGMA_ONCE
 #pragma once
