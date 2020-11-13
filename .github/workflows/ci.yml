@@ -13,10 +13,9 @@ jobs:
   build:
     runs-on: ubuntu-20.04
     steps:
-    - uses: | 
-        actions/checkout@v2
-        seanmiddleditch/gha-setup-ninja@v3
-        lukka/get-cmake@v$CMAKE_VERSION
+    - uses: actions/checkout@v2
+    - uses: seanmiddleditch/gha-setup-ninja@v3
+    - uses: lukka/get-cmake@v$CMAKE_VERSION
         
     - name: Create build folder
       run: cmake -E make_directory ${{runner.workspace}}/build
