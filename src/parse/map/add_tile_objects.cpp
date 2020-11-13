@@ -25,7 +25,7 @@ namespace {
   const auto entity = registry.create();
 
   auto& object = registry.emplace<comp::tile_object>(entity);
-  object.tile = tileEntity;
+  object.tileEntity = tileEntity;
 
   constexpr auto tileSize = g_tileSize<float>;
   const auto x = static_cast<float>(col) * tileSize;

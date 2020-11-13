@@ -18,6 +18,6 @@ NLOHMANN_JSON_SERIALIZE_ENUM(menu_action,
                               {menu_action::goto_home, "goto_home"},
                               {menu_action::goto_settings, "goto_settings"},
                               {menu_action::goto_controls, "goto_controls"},
-                              {menu_action::quit, "quit"}});
+                              {menu_action::quit, "quit"}})
 
 }  // namespace wanderer
