@@ -22,10 +22,6 @@ jobs:
     - name: Install dependencies
       working-directory: ${{runner.workspace}}/build
       run: |
-        cmake --version
-        ninja --version
-        g++ --version
-
         curl -L https://www.libsdl.org/release/SDL2-$SDL_VERSION.tar.gz | tar xz
         cd SDL2-$SDL_VERSION
         ./configure
