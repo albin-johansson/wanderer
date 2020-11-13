@@ -63,7 +63,7 @@ jobs:
     - name: Unzip Centurion binaries
       working-directory: $GITHUB_WORKSPACE/bin
       run: |
-        tar -xvzf centurion-5.0.0-gcc.tar.gz
+        sudo tar -xvzf centurion-5.0.0-gcc.tar.gz
         ls
 
     - name: Install SDL2 core
