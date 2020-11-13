@@ -52,6 +52,20 @@ jobs:
         path: |
           /usr/local/lib/libSDL2_mixer*
 
+    - name: Download Centurion 5.0.0 runtime binaries
+      uses: fabriciobastian/download-release-asset-action@v1.0.6
+      with:
+        version: v5.0.0
+        repository: albin-johansson/Centurion
+        file: centurion-5.0.0-gcc.tar.gz
+        out: $GITHUB_WORKSPACE/bin
+        
+    - name: Unzip Centurion binaries
+      working-directory: $GITHUB_WORKSPACE/bin
+      run: |
+        tar -xvzf centurion-5.0.0-gcc.tar.gz
+        ls
+
     - name: Install SDL2 core
       working-directory: ${{runner.workspace}}/build
       if: steps.cache-sdl-core.outputs.cache-hit != 'true' 
