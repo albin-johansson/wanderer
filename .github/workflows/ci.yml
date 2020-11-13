@@ -7,7 +7,10 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE
-      - uses: actions/checkout@v2
+      - uses: | 
+          actions/checkout@v2
+          seanmiddleditch/gha-setup-ninja@v3
+          lukka/get-cmake@v3.18.3
 
       - name: Install dependencies
         env:
