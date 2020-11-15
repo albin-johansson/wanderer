@@ -113,7 +113,7 @@ void update_hitbox(level& level,
 {
   hitbox::set_position(hitbox, movable.position);
 
-  const auto oldAabbPos = to_vector(level.get_aabb(entity).min);
+  const auto oldAabbPos = to_vector(level.get_aabb(entity).m_min);
   level.relocate_aabb(entity, to_vector(hitbox.bounds.position()));
 
   if (movable.velocity.is_zero()) {

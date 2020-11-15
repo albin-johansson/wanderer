@@ -36,7 +36,7 @@ namespace {
  * \return the identifier associated with the created humanoid.
  */
 [[nodiscard]] auto make_humanoid(entt::registry& registry,
-                                 abby::aabb_tree<entt::entity>& aabbTree,
+                                 aabb_tree& aabbTree,
                                  const texture_handle& texture) -> entt::entity
 {
   assert(texture);  // require valid handle
@@ -63,9 +63,9 @@ namespace {
   auto hitbox = hitbox::create({{{18, 16}, {28, 36}}});
   sys::hitbox::set_position(hitbox, movable.position);
 
-  aabbTree.emplace(entity,
-                   abby_vector(hitbox.bounds.position()),
-                   abby_vector(hitbox.bounds.size()));
+  const auto lower = abby_vector(hitbox.bounds.position());
+  const auto upper = lower + abby_vector(hitbox.bounds.size());
+  aabbTree.insert(entity, lower, upper);
 
   registry.emplace<comp::hitbox>(entity, hitbox);
   registry.emplace<comp::humanoid>(entity);
@@ -77,7 +77,7 @@ namespace {
 }  // namespace
 
 auto add_player(entt::registry& registry,
-                abby::aabb_tree<entt::entity>& aabbTree,
+                aabb_tree& aabbTree,
                 const vector2f& position,
                 cen::renderer& renderer,
                 texture_cache& cache) -> entt::entity
@@ -101,7 +101,7 @@ auto add_player(entt::registry& registry,
 }
 
 auto add_skeleton(entt::registry& registry,
-                  abby::aabb_tree<entt::entity>& aabbTree,
+                  aabb_tree& aabbTree,
                   const vector2f& position,
                   cen::renderer& renderer,
                   texture_cache& cache) -> entt::entity

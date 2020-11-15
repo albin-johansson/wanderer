@@ -48,15 +48,15 @@ void level_factory::load_spawnpoint(level& level,
 
 void level_factory::init_tile_objects(entt::registry& registry,
                                       const comp::tilemap& tilemap,
-                                      abby::aabb_tree<entt::entity>& aabbTree)
+                                      aabb_tree& aabbTree)
 {
   for (const auto& [mapPos, tileObject] : tilemap.tileObjects) {
     const auto& drawable = registry.get<comp::depth_drawable>(tileObject.get());
     const auto& object = registry.get<comp::tile_object>(tileObject.get());
     if (const auto* hitbox = registry.try_get<comp::hitbox>(tileObject.get())) {
-      aabbTree.emplace(tileObject.get(),
-                       abby_vector(hitbox->bounds.position()),
-                       abby_vector(hitbox->bounds.size()));
+      const auto lower = abby_vector(hitbox->bounds.position());
+      const auto upper = lower + abby_vector(hitbox->bounds.size());
+      aabbTree.insert(tileObject.get(), lower, upper);
     }
   }
 }
@@ -66,6 +66,8 @@ auto level_factory::make(const std::filesystem::path& path,
                          texture_cache& imageCache) -> level
 {
   level level{make_registry()};
+  level.m_aabbTree.set_thickness_factor(std::nullopt);
+
   auto& registry = level.registry();
 
   level.m_tilemap = make_map(registry, path, renderer, imageCache);

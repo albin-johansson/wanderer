@@ -3,6 +3,7 @@
 #include <entt.hpp>
 #include <utility>  // forward
 
+#include "aabb_tree.hpp"
 #include "abby.hpp"
 #include "abby_utils.hpp"
 #include "component/player.hpp"
@@ -65,7 +66,7 @@ class level final
   template <typename OutputIterator>
   void query_collisions(entt::entity id, OutputIterator iterator) const
   {
-    return m_aabbTree.query_collisions(id, iterator);
+    return m_aabbTree.query(id, iterator);
   }
 
   [[nodiscard]] auto get_aabb(entt::entity id) const -> const abby::aabb<float>&
@@ -186,7 +187,7 @@ class level final
 
  private:
   entt::registry m_registry;
-  abby::aabb_tree<entt::entity> m_aabbTree;
+  aabb_tree m_aabbTree;
   comp::tilemap::entity m_tilemap{null<comp::tilemap>()};
   comp::tileset::entity m_tileset{null<comp::tileset>()};
   comp::viewport::entity m_viewport{null<comp::viewport>()};
