@@ -17,7 +17,7 @@ jobs:
     - uses: lukka/get-cmake@v3.18.3
 
     - name: Create build folder
-      run: cmake -E make_directory $GITHUB_WORKSPACE/build
+      run: cmake -E make_directory ${{runner.workspace}}/Wanderer/build
 
     - name: Cache SDL2
       id: cache-sdl-core
@@ -25,8 +25,8 @@ jobs:
       with:
         key: ${{ runner.os }}-sdl2-core
         path: |
-          /usr/local/lib/libSDL2*
-          /usr/local/lib/libSDL2-*
+          /usr/local/lib/libSDL2.*
+          /usr/local/lib/libSDL2-2.0.*
 
     - name: Cache SDL2_image
       id: cache-sdl-image
@@ -34,7 +34,8 @@ jobs:
       with:
         key: ${{ runner.os }}-sdl2-image
         path: |
-          /usr/local/lib/libSDL2_image*
+          /usr/local/lib/libSDL2_image.*
+          /usr/local/lib/libSDL2_image-2.0.*
 
     - name: Cache SDL2_ttf
       id: cache-sdl-ttf
@@ -42,7 +43,8 @@ jobs:
       with:
         key: ${{ runner.os }}-sdl2-ttf
         path: |
-          /usr/local/lib/libSDL2_ttf*
+          /usr/local/lib/libSDL2_ttf.*
+          /usr/local/lib/libSDL2_ttf-2.0.*
 
     - name: Cache SDL2_mixer
       id: cache-sdl-mixer
@@ -50,7 +52,8 @@ jobs:
       with:
         key: ${{ runner.os }}-sdl2-mixer
         path: |
-          /usr/local/lib/libSDL2_mixer*
+          /usr/local/lib/libSDL2_mixer.*
+          /usr/local/lib/libSDL2_mixer-2.0.*
 
     - name: Download Centurion 5.0.0 runtime binaries
       uses: fabriciobastian/download-release-asset-action@v1.0.6
@@ -61,13 +64,13 @@ jobs:
         out: $GITHUB_WORKSPACE/bin
         
     - name: Unzip Centurion binaries
-      working-directory: $GITHUB_WORKSPACE/bin
+      working-directory: ${{runner.workspace}}/Wanderer/build/bin
       run: |
         sudo tar -xvzf centurion-5.0.0-gcc.tar.gz
         ls
 
     - name: Install SDL2 core
-      working-directory: $GITHUB_WORKSPACE/build
+      working-directory: ${{runner.workspace}}/Wanderer/build
       if: steps.cache-sdl-core.outputs.cache-hit != 'true' 
       run: |
         echo Installing SDL2 core...
@@ -78,7 +81,7 @@ jobs:
         sudo make install
 
     - name: Install SDL2_image
-      working-directory: $GITHUB_WORKSPACE/build
+      working-directory: ${{runner.workspace}}/Wanderer/build
       if: steps.cache-sdl-image.outputs.cache-hit != 'true' 
       run: |
         echo Installing SDL2_image...
@@ -89,7 +92,7 @@ jobs:
         sudo make install
 
     - name: Install SDL2_ttf
-      working-directory: $GITHUB_WORKSPACE/build
+      working-directory: ${{runner.workspace}}/Wanderer/build
       if: steps.cache-sdl-ttf.outputs.cache-hit != 'true' 
       run: |
         echo Installing SDL2_ttf...
@@ -100,7 +103,7 @@ jobs:
         sudo make install
 
     - name: Install SDL2_mixer
-      working-directory: $GITHUB_WORKSPACE/build
+      working-directory: ${{runner.workspace}}/Wanderer/build
       if: steps.cache-sdl-mixer.outputs.cache-hit != 'true' 
       run: |
         echo Installing SDL2_mixer...
@@ -111,14 +114,14 @@ jobs:
         sudo make install
 
     - name: Build
-      working-directory: $GITHUB_WORKSPACE/build
+      working-directory: ${{runner.workspace}}/Wanderer/build
       run: |
         echo Building project...
         cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=Debug -GNinja
         ninja
 
     - name: Run tests
-      working-directory: $GITHUB_WORKSPACE/build/test
+      working-directory: ${{runner.workspace}}/Wanderer/build/test
       run: |
         echo Running tests...
         ./testWanderer
