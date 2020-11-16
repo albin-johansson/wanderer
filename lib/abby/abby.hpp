@@ -1,3 +1,34 @@
+/*
+ * MIT License
+ *
+ * Copyright (c) 2019-2020 Albin Johansson: adapted and improved source code
+ * from the AABBCC library.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ *
+ * This codebase was mainly based on the AABBCC library, written by Lester
+ * Hedges, which uses the Zlib license: https://github.com/lohedges/aabbcc.
+ * Furthermore, the AABB tree implementation in the Simple Voxel Engine project
+ * also influenced this library, which uses the MIT license:
+ * https://github.com/JamesRandall/SimpleVoxelEngine.
+ */
+
 #pragma once
 
 #include <algorithm>        // min, max, clamp
@@ -301,28 +332,20 @@ class aabb final
    */
   [[nodiscard]] constexpr auto compute_area() const noexcept -> double
   {
-    //    const auto width = m_max.x - m_min.x;
-    //    const auto height = m_max.y - m_max.y;
-    //    return width * height;
     // Sum of "area" of all the sides.
-    double sum = 0;
+    auto sum = 0.0;
 
-    // General formula for one side: hold one dimension constant
-    // and multiply by all the other ones.
+    // hold one dimension constant and multiply by all the other ones.
     for (auto d1 = 0; d1 < 2; ++d1) {
-      // "Area" of current side.
-      double product = 1;
+      auto product = 1.0;  // "Area" of current side.
 
       for (auto d2 = 0; d2 < 2; ++d2) {
-        if (d1 == d2) {
-          continue;
+        if (d1 != d2) {
+          const auto dx = m_max[d2] - m_min[d2];
+          product *= dx;
         }
-
-        const auto dx = m_max[d2] - m_min[d2];
-        product *= dx;
       }
 
-      // Update the sum.
       sum += product;
     }
 
@@ -342,30 +365,6 @@ class aabb final
   }
 
   /**
-   * \brief Returns the width of the AABB.
-   *
-   * \return the width of the AABB.
-   *
-   * \since 0.2.0
-   */
-  [[nodiscard]] constexpr auto width() const noexcept -> T
-  {
-    return m_max.x - m_min.x;
-  }
-
-  /**
-   * \brief Returns the height of the AABB.
-   *
-   * \return the height of the AABB.
-   *
-   * \since 0.2.0
-   */
-  [[nodiscard]] constexpr auto height() const noexcept -> T
-  {
-    return m_max.y - m_min.y;
-  }
-
-  /**
    * \brief Returns the size of the AABB.
    *
    * \return the size of the AABB (width and height).
@@ -375,6 +374,16 @@ class aabb final
   [[nodiscard]] constexpr auto size() const noexcept -> vector_type
   {
     return m_max - m_min;
+  }
+
+  [[nodiscard]] constexpr auto min() const noexcept -> const vector_type&
+  {
+    return m_min;
+  }
+
+  [[nodiscard]] constexpr auto max() const noexcept -> const vector_type&
+  {
+    return m_max;
   }
 
   // private: // TODO make private
@@ -403,7 +412,7 @@ template <typename T>
 [[nodiscard]] constexpr auto operator==(const aabb<T>& lhs,
                                         const aabb<T>& rhs) noexcept -> bool
 {
-  return (lhs.min == rhs.min) && (lhs.max == rhs.max);
+  return (lhs.min() == rhs.min()) && (lhs.max() == rhs.max());
 }
 
 /**
