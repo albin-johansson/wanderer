@@ -22,9 +22,11 @@ namespace wanderer {
  * \headerfile vector2.hpp
  */
 template <typename T>
-class basic_vector2 final
+struct basic_vector2 final
 {
- public:
+  T x{0};  ///< The x-coordinate.
+  T y{0};  ///< The y-coordindate.
+
   /**
    * \brief Creates a vector with components (0, 0).
    *
@@ -35,37 +37,13 @@ class basic_vector2 final
   /**
    * \brief Creates a vector with the specified components.
    *
-   * \param x the initial x-coordinate.
-   * \param y the initial y-coordinate.
+   * \param vx the initial x-coordinate.
+   * \param vy the initial y-coordinate.
    *
    * \since 0.1.0
    */
-  constexpr basic_vector2(T x, T y) noexcept : m_x{x}, m_y{y}
+  constexpr basic_vector2(T vx, T vy) noexcept : x{vx}, y{vy}
   {}
-
-  /**
-   * \brief Sets the x-coordinate of the vector.
-   *
-   * \param x the new x-coordinate of the vector.
-   *
-   * \since 0.1.0
-   */
-  constexpr void set_x(T x) noexcept
-  {
-    m_x = x;
-  }
-
-  /**
-   * \brief Sets the y-coordinate of the vector.
-   *
-   * \param y the new y-coordinate of the vector.
-   *
-   * \since 0.1.0
-   */
-  constexpr void set_y(T y) noexcept
-  {
-    m_y = y;
-  }
 
   /**
    * \brief Scales the components of the vector by the specified amount.
@@ -76,8 +54,8 @@ class basic_vector2 final
    */
   constexpr void scale(T scale) noexcept
   {
-    m_x *= scale;
-    m_y *= scale;
+    x *= scale;
+    y *= scale;
   }
 
   /**
@@ -93,8 +71,8 @@ class basic_vector2 final
   void norm() noexcept
   {
     if (const auto mag = magnitude(); mag != 0) {
-      m_x /= mag;
-      m_y /= mag;
+      x /= mag;
+      y /= mag;
     }
   }
 
@@ -107,8 +85,8 @@ class basic_vector2 final
    */
   constexpr void zero() noexcept
   {
-    m_x = 0;
-    m_y = 0;
+    x = 0;
+    y = 0;
   }
 
   /**
@@ -149,8 +127,8 @@ class basic_vector2 final
   constexpr void lerp(const basic_vector2& target, T alpha) noexcept
   {
     const auto invAlpha = T{1} - alpha;
-    m_x = (m_x * invAlpha) + (target.m_x * alpha);
-    m_y = (m_y * invAlpha) + (target.m_y * alpha);
+    x = (x * invAlpha) + (target.x * alpha);
+    y = (y * invAlpha) + (target.y * alpha);
   }
 
   /**
@@ -203,8 +181,8 @@ class basic_vector2 final
     if (length <= 0) {
       zero();
     } else {
-      m_x = target.m_x - m_x;
-      m_y = target.m_y - m_y;
+      x = target.x - x;
+      y = target.y - y;
       norm();
       scale(length);
     }
@@ -219,8 +197,8 @@ class basic_vector2 final
    */
   constexpr void negate() noexcept
   {
-    m_x = -m_x;
-    m_y = -m_y;
+    x = -x;
+    y = -y;
   }
 
   /**
@@ -232,8 +210,8 @@ class basic_vector2 final
    */
   constexpr void operator+=(const basic_vector2& other) noexcept
   {
-    m_x += other.m_x;
-    m_y += other.m_y;
+    x += other.x;
+    y += other.y;
   }
 
   /**
@@ -245,8 +223,8 @@ class basic_vector2 final
    */
   constexpr void operator-=(const basic_vector2& other) noexcept
   {
-    m_x -= other.m_x;
-    m_y -= other.m_y;
+    x -= other.x;
+    y -= other.y;
   }
 
   /**
@@ -258,7 +236,7 @@ class basic_vector2 final
    */
   [[nodiscard]] auto magnitude() const noexcept -> T
   {
-    return std::sqrt(m_x * m_x + m_y * m_y);
+    return std::sqrt(x * x + y * y);
   }
 
   /**
@@ -270,7 +248,7 @@ class basic_vector2 final
    */
   [[nodiscard]] constexpr auto magnitude2() const noexcept -> T
   {
-    return (m_x * m_x) + (m_y * m_y);
+    return (x * x) + (y * y);
   }
 
   /**
@@ -284,7 +262,7 @@ class basic_vector2 final
    */
   [[nodiscard]] constexpr auto is_zero() const noexcept -> bool
   {
-    return almost_equal(m_x, 0) && almost_equal(m_y, 0);
+    return almost_equal(x, 0) && almost_equal(y, 0);
   }
 
   /**
@@ -300,34 +278,6 @@ class basic_vector2 final
   {
     return almost_equal(magnitude(), 1);
   }
-
-  /**
-   * \brief Returns the x-coordinate of the vector.
-   *
-   * \return the x-coordinate of the vector.
-   *
-   * \since 0.1.0
-   */
-  [[nodiscard]] constexpr auto x() const noexcept -> T
-  {
-    return m_x;
-  }
-
-  /**
-   * \brief Returns the y-coordinate of the vector.
-   *
-   * \return the y-coordinate of the vector.
-   *
-   * \since 0.1.0
-   */
-  [[nodiscard]] constexpr auto y() const noexcept -> T
-  {
-    return m_y;
-  }
-
- private:
-  T m_x{0};
-  T m_y{0};
 };
 
 /**
@@ -347,7 +297,7 @@ template <typename T>
                                        const basic_vector2<T>& rhs) noexcept
     -> basic_vector2<T>
 {
-  return basic_vector2{lhs.x() + rhs.x(), lhs.y() + rhs.y()};
+  return basic_vector2{lhs.x + rhs.x, lhs.y + rhs.y};
 }
 
 /**
@@ -367,7 +317,7 @@ template <typename T>
                                        const basic_vector2<T>& rhs) noexcept
     -> basic_vector2<T>
 {
-  return basic_vector2{lhs.x() - rhs.x(), lhs.y() - rhs.y()};
+  return basic_vector2{lhs.x - rhs.x, lhs.y - rhs.y};
 }
 
 /**
@@ -386,7 +336,7 @@ template <typename T>
 [[nodiscard]] constexpr auto operator*(const basic_vector2<T>& vector,
                                        T scalar) noexcept -> basic_vector2<T>
 {
-  return basic_vector2{vector.x() * scalar, vector.y() * scalar};
+  return basic_vector2{vector.x * scalar, vector.y * scalar};
 }
 
 /**

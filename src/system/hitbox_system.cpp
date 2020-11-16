@@ -20,8 +20,8 @@ void update_bounds(comp::hitbox& hitbox) noexcept
   bool first{true};
   for (const auto& [offset, size] : hitbox.boxes) {
     if (first) {
-      x = offset.x();
-      y = offset.y();
+      x = offset.x;
+      y = offset.y;
       mx = x + size.width;
       my = y + size.height;
 
@@ -30,14 +30,14 @@ void update_bounds(comp::hitbox& hitbox) noexcept
       continue;
     }
 
-    x = std::min(x, offset.x());
-    y = std::min(y, offset.y());
-    mx = std::max(mx, offset.x() + size.width);
-    my = std::max(my, offset.y() + size.height);
+    x = std::min(x, offset.x);
+    y = std::min(y, offset.y);
+    mx = std::max(mx, offset.x + size.width);
+    my = std::max(my, offset.y + size.height);
   }
 
-  hitbox.bounds.set_x(hitbox.origin.x() + x);
-  hitbox.bounds.set_y(hitbox.origin.y() + y);
+  hitbox.bounds.set_x(hitbox.origin.x + x);
+  hitbox.bounds.set_y(hitbox.origin.y + y);
   hitbox.bounds.set_width(mx - x);
   hitbox.bounds.set_height(my - y);
 }

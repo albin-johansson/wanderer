@@ -3,7 +3,6 @@
 #include <iterator>  // back_inserter
 #include <vector>    // vector
 
-#include "abby_utils.hpp"
 #include "centurion_utils.hpp"
 #include "component/hitbox.hpp"
 #include "component/movable.hpp"
@@ -32,10 +31,10 @@ struct collision_result final
                                         const vector2f& oldPosition,
                                         const delta dt) -> maybe<comp::hitbox>
 {
-  if (movable.velocity.y() != 0) {
+  if (movable.velocity.y != 0) {
     auto next = oldPosition;
-    next.set_y(oldPosition.y() +
-               (movable.velocity.y() * static_cast<float>(dt.get())));
+    next.y =
+        oldPosition.y + (movable.velocity.y * static_cast<float>(dt.get()));
     return hitbox::with_position(hitbox, next);
   } else {
     return std::nullopt;
@@ -47,10 +46,10 @@ struct collision_result final
                                           const vector2f& oldPosition,
                                           const delta dt) -> maybe<comp::hitbox>
 {
-  if (movable.velocity.x() != 0) {
+  if (movable.velocity.x != 0) {
     auto next = oldPosition;
-    next.set_x(oldPosition.x() +
-               (movable.velocity.x() * static_cast<float>(dt.get())));
+    next.x =
+        oldPosition.x + (movable.velocity.x * static_cast<float>(dt.get()));
     return hitbox::with_position(hitbox, next);
   } else {
     return std::nullopt;
@@ -74,9 +73,9 @@ struct collision_result final
   if (collisions.horizontal && collisions.vertical) {
     return previousPos;
   } else if (collisions.horizontal) {
-    return {previousPos.x(), currentBoundsPos.y()};
+    return {previousPos.x, currentBoundsPos.y};
   } else /*if (collisions.vertical)*/ {
-    return {currentBoundsPos.x(), previousPos.y()};
+    return {currentBoundsPos.x, previousPos.y};
   }
 }
 
@@ -92,13 +91,13 @@ struct collision_result final
       next.vertical && hitbox::intersects(*next.vertical, other);
 
   if (horizontalCollision) {
-    movable.position.set_x(oldPosition.x());
-    movable.velocity.set_x(0);
+    movable.position.x = oldPosition.x;
+    movable.velocity.x = 0;
   }
 
   if (verticalCollision) {
-    movable.position.set_y(oldPosition.y());
-    movable.velocity.set_y(0);
+    movable.position.y = oldPosition.y;
+    movable.velocity.y = 0;
   }
 
   return {horizontalCollision, verticalCollision};
@@ -113,7 +112,7 @@ void update_hitbox(level& level,
 {
   hitbox::set_position(hitbox, movable.position);
 
-  const auto oldAabbPos = to_vector(level.get_aabb(entity).m_min);
+  const auto oldAabbPos = level.get_aabb(entity).min();
   level.relocate_aabb(entity, to_vector(hitbox.bounds.position()));
 
   if (movable.velocity.is_zero()) {

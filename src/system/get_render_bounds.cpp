@@ -51,8 +51,8 @@ namespace {
 
 auto get_render_bounds(const entt::registry& registry,
                        comp::viewport::entity viewportEntity,
-                             int rows,
-                             int cols) -> comp::render_bounds
+                       int rows,
+                       int cols) -> comp::render_bounds
 {
   const auto& viewport = registry.get<comp::viewport>(viewportEntity.get());
 

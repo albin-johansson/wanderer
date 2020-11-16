@@ -5,7 +5,6 @@
 
 #include "aabb_tree.hpp"
 #include "abby.hpp"
-#include "abby_utils.hpp"
 #include "component/player.hpp"
 #include "component/render_bounds.hpp"
 #include "component/spawnpoint.hpp"
@@ -33,10 +32,11 @@ class level final
 {
  public:
   friend class level_factory;
+  using aabb_type = typename aabb_tree::aabb_type;
 
   void relocate_aabb(entt::entity entity, const vector2f& position)
   {
-    m_aabbTree.relocate(entity, abby_vector(position));
+    m_aabbTree.relocate(entity, position);
   }
 
   template <typename... Components, typename T>
@@ -69,7 +69,7 @@ class level final
     return m_aabbTree.query(id, iterator);
   }
 
-  [[nodiscard]] auto get_aabb(entt::entity id) const -> const abby::aabb<float>&
+  [[nodiscard]] auto get_aabb(entt::entity id) const -> const aabb_type&
   {
     return m_aabbTree.get_aabb(id);
   }

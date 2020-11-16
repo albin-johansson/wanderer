@@ -49,35 +49,24 @@
 
 namespace abby {
 
-using maybe_index = std::optional<int>;
+using maybe_index = std::optional<std::size_t>;
 
+/**
+ * \struct vector2
+ *
+ * \brief A simple two-dimensional vector.
+ *
+ * \tparam T the representation type.
+ *
+ * \since 0.1.0
+ *
+ * \headerfile abby.hpp
+ */
 template <typename T>
 struct vector2 final
 {
-  T x{};
-  T y{};
-
-  [[deprecated]] auto operator[](std::size_t index) -> T&
-  {
-    if (index == 0) {
-      return x;
-    } else if (index == 1) {
-      return y;
-    } else {
-      throw std::invalid_argument{"vector2: bad subscript index!"};
-    }
-  }
-
-  [[deprecated]] auto operator[](std::size_t index) const -> const T&
-  {
-    if (index == 0) {
-      return x;
-    } else if (index == 1) {
-      return y;
-    } else {
-      throw std::invalid_argument{"vector2: bad subscript index!"};
-    }
-  }
+  T x{};  ///< The x-coordinate.
+  T y{};  ///< The y-coordinate.
 };
 
 // clang-format off
@@ -164,14 +153,36 @@ template <typename T>
   return !(lhs == rhs);
 }
 
-template <typename T>
+/**
+ * \class aabb
+ *
+ * \brief Represents an AABB (Axis-Aligned Bounding Box).
+ *
+ * \note This is really just a glorified rectangle.
+ *
+ * \tparam Vector the vector type that will be used. Must provide overloads for
+ * `operator+` and `operator-`.
+ *
+ * \since 0.1.0
+ */
+template <typename Vector>
 class aabb final
 {
  public:
-  using vector_type = vector2<T>;
+  using vector_type = Vector;
 
   [[deprecated]] constexpr aabb() noexcept = default;
 
+  /**
+   * \brief Creates an AABB.
+   *
+   * \param min the lower bounds of the AABB.
+   * \param max the upper bounds of the AABB.
+   *
+   * \throws invalid_argument if `min` is greater than `max`.
+   *
+   * \since 0.1.0
+   */
   constexpr aabb(const vector_type& min, const vector_type& max)
       : m_min{min},
         m_max{max},
@@ -182,6 +193,25 @@ class aabb final
     }
   }
 
+  /**
+   * \brief Updates the stored area.
+   *
+   * \since 0.2.0
+   */
+  constexpr void update_area() noexcept
+  {
+    m_area = compute_area();
+  }
+
+  /**
+   * \brief Fattens the AABB by increasing its size.
+   *
+   * \note This function has no effect if the supplied value is `std::nullopt`.
+   *
+   * \param factor the fattening factor to use.
+   *
+   * \since 0.2.0
+   */
   constexpr void fatten(const std::optional<double> factor)
   {
     if (!factor) {
@@ -199,25 +229,6 @@ class aabb final
     m_max.y += dy;
 
     m_area = compute_area();
-    //    vector_type size;  // AABB size in each dimension.
-    //
-    //    // Compute the AABB limits.
-    //    for (auto i = 0; i < 2; ++i) {
-    //      // Validate the bound.
-    //      if (m_min[i] > m_max[i]) {
-    //        throw std::invalid_argument("aabb: lower bound > upper bound!");
-    //      }
-    //
-    //      node.aabb.m_min[i] = lowerBound[i];
-    //      node.aabb.m_max[i] = upperBound[i];
-    //      size[i] = upperBound[i] - lowerBound[i];
-    //    }
-    //
-    //    // Fatten the AABB.
-    //    for (auto i = 0; i < 2; ++i) {
-    //      node.aabb.m_min[i] -= (m_skinThickness * size[i]);
-    //      node.aabb.m_max[i] += (m_skinThickness * size[i]);
-    //    }
   }
 
   /**
@@ -235,9 +246,20 @@ class aabb final
     vector_type lower;
     vector_type upper;
 
-    for (auto i = 0; i < 2; ++i) {
-      lower[i] = std::min(fst.m_min[i], snd.m_min[i]);
-      upper[i] = std::max(fst.m_max[i], snd.m_max[i]);
+    {
+      const auto& fstMin = fst.min();
+      const auto& sndMin = snd.min();
+
+      lower.x = std::min(fstMin.x, sndMin.x);
+      lower.y = std::min(fstMin.y, sndMin.y);
+    }
+
+    {
+      const auto& fstMax = fst.max();
+      const auto& sndMax = snd.max();
+
+      upper.x = std::max(fstMax.x, sndMax.x);
+      upper.y = std::max(fstMax.y, sndMax.y);
     }
 
     return aabb{lower, upper};
@@ -261,21 +283,8 @@ class aabb final
   [[nodiscard]] constexpr auto contains(const aabb& other) const noexcept
       -> bool
   {
-    //    if ((other.m_min.x < m_min.x) || (other.m_max.x > m_max.x) ||
-    //        (other.m_min.y < m_min.y) || (other.m_max.y > m_max.y)) {
-    //      return false;
-    //    } else {
-    //      return true;
-    //    }
-    for (auto i = 0; i < 2; ++i) {
-      if (other.m_min[i] < m_min[i]) {
-        return false;
-      }
-      if (other.m_max[i] > m_max[i]) {
-        return false;
-      }
-    }
-    return true;
+    return (other.m_min.x >= m_min.x) && (other.m_min.y >= m_min.y) &&
+           (other.m_max.x <= m_max.x) && (other.m_max.y <= m_max.y);
   }
 
   /**
@@ -290,37 +299,17 @@ class aabb final
    *
    * \since 0.1.0
    */
-  [[nodiscard]] constexpr auto overlaps(const aabb& other,
-                                        bool touchIsOverlap) const noexcept
-      -> bool
+  [[nodiscard]] constexpr auto overlaps(
+      const aabb& other,
+      const bool touchIsOverlap) const noexcept -> bool
   {
-    //    if (touchIsOverlap) {
-    //      if ((other.m_max.x < m_min.x || other.m_min.x > m_max.x) ||
-    //          (other.m_max.y < m_min.y || other.m_min.y > m_max.y)) {
-    //        return false;
-    //      }
-    //    } else {
-    //      if ((other.m_max.x <= m_min.x || other.m_min.x >= m_max.x) ||
-    //          (other.m_max.y <= m_min.y || other.m_min.y >= m_max.y)) {
-    //        return false;
-    //      }
-    //    }
-    //    return true;
     if (touchIsOverlap) {
-      for (auto i = 0; i < 2; ++i) {
-        if (other.m_max[i] < m_min[i] || other.m_min[i] > m_max[i]) {
-          return false;
-        }
-      }
+      return !(other.m_max.x < m_min.x || other.m_min.x > m_max.x ||
+               other.m_max.y < m_min.y || other.m_min.y > m_max.y);
     } else {
-      for (auto i = 0; i < 2; ++i) {
-        if (other.m_max[i] <= m_min[i] || other.m_min[i] >= m_max[i]) {
-          return false;
-        }
-      }
+      return !(other.m_max.x <= m_min.x || other.m_min.x >= m_max.x ||
+               other.m_max.y <= m_min.y || other.m_min.y >= m_max.y);
     }
-
-    return true;
   }
 
   /**
@@ -341,8 +330,13 @@ class aabb final
 
       for (auto d2 = 0; d2 < 2; ++d2) {
         if (d1 != d2) {
-          const auto dx = m_max[d2] - m_min[d2];
-          product *= dx;
+          if (d2 == 0) {
+            const auto dx = m_max.x - m_min.x;
+            product *= dx;
+          } else if (d2 == 1) {
+            const auto dx = m_max.y - m_min.y;
+            product *= dx;
+          }
         }
       }
 
@@ -376,25 +370,35 @@ class aabb final
     return m_max - m_min;
   }
 
+  /**
+   * \brief Returns the lower bounds associated with the AABB.
+   *
+   * \return the lower bounds of the AABB.
+   *
+   * \since 0.2.0
+   */
   [[nodiscard]] constexpr auto min() const noexcept -> const vector_type&
   {
     return m_min;
   }
 
+  /**
+   * \brief Returns the upper bounds associated with the AABB.
+   *
+   * \return the upper bounds of the AABB.
+   *
+   * \since 0.2.0
+   */
   [[nodiscard]] constexpr auto max() const noexcept -> const vector_type&
   {
     return m_max;
   }
 
-  // private: // TODO make private
+ private:
   vector_type m_min;
   vector_type m_max;
   double m_area{};
 };
-
-// clang-format off
-template <typename T> aabb(vector2<T>, vector2<T>) -> aabb<T>;
-// clang-format on
 
 /**
  * \brief Indicates whether or not two AABBs are equal.
@@ -443,25 +447,25 @@ template <typename T>
  * with tree information.
  *
  * \tparam Key the type of the keys associated with each node.
- * \tparam T the representation type used by the AABBs.
+ * \tparam Vector the vector type used by the AABBs.
  *
  * \since 0.1.0
  *
  * \headerfile abby.hpp
  */
-template <typename Key, typename T>
+template <typename Key, typename Vector>
 struct node final
 {
   using key_type = Key;
-  using aabb_type = aabb<T>;
+  using aabb_type = aabb<Vector>;
 
   std::optional<key_type> id;
   aabb_type aabb;
 
   maybe_index parent;
-  maybe_index next;
   maybe_index left;
   maybe_index right;
+  maybe_index next;
   int height{-1};
 
   [[nodiscard]] auto is_leaf() const noexcept -> bool
@@ -479,25 +483,26 @@ struct node final
  * comparable and preferably small and cheap to copy type, e.g. `int`.
  * \tparam T the representation type used by the AABBs, should be a
  * floating-point type for best precision.
+ * \tparam Vector the vector type used by the AABBs.
  *
  * \since 0.1.0
  *
  * \headerfile abby.hpp
  */
-template <typename Key, typename T = double>
+template <typename Key, typename T = double, typename Vector = vector2<T>>
 class tree final
 {
   template <typename U>
   using pmr_stack = std::stack<U, std::pmr::deque<U>>;
 
  public:
-  using value_type = T;
   using key_type = Key;
-  using vector_type = vector2<value_type>;
-  using aabb_type = aabb<value_type>;
-  using node_type = node<key_type, value_type>;
+  using value_type = T;
+  using vector_type = Vector;
+  using node_type = node<key_type, vector_type>;
+  using aabb_type = typename node_type::aabb_type;
   using size_type = std::size_t;
-  using index_type = int;
+  using index_type = size_type;
 
   /**
    * \brief Creates an AABB tree.
@@ -522,7 +527,7 @@ class tree final
    *
    * \pre `key` cannot be in use at the time of invoking this function.
    *
-   * \param key the ID that will be associated with the box.
+   * \param key the ID that will be associated with the AABB.
    * \param lowerBound the lower-bound position of the AABB (i.e. the position).
    * \param upperBound the upper-bound position of the AABB.
    *
@@ -552,7 +557,6 @@ class tree final
     validate();
 #endif
   }
-
   /**
    * \brief Removes the AABB associated with the specified ID.
    *
@@ -644,8 +648,9 @@ class tree final
    *
    * \since 0.1.0
    */
-  auto update(const key_type& key, aabb_type aabb, bool forceReinsert = false)
-      -> bool
+  auto update(const key_type& key,
+              aabb_type aabb,
+              const bool forceReinsert = false) -> bool
   {
     if (const auto it = m_indexMap.find(key); it != m_indexMap.end()) {
       const auto nodeIndex = it->second;  // Extract the node index.
@@ -664,8 +669,9 @@ class tree final
 
       auto& node = m_nodes.at(nodeIndex);
       node.aabb = aabb;
-      node.aabb.m_area = aabb.compute_area();
-      //    m_nodes[node].aabb.m_centre = m_nodes[node].aabb.computeCentre();
+      node.aabb.update_area();
+      // node.aabb.m_area = aabb.compute_area();
+      // m_nodes[node].aabb.m_centre = m_nodes[node].aabb.computeCentre();
 
       insert_leaf(nodeIndex);
 
@@ -678,10 +684,27 @@ class tree final
     }
   }
 
+  /**
+   * \brief Updates the AABB associated with the specified ID.
+   *
+   * \note This function has no effect if there is no AABB associated with the
+   * specified ID.
+   *
+   * \param key the ID associated with the AABB that will be replaced.
+   * \param lowerBound the lower-bound position of the AABB (i.e. the position).
+   * \param upperBound the upper-bound position of the AABB.
+   * \param forceReinsert indicates whether or not the AABB is always
+   * reinserted, which wont happen if this is set to `true` and the new AABB is
+   * within the old AABB.
+   *
+   * \return `true` if an AABB was updated; `false` otherwise.
+   *
+   * \since 0.1.0
+   */
   auto update(const key_type& key,
               const vector_type& lowerBound,
               const vector_type& upperBound,
-              bool forceReinsert = false) -> bool
+              const bool forceReinsert = false) -> bool
   {
     return update(key, {lowerBound, upperBound}, forceReinsert);
   }
@@ -693,8 +716,7 @@ class tree final
    * specified ID.
    *
    * \param key the ID associated with the AABB that will be moved.
-   * \param position the new position of the AABB associated with the specified
-   * ID.
+   * \param position the new position of the AABB.
    * \param forceReinsert `true` if the associated AABB is forced to be
    * reinserted into the tree.
    *
@@ -704,7 +726,7 @@ class tree final
    */
   auto relocate(const key_type& key,
                 const vector_type& position,
-                bool forceReinsert = false) -> bool
+                const bool forceReinsert = false) -> bool
   {
     if (const auto it = m_indexMap.find(key); it != m_indexMap.end()) {
       const auto& aabb = m_nodes.at(it->second).aabb;
@@ -714,19 +736,28 @@ class tree final
     }
   }
 
-  /// Rebuild an optimal tree.
+  /**
+   * \brief Rebuilds the tree as an optimal tree.
+   *
+   * \since 0.2.0
+   */
   void rebuild()
   {
+    if (is_empty()) {
+      return;
+    }
+
     std::vector<index_type> nodeIndices(m_nodeCount);
-    int count{0};
+    size_type count{0};
 
     for (auto index = 0; index < m_nodeCapacity; ++index) {
-      if (m_nodes.at(index).height < 0) {  // Free node.
+      auto& node = m_nodes.at(index);
+      if (node.height < 0) {  // Free node.
         continue;
       }
 
-      if (m_nodes.at(index).is_leaf()) {
-        m_nodes.at(index).parent = std::nullopt;
+      if (node.is_leaf()) {
+        node.parent = std::nullopt;
         nodeIndices.at(count) = index;
         ++count;
       } else {
@@ -784,7 +815,15 @@ class tree final
 #endif
   }
 
-  void set_thickness_factor(std::optional<double> thicknessFactor)
+  /**
+   * \brief Sets the AABB skin thickness factor.
+   *
+   * \param thicknessFactor the skin thickness factor, will be clamped to at
+   * least 0.
+   *
+   * \since 0.2.0
+   */
+  void set_thickness_factor(const std::optional<double> thicknessFactor)
   {
     if (thicknessFactor) {
       m_skinThickness = std::clamp(*thicknessFactor, 0.0, *thicknessFactor);
@@ -897,26 +936,6 @@ class tree final
     return totalArea / rootArea;
   }
 
-  void validate() const
-  {
-#ifndef NDEBUG
-    validate_structure(m_root);
-    validate_metrics(m_root);
-
-    auto freeCount = 0;
-    auto freeIndex = m_nextFreeIndex;
-
-    while (freeIndex != std::nullopt) {
-      assert(freeIndex < m_nodeCapacity);
-      freeIndex = m_nodes[*freeIndex].next;
-      freeCount++;
-    }
-
-    assert(height() == compute_height());
-    assert((m_nodeCount + freeCount) == m_nodeCapacity);
-#endif
-  }
-
   /**
    * \brief Returns the AABB associated with the specified ID.
    *
@@ -1011,7 +1030,7 @@ class tree final
   void print(std::ostream& stream,
              const std::string& prefix,
              const maybe_index index,
-             bool isLeft) const
+             const bool isLeft) const
   {
     if (index != std::nullopt) {
       const auto& node = m_nodes.at(*index);
@@ -1473,6 +1492,26 @@ class tree final
     }
   }
 
+  void validate() const
+  {
+#ifndef NDEBUG
+    validate_structure(m_root);
+    validate_metrics(m_root);
+
+    auto freeCount = 0;
+    auto freeIndex = m_nextFreeIndex;
+
+    while (freeIndex != std::nullopt) {
+      assert(freeIndex < m_nodeCapacity);
+      freeIndex = m_nodes.at(*freeIndex).next;
+      freeCount++;
+    }
+
+    assert(height() == compute_height());
+    assert((m_nodeCount + freeCount) == m_nodeCapacity);
+#endif
+  }
+
   void validate_structure(const maybe_index nodeIndex) const
   {
     if (nodeIndex == std::nullopt) {
@@ -1535,10 +1574,10 @@ class tree final
       const auto aabb =
           aabb_type::merge(m_nodes.at(*left).aabb, m_nodes.at(*right).aabb);
 
-      for (auto i = 0; i < 2; ++i) {
-        assert(aabb.m_min[i] == node.aabb.m_min[i]);
-        assert(aabb.m_max[i] == node.aabb.m_max[i]);
-      }
+      assert(aabb.min().x == node.aabb.min().x);
+      assert(aabb.min().y == node.aabb.min().y);
+      assert(aabb.max().x == node.aabb.max().x);
+      assert(aabb.max().y == node.aabb.max().y);
 
       validate_metrics(left);
       validate_metrics(right);

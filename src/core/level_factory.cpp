@@ -2,7 +2,7 @@
 
 #include <entt.hpp>
 
-#include "abby_utils.hpp"
+#include "centurion_utils.hpp"
 #include "component/depth_drawable.hpp"
 #include "depth_drawables_system.hpp"
 #include "hitbox_system.hpp"
@@ -54,8 +54,8 @@ void level_factory::init_tile_objects(entt::registry& registry,
     const auto& drawable = registry.get<comp::depth_drawable>(tileObject.get());
     const auto& object = registry.get<comp::tile_object>(tileObject.get());
     if (const auto* hitbox = registry.try_get<comp::hitbox>(tileObject.get())) {
-      const auto lower = abby_vector(hitbox->bounds.position());
-      const auto upper = lower + abby_vector(hitbox->bounds.size());
+      const auto lower = to_vector(hitbox->bounds.position());
+      const auto upper = lower + to_vector(hitbox->bounds.size());
       aabbTree.insert(tileObject.get(), lower, upper);
     }
   }

@@ -39,7 +39,7 @@ inline constexpr float g_cameraSpeed = 10.0f;
     }
   };
 
-  return vector2f{getX(target.x()), getY(target.y())};
+  return vector2f{getX(target.x), getY(target.y)};
 }
 
 [[nodiscard]] auto make_target_vector(const vector2f& position,
@@ -53,8 +53,8 @@ inline constexpr float g_cameraSpeed = 10.0f;
   const auto halfBoundsWidth = viewport.bounds.width() / 2.0f;
   const auto halfBoundsHeight = viewport.bounds.height() / 2.0f;
 
-  const auto x = (position.x() + halfWidth) - halfBoundsWidth;
-  const auto y = (position.y() + halfHeight) - halfBoundsHeight;
+  const auto x = (position.x + halfWidth) - halfBoundsWidth;
+  const auto y = (position.y + halfHeight) - halfBoundsHeight;
 
   return {x, y};
 }
@@ -64,8 +64,8 @@ void track(comp::viewport& viewport, const vector2f& position, const delta dt)
   const auto next = next_camera_position(make_target_vector(position, viewport),
                                          viewport,
                                          dt);
-  viewport.bounds.set_x(next.x());
-  viewport.bounds.set_y(next.y());
+  viewport.bounds.set_x(next.x);
+  viewport.bounds.set_y(next.y);
 }
 
 }  // namespace
@@ -76,8 +76,8 @@ void center_on(entt::registry& registry,
 {
   auto& viewport = registry.get<comp::viewport>(viewportEntity.get());
   const auto target = make_target_vector(position, viewport);
-  viewport.bounds.set_x(target.x());
-  viewport.bounds.set_y(target.y());
+  viewport.bounds.set_x(target.x);
+  viewport.bounds.set_y(target.y);
 }
 
 void update(level& level, const entt::entity movableEntity, const delta dt)

@@ -50,7 +50,6 @@ namespace {
 
 }  // namespace
 
-
 void add_tile_objects(entt::registry& registry,
                       comp::tilemap& tilemap,
                       const comp::tileset& tileset,

@@ -3,7 +3,7 @@
 #include <cassert>
 #include <cen/counter.hpp>
 
-#include "abby_utils.hpp"
+#include "centurion_utils.hpp"
 #include "component/animated.hpp"
 #include "component/binds.hpp"
 #include "component/depth_drawable.hpp"
@@ -63,8 +63,8 @@ namespace {
   auto hitbox = hitbox::create({{{18, 16}, {28, 36}}});
   sys::hitbox::set_position(hitbox, movable.position);
 
-  const auto lower = abby_vector(hitbox.bounds.position());
-  const auto upper = lower + abby_vector(hitbox.bounds.size());
+  const auto lower = to_vector(hitbox.bounds.position());
+  const auto upper = lower + to_vector(hitbox.bounds.size());
   aabbTree.insert(entity, lower, upper);
 
   registry.emplace<comp::hitbox>(entity, hitbox);

@@ -15,10 +15,9 @@ void update_movable(entt::registry& registry)
   registry.view<comp::movable, comp::depth_drawable>().each(
       [](const comp::movable& movable,
          comp::depth_drawable& drawable) noexcept {
-        drawable.dst.set_x(movable.position.x());
-        drawable.dst.set_y(movable.position.y());
-        drawable.centerY =
-            movable.position.y() + (drawable.dst.height() / 2.0f);
+        drawable.dst.set_x(movable.position.x);
+        drawable.dst.set_y(movable.position.y);
+        drawable.centerY = movable.position.y + (drawable.dst.height() / 2.0f);
       });
 }
 
