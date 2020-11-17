@@ -2,7 +2,6 @@
 
 #include <cassert>  // assert
 #include <cen/log.hpp>
-#include <optional>  // optional
 #include <step_map.hpp>
 #include <step_tile_layer.hpp>
 #include <vector>  // vector
