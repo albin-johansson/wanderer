@@ -1,6 +1,7 @@
 #include "make_map.hpp"
 
-#include <cassert>   // assert
+#include <cassert>  // assert
+#include <cen/log.hpp>
 #include <optional>  // optional
 #include <step_map.hpp>
 #include <step_tile_layer.hpp>
@@ -80,6 +81,8 @@ void parse_spawnpoint(entt::registry& registry, const step::object& object)
 
   } else if (props->is("entity", "skeleton")) {
     type = comp::spawnpoint_type::skeleton;
+  } else {
+    cen::log::warn("Did not recognize spawnpoint type!");
   }
 
   registry.emplace<comp::spawnpoint>(registry.create(), type.value(), position);
