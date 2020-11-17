@@ -44,6 +44,7 @@
 #include <stack>            // stack
 #include <stdexcept>        // invalid_argument
 #include <string>           // string
+#include <type_traits>      // invoke_result_t, is_convertible_v, is_invocable_v
 #include <unordered_map>    // unordered_map
 #include <vector>           // vector
 
@@ -474,6 +475,16 @@ struct node final
   }
 };
 
+namespace detail {
+
+template <typename R, typename Callable, typename... Args>
+[[nodiscard]] constexpr auto returns() -> bool
+{
+  return std::is_convertible_v<std::invoke_result_t<Callable, Args...>, R>;
+}
+
+}  // namespace detail
+
 /**
  * \class tree
  *
@@ -639,7 +650,7 @@ class tree final
    * specified ID.
    *
    * \param key the ID associated with the AABB that will be replaced.
-   * \param box the new AABB that will be associated with the specified ID.
+   * \param aabb the new AABB that will be associated with the specified ID.
    * \param forceReinsert indicates whether or not the AABB is always
    * reinserted, which wont happen if this is set to `true` and the new AABB is
    * within the old AABB.
@@ -859,39 +870,38 @@ class tree final
   template <size_type bufferSize = 256, typename OutputIterator>
   void query(const key_type& key, OutputIterator iterator) const
   {
-    if (const auto it = m_indexMap.find(key); it != m_indexMap.end()) {
-      const auto& sourceNode = m_nodes.at(it->second);
+    query_impl<bufferSize>(key, [&](const key_type& key) {
+      *iterator = key;
+      ++iterator;
+    });
+  }
 
-      std::array<std::byte, sizeof(maybe_index) * bufferSize> buffer;
-      std::pmr::monotonic_buffer_resource resource{buffer.data(),
-                                                   sizeof buffer};
-
-      pmr_stack<maybe_index> stack{&resource};
-      stack.push(m_root);
-      while (!stack.empty()) {
-        const auto nodeIndex = stack.top();
-        stack.pop();
-
-        if (!nodeIndex) {
-          continue;
-        }
-
-        const auto& node = m_nodes.at(*nodeIndex);
-
-        // Test for overlap between the AABBs
-        if (sourceNode.aabb.overlaps(node.aabb, m_touchIsOverlap)) {
-          if (node.is_leaf() && node.id) {
-            if (node.id != key) {  // Can't interact with itself
-              *iterator = *node.id;
-              ++iterator;
-            }
-          } else {
-            stack.push(node.left);
-            stack.push(node.right);
-          }
-        }
-      }
-    }
+  /**
+   * \brief Obtains collision candidates for the AABB associated with the
+   * specified ID.
+   *
+   * \details The signature of the function object be convertible to `void(const
+   * key_type&)` or `bool(const key_type&)`. If the function returns `bool`, the
+   * search will stop whenever the function object returns `true`.
+   *
+   * \note This function has no effect if the supplied key is unknown.
+   *
+   * \tparam bufferSize the size of the stack buffer.
+   * \tparam Callable the type of the function object.
+   *
+   * \param key the ID associated with the AABB to obtain collision candidates
+   * for.
+   * \param callable the function object that is invoked for each collision
+   * candidate.
+   *
+   * \since 0.3.0
+   */
+  template <size_type bufferSize = 256, typename Callable>
+  void query_direct(const key_type& key, Callable&& callable) const
+  {
+    static_assert(std::is_invocable_v<Callable, key_type>,
+                  "\"Callable\" must be a function object type!");
+    query_impl<bufferSize>(key, callable);
   }
 
   [[nodiscard]] auto compute_maximum_balance() const -> size_type
@@ -909,7 +919,7 @@ class tree final
 
         const auto balance = std::abs(m_nodes.at(*node.left).height -
                                       m_nodes.at(*node.right).height);
-        maxBalance = std::max(maxBalance, balance);
+        maxBalance = std::max(maxBalance, static_cast<size_type>(balance));
       }
     }
 
@@ -1468,6 +1478,49 @@ class tree final
     }
   }
 
+  template <size_type bufferSize = 256, typename Handler>
+  void query_impl(const key_type& key, Handler&& handler) const
+  {
+    if (const auto it = m_indexMap.find(key); it != m_indexMap.end()) {
+      const auto& sourceNode = m_nodes.at(it->second);
+
+      std::array<std::byte, sizeof(maybe_index) * bufferSize> buffer;
+      std::pmr::monotonic_buffer_resource resource{buffer.data(),
+                                                   sizeof buffer};
+
+      pmr_stack<maybe_index> stack{&resource};
+      stack.push(m_root);
+      bool quit{false};
+      while (!stack.empty() && !quit) {
+        const auto nodeIndex = stack.top();
+        stack.pop();
+
+        if (!nodeIndex) {
+          continue;
+        }
+
+        const auto& node = m_nodes.at(*nodeIndex);
+
+        // Test for overlap between the AABBs
+        if (sourceNode.aabb.overlaps(node.aabb, m_touchIsOverlap)) {
+          if (node.is_leaf() && node.id) {
+            if (node.id != key) {  // Can't interact with itself
+              // The boolean return type is optional
+              if constexpr (detail::returns<bool, Handler, key_type>()) {
+                quit = handler(*node.id);
+              } else {
+                handler(*node.id);
+              }
+            }
+          } else {
+            stack.push(node.left);
+            stack.push(node.right);
+          }
+        }
+      }
+    }
+  }
+
   [[nodiscard]] auto compute_height() const -> size_type
   {
     return compute_height(m_root);
@@ -1494,7 +1547,6 @@ class tree final
 
   void validate() const
   {
-#ifndef NDEBUG
     validate_structure(m_root);
     validate_metrics(m_root);
 
@@ -1509,7 +1561,6 @@ class tree final
 
     assert(height() == compute_height());
     assert((m_nodeCount + freeCount) == m_nodeCapacity);
-#endif
   }
 
   void validate_structure(const maybe_index nodeIndex) const
