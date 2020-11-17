@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objecttypes>
+ <objecttype name="Hitbox" color="#ff0000"/>
  <objecttype name="Object" color="#ff00ff">
   <property name="blocked" type="bool" default="false"/>
-  <property name="group" type="int" default="0"/>
-  <property name="isPivot" type="bool" default="false"/>
-  <property name="renderGroup" type="int" default="0"/>
+  <property name="depth" type="int" default="0"/>
+ </objecttype>
+ <objecttype name="Spawnpoint" color="#a0a0a4">
+  <property name="name" type="string" default=""/>
  </objecttype>
 </objecttypes>
