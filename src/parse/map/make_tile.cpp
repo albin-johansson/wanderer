@@ -66,6 +66,15 @@ void parse_fancy_tile(entt::registry& registry,
       }
     }
   }
+
+  if (const auto* props = stepTile.get_properties()) {
+    if (props->has("depth")) {
+      assert(props->get("depth").is<int>());
+
+      auto& tile = registry.get<comp::tile>(tileEntity.get());
+      tile.zIndex = depth{props->get("depth").get<int>()};
+    }
+  }
 }
 
 auto make_basic_tile(entt::registry& registry,

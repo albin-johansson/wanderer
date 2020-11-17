@@ -4,6 +4,7 @@
 #include <cen/texture.hpp>
 #include <entt.hpp>
 
+#include "depth.hpp"
 #include "entity_type.hpp"
 #include "texture_handle.hpp"
 #include "tile_id.hpp"
@@ -27,9 +28,10 @@ struct tile_entity_t;
 struct tile final
 {
   using entity = entity_type<detail::tile_entity_t>;
-  tile_id id{};    ///< Unique ID associated with the tile.
-  cen::irect src;  ///< Region in associated tileset that the tile represents.
+  tile_id id{};          ///< Unique ID associated with the tile.
   texture_handle sheet;  ///< Handle to the associated tileset.
+  cen::irect src;  ///< Region in associated tileset that the tile represents.
+  depth zIndex{5};
 };
 
 }  // namespace wanderer::comp

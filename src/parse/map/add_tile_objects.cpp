@@ -18,9 +18,7 @@ namespace {
 [[nodiscard]] auto make_tile_object(entt::registry& registry,
                                     const comp::tile::entity tileEntity,
                                     const int row,
-                                    const int col,
-                                    const maybe<depth> depth)
-    -> comp::tile_object::entity
+                                    const int col) -> comp::tile_object::entity
 {
   const auto entity = registry.create();
 
@@ -37,7 +35,7 @@ namespace {
   drawable.src = tile.src;
   drawable.dst = {{x, y}, {tileSize, tileSize}};
   drawable.centerY = y + (drawable.dst.height() / 2.0f);
-  drawable.zIndex = depth.value_or(5_depth);
+  drawable.zIndex = tile.zIndex;
 
   if (const auto* hb = registry.try_get<comp::hitbox>(tileEntity.get())) {
     comp::hitbox hitbox = *hb;
@@ -60,10 +58,9 @@ void add_tile_objects(entt::registry& registry,
   int index{0};
   std::for_each(begin, end, [&](const step::global_id gid) {
     if (gid.get() != g_emptyTile) {
-      const auto tileId = tileset.tiles.at(gid.get());
+      const auto tileEntity = tileset.tiles.at(gid.get());
       const auto [row, col] = index_to_matrix(index, tilemap.cols);
-      const auto tileObject =
-          make_tile_object(registry, tileId, row, col, std::nullopt);  // FIXME
+      const auto tileObject = make_tile_object(registry, tileEntity, row, col);
       tilemap.tileObjects.emplace(comp::map_position{row, col}, tileObject);
     }
     ++index;
