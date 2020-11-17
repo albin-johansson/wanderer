@@ -67,30 +67,72 @@
         }, 
         {
          "id":12,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":6
+                }],
          "type":"Object"
         }, 
         {
          "id":13,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":6
+                }],
          "type":"Object"
         }, 
         {
          "id":14,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":6
+                }],
          "type":"Object"
         }, 
         {
          "id":15,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":6
+                }],
          "type":"Object"
         }, 
         {
          "id":16,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":6
+                }],
          "type":"Object"
         }, 
         {
          "id":17,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":6
+                }],
          "type":"Object"
         }, 
         {
          "id":18,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":6
+                }],
          "type":"Object"
         }, 
         {
@@ -326,30 +368,72 @@
         }, 
         {
          "id":44,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":6
+                }],
          "type":"Object"
         }, 
         {
          "id":45,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":6
+                }],
          "type":"Object"
         }, 
         {
          "id":46,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":6
+                }],
          "type":"Object"
         }, 
         {
          "id":47,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":6
+                }],
          "type":"Object"
         }, 
         {
          "id":48,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":6
+                }],
          "type":"Object"
         }, 
         {
          "id":49,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":6
+                }],
          "type":"Object"
         }, 
         {
          "id":50,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":6
+                }],
          "type":"Object"
         }, 
         {
@@ -516,30 +600,72 @@
         }, 
         {
          "id":76,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":5
+                }],
          "type":"Object"
         }, 
         {
          "id":77,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":5
+                }],
          "type":"Object"
         }, 
         {
          "id":78,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":5
+                }],
          "type":"Object"
         }, 
         {
          "id":79,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":5
+                }],
          "type":"Object"
         }, 
         {
          "id":80,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":5
+                }],
          "type":"Object"
         }, 
         {
          "id":81,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":5
+                }],
          "type":"Object"
         }, 
         {
          "id":82,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":5
+                }],
          "type":"Object"
         }, 
         {
@@ -627,8 +753,8 @@
          "properties":[
                 {
                  "name":"depth",
-                 "type":"string",
-                 "value":"5"
+                 "type":"int",
+                 "value":5
                 }],
          "type":"Object"
         }, 
@@ -637,8 +763,8 @@
          "properties":[
                 {
                  "name":"depth",
-                 "type":"string",
-                 "value":"5"
+                 "type":"int",
+                 "value":5
                 }],
          "type":"Object"
         }, 
@@ -647,8 +773,8 @@
          "properties":[
                 {
                  "name":"depth",
-                 "type":"string",
-                 "value":"5"
+                 "type":"int",
+                 "value":5
                 }],
          "type":"Object"
         }, 
@@ -657,8 +783,8 @@
          "properties":[
                 {
                  "name":"depth",
-                 "type":"string",
-                 "value":"5"
+                 "type":"int",
+                 "value":5
                 }],
          "type":"Object"
         }, 
@@ -667,8 +793,8 @@
          "properties":[
                 {
                  "name":"depth",
-                 "type":"string",
-                 "value":"5"
+                 "type":"int",
+                 "value":5
                 }],
          "type":"Object"
         }, 
@@ -727,31 +853,103 @@
          "type":"Object"
         }, 
         {
+         "id":105,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":6
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":106,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":6
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":107,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":6
+                }],
+         "type":"Object"
+        }, 
+        {
          "id":108,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":3
+                }],
          "type":"Object"
         }, 
         {
          "id":109,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":3
+                }],
          "type":"Object"
         }, 
         {
          "id":110,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":3
+                }],
          "type":"Object"
         }, 
         {
          "id":111,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":3
+                }],
          "type":"Object"
         }, 
         {
          "id":112,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":3
+                }],
          "type":"Object"
         }, 
         {
          "id":113,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":3
+                }],
          "type":"Object"
         }, 
         {
          "id":114,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":3
+                }],
          "type":"Object"
         }, 
         {
@@ -839,8 +1037,8 @@
          "properties":[
                 {
                  "name":"depth",
-                 "type":"string",
-                 "value":"5"
+                 "type":"int",
+                 "value":5
                 }],
          "type":"Object"
         }, 
@@ -849,8 +1047,8 @@
          "properties":[
                 {
                  "name":"depth",
-                 "type":"string",
-                 "value":"5"
+                 "type":"int",
+                 "value":5
                 }],
          "type":"Object"
         }, 
@@ -859,8 +1057,8 @@
          "properties":[
                 {
                  "name":"depth",
-                 "type":"string",
-                 "value":"5"
+                 "type":"int",
+                 "value":5
                 }],
          "type":"Object"
         }, 
@@ -869,8 +1067,8 @@
          "properties":[
                 {
                  "name":"depth",
-                 "type":"string",
-                 "value":"5"
+                 "type":"int",
+                 "value":5
                 }],
          "type":"Object"
         }, 
@@ -879,8 +1077,8 @@
          "properties":[
                 {
                  "name":"depth",
-                 "type":"string",
-                 "value":"5"
+                 "type":"int",
+                 "value":5
                 }],
          "type":"Object"
         }, 
@@ -914,7 +1112,7 @@
                 {
                  "name":"depth",
                  "type":"int",
-                 "value":6
+                 "value":5
                 }],
          "type":"Object"
         }, 
@@ -947,12 +1145,42 @@
                 {
                  "name":"depth",
                  "type":"int",
-                 "value":6
+                 "value":5
                 }],
          "type":"Object"
         }, 
         {
          "id":136,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":5
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":137,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":6
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":138,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":6
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":139,
          "properties":[
                 {
                  "name":"depth",
@@ -977,7 +1205,7 @@
                 {
                  "name":"depth",
                  "type":"int",
-                 "value":6
+                 "value":7
                 }],
          "type":"Object"
         }, 
@@ -1003,14 +1231,32 @@
         }, 
         {
          "id":144,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":6
+                }],
          "type":"Object"
         }, 
         {
          "id":145,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":6
+                }],
          "type":"Object"
         }, 
         {
          "id":146,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":6
+                }],
          "type":"Object"
         }, 
         {
@@ -1098,8 +1344,8 @@
          "properties":[
                 {
                  "name":"depth",
-                 "type":"string",
-                 "value":"6"
+                 "type":"int",
+                 "value":6
                 }],
          "type":"Object"
         }, 
@@ -1108,8 +1354,8 @@
          "properties":[
                 {
                  "name":"depth",
-                 "type":"string",
-                 "value":"5"
+                 "type":"int",
+                 "value":5
                 }],
          "type":"Object"
         }, 
@@ -1118,8 +1364,8 @@
          "properties":[
                 {
                  "name":"depth",
-                 "type":"string",
-                 "value":"6"
+                 "type":"int",
+                 "value":6
                 }],
          "type":"Object"
         }, 
@@ -1128,8 +1374,8 @@
          "properties":[
                 {
                  "name":"depth",
-                 "type":"string",
-                 "value":"5"
+                 "type":"int",
+                 "value":5
                 }],
          "type":"Object"
         }, 
@@ -1138,8 +1384,8 @@
          "properties":[
                 {
                  "name":"depth",
-                 "type":"string",
-                 "value":"5"
+                 "type":"int",
+                 "value":5
                 }],
          "type":"Object"
         }, 
@@ -1173,7 +1419,7 @@
                 {
                  "name":"depth",
                  "type":"int",
-                 "value":2
+                 "value":3
                 }],
          "type":"Object"
         }, 
@@ -1210,7 +1456,7 @@
                 {
                  "name":"depth",
                  "type":"int",
-                 "value":2
+                 "value":3
                 }],
          "type":"Object"
         }, 
@@ -1220,7 +1466,37 @@
                 {
                  "name":"depth",
                  "type":"int",
-                 "value":2
+                 "value":3
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":169,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":5
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":170,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":5
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":171,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":5
                 }],
          "type":"Object"
         }, 
@@ -1266,14 +1542,32 @@
         }, 
         {
          "id":176,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":6
+                }],
          "type":"Object"
         }, 
         {
          "id":177,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":6
+                }],
          "type":"Object"
         }, 
         {
          "id":178,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":6
+                }],
          "type":"Object"
         }, 
         {
@@ -1361,8 +1655,8 @@
          "properties":[
                 {
                  "name":"depth",
-                 "type":"string",
-                 "value":"5"
+                 "type":"int",
+                 "value":5
                 }],
          "type":"Object"
         }, 
@@ -1371,8 +1665,8 @@
          "properties":[
                 {
                  "name":"depth",
-                 "type":"string",
-                 "value":"5"
+                 "type":"int",
+                 "value":5
                 }],
          "type":"Object"
         }, 
@@ -1381,8 +1675,8 @@
          "properties":[
                 {
                  "name":"depth",
-                 "type":"string",
-                 "value":"5"
+                 "type":"int",
+                 "value":5
                 }],
          "type":"Object"
         }, 
@@ -1391,8 +1685,8 @@
          "properties":[
                 {
                  "name":"depth",
-                 "type":"string",
-                 "value":"5"
+                 "type":"int",
+                 "value":5
                 }],
          "type":"Object"
         }, 
@@ -1401,8 +1695,8 @@
          "properties":[
                 {
                  "name":"depth",
-                 "type":"string",
-                 "value":"5"
+                 "type":"int",
+                 "value":5
                 }],
          "type":"Object"
         }, 
@@ -1428,6 +1722,36 @@
         }, 
         {
          "id":197,
+         "type":"Object"
+        }, 
+        {
+         "id":201,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":3
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":202,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":3
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":203,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":3
+                }],
          "type":"Object"
         }, 
         {
@@ -1472,14 +1796,32 @@
         }, 
         {
          "id":208,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":5
+                }],
          "type":"Object"
         }, 
         {
          "id":209,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":5
+                }],
          "type":"Object"
         }, 
         {
          "id":210,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":5
+                }],
          "type":"Object"
         }, 
         {
@@ -1567,8 +1909,8 @@
          "properties":[
                 {
                  "name":"depth",
-                 "type":"string",
-                 "value":"6"
+                 "type":"int",
+                 "value":6
                 }],
          "type":"Object"
         }, 
@@ -1577,8 +1919,8 @@
          "properties":[
                 {
                  "name":"depth",
-                 "type":"string",
-                 "value":"5"
+                 "type":"int",
+                 "value":5
                 }],
          "type":"Object"
         }, 
@@ -1587,8 +1929,8 @@
          "properties":[
                 {
                  "name":"depth",
-                 "type":"string",
-                 "value":"6"
+                 "type":"int",
+                 "value":6
                 }],
          "type":"Object"
         }, 
@@ -1597,8 +1939,8 @@
          "properties":[
                 {
                  "name":"depth",
-                 "type":"string",
-                 "value":"5"
+                 "type":"int",
+                 "value":5
                 }],
          "type":"Object"
         }, 
@@ -1607,8 +1949,8 @@
          "properties":[
                 {
                  "name":"depth",
-                 "type":"string",
-                 "value":"5"
+                 "type":"int",
+                 "value":5
                 }],
          "type":"Object"
         }, 
@@ -1618,7 +1960,7 @@
                 {
                  "name":"depth",
                  "type":"int",
-                 "value":2
+                 "value":3
                 }],
          "type":"Object"
         }, 
@@ -1655,7 +1997,7 @@
                 {
                  "name":"depth",
                  "type":"int",
-                 "value":2
+                 "value":3
                 }],
          "type":"Object"
         }, 
@@ -1692,7 +2034,7 @@
                 {
                  "name":"depth",
                  "type":"int",
-                 "value":2
+                 "value":3
                 }],
          "type":"Object"
         }, 
@@ -1702,12 +2044,18 @@
                 {
                  "name":"depth",
                  "type":"int",
-                 "value":2
+                 "value":3
                 }],
          "type":"Object"
         }, 
         {
          "id":240,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":3
+                }],
          "type":"Object"
         }, 
         {
@@ -1735,10 +2083,22 @@
              "x":0,
              "y":0
             },
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":3
+                }],
          "type":"Object"
         }, 
         {
          "id":242,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":3
+                }],
          "type":"Object"
         }, 
         {
@@ -1826,8 +2186,8 @@
          "properties":[
                 {
                  "name":"depth",
-                 "type":"string",
-                 "value":"5"
+                 "type":"int",
+                 "value":5
                 }],
          "type":"Object"
         }, 
@@ -1836,8 +2196,8 @@
          "properties":[
                 {
                  "name":"depth",
-                 "type":"string",
-                 "value":"5"
+                 "type":"int",
+                 "value":5
                 }],
          "type":"Object"
         }, 
@@ -1846,8 +2206,8 @@
          "properties":[
                 {
                  "name":"depth",
-                 "type":"string",
-                 "value":"5"
+                 "type":"int",
+                 "value":5
                 }],
          "type":"Object"
         }, 
@@ -1856,8 +2216,8 @@
          "properties":[
                 {
                  "name":"depth",
-                 "type":"string",
-                 "value":"5"
+                 "type":"int",
+                 "value":5
                 }],
          "type":"Object"
         }, 
@@ -1866,8 +2226,8 @@
          "properties":[
                 {
                  "name":"depth",
-                 "type":"string",
-                 "value":"5"
+                 "type":"int",
+                 "value":5
                 }],
          "type":"Object"
         }, 
@@ -1982,8 +2342,8 @@
          "properties":[
                 {
                  "name":"depth",
-                 "type":"string",
-                 "value":"5"
+                 "type":"int",
+                 "value":5
                 }],
          "type":"Object"
         }, 
@@ -1992,8 +2352,8 @@
          "properties":[
                 {
                  "name":"depth",
-                 "type":"string",
-                 "value":"5"
+                 "type":"int",
+                 "value":5
                 }],
          "type":"Object"
         }, 
@@ -2002,8 +2362,8 @@
          "properties":[
                 {
                  "name":"depth",
-                 "type":"string",
-                 "value":"5"
+                 "type":"int",
+                 "value":5
                 }],
          "type":"Object"
         }, 
@@ -2012,8 +2372,8 @@
          "properties":[
                 {
                  "name":"depth",
-                 "type":"string",
-                 "value":"5"
+                 "type":"int",
+                 "value":5
                 }],
          "type":"Object"
         }, 
@@ -2022,8 +2382,8 @@
          "properties":[
                 {
                  "name":"depth",
-                 "type":"string",
-                 "value":"5"
+                 "type":"int",
+                 "value":5
                 }],
          "type":"Object"
         }, 
@@ -2203,8 +2563,8 @@
          "properties":[
                 {
                  "name":"depth",
-                 "type":"string",
-                 "value":"5"
+                 "type":"int",
+                 "value":5
                 }],
          "type":"Object"
         }, 
@@ -2213,8 +2573,8 @@
          "properties":[
                 {
                  "name":"depth",
-                 "type":"string",
-                 "value":"5"
+                 "type":"int",
+                 "value":5
                 }],
          "type":"Object"
         }, 
@@ -2223,8 +2583,8 @@
          "properties":[
                 {
                  "name":"depth",
-                 "type":"string",
-                 "value":"5"
+                 "type":"int",
+                 "value":5
                 }],
          "type":"Object"
         }, 
@@ -2233,8 +2593,8 @@
          "properties":[
                 {
                  "name":"depth",
-                 "type":"string",
-                 "value":"5"
+                 "type":"int",
+                 "value":5
                 }],
          "type":"Object"
         }, 
@@ -2243,8 +2603,8 @@
          "properties":[
                 {
                  "name":"depth",
-                 "type":"string",
-                 "value":"5"
+                 "type":"int",
+                 "value":4
                 }],
          "type":"Object"
         }, 
