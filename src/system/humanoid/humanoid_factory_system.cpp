@@ -60,7 +60,7 @@ namespace {
   animated.then = cen::counter::ticks();
   animated.nFrames = 1;
 
-  auto hitbox = hitbox::create({{{18, 16}, {28, 36}}});
+  auto hitbox = hitbox::create({{{18, 32}, {28, 24}}});
   sys::hitbox::set_position(hitbox, movable.position);
 
   const auto lower = to_vector(hitbox.bounds.position());
