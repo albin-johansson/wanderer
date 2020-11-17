@@ -14,7 +14,7 @@ namespace wanderer {
 void parse_fancy_tile(entt::registry& registry,
                       comp::tile::entity tileEntity,
                       const step::tile& stepTile,
-                      tile_id gid);
+                      tile_id firstGid);
 
 [[nodiscard]] auto make_basic_tile(entt::registry& registry,
                                    tile_id id,

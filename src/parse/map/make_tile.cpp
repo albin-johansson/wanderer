@@ -15,22 +15,20 @@ namespace {
 void add_animation(entt::registry& registry,
                    const comp::tile::entity tileEntity,
                    const step::animation& stepAnimation,
-                   const tile_id gid)
+                   const tile_id firstGid)
 {
-  auto& animatedTile = registry.emplace<comp::animated_tile>(tileEntity.get());
-  animatedTile.index = 0;
-  animatedTile.then = cen::counter::ticks();
+  auto& tile = registry.emplace<comp::animated_tile>(tileEntity.get());
+  tile.index = 0;
+  tile.then = cen::counter::ticks();
 
-  animatedTile.frames.reserve(
-      static_cast<std::size_t>(stepAnimation.num_frames()));
-
-  for (const auto& stepFrames : stepAnimation.frames()) {
-    auto& frame = animatedTile.frames.emplace_back();
-    frame.tile = gid;
-    frame.duration = cen::milliseconds<u32>{stepFrames.duration()};
+  tile.frames.reserve(static_cast<std::size_t>(stepAnimation.num_frames()));
+  for (const auto& stepFrame : stepAnimation.frames()) {
+    auto& frame = tile.frames.emplace_back();
+    frame.tile = firstGid + static_cast<tile_id>(stepFrame.tile_id().get());
+    frame.duration = cen::milliseconds<u32>{stepFrame.duration()};
   }
 
-  animatedTile.frames.shrink_to_fit();
+  tile.frames.shrink_to_fit();
 }
 
 void add_hitbox(entt::registry& registry,
@@ -52,10 +50,10 @@ void add_hitbox(entt::registry& registry,
 void parse_fancy_tile(entt::registry& registry,
                       const comp::tile::entity tileEntity,
                       const step::tile& stepTile,
-                      const tile_id gid)
+                      const tile_id firstGid)
 {
   if (const auto& stepAnimation = stepTile.get_animation(); stepAnimation) {
-    add_animation(registry, tileEntity, *stepAnimation, gid);
+    add_animation(registry, tileEntity, *stepAnimation, firstGid);
   }
 
   if (const auto* layer = stepTile.object_group()) {
