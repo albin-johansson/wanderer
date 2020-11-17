@@ -9,8 +9,8 @@ using namespace wanderer;
 TEST_CASE("vector2f default values", "[vector2f]")
 {
   const vector2f vec;
-  CHECK(vec.x() == 0);
-  CHECK(vec.y() == 0);
+  CHECK(vec.x == 0);
+  CHECK(vec.y == 0);
   CHECK(vec.is_zero());
   CHECK(vec.magnitude() == 0);
 }
@@ -22,28 +22,8 @@ TEST_CASE("vector2f ctor", "[vector2f]")
 
   const vector2f vec{x, y};
 
-  CHECK(vec.x() == x);
-  CHECK(vec.y() == y);
-}
-
-TEST_CASE("vector2f::set_x", "[vector2f]")
-{
-  vector2f vector;
-
-  const auto x = -3485;
-  vector.set_x(x);
-
-  CHECK(vector.x() == x);
-}
-
-TEST_CASE("vector2f::set_y", "[vector2f]")
-{
-  vector2f vector;
-
-  const auto y = 7482;
-  vector.set_y(y);
-
-  CHECK(vector.y() == y);
+  CHECK(vec.x == x);
+  CHECK(vec.y == y);
 }
 
 TEST_CASE("vector2f::scale", "[vector2f]")
@@ -55,17 +35,17 @@ TEST_CASE("vector2f::scale", "[vector2f]")
 
   const auto x = 745;
   const auto y = -1834;
-  vector.set_x(x);
-  vector.set_y(y);
+  vector.x = x;
+  vector.y = y;
 
-  CHECK(vector.x() == x);
-  CHECK(vector.y() == y);
+  CHECK(vector.x == x);
+  CHECK(vector.y == y);
 
   const auto scale = 82;
   vector.scale(scale);
 
-  CHECK(vector.x() == x * scale);
-  CHECK(vector.y() == y * scale);
+  CHECK(vector.x == x * scale);
+  CHECK(vector.y == y * scale);
 }
 
 TEST_CASE("vector2f::norm", "[vector2f]")
@@ -140,8 +120,8 @@ TEST_CASE("vector2f::lerp", "[vector2f]")
 
   fst.lerp(snd, alpha);
 
-  CHECK(fst.x() == Approx(x * ialpha + snd.x() * alpha));
-  CHECK(fst.y() == Approx(y * ialpha + snd.y() * alpha));
+  CHECK(fst.x == Approx(x * ialpha + snd.x * alpha));
+  CHECK(fst.y == Approx(y * ialpha + snd.y * alpha));
 }
 
 TEST_CASE("vector2f::lerp_smooth", "[vector2f]")
@@ -158,12 +138,12 @@ TEST_CASE("vector2f::negate", "[vector2f]")
   vector2f vector{20, 30};
 
   vector.negate();
-  CHECK(vector.x() == -20);
-  CHECK(vector.y() == -30);
+  CHECK(vector.x == -20);
+  CHECK(vector.y == -30);
 
   vector.negate();
-  CHECK(vector.x() == 20);
-  CHECK(vector.y() == 30);
+  CHECK(vector.x == 20);
+  CHECK(vector.y == 30);
 }
 
 TEST_CASE("vector2f::operator+=", "[vector2f]")
@@ -176,8 +156,8 @@ TEST_CASE("vector2f::operator+=", "[vector2f]")
 
   fst += snd;
 
-  CHECK(fst.x() == x + snd.x());
-  CHECK(fst.y() == y + snd.y());
+  CHECK(fst.x == x + snd.x);
+  CHECK(fst.y == y + snd.y);
 }
 
 TEST_CASE("vector2f::operator-=", "[vector2f]")
@@ -190,8 +170,8 @@ TEST_CASE("vector2f::operator-=", "[vector2f]")
 
   fst -= snd;
 
-  CHECK(fst.x() == x - snd.x());
-  CHECK(fst.y() == y - snd.y());
+  CHECK(fst.x == x - snd.x);
+  CHECK(fst.y == y - snd.y);
 }
 
 TEST_CASE("vector2f::distance", "[vector2f]")
@@ -218,7 +198,6 @@ TEST_CASE("vector2f::cross", "[vector2f]")
 {
   const vector2f fst{123, 456};
   const vector2f snd{789, 434};
-
   CHECK(cross(fst, fst) == 0);
 
   // Expected values obtained from wolfram alpha
@@ -277,8 +256,8 @@ TEST_CASE("vector2f::operator+", "[vector2f]")
   const vector2f fst(25, 83);
   const vector2f snd(93, 12);
   const auto sum = fst + snd;
-  CHECK(sum.x() == fst.x() + snd.x());
-  CHECK(sum.y() == fst.y() + snd.y());
+  CHECK(sum.x == fst.x + snd.x);
+  CHECK(sum.y == fst.y + snd.y);
 }
 
 TEST_CASE("vector2f::operator-", "[vector2f]")
@@ -289,9 +268,9 @@ TEST_CASE("vector2f::operator-", "[vector2f]")
   const auto diff1 = fst - snd;
   const auto diff2 = snd - fst;
 
-  CHECK(diff1.x() == fst.x() - snd.x());
-  CHECK(diff1.y() == fst.y() - snd.y());
+  CHECK(diff1.x == fst.x - snd.x);
+  CHECK(diff1.y == fst.y - snd.y);
 
-  CHECK(diff2.x() == snd.x() - fst.x());
-  CHECK(diff2.y() == snd.y() - fst.y());
+  CHECK(diff2.x == snd.x - fst.x);
+  CHECK(diff2.y == snd.y - fst.y);
 }

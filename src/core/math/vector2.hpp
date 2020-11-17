@@ -379,7 +379,7 @@ template <typename T>
                                        const basic_vector2<T>& rhs) noexcept
     -> T
 {
-  return lhs.x() * rhs.x() + lhs.y() * rhs.y();
+  return lhs.x * rhs.x + lhs.y * rhs.y;
 }
 
 /**
@@ -399,7 +399,7 @@ template <typename T>
                                         const basic_vector2<T>& rhs) noexcept
     -> bool
 {
-  return lhs.x() == rhs.x() && lhs.y() == rhs.y();
+  return lhs.x == rhs.x && lhs.y == rhs.y;
 }
 
 /**
@@ -443,8 +443,8 @@ template <typename T>
   if (lhs == rhs) {
     return 0;
   } else {
-    const auto xDiff = rhs.x() - lhs.x();
-    const auto yDiff = rhs.y() - lhs.y();
+    const auto xDiff = rhs.x - lhs.x;
+    const auto yDiff = rhs.y - lhs.y;
     return std::sqrt(xDiff * xDiff + yDiff * yDiff);
   }
 }
@@ -465,7 +465,7 @@ template <typename T>
 [[nodiscard]] constexpr auto cross(const basic_vector2<T>& lhs,
                                    const basic_vector2<T>& rhs) noexcept -> T
 {
-  return lhs.x() * rhs.y() - lhs.y() * rhs.x();
+  return lhs.x * rhs.y - lhs.y * rhs.x;
 }
 
 /**

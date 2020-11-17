@@ -123,8 +123,8 @@ TEST_CASE("hitbox::create", "[hitbox]")
     const cen::farea size{150, 100};
     const auto hb = sys::hitbox::create({{offset, size}});
 
-    CHECK(hb.bounds.x() == offset.x());
-    CHECK(hb.bounds.y() == offset.y());
+    CHECK(hb.bounds.x() == offset.x);
+    CHECK(hb.bounds.y() == offset.y);
     CHECK(hb.bounds.width() == size.width);
     CHECK(hb.bounds.height() == size.height);
   }
