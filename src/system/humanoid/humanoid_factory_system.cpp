@@ -36,7 +36,7 @@ namespace {
  * \return the identifier associated with the created humanoid.
  */
 [[nodiscard]] auto make_humanoid(entt::registry& registry,
-                                 aabb_tree& aabbTree,
+                                 aabb_tree& tree,
                                  const texture_handle& texture) -> entt::entity
 {
   assert(texture);  // require valid handle
@@ -65,7 +65,7 @@ namespace {
 
   const auto lower = to_vector(hitbox.bounds.position());
   const auto upper = lower + to_vector(hitbox.bounds.size());
-  aabbTree.insert(entity, lower, upper);
+  tree.insert(entity, lower, upper);
 
   registry.emplace<comp::hitbox>(entity, hitbox);
   registry.emplace<comp::humanoid>(entity);
@@ -77,7 +77,7 @@ namespace {
 }  // namespace
 
 auto add_player(entt::registry& registry,
-                aabb_tree& aabbTree,
+                aabb_tree& tree,
                 const vector2f& position,
                 cen::renderer& renderer,
                 texture_cache& cache) -> entt::entity
@@ -87,7 +87,7 @@ auto add_player(entt::registry& registry,
       cache.load<texture_loader>(id, renderer, "resource/img/player2.png");
   assert(handle);
 
-  const auto player = make_humanoid(registry, aabbTree, handle);
+  const auto player = make_humanoid(registry, tree, handle);
   registry.emplace<comp::player>(player);
 
   auto& movable = registry.get<comp::movable>(player);
@@ -101,7 +101,7 @@ auto add_player(entt::registry& registry,
 }
 
 auto add_skeleton(entt::registry& registry,
-                  aabb_tree& aabbTree,
+                  aabb_tree& tree,
                   const vector2f& position,
                   cen::renderer& renderer,
                   texture_cache& cache) -> entt::entity
@@ -110,7 +110,7 @@ auto add_skeleton(entt::registry& registry,
   const auto handle =
       cache.load<texture_loader>(id, renderer, "resource/img/skeleton.png");
 
-  const auto skeleton = make_humanoid(registry, aabbTree, handle);
+  const auto skeleton = make_humanoid(registry, tree, handle);
 
   auto& movable = registry.get<comp::movable>(skeleton);
   movable.speed = g_monsterSpeed;
