@@ -54,7 +54,7 @@ void create_tiles(entt::registry& registry,
 }  // namespace
 
 auto make_tileset(entt::registry& registry,
-                  const std::vector<std::unique_ptr<step::tileset>>& tilesets,
+                  const tileset_collection& tilesets,
                   cen::renderer& renderer,
                   texture_cache& imageCache) -> comp::tileset::entity
 {
