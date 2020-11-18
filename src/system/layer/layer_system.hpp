@@ -5,6 +5,19 @@
 
 namespace wanderer::sys::layer {
 
+/**
+ * \brief Visits all tiles in a tile layer.
+ *
+ * \details Empty tiles will be ignored by this function. The signature of
+ * the function object should be equivalent to `void(tile_id)`.
+ *
+ * \tparam T the type of the function object.
+ *
+ * \param layer the layer whose tiles will be visited.
+ * \param callable the function object that will be invoked for each tile.
+ *
+ * \since 0.1.0
+ */
 template <typename T>
 void visit(const comp::tile_layer& layer, T&& callable)
 {
@@ -21,6 +34,22 @@ void visit(const comp::tile_layer& layer, T&& callable)
   }
 }
 
+/**
+ * \brief Visits all tiles in a tile layer that are within the specified bounds.
+ *
+ * \details Empty tiles will be ignored by this function. The signature of
+ * the function object should be equivalent to `void(tile_id, int, int)`,
+ * where the two integers are the row and column indices, respectively.
+ *
+ * \tparam T the type of the function object.
+ *
+ * \param layer the layer whose tiles will be visited.
+ * \param bounds the bounds that the visited tiles must be within.
+ * \param callable the function object that will be invoked for each tile
+ * within the bounds.
+ *
+ * \since 0.1.0
+ */
 template <typename T>
 void visit(const comp::tile_layer& layer,
            const comp::render_bounds& bounds,
