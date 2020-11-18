@@ -2,7 +2,7 @@
 
 #include <string_view>  // string_view
 
-#include "make_menu.hpp"
+#include "parse_menu.hpp"
 
 namespace wanderer {
 
@@ -10,13 +10,13 @@ menu_manager::menu_manager() : m_current{menu_id::home}
 {
   using namespace std::string_view_literals;
 
-  m_menus.emplace(menu_id::home, make_menu("resource/menu/home_menu.json"sv));
+  m_menus.emplace(menu_id::home, parse_menu("resource/menu/home_menu.json"sv));
   m_menus.emplace(menu_id::in_game,
-                  make_menu("resource/menu/in_game_menu.json"sv));
+                  parse_menu("resource/menu/in_game_menu.json"sv));
   m_menus.emplace(menu_id::controls,
-                  make_menu("resource/menu/controls_menu.json"sv));
+                  parse_menu("resource/menu/controls_menu.json"sv));
   m_menus.emplace(menu_id::settings,
-                  make_menu("resource/menu/settings_menu.json"sv));
+                  parse_menu("resource/menu/settings_menu.json"sv));
 }
 
 void menu_manager::update(const cen::mouse_state& mouseState,
@@ -50,7 +50,7 @@ void menu_manager::switch_to(menu_id menu)
   }
 }
 
-void menu_manager::perform_action(menu_action action)
+void menu_manager::perform_action(const menu_action action)
 {
   switch (action) {
     case menu_action::quit: {

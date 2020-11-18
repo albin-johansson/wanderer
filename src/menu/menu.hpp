@@ -18,7 +18,7 @@ namespace wanderer {
 
 class menu final
 {
-  friend auto make_menu(const std::filesystem::path& path) -> menu;
+  friend auto parse_menu(const std::filesystem::path& path) -> menu;
 
  public:
   /**

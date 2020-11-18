@@ -1,4 +1,4 @@
-#include "make_menu.hpp"
+#include "parse_menu.hpp"
 
 #include <fstream>  // ifstream
 #include <json.hpp>
@@ -6,12 +6,11 @@
 #include "menu_button.hpp"
 
 using nlohmann::json;
-using std::filesystem::path;
 
 namespace wanderer {
 namespace {
 
-[[nodiscard]] auto make_button(const json& json) -> menu_button
+[[nodiscard]] auto parse_button(const json& json) -> menu_button
 {
   auto text = json.at("text").get<std::string>();
   const auto action = json.at("action").get<menu_action>();
@@ -20,7 +19,7 @@ namespace {
   return menu_button{action, std::move(text), row, col};
 }
 
-[[nodiscard]] auto make_buttons(const json& json) -> std::vector<menu_button>
+[[nodiscard]] auto parse_buttons(const json& json) -> std::vector<menu_button>
 {
   std::vector<menu_button> buttons;
 
@@ -28,13 +27,13 @@ namespace {
   buttons.reserve(buttonsJson.size());
 
   for (const auto& [key, value] : buttonsJson.items()) {
-    buttons.emplace_back(make_button(value));
+    buttons.emplace_back(parse_button(value));
   }
 
   return buttons;
 }
 
-[[nodiscard]] auto make_bind(const json& json) -> key_bind
+[[nodiscard]] auto parse_bind(const json& json) -> key_bind
 {
   key_bind bind;
 
@@ -46,7 +45,7 @@ namespace {
   return bind;
 }
 
-[[nodiscard]] auto make_binds(const json& json) -> std::vector<key_bind>
+[[nodiscard]] auto parse_binds(const json& json) -> std::vector<key_bind>
 {
   std::vector<key_bind> binds;
 
@@ -54,7 +53,7 @@ namespace {
   binds.reserve(bindsJson.size());
 
   for (const auto& [key, value] : bindsJson.items()) {
-    binds.emplace_back(make_bind(value));
+    binds.emplace_back(parse_bind(value));
   }
 
   return binds;
@@ -62,7 +61,7 @@ namespace {
 
 }  // namespace
 
-auto make_menu(const path& path) -> menu
+auto parse_menu(const std::filesystem::path& path) -> menu
 {
   json json;
 
@@ -72,8 +71,8 @@ auto make_menu(const path& path) -> menu
   menu m;
   m.m_title = json.at("title").get<std::string>();
   m.m_blocking = json.at("isBlocking").get<bool>();
-  m.m_buttons = make_buttons(json);
-  m.m_binds = make_binds(json);
+  m.m_buttons = parse_buttons(json);
+  m.m_binds = parse_binds(json);
 
   return m;
 }

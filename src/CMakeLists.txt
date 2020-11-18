@@ -142,8 +142,8 @@ set(SOURCE_FILES
     parse/map/add_tile_objects.cpp
     parse/map/add_tile_objects.hpp
 
-    parse/menu/make_menu.cpp
-    parse/menu/make_menu.hpp)
+    parse/menu/parse_menu.cpp
+    parse/menu/parse_menu.hpp)
 
 add_library(${WANDERER_LIB_TARGET} ${SOURCE_FILES})
 
