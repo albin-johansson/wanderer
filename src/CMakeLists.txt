@@ -135,8 +135,8 @@ set(SOURCE_FILES
 
     parse/map/make_tile.cpp
     parse/map/make_tile.hpp
-    parse/map/make_map.hpp
-    parse/map/make_map.cpp
+    parse/map/parse_map.hpp
+    parse/map/parse_map.cpp
     parse/map/make_tileset.cpp
     parse/map/make_tileset.hpp
     parse/map/add_tile_objects.cpp

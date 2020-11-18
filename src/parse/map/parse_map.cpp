@@ -1,4 +1,4 @@
-#include "make_map.hpp"
+#include "parse_map.hpp"
 
 #include <cassert>  // assert
 #include <cen/log.hpp>
@@ -123,10 +123,10 @@ void parse_layers(entt::registry& registry,
 
 }  // namespace
 
-auto make_map(entt::registry& registry,
-              const step::fs::path& path,
-              cen::renderer& renderer,
-              texture_cache& imageCache) -> comp::tilemap::entity
+auto parse_map(entt::registry& registry,
+               const step::fs::path& path,
+               cen::renderer& renderer,
+               texture_cache& imageCache) -> comp::tilemap::entity
 {
   const auto stepMap = std::make_unique<step::map>(path);
   const comp::tilemap::entity mapEntity{registry.create()};

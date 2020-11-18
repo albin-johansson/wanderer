@@ -7,9 +7,9 @@
 #include "depth_drawables_system.hpp"
 #include "hitbox_system.hpp"
 #include "humanoid_factory_system.hpp"
-#include "make_map.hpp"
 #include "make_registry.hpp"
 #include "make_viewport.hpp"
+#include "parse_map.hpp"
 #include "viewport_system.hpp"
 
 namespace wanderer {
@@ -70,7 +70,7 @@ auto level_factory::make(const std::filesystem::path& path,
 
   auto& registry = level.registry();
 
-  level.m_tilemap = make_map(registry, path, renderer, imageCache);
+  level.m_tilemap = parse_map(registry, path, renderer, imageCache);
 
   assert(registry.view<comp::tileset>().size() == 1);
   level.m_tileset = tileset_entity{registry.view<comp::tileset>().front()};
