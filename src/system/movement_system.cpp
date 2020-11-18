@@ -110,9 +110,9 @@ void update_hitbox(level& level,
                    const vector2f& oldPosition,
                    const delta dt)
 {
-  hitbox::set_position(hitbox, movable.position);
-
   const auto oldAabbPos = level.get_aabb(entity).min();
+
+  hitbox::set_position(hitbox, movable.position);
   level.relocate_aabb(entity, to_vector(hitbox.bounds.position()));
 
   if (movable.velocity.is_zero()) {
@@ -132,8 +132,10 @@ void update_hitbox(level& level,
 
     if (collisions.horizontal || collisions.vertical) {
       hitbox::set_position(hitbox, movable.position);
-      const auto boundsPos = to_vector(hitbox.bounds.position());
-      const auto pos = restore_aabb_position(oldAabbPos, boundsPos, collisions);
+      const auto pos =
+          restore_aabb_position(oldAabbPos,
+                                to_vector(hitbox.bounds.position()),
+                                collisions);
       level.relocate_aabb(entity, pos);
     }
   }
