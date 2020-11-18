@@ -71,7 +71,7 @@ void track(comp::viewport& viewport, const vector2f& position, const delta dt)
 }  // namespace
 
 void center_on(entt::registry& registry,
-               comp::viewport::entity viewportEntity,
+               const comp::viewport::entity viewportEntity,
                const vector2f& position)
 {
   auto& viewport = registry.get<comp::viewport>(viewportEntity.get());
