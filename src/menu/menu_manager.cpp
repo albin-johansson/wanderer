@@ -43,7 +43,7 @@ void menu_manager::render(cen::renderer& renderer)
   menu.render(renderer);
 }
 
-void menu_manager::switch_to(menu_id menu)
+void menu_manager::switch_to(const menu_id menu)
 {
   if (m_current != menu) {
     m_current = menu;
