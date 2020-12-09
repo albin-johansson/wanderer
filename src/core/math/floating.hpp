@@ -18,9 +18,10 @@ namespace wanderer {
  *
  * \since 0.1.0
  */
-[[nodiscard]] inline auto almost_equal(double a,
-                                       double b,
-                                       double epsilon = 0.001) noexcept -> bool
+[[nodiscard]] inline auto almost_equal(const double a,
+                                       const double b,
+                                       const double epsilon = 0.001) noexcept
+    -> bool
 {
   return std::abs(a - b) < epsilon;
 }
@@ -28,14 +29,15 @@ namespace wanderer {
 /**
  * \copydoc almost_equal(double, double, double)
  */
-[[nodiscard]] inline auto almost_equal(float a,
-                                       float b,
-                                       float epsilon = 0.001f) noexcept -> bool
+[[nodiscard]] inline auto almost_equal(const float a,
+                                       const float b,
+                                       const float epsilon = 0.001f) noexcept
+    -> bool
 {
   return std::abs(a - b) < epsilon;
 }
 
-[[nodiscard]] inline auto round(float f) noexcept -> int
+[[nodiscard]] inline auto round(const float f) noexcept -> int
 {
   return static_cast<int>(std::round(f));
 }
