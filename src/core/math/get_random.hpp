@@ -44,7 +44,7 @@ inline std::mt19937 engine{get_seeded_engine()};
  * \return a random value in the specified range.
  */
 template <typename T>
-[[nodiscard]] auto get_random(T min, T max) -> T
+[[nodiscard]] auto get_random(const T min, const T max) -> T
 {
   if constexpr (std::is_floating_point_v<T>) {
     return std::uniform_real_distribution<T>{min, max}(engine);
