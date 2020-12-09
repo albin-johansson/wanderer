@@ -4,14 +4,17 @@ IndentWidth: 2
 ---
 Language: Cpp
 Standard: c++17
+
 DerivePointerAlignment: false
 PointerAlignment: Left
 
 AllowAllParametersOfDeclarationOnNextLine: false
 AllowAllArgumentsOnNextLine: false
 AllowShortLambdasOnASingleLine: None
+AllowShortFunctionsOnASingleLine: None
+AllowShortBlocksOnASingleLine: Never
+AllowShortEnumsOnASingleLine: false
 
-AlwaysBreakAfterDefinitionReturnType: None
 AlwaysBreakAfterReturnType: None
 
 BinPackParameters: false
@@ -26,9 +29,7 @@ BraceWrapping:
   SplitEmptyRecord: false
   SplitEmptyFunction: false
 
-AllowShortFunctionsOnASingleLine: None
-AllowShortBlocksOnASingleLine: Never
-
 BreakConstructorInitializers: BeforeComma
 AllowAllConstructorInitializersOnNextLine: false
+
 BreakInheritanceList: BeforeColon
