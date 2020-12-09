@@ -66,6 +66,7 @@ using maybe_index = std::optional<std::size_t>;
 template <typename T>
 struct vector2 final
 {
+  using value_type = T;
   T x{};  ///< The x-coordinate.
   T y{};  ///< The y-coordinate.
 };
@@ -223,11 +224,11 @@ class aabb final
     const auto dx = *factor * size.x;
     const auto dy = *factor * size.y;
 
-    m_min.x -= dx;
-    m_min.y -= dy;
+    m_min.x -= static_cast<typename vector_type::value_type>(dx);
+    m_min.y -= static_cast<typename vector_type::value_type>(dy);
 
-    m_max.x += dx;
-    m_max.y += dy;
+    m_max.x += static_cast<typename vector_type::value_type>(dx);
+    m_max.y += static_cast<typename vector_type::value_type>(dy);
 
     m_area = compute_area();
   }
