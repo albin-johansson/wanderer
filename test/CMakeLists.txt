@@ -4,11 +4,11 @@ project(WandererTest CXX)
 enable_testing()
 
 set(TEST_FILES
-    unittest/test_main.cpp
-    unittest/hitbox_test.cpp
-    unittest/humanoid_state_test.cpp
-    unittest/event_connections_test.cpp
-    unittest/vector2_test.cpp)
+    unit/test_main.cpp
+    unit/hitbox_test.cpp
+    unit/humanoid_state_test.cpp
+    unit/event_connections_test.cpp
+    unit/vector2_test.cpp)
 
 add_executable(${WANDERER_TEST_TARGET} ${TEST_FILES})
 add_dependencies(${WANDERER_TEST_TARGET} ${WANDERER_LIB_TARGET})
@@ -23,7 +23,7 @@ target_include_directories(libCatch INTERFACE catch)
 add_test(NAME ${WANDERER_TEST_TARGET}
     COMMAND ${WANDERER_TEST_TARGET})
 
-target_include_directories(${WANDERER_TEST_TARGET} PUBLIC unittest)
+target_include_directories(${WANDERER_TEST_TARGET} PUBLIC unit)
 
 target_include_directories(${WANDERER_TEST_TARGET}
     SYSTEM PUBLIC ${SDL2_INCLUDE_DIR}
