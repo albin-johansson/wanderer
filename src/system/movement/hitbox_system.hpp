@@ -4,9 +4,24 @@
 #include <initializer_list>  // initializer_list
 
 #include "component/hitbox.hpp"
+#include "component/movable.hpp"
+#include "delta.hpp"
+#include "maybe.hpp"
 #include "vector2.hpp"
 
 namespace wanderer::sys::hitbox {
+
+struct next_hitboxes final
+{
+  maybe<comp::hitbox> horizontal;
+  maybe<comp::hitbox> vertical;
+};
+
+struct collision_result final
+{
+  bool horizontal{};
+  bool vertical{};
+};
 
 /**
  * \brief Updates the bounds of a hitbox.
@@ -61,5 +76,14 @@ void set_position(comp::hitbox& hitbox, const vector2f& position) noexcept;
  */
 [[nodiscard]] auto create(std::initializer_list<comp::subhitbox> boxes)
     -> comp::hitbox;
+
+[[nodiscard]] auto make_next_hitboxes(const comp::movable& movable,
+                                      const comp::hitbox& hitbox,
+                                      const vector2f& oldPosition,
+                                      delta dt) -> next_hitboxes;
+
+[[nodiscard]] auto query_collisions(const next_hitboxes& next,
+                                    const comp::hitbox& other)
+    -> collision_result;
 
 }  // namespace wanderer::sys::hitbox

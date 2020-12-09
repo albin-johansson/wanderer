@@ -5,6 +5,43 @@
 #include "centurion_utils.hpp"
 
 namespace wanderer::sys::hitbox {
+namespace {
+
+[[nodiscard]] auto next_vertical_hitbox(const comp::movable& movable,
+                                        const comp::hitbox& hitbox,
+                                        const vector2f& oldPosition,
+                                        delta dt) -> maybe<comp::hitbox>
+{
+  if (movable.velocity.y != 0) {
+    const auto delta = static_cast<float>(dt.get());
+
+    auto next = oldPosition;
+    next.y = oldPosition.y + (movable.velocity.y * delta);
+
+    return with_position(hitbox, next);
+  } else {
+    return std::nullopt;
+  }
+}
+
+[[nodiscard]] auto next_horizontal_hitbox(const comp::movable& movable,
+                                          const comp::hitbox& hitbox,
+                                          const vector2f& oldPosition,
+                                          delta dt) -> maybe<comp::hitbox>
+{
+  if (movable.velocity.x != 0) {
+    const auto delta = static_cast<float>(dt.get());
+
+    auto next = oldPosition;
+    next.x = oldPosition.x + (movable.velocity.x * delta);
+
+    return with_position(hitbox, next);
+  } else {
+    return std::nullopt;
+  }
+}
+
+}  // namespace
 
 void update_bounds(comp::hitbox& hitbox) noexcept
 {
@@ -95,6 +132,27 @@ auto create(std::initializer_list<comp::subhitbox> boxes) -> comp::hitbox
   set_position(hb, {});
 
   return hb;
+}
+
+auto make_next_hitboxes(const comp::movable& movable,
+                        const comp::hitbox& hitbox,
+                        const vector2f& oldPosition,
+                        const delta dt) -> next_hitboxes
+{
+  return {next_horizontal_hitbox(movable, hitbox, oldPosition, dt),
+          next_vertical_hitbox(movable, hitbox, oldPosition, dt)};
+}
+
+auto query_collisions(const next_hitboxes& next, const comp::hitbox& other)
+    -> collision_result
+{
+  collision_result result;
+
+  result.horizontal =
+      next.horizontal && hitbox::intersects(*next.horizontal, other);
+  result.vertical = next.vertical && hitbox::intersects(*next.vertical, other);
+
+  return result;
 }
 
 }  // namespace wanderer::sys::hitbox
