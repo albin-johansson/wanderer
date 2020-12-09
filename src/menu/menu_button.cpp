@@ -18,7 +18,10 @@ namespace {
 
 }  // namespace
 
-menu_button::menu_button(menu_action action, std::string text, int row, int col)
+menu_button::menu_button(const menu_action action,
+                         std::string text,
+                         const int row,
+                         const int col)
     : m_action{action}
     , m_text{std::move(text)}
     , m_row{row}
@@ -31,7 +34,7 @@ void menu_button::calculate_bounds(cen::renderer& renderer) const
   const auto [width, height] = font.string_size(m_text.c_str());
   m_bounds.resize({width * 1.25f, height * 1.75f});
 
-  const auto calc_x = [&]() -> int {
+  const auto calcX = [&]() -> int {
     const auto width = static_cast<int>(m_bounds.width());
 
     // make button centered if column index is -1
@@ -45,7 +48,7 @@ void menu_button::calculate_bounds(cen::renderer& renderer) const
   const auto y =
       static_cast<float>(m_row * g_menuRowSize) - (m_bounds.height() / 2.0f);
 
-  m_bounds.set_x(static_cast<float>(calc_x()));
+  m_bounds.set_x(static_cast<float>(calcX()));
   m_bounds.set_y(y);
 }
 
@@ -97,7 +100,7 @@ void menu_button::render(cen::renderer& renderer) const
   render_text(renderer);
 }
 
-void menu_button::set_hover(bool hover)
+void menu_button::set_hover(const bool hover)
 {
   m_hover = hover;
 }
