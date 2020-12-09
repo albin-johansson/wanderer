@@ -46,6 +46,7 @@ set(SOURCE_FILES
     core/aliases/maybe.hpp
     core/aliases/texture_cache.hpp
     core/aliases/aabb_tree.hpp
+    core/aliases/milliseconds.hpp
 
     core/resource/texture_loader.hpp
 
