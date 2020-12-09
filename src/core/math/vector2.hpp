@@ -24,6 +24,8 @@ namespace wanderer {
 template <typename T>
 struct basic_vector2 final
 {
+  using value_type = T;
+
   T x{0};  ///< The x-coordinate.
   T y{0};  ///< The y-coordindate.
 
