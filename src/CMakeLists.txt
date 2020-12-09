@@ -90,16 +90,17 @@ set(SOURCE_FILES
 
     system/depth_drawables_system.cpp
     system/depth_drawables_system.hpp
-    system/movement_system.cpp
-    system/movement_system.hpp
     system/animation_system.cpp
     system/animation_system.hpp
     system/get_render_bounds.cpp
     system/get_render_bounds.hpp
-    system/hitbox_system.cpp
-    system/hitbox_system.hpp
-    system/movable_system.hpp
-    system/movable_system.cpp
+
+    system/movement/movement_system.cpp
+    system/movement/movement_system.hpp
+    system/movement/hitbox_system.cpp
+    system/movement/hitbox_system.hpp
+    system/movement/movable_system.hpp
+    system/movement/movable_system.cpp
 
     system/viewport/viewport_system.cpp
     system/viewport/viewport_system.hpp
@@ -206,6 +207,7 @@ target_include_directories(${WANDERER_LIB_TARGET}
     PUBLIC system/viewport
     PUBLIC system/collision
     PUBLIC system/menu
+    PUBLIC system/movement
     PUBLIC menu
     PUBLIC parse
     PUBLIC parse/map

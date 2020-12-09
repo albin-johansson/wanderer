@@ -33,12 +33,12 @@ auto vertical_dominant_direction(const comp::movable& movable) noexcept
 
 auto dominant_direction(const comp::movable& movable) noexcept -> direction
 {
-  if (const auto hori = horizontal_dominant_direction(movable); hori) {
-    return *hori;
+  if (const auto horizontal = horizontal_dominant_direction(movable)) {
+    return *horizontal;
   }
 
-  if (const auto vert = vertical_dominant_direction(movable); vert) {
-    return *vert;
+  if (const auto vertical = vertical_dominant_direction(movable)) {
+    return *vertical;
   }
 
   return movable.dir;
