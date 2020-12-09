@@ -25,7 +25,7 @@ void add_animation(entt::registry& registry,
   for (const auto& stepFrame : stepAnimation.frames()) {
     auto& frame = tile.frames.emplace_back();
     frame.tile = firstGid + static_cast<tile_id>(stepFrame.tile_id().get());
-    frame.duration = cen::milliseconds<u32>{stepFrame.duration()};
+    frame.duration = ms_t{stepFrame.duration()};
   }
 
   tile.frames.shrink_to_fit();

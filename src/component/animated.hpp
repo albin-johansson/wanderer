@@ -1,8 +1,6 @@
 #pragma once
 
-#include <cen/types.hpp>
-
-#include "ints.hpp"
+#include "milliseconds.hpp"
 
 namespace wanderer::comp {
 
@@ -26,8 +24,8 @@ struct animated final
 {
   int frame{0};
   int nFrames{1};
-  cen::milliseconds<u32> then{0};
-  cen::milliseconds<u32> delay{100};
+  ms_t then{0};
+  ms_t delay{100};
 };
 
 }  // namespace wanderer::comp

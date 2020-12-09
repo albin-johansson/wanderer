@@ -6,7 +6,6 @@
 
 namespace wanderer {
 
-using u32_ms = cen::milliseconds<u32>;
-using i32_ms = cen::milliseconds<i32>;
+using ms_t = cen::milliseconds<u32>;
 
 }

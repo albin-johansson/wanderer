@@ -24,9 +24,9 @@ inline constexpr int g_moveSourceY{512};
 inline constexpr int g_meleeSourceY{768};
 inline constexpr int g_bowSourceY{1024};
 
-inline constexpr u32_ms g_idleDelay{90};
-inline constexpr u32_ms g_moveDelay{70};
-inline constexpr u32_ms g_attackDelay{70};
+inline constexpr ms_t g_idleDelay{90};
+inline constexpr ms_t g_moveDelay{70};
+inline constexpr ms_t g_attackDelay{70};
 
 /**
  * \brief Returns the y-coordinate with the appropriate offset in relation to
@@ -119,7 +119,7 @@ void update_attack_animation(entt::registry& registry,
 void enter_animation(entt::registry& registry,
                      const entt::entity entity,
                      const u32 nFrames,
-                     const u32_ms delay,
+                     const ms_t delay,
                      const int sourceY) noexcept
 {
   auto* animated = registry.try_get<comp::animated>(entity);
