@@ -42,7 +42,7 @@ struct basic_vector2 final
    *
    * \since 0.1.0
    */
-  constexpr basic_vector2(T vx, T vy) noexcept : x{vx}, y{vy}
+  constexpr basic_vector2(const T vx, const T vy) noexcept : x{vx}, y{vy}
   {}
 
   /**
@@ -52,7 +52,7 @@ struct basic_vector2 final
    *
    * \since 0.1.0
    */
-  constexpr void scale(T scale) noexcept
+  constexpr void scale(const T scale) noexcept
   {
     x *= scale;
     y *= scale;
@@ -99,7 +99,7 @@ struct basic_vector2 final
    *
    * \since 0.1.0
    */
-  void set_magnitude(T mag) noexcept
+  void set_magnitude(const T mag) noexcept
   {
     if (mag <= 0) {
       zero();
@@ -124,7 +124,7 @@ struct basic_vector2 final
    *
    * \since 0.1.0
    */
-  constexpr void lerp(const basic_vector2& target, T alpha) noexcept
+  constexpr void lerp(const basic_vector2& target, const T alpha) noexcept
   {
     const auto invAlpha = T{1} - alpha;
     x = (x * invAlpha) + (target.x * alpha);
@@ -144,7 +144,8 @@ struct basic_vector2 final
    *
    * \since 0.1.0
    */
-  constexpr void lerp_smooth(const basic_vector2& target, T alpha) noexcept
+  constexpr void lerp_smooth(const basic_vector2& target,
+                             const T alpha) noexcept
   {
     lerp(target, alpha * alpha * alpha * (alpha * (alpha * 6 - 15) + 10));
   }
@@ -176,7 +177,7 @@ struct basic_vector2 final
    *
    * \since 0.1.0
    */
-  void point_at(const basic_vector2<T>& target, T length) noexcept
+  void point_at(const basic_vector2<T>& target, const T length) noexcept
   {
     if (length <= 0) {
       zero();
@@ -334,7 +335,8 @@ template <typename T>
  */
 template <typename T>
 [[nodiscard]] constexpr auto operator*(const basic_vector2<T>& vector,
-                                       T scalar) noexcept -> basic_vector2<T>
+                                       const T scalar) noexcept
+    -> basic_vector2<T>
 {
   return basic_vector2{vector.x * scalar, vector.y * scalar};
 }
@@ -352,7 +354,7 @@ template <typename T>
  * \since 0.1.0
  */
 template <typename T>
-[[nodiscard]] constexpr auto operator*(T scalar,
+[[nodiscard]] constexpr auto operator*(const T scalar,
                                        const basic_vector2<T>& vector) noexcept
     -> basic_vector2<T>
 {
