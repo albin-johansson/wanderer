@@ -31,3 +31,4 @@ AllowShortBlocksOnASingleLine: Never
 
 BreakConstructorInitializers: BeforeComma
 AllowAllConstructorInitializersOnNextLine: false
+BreakInheritanceList: BeforeColon
