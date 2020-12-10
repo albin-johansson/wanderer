@@ -10,10 +10,22 @@
 #include "game_constants.hpp"
 #include "hitbox_system.hpp"
 #include "index_to_matrix.hpp"
-#include "maybe.hpp"
 
 namespace wanderer {
 namespace {
+
+void add_depth_drawable(entt::registry& registry,
+                        const entt::entity entity,
+                        const comp::tile& tile,
+                        const cen::fpoint& dstPos)
+{
+  auto& drawable = registry.emplace<comp::depth_drawable>(entity);
+  drawable.texture = tile.sheet;
+  drawable.src = tile.src;
+  drawable.dst = {dstPos, {g_tileSize<float>, g_tileSize<float>}};
+  drawable.centerY = dstPos.y() + (drawable.dst.height() / 2.0f);
+  drawable.zIndex = tile.zIndex;
+}
 
 [[nodiscard]] auto make_tile_object(entt::registry& registry,
                                     const comp::tile::entity tileEntity,
@@ -21,26 +33,19 @@ namespace {
                                     const int col) -> comp::tile_object::entity
 {
   const auto entity = registry.create();
+  registry.emplace<comp::tile_object>(entity, tileEntity);
 
-  auto& object = registry.emplace<comp::tile_object>(entity);
-  object.tileEntity = tileEntity;
+  const cen::fpoint position{static_cast<float>(col) * g_tileSize<float>,
+                             static_cast<float>(row) * g_tileSize<float>};
 
-  constexpr auto tileSize = g_tileSize<float>;
-  const auto x = static_cast<float>(col) * tileSize;
-  const auto y = static_cast<float>(row) * tileSize;
+  add_depth_drawable(registry,
+                     entity,
+                     registry.get<comp::tile>(tileEntity.get()),
+                     position);
 
-  const auto& tile = registry.get<comp::tile>(tileEntity.get());
-  auto& drawable = registry.emplace<comp::depth_drawable>(entity);
-  drawable.texture = tile.sheet;
-  drawable.src = tile.src;
-  drawable.dst = {{x, y}, {tileSize, tileSize}};
-  drawable.centerY = y + (drawable.dst.height() / 2.0f);
-  drawable.zIndex = tile.zIndex;
-
-  if (const auto* hb = registry.try_get<comp::hitbox>(tileEntity.get())) {
-    comp::hitbox hitbox = *hb;
-    sys::hitbox::set_position(hitbox, to_vector(drawable.dst.position()));
-    registry.emplace<comp::hitbox>(entity, hitbox);
+  if (const auto* tileHb = registry.try_get<comp::hitbox>(tileEntity.get())) {
+    auto hitbox = sys::hitbox::with_position(*tileHb, to_vector(position));
+    registry.emplace<comp::hitbox>(entity, std::move(hitbox));
   }
 
   return comp::tile_object::entity{entity};
