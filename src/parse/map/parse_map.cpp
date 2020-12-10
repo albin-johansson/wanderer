@@ -129,9 +129,9 @@ auto parse_map(entt::registry& registry,
                texture_cache& imageCache) -> comp::tilemap::entity
 {
   const auto stepMap = std::make_unique<step::map>(path);
-  const comp::tilemap::entity mapEntity{registry.create()};
+  const auto mapEntity = registry.create();
 
-  auto& tilemap = registry.emplace<comp::tilemap>(mapEntity.get());
+  auto& tilemap = registry.emplace<comp::tilemap>(mapEntity);
   tilemap.width = static_cast<float>(stepMap->width()) * g_tileSize<float>;
   tilemap.height = static_cast<float>(stepMap->height()) * g_tileSize<float>;
   tilemap.rows = stepMap->height();
@@ -141,7 +141,7 @@ auto parse_map(entt::registry& registry,
 
   parse_layers(registry, tilemap, stepMap->layers());
 
-  return mapEntity;
+  return comp::tilemap::entity{mapEntity};
 }
 
 }  // namespace wanderer
