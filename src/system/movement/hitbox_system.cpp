@@ -10,7 +10,7 @@ namespace {
 [[nodiscard]] auto next_vertical_hitbox(const comp::movable& movable,
                                         const comp::hitbox& hitbox,
                                         const vector2f& oldPosition,
-                                        delta dt) -> maybe<comp::hitbox>
+                                        const delta dt) -> maybe<comp::hitbox>
 {
   if (movable.velocity.y != 0) {
     const auto delta = static_cast<float>(dt.get());
@@ -27,7 +27,7 @@ namespace {
 [[nodiscard]] auto next_horizontal_hitbox(const comp::movable& movable,
                                           const comp::hitbox& hitbox,
                                           const vector2f& oldPosition,
-                                          delta dt) -> maybe<comp::hitbox>
+                                          const delta dt) -> maybe<comp::hitbox>
 {
   if (movable.velocity.x != 0) {
     const auto delta = static_cast<float>(dt.get());
