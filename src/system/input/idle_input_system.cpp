@@ -23,20 +23,20 @@ void handle_idle_input(entt::registry& registry,
     const auto down = keyState.is_pressed(binds.down);
 
     if (left || right || up || down) {
-      direction direction;
+      direction dir;
       if (left) {
-        direction = direction::left;
+        dir = direction::left;
       } else if (right) {
-        direction = direction::right;
+        dir = direction::right;
       } else if (up) {
-        direction = direction::up;
+        dir = direction::up;
       } else {
-        direction = direction::down;
+        dir = direction::down;
       }
 
       dispatcher.enqueue<comp::begin_humanoid_move_event>(&registry,
                                                           player.get(),
-                                                          direction);
+                                                          dir);
     } else if (keyState.is_pressed(binds.attack)) {
       // FIXME
       dispatcher.enqueue<comp::begin_attack_event>(&registry,
