@@ -15,16 +15,16 @@ namespace wanderer::sys::movement {
 namespace {
 
 [[nodiscard]] auto restore_aabb_position(
-    const vector2f& previousPos,
-    const vector2f& currentBoundsPos,
+    const vector2f& prev,
+    const vector2f& curr,
     const hitbox::collision_result& collisions) noexcept -> vector2f
 {
   if (collisions.horizontal && collisions.vertical) {
-    return previousPos;
+    return prev;
   } else if (collisions.horizontal) {
-    return {previousPos.x, currentBoundsPos.y};
+    return {prev.x, curr.y};
   } else /*if (collisions.vertical)*/ {
-    return {currentBoundsPos.x, previousPos.y};
+    return {curr.x, prev.y};
   }
 }
 
