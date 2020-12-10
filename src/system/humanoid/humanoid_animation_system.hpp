@@ -26,11 +26,11 @@ void enter_idle_animation(entt::registry& registry,
  *
  * \param registry the associated registry.
  * \param entity the entity that will enter the movement animation.
- * \param direction the direction that the humanoid is facing.
+ * \param dir the dir that the humanoid is facing.
  */
 void enter_move_animation(entt::registry& registry,
                           entt::entity entity,
-                          direction direction) noexcept;
+                          direction dir) noexcept;
 
 /**
  * \brief Makes a humanoid enter the melee animation.

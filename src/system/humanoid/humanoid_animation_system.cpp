@@ -12,6 +12,7 @@ namespace wanderer::sys::humanoid {
 namespace {
 
 inline constexpr int g_nIdleFrames{1};
+inline constexpr int g_nMoveFrames{9};
 inline constexpr int g_nMeleeFrames{6};
 inline constexpr int g_nMagicFrames{7};
 inline constexpr int g_nSpearFrames{8};
@@ -30,19 +31,18 @@ inline constexpr ms_t g_attackDelay{70};
 
 /**
  * \brief Returns the y-coordinate with the appropriate offset in relation to
- * the direction.
+ * the dir.
  *
  * \note This method assumes that all humanoids use an LPC tilesheet.
  *
  * \param y the base y-coordinate for the type of animation.
- * \param direction the direction of the humanoid used to determine the
+ * \param dir the dir of the humanoid used to determine the
  * appropriate offset.
  * \return the source y-coordinate to use for rendering a humanoid.
  */
-[[nodiscard]] auto source_y(const int y, const direction direction) noexcept
-    -> int
+[[nodiscard]] auto source_y(const int y, const direction dir) noexcept -> int
 {
-  switch (direction) {
+  switch (dir) {
     default:
       assert(false);
     case direction::up:
@@ -135,6 +135,25 @@ void enter_animation(entt::registry& registry,
   }
 }
 
+void enter_animation(entt::registry& registry,
+                     const entt::entity entity,
+                     const u32 nFrames,
+                     const ms_t delay,
+                     const int sourceY,
+                     const direction dir) noexcept
+{
+  auto* animated = registry.try_get<comp::animated>(entity);
+  auto* drawable = registry.try_get<comp::depth_drawable>(entity);
+
+  if (animated && drawable) {
+    animated->frame = 0;
+    animated->nFrames = nFrames;
+    animated->delay = delay;
+    drawable->src.set_x(0);
+    drawable->src.set_y(source_y(sourceY, dir));
+  }
+}
+
 }  // namespace
 
 void enter_idle_animation(entt::registry& registry,
@@ -145,18 +164,14 @@ void enter_idle_animation(entt::registry& registry,
 
 void enter_move_animation(entt::registry& registry,
                           const entt::entity entity,
-                          const direction direction) noexcept
+                          const direction dir) noexcept
 {
-  auto* animated = registry.try_get<comp::animated>(entity);
-  auto* drawable = registry.try_get<comp::depth_drawable>(entity);
-
-  if (animated && drawable) {
-    animated->frame = 0;
-    animated->nFrames = 9;
-    animated->delay = g_moveDelay;
-    drawable->src.set_x(0);
-    drawable->src.set_y(source_y(g_moveSourceY, direction));
-  }
+  enter_animation(registry,
+                  entity,
+                  g_nMoveFrames,
+                  g_moveDelay,
+                  source_y(g_moveSourceY, dir),
+                  dir);
 }
 
 void enter_melee_animation(entt::registry& registry,
