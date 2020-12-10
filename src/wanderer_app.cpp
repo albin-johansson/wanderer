@@ -43,11 +43,11 @@ auto wanderer_app::handle_input() -> bool
 
 auto wanderer_app::run() -> int
 {
-  const auto input = [&] {
+  const auto input = [this] {
     return handle_input();
   };
 
-  const auto logic = [&](const delta dt) {
+  const auto logic = [this](const delta dt) {
     m_game.tick(dt);
   };
 
