@@ -11,9 +11,9 @@
 namespace wanderer::sys::input {
 namespace {
 
-void move(comp::movable& movable, direction direction) noexcept
+void move(comp::movable& movable, const direction dir) noexcept
 {
-  switch (direction) {
+  switch (dir) {
     case direction::right: {
       movable.velocity.x = movable.speed;
       break;
@@ -37,9 +37,9 @@ void move(comp::movable& movable, direction direction) noexcept
   movable.velocity.scale(movable.speed);
 }
 
-void stop(comp::movable& movable, direction direction) noexcept
+void stop(comp::movable& movable, const direction dir) noexcept
 {
-  switch (direction) {
+  switch (dir) {
     case direction::right:
       [[fallthrough]];
     case direction::left: {
