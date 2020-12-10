@@ -24,6 +24,7 @@ set(SOURCE_FILES
     core/event_connections.cpp
     core/event_connections.hpp
     core/level.hpp
+    core/level.cpp
     core/make_dispatcher.hpp
     core/make_dispatcher.cpp
     core/make_renderer.cpp

@@ -12,7 +12,6 @@
 #include "component/tileset.hpp"
 #include "component/viewport.hpp"
 #include "delta.hpp"
-#include "get_render_bounds.hpp"
 #include "maybe.hpp"
 #include "null_entity.hpp"
 #include "vector2.hpp"
@@ -32,12 +31,10 @@ class level final
 {
  public:
   friend class level_factory;
+
   using aabb_type = typename aabb_tree::aabb_type;
 
-  void relocate_aabb(entt::entity entity, const vector2f& position)
-  {
-    m_aabbTree.relocate(entity, position);
-  }
+  void relocate_aabb(entt::entity entity, const vector2f& position);
 
   template <typename... Components, typename T>
   void each(T&& lambda)
@@ -69,10 +66,7 @@ class level final
     return m_aabbTree.query(id, iterator);
   }
 
-  [[nodiscard]] auto get_aabb(entt::entity id) const -> const aabb_type&
-  {
-    return m_aabbTree.get_aabb(id);
-  }
+  [[nodiscard]] auto get_aabb(entt::entity id) const -> const aabb_type&;
 
   /**
    * \brief Returns the player entity associated with the level.
@@ -81,10 +75,7 @@ class level final
    *
    * \since 0.1.0
    */
-  [[nodiscard]] auto player() const -> comp::player::entity
-  {
-    return m_player;
-  }
+  [[nodiscard]] auto player() const -> comp::player::entity;
 
   /**
    * \brief Returns the viewport entity associated with the level.
@@ -93,10 +84,7 @@ class level final
    *
    * \since 0.1.0
    */
-  [[nodiscard]] auto viewport() const -> comp::viewport::entity
-  {
-    return m_viewport;
-  }
+  [[nodiscard]] auto viewport() const -> comp::viewport::entity;
 
   /**
    * \brief Returns the tilemap entity associated with the level.
@@ -105,10 +93,7 @@ class level final
    *
    * \since 0.1.0
    */
-  [[nodiscard]] auto tilemap() const -> comp::tilemap::entity
-  {
-    return m_tilemap;
-  }
+  [[nodiscard]] auto tilemap() const -> comp::tilemap::entity;
 
   /**
    * \brief Returns the spawnpoint of the player in the level.
@@ -117,10 +102,7 @@ class level final
    *
    * \since 0.1.0
    */
-  [[nodiscard]] auto player_spawnpoint() const -> const vector2f&
-  {
-    return m_playerSpawnPosition.value();
-  }
+  [[nodiscard]] auto player_spawnpoint() const -> const vector2f&;
 
   /**
    * \brief Returns the viewport component associated with the level.
@@ -129,10 +111,7 @@ class level final
    *
    * \since 0.1.0
    */
-  [[nodiscard]] auto viewport_component() -> comp::viewport&
-  {
-    return m_registry.get<comp::viewport>(m_viewport.get());
-  }
+  [[nodiscard]] auto viewport_component() -> comp::viewport&;
 
   /**
    * \brief Returns the number of rows in the level tilemap.
@@ -141,10 +120,7 @@ class level final
    *
    * \since 0.1.0
    */
-  [[nodiscard]] auto row_count() const -> int
-  {
-    return m_registry.get<comp::tilemap>(m_tilemap.get()).rows;
-  }
+  [[nodiscard]] auto row_count() const -> int;
 
   /**
    * \brief Returns the number of columns in the level tilemap.
@@ -153,10 +129,7 @@ class level final
    *
    * \since 0.1.0
    */
-  [[nodiscard]] auto col_count() const -> int
-  {
-    return m_registry.get<comp::tilemap>(m_tilemap.get()).cols;
-  }
+  [[nodiscard]] auto col_count() const -> int;
 
   /**
    * \brief Returns the current render bounds of the level.
@@ -165,13 +138,7 @@ class level final
    *
    * \since 0.1.0
    */
-  [[nodiscard]] auto get_render_bounds() const -> comp::render_bounds
-  {
-    return sys::get_render_bounds(m_registry,
-                                  m_viewport,
-                                  row_count(),
-                                  col_count());
-  }
+  [[nodiscard]] auto get_render_bounds() const -> comp::render_bounds;
 
   /**
    * \brief Returns the registry associated with the level.
@@ -180,10 +147,7 @@ class level final
    *
    * \since 0.1.0
    */
-  [[nodiscard]] auto registry() -> entt::registry&
-  {
-    return m_registry;
-  }
+  [[nodiscard]] auto registry() -> entt::registry&;
 
  private:
   entt::registry m_registry;
@@ -194,8 +158,7 @@ class level final
   comp::player::entity m_player{null<comp::player>()};
   maybe<vector2f> m_playerSpawnPosition;
 
-  explicit level(entt::registry&& registry) : m_registry{std::move(registry)}
-  {}
+  explicit level(entt::registry&& registry);
 };
 
 }  // namespace wanderer
