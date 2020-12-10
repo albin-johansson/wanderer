@@ -1,6 +1,6 @@
 #pragma once
 
-#include <cen/key_code.hpp>
+#include <cen/scan_code.hpp>
 
 namespace wanderer::comp {
 
@@ -23,11 +23,11 @@ namespace wanderer::comp {
  */
 struct binds final
 {
-  cen::key_code up{cen::keycodes::w};
-  cen::key_code right{cen::keycodes::d};
-  cen::key_code down{cen::keycodes::s};
-  cen::key_code left{cen::keycodes::a};
-  cen::key_code attack{cen::keycodes::space};
+  cen::scan_code up{cen::scancodes::w};
+  cen::scan_code right{cen::scancodes::d};
+  cen::scan_code down{cen::scancodes::s};
+  cen::scan_code left{cen::scancodes::a};
+  cen::scan_code attack{cen::scancodes::space};
 };
 
 }  // namespace wanderer::comp
