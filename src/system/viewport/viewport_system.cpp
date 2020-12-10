@@ -19,7 +19,7 @@ inline constexpr float g_cameraSpeed = 10.0f;
 
   const auto distance = g_cameraSpeed * static_cast<float>(dt.get());
 
-  const auto getX = [&](float x) noexcept -> float {
+  const auto getX = [&](const float x) noexcept -> float {
     const auto value = boundsX + (x - boundsX) * distance;
     if (value < 0) {
       return 0;
@@ -29,7 +29,7 @@ inline constexpr float g_cameraSpeed = 10.0f;
     }
   };
 
-  const auto getY = [&](float y) noexcept -> float {
+  const auto getY = [&](const float y) noexcept -> float {
     const auto value = boundsY + (y - boundsY) * distance;
     if (value < 0) {
       return 0;
