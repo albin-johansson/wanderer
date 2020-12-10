@@ -1,7 +1,8 @@
 #include "humanoid_factory_system.hpp"
 
-#include <cassert>
+#include <cassert>  // assert
 #include <cen/counter.hpp>
+#include <utility>  // move
 
 #include "centurion_utils.hpp"
 #include "component/animated.hpp"
@@ -19,14 +20,58 @@
 namespace wanderer::sys::humanoid {
 namespace {
 
+void add_movable(entt::registry& registry, const entt::entity entity)
+{
+  auto& movable = registry.emplace<comp::movable>(entity);
+  movable.dir = direction::down;
+}
+
+void add_depth_drawable(entt::registry& registry,
+                        const entt::entity entity,
+                        texture_handle texture)
+{
+  constexpr cen::farea humanoidSize{g_humanoidDrawWidth, g_humanoidDrawHeight};
+
+  auto& drawable = registry.emplace<comp::depth_drawable>(entity);
+  drawable.texture = std::move(texture);
+  drawable.src = {{0, 0}, {64, 64}};
+  drawable.dst = {{0, 0}, humanoidSize};
+}
+
+void add_animated(entt::registry& registry, const entt::entity entity)
+{
+  using namespace cen::literals;
+
+  auto& animated = registry.emplace<comp::animated>(entity);
+  animated.frame = 0;
+  animated.delay = 65_ms;
+  animated.then = cen::counter::ticks();
+  animated.nFrames = 1;
+}
+
+void add_hitbox(entt::registry& registry,
+                const entt::entity entity,
+                aabb_tree& tree,
+                const vector2f& position)
+{
+  auto hitbox = hitbox::create({{{18, 32}, {28, 24}}});
+  sys::hitbox::set_position(hitbox, position);
+
+  const auto lower = to_vector(hitbox.bounds.position());
+  const auto upper = lower + to_vector(hitbox.bounds.size());
+  tree.insert(entity, lower, upper);
+
+  registry.emplace<comp::hitbox>(entity, hitbox);
+}
+
 /**
  * \brief Adds a humanoid entity to the registry and returns the associated
  * identifier.
  *
  * \details The entity will have `movable`, `depth_drawable`, `animated`,
- * `humanoid` and `humanoid_idle` components added to it. Select components
- * will have default values assigned to them, which might have to be tweaked
- * for the specific humanoid.
+ * `hitbox`, `humanoid` and `humanoid_idle` components added to it. Select
+ * components will have default values assigned to them, which might have to be
+ * tweaked for the specific humanoid.
  *
  * \pre `texture` must be a valid handle.
  *
@@ -41,35 +86,15 @@ namespace {
 {
   assert(texture);  // require valid handle
 
-  using namespace cen::literals;
-  constexpr cen::farea humanoidSize{g_humanoidDrawWidth, g_humanoidDrawHeight};
-
   const auto entity = registry.create();
 
-  auto& movable = registry.emplace<comp::movable>(entity);
-  movable.dir = direction::down;
-
-  auto& drawable = registry.emplace<comp::depth_drawable>(entity);
-  drawable.texture = texture;
-  drawable.src = {{0, 0}, {64, 64}};
-  drawable.dst = {{0, 0}, humanoidSize};
-
-  auto& animated = registry.emplace<comp::animated>(entity);
-  animated.frame = 0;
-  animated.delay = 65_ms;
-  animated.then = cen::counter::ticks();
-  animated.nFrames = 1;
-
-  auto hitbox = hitbox::create({{{18, 32}, {28, 24}}});
-  sys::hitbox::set_position(hitbox, movable.position);
-
-  const auto lower = to_vector(hitbox.bounds.position());
-  const auto upper = lower + to_vector(hitbox.bounds.size());
-  tree.insert(entity, lower, upper);
-
-  registry.emplace<comp::hitbox>(entity, hitbox);
   registry.emplace<comp::humanoid>(entity);
   registry.emplace<comp::humanoid_idle>(entity);
+
+  add_movable(registry, entity);
+  add_depth_drawable(registry, entity, texture);
+  add_animated(registry, entity);
+  add_hitbox(registry, entity, tree, {0, 0});  // FIXME position
 
   return entity;
 }
@@ -85,7 +110,6 @@ auto add_player(entt::registry& registry,
   constexpr auto id = "player"_hs;
   const auto handle =
       cache.load<texture_loader>(id, renderer, "resource/img/player2.png");
-  assert(handle);
 
   const auto player = make_humanoid(registry, tree, handle);
   registry.emplace<comp::player>(player);
