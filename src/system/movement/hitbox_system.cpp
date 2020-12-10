@@ -105,6 +105,11 @@ auto intersects(const comp::hitbox& fst, const comp::hitbox& snd) noexcept
     return false;
   }
 
+  if (!fst.enabled || !snd.enabled) {
+    // Cannot intersect if either hitbox isn't enabled
+    return false;
+  }
+
   for (const auto& [fstOffset, fstSize] : fst.boxes) {
     const cen::frect rectA{to_point(fst.origin + fstOffset), fstSize};
 

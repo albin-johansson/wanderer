@@ -50,8 +50,8 @@ struct hitbox final
 
   vector2f origin;
   cen::frect bounds;
-
   std::vector<subhitbox> boxes;
+  bool enabled{true};
 };
 
 }  // namespace wanderer::comp
