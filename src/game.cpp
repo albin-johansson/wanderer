@@ -87,6 +87,7 @@ void game::render(cen::renderer& renderer)
 void game::on_switch_map(const comp::switch_map_event& event)
 {
   m_levels.switch_to(event.map);
+  // TODO sync player state between levels
 }
 
 }  // namespace wanderer
