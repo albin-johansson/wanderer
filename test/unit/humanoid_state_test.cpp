@@ -1,4 +1,4 @@
-#include "component/humanoid_state.hpp"
+#include "humanoid_state.hpp"
 
 #include <catch.hpp>
 
