@@ -82,7 +82,7 @@ void center_on(entt::registry& registry,
                const comp::viewport::entity viewportEntity,
                const vector2f& position)
 {
-  auto& viewport = registry.get<comp::viewport>(viewportEntity.get());
+  auto& viewport = registry.get<comp::viewport>(viewportEntity);
   const auto target = make_target_vector(position, viewport);
   viewport.bounds.set_x(target.x);
   viewport.bounds.set_y(target.y);
@@ -98,7 +98,7 @@ void translate(const entt::registry& registry,
                const comp::viewport::entity viewportEntity,
                cen::renderer& renderer)
 {
-  const auto& viewport = registry.get<comp::viewport>(viewportEntity.get());
+  const auto& viewport = registry.get<comp::viewport>(viewportEntity);
   renderer.set_translation_viewport(viewport.bounds);
 }
 

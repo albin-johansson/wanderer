@@ -17,7 +17,7 @@ void add_animation(entt::registry& registry,
                    const step::animation& stepAnimation,
                    const tile_id firstGid)
 {
-  auto& tile = registry.emplace<comp::animated_tile>(tileEntity.get());
+  auto& tile = registry.emplace<comp::animated_tile>(tileEntity);
   tile.index = 0;
   tile.then = cen::counter::ticks();
 
@@ -71,7 +71,7 @@ void parse_fancy_tile(entt::registry& registry,
     if (props->has("depth")) {
       assert(props->get("depth").is<int>());
 
-      auto& tile = registry.get<comp::tile>(tileEntity.get());
+      auto& tile = registry.get<comp::tile>(tileEntity);
       tile.zIndex = depth{props->get("depth").get<int>()};
     }
   }

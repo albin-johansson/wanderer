@@ -14,11 +14,11 @@ void render(const entt::registry& registry,
 {
   visit(layer, bounds, [&](const tile_id id, const int row, const int col) {
     const auto entity = tileset.tiles.at(id);
-    if (registry.has<comp::animated_tile>(entity.get())) {
+    if (registry.has<comp::animated_tile>(entity)) {
       const auto& tile = tile::animated_tile(registry, entity, tileset);
       tile::render(renderer, tile, row, col);
     } else {
-      const auto& tile = registry.get<comp::tile>(entity.get());
+      const auto& tile = registry.get<comp::tile>(entity);
       tile::render(renderer, tile, row, col);
     }
   });
@@ -29,8 +29,8 @@ void render_ground(const entt::registry& registry,
                    cen::renderer& renderer,
                    const comp::render_bounds& bounds)
 {
-  const auto& tilemap = registry.get<comp::tilemap>(map.get());
-  const auto& tileset = registry.get<comp::tileset>(tilemap.tileset.get());
+  const auto& tilemap = registry.get<comp::tilemap>(map);
+  const auto& tileset = registry.get<comp::tileset>(tilemap.tileset);
 
   registry.view<const comp::tile_layer>().each(
       [&](const comp::tile_layer& layer) {

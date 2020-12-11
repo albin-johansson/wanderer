@@ -54,7 +54,7 @@ auto get_render_bounds(const entt::registry& registry,
                        const int rows,
                        const int cols) -> comp::render_bounds
 {
-  const auto& viewport = registry.get<comp::viewport>(viewportEntity.get());
+  const auto& viewport = registry.get<comp::viewport>(viewportEntity);
 
   comp::render_bounds bounds;
   bounds.minCol = calculate_min_col(viewport.bounds.x());

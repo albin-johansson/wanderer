@@ -25,14 +25,13 @@ auto animated_tile(const entt::registry& registry,
                    const comp::tile::entity tileEntity,
                    const comp::tileset& tileset) -> const comp::tile&
 {
-  assert(registry.has<comp::animated_tile>(tileEntity.get()));
+  assert(registry.has<comp::animated_tile>(tileEntity));
 
-  const auto& animatedTile =
-      registry.get<comp::animated_tile>(tileEntity.get());
+  const auto& animatedTile = registry.get<comp::animated_tile>(tileEntity);
   const auto tileId = animatedTile.frames.at(animatedTile.index).tile;
   const auto animatedEntity = tileset.tiles.at(tileId);
 
-  return registry.get<comp::tile>(animatedEntity.get());
+  return registry.get<comp::tile>(animatedEntity);
 }
 
 }  // namespace wanderer::sys::tile

@@ -21,7 +21,7 @@ void level::relocate_aabb(const entt::entity entity, const vector2f& position)
 
 auto level::id() const noexcept -> map_id
 {
-  return m_registry.get<comp::tilemap>(m_tilemap.get()).id;
+  return m_registry.get<comp::tilemap>(m_tilemap).id;
 }
 
 auto level::get_aabb(const entt::entity id) const -> const level::aabb_type&
@@ -51,17 +51,17 @@ auto level::player_spawnpoint() const -> const vector2f&
 
 auto level::viewport_component() -> comp::viewport&
 {
-  return m_registry.get<comp::viewport>(m_viewport.get());
+  return m_registry.get<comp::viewport>(m_viewport);
 }
 
 auto level::row_count() const -> int
 {
-  return m_registry.get<comp::tilemap>(m_tilemap.get()).rows;
+  return m_registry.get<comp::tilemap>(m_tilemap).rows;
 }
 
 auto level::col_count() const -> int
 {
-  return m_registry.get<comp::tilemap>(m_tilemap.get()).cols;
+  return m_registry.get<comp::tilemap>(m_tilemap).cols;
 }
 
 auto level::get_render_bounds() const -> comp::render_bounds

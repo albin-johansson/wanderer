@@ -40,10 +40,10 @@ void add_depth_drawable(entt::registry& registry,
 
   add_depth_drawable(registry,
                      entity,
-                     registry.get<comp::tile>(tileEntity.get()),
+                     registry.get<comp::tile>(tileEntity),
                      position);
 
-  if (const auto* tileHb = registry.try_get<comp::hitbox>(tileEntity.get())) {
+  if (const auto* tileHb = registry.try_get<comp::hitbox>(tileEntity)) {
     auto hitbox = sys::hitbox::with_position(*tileHb, to_vector(position));
     registry.emplace<comp::hitbox>(entity, std::move(hitbox));
   }

@@ -123,15 +123,14 @@ void handle_move_input(entt::registry& registry,
                        const comp::player::entity player,
                        const cen::key_state& keyState)
 {
-  if (registry.has<comp::humanoid_move>(player.get())) {
-    auto& movable = registry.get<comp::movable>(player.get());
-    const auto& binds = registry.get<comp::binds>(player.get());
+  if (registry.has<comp::humanoid_move>(player)) {
+    auto& movable = registry.get<comp::movable>(player);
+    const auto& binds = registry.get<comp::binds>(player);
     const bool areMoveKeysDown = check_pressed(movable, keyState, binds);
     check_released(movable, keyState, binds);
 
     if (!areMoveKeysDown && movable.velocity.is_zero()) {
-      dispatcher.enqueue<comp::end_humanoid_move_event>(&registry,
-                                                        player.get());
+      dispatcher.enqueue<comp::end_humanoid_move_event>(&registry, player);
     } else if (keyState.is_pressed(binds.attack)) {
       movable.velocity.zero();
 

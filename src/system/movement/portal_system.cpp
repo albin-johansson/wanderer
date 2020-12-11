@@ -8,7 +8,7 @@ namespace wanderer::sys::portal {
 
 void update(entt::registry& registry, const comp::player::entity player)
 {
-  const auto& hitbox = registry.get<comp::hitbox>(player.get());
+  const auto& hitbox = registry.get<comp::hitbox>(player);
   registry.view<comp::portal, comp::hitbox>().each(
       [&](const entt::entity e, const comp::portal& portal, comp::hitbox& hb) {
         hb.enabled = true;
