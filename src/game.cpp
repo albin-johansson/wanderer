@@ -90,7 +90,13 @@ void game::on_switch_map(const comp::switch_map_event& event)
 {
   {
     auto* current = m_levels.current();
-    current->get<comp::movable>(current->player()).velocity.zero();
+
+    auto& movable = current->get<comp::movable>(current->player());
+    movable.velocity.zero();
+
+    sys::viewport::center_on(current->registry(),
+                             current->viewport(),
+                             movable.position);
   }
 
   m_levels.switch_to(event.map);
