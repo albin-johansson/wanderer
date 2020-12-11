@@ -6,7 +6,6 @@
 
 namespace wanderer::sys::portal {
 
-
 void update(entt::registry& registry, const comp::player::entity player)
 {
   const auto& hitbox = registry.get<comp::hitbox>(player.get());

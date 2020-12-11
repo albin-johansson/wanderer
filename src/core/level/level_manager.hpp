@@ -1,13 +1,13 @@
 #pragma once
 
 #include <cen/renderer.hpp>
-#include <memory>  // unique_ptr
+#include <memory>         // unique_ptr
 #include <unordered_map>  // unordered_map
 
 #include "level.hpp"
-#include "texture_cache.hpp"
 #include "map_id.hpp"
 #include "maybe.hpp"
+#include "texture_cache.hpp"
 
 namespace wanderer {
 

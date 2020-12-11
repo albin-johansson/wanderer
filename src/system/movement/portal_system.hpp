@@ -1,6 +1,7 @@
 #pragma once
 
 #include <entt.hpp>
+
 #include "component/player.hpp"
 
 namespace wanderer::sys::portal {
