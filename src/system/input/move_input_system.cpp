@@ -137,7 +137,7 @@ void handle_move_input(entt::registry& registry,
 
       // FIXME null weapon
       dispatcher.enqueue<comp::begin_attack_event>(&registry,
-                                                   player.get(),
+                                                   player,
                                                    entt::null,
                                                    movable.dir);
     } else if (keyState.was_just_released(binds.interact)) {

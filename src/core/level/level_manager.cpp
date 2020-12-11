@@ -1,6 +1,7 @@
 #include "level_manager.hpp"
 
 #include <cassert>  // assert
+#include <utility>  // move
 
 #include "component/portal.hpp"
 #include "level_factory.hpp"

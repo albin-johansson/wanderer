@@ -41,7 +41,7 @@ void add_hitbox(entt::registry& registry,
   const cen::farea size{static_cast<float>(object.width()),
                         static_cast<float>(object.height())};
 
-  registry.emplace<comp::hitbox>(tileEntity.get(),
+  registry.emplace<comp::hitbox>(tileEntity,
                                  sys::hitbox::create({{offset, size}}));
 }
 

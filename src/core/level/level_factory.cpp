@@ -63,12 +63,12 @@ void level_factory::init_tile_objects(entt::registry& registry,
                                       aabb_tree& aabbTree)
 {
   for (const auto& [mapPos, tileObject] : tilemap.tileObjects) {
-    const auto& drawable = registry.get<comp::depth_drawable>(tileObject.get());
-    const auto& object = registry.get<comp::tile_object>(tileObject.get());
-    if (const auto* hitbox = registry.try_get<comp::hitbox>(tileObject.get())) {
+    const auto& drawable = registry.get<comp::depth_drawable>(tileObject);
+    const auto& object = registry.get<comp::tile_object>(tileObject);
+    if (const auto* hitbox = registry.try_get<comp::hitbox>(tileObject)) {
       const auto lower = to_vector(hitbox->bounds.position());
       const auto upper = lower + to_vector(hitbox->bounds.size());
-      aabbTree.insert(tileObject.get(), lower, upper);
+      aabbTree.insert(tileObject, lower, upper);
     }
   }
 }
@@ -87,7 +87,7 @@ auto level_factory::make(const std::filesystem::path& path,
   assert(registry.view<comp::tileset>().size() == 1);
   lvl->m_tileset = tileset_entity{registry.view<comp::tileset>().front()};
 
-  auto& tilemap = registry.get<comp::tilemap>(lvl->m_tilemap.get());
+  auto& tilemap = registry.get<comp::tilemap>(lvl->m_tilemap);
   lvl->m_viewport =
       sys::viewport::make_viewport(registry, {tilemap.width, tilemap.height});
 

@@ -14,7 +14,7 @@ void on_interact(const comp::interact_event& event)
   assert(event.player != null<comp::player>());
 
   auto* registry = event.registry;
-  const auto player = event.player.get();
+  const auto player = event.player;
 
   if (const auto* iwp = registry->try_get<comp::is_within_portal>(player)) {
     const auto& portal = registry->get<comp::portal>(iwp->portal);

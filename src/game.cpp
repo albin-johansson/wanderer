@@ -62,7 +62,7 @@ void game::tick(const delta dt)
     sys::portal::update(registry, level->player());
 
     sys::animated::update(registry);
-    sys::viewport::update(*level, level->player().get(), dt);
+    sys::viewport::update(*level, level->player(), dt);
   }
 }
 
