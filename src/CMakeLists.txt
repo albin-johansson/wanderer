@@ -48,6 +48,7 @@ set(SOURCE_FILES
     core/aliases/texture_cache.hpp
     core/aliases/aabb_tree.hpp
     core/aliases/milliseconds.hpp
+    core/aliases/map_id.hpp
 
     core/resource/texture_loader.hpp
 
