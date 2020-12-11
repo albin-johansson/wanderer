@@ -1,9 +1,9 @@
-#include "component/hitbox.hpp"
+#include "hitbox.hpp"
 
 #include <catch.hpp>
 
 #include "centurion_utils.hpp"
-#include "component/movable.hpp"
+#include "movable.hpp"
 #include "hitbox_system.hpp"
 
 using namespace wanderer;
