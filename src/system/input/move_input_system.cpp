@@ -4,6 +4,7 @@
 #include "component/binds.hpp"
 #include "component/end_humanoid_move_event.hpp"
 #include "component/humanoid_state.hpp"
+#include "component/interact_event.hpp"
 #include "component/movable.hpp"
 #include "component/player.hpp"
 #include "direction.hpp"
@@ -139,6 +140,8 @@ void handle_move_input(entt::registry& registry,
                                                    player.get(),
                                                    entt::null,
                                                    movable.dir);
+    } else if (keyState.was_just_released(binds.interact)) {
+      dispatcher.enqueue<comp::interact_event>(&registry, &dispatcher, player);
     }
   }
 }

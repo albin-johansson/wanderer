@@ -28,6 +28,7 @@ struct binds final
   cen::scan_code down{cen::scancodes::s};
   cen::scan_code left{cen::scancodes::a};
   cen::scan_code attack{cen::scancodes::space};
+  cen::scan_code interact{cen::scancodes::e};
 };
 
 }  // namespace wanderer::comp

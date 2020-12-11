@@ -4,6 +4,7 @@
 #include "component/begin_humanoid_move_event.hpp"
 #include "component/binds.hpp"
 #include "component/humanoid_state.hpp"
+#include "component/interact_event.hpp"
 #include "component/player.hpp"
 #include "direction.hpp"
 
@@ -43,6 +44,8 @@ void handle_idle_input(entt::registry& registry,
                                                    player.get(),
                                                    entt::null,
                                                    direction::down);
+    } else if (keyState.was_just_released(binds.interact)) {
+      dispatcher.enqueue<comp::interact_event>(&registry, &dispatcher, player);
     }
   }
 }
