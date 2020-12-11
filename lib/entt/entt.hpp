@@ -4129,7 +4129,7 @@ public:
      * @return An iterator to the first entity of the internal packed array.
      */
     [[nodiscard]] iterator begin() const ENTT_NOEXCEPT {
-        const typename traits_type::difference_type pos = packed.size();
+        const auto pos = static_cast<typename traits_type::difference_type>(packed.size());
         return iterator{packed, pos};
     }
 
@@ -4663,7 +4663,7 @@ public:
      * @return An iterator to the first instance of the internal array.
      */
     [[nodiscard]] const_iterator cbegin() const ENTT_NOEXCEPT {
-        const typename traits_type::difference_type pos = underlying_type::size();
+        const auto pos = static_cast<typename traits_type::difference_type>(underlying_type::size());
         return const_iterator{instances, pos};
     }
 
@@ -4674,7 +4674,7 @@ public:
 
     /*! @copydoc begin */
     [[nodiscard]] iterator begin() ENTT_NOEXCEPT {
-        const typename traits_type::difference_type pos = underlying_type::size();
+        const auto pos = static_cast<typename traits_type::difference_type>(underlying_type::size());
         return iterator{instances, pos};
     }
 
