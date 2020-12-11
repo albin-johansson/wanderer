@@ -30,9 +30,9 @@ namespace {
 
 void add_ground_layer(entt::registry& registry,
                       const step::tile_layer& tileLayer,
-                      int numRows,
-                      int numColumns,
-                      int zIndex)
+                      const int numRows,
+                      const int numColumns,
+                      const int zIndex)
 {
   const auto layerEntity = registry.create();
 
@@ -52,7 +52,7 @@ void parse_tile_layer(entt::registry& registry,
                       comp::tilemap& tilemap,
                       const step::tile_layer& layer,
                       const step::properties* properties,
-                      int zIndex)
+                      const int zIndex)
 {
   assert(properties);
   assert(properties->has("ground"));
@@ -62,9 +62,8 @@ void parse_tile_layer(entt::registry& registry,
     add_ground_layer(registry, layer, tilemap.rows, tilemap.cols, zIndex);
   } else {
     if (const auto* data = layer.data()) {
-      const auto& gid = data->as_gid();
       const auto& tileset = registry.get<comp::tileset>(tilemap.tileset);
-      add_tile_objects(registry, tilemap, tileset, gid.begin(), gid.end());
+      add_tile_objects(registry, tilemap, tileset, data->as_gid());
     }
   }
 }
@@ -82,7 +81,6 @@ void parse_spawnpoint(entt::registry& registry, const step::object& object)
   maybe<comp::spawnpoint_type> type;
   if (props->is("entity", "player")) {
     type = comp::spawnpoint_type::player;
-
   } else if (props->is("entity", "skeleton")) {
     type = comp::spawnpoint_type::skeleton;
   } else {
