@@ -9,12 +9,11 @@
 
 namespace wanderer {
 
-using tile_iterator = step::detail::data::gid_data::const_iterator;
+using tile_data = step::detail::data::gid_data; // FIXME
 
 void add_tile_objects(entt::registry& registry,
                       comp::tilemap& tilemap,
                       const comp::tileset& tileset,
-                      tile_iterator&& begin,
-                      tile_iterator&& end);
+                      const tile_data& data);
 
 }  // namespace wanderer

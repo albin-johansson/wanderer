@@ -56,12 +56,12 @@ void add_depth_drawable(entt::registry& registry,
 void add_tile_objects(entt::registry& registry,
                       comp::tilemap& tilemap,
                       const comp::tileset& tileset,
-                      tile_iterator&& begin,
-                      tile_iterator&& end)
+                      const tile_data& data)
 
 {
   int index{0};
-  std::for_each(begin, end, [&](const step::global_id gid) {
+
+  for (const auto gid : data) {
     if (gid.get() != g_emptyTile) {
       const auto tileEntity = tileset.tiles.at(gid.get());
       const auto [row, col] = index_to_matrix(index, tilemap.cols);
@@ -69,7 +69,7 @@ void add_tile_objects(entt::registry& registry,
       tilemap.tileObjects.emplace(comp::map_position{row, col}, tileObject);
     }
     ++index;
-  });
+  }
 
   // TODO load actual game objects (items, NPCs, portals to other levels)
 }
