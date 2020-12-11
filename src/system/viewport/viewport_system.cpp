@@ -1,7 +1,7 @@
 #include "viewport_system.hpp"
 
-#include "component/movable.hpp"
 #include "game_constants.hpp"
+#include "movable.hpp"
 
 namespace wanderer::sys::viewport {
 namespace {

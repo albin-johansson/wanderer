@@ -213,6 +213,8 @@ target_include_directories(${WANDERER_LIB_TARGET}
     PUBLIC core/resource
     PUBLIC core/aliases
     PUBLIC core/level
+    PUBLIC component
+    PUBLIC component/event
     PUBLIC system
     PUBLIC system/input
     PUBLIC system/humanoid

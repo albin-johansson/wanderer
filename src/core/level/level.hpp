@@ -6,17 +6,17 @@
 
 #include "aabb_tree.hpp"
 #include "abby.hpp"
-#include "component/player.hpp"
-#include "component/render_bounds.hpp"
-#include "component/spawnpoint.hpp"
-#include "component/tilemap.hpp"
-#include "component/tileset.hpp"
-#include "component/viewport.hpp"
 #include "delta.hpp"
 #include "map_id.hpp"
 #include "maybe.hpp"
 #include "null_entity.hpp"
+#include "player.hpp"
+#include "render_bounds.hpp"
+#include "spawnpoint.hpp"
+#include "tilemap.hpp"
+#include "tileset.hpp"
 #include "vector2.hpp"
+#include "viewport.hpp"
 
 namespace wanderer {
 

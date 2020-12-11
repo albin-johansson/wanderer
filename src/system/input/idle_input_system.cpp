@@ -1,12 +1,12 @@
 #include "idle_input_system.hpp"
 
-#include "component/begin_attack_event.hpp"
-#include "component/begin_humanoid_move_event.hpp"
-#include "component/binds.hpp"
-#include "component/humanoid_state.hpp"
-#include "component/interact_event.hpp"
-#include "component/player.hpp"
+#include "begin_attack_event.hpp"
+#include "begin_humanoid_move_event.hpp"
+#include "binds.hpp"
 #include "direction.hpp"
+#include "humanoid_state.hpp"
+#include "interact_event.hpp"
+#include "player.hpp"
 
 namespace wanderer::sys::input {
 

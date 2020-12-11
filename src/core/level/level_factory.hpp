@@ -5,9 +5,9 @@
 #include <memory>      // unique_ptr
 
 #include "aabb_tree.hpp"
-#include "component/spawnpoint.hpp"
 #include "level.hpp"
 #include "map_id.hpp"
+#include "spawnpoint.hpp"
 #include "texture_cache.hpp"
 
 namespace wanderer {

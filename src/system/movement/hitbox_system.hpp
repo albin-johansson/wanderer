@@ -3,10 +3,10 @@
 #include <entt.hpp>
 #include <initializer_list>  // initializer_list
 
-#include "component/hitbox.hpp"
-#include "component/movable.hpp"
 #include "delta.hpp"
+#include "hitbox.hpp"
 #include "maybe.hpp"
+#include "movable.hpp"
 #include "vector2.hpp"
 
 namespace wanderer::sys::hitbox {

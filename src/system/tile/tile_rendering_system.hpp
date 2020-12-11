@@ -2,8 +2,8 @@
 
 #include <cen/renderer.hpp>
 
-#include "component/tile.hpp"
-#include "component/tileset.hpp"
+#include "tile.hpp"
+#include "tileset.hpp"
 
 namespace wanderer::sys::tile {
 

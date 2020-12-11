@@ -1,7 +1,5 @@
 #include "game.hpp"
 
-#include <component/portal.hpp>
-
 #include "animation_system.hpp"
 #include "depth_drawables_system.hpp"
 #include "event_connections.hpp"

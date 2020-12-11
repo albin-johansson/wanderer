@@ -1,11 +1,11 @@
 #include "depth_drawables_system.hpp"
 
-#include "component/depth_drawable.hpp"
-#include "component/movable.hpp"
+#include "depth_drawable.hpp"
+#include "movable.hpp"
 
 #ifndef NDEBUG
 #include "centurion_utils.hpp"
-#include "component/hitbox.hpp"
+#include "hitbox.hpp"
 #endif
 
 namespace wanderer::sys::depthdrawable {

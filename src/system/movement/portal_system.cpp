@@ -1,8 +1,8 @@
 #include "portal_system.hpp"
 
-#include "component/hitbox.hpp"
-#include "component/portal.hpp"
+#include "hitbox.hpp"
 #include "hitbox_system.hpp"
+#include "portal.hpp"
 
 namespace wanderer::sys::portal {
 

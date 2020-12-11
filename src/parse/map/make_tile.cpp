@@ -3,10 +3,10 @@
 #include <cassert>  // assert
 #include <cen/counter.hpp>
 
+#include "animated_tile.hpp"
 #include "centurion_utils.hpp"
-#include "component/animated_tile.hpp"
-#include "component/depth_drawable.hpp"
-#include "component/hitbox.hpp"
+#include "depth_drawable.hpp"
+#include "hitbox.hpp"
 #include "hitbox_system.hpp"
 
 namespace wanderer {

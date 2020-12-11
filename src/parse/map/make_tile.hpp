@@ -5,8 +5,8 @@
 #include <entt.hpp>
 #include <step_tile.hpp>
 
-#include "component/tile.hpp"
 #include "texture_handle.hpp"
+#include "tile.hpp"
 #include "tile_id.hpp"
 
 namespace wanderer {

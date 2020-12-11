@@ -4,10 +4,10 @@
 #include <vector>    // vector
 
 #include "centurion_utils.hpp"
-#include "component/hitbox.hpp"
-#include "component/movable.hpp"
+#include "hitbox.hpp"
 #include "hitbox_system.hpp"
 #include "maybe.hpp"
+#include "movable.hpp"
 #include "movable_system.hpp"
 #include "stack_resource.hpp"
 

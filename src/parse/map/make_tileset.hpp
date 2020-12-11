@@ -6,8 +6,8 @@
 #include <step_tileset.hpp>
 #include <vector>  // vector
 
-#include "component/tileset.hpp"
 #include "texture_cache.hpp"
+#include "tileset.hpp"
 
 namespace wanderer {
 

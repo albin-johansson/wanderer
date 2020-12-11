@@ -2,7 +2,7 @@
 
 #include <cen/counter.hpp>
 
-#include "component/animated.hpp"
+#include "animated.hpp"
 
 namespace wanderer::sys::animated {
 

@@ -2,8 +2,8 @@
 
 #include <entt.hpp>
 
-#include "component/render_bounds.hpp"
-#include "component/viewport.hpp"
+#include "render_bounds.hpp"
+#include "viewport.hpp"
 
 namespace wanderer::sys {
 

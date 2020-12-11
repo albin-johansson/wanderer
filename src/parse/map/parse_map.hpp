@@ -4,8 +4,8 @@
 #include <entt.hpp>
 #include <step_types.hpp>
 
-#include "component/tilemap.hpp"
 #include "texture_cache.hpp"
+#include "tilemap.hpp"
 
 namespace wanderer {
 

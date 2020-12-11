@@ -4,12 +4,12 @@
 #include <utility>    // move
 
 #include "centurion_utils.hpp"
-#include "component/depth_drawable.hpp"
-#include "component/hitbox.hpp"
-#include "component/tile_object.hpp"
+#include "depth_drawable.hpp"
 #include "game_constants.hpp"
+#include "hitbox.hpp"
 #include "hitbox_system.hpp"
 #include "index_to_matrix.hpp"
+#include "tile_object.hpp"
 
 namespace wanderer {
 namespace {

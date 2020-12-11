@@ -2,12 +2,12 @@
 
 #include <cassert>  // assert
 
-#include "component/animated.hpp"
-#include "component/tileset.hpp"
+#include "animated.hpp"
 #include "index_to_matrix.hpp"
 #include "make_tile.hpp"
 #include "texture_handle.hpp"
 #include "texture_loader.hpp"
+#include "tileset.hpp"
 
 namespace wanderer {
 namespace {

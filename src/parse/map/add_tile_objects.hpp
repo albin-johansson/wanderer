@@ -3,9 +3,9 @@
 #include <entt.hpp>
 #include <step_data.hpp>
 
-#include "component/map_position.hpp"
-#include "component/tilemap.hpp"
-#include "component/tileset.hpp"
+#include "map_position.hpp"
+#include "tilemap.hpp"
+#include "tileset.hpp"
 
 namespace wanderer {
 

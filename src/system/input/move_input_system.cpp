@@ -1,13 +1,13 @@
 #include "move_input_system.hpp"
 
-#include "component/begin_attack_event.hpp"
-#include "component/binds.hpp"
-#include "component/end_humanoid_move_event.hpp"
-#include "component/humanoid_state.hpp"
-#include "component/interact_event.hpp"
-#include "component/movable.hpp"
-#include "component/player.hpp"
+#include "begin_attack_event.hpp"
+#include "binds.hpp"
 #include "direction.hpp"
+#include "end_humanoid_move_event.hpp"
+#include "humanoid_state.hpp"
+#include "interact_event.hpp"
+#include "movable.hpp"
+#include "player.hpp"
 
 namespace wanderer::sys::input {
 namespace {

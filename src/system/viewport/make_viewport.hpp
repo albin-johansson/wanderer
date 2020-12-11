@@ -3,7 +3,7 @@
 #include <cen/area.hpp>
 #include <entt.hpp>
 
-#include "component/viewport.hpp"
+#include "viewport.hpp"
 
 namespace wanderer::sys::viewport {
 

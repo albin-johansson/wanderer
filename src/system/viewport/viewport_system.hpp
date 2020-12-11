@@ -2,10 +2,10 @@
 
 #include <cen/renderer.hpp>
 
-#include "component/viewport.hpp"
 #include "delta.hpp"
 #include "level.hpp"
 #include "vector2.hpp"
+#include "viewport.hpp"
 
 namespace wanderer::sys::viewport {
 

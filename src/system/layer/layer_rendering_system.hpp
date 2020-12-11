@@ -3,10 +3,10 @@
 #include <cen/renderer.hpp>
 #include <entt.hpp>
 
-#include "component/render_bounds.hpp"
-#include "component/tile_layer.hpp"
-#include "component/tilemap.hpp"
-#include "component/tileset.hpp"
+#include "render_bounds.hpp"
+#include "tile_layer.hpp"
+#include "tilemap.hpp"
+#include "tileset.hpp"
 
 namespace wanderer::sys::layer {
 

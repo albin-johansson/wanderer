@@ -4,16 +4,16 @@
 #include <cen/counter.hpp>
 #include <utility>  // move
 
+#include "animated.hpp"
+#include "binds.hpp"
 #include "centurion_utils.hpp"
-#include "component/animated.hpp"
-#include "component/binds.hpp"
-#include "component/depth_drawable.hpp"
-#include "component/hitbox.hpp"
-#include "component/humanoid_state.hpp"
-#include "component/movable.hpp"
+#include "depth_drawable.hpp"
 #include "direction.hpp"
 #include "game_constants.hpp"
+#include "hitbox.hpp"
 #include "hitbox_system.hpp"
+#include "humanoid_state.hpp"
+#include "movable.hpp"
 #include "texture_handle.hpp"
 #include "texture_loader.hpp"
 

@@ -8,14 +8,14 @@
 #include <vector>   // vector
 
 #include "add_tile_objects.hpp"
-#include "component/hitbox.hpp"
-#include "component/portal.hpp"
-#include "component/spawnpoint.hpp"
 #include "game_constants.hpp"
+#include "hitbox.hpp"
 #include "hitbox_system.hpp"
 #include "index_to_matrix.hpp"
 #include "make_tileset.hpp"
 #include "maybe.hpp"
+#include "portal.hpp"
+#include "spawnpoint.hpp"
 
 namespace wanderer {
 namespace {

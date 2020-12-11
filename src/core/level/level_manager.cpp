@@ -3,8 +3,8 @@
 #include <cassert>  // assert
 #include <utility>  // move
 
-#include "component/portal.hpp"
 #include "level_factory.hpp"
+#include "portal.hpp"
 
 namespace wanderer {
 

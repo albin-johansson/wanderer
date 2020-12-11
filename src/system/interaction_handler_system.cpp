@@ -1,9 +1,9 @@
 #include "interaction_handler_system.hpp"
 
-#include "component/hitbox.hpp"
-#include "component/portal.hpp"
-#include "component/switch_map_event.hpp"
+#include "hitbox.hpp"
 #include "null_entity.hpp"
+#include "portal.hpp"
+#include "switch_map_event.hpp"
 
 namespace wanderer::sys {
 

@@ -3,7 +3,7 @@
 #include <cen/key_state.hpp>
 #include <entt.hpp>
 
-#include "component/player.hpp"
+#include "player.hpp"
 
 namespace wanderer::sys::input {
 

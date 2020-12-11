@@ -1,7 +1,7 @@
 #pragma once
 
-#include "component/render_bounds.hpp"
-#include "component/tile_layer.hpp"
+#include "render_bounds.hpp"
+#include "tile_layer.hpp"
 
 namespace wanderer::sys::layer {
 

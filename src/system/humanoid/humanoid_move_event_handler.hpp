@@ -1,7 +1,7 @@
 #pragma once
 
-#include "component/begin_humanoid_move_event.hpp"
-#include "component/end_humanoid_move_event.hpp"
+#include "begin_humanoid_move_event.hpp"
+#include "end_humanoid_move_event.hpp"
 
 namespace wanderer::sys::humanoid {
 

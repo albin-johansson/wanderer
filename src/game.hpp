@@ -5,11 +5,11 @@
 #include <cen/renderer.hpp>
 
 #include "alpha.hpp"
-#include "component/switch_map_event.hpp"
 #include "delta.hpp"
 #include "level.hpp"
 #include "level_manager.hpp"
 #include "menu_manager.hpp"
+#include "switch_map_event.hpp"
 #include "texture_cache.hpp"
 
 namespace wanderer {

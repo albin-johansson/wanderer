@@ -3,14 +3,14 @@
 #include <entt.hpp>
 
 #include "centurion_utils.hpp"
-#include "component/depth_drawable.hpp"
-#include "component/portal.hpp"
+#include "depth_drawable.hpp"
 #include "depth_drawables_system.hpp"
 #include "hitbox_system.hpp"
 #include "humanoid_factory_system.hpp"
 #include "make_registry.hpp"
 #include "make_viewport.hpp"
 #include "parse_map.hpp"
+#include "portal.hpp"
 #include "viewport_system.hpp"
 
 namespace wanderer {
