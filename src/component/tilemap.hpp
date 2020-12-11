@@ -41,6 +41,7 @@ struct tilemap final
 {
   using entity = entity_type<detail::tilemap_entity_t>;
 
+  map_id id{0};
 
   // clang-format off
   [[deprecated("Use tileset::entity member of level class instead.")]]
