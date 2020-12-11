@@ -23,8 +23,6 @@ void level_factory::load_spawnpoint(level& level,
                                     cen::renderer& renderer,
                                     texture_cache& imageCache)
 {
-  // TODO think about how to copy player data between levels
-
   switch (spawnpoint.type) {
     case comp::spawnpoint_type::player: {
       const auto id = sys::humanoid::add_player(level.m_registry,
