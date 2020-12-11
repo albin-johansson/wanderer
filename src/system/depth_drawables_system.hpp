@@ -3,6 +3,8 @@
 #include <cen/renderer.hpp>
 #include <entt.hpp>
 
+#include "tilemap.hpp"
+
 namespace wanderer::sys::depthdrawable {
 
 /**
@@ -26,6 +28,15 @@ void update_movable(entt::registry& registry);
  * \since 0.1.0
  */
 void sort(entt::registry& registry);
+
+/**
+ * \brief Updates tile animations for tile objects that are depth drawables.
+ *
+ * \param registry the current registry.
+ * \param map the tilemap entity.
+ */
+void update_tile_animations(entt::registry& registry,
+                            comp::tilemap::entity map);
 
 /**
  * \brief Renders all depth drawables.

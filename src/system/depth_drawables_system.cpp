@@ -1,7 +1,10 @@
 #include "depth_drawables_system.hpp"
 
+#include "animated_tile.hpp"
 #include "depth_drawable.hpp"
 #include "movable.hpp"
+#include "tile_object.hpp"
+#include "tile_rendering_system.hpp"
 
 #ifndef NDEBUG
 #include "centurion_utils.hpp"
@@ -30,6 +33,22 @@ void sort(entt::registry& registry)
                (rhs.zIndex >= lhs.zIndex && lhs.centerY < rhs.centerY);
       },
       entt::insertion_sort{});
+}
+
+void update_tile_animations(entt::registry& registry,
+                            const comp::tilemap::entity map)
+{
+  const auto& tilemap = registry.get<comp::tilemap>(map);
+  const auto& tileset = registry.get<comp::tileset>(tilemap.tileset);
+
+  registry.view<const comp::tile_object, comp::depth_drawable>().each(
+      [&](const comp::tile_object& object, comp::depth_drawable& drawable) {
+        if (registry.has<comp::animated_tile>(object.tileEntity)) {
+          const auto& animated =
+              tile::animated_tile(registry, object.tileEntity, tileset);
+          drawable.src = animated.src;
+        }
+      });
 }
 
 void render(const entt::registry& registry, cen::renderer& renderer)

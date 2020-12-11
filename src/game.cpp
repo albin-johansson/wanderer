@@ -71,11 +71,14 @@ void game::render(cen::renderer& renderer)
   auto& registry = level->registry();
 
   sys::viewport::translate(registry, level->viewport(), renderer);
+
+  sys::depthdrawable::sort(registry);
+  sys::depthdrawable::update_tile_animations(registry, level->tilemap());
+
   sys::layer::render_ground(registry,
                             level->tilemap(),
                             renderer,
                             level->get_render_bounds());
-  sys::depthdrawable::sort(registry);
   sys::depthdrawable::render(registry, renderer);
 
   if (m_menus.is_blocking()) {
