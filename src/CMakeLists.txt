@@ -100,6 +100,8 @@ set(SOURCE_FILES
     system/animation_system.hpp
     system/get_render_bounds.cpp
     system/get_render_bounds.hpp
+    system/interaction_handler_system.cpp
+    system/interaction_handler_system.hpp
 
     system/movement/movement_system.cpp
     system/movement/movement_system.hpp

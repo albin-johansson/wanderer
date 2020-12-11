@@ -7,6 +7,7 @@
 #include "component/begin_humanoid_move_event.hpp"
 #include "component/end_attack_event.hpp"
 #include "component/end_humanoid_move_event.hpp"
+#include "component/interact_event.hpp"
 
 using namespace wanderer;
 
@@ -22,6 +23,7 @@ TEST_CASE("Event connections", "[event_connections]")
     CHECK(!dispatcher.sink<comp::end_attack_event>().empty());
     CHECK(!dispatcher.sink<comp::begin_humanoid_move_event>().empty());
     CHECK(!dispatcher.sink<comp::end_humanoid_move_event>().empty());
+    CHECK(!dispatcher.sink<comp::interact_event>().empty());
   }
 
   SECTION("Disconnect the events")
@@ -32,5 +34,6 @@ TEST_CASE("Event connections", "[event_connections]")
     CHECK(dispatcher.sink<comp::end_attack_event>().empty());
     CHECK(dispatcher.sink<comp::begin_humanoid_move_event>().empty());
     CHECK(dispatcher.sink<comp::end_humanoid_move_event>().empty());
+    CHECK(dispatcher.sink<comp::interact_event>().empty());
   }
 }
