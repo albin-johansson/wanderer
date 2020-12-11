@@ -14,7 +14,7 @@ struct player_entity_t;
  *
  * \headerfile player.hpp
  */
-struct player
+struct player final
 {
   using entity = entity_type<detail::player_entity_t>;
 };
