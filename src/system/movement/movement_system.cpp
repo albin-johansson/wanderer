@@ -51,6 +51,39 @@ namespace {
   return collisions;
 }
 
+[[nodiscard]] auto check_out_of_bounds(level& level,
+                                       const hitbox::next_hitboxes& next,
+                                       const entt::entity entity,
+                                       comp::movable& movable,
+                                       comp::hitbox& hitbox,
+                                       const vector2f& oldPosition,
+                                       const vector2f& oldAabbPos)
+    -> hitbox::collision_result
+{
+  hitbox::collision_result collisions;
+
+  const auto& viewport = level.viewport_component();
+  if (next.horizontal) {
+    if ((next.horizontal->bounds.x() <= 0) ||
+        (next.horizontal->bounds.max_x() >= viewport.levelSize.width)) {
+      movable.position.x = oldPosition.x;
+      movable.velocity.x = 0;
+      collisions.horizontal = true;
+    }
+  }
+
+  if (next.vertical) {
+    if ((next.vertical->bounds.y() <= 0) ||
+        (next.vertical->bounds.max_y() >= viewport.levelSize.height)) {
+      movable.position.y = oldPosition.y;
+      movable.velocity.y = 0;
+      collisions.vertical = true;
+    }
+  }
+
+  return collisions;
+}
+
 void update_hitbox(level& level,
                    const entt::entity entity,
                    comp::movable& movable,
@@ -74,20 +107,35 @@ void update_hitbox(level& level,
   const auto next =
       hitbox::make_next_hitboxes(movable, hitbox, oldPosition, dt);
 
+  const auto restorePosition = [&](const hitbox::collision_result& collisions) {
+    hitbox::set_position(hitbox, movable.position);
+    const auto pos = restore_aabb_position(oldAabbPos,
+                                           to_vector(hitbox.bounds.position()),
+                                           collisions);
+    level.relocate_aabb(entity, pos);
+  };
+
+  {
+    const auto collisions = check_out_of_bounds(level,
+                                                next,
+                                                entity,
+                                                movable,
+                                                hitbox,
+                                                oldPosition,
+                                                oldAabbPos);
+    if (collisions.vertical || collisions.horizontal) {
+      restorePosition(collisions);
+    }
+  }
+
   for (const auto candidate : candidates) {
     const auto collisions = update_movable(movable,
                                            oldPosition,
                                            hitbox,
                                            level.get<comp::hitbox>(candidate),
                                            next);
-
-    if (collisions.horizontal || collisions.vertical) {
-      hitbox::set_position(hitbox, movable.position);
-      const auto pos =
-          restore_aabb_position(oldAabbPos,
-                                to_vector(hitbox.bounds.position()),
-                                collisions);
-      level.relocate_aabb(entity, pos);
+    if (collisions.vertical || collisions.horizontal) {
+      restorePosition(collisions);
     }
   }
 }
