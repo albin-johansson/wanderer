@@ -1,6 +1,7 @@
 #pragma once
 
 #include <entt.hpp>
+#include <memory>   // unique_ptr
 #include <utility>  // forward
 
 #include "aabb_tree.hpp"
@@ -12,6 +13,7 @@
 #include "component/tileset.hpp"
 #include "component/viewport.hpp"
 #include "delta.hpp"
+#include "map_id.hpp"
 #include "maybe.hpp"
 #include "null_entity.hpp"
 #include "vector2.hpp"
@@ -65,6 +67,8 @@ class level final
   {
     return m_aabbTree.query(id, iterator);
   }
+
+  [[nodiscard]] auto id() const noexcept -> map_id;
 
   [[nodiscard]] auto get_aabb(entt::entity id) const -> const aabb_type&;
 
@@ -159,6 +163,9 @@ class level final
   maybe<vector2f> m_playerSpawnPosition;
 
   explicit level(entt::registry&& registry);
+
+  [[nodiscard]] static auto make(entt::registry&& registry)
+      -> std::unique_ptr<level>;
 };
 
 }  // namespace wanderer

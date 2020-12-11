@@ -5,6 +5,7 @@
 #include <vector>         // vector
 
 #include "entity_type.hpp"
+#include "map_id.hpp"
 #include "map_position.hpp"
 #include "null_entity.hpp"
 #include "tile_layer.hpp"
@@ -39,6 +40,7 @@ struct tilemap_entity_t;
 struct tilemap final
 {
   using entity = entity_type<detail::tilemap_entity_t>;
+
 
   // clang-format off
   [[deprecated("Use tileset::entity member of level class instead.")]]

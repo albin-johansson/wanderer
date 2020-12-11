@@ -23,8 +23,6 @@ set(SOURCE_FILES
     core/add_humanoid_state_dependencies.hpp
     core/event_connections.cpp
     core/event_connections.hpp
-    core/level.hpp
-    core/level.cpp
     core/make_dispatcher.hpp
     core/make_dispatcher.cpp
     core/make_renderer.cpp
@@ -32,9 +30,14 @@ set(SOURCE_FILES
     core/stack_resource.hpp
     core/make_registry.cpp
     core/make_registry.hpp
-    core/level_factory.hpp
-    core/level_factory.cpp
     core/centurion_utils.hpp
+
+    core/level/level.hpp
+    core/level/level.cpp
+    core/level/level_factory.hpp
+    core/level/level_factory.cpp
+    core/level/level_manager.cpp
+    core/level/level_manager.hpp
 
     core/aliases/ints.hpp
     core/aliases/delta.hpp
@@ -207,6 +210,7 @@ target_include_directories(${WANDERER_LIB_TARGET}
     PUBLIC core/math
     PUBLIC core/resource
     PUBLIC core/aliases
+    PUBLIC core/level
     PUBLIC system
     PUBLIC system/input
     PUBLIC system/humanoid

@@ -9,9 +9,19 @@ namespace wanderer {
 level::level(entt::registry&& registry) : m_registry{std::move(registry)}
 {}
 
+auto level::make(entt::registry&& registry) -> std::unique_ptr<level>
+{
+  return std::unique_ptr<level>(new level{std::move(registry)});
+}
+
 void level::relocate_aabb(const entt::entity entity, const vector2f& position)
 {
   m_aabbTree.relocate(entity, position);
+}
+
+auto level::id() const noexcept -> map_id
+{
+  return m_registry.get<comp::tilemap>(m_tilemap.get()).id;
 }
 
 auto level::get_aabb(const entt::entity id) const -> const level::aabb_type&

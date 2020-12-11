@@ -7,6 +7,7 @@
 #include "alpha.hpp"
 #include "delta.hpp"
 #include "level.hpp"
+#include "level_manager.hpp"
 #include "menu_manager.hpp"
 #include "texture_cache.hpp"
 
@@ -70,8 +71,8 @@ class game final
  private:
   entt::dispatcher m_dispatcher;
   texture_cache m_imageCache;
+  level_manager m_levels;
   menu_manager m_menus;
-  level m_level;
 };
 
 }  // namespace wanderer

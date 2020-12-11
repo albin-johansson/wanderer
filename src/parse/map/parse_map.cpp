@@ -4,11 +4,15 @@
 #include <cen/log.hpp>
 #include <step_map.hpp>
 #include <step_tile_layer.hpp>
-#include <vector>  // vector
+#include <utility>  // move
+#include <vector>   // vector
 
 #include "add_tile_objects.hpp"
+#include "component/hitbox.hpp"
+#include "component/portal.hpp"
 #include "component/spawnpoint.hpp"
 #include "game_constants.hpp"
+#include "hitbox_system.hpp"
 #include "index_to_matrix.hpp"
 #include "make_tileset.hpp"
 #include "maybe.hpp"
@@ -50,6 +54,7 @@ void parse_tile_layer(entt::registry& registry,
                       const step::properties* properties,
                       int zIndex)
 {
+  assert(properties);
   assert(properties->has("ground"));
   assert(properties->get("ground").is<bool>());
 
@@ -87,12 +92,45 @@ void parse_spawnpoint(entt::registry& registry, const step::object& object)
   registry.emplace<comp::spawnpoint>(registry.create(), type.value(), position);
 }
 
+void parse_portal(entt::registry& registry, const step::object& object)
+{
+  const auto* props = object.get_properties();
+  assert(props);
+  assert(props->has("target"));
+  assert(props->get("target").is<int>());
+  assert(props->has("path"));
+  assert(props->get("path").is<step::file>());
+
+  const auto entity = registry.create();
+
+  auto& portal = registry.emplace<comp::portal>(entity);
+  portal.target = map_id{props->get("target").get<int>()};
+  portal.path = props->get("path").get<step::file>().get();
+
+  const auto x = static_cast<float>(object.x());
+  const auto y = static_cast<float>(object.y());
+  const auto width = static_cast<float>(object.width());
+  const auto height = static_cast<float>(object.height());
+
+  comp::subhitbox shb;
+  shb.offset = {};
+  shb.size = {width, height};
+
+  auto hitbox = sys::hitbox::create({shb});
+  sys::hitbox::set_position(hitbox, {x, y});
+  hitbox.enabled = false;
+
+  registry.emplace<comp::hitbox>(entity, std::move(hitbox));
+}
+
 void parse_object_group(entt::registry& registry,
                         const step::object_group& group)
 {
   for (const auto& object : group.objects()) {
-    if (object.type() == "spawnpoint") {
+    if (object.type() == "Spawnpoint") {
       parse_spawnpoint(registry, object);
+    } else if (object.type() == "Portal") {
+      parse_portal(registry, object);
     }
   }
 }
@@ -138,6 +176,7 @@ auto parse_map(entt::registry& registry,
   tilemap.cols = stepMap->width();
   tilemap.tileset =
       make_tileset(registry, stepMap->tilesets(), renderer, imageCache);
+  tilemap.id = map_id{stepMap->get_properties()->get("id").get<int>()};
 
   parse_layers(registry, tilemap, stepMap->layers());
 

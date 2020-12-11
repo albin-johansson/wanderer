@@ -4,6 +4,7 @@
 
 #include "centurion_utils.hpp"
 #include "component/depth_drawable.hpp"
+#include "component/portal.hpp"
 #include "depth_drawables_system.hpp"
 #include "hitbox_system.hpp"
 #include "humanoid_factory_system.hpp"
@@ -46,6 +47,17 @@ void level_factory::load_spawnpoint(level& level,
   }
 }
 
+void level_factory::setup_portals(level& level)
+{
+  level.each<comp::portal, comp::hitbox>([&](const entt::entity entity,
+                                             const comp::portal&,
+                                             const comp::hitbox& hitbox) {
+    const auto lower = to_vector(hitbox.bounds.position());
+    const auto upper = lower + to_vector(hitbox.bounds.size());
+    level.m_aabbTree.insert(entity, lower, upper);
+  });
+}
+
 void level_factory::init_tile_objects(entt::registry& registry,
                                       const comp::tilemap& tilemap,
                                       aabb_tree& aabbTree)
@@ -63,38 +75,37 @@ void level_factory::init_tile_objects(entt::registry& registry,
 
 auto level_factory::make(const std::filesystem::path& path,
                          cen::renderer& renderer,
-                         texture_cache& imageCache) -> level
+                         texture_cache& imageCache) -> std::unique_ptr<level>
 {
-  level level{make_registry()};
-  level.m_aabbTree.set_thickness_factor(std::nullopt);
+  auto lvl = level::make(make_registry());
+  lvl->m_aabbTree.set_thickness_factor(std::nullopt);
 
-  auto& registry = level.registry();
+  auto& registry = lvl->registry();
 
-  level.m_tilemap = parse_map(registry, path, renderer, imageCache);
+  lvl->m_tilemap = parse_map(registry, path, renderer, imageCache);
 
   assert(registry.view<comp::tileset>().size() == 1);
-  level.m_tileset = tileset_entity{registry.view<comp::tileset>().front()};
+  lvl->m_tileset = tileset_entity{registry.view<comp::tileset>().front()};
 
-  auto& tilemap = registry.get<comp::tilemap>(level.m_tilemap.get());
-  level.m_viewport =
+  auto& tilemap = registry.get<comp::tilemap>(lvl->m_tilemap.get());
+  lvl->m_viewport =
       sys::viewport::make_viewport(registry, {tilemap.width, tilemap.height});
 
   registry.view<comp::spawnpoint>().each(
       [&](const comp::spawnpoint& spawnpoint) {
-        load_spawnpoint(level, spawnpoint, renderer, imageCache);
+        load_spawnpoint(*lvl, spawnpoint, renderer, imageCache);
       });
 
-  init_tile_objects(registry, tilemap, level.m_aabbTree);
+  init_tile_objects(registry, tilemap, lvl->m_aabbTree);
+  setup_portals(*lvl);
 
-  assert(level.m_playerSpawnPosition);
-  sys::viewport::center_on(registry,
-                           level.m_viewport,
-                           level.player_spawnpoint());
+  assert(lvl->m_playerSpawnPosition);
+  sys::viewport::center_on(registry, lvl->m_viewport, lvl->player_spawnpoint());
 
   // This syncs the movable components with depth_drawable components
-  sys::depthdrawable::update_movable(level.m_registry);
+  sys::depthdrawable::update_movable(lvl->m_registry);
 
-  return level;
+  return lvl;
 }
 
 }  // namespace wanderer
