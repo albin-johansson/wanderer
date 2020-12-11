@@ -14,21 +14,21 @@ namespace {
 
 void add_animation(entt::registry& registry,
                    const comp::tile::entity tileEntity,
-                   const step::animation& stepAnimation,
+                   const step::animation& animation,
                    const tile_id firstGid)
 {
   auto& tile = registry.emplace<comp::animated_tile>(tileEntity);
+  auto& frames = tile.frames;
+
   tile.index = 0;
   tile.then = cen::counter::ticks();
 
-  tile.frames.reserve(static_cast<std::size_t>(stepAnimation.num_frames()));
-  for (const auto& stepFrame : stepAnimation.frames()) {
-    auto& frame = tile.frames.emplace_back();
+  frames.reserve(static_cast<std::size_t>(animation.num_frames()));
+  for (const auto& stepFrame : animation.frames()) {
+    auto& frame = frames.emplace_back();
     frame.tile = firstGid + static_cast<tile_id>(stepFrame.tile_id().get());
     frame.duration = ms_t{stepFrame.duration()};
   }
-
-  tile.frames.shrink_to_fit();
 }
 
 void add_hitbox(entt::registry& registry,
