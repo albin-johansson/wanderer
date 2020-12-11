@@ -63,7 +63,7 @@ void parse_tile_layer(entt::registry& registry,
   } else {
     if (const auto* data = layer.data()) {
       const auto& gid = data->as_gid();
-      const auto& tileset = registry.get<comp::tileset>(tilemap.tileset.get());
+      const auto& tileset = registry.get<comp::tileset>(tilemap.tileset);
       add_tile_objects(registry, tilemap, tileset, gid.begin(), gid.end());
     }
   }
