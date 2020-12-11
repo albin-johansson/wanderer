@@ -13,6 +13,7 @@ level_manager::level_manager(cen::renderer& renderer, texture_cache& cache)
 
   auto world = level_factory::make("resource/map/world.json", renderer, cache);
   m_world = world->id();
+  world->get<comp::viewport>(world->viewport()).keepInBounds = true;
 
   world->each<comp::portal>(
       [&, this](const entt::entity e, comp::portal& portal) {

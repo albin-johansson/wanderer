@@ -20,6 +20,11 @@ struct viewport_entity_t;
  * \var viewport::levelSize
  * The size of the level that the viewport is associated with.
  *
+ * \var viewport::keepInBounds
+ * Indicates whether or not the viewport is allowed to be positioned in a way
+ * so that the area outside of the level is displayed. This is usually
+ * disabled for small levels (e.g. houses) and enabled for the world levels.
+ *
  * \headerfile viewport.hpp
  */
 struct viewport final
@@ -27,6 +32,7 @@ struct viewport final
   using entity = entity_type<detail::viewport_entity_t>;
   cen::frect bounds{};
   cen::farea levelSize{};
+  bool keepInBounds{false};
 };
 
 }  // namespace wanderer::comp
