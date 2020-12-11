@@ -21,7 +21,7 @@ using player_entity = comp::player::entity;
 void level_factory::load_spawnpoint(level& level,
                                     const comp::spawnpoint& spawnpoint,
                                     cen::renderer& renderer,
-                                    texture_cache& imageCache)
+                                    texture_cache& cache)
 {
   switch (spawnpoint.type) {
     case comp::spawnpoint_type::player: {
@@ -29,7 +29,7 @@ void level_factory::load_spawnpoint(level& level,
                                                 level.m_aabbTree,
                                                 spawnpoint.position,
                                                 renderer,
-                                                imageCache);
+                                                cache);
       level.m_player = player_entity{id};
       level.m_playerSpawnPosition = spawnpoint.position;
       break;
@@ -39,10 +39,19 @@ void level_factory::load_spawnpoint(level& level,
                                   level.m_aabbTree,
                                   spawnpoint.position,
                                   renderer,
-                                  imageCache);
+                                  cache);
       break;
     }
   }
+}
+
+void level_factory::setup_spawnpoints(level& level,
+                                      cen::renderer& renderer,
+                                      texture_cache& cache)
+{
+  level.each<comp::spawnpoint>([&](const comp::spawnpoint& spawnpoint) {
+    load_spawnpoint(level, spawnpoint, renderer, cache);
+  });
 }
 
 void level_factory::setup_portals(level& level)
@@ -73,37 +82,37 @@ void level_factory::init_tile_objects(entt::registry& registry,
 
 auto level_factory::make(const std::filesystem::path& path,
                          cen::renderer& renderer,
-                         texture_cache& imageCache) -> std::unique_ptr<level>
+                         texture_cache& cache) -> std::unique_ptr<level>
 {
-  auto lvl = level::make(make_registry());
-  lvl->m_aabbTree.set_thickness_factor(std::nullopt);
+  auto result = level::make(make_registry());
+  auto& registry = result->registry();
 
-  auto& registry = lvl->registry();
-
-  lvl->m_tilemap = parse_map(registry, path, renderer, imageCache);
+  result->m_aabbTree.set_thickness_factor(std::nullopt);
+  result->m_tilemap = parse_map(registry, path, renderer, cache);
 
   assert(registry.view<comp::tileset>().size() == 1);
-  lvl->m_tileset = tileset_entity{registry.view<comp::tileset>().front()};
+  result->m_tileset = tileset_entity{registry.view<comp::tileset>().front()};
 
-  auto& tilemap = registry.get<comp::tilemap>(lvl->m_tilemap);
-  lvl->m_viewport =
-      sys::viewport::make_viewport(registry, {tilemap.width, tilemap.height});
+  auto& tilemap = registry.get<comp::tilemap>(result->m_tilemap);
 
-  registry.view<comp::spawnpoint>().each(
-      [&](const comp::spawnpoint& spawnpoint) {
-        load_spawnpoint(*lvl, spawnpoint, renderer, imageCache);
-      });
+  {
+    const cen::farea levelSize{tilemap.width, tilemap.height};
+    result->m_viewport = sys::viewport::make_viewport(registry, levelSize);
+  }
 
-  init_tile_objects(registry, tilemap, lvl->m_aabbTree);
-  setup_portals(*lvl);
+  setup_spawnpoints(*result, renderer, cache);
+  init_tile_objects(registry, tilemap, result->m_aabbTree);
+  setup_portals(*result);
 
-  assert(lvl->m_playerSpawnPosition);
-  sys::viewport::center_on(registry, lvl->m_viewport, lvl->player_spawnpoint());
+  assert(result->m_playerSpawnPosition);
+  sys::viewport::center_on(registry,
+                           result->m_viewport,
+                           result->player_spawnpoint());
 
   // This syncs the movable components with depth_drawable components
-  sys::depthdrawable::update_movable(lvl->m_registry);
+  sys::depthdrawable::update_movable(result->m_registry);
 
-  return lvl;
+  return result;
 }
 
 }  // namespace wanderer

@@ -17,14 +17,18 @@ class level_factory final
  public:
   [[nodiscard]] static auto make(const std::filesystem::path& path,
                                  cen::renderer& renderer,
-                                 texture_cache& imageCache)
+                                 texture_cache& cache)
       -> std::unique_ptr<level>;
 
  private:
   static void load_spawnpoint(level& level,
                               const comp::spawnpoint& spawnpoint,
                               cen::renderer& renderer,
-                              texture_cache& imageCache);
+                              texture_cache& cache);
+
+  static void setup_spawnpoints(level& level,
+                                cen::renderer& renderer,
+                                texture_cache& cache);
 
   static void setup_portals(level& level);
 
