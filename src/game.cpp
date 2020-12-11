@@ -9,6 +9,7 @@
 #include "layer_rendering_system.hpp"
 #include "level_factory.hpp"
 #include "make_dispatcher.hpp"
+#include "movable.hpp"
 #include "movement_system.hpp"
 #include "portal_system.hpp"
 #include "tile_animation_system.hpp"
@@ -84,8 +85,14 @@ void game::render(cen::renderer& renderer)
 
 void game::on_switch_map(const comp::switch_map_event& event)
 {
+  {
+    auto* current = m_levels.current();
+    current->get<comp::movable>(current->player()).velocity.zero();
+  }
+
   m_levels.switch_to(event.map);
-  // TODO sync player state between levels
+
+  // TODO sync player state between levels (HP, inventory, ...)
 }
 
 }  // namespace wanderer
