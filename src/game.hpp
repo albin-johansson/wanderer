@@ -5,6 +5,7 @@
 #include <cen/renderer.hpp>
 
 #include "alpha.hpp"
+#include "component/switch_map_event.hpp"
 #include "delta.hpp"
 #include "level.hpp"
 #include "level_manager.hpp"
@@ -73,6 +74,8 @@ class game final
   texture_cache m_imageCache;
   level_manager m_levels;
   menu_manager m_menus;
+
+  void on_switch_map(const comp::switch_map_event& event);
 };
 
 }  // namespace wanderer

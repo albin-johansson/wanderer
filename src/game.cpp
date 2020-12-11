@@ -1,5 +1,7 @@
 #include "game.hpp"
 
+#include <component/portal.hpp>
+
 #include "animation_system.hpp"
 #include "depth_drawables_system.hpp"
 #include "event_connections.hpp"
@@ -10,6 +12,7 @@
 #include "level_factory.hpp"
 #include "make_dispatcher.hpp"
 #include "movement_system.hpp"
+#include "portal_system.hpp"
 #include "tile_animation_system.hpp"
 #include "viewport_system.hpp"
 
@@ -19,11 +22,14 @@ game::game(cen::renderer& renderer)
     : m_dispatcher{make_dispatcher()}
     , m_levels{renderer, m_imageCache}
 {
+  m_dispatcher.sink<comp::switch_map_event>().connect<&game::on_switch_map>(
+      this);
 }
 
 game::~game() noexcept
 {
   disconnect_events(m_dispatcher);
+  m_dispatcher.disconnect(this);
 }
 
 void game::handle_input(const cen::mouse_state& mouseState,
@@ -53,6 +59,7 @@ void game::tick(const delta dt)
 
     sys::movement::update(*level, dt);
     sys::depthdrawable::update_movable(registry);
+    sys::portal::update(registry, level->player());
 
     sys::animated::update(registry);
     sys::viewport::update(*level, level->player().get(), dt);
@@ -75,6 +82,11 @@ void game::render(cen::renderer& renderer)
   if (m_menus.is_blocking()) {
     m_menus.render(renderer);
   }
+}
+
+void game::on_switch_map(const comp::switch_map_event& event)
+{
+  m_levels.switch_to(event.map);
 }
 
 }  // namespace wanderer

@@ -112,6 +112,8 @@ set(SOURCE_FILES
     system/movement/hitbox_system.hpp
     system/movement/movable_system.hpp
     system/movement/movable_system.cpp
+    system/movement/portal_system.cpp
+    system/movement/portal_system.hpp
 
     system/viewport/viewport_system.cpp
     system/viewport/viewport_system.hpp
