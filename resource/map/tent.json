@@ -20,6 +20,11 @@
                  "name":"ground",
                  "type":"bool",
                  "value":true
+                }, 
+                {
+                 "name":"index",
+                 "type":"int",
+                 "value":0
                 }],
          "type":"tilelayer",
          "visible":true,
@@ -38,6 +43,11 @@
                  "name":"ground",
                  "type":"bool",
                  "value":true
+                }, 
+                {
+                 "name":"index",
+                 "type":"int",
+                 "value":1
                 }],
          "type":"tilelayer",
          "visible":true,
@@ -49,13 +59,18 @@
          "data":[1746, 1746, 1746, 1746, 1746, 1746, 1746, 1746, 1778, 1778, 1778, 1778, 1778, 1778, 1778, 1778, 0, 0, 0, 0, 0, 0, 0, 0, 1622, 1623, 0, 0, 0, 1461, 0, 0, 1654, 1655, 0, 0, 0, 0, 0, 0, 1686, 1687, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1620, 1621, 0, 0, 0, 0, 0, 1391, 1652, 1653, 1392, 0, 0, 0, 0, 0, 1684, 1685, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":12,
          "id":3,
-         "name":"T2",
+         "name":"T1",
          "opacity":1,
          "properties":[
                 {
                  "name":"ground",
                  "type":"bool",
                  "value":false
+                }, 
+                {
+                 "name":"index",
+                 "type":"int",
+                 "value":2
                 }],
          "type":"tilelayer",
          "visible":true,
@@ -67,13 +82,18 @@
          "data":[0, 0, 1456, 0, 0, 1456, 0, 0, 1300, 1301, 1488, 1803, 1804, 1488, 1407, 0, 1332, 1333, 0, 1835, 1836, 0, 1439, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1487, 1364, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":12,
          "id":4,
-         "name":"T3",
+         "name":"T2",
          "opacity":1,
          "properties":[
                 {
                  "name":"ground",
                  "type":"bool",
                  "value":false
+                }, 
+                {
+                 "name":"index",
+                 "type":"int",
+                 "value":3
                 }],
          "type":"tilelayer",
          "visible":true,
@@ -124,7 +144,7 @@
                  "visible":true,
                  "width":0,
                  "x":64,
-                 "y":288
+                 "y":310
                 }],
          "opacity":1,
          "type":"objectgroup",

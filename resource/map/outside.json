@@ -6660,6 +6660,12 @@
              "x":0,
              "y":0
             },
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":4
+                }],
          "type":"Object"
         }, 
         {
@@ -6686,6 +6692,12 @@
              "x":0,
              "y":0
             },
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":4
+                }],
          "type":"Object"
         }, 
         {

@@ -18,6 +18,350 @@
  "tileheight":32,
  "tiles":[
         {
+         "id":0,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":5
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":1,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":5
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":2,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":5
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":32,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":2
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":33,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":2
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":34,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":2
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":64,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":2
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":65,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":2
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":66,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":2
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":96,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":5
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":97,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":5
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":98,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":5
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":110,
+         "type":"Object"
+        }, 
+        {
+         "id":111,
+         "type":"Object"
+        }, 
+        {
+         "id":112,
+         "type":"Object"
+        }, 
+        {
+         "id":113,
+         "type":"Object"
+        }, 
+        {
+         "id":114,
+         "type":"Object"
+        }, 
+        {
+         "id":115,
+         "type":"Object"
+        }, 
+        {
+         "id":116,
+         "type":"Object"
+        }, 
+        {
+         "id":117,
+         "type":"Object"
+        }, 
+        {
+         "id":118,
+         "type":"Object"
+        }, 
+        {
+         "id":119,
+         "type":"Object"
+        }, 
+        {
+         "id":120,
+         "type":"Object"
+        }, 
+        {
+         "id":121,
+         "type":"Object"
+        }, 
+        {
+         "id":122,
+         "type":"Object"
+        }, 
+        {
+         "id":123,
+         "type":"Object"
+        }, 
+        {
+         "id":124,
+         "type":"Object"
+        }, 
+        {
+         "id":125,
+         "type":"Object"
+        }, 
+        {
+         "id":128,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":2
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":129,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":2
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":130,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":2
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":142,
+         "type":"Object"
+        }, 
+        {
+         "id":143,
+         "type":"Object"
+        }, 
+        {
+         "id":144,
+         "type":"Object"
+        }, 
+        {
+         "id":145,
+         "type":"Object"
+        }, 
+        {
+         "id":146,
+         "type":"Object"
+        }, 
+        {
+         "id":147,
+         "type":"Object"
+        }, 
+        {
+         "id":148,
+         "type":"Object"
+        }, 
+        {
+         "id":149,
+         "type":"Object"
+        }, 
+        {
+         "id":150,
+         "type":"Object"
+        }, 
+        {
+         "id":151,
+         "type":"Object"
+        }, 
+        {
+         "id":152,
+         "type":"Object"
+        }, 
+        {
+         "id":153,
+         "type":"Object"
+        }, 
+        {
+         "id":154,
+         "type":"Object"
+        }, 
+        {
+         "id":155,
+         "type":"Object"
+        }, 
+        {
+         "id":156,
+         "type":"Object"
+        }, 
+        {
+         "id":157,
+         "type":"Object"
+        }, 
+        {
+         "id":160,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":2
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":161,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":2
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":162,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":2
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":174,
+         "type":"Object"
+        }, 
+        {
+         "id":175,
+         "type":"Object"
+        }, 
+        {
+         "id":176,
+         "type":"Object"
+        }, 
+        {
+         "id":177,
+         "type":"Object"
+        }, 
+        {
+         "id":178,
+         "type":"Object"
+        }, 
+        {
+         "id":179,
+         "type":"Object"
+        }, 
+        {
+         "id":180,
+         "type":"Object"
+        }, 
+        {
+         "id":181,
+         "type":"Object"
+        }, 
+        {
+         "id":182,
+         "type":"Object"
+        }, 
+        {
          "animation":[
                 {
                  "duration":250,
@@ -35,7 +379,32 @@
                  "duration":250,
                  "tileid":183
                 }],
-         "id":183
+         "id":183,
+         "type":"Object"
+        }, 
+        {
+         "id":184,
+         "type":"Object"
+        }, 
+        {
+         "id":185,
+         "type":"Object"
+        }, 
+        {
+         "id":186,
+         "type":"Object"
+        }, 
+        {
+         "id":187,
+         "type":"Object"
+        }, 
+        {
+         "id":188,
+         "type":"Object"
+        }, 
+        {
+         "id":189,
+         "type":"Object"
         }, 
         {
          "animation":[
@@ -58,6 +427,260 @@
          "id":190
         }, 
         {
+         "id":192,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":5
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":193,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":5
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":194,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":5
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":206,
+         "type":"Object"
+        }, 
+        {
+         "id":207,
+         "type":"Object"
+        }, 
+        {
+         "id":208,
+         "type":"Object"
+        }, 
+        {
+         "id":209,
+         "type":"Object"
+        }, 
+        {
+         "id":210,
+         "type":"Object"
+        }, 
+        {
+         "id":211,
+         "type":"Object"
+        }, 
+        {
+         "id":212,
+         "type":"Object"
+        }, 
+        {
+         "id":213,
+         "type":"Object"
+        }, 
+        {
+         "id":214,
+         "type":"Object"
+        }, 
+        {
+         "id":215,
+         "type":"Object"
+        }, 
+        {
+         "id":216,
+         "type":"Object"
+        }, 
+        {
+         "id":217,
+         "type":"Object"
+        }, 
+        {
+         "id":218,
+         "type":"Object"
+        }, 
+        {
+         "id":219,
+         "type":"Object"
+        }, 
+        {
+         "id":220,
+         "type":"Object"
+        }, 
+        {
+         "id":221,
+         "type":"Object"
+        }, 
+        {
+         "id":222,
+         "type":"Object"
+        }, 
+        {
+         "id":223,
+         "type":"Object"
+        }, 
+        {
+         "id":224,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":2
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":225,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":2
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":226,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":2
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":238,
+         "type":"Object"
+        }, 
+        {
+         "id":239,
+         "type":"Object"
+        }, 
+        {
+         "id":240,
+         "type":"Object"
+        }, 
+        {
+         "id":241,
+         "type":"Object"
+        }, 
+        {
+         "id":242,
+         "type":"Object"
+        }, 
+        {
+         "id":243,
+         "type":"Object"
+        }, 
+        {
+         "id":244,
+         "type":"Object"
+        }, 
+        {
+         "id":245,
+         "type":"Object"
+        }, 
+        {
+         "id":246,
+         "type":"Object"
+        }, 
+        {
+         "id":247,
+         "type":"Object"
+        }, 
+        {
+         "id":248,
+         "type":"Object"
+        }, 
+        {
+         "id":249,
+         "type":"Object"
+        }, 
+        {
+         "id":250,
+         "type":"Object"
+        }, 
+        {
+         "id":251,
+         "type":"Object"
+        }, 
+        {
+         "id":252,
+         "type":"Object"
+        }, 
+        {
+         "id":253,
+         "type":"Object"
+        }, 
+        {
+         "id":254,
+         "type":"Object"
+        }, 
+        {
+         "id":255,
+         "type":"Object"
+        }, 
+        {
+         "id":256,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":2
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":257,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":2
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":258,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":2
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":270,
+         "type":"Object"
+        }, 
+        {
+         "id":271,
+         "type":"Object"
+        }, 
+        {
+         "id":272,
+         "type":"Object"
+        }, 
+        {
+         "id":273,
+         "type":"Object"
+        }, 
+        {
+         "id":274,
+         "type":"Object"
+        }, 
+        {
          "id":275,
          "type":"Object"
         }, 
@@ -66,11 +689,213 @@
          "type":"Object"
         }, 
         {
-         "id":307,
+         "id":277,
+         "type":"Object"
+        }, 
+        {
+         "id":278,
+         "type":"Object"
+        }, 
+        {
+         "id":279,
+         "type":"Object"
+        }, 
+        {
+         "id":280,
+         "type":"Object"
+        }, 
+        {
+         "id":281,
+         "type":"Object"
+        }, 
+        {
+         "id":282,
+         "type":"Object"
+        }, 
+        {
+         "id":283,
+         "type":"Object"
+        }, 
+        {
+         "id":284,
+         "type":"Object"
+        }, 
+        {
+         "id":285,
+         "type":"Object"
+        }, 
+        {
+         "id":286,
+         "type":"Object"
+        }, 
+        {
+         "id":287,
+         "type":"Object"
+        }, 
+        {
+         "id":288,
          "objectgroup":
             {
              "draworder":"index",
              "id":2,
+             "name":"",
+             "objects":[
+                    {
+                     "height":19,
+                     "id":1,
+                     "name":"",
+                     "rotation":0,
+                     "type":"Hitbox",
+                     "visible":true,
+                     "width":32,
+                     "x":0,
+                     "y":13
+                    }],
+             "opacity":1,
+             "type":"objectgroup",
+             "visible":true,
+             "x":0,
+             "y":0
+            },
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":5
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":289,
+         "objectgroup":
+            {
+             "draworder":"index",
+             "id":2,
+             "name":"",
+             "objects":[
+                    {
+                     "height":19,
+                     "id":1,
+                     "name":"",
+                     "rotation":0,
+                     "type":"Hitbox",
+                     "visible":true,
+                     "width":32,
+                     "x":0,
+                     "y":13
+                    }],
+             "opacity":1,
+             "type":"objectgroup",
+             "visible":true,
+             "x":0,
+             "y":0
+            },
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":5
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":290,
+         "objectgroup":
+            {
+             "draworder":"index",
+             "id":2,
+             "name":"",
+             "objects":[
+                    {
+                     "height":19,
+                     "id":1,
+                     "name":"",
+                     "rotation":0,
+                     "type":"Hitbox",
+                     "visible":true,
+                     "width":32,
+                     "x":0,
+                     "y":13
+                    }],
+             "opacity":1,
+             "type":"objectgroup",
+             "visible":true,
+             "x":0,
+             "y":0
+            },
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":5
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":291,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":2
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":299,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":6
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":300,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":6
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":301,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":6
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":302,
+         "type":"Object"
+        }, 
+        {
+         "id":303,
+         "type":"Object"
+        }, 
+        {
+         "id":304,
+         "type":"Object"
+        }, 
+        {
+         "id":305,
+         "type":"Object"
+        }, 
+        {
+         "id":306,
+         "type":"Object"
+        }, 
+        {
+         "id":307,
+         "objectgroup":
+            {
+             "draworder":"index",
              "name":"",
              "objects":[
                     {
@@ -108,7 +933,6 @@
          "objectgroup":
             {
              "draworder":"index",
-             "id":2,
              "name":"",
              "objects":[
                     {
@@ -142,11 +966,473 @@
          "type":"Object"
         }, 
         {
-         "id":366,
+         "id":309,
+         "type":"Object"
+        }, 
+        {
+         "id":310,
+         "type":"Object"
+        }, 
+        {
+         "id":311,
+         "type":"Object"
+        }, 
+        {
+         "id":312,
+         "type":"Object"
+        }, 
+        {
+         "id":313,
+         "type":"Object"
+        }, 
+        {
+         "id":314,
+         "type":"Object"
+        }, 
+        {
+         "id":315,
+         "type":"Object"
+        }, 
+        {
+         "id":316,
+         "type":"Object"
+        }, 
+        {
+         "id":317,
+         "type":"Object"
+        }, 
+        {
+         "id":318,
+         "type":"Object"
+        }, 
+        {
+         "id":319,
+         "type":"Object"
+        }, 
+        {
+         "id":320,
          "objectgroup":
             {
              "draworder":"index",
              "id":2,
+             "name":"",
+             "objects":[
+                    {
+                     "height":32,
+                     "id":1,
+                     "name":"",
+                     "rotation":0,
+                     "type":"Hitbox",
+                     "visible":true,
+                     "width":32,
+                     "x":0,
+                     "y":0
+                    }],
+             "opacity":1,
+             "type":"objectgroup",
+             "visible":true,
+             "x":0,
+             "y":0
+            },
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":2
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":321,
+         "objectgroup":
+            {
+             "draworder":"index",
+             "id":2,
+             "name":"",
+             "objects":[
+                    {
+                     "height":32,
+                     "id":1,
+                     "name":"",
+                     "rotation":0,
+                     "type":"Hitbox",
+                     "visible":true,
+                     "width":32,
+                     "x":0,
+                     "y":0
+                    }],
+             "opacity":1,
+             "type":"objectgroup",
+             "visible":true,
+             "x":0,
+             "y":0
+            },
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":2
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":322,
+         "objectgroup":
+            {
+             "draworder":"index",
+             "id":2,
+             "name":"",
+             "objects":[
+                    {
+                     "height":32,
+                     "id":1,
+                     "name":"",
+                     "rotation":0,
+                     "type":"Hitbox",
+                     "visible":true,
+                     "width":32,
+                     "x":0,
+                     "y":0
+                    }],
+             "opacity":1,
+             "type":"objectgroup",
+             "visible":true,
+             "x":0,
+             "y":0
+            },
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":2
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":323,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":2
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":331,
+         "objectgroup":
+            {
+             "draworder":"index",
+             "id":2,
+             "name":"",
+             "objects":[
+                    {
+                     "height":32,
+                     "id":1,
+                     "name":"",
+                     "rotation":0,
+                     "type":"Hitbox",
+                     "visible":true,
+                     "width":16,
+                     "x":16,
+                     "y":0
+                    }],
+             "opacity":1,
+             "type":"objectgroup",
+             "visible":true,
+             "x":0,
+             "y":0
+            },
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":5
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":332,
+         "objectgroup":
+            {
+             "draworder":"index",
+             "id":2,
+             "name":"",
+             "objects":[
+                    {
+                     "height":32,
+                     "id":3,
+                     "name":"",
+                     "rotation":0,
+                     "type":"Hitbox",
+                     "visible":true,
+                     "width":32,
+                     "x":0,
+                     "y":0
+                    }],
+             "opacity":1,
+             "type":"objectgroup",
+             "visible":true,
+             "x":0,
+             "y":0
+            },
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":5
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":333,
+         "objectgroup":
+            {
+             "draworder":"index",
+             "id":2,
+             "name":"",
+             "objects":[
+                    {
+                     "height":32,
+                     "id":1,
+                     "name":"",
+                     "rotation":0,
+                     "type":"Hitbox",
+                     "visible":true,
+                     "width":16,
+                     "x":0,
+                     "y":0
+                    }],
+             "opacity":1,
+             "type":"objectgroup",
+             "visible":true,
+             "x":0,
+             "y":0
+            },
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":5
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":334,
+         "type":"Object"
+        }, 
+        {
+         "id":335,
+         "type":"Object"
+        }, 
+        {
+         "id":336,
+         "type":"Object"
+        }, 
+        {
+         "id":337,
+         "type":"Object"
+        }, 
+        {
+         "id":338,
+         "type":"Object"
+        }, 
+        {
+         "id":339,
+         "type":"Object"
+        }, 
+        {
+         "id":340,
+         "type":"Object"
+        }, 
+        {
+         "id":341,
+         "type":"Object"
+        }, 
+        {
+         "id":342,
+         "type":"Object"
+        }, 
+        {
+         "id":343,
+         "type":"Object"
+        }, 
+        {
+         "id":344,
+         "type":"Object"
+        }, 
+        {
+         "id":345,
+         "type":"Object"
+        }, 
+        {
+         "id":346,
+         "type":"Object"
+        }, 
+        {
+         "id":347,
+         "type":"Object"
+        }, 
+        {
+         "id":348,
+         "type":"Object"
+        }, 
+        {
+         "id":349,
+         "type":"Object"
+        }, 
+        {
+         "id":350,
+         "type":"Object"
+        }, 
+        {
+         "id":351,
+         "type":"Object"
+        }, 
+        {
+         "id":352,
+         "objectgroup":
+            {
+             "draworder":"index",
+             "id":2,
+             "name":"",
+             "objects":[
+                    {
+                     "height":20,
+                     "id":1,
+                     "name":"",
+                     "rotation":0,
+                     "type":"Hitbox",
+                     "visible":true,
+                     "width":32,
+                     "x":0,
+                     "y":0
+                    }],
+             "opacity":1,
+             "type":"objectgroup",
+             "visible":true,
+             "x":0,
+             "y":0
+            },
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":2
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":353,
+         "objectgroup":
+            {
+             "draworder":"index",
+             "id":2,
+             "name":"",
+             "objects":[
+                    {
+                     "height":20,
+                     "id":1,
+                     "name":"",
+                     "rotation":0,
+                     "type":"Hitbox",
+                     "visible":true,
+                     "width":32,
+                     "x":0,
+                     "y":0
+                    }],
+             "opacity":1,
+             "type":"objectgroup",
+             "visible":true,
+             "x":0,
+             "y":0
+            },
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":2
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":354,
+         "objectgroup":
+            {
+             "draworder":"index",
+             "id":2,
+             "name":"",
+             "objects":[
+                    {
+                     "height":20,
+                     "id":1,
+                     "name":"",
+                     "rotation":0,
+                     "type":"Hitbox",
+                     "visible":true,
+                     "width":32,
+                     "x":0,
+                     "y":0
+                    }],
+             "opacity":1,
+             "type":"objectgroup",
+             "visible":true,
+             "x":0,
+             "y":0
+            },
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":2
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":355,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":2
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":363,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":4
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":364,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":4
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":365,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":4
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":366,
+         "objectgroup":
+            {
+             "draworder":"index",
              "name":"",
              "objects":[
                     {
@@ -184,7 +1470,6 @@
          "objectgroup":
             {
              "draworder":"index",
-             "id":2,
              "name":"",
              "objects":[
                     {
@@ -218,6 +1503,14 @@
          "type":"Object"
         }, 
         {
+         "id":368,
+         "type":"Object"
+        }, 
+        {
+         "id":369,
+         "type":"Object"
+        }, 
+        {
          "animation":[
                 {
                  "duration":100,
@@ -238,7 +1531,6 @@
          "objectgroup":
             {
              "draworder":"index",
-             "id":2,
              "name":"",
              "objects":[
                     {
@@ -267,11 +1559,34 @@
          "type":"Object"
         }, 
         {
+         "id":396,
+         "type":"Object"
+        }, 
+        {
+         "id":397,
+         "type":"Object"
+        }, 
+        {
+         "id":398,
+         "type":"Object"
+        }, 
+        {
+         "id":399,
+         "type":"Object"
+        }, 
+        {
+         "id":400,
+         "type":"Object"
+        }, 
+        {
+         "id":401,
+         "type":"Object"
+        }, 
+        {
          "id":414,
          "objectgroup":
             {
              "draworder":"index",
-             "id":2,
              "name":"",
              "objects":[
                     {
@@ -305,6 +1620,14 @@
          "type":"Object"
         }, 
         {
+         "id":428,
+         "type":"Object"
+        }, 
+        {
+         "id":433,
+         "type":"Object"
+        }, 
+        {
          "animation":[
                 {
                  "duration":80,
@@ -326,7 +1649,6 @@
          "objectgroup":
             {
              "draworder":"index",
-             "id":2,
              "name":"",
              "objects":[
                     {
@@ -355,11 +1677,14 @@
          "type":"Object"
         }, 
         {
+         "id":465,
+         "type":"Object"
+        }, 
+        {
          "id":468,
          "objectgroup":
             {
              "draworder":"index",
-             "id":2,
              "name":"",
              "objects":[
                     {
@@ -384,6 +1709,36 @@
                  "name":"blocked",
                  "type":"bool",
                  "value":true
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":497,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":6
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":498,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":6
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":499,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":6
                 }],
          "type":"Object"
         }, 
@@ -392,7 +1747,6 @@
          "objectgroup":
             {
              "draworder":"index",
-             "id":2,
              "name":"",
              "objects":[
                     {
@@ -418,6 +1772,18 @@
                  "type":"bool",
                  "value":true
                 }],
+         "type":"Object"
+        }, 
+        {
+         "id":529,
+         "type":"Object"
+        }, 
+        {
+         "id":530,
+         "type":"Object"
+        }, 
+        {
+         "id":531,
          "type":"Object"
         }, 
         {
@@ -425,7 +1791,6 @@
          "objectgroup":
             {
              "draworder":"index",
-             "id":2,
              "name":"",
              "objects":[
                     {
@@ -454,11 +1819,91 @@
          "type":"Object"
         }, 
         {
-         "id":595,
+         "id":561,
          "objectgroup":
             {
              "draworder":"index",
              "id":2,
+             "name":"",
+             "objects":[
+                    {
+                     "height":20,
+                     "id":1,
+                     "name":"",
+                     "rotation":0,
+                     "type":"Hitbox",
+                     "visible":true,
+                     "width":16,
+                     "x":16,
+                     "y":0
+                    }],
+             "opacity":1,
+             "type":"objectgroup",
+             "visible":true,
+             "x":0,
+             "y":0
+            },
+         "type":"Object"
+        }, 
+        {
+         "id":562,
+         "objectgroup":
+            {
+             "draworder":"index",
+             "id":2,
+             "name":"",
+             "objects":[
+                    {
+                     "height":20,
+                     "id":1,
+                     "name":"",
+                     "rotation":0,
+                     "type":"Hitbox",
+                     "visible":true,
+                     "width":32,
+                     "x":0,
+                     "y":0
+                    }],
+             "opacity":1,
+             "type":"objectgroup",
+             "visible":true,
+             "x":0,
+             "y":0
+            },
+         "type":"Object"
+        }, 
+        {
+         "id":563,
+         "objectgroup":
+            {
+             "draworder":"index",
+             "id":2,
+             "name":"",
+             "objects":[
+                    {
+                     "height":20,
+                     "id":1,
+                     "name":"",
+                     "rotation":0,
+                     "type":"Hitbox",
+                     "visible":true,
+                     "width":16,
+                     "x":0.125,
+                     "y":0
+                    }],
+             "opacity":1,
+             "type":"objectgroup",
+             "visible":true,
+             "x":0,
+             "y":0
+            },
+         "type":"Object"
+        }, 
+        {
+         "id":595,
+         "objectgroup":
+            {
+             "draworder":"index",
              "name":"",
              "objects":[
                     {
@@ -491,7 +1936,6 @@
          "objectgroup":
             {
              "draworder":"index",
-             "id":2,
              "name":"",
              "objects":[
                     {
@@ -524,7 +1968,6 @@
          "objectgroup":
             {
              "draworder":"index",
-             "id":2,
              "name":"",
              "objects":[
                     {
@@ -543,14 +1986,20 @@
              "visible":true,
              "x":0,
              "y":0
-            }
+            },
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":6
+                }],
+         "type":"Object"
         }, 
         {
          "id":598,
          "objectgroup":
             {
              "draworder":"index",
-             "id":2,
              "name":"",
              "objects":[
                     {
@@ -569,14 +2018,20 @@
              "visible":true,
              "x":0,
              "y":0
-            }
+            },
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":6
+                }],
+         "type":"Object"
         }, 
         {
          "id":627,
          "objectgroup":
             {
              "draworder":"index",
-             "id":2,
              "name":"",
              "objects":[
                     {
@@ -609,7 +2064,6 @@
          "objectgroup":
             {
              "draworder":"index",
-             "id":2,
              "name":"",
              "objects":[
                     {
@@ -642,7 +2096,6 @@
          "objectgroup":
             {
              "draworder":"index",
-             "id":2,
              "name":"",
              "objects":[
                     {
@@ -661,14 +2114,14 @@
              "visible":true,
              "x":0,
              "y":0
-            }
+            },
+         "type":"Object"
         }, 
         {
          "id":630,
          "objectgroup":
             {
              "draworder":"index",
-             "id":2,
              "name":"",
              "objects":[
                     {
@@ -687,7 +2140,8 @@
              "visible":true,
              "x":0,
              "y":0
-            }
+            },
+         "type":"Object"
         }, 
         {
          "animation":[
@@ -714,7 +2168,6 @@
          "objectgroup":
             {
              "draworder":"index",
-             "id":2,
              "name":"",
              "objects":[
                     {
@@ -747,7 +2200,6 @@
          "objectgroup":
             {
              "draworder":"index",
-             "id":2,
              "name":"",
              "objects":[
                     {
@@ -780,7 +2232,6 @@
          "objectgroup":
             {
              "draworder":"index",
-             "id":2,
              "name":"",
              "objects":[
                     {
@@ -799,14 +2250,20 @@
              "visible":true,
              "x":0,
              "y":0
-            }
+            },
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":4
+                }],
+         "type":"Object"
         }, 
         {
          "id":662,
          "objectgroup":
             {
              "draworder":"index",
-             "id":2,
              "name":"",
              "objects":[
                     {
@@ -825,7 +2282,14 @@
              "visible":true,
              "x":0,
              "y":0
-            }
+            },
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":4
+                }],
+         "type":"Object"
         }, 
         {
          "id":689,
@@ -836,7 +2300,6 @@
          "objectgroup":
             {
              "draworder":"index",
-             "id":2,
              "name":"",
              "objects":[
                     {
@@ -863,7 +2326,6 @@
          "objectgroup":
             {
              "draworder":"index",
-             "id":2,
              "name":"",
              "objects":[
                     {
@@ -901,7 +2363,6 @@
          "objectgroup":
             {
              "draworder":"index",
-             "id":2,
              "name":"",
              "objects":[
                     {
@@ -928,7 +2389,6 @@
          "objectgroup":
             {
              "draworder":"index",
-             "id":2,
              "name":"",
              "objects":[
                     {
@@ -955,7 +2415,6 @@
          "objectgroup":
             {
              "draworder":"index",
-             "id":2,
              "name":"",
              "objects":[
                     {
@@ -988,7 +2447,6 @@
          "objectgroup":
             {
              "draworder":"index",
-             "id":2,
              "name":"",
              "objects":[
                     {
@@ -1013,6 +2471,364 @@
                  "name":"depth",
                  "type":"int",
                  "value":3
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":841,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":2
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":842,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":2
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":843,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":2
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":873,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":2
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":874,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":2
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":875,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":2
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":934,
+         "objectgroup":
+            {
+             "draworder":"index",
+             "id":2,
+             "name":"",
+             "objects":[
+                    {
+                     "height":32,
+                     "id":1,
+                     "name":"",
+                     "rotation":0,
+                     "type":"Hitbox",
+                     "visible":true,
+                     "width":32,
+                     "x":0,
+                     "y":0
+                    }],
+             "opacity":1,
+             "type":"objectgroup",
+             "visible":true,
+             "x":0,
+             "y":0
+            }
+        }, 
+        {
+         "id":935,
+         "objectgroup":
+            {
+             "draworder":"index",
+             "id":2,
+             "name":"",
+             "objects":[
+                    {
+                     "height":14,
+                     "id":1,
+                     "name":"",
+                     "rotation":0,
+                     "type":"Hitbox",
+                     "visible":true,
+                     "width":32,
+                     "x":0,
+                     "y":0
+                    }],
+             "opacity":1,
+             "type":"objectgroup",
+             "visible":true,
+             "x":0,
+             "y":0
+            }
+        }, 
+        {
+         "id":936,
+         "objectgroup":
+            {
+             "draworder":"index",
+             "id":2,
+             "name":"",
+             "objects":[
+                    {
+                     "height":32,
+                     "id":1,
+                     "name":"",
+                     "rotation":0,
+                     "type":"Hitbox",
+                     "visible":true,
+                     "width":32,
+                     "x":0,
+                     "y":0
+                    }],
+             "opacity":1,
+             "type":"objectgroup",
+             "visible":true,
+             "x":0,
+             "y":0
+            }
+        }, 
+        {
+         "id":938,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":1
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":939,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":1
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":940,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":1
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":966,
+         "objectgroup":
+            {
+             "draworder":"index",
+             "id":2,
+             "name":"",
+             "objects":[
+                    {
+                     "height":32,
+                     "id":1,
+                     "name":"",
+                     "rotation":0,
+                     "type":"Hitbox",
+                     "visible":true,
+                     "width":7,
+                     "x":0,
+                     "y":0
+                    }],
+             "opacity":1,
+             "type":"objectgroup",
+             "visible":true,
+             "x":0,
+             "y":0
+            }
+        }, 
+        {
+         "id":968,
+         "objectgroup":
+            {
+             "draworder":"index",
+             "id":2,
+             "name":"",
+             "objects":[
+                    {
+                     "height":32,
+                     "id":1,
+                     "name":"",
+                     "rotation":0,
+                     "type":"Hitbox",
+                     "visible":true,
+                     "width":7,
+                     "x":25,
+                     "y":0
+                    }],
+             "opacity":1,
+             "type":"objectgroup",
+             "visible":true,
+             "x":0,
+             "y":0
+            }
+        }, 
+        {
+         "id":970,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":1
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":971,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":1
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":972,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":1
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":998,
+         "objectgroup":
+            {
+             "draworder":"index",
+             "id":2,
+             "name":"",
+             "objects":[
+                    {
+                     "height":32,
+                     "id":1,
+                     "name":"",
+                     "rotation":0,
+                     "type":"Hitbox",
+                     "visible":true,
+                     "width":32,
+                     "x":0,
+                     "y":0
+                    }],
+             "opacity":1,
+             "type":"objectgroup",
+             "visible":true,
+             "x":0,
+             "y":0
+            }
+        }, 
+        {
+         "id":999,
+         "objectgroup":
+            {
+             "draworder":"index",
+             "id":2,
+             "name":"",
+             "objects":[
+                    {
+                     "height":13,
+                     "id":1,
+                     "name":"",
+                     "rotation":0,
+                     "type":"Hitbox",
+                     "visible":true,
+                     "width":32,
+                     "x":0,
+                     "y":19
+                    }],
+             "opacity":1,
+             "type":"objectgroup",
+             "visible":true,
+             "x":0,
+             "y":0
+            }
+        }, 
+        {
+         "id":1000,
+         "objectgroup":
+            {
+             "draworder":"index",
+             "id":2,
+             "name":"",
+             "objects":[
+                    {
+                     "height":32,
+                     "id":1,
+                     "name":"",
+                     "rotation":0,
+                     "type":"Hitbox",
+                     "visible":true,
+                     "width":32,
+                     "x":0,
+                     "y":0
+                    }],
+             "opacity":1,
+             "type":"objectgroup",
+             "visible":true,
+             "x":0,
+             "y":0
+            }
+        }, 
+        {
+         "id":1002,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":1
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":1003,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":1
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":1004,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":1
                 }],
          "type":"Object"
         }],

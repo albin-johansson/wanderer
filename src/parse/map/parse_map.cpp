@@ -33,13 +33,13 @@ void add_ground_layer(entt::registry& registry,
                       const step::tile_layer& tileLayer,
                       const int numRows,
                       const int numColumns,
-                      const int zIndex)
+                      const int layerIndex)
 {
   const auto layerEntity = registry.create();
 
   auto& layer = registry.emplace<comp::tile_layer>(layerEntity);
   layer.matrix = make_tile_matrix(numRows, numColumns);
-  layer.z = zIndex;
+  layer.z = layerIndex;
 
   int index{0};
   for (const auto gid : tileLayer.data()->as_gid()) {
@@ -52,19 +52,22 @@ void add_ground_layer(entt::registry& registry,
 void parse_tile_layer(entt::registry& registry,
                       comp::tilemap& tilemap,
                       const step::tile_layer& layer,
-                      const step::properties* properties,
-                      const int zIndex)
+                      const step::properties* properties)
 {
   assert(properties);
   assert(properties->has("ground"));
   assert(properties->get("ground").is<bool>());
+  assert(properties->has("index"));
+  assert(properties->get("index").is<int>());
+
+  const auto index = properties->get("index").get<int>();
 
   if (properties->is("ground", true)) {
-    add_ground_layer(registry, layer, tilemap.rows, tilemap.cols, zIndex);
+    add_ground_layer(registry, layer, tilemap.rows, tilemap.cols, index);
   } else {
     if (const auto* data = layer.data()) {
       const auto& tileset = registry.get<comp::tileset>(tilemap.tileset);
-      add_tile_objects(registry, tilemap, tileset, data->as_gid(), zIndex);
+      add_tile_objects(registry, tilemap, tileset, data->as_gid(), index);
     }
   }
 }
@@ -138,17 +141,14 @@ void parse_layers(entt::registry& registry,
                   comp::tilemap& tilemap,
                   const std::vector<step::layer>& layers)
 {
-  int zIndex{0};  // Assumes that the layers are in the correct order
   for (const auto& stepLayer : layers) {
     const auto* properties = stepLayer.get_properties();
 
     if (const auto* tileLayer = stepLayer.try_as<step::tile_layer>()) {
-      parse_tile_layer(registry, tilemap, *tileLayer, properties, zIndex);
+      parse_tile_layer(registry, tilemap, *tileLayer, properties);
     } else if (const auto* group = stepLayer.try_as<step::object_group>()) {
       parse_object_group(registry, *group);
     }
-
-    ++zIndex;
   }
 
   // Ensures that the layers are stored in the correct order in the registry
