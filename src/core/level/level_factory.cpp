@@ -112,6 +112,8 @@ auto level_factory::make(const std::filesystem::path& path,
   // This syncs the movable components with depth_drawable components
   sys::depthdrawable::update_movable(result->m_registry);
 
+  result->m_aabbTree.rebuild();
+
   return result;
 }
 
