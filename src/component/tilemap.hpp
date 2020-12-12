@@ -33,10 +33,11 @@ struct tilemap final
   comp::tileset::entity tileset{null<comp::tileset>()};
   // clang-format on
 
-  float width;   ///< The width of the tilemap, in pixels.
-  float height;  ///< The height of the tilemap, in pixels.
-  int rows;      ///< The amount of rows in the tilemap.
-  int cols;      ///< The amount of columns in the tilemap.
+  float width;        ///< The width of the tilemap, in pixels.
+  float height;       ///< The height of the tilemap, in pixels.
+  int rows;           ///< The amount of rows in the tilemap.
+  int cols;           ///< The amount of columns in the tilemap.
+  int humanoidLayer;  ///< The layer that humanoids inhabit.
 };
 
 }  // namespace wanderer::comp
