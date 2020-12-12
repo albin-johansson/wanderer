@@ -1,5 +1,7 @@
 #include "depth_drawables_system.hpp"
 
+#include <tuple>  // tie
+
 #include "animated_tile.hpp"
 #include "centurion_utils.hpp"
 #include "depth_drawable.hpp"
@@ -42,8 +44,8 @@ void sort(entt::registry& registry)
   registry.sort<comp::depth_drawable>(
       [](const comp::depth_drawable& lhs,
          const comp::depth_drawable& rhs) noexcept {
-        return lhs.depth < rhs.depth ||
-               (rhs.depth >= lhs.depth && lhs.centerY < rhs.centerY);
+        return std::tie(lhs.depth, lhs.centerY) <
+               std::tie(rhs.depth, rhs.centerY);
       },
       entt::insertion_sort{});
 }
