@@ -11,6 +11,7 @@
 #include "make_viewport.hpp"
 #include "parse_map.hpp"
 #include "portal.hpp"
+#include "tile_object.hpp"
 #include "viewport_system.hpp"
 
 namespace wanderer {

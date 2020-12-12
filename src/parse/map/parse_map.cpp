@@ -16,6 +16,7 @@
 #include "maybe.hpp"
 #include "portal.hpp"
 #include "spawnpoint.hpp"
+#include "tile_layer.hpp"
 
 namespace wanderer {
 namespace {
