@@ -46,9 +46,13 @@ struct tilemap final
   // clang-format off
   [[deprecated("Use tileset::entity member of level class instead.")]]
   comp::tileset::entity tileset{null<comp::tileset>()};
-  // clang-format on
 
+  // FIXME multiple tile objects can share map_position
+
+  [[deprecated("The \"tileObjects\" map is unnecessary.")]]
   std::unordered_map<map_position, tile_object::entity> tileObjects;
+
+  // clang-format on
 
   float width;
   float height;
