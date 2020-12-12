@@ -72,7 +72,7 @@ void parse_fancy_tile(entt::registry& registry,
       assert(props->get("depth").is<int>());
 
       auto& tile = registry.get<comp::tile>(tileEntity);
-      tile.zIndex = depth{props->get("depth").get<int>()};
+      tile.depth = depth_t{props->get("depth").get<int>()};
     }
   }
 }

@@ -24,7 +24,7 @@ void add_depth_drawable(entt::registry& registry,
   drawable.src = tile.src;
   drawable.dst = {dstPos, {g_tileSize<float>, g_tileSize<float>}};
   drawable.centerY = dstPos.y() + (drawable.dst.height() / 2.0f);
-  drawable.zIndex = tile.zIndex;
+  drawable.depth = tile.depth;
 }
 
 [[nodiscard]] auto make_tile_object(entt::registry& registry,

@@ -31,7 +31,7 @@ struct tile final
   tile_id id{};          ///< Unique ID associated with the tile.
   texture_handle sheet;  ///< Handle to the associated tileset.
   cen::irect src;  ///< Region in associated tileset that the tile represents.
-  depth zIndex{5};
+  depth_t depth{5};
 };
 
 }  // namespace wanderer::comp

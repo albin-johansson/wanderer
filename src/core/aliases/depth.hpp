@@ -4,12 +4,12 @@
 
 namespace wanderer {
 
-using depth = fluent::NamedType<int, struct depth_tag_t, fluent::Comparable>;
+using depth_t = fluent::NamedType<int, struct depth_tag_t, fluent::Comparable>;
 
 [[nodiscard]] constexpr auto operator"" _depth(unsigned long long d) noexcept
-    -> depth
+    -> depth_t
 {
-  return depth{static_cast<int>(d)};
+  return depth_t{static_cast<int>(d)};
 }
 
 }  // namespace wanderer

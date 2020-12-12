@@ -27,7 +27,7 @@ namespace wanderer::comp {
 struct depth_drawable final
 {
   texture_handle texture;  ///< Handle to associated texture.
-  depth zIndex{5};         ///< Render order heuristic.
+  depth_t depth{5};        ///< Render order heuristic.
   float centerY{0};  ///< The y-coordinate of the center point of the entity.
   cen::irect src{};  ///< Region of associated texture that will be rendered.
   cen::frect dst{};  ///< Position and size of the rendered texture, in pixels.
