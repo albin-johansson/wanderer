@@ -14,6 +14,7 @@ using tile_data = step::detail::data::gid_data; // FIXME
 void add_tile_objects(entt::registry& registry,
                       comp::tilemap& tilemap,
                       const comp::tileset& tileset,
-                      const tile_data& data);
+                      const tile_data& data,
+                      int layerIndex);
 
 }  // namespace wanderer

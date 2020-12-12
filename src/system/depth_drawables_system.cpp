@@ -29,8 +29,16 @@ void sort(entt::registry& registry)
   registry.sort<comp::depth_drawable>(
       [](const comp::depth_drawable& lhs,
          const comp::depth_drawable& rhs) noexcept {
-        return lhs.depth < rhs.depth ||
-               (rhs.depth >= lhs.depth && lhs.centerY < rhs.centerY);
+        /* If both drawables feature layer indices that aren't the same,
+         * then sort according to layer index. Otherwise, use the ordinary
+         * depth and center Y-coordinate based sorting.
+         */
+        if (lhs.layer && rhs.layer && lhs.layer != rhs.layer) {
+          return lhs.layer < rhs.layer;
+        } else {
+          return lhs.depth < rhs.depth ||
+                 (rhs.depth >= lhs.depth && lhs.centerY < rhs.centerY);
+        }
       },
       entt::insertion_sort{});
 }
