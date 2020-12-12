@@ -29,14 +29,14 @@ void render(const entt::registry& registry,
  * \brief Renders all of the ground layers in a map.
  *
  * \param registry the registry that holds the layers.
- * \param map the map that holds the ground layers that will be rendered.
+ * \param tileset the tileset that will be used.
  * \param renderer the renderer that will be used.
  * \param bounds the render bounds that will be used.
  *
  * \since 0.1.0
  */
 void render_ground(const entt::registry& registry,
-                   comp::tilemap::entity map,
+                   const comp::tileset& tileset,
                    cen::renderer& renderer,
                    const comp::render_bounds& bounds);
 

@@ -117,6 +117,8 @@ class level final
    */
   [[nodiscard]] auto viewport_component() -> comp::viewport&;
 
+  [[nodiscard]] auto tileset_comp() const -> const comp::tileset&;
+
   /**
    * \brief Returns the number of rows in the level tilemap.
    *

@@ -76,7 +76,7 @@ void game::render(cen::renderer& renderer)
   sys::depthdrawable::update_tile_animations(registry, level->tilemap());
 
   sys::layer::render_ground(registry,
-                            level->tilemap(),
+                            level->tileset_comp(),
                             renderer,
                             level->get_render_bounds());
   sys::depthdrawable::render(registry, renderer);

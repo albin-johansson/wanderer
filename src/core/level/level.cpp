@@ -54,6 +54,11 @@ auto level::viewport_component() -> comp::viewport&
   return m_registry.get<comp::viewport>(m_viewport);
 }
 
+auto level::tileset_comp() const -> const comp::tileset&
+{
+  return m_registry.get<comp::tileset>(m_tileset);
+}
+
 auto level::row_count() const -> int
 {
   return m_registry.get<comp::tilemap>(m_tilemap).rows;
