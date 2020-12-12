@@ -737,7 +737,6 @@
          "objectgroup":
             {
              "draworder":"index",
-             "id":2,
              "name":"",
              "objects":[
                     {
@@ -770,7 +769,6 @@
          "objectgroup":
             {
              "draworder":"index",
-             "id":2,
              "name":"",
              "objects":[
                     {
@@ -803,7 +801,6 @@
          "objectgroup":
             {
              "draworder":"index",
-             "id":2,
              "name":"",
              "objects":[
                     {
@@ -1014,7 +1011,6 @@
          "objectgroup":
             {
              "draworder":"index",
-             "id":2,
              "name":"",
              "objects":[
                     {
@@ -1047,7 +1043,6 @@
          "objectgroup":
             {
              "draworder":"index",
-             "id":2,
              "name":"",
              "objects":[
                     {
@@ -1080,7 +1075,6 @@
          "objectgroup":
             {
              "draworder":"index",
-             "id":2,
              "name":"",
              "objects":[
                     {
@@ -1123,7 +1117,6 @@
          "objectgroup":
             {
              "draworder":"index",
-             "id":2,
              "name":"",
              "objects":[
                     {
@@ -1156,7 +1149,6 @@
          "objectgroup":
             {
              "draworder":"index",
-             "id":2,
              "name":"",
              "objects":[
                     {
@@ -1189,7 +1181,6 @@
          "objectgroup":
             {
              "draworder":"index",
-             "id":2,
              "name":"",
              "objects":[
                     {
@@ -1294,7 +1285,6 @@
          "objectgroup":
             {
              "draworder":"index",
-             "id":2,
              "name":"",
              "objects":[
                     {
@@ -1327,7 +1317,6 @@
          "objectgroup":
             {
              "draworder":"index",
-             "id":2,
              "name":"",
              "objects":[
                     {
@@ -1360,7 +1349,6 @@
          "objectgroup":
             {
              "draworder":"index",
-             "id":2,
              "name":"",
              "objects":[
                     {
@@ -1511,6 +1499,18 @@
          "type":"Object"
         }, 
         {
+         "id":372,
+         "type":"Object"
+        }, 
+        {
+         "id":373,
+         "type":"Object"
+        }, 
+        {
+         "id":375,
+         "type":"Object"
+        }, 
+        {
          "animation":[
                 {
                  "duration":100,
@@ -1524,7 +1524,12 @@
                  "duration":100,
                  "tileid":407
                 }],
-         "id":376
+         "id":376,
+         "type":"Object"
+        }, 
+        {
+         "id":381,
+         "type":"Object"
         }, 
         {
          "id":382,
@@ -1580,6 +1585,38 @@
         }, 
         {
          "id":401,
+         "type":"Object"
+        }, 
+        {
+         "id":404,
+         "type":"Object"
+        }, 
+        {
+         "id":405,
+         "type":"Object"
+        }, 
+        {
+         "id":407,
+         "type":"Object"
+        }, 
+        {
+         "id":408,
+         "type":"Object"
+        }, 
+        {
+         "id":410,
+         "type":"Object"
+        }, 
+        {
+         "id":411,
+         "type":"Object"
+        }, 
+        {
+         "id":412,
+         "type":"Object"
+        }, 
+        {
+         "id":413,
          "type":"Object"
         }, 
         {
@@ -1677,6 +1714,18 @@
          "type":"Object"
         }, 
         {
+         "id":439,
+         "type":"Object"
+        }, 
+        {
+         "id":440,
+         "type":"Object"
+        }, 
+        {
+         "id":441,
+         "type":"Object"
+        }, 
+        {
          "id":465,
          "type":"Object"
         }, 
@@ -1710,6 +1759,18 @@
                  "type":"bool",
                  "value":true
                 }],
+         "type":"Object"
+        }, 
+        {
+         "id":471,
+         "type":"Object"
+        }, 
+        {
+         "id":472,
+         "type":"Object"
+        }, 
+        {
+         "id":473,
          "type":"Object"
         }, 
         {
@@ -1823,7 +1884,6 @@
          "objectgroup":
             {
              "draworder":"index",
-             "id":2,
              "name":"",
              "objects":[
                     {
@@ -1850,7 +1910,6 @@
          "objectgroup":
             {
              "draworder":"index",
-             "id":2,
              "name":"",
              "objects":[
                     {
@@ -1877,7 +1936,6 @@
          "objectgroup":
             {
              "draworder":"index",
-             "id":2,
              "name":"",
              "objects":[
                     {
@@ -2505,6 +2563,18 @@
          "type":"Object"
         }, 
         {
+         "id":864,
+         "type":"Object"
+        }, 
+        {
+         "id":865,
+         "type":"Object"
+        }, 
+        {
+         "id":866,
+         "type":"Object"
+        }, 
+        {
          "id":873,
          "properties":[
                 {
@@ -2535,11 +2605,40 @@
          "type":"Object"
         }, 
         {
+         "id":896,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":2
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":897,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":2
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":898,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":2
+                }],
+         "type":"Object"
+        }, 
+        {
          "id":934,
          "objectgroup":
             {
              "draworder":"index",
-             "id":2,
              "name":"",
              "objects":[
                     {
@@ -2565,7 +2664,6 @@
          "objectgroup":
             {
              "draworder":"index",
-             "id":2,
              "name":"",
              "objects":[
                     {
@@ -2591,7 +2689,6 @@
          "objectgroup":
             {
              "draworder":"index",
-             "id":2,
              "name":"",
              "objects":[
                     {
@@ -2647,7 +2744,6 @@
          "objectgroup":
             {
              "draworder":"index",
-             "id":2,
              "name":"",
              "objects":[
                     {
@@ -2673,7 +2769,6 @@
          "objectgroup":
             {
              "draworder":"index",
-             "id":2,
              "name":"",
              "objects":[
                     {
@@ -2729,7 +2824,6 @@
          "objectgroup":
             {
              "draworder":"index",
-             "id":2,
              "name":"",
              "objects":[
                     {
@@ -2755,7 +2849,6 @@
          "objectgroup":
             {
              "draworder":"index",
-             "id":2,
              "name":"",
              "objects":[
                     {
@@ -2781,7 +2874,6 @@
          "objectgroup":
             {
              "draworder":"index",
-             "id":2,
              "name":"",
              "objects":[
                     {
