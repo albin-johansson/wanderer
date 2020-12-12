@@ -69,7 +69,7 @@ void level_factory::init_tile_objects(entt::registry& registry,
                                       const comp::tilemap& tilemap,
                                       aabb_tree& aabbTree)
 {
-  for (const auto& [mapPos, tileObject] : tilemap.tileObjects) {
+  for (const auto& [_, tileObject] : tilemap.tileObjects) {
     const auto& drawable = registry.get<comp::depth_drawable>(tileObject);
     const auto& object = registry.get<comp::tile_object>(tileObject);
     if (const auto* hitbox = registry.try_get<comp::hitbox>(tileObject)) {
