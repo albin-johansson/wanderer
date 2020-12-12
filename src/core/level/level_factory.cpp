@@ -24,6 +24,7 @@ void level_factory::load_spawnpoint(level& level,
                                     cen::renderer& renderer,
                                     texture_cache& cache)
 {
+  const auto& tilemap = level.get<comp::tilemap>(level.tilemap());
   switch (spawnpoint.type) {
     case comp::spawnpoint_type::player: {
       const auto id = sys::humanoid::add_player(level.m_registry,
@@ -31,16 +32,18 @@ void level_factory::load_spawnpoint(level& level,
                                                 spawnpoint.position,
                                                 renderer,
                                                 cache);
+      level.get<comp::depth_drawable>(id).layer = tilemap.humanoidLayer;
       level.m_player = player_entity{id};
       level.m_playerSpawnPosition = spawnpoint.position;
       break;
     }
     case comp::spawnpoint_type::skeleton: {
-      sys::humanoid::add_skeleton(level.m_registry,
-                                  level.m_aabbTree,
-                                  spawnpoint.position,
-                                  renderer,
-                                  cache);
+      const auto id = sys::humanoid::add_skeleton(level.m_registry,
+                                                  level.m_aabbTree,
+                                                  spawnpoint.position,
+                                                  renderer,
+                                                  cache);
+      level.get<comp::depth_drawable>(id).layer = tilemap.humanoidLayer;
       break;
     }
   }
