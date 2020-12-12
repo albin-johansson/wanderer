@@ -69,14 +69,15 @@ void game::render(cen::renderer& renderer)
 {
   auto* level = m_levels.current();
   auto& registry = level->registry();
+  const auto& tileset = level->tileset_comp();
 
   sys::viewport::translate(registry, level->viewport(), renderer);
 
   sys::depthdrawable::sort(registry);
-  sys::depthdrawable::update_tile_animations(registry, level->tilemap());
+  sys::depthdrawable::update_tile_animations(registry, tileset);
 
   sys::layer::render_ground(registry,
-                            level->tileset_comp(),
+                            tileset,
                             renderer,
                             level->get_render_bounds());
   sys::depthdrawable::render(registry, renderer);

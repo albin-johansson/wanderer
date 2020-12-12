@@ -33,10 +33,10 @@ void sort(entt::registry& registry);
  * \brief Updates tile animations for tile objects that are depth drawables.
  *
  * \param registry the current registry.
- * \param map the tilemap entity.
+ * \param tileset the tileset that will be used.
  */
 void update_tile_animations(entt::registry& registry,
-                            comp::tilemap::entity map);
+                            const comp::tileset& tileset);
 
 /**
  * \brief Renders all depth drawables.
