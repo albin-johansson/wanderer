@@ -94,7 +94,7 @@
                         {
                          "name":"path",
                          "type":"file",
-                         "value":"world.json"
+                         "value":""
                         }, 
                         {
                          "name":"target",
