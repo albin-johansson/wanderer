@@ -52,15 +52,12 @@ void add_ground_layer(entt::registry& registry,
 void parse_tile_layer(entt::registry& registry,
                       comp::tilemap& tilemap,
                       const step::tile_layer& layer,
-                      const step::properties* properties)
+                      const step::properties* properties,
+                      const int index)
 {
   assert(properties);
   assert(properties->has("ground"));
   assert(properties->get("ground").is<bool>());
-  assert(properties->has("index"));
-  assert(properties->get("index").is<int>());
-
-  const auto index = properties->get("index").get<int>();
 
   if (properties->is("ground", true)) {
     add_ground_layer(registry, layer, tilemap.rows, tilemap.cols, index);
@@ -141,14 +138,17 @@ void parse_layers(entt::registry& registry,
                   comp::tilemap& tilemap,
                   const std::vector<step::layer>& layers)
 {
+  int index{0};
   for (const auto& stepLayer : layers) {
     const auto* properties = stepLayer.get_properties();
 
     if (const auto* tileLayer = stepLayer.try_as<step::tile_layer>()) {
-      parse_tile_layer(registry, tilemap, *tileLayer, properties);
+      parse_tile_layer(registry, tilemap, *tileLayer, properties, index);
     } else if (const auto* group = stepLayer.try_as<step::object_group>()) {
       parse_object_group(registry, *group);
     }
+
+    ++index;
   }
 
   // Ensures that the layers are stored in the correct order in the registry
@@ -175,7 +175,15 @@ auto parse_map(entt::registry& registry,
   tilemap.cols = stepMap->width();
   tilemap.tileset =
       make_tileset(registry, stepMap->tilesets(), renderer, imageCache);
-  tilemap.id = map_id{stepMap->get_properties()->get("id").get<int>()};
+
+  const auto* props = stepMap->get_properties();
+  assert(props->has("id"));
+  assert(props->get("id").is<int>());
+  assert(props->has("humanoidLayer"));
+  assert(props->get("humanoidLayer").is<int>());
+
+  tilemap.id = map_id{props->get("id").get<int>()};
+  tilemap.humanoidLayer = props->get("humanoidLayer").get<int>();
 
   parse_layers(registry, tilemap, stepMap->layers());
 
