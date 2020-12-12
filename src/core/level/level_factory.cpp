@@ -69,15 +69,14 @@ void level_factory::init_tile_objects(entt::registry& registry,
                                       const comp::tilemap& tilemap,
                                       aabb_tree& aabbTree)
 {
-  for (const auto& [_, tileObject] : tilemap.tileObjects) {
-    const auto& drawable = registry.get<comp::depth_drawable>(tileObject);
-    const auto& object = registry.get<comp::tile_object>(tileObject);
-    if (const auto* hitbox = registry.try_get<comp::hitbox>(tileObject)) {
-      const auto lower = to_vector(hitbox->bounds.position());
-      const auto upper = lower + to_vector(hitbox->bounds.size());
-      aabbTree.insert(tileObject, lower, upper);
-    }
-  }
+  registry.view<comp::tile_object>().each(
+      [&](const entt::entity e, const comp::tile_object&) {
+        if (const auto* hitbox = registry.try_get<comp::hitbox>(e)) {
+          const auto lower = to_vector(hitbox->bounds.position());
+          const auto upper = lower + to_vector(hitbox->bounds.size());
+          aabbTree.insert(e, lower, upper);
+        }
+      });
 }
 
 auto level_factory::make(const std::filesystem::path& path,

@@ -29,13 +29,11 @@ void add_depth_drawable(entt::registry& registry,
   drawable.layer = layerIndex;
 }
 
-
-[[nodiscard]] auto make_tile_object(entt::registry& registry,
-                                    const comp::tile::entity tileEntity,
-                                    const int row,
-                                    const int col,
-                                    const int layerIndex)
-    -> comp::tile_object::entity
+void add_tile_object(entt::registry& registry,
+                     const comp::tile::entity tileEntity,
+                     const int row,
+                     const int col,
+                     const int layerIndex)
 {
   const auto entity = registry.create();
   registry.emplace<comp::tile_object>(entity, tileEntity);
@@ -53,8 +51,6 @@ void add_depth_drawable(entt::registry& registry,
     auto hitbox = sys::hitbox::with_position(*tileHb, to_vector(position));
     registry.emplace<comp::hitbox>(entity, std::move(hitbox));
   }
-
-  return comp::tile_object::entity{entity};
 }
 
 }  // namespace
@@ -72,9 +68,7 @@ void add_tile_objects(entt::registry& registry,
     if (gid.get() != g_emptyTile) {
       const auto tileEntity = tileset.tiles.at(gid.get());
       const auto [row, col] = index_to_matrix(index, tilemap.cols);
-      const auto tileObject =
-          make_tile_object(registry, tileEntity, row, col, layerIndex);
-      tilemap.tileObjects.emplace(comp::map_position{row, col}, tileObject);
+      add_tile_object(registry, tileEntity, row, col, layerIndex);
     }
     ++index;
   }
