@@ -1550,6 +1550,26 @@
                  "value":7
                 }],
          "type":"Object"
+        }, 
+        {
+         "id":993,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":1
+                }],
+         "type":"Object"
+        }, 
+        {
+         "id":994,
+         "properties":[
+                {
+                 "name":"depth",
+                 "type":"int",
+                 "value":1
+                }],
+         "type":"Object"
         }],
  "tilewidth":32,
  "type":"tileset",
