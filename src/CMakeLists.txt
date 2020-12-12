@@ -87,15 +87,16 @@ set(SOURCE_FILES
     component/depth_drawable.hpp
     component/viewport.hpp
     component/map_position.hpp
-    component/begin_attack_event.hpp
-    component/end_attack_event.hpp
-    component/begin_humanoid_move_event.hpp
-    component/end_humanoid_move_event.hpp
     component/spawnpoint.hpp
     component/tile_object.hpp
     component/portal.hpp
-    component/interact_event.hpp
-    component/switch_map_event.hpp
+
+    component/event/begin_attack_event.hpp
+    component/event/end_attack_event.hpp
+    component/event/begin_humanoid_move_event.hpp
+    component/event/end_humanoid_move_event.hpp
+    component/event/interact_event.hpp
+    component/event/switch_map_event.hpp
 
     system/depth_drawables_system.cpp
     system/depth_drawables_system.hpp
