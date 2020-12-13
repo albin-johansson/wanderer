@@ -4,8 +4,10 @@
 Wanderer is an 2D indie game, being developed for fun. At the time of writing, the game is still in an experimental state and isn't ready to be played.
 
 <p align="middle">
-  <img src="meta/screenshot_trees.png" width="45%" />
-  <img src="meta/screenshot_plants.png" width="45%"/> 
+  <img src="meta/house.png" width="45%"/> 
+  <img src="meta/bedroom.png" width="45%"/>
+  <img src="meta/tent.png" width="45%"/> 
+  <img src="meta/screenshot_plants.png" width="45%"/>
 </p>
 
 ## Compatibility
