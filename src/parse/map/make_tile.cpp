@@ -45,6 +45,15 @@ void add_hitbox(entt::registry& registry,
                                  sys::hitbox::create({{offset, size}}));
 }
 
+[[nodiscard]] auto parse_depth(const step::properties& props) -> maybe<depth_t>
+{
+  if (props.has("depth")) {
+    assert(props.get("depth").is<int>());
+    return depth_t{props.get("depth").get<int>()};
+  }
+  return std::nullopt;
+}
+
 }  // namespace
 
 void parse_fancy_tile(entt::registry& registry,
@@ -68,11 +77,9 @@ void parse_fancy_tile(entt::registry& registry,
   }
 
   if (const auto* props = stepTile.get_properties()) {
-    if (props->has("depth")) {
-      assert(props->get("depth").is<int>());
-
+    if (const auto depth = parse_depth(*props)) {
       auto& tile = registry.get<comp::tile>(tileEntity);
-      tile.depth = depth_t{props->get("depth").get<int>()};
+      tile.depth = *depth;
     }
   }
 }
@@ -82,14 +89,14 @@ auto make_basic_tile(entt::registry& registry,
                      const texture_handle& sheet,
                      const cen::irect& src) noexcept -> comp::tile::entity
 {
-  const auto tileEntity = registry.create();
+  const comp::tile::entity entity{registry.create()};
 
-  auto& tile = registry.emplace<comp::tile>(tileEntity);
+  auto& tile = registry.emplace<comp::tile>(entity);
   tile.id = id;
   tile.sheet = sheet;
   tile.src = src;
 
-  return comp::tile::entity{tileEntity};
+  return entity;
 }
 
 }  // namespace wanderer
