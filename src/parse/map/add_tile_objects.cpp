@@ -1,6 +1,6 @@
 #include "add_tile_objects.hpp"
 
-#include <utility>    // move
+#include <utility>  // move
 
 #include "centurion_utils.hpp"
 #include "depth_drawable.hpp"
@@ -14,7 +14,7 @@ namespace wanderer {
 namespace {
 
 void add_depth_drawable(entt::registry& registry,
-                        const entt::entity entity,
+                        const comp::tile_object::entity entity,
                         const comp::tile& tile,
                         const cen::fpoint& dstPos,
                         const int layerIndex)
@@ -34,8 +34,10 @@ void add_tile_object(entt::registry& registry,
                      const int col,
                      const int layerIndex)
 {
-  const auto entity = registry.create();
-  registry.emplace<comp::tile_object>(entity, tileEntity);
+  const comp::tile_object::entity entity{registry.create()};
+
+  auto& tileObject = registry.emplace<comp::tile_object>(entity);
+  tileObject.tileEntity = tileEntity;
 
   const cen::fpoint position{static_cast<float>(col) * g_tileSize<float>,
                              static_cast<float>(row) * g_tileSize<float>};
