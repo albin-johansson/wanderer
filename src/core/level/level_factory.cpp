@@ -3,12 +3,15 @@
 #include <entt.hpp>
 
 #include "centurion_utils.hpp"
+#include "container_trigger.hpp"
 #include "depth_drawable.hpp"
 #include "depth_drawables_system.hpp"
 #include "hitbox_system.hpp"
 #include "humanoid_factory_system.hpp"
+#include "inventory.hpp"
 #include "make_registry.hpp"
 #include "make_viewport.hpp"
+#include "object.hpp"
 #include "parse_map.hpp"
 #include "portal.hpp"
 #include "tile_object.hpp"
@@ -71,6 +74,26 @@ void level_factory::setup_portals(level& level)
   });
 }
 
+void level_factory::setup_container_triggers(level& level)
+{
+  const auto findInventory = [&](const int id) {
+    maybe<comp::inventory::entity> result;
+    level.each<comp::inventory, comp::object>([&](const entt::entity e,
+                                                  const comp::inventory&,
+                                                  const comp::object& object) {
+      if (object.id == id) {
+        result.emplace(e);
+      }
+    });
+    return result;
+  };
+
+  level.each<comp::container_trigger>([&](comp::container_trigger& trigger) {
+    const auto e = findInventory(trigger.inventoryId);
+    trigger.inventoryEntity = e.value();
+  });
+}
+
 void level_factory::init_tile_objects(level& level,
                                       const comp::tilemap& tilemap)
 {
@@ -102,6 +125,7 @@ auto level_factory::make(const std::filesystem::path& path,
   setup_spawnpoints(*result, graphics);
   init_tile_objects(*result, map);
   setup_portals(*result);
+  setup_container_triggers(*result);
 
   assert(result->m_playerSpawnPosition);
   sys::viewport::center_on(registry,

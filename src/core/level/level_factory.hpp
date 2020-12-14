@@ -27,6 +27,8 @@ class level_factory final
 
   static void setup_portals(level& level);
 
+  static void setup_container_triggers(level& level);
+
   static void init_tile_objects(level& level, const comp::tilemap& tilemap);
 };
 
