@@ -19,20 +19,22 @@ set(SOURCE_FILES
     core/direction.hpp
     core/game_constants.hpp
     core/null_entity.hpp
-    core/add_humanoid_state_dependencies.cpp
-    core/add_humanoid_state_dependencies.hpp
-    core/event_connections.cpp
-    core/event_connections.hpp
-    core/make_dispatcher.hpp
-    core/make_dispatcher.cpp
     core/make_renderer.cpp
     core/make_renderer.hpp
     core/stack_resource.hpp
-    core/make_registry.cpp
-    core/make_registry.hpp
     core/centurion_utils.hpp
     core/cursor_manager.cpp
     core/cursor_manager.hpp
+
+    core/registry/make_registry.cpp
+    core/registry/make_registry.hpp
+    core/registry/add_humanoid_state_dependencies.cpp
+    core/registry/add_humanoid_state_dependencies.hpp
+
+    core/event/make_dispatcher.hpp
+    core/event/make_dispatcher.cpp
+    core/event/event_connections.cpp
+    core/event/event_connections.hpp
 
     core/level/level.hpp
     core/level/level.cpp
@@ -215,6 +217,8 @@ target_include_directories(${WANDERER_LIB_TARGET}
     PUBLIC core/resource
     PUBLIC core/aliases
     PUBLIC core/level
+    PUBLIC core/registry
+    PUBLIC core/event
     PUBLIC component
     PUBLIC component/event
     PUBLIC system
