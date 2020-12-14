@@ -25,7 +25,7 @@ struct tilemap_entity_t;
 struct tilemap final
 {
   using entity = entity_type<detail::tilemap_entity_t>;
-  
+
   map_id id{0};  ///< The ID associated with the tilemap
   comp::tileset::entity tileset{null<comp::tileset>()};  ///< Associated tileset
   int humanoidLayer;  ///< The layer that humanoids inhabit
