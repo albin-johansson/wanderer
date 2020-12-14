@@ -75,6 +75,18 @@ using local_id = fluent::NamedType<int,
                                    fluent::Printable>;
 
 /**
+ * The type used for object references.
+ *
+ * @since 0.2.0
+ */
+using object_ref = fluent::NamedType<int,
+                                     struct object_ref_t,
+                                     fluent::Comparable,
+                                     fluent::Addable,
+                                     fluent::Subtractable,
+                                     fluent::Printable>;
+
+/**
  * Constructs a global ID from an integer literal.
  *
  * @param value the literal that will be converted.

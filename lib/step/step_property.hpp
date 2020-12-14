@@ -67,7 +67,8 @@ class property final {
     floating,  ///< For floating-point values, e.g. `182.4`.
     boolean,   ///< For the boolean values `true`/`false`.
     color,     ///< For ARGB/RGB colors, e.g. `"AARRGGBB"` and `"RRGGBB"`.
-    file       ///< For file paths, e.g. `"some/path/abc.png"`.
+    file,      ///< For file paths, e.g. `"some/path/abc.png"`.
+    object     ///< For referencing other objects. Really just an integer ID.
   };
 
   explicit property(const json& json)
@@ -93,6 +94,10 @@ class property final {
       }
       case property::type::file: {
         m_value.emplace<file>(json.at("value").get<std::string>());
+        break;
+      }
+      case property::type::object: {
+        m_value.emplace<object_ref>(json.at("value").get<int>());
         break;
       }
       case property::type::string: {
@@ -198,6 +203,9 @@ class property final {
     } else if constexpr (std::is_same_v<T, file>) {
       return m_type == type::file;
 
+    } else if constexpr (std::is_same_v<T, object_ref>) {
+      return m_type == type::object;
+
     } else /*if constexpr (std::is_convertible_v<T, std::string>)*/ {
       return m_type == type::string;
     }
@@ -261,7 +269,7 @@ class property final {
  private:
   type m_type{type::string};
   std::string m_name;
-  std::variant<std::string, file, color, int, float, bool> m_value;
+  std::variant<std::string, file, object_ref, color, int, float, bool> m_value;
 };
 
 NLOHMANN_JSON_SERIALIZE_ENUM(property::type,
@@ -270,6 +278,7 @@ NLOHMANN_JSON_SERIALIZE_ENUM(property::type,
                               {property::type::floating, "float"},
                               {property::type::boolean, "bool"},
                               {property::type::color, "color"},
+                              {property::type::object, "object"},
                               {property::type::file, "file"}})
 
 }  // namespace step
