@@ -1,18 +1,15 @@
 #include "menu.hpp"
 
-#include <cen/cursor.hpp>
-#include <entt.hpp>
-
 #include "game_constants.hpp"
 #include "maybe.hpp"
 #include "menu_constants.hpp"
 
 namespace wanderer {
 
-auto menu::query_buttons(const cen::mouse_state& mouseState)
-    -> maybe<menu_action>
+auto menu::query_buttons(const cen::mouse_state& mouseState,
+                         cursor_manager& cursors) -> maybe<menu_action>
 {
-  static cen::cursor hand{cen::system_cursor::hand};
+  auto& hand = cursors.at(cen::system_cursor::hand);
 
   maybe<menu_action> action;
   const auto mousePos = cen::cast<cen::fpoint>(mouseState.mouse_pos());

@@ -10,6 +10,7 @@
 #include "menu_manager.hpp"
 #include "switch_map_event.hpp"
 #include "texture_cache.hpp"
+#include "cursor_manager.hpp"
 
 namespace wanderer {
 
@@ -73,6 +74,7 @@ class game final
   texture_cache m_imageCache;
   level_manager m_levels;
   menu_manager m_menus;
+  cursor_manager m_cursors;
 
   void on_switch_map(const comp::switch_map_event& event);
 };

@@ -6,6 +6,7 @@
 #include <cen/renderer.hpp>
 #include <unordered_map>  // unordered_map
 
+#include "cursor_manager.hpp"
 #include "maybe.hpp"
 #include "menu.hpp"
 
@@ -17,7 +18,8 @@ class menu_manager final
   menu_manager();
 
   void update(const cen::mouse_state& mouseState,
-              const cen::key_state& keyState);
+              const cen::key_state& keyState,
+              cursor_manager& cursors);
 
   void render(cen::renderer& renderer);
 

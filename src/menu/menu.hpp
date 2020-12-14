@@ -8,6 +8,7 @@
 #include <string>      // string
 #include <vector>      // vector
 
+#include "cursor_manager.hpp"
 #include "key_bind.hpp"
 #include "maybe.hpp"
 #include "menu_action.hpp"
@@ -26,11 +27,13 @@ class menu final
    * if any.
    *
    * \param mouseState the current mouse state.
+   * \param cursors the collection of cursors that will be used.
    *
    * \return the action that should be executed; `std::nullopt` if there is
    * none.
    */
-  [[nodiscard]] auto query_buttons(const cen::mouse_state& mouseState)
+  [[nodiscard]] auto query_buttons(const cen::mouse_state& mouseState,
+                                   cursor_manager& cursors)
       -> maybe<menu_action>;
 
   /**

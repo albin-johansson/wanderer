@@ -31,6 +31,8 @@ set(SOURCE_FILES
     core/make_registry.cpp
     core/make_registry.hpp
     core/centurion_utils.hpp
+    core/cursor_manager.cpp
+    core/cursor_manager.hpp
 
     core/level/level.hpp
     core/level/level.cpp

@@ -34,7 +34,7 @@ game::~game() noexcept
 void game::handle_input(const cen::mouse_state& mouseState,
                         const cen::key_state& keyState)
 {
-  m_menus.update(mouseState, keyState);
+  m_menus.update(mouseState, keyState, m_cursors);
   if (!m_menus.is_blocking()) {
     auto* level = m_levels.current();
     sys::input::update(level->registry(),

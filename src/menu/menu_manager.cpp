@@ -20,15 +20,16 @@ menu_manager::menu_manager() : m_current{menu_id::home}
 }
 
 void menu_manager::update(const cen::mouse_state& mouseState,
-                          const cen::key_state& keyState)
+                          const cen::key_state& keyState,
+                          cursor_manager& cursors)
 {
   auto& menu = active_menu();
 
-  if (const auto action = menu.query_buttons(mouseState); action) {
+  if (const auto action = menu.query_buttons(mouseState, cursors)) {
     perform_action(*action);
   }
 
-  if (const auto action = menu.query_binds(keyState); action) {
+  if (const auto action = menu.query_binds(keyState)) {
     perform_action(*action);
   }
 }
