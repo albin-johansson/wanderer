@@ -25,19 +25,14 @@ struct tilemap_entity_t;
 struct tilemap final
 {
   using entity = entity_type<detail::tilemap_entity_t>;
-
-  map_id id{0};  ///< The ID associated with the tilemap.
-
-  // clang-format off
-  [[deprecated("Use tileset::entity member of level class instead.")]]
-  comp::tileset::entity tileset{null<comp::tileset>()};
-  // clang-format on
-
-  float width;        ///< The width of the tilemap, in pixels.
-  float height;       ///< The height of the tilemap, in pixels.
-  int rows;           ///< The amount of rows in the tilemap.
-  int cols;           ///< The amount of columns in the tilemap.
-  int humanoidLayer;  ///< The layer that humanoids inhabit.
+  
+  map_id id{0};  ///< The ID associated with the tilemap
+  comp::tileset::entity tileset{null<comp::tileset>()};  ///< Associated tileset
+  int humanoidLayer;  ///< The layer that humanoids inhabit
+  float width;        ///< The width of the tilemap, in pixels
+  float height;       ///< The height of the tilemap, in pixels
+  int rows;           ///< The amount of rows in the tilemap
+  int cols;           ///< The amount of columns in the tilemap
 };
 
 }  // namespace wanderer::comp
