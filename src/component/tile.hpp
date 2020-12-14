@@ -28,8 +28,8 @@ struct tile_entity_t;
 struct tile final
 {
   using entity = entity_type<detail::tile_entity_t>;
-  tile_id id{};          ///< Unique ID associated with the tile.
-  texture_handle sheet;  ///< Handle to the associated tileset.
+  tile_id id{g_emptyTile};  ///< Unique ID associated with the tile.
+  texture_handle sheet;     ///< Handle to the associated tileset.
   cen::irect src;  ///< Region in associated tileset that the tile represents.
   depth_t depth{5};
 };

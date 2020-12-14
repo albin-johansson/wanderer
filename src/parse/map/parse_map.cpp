@@ -44,7 +44,7 @@ void add_ground_layer(entt::registry& registry,
   int index{0};
   for (const auto gid : tileLayer.data()->as_gid()) {
     const auto [row, col] = index_to_matrix<std::size_t>(index, numColumns);
-    layer.matrix.at(row).at(col) = gid.get();
+    layer.matrix.at(row).at(col) = tile_id{gid.get()};
     ++index;
   }
 }
