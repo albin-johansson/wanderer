@@ -2,9 +2,14 @@
 
 #include <named_type.hpp>
 
-namespace wanderer {
+#include "ints.hpp"
 
-using depth_t = fluent::NamedType<int, struct depth_tag_t, fluent::Comparable>;
+namespace wanderer {
+namespace detail {
+struct depth_tag_t;
+}
+
+using depth_t = fluent::NamedType<i32, detail::depth_tag_t, fluent::Comparable>;
 
 [[nodiscard]] constexpr auto operator"" _depth(unsigned long long d) noexcept
     -> depth_t
