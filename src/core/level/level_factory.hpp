@@ -29,7 +29,7 @@ class level_factory final
 
   static void init_tile_objects(entt::registry& registry,
                                 const comp::tilemap& tilemap,
-                                aabb_tree& aabbTree);
+                                aabb_tree& tree);
 };
 
 }  // namespace wanderer
