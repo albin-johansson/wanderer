@@ -15,9 +15,18 @@
 #include "viewport_system.hpp"
 
 namespace wanderer {
+namespace {
 
-using tileset_entity = comp::tileset::entity;
-using player_entity = comp::player::entity;
+void insert_hitbox(aabb_tree& tree,
+                   const entt::entity entity,
+                   const comp::hitbox& hitbox)
+{
+  const auto lower = to_vector(hitbox.bounds.position());
+  const auto upper = lower + to_vector(hitbox.bounds.size());
+  tree.insert(entity, lower, upper);
+}
+
+}  // namespace
 
 void level_factory::load_spawnpoint(level& level,
                                     const comp::spawnpoint& spawnpoint,
@@ -31,7 +40,7 @@ void level_factory::load_spawnpoint(level& level,
                                                 spawnpoint.position,
                                                 graphics);
       level.get<comp::depth_drawable>(id).layer = tilemap.humanoidLayer;
-      level.m_player = player_entity{id};
+      level.m_player = comp::player::entity{id};
       level.m_playerSpawnPosition = spawnpoint.position;
       break;
     }
@@ -58,24 +67,20 @@ void level_factory::setup_portals(level& level)
   level.each<comp::portal, comp::hitbox>([&](const entt::entity entity,
                                              const comp::portal&,
                                              const comp::hitbox& hitbox) {
-    const auto lower = to_vector(hitbox.bounds.position());
-    const auto upper = lower + to_vector(hitbox.bounds.size());
-    level.m_aabbTree.insert(entity, lower, upper);
+    insert_hitbox(level.m_aabbTree, entity, hitbox);
   });
 }
 
 void level_factory::init_tile_objects(entt::registry& registry,
                                       const comp::tilemap& tilemap,
-                                      aabb_tree& aabbTree)
+                                      aabb_tree& tree)
 {
-  registry.view<comp::tile_object>().each(
-      [&](const entt::entity e, const comp::tile_object&) {
-        if (const auto* hitbox = registry.try_get<comp::hitbox>(e)) {
-          const auto lower = to_vector(hitbox->bounds.position());
-          const auto upper = lower + to_vector(hitbox->bounds.size());
-          aabbTree.insert(e, lower, upper);
-        }
-      });
+  const auto view = registry.view<comp::tile_object>();
+  view.each([&](const entt::entity entity, const comp::tile_object&) {
+    if (const auto* hitbox = registry.try_get<comp::hitbox>(entity)) {
+      insert_hitbox(tree, entity, *hitbox);
+    }
+  });
 }
 
 auto level_factory::make(const std::filesystem::path& path,
@@ -88,17 +93,15 @@ auto level_factory::make(const std::filesystem::path& path,
   result->m_tilemap = parse_map(registry, path, graphics);
 
   assert(registry.view<comp::tileset>().size() == 1);
-  result->m_tileset = tileset_entity{registry.view<comp::tileset>().front()};
+  result->m_tileset =
+      comp::tileset::entity{registry.view<comp::tileset>().front()};
 
-  auto& tilemap = registry.get<comp::tilemap>(result->m_tilemap);
-
-  {
-    const cen::farea levelSize{tilemap.width, tilemap.height};
-    result->m_viewport = sys::viewport::make_viewport(registry, levelSize);
-  }
+  auto& map = registry.get<comp::tilemap>(result->m_tilemap);
+  result->m_viewport =
+      sys::viewport::make_viewport(registry, {map.width, map.height});
 
   setup_spawnpoints(*result, graphics);
-  init_tile_objects(registry, tilemap, result->m_aabbTree);
+  init_tile_objects(registry, map, result->m_aabbTree);
   setup_portals(*result);
 
   assert(result->m_playerSpawnPosition);
