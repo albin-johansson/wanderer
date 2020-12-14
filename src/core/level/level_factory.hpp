@@ -27,9 +27,7 @@ class level_factory final
 
   static void setup_portals(level& level);
 
-  static void init_tile_objects(entt::registry& registry,
-                                const comp::tilemap& tilemap,
-                                aabb_tree& tree);
+  static void init_tile_objects(level& level, const comp::tilemap& tilemap);
 };
 
 }  // namespace wanderer

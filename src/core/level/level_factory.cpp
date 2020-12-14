@@ -71,16 +71,15 @@ void level_factory::setup_portals(level& level)
   });
 }
 
-void level_factory::init_tile_objects(entt::registry& registry,
-                                      const comp::tilemap& tilemap,
-                                      aabb_tree& tree)
+void level_factory::init_tile_objects(level& level,
+                                      const comp::tilemap& tilemap)
 {
-  const auto view = registry.view<comp::tile_object>();
-  view.each([&](const entt::entity entity, const comp::tile_object&) {
-    if (const auto* hitbox = registry.try_get<comp::hitbox>(entity)) {
-      insert_hitbox(tree, entity, *hitbox);
-    }
-  });
+  level.each<comp::tile_object>(
+      [&](const entt::entity entity, const comp::tile_object&) {
+        if (const auto* hitbox = level.try_get<comp::hitbox>(entity)) {
+          insert_hitbox(level.m_aabbTree, entity, *hitbox);
+        }
+      });
 }
 
 auto level_factory::make(const std::filesystem::path& path,
@@ -101,7 +100,7 @@ auto level_factory::make(const std::filesystem::path& path,
       sys::viewport::make_viewport(registry, {map.width, map.height});
 
   setup_spawnpoints(*result, graphics);
-  init_tile_objects(registry, map, result->m_aabbTree);
+  init_tile_objects(*result, map);
   setup_portals(*result);
 
   assert(result->m_playerSpawnPosition);
