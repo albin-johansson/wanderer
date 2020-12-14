@@ -1,20 +1,19 @@
 #pragma once
 
-#include <cen/renderer.hpp>
 #include <memory>         // unique_ptr
 #include <unordered_map>  // unordered_map
 
+#include "graphics_context.hpp"
 #include "level.hpp"
 #include "map_id.hpp"
 #include "maybe.hpp"
-#include "texture_cache.hpp"
 
 namespace wanderer {
 
 class level_manager final
 {
  public:
-  level_manager(cen::renderer& renderer, texture_cache& cache);
+  level_manager(graphics_context& graphics);
 
   void enable_world();
 

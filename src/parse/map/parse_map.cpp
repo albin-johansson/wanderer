@@ -1,12 +1,10 @@
 #include "parse_map.hpp"
 
-#include <cassert>  // assert
-#include <cen/log.hpp>
+#include <cassert>    // assert
 #include <stdexcept>  // runtime_error
 #include <step_map.hpp>
 #include <step_tile_layer.hpp>
-#include <utility>  // move
-#include <vector>   // vector
+#include <vector>  // vector
 
 #include "add_tile_objects.hpp"
 #include "game_constants.hpp"
@@ -167,12 +165,10 @@ void parse_layers(entt::registry& registry,
       });
 }
 
-
 auto make_tilemap(entt::registry& registry,
                   const comp::tilemap::entity mapEntity,
                   const step::map& stepMap,
-                  cen::renderer& renderer,
-                  texture_cache& cache) -> comp::tilemap&
+                  graphics_context& graphics) -> comp::tilemap&
 {
   auto& tilemap = registry.emplace<comp::tilemap>(mapEntity);
 
@@ -180,7 +176,7 @@ auto make_tilemap(entt::registry& registry,
   tilemap.height = static_cast<float>(stepMap.height()) * g_tileSize<float>;
   tilemap.rows = stepMap.height();
   tilemap.cols = stepMap.width();
-  tilemap.tileset = make_tileset(registry, stepMap.tilesets(), renderer, cache);
+  tilemap.tileset = make_tileset(registry, stepMap.tilesets(), graphics);
 
   return tilemap;
 }
@@ -189,13 +185,12 @@ auto make_tilemap(entt::registry& registry,
 
 auto parse_map(entt::registry& registry,
                const step::fs::path& path,
-               cen::renderer& renderer,
-               texture_cache& cache) -> comp::tilemap::entity
+               graphics_context& graphics) -> comp::tilemap::entity
 {
   const auto stepMap = std::make_unique<step::map>(path);
 
   const comp::tilemap::entity mapEntity{registry.create()};
-  auto& tilemap = make_tilemap(registry, mapEntity, *stepMap, renderer, cache);
+  auto& tilemap = make_tilemap(registry, mapEntity, *stepMap, graphics);
 
   if (const auto* props = stepMap->get_properties()) {
     assert(props);

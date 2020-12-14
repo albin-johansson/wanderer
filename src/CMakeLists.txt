@@ -25,6 +25,8 @@ set(SOURCE_FILES
     core/centurion_utils.hpp
     core/cursor_manager.cpp
     core/cursor_manager.hpp
+    core/graphics_context.cpp
+    core/graphics_context.hpp
 
     core/registry/make_registry.cpp
     core/registry/make_registry.hpp

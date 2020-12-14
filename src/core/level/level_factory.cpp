@@ -21,8 +21,7 @@ using player_entity = comp::player::entity;
 
 void level_factory::load_spawnpoint(level& level,
                                     const comp::spawnpoint& spawnpoint,
-                                    cen::renderer& renderer,
-                                    texture_cache& cache)
+                                    graphics_context& graphics)
 {
   const auto& tilemap = level.get<comp::tilemap>(level.tilemap());
   switch (spawnpoint.type) {
@@ -30,8 +29,7 @@ void level_factory::load_spawnpoint(level& level,
       const auto id = sys::humanoid::add_player(level.m_registry,
                                                 level.m_aabbTree,
                                                 spawnpoint.position,
-                                                renderer,
-                                                cache);
+                                                graphics);
       level.get<comp::depth_drawable>(id).layer = tilemap.humanoidLayer;
       level.m_player = player_entity{id};
       level.m_playerSpawnPosition = spawnpoint.position;
@@ -41,20 +39,17 @@ void level_factory::load_spawnpoint(level& level,
       const auto id = sys::humanoid::add_skeleton(level.m_registry,
                                                   level.m_aabbTree,
                                                   spawnpoint.position,
-                                                  renderer,
-                                                  cache);
+                                                  graphics);
       level.get<comp::depth_drawable>(id).layer = tilemap.humanoidLayer;
       break;
     }
   }
 }
 
-void level_factory::setup_spawnpoints(level& level,
-                                      cen::renderer& renderer,
-                                      texture_cache& cache)
+void level_factory::setup_spawnpoints(level& level, graphics_context& graphics)
 {
   level.each<comp::spawnpoint>([&](const comp::spawnpoint& spawnpoint) {
-    load_spawnpoint(level, spawnpoint, renderer, cache);
+    load_spawnpoint(level, spawnpoint, graphics);
   });
 }
 
@@ -84,14 +79,13 @@ void level_factory::init_tile_objects(entt::registry& registry,
 }
 
 auto level_factory::make(const std::filesystem::path& path,
-                         cen::renderer& renderer,
-                         texture_cache& cache) -> std::unique_ptr<level>
+                         graphics_context& graphics) -> std::unique_ptr<level>
 {
   auto result = level::make(make_registry());
   auto& registry = result->registry();
 
   result->m_aabbTree.set_thickness_factor(std::nullopt);
-  result->m_tilemap = parse_map(registry, path, renderer, cache);
+  result->m_tilemap = parse_map(registry, path, graphics);
 
   assert(registry.view<comp::tileset>().size() == 1);
   result->m_tileset = tileset_entity{registry.view<comp::tileset>().front()};
@@ -103,7 +97,7 @@ auto level_factory::make(const std::filesystem::path& path,
     result->m_viewport = sys::viewport::make_viewport(registry, levelSize);
   }
 
-  setup_spawnpoints(*result, renderer, cache);
+  setup_spawnpoints(*result, graphics);
   init_tile_objects(registry, tilemap, result->m_aabbTree);
   setup_portals(*result);
 

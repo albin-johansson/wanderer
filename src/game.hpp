@@ -4,13 +4,13 @@
 #include <cen/mouse_state.hpp>
 #include <cen/renderer.hpp>
 
+#include "cursor_manager.hpp"
 #include "delta.hpp"
+#include "graphics_context.hpp"
 #include "level.hpp"
 #include "level_manager.hpp"
 #include "menu_manager.hpp"
 #include "switch_map_event.hpp"
-#include "texture_cache.hpp"
-#include "cursor_manager.hpp"
 
 namespace wanderer {
 
@@ -30,9 +30,9 @@ class game final
   /**
    * \brief Creates a `game` instance.
    *
-   * \param renderer the renderer used to create the initial textures.
+   * \param graphics the associated graphics context.
    */
-  explicit game(cen::renderer& renderer);
+  explicit game(graphics_context& graphics);
 
   ~game() noexcept;
 
@@ -71,7 +71,6 @@ class game final
 
  private:
   entt::dispatcher m_dispatcher;
-  texture_cache m_imageCache;
   level_manager m_levels;
   menu_manager m_menus;
   cursor_manager m_cursors;

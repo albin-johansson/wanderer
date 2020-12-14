@@ -15,7 +15,6 @@
 #include "humanoid_state.hpp"
 #include "movable.hpp"
 #include "texture_handle.hpp"
-#include "texture_loader.hpp"
 
 namespace wanderer::sys::humanoid {
 namespace {
@@ -104,12 +103,10 @@ void add_hitbox(entt::registry& registry,
 auto add_player(entt::registry& registry,
                 aabb_tree& tree,
                 const vector2f& position,
-                cen::renderer& renderer,
-                texture_cache& cache) -> entt::entity
+                graphics_context& graphics) -> entt::entity
 {
   constexpr auto id = "player"_hs;
-  const auto handle =
-      cache.load<texture_loader>(id, renderer, "resource/img/player2.png");
+  const auto handle = graphics.load_texture(id, "resource/img/player2.png");
 
   const auto player = make_humanoid(registry, tree, handle);
   registry.emplace<comp::player>(player);
@@ -127,12 +124,10 @@ auto add_player(entt::registry& registry,
 auto add_skeleton(entt::registry& registry,
                   aabb_tree& tree,
                   const vector2f& position,
-                  cen::renderer& renderer,
-                  texture_cache& cache) -> entt::entity
+                  graphics_context& graphics) -> entt::entity
 {
   constexpr auto id = "skeleton"_hs;
-  const auto handle =
-      cache.load<texture_loader>(id, renderer, "resource/img/skeleton.png");
+  const auto handle = graphics.load_texture(id, "resource/img/skeleton.png");
 
   const auto skeleton = make_humanoid(registry, tree, handle);
 

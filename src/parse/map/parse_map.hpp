@@ -1,17 +1,16 @@
 #pragma once
 
-#include <cen/renderer.hpp>
 #include <entt.hpp>
 #include <step_types.hpp>
 
-#include "texture_cache.hpp"
+#include "graphics_context.hpp"
 #include "tilemap.hpp"
 
 namespace wanderer {
 
 [[nodiscard]] auto parse_map(entt::registry& registry,
                              const step::fs::path& path,
-                             cen::renderer& renderer,
-                             texture_cache& cache) -> comp::tilemap::entity;
+                             graphics_context& graphics)
+    -> comp::tilemap::entity;
 
 }

@@ -5,22 +5,20 @@
 #include "index_to_matrix.hpp"
 #include "make_tile.hpp"
 #include "texture_handle.hpp"
-#include "texture_loader.hpp"
 #include "tileset.hpp"
 
 namespace wanderer {
 namespace {
 
-[[nodiscard]] auto load_image(std::string_view path,
-                              texture_cache& cache,
-                              cen::renderer& renderer) -> texture_handle
+[[nodiscard]] auto load_image(std::string_view path, graphics_context& graphics)
+    -> texture_handle
 {
   using namespace std::string_literals;
 
   const auto result = "resource/map/"s.append(path);
   const entt::hashed_string id{result.c_str()};
 
-  auto handle = cache.load<texture_loader>(id, renderer, result.c_str());
+  auto handle = graphics.load_texture(id, result.c_str());
   assert(handle);
 
   return handle;
@@ -73,8 +71,7 @@ void parse_fancy_tiles(entt::registry& registry,
 
 auto make_tileset(entt::registry& registry,
                   const tileset_collection& tilesets,
-                  cen::renderer& renderer,
-                  texture_cache& imageCache) -> comp::tileset::entity
+                  graphics_context& graphics) -> comp::tileset::entity
 {
   const comp::tileset::entity entity{registry.create()};
 
@@ -83,7 +80,7 @@ auto make_tileset(entt::registry& registry,
     create_tiles(registry,
                  tileset,
                  *stepTileset,
-                 load_image(stepTileset->image(), imageCache, renderer));
+                 load_image(stepTileset->image(), graphics));
     parse_fancy_tiles(registry, tileset, *stepTileset);
   }
 

@@ -7,6 +7,7 @@
 
 #include "game.hpp"
 #include "game_loop.hpp"
+#include "graphics_context.hpp"
 
 namespace wanderer {
 
@@ -43,10 +44,10 @@ class wanderer_app final
   auto run() -> int;
 
  private:
-  cen::window m_window;      ///< Application window.
-  cen::renderer m_renderer;  ///< Renderer used for all rendering.
-  game m_game;               ///< Provides game logic and game state.
-  game_loop m_loop;          ///< Provides game loop logic and book-keeping.
+  cen::window m_window;         ///< Application window.
+  graphics_context m_graphics;  ///< Graphics context used for all rendering.
+  game m_game;                  ///< Provides game logic and game state.
+  game_loop m_loop;             ///< Provides game loop logic and book-keeping.
   cen::mouse_state m_mouseState;  ///< Provides info about mouse state.
   cen::key_state m_keyState;      ///< Provides info about keyboard state.
 

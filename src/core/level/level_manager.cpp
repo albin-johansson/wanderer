@@ -8,11 +8,11 @@
 
 namespace wanderer {
 
-level_manager::level_manager(cen::renderer& renderer, texture_cache& cache)
+level_manager::level_manager(graphics_context& graphics)
 {
   m_levels.reserve(5);
 
-  auto world = level_factory::make("resource/map/world.json", renderer, cache);
+  auto world = level_factory::make("resource/map/world.json", graphics);
   m_world = world->id();
   world->get<comp::viewport>(world->viewport()).keepInBounds = true;
 
@@ -20,7 +20,7 @@ level_manager::level_manager(cen::renderer& renderer, texture_cache& cache)
       [&, this](const entt::entity e, comp::portal& portal) {
         if (portal.target != m_world) {
           const auto path = "resource/map" / portal.path;
-          auto level = level_factory::make(path, renderer, cache);
+          auto level = level_factory::make(path, graphics);
           m_levels.emplace(level->id(), std::move(level));
         }
       });

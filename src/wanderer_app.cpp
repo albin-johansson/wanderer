@@ -3,7 +3,6 @@
 #include <cen/event.hpp>
 
 #include "game_constants.hpp"
-#include "make_renderer.hpp"
 
 namespace wanderer {
 
@@ -15,8 +14,8 @@ wanderer_app::wanderer_app()
     : m_window{"Wanderer", cen::screen::size()}
     ,
 #endif
-    m_renderer{make_renderer(m_window)}
-    , m_game{m_renderer}
+    m_graphics{m_window}
+    , m_game{m_graphics}
 {
 #ifdef NDEBUG
   m_window.set_fullscreen(true);
@@ -28,7 +27,8 @@ wanderer_app::wanderer_app()
 
 auto wanderer_app::handle_input() -> bool
 {
-  m_mouseState.update(m_renderer.output_width(), m_renderer.output_height());
+  const auto& renderer = m_graphics.renderer();
+  m_mouseState.update(renderer.output_width(), renderer.output_height());
   m_keyState.update();
   cen::event::refresh();
 
@@ -51,14 +51,17 @@ auto wanderer_app::run() -> int
     m_game.tick(dt);
   };
 
+  auto& renderer = m_graphics.renderer();
+
   m_window.show();
   m_loop.fetch_current_time();
+
   while (m_loop.running()) {
     m_loop.tick(input, logic);
 
-    m_renderer.clear_with(cen::colors::black);
-    m_game.render(m_renderer);
-    m_renderer.present();
+    renderer.clear_with(cen::colors::black);
+    m_game.render(renderer);
+    renderer.present();
   }
 
   m_window.hide();

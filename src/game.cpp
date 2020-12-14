@@ -17,9 +17,9 @@
 
 namespace wanderer {
 
-game::game(cen::renderer& renderer)
+game::game(graphics_context& graphics)
     : m_dispatcher{make_dispatcher()}
-    , m_levels{renderer, m_imageCache}
+    , m_levels{graphics}
 {
   m_dispatcher.sink<comp::switch_map_event>().connect<&game::on_switch_map>(
       this);
@@ -68,6 +68,7 @@ void game::tick(const delta_t dt)
 void game::render(cen::renderer& renderer)
 {
   auto* level = m_levels.current();
+
   auto& registry = level->registry();
   const auto& tileset = level->tileset_comp();
 
@@ -77,10 +78,7 @@ void game::render(cen::renderer& renderer)
   sys::depthdrawable::update_tile_animations(registry, tileset);
 
   const auto bounds = level->get_render_bounds();
-  sys::layer::render_ground(registry,
-                            tileset,
-                            renderer,
-                            bounds);
+  sys::layer::render_ground(registry, tileset, renderer, bounds);
   sys::depthdrawable::render(registry, renderer, bounds);
 
   if (m_menus.is_blocking()) {
