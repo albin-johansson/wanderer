@@ -31,13 +31,13 @@ void render_hitbox(cen::renderer& renderer, const comp::hitbox& hitbox) noexcept
 
 void update_movable(entt::registry& registry)
 {
-  registry.view<comp::movable, comp::depth_drawable>().each(
-      [](const comp::movable& movable,
-         comp::depth_drawable& drawable) noexcept {
-        drawable.dst.set_x(movable.position.x);
-        drawable.dst.set_y(movable.position.y);
-        drawable.centerY = movable.position.y + (drawable.dst.height() / 2.0f);
-      });
+  const auto view = registry.view<comp::movable, comp::depth_drawable>();
+  view.each([](const comp::movable& movable,
+               comp::depth_drawable& drawable) noexcept {
+    drawable.dst.set_x(movable.position.x);
+    drawable.dst.set_y(movable.position.y);
+    drawable.centerY = movable.position.y + (drawable.dst.height() / 2.0f);
+  });
 }
 
 void sort(entt::registry& registry)
@@ -69,18 +69,18 @@ void render(const entt::registry& registry,
             const comp::render_bounds& bounds)
 {
   const auto boundsRect = to_rect(bounds);
-  registry.view<const comp::depth_drawable>().each(
-      [&](const entt::entity entity,
-          const comp::depth_drawable& drawable) noexcept {
-        if (cen::intersects(boundsRect, drawable.dst)) {
-          renderer.render_t(*drawable.texture, drawable.src, drawable.dst);
+  const auto view = registry.view<const comp::depth_drawable>();
+  view.each([&](const entt::entity entity,
+                const comp::depth_drawable& drawable) noexcept {
+    if (cen::intersects(boundsRect, drawable.dst)) {
+      renderer.render_t(*drawable.texture, drawable.src, drawable.dst);
 #ifndef NDEBUG
-          if (const auto* hitbox = registry.try_get<comp::hitbox>(entity)) {
-            render_hitbox(renderer, *hitbox);
-          }
+      if (const auto* hitbox = registry.try_get<comp::hitbox>(entity)) {
+        render_hitbox(renderer, *hitbox);
+      }
 #endif
-        }
-      });
+    }
+  });
 }
 
 }  // namespace wanderer::sys::depthdrawable
