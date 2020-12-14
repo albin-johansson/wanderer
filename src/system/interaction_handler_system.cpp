@@ -17,7 +17,7 @@ void on_interact(const comp::interact_event& event)
   const auto player = event.player;
 
   if (const auto* iwp = registry->try_get<comp::is_within_portal>(player)) {
-    const auto& portal = registry->get<comp::portal>(iwp->portal);
+    const auto& portal = registry->get<comp::portal>(iwp->portalEntity);
     event.dispatcher->enqueue<comp::switch_map_event>(portal.target.value());
   }
 }
