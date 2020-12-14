@@ -2,6 +2,7 @@
 
 #include <cassert>  // assert
 #include <cen/log.hpp>
+#include <stdexcept>  // runtime_error
 #include <step_map.hpp>
 #include <step_tile_layer.hpp>
 #include <utility>  // move
@@ -35,9 +36,9 @@ void add_ground_layer(entt::registry& registry,
                       const int numColumns,
                       const int layerIndex)
 {
-  const auto layerEntity = registry.create();
+  const comp::tile_layer::entity entity{registry.create()};
 
-  auto& layer = registry.emplace<comp::tile_layer>(layerEntity);
+  auto& layer = registry.emplace<comp::tile_layer>(entity);
   layer.matrix = make_tile_matrix(numRows, numColumns);
   layer.z = layerIndex;
 
@@ -69,6 +70,17 @@ void parse_tile_layer(entt::registry& registry,
   }
 }
 
+[[nodiscard]] auto get_spawnpoint_entity(const step::properties& props)
+{
+  if (props.is("entity", "player")) {
+    return comp::spawnpoint_type::player;
+  } else if (props.is("entity", "skeleton")) {
+    return comp::spawnpoint_type::skeleton;
+  } else {
+    throw std::runtime_error{"Did not recognize spawnpoint type!"};
+  }
+}
+
 void parse_spawnpoint(entt::registry& registry, const step::object& object)
 {
   const auto* props = object.get_properties();
@@ -79,16 +91,26 @@ void parse_spawnpoint(entt::registry& registry, const step::object& object)
   const vector2f position{static_cast<float>(object.x()),
                           static_cast<float>(object.y())};
 
-  maybe<comp::spawnpoint_type> type;
-  if (props->is("entity", "player")) {
-    type = comp::spawnpoint_type::player;
-  } else if (props->is("entity", "skeleton")) {
-    type = comp::spawnpoint_type::skeleton;
-  } else {
-    cen::log::warn("Did not recognize spawnpoint type!");
-  }
+  registry.emplace<comp::spawnpoint>(registry.create(),
+                                     get_spawnpoint_entity(*props),
+                                     position);
+}
 
-  registry.emplace<comp::spawnpoint>(registry.create(), type.value(), position);
+[[nodiscard]] auto make_portal_hitbox(const step::object& object)
+    -> comp::hitbox
+{
+  const cen::farea size{static_cast<float>(object.width()),
+                        static_cast<float>(object.height())};
+  const comp::subhitbox subhitbox{{}, size};
+
+  auto hitbox = sys::hitbox::create({subhitbox});
+  hitbox.enabled = false;
+
+  const vector2f pos{static_cast<float>(object.x()),
+                     static_cast<float>(object.y())};
+  sys::hitbox::set_position(hitbox, pos);
+
+  return hitbox;
 }
 
 void parse_portal(entt::registry& registry, const step::object& object)
@@ -106,20 +128,7 @@ void parse_portal(entt::registry& registry, const step::object& object)
   portal.target = map_id{props->get("target").get<int>()};
   portal.path = props->get("path").get<step::file>().get();
 
-  const auto x = static_cast<float>(object.x());
-  const auto y = static_cast<float>(object.y());
-  const auto width = static_cast<float>(object.width());
-  const auto height = static_cast<float>(object.height());
-
-  comp::subhitbox shb;
-  shb.offset = {};
-  shb.size = {width, height};
-
-  auto hitbox = sys::hitbox::create({shb});
-  sys::hitbox::set_position(hitbox, {x, y});
-  hitbox.enabled = false;
-
-  registry.emplace<comp::hitbox>(entity, std::move(hitbox));
+  registry.emplace<comp::hitbox>(entity, make_portal_hitbox(object));
 }
 
 void parse_object_group(entt::registry& registry,
@@ -140,10 +149,10 @@ void parse_layers(entt::registry& registry,
 {
   int index{0};
   for (const auto& stepLayer : layers) {
-    const auto* properties = stepLayer.get_properties();
+    const auto* props = stepLayer.get_properties();
 
     if (const auto* tileLayer = stepLayer.try_as<step::tile_layer>()) {
-      parse_tile_layer(registry, tilemap, *tileLayer, properties, index);
+      parse_tile_layer(registry, tilemap, *tileLayer, props, index);
     } else if (const auto* group = stepLayer.try_as<step::object_group>()) {
       parse_object_group(registry, *group);
     }
@@ -158,36 +167,50 @@ void parse_layers(entt::registry& registry,
       });
 }
 
+
+auto make_tilemap(entt::registry& registry,
+                  const comp::tilemap::entity mapEntity,
+                  const step::map& stepMap,
+                  cen::renderer& renderer,
+                  texture_cache& cache) -> comp::tilemap&
+{
+  auto& tilemap = registry.emplace<comp::tilemap>(mapEntity);
+
+  tilemap.width = static_cast<float>(stepMap.width()) * g_tileSize<float>;
+  tilemap.height = static_cast<float>(stepMap.height()) * g_tileSize<float>;
+  tilemap.rows = stepMap.height();
+  tilemap.cols = stepMap.width();
+  tilemap.tileset = make_tileset(registry, stepMap.tilesets(), renderer, cache);
+
+  return tilemap;
+}
+
 }  // namespace
 
 auto parse_map(entt::registry& registry,
                const step::fs::path& path,
                cen::renderer& renderer,
-               texture_cache& imageCache) -> comp::tilemap::entity
+               texture_cache& cache) -> comp::tilemap::entity
 {
   const auto stepMap = std::make_unique<step::map>(path);
-  const auto mapEntity = registry.create();
 
-  auto& tilemap = registry.emplace<comp::tilemap>(mapEntity);
-  tilemap.width = static_cast<float>(stepMap->width()) * g_tileSize<float>;
-  tilemap.height = static_cast<float>(stepMap->height()) * g_tileSize<float>;
-  tilemap.rows = stepMap->height();
-  tilemap.cols = stepMap->width();
-  tilemap.tileset =
-      make_tileset(registry, stepMap->tilesets(), renderer, imageCache);
+  const comp::tilemap::entity mapEntity{registry.create()};
+  auto& tilemap = make_tilemap(registry, mapEntity, *stepMap, renderer, cache);
 
-  const auto* props = stepMap->get_properties();
-  assert(props->has("id"));
-  assert(props->get("id").is<int>());
-  assert(props->has("humanoidLayer"));
-  assert(props->get("humanoidLayer").is<int>());
+  if (const auto* props = stepMap->get_properties()) {
+    assert(props);
+    assert(props->has("id"));
+    assert(props->get("id").is<int>());
+    assert(props->has("humanoidLayer"));
+    assert(props->get("humanoidLayer").is<int>());
 
-  tilemap.id = map_id{props->get("id").get<int>()};
-  tilemap.humanoidLayer = props->get("humanoidLayer").get<int>();
+    tilemap.id = map_id{props->get("id").get<int>()};
+    tilemap.humanoidLayer = props->get("humanoidLayer").get<int>();
+  }
 
   parse_layers(registry, tilemap, stepMap->layers());
 
-  return comp::tilemap::entity{mapEntity};
+  return mapEntity;
 }
 
 }  // namespace wanderer
