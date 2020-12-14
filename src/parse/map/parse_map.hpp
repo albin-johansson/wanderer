@@ -12,7 +12,6 @@ namespace wanderer {
 [[nodiscard]] auto parse_map(entt::registry& registry,
                              const step::fs::path& path,
                              cen::renderer& renderer,
-                             texture_cache& cache)
-    -> comp::tilemap::entity;
+                             texture_cache& cache) -> comp::tilemap::entity;
 
 }
