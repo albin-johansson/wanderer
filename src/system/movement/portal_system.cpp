@@ -1,32 +1,21 @@
 #include "portal_system.hpp"
 
-#include "hitbox.hpp"
-#include "hitbox_system.hpp"
 #include "portal.hpp"
+#include "update_triggers.hpp"
 
 namespace wanderer::sys::portal {
 
-void update(entt::registry& registry, const comp::player::entity player)
+void update_triggers(entt::registry& registry, comp::player::entity player)
 {
-  const auto& playerHitbox = registry.get<comp::hitbox>(player);
-  const auto view = registry.view<comp::portal, comp::hitbox>();
-  view.each([&](const entt::entity e,
-                const comp::portal& portal,
-                comp::hitbox& hitbox) {
-    hitbox.enabled = true;
+  const auto removePredicate =
+      [](const comp::is_within_portal& isWithinTrigger,
+         const comp::portal::entity portalEntity) noexcept {
+        return isWithinTrigger.portalEntity == portalEntity;
+      };
 
-    if (sys::hitbox::intersects(playerHitbox, hitbox)) {
-      registry.emplace_or_replace<comp::is_within_portal>(player, e);
-
-    } else if (const auto* iwp =
-                   registry.try_get<comp::is_within_portal>(player)) {
-      if (iwp->portal == e) {
-        registry.remove<comp::is_within_portal>(player);
-      }
-    }
-
-    hitbox.enabled = false;
-  });
+  sys::update_triggers<comp::portal, comp::is_within_portal>(registry,
+                                                             player,
+                                                             removePredicate);
 }
 
 }  // namespace wanderer::sys::portal

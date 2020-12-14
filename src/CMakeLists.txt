@@ -116,6 +116,7 @@ set(SOURCE_FILES
     system/render_bounds_system.hpp
     system/interaction_handler_system.cpp
     system/interaction_handler_system.hpp
+    system/update_triggers.hpp
 
     system/movement/movement_system.cpp
     system/movement/movement_system.hpp
@@ -139,6 +140,9 @@ set(SOURCE_FILES
     system/layer/layer_rendering_system.cpp
     system/layer/layer_rendering_system.hpp
     system/layer/layer_system.hpp
+
+    system/inventory_system.cpp
+    system/inventory_system.hpp
 
     system/humanoid/humanoid_animation_system.cpp
     system/humanoid/humanoid_animation_system.hpp

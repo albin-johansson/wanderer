@@ -4,7 +4,7 @@
 
 #include "player.hpp"
 
-namespace wanderer::sys::portal {
+namespace wanderer::sys::inventory {
 
 void update_triggers(entt::registry& registry, comp::player::entity player);
 

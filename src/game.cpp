@@ -6,6 +6,7 @@
 #include "humanoid_animation_system.hpp"
 #include "humanoid_state_system.hpp"
 #include "input_system.hpp"
+#include "inventory_system.hpp"
 #include "layer_rendering_system.hpp"
 #include "level_factory.hpp"
 #include "level_switch_animation.hpp"
@@ -65,7 +66,8 @@ void game::tick(const delta_t dt)
 
     sys::movement::update(*level, dt);
     sys::depthdrawable::update_movable(registry);
-    sys::portal::update(registry, level->player());
+    sys::portal::update_triggers(registry, level->player());
+    sys::inventory::update_triggers(registry, level->player());
 
     sys::animated::update(registry);
     sys::viewport::update(*level, level->player(), dt);
