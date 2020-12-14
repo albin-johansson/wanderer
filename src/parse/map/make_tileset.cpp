@@ -2,7 +2,6 @@
 
 #include <cassert>  // assert
 
-#include "animated.hpp"
 #include "index_to_matrix.hpp"
 #include "make_tile.hpp"
 #include "texture_handle.hpp"
@@ -27,6 +26,19 @@ namespace {
   return handle;
 }
 
+[[nodiscard]] auto get_source_rect(const int index,
+                                   const int nColumns,
+                                   const int tileWidth,
+                                   const int tileHeight) noexcept -> cen::irect
+{
+  const auto [row, col] = index_to_matrix(index, nColumns);
+
+  const cen::irect src{{col * tileWidth, row * tileHeight},
+                       {tileWidth, tileHeight}};
+
+  return src;
+}
+
 void create_tiles(entt::registry& registry,
                   comp::tileset& tileset,
                   const step::tileset& stepTileset,
@@ -34,20 +46,26 @@ void create_tiles(entt::registry& registry,
 {
   assert(sheet);
 
+  const auto tileCount = stepTileset.tile_count();
   const auto tileWidth = stepTileset.tile_width();
   const auto tileHeight = stepTileset.tile_height();
-  const auto tileCount = stepTileset.tile_count();
 
   auto id = static_cast<tile_id>(stepTileset.first_gid().get());
   for (auto index = 0; index < tileCount; ++index, ++id) {
-    const auto [row, col] = index_to_matrix(index, stepTileset.columns());
+    const auto src =
+        get_source_rect(index, stepTileset.columns(), tileWidth, tileHeight);
+    tileset.tiles.emplace(id, make_basic_tile(registry, id, sheet, src));
+  }
+}
 
-    const cen::irect src{{col * tileWidth, row * tileHeight},
-                         {tileWidth, tileHeight}};
-
-    const auto tileEntity = make_basic_tile(registry, id, sheet, src);
-
-    tileset.tiles.emplace(id, tileEntity);
+void parse_fancy_tiles(entt::registry& registry,
+                       comp::tileset& tileset,
+                       const step::tileset& stepTileset)
+{
+  const auto first = static_cast<tile_id>(stepTileset.first_gid().get());
+  for (const auto& stepTile : stepTileset.tiles()) {
+    const auto gid = first + static_cast<tile_id>(stepTile.id().get());
+    parse_fancy_tile(registry, tileset.tiles.at(gid), stepTile, first);
   }
 }
 
@@ -58,22 +76,18 @@ auto make_tileset(entt::registry& registry,
                   cen::renderer& renderer,
                   texture_cache& imageCache) -> comp::tileset::entity
 {
-  const auto entity = registry.create();
+  const comp::tileset::entity entity{registry.create()};
 
   auto& tileset = registry.emplace<comp::tileset>(entity);
-
   for (const auto& stepTileset : tilesets) {
-    const auto handle = load_image(stepTileset->image(), imageCache, renderer);
-    create_tiles(registry, tileset, *stepTileset, handle);
-
-    const auto firstGid = static_cast<tile_id>(stepTileset->first_gid().get());
-    for (const auto& stepTile : stepTileset->tiles()) {
-      const auto gid = firstGid + static_cast<tile_id>(stepTile.id().get());
-      parse_fancy_tile(registry, tileset.tiles.at(gid), stepTile, firstGid);
-    }
+    create_tiles(registry,
+                 tileset,
+                 *stepTileset,
+                 load_image(stepTileset->image(), imageCache, renderer));
+    parse_fancy_tiles(registry, tileset, *stepTileset);
   }
 
-  return comp::tileset::entity{entity};
+  return entity;
 }
 
 }  // namespace wanderer
