@@ -1,6 +1,6 @@
 #pragma once
 
-#include "named_type.hpp"
+#include <named_type.hpp>
 
 namespace wanderer {
 namespace detail {
