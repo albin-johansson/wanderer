@@ -5,7 +5,6 @@
 
 #include "texture_cache.hpp"
 #include "texture_handle.hpp"
-#include "texture_loader.hpp"
 
 namespace wanderer {
 
@@ -14,11 +13,7 @@ class graphics_context final
  public:
   explicit graphics_context(const cen::window& window);
 
-  auto load_texture(const entt::id_type id, cen::czstring path)
-      -> texture_handle
-  {
-    return m_textures.load<texture_loader>(id, m_renderer, path);
-  }
+  auto load_texture(entt::id_type id, cen::czstring path) -> texture_handle;
 
   [[nodiscard]] auto renderer() noexcept -> cen::renderer&
   {
