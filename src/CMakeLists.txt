@@ -96,6 +96,7 @@ set(SOURCE_FILES
     component/tile_object.hpp
     component/portal.hpp
     component/level_switch_animation.hpp
+    component/object.hpp
 
     component/event/begin_attack_event.hpp
     component/event/end_attack_event.hpp
