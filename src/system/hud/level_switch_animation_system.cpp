@@ -1,5 +1,7 @@
 #include "level_switch_animation_system.hpp"
 
+#include <cen/screen.hpp>
+
 #include "game_constants.hpp"
 #include "level_switch_animation.hpp"
 
@@ -58,7 +60,7 @@ void start_level_fade_animation(entt::registry& registry, const map_id map)
   auto& anim = registry.emplace<comp::level_switch_animation>(entity);
   anim.map = map;
   anim.step = 0;
-  anim.nSteps = 100;
+  anim.nSteps = static_cast<int>(0.5 * cen::screen::refresh_rate());
 
   anim.hStepSize =
       (g_logicalWidth<float> / 2.0f) / static_cast<float>(anim.nSteps);
