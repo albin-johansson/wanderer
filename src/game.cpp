@@ -8,6 +8,8 @@
 #include "input_system.hpp"
 #include "layer_rendering_system.hpp"
 #include "level_factory.hpp"
+#include "level_switch_animation.hpp"
+#include "level_switch_animation_system.hpp"
 #include "make_dispatcher.hpp"
 #include "movable.hpp"
 #include "movement_system.hpp"
@@ -21,8 +23,11 @@ game::game(graphics_context& graphics)
     : m_dispatcher{make_dispatcher()}
     , m_levels{graphics}
 {
-  m_dispatcher.sink<comp::switch_map_event>().connect<&game::on_switch_map>(
-      this);
+  // clang-format off
+  m_dispatcher.sink<comp::switch_map_event>().connect<&game::on_switch_map>(this);
+  m_dispatcher.sink<comp::level_faded_in_event>().connect<&game::on_level_animation_faded_in>(this);
+  m_dispatcher.sink<comp::level_faded_out_event>().connect<&game::on_level_animation_faded_out>(this);
+  // clang-format on
 }
 
 game::~game() noexcept
@@ -76,10 +81,12 @@ void game::render(cen::renderer& renderer)
 
   sys::depthdrawable::sort(registry);
   sys::depthdrawable::update_tile_animations(registry, tileset);
+  sys::hud::update_level_switch_animations(registry, m_dispatcher);
 
   const auto bounds = level->get_render_bounds();
   sys::layer::render_ground(registry, tileset, renderer, bounds);
   sys::depthdrawable::render(registry, renderer, bounds);
+  sys::hud::render_level_switch_animations(registry, renderer);
 
   if (m_menus.is_blocking()) {
     m_menus.render(renderer);
@@ -88,20 +95,35 @@ void game::render(cen::renderer& renderer)
 
 void game::on_switch_map(const comp::switch_map_event& event)
 {
+  auto* current = m_levels.current();
+  auto& registry = current->registry();
+
+  sys::hud::start_level_fade_animation(registry, event.map);
+}
+
+void game::on_level_animation_faded_in(const comp::level_faded_in_event& event)
+{
   {
     auto* current = m_levels.current();
+    auto& registry = current->registry();
+
+    registry.clear<comp::level_switch_animation>();
 
     auto& movable = current->get<comp::movable>(current->player());
     movable.velocity.zero();
 
-    sys::viewport::center_on(current->registry(),
-                             current->viewport(),
-                             movable.position);
+    sys::viewport::center_on(registry, current->viewport(), movable.position);
   }
 
   m_levels.switch_to(event.map);
+  auto* current = m_levels.current();
+  auto& registry = current->registry();
+  sys::hud::end_level_fade_animation(registry, event);
+}
 
-  // TODO sync player state between levels (HP, inventory, ...)
+void game::on_level_animation_faded_out(comp::level_faded_out_event)
+{
+  m_levels.current()->registry().clear<comp::level_switch_animation>();
 }
 
 }  // namespace wanderer

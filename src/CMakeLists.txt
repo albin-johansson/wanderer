@@ -95,6 +95,7 @@ set(SOURCE_FILES
     component/spawnpoint.hpp
     component/tile_object.hpp
     component/portal.hpp
+    component/level_switch_animation.hpp
 
     component/event/begin_attack_event.hpp
     component/event/end_attack_event.hpp
@@ -102,6 +103,7 @@ set(SOURCE_FILES
     component/event/end_humanoid_move_event.hpp
     component/event/interact_event.hpp
     component/event/switch_map_event.hpp
+    component/event/level_fade_events.hpp
 
     system/depth_drawables_system.cpp
     system/depth_drawables_system.hpp
@@ -152,6 +154,9 @@ set(SOURCE_FILES
     system/input/move_input_system.hpp
     system/input/idle_input_system.cpp
     system/input/idle_input_system.hpp
+
+    system/hud/level_switch_animation_system.cpp
+    system/hud/level_switch_animation_system.hpp
 
     parse/map/make_tile.cpp
     parse/map/make_tile.hpp
@@ -232,6 +237,7 @@ target_include_directories(${WANDERER_LIB_TARGET}
     PUBLIC system/collision
     PUBLIC system/menu
     PUBLIC system/movement
+    PUBLIC system/hud
     PUBLIC menu
     PUBLIC parse
     PUBLIC parse/map

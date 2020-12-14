@@ -8,6 +8,7 @@
 #include "delta.hpp"
 #include "graphics_context.hpp"
 #include "level.hpp"
+#include "level_fade_events.hpp"
 #include "level_manager.hpp"
 #include "menu_manager.hpp"
 #include "switch_map_event.hpp"
@@ -76,6 +77,10 @@ class game final
   cursor_manager m_cursors;
 
   void on_switch_map(const comp::switch_map_event& event);
+
+  void on_level_animation_faded_in(const comp::level_faded_in_event& event);
+
+  void on_level_animation_faded_out(comp::level_faded_out_event);
 };
 
 }  // namespace wanderer
