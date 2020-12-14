@@ -60,6 +60,8 @@ void game::tick(const delta_t dt)
 
     sys::humanoid::update_animation(registry);
     sys::tile::update_animation(registry);
+    sys::depthdrawable::update_tile_animations(registry, level->tileset_comp());
+    sys::hud::update_level_switch_animations(registry, m_dispatcher);
 
     sys::movement::update(*level, dt);
     sys::depthdrawable::update_movable(registry);
@@ -67,25 +69,22 @@ void game::tick(const delta_t dt)
 
     sys::animated::update(registry);
     sys::viewport::update(*level, level->player(), dt);
+
+    sys::depthdrawable::sort(registry);
   }
 }
 
 void game::render(cen::renderer& renderer)
 {
   auto* level = m_levels.current();
-
   auto& registry = level->registry();
-  const auto& tileset = level->tileset_comp();
 
   sys::viewport::translate(registry, level->viewport(), renderer);
 
-  sys::depthdrawable::sort(registry);
-  sys::depthdrawable::update_tile_animations(registry, tileset);
-  sys::hud::update_level_switch_animations(registry, m_dispatcher);
-
   const auto bounds = level->get_render_bounds();
-  sys::layer::render_ground(registry, tileset, renderer, bounds);
+  sys::layer::render_ground(registry, level->tileset_comp(), renderer, bounds);
   sys::depthdrawable::render(registry, renderer, bounds);
+
   sys::hud::render_level_switch_animations(registry, renderer);
 
   if (m_menus.is_blocking()) {
