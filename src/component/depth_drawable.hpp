@@ -3,7 +3,6 @@
 #include <cen/rect.hpp>
 
 #include "depth.hpp"
-#include "maybe.hpp"
 #include "texture_handle.hpp"
 
 namespace wanderer::comp {
@@ -28,9 +27,9 @@ namespace wanderer::comp {
 struct depth_drawable final
 {
   texture_handle texture;  ///< Handle to associated texture.
+  int layer;               ///< Layer index.
   depth_t depth{5};        ///< Render order heuristic.
   float centerY{0};  ///< The y-coordinate of the center point of the entity.
-  maybe<int> layer;  ///< Optional layer index.
   cen::irect src{};  ///< Region of associated texture that will be rendered.
   cen::frect dst{};  ///< Position and size of the rendered texture, in pixels.
 };
