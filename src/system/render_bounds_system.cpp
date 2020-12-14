@@ -1,4 +1,4 @@
-#include "get_render_bounds.hpp"
+#include "render_bounds_system.hpp"
 
 #include "game_constants.hpp"
 
@@ -63,6 +63,19 @@ auto get_render_bounds(const entt::registry& registry,
   bounds.maxRow = calculate_max_row(viewport.bounds.max_y(), rows);
 
   return bounds;
+}
+
+auto to_rect(const comp::render_bounds& bounds) noexcept -> cen::frect
+{
+  const auto x = static_cast<float>(bounds.minCol) * g_tileSize<float>;
+  const auto y = static_cast<float>(bounds.minRow) * g_tileSize<float>;
+
+  const auto w =
+      static_cast<float>(bounds.maxCol - bounds.minCol) * g_tileSize<float>;
+  const auto h =
+      static_cast<float>(bounds.maxRow - bounds.minRow) * g_tileSize<float>;
+
+  return cen::frect{{x, y}, {w, h}};
 }
 
 }  // namespace wanderer::sys

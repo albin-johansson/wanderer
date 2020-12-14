@@ -102,8 +102,8 @@ set(SOURCE_FILES
     system/depth_drawables_system.hpp
     system/animation_system.cpp
     system/animation_system.hpp
-    system/get_render_bounds.cpp
-    system/get_render_bounds.hpp
+    system/render_bounds_system.cpp
+    system/render_bounds_system.hpp
     system/interaction_handler_system.cpp
     system/interaction_handler_system.hpp
 

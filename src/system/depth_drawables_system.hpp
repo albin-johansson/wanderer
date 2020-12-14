@@ -3,6 +3,7 @@
 #include <cen/renderer.hpp>
 #include <entt.hpp>
 
+#include "render_bounds.hpp"
 #include "tilemap.hpp"
 
 namespace wanderer::sys::depthdrawable {
@@ -46,9 +47,12 @@ void update_tile_animations(entt::registry& registry,
  *
  * \param registry the registry that holds the depth drawables.
  * \param renderer the renderer that will be used.
+ * \param bounds the render bounds that will be used.
  *
  * \since 0.1.0
  */
-void render(const entt::registry& registry, cen::renderer& renderer);
+void render(const entt::registry& registry,
+            cen::renderer& renderer,
+            const comp::render_bounds& bounds);
 
 }  // namespace wanderer::sys::depthdrawable

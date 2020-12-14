@@ -76,11 +76,12 @@ void game::render(cen::renderer& renderer)
   sys::depthdrawable::sort(registry);
   sys::depthdrawable::update_tile_animations(registry, tileset);
 
+  const auto bounds = level->get_render_bounds();
   sys::layer::render_ground(registry,
                             tileset,
                             renderer,
-                            level->get_render_bounds());
-  sys::depthdrawable::render(registry, renderer);
+                            bounds);
+  sys::depthdrawable::render(registry, renderer, bounds);
 
   if (m_menus.is_blocking()) {
     m_menus.render(renderer);

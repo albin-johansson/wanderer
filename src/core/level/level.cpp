@@ -2,7 +2,7 @@
 
 #include <utility>  // move
 
-#include "get_render_bounds.hpp"
+#include "render_bounds_system.hpp"
 
 namespace wanderer {
 

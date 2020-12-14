@@ -7,6 +7,7 @@
 #include "depth_drawable.hpp"
 #include "hitbox.hpp"
 #include "movable.hpp"
+#include "render_bounds_system.hpp"
 #include "tile_object.hpp"
 #include "tile_rendering_system.hpp"
 
@@ -63,18 +64,22 @@ void update_tile_animations(entt::registry& registry,
       });
 }
 
-void render(const entt::registry& registry, cen::renderer& renderer)
+void render(const entt::registry& registry,
+            cen::renderer& renderer,
+            const comp::render_bounds& bounds)
 {
-  // TODO only render tile object depth_drawables in bounds
+  const auto boundsRect = to_rect(bounds);
   registry.view<const comp::depth_drawable>().each(
       [&](const entt::entity entity,
           const comp::depth_drawable& drawable) noexcept {
-        renderer.render_t(*drawable.texture, drawable.src, drawable.dst);
+        if (cen::intersects(boundsRect, drawable.dst)) {
+          renderer.render_t(*drawable.texture, drawable.src, drawable.dst);
 #ifndef NDEBUG
-        if (const auto* hitbox = registry.try_get<comp::hitbox>(entity)) {
-          render_hitbox(renderer, *hitbox);
-        }
+          if (const auto* hitbox = registry.try_get<comp::hitbox>(entity)) {
+            render_hitbox(renderer, *hitbox);
+          }
 #endif
+        }
       });
 }
 
