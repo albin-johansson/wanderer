@@ -1,6 +1,5 @@
 #include "add_tile_objects.hpp"
 
-#include <algorithm>  // for_each
 #include <utility>    // move
 
 #include "centurion_utils.hpp"
