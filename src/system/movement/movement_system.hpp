@@ -17,6 +17,6 @@ namespace wanderer::sys::movement {
  * \param level the currently active level.
  * \param dt the delta time.
  */
-void update(level& level, delta dt);
+void update(level& level, delta_t dt);
 
 }  // namespace wanderer::sys::movement

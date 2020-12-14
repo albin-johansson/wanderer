@@ -80,7 +80,7 @@ void set_position(comp::hitbox& hitbox, const vector2f& position) noexcept;
 [[nodiscard]] auto make_next_hitboxes(const comp::movable& movable,
                                       const comp::hitbox& hitbox,
                                       const vector2f& oldPosition,
-                                      delta dt) -> next_hitboxes;
+                                      delta_t dt) -> next_hitboxes;
 
 [[nodiscard]] auto query_collisions(const next_hitboxes& next,
                                     const comp::hitbox& other)

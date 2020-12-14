@@ -48,9 +48,9 @@ class game final
   /**
    * \brief Updates the state of the game.
    *
-   * \param dt the delta time, in seconds.
+   * \param dt the delta_t time, in seconds.
    */
-  void tick(delta dt);
+  void tick(delta_t dt);
 
   /**
    * \brief Renders the game.

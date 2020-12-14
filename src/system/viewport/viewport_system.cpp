@@ -10,7 +10,7 @@ inline constexpr float g_cameraSpeed = 10.0f;
 
 [[nodiscard]] auto next_camera_position(const vector2f& target,
                                         const comp::viewport& viewport,
-                                        const delta dt) -> vector2f
+                                        const delta_t dt) -> vector2f
 {
   const auto boundsX = viewport.bounds.x();
   const auto boundsY = viewport.bounds.y();
@@ -67,7 +67,7 @@ inline constexpr float g_cameraSpeed = 10.0f;
   return {x, y};
 }
 
-void track(comp::viewport& viewport, const vector2f& position, const delta dt)
+void track(comp::viewport& viewport, const vector2f& position, const delta_t dt)
 {
   const auto next = next_camera_position(make_target_vector(position, viewport),
                                          viewport,
@@ -88,7 +88,7 @@ void center_on(entt::registry& registry,
   viewport.bounds.set_y(target.y);
 }
 
-void update(level& level, const entt::entity movableEntity, const delta dt)
+void update(level& level, const entt::entity movableEntity, const delta_t dt)
 {
   const auto& movable = level.get<comp::movable>(movableEntity);
   track(level.viewport_component(), movable.position, dt);

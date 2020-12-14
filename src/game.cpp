@@ -44,7 +44,7 @@ void game::handle_input(const cen::mouse_state& mouseState,
   }
 }
 
-void game::tick(const delta dt)
+void game::tick(const delta_t dt)
 {
   if (!m_menus.is_blocking()) {
     m_dispatcher.update();

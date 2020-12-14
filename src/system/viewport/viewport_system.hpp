@@ -23,7 +23,7 @@ void center_on(entt::registry& registry,
  * \param movableEntity the entity ID for the movable.
  * \param dt the delta time, in seconds.
  */
-void update(level& level, entt::entity movableEntity, delta dt);
+void update(level& level, entt::entity movableEntity, delta_t dt);
 
 void translate(const entt::registry& registry,
                comp::viewport::entity viewportEntity,

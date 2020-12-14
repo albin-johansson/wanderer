@@ -37,7 +37,7 @@ class game_loop final
       }
 
       const auto deltaTime = std::min(frameTime, m_fixedDelta);
-      logic(delta{deltaTime.count()});
+      logic(delta_t{deltaTime.count()});
 
       frameTime -= deltaTime;
 

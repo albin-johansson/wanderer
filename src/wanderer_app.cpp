@@ -47,7 +47,7 @@ auto wanderer_app::run() -> int
     return handle_input();
   };
 
-  const auto logic = [this](const delta dt) {
+  const auto logic = [this](const delta_t dt) {
     m_game.tick(dt);
   };
 
