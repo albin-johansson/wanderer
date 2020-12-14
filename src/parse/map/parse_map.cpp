@@ -7,12 +7,15 @@
 #include <vector>  // vector
 
 #include "add_tile_objects.hpp"
+#include "container_trigger.hpp"
 #include "game_constants.hpp"
 #include "hitbox.hpp"
 #include "hitbox_system.hpp"
 #include "index_to_matrix.hpp"
+#include "inventory.hpp"
 #include "make_tileset.hpp"
 #include "maybe.hpp"
+#include "object.hpp"
 #include "portal.hpp"
 #include "spawnpoint.hpp"
 #include "tile_layer.hpp"
@@ -79,7 +82,9 @@ void parse_tile_layer(entt::registry& registry,
   }
 }
 
-void parse_spawnpoint(entt::registry& registry, const step::object& object)
+void parse_spawnpoint(entt::registry& registry,
+                      const comp::object::entity entity,
+                      const step::object& object)
 {
   const auto* props = object.get_properties();
   assert(props);
@@ -89,12 +94,12 @@ void parse_spawnpoint(entt::registry& registry, const step::object& object)
   const vector2f position{static_cast<float>(object.x()),
                           static_cast<float>(object.y())};
 
-  registry.emplace<comp::spawnpoint>(registry.create(),
+  registry.emplace<comp::spawnpoint>(entity,
                                      get_spawnpoint_entity(*props),
                                      position);
 }
 
-[[nodiscard]] auto make_portal_hitbox(const step::object& object)
+[[nodiscard]] auto make_simple_hitbox(const step::object& object)
     -> comp::hitbox
 {
   const cen::farea size{static_cast<float>(object.width()),
@@ -111,7 +116,9 @@ void parse_spawnpoint(entt::registry& registry, const step::object& object)
   return hitbox;
 }
 
-void parse_portal(entt::registry& registry, const step::object& object)
+void parse_portal(entt::registry& registry,
+                  const comp::object::entity entity,
+                  const step::object& object)
 {
   const auto* props = object.get_properties();
   assert(props);
@@ -120,23 +127,66 @@ void parse_portal(entt::registry& registry, const step::object& object)
   assert(props->has("path"));
   assert(props->get("path").is<step::file>());
 
-  const auto entity = registry.create();
-
   auto& portal = registry.emplace<comp::portal>(entity);
   portal.target = map_id{props->get("target").get<int>()};
   portal.path = props->get("path").get<step::file>().get();
 
-  registry.emplace<comp::hitbox>(entity, make_portal_hitbox(object));
+  registry.emplace<comp::hitbox>(entity, make_simple_hitbox(object));
 }
 
-void parse_object_group(entt::registry& registry,
+void parse_container(entt::registry& registry,
+                     const comp::object::entity entity,
+                     const step::object& object)
+{
+  const auto* props = object.get_properties();
+  assert(props);
+  assert(props->has("capacity"));
+  assert(props->get("capacity").is<int>());
+
+  assert(props->has("hasRandomLoot"));
+  assert(props->get("hasRandomLoot").is<bool>());
+
+  auto& inventory = registry.emplace<comp::inventory>(entity);
+  inventory.capacity = props->get("capacity").get<int>();
+
+  if (props->get("hasRandomLoot").get<bool>()) {
+    // TODO
+  }
+}
+
+void parse_container_trigger(entt::registry& registry,
+                             const comp::object::entity entity,
+                             const step::object& object)
+{
+  const auto* props = object.get_properties();
+  assert(props);
+  assert(props->has("container"));
+  assert(props->get("container").is<step::object_ref>());
+
+  // The inventoryEntity member is initialized later
+  auto& trigger = registry.emplace<comp::container_trigger>(entity);
+  trigger.inventoryId = props->get("container").get<step::object_ref>().get();
+
+  registry.emplace<comp::hitbox>(entity, make_simple_hitbox(object));
+}
+
+void parse_object_layer(entt::registry& registry,
                         const step::object_group& group)
 {
-  for (const auto& object : group.objects()) {
-    if (object.type() == "Spawnpoint") {
-      parse_spawnpoint(registry, object);
-    } else if (object.type() == "Portal") {
-      parse_portal(registry, object);
+  for (const auto& stepObject : group.objects()) {
+    const comp::object::entity entity{registry.create()};
+
+    auto& object = registry.emplace<comp::object>(entity);
+    object.id = stepObject.id();
+
+    if (stepObject.type() == "Spawnpoint") {
+      parse_spawnpoint(registry, entity, stepObject);
+    } else if (stepObject.type() == "Portal") {
+      parse_portal(registry, entity, stepObject);
+    } else if (stepObject.type() == "Container") {
+      parse_container(registry, entity, stepObject);
+    } else if (stepObject.type() == "ContainerTrigger") {
+      parse_container_trigger(registry, entity, stepObject);
     }
   }
 }
@@ -152,7 +202,7 @@ void parse_layers(entt::registry& registry,
     if (const auto* tileLayer = stepLayer.try_as<step::tile_layer>()) {
       parse_tile_layer(registry, tilemap, *tileLayer, props, index);
     } else if (const auto* group = stepLayer.try_as<step::object_group>()) {
-      parse_object_group(registry, *group);
+      parse_object_layer(registry, *group);
     }
 
     ++index;
