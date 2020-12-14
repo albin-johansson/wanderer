@@ -9,7 +9,7 @@
 
 namespace wanderer {
 
-using tile_data = step::detail::data::gid_data; // FIXME
+using tile_data = step::detail::data::gid_data;  // FIXME
 
 void add_tile_objects(entt::registry& registry,
                       comp::tilemap& tilemap,
