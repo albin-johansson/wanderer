@@ -41,7 +41,6 @@ set(SOURCE_FILES
 
     core/aliases/ints.hpp
     core/aliases/delta.hpp
-    core/aliases/alpha.hpp
     core/aliases/tile_id.hpp
     core/aliases/depth.hpp
     core/aliases/buffer.hpp

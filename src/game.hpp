@@ -4,7 +4,6 @@
 #include <cen/mouse_state.hpp>
 #include <cen/renderer.hpp>
 
-#include "alpha.hpp"
 #include "delta.hpp"
 #include "level.hpp"
 #include "level_manager.hpp"
