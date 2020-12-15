@@ -1,9 +1,8 @@
 #pragma once
 
-#include <cen/rect.hpp>
-#include <cen/texture.hpp>
-#include <entt.hpp>
-#include <step_tile.hpp>
+#include <cen/rect.hpp>   // irect
+#include <entt.hpp>       // registry
+#include <step_tile.hpp>  // tile
 
 #include "texture_handle.hpp"
 #include "tile.hpp"
