@@ -63,9 +63,9 @@ void start_level_fade_animation(entt::registry& registry, const map_id map)
   anim.nSteps = static_cast<int>(0.5 * cen::screen::refresh_rate());
 
   anim.hStepSize =
-      (g_logicalWidth<float> / 2.0f) / static_cast<float>(anim.nSteps);
+      (glob::logicalWidth<float> / 2.0f) / static_cast<float>(anim.nSteps);
   anim.vStepSize =
-      (g_logicalHeight<float> / 2.0f) / static_cast<float>(anim.nSteps);
+      (glob::logicalHeight<float> / 2.0f) / static_cast<float>(anim.nSteps);
 
   anim.fadingIn = true;
 }

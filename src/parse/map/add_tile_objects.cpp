@@ -22,7 +22,7 @@ void add_depth_drawable(entt::registry& registry,
   auto& drawable = registry.emplace<comp::depth_drawable>(entity);
   drawable.texture = tile.sheet;
   drawable.src = tile.src;
-  drawable.dst = {dstPos, {g_tileWidth<>, g_tileHeight<>}};
+  drawable.dst = {dstPos, glob::tileSize<cen::farea>};
   drawable.centerY = dstPos.y() + (drawable.dst.height() / 2.0f);
   drawable.depth = tile.depth;
   drawable.layer = layerIndex;
@@ -39,8 +39,8 @@ void add_tile_object(entt::registry& registry,
   auto& tileObject = registry.emplace<comp::tile_object>(entity);
   tileObject.tileEntity = tileEntity;
 
-  const cen::fpoint position{static_cast<float>(col) * g_tileWidth<>,
-                             static_cast<float>(row) * g_tileHeight<>};
+  const cen::fpoint position{static_cast<float>(col) * glob::tileWidth<>,
+                             static_cast<float>(row) * glob::tileHeight<>};
 
   add_depth_drawable(registry,
                      entity,
@@ -67,7 +67,7 @@ void add_tile_objects(entt::registry& registry,
 
   for (const auto gid : data) {
     const tile_id tileId{gid.get()};
-    if (tileId != g_emptyTile) {
+    if (tileId != glob::emptyTile) {
       const auto tileEntity = tileset.tiles.at(tileId);
       const auto [row, col] = index_to_matrix(index, tilemap.cols);
       add_tile_object(registry, tileEntity, row, col, layerIndex);

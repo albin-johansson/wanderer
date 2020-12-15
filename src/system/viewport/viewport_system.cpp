@@ -6,7 +6,7 @@
 namespace wanderer::sys::viewport {
 namespace {
 
-inline constexpr float g_cameraSpeed = 10.0f;
+inline constexpr float cameraSpeed = 10.0f;
 
 [[nodiscard]] auto next_camera_position(const vector2f& target,
                                         const comp::viewport& viewport,
@@ -17,7 +17,7 @@ inline constexpr float g_cameraSpeed = 10.0f;
   const auto boundsWidth = viewport.bounds.width();
   const auto boundsHeight = viewport.bounds.height();
 
-  const auto distance = g_cameraSpeed * static_cast<float>(dt.get());
+  const auto distance = cameraSpeed * static_cast<float>(dt.get());
 
   const auto getX = [&](const float x) noexcept -> float {
     const auto value = boundsX + (x - boundsX) * distance;
@@ -54,9 +54,8 @@ inline constexpr float g_cameraSpeed = 10.0f;
                                       const comp::viewport& viewport) noexcept
     -> vector2f
 {
-  constexpr cen::farea size{g_humanoidDrawWidth, g_humanoidDrawHeight};
-  constexpr float halfWidth = size.width / 2.0f;
-  constexpr float halfHeight = size.height / 2.0f;
+  constexpr auto halfWidth = glob::humanoidDrawWidth / 2.0f;
+  constexpr auto halfHeight = glob::humanoidDrawHeight / 2.0f;
 
   const auto halfBoundsWidth = viewport.bounds.width() / 2.0f;
   const auto halfBoundsHeight = viewport.bounds.height() / 2.0f;

@@ -10,9 +10,9 @@ void render(cen::renderer& renderer,
             const int row,
             const int col) noexcept
 {
-  const auto x = static_cast<float>(col) * g_tileWidth<>;
-  const auto y = static_cast<float>(row) * g_tileHeight<>;
-  const cen::frect dst{{x, y}, g_tileSize<cen::farea>};
+  const auto x = static_cast<float>(col) * glob::tileWidth<>;
+  const auto y = static_cast<float>(row) * glob::tileHeight<>;
+  const cen::frect dst{{x, y}, glob::tileSize<cen::farea>};
   renderer.render_t(*tile.sheet, tile.src, dst);
 }
 

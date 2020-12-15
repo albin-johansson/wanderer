@@ -11,23 +11,23 @@
 namespace wanderer::sys::humanoid {
 namespace {
 
-inline constexpr int g_nIdleFrames{1};
-inline constexpr int g_nMoveFrames{9};
-inline constexpr int g_nMeleeFrames{6};
-inline constexpr int g_nMagicFrames{7};
-inline constexpr int g_nSpearFrames{8};
-inline constexpr int g_nBowFrames{13};
+inline constexpr int nIdleFrames{1};
+inline constexpr int nMoveFrames{9};
+inline constexpr int nMeleeFrames{6};
+inline constexpr int nMagicFrames{7};
+inline constexpr int nSpearFrames{8};
+inline constexpr int nBowFrames{13};
 
-inline constexpr int g_magicSourceY{0};
-inline constexpr int g_spearSourceY{256};
-inline constexpr int g_idleSourceY{512};  // yes these are the same
-inline constexpr int g_moveSourceY{512};
-inline constexpr int g_meleeSourceY{768};
-inline constexpr int g_bowSourceY{1024};
+inline constexpr int magicSourceY{0};
+inline constexpr int spearSourceY{256};
+inline constexpr int idleSourceY{512};  // yes these are the same
+inline constexpr int moveSourceY{512};
+inline constexpr int meleeSourceY{768};
+inline constexpr int bowSourceY{1024};
 
-inline constexpr ms_t g_idleDelay{90};
-inline constexpr ms_t g_moveDelay{70};
-inline constexpr ms_t g_attackDelay{70};
+inline constexpr ms_t idleDelay{90};
+inline constexpr ms_t moveDelay{70};
+inline constexpr ms_t attackDelay{70};
 
 /**
  * \brief Returns the y-coordinate with the appropriate offset in relation to
@@ -71,7 +71,7 @@ void update_move_animation(entt::registry& registry,
 
   if (animated && drawable && movable) {
     drawable->src.set_x(movable->velocity.is_zero() ? 0 : animated->frame * 64);
-    const auto srcY = source_y(g_moveSourceY, movable->dir);
+    const auto srcY = source_y(moveSourceY, movable->dir);
     if (drawable->src.y() != srcY) {
       animated->frame = 0;
       drawable->src.set_y(srcY);
@@ -159,7 +159,7 @@ void enter_animation(entt::registry& registry,
 void enter_idle_animation(entt::registry& registry,
                           const entt::entity entity) noexcept
 {
-  enter_animation(registry, entity, g_nIdleFrames, g_idleDelay, g_idleSourceY);
+  enter_animation(registry, entity, nIdleFrames, idleDelay, idleSourceY);
 }
 
 void enter_move_animation(entt::registry& registry,
@@ -168,46 +168,34 @@ void enter_move_animation(entt::registry& registry,
 {
   enter_animation(registry,
                   entity,
-                  g_nMoveFrames,
-                  g_moveDelay,
-                  source_y(g_moveSourceY, dir),
+                  nMoveFrames,
+                  moveDelay,
+                  source_y(moveSourceY, dir),
                   dir);
 }
 
 void enter_melee_animation(entt::registry& registry,
                            const entt::entity entity) noexcept
 {
-  enter_animation(registry,
-                  entity,
-                  g_nMeleeFrames,
-                  g_attackDelay,
-                  g_meleeSourceY);
+  enter_animation(registry, entity, nMeleeFrames, attackDelay, meleeSourceY);
 }
 
 void enter_spell_animation(entt::registry& registry,
                            const entt::entity entity) noexcept
 {
-  enter_animation(registry,
-                  entity,
-                  g_nMagicFrames,
-                  g_attackDelay,
-                  g_magicSourceY);
+  enter_animation(registry, entity, nMagicFrames, attackDelay, magicSourceY);
 }
 
 void enter_bow_animation(entt::registry& registry,
                          const entt::entity entity) noexcept
 {
-  enter_animation(registry, entity, g_nBowFrames, g_attackDelay, g_bowSourceY);
+  enter_animation(registry, entity, nBowFrames, attackDelay, bowSourceY);
 }
 
 void enter_spear_animation(entt::registry& registry,
                            const entt::entity entity) noexcept
 {
-  enter_animation(registry,
-                  entity,
-                  g_nSpearFrames,
-                  g_attackDelay,
-                  g_spearSourceY);
+  enter_animation(registry, entity, nSpearFrames, attackDelay, spearSourceY);
 }
 
 void update_animation(entt::registry& registry)

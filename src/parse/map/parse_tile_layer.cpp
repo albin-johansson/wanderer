@@ -14,7 +14,7 @@ namespace {
 {
   const auto rows = static_cast<std::size_t>(nRows);
   const auto cols = static_cast<std::size_t>(nCols);
-  return {rows, std::vector<tile_id>(cols, g_emptyTile)};
+  return {rows, std::vector<tile_id>(cols, glob::emptyTile)};
 }
 
 void add_ground_layer(entt::registry& registry,

@@ -59,7 +59,7 @@ void menu::render_title(cen::renderer& renderer) const
   const auto& texture = m_titleTexture.value();
 
   if (!m_titlePos) {
-    const auto x = (g_logicalWidth<int> / 2) - (texture.width() / 2);
+    const auto x = (glob::logicalWidth<int> / 2) - (texture.width() / 2);
     const auto y = g_menuRowSize * 2;
     m_titlePos = {x, y};
   }

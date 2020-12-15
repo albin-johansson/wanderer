@@ -39,7 +39,7 @@ void menu_button::calculate_bounds(cen::renderer& renderer) const
 
     // make button centered if column index is -1
     if (m_col == -1) {
-      return (g_logicalWidth<int> / 2) - (width / 2);
+      return (glob::logicalWidth<int> / 2) - (width / 2);
     } else {
       return (m_col * g_menuColSize) - (width / 2);
     }

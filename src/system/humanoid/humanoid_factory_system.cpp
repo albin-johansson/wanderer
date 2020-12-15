@@ -29,12 +29,10 @@ void add_depth_drawable(entt::registry& registry,
                         const entt::entity entity,
                         texture_handle texture)
 {
-  constexpr cen::farea humanoidSize{g_humanoidDrawWidth, g_humanoidDrawHeight};
-
   auto& drawable = registry.emplace<comp::depth_drawable>(entity);
   drawable.texture = std::move(texture);
   drawable.src = {{0, 0}, {64, 64}};
-  drawable.dst = {{0, 0}, humanoidSize};
+  drawable.dst = {{0, 0}, glob::humanoidDrawSize<>};
 }
 
 void add_animated(entt::registry& registry, const entt::entity entity)
@@ -112,7 +110,7 @@ auto add_player(entt::registry& registry,
   registry.emplace<comp::player>(player);
 
   auto& movable = registry.get<comp::movable>(player);
-  movable.speed = g_playerSpeed;
+  movable.speed = glob::playerSpeed;
   movable.position = position;
   movable.dir = direction::down;
 
@@ -132,7 +130,7 @@ auto add_skeleton(entt::registry& registry,
   const auto skeleton = make_humanoid(registry, tree, handle);
 
   auto& movable = registry.get<comp::movable>(skeleton);
-  movable.speed = g_monsterSpeed;
+  movable.speed = glob::monsterSpeed;
   movable.position = position;
 
   return skeleton;

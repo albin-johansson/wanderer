@@ -27,7 +27,7 @@ void visit(const comp::tile_layer& layer, T&& callable)
   for (auto r = 0; r < rows; ++r) {
     for (auto c = 0; c < cols; ++c) {
       const auto tileId = layer.matrix.at(r).at(c);
-      if (tileId != g_emptyTile) {
+      if (tileId != glob::emptyTile) {
         callable(tileId);
       }
     }
@@ -58,7 +58,7 @@ void visit(const comp::tile_layer& layer,
   for (auto r = bounds.minRow; r < bounds.maxRow; ++r) {
     for (auto c = bounds.minCol; c < bounds.maxCol; ++c) {
       const auto tileId = layer.matrix.at(r).at(c);
-      if (tileId != g_emptyTile) {
+      if (tileId != glob::emptyTile) {
         callable(tileId, r, c);
       }
     }

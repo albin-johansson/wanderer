@@ -15,7 +15,7 @@ auto make_renderer(const cen::window& window) -> cen::renderer
   renderer.emplace_font("typewriter_m"_hs, typewriter, 16);
   renderer.emplace_font("typewriter_l"_hs, typewriter, 24);
 
-  renderer.set_logical_size(g_logicalSize<>);
+  renderer.set_logical_size(glob::logicalSize<>);
   renderer.set_logical_integer_scale(true);
 
   return renderer;
