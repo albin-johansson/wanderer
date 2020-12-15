@@ -90,7 +90,7 @@ void center_on(entt::registry& registry,
 void update(level& level, const entt::entity movableEntity, const delta_t dt)
 {
   const auto& movable = level.get<comp::movable>(movableEntity);
-  track(level.viewport_component(), movable.position, dt);
+  track(level.get<comp::viewport>(level.viewport()), movable.position, dt);
 }
 
 void translate(const entt::registry& registry,

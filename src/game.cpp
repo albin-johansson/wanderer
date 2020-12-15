@@ -61,7 +61,9 @@ void game::tick(const delta_t dt)
 
     sys::humanoid::update_animation(registry);
     sys::tile::update_animation(registry);
-    sys::depthdrawable::update_tile_animations(registry, level->tileset_comp());
+    sys::depthdrawable::update_tile_animations(
+        registry,
+        level->get<comp::tileset>(level->tileset()));
     sys::hud::update_level_switch_animations(registry, m_dispatcher);
 
     sys::movement::update(*level, dt);
@@ -84,7 +86,10 @@ void game::render(cen::renderer& renderer)
   sys::viewport::translate(registry, level->viewport(), renderer);
 
   const auto bounds = level->get_render_bounds();
-  sys::layer::render_ground(registry, level->tileset_comp(), renderer, bounds);
+  sys::layer::render_ground(registry,
+                            level->get<comp::tileset>(level->tileset()),
+                            renderer,
+                            bounds);
   sys::depthdrawable::render(registry, renderer, bounds);
 
   sys::hud::render_level_switch_animations(registry, renderer);

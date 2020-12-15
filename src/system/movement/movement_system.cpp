@@ -62,7 +62,7 @@ namespace {
 {
   hitbox::collision_result collisions;
 
-  const auto& viewport = level.viewport_component();
+  const auto& viewport = level.get<comp::viewport>(level.viewport());
   if (next.horizontal) {
     if ((next.horizontal->bounds.x() <= 0) ||
         (next.horizontal->bounds.max_x() >= viewport.levelSize.width)) {

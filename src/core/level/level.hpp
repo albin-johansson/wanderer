@@ -99,6 +99,8 @@ class level final
    */
   [[nodiscard]] auto tilemap() const -> comp::tilemap::entity;
 
+  [[nodiscard]] auto tileset() const -> comp::tileset::entity;
+
   /**
    * \brief Returns the spawnpoint of the player in the level.
    *
@@ -107,17 +109,6 @@ class level final
    * \since 0.1.0
    */
   [[nodiscard]] auto player_spawnpoint() const -> const vector2f&;
-
-  /**
-   * \brief Returns the viewport component associated with the level.
-   *
-   * \return the viewport component.
-   *
-   * \since 0.1.0
-   */
-  [[nodiscard]] auto viewport_component() -> comp::viewport&;
-
-  [[nodiscard]] auto tileset_comp() const -> const comp::tileset&;
 
   /**
    * \brief Returns the number of rows in the level tilemap.

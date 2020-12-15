@@ -44,19 +44,14 @@ auto level::tilemap() const -> comp::tilemap::entity
   return m_tilemap;
 }
 
+auto level::tileset() const -> comp::tileset::entity
+{
+  return m_tileset;
+}
+
 auto level::player_spawnpoint() const -> const vector2f&
 {
   return m_playerSpawnPosition.value();
-}
-
-auto level::viewport_component() -> comp::viewport&
-{
-  return m_registry.get<comp::viewport>(m_viewport);
-}
-
-auto level::tileset_comp() const -> const comp::tileset&
-{
-  return m_registry.get<comp::tileset>(m_tileset);
 }
 
 auto level::row_count() const -> int
