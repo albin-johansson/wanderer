@@ -11,7 +11,7 @@
 namespace wanderer {
 
 /**
- * \brief Parses a "fancy" tile, that is a tile with extra features such as
+ * \brief Parses a "fancy" tile, that is, a tile with extra features such as
  * animations, etc.
  *
  * \details This function can add additional components to tiles such as
