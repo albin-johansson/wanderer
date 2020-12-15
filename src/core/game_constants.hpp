@@ -12,6 +12,9 @@ inline constexpr T g_logicalWidth{480};  // 960
 template <typename T = int>
 inline constexpr T g_logicalHeight{270};  // 540
 
+template <typename T = cen::iarea>
+inline constexpr T g_logicalSize{g_logicalWidth<>, g_logicalHeight<>};
+
 template <typename T = float>
 inline constexpr T g_tileWidth{32};
 

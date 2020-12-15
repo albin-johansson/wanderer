@@ -21,8 +21,8 @@ wanderer_app::wanderer_app()
   m_window.set_fullscreen(true);
 #endif
 
-  m_mouseState.set_logical_width(g_logicalWidth<int>);
-  m_mouseState.set_logical_height(g_logicalHeight<int>);
+  m_mouseState.set_logical_width(g_logicalWidth<>);
+  m_mouseState.set_logical_height(g_logicalHeight<>);
 }
 
 auto wanderer_app::handle_input() -> bool
