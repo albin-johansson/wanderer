@@ -173,6 +173,10 @@ set(SOURCE_FILES
     parse/map/make_tileset.hpp
     parse/map/add_tile_objects.cpp
     parse/map/add_tile_objects.hpp
+    parse/map/parse_object_layer.cpp
+    parse/map/parse_object_layer.hpp
+    parse/map/parse_tile_layer.cpp
+    parse/map/parse_tile_layer.hpp
 
     parse/menu/parse_menu.cpp
     parse/menu/parse_menu.hpp)
