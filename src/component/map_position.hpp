@@ -20,7 +20,7 @@ namespace wanderer::comp {
  *
  * \headerfile map_position.hpp
  */
-struct map_position final
+struct [[deprecated]] map_position final
 {
   int row{};
   int col{};
