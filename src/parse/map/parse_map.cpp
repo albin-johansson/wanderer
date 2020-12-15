@@ -58,7 +58,7 @@ auto make_tilemap(entt::registry& registry,
 }  // namespace
 
 auto parse_map(entt::registry& registry,
-               const step::fs::path& path,
+               const std::filesystem::path& path,
                graphics_context& graphics) -> comp::tilemap::entity
 {
   const auto stepMap = std::make_unique<step::map>(path);
