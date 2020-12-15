@@ -44,28 +44,53 @@ class level final
     m_registry.view<Components...>().each(std::forward<T>(lambda));
   }
 
+  template <typename Component>
+  void clear()
+  {
+    m_registry.clear<Component>();
+  }
+
+  template <typename OutputIterator>
+  void query_collisions(const entt::entity id, OutputIterator iterator) const
+  {
+    return m_aabbTree.query(id, iterator);
+  }
+
   template <typename Component, typename... Args>
-  decltype(auto) emplace(entt::entity entity, Args&&... args)
+  decltype(auto) emplace(const entt::entity entity, Args&&... args)
   {
     return m_registry.emplace<Component>(entity, std::forward<Args>(args)...);
   }
 
   template <typename Component>
-  [[nodiscard]] decltype(auto) get(entt::entity entity)
+  [[nodiscard]] decltype(auto) get(const entt::entity entity)
   {
     return m_registry.get<Component>(entity);
   }
 
   template <typename Component>
-  [[nodiscard]] decltype(auto) try_get(entt::entity entity)
+  [[nodiscard]] decltype(auto) try_get(const entt::entity entity)
   {
     return m_registry.try_get<Component>(entity);
   }
 
-  template <typename OutputIterator>
-  void query_collisions(entt::entity id, OutputIterator iterator) const
+  /**
+   * \brief Returns the only instance of the specified component in the
+   * registry.
+   *
+   * \pre there must only be one entity with the specified component.
+   *
+   * \tparam Component the type of the component that will be obtained.
+   *
+   * \return the desired component instance.
+   *
+   * \since 0.1.0
+   */
+  template <typename Component>
+  [[nodiscard]] decltype(auto) single()
   {
-    return m_aabbTree.query(id, iterator);
+    assert(m_registry.view<comp::tileset>().size() == 1);
+    return m_registry.view<Component>().front();
   }
 
   [[nodiscard]] auto id() const noexcept -> map_id;

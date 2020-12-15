@@ -129,7 +129,8 @@ void game::on_level_animation_faded_in(const comp::level_faded_in_event& event)
 
 void game::on_level_animation_faded_out(comp::level_faded_out_event)
 {
-  m_levels.current()->registry().clear<comp::level_switch_animation>();
+  m_levels.current()->clear<comp::level_switch_animation>();
+}
 }
 
 }  // namespace wanderer

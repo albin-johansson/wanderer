@@ -113,10 +113,7 @@ auto level_factory::make(const std::filesystem::path& path,
 
   result->m_aabbTree.set_thickness_factor(std::nullopt);
   result->m_tilemap = parse_map(registry, path, graphics);
-
-  assert(registry.view<comp::tileset>().size() == 1);
-  result->m_tileset =
-      comp::tileset::entity{registry.view<comp::tileset>().front()};
+  result->m_tileset = comp::tileset::entity{result->single<comp::tileset>()};
 
   auto& map = registry.get<comp::tilemap>(result->m_tilemap);
   result->m_viewport =
