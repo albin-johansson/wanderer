@@ -16,6 +16,8 @@ using tile_id = fluent::NamedType<u32,
                                   fluent::Addable,
                                   fluent::PreIncrementable>;
 
-inline constexpr tile_id g_emptyTile{0};
+namespace glob {
+inline constexpr tile_id emptyTile{0};
+}
 
 }  // namespace wanderer
