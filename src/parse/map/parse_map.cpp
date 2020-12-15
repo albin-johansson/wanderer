@@ -46,8 +46,8 @@ auto make_tilemap(entt::registry& registry,
 {
   auto& tilemap = registry.emplace<comp::tilemap>(mapEntity);
 
-  tilemap.width = static_cast<float>(stepMap.width()) * g_tileSize<float>;
-  tilemap.height = static_cast<float>(stepMap.height()) * g_tileSize<float>;
+  tilemap.width = static_cast<float>(stepMap.width()) * g_tileWidth<>;
+  tilemap.height = static_cast<float>(stepMap.height()) * g_tileHeight<>;
   tilemap.rows = stepMap.height();
   tilemap.cols = stepMap.width();
   tilemap.tileset = make_tileset(registry, stepMap.tilesets(), graphics);

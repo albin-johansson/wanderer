@@ -22,7 +22,7 @@ void add_depth_drawable(entt::registry& registry,
   auto& drawable = registry.emplace<comp::depth_drawable>(entity);
   drawable.texture = tile.sheet;
   drawable.src = tile.src;
-  drawable.dst = {dstPos, {g_tileSize<float>, g_tileSize<float>}};
+  drawable.dst = {dstPos, {g_tileWidth<>, g_tileHeight<>}};
   drawable.centerY = dstPos.y() + (drawable.dst.height() / 2.0f);
   drawable.depth = tile.depth;
   drawable.layer = layerIndex;
@@ -39,8 +39,8 @@ void add_tile_object(entt::registry& registry,
   auto& tileObject = registry.emplace<comp::tile_object>(entity);
   tileObject.tileEntity = tileEntity;
 
-  const cen::fpoint position{static_cast<float>(col) * g_tileSize<float>,
-                             static_cast<float>(row) * g_tileSize<float>};
+  const cen::fpoint position{static_cast<float>(col) * g_tileWidth<>,
+                             static_cast<float>(row) * g_tileHeight<>};
 
   add_depth_drawable(registry,
                      entity,

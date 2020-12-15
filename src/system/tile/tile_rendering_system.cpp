@@ -4,20 +4,15 @@
 #include "game_constants.hpp"
 
 namespace wanderer::sys::tile {
-namespace {
-
-inline constexpr cen::farea g_dstSize{g_tileSize<float>, g_tileSize<float>};
-
-}
 
 void render(cen::renderer& renderer,
             const comp::tile& tile,
             const int row,
             const int col) noexcept
 {
-  const auto x = static_cast<float>(col) * g_tileSize<float>;
-  const auto y = static_cast<float>(row) * g_tileSize<float>;
-  const cen::frect dst{{x, y}, g_dstSize};
+  const auto x = static_cast<float>(col) * g_tileWidth<>;
+  const auto y = static_cast<float>(row) * g_tileHeight<>;
+  const cen::frect dst{{x, y}, g_tileSize<cen::farea>};
   renderer.render_t(*tile.sheet, tile.src, dst);
 }
 
