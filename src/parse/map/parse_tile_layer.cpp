@@ -54,7 +54,7 @@ void parse_tile_layer(entt::registry& registry,
   } else {
     if (const auto* data = layer.data()) {
       const auto& tileset = registry.get<comp::tileset>(tilemap.tileset);
-      add_tile_objects(registry, tilemap, tileset, data->as_gid(), index);
+      add_tile_objects(registry, tileset, data->as_gid(), tilemap.cols, index);
     }
   }
 }
