@@ -1,8 +1,8 @@
 #pragma once
 
-#include <entt.hpp>
-#include <memory>   // unique_ptr
-#include <utility>  // forward
+#include <entt.hpp>  // registry
+#include <memory>    // unique_ptr
+#include <utility>   // forward
 
 #include "aabb_tree.hpp"
 #include "abby.hpp"
