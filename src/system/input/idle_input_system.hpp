@@ -10,10 +10,8 @@ namespace wanderer::sys::input {
 /**
  * \brief Handles the player input if the player is idle.
  *
- * \note This method has no effect if the player entity doesn't have a
- * `humanoid_idle` component.
- *
- * \pre The player entity must feature a `Binds` component.
+ * \pre `player` must feature a `binds` component.
+ * \pre `player` must feature a `humanoid_idle` component.
  *
  * \param registry the associated registry.
  * \param dispatcher the dispatcher used for events.

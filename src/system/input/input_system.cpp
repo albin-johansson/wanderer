@@ -1,5 +1,6 @@
 #include "input_system.hpp"
 
+#include "humanoid_state.hpp"
 #include "idle_input_system.hpp"
 #include "move_input_system.hpp"
 
@@ -10,8 +11,12 @@ void update(entt::registry& registry,
             const comp::player::entity player,
             const cen::key_state& keyState)
 {
-  handle_idle_input(registry, dispatcher, player, keyState);
-  handle_move_input(registry, dispatcher, player, keyState);
+  if (registry.has<comp::humanoid_idle>(player)) {
+    handle_idle_input(registry, dispatcher, player, keyState);
+
+  } else if (registry.has<comp::humanoid_move>(player)) {
+    handle_move_input(registry, dispatcher, player, keyState);
+  }
 }
 
 }  // namespace wanderer::sys::input

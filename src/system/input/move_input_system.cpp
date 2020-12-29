@@ -1,5 +1,7 @@
 #include "move_input_system.hpp"
 
+#include <cassert>  // assert
+
 #include "begin_attack_event.hpp"
 #include "binds.hpp"
 #include "direction.hpp"
@@ -123,25 +125,26 @@ void handle_move_input(entt::registry& registry,
                        const comp::player::entity player,
                        const cen::key_state& keyState)
 {
-  if (registry.has<comp::humanoid_move>(player)) {
-    auto& movable = registry.get<comp::movable>(player);
-    const auto& binds = registry.get<comp::binds>(player);
-    const bool areMoveKeysDown = check_pressed(movable, keyState, binds);
-    check_released(movable, keyState, binds);
+  assert(registry.has<comp::humanoid_move>(player));
 
-    if (!areMoveKeysDown && movable.velocity.is_zero()) {
-      dispatcher.enqueue<comp::end_humanoid_move_event>(&registry, player);
-    } else if (keyState.is_pressed(binds.attack)) {
-      movable.velocity.zero();
+  auto& movable = registry.get<comp::movable>(player);
+  const auto& binds = registry.get<comp::binds>(player);
+  const auto areMoveKeysDown = check_pressed(movable, keyState, binds);
+  check_released(movable, keyState, binds);
 
-      // FIXME null weapon
-      dispatcher.enqueue<comp::begin_attack_event>(&registry,
-                                                   player,
-                                                   entt::null,
-                                                   movable.dir);
-    } else if (keyState.was_just_released(binds.interact)) {
-      dispatcher.enqueue<comp::interact_event>(&registry, &dispatcher, player);
-    }
+  if (!areMoveKeysDown && movable.velocity.is_zero()) {
+    dispatcher.enqueue<comp::end_humanoid_move_event>(&registry, player);
+
+  } else if (keyState.is_pressed(binds.attack)) {
+    movable.velocity.zero();
+
+    // FIXME null weapon
+    dispatcher.enqueue<comp::begin_attack_event>(&registry,
+                                                 player,
+                                                 entt::null,
+                                                 movable.dir);
+  } else if (keyState.was_just_released(binds.interact)) {
+    dispatcher.enqueue<comp::interact_event>(&registry, &dispatcher, player);
   }
 }
 
