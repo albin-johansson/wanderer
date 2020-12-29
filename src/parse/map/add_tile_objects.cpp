@@ -67,7 +67,7 @@ void add_tile_objects(entt::registry& registry,
 
   for (const auto gid : data) {
     const tile_id tileId{gid.get()};
-    if (tileId != glob::emptyTile) {
+    if (!is_empty(tileId)) {
       const auto tileEntity = tileset.tiles.at(tileId);
       const auto [row, col] = index_to_matrix(index, nColumns);
       add_tile_object(registry, tileEntity, row, col, layerIndex);

@@ -20,4 +20,9 @@ namespace glob {
 inline constexpr tile_id emptyTile{0};
 }
 
+[[nodiscard]] inline auto is_empty(const tile_id id) noexcept -> bool
+{
+  return id == glob::emptyTile;
+}
+
 }  // namespace wanderer
