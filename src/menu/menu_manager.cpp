@@ -2,6 +2,7 @@
 
 #include <string_view>  // string_view
 
+#include "game_constants.hpp"
 #include "parse_menu.hpp"
 
 namespace wanderer {
@@ -36,8 +37,7 @@ void menu_manager::update(const cen::mouse_state& mouseState,
 
 void menu_manager::render(cen::renderer& renderer)
 {
-  constexpr cen::color color{0, 0, 0, 0xAA};
-  renderer.set_color(color);
+  renderer.set_color(glob::transparentBlack);
   renderer.fill_rect<int>({{0, 0}, renderer.output_size()});
 
   auto& menu = active_menu();

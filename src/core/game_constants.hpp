@@ -1,6 +1,7 @@
 #pragma once
 
-#include <cen/area.hpp>  // iarea, farea
+#include <cen/area.hpp>
+#include <cen/colors.hpp>
 
 #include "vector2.hpp"
 
@@ -36,5 +37,8 @@ inline constexpr cen::farea humanoidHitboxSize{32, 32};
 inline constexpr float playerSpeed{1.25f * humanoidDrawWidth};
 
 inline constexpr float monsterSpeed{0.75f * playerSpeed};
+
+inline constexpr cen::color transparentBlack =
+    cen::colors::black.with_alpha(0xAA);
 
 }  // namespace wanderer::glob
