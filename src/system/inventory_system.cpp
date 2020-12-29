@@ -20,4 +20,8 @@ void update_triggers(entt::registry& registry,
                                                           removePredicate);
 }
 
+void render(const entt::registry& registry, cen::renderer& renderer)
+{
+}
+
 }  // namespace wanderer::sys::inventory

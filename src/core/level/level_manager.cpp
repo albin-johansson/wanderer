@@ -46,4 +46,10 @@ auto level_manager::current() noexcept -> level*
   return m_levels.at(*m_current).get();
 }
 
+auto level_manager::current() const noexcept -> const level*
+{
+  assert(m_current);
+  return m_levels.at(*m_current).get();
+}
+
 }  // namespace wanderer

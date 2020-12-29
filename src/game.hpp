@@ -4,6 +4,7 @@
 #include <cen/mouse_state.hpp>
 #include <cen/renderer.hpp>
 
+#include "close_inventory_event.hpp"
 #include "cursor_manager.hpp"
 #include "delta.hpp"
 #include "graphics_context.hpp"
@@ -11,6 +12,7 @@
 #include "level_fade_events.hpp"
 #include "level_manager.hpp"
 #include "menu_manager.hpp"
+#include "show_inventory_event.hpp"
 #include "switch_map_event.hpp"
 
 namespace wanderer {
@@ -76,11 +78,19 @@ class game final
   menu_manager m_menus;
   cursor_manager m_cursors;
 
+  [[nodiscard]] auto fully_paused() const -> bool;
+
+  [[nodiscard]] auto weakly_paused() const -> bool;
+
   void on_switch_map(const comp::switch_map_event& event);
 
   void on_level_animation_faded_in(const comp::level_faded_in_event& event);
 
   void on_level_animation_faded_out(comp::level_faded_out_event);
+
+  void on_show_inventory(const comp::show_inventory_event& event);
+
+  void on_close_inventory(comp::close_inventory_event);
 };
 
 }  // namespace wanderer

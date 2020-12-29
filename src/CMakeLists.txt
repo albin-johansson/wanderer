@@ -107,6 +107,8 @@ set(SOURCE_FILES
     component/event/interact_event.hpp
     component/event/switch_map_event.hpp
     component/event/level_fade_events.hpp
+    component/event/show_inventory_event.hpp
+    component/event/close_inventory_event.hpp
 
     system/depth_drawables_system.cpp
     system/depth_drawables_system.hpp

@@ -16,4 +16,7 @@ struct inventory final
   int capacity;                     ///< Maximum capacity of inventory.
 };
 
+struct active_inventory final
+{};
+
 }  // namespace wanderer::comp

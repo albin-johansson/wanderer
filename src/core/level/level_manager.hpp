@@ -21,6 +21,8 @@ class level_manager final
 
   [[nodiscard]] auto current() noexcept -> level*;
 
+  [[nodiscard]] auto current() const noexcept -> const level*;
+
  private:
   std::unordered_map<map_id, std::unique_ptr<level>> m_levels;
   maybe<map_id> m_current;

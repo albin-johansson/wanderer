@@ -77,4 +77,9 @@ auto level::registry() -> entt::registry&
   return m_registry;
 }
 
+auto level::registry() const -> const entt::registry&
+{
+  return m_registry;
+}
+
 }  // namespace wanderer
