@@ -40,6 +40,16 @@ void level_manager::switch_to(const map_id id)
   m_current = id;
 }
 
+auto level_manager::registry() -> entt::registry&
+{
+  return current()->registry();
+}
+
+auto level_manager::registry() const -> const entt::registry&
+{
+  return current()->registry();
+}
+
 auto level_manager::current() noexcept -> level*
 {
   assert(m_current);

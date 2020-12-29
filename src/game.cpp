@@ -113,15 +113,13 @@ auto game::fully_paused() const -> bool
 
 auto game::weakly_paused() const -> bool
 {
-  const auto& registry = m_levels.current()->registry();
   return !fully_paused() &&
-         !registry.view<const comp::active_inventory>().empty();
+         !m_levels.registry().view<const comp::active_inventory>().empty();
 }
 
 void game::on_switch_map(const comp::switch_map_event& event)
 {
-  auto* current = m_levels.current();
-  sys::hud::start_level_fade_animation(current->registry(), event.map);
+  sys::hud::start_level_fade_animation(m_levels.registry(), event.map);
 }
 
 void game::on_level_animation_faded_in(const comp::level_faded_in_event& event)
@@ -139,24 +137,22 @@ void game::on_level_animation_faded_in(const comp::level_faded_in_event& event)
   }
 
   m_levels.switch_to(event.map);
-  auto* current = m_levels.current();
-  auto& registry = current->registry();
-  sys::hud::end_level_fade_animation(registry, event);
+  sys::hud::end_level_fade_animation(m_levels.registry(), event);
 }
 
 void game::on_level_animation_faded_out(comp::level_faded_out_event)
 {
-  m_levels.current()->clear<comp::level_switch_animation>();
+  m_levels.clear<comp::level_switch_animation>();
 }
 
 void game::on_show_inventory(const comp::show_inventory_event& event)
 {
-  m_levels.current()->emplace<comp::active_inventory>(event.inventoryEntity);
+  m_levels.emplace<comp::active_inventory>(event.inventoryEntity);
 }
 
 void game::on_close_inventory(comp::close_inventory_event)
 {
-  m_levels.current()->clear<comp::active_inventory>();
+  m_levels.clear<comp::active_inventory>();
 }
 
 }  // namespace wanderer
