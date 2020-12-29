@@ -6,18 +6,8 @@ namespace wanderer::comp {
 
 /**
  * \struct binds
- * \brief Represents all of the key binds used by the player.
  *
- * \var binds::up
- * The key associated with moving "up".
- * \var binds::right
- * The key associated with moving "right".
- * \var binds::down
- * The key associated with moving "down".
- * \var binds::left
- * The key associated with moving "left".
- * \var binds::attack
- * The key associated with triggering an attack.
+ * \brief Represents all of the key binds used by the player.
  *
  * \headerfile binds.hpp
  */
@@ -29,6 +19,7 @@ struct binds final
   cen::scan_code left{cen::scancodes::a};
   cen::scan_code attack{cen::scancodes::space};
   cen::scan_code interact{cen::scancodes::e};
+  cen::scan_code inventory{cen::scancodes::i};
 };
 
 }  // namespace wanderer::comp
