@@ -323,12 +323,10 @@ class aabb final
    */
   [[nodiscard]] constexpr auto compute_area() const noexcept -> double
   {
-    // Sum of "area" of all the sides.
     auto sum = 0.0;
 
-    // hold one dimension constant and multiply by all the other ones.
     for (auto d1 = 0; d1 < 2; ++d1) {
-      auto product = 1.0;  // "Area" of current side.
+      auto product = 1.0;
 
       for (auto d2 = 0; d2 < 2; ++d2) {
         if (d1 != d2) {
@@ -462,7 +460,7 @@ struct node final
   using aabb_type = aabb<Vector>;
 
   std::optional<key_type> id;
-  aabb_type aabb;
+  aabb_type box;
 
   maybe_index parent;
   maybe_index left;
@@ -549,18 +547,14 @@ class tree final
               const vector_type& lowerBound,
               const vector_type& upperBound)
   {
-    // Make sure the particle doesn't already exist
     assert(!m_indexMap.count(key));
 
-    // Allocate a new node for the particle
     const auto nodeIndex = allocate_node();
     auto& node = m_nodes.at(nodeIndex);
     node.id = key;
-    node.aabb = {lowerBound, upperBound};
-    node.aabb.fatten(m_skinThickness);
+    node.box = {lowerBound, upperBound};
+    node.box.fatten(m_skinThickness);
     node.height = 0;
-    // node.aabb.m_area = node.aabb.compute_area();
-    // m_nodes[node].aabb.m_centre = m_nodes[node].aabb.computeCentre();
 
     insert_leaf(nodeIndex);
     m_indexMap.emplace(key, nodeIndex);
@@ -582,7 +576,7 @@ class tree final
   void erase(const key_type& key)
   {
     if (const auto it = m_indexMap.find(key); it != m_indexMap.end()) {
-      const auto node = it->second;  // Extract the node index.
+      const auto node = it->second;
 
       m_indexMap.erase(it);
 
@@ -605,12 +599,9 @@ class tree final
    */
   void clear()
   {
-    // Iterator pointing to the start of the particle map.
     auto it = m_indexMap.begin();
 
-    // Iterate over the map.
     while (it != m_indexMap.end()) {
-      // Extract the node index.
       const auto nodeIndex = it->second;
 
       assert(nodeIndex < m_nodeCapacity);
@@ -622,7 +613,6 @@ class tree final
       ++it;
     }
 
-    // Clear the particle map.
     m_indexMap.clear();
 
 #ifndef NDEBUG
@@ -661,7 +651,7 @@ class tree final
    * \since 0.1.0
    */
   auto update(const key_type& key,
-              aabb_type aabb,
+              aabb_type box,
               const bool forceReinsert = false) -> bool
   {
     if (const auto it = m_indexMap.find(key); it != m_indexMap.end()) {
@@ -671,19 +661,16 @@ class tree final
       assert(m_nodes.at(nodeIndex).is_leaf());
 
       // No need to update if the particle is still within its fattened AABB.
-      if (!forceReinsert && m_nodes.at(nodeIndex).aabb.contains(aabb)) {
+      if (!forceReinsert && m_nodes.at(nodeIndex).box.contains(box)) {
         return false;
       }
 
-      // Remove the current leaf.
       remove_leaf(nodeIndex);
-      aabb.fatten(m_skinThickness);
+      box.fatten(m_skinThickness);
 
       auto& node = m_nodes.at(nodeIndex);
-      node.aabb = aabb;
-      node.aabb.update_area();
-      // node.aabb.m_area = aabb.compute_area();
-      // m_nodes[node].aabb.m_centre = m_nodes[node].aabb.computeCentre();
+      node.box = box;
+      node.box.update_area();
 
       insert_leaf(nodeIndex);
 
@@ -741,8 +728,8 @@ class tree final
                 const bool forceReinsert = false) -> bool
   {
     if (const auto it = m_indexMap.find(key); it != m_indexMap.end()) {
-      const auto& aabb = m_nodes.at(it->second).aabb;
-      return update(key, {position, position + aabb.size()}, forceReinsert);
+      const auto& box = m_nodes.at(it->second).box;
+      return update(key, {position, position + box.size()}, forceReinsert);
     } else {
       return false;
     }
@@ -764,7 +751,7 @@ class tree final
 
     for (auto index = 0; index < m_nodeCapacity; ++index) {
       auto& node = m_nodes.at(index);
-      if (node.height < 0) {  // Free node.
+      if (node.height < 0) {
         continue;
       }
 
@@ -783,10 +770,10 @@ class tree final
       int jMin{-1};
 
       for (auto i = 0; i < count; ++i) {
-        const auto fstAabb = m_nodes.at(nodeIndices.at(i)).aabb;
+        const auto fstAabb = m_nodes.at(nodeIndices.at(i)).box;
 
         for (auto j = (i + 1); j < count; ++j) {
-          const auto sndAabb = m_nodes.at(nodeIndices.at(j)).aabb;
+          const auto sndAabb = m_nodes.at(nodeIndices.at(j)).box;
           const auto cost = aabb_type::merge(fstAabb, sndAabb).area();
 
           if (cost < minCost) {
@@ -809,7 +796,7 @@ class tree final
       parentNode.left = index1;
       parentNode.right = index2;
       parentNode.height = 1 + std::max(index1Node.height, index2Node.height);
-      parentNode.aabb = aabb_type::merge(index1Node.aabb, index2Node.aabb);
+      parentNode.box = aabb_type::merge(index1Node.box, index2Node.box);
       parentNode.parent = std::nullopt;
 
       index1Node.parent = parentIndex;
@@ -909,9 +896,6 @@ class tree final
   {
     size_type maxBalance{0};
     for (auto i = 0; i < m_nodeCapacity; ++i) {
-      // if (node.height <= 1) {
-      //   continue;
-      // }
       const auto& node = m_nodes.at(i);
       if (node.height > 2) {
         assert(!node.is_leaf());
@@ -933,7 +917,7 @@ class tree final
       return 0;
     }
 
-    const auto rootArea = m_nodes.at(*m_root).aabb.compute_area();
+    const auto rootArea = m_nodes.at(*m_root).box.compute_area();
     double totalArea{};
 
     for (auto i = 0; i < m_nodeCapacity; ++i) {
@@ -941,7 +925,7 @@ class tree final
       if (node.height < 0) {
         continue;
       }
-      totalArea += node.aabb.compute_area();
+      totalArea += node.box.compute_area();
     }
 
     return totalArea / rootArea;
@@ -960,7 +944,7 @@ class tree final
    */
   [[nodiscard]] auto get_aabb(const key_type& key) const -> const aabb_type&
   {
-    return m_nodes.at(m_indexMap.at(key)).aabb;
+    return m_nodes.at(m_indexMap.at(key)).box;
   }
 
   /**
@@ -1115,7 +1099,6 @@ class tree final
       grow_pool();
     }
 
-    // Peel a node off the free list.
     const auto nodeIndex = m_nextFreeIndex.value();
     auto& node = m_nodes.at(nodeIndex);
 
@@ -1124,7 +1107,6 @@ class tree final
     node.left = std::nullopt;
     node.right = std::nullopt;
     node.height = 0;
-    // node.aabb.set_dimension(dimension);
     ++m_nodeCount;
 
     return nodeIndex;
@@ -1147,10 +1129,10 @@ class tree final
                                       const double minimumCost) -> double
   {
     if (leftNode.is_leaf()) {
-      return aabb_type::merge(leafAabb, leftNode.aabb).area() + minimumCost;
+      return aabb_type::merge(leafAabb, leftNode.box).area() + minimumCost;
     } else {
-      const auto oldArea = leftNode.aabb.area();
-      const auto newArea = aabb_type::merge(leafAabb, leftNode.aabb).area();
+      const auto oldArea = leftNode.box.area();
+      const auto newArea = aabb_type::merge(leafAabb, leftNode.box).area();
       return (newArea - oldArea) + minimumCost;
     }
   }
@@ -1160,12 +1142,12 @@ class tree final
                                        const double minimumCost) -> double
   {
     if (rightNode.is_leaf()) {
-      const auto aabb = aabb_type::merge(leafAabb, rightNode.aabb);
-      return aabb.area() + minimumCost;
+      const auto box = aabb_type::merge(leafAabb, rightNode.box);
+      return box.area() + minimumCost;
     } else {
-      const auto aabb = aabb_type::merge(leafAabb, rightNode.aabb);
-      const auto oldArea = rightNode.aabb.area();
-      const auto newArea = aabb.area();
+      const auto box = aabb_type::merge(leafAabb, rightNode.box);
+      const auto oldArea = rightNode.box.area();
+      const auto newArea = box.area();
       return (newArea - oldArea) + minimumCost;
     }
   }
@@ -1180,9 +1162,9 @@ class tree final
       const auto left = node.left.value();
       const auto right = node.right.value();
 
-      const auto surfaceArea = node.aabb.area();
+      const auto surfaceArea = node.box.area();
       const auto combinedSurfaceArea =
-          aabb_type::merge(node.aabb, leafAabb).area();
+          aabb_type::merge(node.box, leafAabb).area();
 
       // Cost of creating a new parent for this node and the new leaf.
       const auto cost = 2.0 * combinedSurfaceArea;
@@ -1199,7 +1181,6 @@ class tree final
         break;
       }
 
-      // Descend.
       if (costLeft < costRight) {
         index = left;
       } else {
@@ -1254,7 +1235,7 @@ class tree final
       const auto& rightNode = m_nodes.at(right);
 
       node.height = 1 + std::max(leftNode.height, rightNode.height);
-      node.aabb = aabb_type::merge(leftNode.aabb, rightNode.aabb);
+      node.box = aabb_type::merge(leftNode.box, rightNode.box);
 
       index = node.parent;
     }
@@ -1269,7 +1250,7 @@ class tree final
     }
 
     // Find the best sibling for the node.
-    const auto leafAabb = m_nodes.at(leafIndex).aabb;  // copy current AABB
+    const auto leafAabb = m_nodes.at(leafIndex).box;  // copy current AABB
     const auto siblingIndex = find_best_sibling(leafAabb);
 
     // Create a new parent.
@@ -1278,8 +1259,7 @@ class tree final
 
     auto& newParent = m_nodes.at(newParentIndex);
     newParent.parent = oldParentIndex;
-    newParent.aabb = aabb_type::merge(leafAabb, m_nodes.at(siblingIndex).aabb);
-    // m_nodes[newParent].aabb.merge(leafAABB, m_nodes[sibling].aabb);
+    newParent.box = aabb_type::merge(leafAabb, m_nodes.at(siblingIndex).box);
     newParent.height = m_nodes.at(siblingIndex).height + 1;
 
     if (oldParentIndex != std::nullopt) {  // The sibling was not the root.
@@ -1315,7 +1295,7 @@ class tree final
       const auto& leftNode = m_nodes.at(left.value());
       const auto& rightNode = m_nodes.at(right.value());
 
-      node.aabb = aabb_type::merge(leftNode.aabb, rightNode.aabb);
+      node.box = aabb_type::merge(leftNode.box, rightNode.box);
       node.height = 1 + std::max(leftNode.height, rightNode.height);
 
       index = node.parent;
@@ -1399,8 +1379,8 @@ class tree final
 
       rightRightNode.parent = nodeIndex;
 
-      node.aabb = aabb_type::merge(leftNode.aabb, rightRightNode.aabb);
-      rightNode.aabb = aabb_type::merge(node.aabb, rightLeftNode.aabb);
+      node.box = aabb_type::merge(leftNode.box, rightRightNode.box);
+      rightNode.box = aabb_type::merge(node.box, rightLeftNode.box);
 
       node.height = 1 + std::max(leftNode.height, rightRightNode.height);
       rightNode.height = 1 + std::max(node.height, rightLeftNode.height);
@@ -1410,8 +1390,8 @@ class tree final
 
       rightLeftNode.parent = nodeIndex;
 
-      node.aabb = aabb_type::merge(leftNode.aabb, rightLeftNode.aabb);
-      rightNode.aabb = aabb_type::merge(node.aabb, rightRightNode.aabb);
+      node.box = aabb_type::merge(leftNode.box, rightLeftNode.box);
+      rightNode.box = aabb_type::merge(node.box, rightRightNode.box);
 
       node.height = 1 + std::max(leftNode.height, rightLeftNode.height);
       rightNode.height = 1 + std::max(node.height, rightRightNode.height);
@@ -1460,8 +1440,8 @@ class tree final
 
       leftRightNode.parent = nodeIndex;
 
-      node.aabb = aabb_type::merge(rightNode.aabb, leftRightNode.aabb);
-      leftNode.aabb = aabb_type::merge(node.aabb, leftLeftNode.aabb);
+      node.box = aabb_type::merge(rightNode.box, leftRightNode.box);
+      leftNode.box = aabb_type::merge(node.box, leftLeftNode.box);
 
       node.height = 1 + std::max(rightNode.height, leftRightNode.height);
       leftNode.height = 1 + std::max(node.height, leftLeftNode.height);
@@ -1471,8 +1451,8 @@ class tree final
 
       leftLeftNode.parent = nodeIndex;
 
-      node.aabb = aabb_type::merge(rightNode.aabb, leftLeftNode.aabb);
-      leftNode.aabb = aabb_type::merge(node.aabb, leftRightNode.aabb);
+      node.box = aabb_type::merge(rightNode.box, leftLeftNode.box);
+      leftNode.box = aabb_type::merge(node.box, leftRightNode.box);
 
       node.height = 1 + std::max(rightNode.height, leftLeftNode.height);
       leftNode.height = 1 + std::max(node.height, leftRightNode.height);
@@ -1503,7 +1483,7 @@ class tree final
         const auto& node = m_nodes.at(*nodeIndex);
 
         // Test for overlap between the AABBs
-        if (sourceNode.aabb.overlaps(node.aabb, m_touchIsOverlap)) {
+        if (sourceNode.box.overlaps(node.box, m_touchIsOverlap)) {
           if (node.is_leaf() && node.id) {
             if (node.id != key) {  // Can't interact with itself
               // The boolean return type is optional
@@ -1623,13 +1603,13 @@ class tree final
       const auto height = 1 + std::max(leftHeight, rightHeight);
       assert(node.height == height);
 
-      const auto aabb =
-          aabb_type::merge(m_nodes.at(*left).aabb, m_nodes.at(*right).aabb);
+      const auto box =
+          aabb_type::merge(m_nodes.at(*left).box, m_nodes.at(*right).box);
 
-      assert(aabb.min().x == node.aabb.min().x);
-      assert(aabb.min().y == node.aabb.min().y);
-      assert(aabb.max().x == node.aabb.max().x);
-      assert(aabb.max().y == node.aabb.max().y);
+      assert(box.min().x == node.box.min().x);
+      assert(box.min().y == node.box.min().y);
+      assert(box.max().x == node.box.max().x);
+      assert(box.max().y == node.box.max().y);
 
       validate_metrics(left);
       validate_metrics(right);
