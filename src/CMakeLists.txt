@@ -2,13 +2,6 @@ cmake_minimum_required(VERSION 3.15)
 
 project(wanderer-src CXX)
 
-function(wanderer_set_properties [target [outputName]])
-  set_target_properties(${ARGV0} PROPERTIES
-      CXX_STANDARD 17
-      CXX_STANDARD_REQUIRED ON
-      OUTPUT_NAME ${ARGV1})
-endfunction()
-
 set(SOURCE_FILES
     game.hpp
     game.cpp
@@ -185,29 +178,7 @@ set(SOURCE_FILES
 
 add_library(${WANDERER_LIB_TARGET} ${SOURCE_FILES})
 
-if (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
-  target_compile_options(${WANDERER_LIB_TARGET} PRIVATE
-      /EHsc
-      /MP
-      /W3)
-elseif (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-  target_compile_options(${WANDERER_LIB_TARGET} PRIVATE
-      -Wall
-      -Wextra
-      -Wpedantic
-      -Wdouble-promotion
-      -Wswitch-default
-      -Wswitch-enum
-      -Wunused
-      -Wuninitialized
-      -Wsuggest-final-types
-      -Wsuggest-final-methods
-      -Wsuggest-override
-      -Wduplicated-cond
-      -Wconversion)
-endif ()
-
-wanderer_set_properties(${WANDERER_LIB_TARGET} "Wanderer")
+wanderer_set_compiler_options(${WANDERER_LIB_TARGET})
 
 add_header_only_lib(libENTT ${LIBRARY_DIR}/entt ${LIBRARY_DIR}/entt/entt.hpp)
 add_header_only_lib(libJSON ${LIBRARY_DIR}/json ${LIBRARY_DIR}/json/json.hpp)
@@ -274,10 +245,7 @@ else ()
   add_executable(${WANDERER_EXE_TARGET} main.cpp)
 endif ()
 
-wanderer_set_properties(${WANDERER_EXE_TARGET} "Wanderer")
-
-target_link_libraries(${WANDERER_EXE_TARGET}
-    PUBLIC ${WANDERER_LIB_TARGET})
+target_link_libraries(${WANDERER_EXE_TARGET} PUBLIC ${WANDERER_LIB_TARGET})
 
 if (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
   copy_directory_post_build(${WANDERER_EXE_TARGET} ${BINARY_DIR} ${CMAKE_CURRENT_BINARY_DIR})
