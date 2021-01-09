@@ -54,6 +54,7 @@ function(wanderer_set_compiler_options target)
 
   elseif (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     target_compile_options(${target} PRIVATE
+        -fpermissive
         -Wall
         -Wextra
         -Wpedantic
