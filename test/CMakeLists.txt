@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.15)
 
-project(WandererTest CXX)
+project(wanderer-test CXX)
 enable_testing()
 
 set(TEST_FILES

@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.15)
 
-project(WandererSrc CXX)
+project(wanderer-src CXX)
 
 function(wanderer_set_properties [target [outputName]])
   set_target_properties(${ARGV0} PROPERTIES
