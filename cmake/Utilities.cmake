@@ -42,3 +42,31 @@ function(add_header_only_lib [name [includeDirectory [sources]]])
   target_sources(${ARGV0} INTERFACE ${ARGV2})
   target_include_directories(${ARGV0} SYSTEM INTERFACE ${ARGV1})
 endfunction()
+
+# Sets appropriate compiler options depending on the current platform.
+#   target: the associated target.
+function(wanderer_set_compiler_options target)
+  if (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+    target_compile_options(${target} PRIVATE
+        /EHsc
+        /MP
+        /W3)
+
+  elseif (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    target_compile_options(${target} PRIVATE
+        -Wall
+        -Wextra
+        -Wpedantic
+        -Wdouble-promotion
+        -Wswitch-default
+        -Wswitch-enum
+        -Wunused
+        -Wuninitialized
+        -Wsuggest-final-types
+        -Wsuggest-final-methods
+        -Wsuggest-override
+        -Wduplicated-cond
+        -Wconversion
+        -Wno-attributes)
+  endif ()
+endfunction()
