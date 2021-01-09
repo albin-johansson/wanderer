@@ -34,9 +34,6 @@
 *.filters
 *.user
 
-!bin/Centurion.dll
-!bin/Centurion.lib
-
 .idea
 .vs
 .vscode

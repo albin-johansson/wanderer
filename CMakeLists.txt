@@ -17,13 +17,6 @@ set(WANDERER_LIB_TARGET libWanderer)
 set(WANDERER_TEST_TARGET testWanderer)
 set(WANDERER_EXE_TARGET Wanderer)
 
-if (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
-    set(CENTURION_IMPORT_LIB ${BINARY_DIR}/Centurion${CMAKE_IMPORT_LIBRARY_SUFFIX})
-elseif ()
-    set(CENTURION_IMPORT_LIB ${BINARY_DIR}/libCenturion${CMAKE_IMPORT_LIBRARY_SUFFIX})
-endif ()
-message("Centurion import library: ${CENTURION_IMPORT_LIB}")
-
 find_env_var(SDL2DIR SDL2)
 find_env_var(SDL2IMAGEDIR SDL2_image)
 find_env_var(SDL2MIXERDIR SDL2_mixer)

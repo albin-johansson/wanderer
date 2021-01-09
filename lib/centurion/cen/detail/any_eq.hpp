@@ -22,75 +22,46 @@
  * SOFTWARE.
  */
 
-#ifndef CENTURION_SCOPED_LOCK_HEADER
-#define CENTURION_SCOPED_LOCK_HEADER
-
-#include <SDL.h>
+#ifndef CENTURION_DETAIL_ANY_EQ_HEADER
+#define CENTURION_DETAIL_ANY_EQ_HEADER
 
 #include "centurion_cfg.hpp"
-#include "exception.hpp"
-#include "mutex.hpp"
 
 #ifdef CENTURION_USE_PRAGMA_ONCE
 #pragma once
 #endif  // CENTURION_USE_PRAGMA_ONCE
 
-namespace cen {
+/// \cond FALSE
+namespace cen::detail {
 
-/// \addtogroup thread
-/// \{
+// clang-format off
 
 /**
- * \class scoped_lock
+ * \brief Indicates whether or not any of the supplied values are equal to a
+ * specific value.
  *
- * \brief Represents an RAII-style blocking lock that automatically unlocks the
- * associated mutex upon destruction.
+ * \tparam T the type of the value to look for.
  *
- * \remarks This class is purposefully similar to `std::scoped_lock`.
+ * \tparam Args the type of the arguments that will be checked.
  *
- * \since 5.0.0
+ * \param value the value to look for.
+ * \param args the arguments that will be compared with the value.
  *
- * \headerfile scoped_lock.hpp
+ * \return `true` if any of the supplied values are equal to `value`; `false`
+ * otherwise.
+ *
+ * \since 5.1.0
  */
-class scoped_lock final
+template <typename T, typename... Args>
+[[nodiscard]] constexpr auto any_eq(const T& value, Args&&... args)
+    noexcept(noexcept( ((value == args) || ...) )) -> bool
 {
- public:
-  /**
-   * \brief Attempts to lock the supplied mutex.
-   *
-   * \param mutex the mutex that will be locked.
-   *
-   * \throws sdl_error if the mutex can't be locked.
-   *
-   * \since 5.0.0
-   */
-  explicit scoped_lock(mutex& mutex) : m_mutex{&mutex}
-  {
-    if (!mutex.lock()) {
-      throw sdl_error{};
-    }
-  }
+  return ((value == args) || ...);
+}
 
-  scoped_lock(const scoped_lock&) = delete;
+// clang-format on
 
-  auto operator=(const scoped_lock&) -> scoped_lock& = delete;
+}  // namespace cen::detail
+/// \endcond
 
-  /**
-   * \brief Unlocks the associated mutex.
-   *
-   * \since 5.0.0
-   */
-  ~scoped_lock() noexcept
-  {
-    m_mutex->unlock();
-  }
-
- private:
-  mutex* m_mutex{};
-};
-
-/// \}
-
-}  // namespace cen
-
-#endif  // CENTURION_SCOPED_LOCK_HEADER
+#endif  // CENTURION_DETAIL_ANY_EQ_HEADER

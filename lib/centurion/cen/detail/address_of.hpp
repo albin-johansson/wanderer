@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2019-2020 Albin Johansson
+ * Copyright (c) 2019-2021 Albin Johansson
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,32 +22,48 @@
  * SOFTWARE.
  */
 
-#ifndef CENTURION_ALGORITHM_HEADER
-#define CENTURION_ALGORITHM_HEADER
+#ifndef CENTURION_DETAIL_ADDRESS_OF_HEADER
+#define CENTURION_DETAIL_ADDRESS_OF_HEADER
 
-#include "../centurion_api.hpp"
+#include <sstream>  // ostringstream
+#include <string>   // string
+
+#include "centurion_cfg.hpp"
 
 #ifdef CENTURION_USE_PRAGMA_ONCE
 #pragma once
 #endif  // CENTURION_USE_PRAGMA_ONCE
 
+/// \cond FALSE
 namespace cen::detail {
 
-// std::find_if isn't constexpr until C++20
-template <typename It, typename Predicate>
-[[nodiscard]] constexpr auto find_if(It first,
-                                     const It last,
-                                     Predicate predicate) -> It
+/**
+ * \brief Returns a string that represents the memory address of the supplied
+ * pointer.
+ *
+ * \details The empty string is returned if the supplied pointer is null.
+ *
+ * \tparam T the type of the pointer.
+ * \param ptr the pointer that will be converted.
+ *
+ * \return a string that represents the memory address of the supplied
+ * pointer.
+ *
+ * \since 3.0.0
+ */
+template <typename T>
+[[nodiscard]] auto address_of(T* ptr) -> std::string
 {
-  for (; first != last; ++first) {
-    if (predicate(*first)) {
-      break;
-    }
+  if (ptr) {
+    std::ostringstream address;
+    address << static_cast<const void*>(ptr);
+    return address.str();
+  } else {
+    return std::string{};
   }
-
-  return first;
 }
 
 }  // namespace cen::detail
+/// \endcond
 
-#endif  // CENTURION_ALGORITHM_HEADER
+#endif  // CENTURION_DETAIL_ADDRESS_OF_HEADER

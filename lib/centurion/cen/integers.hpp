@@ -22,14 +22,12 @@
  * SOFTWARE.
  */
 
-#ifndef CENTURION_SCOPED_LOCK_HEADER
-#define CENTURION_SCOPED_LOCK_HEADER
+#ifndef CENTURION_INTEGERS_HEADER
+#define CENTURION_INTEGERS_HEADER
 
 #include <SDL.h>
 
 #include "centurion_cfg.hpp"
-#include "exception.hpp"
-#include "mutex.hpp"
 
 #ifdef CENTURION_USE_PRAGMA_ONCE
 #pragma once
@@ -37,60 +35,62 @@
 
 namespace cen {
 
-/// \addtogroup thread
-/// \{
+/**
+ * \typedef u64
+ *
+ * \brief Alias for a 64-bit unsigned integer.
+ */
+using u64 = Uint64;
 
 /**
- * \class scoped_lock
+ * \typedef u32
  *
- * \brief Represents an RAII-style blocking lock that automatically unlocks the
- * associated mutex upon destruction.
- *
- * \remarks This class is purposefully similar to `std::scoped_lock`.
- *
- * \since 5.0.0
- *
- * \headerfile scoped_lock.hpp
+ * \brief Alias for a 32-bit unsigned integer.
  */
-class scoped_lock final
-{
- public:
-  /**
-   * \brief Attempts to lock the supplied mutex.
-   *
-   * \param mutex the mutex that will be locked.
-   *
-   * \throws sdl_error if the mutex can't be locked.
-   *
-   * \since 5.0.0
-   */
-  explicit scoped_lock(mutex& mutex) : m_mutex{&mutex}
-  {
-    if (!mutex.lock()) {
-      throw sdl_error{};
-    }
-  }
+using u32 = Uint32;
 
-  scoped_lock(const scoped_lock&) = delete;
+/**
+ * \typedef u16
+ *
+ * \brief Alias for a 16-bit unsigned integer.
+ */
+using u16 = Uint16;
 
-  auto operator=(const scoped_lock&) -> scoped_lock& = delete;
+/**
+ * \typedef u8
+ *
+ * \brief Alias for an 8-bit unsigned integer.
+ */
+using u8 = Uint8;
 
-  /**
-   * \brief Unlocks the associated mutex.
-   *
-   * \since 5.0.0
-   */
-  ~scoped_lock() noexcept
-  {
-    m_mutex->unlock();
-  }
+/**
+ * \typedef i64
+ *
+ * \brief Alias for a 64-bit signed integer.
+ */
+using i64 = Sint64;
 
- private:
-  mutex* m_mutex{};
-};
+/**
+ * \typedef i32
+ *
+ * \brief Alias for a 32-bit signed integer.
+ */
+using i32 = Sint32;
 
-/// \}
+/**
+ * \typedef i16
+ *
+ * \brief Alias for a 16-bit signed integer.
+ */
+using i16 = Sint16;
+
+/**
+ * \typedef i8
+ *
+ * \brief Alias for an 8-bit signed integer.
+ */
+using i8 = Sint8;
 
 }  // namespace cen
 
-#endif  // CENTURION_SCOPED_LOCK_HEADER
+#endif  // CENTURION_INTEGERS_HEADER

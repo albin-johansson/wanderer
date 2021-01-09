@@ -22,75 +22,33 @@
  * SOFTWARE.
  */
 
-#ifndef CENTURION_SCOPED_LOCK_HEADER
-#define CENTURION_SCOPED_LOCK_HEADER
+#ifndef CENTURION_DETAIL_OWNER_HANDLE_API_HEADER
+#define CENTURION_DETAIL_OWNER_HANDLE_API_HEADER
 
-#include <SDL.h>
+#include <type_traits>  // enable_if_t, is_same_v, true_type, false_type
 
 #include "centurion_cfg.hpp"
-#include "exception.hpp"
-#include "mutex.hpp"
 
 #ifdef CENTURION_USE_PRAGMA_ONCE
 #pragma once
 #endif  // CENTURION_USE_PRAGMA_ONCE
 
-namespace cen {
+/// \cond FALSE
+namespace cen::detail {
 
-/// \addtogroup thread
-/// \{
+template <typename T>
+using is_owner = std::enable_if_t<std::is_same_v<T, std::true_type>, bool>;
 
-/**
- * \class scoped_lock
- *
- * \brief Represents an RAII-style blocking lock that automatically unlocks the
- * associated mutex upon destruction.
- *
- * \remarks This class is purposefully similar to `std::scoped_lock`.
- *
- * \since 5.0.0
- *
- * \headerfile scoped_lock.hpp
- */
-class scoped_lock final
+template <typename T>
+using is_handle = std::enable_if_t<std::is_same_v<T, std::false_type>, bool>;
+
+template <typename T>
+[[nodiscard]] constexpr auto is_owning() noexcept -> bool
 {
- public:
-  /**
-   * \brief Attempts to lock the supplied mutex.
-   *
-   * \param mutex the mutex that will be locked.
-   *
-   * \throws sdl_error if the mutex can't be locked.
-   *
-   * \since 5.0.0
-   */
-  explicit scoped_lock(mutex& mutex) : m_mutex{&mutex}
-  {
-    if (!mutex.lock()) {
-      throw sdl_error{};
-    }
-  }
+  return std::is_same_v<T, std::true_type>;
+}
 
-  scoped_lock(const scoped_lock&) = delete;
+}  // namespace cen::detail
+/// \endcond
 
-  auto operator=(const scoped_lock&) -> scoped_lock& = delete;
-
-  /**
-   * \brief Unlocks the associated mutex.
-   *
-   * \since 5.0.0
-   */
-  ~scoped_lock() noexcept
-  {
-    m_mutex->unlock();
-  }
-
- private:
-  mutex* m_mutex{};
-};
-
-/// \}
-
-}  // namespace cen
-
-#endif  // CENTURION_SCOPED_LOCK_HEADER
+#endif  // CENTURION_DETAIL_OWNER_HANDLE_API_HEADER

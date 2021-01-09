@@ -4,7 +4,7 @@
 #include <cen/counter.hpp>
 #include <cen/renderer.hpp>
 #include <cen/screen.hpp>
-#include <cen/types.hpp>
+#include <cen/time.hpp>
 
 #include "delta.hpp"
 

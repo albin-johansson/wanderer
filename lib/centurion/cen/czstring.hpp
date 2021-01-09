@@ -22,14 +22,11 @@
  * SOFTWARE.
  */
 
-#ifndef CENTURION_SCOPED_LOCK_HEADER
-#define CENTURION_SCOPED_LOCK_HEADER
-
-#include <SDL.h>
+#ifndef CENTURION_CZSTRING_HEADER
+#define CENTURION_CZSTRING_HEADER
 
 #include "centurion_cfg.hpp"
-#include "exception.hpp"
-#include "mutex.hpp"
+#include "not_null.hpp"
 
 #ifdef CENTURION_USE_PRAGMA_ONCE
 #pragma once
@@ -37,60 +34,31 @@
 
 namespace cen {
 
-/// \addtogroup thread
-/// \{
+/**
+ * \typedef czstring
+ *
+ * \brief Alias for a const C-style null-terminated string.
+ */
+using czstring = const char*;
 
 /**
- * \class scoped_lock
+ * \typedef zstring
  *
- * \brief Represents an RAII-style blocking lock that automatically unlocks the
- * associated mutex upon destruction.
+ * \brief Alias for a C-style null-terminated string.
+ */
+using zstring = char*;
+
+/**
+ * \typedef nn_czstring
  *
- * \remarks This class is purposefully similar to `std::scoped_lock`.
+ * \brief Alias for a C-style null-terminated string that cannot be null.
+ *
+ * \deprecated Prefer `not_null` alias template.
  *
  * \since 5.0.0
- *
- * \headerfile scoped_lock.hpp
  */
-class scoped_lock final
-{
- public:
-  /**
-   * \brief Attempts to lock the supplied mutex.
-   *
-   * \param mutex the mutex that will be locked.
-   *
-   * \throws sdl_error if the mutex can't be locked.
-   *
-   * \since 5.0.0
-   */
-  explicit scoped_lock(mutex& mutex) : m_mutex{&mutex}
-  {
-    if (!mutex.lock()) {
-      throw sdl_error{};
-    }
-  }
-
-  scoped_lock(const scoped_lock&) = delete;
-
-  auto operator=(const scoped_lock&) -> scoped_lock& = delete;
-
-  /**
-   * \brief Unlocks the associated mutex.
-   *
-   * \since 5.0.0
-   */
-  ~scoped_lock() noexcept
-  {
-    m_mutex->unlock();
-  }
-
- private:
-  mutex* m_mutex{};
-};
-
-/// \}
+using nn_czstring [[deprecated]] = not_null<czstring>;
 
 }  // namespace cen
 
-#endif  // CENTURION_SCOPED_LOCK_HEADER
+#endif  // CENTURION_CZSTRING_HEADER

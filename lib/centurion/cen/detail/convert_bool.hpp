@@ -22,75 +22,36 @@
  * SOFTWARE.
  */
 
-#ifndef CENTURION_SCOPED_LOCK_HEADER
-#define CENTURION_SCOPED_LOCK_HEADER
+#ifndef CENTURION_DETAIL_CONVERT_BOOL_HEADER
+#define CENTURION_DETAIL_CONVERT_BOOL_HEADER
 
 #include <SDL.h>
 
 #include "centurion_cfg.hpp"
-#include "exception.hpp"
-#include "mutex.hpp"
 
 #ifdef CENTURION_USE_PRAGMA_ONCE
 #pragma once
 #endif  // CENTURION_USE_PRAGMA_ONCE
 
-namespace cen {
-
-/// \addtogroup thread
-/// \{
+/// \cond FALSE
+namespace cen::detail {
 
 /**
- * \class scoped_lock
+ * \brief Returns the corresponding `SDL_bool` value for the supplied boolean
+ * value.
  *
- * \brief Represents an RAII-style blocking lock that automatically unlocks the
- * associated mutex upon destruction.
+ * \param b the boolean value that will be converted.
  *
- * \remarks This class is purposefully similar to `std::scoped_lock`.
+ * \return `SDL_TRUE` for `true`; `SDL_FALSE` for `false`.
  *
- * \since 5.0.0
- *
- * \headerfile scoped_lock.hpp
+ * \since 3.0.0
  */
-class scoped_lock final
+[[nodiscard]] constexpr auto convert_bool(const bool b) noexcept -> SDL_bool
 {
- public:
-  /**
-   * \brief Attempts to lock the supplied mutex.
-   *
-   * \param mutex the mutex that will be locked.
-   *
-   * \throws sdl_error if the mutex can't be locked.
-   *
-   * \since 5.0.0
-   */
-  explicit scoped_lock(mutex& mutex) : m_mutex{&mutex}
-  {
-    if (!mutex.lock()) {
-      throw sdl_error{};
-    }
-  }
+  return b ? SDL_TRUE : SDL_FALSE;
+}
 
-  scoped_lock(const scoped_lock&) = delete;
+}  // namespace cen::detail
+/// \endcond
 
-  auto operator=(const scoped_lock&) -> scoped_lock& = delete;
-
-  /**
-   * \brief Unlocks the associated mutex.
-   *
-   * \since 5.0.0
-   */
-  ~scoped_lock() noexcept
-  {
-    m_mutex->unlock();
-  }
-
- private:
-  mutex* m_mutex{};
-};
-
-/// \}
-
-}  // namespace cen
-
-#endif  // CENTURION_SCOPED_LOCK_HEADER
+#endif  // CENTURION_DETAIL_CONVERT_BOOL_HEADER

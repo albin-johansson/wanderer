@@ -22,14 +22,14 @@
  * SOFTWARE.
  */
 
-#ifndef CENTURION_SCOPED_LOCK_HEADER
-#define CENTURION_SCOPED_LOCK_HEADER
+#ifndef CENTURION_NOT_NULL_HEADER
+#define CENTURION_NOT_NULL_HEADER
 
 #include <SDL.h>
 
+#include <type_traits>  // enable_if_t, is_pointer_v
+
 #include "centurion_cfg.hpp"
-#include "exception.hpp"
-#include "mutex.hpp"
 
 #ifdef CENTURION_USE_PRAGMA_ONCE
 #pragma once
@@ -37,60 +37,18 @@
 
 namespace cen {
 
-/// \addtogroup thread
-/// \{
-
 /**
- * \class scoped_lock
+ * \typedef not_null
  *
- * \brief Represents an RAII-style blocking lock that automatically unlocks the
- * associated mutex upon destruction.
+ * \brief Tag used to indicate that a pointer cannot be null.
  *
- * \remarks This class is purposefully similar to `std::scoped_lock`.
+ * \note This alias is equivalent to `T`, it is a no-op.
  *
  * \since 5.0.0
- *
- * \headerfile scoped_lock.hpp
  */
-class scoped_lock final
-{
- public:
-  /**
-   * \brief Attempts to lock the supplied mutex.
-   *
-   * \param mutex the mutex that will be locked.
-   *
-   * \throws sdl_error if the mutex can't be locked.
-   *
-   * \since 5.0.0
-   */
-  explicit scoped_lock(mutex& mutex) : m_mutex{&mutex}
-  {
-    if (!mutex.lock()) {
-      throw sdl_error{};
-    }
-  }
-
-  scoped_lock(const scoped_lock&) = delete;
-
-  auto operator=(const scoped_lock&) -> scoped_lock& = delete;
-
-  /**
-   * \brief Unlocks the associated mutex.
-   *
-   * \since 5.0.0
-   */
-  ~scoped_lock() noexcept
-  {
-    m_mutex->unlock();
-  }
-
- private:
-  mutex* m_mutex{};
-};
-
-/// \}
+template <typename T, typename = std::enable_if_t<std::is_pointer_v<T>>>
+using not_null = T;
 
 }  // namespace cen
 
-#endif  // CENTURION_SCOPED_LOCK_HEADER
+#endif  // CENTURION_NOT_NULL_HEADER

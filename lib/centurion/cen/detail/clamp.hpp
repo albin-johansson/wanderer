@@ -22,75 +22,60 @@
  * SOFTWARE.
  */
 
-#ifndef CENTURION_SCOPED_LOCK_HEADER
-#define CENTURION_SCOPED_LOCK_HEADER
+#ifndef CENTURION_DETAIL_CLAMP_HEADER
+#define CENTURION_DETAIL_CLAMP_HEADER
 
-#include <SDL.h>
+#include <cassert>  // assert
 
 #include "centurion_cfg.hpp"
-#include "exception.hpp"
-#include "mutex.hpp"
 
 #ifdef CENTURION_USE_PRAGMA_ONCE
 #pragma once
 #endif  // CENTURION_USE_PRAGMA_ONCE
 
-namespace cen {
+/// \cond FALSE
+namespace cen::detail {
 
-/// \addtogroup thread
-/// \{
+// clang-format off
 
 /**
- * \class scoped_lock
+ * \brief Clamps a value to be within the range [min, max].
  *
- * \brief Represents an RAII-style blocking lock that automatically unlocks the
- * associated mutex upon destruction.
+ * \pre `min` must be less than or equal to `max`.
  *
- * \remarks This class is purposefully similar to `std::scoped_lock`.
+ * \note The standard library provides `std::clamp`, but it isn't mandated to be
+ * `noexcept` (although MSVC does mark it as `noexcept`), which is the reason
+ * this function exists.
  *
- * \since 5.0.0
+ * \tparam T the type of the values.
  *
- * \headerfile scoped_lock.hpp
+ * \param value the value that will be clamped.
+ * \param min the minimum value (inclusive).
+ * \param max the maximum value (inclusive).
+ *
+ * \return the clamped value.
+ *
+ * \since 5.1.0
  */
-class scoped_lock final
+template <typename T>
+[[nodiscard]] constexpr auto clamp(const T& value,
+                                   const T& min,
+                                   const T& max)
+    noexcept(noexcept(value < min) && noexcept(value > max)) -> T
 {
- public:
-  /**
-   * \brief Attempts to lock the supplied mutex.
-   *
-   * \param mutex the mutex that will be locked.
-   *
-   * \throws sdl_error if the mutex can't be locked.
-   *
-   * \since 5.0.0
-   */
-  explicit scoped_lock(mutex& mutex) : m_mutex{&mutex}
-  {
-    if (!mutex.lock()) {
-      throw sdl_error{};
-    }
+  assert(min <= max);
+  if (value < min) {
+    return min;
+  } else if (value > max) {
+    return max;
+  } else {
+    return value;
   }
+}
 
-  scoped_lock(const scoped_lock&) = delete;
+// clang-format on
 
-  auto operator=(const scoped_lock&) -> scoped_lock& = delete;
+}  // namespace cen::detail
+/// \endcond
 
-  /**
-   * \brief Unlocks the associated mutex.
-   *
-   * \since 5.0.0
-   */
-  ~scoped_lock() noexcept
-  {
-    m_mutex->unlock();
-  }
-
- private:
-  mutex* m_mutex{};
-};
-
-/// \}
-
-}  // namespace cen
-
-#endif  // CENTURION_SCOPED_LOCK_HEADER
+#endif  // CENTURION_DETAIL_CLAMP_HEADER

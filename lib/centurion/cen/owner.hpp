@@ -22,14 +22,12 @@
  * SOFTWARE.
  */
 
-#ifndef CENTURION_SCOPED_LOCK_HEADER
-#define CENTURION_SCOPED_LOCK_HEADER
+#ifndef CENTURION_OWNER_HEADER
+#define CENTURION_OWNER_HEADER
 
-#include <SDL.h>
+#include <type_traits>  // enable_if_t, is_pointer_v
 
 #include "centurion_cfg.hpp"
-#include "exception.hpp"
-#include "mutex.hpp"
 
 #ifdef CENTURION_USE_PRAGMA_ONCE
 #pragma once
@@ -37,60 +35,18 @@
 
 namespace cen {
 
-/// \addtogroup thread
-/// \{
-
 /**
- * \class scoped_lock
+ * \typedef owner
  *
- * \brief Represents an RAII-style blocking lock that automatically unlocks the
- * associated mutex upon destruction.
+ * \brief Tag used to denote ownership of raw pointers directly in code.
  *
- * \remarks This class is purposefully similar to `std::scoped_lock`.
- *
- * \since 5.0.0
- *
- * \headerfile scoped_lock.hpp
+ * \details If a function takes an `owner<T*>` as a parameter, then the
+ * function will claim ownership of that pointer. Subsequently, if a function
+ * returns an `owner<T*>`, then ownership is transferred to the caller.
  */
-class scoped_lock final
-{
- public:
-  /**
-   * \brief Attempts to lock the supplied mutex.
-   *
-   * \param mutex the mutex that will be locked.
-   *
-   * \throws sdl_error if the mutex can't be locked.
-   *
-   * \since 5.0.0
-   */
-  explicit scoped_lock(mutex& mutex) : m_mutex{&mutex}
-  {
-    if (!mutex.lock()) {
-      throw sdl_error{};
-    }
-  }
-
-  scoped_lock(const scoped_lock&) = delete;
-
-  auto operator=(const scoped_lock&) -> scoped_lock& = delete;
-
-  /**
-   * \brief Unlocks the associated mutex.
-   *
-   * \since 5.0.0
-   */
-  ~scoped_lock() noexcept
-  {
-    m_mutex->unlock();
-  }
-
- private:
-  mutex* m_mutex{};
-};
-
-/// \}
+template <typename T, typename = std::enable_if_t<std::is_pointer_v<T>>>
+using owner = T;
 
 }  // namespace cen
 
-#endif  // CENTURION_SCOPED_LOCK_HEADER
+#endif  // CENTURION_OWNER_HEADER

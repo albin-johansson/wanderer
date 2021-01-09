@@ -22,14 +22,10 @@
  * SOFTWARE.
  */
 
-#ifndef CENTURION_SCOPED_LOCK_HEADER
-#define CENTURION_SCOPED_LOCK_HEADER
-
-#include <SDL.h>
+#ifndef CENTURION_CAST_HEADER
+#define CENTURION_CAST_HEADER
 
 #include "centurion_cfg.hpp"
-#include "exception.hpp"
-#include "mutex.hpp"
 
 #ifdef CENTURION_USE_PRAGMA_ONCE
 #pragma once
@@ -37,60 +33,31 @@
 
 namespace cen {
 
-/// \addtogroup thread
-/// \{
-
 /**
- * \class scoped_lock
+ * \brief Casts a value to a value of another type.
  *
- * \brief Represents an RAII-style blocking lock that automatically unlocks the
- * associated mutex upon destruction.
+ * \ingroup misc
  *
- * \remarks This class is purposefully similar to `std::scoped_lock`.
+ * \details This is the default implementation, which simply attempts to use
+ * `static_cast`. The idea is that this function will be specialized for
+ * various Centurion and SDL types. This is useful because it isn't always
+ * possible to implement conversion operators as members.
+ *
+ * \tparam To the type of the value that will be converted.
+ * \tparam From the type that the value will be casted to.
+ *
+ * \param from the value that will be converted.
+ *
+ * \return the result of casting the supplied value to the specified type.
  *
  * \since 5.0.0
- *
- * \headerfile scoped_lock.hpp
  */
-class scoped_lock final
+template <typename To, typename From>
+[[nodiscard]] constexpr auto cast(const From& from) noexcept -> To
 {
- public:
-  /**
-   * \brief Attempts to lock the supplied mutex.
-   *
-   * \param mutex the mutex that will be locked.
-   *
-   * \throws sdl_error if the mutex can't be locked.
-   *
-   * \since 5.0.0
-   */
-  explicit scoped_lock(mutex& mutex) : m_mutex{&mutex}
-  {
-    if (!mutex.lock()) {
-      throw sdl_error{};
-    }
-  }
-
-  scoped_lock(const scoped_lock&) = delete;
-
-  auto operator=(const scoped_lock&) -> scoped_lock& = delete;
-
-  /**
-   * \brief Unlocks the associated mutex.
-   *
-   * \since 5.0.0
-   */
-  ~scoped_lock() noexcept
-  {
-    m_mutex->unlock();
-  }
-
- private:
-  mutex* m_mutex{};
-};
-
-/// \}
+  return static_cast<To>(from);
+}
 
 }  // namespace cen
 
-#endif  // CENTURION_SCOPED_LOCK_HEADER
+#endif  // CENTURION_CAST_HEADER

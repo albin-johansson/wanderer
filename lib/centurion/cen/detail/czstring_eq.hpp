@@ -22,75 +22,42 @@
  * SOFTWARE.
  */
 
-#ifndef CENTURION_SCOPED_LOCK_HEADER
-#define CENTURION_SCOPED_LOCK_HEADER
+#ifndef CENTURION_DETAIL_CZSTRING_EQ_HEADER
+#define CENTURION_DETAIL_CZSTRING_EQ_HEADER
 
-#include <SDL.h>
+#include <cstring>  // strcmp
 
 #include "centurion_cfg.hpp"
-#include "exception.hpp"
-#include "mutex.hpp"
+#include "types.hpp"
 
 #ifdef CENTURION_USE_PRAGMA_ONCE
 #pragma once
 #endif  // CENTURION_USE_PRAGMA_ONCE
 
-namespace cen {
-
-/// \addtogroup thread
-/// \{
+/// \cond FALSE
+namespace cen::detail {
 
 /**
- * \class scoped_lock
+ * \brief Indicates whether or not two C-style strings are equal.
  *
- * \brief Represents an RAII-style blocking lock that automatically unlocks the
- * associated mutex upon destruction.
+ * \param lhs the left-hand side string, can safely be null.
+ * \param rhs the right-hand side string, can safely be null.
  *
- * \remarks This class is purposefully similar to `std::scoped_lock`.
+ * \return `true` if the strings are equal; `false` otherwise.
  *
- * \since 5.0.0
- *
- * \headerfile scoped_lock.hpp
+ * \since 4.1.0
  */
-class scoped_lock final
+[[nodiscard]] inline auto czstring_eq(czstring lhs, czstring rhs) noexcept
+    -> bool
 {
- public:
-  /**
-   * \brief Attempts to lock the supplied mutex.
-   *
-   * \param mutex the mutex that will be locked.
-   *
-   * \throws sdl_error if the mutex can't be locked.
-   *
-   * \since 5.0.0
-   */
-  explicit scoped_lock(mutex& mutex) : m_mutex{&mutex}
-  {
-    if (!mutex.lock()) {
-      throw sdl_error{};
-    }
+  if (lhs && rhs) {
+    return std::strcmp(lhs, rhs) == 0;
+  } else {
+    return false;
   }
+}
 
-  scoped_lock(const scoped_lock&) = delete;
+}  // namespace cen::detail
+/// \endcond
 
-  auto operator=(const scoped_lock&) -> scoped_lock& = delete;
-
-  /**
-   * \brief Unlocks the associated mutex.
-   *
-   * \since 5.0.0
-   */
-  ~scoped_lock() noexcept
-  {
-    m_mutex->unlock();
-  }
-
- private:
-  mutex* m_mutex{};
-};
-
-/// \}
-
-}  // namespace cen
-
-#endif  // CENTURION_SCOPED_LOCK_HEADER
+#endif  // CENTURION_DETAIL_CZSTRING_EQ_HEADER
