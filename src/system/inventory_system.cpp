@@ -10,11 +10,11 @@
 namespace wanderer::sys::inventory {
 namespace {
 
-inline constexpr int nRows = 4;        ///< Amount of inventory cell rows.
-inline constexpr int nCols = 5;        ///< Amount of inventory cell columns.
-inline constexpr int cellWidth = 32;   ///< Width of inventory cells.
-inline constexpr int cellHeight = 32;  ///< Height of inventory cells.
-inline constexpr int offset = 2;       ///< Space in between inventory cells.
+inline constexpr auto nRows = 4;        ///< Amount of inventory cell rows.
+inline constexpr auto nCols = 5;        ///< Amount of inventory cell columns.
+inline constexpr auto cellWidth = 32;   ///< Width of inventory cells.
+inline constexpr auto cellHeight = 32;  ///< Height of inventory cells.
+inline constexpr auto offset = 2;       ///< Space in between inventory cells.
 
 [[nodiscard]] constexpr auto get_render_origin() -> cen::ipoint
 {
