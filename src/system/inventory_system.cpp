@@ -58,8 +58,7 @@ void render(const entt::registry& registry, cen::renderer& renderer)
   const auto& inventory = registry.get<comp::inventory>(view.front());
   constexpr auto origin = get_render_origin();
 
-  renderer.set_color(glob::transparentBlack);
-  renderer.fill_rect<int>({{}, glob::logicalSize<>});
+  renderer.fill_with(glob::transparentBlack);
 
   auto i = 0;
   for (auto row = 0; row < nRows; ++row) {

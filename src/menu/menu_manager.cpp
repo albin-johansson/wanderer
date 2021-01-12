@@ -37,8 +37,7 @@ void menu_manager::update(const cen::mouse_state& mouseState,
 
 void menu_manager::render(cen::renderer& renderer)
 {
-  renderer.set_color(glob::transparentBlack);
-  renderer.fill_rect<int>({{0, 0}, renderer.output_size()});
+  renderer.fill_with(glob::transparentBlack);
 
   auto& menu = active_menu();
   menu.render(renderer);
