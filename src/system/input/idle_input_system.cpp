@@ -1,6 +1,7 @@
 #include "idle_input_system.hpp"
 
-#include <cassert>  // assert
+#include <cassert>   // assert
+#include <optional>  // optional
 
 #include "begin_attack_event.hpp"
 #include "begin_humanoid_move_event.hpp"
@@ -14,30 +15,42 @@
 namespace wanderer::sys::input {
 namespace {
 
-void check_for_movement(entt::registry& registry,
-                        entt::dispatcher& dispatcher,
-                        const cen::key_state& keyState,
-                        const comp::binds& binds,
-                        const comp::player::entity player)
+[[nodiscard]] auto get_direction(const cen::key_state& keyState,
+                                 const comp::binds& binds) noexcept
+    -> std::optional<direction>
 {
   const auto left = keyState.is_pressed(binds.left);
   const auto right = keyState.is_pressed(binds.right);
   const auto up = keyState.is_pressed(binds.up);
   const auto down = keyState.is_pressed(binds.down);
 
-  if (left || right || up || down) {
-    direction dir;
-    if (left) {
-      dir = direction::left;
-    } else if (right) {
-      dir = direction::right;
-    } else if (up) {
-      dir = direction::up;
-    } else {
-      dir = direction::down;
-    }
+  if (left) {
+    return direction::left;
 
-    dispatcher.enqueue<comp::begin_humanoid_move_event>(&registry, player, dir);
+  } else if (right) {
+    return direction::right;
+
+  } else if (up) {
+    return direction::up;
+
+  } else if (down) {
+    return direction::down;
+
+  } else {
+    return std::nullopt;
+  }
+}
+
+void check_for_movement(entt::registry& registry,
+                        entt::dispatcher& dispatcher,
+                        const cen::key_state& keyState,
+                        const comp::binds& binds,
+                        const comp::player::entity player)
+{
+  if (const auto dir = get_direction(keyState, binds)) {
+    dispatcher.enqueue<comp::begin_humanoid_move_event>(&registry,
+                                                        player,
+                                                        *dir);
   }
 }
 
