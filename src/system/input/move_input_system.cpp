@@ -33,8 +33,6 @@ void move(comp::movable& movable, const direction dir) noexcept
       movable.velocity.y = movable.speed;
       break;
     }
-    default:
-      break;
   }
   movable.velocity.norm();
   movable.velocity.scale(movable.speed);
@@ -55,8 +53,6 @@ void stop(comp::movable& movable, const direction dir) noexcept
       movable.velocity.y = 0;
       break;
     }
-    default:
-      break;
   }
   movable.velocity.norm();
   movable.velocity.scale(movable.speed);
@@ -64,7 +60,7 @@ void stop(comp::movable& movable, const direction dir) noexcept
 
 [[nodiscard]] auto check_pressed(comp::movable& movable,
                                  const cen::key_state& keyState,
-                                 const comp::binds& binds) -> bool
+                                 const comp::binds& binds) noexcept -> bool
 {
   const auto left = keyState.is_pressed(binds.left);
   const auto right = keyState.is_pressed(binds.right);
@@ -94,26 +90,21 @@ void stop(comp::movable& movable, const direction dir) noexcept
 
 void check_released(comp::movable& movable,
                     const cen::key_state& keyState,
-                    const comp::binds& binds)
+                    const comp::binds& binds) noexcept
 {
-  const auto left = keyState.was_just_released(binds.left);
-  const auto right = keyState.was_just_released(binds.right);
-  const auto up = keyState.was_just_released(binds.up);
-  const auto down = keyState.was_just_released(binds.down);
-
-  if (left) {
+  if (keyState.was_just_released(binds.left)) {
     stop(movable, direction::left);
   }
 
-  if (right) {
+  if (keyState.was_just_released(binds.right)) {
     stop(movable, direction::right);
   }
 
-  if (up) {
+  if (keyState.was_just_released(binds.up)) {
     stop(movable, direction::up);
   }
 
-  if (down) {
+  if (keyState.was_just_released(binds.down)) {
     stop(movable, direction::down);
   }
 }
