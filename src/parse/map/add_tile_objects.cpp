@@ -48,9 +48,9 @@ void add_tile_object(entt::registry& registry,
                      position,
                      layerIndex);
 
-  if (const auto* tileHb = registry.try_get<comp::hitbox>(tileEntity)) {
-    auto hitbox = sys::hitbox::with_position(*tileHb, to_vector(position));
-    registry.emplace<comp::hitbox>(entity, std::move(hitbox));
+  if (const auto* hitbox = registry.try_get<comp::hitbox>(tileEntity)) {
+    auto newHitbox = sys::hitbox::with_position(*hitbox, to_vector(position));
+    registry.emplace<comp::hitbox>(entity, std::move(newHitbox));
   }
 }
 
@@ -66,9 +66,9 @@ void add_tile_objects(entt::registry& registry,
   int index{0};
 
   for (const auto gid : data) {
-    const tile_id tileId{gid.get()};
-    if (!is_empty(tileId)) {
-      const auto tileEntity = tileset.tiles.at(tileId);
+    const tile_id tile{gid.get()};
+    if (!is_empty(tile)) {
+      const auto tileEntity = tileset.tiles.at(tile);
       const auto [row, col] = index_to_matrix(index, nColumns);
       add_tile_object(registry, tileEntity, row, col, layerIndex);
     }
