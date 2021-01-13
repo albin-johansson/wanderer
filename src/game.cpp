@@ -84,7 +84,7 @@ void game::tick(const delta_t dt)
   sys::hud::update_level_switch_animations(registry, m_dispatcher);
 }
 
-void game::render(cen::renderer& renderer)
+void game::render(cen::renderer& renderer, const cen::ipoint& mousePos)
 {
   auto* level = m_levels.current();
   auto& registry = level->registry();
@@ -98,7 +98,7 @@ void game::render(cen::renderer& renderer)
                             bounds);
   sys::depthdrawable::render(registry, renderer, bounds);
 
-  sys::inventory::render(registry, renderer);
+  sys::inventory::render(registry, renderer, mousePos);
   sys::hud::render_level_switch_animations(registry, renderer);
 
   if (m_menus.is_blocking()) {

@@ -60,7 +60,7 @@ class game final
    *
    * \param renderer the renderer used to render the game.
    */
-  void render(cen::renderer& renderer);
+  void render(cen::renderer& renderer, const cen::ipoint& mousePos);
 
   /**
    * \brief Indicates whether or not the game should quit.

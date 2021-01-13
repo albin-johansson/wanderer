@@ -60,7 +60,7 @@ auto wanderer_app::run() -> int
     m_loop.tick(input, logic);
 
     renderer.clear_with(cen::colors::black);
-    m_game.render(renderer);
+    m_game.render(renderer, m_mouseState.mouse_pos());
     renderer.present();
   }
 
