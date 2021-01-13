@@ -1,6 +1,6 @@
 #include "humanoid_attack_event_handler.hpp"
 
-#include <cassert>
+#include <cassert>  // assert
 
 #include "humanoid_animation_system.hpp"
 #include "humanoid_state.hpp"
@@ -9,7 +9,7 @@ namespace wanderer::sys::humanoid {
 
 void on_attack_begin(const comp::begin_attack_event& event)
 {
-  assert(event.registry != nullptr);
+  assert(event.registry);
   assert(!event.registry->has<comp::humanoid_attack>(event.sourceEntity));
 
   auto& attack =
@@ -22,7 +22,7 @@ void on_attack_begin(const comp::begin_attack_event& event)
 
 void on_attack_end(const comp::end_attack_event& event)
 {
-  assert(event.registry != nullptr);
+  assert(event.registry);
   assert(event.registry->has<comp::humanoid_attack>(event.sourceEntity));
 
   event.registry->emplace<comp::humanoid_idle>(event.sourceEntity);
