@@ -14,11 +14,14 @@ namespace wanderer {
 namespace {
 
 [[nodiscard]] auto get_spawnpoint_entity(const step::properties& props)
+    -> comp::spawnpoint_type
 {
   if (props.is("entity", "player")) {
     return comp::spawnpoint_type::player;
+
   } else if (props.is("entity", "skeleton")) {
     return comp::spawnpoint_type::skeleton;
+
   } else {
     throw std::runtime_error{"Did not recognize spawnpoint type!"};
   }
@@ -104,7 +107,7 @@ void parse_container_trigger(entt::registry& registry,
   assert(props->has("container"));
   assert(props->get("container").is<step::object_ref>());
 
-  // The inventoryEntity member is initialized later
+  // The inventory entity member is initialized later
   auto& trigger = registry.emplace<comp::container_trigger>(entity);
   trigger.inventoryId = props->get("container").get<step::object_ref>().get();
 
@@ -133,10 +136,13 @@ void parse_object_layer(entt::registry& registry,
     const auto type = stepObject.type();
     if (type == "Spawnpoint") {
       parse_spawnpoint(registry, entity, stepObject);
+
     } else if (type == "Portal") {
       parse_portal(registry, entity, stepObject);
+
     } else if (type == "Container") {
       parse_container(registry, entity, stepObject);
+
     } else if (type == "ContainerTrigger") {
       parse_container_trigger(registry, entity, stepObject);
     }
