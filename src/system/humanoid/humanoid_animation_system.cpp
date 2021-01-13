@@ -33,24 +33,30 @@ inline constexpr ms_t attackDelay{70};
  * \brief Returns the y-coordinate with the appropriate offset in relation to
  * the dir.
  *
- * \note This method assumes that all humanoids use an LPC tilesheet.
+ * \note This function assumes that all humanoids use an LPC tilesheet.
  *
  * \param y the base y-coordinate for the type of animation.
  * \param dir the dir of the humanoid used to determine the
  * appropriate offset.
+ *
  * \return the source y-coordinate to use for rendering a humanoid.
  */
-[[nodiscard]] auto source_y(const int y, const direction dir) noexcept -> int
+[[nodiscard]] constexpr auto source_y(const int y, const direction dir) noexcept
+    -> int
 {
   switch (dir) {
     default:
       assert(false);
+
     case direction::up:
       return y;
+
     case direction::left:
       return y + 64;
+
     case direction::down:
       return y + 128;
+
     case direction::right:
       return y + 192;
   }
