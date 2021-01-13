@@ -146,7 +146,7 @@ void update(level& level, const delta_t dt)
 {
   const auto delta = static_cast<float>(dt.get());
   level.each<comp::movable>(
-      [&, delta, dt](const entt::entity entity, comp::movable& movable) {
+      [&](const entt::entity entity, comp::movable& movable) {
         const auto oldPosition = movable.position;
 
         movable.position += (movable.velocity * delta);
