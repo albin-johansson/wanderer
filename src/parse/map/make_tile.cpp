@@ -4,7 +4,6 @@
 #include <cen/counter.hpp>
 
 #include "animated_tile.hpp"
-#include "centurion_utils.hpp"
 #include "depth_drawable.hpp"
 #include "hitbox.hpp"
 #include "hitbox_system.hpp"
@@ -50,8 +49,9 @@ void add_hitbox(entt::registry& registry,
   if (props.has("depth")) {
     assert(props.get("depth").is<int>());
     return depth_t{props.get("depth").get<int>()};
+  } else {
+    return std::nullopt;
   }
-  return std::nullopt;
 }
 
 }  // namespace
@@ -61,7 +61,7 @@ void parse_fancy_tile(entt::registry& registry,
                       const step::tile& stepTile,
                       const tile_id firstGid)
 {
-  if (const auto& stepAnimation = stepTile.get_animation(); stepAnimation) {
+  if (const auto& stepAnimation = stepTile.get_animation()) {
     add_animation(registry, tileEntity, *stepAnimation, firstGid);
   }
 
