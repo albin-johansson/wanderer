@@ -2,14 +2,14 @@
 
 #include <entt.hpp>
 
-namespace wanderer {
+namespace wanderer::glob {
 
-inline constexpr auto g_menuSmallFont = "typewriter_s"_hs;
+inline constexpr entt::hashed_string menuSmallFont{"typewriter_s"};
 
-inline constexpr auto g_menuMediumFont = "typewriter_m"_hs;
+inline constexpr entt::hashed_string menuMediumFont{"typewriter_m"};
 
-inline constexpr int g_menuColSize = 20;
+inline constexpr int menuColSize = 20;
 
-inline constexpr int g_menuRowSize = 20;
+inline constexpr int menuRowSize = 20;
 
 }  // namespace wanderer

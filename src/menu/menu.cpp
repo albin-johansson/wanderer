@@ -49,7 +49,7 @@ auto menu::query_binds(const cen::key_state& keyState) -> maybe<menu_action>
 
 void menu::load_title_texture(cen::renderer& renderer) const
 {
-  auto& font = renderer.get_font(g_menuMediumFont);
+  auto& font = renderer.get_font(glob::menuMediumFont);
   renderer.set_color(cen::colors::white);
   m_titleTexture = renderer.render_blended_utf8(m_title.c_str(), font);
 }
@@ -60,7 +60,7 @@ void menu::render_title(cen::renderer& renderer) const
 
   if (!m_titlePos) {
     const auto x = (glob::logicalWidth<int> / 2) - (texture.width() / 2);
-    const auto y = g_menuRowSize * 2;
+    const auto y = glob::menuRowSize * 2;
     m_titlePos = {x, y};
   }
 
