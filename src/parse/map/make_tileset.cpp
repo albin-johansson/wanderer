@@ -24,17 +24,14 @@ namespace {
   return handle;
 }
 
-[[nodiscard]] auto get_source_rect(const int index,
-                                   const int nColumns,
-                                   const int tileWidth,
-                                   const int tileHeight) noexcept -> cen::irect
+[[nodiscard]] auto to_source_rect(const int index,
+                                  const int nColumns,
+                                  const int tileWidth,
+                                  const int tileHeight) noexcept -> cen::irect
 {
   const auto [row, col] = index_to_matrix(index, nColumns);
-
-  const cen::irect src{{col * tileWidth, row * tileHeight},
-                       {tileWidth, tileHeight}};
-
-  return src;
+  return cen::irect{{col * tileWidth, row * tileHeight},
+                    {tileWidth, tileHeight}};
 }
 
 void create_tiles(entt::registry& registry,
@@ -51,7 +48,7 @@ void create_tiles(entt::registry& registry,
   auto id = static_cast<tile_id>(stepTileset.first_gid().get());
   for (auto index = 0; index < tileCount; ++index, ++id) {
     const auto src =
-        get_source_rect(index, stepTileset.columns(), tileWidth, tileHeight);
+        to_source_rect(index, stepTileset.columns(), tileWidth, tileHeight);
     tileset.tiles.emplace(id, make_basic_tile(registry, id, sheet, src));
   }
 }
