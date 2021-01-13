@@ -17,6 +17,7 @@ void render(const entt::registry& registry,
     if (registry.has<comp::animated_tile>(entity)) {
       const auto& tile = tile::animated_tile(registry, entity, tileset);
       tile::render(renderer, tile, row, col);
+
     } else {
       const auto& tile = registry.get<comp::tile>(entity);
       tile::render(renderer, tile, row, col);
@@ -29,10 +30,10 @@ void render_ground(const entt::registry& registry,
                    cen::renderer& renderer,
                    const comp::render_bounds& bounds)
 {
-  registry.view<const comp::tile_layer>().each(
-      [&](const comp::tile_layer& layer) {
-        layer::render(registry, layer, renderer, tileset, bounds);
-      });
+  const auto view = registry.view<const comp::tile_layer>();
+  view.each([&](const comp::tile_layer& layer) {
+    layer::render(registry, layer, renderer, tileset, bounds);
+  });
 }
 
 }  // namespace wanderer::sys::layer
