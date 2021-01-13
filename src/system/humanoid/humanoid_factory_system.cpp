@@ -16,6 +16,8 @@
 #include "movable.hpp"
 #include "texture_handle.hpp"
 
+using namespace entt::literals;
+
 namespace wanderer::sys::humanoid {
 namespace {
 

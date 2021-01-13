@@ -8,6 +8,8 @@ namespace wanderer {
 
 auto make_renderer(const cen::window& window) -> cen::renderer
 {
+  using namespace entt::literals;
+
   cen::renderer renderer{window};
 
   const auto* typewriter = "resource/font/type_writer.ttf";

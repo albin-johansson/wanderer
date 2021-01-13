@@ -1,7 +1,5 @@
 #include "inventory_system.hpp"
 
-#include <cassert>  // assert
-
 #include "container_trigger.hpp"
 #include "game_constants.hpp"
 #include "index_to_matrix.hpp"
@@ -64,42 +62,39 @@ void render(const entt::registry& registry,
 {
   const auto view =
       registry.view<const comp::inventory, const comp::active_inventory>();
-  if (view.empty()) {
-    return;
-  }
+  view.each([&](const comp::inventory& inventory) {
+    const auto nItems = inventory.items.size();
 
-  assert(view.size() == 1);
-  const auto& inventory = registry.get<comp::inventory>(view.front());
-  const auto nItems = inventory.items.size();
+    renderer.fill_with(glob::transparentBlack);
 
-  renderer.fill_with(glob::transparentBlack);
+    maybe<int> hoverIndex;
+    auto index = 0;
+    for (auto row = 0; row < nRows; ++row) {
+      for (auto col = 0; col < nCols; ++col, ++index) {
+        const auto rect = get_rect(row, col);
+        if (rect.contains(mousePos)) {
+          hoverIndex = index;
+        }
 
-  maybe<int> hoverIndex;
-  auto index = 0;
-  for (auto row = 0; row < nRows; ++row) {
-    for (auto col = 0; col < nCols; ++col, ++index) {
-      const auto rect = get_rect(row, col);
-      if (rect.contains(mousePos)) {
-        hoverIndex = index;
-      }
+        renderer.set_color(index >= inventory.capacity ? cen::colors::black
+                                                       : cen::colors::gray);
+        renderer.fill_rect(rect);
 
-      renderer.set_color(index >= inventory.capacity ? cen::colors::black
-                                                     : cen::colors::gray);
-      renderer.fill_rect(rect);
-
-      if (index < nItems) {
-        const auto& item = registry.get<comp::item>(inventory.items.at(index));
-        renderer.render(*item.texture, rect);
+        if (index < nItems) {
+          const auto& item =
+              registry.get<comp::item>(inventory.items.at(index));
+          renderer.render(*item.texture, rect);
+        }
       }
     }
-  }
 
-  if (hoverIndex) {
-    const auto [row, col] = index_to_matrix(*hoverIndex, nCols);
-    const auto rect = get_rect(row, col);
-    renderer.set_color(cen::colors::dark_green);
-    renderer.draw_rect(rect);
-  }
+    if (hoverIndex) {
+      const auto [row, col] = index_to_matrix(*hoverIndex, nCols);
+      const auto rect = get_rect(row, col);
+      renderer.set_color(cen::colors::dark_green);
+      renderer.draw_rect(rect);
+    }
+  });
 }
 
 }  // namespace wanderer::sys::inventory
