@@ -35,9 +35,9 @@ void render_level_switch_animations(const entt::registry& registry,
 {
   const auto view = registry.view<const comp::level_switch_animation>();
   view.each([&](const comp::level_switch_animation& animation) noexcept {
-    const auto logicalSize = renderer.logical_size();
-    const auto width = static_cast<float>(logicalSize.width);
-    const auto height = static_cast<float>(logicalSize.height);
+    constexpr auto logicalSize = glob::logicalSize<cen::farea>;
+    constexpr auto width = logicalSize.width;
+    constexpr auto height = logicalSize.height;
 
     const auto step = static_cast<float>(animation.step);
     const auto hSize = animation.hStepSize + (step * animation.hStepSize);
@@ -56,17 +56,14 @@ void render_level_switch_animations(const entt::registry& registry,
 void start_level_fade_animation(entt::registry& registry, const map_id map)
 {
   const auto entity = registry.create();
+  const auto nSteps = static_cast<float>(cen::screen::refresh_rate()) / 2.0f;
 
   auto& anim = registry.emplace<comp::level_switch_animation>(entity);
   anim.map = map;
   anim.step = 0;
-  anim.nSteps = static_cast<int>(0.5 * cen::screen::refresh_rate());
-
-  anim.hStepSize =
-      (glob::logicalWidth<float> / 2.0f) / static_cast<float>(anim.nSteps);
-  anim.vStepSize =
-      (glob::logicalHeight<float> / 2.0f) / static_cast<float>(anim.nSteps);
-
+  anim.nSteps = static_cast<int>(nSteps);
+  anim.hStepSize = (glob::logicalWidth<float> / 2.0f) / nSteps;
+  anim.vStepSize = (glob::logicalHeight<float> / 2.0f) / nSteps;
   anim.fadingIn = true;
 }
 
