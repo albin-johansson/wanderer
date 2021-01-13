@@ -25,6 +25,7 @@ void parse_layers(entt::registry& registry,
 
     if (const auto* tileLayer = stepLayer.try_as<step::tile_layer>()) {
       parse_tile_layer(registry, tilemap, *tileLayer, props, index);
+
     } else if (const auto* group = stepLayer.try_as<step::object_group>()) {
       parse_object_layer(registry, *group);
     }
