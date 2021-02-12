@@ -816,6 +816,8 @@ class basic_controller final
   /// \name Touchpad functions
   /// \{
 
+#if SDL_VERSION_ATLEAST(2, 0, 14)
+
   /**
    * \brief Returns the amount of touchpads on the controller.
    *
@@ -878,6 +880,8 @@ class basic_controller final
       return std::nullopt;
     }
   }
+
+#endif  // SDL_VERSION_ATLEAST(2, 0, 14)
 
   /// \}
 
@@ -985,7 +989,7 @@ class basic_controller final
    *
    * \since 5.2.0
    */
-  auto set_led_color(const color& color) noexcept -> bool
+  auto set_led(const color& color) noexcept -> bool
   {
     return SDL_GameControllerSetLED(m_controller,
                                     color.red(),

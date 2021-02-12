@@ -33,6 +33,7 @@
 
 #include "button_state.hpp"
 #include "centurion_cfg.hpp"
+#include "color.hpp"
 #include "czstring.hpp"
 #include "detail/owner_handle_api.hpp"
 #include "exception.hpp"
@@ -89,7 +90,7 @@ using joystick_handle = basic_joystick<std::false_type>;
  * \headerfile joystick.hpp
  */
 template <typename B>
-class basic_joystick final  // TODO cover new 2.0.14 functions
+class basic_joystick final
 {
   inline static constexpr bool isOwner = std::is_same_v<B, std::true_type>;
   inline static constexpr bool isHandle = std::is_same_v<B, std::false_type>;
@@ -101,6 +102,8 @@ class basic_joystick final  // TODO cover new 2.0.14 functions
    * \brief Mirrors the `SDL_JoystickPowerLevel` enum.
    *
    * \since 4.2.0
+   *
+   * \todo Centurion 6: Rename to joystick_power and move out of class.
    *
    * \headerfile joystick.hpp
    */
@@ -123,6 +126,8 @@ class basic_joystick final  // TODO cover new 2.0.14 functions
    *
    * \since 4.2.0
    *
+   * \todo Centurion 6: Rename to joystick_hat_state and move out of class.
+   *
    * \headerfile joystick.hpp
    */
   enum class hat_state
@@ -144,6 +149,8 @@ class basic_joystick final  // TODO cover new 2.0.14 functions
    * \brief Mirrors the `SDL_JoystickType` enum.
    *
    * \since 4.2.0
+   *
+   * \todo Centurion 6: Rename to joystick_type and move out of class.
    *
    * \headerfile joystick.hpp
    */
@@ -184,6 +191,18 @@ class basic_joystick final  // TODO cover new 2.0.14 functions
   /// \name Construction
   /// \{
 
+  /**
+   * \brief Creates a joystick instance based on an existing SDL joystick.
+   *
+   * \note The created instance will only claim ownership of the supplied
+   * pointer if the class has owning semantics, i.e. if it's a ``joystick``
+   * instance.
+   *
+   * \param joystick a pointer to the existing joystick.
+   *
+   * \throws exception if the supplied pointer is null and the joystick is
+   * owning.
+   */
   explicit basic_joystick(SDL_Joystick* joystick) noexcept(isHandle)
       : m_joystick{joystick}
   {
@@ -194,15 +213,31 @@ class basic_joystick final  // TODO cover new 2.0.14 functions
     }
   }
 
+  /**
+   * \brief Creates an owning joystick based on a joystick device index.
+   *
+   * \tparam BB dummy parameter for SFINAE.
+   *
+   * \param index the device index of the joystick.
+   *
+   * \throws sdl_error if the joystick couldn't be opened.
+   */
   template <typename BB = B, detail::is_owner<BB> = true>
-  explicit basic_joystick(const int deviceIndex)
-      : m_joystick{SDL_JoystickOpen(deviceIndex)}
+  explicit basic_joystick(const int index = 0)
+      : m_joystick{SDL_JoystickOpen(index)}
   {
     if (!m_joystick) {
       throw sdl_error{};
     }
   }
 
+  /**
+   * \brief Creates a handle to an owning joystick.
+   *
+   * \tparam BB dummy parameter for SFINAE.
+   *
+   * \param owner the owning joystick instance.
+   */
   template <typename BB = B, detail::is_handle<BB> = true>
   explicit basic_joystick(const joystick& owner) noexcept
       : m_joystick{owner.get()}
@@ -262,10 +297,57 @@ class basic_joystick final  // TODO cover new 2.0.14 functions
    */
   void rumble(const u16 lowFreq,
               const u16 highFreq,
-              const milliseconds<u32> duration) noexcept
+              const milliseconds<u32> duration)
   {
     SDL_JoystickRumble(m_joystick, lowFreq, highFreq, duration.count());
   }
+
+#if SDL_VERSION_ATLEAST(2, 0, 14)
+
+  /**
+   * \brief Starts a rumble effect in the joystick's triggers.
+   *
+   * \details Calls to this function cancels any previously active rumble
+   * effect. Furthermore, supplying 0 as intensities will stop the rumble
+   * effect.
+   *
+   * \param left the intensity used by the left rumble motor.
+   * \param right the intensity used by the right rumble motor.
+   * \param duration the duration of the rumble.
+   *
+   * \return `true` on success; `false` otherwise.
+   *
+   * \since 5.2.0
+   */
+  auto rumble_triggers(const u16 left,
+                       const u16 right,
+                       const milliseconds<u32> duration) -> bool
+  {
+    return SDL_JoystickRumbleTriggers(m_joystick,
+                                      left,
+                                      right,
+                                      duration.count()) == 0;
+  }
+
+  /**
+   * \brief Sets the color of the LED light, if the joystick has one.
+   *
+   * \param color the color that will be used by the LED, note that the alpha
+   * component is ignored.
+   *
+   * \return `true` on success; `false` otherwise.
+   *
+   * \since 5.2.0
+   */
+  auto set_led(const color& color) noexcept -> bool
+  {
+    return SDL_JoystickSetLED(m_joystick,
+                              color.red(),
+                              color.green(),
+                              color.blue()) == 0;
+  }
+
+#endif  // SDL_VERSION_ATLEAST(2, 0, 14)
 
   /**
    * \brief Sets the player index to be associated with the joystick.
@@ -278,6 +360,124 @@ class basic_joystick final  // TODO cover new 2.0.14 functions
   {
     SDL_JoystickSetPlayerIndex(m_joystick, index);
   }
+
+  /// \name Virtual joystick API
+  /// \{
+
+#if SDL_VERSION_ATLEAST(2, 0, 14)
+
+  /**
+   * \brief Attaches a new virtual joystick.
+   *
+   * \param type the type of the virtual joystick.
+   * \param nAxes the number of axes.
+   * \param nButtons the number of buttons.
+   * \param nHats the number of joystick hats.
+   *
+   * \return the device index of the virtual joystick; `std::nullopt` if
+   * something went wrong.
+   *
+   * \since 5.2.0
+   */
+  [[nodiscard]] static auto attach_virtual(const type type,
+                                           const int nAxes,
+                                           const int nButtons,
+                                           const int nHats) noexcept
+      -> std::optional<int>
+  {
+    const auto index =
+        SDL_JoystickAttachVirtual(static_cast<SDL_JoystickType>(type),
+                                  nAxes,
+                                  nButtons,
+                                  nHats);
+    if (index != -1) {
+      return index;
+    } else {
+      return std::nullopt;
+    }
+  }
+
+  /**
+   * \brief Detaches a virtual joystick.
+   *
+   * \param index the device index of the virtual joystick.
+   *
+   * \return `true` on success; `false` otherwise.
+   *
+   * \since 5.2.0
+   */
+  static auto detach_virtual(const int index) noexcept -> bool
+  {
+    return SDL_JoystickDetachVirtual(index) == 0;
+  }
+
+  /**
+   * \brief Sets the value of a virtual joystick axis.
+   *
+   * \param axis the axis that will be modified.
+   * \param value the new value of the axis.
+   *
+   * \return `true` on success; `false` otherwise.
+   *
+   * \since 5.2.0
+   */
+  auto set_virtual_axis(const int axis, const i16 value) noexcept -> bool
+  {
+    return SDL_JoystickSetVirtualAxis(m_joystick, axis, value) == 0;
+  }
+
+  /**
+   * \brief Sets the state of a virtual button.
+   *
+   * \param button the index of the button that will be set.
+   * \param state the new button state.
+   *
+   * \return `true` on success; `false` otherwise.
+   *
+   * \since 5.2.0
+   */
+  auto set_virtual_button(const int button, const button_state state) noexcept
+      -> bool
+  {
+    return SDL_JoystickSetVirtualButton(m_joystick,
+                                        button,
+                                        static_cast<u8>(state)) == 0;
+  }
+
+  /**
+   * \brief Sets the state of a virtual joystick hat.
+   *
+   * \param hat the index of the hat that will be changed.
+   * \param state the new state of the virtual joystick hat.
+   *
+   * \return `true` on success; `false` otherwise.
+   *
+   * \since 5.2.0
+   */
+  auto set_virtual_hat(const int hat, const hat_state state) noexcept -> bool
+  {
+    // clang-format off
+    return SDL_JoystickSetVirtualHat(m_joystick, hat, static_cast<u8>(state)) == 0;
+    // clang-format on
+  }
+
+  /**
+   * \brief Indicates whether or not a joystick is virtual.
+   *
+   * \param index the device index of the joystick that will be queried.
+   *
+   * \return `true` if the specified joystick is virtual; `false` otherwise.
+   *
+   * \since 5.2.0
+   */
+  [[nodiscard]] static auto is_virtual(const int index) noexcept -> bool
+  {
+    return SDL_JoystickIsVirtual(index) == SDL_TRUE;
+  }
+
+#endif  // #if SDL_VERSION_ATLEAST(2, 0, 14)
+
+  /// \} End of virtual joystick API
 
   /// \name Instance-based queries
   /// \{
@@ -387,7 +587,7 @@ class basic_joystick final  // TODO cover new 2.0.14 functions
    *
    * \note If no name can be found, this method returns a null string.
    *
-   * \return the name of the joystick; `nullptr` if no name is found.
+   * \return the name of the joystick; a null pointer if no name is found.
    *
    * \since 4.2.0
    */
@@ -407,6 +607,35 @@ class basic_joystick final  // TODO cover new 2.0.14 functions
   {
     return SDL_JoystickInstanceID(m_joystick);
   }
+
+#if SDL_VERSION_ATLEAST(2, 0, 14)
+
+  /**
+   * \brief Returns the serial number associated with the joystick.
+   *
+   * \return the serial number of the joystick; a null pointer is returned if
+   * the serial number isn't available.
+   *
+   * \since 5.2.0
+   */
+  [[nodiscard]] auto serial() const noexcept -> czstring
+  {
+    return SDL_JoystickGetSerial(m_joystick);
+  }
+
+  /**
+   * \brief Indicates whether or not the joystick features a LED light.
+   *
+   * \return `true` if the joystick features a LED light; `false` otherwise.
+   *
+   * \since 5.2.0
+   */
+  [[nodiscard]] auto has_led() const noexcept -> bool
+  {
+    return SDL_JoystickHasLED(m_joystick) == SDL_TRUE;
+  }
+
+#endif  // SDL_VERSION_ATLEAST(2, 0, 14)
 
   /// \} End of instance-based queries
 

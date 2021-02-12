@@ -27,6 +27,7 @@
 
 #include <SDL.h>
 
+#include <cassert>      // assert
 #include <optional>     // optional
 #include <ostream>      // ostream
 #include <string>       // string
@@ -48,34 +49,17 @@
 #pragma once
 #endif  // CENTURION_USE_PRAGMA_ONCE
 
-// TODO consistency: noexcept-specifier when using duration::count()?
-
 namespace cen {
 
 /// \addtogroup input
 /// \{
 
-//  - SDL_HAPTIC_CONSTANT
-//  - SDL_HAPTIC_SINE
-//  - SDL_HAPTIC_LEFTRIGHT
-//  - SDL_HAPTIC_TRIANGLE
-//  - SDL_HAPTIC_SAWTOOTHUP
-//  - SDL_HAPTIC_SAWTOOTHDOWN
-//  - SDL_HAPTIC_RAMP
-//  - SDL_HAPTIC_SPRING
-//  - SDL_HAPTIC_DAMPER
-//  - SDL_HAPTIC_INERTIA
-//  - SDL_HAPTIC_FRICTION
-//  - SDL_HAPTIC_CUSTOM
-
-//  - SDL_HAPTIC_GAIN
-//  - SDL_HAPTIC_AUTOCENTER
-//  - SDL_HAPTIC_STATUS
-//  - SDL_HAPTIC_PAUSE
-
-//  - ?? SDL_HAPTIC_POLAR ??
-//  - ?? SDL_HAPTIC_CARTESIAN ??
-//  - ?? SDL_HAPTIC_SPHERICAL ??
+/**
+ * \brief A constant that can be used to play an effect indefinitely.
+ *
+ * \since 5.2.0
+ */
+inline constexpr u32 haptic_infinity = SDL_HAPTIC_INFINITY;
 
 /**
  * \enum haptic_feature
@@ -86,7 +70,7 @@ namespace cen {
  *
  * \headerfile haptic_feature
  */
-enum class haptic_feature  // TODO verify that these are all of the "features"
+enum class haptic_feature
 {
   constant = SDL_HAPTIC_CONSTANT,
   sine = SDL_HAPTIC_SINE,
@@ -104,6 +88,126 @@ enum class haptic_feature  // TODO verify that these are all of the "features"
   autocenter = SDL_HAPTIC_AUTOCENTER,
   status = SDL_HAPTIC_STATUS,
   pause = SDL_HAPTIC_PAUSE
+};
+
+/**
+ * \enum haptic_direction_type
+ *
+ * \brief Represents the different types of haptic directions.
+ *
+ * \since 5.2.0
+ *
+ * \headerfile haptic.hpp
+ */
+enum class haptic_direction_type
+{
+  polar = SDL_HAPTIC_POLAR,
+  cartesian = SDL_HAPTIC_CARTESIAN,
+  spherical = SDL_HAPTIC_SPHERICAL
+};
+
+/**
+ * \class haptic_direction
+ *
+ * \brief Represents a haptic direction, used by haptic effects.
+ *
+ * \since 5.2.0
+ *
+ * \headerfile haptic.hpp
+ */
+class haptic_direction final
+{
+ public:
+  using direction_type = vector3<i32>;
+
+  /**
+   * \brief Creates a haptic direction of the specified type.
+   *
+   * \param type the type of the direction.
+   *
+   * \since 5.2.0
+   */
+  explicit haptic_direction(const haptic_direction_type type) noexcept
+  {
+    set_type(type);
+  }
+
+  /**
+   * \brief Creates a haptic direction based on an `SDL_HapticDirection`
+   * instance.
+   *
+   * \param direction the direction that will be copied.
+   *
+   * \since 5.2.0
+   */
+  explicit haptic_direction(const SDL_HapticDirection& direction) noexcept
+      : m_direction{direction}
+  {}
+
+  /**
+   * \brief Sets the type of the direction.
+   *
+   * \param type the new type of the direction.
+   *
+   * \since 5.2.0
+   */
+  void set_type(const haptic_direction_type type) noexcept
+  {
+    m_direction.type = static_cast<u8>(type);
+  }
+
+  /**
+   * \brief Sets the value of direction.
+   *
+   * \param direction the new value of the direction.
+   *
+   * \since 5.2.0
+   */
+  void set_value(const direction_type& direction) noexcept
+  {
+    m_direction.dir[0] = direction.x;
+    m_direction.dir[1] = direction.y;
+    m_direction.dir[2] = direction.z;
+  }
+
+  /**
+   * \brief Returns the type associated with the direction.
+   *
+   * \return the current type of the direction.
+   *
+   * \since 5.2.0
+   */
+  [[nodiscard]] auto type() const noexcept -> haptic_direction_type
+  {
+    return static_cast<haptic_direction_type>(m_direction.type);
+  }
+
+  /**
+   * \brief Returns the value of the direction.
+   *
+   * \return the current value of the direction.
+   *
+   * \since 5.2.0
+   */
+  [[nodiscard]] auto value() const noexcept -> direction_type
+  {
+    return {m_direction.dir[0], m_direction.dir[1], m_direction.dir[2]};
+  }
+
+  /**
+   * \brief Returns the internal representation of the direction.
+   *
+   * \return the internal representation.
+   *
+   * \since 5.2.0
+   */
+  [[nodiscard]] auto get() const noexcept -> const SDL_HapticDirection&
+  {
+    return m_direction;
+  }
+
+ private:
+  SDL_HapticDirection m_direction{};
 };
 
 /**
@@ -143,6 +247,9 @@ template <typename Derived>
 class haptic_effect
 {
   template <typename T>
+  using has_direction = std::enable_if_t<T::hasDirection, bool>;
+
+  template <typename T>
   using has_envelope = std::enable_if_t<T::hasEnvelope, bool>;
 
   template <typename T>
@@ -152,8 +259,58 @@ class haptic_effect
   using has_delay = std::enable_if_t<T::hasDelay, bool>;
 
  public:
+  /// \name Direction functions
+  /// \{
+
+  /**
+   * \brief Sets the haptic direction associated with the effect.
+   *
+   * \note This function is not available for all haptic effects.
+   *
+   * \tparam D dummy parameter for SFINAE.
+   *
+   * \param direction the new direction of the effect.
+   *
+   * \since 5.2.0
+   */
+  template <typename D = Derived, has_direction<D> = true>
+  void set_direction(const haptic_direction& direction) noexcept
+  {
+    rep().direction = direction.get();
+  }
+
+  /**
+   * \brief Returns the haptic direction associated with the effect.
+   *
+   * \tparam D dummy parameter for SFINAE.
+   *
+   * \return the current direction associated with the effect.
+   *
+   * \since 5.2.0
+   */
+  template <typename D = Derived, has_direction<D> = true>
+  [[nodiscard]] auto direction() const noexcept -> haptic_direction
+  {
+    return haptic_direction{rep().direction};
+  }
+
+  /// \} End of direction functions
+
   /// \name Replay functions
   /// \{
+
+  /**
+   * \brief Sets the effect to be repeated indefinitely when run.
+   *
+   * \details This function makes the effect repeat forever when run, but the
+   * attack and fade are not repeated.
+   *
+   * \since 5.2.0
+   */
+  void set_repeat_forever() noexcept
+  {
+    rep().length = haptic_infinity;
+  }
 
   /**
    * \brief Sets the duration of the effect.
@@ -441,8 +598,6 @@ class haptic_effect
     return rep().type;
   }
 
-  // TODO SDL_HapticDirection
-
   /**
    * \brief Returns the internal effect representation.
    *
@@ -506,6 +661,7 @@ class haptic_effect
 class haptic_constant final : public haptic_effect<haptic_constant>
 {
  public:
+  inline constexpr static bool hasDirection = true;
   inline constexpr static bool hasEnvelope = true;
   inline constexpr static bool hasTrigger = true;
   inline constexpr static bool hasDelay = true;
@@ -560,10 +716,19 @@ class haptic_constant final : public haptic_effect<haptic_constant>
 class haptic_periodic final : public haptic_effect<haptic_periodic>
 {
  public:
+  inline constexpr static bool hasDirection = true;
   inline constexpr static bool hasEnvelope = true;
   inline constexpr static bool hasTrigger = true;
   inline constexpr static bool hasDelay = true;
 
+  /**
+   * \enum periodic_type
+   *
+   * \brief Provides values that serve as identifiers for the different kinds of
+   * "periodic" haptic effects.
+   *
+   * \since 5.2.0
+   */
   enum periodic_type : u16
   {
     sine = SDL_HAPTIC_SINE,
@@ -580,57 +745,120 @@ class haptic_periodic final : public haptic_effect<haptic_periodic>
    *
    * \since 5.2.0
    */
-  haptic_periodic() noexcept
+  explicit haptic_periodic(const periodic_type type = sine) noexcept
   {
     m_effect.periodic = {};
-    representation().type = SDL_HAPTIC_SINE;
+    set_type(type);
   }
 
+  /**
+   * \brief Sets the type of the effect.
+   *
+   * \param type the periodic effect type.
+   *
+   * \since 5.2.0
+   */
   void set_type(const periodic_type type) noexcept
   {
     representation().type = static_cast<u16>(type);
   }
 
-  // Period of the wave.
+  /**
+   * \brief Sets the period of the wave.
+   *
+   * \param ms the period duration of the wave.
+   *
+   * \since 5.2.0
+   */
   void set_period(const milliseconds<u16> ms)
   {
     representation().period = ms.count();
   }
 
-  // Peak value; if negative, equivalent to 180 degrees extra phase shift.
+  /**
+   * \brief Sets the magnitude (peak value) of the wave.
+   *
+   * \note If the supplied magnitude is negative, that is interpreted as an
+   * extra phase_shift shift of 180 degrees.
+   *
+   * \param magnitude the magnitude of the wave, can be negative.
+   *
+   * \since 5.2.0
+   */
   void set_magnitude(const i16 magnitude) noexcept
   {
     representation().magnitude = magnitude;
   }
 
-  // Mean value of the wave.
-  void set_offset(const i16 offset) noexcept
+  /**
+   * \brief Sets the mean value of the wave.
+   *
+   * \param mean the mean value of the wave.
+   *
+   * \since 5.2.0
+   */
+  void set_mean(const i16 mean) noexcept
   {
-    representation().offset = offset;
+    representation().offset = mean;
   }
 
-  // Positive phase shift given by hundredth of a degree.
-  void set_phase(const u16 phase) noexcept
+  /**
+   * \brief Sets the phase_shift shift.
+   *
+   * \param shift the positive phase_shift shift, interpreted as hundredths of a
+   * degree.
+   *
+   * \since 5.2.0
+   */
+  void set_phase_shift(const u16 shift) noexcept
   {
-    representation().phase = phase;
+    representation().phase = shift;
   }
 
+  /**
+   * \brief Returns the current period of the wave.
+   *
+   * \return the period of the wave.
+   *
+   * \since 5.2.0
+   */
   [[nodiscard]] auto period() const -> milliseconds<u16>
   {
     return milliseconds<u16>{representation().period};
   }
 
+  /**
+   * \brief Returns the current magnitude (peak value) of the wave.
+   *
+   * \return the magnitude of the wave.
+   *
+   * \since 5.2.0
+   */
   [[nodiscard]] auto magnitude() const noexcept -> i16
   {
     return representation().magnitude;
   }
 
-  [[nodiscard]] auto offset() const noexcept -> i16
+  /**
+   * \brief Returns the current mean value of the wave.
+   *
+   * \return the mean value of the wave.
+   *
+   * \since 5.2.0
+   */
+  [[nodiscard]] auto mean() const noexcept -> i16
   {
     return representation().offset;
   }
 
-  [[nodiscard]] auto phase() const noexcept -> u16
+  /**
+   * \brief Returns the current positive phase shift of the wave.
+   *
+   * \return the positive phase shift of the wave, in hundredths of a degree.
+   *
+   * \since 5.2.0
+   */
+  [[nodiscard]] auto phase_shift() const noexcept -> u16
   {
     return representation().phase;
   }
@@ -674,6 +902,7 @@ class haptic_periodic final : public haptic_effect<haptic_periodic>
 class haptic_ramp final : public haptic_effect<haptic_ramp>
 {
  public:
+  inline constexpr static bool hasDirection = true;
   inline constexpr static bool hasEnvelope = true;
   inline constexpr static bool hasTrigger = true;
   inline constexpr static bool hasDelay = true;
@@ -689,23 +918,49 @@ class haptic_ramp final : public haptic_effect<haptic_ramp>
     representation().type = SDL_HAPTIC_RAMP;
   }
 
-  // Beginning strength level.
+  /**
+   * \brief Sets the initial strength level.
+   *
+   * \param start the initial strength level.
+   *
+   * \since 5.2.0
+   */
   void set_start_strength(const i16 start) noexcept
   {
     representation().start = start;
   }
 
-  // Ending strength level.
+  /**
+   * \brief Sets the strength level at the end of the effect.
+   *
+   * \param end the strength level at the end of the effect.
+   *
+   * \since 5.2.0
+   */
   void set_end_strength(const i16 end) noexcept
   {
     representation().end = end;
   }
 
+  /**
+   * \brief Returns the initial strength level.
+   *
+   * \return the initial strength level.
+   *
+   * \since 5.2.0
+   */
   [[nodiscard]] auto start_strength() const noexcept -> i16
   {
     return representation().start;
   }
 
+  /**
+   * \brief Returns the strength level at the end of the effect.
+   *
+   * \return the final strength level.
+   *
+   * \since 5.2.0
+   */
   [[nodiscard]] auto end_strength() const noexcept -> i16
   {
     return representation().end;
@@ -749,6 +1004,7 @@ class haptic_ramp final : public haptic_effect<haptic_ramp>
 class haptic_custom final : public haptic_effect<haptic_custom>
 {
  public:
+  inline constexpr static bool hasDirection = true;
   inline constexpr static bool hasEnvelope = true;
   inline constexpr static bool hasTrigger = true;
   inline constexpr static bool hasDelay = true;
@@ -764,43 +1020,105 @@ class haptic_custom final : public haptic_effect<haptic_custom>
     representation().type = SDL_HAPTIC_CUSTOM;
   }
 
-  // Axes to use, minimum of one.
+  /**
+   * \brief Sets the number of axes that are used.
+   *
+   * \pre `count` must be greater than zero.
+   *
+   * \param count the number of axes that will be used.
+   *
+   * \since 5.2.0
+   */
   void set_axis_count(const u8 count) noexcept
   {
+    assert(count > 0);
     representation().channels = detail::max(u8{1}, count);
   }
 
+  /**
+   * \brief Sets the duration of the sample periods.
+   *
+   * \param ms duration of sample periods.
+   *
+   * \since 5.2.0
+   */
   void set_sample_period(const milliseconds<u16> ms)
   {
     representation().period = ms.count();
   }
 
-  // Amount of samples.
+  /**
+   * \brief Sets the number of samples.
+   *
+   * \param count the number of samples.
+   *
+   * \since 5.2.0
+   */
   void set_sample_count(const u16 count) noexcept
   {
     representation().samples = count;
   }
 
+  /**
+   * \brief Sets the associated custom data.
+   *
+   * \note The data must be allocated and managed by you.
+   *
+   * \details The data should consist of `sample_count()` * `axis_count()`
+   * sample items.
+   *
+   * \param data a pointer to the custom sample data.
+   *
+   * \since 5.2.0
+   */
   void set_data(u16* data) noexcept
   {
     representation().data = data;
   }
 
+  /**
+   * \brief Returns the number of axes that are used.
+   *
+   * \return the number of used axes.
+   *
+   * \since 5.2.0
+   */
   [[nodiscard]] auto axis_count() const noexcept -> u8
   {
     return representation().channels;
   }
 
+  /**
+   * \brief Returns the duration of samples.
+   *
+   * \return the duration of samples.
+   *
+   * \since 5.2.0
+   */
   [[nodiscard]] auto sample_period() const -> milliseconds<u16>
   {
     return milliseconds<u16>{representation().period};
   }
 
+  /**
+   * \brief Returns the number of samples.
+   *
+   * \return the number of samples.
+   *
+   * \since 5.2.0
+   */
   [[nodiscard]] auto sample_count() const noexcept -> u16
   {
     return representation().samples;
   }
 
+  /**
+   * \brief Returns a pointer to user-provided data.
+   *
+   * \return a pointer to custom user-provided data, might be null.
+   *
+   * \since 5.2.0
+   */
   [[nodiscard]] auto data() const noexcept -> u16*
   {
     return representation().data;
@@ -844,10 +1162,19 @@ class haptic_custom final : public haptic_effect<haptic_custom>
 class haptic_condition final : public haptic_effect<haptic_condition>
 {
  public:
+  inline constexpr static bool hasDirection = false;
   inline constexpr static bool hasEnvelope = false;
   inline constexpr static bool hasTrigger = true;
   inline constexpr static bool hasDelay = true;
 
+  /**
+   * \enum condition_type
+   *
+   * \brief Provides values that serve as identifiers for the different kinds of
+   * "condition" haptic effects.
+   *
+   * \since 5.2.0
+   */
   enum condition_type : u32
   {
     spring = SDL_HAPTIC_SPRING,     ///< Based on axes position.
@@ -856,18 +1183,38 @@ class haptic_condition final : public haptic_effect<haptic_condition>
     friction = SDL_HAPTIC_FRICTION  ///< Based on axes movement.
   };
 
+  /**
+   * \brief Creates a haptic "condition" effect.
+   *
+   * \param type the type of the effect.
+   *
+   * \since 5.2.0
+   */
   explicit haptic_condition(const condition_type type = spring) noexcept
   {
     m_effect.condition = {};
     set_type(type);
   }
 
+  /**
+   * \brief Sets the type of the effect.
+   *
+   * \param type the type of the effect.
+   *
+   * \since 5.2.0
+   */
   void set_type(const condition_type type) noexcept
   {
     representation().type = type;
   }
 
-  /// Level when joystick is to the positive side; max 0xFFFF.
+  /**
+   * \brief Sets the effect level when the joystick is to the "positive" side.
+   *
+   * \param level the x-, y- and z-axis levels.
+   *
+   * \since 5.2.0
+   */
   void set_joystick_positive_level(const vector3<u16>& level) noexcept
   {
     representation().right_sat[0] = level.x;
@@ -875,7 +1222,13 @@ class haptic_condition final : public haptic_effect<haptic_condition>
     representation().right_sat[2] = level.z;
   }
 
-  /// Level when joystick is to the negative side; max 0xFFFF.
+  /**
+   * \brief Sets the effect level when the joystick is to the "negative" side.
+   *
+   * \param level the x-, y- and z-axis levels.
+   *
+   * \since 5.2.0
+   */
   void set_joystick_negative_level(const vector3<u16>& level) noexcept
   {
     representation().left_sat[0] = level.x;
@@ -883,7 +1236,14 @@ class haptic_condition final : public haptic_effect<haptic_condition>
     representation().left_sat[2] = level.z;
   }
 
-  /// How fast to increase the force towards the positive side.
+  /**
+   * \brief Sets of quickly the force should increase towards the "positive"
+   * side.
+   *
+   * \param rate the x-, y- and z-axis rates.
+   *
+   * \since 5.2.0
+   */
   void set_force_rate_positive(const vector3<i16>& rate) noexcept
   {
     representation().right_coeff[0] = rate.x;
@@ -891,7 +1251,14 @@ class haptic_condition final : public haptic_effect<haptic_condition>
     representation().right_coeff[2] = rate.z;
   }
 
-  // How fast to increase the force towards the negative side.
+  /**
+   * \brief Sets of quickly the force should increase towards the "negative"
+   * side.
+   *
+   * \param rate the x-, y- and z-axis rates.
+   *
+   * \since 5.2.0
+   */
   void set_force_rate_negative(const vector3<i16>& rate) noexcept
   {
     representation().left_coeff[0] = rate.x;
@@ -899,7 +1266,13 @@ class haptic_condition final : public haptic_effect<haptic_condition>
     representation().left_coeff[2] = rate.z;
   }
 
-  /// Size of the dead zone; max 0xFFFF: whole axis-range when 0-centered.
+  /**
+   * \brief Sets the size of the dead zone.
+   *
+   * \param size the x-, y- and z-axis sizes.
+   *
+   * \since 5.2.0
+   */
   void set_deadband(const vector3<u16>& size) noexcept
   {
     representation().deadband[0] = size.x;
@@ -907,7 +1280,13 @@ class haptic_condition final : public haptic_effect<haptic_condition>
     representation().deadband[2] = size.z;
   }
 
-  /// Position of the dead zone.
+  /**
+   * \brief Sets the "center", i.e. the position of the dead zone.
+   *
+   * \param center the position of the dead zone.
+   *
+   * \since 5.2.0
+   */
   void set_center(const vector3<i16>& center) noexcept
   {
     representation().center[0] = center.x;
@@ -915,36 +1294,80 @@ class haptic_condition final : public haptic_effect<haptic_condition>
     representation().center[2] = center.z;
   }
 
+  /**
+   * \brief Returns the effect level when the joystick is to the "positive"
+   * side.
+   *
+   * \return the positive side effect level.
+   *
+   * \since 5.2.0
+   */
   [[nodiscard]] auto joystick_positive_level() const noexcept -> vector3<u16>
   {
     const auto& level = representation().right_sat;
     return {level[0], level[1], level[2]};
   }
 
+  /**
+   * \brief Returns the effect level when the joystick is to the "negative"
+   * side.
+   *
+   * \return the negative side effect level.
+   *
+   * \since 5.2.0
+   */
   [[nodiscard]] auto joystick_negative_level() const noexcept -> vector3<u16>
   {
     const auto& level = representation().left_sat;
     return {level[0], level[1], level[2]};
   }
 
+  /**
+   * \brief Returns how fast the force increases towards to the "positive" side.
+   *
+   * \return the positive side force increase rate.
+   *
+   * \since 5.2.0
+   */
   [[nodiscard]] auto force_rate_positive() const noexcept -> vector3<i16>
   {
     const auto& rate = representation().right_coeff;
     return {rate[0], rate[1], rate[2]};
   }
 
+  /**
+   * \brief Returns how fast the force increases towards to the "negative" side.
+   *
+   * \return the negative side force increase rate.
+   *
+   * \since 5.2.0
+   */
   [[nodiscard]] auto force_rate_negative() const noexcept -> vector3<i16>
   {
     const auto& rate = representation().left_coeff;
     return {rate[0], rate[1], rate[2]};
   }
 
+  /**
+   * \brief Returns the size of the dead zone.
+   *
+   * \return the size of the dead zone.
+   *
+   * \since 5.2.0
+   */
   [[nodiscard]] auto deadband() const noexcept -> vector3<u16>
   {
     const auto& band = representation().deadband;
     return {band[0], band[1], band[2]};
   }
 
+  /**
+   * \brief Returns the position of the dead zone.
+   *
+   * \return the position of the dead zone.
+   *
+   * \since 5.2.0
+   */
   [[nodiscard]] auto center() const noexcept -> vector3<i16>
   {
     const auto& center = representation().center;
@@ -991,33 +1414,66 @@ class haptic_condition final : public haptic_effect<haptic_condition>
 class haptic_left_right final : public haptic_effect<haptic_left_right>
 {
  public:
+  inline constexpr static bool hasDirection = false;
   inline constexpr static bool hasEnvelope = false;
   inline constexpr static bool hasTrigger = false;
   inline constexpr static bool hasDelay = false;
 
+  /**
+   * \brief Creates a "left/right" haptic effect.
+   *
+   * \since 5.2.0
+   */
   haptic_left_right() noexcept
   {
     m_effect.leftright = {};
     representation().type = SDL_HAPTIC_LEFTRIGHT;
   }
 
-  // Control of the large controller motor.
+  /**
+   * \brief Sets the magnitude of the large (low frequency) controller motor.
+   *
+   * \param magnitude the magnitude of the large motor.
+   *
+   * \since 5.2.0
+   */
   void set_large_magnitude(const u16 magnitude) noexcept
   {
     representation().large_magnitude = magnitude;
   }
 
-  // Control of the small controller motor.
+  /**
+   * \brief Sets the magnitude of the small (high frequency) controller motor.
+   *
+   * \param magnitude the magnitude of the small motor.
+   *
+   * \since 5.2.0
+   */
   void set_small_magnitude(const u16 magnitude) noexcept
   {
     representation().small_magnitude = magnitude;
   }
 
+  /**
+   * \brief Returns the magnitude of the large (low frequency) controller motor.
+   *
+   * \return the magnitude of the large motor.
+   *
+   * \since 5.2.0
+   */
   [[nodiscard]] auto large_magnitude() const noexcept -> u16
   {
     return representation().large_magnitude;
   }
 
+  /**
+   * \brief Returns the magnitude of the small (high frequency) controller
+   * motor.
+   *
+   * \return the magnitude of the small motor.
+   *
+   * \since 5.2.0
+   */
   [[nodiscard]] auto small_magnitude() const noexcept -> u16
   {
     return representation().small_magnitude;
@@ -1082,9 +1538,11 @@ using haptic_handle = basic_haptic<std::false_type>;
  * \headerfile haptic.hpp
  */
 template <typename B>
-class basic_haptic final  // TODO RtD entry
+class basic_haptic final
 {
  public:
+  using effect_id = int;
+
   /// \name Construction
   /// \{
 
@@ -1160,8 +1618,8 @@ class basic_haptic final  // TODO RtD entry
    *
    * \since 5.2.0
    */
-  template <typename BB = B, detail::is_owner<BB> = true>
-  [[nodiscard]] static auto from_joystick(joystick_handle joystick)
+  template <typename T, typename BB = B, detail::is_owner<BB> = true>
+  [[nodiscard]] static auto from_joystick(const basic_joystick<T>& joystick)
       -> basic_haptic
   {
     if (auto* ptr = SDL_HapticOpenFromJoystick(joystick.get())) {
@@ -1261,19 +1719,52 @@ class basic_haptic final  // TODO RtD entry
   /// \name Effects
   /// \{
 
-  // TODO SDL_HapticDestroyEffect     -> destroy_effect
-  // TODO SDL_HapticGetEffectStatus   -> effect_status
-  // TODO SDL_HapticSetGain           -> set_gain
-  // TODO SDL_HapticSetAutocenter     -> set_autocenter
-  // TODO SDL_HapticPause             -> pause
-  // TODO SDL_HapticUnpause           -> unpause
-  // TODO SDL_HapticStopAll           -> stop_all
-
-  template <typename D>
-  auto add(const haptic_effect<D>& effect) noexcept -> std::optional<int>
+  /**
+   * \brief Pauses the device.
+   *
+   * \pre The device must support the `pause` feature.
+   * \post You must call `unpause()` before calling `upload()` or `update()`.
+   *
+   * \return `true` on success; `false` otherwise.
+   *
+   * \since 5.2.0
+   */
+  auto pause() noexcept -> bool
   {
-    auto copy = effect.get();
-    const auto id = SDL_HapticNewEffect(m_haptic, &copy);
+    assert(has_feature_pause());
+    return SDL_HapticPause(m_haptic) == 0;
+  }
+
+  /**
+   * \brief Unpauses the device.
+   *
+   * \pre `pause()` must have been called before this function is invoked.
+   *
+   * \return `true` on success; `false` otherwise.
+   *
+   * \since 5.2.0
+   */
+  auto unpause() noexcept -> bool
+  {
+    return SDL_HapticUnpause(m_haptic) == 0;
+  }
+
+  /**
+   * \brief Uploads an effect to the device.
+   *
+   * \param effect the effect that will be uploaded to the device.
+   *
+   * \return the ID associated with the uploaded effect; `std::nullopt` if
+   * something went wrong.
+   *
+   * \since 5.2.0
+   */
+  template <typename D>
+  auto upload(const haptic_effect<D>& effect) noexcept
+      -> std::optional<effect_id>
+  {
+    auto internal = effect.get();
+    const auto id = SDL_HapticNewEffect(m_haptic, &internal);
     if (id != -1) {
       return id;
     } else {
@@ -1281,29 +1772,167 @@ class basic_haptic final  // TODO RtD entry
     }
   }
 
+  /**
+   * \brief Attempts to update the effect associated with the specified ID.
+   *
+   * \note It is not possible to change the type of the effect through this
+   * function.
+   *
+   * \note You might experience strange results if you call this function for an
+   * effect that is currently playing, but it is possible.
+   *
+   * \param id the ID associated with the effect that will be updated.
+   * \param effect the new properties that will be associated with the effect.
+   *
+   * \return `true` on success; `false` if something went wrong.
+   *
+   * \since 5.2.0
+   */
   template <typename D>
-  auto update(const int id, const haptic_effect<D>& effect) -> bool
+  auto update(const effect_id id, const haptic_effect<D>& effect) noexcept
+      -> bool
   {
-    auto copy = effect.get();
-    return SDL_HapticUpdateEffect(m_haptic, id, &copy) == 0;
+    auto internal = effect.get();
+    return SDL_HapticUpdateEffect(m_haptic, id, &internal) == 0;
   }
 
-  auto run(const int id, const u32 iterations = 1) -> bool
+  /**
+   * \brief Runs the specified effect.
+   *
+   * \note If you want to repeat the effect indefinitely without repeating the
+   * attack and fade, see `haptic_effect::set_repeat_forever()`.
+   *
+   * \param id the ID associated with the effect that will be run.
+   * \param iterations the number of iterations, can be `haptic_infinity` to
+   * repeat the effect forever (including the attack and fade).
+   *
+   * \return `true` on success; `false` if something went wrong.
+   *
+   * \since 5.2.0
+   */
+  auto run(const effect_id id, const u32 iterations = 1) noexcept -> bool
   {
     return SDL_HapticRunEffect(m_haptic, id, iterations) == 0;
   }
 
-  auto stop(const int id) -> bool
+  /**
+   * \brief Stops a currently running effect.
+   *
+   * \param id the ID associated with the effect that will be stopped.
+   *
+   * \return `true` on success; `false` otherwise.
+   *
+   * \since 5.2.0
+   */
+  auto stop(const effect_id id) noexcept -> bool
   {
     return SDL_HapticStopEffect(m_haptic, id) == 0;
   }
 
+  /**
+   * \brief Stops all currently running effects on the device.
+   *
+   * \return `true` on success; `false` otherwise.
+   *
+   * \since 5.2.0
+   */
+  auto stop_all() noexcept -> bool
+  {
+    return SDL_HapticStopAll(m_haptic) == 0;
+  }
+
+  /**
+   * \brief Destroys the effect associated with the specified ID.
+   *
+   * \note This is done automatically when the device is destructed.
+   *
+   * \details The effect will be destroyed will be stopped if it is running
+   * by the time this function is invoked.
+   *
+   * \param id the ID associated with the effect that will be destroyed.
+   *
+   * \since 5.2.0
+   */
+  void destroy(const effect_id id) noexcept
+  {
+    SDL_HapticDestroyEffect(m_haptic, id);
+  }
+
+  /**
+   * \brief Sets the gain the is used.
+   *
+   * \pre The device must support the `gain` feature.
+   * \pre `gain` must be greater or equal to zero.
+   * \pre `gain` must be less than or equal to zero.
+   *
+   * \param gain the gain that will be used, in the interval [0, 100].
+   *
+   * \return `true` on success; `false` otherwise.
+   *
+   * \since 5.2.0
+   */
+  auto set_gain(const int gain) noexcept -> bool
+  {
+    assert(has_feature_gain());
+    assert(gain >= 0);
+    assert(gain <= 100);
+    return SDL_HapticSetGain(m_haptic, gain) == 0;
+  }
+
+  /**
+   * \brief Sets the autocenter value that will be used.
+   *
+   * \pre The device must support the `autocenter` feature.
+   * \pre `autocenter` must be greater or equal to zero.
+   * \pre `autocenter` must be less than or equal to zero.
+   *
+   * \param autocenter the value of the autocenter that will be used, in the
+   * interval [0, 100]. Autocentering will be disabled if this value is zero.
+   *
+   * \return `true` on success; `false` otherwise.
+   *
+   * \since 5.2.0
+   */
+  auto set_autocenter(const int autocenter) noexcept -> bool
+  {
+    assert(has_feature_autocenter());
+    assert(autocenter >= 0);
+    assert(autocenter <= 100);
+    return SDL_HapticSetAutocenter(m_haptic, autocenter) == 0;
+  }
+
+  /**
+   * \brief Indicates whether or not the device can run the specified effect.
+   *
+   * \param effect the effect that will be checked.
+   *
+   * \return `true` if the device supports the effect; `false` otherwise.
+   *
+   * \since 5.2.0
+   */
   template <typename D>
   [[nodiscard]] auto is_supported(const haptic_effect<D>& effect) const noexcept
       -> bool
   {
-    auto copy = effect.get();
-    return SDL_HapticEffectSupported(m_haptic, &copy) == SDL_TRUE;
+    auto internal = effect.get();
+    return SDL_HapticEffectSupported(m_haptic, &internal) == SDL_TRUE;
+  }
+
+  /**
+   * \brief Indicates whether or not the specified effect is playing on the
+   * device.
+   *
+   * \pre The device must support the `status` feature.
+   *
+   * \return `true` on if the effect is playing on the device; `false`
+   * otherwise.
+   *
+   * \since 5.2.0
+   */
+  [[nodiscard]] auto is_playing(const effect_id id) const noexcept -> bool
+  {
+    assert(has_feature_status());
+    return SDL_HapticGetEffectStatus(m_haptic, id) == 1;
   }
 
   /// \}
@@ -1311,87 +1940,240 @@ class basic_haptic final  // TODO RtD entry
   /// \name Feature checks
   /// \{
 
+  /**
+   * \brief Indicates whether or not the device supports the specified feature.
+   *
+   * \param feature the haptic feature to be checked.
+   *
+   * \return `true` if the feature is supported; `false` otherwise.
+   *
+   * \since 5.2.0
+   */
   [[nodiscard]] auto has_feature(const haptic_feature feature) const noexcept
       -> bool
   {
     return has_feature(static_cast<unsigned>(feature));
   }
 
+  /**
+   * \brief Indicates whether or not the device has the `constant` feature.
+   *
+   * \note This is a convenience function that calls `has_feature()`.
+   *
+   * \return `true` if the device has the feature; `false` otherwise.
+   *
+   * \since 5.2.0
+   */
   [[nodiscard]] auto has_feature_constant() const noexcept -> bool
   {
     return has_feature(haptic_feature::constant);
   }
 
+  /**
+   * \brief Indicates whether or not the device has the `sine` feature.
+   *
+   * \note This is a convenience function that calls `has_feature()`.
+   *
+   * \return `true` if the device has the feature; `false` otherwise.
+   *
+   * \since 5.2.0
+   */
   [[nodiscard]] auto has_feature_sine() const noexcept -> bool
   {
     return has_feature(haptic_feature::sine);
   }
 
+  /**
+   * \brief Indicates whether or not the device has the `left_right` feature.
+   *
+   * \note This is a convenience function that calls `has_feature()`.
+   *
+   * \return `true` if the device has the feature; `false` otherwise.
+   *
+   * \since 5.2.0
+   */
   [[nodiscard]] auto has_feature_left_right() const noexcept -> bool
   {
     return has_feature(haptic_feature::left_right);
   }
 
+  /**
+   * \brief Indicates whether or not the device has the `triangle` feature.
+   *
+   * \note This is a convenience function that calls `has_feature()`.
+   *
+   * \return `true` if the device has the feature; `false` otherwise.
+   *
+   * \since 5.2.0
+   */
   [[nodiscard]] auto has_feature_triangle() const noexcept -> bool
   {
     return has_feature(haptic_feature::triangle);
   }
 
+  /**
+   * \brief Indicates whether or not the device has the `sawtooth_up` feature.
+   *
+   * \note This is a convenience function that calls `has_feature()`.
+   *
+   * \return `true` if the device has the feature; `false` otherwise.
+   *
+   * \since 5.2.0
+   */
   [[nodiscard]] auto has_feature_sawtooth_up() const noexcept -> bool
   {
     return has_feature(haptic_feature::sawtooth_up);
   }
 
+  /**
+   * \brief Indicates whether or not the device has the `sawtooth_down` feature.
+   *
+   * \note This is a convenience function that calls `has_feature()`.
+   *
+   * \return `true` if the device has the feature; `false` otherwise.
+   *
+   * \since 5.2.0
+   */
   [[nodiscard]] auto has_feature_sawtooth_down() const noexcept -> bool
   {
     return has_feature(haptic_feature::sawtooth_down);
   }
 
+  /**
+   * \brief Indicates whether or not the device has the `ramp` feature.
+   *
+   * \note This is a convenience function that calls `has_feature()`.
+   *
+   * \return `true` if the device has the feature; `false` otherwise.
+   *
+   * \since 5.2.0
+   */
   [[nodiscard]] auto has_feature_ramp() const noexcept -> bool
   {
     return has_feature(haptic_feature::ramp);
   }
 
+  /**
+   * \brief Indicates whether or not the device has the `spring` feature.
+   *
+   * \note This is a convenience function that calls `has_feature()`.
+   *
+   * \return `true` if the device has the feature; `false` otherwise.
+   *
+   * \since 5.2.0
+   */
   [[nodiscard]] auto has_feature_spring() const noexcept -> bool
   {
     return has_feature(haptic_feature::spring);
   }
 
+  /**
+   * \brief Indicates whether or not the device has the `damper` feature.
+   *
+   * \note This is a convenience function that calls `has_feature()`.
+   *
+   * \return `true` if the device has the feature; `false` otherwise.
+   *
+   * \since 5.2.0
+   */
   [[nodiscard]] auto has_feature_damper() const noexcept -> bool
   {
     return has_feature(haptic_feature::damper);
   }
 
+  /**
+   * \brief Indicates whether or not the device has the `inertia` feature.
+   *
+   * \note This is a convenience function that calls `has_feature()`.
+   *
+   * \return `true` if the device has the feature; `false` otherwise.
+   *
+   * \since 5.2.0
+   */
   [[nodiscard]] auto has_feature_inertia() const noexcept -> bool
   {
     return has_feature(haptic_feature::inertia);
   }
 
+  /**
+   * \brief Indicates whether or not the device has the `friction` feature.
+   *
+   * \note This is a convenience function that calls `has_feature()`.
+   *
+   * \return `true` if the device has the feature; `false` otherwise.
+   *
+   * \since 5.2.0
+   */
   [[nodiscard]] auto has_feature_friction() const noexcept -> bool
   {
     return has_feature(haptic_feature::friction);
   }
 
+  /**
+   * \brief Indicates whether or not the device has the `gain` feature.
+   *
+   * \note This is a convenience function that calls `has_feature()`.
+   *
+   * \return `true` if the device has the feature; `false` otherwise.
+   *
+   * \since 5.2.0
+   */
   [[nodiscard]] auto has_feature_gain() const noexcept -> bool
   {
     return has_feature(haptic_feature::gain);
   }
 
+  /**
+   * \brief Indicates whether or not the device has the `autocenter` feature.
+   *
+   * \note This is a convenience function that calls `has_feature()`.
+   *
+   * \return `true` if the device has the feature; `false` otherwise.
+   *
+   * \since 5.2.0
+   */
   [[nodiscard]] auto has_feature_autocenter() const noexcept -> bool
   {
     return has_feature(haptic_feature::autocenter);
   }
 
+  /**
+   * \brief Indicates whether or not the device has the `status` feature.
+   *
+   * \note This is a convenience function that calls `has_feature()`.
+   *
+   * \return `true` if the device has the feature; `false` otherwise.
+   *
+   * \since 5.2.0
+   */
   [[nodiscard]] auto has_feature_status() const noexcept -> bool
   {
     return has_feature(haptic_feature::status);
   }
 
+  /**
+   * \brief Indicates whether or not the device has the `pause` feature.
+   *
+   * \note This is a convenience function that calls `has_feature()`.
+   *
+   * \return `true` if the device has the feature; `false` otherwise.
+   *
+   * \since 5.2.0
+   */
   [[nodiscard]] auto has_feature_pause() const noexcept -> bool
   {
     return has_feature(haptic_feature::pause);
   }
 
+  /**
+   * \brief Indicates whether or not the device has the `custom` feature.
+   *
+   * \note This is a convenience function that calls `has_feature()`.
+   *
+   * \return `true` if the device has the feature; `false` otherwise.
+   *
+   * \since 5.2.0
+   */
   [[nodiscard]] auto has_feature_custom() const noexcept -> bool
   {
     return has_feature(haptic_feature::custom);
