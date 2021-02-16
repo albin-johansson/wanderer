@@ -4,6 +4,7 @@
 #include "game_constants.hpp"
 #include "index_to_matrix.hpp"
 #include "inventory.hpp"
+#include "item.hpp"
 #include "maybe.hpp"
 #include "update_triggers.hpp"
 
