@@ -13,7 +13,7 @@ struct container_trigger final
 {
   using entity = entity_type<detail::container_trigger_entity_t>;
   inventory::entity inventoryEntity{null<inventory>()};
-  int inventoryId;
+  int inventoryId{};
 };
 
 struct is_within_container_trigger final
