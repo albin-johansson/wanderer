@@ -69,7 +69,7 @@ struct level final
   int nCols;                  ///< The number of columns in the levels.
   cen::farea size;            ///< The size of the level, in pixels.
   vector2f playerSpawnPoint;  ///< The initial position of the player.
-  tileset tileset;            ///< The tileset used by the level.
+  ir::tileset tileset;        ///< The tileset used by the level.
   std::vector<comp::tile_layer> groundLayers;  ///< List of "ground" layers.
   std::vector<tile_object> tileObjects;        ///< List of tile objects.
   std::vector<object> objects;                 ///< List of ordinary objects.
@@ -77,8 +77,8 @@ struct level final
 
 struct world final
 {
-  ir::level base;                 ///< Base level that represents the "world".
-  std::vector<ir::level> levels;  ///< Dungeons, houses, etc. in the world.
+  level base;                 ///< Base level that represents the "world".
+  std::vector<level> levels;  ///< Dungeons, houses, etc. in the world.
 };
 
 }  // namespace wanderer::ir
