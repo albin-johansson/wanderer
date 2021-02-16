@@ -18,6 +18,8 @@ menu_manager::menu_manager() : m_current{menu_id::home}
                   parse_menu("resource/menu/controls_menu.json"sv));
   m_menus.emplace(menu_id::settings,
                   parse_menu("resource/menu/settings_menu.json"sv));
+  m_menus.emplace(menu_id::saves,
+                  parse_menu("resource/menu/saves_menu.json"sv));
 }
 
 void menu_manager::update(const cen::mouse_state& mouseState,
@@ -67,6 +69,10 @@ void menu_manager::perform_action(const menu_action action)
     }
     case menu_action::goto_settings: {
       switch_to(menu_id::settings);
+      break;
+    }
+    case menu_action::goto_saves: {
+      switch_to(menu_id::saves);
       break;
     }
     case menu_action::goto_controls: {

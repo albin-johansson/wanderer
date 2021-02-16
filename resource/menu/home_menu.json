@@ -15,15 +15,21 @@
       "col": -1
     },
     {
+      "text": "Saves",
+      "action": "goto_saves",
+      "row": 7,
+      "col": -1
+    },
+    {
       "text": "Controls",
       "action": "goto_controls",
-      "row": 7,
+      "row": 8,
       "col": -1
     },
     {
       "text": "Quit",
       "action": "quit",
-      "row": 8,
+      "row": 9,
       "col": -1
     }
   ],
