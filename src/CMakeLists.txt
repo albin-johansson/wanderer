@@ -116,8 +116,12 @@ set(SOURCE_FILES
     parse/map/parse_ir.hpp
     parse/map/parse_layers.cpp
     parse/map/parse_layers.hpp
+    parse/map/parse_object_layer.cpp
+    parse/map/parse_object_layer.hpp
     parse/map/parse_tile.cpp
     parse/map/parse_tile.hpp
+    parse/map/parse_tile_layer.cpp
+    parse/map/parse_tile_layer.hpp
     parse/map/parse_tileset.cpp
     parse/map/parse_tileset.hpp
     parse/map/parse_world.cpp
@@ -181,7 +185,7 @@ set(SOURCE_FILES
     system/viewport/make_viewport.hpp
     system/viewport/viewport_system.cpp
     system/viewport/viewport_system.hpp
-    parse/map/parse_tile_layer.cpp parse/map/parse_tile_layer.hpp parse/map/parse_object_layer.cpp parse/map/parse_object_layer.hpp)
+    )
 
 add_library(${WANDERER_LIB_TARGET} ${SOURCE_FILES})
 
