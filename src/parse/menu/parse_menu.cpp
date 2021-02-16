@@ -1,7 +1,10 @@
 #include "parse_menu.hpp"
 
-#include <fstream>  // ifstream
-#include <json.hpp>
+#include <fstream>   // ifstream
+#include <json.hpp>  // json
+#include <string>    // string
+#include <utility>   // move
+#include <vector>    // vector
 
 #include "menu_button.hpp"
 
