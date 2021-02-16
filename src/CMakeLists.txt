@@ -33,8 +33,6 @@ set(SOURCE_FILES
 
     core/level/level.hpp
     core/level/level.cpp
-    core/level/level_factory.hpp
-    core/level/level_factory.cpp
     core/level/level_manager.cpp
     core/level/level_manager.hpp
 
@@ -160,18 +158,6 @@ set(SOURCE_FILES
     system/hud/level_switch_animation_system.cpp
     system/hud/level_switch_animation_system.hpp
 
-    parse/map/make_tile.cpp
-    parse/map/make_tile.hpp
-    parse/map/parse_map.hpp
-    parse/map/parse_map.cpp
-    parse/map/make_tileset.cpp
-    parse/map/make_tileset.hpp
-    parse/map/add_tile_objects.cpp
-    parse/map/add_tile_objects.hpp
-    parse/map/parse_object_layer.cpp
-    parse/map/parse_object_layer.hpp
-    parse/map/parse_tile_layer.cpp
-    parse/map/parse_tile_layer.hpp
 
     parse/menu/parse_menu.cpp
     parse/menu/parse_menu.hpp)
