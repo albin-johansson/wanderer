@@ -3,7 +3,7 @@
 #include <cassert>  // assert
 #include <utility>  // move
 
-#include "level_factory.hpp"
+#include "parse_world.hpp"
 #include "portal.hpp"
 
 namespace wanderer {
@@ -12,20 +12,19 @@ level_manager::level_manager(graphics_context& graphics)
 {
   m_levels.reserve(5);
 
-  auto world = level_factory::make("resource/map/world.json", graphics);
-  m_world = world->id();
+  auto worldData = parse_world("resource/map/world.json", graphics);
+  auto world = std::make_unique<level>(worldData.base, graphics);
   world->get<comp::viewport>(world->viewport()).keepInBounds = true;
 
-  world->each<comp::portal>(
-      [&, this](const entt::entity e, comp::portal& portal) {
-        if (portal.target != m_world) {
-          const auto path = "resource/map" / portal.path;
-          auto level = level_factory::make(path, graphics);
-          m_levels.emplace(level->id(), std::move(level));
-        }
-      });
+  m_world = world->id();
 
-  m_levels.emplace(*m_world, std::move(world));
+  for (const auto& levelData : worldData.levels) {
+    auto sublevel = std::make_unique<level>(levelData, graphics);
+    const auto id = sublevel->id();
+    m_levels.try_emplace(id, std::move(sublevel));
+  }
+
+  m_levels.try_emplace(*m_world, std::move(world));
   m_current = m_world;
 }
 

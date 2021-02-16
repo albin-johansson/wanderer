@@ -1,15 +1,16 @@
 #pragma once
 
 #include <entt.hpp>  // registry
-#include <memory>    // unique_ptr
-#include <utility>   // forward
+#include <utility>   // forward, move
 
 #include "aabb_tree.hpp"
 #include "abby.hpp"
 #include "delta.hpp"
+#include "graphics_context.hpp"
 #include "map_id.hpp"
 #include "maybe.hpp"
 #include "null_entity.hpp"
+#include "parse_ir.hpp"
 #include "player.hpp"
 #include "render_bounds.hpp"
 #include "spawnpoint.hpp"
@@ -32,9 +33,9 @@ namespace wanderer {
 class level final
 {
  public:
-  friend class level_factory;
-
   using aabb_type = typename aabb_tree::aabb_type;
+
+  level(const ir::level& data, graphics_context& graphics);
 
   void relocate_aabb(entt::entity entity, const vector2f& position);
 
@@ -53,7 +54,7 @@ class level final
   template <typename OutputIterator>
   void query_collisions(const entt::entity id, OutputIterator iterator) const
   {
-    return m_aabbTree.query(id, iterator);
+    return m_tree.query(id, iterator);
   }
 
   template <typename Component, typename... Args>
@@ -175,17 +176,12 @@ class level final
 
  private:
   entt::registry m_registry;
-  aabb_tree m_aabbTree;
+  aabb_tree m_tree;
   comp::tilemap::entity m_tilemap{null<comp::tilemap>()};
   comp::tileset::entity m_tileset{null<comp::tileset>()};
   comp::viewport::entity m_viewport{null<comp::viewport>()};
   comp::player::entity m_player{null<comp::player>()};
   maybe<vector2f> m_playerSpawnPosition;
-
-  explicit level(entt::registry&& registry);
-
-  [[nodiscard]] static auto make(entt::registry&& registry)
-      -> std::unique_ptr<level>;
 };
 
 }  // namespace wanderer

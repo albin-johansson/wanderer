@@ -1,5 +1,7 @@
 #pragma once
 
+#include <cen/area.hpp>
+
 #include "entity_type.hpp"
 #include "map_id.hpp"
 #include "null_entity.hpp"
@@ -29,8 +31,7 @@ struct tilemap final
   map_id id{0};  ///< The ID associated with the tilemap
   comp::tileset::entity tileset{null<comp::tileset>()};  ///< Associated tileset
   int humanoidLayer;  ///< The layer that humanoids inhabit
-  float width;        ///< The width of the tilemap, in pixels
-  float height;       ///< The height of the tilemap, in pixels
+  cen::farea size;    ///< The size of the tilemap, in pixels.
   int rows;           ///< The amount of rows in the tilemap
   int cols;           ///< The amount of columns in the tilemap
 };

@@ -9,65 +9,6 @@ set(SOURCE_FILES
     wanderer_app.hpp
     game_loop.hpp
 
-    core/direction.hpp
-    core/game_constants.hpp
-    core/null_entity.hpp
-    core/make_renderer.cpp
-    core/make_renderer.hpp
-    core/stack_resource.hpp
-    core/centurion_utils.hpp
-    core/cursor_manager.cpp
-    core/cursor_manager.hpp
-    core/graphics_context.cpp
-    core/graphics_context.hpp
-
-    core/registry/make_registry.cpp
-    core/registry/make_registry.hpp
-    core/registry/add_humanoid_state_dependencies.cpp
-    core/registry/add_humanoid_state_dependencies.hpp
-
-    core/event/make_dispatcher.hpp
-    core/event/make_dispatcher.cpp
-    core/event/event_connections.cpp
-    core/event/event_connections.hpp
-
-    core/level/level.hpp
-    core/level/level.cpp
-    core/level/level_manager.cpp
-    core/level/level_manager.hpp
-
-    core/aliases/ints.hpp
-    core/aliases/delta.hpp
-    core/aliases/tile_id.hpp
-    core/aliases/depth.hpp
-    core/aliases/buffer.hpp
-    core/aliases/entity_type.hpp
-    core/aliases/texture_handle.hpp
-    core/aliases/maybe.hpp
-    core/aliases/texture_cache.hpp
-    core/aliases/aabb_tree.hpp
-    core/aliases/milliseconds.hpp
-    core/aliases/map_id.hpp
-
-    core/resource/texture_loader.hpp
-
-    core/math/vector2.hpp
-    core/math/get_random.hpp
-    core/math/index_to_matrix.hpp
-    core/math/floating.hpp
-    core/math/angles.hpp
-
-    menu/menu.hpp
-    menu/menu.cpp
-    menu/menu_button.cpp
-    menu/menu_button.hpp
-    menu/menu_action.hpp
-    menu/menu_id.hpp
-    menu/key_bind.hpp
-    menu/menu_constants.hpp
-    menu/menu_manager.hpp
-    menu/menu_manager.cpp
-
     component/player.hpp
     component/movable.hpp
     component/hitbox.hpp
@@ -90,6 +31,8 @@ set(SOURCE_FILES
     component/inventory.hpp
     component/container_trigger.hpp
     component/object.hpp
+    component/gold.hpp
+    component/item.hpp
 
     component/event/begin_attack_event.hpp
     component/event/end_attack_event.hpp
@@ -101,66 +44,144 @@ set(SOURCE_FILES
     component/event/show_inventory_event.hpp
     component/event/close_inventory_event.hpp
 
-    system/depth_drawables_system.cpp
-    system/depth_drawables_system.hpp
+    core/direction.hpp
+    core/game_constants.hpp
+    core/null_entity.hpp
+    core/make_renderer.cpp
+    core/make_renderer.hpp
+    core/stack_resource.hpp
+    core/centurion_utils.hpp
+    core/cursor_manager.cpp
+    core/cursor_manager.hpp
+    core/graphics_context.cpp
+    core/graphics_context.hpp
+
+    core/aliases/aabb_tree.hpp
+    core/aliases/buffer.hpp
+    core/aliases/delta.hpp
+    core/aliases/depth.hpp
+    core/aliases/entity_type.hpp
+    core/aliases/ints.hpp
+    core/aliases/map_id.hpp
+    core/aliases/maybe.hpp
+    core/aliases/milliseconds.hpp
+    core/aliases/texture_cache.hpp
+    core/aliases/texture_handle.hpp
+    core/aliases/tile_id.hpp
+
+    core/event/event_connections.cpp
+    core/event/event_connections.hpp
+    core/event/make_dispatcher.cpp
+    core/event/make_dispatcher.hpp
+
+    core/level/add_ground_layers.cpp
+    core/level/add_ground_layers.hpp
+    core/level/add_objects.cpp
+    core/level/add_objects.hpp
+    core/level/add_tile_objects.cpp
+    core/level/add_tile_objects.hpp
+    core/level/create_tilemap.cpp
+    core/level/create_tilemap.hpp
+    core/level/create_tileset.cpp
+    core/level/create_tileset.hpp
+    core/level/level.cpp
+    core/level/level.hpp
+    core/level/level_manager.cpp
+    core/level/level_manager.hpp
+
+    core/math/angles.hpp
+    core/math/floating.hpp
+    core/math/get_random.hpp
+    core/math/index_to_matrix.hpp
+    core/math/vector2.hpp
+
+    core/registry/add_humanoid_state_dependencies.cpp
+    core/registry/add_humanoid_state_dependencies.hpp
+    core/registry/make_registry.cpp
+    core/registry/make_registry.hpp
+
+    core/resource/texture_loader.hpp
+
+    menu/key_bind.hpp
+    menu/menu.cpp
+    menu/menu.hpp
+    menu/menu_action.hpp
+    menu/menu_button.cpp
+    menu/menu_button.hpp
+    menu/menu_constants.hpp
+    menu/menu_id.hpp
+    menu/menu_manager.cpp
+    menu/menu_manager.hpp
+
+    parse/map/parse_ir.hpp
+    parse/map/parse_layers.cpp
+    parse/map/parse_layers.hpp
+    parse/map/parse_tile.cpp
+    parse/map/parse_tile.hpp
+    parse/map/parse_tileset.cpp
+    parse/map/parse_tileset.hpp
+    parse/map/parse_world.cpp
+    parse/map/parse_world.hpp
+
+    parse/menu/parse_menu.cpp
+    parse/menu/parse_menu.hpp
+
     system/animation_system.cpp
     system/animation_system.hpp
-    system/render_bounds_system.cpp
-    system/render_bounds_system.hpp
+    system/depth_drawables_system.cpp
+    system/depth_drawables_system.hpp
     system/interaction_handler_system.cpp
     system/interaction_handler_system.hpp
+    system/inventory_system.cpp
+    system/inventory_system.hpp
+    system/render_bounds_system.cpp
+    system/render_bounds_system.hpp
     system/update_triggers.hpp
 
-    system/movement/movement_system.cpp
-    system/movement/movement_system.hpp
+    system/hud/level_switch_animation_system.cpp
+    system/hud/level_switch_animation_system.hpp
+
+    system/humanoid/humanoid_animation_system.cpp
+    system/humanoid/humanoid_animation_system.hpp
+    system/humanoid/humanoid_attack_event_handler.cpp
+    system/humanoid/humanoid_attack_event_handler.hpp
+    system/humanoid/humanoid_factory_system.cpp
+    system/humanoid/humanoid_factory_system.hpp
+    system/humanoid/humanoid_move_event_handler.cpp
+    system/humanoid/humanoid_move_event_handler.hpp
+    system/humanoid/humanoid_state_system.cpp
+    system/humanoid/humanoid_state_system.hpp
+
+    system/input/idle_input_system.cpp
+    system/input/idle_input_system.hpp
+    system/input/input_system.cpp
+    system/input/input_system.hpp
+    system/input/move_input_system.cpp
+    system/input/move_input_system.hpp
+
+    system/layer/layer_rendering_system.cpp
+    system/layer/layer_rendering_system.hpp
+    system/layer/layer_system.hpp
+
     system/movement/hitbox_system.cpp
     system/movement/hitbox_system.hpp
     system/movement/movable_system.hpp
     system/movement/movable_system.cpp
+    system/movement/movement_system.cpp
+    system/movement/movement_system.hpp
     system/movement/portal_system.cpp
     system/movement/portal_system.hpp
-
-    system/viewport/viewport_system.cpp
-    system/viewport/viewport_system.hpp
-    system/viewport/make_viewport.cpp
-    system/viewport/make_viewport.hpp
 
     system/tile/tile_animation_system.cpp
     system/tile/tile_animation_system.hpp
     system/tile/tile_rendering_system.cpp
     system/tile/tile_rendering_system.hpp
 
-    system/layer/layer_rendering_system.cpp
-    system/layer/layer_rendering_system.hpp
-    system/layer/layer_system.hpp
-
-    system/inventory_system.cpp
-    system/inventory_system.hpp
-
-    system/humanoid/humanoid_animation_system.cpp
-    system/humanoid/humanoid_animation_system.hpp
-    system/humanoid/humanoid_state_system.cpp
-    system/humanoid/humanoid_state_system.hpp
-    system/humanoid/humanoid_factory_system.cpp
-    system/humanoid/humanoid_factory_system.hpp
-    system/humanoid/humanoid_attack_event_handler.cpp
-    system/humanoid/humanoid_attack_event_handler.hpp
-    system/humanoid/humanoid_move_event_handler.cpp
-    system/humanoid/humanoid_move_event_handler.hpp
-
-    system/input/input_system.cpp
-    system/input/input_system.hpp
-    system/input/move_input_system.cpp
-    system/input/move_input_system.hpp
-    system/input/idle_input_system.cpp
-    system/input/idle_input_system.hpp
-
-    system/hud/level_switch_animation_system.cpp
-    system/hud/level_switch_animation_system.hpp
-
-
-    parse/menu/parse_menu.cpp
-    parse/menu/parse_menu.hpp)
+    system/viewport/make_viewport.cpp
+    system/viewport/make_viewport.hpp
+    system/viewport/viewport_system.cpp
+    system/viewport/viewport_system.hpp
+    parse/map/parse_tile_layer.cpp parse/map/parse_tile_layer.hpp parse/map/parse_object_layer.cpp parse/map/parse_object_layer.hpp)
 
 add_library(${WANDERER_LIB_TARGET} ${SOURCE_FILES})
 

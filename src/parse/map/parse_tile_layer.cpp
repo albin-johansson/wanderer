@@ -1,13 +1,13 @@
 #include "parse_tile_layer.hpp"
 
-#include <vector>  // vector
-
-#include "add_tile_objects.hpp"
-#include "index_to_matrix.hpp"
-#include "tile_layer.hpp"
+#include "centurion_utils.hpp"
+#include "game_constants.hpp"
+#include "hitbox_system.hpp"
 
 namespace wanderer {
 namespace {
+
+using tile_data = step::detail::data::gid_data;  // FIXME
 
 [[nodiscard]] auto make_tile_matrix(const int nRows, const int nCols)
     -> comp::tile_layer::tile_matrix
@@ -17,45 +17,109 @@ namespace {
   return {rows, std::vector<tile_id>(cols, glob::emptyTile)};
 }
 
-void add_ground_layer(entt::registry& registry,
-                      const step::tile_layer& tileLayer,
-                      const int numRows,
-                      const int numColumns,
-                      const int layerIndex)
+[[nodiscard]] auto make_ground_layer(const step::tile_layer& tileLayer,
+                                     const int nRows,
+                                     const int nCols,
+                                     const int zIndex) -> comp::tile_layer
 {
-  const comp::tile_layer::entity entity{registry.create()};
-
-  auto& layer = registry.emplace<comp::tile_layer>(entity);
-  layer.matrix = make_tile_matrix(numRows, numColumns);
-  layer.z = layerIndex;
+  comp::tile_layer layer;
+  layer.matrix = make_tile_matrix(nRows, nCols);
+  layer.z = zIndex;
 
   int index{0};
+
+  assert(tileLayer.data());
   for (const auto gid : tileLayer.data()->as_gid()) {
-    const auto [row, col] = index_to_matrix<std::size_t>(index, numColumns);
-    layer.matrix.at(row).at(col) = tile_id{gid.get()};
+    const auto [row, col] = index_to_matrix<std::size_t>(index, nCols);
+
+    const tile_id id{gid.get()};
+    layer.matrix.at(row).at(col) = id;
+
     ++index;
+  }
+
+  return layer;
+}
+
+[[nodiscard]] auto add_depth_drawable(const ir::tile& tile,
+                                      const cen::fpoint& dstPos,
+                                      const int zIndex) -> comp::depth_drawable
+{
+  comp::depth_drawable drawable;
+
+  drawable.texture = tile.texture;
+  drawable.src = tile.source;
+  drawable.dst = {dstPos, glob::tileSize<cen::farea>};
+  drawable.centerY = dstPos.y() + (drawable.dst.height() / 2.0f);
+  drawable.layer = zIndex;
+
+  return drawable;
+}
+
+void add_tile_object(ir::level& data,
+                     const tile_id tileId,
+                     const int tileIndex,
+                     const int zIndex)
+{
+  assert(!data.tileset.tiles.empty());
+  const auto& tile = data.tileset.tiles.at(tileId);
+
+  auto& tileObjectData = data.tileObjects.emplace_back();
+  tileObjectData.tile = tile.id;
+
+  const auto [row, col] = index_to_matrix(tileIndex, data.nCols);
+  const cen::fpoint position{static_cast<float>(col) * glob::tileWidth<>,
+                             static_cast<float>(row) * glob::tileHeight<>};
+
+  tileObjectData.drawable = add_depth_drawable(tile, position, zIndex);
+
+  if (tile.fancy) {
+    const auto& fancy = *tile.fancy;
+    tileObjectData.drawable.depth = fancy.depth;
+
+    if (fancy.hitbox) {
+      tileObjectData.hitbox =
+          sys::hitbox::with_position(*fancy.hitbox, to_vector(position));
+    }
+  }
+}
+
+void add_tile_objects(ir::level& data, const tile_data& tiles, const int zIndex)
+
+{
+  int tileIndex{0};
+
+  for (const auto gid : tiles) {
+    const tile_id tileId{gid.get()};
+
+    if (!is_empty(tileId)) {
+      add_tile_object(data, tileId, tileIndex, zIndex);
+    }
+
+    ++tileIndex;
   }
 }
 
 }  // namespace
 
-void parse_tile_layer(entt::registry& registry,
-                      comp::tilemap& tilemap,
-                      const step::tile_layer& layer,
-                      const step::properties* properties,
-                      const int index)
+void parse_tile_layer(ir::level& data,
+                      const step::map& stepMap,
+                      const step::tile_layer& stepLayer,
+                      const step::properties* layerProperties,
+                      const int zIndex)
 {
-  assert(properties);
-  assert(properties->has("ground"));
-  assert(properties->get("ground").is<bool>());
+  assert(layerProperties);
+  assert(layerProperties->has("ground"));
+  assert(layerProperties->get("ground").is<bool>());
 
-  if (properties->is("ground", true)) {
-    add_ground_layer(registry, layer, tilemap.rows, tilemap.cols, index);
-  } else {
-    if (const auto* data = layer.data()) {
-      const auto& tileset = registry.get<comp::tileset>(tilemap.tileset);
-      add_tile_objects(registry, tileset, data->as_gid(), tilemap.cols, index);
-    }
+  if (layerProperties->is("ground", true)) {
+    data.groundLayers.emplace_back(make_ground_layer(stepLayer,
+                                                     stepMap.height(),
+                                                     stepMap.width(),
+                                                     zIndex));
+
+  } else if (const auto* layerData = stepLayer.data()) {
+    add_tile_objects(data, layerData->as_gid(), zIndex);
   }
 }
 

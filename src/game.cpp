@@ -8,7 +8,6 @@
 #include "input_system.hpp"
 #include "inventory_system.hpp"
 #include "layer_rendering_system.hpp"
-#include "level_factory.hpp"
 #include "level_switch_animation.hpp"
 #include "level_switch_animation_system.hpp"
 #include "make_dispatcher.hpp"

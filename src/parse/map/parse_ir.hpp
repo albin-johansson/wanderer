@@ -1,0 +1,84 @@
+#pragma once
+
+#include <cen/point.hpp>
+#include <cen/rect.hpp>
+#include <map>     // map
+#include <vector>  // vector
+
+#include "animated_tile.hpp"
+#include "container_trigger.hpp"
+#include "depth.hpp"
+#include "depth_drawable.hpp"
+#include "hitbox.hpp"
+#include "inventory.hpp"
+#include "maybe.hpp"
+#include "object.hpp"
+#include "portal.hpp"
+#include "spawnpoint.hpp"
+#include "texture_handle.hpp"
+#include "tile_id.hpp"
+#include "tile_layer.hpp"
+#include "tile_object.hpp"
+
+namespace wanderer::ir {
+
+struct fancy_tile final
+{
+  depth_t depth{5};                      ///< Render depth index.
+  maybe<comp::hitbox> hitbox;            ///< Optional hitbox "template".
+  maybe<comp::animated_tile> animation;  ///< Optional tile animation.
+};
+
+struct tile final
+{
+  tile_id id{0};            ///< Unique ID.
+  texture_handle texture;   ///< Associated tileset texture.
+  cen::irect source;        ///< Source rectangle in the tileset texture.
+  maybe<fancy_tile> fancy;  ///< Optional fancy features.
+};
+
+struct tileset final
+{
+  texture_handle texture;         ///< Base tileset sheet texture.
+  std::map<tile_id, tile> tiles;  ///< Tiles in the tileset.
+};
+
+struct object final
+{
+  int id{};                              ///< Unique object ID.
+  maybe<comp::hitbox> hitbox;            ///< Optional hitbox.
+  maybe<comp::depth_drawable> drawable;  ///< Optional drawable.
+  maybe<comp::spawnpoint> spawnpoint;    ///< Optional spawnpoint.
+  maybe<comp::inventory> inventory;      ///< Optional inventory.
+  maybe<comp::portal> portal;            ///< Optional portal.
+  maybe<int> inventoryRef;  ///< Optional inventory ID, used by inv. triggers.
+};
+
+struct tile_object final
+{
+  tile_id tile{0};                ///< The ID of the associated tile.
+  comp::depth_drawable drawable;  ///< Drawable component for the tile object.
+  maybe<comp::hitbox> hitbox;     ///< Optional hitbox.
+};
+
+struct level final
+{
+  int id;                     ///< Unique ID associated with the level.
+  int humanoidLayer;          ///< Layer index where humanoids are rendered.
+  int nRows;                  ///< The number of rows in the levels.
+  int nCols;                  ///< The number of columns in the levels.
+  cen::farea size;            ///< The size of the level, in pixels.
+  vector2f playerSpawnPoint;  ///< The initial position of the player.
+  tileset tileset;            ///< The tileset used by the level.
+  std::vector<comp::tile_layer> groundLayers;  ///< List of "ground" layers.
+  std::vector<tile_object> tileObjects;        ///< List of tile objects.
+  std::vector<object> objects;                 ///< List of ordinary objects.
+};
+
+struct world final
+{
+  ir::level base;                 ///< Base level that represents the "world".
+  std::vector<ir::level> levels;  ///< Dungeons, houses, etc. in the world.
+};
+
+}  // namespace wanderer::ir
