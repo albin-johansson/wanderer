@@ -12,4 +12,4 @@ inline constexpr int menuColSize = 20;
 
 inline constexpr int menuRowSize = 20;
 
-}  // namespace wanderer
+}  // namespace wanderer::glob
