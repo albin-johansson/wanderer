@@ -10,29 +10,14 @@ namespace wanderer::comp {
  *
  * \brief Represents an entity that is movable.
  *
- * \note Whilst not required, movable components are expected to be drawable,
- * since the `interpolatedPos` member is solely intended for the rendered
- * position of the entity.
- *
- * \var movable::velocity
- * The current x- and y-axis speed.
- * \var movable::position
- * The current position.
- * \var movable::dir
- * The current dominant direction.
- * \var movable::speed
- * The current maximum total speed of the movable. This is used to make sure
- * that the movable doesn't move faster when traveling in more than one
- * direction.
- *
  * \headerfile movable.hpp
  */
 struct movable final
 {
-  vector2f velocity;
-  vector2f position;
-  direction dir{direction::down};
-  float speed{0};
+  vector2f velocity;               ///< Current x- and y-axis speed.
+  vector2f position;               ///< Current position.
+  direction dir{direction::down};  ///< Current dominant direction.
+  float speed{0};  ///< Current maximum total speed of the movable.
 };
 
 }  // namespace wanderer::comp
