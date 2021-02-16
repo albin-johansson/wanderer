@@ -45,16 +45,17 @@ inline constexpr cen::ipoint origin = get_render_origin();
 void update_triggers(entt::registry& registry,
                      const comp::player::entity player)
 {
-  const auto removePredicate =
-      [](const comp::is_within_container_trigger& isWithinTrigger,
-         const comp::container_trigger::entity triggerEntity) {
-        return isWithinTrigger.triggerEntity == triggerEntity;
-      };
+  using trigger_t = comp::container_trigger;
+  using is_within_trigger_t = comp::is_within_container_trigger;
 
-  sys::update_triggers<comp::container_trigger,
-                       comp::is_within_container_trigger>(registry,
-                                                          player,
-                                                          removePredicate);
+  const auto removePredicate = [](const is_within_trigger_t& isWithinTrigger,
+                                  const trigger_t::entity triggerEntity) {
+    return isWithinTrigger.triggerEntity == triggerEntity;
+  };
+
+  sys::update_triggers<trigger_t, is_within_trigger_t>(registry,
+                                                       player,
+                                                       removePredicate);
 }
 
 void render(const entt::registry& registry,
