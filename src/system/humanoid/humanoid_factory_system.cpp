@@ -103,7 +103,7 @@ void add_hitbox(entt::registry& registry,
 auto add_player(entt::registry& registry,
                 aabb_tree& tree,
                 const vector2f& position,
-                graphics_context& graphics) -> entt::entity
+                graphics_context& graphics) -> comp::player::entity
 {
   constexpr auto id = "player"_hs;
   const auto handle = graphics.load_texture(id, "resource/img/player2.png");
@@ -118,7 +118,7 @@ auto add_player(entt::registry& registry,
 
   registry.emplace<comp::binds>(player);
 
-  return player;
+  return comp::player::entity{player};
 }
 
 auto add_skeleton(entt::registry& registry,

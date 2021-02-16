@@ -6,6 +6,7 @@
 #include "aabb_tree.hpp"
 #include "graphics_context.hpp"
 #include "level.hpp"
+#include "player.hpp"
 #include "vector2.hpp"
 
 namespace wanderer::sys::humanoid {
@@ -13,7 +14,7 @@ namespace wanderer::sys::humanoid {
 auto add_player(entt::registry& registry,
                 aabb_tree& tree,
                 const vector2f& position,
-                graphics_context& graphics) -> entt::entity;
+                graphics_context& graphics) -> comp::player::entity;
 
 auto add_skeleton(entt::registry& registry,
                   aabb_tree& tree,
