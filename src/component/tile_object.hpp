@@ -18,7 +18,7 @@ struct tile_object final
 };
 
 template <typename Archive>
-void serialization(Archive& archive, tile_object& to, u32 version)
+void serialize(Archive& archive, tile_object& to, u32 version)
 {
   archive(to.tileEntity);
 }

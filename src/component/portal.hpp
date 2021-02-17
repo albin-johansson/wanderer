@@ -26,13 +26,13 @@ struct is_within_portal final
 };
 
 template <typename Archive>
-void serialization(Archive& archive, portal& p, u32 version)
+void serialize(Archive& archive, portal& p, u32 version)
 {
   archive(p.path, p.target);
 }
 
 template <typename Archive>
-void serialization(Archive& archive, is_within_portal& iwp, u32 version)
+void serialize(Archive& archive, is_within_portal& iwp, u32 version)
 {
   archive(iwp.portalEntity);
 }

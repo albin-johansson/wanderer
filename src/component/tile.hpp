@@ -38,7 +38,7 @@ struct tile final
 };
 
 template <typename Archive>
-void serialization(Archive& archive, tile& t, u32 version)
+void serialize(Archive& archive, tile& t, u32 version)
 {
   archive(t.id, t.texture, t.src, t.depth);
 }

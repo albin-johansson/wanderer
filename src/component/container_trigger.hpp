@@ -23,15 +23,13 @@ struct is_within_container_trigger final
 };
 
 template <typename Archive>
-void serialization(Archive& archive, container_trigger& ct, u32 version)
+void serialize(Archive& archive, container_trigger& ct, u32 version)
 {
   archive(ct.inventoryEntity, ct.inventoryId);
 }
 
 template <typename Archive>
-void serialization(Archive& archive,
-                   is_within_container_trigger& iwct,
-                   u32 version)
+void serialize(Archive& archive, is_within_container_trigger& iwct, u32 version)
 {
   archive(iwct.triggerEntity);
 }

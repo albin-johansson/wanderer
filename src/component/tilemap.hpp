@@ -38,7 +38,7 @@ struct tilemap final
 };
 
 template <typename Archive>
-void serialization(Archive& archive, tilemap& tm, u32 version)
+void serialize(Archive& archive, tilemap& tm, u32 version)
 {
   archive(tm.id, tm.tileset, tm.humanoidLayer, tm.size, tm.rows, tm.cols);
 }

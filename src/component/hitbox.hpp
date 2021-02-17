@@ -56,13 +56,13 @@ struct hitbox final
 };
 
 template <typename Archive>
-void serialization(Archive& archive, subhitbox& sh, u32 version)
+void serialize(Archive& archive, subhitbox& sh, u32 version)
 {
   archive(sh.offset, sh.size);
 }
 
 template <typename Archive>
-void serialization(Archive& archive, hitbox& h, u32 version)
+void serialize(Archive& archive, hitbox& h, u32 version)
 {
   archive(h.origin, h.bounds, h.boxes, h.enabled);
 }

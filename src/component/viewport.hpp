@@ -37,7 +37,7 @@ struct viewport final
 };
 
 template <typename Archive>
-void serialization(Archive& archive, viewport& v, u32 version)
+void serialize(Archive& archive, viewport& v, u32 version)
 {
   archive(v.bounds, v.levelSize, v.keepInBounds);
 }

@@ -29,7 +29,7 @@ struct render_bounds final
 };
 
 template <typename Archive>
-void serialization(Archive& archive, render_bounds& rb, u32 version)
+void serialize(Archive& archive, render_bounds& rb, u32 version)
 {
   archive(rb.minRow, rb.minCol, rb.maxRow, rb.maxCol);
 }

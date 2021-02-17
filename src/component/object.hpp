@@ -15,7 +15,7 @@ struct object final
 };
 
 template <typename Archive>
-void serialization(Archive& archive, object& o, u32 version)
+void serialize(Archive& archive, object& o, u32 version)
 {
   archive(o.id);
 }

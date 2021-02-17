@@ -30,7 +30,7 @@ struct tile_layer final
 };
 
 template <typename Archive>
-void serialization(Archive& archive, tile_layer& tl, u32 version)
+void serialize(Archive& archive, tile_layer& tl, u32 version)
 {
   archive(tl.matrix, tl.z);
 }

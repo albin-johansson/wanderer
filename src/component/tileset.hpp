@@ -33,7 +33,7 @@ struct tileset final
 };
 
 template <typename Archive>
-void serialization(Archive& archive, tileset& ts, u32 version)
+void serialize(Archive& archive, tileset& ts, u32 version)
 {
   archive(ts.tiles);
 }
