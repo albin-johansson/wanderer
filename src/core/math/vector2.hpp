@@ -508,6 +508,12 @@ template <typename T>
   }
 }
 
+template <typename Archive, typename T>
+void serialize(Archive& archive, basic_vector2<T>& vec)
+{
+  archive(vec.x, vec.y);
+}
+
 using vector2f = basic_vector2<float>;
 
 }  // namespace wanderer
