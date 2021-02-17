@@ -140,6 +140,8 @@ set(SOURCE_FILES
     system/interaction_handler_system.hpp
     system/inventory_system.cpp
     system/inventory_system.hpp
+    system/particle_system.cpp
+    system/particle_system.hpp
     system/render_bounds_system.cpp
     system/render_bounds_system.hpp
     system/update_triggers.hpp
