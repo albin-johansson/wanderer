@@ -15,6 +15,8 @@ class graphics_context final
 
   auto load_texture(entt::id_type id, cen::czstring path) -> texture_handle;
 
+  [[nodiscard]] auto get_texture(entt::id_type id) const -> texture_handle;
+
   [[nodiscard]] auto renderer() noexcept -> cen::renderer&
   {
     return m_renderer;
