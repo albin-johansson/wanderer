@@ -34,4 +34,19 @@ struct depth_drawable final
   cen::frect dst{};  ///< Position and size of the rendered texture, in pixels.
 };
 
+// TODO replace depth_drawable with drawable and depth_ordered components?
+//struct depth_ordered final
+//{
+//  int layer{};       ///< Layer index.
+//  depth_t depth{5};  ///< Render order heuristic.
+//  float centerY{};   ///< The y-coordinate of the center point of the entity.
+//};
+//
+//struct drawable final
+//{
+//  texture_handle handle;  ///< Handle to associated texture.
+//  texture_id texture{};   ///< ID of associated texture.
+//  cen::irect src;  ///< Region of associated texture that will be rendered.
+//  cen::frect dst;  ///< Position and size of the rendered texture, in pixels.
+//};
 }  // namespace wanderer::comp
