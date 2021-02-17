@@ -49,6 +49,8 @@ class FLUENT_EBCO NamedType
   using UnderlyingType = T;
 
   // constructor
+  NamedType() = default;
+
   explicit constexpr NamedType(T const& value) : value_(value) {}
   template <typename T_ = T, typename = IsNotReference<T_>>
   explicit constexpr NamedType(T&& value) : value_(std::move(value))
@@ -82,7 +84,7 @@ class FLUENT_EBCO NamedType
   }
 
  private:
-  T value_;
+  T value_{};
 };
 
 template <template <typename T> class StrongType, typename T>
