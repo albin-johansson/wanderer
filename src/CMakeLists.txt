@@ -180,6 +180,9 @@ set(SOURCE_FILES
     system/movement/portal_system.cpp
     system/movement/portal_system.hpp
 
+    system/saves/saves_system.cpp
+    system/saves/saves_system.hpp
+
     system/tile/tile_animation_system.cpp
     system/tile/tile_animation_system.hpp
     system/tile/tile_rendering_system.cpp
@@ -231,6 +234,7 @@ target_include_directories(${WANDERER_LIB_TARGET}
     PUBLIC system
     PUBLIC system/input
     PUBLIC system/humanoid
+    PUBLIC system/saves
     PUBLIC system/tile
     PUBLIC system/layer
     PUBLIC system/viewport
