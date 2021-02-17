@@ -3,6 +3,7 @@
 #include <cen/area.hpp>
 
 #include "entity_type.hpp"
+#include "ints.hpp"
 #include "map_id.hpp"
 #include "null_entity.hpp"
 #include "tileset.hpp"
@@ -35,5 +36,11 @@ struct tilemap final
   int rows;           ///< The amount of rows in the tilemap
   int cols;           ///< The amount of columns in the tilemap
 };
+
+template <typename Archive>
+void serialization(Archive& archive, tilemap& tm, u32 version)
+{
+  archive(tm.id, tm.tileset, tm.humanoidLayer, tm.size, tm.rows, tm.cols);
+}
 
 }  // namespace wanderer::comp

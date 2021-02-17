@@ -3,6 +3,7 @@
 #include <filesystem>  // path
 
 #include "entity_type.hpp"
+#include "ints.hpp"
 #include "map_id.hpp"
 #include "maybe.hpp"
 #include "null_entity.hpp"
@@ -23,5 +24,17 @@ struct is_within_portal final
 {
   portal::entity portalEntity{null<portal>()};  ///< The associated portal.
 };
+
+template <typename Archive>
+void serialization(Archive& archive, portal& p, u32 version)
+{
+  archive(p.path, p.target);
+}
+
+template <typename Archive>
+void serialization(Archive& archive, is_within_portal& iwp, u32 version)
+{
+  archive(iwp.portalEntity);
+}
 
 }  // namespace wanderer::comp

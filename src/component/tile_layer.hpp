@@ -3,6 +3,7 @@
 #include <vector>
 
 #include "entity_type.hpp"
+#include "ints.hpp"
 #include "tile_id.hpp"
 
 namespace wanderer::comp {
@@ -27,5 +28,11 @@ struct tile_layer final
   tile_matrix matrix;  ///< Matrix of tile IDs that represent the layer.
   int z;  ///< Index that indicates when the layer should be rendered.
 };
+
+template <typename Archive>
+void serialization(Archive& archive, tile_layer& tl, u32 version)
+{
+  archive(tl.matrix, tl.z);
+}
 
 }  // namespace wanderer::comp

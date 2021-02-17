@@ -2,6 +2,7 @@
 
 #include <vector>  // vector
 
+#include "ints.hpp"
 #include "milliseconds.hpp"
 #include "tile_id.hpp"
 
@@ -51,5 +52,17 @@ struct animated_tile final
   ms_t then{};
   std::vector<frame> frames;
 };
+
+template <typename Archive>
+void serialize(Archive& archive, frame& f, u32 version)
+{
+  archive(f.tile, f.duration);
+}
+
+template <typename Archive>
+void serialize(Archive& archive, animated_tile& a, u32 version)
+{
+  archive(a.index, a.then, a.frames);
+}
 
 }  // namespace wanderer::comp

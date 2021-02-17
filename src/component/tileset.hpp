@@ -4,6 +4,7 @@
 #include <unordered_map>  // unordered_map
 
 #include "entity_type.hpp"
+#include "ints.hpp"
 #include "tile.hpp"
 #include "tile_id.hpp"
 
@@ -30,5 +31,11 @@ struct tileset final
   using entity = entity_type<detail::tileset_entity_t>;
   std::unordered_map<tile_id, tile::entity> tiles;
 };
+
+template <typename Archive>
+void serialization(Archive& archive, tileset& ts, u32 version)
+{
+  archive(ts.tiles);
+}
 
 }  // namespace wanderer::comp

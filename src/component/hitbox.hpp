@@ -4,6 +4,7 @@
 #include <vector>  // vector
 
 #include "entity_type.hpp"
+#include "ints.hpp"
 #include "vector2.hpp"
 
 namespace wanderer::comp {
@@ -53,5 +54,17 @@ struct hitbox final
   std::vector<subhitbox> boxes;
   bool enabled{true};
 };
+
+template <typename Archive>
+void serialization(Archive& archive, subhitbox& sh, u32 version)
+{
+  archive(sh.offset, sh.size);
+}
+
+template <typename Archive>
+void serialization(Archive& archive, hitbox& h, u32 version)
+{
+  archive(h.origin, h.bounds, h.boxes, h.enabled);
+}
 
 }  // namespace wanderer::comp

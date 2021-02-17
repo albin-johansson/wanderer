@@ -4,6 +4,7 @@
 #include <cen/rect.hpp>
 
 #include "entity_type.hpp"
+#include "ints.hpp"
 
 namespace wanderer::comp {
 namespace detail {
@@ -34,5 +35,11 @@ struct viewport final
   cen::farea levelSize{};
   bool keepInBounds{false};
 };
+
+template <typename Archive>
+void serialization(Archive& archive, viewport& v, u32 version)
+{
+  archive(v.bounds, v.levelSize, v.keepInBounds);
+}
 
 }  // namespace wanderer::comp

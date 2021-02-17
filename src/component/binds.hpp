@@ -2,6 +2,8 @@
 
 #include <cen/scan_code.hpp>
 
+#include "ints.hpp"
+
 namespace wanderer::comp {
 
 /**
@@ -21,5 +23,11 @@ struct binds final
   cen::scan_code interact{cen::scancodes::e};
   cen::scan_code inventory{cen::scancodes::i};
 };
+
+template <typename Archive>
+void serialize(Archive& archive, binds& b, u32 version)
+{
+  archive(b.up, b.right, b.down, b.left, b.attack, b.interact, b.inventory);
+}
 
 }  // namespace wanderer::comp

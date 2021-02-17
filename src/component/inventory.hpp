@@ -3,6 +3,7 @@
 #include <vector>  // vector
 
 #include "entity_type.hpp"
+#include "ints.hpp"
 #include "item.hpp"
 
 namespace wanderer::comp {
@@ -19,5 +20,11 @@ struct inventory final
 
 struct active_inventory final
 {};
+
+template <typename Archive>
+void serialization(Archive& archive, inventory& i, u32 version)
+{
+  archive(i.items, i.capacity);
+}
 
 }  // namespace wanderer::comp

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "ints.hpp"
+
 namespace wanderer::comp {
 
 /**
@@ -25,5 +27,11 @@ struct render_bounds final
   int maxRow{};
   int maxCol{};
 };
+
+template <typename Archive>
+void serialization(Archive& archive, render_bounds& rb, u32 version)
+{
+  archive(rb.minRow, rb.minCol, rb.maxRow, rb.maxCol);
+}
 
 }  // namespace wanderer::comp

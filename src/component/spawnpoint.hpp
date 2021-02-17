@@ -1,5 +1,6 @@
 #pragma once
 
+#include "ints.hpp"
 #include "vector2.hpp"
 
 namespace wanderer::comp {
@@ -15,5 +16,11 @@ struct spawnpoint final
   spawnpoint_type type;
   vector2f position;
 };
+
+template <typename Archive>
+void serialization(Archive& archive, spawnpoint& s, u32 version)
+{
+  archive(s.type, s.position);
+}
 
 }  // namespace wanderer::comp
