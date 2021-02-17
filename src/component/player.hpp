@@ -1,6 +1,7 @@
 #pragma once
 
 #include "entity_type.hpp"
+#include "ints.hpp"
 
 namespace wanderer::comp {
 namespace detail {
@@ -18,5 +19,9 @@ struct player final
 {
   using entity = entity_type<detail::player_entity_t>;
 };
+
+template <typename Archive>
+void serialize(Archive&, player&, u32 version)
+{}
 
 }  // namespace wanderer::comp
