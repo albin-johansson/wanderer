@@ -71,6 +71,13 @@ struct vector2 final
   T y{};  ///< The y-coordinate.
 };
 
+// TODO make this a part of the abby library
+template <typename Archive, typename T>
+void serialize(Archive& archive, vector2<T>& v)
+{
+  archive(v.x, v.y);
+}
+
 // clang-format off
 template <typename T> vector2(T, T) -> vector2<T>;
 // clang-format on
@@ -394,6 +401,13 @@ class aabb final
     return m_max;
   }
 
+  // TODO make this a part of the abby library
+  template <typename Archive>
+  void serialize(Archive& archive)
+  {
+    archive(m_min, m_max, m_area);
+  }
+
  private:
   vector_type m_min;
   vector_type m_max;
@@ -473,6 +487,13 @@ struct node final
     return left == std::nullopt;
   }
 };
+
+// TODO make this a part of the abby library
+template <typename Archive, typename Key, typename Vector>
+void serialize(Archive& archive, node<Key, Vector>& n)
+{
+  archive(n.id, n.box, n.parent, n.left, n.right, n.next, n.height);
+}
 
 namespace detail {
 
@@ -1005,6 +1026,19 @@ class tree final
   [[nodiscard]] auto thickness_factor() const noexcept -> std::optional<double>
   {
     return m_skinThickness;
+  }
+
+  template <typename Archive>
+  void serialize(Archive& archive)  // TODO make this a part of the abby library
+  {
+    archive(m_nodes,
+            m_indexMap,
+            m_root,
+            m_nextFreeIndex,
+            m_nodeCount,
+            m_nodeCapacity,
+            m_skinThickness,
+            m_touchIsOverlap);
   }
 
  private:
