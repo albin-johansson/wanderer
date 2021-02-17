@@ -7,4 +7,4 @@ namespace wanderer {
 
 using texture_handle = entt::resource_handle<cen::texture>;
 
-}
+}  // namespace wanderer
