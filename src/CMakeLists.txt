@@ -67,6 +67,7 @@ set(SOURCE_FILES
     core/aliases/milliseconds.hpp
     core/aliases/texture_cache.hpp
     core/aliases/texture_handle.hpp
+    core/aliases/texture_id.hpp
     core/aliases/tile_id.hpp
 
     core/event/event_connections.cpp
