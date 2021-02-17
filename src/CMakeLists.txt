@@ -54,6 +54,7 @@ set(SOURCE_FILES
     core/cursor_manager.hpp
     core/graphics_context.cpp
     core/graphics_context.hpp
+    core/serialization.hpp
 
     core/aliases/aabb_tree.hpp
     core/aliases/buffer.hpp
