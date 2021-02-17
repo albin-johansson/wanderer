@@ -13,6 +13,7 @@
 #include "make_dispatcher.hpp"
 #include "movable.hpp"
 #include "movement_system.hpp"
+#include "particle_system.hpp"
 #include "portal_system.hpp"
 #include "tile_animation_system.hpp"
 #include "viewport_system.hpp"
@@ -64,6 +65,7 @@ void game::tick(const delta_t dt)
   if (!weakly_paused()) {
     sys::movement::update(*level, dt);
     sys::depthdrawable::update_movable(registry);
+    sys::update_particles(registry, dt);
 
     sys::portal::update_triggers(registry, level->player());
     sys::inventory::update_triggers(registry, level->player());
@@ -96,6 +98,7 @@ void game::render(cen::renderer& renderer, const cen::ipoint& mousePos)
                             renderer,
                             bounds);
   sys::depthdrawable::render(registry, renderer, bounds);
+  sys::render_particles(registry, renderer);
 
   sys::inventory::render(registry, renderer, mousePos);
   sys::hud::render_level_switch_animations(registry, renderer);

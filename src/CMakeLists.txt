@@ -9,29 +9,30 @@ set(SOURCE_FILES
     wanderer_app.hpp
     game_loop.hpp
 
-    component/player.hpp
-    component/movable.hpp
+    component/animated.hpp
+    component/animated_tile.hpp
+    component/binds.hpp
+    component/container_trigger.hpp
+    component/depth_drawable.hpp
+    component/gold.hpp
     component/hitbox.hpp
     component/humanoid_state.hpp
-    component/binds.hpp
-    component/animated.hpp
-    component/tilemap.hpp
-    component/tile_layer.hpp
-    component/tileset.hpp
-    component/tile.hpp
-    component/animated_tile.hpp
-    component/render_bounds.hpp
-    component/depth_drawable.hpp
-    component/viewport.hpp
-    component/spawnpoint.hpp
-    component/tile_object.hpp
-    component/portal.hpp
-    component/level_switch_animation.hpp
     component/inventory.hpp
-    component/container_trigger.hpp
-    component/object.hpp
-    component/gold.hpp
     component/item.hpp
+    component/level_switch_animation.hpp
+    component/movable.hpp
+    component/object.hpp
+    component/particle.hpp
+    component/player.hpp
+    component/portal.hpp
+    component/render_bounds.hpp
+    component/spawnpoint.hpp
+    component/tile.hpp
+    component/tile_layer.hpp
+    component/tile_object.hpp
+    component/tilemap.hpp
+    component/tileset.hpp
+    component/viewport.hpp
 
     component/event/begin_attack_event.hpp
     component/event/end_attack_event.hpp

@@ -1,9 +1,5 @@
 #pragma once
 
-#ifndef NDEBUG
-#include <log.hpp>
-#endif  // NDEBUG
-
 #include <algorithm>    // generate
 #include <array>        // array
 #include <functional>   // ref
