@@ -147,8 +147,8 @@ class Ini
 {
 public:
 	using String = std::basic_string<CharT>;
-	using Section = std::map<String, String>;
-	using Sections = std::map<String, Section>;
+	using Section = std::map<String, String, std::less<>>;
+	using Sections = std::map<String, Section, std::less<>>;
 
 	Sections sections;
 	std::list<String> errors;
