@@ -1,5 +1,7 @@
 #include "level.hpp"
 
+#include <fstream>  // ifstream, ofstream
+
 #include "add_ground_layers.hpp"
 #include "add_objects.hpp"
 #include "add_tile_objects.hpp"
@@ -11,6 +13,8 @@
 #include "make_registry.hpp"
 #include "make_viewport.hpp"
 #include "render_bounds_system.hpp"
+#include "saves_system.hpp"
+#include "serialization.hpp"
 #include "viewport_system.hpp"
 
 namespace wanderer {
@@ -23,14 +27,30 @@ level::level(const ir::level& data, graphics_context& graphics)
 {
   m_tree.set_thickness_factor(std::nullopt);
 
-  auto& tileset = create_tileset(data.tileset, m_registry, m_tileset);
+  {
+    // Load textures
+    for (const auto& ts : data.tilesets) {
+      const auto& textureData = ts.sheet;
+      graphics.load_texture(textureData.id, textureData.path.c_str());
+    }
+  }
+
+  auto& tileset = create_tileset(data.tilesets, m_registry, m_tileset);
   auto& tilemap = create_tilemap(data, m_registry, m_tilemap, m_tileset);
+
+  each<comp::tile>([&](comp::tile& tile) {
+    tile.sheet = graphics.get_texture(tile.texture);
+  });
 
   m_viewport = sys::viewport::make_viewport(m_registry, tilemap.size);
 
   add_ground_layers(m_registry, data);
   add_tile_objects(m_registry, m_tree, data, tileset);
   add_objects(m_registry, data);
+
+  each<comp::depth_drawable>([&](comp::depth_drawable& drawable) {
+    drawable.texture = graphics.get_texture(drawable.textureId);
+  });
 
   m_player = sys::humanoid::add_player(m_registry,
                                        m_tree,
@@ -45,6 +65,34 @@ level::level(const ir::level& data, graphics_context& graphics)
   sys::depthdrawable::update_movable(m_registry);
 
   m_tree.rebuild();
+}
+
+level::level(const std::filesystem::path& path, graphics_context& graphics)
+{
+  std::ifstream stream{path, std::ios::binary};
+  input_archive archive{stream};
+
+  m_registry = sys::restore_registry(archive);
+  archive(m_tree);
+  archive(m_tilemap);
+  archive(m_tileset);
+  archive(m_viewport);
+  archive(m_player);
+  archive(m_playerSpawnPosition);
+}
+
+void level::save(const std::filesystem::path& path) const
+{
+  std::ofstream stream{path, std::ios::binary};
+  output_archive archive{stream};
+
+  sys::save_registry(m_registry, archive);
+  archive(m_tree);
+  archive(m_tilemap);
+  archive(m_tileset);
+  archive(m_viewport);
+  archive(m_player);
+  archive(m_playerSpawnPosition);
 }
 
 void level::relocate_aabb(const entt::entity entity, const vector2f& position)

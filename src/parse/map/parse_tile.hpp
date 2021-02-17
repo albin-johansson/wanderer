@@ -3,14 +3,14 @@
 #include <step_map.hpp>
 
 #include "parse_ir.hpp"
-#include "texture_handle.hpp"
+#include "texture_id.hpp"
 #include "tile_id.hpp"
 
 namespace wanderer {
 
 [[nodiscard]] auto make_tile(tile_id id,
                              int index,
-                             const texture_handle& texture,
+                             texture_id texture,
                              const step::tileset& tileset) -> ir::tile;
 
 [[nodiscard]] auto parse_fancy_tile(ir::tileset& data,

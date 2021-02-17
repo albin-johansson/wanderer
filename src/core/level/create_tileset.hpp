@@ -7,7 +7,7 @@
 
 namespace wanderer {
 
-[[nodiscard]] auto create_tileset(const ir::tileset& data,
+[[nodiscard]] auto create_tileset(const std::vector<ir::tileset>& data,
                                   entt::registry& registry,
                                   comp::tileset::entity entity)
     -> comp::tileset&;

@@ -47,7 +47,8 @@ using tile_data = step::detail::data::gid_data;  // FIXME
 {
   comp::depth_drawable drawable;
 
-  drawable.texture = tile.texture;
+  //  drawable.texture = tile.texture;
+  drawable.textureId = tile.texture;
   drawable.src = tile.source;
   drawable.dst = {dstPos, glob::tileSize<cen::farea>};
   drawable.centerY = dstPos.y() + (drawable.dst.height() / 2.0f);
@@ -56,14 +57,24 @@ using tile_data = step::detail::data::gid_data;  // FIXME
   return drawable;
 }
 
+[[nodiscard]] auto find_tile(ir::level& data, const tile_id id)
+    -> maybe<ir::tile>
+{
+  for (const auto& ts : data.tilesets) {
+    if (const auto it = ts.tiles.find(id); it != ts.tiles.end()) {
+      return it->second;
+    }
+  }
+
+  return std::nullopt;
+}
+
 void add_tile_object(ir::level& data,
                      const tile_id tileId,
                      const int tileIndex,
                      const int zIndex)
 {
-  assert(!data.tileset.tiles.empty());
-  const auto& tile = data.tileset.tiles.at(tileId);
-
+  const auto tile = find_tile(data, tileId).value();
   auto& tileObjectData = data.tileObjects.emplace_back();
   tileObjectData.tile = tile.id;
 

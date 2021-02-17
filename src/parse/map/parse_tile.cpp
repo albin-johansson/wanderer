@@ -65,7 +65,7 @@ void add_hitbox(ir::fancy_tile& tileData, const step::object& object)
 
 auto make_tile(const tile_id id,
                const int index,
-               const texture_handle& texture,
+               const texture_id texture,
                const step::tileset& tileset) -> ir::tile
 {
   ir::tile data;

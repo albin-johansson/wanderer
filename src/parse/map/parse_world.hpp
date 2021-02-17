@@ -2,7 +2,6 @@
 
 #include <filesystem>  // path
 
-#include "graphics_context.hpp"
 #include "parse_ir.hpp"
 
 namespace wanderer {
@@ -14,11 +13,9 @@ namespace wanderer {
  * world are relative to the main world file.
  *
  * \param world the file path of the world JSON-file.
- * \param graphics the graphics context that will be used.
  *
  * \return an intermediate representation of the game world.
  */
-[[nodiscard]] auto parse_world(const std::filesystem::path& world,
-                               graphics_context& graphics) -> ir::world;
+[[nodiscard]] auto parse_world(const std::filesystem::path& world) -> ir::world;
 
 }  // namespace wanderer

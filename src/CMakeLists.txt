@@ -44,18 +44,18 @@ set(SOURCE_FILES
     component/event/show_inventory_event.hpp
     component/event/close_inventory_event.hpp
 
-    core/direction.hpp
-    core/game_constants.hpp
-    core/null_entity.hpp
-    core/make_renderer.cpp
-    core/make_renderer.hpp
-    core/stack_resource.hpp
     core/centurion_utils.hpp
     core/cursor_manager.cpp
     core/cursor_manager.hpp
+    core/direction.hpp
+    core/game_constants.hpp
     core/graphics_context.cpp
     core/graphics_context.hpp
+    core/make_renderer.cpp
+    core/make_renderer.hpp
+    core/null_entity.hpp
     core/serialization.hpp
+    core/stack_resource.hpp
 
     core/aliases/aabb_tree.hpp
     core/aliases/buffer.hpp
@@ -124,8 +124,8 @@ set(SOURCE_FILES
     parse/map/parse_tile.hpp
     parse/map/parse_tile_layer.cpp
     parse/map/parse_tile_layer.hpp
-    parse/map/parse_tileset.cpp
-    parse/map/parse_tileset.hpp
+    parse/map/parse_tilesets.cpp
+    parse/map/parse_tilesets.hpp
     parse/map/parse_world.cpp
     parse/map/parse_world.hpp
 

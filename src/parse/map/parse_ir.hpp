@@ -3,6 +3,7 @@
 #include <cen/point.hpp>
 #include <cen/rect.hpp>
 #include <map>     // map
+#include <string>  // string
 #include <vector>  // vector
 
 #include "animated_tile.hpp"
@@ -15,12 +16,18 @@
 #include "object.hpp"
 #include "portal.hpp"
 #include "spawnpoint.hpp"
-#include "texture_handle.hpp"
+#include "texture_id.hpp"
 #include "tile_id.hpp"
 #include "tile_layer.hpp"
 #include "tile_object.hpp"
 
 namespace wanderer::ir {
+
+struct texture final
+{
+  texture_id id{};
+  std::string path;  // String because it's easier to serialize
+};
 
 struct fancy_tile final
 {
@@ -32,14 +39,14 @@ struct fancy_tile final
 struct tile final
 {
   tile_id id{0};            ///< Unique ID.
-  texture_handle texture;   ///< Associated tileset texture.
+  texture_id texture{};     ///< Associated tileset texture.
   cen::irect source;        ///< Source rectangle in the tileset texture.
   maybe<fancy_tile> fancy;  ///< Optional fancy features.
 };
 
 struct tileset final
 {
-  texture_handle texture;         ///< Base tileset sheet texture.
+  texture sheet;
   std::map<tile_id, tile> tiles;  ///< Tiles in the tileset.
 };
 
@@ -69,7 +76,7 @@ struct level final
   int nCols;                  ///< The number of columns in the levels.
   cen::farea size;            ///< The size of the level, in pixels.
   vector2f playerSpawnPoint;  ///< The initial position of the player.
-  ir::tileset tileset;        ///< The tileset used by the level.
+  std::vector<ir::tileset> tilesets;           ///< Tilesets used by the level.
   std::vector<comp::tile_layer> groundLayers;  ///< List of "ground" layers.
   std::vector<tile_object> tileObjects;        ///< List of tile objects.
   std::vector<object> objects;                 ///< List of ordinary objects.

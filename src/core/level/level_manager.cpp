@@ -12,7 +12,7 @@ level_manager::level_manager(graphics_context& graphics)
 {
   m_levels.reserve(5);
 
-  auto worldData = parse_world("resource/map/world.json", graphics);
+  auto worldData = parse_world("resource/map/world.json");
   auto world = std::make_unique<level>(worldData.base, graphics);
   world->get<comp::viewport>(world->viewport()).keepInBounds = true;
 

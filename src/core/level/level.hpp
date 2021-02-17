@@ -1,7 +1,8 @@
 #pragma once
 
-#include <entt.hpp>  // registry
-#include <utility>   // forward, move
+#include <entt.hpp>    // registry
+#include <filesystem>  // path
+#include <utility>     // forward, move
 
 #include "aabb_tree.hpp"
 #include "abby.hpp"
@@ -35,7 +36,14 @@ class level final
  public:
   using aabb_type = typename aabb_tree::aabb_type;
 
+  // Creates a level based on a parsed map file
   level(const ir::level& data, graphics_context& graphics);
+
+  // Opens a level from a binary save file
+  level(const std::filesystem::path& path, graphics_context& graphics);
+
+  // Saves the level as a binary file
+  void save(const std::filesystem::path& path) const;
 
   void relocate_aabb(entt::entity entity, const vector2f& position);
 

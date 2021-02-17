@@ -6,7 +6,9 @@
 
 #include "depth.hpp"
 #include "entity_type.hpp"
+#include "ints.hpp"
 #include "texture_handle.hpp"
+#include "texture_id.hpp"
 #include "tile_id.hpp"
 
 namespace wanderer::comp {
@@ -29,9 +31,16 @@ struct tile final
 {
   using entity = entity_type<detail::tile_entity_t>;
   tile_id id{glob::emptyTile};  ///< Unique ID associated with the tile.
-  texture_handle sheet;         ///< Handle to the associated tileset.
+  texture_id texture;
+  texture_handle sheet;  ///< Handle to the associated tileset.
   cen::irect src;  ///< Region in associated tileset that the tile represents.
   depth_t depth{5};
 };
+
+template <typename Archive>
+void serialization(Archive& archive, tile& t, u32 version)
+{
+  archive(t.id, t.texture, t.src, t.depth);
+}
 
 }  // namespace wanderer::comp

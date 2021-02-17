@@ -110,6 +110,7 @@ auto add_player(entt::registry& registry,
 
   const auto player = make_humanoid(registry, tree, handle);
   registry.emplace<comp::player>(player);
+  registry.get<comp::depth_drawable>(player).textureId = id;
 
   auto& movable = registry.get<comp::movable>(player);
   movable.speed = glob::playerSpeed;
@@ -130,6 +131,7 @@ auto add_skeleton(entt::registry& registry,
   const auto handle = graphics.load_texture(id, "resource/img/skeleton.png");
 
   const auto skeleton = make_humanoid(registry, tree, handle);
+  registry.get<comp::depth_drawable>(skeleton).textureId = id;
 
   auto& movable = registry.get<comp::movable>(skeleton);
   movable.speed = glob::monsterSpeed;

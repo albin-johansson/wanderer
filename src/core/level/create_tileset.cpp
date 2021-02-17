@@ -1,21 +1,21 @@
 #include "create_tileset.hpp"
 
+#include <cstddef>  // size_t
+
 namespace wanderer {
+namespace {
 
-auto create_tileset(const ir::tileset& data,
-                    entt::registry& registry,
-                    const comp::tileset::entity entity) -> comp::tileset&
+void create_tiles(entt::registry& registry,
+                  comp::tileset& tileset,
+                  const std::map<tile_id, ir::tile>& tiles)
 {
-  auto& tileset = registry.emplace<comp::tileset>(entity);
-  tileset.tiles.reserve(data.tiles.size());
-
-  for (const auto& [id, tileData] : data.tiles) {
+  for (const auto& [id, tileData] : tiles) {
     const auto tileEntity = comp::tile::entity{registry.create()};
     tileset.tiles.try_emplace(id, tileEntity);
 
     auto& tile = registry.emplace<comp::tile>(tileEntity);
     tile.id = id;
-    tile.sheet = tileData.texture;
+    tile.texture = tileData.texture;
     tile.src = tileData.source;
 
     if (tileData.fancy) {
@@ -26,6 +26,28 @@ auto create_tileset(const ir::tileset& data,
         registry.emplace<comp::animated_tile>(tileEntity, *fancy.animation);
       }
     }
+  }
+}
+
+}  // namespace
+
+auto create_tileset(const std::vector<ir::tileset>& data,
+                    entt::registry& registry,
+                    const comp::tileset::entity entity) -> comp::tileset&
+{
+  auto& tileset = registry.emplace<comp::tileset>(entity);
+
+  std::size_t nTiles{};
+  for (const auto& ts : data) {
+    for (const auto& tile : ts.tiles) {
+      ++nTiles;
+    }
+  }
+
+  tileset.tiles.reserve(nTiles);
+
+  for (const auto& ts : data) {
+    create_tiles(registry, tileset, ts.tiles);
   }
 
   return tileset;

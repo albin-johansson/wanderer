@@ -4,13 +4,14 @@
 
 #include "game_constants.hpp"
 #include "parse_layers.hpp"
-#include "parse_tileset.hpp"
+#include "parse_tilesets.hpp"
 
 namespace wanderer {
 namespace {
 
 [[nodiscard]] auto parse_map(const step::map& stepMap,
-                             graphics_context& graphics) -> ir::level
+                             const std::filesystem::path& directory)
+    -> ir::level
 {
   static int tilesetId = 0;
 
@@ -21,7 +22,7 @@ namespace {
   data.size.width = static_cast<float>(data.nCols) * glob::tileWidth<>;
   data.size.height = static_cast<float>(data.nRows) * glob::tileHeight<>;
 
-  data.tileset = parse_tileset(stepMap.tilesets(), graphics);
+  data.tilesets = parse_tilesets(stepMap.tilesets(), directory);
   ++tilesetId;
 
   if (const auto* properties = stepMap.get_properties()) {
@@ -42,20 +43,20 @@ namespace {
 
 }  // namespace
 
-auto parse_world(const std::filesystem::path& world, graphics_context& graphics)
-    -> ir::world
+auto parse_world(const std::filesystem::path& world) -> ir::world
 {
   const auto stepMap = std::make_unique<step::map>(world);
-  const auto directory = std::filesystem::absolute(world).parent_path();
+  const auto directory = std::filesystem::relative(world).parent_path();
 
   ir::world data;
-  data.base = parse_map(*stepMap, graphics);
+  data.base = parse_map(*stepMap, directory);
 
   for (const auto& object : data.base.objects) {
     if (object.portal) {
       const auto levelPath = directory / object.portal->path;
       const auto stepLevel = std::make_unique<step::map>(levelPath);
-      data.levels.push_back(parse_map(*stepLevel, graphics));
+
+      data.levels.push_back(parse_map(*stepLevel, levelPath.parent_path()));
     }
   }
 
