@@ -40,6 +40,20 @@ class level_manager final
 
   [[nodiscard]] auto current() const noexcept -> const level*;
 
+  [[nodiscard]] auto world() const -> map_id;
+
+  [[nodiscard]] auto current_id() const -> map_id;
+
+  [[nodiscard]] auto begin() const noexcept
+  {
+    return m_levels.begin();
+  }
+
+  [[nodiscard]] auto end() const noexcept
+  {
+    return m_levels.end();
+  }
+
  private:
   std::unordered_map<map_id, std::unique_ptr<level>> m_levels;
   maybe<map_id> m_current;

@@ -61,4 +61,14 @@ auto level_manager::current() const noexcept -> const level*
   return m_levels.at(*m_current).get();
 }
 
+auto level_manager::world() const -> map_id
+{
+  return m_world.value();
+}
+
+auto level_manager::current_id() const -> map_id
+{
+  return m_current.value();
+}
+
 }  // namespace wanderer
