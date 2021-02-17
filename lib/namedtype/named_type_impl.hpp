@@ -75,6 +75,12 @@ class FLUENT_EBCO NamedType
     argument& operator=(argument&&) = delete;
   };
 
+  template <typename Archive>
+  void serialize(Archive& archive)
+  {
+    archive(value_);
+  }
+
  private:
   T value_;
 };
