@@ -434,15 +434,35 @@ class basic_surface final
   }
 
   /**
-   * \brief Returns a const pointer to the pixel data of the surface.
+   * \brief Returns a pointer to the pixel data of the surface.
    *
-   * \return a const pointer to the pixel data of the surface.
+   * \return a pointer to the pixel data of the surface.
    *
    * \since 4.0.0
    */
   [[nodiscard]] auto pixels() const noexcept -> const void*
   {
     return m_surface->pixels;
+  }
+
+  /**
+   * \brief Returns a pointer to the pixel data of the surface.
+   *
+   * \return a pointer to the pixel data of the surface.
+   *
+   * \since 5.3.0
+   */
+  [[nodiscard]] auto data() noexcept -> void*
+  {
+    return pixels();
+  }
+
+  /**
+   * \copydoc data()
+   */
+  [[nodiscard]] auto data() const noexcept -> const void*
+  {
+    return pixels();
   }
 
   /**
