@@ -23,7 +23,6 @@ set(SOURCE_FILES
     component/render_bounds.hpp
     component/depth_drawable.hpp
     component/viewport.hpp
-    component/map_position.hpp
     component/spawnpoint.hpp
     component/tile_object.hpp
     component/portal.hpp
