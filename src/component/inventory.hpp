@@ -27,4 +27,8 @@ void serialize(Archive& archive, inventory& i, u32 version)
   archive(i.items, i.capacity);
 }
 
+template <typename Archive>
+void serialize(Archive&, active_inventory&, u32 version)
+{}
+
 }  // namespace wanderer::comp
