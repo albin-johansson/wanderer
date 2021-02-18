@@ -132,6 +132,9 @@ set(SOURCE_FILES
     parse/menu/parse_menu.cpp
     parse/menu/parse_menu.hpp
 
+    parse/saves/save_game.cpp
+    parse/saves/save_game.hpp
+
     system/animation_system.cpp
     system/animation_system.hpp
     system/depth_drawables_system.cpp
