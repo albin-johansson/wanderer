@@ -55,9 +55,9 @@ void render_level_switch_animations(const entt::registry& registry,
 
 void start_level_fade_animation(entt::registry& registry, const map_id map)
 {
-  const auto entity = registry.create();
-  const auto nSteps = static_cast<float>(cen::screen::refresh_rate()) / 2.0f;
+  constexpr auto nSteps = 120.0f;
 
+  const auto entity = registry.create();
   auto& anim = registry.emplace<comp::level_switch_animation>(entity);
   anim.map = map;
   anim.step = 0;
