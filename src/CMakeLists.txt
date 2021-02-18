@@ -192,7 +192,9 @@ set(SOURCE_FILES
     system/viewport/make_viewport.hpp
     system/viewport/viewport_system.cpp
     system/viewport/viewport_system.hpp
-    )
+
+    util/files_directory.cpp
+    util/files_directory.hpp)
 
 add_library(${WANDERER_LIB_TARGET} ${SOURCE_FILES})
 
@@ -224,30 +226,30 @@ target_include_directories(${WANDERER_LIB_TARGET}
 # Wanderer directories
 target_include_directories(${WANDERER_LIB_TARGET}
     PUBLIC .
-    PUBLIC core
-    PUBLIC core/math
-    PUBLIC core/resource
-    PUBLIC core/aliases
-    PUBLIC core/level
-    PUBLIC core/registry
-    PUBLIC core/event
     PUBLIC component
     PUBLIC component/event
-    PUBLIC system
-    PUBLIC system/input
-    PUBLIC system/humanoid
-    PUBLIC system/saves
-    PUBLIC system/tile
-    PUBLIC system/layer
-    PUBLIC system/viewport
-    PUBLIC system/collision
-    PUBLIC system/menu
-    PUBLIC system/movement
-    PUBLIC system/hud
+    PUBLIC core
+    PUBLIC core/aliases
+    PUBLIC core/event
+    PUBLIC core/level
+    PUBLIC core/math
+    PUBLIC core/registry
+    PUBLIC core/resource
     PUBLIC menu
     PUBLIC parse
     PUBLIC parse/map
-    PUBLIC parse/menu)
+    PUBLIC parse/menu
+    PUBLIC parse/saves
+    PUBLIC system
+    PUBLIC system/hud
+    PUBLIC system/humanoid
+    PUBLIC system/input
+    PUBLIC system/layer
+    PUBLIC system/movement
+    PUBLIC system/saves
+    PUBLIC system/tile
+    PUBLIC system/viewport
+    PUBLIC util)
 
 #target_compile_definitions(${WANDERER_LIB} PUBLIC WANDERER_DEBUG)
 
