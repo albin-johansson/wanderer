@@ -10,10 +10,10 @@ void create_tiles(entt::registry& registry,
                   const std::map<tile_id, ir::tile>& tiles)
 {
   for (const auto& [id, tileData] : tiles) {
-    const auto tileEntity = comp::tile::entity{registry.create()};
-    tileset.tiles.try_emplace(id, tileEntity);
+    const auto entity = comp::tile::entity{registry.create()};
+    tileset.tiles.try_emplace(id, entity);
 
-    auto& tile = registry.emplace<comp::tile>(tileEntity);
+    auto& tile = registry.emplace<comp::tile>(entity);
     tile.id = id;
     tile.texture = tileData.texture;
     tile.src = tileData.source;
@@ -23,7 +23,7 @@ void create_tiles(entt::registry& registry,
       tile.depth = fancy.depth;
 
       if (fancy.animation) {
-        registry.emplace<comp::animated_tile>(tileEntity, *fancy.animation);
+        registry.emplace<comp::animated_tile>(entity, *fancy.animation);
       }
     }
   }
