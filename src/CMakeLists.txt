@@ -121,6 +121,11 @@ set(SOURCE_FILES
     io/menu/parse_menu.cpp
     io/menu/parse_menu.hpp
 
+    io/saves/load_game.cpp
+    io/saves/load_game.hpp
+    io/saves/parse_save_file.cpp
+    io/saves/parse_save_file.hpp
+    io/saves/save_file_info.hpp
     io/saves/save_game.cpp
     io/saves/save_game.hpp
 

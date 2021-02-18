@@ -1,5 +1,6 @@
 #pragma once
 
+#include <filesystem>     // path
 #include <memory>         // unique_ptr
 #include <unordered_map>  // unordered_map
 #include <utility>        // forward
@@ -8,6 +9,7 @@
 #include "level.hpp"
 #include "map_id.hpp"
 #include "maybe.hpp"
+#include "save_file_info.hpp"
 
 namespace wanderer {
 
@@ -15,6 +17,9 @@ class level_manager final
 {
  public:
   explicit level_manager(graphics_context& graphics);
+
+  explicit level_manager(const save_file_info& info,
+                         graphics_context& graphics);
 
   void enable_world();
 

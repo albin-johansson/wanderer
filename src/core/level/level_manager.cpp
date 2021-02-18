@@ -1,7 +1,7 @@
 #include "level_manager.hpp"
 
-#include <cassert>  // assert
-#include <utility>  // move
+#include <cassert>   // assert
+#include <utility>   // move
 
 #include "parse_world.hpp"
 #include "portal.hpp"
@@ -26,6 +26,17 @@ level_manager::level_manager(graphics_context& graphics)
 
   m_levels.try_emplace(*m_world, std::move(world));
   m_current = m_world;
+}
+
+level_manager::level_manager(const save_file_info& info,
+                             graphics_context& graphics)
+    : m_world{info.world}
+    , m_current{info.current}
+{
+  m_levels.reserve(info.paths.size());
+  for (const auto& [id, path] : info.paths) {
+    m_levels.try_emplace(id, std::make_unique<level>(path, graphics));
+  }
 }
 
 void level_manager::enable_world()
