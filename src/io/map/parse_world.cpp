@@ -25,16 +25,15 @@ namespace {
   data.tilesets = parse_tilesets(stepMap.tilesets(), directory);
   ++tilesetId;
 
-  if (const auto* properties = stepMap.get_properties()) {
-    assert(properties);
-    assert(properties->has("id"));
-    assert(properties->get("id").is<int>());
-    assert(properties->has("humanoidLayer"));
-    assert(properties->get("humanoidLayer").is<int>());
+  const auto* properties = stepMap.get_properties();
+  assert(properties);
+  assert(properties->has("id"));
+  assert(properties->get("id").is<int>());
+  assert(properties->has("humanoidLayer"));
+  assert(properties->get("humanoidLayer").is<int>());
 
-    data.id = properties->get("id").get<int>();
-    data.humanoidLayer = properties->get("humanoidLayer").get<int>();
-  }
+  data.id = properties->get("id").get<int>();
+  data.humanoidLayer = properties->get("humanoidLayer").get<int>();
 
   parse_layers(stepMap, data);
 
