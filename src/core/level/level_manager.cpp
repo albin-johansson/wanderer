@@ -1,7 +1,7 @@
 #include "level_manager.hpp"
 
-#include <cassert>   // assert
-#include <utility>   // move
+#include <cassert>  // assert
+#include <utility>  // move
 
 #include "parse_world.hpp"
 #include "portal.hpp"
