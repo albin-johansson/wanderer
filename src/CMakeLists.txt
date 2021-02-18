@@ -104,6 +104,26 @@ set(SOURCE_FILES
 
     core/resource/texture_loader.hpp
 
+    io/map/parse_ir.hpp
+    io/map/parse_layers.cpp
+    io/map/parse_layers.hpp
+    io/map/parse_object_layer.cpp
+    io/map/parse_object_layer.hpp
+    io/map/parse_tile.cpp
+    io/map/parse_tile.hpp
+    io/map/parse_tile_layer.cpp
+    io/map/parse_tile_layer.hpp
+    io/map/parse_tilesets.cpp
+    io/map/parse_tilesets.hpp
+    io/map/parse_world.cpp
+    io/map/parse_world.hpp
+
+    io/menu/parse_menu.cpp
+    io/menu/parse_menu.hpp
+
+    io/saves/save_game.cpp
+    io/saves/save_game.hpp
+
     menu/key_bind.hpp
     menu/menu.cpp
     menu/menu.hpp
@@ -114,26 +134,6 @@ set(SOURCE_FILES
     menu/menu_id.hpp
     menu/menu_manager.cpp
     menu/menu_manager.hpp
-
-    parse/map/parse_ir.hpp
-    parse/map/parse_layers.cpp
-    parse/map/parse_layers.hpp
-    parse/map/parse_object_layer.cpp
-    parse/map/parse_object_layer.hpp
-    parse/map/parse_tile.cpp
-    parse/map/parse_tile.hpp
-    parse/map/parse_tile_layer.cpp
-    parse/map/parse_tile_layer.hpp
-    parse/map/parse_tilesets.cpp
-    parse/map/parse_tilesets.hpp
-    parse/map/parse_world.cpp
-    parse/map/parse_world.hpp
-
-    parse/menu/parse_menu.cpp
-    parse/menu/parse_menu.hpp
-
-    parse/saves/save_game.cpp
-    parse/saves/save_game.hpp
 
     system/animation_system.cpp
     system/animation_system.hpp
@@ -239,10 +239,10 @@ target_include_directories(${WANDERER_LIB_TARGET}
     PUBLIC core/registry
     PUBLIC core/resource
     PUBLIC menu
-    PUBLIC parse
-    PUBLIC parse/map
-    PUBLIC parse/menu
-    PUBLIC parse/saves
+    PUBLIC io
+    PUBLIC io/map
+    PUBLIC io/menu
+    PUBLIC io/saves
     PUBLIC system
     PUBLIC system/hud
     PUBLIC system/humanoid
