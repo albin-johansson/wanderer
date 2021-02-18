@@ -24,11 +24,9 @@ void add_particle(entt::registry& registry, const vector2f& position)
 
 void update_particles(entt::registry& registry, const delta_t dt)
 {
-  const auto delta = static_cast<float>(dt.get());
-  const auto view = registry.view<comp::particle>();
-
   const auto now = cen::counter::ticks();
 
+  const auto view = registry.view<comp::particle>();
   view.each([&](const entt::entity entity, comp::particle& particle) {
     const auto duration = now - particle.start;
     if (duration >= particle.duration) {
@@ -40,9 +38,9 @@ void update_particles(entt::registry& registry, const delta_t dt)
         particle.dy = 0;
         particle.dz = 0;
       } else {
-        particle.x += particle.dx * delta;
-        particle.y += particle.dy * delta;
-        particle.z += particle.dz * delta;
+        particle.x += particle.dx * dt;
+        particle.y += particle.dy * dt;
+        particle.z += particle.dz * dt;
 
         if (particle.z < 0) {
           particle.z = 0;
@@ -51,7 +49,7 @@ void update_particles(entt::registry& registry, const delta_t dt)
           particle.dz *= -0.5f;
         }
 
-        particle.dz -= 0.75f * delta;
+        particle.dz -= 0.75f * dt;
       }
     }
   });

@@ -327,6 +327,7 @@ template <typename T>
  * \brief Returns the result from scaling the supplied vector.
  *
  * \tparam T the representation type used by the vectors.
+ * \tparam S the type of the scalar.
  *
  * \param vector the vector that will be scaled.
  * \param scalar the amount to scale the vector by.
@@ -335,9 +336,9 @@ template <typename T>
  *
  * \since 0.1.0
  */
-template <typename T>
+template <typename T, typename S>
 [[nodiscard]] constexpr auto operator*(const basic_vector2<T>& vector,
-                                       const T scalar) noexcept
+                                       const S scalar) noexcept
     -> basic_vector2<T>
 {
   return basic_vector2{vector.x * scalar, vector.y * scalar};
@@ -347,6 +348,7 @@ template <typename T>
  * \brief Returns the result from scaling the supplied vector.
  *
  * \tparam T the representation type used by the vectors.
+ * \tparam S the type of the scalar.
  *
  * \param scalar the amount to scale the vector by.
  * \param vector the vector that will be scaled.
@@ -355,8 +357,8 @@ template <typename T>
  *
  * \since 0.1.0
  */
-template <typename T>
-[[nodiscard]] constexpr auto operator*(const T scalar,
+template <typename T, typename S>
+[[nodiscard]] constexpr auto operator*(const S scalar,
                                        const basic_vector2<T>& vector) noexcept
     -> basic_vector2<T>
 {
@@ -515,5 +517,6 @@ void serialize(Archive& archive, basic_vector2<T>& vec)
 }
 
 using vector2f = basic_vector2<float>;
+using vector2d = basic_vector2<double>;
 
 }  // namespace wanderer

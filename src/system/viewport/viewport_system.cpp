@@ -17,7 +17,7 @@ inline constexpr float cameraSpeed = 10.0f;
   const auto boundsWidth = viewport.bounds.width();
   const auto boundsHeight = viewport.bounds.height();
 
-  const auto distance = cameraSpeed * static_cast<float>(dt.get());
+  const auto distance = cameraSpeed * dt;
 
   const auto getX = [&](const float x) noexcept -> float {
     const auto value = boundsX + (x - boundsX) * distance;

@@ -47,6 +47,7 @@ class FLUENT_EBCO NamedType
     : public Skills<NamedType<T, Parameter, Skills...>>... {
  public:
   using UnderlyingType = T;
+  using value_type = T;
 
   // constructor
   NamedType() = default;

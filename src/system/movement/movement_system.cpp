@@ -144,12 +144,11 @@ void update_hitbox(level& level,
 
 void update(level& level, const delta_t dt)
 {
-  const auto delta = static_cast<float>(dt.get());
   level.each<comp::movable>(
       [&](const entt::entity entity, comp::movable& movable) {
         const auto oldPosition = movable.position;
 
-        movable.position += (movable.velocity * delta);
+        movable.position += (movable.velocity * dt);
         movable.dir = movable::dominant_direction(movable);
 
         if (auto* hitbox = level.try_get<comp::hitbox>(entity)) {

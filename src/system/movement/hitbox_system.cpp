@@ -13,10 +13,8 @@ namespace {
                                         const delta_t dt) -> maybe<comp::hitbox>
 {
   if (movable.velocity.y != 0) {
-    const auto delta = static_cast<float>(dt.get());
-
     auto next = oldPosition;
-    next.y = oldPosition.y + (movable.velocity.y * delta);
+    next.y = oldPosition.y + (movable.velocity.y * dt);
 
     return with_position(hitbox, next);
   } else {
@@ -31,10 +29,8 @@ namespace {
     -> maybe<comp::hitbox>
 {
   if (movable.velocity.x != 0) {
-    const auto delta = static_cast<float>(dt.get());
-
     auto next = oldPosition;
-    next.x = oldPosition.x + (movable.velocity.x * delta);
+    next.x = oldPosition.x + (movable.velocity.x * dt);
 
     return with_position(hitbox, next);
   } else {
