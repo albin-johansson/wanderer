@@ -18,24 +18,24 @@ template <typename T>
 class game_loop final
 {
  public:
-  using time_precision = double;
-  using seconds_type = cen::seconds<time_precision>;
+  using precision_type = double;
+  using seconds_type = cen::seconds<precision_type>;
 
   game_loop()
-      : m_currentTime{cen::counter::now_sec<time_precision>()}
-      , m_tickRate{tick_rate<time_precision>()}
+      : m_currentTime{cen::counter::now_sec<precision_type>()}
+      , m_tickRate{tick_rate<precision_type>()}
       , m_fixedDelta{1.0 / m_tickRate}
   {}
 
   void fetch_current_time() noexcept
   {
-    m_currentTime = cen::counter::now_sec<time_precision>();
+    m_currentTime = cen::counter::now_sec<precision_type>();
   }
 
   template <typename T, typename U>
   void tick(T&& input, U&& logic)
   {
-    const auto newTime = cen::counter::now_sec<time_precision>();
+    const auto newTime = cen::counter::now_sec<precision_type>();
     auto frameTime = newTime - m_currentTime;
     m_currentTime = newTime;
 
@@ -68,7 +68,7 @@ class game_loop final
   constexpr inline static int m_maxSteps = 5;
 
   seconds_type m_currentTime;
-  time_precision m_tickRate;
+  precision_type m_tickRate;
   seconds_type m_fixedDelta;
   bool m_running{true};
 };
