@@ -4,11 +4,13 @@ project(wanderer-test CXX)
 enable_testing()
 
 set(TEST_FILES
-    unit/test_main.cpp
+    unit/event_connections_test.cpp
     unit/hitbox_test.cpp
     unit/humanoid_state_test.cpp
-    unit/event_connections_test.cpp
-    unit/vector2_test.cpp)
+    unit/ini_test.cpp
+    unit/test_main.cpp
+    unit/vector2_test.cpp
+    )
 
 add_executable(${WANDERER_TEST_TARGET} ${TEST_FILES})
 add_dependencies(${WANDERER_TEST_TARGET} ${WANDERER_LIB_TARGET})
