@@ -8,6 +8,7 @@ set(TEST_FILES
     unit/hitbox_test.cpp
     unit/humanoid_state_test.cpp
     unit/ini_test.cpp
+    unit/load_save_game_test.cpp
     unit/test_main.cpp
     unit/vector2_test.cpp
     )
