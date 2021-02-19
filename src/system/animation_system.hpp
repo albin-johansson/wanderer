@@ -2,7 +2,7 @@
 
 #include <entt.hpp>
 
-namespace wanderer::sys::animated {
+namespace wanderer::sys {
 
 /**
  * \brief Updates all `animated` components in a registry.
@@ -11,6 +11,6 @@ namespace wanderer::sys::animated {
  *
  * \since 0.1.0
  */
-void update(entt::registry& registry) noexcept;
+void update_animations(entt::registry& registry) noexcept;
 
-}  // namespace wanderer::sys::animated
+}  // namespace wanderer::sys

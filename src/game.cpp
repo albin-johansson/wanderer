@@ -70,7 +70,7 @@ void game::tick(const delta_t dt)
     sys::portal::update_triggers(registry, level->player());
     sys::inventory::update_triggers(registry, level->player());
 
-    sys::animated::update(registry);
+    sys::update_animations(registry);
     sys::viewport::update(*level, level->player(), dt);
 
     sys::depthdrawable::sort(registry);
