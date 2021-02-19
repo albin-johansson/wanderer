@@ -1,17 +1,16 @@
 #include "hitbox.hpp"
 
-#include <catch.hpp>
+#include <gtest/gtest.h>
 
 #include "centurion_utils.hpp"
-#include "movable.hpp"
 #include "hitbox_system.hpp"
+#include "movable.hpp"
 
 using namespace wanderer;
 
-TEST_CASE("hitbox::update_bounds", "[hitbox]")
+TEST(Hitbox, UpdateBounds)
 {
-  SECTION("One hitbox")
-  {
+  {  // One hitbox
     comp::hitbox hb;
 
     const vector2f origin{25, 17};
@@ -22,12 +21,10 @@ TEST_CASE("hitbox::update_bounds", "[hitbox]")
     hb.boxes.push_back(comp::subhitbox{offset, size});
 
     sys::hitbox::update_bounds(hb);
-
-    CHECK(hb.bounds == cen::frect{to_point(origin + offset), size});
+    EXPECT_EQ(cen::frect(to_point(origin + offset), size), hb.bounds);
   }
 
-  SECTION("Two hitboxes")
-  {
+  {  // Two hitboxes
     /*
      * Rough visualisation of the test.
      *  _ _ _ _ _ _ _
@@ -54,22 +51,21 @@ TEST_CASE("hitbox::update_bounds", "[hitbox]")
 
     sys::hitbox::update_bounds(hb);
 
-    CHECK(hb.boxes.at(0).offset == offsetA);
-    CHECK(hb.boxes.at(0).size == sizeA);
+    EXPECT_EQ(offsetA, hb.boxes.at(0).offset);
+    EXPECT_EQ(sizeA, hb.boxes.at(0).size);
 
-    CHECK(hb.boxes.at(1).offset == offsetB);
-    CHECK(hb.boxes.at(1).size == sizeB);
+    EXPECT_EQ(offsetB, hb.boxes.at(1).offset);
+    EXPECT_EQ(sizeB, hb.boxes.at(1).size);
 
     const cen::frect expected{{10, 12}, {215, 217}};
-    CHECK(hb.bounds == expected);
-    CHECK(hb.origin == vector2f{});
+    EXPECT_EQ(expected, hb.bounds);
+    EXPECT_EQ(vector2f{}, hb.origin);
   }
 }
 
-TEST_CASE("hitbox::intersects", "[hitbox]")
+TEST(Hitbox, Intersects)
 {
-  SECTION("Valid intersection")
-  {
+  {  // Valid intersections
     /*
      * Rough visualisation of the test.
      *  ___
@@ -82,15 +78,15 @@ TEST_CASE("hitbox::intersects", "[hitbox]")
     const auto fst = sys::hitbox::create({{{100, 100}, {100, 100}}});
     const auto snd = sys::hitbox::create({{{150, 150}, {100, 100}}});
 
-    CHECK(sys::hitbox::intersects(fst, snd));
-    CHECK(sys::hitbox::intersects(snd, fst));
+    EXPECT_TRUE(sys::hitbox::intersects(fst, snd));
+    EXPECT_TRUE(sys::hitbox::intersects(snd, fst));
 
-    CHECK(cen::intersects(fst.bounds, snd.bounds));
-    CHECK(cen::intersects(snd.bounds, fst.bounds));
+    EXPECT_TRUE(cen::intersects(fst.bounds, snd.bounds));
+    EXPECT_TRUE(cen::intersects(snd.bounds, fst.bounds));
   }
 
-  SECTION("Bounds intersection but no actual subhitbox intersection")
-  {
+  {  // Bounds intersection but no actual subhitbox intersection
+
     /*
      * Rough visualisation of the test. The bounding rectangles look
      * something like this, but no subhitbox intersect in the hitboxes.
@@ -107,41 +103,38 @@ TEST_CASE("hitbox::intersects", "[hitbox]")
     const auto snd =
         sys::hitbox::create({{{210, 150}, {100, 100}}, {{150, 210}, {25, 25}}});
 
-    REQUIRE(cen::intersects(fst.bounds, snd.bounds));
-    REQUIRE(cen::intersects(snd.bounds, fst.bounds));
+    ASSERT_TRUE(cen::intersects(fst.bounds, snd.bounds));
+    ASSERT_TRUE(cen::intersects(snd.bounds, fst.bounds));
 
-    CHECK(!sys::hitbox::intersects(fst, snd));
-    CHECK(!sys::hitbox::intersects(snd, fst));
+    EXPECT_FALSE(sys::hitbox::intersects(fst, snd));
+    EXPECT_FALSE(sys::hitbox::intersects(snd, fst));
   }
 }
 
-TEST_CASE("hitbox::create", "[hitbox]")
+TEST(Hitbox, Create)
 {
-  SECTION("One hitbox")
-  {
+  {  // One hitbox
     const vector2f offset{12, 34};
     const cen::farea size{150, 100};
     const auto hb = sys::hitbox::create({{offset, size}});
 
-    CHECK(hb.bounds.x() == offset.x);
-    CHECK(hb.bounds.y() == offset.y);
-    CHECK(hb.bounds.width() == size.width);
-    CHECK(hb.bounds.height() == size.height);
+    EXPECT_FLOAT_EQ(offset.x, hb.bounds.x());
+    EXPECT_FLOAT_EQ(offset.y, hb.bounds.y());
+    EXPECT_FLOAT_EQ(size.width, hb.bounds.width());
+    EXPECT_FLOAT_EQ(size.height, hb.bounds.height());
   }
 
-  SECTION("One hitbox with two subhitboxes")
-  {
+  {  // One hitbox with two subhitboxes
     const auto hb =
         sys::hitbox::create({{{2, 0}, {32, 28}}, {{16, 22}, {36, 32}}});
 
-    CHECK(hb.bounds.x() == 2);
-    CHECK(hb.bounds.y() == 0);
-    CHECK(hb.bounds.width() == 50);
-    CHECK(hb.bounds.height() == 54);
+    EXPECT_FLOAT_EQ(2, hb.bounds.x());
+    EXPECT_FLOAT_EQ(0, hb.bounds.y());
+    EXPECT_FLOAT_EQ(50, hb.bounds.width());
+    EXPECT_FLOAT_EQ(54, hb.bounds.height());
   }
 
-  SECTION("Two hitboxes")
-  {
+  {  // Two hitboxes
     const vector2f offset1{10, 20};
     const vector2f offset2{5, 10};
 
@@ -150,10 +143,10 @@ TEST_CASE("hitbox::create", "[hitbox]")
 
     const auto hb = sys::hitbox::create({{offset1, size1}, {offset2, size2}});
 
-    CHECK(hb.bounds.x() == 5);
-    CHECK(hb.bounds.y() == 10);
+    EXPECT_FLOAT_EQ(5, hb.bounds.x());
+    EXPECT_FLOAT_EQ(10, hb.bounds.y());
 
-    CHECK(hb.bounds.width() == 40);
-    CHECK(hb.bounds.height() == 60);
+    EXPECT_FLOAT_EQ(40, hb.bounds.width());
+    EXPECT_FLOAT_EQ(60, hb.bounds.height());
   }
 }

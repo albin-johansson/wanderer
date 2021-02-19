@@ -1,6 +1,6 @@
 #include "humanoid_state.hpp"
 
-#include <catch.hpp>
+#include <gtest/gtest.h>
 
 #include "add_humanoid_state_dependencies.hpp"
 
@@ -11,7 +11,7 @@ using move = comp::humanoid_move;
 using attack = comp::humanoid_attack;
 using die = comp::humanoid_die;
 
-TEST_CASE("Humanoid state dependencies", "[humanoid_state]")
+TEST(HumanoidState, Dependencies)
 {
   entt::registry registry;
   add_humanoid_state_dependencies(registry);
@@ -19,55 +19,47 @@ TEST_CASE("Humanoid state dependencies", "[humanoid_state]")
   const auto entity = registry.create();
   registry.emplace<comp::humanoid>(entity);
 
-  SECTION("Adding Idle component")
-  {
-    REQUIRE(registry.valid(entity));
-    REQUIRE(!registry.has<idle>(entity));
+  {  // Idle
+    ASSERT_TRUE(registry.valid(entity));
+    ASSERT_FALSE(registry.has<idle>(entity));
 
     registry.emplace<idle>(entity);
-
-    CHECK(registry.has<idle>(entity));
-    CHECK(!registry.has<move>(entity));
-    CHECK(!registry.has<attack>(entity));
-    CHECK(!registry.has<die>(entity));
+    EXPECT_TRUE(registry.has<idle>(entity));
+    EXPECT_FALSE(registry.has<move>(entity));
+    EXPECT_FALSE(registry.has<attack>(entity));
+    EXPECT_FALSE(registry.has<die>(entity));
   }
 
-  SECTION("Adding Move component")
-  {
-    REQUIRE(registry.valid(entity));
-    REQUIRE(!registry.has<move>(entity));
+  {  // Move
+    ASSERT_TRUE(registry.valid(entity));
+    ASSERT_FALSE(registry.has<move>(entity));
 
     registry.emplace<move>(entity);
-
-    CHECK(registry.has<move>(entity));
-    CHECK(!registry.has<idle>(entity));
-    CHECK(!registry.has<attack>(entity));
-    CHECK(!registry.has<die>(entity));
+    EXPECT_TRUE(registry.has<move>(entity));
+    EXPECT_FALSE(registry.has<idle>(entity));
+    EXPECT_FALSE(registry.has<attack>(entity));
+    EXPECT_FALSE(registry.has<die>(entity));
   }
 
-  SECTION("Adding Attack component")
-  {
-    REQUIRE(registry.valid(entity));
-    REQUIRE(!registry.has<attack>(entity));
+  {  // Attack
+    ASSERT_TRUE(registry.valid(entity));
+    ASSERT_FALSE(registry.has<attack>(entity));
 
     registry.emplace<attack>(entity);
-
-    CHECK(registry.has<attack>(entity));
-    CHECK(!registry.has<move>(entity));
-    CHECK(!registry.has<idle>(entity));
-    CHECK(!registry.has<die>(entity));
+    EXPECT_TRUE(registry.has<attack>(entity));
+    EXPECT_FALSE(registry.has<move>(entity));
+    EXPECT_FALSE(registry.has<idle>(entity));
+    EXPECT_FALSE(registry.has<die>(entity));
   }
 
-  SECTION("Adding Die component")
-  {
-    REQUIRE(registry.valid(entity));
-    REQUIRE(!registry.has<die>(entity));
+  {  // Die
+    ASSERT_TRUE(registry.valid(entity));
+    ASSERT_FALSE(registry.has<die>(entity));
 
     registry.emplace<die>(entity);
-
-    CHECK(registry.has<die>(entity));
-    CHECK(!registry.has<attack>(entity));
-    CHECK(!registry.has<move>(entity));
-    CHECK(!registry.has<idle>(entity));
+    EXPECT_TRUE(registry.has<die>(entity));
+    EXPECT_FALSE(registry.has<attack>(entity));
+    EXPECT_FALSE(registry.has<move>(entity));
+    EXPECT_FALSE(registry.has<idle>(entity));
   }
 }

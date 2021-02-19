@@ -1,4 +1,5 @@
-#include <catch.hpp>
+#include <gtest/gtest.h>
+
 #include <cen/counter.hpp>
 #include <iostream>  // cout
 
@@ -7,7 +8,7 @@
 
 using namespace wanderer;
 
-TEST_CASE("level::save", "[saves_system]")
+TEST(LoadSaveGame, Usage)
 {
   cen::window window;
   graphics_context ctx{window};

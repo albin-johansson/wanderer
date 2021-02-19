@@ -1,30 +1,31 @@
 #include "ini.hpp"
 
-#include <catch.hpp>
+#include <gtest/gtest.h>
+
 #include <fstream>  // ifstream
 
 using namespace wanderer;
 
-TEST_CASE("ini", "[ini]")
+TEST(INI, INI)
 {
   std::ifstream stream{"resource/wanderer.ini"};
   ini_file ini{stream};
 
-  CHECK(ini.section_count() == 2);
+  EXPECT_EQ(2, ini.section_count());
 
-  CHECK(ini.contains("Graphics"));
-  CHECK(ini.contains("Input"));
-  CHECK(!ini.contains("Foobar"));
+  EXPECT_TRUE(ini.contains("Graphics"));
+  EXPECT_TRUE(ini.contains("Input"));
+  EXPECT_FALSE(ini.contains("Foobar"));
 
-  CHECK(ini.at("Graphics", "Fullscreen") == "true");
-  CHECK(ini.at("Input", "MoveUp") == "W");
-  CHECK(ini.at("Input", "MoveDown") == "S");
-  CHECK(ini.at("Input", "MoveRight") == "D");
-  CHECK(ini.at("Input", "MoveLeft") == "A");
+  EXPECT_EQ("true", ini.at("Graphics", "Fullscreen"));
+  EXPECT_EQ("W", ini.at("Input", "MoveUp"));
+  EXPECT_EQ("S", ini.at("Input", "MoveDown"));
+  EXPECT_EQ("D", ini.at("Input", "MoveRight"));
+  EXPECT_EQ("A", ini.at("Input", "MoveLeft"));
 
-  CHECK(ini.get<int>("Input", "Foo") == 123);
-  CHECK(ini.get<float>("Input", "Bar") == 12.3f);
-  CHECK(ini.get<double>("Input", "Bar") == 12.3);
-  CHECK(ini.get<std::string>("Input", "MoveLeft") == "A");
-  CHECK(ini.get<bool>("Graphics", "Fullscreen") == true);
+  EXPECT_EQ(123, ini.get<int>("Input", "Foo"));
+  EXPECT_EQ(12.3f, ini.get<float>("Input", "Bar"));
+  EXPECT_EQ(12.3, ini.get<double>("Input", "Bar"));
+  EXPECT_EQ("A", ini.get<std::string>("Input", "MoveLeft"));
+  EXPECT_EQ(true, ini.get<bool>("Graphics", "Fullscreen"));
 }

@@ -1,52 +1,20 @@
 cmake_minimum_required(VERSION 3.15)
 
 project(wanderer-test CXX)
+
 enable_testing()
 
-set(TEST_FILES
-    unit/event_connections_test.cpp
-    unit/hitbox_test.cpp
-    unit/humanoid_state_test.cpp
-    unit/ini_test.cpp
-    unit/load_save_game_test.cpp
-    unit/test_main.cpp
-    unit/vector2_test.cpp
-    )
+include(DownloadProject)
+include(CTest)
 
-add_executable(${WANDERER_TEST_TARGET} ${TEST_FILES})
-add_dependencies(${WANDERER_TEST_TARGET} ${WANDERER_LIB_TARGET})
+download_project(PROJ googletest
+    GIT_REPOSITORY https://github.com/google/googletest.git
+    GIT_TAG master
+    "UPDATE_DISCONNECTED 1")
 
-set_target_properties(${WANDERER_TEST_TARGET} PROPERTIES
-    CXX_STANDARD 17
-    CXX_STANDARD_REQUIRED ON)
+# Prevent GoogleTest from overriding our compiler/linker options
+# when building with Visual Studio
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 
-add_library(libCatch INTERFACE)
-target_include_directories(libCatch INTERFACE catch)
-
-add_test(NAME ${WANDERER_TEST_TARGET}
-    COMMAND ${WANDERER_TEST_TARGET})
-
-target_include_directories(${WANDERER_TEST_TARGET} PUBLIC unit)
-
-target_include_directories(${WANDERER_TEST_TARGET}
-    SYSTEM PUBLIC ${SDL2_INCLUDE_DIR}
-    SYSTEM PUBLIC ${SDL2_IMAGE_INCLUDE_DIRS}
-    SYSTEM PUBLIC ${SDL2_MIXER_INCLUDE_DIRS}
-    SYSTEM PUBLIC ${SDL2_TTF_INCLUDE_DIRS}
-    SYSTEM PUBLIC ${LIBRARY_DIR}/centurion
-    SYSTEM PUBLIC ${LIBRARY_DIR}/json
-    SYSTEM PUBLIC ${LIBRARY_DIR}/entt)
-
-target_link_libraries(${WANDERER_TEST_TARGET}
-    PUBLIC ${SDL2_IMAGE_LIBRARIES}
-    PUBLIC ${SDL2_MIXER_LIBRARIES}
-    PUBLIC ${SDL2_TTF_LIBRARIES}
-    PUBLIC ${SDL2_LIBRARY}
-    PUBLIC ${WANDERER_LIB_TARGET}
-    PUBLIC libENTT
-    PUBLIC libJSON
-    PUBLIC libNamedType
-    PUBLIC libCatch)
-
-copy_directory_post_build(${WANDERER_TEST_TARGET} ${BINARY_DIR} ${CMAKE_CURRENT_BINARY_DIR})
-copy_directory_post_build(${WANDERER_TEST_TARGET} ${RESOURCE_DIR} "${CMAKE_CURRENT_BINARY_DIR}/resource")
+add_subdirectory(${googletest_SOURCE_DIR} ${googletest_BINARY_DIR})
+add_subdirectory(unit)
