@@ -52,7 +52,7 @@ void sort_drawables(entt::registry& registry)
 }
 
 void update_tile_object_animations(entt::registry& registry,
-                            const comp::tileset& tileset)
+                                   const comp::tileset& tileset)
 {
   registry.view<const comp::tile_object, comp::depth_drawable>().each(
       [&](const comp::tile_object& object, comp::depth_drawable& drawable) {

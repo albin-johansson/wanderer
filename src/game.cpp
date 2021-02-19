@@ -71,7 +71,7 @@ void game::tick(const delta_t dt)
     sys::update_inventory_triggers(registry, level->player());
 
     sys::update_animations(registry);
-    sys::viewport::update(*level, level->player(), dt);
+    sys::update_viewport(*level, level->player(), dt);
 
     sys::sort_drawables(registry);
   }
@@ -90,7 +90,7 @@ void game::render(cen::renderer& renderer, const cen::ipoint& mousePos)
   auto* level = m_levels.current();
   auto& registry = level->registry();
 
-  sys::viewport::translate(registry, level->viewport(), renderer);
+  sys::translate_viewport(registry, level->viewport(), renderer);
 
   const auto bounds = level->get_render_bounds();
   sys::layer::render_ground(registry,
@@ -134,7 +134,7 @@ void game::on_level_animation_faded_in(const comp::level_faded_in_event& event)
     auto& movable = current->get<comp::movable>(current->player());
     movable.velocity.zero();
 
-    sys::viewport::center_on(registry, current->viewport(), movable.position);
+    sys::center_viewport_on(registry, current->viewport(), movable.position);
   }
 
   m_levels.switch_to(event.map);

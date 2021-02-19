@@ -7,11 +7,11 @@
 #include "vector2.hpp"
 #include "viewport.hpp"
 
-namespace wanderer::sys::viewport {
+namespace wanderer::sys {
 
-void center_on(entt::registry& registry,
-               comp::viewport::entity viewportEntity,
-               const vector2f& position);
+void center_viewport_on(entt::registry& registry,
+                        comp::viewport::entity viewportEntity,
+                        const vector2f& position);
 
 /**
  * \brief Updates the position of the viewport by slowly tracking a movable
@@ -23,10 +23,12 @@ void center_on(entt::registry& registry,
  * \param movableEntity the entity ID for the movable.
  * \param dt the delta time, in seconds.
  */
-void update(level& level, entt::entity movableEntity, delta_t dt);
+void update_viewport(level& level,
+                     const entt::entity movableEntity,
+                     const delta_t dt);
 
-void translate(const entt::registry& registry,
-               comp::viewport::entity viewportEntity,
-               cen::renderer& renderer);
+void translate_viewport(const entt::registry& registry,
+                        comp::viewport::entity viewportEntity,
+                        cen::renderer& renderer);
 
-}  // namespace wanderer::sys::viewport
+}  // namespace wanderer::sys

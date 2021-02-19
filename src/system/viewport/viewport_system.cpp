@@ -3,7 +3,7 @@
 #include "game_constants.hpp"
 #include "movable.hpp"
 
-namespace wanderer::sys::viewport {
+namespace wanderer::sys {
 namespace {
 
 inline constexpr float cameraSpeed = 10.0f;
@@ -77,9 +77,9 @@ void track(comp::viewport& viewport, const vector2f& position, const delta_t dt)
 
 }  // namespace
 
-void center_on(entt::registry& registry,
-               const comp::viewport::entity viewportEntity,
-               const vector2f& position)
+void center_viewport_on(entt::registry& registry,
+                        comp::viewport::entity viewportEntity,
+                        const vector2f& position)
 {
   auto& viewport = registry.get<comp::viewport>(viewportEntity);
   const auto target = make_target_vector(position, viewport);
@@ -87,18 +87,20 @@ void center_on(entt::registry& registry,
   viewport.bounds.set_y(target.y);
 }
 
-void update(level& level, const entt::entity movableEntity, const delta_t dt)
+void update_viewport(level& level,
+                     const entt::entity movableEntity,
+                     const delta_t dt)
 {
   const auto& movable = level.get<comp::movable>(movableEntity);
   track(level.get<comp::viewport>(level.viewport()), movable.position, dt);
 }
 
-void translate(const entt::registry& registry,
-               const comp::viewport::entity viewportEntity,
-               cen::renderer& renderer)
+void translate_viewport(const entt::registry& registry,
+                        comp::viewport::entity viewportEntity,
+                        cen::renderer& renderer)
 {
   const auto& viewport = registry.get<comp::viewport>(viewportEntity);
   renderer.set_translation_viewport(viewport.bounds);
 }
 
-}  // namespace wanderer::sys::viewport
+}  // namespace wanderer::sys

@@ -22,8 +22,8 @@ void update_attacking_humanoids(entt::registry& registry,
 
 }  // namespace
 
-void update_humanoid_states(entt::registry& registry, entt::dispatcher&
-                                                        dispatcher)
+void update_humanoid_states(entt::registry& registry,
+                            entt::dispatcher& dispatcher)
 {
   update_attacking_humanoids(registry, dispatcher);
 }
