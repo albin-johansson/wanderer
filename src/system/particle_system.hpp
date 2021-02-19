@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cen/color.hpp>
 #include <cen/renderer.hpp>
 #include <entt.hpp>
 
@@ -8,7 +9,10 @@
 
 namespace wanderer::sys {
 
-void add_particle(entt::registry& registry, const vector2f& position);
+void add_particle(entt::registry& registry,
+                  const vector2f& position,
+                  const cen::color& color,
+                  int nTicks);
 
 void update_particles(entt::registry& registry, delta_t dt);
 

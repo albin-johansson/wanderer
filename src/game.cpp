@@ -30,6 +30,7 @@ game::game(graphics_context& graphics)
   m_dispatcher.sink<comp::level_faded_out_event>().connect<&game::on_level_animation_faded_out>(this);
   m_dispatcher.sink<comp::show_inventory_event>().connect<&game::on_show_inventory>(this);
   m_dispatcher.sink<comp::close_inventory_event>().connect<&game::on_close_inventory>(this);
+  m_dispatcher.sink<comp::particle_event>().connect<&game::on_particle_event>(this);
   // clang-format on
 }
 
@@ -144,6 +145,16 @@ void game::on_show_inventory(const comp::show_inventory_event& event)
 void game::on_close_inventory(comp::close_inventory_event)
 {
   m_levels.clear<comp::active_inventory>();
+}
+
+void game::on_particle_event(const comp::particle_event& event)
+{
+  for (auto i = 0; i < event.count; ++i) {
+    sys::add_particle(m_levels.registry(),
+                      event.position,
+                      event.baseColor,
+                      event.nTicks);
+  }
 }
 
 }  // namespace wanderer

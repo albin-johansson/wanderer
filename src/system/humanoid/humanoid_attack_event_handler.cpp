@@ -1,11 +1,37 @@
 #include "humanoid_attack_event_handler.hpp"
 
 #include <cassert>  // assert
+#include <cen/colors.hpp>
 
 #include "humanoid_animation_system.hpp"
 #include "humanoid_state.hpp"
+#include "movable.hpp"
+#include "particle_event.hpp"
 
 namespace wanderer::sys {
+namespace {
+
+[[nodiscard]] auto get_particle_position(const vector2f& position,
+                                         const comp::movable& movable)
+{
+  switch (movable.dir) {
+    case direction::right:
+      return vector2f{position.x + 64, position.y + 32};
+
+    case direction::down:
+      return vector2f{position.x + 32, position.y + 64};
+
+    case direction::left:
+      return vector2f{position.x, position.y + 32};
+
+    case direction::up:
+      [[fallthrough]];
+    default:
+      return vector2f{position.x + 32, position.y};
+  }
+}
+
+}  // namespace
 
 void on_attack_begin(const comp::begin_attack_event& event)
 {
@@ -23,6 +49,7 @@ void on_attack_begin(const comp::begin_attack_event& event)
 void on_attack_end(const comp::end_attack_event& event)
 {
   assert(event.registry);
+  assert(event.dispatcher);
   assert(event.registry->has<comp::humanoid_attack>(event.sourceEntity));
 
   event.registry->emplace<comp::humanoid_idle>(event.sourceEntity);
@@ -30,6 +57,15 @@ void on_attack_end(const comp::end_attack_event& event)
   assert(!event.registry->has<comp::humanoid_attack>(event.sourceEntity));
 
   // TODO deal damage (need target area)
+
+  if (const auto* movable =
+          event.registry->try_get<comp::movable>(event.sourceEntity)) {
+    const auto position = get_particle_position(movable->position, *movable);
+    event.dispatcher->enqueue<comp::particle_event>(position,
+                                                    cen::colors::dark_gray,
+                                                    5,
+                                                    500);
+  }
 
   enter_idle_animation(*event.registry, event.sourceEntity);
 }

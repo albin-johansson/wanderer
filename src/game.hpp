@@ -12,6 +12,7 @@
 #include "level_fade_events.hpp"
 #include "level_manager.hpp"
 #include "menu_manager.hpp"
+#include "particle_event.hpp"
 #include "show_inventory_event.hpp"
 #include "switch_map_event.hpp"
 
@@ -91,6 +92,8 @@ class game final
   void on_show_inventory(const comp::show_inventory_event& event);
 
   void on_close_inventory(comp::close_inventory_event);
+
+  void on_particle_event(const comp::particle_event& event);
 };
 
 }  // namespace wanderer

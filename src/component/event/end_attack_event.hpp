@@ -27,7 +27,8 @@ namespace wanderer::comp {
  */
 struct end_attack_event final
 {
-  entt::registry* registry{nullptr};
+  entt::registry* registry{};
+  entt::dispatcher* dispatcher{};
   entt::entity sourceEntity{entt::null};  // TODO tag type
   entt::entity weapon{entt::null};        // TODO weapon tag type
   direction dir{direction::down};

@@ -35,14 +35,15 @@ set(SOURCE_FILES
     component/viewport.hpp
 
     component/event/begin_attack_event.hpp
-    component/event/end_attack_event.hpp
     component/event/begin_humanoid_move_event.hpp
+    component/event/close_inventory_event.hpp
+    component/event/end_attack_event.hpp
     component/event/end_humanoid_move_event.hpp
     component/event/interact_event.hpp
-    component/event/switch_map_event.hpp
     component/event/level_fade_events.hpp
+    component/event/particle_event.hpp
     component/event/show_inventory_event.hpp
-    component/event/close_inventory_event.hpp
+    component/event/switch_map_event.hpp
 
     core/centurion_utils.hpp
     core/cursor_manager.cpp
