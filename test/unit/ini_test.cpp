@@ -6,7 +6,7 @@
 
 using namespace wanderer;
 
-TEST(INI, INI)
+TEST(Ini, Parse)
 {
   std::ifstream stream{"resource/wanderer.ini"};
   ini_file ini{stream};
