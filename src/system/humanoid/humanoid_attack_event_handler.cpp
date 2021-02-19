@@ -5,7 +5,7 @@
 #include "humanoid_animation_system.hpp"
 #include "humanoid_state.hpp"
 
-namespace wanderer::sys::humanoid {
+namespace wanderer::sys {
 
 void on_attack_begin(const comp::begin_attack_event& event)
 {
@@ -34,4 +34,4 @@ void on_attack_end(const comp::end_attack_event& event)
   enter_idle_animation(*event.registry, event.sourceEntity);
 }
 
-}  // namespace wanderer::sys::humanoid
+}  // namespace wanderer::sys

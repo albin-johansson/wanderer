@@ -5,7 +5,7 @@
 #include "delta.hpp"
 #include "level.hpp"
 
-namespace wanderer::sys::movement {
+namespace wanderer::sys {
 
 /**
  * \brief Updates the state of components related to movement.
@@ -17,6 +17,6 @@ namespace wanderer::sys::movement {
  * \param level the currently active level.
  * \param dt the delta time.
  */
-void update(level& level, delta_t dt);
+void update_movables(level& level, const delta_t dt);
 
-}  // namespace wanderer::sys::movement
+}  // namespace wanderer::sys

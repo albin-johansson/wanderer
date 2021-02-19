@@ -3,9 +3,10 @@
 #include "portal.hpp"
 #include "update_triggers.hpp"
 
-namespace wanderer::sys::portal {
+namespace wanderer::sys {
 
-void update_triggers(entt::registry& registry, comp::player::entity player)
+void update_portal_triggers(entt::registry& registry,
+                            const comp::player::entity player)
 {
   const auto removePredicate =
       [](const comp::is_within_portal& isWithinTrigger,
@@ -18,4 +19,4 @@ void update_triggers(entt::registry& registry, comp::player::entity player)
                                                              removePredicate);
 }
 
-}  // namespace wanderer::sys::portal
+}  // namespace wanderer::sys

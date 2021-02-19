@@ -5,12 +5,13 @@
 
 #include "player.hpp"
 
-namespace wanderer::sys::inventory {
+namespace wanderer::sys {
 
-void update_triggers(entt::registry& registry, comp::player::entity player);
+void update_inventory_triggers(entt::registry& registry,
+                               comp::player::entity player);
 
-void render(const entt::registry& registry,
-            cen::renderer& renderer,
-            const cen::ipoint& mousePos);
+void render_inventory(const entt::registry& registry,
+                      cen::renderer& renderer,
+                      const cen::ipoint& mousePos);
 
-}  // namespace wanderer::sys::inventory
+}  // namespace wanderer::sys

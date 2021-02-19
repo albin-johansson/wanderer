@@ -8,7 +8,7 @@
 #include "maybe.hpp"
 #include "update_triggers.hpp"
 
-namespace wanderer::sys::inventory {
+namespace wanderer::sys {
 namespace {
 
 inline constexpr auto nRows = 4;        ///< Amount of inventory cell rows.
@@ -42,8 +42,8 @@ inline constexpr cen::ipoint origin = get_render_origin();
 
 }  // namespace
 
-void update_triggers(entt::registry& registry,
-                     const comp::player::entity player)
+void update_inventory_triggers(entt::registry& registry,
+                               const comp::player::entity player)
 {
   using trigger_t = comp::container_trigger;
   using is_within_trigger_t = comp::is_within_container_trigger;
@@ -58,9 +58,9 @@ void update_triggers(entt::registry& registry,
                                                        removePredicate);
 }
 
-void render(const entt::registry& registry,
-            cen::renderer& renderer,
-            const cen::ipoint& mousePos)
+void render_inventory(const entt::registry& registry,
+                      cen::renderer& renderer,
+                      const cen::ipoint& mousePos)
 {
   const auto view =
       registry.view<const comp::inventory, const comp::active_inventory>();
@@ -99,4 +99,4 @@ void render(const entt::registry& registry,
   });
 }
 
-}  // namespace wanderer::sys::inventory
+}  // namespace wanderer::sys

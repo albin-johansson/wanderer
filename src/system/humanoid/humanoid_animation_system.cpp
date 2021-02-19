@@ -8,7 +8,7 @@
 #include "milliseconds.hpp"
 #include "movable.hpp"
 
-namespace wanderer::sys::humanoid {
+namespace wanderer::sys {
 namespace {
 
 inline constexpr int nIdleFrames{1};
@@ -204,7 +204,7 @@ void enter_spear_animation(entt::registry& registry,
   enter_animation(registry, entity, nSpearFrames, attackDelay, spearSourceY);
 }
 
-void update_animation(entt::registry& registry)
+void update_humanoid_animations(entt::registry& registry)
 {
   registry.view<comp::humanoid>().each([&](const entt::entity entity) {
     if (registry.has<comp::humanoid_move>(entity)) {
@@ -216,4 +216,4 @@ void update_animation(entt::registry& registry)
   });
 }
 
-}  // namespace wanderer::sys::humanoid
+}  // namespace wanderer::sys

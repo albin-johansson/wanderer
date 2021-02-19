@@ -3,7 +3,7 @@
 #include "end_attack_event.hpp"
 #include "humanoid_state.hpp"
 
-namespace wanderer::sys::humanoid {
+namespace wanderer::sys {
 namespace {
 
 void update_attacking_humanoids(entt::registry& registry,
@@ -22,9 +22,10 @@ void update_attacking_humanoids(entt::registry& registry,
 
 }  // namespace
 
-void update_state(entt::registry& registry, entt::dispatcher& dispatcher)
+void update_humanoid_states(entt::registry& registry, entt::dispatcher&
+                                                        dispatcher)
 {
   update_attacking_humanoids(registry, dispatcher);
 }
 
-}  // namespace wanderer::sys::humanoid
+}  // namespace wanderer::sys

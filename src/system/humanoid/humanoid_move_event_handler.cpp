@@ -3,7 +3,7 @@
 #include "humanoid_animation_system.hpp"
 #include "humanoid_state.hpp"
 
-namespace wanderer::sys::humanoid {
+namespace wanderer::sys {
 
 void on_move_begin(const comp::begin_humanoid_move_event& event)
 {
@@ -14,7 +14,7 @@ void on_move_begin(const comp::begin_humanoid_move_event& event)
 
   event.registry->emplace<comp::humanoid_move>(entity);
 
-  humanoid::enter_move_animation(*event.registry, entity, event.dir);
+  enter_move_animation(*event.registry, entity, event.dir);
 }
 
 void on_move_end(const comp::end_humanoid_move_event& event)
@@ -28,7 +28,7 @@ void on_move_end(const comp::end_humanoid_move_event& event)
   event.registry->emplace<comp::humanoid_idle>(entity);
   assert(!event.registry->has<comp::humanoid_move>(entity));
 
-  humanoid::enter_idle_animation(*event.registry, entity);
+  enter_idle_animation(*event.registry, entity);
 }
 
-}  // namespace wanderer::sys::humanoid
+}  // namespace wanderer::sys

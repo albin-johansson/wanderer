@@ -2,8 +2,8 @@
 
 #include <entt.hpp>
 
-namespace wanderer::sys::tile {
+namespace wanderer::sys {
 
-void update_animation(entt::registry& registry);
+void update_tile_animations(entt::registry& registry);
 
-}  // namespace wanderer::sys::tile
+}  // namespace wanderer::sys

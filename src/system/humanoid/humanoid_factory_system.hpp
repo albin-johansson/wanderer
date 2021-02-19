@@ -9,7 +9,7 @@
 #include "player.hpp"
 #include "vector2.hpp"
 
-namespace wanderer::sys::humanoid {
+namespace wanderer::sys {
 
 auto add_player(entt::registry& registry,
                 aabb_tree& tree,
@@ -21,4 +21,4 @@ auto add_skeleton(entt::registry& registry,
                   const vector2f& position,
                   graphics_context& graphics) -> entt::entity;
 
-}  // namespace wanderer::sys::humanoid
+}  // namespace wanderer::sys

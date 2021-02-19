@@ -13,7 +13,6 @@ namespace wanderer {
 void connect_events(entt::dispatcher& dispatcher)
 {
   using namespace sys;
-  using namespace sys::humanoid;
   dispatcher.sink<comp::begin_attack_event>().connect<&on_attack_begin>();
   dispatcher.sink<comp::end_attack_event>().connect<&on_attack_end>();
   dispatcher.sink<comp::begin_humanoid_move_event>().connect<&on_move_begin>();

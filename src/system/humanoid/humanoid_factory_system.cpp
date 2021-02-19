@@ -18,7 +18,7 @@
 
 using namespace entt::literals;
 
-namespace wanderer::sys::humanoid {
+namespace wanderer::sys {
 namespace {
 
 void add_movable(entt::registry& registry, const entt::entity entity)
@@ -140,4 +140,4 @@ auto add_skeleton(entt::registry& registry,
   return skeleton;
 }
 
-}  // namespace wanderer::sys::humanoid
+}  // namespace wanderer::sys

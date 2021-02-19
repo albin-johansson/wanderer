@@ -60,27 +60,27 @@ void game::tick(const delta_t dt)
 
   auto* level = m_levels.current();
   auto& registry = level->registry();
-  sys::humanoid::update_state(registry, m_dispatcher);
+  sys::update_humanoid_states(registry, m_dispatcher);
 
   if (!weakly_paused()) {
-    sys::movement::update(*level, dt);
-    sys::depthdrawable::update_movable(registry);
+    sys::update_movables(*level, dt);
+    sys::update_drawable_movables(registry);
     sys::update_particles(registry, dt);
 
-    sys::portal::update_triggers(registry, level->player());
-    sys::inventory::update_triggers(registry, level->player());
+    sys::update_portal_triggers(registry, level->player());
+    sys::update_inventory_triggers(registry, level->player());
 
     sys::update_animations(registry);
     sys::viewport::update(*level, level->player(), dt);
 
-    sys::depthdrawable::sort(registry);
+    sys::sort_drawables(registry);
   }
 
-  sys::humanoid::update_animation(registry);
-  sys::tile::update_animation(registry);
+  sys::update_humanoid_animations(registry);
+  sys::update_tile_animations(registry);
 
   const auto& tileset = level->get<comp::tileset>(level->tileset());
-  sys::depthdrawable::update_tile_animations(registry, tileset);
+  sys::update_tile_object_animations(registry, tileset);
 
   sys::hud::update_level_switch_animations(registry, m_dispatcher);
 }
@@ -97,10 +97,9 @@ void game::render(cen::renderer& renderer, const cen::ipoint& mousePos)
                             level->get<comp::tileset>(level->tileset()),
                             renderer,
                             bounds);
-  sys::depthdrawable::render(registry, renderer, bounds);
+  sys::render_drawables(registry, renderer, bounds);
   sys::render_particles(registry, renderer);
-
-  sys::inventory::render(registry, renderer, mousePos);
+  sys::render_inventory(registry, renderer, mousePos);
   sys::hud::render_level_switch_animations(registry, renderer);
 
   if (m_menus.is_blocking()) {

@@ -4,9 +4,9 @@
 
 #include "animated_tile.hpp"
 
-namespace wanderer::sys::tile {
+namespace wanderer::sys {
 
-void update_animation(entt::registry& registry)
+void update_tile_animations(entt::registry& registry)
 {
   registry.view<comp::animated_tile>().each([](comp::animated_tile& tile) {
     const auto now = cen::counter::ticks();
@@ -21,4 +21,4 @@ void update_animation(entt::registry& registry)
   });
 }
 
-}  // namespace wanderer::sys::tile
+}  // namespace wanderer::sys

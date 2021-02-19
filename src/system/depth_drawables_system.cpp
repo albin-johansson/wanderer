@@ -11,7 +11,7 @@
 #include "tile_object.hpp"
 #include "tile_rendering_system.hpp"
 
-namespace wanderer::sys::depthdrawable {
+namespace wanderer::sys {
 namespace {
 
 void render_hitbox(cen::renderer& renderer, const comp::hitbox& hitbox) noexcept
@@ -29,7 +29,7 @@ void render_hitbox(cen::renderer& renderer, const comp::hitbox& hitbox) noexcept
 
 }  // namespace
 
-void update_movable(entt::registry& registry)
+void update_drawable_movables(entt::registry& registry)
 {
   const auto view = registry.view<comp::movable, comp::depth_drawable>();
   view.each([](const comp::movable& movable,
@@ -40,7 +40,7 @@ void update_movable(entt::registry& registry)
   });
 }
 
-void sort(entt::registry& registry)
+void sort_drawables(entt::registry& registry)
 {
   registry.sort<comp::depth_drawable>(
       [](const comp::depth_drawable& lhs,
@@ -51,7 +51,7 @@ void sort(entt::registry& registry)
       entt::insertion_sort{});
 }
 
-void update_tile_animations(entt::registry& registry,
+void update_tile_object_animations(entt::registry& registry,
                             const comp::tileset& tileset)
 {
   registry.view<const comp::tile_object, comp::depth_drawable>().each(
@@ -64,9 +64,9 @@ void update_tile_animations(entt::registry& registry,
       });
 }
 
-void render(const entt::registry& registry,
-            cen::renderer& renderer,
-            const comp::render_bounds& bounds)
+void render_drawables(const entt::registry& registry,
+                      cen::renderer& renderer,
+                      const comp::render_bounds& bounds)
 {
   const auto boundsRect = to_rect(bounds);
   const auto view = registry.view<const comp::depth_drawable>();
@@ -83,4 +83,4 @@ void render(const entt::registry& registry,
   });
 }
 
-}  // namespace wanderer::sys::depthdrawable
+}  // namespace wanderer::sys

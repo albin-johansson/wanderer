@@ -11,7 +11,7 @@
 #include "movable_system.hpp"
 #include "stack_resource.hpp"
 
-namespace wanderer::sys::movement {
+namespace wanderer::sys {
 namespace {
 
 [[nodiscard]] auto restore_aabb_position(
@@ -142,7 +142,7 @@ void update_hitbox(level& level,
 
 }  // namespace
 
-void update(level& level, const delta_t dt)
+void update_movables(level& level, const delta_t dt)
 {
   level.each<comp::movable>(
       [&](const entt::entity entity, comp::movable& movable) {
@@ -157,4 +157,4 @@ void update(level& level, const delta_t dt)
       });
 }
 
-}  // namespace wanderer::sys::movement
+}  // namespace wanderer::sys

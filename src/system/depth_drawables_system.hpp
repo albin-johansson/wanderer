@@ -6,7 +6,7 @@
 #include "render_bounds.hpp"
 #include "tilemap.hpp"
 
-namespace wanderer::sys::depthdrawable {
+namespace wanderer::sys {
 
 /**
  * \brief Updates all depth drawables that are also movable.
@@ -18,7 +18,7 @@ namespace wanderer::sys::depthdrawable {
  *
  * \since 0.1.0
  */
-void update_movable(entt::registry& registry);
+void update_drawable_movables(entt::registry& registry);
 
 /**
  * \brief Sorts all depth drawables according to their depth and center
@@ -28,7 +28,7 @@ void update_movable(entt::registry& registry);
  *
  * \since 0.1.0
  */
-void sort(entt::registry& registry);
+void sort_drawables(entt::registry& registry);
 
 /**
  * \brief Updates tile animations for tile objects that are depth drawables.
@@ -36,7 +36,7 @@ void sort(entt::registry& registry);
  * \param registry the current registry.
  * \param tileset the tileset that will be used.
  */
-void update_tile_animations(entt::registry& registry,
+void update_tile_object_animations(entt::registry& registry,
                             const comp::tileset& tileset);
 
 /**
@@ -51,8 +51,8 @@ void update_tile_animations(entt::registry& registry,
  *
  * \since 0.1.0
  */
-void render(const entt::registry& registry,
-            cen::renderer& renderer,
-            const comp::render_bounds& bounds);
+void render_drawables(const entt::registry& registry,
+                      cen::renderer& renderer,
+                      const comp::render_bounds& bounds);
 
-}  // namespace wanderer::sys::depthdrawable
+}  // namespace wanderer::sys

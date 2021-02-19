@@ -2,8 +2,9 @@
 
 #include <entt.hpp>
 
-namespace wanderer::sys::humanoid {
+namespace wanderer::sys {
 
-void update_state(entt::registry& registry, entt::dispatcher& dispatcher);
+void update_humanoid_states(entt::registry& registry,
+                            entt::dispatcher& dispatcher);
 
-}  // namespace wanderer::sys::humanoid
+}  // namespace wanderer::sys

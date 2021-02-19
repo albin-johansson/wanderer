@@ -52,17 +52,15 @@ level::level(const ir::level& data, graphics_context& graphics)
     drawable.texture = graphics.get_texture(drawable.textureId);
   });
 
-  m_player = sys::humanoid::add_player(m_registry,
-                                       m_tree,
-                                       *m_playerSpawnPosition,
-                                       graphics);
+  m_player =
+      sys::add_player(m_registry, m_tree, *m_playerSpawnPosition, graphics);
   auto& drawable = m_registry.get<comp::depth_drawable>(m_player);
   drawable.layer = tilemap.humanoidLayer;
 
   sys::viewport::center_on(m_registry, m_viewport, player_spawnpoint());
 
   // This syncs the movable components with depth_drawable components
-  sys::depthdrawable::update_movable(m_registry);
+  sys::update_drawable_movables(m_registry);
 
   m_tree.rebuild();
 }

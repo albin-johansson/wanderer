@@ -4,7 +4,7 @@
 
 #include "direction.hpp"
 
-namespace wanderer::sys::humanoid {
+namespace wanderer::sys {
 
 /**
  * \brief Makes a humanoid enter the idle animation.
@@ -85,6 +85,6 @@ void enter_spear_animation(entt::registry& registry,
  *
  * \param registry the registry that holds the humanoids that will be updated.
  */
-void update_animation(entt::registry& registry);
+void update_humanoid_animations(entt::registry& registry);
 
-}  // namespace wanderer::sys::humanoid
+}  // namespace wanderer::sys
