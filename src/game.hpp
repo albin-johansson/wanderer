@@ -78,9 +78,9 @@ class game final
   menu_manager m_menus;
   cursor_manager m_cursors;
 
-  [[nodiscard]] auto fully_paused() const -> bool;
+  [[nodiscard]] auto is_paused() const -> bool;
 
-  [[nodiscard]] auto weakly_paused() const -> bool;
+  [[nodiscard]] auto is_inventory_active() const -> bool;
 
   void on_switch_map(const comp::switch_map_event& event);
 

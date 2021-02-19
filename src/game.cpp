@@ -51,7 +51,7 @@ void game::tick(const delta_t dt)
 {
   m_dispatcher.update();
 
-  if (fully_paused()) {
+  if (is_paused()) {
     return;
   }
 
@@ -59,7 +59,7 @@ void game::tick(const delta_t dt)
   auto& registry = level->registry();
   sys::update_humanoid_states(registry, m_dispatcher);
 
-  if (!weakly_paused()) {
+  if (!is_inventory_active()) {
     sys::update_movement(*level, dt);
     sys::update_drawable_movables(registry);
     sys::update_particles(registry, dt);
@@ -67,13 +67,11 @@ void game::tick(const delta_t dt)
     sys::update_portal_triggers(registry, level->player());
     sys::update_inventory_triggers(registry, level->player());
 
-    // TODO maybe move update_animations next to the other animation updates
-    sys::update_animations(registry);
     sys::update_viewport(*level, level->player(), dt);
-
     sys::sort_drawables(registry);
   }
 
+  sys::update_animations(registry);
   sys::update_humanoid_animations(registry);
   sys::update_tile_animations(registry);
   sys::update_tile_object_animations(registry, level->tileset());
@@ -99,14 +97,14 @@ void game::render(cen::renderer& renderer, const cen::ipoint& mousePos)
   }
 }
 
-auto game::fully_paused() const -> bool
+auto game::is_paused() const -> bool
 {
   return m_menus.is_blocking();
 }
 
-auto game::weakly_paused() const -> bool
+auto game::is_inventory_active() const -> bool
 {
-  return !fully_paused() &&
+  return !is_paused() &&
          !m_levels.registry().view<const comp::active_inventory>().empty();
 }
 
