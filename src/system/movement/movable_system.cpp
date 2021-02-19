@@ -2,7 +2,7 @@
 
 #include "maybe.hpp"
 
-namespace wanderer::sys::movable {
+namespace wanderer::sys {
 namespace {
 
 auto horizontal_dominant_direction(const comp::movable& movable) noexcept
@@ -48,4 +48,4 @@ auto dominant_direction(const comp::movable& movable) noexcept -> direction
   return movable.dir;
 }
 
-}  // namespace wanderer::sys::movable
+}  // namespace wanderer::sys

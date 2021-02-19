@@ -42,7 +42,7 @@ level::level(const ir::level& data, graphics_context& graphics)
     tile.sheet = graphics.get_texture(tile.texture);
   });
 
-  m_viewport = sys::viewport::make_viewport(m_registry, tilemap.size);
+  m_viewport = sys::make_viewport(m_registry, tilemap.size);
 
   add_ground_layers(m_registry, data);
   add_tile_objects(m_registry, m_tree, data, tileset);

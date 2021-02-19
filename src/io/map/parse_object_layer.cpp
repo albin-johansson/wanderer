@@ -15,12 +15,12 @@ namespace {
                         static_cast<float>(object.height())};
   const comp::subhitbox subhitbox{{}, size};
 
-  auto hitbox = sys::hitbox::create({subhitbox});
+  auto hitbox = sys::create_hitbox({subhitbox});
   hitbox.enabled = false;
 
   const vector2f pos{static_cast<float>(object.x()),
                      static_cast<float>(object.y())};
-  sys::hitbox::set_position(hitbox, pos);
+  sys::set_position(hitbox, pos);
 
   return hitbox;
 }

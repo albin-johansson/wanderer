@@ -60,13 +60,14 @@ void game::tick(const delta_t dt)
   sys::update_humanoid_states(registry, m_dispatcher);
 
   if (!weakly_paused()) {
-    sys::update_movables(*level, dt);
+    sys::update_movement(*level, dt);
     sys::update_drawable_movables(registry);
     sys::update_particles(registry, dt);
 
     sys::update_portal_triggers(registry, level->player());
     sys::update_inventory_triggers(registry, level->player());
 
+    // TODO maybe move update_animations next to the other animation updates
     sys::update_animations(registry);
     sys::update_viewport(*level, level->player(), dt);
 
@@ -75,10 +76,7 @@ void game::tick(const delta_t dt)
 
   sys::update_humanoid_animations(registry);
   sys::update_tile_animations(registry);
-
-  const auto& tileset = level->get<comp::tileset>(level->tileset());
-  sys::update_tile_object_animations(registry, tileset);
-
+  sys::update_tile_object_animations(registry, level->tileset());
   sys::update_level_switch_animations(registry, m_dispatcher);
 }
 
@@ -90,10 +88,7 @@ void game::render(cen::renderer& renderer, const cen::ipoint& mousePos)
   sys::translate_viewport(registry, level->viewport(), renderer);
 
   const auto bounds = level->get_render_bounds();
-  sys::layer::render_ground(registry,
-                            level->get<comp::tileset>(level->tileset()),
-                            renderer,
-                            bounds);
+  sys::render_ground_layers(registry, level->tileset(), renderer, bounds);
   sys::render_drawables(registry, renderer, bounds);
   sys::render_particles(registry, renderer);
   sys::render_inventory(registry, renderer, mousePos);

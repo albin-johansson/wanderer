@@ -3,12 +3,12 @@
 #include "animated_tile.hpp"
 #include "game_constants.hpp"
 
-namespace wanderer::sys::tile {
+namespace wanderer::sys {
 
-void render(cen::renderer& renderer,
-            const comp::tile& tile,
-            const int row,
-            const int col) noexcept
+void render_tile(cen::renderer& renderer,
+                 const comp::tile& tile,
+                 const int row,
+                 const int col) noexcept
 {
   const auto x = static_cast<float>(col) * glob::tileWidth<>;
   const auto y = static_cast<float>(row) * glob::tileHeight<>;
@@ -16,9 +16,9 @@ void render(cen::renderer& renderer,
   renderer.render_t(*tile.sheet, tile.src, dst);
 }
 
-auto animated_tile(const entt::registry& registry,
-                   const comp::tile::entity tileEntity,
-                   const comp::tileset& tileset) -> const comp::tile&
+auto get_animated_tile(const entt::registry& registry,
+                       const comp::tile::entity tileEntity,
+                       const comp::tileset& tileset) -> const comp::tile&
 {
   assert(registry.has<comp::animated_tile>(tileEntity));
 
@@ -29,4 +29,4 @@ auto animated_tile(const entt::registry& registry,
   return registry.get<comp::tile>(animatedEntity);
 }
 
-}  // namespace wanderer::sys::tile
+}  // namespace wanderer::sys

@@ -90,7 +90,7 @@ void add_tile_object(ir::level& data,
 
     if (fancy.hitbox) {
       tileObjectData.hitbox =
-          sys::hitbox::with_position(*fancy.hitbox, to_vector(position));
+          sys::with_position(*fancy.hitbox, to_vector(position));
     }
   }
 }

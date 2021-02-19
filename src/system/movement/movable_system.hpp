@@ -3,7 +3,7 @@
 #include "direction.hpp"
 #include "movable.hpp"
 
-namespace wanderer::sys::movable {
+namespace wanderer::sys {
 
 /**
  * \brief Returns the appropriate dominant direction for a movable component.
@@ -17,4 +17,4 @@ namespace wanderer::sys::movable {
 [[nodiscard]] auto dominant_direction(const comp::movable& movable) noexcept
     -> direction;
 
-}  // namespace wanderer::sys::movable
+}  // namespace wanderer::sys

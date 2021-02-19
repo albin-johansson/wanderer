@@ -37,7 +37,7 @@ void sort_drawables(entt::registry& registry);
  * \param tileset the tileset that will be used.
  */
 void update_tile_object_animations(entt::registry& registry,
-                                   const comp::tileset& tileset);
+                                   comp::tileset::entity tileset);
 
 /**
  * \brief Renders all depth drawables.

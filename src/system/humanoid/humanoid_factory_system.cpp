@@ -53,8 +53,8 @@ void add_hitbox(entt::registry& registry,
                 aabb_tree& tree,
                 const vector2f& position)
 {
-  auto hitbox = hitbox::create({{{18, 32}, {28, 24}}});
-  sys::hitbox::set_position(hitbox, position);
+  auto hitbox = create_hitbox({{{18, 32}, {28, 24}}});
+  sys::set_position(hitbox, position);
 
   const auto lower = to_vector(hitbox.bounds.position());
   const auto upper = lower + to_vector(hitbox.bounds.size());

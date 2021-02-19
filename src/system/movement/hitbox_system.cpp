@@ -4,7 +4,7 @@
 
 #include "centurion_utils.hpp"
 
-namespace wanderer::sys::hitbox {
+namespace wanderer::sys {
 namespace {
 
 [[nodiscard]] auto next_vertical_hitbox(const comp::movable& movable,
@@ -122,7 +122,7 @@ auto intersects(const comp::hitbox& fst, const comp::hitbox& snd) noexcept
   return false;
 }
 
-auto create(std::initializer_list<comp::subhitbox> boxes) -> comp::hitbox
+auto create_hitbox(std::initializer_list<comp::subhitbox> boxes) -> comp::hitbox
 {
   comp::hitbox hb;
 
@@ -150,11 +150,10 @@ auto query_collisions(const next_hitboxes& next, const comp::hitbox& other)
 {
   collision_result result;
 
-  result.horizontal =
-      next.horizontal && hitbox::intersects(*next.horizontal, other);
-  result.vertical = next.vertical && hitbox::intersects(*next.vertical, other);
+  result.horizontal = next.horizontal && intersects(*next.horizontal, other);
+  result.vertical = next.vertical && intersects(*next.vertical, other);
 
   return result;
 }
 
-}  // namespace wanderer::sys::hitbox
+}  // namespace wanderer::sys

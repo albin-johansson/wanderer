@@ -17,7 +17,7 @@ namespace {
 [[nodiscard]] auto restore_aabb_position(
     const vector2f& prev,
     const vector2f& curr,
-    const hitbox::collision_result& collisions) noexcept -> vector2f
+    const collision_result& collisions) noexcept -> vector2f
 {
   if (collisions.horizontal && collisions.vertical) {
     return prev;
@@ -33,10 +33,9 @@ namespace {
                                   const vector2f& oldPosition,
                                   const comp::hitbox& source,
                                   const comp::hitbox& other,
-                                  const hitbox::next_hitboxes& next)
-    -> hitbox::collision_result
+                                  const next_hitboxes& next) -> collision_result
 {
-  const auto collisions = hitbox::query_collisions(next, other);
+  const auto collisions = query_collisions(next, other);
 
   if (collisions.horizontal) {
     movable.position.x = oldPosition.x;
@@ -52,15 +51,15 @@ namespace {
 }
 
 [[nodiscard]] auto check_out_of_bounds(level& level,
-                                       const hitbox::next_hitboxes& next,
+                                       const next_hitboxes& next,
                                        const entt::entity entity,
                                        comp::movable& movable,
                                        comp::hitbox& hitbox,
                                        const vector2f& oldPosition,
                                        const vector2f& oldAabbPos)
-    -> hitbox::collision_result
+    -> collision_result
 {
-  hitbox::collision_result collisions;
+  collision_result collisions;
 
   const auto& viewport = level.get<comp::viewport>(level.viewport());
   if (next.horizontal) {
@@ -93,7 +92,7 @@ void update_hitbox(level& level,
 {
   const auto oldAabbPos = level.get_aabb(entity).min();
 
-  hitbox::set_position(hitbox, movable.position);
+  set_position(hitbox, movable.position);
   level.relocate_aabb(entity, to_vector(hitbox.bounds.position()));
 
   if (movable.velocity.is_zero()) {
@@ -104,11 +103,10 @@ void update_hitbox(level& level,
   std::pmr::vector<entt::entity> candidates{resource.get()};
   level.query_collisions(entity, std::back_inserter(candidates));
 
-  const auto next =
-      hitbox::make_next_hitboxes(movable, hitbox, oldPosition, dt);
+  const auto next = make_next_hitboxes(movable, hitbox, oldPosition, dt);
 
-  const auto restorePosition = [&](const hitbox::collision_result& collisions) {
-    hitbox::set_position(hitbox, movable.position);
+  const auto restorePosition = [&](const collision_result& collisions) {
+    set_position(hitbox, movable.position);
     const auto pos = restore_aabb_position(oldAabbPos,
                                            to_vector(hitbox.bounds.position()),
                                            collisions);
@@ -142,14 +140,14 @@ void update_hitbox(level& level,
 
 }  // namespace
 
-void update_movables(level& level, const delta_t dt)
+void update_movement(level& level, const delta_t dt)
 {
   level.each<comp::movable>(
       [&](const entt::entity entity, comp::movable& movable) {
         const auto oldPosition = movable.position;
 
         movable.position += (movable.velocity * dt);
-        movable.dir = movable::dominant_direction(movable);
+        movable.dir = dominant_direction(movable);
 
         if (auto* hitbox = level.try_get<comp::hitbox>(entity)) {
           update_hitbox(level, entity, movable, *hitbox, oldPosition, dt);

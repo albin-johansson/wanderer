@@ -48,7 +48,7 @@ void add_hitbox(ir::fancy_tile& tileData, const step::object& object)
   const cen::farea size{static_cast<float>(object.width()),
                         static_cast<float>(object.height())};
 
-  tileData.hitbox = sys::hitbox::create({{offset, size}});
+  tileData.hitbox = sys::create_hitbox({{offset, size}});
 }
 
 [[nodiscard]] auto parse_depth(const step::properties& props) -> maybe<depth_t>

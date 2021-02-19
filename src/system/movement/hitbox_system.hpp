@@ -9,7 +9,7 @@
 #include "movable.hpp"
 #include "vector2.hpp"
 
-namespace wanderer::sys::hitbox {
+namespace wanderer::sys {
 
 struct next_hitboxes final
 {
@@ -74,7 +74,7 @@ void set_position(comp::hitbox& hitbox, const vector2f& position) noexcept;
  *
  * \since 0.1.0
  */
-[[nodiscard]] auto create(std::initializer_list<comp::subhitbox> boxes)
+[[nodiscard]] auto create_hitbox(std::initializer_list<comp::subhitbox> boxes)
     -> comp::hitbox;
 
 [[nodiscard]] auto make_next_hitboxes(const comp::movable& movable,
@@ -86,4 +86,4 @@ void set_position(comp::hitbox& hitbox, const vector2f& position) noexcept;
                                     const comp::hitbox& other)
     -> collision_result;
 
-}  // namespace wanderer::sys::hitbox
+}  // namespace wanderer::sys

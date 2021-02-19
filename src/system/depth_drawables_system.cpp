@@ -52,13 +52,17 @@ void sort_drawables(entt::registry& registry)
 }
 
 void update_tile_object_animations(entt::registry& registry,
-                                   const comp::tileset& tileset)
+                                   const comp::tileset::entity tilesetEntity)
 {
-  registry.view<const comp::tile_object, comp::depth_drawable>().each(
+  const auto& tileset = registry.get<comp::tileset>(tilesetEntity);
+  const auto view =
+      registry.view<const comp::tile_object, comp::depth_drawable>();
+
+  view.each(
       [&](const comp::tile_object& object, comp::depth_drawable& drawable) {
         if (registry.has<comp::animated_tile>(object.tileEntity)) {
           const auto& tile =
-              tile::animated_tile(registry, object.tileEntity, tileset);
+              get_animated_tile(registry, object.tileEntity, tileset);
           drawable.src = tile.src;
         }
       });

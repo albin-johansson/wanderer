@@ -2,7 +2,7 @@
 
 #include "game_constants.hpp"
 
-namespace wanderer::sys::viewport {
+namespace wanderer::sys {
 
 auto make_viewport(entt::registry& registry, const cen::farea& levelSize)
     -> comp::viewport::entity
@@ -17,4 +17,4 @@ auto make_viewport(entt::registry& registry, const cen::farea& levelSize)
   return comp::viewport::entity{entity};
 }
 
-}  // namespace wanderer::sys::viewport
+}  // namespace wanderer::sys

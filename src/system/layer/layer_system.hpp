@@ -3,7 +3,7 @@
 #include "render_bounds.hpp"
 #include "tile_layer.hpp"
 
-namespace wanderer::sys::layer {
+namespace wanderer::sys {
 
 /**
  * \brief Visits all tiles in a tile layer.
@@ -19,7 +19,7 @@ namespace wanderer::sys::layer {
  * \since 0.1.0
  */
 template <typename T>
-void visit(const comp::tile_layer& layer, T&& callable)
+void visit_tiles(const comp::tile_layer& layer, T&& callable)
 {
   const auto rows = layer.matrix.size();
   const auto cols = layer.matrix.at(0).size();
@@ -51,9 +51,9 @@ void visit(const comp::tile_layer& layer, T&& callable)
  * \since 0.1.0
  */
 template <typename T>
-void visit(const comp::tile_layer& layer,
-           const comp::render_bounds& bounds,
-           T&& callable)
+void visit_tiles(const comp::tile_layer& layer,
+                 const comp::render_bounds& bounds,
+                 T&& callable)
 {
   for (auto r = bounds.minRow; r < bounds.maxRow; ++r) {
     for (auto c = bounds.minCol; c < bounds.maxCol; ++c) {
@@ -65,4 +65,4 @@ void visit(const comp::tile_layer& layer,
   }
 }
 
-}  // namespace wanderer::sys::layer
+}  // namespace wanderer::sys
