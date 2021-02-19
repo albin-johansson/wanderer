@@ -82,10 +82,10 @@ void game::tick(const delta_t dt)
 
 void game::render(cen::renderer& renderer, const cen::ipoint& mousePos)
 {
-  auto* level = m_levels.current();
-  auto& registry = level->registry();
+  const auto* level = m_levels.current();
+  const auto& registry = level->registry();
 
-  sys::translate_viewport(registry, level->viewport(), renderer);
+  sys::translate_renderer_viewport(registry, level->viewport(), renderer);
 
   const auto bounds = level->get_render_bounds();
   sys::render_ground_layers(registry, level->tileset(), renderer, bounds);
