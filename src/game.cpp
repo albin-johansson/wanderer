@@ -44,10 +44,7 @@ void game::handle_input(const cen::mouse_state& mouseState,
 {
   m_menus.update(mouseState, keyState, m_cursors);
   auto* level = m_levels.current();
-  sys::input::update(level->registry(),
-                     m_dispatcher,
-                     level->player(),
-                     keyState);
+  sys::update_input(level->registry(), m_dispatcher, level->player(), keyState);
 }
 
 void game::tick(const delta_t dt)

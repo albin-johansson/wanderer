@@ -5,7 +5,7 @@
 
 #include "player.hpp"
 
-namespace wanderer::sys::input {
+namespace wanderer::sys {
 
 /**
  * \brief Handles the current player input.
@@ -17,9 +17,9 @@ namespace wanderer::sys::input {
  * \param player the player entity.
  * \param keyState the current keyboard input state.
  */
-void update(entt::registry& registry,
-            entt::dispatcher& dispatcher,
-            comp::player::entity player,
-            const cen::key_state& keyState);
+void update_input(entt::registry& registry,
+                  entt::dispatcher& dispatcher,
+                  comp::player::entity player,
+                  const cen::key_state& keyState);
 
-}  // namespace wanderer::sys::input
+}  // namespace wanderer::sys

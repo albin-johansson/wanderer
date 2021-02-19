@@ -12,7 +12,7 @@
 #include "inventory.hpp"
 #include "player.hpp"
 
-namespace wanderer::sys::input {
+namespace wanderer::sys {
 namespace {
 
 [[nodiscard]] auto get_direction(const cen::key_state& keyState,
@@ -81,4 +81,4 @@ void handle_idle_input(entt::registry& registry,
   }
 }
 
-}  // namespace wanderer::sys::input
+}  // namespace wanderer::sys

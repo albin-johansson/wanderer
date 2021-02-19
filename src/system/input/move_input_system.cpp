@@ -11,7 +11,7 @@
 #include "movable.hpp"
 #include "player.hpp"
 
-namespace wanderer::sys::input {
+namespace wanderer::sys {
 namespace {
 
 void move(comp::movable& movable, const direction dir) noexcept
@@ -139,4 +139,4 @@ void handle_move_input(entt::registry& registry,
   }
 }
 
-}  // namespace wanderer::sys::input
+}  // namespace wanderer::sys

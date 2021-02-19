@@ -4,12 +4,12 @@
 #include "idle_input_system.hpp"
 #include "move_input_system.hpp"
 
-namespace wanderer::sys::input {
+namespace wanderer::sys {
 
-void update(entt::registry& registry,
-            entt::dispatcher& dispatcher,
-            const comp::player::entity player,
-            const cen::key_state& keyState)
+void update_input(entt::registry& registry,
+                  entt::dispatcher& dispatcher,
+                  const comp::player::entity player,
+                  const cen::key_state& keyState)
 {
   if (registry.has<comp::humanoid_idle>(player)) {
     handle_idle_input(registry, dispatcher, player, keyState);
@@ -19,4 +19,4 @@ void update(entt::registry& registry,
   }
 }
 
-}  // namespace wanderer::sys::input
+}  // namespace wanderer::sys

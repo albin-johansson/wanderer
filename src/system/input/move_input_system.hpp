@@ -5,7 +5,7 @@
 
 #include "player.hpp"
 
-namespace wanderer::sys::input {
+namespace wanderer::sys {
 
 /**
  * \brief Handles the player input if the player is moving.
@@ -24,4 +24,4 @@ void handle_move_input(entt::registry& registry,
                        comp::player::entity player,
                        const cen::key_state& keyState);
 
-}  // namespace wanderer::sys::input
+}  // namespace wanderer::sys
