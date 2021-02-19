@@ -82,7 +82,7 @@ void game::tick(const delta_t dt)
   const auto& tileset = level->get<comp::tileset>(level->tileset());
   sys::update_tile_object_animations(registry, tileset);
 
-  sys::hud::update_level_switch_animations(registry, m_dispatcher);
+  sys::update_level_switch_animations(registry, m_dispatcher);
 }
 
 void game::render(cen::renderer& renderer, const cen::ipoint& mousePos)
@@ -100,7 +100,7 @@ void game::render(cen::renderer& renderer, const cen::ipoint& mousePos)
   sys::render_drawables(registry, renderer, bounds);
   sys::render_particles(registry, renderer);
   sys::render_inventory(registry, renderer, mousePos);
-  sys::hud::render_level_switch_animations(registry, renderer);
+  sys::render_level_switch_animations(registry, renderer);
 
   if (m_menus.is_blocking()) {
     m_menus.render(renderer);
@@ -120,7 +120,7 @@ auto game::weakly_paused() const -> bool
 
 void game::on_switch_map(const comp::switch_map_event& event)
 {
-  sys::hud::start_level_fade_animation(m_levels.registry(), event.map);
+  sys::start_level_fade_animation(m_levels.registry(), event.map);
 }
 
 void game::on_level_animation_faded_in(const comp::level_faded_in_event& event)
@@ -138,7 +138,7 @@ void game::on_level_animation_faded_in(const comp::level_faded_in_event& event)
   }
 
   m_levels.switch_to(event.map);
-  sys::hud::end_level_fade_animation(m_levels.registry(), event);
+  sys::end_level_fade_animation(m_levels.registry(), event);
 }
 
 void game::on_level_animation_faded_out(comp::level_faded_out_event)

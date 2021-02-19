@@ -6,7 +6,7 @@
 #include "level_fade_events.hpp"
 #include "map_id.hpp"
 
-namespace wanderer::sys::hud {
+namespace wanderer::sys {
 
 /**
  * \brief Updates the state of a level switch animations, although there should
@@ -57,4 +57,4 @@ void start_level_fade_animation(entt::registry& registry, map_id map);
 void end_level_fade_animation(entt::registry& registry,
                               const comp::level_faded_in_event& event);
 
-}  // namespace wanderer::sys::hud
+}  // namespace wanderer::sys

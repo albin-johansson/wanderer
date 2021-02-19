@@ -57,9 +57,7 @@ level::level(const ir::level& data, graphics_context& graphics)
   auto& drawable = m_registry.get<comp::depth_drawable>(m_player);
   drawable.layer = tilemap.humanoidLayer;
 
-  sys::viewport::center_viewport_on(m_registry,
-                                    m_viewport,
-                                    player_spawnpoint());
+  sys::center_viewport_on(m_registry, m_viewport, player_spawnpoint());
 
   // This syncs the movable components with depth_drawable components
   sys::update_drawable_movables(m_registry);

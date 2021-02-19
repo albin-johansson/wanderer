@@ -5,7 +5,7 @@
 #include "game_constants.hpp"
 #include "level_switch_animation.hpp"
 
-namespace wanderer::sys::hud {
+namespace wanderer::sys {
 
 void update_level_switch_animations(entt::registry& registry,
                                     entt::dispatcher& dispatcher)
@@ -80,4 +80,4 @@ void end_level_fade_animation(entt::registry& registry,
                                                  false);
 }
 
-}  // namespace wanderer::sys::hud
+}  // namespace wanderer::sys
