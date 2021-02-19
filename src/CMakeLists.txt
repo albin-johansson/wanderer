@@ -202,7 +202,8 @@ set(SOURCE_FILES
     system/viewport/viewport_system.hpp
 
     util/files_directory.cpp
-    util/files_directory.hpp)
+    util/files_directory.hpp
+    util/ini.hpp)
 
 add_library(${WANDERER_LIB_TARGET} ${SOURCE_FILES})
 
