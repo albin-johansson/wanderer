@@ -1,4 +1,5 @@
 {
+  "id": "settings",
   "title": "Settings",
   "isBlocking": true,
   "buttons": [
