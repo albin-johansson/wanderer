@@ -13,6 +13,7 @@
 #include "null_entity.hpp"
 #include "parse_ir.hpp"
 #include "player.hpp"
+#include "registry_utils.hpp"
 #include "render_bounds.hpp"
 #include "spawnpoint.hpp"
 #include "tilemap.hpp"
@@ -98,8 +99,7 @@ class level final
   template <typename Component>
   [[nodiscard]] decltype(auto) single()
   {
-    assert(m_registry.view<comp::tileset>().size() == 1);
-    return m_registry.view<Component>().front();
+    return singleton<Component>(m_registry);
   }
 
   [[nodiscard]] auto id() const noexcept -> map_id;

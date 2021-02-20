@@ -28,7 +28,7 @@ void update_viewport(level& level,
                      const delta_t dt);
 
 void translate_renderer_viewport(const entt::registry& registry,
-                        comp::viewport::entity viewportEntity,
-                        cen::renderer& renderer);
+                                 comp::viewport::entity viewportEntity,
+                                 cen::renderer& renderer);
 
 }  // namespace wanderer::sys

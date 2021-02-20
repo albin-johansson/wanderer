@@ -1,5 +1,7 @@
 #pragma once
 
+#include <json.hpp>
+
 namespace wanderer {
 
 enum class menu_id

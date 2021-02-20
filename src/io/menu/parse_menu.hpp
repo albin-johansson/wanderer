@@ -2,7 +2,7 @@
 
 #include <filesystem>  // path
 
-#include "menu/menu.hpp"
+#include "menu.hpp"
 
 namespace wanderer {
 
@@ -17,6 +17,6 @@ namespace wanderer {
  *
  * \since 0.1.0
  */
-[[nodiscard]] auto parse_menu(const std::filesystem::path& path) -> menu;
+[[nodiscard]] auto parse_menu(const std::filesystem::path& path) -> comp::menu;
 
 }  // namespace wanderer

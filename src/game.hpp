@@ -5,16 +5,16 @@
 #include <cen/renderer.hpp>
 
 #include "close_inventory_event.hpp"
-#include "cursor_manager.hpp"
 #include "delta.hpp"
 #include "graphics_context.hpp"
 #include "level.hpp"
 #include "level_fade_events.hpp"
 #include "level_manager.hpp"
-#include "menu_manager.hpp"
 #include "particle_event.hpp"
+#include "quit_event.hpp"
 #include "show_inventory_event.hpp"
 #include "switch_map_event.hpp"
+#include "switch_menu_event.hpp"
 
 namespace wanderer {
 
@@ -70,20 +70,22 @@ class game final
    */
   [[nodiscard]] auto quit_requested() const noexcept -> bool
   {
-    return m_menus.quit_requested();
+    return m_quit;
   }
 
  private:
   entt::dispatcher m_dispatcher;
   level_manager m_levels;
-  menu_manager m_menus;
-  cursor_manager m_cursors;
+  entt::registry m_menus;
+  bool m_quit{false};
 
   [[nodiscard]] auto is_paused() const -> bool;
 
   [[nodiscard]] auto is_inventory_active() const -> bool;
 
   void on_switch_map(const comp::switch_map_event& event);
+
+  void on_switch_menu_event(const comp::switch_menu_event& event);
 
   void on_level_animation_faded_in(const comp::level_faded_in_event& event);
 
@@ -94,6 +96,8 @@ class game final
   void on_close_inventory(comp::close_inventory_event);
 
   void on_particle_event(const comp::particle_event& event);
+
+  void on_quit_event(comp::quit_event);
 };
 
 }  // namespace wanderer

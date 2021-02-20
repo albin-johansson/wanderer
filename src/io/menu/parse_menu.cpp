@@ -64,18 +64,19 @@ namespace {
 
 }  // namespace
 
-auto parse_menu(const std::filesystem::path& path) -> menu
+auto parse_menu(const std::filesystem::path& path) -> comp::menu
 {
   json json;
 
   std::ifstream stream{path};
   stream >> json;
 
-  menu m;
-  m.m_title = json.at("title").get<std::string>();
-  m.m_blocking = json.at("isBlocking").get<bool>();
-  m.m_buttons = parse_buttons(json);
-  m.m_binds = parse_binds(json);
+  comp::menu m;
+  m.id = json.at("id").get<menu_id>();
+  m.title = json.at("title").get<std::string>();
+  m.blocking = json.at("isBlocking").get<bool>();
+  m.buttons = parse_buttons(json);
+  m.binds = parse_binds(json);
 
   return m;
 }

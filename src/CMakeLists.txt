@@ -13,6 +13,7 @@ set(SOURCE_FILES
     component/animated_tile.hpp
     component/binds.hpp
     component/container_trigger.hpp
+    component/cursors.hpp
     component/depth_drawable.hpp
     component/gold.hpp
     component/hitbox.hpp
@@ -20,6 +21,7 @@ set(SOURCE_FILES
     component/inventory.hpp
     component/item.hpp
     component/level_switch_animation.hpp
+    component/menu.hpp
     component/movable.hpp
     component/object.hpp
     component/particle.hpp
@@ -42,12 +44,12 @@ set(SOURCE_FILES
     component/event/interact_event.hpp
     component/event/level_fade_events.hpp
     component/event/particle_event.hpp
+    component/event/quit_event.hpp
     component/event/show_inventory_event.hpp
     component/event/switch_map_event.hpp
+    component/event/switch_menu_event.hpp
 
     core/centurion_utils.hpp
-    core/cursor_manager.cpp
-    core/cursor_manager.hpp
     core/direction.hpp
     core/game_constants.hpp
     core/graphics_context.cpp
@@ -98,10 +100,18 @@ set(SOURCE_FILES
     core/math/index_to_matrix.hpp
     core/math/vector2.hpp
 
+    core/menu/key_bind.hpp
+    core/menu/menu_action.hpp
+    core/menu/menu_button.cpp
+    core/menu/menu_button.hpp
+    core/menu/menu_constants.hpp
+    core/menu/menu_id.hpp
+
     core/registry/add_humanoid_state_dependencies.cpp
     core/registry/add_humanoid_state_dependencies.hpp
     core/registry/make_registry.cpp
     core/registry/make_registry.hpp
+    core/registry/registry_utils.hpp
 
     core/resource/texture_loader.hpp
 
@@ -129,17 +139,6 @@ set(SOURCE_FILES
     io/saves/save_file_info.hpp
     io/saves/save_game.cpp
     io/saves/save_game.hpp
-
-    menu/key_bind.hpp
-    menu/menu.cpp
-    menu/menu.hpp
-    menu/menu_action.hpp
-    menu/menu_button.cpp
-    menu/menu_button.hpp
-    menu/menu_constants.hpp
-    menu/menu_id.hpp
-    menu/menu_manager.cpp
-    menu/menu_manager.hpp
 
     system/animation_system.cpp
     system/animation_system.hpp
@@ -179,6 +178,9 @@ set(SOURCE_FILES
     system/layer/layer_rendering_system.cpp
     system/layer/layer_rendering_system.hpp
     system/layer/layer_system.hpp
+
+    system/menu/menu_system.cpp
+    system/menu/menu_system.hpp
 
     system/movement/hitbox_system.cpp
     system/movement/hitbox_system.hpp
@@ -243,9 +245,9 @@ target_include_directories(${WANDERER_LIB_TARGET}
     PUBLIC core/event
     PUBLIC core/level
     PUBLIC core/math
+    PUBLIC core/menu
     PUBLIC core/registry
     PUBLIC core/resource
-    PUBLIC menu
     PUBLIC io
     PUBLIC io/map
     PUBLIC io/menu
@@ -255,6 +257,7 @@ target_include_directories(${WANDERER_LIB_TARGET}
     PUBLIC system/humanoid
     PUBLIC system/input
     PUBLIC system/layer
+    PUBLIC system/menu
     PUBLIC system/movement
     PUBLIC system/saves
     PUBLIC system/tile
