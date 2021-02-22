@@ -6,10 +6,12 @@
 #include "add_objects.hpp"
 #include "add_tile_objects.hpp"
 #include "centurion_utils.hpp"
+#include "chase.hpp"
 #include "create_tilemap.hpp"
 #include "create_tileset.hpp"
 #include "depth_drawables_system.hpp"
 #include "humanoid_factory_system.hpp"
+#include "humanoid_state.hpp"
 #include "make_registry.hpp"
 #include "make_viewport.hpp"
 #include "render_bounds_system.hpp"
@@ -27,14 +29,7 @@ level::level(const ir::level& data, graphics_context& graphics)
 {
   m_tree.set_thickness_factor(std::nullopt);
 
-  {
-    // Load textures
-    for (const auto& ts : data.tilesets) {
-      const auto& textureData = ts.sheet;
-      graphics.load_texture(textureData.id, textureData.path.c_str());
-    }
-  }
-
+  load_tileset_textures(data, graphics);
   auto& tileset = create_tileset(data.tilesets, m_registry, m_tileset);
   auto& tilemap = create_tilemap(data, m_registry, m_tilemap, m_tileset);
 
@@ -52,27 +47,15 @@ level::level(const ir::level& data, graphics_context& graphics)
     drawable.texture = graphics.get_texture(drawable.textureId);
   });
 
-  {
-    m_player =
-        sys::add_player(m_registry, m_tree, *m_playerSpawnPosition, graphics);
-    auto& drawable = m_registry.get<comp::depth_drawable>(m_player);
-    drawable.layer = tilemap.humanoidLayer;
-  }
+  spawn_humanoids(tilemap, graphics);
 
-  each<comp::spawnpoint>([&, this](const comp::spawnpoint& sp) {
-    if (sp.type == comp::spawnpoint_type::skeleton) {
-      const auto e =
-          sys::add_skeleton(m_registry, m_tree, sp.position, graphics);
-      auto& drawable = m_registry.get<comp::depth_drawable>(e);
-      drawable.layer = tilemap.humanoidLayer;
-    }
-  });
+  each<comp::depth_drawable, comp::humanoid>(
+      [&](comp::depth_drawable& drawable) {
+        drawable.layer = tilemap.humanoidLayer;
+      });
 
   sys::center_viewport_on(m_registry, m_viewport, player_spawnpoint());
-
-  // This syncs the movable components with depth_drawable components
   sys::update_drawable_movables(m_registry);
-
   m_tree.rebuild();
 }
 
@@ -170,6 +153,33 @@ auto level::registry() -> entt::registry&
 auto level::registry() const -> const entt::registry&
 {
   return m_registry;
+}
+
+void level::spawn_humanoids(const comp::tilemap& tilemap,
+                            graphics_context& graphics)
+{
+  // The player has to be created before other humanoids
+  m_player =
+      sys::add_player(m_registry, m_tree, *m_playerSpawnPosition, graphics);
+
+  each<comp::spawnpoint>([&, this](const comp::spawnpoint& spawnpoint) {
+    switch (spawnpoint.type) {
+      case comp::spawnpoint_type::player:
+        break;
+
+      case comp::spawnpoint_type::skeleton: {
+        const auto skeleton = sys::add_skeleton(m_registry,
+                                                m_tree,
+                                                spawnpoint.position,
+                                                graphics);
+
+        auto& chase = m_registry.emplace<comp::chase>(skeleton);
+        chase.target = m_player;
+        chase.range = 150;
+        break;
+      }
+    }
+  });
 }
 
 }  // namespace wanderer

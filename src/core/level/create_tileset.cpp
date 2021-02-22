@@ -31,6 +31,14 @@ void create_tiles(entt::registry& registry,
 
 }  // namespace
 
+void load_tileset_textures(const ir::level& data, graphics_context& graphics)
+{
+  for (const auto& ts : data.tilesets) {
+    const auto& textureData = ts.sheet;
+    graphics.load_texture(textureData.id, textureData.path.c_str());
+  }
+}
+
 auto create_tileset(const std::vector<ir::tileset>& data,
                     entt::registry& registry,
                     const comp::tileset::entity entity) -> comp::tileset&

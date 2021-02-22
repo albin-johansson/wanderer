@@ -190,6 +190,9 @@ class level final
   comp::viewport::entity m_viewport{null<comp::viewport>()};
   comp::player::entity m_player{null<comp::player>()};
   maybe<vector2f> m_playerSpawnPosition;
+
+  void spawn_humanoids(const comp::tilemap& tilemap,
+                        graphics_context& graphics);
 };
 
 }  // namespace wanderer

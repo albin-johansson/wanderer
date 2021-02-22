@@ -1,6 +1,7 @@
 #include "game.hpp"
 
 #include "animation_system.hpp"
+#include "chase_system.hpp"
 #include "depth_drawables_system.hpp"
 #include "event_connections.hpp"
 #include "humanoid_animation_system.hpp"
@@ -65,6 +66,7 @@ void game::tick(const delta_t dt)
   sys::update_humanoid_states(registry, m_dispatcher);
 
   if (!is_inventory_active()) {
+    sys::update_chase(registry, m_dispatcher);
     sys::update_movement(*level, dt);
     sys::update_drawable_movables(registry);
     sys::update_particles(registry, dt);

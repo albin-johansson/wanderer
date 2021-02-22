@@ -11,6 +11,7 @@ set(SOURCE_FILES
 
     component/animated.hpp
     component/animated_tile.hpp
+    component/chase.hpp
     component/cursors.hpp
     component/depth_drawable.hpp
     component/hitbox.hpp
@@ -152,6 +153,8 @@ set(SOURCE_FILES
 
     system/animation_system.cpp
     system/animation_system.hpp
+    system/chase_system.cpp
+    system/chase_system.hpp
     system/depth_drawables_system.cpp
     system/depth_drawables_system.hpp
     system/interaction_handler_system.cpp
