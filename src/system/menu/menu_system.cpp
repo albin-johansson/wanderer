@@ -65,10 +65,10 @@ void update_menu(entt::registry& registry,
 {
   const auto view = registry.view<comp::active_menu, comp::menu>();
   view.each([&](const entt::entity entity, comp::menu& menu) {
-    if (const auto button = update_button_hover(registry,
-                                                comp::menu::entity{entity},
-                                                mouseState)) {
-      query_button(registry, dispatcher, mouseState, *button);
+    const auto menuEntity = comp::menu::entity{entity};
+    if (const auto button =
+            update_button_hover(registry, menuEntity, mouseState)) {
+      query_button(registry, dispatcher, *button, mouseState);
     } else {
       cen::cursor::reset();
     }
@@ -98,8 +98,8 @@ void render_menu(const entt::registry& registry, cen::renderer& renderer)
       renderer.fill_with(glob::transparentBlack);
     }
 
-    for (const auto entity : menu.buttons) {
-      render_button(registry, renderer, entity);
+    for (const auto button : menu.buttons) {
+      render_button(registry, button, renderer);
     }
 
     if (menu.title.empty()) {

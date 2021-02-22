@@ -86,27 +86,23 @@ void render_background(const comp::button_drawable& drawable,
 
 }  // namespace
 
-auto query_button(entt::registry& registry,
+void query_button(entt::registry& registry,
                   entt::dispatcher& dispatcher,
-                  const cen::mouse_state& mouseState,
-                  const comp::button::entity buttonEntity) -> bool
+                  const comp::button::entity buttonEntity,
+                  const cen::mouse_state& mouseState)
 {
   const auto& button = registry.get<comp::button>(buttonEntity);
-
   if (button.hover) {
     auto& cursors = singleton<comp::cursors>(registry);
     cursors.data.at(cen::system_cursor::hand).enable();
-  }
 
-  if (button.hover && mouseState.was_left_button_released()) {
-    if (button.action) {
-      button.action->execute(dispatcher);
-      cen::cursor::reset();
-      return true;
+    if (mouseState.was_left_button_released()) {
+      if (button.action) {
+        button.action->execute(dispatcher);
+        cen::cursor::reset();
+      }
     }
   }
-
-  return false;
 }
 
 auto update_button_hover(entt::registry& registry,
@@ -132,11 +128,11 @@ auto update_button_hover(entt::registry& registry,
 }
 
 void render_button(const entt::registry& registry,
-                   cen::renderer& renderer,
-                   const comp::button::entity buttonEntity)
+                   const comp::button::entity buttonEntity,
+                   cen::renderer& renderer)
 {
   const auto& button = registry.get<comp::button>(buttonEntity);
-  auto& drawable = registry.get<comp::button_drawable>(buttonEntity);
+  const auto& drawable = registry.get<comp::button_drawable>(buttonEntity);
 
   if (!drawable.texture) {
     update_bounds(button, drawable, renderer);
