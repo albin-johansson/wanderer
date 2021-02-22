@@ -1,4 +1,4 @@
-#include "wanderer_app.hpp"
+#include "wanderer_engine.hpp"
 
 #include <cen/event.hpp>
 
@@ -6,7 +6,7 @@
 
 namespace wanderer {
 
-wanderer_app::wanderer_app()
+wanderer_engine::wanderer_engine()
 #ifndef NDEBUG
     : m_window{"Wanderer", {1440, 810}}
     ,
@@ -25,7 +25,7 @@ wanderer_app::wanderer_app()
   m_mouseState.set_logical_height(glob::logicalHeight<>);
 }
 
-auto wanderer_app::handle_input() -> bool
+auto wanderer_engine::handle_input() -> bool
 {
   const auto& renderer = m_graphics.renderer();
   m_mouseState.update(renderer.output_width(), renderer.output_height());
@@ -41,7 +41,7 @@ auto wanderer_app::handle_input() -> bool
   return shouldContinue;
 }
 
-auto wanderer_app::run() -> int
+auto wanderer_engine::run() -> int
 {
   const auto input = [this] {
     return handle_input();

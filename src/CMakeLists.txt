@@ -5,8 +5,8 @@ project(wanderer-src CXX)
 set(SOURCE_FILES
     game.hpp
     game.cpp
-    wanderer_app.cpp
-    wanderer_app.hpp
+    wanderer_engine.cpp
+    wanderer_engine.hpp
     game_loop.hpp
 
     component/animated.hpp

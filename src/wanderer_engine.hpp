@@ -23,7 +23,7 @@ namespace wanderer {
  *
  * \headerfile wanderer_app.hpp
  */
-class wanderer_app final
+class wanderer_engine final
 {
  public:
   /**
@@ -34,7 +34,7 @@ class wanderer_app final
    *
    * \since 0.1.0
    */
-  wanderer_app();
+  wanderer_engine();
 
   /**
    * \brief Runs the game.
