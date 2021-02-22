@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objecttypes>
+ <objecttype name="Container" color="#00ff7f">
+  <property name="capacity" type="int" default="0"/>
+  <property name="hasRandomLoot" type="bool" default="false"/>
+ </objecttype>
+ <objecttype name="ContainerTrigger" color="#55ffff">
+  <property name="container" type="object" default="0"/>
+ </objecttype>
+ <objecttype name="Hitbox" color="#ff0000"/>
+ <objecttype name="Object" color="#ff00ff">
+  <property name="depth" type="int" default="5"/>
+ </objecttype>
+ <objecttype name="Portal" color="#00aaff">
+  <property name="path" type="file" default=""/>
+  <property name="target" type="int" default="0"/>
+ </objecttype>
+ <objecttype name="Spawnpoint" color="#a0a0a4">
+  <property name="entity" type="string" default=""/>
+ </objecttype>
+</objecttypes>

@@ -1,16 +1,12 @@
-#include "quit_action.h"
+#include "quit_action.hpp"
+
+#include "quit_event.hpp"
 
 namespace wanderer {
 
-QuitAction::QuitAction(WeakPtr<IWandererCore> core) noexcept : m_core{core}
-{}
-
-void QuitAction::execute() noexcept
+void quit_action::execute(entt::dispatcher& dispatcher)
 {
-  auto core = m_core.lock();
-  if (core) {
-    core->quit();
-  }
+  dispatcher.enqueue<comp::quit_event>();
 }
 
 }  // namespace wanderer

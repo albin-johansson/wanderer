@@ -1,52 +1,20 @@
 cmake_minimum_required(VERSION 3.15)
-project(${WANDERER_TEST})
 
-set(CATCH_INCLUDE_DIR catch2)
-add_library(Catch INTERFACE)
-target_include_directories(Catch SYSTEM INTERFACE ${CATCH_INCLUDE_DIR})
+project(wanderer-test CXX)
 
-add_executable(${WANDERER_TEST}
-        unittests/test_main.cpp
-        unittests/vector_2_test.cpp
-        unittests/viewport_test.cpp
-        unittests/hitbox_test.cpp
-        unittests/random_utils_test.cpp
-        unittests/tvector_test.cpp unittests/resource_test.cpp)
+enable_testing()
 
-set_target_properties(${WANDERER_TEST} PROPERTIES
-        CXX_STANDARD 17
-        CXX_STANDARD_REQUIRED ON)
+include(DownloadProject)
+include(CTest)
 
-target_include_directories(${WANDERER_TEST} PUBLIC unittests)
+download_project(PROJ googletest
+    GIT_REPOSITORY https://github.com/google/googletest.git
+    GIT_TAG master
+    "UPDATE_DISCONNECTED 1")
 
-target_include_directories(${WANDERER_TEST} SYSTEM PUBLIC ${SDL2_INCLUDE_DIR})
-target_include_directories(${WANDERER_TEST} SYSTEM PUBLIC ${SDL2_IMAGE_INCLUDE_DIRS})
-target_include_directories(${WANDERER_TEST} SYSTEM PUBLIC ${SDL2_MIXER_INCLUDE_DIRS})
-target_include_directories(${WANDERER_TEST} SYSTEM PUBLIC ${SDL2_TTF_INCLUDE_DIRS})
-target_include_directories(${WANDERER_TEST} SYSTEM PUBLIC ${LIBRARY_DIR})
-target_include_directories(${WANDERER_TEST} SYSTEM PUBLIC ${LIBRARY_DIR}/gsl)
-target_include_directories(${WANDERER_TEST} SYSTEM PUBLIC ${LIBRARY_DIR}/pugixml)
-target_include_directories(${WANDERER_TEST} SYSTEM PUBLIC ${LIBRARY_DIR}/centurion)
-target_include_directories(${WANDERER_TEST} SYSTEM PUBLIC ${LIBRARY_DIR}/tiled)
+# Prevent GoogleTest from overriding our compiler/linker options
+# when building with Visual Studio
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 
-target_link_libraries(${WANDERER_TEST}
-        mingw32
-        Catch
-        ${WANDERER_LIB}
-        ${CENTURION_LIBRARIES}
-        ${SDL2_LIBRARY}
-        ${SDL2_IMAGE_LIBRARIES}
-        ${SDL2_MIXER_LIBRARIES}
-        ${SDL2_TTF_LIBRARIES})
-
-# Copies all of the files in the bin folder and puts them next to the executable
-add_custom_command(TARGET ${WANDERER_TEST} POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy_directory
-        ${BINARIES_DIR}
-        ${CMAKE_CURRENT_BINARY_DIR})
-
-# Copies all of the resources and puts the in the build folder
-add_custom_command(TARGET ${WANDERER_TEST} POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy_directory
-        ${RESOURCES_DIR}
-        ${CMAKE_CURRENT_BINARY_DIR}/resources)
+add_subdirectory(${googletest_SOURCE_DIR} ${googletest_BINARY_DIR})
+add_subdirectory(unit)

@@ -1,0 +1,47 @@
+{
+  "id": "home",
+  "title": "Wanderer",
+  "isBlocking": true,
+  "buttons": [
+    {
+      "text": "Play",
+      "action": "goto_in_game",
+      "row": 5,
+      "col": -1
+    },
+    {
+      "text": "Settings",
+      "action": "goto_settings",
+      "row": 6,
+      "col": -1
+    },
+    {
+      "text": "Saves",
+      "action": "goto_saves",
+      "row": 7,
+      "col": -1
+    },
+    {
+      "text": "Controls",
+      "action": "goto_controls",
+      "row": 8,
+      "col": -1
+    },
+    {
+      "text": "Quit",
+      "action": "quit",
+      "row": 9,
+      "col": -1
+    }
+  ],
+  "binds": [
+    {
+      "key": "Escape",
+      "action": "play"
+    },
+    {
+      "key": "P",
+      "action": "quit"
+    }
+  ]
+}

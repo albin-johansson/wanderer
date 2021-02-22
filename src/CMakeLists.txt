@@ -1,292 +1,295 @@
 cmake_minimum_required(VERSION 3.15)
-project(${CMAKE_PROJECT_NAME}_src)
+
+project(wanderer-src CXX)
 
 set(SOURCE_FILES
-        controller/wanderer_controller.h
-        controller/wanderer_controller_impl.cpp
-        controller/wanderer_controller_impl.h
-        controller/wanderer_controller_factory.h
-        controller/input.cpp
-        controller/input.h
+    game.hpp
+    game.cpp
+    wanderer_app.cpp
+    wanderer_app.hpp
+    game_loop.hpp
 
-        controller/gameloop/game_loop.h
-        controller/gameloop/smooth_fixed_timestep_loop.cpp
-        controller/gameloop/smooth_fixed_timestep_loop.h
+    component/animated.hpp
+    component/animated_tile.hpp
+    component/binds.hpp
+    component/button.hpp
+    component/container_trigger.hpp
+    component/cursors.hpp
+    component/depth_drawable.hpp
+    component/gold.hpp
+    component/hitbox.hpp
+    component/humanoid_state.hpp
+    component/inventory.hpp
+    component/item.hpp
+    component/key_bind.hpp
+    component/level_switch_animation.hpp
+    component/menu.hpp
+    component/movable.hpp
+    component/object.hpp
+    component/particle.hpp
+    component/player.hpp
+    component/portal.hpp
+    component/render_bounds.hpp
+    component/spawnpoint.hpp
+    component/tile.hpp
+    component/tile_layer.hpp
+    component/tile_object.hpp
+    component/tilemap.hpp
+    component/tileset.hpp
+    component/viewport.hpp
 
-        core/wanderer_core.h
-        core/wanderer_core_impl.cpp
-        core/wanderer_core_impl.h
-        core/game_object.h
-        core/drawable.h
-        core/direction.h
-        core/viewport.cpp
-        core/viewport.h
-        core/animated.h
-        core/sortable_drawable.h
-        core/render_depth.h
-        core/game_constants.h
-        core/game_object_id.h
-        core/game_object_id.cpp
-        core/wanderer_core_builder.cpp
-        core/wanderer_core_builder.h
+    component/event/begin_attack_event.hpp
+    component/event/begin_humanoid_move_event.hpp
+    component/event/close_inventory_event.hpp
+    component/event/end_attack_event.hpp
+    component/event/end_humanoid_move_event.hpp
+    component/event/interact_event.hpp
+    component/event/level_fade_events.hpp
+    component/event/particle_event.hpp
+    component/event/quit_event.hpp
+    component/event/show_inventory_event.hpp
+    component/event/switch_map_event.hpp
+    component/event/switch_menu_event.hpp
 
-        core/util/require.h
+    core/centurion_utils.hpp
+    core/direction.hpp
+    core/game_constants.hpp
+    core/graphics_context.cpp
+    core/graphics_context.hpp
+    core/make_renderer.cpp
+    core/make_renderer.hpp
+    core/menu_constants.hpp
+    core/menu_id.hpp
+    core/null_entity.hpp
+    core/serialization.hpp
+    core/stack_resource.hpp
 
-        core/math/hitbox.cpp
-        core/math/hitbox.h
-        core/math/vector_2.cpp
-        core/math/vector_2.h
-        core/math/random_utils.cpp
-        core/math/random_utils.h
-        core/math/math.h
-        core/math/area.h
-        core/math/tvector.h
+    core/action/action.hpp
+    core/action/quit_action.cpp
+    core/action/quit_action.hpp
+    core/action/switch_menu_action.cpp
+    core/action/switch_menu_action.hpp
 
-        core/menu/menu.h
-        core/menu/menu_id.h
-        core/menu/menu_state_machine.h
-        core/menu/menu_state_machine_impl.cpp
-        core/menu/menu_state_machine_impl.h
-        core/menu/menu_drawable.h
-        core/menu/key_bind.cpp
-        core/menu/key_bind.h
-        core/menu/menu_impl.cpp
-        core/menu/menu_impl.h
+    core/aliases/aabb_tree.hpp
+    core/aliases/buffer.hpp
+    core/aliases/delta.hpp
+    core/aliases/depth.hpp
+    core/aliases/entity_type.hpp
+    core/aliases/ints.hpp
+    core/aliases/map_id.hpp
+    core/aliases/maybe.hpp
+    core/aliases/milliseconds.hpp
+    core/aliases/texture_cache.hpp
+    core/aliases/texture_handle.hpp
+    core/aliases/texture_id.hpp
+    core/aliases/tile_id.hpp
 
-        core/menu/button/menu_button.cpp
-        core/menu/button/menu_button.h
+    core/ecs/event_connections.cpp
+    core/ecs/event_connections.hpp
+    core/ecs/make_dispatcher.cpp
+    core/ecs/make_dispatcher.hpp
 
-        core/level/portal.cpp
-        core/level/portal.h
+    core/level/add_ground_layers.cpp
+    core/level/add_ground_layers.hpp
+    core/level/add_objects.cpp
+    core/level/add_objects.hpp
+    core/level/add_tile_objects.cpp
+    core/level/add_tile_objects.hpp
+    core/level/create_tilemap.cpp
+    core/level/create_tilemap.hpp
+    core/level/create_tileset.cpp
+    core/level/create_tileset.hpp
+    core/level/level.cpp
+    core/level/level.hpp
+    core/level/level_manager.cpp
+    core/level/level_manager.hpp
 
-        core/level/tile/tile.h
-        core/level/tile/tile.cpp
-        core/level/tile/tile_set.cpp
-        core/level/tile/tile_set.h
-        core/level/tile/tile_map_impl.cpp
-        core/level/tile/tile_map_impl.h
-        core/level/tile/tile_map_layer_impl.cpp
-        core/level/tile/tile_map_layer_impl.h
-        core/level/tile/tile_map_bounds.h
-        core/level/tile/tile_animation.cpp
-        core/level/tile/tile_animation.h
-        core/level/tile/tile_id.h
-        core/level/tile/tile_object.cpp
-        core/level/tile/tile_object.h
-        core/level/tile/map_position.h
-        core/level/tile/tile_map.h
-        core/level/tile/tile_map_layer.h
-        core/level/tile/tile_map_layer_builder.cpp
-        core/level/tile/tile_map_layer_builder.h
-        core/level/tile/tile_map_builder.cpp
-        core/level/tile/tile_map_builder.h
-        core/level/tile/tile_builder.cpp
-        core/level/tile/tile_builder.h
-        core/level/tile/tile_set_builder.cpp
-        core/level/tile/tile_set_builder.h
+    core/math/angles.hpp
+    core/math/floating.hpp
+    core/math/get_random.hpp
+    core/math/index_to_matrix.hpp
+    core/math/vector2.hpp
 
-        core/entity/entity.h
-        core/entity/movable_object.h
-        core/entity/movable_delegate.cpp
-        core/entity/movable_delegate.h
-        core/entity/entity_sheet.cpp
-        core/entity/entity_sheet.h
-        core/entity/abstract_entity.cpp
-        core/entity/abstract_entity.h
-        core/entity/entity_manager.cpp
-        core/entity/entity_manager.h
-        core/entity/entity_id.h
-        core/entity/spawnpoint.cpp
-        core/entity/spawnpoint.h
+    core/ecs/add_humanoid_state_dependencies.cpp
+    core/ecs/add_humanoid_state_dependencies.hpp
+    core/ecs/make_registry.cpp
+    core/ecs/make_registry.hpp
+    core/ecs/registry_utils.hpp
 
-        core/entity/skeleton/skeleton.cpp
-        core/entity/skeleton/skeleton.h
-        core/entity/skeleton/skeleton_state_machine.cpp
-        core/entity/skeleton/skeleton_state_machine.h
-        core/entity/skeleton/skeleton_idle_state.cpp
-        core/entity/skeleton/skeleton_idle_state.h
-        core/entity/skeleton/skeleton_moving_state.cpp
-        core/entity/skeleton/skeleton_moving_state.h
-        core/entity/skeleton/skeleton_attack_state.cpp
-        core/entity/skeleton/skeleton_attack_state.h
-        core/entity/skeleton/skeleton_dying_state.cpp
-        core/entity/skeleton/skeleton_dying_state.h
+    core/resource/texture_loader.hpp
 
-        core/entity/player/player.h
-        core/entity/player/player_impl.cpp
-        core/entity/player/player_impl.h
-        core/entity/player/player_moving_state.cpp
-        core/entity/player/player_moving_state.h
-        core/entity/player/player_idle_state.cpp
-        core/entity/player/player_idle_state.h
-        core/entity/player/player_state_machine_impl.cpp
-        core/entity/player/player_state_machine_impl.h
-        core/entity/player/player_attack_state.cpp
-        core/entity/player/player_attack_state.h
-        core/entity/player/player_dying_state.cpp
-        core/entity/player/player_dying_state.h
-        core/entity/player/player_state.h
-        core/entity/player/player_state_machine.h
+    io/map/parse_ir.hpp
+    io/map/parse_layers.cpp
+    io/map/parse_layers.hpp
+    io/map/parse_object_layer.cpp
+    io/map/parse_object_layer.hpp
+    io/map/parse_tile.cpp
+    io/map/parse_tile.hpp
+    io/map/parse_tile_layer.cpp
+    io/map/parse_tile_layer.hpp
+    io/map/parse_tilesets.cpp
+    io/map/parse_tilesets.hpp
+    io/map/parse_world.cpp
+    io/map/parse_world.hpp
 
-        core/entity/entitystate/abstract_entity_state_machine.h
-        core/entity/entitystate/entity_state.h
-        core/entity/entitystate/entity_state_machine.h
-        core/entity/entitystate/entity_state_id.h
+    io/menu/menu_action.hpp
+    io/menu/parse_menu.cpp
+    io/menu/parse_menu.hpp
 
-        core/entity/entitystate/delegates/entity_draw_delegate.cpp
-        core/entity/entitystate/delegates/entity_draw_delegate.h
-        core/entity/entitystate/delegates/entity_move_delegate.cpp
-        core/entity/entitystate/delegates/entity_move_delegate.h
-        core/entity/entitystate/delegates/entity_dying_delegate.cpp
-        core/entity/entitystate/delegates/entity_dying_delegate.h
-        core/entity/entitystate/delegates/entity_attack_delegate.cpp
-        core/entity/entitystate/delegates/entity_attack_delegate.h
-        core/entity/entitystate/delegates/entity_idle_delegate.cpp
-        core/entity/entitystate/delegates/entity_idle_delegate.h
+    io/saves/load_game.cpp
+    io/saves/load_game.hpp
+    io/saves/parse_save_file.cpp
+    io/saves/parse_save_file.hpp
+    io/saves/save_file_info.hpp
+    io/saves/save_game.cpp
+    io/saves/save_game.hpp
 
-        visual/animation.cpp
-        visual/animation.h
-        visual/hud.cpp
-        visual/hud.h
-        visual/drawable_text.cpp
-        visual/drawable_text.h
+    io/files_directory.cpp
+    io/files_directory.hpp
+    io/ini.hpp
 
-        audio/sound_engine.cpp
-        audio/sound_engine.h
-        audio/sound_id.h
+    system/animation_system.cpp
+    system/animation_system.hpp
+    system/depth_drawables_system.cpp
+    system/depth_drawables_system.hpp
+    system/interaction_handler_system.cpp
+    system/interaction_handler_system.hpp
+    system/inventory_system.cpp
+    system/inventory_system.hpp
+    system/particle_system.cpp
+    system/particle_system.hpp
+    system/render_bounds_system.cpp
+    system/render_bounds_system.hpp
+    system/update_triggers.hpp
 
-        service/pugi_utils.cpp
-        service/pugi_utils.h
+    system/hud/level_switch_animation_system.cpp
+    system/hud/level_switch_animation_system.hpp
 
-        parse/menu_button_parser.cpp
-        parse/menu_button_parser.h
-        parse/sound_engine_parser.cpp
-        parse/sound_engine_parser.h
-        parse/menu_parser.cpp
-        parse/menu_parser.h
-        parse/key_bind_parser.cpp
-        parse/key_bind_parser.h
-        parse/action_parser.cpp
-        parse/action_parser.h
+    system/humanoid/humanoid_animation_system.cpp
+    system/humanoid/humanoid_animation_system.hpp
+    system/humanoid/humanoid_attack_event_handler.cpp
+    system/humanoid/humanoid_attack_event_handler.hpp
+    system/humanoid/humanoid_factory_system.cpp
+    system/humanoid/humanoid_factory_system.hpp
+    system/humanoid/humanoid_move_event_handler.cpp
+    system/humanoid/humanoid_move_event_handler.hpp
+    system/humanoid/humanoid_state_system.cpp
+    system/humanoid/humanoid_state_system.hpp
 
-        parse/tiled/tiled_map_parser.cpp
-        parse/tiled/tiled_map_parser.h
-        parse/tiled/tiled_map.cpp
-        parse/tiled/tiled_map.h
-        parse/tiled/tiled_tile_set.cpp
-        parse/tiled/tiled_tile_set.h
-        parse/tiled/tiled_animation.cpp
-        parse/tiled/tiled_animation.h
-        parse/tiled/tiled_object.cpp
-        parse/tiled/tiled_object.h
-        parse/tiled/tiled_layer.cpp
-        parse/tiled/tiled_layer.h
-        parse/tiled/tiled_tile.cpp
-        parse/tiled/tiled_tile.h
-        parse/tiled/tiled_property.h
-        parse/tiled/tiled_object_group.cpp
-        parse/tiled/tiled_object_group.h
+    system/input/idle_input_system.cpp
+    system/input/idle_input_system.hpp
+    system/input/input_system.cpp
+    system/input/input_system.hpp
+    system/input/move_input_system.cpp
+    system/input/move_input_system.hpp
 
-        core/util/wanderer_stdinc.h
-        core/util/wanderer_exception.h
-        core/util/json_utils.h
-        core/util/json_utils.cpp
-        core/util/resource.h
-        core/util/resource.cpp
+    system/layer/layer_rendering_system.cpp
+    system/layer/layer_rendering_system.hpp
+    system/layer/layer_system.hpp
 
-        core/action/action.h
-        core/action/goto_menu_action.cpp
-        core/action/goto_menu_action.h
-        core/action/quit_action.cpp
-        core/action/quit_action.h)
+    system/menu/button_system.cpp
+    system/menu/button_system.hpp
+    system/menu/menu_system.cpp
+    system/menu/menu_system.hpp
 
-add_library(${WANDERER_LIB} ${SOURCE_FILES})
+    system/movement/hitbox_system.cpp
+    system/movement/hitbox_system.hpp
+    system/movement/movable_system.hpp
+    system/movement/movable_system.cpp
+    system/movement/movement_system.cpp
+    system/movement/movement_system.hpp
+    system/movement/portal_system.cpp
+    system/movement/portal_system.hpp
 
-target_compile_options(${WANDERER_LIB} PRIVATE
-        -Wall
-        -Wextra
-        -Wpedantic
-        -Wdouble-promotion
-        -Wswitch-default
-        -Wswitch-enum
-        -Wunused
-        -Wuninitialized
-        -Wsuggest-final-types
-        -Wsuggest-final-methods
-        -Wduplicated-cond
-        -Wconversion)
+    system/saves/saves_system.cpp
+    system/saves/saves_system.hpp
 
-set_target_properties(${WANDERER_LIB} PROPERTIES
-        CXX_STANDARD 17
-        CXX_STANDARD_REQUIRED ON)
+    system/tile/tile_animation_system.cpp
+    system/tile/tile_animation_system.hpp
+    system/tile/tile_rendering_system.cpp
+    system/tile/tile_rendering_system.hpp
 
-target_include_directories(${WANDERER_LIB} SYSTEM PUBLIC ${SDL2_INCLUDE_DIR})
-target_include_directories(${WANDERER_LIB} SYSTEM PUBLIC ${SDL2_IMAGE_INCLUDE_DIRS})
-target_include_directories(${WANDERER_LIB} SYSTEM PUBLIC ${SDL2_MIXER_INCLUDE_DIRS})
-target_include_directories(${WANDERER_LIB} SYSTEM PUBLIC ${SDL2_TTF_INCLUDE_DIRS})
+    system/viewport/make_viewport.cpp
+    system/viewport/make_viewport.hpp
+    system/viewport/viewport_system.cpp
+    system/viewport/viewport_system.hpp)
 
-target_include_directories(${WANDERER_LIB} SYSTEM PUBLIC ${LIBRARY_DIR})
-target_include_directories(${WANDERER_LIB} SYSTEM PUBLIC ${GSL_INCLUDE_DIR})
-target_include_directories(${WANDERER_LIB} SYSTEM PUBLIC ${PUGI_INCLUDE_DIR})
-target_include_directories(${WANDERER_LIB} SYSTEM PUBLIC ${CENTURION_INCLUDE_DIR})
-target_include_directories(${WANDERER_LIB} SYSTEM PUBLIC ${ENTT_INCLUDE_DIR})
+add_library(${WANDERER_LIB_TARGET} ${SOURCE_FILES})
 
-target_include_directories(${WANDERER_LIB} PUBLIC controller)
-target_include_directories(${WANDERER_LIB} PUBLIC controller/gameloop)
-target_include_directories(${WANDERER_LIB} PUBLIC core)
-target_include_directories(${WANDERER_LIB} PUBLIC core/menu)
-target_include_directories(${WANDERER_LIB} PUBLIC core/menu/button)
-target_include_directories(${WANDERER_LIB} PUBLIC core/math)
-target_include_directories(${WANDERER_LIB} PUBLIC core/level)
-target_include_directories(${WANDERER_LIB} PUBLIC core/level/tile)
-target_include_directories(${WANDERER_LIB} PUBLIC core/util)
-target_include_directories(${WANDERER_LIB} PUBLIC core/action)
-target_include_directories(${WANDERER_LIB} PUBLIC core/entity)
-target_include_directories(${WANDERER_LIB} PUBLIC core/entity/player)
-target_include_directories(${WANDERER_LIB} PUBLIC core/entity/skeleton)
-target_include_directories(${WANDERER_LIB} PUBLIC core/entity/entitystate)
-target_include_directories(${WANDERER_LIB} PUBLIC core/entity/entitystate/delegates)
-target_include_directories(${WANDERER_LIB} PUBLIC visual)
-target_include_directories(${WANDERER_LIB} PUBLIC util)
-target_include_directories(${WANDERER_LIB} PUBLIC parse)
-target_include_directories(${WANDERER_LIB} PUBLIC parse/tiled)
-target_include_directories(${WANDERER_LIB} PUBLIC service)
-target_include_directories(${WANDERER_LIB} PUBLIC audio)
+wanderer_set_compiler_options(${WANDERER_LIB_TARGET})
 
-target_compile_definitions(${WANDERER_LIB} PUBLIC WANDERER_DEBUG)
+target_include_directories(${WANDERER_LIB_TARGET} SYSTEM PUBLIC ${LIBRARY_DIR}/cereal)
+add_header_only_lib(libENTT ${LIBRARY_DIR}/entt ${LIBRARY_DIR}/entt/entt.hpp)
+add_header_only_lib(libJSON ${LIBRARY_DIR}/json ${LIBRARY_DIR}/json/json.hpp)
+add_header_only_lib(libABBY ${LIBRARY_DIR}/abby ${LIBRARY_DIR}/abby/abby.hpp)
+add_header_only_lib(libDate ${LIBRARY_DIR}/date ${LIBRARY_DIR}/date/date.h)
 
-target_link_libraries(${WANDERER_LIB}
-        PUBLIC ${CENTURION_LIBRARIES}
-        PUBLIC ${SDL2_IMAGE_LIBRARIES}
-        PUBLIC ${SDL2_MIXER_LIBRARIES}
-        PUBLIC ${SDL2_TTF_LIBRARIES}
-        PUBLIC ${SDL2_LIBRARY})
+set(NAMED_TYPE_SOURCES
+    ${LIBRARY_DIR}/namedtype/named_type.hpp
+    ${LIBRARY_DIR}/namedtype/named_type_impl.hpp
+    ${LIBRARY_DIR}/namedtype/crtp.hpp
+    ${LIBRARY_DIR}/namedtype/underlying_functionalities.hpp)
+add_header_only_lib(libNamedType ${LIBRARY_DIR}/namedtype ${NAMED_TYPE_SOURCES})
 
-add_executable(${WANDERER_EXECUTABLE} main.cpp)
-set_target_properties(${WANDERER_EXECUTABLE} PROPERTIES
-        CXX_STANDARD 17
-        CXX_STANDARD_REQUIRED ON)
+# Library directories
+target_include_directories(${WANDERER_LIB_TARGET}
+    SYSTEM PUBLIC ${SDL2_INCLUDE_DIR}
+    SYSTEM PUBLIC ${SDL2_IMAGE_INCLUDE_DIRS}
+    SYSTEM PUBLIC ${SDL2_MIXER_INCLUDE_DIRS}
+    SYSTEM PUBLIC ${SDL2_TTF_INCLUDE_DIRS}
+    SYSTEM PUBLIC ${LIBRARY_DIR}/centurion
+    SYSTEM PUBLIC ${LIBRARY_DIR}/step)
 
-target_link_libraries(${WANDERER_EXECUTABLE}
-        PUBLIC mingw32
-        PUBLIC ${WANDERER_LIB}
-        PUBLIC ${CENTURION_LIBRARIES}
-        PUBLIC ${SDL2_LIBRARY}
-        PUBLIC ${SDL2_IMAGE_LIBRARIES}
-        PUBLIC ${SDL2_MIXER_LIBRARIES}
-        PUBLIC ${SDL2_TTF_LIBRARIES})
+# Wanderer directories
+target_include_directories(${WANDERER_LIB_TARGET}
+    PUBLIC .
+    PUBLIC component
+    PUBLIC component/event
+    PUBLIC core
+    PUBLIC core/action
+    PUBLIC core/aliases
+    PUBLIC core/ecs
+    PUBLIC core/level
+    PUBLIC core/math
+    PUBLIC core/resource
+    PUBLIC io
+    PUBLIC io/map
+    PUBLIC io/menu
+    PUBLIC io/saves
+    PUBLIC system
+    PUBLIC system/hud
+    PUBLIC system/humanoid
+    PUBLIC system/input
+    PUBLIC system/layer
+    PUBLIC system/menu
+    PUBLIC system/movement
+    PUBLIC system/saves
+    PUBLIC system/tile
+    PUBLIC system/viewport)
 
-# Copies all of the files in the bin folder and puts them next to the executable
-add_custom_command(
-        TARGET ${WANDERER_EXECUTABLE} POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy_directory
-        ${BINARIES_DIR}
-        ${CMAKE_CURRENT_BINARY_DIR})
+#target_compile_definitions(${WANDERER_LIB} PUBLIC WANDERER_DEBUG)
 
-# Copies all of the resources and puts the in the build folder
-add_custom_command(
-        TARGET ${WANDERER_EXECUTABLE} POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy_directory
-        ${RESOURCES_DIR}
-        ${CMAKE_CURRENT_BINARY_DIR}/resources)
+target_link_libraries(${WANDERER_LIB_TARGET}
+    PUBLIC ${SDL2_IMAGE_LIBRARIES}
+    PUBLIC ${SDL2_MIXER_LIBRARIES}
+    PUBLIC ${SDL2_TTF_LIBRARIES}
+    PUBLIC ${SDL2_LIBRARY}
+    PUBLIC libENTT
+    PUBLIC libJSON
+    PUBLIC libABBY
+    PUBLIC libNamedType
+    PUBLIC libDate)
 
+if (CMAKE_BUILD_TYPE STREQUAL "Release")
+  add_executable(${WANDERER_EXE_TARGET} WIN32 main.cpp)
+else ()
+  add_executable(${WANDERER_EXE_TARGET} main.cpp)
+endif ()
+
+target_link_libraries(${WANDERER_EXE_TARGET} PUBLIC ${WANDERER_LIB_TARGET})
+
+if (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+  copy_directory_post_build(${WANDERER_EXE_TARGET} ${BINARY_DIR} ${CMAKE_CURRENT_BINARY_DIR})
+endif ()
+
+copy_directory_post_build(${WANDERER_EXE_TARGET} ${RESOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR}/resource)

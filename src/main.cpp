@@ -1,21 +1,16 @@
-#include "centurion.h"
-#include "wanderer_controller.h"
-#include "wanderer_controller_factory.h"
+#include <cen/centurion.hpp>
+#include <cen/log.hpp>
 
-using namespace centurion;
+#include "wanderer_app.hpp"
+
 using namespace wanderer;
-
-static void run()
-{
-  auto controller = create_controller();
-  controller->run();
-}
 
 int main(int, char**)
 {
-  const Centurion c;
-  SDL_SetHint(SDL_HINT_RENDER_DRIVER, "opengl");
-  Log::set_priority(Log::Priority::Info);
-  run();
-  return 0;
+  cen::library lib;
+
+  cen::log::set_priority(cen::log::priority::info);
+
+  wanderer_app app;
+  return app.run();
 }

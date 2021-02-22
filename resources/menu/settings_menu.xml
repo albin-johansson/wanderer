@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<menu title="Settings" blocking="true" submenu="true">
-  <buttons>
-    <button text="Return" col="2" y="2" width="200" height="50" image="button.png"
-            action="GotoHome" />
-  </buttons>
-</menu>

@@ -1,29 +1,29 @@
-# Wanderer [![version](https://img.shields.io/badge/version-0.1.0-blue.svg)](https://semver.org) [![Language](https://img.shields.io/badge/C%2B%2B-17-blue.svg)](https://en.wikipedia.org/wiki/C%2B%2B#Standardization) ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/albin-johansson/Wanderer) ![GitHub repo size](https://img.shields.io/github/repo-size/albin-johansson/Wanderer) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+# Wanderer 
+[![Build status](https://ci.appveyor.com/api/projects/status/ly6ydfw5uf62lpqg?svg=true)](https://ci.appveyor.com/project/AlbinJohansson/wanderer) [![version](https://img.shields.io/badge/version-0.1.0-blue.svg)](https://semver.org) [![Language](https://img.shields.io/badge/C%2B%2B-17-blue.svg)](https://en.wikipedia.org/wiki/C%2B%2B#Standardization) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT) ![GitHub repo size](https://img.shields.io/github/repo-size/albin-johansson/Wanderer)
 
-An exploration based 2D game that is currently in development. 
+Wanderer is an 2D indie game, being developed for fun. At the time of writing, the game is still in an experimental state and isn't ready to be played.
 
-## Installation
+<p align="middle">
+  <img src="meta/house.png" width="45%"/> 
+  <img src="meta/bedroom.png" width="45%"/>
+  <img src="meta/tent.png" width="45%"/> 
+  <img src="meta/screenshot_plants.png" width="45%"/>
+</p>
 
-Wanderer is developed and compiled for Windows, so if you want to run the game on another OS, you'll
-need to compile the code by yourself. However, the code should be OS-independent through the use of SDL2 (through [Centurion](https://github.com/albin-johansson/Centurion)).
+## Compatibility
 
-- Install the [MinGW-w64](https://sourceforge.net/projects/mingw-w64/)
- runtime environment.
-- Add the MinGW and MinGW/bin folders to your system PATH environment variable.
+Wanderer is developed using MSVC, intended to run on Windows machines. As a result, the codebase occasionally takes
+advantage of minor non-standard improvements of the STL found in the MSVC STL implementation, such as better `noexcept` coverage. Other than that, the code should be platform independent.
 
-As long you're using Windows and have the MinGW environment installed correctly, you should be able to simply run the executable.
+## Dependencies
 
-## Contributors
+- [Centurion](https://github.com/albin-johansson/Centurion) A multi-media library built on top of SDL2.
+- [EnTT](https://github.com/skypjack/entt) An amazing ECS library. One of the best libraries I've ever used!
+- [step](https://github.com/albin-johansson/step) A parsing library for the Tiled JSON format. Was originally a part of the Wanderer codebase.
+- [json](https://github.com/nlohmann/json) Very well-written JSON library, despite being limited to C++11.
 
-Thanks to these following people for helping the development of the game by gladly giving feedback.
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
-<table>
-  <tr>
-    <td align="center"><a href="https://github.com/theowiik"><img src="https://avatars1.githubusercontent.com/u/42991003?v=4" width="100px;" alt=""/><br /><sub><b>theowiik</b></sub></a><br /><a href="#ideas-theowiik" title="Ideas, Planning, & Feedback">🤔</a></td>
-    <td align="center"> <a href="https://github.com/oscaralmstrom"><img src="https://avatars3.githubusercontent.com/u/42993328?v=4" width="100px;" alt=""/><br /><sub><b>oscaralmstrom</b></sub></a><br /> <a href="#ideas-oscaralmstrom" title="Ideas, Planning, & Feedback">🤔</a></td>
-  </tr>
-</table>
+## Acknowledgements
 
-<!-- markdownlint-enable -->
-<!-- prettier-ignore-end -->
+- [SimpleVoxelEngine (James Randall)](https://github.com/JamesRandall/SimpleVoxelEngine) The game makes use of an adapted version of the AABB tree written by James Randall for the Simple Voxel Engine project.
+- [Theo Wiik](https://github.com/theowiik) Helped with feedback and ideas.
+- [Oscar Almström](https://github.com/oscaralmstrom) Helped with feedback and ideas.
