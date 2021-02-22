@@ -11,8 +11,6 @@ set(SOURCE_FILES
 
     component/animated.hpp
     component/animated_tile.hpp
-    component/binds.hpp
-    component/button.hpp
     component/container_trigger.hpp
     component/cursors.hpp
     component/depth_drawable.hpp
@@ -21,7 +19,6 @@ set(SOURCE_FILES
     component/humanoid_state.hpp
     component/inventory.hpp
     component/item.hpp
-    component/key_bind.hpp
     component/level_switch_animation.hpp
     component/menu.hpp
     component/movable.hpp
@@ -50,6 +47,10 @@ set(SOURCE_FILES
     component/event/show_inventory_event.hpp
     component/event/switch_map_event.hpp
     component/event/switch_menu_event.hpp
+
+    component/input/binds.hpp
+    component/input/button.hpp
+    component/input/key_bind.hpp
 
     core/centurion_utils.hpp
     core/direction.hpp
@@ -245,6 +246,7 @@ target_include_directories(${WANDERER_LIB_TARGET}
     PUBLIC .
     PUBLIC component
     PUBLIC component/event
+    PUBLIC component/input
     PUBLIC core
     PUBLIC core/action
     PUBLIC core/aliases
