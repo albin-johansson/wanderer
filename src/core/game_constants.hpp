@@ -27,7 +27,6 @@ inline constexpr T tileSize{tileWidth<typename T::value_type>,
                             tileHeight<typename T::value_type>};
 
 inline constexpr float humanoidDrawWidth{tileWidth<> * 2.0f};
-
 inline constexpr float humanoidDrawHeight{tileHeight<> * 2.0f};
 
 template <typename T = cen::farea>
@@ -36,7 +35,6 @@ inline constexpr T humanoidDrawSize{humanoidDrawWidth, humanoidDrawHeight};
 inline constexpr cen::farea humanoidHitboxSize{32, 32};
 
 inline constexpr float playerSpeed{1.25f * humanoidDrawWidth};
-
 inline constexpr float monsterSpeed{0.75f * playerSpeed};
 
 inline constexpr cen::color transparentBlack =
