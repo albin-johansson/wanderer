@@ -23,7 +23,8 @@ template <typename T = float>
 inline constexpr T tileHeight{32};
 
 template <typename T = vector2f>
-inline constexpr T tileSize{tileWidth<>, tileHeight<>};
+inline constexpr T tileSize{tileWidth<typename T::value_type>,
+                            tileHeight<typename T::value_type>};
 
 inline constexpr float humanoidDrawWidth{tileWidth<> * 2.0f};
 
