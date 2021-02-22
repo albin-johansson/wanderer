@@ -52,10 +52,21 @@ level::level(const ir::level& data, graphics_context& graphics)
     drawable.texture = graphics.get_texture(drawable.textureId);
   });
 
-  m_player =
-      sys::add_player(m_registry, m_tree, *m_playerSpawnPosition, graphics);
-  auto& drawable = m_registry.get<comp::depth_drawable>(m_player);
-  drawable.layer = tilemap.humanoidLayer;
+  {
+    m_player =
+        sys::add_player(m_registry, m_tree, *m_playerSpawnPosition, graphics);
+    auto& drawable = m_registry.get<comp::depth_drawable>(m_player);
+    drawable.layer = tilemap.humanoidLayer;
+  }
+
+  each<comp::spawnpoint>([&, this](const comp::spawnpoint& sp) {
+    if (sp.type == comp::spawnpoint_type::skeleton) {
+      const auto e =
+          sys::add_skeleton(m_registry, m_tree, sp.position, graphics);
+      auto& drawable = m_registry.get<comp::depth_drawable>(e);
+      drawable.layer = tilemap.humanoidLayer;
+    }
+  });
 
   sys::center_viewport_on(m_registry, m_viewport, player_spawnpoint());
 

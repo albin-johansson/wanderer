@@ -276,6 +276,24 @@
                  "width":32,
                  "x":640,
                  "y":1114
+                }, 
+                {
+                 "height":0,
+                 "id":10,
+                 "name":"NPC spawnpoint",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"entity",
+                         "type":"string",
+                         "value":"skeleton"
+                        }],
+                 "rotation":0,
+                 "type":"Spawnpoint",
+                 "visible":true,
+                 "width":0,
+                 "x":781,
+                 "y":1078
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -284,7 +302,7 @@
          "y":0
         }],
  "nextlayerid":14,
- "nextobjectid":10,
+ "nextobjectid":11,
  "orientation":"orthogonal",
  "properties":[
         {
