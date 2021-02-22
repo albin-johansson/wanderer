@@ -11,14 +11,10 @@ set(SOURCE_FILES
 
     component/animated.hpp
     component/animated_tile.hpp
-    component/container_trigger.hpp
     component/cursors.hpp
     component/depth_drawable.hpp
-    component/gold.hpp
     component/hitbox.hpp
     component/humanoid_state.hpp
-    component/inventory.hpp
-    component/item.hpp
     component/level_switch_animation.hpp
     component/movable.hpp
     component/object.hpp
@@ -51,6 +47,11 @@ set(SOURCE_FILES
     component/input/button.hpp
     component/input/key_bind.hpp
     component/input/menu.hpp
+
+    component/inventory/container_trigger.hpp
+    component/inventory/gold.hpp
+    component/inventory/inventory.hpp
+    component/inventory/item.hpp
 
     core/centurion_utils.hpp
     core/direction.hpp
@@ -247,6 +248,7 @@ target_include_directories(${WANDERER_LIB_TARGET}
     PUBLIC component
     PUBLIC component/event
     PUBLIC component/input
+    PUBLIC component/inventory
     PUBLIC core
     PUBLIC core/action
     PUBLIC core/aliases
