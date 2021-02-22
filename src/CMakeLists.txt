@@ -12,6 +12,7 @@ set(SOURCE_FILES
     component/animated.hpp
     component/animated_tile.hpp
     component/binds.hpp
+    component/button.hpp
     component/container_trigger.hpp
     component/cursors.hpp
     component/depth_drawable.hpp
@@ -20,6 +21,7 @@ set(SOURCE_FILES
     component/humanoid_state.hpp
     component/inventory.hpp
     component/item.hpp
+    component/key_bind.hpp
     component/level_switch_animation.hpp
     component/menu.hpp
     component/movable.hpp
@@ -56,9 +58,17 @@ set(SOURCE_FILES
     core/graphics_context.hpp
     core/make_renderer.cpp
     core/make_renderer.hpp
+    core/menu_constants.hpp
+    core/menu_id.hpp
     core/null_entity.hpp
     core/serialization.hpp
     core/stack_resource.hpp
+
+    core/action/action.hpp
+    core/action/quit_action.cpp
+    core/action/quit_action.hpp
+    core/action/switch_menu_action.cpp
+    core/action/switch_menu_action.hpp
 
     core/aliases/aabb_tree.hpp
     core/aliases/buffer.hpp
@@ -74,10 +84,10 @@ set(SOURCE_FILES
     core/aliases/texture_id.hpp
     core/aliases/tile_id.hpp
 
-    core/event/event_connections.cpp
-    core/event/event_connections.hpp
-    core/event/make_dispatcher.cpp
-    core/event/make_dispatcher.hpp
+    core/ecs/event_connections.cpp
+    core/ecs/event_connections.hpp
+    core/ecs/make_dispatcher.cpp
+    core/ecs/make_dispatcher.hpp
 
     core/level/add_ground_layers.cpp
     core/level/add_ground_layers.hpp
@@ -100,18 +110,11 @@ set(SOURCE_FILES
     core/math/index_to_matrix.hpp
     core/math/vector2.hpp
 
-    core/menu/key_bind.hpp
-    core/menu/menu_action.hpp
-    core/menu/menu_button.cpp
-    core/menu/menu_button.hpp
-    core/menu/menu_constants.hpp
-    core/menu/menu_id.hpp
-
-    core/registry/add_humanoid_state_dependencies.cpp
-    core/registry/add_humanoid_state_dependencies.hpp
-    core/registry/make_registry.cpp
-    core/registry/make_registry.hpp
-    core/registry/registry_utils.hpp
+    core/ecs/add_humanoid_state_dependencies.cpp
+    core/ecs/add_humanoid_state_dependencies.hpp
+    core/ecs/make_registry.cpp
+    core/ecs/make_registry.hpp
+    core/ecs/registry_utils.hpp
 
     core/resource/texture_loader.hpp
 
@@ -129,6 +132,7 @@ set(SOURCE_FILES
     io/map/parse_world.cpp
     io/map/parse_world.hpp
 
+    io/menu/menu_action.hpp
     io/menu/parse_menu.cpp
     io/menu/parse_menu.hpp
 
@@ -139,6 +143,10 @@ set(SOURCE_FILES
     io/saves/save_file_info.hpp
     io/saves/save_game.cpp
     io/saves/save_game.hpp
+
+    io/files_directory.cpp
+    io/files_directory.hpp
+    io/ini.hpp
 
     system/animation_system.cpp
     system/animation_system.hpp
@@ -179,6 +187,8 @@ set(SOURCE_FILES
     system/layer/layer_rendering_system.hpp
     system/layer/layer_system.hpp
 
+    system/menu/button_system.cpp
+    system/menu/button_system.hpp
     system/menu/menu_system.cpp
     system/menu/menu_system.hpp
 
@@ -202,11 +212,7 @@ set(SOURCE_FILES
     system/viewport/make_viewport.cpp
     system/viewport/make_viewport.hpp
     system/viewport/viewport_system.cpp
-    system/viewport/viewport_system.hpp
-
-    util/files_directory.cpp
-    util/files_directory.hpp
-    util/ini.hpp)
+    system/viewport/viewport_system.hpp)
 
 add_library(${WANDERER_LIB_TARGET} ${SOURCE_FILES})
 
@@ -216,7 +222,6 @@ target_include_directories(${WANDERER_LIB_TARGET} SYSTEM PUBLIC ${LIBRARY_DIR}/c
 add_header_only_lib(libENTT ${LIBRARY_DIR}/entt ${LIBRARY_DIR}/entt/entt.hpp)
 add_header_only_lib(libJSON ${LIBRARY_DIR}/json ${LIBRARY_DIR}/json/json.hpp)
 add_header_only_lib(libABBY ${LIBRARY_DIR}/abby ${LIBRARY_DIR}/abby/abby.hpp)
-add_header_only_lib(libIniPP ${LIBRARY_DIR}/inipp ${LIBRARY_DIR}/inipp/inipp.h)
 add_header_only_lib(libDate ${LIBRARY_DIR}/date ${LIBRARY_DIR}/date/date.h)
 
 set(NAMED_TYPE_SOURCES
@@ -241,12 +246,11 @@ target_include_directories(${WANDERER_LIB_TARGET}
     PUBLIC component
     PUBLIC component/event
     PUBLIC core
+    PUBLIC core/action
     PUBLIC core/aliases
-    PUBLIC core/event
+    PUBLIC core/ecs
     PUBLIC core/level
     PUBLIC core/math
-    PUBLIC core/menu
-    PUBLIC core/registry
     PUBLIC core/resource
     PUBLIC io
     PUBLIC io/map
@@ -261,8 +265,7 @@ target_include_directories(${WANDERER_LIB_TARGET}
     PUBLIC system/movement
     PUBLIC system/saves
     PUBLIC system/tile
-    PUBLIC system/viewport
-    PUBLIC util)
+    PUBLIC system/viewport)
 
 #target_compile_definitions(${WANDERER_LIB} PUBLIC WANDERER_DEBUG)
 
@@ -275,7 +278,6 @@ target_link_libraries(${WANDERER_LIB_TARGET}
     PUBLIC libJSON
     PUBLIC libABBY
     PUBLIC libNamedType
-    PUBLIC libIniPP
     PUBLIC libDate)
 
 if (CMAKE_BUILD_TYPE STREQUAL "Release")

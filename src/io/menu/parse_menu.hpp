@@ -1,5 +1,6 @@
 #pragma once
 
+#include <entt.hpp>    // registry
 #include <filesystem>  // path
 
 #include "menu.hpp"
@@ -11,12 +12,14 @@ namespace wanderer {
  *
  * \details This function throws if the menu file has an incorrect format.
  *
+ * \param registry the menu registry.
  * \param path the file path of the menu file.
  *
- * \return the parsed menu.
+ * \return the parsed menu entity.
  *
  * \since 0.1.0
  */
-[[nodiscard]] auto parse_menu(const std::filesystem::path& path) -> comp::menu;
+auto parse_menu(entt::registry& registry, const std::filesystem::path& path)
+    -> comp::menu::entity;
 
 }  // namespace wanderer

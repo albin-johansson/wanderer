@@ -1,104 +1,41 @@
 #include "menu_system.hpp"
 
+#include "button_system.hpp"
 #include "cursors.hpp"
 #include "game_constants.hpp"
 #include "menu_constants.hpp"
 #include "parse_menu.hpp"
-#include "quit_event.hpp"
-#include "registry_utils.hpp"
 #include "switch_menu_event.hpp"
 
 namespace wanderer::sys {
 namespace {
-
-void perform_action(entt::dispatcher& dispatcher, const menu_action action)
-{
-  switch (action) {
-    case menu_action::quit: {
-      dispatcher.enqueue<comp::quit_event>();
-      break;
-    }
-    case menu_action::goto_in_game: {
-      dispatcher.enqueue<comp::switch_menu_event>(menu_id::in_game);
-      break;
-    }
-    case menu_action::goto_home: {
-      dispatcher.enqueue<comp::switch_menu_event>(menu_id::home);
-      break;
-    }
-    case menu_action::goto_settings: {
-      dispatcher.enqueue<comp::switch_menu_event>(menu_id::settings);
-      break;
-    }
-    case menu_action::goto_saves: {
-      dispatcher.enqueue<comp::switch_menu_event>(menu_id::saves);
-      break;
-    }
-    case menu_action::goto_controls: {
-      dispatcher.enqueue<comp::switch_menu_event>(menu_id::controls);
-      break;
-    }
-  }
-}
-
-void query_buttons(entt::registry& registry,
-                   entt::dispatcher& dispatcher,
-                   comp::menu& menu,
-                   const cen::mouse_state& mouseState)
-{
-  auto& cursors = singleton<comp::cursors>(registry);
-  auto& hand = cursors.data.at(cen::system_cursor::hand);
-
-  maybe<menu_action> action;
-  const auto mousePos = cen::cast<cen::fpoint>(mouseState.mouse_pos());
-  bool hover{};
-
-  for (auto& button : menu.buttons) {
-    if (button.contains(mousePos)) {
-      hover = true;
-      button.set_hover(true);
-      if (mouseState.was_left_button_released()) {
-        action = button.action();
-      }
-    } else {
-      button.set_hover(false);
-    }
-  }
-
-  if (hover) {
-    hand.enable();
-  } else {
-    cen::cursor::reset();
-  }
-
-  if (action) {
-    perform_action(dispatcher, *action);
-  }
-}
 
 void query_binds(entt::registry& registry,
                  entt::dispatcher& dispatcher,
                  comp::menu& menu,
                  const cen::key_state& keyState)
 {
-  for (const auto& bind : menu.binds) {
+  for (const auto entity : menu.binds) {
+    auto& bind = registry.get<comp::key_bind>(entity);
     if (keyState.was_just_released(bind.key)) {
-      perform_action(dispatcher, bind.action);
+      if (bind.action) {
+        bind.action->execute(dispatcher);
+      }
     }
   }
 }
 
-void render_title(const comp::menu& menu, cen::renderer& renderer)
+void render_title(const comp::menu_drawable& drawable, cen::renderer& renderer)
 {
-  const auto& texture = menu.titleTexture.value();
+  const auto& texture = drawable.titleTexture.value();
 
-  if (!menu.titlePos) {
+  if (!drawable.titlePos) {
     const auto x = (glob::logicalWidth<int> / 2) - (texture.width() / 2);
     const auto y = glob::menuRowSize * 2;
-    menu.titlePos = {x, y};
+    drawable.titlePos = {x, y};
   }
 
-  renderer.render<int>(texture, *menu.titlePos);
+  renderer.render<int>(texture, *drawable.titlePos);
 }
 
 }  // namespace
@@ -106,18 +43,12 @@ void render_title(const comp::menu& menu, cen::renderer& renderer)
 auto create_menus() -> entt::registry
 {
   entt::registry registry;
-  const auto home = registry.create();
 
-  registry.emplace<comp::menu>(home,
-                               parse_menu("resource/menu/home_menu.json"));
-  registry.emplace<comp::menu>(registry.create(),
-                               parse_menu("resource/menu/in_game_menu.json"));
-  registry.emplace<comp::menu>(registry.create(),
-                               parse_menu("resource/menu/settings_menu.json"));
-  registry.emplace<comp::menu>(registry.create(),
-                               parse_menu("resource/menu/controls_menu.json"));
-  registry.emplace<comp::menu>(registry.create(),
-                               parse_menu("resource/menu/saves_menu.json"));
+  const auto home = parse_menu(registry, "resource/menu/home_menu.json");
+  parse_menu(registry, "resource/menu/in_game_menu.json");
+  parse_menu(registry, "resource/menu/settings_menu.json");
+  parse_menu(registry, "resource/menu/controls_menu.json");
+  parse_menu(registry, "resource/menu/saves_menu.json");
 
   registry.emplace<comp::active_menu>(home);
 
@@ -133,8 +64,14 @@ void update_menu(entt::registry& registry,
                  const cen::key_state& keyState)
 {
   const auto view = registry.view<comp::active_menu, comp::menu>();
-  view.each([&](comp::menu& menu) {
-    query_buttons(registry, dispatcher, menu, mouseState);
+  view.each([&](const entt::entity entity, comp::menu& menu) {
+    if (const auto button = update_button_hover(registry,
+                                                comp::menu::entity{entity},
+                                                mouseState)) {
+      query_button(registry, dispatcher, mouseState, *button);
+    } else {
+      cen::cursor::reset();
+    }
     query_binds(registry, dispatcher, menu, keyState);
   });
 }
@@ -153,28 +90,30 @@ void switch_menu(entt::registry& registry, const menu_id id)
 
 void render_menu(const entt::registry& registry, cen::renderer& renderer)
 {
-  const auto view = registry.view<const comp::active_menu, const comp::menu>();
-  view.each([&](const comp::menu& menu) {
+  const auto view = registry.view<const comp::active_menu,
+                                  const comp::menu,
+                                  const comp::menu_drawable>();
+  view.each([&](const comp::menu& menu, const comp::menu_drawable& drawable) {
     if (menu.blocking) {
       renderer.fill_with(glob::transparentBlack);
     }
 
-    for (const auto& button : menu.buttons) {
-      button.render(renderer);
+    for (const auto entity : menu.buttons) {
+      render_button(registry, renderer, entity);
     }
 
     if (menu.title.empty()) {
       return;  // nothing more to do if there is no title
     }
 
-    if (!menu.titleTexture) {
+    if (auto& texture = drawable.titleTexture; !texture.has_value()) {
       auto& font = renderer.get_font(glob::menuMediumFont);
+
       renderer.set_color(cen::colors::white);
-      menu.titleTexture =
-          renderer.render_blended_utf8(menu.title.c_str(), font);
+      texture = renderer.render_blended_utf8(menu.title.c_str(), font);
     }
 
-    render_title(menu, renderer);
+    render_title(drawable, renderer);
   });
 }
 
