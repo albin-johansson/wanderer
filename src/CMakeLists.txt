@@ -20,7 +20,6 @@ set(SOURCE_FILES
     component/inventory.hpp
     component/item.hpp
     component/level_switch_animation.hpp
-    component/menu.hpp
     component/movable.hpp
     component/object.hpp
     component/particle.hpp
@@ -51,6 +50,7 @@ set(SOURCE_FILES
     component/input/binds.hpp
     component/input/button.hpp
     component/input/key_bind.hpp
+    component/input/menu.hpp
 
     core/centurion_utils.hpp
     core/direction.hpp
