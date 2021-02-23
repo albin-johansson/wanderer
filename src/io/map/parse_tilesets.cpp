@@ -2,6 +2,7 @@
 
 #include <entt.hpp>  // hashed_string
 
+#include "game_constants.hpp"
 #include "parse_tile.hpp"
 
 namespace wanderer {
@@ -51,6 +52,8 @@ auto parse_tilesets(const tileset_collection& tilesets,
 
     const auto path = directory / stepTileset->image();
     tileset.sheet = create_texture(path);
+    tileset.xRatio = glob::tile_width<> / stepTileset->tile_width();
+    tileset.yRatio = glob::tile_height<> / stepTileset->tile_height();
 
     add_tiles(*stepTileset, tileset);
     parse_fancy_tiles(tileset, *stepTileset);

@@ -17,10 +17,10 @@ template <typename T = cen::iarea>
 inline constexpr T logical_size{logical_width<>, logical_height<>};
 
 template <typename T = float>
-inline constexpr T tile_width{32};  // FIXME must be 32, check parse systems
+inline constexpr T tile_width{64};
 
 template <typename T = float>
-inline constexpr T tile_height{32};  // FIXME must be 32, check parse systems
+inline constexpr T tile_height{64};
 
 template <typename T = vector2f>
 inline constexpr T tile_size{tile_width<typename T::value_type>,
@@ -32,8 +32,6 @@ inline constexpr float humanoid_draw_height{tile_height<> * 2.0f};
 template <typename T = cen::farea>
 inline constexpr T humanoid_draw_size{humanoid_draw_width,
                                       humanoid_draw_height};
-
-// inline constexpr cen::farea humanoid_hitbox_size{32, 32};
 
 inline constexpr float player_speed{1.25f * humanoid_draw_width};
 inline constexpr float monster_speed{0.75f * player_speed};

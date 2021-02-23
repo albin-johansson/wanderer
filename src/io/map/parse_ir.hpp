@@ -48,6 +48,8 @@ struct tileset final
 {
   texture sheet;
   std::map<tile_id, tile> tiles;  ///< Tiles in the tileset.
+  float xRatio;
+  float yRatio;
 };
 
 struct object final
@@ -74,6 +76,10 @@ struct level final
   int humanoidLayer;          ///< Layer index where humanoids are rendered.
   int nRows;                  ///< The number of rows in the levels.
   int nCols;                  ///< The number of columns in the levels.
+  int tileWidth;              ///< Width of a tile in the tilemap.
+  int tileHeight;             ///< Height of a tile in the tilemap.
+  float xRatio;
+  float yRatio;
   cen::farea size;            ///< The size of the level, in pixels.
   vector2f playerSpawnPoint;  ///< The initial position of the player.
   std::vector<ir::tileset> tilesets;           ///< Tilesets used by the level.

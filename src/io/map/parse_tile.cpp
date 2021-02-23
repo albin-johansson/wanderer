@@ -40,13 +40,16 @@ void add_animation(ir::fancy_tile& tileData,
   }
 }
 
-void add_hitbox(ir::fancy_tile& tileData, const step::object& object)
+void add_hitbox(ir::fancy_tile& tileData,
+                const step::object& object,
+                const float xRatio,
+                const float yRatio)
 {
-  const vector2f offset{static_cast<float>(object.x()),
-                        static_cast<float>(object.y())};
+  const vector2f offset{static_cast<float>(object.x()) * xRatio,
+                        static_cast<float>(object.y()) * yRatio};
 
-  const cen::farea size{static_cast<float>(object.width()),
-                        static_cast<float>(object.height())};
+  const cen::farea size{static_cast<float>(object.width()) * xRatio,
+                        static_cast<float>(object.height()) * yRatio};
 
   tileData.hitbox = sys::create_hitbox({{offset, size}});
 }
@@ -97,7 +100,7 @@ auto parse_fancy_tile(ir::tileset& data,
       assert(group->objects().size() == 1);
       const auto& object = group->objects().at(0);
       if (object.type() == "Hitbox") {
-        add_hitbox(result, object);
+        add_hitbox(result, object, data.xRatio, data.yRatio);
       }
     }
   }

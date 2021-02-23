@@ -19,6 +19,10 @@ namespace {
 
   data.nCols = stepMap.width();
   data.nRows = stepMap.height();
+  data.tileWidth = stepMap.tile_width();
+  data.tileHeight = stepMap.tile_height();
+  data.xRatio = glob::tile_width<> / static_cast<float>(data.tileWidth);
+  data.yRatio = glob::tile_height<> / static_cast<float>(data.tileHeight);
   data.size.width = static_cast<float>(data.nCols) * glob::tile_width<>;
   data.size.height = static_cast<float>(data.nRows) * glob::tile_height<>;
 

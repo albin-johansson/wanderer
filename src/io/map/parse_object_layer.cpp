@@ -8,18 +8,19 @@
 namespace wanderer {
 namespace {
 
-[[nodiscard]] auto make_simple_hitbox(const step::object& object)
-    -> comp::hitbox
+[[nodiscard]] auto make_hitbox(const step::object& object,
+                               const float xRatio,
+                               const float yRatio) -> comp::hitbox
 {
-  const cen::farea size{static_cast<float>(object.width()),
-                        static_cast<float>(object.height())};
+  const cen::farea size{static_cast<float>(object.width()) * xRatio,
+                        static_cast<float>(object.height()) * yRatio};
   const comp::subhitbox subhitbox{{}, size};
 
   auto hitbox = sys::create_hitbox({subhitbox});
   hitbox.enabled = false;
 
-  const vector2f pos{static_cast<float>(object.x()),
-                     static_cast<float>(object.y())};
+  const vector2f pos{static_cast<float>(object.x()) * xRatio,
+                     static_cast<float>(object.y()) * yRatio};
   sys::set_position(hitbox, pos);
 
   return hitbox;
@@ -39,11 +40,12 @@ namespace {
   }
 }
 
-[[nodiscard]] auto parse_spawnpoint(const step::object& stepObject)
-    -> comp::spawnpoint
+[[nodiscard]] auto parse_spawnpoint(const step::object& stepObject,
+                                    const float xRatio,
+                                    const float yRatio) -> comp::spawnpoint
 {
-  const vector2f position{static_cast<float>(stepObject.x()),
-                          static_cast<float>(stepObject.y())};
+  const vector2f position{static_cast<float>(stepObject.x()) * xRatio,
+                          static_cast<float>(stepObject.y()) * yRatio};
 
   const auto* props = stepObject.get_properties();
   assert(props);
@@ -119,7 +121,8 @@ void parse_object_layer(ir::level& data,
 
     const auto type = stepObject.type();
     if (type == "Spawnpoint") {
-      objectData.spawnpoint = parse_spawnpoint(stepObject);
+      objectData.spawnpoint =
+          parse_spawnpoint(stepObject, data.xRatio, data.yRatio);
 
       if (objectData.spawnpoint->type == comp::spawnpoint_type::player) {
         data.playerSpawnPoint = objectData.spawnpoint->position;
@@ -127,14 +130,14 @@ void parse_object_layer(ir::level& data,
 
     } else if (type == "Portal") {
       objectData.portal = parse_portal(stepObject);
-      objectData.hitbox = make_simple_hitbox(stepObject);
+      objectData.hitbox = make_hitbox(stepObject, data.xRatio, data.yRatio);
 
     } else if (type == "Container") {
       objectData.inventory = parse_container(stepObject);
 
     } else if (type == "ContainerTrigger") {
       objectData.inventoryRef = parse_container_trigger(stepObject);
-      objectData.hitbox = make_simple_hitbox(stepObject);
+      objectData.hitbox = make_hitbox(stepObject, data.xRatio, data.yRatio);
     }
   }
 }

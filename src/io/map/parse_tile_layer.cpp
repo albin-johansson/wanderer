@@ -79,8 +79,9 @@ void add_tile_object(ir::level& data,
   tileObjectData.tile = tile.id;
 
   const auto [row, col] = index_to_matrix(tileIndex, data.nCols);
-  const cen::fpoint position{static_cast<float>(col) * glob::tile_width<>,
-                             static_cast<float>(row) * glob::tile_height<>};
+  const auto x = col * data.tileWidth * data.xRatio;
+  const auto y = row * data.tileHeight * data.yRatio;
+  const cen::fpoint position{x, y};
 
   tileObjectData.drawable = add_depth_drawable(tile, position, zIndex);
 
