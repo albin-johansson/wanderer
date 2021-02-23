@@ -50,7 +50,7 @@ using tile_data = step::detail::data::gid_data;  // FIXME
   //  drawable.texture = tile.texture;
   drawable.textureId = tile.texture;
   drawable.src = tile.source;
-  drawable.dst = {dstPos, glob::tileSize<cen::farea>};
+  drawable.dst = {dstPos, glob::tile_size<cen::farea>};
   drawable.centerY = dstPos.y() + (drawable.dst.height() / 2.0f);
   drawable.layer = zIndex;
 
@@ -79,8 +79,8 @@ void add_tile_object(ir::level& data,
   tileObjectData.tile = tile.id;
 
   const auto [row, col] = index_to_matrix(tileIndex, data.nCols);
-  const cen::fpoint position{static_cast<float>(col) * glob::tileWidth<>,
-                             static_cast<float>(row) * glob::tileHeight<>};
+  const cen::fpoint position{static_cast<float>(col) * glob::tile_width<>,
+                             static_cast<float>(row) * glob::tile_height<>};
 
   tileObjectData.drawable = add_depth_drawable(tile, position, zIndex);
 

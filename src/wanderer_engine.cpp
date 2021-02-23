@@ -7,22 +7,20 @@
 namespace wanderer {
 
 wanderer_engine::wanderer_engine()
-#ifndef NDEBUG
-    : m_window{"Wanderer", {1440, 810}}
-    ,
-#else
-    : m_window{"Wanderer", cen::screen::size()}
-    ,
-#endif
-    m_graphics{m_window}
+    : m_window{"Wanderer"}
+    , m_graphics{m_window}
     , m_game{m_graphics}
 {
 #ifdef NDEBUG
+  m_window.set_size(cen::screen::size());
   m_window.set_fullscreen(true);
+#else
+  m_window.set_width(cen::screen::width() / 2);
+  m_window.set_height(cen::screen::height() / 2);
 #endif
 
-  m_mouseState.set_logical_width(glob::logicalWidth<>);
-  m_mouseState.set_logical_height(glob::logicalHeight<>);
+  m_mouseState.set_logical_width(glob::logical_width<>);
+  m_mouseState.set_logical_height(glob::logical_height<>);
 }
 
 auto wanderer_engine::handle_input() -> bool

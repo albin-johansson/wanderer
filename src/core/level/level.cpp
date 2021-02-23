@@ -57,6 +57,8 @@ level::level(const ir::level& data, graphics_context& graphics)
   sys::center_viewport_on(m_registry, m_viewport, player_spawnpoint());
   sys::update_drawable_movables(m_registry);
   m_tree.rebuild();
+
+  sys::sort_drawables(m_registry);
 }
 
 level::level(const std::filesystem::path& path, graphics_context& graphics)

@@ -35,7 +35,7 @@ void render_level_switch_animations(const entt::registry& registry,
 {
   const auto view = registry.view<const comp::level_switch_animation>();
   view.each([&](const comp::level_switch_animation& animation) noexcept {
-    constexpr auto logicalSize = glob::logicalSize<cen::farea>;
+    constexpr auto logicalSize = glob::logical_size<cen::farea>;
     constexpr auto width = logicalSize.width;
     constexpr auto height = logicalSize.height;
 
@@ -62,8 +62,8 @@ void start_level_fade_animation(entt::registry& registry, const map_id map)
   anim.map = map;
   anim.step = 0;
   anim.nSteps = static_cast<int>(nSteps);
-  anim.hStepSize = (glob::logicalWidth<float> / 2.0f) / nSteps;
-  anim.vStepSize = (glob::logicalHeight<float> / 2.0f) / nSteps;
+  anim.hStepSize = (glob::logical_width<float> / 2.0f) / nSteps;
+  anim.vStepSize = (glob::logical_height<float> / 2.0f) / nSteps;
   anim.fadingIn = true;
 }
 

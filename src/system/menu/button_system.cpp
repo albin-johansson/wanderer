@@ -1,8 +1,6 @@
 #include "button_system.hpp"
 
 #include "cursors.hpp"
-#include "game_constants.hpp"
-#include "menu_constants.hpp"
 #include "registry_utils.hpp"
 
 namespace wanderer::sys {
@@ -14,26 +12,18 @@ void update_bounds(const comp::button& button,
 {
   auto& bounds = drawable.bounds;
 
-  auto& font = renderer.get_font(glob::menuSmallFont);
+  auto& font = renderer.get_font(glob::menu_font_s);
   const auto [width, height] = font.string_size(button.text.c_str());
   bounds.set_size({width * 1.25f, height * 1.75f});
 
-  const auto calcX = [&]() -> int {
-    const auto width = static_cast<int>(bounds.width());
+  const auto halfWidth = static_cast<int>(bounds.width()) / 2;
+  const auto halfHeight = static_cast<int>(bounds.height()) / 2;
 
-    // make button centered if column index is -1
-    if (button.col == -1) {
-      return (glob::logicalWidth<int> / 2) - (width / 2);
-    } else {
-      return (button.col * glob::menuColSize) - (width / 2);
-    }
-  };
+  const auto x = convert_column_to_x(button.col) - halfWidth;
+  const auto y = (button.row * glob::menu_row_size) - halfHeight;
 
-  const auto y = static_cast<float>(button.row * glob::menuRowSize) -
-                 (bounds.height() / 2.0f);
-
-  bounds.set_x(static_cast<float>(calcX()));
-  bounds.set_y(y);
+  bounds.set_x(static_cast<float>(x));
+  bounds.set_y(static_cast<float>(y));
 }
 
 [[nodiscard]] auto to_texture(cen::renderer& renderer,
@@ -47,7 +37,7 @@ void init_text(const comp::button_drawable& drawable,
                const std::string& text,
                cen::renderer& renderer)
 {
-  const auto& font = renderer.get_font(glob::menuSmallFont);
+  const auto& font = renderer.get_font(glob::menu_font_s);
 
   renderer.set_color(cen::colors::white);
   drawable.texture.emplace(to_texture(renderer, text, font));
@@ -62,7 +52,7 @@ void render_text(const comp::button& button,
   }
 
   if (!drawable.textPos) {
-    const auto& font = renderer.get_font(glob::menuSmallFont);
+    const auto& font = renderer.get_font(glob::menu_font_s);
     const auto [width, height] = font.string_size(button.text.c_str());
     const auto x = drawable.bounds.center_x() - (width / 2.0f);
     const auto y = drawable.bounds.center_y() - (height / 2.0f);

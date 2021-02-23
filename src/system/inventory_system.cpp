@@ -24,7 +24,7 @@ inline constexpr cen::iarea cellSize{cellWidth, cellHeight};
   constexpr cen::iarea area{(cellWidth + offset) * nCols,
                             (cellHeight + offset) * nRows};
 
-  constexpr auto logicalSize = glob::logicalSize<>;
+  constexpr auto logicalSize = glob::logical_size<>;
   constexpr auto x = (logicalSize.width - area.width) / 2;
   constexpr auto y = (logicalSize.height - area.height) / 2;
 
@@ -67,7 +67,7 @@ void render_inventory(const entt::registry& registry,
   view.each([&](const comp::inventory& inventory) {
     const auto nItems = inventory.items.size();
 
-    renderer.fill_with(glob::transparentBlack);
+    renderer.fill_with(glob::transparent_black);
 
     maybe<int> hoverIndex;
     auto index = 0;

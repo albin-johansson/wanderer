@@ -8,36 +8,37 @@
 namespace wanderer::glob {
 
 template <typename T = int>
-inline constexpr T logicalWidth{480};  // 960
+inline constexpr T logical_width{960};
 
 template <typename T = int>
-inline constexpr T logicalHeight{270};  // 540
+inline constexpr T logical_height{540};
 
 template <typename T = cen::iarea>
-inline constexpr T logicalSize{logicalWidth<>, logicalHeight<>};
+inline constexpr T logical_size{logical_width<>, logical_height<>};
 
 template <typename T = float>
-inline constexpr T tileWidth{32};
+inline constexpr T tile_width{32};  // FIXME must be 32, check parse systems
 
 template <typename T = float>
-inline constexpr T tileHeight{32};
+inline constexpr T tile_height{32};  // FIXME must be 32, check parse systems
 
 template <typename T = vector2f>
-inline constexpr T tileSize{tileWidth<typename T::value_type>,
-                            tileHeight<typename T::value_type>};
+inline constexpr T tile_size{tile_width<typename T::value_type>,
+                             tile_height<typename T::value_type>};
 
-inline constexpr float humanoidDrawWidth{tileWidth<> * 2.0f};
-inline constexpr float humanoidDrawHeight{tileHeight<> * 2.0f};
+inline constexpr float humanoid_draw_width{tile_width<> * 2.0f};
+inline constexpr float humanoid_draw_height{tile_height<> * 2.0f};
 
 template <typename T = cen::farea>
-inline constexpr T humanoidDrawSize{humanoidDrawWidth, humanoidDrawHeight};
+inline constexpr T humanoid_draw_size{humanoid_draw_width,
+                                      humanoid_draw_height};
 
-inline constexpr cen::farea humanoidHitboxSize{32, 32};
+// inline constexpr cen::farea humanoid_hitbox_size{32, 32};
 
-inline constexpr float playerSpeed{1.25f * humanoidDrawWidth};
-inline constexpr float monsterSpeed{0.75f * playerSpeed};
+inline constexpr float player_speed{1.25f * humanoid_draw_width};
+inline constexpr float monster_speed{0.75f * player_speed};
 
-inline constexpr cen::color transparentBlack =
+inline constexpr cen::color transparent_black =
     cen::colors::black.with_alpha(0xAA);
 
 }  // namespace wanderer::glob

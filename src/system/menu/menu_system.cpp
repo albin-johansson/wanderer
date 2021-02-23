@@ -1,10 +1,16 @@
 #include "menu_system.hpp"
 
+#include <cen/log.hpp>
+#include <filesystem>
+
 #include "button_system.hpp"
 #include "cursors.hpp"
+#include "files_directory.hpp"
 #include "game_constants.hpp"
 #include "menu_constants.hpp"
+#include "menu_factory_system.hpp"
 #include "parse_menu.hpp"
+#include "saves_menu_system.hpp"
 #include "switch_menu_event.hpp"
 
 namespace wanderer::sys {
@@ -25,13 +31,56 @@ void query_binds(entt::registry& registry,
   }
 }
 
-void render_title(const comp::menu_drawable& drawable, cen::renderer& renderer)
+void render_lines(const entt::registry& registry,
+                  const comp::menu_drawable& drawable,
+                  cen::renderer& renderer)
 {
-  const auto& texture = drawable.titleTexture.value();
+  renderer.set_color(cen::colors::white);
+
+  for (const auto entity : drawable.lines) {
+    const auto& line = registry.get<comp::line>(entity);
+    renderer.draw_line(line.start, line.end);
+  }
+}
+
+void render_labels(const entt::registry& registry,
+                   const comp::menu_drawable& drawable,
+                   cen::renderer& renderer)
+{
+  const auto& font = renderer.get_font(glob::menu_font_s);
+
+  for (const auto entity : drawable.labels) {
+    const auto& label = registry.get<comp::label>(entity);
+
+    if (auto& texture = label.texture; !texture) {
+      renderer.set_color(label.color);
+      texture = renderer.render_blended_utf8(label.text.c_str(), font);
+    }
+
+    renderer.render(*label.texture, label.position);
+  }
+}
+
+void render_title(const std::string& title,
+                  const comp::menu_drawable& drawable,
+                  cen::renderer& renderer)
+{
+  if (title.empty()) {
+    return;
+  }
+
+  if (auto& texture = drawable.titleTexture; !texture.has_value()) {
+    auto& font = renderer.get_font(glob::menu_font_m);
+
+    renderer.set_color(cen::colors::white);
+    texture = renderer.render_blended_utf8(title.c_str(), font);
+  }
+
+  const auto& texture = *drawable.titleTexture;
 
   if (!drawable.titlePos) {
-    const auto x = (glob::logicalWidth<int> / 2) - (texture.width() / 2);
-    const auto y = glob::menuRowSize * 2;
+    const auto x = (glob::logical_width<int> / 2) - (texture.width() / 2);
+    const auto y = convert_row_to_y(2);
     drawable.titlePos = {x, y};
   }
 
@@ -48,7 +97,7 @@ auto create_menus() -> entt::registry
   parse_menu(registry, "resource/menu/in_game_menu.json");
   parse_menu(registry, "resource/menu/settings_menu.json");
   parse_menu(registry, "resource/menu/controls_menu.json");
-  parse_menu(registry, "resource/menu/saves_menu.json");
+  create_saves_menu(registry);
 
   registry.emplace<comp::active_menu>(home);
 
@@ -84,6 +133,10 @@ void switch_menu(entt::registry& registry, const menu_id id)
   view.each([&](const entt::entity e, const comp::menu& menu) {
     if (menu.id == id) {
       registry.emplace<comp::active_menu>(e);
+
+      if (menu.id == menu_id::saves) {
+        refresh_saves_menu(registry);
+      }
     }
   });
 }
@@ -95,25 +148,17 @@ void render_menu(const entt::registry& registry, cen::renderer& renderer)
                                   const comp::menu_drawable>();
   view.each([&](const comp::menu& menu, const comp::menu_drawable& drawable) {
     if (menu.blocking) {
-      renderer.fill_with(glob::transparentBlack);
+      renderer.fill_with(glob::transparent_black);
     }
+
+    render_lines(registry, drawable, renderer);
+    render_labels(registry, drawable, renderer);
 
     for (const auto button : menu.buttons) {
       render_button(registry, button, renderer);
     }
 
-    if (menu.title.empty()) {
-      return;  // nothing more to do if there is no title
-    }
-
-    if (auto& texture = drawable.titleTexture; !texture.has_value()) {
-      auto& font = renderer.get_font(glob::menuMediumFont);
-
-      renderer.set_color(cen::colors::white);
-      texture = renderer.render_blended_utf8(menu.title.c_str(), font);
-    }
-
-    render_title(drawable, renderer);
+    render_title(menu.title, drawable, renderer);
   });
 }
 

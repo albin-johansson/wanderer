@@ -7,7 +7,7 @@ namespace {
 
 [[nodiscard]] auto calculate_min_col(const float viewportX) noexcept -> int
 {
-  const auto minCol = static_cast<int>(viewportX / glob::tileWidth<>);
+  const auto minCol = static_cast<int>(viewportX / glob::tile_width<>);
   if (minCol > 0) {
     return minCol;
   } else {
@@ -17,7 +17,7 @@ namespace {
 
 [[nodiscard]] auto calculate_min_row(const float viewportY) noexcept -> int
 {
-  const auto minRow = static_cast<int>(viewportY / glob::tileHeight<>);
+  const auto minRow = static_cast<int>(viewportY / glob::tile_height<>);
   if (minRow > 0) {
     return minRow;
   } else {
@@ -28,7 +28,7 @@ namespace {
 [[nodiscard]] auto calculate_max_col(const float viewportMaxX,
                                      const int numCols) noexcept -> int
 {
-  const auto maxCol = static_cast<int>(viewportMaxX / glob::tileWidth<>) + 1;
+  const auto maxCol = static_cast<int>(viewportMaxX / glob::tile_width<>) + 1;
   if (maxCol < numCols) {
     return maxCol;
   } else {
@@ -39,7 +39,7 @@ namespace {
 [[nodiscard]] auto calculate_max_row(const float viewportMaxY,
                                      const int numRows) noexcept -> int
 {
-  const auto maxRow = static_cast<int>(viewportMaxY / glob::tileHeight<>) + 1;
+  const auto maxRow = static_cast<int>(viewportMaxY / glob::tile_height<>) + 1;
   if (maxRow < numRows) {
     return maxRow;
   } else {
@@ -67,13 +67,13 @@ auto get_render_bounds(const entt::registry& registry,
 
 auto to_rect(const comp::render_bounds& bounds) noexcept -> cen::frect
 {
-  const auto x = static_cast<float>(bounds.minCol) * glob::tileWidth<>;
-  const auto y = static_cast<float>(bounds.minRow) * glob::tileHeight<>;
+  const auto x = static_cast<float>(bounds.minCol) * glob::tile_width<>;
+  const auto y = static_cast<float>(bounds.minRow) * glob::tile_height<>;
 
   const auto w =
-      static_cast<float>(bounds.maxCol - bounds.minCol) * glob::tileWidth<>;
+      static_cast<float>(bounds.maxCol - bounds.minCol) * glob::tile_width<>;
   const auto h =
-      static_cast<float>(bounds.maxRow - bounds.minRow) * glob::tileHeight<>;
+      static_cast<float>(bounds.maxRow - bounds.minRow) * glob::tile_height<>;
 
   return cen::frect{{x, y}, {w, h}};
 }

@@ -54,8 +54,8 @@ inline constexpr float cameraSpeed = 10.0f;
                                       const comp::viewport& viewport) noexcept
     -> vector2f
 {
-  constexpr auto halfWidth = glob::humanoidDrawWidth / 2.0f;
-  constexpr auto halfHeight = glob::humanoidDrawHeight / 2.0f;
+  constexpr auto halfWidth = glob::humanoid_draw_width / 2.0f;
+  constexpr auto halfHeight = glob::humanoid_draw_height / 2.0f;
 
   const auto halfBoundsWidth = viewport.bounds.width() / 2.0f;
   const auto halfBoundsHeight = viewport.bounds.height() / 2.0f;

@@ -10,7 +10,7 @@ auto make_viewport(entt::registry& registry, const cen::farea& levelSize)
   const auto entity = registry.create();
 
   auto& viewport = registry.emplace<comp::viewport>(entity);
-  viewport.bounds = {{}, glob::logicalSize<cen::farea>};
+  viewport.bounds = {{}, glob::logical_size<cen::farea>};
   viewport.levelSize.width = levelSize.width;
   viewport.levelSize.height = levelSize.height;
 

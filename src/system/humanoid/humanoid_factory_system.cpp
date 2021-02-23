@@ -34,7 +34,7 @@ void add_depth_drawable(entt::registry& registry,
   auto& drawable = registry.emplace<comp::depth_drawable>(entity);
   drawable.texture = std::move(texture);
   drawable.src = {{0, 0}, {64, 64}};
-  drawable.dst = {{0, 0}, glob::humanoidDrawSize<>};
+  drawable.dst = {{0, 0}, glob::humanoid_draw_size<>};
 }
 
 void add_animated(entt::registry& registry, const entt::entity entity)
@@ -113,7 +113,7 @@ auto add_player(entt::registry& registry,
   registry.get<comp::depth_drawable>(player).textureId = id;
 
   auto& movable = registry.get<comp::movable>(player);
-  movable.speed = glob::playerSpeed;
+  movable.speed = glob::player_speed;
   movable.position = position;
   movable.dir = direction::down;
 
@@ -134,7 +134,7 @@ auto add_skeleton(entt::registry& registry,
   registry.get<comp::depth_drawable>(skeleton).textureId = id;
 
   auto& movable = registry.get<comp::movable>(skeleton);
-  movable.speed = glob::monsterSpeed;
+  movable.speed = glob::monster_speed;
   movable.position = position;
 
   return skeleton;

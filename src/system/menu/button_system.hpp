@@ -5,10 +5,27 @@
 #include <entt.hpp>             // registry, dispatcher
 
 #include "button.hpp"
+#include "game_constants.hpp"
 #include "maybe.hpp"
 #include "menu.hpp"
+#include "menu_constants.hpp"
 
 namespace wanderer::sys {
+
+[[nodiscard]] constexpr auto convert_column_to_x(const int column) -> int
+{
+  // make centered if column index is -1
+  if (column == -1) {
+    return (glob::logical_width<int> / 2);
+  } else {
+    return (column * glob::menu_col_size);
+  }
+}
+
+[[nodiscard]] constexpr auto convert_row_to_y(const int row) -> int
+{
+  return (row * glob::menu_col_size);
+}
 
 // Checks whether or not a button was pressed, triggers its action if so
 void query_button(entt::registry& registry,

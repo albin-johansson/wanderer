@@ -19,8 +19,8 @@ namespace {
 
   data.nCols = stepMap.width();
   data.nRows = stepMap.height();
-  data.size.width = static_cast<float>(data.nCols) * glob::tileWidth<>;
-  data.size.height = static_cast<float>(data.nRows) * glob::tileHeight<>;
+  data.size.width = static_cast<float>(data.nCols) * glob::tile_width<>;
+  data.size.height = static_cast<float>(data.nRows) * glob::tile_height<>;
 
   data.tilesets = parse_tilesets(stepMap.tilesets(), directory);
   ++tilesetId;

@@ -47,7 +47,7 @@ set(SOURCE_FILES
     component/input/binds.hpp
     component/input/button.hpp
     component/input/key_bind.hpp
-    component/input/menu.hpp
+    component/menu/menu.hpp
 
     component/inventory/container_trigger.hpp
     component/inventory/gold.hpp
@@ -252,6 +252,7 @@ target_include_directories(${WANDERER_LIB_TARGET}
     PUBLIC component/event
     PUBLIC component/input
     PUBLIC component/inventory
+    PUBLIC component/menu
     PUBLIC core
     PUBLIC core/action
     PUBLIC core/aliases
