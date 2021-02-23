@@ -8,9 +8,8 @@ using namespace wanderer;
 int main(int, char**)
 {
   cen::library lib;
-
   cen::log::set_priority(cen::log::priority::info);
 
-  wanderer_engine app;
-  return app.run();
+  wanderer_engine engine;
+  return engine.run();
 }
