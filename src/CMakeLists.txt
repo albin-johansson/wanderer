@@ -7,7 +7,7 @@ set(SOURCE_FILES
     game.cpp
     wanderer_engine.cpp
     wanderer_engine.hpp
-    game_loop.hpp
+    semi_fixed_game_loop.hpp
 
     component/animated.hpp
     component/animated_tile.hpp

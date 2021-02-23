@@ -6,8 +6,8 @@
 #include <cen/window.hpp>
 
 #include "game.hpp"
-#include "game_loop.hpp"
 #include "graphics_context.hpp"
+#include "semi_fixed_game_loop.hpp"
 
 namespace wanderer {
 
@@ -23,7 +23,7 @@ namespace wanderer {
  *
  * \headerfile wanderer_app.hpp
  */
-class wanderer_engine final
+class wanderer_engine final : public semi_fixed_game_loop
 {
  public:
   /**
@@ -43,15 +43,17 @@ class wanderer_engine final
    */
   auto run() -> int;
 
+ protected:
+  auto update_input() -> bool override;
+
+  void update_logic(delta_t dt) override;
+
  private:
-  cen::window m_window;         ///< Application window.
-  graphics_context m_graphics;  ///< Graphics context used for all rendering.
-  game m_game;                  ///< Provides game logic and game state.
-  game_loop m_loop;             ///< Provides game loop logic and book-keeping.
+  cen::window m_window;           ///< Application window.
+  graphics_context m_graphics;    ///< Graphics context used for all rendering.
+  game m_game;                    ///< Provides game logic and game state.
   cen::mouse_state m_mouseState;  ///< Provides info about mouse state.
   cen::key_state m_keyState;      ///< Provides info about keyboard state.
-
-  [[nodiscard]] auto handle_input() -> bool;
 };
 
 }  // namespace wanderer

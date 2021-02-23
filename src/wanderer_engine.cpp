@@ -23,7 +23,27 @@ wanderer_engine::wanderer_engine()
   m_mouseState.set_logical_height(glob::logical_height<>);
 }
 
-auto wanderer_engine::handle_input() -> bool
+auto wanderer_engine::run() -> int
+{
+  auto& renderer = m_graphics.renderer();
+
+  m_window.show();
+  fetch_current_time();
+
+  while (is_running()) {
+    tick();
+
+    renderer.clear_with(cen::colors::black);
+    m_game.render(renderer, m_mouseState.mouse_pos());
+    renderer.present();
+  }
+
+  m_window.hide();
+
+  return 0;
+}
+
+auto wanderer_engine::update_input() -> bool
 {
   const auto& renderer = m_graphics.renderer();
   m_mouseState.update(renderer.output_width(), renderer.output_height());
@@ -39,32 +59,9 @@ auto wanderer_engine::handle_input() -> bool
   return shouldContinue;
 }
 
-auto wanderer_engine::run() -> int
+void wanderer_engine::update_logic(const delta_t dt)
 {
-  const auto input = [this] {
-    return handle_input();
-  };
-
-  const auto logic = [this](const delta_t dt) {
-    m_game.tick(dt);
-  };
-
-  auto& renderer = m_graphics.renderer();
-
-  m_window.show();
-  m_loop.fetch_current_time();
-
-  while (m_loop.running()) {
-    m_loop.tick(input, logic);
-
-    renderer.clear_with(cen::colors::black);
-    m_game.render(renderer, m_mouseState.mouse_pos());
-    renderer.present();
-  }
-
-  m_window.hide();
-
-  return 0;
+  m_game.tick(dt);
 }
 
 }  // namespace wanderer
