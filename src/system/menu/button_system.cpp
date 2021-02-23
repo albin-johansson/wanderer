@@ -6,13 +6,15 @@
 namespace wanderer::sys {
 namespace {
 
+inline constexpr auto button_font = glob::menu_font_m;
+
 void update_bounds(const comp::button& button,
                    const comp::button_drawable& drawable,
                    cen::renderer& renderer)
 {
   auto& bounds = drawable.bounds;
 
-  auto& font = renderer.get_font(glob::menu_font_s);
+  auto& font = renderer.get_font(button_font);
   const auto [width, height] = font.string_size(button.text.c_str());
   bounds.set_size({width * 1.25f, height * 1.75f});
 
@@ -37,7 +39,7 @@ void init_text(const comp::button_drawable& drawable,
                const std::string& text,
                cen::renderer& renderer)
 {
-  const auto& font = renderer.get_font(glob::menu_font_s);
+  const auto& font = renderer.get_font(button_font);
 
   renderer.set_color(cen::colors::white);
   drawable.texture.emplace(to_texture(renderer, text, font));
@@ -52,7 +54,7 @@ void render_text(const comp::button& button,
   }
 
   if (!drawable.textPos) {
-    const auto& font = renderer.get_font(glob::menu_font_s);
+    const auto& font = renderer.get_font(button_font);
     const auto [width, height] = font.string_size(button.text.c_str());
     const auto x = drawable.bounds.center_x() - (width / 2.0f);
     const auto y = drawable.bounds.center_y() - (height / 2.0f);
