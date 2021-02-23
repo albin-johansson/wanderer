@@ -3,6 +3,7 @@
 #include <cassert>  // assert
 #include <cen/colors.hpp>
 
+#include "game_constants.hpp"
 #include "humanoid_animation_system.hpp"
 #include "humanoid_state.hpp"
 #include "movable.hpp"
@@ -16,18 +17,20 @@ namespace {
 {
   switch (movable.dir) {
     case direction::right:
-      return vector2f{position.x + 64, position.y + 32};
+      return vector2f{position.x + (glob::tile_width<> * 2.0f),
+                      position.y + glob::tile_height<>};
 
     case direction::down:
-      return vector2f{position.x + 32, position.y + 64};
+      return vector2f{position.x + glob::tile_width<>,
+                      position.y + (glob::tile_height<> * 2.0f)};
 
     case direction::left:
-      return vector2f{position.x, position.y + 32};
+      return vector2f{position.x, position.y + glob::tile_height<>};
 
     case direction::up:
       [[fallthrough]];
     default:
-      return vector2f{position.x + 32, position.y};
+      return vector2f{position.x + glob::tile_width<>, position.y};
   }
 }
 
