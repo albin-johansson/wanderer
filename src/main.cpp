@@ -3,13 +3,11 @@
 
 #include "wanderer_engine.hpp"
 
-using namespace wanderer;
-
 int main(int, char**)
 {
   cen::library lib;
   cen::log::set_priority(cen::log::priority::info);
 
-  wanderer_engine engine;
+  wanderer::wanderer_engine engine;
   return engine.run();
 }
