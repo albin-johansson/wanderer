@@ -70,7 +70,7 @@ void render_title(const std::string& title,
   }
 
   if (auto& texture = drawable.titleTexture; !texture.has_value()) {
-    auto& font = renderer.get_font(glob::menu_font_m);
+    auto& font = renderer.get_font(glob::menu_font_l);
 
     renderer.set_color(cen::colors::white);
     texture = renderer.render_blended_utf8(title.c_str(), font);
