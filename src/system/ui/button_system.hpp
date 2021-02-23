@@ -3,11 +3,13 @@
 #include <cen/mouse_state.hpp>  // mouse_state
 #include <cen/renderer.hpp>     // renderer
 #include <entt.hpp>             // registry, dispatcher
+#include <string>               // string
 
 #include "button.hpp"
 #include "game_constants.hpp"
 #include "maybe.hpp"
 #include "menu.hpp"
+#include "menu_action.hpp"
 #include "menu_constants.hpp"
 
 namespace wanderer::sys {
@@ -26,6 +28,12 @@ namespace wanderer::sys {
 {
   return (row * glob::menu_col_size);
 }
+
+auto make_button(entt::registry& registry,
+                 std::string text,
+                 const int row,
+                 const int col,
+                 const menu_action action) -> comp::button::entity;
 
 // Checks whether or not a button was pressed, triggers its action if so
 void query_button(entt::registry& registry,

@@ -45,14 +45,17 @@ set(SOURCE_FILES
     component/event/switch_menu_event.hpp
 
     component/input/binds.hpp
-    component/input/button.hpp
     component/input/key_bind.hpp
-    component/menu/menu.hpp
 
     component/inventory/container_trigger.hpp
     component/inventory/gold.hpp
     component/inventory/inventory.hpp
     component/inventory/item.hpp
+
+    component/ui/button.hpp
+    component/ui/label.hpp
+    component/ui/line.hpp
+    component/ui/menu.hpp
 
     core/centurion_utils.hpp
     core/direction.hpp
@@ -64,6 +67,8 @@ set(SOURCE_FILES
     core/menu_constants.hpp
     core/menu_id.hpp
     core/null_entity.hpp
+    core/render_text.cpp
+    core/render_text.hpp
     core/serialization.hpp
     core/stack_resource.hpp
 
@@ -185,17 +190,14 @@ set(SOURCE_FILES
     system/input/idle_input_system.hpp
     system/input/input_system.cpp
     system/input/input_system.hpp
+    system/input/key_bind_system.cpp
+    system/input/key_bind_system.hpp
     system/input/move_input_system.cpp
     system/input/move_input_system.hpp
 
     system/layer/layer_rendering_system.cpp
     system/layer/layer_rendering_system.hpp
     system/layer/layer_system.hpp
-
-    system/menu/button_system.cpp
-    system/menu/button_system.hpp
-    system/menu/menu_system.cpp
-    system/menu/menu_system.hpp
 
     system/movement/hitbox_system.cpp
     system/movement/hitbox_system.hpp
@@ -213,6 +215,19 @@ set(SOURCE_FILES
     system/tile/tile_animation_system.hpp
     system/tile/tile_rendering_system.cpp
     system/tile/tile_rendering_system.hpp
+
+    system/ui/button_system.cpp
+    system/ui/button_system.hpp
+    system/ui/create_action.cpp
+    system/ui/create_action.hpp
+    system/ui/make_label.cpp
+    system/ui/make_label.hpp
+    system/ui/make_line.cpp
+    system/ui/make_line.hpp
+    system/ui/menu_system.cpp
+    system/ui/menu_system.hpp
+    system/ui/saves_menu_system.cpp
+    system/ui/saves_menu_system.hpp
 
     system/viewport/make_viewport.cpp
     system/viewport/make_viewport.hpp
@@ -252,7 +267,7 @@ target_include_directories(${WANDERER_LIB_TARGET}
     PUBLIC component/event
     PUBLIC component/input
     PUBLIC component/inventory
-    PUBLIC component/menu
+    PUBLIC component/ui
     PUBLIC core
     PUBLIC core/action
     PUBLIC core/aliases
@@ -269,7 +284,7 @@ target_include_directories(${WANDERER_LIB_TARGET}
     PUBLIC system/humanoid
     PUBLIC system/input
     PUBLIC system/layer
-    PUBLIC system/menu
+    PUBLIC system/ui
     PUBLIC system/movement
     PUBLIC system/saves
     PUBLIC system/tile

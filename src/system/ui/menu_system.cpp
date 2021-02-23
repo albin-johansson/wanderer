@@ -8,8 +8,8 @@
 #include "files_directory.hpp"
 #include "game_constants.hpp"
 #include "menu_constants.hpp"
-#include "menu_factory_system.hpp"
 #include "parse_menu.hpp"
+#include "render_text.hpp"
 #include "saves_menu_system.hpp"
 #include "switch_menu_event.hpp"
 
@@ -54,7 +54,7 @@ void render_labels(const entt::registry& registry,
 
     if (auto& texture = label.texture; !texture) {
       renderer.set_color(label.color);
-      texture = renderer.render_blended_utf8(label.text.c_str(), font);
+      texture = render_text(renderer, label.text, font);
     }
 
     renderer.render(*label.texture, label.position);
@@ -115,8 +115,8 @@ void update_menu(entt::registry& registry,
   const auto view = registry.view<comp::active_menu, comp::menu>();
   view.each([&](const entt::entity entity, comp::menu& menu) {
     const auto menuEntity = comp::menu::entity{entity};
-    if (const auto button =
-            update_button_hover(registry, menuEntity, mouseState)) {
+    const auto button = update_button_hover(registry, menuEntity, mouseState);
+    if (button) {
       query_button(registry, dispatcher, *button, mouseState);
     } else {
       cen::cursor::reset();

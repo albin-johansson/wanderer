@@ -8,6 +8,8 @@
 #include "button.hpp"
 #include "entity_type.hpp"
 #include "key_bind.hpp"
+#include "label.hpp"
+#include "line.hpp"
 #include "maybe.hpp"
 #include "menu_id.hpp"
 
@@ -37,22 +39,8 @@ struct menu_drawable final
 
   mutable maybe<cen::texture> titleTexture;
   mutable maybe<cen::ipoint> titlePos;
-  std::vector<entt::entity> lines;
-  std::vector<entt::entity> labels;
-};
-
-struct line final
-{
-  cen::fpoint start;
-  cen::fpoint end;
-};
-
-struct label final
-{
-  cen::fpoint position;
-  std::string text;
-  cen::color color;
-  mutable maybe<cen::texture> texture;
+  std::vector<line::entity> lines;
+  std::vector<label::entity> labels;
 };
 
 }  // namespace wanderer::comp

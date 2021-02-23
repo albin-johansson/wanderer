@@ -1,7 +1,9 @@
 #include "button_system.hpp"
 
+#include "create_action.hpp"
 #include "cursors.hpp"
 #include "registry_utils.hpp"
+#include "render_text.hpp"
 
 namespace wanderer::sys {
 namespace {
@@ -28,13 +30,6 @@ void update_bounds(const comp::button& button,
   bounds.set_y(static_cast<float>(y));
 }
 
-[[nodiscard]] auto to_texture(cen::renderer& renderer,
-                              const std::string& text,
-                              const cen::font& font) -> cen::texture
-{
-  return renderer.render_blended_utf8(text.c_str(), font);
-}
-
 void init_text(const comp::button_drawable& drawable,
                const std::string& text,
                cen::renderer& renderer)
@@ -42,7 +37,7 @@ void init_text(const comp::button_drawable& drawable,
   const auto& font = renderer.get_font(button_font);
 
   renderer.set_color(cen::colors::white);
-  drawable.texture.emplace(to_texture(renderer, text, font));
+  drawable.texture.emplace(render_text(renderer, text, font));
 }
 
 void render_text(const comp::button& button,
@@ -77,6 +72,26 @@ void render_background(const comp::button_drawable& drawable,
 }
 
 }  // namespace
+
+auto make_button(entt::registry& registry,
+                 std::string text,
+                 const int row,
+                 const int col,
+                 const menu_action action) -> comp::button::entity
+{
+  const auto entity = registry.create();
+
+  auto& button = registry.emplace<comp::button>(entity);
+  button.text = std::move(text);
+  button.row = row;
+  button.col = col;
+  button.action = create_action(action);
+  button.hover = false;
+
+  registry.emplace<comp::button_drawable>(entity);
+
+  return comp::button::entity{entity};
+}
 
 void query_button(entt::registry& registry,
                   entt::dispatcher& dispatcher,
