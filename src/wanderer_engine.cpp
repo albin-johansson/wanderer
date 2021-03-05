@@ -54,7 +54,7 @@ auto wanderer_engine::update_input() -> bool
 
   const bool shouldContinue =
       !m_game.quit_requested() &&
-      cen::event::num_queued(cen::event_type::quit) == 0;
+      cen::event::queue_count(cen::event_type::quit) == 0;
 
   return shouldContinue;
 }
