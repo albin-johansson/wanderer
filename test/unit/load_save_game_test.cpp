@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include <cen/counter.hpp>
+#include <centurion.hpp>
 #include <iostream>  // cout
 
 #include "load_game.hpp"

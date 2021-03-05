@@ -1,9 +1,7 @@
 #pragma once
 
-#include <cen/font.hpp>      // font
-#include <cen/renderer.hpp>  // renderer
-#include <cen/texture.hpp>   // texture
-#include <string>            // string
+#include <centurion.hpp>
+#include <string>  // string
 
 namespace wanderer {
 

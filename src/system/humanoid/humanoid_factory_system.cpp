@@ -1,7 +1,7 @@
 #include "humanoid_factory_system.hpp"
 
 #include <cassert>  // assert
-#include <cen/counter.hpp>
+#include <centurion.hpp>
 #include <utility>  // move
 
 #include "animated.hpp"

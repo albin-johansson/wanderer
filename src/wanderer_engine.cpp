@@ -1,6 +1,6 @@
 #include "wanderer_engine.hpp"
 
-#include <cen/event.hpp>
+#include <centurion.hpp>
 
 #include "game_constants.hpp"
 

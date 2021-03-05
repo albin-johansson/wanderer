@@ -1,7 +1,7 @@
 #pragma once
 
-#include <cen/scan_code.hpp>  // scan_code
-#include <entt.hpp>           // registry
+#include <centurion.hpp>  // scan_code
+#include <entt.hpp>       // registry
 
 #include "key_bind.hpp"
 #include "menu_action.hpp"

@@ -1,9 +1,6 @@
 #pragma once
 
-#include <cen/key_state.hpp>
-#include <cen/mouse_state.hpp>
-#include <cen/renderer.hpp>
-#include <cen/window.hpp>
+#include <centurion.hpp>
 
 #include "game.hpp"
 #include "graphics_context.hpp"

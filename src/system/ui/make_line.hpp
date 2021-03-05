@@ -1,6 +1,6 @@
 #pragma once
 
-#include <cen/point.hpp>  // ipoint
+#include <centurion.hpp>  // ipoint
 #include <entt.hpp>       // registry
 
 #include "line.hpp"

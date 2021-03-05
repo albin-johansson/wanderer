@@ -1,7 +1,6 @@
 #pragma once
 
-#include <cen/area.hpp>
-#include <cen/colors.hpp>
+#include <centurion.hpp>
 
 #include "vector2.hpp"
 

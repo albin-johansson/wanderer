@@ -1,5 +1,4 @@
-#include <cen/centurion.hpp>
-#include <cen/log.hpp>
+#include <centurion.hpp>
 
 #include "wanderer_engine.hpp"
 

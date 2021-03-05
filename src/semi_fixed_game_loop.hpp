@@ -1,9 +1,7 @@
 #pragma once
 
-#include <algorithm>        // min
-#include <cen/counter.hpp>  // now_sec
-#include <cen/screen.hpp>   // refresh_rate
-#include <cen/time.hpp>     // seconds
+#include <algorithm>  // min
+#include <centurion.hpp>
 
 #include "delta.hpp"
 

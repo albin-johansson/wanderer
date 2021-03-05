@@ -1,7 +1,7 @@
 #pragma once
 
-#include <cen/renderer.hpp>  // renderer
-#include <entt.hpp>          // registry
+#include <centurion.hpp>  // renderer
+#include <entt.hpp>       // registry
 
 #include "player.hpp"
 

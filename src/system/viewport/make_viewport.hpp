@@ -1,6 +1,6 @@
 #pragma once
 
-#include <cen/area.hpp>
+#include <centurion.hpp>
 #include <entt.hpp>
 
 #include "viewport.hpp"

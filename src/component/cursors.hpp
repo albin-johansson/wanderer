@@ -1,7 +1,7 @@
 #pragma once
 
-#include <cen/cursor.hpp>  // cursor, system_cursor
-#include <unordered_map>   // unordered_map
+#include <centurion.hpp>
+#include <unordered_map>  // unordered_map
 
 namespace wanderer::comp {
 

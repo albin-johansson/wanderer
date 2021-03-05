@@ -1,7 +1,6 @@
 #pragma once
 
-#include <cen/rect.hpp>
-#include <cen/texture.hpp>
+#include <centurion.hpp>
 #include <entt.hpp>
 
 #include "depth.hpp"

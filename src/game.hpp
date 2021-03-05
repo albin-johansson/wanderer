@@ -1,8 +1,6 @@
 #pragma once
 
-#include <cen/key_state.hpp>
-#include <cen/mouse_state.hpp>
-#include <cen/renderer.hpp>
+#include <centurion.hpp>
 
 #include "close_inventory_event.hpp"
 #include "delta.hpp"

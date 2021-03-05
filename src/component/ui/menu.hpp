@@ -1,9 +1,8 @@
 #pragma once
 
-#include <cen/point.hpp>    // ipoint
-#include <cen/texture.hpp>  // texture
-#include <string>           // string
-#include <vector>           // vector
+#include <centurion.hpp>
+#include <string>  // string
+#include <vector>  // vector
 
 #include "button.hpp"
 #include "entity_type.hpp"

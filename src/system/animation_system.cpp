@@ -1,6 +1,6 @@
 #include "animation_system.hpp"
 
-#include <cen/counter.hpp>
+#include <centurion.hpp>
 
 #include "animated.hpp"
 

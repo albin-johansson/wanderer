@@ -1,6 +1,6 @@
 #pragma once
 
-#include <cen/color.hpp>
+#include <centurion.hpp>
 
 #include "milliseconds.hpp"
 #include "vector2.hpp"

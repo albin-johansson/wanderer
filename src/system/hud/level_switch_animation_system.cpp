@@ -1,6 +1,6 @@
 #include "level_switch_animation_system.hpp"
 
-#include <cen/screen.hpp>
+#include <centurion.hpp>
 
 #include "game_constants.hpp"
 #include "level_switch_animation.hpp"

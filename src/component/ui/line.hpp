@@ -1,6 +1,6 @@
 #pragma once
 
-#include <cen/point.hpp>  // fpoint
+#include <centurion.hpp>
 
 #include "entity_type.hpp"
 

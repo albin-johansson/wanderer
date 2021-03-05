@@ -1,6 +1,6 @@
 #include "parse_menu.hpp"
 
-#include <cen/log.hpp>
+#include <centurion.hpp>
 #include <fstream>   // ifstream
 #include <json.hpp>  // json
 #include <memory>    // unique_ptr

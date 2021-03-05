@@ -1,7 +1,6 @@
 #pragma once
 
-#include <cen/color.hpp>
-#include <cen/renderer.hpp>
+#include <centurion.hpp>
 #include <entt.hpp>
 
 #include "delta.hpp"

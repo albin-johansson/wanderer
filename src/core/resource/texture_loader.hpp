@@ -1,7 +1,6 @@
 #pragma once
 
-#include <cen/renderer.hpp>
-#include <cen/texture.hpp>
+#include <centurion.hpp>
 #include <entt.hpp>
 #include <memory>  // shared_ptr
 

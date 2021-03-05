@@ -1,6 +1,6 @@
 #pragma once
 
-#include <cen/scan_code.hpp>
+#include <centurion.hpp>
 
 #include "ints.hpp"
 

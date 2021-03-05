@@ -1,9 +1,8 @@
 #pragma once
 
-#include <cen/mouse_state.hpp>  // mouse_state
-#include <cen/renderer.hpp>     // renderer
-#include <entt.hpp>             // registry, dispatcher
-#include <string>               // string
+#include <centurion.hpp>  // mouse_state, renderer
+#include <entt.hpp>       // registry, dispatcher
+#include <string>         // string
 
 #include "button.hpp"
 #include "game_constants.hpp"

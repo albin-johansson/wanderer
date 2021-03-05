@@ -1,6 +1,6 @@
 #include "make_label.hpp"
 
-#include <cen/colors.hpp>
+#include <centurion.hpp>
 
 #include "files_directory.hpp"
 

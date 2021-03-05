@@ -1,7 +1,7 @@
 #include "humanoid_attack_event_handler.hpp"
 
 #include <cassert>  // assert
-#include <cen/colors.hpp>
+#include <centurion.hpp>
 
 #include "game_constants.hpp"
 #include "humanoid_animation_system.hpp"

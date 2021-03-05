@@ -1,7 +1,6 @@
 #pragma once
 
-#include <cen/renderer.hpp>
-#include <cen/window.hpp>
+#include <centurion.hpp>
 
 #include "texture_cache.hpp"
 #include "texture_handle.hpp"

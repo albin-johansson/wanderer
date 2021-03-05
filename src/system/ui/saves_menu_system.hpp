@@ -1,8 +1,7 @@
 #pragma once
 
-#include <cen/key_state.hpp>    // key_state
-#include <cen/mouse_state.hpp>  // mouse_state
-#include <entt.hpp>             // registry, dispatcher
+#include <centurion.hpp>  // key_state, mouse_state
+#include <entt.hpp>       // registry, dispatcher
 
 #include "menu.hpp"
 

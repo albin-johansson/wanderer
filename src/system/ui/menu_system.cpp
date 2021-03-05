@@ -1,6 +1,6 @@
 #include "menu_system.hpp"
 
-#include <cen/log.hpp>
+#include <centurion.hpp>
 #include <filesystem>
 
 #include "button_system.hpp"

@@ -1,9 +1,7 @@
 #pragma once
 
-#include <cen/color.hpp>    // color
-#include <cen/point.hpp>    // fpoint
-#include <cen/texture.hpp>  // texture
-#include <string>           // string
+#include <centurion.hpp>
+#include <string>  // string
 
 #include "entity_type.hpp"
 #include "maybe.hpp"

@@ -1,7 +1,6 @@
 #pragma once
 
-#include <cen/point.hpp>
-#include <cen/rect.hpp>
+#include <centurion.hpp>
 #include <map>     // map
 #include <string>  // string
 #include <vector>  // vector
@@ -72,17 +71,17 @@ struct tile_object final
 
 struct level final
 {
-  int id;                     ///< Unique ID associated with the level.
-  int humanoidLayer;          ///< Layer index where humanoids are rendered.
-  int nRows;                  ///< The number of rows in the levels.
-  int nCols;                  ///< The number of columns in the levels.
-  int tileWidth;              ///< Width of a tile in the tilemap.
-  int tileHeight;             ///< Height of a tile in the tilemap.
+  int id;             ///< Unique ID associated with the level.
+  int humanoidLayer;  ///< Layer index where humanoids are rendered.
+  int nRows;          ///< The number of rows in the levels.
+  int nCols;          ///< The number of columns in the levels.
+  int tileWidth;      ///< Width of a tile in the tilemap.
+  int tileHeight;     ///< Height of a tile in the tilemap.
   float xRatio;
   float yRatio;
-  cen::farea size;            ///< The size of the level, in pixels.
-  vector2f playerSpawnPoint;  ///< The initial position of the player.
-  std::vector<ir::tileset> tilesets;           ///< Tilesets used by the level.
+  cen::farea size;                    ///< The size of the level, in pixels.
+  vector2f playerSpawnPoint;          ///< The initial position of the player.
+  std::vector<ir::tileset> tilesets;  ///< Tilesets used by the level.
   std::vector<comp::tile_layer> groundLayers;  ///< List of "ground" layers.
   std::vector<tile_object> tileObjects;        ///< List of tile objects.
   std::vector<object> objects;                 ///< List of ordinary objects.

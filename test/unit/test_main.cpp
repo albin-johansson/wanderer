@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include <cen/centurion.hpp>
+#include <centurion.hpp>
 
 int main(int argc, char** argv)
 {

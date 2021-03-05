@@ -1,9 +1,8 @@
 #pragma once
 
-#include <cen/point.hpp>    // fpoint
-#include <cen/texture.hpp>  // texture
-#include <memory>           // unique_ptr
-#include <string>           // string
+#include <centurion.hpp>
+#include <memory>  // unique_ptr
+#include <string>  // string
 
 #include "action.hpp"
 #include "entity_type.hpp"

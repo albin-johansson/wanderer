@@ -1,9 +1,6 @@
 #pragma once
 
-#include <cen/area.hpp>
-#include <cen/log.hpp>
-#include <cen/point.hpp>
-#include <cen/rect.hpp>
+#include <centurion.hpp>
 
 #include "vector2.hpp"
 

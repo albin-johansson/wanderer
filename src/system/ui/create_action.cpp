@@ -1,6 +1,6 @@
 #include "create_action.hpp"
 
-#include <cen/log.hpp>
+#include <centurion.hpp>
 
 #include "menu_id.hpp"
 #include "quit_action.hpp"

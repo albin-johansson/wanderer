@@ -1,6 +1,6 @@
 #pragma once
 
-#include <cen/rect.hpp>
+#include <centurion.hpp>
 #include <vector>  // vector
 
 #include "entity_type.hpp"

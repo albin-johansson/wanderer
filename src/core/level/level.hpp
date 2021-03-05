@@ -192,7 +192,7 @@ class level final
   maybe<vector2f> m_playerSpawnPosition;
 
   void spawn_humanoids(const comp::tilemap& tilemap,
-                        graphics_context& graphics);
+                       graphics_context& graphics);
 };
 
 }  // namespace wanderer

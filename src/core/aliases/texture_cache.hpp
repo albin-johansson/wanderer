@@ -1,6 +1,6 @@
 #pragma once
 
-#include <cen/texture.hpp>
+#include <centurion.hpp>
 #include <entt.hpp>
 
 namespace wanderer {

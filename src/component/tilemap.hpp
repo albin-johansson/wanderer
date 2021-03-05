@@ -1,6 +1,6 @@
 #pragma once
 
-#include <cen/area.hpp>
+#include <centurion.hpp>
 
 #include "entity_type.hpp"
 #include "ints.hpp"

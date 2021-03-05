@@ -1,6 +1,6 @@
 #include "particle_system.hpp"
 
-#include <cen/counter.hpp>
+#include <centurion.hpp>
 
 #include "get_random.hpp"
 #include "particle.hpp"
