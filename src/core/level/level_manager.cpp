@@ -3,8 +3,11 @@
 #include <cassert>  // assert
 #include <utility>  // move
 
+#include "level_switch_animation.hpp"
+#include "movable.hpp"
 #include "parse_world.hpp"
 #include "portal.hpp"
+#include "viewport_system.hpp"
 
 namespace wanderer {
 
@@ -46,6 +49,20 @@ void level_manager::enable_world()
 
 void level_manager::switch_to(const map_id id)
 {
+  {
+    auto* currentLevel = current();
+    auto& registry = currentLevel->registry();
+
+    registry.clear<comp::level_switch_animation>();
+
+    auto& movable = currentLevel->get<comp::movable>(currentLevel->player());
+    movable.velocity.zero();
+
+    sys::center_viewport_on(registry,
+                            currentLevel->viewport(),
+                            movable.position);
+  }
+
   assert(m_levels.count(id));
   m_current = id;
 }
