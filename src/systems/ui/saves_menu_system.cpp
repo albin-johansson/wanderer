@@ -11,6 +11,7 @@
 #include "menu.hpp"
 #include "menu_action.hpp"
 #include "menu_constants.hpp"
+#include "saves_menu.hpp"
 
 namespace wanderer::sys {
 namespace {
@@ -75,6 +76,8 @@ auto create_saves_menu(entt::registry& registry) -> comp::menu::entity
 {
   const auto menuEntity = registry.create();
 
+  registry.emplace<comp::saves_menu>(menuEntity);
+
   auto& menu = registry.emplace<comp::menu>(menuEntity);
   menu.id = menu_id::saves;
   menu.title = "Saves";
@@ -91,15 +94,20 @@ auto create_saves_menu(entt::registry& registry) -> comp::menu::entity
 
 void refresh_saves_menu(entt::registry& registry)
 {
+  registry.clear<comp::saves_menu_entry>();
+
   const std::filesystem::path saves = files_directory() + "saves/";
   for (const auto& entry : std::filesystem::directory_iterator(saves)) {
     if (entry.is_directory()) {
-      const auto name = entry.path().filename();
-
-      
-
+      auto& item = registry.emplace<comp::saves_menu_entry>(registry.create());
+      item.name = entry.path().filename().string();
     }
   }
+
+  const auto view = registry.view<comp::menu, comp::saves_menu>();
+  view.each([&](comp::menu& menu, comp::saves_menu& savesMenu) {
+
+  });
 }
 
 }  // namespace wanderer::sys
