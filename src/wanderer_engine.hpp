@@ -20,7 +20,7 @@ namespace wanderer {
  *
  * \headerfile wanderer_app.hpp
  */
-class wanderer_engine final : public semi_fixed_game_loop
+class wanderer_engine final : public semi_fixed_game_loop<wanderer_engine>
 {
  public:
   /**
@@ -40,10 +40,9 @@ class wanderer_engine final : public semi_fixed_game_loop
    */
   auto run() -> int;
 
- protected:
-  auto update_input() -> bool override;
+  auto update_input() -> bool;
 
-  void update_logic(delta_t dt) override;
+  void update_logic(delta_t dt);
 
  private:
   cen::window m_window;           ///< Application window.

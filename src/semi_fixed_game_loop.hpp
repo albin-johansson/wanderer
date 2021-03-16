@@ -13,6 +13,7 @@ template <typename T>
   return std::min<T>(120.0, static_cast<T>(cen::screen::refresh_rate()));
 }
 
+template <typename T>
 class semi_fixed_game_loop
 {
  public:
@@ -25,8 +26,6 @@ class semi_fixed_game_loop
       , m_fixedDelta{1.0 / m_tickRate}
   {}
 
-  virtual ~semi_fixed_game_loop() noexcept = default;
-
   void fetch_current_time() noexcept
   {
     m_currentTime = cen::counter::now_sec<precision_type>();
@@ -38,20 +37,22 @@ class semi_fixed_game_loop
     auto frameTime = newTime - m_currentTime;
     m_currentTime = newTime;
 
+    auto* engine = derived();
     int nSteps{0};
+
     while (frameTime > seconds_type::zero()) {
       if (nSteps > m_maxSteps) {
         break;  // avoids spiral-of-death by limiting maximum amount of steps
       }
 
-      m_running = update_input();
+      m_running = engine->update_input();
       if (!m_running) {
         break;
       }
 
       const auto deltaTime = std::min(frameTime, m_fixedDelta);
-      update_logic(
-          delta_t{static_cast<delta_t::value_type>(deltaTime.count())});
+      const delta_t delta{static_cast<delta_t::value_type>(deltaTime.count())};
+      engine->update_logic(delta);
 
       frameTime -= deltaTime;
 
@@ -64,15 +65,6 @@ class semi_fixed_game_loop
     return m_running;
   }
 
- protected:
-  virtual auto update_input() -> bool
-  {
-    return true;
-  }
-
-  virtual void update_logic(delta_t dt)
-  {}
-
  private:
   constexpr inline static int m_maxSteps = 5;
 
@@ -80,6 +72,11 @@ class semi_fixed_game_loop
   precision_type m_tickRate;
   seconds_type m_fixedDelta;
   bool m_running{true};
+
+  [[nodiscard]] auto derived() noexcept -> T*
+  {
+    return static_cast<T*>(this);
+  }
 };
 
 }  // namespace wanderer
