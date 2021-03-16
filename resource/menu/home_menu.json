@@ -6,31 +6,31 @@
     {
       "text": "Play",
       "action": "goto_in_game",
-      "row": 5,
+      "row": 7,
       "col": -1
     },
     {
       "text": "Settings",
       "action": "goto_settings",
-      "row": 6,
+      "row": 8,
       "col": -1
     },
     {
       "text": "Saves",
       "action": "goto_saves",
-      "row": 7,
+      "row": 9,
       "col": -1
     },
     {
       "text": "Controls",
       "action": "goto_controls",
-      "row": 8,
+      "row": 10,
       "col": -1
     },
     {
       "text": "Quit",
       "action": "quit",
-      "row": 9,
+      "row": 11,
       "col": -1
     }
   ],
