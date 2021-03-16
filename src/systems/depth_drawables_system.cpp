@@ -78,11 +78,12 @@ void render_drawables(const entt::registry& registry,
                 const comp::depth_drawable& drawable) noexcept {
     if (cen::intersects(boundsRect, drawable.dst)) {
       renderer.render_t(*drawable.texture, drawable.src, drawable.dst);
-#ifndef NDEBUG
-      if (const auto* hitbox = registry.try_get<comp::hitbox>(entity)) {
-        render_hitbox(renderer, *hitbox);
+
+      if constexpr (cen::is_debug_build()) {
+        if (const auto* hitbox = registry.try_get<comp::hitbox>(entity)) {
+          render_hitbox(renderer, *hitbox);
+        }
       }
-#endif
     }
   });
 }

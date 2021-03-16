@@ -1,7 +1,5 @@
 #include "wanderer_engine.hpp"
 
-#include <centurion.hpp>
-
 #include "game_constants.hpp"
 
 namespace wanderer {
@@ -11,13 +9,13 @@ wanderer_engine::wanderer_engine()
     , m_graphics{m_window}
     , m_game{m_graphics}
 {
-#ifdef NDEBUG
-  m_window.set_size(cen::screen::size());
-  m_window.set_fullscreen(true);
-#else
-  m_window.set_width(cen::screen::width() / 2);
-  m_window.set_height(cen::screen::height() / 2);
-#endif
+  if constexpr (cen::is_debug_build()) {
+    m_window.set_width(cen::screen::width() / 2);
+    m_window.set_height(cen::screen::height() / 2);
+  } else {
+    m_window.set_size(cen::screen::size());
+    m_window.set_fullscreen(true);
+  }
 
   m_mouseState.set_logical_width(glob::logical_width<>);
   m_mouseState.set_logical_height(glob::logical_height<>);
