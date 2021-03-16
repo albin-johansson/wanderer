@@ -20,7 +20,8 @@ namespace {
 [[nodiscard]] auto create_action(const menu_action menuAction)
     -> std::unique_ptr<action>
 {
-  switch (menuAction) {
+  switch (menuAction)
+  {
     case menu_action::quit:
       return std::make_unique<quit_action>();
 
@@ -70,7 +71,8 @@ namespace {
   const auto& buttonsJson = json.at("buttons");
   buttons.reserve(buttonsJson.size());
 
-  for (const auto& [key, value] : buttonsJson.items()) {
+  for (const auto& [key, value] : buttonsJson.items())
+  {
     buttons.emplace_back(parse_button(registry, value));
   }
 
@@ -98,7 +100,8 @@ namespace {
   const auto& bindsJson = json.at("binds");
   binds.reserve(bindsJson.size());
 
-  for (const auto& [key, value] : bindsJson.items()) {
+  for (const auto& [key, value] : bindsJson.items())
+  {
     binds.emplace_back(parse_bind(registry, value));
   }
 

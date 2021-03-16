@@ -54,8 +54,10 @@ auto parse_world(const std::filesystem::path& world) -> ir::world
   ir::world data;
   data.base = parse_map(*stepMap, directory);
 
-  for (const auto& object : data.base.objects) {
-    if (object.portal) {
+  for (const auto& object : data.base.objects)
+  {
+    if (object.portal)
+    {
       const auto levelPath = directory / object.portal->path;
       const auto stepLevel = std::make_unique<step::map>(levelPath);
 

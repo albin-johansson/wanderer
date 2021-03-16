@@ -97,8 +97,10 @@ void refresh_saves_menu(entt::registry& registry)
   registry.clear<comp::saves_menu_entry>();
 
   const std::filesystem::path saves = files_directory() + "saves/";
-  for (const auto& entry : std::filesystem::directory_iterator(saves)) {
-    if (entry.is_directory()) {
+  for (const auto& entry : std::filesystem::directory_iterator(saves))
+  {
+    if (entry.is_directory())
+    {
       auto& item = registry.emplace<comp::saves_menu_entry>(registry.create());
       item.name = entry.path().filename().string();
     }

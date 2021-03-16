@@ -11,7 +11,8 @@ void update_attacking_humanoids(entt::registry& registry,
 {
   registry.view<comp::humanoid_attack>().each(
       [&](const entt::entity entity, const comp::humanoid_attack& attack) {
-        if (attack.done) {
+        if (attack.done)
+        {
           dispatcher.enqueue<comp::end_attack_event>(&registry,
                                                      &dispatcher,
                                                      entity,

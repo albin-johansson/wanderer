@@ -29,13 +29,16 @@ namespace {
 [[nodiscard]] auto get_spawnpoint_entity(const step::properties& props)
     -> comp::spawnpoint_type
 {
-  if (props.is("entity", "player")) {
+  if (props.is("entity", "player"))
+  {
     return comp::spawnpoint_type::player;
 
-  } else if (props.is("entity", "skeleton")) {
+  } else if (props.is("entity", "skeleton"))
+  {
     return comp::spawnpoint_type::skeleton;
 
-  } else {
+  } else
+  {
     throw std::runtime_error{"Did not recognize spawnpoint type!"};
   }
 }
@@ -92,7 +95,8 @@ namespace {
   inventory.capacity = props->get("capacity").get<int>();
   inventory.items.reserve(inventory.capacity);
 
-  if (props->get("hasRandomLoot").get<bool>()) {
+  if (props->get("hasRandomLoot").get<bool>())
+  {
     // TODO
   }
 
@@ -115,27 +119,33 @@ void parse_object_layer(ir::level& data,
                         const step::map& stepMap,
                         const step::object_group& group)
 {
-  for (const auto& stepObject : group.objects()) {
+  for (const auto& stepObject : group.objects())
+  {
     auto& objectData = data.objects.emplace_back();
     objectData.id = stepObject.id();
 
     const auto type = stepObject.type();
-    if (type == "Spawnpoint") {
+    if (type == "Spawnpoint")
+    {
       objectData.spawnpoint =
           parse_spawnpoint(stepObject, data.xRatio, data.yRatio);
 
-      if (objectData.spawnpoint->type == comp::spawnpoint_type::player) {
+      if (objectData.spawnpoint->type == comp::spawnpoint_type::player)
+      {
         data.playerSpawnPoint = objectData.spawnpoint->position;
       }
 
-    } else if (type == "Portal") {
+    } else if (type == "Portal")
+    {
       objectData.portal = parse_portal(stepObject);
       objectData.hitbox = make_hitbox(stepObject, data.xRatio, data.yRatio);
 
-    } else if (type == "Container") {
+    } else if (type == "Container")
+    {
       objectData.inventory = parse_container(stepObject);
 
-    } else if (type == "ContainerTrigger") {
+    } else if (type == "ContainerTrigger")
+    {
       objectData.inventoryRef = parse_container_trigger(stepObject);
       objectData.hitbox = make_hitbox(stepObject, data.xRatio, data.yRatio);
     }

@@ -158,7 +158,8 @@ void level::spawn_humanoids(const comp::tilemap& tilemap,
       sys::add_player(m_registry, m_tree, *m_playerSpawnPosition, graphics);
 
   each<comp::spawnpoint>([&, this](const comp::spawnpoint& spawnpoint) {
-    switch (spawnpoint.type) {
+    switch (spawnpoint.type)
+    {
       case comp::spawnpoint_type::player:
         break;
 

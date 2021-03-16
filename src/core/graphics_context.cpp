@@ -21,7 +21,8 @@ void graphics_context::render(const texture_index index,
 auto graphics_context::load(const texture_id id, const std::string& path)
     -> texture_index
 {
-  if (const auto it = m_identifiers.find(id); it != m_identifiers.end()) {
+  if (const auto it = m_identifiers.find(id); it != m_identifiers.end())
+  {
     return it->second;
   }
 
@@ -41,7 +42,8 @@ auto graphics_context::to_index(const texture_id id) const -> texture_index
 auto graphics_context::find(const texture_index index) const noexcept
     -> const cen::texture&
 {
-  if (index >= m_textures.size()) {
+  if (index >= m_textures.size())
+  {
     int i = 1;
   }
 

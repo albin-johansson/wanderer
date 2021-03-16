@@ -19,11 +19,14 @@ namespace {
     const float2& curr,
     const collision_result& collisions) noexcept -> float2
 {
-  if (collisions.horizontal && collisions.vertical) {
+  if (collisions.horizontal && collisions.vertical)
+  {
     return prev;
-  } else if (collisions.horizontal) {
+  } else if (collisions.horizontal)
+  {
     return {prev.x, curr.y};
-  } else /*if (collisions.vertical)*/ {
+  } else /*if (collisions.vertical)*/
+  {
     return {curr.x, prev.y};
   }
 }
@@ -37,12 +40,14 @@ namespace {
 {
   const auto collisions = query_collisions(next, other);
 
-  if (collisions.horizontal) {
+  if (collisions.horizontal)
+  {
     movable.position.x = oldPosition.x;
     movable.velocity.x = 0;
   }
 
-  if (collisions.vertical) {
+  if (collisions.vertical)
+  {
     movable.position.y = oldPosition.y;
     movable.velocity.y = 0;
   }
@@ -62,18 +67,22 @@ namespace {
   collision_result collisions;
 
   const auto& viewport = level.get<comp::viewport>(level.viewport());
-  if (next.horizontal) {
+  if (next.horizontal)
+  {
     if ((next.horizontal->bounds.x() <= 0) ||
-        (next.horizontal->bounds.max_x() >= viewport.levelSize.width)) {
+        (next.horizontal->bounds.max_x() >= viewport.levelSize.width))
+    {
       movable.position.x = oldPosition.x;
       movable.velocity.x = 0;
       collisions.horizontal = true;
     }
   }
 
-  if (next.vertical) {
+  if (next.vertical)
+  {
     if ((next.vertical->bounds.y() <= 0) ||
-        (next.vertical->bounds.max_y() >= viewport.levelSize.height)) {
+        (next.vertical->bounds.max_y() >= viewport.levelSize.height))
+    {
       movable.position.y = oldPosition.y;
       movable.velocity.y = 0;
       collisions.vertical = true;
@@ -95,7 +104,8 @@ void update_hitbox(level& level,
   set_position(hitbox, movable.position);
   level.relocate_aabb(entity, to_vector(hitbox.bounds.position()));
 
-  if (movable.velocity.is_zero()) {
+  if (movable.velocity.is_zero())
+  {
     return;
   }
 
@@ -121,18 +131,21 @@ void update_hitbox(level& level,
                                                 hitbox,
                                                 oldPosition,
                                                 oldAabbPos);
-    if (collisions.vertical || collisions.horizontal) {
+    if (collisions.vertical || collisions.horizontal)
+    {
       restorePosition(collisions);
     }
   }
 
-  for (const auto candidate : candidates) {
+  for (const auto candidate : candidates)
+  {
     const auto collisions = update_movable(movable,
                                            oldPosition,
                                            hitbox,
                                            level.get<comp::hitbox>(candidate),
                                            next);
-    if (collisions.vertical || collisions.horizontal) {
+    if (collisions.vertical || collisions.horizontal)
+    {
       restorePosition(collisions);
     }
   }
@@ -149,7 +162,8 @@ void update_movement(level& level, const delta_t dt)
         movable.position += (movable.velocity * dt);
         movable.dir = dominant_direction(movable);
 
-        if (auto* hitbox = level.try_get<comp::hitbox>(entity)) {
+        if (auto* hitbox = level.try_get<comp::hitbox>(entity))
+        {
           update_hitbox(level, entity, movable, *hitbox, oldPosition, dt);
         }
       });

@@ -12,18 +12,22 @@ void update_level_switch_animations(entt::registry& registry,
 {
   const auto view = registry.view<comp::level_switch_animation>();
   view.each([&](comp::level_switch_animation& animation) {
-    if (animation.fadingIn) {
+    if (animation.fadingIn)
+    {
       ++animation.step;
-      if (animation.step == animation.nSteps - 1) {
+      if (animation.step == animation.nSteps - 1)
+      {
         dispatcher.enqueue<comp::level_faded_in_event>(animation.map.value(),
                                                        animation.step,
                                                        animation.nSteps,
                                                        animation.hStepSize,
                                                        animation.vStepSize);
       }
-    } else {
+    } else
+    {
       --animation.step;
-      if (animation.step == 0) {
+      if (animation.step == 0)
+      {
         dispatcher.enqueue<comp::level_faded_out_event>();
       }
     }

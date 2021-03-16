@@ -57,7 +57,8 @@ void game::tick(const delta_t dt)
 {
   m_dispatcher.update();
 
-  if (is_paused()) {
+  if (is_paused())
+  {
     return;
   }
 
@@ -148,7 +149,8 @@ void game::on_close_inventory(comp::close_inventory_event)
 
 void game::on_particle_event(const comp::particle_event& event)
 {
-  for (auto i = 0; i < event.count; ++i) {
+  for (auto i = 0; i < event.count; ++i)
+  {
     sys::add_particle(m_levels.registry(),
                       event.position,
                       event.baseColor,

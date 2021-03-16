@@ -24,19 +24,24 @@ namespace {
   const auto up = keyState.is_pressed(binds.up);
   const auto down = keyState.is_pressed(binds.down);
 
-  if (left) {
+  if (left)
+  {
     return direction::left;
 
-  } else if (right) {
+  } else if (right)
+  {
     return direction::right;
 
-  } else if (up) {
+  } else if (up)
+  {
     return direction::up;
 
-  } else if (down) {
+  } else if (down)
+  {
     return direction::down;
 
-  } else {
+  } else
+  {
     return std::nullopt;
   }
 }
@@ -47,7 +52,8 @@ void check_for_movement(entt::registry& registry,
                         const comp::binds& binds,
                         const comp::player::entity player)
 {
-  if (const auto dir = get_direction(keyState, binds)) {
+  if (const auto dir = get_direction(keyState, binds))
+  {
     dispatcher.enqueue<comp::begin_humanoid_move_event>(&registry,
                                                         player,
                                                         *dir);
@@ -65,17 +71,21 @@ void handle_idle_input(entt::registry& registry,
 
   const auto& binds = registry.get<comp::binds>(player);
 
-  if (keyState.was_just_released(binds.interact)) {
+  if (keyState.was_just_released(binds.interact))
+  {
     dispatcher.enqueue<comp::interact_event>(&registry, &dispatcher, player);
 
-  } else if (registry.empty<comp::active_inventory>()) {
-    if (keyState.is_pressed(binds.attack)) {
+  } else if (registry.empty<comp::active_inventory>())
+  {
+    if (keyState.is_pressed(binds.attack))
+    {
       // FIXME
       dispatcher.enqueue<comp::begin_attack_event>(&registry,
                                                    player,
                                                    entt::null,
                                                    direction::down);
-    } else {
+    } else
+    {
       check_for_movement(registry, dispatcher, keyState, binds, player);
     }
   }

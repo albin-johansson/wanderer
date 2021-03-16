@@ -8,13 +8,16 @@ namespace {
 auto horizontal_dominant_direction(const comp::movable& movable) noexcept
     -> maybe<direction>
 {
-  if (movable.velocity.x < 0) {
+  if (movable.velocity.x < 0)
+  {
     return direction::left;
 
-  } else if (movable.velocity.x > 0) {
+  } else if (movable.velocity.x > 0)
+  {
     return direction::right;
 
-  } else {
+  } else
+  {
     return std::nullopt;
   }
 }
@@ -22,13 +25,16 @@ auto horizontal_dominant_direction(const comp::movable& movable) noexcept
 auto vertical_dominant_direction(const comp::movable& movable) noexcept
     -> maybe<direction>
 {
-  if (movable.velocity.y < 0) {
+  if (movable.velocity.y < 0)
+  {
     return direction::up;
 
-  } else if (movable.velocity.y > 0) {
+  } else if (movable.velocity.y > 0)
+  {
     return direction::down;
 
-  } else {
+  } else
+  {
     return std::nullopt;
   }
 }
@@ -37,11 +43,13 @@ auto vertical_dominant_direction(const comp::movable& movable) noexcept
 
 auto dominant_direction(const comp::movable& movable) noexcept -> direction
 {
-  if (const auto horizontal = horizontal_dominant_direction(movable)) {
+  if (const auto horizontal = horizontal_dominant_direction(movable))
+  {
     return *horizontal;
   }
 
-  if (const auto vertical = vertical_dominant_direction(movable)) {
+  if (const auto vertical = vertical_dominant_direction(movable))
+  {
     return *vertical;
   }
 

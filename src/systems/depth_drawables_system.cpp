@@ -16,7 +16,8 @@ namespace {
 
 void render_hitbox(cen::renderer& renderer, const comp::hitbox& hitbox) noexcept
 {
-  for (const auto& [offset, size] : hitbox.boxes) {
+  for (const auto& [offset, size] : hitbox.boxes)
+  {
     const cen::frect rect{to_point(hitbox.origin + offset), size};
 
     renderer.set_color(cen::colors::magenta.with_alpha(100));
@@ -60,7 +61,8 @@ void update_tile_object_animations(entt::registry& registry,
 
   view.each(
       [&](const comp::tile_object& object, comp::depth_drawable& drawable) {
-        if (registry.has<comp::animated_tile>(object.tileEntity)) {
+        if (registry.has<comp::animated_tile>(object.tileEntity))
+        {
           const auto& tile =
               get_animated_tile(registry, object.tileEntity, tileset);
           drawable.src = tile.src;
@@ -77,12 +79,15 @@ void render_drawables(const entt::registry& registry,
 
   const auto view = registry.view<const comp::depth_drawable>();
   view.each([&](auto entity, const comp::depth_drawable& drawable) noexcept {
-    if (cen::intersects(boundsRect, drawable.dst)) {
+    if (cen::intersects(boundsRect, drawable.dst))
+    {
       const auto& texture = graphics.find(drawable.texture);
       renderer.render_t(texture, drawable.src, drawable.dst);
 
-      if constexpr (cen::is_debug_build()) {
-        if (const auto* hitbox = registry.try_get<comp::hitbox>(entity)) {
+      if constexpr (cen::is_debug_build())
+      {
+        if (const auto* hitbox = registry.try_get<comp::hitbox>(entity))
+        {
           render_hitbox(renderer, *hitbox);
         }
       }

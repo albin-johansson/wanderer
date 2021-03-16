@@ -24,10 +24,13 @@ void visit_tiles(const comp::tile_layer& layer, T&& callable)
   const auto rows = layer.matrix.size();
   const auto cols = layer.matrix.at(0).size();
 
-  for (auto r = 0; r < rows; ++r) {
-    for (auto c = 0; c < cols; ++c) {
+  for (auto r = 0; r < rows; ++r)
+  {
+    for (auto c = 0; c < cols; ++c)
+    {
       const auto tileId = layer.matrix.at(r).at(c);
-      if (!is_empty(tileId)) {
+      if (!is_empty(tileId))
+      {
         callable(tileId);
       }
     }
@@ -55,11 +58,14 @@ void visit_tiles(const comp::tile_layer& layer,
                  const comp::render_bounds& bounds,
                  T&& callable)
 {
-  for (auto r = bounds.minRow; r < bounds.maxRow; ++r) {
-    for (auto c = bounds.minCol; c < bounds.maxCol; ++c) {
-      const auto tileId = layer.matrix.at(r).at(c);
-      if (!is_empty(tileId)) {
-        callable(tileId, r, c);
+  for (auto r = bounds.minRow; r < bounds.maxRow; ++r)
+  {
+    for (auto c = bounds.minCol; c < bounds.maxCol; ++c)
+    {
+      const auto id = layer.matrix.at(r).at(c);
+      if (!is_empty(id))
+      {
+        callable(id, r, c);
       }
     }
   }

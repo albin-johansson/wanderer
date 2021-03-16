@@ -72,7 +72,8 @@ struct basic_vector2 final
    */
   void norm() noexcept
   {
-    if (const auto mag = magnitude(); mag != 0) {
+    if (const auto mag = magnitude(); mag != 0)
+    {
       x /= mag;
       y /= mag;
     }
@@ -103,15 +104,18 @@ struct basic_vector2 final
    */
   void set_magnitude(const T mag) noexcept
   {
-    if (mag <= 0) {
+    if (mag <= 0)
+    {
       zero();
       return;
     }
 
     const auto previousMag = magnitude();
-    if (previousMag == 0 || previousMag == mag) {
+    if (previousMag == 0 || previousMag == mag)
+    {
       return;  // no need to scale
-    } else {
+    } else
+    {
       scale(mag / previousMag);
     }
   }
@@ -181,9 +185,11 @@ struct basic_vector2 final
    */
   void point_at(const basic_vector2<T>& target, const T length) noexcept
   {
-    if (length <= 0) {
+    if (length <= 0)
+    {
       zero();
-    } else {
+    } else
+    {
       x = target.x - x;
       y = target.y - y;
       norm();
@@ -446,9 +452,11 @@ template <typename T>
 [[nodiscard]] auto distance(const basic_vector2<T>& lhs,
                             const basic_vector2<T>& rhs) noexcept -> T
 {
-  if (lhs == rhs) {
+  if (lhs == rhs)
+  {
     return 0;
-  } else {
+  } else
+  {
     const auto xDiff = rhs.x - lhs.x;
     const auto yDiff = rhs.y - lhs.y;
     return std::sqrt(xDiff * xDiff + yDiff * yDiff);
@@ -493,7 +501,8 @@ template <typename T>
 [[nodiscard]] auto angle(const basic_vector2<T>& lhs,
                          const basic_vector2<T>& rhs) noexcept -> T
 {
-  if (lhs.is_zero() || rhs.is_zero() || lhs == rhs) {
+  if (lhs.is_zero() || rhs.is_zero() || lhs == rhs)
+  {
     return 0;
   }
 
@@ -503,9 +512,11 @@ template <typename T>
   const auto cos = (lhs * rhs) / mag1 / mag2;
   const auto sin = cross(lhs, rhs) / mag1 / mag2;
 
-  if (const auto angle = std::acos(cos); sin < 0) {
+  if (const auto angle = std::acos(cos); sin < 0)
+  {
     return -angle;
-  } else {
+  } else
+  {
     return angle;
   }
 }

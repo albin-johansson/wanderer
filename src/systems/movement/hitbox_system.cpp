@@ -12,12 +12,14 @@ namespace {
                                         const float2& oldPosition,
                                         const delta_t dt) -> maybe<comp::hitbox>
 {
-  if (movable.velocity.y != 0) {
+  if (movable.velocity.y != 0)
+  {
     auto next = oldPosition;
     next.y = oldPosition.y + (movable.velocity.y * dt);
 
     return with_position(hitbox, next);
-  } else {
+  } else
+  {
     return std::nullopt;
   }
 }
@@ -28,12 +30,14 @@ namespace {
                                           const delta_t dt)
     -> maybe<comp::hitbox>
 {
-  if (movable.velocity.x != 0) {
+  if (movable.velocity.x != 0)
+  {
     auto next = oldPosition;
     next.x = oldPosition.x + (movable.velocity.x * dt);
 
     return with_position(hitbox, next);
-  } else {
+  } else
+  {
     return std::nullopt;
   }
 }
@@ -42,7 +46,8 @@ namespace {
 
 void update_bounds(comp::hitbox& hitbox) noexcept
 {
-  if (hitbox.boxes.empty()) {
+  if (hitbox.boxes.empty())
+  {
     return;
   }
 
@@ -52,8 +57,10 @@ void update_bounds(comp::hitbox& hitbox) noexcept
   float my{};
 
   bool first{true};
-  for (const auto& [offset, size] : hitbox.boxes) {
-    if (first) {
+  for (const auto& [offset, size] : hitbox.boxes)
+  {
+    if (first)
+    {
       x = offset.x;
       y = offset.y;
       mx = x + size.width;
@@ -93,27 +100,33 @@ auto with_position(const comp::hitbox& hitbox, const float2& position) noexcept
 auto intersects(const comp::hitbox& fst, const comp::hitbox& snd) noexcept
     -> bool
 {
-  if (&fst == &snd) {
+  if (&fst == &snd)
+  {
     return false;
   }
 
-  if (!cen::intersects(fst.bounds, snd.bounds)) {
+  if (!cen::intersects(fst.bounds, snd.bounds))
+  {
     // Cannot intersect if the bounding rectangles don't intersect
     return false;
   }
 
-  if (!fst.enabled || !snd.enabled) {
+  if (!fst.enabled || !snd.enabled)
+  {
     // Cannot intersect if either hitbox isn't enabled
     return false;
   }
 
-  for (const auto& [fstOffset, fstSize] : fst.boxes) {
+  for (const auto& [fstOffset, fstSize] : fst.boxes)
+  {
     const cen::frect rectA{to_point(fst.origin + fstOffset), fstSize};
 
-    for (const auto& [sndOffset, sndSize] : snd.boxes) {
+    for (const auto& [sndOffset, sndSize] : snd.boxes)
+    {
       const cen::frect rectB{to_point(snd.origin + sndOffset), sndSize};
 
-      if (cen::collides(rectA, rectB)) {
+      if (cen::collides(rectA, rectB))
+      {
         return true;
       }
     }
@@ -127,7 +140,8 @@ auto create_hitbox(std::initializer_list<comp::subhitbox> boxes) -> comp::hitbox
   comp::hitbox hb;
 
   hb.boxes.reserve(boxes.size());
-  for (const auto& box : boxes) {
+  for (const auto& box : boxes)
+  {
     hb.boxes.push_back(box);
   }
 

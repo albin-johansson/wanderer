@@ -33,7 +33,8 @@ void add_animation(ir::fancy_tile& tileData,
   auto& frames = animation.frames;
   frames.reserve(static_cast<std::size_t>(stepAnimation.num_frames()));
 
-  for (const auto& stepFrame : stepAnimation.frames()) {
+  for (const auto& stepFrame : stepAnimation.frames())
+  {
     auto& frame = frames.emplace_back();
     frame.tile = firstGid + static_cast<tile_id>(stepFrame.tile_id().get());
     frame.duration = ms_t{stepFrame.duration()};
@@ -56,10 +57,12 @@ void add_hitbox(ir::fancy_tile& tileData,
 
 [[nodiscard]] auto parse_depth(const step::properties& props) -> maybe<depth_t>
 {
-  if (props.has("depth")) {
+  if (props.has("depth"))
+  {
     assert(props.get("depth").is<int>());
     return depth_t{props.get("depth").get<int>()};
-  } else {
+  } else
+  {
     return std::nullopt;
   }
 }
@@ -90,23 +93,29 @@ auto parse_fancy_tile(ir::tileset& data,
 {
   ir::fancy_tile result;
 
-  if (const auto& stepAnimation = stepTile.get_animation()) {
+  if (const auto& stepAnimation = stepTile.get_animation())
+  {
     add_animation(result, *stepAnimation, firstGid);
   }
 
-  if (const auto* layer = stepTile.object_group()) {
-    if (const auto* group = layer->try_as<step::object_group>()) {
+  if (const auto* layer = stepTile.object_group())
+  {
+    if (const auto* group = layer->try_as<step::object_group>())
+    {
       // Only allow one object per tile for now
       assert(group->objects().size() == 1);
       const auto& object = group->objects().at(0);
-      if (object.type() == "Hitbox") {
+      if (object.type() == "Hitbox")
+      {
         add_hitbox(result, object, data.xRatio, data.yRatio);
       }
     }
   }
 
-  if (const auto* props = stepTile.get_properties()) {
-    if (const auto depth = parse_depth(*props)) {
+  if (const auto* props = stepTile.get_properties())
+  {
+    if (const auto depth = parse_depth(*props))
+    {
       result.depth = *depth;
     }
   }

@@ -42,9 +42,11 @@ inline std::mt19937 engine{get_seeded_engine()};
 template <typename T>
 [[nodiscard]] auto get_random(const T min, const T max) -> T
 {
-  if constexpr (std::is_floating_point_v<T>) {
+  if constexpr (std::is_floating_point_v<T>)
+  {
     return std::uniform_real_distribution<T>{min, max}(engine);
-  } else {
+  } else
+  {
     return std::uniform_int_distribution<T>{min, max}(engine);
   }
 }

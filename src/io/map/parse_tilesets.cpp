@@ -26,7 +26,8 @@ void add_tiles(const step::tileset& tileset, ir::tileset& data)
   auto id = static_cast<tile_id>(tileset.first_gid().get());
   const auto tileCount = tileset.tile_count();
 
-  for (auto index = 0; index < tileCount; ++index, ++id) {
+  for (auto index = 0; index < tileCount; ++index, ++id)
+  {
     data.tiles.emplace(id, make_tile(id, index, data.sheet.id, tileset));
   }
 }
@@ -34,7 +35,8 @@ void add_tiles(const step::tileset& tileset, ir::tileset& data)
 void parse_fancy_tiles(ir::tileset& data, const step::tileset& stepTileset)
 {
   const auto first = static_cast<tile_id>(stepTileset.first_gid().get());
-  for (const auto& stepTile : stepTileset.tiles()) {
+  for (const auto& stepTile : stepTileset.tiles())
+  {
     const auto gid = first + static_cast<tile_id>(stepTile.id().get());
     auto& tile = data.tiles.at(gid);
     tile.fancy = parse_fancy_tile(data, data.tiles.at(gid), stepTile, first);
@@ -49,7 +51,8 @@ auto parse_tilesets(const tileset_collection& tilesets,
 {
   std::vector<ir::tileset> vec;
 
-  for (const auto& stepTileset : tilesets) {
+  for (const auto& stepTileset : tilesets)
+  {
     auto& tileset = vec.emplace_back();
 
     const auto path = directory / stepTileset->image();

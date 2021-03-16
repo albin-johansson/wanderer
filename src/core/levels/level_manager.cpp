@@ -21,7 +21,8 @@ level_manager::level_manager(graphics_context& graphics)
 
   m_world = world->id();
 
-  for (const auto& levelData : worldData.levels) {
+  for (const auto& levelData : worldData.levels)
+  {
     auto sublevel = std::make_unique<level>(levelData, graphics);
     const auto id = sublevel->id();
     m_levels.try_emplace(id, std::move(sublevel));
@@ -37,7 +38,8 @@ level_manager::level_manager(const save_file_info& info,
     , m_current{info.current}
 {
   m_levels.reserve(info.paths.size());
-  for (const auto& [id, path] : info.paths) {
+  for (const auto& [id, path] : info.paths)
+  {
     m_levels.try_emplace(id, std::make_unique<level>(path, graphics));
   }
 }

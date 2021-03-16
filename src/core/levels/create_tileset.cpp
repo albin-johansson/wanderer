@@ -10,7 +10,8 @@ void create_tiles(entt::registry& registry,
                   const std::map<tile_id, ir::tile>& tiles,
                   const graphics_context& graphics)
 {
-  for (const auto& [id, tileData] : tiles) {
+  for (const auto& [id, tileData] : tiles)
+  {
     const auto entity = comp::tile::entity{registry.create()};
     tileset.tiles.try_emplace(id, entity);
 
@@ -19,11 +20,13 @@ void create_tiles(entt::registry& registry,
     tile.texture = graphics.to_index(tileData.texture);
     tile.src = tileData.source;
 
-    if (tileData.fancy) {
+    if (tileData.fancy)
+    {
       const auto& fancy = *tileData.fancy;
       tile.depth = fancy.depth;
 
-      if (fancy.animation) {
+      if (fancy.animation)
+      {
         registry.emplace<comp::animated_tile>(entity, *fancy.animation);
       }
     }
@@ -34,7 +37,8 @@ void create_tiles(entt::registry& registry,
 
 void load_tileset_textures(const ir::level& data, graphics_context& graphics)
 {
-  for (const auto& ts : data.tilesets) {
+  for (const auto& ts : data.tilesets)
+  {
     graphics.load(ts.sheet.id, ts.sheet.path);
   }
 }
@@ -47,15 +51,18 @@ auto create_tileset(const std::vector<ir::tileset>& data,
   auto& tileset = registry.emplace<comp::tileset>(entity);
 
   std::size_t nTiles{};
-  for (const auto& ts : data) {
-    for (const auto& tile : ts.tiles) {
+  for (const auto& ts : data)
+  {
+    for (const auto& tile : ts.tiles)
+    {
       ++nTiles;
     }
   }
 
   tileset.tiles.reserve(nTiles);
 
-  for (const auto& ts : data) {
+  for (const auto& ts : data)
+  {
     create_tiles(registry, tileset, ts.tiles, graphics);
   }
 

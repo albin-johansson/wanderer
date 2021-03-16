@@ -16,18 +16,22 @@ void update_chase(entt::registry& registry, entt::dispatcher& dispatcher)
                 comp::movable& movable) {
     const auto& targetMovable = registry.get<comp::movable>(chase.target);
 
-    if (distance(movable.position, targetMovable.position) <= chase.range) {
+    if (distance(movable.position, targetMovable.position) <= chase.range)
+    {
       movable.velocity = movable.position;
       movable.velocity.point_at(targetMovable.position, movable.speed);
 
-      if (!registry.has<comp::humanoid_move>(entity)) {
+      if (!registry.has<comp::humanoid_move>(entity))
+      {
         registry.emplace<comp::humanoid_move>(entity);
         enter_move_animation(registry, entity, dominant_direction(movable));
       }
 
-    } else {
+    } else
+    {
       movable.velocity.zero();
-      if (!registry.has<comp::humanoid_idle>(entity)) {
+      if (!registry.has<comp::humanoid_idle>(entity))
+      {
         registry.emplace<comp::humanoid_idle>(entity);
         enter_idle_animation(registry, entity);
       }

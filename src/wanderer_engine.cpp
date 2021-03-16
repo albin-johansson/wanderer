@@ -9,10 +9,12 @@ wanderer_engine::wanderer_engine()
     , m_graphics{m_window}
     , m_game{m_graphics}
 {
-  if constexpr (cen::is_debug_build()) {
+  if constexpr (cen::is_debug_build())
+  {
     m_window.set_width(cen::screen::width() / 2);
     m_window.set_height(cen::screen::height() / 2);
-  } else {
+  } else
+  {
     m_window.set_size(cen::screen::size());
     m_window.set_fullscreen(true);
   }
@@ -28,7 +30,8 @@ auto wanderer_engine::run() -> int
   m_window.show();
   fetch_current_time();
 
-  while (is_running()) {
+  while (is_running())
+  {
     tick();
 
     renderer.clear_with(cen::colors::black);

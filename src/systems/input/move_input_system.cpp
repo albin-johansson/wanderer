@@ -16,7 +16,8 @@ namespace {
 
 void move(comp::movable& movable, const direction dir) noexcept
 {
-  switch (dir) {
+  switch (dir)
+  {
     case direction::right: {
       movable.velocity.x = movable.speed;
       break;
@@ -40,7 +41,8 @@ void move(comp::movable& movable, const direction dir) noexcept
 
 void stop(comp::movable& movable, const direction dir) noexcept
 {
-  switch (dir) {
+  switch (dir)
+  {
     case direction::right:
       [[fallthrough]];
     case direction::left: {
@@ -67,21 +69,27 @@ void stop(comp::movable& movable, const direction dir) noexcept
   const auto up = keyState.is_pressed(binds.up);
   const auto down = keyState.is_pressed(binds.down);
 
-  if (left && right) {
+  if (left && right)
+  {
     stop(movable, direction::left);
     stop(movable, direction::right);
-  } else if (left) {
+  } else if (left)
+  {
     move(movable, direction::left);
-  } else if (right) {
+  } else if (right)
+  {
     move(movable, direction::right);
   }
 
-  if (up && down) {
+  if (up && down)
+  {
     stop(movable, direction::up);
     stop(movable, direction::down);
-  } else if (up) {
+  } else if (up)
+  {
     move(movable, direction::up);
-  } else if (down) {
+  } else if (down)
+  {
     move(movable, direction::down);
   }
 
@@ -92,19 +100,23 @@ void check_released(comp::movable& movable,
                     const cen::key_state& keyState,
                     const comp::binds& binds) noexcept
 {
-  if (keyState.was_just_released(binds.left)) {
+  if (keyState.was_just_released(binds.left))
+  {
     stop(movable, direction::left);
   }
 
-  if (keyState.was_just_released(binds.right)) {
+  if (keyState.was_just_released(binds.right))
+  {
     stop(movable, direction::right);
   }
 
-  if (keyState.was_just_released(binds.up)) {
+  if (keyState.was_just_released(binds.up))
+  {
     stop(movable, direction::up);
   }
 
-  if (keyState.was_just_released(binds.down)) {
+  if (keyState.was_just_released(binds.down))
+  {
     stop(movable, direction::down);
   }
 }
@@ -123,10 +135,12 @@ void handle_move_input(entt::registry& registry,
   const auto areMoveKeysDown = check_pressed(movable, keyState, binds);
   check_released(movable, keyState, binds);
 
-  if (!areMoveKeysDown && movable.velocity.is_zero()) {
+  if (!areMoveKeysDown && movable.velocity.is_zero())
+  {
     dispatcher.enqueue<comp::end_humanoid_move_event>(&registry, player);
 
-  } else if (keyState.is_pressed(binds.attack)) {
+  } else if (keyState.is_pressed(binds.attack))
+  {
     movable.velocity.zero();
 
     // FIXME null weapon
@@ -134,7 +148,8 @@ void handle_move_input(entt::registry& registry,
                                                  player,
                                                  entt::null,
                                                  movable.dir);
-  } else if (keyState.was_just_released(binds.interact)) {
+  } else if (keyState.was_just_released(binds.interact))
+  {
     dispatcher.enqueue<comp::interact_event>(&registry, &dispatcher, player);
   }
 }

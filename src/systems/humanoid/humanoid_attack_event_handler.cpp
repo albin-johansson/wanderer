@@ -15,7 +15,8 @@ namespace {
 [[nodiscard]] auto get_particle_position(const float2& position,
                                          const comp::movable& movable)
 {
-  switch (movable.dir) {
+  switch (movable.dir)
+  {
     case direction::right:
       return float2{position.x + (glob::tile_width<> * 2.0f),
                     position.y + glob::tile_height<>};
@@ -62,7 +63,8 @@ void on_attack_end(const comp::end_attack_event& event)
   // TODO deal damage (need target area)
 
   if (const auto* movable =
-          event.registry->try_get<comp::movable>(event.sourceEntity)) {
+          event.registry->try_get<comp::movable>(event.sourceEntity))
+  {
     const auto position = get_particle_position(movable->position, *movable);
     event.dispatcher->enqueue<comp::particle_event>(position,
                                                     cen::colors::dark_gray,

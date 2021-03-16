@@ -11,10 +11,12 @@ void update_animations(entt::registry& registry) noexcept
   registry.view<comp::animated>().each([](comp::animated& animated) {
     const auto now = cen::counter::ticks();
     const auto elapsed = now - animated.then;
-    if (elapsed >= animated.delay) {
+    if (elapsed >= animated.delay)
+    {
       animated.then = now;
       ++animated.frame;
-      if (animated.frame >= animated.nFrames) {
+      if (animated.frame >= animated.nFrames)
+      {
         animated.frame = 0;
       }
     }

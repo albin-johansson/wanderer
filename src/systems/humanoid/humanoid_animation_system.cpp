@@ -44,7 +44,8 @@ inline constexpr ms_t attack_delay{70};
 [[nodiscard]] constexpr auto source_y(const int y, const direction dir) noexcept
     -> int
 {
-  switch (dir) {
+  switch (dir)
+  {
     default:
       assert(false);
 
@@ -75,10 +76,12 @@ void update_move_animation(entt::registry& registry,
   auto* drawable = registry.try_get<comp::depth_drawable>(entity);
   const auto* movable = registry.try_get<comp::movable>(entity);
 
-  if (animated && drawable && movable) {
+  if (animated && drawable && movable)
+  {
     drawable->src.set_x(movable->velocity.is_zero() ? 0 : animated->frame * 64);
     const auto srcY = source_y(move_source_y, movable->dir);
-    if (drawable->src.y() != srcY) {
+    if (drawable->src.y() != srcY)
+    {
       animated->frame = 0;
       drawable->src.set_y(srcY);
     }
@@ -100,9 +103,11 @@ void update_attack_animation(entt::registry& registry,
   auto* animated = registry.try_get<comp::animated>(entity);
   auto* drawable = registry.try_get<comp::depth_drawable>(entity);
 
-  if (animated && drawable) {
+  if (animated && drawable)
+  {
     drawable->src.set_x(animated->frame * 64);
-    if (animated->frame == animated->nFrames - 1) {
+    if (animated->frame == animated->nFrames - 1)
+    {
       auto& attack = registry.get<comp::humanoid_attack>(entity);
       attack.done = true;
     }
@@ -132,7 +137,8 @@ void enter_animation(entt::registry& registry,
   auto* drawable = registry.try_get<comp::depth_drawable>(entity);
   const auto* movable = registry.try_get<comp::movable>(entity);
 
-  if (animated && drawable && movable) {
+  if (animated && drawable && movable)
+  {
     animated->frame = 0;
     animated->nFrames = nFrames;
     animated->delay = delay;
@@ -151,7 +157,8 @@ void enter_animation(entt::registry& registry,
   auto* animated = registry.try_get<comp::animated>(entity);
   auto* drawable = registry.try_get<comp::depth_drawable>(entity);
 
-  if (animated && drawable) {
+  if (animated && drawable)
+  {
     animated->frame = 0;
     animated->nFrames = nFrames;
     animated->delay = delay;
@@ -219,10 +226,12 @@ void enter_spear_animation(entt::registry& registry,
 void update_humanoid_animations(entt::registry& registry)
 {
   registry.view<comp::humanoid>().each([&](const entt::entity entity) {
-    if (registry.has<comp::humanoid_move>(entity)) {
+    if (registry.has<comp::humanoid_move>(entity))
+    {
       update_move_animation(registry, entity);
     }
-    if (registry.has<comp::humanoid_attack>(entity)) {
+    if (registry.has<comp::humanoid_attack>(entity))
+    {
       update_attack_animation(registry, entity);
     }
   });

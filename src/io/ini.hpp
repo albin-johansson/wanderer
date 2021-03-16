@@ -46,7 +46,8 @@ class basic_ini final
     line.reserve(24);
     sectionName.reserve(24);
 
-    while (std::getline(stream, line)) {
+    while (std::getline(stream, line))
+    {
       trim_left(line);
       trim_right(line);
       parse_line(sectionName, line);
@@ -62,8 +63,10 @@ class basic_ini final
                         const string_view_type entry) const
       -> const string_type&
   {
-    if (const auto it = m_sections.find(section); it != m_sections.end()) {
-      if (const auto it2 = it->second.find(entry); it2 != it->second.end()) {
+    if (const auto it = m_sections.find(section); it != m_sections.end())
+    {
+      if (const auto it2 = it->second.find(entry); it2 != it->second.end())
+      {
         return it2->second;
       }
     }
@@ -75,25 +78,32 @@ class basic_ini final
   [[nodiscard]] auto get(const string_view_type section,
                          const string_view_type entry) const -> std::optional<T>
   {
-    if (const auto it = find(section, entry)) {
+    if (const auto it = find(section, entry))
+    {
       const auto& value = (*it)->second;
 
-      if constexpr (std::is_same_v<T, int>) {
+      if constexpr (std::is_same_v<T, int>)
+      {
         return std::stoi(value);
 
-      } else if constexpr (std::is_same_v<T, long>) {
+      } else if constexpr (std::is_same_v<T, long>)
+      {
         return std::stol(value);
 
-      } else if constexpr (std::is_same_v<T, float>) {
+      } else if constexpr (std::is_same_v<T, float>)
+      {
         return std::stof(value);
 
-      } else if constexpr (std::is_same_v<T, double>) {
+      } else if constexpr (std::is_same_v<T, double>)
+      {
         return std::stod(value);
 
-      } else if constexpr (std::is_same_v<T, bool>) {
+      } else if constexpr (std::is_same_v<T, bool>)
+      {
         return value == "true" || value == "false";
 
-      } else if constexpr (std::is_same_v<T, string_type>) {
+      } else if constexpr (std::is_same_v<T, string_type>)
+      {
         return value;
       }
     }
@@ -139,9 +149,11 @@ class basic_ini final
   [[nodiscard]] auto parse_section_name(const string_type& line) const
       -> std::optional<string_type>
   {
-    if (is_section_end(line.back())) {
+    if (is_section_end(line.back()))
+    {
       return line.substr(1, line.length() - 2);
-    } else {
+    } else
+    {
       m_errors.push_back(line);
       return std::nullopt;
     }
@@ -149,22 +161,28 @@ class basic_ini final
 
   void parse_line(string_type& sectionName, const string_type& line)
   {
-    if (line.empty()) {
+    if (line.empty())
+    {
       return;
     }
 
     const auto& character = line.front();
 
-    if (is_comment(character)) {
+    if (is_comment(character))
+    {
       return;
     }
 
-    if (is_section_start(character)) {
-      if (const auto name = parse_section_name(line)) {
+    if (is_section_start(character))
+    {
+      if (const auto name = parse_section_name(line))
+      {
         sectionName = *name;
       }
-    } else if (parse_variable(line, sectionName)) {
-    } else {
+    } else if (parse_variable(line, sectionName))
+    {
+    } else
+    {
       m_errors.push_back(line);
     }
   }
@@ -186,10 +204,12 @@ class basic_ini final
     trim_left(variable);
 
     auto& section = m_sections[sectionName];
-    if (section.find(variable) == section.end()) {
+    if (section.find(variable) == section.end())
+    {
       section.try_emplace(variable, value);
       return true;
-    } else {
+    } else
+    {
       m_errors.push_back(line);
       return false;
     }
@@ -199,9 +219,11 @@ class basic_ini final
                           const string_view_type entry) const
       -> std::optional<typename section_type::const_iterator>
   {
-    if (const auto it = m_sections.find(section); it != m_sections.end()) {
+    if (const auto it = m_sections.find(section); it != m_sections.end())
+    {
       const auto& map = it->second;
-      if (const auto it2 = map.find(entry); it2 != map.end()) {
+      if (const auto it2 = map.find(entry); it2 != map.end())
+      {
         return it2;
       }
     }

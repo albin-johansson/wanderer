@@ -40,13 +40,16 @@ class semi_fixed_game_loop
     auto* engine = derived();
     int nSteps{0};
 
-    while (frameTime > seconds_type::zero()) {
-      if (nSteps > m_maxSteps) {
+    while (frameTime > seconds_type::zero())
+    {
+      if (nSteps > m_maxSteps)
+      {
         break;  // avoids spiral-of-death by limiting maximum amount of steps
       }
 
       m_running = engine->update_input();
-      if (!m_running) {
+      if (!m_running)
+      {
         break;
       }
 

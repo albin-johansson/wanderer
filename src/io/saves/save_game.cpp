@@ -26,7 +26,8 @@ void save_game(const std::string& name, const level_manager& levels)
   json["current_level"] = levels.current_id().get();
   json["world"] = levels.world().get();
 
-  for (const auto& [id, level] : levels) {
+  for (const auto& [id, level] : levels)
+  {
     const auto levelName = "level_" + std::to_string(id.get()) + ".wanderer";
     level->save(dir + levelName);
 

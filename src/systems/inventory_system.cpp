@@ -71,10 +71,13 @@ void render_inventory(const entt::registry& registry,
 
     maybe<int> hoverIndex;
     auto index = 0;
-    for (auto row = 0; row < nRows; ++row) {
-      for (auto col = 0; col < nCols; ++col, ++index) {
+    for (auto row = 0; row < nRows; ++row)
+    {
+      for (auto col = 0; col < nCols; ++col, ++index)
+      {
         const auto rect = get_rect(row, col);
-        if (rect.contains(mousePos)) {
+        if (rect.contains(mousePos))
+        {
           hoverIndex = index;
         }
 
@@ -82,7 +85,8 @@ void render_inventory(const entt::registry& registry,
                                                        : cen::colors::gray);
         renderer.fill_rect(rect);
 
-        if (index < nItems) {
+        if (index < nItems)
+        {
           const auto& item =
               registry.get<comp::item>(inventory.items.at(index));
           renderer.render(*item.texture, rect);
@@ -90,7 +94,8 @@ void render_inventory(const entt::registry& registry,
       }
     }
 
-    if (hoverIndex) {
+    if (hoverIndex)
+    {
       const auto [row, col] = index_to_matrix(*hoverIndex, nCols);
       const auto rect = get_rect(row, col);
       renderer.set_color(cen::colors::dark_green);

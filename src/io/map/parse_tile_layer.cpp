@@ -29,7 +29,8 @@ using tile_data = step::detail::data::gid_data;  // FIXME
   int index{0};
 
   assert(tileLayer.data());
-  for (const auto gid : tileLayer.data()->as_gid()) {
+  for (const auto gid : tileLayer.data()->as_gid())
+  {
     const auto [row, col] = index_to_matrix<std::size_t>(index, nCols);
 
     const tile_id id{gid.get()};
@@ -59,8 +60,10 @@ using tile_data = step::detail::data::gid_data;  // FIXME
 [[nodiscard]] auto find_tile(ir::level& data, const tile_id id)
     -> maybe<ir::tile>
 {
-  for (const auto& ts : data.tilesets) {
-    if (const auto it = ts.tiles.find(id); it != ts.tiles.end()) {
+  for (const auto& ts : data.tilesets)
+  {
+    if (const auto it = ts.tiles.find(id); it != ts.tiles.end())
+    {
       return it->second;
     }
   }
@@ -84,11 +87,13 @@ void add_tile_object(ir::level& data,
 
   tileObjectData.drawable = add_depth_drawable(tile, position, zIndex);
 
-  if (tile.fancy) {
+  if (tile.fancy)
+  {
     const auto& fancy = *tile.fancy;
     tileObjectData.drawable.depth = fancy.depth;
 
-    if (fancy.hitbox) {
+    if (fancy.hitbox)
+    {
       tileObjectData.hitbox =
           sys::with_position(*fancy.hitbox, to_vector(position));
     }
@@ -100,10 +105,12 @@ void add_tile_objects(ir::level& data, const tile_data& tiles, const int zIndex)
 {
   int tileIndex{0};
 
-  for (const auto gid : tiles) {
+  for (const auto gid : tiles)
+  {
     const tile_id tileId{gid.get()};
 
-    if (!is_empty(tileId)) {
+    if (!is_empty(tileId))
+    {
       add_tile_object(data, tileId, tileIndex, zIndex);
     }
 
@@ -123,13 +130,15 @@ void parse_tile_layer(ir::level& data,
   assert(layerProperties->has("ground"));
   assert(layerProperties->get("ground").is<bool>());
 
-  if (layerProperties->is("ground", true)) {
+  if (layerProperties->is("ground", true))
+  {
     data.groundLayers.emplace_back(make_ground_layer(stepLayer,
                                                      stepMap.height(),
                                                      stepMap.width(),
                                                      zIndex));
 
-  } else if (const auto* layerData = stepLayer.data()) {
+  } else if (const auto* layerData = stepLayer.data())
+  {
     add_tile_objects(data, layerData->as_gid(), zIndex);
   }
 }

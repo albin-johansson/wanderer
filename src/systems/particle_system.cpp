@@ -35,14 +35,17 @@ void update_particles(entt::registry& registry, const delta_t dt)
   const auto view = registry.view<comp::particle>();
   view.each([&](const entt::entity entity, comp::particle& particle) {
     ++particle.tick;
-    if (particle.tick >= particle.nTicks) {
+    if (particle.tick >= particle.nTicks)
+    {
       registry.destroy(entity);
-    } else {
+    } else
+    {
       particle.x += particle.dx * dt;
       particle.y += particle.dy * dt;
       particle.z += particle.dz * dt;
 
-      if (particle.z < 0) {
+      if (particle.z < 0)
+      {
         particle.z = 0;
         particle.dx *= 0.6f;
         particle.dy *= 0.6f;

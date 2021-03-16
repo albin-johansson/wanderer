@@ -21,10 +21,13 @@ void query_binds(entt::registry& registry,
                  comp::menu& menu,
                  const cen::key_state& keyState)
 {
-  for (const auto entity : menu.binds) {
+  for (const auto entity : menu.binds)
+  {
     auto& bind = registry.get<comp::key_bind>(entity);
-    if (keyState.was_just_released(bind.key)) {
-      if (bind.action) {
+    if (keyState.was_just_released(bind.key))
+    {
+      if (bind.action)
+      {
         bind.action->execute(dispatcher);
       }
     }
@@ -37,7 +40,8 @@ void render_lines(const entt::registry& registry,
 {
   renderer.set_color(cen::colors::white);
 
-  for (const auto entity : drawable.lines) {
+  for (const auto entity : drawable.lines)
+  {
     const auto& line = registry.get<comp::line>(entity);
     renderer.draw_line(line.start, line.end);
   }
@@ -49,10 +53,11 @@ void render_labels(const entt::registry& registry,
 {
   const auto& font = renderer.get_font(glob::menu_font_s);
 
-  for (const auto entity : drawable.labels) {
+  for (const auto entity : drawable.labels)
+  {
     const auto& label = registry.get<comp::label>(entity);
-
-    if (auto& texture = label.texture; !texture) {
+    if (auto& texture = label.texture; !texture)
+    {
       renderer.set_color(label.color);
       texture = render_text(renderer, label.text, font);
     }
@@ -65,11 +70,13 @@ void render_title(const std::string& title,
                   const comp::menu_drawable& drawable,
                   cen::renderer& renderer)
 {
-  if (title.empty()) {
+  if (title.empty())
+  {
     return;
   }
 
-  if (auto& texture = drawable.titleTexture; !texture.has_value()) {
+  if (auto& texture = drawable.titleTexture; !texture.has_value())
+  {
     auto& font = renderer.get_font(glob::menu_font_l);
 
     renderer.set_color(cen::colors::white);
@@ -78,7 +85,8 @@ void render_title(const std::string& title,
 
   const auto& texture = *drawable.titleTexture;
 
-  if (!drawable.titlePos) {
+  if (!drawable.titlePos)
+  {
     const auto x = (glob::logical_width<int> / 2) - (texture.width() / 2);
     const auto y = convert_row_to_y(2);
     drawable.titlePos = {x, y};
@@ -116,9 +124,11 @@ void update_menu(entt::registry& registry,
   view.each([&](const entt::entity entity, comp::menu& menu) {
     const auto menuEntity = comp::menu::entity{entity};
     const auto button = update_button_hover(registry, menuEntity, mouseState);
-    if (button) {
+    if (button)
+    {
       query_button(registry, dispatcher, *button, mouseState);
-    } else {
+    } else
+    {
       cen::cursor::reset();
     }
     query_binds(registry, dispatcher, menu, keyState);
@@ -131,10 +141,12 @@ void switch_menu(entt::registry& registry, const menu_id id)
 
   const auto view = registry.view<comp::menu>();
   view.each([&](const entt::entity e, const comp::menu& menu) {
-    if (menu.id == id) {
+    if (menu.id == id)
+    {
       registry.emplace<comp::active_menu>(e);
 
-      if (menu.id == menu_id::saves) {
+      if (menu.id == menu_id::saves)
+      {
         refresh_saves_menu(registry);
       }
     }
@@ -147,14 +159,16 @@ void render_menu(const entt::registry& registry, cen::renderer& renderer)
                                   const comp::menu,
                                   const comp::menu_drawable>();
   view.each([&](const comp::menu& menu, const comp::menu_drawable& drawable) {
-    if (menu.blocking) {
+    if (menu.blocking)
+    {
       renderer.fill_with(glob::transparent_black);
     }
 
     render_lines(registry, drawable, renderer);
     render_labels(registry, drawable, renderer);
 
-    for (const auto button : menu.buttons) {
+    for (const auto button : menu.buttons)
+    {
       render_button(registry, button, renderer);
     }
 

@@ -16,9 +16,11 @@ namespace wanderer::sys {
 [[nodiscard]] constexpr auto convert_column_to_x(const int column) -> int
 {
   // make centered if column index is -1
-  if (column == -1) {
+  if (column == -1)
+  {
     return (glob::logical_width<int> / 2);
-  } else {
+  } else
+  {
     return (column * glob::menu_col_size);
   }
 }

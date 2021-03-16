@@ -17,7 +17,8 @@ auto parse_save_file(const std::filesystem::path& path) -> save_file_info
   contents.world = map_id{json.at("world").get<int>()};
   contents.current = map_id{json.at("current_level").get<int>()};
 
-  for (const auto& [key, object] : json.at("levels").items()) {
+  for (const auto& [key, object] : json.at("levels").items())
+  {
     const auto id = map_id{object.at("id").get<int>()};
     const auto dataFile = object.at("data").get<std::string>();
     contents.paths.try_emplace(id, path.parent_path() / dataFile);

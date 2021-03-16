@@ -44,11 +44,13 @@ void render_text(const comp::button& button,
                  const comp::button_drawable& drawable,
                  cen::renderer& renderer)
 {
-  if (button.text.empty()) {
+  if (button.text.empty())
+  {
     return;
   }
 
-  if (!drawable.textPos) {
+  if (!drawable.textPos)
+  {
     const auto& font = renderer.get_font(button_font);
     const auto [width, height] = font.string_size(button.text.c_str());
     const auto x = drawable.bounds.center_x() - (width / 2.0f);
@@ -99,12 +101,15 @@ void query_button(entt::registry& registry,
                   const cen::mouse_state& mouseState)
 {
   const auto& button = registry.get<comp::button>(buttonEntity);
-  if (button.hover) {
+  if (button.hover)
+  {
     auto& cursors = singleton<comp::cursors>(registry);
     cursors.data.at(cen::system_cursor::hand).enable();
 
-    if (mouseState.was_left_button_released()) {
-      if (button.action) {
+    if (mouseState.was_left_button_released())
+    {
+      if (button.action)
+      {
         button.action->execute(dispatcher);
         cen::cursor::reset();
       }
@@ -121,12 +126,14 @@ auto update_button_hover(entt::registry& registry,
   const auto mousePos = cen::cast<cen::fpoint>(mouseState.mouse_pos());
 
   const auto& menu = registry.get<comp::menu>(menuEntity);
-  for (const auto entity : menu.buttons) {
+  for (const auto entity : menu.buttons)
+  {
     auto& button = registry.get<comp::button>(entity);
     const auto& drawable = registry.get<comp::button_drawable>(entity);
 
     button.hover = drawable.bounds.contains(mousePos);
-    if (button.hover) {
+    if (button.hover)
+    {
       hoverButton = entity;
     }
   }
@@ -141,12 +148,14 @@ void render_button(const entt::registry& registry,
   const auto& button = registry.get<comp::button>(buttonEntity);
   const auto& drawable = registry.get<comp::button_drawable>(buttonEntity);
 
-  if (!drawable.texture) {
+  if (!drawable.texture)
+  {
     update_bounds(button, drawable, renderer);
     init_text(drawable, button.text, renderer);
   }
 
-  if (button.hover) {
+  if (button.hover)
+  {
     render_background(drawable, renderer);
   }
 
