@@ -80,7 +80,7 @@ struct level final
   float xRatio;
   float yRatio;
   cen::farea size;                    ///< The size of the level, in pixels.
-  vector2f playerSpawnPoint;          ///< The initial position of the player.
+  float2 playerSpawnPoint;            ///< The initial position of the player.
   std::vector<ir::tileset> tilesets;  ///< Tilesets used by the level.
   std::vector<comp::tile_layer> groundLayers;  ///< List of "ground" layers.
   std::vector<tile_object> tileObjects;        ///< List of tile objects.

@@ -45,7 +45,7 @@ void add_hitbox(ir::fancy_tile& tileData,
                 const float xRatio,
                 const float yRatio)
 {
-  const vector2f offset{static_cast<float>(object.x()) * xRatio,
+  const float2 offset{static_cast<float>(object.x()) * xRatio,
                         static_cast<float>(object.y()) * yRatio};
 
   const cen::farea size{static_cast<float>(object.width()) * xRatio,

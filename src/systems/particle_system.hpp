@@ -9,7 +9,7 @@
 namespace wanderer::sys {
 
 void add_particle(entt::registry& registry,
-                  const vector2f& position,
+                  const float2& position,
                   const cen::color& color,
                   int nTicks);
 

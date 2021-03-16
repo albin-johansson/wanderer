@@ -9,7 +9,7 @@ namespace wanderer::comp {
 
 struct particle_event final
 {
-  vector2f position;
+  float2 position;
   cen::color baseColor;
   int count;
   int nTicks;

@@ -518,5 +518,7 @@ void serialize(Archive& archive, basic_vector2<T>& vec)
 
 using vector2f = basic_vector2<float>;
 using vector2d = basic_vector2<double>;
+using float2 = basic_vector2<float>;
+using double2 = basic_vector2<double>;
 
 }  // namespace wanderer

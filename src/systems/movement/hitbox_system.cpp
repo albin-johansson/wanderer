@@ -9,7 +9,7 @@ namespace {
 
 [[nodiscard]] auto next_vertical_hitbox(const comp::movable& movable,
                                         const comp::hitbox& hitbox,
-                                        const vector2f& oldPosition,
+                                        const float2& oldPosition,
                                         const delta_t dt) -> maybe<comp::hitbox>
 {
   if (movable.velocity.y != 0) {
@@ -24,7 +24,7 @@ namespace {
 
 [[nodiscard]] auto next_horizontal_hitbox(const comp::movable& movable,
                                           const comp::hitbox& hitbox,
-                                          const vector2f& oldPosition,
+                                          const float2& oldPosition,
                                           const delta_t dt)
     -> maybe<comp::hitbox>
 {
@@ -76,14 +76,14 @@ void update_bounds(comp::hitbox& hitbox) noexcept
   hitbox.bounds.set_height(my - y);
 }
 
-void set_position(comp::hitbox& hitbox, const vector2f& position) noexcept
+void set_position(comp::hitbox& hitbox, const float2& position) noexcept
 {
   hitbox.origin = position;
   update_bounds(hitbox);
 }
 
 auto with_position(const comp::hitbox& hitbox,
-                   const vector2f& position) noexcept -> comp::hitbox
+                   const float2& position) noexcept -> comp::hitbox
 {
   auto result = hitbox;
   set_position(result, position);
@@ -138,7 +138,7 @@ auto create_hitbox(std::initializer_list<comp::subhitbox> boxes) -> comp::hitbox
 
 auto make_next_hitboxes(const comp::movable& movable,
                         const comp::hitbox& hitbox,
-                        const vector2f& oldPosition,
+                        const float2& oldPosition,
                         const delta_t dt) -> next_hitboxes
 {
   return {next_horizontal_hitbox(movable, hitbox, oldPosition, dt),

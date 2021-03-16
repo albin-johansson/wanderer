@@ -51,7 +51,7 @@ void add_animated(entt::registry& registry, const entt::entity entity)
 void add_hitbox(entt::registry& registry,
                 const entt::entity entity,
                 aabb_tree& tree,
-                const vector2f& position)
+                const float2 position)
 {
   const auto x0 = 0.5625f * glob::tile_width<>;
   const auto x1 = 0.875f * glob::tile_width<>;
@@ -107,7 +107,7 @@ void add_hitbox(entt::registry& registry,
 
 auto add_player(entt::registry& registry,
                 aabb_tree& tree,
-                const vector2f& position,
+                const float2 position,
                 graphics_context& graphics) -> comp::player::entity
 {
   constexpr auto id = "player"_hs;
@@ -129,7 +129,7 @@ auto add_player(entt::registry& registry,
 
 auto add_skeleton(entt::registry& registry,
                   aabb_tree& tree,
-                  const vector2f& position,
+                  const float2 position,
                   graphics_context& graphics) -> entt::entity
 {
   constexpr auto id = "skeleton"_hs;

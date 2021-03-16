@@ -11,7 +11,7 @@ namespace wanderer::sys {
 
 void center_viewport_on(entt::registry& registry,
                         comp::viewport::entity viewportEntity,
-                        const vector2f& position);
+                        const float2& position);
 
 /**
  * \brief Updates the position of the viewport by slowly tracking a movable

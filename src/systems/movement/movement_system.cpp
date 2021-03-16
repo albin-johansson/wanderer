@@ -15,9 +15,9 @@ namespace wanderer::sys {
 namespace {
 
 [[nodiscard]] auto restore_aabb_position(
-    const vector2f& prev,
-    const vector2f& curr,
-    const collision_result& collisions) noexcept -> vector2f
+    const float2& prev,
+    const float2& curr,
+    const collision_result& collisions) noexcept -> float2
 {
   if (collisions.horizontal && collisions.vertical) {
     return prev;
@@ -30,7 +30,7 @@ namespace {
 
 // Checks for collisions, stops the movable if there are collisions
 [[nodiscard]] auto update_movable(comp::movable& movable,
-                                  const vector2f& oldPosition,
+                                  const float2& oldPosition,
                                   const comp::hitbox& source,
                                   const comp::hitbox& other,
                                   const next_hitboxes& next) -> collision_result
@@ -55,8 +55,8 @@ namespace {
                                        const entt::entity entity,
                                        comp::movable& movable,
                                        comp::hitbox& hitbox,
-                                       const vector2f& oldPosition,
-                                       const vector2f& oldAabbPos)
+                                       const float2& oldPosition,
+                                       const float2& oldAabbPos)
     -> collision_result
 {
   collision_result collisions;
@@ -87,7 +87,7 @@ void update_hitbox(level& level,
                    const entt::entity entity,
                    comp::movable& movable,
                    comp::hitbox& hitbox,
-                   const vector2f& oldPosition,
+                   const float2& oldPosition,
                    const delta_t dt)
 {
   const auto oldAabbPos = level.get_aabb(entity).min();

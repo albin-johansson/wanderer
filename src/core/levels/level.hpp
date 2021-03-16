@@ -46,7 +46,7 @@ class level final
   // Saves the level as a binary file
   void save(const std::filesystem::path& path) const;
 
-  void relocate_aabb(entt::entity entity, const vector2f& position);
+  void relocate_aabb(entt::entity entity, const float2& position);
 
   template <typename... Components, typename T>
   void each(T&& lambda)
@@ -142,7 +142,7 @@ class level final
    *
    * \since 0.1.0
    */
-  [[nodiscard]] auto player_spawnpoint() const -> const vector2f&;
+  [[nodiscard]] auto player_spawnpoint() const -> const float2&;
 
   /**
    * \brief Returns the number of rows in the level tilemap.
@@ -189,7 +189,7 @@ class level final
   comp::tileset::entity m_tileset{null<comp::tileset>()};
   comp::viewport::entity m_viewport{null<comp::viewport>()};
   comp::player::entity m_player{null<comp::player>()};
-  maybe<vector2f> m_playerSpawnPosition;
+  maybe<float2> m_playerSpawnPosition;
 
   void spawn_humanoids(const comp::tilemap& tilemap,
                        graphics_context& graphics);

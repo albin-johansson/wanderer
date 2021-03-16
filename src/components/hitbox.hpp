@@ -28,7 +28,7 @@ struct hitbox_entity_t;
  */
 struct subhitbox final
 {
-  vector2f offset;
+  float2 offset;
   cen::farea size;
 };
 
@@ -49,7 +49,7 @@ struct hitbox final
 {
   using entity = entity_type<detail::hitbox_entity_t>;
 
-  vector2f origin;
+  float2 origin;
   cen::frect bounds;
   std::vector<subhitbox> boxes;
   bool enabled{true};

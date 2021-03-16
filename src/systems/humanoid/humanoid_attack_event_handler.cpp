@@ -12,25 +12,25 @@
 namespace wanderer::sys {
 namespace {
 
-[[nodiscard]] auto get_particle_position(const vector2f& position,
+[[nodiscard]] auto get_particle_position(const float2& position,
                                          const comp::movable& movable)
 {
   switch (movable.dir) {
     case direction::right:
-      return vector2f{position.x + (glob::tile_width<> * 2.0f),
+      return float2{position.x + (glob::tile_width<> * 2.0f),
                       position.y + glob::tile_height<>};
 
     case direction::down:
-      return vector2f{position.x + glob::tile_width<>,
+      return float2{position.x + glob::tile_width<>,
                       position.y + (glob::tile_height<> * 2.0f)};
 
     case direction::left:
-      return vector2f{position.x, position.y + glob::tile_height<>};
+      return float2{position.x, position.y + glob::tile_height<>};
 
     case direction::up:
       [[fallthrough]];
     default:
-      return vector2f{position.x + glob::tile_width<>, position.y};
+      return float2{position.x + glob::tile_width<>, position.y};
   }
 }
 

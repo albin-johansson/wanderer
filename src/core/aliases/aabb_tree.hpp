@@ -7,6 +7,6 @@
 
 namespace wanderer {
 
-using aabb_tree = abby::tree<entt::entity, float, vector2f>;
+using aabb_tree = abby::tree<entt::entity, float, float2>;
 
 }

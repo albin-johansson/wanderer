@@ -14,7 +14,7 @@ enum class spawnpoint_type
 struct spawnpoint final
 {
   spawnpoint_type type;
-  vector2f position;
+  float2 position;
 };
 
 template <typename Archive>

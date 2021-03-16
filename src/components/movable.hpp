@@ -15,8 +15,8 @@ namespace wanderer::comp {
  */
 struct movable final
 {
-  vector2f velocity;               ///< Current x- and y-axis speed.
-  vector2f position;               ///< Current position.
+  float2 velocity;               ///< Current x- and y-axis speed.
+  float2 position;               ///< Current position.
   direction dir{direction::down};  ///< Current dominant direction.
   float speed{0};  ///< Current maximum total speed of the movable.
 };

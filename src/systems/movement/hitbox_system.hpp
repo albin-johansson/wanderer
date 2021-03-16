@@ -39,10 +39,10 @@ void update_bounds(comp::hitbox& hitbox) noexcept;
  * \param hitbox the hitbox that will be moved.
  * \param position the new position of the hitbox.
  */
-void set_position(comp::hitbox& hitbox, const vector2f& position) noexcept;
+void set_position(comp::hitbox& hitbox, const float2& position) noexcept;
 
 [[nodiscard]] auto with_position(const comp::hitbox& hitbox,
-                                 const vector2f& position) noexcept
+                                 const float2& position) noexcept
     -> comp::hitbox;
 
 /**
@@ -79,7 +79,7 @@ void set_position(comp::hitbox& hitbox, const vector2f& position) noexcept;
 
 [[nodiscard]] auto make_next_hitboxes(const comp::movable& movable,
                                       const comp::hitbox& hitbox,
-                                      const vector2f& oldPosition,
+                                      const float2& oldPosition,
                                       delta_t dt) -> next_hitboxes;
 
 [[nodiscard]] auto query_collisions(const next_hitboxes& next,

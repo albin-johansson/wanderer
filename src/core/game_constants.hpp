@@ -21,7 +21,7 @@ inline constexpr T tile_width{64};
 template <typename T = float>
 inline constexpr T tile_height{64};
 
-template <typename T = vector2f>
+template <typename T = float2>
 inline constexpr T tile_size{tile_width<typename T::value_type>,
                              tile_height<typename T::value_type>};
 

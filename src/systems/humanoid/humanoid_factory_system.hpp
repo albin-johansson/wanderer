@@ -13,12 +13,12 @@ namespace wanderer::sys {
 
 auto add_player(entt::registry& registry,
                 aabb_tree& tree,
-                const vector2f& position,
+                float2 position,
                 graphics_context& graphics) -> comp::player::entity;
 
 auto add_skeleton(entt::registry& registry,
                   aabb_tree& tree,
-                  const vector2f& position,
+                  float2 position,
                   graphics_context& graphics) -> entt::entity;
 
 }  // namespace wanderer::sys

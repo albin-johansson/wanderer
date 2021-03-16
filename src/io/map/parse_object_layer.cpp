@@ -19,8 +19,8 @@ namespace {
   auto hitbox = sys::create_hitbox({subhitbox});
   hitbox.enabled = false;
 
-  const vector2f pos{static_cast<float>(object.x()) * xRatio,
-                     static_cast<float>(object.y()) * yRatio};
+  const float2 pos{static_cast<float>(object.x()) * xRatio,
+                   static_cast<float>(object.y()) * yRatio};
   sys::set_position(hitbox, pos);
 
   return hitbox;
@@ -44,8 +44,8 @@ namespace {
                                     const float xRatio,
                                     const float yRatio) -> comp::spawnpoint
 {
-  const vector2f position{static_cast<float>(stepObject.x()) * xRatio,
-                          static_cast<float>(stepObject.y()) * yRatio};
+  const float2 position{static_cast<float>(stepObject.x()) * xRatio,
+                        static_cast<float>(stepObject.y()) * yRatio};
 
   const auto* props = stepObject.get_properties();
   assert(props);
