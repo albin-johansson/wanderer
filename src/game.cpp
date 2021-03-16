@@ -125,18 +125,6 @@ void game::on_switch_menu_event(const comp::switch_menu_event& event)
 
 void game::on_level_animation_faded_in(const comp::level_faded_in_event& event)
 {
-  {
-    auto* current = m_levels.current();
-    auto& registry = current->registry();
-
-    registry.clear<comp::level_switch_animation>();
-
-    auto& movable = current->get<comp::movable>(current->player());
-    movable.velocity.zero();
-
-    sys::center_viewport_on(registry, current->viewport(), movable.position);
-  }
-
   m_levels.switch_to(event.map);
   sys::end_level_fade_animation(m_levels.registry(), event);
 }
