@@ -18,6 +18,7 @@ void insert_hitbox(aabb_tree& tree,
 
 void add_tile_objects(entt::registry& registry,
                       aabb_tree& tree,
+                      const graphics_context& graphics,
                       const ir::level& levelData,
                       const comp::tileset& tileset)
 {
@@ -27,7 +28,14 @@ void add_tile_objects(entt::registry& registry,
     auto& tileObject = registry.emplace<comp::tile_object>(entity);
     tileObject.tileEntity = tileset.tiles.at(objectData.tile);
 
-    registry.emplace<comp::depth_drawable>(entity, objectData.drawable);
+    const auto& drawable = objectData.drawable;
+    auto& d = registry.emplace<comp::depth_drawable>(entity);
+    d.texture = graphics.to_index(drawable.texture);
+    d.src = drawable.src;
+    d.dst = drawable.dst;
+    d.layer = drawable.layer;
+    d.depth = drawable.depth;
+    d.centerY = drawable.centerY;
 
     if (objectData.hitbox) {
       const auto& hitbox =

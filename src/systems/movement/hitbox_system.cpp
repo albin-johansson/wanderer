@@ -82,8 +82,8 @@ void set_position(comp::hitbox& hitbox, const float2& position) noexcept
   update_bounds(hitbox);
 }
 
-auto with_position(const comp::hitbox& hitbox,
-                   const float2& position) noexcept -> comp::hitbox
+auto with_position(const comp::hitbox& hitbox, const float2& position) noexcept
+    -> comp::hitbox
 {
   auto result = hitbox;
   set_position(result, position);

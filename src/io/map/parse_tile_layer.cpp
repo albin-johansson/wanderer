@@ -14,7 +14,7 @@ using tile_data = step::detail::data::gid_data;  // FIXME
 {
   const auto rows = static_cast<std::size_t>(nRows);
   const auto cols = static_cast<std::size_t>(nCols);
-  return {rows, std::vector<tile_id>(cols, glob::emptyTile)};
+  return {rows, std::vector<tile_id>(cols, glob::empty_tile)};
 }
 
 [[nodiscard]] auto make_ground_layer(const step::tile_layer& tileLayer,
@@ -43,12 +43,11 @@ using tile_data = step::detail::data::gid_data;  // FIXME
 
 [[nodiscard]] auto add_depth_drawable(const ir::tile& tile,
                                       const cen::fpoint& dstPos,
-                                      const int zIndex) -> comp::depth_drawable
+                                      const int zIndex) -> ir::depth_drawable
 {
-  comp::depth_drawable drawable;
+  ir::depth_drawable drawable;
 
-  //  drawable.texture = tile.texture;
-  drawable.textureId = tile.texture;
+  drawable.texture = tile.texture;
   drawable.src = tile.source;
   drawable.dst = {dstPos, glob::tile_size<cen::farea>};
   drawable.centerY = dstPos.y() + (drawable.dst.height() / 2.0f);

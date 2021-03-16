@@ -22,7 +22,7 @@ namespace wanderer::comp {
  */
 struct frame final
 {
-  tile_id tile{glob::emptyTile};
+  tile_id tile{glob::empty_tile};
   ms_t duration{};
 };
 

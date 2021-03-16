@@ -1,6 +1,7 @@
 #include "parse_tilesets.hpp"
 
 #include <entt.hpp>  // hashed_string
+#include <utility>   // move
 
 #include "game_constants.hpp"
 #include "parse_tile.hpp"
@@ -13,8 +14,9 @@ namespace {
 {
   ir::texture texture;
 
-  texture.path = path.string();
-  texture.id = entt::hashed_string{path.string().c_str()};
+  auto str = path.string();
+  texture.id = entt::hashed_string{str.c_str()};
+  texture.path = std::move(str);
 
   return texture;
 }

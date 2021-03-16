@@ -38,7 +38,7 @@ class level final
   using aabb_type = typename aabb_tree::aabb_type;
 
   // Creates a level based on a parsed map file
-  level(const ir::level& data, graphics_context& graphics);
+  level(const ir::level& ordered, graphics_context& graphics);
 
   // Opens a level from a binary save file
   level(const std::filesystem::path& path, graphics_context& graphics);

@@ -1,13 +1,11 @@
 #pragma once
 
-#include <centurion.hpp>
-#include <entt.hpp>
+#include <centurion.hpp>  // irect
 
 #include "depth.hpp"
 #include "entity_type.hpp"
 #include "ints.hpp"
-#include "texture_handle.hpp"
-#include "texture_id.hpp"
+#include "texture_index.hpp"
 #include "tile_id.hpp"
 
 namespace wanderer::comp {
@@ -29,11 +27,11 @@ struct tile_entity_t;
 struct tile final
 {
   using entity = entity_type<detail::tile_entity_t>;
-  tile_id id{glob::emptyTile};  ///< Unique ID associated with the tile.
-  texture_id texture;
-  texture_handle sheet;  ///< Handle to the associated tileset.
-  cen::irect src;  ///< Region in associated tileset that the tile represents.
-  depth_t depth{5};
+
+  tile_id id{glob::empty_tile};  ///< Unique ID associated with the tile.
+  texture_index texture;         ///< Associated texture index.
+  cen::irect src;                ///< Region in associated tileset.
+  depth_t depth{5};              ///< Rendering depth heuristic.
 };
 
 template <typename Archive>

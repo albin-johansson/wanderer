@@ -28,6 +28,8 @@ BraceWrapping:
   AfterFunction: true
   SplitEmptyRecord: false
   SplitEmptyFunction: false
+#  AfterControlStatement: Always
+#  AfterNamespace: false
 
 BreakConstructorInitializers: BeforeComma
 AllowAllConstructorInitializersOnNextLine: false

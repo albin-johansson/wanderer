@@ -14,7 +14,6 @@
 #include "hitbox_system.hpp"
 #include "humanoid_state.hpp"
 #include "movable.hpp"
-#include "texture_handle.hpp"
 
 using namespace entt::literals;
 
@@ -29,10 +28,10 @@ void add_movable(entt::registry& registry, const entt::entity entity)
 
 void add_depth_drawable(entt::registry& registry,
                         const entt::entity entity,
-                        texture_handle texture)
+                        const texture_index texture)
 {
   auto& drawable = registry.emplace<comp::depth_drawable>(entity);
-  drawable.texture = std::move(texture);
+  drawable.texture = texture;
   drawable.src = {{0, 0}, {64, 64}};
   drawable.dst = {{0, 0}, glob::humanoid_draw_size<>};
 }
@@ -86,7 +85,7 @@ void add_hitbox(entt::registry& registry,
  */
 [[nodiscard]] auto make_humanoid(entt::registry& registry,
                                  aabb_tree& tree,
-                                 const texture_handle& texture) -> entt::entity
+                                 const texture_index texture) -> entt::entity
 {
   assert(texture);  // require valid handle
 
@@ -110,12 +109,9 @@ auto add_player(entt::registry& registry,
                 const float2 position,
                 graphics_context& graphics) -> comp::player::entity
 {
-  constexpr auto id = "player"_hs;
-  const auto handle = graphics.load_texture(id, "resource/img/player2.png");
-
-  const auto player = make_humanoid(registry, tree, handle);
+  const auto texture = graphics.load("player"_hs, "resource/img/player2.png");
+  const auto player = make_humanoid(registry, tree, texture);
   registry.emplace<comp::player>(player);
-  registry.get<comp::depth_drawable>(player).textureId = id;
 
   auto& movable = registry.get<comp::movable>(player);
   movable.speed = glob::player_speed;
@@ -132,11 +128,9 @@ auto add_skeleton(entt::registry& registry,
                   const float2 position,
                   graphics_context& graphics) -> entt::entity
 {
-  constexpr auto id = "skeleton"_hs;
-  const auto handle = graphics.load_texture(id, "resource/img/skeleton.png");
-
-  const auto skeleton = make_humanoid(registry, tree, handle);
-  registry.get<comp::depth_drawable>(skeleton).textureId = id;
+  const auto texture =
+      graphics.load("skeleton"_hs, "resource/img/skeleton.png");
+  const auto skeleton = make_humanoid(registry, tree, texture);
 
   auto& movable = registry.get<comp::movable>(skeleton);
   movable.speed = glob::monster_speed;

@@ -69,15 +69,17 @@ void update_tile_object_animations(entt::registry& registry,
 }
 
 void render_drawables(const entt::registry& registry,
-                      cen::renderer& renderer,
+                      graphics_context& graphics,
                       const comp::render_bounds& bounds)
 {
+  auto& renderer = graphics.renderer();
   const auto boundsRect = to_rect(bounds);
+
   const auto view = registry.view<const comp::depth_drawable>();
-  view.each([&](const entt::entity entity,
-                const comp::depth_drawable& drawable) noexcept {
+  view.each([&](auto entity, const comp::depth_drawable& drawable) noexcept {
     if (cen::intersects(boundsRect, drawable.dst)) {
-      renderer.render_t(*drawable.texture, drawable.src, drawable.dst);
+      const auto& texture = graphics.find(drawable.texture);
+      renderer.render_t(texture, drawable.src, drawable.dst);
 
       if constexpr (cen::is_debug_build()) {
         if (const auto* hitbox = registry.try_get<comp::hitbox>(entity)) {

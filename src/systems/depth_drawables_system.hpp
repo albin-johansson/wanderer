@@ -3,6 +3,7 @@
 #include <centurion.hpp>
 #include <entt.hpp>
 
+#include "graphics_context.hpp"
 #include "render_bounds.hpp"
 #include "tilemap.hpp"
 
@@ -52,7 +53,7 @@ void update_tile_object_animations(entt::registry& registry,
  * \since 0.1.0
  */
 void render_drawables(const entt::registry& registry,
-                      cen::renderer& renderer,
+                      graphics_context& graphics,
                       const comp::render_bounds& bounds);
 
 }  // namespace wanderer::sys

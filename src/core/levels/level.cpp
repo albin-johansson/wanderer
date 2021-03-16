@@ -30,22 +30,15 @@ level::level(const ir::level& data, graphics_context& graphics)
   m_tree.set_thickness_factor(std::nullopt);
 
   load_tileset_textures(data, graphics);
-  auto& tileset = create_tileset(data.tilesets, m_registry, m_tileset);
+  auto& tileset =
+      create_tileset(data.tilesets, m_registry, m_tileset, graphics);
   auto& tilemap = create_tilemap(data, m_registry, m_tilemap, m_tileset);
-
-  each<comp::tile>([&](comp::tile& tile) {
-    tile.sheet = graphics.get_texture(tile.texture);
-  });
 
   m_viewport = sys::make_viewport(m_registry, tilemap.size);
 
   add_ground_layers(m_registry, data);
-  add_tile_objects(m_registry, m_tree, data, tileset);
-  add_objects(m_registry, data);
-
-  each<comp::depth_drawable>([&](comp::depth_drawable& drawable) {
-    drawable.texture = graphics.get_texture(drawable.textureId);
-  });
+  add_tile_objects(m_registry, m_tree, graphics, data, tileset);
+  add_objects(m_registry, graphics, data);
 
   spawn_humanoids(tilemap, graphics);
 

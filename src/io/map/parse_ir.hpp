@@ -24,7 +24,7 @@ namespace wanderer::ir {
 
 struct texture final
 {
-  texture_id id{};
+  texture_id id;
   std::string path;  // String because it's easier to serialize
 };
 
@@ -37,8 +37,8 @@ struct fancy_tile final
 
 struct tile final
 {
-  tile_id id{0};            ///< Unique ID.
-  texture_id texture{};     ///< Associated tileset texture.
+  tile_id id{0};  ///< Unique ID.
+  texture_id texture;
   cen::irect source;        ///< Source rectangle in the tileset texture.
   maybe<fancy_tile> fancy;  ///< Optional fancy features.
 };
@@ -49,6 +49,17 @@ struct tileset final
   std::map<tile_id, tile> tiles;  ///< Tiles in the tileset.
   float xRatio;
   float yRatio;
+};
+
+struct depth_drawable final
+{
+  texture_id texture;
+  cen::irect src;
+  cen::frect dst;
+
+  int layer{};
+  depth_t depth{5};
+  float centerY{};
 };
 
 struct object final
@@ -64,9 +75,9 @@ struct object final
 
 struct tile_object final
 {
-  tile_id tile{0};                ///< The ID of the associated tile.
-  comp::depth_drawable drawable;  ///< Drawable component for the tile object.
-  maybe<comp::hitbox> hitbox;     ///< Optional hitbox.
+  tile_id tile{0};             ///< The ID of the associated tile.
+  depth_drawable drawable;     ///< Drawable component for the tile object.
+  maybe<comp::hitbox> hitbox;  ///< Optional hitbox.
 };
 
 struct level final

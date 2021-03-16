@@ -17,12 +17,12 @@ using tile_id = fluent::NamedType<u32,
                                   fluent::PreIncrementable>;
 
 namespace glob {
-inline constexpr tile_id emptyTile{0};
+inline constexpr tile_id empty_tile{0};
 }
 
 [[nodiscard]] inline auto is_empty(const tile_id id) noexcept -> bool
 {
-  return id == glob::emptyTile;
+  return id == glob::empty_tile;
 }
 
 }  // namespace wanderer

@@ -516,8 +516,9 @@ void serialize(Archive& archive, basic_vector2<T>& vec)
   archive(vec.x, vec.y);
 }
 
-using vector2f = basic_vector2<float>;
-using vector2d = basic_vector2<double>;
+using vector2f [[deprecated]] = basic_vector2<float>;
+using vector2d [[deprecated]] = basic_vector2<double>;
+
 using float2 = basic_vector2<float>;
 using double2 = basic_vector2<double>;
 

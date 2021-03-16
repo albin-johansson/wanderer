@@ -18,11 +18,11 @@ namespace {
   switch (movable.dir) {
     case direction::right:
       return float2{position.x + (glob::tile_width<> * 2.0f),
-                      position.y + glob::tile_height<>};
+                    position.y + glob::tile_height<>};
 
     case direction::down:
       return float2{position.x + glob::tile_width<>,
-                      position.y + (glob::tile_height<> * 2.0f)};
+                    position.y + (glob::tile_height<> * 2.0f)};
 
     case direction::left:
       return float2{position.x, position.y + glob::tile_height<>};

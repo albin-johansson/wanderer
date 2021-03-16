@@ -87,9 +87,9 @@ set(SOURCE_FILES
     core/aliases/map_id.hpp
     core/aliases/maybe.hpp
     core/aliases/milliseconds.hpp
-    core/aliases/texture_cache.hpp
     core/aliases/texture_handle.hpp
     core/aliases/texture_id.hpp
+    core/aliases/texture_index.hpp
     core/aliases/tile_id.hpp
 
     core/ecs/event_connections.cpp

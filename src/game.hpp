@@ -57,9 +57,10 @@ class game final
   /**
    * \brief Renders the game.
    *
-   * \param renderer the renderer used to render the game.
+   * \param graphics the graphics context used to render the game.
+   * \param mousePos the current position of the mouse.
    */
-  void render(cen::renderer& renderer, const cen::ipoint& mousePos);
+  void render(graphics_context& graphics, cen::ipoint mousePos);
 
   /**
    * \brief Indicates whether or not the game should quit.

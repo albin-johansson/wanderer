@@ -32,7 +32,7 @@ auto wanderer_engine::run() -> int
     tick();
 
     renderer.clear_with(cen::colors::black);
-    m_game.render(renderer, m_mouseState.mouse_pos());
+    m_game.render(m_graphics, m_mouseState.mouse_pos());
     renderer.present();
   }
 

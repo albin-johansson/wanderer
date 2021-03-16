@@ -5,7 +5,7 @@
 
 namespace wanderer::sys {
 
-void render_tile(cen::renderer& renderer,
+void render_tile(graphics_context& graphics,
                  const comp::tile& tile,
                  const int row,
                  const int col) noexcept
@@ -13,7 +13,8 @@ void render_tile(cen::renderer& renderer,
   const auto x = static_cast<float>(col) * glob::tile_width<>;
   const auto y = static_cast<float>(row) * glob::tile_height<>;
   const cen::frect dst{{x, y}, glob::tile_size<cen::farea>};
-  renderer.render_t(*tile.sheet, tile.src, dst);
+
+  graphics.render(tile.texture, tile.src, dst);
 }
 
 auto get_animated_tile(const entt::registry& registry,

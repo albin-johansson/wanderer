@@ -85,16 +85,18 @@ void game::tick(const delta_t dt)
   sys::update_level_switch_animations(registry, m_dispatcher);
 }
 
-void game::render(cen::renderer& renderer, const cen::ipoint& mousePos)
+void game::render(graphics_context& graphics, const cen::ipoint mousePos)
 {
+  auto& renderer = graphics.renderer();
+
   const auto* level = m_levels.current();
   const auto& registry = level->registry();
 
   sys::translate_renderer_viewport(registry, level->viewport(), renderer);
 
   const auto bounds = level->get_render_bounds();
-  sys::render_ground_layers(registry, level->tileset(), renderer, bounds);
-  sys::render_drawables(registry, renderer, bounds);
+  sys::render_ground_layers(registry, level->tileset(), graphics, bounds);
+  sys::render_drawables(registry, graphics, bounds);
   sys::render_particles(registry, renderer);
   sys::render_inventory(registry, renderer, mousePos);
   sys::render_level_switch_animations(registry, renderer);

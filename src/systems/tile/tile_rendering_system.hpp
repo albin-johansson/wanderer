@@ -2,12 +2,13 @@
 
 #include <centurion.hpp>
 
+#include "graphics_context.hpp"
 #include "tile.hpp"
 #include "tileset.hpp"
 
 namespace wanderer::sys {
 
-void render_tile(cen::renderer& renderer,
+void render_tile(graphics_context& graphics,
                  const comp::tile& tile,
                  int row,
                  int col) noexcept;
