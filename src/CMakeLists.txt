@@ -265,11 +265,14 @@ target_include_directories(${WANDERER_LIB_TARGET}
     PUBLIC .
     PUBLIC components
     PUBLIC components/events
+    PUBLIC components/input
+    PUBLIC components/inventory
+    PUBLIC components/ui
     PUBLIC core
-    PUBLIC core/action
+    PUBLIC core/actions
     PUBLIC core/aliases
     PUBLIC core/ecs
-    PUBLIC core/level
+    PUBLIC core/levels
     PUBLIC core/math
     PUBLIC core/resources
     PUBLIC io
