@@ -7,7 +7,7 @@
          "target":"."
         }
     },
- "image":"..\/img\/outside.png",
+ "image":"..\/images\/outside.png",
  "imageheight":1024,
  "imagewidth":1024,
  "margin":0,

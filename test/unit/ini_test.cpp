@@ -8,7 +8,7 @@ using namespace wanderer;
 
 TEST(Ini, Parse)
 {
-  std::ifstream stream{"resource/wanderer.ini"};
+  std::ifstream stream{"resources/test.ini"};
   ini_file ini{stream};
 
   EXPECT_EQ(2, ini.section_count());

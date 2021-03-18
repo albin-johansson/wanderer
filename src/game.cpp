@@ -66,7 +66,6 @@ void game::tick(const delta_t dt)
   auto& registry = level->registry();
   sys::update_humanoid_states(registry, m_dispatcher);
 
-  //  if (!is_inventory_active()) {
   sys::update_chase(registry, m_dispatcher);
   sys::update_movement(*level, dt);
   sys::update_drawable_movables(registry);
@@ -77,7 +76,6 @@ void game::tick(const delta_t dt)
   sys::update_inventory_triggers(registry, player);
   sys::update_viewport(*level, player, dt);
   sys::sort_drawables(registry);
-  //  }
 
   sys::update_animations(registry);
   sys::update_humanoid_animations(registry);

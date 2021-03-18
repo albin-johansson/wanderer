@@ -16,7 +16,7 @@ include(Utilities)
 # Helper variables for directory paths
 set(WANDERER_ROOT_DIR ${PROJECT_SOURCE_DIR})
 set(BINARY_DIR ${PROJECT_SOURCE_DIR}/bin)
-set(RESOURCE_DIR ${PROJECT_SOURCE_DIR}/resource)
+set(RESOURCE_DIR ${PROJECT_SOURCE_DIR}/resources)
 set(LIBRARY_DIR ${PROJECT_SOURCE_DIR}/lib)
 
 # The various targets used

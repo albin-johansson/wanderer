@@ -7,7 +7,7 @@
          "target":"."
         }
     },
- "image":"..\/img\/terrain.png",
+ "image":"..\/images\/terrain.png",
  "imageheight":1024,
  "imagewidth":1024,
  "margin":0,
@@ -319,7 +319,6 @@
          "objectgroup":
             {
              "draworder":"index",
-             "id":2,
              "name":"",
              "objects":[
                     {
@@ -409,7 +408,6 @@
          "objectgroup":
             {
              "draworder":"index",
-             "id":2,
              "name":"",
              "objects":[
                     {
@@ -447,7 +445,6 @@
          "objectgroup":
             {
              "draworder":"index",
-             "id":2,
              "name":"",
              "objects":[
                     {

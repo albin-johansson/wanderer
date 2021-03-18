@@ -101,10 +101,10 @@ auto create_menus() -> entt::registry
 {
   entt::registry registry;
 
-  const auto home = parse_menu(registry, "resource/menu/home_menu.json");
-  parse_menu(registry, "resource/menu/in_game_menu.json");
-  parse_menu(registry, "resource/menu/settings_menu.json");
-  parse_menu(registry, "resource/menu/controls_menu.json");
+  const auto home = parse_menu(registry, "resources/menus/home_menu.json");
+  parse_menu(registry, "resources/menus/in_game_menu.json");
+  parse_menu(registry, "resources/menus/settings_menu.json");
+  parse_menu(registry, "resources/menus/controls_menu.json");
   create_saves_menu(registry);
 
   registry.emplace<comp::active_menu>(home);
