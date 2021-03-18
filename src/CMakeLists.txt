@@ -233,6 +233,8 @@ set(SOURCE_FILES
     systems/viewport/make_viewport.hpp
     systems/viewport/viewport_system.cpp
     systems/viewport/viewport_system.hpp
+    components/ui/saves_menu.hpp
+    )
 
 add_library(${WANDERER_LIB_TARGET} ${SOURCE_FILES})
 
