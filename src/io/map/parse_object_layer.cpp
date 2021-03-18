@@ -32,12 +32,12 @@ namespace {
   if (props.is("entity", "player"))
   {
     return comp::spawnpoint_type::player;
-
-  } else if (props.is("entity", "skeleton"))
+  }
+  else if (props.is("entity", "skeleton"))
   {
     return comp::spawnpoint_type::skeleton;
-
-  } else
+  }
+  else
   {
     throw std::runtime_error{"Did not recognize spawnpoint type!"};
   }
@@ -134,17 +134,17 @@ void parse_object_layer(ir::level& data,
       {
         data.playerSpawnPoint = objectData.spawnpoint->position;
       }
-
-    } else if (type == "Portal")
+    }
+    else if (type == "Portal")
     {
       objectData.portal = parse_portal(stepObject);
       objectData.hitbox = make_hitbox(stepObject, data.xRatio, data.yRatio);
-
-    } else if (type == "Container")
+    }
+    else if (type == "Container")
     {
       objectData.inventory = parse_container(stepObject);
-
-    } else if (type == "ContainerTrigger")
+    }
+    else if (type == "ContainerTrigger")
     {
       objectData.inventoryRef = parse_container_trigger(stepObject);
       objectData.hitbox = make_hitbox(stepObject, data.xRatio, data.yRatio);

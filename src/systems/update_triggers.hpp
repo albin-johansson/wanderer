@@ -22,8 +22,8 @@ void update_triggers(entt::registry& registry,
     if (sys::intersects(playerHitbox, hitbox))
     {
       registry.emplace_or_replace<IsWithinTrigger>(player, triggerEntity);
-
-    } else if (const auto* ptr = registry.try_get<IsWithinTrigger>(player))
+    }
+    else if (const auto* ptr = registry.try_get<IsWithinTrigger>(player))
     {
       if (predicate(*ptr, triggerEntity))
       {

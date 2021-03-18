@@ -27,20 +27,20 @@ namespace {
   if (left)
   {
     return direction::left;
-
-  } else if (right)
+  }
+  else if (right)
   {
     return direction::right;
-
-  } else if (up)
+  }
+  else if (up)
   {
     return direction::up;
-
-  } else if (down)
+  }
+  else if (down)
   {
     return direction::down;
-
-  } else
+  }
+  else
   {
     return std::nullopt;
   }
@@ -74,8 +74,8 @@ void handle_idle_input(entt::registry& registry,
   if (keyState.was_just_released(binds.interact))
   {
     dispatcher.enqueue<comp::interact_event>(&registry, &dispatcher, player);
-
-  } else if (registry.empty<comp::active_inventory>())
+  }
+  else if (registry.empty<comp::active_inventory>())
   {
     if (keyState.is_pressed(binds.attack))
     {
@@ -84,7 +84,8 @@ void handle_idle_input(entt::registry& registry,
                                                    player,
                                                    entt::null,
                                                    direction::down);
-    } else
+    }
+    else
     {
       check_for_movement(registry, dispatcher, keyState, binds, player);
     }

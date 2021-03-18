@@ -23,7 +23,8 @@ void update_level_switch_animations(entt::registry& registry,
                                                        animation.hStepSize,
                                                        animation.vStepSize);
       }
-    } else
+    }
+    else
     {
       --animation.step;
       if (animation.step == 0)

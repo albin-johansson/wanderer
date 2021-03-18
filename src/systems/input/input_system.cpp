@@ -14,8 +14,8 @@ void update_input(entt::registry& registry,
   if (registry.has<comp::humanoid_idle>(player))
   {
     handle_idle_input(registry, dispatcher, player, keyState);
-
-  } else if (registry.has<comp::humanoid_move>(player))
+  }
+  else if (registry.has<comp::humanoid_move>(player))
   {
     handle_move_input(registry, dispatcher, player, keyState);
   }

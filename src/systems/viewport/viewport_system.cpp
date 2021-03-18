@@ -26,12 +26,14 @@ inline constexpr float cameraSpeed = 10.0f;
       if (value < 0)
       {
         return 0;
-      } else
+      }
+      else
       {
         const auto diff = viewport.levelSize.width - boundsWidth;
         return (value > diff) ? diff : value;
       }
-    } else
+    }
+    else
     {
       return value;
     }
@@ -44,12 +46,14 @@ inline constexpr float cameraSpeed = 10.0f;
       if (value < 0)
       {
         return 0;
-      } else
+      }
+      else
       {
         const auto diff = viewport.levelSize.height - boundsHeight;
         return (value > diff) ? diff : value;
       }
-    } else
+    }
+    else
     {
       return value;
     }

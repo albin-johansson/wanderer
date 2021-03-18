@@ -22,10 +22,12 @@ namespace {
   if (collisions.horizontal && collisions.vertical)
   {
     return prev;
-  } else if (collisions.horizontal)
+  }
+  else if (collisions.horizontal)
   {
     return {prev.x, curr.y};
-  } else /*if (collisions.vertical)*/
+  }
+  else /*if (collisions.vertical)*/
   {
     return {curr.x, prev.y};
   }

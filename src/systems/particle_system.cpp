@@ -38,7 +38,8 @@ void update_particles(entt::registry& registry, const delta_t dt)
     if (particle.tick >= particle.nTicks)
     {
       registry.destroy(entity);
-    } else
+    }
+    else
     {
       particle.x += particle.dx * dt;
       particle.y += particle.dy * dt;

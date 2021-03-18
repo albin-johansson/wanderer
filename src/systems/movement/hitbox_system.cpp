@@ -18,7 +18,8 @@ namespace {
     next.y = oldPosition.y + (movable.velocity.y * dt);
 
     return with_position(hitbox, next);
-  } else
+  }
+  else
   {
     return std::nullopt;
   }
@@ -36,7 +37,8 @@ namespace {
     next.x = oldPosition.x + (movable.velocity.x * dt);
 
     return with_position(hitbox, next);
-  } else
+  }
+  else
   {
     return std::nullopt;
   }

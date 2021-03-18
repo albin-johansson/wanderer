@@ -26,8 +26,8 @@ void render_tile_layer(const entt::registry& registry,
                       get_animated_tile(registry, entity, tileset),
                       row,
                       col);
-
-        } else
+        }
+        else
         {
           render_tile(graphics, registry.get<comp::tile>(entity), row, col);
         }

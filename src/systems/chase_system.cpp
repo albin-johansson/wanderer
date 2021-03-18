@@ -26,8 +26,8 @@ void update_chase(entt::registry& registry, entt::dispatcher& dispatcher)
         registry.emplace<comp::humanoid_move>(entity);
         enter_move_animation(registry, entity, dominant_direction(movable));
       }
-
-    } else
+    }
+    else
     {
       movable.velocity.zero();
       if (!registry.has<comp::humanoid_idle>(entity))

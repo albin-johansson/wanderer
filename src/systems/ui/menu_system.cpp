@@ -19,12 +19,12 @@ namespace {
 void query_binds(entt::registry& registry,
                  entt::dispatcher& dispatcher,
                  comp::menu& menu,
-                 const cen::key_state& keyState)
+                 const cen::key_state& keys)
 {
   for (const auto entity : menu.binds)
   {
     auto& bind = registry.get<comp::key_bind>(entity);
-    if (keyState.was_just_released(bind.key))
+    if (keys.was_just_released(bind.key))
     {
       if (bind.action)
       {
@@ -127,7 +127,8 @@ void update_menu(entt::registry& registry,
     if (button)
     {
       query_button(registry, dispatcher, *button, mouseState);
-    } else
+    }
+    else
     {
       cen::cursor::reset();
     }

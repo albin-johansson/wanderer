@@ -61,7 +61,8 @@ void add_hitbox(ir::fancy_tile& tileData,
   {
     assert(props.get("depth").is<int>());
     return depth_t{props.get("depth").get<int>()};
-  } else
+  }
+  else
   {
     return std::nullopt;
   }

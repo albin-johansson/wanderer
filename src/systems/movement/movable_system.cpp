@@ -11,12 +11,12 @@ auto horizontal_dominant_direction(const comp::movable& movable) noexcept
   if (movable.velocity.x < 0)
   {
     return direction::left;
-
-  } else if (movable.velocity.x > 0)
+  }
+  else if (movable.velocity.x > 0)
   {
     return direction::right;
-
-  } else
+  }
+  else
   {
     return std::nullopt;
   }
@@ -28,12 +28,12 @@ auto vertical_dominant_direction(const comp::movable& movable) noexcept
   if (movable.velocity.y < 0)
   {
     return direction::up;
-
-  } else if (movable.velocity.y > 0)
+  }
+  else if (movable.velocity.y > 0)
   {
     return direction::down;
-
-  } else
+  }
+  else
   {
     return std::nullopt;
   }

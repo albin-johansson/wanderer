@@ -73,10 +73,12 @@ void stop(comp::movable& movable, const direction dir) noexcept
   {
     stop(movable, direction::left);
     stop(movable, direction::right);
-  } else if (left)
+  }
+  else if (left)
   {
     move(movable, direction::left);
-  } else if (right)
+  }
+  else if (right)
   {
     move(movable, direction::right);
   }
@@ -85,10 +87,12 @@ void stop(comp::movable& movable, const direction dir) noexcept
   {
     stop(movable, direction::up);
     stop(movable, direction::down);
-  } else if (up)
+  }
+  else if (up)
   {
     move(movable, direction::up);
-  } else if (down)
+  }
+  else if (down)
   {
     move(movable, direction::down);
   }
@@ -138,8 +142,8 @@ void handle_move_input(entt::registry& registry,
   if (!areMoveKeysDown && movable.velocity.is_zero())
   {
     dispatcher.enqueue<comp::end_humanoid_move_event>(&registry, player);
-
-  } else if (keyState.is_pressed(binds.attack))
+  }
+  else if (keyState.is_pressed(binds.attack))
   {
     movable.velocity.zero();
 
@@ -148,7 +152,8 @@ void handle_move_input(entt::registry& registry,
                                                  player,
                                                  entt::null,
                                                  movable.dir);
-  } else if (keyState.was_just_released(binds.interact))
+  }
+  else if (keyState.was_just_released(binds.interact))
   {
     dispatcher.enqueue<comp::interact_event>(&registry, &dispatcher, player);
   }

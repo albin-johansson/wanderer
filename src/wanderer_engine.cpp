@@ -13,7 +13,8 @@ wanderer_engine::wanderer_engine()
   {
     m_window.set_width(cen::screen::width() / 2);
     m_window.set_height(cen::screen::height() / 2);
-  } else
+  }
+  else
   {
     m_window.set_size(cen::screen::size());
     m_window.set_fullscreen(true);

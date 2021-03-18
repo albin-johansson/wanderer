@@ -45,7 +45,8 @@ template <typename T>
   if constexpr (std::is_floating_point_v<T>)
   {
     return std::uniform_real_distribution<T>{min, max}(engine);
-  } else
+  }
+  else
   {
     return std::uniform_int_distribution<T>{min, max}(engine);
   }

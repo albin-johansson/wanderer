@@ -114,7 +114,8 @@ struct basic_vector2 final
     if (previousMag == 0 || previousMag == mag)
     {
       return;  // no need to scale
-    } else
+    }
+    else
     {
       scale(mag / previousMag);
     }
@@ -188,7 +189,8 @@ struct basic_vector2 final
     if (length <= 0)
     {
       zero();
-    } else
+    }
+    else
     {
       x = target.x - x;
       y = target.y - y;
@@ -455,7 +457,8 @@ template <typename T>
   if (lhs == rhs)
   {
     return 0;
-  } else
+  }
+  else
   {
     const auto xDiff = rhs.x - lhs.x;
     const auto yDiff = rhs.y - lhs.y;
@@ -515,7 +518,8 @@ template <typename T>
   if (const auto angle = std::acos(cos); sin < 0)
   {
     return -angle;
-  } else
+  }
+  else
   {
     return angle;
   }

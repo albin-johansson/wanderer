@@ -85,24 +85,24 @@ class basic_ini final
       if constexpr (std::is_same_v<T, int>)
       {
         return std::stoi(value);
-
-      } else if constexpr (std::is_same_v<T, long>)
+      }
+      else if constexpr (std::is_same_v<T, long>)
       {
         return std::stol(value);
-
-      } else if constexpr (std::is_same_v<T, float>)
+      }
+      else if constexpr (std::is_same_v<T, float>)
       {
         return std::stof(value);
-
-      } else if constexpr (std::is_same_v<T, double>)
+      }
+      else if constexpr (std::is_same_v<T, double>)
       {
         return std::stod(value);
-
-      } else if constexpr (std::is_same_v<T, bool>)
+      }
+      else if constexpr (std::is_same_v<T, bool>)
       {
         return value == "true" || value == "false";
-
-      } else if constexpr (std::is_same_v<T, string_type>)
+      }
+      else if constexpr (std::is_same_v<T, string_type>)
       {
         return value;
       }
@@ -152,7 +152,8 @@ class basic_ini final
     if (is_section_end(line.back()))
     {
       return line.substr(1, line.length() - 2);
-    } else
+    }
+    else
     {
       m_errors.push_back(line);
       return std::nullopt;
@@ -179,9 +180,10 @@ class basic_ini final
       {
         sectionName = *name;
       }
-    } else if (parse_variable(line, sectionName))
-    {
-    } else
+    }
+    else if (parse_variable(line, sectionName))
+    {}
+    else
     {
       m_errors.push_back(line);
     }
@@ -208,7 +210,8 @@ class basic_ini final
     {
       section.try_emplace(variable, value);
       return true;
-    } else
+    }
+    else
     {
       m_errors.push_back(line);
       return false;

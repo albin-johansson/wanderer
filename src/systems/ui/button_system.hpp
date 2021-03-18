@@ -19,7 +19,8 @@ namespace wanderer::sys {
   if (column == -1)
   {
     return (glob::logical_width<int> / 2);
-  } else
+  }
+  else
   {
     return (column * glob::menu_col_size);
   }

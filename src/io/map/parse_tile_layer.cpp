@@ -136,8 +136,8 @@ void parse_tile_layer(ir::level& data,
                                                      stepMap.height(),
                                                      stepMap.width(),
                                                      zIndex));
-
-  } else if (const auto* layerData = stepLayer.data())
+  }
+  else if (const auto* layerData = stepLayer.data())
   {
     add_tile_objects(data, layerData->as_gid(), zIndex);
   }

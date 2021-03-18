@@ -11,7 +11,8 @@ namespace {
   if (minCol > 0)
   {
     return minCol;
-  } else
+  }
+  else
   {
     return 0;
   }
@@ -23,7 +24,8 @@ namespace {
   if (minRow > 0)
   {
     return minRow;
-  } else
+  }
+  else
   {
     return 0;
   }
@@ -36,7 +38,8 @@ namespace {
   if (maxCol < numCols)
   {
     return maxCol;
-  } else
+  }
+  else
   {
     return numCols;
   }
@@ -49,7 +52,8 @@ namespace {
   if (maxRow < numRows)
   {
     return maxRow;
-  } else
+  }
+  else
   {
     return numRows;
   }

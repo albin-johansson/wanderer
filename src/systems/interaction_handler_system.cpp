@@ -27,8 +27,8 @@ void enqueue_inventory_event(entt::registry& registry,
   {
     const auto& trigger = registry.get<comp::container_trigger>(triggerEntity);
     dispatcher.enqueue<comp::show_inventory_event>(trigger.inventoryEntity);
-
-  } else
+  }
+  else
   {
     dispatcher.enqueue<comp::close_inventory_event>();
   }
@@ -49,9 +49,9 @@ void on_interact(const comp::interact_event& event)
   if (const auto* p = registry.try_get<comp::is_within_portal>(player))
   {
     enqueue_switch_map_event(registry, dispatcher, p->portalEntity);
-
-  } else if (const auto* ct =
-                 registry.try_get<comp::is_within_container_trigger>(player))
+  }
+  else if (const auto* ct =
+               registry.try_get<comp::is_within_container_trigger>(player))
   {
     enqueue_inventory_event(registry, dispatcher, player, ct->triggerEntity);
   }
