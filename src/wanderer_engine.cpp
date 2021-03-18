@@ -53,11 +53,8 @@ auto wanderer_engine::update_input() -> bool
 
   m_game.handle_input(m_mouseState, m_keyState);
 
-  const bool shouldContinue =
-      !m_game.quit_requested() &&
-      cen::event::queue_count(cen::event_type::quit) == 0;
-
-  return shouldContinue;
+  return !m_game.quit_requested() &&
+         !cen::event::in_queue(cen::event_type::quit);
 }
 
 void wanderer_engine::update_logic(const delta_t dt)
