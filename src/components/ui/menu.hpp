@@ -4,11 +4,8 @@
 #include <string>  // string
 #include <vector>  // vector
 
-#include "button.hpp"
 #include "entity_type.hpp"
 #include "key_bind.hpp"
-#include "label.hpp"
-#include "line.hpp"
 #include "maybe.hpp"
 #include "menu_id.hpp"
 
@@ -27,8 +24,6 @@ struct menu final
 
   menu_id id;
   std::string title;
-  std::vector<button::entity> buttons;
-  std::vector<key_bind::entity> binds;
   bool blocking;
 };
 
@@ -38,8 +33,6 @@ struct menu_drawable final
 
   mutable maybe<cen::texture> titleTexture;
   mutable maybe<cen::ipoint> titlePos;
-  std::vector<line::entity> lines;
-  std::vector<label::entity> labels;
 };
 
 }  // namespace wanderer::comp

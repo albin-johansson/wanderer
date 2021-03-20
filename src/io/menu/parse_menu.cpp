@@ -8,6 +8,7 @@
 #include <vector>    // vector
 
 #include "action.hpp"
+#include "button.hpp"
 #include "menu_action.hpp"
 #include "quit_action.hpp"
 #include "switch_menu_action.hpp"
@@ -124,8 +125,12 @@ auto parse_menu(entt::registry& registry, const std::filesystem::path& path)
   menu.id = json.at("id").get<menu_id>();
   menu.title = json.at("title").get<std::string>();
   menu.blocking = json.at("isBlocking").get<bool>();
-  menu.buttons = parse_buttons(registry, json);
-  menu.binds = parse_binds(registry, json);
+
+  auto& bindsPack = registry.emplace<comp::key_bind_pack>(entity);
+  bindsPack.binds = parse_binds(registry, json);
+
+  auto& buttonPack = registry.emplace<comp::button_pack>(entity);
+  buttonPack.buttons = parse_buttons(registry, json);
 
   registry.emplace<comp::menu_drawable>(entity);
 

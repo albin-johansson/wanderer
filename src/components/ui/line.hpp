@@ -1,6 +1,7 @@
 #pragma once
 
 #include <centurion.hpp>
+#include <vector>  // vector
 
 #include "entity_type.hpp"
 
@@ -15,6 +16,11 @@ struct line final
 
   cen::fpoint start;
   cen::fpoint end;
+};
+
+struct line_pack final
+{
+  std::vector<line::entity> lines;
 };
 
 }  // namespace wanderer::comp

@@ -12,7 +12,7 @@ auto make_label(entt::registry& registry, const float x, const float y)
   const auto entity = registry.create();
   auto& label = registry.emplace<comp::label>(entity);
 
-  label.text = "Location: " + files_directory() + "saves";
+  label.text = ("Location: " / files_directory() / "saves").string();
   label.position.set_x(x);
   label.position.set_y(y);
   label.color = cen::colors::white;

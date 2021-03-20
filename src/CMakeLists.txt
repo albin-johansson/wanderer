@@ -53,9 +53,11 @@ set(SOURCE_FILES
     components/inventory/item.hpp
 
     components/ui/button.hpp
+    components/ui/checkbox.hpp
     components/ui/label.hpp
     components/ui/line.hpp
     components/ui/menu.hpp
+    components/ui/saves_menu.hpp
 
     core/centurion_utils.hpp
     core/direction.hpp
@@ -216,24 +218,48 @@ set(SOURCE_FILES
     systems/tile/tile_rendering_system.cpp
     systems/tile/tile_rendering_system.hpp
 
-    systems/ui/button_system.cpp
-    systems/ui/button_system.hpp
     systems/ui/create_action.cpp
     systems/ui/create_action.hpp
-    systems/ui/make_label.cpp
-    systems/ui/make_label.hpp
-    systems/ui/make_line.cpp
-    systems/ui/make_line.hpp
+    systems/ui/grid_system.cpp
+    systems/ui/grid_system.hpp
     systems/ui/menu_system.cpp
     systems/ui/menu_system.hpp
     systems/ui/saves_menu_system.cpp
     systems/ui/saves_menu_system.hpp
+    systems/ui/settings_menu_system.cpp
+    systems/ui/settings_menu_system.hpp
+
+    systems/ui/buttons/button_factory_system.cpp
+    systems/ui/buttons/button_factory_system.hpp
+    systems/ui/buttons/button_rendering_system.cpp
+    systems/ui/buttons/button_rendering_system.hpp
+    systems/ui/buttons/button_system.cpp
+    systems/ui/buttons/button_system.hpp
+
+    systems/ui/checkboxes/checkbox_factory_system.cpp
+    systems/ui/checkboxes/checkbox_factory_system.hpp
+    systems/ui/checkboxes/checkbox_rendering_system.cpp
+    systems/ui/checkboxes/checkbox_rendering_system.hpp
+
+    systems/ui/labels/label_rendering_system.cpp
+    systems/ui/labels/label_rendering_system.hpp
+    systems/ui/labels/make_label.cpp
+    systems/ui/labels/make_label.hpp
+
+    systems/ui/lines/line_rendering_system.cpp
+    systems/ui/lines/line_rendering_system.hpp
+    systems/ui/lines/make_line.cpp
+    systems/ui/lines/make_line.hpp
+
+    systems/ui/menus/menu_factory_system.cpp
+    systems/ui/menus/menu_factory_system.hpp
+    systems/ui/menus/menu_rendering_system.cpp
+    systems/ui/menus/menu_rendering_system.hpp
 
     systems/viewport/make_viewport.cpp
     systems/viewport/make_viewport.hpp
     systems/viewport/viewport_system.cpp
     systems/viewport/viewport_system.hpp
-    components/ui/saves_menu.hpp
     )
 
 add_library(${WANDERER_LIB_TARGET} ${SOURCE_FILES})
@@ -287,6 +313,11 @@ target_include_directories(${WANDERER_LIB_TARGET}
     PUBLIC systems/input
     PUBLIC systems/layer
     PUBLIC systems/ui
+    PUBLIC systems/ui/buttons
+    PUBLIC systems/ui/checkboxes
+    PUBLIC systems/ui/labels
+    PUBLIC systems/ui/lines
+    PUBLIC systems/ui/menus
     PUBLIC systems/movement
     PUBLIC systems/saves
     PUBLIC systems/tile

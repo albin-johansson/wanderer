@@ -51,7 +51,8 @@ void add_objects(entt::registry& registry,
     {
       const auto& drawable = *data.drawable;
       auto& dd = registry.emplace<comp::depth_drawable>(entity);
-      dd.texture = graphics.to_index(drawable.texture);
+      dd.texture = drawable.texture;
+      //      dd.texture = graphics.to_index(drawable.texture); // FIXME
       dd.src = drawable.src;
       dd.dst = drawable.dst;
       dd.layer = drawable.layer;

@@ -3,6 +3,7 @@
 #include <centurion.hpp>
 #include <memory>  // unique_ptr
 #include <string>  // string
+#include <vector>  // vector
 
 #include "action.hpp"
 #include "entity_type.hpp"
@@ -23,6 +24,11 @@ struct button final
   int row;
   int col;
   bool hover{false};
+};
+
+struct button_pack final
+{
+  std::vector<button::entity> buttons;
 };
 
 struct button_drawable final

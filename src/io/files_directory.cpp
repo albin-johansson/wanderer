@@ -4,9 +4,10 @@
 
 namespace wanderer {
 
-auto files_directory() -> const std::string&
+auto files_directory() -> const std::filesystem::path&
 {
-  static auto path = cen::get_pref_path("albin-johansson", "wanderer").copy();
+  static std::filesystem::path path =
+      cen::get_pref_path("albin-johansson", "wanderer").copy();
   return path;
 }
 
