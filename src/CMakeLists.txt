@@ -220,7 +220,6 @@ set(SOURCE_FILES
 
     systems/ui/create_action.cpp
     systems/ui/create_action.hpp
-    systems/ui/grid_system.cpp
     systems/ui/grid_system.hpp
     systems/ui/menu_system.cpp
     systems/ui/menu_system.hpp
