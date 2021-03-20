@@ -14,33 +14,26 @@ void render_checkboxes(const entt::registry& registry,
   {
     const auto& button = registry.get<comp::button>(entity);
     const auto& checkbox = registry.get<comp::checkbox>(entity);
-
-    const auto x = convert_column_to_x(button.col);
-    const auto y = convert_row_to_y(button.row);
-
-    const cen::irect rect{x, y, 10, 10};
+    const auto& drawable = registry.get<comp::button_drawable>(entity);
 
     if (checkbox.checked)
     {
       renderer.set_color(cen::colors::lime);
-      renderer.fill_rect(rect);
+      renderer.fill_rect(drawable.bounds);
     }
 
     renderer.set_color(cen::colors::white);
-    renderer.draw_rect(rect);
+    renderer.draw_rect(drawable.bounds);
 
-    const auto& drawable = registry.get<comp::button_drawable>(entity);
     if (!drawable.texture)
     {
-      drawable.bounds = cen::cast<cen::frect>(rect);
-
       const auto& font = renderer.get_font(glob::menu_font_m);
 
       renderer.set_color(cen::colors::white);
       drawable.texture.emplace(render_text(renderer, button.text, font));
     }
 
-    renderer.render<int>(*drawable.texture, {x + 14, y - 2});
+    renderer.render(*drawable.texture, drawable.textPos.value());
   }
 }
 
