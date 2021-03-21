@@ -13,7 +13,6 @@
 #include "level_switch_animation_system.hpp"
 #include "make_dispatcher.hpp"
 #include "menu_system.hpp"
-#include "movable.hpp"
 #include "movement_system.hpp"
 #include "particle_system.hpp"
 #include "portal_system.hpp"
