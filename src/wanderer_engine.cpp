@@ -11,10 +11,10 @@ wanderer_engine::wanderer_engine()
 {
   if constexpr (cen::is_debug_build())
   {
-    m_window.set_width(cen::screen::width() / 2);
-    m_window.set_height(cen::screen::height() / 2);
-    //    m_window.set_size(cen::screen::size());
-    //    m_window.set_fullscreen_desktop(true);
+    // m_window.set_width(cen::screen::width() / 2);
+    // m_window.set_height(cen::screen::height() / 2);
+    m_window.set_size(cen::screen::size());
+    m_window.set_fullscreen_desktop(true);
   }
   else
   {
