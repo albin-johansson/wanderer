@@ -16,7 +16,8 @@ void add_buttons(entt::registry& registry, const comp::menu::entity entity)
   auto& vec = pack.buttons;
   vec.reserve(1);
 
-  vec.push_back(make_button(registry, "Return", 4, -1, menu_action::goto_home));
+  using namespace entt::literals;
+  vec.push_back(make_button(registry, "Return", 4, -1, "settings/return"_hs));
 }
 
 void add_checkboxes(entt::registry& registry, const comp::menu::entity entity)
@@ -26,11 +27,12 @@ void add_checkboxes(entt::registry& registry, const comp::menu::entity entity)
   auto& vec = pack.checkboxes;
   vec.reserve(1);
 
+  using namespace entt::literals;
   vec.push_back(add_checkbox(registry,
                              "Integer scaling",
                              6,
                              4,
-                             menu_action::goto_home,
+                             "settings/integer-scaling"_hs,
                              true));
 }
 

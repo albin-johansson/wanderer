@@ -222,12 +222,12 @@ set(SOURCE_FILES
     systems/ui/create_action.cpp
     systems/ui/create_action.hpp
     systems/ui/grid_system.hpp
-    systems/ui/menu_system.cpp
-    systems/ui/menu_system.hpp
-    systems/ui/saves_menu_system.cpp
-    systems/ui/saves_menu_system.hpp
-    systems/ui/settings_menu_system.cpp
-    systems/ui/settings_menu_system.hpp
+    systems/ui/menus/menu_system.cpp
+    systems/ui/menus/menu_system.hpp
+    systems/ui/menus/saves_menu_system.cpp
+    systems/ui/menus/saves_menu_system.hpp
+    systems/ui/menus/settings_menu_system.cpp
+    systems/ui/menus/settings_menu_system.hpp
 
     systems/ui/buttons/button_factory_system.cpp
     systems/ui/buttons/button_factory_system.hpp
@@ -260,6 +260,9 @@ set(SOURCE_FILES
     systems/viewport/make_viewport.hpp
     systems/viewport/viewport_system.cpp
     systems/viewport/viewport_system.hpp
+
+    systems/ui/menus/home_menu_factory_system.cpp
+    systems/ui/menus/home_menu_factory_system.hpp
     )
 
 add_library(${WANDERER_LIB_TARGET} ${SOURCE_FILES})

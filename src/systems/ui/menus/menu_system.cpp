@@ -4,6 +4,8 @@
 
 #include "button_system.hpp"
 #include "cursors.hpp"
+#include "home_menu_factory_system.hpp"
+#include "menu.hpp"
 #include "menu_rendering_system.hpp"
 #include "parse_menu.hpp"
 #include "saves_menu_system.hpp"
@@ -37,7 +39,7 @@ auto create_menus() -> entt::registry
 {
   entt::registry registry;
 
-  const auto home = parse_menu(registry, "resources/menus/home_menu.json");
+  const auto home = create_home_menu(registry);
   parse_menu(registry, "resources/menus/in_game_menu.json");
   parse_menu(registry, "resources/menus/controls_menu.json");
 
