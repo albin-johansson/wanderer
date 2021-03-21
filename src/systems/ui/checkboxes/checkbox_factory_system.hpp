@@ -1,6 +1,6 @@
 #pragma once
 
-#include <entt.hpp>  // registry
+#include <entt.hpp>  // registry, id_type
 #include <string>    // string
 
 #include "checkbox.hpp"
@@ -12,7 +12,7 @@ auto add_checkbox(entt::registry& registry,
                   std::string text,
                   const int row,
                   const int col,
-                  menu_action action,
+                  entt::id_type id,
                   const bool checked = false) -> comp::checkbox::entity;
 
 }

@@ -54,7 +54,6 @@ namespace {
   const auto entity = registry.create();
 
   auto& button = registry.emplace<comp::button>(entity);
-  button.action = create_action(json.at("action").get<menu_action>());
   button.text = json.at("text").get<std::string>();
   button.row = json.at("row").get<int>();
   button.col = json.at("col").get<int>();

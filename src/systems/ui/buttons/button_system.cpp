@@ -1,5 +1,6 @@
 #include "button_system.hpp"
 
+#include "button_pressed_event.hpp"
 #include "checkbox.hpp"
 #include "cursors.hpp"
 #include "registry_utils.hpp"
@@ -19,12 +20,9 @@ void query_button(entt::registry& registry,
 
     if (mouseState.was_left_button_released())
     {
-      if (button.action)
-      {
-        button.action->execute(dispatcher);
-        button.hover = false;
-        cen::cursor::reset();
-      }
+      dispatcher.enqueue<comp::button_pressed_event>(button.id);
+      button.hover = false;
+      cen::cursor::reset();
     }
   }
 }
@@ -37,25 +35,8 @@ auto update_button_hover(entt::registry& registry,
   maybe<comp::button::entity> hoverButton;
   const auto mousePos = cen::cast<cen::fpoint>(mouseState.mouse_pos());
 
-  if (const auto* buttonPack = registry.try_get<comp::button_pack>(menuEntity))
-  {
-    for (const auto entity : buttonPack->buttons)
-    {
-      auto& button = registry.get<comp::button>(entity);
-      const auto& drawable = registry.get<comp::button_drawable>(entity);
-
-      button.hover = drawable.bounds.contains(mousePos);
-      if (button.hover)
-      {
-        hoverButton = entity;
-      }
-    }
-  }
-
-  if (const auto* buttonPack =
-          registry.try_get<comp::checkbox_pack>(menuEntity))
-  {
-    for (const auto entity : buttonPack->checkboxes)
+  const auto check = [&](auto& buttons) {
+    for (const auto entity : buttons)
     {
       auto& button = registry.get<comp::button>(entity);
       const auto& drawable = registry.get<comp::button_drawable>(entity);
@@ -66,6 +47,17 @@ auto update_button_hover(entt::registry& registry,
         hoverButton = comp::button::entity{entity.get()};
       }
     }
+  };
+
+  if (const auto* buttonPack = registry.try_get<comp::button_pack>(menuEntity))
+  {
+    check(buttonPack->buttons);
+  }
+
+  if (const auto* buttonPack =
+          registry.try_get<comp::checkbox_pack>(menuEntity))
+  {
+    check(buttonPack->checkboxes);
   }
 
   return hoverButton;

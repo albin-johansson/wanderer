@@ -11,13 +11,13 @@ void add_button(entt::registry& registry,
                 std::string text,
                 const int row,
                 const int col,
-                const menu_action action)
+                const entt::id_type id)
 {
   auto& button = registry.emplace<comp::button>(entity);
   button.text = std::move(text);
   button.row = row;
   button.col = col;
-  button.action = create_action(action);
+  button.id = id;
   button.hover = false;
 
   registry.emplace<comp::button_drawable>(entity);
@@ -27,11 +27,11 @@ auto make_button(entt::registry& registry,
                  std::string text,
                  const int row,
                  const int col,
-                 const menu_action action) -> comp::button::entity
+                 const entt::id_type id) -> comp::button::entity
 {
   const auto entity = comp::button::entity{registry.create()};
 
-  add_button(registry, entity, std::move(text), row, col, action);
+  add_button(registry, entity, std::move(text), row, col, id);
 
   return entity;
 }

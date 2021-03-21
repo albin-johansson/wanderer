@@ -1,11 +1,9 @@
 #pragma once
 
 #include <centurion.hpp>
-#include <memory>  // unique_ptr
 #include <string>  // string
 #include <vector>  // vector
 
-#include "action.hpp"
 #include "entity_type.hpp"
 #include "maybe.hpp"
 
@@ -19,7 +17,7 @@ struct button final
 {
   using entity = entity_type<detail::button_entity_t>;
 
-  std::unique_ptr<action> action;
+  entt::id_type id;
   std::string text;
   int row;
   int col;
