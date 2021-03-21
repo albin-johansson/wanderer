@@ -2,6 +2,7 @@
 
 #include <centurion.hpp>
 
+#include "button_pressed_event.hpp"
 #include "close_inventory_event.hpp"
 #include "delta.hpp"
 #include "graphics_context.hpp"
@@ -85,6 +86,8 @@ class game final
   void on_switch_map(const comp::switch_map_event& event);
 
   void on_switch_menu_event(const comp::switch_menu_event& event);
+
+  void on_button_pressed(const comp::button_pressed_event& event);
 
   void on_level_animation_faded_in(const comp::level_faded_in_event& event);
 

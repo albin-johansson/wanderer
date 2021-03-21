@@ -33,6 +33,7 @@ set(SOURCE_FILES
 
     components/events/begin_attack_event.hpp
     components/events/begin_humanoid_move_event.hpp
+    components/events/button_pressed_event.hpp
     components/events/close_inventory_event.hpp
     components/events/end_attack_event.hpp
     components/events/end_humanoid_move_event.hpp

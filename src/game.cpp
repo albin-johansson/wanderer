@@ -30,6 +30,7 @@ game::game(graphics_context& graphics)
   // clang-format off
   m_dispatcher.sink<comp::switch_map_event>().connect<&game::on_switch_map>(this);
   m_dispatcher.sink<comp::switch_menu_event>().connect<&game::on_switch_menu_event>(this);
+  m_dispatcher.sink<comp::button_pressed_event>().connect<&game::on_button_pressed>(this);
   m_dispatcher.sink<comp::show_inventory_event>().connect<&game::on_show_inventory>(this);
   m_dispatcher.sink<comp::close_inventory_event>().connect<&game::on_close_inventory>(this);
   m_dispatcher.sink<comp::level_faded_in_event>().connect<&game::on_level_animation_faded_in>(this);
@@ -122,6 +123,10 @@ void game::on_switch_map(const comp::switch_map_event& event)
 void game::on_switch_menu_event(const comp::switch_menu_event& event)
 {
   sys::switch_menu(m_menus, event.id);
+}
+
+void game::on_button_pressed(const comp::button_pressed_event& event)
+{
 }
 
 void game::on_level_animation_faded_in(const comp::level_faded_in_event& event)
