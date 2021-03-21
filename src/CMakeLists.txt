@@ -34,6 +34,7 @@ set(SOURCE_FILES
     components/events/begin_attack_event.hpp
     components/events/begin_humanoid_move_event.hpp
     components/events/button_pressed_event.hpp
+    components/events/checkbox_toggle_event.hpp
     components/events/close_inventory_event.hpp
     components/events/end_attack_event.hpp
     components/events/end_humanoid_move_event.hpp
@@ -80,6 +81,8 @@ set(SOURCE_FILES
     core/actions/quit_action.hpp
     core/actions/switch_menu_action.cpp
     core/actions/switch_menu_action.hpp
+    core/actions/update_setting_action.cpp
+    core/actions/update_setting_action.hpp
 
     core/aliases/aabb_tree.hpp
     core/aliases/buffer.hpp
@@ -128,6 +131,8 @@ set(SOURCE_FILES
     core/ecs/registry_utils.hpp
 
     core/resources/texture_loader.hpp
+
+    core/settings/setting_id.hpp
 
     io/map/parse_ir.hpp
     io/map/parse_layers.cpp
@@ -222,12 +227,6 @@ set(SOURCE_FILES
     systems/ui/create_action.cpp
     systems/ui/create_action.hpp
     systems/ui/grid_system.hpp
-    systems/ui/menus/menu_system.cpp
-    systems/ui/menus/menu_system.hpp
-    systems/ui/menus/saves_menu_system.cpp
-    systems/ui/menus/saves_menu_system.hpp
-    systems/ui/menus/settings_menu_system.cpp
-    systems/ui/menus/settings_menu_system.hpp
 
     systems/ui/buttons/button_factory_system.cpp
     systems/ui/buttons/button_factory_system.hpp
@@ -251,18 +250,23 @@ set(SOURCE_FILES
     systems/ui/lines/make_line.cpp
     systems/ui/lines/make_line.hpp
 
+    systems/ui/menus/home_menu_factory_system.cpp
+    systems/ui/menus/home_menu_factory_system.hpp
     systems/ui/menus/menu_factory_system.cpp
     systems/ui/menus/menu_factory_system.hpp
     systems/ui/menus/menu_rendering_system.cpp
     systems/ui/menus/menu_rendering_system.hpp
+    systems/ui/menus/menu_system.cpp
+    systems/ui/menus/menu_system.hpp
+    systems/ui/menus/saves_menu_system.cpp
+    systems/ui/menus/saves_menu_system.hpp
+    systems/ui/menus/settings_menu_system.cpp
+    systems/ui/menus/settings_menu_system.hpp
 
     systems/viewport/make_viewport.cpp
     systems/viewport/make_viewport.hpp
     systems/viewport/viewport_system.cpp
     systems/viewport/viewport_system.hpp
-
-    systems/ui/menus/home_menu_factory_system.cpp
-    systems/ui/menus/home_menu_factory_system.hpp
     )
 
 add_library(${WANDERER_LIB_TARGET} ${SOURCE_FILES})
@@ -306,6 +310,7 @@ target_include_directories(${WANDERER_LIB_TARGET}
     PUBLIC core/levels
     PUBLIC core/math
     PUBLIC core/resources
+    PUBLIC core/settings
     PUBLIC io
     PUBLIC io/map
     PUBLIC io/menu
