@@ -181,6 +181,8 @@ set(SOURCE_FILES
     systems/particle_system.hpp
     systems/render_bounds_system.cpp
     systems/render_bounds_system.hpp
+    systems/settings_system.cpp
+    systems/settings_system.hpp
     systems/update_triggers.hpp
 
     systems/hud/level_switch_animation_system.cpp

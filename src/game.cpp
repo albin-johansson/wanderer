@@ -16,6 +16,7 @@
 #include "movement_system.hpp"
 #include "particle_system.hpp"
 #include "portal_system.hpp"
+#include "settings_system.hpp"
 #include "tile_animation_system.hpp"
 #include "viewport_system.hpp"
 
@@ -26,6 +27,8 @@ game::game(graphics_context& graphics)
     , m_levels{graphics}
     , m_menus{sys::create_menus()}
 {
+  sys::load_settings(m_menus);
+
   // clang-format off
   m_dispatcher.sink<comp::switch_map_event>().connect<&game::on_switch_map>(this);
   m_dispatcher.sink<comp::switch_menu_event>().connect<&game::on_switch_menu_event>(this);
