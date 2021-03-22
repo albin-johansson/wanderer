@@ -23,6 +23,7 @@ set(SOURCE_FILES
     components/player.hpp
     components/portal.hpp
     components/render_bounds.hpp
+    components/settings.hpp
     components/spawnpoint.hpp
     components/tile.hpp
     components/tile_layer.hpp
