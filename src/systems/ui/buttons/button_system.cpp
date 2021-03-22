@@ -22,6 +22,12 @@ void query_button(entt::registry& registry,
     {
       dispatcher.enqueue<comp::button_pressed_event>(button.action, button.id);
       button.hover = false;
+
+      if (auto* checkbox = registry.try_get<comp::checkbox>(buttonEntity))
+      {
+        checkbox->checked = !checkbox->checked;
+      }
+
       cen::cursor::reset();
     }
   }
