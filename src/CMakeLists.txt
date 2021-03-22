@@ -167,6 +167,8 @@ set(SOURCE_FILES
 
     systems/animation_system.cpp
     systems/animation_system.hpp
+    systems/binds_system.cpp
+    systems/binds_system.hpp
     systems/chase_system.cpp
     systems/chase_system.hpp
     systems/depth_drawables_system.cpp

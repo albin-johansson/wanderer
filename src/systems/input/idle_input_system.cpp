@@ -69,7 +69,8 @@ void handle_idle_input(entt::registry& registry,
 {
   assert(registry.has<comp::humanoid_idle>(player));
 
-  const auto& binds = registry.get<comp::binds>(player);
+  // TODO make this a parameter, and only let the menu registry contain binds
+  const auto& binds = registry.ctx<comp::binds>();
 
   if (keyState.was_just_released(binds.interact))
   {

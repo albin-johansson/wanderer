@@ -6,6 +6,7 @@
 
 #include "animated.hpp"
 #include "binds.hpp"
+#include "binds_system.hpp"
 #include "centurion_utils.hpp"
 #include "depth_drawable.hpp"
 #include "direction.hpp"
@@ -32,8 +33,8 @@ void add_depth_drawable(entt::registry& registry,
 {
   auto& drawable = registry.emplace<comp::depth_drawable>(entity);
   drawable.texture = texture;
-  drawable.src = {{0, 0}, {64, 64}};
-  drawable.dst = {{0, 0}, glob::humanoid_draw_size<>};
+  drawable.src = {{}, {64, 64}};
+  drawable.dst = {{}, glob::humanoid_draw_size<>};
 }
 
 void add_animated(entt::registry& registry, const entt::entity entity)
@@ -119,7 +120,8 @@ auto add_player(entt::registry& registry,
   movable.position = position;
   movable.dir = direction::down;
 
-  registry.emplace<comp::binds>(player);
+  registry.set<comp::binds>(load_binds());
+  registry.emplace<comp::binds>(player, load_binds());
 
   return comp::player::entity{player};
 }
