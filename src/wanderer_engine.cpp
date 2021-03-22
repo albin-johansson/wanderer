@@ -50,7 +50,7 @@ auto wanderer_engine::run() -> int
 auto wanderer_engine::update_input() -> bool
 {
   const auto& renderer = m_graphics.renderer();
-  m_mouseState.update(renderer.output_width(), renderer.output_height());
+  m_mouseState.update(renderer.output_size());
   m_keyState.update();
   cen::event::refresh();
 
