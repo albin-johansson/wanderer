@@ -2,6 +2,7 @@
 
 #include "button.hpp"
 #include "button_factory_system.hpp"
+#include "key_bind_system.hpp"
 #include "menu_factory_system.hpp"
 
 using namespace entt::literals;
@@ -38,6 +39,9 @@ auto create_home_menu(entt::registry& registry) -> comp::menu::entity
   const auto entity = make_menu(registry, "Wanderer", menu_id::home);
 
   add_buttons(registry, entity);
+  add_binds(registry,
+            entity,
+            comp::key_bind{cen::scancodes::escape, menu_action::goto_in_game});
 
   return entity;
 }

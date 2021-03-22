@@ -4,6 +4,7 @@
 #include "checkbox.hpp"
 #include "checkbox_factory_system.hpp"
 #include "create_action.hpp"
+#include "key_bind_system.hpp"
 #include "menu_factory_system.hpp"
 
 using namespace entt::literals;
@@ -33,7 +34,7 @@ void add_checkboxes(entt::registry& registry, const comp::menu::entity entity)
                              6,
                              4,
                              "settings/integer-scaling"_hs,
-                             menu_action::goto_home, // FIXME
+                             menu_action::goto_home,  // FIXME
                              true));
 }
 
@@ -45,6 +46,10 @@ auto create_settings_menu(entt::registry& registry) -> comp::menu::entity
 
   add_buttons(registry, entity);
   add_checkboxes(registry, entity);
+
+  add_binds(registry,
+            entity,
+            comp::key_bind{cen::scancodes::escape, menu_action::goto_home});
 
   return entity;
 }
