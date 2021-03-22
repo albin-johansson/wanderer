@@ -85,8 +85,7 @@ namespace {
   const auto entity = registry.create();
   auto& bind = registry.emplace<comp::key_bind>(entity);
 
-  const auto keyName = json.at("key").get<std::string>();
-  bind.key = cen::scan_code{keyName.c_str()};
+  bind.key = json.at("key").get<std::string>();
   bind.action = create_action(json.at("action").get<menu_action>());
 
   return comp::key_bind::entity{entity};

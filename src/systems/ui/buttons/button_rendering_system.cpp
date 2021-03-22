@@ -16,7 +16,7 @@ void update_bounds(const comp::button& button,
   auto& bounds = drawable.bounds;
 
   auto& font = renderer.get_font(button_font);
-  const auto [width, height] = font.string_size(button.text.c_str());
+  const auto [width, height] = font.string_size(button.text);
   bounds.set_size({width * 1.25f, height * 1.75f});
 
   const auto halfWidth = static_cast<int>(bounds.width()) / 2;
@@ -51,7 +51,7 @@ void render_text(const comp::button& button,
   if (!drawable.textPos)
   {
     const auto& font = renderer.get_font(button_font);
-    const auto [width, height] = font.string_size(button.text.c_str());
+    const auto [width, height] = font.string_size(button.text);
     const auto x = drawable.bounds.center_x() - (width / 2.0f);
     const auto y = drawable.bounds.center_y() - (height / 2.0f);
     drawable.textPos = {x, y};

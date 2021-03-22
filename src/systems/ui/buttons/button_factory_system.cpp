@@ -36,4 +36,13 @@ auto make_button(entt::registry& registry,
   return entity;
 }
 
+auto make_button(entt::registry& registry,
+                 std::string text,
+                 const entt::id_type id,
+                 const int row,
+                 const int col) -> comp::button::entity
+{
+  return make_button(registry, std::move(text), row, col, id);
+}
+
 }  // namespace wanderer::sys

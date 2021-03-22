@@ -23,24 +23,23 @@ void render_title(const std::string& title,
     return;
   }
 
-  if (!drawable.titleTexture)
+  if (!drawable.texture)
   {
-    auto& font = renderer.get_font(glob::menu_font_l);
-
     renderer.set_color(cen::colors::white);
-    drawable.titleTexture = renderer.render_blended_utf8(title.c_str(), font);
+    drawable.texture =
+        render_text(renderer, title, renderer.get_font(glob::menu_font_l));
   }
 
-  const auto& texture = *drawable.titleTexture;
+  const auto& texture = *drawable.texture;
 
-  if (!drawable.titlePos)
+  if (!drawable.position)
   {
     const auto x = (glob::logical_width<int> / 2) - (texture.width() / 2);
     const auto y = convert_row_to_y(2);
-    drawable.titlePos = {x, y};
+    drawable.position = {x, y};
   }
 
-  renderer.render<int>(texture, *drawable.titlePos);
+  renderer.render<int>(texture, *drawable.position);
 }
 
 }  // namespace

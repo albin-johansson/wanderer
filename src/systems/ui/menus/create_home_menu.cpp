@@ -1,4 +1,4 @@
-#include "home_menu_factory_system.hpp"
+#include "create_home_menu.hpp"
 
 #include "button.hpp"
 #include "button_factory_system.hpp"
@@ -9,6 +9,12 @@ using namespace entt::literals;
 namespace wanderer::sys {
 namespace {
 
+inline constexpr auto play = "play"_hs;
+inline constexpr auto goto_settings = "goto-settings"_hs;
+inline constexpr auto goto_saves = "goto-saves"_hs;
+inline constexpr auto goto_controls = "goto-controls"_hs;
+inline constexpr auto quit = "quit"_hs;
+
 void add_buttons(entt::registry& registry, const comp::menu::entity entity)
 {
   auto& pack = registry.emplace<comp::button_pack>(entity);
@@ -16,13 +22,11 @@ void add_buttons(entt::registry& registry, const comp::menu::entity entity)
   auto& b = pack.buttons;
   b.reserve(5);
 
-  b.push_back(make_button(registry, "Play", 7, -1, "home/play"_hs));
-  b.push_back(
-      make_button(registry, "Settings", 8, -1, "home/goto-settings"_hs));
-  b.push_back(make_button(registry, "Saves", 9, -1, "home/goto-saves"_hs));
-  b.push_back(
-      make_button(registry, "Controls", 10, -1, "home/goto-controls"_hs));
-  b.push_back(make_button(registry, "Quit", 11, -1, "home/quit"_hs));
+  b.push_back(make_button(registry, "Play", play, 7));
+  b.push_back(make_button(registry, "Settings", goto_settings, 8));
+  b.push_back(make_button(registry, "Saves", goto_saves, 9));
+  b.push_back(make_button(registry, "Controls", goto_controls, 10));
+  b.push_back(make_button(registry, "Quit", quit, 11));
 }
 
 }  // namespace

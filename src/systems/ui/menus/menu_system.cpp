@@ -3,13 +3,13 @@
 #include <centurion.hpp>
 
 #include "button_system.hpp"
+#include "create_home_menu.hpp"
+#include "create_settings_menu.hpp"
 #include "cursors.hpp"
-#include "home_menu_factory_system.hpp"
 #include "menu.hpp"
 #include "menu_rendering_system.hpp"
 #include "parse_menu.hpp"
 #include "saves_menu_system.hpp"
-#include "settings_menu_system.hpp"
 #include "switch_menu_event.hpp"
 
 namespace wanderer::sys {
@@ -48,7 +48,7 @@ auto create_menus() -> entt::registry
 
   registry.emplace<comp::active_menu>(home);
 
-  auto& cursors = registry.emplace<comp::cursors>(registry.create());
+  auto& cursors = registry.set<comp::cursors>();
   cursors.data.try_emplace(cen::system_cursor::hand, cen::system_cursor::hand);
 
   return registry;
