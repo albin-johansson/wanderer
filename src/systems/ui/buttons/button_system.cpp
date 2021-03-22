@@ -15,7 +15,7 @@ void query_button(entt::registry& registry,
   auto& button = registry.get<comp::button>(buttonEntity);
   if (button.hover)
   {
-    auto& cursors = singleton<comp::cursors>(registry);
+    auto& cursors = registry.ctx<comp::cursors>();
     cursors.data.at(cen::system_cursor::hand).enable();
 
     if (mouseState.was_left_button_released())
