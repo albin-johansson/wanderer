@@ -2,13 +2,15 @@
 
 #include <centurion.hpp>
 
+#include "button_pressed_event.hpp"
 #include "button_system.hpp"
+#include "create_controls_menu.hpp"
 #include "create_home_menu.hpp"
+#include "create_in_game_menu.hpp"
 #include "create_settings_menu.hpp"
 #include "cursors.hpp"
 #include "menu.hpp"
 #include "menu_rendering_system.hpp"
-#include "parse_menu.hpp"
 #include "saves_menu_system.hpp"
 #include "switch_menu_event.hpp"
 
@@ -25,10 +27,7 @@ void query_binds(entt::registry& registry,
     auto& bind = registry.get<comp::key_bind>(entity);
     if (keys.was_just_released(bind.key))
     {
-      if (bind.action)
-      {
-        bind.action->execute(dispatcher);
-      }
+      dispatcher.enqueue<comp::button_pressed_event>(bind.action, 0u);
     }
   }
 }
@@ -40,9 +39,8 @@ auto create_menus() -> entt::registry
   entt::registry registry;
 
   const auto home = create_home_menu(registry);
-  parse_menu(registry, "resources/menus/in_game_menu.json");
-  parse_menu(registry, "resources/menus/controls_menu.json");
-
+  create_in_game_menu(registry);
+  create_controls_menu(registry);
   create_settings_menu(registry);
   create_saves_menu(registry);
 

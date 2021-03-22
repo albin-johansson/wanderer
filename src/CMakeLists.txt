@@ -150,8 +150,6 @@ set(SOURCE_FILES
     io/map/parse_world.hpp
 
     io/menu/menu_action.hpp
-    io/menu/parse_menu.cpp
-    io/menu/parse_menu.hpp
 
     io/saves/load_game.cpp
     io/saves/load_game.hpp
@@ -255,8 +253,14 @@ set(SOURCE_FILES
     systems/ui/lines/make_line.cpp
     systems/ui/lines/make_line.hpp
 
+    systems/ui/menus/create_controls_menu.cpp
+    systems/ui/menus/create_controls_menu.hpp
     systems/ui/menus/create_home_menu.cpp
     systems/ui/menus/create_home_menu.hpp
+    systems/ui/menus/create_in_game_menu.cpp
+    systems/ui/menus/create_in_game_menu.hpp
+    systems/ui/menus/create_settings_menu.cpp
+    systems/ui/menus/create_settings_menu.hpp
     systems/ui/menus/menu_factory_system.cpp
     systems/ui/menus/menu_factory_system.hpp
     systems/ui/menus/menu_rendering_system.cpp
@@ -265,8 +269,6 @@ set(SOURCE_FILES
     systems/ui/menus/menu_system.hpp
     systems/ui/menus/saves_menu_system.cpp
     systems/ui/menus/saves_menu_system.hpp
-    systems/ui/menus/create_settings_menu.cpp
-    systems/ui/menus/create_settings_menu.hpp
 
     systems/viewport/make_viewport.cpp
     systems/viewport/make_viewport.hpp

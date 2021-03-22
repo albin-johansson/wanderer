@@ -13,6 +13,7 @@ auto add_checkbox(entt::registry& registry,
                   const int row,
                   const int col,
                   entt::id_type id,
+                  menu_action action,
                   const bool checked = false) -> comp::checkbox::entity;
 
 }

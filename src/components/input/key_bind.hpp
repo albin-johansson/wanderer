@@ -1,11 +1,10 @@
 #pragma once
 
 #include <centurion.hpp>  // scan_code
-#include <memory>         // unique_ptr
 #include <vector>         // vector
 
-#include "action.hpp"
 #include "entity_type.hpp"
+#include "menu_action.hpp"
 
 namespace wanderer::comp {
 namespace detail {
@@ -17,7 +16,7 @@ struct key_bind final
   using entity = entity_type<detail::key_bind_entity_t>;
 
   cen::scan_code key;
-  std::unique_ptr<action> action;
+  menu_action action;
 };
 
 struct key_bind_pack final

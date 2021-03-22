@@ -129,6 +129,46 @@ void game::on_switch_menu_event(const comp::switch_menu_event& event)
 
 void game::on_button_pressed(const comp::button_pressed_event& event)
 {
+  switch (event.action)
+  {
+    case menu_action::goto_in_game: {
+      m_dispatcher.enqueue<comp::switch_menu_event>(menu_id::in_game);
+      break;
+    }
+    case menu_action::goto_home: {
+      m_dispatcher.enqueue<comp::switch_menu_event>(menu_id::home);
+      break;
+    }
+    case menu_action::goto_controls: {
+      m_dispatcher.enqueue<comp::switch_menu_event>(menu_id::controls);
+      break;
+    }
+    case menu_action::goto_settings: {
+      m_dispatcher.enqueue<comp::switch_menu_event>(menu_id::settings);
+      break;
+    }
+    case menu_action::goto_saves: {
+      m_dispatcher.enqueue<comp::switch_menu_event>(menu_id::saves);
+      break;
+    }
+    case menu_action::quit: {
+      m_dispatcher.enqueue<comp::quit_event>();
+      break;
+    }
+  }
+}
+
+void game::on_changed_setting(const comp::changed_setting_event& event)
+{
+// entt::registry registry;
+// auto& foo = registry.singleton<foo>();
+
+// entt::registry registry;
+//
+// const auto view = registry.view<foo>();
+// assert(view.size() == 1);
+//
+// auto& foo = view.front();
 }
 
 void game::on_level_animation_faded_in(const comp::level_faded_in_event& event)

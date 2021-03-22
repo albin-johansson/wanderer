@@ -16,7 +16,11 @@ void add_buttons(entt::registry& registry, const comp::menu::entity entity)
   auto& pack = registry.emplace<comp::button_pack>(entity);
   auto& vec = pack.buttons;
 
-  vec.push_back(make_button(registry, "Return", "settings/return"_hs, 4));
+  vec.push_back(make_button(registry,
+                            "Return",
+                            "settings/return"_hs,
+                            menu_action::goto_home,
+                            4));
 }
 
 void add_checkboxes(entt::registry& registry, const comp::menu::entity entity)
@@ -29,6 +33,7 @@ void add_checkboxes(entt::registry& registry, const comp::menu::entity entity)
                              6,
                              4,
                              "settings/integer-scaling"_hs,
+                             menu_action::goto_home, // FIXME
                              true));
 }
 

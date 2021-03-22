@@ -43,7 +43,9 @@ inline constexpr auto y1 = convert_row_to_y(glob::menu_rows - 2);
 {
   std::vector<comp::button::entity> buttons;
 
-  buttons.push_back(make_button(registry, "Return", "saves/return"_hs, 4));
+  // clang-format off
+  buttons.push_back(make_button(registry, "Return", "saves/return"_hs, menu_action::goto_home, 4));
+  // clang-format on
 
   return buttons;
 }

@@ -11,19 +11,15 @@ namespace wanderer::sys {
 void add_button(entt::registry& registry,
                 entt::entity entity,
                 std::string text,
+                entt::id_type id,
+                menu_action action,
                 int row,
-                int col,
-                entt::id_type id);
-
-[[deprecated]] auto make_button(entt::registry& registry,
-                                std::string text,
-                                int row,
-                                int col,
-                                entt::id_type id) -> comp::button::entity;
+                int col);
 
 auto make_button(entt::registry& registry,
                  std::string text,
                  entt::id_type id,
+                 menu_action action,
                  int row,
                  int col = -1) -> comp::button::entity;
 

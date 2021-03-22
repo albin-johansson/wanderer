@@ -9,15 +9,17 @@ namespace wanderer::sys {
 void add_button(entt::registry& registry,
                 const entt::entity entity,
                 std::string text,
+                const entt::id_type id,
+                const menu_action action,
                 const int row,
-                const int col,
-                const entt::id_type id)
+                const int col)
 {
   auto& button = registry.emplace<comp::button>(entity);
   button.text = std::move(text);
+  button.action = action;
+  button.id = id;
   button.row = row;
   button.col = col;
-  button.id = id;
   button.hover = false;
 
   registry.emplace<comp::button_drawable>(entity);
@@ -25,24 +27,16 @@ void add_button(entt::registry& registry,
 
 auto make_button(entt::registry& registry,
                  std::string text,
-                 const int row,
-                 const int col,
-                 const entt::id_type id) -> comp::button::entity
-{
-  const auto entity = comp::button::entity{registry.create()};
-
-  add_button(registry, entity, std::move(text), row, col, id);
-
-  return entity;
-}
-
-auto make_button(entt::registry& registry,
-                 std::string text,
                  const entt::id_type id,
+                 const menu_action action,
                  const int row,
                  const int col) -> comp::button::entity
 {
-  return make_button(registry, std::move(text), row, col, id);
+  const auto entity = comp::button::entity{registry.create()};
+
+  add_button(registry, entity, std::move(text), id, action, row, col);
+
+  return entity;
 }
 
 }  // namespace wanderer::sys

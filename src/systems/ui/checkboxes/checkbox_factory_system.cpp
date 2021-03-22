@@ -12,11 +12,12 @@ auto add_checkbox(entt::registry& registry,
                   const int row,
                   const int col,
                   const entt::id_type id,
+                  const menu_action action,
                   const bool checked) -> comp::checkbox::entity
 {
   const auto entity = comp::checkbox::entity{registry.create()};
 
-  add_button(registry, entity, std::move(text), row, col, id);
+  add_button(registry, entity, std::move(text), id, action, row, col);
 
   const auto& button = registry.get<comp::button>(entity);
 

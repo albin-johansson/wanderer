@@ -20,7 +20,7 @@ void query_button(entt::registry& registry,
 
     if (mouseState.was_left_button_released())
     {
-      dispatcher.enqueue<comp::button_pressed_event>(button.id);
+      dispatcher.enqueue<comp::button_pressed_event>(button.action, button.id);
       button.hover = false;
       cen::cursor::reset();
     }

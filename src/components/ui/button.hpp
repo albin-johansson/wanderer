@@ -6,6 +6,7 @@
 
 #include "entity_type.hpp"
 #include "maybe.hpp"
+#include "menu_action.hpp"
 
 namespace wanderer::comp {
 namespace detail {
@@ -18,6 +19,7 @@ struct button final
   using entity = entity_type<detail::button_entity_t>;
 
   entt::id_type id;
+  menu_action action;
   std::string text;
   int row;
   int col;
