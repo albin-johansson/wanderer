@@ -36,9 +36,7 @@ void set_up_container_triggers(entt::registry& registry)
 
 }  // namespace
 
-void add_objects(entt::registry& registry,
-                 const graphics_context& graphics,
-                 const ir::level& level)
+void add_objects(entt::registry& registry, const ir::level& level)
 {
   for (const auto& data : level.objects)
   {
@@ -49,15 +47,7 @@ void add_objects(entt::registry& registry,
 
     if (data.drawable)
     {
-      const auto& drawable = *data.drawable;
-      auto& dd = registry.emplace<comp::depth_drawable>(entity);
-      dd.texture = drawable.texture;
-      //      dd.texture = graphics.to_index(drawable.texture); // FIXME
-      dd.src = drawable.src;
-      dd.dst = drawable.dst;
-      dd.layer = drawable.layer;
-      dd.depth = drawable.depth;
-      dd.centerY = drawable.centerY;
+      registry.emplace<comp::depth_drawable>(entity, *data.drawable);
     }
 
     if (data.hitbox)

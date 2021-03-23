@@ -38,7 +38,7 @@ level::level(const ir::level& data, graphics_context& graphics)
 
   add_ground_layers(m_registry, data);
   add_tile_objects(m_registry, m_tree, graphics, data, tileset);
-  add_objects(m_registry, graphics, data);
+  add_objects(m_registry, data);
 
   spawn_humanoids(tilemap, graphics);
 
