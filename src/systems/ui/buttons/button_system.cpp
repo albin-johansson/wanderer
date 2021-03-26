@@ -10,7 +10,7 @@ namespace wanderer::sys {
 void query_button(entt::registry& registry,
                   entt::dispatcher& dispatcher,
                   const comp::button::entity buttonEntity,
-                  const cen::mouse_state& mouseState)
+                  const cen::mouse& mouse)
 {
   auto& button = registry.get<comp::button>(buttonEntity);
   if (button.hover)
@@ -18,7 +18,7 @@ void query_button(entt::registry& registry,
     auto& cursors = registry.ctx<comp::cursors>();
     cursors.data.at(cen::system_cursor::hand).enable();
 
-    if (mouseState.was_left_button_released())
+    if (mouse.was_left_button_released())
     {
       dispatcher.enqueue<comp::button_pressed_event>(button.action, button.id);
       button.hover = false;
@@ -35,11 +35,10 @@ void query_button(entt::registry& registry,
 
 auto update_button_hover(entt::registry& registry,
                          const comp::menu::entity menuEntity,
-                         const cen::mouse_state& mouseState)
-    -> maybe<comp::button::entity>
+                         const cen::mouse& mouse) -> maybe<comp::button::entity>
 {
   maybe<comp::button::entity> hoverButton;
-  const auto mousePos = cen::cast<cen::fpoint>(mouseState.mouse_pos());
+  const auto mousePos = cen::cast<cen::fpoint>(mouse.position());
 
   const auto check = [&](auto& buttons) {
     for (const auto entity : buttons)

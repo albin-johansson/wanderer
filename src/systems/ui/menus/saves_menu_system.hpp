@@ -1,6 +1,6 @@
 #pragma once
 
-#include <centurion.hpp>  // key_state, mouse_state
+#include <centurion.hpp>  // keyboard, mouse
 #include <entt.hpp>       // registry, dispatcher
 
 #include "menu.hpp"

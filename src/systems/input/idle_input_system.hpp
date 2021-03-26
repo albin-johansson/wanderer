@@ -16,11 +16,11 @@ namespace wanderer::sys {
  * \param registry the associated registry.
  * \param dispatcher the dispatcher used for events.
  * \param player the player entity.
- * \param keyState the current keyboard input state.
+ * \param keyboard the current keyboard input state.
  */
 void handle_idle_input(entt::registry& registry,
                        entt::dispatcher& dispatcher,
                        comp::player::entity player,
-                       const cen::key_state& keyState);
+                       const cen::keyboard& keyboard);
 
 }  // namespace wanderer::sys

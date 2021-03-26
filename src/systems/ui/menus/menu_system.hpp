@@ -1,6 +1,6 @@
 #pragma once
 
-#include <centurion.hpp>  // key_state, mouse_state, renderer
+#include <centurion.hpp>  // keyboard, mouse, renderer
 #include <entt.hpp>       // registry
 
 #include "menu.hpp"
@@ -20,13 +20,13 @@ namespace wanderer::sys {
  *
  * \param registry the menu registry.
  * \param dispatcher the event dispatcher that will be used.
- * \param mouseState the mouse state data.
- * \param keyState the key state data.
+ * \param mouse the mouse state data.
+ * \param keyboard the key state data.
  */
 void update_menu(entt::registry& registry,
                  entt::dispatcher& dispatcher,
-                 const cen::mouse_state& mouseState,
-                 const cen::key_state& keyState);
+                 const cen::mouse& mouse,
+                 const cen::keyboard& keyboard);
 
 /**
  * \brief Changes the currently active menu.

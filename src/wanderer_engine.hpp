@@ -45,11 +45,11 @@ class wanderer_engine final : public semi_fixed_game_loop<wanderer_engine>
   void update_logic(delta_t dt);
 
  private:
-  cen::window m_window;           ///< Application window.
-  graphics_context m_graphics;    ///< Graphics context used for all rendering.
-  game m_game;                    ///< Provides game logic and game state.
-  cen::mouse_state m_mouseState;  ///< Provides info about mouse state.
-  cen::key_state m_keyState;      ///< Provides info about keyboard state.
+  cen::window m_window;         ///< Application window.
+  graphics_context m_graphics;  ///< Graphics context used for all rendering.
+  game m_game;                  ///< Provides game logic and game state.
+  cen::mouse m_mouse;           ///< Provides info about mouse state.
+  cen::keyboard m_keyboard;     ///< Provides info about keyboard state.
 };
 
 }  // namespace wanderer

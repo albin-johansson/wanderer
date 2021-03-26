@@ -43,11 +43,10 @@ class game final
   /**
    * \brief Responds to user input.
    *
-   * \param mouseState the current mouse input state.
-   * \param keyState the current keyboard input state.
+   * \param mouse the current mouse input state.
+   * \param keyboard the current keyboard input state.
    */
-  void handle_input(const cen::mouse_state& mouseState,
-                    const cen::key_state& keyState);
+  void handle_input(const cen::mouse& mouse, const cen::keyboard& keyboard);
 
   /**
    * \brief Updates the state of the game.

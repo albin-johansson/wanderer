@@ -9,15 +9,15 @@ namespace wanderer::sys {
 void update_input(entt::registry& registry,
                   entt::dispatcher& dispatcher,
                   const comp::player::entity player,
-                  const cen::key_state& keyState)
+                  const cen::keyboard& keyboard)
 {
   if (registry.has<comp::humanoid_idle>(player))
   {
-    handle_idle_input(registry, dispatcher, player, keyState);
+    handle_idle_input(registry, dispatcher, player, keyboard);
   }
   else if (registry.has<comp::humanoid_move>(player))
   {
-    handle_move_input(registry, dispatcher, player, keyState);
+    handle_move_input(registry, dispatcher, player, keyboard);
   }
 }
 

@@ -61,13 +61,13 @@ void stop(comp::movable& movable, const direction dir) noexcept
 }
 
 [[nodiscard]] auto check_pressed(comp::movable& movable,
-                                 const cen::key_state& keyState,
+                                 const cen::keyboard& keyboard,
                                  const comp::binds& binds) noexcept -> bool
 {
-  const auto left = keyState.is_pressed(binds.left);
-  const auto right = keyState.is_pressed(binds.right);
-  const auto up = keyState.is_pressed(binds.up);
-  const auto down = keyState.is_pressed(binds.down);
+  const auto left = keyboard.is_pressed(binds.left);
+  const auto right = keyboard.is_pressed(binds.right);
+  const auto up = keyboard.is_pressed(binds.up);
+  const auto down = keyboard.is_pressed(binds.down);
 
   if (left && right)
   {
@@ -101,25 +101,25 @@ void stop(comp::movable& movable, const direction dir) noexcept
 }
 
 void check_released(comp::movable& movable,
-                    const cen::key_state& keyState,
+                    const cen::keyboard& keyboard,
                     const comp::binds& binds) noexcept
 {
-  if (keyState.was_just_released(binds.left))
+  if (keyboard.just_released(binds.left))
   {
     stop(movable, direction::left);
   }
 
-  if (keyState.was_just_released(binds.right))
+  if (keyboard.just_released(binds.right))
   {
     stop(movable, direction::right);
   }
 
-  if (keyState.was_just_released(binds.up))
+  if (keyboard.just_released(binds.up))
   {
     stop(movable, direction::up);
   }
 
-  if (keyState.was_just_released(binds.down))
+  if (keyboard.just_released(binds.down))
   {
     stop(movable, direction::down);
   }
@@ -130,20 +130,20 @@ void check_released(comp::movable& movable,
 void handle_move_input(entt::registry& registry,
                        entt::dispatcher& dispatcher,
                        const comp::player::entity player,
-                       const cen::key_state& keyState)
+                       const cen::keyboard& keyboard)
 {
   assert(registry.has<comp::humanoid_move>(player));
 
   auto& movable = registry.get<comp::movable>(player);
   const auto& binds = registry.ctx<comp::binds>();
-  const auto areMoveKeysDown = check_pressed(movable, keyState, binds);
-  check_released(movable, keyState, binds);
+  const auto areMoveKeysDown = check_pressed(movable, keyboard, binds);
+  check_released(movable, keyboard, binds);
 
   if (!areMoveKeysDown && movable.velocity.is_zero())
   {
     dispatcher.enqueue<comp::end_humanoid_move_event>(&registry, player);
   }
-  else if (keyState.is_pressed(binds.attack))
+  else if (keyboard.is_pressed(binds.attack))
   {
     movable.velocity.zero();
 
@@ -153,7 +153,7 @@ void handle_move_input(entt::registry& registry,
                                                  entt::null,
                                                  movable.dir);
   }
-  else if (keyState.was_just_released(binds.interact))
+  else if (keyboard.just_released(binds.interact))
   {
     dispatcher.enqueue<comp::interact_event>(&registry, &dispatcher, player);
   }

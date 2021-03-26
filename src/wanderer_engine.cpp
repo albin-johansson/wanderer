@@ -22,8 +22,8 @@ wanderer_engine::wanderer_engine()
     m_window.set_fullscreen(true);
   }
 
-  m_mouseState.set_logical_width(glob::logical_width<>);
-  m_mouseState.set_logical_height(glob::logical_height<>);
+  m_mouse.set_logical_width(glob::logical_width<>);
+  m_mouse.set_logical_height(glob::logical_height<>);
 }
 
 auto wanderer_engine::run() -> int
@@ -38,7 +38,7 @@ auto wanderer_engine::run() -> int
     tick();
 
     renderer.clear_with(cen::colors::black);
-    m_game.render(m_graphics, m_mouseState.mouse_pos());
+    m_game.render(m_graphics, m_mouse.position());
     renderer.present();
   }
 
@@ -50,11 +50,11 @@ auto wanderer_engine::run() -> int
 auto wanderer_engine::update_input() -> bool
 {
   const auto& renderer = m_graphics.renderer();
-  m_mouseState.update(renderer.output_size());
-  m_keyState.update();
+  m_mouse.update(renderer.output_size());
+  m_keyboard.update();
   cen::event::refresh();
 
-  m_game.handle_input(m_mouseState, m_keyState);
+  m_game.handle_input(m_mouse, m_keyboard);
 
   return !m_game.quit_requested() &&
          !cen::event::in_queue(cen::event_type::quit);

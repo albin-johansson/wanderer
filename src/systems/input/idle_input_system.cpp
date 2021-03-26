@@ -15,14 +15,14 @@
 namespace wanderer::sys {
 namespace {
 
-[[nodiscard]] auto get_direction(const cen::key_state& keyState,
+[[nodiscard]] auto get_direction(const cen::keyboard& keyboard,
                                  const comp::binds& binds) noexcept
     -> std::optional<direction>
 {
-  const auto left = keyState.is_pressed(binds.left);
-  const auto right = keyState.is_pressed(binds.right);
-  const auto up = keyState.is_pressed(binds.up);
-  const auto down = keyState.is_pressed(binds.down);
+  const auto left = keyboard.is_pressed(binds.left);
+  const auto right = keyboard.is_pressed(binds.right);
+  const auto up = keyboard.is_pressed(binds.up);
+  const auto down = keyboard.is_pressed(binds.down);
 
   if (left)
   {
@@ -48,11 +48,11 @@ namespace {
 
 void check_for_movement(entt::registry& registry,
                         entt::dispatcher& dispatcher,
-                        const cen::key_state& keyState,
+                        const cen::keyboard& keyboard,
                         const comp::binds& binds,
                         const comp::player::entity player)
 {
-  if (const auto dir = get_direction(keyState, binds))
+  if (const auto dir = get_direction(keyboard, binds))
   {
     dispatcher.enqueue<comp::begin_humanoid_move_event>(&registry,
                                                         player,
@@ -65,20 +65,20 @@ void check_for_movement(entt::registry& registry,
 void handle_idle_input(entt::registry& registry,
                        entt::dispatcher& dispatcher,
                        const comp::player::entity player,
-                       const cen::key_state& keyState)
+                       const cen::keyboard& keyboard)
 {
   assert(registry.has<comp::humanoid_idle>(player));
 
   // TODO make this a parameter, and only let the menu registry contain binds
   const auto& binds = registry.ctx<comp::binds>();
 
-  if (keyState.was_just_released(binds.interact))
+  if (keyboard.just_released(binds.interact))
   {
     dispatcher.enqueue<comp::interact_event>(&registry, &dispatcher, player);
   }
   else if (registry.empty<comp::active_inventory>())
   {
-    if (keyState.is_pressed(binds.attack))
+    if (keyboard.is_pressed(binds.attack))
     {
       // FIXME
       dispatcher.enqueue<comp::begin_attack_event>(&registry,
@@ -88,7 +88,7 @@ void handle_idle_input(entt::registry& registry,
     }
     else
     {
-      check_for_movement(registry, dispatcher, keyState, binds, player);
+      check_for_movement(registry, dispatcher, keyboard, binds, player);
     }
   }
 }

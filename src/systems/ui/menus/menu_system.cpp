@@ -20,12 +20,12 @@ namespace {
 void query_binds(entt::registry& registry,
                  entt::dispatcher& dispatcher,
                  comp::key_bind_pack& pack,
-                 const cen::key_state& keys)
+                 const cen::keyboard& keys)
 {
   for (const auto entity : pack.binds)
   {
     auto& bind = registry.get<comp::key_bind>(entity);
-    if (keys.was_just_released(bind.key))
+    if (keys.just_released(bind.key))
     {
       dispatcher.enqueue<comp::button_pressed_event>(bind.action, 0u);
     }
@@ -54,17 +54,17 @@ auto create_menus() -> entt::registry
 
 void update_menu(entt::registry& registry,
                  entt::dispatcher& dispatcher,
-                 const cen::mouse_state& mouseState,
-                 const cen::key_state& keyState)
+                 const cen::mouse& mouse,
+                 const cen::keyboard& keyboard)
 {
   const auto view = registry.view<comp::active_menu, comp::menu>();
   view.each([&](const entt::entity entity, comp::menu& menu) {
     const auto menuEntity = comp::menu::entity{entity};
 
-    const auto button = update_button_hover(registry, menuEntity, mouseState);
+    const auto button = update_button_hover(registry, menuEntity, mouse);
     if (button)
     {
-      query_button(registry, dispatcher, *button, mouseState);
+      query_button(registry, dispatcher, *button, mouse);
     }
     else
     {
@@ -73,7 +73,7 @@ void update_menu(entt::registry& registry,
 
     if (auto* binds = registry.try_get<comp::key_bind_pack>(entity))
     {
-      query_binds(registry, dispatcher, *binds, keyState);
+      query_binds(registry, dispatcher, *binds, keyboard);
     }
   });
 }
