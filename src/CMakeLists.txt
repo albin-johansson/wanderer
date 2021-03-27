@@ -230,8 +230,6 @@ set(SOURCE_FILES
     systems/tile/tile_rendering_system.cpp
     systems/tile/tile_rendering_system.hpp
 
-    systems/ui/create_action.cpp
-    systems/ui/create_action.hpp
     systems/ui/grid_system.hpp
 
     systems/ui/buttons/button_factory_system.cpp
