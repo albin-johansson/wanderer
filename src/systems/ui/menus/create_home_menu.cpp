@@ -24,10 +24,10 @@ void add_buttons(entt::registry& registry, const comp::menu::entity entity)
   b.reserve(5);
 
   // clang-format off
-  b.push_back(make_button(registry, "Play", play, menu_action::goto_in_game, 7));
-  b.push_back(make_button(registry, "Settings", goto_settings, menu_action::goto_settings, 8));
-  b.push_back(make_button(registry, "Saves", goto_saves, menu_action::goto_saves, 9));
-  b.push_back(make_button(registry, "Controls", goto_controls, menu_action::goto_controls, 10));
+  b.push_back(make_button(registry, "Play", play, menu_action::goto_in_game, 6));
+  b.push_back(make_button(registry, "Settings", goto_settings, menu_action::goto_settings, 7));
+  b.push_back(make_button(registry, "Saves", goto_saves, menu_action::goto_saves, 8));
+  b.push_back(make_button(registry, "Controls", goto_controls, menu_action::goto_controls, 9));
   b.push_back(make_button(registry, "Quit", quit, menu_action::quit, 11));
   // clang-format on
 }
