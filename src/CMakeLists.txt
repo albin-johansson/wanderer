@@ -284,7 +284,6 @@ target_include_directories(${WANDERER_LIB_TARGET} SYSTEM PUBLIC ${LIBRARY_DIR}/c
 add_header_only_lib(libENTT ${LIBRARY_DIR}/entt ${LIBRARY_DIR}/entt/entt.hpp)
 add_header_only_lib(libJSON ${LIBRARY_DIR}/json ${LIBRARY_DIR}/json/json.hpp)
 add_header_only_lib(libABBY ${LIBRARY_DIR}/abby ${LIBRARY_DIR}/abby/abby.hpp)
-add_header_only_lib(libDate ${LIBRARY_DIR}/date ${LIBRARY_DIR}/date/date.h)
 add_header_only_lib(libCenturion ${LIBRARY_DIR}/centurion ${LIBRARY_DIR}/centurion/centurion.hpp)
 
 set(NAMED_TYPE_SOURCES
@@ -349,8 +348,7 @@ target_link_libraries(${WANDERER_LIB_TARGET}
     PUBLIC libENTT
     PUBLIC libJSON
     PUBLIC libABBY
-    PUBLIC libNamedType
-    PUBLIC libDate)
+    PUBLIC libNamedType)
 
 if (CMAKE_BUILD_TYPE STREQUAL "Release")
   add_executable(${WANDERER_EXE_TARGET} WIN32 main.cpp)
