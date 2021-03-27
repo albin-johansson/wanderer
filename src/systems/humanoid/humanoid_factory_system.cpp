@@ -6,7 +6,6 @@
 
 #include "animated.hpp"
 #include "binds.hpp"
-#include "binds_system.hpp"
 #include "centurion_utils.hpp"
 #include "depth_drawable.hpp"
 #include "direction.hpp"
@@ -14,6 +13,7 @@
 #include "hitbox.hpp"
 #include "hitbox_system.hpp"
 #include "humanoid_state.hpp"
+#include "load_binds_system.hpp"
 #include "movable.hpp"
 
 using namespace entt::literals;
