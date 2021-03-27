@@ -11,12 +11,12 @@
 #include "layer_rendering_system.hpp"
 #include "level_switch_animation.hpp"
 #include "level_switch_animation_system.hpp"
+#include "load_settings_system.hpp"
 #include "make_dispatcher.hpp"
 #include "menu_system.hpp"
 #include "movement_system.hpp"
 #include "particle_system.hpp"
 #include "portal_system.hpp"
-#include "settings_system.hpp"
 #include "tile_animation_system.hpp"
 #include "viewport_system.hpp"
 
