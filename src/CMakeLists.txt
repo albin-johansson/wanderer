@@ -167,8 +167,6 @@ set(SOURCE_FILES
 
     systems/animation_system.cpp
     systems/animation_system.hpp
-    systems/binds_system.cpp
-    systems/binds_system.hpp
     systems/chase_system.cpp
     systems/chase_system.hpp
     systems/depth_drawables_system.cpp
@@ -181,9 +179,12 @@ set(SOURCE_FILES
     systems/particle_system.hpp
     systems/render_bounds_system.cpp
     systems/render_bounds_system.hpp
-    systems/settings_system.cpp
-    systems/settings_system.hpp
     systems/update_triggers.hpp
+
+    systems/configuration/load_binds_system.cpp
+    systems/configuration/load_binds_system.hpp
+    systems/configuration/load_settings_system.cpp
+    systems/configuration/load_settings_system.hpp
 
     systems/hud/level_switch_animation_system.cpp
     systems/hud/level_switch_animation_system.hpp
@@ -326,6 +327,7 @@ target_include_directories(${WANDERER_LIB_TARGET}
     PUBLIC io/menu
     PUBLIC io/saves
     PUBLIC systems
+    PUBLIC systems/configuration
     PUBLIC systems/hud
     PUBLIC systems/humanoid
     PUBLIC systems/input
