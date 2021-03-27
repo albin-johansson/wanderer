@@ -9,28 +9,14 @@ set(SOURCE_FILES
     wanderer_engine.hpp
     semi_fixed_game_loop.hpp
 
-    components/animated.hpp
-    components/animated_tile.hpp
     components/chase.hpp
-    components/cursors.hpp
-    components/depth_drawable.hpp
     components/hitbox.hpp
     components/humanoid_state.hpp
-    components/level_switch_animation.hpp
     components/movable.hpp
     components/object.hpp
     components/particle.hpp
     components/player.hpp
-    components/portal.hpp
-    components/render_bounds.hpp
     components/settings.hpp
-    components/spawnpoint.hpp
-    components/tile.hpp
-    components/tile_layer.hpp
-    components/tile_object.hpp
-    components/tilemap.hpp
-    components/tileset.hpp
-    components/viewport.hpp
 
     components/events/begin_attack_event.hpp
     components/events/begin_humanoid_move_event.hpp
@@ -47,6 +33,13 @@ set(SOURCE_FILES
     components/events/switch_map_event.hpp
     components/events/switch_menu_event.hpp
 
+    components/graphics/animated.hpp
+    components/graphics/animated_tile.hpp
+    components/graphics/depth_drawable.hpp
+    components/graphics/level_switch_animation.hpp
+    components/graphics/render_bounds.hpp
+    components/graphics/viewport.hpp
+
     components/input/binds.hpp
     components/input/key_bind.hpp
 
@@ -55,8 +48,17 @@ set(SOURCE_FILES
     components/inventory/inventory.hpp
     components/inventory/item.hpp
 
+    components/map/portal.hpp
+    components/map/spawnpoint.hpp
+    components/map/tile.hpp
+    components/map/tile_layer.hpp
+    components/map/tile_object.hpp
+    components/map/tilemap.hpp
+    components/map/tileset.hpp
+
     components/ui/button.hpp
     components/ui/checkbox.hpp
+    components/ui/cursors.hpp
     components/ui/label.hpp
     components/ui/line.hpp
     components/ui/menu.hpp
@@ -306,8 +308,10 @@ target_include_directories(${WANDERER_LIB_TARGET}
     PUBLIC .
     PUBLIC components
     PUBLIC components/events
+    PUBLIC components/graphics
     PUBLIC components/input
     PUBLIC components/inventory
+    PUBLIC components/map
     PUBLIC components/ui
     PUBLIC core
     PUBLIC core/actions
