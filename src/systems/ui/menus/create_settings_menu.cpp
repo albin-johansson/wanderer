@@ -30,8 +30,16 @@ void add_checkboxes(entt::registry& registry, const comp::menu::entity entity)
   auto& vec = pack.checkboxes;
 
   vec.push_back(add_checkbox(registry,
-                             "Integer scaling",
+                             "Fullscreen",
                              6,
+                             4,
+                             "settings/fullscreen"_hs,
+                             menu_action::goto_home,  // FIXME
+                             true));
+
+  vec.push_back(add_checkbox(registry,
+                             "Integer scaling",
+                             7,
                              4,
                              "settings/integer-scaling"_hs,
                              menu_action::goto_home,  // FIXME
