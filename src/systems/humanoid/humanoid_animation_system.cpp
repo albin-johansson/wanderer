@@ -26,7 +26,7 @@ inline constexpr int melee_source_y{768};
 inline constexpr int bow_source_y{1024};
 
 inline constexpr ms_t idle_delay{90};
-inline constexpr ms_t move_delay{70};
+inline constexpr ms_t move_delay{55};
 inline constexpr ms_t attack_delay{70};
 
 /**
