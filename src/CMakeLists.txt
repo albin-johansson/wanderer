@@ -177,8 +177,8 @@ set(SOURCE_FILES
     systems/inventory_system.hpp
     systems/particle_system.cpp
     systems/particle_system.hpp
-    systems/render_bounds_system.cpp
-    systems/render_bounds_system.hpp
+    systems/rendering/render_bounds_system.cpp
+    systems/rendering/render_bounds_system.hpp
     systems/update_triggers.hpp
 
     systems/configuration/load_binds_system.cpp
@@ -339,6 +339,7 @@ target_include_directories(${WANDERER_LIB_TARGET}
     PUBLIC systems/ui/lines
     PUBLIC systems/ui/menus
     PUBLIC systems/movement
+    PUBLIC systems/rendering
     PUBLIC systems/saves
     PUBLIC systems/tile
     PUBLIC systems/viewport)
