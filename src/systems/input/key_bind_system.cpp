@@ -1,7 +1,5 @@
 #include "key_bind_system.hpp"
 
-#include "create_action.hpp"
-
 namespace wanderer::sys {
 
 auto make_bind(entt::registry& registry,

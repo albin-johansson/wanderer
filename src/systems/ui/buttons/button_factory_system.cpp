@@ -2,8 +2,6 @@
 
 #include <utility>  // move
 
-#include "create_action.hpp"
-
 namespace wanderer::sys {
 
 void add_button(entt::registry& registry,
