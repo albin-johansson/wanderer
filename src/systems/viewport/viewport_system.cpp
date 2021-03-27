@@ -6,7 +6,7 @@
 namespace wanderer::sys {
 namespace {
 
-inline constexpr float cameraSpeed = 10.0f;
+inline constexpr float camera_speed = 10.0f;
 
 [[nodiscard]] auto next_camera_position(const float2& target,
                                         const comp::viewport& viewport,
@@ -17,7 +17,7 @@ inline constexpr float cameraSpeed = 10.0f;
   const auto boundsWidth = viewport.bounds.width();
   const auto boundsHeight = viewport.bounds.height();
 
-  const auto distance = cameraSpeed * dt;
+  const auto distance = camera_speed * dt;
 
   const auto getX = [&](const float x) noexcept -> float {
     const auto value = boundsX + (x - boundsX) * distance;
