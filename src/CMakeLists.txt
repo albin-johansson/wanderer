@@ -177,8 +177,6 @@ set(SOURCE_FILES
     systems/inventory_system.hpp
     systems/particle_system.cpp
     systems/particle_system.hpp
-    systems/rendering/render_bounds_system.cpp
-    systems/rendering/render_bounds_system.hpp
     systems/update_triggers.hpp
 
     systems/configuration/load_binds_system.cpp
@@ -221,6 +219,9 @@ set(SOURCE_FILES
     systems/movement/movement_system.hpp
     systems/movement/portal_system.cpp
     systems/movement/portal_system.hpp
+
+    systems/rendering/render_bounds_system.cpp
+    systems/rendering/render_bounds_system.hpp
 
     systems/saves/saves_system.cpp
     systems/saves/saves_system.hpp
