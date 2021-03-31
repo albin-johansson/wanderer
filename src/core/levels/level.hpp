@@ -13,7 +13,6 @@
 #include "null_entity.hpp"
 #include "parse_ir.hpp"
 #include "player.hpp"
-#include "registry_utils.hpp"
 #include "render_bounds.hpp"
 #include "spawnpoint.hpp"
 #include "tilemap.hpp"

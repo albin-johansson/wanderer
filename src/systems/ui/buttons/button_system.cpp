@@ -3,7 +3,6 @@
 #include "button_pressed_event.hpp"
 #include "checkbox.hpp"
 #include "cursors.hpp"
-#include "registry_utils.hpp"
 
 namespace wanderer::sys {
 
