@@ -3,7 +3,6 @@
 #include "centurion_utils.hpp"
 #include "chase.hpp"
 #include "depth_drawable.hpp"
-#include "depth_drawables_system.hpp"
 #include "hitbox.hpp"
 
 namespace wanderer::sys {
