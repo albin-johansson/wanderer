@@ -36,7 +36,6 @@ void add_tile_objects(entt::registry& registry,
     d.dst = drawable.dst;
     d.layer = drawable.layer;
     d.depth = drawable.depth;
-    d.centerY = drawable.centerY;
 
     if (objectData.hitbox)
     {

@@ -2,6 +2,7 @@
 
 #include "animation_system.hpp"
 #include "chase_system.hpp"
+#include "debug_rendering_system.hpp"
 #include "depth_drawables_system.hpp"
 #include "event_connections.hpp"
 #include "humanoid_animation_system.hpp"

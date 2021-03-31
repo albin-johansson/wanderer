@@ -21,19 +21,18 @@ namespace wanderer::comp {
  *
  * \details The y-coordinate of the entity's center point is used when two
  * entities feature the same depth value. Similarly to the depth, entities
- * with a lower `centerY` value will be rendered before an entity with a
- * higher value.
+ * with a lower center y-coordinate value will be rendered before an entity with
+ * a higher value.
  *
  * \headerfile depth_drawable.hpp
  */
 struct depth_drawable final
 {
   texture_index texture;  ///< ID of associated texture.
-  cen::irect src{};  ///< Region of associated texture that will be rendered.
-  cen::frect dst{};  ///< Position and size of the rendered texture, in pixels.
+  cen::irect src;    ///< Region of associated texture that will be rendered.
+  cen::frect dst;    ///< Position and size of the rendered texture, in pixels.
   int layer{};       ///< Layer index.
   depth_t depth{5};  ///< Render order heuristic.
-  float centerY{0};  ///< The y-coordinate of the center point of the entity.
 };
 
 template <typename Archive>
@@ -42,7 +41,6 @@ void serialize(Archive& archive, depth_drawable& drawable, u32 version)
   archive(drawable.texture,
           drawable.layer,
           drawable.depth,
-          drawable.centerY,
           drawable.src,
           drawable.dst);
 }

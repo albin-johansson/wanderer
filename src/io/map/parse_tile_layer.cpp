@@ -51,7 +51,6 @@ using tile_data = step::detail::data::gid_data;  // FIXME
   drawable.texture = tile.texture;
   drawable.src = tile.source;
   drawable.dst = {dstPos, glob::tile_size<cen::farea>};
-  drawable.centerY = dstPos.y() + (drawable.dst.height() / 2.0f);
   drawable.layer = zIndex;
 
   return drawable;

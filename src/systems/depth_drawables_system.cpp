@@ -46,8 +46,11 @@ void sort_drawables(entt::registry& registry)
   registry.sort<comp::depth_drawable>(
       [](const comp::depth_drawable& lhs,
          const comp::depth_drawable& rhs) noexcept {
-        return std::tie(lhs.layer, lhs.depth, lhs.centerY) <
-               std::tie(rhs.layer, rhs.depth, rhs.centerY);
+        const auto lhsCenterY = lhs.dst.center_y();
+        const auto rhsCenterY = rhs.dst.center_y();
+
+        return std::tie(lhs.layer, lhs.depth, lhsCenterY) <
+               std::tie(rhs.layer, rhs.depth, rhsCenterY);
       },
       entt::insertion_sort{});
 }
