@@ -27,7 +27,7 @@ void update_viewport(level& level,
                      const entt::entity movableEntity,
                      const delta_t dt);
 
-void translate_renderer_viewport(const entt::registry& registry,
+void translate_viewport(const entt::registry& registry,
                                  comp::viewport::entity viewportEntity,
                                  cen::renderer& renderer);
 

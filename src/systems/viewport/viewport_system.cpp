@@ -107,9 +107,9 @@ void update_viewport(level& level,
   track(level.get<comp::viewport>(level.viewport()), movable.position, dt);
 }
 
-void translate_renderer_viewport(const entt::registry& registry,
-                                 comp::viewport::entity viewportEntity,
-                                 cen::renderer& renderer)
+void translate_viewport(const entt::registry& registry,
+                        comp::viewport::entity viewportEntity,
+                        cen::renderer& renderer)
 {
   const auto& viewport = registry.get<comp::viewport>(viewportEntity);
   renderer.set_translation_viewport(viewport.bounds);
