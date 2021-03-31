@@ -78,7 +78,8 @@ void render_drawables(const entt::registry& registry,
   const auto boundsRect = to_rect(bounds);
 
   const auto view = registry.view<const comp::depth_drawable>();
-  view.each([&](auto entity, const comp::depth_drawable& drawable) noexcept {
+  view.each([&](const entt::entity entity,
+                const comp::depth_drawable& drawable) noexcept {
     if (cen::intersects(boundsRect, drawable.dst))
     {
       const auto& texture = graphics.find(drawable.texture);
