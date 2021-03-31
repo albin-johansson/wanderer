@@ -76,6 +76,26 @@
   ((SDL_MAJOR_VERSION == (x)) && (SDL_MINOR_VERSION == (y)) && \
    (SDL_PATCHLEVEL == (z)))
 
+/**
+ * \def CENTURION_FEATURE_OPENGL
+ *
+ * \brief This macro can be used to control whether or not the OpenGL library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_OPENGL
+
+/**
+ * \def CENTURION_FEATURE_VULKAN
+ *
+ * \brief This macro can be used to control whether or not the vulkan library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_VULKAN
+
 #if !defined(__clang__)
 
 /**
@@ -155,6 +175,26 @@ using SDL_KeyCode = decltype(SDLK_UNKNOWN);
 #define CENTURION_SDL_VERSION_IS(x, y, z)                      \
   ((SDL_MAJOR_VERSION == (x)) && (SDL_MINOR_VERSION == (y)) && \
    (SDL_PATCHLEVEL == (z)))
+
+/**
+ * \def CENTURION_FEATURE_OPENGL
+ *
+ * \brief This macro can be used to control whether or not the OpenGL library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_OPENGL
+
+/**
+ * \def CENTURION_FEATURE_VULKAN
+ *
+ * \brief This macro can be used to control whether or not the vulkan library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_VULKAN
 
 #if !defined(__clang__)
 
@@ -425,6 +465,26 @@ template <typename T>
 #define CENTURION_SDL_VERSION_IS(x, y, z)                      \
   ((SDL_MAJOR_VERSION == (x)) && (SDL_MINOR_VERSION == (y)) && \
    (SDL_PATCHLEVEL == (z)))
+
+/**
+ * \def CENTURION_FEATURE_OPENGL
+ *
+ * \brief This macro can be used to control whether or not the OpenGL library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_OPENGL
+
+/**
+ * \def CENTURION_FEATURE_VULKAN
+ *
+ * \brief This macro can be used to control whether or not the vulkan library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_VULKAN
 
 #if !defined(__clang__)
 
@@ -1406,8 +1466,8 @@ class music final
    * \note The term loops is a little bit confusing here, even in the SDL_mixer
    * documentation. A negative value indicates that the music should be played
    * forever. Furthermore, the values 0 and 1 both results in the music being
-   * played *one time*. Except for these "special" values, the method behaves as
-   * expected.
+   * played *one time*. Except for these "special" values, the function behaves
+   * as expected.
    *
    * \param nLoops the number of times to loop the music, `music::forever` can
    * be supplied to loop the music indefinitely.
@@ -2272,6 +2332,26 @@ inline auto operator<<(std::ostream& stream, const sound_effect& sound)
   ((SDL_MAJOR_VERSION == (x)) && (SDL_MINOR_VERSION == (y)) && \
    (SDL_PATCHLEVEL == (z)))
 
+/**
+ * \def CENTURION_FEATURE_OPENGL
+ *
+ * \brief This macro can be used to control whether or not the OpenGL library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_OPENGL
+
+/**
+ * \def CENTURION_FEATURE_VULKAN
+ *
+ * \brief This macro can be used to control whether or not the vulkan library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_VULKAN
+
 #if !defined(__clang__)
 
 /**
@@ -2350,6 +2430,26 @@ using SDL_KeyCode = decltype(SDLK_UNKNOWN);
 #define CENTURION_SDL_VERSION_IS(x, y, z)                      \
   ((SDL_MAJOR_VERSION == (x)) && (SDL_MINOR_VERSION == (y)) && \
    (SDL_PATCHLEVEL == (z)))
+
+/**
+ * \def CENTURION_FEATURE_OPENGL
+ *
+ * \brief This macro can be used to control whether or not the OpenGL library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_OPENGL
+
+/**
+ * \def CENTURION_FEATURE_VULKAN
+ *
+ * \brief This macro can be used to control whether or not the vulkan library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_VULKAN
 
 #if !defined(__clang__)
 
@@ -2567,6 +2667,26 @@ namespace cen {
 #define CENTURION_SDL_VERSION_IS(x, y, z)                      \
   ((SDL_MAJOR_VERSION == (x)) && (SDL_MINOR_VERSION == (y)) && \
    (SDL_PATCHLEVEL == (z)))
+
+/**
+ * \def CENTURION_FEATURE_OPENGL
+ *
+ * \brief This macro can be used to control whether or not the OpenGL library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_OPENGL
+
+/**
+ * \def CENTURION_FEATURE_VULKAN
+ *
+ * \brief This macro can be used to control whether or not the vulkan library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_VULKAN
 
 #if !defined(__clang__)
 
@@ -3466,6 +3586,26 @@ template <typename T>
   ((SDL_MAJOR_VERSION == (x)) && (SDL_MINOR_VERSION == (y)) && \
    (SDL_PATCHLEVEL == (z)))
 
+/**
+ * \def CENTURION_FEATURE_OPENGL
+ *
+ * \brief This macro can be used to control whether or not the OpenGL library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_OPENGL
+
+/**
+ * \def CENTURION_FEATURE_VULKAN
+ *
+ * \brief This macro can be used to control whether or not the vulkan library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_VULKAN
+
 #if !defined(__clang__)
 
 /**
@@ -3545,6 +3685,26 @@ using SDL_KeyCode = decltype(SDLK_UNKNOWN);
 #define CENTURION_SDL_VERSION_IS(x, y, z)                      \
   ((SDL_MAJOR_VERSION == (x)) && (SDL_MINOR_VERSION == (y)) && \
    (SDL_PATCHLEVEL == (z)))
+
+/**
+ * \def CENTURION_FEATURE_OPENGL
+ *
+ * \brief This macro can be used to control whether or not the OpenGL library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_OPENGL
+
+/**
+ * \def CENTURION_FEATURE_VULKAN
+ *
+ * \brief This macro can be used to control whether or not the vulkan library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_VULKAN
 
 #if !defined(__clang__)
 
@@ -3889,16 +4049,19 @@ class mix_error final : public cen_error
 /// \cond FALSE
 namespace cen::detail {
 
-template <typename T>
-using is_owner = std::enable_if_t<std::is_same_v<T, std::true_type>, bool>;
+using owning_type = std::true_type;
+using handle_type = std::false_type;
 
 template <typename T>
-using is_handle = std::enable_if_t<std::is_same_v<T, std::false_type>, bool>;
+using is_owner = std::enable_if_t<std::is_same_v<T, owning_type>, bool>;
+
+template <typename T>
+using is_handle = std::enable_if_t<std::is_same_v<T, handle_type>, bool>;
 
 template <typename T>
 [[nodiscard]] constexpr auto is_owning() noexcept -> bool
 {
-  return std::is_same_v<T, std::true_type>;
+  return std::is_same_v<T, owning_type>;
 }
 
 template <typename B, typename Type, typename Deleter>
@@ -4884,6 +5047,26 @@ constexpr auto operator"" _s(const unsigned long long int value) noexcept
   ((SDL_MAJOR_VERSION == (x)) && (SDL_MINOR_VERSION == (y)) && \
    (SDL_PATCHLEVEL == (z)))
 
+/**
+ * \def CENTURION_FEATURE_OPENGL
+ *
+ * \brief This macro can be used to control whether or not the OpenGL library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_OPENGL
+
+/**
+ * \def CENTURION_FEATURE_VULKAN
+ *
+ * \brief This macro can be used to control whether or not the vulkan library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_VULKAN
+
 #if !defined(__clang__)
 
 /**
@@ -4962,6 +5145,26 @@ using SDL_KeyCode = decltype(SDLK_UNKNOWN);
 #define CENTURION_SDL_VERSION_IS(x, y, z)                      \
   ((SDL_MAJOR_VERSION == (x)) && (SDL_MINOR_VERSION == (y)) && \
    (SDL_PATCHLEVEL == (z)))
+
+/**
+ * \def CENTURION_FEATURE_OPENGL
+ *
+ * \brief This macro can be used to control whether or not the OpenGL library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_OPENGL
+
+/**
+ * \def CENTURION_FEATURE_VULKAN
+ *
+ * \brief This macro can be used to control whether or not the vulkan library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_VULKAN
 
 #if !defined(__clang__)
 
@@ -5247,6 +5450,26 @@ class sdl_string final
   ((SDL_MAJOR_VERSION == (x)) && (SDL_MINOR_VERSION == (y)) && \
    (SDL_PATCHLEVEL == (z)))
 
+/**
+ * \def CENTURION_FEATURE_OPENGL
+ *
+ * \brief This macro can be used to control whether or not the OpenGL library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_OPENGL
+
+/**
+ * \def CENTURION_FEATURE_VULKAN
+ *
+ * \brief This macro can be used to control whether or not the vulkan library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_VULKAN
+
 #if !defined(__clang__)
 
 /**
@@ -5330,6 +5553,26 @@ using SDL_KeyCode = decltype(SDLK_UNKNOWN);
 #define CENTURION_SDL_VERSION_IS(x, y, z)                      \
   ((SDL_MAJOR_VERSION == (x)) && (SDL_MINOR_VERSION == (y)) && \
    (SDL_PATCHLEVEL == (z)))
+
+/**
+ * \def CENTURION_FEATURE_OPENGL
+ *
+ * \brief This macro can be used to control whether or not the OpenGL library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_OPENGL
+
+/**
+ * \def CENTURION_FEATURE_VULKAN
+ *
+ * \brief This macro can be used to control whether or not the vulkan library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_VULKAN
 
 #if !defined(__clang__)
 
@@ -5643,7 +5886,7 @@ namespace literals {
 
 namespace cen {
 
-/// \addtogroup graphics
+/// \addtogroup video
 /// \{
 
 /**
@@ -6252,7 +6495,7 @@ inline auto operator<<(std::ostream& stream, const color& color)
   return !(lhs == rhs);
 }
 
-/// \} End of group graphics
+/// \} End of group video
 
 }  // namespace cen
 
@@ -16378,6 +16621,26 @@ inline auto as_sdl_event(const common_event<SDL_QuitEvent>& event) -> SDL_Event
   ((SDL_MAJOR_VERSION == (x)) && (SDL_MINOR_VERSION == (y)) && \
    (SDL_PATCHLEVEL == (z)))
 
+/**
+ * \def CENTURION_FEATURE_OPENGL
+ *
+ * \brief This macro can be used to control whether or not the OpenGL library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_OPENGL
+
+/**
+ * \def CENTURION_FEATURE_VULKAN
+ *
+ * \brief This macro can be used to control whether or not the vulkan library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_VULKAN
+
 #if !defined(__clang__)
 
 /**
@@ -17954,6 +18217,26 @@ class event final
 #define CENTURION_SDL_VERSION_IS(x, y, z)                      \
   ((SDL_MAJOR_VERSION == (x)) && (SDL_MINOR_VERSION == (y)) && \
    (SDL_PATCHLEVEL == (z)))
+
+/**
+ * \def CENTURION_FEATURE_OPENGL
+ *
+ * \brief This macro can be used to control whether or not the OpenGL library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_OPENGL
+
+/**
+ * \def CENTURION_FEATURE_VULKAN
+ *
+ * \brief This macro can be used to control whether or not the vulkan library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_VULKAN
 
 #if !defined(__clang__)
 
@@ -22292,6 +22575,26 @@ inline auto as_sdl_event(const common_event<SDL_WindowEvent>& event)
   ((SDL_MAJOR_VERSION == (x)) && (SDL_MINOR_VERSION == (y)) && \
    (SDL_PATCHLEVEL == (z)))
 
+/**
+ * \def CENTURION_FEATURE_OPENGL
+ *
+ * \brief This macro can be used to control whether or not the OpenGL library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_OPENGL
+
+/**
+ * \def CENTURION_FEATURE_VULKAN
+ *
+ * \brief This macro can be used to control whether or not the vulkan library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_VULKAN
+
 #if !defined(__clang__)
 
 /**
@@ -22374,6 +22677,26 @@ using SDL_KeyCode = decltype(SDLK_UNKNOWN);
   ((SDL_MAJOR_VERSION == (x)) && (SDL_MINOR_VERSION == (y)) && \
    (SDL_PATCHLEVEL == (z)))
 
+/**
+ * \def CENTURION_FEATURE_OPENGL
+ *
+ * \brief This macro can be used to control whether or not the OpenGL library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_OPENGL
+
+/**
+ * \def CENTURION_FEATURE_VULKAN
+ *
+ * \brief This macro can be used to control whether or not the vulkan library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_VULKAN
+
 #if !defined(__clang__)
 
 /**
@@ -22452,6 +22775,26 @@ using SDL_KeyCode = decltype(SDLK_UNKNOWN);
 #define CENTURION_SDL_VERSION_IS(x, y, z)                      \
   ((SDL_MAJOR_VERSION == (x)) && (SDL_MINOR_VERSION == (y)) && \
    (SDL_PATCHLEVEL == (z)))
+
+/**
+ * \def CENTURION_FEATURE_OPENGL
+ *
+ * \brief This macro can be used to control whether or not the OpenGL library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_OPENGL
+
+/**
+ * \def CENTURION_FEATURE_VULKAN
+ *
+ * \brief This macro can be used to control whether or not the vulkan library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_VULKAN
 
 #if !defined(__clang__)
 
@@ -22720,6 +23063,7 @@ namespace cen {
 #define CENTURION_FILE_HEADER
 
 #include <SDL.h>
+#include <SDL_image.h>
 
 #include <cassert>   // assert
 #include <cstddef>   // size_t
@@ -23591,6 +23935,95 @@ class file final
 
   /// \} End of read API
 
+  /// \name File type queries
+  /// \{
+
+  // TODO Centurion 6: Document and test these functions
+
+  /**
+   * \brief Indicates whether or not the file represents a PNG image.
+   *
+   * \return `true` if the file is a PNG image; `false` otherwise.
+   *
+   * \since 6.0.0
+   */
+  [[nodiscard]] auto is_png() const noexcept -> bool
+  {
+    return IMG_isPNG(m_context.get()) == 1;
+  }
+
+  [[nodiscard]] auto is_ico() const noexcept -> bool
+  {
+    return IMG_isICO(m_context.get()) == 1;
+  }
+
+  [[nodiscard]] auto is_jpg() const noexcept -> bool
+  {
+    return IMG_isJPG(m_context.get()) == 1;
+  }
+
+  [[nodiscard]] auto is_bmp() const noexcept -> bool
+  {
+    return IMG_isBMP(m_context.get()) == 1;
+  }
+
+  [[nodiscard]] auto is_gif() const noexcept -> bool
+  {
+    return IMG_isGIF(m_context.get()) == 1;
+  }
+
+  [[nodiscard]] auto is_svg() const noexcept -> bool
+  {
+    return IMG_isSVG(m_context.get()) == 1;
+  }
+
+  [[nodiscard]] auto is_webp() const noexcept -> bool
+  {
+    return IMG_isWEBP(m_context.get()) == 1;
+  }
+
+  [[nodiscard]] auto is_tif() const noexcept -> bool
+  {
+    return IMG_isTIF(m_context.get()) == 1;
+  }
+
+  [[nodiscard]] auto is_pnm() const noexcept -> bool
+  {
+    return IMG_isPNM(m_context.get()) == 1;
+  }
+
+  [[nodiscard]] auto is_pcx() const noexcept -> bool
+  {
+    return IMG_isPCX(m_context.get()) == 1;
+  }
+
+  [[nodiscard]] auto is_lbm() const noexcept -> bool
+  {
+    return IMG_isLBM(m_context.get()) == 1;
+  }
+
+  [[nodiscard]] auto is_cur() const noexcept -> bool
+  {
+    return IMG_isCUR(m_context.get()) == 1;
+  }
+
+  [[nodiscard]] auto is_xcf() const noexcept -> bool
+  {
+    return IMG_isXCF(m_context.get()) == 1;
+  }
+
+  [[nodiscard]] auto is_xpm() const noexcept -> bool
+  {
+    return IMG_isXPM(m_context.get()) == 1;
+  }
+
+  [[nodiscard]] auto is_xv() const noexcept -> bool
+  {
+    return IMG_isXV(m_context.get()) == 1;
+  }
+
+  /// \}
+
   /**
    * \brief Seeks to the specified offset, using the specified seek mode.
    *
@@ -23889,6 +24322,26 @@ namespace cen {
   ((SDL_MAJOR_VERSION == (x)) && (SDL_MINOR_VERSION == (y)) && \
    (SDL_PATCHLEVEL == (z)))
 
+/**
+ * \def CENTURION_FEATURE_OPENGL
+ *
+ * \brief This macro can be used to control whether or not the OpenGL library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_OPENGL
+
+/**
+ * \def CENTURION_FEATURE_VULKAN
+ *
+ * \brief This macro can be used to control whether or not the vulkan library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_VULKAN
+
 #if !defined(__clang__)
 
 /**
@@ -23970,6 +24423,26 @@ using SDL_KeyCode = decltype(SDLK_UNKNOWN);
 #define CENTURION_SDL_VERSION_IS(x, y, z)                      \
   ((SDL_MAJOR_VERSION == (x)) && (SDL_MINOR_VERSION == (y)) && \
    (SDL_PATCHLEVEL == (z)))
+
+/**
+ * \def CENTURION_FEATURE_OPENGL
+ *
+ * \brief This macro can be used to control whether or not the OpenGL library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_OPENGL
+
+/**
+ * \def CENTURION_FEATURE_VULKAN
+ *
+ * \brief This macro can be used to control whether or not the vulkan library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_VULKAN
 
 #if !defined(__clang__)
 
@@ -25938,6 +26411,26 @@ class enum_hint
   ((SDL_MAJOR_VERSION == (x)) && (SDL_MINOR_VERSION == (y)) && \
    (SDL_PATCHLEVEL == (z)))
 
+/**
+ * \def CENTURION_FEATURE_OPENGL
+ *
+ * \brief This macro can be used to control whether or not the OpenGL library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_OPENGL
+
+/**
+ * \def CENTURION_FEATURE_VULKAN
+ *
+ * \brief This macro can be used to control whether or not the vulkan library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_VULKAN
+
 #if !defined(__clang__)
 
 /**
@@ -27879,6 +28372,26 @@ struct use_old_joystick_mapping final
   ((SDL_MAJOR_VERSION == (x)) && (SDL_MINOR_VERSION == (y)) && \
    (SDL_PATCHLEVEL == (z)))
 
+/**
+ * \def CENTURION_FEATURE_OPENGL
+ *
+ * \brief This macro can be used to control whether or not the OpenGL library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_OPENGL
+
+/**
+ * \def CENTURION_FEATURE_VULKAN
+ *
+ * \brief This macro can be used to control whether or not the vulkan library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_VULKAN
+
 #if !defined(__clang__)
 
 /**
@@ -28003,6 +28516,26 @@ enum class button_state
 #define CENTURION_SDL_VERSION_IS(x, y, z)                      \
   ((SDL_MAJOR_VERSION == (x)) && (SDL_MINOR_VERSION == (y)) && \
    (SDL_PATCHLEVEL == (z)))
+
+/**
+ * \def CENTURION_FEATURE_OPENGL
+ *
+ * \brief This macro can be used to control whether or not the OpenGL library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_OPENGL
+
+/**
+ * \def CENTURION_FEATURE_VULKAN
+ *
+ * \brief This macro can be used to control whether or not the vulkan library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_VULKAN
 
 #if !defined(__clang__)
 
@@ -28347,16 +28880,19 @@ class mix_error final : public cen_error
 /// \cond FALSE
 namespace cen::detail {
 
-template <typename T>
-using is_owner = std::enable_if_t<std::is_same_v<T, std::true_type>, bool>;
+using owning_type = std::true_type;
+using handle_type = std::false_type;
 
 template <typename T>
-using is_handle = std::enable_if_t<std::is_same_v<T, std::false_type>, bool>;
+using is_owner = std::enable_if_t<std::is_same_v<T, owning_type>, bool>;
+
+template <typename T>
+using is_handle = std::enable_if_t<std::is_same_v<T, handle_type>, bool>;
 
 template <typename T>
 [[nodiscard]] constexpr auto is_owning() noexcept -> bool
 {
-  return std::is_same_v<T, std::true_type>;
+  return std::is_same_v<T, owning_type>;
 }
 
 template <typename B, typename Type, typename Deleter>
@@ -29342,6 +29878,26 @@ constexpr auto operator"" _s(const unsigned long long int value) noexcept
   ((SDL_MAJOR_VERSION == (x)) && (SDL_MINOR_VERSION == (y)) && \
    (SDL_PATCHLEVEL == (z)))
 
+/**
+ * \def CENTURION_FEATURE_OPENGL
+ *
+ * \brief This macro can be used to control whether or not the OpenGL library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_OPENGL
+
+/**
+ * \def CENTURION_FEATURE_VULKAN
+ *
+ * \brief This macro can be used to control whether or not the vulkan library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_VULKAN
+
 #if !defined(__clang__)
 
 /**
@@ -29420,6 +29976,26 @@ using SDL_KeyCode = decltype(SDLK_UNKNOWN);
 #define CENTURION_SDL_VERSION_IS(x, y, z)                      \
   ((SDL_MAJOR_VERSION == (x)) && (SDL_MINOR_VERSION == (y)) && \
    (SDL_PATCHLEVEL == (z)))
+
+/**
+ * \def CENTURION_FEATURE_OPENGL
+ *
+ * \brief This macro can be used to control whether or not the OpenGL library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_OPENGL
+
+/**
+ * \def CENTURION_FEATURE_VULKAN
+ *
+ * \brief This macro can be used to control whether or not the vulkan library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_VULKAN
 
 #if !defined(__clang__)
 
@@ -29705,6 +30281,26 @@ class sdl_string final
   ((SDL_MAJOR_VERSION == (x)) && (SDL_MINOR_VERSION == (y)) && \
    (SDL_PATCHLEVEL == (z)))
 
+/**
+ * \def CENTURION_FEATURE_OPENGL
+ *
+ * \brief This macro can be used to control whether or not the OpenGL library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_OPENGL
+
+/**
+ * \def CENTURION_FEATURE_VULKAN
+ *
+ * \brief This macro can be used to control whether or not the vulkan library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_VULKAN
+
 #if !defined(__clang__)
 
 /**
@@ -29788,6 +30384,26 @@ using SDL_KeyCode = decltype(SDLK_UNKNOWN);
 #define CENTURION_SDL_VERSION_IS(x, y, z)                      \
   ((SDL_MAJOR_VERSION == (x)) && (SDL_MINOR_VERSION == (y)) && \
    (SDL_PATCHLEVEL == (z)))
+
+/**
+ * \def CENTURION_FEATURE_OPENGL
+ *
+ * \brief This macro can be used to control whether or not the OpenGL library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_OPENGL
+
+/**
+ * \def CENTURION_FEATURE_VULKAN
+ *
+ * \brief This macro can be used to control whether or not the vulkan library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_VULKAN
 
 #if !defined(__clang__)
 
@@ -30101,7 +30717,7 @@ namespace literals {
 
 namespace cen {
 
-/// \addtogroup graphics
+/// \addtogroup video
 /// \{
 
 /**
@@ -30710,7 +31326,7 @@ inline auto operator<<(std::ostream& stream, const color& color)
   return !(lhs == rhs);
 }
 
-/// \} End of group graphics
+/// \} End of group video
 
 }  // namespace cen
 
@@ -34714,6 +35330,26 @@ template <typename T>
   ((SDL_MAJOR_VERSION == (x)) && (SDL_MINOR_VERSION == (y)) && \
    (SDL_PATCHLEVEL == (z)))
 
+/**
+ * \def CENTURION_FEATURE_OPENGL
+ *
+ * \brief This macro can be used to control whether or not the OpenGL library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_OPENGL
+
+/**
+ * \def CENTURION_FEATURE_VULKAN
+ *
+ * \brief This macro can be used to control whether or not the vulkan library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_VULKAN
+
 #if !defined(__clang__)
 
 /**
@@ -34797,6 +35433,26 @@ using SDL_KeyCode = decltype(SDLK_UNKNOWN);
 #define CENTURION_SDL_VERSION_IS(x, y, z)                      \
   ((SDL_MAJOR_VERSION == (x)) && (SDL_MINOR_VERSION == (y)) && \
    (SDL_PATCHLEVEL == (z)))
+
+/**
+ * \def CENTURION_FEATURE_OPENGL
+ *
+ * \brief This macro can be used to control whether or not the OpenGL library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_OPENGL
+
+/**
+ * \def CENTURION_FEATURE_VULKAN
+ *
+ * \brief This macro can be used to control whether or not the vulkan library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_VULKAN
 
 #if !defined(__clang__)
 
@@ -45180,7 +45836,7 @@ enum class device_type
  */
 
 /**
- * \defgroup graphics Video
+ * \defgroup video Video
  * \brief Contains components related to window-management, rendering, fonts,
  * etc.
  */
@@ -45219,6 +45875,7 @@ enum class device_type
 #include <SDL_mixer.h>
 #include <SDL_ttf.h>
 
+#include <cassert>   // assert
 #include <optional>  // optional
 
 // #include "misc/exception.hpp"
@@ -45757,7 +46414,7 @@ namespace cen {
  * The chunk size used by SDL2_mixer, if \ref config.initMixer is
  * `true`.
  *
- * \headerfile centurion.hpp
+ * \headerfile library.hpp
  */
 struct config final
 {
@@ -45789,7 +46446,7 @@ struct config final
  *
  * \since 3.0.0
  *
- * \headerfile centurion.hpp
+ * \headerfile library.hpp
  */
 class library final
 {
@@ -45992,6 +46649,23 @@ class library final
 }
 
 /**
+ * \brief Returns the version of SDL2_image that is linked against the program.
+ *
+ * \note The linked version isn't necessarily the same as the version of
+ * SDL2_image that the program was compiled against.
+ *
+ * \return the linked version of SDL2_image.
+ *
+ * \since 6.0.0
+ */
+[[nodiscard]] inline auto sdl_image_linked_version() noexcept -> SDL_version
+{
+  const auto* version = IMG_Linked_Version();
+  assert(version);  // Sanity check
+  return *version;
+}
+
+/**
  * \brief Returns the compile-time version of SDL2_image that is being used.
  *
  * \return the compile-time version of SDL2_image that is being used.
@@ -46006,6 +46680,23 @@ class library final
 }
 
 /**
+ * \brief Returns the version of SDL2_mixer that is linked against the program.
+ *
+ * \note The linked version isn't necessarily the same as the version of
+ * SDL2_mixer that the program was compiled against.
+ *
+ * \return the linked version of SDL2_mixer.
+ *
+ * \since 6.0.0
+ */
+[[nodiscard]] inline auto sdl_mixer_linked_version() noexcept -> SDL_version
+{
+  const auto* version = Mix_Linked_Version();
+  assert(version);  // Sanity check
+  return *version;
+}
+
+/**
  * \brief Returns the compile-time version of SDL2_mixer that is being used.
  *
  * \return the compile-time version of SDL2_mixer that is being used.
@@ -46017,6 +46708,23 @@ class library final
   return {SDL_MIXER_MAJOR_VERSION,
           SDL_MIXER_MINOR_VERSION,
           SDL_MIXER_PATCHLEVEL};
+}
+
+/**
+ * \brief Returns the version of SDL2_ttf that is linked against the program.
+ *
+ * \note The linked version isn't necessarily the same as the version of
+ * SDL2_ttf that the program was compiled against.
+ *
+ * \return the linked version of SDL2_ttf.
+ *
+ * \since 6.0.0
+ */
+[[nodiscard]] inline auto sdl_ttf_linked_version() noexcept -> SDL_version
+{
+  const auto* version = TTF_Linked_Version();
+  assert(version);  // Sanity check
+  return *version;
 }
 
 /**
@@ -46838,6 +47546,26 @@ inline void set_priority(const category category, const priority prio) noexcept
   ((SDL_MAJOR_VERSION == (x)) && (SDL_MINOR_VERSION == (y)) && \
    (SDL_PATCHLEVEL == (z)))
 
+/**
+ * \def CENTURION_FEATURE_OPENGL
+ *
+ * \brief This macro can be used to control whether or not the OpenGL library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_OPENGL
+
+/**
+ * \def CENTURION_FEATURE_VULKAN
+ *
+ * \brief This macro can be used to control whether or not the vulkan library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_VULKAN
+
 #if !defined(__clang__)
 
 /**
@@ -46921,6 +47649,26 @@ using SDL_KeyCode = decltype(SDLK_UNKNOWN);
 #define CENTURION_SDL_VERSION_IS(x, y, z)                      \
   ((SDL_MAJOR_VERSION == (x)) && (SDL_MINOR_VERSION == (y)) && \
    (SDL_PATCHLEVEL == (z)))
+
+/**
+ * \def CENTURION_FEATURE_OPENGL
+ *
+ * \brief This macro can be used to control whether or not the OpenGL library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_OPENGL
+
+/**
+ * \def CENTURION_FEATURE_VULKAN
+ *
+ * \brief This macro can be used to control whether or not the vulkan library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_VULKAN
 
 #if !defined(__clang__)
 
@@ -50539,6 +51287,26 @@ constexpr auto operator"" _s(const unsigned long long int value) noexcept
   ((SDL_MAJOR_VERSION == (x)) && (SDL_MINOR_VERSION == (y)) && \
    (SDL_PATCHLEVEL == (z)))
 
+/**
+ * \def CENTURION_FEATURE_OPENGL
+ *
+ * \brief This macro can be used to control whether or not the OpenGL library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_OPENGL
+
+/**
+ * \def CENTURION_FEATURE_VULKAN
+ *
+ * \brief This macro can be used to control whether or not the vulkan library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_VULKAN
+
 #if !defined(__clang__)
 
 /**
@@ -50759,6 +51527,26 @@ class sdl_string final
   ((SDL_MAJOR_VERSION == (x)) && (SDL_MINOR_VERSION == (y)) && \
    (SDL_PATCHLEVEL == (z)))
 
+/**
+ * \def CENTURION_FEATURE_OPENGL
+ *
+ * \brief This macro can be used to control whether or not the OpenGL library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_OPENGL
+
+/**
+ * \def CENTURION_FEATURE_VULKAN
+ *
+ * \brief This macro can be used to control whether or not the vulkan library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_VULKAN
+
 #if !defined(__clang__)
 
 /**
@@ -50835,6 +51623,26 @@ using SDL_KeyCode = decltype(SDLK_UNKNOWN);
 #define CENTURION_SDL_VERSION_IS(x, y, z)                      \
   ((SDL_MAJOR_VERSION == (x)) && (SDL_MINOR_VERSION == (y)) && \
    (SDL_PATCHLEVEL == (z)))
+
+/**
+ * \def CENTURION_FEATURE_OPENGL
+ *
+ * \brief This macro can be used to control whether or not the OpenGL library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_OPENGL
+
+/**
+ * \def CENTURION_FEATURE_VULKAN
+ *
+ * \brief This macro can be used to control whether or not the vulkan library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_VULKAN
 
 #if !defined(__clang__)
 
@@ -51993,6 +52801,26 @@ using not_null = T;
   ((SDL_MAJOR_VERSION == (x)) && (SDL_MINOR_VERSION == (y)) && \
    (SDL_PATCHLEVEL == (z)))
 
+/**
+ * \def CENTURION_FEATURE_OPENGL
+ *
+ * \brief This macro can be used to control whether or not the OpenGL library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_OPENGL
+
+/**
+ * \def CENTURION_FEATURE_VULKAN
+ *
+ * \brief This macro can be used to control whether or not the vulkan library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_VULKAN
+
 #if !defined(__clang__)
 
 /**
@@ -52071,6 +52899,26 @@ using SDL_KeyCode = decltype(SDLK_UNKNOWN);
 #define CENTURION_SDL_VERSION_IS(x, y, z)                      \
   ((SDL_MAJOR_VERSION == (x)) && (SDL_MINOR_VERSION == (y)) && \
    (SDL_PATCHLEVEL == (z)))
+
+/**
+ * \def CENTURION_FEATURE_OPENGL
+ *
+ * \brief This macro can be used to control whether or not the OpenGL library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_OPENGL
+
+/**
+ * \def CENTURION_FEATURE_VULKAN
+ *
+ * \brief This macro can be used to control whether or not the vulkan library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_VULKAN
 
 #if !defined(__clang__)
 
@@ -53227,6 +54075,26 @@ class locale final
   ((SDL_MAJOR_VERSION == (x)) && (SDL_MINOR_VERSION == (y)) && \
    (SDL_PATCHLEVEL == (z)))
 
+/**
+ * \def CENTURION_FEATURE_OPENGL
+ *
+ * \brief This macro can be used to control whether or not the OpenGL library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_OPENGL
+
+/**
+ * \def CENTURION_FEATURE_VULKAN
+ *
+ * \brief This macro can be used to control whether or not the vulkan library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_VULKAN
+
 #if !defined(__clang__)
 
 /**
@@ -53307,6 +54175,26 @@ using SDL_KeyCode = decltype(SDLK_UNKNOWN);
 #define CENTURION_SDL_VERSION_IS(x, y, z)                      \
   ((SDL_MAJOR_VERSION == (x)) && (SDL_MINOR_VERSION == (y)) && \
    (SDL_PATCHLEVEL == (z)))
+
+/**
+ * \def CENTURION_FEATURE_OPENGL
+ *
+ * \brief This macro can be used to control whether or not the OpenGL library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_OPENGL
+
+/**
+ * \def CENTURION_FEATURE_VULKAN
+ *
+ * \brief This macro can be used to control whether or not the vulkan library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_VULKAN
 
 #if !defined(__clang__)
 
@@ -53599,16 +54487,19 @@ class mix_error final : public cen_error
 /// \cond FALSE
 namespace cen::detail {
 
-template <typename T>
-using is_owner = std::enable_if_t<std::is_same_v<T, std::true_type>, bool>;
+using owning_type = std::true_type;
+using handle_type = std::false_type;
 
 template <typename T>
-using is_handle = std::enable_if_t<std::is_same_v<T, std::false_type>, bool>;
+using is_owner = std::enable_if_t<std::is_same_v<T, owning_type>, bool>;
+
+template <typename T>
+using is_handle = std::enable_if_t<std::is_same_v<T, handle_type>, bool>;
 
 template <typename T>
 [[nodiscard]] constexpr auto is_owning() noexcept -> bool
 {
-  return std::is_same_v<T, std::true_type>;
+  return std::is_same_v<T, owning_type>;
 }
 
 template <typename B, typename Type, typename Deleter>
@@ -54318,7 +55209,7 @@ template <std::size_t bufferSize = 16, typename T>
 
 namespace cen {
 
-/// \addtogroup graphics
+/// \addtogroup video
 /// \{
 
 /**
@@ -54927,7 +55818,7 @@ inline auto operator<<(std::ostream& stream, const color& color)
   return !(lhs == rhs);
 }
 
-/// \} End of group graphics
+/// \} End of group video
 
 }  // namespace cen
 
@@ -54940,7 +55831,7 @@ inline auto operator<<(std::ostream& stream, const color& color)
 
 namespace cen {
 
-/// \addtogroup graphics
+/// \addtogroup video
 /// \{
 
 /**
@@ -56086,6 +56977,26 @@ class shared_object final
 #define CENTURION_SDL_VERSION_IS(x, y, z)                      \
   ((SDL_MAJOR_VERSION == (x)) && (SDL_MINOR_VERSION == (y)) && \
    (SDL_PATCHLEVEL == (z)))
+
+/**
+ * \def CENTURION_FEATURE_OPENGL
+ *
+ * \brief This macro can be used to control whether or not the OpenGL library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_OPENGL
+
+/**
+ * \def CENTURION_FEATURE_VULKAN
+ *
+ * \brief This macro can be used to control whether or not the vulkan library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_VULKAN
 
 #if !defined(__clang__)
 
@@ -57639,6 +58550,26 @@ class semaphore final
   ((SDL_MAJOR_VERSION == (x)) && (SDL_MINOR_VERSION == (y)) && \
    (SDL_PATCHLEVEL == (z)))
 
+/**
+ * \def CENTURION_FEATURE_OPENGL
+ *
+ * \brief This macro can be used to control whether or not the OpenGL library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_OPENGL
+
+/**
+ * \def CENTURION_FEATURE_VULKAN
+ *
+ * \brief This macro can be used to control whether or not the vulkan library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_VULKAN
+
 #if !defined(__clang__)
 
 /**
@@ -58426,6 +59357,26 @@ class try_lock final
   ((SDL_MAJOR_VERSION == (x)) && (SDL_MINOR_VERSION == (y)) && \
    (SDL_PATCHLEVEL == (z)))
 
+/**
+ * \def CENTURION_FEATURE_OPENGL
+ *
+ * \brief This macro can be used to control whether or not the OpenGL library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_OPENGL
+
+/**
+ * \def CENTURION_FEATURE_VULKAN
+ *
+ * \brief This macro can be used to control whether or not the vulkan library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_VULKAN
+
 #if !defined(__clang__)
 
 /**
@@ -58463,7 +59414,7 @@ using SDL_KeyCode = decltype(SDLK_UNKNOWN);
 
 namespace cen {
 
-/// \addtogroup graphics
+/// \addtogroup video
 /// \{
 
 /**
@@ -58615,6 +59566,26 @@ enum class blend_mode
 #define CENTURION_SDL_VERSION_IS(x, y, z)                      \
   ((SDL_MAJOR_VERSION == (x)) && (SDL_MINOR_VERSION == (y)) && \
    (SDL_PATCHLEVEL == (z)))
+
+/**
+ * \def CENTURION_FEATURE_OPENGL
+ *
+ * \brief This macro can be used to control whether or not the OpenGL library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_OPENGL
+
+/**
+ * \def CENTURION_FEATURE_VULKAN
+ *
+ * \brief This macro can be used to control whether or not the vulkan library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_VULKAN
 
 #if !defined(__clang__)
 
@@ -58928,7 +59899,7 @@ namespace literals {
 
 namespace cen {
 
-/// \addtogroup graphics
+/// \addtogroup video
 /// \{
 
 /**
@@ -59537,7 +60508,7 @@ inline auto operator<<(std::ostream& stream, const color& color)
   return !(lhs == rhs);
 }
 
-/// \} End of group graphics
+/// \} End of group video
 
 }  // namespace cen
 
@@ -59573,7 +60544,7 @@ inline auto operator<<(std::ostream& stream, const color& color)
 
 namespace cen {
 
-/// \addtogroup graphics
+/// \addtogroup video
 /// \{
 
 /**
@@ -60182,7 +61153,7 @@ inline auto operator<<(std::ostream& stream, const color& color)
   return !(lhs == rhs);
 }
 
-/// \} End of group graphics
+/// \} End of group video
 
 }  // namespace cen
 
@@ -60196,7 +61167,7 @@ inline auto operator<<(std::ostream& stream, const color& color)
 /**
  * \namespace cen::colors
  *
- * \ingroup graphics
+ * \ingroup video
  *
  * \brief Contains pre-defined `color` constants.
  *
@@ -61532,16 +62503,19 @@ class mix_error final : public cen_error
 /// \cond FALSE
 namespace cen::detail {
 
-template <typename T>
-using is_owner = std::enable_if_t<std::is_same_v<T, std::true_type>, bool>;
+using owning_type = std::true_type;
+using handle_type = std::false_type;
 
 template <typename T>
-using is_handle = std::enable_if_t<std::is_same_v<T, std::false_type>, bool>;
+using is_owner = std::enable_if_t<std::is_same_v<T, owning_type>, bool>;
+
+template <typename T>
+using is_handle = std::enable_if_t<std::is_same_v<T, handle_type>, bool>;
 
 template <typename T>
 [[nodiscard]] constexpr auto is_owning() noexcept -> bool
 {
-  return std::is_same_v<T, std::true_type>;
+  return std::is_same_v<T, owning_type>;
 }
 
 template <typename B, typename Type, typename Deleter>
@@ -61676,6 +62650,26 @@ class pointer_manager final
   ((SDL_MAJOR_VERSION == (x)) && (SDL_MINOR_VERSION == (y)) && \
    (SDL_PATCHLEVEL == (z)))
 
+/**
+ * \def CENTURION_FEATURE_OPENGL
+ *
+ * \brief This macro can be used to control whether or not the OpenGL library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_OPENGL
+
+/**
+ * \def CENTURION_FEATURE_VULKAN
+ *
+ * \brief This macro can be used to control whether or not the vulkan library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_VULKAN
+
 #if !defined(__clang__)
 
 /**
@@ -61759,6 +62753,26 @@ using SDL_KeyCode = decltype(SDLK_UNKNOWN);
 #define CENTURION_SDL_VERSION_IS(x, y, z)                      \
   ((SDL_MAJOR_VERSION == (x)) && (SDL_MINOR_VERSION == (y)) && \
    (SDL_PATCHLEVEL == (z)))
+
+/**
+ * \def CENTURION_FEATURE_OPENGL
+ *
+ * \brief This macro can be used to control whether or not the OpenGL library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_OPENGL
+
+/**
+ * \def CENTURION_FEATURE_VULKAN
+ *
+ * \brief This macro can be used to control whether or not the vulkan library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_VULKAN
 
 #if !defined(__clang__)
 
@@ -62396,10 +63410,9 @@ inline auto operator<<(std::ostream& stream, const fpoint& point)
 #include <SDL.h>
 #include <SDL_image.h>
 
-#include <cassert>      // assert
-#include <ostream>      // ostream
-#include <string>       // string
-#include <type_traits>  // true_type, false_type
+#include <cassert>  // assert
+#include <ostream>  // ostream
+#include <string>   // string
 
 // #include "../centurion_cfg.hpp"
 
@@ -64666,7 +65679,7 @@ using owner = T;
 
 namespace cen {
 
-/// \addtogroup graphics
+/// \addtogroup video
 /// \{
 
 /**
@@ -64783,7 +65796,7 @@ enum class blend_mode
 
 namespace cen {
 
-/// \addtogroup graphics
+/// \addtogroup video
 /// \{
 
 /**
@@ -65187,10 +66200,10 @@ class basic_pixel_format_info final
 
 namespace cen {
 
-/// \addtogroup graphics
+/// \addtogroup video
 /// \{
 
-template <typename B>
+template <typename T>
 class basic_surface;
 
 /**
@@ -65200,7 +66213,7 @@ class basic_surface;
  *
  * \since 5.0.0
  */
-using surface = basic_surface<std::true_type>;
+using surface = basic_surface<detail::owning_type>;
 
 /**
  * \typedef surface_handle
@@ -65209,24 +66222,32 @@ using surface = basic_surface<std::true_type>;
  *
  * \since 5.0.0
  */
-using surface_handle = basic_surface<std::false_type>;
+using surface_handle = basic_surface<detail::handle_type>;
 
 /**
  * \class basic_surface
  *
- * \brief Represents a non-accelerated image.
+ * \brief Represents a non-accelerated collection of pixels that constitute an
+ * image.
  *
- * \tparam B `std::true_type` for owning surfaces; `std::false_type` for
- * non-owning surfaces.
+ * \details Surfaces are often used for icons and snapshots, as an "intermediate"
+ * representation that can be manually manipulated, unlike textures. There is no
+ * support for directly rendering surfaces, but they can be converted to
+ * textures, which in turn can be rendered.
+ *
+ * \tparam B Used to determine the ownership semantics of the class.
  *
  * \since 4.0.0
  *
  * \headerfile surface.hpp
  */
-template <typename B>
+template <typename T>
 class basic_surface final
 {
  public:
+  /// \name Construction
+  /// \{
+
   /**
    * \brief Creates a surface from a pointer to an SDL surface.
    *
@@ -65237,10 +66258,10 @@ class basic_surface final
    *
    * \since 4.0.0
    */
-  explicit basic_surface(SDL_Surface* surface) noexcept(!detail::is_owning<B>())
+  explicit basic_surface(SDL_Surface* surface) noexcept(!detail::is_owning<T>())
       : m_surface{surface}
   {
-    if constexpr (detail::is_owning<B>())
+    if constexpr (detail::is_owning<T>())
     {
       if (!m_surface)
       {
@@ -65261,7 +66282,7 @@ class basic_surface final
    *
    * \since 4.0.0
    */
-  template <typename BB = B, detail::is_owner<BB> = true>
+  template <typename TT = T, detail::is_owner<TT> = true>
   explicit basic_surface(const not_null<czstring> file)
       : m_surface{IMG_Load(file)}
   {
@@ -65282,7 +66303,7 @@ class basic_surface final
    *
    * \since 5.3.0
    */
-  template <typename BB = B, detail::is_owner<BB> = true>
+  template <typename TT = T, detail::is_owner<TT> = true>
   explicit basic_surface(const std::string& file) : basic_surface{file.c_str()}
   {}
 
@@ -65298,7 +66319,7 @@ class basic_surface final
    *
    * \since 5.3.0
    */
-  template <typename BB = B, detail::is_owner<BB> = true>
+  template <typename TT = T, detail::is_owner<TT> = true>
   basic_surface(const iarea size, const pixel_format pixelFormat)
       : m_surface{SDL_CreateRGBSurfaceWithFormat(0,
                                                  size.width,
@@ -65325,7 +66346,7 @@ class basic_surface final
    *
    * \since 5.2.0
    */
-  template <typename BB = B, detail::is_owner<BB> = true>
+  template <typename TT = T, detail::is_owner<TT> = true>
   [[nodiscard]] static auto with_format(const not_null<czstring> file,
                                         const blend_mode blendMode,
                                         const pixel_format pixelFormat)
@@ -65337,6 +66358,18 @@ class basic_surface final
     source.set_blend_mode(blendMode);
 
     return source.convert(pixelFormat);
+  }
+
+  /**
+   * \see with_format()
+   */
+  template <typename TT = T, detail::is_owner<TT> = true>
+  [[nodiscard]] static auto with_format(const std::string& file,
+                                        const blend_mode blendMode,
+                                        const pixel_format pixelFormat)
+      -> basic_surface
+  {
+    return with_format(file.c_str(), blendMode, pixelFormat);
   }
 
   /**
@@ -65352,12 +66385,21 @@ class basic_surface final
    *
    * \since 5.3.0
    */
-  template <typename BB = B, detail::is_owner<BB> = true>
+  template <typename TT = T, detail::is_owner<TT> = true>
   [[nodiscard]] static auto from_bmp(const not_null<czstring> file)
       -> basic_surface
   {
     assert(file);
     return basic_surface{SDL_LoadBMP(file)};
+  }
+
+  /**
+   * \see from_bmp()
+   */
+  template <typename TT = T, detail::is_owner<TT> = true>
+  [[nodiscard]] static auto from_bmp(const std::string& file) -> basic_surface
+  {
+    return from_bmp(file.c_str());
   }
 
   /**
@@ -65367,9 +66409,9 @@ class basic_surface final
    *
    * \since 4.0.0
    */
-  basic_surface(const basic_surface& other) noexcept(!detail::is_owning<B>())
+  basic_surface(const basic_surface& other) noexcept(!detail::is_owning<T>())
   {
-    if constexpr (detail::is_owning<B>())
+    if constexpr (detail::is_owning<T>())
     {
       copy(other);
     }
@@ -65388,6 +66430,8 @@ class basic_surface final
    */
   basic_surface(basic_surface&& other) noexcept = default;
 
+  /// \} End of construction
+
   /**
    * \brief Copies the supplied surface.
    *
@@ -65397,12 +66441,12 @@ class basic_surface final
    *
    * \since 4.0.0
    */
-  auto operator=(const basic_surface& other) noexcept(!detail::is_owning<B>())
+  auto operator=(const basic_surface& other) noexcept(!detail::is_owning<T>())
       -> basic_surface&
   {
     if (this != &other)
     {
-      if constexpr (detail::is_owning<B>())
+      if constexpr (detail::is_owning<T>())
       {
         copy(other);
       }
@@ -65425,8 +66469,11 @@ class basic_surface final
    */
   auto operator=(basic_surface&& other) noexcept -> basic_surface& = default;
 
+  /// \name Save functions
+  /// \{
+
   /**
-   * \brief Saves the surface as a BMP file.
+   * \brief Saves the surface as a BMP image.
    *
    * \param file the file path that the surface data will be saved at.
    *
@@ -65442,49 +66489,75 @@ class basic_surface final
   }
 
   /**
-   * \brief Sets the color of the pixel at the specified coordinate.
-   *
-   * \details This method has no effect if the coordinate is out-of-bounds or if
-   * something goes wrong when attempting to modify the pixel data.
-   *
-   * \param pixel the pixel that will be changed.
-   * \param color the new color of the pixel.
-   *
-   * \since 4.0.0
+   * \see save_as_bmp()
+   * \since 6.0.0
    */
-  void set_pixel(const ipoint& pixel, const color& color) noexcept
+  auto save_as_bmp(const std::string& file) const noexcept -> bool  // NOLINT
   {
-    if (!in_bounds(pixel) || !lock())
-    {
-      return;
-    }
-
-    const int nPixels = (m_surface->pitch / 4) * height();
-    const int index = (pixel.y() * width()) + pixel.x();
-
-    if ((index >= 0) && (index < nPixels))
-    {
-      const auto info = format_info();
-      auto* pixels = reinterpret_cast<u32*>(m_surface->pixels);
-      pixels[index] = info.rgba_to_pixel(color);
-    }
-
-    unlock();
+    return save_as_bmp(file.c_str());
   }
 
   /**
-   * \brief Indicates whether or not the surface must be locked before modifying
-   * the pixel data associated with the surface.
+   * \brief Saves the surface as a PNG image.
    *
-   * \return `true` if the surface must be locked before modification; `false`
-   * otherwise.
+   * \param file the file path that the surface data will be saved at.
    *
-   * \since 4.0.0
+   * \return `true` on success; `false` otherwise.
+   *
+   * \since 6.0.0
    */
-  [[nodiscard]] auto must_lock() const noexcept -> bool
+  auto save_as_png(const not_null<czstring> file) const noexcept -> bool
   {
-    return SDL_MUSTLOCK(m_surface);
+    assert(file);
+    const auto result = IMG_SavePNG(get(), file);
+    return result != -1;
   }
+
+  /**
+   * \see save_as_png()
+   * \since 6.0.0
+   */
+  auto save_as_png(const std::string& file) const noexcept -> bool  // NOLINT
+  {
+    return save_as_png(file.c_str());
+  }
+
+  /**
+   * \brief Saves the surface as a JPG image.
+   *
+   * \note The quality parameter is supplied to libjpeg in the SDL
+   * implementation, but the limitations on its values are unknown at the time
+   * of writing.
+   *
+   * \param file the file path that the surface data will be saved at.
+   * \param quality the quality of the JPG image.
+   *
+   * \return `true` on success; `false` otherwise.
+   *
+   * \since 6.0.0
+   */
+  auto save_as_jpg(const not_null<czstring> file,
+                   const int quality) const noexcept -> bool
+  {
+    assert(file);
+    const auto result = IMG_SaveJPG(get(), file, quality);
+    return result != -1;
+  }
+
+  /**
+   * \see save_as_jpg()
+   * \since 6.0.0
+   */
+  auto save_as_jpg(const std::string& file, const int quality) const noexcept
+      -> bool
+  {
+    return save_as_jpg(file.c_str(), quality);
+  }
+
+  /// \} End of save functions
+
+  /// \name Locking
+  /// \{
 
   /**
    * \brief Attempts to lock the surface, so that the associated pixel data can
@@ -65523,6 +66596,56 @@ class basic_surface final
     {
       SDL_UnlockSurface(m_surface);
     }
+  }
+
+  /**
+   * \brief Indicates whether or not the surface must be locked before modifying
+   * the pixel data associated with the surface.
+   *
+   * \return `true` if the surface must be locked before modification; `false`
+   * otherwise.
+   *
+   * \since 4.0.0
+   */
+  [[nodiscard]] auto must_lock() const noexcept -> bool
+  {
+    return SDL_MUSTLOCK(m_surface);
+  }
+
+  /// \} End of locking
+
+  /// \name Setters
+  /// \{
+
+  /**
+   * \brief Sets the color of the pixel at the specified coordinate.
+   *
+   * \details This method has no effect if the coordinate is out-of-bounds or if
+   * something goes wrong when attempting to modify the pixel data.
+   *
+   * \param pixel the pixel that will be changed.
+   * \param color the new color of the pixel.
+   *
+   * \since 4.0.0
+   */
+  void set_pixel(const ipoint& pixel, const color& color) noexcept
+  {
+    if (!in_bounds(pixel) || !lock())
+    {
+      return;
+    }
+
+    const int nPixels = (m_surface->pitch / 4) * height();
+    const int index = (pixel.y() * width()) + pixel.x();
+
+    if ((index >= 0) && (index < nPixels))
+    {
+      const auto info = format_info();
+      auto* pixels = reinterpret_cast<u32*>(m_surface->pixels);
+      pixels[index] = info.rgba_to_pixel(color);
+    }
+
+    unlock();
   }
 
   /**
@@ -65578,6 +66701,11 @@ class basic_surface final
   {
     return SDL_SetSurfaceRLE(m_surface, enabled ? 1 : 0) == 0;
   }
+
+  /// \} End of setters
+
+  /// \name Getters
+  /// \{
 
   /**
    * \brief Returns the alpha component modulation of the surface.
@@ -65801,6 +66929,11 @@ class basic_surface final
     return m_surface.get();
   }
 
+  /// \} End of getters
+
+  /// \name Conversions
+  /// \{
+
   /**
    * \brief Indicates whether or not a surface handle holds a non-null pointer.
    *
@@ -65811,7 +66944,7 @@ class basic_surface final
    *
    * \since 5.0.0
    */
-  template <typename BB = B, detail::is_handle<BB> = true>
+  template <typename TT = T, detail::is_handle<TT> = true>
   explicit operator bool() const noexcept
   {
     return m_surface != nullptr;
@@ -65841,6 +66974,8 @@ class basic_surface final
     return get();
   }
 
+  /// \} End of conversions
+
  private:
   struct deleter final
   {
@@ -65849,7 +66984,7 @@ class basic_surface final
       SDL_FreeSurface(surface);
     }
   };
-  detail::pointer_manager<B, SDL_Surface, deleter> m_surface;
+  detail::pointer_manager<T, SDL_Surface, deleter> m_surface;
 
   /**
    * \brief Copies the contents of the supplied surface instance into this
@@ -65952,13 +67087,14 @@ auto operator<<(std::ostream& stream, const basic_surface<T>& surface)
 
 #endif  // CENTURION_SURFACE_HEADER
 
+
 #ifdef CENTURION_USE_PRAGMA_ONCE
 
 #endif  // CENTURION_USE_PRAGMA_ONCE
 
 namespace cen {
 
-/// \addtogroup graphics
+/// \addtogroup video
 /// \{
 
 /**
@@ -66774,7 +67910,7 @@ constexpr auto operator""_uni(const unsigned long long int i) noexcept
 
 namespace cen {
 
-/// \addtogroup graphics
+/// \addtogroup video
 /// \{
 
 /**
@@ -67569,7 +68705,7 @@ inline auto operator<<(std::ostream& stream, const font& font) -> std::ostream&
 
 namespace cen {
 
-/// \addtogroup graphics
+/// \addtogroup video
 /// \{
 
 /**
@@ -68321,11 +69457,10 @@ inline auto operator<<(std::ostream& stream, const font& font) -> std::ostream&
 #include <SDL.h>
 #include <SDL_image.h>
 
-#include <cassert>      // assert
-#include <cstddef>      // size_t
-#include <ostream>      // ostream
-#include <string>       // string
-#include <type_traits>  // true_type, false_type
+#include <cassert>  // assert
+#include <cstddef>  // size_t
+#include <ostream>  // ostream
+#include <string>   // string
 
 // #include "../centurion_cfg.hpp"
 
@@ -68368,7 +69503,7 @@ inline auto operator<<(std::ostream& stream, const font& font) -> std::ostream&
 
 namespace cen {
 
-/// \addtogroup graphics
+/// \addtogroup video
 /// \{
 
 #if SDL_VERSION_ATLEAST(2, 0, 12)
@@ -68464,7 +69599,7 @@ enum class scale_mode
 
 namespace cen {
 
-/// \addtogroup graphics
+/// \addtogroup video
 /// \{
 
 /**
@@ -68561,19 +69696,20 @@ enum class texture_access
 
 namespace cen {
 
-/// \addtogroup graphics
+/// \addtogroup video
 /// \{
 
 template <typename T>
 class basic_texture;
 
-using texture = basic_texture<std::true_type>;
-using texture_handle = basic_texture<std::false_type>;
+using texture = basic_texture<detail::owning_type>;
+using texture_handle = basic_texture<detail::handle_type>;
 
 /**
  * \class basic_texture
  *
- * \brief Represents an hardware-accelerated image.
+ * \brief Represents an hardware-accelerated image. This class is used for all
+ * non-primitive rendering.
  *
  * \since 3.0.0
  *
@@ -68583,24 +69719,27 @@ using texture_handle = basic_texture<std::false_type>;
  *
  * \headerfile texture.hpp
  */
-template <typename B>
+template <typename T>
 class basic_texture final
 {
  public:
+  /// \name Construction
+  /// \{
+
   /**
    * \brief Creates an texture from a pre-existing SDL texture.
    *
-   * \param src a pointer to the associated SDL texture.
+   * \param source a pointer to the associated SDL texture.
    *
    * \throws cen_error if the supplied pointer is null *and* the texture is
    * owning.
    *
    * \since 3.0.0
    */
-  explicit basic_texture(SDL_Texture* src) noexcept(!detail::is_owning<B>())
-      : m_texture{src}
+  explicit basic_texture(SDL_Texture* source) noexcept(!detail::is_owning<T>())
+      : m_texture{source}
   {
-    if constexpr (detail::is_owning<B>())
+    if constexpr (detail::is_owning<T>())
     {
       if (!m_texture)
       {
@@ -68616,7 +69755,7 @@ class basic_texture final
    *
    * \since 5.0.0
    */
-  template <typename BB = B, detail::is_handle<BB> = true>
+  template <typename TT = T, detail::is_handle<TT> = true>
   explicit basic_texture(texture& owner) noexcept : m_texture{owner.get()}
   {}
 
@@ -68633,7 +69772,7 @@ class basic_texture final
    *
    * \since 4.0.0
    */
-  template <typename Renderer, typename BB = B, detail::is_owner<BB> = true>
+  template <typename Renderer, typename TT = T, detail::is_owner<TT> = true>
   basic_texture(const Renderer& renderer, const not_null<czstring> path)
       : m_texture{IMG_LoadTexture(renderer.get(), path)}
   {
@@ -68656,7 +69795,7 @@ class basic_texture final
    *
    * \since 5.3.0
    */
-  template <typename Renderer, typename BB = B, detail::is_owner<BB> = true>
+  template <typename Renderer, typename TT = T, detail::is_owner<TT> = true>
   basic_texture(const Renderer& renderer, const std::string& path)
       : basic_texture{renderer, path.c_str()}
   {}
@@ -68674,7 +69813,7 @@ class basic_texture final
    *
    * \since 4.0.0
    */
-  template <typename Renderer, typename BB = B, detail::is_owner<BB> = true>
+  template <typename Renderer, typename TT = T, detail::is_owner<TT> = true>
   basic_texture(const Renderer& renderer, const surface& surface)
       : m_texture{SDL_CreateTextureFromSurface(renderer.get(), surface.get())}
   {
@@ -68699,7 +69838,7 @@ class basic_texture final
    *
    * \since 4.0.0
    */
-  template <typename Renderer, typename BB = B, detail::is_owner<BB> = true>
+  template <typename Renderer, typename TT = T, detail::is_owner<TT> = true>
   basic_texture(const Renderer& renderer,
                 const pixel_format format,
                 const texture_access access,
@@ -68736,7 +69875,7 @@ class basic_texture final
    *
    * \since 4.0.0
    */
-  template <typename Renderer, typename BB = B, detail::is_owner<BB> = true>
+  template <typename Renderer, typename TT = T, detail::is_owner<TT> = true>
   [[nodiscard]] static auto streaming(const Renderer& renderer,
                                       const not_null<czstring> path,
                                       const pixel_format format)
@@ -68772,7 +69911,7 @@ class basic_texture final
    * \see streaming()
    * \since 5.3.0
    */
-  template <typename Renderer, typename BB = B, detail::is_owner<BB> = true>
+  template <typename Renderer, typename TT = T, detail::is_owner<TT> = true>
   [[nodiscard]] static auto streaming(const Renderer& renderer,
                                       const std::string& path,
                                       const pixel_format format)
@@ -68780,6 +69919,11 @@ class basic_texture final
   {
     return streaming(renderer, path.c_str(), format);
   }
+
+  /// \} End of construction
+
+  /// \name Setters
+  /// \{
 
   /**
    * \brief Sets the color of the pixel at the specified coordinate.
@@ -68874,24 +70018,10 @@ class basic_texture final
 
 #endif  // SDL_VERSION_ATLEAST(2, 0, 12)
 
-  /**
-   * \brief Releases ownership of the associated SDL texture and returns a
-   * pointer to it.
-   *
-   * \warning Usage of this function should be considered dangerous, since
-   * you might run into memory leak issues. You **must** call
-   * `SDL_DestroyTexture` on the returned pointer to free the associated
-   * memory.
-   *
-   * \return a pointer to the associated SDL texture.
-   *
-   * \since 5.0.0
-   */
-  template <typename BB = B, detail::is_owner<BB> = true>
-  [[nodiscard]] auto release() noexcept -> owner<SDL_Texture*>
-  {
-    return m_texture.release();
-  }
+  /// \} End of setters
+
+  /// \name Getters
+  /// \{
 
   /**
    * \brief Returns the pixel format that is used by the texture.
@@ -69063,18 +70193,22 @@ class basic_texture final
 #endif  // SDL_VERSION_ATLEAST(2, 0, 12)
 
   /**
-   * \brief Indicates whether or not a texture handle holds a non-null pointer.
+   * \brief Releases ownership of the associated SDL texture and returns a
+   * pointer to it.
    *
-   * \tparam BB dummy parameter for SFINAE.
+   * \warning Usage of this function should be considered dangerous, since
+   * you might run into memory leak issues. You **must** call
+   * `SDL_DestroyTexture` on the returned pointer to free the associated
+   * memory.
    *
-   * \return `true` if the handle holds a non-null pointer; `false` otherwise.
+   * \return a pointer to the associated SDL texture.
    *
    * \since 5.0.0
    */
-  template <typename BB = B, detail::is_handle<BB> = true>
-  explicit operator bool() const noexcept
+  template <typename TT = T, detail::is_owner<TT> = true>
+  [[nodiscard]] auto release() noexcept -> owner<SDL_Texture*>
   {
-    return m_texture != nullptr;
+    return m_texture.release();
   }
 
   /**
@@ -69087,6 +70221,26 @@ class basic_texture final
   [[nodiscard]] auto get() const noexcept -> SDL_Texture*
   {
     return m_texture.get();
+  }
+
+  /// \} End of getters
+
+  /// \name Conversions
+  /// \{
+
+  /**
+   * \brief Indicates whether or not a texture handle holds a non-null pointer.
+   *
+   * \tparam TT dummy parameter for SFINAE.
+   *
+   * \return `true` if the handle holds a non-null pointer; `false` otherwise.
+   *
+   * \since 5.0.0
+   */
+  template <typename TT = T, detail::is_handle<TT> = true>
+  explicit operator bool() const noexcept
+  {
+    return m_texture != nullptr;
   }
 
   /**
@@ -69113,6 +70267,8 @@ class basic_texture final
     return m_texture;
   }
 
+  /// \} End of conversions
+
  private:
   struct deleter final
   {
@@ -69121,7 +70277,7 @@ class basic_texture final
       SDL_DestroyTexture(texture);
     }
   };
-  detail::pointer_manager<B, SDL_Texture, deleter> m_texture;
+  detail::pointer_manager<T, SDL_Texture, deleter> m_texture;
 
   /**
    * \brief Locks the texture for write-only pixel access.
@@ -69218,7 +70374,7 @@ auto operator<<(std::ostream& stream, const basic_texture<T>& texture)
 
 namespace cen {
 
-/// \addtogroup graphics
+/// \addtogroup video
 /// \{
 
 /**
@@ -70037,6 +71193,7974 @@ class font_cache final
 }  // namespace cen
 
 #endif  // CENTURION_FONT_CACHE_HEADER
+// #include "centurion/video/gl/context.hpp"
+#ifndef CENTURION_GL_CONTEXT_HEADER
+#define CENTURION_GL_CONTEXT_HEADER
+
+#include <SDL.h>
+
+#include <memory>  // unique_ptr
+
+// #include "../../centurion_cfg.hpp"
+#ifndef CENTURION_CFG_HEADER
+#define CENTURION_CFG_HEADER
+
+#include <SDL.h>
+
+/// \addtogroup core
+/// \{
+
+/**
+ * \def CENTURION_USE_PRAGMA_ONCE
+ *
+ * \brief This macro indicates whether or not Centurion headers will use
+ * `#pragma once` in addition with the traditional include guards. By
+ * default, this macro is defined.
+ *
+ * \since 5.0.0
+ */
+#define CENTURION_USE_PRAGMA_ONCE
+
+/**
+ * \def CENTURION_USE_DEBUG_LOGGING_MACROS
+ *
+ * \brief This macro indicates whether or not debug-only logging macros will
+ * be defined. These can be found in the `log.hpp` header. By default, this
+ * macro is defined.
+ *
+ * \since 5.0.0
+ */
+#define CENTURION_USE_DEBUG_LOGGING_MACROS
+
+/**
+ * \def CENTURION_SDL_VERSION_IS
+ *
+ * \brief This macro is meant to be used when conditionally including code for a
+ * specific version of SDL. It is useful for applying workarounds.
+ *
+ * \since 5.3.0
+ */
+#define CENTURION_SDL_VERSION_IS(x, y, z)                      \
+  ((SDL_MAJOR_VERSION == (x)) && (SDL_MINOR_VERSION == (y)) && \
+   (SDL_PATCHLEVEL == (z)))
+
+/**
+ * \def CENTURION_FEATURE_OPENGL
+ *
+ * \brief This macro can be used to control whether or not the OpenGL library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_OPENGL
+
+/**
+ * \def CENTURION_FEATURE_VULKAN
+ *
+ * \brief This macro can be used to control whether or not the vulkan library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_VULKAN
+
+#if !defined(__clang__)
+
+/**
+ * \def CENTURION_HAS_STD_MEMORY_RESOURCE
+ *
+ * \brief This macro is defined if the `memory_resource` header is available.
+ *
+ * \note This is a very rough check, that assumes that as long as we are using
+ * MSVC or GCC, we are fine.
+ *
+ * \todo C++20: Use the feature test macro for this instead.
+ *
+ * \since 5.3.0
+ */
+#define CENTURION_HAS_STD_MEMORY_RESOURCE
+
+#endif  // !defined(__clang__)
+
+/// \} End of group core
+
+#if CENTURION_SDL_VERSION_IS(2, 0, 10)
+
+// Workaround for this enum being completely anonymous in SDL 2.0.10. We include
+// this here because multiple files (key_code.hpp and scan_code.hpp) depend on
+// this definition.
+using SDL_KeyCode = decltype(SDLK_UNKNOWN);
+
+#endif
+
+#endif  // CENTURION_CFG_HEADER
+// #include "../../detail/owner_handle_api.hpp"
+#ifndef CENTURION_DETAIL_OWNER_HANDLE_API_HEADER
+#define CENTURION_DETAIL_OWNER_HANDLE_API_HEADER
+
+#include <cassert>      // assert
+#include <memory>       // unique_ptr
+#include <type_traits>  // enable_if_t, is_same_v, true_type, false_type
+
+// #include "../centurion_cfg.hpp"
+#ifndef CENTURION_CFG_HEADER
+#define CENTURION_CFG_HEADER
+
+#include <SDL.h>
+
+/// \addtogroup core
+/// \{
+
+/**
+ * \def CENTURION_USE_PRAGMA_ONCE
+ *
+ * \brief This macro indicates whether or not Centurion headers will use
+ * `#pragma once` in addition with the traditional include guards. By
+ * default, this macro is defined.
+ *
+ * \since 5.0.0
+ */
+#define CENTURION_USE_PRAGMA_ONCE
+
+/**
+ * \def CENTURION_USE_DEBUG_LOGGING_MACROS
+ *
+ * \brief This macro indicates whether or not debug-only logging macros will
+ * be defined. These can be found in the `log.hpp` header. By default, this
+ * macro is defined.
+ *
+ * \since 5.0.0
+ */
+#define CENTURION_USE_DEBUG_LOGGING_MACROS
+
+/**
+ * \def CENTURION_SDL_VERSION_IS
+ *
+ * \brief This macro is meant to be used when conditionally including code for a
+ * specific version of SDL. It is useful for applying workarounds.
+ *
+ * \since 5.3.0
+ */
+#define CENTURION_SDL_VERSION_IS(x, y, z)                      \
+  ((SDL_MAJOR_VERSION == (x)) && (SDL_MINOR_VERSION == (y)) && \
+   (SDL_PATCHLEVEL == (z)))
+
+/**
+ * \def CENTURION_FEATURE_OPENGL
+ *
+ * \brief This macro can be used to control whether or not the OpenGL library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_OPENGL
+
+/**
+ * \def CENTURION_FEATURE_VULKAN
+ *
+ * \brief This macro can be used to control whether or not the vulkan library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_VULKAN
+
+#if !defined(__clang__)
+
+/**
+ * \def CENTURION_HAS_STD_MEMORY_RESOURCE
+ *
+ * \brief This macro is defined if the `memory_resource` header is available.
+ *
+ * \note This is a very rough check, that assumes that as long as we are using
+ * MSVC or GCC, we are fine.
+ *
+ * \todo C++20: Use the feature test macro for this instead.
+ *
+ * \since 5.3.0
+ */
+#define CENTURION_HAS_STD_MEMORY_RESOURCE
+
+#endif  // !defined(__clang__)
+
+/// \} End of group core
+
+#if CENTURION_SDL_VERSION_IS(2, 0, 10)
+
+// Workaround for this enum being completely anonymous in SDL 2.0.10. We include
+// this here because multiple files (key_code.hpp and scan_code.hpp) depend on
+// this definition.
+using SDL_KeyCode = decltype(SDLK_UNKNOWN);
+
+#endif
+
+#endif  // CENTURION_CFG_HEADER
+// #include "../misc/exception.hpp"
+#ifndef CENTURION_EXCEPTION_HEADER
+#define CENTURION_EXCEPTION_HEADER
+
+#include <SDL.h>
+#include <SDL_image.h>
+#include <SDL_mixer.h>
+#include <SDL_ttf.h>
+
+#include <exception>  // exception
+
+// #include "centurion_cfg.hpp"
+
+// #include "czstring.hpp"
+#ifndef CENTURION_CZSTRING_HEADER
+#define CENTURION_CZSTRING_HEADER
+
+// #include "centurion_cfg.hpp"
+
+// #include "not_null.hpp"
+#ifndef CENTURION_NOT_NULL_HEADER
+#define CENTURION_NOT_NULL_HEADER
+
+#include <SDL.h>
+
+#include <type_traits>  // enable_if_t, is_pointer_v
+
+// #include "centurion_cfg.hpp"
+
+
+#ifdef CENTURION_USE_PRAGMA_ONCE
+
+#endif  // CENTURION_USE_PRAGMA_ONCE
+
+namespace cen {
+
+/**
+ * \typedef not_null
+ *
+ * \brief Tag used to indicate that a pointer cannot be null.
+ *
+ * \note This alias is equivalent to `T`, it is a no-op.
+ *
+ * \since 5.0.0
+ */
+template <typename T, typename = std::enable_if_t<std::is_pointer_v<T>>>
+using not_null = T;
+
+}  // namespace cen
+
+#endif  // CENTURION_NOT_NULL_HEADER
+
+
+#ifdef CENTURION_USE_PRAGMA_ONCE
+
+#endif  // CENTURION_USE_PRAGMA_ONCE
+
+namespace cen {
+
+/**
+ * \typedef czstring
+ *
+ * \brief Alias for a const C-style null-terminated string.
+ */
+using czstring = const char*;
+
+/**
+ * \typedef zstring
+ *
+ * \brief Alias for a C-style null-terminated string.
+ */
+using zstring = char*;
+
+}  // namespace cen
+
+#endif  // CENTURION_CZSTRING_HEADER
+
+
+#ifdef CENTURION_USE_PRAGMA_ONCE
+
+#endif  // CENTURION_USE_PRAGMA_ONCE
+
+namespace cen {
+
+/// \addtogroup misc
+/// \{
+
+/**
+ * \class cen_error
+ *
+ * \brief The base of all exceptions explicitly thrown by the library.
+ *
+ * \headerfile exception.hpp
+ *
+ * \since 3.0.0
+ */
+class cen_error : public std::exception
+{
+ public:
+  cen_error() noexcept = default;
+
+  /**
+   * \param what the message of the exception.
+   *
+   * \since 3.0.0
+   */
+  explicit cen_error(const czstring what) noexcept
+      : m_what{what ? what : m_what}
+  {}
+
+  [[nodiscard]] auto what() const noexcept -> czstring override
+  {
+    return m_what;
+  }
+
+ private:
+  czstring m_what{"N/A"};
+};
+
+/**
+ * \class sdl_error
+ *
+ * \brief Represents an error related to the core SDL2 library.
+ *
+ * \since 5.0.0
+ *
+ * \headerfile exception.hpp
+ */
+class sdl_error final : public cen_error
+{
+ public:
+  /**
+   * \brief Creates an `sdl_error` with the error message obtained from
+   * `SDL_GetError()`.
+   *
+   * \since 5.0.0
+   */
+  sdl_error() noexcept : cen_error{SDL_GetError()}
+  {}
+
+  /**
+   * \brief Creates an `sdl_error` with the specified error message.
+   *
+   * \param what the error message that will be used.
+   *
+   * \since 5.0.0
+   */
+  explicit sdl_error(const czstring what) noexcept : cen_error{what}
+  {}
+};
+
+/**
+ * \class img_error
+ *
+ * \brief Represents an error related to the SDL2_image library.
+ *
+ * \since 5.0.0
+ *
+ * \headerfile exception.hpp
+ */
+class img_error final : public cen_error
+{
+ public:
+  /**
+   * \brief Creates an `img_error` with the error message obtained from
+   * `IMG_GetError()`.
+   *
+   * \since 5.0.0
+   */
+  img_error() noexcept : cen_error{IMG_GetError()}
+  {}
+
+  /**
+   * \brief Creates an `img_error` with the specified error message.
+   *
+   * \param what the error message that will be used.
+   *
+   * \since 5.0.0
+   */
+  explicit img_error(const czstring what) noexcept : cen_error{what}
+  {}
+};
+
+/**
+ * \class ttf_error
+ *
+ * \brief Represents an error related to the SDL2_ttf library.
+ *
+ * \since 5.0.0
+ *
+ * \headerfile exception.hpp
+ */
+class ttf_error final : public cen_error
+{
+ public:
+  /**
+   * \brief Creates a `ttf_error` with the error message obtained from
+   * `TTF_GetError()`.
+   *
+   * \since 5.0.0
+   */
+  ttf_error() noexcept : cen_error{TTF_GetError()}
+  {}
+
+  /**
+   * \brief Creates a `ttf_error` with the specified error message.
+   *
+   * \param what the error message that will be used.
+   *
+   * \since 5.0.0
+   */
+  explicit ttf_error(const czstring what) noexcept : cen_error{what}
+  {}
+};
+
+/**
+ * \class mix_error
+ *
+ * \brief Represents an error related to the SDL2_mixer library.
+ *
+ * \since 5.0.0
+ *
+ * \headerfile exception.hpp
+ */
+class mix_error final : public cen_error
+{
+ public:
+  /**
+   * \brief Creates a `mix_error` with the error message obtained from
+   * `Mix_GetError()`.
+   *
+   * \since 5.0.0
+   */
+  mix_error() noexcept : cen_error{Mix_GetError()}
+  {}
+
+  /**
+   * \brief Creates a `mix_error` with the specified error message.
+   *
+   * \param what the error message that will be used.
+   *
+   * \since 5.0.0
+   */
+  explicit mix_error(const czstring what) noexcept : cen_error{what}
+  {}
+};
+
+/// \} End of group misc
+
+}  // namespace cen
+
+#endif  // CENTURION_EXCEPTION_HEADER
+
+
+#ifdef CENTURION_USE_PRAGMA_ONCE
+
+#endif  // CENTURION_USE_PRAGMA_ONCE
+
+/// \cond FALSE
+namespace cen::detail {
+
+using owning_type = std::true_type;
+using handle_type = std::false_type;
+
+template <typename T>
+using is_owner = std::enable_if_t<std::is_same_v<T, owning_type>, bool>;
+
+template <typename T>
+using is_handle = std::enable_if_t<std::is_same_v<T, handle_type>, bool>;
+
+template <typename T>
+[[nodiscard]] constexpr auto is_owning() noexcept -> bool
+{
+  return std::is_same_v<T, owning_type>;
+}
+
+template <typename B, typename Type, typename Deleter>
+class pointer_manager final
+{
+  using managed_ptr = std::unique_ptr<Type, Deleter>;
+  using raw_ptr = Type*;
+  using pointer_type = std::conditional_t<B::value, managed_ptr, raw_ptr>;
+
+ public:
+  pointer_manager() noexcept = default;
+
+  explicit pointer_manager(Type* ptr) noexcept : m_ptr{ptr}
+  {}
+
+  template <typename BB = B, is_owner<BB> = true>
+  void reset(Type* ptr) noexcept
+  {
+    m_ptr.reset(ptr);
+  }
+
+  auto operator->() noexcept -> Type*
+  {
+    return get();
+  }
+
+  auto operator->() const noexcept -> const Type*
+  {
+    return get();
+  }
+
+  auto operator*() noexcept -> Type&
+  {
+    assert(m_ptr);
+    return *m_ptr;
+  }
+
+  auto operator*() const noexcept -> const Type&
+  {
+    assert(m_ptr);
+    return *m_ptr;
+  }
+
+  explicit operator bool() const noexcept
+  {
+    return m_ptr != nullptr;
+  }
+
+  /*implicit*/ operator Type*() const noexcept
+  {
+    return get();
+  }
+
+  template <typename BB = B, is_owner<BB> = true>
+  [[nodiscard]] auto release() noexcept -> Type*
+  {
+    return m_ptr.release();
+  }
+
+  [[nodiscard]] auto get() const noexcept -> Type*
+  {
+    if constexpr (B::value)
+    {
+      return m_ptr.get();
+    }
+    else
+    {
+      return m_ptr;
+    }
+  }
+
+ private:
+  pointer_type m_ptr{};
+};
+
+}  // namespace cen::detail
+/// \endcond
+
+#endif  // CENTURION_DETAIL_OWNER_HANDLE_API_HEADER
+
+// #include "../../misc/exception.hpp"
+#ifndef CENTURION_EXCEPTION_HEADER
+#define CENTURION_EXCEPTION_HEADER
+
+#include <SDL.h>
+#include <SDL_image.h>
+#include <SDL_mixer.h>
+#include <SDL_ttf.h>
+
+#include <exception>  // exception
+
+// #include "centurion_cfg.hpp"
+
+// #include "czstring.hpp"
+#ifndef CENTURION_CZSTRING_HEADER
+#define CENTURION_CZSTRING_HEADER
+
+// #include "centurion_cfg.hpp"
+
+// #include "not_null.hpp"
+#ifndef CENTURION_NOT_NULL_HEADER
+#define CENTURION_NOT_NULL_HEADER
+
+#include <SDL.h>
+
+#include <type_traits>  // enable_if_t, is_pointer_v
+
+// #include "centurion_cfg.hpp"
+
+
+#ifdef CENTURION_USE_PRAGMA_ONCE
+
+#endif  // CENTURION_USE_PRAGMA_ONCE
+
+namespace cen {
+
+/**
+ * \typedef not_null
+ *
+ * \brief Tag used to indicate that a pointer cannot be null.
+ *
+ * \note This alias is equivalent to `T`, it is a no-op.
+ *
+ * \since 5.0.0
+ */
+template <typename T, typename = std::enable_if_t<std::is_pointer_v<T>>>
+using not_null = T;
+
+}  // namespace cen
+
+#endif  // CENTURION_NOT_NULL_HEADER
+
+
+#ifdef CENTURION_USE_PRAGMA_ONCE
+
+#endif  // CENTURION_USE_PRAGMA_ONCE
+
+namespace cen {
+
+/**
+ * \typedef czstring
+ *
+ * \brief Alias for a const C-style null-terminated string.
+ */
+using czstring = const char*;
+
+/**
+ * \typedef zstring
+ *
+ * \brief Alias for a C-style null-terminated string.
+ */
+using zstring = char*;
+
+}  // namespace cen
+
+#endif  // CENTURION_CZSTRING_HEADER
+
+
+#ifdef CENTURION_USE_PRAGMA_ONCE
+
+#endif  // CENTURION_USE_PRAGMA_ONCE
+
+namespace cen {
+
+/// \addtogroup misc
+/// \{
+
+/**
+ * \class cen_error
+ *
+ * \brief The base of all exceptions explicitly thrown by the library.
+ *
+ * \headerfile exception.hpp
+ *
+ * \since 3.0.0
+ */
+class cen_error : public std::exception
+{
+ public:
+  cen_error() noexcept = default;
+
+  /**
+   * \param what the message of the exception.
+   *
+   * \since 3.0.0
+   */
+  explicit cen_error(const czstring what) noexcept
+      : m_what{what ? what : m_what}
+  {}
+
+  [[nodiscard]] auto what() const noexcept -> czstring override
+  {
+    return m_what;
+  }
+
+ private:
+  czstring m_what{"N/A"};
+};
+
+/**
+ * \class sdl_error
+ *
+ * \brief Represents an error related to the core SDL2 library.
+ *
+ * \since 5.0.0
+ *
+ * \headerfile exception.hpp
+ */
+class sdl_error final : public cen_error
+{
+ public:
+  /**
+   * \brief Creates an `sdl_error` with the error message obtained from
+   * `SDL_GetError()`.
+   *
+   * \since 5.0.0
+   */
+  sdl_error() noexcept : cen_error{SDL_GetError()}
+  {}
+
+  /**
+   * \brief Creates an `sdl_error` with the specified error message.
+   *
+   * \param what the error message that will be used.
+   *
+   * \since 5.0.0
+   */
+  explicit sdl_error(const czstring what) noexcept : cen_error{what}
+  {}
+};
+
+/**
+ * \class img_error
+ *
+ * \brief Represents an error related to the SDL2_image library.
+ *
+ * \since 5.0.0
+ *
+ * \headerfile exception.hpp
+ */
+class img_error final : public cen_error
+{
+ public:
+  /**
+   * \brief Creates an `img_error` with the error message obtained from
+   * `IMG_GetError()`.
+   *
+   * \since 5.0.0
+   */
+  img_error() noexcept : cen_error{IMG_GetError()}
+  {}
+
+  /**
+   * \brief Creates an `img_error` with the specified error message.
+   *
+   * \param what the error message that will be used.
+   *
+   * \since 5.0.0
+   */
+  explicit img_error(const czstring what) noexcept : cen_error{what}
+  {}
+};
+
+/**
+ * \class ttf_error
+ *
+ * \brief Represents an error related to the SDL2_ttf library.
+ *
+ * \since 5.0.0
+ *
+ * \headerfile exception.hpp
+ */
+class ttf_error final : public cen_error
+{
+ public:
+  /**
+   * \brief Creates a `ttf_error` with the error message obtained from
+   * `TTF_GetError()`.
+   *
+   * \since 5.0.0
+   */
+  ttf_error() noexcept : cen_error{TTF_GetError()}
+  {}
+
+  /**
+   * \brief Creates a `ttf_error` with the specified error message.
+   *
+   * \param what the error message that will be used.
+   *
+   * \since 5.0.0
+   */
+  explicit ttf_error(const czstring what) noexcept : cen_error{what}
+  {}
+};
+
+/**
+ * \class mix_error
+ *
+ * \brief Represents an error related to the SDL2_mixer library.
+ *
+ * \since 5.0.0
+ *
+ * \headerfile exception.hpp
+ */
+class mix_error final : public cen_error
+{
+ public:
+  /**
+   * \brief Creates a `mix_error` with the error message obtained from
+   * `Mix_GetError()`.
+   *
+   * \since 5.0.0
+   */
+  mix_error() noexcept : cen_error{Mix_GetError()}
+  {}
+
+  /**
+   * \brief Creates a `mix_error` with the specified error message.
+   *
+   * \param what the error message that will be used.
+   *
+   * \since 5.0.0
+   */
+  explicit mix_error(const czstring what) noexcept : cen_error{what}
+  {}
+};
+
+/// \} End of group misc
+
+}  // namespace cen
+
+#endif  // CENTURION_EXCEPTION_HEADER
+
+// #include "../window.hpp"
+#ifndef CENTURION_WINDOW_HEADER
+#define CENTURION_WINDOW_HEADER
+
+#include <SDL.h>
+
+#include <cassert>      // assert
+#include <ostream>      // ostream
+#include <string>       // string
+#include <type_traits>  // true_type, false_type, is_same_v
+
+// #include "../centurion_cfg.hpp"
+#ifndef CENTURION_CFG_HEADER
+#define CENTURION_CFG_HEADER
+
+#include <SDL.h>
+
+/// \addtogroup core
+/// \{
+
+/**
+ * \def CENTURION_USE_PRAGMA_ONCE
+ *
+ * \brief This macro indicates whether or not Centurion headers will use
+ * `#pragma once` in addition with the traditional include guards. By
+ * default, this macro is defined.
+ *
+ * \since 5.0.0
+ */
+#define CENTURION_USE_PRAGMA_ONCE
+
+/**
+ * \def CENTURION_USE_DEBUG_LOGGING_MACROS
+ *
+ * \brief This macro indicates whether or not debug-only logging macros will
+ * be defined. These can be found in the `log.hpp` header. By default, this
+ * macro is defined.
+ *
+ * \since 5.0.0
+ */
+#define CENTURION_USE_DEBUG_LOGGING_MACROS
+
+/**
+ * \def CENTURION_SDL_VERSION_IS
+ *
+ * \brief This macro is meant to be used when conditionally including code for a
+ * specific version of SDL. It is useful for applying workarounds.
+ *
+ * \since 5.3.0
+ */
+#define CENTURION_SDL_VERSION_IS(x, y, z)                      \
+  ((SDL_MAJOR_VERSION == (x)) && (SDL_MINOR_VERSION == (y)) && \
+   (SDL_PATCHLEVEL == (z)))
+
+/**
+ * \def CENTURION_FEATURE_OPENGL
+ *
+ * \brief This macro can be used to control whether or not the OpenGL library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_OPENGL
+
+/**
+ * \def CENTURION_FEATURE_VULKAN
+ *
+ * \brief This macro can be used to control whether or not the vulkan library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_VULKAN
+
+#if !defined(__clang__)
+
+/**
+ * \def CENTURION_HAS_STD_MEMORY_RESOURCE
+ *
+ * \brief This macro is defined if the `memory_resource` header is available.
+ *
+ * \note This is a very rough check, that assumes that as long as we are using
+ * MSVC or GCC, we are fine.
+ *
+ * \todo C++20: Use the feature test macro for this instead.
+ *
+ * \since 5.3.0
+ */
+#define CENTURION_HAS_STD_MEMORY_RESOURCE
+
+#endif  // !defined(__clang__)
+
+/// \} End of group core
+
+#if CENTURION_SDL_VERSION_IS(2, 0, 10)
+
+// Workaround for this enum being completely anonymous in SDL 2.0.10. We include
+// this here because multiple files (key_code.hpp and scan_code.hpp) depend on
+// this definition.
+using SDL_KeyCode = decltype(SDLK_UNKNOWN);
+
+#endif
+
+#endif  // CENTURION_CFG_HEADER
+// #include "../detail/address_of.hpp"
+#ifndef CENTURION_DETAIL_ADDRESS_OF_HEADER
+#define CENTURION_DETAIL_ADDRESS_OF_HEADER
+
+#include <sstream>  // ostringstream
+#include <string>   // string
+
+// #include "../centurion_cfg.hpp"
+#ifndef CENTURION_CFG_HEADER
+#define CENTURION_CFG_HEADER
+
+#include <SDL.h>
+
+/// \addtogroup core
+/// \{
+
+/**
+ * \def CENTURION_USE_PRAGMA_ONCE
+ *
+ * \brief This macro indicates whether or not Centurion headers will use
+ * `#pragma once` in addition with the traditional include guards. By
+ * default, this macro is defined.
+ *
+ * \since 5.0.0
+ */
+#define CENTURION_USE_PRAGMA_ONCE
+
+/**
+ * \def CENTURION_USE_DEBUG_LOGGING_MACROS
+ *
+ * \brief This macro indicates whether or not debug-only logging macros will
+ * be defined. These can be found in the `log.hpp` header. By default, this
+ * macro is defined.
+ *
+ * \since 5.0.0
+ */
+#define CENTURION_USE_DEBUG_LOGGING_MACROS
+
+/**
+ * \def CENTURION_SDL_VERSION_IS
+ *
+ * \brief This macro is meant to be used when conditionally including code for a
+ * specific version of SDL. It is useful for applying workarounds.
+ *
+ * \since 5.3.0
+ */
+#define CENTURION_SDL_VERSION_IS(x, y, z)                      \
+  ((SDL_MAJOR_VERSION == (x)) && (SDL_MINOR_VERSION == (y)) && \
+   (SDL_PATCHLEVEL == (z)))
+
+/**
+ * \def CENTURION_FEATURE_OPENGL
+ *
+ * \brief This macro can be used to control whether or not the OpenGL library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_OPENGL
+
+/**
+ * \def CENTURION_FEATURE_VULKAN
+ *
+ * \brief This macro can be used to control whether or not the vulkan library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_VULKAN
+
+#if !defined(__clang__)
+
+/**
+ * \def CENTURION_HAS_STD_MEMORY_RESOURCE
+ *
+ * \brief This macro is defined if the `memory_resource` header is available.
+ *
+ * \note This is a very rough check, that assumes that as long as we are using
+ * MSVC or GCC, we are fine.
+ *
+ * \todo C++20: Use the feature test macro for this instead.
+ *
+ * \since 5.3.0
+ */
+#define CENTURION_HAS_STD_MEMORY_RESOURCE
+
+#endif  // !defined(__clang__)
+
+/// \} End of group core
+
+#if CENTURION_SDL_VERSION_IS(2, 0, 10)
+
+// Workaround for this enum being completely anonymous in SDL 2.0.10. We include
+// this here because multiple files (key_code.hpp and scan_code.hpp) depend on
+// this definition.
+using SDL_KeyCode = decltype(SDLK_UNKNOWN);
+
+#endif
+
+#endif  // CENTURION_CFG_HEADER
+
+#ifdef CENTURION_USE_PRAGMA_ONCE
+
+#endif  // CENTURION_USE_PRAGMA_ONCE
+
+/// \cond FALSE
+namespace cen::detail {
+
+/**
+ * \brief Returns a string that represents the memory address of the supplied
+ * pointer.
+ *
+ * \details The empty string is returned if the supplied pointer is null.
+ *
+ * \tparam T the type of the pointer.
+ * \param ptr the pointer that will be converted.
+ *
+ * \return a string that represents the memory address of the supplied
+ * pointer.
+ *
+ * \since 3.0.0
+ */
+template <typename T>
+[[nodiscard]] auto address_of(T* ptr) -> std::string
+{
+  if (ptr)
+  {
+    std::ostringstream address;
+    address << static_cast<const void*>(ptr);
+    return address.str();
+  }
+  else
+  {
+    return std::string{};
+  }
+}
+
+}  // namespace cen::detail
+/// \endcond
+
+#endif  // CENTURION_DETAIL_ADDRESS_OF_HEADER
+
+// #include "../detail/clamp.hpp"
+#ifndef CENTURION_DETAIL_CLAMP_HEADER
+#define CENTURION_DETAIL_CLAMP_HEADER
+
+#include <cassert>  // assert
+
+// #include "../centurion_cfg.hpp"
+
+
+#ifdef CENTURION_USE_PRAGMA_ONCE
+
+#endif  // CENTURION_USE_PRAGMA_ONCE
+
+/// \cond FALSE
+namespace cen::detail {
+
+// clang-format off
+
+/**
+ * \brief Clamps a value to be within the range [min, max].
+ *
+ * \pre `min` must be less than or equal to `max`.
+ *
+ * \note The standard library provides `std::clamp`, but it isn't mandated to be
+ * `noexcept` (although MSVC does mark it as `noexcept`), which is the reason
+ * this function exists.
+ *
+ * \tparam T the type of the values.
+ *
+ * \param value the value that will be clamped.
+ * \param min the minimum value (inclusive).
+ * \param max the maximum value (inclusive).
+ *
+ * \return the clamped value.
+ *
+ * \since 5.1.0
+ */
+template <typename T>
+[[nodiscard]] constexpr auto clamp(const T& value,
+                                   const T& min,
+                                   const T& max)
+    noexcept(noexcept(value < min) && noexcept(value > max)) -> T
+{
+  assert(min <= max);
+  if (value < min) {
+    return min;
+  } else if (value > max) {
+    return max;
+  } else {
+    return value;
+  }
+}
+
+// clang-format on
+
+}  // namespace cen::detail
+/// \endcond
+
+#endif  // CENTURION_DETAIL_CLAMP_HEADER
+
+// #include "../detail/convert_bool.hpp"
+#ifndef CENTURION_DETAIL_CONVERT_BOOL_HEADER
+#define CENTURION_DETAIL_CONVERT_BOOL_HEADER
+
+#include <SDL.h>
+
+// #include "../centurion_cfg.hpp"
+
+
+#ifdef CENTURION_USE_PRAGMA_ONCE
+
+#endif  // CENTURION_USE_PRAGMA_ONCE
+
+/// \cond FALSE
+namespace cen::detail {
+
+/**
+ * \brief Returns the corresponding `SDL_bool` value for the supplied boolean
+ * value.
+ *
+ * \param b the boolean value that will be converted.
+ *
+ * \return `SDL_TRUE` for `true`; `SDL_FALSE` for `false`.
+ *
+ * \since 3.0.0
+ */
+[[nodiscard]] constexpr auto convert_bool(const bool b) noexcept -> SDL_bool
+{
+  return b ? SDL_TRUE : SDL_FALSE;
+}
+
+}  // namespace cen::detail
+/// \endcond
+
+#endif  // CENTURION_DETAIL_CONVERT_BOOL_HEADER
+
+// #include "../detail/max.hpp"
+#ifndef CENTURION_DETAIL_MAX_HEADER
+#define CENTURION_DETAIL_MAX_HEADER
+
+// #include "../centurion_cfg.hpp"
+
+
+#ifdef CENTURION_USE_PRAGMA_ONCE
+
+#endif  // CENTURION_USE_PRAGMA_ONCE
+
+/// \cond FALSE
+namespace cen::detail {
+
+// clang-format off
+
+template <typename T>
+[[nodiscard]] constexpr auto max(const T& left, const T& right)
+    noexcept(noexcept(left < right)) -> T
+{
+  return (left < right) ? right : left;
+}
+
+// clang-format on
+
+}  // namespace cen::detail
+/// \endcond
+
+#endif  // CENTURION_DETAIL_MAX_HEADER
+
+// #include "../detail/owner_handle_api.hpp"
+#ifndef CENTURION_DETAIL_OWNER_HANDLE_API_HEADER
+#define CENTURION_DETAIL_OWNER_HANDLE_API_HEADER
+
+#include <cassert>      // assert
+#include <memory>       // unique_ptr
+#include <type_traits>  // enable_if_t, is_same_v, true_type, false_type
+
+// #include "../centurion_cfg.hpp"
+
+// #include "../misc/exception.hpp"
+#ifndef CENTURION_EXCEPTION_HEADER
+#define CENTURION_EXCEPTION_HEADER
+
+#include <SDL.h>
+#include <SDL_image.h>
+#include <SDL_mixer.h>
+#include <SDL_ttf.h>
+
+#include <exception>  // exception
+
+// #include "centurion_cfg.hpp"
+
+// #include "czstring.hpp"
+#ifndef CENTURION_CZSTRING_HEADER
+#define CENTURION_CZSTRING_HEADER
+
+// #include "centurion_cfg.hpp"
+
+// #include "not_null.hpp"
+#ifndef CENTURION_NOT_NULL_HEADER
+#define CENTURION_NOT_NULL_HEADER
+
+#include <SDL.h>
+
+#include <type_traits>  // enable_if_t, is_pointer_v
+
+// #include "centurion_cfg.hpp"
+
+
+#ifdef CENTURION_USE_PRAGMA_ONCE
+
+#endif  // CENTURION_USE_PRAGMA_ONCE
+
+namespace cen {
+
+/**
+ * \typedef not_null
+ *
+ * \brief Tag used to indicate that a pointer cannot be null.
+ *
+ * \note This alias is equivalent to `T`, it is a no-op.
+ *
+ * \since 5.0.0
+ */
+template <typename T, typename = std::enable_if_t<std::is_pointer_v<T>>>
+using not_null = T;
+
+}  // namespace cen
+
+#endif  // CENTURION_NOT_NULL_HEADER
+
+
+#ifdef CENTURION_USE_PRAGMA_ONCE
+
+#endif  // CENTURION_USE_PRAGMA_ONCE
+
+namespace cen {
+
+/**
+ * \typedef czstring
+ *
+ * \brief Alias for a const C-style null-terminated string.
+ */
+using czstring = const char*;
+
+/**
+ * \typedef zstring
+ *
+ * \brief Alias for a C-style null-terminated string.
+ */
+using zstring = char*;
+
+}  // namespace cen
+
+#endif  // CENTURION_CZSTRING_HEADER
+
+
+#ifdef CENTURION_USE_PRAGMA_ONCE
+
+#endif  // CENTURION_USE_PRAGMA_ONCE
+
+namespace cen {
+
+/// \addtogroup misc
+/// \{
+
+/**
+ * \class cen_error
+ *
+ * \brief The base of all exceptions explicitly thrown by the library.
+ *
+ * \headerfile exception.hpp
+ *
+ * \since 3.0.0
+ */
+class cen_error : public std::exception
+{
+ public:
+  cen_error() noexcept = default;
+
+  /**
+   * \param what the message of the exception.
+   *
+   * \since 3.0.0
+   */
+  explicit cen_error(const czstring what) noexcept
+      : m_what{what ? what : m_what}
+  {}
+
+  [[nodiscard]] auto what() const noexcept -> czstring override
+  {
+    return m_what;
+  }
+
+ private:
+  czstring m_what{"N/A"};
+};
+
+/**
+ * \class sdl_error
+ *
+ * \brief Represents an error related to the core SDL2 library.
+ *
+ * \since 5.0.0
+ *
+ * \headerfile exception.hpp
+ */
+class sdl_error final : public cen_error
+{
+ public:
+  /**
+   * \brief Creates an `sdl_error` with the error message obtained from
+   * `SDL_GetError()`.
+   *
+   * \since 5.0.0
+   */
+  sdl_error() noexcept : cen_error{SDL_GetError()}
+  {}
+
+  /**
+   * \brief Creates an `sdl_error` with the specified error message.
+   *
+   * \param what the error message that will be used.
+   *
+   * \since 5.0.0
+   */
+  explicit sdl_error(const czstring what) noexcept : cen_error{what}
+  {}
+};
+
+/**
+ * \class img_error
+ *
+ * \brief Represents an error related to the SDL2_image library.
+ *
+ * \since 5.0.0
+ *
+ * \headerfile exception.hpp
+ */
+class img_error final : public cen_error
+{
+ public:
+  /**
+   * \brief Creates an `img_error` with the error message obtained from
+   * `IMG_GetError()`.
+   *
+   * \since 5.0.0
+   */
+  img_error() noexcept : cen_error{IMG_GetError()}
+  {}
+
+  /**
+   * \brief Creates an `img_error` with the specified error message.
+   *
+   * \param what the error message that will be used.
+   *
+   * \since 5.0.0
+   */
+  explicit img_error(const czstring what) noexcept : cen_error{what}
+  {}
+};
+
+/**
+ * \class ttf_error
+ *
+ * \brief Represents an error related to the SDL2_ttf library.
+ *
+ * \since 5.0.0
+ *
+ * \headerfile exception.hpp
+ */
+class ttf_error final : public cen_error
+{
+ public:
+  /**
+   * \brief Creates a `ttf_error` with the error message obtained from
+   * `TTF_GetError()`.
+   *
+   * \since 5.0.0
+   */
+  ttf_error() noexcept : cen_error{TTF_GetError()}
+  {}
+
+  /**
+   * \brief Creates a `ttf_error` with the specified error message.
+   *
+   * \param what the error message that will be used.
+   *
+   * \since 5.0.0
+   */
+  explicit ttf_error(const czstring what) noexcept : cen_error{what}
+  {}
+};
+
+/**
+ * \class mix_error
+ *
+ * \brief Represents an error related to the SDL2_mixer library.
+ *
+ * \since 5.0.0
+ *
+ * \headerfile exception.hpp
+ */
+class mix_error final : public cen_error
+{
+ public:
+  /**
+   * \brief Creates a `mix_error` with the error message obtained from
+   * `Mix_GetError()`.
+   *
+   * \since 5.0.0
+   */
+  mix_error() noexcept : cen_error{Mix_GetError()}
+  {}
+
+  /**
+   * \brief Creates a `mix_error` with the specified error message.
+   *
+   * \param what the error message that will be used.
+   *
+   * \since 5.0.0
+   */
+  explicit mix_error(const czstring what) noexcept : cen_error{what}
+  {}
+};
+
+/// \} End of group misc
+
+}  // namespace cen
+
+#endif  // CENTURION_EXCEPTION_HEADER
+
+
+#ifdef CENTURION_USE_PRAGMA_ONCE
+
+#endif  // CENTURION_USE_PRAGMA_ONCE
+
+/// \cond FALSE
+namespace cen::detail {
+
+using owning_type = std::true_type;
+using handle_type = std::false_type;
+
+template <typename T>
+using is_owner = std::enable_if_t<std::is_same_v<T, owning_type>, bool>;
+
+template <typename T>
+using is_handle = std::enable_if_t<std::is_same_v<T, handle_type>, bool>;
+
+template <typename T>
+[[nodiscard]] constexpr auto is_owning() noexcept -> bool
+{
+  return std::is_same_v<T, owning_type>;
+}
+
+template <typename B, typename Type, typename Deleter>
+class pointer_manager final
+{
+  using managed_ptr = std::unique_ptr<Type, Deleter>;
+  using raw_ptr = Type*;
+  using pointer_type = std::conditional_t<B::value, managed_ptr, raw_ptr>;
+
+ public:
+  pointer_manager() noexcept = default;
+
+  explicit pointer_manager(Type* ptr) noexcept : m_ptr{ptr}
+  {}
+
+  template <typename BB = B, is_owner<BB> = true>
+  void reset(Type* ptr) noexcept
+  {
+    m_ptr.reset(ptr);
+  }
+
+  auto operator->() noexcept -> Type*
+  {
+    return get();
+  }
+
+  auto operator->() const noexcept -> const Type*
+  {
+    return get();
+  }
+
+  auto operator*() noexcept -> Type&
+  {
+    assert(m_ptr);
+    return *m_ptr;
+  }
+
+  auto operator*() const noexcept -> const Type&
+  {
+    assert(m_ptr);
+    return *m_ptr;
+  }
+
+  explicit operator bool() const noexcept
+  {
+    return m_ptr != nullptr;
+  }
+
+  /*implicit*/ operator Type*() const noexcept
+  {
+    return get();
+  }
+
+  template <typename BB = B, is_owner<BB> = true>
+  [[nodiscard]] auto release() noexcept -> Type*
+  {
+    return m_ptr.release();
+  }
+
+  [[nodiscard]] auto get() const noexcept -> Type*
+  {
+    if constexpr (B::value)
+    {
+      return m_ptr.get();
+    }
+    else
+    {
+      return m_ptr;
+    }
+  }
+
+ private:
+  pointer_type m_ptr{};
+};
+
+}  // namespace cen::detail
+/// \endcond
+
+#endif  // CENTURION_DETAIL_OWNER_HANDLE_API_HEADER
+
+// #include "../detail/to_string.hpp"
+#ifndef CENTURION_DETAIL_TO_STRING_HEADER
+#define CENTURION_DETAIL_TO_STRING_HEADER
+
+#include <array>         // array
+#include <charconv>      // to_chars
+#include <optional>      // optional, nullopt
+#include <string>        // string
+#include <system_error>  // errc
+#include <type_traits>   // is_floating_point_v
+
+// #include "../centurion_cfg.hpp"
+
+// #include "compiler.hpp"
+
+
+/// \cond FALSE
+namespace cen::detail {
+
+/**
+ * \brief Returns a string representation of an arithmetic value.
+ *
+ * \note This function is guaranteed to work for 32-bit integers and floats.
+ * You might have to increase the buffer size for larger types.
+ *
+ * \remark On GCC, this function simply calls `std::to_string`, since the
+ * `std::to_chars` implementation seems to be lacking at the time of writing.
+ *
+ * \tparam bufferSize the size of the stack buffer used, must be big enough
+ * to store the characters of the string representation of the value.
+ * \tparam T the type of the value that will be converted, must be arithmetic.
+ *
+ * \param value the value that will be converted.
+ *
+ * \return a string representation of the supplied value; `std::nullopt` if
+ * something goes wrong.
+ *
+ * \since 5.0.0
+ */
+template <std::size_t bufferSize = 16, typename T>
+[[nodiscard]] auto to_string(T value) -> std::optional<std::string>
+{
+  if constexpr (on_gcc() || (on_clang() && std::is_floating_point_v<T>))
+  {
+    return std::to_string(value);
+  }
+  else
+  {
+    std::array<char, bufferSize> buffer{};
+    const auto [ptr, err] =
+        std::to_chars(buffer.data(), buffer.data() + buffer.size(), value);
+
+    if (err == std::errc{})
+    {
+      return std::string{buffer.data(), ptr};
+    }
+    else
+    {
+      return std::nullopt;
+    }
+  }
+}
+
+}  // namespace cen::detail
+/// \endcond
+
+#endif  // CENTURION_DETAIL_TO_STRING_HEADER
+
+// #include "../math/area.hpp"
+#ifndef CENTURION_AREA_HEADER
+#define CENTURION_AREA_HEADER
+
+#include <ostream>      // ostream
+#include <string>       // string
+#include <type_traits>  // is_integral_v, is_floating_point_v, is_same_v
+
+// #include "../centurion_cfg.hpp"
+#ifndef CENTURION_CFG_HEADER
+#define CENTURION_CFG_HEADER
+
+#include <SDL.h>
+
+/// \addtogroup core
+/// \{
+
+/**
+ * \def CENTURION_USE_PRAGMA_ONCE
+ *
+ * \brief This macro indicates whether or not Centurion headers will use
+ * `#pragma once` in addition with the traditional include guards. By
+ * default, this macro is defined.
+ *
+ * \since 5.0.0
+ */
+#define CENTURION_USE_PRAGMA_ONCE
+
+/**
+ * \def CENTURION_USE_DEBUG_LOGGING_MACROS
+ *
+ * \brief This macro indicates whether or not debug-only logging macros will
+ * be defined. These can be found in the `log.hpp` header. By default, this
+ * macro is defined.
+ *
+ * \since 5.0.0
+ */
+#define CENTURION_USE_DEBUG_LOGGING_MACROS
+
+/**
+ * \def CENTURION_SDL_VERSION_IS
+ *
+ * \brief This macro is meant to be used when conditionally including code for a
+ * specific version of SDL. It is useful for applying workarounds.
+ *
+ * \since 5.3.0
+ */
+#define CENTURION_SDL_VERSION_IS(x, y, z)                      \
+  ((SDL_MAJOR_VERSION == (x)) && (SDL_MINOR_VERSION == (y)) && \
+   (SDL_PATCHLEVEL == (z)))
+
+/**
+ * \def CENTURION_FEATURE_OPENGL
+ *
+ * \brief This macro can be used to control whether or not the OpenGL library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_OPENGL
+
+/**
+ * \def CENTURION_FEATURE_VULKAN
+ *
+ * \brief This macro can be used to control whether or not the vulkan library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_VULKAN
+
+#if !defined(__clang__)
+
+/**
+ * \def CENTURION_HAS_STD_MEMORY_RESOURCE
+ *
+ * \brief This macro is defined if the `memory_resource` header is available.
+ *
+ * \note This is a very rough check, that assumes that as long as we are using
+ * MSVC or GCC, we are fine.
+ *
+ * \todo C++20: Use the feature test macro for this instead.
+ *
+ * \since 5.3.0
+ */
+#define CENTURION_HAS_STD_MEMORY_RESOURCE
+
+#endif  // !defined(__clang__)
+
+/// \} End of group core
+
+#if CENTURION_SDL_VERSION_IS(2, 0, 10)
+
+// Workaround for this enum being completely anonymous in SDL 2.0.10. We include
+// this here because multiple files (key_code.hpp and scan_code.hpp) depend on
+// this definition.
+using SDL_KeyCode = decltype(SDLK_UNKNOWN);
+
+#endif
+
+#endif  // CENTURION_CFG_HEADER
+// #include "../detail/to_string.hpp"
+#ifndef CENTURION_DETAIL_TO_STRING_HEADER
+#define CENTURION_DETAIL_TO_STRING_HEADER
+
+#include <array>         // array
+#include <charconv>      // to_chars
+#include <optional>      // optional, nullopt
+#include <string>        // string
+#include <system_error>  // errc
+#include <type_traits>   // is_floating_point_v
+
+// #include "../centurion_cfg.hpp"
+#ifndef CENTURION_CFG_HEADER
+#define CENTURION_CFG_HEADER
+
+#include <SDL.h>
+
+/// \addtogroup core
+/// \{
+
+/**
+ * \def CENTURION_USE_PRAGMA_ONCE
+ *
+ * \brief This macro indicates whether or not Centurion headers will use
+ * `#pragma once` in addition with the traditional include guards. By
+ * default, this macro is defined.
+ *
+ * \since 5.0.0
+ */
+#define CENTURION_USE_PRAGMA_ONCE
+
+/**
+ * \def CENTURION_USE_DEBUG_LOGGING_MACROS
+ *
+ * \brief This macro indicates whether or not debug-only logging macros will
+ * be defined. These can be found in the `log.hpp` header. By default, this
+ * macro is defined.
+ *
+ * \since 5.0.0
+ */
+#define CENTURION_USE_DEBUG_LOGGING_MACROS
+
+/**
+ * \def CENTURION_SDL_VERSION_IS
+ *
+ * \brief This macro is meant to be used when conditionally including code for a
+ * specific version of SDL. It is useful for applying workarounds.
+ *
+ * \since 5.3.0
+ */
+#define CENTURION_SDL_VERSION_IS(x, y, z)                      \
+  ((SDL_MAJOR_VERSION == (x)) && (SDL_MINOR_VERSION == (y)) && \
+   (SDL_PATCHLEVEL == (z)))
+
+/**
+ * \def CENTURION_FEATURE_OPENGL
+ *
+ * \brief This macro can be used to control whether or not the OpenGL library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_OPENGL
+
+/**
+ * \def CENTURION_FEATURE_VULKAN
+ *
+ * \brief This macro can be used to control whether or not the vulkan library
+ * components are included.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_FEATURE_VULKAN
+
+#if !defined(__clang__)
+
+/**
+ * \def CENTURION_HAS_STD_MEMORY_RESOURCE
+ *
+ * \brief This macro is defined if the `memory_resource` header is available.
+ *
+ * \note This is a very rough check, that assumes that as long as we are using
+ * MSVC or GCC, we are fine.
+ *
+ * \todo C++20: Use the feature test macro for this instead.
+ *
+ * \since 5.3.0
+ */
+#define CENTURION_HAS_STD_MEMORY_RESOURCE
+
+#endif  // !defined(__clang__)
+
+/// \} End of group core
+
+#if CENTURION_SDL_VERSION_IS(2, 0, 10)
+
+// Workaround for this enum being completely anonymous in SDL 2.0.10. We include
+// this here because multiple files (key_code.hpp and scan_code.hpp) depend on
+// this definition.
+using SDL_KeyCode = decltype(SDLK_UNKNOWN);
+
+#endif
+
+#endif  // CENTURION_CFG_HEADER
+// #include "compiler.hpp"
+
+
+/// \cond FALSE
+namespace cen::detail {
+
+/**
+ * \brief Returns a string representation of an arithmetic value.
+ *
+ * \note This function is guaranteed to work for 32-bit integers and floats.
+ * You might have to increase the buffer size for larger types.
+ *
+ * \remark On GCC, this function simply calls `std::to_string`, since the
+ * `std::to_chars` implementation seems to be lacking at the time of writing.
+ *
+ * \tparam bufferSize the size of the stack buffer used, must be big enough
+ * to store the characters of the string representation of the value.
+ * \tparam T the type of the value that will be converted, must be arithmetic.
+ *
+ * \param value the value that will be converted.
+ *
+ * \return a string representation of the supplied value; `std::nullopt` if
+ * something goes wrong.
+ *
+ * \since 5.0.0
+ */
+template <std::size_t bufferSize = 16, typename T>
+[[nodiscard]] auto to_string(T value) -> std::optional<std::string>
+{
+  if constexpr (on_gcc() || (on_clang() && std::is_floating_point_v<T>))
+  {
+    return std::to_string(value);
+  }
+  else
+  {
+    std::array<char, bufferSize> buffer{};
+    const auto [ptr, err] =
+        std::to_chars(buffer.data(), buffer.data() + buffer.size(), value);
+
+    if (err == std::errc{})
+    {
+      return std::string{buffer.data(), ptr};
+    }
+    else
+    {
+      return std::nullopt;
+    }
+  }
+}
+
+}  // namespace cen::detail
+/// \endcond
+
+#endif  // CENTURION_DETAIL_TO_STRING_HEADER
+
+// #include "../misc/cast.hpp"
+#ifndef CENTURION_CAST_HEADER
+#define CENTURION_CAST_HEADER
+
+// #include "centurion_cfg.hpp"
+
+
+#ifdef CENTURION_USE_PRAGMA_ONCE
+
+#endif  // CENTURION_USE_PRAGMA_ONCE
+
+namespace cen {
+
+/**
+ * \brief Casts a value to a value of another type.
+ *
+ * \ingroup misc
+ *
+ * \details This is the default implementation, which simply attempts to use
+ * `static_cast`. The idea is that this function will be specialized for
+ * various Centurion and SDL types. This is useful because it isn't always
+ * possible to implement conversion operators as members.
+ *
+ * \tparam To the type of the value that will be converted.
+ * \tparam From the type that the value will be casted to.
+ *
+ * \param from the value that will be converted.
+ *
+ * \return the result of casting the supplied value to the specified type.
+ *
+ * \since 5.0.0
+ */
+template <typename To, typename From>
+[[nodiscard]] constexpr auto cast(const From& from) noexcept -> To
+{
+  return static_cast<To>(from);
+}
+
+}  // namespace cen
+
+#endif  // CENTURION_CAST_HEADER
+
+
+#ifdef CENTURION_USE_PRAGMA_ONCE
+
+#endif  // CENTURION_USE_PRAGMA_ONCE
+
+namespace cen {
+
+/// \addtogroup geometry
+/// \{
+
+/**
+ * \struct basic_area
+ *
+ * \brief Simply represents an area with a width and height.
+ *
+ * \tparam T the type of the components of the area. Must
+ * be either an integral or floating-point type. Can't be `bool`.
+ *
+ * \since 4.0.0
+ *
+ * \see `iarea`
+ * \see `farea`
+ * \see `darea`
+ *
+ * \headerfile area.hpp
+ */
+template <typename T>
+struct basic_area final
+{
+  using value_type = T;
+
+  T width{0};   ///< The width of the area.
+  T height{0};  ///< The height of the area.
+
+  static_assert(std::is_integral_v<T> || std::is_floating_point_v<T>);
+  static_assert(!std::is_same_v<T, bool>);
+};
+
+/**
+ * \brief Returns the size (width x height) of an area.
+ *
+ * \tparam T the representation type.
+ *
+ * \param area the area instance that will be calculated.
+ *
+ * \return the size of the area.
+ *
+ * \since 5.3.0
+ */
+template <typename T>
+[[nodiscard]] constexpr auto area_of(const basic_area<T>& area) noexcept -> T
+{
+  return area.width * area.height;
+}
+
+/**
+ * \typedef iarea
+ *
+ * \brief An alias for `int` areas.
+ *
+ * \since 4.1.0
+ */
+using iarea = basic_area<int>;
+
+/**
+ * \typedef farea
+ *
+ * \brief An alias for `float` areas.
+ *
+ * \since 4.1.0
+ */
+using farea = basic_area<float>;
+
+/**
+ * \typedef darea
+ *
+ * \brief An alias for `double` areas.
+ *
+ * \since 4.1.0
+ */
+using darea = basic_area<double>;
+
+/**
+ * \brief Serializes an area instance.
+ *
+ * \details This function expects that the archive provides an overloaded
+ * `operator()`, used for serializing data. This API is based on the Cereal
+ * serialization library.
+ *
+ * \tparam Archive the type of the archive.
+ * \tparam T the type of the area components.
+ *
+ * \param archive the archive used to serialize the area.
+ * \param area the area that will be serialized.
+ *
+ * \since 5.3.0
+ */
+template <typename Archive, typename T>
+void serialize(Archive& archive, basic_area<T>& area)
+{
+  archive(area.width, area.height);
+}
+
+template <>
+[[nodiscard]] constexpr auto cast(const iarea& from) noexcept -> darea
+{
+  return {static_cast<double>(from.width), static_cast<double>(from.height)};
+}
+
+template <>
+[[nodiscard]] constexpr auto cast(const iarea& from) noexcept -> farea
+{
+  return {static_cast<float>(from.width), static_cast<float>(from.height)};
+}
+
+template <>
+[[nodiscard]] constexpr auto cast(const farea& from) noexcept -> darea
+{
+  return {static_cast<double>(from.width), static_cast<double>(from.height)};
+}
+
+template <>
+[[nodiscard]] constexpr auto cast(const farea& from) noexcept -> iarea
+{
+  return {static_cast<int>(from.width), static_cast<int>(from.height)};
+}
+
+template <>
+[[nodiscard]] constexpr auto cast(const darea& from) noexcept -> farea
+{
+  return {static_cast<float>(from.width), static_cast<float>(from.height)};
+}
+
+template <>
+[[nodiscard]] constexpr auto cast(const darea& from) noexcept -> iarea
+{
+  return {static_cast<int>(from.width), static_cast<int>(from.height)};
+}
+
+/**
+ * \brief Indicates whether or not two areas are considered to be equal.
+ *
+ * \param lhs the left-hand side area.
+ * \param rhs the right-hand side area.
+ *
+ * \return `true` if the areas are equal; `false` otherwise.
+ *
+ * \since 4.1.0
+ */
+template <typename T>
+[[nodiscard]] constexpr auto operator==(const basic_area<T>& lhs,
+                                        const basic_area<T>& rhs) noexcept
+    -> bool
+{
+  return (lhs.width == rhs.width) && (lhs.height == rhs.height);
+}
+
+/**
+ * \brief Indicates whether or not two areas aren't considered to be equal.
+ *
+ * \param lhs the left-hand side area.
+ * \param rhs the right-hand side area.
+ *
+ * \return `true` if the areas aren't equal; `false` otherwise.
+ *
+ * \since 4.1.0
+ */
+template <typename T>
+[[nodiscard]] constexpr auto operator!=(const basic_area<T>& lhs,
+                                        const basic_area<T>& rhs) noexcept
+    -> bool
+{
+  return !(lhs == rhs);
+}
+
+/**
+ * \brief Returns a textual representation of an area.
+ *
+ * \tparam T the type of the area components.
+ *
+ * \param area the area that will be converted.
+ *
+ * \return a string that represents the area.
+ *
+ * \since 5.0.0
+ */
+template <typename T>
+[[nodiscard]] auto to_string(const basic_area<T>& area) -> std::string
+{
+  return "area{width: " + detail::to_string(area.width).value() +
+         ", height: " + detail::to_string(area.height).value() + "}";
+}
+
+/**
+ * \brief Prints a textual representation of an area using a stream.
+ *
+ * \tparam T the type of the area components.
+ *
+ * \param stream the stream that will be used.
+ * \param area the are that will be printed.
+ *
+ * \return the used stream.
+ *
+ * \since 5.0.0
+ */
+template <typename T>
+auto operator<<(std::ostream& stream, const basic_area<T>& area)
+    -> std::ostream&
+{
+  stream << to_string(area);
+  return stream;
+}
+
+/// \} End of geometry group
+
+}  // namespace cen
+
+#endif  // CENTURION_AREA_HEADER
+// #include "../math/rect.hpp"
+#ifndef CENTURION_RECTANGLE_HEADER
+#define CENTURION_RECTANGLE_HEADER
+
+#include <SDL.h>
+
+#include <ostream>      // ostream
+#include <string>       // string
+#include <type_traits>  // enable_if_t, is_convertible_v, conditional_t, ...
+
+// #include "../centurion_cfg.hpp"
+
+// #include "../detail/max.hpp"
+#ifndef CENTURION_DETAIL_MAX_HEADER
+#define CENTURION_DETAIL_MAX_HEADER
+
+// #include "../centurion_cfg.hpp"
+
+
+#ifdef CENTURION_USE_PRAGMA_ONCE
+
+#endif  // CENTURION_USE_PRAGMA_ONCE
+
+/// \cond FALSE
+namespace cen::detail {
+
+// clang-format off
+
+template <typename T>
+[[nodiscard]] constexpr auto max(const T& left, const T& right)
+    noexcept(noexcept(left < right)) -> T
+{
+  return (left < right) ? right : left;
+}
+
+// clang-format on
+
+}  // namespace cen::detail
+/// \endcond
+
+#endif  // CENTURION_DETAIL_MAX_HEADER
+
+// #include "../detail/min.hpp"
+#ifndef CENTURION_DETAIL_MIN_HEADER
+#define CENTURION_DETAIL_MIN_HEADER
+
+// #include "../centurion_cfg.hpp"
+
+
+#ifdef CENTURION_USE_PRAGMA_ONCE
+
+#endif  // CENTURION_USE_PRAGMA_ONCE
+
+/// \cond FALSE
+namespace cen::detail {
+
+// clang-format off
+
+template <typename T>
+[[nodiscard]] constexpr auto min(const T& left, const T& right)
+    noexcept(noexcept(left < right)) -> T
+{
+  return (left < right) ? left : right;
+}
+
+// clang-format on
+
+}  // namespace cen::detail
+/// \endcond
+
+#endif  // CENTURION_DETAIL_MIN_HEADER
+
+// #include "../detail/to_string.hpp"
+
+// #include "../misc/cast.hpp"
+
+// #include "area.hpp"
+#ifndef CENTURION_AREA_HEADER
+#define CENTURION_AREA_HEADER
+
+#include <ostream>      // ostream
+#include <string>       // string
+#include <type_traits>  // is_integral_v, is_floating_point_v, is_same_v
+
+// #include "../centurion_cfg.hpp"
+
+// #include "../detail/to_string.hpp"
+
+// #include "../misc/cast.hpp"
+
+
+#ifdef CENTURION_USE_PRAGMA_ONCE
+
+#endif  // CENTURION_USE_PRAGMA_ONCE
+
+namespace cen {
+
+/// \addtogroup geometry
+/// \{
+
+/**
+ * \struct basic_area
+ *
+ * \brief Simply represents an area with a width and height.
+ *
+ * \tparam T the type of the components of the area. Must
+ * be either an integral or floating-point type. Can't be `bool`.
+ *
+ * \since 4.0.0
+ *
+ * \see `iarea`
+ * \see `farea`
+ * \see `darea`
+ *
+ * \headerfile area.hpp
+ */
+template <typename T>
+struct basic_area final
+{
+  using value_type = T;
+
+  T width{0};   ///< The width of the area.
+  T height{0};  ///< The height of the area.
+
+  static_assert(std::is_integral_v<T> || std::is_floating_point_v<T>);
+  static_assert(!std::is_same_v<T, bool>);
+};
+
+/**
+ * \brief Returns the size (width x height) of an area.
+ *
+ * \tparam T the representation type.
+ *
+ * \param area the area instance that will be calculated.
+ *
+ * \return the size of the area.
+ *
+ * \since 5.3.0
+ */
+template <typename T>
+[[nodiscard]] constexpr auto area_of(const basic_area<T>& area) noexcept -> T
+{
+  return area.width * area.height;
+}
+
+/**
+ * \typedef iarea
+ *
+ * \brief An alias for `int` areas.
+ *
+ * \since 4.1.0
+ */
+using iarea = basic_area<int>;
+
+/**
+ * \typedef farea
+ *
+ * \brief An alias for `float` areas.
+ *
+ * \since 4.1.0
+ */
+using farea = basic_area<float>;
+
+/**
+ * \typedef darea
+ *
+ * \brief An alias for `double` areas.
+ *
+ * \since 4.1.0
+ */
+using darea = basic_area<double>;
+
+/**
+ * \brief Serializes an area instance.
+ *
+ * \details This function expects that the archive provides an overloaded
+ * `operator()`, used for serializing data. This API is based on the Cereal
+ * serialization library.
+ *
+ * \tparam Archive the type of the archive.
+ * \tparam T the type of the area components.
+ *
+ * \param archive the archive used to serialize the area.
+ * \param area the area that will be serialized.
+ *
+ * \since 5.3.0
+ */
+template <typename Archive, typename T>
+void serialize(Archive& archive, basic_area<T>& area)
+{
+  archive(area.width, area.height);
+}
+
+template <>
+[[nodiscard]] constexpr auto cast(const iarea& from) noexcept -> darea
+{
+  return {static_cast<double>(from.width), static_cast<double>(from.height)};
+}
+
+template <>
+[[nodiscard]] constexpr auto cast(const iarea& from) noexcept -> farea
+{
+  return {static_cast<float>(from.width), static_cast<float>(from.height)};
+}
+
+template <>
+[[nodiscard]] constexpr auto cast(const farea& from) noexcept -> darea
+{
+  return {static_cast<double>(from.width), static_cast<double>(from.height)};
+}
+
+template <>
+[[nodiscard]] constexpr auto cast(const farea& from) noexcept -> iarea
+{
+  return {static_cast<int>(from.width), static_cast<int>(from.height)};
+}
+
+template <>
+[[nodiscard]] constexpr auto cast(const darea& from) noexcept -> farea
+{
+  return {static_cast<float>(from.width), static_cast<float>(from.height)};
+}
+
+template <>
+[[nodiscard]] constexpr auto cast(const darea& from) noexcept -> iarea
+{
+  return {static_cast<int>(from.width), static_cast<int>(from.height)};
+}
+
+/**
+ * \brief Indicates whether or not two areas are considered to be equal.
+ *
+ * \param lhs the left-hand side area.
+ * \param rhs the right-hand side area.
+ *
+ * \return `true` if the areas are equal; `false` otherwise.
+ *
+ * \since 4.1.0
+ */
+template <typename T>
+[[nodiscard]] constexpr auto operator==(const basic_area<T>& lhs,
+                                        const basic_area<T>& rhs) noexcept
+    -> bool
+{
+  return (lhs.width == rhs.width) && (lhs.height == rhs.height);
+}
+
+/**
+ * \brief Indicates whether or not two areas aren't considered to be equal.
+ *
+ * \param lhs the left-hand side area.
+ * \param rhs the right-hand side area.
+ *
+ * \return `true` if the areas aren't equal; `false` otherwise.
+ *
+ * \since 4.1.0
+ */
+template <typename T>
+[[nodiscard]] constexpr auto operator!=(const basic_area<T>& lhs,
+                                        const basic_area<T>& rhs) noexcept
+    -> bool
+{
+  return !(lhs == rhs);
+}
+
+/**
+ * \brief Returns a textual representation of an area.
+ *
+ * \tparam T the type of the area components.
+ *
+ * \param area the area that will be converted.
+ *
+ * \return a string that represents the area.
+ *
+ * \since 5.0.0
+ */
+template <typename T>
+[[nodiscard]] auto to_string(const basic_area<T>& area) -> std::string
+{
+  return "area{width: " + detail::to_string(area.width).value() +
+         ", height: " + detail::to_string(area.height).value() + "}";
+}
+
+/**
+ * \brief Prints a textual representation of an area using a stream.
+ *
+ * \tparam T the type of the area components.
+ *
+ * \param stream the stream that will be used.
+ * \param area the are that will be printed.
+ *
+ * \return the used stream.
+ *
+ * \since 5.0.0
+ */
+template <typename T>
+auto operator<<(std::ostream& stream, const basic_area<T>& area)
+    -> std::ostream&
+{
+  stream << to_string(area);
+  return stream;
+}
+
+/// \} End of geometry group
+
+}  // namespace cen
+
+#endif  // CENTURION_AREA_HEADER
+// #include "point.hpp"
+#ifndef CENTURION_POINT_HEADER
+#define CENTURION_POINT_HEADER
+
+#include <SDL.h>
+
+#include <cmath>        // sqrt, abs, round
+#include <ostream>      // ostream
+#include <string>       // string
+#include <type_traits>  // enable_if_t, conditional_t, is_convertible_v, ...
+
+// #include "../centurion_cfg.hpp"
+
+// #include "../detail/to_string.hpp"
+
+// #include "../misc/cast.hpp"
+
+
+#ifdef CENTURION_USE_PRAGMA_ONCE
+
+#endif  // CENTURION_USE_PRAGMA_ONCE
+
+namespace cen {
+
+/// \addtogroup geometry
+/// \{
+
+/**
+ * \brief Provides traits used by the `basic_point` class.
+ *
+ * \tparam T the representation type. Must be convertible to `int` or `float`.
+ *
+ * \since 5.0.0
+ *
+ * \see `basic_point`
+ * \see `ipoint`
+ * \see `fpoint`
+ *
+ * \headerfile point.hpp
+ */
+template <typename T,
+          typename = std::enable_if_t<std::is_convertible_v<T, int> ||
+                                      std::is_convertible_v<T, float>>>
+class point_traits final
+{
+ public:
+  /**
+   * \var isIntegral
+   *
+   * \brief Indicates whether or not the point is based on an integral type.
+   *
+   * \since 5.0.0
+   */
+  inline constexpr static bool isIntegral = std::is_integral_v<T>;
+
+  /**
+   * \var isFloating
+   *
+   * \brief Indicates whether or not the point is based on a floating-point
+   * type.
+   *
+   * \since 5.0.0
+   */
+  inline constexpr static bool isFloating = std::is_floating_point_v<T>;
+
+  /**
+   * \typedef value_type
+   *
+   * \brief The actual representation type, i.e. `int` or `float`.
+   *
+   * \since 5.0.0
+   */
+  using value_type = std::conditional_t<isIntegral, int, float>;
+
+  /**
+   * \typedef point_type
+   *
+   * \brief The SDL point type, i.e. `SDL_Point` or `SDL_FPoint`.
+   *
+   * \since 5.0.0
+   */
+  using point_type = std::conditional_t<isIntegral, SDL_Point, SDL_FPoint>;
+};
+
+/**
+ * \class basic_point
+ *
+ * \brief Represents a two-dimensional point.
+ *
+ * \details This class is designed as a wrapper for `SDL_Point` and
+ * `SDL_FPoint`. The representation is specified by the type parameter.
+ *
+ * \note This point class will only use `int` or `float` as the actual
+ * internal representation.
+ *
+ * \tparam T the representation type. Must be convertible to `int` or `float`.
+ *
+ * \since 5.0.0
+ *
+ * \see `ipoint`
+ * \see `fpoint`
+ *
+ * \headerfile point.hpp
+ */
+template <typename T>
+class basic_point final
+{
+ public:
+  /**
+   * \copydoc point_traits::isIntegral
+   */
+  inline constexpr static bool isIntegral = point_traits<T>::isIntegral;
+
+  /**
+   * \copydoc point_traits::isFloating
+   */
+  inline constexpr static bool isFloating = point_traits<T>::isFloating;
+
+  /**
+   * \copydoc point_traits::value_type
+   */
+  using value_type = typename point_traits<T>::value_type;
+
+  /**
+   * \copydoc point_traits::point_type
+   */
+  using point_type = typename point_traits<T>::point_type;
+
+  /**
+   * \brief Creates a zero-initialized point.
+   *
+   * \since 5.0.0
+   */
+  constexpr basic_point() noexcept = default;
+
+  /**
+   * \brief Creates a point with the specified coordinates.
+   *
+   * \param x the x-coordinate that will be used.
+   * \param y the y-coordinate that will be used.
+   *
+   * \since 5.0.0
+   */
+  constexpr basic_point(const value_type x, const value_type y) noexcept
+  {
+    m_point.x = x;
+    m_point.y = y;
+  };
+
+  /**
+   * \brief Sets the x-coordinate of the point.
+   *
+   * \param x the new x-coordinate.
+   *
+   * \since 5.0.0
+   */
+  constexpr void set_x(const value_type x) noexcept
+  {
+    m_point.x = x;
+  }
+
+  /**
+   * \brief Sets the y-coordinate of the point.
+   *
+   * \param y the new y-coordinate.
+   *
+   * \since 5.0.0
+   */
+  constexpr void set_y(const value_type y) noexcept
+  {
+    m_point.y = y;
+  }
+
+  /**
+   * \brief Returns the x-coordinate of the point.
+   *
+   * \return the x-coordinate.
+   *
+   * \since 5.0.0
+   */
+  [[nodiscard]] constexpr auto x() const noexcept -> value_type
+  {
+    return m_point.x;
+  }
+
+  /**
+   * \brief Returns the y-coordinate of the point.
+   *
+   * \return the y-coordinate.
+   *
+   * \since 5.0.0
+   */
+  [[nodiscard]] constexpr auto y() const noexcept -> value_type
+  {
+    return m_point.y;
+  }
+
+  /**
+   * \brief Returns the internal point representation.
+   *
+   * \return a reference to the internal representation.
+   *
+   * \since 5.0.0
+   */
+  [[nodiscard]] constexpr auto get() noexcept -> point_type&
+  {
+    return m_point;
+  }
+
+  /**
+   * \copydoc get
+   */
+  [[nodiscard]] constexpr auto get() const noexcept -> const point_type&
+  {
+    return m_point;
+  }
+
+  /**
+   * \brief Returns a pointer to the internal point representation.
+   *
+   * \note Don't cache the returned pointer.
+   *
+   * \return a pointer to the point representation.
+   *
+   * \since 5.2.0
+   */
+  [[nodiscard]] auto data() noexcept -> point_type*
+  {
+    return &m_point;
+  }
+
+  /**
+   * \copydoc data()
+   */
+  [[nodiscard]] auto data() const noexcept -> const point_type*
+  {
+    return &m_point;
+  }
+
+  /**
+   * \brief Converts to the internal representation.
+   *
+   * \return a copy of the internal point.
+   *
+   * \see `cen::cast`
+   *
+   * \since 5.0.0
+   */
+  [[nodiscard]] constexpr explicit operator point_type() const noexcept
+  {
+    return m_point;
+  }
+
+  /**
+   * \brief Returns a pointer to the internal point.
+   *
+   * \note You shouldn't store the returned pointer. However, this conversion
+   * is safe since `reinterpret_cast` isn't used.
+   *
+   * \return a pointer to the internal point instance.
+   *
+   * \since 5.0.0
+   */
+  [[nodiscard]] explicit operator point_type*() noexcept
+  {
+    return &m_point;
+  }
+
+  /**
+   * \brief Returns a pointer to the internal point.
+   *
+   * \note You shouldn't store the returned pointer. However, this conversion
+   * is safe since `reinterpret_cast` isn't used.
+   *
+   * \return a pointer to the internal point instance.
+   *
+   * \since 5.0.0
+   */
+  [[nodiscard]] explicit operator const point_type*() const noexcept
+  {
+    return &m_point;
+  }
+
+  /**
+   * \brief Serializes the point.
+   *
+   * \details This function expects that the archive provides an overloaded
+   * `operator()`, used for serializing data. This API is based on the Cereal
+   * serialization library.
+   *
+   * \tparam Archive the type of the archive.
+   *
+   * \param archive the archive used to serialize the point.
+   *
+   * \since 5.3.0
+   */
+  template <typename Archive>
+  void serialize(Archive& archive)
+  {
+    archive(m_point.x, m_point.y);
+  }
+
+ private:
+  point_type m_point{0, 0};
+};
+
+/**
+ * \typedef ipoint
+ *
+ * \brief Alias for an `int`-based point.
+ *
+ * \details This type corresponds to `SDL_Point`.
+ *
+ * \since 5.0.0
+ */
+using ipoint = basic_point<int>;
+
+/**
+ * \typedef fpoint
+ *
+ * \brief Alias for a `float`-based point.
+ *
+ * \details This type corresponds to `SDL_FPoint`.
+ *
+ * \since 5.0.0
+ */
+using fpoint = basic_point<float>;
+
+/**
+ * \brief Converts an `fpoint` instance to the corresponding `ipoint`.
+ *
+ * \details This function casts the coordinates of the supplied point to
+ * `int`, and uses the obtained values to create an `ipoint` instance.
+ *
+ * \param from the point that will be converted.
+ *
+ * \return an `ipoint` instance that corresponds to the supplied `fpoint`.
+ *
+ * \since 5.0.0
+ */
+template <>
+[[nodiscard]] constexpr auto cast(const fpoint& from) noexcept -> ipoint
+{
+  const auto x = static_cast<int>(from.x());
+  const auto y = static_cast<int>(from.y());
+  return ipoint{x, y};
+}
+
+/**
+ * \brief Converts an `ipoint` instance to the corresponding `fpoint`.
+ *
+ * \details This function casts the coordinates of the supplied point to
+ * `float`, and uses the obtained values to create an `fpoint` instance.
+ *
+ * \param from the point that will be converted.
+ *
+ * \return an `fpoint` instance that corresponds to the supplied `ipoint`.
+ *
+ * \since 5.0.0
+ */
+template <>
+[[nodiscard]] constexpr auto cast(const ipoint& from) noexcept -> fpoint
+{
+  const auto x = static_cast<float>(from.x());
+  const auto y = static_cast<float>(from.y());
+  return fpoint{x, y};
+}
+
+/**
+ * \brief Converts an `SDL_FPoint` instance to the corresponding `SDL_Point`.
+ *
+ * \details This function casts the coordinates of the supplied point to
+ * `int`, and uses the obtained values to create an `SDL_Point` instance.
+ *
+ * \param from the point that will be converted.
+ *
+ * \return an `SDL_Point` instance that corresponds to the supplied
+ * `SDL_FPoint`.
+ *
+ * \since 5.0.0
+ */
+template <>
+[[nodiscard]] constexpr auto cast(const SDL_FPoint& from) noexcept -> SDL_Point
+{
+  const auto x = static_cast<int>(from.x);
+  const auto y = static_cast<int>(from.y);
+  return SDL_Point{x, y};
+}
+
+/**
+ * \brief Converts an `SDL_Point` instance to the corresponding `SDL_FPoint`.
+ *
+ * \details This function casts the coordinates of the supplied point to
+ * `float`, and uses the obtained values to create an `SDL_FPoint` instance.
+ *
+ * \param from the point that will be converted.
+ *
+ * \return an `SDL_FPoint` instance that corresponds to the supplied
+ * `SDL_Point`.
+ *
+ * \since 5.0.0
+ */
+template <>
+[[nodiscard]] constexpr auto cast(const SDL_Point& from) noexcept -> SDL_FPoint
+{
+  const auto x = static_cast<float>(from.x);
+  const auto y = static_cast<float>(from.y);
+  return SDL_FPoint{x, y};
+}
+
+/**
+ * \brief Returns the distance between two points.
+ *
+ * \tparam T the representation type used by the points.
+ *
+ * \param from the first point.
+ * \param to the second point.
+ *
+ * \return the distance between the two points.
+ *
+ * \since 5.0.0
+ */
+template <typename T>
+[[nodiscard]] inline auto distance(const basic_point<T>& from,
+                                   const basic_point<T>& to) noexcept ->
+    typename point_traits<T>::value_type
+{
+  if constexpr (basic_point<T>::isIntegral)
+  {
+    const auto xDiff = std::abs(from.x() - to.x());
+    const auto yDiff = std::abs(from.y() - to.y());
+    const auto dist = std::sqrt(xDiff + yDiff);
+    return static_cast<int>(std::round(dist));
+  }
+  else
+  {
+    return std::sqrt(std::abs(from.x() - to.x()) + std::abs(from.y() - to.y()));
+  }
+}
+
+[[nodiscard]] constexpr auto operator+(const fpoint& lhs,
+                                       const fpoint& rhs) noexcept -> fpoint
+{
+  return {lhs.x() + rhs.x(), lhs.y() + rhs.y()};
+}
+
+[[nodiscard]] constexpr auto operator-(const fpoint& lhs,
+                                       const fpoint& rhs) noexcept -> fpoint
+{
+  return {lhs.x() - rhs.x(), lhs.y() - rhs.y()};
+}
+
+[[nodiscard]] constexpr auto operator+(const ipoint& lhs,
+                                       const ipoint& rhs) noexcept -> ipoint
+{
+  return {lhs.x() + rhs.x(), lhs.y() + rhs.y()};
+}
+
+[[nodiscard]] constexpr auto operator-(const ipoint& lhs,
+                                       const ipoint& rhs) noexcept -> ipoint
+{
+  return {lhs.x() - rhs.x(), lhs.y() - rhs.y()};
+}
+
+[[nodiscard]] constexpr auto operator==(const ipoint& lhs,
+                                        const ipoint& rhs) noexcept -> bool
+{
+  return (lhs.x() == rhs.x()) && (lhs.y() == rhs.y());
+}
+
+[[nodiscard]] constexpr auto operator==(const fpoint& lhs,
+                                        const fpoint& rhs) noexcept -> bool
+{
+  return (lhs.x() == rhs.x()) && (lhs.y() == rhs.y());
+}
+
+[[nodiscard]] constexpr auto operator!=(const ipoint& lhs,
+                                        const ipoint& rhs) noexcept -> bool
+{
+  return !(lhs == rhs);
+}
+
+[[nodiscard]] constexpr auto operator!=(const fpoint& lhs,
+                                        const fpoint& rhs) noexcept -> bool
+{
+  return !(lhs == rhs);
+}
+
+[[nodiscard]] inline auto to_string(const ipoint& point) -> std::string
+{
+  return "ipoint{X: " + detail::to_string(point.x()).value() +
+         ", Y: " + detail::to_string(point.y()).value() + "}";
+}
+
+[[nodiscard]] inline auto to_string(const fpoint& point) -> std::string
+{
+  return "fpoint{X: " + detail::to_string(point.x()).value() +
+         ", Y: " + detail::to_string(point.y()).value() + "}";
+}
+
+inline auto operator<<(std::ostream& stream, const ipoint& point)
+    -> std::ostream&
+{
+  stream << to_string(point);
+  return stream;
+}
+
+inline auto operator<<(std::ostream& stream, const fpoint& point)
+    -> std::ostream&
+{
+  stream << to_string(point);
+  return stream;
+}
+
+/// \} End of group geometry
+
+}  // namespace cen
+
+#endif  // CENTURION_POINT_HEADER
+
+#ifdef CENTURION_USE_PRAGMA_ONCE
+
+#endif  // CENTURION_USE_PRAGMA_ONCE
+
+namespace cen {
+
+/// \addtogroup geometry
+/// \{
+
+/**
+ * \class rect_traits
+ *
+ * \brief Provides rectangle traits used by `basic_rect`.
+ *
+ * \note Whilst it is possible to supply a type that isn't `int` or `float`,
+ * rectangles will always use one of them as the representation type.
+ *
+ * \tparam T the representation type, must be convertible to `int` or `float`.
+ *
+ * \see `basic_rect`
+ * \see `irect`
+ * \see `frect`
+ *
+ * \since 5.0.0
+ *
+ * \headerfile rect.hpp
+ */
+template <typename T,
+          typename = std::enable_if_t<std::is_convertible_v<T, int> ||
+                                      std::is_convertible_v<T, float>>>
+class rect_traits final
+{
+ public:
+  /**
+   * \var isIntegral
+   *
+   * \brief Indicates whether or not the rectangle is based on an integral type.
+   *
+   * \since 5.0.0
+   */
+  inline constexpr static bool isIntegral = std::is_integral_v<T>;
+
+  /**
+   * \var isFloating
+   *
+   * \brief Indicates whether or not the rectangle is based on a floating-point
+   * type.
+   *
+   * \since 5.0.0
+   */
+  inline constexpr static bool isFloating = std::is_floating_point_v<T>;
+
+  /**
+   * \typedef value_type
+   *
+   * \brief The representation type, i.e. `int` or `float`.
+   *
+   * \since 5.0.0
+   */
+  using value_type = std::conditional_t<isIntegral, int, float>;
+
+  /**
+   * \typedef point_type
+   *
+   * \brief The point type used, i.e. `ipoint` or `fpoint`.
+   *
+   * \since 5.0.0
+   */
+  using point_type = std::conditional_t<isIntegral, ipoint, fpoint>;
+
+  /**
+   * \typedef area_type
+   *
+   * \brief The area type used, i.e. `iarea` or `farea`.
+   *
+   * \since 5.0.0
+   */
+  using area_type = std::conditional_t<isIntegral, iarea, farea>;
+
+  /**
+   * \typedef rect_type
+   *
+   * \brief The underlying SDL rectangle type, i.e. `SDL_Rect` or `SDL_FRect`.
+   *
+   * \since 5.0.0
+   */
+  using rect_type = std::conditional_t<isIntegral, SDL_Rect, SDL_FRect>;
+};
+
+template <typename T>
+class basic_rect;
+
+/**
+ * \typedef irect
+ *
+ * \brief Alias for an `int`-based rectangle.
+ *
+ * \since 5.0.0
+ */
+using irect = basic_rect<int>;
+
+/**
+ * \typedef frect
+ *
+ * \brief Alias for a `float`-based rectangle.
+ *
+ * \since 5.0.0
+ */
+using frect = basic_rect<float>;
+
+/**
+ * \class basic_rect
+ *
+ * \brief A simple rectangle implementation.
+ *
+ * \tparam T the representation type. Must be convertible to either `int` or
+ * `float`.
+ *
+ * \see `irect`
+ * \see `frect`
+ *
+ * \since 4.0.0
+ *
+ * \headerfile rect.hpp
+ */
+template <typename T>
+class basic_rect final
+{
+ public:
+  /**
+   * \copydoc rect_traits<T>::isIntegral
+   */
+  inline constexpr static bool isIntegral = rect_traits<T>::isIntegral;
+
+  /**
+   * \copydoc rect_traits<T>::isFloating
+   */
+  inline constexpr static bool isFloating = rect_traits<T>::isFloating;
+
+  /**
+   * \copydoc rect_traits<T>::value_type
+   */
+  using value_type = typename rect_traits<T>::value_type;
+
+  /**
+   * \copydoc rect_traits<T>::point_type
+   */
+  using point_type = typename rect_traits<T>::point_type;
+
+  /**
+   * \copydoc rect_traits<T>::area_type
+   */
+  using area_type = typename rect_traits<T>::area_type;
+
+  /**
+   * \copydoc rect_traits<T>::rect_type
+   */
+  using rect_type = typename rect_traits<T>::rect_type;
+
+  /**
+   * \brief Creates a rectangle with the components (0, 0, 0, 0).
+   *
+   * \since 4.0.0
+   */
+  constexpr basic_rect() noexcept = default;
+
+  /**
+   * \brief Creates a rectangle based on an SDL rectangle.
+   *
+   * \param rect the rectangle that will be copied.
+   *
+   * \since 5.3.0
+   */
+  constexpr explicit basic_rect(const rect_type& rect) noexcept : m_rect{rect}
+  {}
+
+  /**
+   * \brief Creates a rectangle with the supplied position and size.
+   *
+   * \param position the position of the rectangle.
+   * \param size the size of the rectangle.
+   *
+   * \since 4.1.0
+   */
+  constexpr basic_rect(const point_type& position,
+                       const area_type& size) noexcept
+      : m_rect{position.x(), position.y(), size.width, size.height}
+  {}
+
+  /**
+   * \brief Creates a rectangle with the supplied position and size.
+   *
+   * \param x the x-coordinate of the rectangle.
+   * \param y the y-coordinate of the rectangle.
+   * \param width the width of the rectangle.
+   * \param height the height of the rectangle.
+   *
+   * \since 5.3.0
+   */
+  constexpr basic_rect(const value_type x,
+                       const value_type y,
+                       const value_type width,
+                       const value_type height) noexcept
+      : m_rect{x, y, width, height}
+  {}
+
+  /**
+   * \brief Sets the x-coordinate of the rectangle.
+   *
+   * \param x the new x-coordinate of the rectangle.
+   *
+   * \since 4.0.0
+   */
+  constexpr void set_x(const value_type x) noexcept
+  {
+    m_rect.x = x;
+  }
+
+  /**
+   * \brief Sets the y-coordinate of the rectangle.
+   *
+   * \param y the new y-coordinate of the rectangle.
+   *
+   * \since 4.0.0
+   */
+  constexpr void set_y(const value_type y) noexcept
+  {
+    m_rect.y = y;
+  }
+
+  /**
+   * \brief Sets the maximum x-coordinate of the rectangle.
+   *
+   * \note This function preserves the width of the rectangle.
+   *
+   * \param maxX the new maximum x-coordinate of the rectangle.
+   *
+   * \since 5.1.0
+   */
+  constexpr void set_max_x(const value_type maxX) noexcept
+  {
+    m_rect.x = maxX - m_rect.w;
+  }
+
+  /**
+   * \brief Sets the maximum y-coordinate of the rectangle.
+   *
+   * \note This function preserves the height of the rectangle.
+   *
+   * \param maxY the new maximum y-coordinate of the rectangle.
+   *
+   * \since 5.1.0
+   */
+  constexpr void set_max_y(const value_type maxY) noexcept
+  {
+    m_rect.y = maxY - m_rect.h;
+  }
+
+  /**
+   * \brief Sets the position of the rectangle.
+   *
+   * \note Some frameworks have this kind of function change the size of the
+   * rectangle. However, this function does *not* change the size of the
+   * rectangle.
+   *
+   * \param pos the new position of the rectangle.
+   *
+   * \since 5.1.0
+   */
+  constexpr void set_position(const point_type& pos) noexcept
+  {
+    m_rect.x = pos.x();
+    m_rect.y = pos.y();
+  }
+
+  /**
+   * \brief Sets the width of the rectangle.
+   *
+   * \param width the new width of the rectangle.
+   *
+   * \since 4.0.0
+   */
+  constexpr void set_width(const value_type width) noexcept
+  {
+    m_rect.w = width;
+  }
+
+  /**
+   * \brief Sets the height of the rectangle.
+   *
+   * \param height the new height of the rectangle.
+   *
+   * \since 4.0.0
+   */
+  constexpr void set_height(const value_type height) noexcept
+  {
+    m_rect.h = height;
+  }
+
+  /**
+   * \brief Sets the size of the rectangle.
+   *
+   * \param size the new size of the rectangle.
+   *
+   * \since 5.1.0
+   */
+  constexpr void set_size(const area_type& size) noexcept
+  {
+    m_rect.w = size.width;
+    m_rect.h = size.height;
+  };
+
+  /**
+   * \brief Indicates whether or not the rectangle contains the point.
+   *
+   * \param point the point that will be checked.
+   *
+   * \return `true` if the rectangle contains the point; `false` otherwise.
+   *
+   * \since 4.0.0
+   */
+  [[nodiscard]] constexpr auto contains(const point_type& point) const noexcept
+      -> bool
+  {
+    const auto px = point.x();
+    const auto py = point.y();
+    return !(px < x() || py < y() || px > max_x() || py > max_y());
+  }
+
+  /**
+   * \brief Returns the x-coordinate of the rectangle.
+   *
+   * \return the x-coordinate of the rectangle.
+   *
+   * \since 4.0.0
+   */
+  [[nodiscard]] constexpr auto x() const noexcept -> value_type
+  {
+    return m_rect.x;
+  }
+
+  /**
+   * \brief Returns the y-coordinate of the rectangle.
+   *
+   * \return the y-coordinate of the rectangle.
+   *
+   * \since 4.0.0
+   */
+  [[nodiscard]] constexpr auto y() const noexcept -> value_type
+  {
+    return m_rect.y;
+  }
+
+  /**
+   * \brief Returns the position of the rectangle.
+   *
+   * \return the position of the rectangle.
+   *
+   * \since 4.1.0
+   */
+  [[nodiscard]] constexpr auto position() const noexcept -> point_type
+  {
+    return point_type{m_rect.x, m_rect.y};
+  }
+
+  /**
+   * \brief Returns the width of the rectangle.
+   *
+   * \return the width of the rectangle.
+   *
+   * \since 4.0.0
+   */
+  [[nodiscard]] constexpr auto width() const noexcept -> value_type
+  {
+    return m_rect.w;
+  }
+
+  /**
+   * \brief Returns the height of the rectangle.
+   *
+   * \return the height of the rectangle.
+   *
+   * \since 4.0.0
+   */
+  [[nodiscard]] constexpr auto height() const noexcept -> value_type
+  {
+    return m_rect.h;
+  }
+
+  /**
+   * \brief Returns the size of the rectangle.
+   *
+   * \return the size of the rectangle.
+   *
+   * \since 4.1.0
+   */
+  [[nodiscard]] constexpr auto size() const noexcept -> area_type
+  {
+    return area_type{m_rect.w, m_rect.h};
+  }
+
+  /**
+   * \brief Returns the maximum x-coordinate of the rectangle.
+   *
+   * \return the maximum x-coordinate of the rectangle.
+   *
+   * \since 4.0.0
+   */
+  [[nodiscard]] constexpr auto max_x() const noexcept -> value_type
+  {
+    return x() + width();
+  }
+
+  /**
+   * \brief Returns the maximum y-coordinate of the rectangle.
+   *
+   * \return the maximum y-coordinate of the rectangle.
+   *
+   * \since 4.0.0
+   */
+  [[nodiscard]] constexpr auto max_y() const noexcept -> value_type
+  {
+    return y() + height();
+  }
+
+  /**
+   * \brief Returns the x-coordinate of the center point of the rectangle.
+   *
+   * \return the x-coordinate of the center point of the rectangle.
+   *
+   * \since 4.0.0
+   */
+  [[nodiscard]] constexpr auto center_x() const noexcept -> value_type
+  {
+    return x() + (width() / static_cast<value_type>(2));
+  }
+
+  /**
+   * \brief Returns the y-coordinate of the center point of the rectangle.
+   *
+   * \return the y-coordinate of the center point of the rectangle.
+   *
+   * \since 4.0.0
+   */
+  [[nodiscard]] constexpr auto center_y() const noexcept -> value_type
+  {
+    return y() + (height() / static_cast<value_type>(2));
+  }
+
+  /**
+   * \brief Returns the center point of the rectangle.
+   *
+   * \return the center point of the rectangle.
+   *
+   * \since 4.0.0
+   */
+  [[nodiscard]] constexpr auto center() const noexcept -> point_type
+  {
+    return {center_x(), center_y()};
+  }
+
+  /**
+   * \brief Returns the total area of the rectangle.
+   *
+   * \return the area of the rectangle.
+   *
+   * \since 4.2.0
+   */
+  [[nodiscard]] constexpr auto area() const noexcept -> value_type
+  {
+    return width() * height();
+  }
+
+  /**
+   * \brief Indicates whether or not the rectangle has an area.
+   *
+   * \details The rectangle has an area if both the width and height are
+   * greater than zero.
+   *
+   * \return `true` if the rectangle has an area; `false` otherwise.
+   *
+   * \since 4.0.0
+   */
+  [[nodiscard]] constexpr auto has_area() const noexcept -> bool
+  {
+    return (width() > 0) && (height() > 0);
+  }
+
+  /**
+   * \brief Returns the internal rectangle.
+   *
+   * \return a reference to the internal rectangle.
+   *
+   * \since 5.0.0
+   */
+  [[nodiscard]] constexpr auto get() noexcept -> rect_type&
+  {
+    return m_rect;
+  }
+
+  /**
+   * \brief Returns the internal rectangle.
+   *
+   * \return a reference to the internal rectangle.
+   *
+   * \since 5.0.0
+   */
+  [[nodiscard]] constexpr auto get() const noexcept -> const rect_type&
+  {
+    return m_rect;
+  }
+
+  /**
+   * \brief Returns a pointer to the internal rectangle representation.
+   *
+   * \note Don't cache the returned pointer.
+   *
+   * \return a pointer to the rectangle representation.
+   *
+   * \since 5.2.0
+   */
+  [[nodiscard]] auto data() noexcept -> rect_type*
+  {
+    return &m_rect;
+  }
+
+  /**
+   * \copydoc data()
+   */
+  [[nodiscard]] auto data() const noexcept -> const rect_type*
+  {
+    return &m_rect;
+  }
+
+  /**
+   * \brief Returns a pointer to the internal rectangle.
+   *
+   * \return a pointer to the internal rectangle.
+   *
+   * \since 5.0.0
+   */
+  [[nodiscard]] explicit operator rect_type*() noexcept
+  {
+    return &m_rect;
+  }
+
+  /**
+   * \brief Returns a pointer to the internal rectangle.
+   *
+   * \return a pointer to the internal rectangle.
+   *
+   * \since 5.0.0
+   */
+  [[nodiscard]] explicit operator const rect_type*() const noexcept
+  {
+    return &m_rect;
+  }
+
+  /**
+   * \brief Serializes the rectangle.
+   *
+   * \details This function expects that the archive provides an overloaded
+   * `operator()`, used for serializing data. This API is based on the Cereal
+   * serialization library.
+   *
+   * \tparam Archive the type of the archive.
+   *
+   * \param archive the archive used to serialize the rectangle.
+   *
+   * \since 5.3.0
+   */
+  template <typename Archive>
+  void serialize(Archive& archive)
+  {
+    archive(m_rect.x, m_rect.y, m_rect.w, m_rect.h);
+  }
+
+ private:
+  rect_type m_rect{0, 0, 0, 0};
+};
+
+/**
+ * \brief Indicates whether or not two rectangles are equal.
+ *
+ * \tparam T the representation type used by the rectangles.
+ *
+ * \param lhs the left-hand side rectangle.
+ * \param rhs the right-hand side rectangle.
+ *
+ * \return `true` if the rectangles are equal; `false` otherwise.
+ *
+ * \since 4.0.0
+ */
+template <typename T>
+[[nodiscard]] constexpr auto operator==(const basic_rect<T>& lhs,
+                                        const basic_rect<T>& rhs) noexcept
+    -> bool
+{
+  return (lhs.x() == rhs.x()) && (lhs.y() == rhs.y()) &&
+         (lhs.width() == rhs.width()) && (lhs.height() == rhs.height());
+}
+
+/**
+ * \brief Indicates whether or not two rectangles aren't equal.
+ *
+ * \tparam T the representation type used by the rectangles.
+ *
+ * \param lhs the left-hand side rectangle.
+ * \param rhs the right-hand side rectangle.
+ *
+ * \return `true` if the rectangles aren't equal; `false` otherwise.
+ *
+ * \since 4.0.0
+ */
+template <typename T>
+[[nodiscard]] constexpr auto operator!=(const basic_rect<T>& lhs,
+                                        const basic_rect<T>& rhs) noexcept
+    -> bool
+{
+  return !(lhs == rhs);
+}
+
+template <>
+[[nodiscard]] constexpr auto cast(const irect& from) noexcept -> frect
+{
+  const frect::point_type pos{static_cast<float>(from.x()),
+                              static_cast<float>(from.y())};
+  const frect::area_type size{static_cast<float>(from.width()),
+                              static_cast<float>(from.height())};
+  return frect{pos, size};
+}
+
+template <>
+[[nodiscard]] constexpr auto cast(const frect& from) noexcept -> irect
+{
+  const irect::point_type pos{static_cast<int>(from.x()),
+                              static_cast<int>(from.y())};
+  const irect::area_type size{static_cast<int>(from.width()),
+                              static_cast<int>(from.height())};
+  return irect{pos, size};
+}
+
+/**
+ * \brief Indicates whether or not the two rectangles intersect.
+ *
+ * \details This function does *not* consider rectangles with overlapping
+ * borders as intersecting. If you want such behaviour, see the
+ * `collides` function.
+ *
+ * \tparam T the representation type used by the rectangles.
+ *
+ * \param fst the first rectangle.
+ * \param snd the second rectangle.
+ *
+ * \return `true` if the rectangles intersect; `false` otherwise.
+ *
+ * \see `collides`
+ *
+ * \since 4.0.0
+ */
+template <typename T>
+[[nodiscard]] constexpr auto intersects(const basic_rect<T>& fst,
+                                        const basic_rect<T>& snd) noexcept
+    -> bool
+{
+  return !(fst.x() >= snd.max_x() || fst.max_x() <= snd.x() ||
+           fst.y() >= snd.max_y() || fst.max_y() <= snd.y());
+}
+
+/**
+ * \brief Indicates whether or not two rectangles are colliding.
+ *
+ * \details This function considers rectangles with overlapping borders as
+ * colliding.
+ *
+ * \tparam T the representation type used by the rectangles.
+ *
+ * \param fst the first rectangle.
+ * \param snd the second rectangle.
+ *
+ * \return `true` if the rectangles collide; `false` otherwise.
+ *
+ * \see `intersects`
+ *
+ * \since 4.0.0
+ */
+template <typename T>
+[[nodiscard]] constexpr auto collides(const basic_rect<T>& fst,
+                                      const basic_rect<T>& snd) noexcept -> bool
+{
+  return !(fst.x() > snd.max_x() || fst.max_x() < snd.x() ||
+           fst.y() > snd.max_y() || fst.max_y() < snd.y());
+}
+
+/**
+ * \brief Returns the union of two rectangles.
+ *
+ * \details Returns a rectangle that represents the union of two rectangles.
+ *
+ * \tparam T the representation type used by the rectangles.
+ *
+ * \param fst the first rectangle.
+ * \param snd the second rectangle.
+ *
+ * \return a rectangle that represents the union of the rectangles.
+ *
+ * \since 5.0.0
+ */
+template <typename T>
+[[nodiscard]] constexpr auto get_union(const basic_rect<T>& fst,
+                                       const basic_rect<T>& snd) noexcept
+    -> basic_rect<T>
+{
+  const auto fstHasArea = fst.has_area();
+  const auto sndHasArea = snd.has_area();
+
+  if (!fstHasArea && !sndHasArea)
+  {
+    return {};
+  }
+  else if (!fstHasArea)
+  {
+    return snd;
+  }
+  else if (!sndHasArea)
+  {
+    return fst;
+  }
+
+  const auto x = detail::min(fst.x(), snd.x());
+  const auto y = detail::min(fst.y(), snd.y());
+  const auto maxX = detail::max(fst.max_x(), snd.max_x());
+  const auto maxY = detail::max(fst.max_y(), snd.max_y());
+
+  return {{x, y}, {maxX - x, maxY - y}};
+}
+
+/**
+ * \brief Returns a textual representation of a rectangle.
+ *
+ * \tparam T the representation type used by the rectangle.
+ *
+ * \param rect the rectangle that will be converted to a string.
+ *
+ * \return a textual representation of the rectangle.
+ *
+ * \since 5.0.0
+ */
+template <typename T>
+[[nodiscard]] auto to_string(const basic_rect<T>& rect) -> std::string
+{
+  return "rect{x: " + detail::to_string(rect.x()).value() +
+         ", y: " + detail::to_string(rect.y()).value() +
+         ", width: " + detail::to_string(rect.width()).value() +
+         ", height: " + detail::to_string(rect.height()).value() + "}";
+}
+
+/**
+ * \brief Prints a textual representation of a rectangle using a stream.
+ *
+ * \tparam T the representation type used by the rectangle.
+ *
+ * \param stream the stream that will be used.
+ * \param rect the rectangle that will be printed.
+ *
+ * \return the used stream.
+ *
+ * \since 5.0.0
+ */
+template <typename T>
+auto operator<<(std::ostream& stream, const basic_rect<T>& rect)
+    -> std::ostream&
+{
+  stream << to_string(rect);
+  return stream;
+}
+
+/// \}
+
+}  // namespace cen
+
+#endif  // CENTURION_RECTANGLE_HEADER
+// #include "../misc/czstring.hpp"
+#ifndef CENTURION_CZSTRING_HEADER
+#define CENTURION_CZSTRING_HEADER
+
+// #include "centurion_cfg.hpp"
+
+// #include "not_null.hpp"
+#ifndef CENTURION_NOT_NULL_HEADER
+#define CENTURION_NOT_NULL_HEADER
+
+#include <SDL.h>
+
+#include <type_traits>  // enable_if_t, is_pointer_v
+
+// #include "centurion_cfg.hpp"
+
+
+#ifdef CENTURION_USE_PRAGMA_ONCE
+
+#endif  // CENTURION_USE_PRAGMA_ONCE
+
+namespace cen {
+
+/**
+ * \typedef not_null
+ *
+ * \brief Tag used to indicate that a pointer cannot be null.
+ *
+ * \note This alias is equivalent to `T`, it is a no-op.
+ *
+ * \since 5.0.0
+ */
+template <typename T, typename = std::enable_if_t<std::is_pointer_v<T>>>
+using not_null = T;
+
+}  // namespace cen
+
+#endif  // CENTURION_NOT_NULL_HEADER
+
+
+#ifdef CENTURION_USE_PRAGMA_ONCE
+
+#endif  // CENTURION_USE_PRAGMA_ONCE
+
+namespace cen {
+
+/**
+ * \typedef czstring
+ *
+ * \brief Alias for a const C-style null-terminated string.
+ */
+using czstring = const char*;
+
+/**
+ * \typedef zstring
+ *
+ * \brief Alias for a C-style null-terminated string.
+ */
+using zstring = char*;
+
+}  // namespace cen
+
+#endif  // CENTURION_CZSTRING_HEADER
+
+// #include "../misc/exception.hpp"
+#ifndef CENTURION_EXCEPTION_HEADER
+#define CENTURION_EXCEPTION_HEADER
+
+#include <SDL.h>
+#include <SDL_image.h>
+#include <SDL_mixer.h>
+#include <SDL_ttf.h>
+
+#include <exception>  // exception
+
+// #include "centurion_cfg.hpp"
+
+// #include "czstring.hpp"
+#ifndef CENTURION_CZSTRING_HEADER
+#define CENTURION_CZSTRING_HEADER
+
+// #include "centurion_cfg.hpp"
+
+// #include "not_null.hpp"
+
+
+#ifdef CENTURION_USE_PRAGMA_ONCE
+
+#endif  // CENTURION_USE_PRAGMA_ONCE
+
+namespace cen {
+
+/**
+ * \typedef czstring
+ *
+ * \brief Alias for a const C-style null-terminated string.
+ */
+using czstring = const char*;
+
+/**
+ * \typedef zstring
+ *
+ * \brief Alias for a C-style null-terminated string.
+ */
+using zstring = char*;
+
+}  // namespace cen
+
+#endif  // CENTURION_CZSTRING_HEADER
+
+
+#ifdef CENTURION_USE_PRAGMA_ONCE
+
+#endif  // CENTURION_USE_PRAGMA_ONCE
+
+namespace cen {
+
+/// \addtogroup misc
+/// \{
+
+/**
+ * \class cen_error
+ *
+ * \brief The base of all exceptions explicitly thrown by the library.
+ *
+ * \headerfile exception.hpp
+ *
+ * \since 3.0.0
+ */
+class cen_error : public std::exception
+{
+ public:
+  cen_error() noexcept = default;
+
+  /**
+   * \param what the message of the exception.
+   *
+   * \since 3.0.0
+   */
+  explicit cen_error(const czstring what) noexcept
+      : m_what{what ? what : m_what}
+  {}
+
+  [[nodiscard]] auto what() const noexcept -> czstring override
+  {
+    return m_what;
+  }
+
+ private:
+  czstring m_what{"N/A"};
+};
+
+/**
+ * \class sdl_error
+ *
+ * \brief Represents an error related to the core SDL2 library.
+ *
+ * \since 5.0.0
+ *
+ * \headerfile exception.hpp
+ */
+class sdl_error final : public cen_error
+{
+ public:
+  /**
+   * \brief Creates an `sdl_error` with the error message obtained from
+   * `SDL_GetError()`.
+   *
+   * \since 5.0.0
+   */
+  sdl_error() noexcept : cen_error{SDL_GetError()}
+  {}
+
+  /**
+   * \brief Creates an `sdl_error` with the specified error message.
+   *
+   * \param what the error message that will be used.
+   *
+   * \since 5.0.0
+   */
+  explicit sdl_error(const czstring what) noexcept : cen_error{what}
+  {}
+};
+
+/**
+ * \class img_error
+ *
+ * \brief Represents an error related to the SDL2_image library.
+ *
+ * \since 5.0.0
+ *
+ * \headerfile exception.hpp
+ */
+class img_error final : public cen_error
+{
+ public:
+  /**
+   * \brief Creates an `img_error` with the error message obtained from
+   * `IMG_GetError()`.
+   *
+   * \since 5.0.0
+   */
+  img_error() noexcept : cen_error{IMG_GetError()}
+  {}
+
+  /**
+   * \brief Creates an `img_error` with the specified error message.
+   *
+   * \param what the error message that will be used.
+   *
+   * \since 5.0.0
+   */
+  explicit img_error(const czstring what) noexcept : cen_error{what}
+  {}
+};
+
+/**
+ * \class ttf_error
+ *
+ * \brief Represents an error related to the SDL2_ttf library.
+ *
+ * \since 5.0.0
+ *
+ * \headerfile exception.hpp
+ */
+class ttf_error final : public cen_error
+{
+ public:
+  /**
+   * \brief Creates a `ttf_error` with the error message obtained from
+   * `TTF_GetError()`.
+   *
+   * \since 5.0.0
+   */
+  ttf_error() noexcept : cen_error{TTF_GetError()}
+  {}
+
+  /**
+   * \brief Creates a `ttf_error` with the specified error message.
+   *
+   * \param what the error message that will be used.
+   *
+   * \since 5.0.0
+   */
+  explicit ttf_error(const czstring what) noexcept : cen_error{what}
+  {}
+};
+
+/**
+ * \class mix_error
+ *
+ * \brief Represents an error related to the SDL2_mixer library.
+ *
+ * \since 5.0.0
+ *
+ * \headerfile exception.hpp
+ */
+class mix_error final : public cen_error
+{
+ public:
+  /**
+   * \brief Creates a `mix_error` with the error message obtained from
+   * `Mix_GetError()`.
+   *
+   * \since 5.0.0
+   */
+  mix_error() noexcept : cen_error{Mix_GetError()}
+  {}
+
+  /**
+   * \brief Creates a `mix_error` with the specified error message.
+   *
+   * \param what the error message that will be used.
+   *
+   * \since 5.0.0
+   */
+  explicit mix_error(const czstring what) noexcept : cen_error{what}
+  {}
+};
+
+/// \} End of group misc
+
+}  // namespace cen
+
+#endif  // CENTURION_EXCEPTION_HEADER
+
+// #include "../misc/not_null.hpp"
+#ifndef CENTURION_NOT_NULL_HEADER
+#define CENTURION_NOT_NULL_HEADER
+
+#include <SDL.h>
+
+#include <type_traits>  // enable_if_t, is_pointer_v
+
+// #include "centurion_cfg.hpp"
+
+
+#ifdef CENTURION_USE_PRAGMA_ONCE
+
+#endif  // CENTURION_USE_PRAGMA_ONCE
+
+namespace cen {
+
+/**
+ * \typedef not_null
+ *
+ * \brief Tag used to indicate that a pointer cannot be null.
+ *
+ * \note This alias is equivalent to `T`, it is a no-op.
+ *
+ * \since 5.0.0
+ */
+template <typename T, typename = std::enable_if_t<std::is_pointer_v<T>>>
+using not_null = T;
+
+}  // namespace cen
+
+#endif  // CENTURION_NOT_NULL_HEADER
+
+// #include "pixel_format.hpp"
+#ifndef CENTURION_PIXEL_FORMAT_HEADER
+#define CENTURION_PIXEL_FORMAT_HEADER
+
+#include <SDL.h>
+
+#include <type_traits>  // true_type, false_type
+
+// #include "../centurion_cfg.hpp"
+
+// #include "../detail/owner_handle_api.hpp"
+
+// #include "../misc/czstring.hpp"
+
+// #include "../misc/exception.hpp"
+
+// #include "../misc/integers.hpp"
+#ifndef CENTURION_INTEGERS_HEADER
+#define CENTURION_INTEGERS_HEADER
+
+#include <SDL.h>
+
+// #include "centurion_cfg.hpp"
+
+
+#ifdef CENTURION_USE_PRAGMA_ONCE
+
+#endif  // CENTURION_USE_PRAGMA_ONCE
+
+namespace cen {
+
+/**
+ * \typedef u64
+ *
+ * \brief Alias for a 64-bit unsigned integer.
+ */
+using u64 = Uint64;
+
+/**
+ * \typedef u32
+ *
+ * \brief Alias for a 32-bit unsigned integer.
+ */
+using u32 = Uint32;
+
+/**
+ * \typedef u16
+ *
+ * \brief Alias for a 16-bit unsigned integer.
+ */
+using u16 = Uint16;
+
+/**
+ * \typedef u8
+ *
+ * \brief Alias for an 8-bit unsigned integer.
+ */
+using u8 = Uint8;
+
+/**
+ * \typedef i64
+ *
+ * \brief Alias for a 64-bit signed integer.
+ */
+using i64 = Sint64;
+
+/**
+ * \typedef i32
+ *
+ * \brief Alias for a 32-bit signed integer.
+ */
+using i32 = Sint32;
+
+/**
+ * \typedef i16
+ *
+ * \brief Alias for a 16-bit signed integer.
+ */
+using i16 = Sint16;
+
+/**
+ * \typedef i8
+ *
+ * \brief Alias for an 8-bit signed integer.
+ */
+using i8 = Sint8;
+
+// clang-format off
+
+/**
+ * \brief Obtains the size of a container as an `int`.
+ *
+ * \tparam T a "container" that provides a `size()` member function.
+ *
+ * \param container the container to query the size of.
+ *
+ * \return the size of the container as an `int` value.
+ *
+ * \since 5.3.0
+ */
+template <typename T>
+[[nodiscard]] constexpr auto isize(const T& container) noexcept(noexcept(container.size()))
+    -> int
+{
+  return static_cast<int>(container.size());
+}
+
+// clang-format on
+
+namespace literals {
+
+/**
+ * \brief Creates an 8-bit unsigned integer.
+ *
+ * \param value the value that will be converted.
+ *
+ * \return an 8-bit unsigned integer.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto operator""_u8(unsigned long long value) noexcept
+    -> u8
+{
+  return static_cast<u8>(value);
+}
+
+/**
+ * \brief Creates a 16-bit unsigned integer.
+ *
+ * \param value the value that will be converted.
+ *
+ * \return a 16-bit unsigned integer.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto operator""_u16(unsigned long long value) noexcept
+    -> u16
+{
+  return static_cast<u16>(value);
+}
+
+/**
+ * \brief Creates a 32-bit unsigned integer.
+ *
+ * \param value the value that will be converted.
+ *
+ * \return a 32-bit unsigned integer.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto operator""_u32(unsigned long long value) noexcept
+    -> u32
+{
+  return static_cast<u32>(value);
+}
+
+/**
+ * \brief Creates a 64-bit unsigned integer.
+ *
+ * \param value the value that will be converted.
+ *
+ * \return a 64-bit unsigned integer.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto operator""_u64(unsigned long long value) noexcept
+    -> u64
+{
+  return static_cast<u64>(value);
+}
+
+/**
+ * \brief Creates an 8-bit signed integer.
+ *
+ * \param value the value that will be converted.
+ *
+ * \return an 8-bit signed integer.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto operator""_i8(unsigned long long value) noexcept
+    -> i8
+{
+  return static_cast<i8>(value);
+}
+
+/**
+ * \brief Creates a 16-bit signed integer.
+ *
+ * \param value the value that will be converted.
+ *
+ * \return a 16-bit signed integer.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto operator""_i16(unsigned long long value) noexcept
+    -> i16
+{
+  return static_cast<i16>(value);
+}
+
+/**
+ * \brief Creates a 32-bit signed integer.
+ *
+ * \param value the value that will be converted.
+ *
+ * \return a 32-bit signed integer.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto operator""_i32(unsigned long long value) noexcept
+    -> i32
+{
+  return static_cast<i32>(value);
+}
+
+/**
+ * \brief Creates a 64-bit signed integer.
+ *
+ * \param value the value that will be converted.
+ *
+ * \return a 64-bit signed integer.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto operator""_i64(unsigned long long value) noexcept
+    -> i64
+{
+  return static_cast<i64>(value);
+}
+
+}  // namespace literals
+}  // namespace cen
+
+#endif  // CENTURION_INTEGERS_HEADER
+
+// #include "../misc/not_null.hpp"
+
+// #include "color.hpp"
+#ifndef CENTURION_COLOR_HEADER
+#define CENTURION_COLOR_HEADER
+
+#include <SDL.h>
+
+#include <cassert>  // assert
+#include <cmath>    // round, fabs, fmod
+#include <ostream>  // ostream
+#include <string>   // string
+
+// #include "../centurion_cfg.hpp"
+
+// #include "../detail/to_string.hpp"
+
+// #include "../misc/integers.hpp"
+
+
+#ifdef CENTURION_USE_PRAGMA_ONCE
+
+#endif  // CENTURION_USE_PRAGMA_ONCE
+
+namespace cen {
+
+/// \addtogroup video
+/// \{
+
+/**
+ * \class color
+ *
+ * \brief An 8-bit accuracy RGBA color.
+ *
+ * \details This class is designed to interact with the SDL colors,
+ * `SDL_Color` and `SDL_MessageBoxColor`.
+ *
+ * \headerfile color.hpp
+ *
+ * \see `colors.hpp`
+ *
+ * \since 3.0.0
+ */
+class color final
+{
+ public:
+  /**
+   * \brief Creates a color. The created color will be equal to #000000FF.
+   *
+   * \since 3.0.0
+   */
+  constexpr color() noexcept = default;
+
+  /**
+   * \brief Creates a color.
+   *
+   * \param red the red component value, in the range [0, 255].
+   * \param green the green component value, in the range [0, 255].
+   * \param blue the blue component value, in the range [0, 255].
+   * \param alpha the alpha component value, in the rage [0, 255]. Defaults to
+   * 255.
+   *
+   * \since 3.0.0
+   */
+  constexpr color(const u8 red,
+                  const u8 green,
+                  const u8 blue,
+                  const u8 alpha = max()) noexcept
+      : m_color{red, green, blue, alpha}
+  {}
+
+  /**
+   * \brief Creates a color that is a copy of the supplied `SDL_Color`.
+   *
+   * \param color the `SDL_Color` that will be copied.
+   *
+   * \since 3.0.0
+   */
+  constexpr explicit color(const SDL_Color& color) noexcept : m_color{color}
+  {}
+
+  /**
+   * \brief Creates a color that is a copy of the supplied SDL_MessageBoxColor.
+   *
+   * \details Message box colors don't have an alpha component so the created
+   * color will feature an alpha value of 255.
+   *
+   * \param color the message box color that will be copied.
+   *
+   * \since 3.0.0
+   */
+  constexpr explicit color(const SDL_MessageBoxColor& color) noexcept
+      : m_color{color.r, color.g, color.b, max()}
+  {}
+
+  /**
+   * \brief Creates a color from HSV-encoded values.
+   *
+   * \pre `hue` must be in the range [0, 360].
+   * \pre `saturation` must be in the range [0, 100].
+   * \pre `value` must be in the range [0, 100].
+   *
+   * \param hue the hue of the color, in the range [0, 360].
+   * \param saturation the saturation of the color, in the range [0, 100].
+   * \param value the value of the color, in the range [0, 100].
+   *
+   * \return an RGBA color converted from the HSV values.
+   *
+   * \since 5.3.0
+   */
+  [[nodiscard]] static auto from_hsv(const double hue,
+                                     const double saturation,
+                                     const double value) -> color
+  {
+    assert(hue >= 0);
+    assert(hue <= 360);
+    assert(saturation >= 0);
+    assert(saturation <= 100);
+    assert(value >= 0);
+    assert(value <= 100);
+
+    const auto v = (value / 100.0);
+    const auto chroma = v * (saturation / 100.0);
+    const auto hp = hue / 60.0;
+
+    const auto x = chroma * (1.0 - std::fabs(std::fmod(hp, 2.0) - 1.0));
+
+    double red{};
+    double green{};
+    double blue{};
+
+    if (0 <= hp && hp <= 1)
+    {
+      red = chroma;
+      green = x;
+      blue = 0;
+    }
+    else if (1 < hp && hp <= 2)
+    {
+      red = x;
+      green = chroma;
+      blue = 0.0;
+    }
+    else if (2 < hp && hp <= 3)
+    {
+      red = 0;
+      green = chroma;
+      blue = x;
+    }
+    else if (3 < hp && hp <= 4)
+    {
+      red = 0;
+      green = x;
+      blue = chroma;
+    }
+    else if (4 < hp && hp <= 5)
+    {
+      red = x;
+      green = 0;
+      blue = chroma;
+    }
+    else if (5 < hp && hp <= 6)
+    {
+      red = chroma;
+      green = 0;
+      blue = x;
+    }
+
+    const auto m = v - chroma;
+
+    const auto r = static_cast<u8>(std::round((red + m) * 255.0));
+    const auto g = static_cast<u8>(std::round((green + m) * 255.0));
+    const auto b = static_cast<u8>(std::round((blue + m) * 255.0));
+
+    return color{r, g, b};
+  }
+
+  /**
+   * \brief Creates a color from HSL-encoded values.
+   *
+   * \pre `hue` must be in the range [0, 360].
+   * \pre `saturation` must be in the range [0, 100].
+   * \pre `lightness` must be in the range [0, 100].
+   *
+   * \param hue the hue of the color, in the range [0, 360].
+   * \param saturation the saturation of the color, in the range [0, 100].
+   * \param lightness the lightness of the color, in the range [0, 100].
+   *
+   * \return an RGBA color converted from the HSL values.
+   *
+   * \since 5.3.0
+   */
+  [[nodiscard]] static auto from_hsl(const double hue,
+                                     const double saturation,
+                                     const double lightness) -> color
+  {
+    assert(hue >= 0);
+    assert(hue <= 360);
+    assert(saturation >= 0);
+    assert(saturation <= 100);
+    assert(lightness >= 0);
+    assert(lightness <= 100);
+
+    const auto s = saturation / 100.0;
+    const auto l = lightness / 100.0;
+
+    const auto chroma = (1.0 - std::fabs(2.0 * l - 1)) * s;
+    const auto hp = hue / 60.0;
+
+    const auto x = chroma * (1 - std::fabs(std::fmod(hp, 2.0) - 1.0));
+
+    double red{};
+    double green{};
+    double blue{};
+
+    if (0 <= hp && hp < 1)
+    {
+      red = chroma;
+      green = x;
+      blue = 0;
+    }
+    else if (1 <= hp && hp < 2)
+    {
+      red = x;
+      green = chroma;
+      blue = 0;
+    }
+    else if (2 <= hp && hp < 3)
+    {
+      red = 0;
+      green = chroma;
+      blue = x;
+    }
+    else if (3 <= hp && hp < 4)
+    {
+      red = 0;
+      green = x;
+      blue = chroma;
+    }
+    else if (4 <= hp && hp < 5)
+    {
+      red = x;
+      green = 0;
+      blue = chroma;
+    }
+    else if (5 <= hp && hp < 6)
+    {
+      red = chroma;
+      green = 0;
+      blue = x;
+    }
+
+    const auto m = l - (chroma / 2.0);
+
+    const auto r = static_cast<u8>(std::round((red + m) * 255.0));
+    const auto g = static_cast<u8>(std::round((green + m) * 255.0));
+    const auto b = static_cast<u8>(std::round((blue + m) * 255.0));
+
+    return color{r, g, b};
+  }
+
+  /**
+   * \brief Sets the value of the red component.
+   *
+   * \param red the new value of the red component.
+   *
+   * \since 3.0.0
+   */
+  constexpr void set_red(const u8 red) noexcept
+  {
+    m_color.r = red;
+  }
+
+  /**
+   * \brief Sets the value of the green component.
+   *
+   * \param green the new value of the green component.
+   *
+   * \since 3.0.0
+   */
+  constexpr void set_green(const u8 green) noexcept
+  {
+    m_color.g = green;
+  }
+
+  /**
+   * \brief Sets the value of the blue component.
+   *
+   * \param blue the new value of the blue component.
+   *
+   * \since 3.0.0
+   */
+  constexpr void set_blue(const u8 blue) noexcept
+  {
+    m_color.b = blue;
+  }
+
+  /**
+   * \brief Sets the value of the alpha component.
+   *
+   * \param alpha the new value of the alpha component.
+   *
+   * \since 3.0.0
+   */
+  constexpr void set_alpha(const u8 alpha) noexcept
+  {
+    m_color.a = alpha;
+  }
+
+  /**
+   * \brief Returns a copy of the color with the specified alpha value.
+   *
+   * \param alpha the alpha component value that will be used by the new color.
+   *
+   * \return a color that is identical to the color except for the alpha
+   * component.
+   *
+   * \since 5.0.0
+   */
+  [[nodiscard]] constexpr auto with_alpha(const u8 alpha) const noexcept
+      -> color
+  {
+    return {red(), green(), blue(), alpha};
+  }
+
+  /**
+   * \brief Returns the value of the red component.
+   *
+   * \return the value of the red component, in the range [0, 255].
+   *
+   * \since 3.0.0
+   */
+  [[nodiscard]] constexpr auto red() const noexcept -> u8
+  {
+    return m_color.r;
+  }
+
+  /**
+   * \brief Returns the value of the green component.
+   *
+   * \return the value of the green component, in the range [0, 255].
+   *
+   * \since 3.0.0
+   */
+  [[nodiscard]] constexpr auto green() const noexcept -> u8
+  {
+    return m_color.g;
+  }
+
+  /**
+   * \brief Returns the value of the blue component.
+   *
+   * \return the value of the blue component, in the range [0, 255].
+   *
+   * \since 3.0.0
+   */
+  [[nodiscard]] constexpr auto blue() const noexcept -> u8
+  {
+    return m_color.b;
+  }
+
+  /**
+   * \brief Returns the value of the alpha component.
+   *
+   * \return the value of the alpha component, in the range [0, 255].
+   *
+   * \since 3.0.0
+   */
+  [[nodiscard]] constexpr auto alpha() const noexcept -> u8
+  {
+    return m_color.a;
+  }
+
+  /**
+   * \brief Returns the internal color instance.
+   *
+   * \return a reference to the internal color.
+   *
+   * \since 5.0.0
+   */
+  [[nodiscard]] auto get() const noexcept -> const SDL_Color&
+  {
+    return m_color;
+  }
+
+  /**
+   * \brief Converts the the color into an `SDL_Color`.
+   *
+   * \return an `SDL_Color` that is equivalent to this color.
+   *
+   * \since 3.0.0
+   */
+  [[nodiscard]] explicit constexpr operator SDL_Color() const noexcept
+  {
+    return {red(), green(), blue(), alpha()};
+  }
+
+  /**
+   * \brief Converts the the color into an `SDL_MessageBoxColor`.
+   *
+   * \note Message box colors don't feature an alpha value!
+   *
+   * \return an `SDL_MessageBoxColor` that is equivalent to this color.
+   *
+   * \since 3.0.0
+   */
+  [[nodiscard]] explicit constexpr operator SDL_MessageBoxColor() const noexcept
+  {
+    return {red(), green(), blue()};
+  }
+
+  /**
+   * \brief Converts the color to `SDL_Color*`.
+   *
+   * \warning The returned pointer is not to be freed or stored away!
+   *
+   * \return a pointer to the internal color instance.
+   *
+   * \since 4.0,0
+   */
+  [[nodiscard]] explicit operator SDL_Color*() noexcept
+  {
+    return &m_color;
+  }
+
+  /**
+   * \brief Converts the color to `const SDL_Color*`.
+   *
+   * \warning The returned pointer is not to be freed or stored away!
+   *
+   * \return a pointer to the internal color instance.
+   *
+   * \since 4.0,0
+   */
+  [[nodiscard]] explicit operator const SDL_Color*() const noexcept
+  {
+    return &m_color;
+  }
+
+  /**
+   * \brief Returns the maximum possible value of a color component.
+   *
+   * \return the maximum possible value of a color component.
+   *
+   * \since 5.0.0
+   */
+  [[nodiscard]] constexpr static auto max() noexcept -> u8
+  {
+    return 0xFF;
+  }
+
+  /**
+   * \brief Serializes the color.
+   *
+   * \details This function expects that the archive provides an overloaded
+   * `operator()`, used for serializing data. This API is based on the Cereal
+   * serialization library.
+   *
+   * \tparam Archive the type of the archive.
+   *
+   * \param archive the archive used to serialize the color.
+   *
+   * \since 5.3.0
+   */
+  template <typename Archive>
+  void serialize(Archive& archive)
+  {
+    archive(m_color.r, m_color.g, m_color.b, m_color.a);
+  }
+
+ private:
+  SDL_Color m_color{0, 0, 0, max()};
+};
+
+/**
+ * \brief Returns a textual representation of the color.
+ *
+ * \param color the color that will be converted.
+ *
+ * \return a textual representation of the color.
+ *
+ * \since 5.0.0
+ */
+[[nodiscard]] inline auto to_string(const color& color) -> std::string
+{
+  return "color{r: " + detail::to_string(color.red()).value() +
+         ", g: " + detail::to_string(color.green()).value() +
+         ", b: " + detail::to_string(color.blue()).value() +
+         ", a: " + detail::to_string(color.alpha()).value() + "}";
+}
+
+/**
+ * \brief Prints a textual representation of a color.
+ *
+ * \param stream the stream that will be used.
+ * \param color the color that will be printed.
+ *
+ * \return the used stream.
+ *
+ * \since 5.0.0
+ */
+inline auto operator<<(std::ostream& stream, const color& color)
+    -> std::ostream&
+{
+  stream << to_string(color);
+  return stream;
+}
+
+/**
+ * \brief Indicates whether or not the two colors are equal.
+ *
+ * \param lhs the left-hand side color.
+ * \param rhs the right-hand side color.
+ *
+ * \return `true` if the colors are equal; `false` otherwise.
+ *
+ * \since 3.0.0
+ */
+[[nodiscard]] constexpr auto operator==(const color& lhs,
+                                        const color& rhs) noexcept -> bool
+{
+  return (lhs.red() == rhs.red()) && (lhs.green() == rhs.green()) &&
+         (lhs.blue() == rhs.blue()) && (lhs.alpha() == rhs.alpha());
+}
+
+/**
+ * \copydoc operator==(const color&, const color&)
+ */
+[[nodiscard]] constexpr auto operator==(const color& lhs,
+                                        const SDL_Color& rhs) noexcept -> bool
+{
+  return (lhs.red() == rhs.r) && (lhs.green() == rhs.g) &&
+         (lhs.blue() == rhs.b) && (lhs.alpha() == rhs.a);
+}
+
+/**
+ * \copydoc operator==(const color&, const color&)
+ */
+[[nodiscard]] constexpr auto operator==(const SDL_Color& lhs,
+                                        const color& rhs) noexcept -> bool
+{
+  return rhs == lhs;
+}
+
+/**
+ * \copybrief operator==(const color&, const color&)
+ *
+ * \note The alpha components are not taken into account.
+ *
+ * \param lhs the left-hand side color.
+ * \param rhs the right-hand side color.
+ *
+ * \return `true` if the colors are equal; `false` otherwise.
+ *
+ * \since 3.0.0
+ */
+[[nodiscard]] constexpr auto operator==(const color& lhs,
+                                        const SDL_MessageBoxColor& rhs) noexcept
+    -> bool
+{
+  return (lhs.red() == rhs.r) && (lhs.green() == rhs.g) &&
+         (lhs.blue() == rhs.b);
+}
+
+/**
+ * \copydoc operator==(const color&, const SDL_MessageBoxColor&)
+ */
+[[nodiscard]] constexpr auto operator==(const SDL_MessageBoxColor& lhs,
+                                        const color& rhs) noexcept -> bool
+{
+  return rhs == lhs;
+}
+
+/**
+ * \brief Indicates whether or not the two colors aren't equal.
+ *
+ * \param lhs the left-hand side color.
+ * \param rhs the right-hand side color.
+ *
+ * \return `true` if the colors aren't equal; `false` otherwise.
+ *
+ * \since 3.0.0
+ */
+[[nodiscard]] constexpr auto operator!=(const color& lhs,
+                                        const color& rhs) noexcept -> bool
+{
+  return !(lhs == rhs);
+}
+
+/**
+ * \copydoc operator!=(const color&, const color&)
+ */
+[[nodiscard]] constexpr auto operator!=(const color& lhs,
+                                        const SDL_Color& rhs) noexcept -> bool
+{
+  return !(lhs == rhs);
+}
+
+/**
+ * \copydoc operator!=(const color&, const color&)
+ */
+[[nodiscard]] constexpr auto operator!=(const SDL_Color& lhs,
+                                        const color& rhs) noexcept -> bool
+{
+  return !(lhs == rhs);
+}
+
+/**
+ * \copybrief operator!=(const color&, const color&)
+ *
+ * \note The alpha components are not taken into account.
+ *
+ * \param lhs the left-hand side color.
+ * \param rhs the right-hand side color.
+ *
+ * \return `true` if the colors aren't equal; `false` otherwise.
+ *
+ * \since 3.0.0
+ */
+[[nodiscard]] constexpr auto operator!=(const color& lhs,
+                                        const SDL_MessageBoxColor& rhs) noexcept
+    -> bool
+{
+  return !(lhs == rhs);
+}
+
+/**
+ * \copydoc operator!=(const color&, const SDL_MessageBoxColor&)
+ */
+[[nodiscard]] constexpr auto operator!=(const SDL_MessageBoxColor& lhs,
+                                        const color& rhs) noexcept -> bool
+{
+  return !(lhs == rhs);
+}
+
+/// \} End of group video
+
+}  // namespace cen
+
+#endif  // CENTURION_COLOR_HEADER
+
+
+#ifdef CENTURION_USE_PRAGMA_ONCE
+
+#endif  // CENTURION_USE_PRAGMA_ONCE
+
+namespace cen {
+
+/// \addtogroup video
+/// \{
+
+/**
+ * \enum pixel_format
+ *
+ * \brief Mirrors the values of the `SDL_PixelFormatEnum`.
+ *
+ * \see `SDL_PixelFormatEnum`
+ *
+ * \since 3.1.0
+ *
+ * \headerfile pixel_format.hpp
+ */
+enum class pixel_format
+{
+  unknown = SDL_PIXELFORMAT_UNKNOWN,
+
+  index1lsb = SDL_PIXELFORMAT_INDEX1LSB,
+  index1msb = SDL_PIXELFORMAT_INDEX1MSB,
+  index4lsb = SDL_PIXELFORMAT_INDEX4LSB,
+  index4msb = SDL_PIXELFORMAT_INDEX4MSB,
+  index8 = SDL_PIXELFORMAT_INDEX8,
+
+#if SDL_VERSION_ATLEAST(2, 0, 14)
+  xrgb4444 = SDL_PIXELFORMAT_XRGB4444,
+  xbgr4444 = SDL_PIXELFORMAT_XBGR4444,
+
+  xrgb1555 = SDL_PIXELFORMAT_XRGB1555,
+  xbgr1555 = SDL_PIXELFORMAT_XBGR1555,
+
+  xrgb8888 = SDL_PIXELFORMAT_XRGB8888,
+  xbgr8888 = SDL_PIXELFORMAT_XBGR8888,
+#endif  // SDL_VERSION_ATLEAST(2, 0, 14)
+
+  rgb332 = SDL_PIXELFORMAT_RGB332,
+  rgb444 = SDL_PIXELFORMAT_RGB444,
+
+#if SDL_VERSION_ATLEAST(2, 0, 12)
+  bgr444 = SDL_PIXELFORMAT_BGR444,
+#endif  // SDL_VERSION_ATLEAST(2, 0, 12)
+
+  rgb555 = SDL_PIXELFORMAT_RGB555,
+  bgr555 = SDL_PIXELFORMAT_BGR555,
+
+  argb4444 = SDL_PIXELFORMAT_ARGB4444,
+  rgba4444 = SDL_PIXELFORMAT_RGBA4444,
+  abgr4444 = SDL_PIXELFORMAT_ABGR4444,
+  bgra4444 = SDL_PIXELFORMAT_BGRA4444,
+
+  argb1555 = SDL_PIXELFORMAT_ARGB1555,
+  rgba5551 = SDL_PIXELFORMAT_RGBA5551,
+  abgr1555 = SDL_PIXELFORMAT_ABGR1555,
+  bgra5551 = SDL_PIXELFORMAT_BGRA5551,
+
+  rgb565 = SDL_PIXELFORMAT_RGB565,
+  bgr565 = SDL_PIXELFORMAT_BGR565,
+
+  rgb24 = SDL_PIXELFORMAT_RGB24,
+  bgr24 = SDL_PIXELFORMAT_BGR24,
+
+  rgb888 = SDL_PIXELFORMAT_RGB888,
+  rgbx8888 = SDL_PIXELFORMAT_RGBX8888,
+  bgr888 = SDL_PIXELFORMAT_BGR888,
+  bgrx8888 = SDL_PIXELFORMAT_BGRX8888,
+
+  argb8888 = SDL_PIXELFORMAT_ARGB8888,
+  rgba8888 = SDL_PIXELFORMAT_RGBA8888,
+  abgr8888 = SDL_PIXELFORMAT_ABGR8888,
+  bgra8888 = SDL_PIXELFORMAT_BGRA8888,
+
+  argb2101010 = SDL_PIXELFORMAT_ARGB2101010,
+
+#if SDL_BYTEORDER == SDL_BIG_ENDIAN
+  rgba32 = SDL_PIXELFORMAT_RGBA8888,
+  argb32 = SDL_PIXELFORMAT_ARGB8888,
+  bgra32 = SDL_PIXELFORMAT_BGRA8888,
+  abgr32 = SDL_PIXELFORMAT_ABGR8888,
+#else
+  rgba32 = SDL_PIXELFORMAT_ABGR8888,
+  argb32 = SDL_PIXELFORMAT_BGRA8888,
+  bgra32 = SDL_PIXELFORMAT_ARGB8888,
+  abgr32 = SDL_PIXELFORMAT_RGBA8888,
+#endif
+
+  yv12 = SDL_PIXELFORMAT_YV12,
+  iyuv = SDL_PIXELFORMAT_IYUV,
+  yuy2 = SDL_PIXELFORMAT_YUY2,
+  uyvy = SDL_PIXELFORMAT_UYVY,
+  yvyu = SDL_PIXELFORMAT_YVYU,
+  nv12 = SDL_PIXELFORMAT_NV12,
+  nv21 = SDL_PIXELFORMAT_NV21,
+  external_oes = SDL_PIXELFORMAT_EXTERNAL_OES
+};
+
+template <typename B>
+class basic_pixel_format_info;
+
+/**
+ * \typedef pixel_format_info
+ *
+ * \brief Represents an owning pixel format info instance.
+ *
+ * \since 5.2.0
+ */
+using pixel_format_info = basic_pixel_format_info<std::true_type>;
+
+/**
+ * \typedef pixel_format_info_handle
+ *
+ * \brief Represents a non-owning pixel format info instance.
+ *
+ * \since 5.2.0
+ */
+using pixel_format_info_handle = basic_pixel_format_info<std::false_type>;
+
+/**
+ * \class basic_pixel_format_info
+ *
+ * \brief Provides information about a pixel format.
+ *
+ * \details See `pixel_format_info` and `pixel_format_info_handle` for owning
+ * and non-owning versions of this class.
+ *
+ * \note This class is part of the centurion owner/handle framework.
+ *
+ * \tparam B `std::true_type` for owning semantics; `std::false_type` otherwise.
+ *
+ * \see pixel_format
+ * \see pixel_format_info
+ * \see pixel_format_info_handle
+ * \see SDL_PixelFormat
+ * \see SDL_PixelFormatEnum
+ *
+ * \since 5.2.0
+ *
+ * \headerfile pixel_format.hpp
+ */
+template <typename B>
+class basic_pixel_format_info final
+{
+ public:
+  /**
+   * \brief Creates a pixel format info instance based on an existing pointer.
+   *
+   * \note Ownership of the supplied pointer might be claimed, depending on the
+   * ownership semantics of the class.
+   *
+   * \param ptr a pointer to the associated pixel format.
+   *
+   * \throws cen_error if the supplied pointer is null *and* the class has
+   * owning semantics.
+   *
+   * \since 5.2.0
+   */
+  explicit basic_pixel_format_info(SDL_PixelFormat* ptr) noexcept(!B::value)
+      : m_format{ptr}
+  {
+    if constexpr (B::value)
+    {
+      if (!m_format)
+      {
+        throw cen_error{"Null pixel format!"};
+      }
+    }
+  }
+
+  /**
+   * \brief Creates an owning instance based on a pixel format.
+   *
+   * \tparam BB dummy template parameter for SFINAE.
+   *
+   * \param format the associated pixel format.
+   *
+   * \throws sdl_error if the pixel format info could not be obtained.
+   *
+   * \since 5.2.0
+   */
+  template <typename BB = B, detail::is_owner<BB> = true>
+  explicit basic_pixel_format_info(const pixel_format format)
+      : m_format{SDL_AllocFormat(static_cast<u32>(format))}
+  {
+    if (!m_format)
+    {
+      throw sdl_error{};
+    }
+  }
+
+  /**
+   * \brief Creates a handle based on an owning pixel format info instance.
+   *
+   * \tparam BB dummy parameter for SFINAE.
+   *
+   * \param info the associated pixel format info instance.
+   *
+   * \since 5.2.0
+   */
+  template <typename BB = B, detail::is_handle<BB> = true>
+  explicit basic_pixel_format_info(const pixel_format_info& info) noexcept
+      : m_format{info.get()}
+  {}
+
+  /**
+   * \brief Returns a color that corresponds to a masked pixel value.
+   *
+   * \param pixel the masked pixel value.
+   *
+   * \return a color that corresponds to a pixel value, according to the format.
+   *
+   * \since 5.2.0
+   */
+  [[nodiscard]] auto pixel_to_rgb(const u32 pixel) const noexcept -> color
+  {
+    u8 red{};
+    u8 green{};
+    u8 blue{};
+    SDL_GetRGB(pixel, m_format, &red, &green, &blue);
+    return color{red, green, blue};
+  }
+
+  /**
+   * \brief Returns a color that corresponds to a masked pixel value.
+   *
+   * \param pixel the masked pixel value.
+   *
+   * \return a color that corresponds to a pixel value, according to the format.
+   *
+   * \since 5.2.0
+   */
+  [[nodiscard]] auto pixel_to_rgba(const u32 pixel) const noexcept -> color
+  {
+    u8 red{};
+    u8 green{};
+    u8 blue{};
+    u8 alpha{};
+    SDL_GetRGBA(pixel, m_format, &red, &green, &blue, &alpha);
+    return color{red, green, blue, alpha};
+  }
+
+  /**
+   * \brief Returns a pixel color value based on the RGB values of a color.
+   *
+   * \note The alpha component is assumed to be `0xFF`, i.e. fully opaque.
+   *
+   * \param color the color that will be converted.
+   *
+   * \return a masked pixel color value, based on the pixel format.
+   *
+   * \since 5.2.0
+   */
+  [[nodiscard]] auto rgb_to_pixel(const color& color) const noexcept -> u32
+  {
+    return SDL_MapRGB(m_format, color.red(), color.green(), color.blue());
+  }
+
+  /**
+   * \brief Returns a pixel color value based on the RGBA values of a color.
+   *
+   * \param color the color that will be converted.
+   *
+   * \return a masked pixel color value, based on the pixel format.
+   *
+   * \since 5.2.0
+   */
+  [[nodiscard]] auto rgba_to_pixel(const color& color) const noexcept -> u32
+  {
+    return SDL_MapRGBA(m_format,
+                       color.red(),
+                       color.green(),
+                       color.blue(),
+                       color.alpha());
+  }
+
+  /**
+   * \brief Returns the associated pixel format.
+   *
+   * \return the associated pixel format.
+   *
+   * \since 5.2.0
+   */
+  [[nodiscard]] auto format() const noexcept -> pixel_format
+  {
+    return static_cast<pixel_format>(m_format->format);
+  }
+
+  /**
+   * \brief Returns a human-readable name associated with the format.
+   *
+   * \details This function never returns a null-pointer, instead it returns
+   * "SDL_PIXELFORMAT_UNKNOWN" if the format is ill-formed.
+   *
+   * \return a human-readable name associated with the format.
+   *
+   * \since 5.2.0
+   */
+  [[nodiscard]] auto name() const noexcept -> not_null<czstring>
+  {
+    return SDL_GetPixelFormatName(m_format->format);
+  }
+
+  /**
+   * \brief Indicates whether or not a handle holds a non-null pointer.
+   *
+   * \tparam BB dummy template parameter for SFINAE.
+   *
+   * \return `true` if the handle holds a non-null pointer; `false` otherwise.
+   *
+   * \since 5.2.0
+   */
+  template <typename BB = B, detail::is_handle<BB> = true>
+  [[nodiscard]] explicit operator bool() const noexcept
+  {
+    return m_format;
+  }
+
+  /**
+   * \brief Returns a pointer to the associated pixel format instance.
+   *
+   * \warning Do not claim ownership of the returned pointer.
+   *
+   * \return a pointer to the internal pixel format.
+   *
+   * \since 5.2.0
+   */
+  [[nodiscard]] auto get() const noexcept -> SDL_PixelFormat*
+  {
+    return m_format.get();
+  }
+
+ private:
+  struct deleter final
+  {
+    void operator()(SDL_PixelFormat* format) noexcept
+    {
+      SDL_FreeFormat(format);
+    }
+  };
+  detail::pointer_manager<B, SDL_PixelFormat, deleter> m_format;
+};
+
+/**
+ * \brief Indicates whether or not the two pixel format values are the same.
+ *
+ * \param lhs the left-hand side pixel format value.
+ * \param rhs the right-hand side pixel format value.
+ *
+ * \return `true` if the pixel format values are the same; `false` otherwise.
+ *
+ * \since 3.1.0
+ */
+[[nodiscard]] constexpr auto operator==(const pixel_format lhs,
+                                        const SDL_PixelFormatEnum rhs) noexcept
+    -> bool
+{
+  return static_cast<SDL_PixelFormatEnum>(lhs) == rhs;
+}
+
+/**
+ * \copydoc operator==(pixel_format, SDL_PixelFormatEnum)
+ */
+[[nodiscard]] constexpr auto operator==(const SDL_PixelFormatEnum lhs,
+                                        const pixel_format rhs) noexcept -> bool
+{
+  return rhs == lhs;
+}
+
+/**
+ * \brief Indicates whether or not the two pixel format values aren't the same.
+ *
+ * \param lhs the left-hand side pixel format value.
+ * \param rhs the right-hand side pixel format value.
+ *
+ * \return `true` if the pixel format values aren't the same; `false` otherwise.
+ *
+ * \since 3.1.0
+ */
+[[nodiscard]] constexpr auto operator!=(const pixel_format lhs,
+                                        const SDL_PixelFormatEnum rhs) noexcept
+    -> bool
+{
+  return !(lhs == rhs);
+}
+
+/**
+ * \copydoc operator!=(pixel_format, SDL_PixelFormatEnum)
+ */
+[[nodiscard]] constexpr auto operator!=(const SDL_PixelFormatEnum lhs,
+                                        const pixel_format rhs) noexcept -> bool
+{
+  return !(lhs == rhs);
+}
+
+/// \}
+
+}  // namespace cen
+
+#endif  // CENTURION_PIXEL_FORMAT_HEADER
+// #include "surface.hpp"
+#ifndef CENTURION_SURFACE_HEADER
+#define CENTURION_SURFACE_HEADER
+
+#include <SDL.h>
+#include <SDL_image.h>
+
+#include <cassert>  // assert
+#include <ostream>  // ostream
+#include <string>   // string
+
+// #include "../centurion_cfg.hpp"
+
+// #include "../detail/address_of.hpp"
+
+// #include "../detail/owner_handle_api.hpp"
+
+// #include "../detail/to_string.hpp"
+
+// #include "../math/area.hpp"
+
+// #include "../math/rect.hpp"
+
+// #include "../misc/czstring.hpp"
+
+// #include "../misc/exception.hpp"
+
+// #include "../misc/integers.hpp"
+
+// #include "../misc/not_null.hpp"
+
+// #include "../misc/owner.hpp"
+#ifndef CENTURION_OWNER_HEADER
+#define CENTURION_OWNER_HEADER
+
+#include <type_traits>  // enable_if_t, is_pointer_v
+
+// #include "centurion_cfg.hpp"
+
+
+#ifdef CENTURION_USE_PRAGMA_ONCE
+
+#endif  // CENTURION_USE_PRAGMA_ONCE
+
+namespace cen {
+
+/**
+ * \typedef owner
+ *
+ * \brief Tag used to denote ownership of raw pointers directly in code.
+ *
+ * \details If a function takes an `owner<T*>` as a parameter, then the
+ * function will claim ownership of that pointer. Subsequently, if a function
+ * returns an `owner<T*>`, then ownership is transferred to the caller.
+ */
+template <typename T, typename = std::enable_if_t<std::is_pointer_v<T>>>
+using owner = T;
+
+}  // namespace cen
+
+#endif  // CENTURION_OWNER_HEADER
+// #include "blend_mode.hpp"
+#ifndef CENTURION_BLEND_MODE_HEADER
+#define CENTURION_BLEND_MODE_HEADER
+
+#include <SDL.h>
+
+// #include "../centurion_cfg.hpp"
+
+
+#ifdef CENTURION_USE_PRAGMA_ONCE
+
+#endif  // CENTURION_USE_PRAGMA_ONCE
+
+namespace cen {
+
+/// \addtogroup video
+/// \{
+
+/**
+ * \enum blend_mode
+ *
+ * \brief Mirrors the `SDL_BlendMode` enum.
+ *
+ * \since 3.0.0
+ *
+ * \headerfile blend_mode.hpp
+ */
+enum class blend_mode
+{
+  none = SDL_BLENDMODE_NONE,    ///< Represents no blending.
+  blend = SDL_BLENDMODE_BLEND,  ///< Represents alpha blending.
+  add = SDL_BLENDMODE_ADD,      ///< Represents additive blending.
+  mod = SDL_BLENDMODE_MOD,      ///< Represents color modulation.
+
+#if SDL_VERSION_ATLEAST(2, 0, 12)
+
+  mul = SDL_BLENDMODE_MUL,  ///< Represents color multiplication.
+
+#endif  // SDL_VERSION_ATLEAST(2, 0, 12)
+
+  invalid = SDL_BLENDMODE_INVALID  ///< Represents an invalid blend mode.
+};
+
+/**
+ * \brief Indicates whether or not two blend mode values are the same;
+ *
+ * \param lhs the left-hand side blend mode value.
+ * \param rhs the right-hand side blend mode value.
+ *
+ * \return `true` if the values are the same; `false` otherwise.
+ *
+ * \since 3.0.0
+ */
+[[nodiscard]] constexpr auto operator==(const blend_mode lhs,
+                                        const SDL_BlendMode rhs) noexcept
+    -> bool
+{
+  return static_cast<SDL_BlendMode>(lhs) == rhs;
+}
+
+/**
+ * \copydoc operator==(blend_mode, SDL_BlendMode)
+ */
+[[nodiscard]] constexpr auto operator==(const SDL_BlendMode lhs,
+                                        const blend_mode rhs) noexcept -> bool
+{
+  return rhs == lhs;
+}
+
+/**
+ * \brief Indicates whether or not two blend mode values aren't the same;
+ *
+ * \param lhs the left-hand side blend mode value.
+ * \param rhs the right-hand side blend mode value.
+ *
+ * \return `true` if the values aren't the same; `false` otherwise.
+ *
+ * \since 3.0.0
+ */
+[[nodiscard]] constexpr auto operator!=(const blend_mode lhs,
+                                        const SDL_BlendMode rhs) noexcept
+    -> bool
+{
+  return !(lhs == rhs);
+}
+
+/**
+ * \copydoc operator!=(blend_mode, SDL_BlendMode)
+ */
+[[nodiscard]] constexpr auto operator!=(const SDL_BlendMode lhs,
+                                        const blend_mode rhs) noexcept -> bool
+{
+  return !(lhs == rhs);
+}
+
+/// \}
+
+}  // namespace cen
+
+#endif  // CENTURION_BLEND_MODE_HEADER
+
+// #include "color.hpp"
+
+// #include "pixel_format.hpp"
+
+
+#ifdef CENTURION_USE_PRAGMA_ONCE
+
+#endif  // CENTURION_USE_PRAGMA_ONCE
+
+namespace cen {
+
+/// \addtogroup video
+/// \{
+
+template <typename T>
+class basic_surface;
+
+/**
+ * \typedef surface
+ *
+ * \brief Represents an owning surface.
+ *
+ * \since 5.0.0
+ */
+using surface = basic_surface<detail::owning_type>;
+
+/**
+ * \typedef surface_handle
+ *
+ * \brief Represents a non-owning surface.
+ *
+ * \since 5.0.0
+ */
+using surface_handle = basic_surface<detail::handle_type>;
+
+/**
+ * \class basic_surface
+ *
+ * \brief Represents a non-accelerated collection of pixels that constitute an
+ * image.
+ *
+ * \details Surfaces are often used for icons and snapshots, as an "intermediate"
+ * representation that can be manually manipulated, unlike textures. There is no
+ * support for directly rendering surfaces, but they can be converted to
+ * textures, which in turn can be rendered.
+ *
+ * \tparam B Used to determine the ownership semantics of the class.
+ *
+ * \since 4.0.0
+ *
+ * \headerfile surface.hpp
+ */
+template <typename T>
+class basic_surface final
+{
+ public:
+  /// \name Construction
+  /// \{
+
+  /**
+   * \brief Creates a surface from a pointer to an SDL surface.
+   *
+   * \note Depending on the type of the surface, ownership of the supplied SDL
+   * surface might be claimed.
+   *
+   * \param surface a pointer to the associated surface.
+   *
+   * \since 4.0.0
+   */
+  explicit basic_surface(SDL_Surface* surface) noexcept(!detail::is_owning<T>())
+      : m_surface{surface}
+  {
+    if constexpr (detail::is_owning<T>())
+    {
+      if (!m_surface)
+      {
+        throw cen_error{"Cannot create surface from null pointer!"};
+      }
+    }
+  }
+
+  /**
+   * \brief Creates a surface based on the image at the specified path.
+   *
+   * \tparam BB dummy parameter for SFINAE.
+   *
+   * \param file the file path of the image file that will be loaded, can't
+   * be null.
+   *
+   * \throws img_error if the surface cannot be created.
+   *
+   * \since 4.0.0
+   */
+  template <typename TT = T, detail::is_owner<TT> = true>
+  explicit basic_surface(const not_null<czstring> file)
+      : m_surface{IMG_Load(file)}
+  {
+    if (!m_surface)
+    {
+      throw img_error{};
+    }
+  }
+
+  /**
+   * \brief Creates a surface based on the image at the specified path.
+   *
+   * \tparam BB dummy parameter for SFINAE.
+   *
+   * \param file the file path of the image file that will be loaded.
+   *
+   * \throws img_error if the surface cannot be created.
+   *
+   * \since 5.3.0
+   */
+  template <typename TT = T, detail::is_owner<TT> = true>
+  explicit basic_surface(const std::string& file) : basic_surface{file.c_str()}
+  {}
+
+  /**
+   * \brief Creates a surface with the specified dimensions and pixel format.
+   *
+   * \tparam BB dummy parameter for SFINAE.
+   *
+   * \param size the size of the surface.
+   * \param pixelFormat the pixel format that will be used by the surface.
+   *
+   * \throws sdl_error if the surface cannot be created.
+   *
+   * \since 5.3.0
+   */
+  template <typename TT = T, detail::is_owner<TT> = true>
+  basic_surface(const iarea size, const pixel_format pixelFormat)
+      : m_surface{SDL_CreateRGBSurfaceWithFormat(0,
+                                                 size.width,
+                                                 size.height,
+                                                 0,
+                                                 static_cast<u32>(pixelFormat))}
+  {
+    if (!m_surface)
+    {
+      throw sdl_error{};
+    }
+  }
+
+  /**
+   * \brief Creates and returns a surface with the specified characteristics.
+   *
+   * \tparam BB dummy parameter for SFINAE.
+   *
+   * \param file the file path of the image that the surface will be based on.
+   * \param blendMode the blend mode that will be used.
+   * \param pixelFormat the pixel format that will be used.
+   *
+   * \return an owning surface, with the specified blend mode and pixel format.
+   *
+   * \since 5.2.0
+   */
+  template <typename TT = T, detail::is_owner<TT> = true>
+  [[nodiscard]] static auto with_format(const not_null<czstring> file,
+                                        const blend_mode blendMode,
+                                        const pixel_format pixelFormat)
+      -> basic_surface
+  {
+    assert(file);
+
+    basic_surface source{file};
+    source.set_blend_mode(blendMode);
+
+    return source.convert(pixelFormat);
+  }
+
+  /**
+   * \see with_format()
+   */
+  template <typename TT = T, detail::is_owner<TT> = true>
+  [[nodiscard]] static auto with_format(const std::string& file,
+                                        const blend_mode blendMode,
+                                        const pixel_format pixelFormat)
+      -> basic_surface
+  {
+    return with_format(file.c_str(), blendMode, pixelFormat);
+  }
+
+  /**
+   * \brief Creates and returns a surface based on a BMP file.
+   *
+   * \tparam BB dummy parameter for SFINAE.
+   *
+   * \param file the path to the BMP file that contains the surface data.
+   *
+   * \return the created surface.
+   *
+   * \throws sdl_error if the surface couldn't be loaded.
+   *
+   * \since 5.3.0
+   */
+  template <typename TT = T, detail::is_owner<TT> = true>
+  [[nodiscard]] static auto from_bmp(const not_null<czstring> file)
+      -> basic_surface
+  {
+    assert(file);
+    return basic_surface{SDL_LoadBMP(file)};
+  }
+
+  /**
+   * \see from_bmp()
+   */
+  template <typename TT = T, detail::is_owner<TT> = true>
+  [[nodiscard]] static auto from_bmp(const std::string& file) -> basic_surface
+  {
+    return from_bmp(file.c_str());
+  }
+
+  /**
+   * \brief Creates a copy of the supplied surface.
+   *
+   * \param other the surface that will be copied.
+   *
+   * \since 4.0.0
+   */
+  basic_surface(const basic_surface& other) noexcept(!detail::is_owning<T>())
+  {
+    if constexpr (detail::is_owning<T>())
+    {
+      copy(other);
+    }
+    else
+    {
+      m_surface = other.get();
+    }
+  }
+
+  /**
+   * \brief Creates a surface by moving the supplied surface.
+   *
+   * \param other the surface that will be moved.
+   *
+   * \since 4.0.0
+   */
+  basic_surface(basic_surface&& other) noexcept = default;
+
+  /// \} End of construction
+
+  /**
+   * \brief Copies the supplied surface.
+   *
+   * \param other the surface that will be copied.
+   *
+   * \throws sdl_error if the supplied surface couldn't be copied.
+   *
+   * \since 4.0.0
+   */
+  auto operator=(const basic_surface& other) noexcept(!detail::is_owning<T>())
+      -> basic_surface&
+  {
+    if (this != &other)
+    {
+      if constexpr (detail::is_owning<T>())
+      {
+        copy(other);
+      }
+      else
+      {
+        m_surface = other.get();
+      }
+    }
+    return *this;
+  }
+
+  /**
+   * \brief Moves the supplied surface into this surface.
+   *
+   * \param other the surface that will be moved.
+   *
+   * \return the surface that claimed the supplied surface.
+   *
+   * \since 4.0.0
+   */
+  auto operator=(basic_surface&& other) noexcept -> basic_surface& = default;
+
+  /// \name Save functions
+  /// \{
+
+  /**
+   * \brief Saves the surface as a BMP image.
+   *
+   * \param file the file path that the surface data will be saved at.
+   *
+   * \return `true` on success; `false` otherwise.
+   *
+   * \since 5.3.0
+   */
+  auto save_as_bmp(const not_null<czstring> file) const noexcept -> bool
+  {
+    assert(file);
+    const auto result = SDL_SaveBMP(get(), file);
+    return result != -1;
+  }
+
+  /**
+   * \see save_as_bmp()
+   * \since 6.0.0
+   */
+  auto save_as_bmp(const std::string& file) const noexcept -> bool  // NOLINT
+  {
+    return save_as_bmp(file.c_str());
+  }
+
+  /**
+   * \brief Saves the surface as a PNG image.
+   *
+   * \param file the file path that the surface data will be saved at.
+   *
+   * \return `true` on success; `false` otherwise.
+   *
+   * \since 6.0.0
+   */
+  auto save_as_png(const not_null<czstring> file) const noexcept -> bool
+  {
+    assert(file);
+    const auto result = IMG_SavePNG(get(), file);
+    return result != -1;
+  }
+
+  /**
+   * \see save_as_png()
+   * \since 6.0.0
+   */
+  auto save_as_png(const std::string& file) const noexcept -> bool  // NOLINT
+  {
+    return save_as_png(file.c_str());
+  }
+
+  /**
+   * \brief Saves the surface as a JPG image.
+   *
+   * \note The quality parameter is supplied to libjpeg in the SDL
+   * implementation, but the limitations on its values are unknown at the time
+   * of writing.
+   *
+   * \param file the file path that the surface data will be saved at.
+   * \param quality the quality of the JPG image.
+   *
+   * \return `true` on success; `false` otherwise.
+   *
+   * \since 6.0.0
+   */
+  auto save_as_jpg(const not_null<czstring> file,
+                   const int quality) const noexcept -> bool
+  {
+    assert(file);
+    const auto result = IMG_SaveJPG(get(), file, quality);
+    return result != -1;
+  }
+
+  /**
+   * \see save_as_jpg()
+   * \since 6.0.0
+   */
+  auto save_as_jpg(const std::string& file, const int quality) const noexcept
+      -> bool
+  {
+    return save_as_jpg(file.c_str(), quality);
+  }
+
+  /// \} End of save functions
+
+  /// \name Locking
+  /// \{
+
+  /**
+   * \brief Attempts to lock the surface, so that the associated pixel data can
+   * be modified.
+   *
+   * \details This method has no effect if `must_lock()` returns `false`.
+   *
+   * \return `true` if the locking of the surface was successful or if locking
+   * isn't required for modifying the surface; `false` if something went wrong.
+   *
+   * \since 4.0.0
+   */
+  auto lock() noexcept -> bool
+  {
+    if (must_lock())
+    {
+      const auto result = SDL_LockSurface(m_surface);
+      return result == 0;
+    }
+    else
+    {
+      return true;
+    }
+  }
+
+  /**
+   * \brief Unlocks the surface.
+   *
+   * \details This method has no effect if `must_lock()` returns `false`.
+   *
+   * \since 4.0.0
+   */
+  void unlock() noexcept
+  {
+    if (must_lock())
+    {
+      SDL_UnlockSurface(m_surface);
+    }
+  }
+
+  /**
+   * \brief Indicates whether or not the surface must be locked before modifying
+   * the pixel data associated with the surface.
+   *
+   * \return `true` if the surface must be locked before modification; `false`
+   * otherwise.
+   *
+   * \since 4.0.0
+   */
+  [[nodiscard]] auto must_lock() const noexcept -> bool
+  {
+    return SDL_MUSTLOCK(m_surface);
+  }
+
+  /// \} End of locking
+
+  /// \name Setters
+  /// \{
+
+  /**
+   * \brief Sets the color of the pixel at the specified coordinate.
+   *
+   * \details This method has no effect if the coordinate is out-of-bounds or if
+   * something goes wrong when attempting to modify the pixel data.
+   *
+   * \param pixel the pixel that will be changed.
+   * \param color the new color of the pixel.
+   *
+   * \since 4.0.0
+   */
+  void set_pixel(const ipoint& pixel, const color& color) noexcept
+  {
+    if (!in_bounds(pixel) || !lock())
+    {
+      return;
+    }
+
+    const int nPixels = (m_surface->pitch / 4) * height();
+    const int index = (pixel.y() * width()) + pixel.x();
+
+    if ((index >= 0) && (index < nPixels))
+    {
+      const auto info = format_info();
+      auto* pixels = reinterpret_cast<u32*>(m_surface->pixels);
+      pixels[index] = info.rgba_to_pixel(color);
+    }
+
+    unlock();
+  }
+
+  /**
+   * \brief Sets the alpha component modulation value.
+   *
+   * \param alpha the new alpha component value, in the range [0, 255].
+   *
+   * \since 4.0.0
+   */
+  void set_alpha(const u8 alpha) noexcept
+  {
+    SDL_SetSurfaceAlphaMod(m_surface, alpha);
+  }
+
+  /**
+   * \brief Sets the color modulation that will be used by the surface.
+   *
+   * \param color the color that represents the color modulation that will be
+   * used.
+   *
+   * \since 4.0.0
+   */
+  void set_color_mod(const color& color) noexcept
+  {
+    SDL_SetSurfaceColorMod(m_surface, color.red(), color.green(), color.blue());
+  }
+
+  /**
+   * \brief Sets the blend mode that will be used by the surface.
+   *
+   * \param mode the blend mode that will be used.
+   *
+   * \since 4.0.0
+   */
+  void set_blend_mode(const blend_mode mode) noexcept
+  {
+    SDL_SetSurfaceBlendMode(m_surface, static_cast<SDL_BlendMode>(mode));
+  }
+
+  /**
+   * \brief Sets the value of the RLE acceleration hint.
+   *
+   * \param enabled `true` if the RLE optimization hint should be enabled;
+   * `false` otherwise.
+   *
+   * \return `true` on success; `false` otherwise.
+   *
+   * \see is_rle_enabled()
+   *
+   * \since 5.2.0
+   */
+  auto set_rle_hint(const bool enabled) noexcept -> bool
+  {
+    return SDL_SetSurfaceRLE(m_surface, enabled ? 1 : 0) == 0;
+  }
+
+  /// \} End of setters
+
+  /// \name Getters
+  /// \{
+
+  /**
+   * \brief Returns the alpha component modulation of the surface.
+   *
+   * \return the alpha modulation value, in the range [0, 255].
+   *
+   * \since 4.0.0
+   */
+  [[nodiscard]] auto alpha() const noexcept -> u8
+  {
+    u8 alpha{0xFF};
+    SDL_GetSurfaceAlphaMod(m_surface, &alpha);
+    return alpha;
+  }
+
+  /**
+   * \brief Returns the color modulation of the surface.
+   *
+   * \return a color that represents the color modulation of the surface.
+   *
+   * \since 4.0.0
+   */
+  [[nodiscard]] auto color_mod() const noexcept -> color
+  {
+    u8 red{};
+    u8 green{};
+    u8 blue{};
+    SDL_GetSurfaceColorMod(m_surface, &red, &green, &blue);
+    return color{red, green, blue};
+  }
+
+  /**
+   * \brief Returns the blend mode that is being used by the surface.
+   *
+   * \return the blend mode that the surface uses.
+   *
+   * \since 4.0.0
+   */
+  [[nodiscard]] auto get_blend_mode() const noexcept -> blend_mode
+  {
+    SDL_BlendMode mode{};
+    SDL_GetSurfaceBlendMode(m_surface, &mode);
+    return static_cast<blend_mode>(mode);
+  }
+
+  /**
+   * \brief Creates and returns a surface based on this surface with the
+   * specified pixel format.
+   *
+   * \param format the pixel format that will be used by the new surface.
+   *
+   * \return a surface based on this surface with the specified
+   * pixel format.
+   *
+   * \throws sdl_error if the surface cannot be created.
+   *
+   * \since 4.0.0
+   */
+  [[nodiscard]] auto convert(const pixel_format format) const -> basic_surface
+  {
+    const auto rawFormat = static_cast<u32>(format);
+    if (auto* ptr = SDL_ConvertSurfaceFormat(m_surface, rawFormat, 0))
+    {
+      basic_surface result{ptr};
+      result.set_blend_mode(get_blend_mode());
+      return result;
+    }
+    else
+    {
+      throw sdl_error{};
+    }
+  }
+
+  /**
+   * \brief Returns the width of the surface.
+   *
+   * \return the width of the surface.
+   *
+   * \since 4.0.0
+   */
+  [[nodiscard]] auto width() const noexcept -> int
+  {
+    return m_surface->w;
+  }
+
+  /**
+   * \brief Returns the height of the surface.
+   *
+   * \return the height of the surface.
+   *
+   * \since 4.0.0
+   */
+  [[nodiscard]] auto height() const noexcept -> int
+  {
+    return m_surface->h;
+  }
+
+  /**
+   * \brief Returns the size of the surface.
+   *
+   * \return the size of the surface.
+   *
+   * \since 5.2.0
+   */
+  [[nodiscard]] auto size() const noexcept -> iarea
+  {
+    return iarea{width(), height()};
+  }
+
+  /**
+   * \brief Returns the pitch (the length of a row of pixels in bytes) of the
+   * surface.
+   *
+   * \return the pitch of the surface.
+   *
+   * \since 4.0.0
+   */
+  [[nodiscard]] auto pitch() const noexcept -> int
+  {
+    return m_surface->pitch;
+  }
+
+  /**
+   * \brief Returns a pointer to the pixel data of the surface.
+   *
+   * \details It's possible to modify the surface through the returned pointer.
+   *
+   * \return a pointer to the pixel data of the surface.
+   *
+   * \since 4.0.0
+   */
+  [[nodiscard]] auto pixels() noexcept -> void*
+  {
+    return m_surface->pixels;
+  }
+
+  /**
+   * \brief Returns a pointer to the pixel data of the surface.
+   *
+   * \return a pointer to the pixel data of the surface.
+   *
+   * \since 4.0.0
+   */
+  [[nodiscard]] auto pixels() const noexcept -> const void*
+  {
+    return m_surface->pixels;
+  }
+
+  /**
+   * \brief Returns a pointer to the pixel data of the surface.
+   *
+   * \return a pointer to the pixel data of the surface.
+   *
+   * \since 5.3.0
+   */
+  [[nodiscard]] auto data() noexcept -> void*
+  {
+    return pixels();
+  }
+
+  /**
+   * \copydoc data()
+   */
+  [[nodiscard]] auto data() const noexcept -> const void*
+  {
+    return pixels();
+  }
+
+  /**
+   * \brief Returns the pixel format info associated with the surface.
+   *
+   * \return the associated pixel format info.
+   *
+   * \since 5.2.0
+   */
+  [[nodiscard]] auto format_info() const noexcept -> pixel_format_info_handle
+  {
+    return pixel_format_info_handle{m_surface->format};
+  }
+
+  /**
+   * \brief Returns the clipping information associated with the surface.
+   *
+   * \return the clipping information associated with the surface.
+   *
+   * \since 4.0.0
+   */
+  [[nodiscard]] auto clip() const noexcept -> irect
+  {
+    const auto rect = m_surface->clip_rect;
+    return {{rect.x, rect.y}, {rect.w, rect.h}};
+  }
+
+#if SDL_VERSION_ATLEAST(2, 0, 14)
+
+  /**
+   * \brief Indicates whether or not the surface is RLE-enabled.
+   *
+   * \return `true` if the surface is RLE-enabled; `false` otherwise.
+   *
+   * \since 5.2.0
+   */
+  [[nodiscard]] auto is_rle_enabled() const noexcept -> bool
+  {
+    return SDL_HasSurfaceRLE(m_surface) == SDL_TRUE;
+  }
+
+#endif  // SDL_VERSION_ATLEAST(2, 0, 14)
+
+  /**
+   * \brief Returns a pointer to the associated `SDL_Surface`.
+   *
+   * \warning Don't take ownership of the returned pointer!
+   *
+   * \return a pointer to the associated `SDL_Surface`.
+   *
+   * \since 4.0.0
+   */
+  [[nodiscard]] auto get() const noexcept -> SDL_Surface*
+  {
+    return m_surface.get();
+  }
+
+  /// \} End of getters
+
+  /// \name Conversions
+  /// \{
+
+  /**
+   * \brief Indicates whether or not a surface handle holds a non-null pointer.
+   *
+   * \tparam BB dummy parameter for SFINAE.
+   *
+   * \return `true` if the surface handle holds a non-null pointer; `false`
+   * otherwise.
+   *
+   * \since 5.0.0
+   */
+  template <typename TT = T, detail::is_handle<TT> = true>
+  explicit operator bool() const noexcept
+  {
+    return m_surface != nullptr;
+  }
+
+  /**
+   * \brief Converts to `SDL_Surface*`.
+   *
+   * \return a pointer to the associated `SDL_Surface`.
+   *
+   * \since 4.0.0
+   */
+  [[nodiscard]] explicit operator SDL_Surface*() noexcept
+  {
+    return get();
+  }
+
+  /**
+   * \brief Converts to `const SDL_Surface*`.
+   *
+   * \return a pointer to the associated `SDL_Surface`.
+   *
+   * \since 4.0.0
+   */
+  [[nodiscard]] explicit operator const SDL_Surface*() const noexcept
+  {
+    return get();
+  }
+
+  /// \} End of conversions
+
+ private:
+  struct deleter final
+  {
+    void operator()(SDL_Surface* surface) noexcept
+    {
+      SDL_FreeSurface(surface);
+    }
+  };
+  detail::pointer_manager<T, SDL_Surface, deleter> m_surface;
+
+  /**
+   * \brief Copies the contents of the supplied surface instance into this
+   * instance.
+   *
+   * \param other the instance that will be copied.
+   *
+   * \throws sdl_error if the surface cannot be copied.
+   *
+   * \since 4.0.0
+   */
+  void copy(const basic_surface& other)
+  {
+    m_surface.reset(other.copy_surface());
+  }
+
+  /**
+   * \brief Indicates whether or not the supplied point is within the bounds of
+   * the surface.
+   *
+   * \param point the point that will be checked.
+   *
+   * \return `true` if the point is within the bounds of the surface; `false`
+   * otherwise.
+   *
+   * \since 4.0.0
+   */
+  [[nodiscard]] auto in_bounds(const ipoint& point) const noexcept -> bool
+  {
+    return !(point.x() < 0 || point.y() < 0 || point.x() >= width() ||
+             point.y() >= height());
+  }
+
+  /**
+   * \brief Creates and returns copy of the associated `SDL_Surface`.
+   *
+   * \return a copy of the associated `SDL_Surface`, the returned pointer won't
+   * be null.
+   *
+   * \throws sdl_error if the copy couldn't be created.
+   *
+   * \since 4.0.0
+   */
+  [[nodiscard]] auto copy_surface() const -> owner<SDL_Surface*>
+  {
+    if (auto* copy = SDL_DuplicateSurface(m_surface))
+    {
+      return copy;
+    }
+    else
+    {
+      throw sdl_error{};
+    }
+  }
+
+#ifdef CENTURION_MOCK_FRIENDLY_MODE
+ public:
+  basic_surface() = default;
+#endif  // CENTURION_MOCK_FRIENDLY_MODE
+};
+
+/**
+ * \brief Returns a textual representation of a surface.
+ *
+ * \param surface the surface that will be converted.
+ *
+ * \return a textual representation of the surface.
+ *
+ * \since 5.0.0
+ */
+template <typename T>
+[[nodiscard]] auto to_string(const basic_surface<T>& surface) -> std::string
+{
+  return "surface{ptr: " + detail::address_of(surface.get()) +
+         ", width: " + detail::to_string(surface.width()).value() +
+         ", height: " + detail::to_string(surface.height()).value() + "}";
+}
+
+/**
+ * \brief Prints a textual representation of a surface.
+ *
+ * \param stream the stream that will be used.
+ * \param surface the surface that will be printed.
+ *
+ * \return the used stream.
+ *
+ * \since 5.0.0
+ */
+template <typename T>
+auto operator<<(std::ostream& stream, const basic_surface<T>& surface)
+    -> std::ostream&
+{
+  stream << to_string(surface);
+  return stream;
+}
+
+/// \}
+
+}  // namespace cen
+
+#endif  // CENTURION_SURFACE_HEADER
+
+
+#ifdef CENTURION_USE_PRAGMA_ONCE
+
+#endif  // CENTURION_USE_PRAGMA_ONCE
+
+namespace cen {
+
+/// \addtogroup video
+/// \{
+
+template <typename B>
+class basic_window;
+
+/**
+ * \typedef window
+ *
+ * \brief Represents an owning window.
+ *
+ * \since 5.0.0
+ */
+using window = basic_window<std::true_type>;
+
+/**
+ * \typedef window_handle
+ *
+ * \brief Represents a non-owning window.
+ *
+ * \since 5.0.0
+ */
+using window_handle = basic_window<std::false_type>;
+
+/**
+ * \class basic_window
+ *
+ * \brief Represents an operating system window.
+ *
+ * \tparam B `std::true_type` for owning windows; `std::false_type` for
+ * non-owning windows.
+ *
+ * \since 5.0.0
+ *
+ * \see `window`
+ * \see `window_handle`
+ *
+ * \headerfile window.hpp
+ */
+template <typename B>
+class basic_window final
+{
+  inline static constexpr bool isOwner = std::is_same_v<B, std::true_type>;
+  inline static constexpr bool isHandle = std::is_same_v<B, std::false_type>;
+
+ public:
+  /**
+   * \brief Creates a window from a pointer to an SDL window.
+   *
+   * \note If you're creating a `window` instance, then ownership of the pointer
+   * is claimed. Furthermore, if you're creating a `window_handle`, ownership is
+   * *not* claimed.
+   *
+   * \param window a pointer to the associated SDL window. Ownership of this
+   * pointer is claimed if the window is owning.
+   *
+   * \since 5.0.0
+   */
+  explicit basic_window(SDL_Window* window) noexcept(isHandle)
+      : m_window{window}
+  {
+    if constexpr (isOwner)
+    {
+      if (!m_window)
+      {
+        throw cen_error{"Cannot create window from null pointer!"};
+      }
+    }
+  }
+
+  /**
+   * \brief Creates an owning window with the specified title and size.
+   *
+   * \details The window will be hidden by default.
+   *
+   * \param title the title of the window, can't be null.
+   * \param size the size of the window, components must be greater than zero.
+   * \param flags the window flags.
+   *
+   * \throws cen_error if the supplied width or height aren't
+   * greater than zero.
+   * \throws sdl_error if the window cannot be created.
+   *
+   * \see `default_size()`
+   * \see `default_flags()`
+   *
+   * \since 3.0.0
+   */
+  template <typename BB = B, detail::is_owner<BB> = true>
+  explicit basic_window(const not_null<czstring> title,
+                        const iarea& size = default_size(),
+                        const u32 flags = default_flags())
+  {
+    assert(title);
+
+    if (size.width < 1)
+    {
+      throw cen_error{"Bad window width!"};
+    }
+
+    if (size.height < 1)
+    {
+      throw cen_error{"Bad window height!"};
+    }
+
+    m_window.reset(SDL_CreateWindow(title,
+                                    SDL_WINDOWPOS_CENTERED,
+                                    SDL_WINDOWPOS_CENTERED,
+                                    size.width,
+                                    size.height,
+                                    flags));
+    if (!m_window)
+    {
+      throw sdl_error{};
+    }
+  }
+
+  /**
+   * \brief Creates an owning window with the specified title and size.
+   *
+   * \details The window will be hidden by default.
+   *
+   * \param title the title of the window.
+   * \param size the size of the window, components must be greater than zero.
+   * \param flags the window flags.
+   *
+   * \throws cen_error if the supplied width or height aren't
+   * greater than zero.
+   * \throws sdl_error if the window cannot be created.
+   *
+   * \see `default_size()`
+   * \see `default_flags()`
+   *
+   * \since 5.3.0
+   */
+  template <typename BB = B, detail::is_owner<BB> = true>
+  explicit basic_window(const std::string& title,
+                        const iarea& size = default_size(),
+                        const u32 flags = default_flags())
+      : basic_window{title.c_str(), size, flags}
+  {}
+
+  /**
+   * \brief Creates a window.
+   *
+   * \details The window will use the size obtained from `default_size()` as its
+   * initial size.
+   *
+   * \throws sdl_error if the window cannot be created.
+   *
+   * \since 3.0.0
+   */
+  template <typename BB = B, detail::is_owner<BB> = true>
+  basic_window() : basic_window{"Centurion window"}
+  {}
+
+  /**
+   * \brief Creates a window handle based on an owning window.
+   *
+   * \param owner the owning window to base the handle on.
+   *
+   * \since 5.0.0
+   */
+  template <typename BB = B, detail::is_handle<BB> = true>
+  explicit basic_window(const window& owner) noexcept : m_window{owner.get()}
+  {}
+
+  /**
+   * \brief Makes the window visible.
+   *
+   * \since 3.0.0
+   */
+  void show() noexcept
+  {
+    SDL_ShowWindow(m_window);
+  }
+
+  /**
+   * \brief Makes the window invisible.
+   *
+   * \since 3.0.0
+   */
+  void hide() noexcept
+  {
+    SDL_HideWindow(m_window);
+  }
+
+  /**
+   * \brief Centers the window position relative to the screen.
+   *
+   * \note Windows are centered by default.
+   *
+   * \since 3.0.0
+   */
+  void center() noexcept
+  {
+    set_position({SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED});
+  }
+
+  /**
+   * \brief Raises this window above other windows and requests focus.
+   *
+   * \since 3.0.0
+   */
+  void raise() noexcept
+  {
+    SDL_RaiseWindow(m_window);
+  }
+
+  /**
+   * \brief Maximizes the window.
+   *
+   * \since 3.1.0
+   */
+  void maximize() noexcept
+  {
+    SDL_MaximizeWindow(m_window);
+  }
+
+  /**
+   * \brief Minimizes the window.
+   *
+   * \since 3.1.0
+   */
+  void minimize() noexcept
+  {
+    SDL_MinimizeWindow(m_window);
+  }
+
+  /**
+   * \brief Restores the position and size of the window if it's minimized or
+   * maximized.
+   *
+   * \since 5.3.0
+   */
+  void restore() noexcept
+  {
+    SDL_RestoreWindow(m_window);
+  }
+
+  /**
+   * \brief Updates the window surface.
+   *
+   * \return `true` if the window surface was successfully updated; `false`
+   * otherwise.
+   *
+   * \since 5.0.0
+   */
+  auto update_surface() noexcept -> bool
+  {
+    return SDL_UpdateWindowSurface(m_window) == 0;
+  }
+
+  /**
+   * \brief Sets whether or not the window is in fullscreen mode.
+   *
+   * \param fullscreen `true` if the window should enable fullscreen mode;
+   * `false` for windowed mode.
+   *
+   * \since 3.0.0
+   */
+  void set_fullscreen(const bool fullscreen) noexcept
+  {
+    constexpr auto flag = static_cast<unsigned>(SDL_WINDOW_FULLSCREEN);
+    SDL_SetWindowFullscreen(m_window, fullscreen ? flag : 0);
+  }
+
+  /**
+   * \brief Sets whether or not the window is in fullscreen desktop mode.
+   *
+   * \details This mode is useful when you want to "fake" fullscreen mode.
+   *
+   * \param fullscreen `true` if the window should enable fullscreen desktop
+   * mode; `false` for windowed mode.
+   *
+   * \since 4.0.0
+   */
+  void set_fullscreen_desktop(const bool fullscreen) noexcept
+  {
+    const auto flag = static_cast<unsigned>(SDL_WINDOW_FULLSCREEN_DESKTOP);
+    SDL_SetWindowFullscreen(m_window, fullscreen ? flag : 0);
+  }
+
+  /**
+   * \brief Sets whether or not the window is decorated.
+   *
+   * \details This is enabled by default.
+   *
+   * \param decorated `true` if the window should be decorated; `false`
+   * otherwise.
+   *
+   * \since 3.0.0
+   */
+  void set_decorated(const bool decorated) noexcept
+  {
+    SDL_SetWindowBordered(m_window, detail::convert_bool(decorated));
+  }
+
+  /**
+   * \brief Sets whether or not the window should be resizable.
+   *
+   * \param resizable `true` if the window should be resizable; `false`
+   * otherwise.
+   *
+   * \since 3.0.0
+   */
+  void set_resizable(const bool resizable) noexcept
+  {
+    SDL_SetWindowResizable(m_window, detail::convert_bool(resizable));
+  }
+
+  /**
+   * \brief Sets the width of the window.
+   *
+   * \details The supplied width is capped to always be at least 1.
+   *
+   * \param width the new width of the window, must be greater than zero.
+   *
+   * \since 3.0.0
+   */
+  void set_width(const int width) noexcept
+  {
+    SDL_SetWindowSize(m_window, detail::max(width, 1), height());
+  }
+
+  /**
+   * \brief Sets the height of the window.
+   *
+   * \details The supplied height is capped to always be at least 1.
+   *
+   * \param height the new height of the window, must be greater than zero.
+   *
+   * \since 3.0.0
+   */
+  void set_height(const int height) noexcept
+  {
+    SDL_SetWindowSize(m_window, width(), detail::max(height, 1));
+  }
+
+  /**
+   * \brief Sets the size of the window.
+   *
+   * \details The supplied dimensions are capped to be at least 1.
+   *
+   * \param size the new size of the window, components must be greater than
+   * zero.
+   *
+   * \since 5.0.0
+   */
+  void set_size(const iarea& size) noexcept
+  {
+    const auto width = detail::max(size.width, 1);
+    const auto height = detail::max(size.height, 1);
+    SDL_SetWindowSize(m_window, width, height);
+  }
+
+  /**
+   * \brief Sets the icon that will be used by the window.
+   *
+   * \param icon the surface that will serve as the icon of the window.
+   *
+   * \since 3.0.0
+   */
+  void set_icon(const surface& icon) noexcept
+  {
+    SDL_SetWindowIcon(m_window, icon.get());
+  }
+
+  /**
+   * \brief Sets the title of the window.
+   *
+   * \param title the title of the window, can't be null.
+   *
+   * \since 3.0.0
+   */
+  void set_title(const not_null<czstring> title) noexcept
+  {
+    assert(title);
+    SDL_SetWindowTitle(m_window, title);
+  }
+
+  /**
+   * \brief Sets the title of the window.
+   *
+   * \param title the title of the window.
+   *
+   * \since 5.3.0
+   */
+  void set_title(const std::string& title) noexcept
+  {
+    set_title(title.c_str());
+  }
+
+  /**
+   * \brief Sets the opacity of the window.
+   *
+   * \details The supplied opacity will be clamped to a value in the legal
+   * range.
+   *
+   * \param opacity the opacity, in the range [0, 1].
+   *
+   * \since 3.0.0
+   */
+  void set_opacity(const float opacity) noexcept
+  {
+    SDL_SetWindowOpacity(m_window, opacity);
+  }
+
+  /**
+   * \brief Sets the minimum size of the window.
+   *
+   * \details This method has no effect if any of the components aren't greater
+   * than zero.
+   *
+   * \param size the minimum size of the window, components must be greater
+   * than zero.
+   *
+   * \since 3.0.0
+   */
+  void set_min_size(const iarea& size) noexcept
+  {
+    SDL_SetWindowMinimumSize(m_window, size.width, size.height);
+  }
+
+  /**
+   * \brief Sets the maximum size of the window.
+   *
+   * \details This method has no effect if any of the components aren't greater
+   * than zero.
+   *
+   * \param size the maximum size of the window, components must be greater
+   * than zero.
+   *
+   * \since 3.0.0
+   */
+  void set_max_size(const iarea& size) noexcept
+  {
+    SDL_SetWindowMaximumSize(m_window, size.width, size.height);
+  }
+
+  /**
+   * \brief Sets the position of the window.
+   *
+   * \note It's possible to use `SDL_WINDOWPOS_CENTERED` or
+   * `SDL_WINDOWPOS_UNDEFINED` as any of the components of the point.
+   *
+   * \param position the new position of the window.
+   *
+   * \since 5.0.0
+   */
+  void set_position(const ipoint& position) noexcept
+  {
+    SDL_SetWindowPosition(m_window, position.x(), position.y());
+  }
+
+  /**
+   * \brief Sets whether or not the mouse should be confined within the window.
+   *
+   * \brief This property is disabled by default.
+   *
+   * \param grabMouse `true` if the mouse should be confined within the window;
+   * `false` otherwise.
+   *
+   * \since 3.0.0
+   */
+  void set_grab_mouse(const bool grabMouse) noexcept
+  {
+    SDL_SetWindowGrab(m_window, detail::convert_bool(grabMouse));
+  }
+
+  /**
+   * \brief Sets the overall brightness of the window.
+   *
+   * \note A brightness value outside the legal range will be clamped to the
+   * closest valid value.
+   *
+   * \param brightness the brightness value, in the range [0, 1].
+   *
+   * \return `true` if the brightness was successfully set; `false` otherwise.
+   *
+   * \since 3.0.0
+   */
+  auto set_brightness(const float brightness) noexcept -> bool
+  {
+    const auto res =
+        SDL_SetWindowBrightness(m_window,
+                                detail::clamp(brightness, 0.0f, 1.0f));
+    return res == 0;
+  }
+
+  /**
+   * \brief Sets whether or not the mouse should be captured.
+   *
+   * \note A window might have to be visible in order for the mouse to be
+   * captured.
+   *
+   * \param capturingMouse `true` if the mouse should be captured; `false`
+   * otherwise.
+   *
+   * \see `SDL_CaptureMouse`
+   *
+   * \since 5.0.0
+   */
+  static void set_capturing_mouse(const bool capturingMouse) noexcept
+  {
+    SDL_CaptureMouse(detail::convert_bool(capturingMouse));
+  }
+
+  /**
+   * \brief Indicates whether or not the window is currently grabbing the mouse
+   * input.
+   *
+   * \return `true` if the window is grabbing the mouse; `false` otherwise.
+   *
+   * \since 3.0.0
+   */
+  [[nodiscard]] auto grabbing_mouse() const noexcept -> bool
+  {
+    return SDL_GetWindowGrab(m_window);
+  }
+
+  /**
+   * \brief Indicates whether or not the window has input focus.
+   *
+   * \note The window might have to be visible for this to be true.
+   *
+   * \return `true` if the window has input focus; `false` otherwise.
+   *
+   * \since 4.0.0
+   */
+  [[nodiscard]] auto has_input_focus() const noexcept -> bool
+  {
+    return static_cast<bool>(flags() & SDL_WINDOW_INPUT_FOCUS);
+  }
+
+  /**
+   * \brief Indicates whether or not the window has mouse focus.
+   *
+   * \return `true` if the window has mouse focus; `false` otherwise.
+   *
+   * \since 4.0.0
+   */
+  [[nodiscard]] auto has_mouse_focus() const noexcept -> bool
+  {
+    return static_cast<bool>(flags() & SDL_WINDOW_MOUSE_FOCUS);
+  }
+
+  /**
+   * \brief Indicates whether or not the window is decorated.
+   *
+   * \details Windows are decorated by default.
+   *
+   * \return `true` if the window is decorated; `false` otherwise.
+   *
+   * \since 3.0.0
+   */
+  [[nodiscard]] auto is_decorated() const noexcept -> bool
+  {
+    return !(flags() & SDL_WINDOW_BORDERLESS);
+  }
+
+  /**
+   * \brief Indicates whether or not the window is resizable.
+   *
+   * \details By default, this property is set to false.
+   *
+   * \return `true` if the window is resizable; `false` otherwise.
+   *
+   * \since 3.0.0
+   */
+  [[nodiscard]] auto is_resizable() const noexcept -> bool
+  {
+    return static_cast<bool>(flags() & SDL_WINDOW_RESIZABLE);
+  }
+
+  /**
+   * \brief Indicates whether or not the window is in fullscreen mode.
+   *
+   * \return `true` if the window is in fullscreen mode; `false` otherwise.
+   *
+   * \since 3.0.0
+   */
+  [[nodiscard]] auto is_fullscreen() const noexcept -> bool
+  {
+    return static_cast<bool>(flags() & SDL_WINDOW_FULLSCREEN);
+  }
+
+  /**
+   * \brief Indicates whether or not the window is in fullscreen desktop mode.
+   *
+   * \return `true` if the window is in fullscreen desktop mode;
+   * `false` otherwise.
+   *
+   * \since 4.0.0
+   */
+  [[nodiscard]] auto is_fullscreen_desktop() const noexcept -> bool
+  {
+    return static_cast<bool>(flags() & SDL_WINDOW_FULLSCREEN_DESKTOP);
+  }
+
+  /**
+   * \brief Indicates whether or not the window is visible.
+   *
+   * \return `true` if the window is visible; `false` otherwise.
+   *
+   * \since 3.0.0
+   */
+  [[nodiscard]] auto is_visible() const noexcept -> bool
+  {
+    return static_cast<bool>(flags() & SDL_WINDOW_SHOWN);
+  }
+
+  /**
+   * \brief Indicates whether or not the window is usable with an
+   * OpenGL-context.
+   *
+   * \return `true` if the window is compatible with an OpenGL-context; false
+   * otherwise.
+   *
+   * \since 4.0.0
+   */
+  [[nodiscard]] auto is_opengl() const noexcept -> bool
+  {
+    return static_cast<bool>(flags() & SDL_WINDOW_OPENGL);
+  }
+
+  /**
+   * \brief Indicates whether or not the window is usable as a Vulkan surface.
+   *
+   * \return `true` if the window is is usable as a Vulkan surface; false
+   * otherwise.
+   *
+   * \since 4.0.0
+   */
+  [[nodiscard]] auto is_vulkan() const noexcept -> bool
+  {
+    return static_cast<bool>(flags() & SDL_WINDOW_VULKAN);
+  }
+
+  /**
+   * \brief Indicates whether or not the window wasn't created by SDL.
+   *
+   * \return `true` if the window wasn't created by SDL; `false` otherwise.
+   *
+   * \since 4.0.0
+   */
+  [[nodiscard]] auto is_foreign() const noexcept -> bool
+  {
+    return static_cast<bool>(flags() & SDL_WINDOW_FOREIGN);
+  }
+
+  /**
+   * \brief Indicates whether or not the window is capturing the mouse.
+   *
+   * \return `true` if the window is capturing the mouse; `false` otherwise.
+   *
+   * \since 4.0.0
+   */
+  [[nodiscard]] auto is_capturing_mouse() const noexcept -> bool
+  {
+    return static_cast<bool>(flags() & SDL_WINDOW_MOUSE_CAPTURE);
+  }
+
+  /**
+   * \brief Indicates whether or not the window is minimized.
+   *
+   * \return `true` if the window is minimized; `false` otherwise.
+   *
+   * \since 4.0.0
+   */
+  [[nodiscard]] auto is_minimized() const noexcept -> bool
+  {
+    return static_cast<bool>(flags() & SDL_WINDOW_MINIMIZED);
+  }
+
+  /**
+   * \brief Indicates whether or not the window is maximized.
+   *
+   * \return `true` if the window is maximized; `false` otherwise.
+   *
+   * \since 4.0.0
+   */
+  [[nodiscard]] auto is_maximized() const noexcept -> bool
+  {
+    return static_cast<bool>(flags() & SDL_WINDOW_MAXIMIZED);
+  }
+
+  /**
+   * \brief Indicates whether or not the window is set to be always on top of
+   * other windows.
+   *
+   * \return `true` if the window is always on top of other windows; false
+   * otherwise.
+   *
+   * \since 4.0.0
+   */
+  [[nodiscard]] auto always_on_top() const noexcept -> bool
+  {
+    return static_cast<bool>(flags() & SDL_WINDOW_ALWAYS_ON_TOP);
+  }
+
+  /**
+   * \brief Returns the current brightness value of the window.
+   *
+   * \details The default value of this property is 1.
+   *
+   * \return the current brightness of the window, in the range [0, 1].
+   *
+   * \since 3.0.0
+   */
+  [[nodiscard]] auto brightness() const noexcept -> float
+  {
+    return SDL_GetWindowBrightness(m_window);
+  }
+
+  /**
+   * \brief Returns the opacity of the window.
+   *
+   * \return the opacity of the window, in the range [0, 1].
+   *
+   * \since 3.0.0
+   */
+  [[nodiscard]] auto opacity() const noexcept -> float
+  {
+    float opacity{1};
+    SDL_GetWindowOpacity(m_window, &opacity);
+    return opacity;
+  }
+
+  /**
+   * \brief Returns the x-coordinate of the window position.
+   *
+   * \return the x-coordinate of the window position.
+   *
+   * \since 3.0.0
+   */
+  [[nodiscard]] auto x() const noexcept -> int
+  {
+    int x{};
+    SDL_GetWindowPosition(m_window, &x, nullptr);
+    return x;
+  }
+
+  /**
+   * \brief Returns the y-coordinate of the window position.
+   *
+   * \return the y-coordinate of the window position.
+   *
+   * \since 3.0.0
+   */
+  [[nodiscard]] auto y() const noexcept -> int
+  {
+    int y{};
+    SDL_GetWindowPosition(m_window, nullptr, &y);
+    return y;
+  }
+
+  /**
+   * \brief Returns a numerical ID of the window.
+   *
+   * \return a numerical ID of the window.
+   *
+   * \since 3.0.0
+   */
+  [[nodiscard]] auto id() const noexcept -> u32
+  {
+    return SDL_GetWindowID(m_window);
+  }
+
+  /**
+   * \brief Returns the display index associated with the window.
+   *
+   * \return the display index associated with the window; `std::nullopt` if the
+   * display index cannot be obtained.
+   *
+   * \since 3.1.0
+   */
+  [[nodiscard]] auto display_index() const noexcept -> std::optional<int>
+  {
+    const auto index = SDL_GetWindowDisplayIndex(m_window);
+    if (index != -1)
+    {
+      return index;
+    }
+    else
+    {
+      return std::nullopt;
+    }
+  }
+
+  /**
+   * \brief Returns the current position of the window.
+   *
+   * \note Windows are centered by default.
+   *
+   * \return the current position of the window.
+   *
+   * \since 3.0.0
+   */
+  [[nodiscard]] auto position() const noexcept -> ipoint
+  {
+    int x{};
+    int y{};
+    SDL_GetWindowPosition(m_window, &x, &y);
+    return {x, y};
+  }
+
+  /**
+   * \brief Returns the minimum size of the window.
+   *
+   * \return the minimum size of the window.
+   *
+   * \since 3.0.0
+   */
+  [[nodiscard]] auto min_size() const noexcept -> iarea
+  {
+    int width{};
+    int height{};
+    SDL_GetWindowMinimumSize(m_window, &width, &height);
+    return {width, height};
+  }
+
+  /**
+   * \brief Returns the maximum size of the window.
+   *
+   * \return the maximum size of the window.
+   *
+   * \since 3.0.0
+   */
+  [[nodiscard]] auto max_size() const noexcept -> iarea
+  {
+    int width{};
+    int height{};
+    SDL_GetWindowMaximumSize(m_window, &width, &height);
+    return {width, height};
+  }
+
+  /**
+   * \brief Returns the current width of the window.
+   *
+   * \return the current width of the window.
+   *
+   * \since 3.0.0
+   */
+  [[nodiscard]] auto width() const noexcept -> int
+  {
+    int width{};
+    SDL_GetWindowSize(m_window, &width, nullptr);
+    return width;
+  }
+
+  /**
+   * \brief Returns the current height of the window.
+   *
+   * \return the current height of the window.
+   *
+   * \since 3.0.0
+   */
+  [[nodiscard]] auto height() const noexcept -> int
+  {
+    int height{};
+    SDL_GetWindowSize(m_window, nullptr, &height);
+    return height;
+  }
+
+  /**
+   * \brief Returns the current size of the window.
+   *
+   * \note Calling this function is slightly faster than calling both `width`
+   * and `height` to obtain the window size.
+   *
+   * \return the size of the window.
+   *
+   * \since 5.0.0
+   */
+  [[nodiscard]] auto size() const noexcept -> iarea
+  {
+    iarea size{};
+    SDL_GetWindowSize(m_window, &size.width, &size.height);
+    return size;
+  }
+
+  /**
+   * \brief Indicates whether or not a flag is set.
+   *
+   * \details Some of the use cases of this method can be replaced by more
+   * explicit methods, e.g. `is_fullscreen()` instead of
+   * `check_flag(SDL_WINDOW_FULLSCREEN)`.
+   *
+   * \param flag the flag that will be tested.
+   *
+   * \return `true` if the flag is set; `false` otherwise.
+   *
+   * \since 4.0.0
+   */
+  [[nodiscard]] auto check_flag(const SDL_WindowFlags flag) const noexcept
+      -> bool
+  {
+    return static_cast<bool>(flags() & flag);
+  }
+
+  /**
+   * \brief Returns a mask that represents the flags associated with the window.
+   *
+   * \details You can check the returned mask using the `SDL_WindowFlags` enum.
+   *
+   * \return a mask that represents the flags associated with the window.
+   *
+   * \see `SDL_WindowFlags`
+   *
+   * \since 4.0.0
+   */
+  [[nodiscard]] auto flags() const noexcept -> u32
+  {
+    return SDL_GetWindowFlags(m_window);
+  }
+
+  /**
+   * \brief Returns the pixel format of the window.
+   *
+   * \return the pixel format used by the window.
+   *
+   * \since 3.0.0
+   */
+  [[nodiscard]] auto get_pixel_format() const noexcept -> pixel_format
+  {
+    return static_cast<pixel_format>(SDL_GetWindowPixelFormat(m_window));
+  }
+
+  /**
+   * \brief Returns a handle to the window framebuffer surface.
+   *
+   * \warning It is not possible use the framebuffer surface with the 3D or 2D
+   * rendering APIs.
+   *
+   * \return a handle to the window surface, might not contain a valid surface
+   * pointer.
+   *
+   * \since 5.0.0
+   */
+  [[nodiscard]] auto get_surface() noexcept -> surface_handle
+  {
+    return surface_handle{SDL_GetWindowSurface(m_window)};
+  }
+
+  /**
+   * \brief Returns the title of the window.
+   *
+   * \return the title of the window.
+   *
+   * \since 3.0.0
+   */
+  [[nodiscard]] auto title() const -> std::string
+  {
+    return SDL_GetWindowTitle(m_window);
+  }
+
+  /**
+   * \brief Converts to `SDL_Window*`.
+   *
+   * \return a pointer to the associated SDL window.
+   *
+   * \since 3.0.0
+   */
+  [[nodiscard]] explicit operator SDL_Window*() noexcept
+  {
+    return m_window.get();
+  }
+
+  /**
+   * \brief Converts to `const SDL_Window*`.
+   *
+   * \return a pointer to the associated SDL window.
+   *
+   * \since 3.0.0
+   */
+  [[nodiscard]] explicit operator const SDL_Window*() const noexcept
+  {
+    return m_window.get();
+  }
+
+  /**
+   * \brief Indicates whether or not the handle holds a non-null pointer.
+   *
+   * \note This function is only available for window handles.
+   *
+   * \warning It's undefined behaviour to invoke other member functions that
+   * use the internal pointer if this function returns `false`.
+   *
+   * \return `true` if the handle holds a non-null pointer; `false` otherwise.
+   *
+   * \since 5.0.0
+   */
+  template <typename BB = B, detail::is_handle<BB> = true>
+  explicit operator bool() const noexcept
+  {
+    return m_window != nullptr;
+  }
+
+  /**
+   * \brief Returns a pointer to the associated SDL window.
+   *
+   * \warning Don't take ownership of the returned pointer!
+   *
+   * \return a pointer to the associated SDL window.
+   *
+   * \since 4.0.0
+   */
+  [[nodiscard]] auto get() const noexcept -> SDL_Window*
+  {
+    return m_window.get();
+  }
+
+  /**
+   * \brief Returns the default size of a window.
+   *
+   * \note This function is only available for owning windows.
+   *
+   * \return the default size of a window.
+   *
+   * \since 5.0.0
+   */
+  template <typename BB = B, detail::is_owner<BB> = true>
+  [[nodiscard]] constexpr static auto default_size() noexcept -> iarea
+  {
+    return {800, 600};
+  }
+
+  template <typename BB = B, detail::is_owner<BB> = true>
+  [[nodiscard]] constexpr static auto default_flags() noexcept -> u32
+  {
+    return SDL_WINDOW_HIDDEN;
+  }
+
+ private:
+  struct deleter final
+  {
+    void operator()(SDL_Window* window) noexcept
+    {
+      SDL_DestroyWindow(window);
+    }
+  };
+  detail::pointer_manager<B, SDL_Window, deleter> m_window;
+};
+
+/**
+ * \brief Returns a textual representation of a window.
+ *
+ * \param window the window that will be converted.
+ *
+ * \return a textual representation of the window.
+ *
+ * \since 5.0.0
+ */
+template <typename T>
+[[nodiscard]] auto to_string(const basic_window<T>& window) -> std::string
+{
+  return "window{data: " + detail::address_of(window.get()) +
+         ", width: " + detail::to_string(window.width()).value() +
+         ", height: " + detail::to_string(window.height()).value() + "}";
+}
+
+/**
+ * \brief Prints a textual representation of a window.
+ *
+ * \param stream the stream that will be used.
+ * \param window the window that will be printed.
+ *
+ * \return the used stream.
+ *
+ * \since 5.0.0
+ */
+template <typename T>
+auto operator<<(std::ostream& stream, const basic_window<T>& window)
+    -> std::ostream&
+{
+  stream << to_string(window);
+  return stream;
+}
+
+/// \}
+
+}  // namespace cen
+
+#endif  // CENTURION_WINDOW_HEADER
+
+
+#ifdef CENTURION_USE_PRAGMA_ONCE
+
+#endif  // CENTURION_USE_PRAGMA_ONCE
+
+/// \addtogroup video
+/// \addtogroup opengl
+
+namespace cen::gl {
+
+template <typename T>
+class basic_context;
+
+using context = basic_context<detail::owning_type>;
+using context_handle = basic_context<detail::handle_type>;
+
+template <typename T>
+class basic_context final
+{
+ public:
+  // clang-format off
+
+  explicit basic_context(SDL_GLContext context) noexcept(!detail::is_owning<T>())
+      : m_context{context}
+  {
+    if constexpr (detail::is_owning<T>())
+    {
+      if (!m_context)
+      {
+        throw cen_error{"Can't create OpenGL context from null pointer!"};
+      }
+    }
+  }
+
+  template <typename U>
+  explicit basic_context(basic_window<U>& window) noexcept(!detail::is_owning<T>())
+      : m_context{SDL_GL_CreateContext(window.get())}
+  {
+    if constexpr (detail::is_owning<T>())
+    {
+      if (!m_context)
+      {
+        throw sdl_error{};
+      }
+    }
+  }
+
+  // clang-format on
+
+  template <typename U>
+  auto make_current(basic_window<U>& window) -> bool
+  {
+    const auto result = SDL_GL_MakeCurrent(window.get(), m_context.get());
+    return result == 0;
+  }
+
+ private:
+  struct deleter final
+  {
+    void operator()(SDL_GLContext context) noexcept
+    {
+      SDL_GL_DeleteContext(context);
+    }
+  };
+
+  std::unique_ptr<void, deleter> m_context;
+};
+
+}  // namespace cen::gl
+
+/// \} End of group opengl
+/// \} End of group video
+
+#endif  // CENTURION_GL_CONTEXT_HEADER
+
+// #include "centurion/video/gl/opengl.hpp"
+#ifndef CENTURION_OPENGL_HEADER
+#define CENTURION_OPENGL_HEADER
+
+// #include "../../centurion_cfg.hpp"
+
+
+#ifdef CENTURION_FEATURE_OPENGL
+
+#include <SDL.h>
+
+#include <cassert>   // assert
+#include <optional>  // optional
+#include <string>    // string
+
+// #include "../../misc/czstring.hpp"
+#ifndef CENTURION_CZSTRING_HEADER
+#define CENTURION_CZSTRING_HEADER
+
+// #include "centurion_cfg.hpp"
+
+// #include "not_null.hpp"
+
+
+#ifdef CENTURION_USE_PRAGMA_ONCE
+
+#endif  // CENTURION_USE_PRAGMA_ONCE
+
+namespace cen {
+
+/**
+ * \typedef czstring
+ *
+ * \brief Alias for a const C-style null-terminated string.
+ */
+using czstring = const char*;
+
+/**
+ * \typedef zstring
+ *
+ * \brief Alias for a C-style null-terminated string.
+ */
+using zstring = char*;
+
+}  // namespace cen
+
+#endif  // CENTURION_CZSTRING_HEADER
+
+// #include "../../misc/exception.hpp"
+
+// #include "../../misc/not_null.hpp"
+#ifndef CENTURION_NOT_NULL_HEADER
+#define CENTURION_NOT_NULL_HEADER
+
+#include <SDL.h>
+
+#include <type_traits>  // enable_if_t, is_pointer_v
+
+// #include "centurion_cfg.hpp"
+
+
+#ifdef CENTURION_USE_PRAGMA_ONCE
+
+#endif  // CENTURION_USE_PRAGMA_ONCE
+
+namespace cen {
+
+/**
+ * \typedef not_null
+ *
+ * \brief Tag used to indicate that a pointer cannot be null.
+ *
+ * \note This alias is equivalent to `T`, it is a no-op.
+ *
+ * \since 5.0.0
+ */
+template <typename T, typename = std::enable_if_t<std::is_pointer_v<T>>>
+using not_null = T;
+
+}  // namespace cen
+
+#endif  // CENTURION_NOT_NULL_HEADER
+
+// #include "../window.hpp"
+
+// #include "context.hpp"
+#ifndef CENTURION_GL_CONTEXT_HEADER
+#define CENTURION_GL_CONTEXT_HEADER
+
+#include <SDL.h>
+
+#include <memory>  // unique_ptr
+
+// #include "../../centurion_cfg.hpp"
+
+// #include "../../detail/owner_handle_api.hpp"
+
+// #include "../../misc/exception.hpp"
+
+// #include "../window.hpp"
+
+
+#ifdef CENTURION_USE_PRAGMA_ONCE
+
+#endif  // CENTURION_USE_PRAGMA_ONCE
+
+/// \addtogroup video
+/// \addtogroup opengl
+
+namespace cen::gl {
+
+template <typename T>
+class basic_context;
+
+using context = basic_context<detail::owning_type>;
+using context_handle = basic_context<detail::handle_type>;
+
+template <typename T>
+class basic_context final
+{
+ public:
+  // clang-format off
+
+  explicit basic_context(SDL_GLContext context) noexcept(!detail::is_owning<T>())
+      : m_context{context}
+  {
+    if constexpr (detail::is_owning<T>())
+    {
+      if (!m_context)
+      {
+        throw cen_error{"Can't create OpenGL context from null pointer!"};
+      }
+    }
+  }
+
+  template <typename U>
+  explicit basic_context(basic_window<U>& window) noexcept(!detail::is_owning<T>())
+      : m_context{SDL_GL_CreateContext(window.get())}
+  {
+    if constexpr (detail::is_owning<T>())
+    {
+      if (!m_context)
+      {
+        throw sdl_error{};
+      }
+    }
+  }
+
+  // clang-format on
+
+  template <typename U>
+  auto make_current(basic_window<U>& window) -> bool
+  {
+    const auto result = SDL_GL_MakeCurrent(window.get(), m_context.get());
+    return result == 0;
+  }
+
+ private:
+  struct deleter final
+  {
+    void operator()(SDL_GLContext context) noexcept
+    {
+      SDL_GL_DeleteContext(context);
+    }
+  };
+
+  std::unique_ptr<void, deleter> m_context;
+};
+
+}  // namespace cen::gl
+
+/// \} End of group opengl
+/// \} End of group video
+
+#endif  // CENTURION_GL_CONTEXT_HEADER
+
+
+#ifdef CENTURION_USE_PRAGMA_ONCE
+
+#endif  // CENTURION_USE_PRAGMA_ONCE
+
+namespace cen {
+
+/**
+ * \enum gl_attribute
+ *
+ * \brief Provides identifiers for different OpenGL attributes.
+ *
+ * \since 6.0.0
+ *
+ * \headerfile opengl.hpp
+ */
+enum class gl_attribute
+{
+  red_size = SDL_GL_RED_SIZE,
+  green_size = SDL_GL_GREEN_SIZE,
+  blue_size = SDL_GL_BLUE_SIZE,
+  alpha_size = SDL_GL_ALPHA_SIZE,
+  buffer_size = SDL_GL_BUFFER_SIZE,
+  depth_size = SDL_GL_DEPTH_SIZE,
+  stencil_size = SDL_GL_STENCIL_SIZE,
+
+  accum_red_size = SDL_GL_ACCUM_RED_SIZE,
+  accum_green_size = SDL_GL_ACCUM_GREEN_SIZE,
+  accum_blue_size = SDL_GL_ACCUM_BLUE_SIZE,
+  accum_alpha_size = SDL_GL_ACCUM_ALPHA_SIZE,
+
+  stereo = SDL_GL_STEREO,
+  egl = SDL_GL_CONTEXT_EGL,
+  flags = SDL_GL_CONTEXT_FLAGS,
+  double_buffer = SDL_GL_DOUBLEBUFFER,
+  accelerated_visual = SDL_GL_ACCELERATED_VISUAL,
+  retained_backing = SDL_GL_RETAINED_BACKING,
+  share_with_current_context = SDL_GL_SHARE_WITH_CURRENT_CONTEXT,
+  framebuffer_srgb_capable = SDL_GL_FRAMEBUFFER_SRGB_CAPABLE,
+
+  multisample_buffers = SDL_GL_MULTISAMPLEBUFFERS,
+  multisample_samples = SDL_GL_MULTISAMPLESAMPLES,
+
+  context_major_version = SDL_GL_CONTEXT_MAJOR_VERSION,
+  context_minor_version = SDL_GL_CONTEXT_MINOR_VERSION,
+  context_profile_mask = SDL_GL_CONTEXT_PROFILE_MASK,
+  context_release_behaviour = SDL_GL_CONTEXT_RELEASE_BEHAVIOR,
+  context_reset_notification = SDL_GL_CONTEXT_RESET_NOTIFICATION,
+  context_no_error = SDL_GL_CONTEXT_NO_ERROR
+};
+
+namespace gl {
+
+/**
+ * \class library
+ *
+ * \brief Manages the initialization and de-initialization of an OpenGL library.
+ *
+ * \since 6.0.0
+ *
+ * \headerfile opengl.hpp
+ */
+class library final
+{
+ public:
+  /**
+   * \brief Loads an OpenGL library.
+   *
+   * \param path the file path to the OpenGL library that will be used; null
+   * indicates that the default library will be used.
+   *
+   * \throws sdl_error if the OpenGL library can't be loaded.
+   *
+   * \since 6.0.0
+   */
+  explicit library(const czstring path = nullptr)
+  {
+    if (SDL_GL_LoadLibrary(path) == -1)
+    {
+      throw sdl_error{};
+    }
+  }
+
+  library(const library&) = delete;
+  library(library&&) = delete;
+
+  auto operator=(const library&) -> library& = delete;
+  auto operator=(library&&) -> library& = delete;
+
+  ~library() noexcept
+  {
+    SDL_GL_UnloadLibrary();
+  }
+
+  // clang-format off
+
+  /**
+   * \brief Returns the address of an OpenGL function.
+   *
+   * \details This function must be used to retrieve OpenGL functions after
+   * loading the library at runtime.
+   *
+   * \note Be sure to declare your function pointers with `APIENTRY` to ensure
+   * the correct calling convention on different platforms, which avoids stack
+   * corruption.
+   *
+   * \param function the name of the function to obtain the address of.
+   *
+   * \return the address of the specified function; null if something went
+   * wrong.
+   *
+   * \since 6.0.0
+   */
+  [[nodiscard]] auto address_of(const not_null<czstring> function) const noexcept // NOLINT
+      -> void*
+  {
+    assert(function);
+    return SDL_GL_GetProcAddress(function);
+  }
+
+  // clang-format on
+};
+
+// clang-format off
+
+[[nodiscard]] inline auto is_extension_supported(const not_null<czstring> extension) noexcept
+    -> bool
+{
+  assert(extension);
+  return SDL_GL_ExtensionSupported(extension) == SDL_TRUE;
+}
+
+[[nodiscard]] inline auto is_extension_supported(const std::string& extension) noexcept
+    -> bool
+{
+  return is_extension_supported(extension.c_str());
+}
+
+// clang-format on
+
+inline void reset_attributes() noexcept
+{
+  SDL_GL_ResetAttributes();
+}
+
+inline auto set_attribute(const gl_attribute attribute, const int value) -> bool
+{
+  return SDL_GL_SetAttribute(static_cast<SDL_GLattr>(attribute), value) == 0;
+}
+
+inline auto get_attribute(const gl_attribute attribute) noexcept
+    -> std::optional<int>
+{
+  int value{};
+  if (SDL_GL_GetAttribute(static_cast<SDL_GLattr>(attribute), &value) == 0)
+  {
+    return value;
+  }
+  else
+  {
+    return std::nullopt;
+  }
+}
+
+[[nodiscard]] inline auto get_window() noexcept -> window_handle
+{
+  return window_handle{SDL_GL_GetCurrentWindow()};
+}
+
+[[nodiscard]] inline auto get_context() noexcept -> context_handle
+{
+  return context_handle{SDL_GL_GetCurrentContext()};
+}
+
+template <typename T>
+[[nodiscard]] auto drawable_size(const basic_window<T>& window) noexcept
+    -> iarea
+{
+  assert(window.is_opengl());
+
+  int width{};
+  int height{};
+  SDL_GL_GetDrawableSize(window.get(), &width, &height);
+
+  return {width, height};
+}
+
+inline auto set_swap_interval(const int interval) noexcept -> bool
+{
+  return SDL_GL_SetSwapInterval(interval) == 0;
+}
+
+[[nodiscard]] inline auto swap_interval() noexcept -> int
+{
+  return SDL_GL_GetSwapInterval();
+}
+
+/**
+ * \brief Swaps the buffers for an OpenGL window.
+ *
+ * \pre The window must be usable within an OpenGL context.
+ *
+ * \note This requires that double-buffering is supported.
+ *
+ * \param window the OpenGL window to swap the buffers for.
+ *
+ * \since 6.0.0
+ */
+template <typename T>
+void swap(basic_window<T>& window) noexcept
+{
+  assert(window.is_opengl());
+  SDL_GL_SwapWindow(window.get());
+}
+
+}  // namespace gl
+}  // namespace cen
+
+#endif  // CENTURION_FEATURE_OPENGL
+#endif  // CENTURION_OPENGL_HEADER
+
 // #include "centurion/video/graphics_drivers.hpp"
 #ifndef CENTURION_GRAPHICS_DRIVERS_HEADER
 #define CENTURION_GRAPHICS_DRIVERS_HEADER
@@ -70054,7 +79178,7 @@ class font_cache final
 
 namespace cen {
 
-/// \addtogroup graphics
+/// \addtogroup video
 /// \{
 
 /**
@@ -70066,7 +79190,7 @@ namespace cen {
  *
  * \since 5.0.0
  */
-[[nodiscard]] inline auto num_render_drivers() noexcept -> int
+[[nodiscard]] inline auto render_driver_count() noexcept -> int
 {
   return SDL_GetNumRenderDrivers();
 }
@@ -70078,7 +79202,7 @@ namespace cen {
  *
  * \since 5.0.0
  */
-[[nodiscard]] inline auto num_video_drivers() noexcept -> int
+[[nodiscard]] inline auto video_driver_count() noexcept -> int
 {
   return SDL_GetNumVideoDrivers();
 }
@@ -70195,7 +79319,7 @@ class stack_resource final
 /**
  * \namespace cen::colors
  *
- * \ingroup graphics
+ * \ingroup video
  *
  * \brief Contains pre-defined `color` constants.
  *
@@ -71416,7 +80540,7 @@ template <typename T>
 
 namespace cen {
 
-/// \addtogroup graphics
+/// \addtogroup video
 /// \{
 
 template <typename B>
@@ -71493,16 +80617,21 @@ class basic_window final
    *
    * \param title the title of the window, can't be null.
    * \param size the size of the window, components must be greater than zero.
+   * \param flags the window flags.
    *
    * \throws cen_error if the supplied width or height aren't
    * greater than zero.
    * \throws sdl_error if the window cannot be created.
    *
+   * \see `default_size()`
+   * \see `default_flags()`
+   *
    * \since 3.0.0
    */
   template <typename BB = B, detail::is_owner<BB> = true>
   explicit basic_window(const not_null<czstring> title,
-                        const iarea& size = default_size())
+                        const iarea& size = default_size(),
+                        const u32 flags = default_flags())
   {
     assert(title);
 
@@ -71521,7 +80650,7 @@ class basic_window final
                                     SDL_WINDOWPOS_CENTERED,
                                     size.width,
                                     size.height,
-                                    SDL_WINDOW_HIDDEN));
+                                    flags));
     if (!m_window)
     {
       throw sdl_error{};
@@ -71535,17 +80664,22 @@ class basic_window final
    *
    * \param title the title of the window.
    * \param size the size of the window, components must be greater than zero.
+   * \param flags the window flags.
    *
    * \throws cen_error if the supplied width or height aren't
    * greater than zero.
    * \throws sdl_error if the window cannot be created.
    *
+   * \see `default_size()`
+   * \see `default_flags()`
+   *
    * \since 5.3.0
    */
   template <typename BB = B, detail::is_owner<BB> = true>
   explicit basic_window(const std::string& title,
-                        const iarea& size = default_size())
-      : basic_window{title.c_str(), size}
+                        const iarea& size = default_size(),
+                        const u32 flags = default_flags())
+      : basic_window{title.c_str(), size, flags}
   {}
 
   /**
@@ -72429,9 +81563,15 @@ class basic_window final
    * \since 5.0.0
    */
   template <typename BB = B, detail::is_owner<BB> = true>
-  [[nodiscard]] constexpr static auto default_size() -> iarea
+  [[nodiscard]] constexpr static auto default_size() noexcept -> iarea
   {
     return {800, 600};
+  }
+
+  template <typename BB = B, detail::is_owner<BB> = true>
+  [[nodiscard]] constexpr static auto default_flags() noexcept -> u32
+  {
+    return SDL_WINDOW_HIDDEN;
   }
 
  private:
@@ -72493,7 +81633,7 @@ auto operator<<(std::ostream& stream, const basic_window<T>& window)
 
 namespace cen {
 
-/// \addtogroup graphics
+/// \addtogroup video
 /// \{
 
 /**
@@ -73204,7 +82344,7 @@ class message_box final
 
 namespace cen {
 
-/// \addtogroup graphics
+/// \addtogroup video
 /// \{
 
 /**
@@ -73608,6 +82748,7 @@ class basic_pixel_format_info final
 #include <SDL.h>
 
 #include <cassert>        // assert
+#include <cmath>          // floor, sqrt
 #include <cstddef>        // size_t
 #include <memory>         // unique_ptr
 #include <optional>       // optional
@@ -73673,7 +82814,7 @@ class basic_pixel_format_info final
 
 namespace cen {
 
-/// \addtogroup graphics
+/// \addtogroup video
 /// \{
 
 /**
@@ -74505,7 +83646,7 @@ class font_cache final
 
 namespace cen {
 
-/// \addtogroup graphics
+/// \addtogroup video
 /// \{
 
 template <typename B>
@@ -74599,10 +83740,6 @@ class basic_renderer final
     {
       throw sdl_error{};
     }
-
-    set_blend_mode(blend_mode::blend);
-    set_color(colors::black);
-    set_logical_integer_scale(false);
   }
 
   template <typename BB = B, detail::is_handle<BB> = true>
@@ -74832,7 +83969,147 @@ class basic_renderer final
     }
   }
 
+  template <typename U>
+  void draw_point(const basic_point<U>& point) noexcept
+  {
+    if constexpr (basic_point<U>::isIntegral)
+    {
+      SDL_RenderDrawPoint(get(), point.x(), point.y());
+    }
+    else
+    {
+      SDL_RenderDrawPointF(get(), point.x(), point.y());
+    }
+  }
+
+  template <typename U>
+  void draw_circle(const basic_point<U>& position, const float radius) noexcept
+  {
+    using value_t = typename basic_point<U>::value_type;
+
+    auto error = -radius;
+    auto x = radius - 0.5f;
+    auto y = 0.5f;
+
+    const auto cx = static_cast<float>(position.x()) - 0.5f;
+    const auto cy = static_cast<float>(position.y()) - 0.5f;
+
+    while (x >= y)
+    {
+      // clang-format off
+      draw_point<value_t>({static_cast<value_t>(cx + x), static_cast<value_t>(cy + y)});
+      draw_point<value_t>({static_cast<value_t>(cx + y), static_cast<value_t>(cy + x)});
+
+      if (x != 0)
+      {
+        draw_point<value_t>({static_cast<value_t>(cx - x), static_cast<value_t>(cy + y)});
+        draw_point<value_t>({static_cast<value_t>(cx + y), static_cast<value_t>(cy - x)});
+      }
+
+      if (y != 0)
+      {
+        draw_point<value_t>({static_cast<value_t>(cx + x), static_cast<value_t>(cy - y)});
+        draw_point<value_t>({static_cast<value_t>(cx - y), static_cast<value_t>(cy + x)});
+      }
+
+      if (x != 0 && y != 0)
+      {
+        draw_point<value_t>({static_cast<value_t>(cx - x), static_cast<value_t>(cy - y)});
+        draw_point<value_t>({static_cast<value_t>(cx - y), static_cast<value_t>(cy - x)});
+      }
+      // clang-format on
+
+      error += y;
+      ++y;
+      error += y;
+
+      if (error >= 0)
+      {
+        --x;
+        error -= x;
+        error -= x;
+      }
+    }
+  }
+
+  void fill_circle(const fpoint& center, const float radius)
+  {
+    const auto cx = center.x();
+    const auto cy = center.y();
+
+    for (auto dy = 1.0f; dy <= radius; dy += 1.0f)
+    {
+      const auto dx = std::floor(std::sqrt((2.0f * radius * dy) - (dy * dy)));
+      const auto x = cx - dx;
+
+      draw_line<float>({cx - dx, cy + dy - radius},
+                       {cx + dx, cy + dy - radius});
+      draw_line<float>({cx - dx, cy - dy + radius},
+                       {cx + dx, cy - dy + radius});
+    }
+  }
+
   /// \} End of primitive rendering
+
+  /// \name Translated primitive rendering
+  /// \{
+
+  /**
+   * \brief Renders an outlined rectangle in the currently selected color.
+   *
+   * \details The rendered rectangle will be translated using the current
+   * translation viewport.
+   *
+   * \tparam R the representation type used by the rectangle.
+   *
+   * \param rect the rectangle that will be rendered.
+   *
+   * \since 4.1.0
+   */
+  template <typename R, typename BB = B, detail::is_owner<BB> = true>
+  void draw_rect_t(const basic_rect<R>& rect) noexcept
+  {
+    draw_rect(translate(rect));
+  }
+
+  /**
+   * \brief Renders a filled rectangle in the currently selected color.
+   *
+   * \details The rendered rectangle will be translated using the current
+   * translation viewport.
+   *
+   * \tparam R the representation type used by the rectangle.
+   *
+   * \param rect the rectangle that will be rendered.
+   *
+   * \since 4.1.0
+   */
+  template <typename R, typename BB = B, detail::is_owner<BB> = true>
+  void fill_rect_t(const basic_rect<R>& rect) noexcept
+  {
+    fill_rect(translate(rect));
+  }
+
+  template <typename U, typename BB = B, detail::is_owner<BB> = true>
+  void draw_point_t(const basic_point<U>& point) noexcept
+  {
+    draw_point(translate(point));
+  }
+
+  template <typename U, typename BB = B, detail::is_owner<BB> = true>
+  void draw_circle_t(const basic_point<U>& position,
+                     const float radius) noexcept
+  {
+    draw_circle(translate(position), radius);
+  }
+
+  template <typename BB = B, detail::is_owner<BB> = true>
+  void fill_circle_t(const fpoint& center, const float radius)
+  {
+    fill_circle(translate(center), radius);
+  }
+
+  /// \} End of translated primitive rendering
 
   /// \name Text rendering
   /// \{
@@ -75642,76 +84919,8 @@ class basic_renderer final
 
   /// \} End of texture rendering
 
-  /// \name Translated rendering.
+  /// \name Translated texture rendering.
   /// \{
-
-  /**
-   * \brief Sets the translation viewport that will be used by the renderer.
-   *
-   * \details This function should be called before calling any of the `_t`
-   * rendering methods, for automatic translation.
-   *
-   * \param viewport the rectangle that will be used as the translation
-   * viewport.
-   *
-   * \since 3.0.0
-   */
-  template <typename BB = B, detail::is_owner<BB> = true>
-  void set_translation_viewport(const frect& viewport) noexcept
-  {
-    m_renderer.translation = viewport;
-  }
-
-  /**
-   * \brief Returns the translation viewport that is currently being used.
-   *
-   * \details Set to (0, 0, 0, 0) by default.
-   *
-   * \return the translation viewport that is currently being used.
-   *
-   * \since 3.0.0
-   */
-  template <typename BB = B, detail::is_owner<BB> = true>
-  [[nodiscard]] auto translation_viewport() const noexcept -> const frect&
-  {
-    return m_renderer.translation;
-  }
-
-  /**
-   * \brief Renders an outlined rectangle in the currently selected color.
-   *
-   * \details The rendered rectangle will be translated using the current
-   * translation viewport.
-   *
-   * \tparam R the representation type used by the rectangle.
-   *
-   * \param rect the rectangle that will be rendered.
-   *
-   * \since 4.1.0
-   */
-  template <typename R, typename BB = B, detail::is_owner<BB> = true>
-  void draw_rect_t(const basic_rect<R>& rect) noexcept
-  {
-    draw_rect(translate(rect));
-  }
-
-  /**
-   * \brief Renders a filled rectangle in the currently selected color.
-   *
-   * \details The rendered rectangle will be translated using the current
-   * translation viewport.
-   *
-   * \tparam R the representation type used by the rectangle.
-   *
-   * \param rect the rectangle that will be rendered.
-   *
-   * \since 4.1.0
-   */
-  template <typename R, typename BB = B, detail::is_owner<BB> = true>
-  void fill_rect_t(const basic_rect<R>& rect) noexcept
-  {
-    fill_rect(translate(rect));
-  }
 
   /**
    * \brief Renders a texture at the specified position.
@@ -75891,7 +85100,44 @@ class basic_renderer final
     render(texture, source, translate(destination), angle, center, flip);
   }
 
-  /// \} End of translated rendering
+  /// \} End of translated texture rendering
+
+  /// \name Translation viewport
+  /// \{
+
+  /**
+   * \brief Sets the translation viewport that will be used by the renderer.
+   *
+   * \details This function should be called before calling any of the `_t`
+   * rendering methods, for automatic translation.
+   *
+   * \param viewport the rectangle that will be used as the translation
+   * viewport.
+   *
+   * \since 3.0.0
+   */
+  template <typename BB = B, detail::is_owner<BB> = true>
+  void set_translation_viewport(const frect& viewport) noexcept
+  {
+    m_renderer.translation = viewport;
+  }
+
+  /**
+   * \brief Returns the translation viewport that is currently being used.
+   *
+   * \details Set to (0, 0, 0, 0) by default.
+   *
+   * \return the translation viewport that is currently being used.
+   *
+   * \since 3.0.0
+   */
+  template <typename BB = B, detail::is_owner<BB> = true>
+  [[nodiscard]] auto translation_viewport() const noexcept -> const frect&
+  {
+    return m_renderer.translation;
+  }
+
+  /// \} End of translation viewport
 
   /// \name Font handling
   /// \{
@@ -76135,8 +85381,8 @@ class basic_renderer final
    * \brief Sets whether or not to force integer scaling for the logical
    * viewport.
    *
-   * \details By default, this property is set to false. This function can be
-   * useful to combat visual artefacts when doing floating-point rendering.
+   * \details This function can be useful to combat visual artefacts when doing
+   * floating-point rendering.
    *
    * \param enabled `true` if integer scaling should be used; `false` otherwise.
    *
@@ -76401,8 +85647,6 @@ class basic_renderer final
   /**
    * \brief Returns the currently selected rendering color.
    *
-   * \details The default color is black.
-   *
    * \return the currently selected rendering color.
    *
    * \since 3.0.0
@@ -76633,7 +85877,7 @@ auto operator<<(std::ostream& stream, const basic_renderer<B>& renderer)
 
 namespace cen {
 
-/// \addtogroup graphics
+/// \addtogroup video
 /// \{
 
 #if SDL_VERSION_ATLEAST(2, 0, 12)
@@ -77117,10 +86361,9 @@ inline void set_screen_saver_enabled(const bool enabled) noexcept
 #include <SDL.h>
 #include <SDL_image.h>
 
-#include <cassert>      // assert
-#include <ostream>      // ostream
-#include <string>       // string
-#include <type_traits>  // true_type, false_type
+#include <cassert>  // assert
+#include <ostream>  // ostream
+#include <string>   // string
 
 // #include "../centurion_cfg.hpp"
 
@@ -77157,10 +86400,10 @@ inline void set_screen_saver_enabled(const bool enabled) noexcept
 
 namespace cen {
 
-/// \addtogroup graphics
+/// \addtogroup video
 /// \{
 
-template <typename B>
+template <typename T>
 class basic_surface;
 
 /**
@@ -77170,7 +86413,7 @@ class basic_surface;
  *
  * \since 5.0.0
  */
-using surface = basic_surface<std::true_type>;
+using surface = basic_surface<detail::owning_type>;
 
 /**
  * \typedef surface_handle
@@ -77179,24 +86422,32 @@ using surface = basic_surface<std::true_type>;
  *
  * \since 5.0.0
  */
-using surface_handle = basic_surface<std::false_type>;
+using surface_handle = basic_surface<detail::handle_type>;
 
 /**
  * \class basic_surface
  *
- * \brief Represents a non-accelerated image.
+ * \brief Represents a non-accelerated collection of pixels that constitute an
+ * image.
  *
- * \tparam B `std::true_type` for owning surfaces; `std::false_type` for
- * non-owning surfaces.
+ * \details Surfaces are often used for icons and snapshots, as an "intermediate"
+ * representation that can be manually manipulated, unlike textures. There is no
+ * support for directly rendering surfaces, but they can be converted to
+ * textures, which in turn can be rendered.
+ *
+ * \tparam B Used to determine the ownership semantics of the class.
  *
  * \since 4.0.0
  *
  * \headerfile surface.hpp
  */
-template <typename B>
+template <typename T>
 class basic_surface final
 {
  public:
+  /// \name Construction
+  /// \{
+
   /**
    * \brief Creates a surface from a pointer to an SDL surface.
    *
@@ -77207,10 +86458,10 @@ class basic_surface final
    *
    * \since 4.0.0
    */
-  explicit basic_surface(SDL_Surface* surface) noexcept(!detail::is_owning<B>())
+  explicit basic_surface(SDL_Surface* surface) noexcept(!detail::is_owning<T>())
       : m_surface{surface}
   {
-    if constexpr (detail::is_owning<B>())
+    if constexpr (detail::is_owning<T>())
     {
       if (!m_surface)
       {
@@ -77231,7 +86482,7 @@ class basic_surface final
    *
    * \since 4.0.0
    */
-  template <typename BB = B, detail::is_owner<BB> = true>
+  template <typename TT = T, detail::is_owner<TT> = true>
   explicit basic_surface(const not_null<czstring> file)
       : m_surface{IMG_Load(file)}
   {
@@ -77252,7 +86503,7 @@ class basic_surface final
    *
    * \since 5.3.0
    */
-  template <typename BB = B, detail::is_owner<BB> = true>
+  template <typename TT = T, detail::is_owner<TT> = true>
   explicit basic_surface(const std::string& file) : basic_surface{file.c_str()}
   {}
 
@@ -77268,7 +86519,7 @@ class basic_surface final
    *
    * \since 5.3.0
    */
-  template <typename BB = B, detail::is_owner<BB> = true>
+  template <typename TT = T, detail::is_owner<TT> = true>
   basic_surface(const iarea size, const pixel_format pixelFormat)
       : m_surface{SDL_CreateRGBSurfaceWithFormat(0,
                                                  size.width,
@@ -77295,7 +86546,7 @@ class basic_surface final
    *
    * \since 5.2.0
    */
-  template <typename BB = B, detail::is_owner<BB> = true>
+  template <typename TT = T, detail::is_owner<TT> = true>
   [[nodiscard]] static auto with_format(const not_null<czstring> file,
                                         const blend_mode blendMode,
                                         const pixel_format pixelFormat)
@@ -77307,6 +86558,18 @@ class basic_surface final
     source.set_blend_mode(blendMode);
 
     return source.convert(pixelFormat);
+  }
+
+  /**
+   * \see with_format()
+   */
+  template <typename TT = T, detail::is_owner<TT> = true>
+  [[nodiscard]] static auto with_format(const std::string& file,
+                                        const blend_mode blendMode,
+                                        const pixel_format pixelFormat)
+      -> basic_surface
+  {
+    return with_format(file.c_str(), blendMode, pixelFormat);
   }
 
   /**
@@ -77322,12 +86585,21 @@ class basic_surface final
    *
    * \since 5.3.0
    */
-  template <typename BB = B, detail::is_owner<BB> = true>
+  template <typename TT = T, detail::is_owner<TT> = true>
   [[nodiscard]] static auto from_bmp(const not_null<czstring> file)
       -> basic_surface
   {
     assert(file);
     return basic_surface{SDL_LoadBMP(file)};
+  }
+
+  /**
+   * \see from_bmp()
+   */
+  template <typename TT = T, detail::is_owner<TT> = true>
+  [[nodiscard]] static auto from_bmp(const std::string& file) -> basic_surface
+  {
+    return from_bmp(file.c_str());
   }
 
   /**
@@ -77337,9 +86609,9 @@ class basic_surface final
    *
    * \since 4.0.0
    */
-  basic_surface(const basic_surface& other) noexcept(!detail::is_owning<B>())
+  basic_surface(const basic_surface& other) noexcept(!detail::is_owning<T>())
   {
-    if constexpr (detail::is_owning<B>())
+    if constexpr (detail::is_owning<T>())
     {
       copy(other);
     }
@@ -77358,6 +86630,8 @@ class basic_surface final
    */
   basic_surface(basic_surface&& other) noexcept = default;
 
+  /// \} End of construction
+
   /**
    * \brief Copies the supplied surface.
    *
@@ -77367,12 +86641,12 @@ class basic_surface final
    *
    * \since 4.0.0
    */
-  auto operator=(const basic_surface& other) noexcept(!detail::is_owning<B>())
+  auto operator=(const basic_surface& other) noexcept(!detail::is_owning<T>())
       -> basic_surface&
   {
     if (this != &other)
     {
-      if constexpr (detail::is_owning<B>())
+      if constexpr (detail::is_owning<T>())
       {
         copy(other);
       }
@@ -77395,8 +86669,11 @@ class basic_surface final
    */
   auto operator=(basic_surface&& other) noexcept -> basic_surface& = default;
 
+  /// \name Save functions
+  /// \{
+
   /**
-   * \brief Saves the surface as a BMP file.
+   * \brief Saves the surface as a BMP image.
    *
    * \param file the file path that the surface data will be saved at.
    *
@@ -77412,49 +86689,75 @@ class basic_surface final
   }
 
   /**
-   * \brief Sets the color of the pixel at the specified coordinate.
-   *
-   * \details This method has no effect if the coordinate is out-of-bounds or if
-   * something goes wrong when attempting to modify the pixel data.
-   *
-   * \param pixel the pixel that will be changed.
-   * \param color the new color of the pixel.
-   *
-   * \since 4.0.0
+   * \see save_as_bmp()
+   * \since 6.0.0
    */
-  void set_pixel(const ipoint& pixel, const color& color) noexcept
+  auto save_as_bmp(const std::string& file) const noexcept -> bool  // NOLINT
   {
-    if (!in_bounds(pixel) || !lock())
-    {
-      return;
-    }
-
-    const int nPixels = (m_surface->pitch / 4) * height();
-    const int index = (pixel.y() * width()) + pixel.x();
-
-    if ((index >= 0) && (index < nPixels))
-    {
-      const auto info = format_info();
-      auto* pixels = reinterpret_cast<u32*>(m_surface->pixels);
-      pixels[index] = info.rgba_to_pixel(color);
-    }
-
-    unlock();
+    return save_as_bmp(file.c_str());
   }
 
   /**
-   * \brief Indicates whether or not the surface must be locked before modifying
-   * the pixel data associated with the surface.
+   * \brief Saves the surface as a PNG image.
    *
-   * \return `true` if the surface must be locked before modification; `false`
-   * otherwise.
+   * \param file the file path that the surface data will be saved at.
    *
-   * \since 4.0.0
+   * \return `true` on success; `false` otherwise.
+   *
+   * \since 6.0.0
    */
-  [[nodiscard]] auto must_lock() const noexcept -> bool
+  auto save_as_png(const not_null<czstring> file) const noexcept -> bool
   {
-    return SDL_MUSTLOCK(m_surface);
+    assert(file);
+    const auto result = IMG_SavePNG(get(), file);
+    return result != -1;
   }
+
+  /**
+   * \see save_as_png()
+   * \since 6.0.0
+   */
+  auto save_as_png(const std::string& file) const noexcept -> bool  // NOLINT
+  {
+    return save_as_png(file.c_str());
+  }
+
+  /**
+   * \brief Saves the surface as a JPG image.
+   *
+   * \note The quality parameter is supplied to libjpeg in the SDL
+   * implementation, but the limitations on its values are unknown at the time
+   * of writing.
+   *
+   * \param file the file path that the surface data will be saved at.
+   * \param quality the quality of the JPG image.
+   *
+   * \return `true` on success; `false` otherwise.
+   *
+   * \since 6.0.0
+   */
+  auto save_as_jpg(const not_null<czstring> file,
+                   const int quality) const noexcept -> bool
+  {
+    assert(file);
+    const auto result = IMG_SaveJPG(get(), file, quality);
+    return result != -1;
+  }
+
+  /**
+   * \see save_as_jpg()
+   * \since 6.0.0
+   */
+  auto save_as_jpg(const std::string& file, const int quality) const noexcept
+      -> bool
+  {
+    return save_as_jpg(file.c_str(), quality);
+  }
+
+  /// \} End of save functions
+
+  /// \name Locking
+  /// \{
 
   /**
    * \brief Attempts to lock the surface, so that the associated pixel data can
@@ -77493,6 +86796,56 @@ class basic_surface final
     {
       SDL_UnlockSurface(m_surface);
     }
+  }
+
+  /**
+   * \brief Indicates whether or not the surface must be locked before modifying
+   * the pixel data associated with the surface.
+   *
+   * \return `true` if the surface must be locked before modification; `false`
+   * otherwise.
+   *
+   * \since 4.0.0
+   */
+  [[nodiscard]] auto must_lock() const noexcept -> bool
+  {
+    return SDL_MUSTLOCK(m_surface);
+  }
+
+  /// \} End of locking
+
+  /// \name Setters
+  /// \{
+
+  /**
+   * \brief Sets the color of the pixel at the specified coordinate.
+   *
+   * \details This method has no effect if the coordinate is out-of-bounds or if
+   * something goes wrong when attempting to modify the pixel data.
+   *
+   * \param pixel the pixel that will be changed.
+   * \param color the new color of the pixel.
+   *
+   * \since 4.0.0
+   */
+  void set_pixel(const ipoint& pixel, const color& color) noexcept
+  {
+    if (!in_bounds(pixel) || !lock())
+    {
+      return;
+    }
+
+    const int nPixels = (m_surface->pitch / 4) * height();
+    const int index = (pixel.y() * width()) + pixel.x();
+
+    if ((index >= 0) && (index < nPixels))
+    {
+      const auto info = format_info();
+      auto* pixels = reinterpret_cast<u32*>(m_surface->pixels);
+      pixels[index] = info.rgba_to_pixel(color);
+    }
+
+    unlock();
   }
 
   /**
@@ -77548,6 +86901,11 @@ class basic_surface final
   {
     return SDL_SetSurfaceRLE(m_surface, enabled ? 1 : 0) == 0;
   }
+
+  /// \} End of setters
+
+  /// \name Getters
+  /// \{
 
   /**
    * \brief Returns the alpha component modulation of the surface.
@@ -77771,6 +87129,11 @@ class basic_surface final
     return m_surface.get();
   }
 
+  /// \} End of getters
+
+  /// \name Conversions
+  /// \{
+
   /**
    * \brief Indicates whether or not a surface handle holds a non-null pointer.
    *
@@ -77781,7 +87144,7 @@ class basic_surface final
    *
    * \since 5.0.0
    */
-  template <typename BB = B, detail::is_handle<BB> = true>
+  template <typename TT = T, detail::is_handle<TT> = true>
   explicit operator bool() const noexcept
   {
     return m_surface != nullptr;
@@ -77811,6 +87174,8 @@ class basic_surface final
     return get();
   }
 
+  /// \} End of conversions
+
  private:
   struct deleter final
   {
@@ -77819,7 +87184,7 @@ class basic_surface final
       SDL_FreeSurface(surface);
     }
   };
-  detail::pointer_manager<B, SDL_Surface, deleter> m_surface;
+  detail::pointer_manager<T, SDL_Surface, deleter> m_surface;
 
   /**
    * \brief Copies the contents of the supplied surface instance into this
@@ -77921,6 +87286,7 @@ auto operator<<(std::ostream& stream, const basic_surface<T>& surface)
 }  // namespace cen
 
 #endif  // CENTURION_SURFACE_HEADER
+
 // #include "centurion/video/texture.hpp"
 #ifndef CENTURION_TEXTURE_HEADER
 #define CENTURION_TEXTURE_HEADER
@@ -77928,11 +87294,10 @@ auto operator<<(std::ostream& stream, const basic_surface<T>& surface)
 #include <SDL.h>
 #include <SDL_image.h>
 
-#include <cassert>      // assert
-#include <cstddef>      // size_t
-#include <ostream>      // ostream
-#include <string>       // string
-#include <type_traits>  // true_type, false_type
+#include <cassert>  // assert
+#include <cstddef>  // size_t
+#include <ostream>  // ostream
+#include <string>   // string
 
 // #include "../centurion_cfg.hpp"
 
@@ -77973,19 +87338,20 @@ auto operator<<(std::ostream& stream, const basic_surface<T>& surface)
 
 namespace cen {
 
-/// \addtogroup graphics
+/// \addtogroup video
 /// \{
 
 template <typename T>
 class basic_texture;
 
-using texture = basic_texture<std::true_type>;
-using texture_handle = basic_texture<std::false_type>;
+using texture = basic_texture<detail::owning_type>;
+using texture_handle = basic_texture<detail::handle_type>;
 
 /**
  * \class basic_texture
  *
- * \brief Represents an hardware-accelerated image.
+ * \brief Represents an hardware-accelerated image. This class is used for all
+ * non-primitive rendering.
  *
  * \since 3.0.0
  *
@@ -77995,24 +87361,27 @@ using texture_handle = basic_texture<std::false_type>;
  *
  * \headerfile texture.hpp
  */
-template <typename B>
+template <typename T>
 class basic_texture final
 {
  public:
+  /// \name Construction
+  /// \{
+
   /**
    * \brief Creates an texture from a pre-existing SDL texture.
    *
-   * \param src a pointer to the associated SDL texture.
+   * \param source a pointer to the associated SDL texture.
    *
    * \throws cen_error if the supplied pointer is null *and* the texture is
    * owning.
    *
    * \since 3.0.0
    */
-  explicit basic_texture(SDL_Texture* src) noexcept(!detail::is_owning<B>())
-      : m_texture{src}
+  explicit basic_texture(SDL_Texture* source) noexcept(!detail::is_owning<T>())
+      : m_texture{source}
   {
-    if constexpr (detail::is_owning<B>())
+    if constexpr (detail::is_owning<T>())
     {
       if (!m_texture)
       {
@@ -78028,7 +87397,7 @@ class basic_texture final
    *
    * \since 5.0.0
    */
-  template <typename BB = B, detail::is_handle<BB> = true>
+  template <typename TT = T, detail::is_handle<TT> = true>
   explicit basic_texture(texture& owner) noexcept : m_texture{owner.get()}
   {}
 
@@ -78045,7 +87414,7 @@ class basic_texture final
    *
    * \since 4.0.0
    */
-  template <typename Renderer, typename BB = B, detail::is_owner<BB> = true>
+  template <typename Renderer, typename TT = T, detail::is_owner<TT> = true>
   basic_texture(const Renderer& renderer, const not_null<czstring> path)
       : m_texture{IMG_LoadTexture(renderer.get(), path)}
   {
@@ -78068,7 +87437,7 @@ class basic_texture final
    *
    * \since 5.3.0
    */
-  template <typename Renderer, typename BB = B, detail::is_owner<BB> = true>
+  template <typename Renderer, typename TT = T, detail::is_owner<TT> = true>
   basic_texture(const Renderer& renderer, const std::string& path)
       : basic_texture{renderer, path.c_str()}
   {}
@@ -78086,7 +87455,7 @@ class basic_texture final
    *
    * \since 4.0.0
    */
-  template <typename Renderer, typename BB = B, detail::is_owner<BB> = true>
+  template <typename Renderer, typename TT = T, detail::is_owner<TT> = true>
   basic_texture(const Renderer& renderer, const surface& surface)
       : m_texture{SDL_CreateTextureFromSurface(renderer.get(), surface.get())}
   {
@@ -78111,7 +87480,7 @@ class basic_texture final
    *
    * \since 4.0.0
    */
-  template <typename Renderer, typename BB = B, detail::is_owner<BB> = true>
+  template <typename Renderer, typename TT = T, detail::is_owner<TT> = true>
   basic_texture(const Renderer& renderer,
                 const pixel_format format,
                 const texture_access access,
@@ -78148,7 +87517,7 @@ class basic_texture final
    *
    * \since 4.0.0
    */
-  template <typename Renderer, typename BB = B, detail::is_owner<BB> = true>
+  template <typename Renderer, typename TT = T, detail::is_owner<TT> = true>
   [[nodiscard]] static auto streaming(const Renderer& renderer,
                                       const not_null<czstring> path,
                                       const pixel_format format)
@@ -78184,7 +87553,7 @@ class basic_texture final
    * \see streaming()
    * \since 5.3.0
    */
-  template <typename Renderer, typename BB = B, detail::is_owner<BB> = true>
+  template <typename Renderer, typename TT = T, detail::is_owner<TT> = true>
   [[nodiscard]] static auto streaming(const Renderer& renderer,
                                       const std::string& path,
                                       const pixel_format format)
@@ -78192,6 +87561,11 @@ class basic_texture final
   {
     return streaming(renderer, path.c_str(), format);
   }
+
+  /// \} End of construction
+
+  /// \name Setters
+  /// \{
 
   /**
    * \brief Sets the color of the pixel at the specified coordinate.
@@ -78286,24 +87660,10 @@ class basic_texture final
 
 #endif  // SDL_VERSION_ATLEAST(2, 0, 12)
 
-  /**
-   * \brief Releases ownership of the associated SDL texture and returns a
-   * pointer to it.
-   *
-   * \warning Usage of this function should be considered dangerous, since
-   * you might run into memory leak issues. You **must** call
-   * `SDL_DestroyTexture` on the returned pointer to free the associated
-   * memory.
-   *
-   * \return a pointer to the associated SDL texture.
-   *
-   * \since 5.0.0
-   */
-  template <typename BB = B, detail::is_owner<BB> = true>
-  [[nodiscard]] auto release() noexcept -> owner<SDL_Texture*>
-  {
-    return m_texture.release();
-  }
+  /// \} End of setters
+
+  /// \name Getters
+  /// \{
 
   /**
    * \brief Returns the pixel format that is used by the texture.
@@ -78475,18 +87835,22 @@ class basic_texture final
 #endif  // SDL_VERSION_ATLEAST(2, 0, 12)
 
   /**
-   * \brief Indicates whether or not a texture handle holds a non-null pointer.
+   * \brief Releases ownership of the associated SDL texture and returns a
+   * pointer to it.
    *
-   * \tparam BB dummy parameter for SFINAE.
+   * \warning Usage of this function should be considered dangerous, since
+   * you might run into memory leak issues. You **must** call
+   * `SDL_DestroyTexture` on the returned pointer to free the associated
+   * memory.
    *
-   * \return `true` if the handle holds a non-null pointer; `false` otherwise.
+   * \return a pointer to the associated SDL texture.
    *
    * \since 5.0.0
    */
-  template <typename BB = B, detail::is_handle<BB> = true>
-  explicit operator bool() const noexcept
+  template <typename TT = T, detail::is_owner<TT> = true>
+  [[nodiscard]] auto release() noexcept -> owner<SDL_Texture*>
   {
-    return m_texture != nullptr;
+    return m_texture.release();
   }
 
   /**
@@ -78499,6 +87863,26 @@ class basic_texture final
   [[nodiscard]] auto get() const noexcept -> SDL_Texture*
   {
     return m_texture.get();
+  }
+
+  /// \} End of getters
+
+  /// \name Conversions
+  /// \{
+
+  /**
+   * \brief Indicates whether or not a texture handle holds a non-null pointer.
+   *
+   * \tparam TT dummy parameter for SFINAE.
+   *
+   * \return `true` if the handle holds a non-null pointer; `false` otherwise.
+   *
+   * \since 5.0.0
+   */
+  template <typename TT = T, detail::is_handle<TT> = true>
+  explicit operator bool() const noexcept
+  {
+    return m_texture != nullptr;
   }
 
   /**
@@ -78525,6 +87909,8 @@ class basic_texture final
     return m_texture;
   }
 
+  /// \} End of conversions
+
  private:
   struct deleter final
   {
@@ -78533,7 +87919,7 @@ class basic_texture final
       SDL_DestroyTexture(texture);
     }
   };
-  detail::pointer_manager<B, SDL_Texture, deleter> m_texture;
+  detail::pointer_manager<T, SDL_Texture, deleter> m_texture;
 
   /**
    * \brief Locks the texture for write-only pixel access.
@@ -78632,7 +88018,7 @@ auto operator<<(std::ostream& stream, const basic_texture<T>& texture)
 
 namespace cen {
 
-/// \addtogroup graphics
+/// \addtogroup video
 /// \{
 
 /**
@@ -79195,7 +88581,7 @@ constexpr auto operator""_uni(const unsigned long long int i) noexcept
 
 namespace cen {
 
-/// \addtogroup graphics
+/// \addtogroup video
 /// \{
 
 template <typename B>
@@ -79272,16 +88658,21 @@ class basic_window final
    *
    * \param title the title of the window, can't be null.
    * \param size the size of the window, components must be greater than zero.
+   * \param flags the window flags.
    *
    * \throws cen_error if the supplied width or height aren't
    * greater than zero.
    * \throws sdl_error if the window cannot be created.
    *
+   * \see `default_size()`
+   * \see `default_flags()`
+   *
    * \since 3.0.0
    */
   template <typename BB = B, detail::is_owner<BB> = true>
   explicit basic_window(const not_null<czstring> title,
-                        const iarea& size = default_size())
+                        const iarea& size = default_size(),
+                        const u32 flags = default_flags())
   {
     assert(title);
 
@@ -79300,7 +88691,7 @@ class basic_window final
                                     SDL_WINDOWPOS_CENTERED,
                                     size.width,
                                     size.height,
-                                    SDL_WINDOW_HIDDEN));
+                                    flags));
     if (!m_window)
     {
       throw sdl_error{};
@@ -79314,17 +88705,22 @@ class basic_window final
    *
    * \param title the title of the window.
    * \param size the size of the window, components must be greater than zero.
+   * \param flags the window flags.
    *
    * \throws cen_error if the supplied width or height aren't
    * greater than zero.
    * \throws sdl_error if the window cannot be created.
    *
+   * \see `default_size()`
+   * \see `default_flags()`
+   *
    * \since 5.3.0
    */
   template <typename BB = B, detail::is_owner<BB> = true>
   explicit basic_window(const std::string& title,
-                        const iarea& size = default_size())
-      : basic_window{title.c_str(), size}
+                        const iarea& size = default_size(),
+                        const u32 flags = default_flags())
+      : basic_window{title.c_str(), size, flags}
   {}
 
   /**
@@ -80208,9 +89604,15 @@ class basic_window final
    * \since 5.0.0
    */
   template <typename BB = B, detail::is_owner<BB> = true>
-  [[nodiscard]] constexpr static auto default_size() -> iarea
+  [[nodiscard]] constexpr static auto default_size() noexcept -> iarea
   {
     return {800, 600};
+  }
+
+  template <typename BB = B, detail::is_owner<BB> = true>
+  [[nodiscard]] constexpr static auto default_flags() noexcept -> u32
+  {
+    return SDL_WINDOW_HIDDEN;
   }
 
  private:
@@ -80282,6 +89684,7 @@ auto operator<<(std::ostream& stream, const basic_window<T>& window)
 #include <SDL.h>
 
 #include <cassert>        // assert
+#include <cmath>          // floor, sqrt
 #include <cstddef>        // size_t
 #include <memory>         // unique_ptr
 #include <optional>       // optional
@@ -80330,7 +89733,7 @@ auto operator<<(std::ostream& stream, const basic_window<T>& window)
 
 namespace cen {
 
-/// \addtogroup graphics
+/// \addtogroup video
 /// \{
 
 template <typename B>
@@ -80424,10 +89827,6 @@ class basic_renderer final
     {
       throw sdl_error{};
     }
-
-    set_blend_mode(blend_mode::blend);
-    set_color(colors::black);
-    set_logical_integer_scale(false);
   }
 
   template <typename BB = B, detail::is_handle<BB> = true>
@@ -80657,7 +90056,147 @@ class basic_renderer final
     }
   }
 
+  template <typename U>
+  void draw_point(const basic_point<U>& point) noexcept
+  {
+    if constexpr (basic_point<U>::isIntegral)
+    {
+      SDL_RenderDrawPoint(get(), point.x(), point.y());
+    }
+    else
+    {
+      SDL_RenderDrawPointF(get(), point.x(), point.y());
+    }
+  }
+
+  template <typename U>
+  void draw_circle(const basic_point<U>& position, const float radius) noexcept
+  {
+    using value_t = typename basic_point<U>::value_type;
+
+    auto error = -radius;
+    auto x = radius - 0.5f;
+    auto y = 0.5f;
+
+    const auto cx = static_cast<float>(position.x()) - 0.5f;
+    const auto cy = static_cast<float>(position.y()) - 0.5f;
+
+    while (x >= y)
+    {
+      // clang-format off
+      draw_point<value_t>({static_cast<value_t>(cx + x), static_cast<value_t>(cy + y)});
+      draw_point<value_t>({static_cast<value_t>(cx + y), static_cast<value_t>(cy + x)});
+
+      if (x != 0)
+      {
+        draw_point<value_t>({static_cast<value_t>(cx - x), static_cast<value_t>(cy + y)});
+        draw_point<value_t>({static_cast<value_t>(cx + y), static_cast<value_t>(cy - x)});
+      }
+
+      if (y != 0)
+      {
+        draw_point<value_t>({static_cast<value_t>(cx + x), static_cast<value_t>(cy - y)});
+        draw_point<value_t>({static_cast<value_t>(cx - y), static_cast<value_t>(cy + x)});
+      }
+
+      if (x != 0 && y != 0)
+      {
+        draw_point<value_t>({static_cast<value_t>(cx - x), static_cast<value_t>(cy - y)});
+        draw_point<value_t>({static_cast<value_t>(cx - y), static_cast<value_t>(cy - x)});
+      }
+      // clang-format on
+
+      error += y;
+      ++y;
+      error += y;
+
+      if (error >= 0)
+      {
+        --x;
+        error -= x;
+        error -= x;
+      }
+    }
+  }
+
+  void fill_circle(const fpoint& center, const float radius)
+  {
+    const auto cx = center.x();
+    const auto cy = center.y();
+
+    for (auto dy = 1.0f; dy <= radius; dy += 1.0f)
+    {
+      const auto dx = std::floor(std::sqrt((2.0f * radius * dy) - (dy * dy)));
+      const auto x = cx - dx;
+
+      draw_line<float>({cx - dx, cy + dy - radius},
+                       {cx + dx, cy + dy - radius});
+      draw_line<float>({cx - dx, cy - dy + radius},
+                       {cx + dx, cy - dy + radius});
+    }
+  }
+
   /// \} End of primitive rendering
+
+  /// \name Translated primitive rendering
+  /// \{
+
+  /**
+   * \brief Renders an outlined rectangle in the currently selected color.
+   *
+   * \details The rendered rectangle will be translated using the current
+   * translation viewport.
+   *
+   * \tparam R the representation type used by the rectangle.
+   *
+   * \param rect the rectangle that will be rendered.
+   *
+   * \since 4.1.0
+   */
+  template <typename R, typename BB = B, detail::is_owner<BB> = true>
+  void draw_rect_t(const basic_rect<R>& rect) noexcept
+  {
+    draw_rect(translate(rect));
+  }
+
+  /**
+   * \brief Renders a filled rectangle in the currently selected color.
+   *
+   * \details The rendered rectangle will be translated using the current
+   * translation viewport.
+   *
+   * \tparam R the representation type used by the rectangle.
+   *
+   * \param rect the rectangle that will be rendered.
+   *
+   * \since 4.1.0
+   */
+  template <typename R, typename BB = B, detail::is_owner<BB> = true>
+  void fill_rect_t(const basic_rect<R>& rect) noexcept
+  {
+    fill_rect(translate(rect));
+  }
+
+  template <typename U, typename BB = B, detail::is_owner<BB> = true>
+  void draw_point_t(const basic_point<U>& point) noexcept
+  {
+    draw_point(translate(point));
+  }
+
+  template <typename U, typename BB = B, detail::is_owner<BB> = true>
+  void draw_circle_t(const basic_point<U>& position,
+                     const float radius) noexcept
+  {
+    draw_circle(translate(position), radius);
+  }
+
+  template <typename BB = B, detail::is_owner<BB> = true>
+  void fill_circle_t(const fpoint& center, const float radius)
+  {
+    fill_circle(translate(center), radius);
+  }
+
+  /// \} End of translated primitive rendering
 
   /// \name Text rendering
   /// \{
@@ -81467,76 +91006,8 @@ class basic_renderer final
 
   /// \} End of texture rendering
 
-  /// \name Translated rendering.
+  /// \name Translated texture rendering.
   /// \{
-
-  /**
-   * \brief Sets the translation viewport that will be used by the renderer.
-   *
-   * \details This function should be called before calling any of the `_t`
-   * rendering methods, for automatic translation.
-   *
-   * \param viewport the rectangle that will be used as the translation
-   * viewport.
-   *
-   * \since 3.0.0
-   */
-  template <typename BB = B, detail::is_owner<BB> = true>
-  void set_translation_viewport(const frect& viewport) noexcept
-  {
-    m_renderer.translation = viewport;
-  }
-
-  /**
-   * \brief Returns the translation viewport that is currently being used.
-   *
-   * \details Set to (0, 0, 0, 0) by default.
-   *
-   * \return the translation viewport that is currently being used.
-   *
-   * \since 3.0.0
-   */
-  template <typename BB = B, detail::is_owner<BB> = true>
-  [[nodiscard]] auto translation_viewport() const noexcept -> const frect&
-  {
-    return m_renderer.translation;
-  }
-
-  /**
-   * \brief Renders an outlined rectangle in the currently selected color.
-   *
-   * \details The rendered rectangle will be translated using the current
-   * translation viewport.
-   *
-   * \tparam R the representation type used by the rectangle.
-   *
-   * \param rect the rectangle that will be rendered.
-   *
-   * \since 4.1.0
-   */
-  template <typename R, typename BB = B, detail::is_owner<BB> = true>
-  void draw_rect_t(const basic_rect<R>& rect) noexcept
-  {
-    draw_rect(translate(rect));
-  }
-
-  /**
-   * \brief Renders a filled rectangle in the currently selected color.
-   *
-   * \details The rendered rectangle will be translated using the current
-   * translation viewport.
-   *
-   * \tparam R the representation type used by the rectangle.
-   *
-   * \param rect the rectangle that will be rendered.
-   *
-   * \since 4.1.0
-   */
-  template <typename R, typename BB = B, detail::is_owner<BB> = true>
-  void fill_rect_t(const basic_rect<R>& rect) noexcept
-  {
-    fill_rect(translate(rect));
-  }
 
   /**
    * \brief Renders a texture at the specified position.
@@ -81716,7 +91187,44 @@ class basic_renderer final
     render(texture, source, translate(destination), angle, center, flip);
   }
 
-  /// \} End of translated rendering
+  /// \} End of translated texture rendering
+
+  /// \name Translation viewport
+  /// \{
+
+  /**
+   * \brief Sets the translation viewport that will be used by the renderer.
+   *
+   * \details This function should be called before calling any of the `_t`
+   * rendering methods, for automatic translation.
+   *
+   * \param viewport the rectangle that will be used as the translation
+   * viewport.
+   *
+   * \since 3.0.0
+   */
+  template <typename BB = B, detail::is_owner<BB> = true>
+  void set_translation_viewport(const frect& viewport) noexcept
+  {
+    m_renderer.translation = viewport;
+  }
+
+  /**
+   * \brief Returns the translation viewport that is currently being used.
+   *
+   * \details Set to (0, 0, 0, 0) by default.
+   *
+   * \return the translation viewport that is currently being used.
+   *
+   * \since 3.0.0
+   */
+  template <typename BB = B, detail::is_owner<BB> = true>
+  [[nodiscard]] auto translation_viewport() const noexcept -> const frect&
+  {
+    return m_renderer.translation;
+  }
+
+  /// \} End of translation viewport
 
   /// \name Font handling
   /// \{
@@ -81960,8 +91468,8 @@ class basic_renderer final
    * \brief Sets whether or not to force integer scaling for the logical
    * viewport.
    *
-   * \details By default, this property is set to false. This function can be
-   * useful to combat visual artefacts when doing floating-point rendering.
+   * \details This function can be useful to combat visual artefacts when doing
+   * floating-point rendering.
    *
    * \param enabled `true` if integer scaling should be used; `false` otherwise.
    *
@@ -82226,8 +91734,6 @@ class basic_renderer final
   /**
    * \brief Returns the currently selected rendering color.
    *
-   * \details The default color is black.
-   *
    * \return the currently selected rendering color.
    *
    * \since 3.0.0
@@ -82448,7 +91954,7 @@ auto operator<<(std::ostream& stream, const basic_renderer<B>& renderer)
 
 namespace cen {
 
-/// \addtogroup graphics
+/// \addtogroup video
 /// \{
 
 /**

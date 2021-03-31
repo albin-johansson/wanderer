@@ -13,6 +13,8 @@ auto make_renderer(const cen::window& window) -> cen::renderer
 
   cen::renderer renderer{window};
 
+  renderer.set_blend_mode(cen::blend_mode::blend);
+
   const auto* typewriter = "resources/fonts/type_writer.ttf";
   renderer.emplace_font(glob::menu_font_s, typewriter, 8);
   renderer.emplace_font(glob::menu_font_m, typewriter, 16);
