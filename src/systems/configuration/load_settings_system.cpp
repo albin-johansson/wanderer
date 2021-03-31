@@ -39,7 +39,6 @@ namespace {
 }  // namespace
 
 void load_settings(entt::registry& registry)
-try
 {
   const auto path = files_directory() / "settings.ini";
   const auto defaults = default_settings();
@@ -53,9 +52,6 @@ try
     std::filesystem::copy("resources/settings.ini", path);
     registry.set<comp::settings>(defaults);
   }
-} catch (...)
-{
-  cen::log::error("Failed to load settings!");
 }
 
 }  // namespace wanderer::sys
