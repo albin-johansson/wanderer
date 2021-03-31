@@ -221,6 +221,8 @@ set(SOURCE_FILES
     systems/movement/portal_system.cpp
     systems/movement/portal_system.hpp
 
+    systems/rendering/debug_rendering_system.cpp
+    systems/rendering/debug_rendering_system.hpp
     systems/rendering/render_bounds_system.cpp
     systems/rendering/render_bounds_system.hpp
 

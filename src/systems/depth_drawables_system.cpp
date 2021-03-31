@@ -5,30 +5,12 @@
 #include "animated_tile.hpp"
 #include "centurion_utils.hpp"
 #include "depth_drawable.hpp"
-#include "hitbox.hpp"
 #include "movable.hpp"
 #include "render_bounds_system.hpp"
 #include "tile_object.hpp"
 #include "tile_rendering_system.hpp"
 
 namespace wanderer::sys {
-namespace {
-
-void render_hitbox(cen::renderer& renderer, const comp::hitbox& hitbox) noexcept
-{
-  for (const auto& [offset, size] : hitbox.boxes)
-  {
-    const cen::frect rect{to_point(hitbox.origin + offset), size};
-
-    renderer.set_color(cen::colors::magenta.with_alpha(100));
-    renderer.draw_rect_t(rect);
-  }
-
-  renderer.set_color(cen::colors::red);
-  renderer.draw_rect_t(hitbox.bounds);
-}
-
-}  // namespace
 
 void update_drawable_movables(entt::registry& registry)
 {
@@ -37,7 +19,6 @@ void update_drawable_movables(entt::registry& registry)
                comp::depth_drawable& drawable) noexcept {
     drawable.dst.set_x(movable.position.x);
     drawable.dst.set_y(movable.position.y);
-    drawable.centerY = movable.position.y + (drawable.dst.height() / 2.0f);
   });
 }
 
@@ -81,20 +62,11 @@ void render_drawables(const entt::registry& registry,
   const auto boundsRect = to_rect(bounds);
 
   const auto view = registry.view<const comp::depth_drawable>();
-  view.each([&](const entt::entity entity,
-                const comp::depth_drawable& drawable) noexcept {
+  view.each([&](const comp::depth_drawable& drawable) noexcept {
     if (cen::intersects(boundsRect, drawable.dst))
     {
       const auto& texture = graphics.find(drawable.texture);
       renderer.render_t(texture, drawable.src, drawable.dst);
-
-      if constexpr (cen::is_debug_build())
-      {
-        if (const auto* hitbox = registry.try_get<comp::hitbox>(entity))
-        {
-          render_hitbox(renderer, *hitbox);
-        }
-      }
     }
   });
 }

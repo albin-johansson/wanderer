@@ -103,6 +103,11 @@ void game::render(graphics_context& graphics, const cen::ipoint mousePos)
   sys::render_inventory(registry, renderer, mousePos);
   sys::render_level_switch_animations(registry, renderer);
 
+  if constexpr (cen::is_debug_build())
+  {
+    sys::render_debug_info(registry, graphics);
+  }
+
   sys::render_menu(m_menus, renderer);
 }
 
