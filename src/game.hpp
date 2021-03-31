@@ -7,6 +7,7 @@
 #include "close_inventory_event.hpp"
 #include "delta.hpp"
 #include "graphics_context.hpp"
+#include "input.hpp"
 #include "level.hpp"
 #include "level_fade_events.hpp"
 #include "level_manager.hpp"
@@ -43,10 +44,9 @@ class game final
   /**
    * \brief Responds to user input.
    *
-   * \param mouse the current mouse input state.
-   * \param keyboard the current keyboard input state.
+   * \param input the current input state.
    */
-  void handle_input(const cen::mouse& mouse, const cen::keyboard& keyboard);
+  void handle_input(const input& input);
 
   /**
    * \brief Updates the state of the game.

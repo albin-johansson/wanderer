@@ -70,6 +70,7 @@ set(SOURCE_FILES
     core/game_constants.hpp
     core/graphics_context.cpp
     core/graphics_context.hpp
+    core/input.hpp
     core/make_renderer.cpp
     core/make_renderer.hpp
     core/menu_constants.hpp

@@ -3,6 +3,7 @@
 #include <centurion.hpp>  // keyboard, mouse, renderer
 #include <entt.hpp>       // registry
 
+#include "input.hpp"
 #include "menu.hpp"
 #include "menu_id.hpp"
 
@@ -20,13 +21,11 @@ namespace wanderer::sys {
  *
  * \param registry the menu registry.
  * \param dispatcher the event dispatcher that will be used.
- * \param mouse the mouse state data.
- * \param keyboard the key state data.
+ * \param input the current input state.
  */
 void update_menu(entt::registry& registry,
                  entt::dispatcher& dispatcher,
-                 const cen::mouse& mouse,
-                 const cen::keyboard& keyboard);
+                 const input& input);
 
 /**
  * \brief Changes the currently active menu.

@@ -48,11 +48,11 @@ game::~game() noexcept
   m_dispatcher.disconnect(this);
 }
 
-void game::handle_input(const cen::mouse& mouse, const cen::keyboard& keyboard)
+void game::handle_input(const input& input)
 {
   auto* level = m_levels.current();
-  sys::update_menu(m_menus, m_dispatcher, mouse, keyboard);
-  sys::update_input(level->registry(), m_dispatcher, level->player(), keyboard);
+  sys::update_menu(m_menus, m_dispatcher, input);
+  sys::update_input(level->registry(), m_dispatcher, level->player(), input);
 }
 
 void game::tick(const delta_t dt)

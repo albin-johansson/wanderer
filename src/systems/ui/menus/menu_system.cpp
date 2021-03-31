@@ -54,17 +54,16 @@ auto create_menus() -> entt::registry
 
 void update_menu(entt::registry& registry,
                  entt::dispatcher& dispatcher,
-                 const cen::mouse& mouse,
-                 const cen::keyboard& keyboard)
+                 const input& input)
 {
   const auto view = registry.view<comp::active_menu, comp::menu>();
   view.each([&](const entt::entity entity, comp::menu& menu) {
     const auto menuEntity = comp::menu::entity{entity};
 
-    const auto button = update_button_hover(registry, menuEntity, mouse);
+    const auto button = update_button_hover(registry, menuEntity, input.mouse);
     if (button)
     {
-      query_button(registry, dispatcher, *button, mouse);
+      query_button(registry, dispatcher, *button, input.mouse);
     }
     else
     {
@@ -73,7 +72,7 @@ void update_menu(entt::registry& registry,
 
     if (auto* binds = registry.try_get<comp::key_bind_pack>(entity))
     {
-      query_binds(registry, dispatcher, *binds, keyboard);
+      query_binds(registry, dispatcher, *binds, input.keyboard);
     }
   });
 }

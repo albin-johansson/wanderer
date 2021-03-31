@@ -4,6 +4,7 @@
 
 #include "game.hpp"
 #include "graphics_context.hpp"
+#include "input.hpp"
 #include "semi_fixed_game_loop.hpp"
 
 namespace wanderer {
@@ -48,8 +49,7 @@ class wanderer_engine final : public semi_fixed_game_loop<wanderer_engine>
   cen::window m_window;         ///< Application window.
   graphics_context m_graphics;  ///< Graphics context used for all rendering.
   game m_game;                  ///< Provides game logic and game state.
-  cen::mouse m_mouse;           ///< Provides info about mouse state.
-  cen::keyboard m_keyboard;     ///< Provides info about keyboard state.
+  input m_input;
 };
 
 }  // namespace wanderer
