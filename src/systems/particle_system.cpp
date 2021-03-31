@@ -29,7 +29,6 @@ void add_particle(entt::registry& registry,
 void update_particles(entt::registry& registry, const delta_t dt)
 {
   const auto now = cen::counter::ticks();
-
   const auto view = registry.view<comp::particle>();
   view.each([&](const entt::entity entity, comp::particle& particle) {
     ++particle.tick;
