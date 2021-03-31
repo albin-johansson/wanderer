@@ -2,6 +2,7 @@
 
 #include <centurion.hpp>
 
+#include "float3.hpp"
 #include "milliseconds.hpp"
 
 namespace wanderer::comp {
