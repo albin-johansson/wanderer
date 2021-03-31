@@ -10,6 +10,7 @@ set(SOURCE_FILES
     semi_fixed_game_loop.hpp
 
     components/chase.hpp
+    components/float3.hpp
     components/hitbox.hpp
     components/humanoid_state.hpp
     components/movable.hpp
