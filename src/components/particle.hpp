@@ -8,12 +8,8 @@ namespace wanderer::comp {
 
 struct particle final
 {
-  float x;     ///< X-coordinate.
-  float y;     ///< Y-coordinate.
-  float z;     ///< Z-coordinate.
-  float dx;    ///< X-axis acceleration.
-  float dy;    ///< Y-axis acceleration.
-  float dz;    ///< Z-axis acceleration.
+  float3 position;
+  float3 acceleration;
   int tick;    ///< Current tick index.
   int nTicks;  ///< Number of ticks during lifetime.
   cen::color color;
@@ -22,7 +18,7 @@ struct particle final
 template <typename Archive>
 void serialize(Archive& archive, particle& p)
 {
-  archive(p.x, p.y, p.z, p.dx, p.dy, p.dz, p.nTicks);
+  archive(p.position, p.acceleration, p.tick, p.nTicks, p.color);
 }
 
 }  // namespace wanderer::comp

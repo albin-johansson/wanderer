@@ -15,13 +15,11 @@ void add_particle(entt::registry& registry,
   using namespace cen::literals;
 
   auto& particle = registry.emplace<comp::particle>(registry.create());
-  particle.x = position.x;
-  particle.y = position.y;
-  particle.z = 2;
+  particle.position = {position.x, position.y, 2};
 
-  particle.dx = get_random(-40.0f, 40.0f) * 0.3f;
-  particle.dy = get_random(-40.0f, 40.0f) * 0.2f;
-  particle.dz = get_random(0.0f, 5.0f) * 0.7f + 2.0f;
+  particle.acceleration.x = get_random(-12.0f, 12.0f);
+  particle.acceleration.y = get_random(-8.0f, 8.0f);
+  particle.acceleration.z = get_random(0.0f, 3.5f) + 2.0f;
 
   particle.tick = 0;
   particle.nTicks = nTicks;
@@ -41,19 +39,17 @@ void update_particles(entt::registry& registry, const delta_t dt)
     }
     else
     {
-      particle.x += particle.dx * dt;
-      particle.y += particle.dy * dt;
-      particle.z += particle.dz * dt;
+      particle.position += particle.acceleration * dt;
 
-      if (particle.z < 0)
+      if (particle.position.z < 0)
       {
-        particle.z = 0;
-        particle.dx *= 0.6f;
-        particle.dy *= 0.6f;
-        particle.dz *= -0.5f;
+        particle.position.z = 0;
+        particle.acceleration.x *= 0.6f;
+        particle.acceleration.y *= 0.6f;
+        particle.acceleration.z *= -0.5f;
       }
 
-      particle.dz -= 0.15f;
+      particle.acceleration.z -= 0.15f;
     }
   });
 }
@@ -62,7 +58,9 @@ void render_particles(const entt::registry& registry, cen::renderer& renderer)
 {
   const auto view = registry.view<const comp::particle>();
   view.each([&](const comp::particle& particle) {
-    const cen::frect rect{{particle.x, particle.y - particle.z}, {2.0f, 2.0f}};
+    const cen::frect rect{
+        {particle.position.x, particle.position.y - particle.position.z},
+        {2.0f, 2.0f}};
     renderer.set_color(particle.color);
     renderer.fill_rect_t(rect);
   });
