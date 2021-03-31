@@ -27,13 +27,4 @@ template <typename T>
   return basic_vector2<T>{area.width, area.height};
 }
 
-inline void log(const cen::frect& rect) noexcept
-{
-  cen::log::info("rect: ({%f, %f} {%f x %f})",
-                 rect.x(),
-                 rect.y(),
-                 rect.width(),
-                 rect.height());
-}
-
 }  // namespace wanderer
