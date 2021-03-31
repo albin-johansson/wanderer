@@ -53,7 +53,7 @@ auto wanderer_engine::update_input() -> bool
   m_input.keyboard.update();
   cen::event::refresh();
 
-  m_game.handle_input(m_input.mouse, m_keyboard);
+  m_game.handle_input(m_input);
 
   return !m_game.quit_requested() &&
          !cen::event::in_queue(cen::event_type::quit);
