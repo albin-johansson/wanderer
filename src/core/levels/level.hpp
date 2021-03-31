@@ -83,24 +83,6 @@ class level final
     return m_registry.try_get<Component>(entity);
   }
 
-  /**
-   * \brief Returns the only instance of the specified component in the
-   * registry.
-   *
-   * \pre there must only be one entity with the specified component.
-   *
-   * \tparam Component the type of the component that will be obtained.
-   *
-   * \return the desired component instance.
-   *
-   * \since 0.1.0
-   */
-  template <typename Component>
-  [[nodiscard]] decltype(auto) single()
-  {
-    return singleton<Component>(m_registry);
-  }
-
   [[nodiscard]] auto id() const noexcept -> map_id;
 
   [[nodiscard]] auto get_aabb(entt::entity id) const -> const aabb_type&;
