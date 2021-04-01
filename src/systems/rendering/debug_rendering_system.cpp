@@ -53,18 +53,15 @@ void render_enabled_trigger_indicator(const entt::registry& registry,
 
 void render_trigger_indicators(const entt::registry& registry, cen::renderer& renderer)
 {
-  const auto view = registry.view<const comp::player>();
-  view.each([&](const entt::entity entity) {
-    if (const auto* iwp = registry.try_get<comp::is_within_portal>(entity))
-    {
-      render_enabled_trigger_indicator(registry, iwp->portalEntity, renderer);
-    }
-    else if (const auto* iwc =
-                 registry.try_get<comp::is_within_container_trigger>(entity))
-    {
-      render_enabled_trigger_indicator(registry, iwc->triggerEntity, renderer);
-    }
-  });
+  const auto entity = registry.ctx<comp::player>().playerEntity;
+  if (const auto* iwp = registry.try_get<comp::is_within_portal>(entity))
+  {
+    render_enabled_trigger_indicator(registry, iwp->portalEntity, renderer);
+  }
+  else if (const auto* iwc = registry.try_get<comp::is_within_container_trigger>(entity))
+  {
+    render_enabled_trigger_indicator(registry, iwc->triggerEntity, renderer);
+  }
 }
 
 void render_chase_ranges(const entt::registry& registry, cen::renderer& renderer)

@@ -17,11 +17,15 @@ struct player_entity_t;
  */
 struct player final
 {
-  using entity = entity_type<detail::player_entity_t>;
+  using entity [[deprecated]] = entity_type<detail::player_entity_t>;
+
+  entt::entity playerEntity{entt::null};
 };
 
 template <typename Archive>
-void serialize(Archive&, player&, u32 version)
-{}
+void serialize(Archive& archive, player& p, u32 version)
+{
+  archive(p.playerEntity);
+}
 
 }  // namespace wanderer::comp

@@ -6,7 +6,6 @@
 #include "add_objects.hpp"
 #include "add_tile_objects.hpp"
 #include "centurion_utils.hpp"
-#include "chase.hpp"
 #include "create_tilemap.hpp"
 #include "create_tileset.hpp"
 #include "depth_drawables_system.hpp"
@@ -58,7 +57,6 @@ level::level(const std::filesystem::path& path, graphics_context& graphics)
   m_registry = sys::restore_registry(archive);
   archive(m_tree);
   archive(m_tilemap);
-  archive(m_player);
   archive(m_playerSpawnPosition);
 }
 
@@ -70,7 +68,6 @@ void level::save(const std::filesystem::path& path) const
   sys::save_registry(m_registry, archive);
   archive(m_tree);
   archive(m_tilemap);
-  archive(m_player);
   archive(m_playerSpawnPosition);
 }
 
@@ -87,11 +84,6 @@ auto level::id() const noexcept -> map_id
 auto level::get_aabb(const entt::entity id) const -> const level::aabb_type&
 {
   return m_tree.get_aabb(id);
-}
-
-auto level::player() const -> comp::player::entity
-{
-  return m_player;
 }
 
 auto level::tilemap() const -> comp::tilemap::entity
@@ -132,7 +124,8 @@ auto level::registry() const -> const entt::registry&
 void level::spawn_humanoids(const comp::tilemap& tilemap, graphics_context& graphics)
 {
   // The player has to be created before other humanoids
-  m_player = sys::add_player(m_registry, m_tree, *m_playerSpawnPosition, graphics);
+  m_registry.set<comp::player>(
+      sys::add_player(m_registry, m_tree, *m_playerSpawnPosition, graphics));
 
   each<comp::spawnpoint>([&, this](const comp::spawnpoint& spawnpoint) {
     switch (spawnpoint.type)
@@ -141,12 +134,7 @@ void level::spawn_humanoids(const comp::tilemap& tilemap, graphics_context& grap
         break;
 
       case comp::spawnpoint_type::skeleton: {
-        const auto skeleton =
-            sys::add_skeleton(m_registry, m_tree, spawnpoint.position, graphics);
-
-        auto& chase = m_registry.emplace<comp::chase>(skeleton);
-        chase.target = m_player;
-        chase.range = 150;
+        sys::add_skeleton(m_registry, m_tree, spawnpoint.position, graphics);
         break;
       }
     }

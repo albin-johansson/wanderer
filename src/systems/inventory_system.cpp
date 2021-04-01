@@ -41,8 +41,7 @@ inline constexpr cen::ipoint origin = get_render_origin();
 
 }  // namespace
 
-void update_inventory_triggers(entt::registry& registry,
-                               const comp::player::entity player)
+void update_inventory_triggers(entt::registry& registry)
 {
   using trigger_t = comp::container_trigger;
   using is_within_trigger_t = comp::is_within_container_trigger;
@@ -52,7 +51,7 @@ void update_inventory_triggers(entt::registry& registry,
     return isWithinTrigger.triggerEntity == triggerEntity;
   };
 
-  sys::update_triggers<trigger_t, is_within_trigger_t>(registry, player, removePredicate);
+  sys::update_triggers<trigger_t, is_within_trigger_t>(registry, removePredicate);
 }
 
 void render_inventory(const entt::registry& registry,

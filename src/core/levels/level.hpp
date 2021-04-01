@@ -94,15 +94,6 @@ class level final
   [[nodiscard]] auto get_aabb(entt::entity id) const -> const aabb_type&;
 
   /**
-   * \brief Returns the player entity associated with the level.
-   *
-   * \return the player entity.
-   *
-   * \since 0.1.0
-   */
-  [[nodiscard]] auto player() const -> comp::player::entity;
-
-  /**
    * \brief Returns the tilemap entity associated with the level.
    *
    * \return the tilemap entity.
@@ -162,7 +153,6 @@ class level final
   entt::registry m_registry;
   aabb_tree m_tree;
   comp::tilemap::entity m_tilemap{null<comp::tilemap>()};
-  comp::player::entity m_player{null<comp::player>()};
   maybe<float2> m_playerSpawnPosition;
 
   void spawn_humanoids(const comp::tilemap& tilemap, graphics_context& graphics);

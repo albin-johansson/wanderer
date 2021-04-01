@@ -128,10 +128,10 @@ void check_released(comp::movable& movable,
 
 void handle_move_input(entt::registry& registry,
                        entt::dispatcher& dispatcher,
-                       const comp::player::entity player,
                        const input& input,
                        const comp::binds& binds)
 {
+  const auto player = registry.ctx<comp::player>().playerEntity;
   assert(registry.has<comp::humanoid_move>(player));
 
   auto& movable = registry.get<comp::movable>(player);
@@ -153,7 +153,7 @@ void handle_move_input(entt::registry& registry,
   }
   else if (keyboard.just_released(binds.interact))
   {
-    dispatcher.enqueue<event::interact>(&registry, &dispatcher, player);
+    dispatcher.enqueue<event::interact>(&registry, &dispatcher);
   }
 }
 

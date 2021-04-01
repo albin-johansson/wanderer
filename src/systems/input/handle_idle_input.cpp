@@ -48,11 +48,11 @@ namespace {
 void check_for_movement(entt::registry& registry,
                         entt::dispatcher& dispatcher,
                         const cen::keyboard& keyboard,
-                        const comp::binds& binds,
-                        const comp::player::entity player)
+                        const comp::binds& binds)
 {
   if (const auto dir = get_direction(keyboard, binds))
   {
+    const auto player = registry.ctx<comp::player>().playerEntity;
     dispatcher.enqueue<event::begin_humanoid_move>(&registry, player, *dir);
   }
 }
@@ -61,16 +61,17 @@ void check_for_movement(entt::registry& registry,
 
 void handle_idle_input(entt::registry& registry,
                        entt::dispatcher& dispatcher,
-                       const comp::player::entity player,
                        const input& input,
                        const comp::binds& binds)
 {
+  const auto player = registry.ctx<comp::player>().playerEntity;
+
   assert(registry.has<comp::humanoid_idle>(player));
   const auto& keyboard = input.keyboard;
 
   if (keyboard.just_released(binds.interact))
   {
-    dispatcher.enqueue<event::interact>(&registry, &dispatcher, player);
+    dispatcher.enqueue<event::interact>(&registry, &dispatcher);
   }
   else if (registry.empty<comp::active_inventory>())
   {
@@ -84,7 +85,7 @@ void handle_idle_input(entt::registry& registry,
     }
     else
     {
-      check_for_movement(registry, dispatcher, input.keyboard, binds, player);
+      check_for_movement(registry, dispatcher, input.keyboard, binds);
     }
   }
 }

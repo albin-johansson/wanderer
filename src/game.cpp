@@ -57,11 +57,9 @@ void game::handle_input(const input& input)
 {
   auto* level = m_levels.current();
   sys::update_menu(m_menus, m_dispatcher, input);
-  sys::update_input(level->registry(),
-                    m_dispatcher,
-                    level->player(),
-                    input,
-                    m_menus.ctx<comp::binds>());
+
+  const auto& binds = m_menus.ctx<comp::binds>();
+  sys::update_input(level->registry(), m_dispatcher, input, binds);
 }
 
 void game::tick(const delta_t dt)
@@ -82,10 +80,9 @@ void game::tick(const delta_t dt)
   sys::update_drawable_movables(registry);
   sys::update_particles(registry, dt);
 
-  const auto player = level->player();
-  sys::update_portal_triggers(registry, player);
-  sys::update_inventory_triggers(registry, player);
-  sys::update_viewport(*level, player, dt);
+  sys::update_portal_triggers(registry);
+  sys::update_inventory_triggers(registry);
+  sys::update_viewport(*level, registry.ctx<comp::player>().playerEntity, dt);
   sys::sort_drawables(registry);
 
   sys::update_animations(registry);

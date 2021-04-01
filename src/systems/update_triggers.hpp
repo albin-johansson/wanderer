@@ -9,11 +9,11 @@
 namespace wanderer::sys {
 
 template <typename Trigger, typename IsWithinTrigger, typename RemovalPred>
-void update_triggers(entt::registry& registry,
-                     const comp::player::entity player,
-                     RemovalPred&& predicate)
+void update_triggers(entt::registry& registry, RemovalPred&& predicate)
 {
+  const auto player = registry.ctx<comp::player>().playerEntity;
   const auto& playerHitbox = registry.get<comp::hitbox>(player);
+
   const auto view = registry.view<Trigger, comp::hitbox>();
   view.each([&](const entt::entity e, const Trigger&, comp::hitbox& hitbox) {
     const auto triggerEntity = typename Trigger::entity{e};

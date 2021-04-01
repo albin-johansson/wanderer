@@ -6,6 +6,7 @@
 
 #include "animated.hpp"
 #include "centurion_utils.hpp"
+#include "chase.hpp"
 #include "depth_drawable.hpp"
 #include "direction.hpp"
 #include "game_constants.hpp"
@@ -106,18 +107,17 @@ void add_hitbox(entt::registry& registry,
 auto add_player(entt::registry& registry,
                 aabb_tree& tree,
                 const float2 position,
-                graphics_context& graphics) -> comp::player::entity
+                graphics_context& graphics) -> entt::entity
 {
   const auto texture = graphics.load("player"_hs, "resources/images/player2.png");
   const auto player = make_humanoid(registry, tree, texture);
-  registry.emplace<comp::player>(player);
 
   auto& movable = registry.get<comp::movable>(player);
   movable.speed = glob::player_speed;
   movable.position = position;
   movable.dir = direction::down;
 
-  return comp::player::entity{player};
+  return player;
 }
 
 auto add_skeleton(entt::registry& registry,
@@ -131,6 +131,11 @@ auto add_skeleton(entt::registry& registry,
   auto& movable = registry.get<comp::movable>(skeleton);
   movable.speed = glob::monster_speed;
   movable.position = position;
+  movable.dir = direction::down;
+
+  auto& chase = registry.emplace<comp::chase>(skeleton);
+  chase.target = registry.ctx<comp::player>().playerEntity;
+  chase.range = 150;
 
   return skeleton;
 }
