@@ -1,5 +1,3 @@
-#include "menu_rendering_system.hpp"
-
 #include "button_system.hpp"
 #include "checkbox.hpp"
 #include "checkbox_system.hpp"
@@ -8,6 +6,7 @@
 #include "line_system.hpp"
 #include "menu.hpp"
 #include "menu_constants.hpp"
+#include "menu_system.hpp"
 #include "render_text.hpp"
 
 namespace wanderer::sys {
@@ -42,7 +41,7 @@ void render_title(const std::string& title,
 
 }  // namespace
 
-void render_active_menu(const entt::registry& registry, cen::renderer& renderer)
+void render_menu(const entt::registry& registry, cen::renderer& renderer)
 {
   const auto view =
       registry

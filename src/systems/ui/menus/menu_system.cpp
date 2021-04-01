@@ -10,7 +10,6 @@
 #include "create_settings_menu.hpp"
 #include "cursors.hpp"
 #include "menu.hpp"
-#include "menu_rendering_system.hpp"
 #include "saves_menu_system.hpp"
 #include "switch_menu_event.hpp"
 
@@ -93,11 +92,6 @@ void switch_menu(entt::registry& registry, const menu_id id)
       }
     }
   });
-}
-
-void render_menu(const entt::registry& registry, cen::renderer& renderer)
-{
-  render_active_menu(registry, renderer);
 }
 
 auto is_current_menu_blocking(const entt::registry& registry) -> bool

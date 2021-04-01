@@ -1,6 +1,6 @@
-#include "menu_factory_system.hpp"
-
 #include <utility>  // move
+
+#include "menu_system.hpp"
 
 namespace wanderer::sys {
 

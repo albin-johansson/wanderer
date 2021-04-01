@@ -9,6 +9,11 @@
 
 namespace wanderer::sys {
 
+auto make_menu(entt::registry& registry,
+               std::string title,
+               menu_id id,
+               bool blocking = true) -> comp::menu::entity;
+
 /**
  * \brief Creates and returns a menu registry.
  *

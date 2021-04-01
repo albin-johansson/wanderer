@@ -12,7 +12,7 @@
 #include "menu.hpp"
 #include "menu_action.hpp"
 #include "menu_constants.hpp"
-#include "menu_factory_system.hpp"
+#include "menu_system.hpp"
 #include "saves_menu.hpp"
 
 namespace wanderer::sys {

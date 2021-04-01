@@ -258,10 +258,8 @@ set(SOURCE_FILES
     systems/ui/menus/create_in_game_menu.hpp
     systems/ui/menus/create_settings_menu.cpp
     systems/ui/menus/create_settings_menu.hpp
-    systems/ui/menus/menu_factory_system.cpp
-    systems/ui/menus/menu_factory_system.hpp
-    systems/ui/menus/menu_rendering_system.cpp
-    systems/ui/menus/menu_rendering_system.hpp
+    systems/ui/menus/make_menu.cpp
+    systems/ui/menus/render_menu.cpp
     systems/ui/menus/menu_system.cpp
     systems/ui/menus/menu_system.hpp
     systems/ui/menus/saves_menu_system.cpp
