@@ -185,9 +185,6 @@ set(SOURCE_FILES
     systems/configuration/settings_system.cpp
     systems/configuration/settings_system.hpp
 
-    systems/hud/level_switch_animation_system.cpp
-    systems/hud/level_switch_animation_system.hpp
-
     systems/humanoid/humanoid_animation_system.cpp
     systems/humanoid/humanoid_animation_system.hpp
     systems/humanoid/humanoid_attack_event_handler.cpp
@@ -247,6 +244,9 @@ set(SOURCE_FILES
     systems/ui/checkboxes/checkbox_factory_system.hpp
     systems/ui/checkboxes/checkbox_rendering_system.cpp
     systems/ui/checkboxes/checkbox_rendering_system.hpp
+
+    systems/ui/hud/level_switch_animation_system.cpp
+    systems/ui/hud/level_switch_animation_system.hpp
 
     systems/ui/labels/label_rendering_system.cpp
     systems/ui/labels/label_rendering_system.hpp
@@ -331,13 +331,13 @@ target_include_directories(${WANDERER_LIB_TARGET}
     PUBLIC systems
     PUBLIC systems/ai
     PUBLIC systems/configuration
-    PUBLIC systems/hud
     PUBLIC systems/humanoid
     PUBLIC systems/input
     PUBLIC systems/layer
     PUBLIC systems/ui
     PUBLIC systems/ui/buttons
     PUBLIC systems/ui/checkboxes
+    PUBLIC systems/ui/hud
     PUBLIC systems/ui/labels
     PUBLIC systems/ui/lines
     PUBLIC systems/ui/menus
