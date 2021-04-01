@@ -48,12 +48,10 @@ void update_tile_object_animations(entt::registry& registry)
   });
 }
 
-void render_drawables(const entt::registry& registry,
-                      graphics_context& graphics,
-                      const comp::render_bounds& bounds)
+void render_drawables(const entt::registry& registry, graphics_context& graphics)
 {
+  const auto boundsRect = to_rect(registry.ctx<comp::render_bounds>());
   auto& renderer = graphics.renderer();
-  const auto boundsRect = to_rect(bounds);
 
   const auto view = registry.view<const comp::depth_drawable>();
   view.each([&](const comp::depth_drawable& drawable) noexcept {

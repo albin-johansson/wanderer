@@ -79,12 +79,9 @@ void visit_tiles(const comp::tile_layer& layer,
  *
  * \param registry the registry that holds the layers.
  * \param graphics the graphics context that will be used when rendering.
- * \param bounds the render bounds that will be used.
  *
  * \since 0.1.0
  */
-void render_ground_layers(const entt::registry& registry,
-                          graphics_context& graphics,
-                          const comp::render_bounds& bounds);
+void render_ground_layers(const entt::registry& registry, graphics_context& graphics);
 
 }  // namespace wanderer::sys

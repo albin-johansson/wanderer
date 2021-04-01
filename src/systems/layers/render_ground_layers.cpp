@@ -28,13 +28,12 @@ void render_tile_layer(const entt::registry& registry,
 
 }  // namespace
 
-void render_ground_layers(const entt::registry& registry,
-                          graphics_context& graphics,
-                          const comp::render_bounds& bounds)
+void render_ground_layers(const entt::registry& registry, graphics_context& graphics)
 {
   const auto& tileset = registry.ctx<comp::tileset>();
-  const auto view = registry.view<const comp::tile_layer>();
+  const auto& bounds = registry.ctx<comp::render_bounds>();
 
+  const auto view = registry.view<const comp::tile_layer>();
   view.each([&](const comp::tile_layer& layer) {
     render_tile_layer(registry, layer, graphics, tileset, bounds);
   });

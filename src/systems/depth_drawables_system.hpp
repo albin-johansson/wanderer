@@ -4,7 +4,6 @@
 #include <entt.hpp>
 
 #include "graphics_context.hpp"
-#include "render_bounds.hpp"
 #include "tilemap.hpp"
 
 namespace wanderer::sys {
@@ -46,12 +45,9 @@ void update_tile_object_animations(entt::registry& registry);
  *
  * \param registry the registry that holds the depth drawables.
  * \param renderer the renderer that will be used.
- * \param bounds the render bounds that will be used.
  *
  * \since 0.1.0
  */
-void render_drawables(const entt::registry& registry,
-                      graphics_context& graphics,
-                      const comp::render_bounds& bounds);
+void render_drawables(const entt::registry& registry, graphics_context& graphics);
 
 }  // namespace wanderer::sys

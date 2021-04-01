@@ -101,9 +101,8 @@ void game::render(graphics_context& graphics, const cen::ipoint mousePos)
 
   sys::translate_viewport(registry, renderer);
 
-  const auto bounds = level->get_render_bounds();
-  sys::render_ground_layers(registry, graphics, bounds);
-  sys::render_drawables(registry, graphics, bounds);
+  sys::render_ground_layers(registry, graphics);
+  sys::render_drawables(registry, graphics);
   sys::render_particles(registry, renderer);
 
   if constexpr (cen::is_debug_build())
