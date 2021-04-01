@@ -31,8 +31,8 @@ namespace {
   }
 }
 
-[[nodiscard]] auto calculate_max_col(const float viewportMaxX,
-                                     const int numCols) noexcept -> int
+[[nodiscard]] auto calculate_max_col(const float viewportMaxX, const int numCols) noexcept
+    -> int
 {
   const auto maxCol = static_cast<int>(viewportMaxX / glob::tile_width<>) + 1;
   if (maxCol < numCols)
@@ -45,8 +45,8 @@ namespace {
   }
 }
 
-[[nodiscard]] auto calculate_max_row(const float viewportMaxY,
-                                     const int numRows) noexcept -> int
+[[nodiscard]] auto calculate_max_row(const float viewportMaxY, const int numRows) noexcept
+    -> int
 {
   const auto maxRow = static_cast<int>(viewportMaxY / glob::tile_height<>) + 1;
   if (maxRow < numRows)
@@ -82,10 +82,8 @@ auto to_rect(const comp::render_bounds& bounds) noexcept -> cen::frect
   const auto x = static_cast<float>(bounds.minCol) * glob::tile_width<>;
   const auto y = static_cast<float>(bounds.minRow) * glob::tile_height<>;
 
-  const auto w =
-      static_cast<float>(bounds.maxCol - bounds.minCol) * glob::tile_width<>;
-  const auto h =
-      static_cast<float>(bounds.maxRow - bounds.minRow) * glob::tile_height<>;
+  const auto w = static_cast<float>(bounds.maxCol - bounds.minCol) * glob::tile_width<>;
+  const auto h = static_cast<float>(bounds.maxRow - bounds.minRow) * glob::tile_height<>;
 
   return cen::frect{{x, y}, {w, h}};
 }

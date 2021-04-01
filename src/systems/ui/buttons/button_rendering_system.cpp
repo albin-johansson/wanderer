@@ -60,8 +60,7 @@ void render_text(const comp::button& button,
   renderer.render(drawable.texture.value(), *drawable.textPos);
 }
 
-void render_background(const comp::button_drawable& drawable,
-                       cen::renderer& renderer)
+void render_background(const comp::button_drawable& drawable, cen::renderer& renderer)
 {
   constexpr auto bg = cen::colors::ghost_white.with_alpha(0x22);
 

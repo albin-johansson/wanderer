@@ -60,8 +60,7 @@ class basic_ini final
   }
 
   [[nodiscard]] auto at(const string_view_type section,
-                        const string_view_type entry) const
-      -> const string_type&
+                        const string_view_type entry) const -> const string_type&
   {
     if (const auto it = m_sections.find(section); it != m_sections.end())
     {
@@ -196,15 +195,12 @@ class basic_ini final
     }
   }
 
-  auto parse_variable(const string_type& line, const string_type& sectionName)
-      -> bool
+  auto parse_variable(const string_type& line, const string_type& sectionName) -> bool
   {
     const auto assignmentPos =
-        std::find_if(line.begin(),
-                     line.end(),
-                     [this](const character_type character) {
-                       return is_assignment(character);
-                     });
+        std::find_if(line.begin(), line.end(), [this](const character_type character) {
+          return is_assignment(character);
+        });
 
     string_type variable{line.begin(), assignmentPos};
     string_type value{assignmentPos + 1, line.end()};

@@ -22,8 +22,7 @@ namespace {
 }
 
 [[nodiscard]] auto read_settings(const std::filesystem::path& path,
-                                 const comp::settings& defaults)
-    -> comp::settings
+                                 const comp::settings& defaults) -> comp::settings
 {
   std::ifstream stream{path};
   const ini_file file{stream};
@@ -32,10 +31,10 @@ namespace {
 
   comp::settings settings;
 
-  settings.fullscreen =
-      file.get<bool>("Graphics", "Fullscreen").value_or(defaults.fullscreen);
-  settings.integerScaling = file.get<bool>("Graphics", "UseIntegerScaling")
-                                .value_or(defaults.integerScaling);
+  // clang-format off
+  settings.fullscreen = file.get<bool>("Graphics", "Fullscreen").value_or(defaults.fullscreen);
+  settings.integerScaling = file.get<bool>("Graphics", "UseIntegerScaling").value_or(defaults.integerScaling);
+  // clang-format on
 
   if constexpr (cen::is_debug_build())
   {
@@ -74,8 +73,7 @@ void save_settings_before_exit(const entt::registry& registry)
   std::ofstream stream{path};
   stream << "[Graphics]\n";
   stream << "Fullscreen=" << (settings.fullscreen ? "true" : "false") << '\n';
-  stream << "UseIntegerScaling="
-         << (settings.integerScaling ? "true" : "false");
+  stream << "UseIntegerScaling=" << (settings.integerScaling ? "true" : "false");
 
   if constexpr (cen::is_debug_build())
   {

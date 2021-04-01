@@ -172,8 +172,7 @@ class level final
   comp::player::entity m_player{null<comp::player>()};
   maybe<float2> m_playerSpawnPosition;
 
-  void spawn_humanoids(const comp::tilemap& tilemap,
-                       graphics_context& graphics);
+  void spawn_humanoids(const comp::tilemap& tilemap, graphics_context& graphics);
 };
 
 }  // namespace wanderer

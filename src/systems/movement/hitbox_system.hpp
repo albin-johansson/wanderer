@@ -42,8 +42,7 @@ void update_bounds(comp::hitbox& hitbox) noexcept;
 void set_position(comp::hitbox& hitbox, const float2& position) noexcept;
 
 [[nodiscard]] auto with_position(const comp::hitbox& hitbox,
-                                 const float2& position) noexcept
-    -> comp::hitbox;
+                                 const float2& position) noexcept -> comp::hitbox;
 
 /**
  * \brief Indicates whether or not two hitboxes intersect.
@@ -59,8 +58,8 @@ void set_position(comp::hitbox& hitbox, const float2& position) noexcept;
  *
  * \return `true` if the hitboxes intersect; `false` otherwise.
  */
-[[nodiscard]] auto intersects(const comp::hitbox& fst,
-                              const comp::hitbox& snd) noexcept -> bool;
+[[nodiscard]] auto intersects(const comp::hitbox& fst, const comp::hitbox& snd) noexcept
+    -> bool;
 
 /**
  * \brief Creates and returns a hitbox.
@@ -82,8 +81,7 @@ void set_position(comp::hitbox& hitbox, const float2& position) noexcept;
                                       const float2& oldPosition,
                                       delta_t dt) -> next_hitboxes;
 
-[[nodiscard]] auto query_collisions(const next_hitboxes& next,
-                                    const comp::hitbox& other)
+[[nodiscard]] auto query_collisions(const next_hitboxes& next, const comp::hitbox& other)
     -> collision_result;
 
 }  // namespace wanderer::sys

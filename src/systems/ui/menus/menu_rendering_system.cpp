@@ -26,8 +26,7 @@ void render_title(const std::string& title,
   if (!drawable.texture)
   {
     renderer.set_color(cen::colors::white);
-    drawable.texture =
-        render_text(renderer, title, renderer.get_font(glob::menu_font_l));
+    drawable.texture = render_text(renderer, title, renderer.get_font(glob::menu_font_l));
   }
 
   const auto& texture = *drawable.texture;
@@ -46,9 +45,9 @@ void render_title(const std::string& title,
 
 void render_active_menu(const entt::registry& registry, cen::renderer& renderer)
 {
-  const auto view = registry.view<const comp::active_menu,
-                                  const comp::menu,
-                                  const comp::menu_drawable>();
+  const auto view =
+      registry
+          .view<const comp::active_menu, const comp::menu, const comp::menu_drawable>();
   view.each([&](const entt::entity entity,
                 const comp::menu& menu,
                 const comp::menu_drawable& drawable) {

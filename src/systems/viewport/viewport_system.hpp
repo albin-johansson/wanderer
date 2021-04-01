@@ -23,9 +23,7 @@ void center_viewport_on(entt::registry& registry,
  * \param movableEntity the entity ID for the movable.
  * \param dt the delta time, in seconds.
  */
-void update_viewport(level& level,
-                     const entt::entity movableEntity,
-                     const delta_t dt);
+void update_viewport(level& level, const entt::entity movableEntity, const delta_t dt);
 
 void translate_viewport(const entt::registry& registry,
                         comp::viewport::entity viewportEntity,

@@ -28,8 +28,7 @@ namespace {
 [[nodiscard]] auto next_horizontal_hitbox(const comp::movable& movable,
                                           const comp::hitbox& hitbox,
                                           const float2& oldPosition,
-                                          const delta_t dt)
-    -> maybe<comp::hitbox>
+                                          const delta_t dt) -> maybe<comp::hitbox>
 {
   if (movable.velocity.x != 0)
   {
@@ -99,8 +98,7 @@ auto with_position(const comp::hitbox& hitbox, const float2& position) noexcept
   return result;
 }
 
-auto intersects(const comp::hitbox& fst, const comp::hitbox& snd) noexcept
-    -> bool
+auto intersects(const comp::hitbox& fst, const comp::hitbox& snd) noexcept -> bool
 {
   if (&fst == &snd)
   {

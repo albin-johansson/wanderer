@@ -55,8 +55,7 @@ class wanderer_engine final : public semi_fixed_game_loop<wanderer_engine>
 
   void on_fullscreen_toggled(const comp::fullscreen_toggled_event& event);
 
-  void on_integer_scaling_toggled(
-      const comp::integer_scaling_toggled_event& event);
+  void on_integer_scaling_toggled(const comp::integer_scaling_toggled_event& event);
 };
 
 }  // namespace wanderer

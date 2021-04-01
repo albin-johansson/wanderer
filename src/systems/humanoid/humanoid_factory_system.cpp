@@ -108,8 +108,7 @@ auto add_player(entt::registry& registry,
                 const float2 position,
                 graphics_context& graphics) -> comp::player::entity
 {
-  const auto texture =
-      graphics.load("player"_hs, "resources/images/player2.png");
+  const auto texture = graphics.load("player"_hs, "resources/images/player2.png");
   const auto player = make_humanoid(registry, tree, texture);
   registry.emplace<comp::player>(player);
 
@@ -126,8 +125,7 @@ auto add_skeleton(entt::registry& registry,
                   const float2 position,
                   graphics_context& graphics) -> entt::entity
 {
-  const auto texture =
-      graphics.load("skeleton"_hs, "resources/images/skeleton.png");
+  const auto texture = graphics.load("skeleton"_hs, "resources/images/skeleton.png");
   const auto skeleton = make_humanoid(registry, tree, texture);
 
   auto& movable = registry.get<comp::movable>(skeleton);

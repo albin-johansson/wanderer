@@ -51,8 +51,7 @@ void render_enabled_trigger_indicator(const entt::registry& registry,
   renderer.fill_rect_t(hitbox.bounds);
 }
 
-void render_trigger_indicators(const entt::registry& registry,
-                               cen::renderer& renderer)
+void render_trigger_indicators(const entt::registry& registry, cen::renderer& renderer)
 {
   const auto view = registry.view<const comp::player>();
   view.each([&](const entt::entity entity) {
@@ -68,23 +67,19 @@ void render_trigger_indicators(const entt::registry& registry,
   });
 }
 
-void render_chase_ranges(const entt::registry& registry,
-                         cen::renderer& renderer)
+void render_chase_ranges(const entt::registry& registry, cen::renderer& renderer)
 {
   renderer.set_color(cen::colors::red);
 
-  const auto view =
-      registry.view<const comp::depth_drawable, const comp::chase>();
-  view.each(
-      [&](const comp::depth_drawable& drawable, const comp::chase& chase) {
-        renderer.draw_circle_t(drawable.dst.center(), chase.range);
-      });
+  const auto view = registry.view<const comp::depth_drawable, const comp::chase>();
+  view.each([&](const comp::depth_drawable& drawable, const comp::chase& chase) {
+    renderer.draw_circle_t(drawable.dst.center(), chase.range);
+  });
 }
 
 }  // namespace
 
-void render_debug_info(const entt::registry& registry,
-                       graphics_context& graphics)
+void render_debug_info(const entt::registry& registry, graphics_context& graphics)
 {
   auto& renderer = graphics.renderer();
   render_hitboxes(registry, renderer);
@@ -92,8 +87,7 @@ void render_debug_info(const entt::registry& registry,
   render_chase_ranges(registry, renderer);
 }
 
-void render_menu_debug_info(const entt::registry& registry,
-                            graphics_context& graphics)
+void render_menu_debug_info(const entt::registry& registry, graphics_context& graphics)
 {
   auto& renderer = graphics.renderer();
 

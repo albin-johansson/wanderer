@@ -30,8 +30,7 @@ level::level(const ir::level& data, graphics_context& graphics)
   m_tree.set_thickness_factor(std::nullopt);
 
   load_tileset_textures(data, graphics);
-  auto& tileset =
-      create_tileset(data.tilesets, m_registry, m_tileset, graphics);
+  auto& tileset = create_tileset(data.tilesets, m_registry, m_tileset, graphics);
   auto& tilemap = create_tilemap(data, m_registry, m_tilemap, m_tileset);
 
   m_viewport = sys::make_viewport(m_registry, tilemap.size);
@@ -42,10 +41,9 @@ level::level(const ir::level& data, graphics_context& graphics)
 
   spawn_humanoids(tilemap, graphics);
 
-  each<comp::depth_drawable, comp::humanoid>(
-      [&](comp::depth_drawable& drawable) {
-        drawable.layer = tilemap.humanoidLayer;
-      });
+  each<comp::depth_drawable, comp::humanoid>([&](comp::depth_drawable& drawable) {
+    drawable.layer = tilemap.humanoidLayer;
+  });
 
   sys::center_viewport_on(m_registry, m_viewport, player_spawnpoint());
   sys::update_drawable_movables(m_registry);
@@ -134,10 +132,7 @@ auto level::col_count() const -> int
 
 auto level::get_render_bounds() const -> comp::render_bounds
 {
-  return sys::get_render_bounds(m_registry,
-                                m_viewport,
-                                row_count(),
-                                col_count());
+  return sys::get_render_bounds(m_registry, m_viewport, row_count(), col_count());
 }
 
 auto level::registry() -> entt::registry&
@@ -150,12 +145,10 @@ auto level::registry() const -> const entt::registry&
   return m_registry;
 }
 
-void level::spawn_humanoids(const comp::tilemap& tilemap,
-                            graphics_context& graphics)
+void level::spawn_humanoids(const comp::tilemap& tilemap, graphics_context& graphics)
 {
   // The player has to be created before other humanoids
-  m_player =
-      sys::add_player(m_registry, m_tree, *m_playerSpawnPosition, graphics);
+  m_player = sys::add_player(m_registry, m_tree, *m_playerSpawnPosition, graphics);
 
   each<comp::spawnpoint>([&, this](const comp::spawnpoint& spawnpoint) {
     switch (spawnpoint.type)
@@ -164,10 +157,8 @@ void level::spawn_humanoids(const comp::tilemap& tilemap,
         break;
 
       case comp::spawnpoint_type::skeleton: {
-        const auto skeleton = sys::add_skeleton(m_registry,
-                                                m_tree,
-                                                spawnpoint.position,
-                                                graphics);
+        const auto skeleton =
+            sys::add_skeleton(m_registry, m_tree, spawnpoint.position, graphics);
 
         auto& chase = m_registry.emplace<comp::chase>(skeleton);
         chase.target = m_player;

@@ -16,8 +16,7 @@ namespace wanderer {
  *
  * \headerfile texture_loader.hpp
  */
-class texture_loader final
-    : public entt::resource_loader<texture_loader, cen::texture>
+class texture_loader final : public entt::resource_loader<texture_loader, cen::texture>
 {
  public:
   /**

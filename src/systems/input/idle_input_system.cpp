@@ -54,9 +54,7 @@ void check_for_movement(entt::registry& registry,
 {
   if (const auto dir = get_direction(keyboard, binds))
   {
-    dispatcher.enqueue<comp::begin_humanoid_move_event>(&registry,
-                                                        player,
-                                                        *dir);
+    dispatcher.enqueue<comp::begin_humanoid_move_event>(&registry, player, *dir);
   }
 }
 

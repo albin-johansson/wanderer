@@ -21,8 +21,7 @@ inline constexpr cen::iarea cellSize{cellWidth, cellHeight};
 
 [[nodiscard]] constexpr auto get_render_origin() -> cen::ipoint
 {
-  constexpr cen::iarea area{(cellWidth + offset) * nCols,
-                            (cellHeight + offset) * nRows};
+  constexpr cen::iarea area{(cellWidth + offset) * nCols, (cellHeight + offset) * nRows};
 
   constexpr auto logicalSize = glob::logical_size<>;
   constexpr auto x = (logicalSize.width - area.width) / 2;
@@ -53,17 +52,14 @@ void update_inventory_triggers(entt::registry& registry,
     return isWithinTrigger.triggerEntity == triggerEntity;
   };
 
-  sys::update_triggers<trigger_t, is_within_trigger_t>(registry,
-                                                       player,
-                                                       removePredicate);
+  sys::update_triggers<trigger_t, is_within_trigger_t>(registry, player, removePredicate);
 }
 
 void render_inventory(const entt::registry& registry,
                       cen::renderer& renderer,
                       const cen::ipoint& mousePos)
 {
-  const auto view =
-      registry.view<const comp::inventory, const comp::active_inventory>();
+  const auto view = registry.view<const comp::inventory, const comp::active_inventory>();
   view.each([&](const comp::inventory& inventory) {
     const auto nItems = inventory.items.size();
 
@@ -87,8 +83,7 @@ void render_inventory(const entt::registry& registry,
 
         if (index < nItems)
         {
-          const auto& item =
-              registry.get<comp::item>(inventory.items.at(index));
+          const auto& item = registry.get<comp::item>(inventory.items.at(index));
           renderer.render(*item.texture, rect);
         }
       }

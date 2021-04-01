@@ -14,8 +14,8 @@ template <typename T>
 }
 
 template <typename T>
-[[nodiscard]] constexpr auto to_vector(
-    const cen::basic_point<T>& point) noexcept -> basic_vector2<T>
+[[nodiscard]] constexpr auto to_vector(const cen::basic_point<T>& point) noexcept
+    -> basic_vector2<T>
 {
   return basic_vector2<T>{point.x(), point.y()};
 }

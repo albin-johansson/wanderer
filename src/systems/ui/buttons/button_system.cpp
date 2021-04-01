@@ -58,8 +58,7 @@ auto update_button_hover(entt::registry& registry,
     check(buttonPack->buttons);
   }
 
-  if (const auto* buttonPack =
-          registry.try_get<comp::checkbox_pack>(menuEntity))
+  if (const auto* buttonPack = registry.try_get<comp::checkbox_pack>(menuEntity))
   {
     check(buttonPack->checkboxes);
   }

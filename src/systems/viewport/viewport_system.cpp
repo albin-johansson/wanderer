@@ -63,8 +63,7 @@ inline constexpr float camera_speed = 10.0f;
 }
 
 [[nodiscard]] auto make_target_vector(const float2& position,
-                                      const comp::viewport& viewport) noexcept
-    -> float2
+                                      const comp::viewport& viewport) noexcept -> float2
 {
   constexpr auto halfWidth = glob::humanoid_draw_width / 2.0f;
   constexpr auto halfHeight = glob::humanoid_draw_height / 2.0f;
@@ -80,9 +79,8 @@ inline constexpr float camera_speed = 10.0f;
 
 void track(comp::viewport& viewport, const float2& position, const delta_t dt)
 {
-  const auto next = next_camera_position(make_target_vector(position, viewport),
-                                         viewport,
-                                         dt);
+  const auto next =
+      next_camera_position(make_target_vector(position, viewport), viewport, dt);
   viewport.bounds.set_x(next.x);
   viewport.bounds.set_y(next.y);
 }
@@ -99,9 +97,7 @@ void center_viewport_on(entt::registry& registry,
   viewport.bounds.set_y(target.y);
 }
 
-void update_viewport(level& level,
-                     const entt::entity movableEntity,
-                     const delta_t dt)
+void update_viewport(level& level, const entt::entity movableEntity, const delta_t dt)
 {
   const auto& movable = level.get<comp::movable>(movableEntity);
   track(level.get<comp::viewport>(level.viewport()), movable.position, dt);

@@ -6,7 +6,6 @@
 
 namespace wanderer::sys {
 
-auto make_label(entt::registry& registry, float x, float y)
-    -> comp::label::entity;
+auto make_label(entt::registry& registry, float x, float y) -> comp::label::entity;
 
 }

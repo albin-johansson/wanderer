@@ -80,8 +80,7 @@ namespace {
   return portal;
 }
 
-[[nodiscard]] auto parse_container(const step::object& stepObject)
-    -> comp::inventory
+[[nodiscard]] auto parse_container(const step::object& stepObject) -> comp::inventory
 {
   const auto* props = stepObject.get_properties();
   assert(props);
@@ -127,8 +126,7 @@ void parse_object_layer(ir::level& data,
     const auto type = stepObject.type();
     if (type == "Spawnpoint")
     {
-      objectData.spawnpoint =
-          parse_spawnpoint(stepObject, data.xRatio, data.yRatio);
+      objectData.spawnpoint = parse_spawnpoint(stepObject, data.xRatio, data.yRatio);
 
       if (objectData.spawnpoint->type == comp::spawnpoint_type::player)
       {

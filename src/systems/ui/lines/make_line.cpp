@@ -2,9 +2,8 @@
 
 namespace wanderer::sys {
 
-auto make_line(entt::registry& registry,
-               const cen::ipoint start,
-               const cen::ipoint end) -> comp::line::entity
+auto make_line(entt::registry& registry, const cen::ipoint start, const cen::ipoint end)
+    -> comp::line::entity
 {
   const auto entity = registry.create();
   auto& line = registry.emplace<comp::line>(entity);

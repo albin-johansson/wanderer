@@ -17,8 +17,7 @@ namespace {
                                   const int tileHeight) noexcept -> cen::irect
 {
   const auto [row, col] = index_to_matrix(index, nColumns);
-  return cen::irect{{col * tileWidth, row * tileHeight},
-                    {tileWidth, tileHeight}};
+  return cen::irect{{col * tileWidth, row * tileHeight}, {tileWidth, tileHeight}};
 }
 
 void add_animation(ir::fancy_tile& tileData,

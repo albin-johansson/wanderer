@@ -18,17 +18,14 @@ class graphics_context final
  public:
   explicit graphics_context(const cen::window& window);
 
-  void render(texture_index index,
-              const cen::irect& src,
-              const cen::frect& dst) noexcept;
+  void render(texture_index index, const cen::irect& src, const cen::frect& dst) noexcept;
 
   auto load(texture_id id, const std::string& path) -> texture_index;
 
   [[nodiscard]] auto to_index(texture_id id) const -> texture_index;
 
   // Very fast index-based lookup
-  [[nodiscard]] auto find(texture_index index) const noexcept
-      -> const cen::texture&;
+  [[nodiscard]] auto find(texture_index index) const noexcept -> const cen::texture&;
 
   [[nodiscard]] auto renderer() noexcept -> cen::renderer&
   {

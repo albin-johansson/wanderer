@@ -66,8 +66,7 @@ auto wanderer_engine::update_input() -> bool
 
   m_game.handle_input(m_input);
 
-  return !m_game.quit_requested() &&
-         !cen::event::in_queue(cen::event_type::quit);
+  return !m_game.quit_requested() && !cen::event::in_queue(cen::event_type::quit);
 }
 
 void wanderer_engine::update_logic(const delta_t dt)
@@ -75,8 +74,7 @@ void wanderer_engine::update_logic(const delta_t dt)
   m_game.tick(dt);
 }
 
-void wanderer_engine::on_fullscreen_toggled(
-    const comp::fullscreen_toggled_event& event)
+void wanderer_engine::on_fullscreen_toggled(const comp::fullscreen_toggled_event& event)
 {
   if (event.enabled)
   {

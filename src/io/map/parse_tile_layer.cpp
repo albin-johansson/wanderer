@@ -56,8 +56,7 @@ using tile_data = step::detail::data::gid_data;  // FIXME
   return drawable;
 }
 
-[[nodiscard]] auto find_tile(ir::level& data, const tile_id id)
-    -> maybe<ir::tile>
+[[nodiscard]] auto find_tile(ir::level& data, const tile_id id) -> maybe<ir::tile>
 {
   for (const auto& ts : data.tilesets)
   {
@@ -93,8 +92,7 @@ void add_tile_object(ir::level& data,
 
     if (fancy.hitbox)
     {
-      tileObjectData.hitbox =
-          sys::with_position(*fancy.hitbox, to_vector(position));
+      tileObjectData.hitbox = sys::with_position(*fancy.hitbox, to_vector(position));
     }
   }
 }
@@ -131,10 +129,8 @@ void parse_tile_layer(ir::level& data,
 
   if (layerProperties->is("ground", true))
   {
-    data.groundLayers.emplace_back(make_ground_layer(stepLayer,
-                                                     stepMap.height(),
-                                                     stepMap.width(),
-                                                     zIndex));
+    data.groundLayers.emplace_back(
+        make_ground_layer(stepLayer, stepMap.height(), stepMap.width(), zIndex));
   }
   else if (const auto* layerData = stepLayer.data())
   {

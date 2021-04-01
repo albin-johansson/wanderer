@@ -151,8 +151,7 @@ struct basic_vector2 final
    *
    * \since 0.1.0
    */
-  constexpr void lerp_smooth(const basic_vector2& target,
-                             const T alpha) noexcept
+  constexpr void lerp_smooth(const basic_vector2& target, const T alpha) noexcept
   {
     lerp(target, alpha * alpha * alpha * (alpha * (alpha * 6 - 15) + 10));
   }
@@ -346,8 +345,7 @@ template <typename T>
  */
 template <typename T, typename S>
 [[nodiscard]] constexpr auto operator*(const basic_vector2<T>& vector,
-                                       const S scalar) noexcept
-    -> basic_vector2<T>
+                                       const S scalar) noexcept -> basic_vector2<T>
 {
   return basic_vector2{vector.x * scalar, vector.y * scalar};
 }
@@ -390,8 +388,7 @@ template <typename T, typename S>
  */
 template <typename T>
 [[nodiscard]] constexpr auto operator*(const basic_vector2<T>& lhs,
-                                       const basic_vector2<T>& rhs) noexcept
-    -> T
+                                       const basic_vector2<T>& rhs) noexcept -> T
 {
   return lhs.x * rhs.x + lhs.y * rhs.y;
 }
@@ -410,8 +407,7 @@ template <typename T>
  */
 template <typename T>
 [[nodiscard]] constexpr auto operator==(const basic_vector2<T>& lhs,
-                                        const basic_vector2<T>& rhs) noexcept
-    -> bool
+                                        const basic_vector2<T>& rhs) noexcept -> bool
 {
   return lhs.x == rhs.x && lhs.y == rhs.y;
 }
@@ -430,8 +426,7 @@ template <typename T>
  */
 template <typename T>
 [[nodiscard]] constexpr auto operator!=(const basic_vector2<T>& lhs,
-                                        const basic_vector2<T>& rhs) noexcept
-    -> bool
+                                        const basic_vector2<T>& rhs) noexcept -> bool
 {
   return !(lhs == rhs);
 }

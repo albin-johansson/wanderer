@@ -30,8 +30,7 @@ inline constexpr auto y1 = convert_row_to_y(glob::menu_rows - 2);
 {
   std::vector<comp::key_bind::entity> binds;
 
-  binds.push_back(
-      make_bind(registry, cen::scancodes::escape, menu_action::goto_home));
+  binds.push_back(make_bind(registry, cen::scancodes::escape, menu_action::goto_home));
 
   return binds;
 }
@@ -48,8 +47,7 @@ inline constexpr auto y1 = convert_row_to_y(glob::menu_rows - 2);
   return buttons;
 }
 
-[[nodiscard]] auto make_lines(entt::registry& registry)
-    -> std::vector<comp::line::entity>
+[[nodiscard]] auto make_lines(entt::registry& registry) -> std::vector<comp::line::entity>
 {
   std::vector<comp::line::entity> lines;
 

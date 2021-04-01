@@ -7,7 +7,6 @@
 
 namespace wanderer {
 
-[[nodiscard]] auto parse_save_file(const std::filesystem::path& path)
-    -> save_file_info;
+[[nodiscard]] auto parse_save_file(const std::filesystem::path& path) -> save_file_info;
 
 }  // namespace wanderer

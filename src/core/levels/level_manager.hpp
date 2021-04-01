@@ -18,8 +18,7 @@ class level_manager final
  public:
   explicit level_manager(graphics_context& graphics);
 
-  explicit level_manager(const save_file_info& info,
-                         graphics_context& graphics);
+  explicit level_manager(const save_file_info& info, graphics_context& graphics);
 
   void enable_world();
 

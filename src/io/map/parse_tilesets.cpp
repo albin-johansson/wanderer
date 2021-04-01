@@ -9,8 +9,7 @@
 namespace wanderer {
 namespace {
 
-[[nodiscard]] auto create_texture(const std::filesystem::path& path)
-    -> ir::texture
+[[nodiscard]] auto create_texture(const std::filesystem::path& path) -> ir::texture
 {
   ir::texture texture;
 
@@ -46,8 +45,7 @@ void parse_fancy_tiles(ir::tileset& data, const step::tileset& stepTileset)
 }  // namespace
 
 auto parse_tilesets(const tileset_collection& tilesets,
-                    const std::filesystem::path& directory)
-    -> std::vector<ir::tileset>
+                    const std::filesystem::path& directory) -> std::vector<ir::tileset>
 {
   std::vector<ir::tileset> vec;
 

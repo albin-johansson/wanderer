@@ -32,8 +32,7 @@ level_manager::level_manager(graphics_context& graphics)
   m_current = m_world;
 }
 
-level_manager::level_manager(const save_file_info& info,
-                             graphics_context& graphics)
+level_manager::level_manager(const save_file_info& info, graphics_context& graphics)
     : m_world{info.world}
     , m_current{info.current}
 {
@@ -60,9 +59,7 @@ void level_manager::switch_to(const map_id id)
     auto& movable = currentLevel->get<comp::movable>(currentLevel->player());
     movable.velocity.zero();
 
-    sys::center_viewport_on(registry,
-                            currentLevel->viewport(),
-                            movable.position);
+    sys::center_viewport_on(registry, currentLevel->viewport(), movable.position);
   }
 
   assert(m_levels.count(id));

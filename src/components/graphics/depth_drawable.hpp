@@ -29,20 +29,16 @@ namespace wanderer::comp {
 struct depth_drawable final
 {
   texture_index texture;  ///< ID of associated texture.
-  cen::irect src;    ///< Region of associated texture that will be rendered.
-  cen::frect dst;    ///< Position and size of the rendered texture, in pixels.
-  int layer{};       ///< Layer index.
-  depth_t depth{5};  ///< Render order heuristic.
+  cen::irect src;         ///< Region of associated texture that will be rendered.
+  cen::frect dst;         ///< Position and size of the rendered texture, in pixels.
+  int layer{};            ///< Layer index.
+  depth_t depth{5};       ///< Render order heuristic.
 };
 
 template <typename Archive>
 void serialize(Archive& archive, depth_drawable& drawable, u32 version)
 {
-  archive(drawable.texture,
-          drawable.layer,
-          drawable.depth,
-          drawable.src,
-          drawable.dst);
+  archive(drawable.texture, drawable.layer, drawable.depth, drawable.src, drawable.dst);
 }
 
 }  // namespace wanderer::comp

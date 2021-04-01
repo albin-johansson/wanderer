@@ -22,8 +22,7 @@ class stack_resource final
 
  private:
   std::array<std::byte, size> m_buffer;
-  std::pmr::monotonic_buffer_resource m_resource{m_buffer.data(),
-                                                 sizeof m_buffer};
+  std::pmr::monotonic_buffer_resource m_resource{m_buffer.data(), sizeof m_buffer};
 };
 
 }  // namespace wanderer

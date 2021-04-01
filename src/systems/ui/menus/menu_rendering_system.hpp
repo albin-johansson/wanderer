@@ -5,7 +5,6 @@
 
 namespace wanderer::sys {
 
-void render_active_menu(const entt::registry& registry,
-                        cen::renderer& renderer);
+void render_active_menu(const entt::registry& registry, cen::renderer& renderer);
 
 }

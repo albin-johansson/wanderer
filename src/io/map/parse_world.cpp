@@ -10,8 +10,7 @@ namespace wanderer {
 namespace {
 
 [[nodiscard]] auto parse_map(const step::map& stepMap,
-                             const std::filesystem::path& directory)
-    -> ir::level
+                             const std::filesystem::path& directory) -> ir::level
 {
   static int tilesetId = 0;
 

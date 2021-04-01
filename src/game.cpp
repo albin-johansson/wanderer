@@ -131,20 +131,19 @@ void game::on_start()
 
   const auto& settings = m_menus.ctx<comp::settings>();
   m_dispatcher.enqueue<comp::fullscreen_toggled_event>(settings.fullscreen);
-  m_dispatcher.enqueue<comp::integer_scaling_toggled_event>(
-      settings.integerScaling);
+  m_dispatcher.enqueue<comp::integer_scaling_toggled_event>(settings.integerScaling);
 
-  m_menus.view<comp::button, comp::checkbox>().each(
-      [&](const comp::button& button, comp::checkbox& checkbox) {
-        if (button.action == menu_action::toggle_fullscreen)
-        {
-          checkbox.checked = settings.fullscreen;
-        }
-        else if (button.action == menu_action::toggle_integer_scaling)
-        {
-          checkbox.checked = settings.integerScaling;
-        }
-      });
+  const auto view = m_menus.view<const comp::button, comp::checkbox>();
+  view.each([&](const comp::button& button, comp::checkbox& checkbox) {
+    if (button.action == menu_action::toggle_fullscreen)
+    {
+      checkbox.checked = settings.fullscreen;
+    }
+    else if (button.action == menu_action::toggle_integer_scaling)
+    {
+      checkbox.checked = settings.integerScaling;
+    }
+  });
 
   m_dispatcher.update();
 }
@@ -214,8 +213,7 @@ void game::on_button_pressed(const comp::button_pressed_event& event)
       auto& settings = m_menus.ctx<comp::settings>();
       settings.integerScaling = !settings.integerScaling;
 
-      m_dispatcher.enqueue<comp::integer_scaling_toggled_event>(
-          settings.integerScaling);
+      m_dispatcher.enqueue<comp::integer_scaling_toggled_event>(settings.integerScaling);
       break;
     }
   }
@@ -246,10 +244,7 @@ void game::on_particle_event(const comp::particle_event& event)
 {
   for (auto i = 0; i < event.count; ++i)
   {
-    sys::add_particle(m_levels.registry(),
-                      event.position,
-                      event.baseColor,
-                      event.nTicks);
+    sys::add_particle(m_levels.registry(), event.position, event.baseColor, event.nTicks);
   }
 }
 

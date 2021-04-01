@@ -50,7 +50,6 @@ void render_menu(const entt::registry& registry, cen::renderer& renderer);
  *
  * \return `true` if the current menu is blocking; `false` otherwise
  */
-[[nodiscard]] auto is_current_menu_blocking(const entt::registry& registry)
-    -> bool;
+[[nodiscard]] auto is_current_menu_blocking(const entt::registry& registry) -> bool;
 
 }  // namespace wanderer::sys

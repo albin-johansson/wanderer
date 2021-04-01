@@ -11,7 +11,6 @@ namespace wanderer {
 [[nodiscard]] auto create_tilemap(const ir::level& data,
                                   entt::registry& registry,
                                   comp::tilemap::entity entity,
-                                  comp::tileset::entity tileset)
-    -> comp::tilemap&;
+                                  comp::tileset::entity tileset) -> comp::tilemap&;
 
 }

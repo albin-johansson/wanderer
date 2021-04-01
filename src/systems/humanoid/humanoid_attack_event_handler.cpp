@@ -42,8 +42,7 @@ void on_attack_begin(const comp::begin_attack_event& event)
   assert(event.registry);
   assert(!event.registry->has<comp::humanoid_attack>(event.sourceEntity));
 
-  auto& attack =
-      event.registry->emplace<comp::humanoid_attack>(event.sourceEntity);
+  auto& attack = event.registry->emplace<comp::humanoid_attack>(event.sourceEntity);
   attack.weapon = event.weapon;
 
   // TODO enter correct animation according to weapon
@@ -62,8 +61,7 @@ void on_attack_end(const comp::end_attack_event& event)
 
   // TODO deal damage (need target area)
 
-  if (const auto* movable =
-          event.registry->try_get<comp::movable>(event.sourceEntity))
+  if (const auto* movable = event.registry->try_get<comp::movable>(event.sourceEntity))
   {
     const auto position = get_particle_position(movable->position, *movable);
     event.dispatcher->enqueue<comp::particle_event>(position,

@@ -6,7 +6,7 @@
 namespace wanderer {
 
 template <typename T>
-using entity_type = fluent::
-    NamedType<entt::entity, T, fluent::Comparable, fluent::FunctionCallable>;
+using entity_type =
+    fluent::NamedType<entt::entity, T, fluent::Comparable, fluent::FunctionCallable>;
 
 }  // namespace wanderer

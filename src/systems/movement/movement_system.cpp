@@ -14,10 +14,10 @@
 namespace wanderer::sys {
 namespace {
 
-[[nodiscard]] auto restore_aabb_position(
-    const float2& prev,
-    const float2& curr,
-    const collision_result& collisions) noexcept -> float2
+[[nodiscard]] auto restore_aabb_position(const float2& prev,
+                                         const float2& curr,
+                                         const collision_result& collisions) noexcept
+    -> float2
 {
   if (collisions.horizontal && collisions.vertical)
   {
@@ -63,8 +63,7 @@ namespace {
                                        comp::movable& movable,
                                        comp::hitbox& hitbox,
                                        const float2& oldPosition,
-                                       const float2& oldAabbPos)
-    -> collision_result
+                                       const float2& oldAabbPos) -> collision_result
 {
   collision_result collisions;
 
@@ -157,18 +156,17 @@ void update_hitbox(level& level,
 
 void update_movement(level& level, const delta_t dt)
 {
-  level.each<comp::movable>(
-      [&](const entt::entity entity, comp::movable& movable) {
-        const auto oldPosition = movable.position;
+  level.each<comp::movable>([&](const entt::entity entity, comp::movable& movable) {
+    const auto oldPosition = movable.position;
 
-        movable.position += (movable.velocity * dt);
-        movable.dir = dominant_direction(movable);
+    movable.position += (movable.velocity * dt);
+    movable.dir = dominant_direction(movable);
 
-        if (auto* hitbox = level.try_get<comp::hitbox>(entity))
-        {
-          update_hitbox(level, entity, movable, *hitbox, oldPosition, dt);
-        }
-      });
+    if (auto* hitbox = level.try_get<comp::hitbox>(entity))
+    {
+      update_hitbox(level, entity, movable, *hitbox, oldPosition, dt);
+    }
+  });
 }
 
 }  // namespace wanderer::sys

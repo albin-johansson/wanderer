@@ -18,8 +18,7 @@ void graphics_context::render(const texture_index index,
   m_renderer.render_t(texture, src, dst);
 }
 
-auto graphics_context::load(const texture_id id, const std::string& path)
-    -> texture_index
+auto graphics_context::load(const texture_id id, const std::string& path) -> texture_index
 {
   if (const auto it = m_identifiers.find(id); it != m_identifiers.end())
   {

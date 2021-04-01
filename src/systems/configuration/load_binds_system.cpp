@@ -29,8 +29,7 @@ auto load_binds() -> comp::binds
 
       binds.attack = file.get<std::string>("Input", "Attack").value_or("Space");
       binds.interact = file.get<std::string>("Input", "Interact").value_or("E");
-      binds.inventory =
-          file.get<std::string>("Input", "Inventory").value_or("I");
+      binds.inventory = file.get<std::string>("Input", "Inventory").value_or("I");
     }
     else
     {

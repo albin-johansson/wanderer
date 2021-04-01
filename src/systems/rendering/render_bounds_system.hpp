@@ -24,7 +24,6 @@ namespace wanderer::sys {
                                      int rows,
                                      int cols) -> comp::render_bounds;
 
-[[nodiscard]] auto to_rect(const comp::render_bounds& bounds) noexcept
-    -> cen::frect;
+[[nodiscard]] auto to_rect(const comp::render_bounds& bounds) noexcept -> cen::frect;
 
 }  // namespace wanderer::sys

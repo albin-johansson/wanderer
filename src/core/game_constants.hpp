@@ -29,13 +29,11 @@ inline constexpr float humanoid_draw_width{tile_width<> * 2.0f};
 inline constexpr float humanoid_draw_height{tile_height<> * 2.0f};
 
 template <typename T = cen::farea>
-inline constexpr T humanoid_draw_size{humanoid_draw_width,
-                                      humanoid_draw_height};
+inline constexpr T humanoid_draw_size{humanoid_draw_width, humanoid_draw_height};
 
 inline constexpr float player_speed{1.25f * humanoid_draw_width};
 inline constexpr float monster_speed{0.75f * player_speed};
 
-inline constexpr cen::color transparent_black =
-    cen::colors::black.with_alpha(0xAA);
+inline constexpr cen::color transparent_black = cen::colors::black.with_alpha(0xAA);
 
 }  // namespace wanderer::glob

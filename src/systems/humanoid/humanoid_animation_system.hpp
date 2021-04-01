@@ -15,8 +15,7 @@ namespace wanderer::sys {
  * \param registry the associated registry.
  * \param entity the entity that will enter the idle animation.
  */
-void enter_idle_animation(entt::registry& registry,
-                          entt::entity entity) noexcept;
+void enter_idle_animation(entt::registry& registry, entt::entity entity) noexcept;
 
 /**
  * \brief Makes a humanoid enter the movement animation.
@@ -41,8 +40,7 @@ void enter_move_animation(entt::registry& registry,
  * \param registry the associated registry.
  * \param entity the entity that will enter the melee animation.
  */
-void enter_melee_animation(entt::registry& registry,
-                           entt::entity entity) noexcept;
+void enter_melee_animation(entt::registry& registry, entt::entity entity) noexcept;
 
 /**
  * \brief Makes a humanoid enter the spell animation.
@@ -53,8 +51,7 @@ void enter_melee_animation(entt::registry& registry,
  * \param registry the associated registry.
  * \param entity the entity that will enter the spell animation.
  */
-void enter_spell_animation(entt::registry& registry,
-                           entt::entity entity) noexcept;
+void enter_spell_animation(entt::registry& registry, entt::entity entity) noexcept;
 
 /**
  * \brief Makes a humanoid enter the bow animation.
@@ -65,8 +62,7 @@ void enter_spell_animation(entt::registry& registry,
  * \param registry the associated registry.
  * \param entity the entity that will enter the bow animation.
  */
-void enter_bow_animation(entt::registry& registry,
-                         entt::entity entity) noexcept;
+void enter_bow_animation(entt::registry& registry, entt::entity entity) noexcept;
 
 /**
  * \brief Makes a humanoid enter the spear animation.
@@ -77,8 +73,7 @@ void enter_bow_animation(entt::registry& registry,
  * \param registry the associated registry.
  * \param entity the entity that will enter the spear animation.
  */
-void enter_spear_animation(entt::registry& registry,
-                           entt::entity entity) noexcept;
+void enter_spear_animation(entt::registry& registry, entt::entity entity) noexcept;
 
 /**
  * \brief Updates the state of the animations for all humanoids in the registry.

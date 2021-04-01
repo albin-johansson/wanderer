@@ -11,14 +11,13 @@ namespace {
   maybe<comp::inventory::entity> result;
 
   const auto view = registry.view<comp::inventory, comp::object>();
-  view.each([&](const entt::entity entity,
-                const comp::inventory&,
-                const comp::object& object) {
-    if (object.id == id)
-    {
-      result.emplace(entity);
-    }
-  });
+  view.each(
+      [&](const entt::entity entity, const comp::inventory&, const comp::object& object) {
+        if (object.id == id)
+        {
+          result.emplace(entity);
+        }
+      });
 
   return result;
 }
