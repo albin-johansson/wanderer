@@ -16,7 +16,7 @@ void add_buttons(entt::registry& registry, const comp::menu::entity entity)
   auto& buttons = pack.buttons;
 
   // clang-format off
-  buttons.push_back(make_button(registry, "Return", "controls/return"_hs, menu_action::goto_home, 4));
+  buttons.push_back(make_button(registry, "Return", menu_action::goto_home, 4));
   // clang-format on
 }
 

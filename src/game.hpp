@@ -3,7 +3,6 @@
 #include <centurion.hpp>
 
 #include "button_pressed_event.hpp"
-#include "changed_setting_event.hpp"
 #include "close_inventory_event.hpp"
 #include "delta.hpp"
 #include "graphics_context.hpp"
@@ -63,6 +62,12 @@ class game final
    */
   void render(graphics_context& graphics, cen::ipoint mousePos);
 
+  template <typename Event>
+  [[nodiscard]] decltype(auto) sink()
+  {
+    return m_dispatcher.sink<Event>();
+  }
+
   /**
    * \brief Indicates whether or not the game should quit.
    *
@@ -88,8 +93,6 @@ class game final
   void on_switch_menu_event(const comp::switch_menu_event& event);
 
   void on_button_pressed(const comp::button_pressed_event& event);
-
-  void on_changed_setting(const comp::changed_setting_event& event);
 
   void on_level_animation_faded_in(const comp::level_faded_in_event& event);
 

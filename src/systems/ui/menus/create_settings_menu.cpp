@@ -16,11 +16,7 @@ void add_buttons(entt::registry& registry, const comp::menu::entity entity)
   auto& pack = registry.emplace<comp::button_pack>(entity);
   auto& vec = pack.buttons;
 
-  vec.push_back(make_button(registry,
-                            "Return",
-                            "settings/return"_hs,
-                            menu_action::goto_home,
-                            4));
+  vec.push_back(make_button(registry, "Return", menu_action::goto_home, 4));
 }
 
 void add_checkboxes(entt::registry& registry, const comp::menu::entity entity)
@@ -28,21 +24,10 @@ void add_checkboxes(entt::registry& registry, const comp::menu::entity entity)
   auto& pack = registry.emplace<comp::checkbox_pack>(entity);
   auto& vec = pack.checkboxes;
 
-  vec.push_back(add_checkbox(registry,
-                             "Fullscreen",
-                             6,
-                             10,
-                             "settings/fullscreen"_hs,
-                             menu_action::goto_home,  // FIXME
-                             true));
-
-  vec.push_back(add_checkbox(registry,
-                             "Integer scaling",
-                             7,
-                             10,
-                             "settings/integer-scaling"_hs,
-                             menu_action::goto_home,  // FIXME
-                             true));
+  // clang-format off
+  vec.push_back(add_checkbox(registry, "Fullscreen", 6, 10, menu_action::toggle_fullscreen, true));
+  vec.push_back(add_checkbox(registry, "Integer scaling", 7, 10, menu_action::toggle_integer_scaling, true));
+  // clang-format on
 }
 
 }  // namespace

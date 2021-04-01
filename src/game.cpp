@@ -5,9 +5,11 @@
 #include "debug_rendering_system.hpp"
 #include "depth_drawables_system.hpp"
 #include "event_connections.hpp"
+#include "fullscreen_toggled_event.hpp"
 #include "humanoid_animation_system.hpp"
 #include "humanoid_state_system.hpp"
 #include "input_system.hpp"
+#include "integer_scaling_toggled_event.hpp"
 #include "inventory_system.hpp"
 #include "layer_rendering_system.hpp"
 #include "level_switch_animation.hpp"
@@ -18,6 +20,7 @@
 #include "movement_system.hpp"
 #include "particle_system.hpp"
 #include "portal_system.hpp"
+#include "settings.hpp"
 #include "tile_animation_system.hpp"
 #include "viewport_system.hpp"
 
@@ -165,20 +168,22 @@ void game::on_button_pressed(const comp::button_pressed_event& event)
       m_dispatcher.enqueue<comp::quit_event>();
       break;
     }
+    case menu_action::toggle_fullscreen: {
+      auto& settings = m_menus.ctx<comp::settings>();
+      settings.fullscreen = !settings.fullscreen;
+
+      m_dispatcher.enqueue<comp::fullscreen_toggled_event>(settings.fullscreen);
+      break;
+    }
+    case menu_action::toggle_integer_scaling: {
+      auto& settings = m_menus.ctx<comp::settings>();
+      settings.integerScaling = !settings.integerScaling;
+
+      m_dispatcher.enqueue<comp::integer_scaling_toggled_event>(
+          settings.integerScaling);
+      break;
+    }
   }
-}
-
-void game::on_changed_setting(const comp::changed_setting_event& event)
-{
-// entt::registry registry;
-// auto& foo = registry.singleton<foo>();
-
-// entt::registry registry;
-//
-// const auto view = registry.view<foo>();
-// assert(view.size() == 1);
-//
-// auto& foo = view.front();
 }
 
 void game::on_level_animation_faded_in(const comp::level_faded_in_event& event)

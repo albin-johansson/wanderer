@@ -18,7 +18,6 @@ struct button final
 {
   using entity = entity_type<detail::button_entity_t>;
 
-  entt::id_type id;
   menu_action action;
   std::string text;
   int row;

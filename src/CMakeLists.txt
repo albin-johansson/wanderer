@@ -25,6 +25,8 @@ set(SOURCE_FILES
     components/events/close_inventory_event.hpp
     components/events/end_attack_event.hpp
     components/events/end_humanoid_move_event.hpp
+    components/events/fullscreen_toggled_event.hpp
+    components/events/integer_scaling_toggled_event.hpp
     components/events/interact_event.hpp
     components/events/level_fade_events.hpp
     components/events/particle_event.hpp

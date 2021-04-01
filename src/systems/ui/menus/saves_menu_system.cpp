@@ -16,8 +16,6 @@
 #include "menu_factory_system.hpp"
 #include "saves_menu.hpp"
 
-using namespace entt::literals;
-
 namespace wanderer::sys {
 namespace {
 
@@ -44,7 +42,7 @@ inline constexpr auto y1 = convert_row_to_y(glob::menu_rows - 2);
   std::vector<comp::button::entity> buttons;
 
   // clang-format off
-  buttons.push_back(make_button(registry, "Return", "saves/return"_hs, menu_action::goto_home, 4));
+  buttons.push_back(make_button(registry, "Return", menu_action::goto_home, 4));
   // clang-format on
 
   return buttons;

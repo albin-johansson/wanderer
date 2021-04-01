@@ -2,9 +2,11 @@
 
 #include <centurion.hpp>
 
+#include "fullscreen_toggled_event.hpp"
 #include "game.hpp"
 #include "graphics_context.hpp"
 #include "input.hpp"
+#include "integer_scaling_toggled_event.hpp"
 #include "semi_fixed_game_loop.hpp"
 
 namespace wanderer {
@@ -50,6 +52,11 @@ class wanderer_engine final : public semi_fixed_game_loop<wanderer_engine>
   graphics_context m_graphics;  ///< Graphics context used for all rendering.
   game m_game;                  ///< Provides game logic and game state.
   input m_input;
+
+  void on_fullscreen_toggled(const comp::fullscreen_toggled_event& event);
+
+  void on_integer_scaling_toggled(
+      const comp::integer_scaling_toggled_event& event);
 };
 
 }  // namespace wanderer

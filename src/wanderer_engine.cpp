@@ -23,6 +23,13 @@ wanderer_engine::wanderer_engine()
   }
 
   m_input.mouse.set_logical_size(glob::logical_size<>);
+
+  // clang-format off
+  m_game.sink<comp::fullscreen_toggled_event>()
+        .connect<&wanderer_engine::on_fullscreen_toggled>(this);
+  m_game.sink<comp::integer_scaling_toggled_event>()
+        .connect<&wanderer_engine::on_integer_scaling_toggled>(this);
+  // clang-format on
 }
 
 auto wanderer_engine::run() -> int
@@ -62,6 +69,28 @@ auto wanderer_engine::update_input() -> bool
 void wanderer_engine::update_logic(const delta_t dt)
 {
   m_game.tick(dt);
+}
+
+void wanderer_engine::on_fullscreen_toggled(
+    const comp::fullscreen_toggled_event& event)
+{
+  if (event.enabled)
+  {
+    m_window.set_size(cen::screen::size());
+    m_window.set_fullscreen(true);
+  }
+  else
+  {
+    m_window.set_fullscreen(false);
+    m_window.set_width(cen::screen::width() / 2);
+    m_window.set_height(cen::screen::height() / 2);
+  }
+}
+
+void wanderer_engine::on_integer_scaling_toggled(
+    const comp::integer_scaling_toggled_event& event)
+{
+  m_graphics.renderer().set_logical_integer_scale(event.enabled);
 }
 
 }  // namespace wanderer
