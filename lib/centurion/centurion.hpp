@@ -43283,6 +43283,31 @@ class point_traits final
   using point_type = std::conditional_t<isIntegral, SDL_Point, SDL_FPoint>;
 };
 
+template <typename T>
+class basic_point;
+
+/**
+ * \typedef ipoint
+ *
+ * \brief Alias for an `int`-based point.
+ *
+ * \details This type corresponds to `SDL_Point`.
+ *
+ * \since 5.0.0
+ */
+using ipoint = basic_point<int>;
+
+/**
+ * \typedef fpoint
+ *
+ * \brief Alias for a `float`-based point.
+ *
+ * \details This type corresponds to `SDL_FPoint`.
+ *
+ * \since 5.0.0
+ */
+using fpoint = basic_point<float>;
+
 /**
  * \class basic_point
  *
@@ -43438,6 +43463,9 @@ class basic_point final
     return &m_point;
   }
 
+  /// \name Conversions
+  /// \{
+
   /**
    * \brief Converts to the internal representation.
    *
@@ -43482,6 +43510,8 @@ class basic_point final
     return &m_point;
   }
 
+  /// \} End of conversions
+
   /**
    * \brief Serializes the point.
    *
@@ -43504,28 +43534,6 @@ class basic_point final
  private:
   point_type m_point{0, 0};
 };
-
-/**
- * \typedef ipoint
- *
- * \brief Alias for an `int`-based point.
- *
- * \details This type corresponds to `SDL_Point`.
- *
- * \since 5.0.0
- */
-using ipoint = basic_point<int>;
-
-/**
- * \typedef fpoint
- *
- * \brief Alias for a `float`-based point.
- *
- * \details This type corresponds to `SDL_FPoint`.
- *
- * \since 5.0.0
- */
-using fpoint = basic_point<float>;
 
 /**
  * \brief Converts an `fpoint` instance to the corresponding `ipoint`.
@@ -48099,6 +48107,31 @@ class point_traits final
   using point_type = std::conditional_t<isIntegral, SDL_Point, SDL_FPoint>;
 };
 
+template <typename T>
+class basic_point;
+
+/**
+ * \typedef ipoint
+ *
+ * \brief Alias for an `int`-based point.
+ *
+ * \details This type corresponds to `SDL_Point`.
+ *
+ * \since 5.0.0
+ */
+using ipoint = basic_point<int>;
+
+/**
+ * \typedef fpoint
+ *
+ * \brief Alias for a `float`-based point.
+ *
+ * \details This type corresponds to `SDL_FPoint`.
+ *
+ * \since 5.0.0
+ */
+using fpoint = basic_point<float>;
+
 /**
  * \class basic_point
  *
@@ -48254,6 +48287,9 @@ class basic_point final
     return &m_point;
   }
 
+  /// \name Conversions
+  /// \{
+
   /**
    * \brief Converts to the internal representation.
    *
@@ -48298,6 +48334,8 @@ class basic_point final
     return &m_point;
   }
 
+  /// \} End of conversions
+
   /**
    * \brief Serializes the point.
    *
@@ -48320,28 +48358,6 @@ class basic_point final
  private:
   point_type m_point{0, 0};
 };
-
-/**
- * \typedef ipoint
- *
- * \brief Alias for an `int`-based point.
- *
- * \details This type corresponds to `SDL_Point`.
- *
- * \since 5.0.0
- */
-using ipoint = basic_point<int>;
-
-/**
- * \typedef fpoint
- *
- * \brief Alias for a `float`-based point.
- *
- * \details This type corresponds to `SDL_FPoint`.
- *
- * \since 5.0.0
- */
-using fpoint = basic_point<float>;
 
 /**
  * \brief Converts an `fpoint` instance to the corresponding `ipoint`.
@@ -48926,6 +48942,31 @@ class point_traits final
   using point_type = std::conditional_t<isIntegral, SDL_Point, SDL_FPoint>;
 };
 
+template <typename T>
+class basic_point;
+
+/**
+ * \typedef ipoint
+ *
+ * \brief Alias for an `int`-based point.
+ *
+ * \details This type corresponds to `SDL_Point`.
+ *
+ * \since 5.0.0
+ */
+using ipoint = basic_point<int>;
+
+/**
+ * \typedef fpoint
+ *
+ * \brief Alias for a `float`-based point.
+ *
+ * \details This type corresponds to `SDL_FPoint`.
+ *
+ * \since 5.0.0
+ */
+using fpoint = basic_point<float>;
+
 /**
  * \class basic_point
  *
@@ -49081,6 +49122,9 @@ class basic_point final
     return &m_point;
   }
 
+  /// \name Conversions
+  /// \{
+
   /**
    * \brief Converts to the internal representation.
    *
@@ -49125,6 +49169,8 @@ class basic_point final
     return &m_point;
   }
 
+  /// \} End of conversions
+
   /**
    * \brief Serializes the point.
    *
@@ -49147,28 +49193,6 @@ class basic_point final
  private:
   point_type m_point{0, 0};
 };
-
-/**
- * \typedef ipoint
- *
- * \brief Alias for an `int`-based point.
- *
- * \details This type corresponds to `SDL_Point`.
- *
- * \since 5.0.0
- */
-using ipoint = basic_point<int>;
-
-/**
- * \typedef fpoint
- *
- * \brief Alias for a `float`-based point.
- *
- * \details This type corresponds to `SDL_FPoint`.
- *
- * \since 5.0.0
- */
-using fpoint = basic_point<float>;
 
 /**
  * \brief Converts an `fpoint` instance to the corresponding `ipoint`.
@@ -62968,6 +62992,31 @@ class point_traits final
   using point_type = std::conditional_t<isIntegral, SDL_Point, SDL_FPoint>;
 };
 
+template <typename T>
+class basic_point;
+
+/**
+ * \typedef ipoint
+ *
+ * \brief Alias for an `int`-based point.
+ *
+ * \details This type corresponds to `SDL_Point`.
+ *
+ * \since 5.0.0
+ */
+using ipoint = basic_point<int>;
+
+/**
+ * \typedef fpoint
+ *
+ * \brief Alias for a `float`-based point.
+ *
+ * \details This type corresponds to `SDL_FPoint`.
+ *
+ * \since 5.0.0
+ */
+using fpoint = basic_point<float>;
+
 /**
  * \class basic_point
  *
@@ -63123,6 +63172,9 @@ class basic_point final
     return &m_point;
   }
 
+  /// \name Conversions
+  /// \{
+
   /**
    * \brief Converts to the internal representation.
    *
@@ -63167,6 +63219,8 @@ class basic_point final
     return &m_point;
   }
 
+  /// \} End of conversions
+
   /**
    * \brief Serializes the point.
    *
@@ -63189,28 +63243,6 @@ class basic_point final
  private:
   point_type m_point{0, 0};
 };
-
-/**
- * \typedef ipoint
- *
- * \brief Alias for an `int`-based point.
- *
- * \details This type corresponds to `SDL_Point`.
- *
- * \since 5.0.0
- */
-using ipoint = basic_point<int>;
-
-/**
- * \typedef fpoint
- *
- * \brief Alias for a `float`-based point.
- *
- * \details This type corresponds to `SDL_FPoint`.
- *
- * \since 5.0.0
- */
-using fpoint = basic_point<float>;
 
 /**
  * \brief Converts an `fpoint` instance to the corresponding `ipoint`.
@@ -64095,6 +64127,31 @@ class point_traits final
   using point_type = std::conditional_t<isIntegral, SDL_Point, SDL_FPoint>;
 };
 
+template <typename T>
+class basic_point;
+
+/**
+ * \typedef ipoint
+ *
+ * \brief Alias for an `int`-based point.
+ *
+ * \details This type corresponds to `SDL_Point`.
+ *
+ * \since 5.0.0
+ */
+using ipoint = basic_point<int>;
+
+/**
+ * \typedef fpoint
+ *
+ * \brief Alias for a `float`-based point.
+ *
+ * \details This type corresponds to `SDL_FPoint`.
+ *
+ * \since 5.0.0
+ */
+using fpoint = basic_point<float>;
+
 /**
  * \class basic_point
  *
@@ -64250,6 +64307,9 @@ class basic_point final
     return &m_point;
   }
 
+  /// \name Conversions
+  /// \{
+
   /**
    * \brief Converts to the internal representation.
    *
@@ -64294,6 +64354,8 @@ class basic_point final
     return &m_point;
   }
 
+  /// \} End of conversions
+
   /**
    * \brief Serializes the point.
    *
@@ -64316,28 +64378,6 @@ class basic_point final
  private:
   point_type m_point{0, 0};
 };
-
-/**
- * \typedef ipoint
- *
- * \brief Alias for an `int`-based point.
- *
- * \details This type corresponds to `SDL_Point`.
- *
- * \since 5.0.0
- */
-using ipoint = basic_point<int>;
-
-/**
- * \typedef fpoint
- *
- * \brief Alias for a `float`-based point.
- *
- * \details This type corresponds to `SDL_FPoint`.
- *
- * \since 5.0.0
- */
-using fpoint = basic_point<float>;
 
 /**
  * \brief Converts an `fpoint` instance to the corresponding `ipoint`.
@@ -73718,6 +73758,31 @@ class point_traits final
   using point_type = std::conditional_t<isIntegral, SDL_Point, SDL_FPoint>;
 };
 
+template <typename T>
+class basic_point;
+
+/**
+ * \typedef ipoint
+ *
+ * \brief Alias for an `int`-based point.
+ *
+ * \details This type corresponds to `SDL_Point`.
+ *
+ * \since 5.0.0
+ */
+using ipoint = basic_point<int>;
+
+/**
+ * \typedef fpoint
+ *
+ * \brief Alias for a `float`-based point.
+ *
+ * \details This type corresponds to `SDL_FPoint`.
+ *
+ * \since 5.0.0
+ */
+using fpoint = basic_point<float>;
+
 /**
  * \class basic_point
  *
@@ -73873,6 +73938,9 @@ class basic_point final
     return &m_point;
   }
 
+  /// \name Conversions
+  /// \{
+
   /**
    * \brief Converts to the internal representation.
    *
@@ -73917,6 +73985,8 @@ class basic_point final
     return &m_point;
   }
 
+  /// \} End of conversions
+
   /**
    * \brief Serializes the point.
    *
@@ -73939,28 +74009,6 @@ class basic_point final
  private:
   point_type m_point{0, 0};
 };
-
-/**
- * \typedef ipoint
- *
- * \brief Alias for an `int`-based point.
- *
- * \details This type corresponds to `SDL_Point`.
- *
- * \since 5.0.0
- */
-using ipoint = basic_point<int>;
-
-/**
- * \typedef fpoint
- *
- * \brief Alias for a `float`-based point.
- *
- * \details This type corresponds to `SDL_FPoint`.
- *
- * \since 5.0.0
- */
-using fpoint = basic_point<float>;
 
 /**
  * \brief Converts an `fpoint` instance to the corresponding `ipoint`.
@@ -83969,6 +84017,15 @@ class basic_renderer final
     }
   }
 
+  /**
+   * \brief Renders a point using the currently selected color.
+   *
+   * \tparam U the representation type used by the point.
+   *
+   * \param point the point that will be rendered.
+   *
+   * \since 6.0.0
+   */
   template <typename U>
   void draw_point(const basic_point<U>& point) noexcept
   {
@@ -83982,6 +84039,16 @@ class basic_renderer final
     }
   }
 
+  /**
+   * \brief Renders a circle using the currently selected color.
+   *
+   * \tparam U the representation type used by the point.
+   *
+   * \param position the position of the rendered circle.
+   * \param radius the radius of the rendered circle.
+   *
+   * \since 6.0.0
+   */
   template <typename U>
   void draw_circle(const basic_point<U>& position, const float radius) noexcept
   {
@@ -84032,6 +84099,14 @@ class basic_renderer final
     }
   }
 
+  /**
+   * \brief Renders a filled circle using the currently selected color.
+   *
+   * \param center the position of the rendered circle.
+   * \param radius the radius of the rendered circle.
+   *
+   * \since 6.0.0
+   */
   void fill_circle(const fpoint& center, const float radius)
   {
     const auto cx = center.x();
@@ -84090,12 +84165,39 @@ class basic_renderer final
     fill_rect(translate(rect));
   }
 
+  /**
+   * \brief Renders a point using the currently selected color.
+   *
+   * \details The rendered point will be translated using the current
+   * translation viewport.
+   *
+   * \tparam U the representation
+   * \tparam BB dummy parameter for SFINAE.
+   *
+   * \param point the point that will be rendered.
+   *
+   * \since 6.0.0
+   */
   template <typename U, typename BB = B, detail::is_owner<BB> = true>
   void draw_point_t(const basic_point<U>& point) noexcept
   {
     draw_point(translate(point));
   }
 
+  /**
+   * \brief Renders a circle with the currently selected color.
+   *
+   * \details The rendered circle will be translated using the current
+   * translation viewport.
+   *
+   * \tparam U the precision used by the point.
+   * \tparam BB dummy parameter for SFINAE.
+   *
+   * \param position the position of the rendered circle.
+   * \param radius the radius of the rendered circle.
+   *
+   * \since 6.0.0
+   */
   template <typename U, typename BB = B, detail::is_owner<BB> = true>
   void draw_circle_t(const basic_point<U>& position,
                      const float radius) noexcept
@@ -84103,6 +84205,19 @@ class basic_renderer final
     draw_circle(translate(position), radius);
   }
 
+  /**
+   * \brief Renders a filled circle with the currently selected color.
+   *
+   * \details The rendered circle will be translated using the current
+   * translation viewport.
+   *
+   * \tparam BB dummy parameter for SFINAE.
+   *
+   * \param center the center of the rendered circle.
+   * \param radius the radius of the rendered circle.
+   *
+   * \since 6.0.0
+   */
   template <typename BB = B, detail::is_owner<BB> = true>
   void fill_circle_t(const fpoint& center, const float radius)
   {
@@ -90056,6 +90171,15 @@ class basic_renderer final
     }
   }
 
+  /**
+   * \brief Renders a point using the currently selected color.
+   *
+   * \tparam U the representation type used by the point.
+   *
+   * \param point the point that will be rendered.
+   *
+   * \since 6.0.0
+   */
   template <typename U>
   void draw_point(const basic_point<U>& point) noexcept
   {
@@ -90069,6 +90193,16 @@ class basic_renderer final
     }
   }
 
+  /**
+   * \brief Renders a circle using the currently selected color.
+   *
+   * \tparam U the representation type used by the point.
+   *
+   * \param position the position of the rendered circle.
+   * \param radius the radius of the rendered circle.
+   *
+   * \since 6.0.0
+   */
   template <typename U>
   void draw_circle(const basic_point<U>& position, const float radius) noexcept
   {
@@ -90119,6 +90253,14 @@ class basic_renderer final
     }
   }
 
+  /**
+   * \brief Renders a filled circle using the currently selected color.
+   *
+   * \param center the position of the rendered circle.
+   * \param radius the radius of the rendered circle.
+   *
+   * \since 6.0.0
+   */
   void fill_circle(const fpoint& center, const float radius)
   {
     const auto cx = center.x();
@@ -90177,12 +90319,39 @@ class basic_renderer final
     fill_rect(translate(rect));
   }
 
+  /**
+   * \brief Renders a point using the currently selected color.
+   *
+   * \details The rendered point will be translated using the current
+   * translation viewport.
+   *
+   * \tparam U the representation
+   * \tparam BB dummy parameter for SFINAE.
+   *
+   * \param point the point that will be rendered.
+   *
+   * \since 6.0.0
+   */
   template <typename U, typename BB = B, detail::is_owner<BB> = true>
   void draw_point_t(const basic_point<U>& point) noexcept
   {
     draw_point(translate(point));
   }
 
+  /**
+   * \brief Renders a circle with the currently selected color.
+   *
+   * \details The rendered circle will be translated using the current
+   * translation viewport.
+   *
+   * \tparam U the precision used by the point.
+   * \tparam BB dummy parameter for SFINAE.
+   *
+   * \param position the position of the rendered circle.
+   * \param radius the radius of the rendered circle.
+   *
+   * \since 6.0.0
+   */
   template <typename U, typename BB = B, detail::is_owner<BB> = true>
   void draw_circle_t(const basic_point<U>& position,
                      const float radius) noexcept
@@ -90190,6 +90359,19 @@ class basic_renderer final
     draw_circle(translate(position), radius);
   }
 
+  /**
+   * \brief Renders a filled circle with the currently selected color.
+   *
+   * \details The rendered circle will be translated using the current
+   * translation viewport.
+   *
+   * \tparam BB dummy parameter for SFINAE.
+   *
+   * \param center the center of the rendered circle.
+   * \param radius the radius of the rendered circle.
+   *
+   * \since 6.0.0
+   */
   template <typename BB = B, detail::is_owner<BB> = true>
   void fill_circle_t(const fpoint& center, const float radius)
   {
