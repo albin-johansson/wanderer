@@ -100,7 +100,14 @@ class basic_ini final
       }
       else if constexpr (std::is_same_v<T, bool>)
       {
-        return value == "true" || value == "false";
+        if (value == "true")
+        {
+          return true;
+        }
+        else if (value == "false")
+        {
+          return false;
+        }
       }
       else if constexpr (std::is_same_v<T, string_type>)
       {
