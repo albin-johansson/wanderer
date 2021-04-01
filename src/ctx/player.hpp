@@ -4,7 +4,7 @@
 
 #include "ints.hpp"
 
-namespace wanderer::comp {
+namespace wanderer::ctx {
 
 /**
  * \struct player
@@ -24,4 +24,4 @@ void serialize(Archive& archive, player& p, u32 version)
   archive(p.entity);
 }
 
-}  // namespace wanderer::comp
+}  // namespace wanderer::ctx

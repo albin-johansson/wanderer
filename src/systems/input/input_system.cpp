@@ -7,9 +7,9 @@ namespace wanderer::sys {
 void update_input(entt::registry& registry,
                   entt::dispatcher& dispatcher,
                   const input& input,
-                  const comp::binds& binds)
+                  const ctx::binds& binds)
 {
-  const auto player = registry.ctx<comp::player>().entity;
+  const auto player = registry.ctx<ctx::player>().entity;
   if (registry.has<comp::humanoid_idle>(player))
   {
     handle_idle_input(registry, dispatcher, input, binds);

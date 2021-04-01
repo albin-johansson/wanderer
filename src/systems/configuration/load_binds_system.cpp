@@ -8,9 +8,9 @@
 
 namespace wanderer::sys {
 
-auto load_binds() -> comp::binds
+auto load_binds() -> ctx::binds
 {
-  comp::binds binds;
+  ctx::binds binds;
 
   try
   {

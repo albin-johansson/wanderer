@@ -36,7 +36,7 @@ void sort_drawables(entt::registry& registry)
 
 void update_tile_object_animations(entt::registry& registry)
 {
-  const auto& tileset = registry.ctx<comp::tileset>();
+  const auto& tileset = registry.ctx<ctx::tileset>();
   const auto view = registry.view<const comp::tile_object, comp::depth_drawable>();
 
   view.each([&](const comp::tile_object& object, comp::depth_drawable& drawable) {
@@ -50,7 +50,7 @@ void update_tile_object_animations(entt::registry& registry)
 
 void render_drawables(const entt::registry& registry, graphics_context& graphics)
 {
-  const auto boundsRect = to_rect(registry.ctx<comp::render_bounds>());
+  const auto boundsRect = to_rect(registry.ctx<ctx::render_bounds>());
   auto& renderer = graphics.renderer();
 
   const auto view = registry.view<const comp::depth_drawable>();

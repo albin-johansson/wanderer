@@ -10,9 +10,9 @@
 namespace wanderer::sys {
 namespace {
 
-[[nodiscard]] auto default_settings() noexcept -> comp::settings
+[[nodiscard]] auto default_settings() noexcept -> ctx::settings
 {
-  comp::settings settings;
+  ctx::settings settings;
 
   settings.resolution = cen::screen::size();
   settings.fullscreen = true;
@@ -22,14 +22,14 @@ namespace {
 }
 
 [[nodiscard]] auto read_settings(const std::filesystem::path& path,
-                                 const comp::settings& defaults) -> comp::settings
+                                 const ctx::settings& defaults) -> ctx::settings
 {
   std::ifstream stream{path};
   const ini_file file{stream};
 
   CENTURION_LOG_INFO("Reading settings: \"%s\"", path.string().c_str());
 
-  comp::settings settings;
+  ctx::settings settings;
 
   // clang-format off
   settings.fullscreen = file.get<bool>("Graphics", "Fullscreen").value_or(defaults.fullscreen);
@@ -55,20 +55,20 @@ void load_settings(entt::registry& registry)
 
   if (std::filesystem::exists(path))
   {
-    registry.set<comp::settings>(read_settings(path, defaults));
+    registry.set<ctx::settings>(read_settings(path, defaults));
   }
   else
   {
     CENTURION_LOG_INFO("Copying default settings to preferred path...");
     std::filesystem::copy("resources/settings.ini", path);
-    registry.set<comp::settings>(defaults);
+    registry.set<ctx::settings>(defaults);
   }
 }
 
 void save_settings_before_exit(const entt::registry& registry)
 {
   const auto path = files_directory() / "settings.ini";
-  const auto& settings = registry.ctx<comp::settings>();
+  const auto& settings = registry.ctx<ctx::settings>();
 
   std::ofstream stream{path};
   stream << "[Graphics]\n";

@@ -5,7 +5,7 @@
 #include "entity_type.hpp"
 #include "ints.hpp"
 
-namespace wanderer::comp {
+namespace wanderer::ctx {
 
 /**
  * \struct viewport
@@ -37,4 +37,4 @@ void serialize(Archive& archive, viewport& v, u32 version)
   archive(v.bounds, v.levelSize, v.keepInBounds);
 }
 
-}  // namespace wanderer::comp
+}  // namespace wanderer::ctx

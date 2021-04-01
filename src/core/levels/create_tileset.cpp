@@ -6,7 +6,7 @@ namespace wanderer {
 namespace {
 
 void create_tiles(entt::registry& registry,
-                  comp::tileset& tileset,
+                  ctx::tileset& tileset,
                   const std::map<tile_id, ir::tile>& tiles,
                   const graphics_context& graphics)
 {
@@ -45,9 +45,9 @@ void load_tileset_textures(const ir::level& data, graphics_context& graphics)
 
 auto create_tileset(const std::vector<ir::tileset>& data,
                     entt::registry& registry,
-                    const graphics_context& graphics) -> comp::tileset&
+                    const graphics_context& graphics) -> ctx::tileset&
 {
-  auto& tileset = registry.set<comp::tileset>();
+  auto& tileset = registry.set<ctx::tileset>();
 
   std::size_t nTiles{};
   for (const auto& ts : data)

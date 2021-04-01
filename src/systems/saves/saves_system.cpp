@@ -19,6 +19,7 @@
 #include "tile_object.hpp"
 #include "tilemap.hpp"
 #include "tileset.hpp"
+#include "viewport.hpp"
 
 namespace wanderer::sys {
 namespace {
@@ -27,9 +28,11 @@ template <typename T, typename Archive>
 void process(T& handle, Archive& archive)
 {
   handle.entities(archive)
-      .template component<comp::animated,
+      .template component<ctx::tileset,
+                          ctx::binds,
+                          ctx::viewport,
+                          comp::animated,
                           comp::animated_tile,
-                          comp::binds,
                           comp::chase,
                           comp::container_trigger,
                           comp::depth_drawable,
@@ -42,14 +45,13 @@ void process(T& handle, Archive& archive)
                           comp::inventory,
                           comp::movable,
                           comp::object,
-                          comp::player,
+                          ctx::player,
                           comp::portal,
                           comp::spawnpoint,
                           comp::tile,
                           comp::tile_layer,
                           comp::tile_object,
-                          comp::tilemap,
-                          comp::tileset>(archive);
+                          comp::tilemap>(archive);
 }
 
 }  // namespace

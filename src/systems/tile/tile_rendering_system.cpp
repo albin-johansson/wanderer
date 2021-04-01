@@ -19,7 +19,7 @@ void render_tile(graphics_context& graphics,
 
 auto get_animated_tile(const entt::registry& registry,
                        const comp::tile::entity tileEntity,
-                       const comp::tileset& tileset) -> const comp::tile&
+                       const ctx::tileset& tileset) -> const comp::tile&
 {
   assert(registry.has<comp::animated_tile>(tileEntity));
 

@@ -16,17 +16,12 @@ set(SOURCE_FILES
     components/movable.hpp
     components/object.hpp
     components/particle.hpp
-    components/player.hpp
-    components/settings.hpp
 
     components/graphics/animated.hpp
     components/graphics/animated_tile.hpp
     components/graphics/depth_drawable.hpp
     components/graphics/level_switch_animation.hpp
-    components/graphics/render_bounds.hpp
-    components/graphics/viewport.hpp
 
-    components/input/binds.hpp
     components/input/key_bind.hpp
 
     components/inventory/container_trigger.hpp
@@ -40,7 +35,6 @@ set(SOURCE_FILES
     components/map/tile_layer.hpp
     components/map/tile_object.hpp
     components/map/tilemap.hpp
-    components/map/tileset.hpp
 
     components/ui/button.hpp
     components/ui/checkbox.hpp
@@ -120,6 +114,14 @@ set(SOURCE_FILES
     core/resources/texture_loader.hpp
 
     core/settings/setting_id.hpp
+
+    ctx/active_menu.hpp
+    ctx/binds.hpp
+    ctx/player.hpp
+    ctx/render_bounds.hpp
+    ctx/settings.hpp
+    ctx/tileset.hpp
+    ctx/viewport.hpp
 
     events/begin_attack_event.hpp
     events/begin_humanoid_move_event.hpp
@@ -312,6 +314,7 @@ target_include_directories(${WANDERER_LIB_TARGET}
     PUBLIC core/math
     PUBLIC core/resources
     PUBLIC core/settings
+    PUBLIC ctx
     PUBLIC events
     PUBLIC io
     PUBLIC io/map

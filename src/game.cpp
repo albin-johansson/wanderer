@@ -58,7 +58,7 @@ void game::handle_input(const input& input)
   auto* level = m_levels.current();
   sys::update_menu(m_menus, m_dispatcher, input);
 
-  const auto& binds = m_menus.ctx<comp::binds>();
+  const auto& binds = m_menus.ctx<ctx::binds>();
   sys::update_input(level->registry(), m_dispatcher, input, binds);
 }
 
@@ -82,7 +82,7 @@ void game::tick(const delta_t dt)
 
   sys::update_portal_triggers(registry);
   sys::update_inventory_triggers(registry);
-  sys::update_viewport(*level, registry.ctx<comp::player>().entity, dt);
+  sys::update_viewport(*level, registry.ctx<ctx::player>().entity, dt);
   sys::sort_drawables(registry);
 
   sys::update_animations(registry);
@@ -96,10 +96,11 @@ void game::render(graphics_context& graphics, const cen::ipoint mousePos)
 {
   auto& renderer = graphics.renderer();
 
-  const auto* level = m_levels.current();
+  auto* level = m_levels.current();
   const auto& registry = level->registry();
 
   sys::translate_viewport(registry, renderer);
+  level->update_render_bounds();
 
   sys::render_ground_layers(registry, graphics);
   sys::render_drawables(registry, graphics);
@@ -123,9 +124,9 @@ void game::render(graphics_context& graphics, const cen::ipoint mousePos)
 void game::on_start()
 {
   sys::load_settings(m_menus);
-  m_menus.set<comp::binds>(sys::load_binds());
+  m_menus.set<ctx::binds>(sys::load_binds());
 
-  const auto& settings = m_menus.ctx<comp::settings>();
+  const auto& settings = m_menus.ctx<ctx::settings>();
   m_dispatcher.enqueue<event::fullscreen_toggled>(settings.fullscreen);
   m_dispatcher.enqueue<event::integer_scaling_toggled>(settings.integerScaling);
 
@@ -199,14 +200,14 @@ void game::on_button_pressed(const event::button_pressed& event)
       break;
     }
     case menu_action::toggle_fullscreen: {
-      auto& settings = m_menus.ctx<comp::settings>();
+      auto& settings = m_menus.ctx<ctx::settings>();
       settings.fullscreen = !settings.fullscreen;
 
       m_dispatcher.enqueue<event::fullscreen_toggled>(settings.fullscreen);
       break;
     }
     case menu_action::toggle_integer_scaling: {
-      auto& settings = m_menus.ctx<comp::settings>();
+      auto& settings = m_menus.ctx<ctx::settings>();
       settings.integerScaling = !settings.integerScaling;
 
       m_dispatcher.enqueue<event::integer_scaling_toggled>(settings.integerScaling);

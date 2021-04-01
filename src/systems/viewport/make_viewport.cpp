@@ -3,9 +3,9 @@
 
 namespace wanderer::sys {
 
-auto make_viewport(const cen::farea& levelSize) noexcept -> comp::viewport
+auto make_viewport(const cen::farea& levelSize) noexcept -> ctx::viewport
 {
-  comp::viewport viewport;
+  ctx::viewport viewport;
 
   viewport.bounds = {{}, glob::logical_size<cen::farea>};
   viewport.levelSize = levelSize;

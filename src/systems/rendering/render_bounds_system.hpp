@@ -7,6 +7,8 @@
 
 namespace wanderer::sys {
 
+void update_render_bounds(entt::registry& registry, int nRows, int nCols);
+
 /**
  * \brief Calculates and returns the current render bounds.
  *
@@ -17,8 +19,8 @@ namespace wanderer::sys {
  * \return the render bounds that should be used when rendering the tilemap.
  */
 [[nodiscard]] auto get_render_bounds(const entt::registry& registry, int rows, int cols)
-    -> comp::render_bounds;
+    -> ctx::render_bounds;
 
-[[nodiscard]] auto to_rect(const comp::render_bounds& bounds) noexcept -> cen::frect;
+[[nodiscard]] auto to_rect(const ctx::render_bounds& bounds) noexcept -> cen::frect;
 
 }  // namespace wanderer::sys

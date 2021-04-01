@@ -13,6 +13,6 @@ void add_tile_objects(entt::registry& registry,
                       aabb_tree& tree,
                       const graphics_context& graphics,
                       const ir::level& levelData,
-                      const comp::tileset& tileset);
+                      const ctx::tileset& tileset);
 
 }

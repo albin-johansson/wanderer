@@ -17,7 +17,7 @@ level_manager::level_manager(graphics_context& graphics)
 
   auto worldData = parse_world("resources/maps/world.json");
   auto world = std::make_unique<level>(worldData.base, graphics);
-  world->ctx<comp::viewport>().keepInBounds = true;
+  world->ctx<ctx::viewport>().keepInBounds = true;
 
   m_world = world->id();
 
@@ -56,7 +56,7 @@ void level_manager::switch_to(const map_id id)
 
     registry.clear<comp::level_switch_animation>();
 
-    const auto player = currentLevel->ctx<comp::player>().entity;
+    const auto player = currentLevel->ctx<ctx::player>().entity;
     auto& movable = currentLevel->get<comp::movable>(player);
     movable.velocity.zero();
 

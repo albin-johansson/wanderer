@@ -61,7 +61,7 @@ void stop(comp::movable& movable, const direction dir) noexcept
 
 [[nodiscard]] auto check_pressed(comp::movable& movable,
                                  const cen::keyboard& keyboard,
-                                 const comp::binds& binds) noexcept -> bool
+                                 const ctx::binds& binds) noexcept -> bool
 {
   const auto left = keyboard.is_pressed(binds.left);
   const auto right = keyboard.is_pressed(binds.right);
@@ -101,7 +101,7 @@ void stop(comp::movable& movable, const direction dir) noexcept
 
 void check_released(comp::movable& movable,
                     const cen::keyboard& keyboard,
-                    const comp::binds& binds) noexcept
+                    const ctx::binds& binds) noexcept
 {
   if (keyboard.just_released(binds.left))
   {
@@ -129,9 +129,9 @@ void check_released(comp::movable& movable,
 void handle_move_input(entt::registry& registry,
                        entt::dispatcher& dispatcher,
                        const input& input,
-                       const comp::binds& binds)
+                       const ctx::binds& binds)
 {
-  const auto player = registry.ctx<comp::player>().entity;
+  const auto player = registry.ctx<ctx::player>().entity;
   assert(registry.has<comp::humanoid_move>(player));
 
   auto& movable = registry.get<comp::movable>(player);

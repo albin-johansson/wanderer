@@ -19,7 +19,7 @@ namespace wanderer::sys {
 void update_input(entt::registry& registry,
                   entt::dispatcher& dispatcher,
                   const input& input,
-                  const comp::binds& binds);
+                  const ctx::binds& binds);
 
 /**
  * \brief Handles the player input if the player is idle.
@@ -32,7 +32,7 @@ void update_input(entt::registry& registry,
 void handle_idle_input(entt::registry& registry,
                        entt::dispatcher& dispatcher,
                        const input& input,
-                       const comp::binds& binds);
+                       const ctx::binds& binds);
 
 /**
  * \brief Handles the player input if the player is moving.
@@ -45,6 +45,6 @@ void handle_idle_input(entt::registry& registry,
 void handle_move_input(entt::registry& registry,
                        entt::dispatcher& dispatcher,
                        const input& input,
-                       const comp::binds& binds);
+                       const ctx::binds& binds);
 
 }  // namespace wanderer::sys

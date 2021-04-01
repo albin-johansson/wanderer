@@ -4,6 +4,6 @@
 
 namespace wanderer::sys {
 
-[[nodiscard]] auto load_binds() -> comp::binds;
+[[nodiscard]] auto load_binds() -> ctx::binds;
 
 }

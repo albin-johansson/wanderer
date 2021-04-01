@@ -2,6 +2,7 @@
 
 #include <centurion.hpp>
 
+#include "active_menu.hpp"
 #include "button_pressed_event.hpp"
 #include "button_system.hpp"
 #include "create_controls_menu.hpp"
@@ -43,7 +44,7 @@ auto create_menus() -> entt::registry
   create_settings_menu(registry);
   create_saves_menu(registry);
 
-  registry.set<comp::active_menu>(home);
+  registry.set<ctx::active_menu>(home);
 
   auto& cursors = registry.set<comp::cursors>();
   cursors.data.try_emplace(cen::system_cursor::hand, cen::system_cursor::hand);
@@ -55,7 +56,7 @@ void update_menu(entt::registry& registry,
                  entt::dispatcher& dispatcher,
                  const input& input)
 {
-  const auto menuEntity = registry.ctx<comp::active_menu>().entity;
+  const auto menuEntity = registry.ctx<ctx::active_menu>().entity;
   const auto& menu = registry.get<comp::menu>(menuEntity);
 
   if (const auto button = update_button_hover(registry, menuEntity, input.mouse))
@@ -75,13 +76,13 @@ void update_menu(entt::registry& registry,
 
 void switch_menu(entt::registry& registry, const menu_id id)
 {
-  registry.unset<comp::active_menu>();
+  registry.unset<ctx::active_menu>();
 
   const auto view = registry.view<comp::menu>();
   view.each([&](const entt::entity entity, const comp::menu& menu) {
     if (menu.id == id)
     {
-      registry.set<comp::active_menu>(comp::menu::entity{entity});
+      registry.set<ctx::active_menu>(comp::menu::entity{entity});
 
       if (menu.id == menu_id::saves)
       {
@@ -93,7 +94,7 @@ void switch_menu(entt::registry& registry, const menu_id id)
 
 auto is_current_menu_blocking(const entt::registry& registry) -> bool
 {
-  const auto menuEntity = registry.ctx<comp::active_menu>().entity;
+  const auto menuEntity = registry.ctx<ctx::active_menu>().entity;
   return registry.get<comp::menu>(menuEntity).blocking;
 }
 

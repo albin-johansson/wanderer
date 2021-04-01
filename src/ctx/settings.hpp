@@ -2,7 +2,7 @@
 
 #include <centurion.hpp>
 
-namespace wanderer::comp {
+namespace wanderer::ctx {
 
 struct settings final
 {
@@ -11,4 +11,4 @@ struct settings final
   bool fullscreen;
 };
 
-}  // namespace wanderer::comp
+}  // namespace wanderer::ctx

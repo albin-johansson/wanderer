@@ -10,7 +10,7 @@
 
 namespace wanderer::sys {
 
-[[nodiscard]] auto make_viewport(const cen::farea& levelSize) noexcept -> comp::viewport;
+[[nodiscard]] auto make_viewport(const cen::farea& levelSize) noexcept -> ctx::viewport;
 
 void center_viewport_on(entt::registry& registry, const float2& position);
 

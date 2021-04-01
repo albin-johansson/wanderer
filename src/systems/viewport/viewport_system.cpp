@@ -9,7 +9,7 @@ namespace {
 inline constexpr float camera_speed = 10.0f;
 
 [[nodiscard]] auto next_camera_position(const float2& target,
-                                        const comp::viewport& viewport,
+                                        const ctx::viewport& viewport,
                                         const delta_t dt) -> float2
 {
   const auto boundsX = viewport.bounds.x();
@@ -63,7 +63,7 @@ inline constexpr float camera_speed = 10.0f;
 }
 
 [[nodiscard]] auto make_target_vector(const float2& position,
-                                      const comp::viewport& viewport) noexcept -> float2
+                                      const ctx::viewport& viewport) noexcept -> float2
 {
   constexpr auto halfWidth = glob::humanoid_draw_width / 2.0f;
   constexpr auto halfHeight = glob::humanoid_draw_height / 2.0f;
@@ -77,7 +77,7 @@ inline constexpr float camera_speed = 10.0f;
   return {x, y};
 }
 
-void track(comp::viewport& viewport, const float2& position, const delta_t dt)
+void track(ctx::viewport& viewport, const float2& position, const delta_t dt)
 {
   const auto next =
       next_camera_position(make_target_vector(position, viewport), viewport, dt);
@@ -89,7 +89,7 @@ void track(comp::viewport& viewport, const float2& position, const delta_t dt)
 
 void center_viewport_on(entt::registry& registry, const float2& position)
 {
-  auto& viewport = registry.ctx<comp::viewport>();
+  auto& viewport = registry.ctx<ctx::viewport>();
   const auto target = make_target_vector(position, viewport);
   viewport.bounds.set_x(target.x);
   viewport.bounds.set_y(target.y);
@@ -98,12 +98,12 @@ void center_viewport_on(entt::registry& registry, const float2& position)
 void update_viewport(level& level, const entt::entity movableEntity, const delta_t dt)
 {
   const auto& movable = level.get<comp::movable>(movableEntity);
-  track(level.ctx<comp::viewport>(), movable.position, dt);
+  track(level.ctx<ctx::viewport>(), movable.position, dt);
 }
 
 void translate_viewport(const entt::registry& registry, cen::renderer& renderer)
 {
-  const auto& viewport = registry.ctx<comp::viewport>();
+  const auto& viewport = registry.ctx<ctx::viewport>();
   renderer.set_translation_viewport(viewport.bounds);
 }
 

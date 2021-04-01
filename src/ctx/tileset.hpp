@@ -8,7 +8,7 @@
 #include "tile.hpp"
 #include "tile_id.hpp"
 
-namespace wanderer::comp {
+namespace wanderer::ctx {
 namespace detail {
 struct tileset_entity_t;
 }
@@ -29,7 +29,7 @@ struct tileset_entity_t;
 struct tileset final
 {
   using entity = entity_type<detail::tileset_entity_t>;
-  std::unordered_map<tile_id, tile::entity> tiles;
+  std::unordered_map<tile_id, comp::tile::entity> tiles;
 };
 
 template <typename Archive>
@@ -38,4 +38,4 @@ void serialize(Archive& archive, tileset& ts, u32 version)
   archive(ts.tiles);
 }
 
-}  // namespace wanderer::comp
+}  // namespace wanderer::ctx

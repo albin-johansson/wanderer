@@ -58,7 +58,7 @@ void visit_tiles(const comp::tile_layer& layer, T&& callable)
  */
 template <typename T>
 void visit_tiles(const comp::tile_layer& layer,
-                 const comp::render_bounds& bounds,
+                 const ctx::render_bounds& bounds,
                  T&& callable)
 {
   for (auto r = bounds.minRow; r < bounds.maxRow; ++r)

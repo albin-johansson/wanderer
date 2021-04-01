@@ -4,7 +4,7 @@
 
 #include "ints.hpp"
 
-namespace wanderer::comp {
+namespace wanderer::ctx {
 
 /**
  * \struct binds
@@ -30,4 +30,4 @@ void serialize(Archive& archive, binds& b, u32 version)
   archive(b.up, b.right, b.down, b.left, b.attack, b.interact, b.inventory);
 }
 
-}  // namespace wanderer::comp
+}  // namespace wanderer::ctx

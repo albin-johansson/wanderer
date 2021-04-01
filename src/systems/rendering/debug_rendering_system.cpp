@@ -1,5 +1,6 @@
 #include "debug_rendering_system.hpp"
 
+#include "active_menu.hpp"
 #include "centurion_utils.hpp"
 #include "chase.hpp"
 #include "container_trigger.hpp"
@@ -53,7 +54,7 @@ void render_enabled_trigger_indicator(const entt::registry& registry,
 
 void render_trigger_indicators(const entt::registry& registry, cen::renderer& renderer)
 {
-  const auto entity = registry.ctx<comp::player>().entity;
+  const auto entity = registry.ctx<ctx::player>().entity;
   if (const auto* iwp = registry.try_get<comp::is_within_portal>(entity))
   {
     render_enabled_trigger_indicator(registry, iwp->portalEntity, renderer);
@@ -88,7 +89,7 @@ void render_menu_debug_info(const entt::registry& registry, graphics_context& gr
 {
   auto& renderer = graphics.renderer();
 
-  const auto menuEntity = registry.ctx<comp::active_menu>().entity;
+  const auto menuEntity = registry.ctx<ctx::active_menu>().entity;
   const auto& menu = registry.get<comp::menu>(menuEntity);
 
   if (menu.id != menu_id::in_game)

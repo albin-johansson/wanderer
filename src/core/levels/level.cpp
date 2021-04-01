@@ -30,7 +30,7 @@ level::level(const ir::level& data, graphics_context& graphics)
   auto& tileset = create_tileset(data.tilesets, m_registry, graphics);
   auto& tilemap = create_tilemap(data, m_registry, m_tilemap);
 
-  m_registry.set<comp::viewport>(sys::make_viewport(tilemap.size));
+  m_registry.set<ctx::viewport>(sys::make_viewport(tilemap.size));
 
   add_ground_layers(m_registry, data);
   add_tile_objects(m_registry, m_tree, graphics, data, tileset);
@@ -76,6 +76,11 @@ void level::relocate_aabb(const entt::entity entity, const float2& position)
   m_tree.relocate(entity, position);
 }
 
+void level::update_render_bounds()
+{
+  sys::update_render_bounds(m_registry, row_count(), col_count());
+}
+
 auto level::id() const noexcept -> map_id
 {
   return m_registry.get<comp::tilemap>(m_tilemap).id;
@@ -106,11 +111,6 @@ auto level::col_count() const -> int
   return m_registry.get<comp::tilemap>(m_tilemap).cols;
 }
 
-auto level::get_render_bounds() const -> comp::render_bounds
-{
-  return sys::get_render_bounds(m_registry, row_count(), col_count());
-}
-
 auto level::registry() -> entt::registry&
 {
   return m_registry;
@@ -124,7 +124,7 @@ auto level::registry() const -> const entt::registry&
 void level::spawn_humanoids(const comp::tilemap& tilemap, graphics_context& graphics)
 {
   // The player has to be created before other humanoids
-  m_registry.set<comp::player>(
+  m_registry.set<ctx::player>(
       sys::add_player(m_registry, m_tree, *m_playerSpawnPosition, graphics));
 
   each<comp::spawnpoint>([&, this](const comp::spawnpoint& spawnpoint) {

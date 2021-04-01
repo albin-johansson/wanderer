@@ -12,6 +12,6 @@ void load_tileset_textures(const ir::level& data, graphics_context& graphics);
 
 [[nodiscard]] auto create_tileset(const std::vector<ir::tileset>& data,
                                   entt::registry& registry,
-                                  const graphics_context& graphics) -> comp::tileset&;
+                                  const graphics_context& graphics) -> ctx::tileset&;
 
 }  // namespace wanderer

@@ -15,7 +15,7 @@ namespace wanderer::sys {
 namespace {
 
 [[nodiscard]] auto get_direction(const cen::keyboard& keyboard,
-                                 const comp::binds& binds) noexcept
+                                 const ctx::binds& binds) noexcept
     -> std::optional<direction>
 {
   const auto left = keyboard.is_pressed(binds.left);
@@ -48,11 +48,11 @@ namespace {
 void check_for_movement(entt::registry& registry,
                         entt::dispatcher& dispatcher,
                         const cen::keyboard& keyboard,
-                        const comp::binds& binds)
+                        const ctx::binds& binds)
 {
   if (const auto dir = get_direction(keyboard, binds))
   {
-    const auto player = registry.ctx<comp::player>().entity;
+    const auto player = registry.ctx<ctx::player>().entity;
     dispatcher.enqueue<event::begin_humanoid_move>(&registry, player, *dir);
   }
 }
@@ -62,9 +62,9 @@ void check_for_movement(entt::registry& registry,
 void handle_idle_input(entt::registry& registry,
                        entt::dispatcher& dispatcher,
                        const input& input,
-                       const comp::binds& binds)
+                       const ctx::binds& binds)
 {
-  const auto player = registry.ctx<comp::player>().entity;
+  const auto player = registry.ctx<ctx::player>().entity;
 
   assert(registry.has<comp::humanoid_idle>(player));
   const auto& keyboard = input.keyboard;

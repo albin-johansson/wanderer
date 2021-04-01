@@ -47,6 +47,8 @@ class level final
 
   void relocate_aabb(entt::entity entity, const float2& position);
 
+  void update_render_bounds();
+
   template <typename... Components, typename T>
   void each(T&& lambda)
   {
@@ -128,15 +130,6 @@ class level final
    * \since 0.1.0
    */
   [[nodiscard]] auto col_count() const -> int;
-
-  /**
-   * \brief Returns the current render bounds of the level.
-   *
-   * \return the current render bounds.
-   *
-   * \since 0.1.0
-   */
-  [[nodiscard]] auto get_render_bounds() const -> comp::render_bounds;
 
   /**
    * \brief Returns the registry associated with the level.

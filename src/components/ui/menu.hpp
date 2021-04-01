@@ -25,11 +25,6 @@ struct menu final
   bool blocking;
 };
 
-struct active_menu final
-{
-  menu::entity entity{null<menu>()};
-};
-
 struct home_menu final
 {
   menu::entity entity{null<menu>()};

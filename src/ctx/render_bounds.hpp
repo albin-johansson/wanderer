@@ -2,7 +2,7 @@
 
 #include "ints.hpp"
 
-namespace wanderer::comp {
+namespace wanderer::ctx {
 
 /**
  * \struct render_bounds
@@ -34,4 +34,4 @@ void serialize(Archive& archive, render_bounds& rb, u32 version)
   archive(rb.minRow, rb.minCol, rb.maxRow, rb.maxCol);
 }
 
-}  // namespace wanderer::comp
+}  // namespace wanderer::ctx
