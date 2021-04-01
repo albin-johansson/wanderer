@@ -66,7 +66,10 @@ inline constexpr auto y1 = convert_row_to_y(glob::menu_rows - 2);
 {
   std::vector<comp::label::entity> labels;
 
-  labels.push_back(make_label(registry, x0, y1 + 5));
+  labels.push_back(make_label(registry,
+                              "Location: " + (files_directory() / "saves").string(),
+                              x0,
+                              y1 + 5));
 
   return labels;
 }
