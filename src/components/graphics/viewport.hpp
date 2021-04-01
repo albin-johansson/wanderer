@@ -6,9 +6,6 @@
 #include "ints.hpp"
 
 namespace wanderer::comp {
-namespace detail {
-struct viewport_entity_t;
-}
 
 /**
  * \struct viewport
@@ -29,9 +26,8 @@ struct viewport_entity_t;
  */
 struct viewport final
 {
-  using entity = entity_type<detail::viewport_entity_t>;
-  cen::frect bounds{};
-  cen::farea levelSize{};
+  cen::frect bounds;
+  cen::farea levelSize;
   bool keepInBounds{false};
 };
 
