@@ -1,11 +1,10 @@
 #include "menu_rendering_system.hpp"
 
-#include "button_rendering_system.hpp"
 #include "button_system.hpp"
 #include "checkbox.hpp"
-#include "checkbox_rendering_system.hpp"
+#include "checkbox_system.hpp"
 #include "grid_system.hpp"
-#include "label_rendering_system.hpp"
+#include "label_system.hpp"
 #include "line_rendering_system.hpp"
 #include "menu.hpp"
 #include "menu_constants.hpp"

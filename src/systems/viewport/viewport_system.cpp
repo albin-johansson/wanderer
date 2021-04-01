@@ -107,6 +107,7 @@ void translate_viewport(const entt::registry& registry,
                         comp::viewport::entity viewportEntity,
                         cen::renderer& renderer)
 {
+  // TODO viewport is a ctx component
   const auto& viewport = registry.get<comp::viewport>(viewportEntity);
   renderer.set_translation_viewport(viewport.bounds);
 }

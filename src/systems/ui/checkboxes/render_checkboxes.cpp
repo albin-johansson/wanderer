@@ -1,4 +1,4 @@
-#include "checkbox_rendering_system.hpp"
+#include "checkbox_system.hpp"
 
 #include "button_system.hpp"
 #include "grid_system.hpp"

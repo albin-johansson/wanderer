@@ -1,7 +1,8 @@
 #pragma once
 
-#include <entt.hpp>  // registry
-#include <string>    // string
+#include <centurion.hpp>  // renderer
+#include <entt.hpp>       // registry
+#include <string>         // string
 
 #include "checkbox.hpp"
 #include "menu_action.hpp"
@@ -15,4 +16,8 @@ auto add_checkbox(entt::registry& registry,
                   menu_action action,
                   const bool checked = false) -> comp::checkbox::entity;
 
-}
+void render_checkboxes(const entt::registry& registry,
+                       cen::renderer& renderer,
+                       const comp::checkbox_pack& pack);
+
+}  // namespace wanderer::sys

@@ -196,18 +196,15 @@ set(SOURCE_FILES
     systems/humanoid/humanoid_state_system.cpp
     systems/humanoid/humanoid_state_system.hpp
 
-    systems/input/idle_input_system.cpp
-    systems/input/idle_input_system.hpp
+    systems/input/handle_idle_input.cpp
     systems/input/input_system.cpp
     systems/input/input_system.hpp
     systems/input/key_bind_system.cpp
     systems/input/key_bind_system.hpp
-    systems/input/move_input_system.cpp
-    systems/input/move_input_system.hpp
+    systems/input/handle_move_input.cpp
 
-    systems/layer/layer_rendering_system.cpp
-    systems/layer/layer_rendering_system.hpp
-    systems/layer/layer_system.hpp
+    systems/layers/render_ground_layers.cpp
+    systems/layers/layer_system.hpp
 
     systems/movement/hitbox_system.cpp
     systems/movement/hitbox_system.hpp
@@ -234,24 +231,20 @@ set(SOURCE_FILES
     systems/ui/grid_system.hpp
 
     systems/ui/buttons/button_factory_system.cpp
-    systems/ui/buttons/button_factory_system.hpp
-    systems/ui/buttons/button_rendering_system.cpp
-    systems/ui/buttons/button_rendering_system.hpp
+    systems/ui/buttons/render_buttons.cpp
     systems/ui/buttons/button_system.cpp
     systems/ui/buttons/button_system.hpp
 
-    systems/ui/checkboxes/checkbox_factory_system.cpp
-    systems/ui/checkboxes/checkbox_factory_system.hpp
-    systems/ui/checkboxes/checkbox_rendering_system.cpp
-    systems/ui/checkboxes/checkbox_rendering_system.hpp
+    systems/ui/checkboxes/checkbox_system.cpp
+    systems/ui/checkboxes/checkbox_system.hpp
+    systems/ui/checkboxes/render_checkboxes.cpp
 
     systems/ui/hud/level_switch_animation_system.cpp
     systems/ui/hud/level_switch_animation_system.hpp
 
-    systems/ui/labels/label_rendering_system.cpp
-    systems/ui/labels/label_rendering_system.hpp
+    systems/ui/labels/label_system.hpp
     systems/ui/labels/make_label.cpp
-    systems/ui/labels/make_label.hpp
+    systems/ui/labels/render_labels.cpp
 
     systems/ui/lines/line_rendering_system.cpp
     systems/ui/lines/line_rendering_system.hpp
@@ -276,7 +269,6 @@ set(SOURCE_FILES
     systems/ui/menus/saves_menu_system.hpp
 
     systems/viewport/make_viewport.cpp
-    systems/viewport/make_viewport.hpp
     systems/viewport/viewport_system.cpp
     systems/viewport/viewport_system.hpp
     )
@@ -333,7 +325,7 @@ target_include_directories(${WANDERER_LIB_TARGET}
     PUBLIC systems/configuration
     PUBLIC systems/humanoid
     PUBLIC systems/input
-    PUBLIC systems/layer
+    PUBLIC systems/layers
     PUBLIC systems/ui
     PUBLIC systems/ui/buttons
     PUBLIC systems/ui/checkboxes

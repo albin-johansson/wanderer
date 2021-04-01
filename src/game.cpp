@@ -13,7 +13,7 @@
 #include "input_system.hpp"
 #include "integer_scaling_toggled_event.hpp"
 #include "inventory_system.hpp"
-#include "layer_rendering_system.hpp"
+#include "layer_system.hpp"
 #include "level_switch_animation.hpp"
 #include "level_switch_animation_system.hpp"
 #include "load_binds_system.hpp"

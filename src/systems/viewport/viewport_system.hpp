@@ -1,6 +1,7 @@
 #pragma once
 
-#include <centurion.hpp>
+#include <centurion.hpp>  // renderer, farea
+#include <entt.hpp>       // registry
 
 #include "delta.hpp"
 #include "level.hpp"
@@ -8,6 +9,9 @@
 #include "viewport.hpp"
 
 namespace wanderer::sys {
+
+[[nodiscard]] auto make_viewport(entt::registry& registry, const cen::farea& levelSize)
+    -> comp::viewport::entity;
 
 void center_viewport_on(entt::registry& registry,
                         comp::viewport::entity viewportEntity,

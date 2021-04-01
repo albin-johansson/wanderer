@@ -1,8 +1,8 @@
 #include "create_settings_menu.hpp"
 
-#include "button_factory_system.hpp"
+#include "button_system.hpp"
 #include "checkbox.hpp"
-#include "checkbox_factory_system.hpp"
+#include "checkbox_system.hpp"
 #include "key_bind_system.hpp"
 #include "menu_factory_system.hpp"
 

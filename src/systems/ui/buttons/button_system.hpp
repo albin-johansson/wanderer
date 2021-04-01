@@ -9,6 +9,19 @@
 
 namespace wanderer::sys {
 
+void add_button(entt::registry& registry,
+                entt::entity entity,
+                std::string text,
+                menu_action action,
+                int row,
+                int col);
+
+auto make_button(entt::registry& registry,
+                 std::string text,
+                 menu_action action,
+                 int row,
+                 int col = -1) -> comp::button::entity;
+
 // Checks whether or not a button was pressed, triggers its action if so
 void query_button(entt::registry& registry,
                   entt::dispatcher& dispatcher,
@@ -20,5 +33,9 @@ void query_button(entt::registry& registry,
                                        const comp::menu::entity menuEntity,
                                        const cen::mouse& mouse)
     -> maybe<comp::button::entity>;
+
+void render_buttons(const entt::registry& registry,
+                    cen::renderer& renderer,
+                    const comp::button_pack& pack);
 
 }  // namespace wanderer::sys

@@ -1,8 +1,8 @@
-#include "checkbox_factory_system.hpp"
+#include "checkbox_system.hpp"
 
 #include <utility>  // move
 
-#include "button_factory_system.hpp"
+#include "button_system.hpp"
 #include "grid_system.hpp"
 
 namespace wanderer::sys {

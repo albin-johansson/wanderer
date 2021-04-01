@@ -1,5 +1,8 @@
 #pragma once
 
+#include <entt.hpp>  // registry
+
+#include "graphics_context.hpp"
 #include "render_bounds.hpp"
 #include "tile_layer.hpp"
 
@@ -70,5 +73,18 @@ void visit_tiles(const comp::tile_layer& layer,
     }
   }
 }
+
+/**
+ * \brief Renders all of the ground layers in a map.
+ *
+ * \param registry the registry that holds the layers.
+ * \param graphics the graphics context that will be used when rendering.
+ * \param bounds the render bounds that will be used.
+ *
+ * \since 0.1.0
+ */
+void render_ground_layers(const entt::registry& registry,
+                          graphics_context& graphics,
+                          const comp::render_bounds& bounds);
 
 }  // namespace wanderer::sys
