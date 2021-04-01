@@ -167,8 +167,6 @@ set(SOURCE_FILES
 
     systems/animation_system.cpp
     systems/animation_system.hpp
-    systems/chase_system.cpp
-    systems/chase_system.hpp
     systems/depth_drawables_system.cpp
     systems/depth_drawables_system.hpp
     systems/interaction_handler_system.cpp
@@ -178,6 +176,9 @@ set(SOURCE_FILES
     systems/particle_system.cpp
     systems/particle_system.hpp
     systems/update_triggers.hpp
+
+    systems/ai/chase_system.cpp
+    systems/ai/chase_system.hpp
 
     systems/configuration/load_binds_system.cpp
     systems/configuration/load_binds_system.hpp
@@ -328,6 +329,7 @@ target_include_directories(${WANDERER_LIB_TARGET}
     PUBLIC io/menu
     PUBLIC io/saves
     PUBLIC systems
+    PUBLIC systems/ai
     PUBLIC systems/configuration
     PUBLIC systems/hud
     PUBLIC systems/humanoid
