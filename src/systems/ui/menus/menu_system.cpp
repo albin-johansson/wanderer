@@ -2,7 +2,7 @@
 
 #include <centurion.hpp>
 
-#include "button_pressed_event.hpp"
+#include "button_pressed.hpp"
 #include "button_system.hpp"
 #include "create_controls_menu.hpp"
 #include "create_home_menu.hpp"
@@ -11,7 +11,7 @@
 #include "cursors.hpp"
 #include "menu.hpp"
 #include "saves_menu_system.hpp"
-#include "switch_menu_event.hpp"
+#include "switch_menu.hpp"
 
 namespace wanderer::sys {
 namespace {
@@ -26,7 +26,7 @@ void query_binds(entt::registry& registry,
     auto& bind = registry.get<comp::key_bind>(entity);
     if (keys.just_released(bind.key))
     {
-      dispatcher.enqueue<comp::button_pressed_event>(bind.action, 0u);
+      dispatcher.enqueue<event::button_pressed>(bind.action, 0u);
     }
   }
 }

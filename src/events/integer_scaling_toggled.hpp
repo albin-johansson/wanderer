@@ -2,7 +2,9 @@
 
 namespace wanderer::event {
 
-struct quit_event final
-{};
+struct integer_scaling_toggled final
+{
+  bool enabled;
+};
 
 }  // namespace wanderer::event

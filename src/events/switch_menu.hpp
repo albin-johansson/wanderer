@@ -1,8 +1,12 @@
 #pragma once
 
+#include "menu_id.hpp"
+
 namespace wanderer::event {
 
-struct quit_event final
-{};
+struct switch_menu final
+{
+  menu_id id;
+};
 
 }  // namespace wanderer::event

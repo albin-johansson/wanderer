@@ -4,10 +4,10 @@
 
 #include "direction.hpp"
 
-namespace wanderer::comp {
+namespace wanderer::event {
 
 /**
- * \struct begin_attack_event
+ * \struct begin_attack
  *
  * \brief Represents the data associated with the start of an attack.
  *
@@ -25,7 +25,7 @@ namespace wanderer::comp {
  *
  * \headerfile begin_attack_event.hpp
  */
-struct begin_attack_event final
+struct begin_attack final
 {
   entt::registry* registry{};
   entt::entity sourceEntity{entt::null};  // TODO tag type
@@ -33,4 +33,4 @@ struct begin_attack_event final
   direction dir{direction::down};
 };
 
-}  // namespace wanderer::comp
+}  // namespace wanderer::event

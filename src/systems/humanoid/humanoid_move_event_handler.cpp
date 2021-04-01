@@ -5,7 +5,7 @@
 
 namespace wanderer::sys {
 
-void on_move_begin(const comp::begin_humanoid_move_event& event)
+void on_move_begin(const event::begin_humanoid_move& event)
 {
   assert(event.registry != nullptr);
   assert(!event.registry->has<comp::humanoid_move>(event.entity));
@@ -17,7 +17,7 @@ void on_move_begin(const comp::begin_humanoid_move_event& event)
   enter_move_animation(*event.registry, entity, event.dir);
 }
 
-void on_move_end(const comp::end_humanoid_move_event& event)
+void on_move_end(const event::end_humanoid_move& event)
 {
   assert(event.registry != nullptr);
   assert(event.registry->has<comp::humanoid_move>(event.entity));

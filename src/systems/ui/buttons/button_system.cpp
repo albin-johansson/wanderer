@@ -1,6 +1,6 @@
 #include "button_system.hpp"
 
-#include "button_pressed_event.hpp"
+#include "button_pressed.hpp"
 #include "checkbox.hpp"
 #include "cursors.hpp"
 
@@ -19,7 +19,7 @@ void query_button(entt::registry& registry,
 
     if (mouse.was_left_button_released())
     {
-      dispatcher.enqueue<comp::button_pressed_event>(button.action);
+      dispatcher.enqueue<event::button_pressed>(button.action);
       button.hover = false;
 
       if (auto* checkbox = registry.try_get<comp::checkbox>(buttonEntity))

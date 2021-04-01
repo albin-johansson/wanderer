@@ -4,7 +4,7 @@
 
 #include "direction.hpp"
 
-namespace wanderer::comp {
+namespace wanderer::event {
 
 /**
  * \struct end_humanoid_move_event
@@ -21,10 +21,10 @@ namespace wanderer::comp {
  *
  * \headerfile end_humanoid_move_event.hpp
  */
-struct end_humanoid_move_event final
+struct end_humanoid_move final
 {
   entt::registry* registry{nullptr};
   entt::entity entity{entt::null};
 };
 
-}  // namespace wanderer::comp
+}  // namespace wanderer::event

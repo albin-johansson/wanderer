@@ -1,12 +1,12 @@
 #include <cassert>  // assert
 
-#include "begin_attack_event.hpp"
+#include "begin_attack.hpp"
 #include "binds.hpp"
 #include "direction.hpp"
-#include "end_humanoid_move_event.hpp"
+#include "end_humanoid_move.hpp"
 #include "humanoid_state.hpp"
 #include "input_system.hpp"
-#include "interact_event.hpp"
+#include "interact.hpp"
 #include "movable.hpp"
 #include "player.hpp"
 
@@ -142,21 +142,18 @@ void handle_move_input(entt::registry& registry,
 
   if (!areMoveKeysDown && movable.velocity.is_zero())
   {
-    dispatcher.enqueue<comp::end_humanoid_move_event>(&registry, player);
+    dispatcher.enqueue<event::end_humanoid_move>(&registry, player);
   }
   else if (keyboard.is_pressed(binds.attack))
   {
     movable.velocity.zero();
 
     // FIXME null weapon
-    dispatcher.enqueue<comp::begin_attack_event>(&registry,
-                                                 player,
-                                                 entt::null,
-                                                 movable.dir);
+    dispatcher.enqueue<event::begin_attack>(&registry, player, entt::null, movable.dir);
   }
   else if (keyboard.just_released(binds.interact))
   {
-    dispatcher.enqueue<comp::interact_event>(&registry, &dispatcher, player);
+    dispatcher.enqueue<event::interact>(&registry, &dispatcher, player);
   }
 }
 

@@ -2,19 +2,19 @@
 
 #include <centurion.hpp>
 
-#include "button_pressed_event.hpp"
-#include "close_inventory_event.hpp"
+#include "button_pressed.hpp"
+#include "close_inventory.hpp"
 #include "delta.hpp"
 #include "graphics_context.hpp"
 #include "input.hpp"
 #include "level.hpp"
 #include "level_fade_events.hpp"
 #include "level_manager.hpp"
-#include "particle_event.hpp"
 #include "quit_event.hpp"
 #include "show_inventory_event.hpp"
-#include "switch_map_event.hpp"
-#include "switch_menu_event.hpp"
+#include "spawn_particles.hpp"
+#include "switch_map.hpp"
+#include "switch_menu.hpp"
 
 namespace wanderer {
 
@@ -92,23 +92,23 @@ class game final
 
   [[nodiscard]] auto is_inventory_active() const -> bool;
 
-  void on_switch_map(const comp::switch_map_event& event);
+  void on_switch_map(const event::switch_map& event);
 
-  void on_switch_menu_event(const comp::switch_menu_event& event);
+  void on_switch_menu_event(const event::switch_menu& event);
 
-  void on_button_pressed(const comp::button_pressed_event& event);
+  void on_button_pressed(const event::button_pressed& event);
 
-  void on_level_animation_faded_in(const comp::level_faded_in_event& event);
+  void on_level_animation_faded_in(const event::level_faded_in& event);
 
-  void on_level_animation_faded_out(comp::level_faded_out_event);
+  void on_level_animation_faded_out(event::level_faded_out);
 
-  void on_show_inventory(const comp::show_inventory_event& event);
+  void on_show_inventory(const event::show_inventory_event& event);
 
-  void on_close_inventory(comp::close_inventory_event);
+  void on_close_inventory(event::close_inventory);
 
-  void on_particle_event(const comp::particle_event& event);
+  void on_particle_event(const event::spawn_particles& event);
 
-  void on_quit_event(comp::quit_event);
+  void on_quit_event(event::quit_event);
 };
 
 }  // namespace wanderer

@@ -2,9 +2,9 @@
 
 #include "map_id.hpp"
 
-namespace wanderer::comp {
+namespace wanderer::event {
 
-struct level_faded_in_event final
+struct level_faded_in final
 {
   map_id map;
   int step;
@@ -13,7 +13,7 @@ struct level_faded_in_event final
   float vStepSize;
 };
 
-struct level_faded_out_event final
+struct level_faded_out final
 {};
 
-}  // namespace wanderer::comp
+}  // namespace wanderer::event

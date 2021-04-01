@@ -121,21 +121,21 @@ set(SOURCE_FILES
 
     core/settings/setting_id.hpp
 
-    events/begin_attack_event.hpp
-    events/begin_humanoid_move_event.hpp
-    events/button_pressed_event.hpp
-    events/close_inventory_event.hpp
-    events/end_attack_event.hpp
-    events/end_humanoid_move_event.hpp
-    events/fullscreen_toggled_event.hpp
-    events/integer_scaling_toggled_event.hpp
-    events/interact_event.hpp
+    events/begin_attack.hpp
+    events/begin_humanoid_move.hpp
+    events/button_pressed.hpp
+    events/close_inventory.hpp
+    events/end_attack.hpp
+    events/end_humanoid_move.hpp
+    events/fullscreen_toggled.hpp
+    events/integer_scaling_toggled.hpp
+    events/interact.hpp
     events/level_fade_events.hpp
-    events/particle_event.hpp
     events/quit_event.hpp
     events/show_inventory_event.hpp
-    events/switch_map_event.hpp
-    events/switch_menu_event.hpp
+    events/spawn_particles.hpp
+    events/switch_map.hpp
+    events/switch_menu.hpp
 
     io/map/parse_ir.hpp
     io/map/parse_layers.cpp

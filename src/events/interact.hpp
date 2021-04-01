@@ -4,13 +4,13 @@
 
 #include "player.hpp"
 
-namespace wanderer::comp {
+namespace wanderer::event {
 
-struct interact_event final
+struct interact final
 {
   entt::registry* registry{};
   entt::dispatcher* dispatcher{};
-  player::entity player;
+  comp::player::entity player;
 };
 
-}  // namespace wanderer::comp
+}  // namespace wanderer::event

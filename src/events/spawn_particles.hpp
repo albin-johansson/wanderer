@@ -5,9 +5,9 @@
 #include "milliseconds.hpp"
 #include "vector2.hpp"
 
-namespace wanderer::comp {
+namespace wanderer::event {
 
-struct particle_event final
+struct spawn_particles final
 {
   float2 position;
   cen::color baseColor;
@@ -15,4 +15,4 @@ struct particle_event final
   int nTicks;
 };
 
-}  // namespace wanderer::comp
+}  // namespace wanderer::event

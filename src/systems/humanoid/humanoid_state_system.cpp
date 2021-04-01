@@ -1,6 +1,6 @@
 #include "humanoid_state_system.hpp"
 
-#include "end_attack_event.hpp"
+#include "end_attack.hpp"
 #include "humanoid_state.hpp"
 
 namespace wanderer::sys {
@@ -12,11 +12,11 @@ void update_attacking_humanoids(entt::registry& registry, entt::dispatcher& disp
       [&](const entt::entity entity, const comp::humanoid_attack& attack) {
         if (attack.done)
         {
-          dispatcher.enqueue<comp::end_attack_event>(&registry,
-                                                     &dispatcher,
-                                                     entity,
-                                                     attack.weapon,
-                                                     direction::down);
+          dispatcher.enqueue<event::end_attack>(&registry,
+                                                &dispatcher,
+                                                entity,
+                                                attack.weapon,
+                                                direction::down);
         }
       });
 }

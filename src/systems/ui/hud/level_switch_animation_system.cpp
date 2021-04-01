@@ -17,11 +17,11 @@ void update_level_switch_animations(entt::registry& registry,
       ++animation.step;
       if (animation.step == animation.nSteps - 1)
       {
-        dispatcher.enqueue<comp::level_faded_in_event>(animation.map.value(),
-                                                       animation.step,
-                                                       animation.nSteps,
-                                                       animation.hStepSize,
-                                                       animation.vStepSize);
+        dispatcher.enqueue<event::level_faded_in>(animation.map.value(),
+                                                  animation.step,
+                                                  animation.nSteps,
+                                                  animation.hStepSize,
+                                                  animation.vStepSize);
       }
     }
     else
@@ -29,7 +29,7 @@ void update_level_switch_animations(entt::registry& registry,
       --animation.step;
       if (animation.step == 0)
       {
-        dispatcher.enqueue<comp::level_faded_out_event>();
+        dispatcher.enqueue<event::level_faded_out>();
       }
     }
   });
@@ -73,7 +73,7 @@ void start_level_fade_animation(entt::registry& registry, const map_id map)
 }
 
 void end_level_fade_animation(entt::registry& registry,
-                              const comp::level_faded_in_event& event)
+                              const event::level_faded_in& event)
 {
   const auto entity = registry.create();
   registry.emplace<comp::level_switch_animation>(entity,

@@ -2,7 +2,9 @@
 
 namespace wanderer::event {
 
-struct quit_event final
-{};
+struct fullscreen_toggled final
+{
+  bool enabled;
+};
 
 }  // namespace wanderer::event

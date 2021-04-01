@@ -7,7 +7,7 @@
 #include "humanoid_animation_system.hpp"
 #include "humanoid_state.hpp"
 #include "movable.hpp"
-#include "particle_event.hpp"
+#include "spawn_particles.hpp"
 
 namespace wanderer::sys {
 namespace {
@@ -37,7 +37,7 @@ namespace {
 
 }  // namespace
 
-void on_attack_begin(const comp::begin_attack_event& event)
+void on_attack_begin(const event::begin_attack& event)
 {
   assert(event.registry);
   assert(!event.registry->has<comp::humanoid_attack>(event.sourceEntity));
@@ -49,7 +49,7 @@ void on_attack_begin(const comp::begin_attack_event& event)
   enter_melee_animation(*event.registry, event.sourceEntity);
 }
 
-void on_attack_end(const comp::end_attack_event& event)
+void on_attack_end(const event::end_attack& event)
 {
   assert(event.registry);
   assert(event.dispatcher);
@@ -64,10 +64,10 @@ void on_attack_end(const comp::end_attack_event& event)
   if (const auto* movable = event.registry->try_get<comp::movable>(event.sourceEntity))
   {
     const auto position = get_particle_position(movable->position, *movable);
-    event.dispatcher->enqueue<comp::particle_event>(position,
-                                                    cen::colors::dark_gray,
-                                                    5,
-                                                    500);
+    event.dispatcher->enqueue<event::spawn_particles>(position,
+                                                      cen::colors::dark_gray,
+                                                      5,
+                                                      500);
   }
 
   enter_idle_animation(*event.registry, event.sourceEntity);

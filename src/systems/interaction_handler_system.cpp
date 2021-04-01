@@ -1,11 +1,11 @@
 #include "interaction_handler_system.hpp"
 
-#include "close_inventory_event.hpp"
+#include "close_inventory.hpp"
 #include "container_trigger.hpp"
 #include "null_entity.hpp"
 #include "portal.hpp"
 #include "show_inventory_event.hpp"
-#include "switch_map_event.hpp"
+#include "switch_map.hpp"
 
 namespace wanderer::sys {
 namespace {
@@ -15,7 +15,7 @@ void enqueue_switch_map_event(entt::registry& registry,
                               const entt::entity portalEntity)
 {
   const auto& portal = registry.get<comp::portal>(portalEntity);
-  dispatcher.enqueue<comp::switch_map_event>(portal.target.value());
+  dispatcher.enqueue<event::switch_map>(portal.target.value());
 }
 
 void enqueue_inventory_event(entt::registry& registry,
@@ -26,17 +26,17 @@ void enqueue_inventory_event(entt::registry& registry,
   if (registry.empty<comp::active_inventory>())
   {
     const auto& trigger = registry.get<comp::container_trigger>(triggerEntity);
-    dispatcher.enqueue<comp::show_inventory_event>(trigger.inventoryEntity);
+    dispatcher.enqueue<event::show_inventory_event>(trigger.inventoryEntity);
   }
   else
   {
-    dispatcher.enqueue<comp::close_inventory_event>();
+    dispatcher.enqueue<event::close_inventory>();
   }
 }
 
 }  // namespace
 
-void on_interact(const comp::interact_event& event)
+void on_interact(const event::interact& event)
 {
   assert(event.registry);
   assert(event.dispatcher);

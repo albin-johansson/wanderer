@@ -4,7 +4,7 @@
 
 #include "direction.hpp"
 
-namespace wanderer::comp {
+namespace wanderer::event {
 
 /**
  * \struct end_attack_event
@@ -25,7 +25,7 @@ namespace wanderer::comp {
  *
  * \headerfile end_attack_event.hpp
  */
-struct end_attack_event final
+struct end_attack final
 {
   entt::registry* registry{};
   entt::dispatcher* dispatcher{};
@@ -34,4 +34,4 @@ struct end_attack_event final
   direction dir{direction::down};
 };
 
-}  // namespace wanderer::comp
+}  // namespace wanderer::event

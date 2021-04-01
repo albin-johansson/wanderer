@@ -2,7 +2,7 @@
 
 namespace wanderer::event {
 
-struct quit_event final
+struct close_inventory final
 {};
 
 }  // namespace wanderer::event

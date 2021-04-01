@@ -6,7 +6,7 @@ namespace wanderer {
 
 void quit_action::execute(entt::dispatcher& dispatcher)
 {
-  dispatcher.enqueue<comp::quit_event>();
+  dispatcher.enqueue<event::quit_event>();
 }
 
 }  // namespace wanderer

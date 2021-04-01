@@ -1,13 +1,13 @@
 #include <cassert>   // assert
 #include <optional>  // optional
 
-#include "begin_attack_event.hpp"
-#include "begin_humanoid_move_event.hpp"
+#include "begin_attack.hpp"
+#include "begin_humanoid_move.hpp"
 #include "binds.hpp"
 #include "direction.hpp"
 #include "humanoid_state.hpp"
 #include "input_system.hpp"
-#include "interact_event.hpp"
+#include "interact.hpp"
 #include "inventory.hpp"
 #include "player.hpp"
 
@@ -53,7 +53,7 @@ void check_for_movement(entt::registry& registry,
 {
   if (const auto dir = get_direction(keyboard, binds))
   {
-    dispatcher.enqueue<comp::begin_humanoid_move_event>(&registry, player, *dir);
+    dispatcher.enqueue<event::begin_humanoid_move>(&registry, player, *dir);
   }
 }
 
@@ -70,17 +70,17 @@ void handle_idle_input(entt::registry& registry,
 
   if (keyboard.just_released(binds.interact))
   {
-    dispatcher.enqueue<comp::interact_event>(&registry, &dispatcher, player);
+    dispatcher.enqueue<event::interact>(&registry, &dispatcher, player);
   }
   else if (registry.empty<comp::active_inventory>())
   {
     if (keyboard.is_pressed(binds.attack))
     {
       // FIXME
-      dispatcher.enqueue<comp::begin_attack_event>(&registry,
-                                                   player,
-                                                   entt::null,
-                                                   direction::down);
+      dispatcher.enqueue<event::begin_attack>(&registry,
+                                              player,
+                                              entt::null,
+                                              direction::down);
     }
     else
     {

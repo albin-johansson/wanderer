@@ -4,7 +4,7 @@
 
 #include "direction.hpp"
 
-namespace wanderer::comp {
+namespace wanderer::event {
 
 /**
  * \struct begin_humanoid_move_event
@@ -23,11 +23,11 @@ namespace wanderer::comp {
  *
  * \headerfile begin_humanoid_move_event.hpp
  */
-struct begin_humanoid_move_event final
+struct begin_humanoid_move final
 {
   entt::registry* registry{};
   entt::entity entity{entt::null};  // TODO tag type
   direction dir{direction::down};
 };
 
-}  // namespace wanderer::comp
+}  // namespace wanderer::event
