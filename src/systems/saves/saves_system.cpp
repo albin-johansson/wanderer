@@ -3,6 +3,7 @@
 #include "animated.hpp"
 #include "animated_tile.hpp"
 #include "binds.hpp"
+#include "chase.hpp"
 #include "container_trigger.hpp"
 #include "depth_drawable.hpp"
 #include "hitbox.hpp"
@@ -29,6 +30,7 @@ void process(T& handle, Archive& archive)
       .template component<comp::animated,
                           comp::animated_tile,
                           comp::binds,
+                          comp::chase,
                           comp::container_trigger,
                           comp::depth_drawable,
                           comp::hitbox,
