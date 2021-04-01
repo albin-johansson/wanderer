@@ -1,5 +1,3 @@
-#include "input_system.hpp"
-
 #include <cassert>  // assert
 
 #include "begin_attack_event.hpp"
@@ -7,6 +5,7 @@
 #include "direction.hpp"
 #include "end_humanoid_move_event.hpp"
 #include "humanoid_state.hpp"
+#include "input_system.hpp"
 #include "interact_event.hpp"
 #include "movable.hpp"
 #include "player.hpp"

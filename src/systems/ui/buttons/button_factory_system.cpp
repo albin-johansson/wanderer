@@ -1,6 +1,6 @@
-#include "button_system.hpp"
-
 #include <utility>  // move
+
+#include "button_system.hpp"
 
 namespace wanderer::sys {
 

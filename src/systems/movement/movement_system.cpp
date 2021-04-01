@@ -67,7 +67,7 @@ namespace {
 {
   collision_result collisions;
 
-  const auto& viewport = level.get<comp::viewport>(level.viewport());
+  const auto& viewport = level.ctx<comp::viewport>();
   if (next.horizontal)
   {
     if ((next.horizontal->bounds.x() <= 0) ||

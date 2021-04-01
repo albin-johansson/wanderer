@@ -1,5 +1,3 @@
-#include "layer_system.hpp"
-
 #include "animated_tile.hpp"
 #include "layer_system.hpp"
 #include "tile_layer.hpp"

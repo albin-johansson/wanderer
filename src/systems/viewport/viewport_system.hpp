@@ -10,12 +10,9 @@
 
 namespace wanderer::sys {
 
-[[nodiscard]] auto make_viewport(entt::registry& registry, const cen::farea& levelSize)
-    -> comp::viewport::entity;
+[[nodiscard]] auto make_viewport(const cen::farea& levelSize) noexcept -> comp::viewport;
 
-void center_viewport_on(entt::registry& registry,
-                        comp::viewport::entity viewportEntity,
-                        const float2& position);
+void center_viewport_on(entt::registry& registry, const float2& position);
 
 /**
  * \brief Updates the position of the viewport by slowly tracking a movable
@@ -29,8 +26,6 @@ void center_viewport_on(entt::registry& registry,
  */
 void update_viewport(level& level, const entt::entity movableEntity, const delta_t dt);
 
-void translate_viewport(const entt::registry& registry,
-                        comp::viewport::entity viewportEntity,
-                        cen::renderer& renderer);
+void translate_viewport(const entt::registry& registry, cen::renderer& renderer);
 
 }  // namespace wanderer::sys

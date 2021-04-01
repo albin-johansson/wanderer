@@ -87,11 +87,9 @@ void track(comp::viewport& viewport, const float2& position, const delta_t dt)
 
 }  // namespace
 
-void center_viewport_on(entt::registry& registry,
-                        comp::viewport::entity viewportEntity,
-                        const float2& position)
+void center_viewport_on(entt::registry& registry, const float2& position)
 {
-  auto& viewport = registry.get<comp::viewport>(viewportEntity);
+  auto& viewport = registry.ctx<comp::viewport>();
   const auto target = make_target_vector(position, viewport);
   viewport.bounds.set_x(target.x);
   viewport.bounds.set_y(target.y);
@@ -100,15 +98,12 @@ void center_viewport_on(entt::registry& registry,
 void update_viewport(level& level, const entt::entity movableEntity, const delta_t dt)
 {
   const auto& movable = level.get<comp::movable>(movableEntity);
-  track(level.get<comp::viewport>(level.viewport()), movable.position, dt);
+  track(level.ctx<comp::viewport>(), movable.position, dt);
 }
 
-void translate_viewport(const entt::registry& registry,
-                        comp::viewport::entity viewportEntity,
-                        cen::renderer& renderer)
+void translate_viewport(const entt::registry& registry, cen::renderer& renderer)
 {
-  // TODO viewport is a ctx component
-  const auto& viewport = registry.get<comp::viewport>(viewportEntity);
+  const auto& viewport = registry.ctx<comp::viewport>();
   renderer.set_translation_viewport(viewport.bounds);
 }
 

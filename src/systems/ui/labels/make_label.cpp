@@ -1,8 +1,7 @@
-#include "label_system.hpp"
-
 #include <centurion.hpp>
 
 #include "files_directory.hpp"
+#include "label_system.hpp"
 
 namespace wanderer::sys {
 

@@ -31,7 +31,7 @@ level::level(const ir::level& data, graphics_context& graphics)
   auto& tileset = create_tileset(data.tilesets, m_registry, graphics);
   auto& tilemap = create_tilemap(data, m_registry, m_tilemap);
 
-  m_viewport = sys::make_viewport(m_registry, tilemap.size);
+  m_registry.set<comp::viewport>(sys::make_viewport(tilemap.size));
 
   add_ground_layers(m_registry, data);
   add_tile_objects(m_registry, m_tree, graphics, data, tileset);
@@ -43,7 +43,7 @@ level::level(const ir::level& data, graphics_context& graphics)
     drawable.layer = tilemap.humanoidLayer;
   });
 
-  sys::center_viewport_on(m_registry, m_viewport, player_spawnpoint());
+  sys::center_viewport_on(m_registry, player_spawnpoint());
   sys::update_drawable_movables(m_registry);
   m_tree.rebuild();
 
@@ -58,7 +58,6 @@ level::level(const std::filesystem::path& path, graphics_context& graphics)
   m_registry = sys::restore_registry(archive);
   archive(m_tree);
   archive(m_tilemap);
-  archive(m_viewport);
   archive(m_player);
   archive(m_playerSpawnPosition);
 }
@@ -71,7 +70,6 @@ void level::save(const std::filesystem::path& path) const
   sys::save_registry(m_registry, archive);
   archive(m_tree);
   archive(m_tilemap);
-  archive(m_viewport);
   archive(m_player);
   archive(m_playerSpawnPosition);
 }
@@ -96,11 +94,6 @@ auto level::player() const -> comp::player::entity
   return m_player;
 }
 
-auto level::viewport() const -> comp::viewport::entity
-{
-  return m_viewport;
-}
-
 auto level::tilemap() const -> comp::tilemap::entity
 {
   return m_tilemap;
@@ -123,7 +116,7 @@ auto level::col_count() const -> int
 
 auto level::get_render_bounds() const -> comp::render_bounds
 {
-  return sys::get_render_bounds(m_registry, m_viewport, row_count(), col_count());
+  return sys::get_render_bounds(m_registry, row_count(), col_count());
 }
 
 auto level::registry() -> entt::registry&

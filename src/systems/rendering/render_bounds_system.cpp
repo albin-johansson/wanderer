@@ -1,6 +1,7 @@
 #include "render_bounds_system.hpp"
 
 #include "game_constants.hpp"
+#include "viewport.hpp"
 
 namespace wanderer::sys {
 namespace {
@@ -61,12 +62,10 @@ namespace {
 
 }  // namespace
 
-auto get_render_bounds(const entt::registry& registry,
-                       const comp::viewport::entity viewportEntity,
-                       const int rows,
-                       const int cols) -> comp::render_bounds
+auto get_render_bounds(const entt::registry& registry, const int rows, const int cols)
+    -> comp::render_bounds
 {
-  const auto& viewport = registry.get<comp::viewport>(viewportEntity);
+  const auto& viewport = registry.ctx<comp::viewport>();
 
   comp::render_bounds bounds;
   bounds.minCol = calculate_min_col(viewport.bounds.x());

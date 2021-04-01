@@ -17,7 +17,7 @@ level_manager::level_manager(graphics_context& graphics)
 
   auto worldData = parse_world("resources/maps/world.json");
   auto world = std::make_unique<level>(worldData.base, graphics);
-  world->get<comp::viewport>(world->viewport()).keepInBounds = true;
+  world->ctx<comp::viewport>().keepInBounds = true;
 
   m_world = world->id();
 
@@ -59,7 +59,7 @@ void level_manager::switch_to(const map_id id)
     auto& movable = currentLevel->get<comp::movable>(currentLevel->player());
     movable.velocity.zero();
 
-    sys::center_viewport_on(registry, currentLevel->viewport(), movable.position);
+    sys::center_viewport_on(registry, movable.position);
   }
 
   assert(m_levels.count(id));

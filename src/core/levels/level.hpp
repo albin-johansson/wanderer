@@ -78,6 +78,12 @@ class level final
   }
 
   template <typename Component>
+  [[nodiscard]] decltype(auto) ctx()
+  {
+    return m_registry.ctx<Component>();
+  }
+
+  template <typename Component>
   [[nodiscard]] decltype(auto) try_get(const entt::entity entity)
   {
     return m_registry.try_get<Component>(entity);
@@ -95,15 +101,6 @@ class level final
    * \since 0.1.0
    */
   [[nodiscard]] auto player() const -> comp::player::entity;
-
-  /**
-   * \brief Returns the viewport entity associated with the level.
-   *
-   * \return the viewport entity.
-   *
-   * \since 0.1.0
-   */
-  [[nodiscard]] auto viewport() const -> comp::viewport::entity;
 
   /**
    * \brief Returns the tilemap entity associated with the level.
@@ -165,7 +162,6 @@ class level final
   entt::registry m_registry;
   aabb_tree m_tree;
   comp::tilemap::entity m_tilemap{null<comp::tilemap>()};
-  comp::viewport::entity m_viewport{null<comp::viewport>()};
   comp::player::entity m_player{null<comp::player>()};
   maybe<float2> m_playerSpawnPosition;
 

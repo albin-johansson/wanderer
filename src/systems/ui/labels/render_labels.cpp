@@ -1,5 +1,4 @@
 #include "label_system.hpp"
-
 #include "menu_constants.hpp"
 #include "render_text.hpp"
 

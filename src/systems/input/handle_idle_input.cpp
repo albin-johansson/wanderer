@@ -1,5 +1,3 @@
-#include "input_system.hpp"
-
 #include <cassert>   // assert
 #include <optional>  // optional
 
@@ -8,6 +6,7 @@
 #include "binds.hpp"
 #include "direction.hpp"
 #include "humanoid_state.hpp"
+#include "input_system.hpp"
 #include "interact_event.hpp"
 #include "inventory.hpp"
 #include "player.hpp"

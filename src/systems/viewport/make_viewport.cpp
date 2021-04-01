@@ -3,17 +3,14 @@
 
 namespace wanderer::sys {
 
-auto make_viewport(entt::registry& registry, const cen::farea& levelSize)
-    -> comp::viewport::entity
+auto make_viewport(const cen::farea& levelSize) noexcept -> comp::viewport
 {
-  const auto entity = registry.create();
+  comp::viewport viewport;
 
-  auto& viewport = registry.emplace<comp::viewport>(entity);
   viewport.bounds = {{}, glob::logical_size<cen::farea>};
-  viewport.levelSize.width = levelSize.width;
-  viewport.levelSize.height = levelSize.height;
+  viewport.levelSize = levelSize;
 
-  return comp::viewport::entity{entity};
+  return viewport;
 }
 
 }  // namespace wanderer::sys
