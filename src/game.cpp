@@ -100,15 +100,20 @@ void game::render(graphics_context& graphics, const cen::ipoint mousePos)
   sys::render_ground_layers(registry, level->tileset(), graphics, bounds);
   sys::render_drawables(registry, graphics, bounds);
   sys::render_particles(registry, renderer);
-  sys::render_inventory(registry, renderer, mousePos);
-  sys::render_level_switch_animations(registry, renderer);
 
   if constexpr (cen::is_debug_build())
   {
     sys::render_debug_info(registry, graphics);
   }
 
+  sys::render_inventory(registry, renderer, mousePos);
+  sys::render_level_switch_animations(registry, renderer);
   sys::render_menu(m_menus, renderer);
+
+  if constexpr (cen::is_debug_build())
+  {
+    sys::render_menu_debug_info(m_menus, graphics);
+  }
 }
 
 auto game::is_paused() const -> bool
