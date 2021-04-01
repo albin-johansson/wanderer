@@ -19,22 +19,6 @@ set(SOURCE_FILES
     components/player.hpp
     components/settings.hpp
 
-    components/events/begin_attack_event.hpp
-    components/events/begin_humanoid_move_event.hpp
-    components/events/button_pressed_event.hpp
-    components/events/close_inventory_event.hpp
-    components/events/end_attack_event.hpp
-    components/events/end_humanoid_move_event.hpp
-    components/events/fullscreen_toggled_event.hpp
-    components/events/integer_scaling_toggled_event.hpp
-    components/events/interact_event.hpp
-    components/events/level_fade_events.hpp
-    components/events/particle_event.hpp
-    components/events/quit_event.hpp
-    components/events/show_inventory_event.hpp
-    components/events/switch_map_event.hpp
-    components/events/switch_menu_event.hpp
-
     components/graphics/animated.hpp
     components/graphics/animated_tile.hpp
     components/graphics/depth_drawable.hpp
@@ -136,6 +120,22 @@ set(SOURCE_FILES
     core/resources/texture_loader.hpp
 
     core/settings/setting_id.hpp
+
+    events/begin_attack_event.hpp
+    events/begin_humanoid_move_event.hpp
+    events/button_pressed_event.hpp
+    events/close_inventory_event.hpp
+    events/end_attack_event.hpp
+    events/end_humanoid_move_event.hpp
+    events/fullscreen_toggled_event.hpp
+    events/integer_scaling_toggled_event.hpp
+    events/interact_event.hpp
+    events/level_fade_events.hpp
+    events/particle_event.hpp
+    events/quit_event.hpp
+    events/show_inventory_event.hpp
+    events/switch_map_event.hpp
+    events/switch_menu_event.hpp
 
     io/map/parse_ir.hpp
     io/map/parse_layers.cpp
@@ -299,7 +299,6 @@ target_include_directories(${WANDERER_LIB_TARGET}
 target_include_directories(${WANDERER_LIB_TARGET}
     PUBLIC .
     PUBLIC components
-    PUBLIC components/events
     PUBLIC components/graphics
     PUBLIC components/input
     PUBLIC components/inventory
@@ -313,6 +312,7 @@ target_include_directories(${WANDERER_LIB_TARGET}
     PUBLIC core/math
     PUBLIC core/resources
     PUBLIC core/settings
+    PUBLIC events
     PUBLIC io
     PUBLIC io/map
     PUBLIC io/menu
