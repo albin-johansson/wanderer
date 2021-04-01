@@ -1,13 +1,13 @@
 #include <cassert>   // assert
 #include <optional>  // optional
 
-#include "begin_attack.hpp"
-#include "begin_humanoid_move.hpp"
+#include "begin_attack_event.hpp"
+#include "begin_humanoid_move_event.hpp"
 #include "binds.hpp"
 #include "direction.hpp"
 #include "humanoid_state.hpp"
 #include "input_system.hpp"
-#include "interact.hpp"
+#include "interact_event.hpp"
 #include "inventory.hpp"
 #include "player.hpp"
 

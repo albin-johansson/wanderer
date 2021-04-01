@@ -1,6 +1,6 @@
 #include "switch_menu_action.hpp"
 
-#include "switch_menu.hpp"
+#include "switch_menu_event.hpp"
 
 namespace wanderer {
 

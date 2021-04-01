@@ -2,7 +2,7 @@
 
 #include <centurion.hpp>
 
-#include "button_pressed.hpp"
+#include "button_pressed_event.hpp"
 #include "button_system.hpp"
 #include "create_controls_menu.hpp"
 #include "create_home_menu.hpp"
@@ -11,7 +11,7 @@
 #include "cursors.hpp"
 #include "menu.hpp"
 #include "saves_menu_system.hpp"
-#include "switch_menu.hpp"
+#include "switch_menu_event.hpp"
 
 namespace wanderer::sys {
 namespace {

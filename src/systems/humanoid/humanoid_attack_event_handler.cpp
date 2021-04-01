@@ -7,7 +7,7 @@
 #include "humanoid_animation_system.hpp"
 #include "humanoid_state.hpp"
 #include "movable.hpp"
-#include "spawn_particles.hpp"
+#include "spawn_particles_event.hpp"
 
 namespace wanderer::sys {
 namespace {

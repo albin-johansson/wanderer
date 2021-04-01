@@ -3,7 +3,7 @@
 #include <centurion.hpp>
 #include <entt.hpp>
 
-#include "level_fade_events.hpp"
+#include "level_fade_events_event.hpp"
 #include "map_id.hpp"
 
 namespace wanderer::sys {
