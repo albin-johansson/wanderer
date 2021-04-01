@@ -1,6 +1,6 @@
 #pragma once
 
-#include <entt.hpp>  // registry
+#include <entt.hpp>  // registry, dispatcher
 
 namespace wanderer::sys {
 
