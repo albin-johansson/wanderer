@@ -18,7 +18,7 @@ void center_viewport_on(entt::registry& registry, const float2& position);
  * \brief Updates the position of the viewport by slowly tracking a movable
  * entity.
  *
- * \pre `playerEntity` must have a `Movable` component.
+ * \pre `movableEntity` must have a `movable` component.
  *
  * \param level the level associated with the viewport that will be updated.
  * \param movableEntity the entity ID for the movable.
