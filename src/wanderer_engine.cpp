@@ -55,9 +55,9 @@ auto wanderer_engine::run() -> int
 
 auto wanderer_engine::update_input() -> bool
 {
-  const auto& renderer = m_graphics.renderer();
-  m_input.mouse.update(renderer.output_size());
+  m_input.mouse.update(m_graphics.renderer().output_size());
   m_input.keyboard.update();
+
   cen::event::refresh();
 
   m_game.handle_input(m_input);
