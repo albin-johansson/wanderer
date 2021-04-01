@@ -237,7 +237,7 @@ set(SOURCE_FILES
     systems/ui/buttons/button_system.cpp
     systems/ui/buttons/button_system.hpp
 
-    systems/ui/checkboxes/checkbox_system.cpp
+    systems/ui/checkboxes/add_checkbox.cpp
     systems/ui/checkboxes/checkbox_system.hpp
     systems/ui/checkboxes/render_checkboxes.cpp
 
