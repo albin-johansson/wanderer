@@ -85,8 +85,6 @@ set(SOURCE_FILES
     core/actions/quit_action.hpp
     core/actions/switch_menu_action.cpp
     core/actions/switch_menu_action.hpp
-    core/actions/update_setting_action.cpp
-    core/actions/update_setting_action.hpp
 
     core/aliases/aabb_tree.hpp
     core/aliases/buffer.hpp
