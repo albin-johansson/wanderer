@@ -37,6 +37,7 @@ void add_buttons(entt::registry& registry, const comp::menu::entity entity)
 auto create_home_menu(entt::registry& registry) -> comp::menu::entity
 {
   const auto entity = make_menu(registry, "Wanderer", menu_id::home);
+  registry.set<comp::home_menu>(entity);
 
   add_buttons(registry, entity);
   add_binds(registry,

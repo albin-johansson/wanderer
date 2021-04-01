@@ -8,6 +8,7 @@
 #include "key_bind.hpp"
 #include "maybe.hpp"
 #include "menu_id.hpp"
+#include "null_entity.hpp"
 
 namespace wanderer::comp {
 namespace detail {
@@ -25,6 +26,26 @@ struct menu final
   menu_id id;
   std::string title;
   bool blocking;
+};
+
+struct home_menu final
+{
+  menu::entity entity{null<menu>()};
+};
+
+struct in_game_menu final
+{
+  menu::entity entity{null<menu>()};
+};
+
+struct settings_menu final
+{
+  menu::entity entity{null<menu>()};
+};
+
+struct controls_menu final
+{
+  menu::entity entity{null<menu>()};
 };
 
 struct menu_drawable final

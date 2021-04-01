@@ -50,6 +50,7 @@ void add_checkboxes(entt::registry& registry, const comp::menu::entity entity)
 auto create_settings_menu(entt::registry& registry) -> comp::menu::entity
 {
   const auto entity = make_menu(registry, "Settings", menu_id::settings);
+  registry.set<comp::settings_menu>(entity);
 
   add_buttons(registry, entity);
   add_checkboxes(registry, entity);
