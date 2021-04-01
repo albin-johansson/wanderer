@@ -63,6 +63,7 @@ void wanderer_engine::update_logic(const delta_t dt)
 
 void wanderer_engine::on_fullscreen_toggled(const event::fullscreen_toggled& event)
 {
+  // TODO make it possible to specify whether to use real fullscreen or fullscreen desktop
   if (event.enabled)
   {
     m_window.set_size(cen::screen::size());
