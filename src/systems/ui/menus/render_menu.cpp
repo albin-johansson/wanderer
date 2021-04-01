@@ -43,39 +43,37 @@ void render_title(const std::string& title,
 
 void render_menu(const entt::registry& registry, cen::renderer& renderer)
 {
-  const auto view =
-      registry
-          .view<const comp::active_menu, const comp::menu, const comp::menu_drawable>();
-  view.each([&](const entt::entity entity,
-                const comp::menu& menu,
-                const comp::menu_drawable& drawable) {
-    if (menu.blocking)
-    {
-      renderer.fill_with(glob::transparent_black);
-    }
+  const auto menuEntity = registry.ctx<comp::active_menu>().entity;
 
-    if (const auto* pack = registry.try_get<comp::line_pack>(entity))
-    {
-      render_lines(registry, renderer, *pack);
-    }
+  const auto& menu = registry.get<comp::menu>(menuEntity);
+  const auto& drawable = registry.get<comp::menu_drawable>(menuEntity);
 
-    if (const auto* pack = registry.try_get<comp::label_pack>(entity))
-    {
-      render_labels(registry, renderer, *pack);
-    }
+  if (menu.blocking)
+  {
+    renderer.fill_with(glob::transparent_black);
+  }
 
-    if (const auto* pack = registry.try_get<comp::button_pack>(entity))
-    {
-      render_buttons(registry, renderer, *pack);
-    }
+  if (const auto* pack = registry.try_get<comp::line_pack>(menuEntity))
+  {
+    render_lines(registry, renderer, *pack);
+  }
 
-    if (const auto* pack = registry.try_get<comp::checkbox_pack>(entity))
-    {
-      render_checkboxes(registry, renderer, *pack);
-    }
+  if (const auto* pack = registry.try_get<comp::label_pack>(menuEntity))
+  {
+    render_labels(registry, renderer, *pack);
+  }
 
-    render_title(menu.title, drawable, renderer);
-  });
+  if (const auto* pack = registry.try_get<comp::button_pack>(menuEntity))
+  {
+    render_buttons(registry, renderer, *pack);
+  }
+
+  if (const auto* pack = registry.try_get<comp::checkbox_pack>(menuEntity))
+  {
+    render_checkboxes(registry, renderer, *pack);
+  }
+
+  render_title(menu.title, drawable, renderer);
 }
 
 }  // namespace wanderer::sys

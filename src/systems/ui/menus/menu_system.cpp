@@ -43,7 +43,7 @@ auto create_menus() -> entt::registry
   create_settings_menu(registry);
   create_saves_menu(registry);
 
-  registry.emplace<comp::active_menu>(home);
+  registry.set<comp::active_menu>(home);
 
   auto& cursors = registry.set<comp::cursors>();
   cursors.data.try_emplace(cen::system_cursor::hand, cen::system_cursor::hand);
@@ -55,36 +55,33 @@ void update_menu(entt::registry& registry,
                  entt::dispatcher& dispatcher,
                  const input& input)
 {
-  const auto view = registry.view<comp::active_menu, comp::menu>();
-  view.each([&](const entt::entity entity, comp::menu& menu) {
-    const auto menuEntity = comp::menu::entity{entity};
+  const auto menuEntity = registry.ctx<comp::active_menu>().entity;
+  const auto& menu = registry.get<comp::menu>(menuEntity);
 
-    const auto button = update_button_hover(registry, menuEntity, input.mouse);
-    if (button)
-    {
-      query_button(registry, dispatcher, *button, input.mouse);
-    }
-    else
-    {
-      cen::cursor::reset();
-    }
+  if (const auto button = update_button_hover(registry, menuEntity, input.mouse))
+  {
+    query_button(registry, dispatcher, *button, input.mouse);
+  }
+  else
+  {
+    cen::cursor::reset();
+  }
 
-    if (auto* binds = registry.try_get<comp::key_bind_pack>(entity))
-    {
-      query_binds(registry, dispatcher, *binds, input.keyboard);
-    }
-  });
+  if (auto* binds = registry.try_get<comp::key_bind_pack>(menuEntity))
+  {
+    query_binds(registry, dispatcher, *binds, input.keyboard);
+  }
 }
 
 void switch_menu(entt::registry& registry, const menu_id id)
 {
-  registry.clear<comp::active_menu>();
+  registry.unset<comp::active_menu>();
 
   const auto view = registry.view<comp::menu>();
-  view.each([&](const entt::entity e, const comp::menu& menu) {
+  view.each([&](const entt::entity entity, const comp::menu& menu) {
     if (menu.id == id)
     {
-      registry.emplace<comp::active_menu>(e);
+      registry.set<comp::active_menu>(comp::menu::entity{entity});
 
       if (menu.id == menu_id::saves)
       {
@@ -96,8 +93,8 @@ void switch_menu(entt::registry& registry, const menu_id id)
 
 auto is_current_menu_blocking(const entt::registry& registry) -> bool
 {
-  const auto view = registry.view<const comp::active_menu, const comp::menu>();
-  return view.get<const comp::menu>(view.front()).blocking;
+  const auto menuEntity = registry.ctx<comp::active_menu>().entity;
+  return registry.get<comp::menu>(menuEntity).blocking;
 }
 
 }  // namespace wanderer::sys

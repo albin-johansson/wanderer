@@ -16,9 +16,6 @@ struct menu_entity_t;
 struct menu_drawable_entity_t;
 }  // namespace detail
 
-struct active_menu final
-{};
-
 struct menu final
 {
   using entity = entity_type<detail::menu_entity_t>;
@@ -26,6 +23,11 @@ struct menu final
   menu_id id;
   std::string title;
   bool blocking;
+};
+
+struct active_menu final
+{
+  menu::entity entity{null<menu>()};
 };
 
 struct home_menu final

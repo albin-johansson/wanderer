@@ -88,31 +88,31 @@ void render_menu_debug_info(const entt::registry& registry, graphics_context& gr
 {
   auto& renderer = graphics.renderer();
 
-  const auto view = registry.view<const comp::active_menu, const comp::menu>();
-  view.each([&](const comp::menu& menu) {
-    if (menu.id != menu_id::in_game)
+  const auto menuEntity = registry.ctx<comp::active_menu>().entity;
+  const auto& menu = registry.get<comp::menu>(menuEntity);
+
+  if (menu.id != menu_id::in_game)
+  {
+    renderer.set_color(cen::colors::light_gray.with_alpha(50));
+
+    const auto endX = glob::logical_width<>;
+    const auto endY = glob::logical_height<>;
+
+    for (auto row = 0; row < glob::menu_rows; ++row)
     {
-      renderer.set_color(cen::colors::light_gray.with_alpha(50));
-
-      const auto endX = glob::logical_width<>;
-      const auto endY = glob::logical_height<>;
-
-      for (auto row = 0; row < glob::menu_rows; ++row)
-      {
-        const auto y = row * glob::menu_row_size;
-        renderer.draw_line<int>({0, y}, {endX, y});
-      }
-
-      for (auto col = 0; col < glob::menu_columns; ++col)
-      {
-        const auto x = col * glob::menu_col_size;
-        renderer.draw_line<int>({x, 0}, {x, endY});
-      }
-
-      renderer.draw_line<int>({0, endY - 1}, {endX, endY - 1});
-      renderer.draw_line<int>({endX - 1, 0}, {endX - 1, endY});
+      const auto y = row * glob::menu_row_size;
+      renderer.draw_line<int>({0, y}, {endX, y});
     }
-  });
+
+    for (auto col = 0; col < glob::menu_columns; ++col)
+    {
+      const auto x = col * glob::menu_col_size;
+      renderer.draw_line<int>({x, 0}, {x, endY});
+    }
+
+    renderer.draw_line<int>({0, endY - 1}, {endX, endY - 1});
+    renderer.draw_line<int>({endX - 1, 0}, {endX - 1, endY});
+  }
 }
 
 }  // namespace wanderer::sys
