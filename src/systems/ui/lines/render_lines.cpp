@@ -1,4 +1,4 @@
-#include "line_rendering_system.hpp"
+#include "line_system.hpp"
 
 namespace wanderer::sys {
 

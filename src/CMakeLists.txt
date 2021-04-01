@@ -246,10 +246,9 @@ set(SOURCE_FILES
     systems/ui/labels/make_label.cpp
     systems/ui/labels/render_labels.cpp
 
-    systems/ui/lines/line_rendering_system.cpp
-    systems/ui/lines/line_rendering_system.hpp
+    systems/ui/lines/line_system.hpp
     systems/ui/lines/make_line.cpp
-    systems/ui/lines/make_line.hpp
+    systems/ui/lines/render_lines.cpp
 
     systems/ui/menus/create_controls_menu.cpp
     systems/ui/menus/create_controls_menu.hpp
