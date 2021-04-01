@@ -35,10 +35,8 @@ void sort_drawables(entt::registry& registry);
  * \brief Updates tile animations for tile objects that are depth drawables.
  *
  * \param registry the current registry.
- * \param tileset the tileset that will be used.
  */
-void update_tile_object_animations(entt::registry& registry,
-                                   comp::tileset::entity tileset);
+void update_tile_object_animations(entt::registry& registry);
 
 /**
  * \brief Renders all depth drawables.

@@ -24,14 +24,13 @@ namespace wanderer {
 level::level(const ir::level& data, graphics_context& graphics)
     : m_registry{make_registry()}
     , m_tilemap{m_registry.create()}
-    , m_tileset{m_registry.create()}
     , m_playerSpawnPosition{data.playerSpawnPoint}
 {
   m_tree.set_thickness_factor(std::nullopt);
 
   load_tileset_textures(data, graphics);
-  auto& tileset = create_tileset(data.tilesets, m_registry, m_tileset, graphics);
-  auto& tilemap = create_tilemap(data, m_registry, m_tilemap, m_tileset);
+  auto& tileset = create_tileset(data.tilesets, m_registry, graphics);
+  auto& tilemap = create_tilemap(data, m_registry, m_tilemap);
 
   m_viewport = sys::make_viewport(m_registry, tilemap.size);
 
@@ -60,7 +59,6 @@ level::level(const std::filesystem::path& path, graphics_context& graphics)
   m_registry = sys::restore_registry(archive);
   archive(m_tree);
   archive(m_tilemap);
-  archive(m_tileset);
   archive(m_viewport);
   archive(m_player);
   archive(m_playerSpawnPosition);
@@ -74,7 +72,6 @@ void level::save(const std::filesystem::path& path) const
   sys::save_registry(m_registry, archive);
   archive(m_tree);
   archive(m_tilemap);
-  archive(m_tileset);
   archive(m_viewport);
   archive(m_player);
   archive(m_playerSpawnPosition);
@@ -108,11 +105,6 @@ auto level::viewport() const -> comp::viewport::entity
 auto level::tilemap() const -> comp::tilemap::entity
 {
   return m_tilemap;
-}
-
-auto level::tileset() const -> comp::tileset::entity
-{
-  return m_tileset;
 }
 
 auto level::player_spawnpoint() const -> const float2&

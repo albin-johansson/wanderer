@@ -14,7 +14,7 @@ namespace wanderer::sys {
 
 void update_drawable_movables(entt::registry& registry)
 {
-  const auto view = registry.view<comp::movable, comp::depth_drawable>();
+  const auto view = registry.view<const comp::movable, comp::depth_drawable>();
   view.each([](const comp::movable& movable, comp::depth_drawable& drawable) noexcept {
     drawable.dst.set_x(movable.position.x);
     drawable.dst.set_y(movable.position.y);
@@ -34,10 +34,9 @@ void sort_drawables(entt::registry& registry)
       entt::insertion_sort{});
 }
 
-void update_tile_object_animations(entt::registry& registry,
-                                   const comp::tileset::entity tilesetEntity)
+void update_tile_object_animations(entt::registry& registry)
 {
-  const auto& tileset = registry.get<comp::tileset>(tilesetEntity);
+  const auto& tileset = registry.ctx<comp::tileset>();
   const auto view = registry.view<const comp::tile_object, comp::depth_drawable>();
 
   view.each([&](const comp::tile_object& object, comp::depth_drawable& drawable) {

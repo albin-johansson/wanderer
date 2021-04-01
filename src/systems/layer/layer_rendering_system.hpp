@@ -13,14 +13,12 @@ namespace wanderer::sys {
  * \brief Renders all of the ground layers in a map.
  *
  * \param registry the registry that holds the layers.
- * \param tileset the tileset that will be used.
  * \param graphics the graphics context that will be used when rendering.
  * \param bounds the render bounds that will be used.
  *
  * \since 0.1.0
  */
 void render_ground_layers(const entt::registry& registry,
-                          comp::tileset::entity tileset,
                           graphics_context& graphics,
                           const comp::render_bounds& bounds);
 

@@ -29,8 +29,7 @@ struct tilemap final
 {
   using entity = entity_type<detail::tilemap_entity_t>;
 
-  map_id id{0};  ///< The ID associated with the tilemap
-  comp::tileset::entity tileset{null<comp::tileset>()};  ///< Associated tileset
+  map_id id{0};       ///< The ID associated with the tilemap
   int humanoidLayer;  ///< The layer that humanoids inhabit
   cen::farea size;    ///< The size of the tilemap, in pixels.
   int rows;           ///< The amount of rows in the tilemap
@@ -40,7 +39,7 @@ struct tilemap final
 template <typename Archive>
 void serialize(Archive& archive, tilemap& tm, u32 version)
 {
-  archive(tm.id, tm.tileset, tm.humanoidLayer, tm.size, tm.rows, tm.cols);
+  archive(tm.id, tm.humanoidLayer, tm.size, tm.rows, tm.cols);
 }
 
 }  // namespace wanderer::comp

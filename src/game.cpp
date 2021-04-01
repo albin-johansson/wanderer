@@ -91,7 +91,7 @@ void game::tick(const delta_t dt)
   sys::update_animations(registry);
   sys::update_humanoid_animations(registry);
   sys::update_tile_animations(registry);
-  sys::update_tile_object_animations(registry, level->tileset());
+  sys::update_tile_object_animations(registry);
   sys::update_level_switch_animations(registry, m_dispatcher);
 }
 
@@ -105,7 +105,7 @@ void game::render(graphics_context& graphics, const cen::ipoint mousePos)
   sys::translate_viewport(registry, level->viewport(), renderer);
 
   const auto bounds = level->get_render_bounds();
-  sys::render_ground_layers(registry, level->tileset(), graphics, bounds);
+  sys::render_ground_layers(registry, graphics, bounds);
   sys::render_drawables(registry, graphics, bounds);
   sys::render_particles(registry, renderer);
 

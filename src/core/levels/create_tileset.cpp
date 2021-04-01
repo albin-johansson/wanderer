@@ -45,10 +45,9 @@ void load_tileset_textures(const ir::level& data, graphics_context& graphics)
 
 auto create_tileset(const std::vector<ir::tileset>& data,
                     entt::registry& registry,
-                    const comp::tileset::entity entity,
                     const graphics_context& graphics) -> comp::tileset&
 {
-  auto& tileset = registry.emplace<comp::tileset>(entity);
+  auto& tileset = registry.set<comp::tileset>();
 
   std::size_t nTiles{};
   for (const auto& ts : data)

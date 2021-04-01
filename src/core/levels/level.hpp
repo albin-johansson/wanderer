@@ -114,8 +114,6 @@ class level final
    */
   [[nodiscard]] auto tilemap() const -> comp::tilemap::entity;
 
-  [[nodiscard]] auto tileset() const -> comp::tileset::entity;
-
   /**
    * \brief Returns the spawnpoint of the player in the level.
    *
@@ -167,7 +165,6 @@ class level final
   entt::registry m_registry;
   aabb_tree m_tree;
   comp::tilemap::entity m_tilemap{null<comp::tilemap>()};
-  comp::tileset::entity m_tileset{null<comp::tileset>()};
   comp::viewport::entity m_viewport{null<comp::viewport>()};
   comp::player::entity m_player{null<comp::player>()};
   maybe<float2> m_playerSpawnPosition;

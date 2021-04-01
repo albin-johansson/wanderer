@@ -31,11 +31,10 @@ void render_tile_layer(const entt::registry& registry,
 }  // namespace
 
 void render_ground_layers(const entt::registry& registry,
-                          const comp::tileset::entity tilesetEntity,
                           graphics_context& graphics,
                           const comp::render_bounds& bounds)
 {
-  const auto& tileset = registry.get<comp::tileset>(tilesetEntity);
+  const auto& tileset = registry.ctx<comp::tileset>();
   const auto view = registry.view<const comp::tile_layer>();
 
   view.each([&](const comp::tile_layer& layer) {
