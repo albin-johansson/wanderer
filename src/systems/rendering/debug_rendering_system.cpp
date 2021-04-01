@@ -117,6 +117,9 @@ void render_menu_debug_info(const entt::registry& registry,
         const auto x = col * glob::menu_col_size;
         renderer.draw_line<int>({x, 0}, {x, endY});
       }
+
+      renderer.draw_line<int>({0, endY - 1}, {endX, endY - 1});
+      renderer.draw_line<int>({endX - 1, 0}, {endX - 1, endY});
     }
   });
 }
