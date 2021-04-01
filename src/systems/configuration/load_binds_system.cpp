@@ -17,6 +17,8 @@ auto load_binds() -> comp::binds
     const auto path = files_directory() / "binds.ini";
     if (std::filesystem::exists(path))
     {
+      CENTURION_LOG_INFO("Reading binds: \"%s\"", path.string().c_str());
+
       std::ifstream stream{path};
       const ini_file file{stream};
 

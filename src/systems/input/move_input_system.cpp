@@ -130,12 +130,12 @@ void check_released(comp::movable& movable,
 void handle_move_input(entt::registry& registry,
                        entt::dispatcher& dispatcher,
                        const comp::player::entity player,
-                       const input& input)
+                       const input& input,
+                       const comp::binds& binds)
 {
   assert(registry.has<comp::humanoid_move>(player));
 
   auto& movable = registry.get<comp::movable>(player);
-  const auto& binds = registry.ctx<comp::binds>();
   const auto& keyboard = input.keyboard;
 
   const auto areMoveKeysDown = check_pressed(movable, keyboard, binds);

@@ -1,7 +1,9 @@
 #include "game.hpp"
 
 #include "animation_system.hpp"
+#include "button.hpp"
 #include "chase_system.hpp"
+#include "checkbox.hpp"
 #include "debug_rendering_system.hpp"
 #include "depth_drawables_system.hpp"
 #include "event_connections.hpp"
@@ -14,13 +16,14 @@
 #include "layer_rendering_system.hpp"
 #include "level_switch_animation.hpp"
 #include "level_switch_animation_system.hpp"
-#include "load_settings_system.hpp"
+#include "load_binds_system.hpp"
 #include "make_dispatcher.hpp"
 #include "menu_system.hpp"
 #include "movement_system.hpp"
 #include "particle_system.hpp"
 #include "portal_system.hpp"
 #include "settings.hpp"
+#include "settings_system.hpp"
 #include "tile_animation_system.hpp"
 #include "viewport_system.hpp"
 
@@ -31,8 +34,6 @@ game::game(graphics_context& graphics)
     , m_levels{graphics}
     , m_menus{sys::create_menus()}
 {
-  sys::load_settings(m_menus);
-
   // clang-format off
   m_dispatcher.sink<comp::switch_map_event>().connect<&game::on_switch_map>(this);
   m_dispatcher.sink<comp::switch_menu_event>().connect<&game::on_switch_menu_event>(this);
@@ -56,7 +57,11 @@ void game::handle_input(const input& input)
 {
   auto* level = m_levels.current();
   sys::update_menu(m_menus, m_dispatcher, input);
-  sys::update_input(level->registry(), m_dispatcher, level->player(), input);
+  sys::update_input(level->registry(),
+                    m_dispatcher,
+                    level->player(),
+                    input,
+                    m_menus.ctx<comp::binds>());
 }
 
 void game::tick(const delta_t dt)
@@ -117,6 +122,36 @@ void game::render(graphics_context& graphics, const cen::ipoint mousePos)
   {
     sys::render_menu_debug_info(m_menus, graphics);
   }
+}
+
+void game::on_start()
+{
+  sys::load_settings(m_menus);
+  m_menus.set<comp::binds>(sys::load_binds());
+
+  const auto& settings = m_menus.ctx<comp::settings>();
+  m_dispatcher.enqueue<comp::fullscreen_toggled_event>(settings.fullscreen);
+  m_dispatcher.enqueue<comp::integer_scaling_toggled_event>(
+      settings.integerScaling);
+
+  m_menus.view<comp::button, comp::checkbox>().each(
+      [&](const comp::button& button, comp::checkbox& checkbox) {
+        if (button.action == menu_action::toggle_fullscreen)
+        {
+          checkbox.checked = settings.fullscreen;
+        }
+        else if (button.action == menu_action::toggle_integer_scaling)
+        {
+          checkbox.checked = settings.integerScaling;
+        }
+      });
+
+  m_dispatcher.update();
+}
+
+void game::on_exit()
+{
+  sys::save_settings_before_exit(m_menus);
 }
 
 auto game::is_paused() const -> bool

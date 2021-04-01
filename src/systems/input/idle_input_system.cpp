@@ -65,12 +65,10 @@ void check_for_movement(entt::registry& registry,
 void handle_idle_input(entt::registry& registry,
                        entt::dispatcher& dispatcher,
                        const comp::player::entity player,
-                       const input& input)
+                       const input& input,
+                       const comp::binds& binds)
 {
   assert(registry.has<comp::humanoid_idle>(player));
-
-  // TODO make this a parameter, and only let the menu registry contain binds
-  const auto& binds = registry.ctx<comp::binds>();
   const auto& keyboard = input.keyboard;
 
   if (keyboard.just_released(binds.interact))

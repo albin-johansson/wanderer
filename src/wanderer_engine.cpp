@@ -39,6 +39,8 @@ auto wanderer_engine::run() -> int
   m_window.show();
   fetch_current_time();
 
+  m_game.on_start();
+
   while (is_running())
   {
     tick();
@@ -47,6 +49,8 @@ auto wanderer_engine::run() -> int
     m_game.render(m_graphics, m_input.mouse.position());
     renderer.present();
   }
+
+  m_game.on_exit();
 
   m_window.hide();
 

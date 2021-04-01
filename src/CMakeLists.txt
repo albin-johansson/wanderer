@@ -181,8 +181,8 @@ set(SOURCE_FILES
 
     systems/configuration/load_binds_system.cpp
     systems/configuration/load_binds_system.hpp
-    systems/configuration/load_settings_system.cpp
-    systems/configuration/load_settings_system.hpp
+    systems/configuration/settings_system.cpp
+    systems/configuration/settings_system.hpp
 
     systems/hud/level_switch_animation_system.cpp
     systems/hud/level_switch_animation_system.hpp

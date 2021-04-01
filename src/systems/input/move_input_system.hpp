@@ -3,6 +3,7 @@
 #include <centurion.hpp>
 #include <entt.hpp>
 
+#include "binds.hpp"
 #include "input.hpp"
 #include "player.hpp"
 
@@ -19,10 +20,12 @@ namespace wanderer::sys {
  * \param dispatcher the event dispatcher that is being used.
  * \param player the player entity.
  * \param input the current input state.
+ * \param binds the current input binds.
  */
 void handle_move_input(entt::registry& registry,
                        entt::dispatcher& dispatcher,
                        comp::player::entity player,
-                       const input& input);
+                       const input& input,
+                       const comp::binds& binds);
 
 }  // namespace wanderer::sys

@@ -5,7 +5,6 @@
 #include <utility>  // move
 
 #include "animated.hpp"
-#include "binds.hpp"
 #include "centurion_utils.hpp"
 #include "depth_drawable.hpp"
 #include "direction.hpp"
@@ -13,7 +12,6 @@
 #include "hitbox.hpp"
 #include "hitbox_system.hpp"
 #include "humanoid_state.hpp"
-#include "load_binds_system.hpp"
 #include "movable.hpp"
 
 using namespace entt::literals;
@@ -119,9 +117,6 @@ auto add_player(entt::registry& registry,
   movable.speed = glob::player_speed;
   movable.position = position;
   movable.dir = direction::down;
-
-  registry.set<comp::binds>(load_binds());
-  registry.emplace<comp::binds>(player, load_binds());
 
   return comp::player::entity{player};
 }

@@ -62,6 +62,10 @@ class game final
    */
   void render(graphics_context& graphics, cen::ipoint mousePos);
 
+  void on_start();
+
+  void on_exit();
+
   template <typename Event>
   [[nodiscard]] decltype(auto) sink()
   {
