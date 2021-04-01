@@ -9,19 +9,6 @@ wanderer_engine::wanderer_engine()
     , m_graphics{m_window}
     , m_game{m_graphics}
 {
-  if constexpr (cen::is_debug_build())
-  {
-    // m_window.set_width(cen::screen::width() / 2);
-    // m_window.set_height(cen::screen::height() / 2);
-    m_window.set_size(cen::screen::size());
-    m_window.set_fullscreen_desktop(true);
-  }
-  else
-  {
-    m_window.set_size(cen::screen::size());
-    m_window.set_fullscreen(true);
-  }
-
   m_input.mouse.set_logical_size(glob::logical_size<>);
 
   // clang-format off
@@ -79,11 +66,11 @@ void wanderer_engine::on_fullscreen_toggled(const event::fullscreen_toggled& eve
   if (event.enabled)
   {
     m_window.set_size(cen::screen::size());
-    m_window.set_fullscreen(true);
+    m_window.set_fullscreen_desktop(true);
   }
   else
   {
-    m_window.set_fullscreen(false);
+    m_window.set_fullscreen_desktop(false);
     m_window.set_width(cen::screen::width() / 2);
     m_window.set_height(cen::screen::height() / 2);
   }
