@@ -4,7 +4,7 @@ This document provides instructions for dealing with possible issues that might 
 
 ## There are black margins around the game viewport
 
-If you're using a 16:9 monitor then this is likely solved by overriding the DPI-scaling settings for the executable in Windows.
+If you're using a 16:9 monitor then this is likely solved by overriding the DPI-scaling settings for the executable in Windows. Alternatively, you can also try changing the "Integer scaling" option in the settings menu.
 
 1. Navigate to the Wanderer executable.
 1. Right-click the executable, select the `Properties` item.
