@@ -131,7 +131,7 @@ void handle_move_input(entt::registry& registry,
                        const input& input,
                        const comp::binds& binds)
 {
-  const auto player = registry.ctx<comp::player>().playerEntity;
+  const auto player = registry.ctx<comp::player>().entity;
   assert(registry.has<comp::humanoid_move>(player));
 
   auto& movable = registry.get<comp::movable>(player);

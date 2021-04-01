@@ -9,7 +9,7 @@ void update_input(entt::registry& registry,
                   const input& input,
                   const comp::binds& binds)
 {
-  const auto player = registry.ctx<comp::player>().playerEntity;
+  const auto player = registry.ctx<comp::player>().entity;
   if (registry.has<comp::humanoid_idle>(player))
   {
     handle_idle_input(registry, dispatcher, input, binds);

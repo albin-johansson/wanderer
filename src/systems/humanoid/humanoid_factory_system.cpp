@@ -134,7 +134,7 @@ auto add_skeleton(entt::registry& registry,
   movable.dir = direction::down;
 
   auto& chase = registry.emplace<comp::chase>(skeleton);
-  chase.target = registry.ctx<comp::player>().playerEntity;
+  chase.target = registry.ctx<comp::player>().entity;
   chase.range = 150;
 
   return skeleton;

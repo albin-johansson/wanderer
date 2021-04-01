@@ -43,7 +43,7 @@ void on_interact(const event::interact& event)
 
   auto& registry = *event.registry;
   auto& dispatcher = *event.dispatcher;
-  const auto player = registry.ctx<comp::player>().playerEntity;
+  const auto player = registry.ctx<comp::player>().entity;
 
   if (const auto* p = registry.try_get<comp::is_within_portal>(player))
   {

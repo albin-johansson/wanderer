@@ -82,7 +82,7 @@ void game::tick(const delta_t dt)
 
   sys::update_portal_triggers(registry);
   sys::update_inventory_triggers(registry);
-  sys::update_viewport(*level, registry.ctx<comp::player>().playerEntity, dt);
+  sys::update_viewport(*level, registry.ctx<comp::player>().entity, dt);
   sys::sort_drawables(registry);
 
   sys::update_animations(registry);
