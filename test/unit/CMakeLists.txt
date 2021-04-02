@@ -38,6 +38,9 @@ target_link_libraries(${WANDERER_TEST_TARGET}
 
 add_test(NAME ${WANDERER_TEST_TARGET} COMMAND ${WANDERER_TEST_TARGET})
 
-copy_directory_post_build(${WANDERER_TEST_TARGET} ${BINARY_DIR} ${CMAKE_CURRENT_BINARY_DIR})
+if (WIN32)
+  copy_directory_post_build(${WANDERER_TEST_TARGET} ${BINARY_DIR} ${CMAKE_CURRENT_BINARY_DIR})
+endif ()
+
 copy_directory_post_build(${WANDERER_TEST_TARGET} ${CMAKE_CURRENT_SOURCE_DIR}/../resources "${CMAKE_CURRENT_BINARY_DIR}/resources")
 copy_directory_post_build(${WANDERER_TEST_TARGET} ${RESOURCE_DIR} "${CMAKE_CURRENT_BINARY_DIR}/resources")
