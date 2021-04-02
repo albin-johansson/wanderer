@@ -12,7 +12,7 @@
 namespace wanderer {
 
 /**
- * \class wanderer_app
+ * \class wanderer_engine
  *
  * \brief Represents the Wanderer application.
  *
@@ -21,7 +21,7 @@ namespace wanderer {
  *
  * \since 0.1.0
  *
- * \headerfile wanderer_app.hpp
+ * \headerfile wanderer_engine.hpp
  */
 class wanderer_engine final : public semi_fixed_game_loop<wanderer_engine>
 {
