@@ -44,7 +44,7 @@ void update_tile_object_animations(entt::registry& registry);
  * function.
  *
  * \param registry the registry that holds the depth drawables.
- * \param renderer the renderer that will be used.
+ * \param graphics the graphics context that will be used.
  *
  * \since 0.1.0
  */
