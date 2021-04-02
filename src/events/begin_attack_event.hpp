@@ -14,13 +14,16 @@ namespace wanderer::event {
  * \note This is an event component and is meant to be dispatched through
  * `entt::dispatcher::enqueue`.
  *
- * \var begin_attack_event::registry
+ * \var begin_attack::registry
  * A pointer to the associated registry.
- * \var begin_attack_event::sourceEntity
+ *
+ * \var begin_attack::sourceEntity
  * The entity that initiated the attack.
- * \var begin_attack_event::weapon
+ *
+ * \var begin_attack::weapon
  * The weapon that is being used for the attack.
- * \var begin_attack_event::direction
+ *
+ * \var begin_attack::direction
  * The direction in which the attack is being performed.
  *
  * \headerfile begin_attack_event.hpp
