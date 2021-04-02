@@ -6,8 +6,12 @@ namespace wanderer {
 
 graphics_context::graphics_context(const cen::window& window)
     : m_renderer{make_renderer(window)}
+    , m_smallFontCache{"resources/fonts/type_writer.ttf", 8}
 {
   m_textures.reserve(10);
+
+  m_renderer.set_color(cen::colors::white);
+  m_smallFontCache.add_latin1(m_renderer);
 }
 
 void graphics_context::render(const texture_index index,

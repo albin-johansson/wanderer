@@ -27,6 +27,11 @@ class graphics_context final
   // Very fast index-based lookup
   [[nodiscard]] auto find(texture_index index) const noexcept -> const cen::texture&;
 
+  [[nodiscard]] auto small_font_cache() -> cen::font_cache&
+  {
+    return m_smallFontCache;
+  }
+
   [[nodiscard]] auto renderer() noexcept -> cen::renderer&
   {
     return m_renderer;
@@ -36,6 +41,7 @@ class graphics_context final
   cen::renderer m_renderer;
   std::vector<cen::texture> m_textures;
 
+  cen::font_cache m_smallFontCache;
   // We store used IDs so that we avoid loading the same texture more than once
   std::map<texture_id, texture_index, std::less<>> m_identifiers;
 };
