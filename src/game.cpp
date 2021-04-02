@@ -130,18 +130,7 @@ void game::on_start()
   m_dispatcher.enqueue<event::fullscreen_toggled>(settings.fullscreen);
   m_dispatcher.enqueue<event::integer_scaling_toggled>(settings.integerScaling);
 
-  const auto view = m_menus.view<const comp::button, comp::checkbox>();
-  view.each([&](const comp::button& button, comp::checkbox& checkbox) {
-    if (button.action == menu_action::toggle_fullscreen)
-    {
-      checkbox.checked = settings.fullscreen;
-    }
-    else if (button.action == menu_action::toggle_integer_scaling)
-    {
-      checkbox.checked = settings.integerScaling;
-    }
-  });
-
+  sys::sync_settings_menu(m_menus);
   m_dispatcher.update();
 }
 

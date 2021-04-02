@@ -266,6 +266,7 @@ set(SOURCE_FILES
     systems/ui/menus/menu_system.hpp
     systems/ui/menus/saves_menu_system.cpp
     systems/ui/menus/saves_menu_system.hpp
+    systems/ui/menus/sync_settings_menu.cpp
 
     systems/viewport/make_viewport.cpp
     systems/viewport/viewport_system.cpp

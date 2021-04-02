@@ -32,6 +32,8 @@ void update_menu(entt::registry& registry,
                  entt::dispatcher& dispatcher,
                  const input& input);
 
+void sync_settings_menu(entt::registry& registry);
+
 /**
  * \brief Changes the currently active menu.
  *
