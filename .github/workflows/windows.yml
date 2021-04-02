@@ -89,5 +89,5 @@ jobs:
 
       - name: Run tests
         working-directory: ./build/test/unit
-        run: testWanderer
+        run: ctest
         shell: cmd
