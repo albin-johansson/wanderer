@@ -1,17 +1,17 @@
 #pragma once
 
-#include <cstdint>
+#include <centurion.hpp>
 
 namespace wanderer {
 
-using u64 = std::uint64_t;
-using u32 = std::uint32_t;
-using u16 = std::uint16_t;
-using u8 = std::uint8_t;
+using cen::u16;
+using cen::u32;
+using cen::u64;
+using cen::u8;
 
-using i64 = std::int64_t;
-using i32 = std::int32_t;
-using i16 = std::int16_t;
-using i8 = std::int8_t;
+using cen::i16;
+using cen::i32;
+using cen::i64;
+using cen::i8;
 
 }  // namespace wanderer
