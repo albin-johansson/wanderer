@@ -31,7 +31,14 @@
 *.out
 *.app
 
-.idea/
-lib/
-cmake-build-debug/
-cmake-build-release/
+*.filters
+*.user
+
+.idea
+.vs
+.vscode
+out
+cmake-build-*
+build
+doxygen-out
+compile_commands.json
