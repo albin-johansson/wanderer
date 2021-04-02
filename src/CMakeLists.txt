@@ -117,6 +117,7 @@ set(SOURCE_FILES
 
     ctx/active_menu.hpp
     ctx/binds.hpp
+    ctx/day_night_cycle.hpp
     ctx/player.hpp
     ctx/render_bounds.hpp
     ctx/settings.hpp
