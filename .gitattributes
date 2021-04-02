@@ -2,4 +2,5 @@
 * text=auto
 
 docs/* linguist-documentation
+doxygen/* linguist-documentation
 lib/* linguist-vendored
