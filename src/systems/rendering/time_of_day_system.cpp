@@ -12,7 +12,6 @@ namespace wanderer::sys {
 namespace {
 
 inline constexpr float rate = 100.0f;
-inline constexpr float max_darkness = 0.5f;
 
 inline constexpr float sunrise = 6;
 inline constexpr float daytime = 8.5f;
@@ -30,7 +29,7 @@ struct phase final
 inline const phase sunrise_phase{
     sunrise,
     daytime,
-    {max_darkness, 0.2f},
+    {0.35f, 0.2f},
     {merge(cen::colors::black, cen::colors::navy, 0.3), cen::colors::orange}};
 
 inline const phase day_phase{daytime,
@@ -39,19 +38,21 @@ inline const phase day_phase{daytime,
                              {cen::colors::orange,
                               merge(cen::colors::white, cen::colors::orange, 0.5),
                               cen::colors::white,
-                              merge(cen::colors::white, cen::colors::orange, 0.5),
-                              cen::colors::orange}};
+                              merge(cen::colors::white, cen::colors::orange, 0.2),
+                              merge(cen::colors::white, cen::colors::orange, 0.4)}};
 
 inline const phase sunset_phase{sunset,
                                 night,
                                 {0.2f, 0.35f},
-                                {cen::colors::orange,
+                                {merge(cen::colors::white, cen::colors::orange, 0.4),
+                                 merge(cen::colors::white, cen::colors::orange, 0.75),
+                                 cen::colors::orange,
                                  merge(cen::colors::black, cen::colors::navy, 0.6),
                                  merge(cen::colors::black, cen::colors::navy, 0.3)}};
 
 inline const phase night_phase{night,
                                sunrise,
-                               {max_darkness},
+                               {0.35f},
                                {merge(cen::colors::black, cen::colors::navy, 0.3)}};
 
 [[nodiscard]] auto get_color(const phase& currentPhase, const float hour) -> cen::color
