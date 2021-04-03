@@ -32,7 +32,7 @@ namespace wanderer {
 game::game(graphics_context& graphics)
     : m_dispatcher{make_dispatcher()}
     , m_levels{graphics}
-    , m_menus{sys::create_menus()}
+    , m_shared{sys::create_menus()}
 {
   // clang-format off
   m_dispatcher.sink<event::switch_map>().connect<&game::on_switch_map>(this);
@@ -56,9 +56,9 @@ game::~game() noexcept
 void game::handle_input(const input& input)
 {
   auto* level = m_levels.current();
-  sys::update_menu(m_menus, m_dispatcher, input);
+  sys::update_menu(m_shared, m_dispatcher, input);
 
-  const auto& binds = m_menus.ctx<ctx::binds>();
+  const auto& binds = m_shared.ctx<ctx::binds>();
   sys::update_input(level->registry(), m_dispatcher, input, binds);
 }
 
@@ -113,35 +113,35 @@ void game::render(graphics_context& graphics, const cen::ipoint mousePos)
 
   sys::render_inventory(registry, renderer, mousePos);
   sys::render_level_switch_animations(registry, renderer);
-  sys::render_menu(m_menus, renderer);
+  sys::render_menu(m_shared, renderer);
 
   if constexpr (cen::is_debug_build())
   {
-    sys::render_menu_debug_info(m_menus, graphics);
+    sys::render_menu_debug_info(m_shared, graphics);
   }
 }
 
 void game::on_start()
 {
-  sys::load_settings(m_menus);
-  m_menus.set<ctx::binds>(sys::load_binds());
+  sys::load_settings(m_shared);
+  m_shared.set<ctx::binds>(sys::load_binds());
 
-  const auto& settings = m_menus.ctx<ctx::settings>();
+  const auto& settings = m_shared.ctx<ctx::settings>();
   m_dispatcher.enqueue<event::fullscreen_toggled>(settings.fullscreen);
   m_dispatcher.enqueue<event::integer_scaling_toggled>(settings.integerScaling);
 
-  sys::sync_settings_menu(m_menus);
+  sys::sync_settings_menu(m_shared);
   m_dispatcher.update();
 }
 
 void game::on_exit()
 {
-  sys::save_settings_before_exit(m_menus);
+  sys::save_settings_before_exit(m_shared);
 }
 
 auto game::is_paused() const -> bool
 {
-  return sys::is_current_menu_blocking(m_menus);
+  return sys::is_current_menu_blocking(m_shared);
 }
 
 auto game::is_inventory_active() const -> bool
@@ -157,7 +157,7 @@ void game::on_switch_map(const event::switch_map& event)
 
 void game::on_switch_menu_event(const event::switch_menu& event)
 {
-  sys::switch_menu(m_menus, event.id);
+  sys::switch_menu(m_shared, event.id);
 }
 
 void game::on_button_pressed(const event::button_pressed& event)
@@ -189,14 +189,14 @@ void game::on_button_pressed(const event::button_pressed& event)
       break;
     }
     case menu_action::toggle_fullscreen: {
-      auto& settings = m_menus.ctx<ctx::settings>();
+      auto& settings = m_shared.ctx<ctx::settings>();
       settings.fullscreen = !settings.fullscreen;
 
       m_dispatcher.enqueue<event::fullscreen_toggled>(settings.fullscreen);
       break;
     }
     case menu_action::toggle_integer_scaling: {
-      auto& settings = m_menus.ctx<ctx::settings>();
+      auto& settings = m_shared.ctx<ctx::settings>();
       settings.integerScaling = !settings.integerScaling;
 
       m_dispatcher.enqueue<event::integer_scaling_toggled>(settings.integerScaling);

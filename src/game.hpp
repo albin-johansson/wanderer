@@ -85,7 +85,7 @@ class game final
  private:
   entt::dispatcher m_dispatcher;
   level_manager m_levels;
-  entt::registry m_menus;  // Menu registry, also contains settings
+  entt::registry m_shared;  // Shared data registry, contains menus, settings, etc.
   bool m_quit{false};
 
   [[nodiscard]] auto is_paused() const -> bool;
