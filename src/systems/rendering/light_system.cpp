@@ -43,6 +43,7 @@ void render_lights(const entt::registry& registry,
                    graphics_context& graphics)
 {
   auto& renderer = graphics.renderer();
+
   using namespace entt::literals;
   const auto index =
       graphics.load("point_light"_hs, resources::texture("ardentryst/glow.png"));
@@ -58,15 +59,12 @@ void render_lights(const entt::registry& registry,
 
   // Render transparent rectangle over entire viewport
   texture.set_blend_mode(cen::blend_mode::blend);
-  renderer.set_color(time.color);
-  renderer.fill();
+  renderer.fill_with(time.color);
 
-  // Prepare texture for light rendering
   texture.set_blend_mode(cen::blend_mode::mod);
 
   constexpr auto source = cen::irect{{}, {80, 80}};
   const auto view = registry.view<const comp::point_light>();
-
   view.each([&](const comp::point_light& light) {
     const auto& pos = light.position;
     const auto size = light.size + light.fluctuation;
