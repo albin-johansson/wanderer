@@ -62,11 +62,11 @@ inline const phase night_phase{night,
   }
   else
   {
-    const auto a = static_cast<double>(hour - currentPhase.phaseStart);
-    const auto b = static_cast<double>(currentPhase.phaseEnd - currentPhase.phaseStart);
+    const auto a = hour - currentPhase.phaseStart;
+    const auto b = currentPhase.phaseEnd - currentPhase.phaseStart;
 
     const auto cc =
-        (a / b) * (static_cast<double>(cen::isize(currentPhase.colors)) - 1.0);
+        (a / b) * (static_cast<float>(cen::isize(currentPhase.colors)) - 1.0f);
     const auto c1 = currentPhase.colors.at(static_cast<std::size_t>(std::floor(cc)));
     const auto c2 = currentPhase.colors.at(static_cast<std::size_t>(std::ceil(cc)));
 
@@ -82,10 +82,10 @@ inline const phase night_phase{night,
   }
   else
   {
-    const auto a = static_cast<double>(hour - current.phaseStart);
-    const auto b = static_cast<double>(current.phaseEnd - current.phaseStart);
+    const auto a = static_cast<float>(hour - current.phaseStart);
+    const auto b = static_cast<float>(current.phaseEnd - current.phaseStart);
 
-    const auto dd = (a / b) * (static_cast<double>(cen::isize(current.opacities)) - 1.0);
+    const auto dd = (a / b) * (static_cast<float>(cen::isize(current.opacities)) - 1.0f);
     const auto d1 = current.opacities.at(static_cast<std::size_t>(std::floor(dd)));
     const auto d2 = current.opacities.at(static_cast<std::size_t>(std::ceil(dd)));
 
