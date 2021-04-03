@@ -5,6 +5,7 @@
 
 #include "level_switch_animation.hpp"
 #include "movable.hpp"
+#include "outside_level.hpp"
 #include "parse_world.hpp"
 #include "portal.hpp"
 #include "viewport_system.hpp"
@@ -18,6 +19,7 @@ level_manager::level_manager(graphics_context& graphics)
   auto worldData = parse_world("resources/maps/world.json");
   auto world = std::make_unique<level>(worldData.base, graphics);
   world->ctx<ctx::viewport>().keepInBounds = true;
+  world->registry().set<ctx::outside_level>();
 
   m_world = world->id();
 

@@ -223,6 +223,8 @@ set(SOURCE_FILES
     systems/rendering/debug_rendering_system.hpp
     systems/rendering/render_bounds_system.cpp
     systems/rendering/render_bounds_system.hpp
+    systems/rendering/time_of_day_system.cpp
+    systems/rendering/time_of_day_system.hpp
 
     systems/saves/saves_system.cpp
     systems/saves/saves_system.hpp

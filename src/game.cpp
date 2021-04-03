@@ -20,11 +20,13 @@
 #include "make_dispatcher.hpp"
 #include "menu_system.hpp"
 #include "movement_system.hpp"
+#include "outside_level.hpp"
 #include "particle_system.hpp"
 #include "portal_system.hpp"
 #include "settings.hpp"
 #include "settings_system.hpp"
 #include "tile_animation_system.hpp"
+#include "time_of_day_system.hpp"
 #include "viewport_system.hpp"
 
 namespace wanderer {
@@ -71,6 +73,8 @@ void game::tick(const delta_t dt)
     return;
   }
 
+  sys::update_time_of_day(m_shared, dt);
+
   auto* level = m_levels.current();
   auto& registry = level->registry();
   sys::update_humanoid_states(registry, m_dispatcher);
@@ -105,6 +109,13 @@ void game::render(graphics_context& graphics, const cen::ipoint mousePos)
   sys::render_ground_layers(registry, graphics);
   sys::render_drawables(registry, graphics);
   sys::render_particles(registry, renderer);
+
+  if (registry.try_ctx<ctx::outside_level>())
+  {
+    sys::render_time_of_day_overlay(m_shared, graphics);
+  }
+
+  sys::render_clock(m_shared, graphics);
 
   if constexpr (cen::is_debug_build())
   {
