@@ -42,3 +42,5 @@ cmake-build-*
 build
 doxygen-out
 compile_commands.json
+
+resources/reserves/*
