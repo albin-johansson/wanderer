@@ -121,6 +121,7 @@ set(SOURCE_FILES
     ctx/render_bounds.hpp
     ctx/settings.hpp
     ctx/tileset.hpp
+    ctx/time_of_day.hpp
     ctx/viewport.hpp
 
     events/begin_attack_event.hpp
