@@ -112,6 +112,8 @@ set(SOURCE_FILES
     core/ecs/make_registry.cpp
     core/ecs/make_registry.hpp
 
+    core/resources/resources.cpp
+    core/resources/resources.hpp
     core/resources/texture_loader.hpp
 
     core/settings/setting_id.hpp

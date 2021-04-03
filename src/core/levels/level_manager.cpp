@@ -8,6 +8,7 @@
 #include "outside_level.hpp"
 #include "parse_world.hpp"
 #include "portal.hpp"
+#include "resources.hpp"
 #include "viewport_system.hpp"
 
 namespace wanderer {
@@ -16,7 +17,7 @@ level_manager::level_manager(graphics_context& graphics)
 {
   m_levels.reserve(5);
 
-  auto worldData = parse_world("resources/maps/world.json");
+  auto worldData = parse_world(resources::map("world.json"));
   auto world = std::make_unique<level>(worldData.base, graphics);
   world->ctx<ctx::viewport>().keepInBounds = true;
   world->registry().set<ctx::outside_level>();

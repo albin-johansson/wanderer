@@ -8,6 +8,7 @@
 #include "menu_constants.hpp"
 #include "player.hpp"
 #include "point_light.hpp"
+#include "resources.hpp"
 
 namespace wanderer::sys {
 
@@ -42,10 +43,9 @@ void render_lights(const entt::registry& registry,
                    graphics_context& graphics)
 {
   auto& renderer = graphics.renderer();
-
   using namespace entt::literals;
   const auto index =
-      graphics.load("point_light"_hs, "resources/images/Ardentryst/glow.png");
+      graphics.load("point_light"_hs, resources::texture("Ardentryst/glow.png"));
 
   // TODO see if this texture can be reused
   cen::texture texture{renderer,
