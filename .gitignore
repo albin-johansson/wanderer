@@ -37,10 +37,10 @@
 .idea
 .vs
 .vscode
-out
-cmake-build-*
-build
-doxygen-out
+
 compile_commands.json
 
+build
+cmake-build-*
+doxygen-out
 resources/reserves/*
