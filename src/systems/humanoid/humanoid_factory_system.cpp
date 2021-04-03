@@ -122,8 +122,8 @@ auto add_player(entt::registry& registry,
   light.size = 160;
   light.position = position;
   light.fluctuation = 0;
-  light.fluctuationStep = 0.1f;
-  light.fluctuationLimit = 2;
+  light.fluctuationStep = 1;
+  light.fluctuationLimit = 10;
 
   return player;
 }
