@@ -8,6 +8,10 @@
   <property name="container" type="object" default="0"/>
  </objecttype>
  <objecttype name="Hitbox" color="#ff0000"/>
+ <objecttype name="Light" color="#aaff00">
+  <property name="fluctuationLimit" type="float" default="5"/>
+  <property name="fluctuationStep" type="float" default="1"/>
+ </objecttype>
  <objecttype name="Object" color="#ff00ff">
   <property name="depth" type="int" default="5"/>
  </objecttype>

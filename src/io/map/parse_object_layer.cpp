@@ -112,6 +112,42 @@ namespace {
   return props->get("container").get<step::object_ref>().get();
 }
 
+[[nodiscard]] auto parse_light(const step::object& object,
+                               const float xRatio,
+                               const float yRatio) -> comp::point_light
+{
+  assert(object.is_ellipse());
+
+  comp::point_light light;
+
+  light.size = static_cast<float>(object.width()) * xRatio;
+
+  const auto x = static_cast<float>(object.x()) * xRatio;
+  const auto y = static_cast<float>(object.y()) * yRatio;
+
+  light.position.x = x - (light.size / 2.0f);
+  light.position.y = y - (light.size / 2.0f);
+
+  light.fluctuationLimit = 5;
+  light.fluctuationStep = 1;
+  light.fluctuation = 0;
+
+  if (const auto* props = object.get_properties())
+  {
+    if (props->has("fluctuationLimit"))
+    {
+      light.fluctuationLimit = props->get("fluctuationLimit").get<float>();
+    }
+
+    if (props->has("fluctuationStep"))
+    {
+      light.fluctuationStep = props->get("fluctuationStep").get<float>();
+    }
+  }
+
+  return light;
+}
+
 }  // namespace
 
 void parse_object_layer(ir::level& data,
@@ -146,6 +182,10 @@ void parse_object_layer(ir::level& data,
     {
       objectData.inventoryRef = parse_container_trigger(stepObject);
       objectData.hitbox = make_hitbox(stepObject, data.xRatio, data.yRatio);
+    }
+    else if (type == "Light")
+    {
+      objectData.light = parse_light(stepObject, data.xRatio, data.yRatio);
     }
   }
 }

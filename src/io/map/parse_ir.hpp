@@ -13,6 +13,7 @@
 #include "inventory.hpp"
 #include "maybe.hpp"
 #include "object.hpp"
+#include "point_light.hpp"
 #include "portal.hpp"
 #include "spawnpoint.hpp"
 #include "texture_id.hpp"
@@ -70,6 +71,7 @@ struct object final
   maybe<comp::spawnpoint> spawnpoint;    ///< Optional spawnpoint.
   maybe<comp::inventory> inventory;      ///< Optional inventory.
   maybe<comp::portal> portal;            ///< Optional portal.
+  maybe<comp::point_light> light;        ///< Optional light.
   maybe<int> inventoryRef;  ///< Optional inventory ID, used by inv. triggers.
 };
 

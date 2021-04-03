@@ -75,6 +75,11 @@ void add_objects(entt::registry& registry, const ir::level& level)
     {
       registry.emplace<comp::spawnpoint>(entity, *data.spawnpoint);
     }
+
+    if (data.light)
+    {
+      registry.emplace<comp::point_light>(entity, *data.light);
+    }
   }
 
   set_up_container_triggers(registry);
