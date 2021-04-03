@@ -45,7 +45,7 @@ void render_lights(const entt::registry& registry,
   auto& renderer = graphics.renderer();
   using namespace entt::literals;
   const auto index =
-      graphics.load("point_light"_hs, resources::texture("Ardentryst/glow.png"));
+      graphics.load("point_light"_hs, resources::texture("ardentryst/glow.png"));
 
   // TODO see if this texture can be reused
   cen::texture texture{renderer,
