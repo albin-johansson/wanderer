@@ -10,7 +10,7 @@ using namespace wanderer;
 
 TEST(Vector2, Defaults)
 {
-  const vector2f vec;
+  const float2 vec;
   EXPECT_FLOAT_EQ(0, vec.x);
   EXPECT_FLOAT_EQ(0, vec.y);
   EXPECT_FLOAT_EQ(0, vec.magnitude());
@@ -21,14 +21,14 @@ TEST(Vector2, Constructor)
 {
   const auto x = 112.9f;
   const auto y = 8254.3f;
-  const vector2f vec{x, y};
+  const float2 vec{x, y};
   EXPECT_FLOAT_EQ(x, vec.x);
   EXPECT_FLOAT_EQ(y, vec.y);
 }
 
 TEST(Vector2, Scale)
 {
-  vector2f vector;
+  float2 vector;
 
   vector.scale(7);  // scaling zeroed vector
   EXPECT_TRUE(vector.is_zero());
@@ -51,14 +51,14 @@ TEST(Vector2, Scale)
 TEST(Vector2, Norm)
 {
   {  // Normalize the zero vector
-    vector2f vector;
+    float2 vector;
     vector.norm();  // no effect on the zero vector
     EXPECT_FALSE(vector.is_unit());
     EXPECT_TRUE(vector.is_zero());
   }
 
   {  // Normalize non-zero vector
-    vector2f vector{42, 124};
+    float2 vector{42, 124};
     EXPECT_FALSE(vector.is_unit());
 
     vector.norm();
@@ -68,7 +68,7 @@ TEST(Vector2, Norm)
 
 TEST(Vector2, Zero)
 {
-  vector2f vector{849, 241};
+  float2 vector{849, 241};
   EXPECT_FALSE(vector.is_zero());
 
   vector.zero();
@@ -78,25 +78,25 @@ TEST(Vector2, Zero)
 TEST(Vector2, SetMagnitude)
 {
   {  // Normal magnitude
-    vector2f vector{1283, 881};
+    float2 vector{1283, 881};
     vector.set_magnitude(433);
     EXPECT_FLOAT_EQ(433, vector.magnitude());
   }
 
   {  // Create unit vector
-    vector2f vector{849, 241};
+    float2 vector{849, 241};
     vector.set_magnitude(1);
     EXPECT_TRUE(vector.is_unit());
   }
 
   {  // Zero magnitude
-    vector2f vector{849, 241};
+    float2 vector{849, 241};
     vector.set_magnitude(0);
     EXPECT_TRUE(vector.is_zero());
   }
 
   {  // Negative magnitude
-    vector2f vector{849, 241};
+    float2 vector{849, 241};
     vector.set_magnitude(-1);
     EXPECT_TRUE(vector.is_zero());
   }
@@ -107,8 +107,8 @@ TEST(Vector2, Lerp)
   const auto x = 123;
   const auto y = 456;
 
-  vector2f fst{x, y};
-  const vector2f snd{834, 432};
+  float2 fst{x, y};
+  const float2 snd{834, 432};
 
   const auto alpha = 0.8;
   const auto invAlpha = 1 - alpha;
@@ -121,14 +121,14 @@ TEST(Vector2, Lerp)
 
 TEST(Vector2, LerpSmooth)
 {
-  vector2f fst{123, 456};
-  const vector2f snd{834, 432};
+  float2 fst{123, 456};
+  const float2 snd{834, 432};
   EXPECT_NO_THROW(fst.lerp_smooth(snd, 0.45));  // just check that it compiles
 }
 
 TEST(Vector2, Negate)
 {
-  vector2f vector{20, 30};
+  float2 vector{20, 30};
 
   vector.negate();
   EXPECT_FLOAT_EQ(-20, vector.x);
@@ -144,8 +144,8 @@ TEST(Vector2, AdditionAssignment)
   const auto x = 20;
   const auto y = 30;
 
-  vector2f fst{x, y};
-  const vector2f snd{45, -14};
+  float2 fst{x, y};
+  const float2 snd{45, -14};
 
   fst += snd;
 
@@ -158,8 +158,8 @@ TEST(Vector2, SubtractionAssignment)
   const auto x = 83;
   const auto y = 55;
 
-  vector2f fst{x, y};
-  const vector2f snd{-35, 77};
+  float2 fst{x, y};
+  const float2 snd{-35, 77};
 
   fst -= snd;
 
@@ -170,13 +170,13 @@ TEST(Vector2, SubtractionAssignment)
 TEST(Vector2, Distance)
 {
   {  // Distance to self
-    const vector2f vector{783, 334};
+    const float2 vector{783, 334};
     EXPECT_FLOAT_EQ(0, distance(vector, vector));
   }
 
   {  // Normal vectors
-    const vector2f fst{1892.0f, 4412.0f};
-    const vector2f snd{442.0f, 266.0f};
+    const float2 fst{1892.0f, 4412.0f};
+    const float2 snd{442.0f, 266.0f};
 
     const auto expected = 4392.24;  // obtained from wolfram alpha
 
@@ -187,8 +187,8 @@ TEST(Vector2, Distance)
 
 TEST(Vector2, Cross)
 {
-  const vector2f fst{123, 456};
-  const vector2f snd{789, 434};
+  const float2 fst{123, 456};
+  const float2 snd{789, 434};
   EXPECT_FLOAT_EQ(0, cross(fst, fst));
 
   // Expected values obtained from wolfram alpha
@@ -199,13 +199,13 @@ TEST(Vector2, Cross)
 TEST(Vector2, Angle)
 {
   {  // Angle to self
-    const vector2f vector{1283, 9123};
+    const float2 vector{1283, 9123};
     EXPECT_FLOAT_EQ(0, angle(vector, vector));
   }
 
   {  // Small vectors
-    const vector2f fst{50, 25};
-    const vector2f snd{5, 10};
+    const float2 fst{50, 25};
+    const float2 snd{5, 10};
 
     // Obtained with wolfram alpha
     const auto expected = std::acos(4.0 / 5.0);
@@ -215,20 +215,19 @@ TEST(Vector2, Angle)
   }
 
   {  // Big vectors
-    const vector2f fst{63'112, 58'124};
-    const vector2f snd{30'979, 77'437};
+    const float2 fst{63'112, 58'124};
+    const float2 snd{30'979, 77'437};
 
     // Obtained with wolfram alpha
-    const auto expected =
-        0.5 * (pi<double> - 2 * std::atan(1614023709.0 / 771645137.0));
+    const auto expected = 0.5 * (pi<double> - 2 * std::atan(1614023709.0 / 771645137.0));
 
     EXPECT_FLOAT_EQ(expected, angle(fst, snd));
     EXPECT_FLOAT_EQ(-expected, angle(snd, fst));
   }
 
   {  // With the zero vector
-    const vector2f zero;
-    const vector2f nonZero{123, 123};
+    const float2 zero;
+    const float2 nonZero{123, 123};
     EXPECT_FLOAT_EQ(0, angle(zero, zero));
     EXPECT_FLOAT_EQ(0, angle(zero, nonZero));
     EXPECT_FLOAT_EQ(0, angle(nonZero, zero));
@@ -237,8 +236,8 @@ TEST(Vector2, Angle)
 
 TEST(Vector2, Addition)
 {
-  const vector2f fst(25, 83);
-  const vector2f snd(93, 12);
+  const float2 fst(25, 83);
+  const float2 snd(93, 12);
 
   const auto sum = fst + snd;
   EXPECT_FLOAT_EQ(fst.x + snd.x, sum.x);
@@ -247,8 +246,8 @@ TEST(Vector2, Addition)
 
 TEST(Vector2, Subtraction)
 {
-  const vector2f fst(831, -472);
-  const vector2f snd(185, 442);
+  const float2 fst(831, -472);
+  const float2 snd(185, 442);
 
   const auto diff1 = fst - snd;
   const auto diff2 = snd - fst;
