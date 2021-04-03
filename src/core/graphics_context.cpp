@@ -6,6 +6,7 @@ namespace wanderer {
 
 graphics_context::graphics_context(const cen::window& window)
     : m_renderer{make_renderer(window)}
+    , m_format{window.get_pixel_format()}
     , m_smallFontCache{"resources/fonts/type_writer.ttf", 8}
 {
   m_textures.reserve(10);
