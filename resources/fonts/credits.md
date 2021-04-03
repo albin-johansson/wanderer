@@ -15,5 +15,3 @@
 * License: [CC-BY-SA 3.0](http://creativecommons.org/licenses/by-sa/3.0/)
 * Source: [www.fontstruct.com](https://fontstruct.com/fontstructions/show/212255/type_writer)
 * Notes: This font has not been modified in any way.
-
-## Fira Code
