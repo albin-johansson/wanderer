@@ -3,7 +3,9 @@
 #include <cmath>  // floor, ceil
 
 #include "centurion_utils.hpp"
+#include "get_random.hpp"
 #include "ints.hpp"
+#include "menu_constants.hpp"
 #include "time_of_day.hpp"
 
 namespace wanderer::sys {
@@ -12,16 +14,15 @@ namespace {
 inline constexpr float rate = 100.0f;
 inline constexpr float max_darkness = 0.5f;
 
-inline constexpr int sunrise = 6;
-inline constexpr int daytime = 8;
-inline constexpr int sunset = 18;
-inline constexpr int night = 22;
+inline constexpr float sunrise = 6;
+inline constexpr float daytime = 8.5f;
+inline constexpr float sunset = 18;
+inline constexpr float night = 22;
 
 struct phase final
 {
-  int phaseStart;
-  int phaseEnd;
-
+  float phaseStart;
+  float phaseEnd;
   std::vector<float> opacities;
   std::vector<cen::color> colors;
 };
@@ -36,16 +37,16 @@ inline const phase day_phase{daytime,
                              sunset,
                              {0.2f, 0.0f, 0.0f, 0.0f, 0.2f},
                              {cen::colors::orange,
-                              cen::colors::orange,
+                              merge(cen::colors::white, cen::colors::orange, 0.5),
                               cen::colors::white,
-                              cen::colors::orange,
+                              merge(cen::colors::white, cen::colors::orange, 0.5),
                               cen::colors::orange}};
 
 inline const phase sunset_phase{sunset,
                                 night,
-                                {0.2f, max_darkness},
+                                {0.2f, 0.35f},
                                 {cen::colors::orange,
-                                 cen::colors::navy,
+                                 merge(cen::colors::black, cen::colors::navy, 0.6),
                                  merge(cen::colors::black, cen::colors::navy, 0.3)}};
 
 inline const phase night_phase{night,
@@ -132,18 +133,53 @@ void update_time_of_day(entt::registry& registry, const delta_t dt)
 
   if (time.hour >= 24)
   {
+    // TODO emit day changed event
+
     time.seconds = 0;
   }
 }
 
-void render_time_of_day_overlay(const entt::registry& registry,
-                                graphics_context& graphics)
-{
-  auto& renderer = graphics.renderer();
-
-  const auto& time = registry.ctx<ctx::time_of_day>();
-  renderer.fill_with(time.color.with_alpha(time.opacity));
-}
+// void render_time_of_day_overlay(const entt::registry& registry,
+//                                graphics_context& graphics)
+//{
+//  const auto& time = registry.ctx<ctx::time_of_day>();
+//  auto& renderer = graphics.renderer();
+//
+//  using namespace entt::literals;
+//  const auto index =
+//      graphics.load("point-light"_hs, "resources/images/Ardentryst/glow.png");
+//
+//  cen::texture texture{renderer,
+//                       graphics.pixel_format(),
+//                       cen::texture_access::target,
+//                       glob::logical_size<>};
+//  texture.set_alpha(time.opacity);
+//
+//  const auto translation = renderer.translation_viewport();
+//  renderer.set_translation_viewport({});
+//  renderer.set_target(&texture);
+//
+//  texture.set_blend_mode(cen::blend_mode::blend);
+//  //  renderer.set_color(time.color.with_alpha(time.opacity));
+//  renderer.set_color(time.color);
+//  renderer.fill();
+//
+//  const auto x = (glob::logical_width<> / 2) - 160;
+//  const auto y = (glob::logical_height<> / 2) - 160;
+//  texture.set_blend_mode(cen::blend_mode::mod);
+//
+//  static float size = 320;
+//  size += get_random(0, 50) < 25 ? -0.5f : 0.5f;
+//  size = std::clamp(size, 315.0f, 325.0f);
+//
+//  graphics.render(index, {{}, {80, 80}}, {{x, y}, {size, size}});
+//
+//  renderer.set_target(nullptr);
+//  renderer.set_translation_viewport(translation);
+//
+//  renderer.set_blend_mode(cen::blend_mode::blend);
+//  renderer.render<int>(texture, {0, 0});
+//}
 
 void render_clock(const entt::registry& registry, graphics_context& graphics)
 {
