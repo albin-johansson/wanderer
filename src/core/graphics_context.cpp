@@ -47,11 +47,6 @@ auto graphics_context::to_index(const texture_id id) const -> texture_index
 auto graphics_context::find(const texture_index index) const noexcept
     -> const cen::texture&
 {
-  if (index >= m_textures.size())
-  {
-    int i = 1;
-  }
-
   assert(index < m_textures.size());
   return m_textures[index];
 }
