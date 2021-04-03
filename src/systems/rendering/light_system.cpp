@@ -15,7 +15,7 @@ void update_lights(entt::registry& registry)
 {
   const auto view = registry.view<comp::point_light>();
   view.each([&](comp::point_light& light) {
-    light.fluctuation += get_bool() ? -0.5f : 0.5f;
+    light.fluctuation += get_bool() ? light.fluctuationStep : -light.fluctuationStep;
 
     const auto min = light.size - light.fluctuationLimit;
     const auto max = light.size + light.fluctuationLimit;

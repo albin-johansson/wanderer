@@ -119,10 +119,11 @@ auto add_player(entt::registry& registry,
   movable.dir = direction::down;
 
   auto& light = registry.emplace<comp::point_light>(player);
-  light.size = 320;
+  light.size = 160;
   light.position = position;
   light.fluctuation = 0;
-  light.fluctuationLimit = 5;
+  light.fluctuationStep = 0.1f;
+  light.fluctuationLimit = 2;
 
   return player;
 }
