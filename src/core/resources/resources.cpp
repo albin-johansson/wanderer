@@ -21,7 +21,7 @@ auto sound(cen::czstring resource) -> std::string
 
 auto map(cen::czstring resource) -> std::string
 {
-  return "resources/maps"s + resource;
+  return "resources/maps/"s + resource;
 }
 
 }  // namespace wanderer::resources
