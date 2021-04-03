@@ -14,6 +14,7 @@
 #include "hitbox_system.hpp"
 #include "humanoid_state.hpp"
 #include "movable.hpp"
+#include "point_light.hpp"
 
 using namespace entt::literals;
 
@@ -116,6 +117,12 @@ auto add_player(entt::registry& registry,
   movable.speed = glob::player_speed;
   movable.position = position;
   movable.dir = direction::down;
+
+  auto& light = registry.emplace<comp::point_light>(player);
+  light.size = 320;
+  light.position = position;
+  light.fluctuation = 0;
+  light.fluctuationLimit = 5;
 
   return player;
 }

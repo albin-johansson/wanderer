@@ -1,7 +1,5 @@
 #include "make_renderer.hpp"
 
-#include <entt.hpp>
-
 #include "game_constants.hpp"
 #include "menu_constants.hpp"
 
@@ -9,9 +7,9 @@ namespace wanderer {
 
 auto make_renderer(const cen::window& window) -> cen::renderer
 {
-  using namespace entt::literals;
-
-  cen::renderer renderer{window};
+  const auto flags = static_cast<SDL_RendererFlags>(SDL_RENDERER_ACCELERATED |
+                                                    SDL_RENDERER_TARGETTEXTURE);
+  cen::renderer renderer{window, flags};
 
   renderer.set_blend_mode(cen::blend_mode::blend);
 

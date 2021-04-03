@@ -3,7 +3,6 @@
 #include "animation_system.hpp"
 #include "button.hpp"
 #include "chase_system.hpp"
-#include "checkbox.hpp"
 #include "debug_rendering_system.hpp"
 #include "depth_drawables_system.hpp"
 #include "event_connections.hpp"
@@ -16,6 +15,7 @@
 #include "layer_system.hpp"
 #include "level_switch_animation.hpp"
 #include "level_switch_animation_system.hpp"
+#include "light_system.hpp"
 #include "load_binds_system.hpp"
 #include "make_dispatcher.hpp"
 #include "menu_system.hpp"
@@ -83,6 +83,8 @@ void game::tick(const delta_t dt)
   sys::update_movement(*level, dt);
   sys::update_drawable_movables(registry);
   sys::update_particles(registry, dt);
+  sys::update_lights(registry);
+  sys::update_player_light_position(registry);
 
   sys::update_portal_triggers(registry);
   sys::update_inventory_triggers(registry);
@@ -112,7 +114,7 @@ void game::render(graphics_context& graphics, const cen::ipoint mousePos)
 
   if (registry.try_ctx<ctx::outside_level>())
   {
-    sys::render_time_of_day_overlay(m_shared, graphics);
+    sys::render_lights(registry, m_shared.ctx<ctx::time_of_day>(), graphics);
   }
 
   sys::render_clock(m_shared, graphics);

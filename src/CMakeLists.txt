@@ -222,6 +222,8 @@ set(SOURCE_FILES
 
     systems/rendering/debug_rendering_system.cpp
     systems/rendering/debug_rendering_system.hpp
+    systems/rendering/light_system.cpp
+    systems/rendering/light_system.hpp
     systems/rendering/render_bounds_system.cpp
     systems/rendering/render_bounds_system.hpp
     systems/rendering/time_of_day_system.cpp
