@@ -139,48 +139,6 @@ void update_time_of_day(entt::registry& registry, const delta_t dt)
   }
 }
 
-// void render_time_of_day_overlay(const entt::registry& registry,
-//                                graphics_context& graphics)
-//{
-//  const auto& time = registry.ctx<ctx::time_of_day>();
-//  auto& renderer = graphics.renderer();
-//
-//  using namespace entt::literals;
-//  const auto index =
-//      graphics.load("point-light"_hs, "resources/images/Ardentryst/glow.png");
-//
-//  cen::texture texture{renderer,
-//                       graphics.pixel_format(),
-//                       cen::texture_access::target,
-//                       glob::logical_size<>};
-//  texture.set_alpha(time.opacity);
-//
-//  const auto translation = renderer.translation_viewport();
-//  renderer.set_translation_viewport({});
-//  renderer.set_target(&texture);
-//
-//  texture.set_blend_mode(cen::blend_mode::blend);
-//  //  renderer.set_color(time.color.with_alpha(time.opacity));
-//  renderer.set_color(time.color);
-//  renderer.fill();
-//
-//  const auto x = (glob::logical_width<> / 2) - 160;
-//  const auto y = (glob::logical_height<> / 2) - 160;
-//  texture.set_blend_mode(cen::blend_mode::mod);
-//
-//  static float size = 320;
-//  size += get_random(0, 50) < 25 ? -0.5f : 0.5f;
-//  size = std::clamp(size, 315.0f, 325.0f);
-//
-//  graphics.render(index, {{}, {80, 80}}, {{x, y}, {size, size}});
-//
-//  renderer.set_target(nullptr);
-//  renderer.set_translation_viewport(translation);
-//
-//  renderer.set_blend_mode(cen::blend_mode::blend);
-//  renderer.render<int>(texture, {0, 0});
-//}
-
 void render_clock(const entt::registry& registry, graphics_context& graphics)
 {
   auto& renderer = graphics.renderer();
