@@ -13,6 +13,7 @@
 #include "menu.hpp"
 #include "saves_menu_system.hpp"
 #include "switch_menu_event.hpp"
+#include "time_of_day.hpp"
 
 namespace wanderer::sys {
 namespace {
@@ -45,6 +46,7 @@ auto create_menus() -> entt::registry
   create_saves_menu(registry);
 
   registry.set<ctx::active_menu>(home);
+  registry.set<ctx::time_of_day>();
 
   auto& cursors = registry.set<comp::cursors>();
   cursors.data.try_emplace(cen::system_cursor::hand, cen::system_cursor::hand);
