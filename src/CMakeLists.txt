@@ -21,6 +21,7 @@ set(SOURCE_FILES
     components/graphics/animated_tile.hpp
     components/graphics/depth_drawable.hpp
     components/graphics/level_switch_animation.hpp
+    components/graphics/point_light.hpp
 
     components/input/key_bind.hpp
 
