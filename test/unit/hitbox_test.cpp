@@ -13,8 +13,8 @@ TEST(Hitbox, UpdateBounds)
   {  // One hitbox
     comp::hitbox hb;
 
-    const vector2f origin{25, 17};
-    const vector2f offset{10, 12};
+    const float2 origin{25, 17};
+    const float2 offset{10, 12};
     const cen::farea size{90, 85};
 
     hb.origin = origin;
@@ -37,8 +37,8 @@ TEST(Hitbox, UpdateBounds)
      */
     comp::hitbox hb;
 
-    const vector2f offsetA{10, 12};
-    const vector2f offsetB{120, 120};
+    const float2 offsetA{10, 12};
+    const float2 offsetB{120, 120};
 
     const cen::farea sizeA{90, 85};
     const cen::farea sizeB{105, 109};
@@ -59,7 +59,7 @@ TEST(Hitbox, UpdateBounds)
 
     const cen::frect expected{{10, 12}, {215, 217}};
     EXPECT_EQ(expected, hb.bounds);
-    EXPECT_EQ(vector2f{}, hb.origin);
+    EXPECT_EQ(float2{}, hb.origin);
   }
 }
 
@@ -114,7 +114,7 @@ TEST(Hitbox, Intersects)
 TEST(Hitbox, Create)
 {
   {  // One hitbox
-    const vector2f offset{12, 34};
+    const float2 offset{12, 34};
     const cen::farea size{150, 100};
     const auto hb = sys::create_hitbox({{offset, size}});
 
@@ -125,8 +125,7 @@ TEST(Hitbox, Create)
   }
 
   {  // One hitbox with two subhitboxes
-    const auto hb =
-        sys::create_hitbox({{{2, 0}, {32, 28}}, {{16, 22}, {36, 32}}});
+    const auto hb = sys::create_hitbox({{{2, 0}, {32, 28}}, {{16, 22}, {36, 32}}});
 
     EXPECT_FLOAT_EQ(2, hb.bounds.x());
     EXPECT_FLOAT_EQ(0, hb.bounds.y());
@@ -135,8 +134,8 @@ TEST(Hitbox, Create)
   }
 
   {  // Two hitboxes
-    const vector2f offset1{10, 20};
-    const vector2f offset2{5, 10};
+    const float2 offset1{10, 20};
+    const float2 offset2{5, 10};
 
     const cen::farea size1{25, 40};
     const cen::farea size2{40, 60};
