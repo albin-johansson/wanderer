@@ -61,12 +61,6 @@ set(SOURCE_FILES
     core/serialization.hpp
     core/stack_resource.hpp
 
-    core/actions/action.hpp
-    core/actions/quit_action.cpp
-    core/actions/quit_action.hpp
-    core/actions/switch_menu_action.cpp
-    core/actions/switch_menu_action.hpp
-
     core/aliases/aabb_tree.hpp
     core/aliases/buffer.hpp
     core/aliases/delta.hpp
@@ -316,7 +310,6 @@ target_include_directories(${WANDERER_LIB_TARGET}
     PUBLIC components/map
     PUBLIC components/ui
     PUBLIC core
-    PUBLIC core/actions
     PUBLIC core/aliases
     PUBLIC core/ecs
     PUBLIC core/levels
