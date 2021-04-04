@@ -5,10 +5,11 @@
 #include "centurion_utils.hpp"
 #include "depth_drawable.hpp"
 #include "get_random.hpp"
-#include "menu_constants.hpp"
 #include "player.hpp"
 #include "point_light.hpp"
 #include "resources.hpp"
+
+using namespace entt::literals;
 
 namespace wanderer::sys {
 
@@ -42,26 +43,20 @@ void render_lights(const entt::registry& registry,
                    const ctx::time_of_day& time,
                    graphics_context& graphics)
 {
-  auto& renderer = graphics.renderer();
-
-  using namespace entt::literals;
-  const auto index =
-      graphics.load("point_light"_hs, resources::texture("ardentryst/glow.png"));
-
-  // TODO see if this texture can be reused
-  cen::texture texture{renderer,
-                       graphics.pixel_format(),
-                       cen::texture_access::target,
-                       glob::logical_size<>};
+  auto& texture = graphics.light_canvas();
   texture.set_alpha(time.opacity);
 
+  auto& renderer = graphics.renderer();
   renderer.set_target(&texture);
+  renderer.clear_with(cen::colors::black);
 
-  // Render transparent rectangle over entire viewport
   texture.set_blend_mode(cen::blend_mode::blend);
   renderer.fill_with(time.color);
 
   texture.set_blend_mode(cen::blend_mode::mod);
+
+  const auto path = resources::texture("ardentryst/glow.png");
+  const auto index = graphics.load("point_light"_hs, path);
 
   constexpr auto source = cen::irect{{}, {80, 80}};
   const auto view = registry.view<const comp::point_light>();
