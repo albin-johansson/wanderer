@@ -20,7 +20,7 @@ namespace wanderer {
  */
 [[nodiscard]] inline auto almost_equal(const double a,
                                        const double b,
-                                       const double epsilon = 0.001) noexcept -> bool
+                                       const double epsilon = 0.001) -> bool
 {
   return std::abs(a - b) < epsilon;
 }
