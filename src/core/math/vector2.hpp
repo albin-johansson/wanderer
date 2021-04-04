@@ -70,7 +70,7 @@ struct basic_vector2 final
    *
    * \since 0.1.0
    */
-  void norm() noexcept
+  void norm()
   {
     if (const auto mag = magnitude(); mag != 0)
     {
@@ -102,7 +102,7 @@ struct basic_vector2 final
    *
    * \since 0.1.0
    */
-  void set_magnitude(const T mag) noexcept
+  void set_magnitude(const T mag)
   {
     if (mag <= 0)
     {
@@ -183,7 +183,7 @@ struct basic_vector2 final
    *
    * \since 0.1.0
    */
-  void point_at(const basic_vector2<T>& target, const T length) noexcept
+  void point_at(const basic_vector2<T>& target, const T length)
   {
     if (length <= 0)
     {
@@ -244,7 +244,7 @@ struct basic_vector2 final
    *
    * \since 0.1.0
    */
-  [[nodiscard]] auto magnitude() const noexcept -> T
+  [[nodiscard]] auto magnitude() const -> T
   {
     return std::sqrt(x * x + y * y);
   }
@@ -270,7 +270,7 @@ struct basic_vector2 final
    *
    * \since 0.1.0
    */
-  [[nodiscard]] constexpr auto is_zero() const noexcept -> bool
+  [[nodiscard]] constexpr auto is_zero() const -> bool
   {
     return almost_equal(x, 0) && almost_equal(y, 0);
   }
@@ -284,7 +284,7 @@ struct basic_vector2 final
    *
    * \since 0.1.0
    */
-  [[nodiscard]] auto is_unit() const noexcept -> bool
+  [[nodiscard]] auto is_unit() const -> bool
   {
     return almost_equal(magnitude(), 1);
   }
@@ -446,8 +446,7 @@ template <typename T>
  * \since 0.1.0
  */
 template <typename T>
-[[nodiscard]] auto distance(const basic_vector2<T>& lhs,
-                            const basic_vector2<T>& rhs) noexcept -> T
+[[nodiscard]] auto distance(const basic_vector2<T>& lhs, const basic_vector2<T>& rhs) -> T
 {
   if (lhs == rhs)
   {
@@ -496,8 +495,7 @@ template <typename T>
  * \since 0.1.0
  */
 template <typename T>
-[[nodiscard]] auto angle(const basic_vector2<T>& lhs,
-                         const basic_vector2<T>& rhs) noexcept -> T
+[[nodiscard]] auto angle(const basic_vector2<T>& lhs, const basic_vector2<T>& rhs) -> T
 {
   if (lhs.is_zero() || rhs.is_zero() || lhs == rhs)
   {
@@ -526,10 +524,6 @@ void serialize(Archive& archive, basic_vector2<T>& vec)
   archive(vec.x, vec.y);
 }
 
-using vector2f [[deprecated]] = basic_vector2<float>;
-using vector2d [[deprecated]] = basic_vector2<double>;
-
 using float2 = basic_vector2<float>;
-using double2 = basic_vector2<double>;
 
 }  // namespace wanderer
