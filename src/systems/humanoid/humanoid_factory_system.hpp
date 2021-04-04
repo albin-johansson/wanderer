@@ -4,10 +4,10 @@
 #include <entt.hpp>
 
 #include "aabb_tree.hpp"
+#include "float2.hpp"
 #include "graphics_context.hpp"
 #include "level.hpp"
 #include "player.hpp"
-#include "vector2.hpp"
 
 namespace wanderer::sys {
 

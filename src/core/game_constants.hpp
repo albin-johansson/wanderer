@@ -2,7 +2,7 @@
 
 #include <centurion.hpp>
 
-#include "vector2.hpp"
+#include "float2.hpp"
 
 namespace wanderer::glob {
 

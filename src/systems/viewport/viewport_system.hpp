@@ -4,8 +4,8 @@
 #include <entt.hpp>       // registry
 
 #include "delta.hpp"
+#include "float2.hpp"
 #include "level.hpp"
-#include "vector2.hpp"
 #include "viewport.hpp"
 
 namespace wanderer::sys {

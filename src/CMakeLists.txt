@@ -66,6 +66,7 @@ set(SOURCE_FILES
     core/aliases/delta.hpp
     core/aliases/depth.hpp
     core/aliases/entity_type.hpp
+    core/aliases/float2.hpp
     core/aliases/ints.hpp
     core/aliases/map_id.hpp
     core/aliases/maybe.hpp

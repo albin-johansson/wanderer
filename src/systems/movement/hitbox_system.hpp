@@ -4,10 +4,10 @@
 #include <initializer_list>  // initializer_list
 
 #include "delta.hpp"
+#include "float2.hpp"
 #include "hitbox.hpp"
 #include "maybe.hpp"
 #include "movable.hpp"
-#include "vector2.hpp"
 
 namespace wanderer::sys {
 

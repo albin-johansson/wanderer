@@ -7,6 +7,7 @@
 #include "aabb_tree.hpp"
 #include "abby.hpp"
 #include "delta.hpp"
+#include "float2.hpp"
 #include "graphics_context.hpp"
 #include "map_id.hpp"
 #include "maybe.hpp"
@@ -17,7 +18,6 @@
 #include "spawnpoint.hpp"
 #include "tilemap.hpp"
 #include "tileset.hpp"
-#include "vector2.hpp"
 #include "viewport.hpp"
 
 namespace wanderer {

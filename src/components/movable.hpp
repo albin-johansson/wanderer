@@ -1,8 +1,8 @@
 #pragma once
 
 #include "direction.hpp"
+#include "float2.hpp"
 #include "ints.hpp"
-#include "vector2.hpp"
 
 namespace wanderer::comp {
 

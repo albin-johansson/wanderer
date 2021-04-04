@@ -4,8 +4,8 @@
 #include <vector>  // vector
 
 #include "entity_type.hpp"
+#include "float2.hpp"
 #include "ints.hpp"
-#include "vector2.hpp"
 
 namespace wanderer::comp {
 namespace detail {
