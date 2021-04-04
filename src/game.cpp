@@ -145,6 +145,8 @@ void game::on_start()
 
   sys::sync_settings_menu(m_shared);
   m_dispatcher.update();
+
+  m_shared.ctx<ctx::time_of_day>().seconds = 43'200;  // Start at 12:00
 }
 
 void game::on_exit()
