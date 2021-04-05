@@ -18,11 +18,11 @@
 namespace wanderer::sys {
 namespace {
 
-inline constexpr auto x0 = convert_column_to_x(3);
-inline constexpr auto x1 = convert_column_to_x(glob::menu_columns - 3);
+inline constexpr auto x0 = column_to_x(3);
+inline constexpr auto x1 = column_to_x(glob::menu_columns - 3);
 
-inline constexpr auto y0 = convert_row_to_y(5);
-inline constexpr auto y1 = convert_row_to_y(glob::menu_rows - 2);
+inline constexpr auto y0 = row_to_y(5);
+inline constexpr auto y1 = row_to_y(glob::menu_rows - 2);
 
 [[nodiscard]] auto make_binds(entt::registry& registry)
     -> std::vector<comp::key_bind::entity>
@@ -54,9 +54,8 @@ inline constexpr auto y1 = convert_row_to_y(glob::menu_rows - 2);
   lines.push_back(make_line(registry, {x1, y0}, {x1, y1}));
   lines.push_back(make_line(registry, {x0, y0}, {x1, y0}));
   lines.push_back(make_line(registry, {x0, y1}, {x1, y1}));
-  lines.push_back(make_line(registry,
-                            {convert_column_to_x(8), y0 + 10},
-                            {convert_column_to_x(8), y1 - 10}));
+  lines.push_back(
+      make_line(registry, {column_to_x(8), y0 + 10}, {column_to_x(8), y1 - 10}));
 
   return lines;
 }

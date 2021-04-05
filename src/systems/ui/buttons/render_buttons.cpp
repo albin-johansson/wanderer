@@ -21,7 +21,7 @@ void update_bounds(const comp::button& button,
   const auto halfWidth = static_cast<int>(bounds.width()) / 2;
   const auto halfHeight = static_cast<int>(bounds.height()) / 2;
 
-  const auto x = convert_column_to_x(button.col) - halfWidth;
+  const auto x = column_to_x(button.col) - halfWidth;
   const auto y = (button.row * glob::menu_row_size) - halfHeight;
 
   bounds.set_x(static_cast<float>(x));

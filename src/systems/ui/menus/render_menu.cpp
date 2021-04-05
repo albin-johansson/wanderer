@@ -33,7 +33,7 @@ void render_title(const std::string& title,
   if (!drawable.position)
   {
     const auto x = (glob::logical_width<int> / 2) - (texture.width() / 2);
-    const auto y = convert_row_to_y(2);
+    constexpr auto y = row_to_y(2);
     drawable.position = {x, y};
   }
 

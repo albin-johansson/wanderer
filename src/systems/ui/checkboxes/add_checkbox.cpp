@@ -19,8 +19,8 @@ auto add_checkbox(entt::registry& registry,
 
   const auto& button = registry.get<comp::button>(entity);
 
-  const auto x = convert_column_to_x(button.col);
-  const auto y = convert_row_to_y(button.row);
+  const auto x = column_to_x(button.col);
+  const auto y = row_to_y(button.row);
   const cen::irect rect{x, y, 10, 10};
 
   auto& drawable = registry.get<comp::button_drawable>(entity);

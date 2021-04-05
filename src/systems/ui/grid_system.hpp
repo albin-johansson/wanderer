@@ -4,7 +4,7 @@
 
 namespace wanderer::sys {
 
-[[nodiscard]] constexpr auto convert_column_to_x(const int column) -> int
+[[nodiscard]] constexpr auto column_to_x(const int column) -> int
 {
   // make centered if column index is -1
   if (column == -1)
@@ -17,7 +17,7 @@ namespace wanderer::sys {
   }
 }
 
-[[nodiscard]] constexpr auto convert_row_to_y(const int row) -> int
+[[nodiscard]] constexpr auto row_to_y(const int row) -> int
 {
   return (row * glob::menu_col_size);
 }
