@@ -24,7 +24,7 @@ namespace wanderer::event {
  */
 struct end_humanoid_move final
 {
-  entt::registry* registry{nullptr};
+  entt::registry* registry{};
   entt::entity entity{entt::null};
 };
 
