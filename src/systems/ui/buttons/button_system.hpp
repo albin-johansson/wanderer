@@ -23,10 +23,10 @@ auto make_button(entt::registry& registry,
                  int col = -1) -> comp::button::entity;
 
 // Checks whether or not a button was pressed, triggers its action if so
-void query_button(entt::registry& registry,
+auto query_button(entt::registry& registry,
                   entt::dispatcher& dispatcher,
                   comp::button::entity buttonEntity,
-                  const cen::mouse& mouse);
+                  const cen::mouse& mouse) -> bool;
 
 // Updates the hover state of all buttons, returns the currently hovered button
 [[nodiscard]] auto update_button_hover(entt::registry& registry,
