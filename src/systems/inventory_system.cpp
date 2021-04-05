@@ -11,17 +11,18 @@
 namespace wanderer::sys {
 namespace {
 
-inline constexpr auto nRows = 4;        ///< Amount of inventory cell rows.
-inline constexpr auto nCols = 5;        ///< Amount of inventory cell columns.
-inline constexpr auto cellWidth = 32;   ///< Width of inventory cells.
-inline constexpr auto cellHeight = 32;  ///< Height of inventory cells.
-inline constexpr auto offset = 2;       ///< Space in between inventory cells.
+inline constexpr auto n_rows = 4;        ///< Amount of inventory cell rows.
+inline constexpr auto n_cols = 5;        ///< Amount of inventory cell columns.
+inline constexpr auto cell_width = 32;   ///< Width of inventory cells.
+inline constexpr auto cell_height = 32;  ///< Height of inventory cells.
+inline constexpr auto offset = 2;        ///< Space in between inventory cells.
 
-inline constexpr cen::iarea cellSize{cellWidth, cellHeight};
+inline constexpr cen::iarea cell_size{cell_width, cell_height};
 
 [[nodiscard]] constexpr auto get_render_origin() -> cen::ipoint
 {
-  constexpr cen::iarea area{(cellWidth + offset) * nCols, (cellHeight + offset) * nRows};
+  constexpr cen::iarea area{(cell_width + offset) * n_cols,
+                            (cell_height + offset) * n_rows};
 
   constexpr auto logicalSize = glob::logical_size<>;
   constexpr auto x = (logicalSize.width - area.width) / 2;
@@ -34,9 +35,9 @@ inline constexpr cen::ipoint origin = get_render_origin();
 
 [[nodiscard]] auto get_rect(const int row, const int col)
 {
-  const cen::ipoint pos{origin.x() + (col * (cellWidth + offset)),
-                        origin.y() + (row * (cellHeight + offset))};
-  return cen::irect{pos, cellSize};
+  const cen::ipoint pos{origin.x() + (col * (cell_width + offset)),
+                        origin.y() + (row * (cell_height + offset))};
+  return cen::irect{pos, cell_size};
 }
 
 }  // namespace
@@ -66,9 +67,9 @@ void render_inventory(const entt::registry& registry,
 
     maybe<int> hoverIndex;
     auto index = 0;
-    for (auto row = 0; row < nRows; ++row)
+    for (auto row = 0; row < n_rows; ++row)
     {
-      for (auto col = 0; col < nCols; ++col, ++index)
+      for (auto col = 0; col < n_cols; ++col, ++index)
       {
         const auto rect = get_rect(row, col);
         if (rect.contains(mousePos))
@@ -90,7 +91,7 @@ void render_inventory(const entt::registry& registry,
 
     if (hoverIndex)
     {
-      const auto [row, col] = index_to_matrix(*hoverIndex, nCols);
+      const auto [row, col] = index_to_matrix(*hoverIndex, n_cols);
       const auto rect = get_rect(row, col);
       renderer.set_color(cen::colors::dark_green);
       renderer.draw_rect(rect);
