@@ -13,16 +13,16 @@ void update_bounds(const comp::button& button,
                    cen::renderer& renderer)
 {
   auto& bounds = drawable.bounds;
-
   auto& font = renderer.get_font(button_font);
-  const auto [width, height] = font.string_size(button.text);
-  bounds.set_size({width * 1.25f, height * 1.75f});
 
-  const auto halfWidth = static_cast<int>(bounds.width()) / 2;
-  const auto halfHeight = static_cast<int>(bounds.height()) / 2;
+  const auto [width, height] = font.string_size(button.text);
+  bounds.set_size({width * 1.25f, height * 1.5f});
+
+  const auto halfWidth = bounds.width() / 2.0f;
+  const auto halfHeight = bounds.height() / 2.0f;
 
   const auto x = column_to_x(button.col) - halfWidth;
-  const auto y = (button.row * glob::menu_row_size) - halfHeight;
+  const auto y = row_to_y(button.row) + ((glob::menu_row_size - bounds.height()) / 2.0f);
 
   bounds.set_x(static_cast<float>(x));
   bounds.set_y(static_cast<float>(y));
