@@ -1,6 +1,7 @@
 #include "light_system.hpp"
 
-#include <cmath>  // clamp
+#include <cmath>   // clamp
+#include <string>  // string
 
 #include "centurion_utils.hpp"
 #include "depth_drawable.hpp"
@@ -12,6 +13,11 @@
 using namespace entt::literals;
 
 namespace wanderer::sys {
+namespace {
+
+inline const std::string texture_path = resources::texture("ardentryst/glow.png");
+
+}
 
 void update_lights(entt::registry& registry)
 {
@@ -55,10 +61,9 @@ void render_lights(const entt::registry& registry,
 
   texture.set_blend_mode(cen::blend_mode::mod);
 
-  const auto path = resources::texture("ardentryst/glow.png");
-  const auto index = graphics.load("point_light"_hs, path);
-
   constexpr auto source = cen::irect{{}, {80, 80}};
+  const auto index = graphics.load("point_light"_hs, texture_path);
+
   const auto view = registry.view<const comp::point_light>();
   view.each([&](const comp::point_light& light) {
     const auto& pos = light.position;
