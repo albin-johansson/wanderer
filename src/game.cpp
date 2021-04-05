@@ -217,6 +217,11 @@ void game::on_button_pressed(const event::button_pressed& event)
       m_dispatcher.enqueue<event::integer_scaling_toggled>(settings.integerScaling);
       break;
     }
+    case menu_action::toggle_lights: {
+      auto& settings = m_shared.ctx<ctx::settings>();
+      settings.simulateLights = !settings.simulateLights;
+      break;
+    }
   }
 }
 

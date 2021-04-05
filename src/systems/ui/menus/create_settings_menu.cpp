@@ -25,8 +25,9 @@ void add_checkboxes(entt::registry& registry, const comp::menu::entity entity)
   auto& vec = pack.checkboxes;
 
   // clang-format off
-  vec.push_back(add_checkbox(registry, "Fullscreen", 6, 12, menu_action::toggle_fullscreen, true));
-  vec.push_back(add_checkbox(registry, "Integer scaling", 7, 12, menu_action::toggle_integer_scaling, true));
+  vec.push_back(add_checkbox(registry, "Fullscreen", 6, 13, menu_action::toggle_fullscreen));
+  vec.push_back(add_checkbox(registry, "Integer scaling", 7, 13, menu_action::toggle_integer_scaling));
+  vec.push_back(add_checkbox(registry, "Simulate lights", 8, 13, menu_action::toggle_lights));
   // clang-format on
 }
 
