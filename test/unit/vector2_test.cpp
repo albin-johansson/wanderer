@@ -1,8 +1,7 @@
-#include "vector2.hpp"
-
 #include <gtest/gtest.h>
 
 #include "angles.hpp"
+#include "float2.hpp"
 
 using namespace wanderer;
 
