@@ -38,6 +38,7 @@ set(SOURCE_FILES
     components/map/tilemap.hpp
 
     components/ui/button.hpp
+    components/ui/button_group.hpp
     components/ui/checkbox.hpp
     components/ui/cursors.hpp
     components/ui/label.hpp
