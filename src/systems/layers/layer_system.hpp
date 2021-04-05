@@ -9,38 +9,6 @@
 namespace wanderer::sys {
 
 /**
- * \brief Visits all tiles in a tile layer.
- *
- * \details Empty tiles will be ignored by this function. The signature of
- * the function object should be equivalent to `void(tile_id)`.
- *
- * \tparam T the type of the function object.
- *
- * \param layer the layer whose tiles will be visited.
- * \param callable the function object that will be invoked for each tile.
- *
- * \since 0.1.0
- */
-template <typename T>
-void visit_tiles(const comp::tile_layer& layer, T&& callable)
-{
-  const auto rows = layer.matrix.size();
-  const auto cols = layer.matrix.at(0).size();
-
-  for (auto r = 0; r < rows; ++r)
-  {
-    for (auto c = 0; c < cols; ++c)
-    {
-      const auto tileId = layer.matrix.at(r).at(c);
-      if (!is_empty(tileId))
-      {
-        callable(tileId);
-      }
-    }
-  }
-}
-
-/**
  * \brief Visits all tiles in a tile layer that are within the specified bounds.
  *
  * \details Empty tiles will be ignored by this function. The signature of
@@ -61,17 +29,41 @@ void visit_tiles(const comp::tile_layer& layer,
                  const ctx::render_bounds& bounds,
                  T&& callable)
 {
-  for (auto r = bounds.minRow; r < bounds.maxRow; ++r)
+  for (auto row = bounds.minRow; row < bounds.maxRow; ++row)
   {
-    for (auto c = bounds.minCol; c < bounds.maxCol; ++c)
+    for (auto col = bounds.minCol; col < bounds.maxCol; ++col)
     {
-      const auto id = layer.matrix.at(r).at(c);
+      const auto id = layer.matrix.at(row).at(col);
       if (!is_empty(id))
       {
-        callable(id, r, c);
+        callable(id, row, col);
       }
     }
   }
+}
+
+/**
+ * \brief Visits all tiles in a tile layer.
+ *
+ * \details Empty tiles will be ignored by this function. The signature of
+ * the function object should be equivalent to `void(tile_id)`.
+ *
+ * \tparam T the type of the function object.
+ *
+ * \param layer the layer whose tiles will be visited.
+ * \param callable the function object that will be invoked for each tile.
+ *
+ * \since 0.1.0
+ */
+template <typename T>
+void visit_tiles(const comp::tile_layer& layer, T&& callable)
+{
+  ctx::render_bounds bounds;
+  bounds.minRow = 0;
+  bounds.minCol = 0;
+  bounds.maxRow = layer.matrix.size();
+  bounds.maxCol = layer.matrix.at(0).size();
+  visit_tiles(layer, bounds, callable);
 }
 
 /**
