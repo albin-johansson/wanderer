@@ -26,7 +26,6 @@ set(SOURCE_FILES
     components/input/key_bind.hpp
 
     components/inventory/container_trigger.hpp
-    components/inventory/gold.hpp
     components/inventory/inventory.hpp
     components/inventory/item.hpp
 
