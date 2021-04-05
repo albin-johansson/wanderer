@@ -1,4 +1,5 @@
 #include "active_menu.hpp"
+#include "button_group.hpp"
 #include "button_system.hpp"
 #include "checkbox.hpp"
 #include "checkbox_system.hpp"
@@ -67,6 +68,11 @@ void render_menu(const entt::registry& registry, cen::renderer& renderer)
   if (const auto* pack = registry.try_get<comp::button_pack>(menuEntity))
   {
     render_buttons(registry, renderer, *pack);
+  }
+
+  if (const auto* group = registry.try_get<comp::button_group>(menuEntity))
+  {
+    render_button_group(registry, renderer, *group);
   }
 
   if (const auto* pack = registry.try_get<comp::checkbox_pack>(menuEntity))
