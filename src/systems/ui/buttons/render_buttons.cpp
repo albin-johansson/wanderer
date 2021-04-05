@@ -72,27 +72,34 @@ void render_background(const comp::button_drawable& drawable, cen::renderer& ren
 
 }  // namespace
 
+void render_button(const entt::registry& registry,
+                   cen::renderer& renderer,
+                   const comp::button::entity buttonEntity)
+{
+  const auto& button = registry.get<comp::button>(buttonEntity);
+  const auto& drawable = registry.get<comp::button_drawable>(buttonEntity);
+
+  if (!drawable.texture)
+  {
+    update_bounds(button, drawable, renderer);
+    init_text(drawable, button.text, renderer);
+  }
+
+  if (button.hover)
+  {
+    render_background(drawable, renderer);
+  }
+
+  render_text(button, drawable, renderer);
+}
+
 void render_buttons(const entt::registry& registry,
                     cen::renderer& renderer,
                     const comp::button_pack& pack)
 {
   for (const auto entity : pack.buttons)
   {
-    const auto& button = registry.get<comp::button>(entity);
-    const auto& drawable = registry.get<comp::button_drawable>(entity);
-
-    if (!drawable.texture)
-    {
-      update_bounds(button, drawable, renderer);
-      init_text(drawable, button.text, renderer);
-    }
-
-    if (button.hover)
-    {
-      render_background(drawable, renderer);
-    }
-
-    render_text(button, drawable, renderer);
+    render_button(registry, renderer, entity);
   }
 }
 

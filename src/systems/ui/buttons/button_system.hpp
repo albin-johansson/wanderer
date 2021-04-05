@@ -4,6 +4,7 @@
 #include <entt.hpp>       // registry, dispatcher
 
 #include "button.hpp"
+#include "button_group.hpp"
 #include "maybe.hpp"
 #include "menu.hpp"
 
@@ -34,8 +35,16 @@ auto query_button(entt::registry& registry,
                                        const cen::mouse& mouse)
     -> maybe<comp::button::entity>;
 
+void render_button(const entt::registry& registry,
+                   cen::renderer& renderer,
+                   comp::button::entity button);
+
 void render_buttons(const entt::registry& registry,
                     cen::renderer& renderer,
                     const comp::button_pack& pack);
+
+void render_button_group(const entt::registry& registry,
+                         cen::renderer& renderer,
+                         const comp::button_group& group);
 
 }  // namespace wanderer::sys

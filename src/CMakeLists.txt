@@ -239,6 +239,7 @@ set(SOURCE_FILES
     systems/ui/buttons/button_factory_system.cpp
     systems/ui/buttons/button_system.cpp
     systems/ui/buttons/button_system.hpp
+    systems/ui/buttons/render_button_group.cpp
     systems/ui/buttons/render_buttons.cpp
 
     systems/ui/checkboxes/add_checkbox.cpp
