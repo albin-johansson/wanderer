@@ -94,7 +94,7 @@ void switch_menu(entt::registry& registry, const menu_id id)
 
       if (menu.id == menu_id::saves)
       {
-        refresh_saves_menu(registry);
+        update_saves_menu(registry);
       }
     }
   });

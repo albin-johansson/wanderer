@@ -1,132 +1,78 @@
 #include "saves_menu_system.hpp"
 
-#include <centurion.hpp>
-#include <filesystem>
+#include <filesystem>  // directory_iterator
 
+#include "button_group.hpp"
 #include "button_system.hpp"
 #include "files_directory.hpp"
-#include "grid_system.hpp"
-#include "key_bind_system.hpp"
-#include "label_system.hpp"
-#include "line_system.hpp"
 #include "menu.hpp"
 #include "menu_action.hpp"
-#include "menu_constants.hpp"
-#include "menu_system.hpp"
+#include "null_entity.hpp"
 #include "saves_menu.hpp"
 
 namespace wanderer::sys {
 namespace {
 
-inline constexpr auto x0 = column_to_x(3);
-inline constexpr auto x1 = column_to_x(glob::menu_columns - 3);
+inline constexpr auto save_entry_row = 6;
+inline constexpr auto save_entry_col = 6;
 
-inline constexpr auto y0 = row_to_y(5);
-inline constexpr auto y1 = row_to_y(glob::menu_rows - 2);
-
-[[nodiscard]] auto make_binds(entt::registry& registry)
-    -> std::vector<comp::key_bind::entity>
+void fetch_saves(entt::registry& registry, comp::saves_menu& savesMenu)
 {
-  std::vector<comp::key_bind::entity> binds;
-
-  binds.push_back(make_bind(registry, cen::scancodes::escape, menu_action::goto_home));
-
-  return binds;
-}
-
-[[nodiscard]] auto make_buttons(entt::registry& registry)
-    -> std::vector<comp::button::entity>
-{
-  std::vector<comp::button::entity> buttons;
-
-  // clang-format off
-  buttons.push_back(make_button(registry, "Return", menu_action::goto_home, 4));
-  // clang-format on
-
-  return buttons;
-}
-
-[[nodiscard]] auto make_lines(entt::registry& registry) -> std::vector<comp::line::entity>
-{
-  std::vector<comp::line::entity> lines;
-
-  lines.push_back(make_line(registry, {x0, y0}, {x0, y1}));
-  lines.push_back(make_line(registry, {x1, y0}, {x1, y1}));
-  lines.push_back(make_line(registry, {x0, y0}, {x1, y0}));
-  lines.push_back(make_line(registry, {x0, y1}, {x1, y1}));
-  lines.push_back(
-      make_line(registry, {column_to_x(8), y0 + 10}, {column_to_x(8), y1 - 10}));
-
-  return lines;
-}
-
-[[nodiscard]] auto make_labels(entt::registry& registry)
-    -> std::vector<comp::label::entity>
-{
-  std::vector<comp::label::entity> labels;
-
-  labels.push_back(make_label(registry,
-                              "Location: " + (files_directory() / "saves").string(),
-                              x0,
-                              y1 + 5));
-
-  return labels;
-}
-
-}  // namespace
-
-auto create_saves_menu(entt::registry& registry) -> comp::menu::entity
-{
-  const auto menuEntity = make_menu(registry, "Saves", menu_id::saves);
-  registry.emplace<comp::saves_menu>(menuEntity);
-
-  auto& bindsPack = registry.emplace<comp::key_bind_pack>(menuEntity);
-  bindsPack.binds = make_binds(registry);
-
-  auto& buttonPack = registry.emplace<comp::button_pack>(menuEntity);
-  buttonPack.buttons = make_buttons(registry);
-
-  auto& labelPack = registry.emplace<comp::label_pack>(menuEntity);
-  labelPack.labels = make_labels(registry);
-
-  auto& linePack = registry.emplace<comp::line_pack>(menuEntity);
-  linePack.lines = make_lines(registry);
-
-  return menuEntity;
-}
-
-void refresh_saves_menu(entt::registry& registry)
-{
-  registry.clear<comp::saves_menu_entry>();
+  savesMenu.entries.clear();
 
   const auto saves = files_directory() / "saves";
   for (const auto& entry : std::filesystem::directory_iterator(saves))
   {
     if (entry.is_directory())
     {
-      auto& item = registry.emplace<comp::saves_menu_entry>(registry.create());
+      const auto entity = comp::saves_menu_entry::entity{registry.create()};
+
+      auto& item = registry.emplace<comp::saves_menu_entry>(entity);
       item.name = entry.path().filename().string();
+
+      savesMenu.entries.push_back(entity);
     }
   }
+}
+
+void add_saves_button_group(entt::registry& registry,
+                            const comp::menu::entity menuEntity,
+                            comp::saves_menu& savesMenu)
+{
+  auto& group = registry.emplace_or_replace<comp::button_group>(menuEntity);
+  group.selected = null<comp::button>();
+
+  auto row = save_entry_row;
+  for (const auto entryEntity : savesMenu.entries)
+  {
+    const auto& entry = registry.get<comp::saves_menu_entry>(entryEntity);
+
+    const auto button =
+        make_button(registry, entry.name, menu_action::none, row, save_entry_col);
+
+    if (group.selected == entt::null)
+    {
+      group.selected = button;
+    }
+
+    group.buttons.push_back(button);
+    ++row;
+  }
+}
+
+}  // namespace
+
+void update_saves_menu(entt::registry& registry)
+{
+  registry.clear<comp::saves_menu_entry>();
 
   const auto view = registry.view<comp::menu, comp::saves_menu>();
-  view.each([&](comp::menu& menu, comp::saves_menu& savesMenu) {
-    // TODO
 
-    //    const auto entity = comp::saves_menu_entry::entity{registry.create()};
-    //
-    //    auto& entry = registry.emplace<comp::saves_menu_entry>(entity);
-    //    entry.name = "Foo";
-    //
-    //    const auto buttonEntity = comp::button::entity{registry.create()};
-    //    auto& button = registry.emplace<comp::button>(buttonEntity);
-    //    button.row = 5;
-    //    button.col = 3;
-    //    button.text = "Foo";
-    //
-    //    menu.buttons.push_back(buttonEntity);
-    //    savesMenu.entries.push_back(entity);
-  });
+  const auto menuEntity = comp::menu::entity{view.front()};
+  auto& savesMenu = view.get<comp::saves_menu>(menuEntity);
+
+  fetch_saves(registry, savesMenu);
+  add_saves_button_group(registry, menuEntity, savesMenu);
 }
 
 }  // namespace wanderer::sys

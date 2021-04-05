@@ -9,6 +9,6 @@ namespace wanderer::sys {
 
 auto create_saves_menu(entt::registry& registry) -> comp::menu::entity;
 
-void refresh_saves_menu(entt::registry& registry);
+void update_saves_menu(entt::registry& registry);
 
 }  // namespace wanderer::sys
