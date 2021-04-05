@@ -8,13 +8,14 @@
 #include "centurion_utils.hpp"
 #include "create_tilemap.hpp"
 #include "create_tileset.hpp"
+#include "depth_system.hpp"
+#include "drawable_system.hpp"
 #include "humanoid_factory_system.hpp"
 #include "humanoid_state.hpp"
 #include "make_registry.hpp"
 #include "render_bounds_system.hpp"
 #include "saves_system.hpp"
 #include "serialization.hpp"
-#include "tile_object_animation_system.hpp"
 #include "viewport_system.hpp"
 
 namespace wanderer {
@@ -43,10 +44,10 @@ level::level(const ir::level& data, graphics_context& graphics)
   });
 
   sys::center_viewport_on(m_registry, player_spawnpoint());
-  sys::update_drawable_movables(m_registry);
+  sys::update_drawables(m_registry);
   m_tree.rebuild();
 
-  sys::sort_drawables(m_registry);
+  sys::update_depth(m_registry);
 }
 
 level::level(const std::filesystem::path& path, graphics_context& graphics)
