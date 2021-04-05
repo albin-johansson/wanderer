@@ -180,6 +180,7 @@ void game::on_button_pressed(const event::button_pressed& event)
   {
     case menu_action::none:
       break;
+
     case menu_action::goto_in_game: {
       m_dispatcher.enqueue<event::switch_menu>(menu_id::in_game);
       break;
