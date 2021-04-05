@@ -6,7 +6,7 @@
 #include "end_humanoid_move_event.hpp"
 #include "humanoid_attack_event_handler.hpp"
 #include "humanoid_move_event_handler.hpp"
-#include "interaction_handler_system.hpp"
+#include "interaction_system.hpp"
 
 namespace wanderer {
 

@@ -166,8 +166,8 @@ set(SOURCE_FILES
     io/files_directory.hpp
     io/ini.hpp
 
-    systems/interaction_handler_system.cpp
-    systems/interaction_handler_system.hpp
+    systems/interaction_system.cpp
+    systems/interaction_system.hpp
     systems/inventory_system.cpp
     systems/inventory_system.hpp
     systems/time_system.cpp

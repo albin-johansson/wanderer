@@ -1,4 +1,4 @@
-#include "interaction_handler_system.hpp"
+#include "interaction_system.hpp"
 
 #include "close_inventory_event.hpp"
 #include "container_trigger.hpp"
