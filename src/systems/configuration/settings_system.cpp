@@ -72,6 +72,27 @@ void load_settings(entt::registry& registry)
   }
 }
 
+auto toggle_fullscreen(entt::registry& registry) -> bool
+{
+  auto& settings = registry.ctx<ctx::settings>();
+  settings.fullscreen = !settings.fullscreen;
+  return settings.fullscreen;
+}
+
+auto toggle_integer_scaling(entt::registry& registry) -> bool
+{
+  auto& settings = registry.ctx<ctx::settings>();
+  settings.integerScaling = !settings.integerScaling;
+  return settings.integerScaling;
+}
+
+auto toggle_simulate_lights(entt::registry& registry) -> bool
+{
+  auto& settings = registry.ctx<ctx::settings>();
+  settings.simulateLights = !settings.simulateLights;
+  return settings.simulateLights;
+}
+
 void save_settings_before_exit(const entt::registry& registry)
 {
   const auto path = files_directory() / "settings.ini";
