@@ -3,6 +3,10 @@
 #include <centurion.hpp>
 
 #include "animated.hpp"
+#include "humanoid_animation_system.hpp"
+#include "level_switch_animation_system.hpp"
+#include "tile_animation_system.hpp"
+#include "tile_object_animation_system.hpp"
 
 namespace wanderer::sys {
 

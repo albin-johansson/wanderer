@@ -4,7 +4,8 @@
 #include "button.hpp"
 #include "chase_system.hpp"
 #include "debug_rendering_system.hpp"
-#include "depth_drawables_system.hpp"
+#include "depth_system.hpp"
+#include "drawable_system.hpp"
 #include "event_connections.hpp"
 #include "fullscreen_toggled_event.hpp"
 #include "humanoid_animation_system.hpp"
@@ -26,7 +27,8 @@
 #include "settings.hpp"
 #include "settings_system.hpp"
 #include "tile_animation_system.hpp"
-#include "time_of_day_system.hpp"
+#include "tile_object_animation_system.hpp"
+#include "time_system.hpp"
 #include "viewport_system.hpp"
 
 namespace wanderer {
@@ -73,7 +75,7 @@ void game::tick(const delta_t dt)
     return;
   }
 
-  sys::update_time_of_day(m_shared, dt);
+  sys::update_time(m_shared, dt);
 
   auto* level = m_levels.current();
   auto& registry = level->registry();
@@ -81,7 +83,7 @@ void game::tick(const delta_t dt)
 
   sys::update_chase(registry, m_dispatcher);
   sys::update_movement(*level, dt);
-  sys::update_drawable_movables(registry);
+  sys::update_drawables(registry);
   sys::update_particles(registry, dt);
   sys::update_lights(registry);
   sys::update_player_light_position(registry);
@@ -89,7 +91,7 @@ void game::tick(const delta_t dt)
   sys::update_portal_triggers(registry);
   sys::update_inventory_triggers(registry);
   sys::update_viewport(*level, registry.ctx<ctx::player>().entity, dt);
-  sys::sort_drawables(registry);
+  sys::update_depth(registry);
 
   sys::update_animations(registry);
   sys::update_humanoid_animations(registry);

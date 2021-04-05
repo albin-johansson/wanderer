@@ -1,4 +1,4 @@
-#include "time_of_day_system.hpp"
+#include "time_system.hpp"
 
 #include <cmath>  // floor, ceil
 
@@ -120,7 +120,7 @@ inline const phase night_phase{night,
 
 }  // namespace
 
-void update_time_of_day(entt::registry& registry, const delta_t dt)
+void update_time(entt::registry& registry, delta_t dt)
 {
   auto& time = registry.ctx<ctx::time_of_day>();
 

@@ -15,4 +15,7 @@ void render_lights(const entt::registry& registry,
                    const ctx::time_of_day& time,
                    graphics_context& graphics);
 
+// Meant to be used if light simulation is disabled
+void render_light_overlay(const ctx::time_of_day& time, graphics_context& graphics);
+
 }  // namespace wanderer::sys

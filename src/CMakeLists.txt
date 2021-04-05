@@ -167,16 +167,12 @@ set(SOURCE_FILES
     io/files_directory.hpp
     io/ini.hpp
 
-    systems/animation_system.cpp
-    systems/animation_system.hpp
-    systems/depth_drawables_system.cpp
-    systems/depth_drawables_system.hpp
     systems/interaction_handler_system.cpp
     systems/interaction_handler_system.hpp
     systems/inventory_system.cpp
     systems/inventory_system.hpp
-    systems/particle_system.cpp
-    systems/particle_system.hpp
+    systems/time_system.cpp
+    systems/time_system.hpp
     systems/update_triggers.hpp
 
     systems/ai/chase_system.cpp
@@ -217,22 +213,32 @@ set(SOURCE_FILES
     systems/movement/portal_system.cpp
     systems/movement/portal_system.hpp
 
-    systems/rendering/debug_rendering_system.cpp
-    systems/rendering/debug_rendering_system.hpp
-    systems/rendering/light_system.cpp
-    systems/rendering/light_system.hpp
-    systems/rendering/render_bounds_system.cpp
-    systems/rendering/render_bounds_system.hpp
-    systems/rendering/time_of_day_system.cpp
-    systems/rendering/time_of_day_system.hpp
+    systems/graphics/animation_system.cpp
+    systems/graphics/animation_system.hpp
+    systems/graphics/debug_rendering_system.cpp
+    systems/graphics/debug_rendering_system.hpp
+    systems/graphics/depth_system.cpp
+    systems/graphics/depth_system.hpp
+    systems/graphics/drawable_system.cpp
+    systems/graphics/drawable_system.hpp
+    systems/graphics/light_system.cpp
+    systems/graphics/light_system.hpp
+    systems/graphics/make_viewport.cpp
+    systems/graphics/particle_system.hpp
+    systems/graphics/particle_system.cpp
+    systems/graphics/render_bounds_system.cpp
+    systems/graphics/render_bounds_system.hpp
+    systems/graphics/tile_animation_system.cpp
+    systems/graphics/tile_animation_system.hpp
+    systems/graphics/tile_object_animation_system.cpp
+    systems/graphics/tile_object_animation_system.hpp
+    systems/graphics/tile_rendering_system.cpp
+    systems/graphics/tile_rendering_system.hpp
+    systems/graphics/viewport_system.cpp
+    systems/graphics/viewport_system.hpp
 
     systems/saves/saves_system.cpp
     systems/saves/saves_system.hpp
-
-    systems/tile/tile_animation_system.cpp
-    systems/tile/tile_animation_system.hpp
-    systems/tile/tile_rendering_system.cpp
-    systems/tile/tile_rendering_system.hpp
 
     systems/ui/grid_system.hpp
 
@@ -273,10 +279,6 @@ set(SOURCE_FILES
     systems/ui/menus/saves_menu_system.cpp
     systems/ui/menus/saves_menu_system.hpp
     systems/ui/menus/sync_settings_menu.cpp
-
-    systems/viewport/make_viewport.cpp
-    systems/viewport/viewport_system.cpp
-    systems/viewport/viewport_system.hpp
     )
 
 add_library(${WANDERER_LIB_TARGET} ${SOURCE_FILES})
@@ -329,6 +331,7 @@ target_include_directories(${WANDERER_LIB_TARGET}
     PUBLIC systems
     PUBLIC systems/ai
     PUBLIC systems/configuration
+    PUBLIC systems/graphics
     PUBLIC systems/humanoid
     PUBLIC systems/input
     PUBLIC systems/layers
@@ -340,7 +343,6 @@ target_include_directories(${WANDERER_LIB_TARGET}
     PUBLIC systems/ui/lines
     PUBLIC systems/ui/menus
     PUBLIC systems/movement
-    PUBLIC systems/rendering
     PUBLIC systems/saves
     PUBLIC systems/tile
     PUBLIC systems/viewport)

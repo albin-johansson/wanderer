@@ -8,13 +8,13 @@
 #include "centurion_utils.hpp"
 #include "create_tilemap.hpp"
 #include "create_tileset.hpp"
-#include "depth_drawables_system.hpp"
 #include "humanoid_factory_system.hpp"
 #include "humanoid_state.hpp"
 #include "make_registry.hpp"
 #include "render_bounds_system.hpp"
 #include "saves_system.hpp"
 #include "serialization.hpp"
+#include "tile_object_animation_system.hpp"
 #include "viewport_system.hpp"
 
 namespace wanderer {

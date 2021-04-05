@@ -77,4 +77,10 @@ void render_lights(const entt::registry& registry,
   renderer.render<int>(texture, {0, 0});
 }
 
+void render_light_overlay(const ctx::time_of_day& time, graphics_context& graphics)
+{
+  const auto opacity = time.opacity;
+  graphics.renderer().fill_with(cen::colors::black.with_alpha(opacity));
+}
+
 }  // namespace wanderer::sys
