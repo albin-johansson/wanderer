@@ -4,6 +4,7 @@ namespace wanderer {
 
 enum class menu_action
 {
+  none,
   goto_in_game,
   goto_home,
   goto_settings,
