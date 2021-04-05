@@ -138,6 +138,7 @@ void game::on_start()
 {
   sys::load_settings(m_shared);
   m_shared.set<ctx::binds>(sys::load_binds());
+  m_shared.ctx<ctx::time_of_day>().seconds = 43'200;  // Start at 12:00
 
   const auto& settings = m_shared.ctx<ctx::settings>();
   m_dispatcher.enqueue<event::fullscreen_toggled>(settings.fullscreen);
@@ -145,8 +146,6 @@ void game::on_start()
 
   sys::sync_settings_menu(m_shared);
   m_dispatcher.update();
-
-  m_shared.ctx<ctx::time_of_day>().seconds = 43'200;  // Start at 12:00
 }
 
 void game::on_exit()
