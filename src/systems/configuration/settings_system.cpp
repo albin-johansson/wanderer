@@ -14,7 +14,6 @@ namespace {
 {
   ctx::settings settings;
 
-  settings.resolution = cen::screen::size();
   settings.fullscreen = true;
   settings.integerScaling = true;
   settings.simulateLights = true;
