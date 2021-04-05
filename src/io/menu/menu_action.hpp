@@ -11,7 +11,8 @@ enum class menu_action
   goto_controls,
   quit,
   toggle_fullscreen,
-  toggle_integer_scaling
+  toggle_integer_scaling,
+  toggle_lights
 };
 
 }  // namespace wanderer
