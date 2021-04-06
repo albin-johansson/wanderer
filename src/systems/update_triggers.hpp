@@ -8,8 +8,8 @@
 
 namespace wanderer::sys {
 
-template <typename Trigger, typename IsWithinTrigger, typename RemovalPred>
-void update_triggers(entt::registry& registry, RemovalPred&& predicate)
+template <typename Trigger, typename IsWithinTrigger, typename RemovalPredicate>
+void update_triggers(entt::registry& registry, RemovalPredicate&& predicate)
 {
   const auto player = registry.ctx<ctx::player>().entity;
   const auto& playerHitbox = registry.get<comp::hitbox>(player);
