@@ -27,7 +27,7 @@ struct basic_vector2 final
   using value_type = T;
 
   T x{0};  ///< The x-coordinate.
-  T y{0};  ///< The y-coordindate.
+  T y{0};  ///< The y-coordinate.
 
   /**
    * \brief Creates a vector with components (0, 0).
