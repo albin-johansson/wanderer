@@ -11,6 +11,7 @@ enum class menu_action
   goto_saves,
   goto_controls,
   quick_save,
+  load_game,
   quit,
   toggle_fullscreen,
   toggle_integer_scaling,
