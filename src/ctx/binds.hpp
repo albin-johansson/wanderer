@@ -24,8 +24,7 @@ struct binds final
   cen::scan_code inventory{cen::scancodes::i};
 };
 
-template <typename Archive>
-void serialize(Archive& archive, binds& b, u32 version)
+void serialize(auto& archive, binds& b, u32 version)
 {
   archive(b.up, b.right, b.down, b.left, b.attack, b.interact, b.inventory);
 }

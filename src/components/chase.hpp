@@ -18,8 +18,7 @@ struct chase final
   float range;
 };
 
-template <typename Archive>
-void serialize(Archive& archive, chase& c, u32 version)
+void serialize(auto& archive, chase& c, u32 version)
 {
   archive(c.range);  // We intentionally do not serialize the target entity
 }

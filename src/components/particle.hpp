@@ -16,8 +16,7 @@ struct particle final
   cen::color color;
 };
 
-template <typename Archive>
-void serialize(Archive& archive, particle& p)
+void serialize(auto& archive, particle& p)
 {
   archive(p.position, p.acceleration, p.tick, p.nTicks, p.color);
 }

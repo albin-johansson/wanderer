@@ -31,8 +31,7 @@ struct viewport final
   bool keepInBounds{false};
 };
 
-template <typename Archive>
-void serialize(Archive& archive, viewport& v, u32 version)
+void serialize(auto& archive, viewport& v, u32 version)
 {
   archive(v.bounds, v.levelSize, v.keepInBounds);
 }

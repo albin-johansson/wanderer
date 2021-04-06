@@ -18,8 +18,7 @@ struct player final
   entt::entity entity{entt::null};
 };
 
-template <typename Archive>
-void serialize(Archive& archive, player& p, u32 version)
+void serialize(auto& archive, player& p, u32 version)
 {
   archive(p.entity);
 }

@@ -32,8 +32,7 @@ struct tileset final
   std::unordered_map<tile_id, comp::tile::entity> tiles;
 };
 
-template <typename Archive>
-void serialize(Archive& archive, tileset& ts, u32 version)
+void serialize(auto& archive, tileset& ts, u32 version)
 {
   archive(ts.tiles);
 }

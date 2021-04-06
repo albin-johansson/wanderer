@@ -22,14 +22,12 @@ struct is_within_container_trigger final
   container_trigger::entity triggerEntity{null<container_trigger>()};
 };
 
-template <typename Archive>
-void serialize(Archive& archive, container_trigger& ct, u32 version)
+void serialize(auto& archive, container_trigger& ct, u32 version)
 {
   archive(ct.inventoryEntity, ct.inventoryId);
 }
 
-template <typename Archive>
-void serialize(Archive& archive, is_within_container_trigger& iwct, u32 version)
+void serialize(auto& archive, is_within_container_trigger& iwct, u32 version)
 {
   archive(iwct.triggerEntity);
 }

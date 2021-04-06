@@ -10,8 +10,7 @@ struct active_menu final
   comp::menu::entity entity{null<comp::menu>()};
 };
 
-template <typename Archive>
-void serialize(Archive& archive, active_menu& am)
+void serialize(auto& archive, active_menu& am)
 {
   archive(am.entity);
 }

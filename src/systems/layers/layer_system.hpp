@@ -1,5 +1,6 @@
 #pragma once
 
+#include <concepts>  // invocable
 #include <entt.hpp>  // registry
 
 #include "graphics_context.hpp"
@@ -12,8 +13,8 @@ namespace wanderer::sys {
  * \brief Visits all tiles in a tile layer that are within the specified bounds.
  *
  * \details Empty tiles will be ignored by this function. The signature of
- * the function object should be equivalent to `void(tile_id, int, int)`,
- * where the two integers are the row and column indices, respectively.
+ * the function object features two integers, that correspond to the row and column
+ * indices, respectively.
  *
  * \tparam T the type of the function object.
  *
@@ -24,7 +25,7 @@ namespace wanderer::sys {
  *
  * \since 0.1.0
  */
-template <typename T>
+template <std::invocable<tile_id, int, int> T>
 void visit_tiles(const comp::tile_layer& layer,
                  const ctx::render_bounds& bounds,
                  T&& callable)
@@ -45,8 +46,7 @@ void visit_tiles(const comp::tile_layer& layer,
 /**
  * \brief Visits all tiles in a tile layer.
  *
- * \details Empty tiles will be ignored by this function. The signature of
- * the function object should be equivalent to `void(tile_id)`.
+ * \details Empty tiles will be ignored by this function.
  *
  * \tparam T the type of the function object.
  *
@@ -55,7 +55,7 @@ void visit_tiles(const comp::tile_layer& layer,
  *
  * \since 0.1.0
  */
-template <typename T>
+template <std::invocable<tile_id, int, int> T>
 void visit_tiles(const comp::tile_layer& layer, T&& callable)
 {
   ctx::render_bounds bounds;

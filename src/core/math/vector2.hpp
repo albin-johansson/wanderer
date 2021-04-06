@@ -1,6 +1,6 @@
 #pragma once
 
-#include <cmath>  // acos, sqrt
+#include <cmath>  // acos, sqrt, lerp
 
 #include "angles.hpp"
 #include "floating.hpp"
@@ -133,9 +133,8 @@ struct basic_vector2 final
    */
   constexpr void lerp(const basic_vector2& target, const T alpha) noexcept
   {
-    const auto invAlpha = T{1} - alpha;
-    x = (x * invAlpha) + (target.x * alpha);
-    y = (y * invAlpha) + (target.y * alpha);
+    x = std::lerp(x, target.x, alpha);
+    y = std::lerp(y, target.y, alpha);
   }
 
   /**
@@ -212,32 +211,6 @@ struct basic_vector2 final
   }
 
   /**
-   * \brief Adds the supplied vector to this vector.
-   *
-   * \param other the vector that will be added to this vector.
-   *
-   * \since 0.1.0
-   */
-  constexpr void operator+=(const basic_vector2& other) noexcept
-  {
-    x += other.x;
-    y += other.y;
-  }
-
-  /**
-   * \brief Subtracts the supplied vector to this vector.
-   *
-   * \param other the vector that will be subtracted from this vector.
-   *
-   * \since 0.1.0
-   */
-  constexpr void operator-=(const basic_vector2& other) noexcept
-  {
-    x -= other.x;
-    y -= other.y;
-  }
-
-  /**
    * \brief Returns the magnitude (length) of this vector.
    *
    * \return the magnitude of this vector.
@@ -288,6 +261,34 @@ struct basic_vector2 final
   {
     return almost_equal(magnitude(), 1);
   }
+
+  /**
+   * \brief Adds the supplied vector to this vector.
+   *
+   * \param other the vector that will be added to this vector.
+   *
+   * \since 0.1.0
+   */
+  constexpr void operator+=(const basic_vector2& other) noexcept
+  {
+    x += other.x;
+    y += other.y;
+  }
+
+  /**
+   * \brief Subtracts the supplied vector to this vector.
+   *
+   * \param other the vector that will be subtracted from this vector.
+   *
+   * \since 0.1.0
+   */
+  constexpr void operator-=(const basic_vector2& other) noexcept
+  {
+    x -= other.x;
+    y -= other.y;
+  }
+
+  [[nodiscard]] constexpr bool operator==(const basic_vector2&) const noexcept = default;
 };
 
 /**
@@ -391,44 +392,6 @@ template <typename T>
                                        const basic_vector2<T>& rhs) noexcept -> T
 {
   return lhs.x * rhs.x + lhs.y * rhs.y;
-}
-
-/**
- * \brief Indicates whether or not two vectors are equal.
- *
- * \tparam T the representation type used by the vectors.
- *
- * \param lhs the left-hand side vector.
- * \param rhs the right-hand side vector.
- *
- * \return `true` if the vectors are the same; `false` otherwise.
- *
- * \since 0.1.0
- */
-template <typename T>
-[[nodiscard]] constexpr auto operator==(const basic_vector2<T>& lhs,
-                                        const basic_vector2<T>& rhs) noexcept -> bool
-{
-  return lhs.x == rhs.x && lhs.y == rhs.y;
-}
-
-/**
- * \brief Indicates whether or not two vectors aren't equal.
- *
- * \tparam T the representation type used by the vectors.
- *
- * \param lhs the left-hand side vector.
- * \param rhs the right-hand side vector.
- *
- * \return `true` if the vectors aren't the same; `false` otherwise.
- *
- * \since 0.1.0
- */
-template <typename T>
-[[nodiscard]] constexpr auto operator!=(const basic_vector2<T>& lhs,
-                                        const basic_vector2<T>& rhs) noexcept -> bool
-{
-  return !(lhs == rhs);
 }
 
 /**

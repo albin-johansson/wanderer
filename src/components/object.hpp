@@ -14,8 +14,7 @@ struct object final
   int id;
 };
 
-template <typename Archive>
-void serialize(Archive& archive, object& o, u32 version)
+void serialize(auto& archive, object& o, u32 version)
 {
   archive(o.id);
 }

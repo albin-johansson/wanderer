@@ -16,8 +16,7 @@ struct time_of_day final
   cen::color color;
 };
 
-template <typename Archive>
-void serialize(Archive& archive, time_of_day& t)
+void serialize(auto& archive, time_of_day& t)
 {
   archive(t.hour, t.minute, t.seconds, t.opacity, t.color);
 }

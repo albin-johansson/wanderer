@@ -21,8 +21,7 @@ struct movable final
   float speed{0};                  ///< Current maximum total speed of the movable.
 };
 
-template <typename Archive>
-void serialize(Archive& archive, movable& m, u32 version)
+void serialize(auto& archive, movable& m, u32 version)
 {
   archive(m.velocity, m.position, m.dir, m.speed);
 }

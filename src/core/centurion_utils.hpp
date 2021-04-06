@@ -1,6 +1,7 @@
 #pragma once
 
 #include <centurion.hpp>
+#include <cmath>  // lerp
 
 #include "float2.hpp"
 #include "ints.hpp"
@@ -33,13 +34,14 @@ template <typename T>
                                    const cen::color& b,
                                    const double bias) noexcept -> cen::color
 {
-  const auto invBias = 1.0 - bias;
-
-  // 0 bias -> return a, 1 bias -> return b
-  const auto red = (a.red() * invBias) + (b.red() * bias);
-  const auto green = (a.green() * invBias) + (b.green() * bias);
-  const auto blue = (a.blue() * invBias) + (b.blue() * bias);
-  const auto alpha = (a.alpha() * invBias) + (b.alpha() * bias);
+  const auto red =
+      std::lerp(static_cast<double>(a.red()), static_cast<double>(b.red()), bias);
+  const auto green =
+      std::lerp(static_cast<double>(a.green()), static_cast<double>(b.green()), bias);
+  const auto blue =
+      std::lerp(static_cast<double>(a.blue()), static_cast<double>(b.blue()), bias);
+  const auto alpha =
+      std::lerp(static_cast<double>(a.alpha()), static_cast<double>(b.alpha()), bias);
 
   return cen::color{static_cast<u8>(red),
                     static_cast<u8>(green),

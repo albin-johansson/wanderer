@@ -34,8 +34,7 @@ struct tile final
   depth_t depth{5};              ///< Rendering depth heuristic.
 };
 
-template <typename Archive>
-void serialize(Archive& archive, tile& t, u32 version)
+void serialize(auto& archive, tile& t, u32 version)
 {
   archive(t.id, t.texture, t.src, t.depth);
 }

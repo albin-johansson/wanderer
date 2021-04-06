@@ -28,8 +28,7 @@ struct render_bounds final
   int maxCol{};
 };
 
-template <typename Archive>
-void serialize(Archive& archive, render_bounds& rb, u32 version)
+void serialize(auto& archive, render_bounds& rb, u32 version)
 {
   archive(rb.minRow, rb.minCol, rb.maxRow, rb.maxCol);
 }

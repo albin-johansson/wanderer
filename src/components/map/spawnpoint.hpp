@@ -17,8 +17,7 @@ struct spawnpoint final
   float2 position;
 };
 
-template <typename Archive>
-void serialize(Archive& archive, spawnpoint& s, u32 version)
+void serialize(auto& archive, spawnpoint& s, u32 version)
 {
   archive(s.type, s.position);
 }

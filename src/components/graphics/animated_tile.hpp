@@ -53,14 +53,12 @@ struct animated_tile final
   std::vector<frame> frames;
 };
 
-template <typename Archive>
-void serialize(Archive& archive, frame& f, u32 version)
+void serialize(auto& archive, frame& f, u32 version)
 {
   archive(f.tile, f.duration);
 }
 
-template <typename Archive>
-void serialize(Archive& archive, animated_tile& a, u32 version)
+void serialize(auto& archive, animated_tile& a, u32 version)
 {
   archive(a.index, a.then, a.frames);
 }

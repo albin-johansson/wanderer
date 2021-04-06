@@ -9,8 +9,7 @@ struct float3 final
   float z;
 };
 
-template <typename Archive>
-void serialize(Archive& archive, float3& f)
+void serialize(auto& archive, float3& f)
 {
   archive(f.x, f.y, f.z);
 }

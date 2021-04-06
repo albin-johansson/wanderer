@@ -2,6 +2,7 @@
 
 #include <entt.hpp>    // registry
 #include <filesystem>  // path
+#include <iterator>    // output_iterator
 #include <utility>     // forward, move
 
 #include "aabb_tree.hpp"
@@ -61,8 +62,8 @@ class level final
     m_registry.clear<Component>();
   }
 
-  template <typename OutputIterator>
-  void query_collisions(const entt::entity id, OutputIterator iterator) const
+  template <std::output_iterator<entt::entity> T>
+  void query_collisions(const entt::entity id, T iterator) const
   {
     return m_tree.query(id, iterator);
   }

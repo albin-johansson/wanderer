@@ -25,14 +25,12 @@ struct is_within_portal final
   portal::entity portalEntity{null<portal>()};  ///< The associated portal.
 };
 
-template <typename Archive>
-void serialize(Archive& archive, portal& p, u32 version)
+void serialize(auto& archive, portal& p, u32 version)
 {
   archive(p.path, p.target);
 }
 
-template <typename Archive>
-void serialize(Archive& archive, is_within_portal& iwp, u32 version)
+void serialize(auto& archive, is_within_portal& iwp, u32 version)
 {
   archive(iwp.portalEntity);
 }

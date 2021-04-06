@@ -29,8 +29,7 @@ struct animated final
   ms_t delay{100};
 };
 
-template <typename Archive>
-void serialize(Archive& archive, animated& a, u32 version)
+void serialize(auto& archive, animated& a, u32 version)
 {
   archive(a.frame, a.nFrames, a.then, a.delay);
 }

@@ -35,8 +35,7 @@ struct depth_drawable final
   depth_t depth{5};       ///< Render order heuristic.
 };
 
-template <typename Archive>
-void serialize(Archive& archive, depth_drawable& drawable, u32 version)
+void serialize(auto& archive, depth_drawable& drawable, u32 version)
 {
   archive(drawable.texture, drawable.layer, drawable.depth, drawable.src, drawable.dst);
 }
