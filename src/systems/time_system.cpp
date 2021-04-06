@@ -1,6 +1,6 @@
 #include "time_system.hpp"
 
-#include <cmath>  // floor, ceil
+#include <cmath>  // floor, ceil, lerp
 
 #include "centurion_utils.hpp"
 #include "get_random.hpp"
@@ -90,11 +90,7 @@ inline const phase night_phase{night,
     const auto d1 = current.opacities.at(static_cast<std::size_t>(std::floor(dd)));
     const auto d2 = current.opacities.at(static_cast<std::size_t>(std::ceil(dd)));
 
-    const auto mergeNumber = [](const float a, const float b, const float bias) {
-      return (a * (1.0f - bias)) + (b * bias);
-    };
-
-    return mergeNumber(d1, d2, dd - std::floor(dd));
+    return std::lerp(d1, d2, dd - std::floor(dd));
   }
 }
 
