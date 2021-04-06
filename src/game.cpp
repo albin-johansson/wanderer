@@ -42,7 +42,7 @@ game::game(graphics_context& graphics)
   m_dispatcher.sink<event::switch_map>().connect<&game::on_switch_map>(this);
   m_dispatcher.sink<event::switch_menu>().connect<&game::on_switch_menu_event>(this);
   m_dispatcher.sink<event::button_pressed>().connect<&game::on_button_pressed>(this);
-  m_dispatcher.sink<event::show_inventory_event>().connect<&game::on_show_inventory>(this);
+  m_dispatcher.sink<event::show_inventory>().connect<&game::on_show_inventory>(this);
   m_dispatcher.sink<event::close_inventory>().connect<&game::on_close_inventory>(this);
   m_dispatcher.sink<event::level_faded_in>().connect<&game::on_level_animation_faded_in>(this);
   m_dispatcher.sink<event::level_faded_out>().connect<&game::on_level_animation_faded_out>(this);
@@ -230,17 +230,17 @@ void game::on_level_animation_faded_in(const event::level_faded_in& event)
   sys::end_level_fade_animation(m_levels.registry(), event);
 }
 
-void game::on_level_animation_faded_out(event::level_faded_out)
+void game::on_level_animation_faded_out(const event::level_faded_out&)
 {
   m_levels.clear<comp::level_switch_animation>();
 }
 
-void game::on_show_inventory(const event::show_inventory_event& event)
+void game::on_show_inventory(const event::show_inventory& event)
 {
   m_levels.emplace<comp::active_inventory>(event.inventoryEntity);
 }
 
-void game::on_close_inventory(event::close_inventory)
+void game::on_close_inventory(const event::close_inventory&)
 {
   m_levels.clear<comp::active_inventory>();
 }
@@ -253,7 +253,7 @@ void game::on_particle_event(const event::spawn_particles& event)
   }
 }
 
-void game::on_quit_event(event::quit_event)
+void game::on_quit_event(const event::quit_event&)
 {
   m_quit = true;
 }

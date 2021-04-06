@@ -100,15 +100,15 @@ class game final
 
   void on_level_animation_faded_in(const event::level_faded_in& event);
 
-  void on_level_animation_faded_out(event::level_faded_out);
+  void on_level_animation_faded_out(const event::level_faded_out&);
 
-  void on_show_inventory(const event::show_inventory_event& event);
+  void on_show_inventory(const event::show_inventory& event);
 
-  void on_close_inventory(event::close_inventory);
+  void on_close_inventory(const event::close_inventory&);
 
   void on_particle_event(const event::spawn_particles& event);
 
-  void on_quit_event(event::quit_event);
+  void on_quit_event(const event::quit_event&);
 };
 
 }  // namespace wanderer

@@ -26,7 +26,7 @@ void enqueue_inventory_event(entt::registry& registry,
   if (registry.empty<comp::active_inventory>())
   {
     const auto& trigger = registry.get<comp::container_trigger>(triggerEntity);
-    dispatcher.enqueue<event::show_inventory_event>(trigger.inventoryEntity);
+    dispatcher.enqueue<event::show_inventory>(trigger.inventoryEntity);
   }
   else
   {

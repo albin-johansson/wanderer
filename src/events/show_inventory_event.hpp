@@ -5,7 +5,7 @@
 
 namespace wanderer::event {
 
-struct show_inventory_event final
+struct show_inventory final
 {
   comp::inventory::entity inventoryEntity{null<comp::inventory>()};
 };
