@@ -15,7 +15,7 @@ using namespace entt::literals;
 namespace wanderer::sys {
 namespace {
 
-inline const std::string texture_path = resources::texture("ardentryst/glow.png");
+inline const auto texture_path = resources::texture("ardentryst/glow.png");
 
 }
 
