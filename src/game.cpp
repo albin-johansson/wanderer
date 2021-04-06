@@ -209,6 +209,10 @@ void game::on_button_pressed(const event::button_pressed& event)
       m_dispatcher.enqueue<event::switch_menu>(menu_id::in_game);
       break;
     }
+    case menu_action::load_game: {
+      // TODO
+      break;
+    }
     case menu_action::quit: {
       m_dispatcher.enqueue<event::quit_event>();
       break;
