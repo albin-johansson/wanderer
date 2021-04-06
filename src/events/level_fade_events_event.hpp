@@ -7,10 +7,10 @@ namespace wanderer::event {
 struct level_faded_in final
 {
   map_id map;
-  int step;
-  int nSteps;
-  float hStepSize;
-  float vStepSize;
+  float width;
+  float height;
+  float xStepSize;
+  float yStepSize;
 };
 
 struct level_faded_out final

@@ -97,7 +97,7 @@ void game::tick(const delta_t dt)
   sys::update_humanoid_animations(registry);
   sys::update_tile_animations(registry);
   sys::update_tile_object_animations(registry);
-  sys::update_level_switch_animations(registry, m_dispatcher);
+  sys::update_level_switch_animations(registry, m_dispatcher, dt);
 }
 
 void game::render(graphics_context& graphics, const cen::ipoint mousePos)

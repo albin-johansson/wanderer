@@ -1,8 +1,9 @@
 #pragma once
 
-#include <centurion.hpp>
-#include <entt.hpp>
+#include <centurion.hpp>  // renderer
+#include <entt.hpp>       // registry, dispatcher
 
+#include "delta.hpp"
 #include "level_fade_events_event.hpp"
 #include "map_id.hpp"
 
@@ -14,11 +15,13 @@ namespace wanderer::sys {
  *
  * \param registry the registry associated with the current level.
  * \param dispatcher the event dispatcher that will be used.
+ * \param dt the current delta time.
  *
  * \since 0.1.0
  */
 void update_level_switch_animations(entt::registry& registry,
-                                    entt::dispatcher& dispatcher);
+                                    entt::dispatcher& dispatcher,
+                                    delta_t dt);
 
 /**
  * \brief Renders all level switch animations, although there should only
