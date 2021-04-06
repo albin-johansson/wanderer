@@ -14,8 +14,8 @@
 namespace wanderer::sys {
 namespace {
 
-inline constexpr auto x_0 = column_to_x(4);
-inline constexpr auto x_1 = column_to_x(glob::menu_columns - 4);
+inline constexpr auto x_0 = column_to_x(2);
+inline constexpr auto x_1 = column_to_x(glob::menu_columns - 2);
 
 inline constexpr auto y_0 = row_to_y(5);
 inline constexpr auto y_1 = row_to_y(glob::menu_rows - 2);
@@ -65,7 +65,7 @@ inline constexpr auto y_1 = row_to_y(glob::menu_rows - 2);
   lines.push_back(make_line(registry, {x_0, y_0}, {x_1, y_0}));
   lines.push_back(make_line(registry, {x_0, y_1}, {x_1, y_1}));
   lines.push_back(
-      make_line(registry, {column_to_x(8), y_0 + 10}, {column_to_x(8), y_1 - 10}));
+      make_line(registry, {column_to_x(10), y_0 + 10}, {column_to_x(10), y_1 - 10}));
 
   return lines;
 }
