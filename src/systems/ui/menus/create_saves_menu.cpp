@@ -50,7 +50,7 @@ inline constexpr auto y_1 = row_to_y(glob::menu_rows - 2);
 
   // clang-format off
   buttons.push_back(make_button(registry, "Return", menu_action::goto_home, 4));
-  buttons.push_back(make_button(registry, "Load", menu_action::goto_home, 14, 26));
+  buttons.push_back(make_button(registry, "Load", menu_action::load_game, 14, 26));
   // clang-format on
 
   return buttons;
