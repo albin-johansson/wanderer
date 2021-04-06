@@ -24,6 +24,7 @@
 #include "outside_level.hpp"
 #include "particle_system.hpp"
 #include "portal_system.hpp"
+#include "save_game.hpp"
 #include "settings.hpp"
 #include "settings_system.hpp"
 #include "tile_animation_system.hpp"
@@ -201,6 +202,11 @@ void game::on_button_pressed(const event::button_pressed& event)
     }
     case menu_action::goto_saves: {
       m_dispatcher.enqueue<event::switch_menu>(menu_id::saves);
+      break;
+    }
+    case menu_action::quick_save: {
+      save_game("quick_save", m_levels);
+      m_dispatcher.enqueue<event::switch_menu>(menu_id::in_game);
       break;
     }
     case menu_action::quit: {

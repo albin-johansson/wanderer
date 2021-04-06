@@ -10,6 +10,7 @@ enum class menu_action
   goto_settings,
   goto_saves,
   goto_controls,
+  quick_save,
   quit,
   toggle_fullscreen,
   toggle_integer_scaling,

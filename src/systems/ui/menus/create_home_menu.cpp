@@ -10,12 +10,6 @@ using namespace entt::literals;
 namespace wanderer::sys {
 namespace {
 
-inline constexpr auto play = "play"_hs;
-inline constexpr auto goto_settings = "goto-settings"_hs;
-inline constexpr auto goto_saves = "goto-saves"_hs;
-inline constexpr auto goto_controls = "goto-controls"_hs;
-inline constexpr auto quit = "quit"_hs;
-
 void add_buttons(entt::registry& registry, const comp::menu::entity entity)
 {
   auto& pack = registry.emplace<comp::button_pack>(entity);
@@ -24,11 +18,16 @@ void add_buttons(entt::registry& registry, const comp::menu::entity entity)
   b.reserve(5);
 
   // clang-format off
-  b.push_back(make_button(registry, "Play", menu_action::goto_in_game, 6));
-  b.push_back(make_button(registry, "Settings", menu_action::goto_settings, 7));
-  b.push_back(make_button(registry, "Saves", menu_action::goto_saves, 8));
-  b.push_back(make_button(registry, "Controls", menu_action::goto_controls, 9));
-  b.push_back(make_button(registry, "Quit", menu_action::quit, 11));
+  auto row = 5;
+  b.push_back(make_button(registry, "Play", menu_action::goto_in_game, row++));
+
+  ++row;
+  b.push_back(make_button(registry, "Quick Save", menu_action::quick_save, row++));
+  b.push_back(make_button(registry, "Saves", menu_action::goto_saves, row++));
+  b.push_back(make_button(registry, "Settings", menu_action::goto_settings, row++));
+  b.push_back(make_button(registry, "Controls", menu_action::goto_controls, row++));
+
+  b.push_back(make_button(registry, "Quit", menu_action::quit, 13));
   // clang-format on
 }
 
