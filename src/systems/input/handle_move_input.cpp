@@ -142,18 +142,18 @@ void handle_move_input(entt::registry& registry,
 
   if (!areMoveKeysDown && movable.velocity.is_zero())
   {
-    dispatcher.enqueue<event::end_humanoid_move>(&registry, player);
+    dispatcher.enqueue<event::end_humanoid_move>(registry, player);
   }
   else if (keyboard.is_pressed(binds.attack))
   {
     movable.velocity.zero();
 
     // FIXME null weapon
-    dispatcher.enqueue<event::begin_attack>(&registry, player, entt::null, movable.dir);
+    dispatcher.enqueue<event::begin_attack>(registry, player, entt::null, movable.dir);
   }
   else if (keyboard.just_released(binds.interact))
   {
-    dispatcher.enqueue<event::interact>(&registry, &dispatcher);
+    dispatcher.enqueue<event::interact>(registry, dispatcher);
   }
 }
 

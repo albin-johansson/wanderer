@@ -1,6 +1,7 @@
 #pragma once
 
-#include <entt.hpp>
+#include <entt.hpp>    // registry, entity, null
+#include <functional>  // reference_wrapper
 
 #include "direction.hpp"
 
@@ -11,21 +12,12 @@ namespace wanderer::event {
  *
  * \brief Used for events dispatched when a humanoid stops moving.
  *
- * \note This is an event component and is meant to be dispatched through
- * `entt::dispatcher::enqueue`.
- *
- * \var end_humanoid_move::registry
- * A pointer to the associated registry.
- *
- * \var end_humanoid_move::entity
- * The humanoid that should stop moving.
- *
  * \headerfile end_humanoid_move_event.hpp
  */
 struct end_humanoid_move final
 {
-  entt::registry* registry{};
-  entt::entity entity{entt::null};
+  std::reference_wrapper<entt::registry> registry;  ///< The associated registry.
+  entt::entity entity{entt::null};  ///< The entity that should stop moving.
 };
 
 }  // namespace wanderer::event

@@ -12,8 +12,8 @@ void update_attacking_humanoids(entt::registry& registry, entt::dispatcher& disp
       [&](const entt::entity entity, const comp::humanoid_attack& attack) {
         if (attack.done)
         {
-          dispatcher.enqueue<event::end_attack>(&registry,
-                                                &dispatcher,
+          dispatcher.enqueue<event::end_attack>(registry,
+                                                dispatcher,
                                                 entity,
                                                 attack.weapon,
                                                 direction::down);

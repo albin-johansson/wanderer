@@ -39,38 +39,34 @@ namespace {
 
 void on_attack_begin(const event::begin_attack& event)
 {
-  assert(event.registry);
-  assert(!event.registry->has<comp::humanoid_attack>(event.sourceEntity));
+  auto& registry = event.registry.get();
+  assert(!registry.has<comp::humanoid_attack>(event.sourceEntity));
 
-  auto& attack = event.registry->emplace<comp::humanoid_attack>(event.sourceEntity);
+  auto& attack = registry.emplace<comp::humanoid_attack>(event.sourceEntity);
   attack.weapon = event.weapon;
 
   // TODO enter correct animation according to weapon
-  enter_melee_animation(*event.registry, event.sourceEntity);
+  enter_melee_animation(event.registry, event.sourceEntity);
 }
 
 void on_attack_end(const event::end_attack& event)
 {
-  assert(event.registry);
-  assert(event.dispatcher);
-  assert(event.registry->has<comp::humanoid_attack>(event.sourceEntity));
+  auto& registry = event.registry.get();
+  auto& dispatcher = event.dispatcher.get();
+  assert(registry.has<comp::humanoid_attack>(event.sourceEntity));
 
-  event.registry->emplace<comp::humanoid_idle>(event.sourceEntity);
-
-  assert(!event.registry->has<comp::humanoid_attack>(event.sourceEntity));
+  registry.emplace<comp::humanoid_idle>(event.sourceEntity);
+  assert(!registry.has<comp::humanoid_attack>(event.sourceEntity));
 
   // TODO deal damage (need target area)
 
-  if (const auto* movable = event.registry->try_get<comp::movable>(event.sourceEntity))
+  if (const auto* movable = registry.try_get<comp::movable>(event.sourceEntity))
   {
     const auto position = get_particle_position(movable->position, *movable);
-    event.dispatcher->enqueue<event::spawn_particles>(position,
-                                                      cen::colors::dark_gray,
-                                                      5,
-                                                      500);
+    dispatcher.enqueue<event::spawn_particles>(position, cen::colors::dark_gray, 5, 500);
   }
 
-  enter_idle_animation(*event.registry, event.sourceEntity);
+  enter_idle_animation(event.registry, event.sourceEntity);
 }
 
 }  // namespace wanderer::sys

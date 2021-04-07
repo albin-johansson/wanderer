@@ -38,11 +38,8 @@ void enqueue_inventory_event(entt::registry& registry,
 
 void on_interact(const event::interact& event)
 {
-  assert(event.registry);
-  assert(event.dispatcher);
-
-  auto& registry = *event.registry;
-  auto& dispatcher = *event.dispatcher;
+  auto& registry = event.registry.get();
+  auto& dispatcher = event.dispatcher.get();
   const auto player = registry.ctx<ctx::player>().entity;
 
   if (const auto* p = registry.try_get<comp::is_within_portal>(player))
