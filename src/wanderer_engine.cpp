@@ -66,14 +66,14 @@ void wanderer_engine::on_fullscreen_toggled(const event::fullscreen_toggled& eve
   // TODO make it possible to specify whether to use real fullscreen or fullscreen desktop
   if (event.enabled)
   {
-    m_window.set_size(cen::screen::size());
+    m_window.set_size(cen::screen::size().value());
     m_window.set_fullscreen_desktop(true);
   }
   else
   {
     m_window.set_fullscreen_desktop(false);
-    m_window.set_width(cen::screen::width() / 2);
-    m_window.set_height(cen::screen::height() / 2);
+    m_window.set_width(cen::screen::width().value() / 2);
+    m_window.set_height(cen::screen::height().value() / 2);
   }
 }
 
