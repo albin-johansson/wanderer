@@ -27,33 +27,37 @@ struct phase final
 };
 
 inline const phase sunrise_phase{
-    sunrise,
-    daytime,
-    {0.35f, 0.2f},
-    {merge(cen::colors::black, cen::colors::navy, 0.3), cen::colors::orange}};
+    .phaseStart = sunrise,
+    .phaseEnd = daytime,
+    .opacities = {0.35f, 0.2f},
+    .colors = {cen::color::blend(cen::colors::black, cen::colors::navy, 0.3),
+               cen::colors::orange}};
 
-inline const phase day_phase{daytime,
-                             sunset,
-                             {0.2f, 0.0f, 0.0f, 0.0f, 0.2f},
-                             {cen::colors::orange,
-                              merge(cen::colors::white, cen::colors::orange, 0.5),
-                              cen::colors::white,
-                              merge(cen::colors::white, cen::colors::orange, 0.2),
-                              merge(cen::colors::white, cen::colors::orange, 0.4)}};
+inline const phase day_phase{
+    .phaseStart = daytime,
+    .phaseEnd = sunset,
+    .opacities = {0.2f, 0.0f, 0.0f, 0.0f, 0.2f},
+    .colors = {cen::colors::orange,
+               cen::color::blend(cen::colors::white, cen::colors::orange),
+               cen::colors::white,
+               cen::color::blend(cen::colors::white, cen::colors::orange, 0.2),
+               cen::color::blend(cen::colors::white, cen::colors::orange, 0.4)}};
 
-inline const phase sunset_phase{sunset,
-                                night,
-                                {0.2f, 0.35f},
-                                {merge(cen::colors::white, cen::colors::orange, 0.4),
-                                 merge(cen::colors::white, cen::colors::orange, 0.75),
-                                 cen::colors::orange,
-                                 merge(cen::colors::black, cen::colors::navy, 0.6),
-                                 merge(cen::colors::black, cen::colors::navy, 0.3)}};
+inline const phase sunset_phase{
+    .phaseStart = sunset,
+    .phaseEnd = night,
+    .opacities = {0.2f, 0.35f},
+    .colors = {cen::color::blend(cen::colors::white, cen::colors::orange, 0.4),
+               cen::color::blend(cen::colors::white, cen::colors::orange, 0.75),
+               cen::colors::orange,
+               cen::color::blend(cen::colors::black, cen::colors::navy, 0.6),
+               cen::color::blend(cen::colors::black, cen::colors::navy, 0.3)}};
 
-inline const phase night_phase{night,
-                               sunrise,
-                               {0.35f},
-                               {merge(cen::colors::black, cen::colors::navy, 0.3)}};
+inline const phase night_phase{
+    .phaseStart = night,
+    .phaseEnd = sunrise,
+    .opacities = {0.35f},
+    .colors = {cen::color::blend(cen::colors::black, cen::colors::navy, 0.3)}};
 
 [[nodiscard]] auto get_color(const phase& currentPhase, const float hour) -> cen::color
 {
@@ -71,7 +75,7 @@ inline const phase night_phase{night,
     const auto c1 = currentPhase.colors.at(static_cast<std::size_t>(std::floor(cc)));
     const auto c2 = currentPhase.colors.at(static_cast<std::size_t>(std::ceil(cc)));
 
-    return merge(c1, c2, cc - std::floor(cc));
+    return cen::color::blend(c1, c2, cc - std::floor(cc));
   }
 }
 
