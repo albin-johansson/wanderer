@@ -11,7 +11,7 @@
 namespace wanderer::sys {
 namespace {
 
-inline constexpr float rate = 100.0f;
+inline constexpr float rate = 100;
 
 inline constexpr float sunrise = 6;
 inline constexpr float daytime = 8.5f;
