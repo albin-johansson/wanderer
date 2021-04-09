@@ -10,7 +10,7 @@ namespace wanderer {
 template <typename T>
 [[nodiscard]] auto tick_rate() -> T
 {
-  return std::min<T>(120.0, static_cast<T>(cen::screen::refresh_rate()));
+  return std::min<T>(120.0, static_cast<T>(cen::screen::refresh_rate().value()));
 }
 
 template <typename T>
