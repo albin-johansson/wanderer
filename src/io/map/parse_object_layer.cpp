@@ -125,8 +125,8 @@ namespace {
   const auto x = static_cast<float>(object.x()) * xRatio;
   const auto y = static_cast<float>(object.y()) * yRatio;
 
-  light.position.x = x - (light.size / 2.0f);
-  light.position.y = y - (light.size / 2.0f);
+  light.position.x = x + (light.size / 2.0f);
+  light.position.y = y + (light.size / 2.0f);
 
   light.fluctuationLimit = 5;
   light.fluctuationStep = 1;

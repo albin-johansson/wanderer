@@ -9,6 +9,7 @@
 #include "player.hpp"
 #include "point_light.hpp"
 #include "resources.hpp"
+#include "viewport.hpp"
 
 using namespace entt::literals;
 
@@ -38,11 +39,7 @@ void update_player_light_position(entt::registry& registry)
   const auto& drawable = registry.get<comp::depth_drawable>(playerEntity);
 
   auto& light = registry.get<comp::point_light>(playerEntity);
-
-  const auto center = drawable.dst.center();
-  const auto halfSize = (light.size + light.fluctuation) / 2.0f;
-
-  light.position = to_vector(center) - float2{halfSize, halfSize};
+  light.position = to_vector(drawable.dst.center());
 }
 
 void render_lights(const entt::registry& registry,
@@ -61,18 +58,26 @@ void render_lights(const entt::registry& registry,
 
   texture.set_blend_mode(cen::blend_mode::mod);
 
-  constexpr auto source = cen::irect{{}, {80, 80}};
   const auto index = graphics.load("point_light"_hs, texture_path);
+  const auto& viewport = registry.ctx<ctx::viewport>();
+
+  constexpr cen::irect source{{}, {80, 80}};
 
   const auto view = registry.view<const comp::point_light>();
   view.each([&](const comp::point_light& light) {
     const auto& pos = light.position;
+
     const auto size = light.size + light.fluctuation;
-    graphics.render(index, source, {pos.x, pos.y, size, size});
+    const auto halfSize = size / 2.0f;
+
+    const cen::frect dst{pos.x - halfSize, pos.y - halfSize, size, size};
+    if (cen::intersects(viewport.bounds, dst))
+    {
+      graphics.render(index, source, dst);
+    }
   });
 
   renderer.set_target(nullptr);
-
   renderer.set_blend_mode(cen::blend_mode::blend);
   renderer.render<int>(texture, {0, 0});
 }
