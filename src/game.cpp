@@ -117,7 +117,16 @@ void game::render(graphics_context& graphics, const cen::ipoint mousePos)
 
   if (registry.try_ctx<ctx::outside_level>())
   {
-    sys::render_lights(registry, m_shared.ctx<ctx::time_of_day>(), graphics);
+    const auto& time = m_shared.ctx<ctx::time_of_day>();
+    const auto& settings = m_shared.ctx<ctx::settings>();
+    if (settings.simulateLights)
+    {
+      sys::render_lights(registry, time, graphics);
+    }
+    else
+    {
+      sys::render_light_overlay(time, graphics);
+    }
   }
 
   sys::render_clock(m_shared, graphics);
