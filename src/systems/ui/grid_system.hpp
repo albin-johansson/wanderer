@@ -1,15 +1,17 @@
 #pragma once
 
+#include <centurion.hpp>
+
 #include "menu_constants.hpp"
 
 namespace wanderer::sys {
 
-[[nodiscard]] constexpr auto column_to_x(const int column) -> int
+[[nodiscard]] constexpr auto column_to_x(const float column) -> float
 {
   // make centered if column index is -1
   if (column == -1)
   {
-    return (glob::logical_width<int> / 2);
+    return (glob::logical_width<float> / 2.0f);
   }
   else
   {
@@ -17,9 +19,14 @@ namespace wanderer::sys {
   }
 }
 
-[[nodiscard]] constexpr auto row_to_y(const int row) -> int
+[[nodiscard]] constexpr auto row_to_y(const float row) -> float
 {
   return (row * glob::menu_col_size);
+}
+
+[[nodiscard]] constexpr auto from_grid(const float row, const float column) -> cen::fpoint
+{
+  return {column_to_x(column), row_to_y(row)};
 }
 
 }  // namespace wanderer::sys

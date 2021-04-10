@@ -33,12 +33,12 @@ void render_title(const std::string& title,
 
   if (!drawable.position)
   {
-    const auto x = (glob::logical_width<int> / 2) - (texture.width() / 2);
+    const auto x = (glob::logical_width<float> / 2.0f) - (texture.width() / 2.0f);
     constexpr auto y = row_to_y(2);
     drawable.position = {x, y};
   }
 
-  renderer.render<int>(texture, *drawable.position);
+  renderer.render(texture, *drawable.position);
 }
 
 }  // namespace

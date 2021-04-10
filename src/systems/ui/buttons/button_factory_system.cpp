@@ -8,8 +8,8 @@ void add_button(entt::registry& registry,
                 const entt::entity entity,
                 std::string text,
                 const menu_action action,
-                const int row,
-                const int col)
+                const float row,
+                const float col)
 {
   auto& button = registry.emplace<comp::button>(entity);
   button.text = std::move(text);
@@ -24,8 +24,8 @@ void add_button(entt::registry& registry,
 auto make_button(entt::registry& registry,
                  std::string text,
                  const menu_action action,
-                 const int row,
-                 const int col) -> comp::button::entity
+                 const float row,
+                 const float col) -> comp::button::entity
 {
   const auto entity = comp::button::entity{registry.create()};
 

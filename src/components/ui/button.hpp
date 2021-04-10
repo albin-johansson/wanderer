@@ -20,8 +20,8 @@ struct button final
 
   menu_action action;
   std::string text;
-  int row;
-  int col;
+  float row;
+  float col;
   bool hover{false};
 };
 

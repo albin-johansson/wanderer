@@ -14,14 +14,14 @@ void add_button(entt::registry& registry,
                 entt::entity entity,
                 std::string text,
                 menu_action action,
-                int row,
-                int col);
+                float row,
+                float col);
 
 auto make_button(entt::registry& registry,
                  std::string text,
                  menu_action action,
-                 int row,
-                 int col = -1) -> comp::button::entity;
+                 float row,
+                 float col = -1) -> comp::button::entity;
 
 // Checks whether or not a button was pressed, triggers its action if so
 auto query_button(entt::registry& registry,

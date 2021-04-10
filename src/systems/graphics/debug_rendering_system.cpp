@@ -115,17 +115,17 @@ void render_menu_debug_info(const entt::registry& registry, graphics_context& gr
     for (auto row = 0; row < glob::menu_rows; ++row)
     {
       const auto y = row * glob::menu_row_size;
-      renderer.draw_line<int>({0, y}, {endX, y});
+      renderer.draw_line<float>({0, y}, {endX, y});
     }
 
     for (auto col = 0; col < glob::menu_columns; ++col)
     {
       const auto x = col * glob::menu_col_size;
-      renderer.draw_line<int>({x, 0}, {x, endY});
+      renderer.draw_line<float>({x, 0}, {x, endY});
     }
 
-    renderer.draw_line<int>({0, endY - 1}, {endX, endY - 1});
-    renderer.draw_line<int>({endX - 1, 0}, {endX - 1, endY});
+    renderer.draw_line<float>({0, endY - 1}, {endX, endY - 1});
+    renderer.draw_line<float>({endX - 1, 0}, {endX - 1, endY});
   }
 
   render_development_build_label(graphics);

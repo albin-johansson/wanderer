@@ -50,7 +50,7 @@ struct menu_drawable final
   using entity = entity_type<detail::menu_drawable_entity_t>;
 
   mutable maybe<cen::texture> texture;  ///< Title text texture.
-  mutable maybe<cen::ipoint> position;  ///< The position of the title text.
+  mutable maybe<cen::fpoint> position;  ///< The position of the title text.
 };
 
 }  // namespace wanderer::comp

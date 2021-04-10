@@ -21,7 +21,7 @@ auto add_checkbox(entt::registry& registry,
 
   const auto x = column_to_x(button.col);
   const auto y = row_to_y(button.row);
-  const cen::irect rect{x, y, 10, 10};
+  const cen::frect rect{x, y, 10, 10};
 
   auto& drawable = registry.get<comp::button_drawable>(entity);
   drawable.bounds = cen::cast<cen::frect>(rect);
