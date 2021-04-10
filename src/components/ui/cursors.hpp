@@ -7,9 +7,9 @@ namespace wanderer::comp {
 
 struct cursors final
 {
-  // Unfortunately, we have to explicitly tell the compiler that this type
-  // isn't copyable, due to the fact the type trait for checking the
-  // "copyable-ness" of the unordered map is misleading
+  /* Unfortunately, we have to explicitly tell the compiler that this type
+     isn't copyable, due to the fact the type trait for checking the
+     "copyable-ness" of the unordered map is misleading */
   cursors() = default;
   cursors(const cursors&) = delete;
   cursors(cursors&&) = default;
