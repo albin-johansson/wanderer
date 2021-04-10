@@ -48,10 +48,15 @@ inline constexpr auto y_1 = row_to_y(glob::menu_rows - 2);
 {
   std::vector<comp::button::entity> buttons;
 
-  // clang-format off
-  buttons.push_back(make_button(registry, "Return", menu_action::goto_home, 4));
-  buttons.push_back(make_button(registry, "Load", menu_action::load_game, 14, 26));
-  // clang-format on
+  const auto addButton = [&](std::string text,
+                             const menu_action action,
+                             const float row,
+                             const float col = -1) {
+    buttons.push_back(make_button(registry, std::move(text), action, row, col));
+  };
+
+  addButton("Return", menu_action::goto_home, 3.5f);
+  addButton("Load", menu_action::load_game, 14.5f, 12);
 
   return buttons;
 }
@@ -60,12 +65,21 @@ inline constexpr auto y_1 = row_to_y(glob::menu_rows - 2);
 {
   std::vector<comp::line::entity> lines;
 
-  lines.push_back(make_line(registry, {x_0, y_0}, {x_0, y_1}));
-  lines.push_back(make_line(registry, {x_1, y_0}, {x_1, y_1}));
-  lines.push_back(make_line(registry, {x_0, y_0}, {x_1, y_0}));
-  lines.push_back(make_line(registry, {x_0, y_1}, {x_1, y_1}));
-  lines.push_back(
-      make_line(registry, {column_to_x(10), y_0 + 10}, {column_to_x(10), y_1 - 10}));
+  const auto addLine = [&](const cen::fpoint start, const cen::fpoint end) {
+    lines.push_back(make_line(registry, start, end));
+  };
+
+  // Surrounding box
+  addLine({x_0, y_0}, {x_0, y_1});
+  addLine({x_1, y_0}, {x_1, y_1});
+  addLine({x_0, y_0}, {x_1, y_0});
+  addLine({x_0, y_1}, {x_1, y_1});
+
+  // Vertical save entry separator
+  addLine({column_to_x(10), y_0 + 10}, {column_to_x(10), y_1 - 10});
+
+  // Horizontal bottom button separator
+  addLine(from_grid(14, 11), from_grid(14, 29));
 
   return lines;
 }
