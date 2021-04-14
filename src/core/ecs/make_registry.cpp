@@ -1,13 +1,19 @@
 #include "make_registry.hpp"
 
 #include "add_humanoid_state_dependencies.hpp"
+#include "particle.hpp"
 
 namespace wanderer {
 
 auto make_registry() -> entt::registry
 {
   entt::registry registry;
+
   add_humanoid_state_dependencies(registry);
+
+  // Reserve pools with components that are likely to feature many entities
+  registry.reserve<comp::particle>(200);
+
   return registry;
 }
 
