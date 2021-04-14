@@ -27,11 +27,14 @@
 #endif  // CENTURION_NO_PRAGMA_ONCE
 
 // clang-format off
-// #include "centurion/macros.hpp"
+// #include "centurion/core/macros.hpp"
 #ifndef CENTURION_MACROS_HEADER
 #define CENTURION_MACROS_HEADER
 
 #include <SDL.h>
+
+/// \addtogroup core
+/// \{
 
 #ifndef __clang__
 
@@ -71,6 +74,9 @@
 using SDL_KeyCode = decltype(SDLK_UNKNOWN);
 
 #endif  // CENTURION_SDL_VERSION_IS(2, 0, 10)
+
+/// \} End of group core
+
 #endif  // CENTURION_MACROS_HEADER
 
 // clang-format on
@@ -90,9 +96,39 @@ using SDL_KeyCode = decltype(SDLK_UNKNOWN);
 #ifndef CENTURION_NOT_NULL_HEADER
 #define CENTURION_NOT_NULL_HEADER
 
-#include <SDL.h>
+// #include "sfinae.hpp"
+#ifndef CENTURION_SFINAE_HEADER
+#define CENTURION_SFINAE_HEADER
 
-#include <type_traits>  // enable_if_t, is_pointer_v
+#include <type_traits>  // enable_if_t, is_same_v, is_integral_v, is_floating_point_v, ...
+
+namespace cen {
+
+/// \addtogroup misc
+/// \{
+
+// clang-format off
+
+template <typename T>
+using enable_if_number_t = std::enable_if_t<!std::is_same_v<T, bool> &&
+                                            (std::is_integral_v<T> ||
+                                             std::is_floating_point_v<T>), int>;
+
+// clang-format on
+
+template <typename T>
+using enable_if_pointer_v = std::enable_if_t<std::is_pointer_v<T>, int>;
+
+template <typename T, typename... Args>
+using enable_if_convertible_t =
+    std::enable_if_t<(std::is_convertible_v<T, Args> || ...), int>;
+
+/// \} End of group misc
+
+}  // namespace cen
+
+#endif  // CENTURION_SFINAE_HEADER
+
 
 namespace cen {
 
@@ -107,7 +143,7 @@ namespace cen {
  *
  * \since 5.0.0
  */
-template <typename T, typename = std::enable_if_t<std::is_pointer_v<T>>>
+template <typename T, enable_if_pointer_v<T> = 0>
 using not_null = T;
 
 }  // namespace cen
@@ -116,6 +152,9 @@ using not_null = T;
 
 
 namespace cen {
+
+/// \addtogroup misc
+/// \{
 
 /**
  * \typedef czstring
@@ -130,6 +169,8 @@ using czstring = const char*;
  * \brief Alias for a C-style null-terminated string.
  */
 using zstring = char*;
+
+/// \} End of group misc
 
 }  // namespace cen
 
@@ -149,6 +190,9 @@ using zstring = char*;
 #include <SDL.h>
 
 namespace cen {
+
+/// \addtogroup misc
+/// \{
 
 /// \name Integer aliases
 /// \{
@@ -356,6 +400,9 @@ namespace literals {
 }
 
 }  // namespace literals
+
+/// \} End of group misc
+
 }  // namespace cen
 
 #endif  // CENTURION_INTEGERS_HEADER
@@ -538,10 +585,11 @@ inline auto reset_channel_group(const int channel) noexcept -> bool
 
 #include <SDL_mixer.h>
 
-#include <cassert>  // assert
-#include <memory>   // unique_ptr
-#include <ostream>  // ostream
-#include <string>   // string
+#include <cassert>   // assert
+#include <memory>    // unique_ptr
+#include <optional>  // optional
+#include <ostream>   // ostream
+#include <string>    // string
 
 // #include "../detail/address_of.hpp"
 #ifndef CENTURION_DETAIL_ADDRESS_OF_HEADER
@@ -713,7 +761,7 @@ template <typename T>
 #include <system_error>  // errc
 #include <type_traits>   // is_floating_point_v
 
-// #include "../compiler.hpp"
+// #include "../compiler/compiler.hpp"
 #ifndef CENTURION_COMPILER_HEADER
 #define CENTURION_COMPILER_HEADER
 
@@ -927,6 +975,9 @@ template <std::size_t bufferSize = 16, typename T>
 
 namespace cen {
 
+/// \addtogroup misc
+/// \{
+
 /**
  * \typedef czstring
  *
@@ -940,6 +991,8 @@ using czstring = const char*;
  * \brief Alias for a C-style null-terminated string.
  */
 using zstring = char*;
+
+/// \} End of group misc
 
 }  // namespace cen
 
@@ -1121,9 +1174,8 @@ class mix_error final : public cen_error
 #ifndef CENTURION_NOT_NULL_HEADER
 #define CENTURION_NOT_NULL_HEADER
 
-#include <SDL.h>
+// #include "sfinae.hpp"
 
-#include <type_traits>  // enable_if_t, is_pointer_v
 
 namespace cen {
 
@@ -1138,7 +1190,7 @@ namespace cen {
  *
  * \since 5.0.0
  */
-template <typename T, typename = std::enable_if_t<std::is_pointer_v<T>>>
+template <typename T, enable_if_pointer_v<T> = 0>
 using not_null = T;
 
 }  // namespace cen
@@ -1156,9 +1208,11 @@ namespace cen {
 /**
  * \enum fade_status
  *
- * \brief Mirrors the values of the `Mix_Fading` enum.
+ * \brief Provides values that represent different fade playback states.
  *
  * \since 3.0.0
+ *
+ * \see `Mix_Fading`
  *
  * \headerfile music.hpp
  */
@@ -1172,9 +1226,11 @@ enum class fade_status
 /**
  * \enum music_type
  *
- * \brief Mirrors the values of the `Mix_MusicType` enum.
+ * \brief Provides values that represent different supported music types.
  *
  * \since 3.0.0
+ *
+ * \see `Mix_MusicType`
  *
  * \headerfile music.hpp
  */
@@ -1283,13 +1339,24 @@ class music final
    * \param nLoops the number of times to loop the music, `music::forever` can
    * be supplied to loop the music indefinitely.
    *
+   * \return the channel used to play the music; `std::nullopt` on failure.
+   *
    * \see `music::forever`
    *
    * \since 3.0.0
    */
-  void play(const int nLoops = 0) noexcept
+  auto play(const int nLoops = 0) noexcept -> std::optional<int>
   {
-    Mix_PlayMusic(m_music.get(), detail::max(nLoops, forever));
+    const auto channel =
+        Mix_PlayMusic(m_music.get(), detail::max(nLoops, forever));
+    if (channel != -1)
+    {
+      return channel;
+    }
+    else
+    {
+      return std::nullopt;
+    }
   }
 
   /**
@@ -1327,7 +1394,7 @@ class music final
    */
   static void halt() noexcept
   {
-    Mix_HaltMusic();
+    Mix_HaltMusic();  // This appears to always return 0
   }
 
   /**
@@ -1339,7 +1406,7 @@ class music final
    */
   [[nodiscard]] static auto is_playing() noexcept -> bool
   {
-    return Mix_PlayingMusic();
+    return static_cast<bool>(Mix_PlayingMusic());
   }
 
   /**
@@ -1351,7 +1418,7 @@ class music final
    */
   [[nodiscard]] static auto is_paused() noexcept -> bool
   {
-    return Mix_PausedMusic();
+    return static_cast<bool>(Mix_PausedMusic());
   }
 
   /// \} Playback functions
@@ -1380,15 +1447,19 @@ class music final
    * \param nLoops the number of iterations to play the music, `music::forever`
    * can be supplied to loop the music indefinitely.
    *
+   * \return `true` on success; `false` on failure.
+   *
    * \see `music::forever`
    *
    * \since 3.0.0
    */
-  void fade_in(const milliseconds<int> ms,
-               const int nLoops = 0) noexcept(noexcept(ms.count()))
+  auto fade_in(const milliseconds<int> ms,
+               const int nLoops = 0) noexcept(noexcept(ms.count())) -> bool
   {
     assert(ms.count() > 0);
-    Mix_FadeInMusic(m_music.get(), detail::max(nLoops, forever), ms.count());
+    return Mix_FadeInMusic(m_music.get(),
+                           detail::max(nLoops, forever),
+                           ms.count()) == 0;
   }
 
   // clang-format off
@@ -1405,14 +1476,21 @@ class music final
    *
    * \param ms the amount of time for the fade to complete, in milliseconds.
    *
+   * \return `true` on success; `false` on failure.
+   *
    * \since 3.0.0
    */
-  static void fade_out(const milliseconds<int> ms) noexcept(noexcept(ms.count()))
+  static auto fade_out(const milliseconds<int> ms) noexcept(noexcept(ms.count()))
+      -> bool
   {
     assert(ms.count() > 0);
     if (!is_fading())
     {
-      Mix_FadeOutMusic(ms.count());
+      return Mix_FadeOutMusic(ms.count()) != 0;
+    }
+    else
+    {
+      return false;
     }
   }
 
@@ -1834,9 +1912,39 @@ inline auto operator<<(std::ostream& stream, const music& music)
 #ifndef CENTURION_NOT_NULL_HEADER
 #define CENTURION_NOT_NULL_HEADER
 
-#include <SDL.h>
+// #include "sfinae.hpp"
+#ifndef CENTURION_SFINAE_HEADER
+#define CENTURION_SFINAE_HEADER
 
-#include <type_traits>  // enable_if_t, is_pointer_v
+#include <type_traits>  // enable_if_t, is_same_v, is_integral_v, is_floating_point_v, ...
+
+namespace cen {
+
+/// \addtogroup misc
+/// \{
+
+// clang-format off
+
+template <typename T>
+using enable_if_number_t = std::enable_if_t<!std::is_same_v<T, bool> &&
+                                            (std::is_integral_v<T> ||
+                                             std::is_floating_point_v<T>), int>;
+
+// clang-format on
+
+template <typename T>
+using enable_if_pointer_v = std::enable_if_t<std::is_pointer_v<T>, int>;
+
+template <typename T, typename... Args>
+using enable_if_convertible_t =
+    std::enable_if_t<(std::is_convertible_v<T, Args> || ...), int>;
+
+/// \} End of group misc
+
+}  // namespace cen
+
+#endif  // CENTURION_SFINAE_HEADER
+
 
 namespace cen {
 
@@ -1851,7 +1959,7 @@ namespace cen {
  *
  * \since 5.0.0
  */
-template <typename T, typename = std::enable_if_t<std::is_pointer_v<T>>>
+template <typename T, enable_if_pointer_v<T> = 0>
 using not_null = T;
 
 }  // namespace cen
@@ -1860,6 +1968,9 @@ using not_null = T;
 
 
 namespace cen {
+
+/// \addtogroup misc
+/// \{
 
 /**
  * \typedef czstring
@@ -1874,6 +1985,8 @@ using czstring = const char*;
  * \brief Alias for a C-style null-terminated string.
  */
 using zstring = char*;
+
+/// \} End of group misc
 
 }  // namespace cen
 
@@ -2059,10 +2172,10 @@ using owning_type = std::true_type;
 using handle_type = std::false_type;
 
 template <typename T>
-using is_owner = std::enable_if_t<std::is_same_v<T, owning_type>, bool>;
+using is_owner = std::enable_if_t<std::is_same_v<T, owning_type>, int>;
 
 template <typename T>
-using is_handle = std::enable_if_t<std::is_same_v<T, handle_type>, bool>;
+using is_handle = std::enable_if_t<std::is_same_v<T, handle_type>, int>;
 
 template <typename T>
 [[nodiscard]] constexpr auto is_owning() noexcept -> bool
@@ -2083,7 +2196,7 @@ class pointer_manager final
   explicit pointer_manager(Type* ptr) noexcept : m_ptr{ptr}
   {}
 
-  template <typename BB = B, is_owner<BB> = true>
+  template <typename BB = B, is_owner<BB> = 0>
   void reset(Type* ptr) noexcept
   {
     m_ptr.reset(ptr);
@@ -2121,7 +2234,7 @@ class pointer_manager final
     return get();
   }
 
-  template <typename BB = B, is_owner<BB> = true>
+  template <typename BB = B, is_owner<BB> = 0>
   [[nodiscard]] auto release() noexcept -> Type*
   {
     return m_ptr.release();
@@ -2261,7 +2374,7 @@ class basic_sound_effect final
    *
    * \since 3.0.0
    */
-  template <typename TT = T, detail::is_owner<TT> = true>
+  template <typename TT = T, detail::is_owner<TT> = 0>
   explicit basic_sound_effect(const not_null<czstring> file)
       : m_chunk{Mix_LoadWAV(file)}
   {
@@ -2281,7 +2394,7 @@ class basic_sound_effect final
    *
    * \since 5.3.0
    */
-  template <typename TT = T, detail::is_owner<TT> = true>
+  template <typename TT = T, detail::is_owner<TT> = 0>
   explicit basic_sound_effect(const std::string& file)
       : basic_sound_effect{file.c_str()}
   {}
@@ -2295,7 +2408,7 @@ class basic_sound_effect final
    *
    * \since 6.0.0
    */
-  template <typename TT = T, detail::is_handle<TT> = true>
+  template <typename TT = T, detail::is_handle<TT> = 0>
   explicit basic_sound_effect(const sound_effect& owner) noexcept
       : m_chunk{owner.get()}
   {}
@@ -2314,13 +2427,17 @@ class basic_sound_effect final
    * \param nLoops the amount of loops, `sound_effect::forever` can be used to
    * loop the sound effect indefinitely.
    *
+   * \return `true` on success; `false` on failure.
+   *
    * \see `sound_effect::forever`
    *
    * \since 3.0.0
    */
-  void play(const int nLoops = 0) noexcept
+  auto play(const int nLoops = 0) noexcept -> bool
   {
-    activate(detail::max(nLoops, forever));
+    m_channel =
+        Mix_PlayChannel(m_channel, m_chunk.get(), detail::max(nLoops, forever));
+    return m_channel != -1;
   }
 
   /**
@@ -2357,7 +2474,7 @@ class basic_sound_effect final
    *
    * \since 5.1.0
    */
-  template <typename TT = T, detail::is_owner<TT> = true>
+  template <typename TT = T, detail::is_owner<TT> = 0>
   [[nodiscard]] static auto is_any_playing() noexcept -> bool
   {
     return Mix_Playing(undefined_channel());
@@ -2511,19 +2628,19 @@ class basic_sound_effect final
   /// \name Decoder functions
   /// \{
 
-  template <typename TT = T, detail::is_owner<TT> = true>
+  template <typename TT = T, detail::is_owner<TT> = 0>
   [[nodiscard]] static auto get_decoder(const int index) noexcept -> czstring
   {
     return Mix_GetChunkDecoder(index);
   }
 
-  template <typename TT = T, detail::is_owner<TT> = true>
+  template <typename TT = T, detail::is_owner<TT> = 0>
   [[nodiscard]] static auto has_decoder(const czstring name) noexcept -> bool
   {
     return Mix_HasChunkDecoder(name) == SDL_TRUE;
   }
 
-  template <typename TT = T, detail::is_owner<TT> = true>
+  template <typename TT = T, detail::is_owner<TT> = 0>
   [[nodiscard]] static auto decoder_count() noexcept -> int
   {
     return Mix_GetNumChunkDecoders();
@@ -2583,26 +2700,6 @@ class basic_sound_effect final
   [[nodiscard]] constexpr static auto undefined_channel() noexcept -> int
   {
     return -1;
-  }
-
-  /**
-   * \brief Activates the sound effect by playing it the specified amount of
-   * times.
-   *
-   * \param nLoops the amount of times to play the sound effect.
-   *
-   * \since 3.0.0
-   */
-  void activate(const int nLoops) noexcept
-  {
-    if (m_channel != undefined_channel())
-    {
-      Mix_PlayChannel(m_channel, m_chunk.get(), nLoops);
-    }
-    else
-    {
-      m_channel = Mix_PlayChannel(undefined_channel(), m_chunk.get(), nLoops);
-    }
   }
 
 #ifdef CENTURION_MOCK_FRIENDLY_MODE
@@ -2670,7 +2767,7 @@ inline auto operator<<(std::ostream& stream, const sound_effect& sound)
 
 #endif  // CENTURION_SOUND_EFFECT_HEADER
 
-// #include "centurion/compiler.hpp"
+// #include "centurion/compiler/compiler.hpp"
 #ifndef CENTURION_COMPILER_HEADER
 #define CENTURION_COMPILER_HEADER
 
@@ -2809,11 +2906,347 @@ namespace cen {
 
 #endif  // CENTURION_COMPILER_HEADER
 
-// #include "centurion/events/audio_device_event.hpp"
-#ifndef CENTURION_AUDIO_DEVICE_EVENT_HEADER
-#define CENTURION_AUDIO_DEVICE_EVENT_HEADER
+// #include "centurion/core/library.hpp"
+/**
+ * \defgroup core Core
+ * \brief Contains entities considered to be fundamental for the library.
+ */
+
+/**
+ * \defgroup configuration Configuration
+ * \brief Contains the API related to hints/configuration variables.
+ */
+
+/**
+ * \defgroup event Events
+ * \brief Contains entities related to events.
+ */
+
+/**
+ * \defgroup thread Threads
+ * \brief Provides threading utilities for dealing with threads, mutexes, locks,
+ * etc.
+ */
+
+/**
+ * \defgroup input Input
+ * \brief Contains components related to input from mice, keyboards,
+ * controllers, etc.
+ */
+
+/**
+ * \defgroup video Video
+ * \brief Contains components related to window-management, rendering, fonts,
+ * etc.
+ */
+
+/**
+ * \defgroup system System
+ * \brief Contains various utilities related to system resources.
+ */
+
+/**
+ * \defgroup compiler Compiler
+ * \brief Provides `constexpr` utilities for querying the current compiler.
+ * \note There is no guarantee that the compiler checks are mutually exclusive.
+ */
+
+/**
+ * \defgroup math Math
+ * \brief Contains basic mathematical components, used throughout the library.
+ */
+
+/**
+ * \defgroup audio Audio
+ * \brief Contains the audio API, for playing as sound effects and music.
+ */
+
+/**
+ * \defgroup misc Misc
+ * \brief Contains miscellaneous components.
+ */
+
+#ifndef CENTURION_LIBRARY_HEADER
+#define CENTURION_LIBRARY_HEADER
 
 #include <SDL.h>
+#include <SDL_image.h>
+#include <SDL_mixer.h>
+#include <SDL_ttf.h>
+
+#include <cassert>   // assert
+#include <optional>  // optional
+
+// #include "../misc/exception.hpp"
+#ifndef CENTURION_EXCEPTION_HEADER
+#define CENTURION_EXCEPTION_HEADER
+
+#include <SDL.h>
+#include <SDL_image.h>
+#include <SDL_mixer.h>
+#include <SDL_ttf.h>
+
+#include <exception>  // exception
+
+// #include "czstring.hpp"
+#ifndef CENTURION_CZSTRING_HEADER
+#define CENTURION_CZSTRING_HEADER
+
+// #include "not_null.hpp"
+#ifndef CENTURION_NOT_NULL_HEADER
+#define CENTURION_NOT_NULL_HEADER
+
+// #include "sfinae.hpp"
+#ifndef CENTURION_SFINAE_HEADER
+#define CENTURION_SFINAE_HEADER
+
+#include <type_traits>  // enable_if_t, is_same_v, is_integral_v, is_floating_point_v, ...
+
+namespace cen {
+
+/// \addtogroup misc
+/// \{
+
+// clang-format off
+
+template <typename T>
+using enable_if_number_t = std::enable_if_t<!std::is_same_v<T, bool> &&
+                                            (std::is_integral_v<T> ||
+                                             std::is_floating_point_v<T>), int>;
+
+// clang-format on
+
+template <typename T>
+using enable_if_pointer_v = std::enable_if_t<std::is_pointer_v<T>, int>;
+
+template <typename T, typename... Args>
+using enable_if_convertible_t =
+    std::enable_if_t<(std::is_convertible_v<T, Args> || ...), int>;
+
+/// \} End of group misc
+
+}  // namespace cen
+
+#endif  // CENTURION_SFINAE_HEADER
+
+
+namespace cen {
+
+/**
+ * \typedef not_null
+ *
+ * \ingroup misc
+ *
+ * \brief Tag used to indicate that a pointer cannot be null.
+ *
+ * \note This alias is equivalent to `T`, it is a no-op.
+ *
+ * \since 5.0.0
+ */
+template <typename T, enable_if_pointer_v<T> = 0>
+using not_null = T;
+
+}  // namespace cen
+
+#endif  // CENTURION_NOT_NULL_HEADER
+
+
+namespace cen {
+
+/// \addtogroup misc
+/// \{
+
+/**
+ * \typedef czstring
+ *
+ * \brief Alias for a const C-style null-terminated string.
+ */
+using czstring = const char*;
+
+/**
+ * \typedef zstring
+ *
+ * \brief Alias for a C-style null-terminated string.
+ */
+using zstring = char*;
+
+/// \} End of group misc
+
+}  // namespace cen
+
+#endif  // CENTURION_CZSTRING_HEADER
+
+
+namespace cen {
+
+/// \addtogroup misc
+/// \{
+
+/**
+ * \class cen_error
+ *
+ * \brief The base of all exceptions explicitly thrown by the library.
+ *
+ * \headerfile exception.hpp
+ *
+ * \since 3.0.0
+ */
+class cen_error : public std::exception
+{
+ public:
+  cen_error() noexcept = default;
+
+  /**
+   * \param what the message of the exception.
+   *
+   * \since 3.0.0
+   */
+  explicit cen_error(const czstring what) noexcept
+      : m_what{what ? what : m_what}
+  {}
+
+  [[nodiscard]] auto what() const noexcept -> czstring override
+  {
+    return m_what;
+  }
+
+ private:
+  czstring m_what{"N/A"};
+};
+
+/**
+ * \class sdl_error
+ *
+ * \brief Represents an error related to the core SDL2 library.
+ *
+ * \since 5.0.0
+ *
+ * \headerfile exception.hpp
+ */
+class sdl_error final : public cen_error
+{
+ public:
+  /**
+   * \brief Creates an `sdl_error` with the error message obtained from
+   * `SDL_GetError()`.
+   *
+   * \since 5.0.0
+   */
+  sdl_error() noexcept : cen_error{SDL_GetError()}
+  {}
+
+  /**
+   * \brief Creates an `sdl_error` with the specified error message.
+   *
+   * \param what the error message that will be used.
+   *
+   * \since 5.0.0
+   */
+  explicit sdl_error(const czstring what) noexcept : cen_error{what}
+  {}
+};
+
+/**
+ * \class img_error
+ *
+ * \brief Represents an error related to the SDL2_image library.
+ *
+ * \since 5.0.0
+ *
+ * \headerfile exception.hpp
+ */
+class img_error final : public cen_error
+{
+ public:
+  /**
+   * \brief Creates an `img_error` with the error message obtained from
+   * `IMG_GetError()`.
+   *
+   * \since 5.0.0
+   */
+  img_error() noexcept : cen_error{IMG_GetError()}
+  {}
+
+  /**
+   * \brief Creates an `img_error` with the specified error message.
+   *
+   * \param what the error message that will be used.
+   *
+   * \since 5.0.0
+   */
+  explicit img_error(const czstring what) noexcept : cen_error{what}
+  {}
+};
+
+/**
+ * \class ttf_error
+ *
+ * \brief Represents an error related to the SDL2_ttf library.
+ *
+ * \since 5.0.0
+ *
+ * \headerfile exception.hpp
+ */
+class ttf_error final : public cen_error
+{
+ public:
+  /**
+   * \brief Creates a `ttf_error` with the error message obtained from
+   * `TTF_GetError()`.
+   *
+   * \since 5.0.0
+   */
+  ttf_error() noexcept : cen_error{TTF_GetError()}
+  {}
+
+  /**
+   * \brief Creates a `ttf_error` with the specified error message.
+   *
+   * \param what the error message that will be used.
+   *
+   * \since 5.0.0
+   */
+  explicit ttf_error(const czstring what) noexcept : cen_error{what}
+  {}
+};
+
+/**
+ * \class mix_error
+ *
+ * \brief Represents an error related to the SDL2_mixer library.
+ *
+ * \since 5.0.0
+ *
+ * \headerfile exception.hpp
+ */
+class mix_error final : public cen_error
+{
+ public:
+  /**
+   * \brief Creates a `mix_error` with the error message obtained from
+   * `Mix_GetError()`.
+   *
+   * \since 5.0.0
+   */
+  mix_error() noexcept : cen_error{Mix_GetError()}
+  {}
+
+  /**
+   * \brief Creates a `mix_error` with the specified error message.
+   *
+   * \param what the error message that will be used.
+   *
+   * \since 5.0.0
+   */
+  explicit mix_error(const czstring what) noexcept : cen_error{what}
+  {}
+};
+
+/// \} End of group misc
+
+}  // namespace cen
+
+#endif  // CENTURION_EXCEPTION_HEADER
 
 // #include "../misc/integers.hpp"
 #ifndef CENTURION_INTEGERS_HEADER
@@ -2822,6 +3255,9 @@ namespace cen {
 #include <SDL.h>
 
 namespace cen {
+
+/// \addtogroup misc
+/// \{
 
 /// \name Integer aliases
 /// \{
@@ -3029,6 +3465,2626 @@ namespace literals {
 }
 
 }  // namespace literals
+
+/// \} End of group misc
+
+}  // namespace cen
+
+#endif  // CENTURION_INTEGERS_HEADER
+
+
+/**
+ * \namespace cen
+ *
+ * \brief The top-level namespace that all components of the library reside in.
+ */
+namespace cen {
+
+/// \addtogroup core
+/// \{
+
+/**
+ * \struct config
+ *
+ * \brief Used to specify how the library is initialized.
+ *
+ * \details All fields are initialized to the default values used by the
+ * library.
+ *
+ * \since 4.0.0
+ *
+ * \var config::initCore
+ * Indicates whether or not the SDL2 core is initialized.
+ *
+ * \var config::initImage
+ * Indicates whether or not SDL2_image is initialized.
+ *
+ * \var config::initMixer
+ * Indicates whether or not SDL2_mixer is initialized.
+ *
+ * \var config::initTTF
+ * Indicates whether or not SDL2_ttf is initialized.
+ *
+ * \var config::coreFlags
+ * Flags passed on to `SDL_Init()`, if \ref config.initCore is `true`.
+ *
+ * \var config::imageFlags
+ * Flags passed on to `IMG_Init()`, if \ref config.initImage is
+ * `true`.
+ *
+ * \var config::mixerFlags
+ * Flags passed on to `Mix_Init()`, if \ref config.initMixer is
+ * `true`.
+ *
+ * \var config::mixerFreq
+ * The frequency used by SDL2_mixer, if \ref config.initMixer is
+ * `true`.
+ *
+ * \var config::mixerFormat
+ * The format used by SDL2_mixer, if \ref config.initMixer is `true`.
+ *
+ * \var config::mixerChannels
+ * The amount of channels used by SDL2_mixer, if \ref config.initMixer
+ * is `true`.
+ *
+ * \var config::mixerChunkSize
+ * The chunk size used by SDL2_mixer, if \ref config.initMixer is
+ * `true`.
+ *
+ * \headerfile library.hpp
+ */
+struct config final
+{
+  bool initCore{true};
+  bool initImage{true};
+  bool initMixer{true};
+  bool initTTF{true};
+
+  u32 coreFlags{SDL_INIT_EVERYTHING};
+
+  int imageFlags{IMG_INIT_PNG | IMG_INIT_JPG | IMG_INIT_TIF | IMG_INIT_WEBP};
+
+  int mixerFlags{MIX_INIT_MP3 | MIX_INIT_OGG | MIX_INIT_FLAC | MIX_INIT_MID |
+                 MIX_INIT_MOD | MIX_INIT_OPUS};
+
+  int mixerFreq{MIX_DEFAULT_FREQUENCY};
+  u16 mixerFormat{MIX_DEFAULT_FORMAT};
+  int mixerChannels{MIX_DEFAULT_CHANNELS};
+  int mixerChunkSize{4096};
+};
+
+/**
+ * \class library
+ *
+ * \brief Used to initialize and de-initialize the library.
+ *
+ * \note The signature of the main-method must be `ìnt(int, char**)` when
+ * using the Centurion library!
+ *
+ * \since 3.0.0
+ *
+ * \headerfile library.hpp
+ */
+class library final
+{
+ public:
+  /**
+   * \brief Initializes the library.
+   *
+   * \note Make sure to have the `library` instance as a local variable that
+   * will outlive the duration of your main program. It's not sufficient to just
+   * call the constructor but not store the result as a variable.
+   *
+   * \pre there mustn't exist any other instances of this class at the time of
+   * invocation of this constructor.
+   *
+   * \throws sdl_error if the core SDL2 library can't be initialized.
+   * \throws img_error if the SDL2_image library can't be initialized.
+   * \throws ttf_error if the SDL2_ttf library can't be initialized.
+   * \throws mix_error if the SDL2_mixer library can't be initialized.
+   *
+   * \since 3.0.0
+   */
+  library()
+  {
+    init();
+  }
+
+  /**
+   * \brief Initializes the library according to the supplied configuration.
+   *
+   * \pre there mustn't exist any other instances of this class at the time of
+   * invocation of this constructor.
+   *
+   * \param cfg the configuration spec, determines what gets initialized.
+   *
+   * \throws sdl_error if the core SDL2 library can't be initialized.
+   * \throws img_error if the SDL2_image library can't be initialized.
+   * \throws ttf_error if the SDL2_ttf library can't be initialized.
+   * \throws mix_error if the SDL2_mixer library can't be initialized.
+   *
+   * \since 4.0.0
+   */
+  explicit library(const config& cfg) : m_cfg{cfg}
+  {
+    init();
+  }
+
+  library(const library&) = delete;
+
+  library(library&&) = delete;
+
+  auto operator=(const library&) -> library& = delete;
+
+  auto operator=(library&&) -> library& = delete;
+
+ private:
+  class sdl final
+  {
+   public:
+    explicit sdl(const u32 flags)
+    {
+      const auto result = SDL_Init(flags);
+      if (result < 0)
+      {
+        throw sdl_error{};
+      }
+    }
+
+    ~sdl() noexcept
+    {
+      SDL_Quit();
+    }
+  };
+
+  class sdl_ttf final
+  {
+   public:
+    explicit sdl_ttf()
+    {
+      const auto result = TTF_Init();
+      if (result == -1)
+      {
+        throw ttf_error{};
+      }
+    }
+
+    ~sdl_ttf() noexcept
+    {
+      TTF_Quit();
+    }
+  };
+
+  class sdl_mixer final
+  {
+   public:
+    sdl_mixer(const int flags,
+              const int freq,
+              const u16 format,
+              const int nChannels,
+              const int chunkSize)
+    {
+      if (!Mix_Init(flags))
+      {
+        throw mix_error{};
+      }
+
+      if (Mix_OpenAudio(freq, format, nChannels, chunkSize) == -1)
+      {
+        throw mix_error{};
+      }
+    }
+
+    ~sdl_mixer() noexcept
+    {
+      Mix_CloseAudio();
+      Mix_Quit();
+    }
+  };
+
+  class sdl_image final
+  {
+   public:
+    explicit sdl_image(const int flags)
+    {
+      if (!IMG_Init(flags))
+      {
+        throw img_error{};
+      }
+    }
+
+    ~sdl_image() noexcept
+    {
+      IMG_Quit();
+    }
+  };
+
+  config m_cfg;
+  std::optional<sdl> m_sdl;
+  std::optional<sdl_image> m_img;
+  std::optional<sdl_ttf> m_ttf;
+  std::optional<sdl_mixer> m_mixer;
+
+  void init()
+  {
+    if (m_cfg.initCore)
+    {
+      m_sdl.emplace(m_cfg.coreFlags);
+    }
+
+    if (m_cfg.initImage)
+    {
+      m_img.emplace(m_cfg.imageFlags);
+    }
+
+    if (m_cfg.initTTF)
+    {
+      m_ttf.emplace();
+    }
+
+    if (m_cfg.initMixer)
+    {
+      m_mixer.emplace(m_cfg.mixerFlags,
+                      m_cfg.mixerFreq,
+                      m_cfg.mixerFormat,
+                      m_cfg.mixerChannels,
+                      m_cfg.mixerChunkSize);
+    }
+  }
+};
+
+/// \} End of group core
+
+}  // namespace cen
+
+#endif  // CENTURION_LIBRARY_HEADER
+
+// #include "centurion/core/sdl_string.hpp"
+#ifndef CENTURION_SDL_STRING_HEADER
+#define CENTURION_SDL_STRING_HEADER
+
+#include <SDL.h>
+
+#include <memory>  // unique_ptr
+#include <string>  // string
+
+// #include "../detail/sdl_deleter.hpp"
+#ifndef CENTURION_DETAIL_SDL_DELETER_HEADER
+#define CENTURION_DETAIL_SDL_DELETER_HEADER
+
+#include <SDL.h>
+
+/// \cond FALSE
+namespace cen::detail {
+
+template <typename T>
+struct sdl_deleter final
+{
+  void operator()(T* ptr) noexcept
+  {
+    SDL_free(ptr);
+  }
+};
+
+}  // namespace cen::detail
+/// \endcond
+
+#endif  // CENTURION_DETAIL_SDL_DELETER_HEADER
+
+// #include "../misc/czstring.hpp"
+#ifndef CENTURION_CZSTRING_HEADER
+#define CENTURION_CZSTRING_HEADER
+
+// #include "not_null.hpp"
+
+
+namespace cen {
+
+/// \addtogroup misc
+/// \{
+
+/**
+ * \typedef czstring
+ *
+ * \brief Alias for a const C-style null-terminated string.
+ */
+using czstring = const char*;
+
+/**
+ * \typedef zstring
+ *
+ * \brief Alias for a C-style null-terminated string.
+ */
+using zstring = char*;
+
+/// \} End of group misc
+
+}  // namespace cen
+
+#endif  // CENTURION_CZSTRING_HEADER
+
+// #include "../misc/owner.hpp"
+#ifndef CENTURION_OWNER_HEADER
+#define CENTURION_OWNER_HEADER
+
+// #include "sfinae.hpp"
+
+
+namespace cen {
+
+/**
+ * \typedef owner
+ *
+ * \ingroup misc
+ *
+ * \brief Tag used to denote ownership of raw pointers directly in code.
+ *
+ * \details If a function takes an `owner<T*>` as a parameter, then the
+ * function will claim ownership of that pointer. Subsequently, if a function
+ * returns an `owner<T*>`, then ownership is transferred to the caller.
+ */
+template <typename T, enable_if_pointer_v<T> = 0>
+using owner = T;
+
+}  // namespace cen
+
+#endif  // CENTURION_OWNER_HEADER
+
+namespace cen {
+
+/// \addtogroup core
+/// \{
+
+/**
+ * \class sdl_string
+ *
+ * \brief Represents a string obtained from SDL, usually a `char*` that has to
+ * be freed using `SDL_free`.
+ *
+ * \since 5.0.0
+ *
+ * \headerfile sdl_string.hpp
+ */
+class sdl_string final
+{
+ public:
+  /**
+   * \brief
+   *
+   * \param str the string that will be claimed, can be null.
+   *
+   * \since 5.0.0
+   */
+  explicit sdl_string(owner<zstring> str) noexcept : m_str{str}
+  {}
+
+  /**
+   * \brief Returns the internal string, which might be null.
+   *
+   * \return the internal string; `nullptr` if there is none.
+   *
+   * \since 5.0.0
+   */
+  [[nodiscard]] auto get() const noexcept -> czstring
+  {
+    return m_str.get();
+  }
+
+  /**
+   * \brief Returns a copy of the internal string.
+   *
+   * \details This function returns the empty string if the internal string
+   * is a null pointer.
+   *
+   * \return a copy of the internal string.
+   *
+   * \since 5.0.0
+   */
+  [[nodiscard]] auto copy() const -> std::string
+  {
+    if (m_str)
+    {
+      return std::string{get()};
+    }
+    else
+    {
+      return std::string{};
+    }
+  }
+
+  /**
+   * \brief Indicates whether or not the internal string is non-null.
+   *
+   * \return `true` if the internal string is non-null; `false` otherwise.
+   *
+   * \since 5.0.0
+   */
+  explicit operator bool() const noexcept
+  {
+    return m_str.operator bool();
+  }
+
+ private:
+  std::unique_ptr<char, detail::sdl_deleter<char>> m_str;
+};
+
+/// \} End of group core
+
+}  // namespace cen
+
+#endif  // CENTURION_SDL_STRING_HEADER
+
+// #include "centurion/core/version.hpp"
+#ifndef CENTURION_VERSION_HEADER
+#define CENTURION_VERSION_HEADER
+
+#include <SDL.h>
+#include <SDL_image.h>
+#include <SDL_mixer.h>
+#include <SDL_ttf.h>
+
+#include <cassert>  // assert
+
+/// \addtogroup core
+/// \{
+
+/**
+ * \def CENTURION_VERSION_MAJOR
+ *
+ * \brief Expands into the current major version of the library.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_VERSION_MAJOR 6
+
+/**
+ * \def CENTURION_VERSION_MINOR
+ *
+ * \brief Expands into the current minor version of the library.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_VERSION_MINOR 0
+
+/**
+ * \def CENTURION_VERSION_PATCH
+ *
+ * \brief Expands into the current patch version of the library.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_VERSION_PATCH 0
+
+#ifdef CENTURION___DOXYGEN
+
+#define CENTURION_MAKE_VERSION_NUMBER
+#define CENTURION_VERSION_NUMBER
+#define CENTURION_VERSION_AT_LEAST
+
+#endif  // CENTURION___DOXYGEN
+
+/**
+ * \def CENTURION_MAKE_VERSION_NUMBER
+ *
+ * \brief Helper macro for creating version numbers from a set of
+ * major/minor/patch numbers.
+ *
+ * \details For example, if the version is 8.4.2, the resulting version number
+ * would be 8402.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_MAKE_VERSION_NUMBER(x, y, z) (((x)*1'000) + ((y)*100) + (z))
+
+/**
+ * \def CENTURION_VERSION_NUMBER
+ *
+ * \brief Expands into a version number based on the current Centurion version.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_VERSION_NUMBER                         \
+  CENTURION_MAKE_VERSION_NUMBER(CENTURION_VERSION_MAJOR, \
+                                CENTURION_VERSION_MINOR, \
+                                CENTURION_VERSION_PATCH)
+
+/**
+ * \def CENTURION_VERSION_AT_LEAST
+ *
+ * \brief This macro is intended to be used for conditional compilation, based
+ * on the Centurion version.
+ *
+ * \details This macro is used in the same way as the `SDL_VERSION_ATLEAST`,
+ * where you use it as the condition with `#if` statements.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_VERSION_AT_LEAST(x, y, z) \
+  CENTURION_VERSION_NUMBER >= CENTURION_MAKE_VERSION_NUMBER(x, y, z)
+
+namespace cen {
+
+/// \name Centurion version queries
+/// \{
+
+/**
+ * \struct version
+ *
+ * \brief Represents a set of major/minor/patch version numbers.
+ *
+ * \details The members of this struct are default-initialized to the current
+ * Centurion version values.
+ *
+ * \version 6.0.0
+ *
+ * \headerfile version.hpp
+ */
+struct version final
+{
+  int major{CENTURION_VERSION_MAJOR};
+  int minor{CENTURION_VERSION_MINOR};
+  int patch{CENTURION_VERSION_PATCH};
+};
+
+/**
+ * \brief Indicates whether or not the current Centurion version is at least
+ * equal to the specified version.
+ *
+ * \param major the major version value.
+ * \param minor the minor version value.
+ * \param patch the patch version value.
+ *
+ * \return `true` if the version of Centurion is at least the specified version;
+ * `false` otherwise.
+ *
+ * \see `CENTURION_VERSION_AT_LEAST`
+ *
+ * \since 6.0.0
+ */
+[[nodiscard]] constexpr auto version_at_least(const int major,
+                                              const int minor,
+                                              const int patch) noexcept -> bool
+{
+  return CENTURION_VERSION_AT_LEAST(major, minor, patch);
+}
+
+/// \} End of centurion version queries
+
+/// \name SDL version queries
+/// \{
+
+/**
+ * \brief Returns the version of SDL2 that is linked against the program.
+ *
+ * \note The linked version isn't necessarily the same as the version of SDL
+ * that the program was compiled against.
+ *
+ * \return the linked version of SDL2.
+ *
+ * \since 5.2.0
+ */
+[[nodiscard]] inline auto sdl_linked_version() noexcept -> SDL_version
+{
+  SDL_version version{};
+  SDL_GetVersion(&version);
+  return version;
+}
+
+/**
+ * \brief Returns the compile-time version of SDL2 that is being used.
+ *
+ * \return the compile-time version of SDL2 that is being used.
+ *
+ * \since 5.1.0
+ */
+[[nodiscard]] constexpr auto sdl_version() noexcept -> SDL_version
+{
+  return {SDL_MAJOR_VERSION, SDL_MINOR_VERSION, SDL_PATCHLEVEL};
+}
+
+/**
+ * \brief Returns the version of SDL2_image that is linked against the program.
+ *
+ * \note The linked version isn't necessarily the same as the version of
+ * SDL2_image that the program was compiled against.
+ *
+ * \return the linked version of SDL2_image.
+ *
+ * \since 6.0.0
+ */
+[[nodiscard]] inline auto sdl_image_linked_version() noexcept -> SDL_version
+{
+  const auto* version = IMG_Linked_Version();
+  assert(version);  // Sanity check
+  return *version;
+}
+
+/**
+ * \brief Returns the compile-time version of SDL2_image that is being used.
+ *
+ * \return the compile-time version of SDL2_image that is being used.
+ *
+ * \since 5.1.0
+ */
+[[nodiscard]] constexpr auto sdl_image_version() noexcept -> SDL_version
+{
+  return {SDL_IMAGE_MAJOR_VERSION,
+          SDL_IMAGE_MINOR_VERSION,
+          SDL_IMAGE_PATCHLEVEL};
+}
+
+/**
+ * \brief Returns the version of SDL2_mixer that is linked against the program.
+ *
+ * \note The linked version isn't necessarily the same as the version of
+ * SDL2_mixer that the program was compiled against.
+ *
+ * \return the linked version of SDL2_mixer.
+ *
+ * \since 6.0.0
+ */
+[[nodiscard]] inline auto sdl_mixer_linked_version() noexcept -> SDL_version
+{
+  const auto* version = Mix_Linked_Version();
+  assert(version);  // Sanity check
+  return *version;
+}
+
+/**
+ * \brief Returns the compile-time version of SDL2_mixer that is being used.
+ *
+ * \return the compile-time version of SDL2_mixer that is being used.
+ *
+ * \since 5.1.0
+ */
+[[nodiscard]] constexpr auto sdl_mixer_version() noexcept -> SDL_version
+{
+  return {SDL_MIXER_MAJOR_VERSION,
+          SDL_MIXER_MINOR_VERSION,
+          SDL_MIXER_PATCHLEVEL};
+}
+
+/**
+ * \brief Returns the version of SDL2_ttf that is linked against the program.
+ *
+ * \note The linked version isn't necessarily the same as the version of
+ * SDL2_ttf that the program was compiled against.
+ *
+ * \return the linked version of SDL2_ttf.
+ *
+ * \since 6.0.0
+ */
+[[nodiscard]] inline auto sdl_ttf_linked_version() noexcept -> SDL_version
+{
+  const auto* version = TTF_Linked_Version();
+  assert(version);  // Sanity check
+  return *version;
+}
+
+/**
+ * \brief Returns the compile-time version of SDL2_ttf that is being used.
+ *
+ * \return the compile-time version of SDL2_ttf that is being used.
+ *
+ * \since 5.1.0
+ */
+[[nodiscard]] constexpr auto sdl_ttf_version() noexcept -> SDL_version
+{
+  return {SDL_TTF_MAJOR_VERSION, SDL_TTF_MINOR_VERSION, SDL_TTF_PATCHLEVEL};
+}
+
+/// \} End of SDL version queries
+
+}  // namespace cen
+
+/// \} End of group core
+
+#endif  // CENTURION_VERSION_HEADER
+
+// #include "centurion/detail/address_of.hpp"
+#ifndef CENTURION_DETAIL_ADDRESS_OF_HEADER
+#define CENTURION_DETAIL_ADDRESS_OF_HEADER
+
+#include <sstream>  // ostringstream
+#include <string>   // string
+
+/// \cond FALSE
+namespace cen::detail {
+
+/**
+ * \brief Returns a string that represents the memory address of the supplied
+ * pointer.
+ *
+ * \details The empty string is returned if the supplied pointer is null.
+ *
+ * \tparam T the type of the pointer.
+ * \param ptr the pointer that will be converted.
+ *
+ * \return a string that represents the memory address of the supplied
+ * pointer.
+ *
+ * \since 3.0.0
+ */
+template <typename T>
+[[nodiscard]] auto address_of(T* ptr) -> std::string
+{
+  if (ptr)
+  {
+    std::ostringstream address;
+    address << static_cast<const void*>(ptr);
+    return address.str();
+  }
+  else
+  {
+    return std::string{};
+  }
+}
+
+}  // namespace cen::detail
+/// \endcond
+
+#endif  // CENTURION_DETAIL_ADDRESS_OF_HEADER
+
+// #include "centurion/detail/any_eq.hpp"
+#ifndef CENTURION_DETAIL_ANY_EQ_HEADER
+#define CENTURION_DETAIL_ANY_EQ_HEADER
+
+/// \cond FALSE
+namespace cen::detail {
+
+// clang-format off
+
+/**
+ * \brief Indicates whether or not any of the supplied values are equal to a
+ * specific value.
+ *
+ * \tparam T the type of the value to look for.
+ *
+ * \tparam Args the type of the arguments that will be checked.
+ *
+ * \param value the value to look for.
+ * \param args the arguments that will be compared with the value.
+ *
+ * \return `true` if any of the supplied values are equal to `value`; `false`
+ * otherwise.
+ *
+ * \since 5.1.0
+ */
+template <typename T, typename... Args>
+[[nodiscard]] constexpr auto any_eq(const T& value, Args&&... args)
+    noexcept(noexcept( ((value == args) || ...) )) -> bool
+{
+  return ((value == args) || ...);
+}
+
+// clang-format on
+
+}  // namespace cen::detail
+/// \endcond
+
+#endif  // CENTURION_DETAIL_ANY_EQ_HEADER
+
+// #include "centurion/detail/clamp.hpp"
+#ifndef CENTURION_DETAIL_CLAMP_HEADER
+#define CENTURION_DETAIL_CLAMP_HEADER
+
+#include <cassert>  // assert
+
+/// \cond FALSE
+namespace cen::detail {
+
+// clang-format off
+
+/**
+ * \brief Clamps a value to be within the range [min, max].
+ *
+ * \pre `min` must be less than or equal to `max`.
+ *
+ * \note The standard library provides `std::clamp`, but it isn't mandated to be
+ * `noexcept` (although MSVC does mark it as `noexcept`), which is the reason
+ * this function exists.
+ *
+ * \tparam T the type of the values.
+ *
+ * \param value the value that will be clamped.
+ * \param min the minimum value (inclusive).
+ * \param max the maximum value (inclusive).
+ *
+ * \return the clamped value.
+ *
+ * \since 5.1.0
+ */
+template <typename T>
+[[nodiscard]] constexpr auto clamp(const T& value,
+                                   const T& min,
+                                   const T& max)
+    noexcept(noexcept(value < min) && noexcept(value > max)) -> T
+{
+  assert(min <= max);
+  if (value < min) {
+    return min;
+  } else if (value > max) {
+    return max;
+  } else {
+    return value;
+  }
+}
+
+// clang-format on
+
+}  // namespace cen::detail
+/// \endcond
+
+#endif  // CENTURION_DETAIL_CLAMP_HEADER
+
+// #include "centurion/detail/convert_bool.hpp"
+#ifndef CENTURION_DETAIL_CONVERT_BOOL_HEADER
+#define CENTURION_DETAIL_CONVERT_BOOL_HEADER
+
+#include <SDL.h>
+
+/// \cond FALSE
+namespace cen::detail {
+
+/**
+ * \brief Returns the corresponding `SDL_bool` value for the supplied boolean
+ * value.
+ *
+ * \param b the boolean value that will be converted.
+ *
+ * \return `SDL_TRUE` for `true`; `SDL_FALSE` for `false`.
+ *
+ * \since 3.0.0
+ */
+[[nodiscard]] constexpr auto convert_bool(const bool b) noexcept -> SDL_bool
+{
+  return b ? SDL_TRUE : SDL_FALSE;
+}
+
+}  // namespace cen::detail
+/// \endcond
+
+#endif  // CENTURION_DETAIL_CONVERT_BOOL_HEADER
+
+// #include "centurion/detail/czstring_compare.hpp"
+#ifndef CENTURION_DETAIL_CZSTRING_COMPARE_HEADER
+#define CENTURION_DETAIL_CZSTRING_COMPARE_HEADER
+
+// #include "../misc/czstring.hpp"
+#ifndef CENTURION_CZSTRING_HEADER
+#define CENTURION_CZSTRING_HEADER
+
+// #include "not_null.hpp"
+#ifndef CENTURION_NOT_NULL_HEADER
+#define CENTURION_NOT_NULL_HEADER
+
+// #include "sfinae.hpp"
+#ifndef CENTURION_SFINAE_HEADER
+#define CENTURION_SFINAE_HEADER
+
+#include <type_traits>  // enable_if_t, is_same_v, is_integral_v, is_floating_point_v, ...
+
+namespace cen {
+
+/// \addtogroup misc
+/// \{
+
+// clang-format off
+
+template <typename T>
+using enable_if_number_t = std::enable_if_t<!std::is_same_v<T, bool> &&
+                                            (std::is_integral_v<T> ||
+                                             std::is_floating_point_v<T>), int>;
+
+// clang-format on
+
+template <typename T>
+using enable_if_pointer_v = std::enable_if_t<std::is_pointer_v<T>, int>;
+
+template <typename T, typename... Args>
+using enable_if_convertible_t =
+    std::enable_if_t<(std::is_convertible_v<T, Args> || ...), int>;
+
+/// \} End of group misc
+
+}  // namespace cen
+
+#endif  // CENTURION_SFINAE_HEADER
+
+
+namespace cen {
+
+/**
+ * \typedef not_null
+ *
+ * \ingroup misc
+ *
+ * \brief Tag used to indicate that a pointer cannot be null.
+ *
+ * \note This alias is equivalent to `T`, it is a no-op.
+ *
+ * \since 5.0.0
+ */
+template <typename T, enable_if_pointer_v<T> = 0>
+using not_null = T;
+
+}  // namespace cen
+
+#endif  // CENTURION_NOT_NULL_HEADER
+
+
+namespace cen {
+
+/// \addtogroup misc
+/// \{
+
+/**
+ * \typedef czstring
+ *
+ * \brief Alias for a const C-style null-terminated string.
+ */
+using czstring = const char*;
+
+/**
+ * \typedef zstring
+ *
+ * \brief Alias for a C-style null-terminated string.
+ */
+using zstring = char*;
+
+/// \} End of group misc
+
+}  // namespace cen
+
+#endif  // CENTURION_CZSTRING_HEADER
+
+// #include "czstring_eq.hpp"
+#ifndef CENTURION_DETAIL_CZSTRING_EQ_HEADER
+#define CENTURION_DETAIL_CZSTRING_EQ_HEADER
+
+#include <cstring>  // strcmp
+
+// #include "../misc/czstring.hpp"
+
+
+/// \cond FALSE
+namespace cen::detail {
+
+/**
+ * \brief Indicates whether or not two C-style strings are equal.
+ *
+ * \param lhs the left-hand side string, can safely be null.
+ * \param rhs the right-hand side string, can safely be null.
+ *
+ * \return `true` if the strings are equal; `false` otherwise.
+ *
+ * \since 4.1.0
+ */
+[[nodiscard]] inline auto czstring_eq(const czstring lhs,
+                                      const czstring rhs) noexcept -> bool
+{
+  if (lhs && rhs)
+  {
+    return std::strcmp(lhs, rhs) == 0;
+  }
+  else
+  {
+    return false;
+  }
+}
+
+}  // namespace cen::detail
+/// \endcond
+
+#endif  // CENTURION_DETAIL_CZSTRING_EQ_HEADER
+
+
+/// \cond FALSE
+namespace cen::detail {
+
+struct czstring_compare final
+{
+  auto operator()(const czstring lhs, const czstring rhs) const noexcept -> bool
+  {
+    return detail::czstring_eq(lhs, rhs);
+  }
+};
+
+}  // namespace cen::detail
+/// \endcond
+
+#endif  // CENTURION_DETAIL_CZSTRING_COMPARE_HEADER
+
+// #include "centurion/detail/czstring_eq.hpp"
+#ifndef CENTURION_DETAIL_CZSTRING_EQ_HEADER
+#define CENTURION_DETAIL_CZSTRING_EQ_HEADER
+
+#include <cstring>  // strcmp
+
+// #include "../misc/czstring.hpp"
+
+
+/// \cond FALSE
+namespace cen::detail {
+
+/**
+ * \brief Indicates whether or not two C-style strings are equal.
+ *
+ * \param lhs the left-hand side string, can safely be null.
+ * \param rhs the right-hand side string, can safely be null.
+ *
+ * \return `true` if the strings are equal; `false` otherwise.
+ *
+ * \since 4.1.0
+ */
+[[nodiscard]] inline auto czstring_eq(const czstring lhs,
+                                      const czstring rhs) noexcept -> bool
+{
+  if (lhs && rhs)
+  {
+    return std::strcmp(lhs, rhs) == 0;
+  }
+  else
+  {
+    return false;
+  }
+}
+
+}  // namespace cen::detail
+/// \endcond
+
+#endif  // CENTURION_DETAIL_CZSTRING_EQ_HEADER
+
+// #include "centurion/detail/hints_impl.hpp"
+#ifndef CENTURION_DETAIL_HINTS_IMPL_HEADER
+#define CENTURION_DETAIL_HINTS_IMPL_HEADER
+
+#include <cstddef>      // size_t
+#include <optional>     // optional
+#include <string>       // string, stoi, stoul, stof
+#include <type_traits>  // is_same_v, is_convertible_v
+
+// #include "../misc/czstring.hpp"
+
+// #include "czstring_compare.hpp"
+#ifndef CENTURION_DETAIL_CZSTRING_COMPARE_HEADER
+#define CENTURION_DETAIL_CZSTRING_COMPARE_HEADER
+
+// #include "../misc/czstring.hpp"
+
+// #include "czstring_eq.hpp"
+
+
+/// \cond FALSE
+namespace cen::detail {
+
+struct czstring_compare final
+{
+  auto operator()(const czstring lhs, const czstring rhs) const noexcept -> bool
+  {
+    return detail::czstring_eq(lhs, rhs);
+  }
+};
+
+}  // namespace cen::detail
+/// \endcond
+
+#endif  // CENTURION_DETAIL_CZSTRING_COMPARE_HEADER
+
+// #include "static_bimap.hpp"
+#ifndef CENTURION_DETAIL_STATIC_BIMAP_HEADER
+#define CENTURION_DETAIL_STATIC_BIMAP_HEADER
+
+#include <algorithm>  // find_if
+#include <array>      // array
+#include <utility>    // pair
+
+// #include "../misc/exception.hpp"
+#ifndef CENTURION_EXCEPTION_HEADER
+#define CENTURION_EXCEPTION_HEADER
+
+#include <SDL.h>
+#include <SDL_image.h>
+#include <SDL_mixer.h>
+#include <SDL_ttf.h>
+
+#include <exception>  // exception
+
+// #include "czstring.hpp"
+#ifndef CENTURION_CZSTRING_HEADER
+#define CENTURION_CZSTRING_HEADER
+
+// #include "not_null.hpp"
+
+
+namespace cen {
+
+/// \addtogroup misc
+/// \{
+
+/**
+ * \typedef czstring
+ *
+ * \brief Alias for a const C-style null-terminated string.
+ */
+using czstring = const char*;
+
+/**
+ * \typedef zstring
+ *
+ * \brief Alias for a C-style null-terminated string.
+ */
+using zstring = char*;
+
+/// \} End of group misc
+
+}  // namespace cen
+
+#endif  // CENTURION_CZSTRING_HEADER
+
+
+namespace cen {
+
+/// \addtogroup misc
+/// \{
+
+/**
+ * \class cen_error
+ *
+ * \brief The base of all exceptions explicitly thrown by the library.
+ *
+ * \headerfile exception.hpp
+ *
+ * \since 3.0.0
+ */
+class cen_error : public std::exception
+{
+ public:
+  cen_error() noexcept = default;
+
+  /**
+   * \param what the message of the exception.
+   *
+   * \since 3.0.0
+   */
+  explicit cen_error(const czstring what) noexcept
+      : m_what{what ? what : m_what}
+  {}
+
+  [[nodiscard]] auto what() const noexcept -> czstring override
+  {
+    return m_what;
+  }
+
+ private:
+  czstring m_what{"N/A"};
+};
+
+/**
+ * \class sdl_error
+ *
+ * \brief Represents an error related to the core SDL2 library.
+ *
+ * \since 5.0.0
+ *
+ * \headerfile exception.hpp
+ */
+class sdl_error final : public cen_error
+{
+ public:
+  /**
+   * \brief Creates an `sdl_error` with the error message obtained from
+   * `SDL_GetError()`.
+   *
+   * \since 5.0.0
+   */
+  sdl_error() noexcept : cen_error{SDL_GetError()}
+  {}
+
+  /**
+   * \brief Creates an `sdl_error` with the specified error message.
+   *
+   * \param what the error message that will be used.
+   *
+   * \since 5.0.0
+   */
+  explicit sdl_error(const czstring what) noexcept : cen_error{what}
+  {}
+};
+
+/**
+ * \class img_error
+ *
+ * \brief Represents an error related to the SDL2_image library.
+ *
+ * \since 5.0.0
+ *
+ * \headerfile exception.hpp
+ */
+class img_error final : public cen_error
+{
+ public:
+  /**
+   * \brief Creates an `img_error` with the error message obtained from
+   * `IMG_GetError()`.
+   *
+   * \since 5.0.0
+   */
+  img_error() noexcept : cen_error{IMG_GetError()}
+  {}
+
+  /**
+   * \brief Creates an `img_error` with the specified error message.
+   *
+   * \param what the error message that will be used.
+   *
+   * \since 5.0.0
+   */
+  explicit img_error(const czstring what) noexcept : cen_error{what}
+  {}
+};
+
+/**
+ * \class ttf_error
+ *
+ * \brief Represents an error related to the SDL2_ttf library.
+ *
+ * \since 5.0.0
+ *
+ * \headerfile exception.hpp
+ */
+class ttf_error final : public cen_error
+{
+ public:
+  /**
+   * \brief Creates a `ttf_error` with the error message obtained from
+   * `TTF_GetError()`.
+   *
+   * \since 5.0.0
+   */
+  ttf_error() noexcept : cen_error{TTF_GetError()}
+  {}
+
+  /**
+   * \brief Creates a `ttf_error` with the specified error message.
+   *
+   * \param what the error message that will be used.
+   *
+   * \since 5.0.0
+   */
+  explicit ttf_error(const czstring what) noexcept : cen_error{what}
+  {}
+};
+
+/**
+ * \class mix_error
+ *
+ * \brief Represents an error related to the SDL2_mixer library.
+ *
+ * \since 5.0.0
+ *
+ * \headerfile exception.hpp
+ */
+class mix_error final : public cen_error
+{
+ public:
+  /**
+   * \brief Creates a `mix_error` with the error message obtained from
+   * `Mix_GetError()`.
+   *
+   * \since 5.0.0
+   */
+  mix_error() noexcept : cen_error{Mix_GetError()}
+  {}
+
+  /**
+   * \brief Creates a `mix_error` with the specified error message.
+   *
+   * \param what the error message that will be used.
+   *
+   * \since 5.0.0
+   */
+  explicit mix_error(const czstring what) noexcept : cen_error{what}
+  {}
+};
+
+/// \} End of group misc
+
+}  // namespace cen
+
+#endif  // CENTURION_EXCEPTION_HEADER
+
+
+/// \cond FALSE
+namespace cen::detail {
+
+/**
+ * \class static_bimap
+ *
+ * \brief A bidirectional associative container for when keys and values are
+ * known at compile-time.
+ *
+ * \note This class is only meant to be used in constexpr contexts.
+ *
+ * \remarks This class was inspired by Jason Turners C++ Weekly video on
+ * constexpr maps!
+ *
+ * \tparam Key the type of the keys, must provide an overloaded `operator==`.
+ * \tparam Value the type of the values.
+ * \tparam ValueCmp the predicate used to lookup values from keys.
+ * \tparam size the amount of key-value pairs.
+ *
+ * \since 5.0.0
+ *
+ * \headerfile static_bimap.hpp
+ */
+template <typename Key, typename Value, typename ValueCmp, std::size_t size>
+class static_bimap final
+{
+  using pair_type = std::pair<Key, Value>;
+  using storage_type = std::array<pair_type, size>;
+
+ public:
+  storage_type data;
+
+  constexpr auto find(const Key& key) const -> const Value&
+  {
+    const auto it =
+        std::find_if(data.begin(), data.end(), [&](const pair_type& pair) {
+          return pair.first == key;
+        });
+
+    if (it != data.end())
+    {
+      return it->second;
+    }
+    else
+    {
+      throw cen_error{"Failed to find element in static map!"};
+    }
+  }
+
+  constexpr auto key_from(const Value& value) const -> const Key&
+  {
+    const auto it =
+        std::find_if(data.begin(), data.end(), [&](const pair_type& pair) {
+          ValueCmp predicate;
+          return predicate(pair.second, value);
+        });
+
+    if (it != data.end())
+    {
+      return it->first;
+    }
+    else
+    {
+      throw cen_error{"Failed to find key in static map!"};
+    }
+  }
+};
+
+}  // namespace cen::detail
+/// \endcond
+
+#endif  // CENTURION_DETAIL_STATIC_BIMAP_HEADER
+
+
+/// \cond FALSE
+namespace cen::detail {
+
+template <typename Key, std::size_t size>
+using string_map = static_bimap<Key, czstring, czstring_compare, size>;
+
+template <typename Derived, typename Arg>
+class crtp_hint
+{
+ public:
+  template <typename T>
+  [[nodiscard]] constexpr static auto valid_arg() noexcept -> bool
+  {
+    return std::is_same_v<T, Arg>;
+  }
+
+  [[nodiscard]] constexpr static auto name() noexcept -> czstring
+  {
+    return Derived::name();
+  }
+
+  [[nodiscard]] static auto value() noexcept -> std::optional<Arg>
+  {
+    return Derived::current_value();
+  }
+
+  [[nodiscard]] static auto to_string(Arg value) -> std::string
+  {
+    return std::to_string(value);
+  }
+};
+
+// A hint class that only accepts booleans
+template <typename Hint>
+class bool_hint : public crtp_hint<bool_hint<Hint>, bool>
+{
+ public:
+  template <typename T>
+  [[nodiscard]] constexpr static auto valid_arg() noexcept -> bool
+  {
+    return std::is_same_v<T, bool>;
+  }
+
+  [[nodiscard]] static auto current_value() noexcept -> std::optional<bool>
+  {
+    return static_cast<bool>(SDL_GetHintBoolean(Hint::name(), SDL_FALSE));
+  }
+
+  [[nodiscard]] static auto to_string(const bool value) -> std::string
+  {
+    return value ? "1" : "0";
+  }
+};
+
+// A hint class that only accepts strings
+template <typename Hint>
+class string_hint : public crtp_hint<string_hint<Hint>, czstring>
+{
+ public:
+  template <typename T>
+  [[nodiscard]] constexpr static auto valid_arg() noexcept -> bool
+  {
+    return std::is_convertible_v<T, czstring>;
+  }
+
+  [[nodiscard]] static auto current_value() noexcept -> std::optional<czstring>
+  {
+    const czstring value = SDL_GetHint(Hint::name());
+    if (!value)
+    {
+      return std::nullopt;
+    }
+    else
+    {
+      return value;
+    }
+  }
+
+  [[nodiscard]] static auto to_string(const czstring value) -> std::string
+  {
+    return value;
+  }
+};
+
+// A hint class that only accepts integers
+template <typename Hint>
+class int_hint : public crtp_hint<int_hint<Hint>, int>
+{
+ public:
+  template <typename T>
+  [[nodiscard]] constexpr static auto valid_arg() noexcept -> bool
+  {
+    return std::is_same_v<T, int>;
+  }
+
+  [[nodiscard]] static auto current_value() noexcept -> std::optional<int>
+  {
+    const czstring value = SDL_GetHint(Hint::name());
+    if (!value)
+    {
+      return std::nullopt;
+    }
+    else
+    {
+      return std::stoi(value);
+    }
+  }
+};
+
+// A hint class that only accepts unsigned integers
+template <typename Hint>
+class unsigned_int_hint : public crtp_hint<int_hint<Hint>, unsigned int>
+{
+ public:
+  template <typename T>
+  [[nodiscard]] constexpr static auto valid_arg() noexcept -> bool
+  {
+    return std::is_same_v<T, unsigned int>;
+  }
+
+  [[nodiscard]] static auto current_value() noexcept
+      -> std::optional<unsigned int>
+  {
+    const czstring value = SDL_GetHint(Hint::name());
+    if (!value)
+    {
+      return std::nullopt;
+    }
+    else
+    {
+      return static_cast<unsigned int>(std::stoul(value));
+    }
+  }
+};
+
+// A hint class that only accepts floats
+template <typename Hint>
+class float_hint : public crtp_hint<float_hint<Hint>, float>
+{
+ public:
+  template <typename T>
+  [[nodiscard]] constexpr static auto valid_arg() noexcept -> bool
+  {
+    return std::is_same_v<T, float>;
+  }
+
+  [[nodiscard]] static auto current_value() noexcept -> std::optional<float>
+  {
+    const czstring value = SDL_GetHint(Hint::name());
+    if (!value)
+    {
+      return std::nullopt;
+    }
+    else
+    {
+      return std::stof(value);
+    }
+  }
+};
+
+}  // namespace cen::detail
+/// \endcond
+
+#endif  // CENTURION_DETAIL_HINTS_IMPL_HEADER
+
+// #include "centurion/detail/max.hpp"
+#ifndef CENTURION_DETAIL_MAX_HEADER
+#define CENTURION_DETAIL_MAX_HEADER
+
+/// \cond FALSE
+namespace cen::detail {
+
+// clang-format off
+
+template <typename T>
+[[nodiscard]] constexpr auto max(const T& left, const T& right)
+    noexcept(noexcept(left < right)) -> T
+{
+  return (left < right) ? right : left;
+}
+
+// clang-format on
+
+}  // namespace cen::detail
+/// \endcond
+
+#endif  // CENTURION_DETAIL_MAX_HEADER
+
+// #include "centurion/detail/min.hpp"
+#ifndef CENTURION_DETAIL_MIN_HEADER
+#define CENTURION_DETAIL_MIN_HEADER
+
+/// \cond FALSE
+namespace cen::detail {
+
+// clang-format off
+
+template <typename T>
+[[nodiscard]] constexpr auto min(const T& left, const T& right)
+    noexcept(noexcept(left < right)) -> T
+{
+  return (left < right) ? left : right;
+}
+
+// clang-format on
+
+}  // namespace cen::detail
+/// \endcond
+
+#endif  // CENTURION_DETAIL_MIN_HEADER
+
+// #include "centurion/detail/owner_handle_api.hpp"
+#ifndef CENTURION_DETAIL_OWNER_HANDLE_API_HEADER
+#define CENTURION_DETAIL_OWNER_HANDLE_API_HEADER
+
+#include <cassert>      // assert
+#include <memory>       // unique_ptr
+#include <type_traits>  // enable_if_t, is_same_v, true_type, false_type
+
+// #include "../misc/exception.hpp"
+
+
+/// \cond FALSE
+namespace cen::detail {
+
+using owning_type = std::true_type;
+using handle_type = std::false_type;
+
+template <typename T>
+using is_owner = std::enable_if_t<std::is_same_v<T, owning_type>, int>;
+
+template <typename T>
+using is_handle = std::enable_if_t<std::is_same_v<T, handle_type>, int>;
+
+template <typename T>
+[[nodiscard]] constexpr auto is_owning() noexcept -> bool
+{
+  return std::is_same_v<T, owning_type>;
+}
+
+template <typename B, typename Type, typename Deleter>
+class pointer_manager final
+{
+  using managed_ptr = std::unique_ptr<Type, Deleter>;
+  using raw_ptr = Type*;
+  using pointer_type = std::conditional_t<B::value, managed_ptr, raw_ptr>;
+
+ public:
+  pointer_manager() noexcept = default;
+
+  explicit pointer_manager(Type* ptr) noexcept : m_ptr{ptr}
+  {}
+
+  template <typename BB = B, is_owner<BB> = 0>
+  void reset(Type* ptr) noexcept
+  {
+    m_ptr.reset(ptr);
+  }
+
+  auto operator->() noexcept -> Type*
+  {
+    return get();
+  }
+
+  auto operator->() const noexcept -> const Type*
+  {
+    return get();
+  }
+
+  auto operator*() noexcept -> Type&
+  {
+    assert(m_ptr);
+    return *m_ptr;
+  }
+
+  auto operator*() const noexcept -> const Type&
+  {
+    assert(m_ptr);
+    return *m_ptr;
+  }
+
+  explicit operator bool() const noexcept
+  {
+    return m_ptr != nullptr;
+  }
+
+  /*implicit*/ operator Type*() const noexcept
+  {
+    return get();
+  }
+
+  template <typename BB = B, is_owner<BB> = 0>
+  [[nodiscard]] auto release() noexcept -> Type*
+  {
+    return m_ptr.release();
+  }
+
+  [[nodiscard]] auto get() const noexcept -> Type*
+  {
+    if constexpr (B::value)
+    {
+      return m_ptr.get();
+    }
+    else
+    {
+      return m_ptr;
+    }
+  }
+
+ private:
+  pointer_type m_ptr{};
+};
+
+}  // namespace cen::detail
+/// \endcond
+
+#endif  // CENTURION_DETAIL_OWNER_HANDLE_API_HEADER
+
+// #include "centurion/detail/sdl_deleter.hpp"
+#ifndef CENTURION_DETAIL_SDL_DELETER_HEADER
+#define CENTURION_DETAIL_SDL_DELETER_HEADER
+
+#include <SDL.h>
+
+/// \cond FALSE
+namespace cen::detail {
+
+template <typename T>
+struct sdl_deleter final
+{
+  void operator()(T* ptr) noexcept
+  {
+    SDL_free(ptr);
+  }
+};
+
+}  // namespace cen::detail
+/// \endcond
+
+#endif  // CENTURION_DETAIL_SDL_DELETER_HEADER
+
+// #include "centurion/detail/sdl_version_at_least.hpp"
+#ifndef CENTURION_DETAIL_SDL_VERSION_AT_LEAST
+#define CENTURION_DETAIL_SDL_VERSION_AT_LEAST
+
+#include <SDL.h>
+
+// #include "../core/version.hpp"
+#ifndef CENTURION_VERSION_HEADER
+#define CENTURION_VERSION_HEADER
+
+#include <SDL.h>
+#include <SDL_image.h>
+#include <SDL_mixer.h>
+#include <SDL_ttf.h>
+
+#include <cassert>  // assert
+
+/// \addtogroup core
+/// \{
+
+/**
+ * \def CENTURION_VERSION_MAJOR
+ *
+ * \brief Expands into the current major version of the library.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_VERSION_MAJOR 6
+
+/**
+ * \def CENTURION_VERSION_MINOR
+ *
+ * \brief Expands into the current minor version of the library.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_VERSION_MINOR 0
+
+/**
+ * \def CENTURION_VERSION_PATCH
+ *
+ * \brief Expands into the current patch version of the library.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_VERSION_PATCH 0
+
+#ifdef CENTURION___DOXYGEN
+
+#define CENTURION_MAKE_VERSION_NUMBER
+#define CENTURION_VERSION_NUMBER
+#define CENTURION_VERSION_AT_LEAST
+
+#endif  // CENTURION___DOXYGEN
+
+/**
+ * \def CENTURION_MAKE_VERSION_NUMBER
+ *
+ * \brief Helper macro for creating version numbers from a set of
+ * major/minor/patch numbers.
+ *
+ * \details For example, if the version is 8.4.2, the resulting version number
+ * would be 8402.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_MAKE_VERSION_NUMBER(x, y, z) (((x)*1'000) + ((y)*100) + (z))
+
+/**
+ * \def CENTURION_VERSION_NUMBER
+ *
+ * \brief Expands into a version number based on the current Centurion version.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_VERSION_NUMBER                         \
+  CENTURION_MAKE_VERSION_NUMBER(CENTURION_VERSION_MAJOR, \
+                                CENTURION_VERSION_MINOR, \
+                                CENTURION_VERSION_PATCH)
+
+/**
+ * \def CENTURION_VERSION_AT_LEAST
+ *
+ * \brief This macro is intended to be used for conditional compilation, based
+ * on the Centurion version.
+ *
+ * \details This macro is used in the same way as the `SDL_VERSION_ATLEAST`,
+ * where you use it as the condition with `#if` statements.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_VERSION_AT_LEAST(x, y, z) \
+  CENTURION_VERSION_NUMBER >= CENTURION_MAKE_VERSION_NUMBER(x, y, z)
+
+namespace cen {
+
+/// \name Centurion version queries
+/// \{
+
+/**
+ * \struct version
+ *
+ * \brief Represents a set of major/minor/patch version numbers.
+ *
+ * \details The members of this struct are default-initialized to the current
+ * Centurion version values.
+ *
+ * \version 6.0.0
+ *
+ * \headerfile version.hpp
+ */
+struct version final
+{
+  int major{CENTURION_VERSION_MAJOR};
+  int minor{CENTURION_VERSION_MINOR};
+  int patch{CENTURION_VERSION_PATCH};
+};
+
+/**
+ * \brief Indicates whether or not the current Centurion version is at least
+ * equal to the specified version.
+ *
+ * \param major the major version value.
+ * \param minor the minor version value.
+ * \param patch the patch version value.
+ *
+ * \return `true` if the version of Centurion is at least the specified version;
+ * `false` otherwise.
+ *
+ * \see `CENTURION_VERSION_AT_LEAST`
+ *
+ * \since 6.0.0
+ */
+[[nodiscard]] constexpr auto version_at_least(const int major,
+                                              const int minor,
+                                              const int patch) noexcept -> bool
+{
+  return CENTURION_VERSION_AT_LEAST(major, minor, patch);
+}
+
+/// \} End of centurion version queries
+
+/// \name SDL version queries
+/// \{
+
+/**
+ * \brief Returns the version of SDL2 that is linked against the program.
+ *
+ * \note The linked version isn't necessarily the same as the version of SDL
+ * that the program was compiled against.
+ *
+ * \return the linked version of SDL2.
+ *
+ * \since 5.2.0
+ */
+[[nodiscard]] inline auto sdl_linked_version() noexcept -> SDL_version
+{
+  SDL_version version{};
+  SDL_GetVersion(&version);
+  return version;
+}
+
+/**
+ * \brief Returns the compile-time version of SDL2 that is being used.
+ *
+ * \return the compile-time version of SDL2 that is being used.
+ *
+ * \since 5.1.0
+ */
+[[nodiscard]] constexpr auto sdl_version() noexcept -> SDL_version
+{
+  return {SDL_MAJOR_VERSION, SDL_MINOR_VERSION, SDL_PATCHLEVEL};
+}
+
+/**
+ * \brief Returns the version of SDL2_image that is linked against the program.
+ *
+ * \note The linked version isn't necessarily the same as the version of
+ * SDL2_image that the program was compiled against.
+ *
+ * \return the linked version of SDL2_image.
+ *
+ * \since 6.0.0
+ */
+[[nodiscard]] inline auto sdl_image_linked_version() noexcept -> SDL_version
+{
+  const auto* version = IMG_Linked_Version();
+  assert(version);  // Sanity check
+  return *version;
+}
+
+/**
+ * \brief Returns the compile-time version of SDL2_image that is being used.
+ *
+ * \return the compile-time version of SDL2_image that is being used.
+ *
+ * \since 5.1.0
+ */
+[[nodiscard]] constexpr auto sdl_image_version() noexcept -> SDL_version
+{
+  return {SDL_IMAGE_MAJOR_VERSION,
+          SDL_IMAGE_MINOR_VERSION,
+          SDL_IMAGE_PATCHLEVEL};
+}
+
+/**
+ * \brief Returns the version of SDL2_mixer that is linked against the program.
+ *
+ * \note The linked version isn't necessarily the same as the version of
+ * SDL2_mixer that the program was compiled against.
+ *
+ * \return the linked version of SDL2_mixer.
+ *
+ * \since 6.0.0
+ */
+[[nodiscard]] inline auto sdl_mixer_linked_version() noexcept -> SDL_version
+{
+  const auto* version = Mix_Linked_Version();
+  assert(version);  // Sanity check
+  return *version;
+}
+
+/**
+ * \brief Returns the compile-time version of SDL2_mixer that is being used.
+ *
+ * \return the compile-time version of SDL2_mixer that is being used.
+ *
+ * \since 5.1.0
+ */
+[[nodiscard]] constexpr auto sdl_mixer_version() noexcept -> SDL_version
+{
+  return {SDL_MIXER_MAJOR_VERSION,
+          SDL_MIXER_MINOR_VERSION,
+          SDL_MIXER_PATCHLEVEL};
+}
+
+/**
+ * \brief Returns the version of SDL2_ttf that is linked against the program.
+ *
+ * \note The linked version isn't necessarily the same as the version of
+ * SDL2_ttf that the program was compiled against.
+ *
+ * \return the linked version of SDL2_ttf.
+ *
+ * \since 6.0.0
+ */
+[[nodiscard]] inline auto sdl_ttf_linked_version() noexcept -> SDL_version
+{
+  const auto* version = TTF_Linked_Version();
+  assert(version);  // Sanity check
+  return *version;
+}
+
+/**
+ * \brief Returns the compile-time version of SDL2_ttf that is being used.
+ *
+ * \return the compile-time version of SDL2_ttf that is being used.
+ *
+ * \since 5.1.0
+ */
+[[nodiscard]] constexpr auto sdl_ttf_version() noexcept -> SDL_version
+{
+  return {SDL_TTF_MAJOR_VERSION, SDL_TTF_MINOR_VERSION, SDL_TTF_PATCHLEVEL};
+}
+
+/// \} End of SDL version queries
+
+}  // namespace cen
+
+/// \} End of group core
+
+#endif  // CENTURION_VERSION_HEADER
+
+
+/// \cond FALSE
+namespace cen::detail {
+
+[[nodiscard]] constexpr auto sdl_version_at_least(const int major,
+                                                  const int minor,
+                                                  const int patch) noexcept
+    -> bool
+{
+  return SDL_COMPILEDVERSION >= SDL_VERSIONNUM(major, minor, patch);
+}
+
+}  // namespace cen::detail
+/// \endcond
+
+#endif  // CENTURION_DETAIL_SDL_VERSION_AT_LEAST
+
+// #include "centurion/detail/stack_resource.hpp"
+#ifndef CENTURION_DETAIL_STACK_RESOURCE_HEADER
+#define CENTURION_DETAIL_STACK_RESOURCE_HEADER
+
+#ifdef CENTURION_HAS_STD_MEMORY_RESOURCE
+
+#include <array>            // array
+#include <cstddef>          // byte, size_t
+#include <memory_resource>  // memory_resource, monotonic_buffer_resource
+
+/// \cond FALSE
+namespace cen::detail {
+
+template <std::size_t bufferSize>
+class stack_resource final
+{
+ public:
+  stack_resource() : m_buffer{}, m_pool{m_buffer.data(), sizeof m_buffer}
+  {}
+
+  [[nodiscard]] auto get() noexcept -> std::pmr::memory_resource*
+  {
+    return &m_pool;
+  }
+
+ private:
+  std::array<std::byte, bufferSize> m_buffer;
+  std::pmr::monotonic_buffer_resource m_pool;
+};
+
+}  // namespace cen::detail
+/// \endcond
+
+#endif  // CENTURION_HAS_STD_MEMORY_RESOURCE
+#endif  // CENTURION_DETAIL_STACK_RESOURCE_HEADER
+
+// #include "centurion/detail/static_bimap.hpp"
+#ifndef CENTURION_DETAIL_STATIC_BIMAP_HEADER
+#define CENTURION_DETAIL_STATIC_BIMAP_HEADER
+
+#include <algorithm>  // find_if
+#include <array>      // array
+#include <utility>    // pair
+
+// #include "../misc/exception.hpp"
+
+
+/// \cond FALSE
+namespace cen::detail {
+
+/**
+ * \class static_bimap
+ *
+ * \brief A bidirectional associative container for when keys and values are
+ * known at compile-time.
+ *
+ * \note This class is only meant to be used in constexpr contexts.
+ *
+ * \remarks This class was inspired by Jason Turners C++ Weekly video on
+ * constexpr maps!
+ *
+ * \tparam Key the type of the keys, must provide an overloaded `operator==`.
+ * \tparam Value the type of the values.
+ * \tparam ValueCmp the predicate used to lookup values from keys.
+ * \tparam size the amount of key-value pairs.
+ *
+ * \since 5.0.0
+ *
+ * \headerfile static_bimap.hpp
+ */
+template <typename Key, typename Value, typename ValueCmp, std::size_t size>
+class static_bimap final
+{
+  using pair_type = std::pair<Key, Value>;
+  using storage_type = std::array<pair_type, size>;
+
+ public:
+  storage_type data;
+
+  constexpr auto find(const Key& key) const -> const Value&
+  {
+    const auto it =
+        std::find_if(data.begin(), data.end(), [&](const pair_type& pair) {
+          return pair.first == key;
+        });
+
+    if (it != data.end())
+    {
+      return it->second;
+    }
+    else
+    {
+      throw cen_error{"Failed to find element in static map!"};
+    }
+  }
+
+  constexpr auto key_from(const Value& value) const -> const Key&
+  {
+    const auto it =
+        std::find_if(data.begin(), data.end(), [&](const pair_type& pair) {
+          ValueCmp predicate;
+          return predicate(pair.second, value);
+        });
+
+    if (it != data.end())
+    {
+      return it->first;
+    }
+    else
+    {
+      throw cen_error{"Failed to find key in static map!"};
+    }
+  }
+};
+
+}  // namespace cen::detail
+/// \endcond
+
+#endif  // CENTURION_DETAIL_STATIC_BIMAP_HEADER
+
+// #include "centurion/detail/to_string.hpp"
+#ifndef CENTURION_DETAIL_TO_STRING_HEADER
+#define CENTURION_DETAIL_TO_STRING_HEADER
+
+#include <array>         // array
+#include <charconv>      // to_chars
+#include <optional>      // optional, nullopt
+#include <string>        // string
+#include <system_error>  // errc
+#include <type_traits>   // is_floating_point_v
+
+// #include "../compiler/compiler.hpp"
+#ifndef CENTURION_COMPILER_HEADER
+#define CENTURION_COMPILER_HEADER
+
+#include <SDL.h>
+
+namespace cen {
+
+/// \addtogroup compiler
+/// \{
+
+/**
+ * \brief Indicates whether or not a "debug" build mode is active.
+ *
+ * \note This is intended to be use with `if constexpr`-statements instead of
+ * raw `#ifdef` conditional compilation, since the use of `if constexpr`
+ * prevents any branch to be ill-formed, which avoids code rot.
+ *
+ * \return `true` if a debug build mode is currently active; `false` otherwise.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto is_debug_build() noexcept -> bool
+{
+#ifndef NDEBUG
+  return true;
+#else
+  return false;
+#endif  // NDEBUG
+}
+
+/**
+ * \brief Indicates whether or not a "release" build mode is active.
+ *
+ * \note This is intended to be use with `if constexpr`-statements instead of
+ * raw `#ifdef` conditional compilation, since the use of `if constexpr`
+ * prevents any branch to be ill-formed, which avoids code rot.
+ *
+ * \return `true` if a release build mode is currently active; `false`
+ * otherwise.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto is_release_build() noexcept -> bool
+{
+  return !is_debug_build();
+}
+
+/**
+ * \brief Indicates whether or not the compiler is MSVC.
+ *
+ * \return `true` if MSVC is detected as the current compiler; `false`
+ * otherwise.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto on_msvc() noexcept -> bool
+{
+#ifdef _MSC_VER
+  return true;
+#else
+  return false;
+#endif  // _MSC_VER
+}
+
+/**
+ * \brief Indicates whether or not the compiler is GCC.
+ *
+ * \return `true` if GCC is detected as the current compiler; `false`
+ * otherwise.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto on_gcc() noexcept -> bool
+{
+#ifdef __GNUC__
+  return true;
+#else
+  return false;
+#endif  // __GNUC__
+}
+
+/**
+ * \brief Indicates whether or not the compiler is Clang.
+ *
+ * \return `true` if Clang is detected as the current compiler; `false`
+ * otherwise.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto on_clang() noexcept -> bool
+{
+#ifdef __clang__
+  return true;
+#else
+  return false;
+#endif  // __clang__
+}
+
+/**
+ * \brief Indicates whether or not the compiler is Emscripten.
+ *
+ * \return `true` if Emscripten is detected as the current compiler; `false`
+ * otherwise.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto on_emscripten() noexcept -> bool
+{
+#ifdef __EMSCRIPTEN__
+  return true;
+#else
+  return false;
+#endif  // __EMSCRIPTEN__
+}
+
+/**
+ * \brief Indicates whether or not the compiler is Intel C++.
+ *
+ * \return `true` if Intel C++ is detected as the current compiler; `false`
+ * otherwise.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto on_intel_cpp() noexcept -> bool
+{
+#ifdef __INTEL_COMPILER
+  return true;
+#else
+  return false;
+#endif  // __INTEL_COMPILER
+}
+
+/// \} End of compiler group
+
+}  // namespace cen
+
+#endif  // CENTURION_COMPILER_HEADER
+
+
+/// \cond FALSE
+namespace cen::detail {
+
+/**
+ * \brief Returns a string representation of an arithmetic value.
+ *
+ * \note This function is guaranteed to work for 32-bit integers and floats.
+ * You might have to increase the buffer size for larger types.
+ *
+ * \remark On GCC, this function simply calls `std::to_string`, since the
+ * `std::to_chars` implementation seems to be lacking at the time of writing.
+ *
+ * \tparam bufferSize the size of the stack buffer used, must be big enough
+ * to store the characters of the string representation of the value.
+ * \tparam T the type of the value that will be converted, must be arithmetic.
+ *
+ * \param value the value that will be converted.
+ *
+ * \return a string representation of the supplied value; `std::nullopt` if
+ * something goes wrong.
+ *
+ * \since 5.0.0
+ */
+template <std::size_t bufferSize = 16, typename T>
+[[nodiscard]] auto to_string(T value) -> std::optional<std::string>
+{
+  if constexpr (on_gcc() || (on_clang() && std::is_floating_point_v<T>))
+  {
+    return std::to_string(value);
+  }
+  else
+  {
+    std::array<char, bufferSize> buffer{};
+    const auto [ptr, err] =
+        std::to_chars(buffer.data(), buffer.data() + buffer.size(), value);
+
+    if (err == std::errc{})
+    {
+      return std::string{buffer.data(), ptr};
+    }
+    else
+    {
+      return std::nullopt;
+    }
+  }
+}
+
+}  // namespace cen::detail
+/// \endcond
+
+#endif  // CENTURION_DETAIL_TO_STRING_HEADER
+
+// #include "centurion/detail/tuple_type_index.hpp"
+#ifndef CENTURION_DETAIL_TUPLE_TYPE_INDEX_HEADER
+#define CENTURION_DETAIL_TUPLE_TYPE_INDEX_HEADER
+
+#include <cstddef>      // size_t
+#include <tuple>        // tuple
+#include <type_traits>  // is_same_v
+#include <utility>      // index_sequence, index_sequence_for
+
+/// \cond FALSE
+namespace cen::detail {
+
+template <typename Target, typename Tuple>
+class tuple_type_index;
+
+template <typename Target, typename... T>
+class tuple_type_index<Target, std::tuple<T...>>
+{
+  template <std::size_t... index>
+  constexpr static int find(std::index_sequence<index...>)
+  {
+    return -1 + ((std::is_same_v<Target, T> ? index + 1 : 0) + ...);
+  }
+
+ public:
+  inline constexpr static auto value = find(std::index_sequence_for<T...>{});
+};
+
+template <typename Target, typename... T>
+inline constexpr int tuple_type_index_v = tuple_type_index<Target, T...>::value;
+
+}  // namespace cen::detail
+/// \endcond
+
+#endif  // CENTURION_DETAIL_TUPLE_TYPE_INDEX_HEADER
+
+// #include "centurion/events/audio_device_event.hpp"
+#ifndef CENTURION_AUDIO_DEVICE_EVENT_HEADER
+#define CENTURION_AUDIO_DEVICE_EVENT_HEADER
+
+#include <SDL.h>
+
+// #include "../misc/integers.hpp"
+#ifndef CENTURION_INTEGERS_HEADER
+#define CENTURION_INTEGERS_HEADER
+
+#include <SDL.h>
+
+namespace cen {
+
+/// \addtogroup misc
+/// \{
+
+/// \name Integer aliases
+/// \{
+
+/**
+ * \typedef u64
+ *
+ * \brief Alias for a 64-bit unsigned integer.
+ */
+using u64 = Uint64;
+
+/**
+ * \typedef u32
+ *
+ * \brief Alias for a 32-bit unsigned integer.
+ */
+using u32 = Uint32;
+
+/**
+ * \typedef u16
+ *
+ * \brief Alias for a 16-bit unsigned integer.
+ */
+using u16 = Uint16;
+
+/**
+ * \typedef u8
+ *
+ * \brief Alias for an 8-bit unsigned integer.
+ */
+using u8 = Uint8;
+
+/**
+ * \typedef i64
+ *
+ * \brief Alias for a 64-bit signed integer.
+ */
+using i64 = Sint64;
+
+/**
+ * \typedef i32
+ *
+ * \brief Alias for a 32-bit signed integer.
+ */
+using i32 = Sint32;
+
+/**
+ * \typedef i16
+ *
+ * \brief Alias for a 16-bit signed integer.
+ */
+using i16 = Sint16;
+
+/**
+ * \typedef i8
+ *
+ * \brief Alias for an 8-bit signed integer.
+ */
+using i8 = Sint8;
+
+/// \} End of integer aliases
+
+// clang-format off
+
+/**
+ * \brief Obtains the size of a container as an `int`.
+ *
+ * \tparam T a "container" that provides a `size()` member function.
+ *
+ * \param container the container to query the size of.
+ *
+ * \return the size of the container as an `int` value.
+ *
+ * \since 5.3.0
+ */
+template <typename T>
+[[nodiscard]] constexpr auto isize(const T& container) noexcept(noexcept(container.size()))
+    -> int
+{
+  return static_cast<int>(container.size());
+}
+
+// clang-format on
+
+namespace literals {
+
+/**
+ * \brief Creates an 8-bit unsigned integer.
+ *
+ * \param value the value that will be converted.
+ *
+ * \return an 8-bit unsigned integer.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto operator""_u8(unsigned long long value) noexcept
+    -> u8
+{
+  return static_cast<u8>(value);
+}
+
+/**
+ * \brief Creates a 16-bit unsigned integer.
+ *
+ * \param value the value that will be converted.
+ *
+ * \return a 16-bit unsigned integer.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto operator""_u16(unsigned long long value) noexcept
+    -> u16
+{
+  return static_cast<u16>(value);
+}
+
+/**
+ * \brief Creates a 32-bit unsigned integer.
+ *
+ * \param value the value that will be converted.
+ *
+ * \return a 32-bit unsigned integer.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto operator""_u32(unsigned long long value) noexcept
+    -> u32
+{
+  return static_cast<u32>(value);
+}
+
+/**
+ * \brief Creates a 64-bit unsigned integer.
+ *
+ * \param value the value that will be converted.
+ *
+ * \return a 64-bit unsigned integer.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto operator""_u64(unsigned long long value) noexcept
+    -> u64
+{
+  return static_cast<u64>(value);
+}
+
+/**
+ * \brief Creates an 8-bit signed integer.
+ *
+ * \param value the value that will be converted.
+ *
+ * \return an 8-bit signed integer.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto operator""_i8(unsigned long long value) noexcept
+    -> i8
+{
+  return static_cast<i8>(value);
+}
+
+/**
+ * \brief Creates a 16-bit signed integer.
+ *
+ * \param value the value that will be converted.
+ *
+ * \return a 16-bit signed integer.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto operator""_i16(unsigned long long value) noexcept
+    -> i16
+{
+  return static_cast<i16>(value);
+}
+
+/**
+ * \brief Creates a 32-bit signed integer.
+ *
+ * \param value the value that will be converted.
+ *
+ * \return a 32-bit signed integer.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto operator""_i32(unsigned long long value) noexcept
+    -> i32
+{
+  return static_cast<i32>(value);
+}
+
+/**
+ * \brief Creates a 64-bit signed integer.
+ *
+ * \param value the value that will be converted.
+ *
+ * \return a 64-bit signed integer.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto operator""_i64(unsigned long long value) noexcept
+    -> i64
+{
+  return static_cast<i64>(value);
+}
+
+}  // namespace literals
+
+/// \} End of group misc
+
 }  // namespace cen
 
 #endif  // CENTURION_INTEGERS_HEADER
@@ -3613,6 +6669,237 @@ template <typename T>
 #include <string>       // string
 #include <type_traits>  // true_type, false_type
 
+// #include "../core/sdl_string.hpp"
+#ifndef CENTURION_SDL_STRING_HEADER
+#define CENTURION_SDL_STRING_HEADER
+
+#include <SDL.h>
+
+#include <memory>  // unique_ptr
+#include <string>  // string
+
+// #include "../detail/sdl_deleter.hpp"
+#ifndef CENTURION_DETAIL_SDL_DELETER_HEADER
+#define CENTURION_DETAIL_SDL_DELETER_HEADER
+
+#include <SDL.h>
+
+/// \cond FALSE
+namespace cen::detail {
+
+template <typename T>
+struct sdl_deleter final
+{
+  void operator()(T* ptr) noexcept
+  {
+    SDL_free(ptr);
+  }
+};
+
+}  // namespace cen::detail
+/// \endcond
+
+#endif  // CENTURION_DETAIL_SDL_DELETER_HEADER
+
+// #include "../misc/czstring.hpp"
+#ifndef CENTURION_CZSTRING_HEADER
+#define CENTURION_CZSTRING_HEADER
+
+// #include "not_null.hpp"
+#ifndef CENTURION_NOT_NULL_HEADER
+#define CENTURION_NOT_NULL_HEADER
+
+// #include "sfinae.hpp"
+#ifndef CENTURION_SFINAE_HEADER
+#define CENTURION_SFINAE_HEADER
+
+#include <type_traits>  // enable_if_t, is_same_v, is_integral_v, is_floating_point_v, ...
+
+namespace cen {
+
+/// \addtogroup misc
+/// \{
+
+// clang-format off
+
+template <typename T>
+using enable_if_number_t = std::enable_if_t<!std::is_same_v<T, bool> &&
+                                            (std::is_integral_v<T> ||
+                                             std::is_floating_point_v<T>), int>;
+
+// clang-format on
+
+template <typename T>
+using enable_if_pointer_v = std::enable_if_t<std::is_pointer_v<T>, int>;
+
+template <typename T, typename... Args>
+using enable_if_convertible_t =
+    std::enable_if_t<(std::is_convertible_v<T, Args> || ...), int>;
+
+/// \} End of group misc
+
+}  // namespace cen
+
+#endif  // CENTURION_SFINAE_HEADER
+
+
+namespace cen {
+
+/**
+ * \typedef not_null
+ *
+ * \ingroup misc
+ *
+ * \brief Tag used to indicate that a pointer cannot be null.
+ *
+ * \note This alias is equivalent to `T`, it is a no-op.
+ *
+ * \since 5.0.0
+ */
+template <typename T, enable_if_pointer_v<T> = 0>
+using not_null = T;
+
+}  // namespace cen
+
+#endif  // CENTURION_NOT_NULL_HEADER
+
+
+namespace cen {
+
+/// \addtogroup misc
+/// \{
+
+/**
+ * \typedef czstring
+ *
+ * \brief Alias for a const C-style null-terminated string.
+ */
+using czstring = const char*;
+
+/**
+ * \typedef zstring
+ *
+ * \brief Alias for a C-style null-terminated string.
+ */
+using zstring = char*;
+
+/// \} End of group misc
+
+}  // namespace cen
+
+#endif  // CENTURION_CZSTRING_HEADER
+
+// #include "../misc/owner.hpp"
+#ifndef CENTURION_OWNER_HEADER
+#define CENTURION_OWNER_HEADER
+
+// #include "sfinae.hpp"
+
+
+namespace cen {
+
+/**
+ * \typedef owner
+ *
+ * \ingroup misc
+ *
+ * \brief Tag used to denote ownership of raw pointers directly in code.
+ *
+ * \details If a function takes an `owner<T*>` as a parameter, then the
+ * function will claim ownership of that pointer. Subsequently, if a function
+ * returns an `owner<T*>`, then ownership is transferred to the caller.
+ */
+template <typename T, enable_if_pointer_v<T> = 0>
+using owner = T;
+
+}  // namespace cen
+
+#endif  // CENTURION_OWNER_HEADER
+
+namespace cen {
+
+/// \addtogroup core
+/// \{
+
+/**
+ * \class sdl_string
+ *
+ * \brief Represents a string obtained from SDL, usually a `char*` that has to
+ * be freed using `SDL_free`.
+ *
+ * \since 5.0.0
+ *
+ * \headerfile sdl_string.hpp
+ */
+class sdl_string final
+{
+ public:
+  /**
+   * \brief
+   *
+   * \param str the string that will be claimed, can be null.
+   *
+   * \since 5.0.0
+   */
+  explicit sdl_string(owner<zstring> str) noexcept : m_str{str}
+  {}
+
+  /**
+   * \brief Returns the internal string, which might be null.
+   *
+   * \return the internal string; `nullptr` if there is none.
+   *
+   * \since 5.0.0
+   */
+  [[nodiscard]] auto get() const noexcept -> czstring
+  {
+    return m_str.get();
+  }
+
+  /**
+   * \brief Returns a copy of the internal string.
+   *
+   * \details This function returns the empty string if the internal string
+   * is a null pointer.
+   *
+   * \return a copy of the internal string.
+   *
+   * \since 5.0.0
+   */
+  [[nodiscard]] auto copy() const -> std::string
+  {
+    if (m_str)
+    {
+      return std::string{get()};
+    }
+    else
+    {
+      return std::string{};
+    }
+  }
+
+  /**
+   * \brief Indicates whether or not the internal string is non-null.
+   *
+   * \return `true` if the internal string is non-null; `false` otherwise.
+   *
+   * \since 5.0.0
+   */
+  explicit operator bool() const noexcept
+  {
+    return m_str.operator bool();
+  }
+
+ private:
+  std::unique_ptr<char, detail::sdl_deleter<char>> m_str;
+};
+
+/// \} End of group core
+
+}  // namespace cen
+
+#endif  // CENTURION_SDL_STRING_HEADER
+
 // #include "../detail/address_of.hpp"
 #ifndef CENTURION_DETAIL_ADDRESS_OF_HEADER
 #define CENTURION_DETAIL_ADDRESS_OF_HEADER
@@ -3684,9 +6971,39 @@ template <typename T>
 #ifndef CENTURION_NOT_NULL_HEADER
 #define CENTURION_NOT_NULL_HEADER
 
-#include <SDL.h>
+// #include "sfinae.hpp"
+#ifndef CENTURION_SFINAE_HEADER
+#define CENTURION_SFINAE_HEADER
 
-#include <type_traits>  // enable_if_t, is_pointer_v
+#include <type_traits>  // enable_if_t, is_same_v, is_integral_v, is_floating_point_v, ...
+
+namespace cen {
+
+/// \addtogroup misc
+/// \{
+
+// clang-format off
+
+template <typename T>
+using enable_if_number_t = std::enable_if_t<!std::is_same_v<T, bool> &&
+                                            (std::is_integral_v<T> ||
+                                             std::is_floating_point_v<T>), int>;
+
+// clang-format on
+
+template <typename T>
+using enable_if_pointer_v = std::enable_if_t<std::is_pointer_v<T>, int>;
+
+template <typename T, typename... Args>
+using enable_if_convertible_t =
+    std::enable_if_t<(std::is_convertible_v<T, Args> || ...), int>;
+
+/// \} End of group misc
+
+}  // namespace cen
+
+#endif  // CENTURION_SFINAE_HEADER
+
 
 namespace cen {
 
@@ -3701,7 +7018,7 @@ namespace cen {
  *
  * \since 5.0.0
  */
-template <typename T, typename = std::enable_if_t<std::is_pointer_v<T>>>
+template <typename T, enable_if_pointer_v<T> = 0>
 using not_null = T;
 
 }  // namespace cen
@@ -3710,6 +7027,9 @@ using not_null = T;
 
 
 namespace cen {
+
+/// \addtogroup misc
+/// \{
 
 /**
  * \typedef czstring
@@ -3724,6 +7044,8 @@ using czstring = const char*;
  * \brief Alias for a C-style null-terminated string.
  */
 using zstring = char*;
+
+/// \} End of group misc
 
 }  // namespace cen
 
@@ -3909,10 +7231,10 @@ using owning_type = std::true_type;
 using handle_type = std::false_type;
 
 template <typename T>
-using is_owner = std::enable_if_t<std::is_same_v<T, owning_type>, bool>;
+using is_owner = std::enable_if_t<std::is_same_v<T, owning_type>, int>;
 
 template <typename T>
-using is_handle = std::enable_if_t<std::is_same_v<T, handle_type>, bool>;
+using is_handle = std::enable_if_t<std::is_same_v<T, handle_type>, int>;
 
 template <typename T>
 [[nodiscard]] constexpr auto is_owning() noexcept -> bool
@@ -3933,7 +7255,7 @@ class pointer_manager final
   explicit pointer_manager(Type* ptr) noexcept : m_ptr{ptr}
   {}
 
-  template <typename BB = B, is_owner<BB> = true>
+  template <typename BB = B, is_owner<BB> = 0>
   void reset(Type* ptr) noexcept
   {
     m_ptr.reset(ptr);
@@ -3971,7 +7293,7 @@ class pointer_manager final
     return get();
   }
 
-  template <typename BB = B, is_owner<BB> = true>
+  template <typename BB = B, is_owner<BB> = 0>
   [[nodiscard]] auto release() noexcept -> Type*
   {
     return m_ptr.release();
@@ -3998,6 +7320,296 @@ class pointer_manager final
 
 #endif  // CENTURION_DETAIL_OWNER_HANDLE_API_HEADER
 
+// #include "../detail/sdl_version_at_least.hpp"
+#ifndef CENTURION_DETAIL_SDL_VERSION_AT_LEAST
+#define CENTURION_DETAIL_SDL_VERSION_AT_LEAST
+
+#include <SDL.h>
+
+// #include "../core/version.hpp"
+#ifndef CENTURION_VERSION_HEADER
+#define CENTURION_VERSION_HEADER
+
+#include <SDL.h>
+#include <SDL_image.h>
+#include <SDL_mixer.h>
+#include <SDL_ttf.h>
+
+#include <cassert>  // assert
+
+/// \addtogroup core
+/// \{
+
+/**
+ * \def CENTURION_VERSION_MAJOR
+ *
+ * \brief Expands into the current major version of the library.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_VERSION_MAJOR 6
+
+/**
+ * \def CENTURION_VERSION_MINOR
+ *
+ * \brief Expands into the current minor version of the library.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_VERSION_MINOR 0
+
+/**
+ * \def CENTURION_VERSION_PATCH
+ *
+ * \brief Expands into the current patch version of the library.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_VERSION_PATCH 0
+
+#ifdef CENTURION___DOXYGEN
+
+#define CENTURION_MAKE_VERSION_NUMBER
+#define CENTURION_VERSION_NUMBER
+#define CENTURION_VERSION_AT_LEAST
+
+#endif  // CENTURION___DOXYGEN
+
+/**
+ * \def CENTURION_MAKE_VERSION_NUMBER
+ *
+ * \brief Helper macro for creating version numbers from a set of
+ * major/minor/patch numbers.
+ *
+ * \details For example, if the version is 8.4.2, the resulting version number
+ * would be 8402.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_MAKE_VERSION_NUMBER(x, y, z) (((x)*1'000) + ((y)*100) + (z))
+
+/**
+ * \def CENTURION_VERSION_NUMBER
+ *
+ * \brief Expands into a version number based on the current Centurion version.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_VERSION_NUMBER                         \
+  CENTURION_MAKE_VERSION_NUMBER(CENTURION_VERSION_MAJOR, \
+                                CENTURION_VERSION_MINOR, \
+                                CENTURION_VERSION_PATCH)
+
+/**
+ * \def CENTURION_VERSION_AT_LEAST
+ *
+ * \brief This macro is intended to be used for conditional compilation, based
+ * on the Centurion version.
+ *
+ * \details This macro is used in the same way as the `SDL_VERSION_ATLEAST`,
+ * where you use it as the condition with `#if` statements.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_VERSION_AT_LEAST(x, y, z) \
+  CENTURION_VERSION_NUMBER >= CENTURION_MAKE_VERSION_NUMBER(x, y, z)
+
+namespace cen {
+
+/// \name Centurion version queries
+/// \{
+
+/**
+ * \struct version
+ *
+ * \brief Represents a set of major/minor/patch version numbers.
+ *
+ * \details The members of this struct are default-initialized to the current
+ * Centurion version values.
+ *
+ * \version 6.0.0
+ *
+ * \headerfile version.hpp
+ */
+struct version final
+{
+  int major{CENTURION_VERSION_MAJOR};
+  int minor{CENTURION_VERSION_MINOR};
+  int patch{CENTURION_VERSION_PATCH};
+};
+
+/**
+ * \brief Indicates whether or not the current Centurion version is at least
+ * equal to the specified version.
+ *
+ * \param major the major version value.
+ * \param minor the minor version value.
+ * \param patch the patch version value.
+ *
+ * \return `true` if the version of Centurion is at least the specified version;
+ * `false` otherwise.
+ *
+ * \see `CENTURION_VERSION_AT_LEAST`
+ *
+ * \since 6.0.0
+ */
+[[nodiscard]] constexpr auto version_at_least(const int major,
+                                              const int minor,
+                                              const int patch) noexcept -> bool
+{
+  return CENTURION_VERSION_AT_LEAST(major, minor, patch);
+}
+
+/// \} End of centurion version queries
+
+/// \name SDL version queries
+/// \{
+
+/**
+ * \brief Returns the version of SDL2 that is linked against the program.
+ *
+ * \note The linked version isn't necessarily the same as the version of SDL
+ * that the program was compiled against.
+ *
+ * \return the linked version of SDL2.
+ *
+ * \since 5.2.0
+ */
+[[nodiscard]] inline auto sdl_linked_version() noexcept -> SDL_version
+{
+  SDL_version version{};
+  SDL_GetVersion(&version);
+  return version;
+}
+
+/**
+ * \brief Returns the compile-time version of SDL2 that is being used.
+ *
+ * \return the compile-time version of SDL2 that is being used.
+ *
+ * \since 5.1.0
+ */
+[[nodiscard]] constexpr auto sdl_version() noexcept -> SDL_version
+{
+  return {SDL_MAJOR_VERSION, SDL_MINOR_VERSION, SDL_PATCHLEVEL};
+}
+
+/**
+ * \brief Returns the version of SDL2_image that is linked against the program.
+ *
+ * \note The linked version isn't necessarily the same as the version of
+ * SDL2_image that the program was compiled against.
+ *
+ * \return the linked version of SDL2_image.
+ *
+ * \since 6.0.0
+ */
+[[nodiscard]] inline auto sdl_image_linked_version() noexcept -> SDL_version
+{
+  const auto* version = IMG_Linked_Version();
+  assert(version);  // Sanity check
+  return *version;
+}
+
+/**
+ * \brief Returns the compile-time version of SDL2_image that is being used.
+ *
+ * \return the compile-time version of SDL2_image that is being used.
+ *
+ * \since 5.1.0
+ */
+[[nodiscard]] constexpr auto sdl_image_version() noexcept -> SDL_version
+{
+  return {SDL_IMAGE_MAJOR_VERSION,
+          SDL_IMAGE_MINOR_VERSION,
+          SDL_IMAGE_PATCHLEVEL};
+}
+
+/**
+ * \brief Returns the version of SDL2_mixer that is linked against the program.
+ *
+ * \note The linked version isn't necessarily the same as the version of
+ * SDL2_mixer that the program was compiled against.
+ *
+ * \return the linked version of SDL2_mixer.
+ *
+ * \since 6.0.0
+ */
+[[nodiscard]] inline auto sdl_mixer_linked_version() noexcept -> SDL_version
+{
+  const auto* version = Mix_Linked_Version();
+  assert(version);  // Sanity check
+  return *version;
+}
+
+/**
+ * \brief Returns the compile-time version of SDL2_mixer that is being used.
+ *
+ * \return the compile-time version of SDL2_mixer that is being used.
+ *
+ * \since 5.1.0
+ */
+[[nodiscard]] constexpr auto sdl_mixer_version() noexcept -> SDL_version
+{
+  return {SDL_MIXER_MAJOR_VERSION,
+          SDL_MIXER_MINOR_VERSION,
+          SDL_MIXER_PATCHLEVEL};
+}
+
+/**
+ * \brief Returns the version of SDL2_ttf that is linked against the program.
+ *
+ * \note The linked version isn't necessarily the same as the version of
+ * SDL2_ttf that the program was compiled against.
+ *
+ * \return the linked version of SDL2_ttf.
+ *
+ * \since 6.0.0
+ */
+[[nodiscard]] inline auto sdl_ttf_linked_version() noexcept -> SDL_version
+{
+  const auto* version = TTF_Linked_Version();
+  assert(version);  // Sanity check
+  return *version;
+}
+
+/**
+ * \brief Returns the compile-time version of SDL2_ttf that is being used.
+ *
+ * \return the compile-time version of SDL2_ttf that is being used.
+ *
+ * \since 5.1.0
+ */
+[[nodiscard]] constexpr auto sdl_ttf_version() noexcept -> SDL_version
+{
+  return {SDL_TTF_MAJOR_VERSION, SDL_TTF_MINOR_VERSION, SDL_TTF_PATCHLEVEL};
+}
+
+/// \} End of SDL version queries
+
+}  // namespace cen
+
+/// \} End of group core
+
+#endif  // CENTURION_VERSION_HEADER
+
+
+/// \cond FALSE
+namespace cen::detail {
+
+[[nodiscard]] constexpr auto sdl_version_at_least(const int major,
+                                                  const int minor,
+                                                  const int patch) noexcept
+    -> bool
+{
+  return SDL_COMPILEDVERSION >= SDL_VERSIONNUM(major, minor, patch);
+}
+
+}  // namespace cen::detail
+/// \endcond
+
+#endif  // CENTURION_DETAIL_SDL_VERSION_AT_LEAST
+
 // #include "../misc/czstring.hpp"
 #ifndef CENTURION_CZSTRING_HEADER
 #define CENTURION_CZSTRING_HEADER
@@ -4006,9 +7618,39 @@ class pointer_manager final
 #ifndef CENTURION_NOT_NULL_HEADER
 #define CENTURION_NOT_NULL_HEADER
 
-#include <SDL.h>
+// #include "sfinae.hpp"
+#ifndef CENTURION_SFINAE_HEADER
+#define CENTURION_SFINAE_HEADER
 
-#include <type_traits>  // enable_if_t, is_pointer_v
+#include <type_traits>  // enable_if_t, is_same_v, is_integral_v, is_floating_point_v, ...
+
+namespace cen {
+
+/// \addtogroup misc
+/// \{
+
+// clang-format off
+
+template <typename T>
+using enable_if_number_t = std::enable_if_t<!std::is_same_v<T, bool> &&
+                                            (std::is_integral_v<T> ||
+                                             std::is_floating_point_v<T>), int>;
+
+// clang-format on
+
+template <typename T>
+using enable_if_pointer_v = std::enable_if_t<std::is_pointer_v<T>, int>;
+
+template <typename T, typename... Args>
+using enable_if_convertible_t =
+    std::enable_if_t<(std::is_convertible_v<T, Args> || ...), int>;
+
+/// \} End of group misc
+
+}  // namespace cen
+
+#endif  // CENTURION_SFINAE_HEADER
+
 
 namespace cen {
 
@@ -4023,7 +7665,7 @@ namespace cen {
  *
  * \since 5.0.0
  */
-template <typename T, typename = std::enable_if_t<std::is_pointer_v<T>>>
+template <typename T, enable_if_pointer_v<T> = 0>
 using not_null = T;
 
 }  // namespace cen
@@ -4032,6 +7674,9 @@ using not_null = T;
 
 
 namespace cen {
+
+/// \addtogroup misc
+/// \{
 
 /**
  * \typedef czstring
@@ -4046,6 +7691,8 @@ using czstring = const char*;
  * \brief Alias for a C-style null-terminated string.
  */
 using zstring = char*;
+
+/// \} End of group misc
 
 }  // namespace cen
 
@@ -4071,6 +7718,9 @@ using zstring = char*;
 
 namespace cen {
 
+/// \addtogroup misc
+/// \{
+
 /**
  * \typedef czstring
  *
@@ -4084,6 +7734,8 @@ using czstring = const char*;
  * \brief Alias for a C-style null-terminated string.
  */
 using zstring = char*;
+
+/// \} End of group misc
 
 }  // namespace cen
 
@@ -4269,6 +7921,9 @@ class mix_error final : public cen_error
 
 namespace cen {
 
+/// \addtogroup misc
+/// \{
+
 /// \name Integer aliases
 /// \{
 
@@ -4475,6 +8130,9 @@ namespace literals {
 }
 
 }  // namespace literals
+
+/// \} End of group misc
+
 }  // namespace cen
 
 #endif  // CENTURION_INTEGERS_HEADER
@@ -4483,9 +8141,8 @@ namespace literals {
 #ifndef CENTURION_NOT_NULL_HEADER
 #define CENTURION_NOT_NULL_HEADER
 
-#include <SDL.h>
+// #include "sfinae.hpp"
 
-#include <type_traits>  // enable_if_t, is_pointer_v
 
 namespace cen {
 
@@ -4500,7 +8157,7 @@ namespace cen {
  *
  * \since 5.0.0
  */
-template <typename T, typename = std::enable_if_t<std::is_pointer_v<T>>>
+template <typename T, enable_if_pointer_v<T> = 0>
 using not_null = T;
 
 }  // namespace cen
@@ -4522,6 +8179,9 @@ using not_null = T;
 
 namespace cen {
 
+/// \addtogroup misc
+/// \{
+
 /// \name Integer aliases
 /// \{
 
@@ -4728,6 +8388,9 @@ namespace literals {
 }
 
 }  // namespace literals
+
+/// \} End of group misc
+
 }  // namespace cen
 
 #endif  // CENTURION_INTEGERS_HEADER
@@ -4817,196 +8480,6 @@ constexpr auto operator"" _s(const unsigned long long int value) noexcept
 
 #endif  // CENTURION_TIME_HEADER
 
-// #include "../sdl_string.hpp"
-#ifndef CENTURION_SDL_STRING_HEADER
-#define CENTURION_SDL_STRING_HEADER
-
-#include <SDL.h>
-
-#include <memory>  // unique_ptr
-#include <string>  // string
-
-// #include "detail/sdl_deleter.hpp"
-#ifndef CENTURION_DETAIL_SDL_DELETER_HEADER
-#define CENTURION_DETAIL_SDL_DELETER_HEADER
-
-#include <SDL.h>
-
-/// \cond FALSE
-namespace cen::detail {
-
-template <typename T>
-struct sdl_deleter final
-{
-  void operator()(T* ptr) noexcept
-  {
-    SDL_free(ptr);
-  }
-};
-
-}  // namespace cen::detail
-/// \endcond
-
-#endif  // CENTURION_DETAIL_SDL_DELETER_HEADER
-
-// #include "misc/czstring.hpp"
-#ifndef CENTURION_CZSTRING_HEADER
-#define CENTURION_CZSTRING_HEADER
-
-// #include "not_null.hpp"
-#ifndef CENTURION_NOT_NULL_HEADER
-#define CENTURION_NOT_NULL_HEADER
-
-#include <SDL.h>
-
-#include <type_traits>  // enable_if_t, is_pointer_v
-
-namespace cen {
-
-/**
- * \typedef not_null
- *
- * \ingroup misc
- *
- * \brief Tag used to indicate that a pointer cannot be null.
- *
- * \note This alias is equivalent to `T`, it is a no-op.
- *
- * \since 5.0.0
- */
-template <typename T, typename = std::enable_if_t<std::is_pointer_v<T>>>
-using not_null = T;
-
-}  // namespace cen
-
-#endif  // CENTURION_NOT_NULL_HEADER
-
-
-namespace cen {
-
-/**
- * \typedef czstring
- *
- * \brief Alias for a const C-style null-terminated string.
- */
-using czstring = const char*;
-
-/**
- * \typedef zstring
- *
- * \brief Alias for a C-style null-terminated string.
- */
-using zstring = char*;
-
-}  // namespace cen
-
-#endif  // CENTURION_CZSTRING_HEADER
-
-// #include "misc/owner.hpp"
-#ifndef CENTURION_OWNER_HEADER
-#define CENTURION_OWNER_HEADER
-
-#include <type_traits>  // enable_if_t, is_pointer_v
-
-namespace cen {
-
-/**
- * \typedef owner
- *
- * \ingroup misc
- *
- * \brief Tag used to denote ownership of raw pointers directly in code.
- *
- * \details If a function takes an `owner<T*>` as a parameter, then the
- * function will claim ownership of that pointer. Subsequently, if a function
- * returns an `owner<T*>`, then ownership is transferred to the caller.
- */
-template <typename T, typename = std::enable_if_t<std::is_pointer_v<T>>>
-using owner = T;
-
-}  // namespace cen
-
-#endif  // CENTURION_OWNER_HEADER
-
-namespace cen {
-
-/**
- * \class sdl_string
- *
- * \brief Represents a string obtained from SDL, usually a `char*` that has to
- * be freed using `SDL_free`.
- *
- * \since 5.0.0
- *
- * \headerfile sdl_string.hpp
- */
-class sdl_string final
-{
- public:
-  /**
-   * \brief
-   *
-   * \param str the string that will be claimed, can be null.
-   *
-   * \since 5.0.0
-   */
-  explicit sdl_string(owner<zstring> str) noexcept : m_str{str}
-  {}
-
-  /**
-   * \brief Returns the internal string, which might be null.
-   *
-   * \return the internal string; `nullptr` if there is none.
-   *
-   * \since 5.0.0
-   */
-  [[nodiscard]] auto get() const noexcept -> czstring
-  {
-    return m_str.get();
-  }
-
-  /**
-   * \brief Returns a copy of the internal string.
-   *
-   * \details This function returns the empty string if the internal string
-   * is a null pointer.
-   *
-   * \return a copy of the internal string.
-   *
-   * \since 5.0.0
-   */
-  [[nodiscard]] auto copy() const -> std::string
-  {
-    if (m_str)
-    {
-      return std::string{get()};
-    }
-    else
-    {
-      return std::string{};
-    }
-  }
-
-  /**
-   * \brief Indicates whether or not the internal string is non-null.
-   *
-   * \return `true` if the internal string is non-null; `false` otherwise.
-   *
-   * \since 5.0.0
-   */
-  explicit operator bool() const noexcept
-  {
-    return m_str.operator bool();
-  }
-
- private:
-  std::unique_ptr<char, detail::sdl_deleter<char>> m_str;
-};
-
-}  // namespace cen
-
-#endif  // CENTURION_SDL_STRING_HEADER
-
 // #include "../video/color.hpp"
 #ifndef CENTURION_COLOR_HEADER
 #define CENTURION_COLOR_HEADER
@@ -5029,7 +8502,7 @@ class sdl_string final
 #include <system_error>  // errc
 #include <type_traits>   // is_floating_point_v
 
-// #include "../compiler.hpp"
+// #include "../compiler/compiler.hpp"
 #ifndef CENTURION_COMPILER_HEADER
 #define CENTURION_COMPILER_HEADER
 
@@ -5229,6 +8702,9 @@ template <std::size_t bufferSize = 16, typename T>
 
 namespace cen {
 
+/// \addtogroup misc
+/// \{
+
 /// \name Integer aliases
 /// \{
 
@@ -5435,6 +8911,9 @@ namespace literals {
 }
 
 }  // namespace literals
+
+/// \} End of group misc
+
 }  // namespace cen
 
 #endif  // CENTURION_INTEGERS_HEADER
@@ -5903,7 +9382,7 @@ class color final
    * component to obtain the blended color. The bias parameter is the "alpha"
    * for the interpolation, which determines how the input colors are blended.
    * For example, a bias of 0 or 1 will simply result in the first or second
-   * color being returned, respectively. Subsequently, a bias of 0.5 with blend
+   * color being returned, respectively. Subsequently, a bias of 0.5 will blend
    * the two colors evenly.
    *
    * \param a the first color.
@@ -6160,10 +9639,218 @@ enum class button_state
 
 #include <cassert>      // assert
 #include <optional>     // optional
+#include <ostream>      // ostream
 #include <string>       // string
 #include <type_traits>  // true_type, false_type, is_same_v
 
+// #include "../detail/address_of.hpp"
+
 // #include "../detail/owner_handle_api.hpp"
+
+// #include "../detail/sdl_version_at_least.hpp"
+
+// #include "../detail/to_string.hpp"
+#ifndef CENTURION_DETAIL_TO_STRING_HEADER
+#define CENTURION_DETAIL_TO_STRING_HEADER
+
+#include <array>         // array
+#include <charconv>      // to_chars
+#include <optional>      // optional, nullopt
+#include <string>        // string
+#include <system_error>  // errc
+#include <type_traits>   // is_floating_point_v
+
+// #include "../compiler/compiler.hpp"
+#ifndef CENTURION_COMPILER_HEADER
+#define CENTURION_COMPILER_HEADER
+
+#include <SDL.h>
+
+namespace cen {
+
+/// \addtogroup compiler
+/// \{
+
+/**
+ * \brief Indicates whether or not a "debug" build mode is active.
+ *
+ * \note This is intended to be use with `if constexpr`-statements instead of
+ * raw `#ifdef` conditional compilation, since the use of `if constexpr`
+ * prevents any branch to be ill-formed, which avoids code rot.
+ *
+ * \return `true` if a debug build mode is currently active; `false` otherwise.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto is_debug_build() noexcept -> bool
+{
+#ifndef NDEBUG
+  return true;
+#else
+  return false;
+#endif  // NDEBUG
+}
+
+/**
+ * \brief Indicates whether or not a "release" build mode is active.
+ *
+ * \note This is intended to be use with `if constexpr`-statements instead of
+ * raw `#ifdef` conditional compilation, since the use of `if constexpr`
+ * prevents any branch to be ill-formed, which avoids code rot.
+ *
+ * \return `true` if a release build mode is currently active; `false`
+ * otherwise.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto is_release_build() noexcept -> bool
+{
+  return !is_debug_build();
+}
+
+/**
+ * \brief Indicates whether or not the compiler is MSVC.
+ *
+ * \return `true` if MSVC is detected as the current compiler; `false`
+ * otherwise.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto on_msvc() noexcept -> bool
+{
+#ifdef _MSC_VER
+  return true;
+#else
+  return false;
+#endif  // _MSC_VER
+}
+
+/**
+ * \brief Indicates whether or not the compiler is GCC.
+ *
+ * \return `true` if GCC is detected as the current compiler; `false`
+ * otherwise.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto on_gcc() noexcept -> bool
+{
+#ifdef __GNUC__
+  return true;
+#else
+  return false;
+#endif  // __GNUC__
+}
+
+/**
+ * \brief Indicates whether or not the compiler is Clang.
+ *
+ * \return `true` if Clang is detected as the current compiler; `false`
+ * otherwise.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto on_clang() noexcept -> bool
+{
+#ifdef __clang__
+  return true;
+#else
+  return false;
+#endif  // __clang__
+}
+
+/**
+ * \brief Indicates whether or not the compiler is Emscripten.
+ *
+ * \return `true` if Emscripten is detected as the current compiler; `false`
+ * otherwise.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto on_emscripten() noexcept -> bool
+{
+#ifdef __EMSCRIPTEN__
+  return true;
+#else
+  return false;
+#endif  // __EMSCRIPTEN__
+}
+
+/**
+ * \brief Indicates whether or not the compiler is Intel C++.
+ *
+ * \return `true` if Intel C++ is detected as the current compiler; `false`
+ * otherwise.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto on_intel_cpp() noexcept -> bool
+{
+#ifdef __INTEL_COMPILER
+  return true;
+#else
+  return false;
+#endif  // __INTEL_COMPILER
+}
+
+/// \} End of compiler group
+
+}  // namespace cen
+
+#endif  // CENTURION_COMPILER_HEADER
+
+
+/// \cond FALSE
+namespace cen::detail {
+
+/**
+ * \brief Returns a string representation of an arithmetic value.
+ *
+ * \note This function is guaranteed to work for 32-bit integers and floats.
+ * You might have to increase the buffer size for larger types.
+ *
+ * \remark On GCC, this function simply calls `std::to_string`, since the
+ * `std::to_chars` implementation seems to be lacking at the time of writing.
+ *
+ * \tparam bufferSize the size of the stack buffer used, must be big enough
+ * to store the characters of the string representation of the value.
+ * \tparam T the type of the value that will be converted, must be arithmetic.
+ *
+ * \param value the value that will be converted.
+ *
+ * \return a string representation of the supplied value; `std::nullopt` if
+ * something goes wrong.
+ *
+ * \since 5.0.0
+ */
+template <std::size_t bufferSize = 16, typename T>
+[[nodiscard]] auto to_string(T value) -> std::optional<std::string>
+{
+  if constexpr (on_gcc() || (on_clang() && std::is_floating_point_v<T>))
+  {
+    return std::to_string(value);
+  }
+  else
+  {
+    std::array<char, bufferSize> buffer{};
+    const auto [ptr, err] =
+        std::to_chars(buffer.data(), buffer.data() + buffer.size(), value);
+
+    if (err == std::errc{})
+    {
+      return std::string{buffer.data(), ptr};
+    }
+    else
+    {
+      return std::nullopt;
+    }
+  }
+}
+
+}  // namespace cen::detail
+/// \endcond
+
+#endif  // CENTURION_DETAIL_TO_STRING_HEADER
 
 // #include "../misc/czstring.hpp"
 
@@ -6347,7 +10034,7 @@ class basic_joystick final
    *
    * \throws sdl_error if the joystick couldn't be opened.
    */
-  template <typename BB = B, detail::is_owner<BB> = true>
+  template <typename BB = B, detail::is_owner<BB> = 0>
   explicit basic_joystick(const int index = 0)
       : m_joystick{SDL_JoystickOpen(index)}
   {
@@ -6364,7 +10051,7 @@ class basic_joystick final
    *
    * \param owner the owning joystick instance.
    */
-  template <typename BB = B, detail::is_handle<BB> = true>
+  template <typename BB = B, detail::is_handle<BB> = 0>
   explicit basic_joystick(const joystick& owner) noexcept
       : m_joystick{owner.get()}
   {}
@@ -6379,7 +10066,7 @@ class basic_joystick final
    *
    * \since 5.0.0
    */
-  template <typename BB = B, detail::is_handle<BB> = true>
+  template <typename BB = B, detail::is_handle<BB> = 0>
   [[nodiscard]] static auto from_instance_id(const SDL_JoystickID id) noexcept
       -> joystick_handle
   {
@@ -6398,7 +10085,7 @@ class basic_joystick final
    *
    * \since 5.0.0
    */
-  template <typename BB = B, detail::is_handle<BB> = true>
+  template <typename BB = B, detail::is_handle<BB> = 0>
   [[nodiscard]] static auto from_player_index(const int playerIndex) noexcept
       -> joystick_handle
   {
@@ -7329,7 +11016,7 @@ class basic_joystick final
    *
    * \since 5.0.0
    */
-  template <typename BB = B, detail::is_handle<BB> = true>
+  template <typename BB = B, detail::is_handle<BB> = 0>
   explicit operator bool() const noexcept
   {
     return m_joystick != nullptr;
@@ -7366,6 +11053,56 @@ class basic_joystick final
   };
   detail::pointer_manager<B, SDL_Joystick, deleter> m_joystick;
 };
+
+/**
+ * \brief Returns a textual representation of a joystick.
+ *
+ * \tparam T the ownership semantics tag for the joystick.
+ *
+ * \param joystick the joystick that will be converted.
+ *
+ * \return a string representation of the joystick.
+ *
+ * \since 6.0.0
+ */
+template <typename T>
+[[nodiscard]] auto to_string(const basic_joystick<T>& joystick) -> std::string
+{
+  const auto* name = joystick.name();
+
+  czstring serial{};
+  if constexpr (detail::sdl_version_at_least(2, 0, 14))
+  {
+    serial = joystick.serial();
+  }
+
+  return "joystick{data: " + detail::address_of(joystick.get()) +
+         ", id: " + detail::to_string(joystick.instance_id()).value() +
+         ", name: " + (name ? name : "N/A") +
+         ", serial: " + (serial ? serial : "N/A") + "}";
+}
+
+/**
+ * \brief Prints a joystick using a stream.
+ *
+ * \tparam T the ownership semantics tag for the joystick.
+ *
+ * \param stream the stream that will be used to print the joystick.
+ * \param joystick the joystick that will be printed.
+ *
+ * \return the used stream.
+ *
+ * \since 6.0.0
+ */
+template <typename T>
+auto operator<<(std::ostream& stream, const basic_joystick<T>& joystick)
+    -> std::ostream&
+{
+  return stream << to_string(joystick);
+}
+
+/// \name Joystick power comparison operators
+/// \{
 
 /**
  * \brief Indicates whether or not two joystick power values are the same.
@@ -7435,6 +11172,11 @@ class basic_joystick final
   return !(lhs == rhs);
 }
 
+/// \} End of joystick power comparison operators
+
+/// \name Joystick type comparison operators
+/// \{
+
 /**
  * \brief Indicates whether or not two joystick type values are the same.
  *
@@ -7503,6 +11245,8 @@ class basic_joystick final
   return !(lhs == rhs);
 }
 
+/// \} End of joystick type comparison operators
+
 /// \} End of group input
 
 }  // namespace cen
@@ -7526,207 +11270,6 @@ class basic_joystick final
 // #include "../detail/owner_handle_api.hpp"
 
 // #include "../detail/to_string.hpp"
-#ifndef CENTURION_DETAIL_TO_STRING_HEADER
-#define CENTURION_DETAIL_TO_STRING_HEADER
-
-#include <array>         // array
-#include <charconv>      // to_chars
-#include <optional>      // optional, nullopt
-#include <string>        // string
-#include <system_error>  // errc
-#include <type_traits>   // is_floating_point_v
-
-// #include "../compiler.hpp"
-#ifndef CENTURION_COMPILER_HEADER
-#define CENTURION_COMPILER_HEADER
-
-#include <SDL.h>
-
-namespace cen {
-
-/// \addtogroup compiler
-/// \{
-
-/**
- * \brief Indicates whether or not a "debug" build mode is active.
- *
- * \note This is intended to be use with `if constexpr`-statements instead of
- * raw `#ifdef` conditional compilation, since the use of `if constexpr`
- * prevents any branch to be ill-formed, which avoids code rot.
- *
- * \return `true` if a debug build mode is currently active; `false` otherwise.
- *
- * \since 5.3.0
- */
-[[nodiscard]] constexpr auto is_debug_build() noexcept -> bool
-{
-#ifndef NDEBUG
-  return true;
-#else
-  return false;
-#endif  // NDEBUG
-}
-
-/**
- * \brief Indicates whether or not a "release" build mode is active.
- *
- * \note This is intended to be use with `if constexpr`-statements instead of
- * raw `#ifdef` conditional compilation, since the use of `if constexpr`
- * prevents any branch to be ill-formed, which avoids code rot.
- *
- * \return `true` if a release build mode is currently active; `false`
- * otherwise.
- *
- * \since 5.3.0
- */
-[[nodiscard]] constexpr auto is_release_build() noexcept -> bool
-{
-  return !is_debug_build();
-}
-
-/**
- * \brief Indicates whether or not the compiler is MSVC.
- *
- * \return `true` if MSVC is detected as the current compiler; `false`
- * otherwise.
- *
- * \since 5.3.0
- */
-[[nodiscard]] constexpr auto on_msvc() noexcept -> bool
-{
-#ifdef _MSC_VER
-  return true;
-#else
-  return false;
-#endif  // _MSC_VER
-}
-
-/**
- * \brief Indicates whether or not the compiler is GCC.
- *
- * \return `true` if GCC is detected as the current compiler; `false`
- * otherwise.
- *
- * \since 5.3.0
- */
-[[nodiscard]] constexpr auto on_gcc() noexcept -> bool
-{
-#ifdef __GNUC__
-  return true;
-#else
-  return false;
-#endif  // __GNUC__
-}
-
-/**
- * \brief Indicates whether or not the compiler is Clang.
- *
- * \return `true` if Clang is detected as the current compiler; `false`
- * otherwise.
- *
- * \since 5.3.0
- */
-[[nodiscard]] constexpr auto on_clang() noexcept -> bool
-{
-#ifdef __clang__
-  return true;
-#else
-  return false;
-#endif  // __clang__
-}
-
-/**
- * \brief Indicates whether or not the compiler is Emscripten.
- *
- * \return `true` if Emscripten is detected as the current compiler; `false`
- * otherwise.
- *
- * \since 5.3.0
- */
-[[nodiscard]] constexpr auto on_emscripten() noexcept -> bool
-{
-#ifdef __EMSCRIPTEN__
-  return true;
-#else
-  return false;
-#endif  // __EMSCRIPTEN__
-}
-
-/**
- * \brief Indicates whether or not the compiler is Intel C++.
- *
- * \return `true` if Intel C++ is detected as the current compiler; `false`
- * otherwise.
- *
- * \since 5.3.0
- */
-[[nodiscard]] constexpr auto on_intel_cpp() noexcept -> bool
-{
-#ifdef __INTEL_COMPILER
-  return true;
-#else
-  return false;
-#endif  // __INTEL_COMPILER
-}
-
-/// \} End of compiler group
-
-}  // namespace cen
-
-#endif  // CENTURION_COMPILER_HEADER
-
-
-/// \cond FALSE
-namespace cen::detail {
-
-/**
- * \brief Returns a string representation of an arithmetic value.
- *
- * \note This function is guaranteed to work for 32-bit integers and floats.
- * You might have to increase the buffer size for larger types.
- *
- * \remark On GCC, this function simply calls `std::to_string`, since the
- * `std::to_chars` implementation seems to be lacking at the time of writing.
- *
- * \tparam bufferSize the size of the stack buffer used, must be big enough
- * to store the characters of the string representation of the value.
- * \tparam T the type of the value that will be converted, must be arithmetic.
- *
- * \param value the value that will be converted.
- *
- * \return a string representation of the supplied value; `std::nullopt` if
- * something goes wrong.
- *
- * \since 5.0.0
- */
-template <std::size_t bufferSize = 16, typename T>
-[[nodiscard]] auto to_string(T value) -> std::optional<std::string>
-{
-  if constexpr (on_gcc() || (on_clang() && std::is_floating_point_v<T>))
-  {
-    return std::to_string(value);
-  }
-  else
-  {
-    std::array<char, bufferSize> buffer{};
-    const auto [ptr, err] =
-        std::to_chars(buffer.data(), buffer.data() + buffer.size(), value);
-
-    if (err == std::errc{})
-    {
-      return std::string{buffer.data(), ptr};
-    }
-    else
-    {
-      return std::nullopt;
-    }
-  }
-}
-
-}  // namespace cen::detail
-/// \endcond
-
-#endif  // CENTURION_DETAIL_TO_STRING_HEADER
 
 // #include "../misc/czstring.hpp"
 
@@ -7842,7 +11385,7 @@ class basic_sensor final
    *
    * \since 5.2.0
    */
-  template <typename TT = T, detail::is_owner<TT> = true>
+  template <typename TT = T, detail::is_owner<TT> = 0>
   explicit basic_sensor(const int index = 0) : m_sensor{SDL_SensorOpen(index)}
   {
     if (!m_sensor)
@@ -7860,7 +11403,7 @@ class basic_sensor final
    *
    * \since 5.2.0
    */
-  template <typename TT = T, detail::is_handle<TT> = true>
+  template <typename TT = T, detail::is_handle<TT> = 0>
   explicit basic_sensor(const sensor& owner) noexcept : m_sensor{owner.get()}
   {}
 
@@ -8111,7 +11654,7 @@ class basic_sensor final
    *
    * \since 5.2.0
    */
-  template <typename TT = T, detail::is_handle<TT> = true>
+  template <typename TT = T, detail::is_handle<TT> = 0>
   explicit operator bool() const noexcept
   {
     return m_sensor != nullptr;
@@ -8167,8 +11710,7 @@ template <typename T>
 auto operator<<(std::ostream& stream, const basic_sensor<T>& sensor)
     -> std::ostream&
 {
-  stream << to_string(sensor);
-  return stream;
+  return stream << to_string(sensor);
 }
 
 /**
@@ -8182,6 +11724,9 @@ auto operator<<(std::ostream& stream, const basic_sensor<T>& sensor)
 {
   return SDL_STANDARD_GRAVITY;
 }
+
+/// \name Sensor type comparison operators
+/// \{
 
 /**
  * \brief Indicates whether or not two sensor types values are equal.
@@ -8234,6 +11779,8 @@ auto operator<<(std::ostream& stream, const basic_sensor<T>& sensor)
 {
   return !(lhs == rhs);
 }
+
+/// \} End of sensor type comparison operators
 
 /// \} End of input group
 
@@ -8705,7 +12252,7 @@ class basic_controller final
    *
    * \since 5.0.0
    */
-  template <typename TT = T, detail::is_handle<TT> = true>
+  template <typename TT = T, detail::is_handle<TT> = 0>
   explicit basic_controller(const controller& owner) noexcept
       : m_controller{owner.get()}
   {}
@@ -8730,7 +12277,7 @@ class basic_controller final
    *
    * \since 5.0.0
    */
-  template <typename TT = T, detail::is_owner<TT> = true>
+  template <typename TT = T, detail::is_owner<TT> = 0>
   explicit basic_controller(const int index = 0)
       : m_controller{SDL_GameControllerOpen(index)}
   {
@@ -8754,7 +12301,7 @@ class basic_controller final
    *
    * \since 5.0.0
    */
-  template <typename TT = T, detail::is_owner<TT> = true>
+  template <typename TT = T, detail::is_owner<TT> = 0>
   [[nodiscard]] static auto from_joystick(const SDL_JoystickID id)
       -> basic_controller
   {
@@ -8781,7 +12328,7 @@ class basic_controller final
    *
    * \since 5.0.0
    */
-  template <typename TT = T, detail::is_owner<TT> = true>
+  template <typename TT = T, detail::is_owner<TT> = 0>
   [[nodiscard]] static auto from_index(const player_index index)
       -> basic_controller
   {
@@ -9818,7 +13365,7 @@ class basic_controller final
    *
    * \since 5.0.0
    */
-  template <typename TT = T, detail::is_handle<TT> = true>
+  template <typename TT = T, detail::is_handle<TT> = 0>
   explicit operator bool() const noexcept
   {
     return m_controller != nullptr;
@@ -9850,11 +13397,17 @@ template <typename T>
 [[nodiscard]] auto to_string(const basic_controller<T>& controller)
     -> std::string
 {
-  using namespace std::string_literals;
+  const auto* name = controller.name();
 
-  const auto name = controller.name() ? controller.name() : "N/A";
-  return "controller{data: "s + detail::address_of(controller.get()) +
-         ", name: " + name + "}";
+  czstring serial{};
+  if constexpr (detail::sdl_version_at_least(2, 0, 14))
+  {
+    serial = controller.serial();
+  }
+
+  return "controller{data: " + detail::address_of(controller.get()) +
+         ", name: " + (name ? name : "N/A") +
+         ", serial: " + (serial ? serial : "N/A") + "}";
 }
 
 /**
@@ -16285,9 +19838,39 @@ template <typename T>
 #ifndef CENTURION_NOT_NULL_HEADER
 #define CENTURION_NOT_NULL_HEADER
 
-#include <SDL.h>
+// #include "sfinae.hpp"
+#ifndef CENTURION_SFINAE_HEADER
+#define CENTURION_SFINAE_HEADER
 
-#include <type_traits>  // enable_if_t, is_pointer_v
+#include <type_traits>  // enable_if_t, is_same_v, is_integral_v, is_floating_point_v, ...
+
+namespace cen {
+
+/// \addtogroup misc
+/// \{
+
+// clang-format off
+
+template <typename T>
+using enable_if_number_t = std::enable_if_t<!std::is_same_v<T, bool> &&
+                                            (std::is_integral_v<T> ||
+                                             std::is_floating_point_v<T>), int>;
+
+// clang-format on
+
+template <typename T>
+using enable_if_pointer_v = std::enable_if_t<std::is_pointer_v<T>, int>;
+
+template <typename T, typename... Args>
+using enable_if_convertible_t =
+    std::enable_if_t<(std::is_convertible_v<T, Args> || ...), int>;
+
+/// \} End of group misc
+
+}  // namespace cen
+
+#endif  // CENTURION_SFINAE_HEADER
+
 
 namespace cen {
 
@@ -16302,7 +19885,7 @@ namespace cen {
  *
  * \since 5.0.0
  */
-template <typename T, typename = std::enable_if_t<std::is_pointer_v<T>>>
+template <typename T, enable_if_pointer_v<T> = 0>
 using not_null = T;
 
 }  // namespace cen
@@ -16311,6 +19894,9 @@ using not_null = T;
 
 
 namespace cen {
+
+/// \addtogroup misc
+/// \{
 
 /**
  * \typedef czstring
@@ -16325,6 +19911,8 @@ using czstring = const char*;
  * \brief Alias for a C-style null-terminated string.
  */
 using zstring = char*;
+
+/// \} End of group misc
 
 }  // namespace cen
 
@@ -17690,7 +21278,7 @@ class event final
 #include <system_error>  // errc
 #include <type_traits>   // is_floating_point_v
 
-// #include "../compiler.hpp"
+// #include "../compiler/compiler.hpp"
 #ifndef CENTURION_COMPILER_HEADER
 #define CENTURION_COMPILER_HEADER
 
@@ -21977,7 +25565,7 @@ inline auto as_sdl_event(const common_event<SDL_WindowEvent>& event)
 
 #include <SDL.h>
 
-// #include "../sdl_string.hpp"
+// #include "../core/sdl_string.hpp"
 #ifndef CENTURION_SDL_STRING_HEADER
 #define CENTURION_SDL_STRING_HEADER
 
@@ -21986,7 +25574,7 @@ inline auto as_sdl_event(const common_event<SDL_WindowEvent>& event)
 #include <memory>  // unique_ptr
 #include <string>  // string
 
-// #include "detail/sdl_deleter.hpp"
+// #include "../detail/sdl_deleter.hpp"
 #ifndef CENTURION_DETAIL_SDL_DELETER_HEADER
 #define CENTURION_DETAIL_SDL_DELETER_HEADER
 
@@ -22009,7 +25597,7 @@ struct sdl_deleter final
 
 #endif  // CENTURION_DETAIL_SDL_DELETER_HEADER
 
-// #include "misc/czstring.hpp"
+// #include "../misc/czstring.hpp"
 #ifndef CENTURION_CZSTRING_HEADER
 #define CENTURION_CZSTRING_HEADER
 
@@ -22017,9 +25605,39 @@ struct sdl_deleter final
 #ifndef CENTURION_NOT_NULL_HEADER
 #define CENTURION_NOT_NULL_HEADER
 
-#include <SDL.h>
+// #include "sfinae.hpp"
+#ifndef CENTURION_SFINAE_HEADER
+#define CENTURION_SFINAE_HEADER
 
-#include <type_traits>  // enable_if_t, is_pointer_v
+#include <type_traits>  // enable_if_t, is_same_v, is_integral_v, is_floating_point_v, ...
+
+namespace cen {
+
+/// \addtogroup misc
+/// \{
+
+// clang-format off
+
+template <typename T>
+using enable_if_number_t = std::enable_if_t<!std::is_same_v<T, bool> &&
+                                            (std::is_integral_v<T> ||
+                                             std::is_floating_point_v<T>), int>;
+
+// clang-format on
+
+template <typename T>
+using enable_if_pointer_v = std::enable_if_t<std::is_pointer_v<T>, int>;
+
+template <typename T, typename... Args>
+using enable_if_convertible_t =
+    std::enable_if_t<(std::is_convertible_v<T, Args> || ...), int>;
+
+/// \} End of group misc
+
+}  // namespace cen
+
+#endif  // CENTURION_SFINAE_HEADER
+
 
 namespace cen {
 
@@ -22034,7 +25652,7 @@ namespace cen {
  *
  * \since 5.0.0
  */
-template <typename T, typename = std::enable_if_t<std::is_pointer_v<T>>>
+template <typename T, enable_if_pointer_v<T> = 0>
 using not_null = T;
 
 }  // namespace cen
@@ -22043,6 +25661,9 @@ using not_null = T;
 
 
 namespace cen {
+
+/// \addtogroup misc
+/// \{
 
 /**
  * \typedef czstring
@@ -22058,15 +25679,18 @@ using czstring = const char*;
  */
 using zstring = char*;
 
+/// \} End of group misc
+
 }  // namespace cen
 
 #endif  // CENTURION_CZSTRING_HEADER
 
-// #include "misc/owner.hpp"
+// #include "../misc/owner.hpp"
 #ifndef CENTURION_OWNER_HEADER
 #define CENTURION_OWNER_HEADER
 
-#include <type_traits>  // enable_if_t, is_pointer_v
+// #include "sfinae.hpp"
+
 
 namespace cen {
 
@@ -22081,7 +25705,7 @@ namespace cen {
  * function will claim ownership of that pointer. Subsequently, if a function
  * returns an `owner<T*>`, then ownership is transferred to the caller.
  */
-template <typename T, typename = std::enable_if_t<std::is_pointer_v<T>>>
+template <typename T, enable_if_pointer_v<T> = 0>
 using owner = T;
 
 }  // namespace cen
@@ -22089,6 +25713,9 @@ using owner = T;
 #endif  // CENTURION_OWNER_HEADER
 
 namespace cen {
+
+/// \addtogroup core
+/// \{
 
 /**
  * \class sdl_string
@@ -22163,6 +25790,8 @@ class sdl_string final
   std::unique_ptr<char, detail::sdl_deleter<char>> m_str;
 };
 
+/// \} End of group core
+
 }  // namespace cen
 
 #endif  // CENTURION_SDL_STRING_HEADER
@@ -22220,9 +25849,39 @@ namespace cen {
 #ifndef CENTURION_NOT_NULL_HEADER
 #define CENTURION_NOT_NULL_HEADER
 
-#include <SDL.h>
+// #include "sfinae.hpp"
+#ifndef CENTURION_SFINAE_HEADER
+#define CENTURION_SFINAE_HEADER
 
-#include <type_traits>  // enable_if_t, is_pointer_v
+#include <type_traits>  // enable_if_t, is_same_v, is_integral_v, is_floating_point_v, ...
+
+namespace cen {
+
+/// \addtogroup misc
+/// \{
+
+// clang-format off
+
+template <typename T>
+using enable_if_number_t = std::enable_if_t<!std::is_same_v<T, bool> &&
+                                            (std::is_integral_v<T> ||
+                                             std::is_floating_point_v<T>), int>;
+
+// clang-format on
+
+template <typename T>
+using enable_if_pointer_v = std::enable_if_t<std::is_pointer_v<T>, int>;
+
+template <typename T, typename... Args>
+using enable_if_convertible_t =
+    std::enable_if_t<(std::is_convertible_v<T, Args> || ...), int>;
+
+/// \} End of group misc
+
+}  // namespace cen
+
+#endif  // CENTURION_SFINAE_HEADER
+
 
 namespace cen {
 
@@ -22237,7 +25896,7 @@ namespace cen {
  *
  * \since 5.0.0
  */
-template <typename T, typename = std::enable_if_t<std::is_pointer_v<T>>>
+template <typename T, enable_if_pointer_v<T> = 0>
 using not_null = T;
 
 }  // namespace cen
@@ -22246,6 +25905,9 @@ using not_null = T;
 
 
 namespace cen {
+
+/// \addtogroup misc
+/// \{
 
 /**
  * \typedef czstring
@@ -22261,6 +25923,8 @@ using czstring = const char*;
  */
 using zstring = char*;
 
+/// \} End of group misc
+
 }  // namespace cen
 
 #endif  // CENTURION_CZSTRING_HEADER
@@ -22272,6 +25936,9 @@ using zstring = char*;
 #include <SDL.h>
 
 namespace cen {
+
+/// \addtogroup misc
+/// \{
 
 /// \name Integer aliases
 /// \{
@@ -22479,6 +26146,9 @@ namespace literals {
 }
 
 }  // namespace literals
+
+/// \} End of group misc
+
 }  // namespace cen
 
 #endif  // CENTURION_INTEGERS_HEADER
@@ -22487,9 +26157,8 @@ namespace literals {
 #ifndef CENTURION_NOT_NULL_HEADER
 #define CENTURION_NOT_NULL_HEADER
 
-#include <SDL.h>
+// #include "sfinae.hpp"
 
-#include <type_traits>  // enable_if_t, is_pointer_v
 
 namespace cen {
 
@@ -22504,7 +26173,7 @@ namespace cen {
  *
  * \since 5.0.0
  */
-template <typename T, typename = std::enable_if_t<std::is_pointer_v<T>>>
+template <typename T, enable_if_pointer_v<T> = 0>
 using not_null = T;
 
 }  // namespace cen
@@ -23314,7 +26983,7 @@ class file final
 
 // #include "../misc/not_null.hpp"
 
-// #include "../sdl_string.hpp"
+// #include "../core/sdl_string.hpp"
 
 
 namespace cen {
@@ -23407,9 +27076,39 @@ namespace cen {
 #ifndef CENTURION_NOT_NULL_HEADER
 #define CENTURION_NOT_NULL_HEADER
 
-#include <SDL.h>
+// #include "sfinae.hpp"
+#ifndef CENTURION_SFINAE_HEADER
+#define CENTURION_SFINAE_HEADER
 
-#include <type_traits>  // enable_if_t, is_pointer_v
+#include <type_traits>  // enable_if_t, is_same_v, is_integral_v, is_floating_point_v, ...
+
+namespace cen {
+
+/// \addtogroup misc
+/// \{
+
+// clang-format off
+
+template <typename T>
+using enable_if_number_t = std::enable_if_t<!std::is_same_v<T, bool> &&
+                                            (std::is_integral_v<T> ||
+                                             std::is_floating_point_v<T>), int>;
+
+// clang-format on
+
+template <typename T>
+using enable_if_pointer_v = std::enable_if_t<std::is_pointer_v<T>, int>;
+
+template <typename T, typename... Args>
+using enable_if_convertible_t =
+    std::enable_if_t<(std::is_convertible_v<T, Args> || ...), int>;
+
+/// \} End of group misc
+
+}  // namespace cen
+
+#endif  // CENTURION_SFINAE_HEADER
+
 
 namespace cen {
 
@@ -23424,7 +27123,7 @@ namespace cen {
  *
  * \since 5.0.0
  */
-template <typename T, typename = std::enable_if_t<std::is_pointer_v<T>>>
+template <typename T, enable_if_pointer_v<T> = 0>
 using not_null = T;
 
 }  // namespace cen
@@ -23433,6 +27132,9 @@ using not_null = T;
 
 
 namespace cen {
+
+/// \addtogroup misc
+/// \{
 
 /**
  * \typedef czstring
@@ -23447,6 +27149,8 @@ using czstring = const char*;
  * \brief Alias for a C-style null-terminated string.
  */
 using zstring = char*;
+
+/// \} End of group misc
 
 }  // namespace cen
 
@@ -23543,6 +27247,9 @@ struct czstring_compare final
 
 namespace cen {
 
+/// \addtogroup misc
+/// \{
+
 /**
  * \typedef czstring
  *
@@ -23556,6 +27263,8 @@ using czstring = const char*;
  * \brief Alias for a C-style null-terminated string.
  */
 using zstring = char*;
+
+/// \} End of group misc
 
 }  // namespace cen
 
@@ -23981,9 +27690,39 @@ class float_hint : public crtp_hint<float_hint<Hint>, float>
 #ifndef CENTURION_NOT_NULL_HEADER
 #define CENTURION_NOT_NULL_HEADER
 
-#include <SDL.h>
+// #include "sfinae.hpp"
+#ifndef CENTURION_SFINAE_HEADER
+#define CENTURION_SFINAE_HEADER
 
-#include <type_traits>  // enable_if_t, is_pointer_v
+#include <type_traits>  // enable_if_t, is_same_v, is_integral_v, is_floating_point_v, ...
+
+namespace cen {
+
+/// \addtogroup misc
+/// \{
+
+// clang-format off
+
+template <typename T>
+using enable_if_number_t = std::enable_if_t<!std::is_same_v<T, bool> &&
+                                            (std::is_integral_v<T> ||
+                                             std::is_floating_point_v<T>), int>;
+
+// clang-format on
+
+template <typename T>
+using enable_if_pointer_v = std::enable_if_t<std::is_pointer_v<T>, int>;
+
+template <typename T, typename... Args>
+using enable_if_convertible_t =
+    std::enable_if_t<(std::is_convertible_v<T, Args> || ...), int>;
+
+/// \} End of group misc
+
+}  // namespace cen
+
+#endif  // CENTURION_SFINAE_HEADER
+
 
 namespace cen {
 
@@ -23998,7 +27737,7 @@ namespace cen {
  *
  * \since 5.0.0
  */
-template <typename T, typename = std::enable_if_t<std::is_pointer_v<T>>>
+template <typename T, enable_if_pointer_v<T> = 0>
 using not_null = T;
 
 }  // namespace cen
@@ -24007,6 +27746,9 @@ using not_null = T;
 
 
 namespace cen {
+
+/// \addtogroup misc
+/// \{
 
 /**
  * \typedef czstring
@@ -24021,6 +27763,8 @@ using czstring = const char*;
  * \brief Alias for a C-style null-terminated string.
  */
 using zstring = char*;
+
+/// \} End of group misc
 
 }  // namespace cen
 
@@ -25179,7 +28923,222 @@ class enum_hint
 
 #include <optional>  // optional
 
-// #include "../log.hpp"
+// #include "../misc/exception.hpp"
+#ifndef CENTURION_EXCEPTION_HEADER
+#define CENTURION_EXCEPTION_HEADER
+
+#include <SDL.h>
+#include <SDL_image.h>
+#include <SDL_mixer.h>
+#include <SDL_ttf.h>
+
+#include <exception>  // exception
+
+// #include "czstring.hpp"
+#ifndef CENTURION_CZSTRING_HEADER
+#define CENTURION_CZSTRING_HEADER
+
+// #include "not_null.hpp"
+
+
+namespace cen {
+
+/// \addtogroup misc
+/// \{
+
+/**
+ * \typedef czstring
+ *
+ * \brief Alias for a const C-style null-terminated string.
+ */
+using czstring = const char*;
+
+/**
+ * \typedef zstring
+ *
+ * \brief Alias for a C-style null-terminated string.
+ */
+using zstring = char*;
+
+/// \} End of group misc
+
+}  // namespace cen
+
+#endif  // CENTURION_CZSTRING_HEADER
+
+
+namespace cen {
+
+/// \addtogroup misc
+/// \{
+
+/**
+ * \class cen_error
+ *
+ * \brief The base of all exceptions explicitly thrown by the library.
+ *
+ * \headerfile exception.hpp
+ *
+ * \since 3.0.0
+ */
+class cen_error : public std::exception
+{
+ public:
+  cen_error() noexcept = default;
+
+  /**
+   * \param what the message of the exception.
+   *
+   * \since 3.0.0
+   */
+  explicit cen_error(const czstring what) noexcept
+      : m_what{what ? what : m_what}
+  {}
+
+  [[nodiscard]] auto what() const noexcept -> czstring override
+  {
+    return m_what;
+  }
+
+ private:
+  czstring m_what{"N/A"};
+};
+
+/**
+ * \class sdl_error
+ *
+ * \brief Represents an error related to the core SDL2 library.
+ *
+ * \since 5.0.0
+ *
+ * \headerfile exception.hpp
+ */
+class sdl_error final : public cen_error
+{
+ public:
+  /**
+   * \brief Creates an `sdl_error` with the error message obtained from
+   * `SDL_GetError()`.
+   *
+   * \since 5.0.0
+   */
+  sdl_error() noexcept : cen_error{SDL_GetError()}
+  {}
+
+  /**
+   * \brief Creates an `sdl_error` with the specified error message.
+   *
+   * \param what the error message that will be used.
+   *
+   * \since 5.0.0
+   */
+  explicit sdl_error(const czstring what) noexcept : cen_error{what}
+  {}
+};
+
+/**
+ * \class img_error
+ *
+ * \brief Represents an error related to the SDL2_image library.
+ *
+ * \since 5.0.0
+ *
+ * \headerfile exception.hpp
+ */
+class img_error final : public cen_error
+{
+ public:
+  /**
+   * \brief Creates an `img_error` with the error message obtained from
+   * `IMG_GetError()`.
+   *
+   * \since 5.0.0
+   */
+  img_error() noexcept : cen_error{IMG_GetError()}
+  {}
+
+  /**
+   * \brief Creates an `img_error` with the specified error message.
+   *
+   * \param what the error message that will be used.
+   *
+   * \since 5.0.0
+   */
+  explicit img_error(const czstring what) noexcept : cen_error{what}
+  {}
+};
+
+/**
+ * \class ttf_error
+ *
+ * \brief Represents an error related to the SDL2_ttf library.
+ *
+ * \since 5.0.0
+ *
+ * \headerfile exception.hpp
+ */
+class ttf_error final : public cen_error
+{
+ public:
+  /**
+   * \brief Creates a `ttf_error` with the error message obtained from
+   * `TTF_GetError()`.
+   *
+   * \since 5.0.0
+   */
+  ttf_error() noexcept : cen_error{TTF_GetError()}
+  {}
+
+  /**
+   * \brief Creates a `ttf_error` with the specified error message.
+   *
+   * \param what the error message that will be used.
+   *
+   * \since 5.0.0
+   */
+  explicit ttf_error(const czstring what) noexcept : cen_error{what}
+  {}
+};
+
+/**
+ * \class mix_error
+ *
+ * \brief Represents an error related to the SDL2_mixer library.
+ *
+ * \since 5.0.0
+ *
+ * \headerfile exception.hpp
+ */
+class mix_error final : public cen_error
+{
+ public:
+  /**
+   * \brief Creates a `mix_error` with the error message obtained from
+   * `Mix_GetError()`.
+   *
+   * \since 5.0.0
+   */
+  mix_error() noexcept : cen_error{Mix_GetError()}
+  {}
+
+  /**
+   * \brief Creates a `mix_error` with the specified error message.
+   *
+   * \param what the error message that will be used.
+   *
+   * \since 5.0.0
+   */
+  explicit mix_error(const czstring what) noexcept : cen_error{what}
+  {}
+};
+
+/// \} End of group misc
+
+}  // namespace cen
+
+#endif  // CENTURION_EXCEPTION_HEADER
+
+// #include "../misc/log.hpp"
 #ifndef CENTURION_LOG_HEADER
 #define CENTURION_LOG_HEADER
 
@@ -25189,11 +29148,14 @@ class enum_hint
 #include <string>   // string
 #include <utility>  // forward
 
-// #include "macros.hpp"
+// #include "../core/macros.hpp"
 #ifndef CENTURION_MACROS_HEADER
 #define CENTURION_MACROS_HEADER
 
 #include <SDL.h>
+
+/// \addtogroup core
+/// \{
 
 #ifndef __clang__
 
@@ -25233,88 +29195,14 @@ class enum_hint
 using SDL_KeyCode = decltype(SDLK_UNKNOWN);
 
 #endif  // CENTURION_SDL_VERSION_IS(2, 0, 10)
+
+/// \} End of group core
+
 #endif  // CENTURION_MACROS_HEADER
 
-// #include "misc/czstring.hpp"
-#ifndef CENTURION_CZSTRING_HEADER
-#define CENTURION_CZSTRING_HEADER
+// #include "czstring.hpp"
 
 // #include "not_null.hpp"
-#ifndef CENTURION_NOT_NULL_HEADER
-#define CENTURION_NOT_NULL_HEADER
-
-#include <SDL.h>
-
-#include <type_traits>  // enable_if_t, is_pointer_v
-
-namespace cen {
-
-/**
- * \typedef not_null
- *
- * \ingroup misc
- *
- * \brief Tag used to indicate that a pointer cannot be null.
- *
- * \note This alias is equivalent to `T`, it is a no-op.
- *
- * \since 5.0.0
- */
-template <typename T, typename = std::enable_if_t<std::is_pointer_v<T>>>
-using not_null = T;
-
-}  // namespace cen
-
-#endif  // CENTURION_NOT_NULL_HEADER
-
-
-namespace cen {
-
-/**
- * \typedef czstring
- *
- * \brief Alias for a const C-style null-terminated string.
- */
-using czstring = const char*;
-
-/**
- * \typedef zstring
- *
- * \brief Alias for a C-style null-terminated string.
- */
-using zstring = char*;
-
-}  // namespace cen
-
-#endif  // CENTURION_CZSTRING_HEADER
-
-// #include "misc/not_null.hpp"
-#ifndef CENTURION_NOT_NULL_HEADER
-#define CENTURION_NOT_NULL_HEADER
-
-#include <SDL.h>
-
-#include <type_traits>  // enable_if_t, is_pointer_v
-
-namespace cen {
-
-/**
- * \typedef not_null
- *
- * \ingroup misc
- *
- * \brief Tag used to indicate that a pointer cannot be null.
- *
- * \note This alias is equivalent to `T`, it is a no-op.
- *
- * \since 5.0.0
- */
-template <typename T, typename = std::enable_if_t<std::is_pointer_v<T>>>
-using not_null = T;
-
-}  // namespace cen
-
-#endif  // CENTURION_NOT_NULL_HEADER
 
 
 /// \addtogroup misc
@@ -25992,216 +29880,6 @@ inline void set_priority(const category category, const priority prio) noexcept
 /// \}
 
 #endif  // CENTURION_LOG_HEADER
-
-// #include "../misc/exception.hpp"
-#ifndef CENTURION_EXCEPTION_HEADER
-#define CENTURION_EXCEPTION_HEADER
-
-#include <SDL.h>
-#include <SDL_image.h>
-#include <SDL_mixer.h>
-#include <SDL_ttf.h>
-
-#include <exception>  // exception
-
-// #include "czstring.hpp"
-#ifndef CENTURION_CZSTRING_HEADER
-#define CENTURION_CZSTRING_HEADER
-
-// #include "not_null.hpp"
-
-
-namespace cen {
-
-/**
- * \typedef czstring
- *
- * \brief Alias for a const C-style null-terminated string.
- */
-using czstring = const char*;
-
-/**
- * \typedef zstring
- *
- * \brief Alias for a C-style null-terminated string.
- */
-using zstring = char*;
-
-}  // namespace cen
-
-#endif  // CENTURION_CZSTRING_HEADER
-
-
-namespace cen {
-
-/// \addtogroup misc
-/// \{
-
-/**
- * \class cen_error
- *
- * \brief The base of all exceptions explicitly thrown by the library.
- *
- * \headerfile exception.hpp
- *
- * \since 3.0.0
- */
-class cen_error : public std::exception
-{
- public:
-  cen_error() noexcept = default;
-
-  /**
-   * \param what the message of the exception.
-   *
-   * \since 3.0.0
-   */
-  explicit cen_error(const czstring what) noexcept
-      : m_what{what ? what : m_what}
-  {}
-
-  [[nodiscard]] auto what() const noexcept -> czstring override
-  {
-    return m_what;
-  }
-
- private:
-  czstring m_what{"N/A"};
-};
-
-/**
- * \class sdl_error
- *
- * \brief Represents an error related to the core SDL2 library.
- *
- * \since 5.0.0
- *
- * \headerfile exception.hpp
- */
-class sdl_error final : public cen_error
-{
- public:
-  /**
-   * \brief Creates an `sdl_error` with the error message obtained from
-   * `SDL_GetError()`.
-   *
-   * \since 5.0.0
-   */
-  sdl_error() noexcept : cen_error{SDL_GetError()}
-  {}
-
-  /**
-   * \brief Creates an `sdl_error` with the specified error message.
-   *
-   * \param what the error message that will be used.
-   *
-   * \since 5.0.0
-   */
-  explicit sdl_error(const czstring what) noexcept : cen_error{what}
-  {}
-};
-
-/**
- * \class img_error
- *
- * \brief Represents an error related to the SDL2_image library.
- *
- * \since 5.0.0
- *
- * \headerfile exception.hpp
- */
-class img_error final : public cen_error
-{
- public:
-  /**
-   * \brief Creates an `img_error` with the error message obtained from
-   * `IMG_GetError()`.
-   *
-   * \since 5.0.0
-   */
-  img_error() noexcept : cen_error{IMG_GetError()}
-  {}
-
-  /**
-   * \brief Creates an `img_error` with the specified error message.
-   *
-   * \param what the error message that will be used.
-   *
-   * \since 5.0.0
-   */
-  explicit img_error(const czstring what) noexcept : cen_error{what}
-  {}
-};
-
-/**
- * \class ttf_error
- *
- * \brief Represents an error related to the SDL2_ttf library.
- *
- * \since 5.0.0
- *
- * \headerfile exception.hpp
- */
-class ttf_error final : public cen_error
-{
- public:
-  /**
-   * \brief Creates a `ttf_error` with the error message obtained from
-   * `TTF_GetError()`.
-   *
-   * \since 5.0.0
-   */
-  ttf_error() noexcept : cen_error{TTF_GetError()}
-  {}
-
-  /**
-   * \brief Creates a `ttf_error` with the specified error message.
-   *
-   * \param what the error message that will be used.
-   *
-   * \since 5.0.0
-   */
-  explicit ttf_error(const czstring what) noexcept : cen_error{what}
-  {}
-};
-
-/**
- * \class mix_error
- *
- * \brief Represents an error related to the SDL2_mixer library.
- *
- * \since 5.0.0
- *
- * \headerfile exception.hpp
- */
-class mix_error final : public cen_error
-{
- public:
-  /**
-   * \brief Creates a `mix_error` with the error message obtained from
-   * `Mix_GetError()`.
-   *
-   * \since 5.0.0
-   */
-  mix_error() noexcept : cen_error{Mix_GetError()}
-  {}
-
-  /**
-   * \brief Creates a `mix_error` with the specified error message.
-   *
-   * \param what the error message that will be used.
-   *
-   * \since 5.0.0
-   */
-  explicit mix_error(const czstring what) noexcept : cen_error{what}
-  {}
-};
-
-/// \} End of group misc
-
-}  // namespace cen
-
-#endif  // CENTURION_EXCEPTION_HEADER
 
 
 namespace cen {
@@ -27061,6 +30739,237 @@ enum class button_state
 #include <string>       // string
 #include <type_traits>  // true_type, false_type
 
+// #include "../core/sdl_string.hpp"
+#ifndef CENTURION_SDL_STRING_HEADER
+#define CENTURION_SDL_STRING_HEADER
+
+#include <SDL.h>
+
+#include <memory>  // unique_ptr
+#include <string>  // string
+
+// #include "../detail/sdl_deleter.hpp"
+#ifndef CENTURION_DETAIL_SDL_DELETER_HEADER
+#define CENTURION_DETAIL_SDL_DELETER_HEADER
+
+#include <SDL.h>
+
+/// \cond FALSE
+namespace cen::detail {
+
+template <typename T>
+struct sdl_deleter final
+{
+  void operator()(T* ptr) noexcept
+  {
+    SDL_free(ptr);
+  }
+};
+
+}  // namespace cen::detail
+/// \endcond
+
+#endif  // CENTURION_DETAIL_SDL_DELETER_HEADER
+
+// #include "../misc/czstring.hpp"
+#ifndef CENTURION_CZSTRING_HEADER
+#define CENTURION_CZSTRING_HEADER
+
+// #include "not_null.hpp"
+#ifndef CENTURION_NOT_NULL_HEADER
+#define CENTURION_NOT_NULL_HEADER
+
+// #include "sfinae.hpp"
+#ifndef CENTURION_SFINAE_HEADER
+#define CENTURION_SFINAE_HEADER
+
+#include <type_traits>  // enable_if_t, is_same_v, is_integral_v, is_floating_point_v, ...
+
+namespace cen {
+
+/// \addtogroup misc
+/// \{
+
+// clang-format off
+
+template <typename T>
+using enable_if_number_t = std::enable_if_t<!std::is_same_v<T, bool> &&
+                                            (std::is_integral_v<T> ||
+                                             std::is_floating_point_v<T>), int>;
+
+// clang-format on
+
+template <typename T>
+using enable_if_pointer_v = std::enable_if_t<std::is_pointer_v<T>, int>;
+
+template <typename T, typename... Args>
+using enable_if_convertible_t =
+    std::enable_if_t<(std::is_convertible_v<T, Args> || ...), int>;
+
+/// \} End of group misc
+
+}  // namespace cen
+
+#endif  // CENTURION_SFINAE_HEADER
+
+
+namespace cen {
+
+/**
+ * \typedef not_null
+ *
+ * \ingroup misc
+ *
+ * \brief Tag used to indicate that a pointer cannot be null.
+ *
+ * \note This alias is equivalent to `T`, it is a no-op.
+ *
+ * \since 5.0.0
+ */
+template <typename T, enable_if_pointer_v<T> = 0>
+using not_null = T;
+
+}  // namespace cen
+
+#endif  // CENTURION_NOT_NULL_HEADER
+
+
+namespace cen {
+
+/// \addtogroup misc
+/// \{
+
+/**
+ * \typedef czstring
+ *
+ * \brief Alias for a const C-style null-terminated string.
+ */
+using czstring = const char*;
+
+/**
+ * \typedef zstring
+ *
+ * \brief Alias for a C-style null-terminated string.
+ */
+using zstring = char*;
+
+/// \} End of group misc
+
+}  // namespace cen
+
+#endif  // CENTURION_CZSTRING_HEADER
+
+// #include "../misc/owner.hpp"
+#ifndef CENTURION_OWNER_HEADER
+#define CENTURION_OWNER_HEADER
+
+// #include "sfinae.hpp"
+
+
+namespace cen {
+
+/**
+ * \typedef owner
+ *
+ * \ingroup misc
+ *
+ * \brief Tag used to denote ownership of raw pointers directly in code.
+ *
+ * \details If a function takes an `owner<T*>` as a parameter, then the
+ * function will claim ownership of that pointer. Subsequently, if a function
+ * returns an `owner<T*>`, then ownership is transferred to the caller.
+ */
+template <typename T, enable_if_pointer_v<T> = 0>
+using owner = T;
+
+}  // namespace cen
+
+#endif  // CENTURION_OWNER_HEADER
+
+namespace cen {
+
+/// \addtogroup core
+/// \{
+
+/**
+ * \class sdl_string
+ *
+ * \brief Represents a string obtained from SDL, usually a `char*` that has to
+ * be freed using `SDL_free`.
+ *
+ * \since 5.0.0
+ *
+ * \headerfile sdl_string.hpp
+ */
+class sdl_string final
+{
+ public:
+  /**
+   * \brief
+   *
+   * \param str the string that will be claimed, can be null.
+   *
+   * \since 5.0.0
+   */
+  explicit sdl_string(owner<zstring> str) noexcept : m_str{str}
+  {}
+
+  /**
+   * \brief Returns the internal string, which might be null.
+   *
+   * \return the internal string; `nullptr` if there is none.
+   *
+   * \since 5.0.0
+   */
+  [[nodiscard]] auto get() const noexcept -> czstring
+  {
+    return m_str.get();
+  }
+
+  /**
+   * \brief Returns a copy of the internal string.
+   *
+   * \details This function returns the empty string if the internal string
+   * is a null pointer.
+   *
+   * \return a copy of the internal string.
+   *
+   * \since 5.0.0
+   */
+  [[nodiscard]] auto copy() const -> std::string
+  {
+    if (m_str)
+    {
+      return std::string{get()};
+    }
+    else
+    {
+      return std::string{};
+    }
+  }
+
+  /**
+   * \brief Indicates whether or not the internal string is non-null.
+   *
+   * \return `true` if the internal string is non-null; `false` otherwise.
+   *
+   * \since 5.0.0
+   */
+  explicit operator bool() const noexcept
+  {
+    return m_str.operator bool();
+  }
+
+ private:
+  std::unique_ptr<char, detail::sdl_deleter<char>> m_str;
+};
+
+/// \} End of group core
+
+}  // namespace cen
+
+#endif  // CENTURION_SDL_STRING_HEADER
+
 // #include "../detail/address_of.hpp"
 #ifndef CENTURION_DETAIL_ADDRESS_OF_HEADER
 #define CENTURION_DETAIL_ADDRESS_OF_HEADER
@@ -27132,9 +31041,39 @@ template <typename T>
 #ifndef CENTURION_NOT_NULL_HEADER
 #define CENTURION_NOT_NULL_HEADER
 
-#include <SDL.h>
+// #include "sfinae.hpp"
+#ifndef CENTURION_SFINAE_HEADER
+#define CENTURION_SFINAE_HEADER
 
-#include <type_traits>  // enable_if_t, is_pointer_v
+#include <type_traits>  // enable_if_t, is_same_v, is_integral_v, is_floating_point_v, ...
+
+namespace cen {
+
+/// \addtogroup misc
+/// \{
+
+// clang-format off
+
+template <typename T>
+using enable_if_number_t = std::enable_if_t<!std::is_same_v<T, bool> &&
+                                            (std::is_integral_v<T> ||
+                                             std::is_floating_point_v<T>), int>;
+
+// clang-format on
+
+template <typename T>
+using enable_if_pointer_v = std::enable_if_t<std::is_pointer_v<T>, int>;
+
+template <typename T, typename... Args>
+using enable_if_convertible_t =
+    std::enable_if_t<(std::is_convertible_v<T, Args> || ...), int>;
+
+/// \} End of group misc
+
+}  // namespace cen
+
+#endif  // CENTURION_SFINAE_HEADER
+
 
 namespace cen {
 
@@ -27149,7 +31088,7 @@ namespace cen {
  *
  * \since 5.0.0
  */
-template <typename T, typename = std::enable_if_t<std::is_pointer_v<T>>>
+template <typename T, enable_if_pointer_v<T> = 0>
 using not_null = T;
 
 }  // namespace cen
@@ -27158,6 +31097,9 @@ using not_null = T;
 
 
 namespace cen {
+
+/// \addtogroup misc
+/// \{
 
 /**
  * \typedef czstring
@@ -27172,6 +31114,8 @@ using czstring = const char*;
  * \brief Alias for a C-style null-terminated string.
  */
 using zstring = char*;
+
+/// \} End of group misc
 
 }  // namespace cen
 
@@ -27357,10 +31301,10 @@ using owning_type = std::true_type;
 using handle_type = std::false_type;
 
 template <typename T>
-using is_owner = std::enable_if_t<std::is_same_v<T, owning_type>, bool>;
+using is_owner = std::enable_if_t<std::is_same_v<T, owning_type>, int>;
 
 template <typename T>
-using is_handle = std::enable_if_t<std::is_same_v<T, handle_type>, bool>;
+using is_handle = std::enable_if_t<std::is_same_v<T, handle_type>, int>;
 
 template <typename T>
 [[nodiscard]] constexpr auto is_owning() noexcept -> bool
@@ -27381,7 +31325,7 @@ class pointer_manager final
   explicit pointer_manager(Type* ptr) noexcept : m_ptr{ptr}
   {}
 
-  template <typename BB = B, is_owner<BB> = true>
+  template <typename BB = B, is_owner<BB> = 0>
   void reset(Type* ptr) noexcept
   {
     m_ptr.reset(ptr);
@@ -27419,7 +31363,7 @@ class pointer_manager final
     return get();
   }
 
-  template <typename BB = B, is_owner<BB> = true>
+  template <typename BB = B, is_owner<BB> = 0>
   [[nodiscard]] auto release() noexcept -> Type*
   {
     return m_ptr.release();
@@ -27446,6 +31390,296 @@ class pointer_manager final
 
 #endif  // CENTURION_DETAIL_OWNER_HANDLE_API_HEADER
 
+// #include "../detail/sdl_version_at_least.hpp"
+#ifndef CENTURION_DETAIL_SDL_VERSION_AT_LEAST
+#define CENTURION_DETAIL_SDL_VERSION_AT_LEAST
+
+#include <SDL.h>
+
+// #include "../core/version.hpp"
+#ifndef CENTURION_VERSION_HEADER
+#define CENTURION_VERSION_HEADER
+
+#include <SDL.h>
+#include <SDL_image.h>
+#include <SDL_mixer.h>
+#include <SDL_ttf.h>
+
+#include <cassert>  // assert
+
+/// \addtogroup core
+/// \{
+
+/**
+ * \def CENTURION_VERSION_MAJOR
+ *
+ * \brief Expands into the current major version of the library.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_VERSION_MAJOR 6
+
+/**
+ * \def CENTURION_VERSION_MINOR
+ *
+ * \brief Expands into the current minor version of the library.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_VERSION_MINOR 0
+
+/**
+ * \def CENTURION_VERSION_PATCH
+ *
+ * \brief Expands into the current patch version of the library.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_VERSION_PATCH 0
+
+#ifdef CENTURION___DOXYGEN
+
+#define CENTURION_MAKE_VERSION_NUMBER
+#define CENTURION_VERSION_NUMBER
+#define CENTURION_VERSION_AT_LEAST
+
+#endif  // CENTURION___DOXYGEN
+
+/**
+ * \def CENTURION_MAKE_VERSION_NUMBER
+ *
+ * \brief Helper macro for creating version numbers from a set of
+ * major/minor/patch numbers.
+ *
+ * \details For example, if the version is 8.4.2, the resulting version number
+ * would be 8402.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_MAKE_VERSION_NUMBER(x, y, z) (((x)*1'000) + ((y)*100) + (z))
+
+/**
+ * \def CENTURION_VERSION_NUMBER
+ *
+ * \brief Expands into a version number based on the current Centurion version.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_VERSION_NUMBER                         \
+  CENTURION_MAKE_VERSION_NUMBER(CENTURION_VERSION_MAJOR, \
+                                CENTURION_VERSION_MINOR, \
+                                CENTURION_VERSION_PATCH)
+
+/**
+ * \def CENTURION_VERSION_AT_LEAST
+ *
+ * \brief This macro is intended to be used for conditional compilation, based
+ * on the Centurion version.
+ *
+ * \details This macro is used in the same way as the `SDL_VERSION_ATLEAST`,
+ * where you use it as the condition with `#if` statements.
+ *
+ * \since 6.0.0
+ */
+#define CENTURION_VERSION_AT_LEAST(x, y, z) \
+  CENTURION_VERSION_NUMBER >= CENTURION_MAKE_VERSION_NUMBER(x, y, z)
+
+namespace cen {
+
+/// \name Centurion version queries
+/// \{
+
+/**
+ * \struct version
+ *
+ * \brief Represents a set of major/minor/patch version numbers.
+ *
+ * \details The members of this struct are default-initialized to the current
+ * Centurion version values.
+ *
+ * \version 6.0.0
+ *
+ * \headerfile version.hpp
+ */
+struct version final
+{
+  int major{CENTURION_VERSION_MAJOR};
+  int minor{CENTURION_VERSION_MINOR};
+  int patch{CENTURION_VERSION_PATCH};
+};
+
+/**
+ * \brief Indicates whether or not the current Centurion version is at least
+ * equal to the specified version.
+ *
+ * \param major the major version value.
+ * \param minor the minor version value.
+ * \param patch the patch version value.
+ *
+ * \return `true` if the version of Centurion is at least the specified version;
+ * `false` otherwise.
+ *
+ * \see `CENTURION_VERSION_AT_LEAST`
+ *
+ * \since 6.0.0
+ */
+[[nodiscard]] constexpr auto version_at_least(const int major,
+                                              const int minor,
+                                              const int patch) noexcept -> bool
+{
+  return CENTURION_VERSION_AT_LEAST(major, minor, patch);
+}
+
+/// \} End of centurion version queries
+
+/// \name SDL version queries
+/// \{
+
+/**
+ * \brief Returns the version of SDL2 that is linked against the program.
+ *
+ * \note The linked version isn't necessarily the same as the version of SDL
+ * that the program was compiled against.
+ *
+ * \return the linked version of SDL2.
+ *
+ * \since 5.2.0
+ */
+[[nodiscard]] inline auto sdl_linked_version() noexcept -> SDL_version
+{
+  SDL_version version{};
+  SDL_GetVersion(&version);
+  return version;
+}
+
+/**
+ * \brief Returns the compile-time version of SDL2 that is being used.
+ *
+ * \return the compile-time version of SDL2 that is being used.
+ *
+ * \since 5.1.0
+ */
+[[nodiscard]] constexpr auto sdl_version() noexcept -> SDL_version
+{
+  return {SDL_MAJOR_VERSION, SDL_MINOR_VERSION, SDL_PATCHLEVEL};
+}
+
+/**
+ * \brief Returns the version of SDL2_image that is linked against the program.
+ *
+ * \note The linked version isn't necessarily the same as the version of
+ * SDL2_image that the program was compiled against.
+ *
+ * \return the linked version of SDL2_image.
+ *
+ * \since 6.0.0
+ */
+[[nodiscard]] inline auto sdl_image_linked_version() noexcept -> SDL_version
+{
+  const auto* version = IMG_Linked_Version();
+  assert(version);  // Sanity check
+  return *version;
+}
+
+/**
+ * \brief Returns the compile-time version of SDL2_image that is being used.
+ *
+ * \return the compile-time version of SDL2_image that is being used.
+ *
+ * \since 5.1.0
+ */
+[[nodiscard]] constexpr auto sdl_image_version() noexcept -> SDL_version
+{
+  return {SDL_IMAGE_MAJOR_VERSION,
+          SDL_IMAGE_MINOR_VERSION,
+          SDL_IMAGE_PATCHLEVEL};
+}
+
+/**
+ * \brief Returns the version of SDL2_mixer that is linked against the program.
+ *
+ * \note The linked version isn't necessarily the same as the version of
+ * SDL2_mixer that the program was compiled against.
+ *
+ * \return the linked version of SDL2_mixer.
+ *
+ * \since 6.0.0
+ */
+[[nodiscard]] inline auto sdl_mixer_linked_version() noexcept -> SDL_version
+{
+  const auto* version = Mix_Linked_Version();
+  assert(version);  // Sanity check
+  return *version;
+}
+
+/**
+ * \brief Returns the compile-time version of SDL2_mixer that is being used.
+ *
+ * \return the compile-time version of SDL2_mixer that is being used.
+ *
+ * \since 5.1.0
+ */
+[[nodiscard]] constexpr auto sdl_mixer_version() noexcept -> SDL_version
+{
+  return {SDL_MIXER_MAJOR_VERSION,
+          SDL_MIXER_MINOR_VERSION,
+          SDL_MIXER_PATCHLEVEL};
+}
+
+/**
+ * \brief Returns the version of SDL2_ttf that is linked against the program.
+ *
+ * \note The linked version isn't necessarily the same as the version of
+ * SDL2_ttf that the program was compiled against.
+ *
+ * \return the linked version of SDL2_ttf.
+ *
+ * \since 6.0.0
+ */
+[[nodiscard]] inline auto sdl_ttf_linked_version() noexcept -> SDL_version
+{
+  const auto* version = TTF_Linked_Version();
+  assert(version);  // Sanity check
+  return *version;
+}
+
+/**
+ * \brief Returns the compile-time version of SDL2_ttf that is being used.
+ *
+ * \return the compile-time version of SDL2_ttf that is being used.
+ *
+ * \since 5.1.0
+ */
+[[nodiscard]] constexpr auto sdl_ttf_version() noexcept -> SDL_version
+{
+  return {SDL_TTF_MAJOR_VERSION, SDL_TTF_MINOR_VERSION, SDL_TTF_PATCHLEVEL};
+}
+
+/// \} End of SDL version queries
+
+}  // namespace cen
+
+/// \} End of group core
+
+#endif  // CENTURION_VERSION_HEADER
+
+
+/// \cond FALSE
+namespace cen::detail {
+
+[[nodiscard]] constexpr auto sdl_version_at_least(const int major,
+                                                  const int minor,
+                                                  const int patch) noexcept
+    -> bool
+{
+  return SDL_COMPILEDVERSION >= SDL_VERSIONNUM(major, minor, patch);
+}
+
+}  // namespace cen::detail
+/// \endcond
+
+#endif  // CENTURION_DETAIL_SDL_VERSION_AT_LEAST
+
 // #include "../misc/czstring.hpp"
 #ifndef CENTURION_CZSTRING_HEADER
 #define CENTURION_CZSTRING_HEADER
@@ -27454,9 +31688,39 @@ class pointer_manager final
 #ifndef CENTURION_NOT_NULL_HEADER
 #define CENTURION_NOT_NULL_HEADER
 
-#include <SDL.h>
+// #include "sfinae.hpp"
+#ifndef CENTURION_SFINAE_HEADER
+#define CENTURION_SFINAE_HEADER
 
-#include <type_traits>  // enable_if_t, is_pointer_v
+#include <type_traits>  // enable_if_t, is_same_v, is_integral_v, is_floating_point_v, ...
+
+namespace cen {
+
+/// \addtogroup misc
+/// \{
+
+// clang-format off
+
+template <typename T>
+using enable_if_number_t = std::enable_if_t<!std::is_same_v<T, bool> &&
+                                            (std::is_integral_v<T> ||
+                                             std::is_floating_point_v<T>), int>;
+
+// clang-format on
+
+template <typename T>
+using enable_if_pointer_v = std::enable_if_t<std::is_pointer_v<T>, int>;
+
+template <typename T, typename... Args>
+using enable_if_convertible_t =
+    std::enable_if_t<(std::is_convertible_v<T, Args> || ...), int>;
+
+/// \} End of group misc
+
+}  // namespace cen
+
+#endif  // CENTURION_SFINAE_HEADER
+
 
 namespace cen {
 
@@ -27471,7 +31735,7 @@ namespace cen {
  *
  * \since 5.0.0
  */
-template <typename T, typename = std::enable_if_t<std::is_pointer_v<T>>>
+template <typename T, enable_if_pointer_v<T> = 0>
 using not_null = T;
 
 }  // namespace cen
@@ -27480,6 +31744,9 @@ using not_null = T;
 
 
 namespace cen {
+
+/// \addtogroup misc
+/// \{
 
 /**
  * \typedef czstring
@@ -27494,6 +31761,8 @@ using czstring = const char*;
  * \brief Alias for a C-style null-terminated string.
  */
 using zstring = char*;
+
+/// \} End of group misc
 
 }  // namespace cen
 
@@ -27519,6 +31788,9 @@ using zstring = char*;
 
 namespace cen {
 
+/// \addtogroup misc
+/// \{
+
 /**
  * \typedef czstring
  *
@@ -27532,6 +31804,8 @@ using czstring = const char*;
  * \brief Alias for a C-style null-terminated string.
  */
 using zstring = char*;
+
+/// \} End of group misc
 
 }  // namespace cen
 
@@ -27717,6 +31991,9 @@ class mix_error final : public cen_error
 
 namespace cen {
 
+/// \addtogroup misc
+/// \{
+
 /// \name Integer aliases
 /// \{
 
@@ -27923,6 +32200,9 @@ namespace literals {
 }
 
 }  // namespace literals
+
+/// \} End of group misc
+
 }  // namespace cen
 
 #endif  // CENTURION_INTEGERS_HEADER
@@ -27931,9 +32211,8 @@ namespace literals {
 #ifndef CENTURION_NOT_NULL_HEADER
 #define CENTURION_NOT_NULL_HEADER
 
-#include <SDL.h>
+// #include "sfinae.hpp"
 
-#include <type_traits>  // enable_if_t, is_pointer_v
 
 namespace cen {
 
@@ -27948,7 +32227,7 @@ namespace cen {
  *
  * \since 5.0.0
  */
-template <typename T, typename = std::enable_if_t<std::is_pointer_v<T>>>
+template <typename T, enable_if_pointer_v<T> = 0>
 using not_null = T;
 
 }  // namespace cen
@@ -27970,6 +32249,9 @@ using not_null = T;
 
 namespace cen {
 
+/// \addtogroup misc
+/// \{
+
 /// \name Integer aliases
 /// \{
 
@@ -28176,6 +32458,9 @@ namespace literals {
 }
 
 }  // namespace literals
+
+/// \} End of group misc
+
 }  // namespace cen
 
 #endif  // CENTURION_INTEGERS_HEADER
@@ -28265,196 +32550,6 @@ constexpr auto operator"" _s(const unsigned long long int value) noexcept
 
 #endif  // CENTURION_TIME_HEADER
 
-// #include "../sdl_string.hpp"
-#ifndef CENTURION_SDL_STRING_HEADER
-#define CENTURION_SDL_STRING_HEADER
-
-#include <SDL.h>
-
-#include <memory>  // unique_ptr
-#include <string>  // string
-
-// #include "detail/sdl_deleter.hpp"
-#ifndef CENTURION_DETAIL_SDL_DELETER_HEADER
-#define CENTURION_DETAIL_SDL_DELETER_HEADER
-
-#include <SDL.h>
-
-/// \cond FALSE
-namespace cen::detail {
-
-template <typename T>
-struct sdl_deleter final
-{
-  void operator()(T* ptr) noexcept
-  {
-    SDL_free(ptr);
-  }
-};
-
-}  // namespace cen::detail
-/// \endcond
-
-#endif  // CENTURION_DETAIL_SDL_DELETER_HEADER
-
-// #include "misc/czstring.hpp"
-#ifndef CENTURION_CZSTRING_HEADER
-#define CENTURION_CZSTRING_HEADER
-
-// #include "not_null.hpp"
-#ifndef CENTURION_NOT_NULL_HEADER
-#define CENTURION_NOT_NULL_HEADER
-
-#include <SDL.h>
-
-#include <type_traits>  // enable_if_t, is_pointer_v
-
-namespace cen {
-
-/**
- * \typedef not_null
- *
- * \ingroup misc
- *
- * \brief Tag used to indicate that a pointer cannot be null.
- *
- * \note This alias is equivalent to `T`, it is a no-op.
- *
- * \since 5.0.0
- */
-template <typename T, typename = std::enable_if_t<std::is_pointer_v<T>>>
-using not_null = T;
-
-}  // namespace cen
-
-#endif  // CENTURION_NOT_NULL_HEADER
-
-
-namespace cen {
-
-/**
- * \typedef czstring
- *
- * \brief Alias for a const C-style null-terminated string.
- */
-using czstring = const char*;
-
-/**
- * \typedef zstring
- *
- * \brief Alias for a C-style null-terminated string.
- */
-using zstring = char*;
-
-}  // namespace cen
-
-#endif  // CENTURION_CZSTRING_HEADER
-
-// #include "misc/owner.hpp"
-#ifndef CENTURION_OWNER_HEADER
-#define CENTURION_OWNER_HEADER
-
-#include <type_traits>  // enable_if_t, is_pointer_v
-
-namespace cen {
-
-/**
- * \typedef owner
- *
- * \ingroup misc
- *
- * \brief Tag used to denote ownership of raw pointers directly in code.
- *
- * \details If a function takes an `owner<T*>` as a parameter, then the
- * function will claim ownership of that pointer. Subsequently, if a function
- * returns an `owner<T*>`, then ownership is transferred to the caller.
- */
-template <typename T, typename = std::enable_if_t<std::is_pointer_v<T>>>
-using owner = T;
-
-}  // namespace cen
-
-#endif  // CENTURION_OWNER_HEADER
-
-namespace cen {
-
-/**
- * \class sdl_string
- *
- * \brief Represents a string obtained from SDL, usually a `char*` that has to
- * be freed using `SDL_free`.
- *
- * \since 5.0.0
- *
- * \headerfile sdl_string.hpp
- */
-class sdl_string final
-{
- public:
-  /**
-   * \brief
-   *
-   * \param str the string that will be claimed, can be null.
-   *
-   * \since 5.0.0
-   */
-  explicit sdl_string(owner<zstring> str) noexcept : m_str{str}
-  {}
-
-  /**
-   * \brief Returns the internal string, which might be null.
-   *
-   * \return the internal string; `nullptr` if there is none.
-   *
-   * \since 5.0.0
-   */
-  [[nodiscard]] auto get() const noexcept -> czstring
-  {
-    return m_str.get();
-  }
-
-  /**
-   * \brief Returns a copy of the internal string.
-   *
-   * \details This function returns the empty string if the internal string
-   * is a null pointer.
-   *
-   * \return a copy of the internal string.
-   *
-   * \since 5.0.0
-   */
-  [[nodiscard]] auto copy() const -> std::string
-  {
-    if (m_str)
-    {
-      return std::string{get()};
-    }
-    else
-    {
-      return std::string{};
-    }
-  }
-
-  /**
-   * \brief Indicates whether or not the internal string is non-null.
-   *
-   * \return `true` if the internal string is non-null; `false` otherwise.
-   *
-   * \since 5.0.0
-   */
-  explicit operator bool() const noexcept
-  {
-    return m_str.operator bool();
-  }
-
- private:
-  std::unique_ptr<char, detail::sdl_deleter<char>> m_str;
-};
-
-}  // namespace cen
-
-#endif  // CENTURION_SDL_STRING_HEADER
-
 // #include "../video/color.hpp"
 #ifndef CENTURION_COLOR_HEADER
 #define CENTURION_COLOR_HEADER
@@ -28477,7 +32572,7 @@ class sdl_string final
 #include <system_error>  // errc
 #include <type_traits>   // is_floating_point_v
 
-// #include "../compiler.hpp"
+// #include "../compiler/compiler.hpp"
 #ifndef CENTURION_COMPILER_HEADER
 #define CENTURION_COMPILER_HEADER
 
@@ -28677,6 +32772,9 @@ template <std::size_t bufferSize = 16, typename T>
 
 namespace cen {
 
+/// \addtogroup misc
+/// \{
+
 /// \name Integer aliases
 /// \{
 
@@ -28883,6 +32981,9 @@ namespace literals {
 }
 
 }  // namespace literals
+
+/// \} End of group misc
+
 }  // namespace cen
 
 #endif  // CENTURION_INTEGERS_HEADER
@@ -29351,7 +33452,7 @@ class color final
    * component to obtain the blended color. The bias parameter is the "alpha"
    * for the interpolation, which determines how the input colors are blended.
    * For example, a bias of 0 or 1 will simply result in the first or second
-   * color being returned, respectively. Subsequently, a bias of 0.5 with blend
+   * color being returned, respectively. Subsequently, a bias of 0.5 will blend
    * the two colors evenly.
    *
    * \param a the first color.
@@ -29608,10 +33709,218 @@ enum class button_state
 
 #include <cassert>      // assert
 #include <optional>     // optional
+#include <ostream>      // ostream
 #include <string>       // string
 #include <type_traits>  // true_type, false_type, is_same_v
 
+// #include "../detail/address_of.hpp"
+
 // #include "../detail/owner_handle_api.hpp"
+
+// #include "../detail/sdl_version_at_least.hpp"
+
+// #include "../detail/to_string.hpp"
+#ifndef CENTURION_DETAIL_TO_STRING_HEADER
+#define CENTURION_DETAIL_TO_STRING_HEADER
+
+#include <array>         // array
+#include <charconv>      // to_chars
+#include <optional>      // optional, nullopt
+#include <string>        // string
+#include <system_error>  // errc
+#include <type_traits>   // is_floating_point_v
+
+// #include "../compiler/compiler.hpp"
+#ifndef CENTURION_COMPILER_HEADER
+#define CENTURION_COMPILER_HEADER
+
+#include <SDL.h>
+
+namespace cen {
+
+/// \addtogroup compiler
+/// \{
+
+/**
+ * \brief Indicates whether or not a "debug" build mode is active.
+ *
+ * \note This is intended to be use with `if constexpr`-statements instead of
+ * raw `#ifdef` conditional compilation, since the use of `if constexpr`
+ * prevents any branch to be ill-formed, which avoids code rot.
+ *
+ * \return `true` if a debug build mode is currently active; `false` otherwise.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto is_debug_build() noexcept -> bool
+{
+#ifndef NDEBUG
+  return true;
+#else
+  return false;
+#endif  // NDEBUG
+}
+
+/**
+ * \brief Indicates whether or not a "release" build mode is active.
+ *
+ * \note This is intended to be use with `if constexpr`-statements instead of
+ * raw `#ifdef` conditional compilation, since the use of `if constexpr`
+ * prevents any branch to be ill-formed, which avoids code rot.
+ *
+ * \return `true` if a release build mode is currently active; `false`
+ * otherwise.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto is_release_build() noexcept -> bool
+{
+  return !is_debug_build();
+}
+
+/**
+ * \brief Indicates whether or not the compiler is MSVC.
+ *
+ * \return `true` if MSVC is detected as the current compiler; `false`
+ * otherwise.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto on_msvc() noexcept -> bool
+{
+#ifdef _MSC_VER
+  return true;
+#else
+  return false;
+#endif  // _MSC_VER
+}
+
+/**
+ * \brief Indicates whether or not the compiler is GCC.
+ *
+ * \return `true` if GCC is detected as the current compiler; `false`
+ * otherwise.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto on_gcc() noexcept -> bool
+{
+#ifdef __GNUC__
+  return true;
+#else
+  return false;
+#endif  // __GNUC__
+}
+
+/**
+ * \brief Indicates whether or not the compiler is Clang.
+ *
+ * \return `true` if Clang is detected as the current compiler; `false`
+ * otherwise.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto on_clang() noexcept -> bool
+{
+#ifdef __clang__
+  return true;
+#else
+  return false;
+#endif  // __clang__
+}
+
+/**
+ * \brief Indicates whether or not the compiler is Emscripten.
+ *
+ * \return `true` if Emscripten is detected as the current compiler; `false`
+ * otherwise.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto on_emscripten() noexcept -> bool
+{
+#ifdef __EMSCRIPTEN__
+  return true;
+#else
+  return false;
+#endif  // __EMSCRIPTEN__
+}
+
+/**
+ * \brief Indicates whether or not the compiler is Intel C++.
+ *
+ * \return `true` if Intel C++ is detected as the current compiler; `false`
+ * otherwise.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto on_intel_cpp() noexcept -> bool
+{
+#ifdef __INTEL_COMPILER
+  return true;
+#else
+  return false;
+#endif  // __INTEL_COMPILER
+}
+
+/// \} End of compiler group
+
+}  // namespace cen
+
+#endif  // CENTURION_COMPILER_HEADER
+
+
+/// \cond FALSE
+namespace cen::detail {
+
+/**
+ * \brief Returns a string representation of an arithmetic value.
+ *
+ * \note This function is guaranteed to work for 32-bit integers and floats.
+ * You might have to increase the buffer size for larger types.
+ *
+ * \remark On GCC, this function simply calls `std::to_string`, since the
+ * `std::to_chars` implementation seems to be lacking at the time of writing.
+ *
+ * \tparam bufferSize the size of the stack buffer used, must be big enough
+ * to store the characters of the string representation of the value.
+ * \tparam T the type of the value that will be converted, must be arithmetic.
+ *
+ * \param value the value that will be converted.
+ *
+ * \return a string representation of the supplied value; `std::nullopt` if
+ * something goes wrong.
+ *
+ * \since 5.0.0
+ */
+template <std::size_t bufferSize = 16, typename T>
+[[nodiscard]] auto to_string(T value) -> std::optional<std::string>
+{
+  if constexpr (on_gcc() || (on_clang() && std::is_floating_point_v<T>))
+  {
+    return std::to_string(value);
+  }
+  else
+  {
+    std::array<char, bufferSize> buffer{};
+    const auto [ptr, err] =
+        std::to_chars(buffer.data(), buffer.data() + buffer.size(), value);
+
+    if (err == std::errc{})
+    {
+      return std::string{buffer.data(), ptr};
+    }
+    else
+    {
+      return std::nullopt;
+    }
+  }
+}
+
+}  // namespace cen::detail
+/// \endcond
+
+#endif  // CENTURION_DETAIL_TO_STRING_HEADER
 
 // #include "../misc/czstring.hpp"
 
@@ -29795,7 +34104,7 @@ class basic_joystick final
    *
    * \throws sdl_error if the joystick couldn't be opened.
    */
-  template <typename BB = B, detail::is_owner<BB> = true>
+  template <typename BB = B, detail::is_owner<BB> = 0>
   explicit basic_joystick(const int index = 0)
       : m_joystick{SDL_JoystickOpen(index)}
   {
@@ -29812,7 +34121,7 @@ class basic_joystick final
    *
    * \param owner the owning joystick instance.
    */
-  template <typename BB = B, detail::is_handle<BB> = true>
+  template <typename BB = B, detail::is_handle<BB> = 0>
   explicit basic_joystick(const joystick& owner) noexcept
       : m_joystick{owner.get()}
   {}
@@ -29827,7 +34136,7 @@ class basic_joystick final
    *
    * \since 5.0.0
    */
-  template <typename BB = B, detail::is_handle<BB> = true>
+  template <typename BB = B, detail::is_handle<BB> = 0>
   [[nodiscard]] static auto from_instance_id(const SDL_JoystickID id) noexcept
       -> joystick_handle
   {
@@ -29846,7 +34155,7 @@ class basic_joystick final
    *
    * \since 5.0.0
    */
-  template <typename BB = B, detail::is_handle<BB> = true>
+  template <typename BB = B, detail::is_handle<BB> = 0>
   [[nodiscard]] static auto from_player_index(const int playerIndex) noexcept
       -> joystick_handle
   {
@@ -30777,7 +35086,7 @@ class basic_joystick final
    *
    * \since 5.0.0
    */
-  template <typename BB = B, detail::is_handle<BB> = true>
+  template <typename BB = B, detail::is_handle<BB> = 0>
   explicit operator bool() const noexcept
   {
     return m_joystick != nullptr;
@@ -30814,6 +35123,56 @@ class basic_joystick final
   };
   detail::pointer_manager<B, SDL_Joystick, deleter> m_joystick;
 };
+
+/**
+ * \brief Returns a textual representation of a joystick.
+ *
+ * \tparam T the ownership semantics tag for the joystick.
+ *
+ * \param joystick the joystick that will be converted.
+ *
+ * \return a string representation of the joystick.
+ *
+ * \since 6.0.0
+ */
+template <typename T>
+[[nodiscard]] auto to_string(const basic_joystick<T>& joystick) -> std::string
+{
+  const auto* name = joystick.name();
+
+  czstring serial{};
+  if constexpr (detail::sdl_version_at_least(2, 0, 14))
+  {
+    serial = joystick.serial();
+  }
+
+  return "joystick{data: " + detail::address_of(joystick.get()) +
+         ", id: " + detail::to_string(joystick.instance_id()).value() +
+         ", name: " + (name ? name : "N/A") +
+         ", serial: " + (serial ? serial : "N/A") + "}";
+}
+
+/**
+ * \brief Prints a joystick using a stream.
+ *
+ * \tparam T the ownership semantics tag for the joystick.
+ *
+ * \param stream the stream that will be used to print the joystick.
+ * \param joystick the joystick that will be printed.
+ *
+ * \return the used stream.
+ *
+ * \since 6.0.0
+ */
+template <typename T>
+auto operator<<(std::ostream& stream, const basic_joystick<T>& joystick)
+    -> std::ostream&
+{
+  return stream << to_string(joystick);
+}
+
+/// \name Joystick power comparison operators
+/// \{
 
 /**
  * \brief Indicates whether or not two joystick power values are the same.
@@ -30883,6 +35242,11 @@ class basic_joystick final
   return !(lhs == rhs);
 }
 
+/// \} End of joystick power comparison operators
+
+/// \name Joystick type comparison operators
+/// \{
+
 /**
  * \brief Indicates whether or not two joystick type values are the same.
  *
@@ -30951,6 +35315,8 @@ class basic_joystick final
   return !(lhs == rhs);
 }
 
+/// \} End of joystick type comparison operators
+
 /// \} End of group input
 
 }  // namespace cen
@@ -30974,207 +35340,6 @@ class basic_joystick final
 // #include "../detail/owner_handle_api.hpp"
 
 // #include "../detail/to_string.hpp"
-#ifndef CENTURION_DETAIL_TO_STRING_HEADER
-#define CENTURION_DETAIL_TO_STRING_HEADER
-
-#include <array>         // array
-#include <charconv>      // to_chars
-#include <optional>      // optional, nullopt
-#include <string>        // string
-#include <system_error>  // errc
-#include <type_traits>   // is_floating_point_v
-
-// #include "../compiler.hpp"
-#ifndef CENTURION_COMPILER_HEADER
-#define CENTURION_COMPILER_HEADER
-
-#include <SDL.h>
-
-namespace cen {
-
-/// \addtogroup compiler
-/// \{
-
-/**
- * \brief Indicates whether or not a "debug" build mode is active.
- *
- * \note This is intended to be use with `if constexpr`-statements instead of
- * raw `#ifdef` conditional compilation, since the use of `if constexpr`
- * prevents any branch to be ill-formed, which avoids code rot.
- *
- * \return `true` if a debug build mode is currently active; `false` otherwise.
- *
- * \since 5.3.0
- */
-[[nodiscard]] constexpr auto is_debug_build() noexcept -> bool
-{
-#ifndef NDEBUG
-  return true;
-#else
-  return false;
-#endif  // NDEBUG
-}
-
-/**
- * \brief Indicates whether or not a "release" build mode is active.
- *
- * \note This is intended to be use with `if constexpr`-statements instead of
- * raw `#ifdef` conditional compilation, since the use of `if constexpr`
- * prevents any branch to be ill-formed, which avoids code rot.
- *
- * \return `true` if a release build mode is currently active; `false`
- * otherwise.
- *
- * \since 5.3.0
- */
-[[nodiscard]] constexpr auto is_release_build() noexcept -> bool
-{
-  return !is_debug_build();
-}
-
-/**
- * \brief Indicates whether or not the compiler is MSVC.
- *
- * \return `true` if MSVC is detected as the current compiler; `false`
- * otherwise.
- *
- * \since 5.3.0
- */
-[[nodiscard]] constexpr auto on_msvc() noexcept -> bool
-{
-#ifdef _MSC_VER
-  return true;
-#else
-  return false;
-#endif  // _MSC_VER
-}
-
-/**
- * \brief Indicates whether or not the compiler is GCC.
- *
- * \return `true` if GCC is detected as the current compiler; `false`
- * otherwise.
- *
- * \since 5.3.0
- */
-[[nodiscard]] constexpr auto on_gcc() noexcept -> bool
-{
-#ifdef __GNUC__
-  return true;
-#else
-  return false;
-#endif  // __GNUC__
-}
-
-/**
- * \brief Indicates whether or not the compiler is Clang.
- *
- * \return `true` if Clang is detected as the current compiler; `false`
- * otherwise.
- *
- * \since 5.3.0
- */
-[[nodiscard]] constexpr auto on_clang() noexcept -> bool
-{
-#ifdef __clang__
-  return true;
-#else
-  return false;
-#endif  // __clang__
-}
-
-/**
- * \brief Indicates whether or not the compiler is Emscripten.
- *
- * \return `true` if Emscripten is detected as the current compiler; `false`
- * otherwise.
- *
- * \since 5.3.0
- */
-[[nodiscard]] constexpr auto on_emscripten() noexcept -> bool
-{
-#ifdef __EMSCRIPTEN__
-  return true;
-#else
-  return false;
-#endif  // __EMSCRIPTEN__
-}
-
-/**
- * \brief Indicates whether or not the compiler is Intel C++.
- *
- * \return `true` if Intel C++ is detected as the current compiler; `false`
- * otherwise.
- *
- * \since 5.3.0
- */
-[[nodiscard]] constexpr auto on_intel_cpp() noexcept -> bool
-{
-#ifdef __INTEL_COMPILER
-  return true;
-#else
-  return false;
-#endif  // __INTEL_COMPILER
-}
-
-/// \} End of compiler group
-
-}  // namespace cen
-
-#endif  // CENTURION_COMPILER_HEADER
-
-
-/// \cond FALSE
-namespace cen::detail {
-
-/**
- * \brief Returns a string representation of an arithmetic value.
- *
- * \note This function is guaranteed to work for 32-bit integers and floats.
- * You might have to increase the buffer size for larger types.
- *
- * \remark On GCC, this function simply calls `std::to_string`, since the
- * `std::to_chars` implementation seems to be lacking at the time of writing.
- *
- * \tparam bufferSize the size of the stack buffer used, must be big enough
- * to store the characters of the string representation of the value.
- * \tparam T the type of the value that will be converted, must be arithmetic.
- *
- * \param value the value that will be converted.
- *
- * \return a string representation of the supplied value; `std::nullopt` if
- * something goes wrong.
- *
- * \since 5.0.0
- */
-template <std::size_t bufferSize = 16, typename T>
-[[nodiscard]] auto to_string(T value) -> std::optional<std::string>
-{
-  if constexpr (on_gcc() || (on_clang() && std::is_floating_point_v<T>))
-  {
-    return std::to_string(value);
-  }
-  else
-  {
-    std::array<char, bufferSize> buffer{};
-    const auto [ptr, err] =
-        std::to_chars(buffer.data(), buffer.data() + buffer.size(), value);
-
-    if (err == std::errc{})
-    {
-      return std::string{buffer.data(), ptr};
-    }
-    else
-    {
-      return std::nullopt;
-    }
-  }
-}
-
-}  // namespace cen::detail
-/// \endcond
-
-#endif  // CENTURION_DETAIL_TO_STRING_HEADER
 
 // #include "../misc/czstring.hpp"
 
@@ -31290,7 +35455,7 @@ class basic_sensor final
    *
    * \since 5.2.0
    */
-  template <typename TT = T, detail::is_owner<TT> = true>
+  template <typename TT = T, detail::is_owner<TT> = 0>
   explicit basic_sensor(const int index = 0) : m_sensor{SDL_SensorOpen(index)}
   {
     if (!m_sensor)
@@ -31308,7 +35473,7 @@ class basic_sensor final
    *
    * \since 5.2.0
    */
-  template <typename TT = T, detail::is_handle<TT> = true>
+  template <typename TT = T, detail::is_handle<TT> = 0>
   explicit basic_sensor(const sensor& owner) noexcept : m_sensor{owner.get()}
   {}
 
@@ -31559,7 +35724,7 @@ class basic_sensor final
    *
    * \since 5.2.0
    */
-  template <typename TT = T, detail::is_handle<TT> = true>
+  template <typename TT = T, detail::is_handle<TT> = 0>
   explicit operator bool() const noexcept
   {
     return m_sensor != nullptr;
@@ -31615,8 +35780,7 @@ template <typename T>
 auto operator<<(std::ostream& stream, const basic_sensor<T>& sensor)
     -> std::ostream&
 {
-  stream << to_string(sensor);
-  return stream;
+  return stream << to_string(sensor);
 }
 
 /**
@@ -31630,6 +35794,9 @@ auto operator<<(std::ostream& stream, const basic_sensor<T>& sensor)
 {
   return SDL_STANDARD_GRAVITY;
 }
+
+/// \name Sensor type comparison operators
+/// \{
 
 /**
  * \brief Indicates whether or not two sensor types values are equal.
@@ -31682,6 +35849,8 @@ auto operator<<(std::ostream& stream, const basic_sensor<T>& sensor)
 {
   return !(lhs == rhs);
 }
+
+/// \} End of sensor type comparison operators
 
 /// \} End of input group
 
@@ -32153,7 +36322,7 @@ class basic_controller final
    *
    * \since 5.0.0
    */
-  template <typename TT = T, detail::is_handle<TT> = true>
+  template <typename TT = T, detail::is_handle<TT> = 0>
   explicit basic_controller(const controller& owner) noexcept
       : m_controller{owner.get()}
   {}
@@ -32178,7 +36347,7 @@ class basic_controller final
    *
    * \since 5.0.0
    */
-  template <typename TT = T, detail::is_owner<TT> = true>
+  template <typename TT = T, detail::is_owner<TT> = 0>
   explicit basic_controller(const int index = 0)
       : m_controller{SDL_GameControllerOpen(index)}
   {
@@ -32202,7 +36371,7 @@ class basic_controller final
    *
    * \since 5.0.0
    */
-  template <typename TT = T, detail::is_owner<TT> = true>
+  template <typename TT = T, detail::is_owner<TT> = 0>
   [[nodiscard]] static auto from_joystick(const SDL_JoystickID id)
       -> basic_controller
   {
@@ -32229,7 +36398,7 @@ class basic_controller final
    *
    * \since 5.0.0
    */
-  template <typename TT = T, detail::is_owner<TT> = true>
+  template <typename TT = T, detail::is_owner<TT> = 0>
   [[nodiscard]] static auto from_index(const player_index index)
       -> basic_controller
   {
@@ -33266,7 +37435,7 @@ class basic_controller final
    *
    * \since 5.0.0
    */
-  template <typename TT = T, detail::is_handle<TT> = true>
+  template <typename TT = T, detail::is_handle<TT> = 0>
   explicit operator bool() const noexcept
   {
     return m_controller != nullptr;
@@ -33298,11 +37467,17 @@ template <typename T>
 [[nodiscard]] auto to_string(const basic_controller<T>& controller)
     -> std::string
 {
-  using namespace std::string_literals;
+  const auto* name = controller.name();
 
-  const auto name = controller.name() ? controller.name() : "N/A";
-  return "controller{data: "s + detail::address_of(controller.get()) +
-         ", name: " + name + "}";
+  czstring serial{};
+  if constexpr (detail::sdl_version_at_least(2, 0, 14))
+  {
+    serial = controller.serial();
+  }
+
+  return "controller{data: " + detail::address_of(controller.get()) +
+         ", name: " + (name ? name : "N/A") +
+         ", serial: " + (serial ? serial : "N/A") + "}";
 }
 
 /**
@@ -33670,7 +37845,7 @@ template <typename T>
 #include <system_error>  // errc
 #include <type_traits>   // is_floating_point_v
 
-// #include "../compiler.hpp"
+// #include "../compiler/compiler.hpp"
 #ifndef CENTURION_COMPILER_HEADER
 #define CENTURION_COMPILER_HEADER
 
@@ -34223,16 +38398,16 @@ template <typename Derived>
 class haptic_effect
 {
   template <typename T>
-  using has_direction = std::enable_if_t<T::hasDirection, bool>;
+  using has_direction = std::enable_if_t<T::hasDirection, int>;
 
   template <typename T>
-  using has_envelope = std::enable_if_t<T::hasEnvelope, bool>;
+  using has_envelope = std::enable_if_t<T::hasEnvelope, int>;
 
   template <typename T>
-  using has_trigger = std::enable_if_t<T::hasTrigger, bool>;
+  using has_trigger = std::enable_if_t<T::hasTrigger, int>;
 
   template <typename T>
-  using has_delay = std::enable_if_t<T::hasDelay, bool>;
+  using has_delay = std::enable_if_t<T::hasDelay, int>;
 
  public:
   /// \name Direction functions
@@ -34249,7 +38424,7 @@ class haptic_effect
    *
    * \since 5.2.0
    */
-  template <typename D = Derived, has_direction<D> = true>
+  template <typename D = Derived, has_direction<D> = 0>
   void set_direction(const haptic_direction& direction) noexcept
   {
     rep().direction = direction.get();
@@ -34264,7 +38439,7 @@ class haptic_effect
    *
    * \since 5.2.0
    */
-  template <typename D = Derived, has_direction<D> = true>
+  template <typename D = Derived, has_direction<D> = 0>
   [[nodiscard]] auto direction() const noexcept -> haptic_direction
   {
     return haptic_direction{rep().direction};
@@ -34311,7 +38486,7 @@ class haptic_effect
    *
    * \since 5.2.0
    */
-  template <typename D = Derived, has_delay<D> = true>
+  template <typename D = Derived, has_delay<D> = 0>
   void set_delay(const milliseconds<u16> ms) noexcept(noexcept(ms.count()))
   {
     rep().delay = ms.count();
@@ -34340,7 +38515,7 @@ class haptic_effect
    *
    * \since 5.2.0
    */
-  template <typename D = Derived, has_delay<D> = true>
+  template <typename D = Derived, has_delay<D> = 0>
   [[nodiscard]] auto delay() const -> milliseconds<u16>
   {
     return milliseconds<u16>{rep().delay};
@@ -34362,7 +38537,7 @@ class haptic_effect
    *
    * \since 5.2.0
    */
-  template <typename D = Derived, has_trigger<D> = true>
+  template <typename D = Derived, has_trigger<D> = 0>
   void set_button(const u16 button) noexcept
   {
     rep().button = button;
@@ -34379,7 +38554,7 @@ class haptic_effect
    *
    * \since 5.2.0
    */
-  template <typename D = Derived, has_trigger<D> = true>
+  template <typename D = Derived, has_trigger<D> = 0>
   void set_interval(const milliseconds<u16> ms) noexcept(noexcept(ms.count()))
   {
     rep().interval = ms.count();
@@ -34396,7 +38571,7 @@ class haptic_effect
    *
    * \since 5.2.0
    */
-  template <typename D = Derived, has_trigger<D> = true>
+  template <typename D = Derived, has_trigger<D> = 0>
   [[nodiscard]] auto button() const noexcept -> u16
   {
     return rep().button;
@@ -34413,7 +38588,7 @@ class haptic_effect
    *
    * \since 5.2.0
    */
-  template <typename D = Derived, has_trigger<D> = true>
+  template <typename D = Derived, has_trigger<D> = 0>
   [[nodiscard]] auto interval() const -> milliseconds<u16>
   {
     return milliseconds<u16>{rep().interval};
@@ -34435,7 +38610,7 @@ class haptic_effect
    *
    * \since 5.2.0
    */
-  template <typename D = Derived, has_envelope<D> = true>
+  template <typename D = Derived, has_envelope<D> = 0>
   void set_attack_level(const u16 level) noexcept
   {
     rep().attack_level = level;
@@ -34452,7 +38627,7 @@ class haptic_effect
    *
    * \since 5.2.0
    */
-  template <typename D = Derived, has_envelope<D> = true>
+  template <typename D = Derived, has_envelope<D> = 0>
   void set_fade_level(const u16 level) noexcept
   {
     rep().fade_level = level;
@@ -34471,7 +38646,7 @@ class haptic_effect
    *
    * \since 5.2.0
    */
-  template <typename D = Derived, has_envelope<D> = true>
+  template <typename D = Derived, has_envelope<D> = 0>
   void set_attack_duration(const milliseconds<u16> ms) noexcept(noexcept(ms.count()))
   {
     rep().attack_length = ms.count();
@@ -34488,7 +38663,7 @@ class haptic_effect
    *
    * \since 5.2.0
    */
-  template <typename D = Derived, has_envelope<D> = true>
+  template <typename D = Derived, has_envelope<D> = 0>
   void set_fade_duration(const milliseconds<u16> ms) noexcept(noexcept(ms.count()))
   {
     rep().fade_length = ms.count();
@@ -34507,7 +38682,7 @@ class haptic_effect
    *
    * \since 5.2.0
    */
-  template <typename D = Derived, has_envelope<D> = true>
+  template <typename D = Derived, has_envelope<D> = 0>
   [[nodiscard]] auto attack_level() const noexcept -> u16
   {
     return rep().attack_level;
@@ -34524,7 +38699,7 @@ class haptic_effect
    *
    * \since 5.2.0
    */
-  template <typename D = Derived, has_envelope<D> = true>
+  template <typename D = Derived, has_envelope<D> = 0>
   [[nodiscard]] auto fade_level() const noexcept -> u16
   {
     return rep().fade_level;
@@ -34541,7 +38716,7 @@ class haptic_effect
    *
    * \since 5.2.0
    */
-  template <typename D = Derived, has_envelope<D> = true>
+  template <typename D = Derived, has_envelope<D> = 0>
   [[nodiscard]] auto attack_duration() const -> milliseconds<u16>
   {
     return milliseconds<u16>{rep().attack_length};
@@ -34558,7 +38733,7 @@ class haptic_effect
    *
    * \since 5.2.0
    */
-  template <typename D = Derived, has_envelope<D> = true>
+  template <typename D = Derived, has_envelope<D> = 0>
   [[nodiscard]] auto fade_duration() const -> milliseconds<u16>
   {
     return milliseconds<u16>{rep().fade_length};
@@ -35565,7 +39740,7 @@ class basic_haptic final
    *
    * \since 5.2.0
    */
-  template <typename BB = B, detail::is_owner<BB> = true>
+  template <typename BB = B, detail::is_owner<BB> = 0>
   explicit basic_haptic(const int index = 0) : m_haptic{SDL_HapticOpen(index)}
   {
     if (!m_haptic)
@@ -35583,7 +39758,7 @@ class basic_haptic final
    *
    * \since 5.2.0
    */
-  template <typename BB = B, detail::is_handle<BB> = true>
+  template <typename BB = B, detail::is_handle<BB> = 0>
   explicit basic_haptic(const haptic& owner) noexcept : m_haptic{owner.get()}
   {}
 
@@ -35602,7 +39777,7 @@ class basic_haptic final
    *
    * \since 5.2.0
    */
-  template <typename T, typename BB = B, detail::is_owner<BB> = true>
+  template <typename T, typename BB = B, detail::is_owner<BB> = 0>
   [[nodiscard]] static auto from_joystick(const basic_joystick<T>& joystick)
       -> basic_haptic
   {
@@ -35629,7 +39804,7 @@ class basic_haptic final
    *
    * \since 5.2.0
    */
-  template <typename BB = B, detail::is_owner<BB> = true>
+  template <typename BB = B, detail::is_owner<BB> = 0>
   [[nodiscard]] static auto from_mouse() -> basic_haptic
   {
     if (auto* ptr = SDL_HapticOpenFromMouse())
@@ -36349,7 +40524,7 @@ class basic_haptic final
    *
    * \since 5.2.0
    */
-  template <typename BB = B, detail::is_handle<BB> = true>
+  template <typename BB = B, detail::is_handle<BB> = 0>
   explicit operator bool() const noexcept
   {
     return m_haptic != nullptr;
@@ -36454,8 +40629,7 @@ template <typename B>
 auto operator<<(std::ostream& stream, const basic_haptic<B>& haptic)
     -> std::ostream&
 {
-  stream << to_string(haptic);
-  return stream;
+  return stream << to_string(haptic);
 }
 
 /// \} End of input group
@@ -36472,10 +40646,17 @@ auto operator<<(std::ostream& stream, const basic_haptic<B>& haptic)
 
 #include <cassert>      // assert
 #include <optional>     // optional
+#include <ostream>      // ostream
 #include <string>       // string
 #include <type_traits>  // true_type, false_type, is_same_v
 
+// #include "../detail/address_of.hpp"
+
 // #include "../detail/owner_handle_api.hpp"
+
+// #include "../detail/sdl_version_at_least.hpp"
+
+// #include "../detail/to_string.hpp"
 
 // #include "../misc/czstring.hpp"
 
@@ -36659,7 +40840,7 @@ class basic_joystick final
    *
    * \throws sdl_error if the joystick couldn't be opened.
    */
-  template <typename BB = B, detail::is_owner<BB> = true>
+  template <typename BB = B, detail::is_owner<BB> = 0>
   explicit basic_joystick(const int index = 0)
       : m_joystick{SDL_JoystickOpen(index)}
   {
@@ -36676,7 +40857,7 @@ class basic_joystick final
    *
    * \param owner the owning joystick instance.
    */
-  template <typename BB = B, detail::is_handle<BB> = true>
+  template <typename BB = B, detail::is_handle<BB> = 0>
   explicit basic_joystick(const joystick& owner) noexcept
       : m_joystick{owner.get()}
   {}
@@ -36691,7 +40872,7 @@ class basic_joystick final
    *
    * \since 5.0.0
    */
-  template <typename BB = B, detail::is_handle<BB> = true>
+  template <typename BB = B, detail::is_handle<BB> = 0>
   [[nodiscard]] static auto from_instance_id(const SDL_JoystickID id) noexcept
       -> joystick_handle
   {
@@ -36710,7 +40891,7 @@ class basic_joystick final
    *
    * \since 5.0.0
    */
-  template <typename BB = B, detail::is_handle<BB> = true>
+  template <typename BB = B, detail::is_handle<BB> = 0>
   [[nodiscard]] static auto from_player_index(const int playerIndex) noexcept
       -> joystick_handle
   {
@@ -37641,7 +41822,7 @@ class basic_joystick final
    *
    * \since 5.0.0
    */
-  template <typename BB = B, detail::is_handle<BB> = true>
+  template <typename BB = B, detail::is_handle<BB> = 0>
   explicit operator bool() const noexcept
   {
     return m_joystick != nullptr;
@@ -37678,6 +41859,56 @@ class basic_joystick final
   };
   detail::pointer_manager<B, SDL_Joystick, deleter> m_joystick;
 };
+
+/**
+ * \brief Returns a textual representation of a joystick.
+ *
+ * \tparam T the ownership semantics tag for the joystick.
+ *
+ * \param joystick the joystick that will be converted.
+ *
+ * \return a string representation of the joystick.
+ *
+ * \since 6.0.0
+ */
+template <typename T>
+[[nodiscard]] auto to_string(const basic_joystick<T>& joystick) -> std::string
+{
+  const auto* name = joystick.name();
+
+  czstring serial{};
+  if constexpr (detail::sdl_version_at_least(2, 0, 14))
+  {
+    serial = joystick.serial();
+  }
+
+  return "joystick{data: " + detail::address_of(joystick.get()) +
+         ", id: " + detail::to_string(joystick.instance_id()).value() +
+         ", name: " + (name ? name : "N/A") +
+         ", serial: " + (serial ? serial : "N/A") + "}";
+}
+
+/**
+ * \brief Prints a joystick using a stream.
+ *
+ * \tparam T the ownership semantics tag for the joystick.
+ *
+ * \param stream the stream that will be used to print the joystick.
+ * \param joystick the joystick that will be printed.
+ *
+ * \return the used stream.
+ *
+ * \since 6.0.0
+ */
+template <typename T>
+auto operator<<(std::ostream& stream, const basic_joystick<T>& joystick)
+    -> std::ostream&
+{
+  return stream << to_string(joystick);
+}
+
+/// \name Joystick power comparison operators
+/// \{
 
 /**
  * \brief Indicates whether or not two joystick power values are the same.
@@ -37747,6 +41978,11 @@ class basic_joystick final
   return !(lhs == rhs);
 }
 
+/// \} End of joystick power comparison operators
+
+/// \name Joystick type comparison operators
+/// \{
+
 /**
  * \brief Indicates whether or not two joystick type values are the same.
  *
@@ -37814,6 +42050,8 @@ class basic_joystick final
 {
   return !(lhs == rhs);
 }
+
+/// \} End of joystick type comparison operators
 
 /// \} End of group input
 
@@ -38913,7 +43151,7 @@ enum class key_modifier
 #include <algorithm>  // copy
 #include <array>      // array
 
-// #include "../compiler.hpp"
+// #include "../compiler/compiler.hpp"
 #ifndef CENTURION_COMPILER_HEADER
 #define CENTURION_COMPILER_HEADER
 
@@ -41424,6 +45662,19 @@ class keyboard final
   // clang-format on
 };
 
+/**
+ * \brief Indicates whether or not the platform has screen keyboard support.
+ *
+ * \return `true` if the current platform has some form of screen keyboard
+ * support; `false` otherwise.
+ *
+ * \since 6.0.0
+ */
+[[nodiscard]] inline auto has_screen_keyboard() noexcept -> bool
+{
+  return SDL_HasScreenKeyboardSupport() == SDL_TRUE;
+}
+
 /// \} End of group input
 
 }  // namespace cen
@@ -41487,6 +45738,36 @@ namespace cen {
 /// \addtogroup math
 /// \{
 
+template <typename T>
+struct basic_area;
+
+/**
+ * \typedef iarea
+ *
+ * \brief An alias for `int` areas.
+ *
+ * \since 4.1.0
+ */
+using iarea = basic_area<int>;
+
+/**
+ * \typedef farea
+ *
+ * \brief An alias for `float` areas.
+ *
+ * \since 4.1.0
+ */
+using farea = basic_area<float>;
+
+/**
+ * \typedef darea
+ *
+ * \brief An alias for `double` areas.
+ *
+ * \since 4.1.0
+ */
+using darea = basic_area<double>;
+
 /**
  * \struct basic_area
  *
@@ -41515,6 +45796,28 @@ struct basic_area final
   static_assert(!std::is_same_v<T, bool>);
 };
 
+/// \name Area-related functions
+/// \{
+
+/**
+ * \brief Creates an area instance with automatically deduced precision.
+ *
+ * \tparam T the deduced type of the width and height values.
+ *
+ * \param width the width of the area.
+ * \param height the height of the area.
+ *
+ * \return an area instance with the specified width and height.
+ *
+ * \since 6.0.0
+ */
+template <typename T>
+[[nodiscard]] constexpr auto area(const T width, const T height) noexcept
+    -> basic_area<T>
+{
+  return {width, height};
+}
+
 /**
  * \brief Returns the size (width x height) of an area.
  *
@@ -41532,32 +45835,7 @@ template <typename T>
   return area.width * area.height;
 }
 
-/**
- * \typedef iarea
- *
- * \brief An alias for `int` areas.
- *
- * \since 4.1.0
- */
-using iarea = basic_area<int>;
-
-/**
- * \typedef farea
- *
- * \brief An alias for `float` areas.
- *
- * \since 4.1.0
- */
-using farea = basic_area<float>;
-
-/**
- * \typedef darea
- *
- * \brief An alias for `double` areas.
- *
- * \since 4.1.0
- */
-using darea = basic_area<double>;
+/// \} End of area-related functions
 
 /**
  * \brief Serializes an area instance.
@@ -41713,11 +45991,44 @@ auto operator<<(std::ostream& stream, const basic_area<T>& area)
 #include <cmath>        // sqrt, abs, round
 #include <ostream>      // ostream
 #include <string>       // string
-#include <type_traits>  // enable_if_t, conditional_t, is_convertible_v, ...
+#include <type_traits>  // conditional_t, is_integral_v, is_floating_point_v, ...
 
 // #include "../detail/to_string.hpp"
 
 // #include "../misc/cast.hpp"
+
+// #include "../misc/sfinae.hpp"
+#ifndef CENTURION_SFINAE_HEADER
+#define CENTURION_SFINAE_HEADER
+
+#include <type_traits>  // enable_if_t, is_same_v, is_integral_v, is_floating_point_v, ...
+
+namespace cen {
+
+/// \addtogroup misc
+/// \{
+
+// clang-format off
+
+template <typename T>
+using enable_if_number_t = std::enable_if_t<!std::is_same_v<T, bool> &&
+                                            (std::is_integral_v<T> ||
+                                             std::is_floating_point_v<T>), int>;
+
+// clang-format on
+
+template <typename T>
+using enable_if_pointer_v = std::enable_if_t<std::is_pointer_v<T>, int>;
+
+template <typename T, typename... Args>
+using enable_if_convertible_t =
+    std::enable_if_t<(std::is_convertible_v<T, Args> || ...), int>;
+
+/// \} End of group misc
+
+}  // namespace cen
+
+#endif  // CENTURION_SFINAE_HEADER
 
 
 namespace cen {
@@ -41738,10 +46049,7 @@ namespace cen {
  *
  * \headerfile point.hpp
  */
-template <typename T,
-          std::enable_if_t<std::is_convertible_v<T, int> ||
-                               std::is_convertible_v<T, float>,
-                           int> = 0>
+template <typename T, enable_if_convertible_t<T, int, float> = 0>
 class point_traits final
 {
  public:
@@ -42050,6 +46358,36 @@ class basic_point final
   point_type m_point{0, 0};
 };
 
+/// \name Point-related functions
+/// \{
+
+/**
+ * \brief Creates a point instance with automatically deduced precision.
+ *
+ * \note The only supported precisions for points are `int` and `float`, so
+ * this function will cast the supplied values to the corresponding type. For
+ * example, if you supply two doubles to this function, the returned point will
+ * use float as the precision.
+ *
+ * \tparam T the deduced precision type, must be a numerical type other than
+ * `bool`.
+ *
+ * \param x the x-coordinate of the point.
+ * \param y the y-coordinate of the point.
+ *
+ * \return the created point.
+ *
+ * \since 6.0.0
+ */
+template <typename T, enable_if_number_t<T> = 0>
+[[nodiscard]] constexpr auto point(const T x, const T y) noexcept
+    -> basic_point<typename point_traits<T>::value_type>
+{
+  using value_type = typename point_traits<T>::value_type;
+  return basic_point<value_type>{static_cast<value_type>(x),
+                                 static_cast<value_type>(y)};
+}
+
 /**
  * \brief Returns the distance between two points.
  *
@@ -42063,8 +46401,8 @@ class basic_point final
  * \since 5.0.0
  */
 template <typename T>
-[[nodiscard]] inline auto distance(const basic_point<T>& from,
-                                   const basic_point<T>& to) noexcept ->
+[[nodiscard]] auto distance(const basic_point<T>& from,
+                            const basic_point<T>& to) noexcept ->
     typename point_traits<T>::value_type
 {
   if constexpr (basic_point<T>::isIntegral)
@@ -42080,13 +46418,15 @@ template <typename T>
   }
 }
 
-[[nodiscard]] inline auto to_string(const ipoint& point) -> std::string
+/// \} End of point-related functions
+
+[[nodiscard]] inline auto to_string(const ipoint point) -> std::string
 {
   return "ipoint{X: " + detail::to_string(point.x()).value() +
          ", Y: " + detail::to_string(point.y()).value() + "}";
 }
 
-[[nodiscard]] inline auto to_string(const fpoint& point) -> std::string
+[[nodiscard]] inline auto to_string(const fpoint point) -> std::string
 {
   return "fpoint{X: " + detail::to_string(point.x()).value() +
          ", Y: " + detail::to_string(point.y()).value() + "}";
@@ -42210,26 +46550,26 @@ template <typename T>
 /// \name Point comparison operators
 /// \{
 
-[[nodiscard]] constexpr auto operator==(const ipoint& lhs,
-                                        const ipoint& rhs) noexcept -> bool
+[[nodiscard]] constexpr auto operator==(const ipoint lhs,
+                                        const ipoint rhs) noexcept -> bool
 {
   return (lhs.x() == rhs.x()) && (lhs.y() == rhs.y());
 }
 
-[[nodiscard]] constexpr auto operator==(const fpoint& lhs,
-                                        const fpoint& rhs) noexcept -> bool
+[[nodiscard]] constexpr auto operator==(const fpoint lhs,
+                                        const fpoint rhs) noexcept -> bool
 {
   return (lhs.x() == rhs.x()) && (lhs.y() == rhs.y());
 }
 
-[[nodiscard]] constexpr auto operator!=(const ipoint& lhs,
-                                        const ipoint& rhs) noexcept -> bool
+[[nodiscard]] constexpr auto operator!=(const ipoint lhs,
+                                        const ipoint rhs) noexcept -> bool
 {
   return !(lhs == rhs);
 }
 
-[[nodiscard]] constexpr auto operator!=(const fpoint& lhs,
-                                        const fpoint& rhs) noexcept -> bool
+[[nodiscard]] constexpr auto operator!=(const fpoint lhs,
+                                        const fpoint rhs) noexcept -> bool
 {
   return !(lhs == rhs);
 }
@@ -43694,7 +48034,7 @@ class basic_sensor final
    *
    * \since 5.2.0
    */
-  template <typename TT = T, detail::is_owner<TT> = true>
+  template <typename TT = T, detail::is_owner<TT> = 0>
   explicit basic_sensor(const int index = 0) : m_sensor{SDL_SensorOpen(index)}
   {
     if (!m_sensor)
@@ -43712,7 +48052,7 @@ class basic_sensor final
    *
    * \since 5.2.0
    */
-  template <typename TT = T, detail::is_handle<TT> = true>
+  template <typename TT = T, detail::is_handle<TT> = 0>
   explicit basic_sensor(const sensor& owner) noexcept : m_sensor{owner.get()}
   {}
 
@@ -43963,7 +48303,7 @@ class basic_sensor final
    *
    * \since 5.2.0
    */
-  template <typename TT = T, detail::is_handle<TT> = true>
+  template <typename TT = T, detail::is_handle<TT> = 0>
   explicit operator bool() const noexcept
   {
     return m_sensor != nullptr;
@@ -44019,8 +48359,7 @@ template <typename T>
 auto operator<<(std::ostream& stream, const basic_sensor<T>& sensor)
     -> std::ostream&
 {
-  stream << to_string(sensor);
-  return stream;
+  return stream << to_string(sensor);
 }
 
 /**
@@ -44034,6 +48373,9 @@ auto operator<<(std::ostream& stream, const basic_sensor<T>& sensor)
 {
   return SDL_STANDARD_GRAVITY;
 }
+
+/// \name Sensor type comparison operators
+/// \{
 
 /**
  * \brief Indicates whether or not two sensor types values are equal.
@@ -44086,6 +48428,8 @@ auto operator<<(std::ostream& stream, const basic_sensor<T>& sensor)
 {
   return !(lhs == rhs);
 }
+
+/// \} End of sensor type comparison operators
 
 /// \} End of input group
 
@@ -44344,78 +48688,3123 @@ enum class device_type
 }  // namespace cen::touch
 
 #endif  // CENTURION_TOUCH_HEADER
-// #include "centurion/library.hpp"
-/**
- * \defgroup core Core
- * \brief Contains entities considered to be fundamental for the library.
- */
+// #include "centurion/math/area.hpp"
+#ifndef CENTURION_AREA_HEADER
+#define CENTURION_AREA_HEADER
 
-/**
- * \defgroup configuration Configuration
- * \brief Contains the API related to hints/configuration variables.
- */
+#include <ostream>      // ostream
+#include <string>       // string
+#include <type_traits>  // is_integral_v, is_floating_point_v, is_same_v
 
-/**
- * \defgroup event Events
- * \brief Contains entities related to events.
- */
+// #include "../detail/to_string.hpp"
+#ifndef CENTURION_DETAIL_TO_STRING_HEADER
+#define CENTURION_DETAIL_TO_STRING_HEADER
 
-/**
- * \defgroup thread Threads
- * \brief Provides threading utilities for dealing with threads, mutexes, locks,
- * etc.
- */
+#include <array>         // array
+#include <charconv>      // to_chars
+#include <optional>      // optional, nullopt
+#include <string>        // string
+#include <system_error>  // errc
+#include <type_traits>   // is_floating_point_v
 
-/**
- * \defgroup input Input
- * \brief Contains components related to input from mice, keyboards,
- * controllers, etc.
- */
-
-/**
- * \defgroup video Video
- * \brief Contains components related to window-management, rendering, fonts,
- * etc.
- */
-
-/**
- * \defgroup system System
- * \brief Contains various utilities related to system resources.
- */
-
-/**
- * \defgroup compiler Compiler
- * \brief Provides `constexpr` utilities for querying the current compiler.
- * \note There is no guarantee that the compiler checks are mutually exclusive.
- */
-
-/**
- * \defgroup math Math
- * \brief Contains basic mathematical components, used throughout the library.
- */
-
-/**
- * \defgroup audio Audio
- * \brief Contains the audio API, for playing as sound effects and music.
- */
-
-/**
- * \defgroup misc Misc
- * \brief Contains miscellaneous components.
- */
-
-#ifndef CENTURION_LIBRARY_HEADER
-#define CENTURION_LIBRARY_HEADER
+// #include "../compiler/compiler.hpp"
+#ifndef CENTURION_COMPILER_HEADER
+#define CENTURION_COMPILER_HEADER
 
 #include <SDL.h>
-#include <SDL_image.h>
-#include <SDL_mixer.h>
-#include <SDL_ttf.h>
 
-#include <cassert>   // assert
-#include <optional>  // optional
+namespace cen {
 
-// #include "misc/exception.hpp"
+/// \addtogroup compiler
+/// \{
+
+/**
+ * \brief Indicates whether or not a "debug" build mode is active.
+ *
+ * \note This is intended to be use with `if constexpr`-statements instead of
+ * raw `#ifdef` conditional compilation, since the use of `if constexpr`
+ * prevents any branch to be ill-formed, which avoids code rot.
+ *
+ * \return `true` if a debug build mode is currently active; `false` otherwise.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto is_debug_build() noexcept -> bool
+{
+#ifndef NDEBUG
+  return true;
+#else
+  return false;
+#endif  // NDEBUG
+}
+
+/**
+ * \brief Indicates whether or not a "release" build mode is active.
+ *
+ * \note This is intended to be use with `if constexpr`-statements instead of
+ * raw `#ifdef` conditional compilation, since the use of `if constexpr`
+ * prevents any branch to be ill-formed, which avoids code rot.
+ *
+ * \return `true` if a release build mode is currently active; `false`
+ * otherwise.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto is_release_build() noexcept -> bool
+{
+  return !is_debug_build();
+}
+
+/**
+ * \brief Indicates whether or not the compiler is MSVC.
+ *
+ * \return `true` if MSVC is detected as the current compiler; `false`
+ * otherwise.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto on_msvc() noexcept -> bool
+{
+#ifdef _MSC_VER
+  return true;
+#else
+  return false;
+#endif  // _MSC_VER
+}
+
+/**
+ * \brief Indicates whether or not the compiler is GCC.
+ *
+ * \return `true` if GCC is detected as the current compiler; `false`
+ * otherwise.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto on_gcc() noexcept -> bool
+{
+#ifdef __GNUC__
+  return true;
+#else
+  return false;
+#endif  // __GNUC__
+}
+
+/**
+ * \brief Indicates whether or not the compiler is Clang.
+ *
+ * \return `true` if Clang is detected as the current compiler; `false`
+ * otherwise.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto on_clang() noexcept -> bool
+{
+#ifdef __clang__
+  return true;
+#else
+  return false;
+#endif  // __clang__
+}
+
+/**
+ * \brief Indicates whether or not the compiler is Emscripten.
+ *
+ * \return `true` if Emscripten is detected as the current compiler; `false`
+ * otherwise.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto on_emscripten() noexcept -> bool
+{
+#ifdef __EMSCRIPTEN__
+  return true;
+#else
+  return false;
+#endif  // __EMSCRIPTEN__
+}
+
+/**
+ * \brief Indicates whether or not the compiler is Intel C++.
+ *
+ * \return `true` if Intel C++ is detected as the current compiler; `false`
+ * otherwise.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto on_intel_cpp() noexcept -> bool
+{
+#ifdef __INTEL_COMPILER
+  return true;
+#else
+  return false;
+#endif  // __INTEL_COMPILER
+}
+
+/// \} End of compiler group
+
+}  // namespace cen
+
+#endif  // CENTURION_COMPILER_HEADER
+
+
+/// \cond FALSE
+namespace cen::detail {
+
+/**
+ * \brief Returns a string representation of an arithmetic value.
+ *
+ * \note This function is guaranteed to work for 32-bit integers and floats.
+ * You might have to increase the buffer size for larger types.
+ *
+ * \remark On GCC, this function simply calls `std::to_string`, since the
+ * `std::to_chars` implementation seems to be lacking at the time of writing.
+ *
+ * \tparam bufferSize the size of the stack buffer used, must be big enough
+ * to store the characters of the string representation of the value.
+ * \tparam T the type of the value that will be converted, must be arithmetic.
+ *
+ * \param value the value that will be converted.
+ *
+ * \return a string representation of the supplied value; `std::nullopt` if
+ * something goes wrong.
+ *
+ * \since 5.0.0
+ */
+template <std::size_t bufferSize = 16, typename T>
+[[nodiscard]] auto to_string(T value) -> std::optional<std::string>
+{
+  if constexpr (on_gcc() || (on_clang() && std::is_floating_point_v<T>))
+  {
+    return std::to_string(value);
+  }
+  else
+  {
+    std::array<char, bufferSize> buffer{};
+    const auto [ptr, err] =
+        std::to_chars(buffer.data(), buffer.data() + buffer.size(), value);
+
+    if (err == std::errc{})
+    {
+      return std::string{buffer.data(), ptr};
+    }
+    else
+    {
+      return std::nullopt;
+    }
+  }
+}
+
+}  // namespace cen::detail
+/// \endcond
+
+#endif  // CENTURION_DETAIL_TO_STRING_HEADER
+
+// #include "../misc/cast.hpp"
+#ifndef CENTURION_CAST_HEADER
+#define CENTURION_CAST_HEADER
+
+namespace cen {
+
+/**
+ * \brief Casts a value to a value of another type.
+ *
+ * \ingroup misc
+ *
+ * \details This is the default implementation, which simply attempts to use
+ * `static_cast`. The idea is that this function will be specialized for
+ * various Centurion and SDL types. This is useful because it isn't always
+ * possible to implement conversion operators as members.
+ *
+ * \tparam To the type of the value that will be converted.
+ * \tparam From the type that the value will be casted to.
+ *
+ * \param from the value that will be converted.
+ *
+ * \return the result of casting the supplied value to the specified type.
+ *
+ * \since 5.0.0
+ */
+template <typename To, typename From>
+[[nodiscard]] constexpr auto cast(const From& from) noexcept -> To
+{
+  return static_cast<To>(from);
+}
+
+}  // namespace cen
+
+#endif  // CENTURION_CAST_HEADER
+
+
+namespace cen {
+
+/// \addtogroup math
+/// \{
+
+template <typename T>
+struct basic_area;
+
+/**
+ * \typedef iarea
+ *
+ * \brief An alias for `int` areas.
+ *
+ * \since 4.1.0
+ */
+using iarea = basic_area<int>;
+
+/**
+ * \typedef farea
+ *
+ * \brief An alias for `float` areas.
+ *
+ * \since 4.1.0
+ */
+using farea = basic_area<float>;
+
+/**
+ * \typedef darea
+ *
+ * \brief An alias for `double` areas.
+ *
+ * \since 4.1.0
+ */
+using darea = basic_area<double>;
+
+/**
+ * \struct basic_area
+ *
+ * \brief Simply represents an area with a width and height.
+ *
+ * \tparam T the type of the components of the area. Must
+ * be either an integral or floating-point type. Can't be `bool`.
+ *
+ * \since 4.0.0
+ *
+ * \see `iarea`
+ * \see `farea`
+ * \see `darea`
+ *
+ * \headerfile area.hpp
+ */
+template <typename T>
+struct basic_area final
+{
+  using value_type = T;
+
+  T width{0};   ///< The width of the area.
+  T height{0};  ///< The height of the area.
+
+  static_assert(std::is_integral_v<T> || std::is_floating_point_v<T>);
+  static_assert(!std::is_same_v<T, bool>);
+};
+
+/// \name Area-related functions
+/// \{
+
+/**
+ * \brief Creates an area instance with automatically deduced precision.
+ *
+ * \tparam T the deduced type of the width and height values.
+ *
+ * \param width the width of the area.
+ * \param height the height of the area.
+ *
+ * \return an area instance with the specified width and height.
+ *
+ * \since 6.0.0
+ */
+template <typename T>
+[[nodiscard]] constexpr auto area(const T width, const T height) noexcept
+    -> basic_area<T>
+{
+  return {width, height};
+}
+
+/**
+ * \brief Returns the size (width x height) of an area.
+ *
+ * \tparam T the representation type.
+ *
+ * \param area the area instance that will be calculated.
+ *
+ * \return the size of the area.
+ *
+ * \since 5.3.0
+ */
+template <typename T>
+[[nodiscard]] constexpr auto area_of(const basic_area<T>& area) noexcept -> T
+{
+  return area.width * area.height;
+}
+
+/// \} End of area-related functions
+
+/**
+ * \brief Serializes an area instance.
+ *
+ * \details This function expects that the archive provides an overloaded
+ * `operator()`, used for serializing data. This API is based on the Cereal
+ * serialization library.
+ *
+ * \tparam Archive the type of the archive.
+ * \tparam T the type of the area components.
+ *
+ * \param archive the archive used to serialize the area.
+ * \param area the area that will be serialized.
+ *
+ * \since 5.3.0
+ */
+template <typename Archive, typename T>
+void serialize(Archive& archive, basic_area<T>& area)
+{
+  archive(area.width, area.height);
+}
+
+/// \name Area cast specializations
+/// \{
+
+template <>
+[[nodiscard]] constexpr auto cast(const iarea& from) noexcept -> darea
+{
+  return {static_cast<double>(from.width), static_cast<double>(from.height)};
+}
+
+template <>
+[[nodiscard]] constexpr auto cast(const iarea& from) noexcept -> farea
+{
+  return {static_cast<float>(from.width), static_cast<float>(from.height)};
+}
+
+template <>
+[[nodiscard]] constexpr auto cast(const farea& from) noexcept -> darea
+{
+  return {static_cast<double>(from.width), static_cast<double>(from.height)};
+}
+
+template <>
+[[nodiscard]] constexpr auto cast(const farea& from) noexcept -> iarea
+{
+  return {static_cast<int>(from.width), static_cast<int>(from.height)};
+}
+
+template <>
+[[nodiscard]] constexpr auto cast(const darea& from) noexcept -> farea
+{
+  return {static_cast<float>(from.width), static_cast<float>(from.height)};
+}
+
+template <>
+[[nodiscard]] constexpr auto cast(const darea& from) noexcept -> iarea
+{
+  return {static_cast<int>(from.width), static_cast<int>(from.height)};
+}
+
+/// \} End of area cast specializations
+
+/// \name Area comparison operators
+/// \{
+
+/**
+ * \brief Indicates whether or not two areas are considered to be equal.
+ *
+ * \param lhs the left-hand side area.
+ * \param rhs the right-hand side area.
+ *
+ * \return `true` if the areas are equal; `false` otherwise.
+ *
+ * \since 4.1.0
+ */
+template <typename T>
+[[nodiscard]] constexpr auto operator==(const basic_area<T>& lhs,
+                                        const basic_area<T>& rhs) noexcept
+    -> bool
+{
+  return (lhs.width == rhs.width) && (lhs.height == rhs.height);
+}
+
+/**
+ * \brief Indicates whether or not two areas aren't considered to be equal.
+ *
+ * \param lhs the left-hand side area.
+ * \param rhs the right-hand side area.
+ *
+ * \return `true` if the areas aren't equal; `false` otherwise.
+ *
+ * \since 4.1.0
+ */
+template <typename T>
+[[nodiscard]] constexpr auto operator!=(const basic_area<T>& lhs,
+                                        const basic_area<T>& rhs) noexcept
+    -> bool
+{
+  return !(lhs == rhs);
+}
+
+/// \} End of area comparison operators
+
+/**
+ * \brief Returns a textual representation of an area.
+ *
+ * \tparam T the type of the area components.
+ *
+ * \param area the area that will be converted.
+ *
+ * \return a string that represents the area.
+ *
+ * \since 5.0.0
+ */
+template <typename T>
+[[nodiscard]] auto to_string(const basic_area<T>& area) -> std::string
+{
+  return "area{width: " + detail::to_string(area.width).value() +
+         ", height: " + detail::to_string(area.height).value() + "}";
+}
+
+/**
+ * \brief Prints a textual representation of an area using a stream.
+ *
+ * \tparam T the type of the area components.
+ *
+ * \param stream the stream that will be used.
+ * \param area the are that will be printed.
+ *
+ * \return the used stream.
+ *
+ * \since 5.0.0
+ */
+template <typename T>
+auto operator<<(std::ostream& stream, const basic_area<T>& area)
+    -> std::ostream&
+{
+  return stream << to_string(area);
+}
+
+/// \} End of group math
+
+}  // namespace cen
+
+#endif  // CENTURION_AREA_HEADER
+// #include "centurion/math/point.hpp"
+#ifndef CENTURION_POINT_HEADER
+#define CENTURION_POINT_HEADER
+
+#include <SDL.h>
+
+#include <cmath>        // sqrt, abs, round
+#include <ostream>      // ostream
+#include <string>       // string
+#include <type_traits>  // conditional_t, is_integral_v, is_floating_point_v, ...
+
+// #include "../detail/to_string.hpp"
+
+// #include "../misc/cast.hpp"
+
+// #include "../misc/sfinae.hpp"
+#ifndef CENTURION_SFINAE_HEADER
+#define CENTURION_SFINAE_HEADER
+
+#include <type_traits>  // enable_if_t, is_same_v, is_integral_v, is_floating_point_v, ...
+
+namespace cen {
+
+/// \addtogroup misc
+/// \{
+
+// clang-format off
+
+template <typename T>
+using enable_if_number_t = std::enable_if_t<!std::is_same_v<T, bool> &&
+                                            (std::is_integral_v<T> ||
+                                             std::is_floating_point_v<T>), int>;
+
+// clang-format on
+
+template <typename T>
+using enable_if_pointer_v = std::enable_if_t<std::is_pointer_v<T>, int>;
+
+template <typename T, typename... Args>
+using enable_if_convertible_t =
+    std::enable_if_t<(std::is_convertible_v<T, Args> || ...), int>;
+
+/// \} End of group misc
+
+}  // namespace cen
+
+#endif  // CENTURION_SFINAE_HEADER
+
+
+namespace cen {
+
+/// \addtogroup math
+/// \{
+
+/**
+ * \brief Provides traits used by the `basic_point` class.
+ *
+ * \tparam T the representation type. Must be convertible to `int` or `float`.
+ *
+ * \since 5.0.0
+ *
+ * \see `basic_point`
+ * \see `ipoint`
+ * \see `fpoint`
+ *
+ * \headerfile point.hpp
+ */
+template <typename T, enable_if_convertible_t<T, int, float> = 0>
+class point_traits final
+{
+ public:
+  /**
+   * \var isIntegral
+   *
+   * \brief Indicates whether or not the point is based on an integral type.
+   *
+   * \since 5.0.0
+   */
+  inline constexpr static bool isIntegral = std::is_integral_v<T>;
+
+  /**
+   * \var isFloating
+   *
+   * \brief Indicates whether or not the point is based on a floating-point
+   * type.
+   *
+   * \since 5.0.0
+   */
+  inline constexpr static bool isFloating = std::is_floating_point_v<T>;
+
+  /**
+   * \typedef value_type
+   *
+   * \brief The actual representation type, i.e. `int` or `float`.
+   *
+   * \since 5.0.0
+   */
+  using value_type = std::conditional_t<isIntegral, int, float>;
+
+  /**
+   * \typedef point_type
+   *
+   * \brief The SDL point type, i.e. `SDL_Point` or `SDL_FPoint`.
+   *
+   * \since 5.0.0
+   */
+  using point_type = std::conditional_t<isIntegral, SDL_Point, SDL_FPoint>;
+};
+
+template <typename T>
+class basic_point;
+
+/**
+ * \typedef ipoint
+ *
+ * \brief Alias for an `int`-based point.
+ *
+ * \details This type corresponds to `SDL_Point`.
+ *
+ * \since 5.0.0
+ */
+using ipoint = basic_point<int>;
+
+/**
+ * \typedef fpoint
+ *
+ * \brief Alias for a `float`-based point.
+ *
+ * \details This type corresponds to `SDL_FPoint`.
+ *
+ * \since 5.0.0
+ */
+using fpoint = basic_point<float>;
+
+/**
+ * \class basic_point
+ *
+ * \brief Represents a two-dimensional point.
+ *
+ * \details This class is designed as a wrapper for `SDL_Point` and
+ * `SDL_FPoint`. The representation is specified by the type parameter.
+ *
+ * \note This point class will only use `int` or `float` as the actual
+ * internal representation.
+ *
+ * \tparam T the representation type. Must be convertible to `int` or `float`.
+ *
+ * \since 5.0.0
+ *
+ * \see `ipoint`
+ * \see `fpoint`
+ *
+ * \headerfile point.hpp
+ */
+template <typename T>
+class basic_point final
+{
+ public:
+  /**
+   * \copydoc point_traits::isIntegral
+   */
+  inline constexpr static bool isIntegral = point_traits<T>::isIntegral;
+
+  /**
+   * \copydoc point_traits::isFloating
+   */
+  inline constexpr static bool isFloating = point_traits<T>::isFloating;
+
+  /**
+   * \copydoc point_traits::value_type
+   */
+  using value_type = typename point_traits<T>::value_type;
+
+  /**
+   * \copydoc point_traits::point_type
+   */
+  using point_type = typename point_traits<T>::point_type;
+
+  /// \name Construction
+  /// \{
+
+  /**
+   * \brief Creates a zero-initialized point.
+   *
+   * \since 5.0.0
+   */
+  constexpr basic_point() noexcept = default;
+
+  /**
+   * \brief Creates a point with the specified coordinates.
+   *
+   * \param x the x-coordinate that will be used.
+   * \param y the y-coordinate that will be used.
+   *
+   * \since 5.0.0
+   */
+  constexpr basic_point(const value_type x, const value_type y) noexcept
+  {
+    m_point.x = x;
+    m_point.y = y;
+  };
+
+  /// \} End of construction
+
+  /// \name Setters
+  /// \{
+
+  /**
+   * \brief Sets the x-coordinate of the point.
+   *
+   * \param x the new x-coordinate.
+   *
+   * \since 5.0.0
+   */
+  constexpr void set_x(const value_type x) noexcept
+  {
+    m_point.x = x;
+  }
+
+  /**
+   * \brief Sets the y-coordinate of the point.
+   *
+   * \param y the new y-coordinate.
+   *
+   * \since 5.0.0
+   */
+  constexpr void set_y(const value_type y) noexcept
+  {
+    m_point.y = y;
+  }
+
+  /// \} End of setters
+
+  /// \name Getters
+  /// \{
+
+  /**
+   * \brief Returns the x-coordinate of the point.
+   *
+   * \return the x-coordinate.
+   *
+   * \since 5.0.0
+   */
+  [[nodiscard]] constexpr auto x() const noexcept -> value_type
+  {
+    return m_point.x;
+  }
+
+  /**
+   * \brief Returns the y-coordinate of the point.
+   *
+   * \return the y-coordinate.
+   *
+   * \since 5.0.0
+   */
+  [[nodiscard]] constexpr auto y() const noexcept -> value_type
+  {
+    return m_point.y;
+  }
+
+  /**
+   * \brief Returns the internal point representation.
+   *
+   * \return a reference to the internal representation.
+   *
+   * \since 5.0.0
+   */
+  [[nodiscard]] constexpr auto get() noexcept -> point_type&
+  {
+    return m_point;
+  }
+
+  /**
+   * \copydoc get
+   */
+  [[nodiscard]] constexpr auto get() const noexcept -> const point_type&
+  {
+    return m_point;
+  }
+
+  /**
+   * \brief Returns a pointer to the internal point representation.
+   *
+   * \note Don't cache the returned pointer.
+   *
+   * \return a pointer to the point representation.
+   *
+   * \since 5.2.0
+   */
+  [[nodiscard]] auto data() noexcept -> point_type*
+  {
+    return &m_point;
+  }
+
+  /**
+   * \copydoc data()
+   */
+  [[nodiscard]] auto data() const noexcept -> const point_type*
+  {
+    return &m_point;
+  }
+
+  /// \} End of getters
+
+  /// \name Conversions
+  /// \{
+
+  /**
+   * \brief Converts to the internal representation.
+   *
+   * \return a copy of the internal point.
+   *
+   * \see `cen::cast`
+   *
+   * \since 5.0.0
+   */
+  [[nodiscard]] constexpr explicit operator point_type() const noexcept
+  {
+    return m_point;
+  }
+
+  /**
+   * \brief Returns a pointer to the internal point.
+   *
+   * \note You shouldn't store the returned pointer. However, this conversion
+   * is safe since `reinterpret_cast` isn't used.
+   *
+   * \return a pointer to the internal point instance.
+   *
+   * \since 5.0.0
+   */
+  [[nodiscard]] explicit operator point_type*() noexcept
+  {
+    return &m_point;
+  }
+
+  /**
+   * \brief Returns a pointer to the internal point.
+   *
+   * \note You shouldn't store the returned pointer. However, this conversion
+   * is safe since `reinterpret_cast` isn't used.
+   *
+   * \return a pointer to the internal point instance.
+   *
+   * \since 5.0.0
+   */
+  [[nodiscard]] explicit operator const point_type*() const noexcept
+  {
+    return &m_point;
+  }
+
+  /// \} End of conversions
+
+  /**
+   * \brief Serializes the point.
+   *
+   * \details This function expects that the archive provides an overloaded
+   * `operator()`, used for serializing data. This API is based on the Cereal
+   * serialization library.
+   *
+   * \tparam Archive the type of the archive.
+   *
+   * \param archive the archive used to serialize the point.
+   *
+   * \since 5.3.0
+   */
+  template <typename Archive>
+  void serialize(Archive& archive)
+  {
+    archive(m_point.x, m_point.y);
+  }
+
+ private:
+  point_type m_point{0, 0};
+};
+
+/// \name Point-related functions
+/// \{
+
+/**
+ * \brief Creates a point instance with automatically deduced precision.
+ *
+ * \note The only supported precisions for points are `int` and `float`, so
+ * this function will cast the supplied values to the corresponding type. For
+ * example, if you supply two doubles to this function, the returned point will
+ * use float as the precision.
+ *
+ * \tparam T the deduced precision type, must be a numerical type other than
+ * `bool`.
+ *
+ * \param x the x-coordinate of the point.
+ * \param y the y-coordinate of the point.
+ *
+ * \return the created point.
+ *
+ * \since 6.0.0
+ */
+template <typename T, enable_if_number_t<T> = 0>
+[[nodiscard]] constexpr auto point(const T x, const T y) noexcept
+    -> basic_point<typename point_traits<T>::value_type>
+{
+  using value_type = typename point_traits<T>::value_type;
+  return basic_point<value_type>{static_cast<value_type>(x),
+                                 static_cast<value_type>(y)};
+}
+
+/**
+ * \brief Returns the distance between two points.
+ *
+ * \tparam T the representation type used by the points.
+ *
+ * \param from the first point.
+ * \param to the second point.
+ *
+ * \return the distance between the two points.
+ *
+ * \since 5.0.0
+ */
+template <typename T>
+[[nodiscard]] auto distance(const basic_point<T>& from,
+                            const basic_point<T>& to) noexcept ->
+    typename point_traits<T>::value_type
+{
+  if constexpr (basic_point<T>::isIntegral)
+  {
+    const auto xDiff = std::abs(from.x() - to.x());
+    const auto yDiff = std::abs(from.y() - to.y());
+    const auto dist = std::sqrt(xDiff + yDiff);
+    return static_cast<int>(std::round(dist));
+  }
+  else
+  {
+    return std::sqrt(std::abs(from.x() - to.x()) + std::abs(from.y() - to.y()));
+  }
+}
+
+/// \} End of point-related functions
+
+[[nodiscard]] inline auto to_string(const ipoint point) -> std::string
+{
+  return "ipoint{X: " + detail::to_string(point.x()).value() +
+         ", Y: " + detail::to_string(point.y()).value() + "}";
+}
+
+[[nodiscard]] inline auto to_string(const fpoint point) -> std::string
+{
+  return "fpoint{X: " + detail::to_string(point.x()).value() +
+         ", Y: " + detail::to_string(point.y()).value() + "}";
+}
+
+template <typename T>
+auto operator<<(std::ostream& stream, const basic_point<T>& point)
+    -> std::ostream&
+{
+  return stream << to_string(point);
+}
+
+/// \name Point cast specializations
+/// \{
+
+/**
+ * \brief Converts an `fpoint` instance to the corresponding `ipoint`.
+ *
+ * \details This function casts the coordinates of the supplied point to
+ * `int`, and uses the obtained values to create an `ipoint` instance.
+ *
+ * \param from the point that will be converted.
+ *
+ * \return an `ipoint` instance that corresponds to the supplied `fpoint`.
+ *
+ * \since 5.0.0
+ */
+template <>
+[[nodiscard]] constexpr auto cast(const fpoint& from) noexcept -> ipoint
+{
+  const auto x = static_cast<int>(from.x());
+  const auto y = static_cast<int>(from.y());
+  return ipoint{x, y};
+}
+
+/**
+ * \brief Converts an `ipoint` instance to the corresponding `fpoint`.
+ *
+ * \details This function casts the coordinates of the supplied point to
+ * `float`, and uses the obtained values to create an `fpoint` instance.
+ *
+ * \param from the point that will be converted.
+ *
+ * \return an `fpoint` instance that corresponds to the supplied `ipoint`.
+ *
+ * \since 5.0.0
+ */
+template <>
+[[nodiscard]] constexpr auto cast(const ipoint& from) noexcept -> fpoint
+{
+  const auto x = static_cast<float>(from.x());
+  const auto y = static_cast<float>(from.y());
+  return fpoint{x, y};
+}
+
+/**
+ * \brief Converts an `SDL_FPoint` instance to the corresponding `SDL_Point`.
+ *
+ * \details This function casts the coordinates of the supplied point to
+ * `int`, and uses the obtained values to create an `SDL_Point` instance.
+ *
+ * \param from the point that will be converted.
+ *
+ * \return an `SDL_Point` instance that corresponds to the supplied
+ * `SDL_FPoint`.
+ *
+ * \since 5.0.0
+ */
+template <>
+[[nodiscard]] constexpr auto cast(const SDL_FPoint& from) noexcept -> SDL_Point
+{
+  const auto x = static_cast<int>(from.x);
+  const auto y = static_cast<int>(from.y);
+  return SDL_Point{x, y};
+}
+
+/**
+ * \brief Converts an `SDL_Point` instance to the corresponding `SDL_FPoint`.
+ *
+ * \details This function casts the coordinates of the supplied point to
+ * `float`, and uses the obtained values to create an `SDL_FPoint` instance.
+ *
+ * \param from the point that will be converted.
+ *
+ * \return an `SDL_FPoint` instance that corresponds to the supplied
+ * `SDL_Point`.
+ *
+ * \since 5.0.0
+ */
+template <>
+[[nodiscard]] constexpr auto cast(const SDL_Point& from) noexcept -> SDL_FPoint
+{
+  const auto x = static_cast<float>(from.x);
+  const auto y = static_cast<float>(from.y);
+  return SDL_FPoint{x, y};
+}
+
+/// \} End of point cast specializations
+
+/// \name Point addition and subtraction operators
+/// \{
+
+template <typename T>
+[[nodiscard]] constexpr auto operator+(const basic_point<T>& lhs,
+                                       const basic_point<T>& rhs) noexcept
+    -> basic_point<T>
+{
+  return {lhs.x() + rhs.x(), lhs.y() + rhs.y()};
+}
+
+template <typename T>
+[[nodiscard]] constexpr auto operator-(const basic_point<T>& lhs,
+                                       const basic_point<T>& rhs) noexcept
+    -> basic_point<T>
+{
+  return {lhs.x() - rhs.x(), lhs.y() - rhs.y()};
+}
+
+/// \} End of point addition and subtraction operators
+
+/// \name Point comparison operators
+/// \{
+
+[[nodiscard]] constexpr auto operator==(const ipoint lhs,
+                                        const ipoint rhs) noexcept -> bool
+{
+  return (lhs.x() == rhs.x()) && (lhs.y() == rhs.y());
+}
+
+[[nodiscard]] constexpr auto operator==(const fpoint lhs,
+                                        const fpoint rhs) noexcept -> bool
+{
+  return (lhs.x() == rhs.x()) && (lhs.y() == rhs.y());
+}
+
+[[nodiscard]] constexpr auto operator!=(const ipoint lhs,
+                                        const ipoint rhs) noexcept -> bool
+{
+  return !(lhs == rhs);
+}
+
+[[nodiscard]] constexpr auto operator!=(const fpoint lhs,
+                                        const fpoint rhs) noexcept -> bool
+{
+  return !(lhs == rhs);
+}
+
+/// \} End of point comparison operators
+
+/// \} End of group math
+
+}  // namespace cen
+
+#endif  // CENTURION_POINT_HEADER
+// #include "centurion/math/rect.hpp"
+#ifndef CENTURION_RECTANGLE_HEADER
+#define CENTURION_RECTANGLE_HEADER
+
+#include <SDL.h>
+
+#include <ostream>      // ostream
+#include <string>       // string
+#include <type_traits>  // conditional_t, is_integral_v, is_floating_point_v, ...
+
+// #include "../detail/max.hpp"
+#ifndef CENTURION_DETAIL_MAX_HEADER
+#define CENTURION_DETAIL_MAX_HEADER
+
+/// \cond FALSE
+namespace cen::detail {
+
+// clang-format off
+
+template <typename T>
+[[nodiscard]] constexpr auto max(const T& left, const T& right)
+    noexcept(noexcept(left < right)) -> T
+{
+  return (left < right) ? right : left;
+}
+
+// clang-format on
+
+}  // namespace cen::detail
+/// \endcond
+
+#endif  // CENTURION_DETAIL_MAX_HEADER
+
+// #include "../detail/min.hpp"
+#ifndef CENTURION_DETAIL_MIN_HEADER
+#define CENTURION_DETAIL_MIN_HEADER
+
+/// \cond FALSE
+namespace cen::detail {
+
+// clang-format off
+
+template <typename T>
+[[nodiscard]] constexpr auto min(const T& left, const T& right)
+    noexcept(noexcept(left < right)) -> T
+{
+  return (left < right) ? left : right;
+}
+
+// clang-format on
+
+}  // namespace cen::detail
+/// \endcond
+
+#endif  // CENTURION_DETAIL_MIN_HEADER
+
+// #include "../detail/to_string.hpp"
+
+// #include "../misc/cast.hpp"
+
+// #include "../misc/sfinae.hpp"
+
+// #include "area.hpp"
+#ifndef CENTURION_AREA_HEADER
+#define CENTURION_AREA_HEADER
+
+#include <ostream>      // ostream
+#include <string>       // string
+#include <type_traits>  // is_integral_v, is_floating_point_v, is_same_v
+
+// #include "../detail/to_string.hpp"
+
+// #include "../misc/cast.hpp"
+
+
+namespace cen {
+
+/// \addtogroup math
+/// \{
+
+template <typename T>
+struct basic_area;
+
+/**
+ * \typedef iarea
+ *
+ * \brief An alias for `int` areas.
+ *
+ * \since 4.1.0
+ */
+using iarea = basic_area<int>;
+
+/**
+ * \typedef farea
+ *
+ * \brief An alias for `float` areas.
+ *
+ * \since 4.1.0
+ */
+using farea = basic_area<float>;
+
+/**
+ * \typedef darea
+ *
+ * \brief An alias for `double` areas.
+ *
+ * \since 4.1.0
+ */
+using darea = basic_area<double>;
+
+/**
+ * \struct basic_area
+ *
+ * \brief Simply represents an area with a width and height.
+ *
+ * \tparam T the type of the components of the area. Must
+ * be either an integral or floating-point type. Can't be `bool`.
+ *
+ * \since 4.0.0
+ *
+ * \see `iarea`
+ * \see `farea`
+ * \see `darea`
+ *
+ * \headerfile area.hpp
+ */
+template <typename T>
+struct basic_area final
+{
+  using value_type = T;
+
+  T width{0};   ///< The width of the area.
+  T height{0};  ///< The height of the area.
+
+  static_assert(std::is_integral_v<T> || std::is_floating_point_v<T>);
+  static_assert(!std::is_same_v<T, bool>);
+};
+
+/// \name Area-related functions
+/// \{
+
+/**
+ * \brief Creates an area instance with automatically deduced precision.
+ *
+ * \tparam T the deduced type of the width and height values.
+ *
+ * \param width the width of the area.
+ * \param height the height of the area.
+ *
+ * \return an area instance with the specified width and height.
+ *
+ * \since 6.0.0
+ */
+template <typename T>
+[[nodiscard]] constexpr auto area(const T width, const T height) noexcept
+    -> basic_area<T>
+{
+  return {width, height};
+}
+
+/**
+ * \brief Returns the size (width x height) of an area.
+ *
+ * \tparam T the representation type.
+ *
+ * \param area the area instance that will be calculated.
+ *
+ * \return the size of the area.
+ *
+ * \since 5.3.0
+ */
+template <typename T>
+[[nodiscard]] constexpr auto area_of(const basic_area<T>& area) noexcept -> T
+{
+  return area.width * area.height;
+}
+
+/// \} End of area-related functions
+
+/**
+ * \brief Serializes an area instance.
+ *
+ * \details This function expects that the archive provides an overloaded
+ * `operator()`, used for serializing data. This API is based on the Cereal
+ * serialization library.
+ *
+ * \tparam Archive the type of the archive.
+ * \tparam T the type of the area components.
+ *
+ * \param archive the archive used to serialize the area.
+ * \param area the area that will be serialized.
+ *
+ * \since 5.3.0
+ */
+template <typename Archive, typename T>
+void serialize(Archive& archive, basic_area<T>& area)
+{
+  archive(area.width, area.height);
+}
+
+/// \name Area cast specializations
+/// \{
+
+template <>
+[[nodiscard]] constexpr auto cast(const iarea& from) noexcept -> darea
+{
+  return {static_cast<double>(from.width), static_cast<double>(from.height)};
+}
+
+template <>
+[[nodiscard]] constexpr auto cast(const iarea& from) noexcept -> farea
+{
+  return {static_cast<float>(from.width), static_cast<float>(from.height)};
+}
+
+template <>
+[[nodiscard]] constexpr auto cast(const farea& from) noexcept -> darea
+{
+  return {static_cast<double>(from.width), static_cast<double>(from.height)};
+}
+
+template <>
+[[nodiscard]] constexpr auto cast(const farea& from) noexcept -> iarea
+{
+  return {static_cast<int>(from.width), static_cast<int>(from.height)};
+}
+
+template <>
+[[nodiscard]] constexpr auto cast(const darea& from) noexcept -> farea
+{
+  return {static_cast<float>(from.width), static_cast<float>(from.height)};
+}
+
+template <>
+[[nodiscard]] constexpr auto cast(const darea& from) noexcept -> iarea
+{
+  return {static_cast<int>(from.width), static_cast<int>(from.height)};
+}
+
+/// \} End of area cast specializations
+
+/// \name Area comparison operators
+/// \{
+
+/**
+ * \brief Indicates whether or not two areas are considered to be equal.
+ *
+ * \param lhs the left-hand side area.
+ * \param rhs the right-hand side area.
+ *
+ * \return `true` if the areas are equal; `false` otherwise.
+ *
+ * \since 4.1.0
+ */
+template <typename T>
+[[nodiscard]] constexpr auto operator==(const basic_area<T>& lhs,
+                                        const basic_area<T>& rhs) noexcept
+    -> bool
+{
+  return (lhs.width == rhs.width) && (lhs.height == rhs.height);
+}
+
+/**
+ * \brief Indicates whether or not two areas aren't considered to be equal.
+ *
+ * \param lhs the left-hand side area.
+ * \param rhs the right-hand side area.
+ *
+ * \return `true` if the areas aren't equal; `false` otherwise.
+ *
+ * \since 4.1.0
+ */
+template <typename T>
+[[nodiscard]] constexpr auto operator!=(const basic_area<T>& lhs,
+                                        const basic_area<T>& rhs) noexcept
+    -> bool
+{
+  return !(lhs == rhs);
+}
+
+/// \} End of area comparison operators
+
+/**
+ * \brief Returns a textual representation of an area.
+ *
+ * \tparam T the type of the area components.
+ *
+ * \param area the area that will be converted.
+ *
+ * \return a string that represents the area.
+ *
+ * \since 5.0.0
+ */
+template <typename T>
+[[nodiscard]] auto to_string(const basic_area<T>& area) -> std::string
+{
+  return "area{width: " + detail::to_string(area.width).value() +
+         ", height: " + detail::to_string(area.height).value() + "}";
+}
+
+/**
+ * \brief Prints a textual representation of an area using a stream.
+ *
+ * \tparam T the type of the area components.
+ *
+ * \param stream the stream that will be used.
+ * \param area the are that will be printed.
+ *
+ * \return the used stream.
+ *
+ * \since 5.0.0
+ */
+template <typename T>
+auto operator<<(std::ostream& stream, const basic_area<T>& area)
+    -> std::ostream&
+{
+  return stream << to_string(area);
+}
+
+/// \} End of group math
+
+}  // namespace cen
+
+#endif  // CENTURION_AREA_HEADER
+// #include "point.hpp"
+#ifndef CENTURION_POINT_HEADER
+#define CENTURION_POINT_HEADER
+
+#include <SDL.h>
+
+#include <cmath>        // sqrt, abs, round
+#include <ostream>      // ostream
+#include <string>       // string
+#include <type_traits>  // conditional_t, is_integral_v, is_floating_point_v, ...
+
+// #include "../detail/to_string.hpp"
+
+// #include "../misc/cast.hpp"
+
+// #include "../misc/sfinae.hpp"
+
+
+namespace cen {
+
+/// \addtogroup math
+/// \{
+
+/**
+ * \brief Provides traits used by the `basic_point` class.
+ *
+ * \tparam T the representation type. Must be convertible to `int` or `float`.
+ *
+ * \since 5.0.0
+ *
+ * \see `basic_point`
+ * \see `ipoint`
+ * \see `fpoint`
+ *
+ * \headerfile point.hpp
+ */
+template <typename T, enable_if_convertible_t<T, int, float> = 0>
+class point_traits final
+{
+ public:
+  /**
+   * \var isIntegral
+   *
+   * \brief Indicates whether or not the point is based on an integral type.
+   *
+   * \since 5.0.0
+   */
+  inline constexpr static bool isIntegral = std::is_integral_v<T>;
+
+  /**
+   * \var isFloating
+   *
+   * \brief Indicates whether or not the point is based on a floating-point
+   * type.
+   *
+   * \since 5.0.0
+   */
+  inline constexpr static bool isFloating = std::is_floating_point_v<T>;
+
+  /**
+   * \typedef value_type
+   *
+   * \brief The actual representation type, i.e. `int` or `float`.
+   *
+   * \since 5.0.0
+   */
+  using value_type = std::conditional_t<isIntegral, int, float>;
+
+  /**
+   * \typedef point_type
+   *
+   * \brief The SDL point type, i.e. `SDL_Point` or `SDL_FPoint`.
+   *
+   * \since 5.0.0
+   */
+  using point_type = std::conditional_t<isIntegral, SDL_Point, SDL_FPoint>;
+};
+
+template <typename T>
+class basic_point;
+
+/**
+ * \typedef ipoint
+ *
+ * \brief Alias for an `int`-based point.
+ *
+ * \details This type corresponds to `SDL_Point`.
+ *
+ * \since 5.0.0
+ */
+using ipoint = basic_point<int>;
+
+/**
+ * \typedef fpoint
+ *
+ * \brief Alias for a `float`-based point.
+ *
+ * \details This type corresponds to `SDL_FPoint`.
+ *
+ * \since 5.0.0
+ */
+using fpoint = basic_point<float>;
+
+/**
+ * \class basic_point
+ *
+ * \brief Represents a two-dimensional point.
+ *
+ * \details This class is designed as a wrapper for `SDL_Point` and
+ * `SDL_FPoint`. The representation is specified by the type parameter.
+ *
+ * \note This point class will only use `int` or `float` as the actual
+ * internal representation.
+ *
+ * \tparam T the representation type. Must be convertible to `int` or `float`.
+ *
+ * \since 5.0.0
+ *
+ * \see `ipoint`
+ * \see `fpoint`
+ *
+ * \headerfile point.hpp
+ */
+template <typename T>
+class basic_point final
+{
+ public:
+  /**
+   * \copydoc point_traits::isIntegral
+   */
+  inline constexpr static bool isIntegral = point_traits<T>::isIntegral;
+
+  /**
+   * \copydoc point_traits::isFloating
+   */
+  inline constexpr static bool isFloating = point_traits<T>::isFloating;
+
+  /**
+   * \copydoc point_traits::value_type
+   */
+  using value_type = typename point_traits<T>::value_type;
+
+  /**
+   * \copydoc point_traits::point_type
+   */
+  using point_type = typename point_traits<T>::point_type;
+
+  /// \name Construction
+  /// \{
+
+  /**
+   * \brief Creates a zero-initialized point.
+   *
+   * \since 5.0.0
+   */
+  constexpr basic_point() noexcept = default;
+
+  /**
+   * \brief Creates a point with the specified coordinates.
+   *
+   * \param x the x-coordinate that will be used.
+   * \param y the y-coordinate that will be used.
+   *
+   * \since 5.0.0
+   */
+  constexpr basic_point(const value_type x, const value_type y) noexcept
+  {
+    m_point.x = x;
+    m_point.y = y;
+  };
+
+  /// \} End of construction
+
+  /// \name Setters
+  /// \{
+
+  /**
+   * \brief Sets the x-coordinate of the point.
+   *
+   * \param x the new x-coordinate.
+   *
+   * \since 5.0.0
+   */
+  constexpr void set_x(const value_type x) noexcept
+  {
+    m_point.x = x;
+  }
+
+  /**
+   * \brief Sets the y-coordinate of the point.
+   *
+   * \param y the new y-coordinate.
+   *
+   * \since 5.0.0
+   */
+  constexpr void set_y(const value_type y) noexcept
+  {
+    m_point.y = y;
+  }
+
+  /// \} End of setters
+
+  /// \name Getters
+  /// \{
+
+  /**
+   * \brief Returns the x-coordinate of the point.
+   *
+   * \return the x-coordinate.
+   *
+   * \since 5.0.0
+   */
+  [[nodiscard]] constexpr auto x() const noexcept -> value_type
+  {
+    return m_point.x;
+  }
+
+  /**
+   * \brief Returns the y-coordinate of the point.
+   *
+   * \return the y-coordinate.
+   *
+   * \since 5.0.0
+   */
+  [[nodiscard]] constexpr auto y() const noexcept -> value_type
+  {
+    return m_point.y;
+  }
+
+  /**
+   * \brief Returns the internal point representation.
+   *
+   * \return a reference to the internal representation.
+   *
+   * \since 5.0.0
+   */
+  [[nodiscard]] constexpr auto get() noexcept -> point_type&
+  {
+    return m_point;
+  }
+
+  /**
+   * \copydoc get
+   */
+  [[nodiscard]] constexpr auto get() const noexcept -> const point_type&
+  {
+    return m_point;
+  }
+
+  /**
+   * \brief Returns a pointer to the internal point representation.
+   *
+   * \note Don't cache the returned pointer.
+   *
+   * \return a pointer to the point representation.
+   *
+   * \since 5.2.0
+   */
+  [[nodiscard]] auto data() noexcept -> point_type*
+  {
+    return &m_point;
+  }
+
+  /**
+   * \copydoc data()
+   */
+  [[nodiscard]] auto data() const noexcept -> const point_type*
+  {
+    return &m_point;
+  }
+
+  /// \} End of getters
+
+  /// \name Conversions
+  /// \{
+
+  /**
+   * \brief Converts to the internal representation.
+   *
+   * \return a copy of the internal point.
+   *
+   * \see `cen::cast`
+   *
+   * \since 5.0.0
+   */
+  [[nodiscard]] constexpr explicit operator point_type() const noexcept
+  {
+    return m_point;
+  }
+
+  /**
+   * \brief Returns a pointer to the internal point.
+   *
+   * \note You shouldn't store the returned pointer. However, this conversion
+   * is safe since `reinterpret_cast` isn't used.
+   *
+   * \return a pointer to the internal point instance.
+   *
+   * \since 5.0.0
+   */
+  [[nodiscard]] explicit operator point_type*() noexcept
+  {
+    return &m_point;
+  }
+
+  /**
+   * \brief Returns a pointer to the internal point.
+   *
+   * \note You shouldn't store the returned pointer. However, this conversion
+   * is safe since `reinterpret_cast` isn't used.
+   *
+   * \return a pointer to the internal point instance.
+   *
+   * \since 5.0.0
+   */
+  [[nodiscard]] explicit operator const point_type*() const noexcept
+  {
+    return &m_point;
+  }
+
+  /// \} End of conversions
+
+  /**
+   * \brief Serializes the point.
+   *
+   * \details This function expects that the archive provides an overloaded
+   * `operator()`, used for serializing data. This API is based on the Cereal
+   * serialization library.
+   *
+   * \tparam Archive the type of the archive.
+   *
+   * \param archive the archive used to serialize the point.
+   *
+   * \since 5.3.0
+   */
+  template <typename Archive>
+  void serialize(Archive& archive)
+  {
+    archive(m_point.x, m_point.y);
+  }
+
+ private:
+  point_type m_point{0, 0};
+};
+
+/// \name Point-related functions
+/// \{
+
+/**
+ * \brief Creates a point instance with automatically deduced precision.
+ *
+ * \note The only supported precisions for points are `int` and `float`, so
+ * this function will cast the supplied values to the corresponding type. For
+ * example, if you supply two doubles to this function, the returned point will
+ * use float as the precision.
+ *
+ * \tparam T the deduced precision type, must be a numerical type other than
+ * `bool`.
+ *
+ * \param x the x-coordinate of the point.
+ * \param y the y-coordinate of the point.
+ *
+ * \return the created point.
+ *
+ * \since 6.0.0
+ */
+template <typename T, enable_if_number_t<T> = 0>
+[[nodiscard]] constexpr auto point(const T x, const T y) noexcept
+    -> basic_point<typename point_traits<T>::value_type>
+{
+  using value_type = typename point_traits<T>::value_type;
+  return basic_point<value_type>{static_cast<value_type>(x),
+                                 static_cast<value_type>(y)};
+}
+
+/**
+ * \brief Returns the distance between two points.
+ *
+ * \tparam T the representation type used by the points.
+ *
+ * \param from the first point.
+ * \param to the second point.
+ *
+ * \return the distance between the two points.
+ *
+ * \since 5.0.0
+ */
+template <typename T>
+[[nodiscard]] auto distance(const basic_point<T>& from,
+                            const basic_point<T>& to) noexcept ->
+    typename point_traits<T>::value_type
+{
+  if constexpr (basic_point<T>::isIntegral)
+  {
+    const auto xDiff = std::abs(from.x() - to.x());
+    const auto yDiff = std::abs(from.y() - to.y());
+    const auto dist = std::sqrt(xDiff + yDiff);
+    return static_cast<int>(std::round(dist));
+  }
+  else
+  {
+    return std::sqrt(std::abs(from.x() - to.x()) + std::abs(from.y() - to.y()));
+  }
+}
+
+/// \} End of point-related functions
+
+[[nodiscard]] inline auto to_string(const ipoint point) -> std::string
+{
+  return "ipoint{X: " + detail::to_string(point.x()).value() +
+         ", Y: " + detail::to_string(point.y()).value() + "}";
+}
+
+[[nodiscard]] inline auto to_string(const fpoint point) -> std::string
+{
+  return "fpoint{X: " + detail::to_string(point.x()).value() +
+         ", Y: " + detail::to_string(point.y()).value() + "}";
+}
+
+template <typename T>
+auto operator<<(std::ostream& stream, const basic_point<T>& point)
+    -> std::ostream&
+{
+  return stream << to_string(point);
+}
+
+/// \name Point cast specializations
+/// \{
+
+/**
+ * \brief Converts an `fpoint` instance to the corresponding `ipoint`.
+ *
+ * \details This function casts the coordinates of the supplied point to
+ * `int`, and uses the obtained values to create an `ipoint` instance.
+ *
+ * \param from the point that will be converted.
+ *
+ * \return an `ipoint` instance that corresponds to the supplied `fpoint`.
+ *
+ * \since 5.0.0
+ */
+template <>
+[[nodiscard]] constexpr auto cast(const fpoint& from) noexcept -> ipoint
+{
+  const auto x = static_cast<int>(from.x());
+  const auto y = static_cast<int>(from.y());
+  return ipoint{x, y};
+}
+
+/**
+ * \brief Converts an `ipoint` instance to the corresponding `fpoint`.
+ *
+ * \details This function casts the coordinates of the supplied point to
+ * `float`, and uses the obtained values to create an `fpoint` instance.
+ *
+ * \param from the point that will be converted.
+ *
+ * \return an `fpoint` instance that corresponds to the supplied `ipoint`.
+ *
+ * \since 5.0.0
+ */
+template <>
+[[nodiscard]] constexpr auto cast(const ipoint& from) noexcept -> fpoint
+{
+  const auto x = static_cast<float>(from.x());
+  const auto y = static_cast<float>(from.y());
+  return fpoint{x, y};
+}
+
+/**
+ * \brief Converts an `SDL_FPoint` instance to the corresponding `SDL_Point`.
+ *
+ * \details This function casts the coordinates of the supplied point to
+ * `int`, and uses the obtained values to create an `SDL_Point` instance.
+ *
+ * \param from the point that will be converted.
+ *
+ * \return an `SDL_Point` instance that corresponds to the supplied
+ * `SDL_FPoint`.
+ *
+ * \since 5.0.0
+ */
+template <>
+[[nodiscard]] constexpr auto cast(const SDL_FPoint& from) noexcept -> SDL_Point
+{
+  const auto x = static_cast<int>(from.x);
+  const auto y = static_cast<int>(from.y);
+  return SDL_Point{x, y};
+}
+
+/**
+ * \brief Converts an `SDL_Point` instance to the corresponding `SDL_FPoint`.
+ *
+ * \details This function casts the coordinates of the supplied point to
+ * `float`, and uses the obtained values to create an `SDL_FPoint` instance.
+ *
+ * \param from the point that will be converted.
+ *
+ * \return an `SDL_FPoint` instance that corresponds to the supplied
+ * `SDL_Point`.
+ *
+ * \since 5.0.0
+ */
+template <>
+[[nodiscard]] constexpr auto cast(const SDL_Point& from) noexcept -> SDL_FPoint
+{
+  const auto x = static_cast<float>(from.x);
+  const auto y = static_cast<float>(from.y);
+  return SDL_FPoint{x, y};
+}
+
+/// \} End of point cast specializations
+
+/// \name Point addition and subtraction operators
+/// \{
+
+template <typename T>
+[[nodiscard]] constexpr auto operator+(const basic_point<T>& lhs,
+                                       const basic_point<T>& rhs) noexcept
+    -> basic_point<T>
+{
+  return {lhs.x() + rhs.x(), lhs.y() + rhs.y()};
+}
+
+template <typename T>
+[[nodiscard]] constexpr auto operator-(const basic_point<T>& lhs,
+                                       const basic_point<T>& rhs) noexcept
+    -> basic_point<T>
+{
+  return {lhs.x() - rhs.x(), lhs.y() - rhs.y()};
+}
+
+/// \} End of point addition and subtraction operators
+
+/// \name Point comparison operators
+/// \{
+
+[[nodiscard]] constexpr auto operator==(const ipoint lhs,
+                                        const ipoint rhs) noexcept -> bool
+{
+  return (lhs.x() == rhs.x()) && (lhs.y() == rhs.y());
+}
+
+[[nodiscard]] constexpr auto operator==(const fpoint lhs,
+                                        const fpoint rhs) noexcept -> bool
+{
+  return (lhs.x() == rhs.x()) && (lhs.y() == rhs.y());
+}
+
+[[nodiscard]] constexpr auto operator!=(const ipoint lhs,
+                                        const ipoint rhs) noexcept -> bool
+{
+  return !(lhs == rhs);
+}
+
+[[nodiscard]] constexpr auto operator!=(const fpoint lhs,
+                                        const fpoint rhs) noexcept -> bool
+{
+  return !(lhs == rhs);
+}
+
+/// \} End of point comparison operators
+
+/// \} End of group math
+
+}  // namespace cen
+
+#endif  // CENTURION_POINT_HEADER
+
+namespace cen {
+
+/// \addtogroup math
+/// \{
+
+/**
+ * \class rect_traits
+ *
+ * \brief Provides rectangle traits used by `basic_rect`.
+ *
+ * \note Whilst it is possible to supply a type that isn't `int` or `float`,
+ * rectangles will always use one of them as the representation type.
+ *
+ * \tparam T the representation type, must be convertible to `int` or `float`.
+ *
+ * \see `basic_rect`
+ * \see `irect`
+ * \see `frect`
+ *
+ * \since 5.0.0
+ *
+ * \headerfile rect.hpp
+ */
+template <typename T, enable_if_convertible_t<T, int, float> = 0>
+class rect_traits final
+{
+ public:
+  /**
+   * \var isIntegral
+   *
+   * \brief Indicates whether or not the rectangle is based on an integral type.
+   *
+   * \since 5.0.0
+   */
+  inline constexpr static bool isIntegral = std::is_integral_v<T>;
+
+  /**
+   * \var isFloating
+   *
+   * \brief Indicates whether or not the rectangle is based on a floating-point
+   * type.
+   *
+   * \since 5.0.0
+   */
+  inline constexpr static bool isFloating = std::is_floating_point_v<T>;
+
+  /**
+   * \typedef value_type
+   *
+   * \brief The representation type, i.e. `int` or `float`.
+   *
+   * \since 5.0.0
+   */
+  using value_type = std::conditional_t<isIntegral, int, float>;
+
+  /**
+   * \typedef point_type
+   *
+   * \brief The point type used, i.e. `ipoint` or `fpoint`.
+   *
+   * \since 5.0.0
+   */
+  using point_type = std::conditional_t<isIntegral, ipoint, fpoint>;
+
+  /**
+   * \typedef area_type
+   *
+   * \brief The area type used, i.e. `iarea` or `farea`.
+   *
+   * \since 5.0.0
+   */
+  using area_type = std::conditional_t<isIntegral, iarea, farea>;
+
+  /**
+   * \typedef rect_type
+   *
+   * \brief The underlying SDL rectangle type, i.e. `SDL_Rect` or `SDL_FRect`.
+   *
+   * \since 5.0.0
+   */
+  using rect_type = std::conditional_t<isIntegral, SDL_Rect, SDL_FRect>;
+};
+
+template <typename T>
+class basic_rect;
+
+/**
+ * \typedef irect
+ *
+ * \brief Alias for an `int`-based rectangle.
+ *
+ * \since 5.0.0
+ */
+using irect = basic_rect<int>;
+
+/**
+ * \typedef frect
+ *
+ * \brief Alias for a `float`-based rectangle.
+ *
+ * \since 5.0.0
+ */
+using frect = basic_rect<float>;
+
+/**
+ * \class basic_rect
+ *
+ * \brief A simple rectangle implementation.
+ *
+ * \tparam T the representation type. Must be convertible to either `int` or
+ * `float`.
+ *
+ * \see `irect`
+ * \see `frect`
+ *
+ * \since 4.0.0
+ *
+ * \headerfile rect.hpp
+ */
+template <typename T>
+class basic_rect final
+{
+ public:
+  /**
+   * \copydoc rect_traits<T>::isIntegral
+   */
+  inline constexpr static bool isIntegral = rect_traits<T>::isIntegral;
+
+  /**
+   * \copydoc rect_traits<T>::isFloating
+   */
+  inline constexpr static bool isFloating = rect_traits<T>::isFloating;
+
+  /**
+   * \copydoc rect_traits<T>::value_type
+   */
+  using value_type = typename rect_traits<T>::value_type;
+
+  /**
+   * \copydoc rect_traits<T>::point_type
+   */
+  using point_type = typename rect_traits<T>::point_type;
+
+  /**
+   * \copydoc rect_traits<T>::area_type
+   */
+  using area_type = typename rect_traits<T>::area_type;
+
+  /**
+   * \copydoc rect_traits<T>::rect_type
+   */
+  using rect_type = typename rect_traits<T>::rect_type;
+
+  /// \name Construction
+  /// \{
+
+  /**
+   * \brief Creates a rectangle with the components (0, 0, 0, 0).
+   *
+   * \since 4.0.0
+   */
+  constexpr basic_rect() noexcept = default;
+
+  /**
+   * \brief Creates a rectangle based on an SDL rectangle.
+   *
+   * \param rect the rectangle that will be copied.
+   *
+   * \since 5.3.0
+   */
+  constexpr explicit basic_rect(const rect_type& rect) noexcept : m_rect{rect}
+  {}
+
+  /**
+   * \brief Creates a rectangle with the supplied position and size.
+   *
+   * \param position the position of the rectangle.
+   * \param size the size of the rectangle.
+   *
+   * \since 4.1.0
+   */
+  constexpr basic_rect(const point_type& position,
+                       const area_type& size) noexcept
+      : m_rect{position.x(), position.y(), size.width, size.height}
+  {}
+
+  /**
+   * \brief Creates a rectangle with the supplied position and size.
+   *
+   * \param x the x-coordinate of the rectangle.
+   * \param y the y-coordinate of the rectangle.
+   * \param width the width of the rectangle.
+   * \param height the height of the rectangle.
+   *
+   * \since 5.3.0
+   */
+  constexpr basic_rect(const value_type x,
+                       const value_type y,
+                       const value_type width,
+                       const value_type height) noexcept
+      : m_rect{x, y, width, height}
+  {}
+
+  /// \} End of construction
+
+  /// \name Setters
+  /// \{
+
+  /**
+   * \brief Sets the x-coordinate of the rectangle.
+   *
+   * \param x the new x-coordinate of the rectangle.
+   *
+   * \since 4.0.0
+   */
+  constexpr void set_x(const value_type x) noexcept
+  {
+    m_rect.x = x;
+  }
+
+  /**
+   * \brief Sets the y-coordinate of the rectangle.
+   *
+   * \param y the new y-coordinate of the rectangle.
+   *
+   * \since 4.0.0
+   */
+  constexpr void set_y(const value_type y) noexcept
+  {
+    m_rect.y = y;
+  }
+
+  /**
+   * \brief Sets the maximum x-coordinate of the rectangle.
+   *
+   * \note This function preserves the width of the rectangle.
+   *
+   * \param maxX the new maximum x-coordinate of the rectangle.
+   *
+   * \since 5.1.0
+   */
+  constexpr void set_max_x(const value_type maxX) noexcept
+  {
+    m_rect.x = maxX - m_rect.w;
+  }
+
+  /**
+   * \brief Sets the maximum y-coordinate of the rectangle.
+   *
+   * \note This function preserves the height of the rectangle.
+   *
+   * \param maxY the new maximum y-coordinate of the rectangle.
+   *
+   * \since 5.1.0
+   */
+  constexpr void set_max_y(const value_type maxY) noexcept
+  {
+    m_rect.y = maxY - m_rect.h;
+  }
+
+  /**
+   * \brief Sets the position of the rectangle.
+   *
+   * \note Some frameworks have this kind of function change the size of the
+   * rectangle. However, this function does *not* change the size of the
+   * rectangle.
+   *
+   * \param pos the new position of the rectangle.
+   *
+   * \since 5.1.0
+   */
+  constexpr void set_position(const point_type& pos) noexcept
+  {
+    m_rect.x = pos.x();
+    m_rect.y = pos.y();
+  }
+
+  /**
+   * \brief Sets the width of the rectangle.
+   *
+   * \param width the new width of the rectangle.
+   *
+   * \since 4.0.0
+   */
+  constexpr void set_width(const value_type width) noexcept
+  {
+    m_rect.w = width;
+  }
+
+  /**
+   * \brief Sets the height of the rectangle.
+   *
+   * \param height the new height of the rectangle.
+   *
+   * \since 4.0.0
+   */
+  constexpr void set_height(const value_type height) noexcept
+  {
+    m_rect.h = height;
+  }
+
+  /**
+   * \brief Sets the size of the rectangle.
+   *
+   * \param size the new size of the rectangle.
+   *
+   * \since 5.1.0
+   */
+  constexpr void set_size(const area_type& size) noexcept
+  {
+    m_rect.w = size.width;
+    m_rect.h = size.height;
+  };
+
+  /// \} End of setters
+
+  /// \name Queries
+  /// \{
+
+  /**
+   * \brief Returns the x-coordinate of the rectangle.
+   *
+   * \return the x-coordinate of the rectangle.
+   *
+   * \since 4.0.0
+   */
+  [[nodiscard]] constexpr auto x() const noexcept -> value_type
+  {
+    return m_rect.x;
+  }
+
+  /**
+   * \brief Returns the y-coordinate of the rectangle.
+   *
+   * \return the y-coordinate of the rectangle.
+   *
+   * \since 4.0.0
+   */
+  [[nodiscard]] constexpr auto y() const noexcept -> value_type
+  {
+    return m_rect.y;
+  }
+
+  /**
+   * \brief Returns the position of the rectangle.
+   *
+   * \return the position of the rectangle.
+   *
+   * \since 4.1.0
+   */
+  [[nodiscard]] constexpr auto position() const noexcept -> point_type
+  {
+    return point_type{m_rect.x, m_rect.y};
+  }
+
+  /**
+   * \brief Returns the width of the rectangle.
+   *
+   * \return the width of the rectangle.
+   *
+   * \since 4.0.0
+   */
+  [[nodiscard]] constexpr auto width() const noexcept -> value_type
+  {
+    return m_rect.w;
+  }
+
+  /**
+   * \brief Returns the height of the rectangle.
+   *
+   * \return the height of the rectangle.
+   *
+   * \since 4.0.0
+   */
+  [[nodiscard]] constexpr auto height() const noexcept -> value_type
+  {
+    return m_rect.h;
+  }
+
+  /**
+   * \brief Returns the size of the rectangle.
+   *
+   * \return the size of the rectangle.
+   *
+   * \since 4.1.0
+   */
+  [[nodiscard]] constexpr auto size() const noexcept -> area_type
+  {
+    return area_type{m_rect.w, m_rect.h};
+  }
+
+  /**
+   * \brief Returns the maximum x-coordinate of the rectangle.
+   *
+   * \return the maximum x-coordinate of the rectangle.
+   *
+   * \since 4.0.0
+   */
+  [[nodiscard]] constexpr auto max_x() const noexcept -> value_type
+  {
+    return x() + width();
+  }
+
+  /**
+   * \brief Returns the maximum y-coordinate of the rectangle.
+   *
+   * \return the maximum y-coordinate of the rectangle.
+   *
+   * \since 4.0.0
+   */
+  [[nodiscard]] constexpr auto max_y() const noexcept -> value_type
+  {
+    return y() + height();
+  }
+
+  /**
+   * \brief Returns the x-coordinate of the center point of the rectangle.
+   *
+   * \return the x-coordinate of the center point of the rectangle.
+   *
+   * \since 4.0.0
+   */
+  [[nodiscard]] constexpr auto center_x() const noexcept -> value_type
+  {
+    return x() + (width() / static_cast<value_type>(2));
+  }
+
+  /**
+   * \brief Returns the y-coordinate of the center point of the rectangle.
+   *
+   * \return the y-coordinate of the center point of the rectangle.
+   *
+   * \since 4.0.0
+   */
+  [[nodiscard]] constexpr auto center_y() const noexcept -> value_type
+  {
+    return y() + (height() / static_cast<value_type>(2));
+  }
+
+  /**
+   * \brief Returns the center point of the rectangle.
+   *
+   * \return the center point of the rectangle.
+   *
+   * \since 4.0.0
+   */
+  [[nodiscard]] constexpr auto center() const noexcept -> point_type
+  {
+    return {center_x(), center_y()};
+  }
+
+  /**
+   * \brief Returns the total area of the rectangle.
+   *
+   * \return the area of the rectangle.
+   *
+   * \since 4.2.0
+   */
+  [[nodiscard]] constexpr auto area() const noexcept -> value_type
+  {
+    return width() * height();
+  }
+
+  /**
+   * \brief Indicates whether or not the rectangle contains the point.
+   *
+   * \param point the point that will be checked.
+   *
+   * \return `true` if the rectangle contains the point; `false` otherwise.
+   *
+   * \since 4.0.0
+   */
+  [[nodiscard]] constexpr auto contains(const point_type& point) const noexcept
+      -> bool
+  {
+    const auto px = point.x();
+    const auto py = point.y();
+    return !(px < x() || py < y() || px > max_x() || py > max_y());
+  }
+
+  /**
+   * \brief Indicates whether or not the rectangle has an area.
+   *
+   * \details The rectangle has an area if both the width and height are
+   * greater than zero.
+   *
+   * \return `true` if the rectangle has an area; `false` otherwise.
+   *
+   * \since 4.0.0
+   */
+  [[nodiscard]] constexpr auto has_area() const noexcept -> bool
+  {
+    return (width() > 0) && (height() > 0);
+  }
+
+  /**
+   * \brief Returns a pointer to the internal rectangle representation.
+   *
+   * \note Don't cache the returned pointer.
+   *
+   * \return a pointer to the rectangle representation.
+   *
+   * \since 5.2.0
+   */
+  [[nodiscard]] auto data() noexcept -> rect_type*
+  {
+    return &m_rect;
+  }
+
+  /**
+   * \copydoc data()
+   */
+  [[nodiscard]] auto data() const noexcept -> const rect_type*
+  {
+    return &m_rect;
+  }
+
+  /**
+   * \brief Returns the internal rectangle.
+   *
+   * \return a reference to the internal rectangle.
+   *
+   * \since 5.0.0
+   */
+  [[nodiscard]] constexpr auto get() noexcept -> rect_type&
+  {
+    return m_rect;
+  }
+
+  /**
+   * \brief Returns the internal rectangle.
+   *
+   * \return a reference to the internal rectangle.
+   *
+   * \since 5.0.0
+   */
+  [[nodiscard]] constexpr auto get() const noexcept -> const rect_type&
+  {
+    return m_rect;
+  }
+
+  /// \} End of queries
+
+  /// \name Conversions
+  /// \{
+
+  /**
+   * \brief Returns a pointer to the internal rectangle.
+   *
+   * \return a pointer to the internal rectangle.
+   *
+   * \since 5.0.0
+   */
+  [[nodiscard]] explicit operator rect_type*() noexcept
+  {
+    return &m_rect;
+  }
+
+  /**
+   * \brief Returns a pointer to the internal rectangle.
+   *
+   * \return a pointer to the internal rectangle.
+   *
+   * \since 5.0.0
+   */
+  [[nodiscard]] explicit operator const rect_type*() const noexcept
+  {
+    return &m_rect;
+  }
+
+  /// \} End of conversions
+
+  /**
+   * \brief Serializes the rectangle.
+   *
+   * \details This function expects that the archive provides an overloaded
+   * `operator()`, used for serializing data. This API is based on the Cereal
+   * serialization library.
+   *
+   * \tparam Archive the type of the archive.
+   *
+   * \param archive the archive used to serialize the rectangle.
+   *
+   * \since 5.3.0
+   */
+  template <typename Archive>
+  void serialize(Archive& archive)
+  {
+    archive(m_rect.x, m_rect.y, m_rect.w, m_rect.h);
+  }
+
+ private:
+  rect_type m_rect{0, 0, 0, 0};
+};
+
+/// \name Rectangle functions
+/// \{
+
+/**
+ * \brief Creates a rectangle with automatically deduced precision.
+ *
+ * \note The only supported precisions for rectangles are `int` and `float`, so
+ * this function will cast the supplied values to the corresponding type. For
+ * example, if you supply doubles to this function, the returned point will
+ * use float as the precision.
+ *
+ * \tparam T the deduced precision type.
+ *
+ * \param x the x-coordinate of the rectangle.
+ * \param y the y-coordinate of the rectangle.
+ * \param width the width of the rectangle.
+ * \param height the height of the rectangle.
+ *
+ * \return a rectangle with the specified position and size.
+ *
+ * \since 6.0.0
+ */
+template <typename T, enable_if_number_t<T> = 0>
+[[nodiscard]] constexpr auto rect(const T x,
+                                  const T y,
+                                  const T width,
+                                  const T height) noexcept
+    -> basic_rect<typename rect_traits<T>::value_type>
+{
+  using value_type = typename rect_traits<T>::value_type;
+  return basic_rect<value_type>{static_cast<value_type>(x),
+                                static_cast<value_type>(y),
+                                static_cast<value_type>(width),
+                                static_cast<value_type>(height)};
+}
+
+/**
+ * \brief Indicates whether or not the two rectangles intersect.
+ *
+ * \details This function does *not* consider rectangles with overlapping
+ * borders as intersecting. If you want such behaviour, see the
+ * `collides` function.
+ *
+ * \tparam T the representation type used by the rectangles.
+ *
+ * \param fst the first rectangle.
+ * \param snd the second rectangle.
+ *
+ * \return `true` if the rectangles intersect; `false` otherwise.
+ *
+ * \see `collides`
+ *
+ * \since 4.0.0
+ */
+template <typename T>
+[[nodiscard]] constexpr auto intersects(const basic_rect<T>& fst,
+                                        const basic_rect<T>& snd) noexcept
+    -> bool
+{
+  return !(fst.x() >= snd.max_x() || fst.max_x() <= snd.x() ||
+           fst.y() >= snd.max_y() || fst.max_y() <= snd.y());
+}
+
+/**
+ * \brief Indicates whether or not two rectangles are colliding.
+ *
+ * \details This function considers rectangles with overlapping borders as
+ * colliding.
+ *
+ * \tparam T the representation type used by the rectangles.
+ *
+ * \param fst the first rectangle.
+ * \param snd the second rectangle.
+ *
+ * \return `true` if the rectangles collide; `false` otherwise.
+ *
+ * \see `intersects`
+ *
+ * \since 4.0.0
+ */
+template <typename T>
+[[nodiscard]] constexpr auto collides(const basic_rect<T>& fst,
+                                      const basic_rect<T>& snd) noexcept -> bool
+{
+  return !(fst.x() > snd.max_x() || fst.max_x() < snd.x() ||
+           fst.y() > snd.max_y() || fst.max_y() < snd.y());
+}
+
+/**
+ * \brief Returns the union of two rectangles.
+ *
+ * \details Returns a rectangle that represents the union of two rectangles.
+ *
+ * \tparam T the representation type used by the rectangles.
+ *
+ * \param fst the first rectangle.
+ * \param snd the second rectangle.
+ *
+ * \return a rectangle that represents the union of the rectangles.
+ *
+ * \since 5.0.0
+ */
+template <typename T>
+[[nodiscard]] constexpr auto get_union(const basic_rect<T>& fst,
+                                       const basic_rect<T>& snd) noexcept
+    -> basic_rect<T>
+{
+  const auto fstHasArea = fst.has_area();
+  const auto sndHasArea = snd.has_area();
+
+  if (!fstHasArea && !sndHasArea)
+  {
+    return {};
+  }
+  else if (!fstHasArea)
+  {
+    return snd;
+  }
+  else if (!sndHasArea)
+  {
+    return fst;
+  }
+
+  const auto x = detail::min(fst.x(), snd.x());
+  const auto y = detail::min(fst.y(), snd.y());
+  const auto maxX = detail::max(fst.max_x(), snd.max_x());
+  const auto maxY = detail::max(fst.max_y(), snd.max_y());
+
+  return {{x, y}, {maxX - x, maxY - y}};
+}
+
+/// \} End of rectangle functions
+
+/// \name Rectangle comparison operators
+/// \{
+
+/**
+ * \brief Indicates whether or not two rectangles are equal.
+ *
+ * \tparam T the representation type used by the rectangles.
+ *
+ * \param lhs the left-hand side rectangle.
+ * \param rhs the right-hand side rectangle.
+ *
+ * \return `true` if the rectangles are equal; `false` otherwise.
+ *
+ * \since 4.0.0
+ */
+template <typename T>
+[[nodiscard]] constexpr auto operator==(const basic_rect<T>& lhs,
+                                        const basic_rect<T>& rhs) noexcept
+    -> bool
+{
+  return (lhs.x() == rhs.x()) && (lhs.y() == rhs.y()) &&
+         (lhs.width() == rhs.width()) && (lhs.height() == rhs.height());
+}
+
+/**
+ * \brief Indicates whether or not two rectangles aren't equal.
+ *
+ * \tparam T the representation type used by the rectangles.
+ *
+ * \param lhs the left-hand side rectangle.
+ * \param rhs the right-hand side rectangle.
+ *
+ * \return `true` if the rectangles aren't equal; `false` otherwise.
+ *
+ * \since 4.0.0
+ */
+template <typename T>
+[[nodiscard]] constexpr auto operator!=(const basic_rect<T>& lhs,
+                                        const basic_rect<T>& rhs) noexcept
+    -> bool
+{
+  return !(lhs == rhs);
+}
+
+/// \} End of rectangle comparison operators
+
+/// \name Rectangle cast specializations
+/// \{
+
+template <>
+[[nodiscard]] constexpr auto cast(const irect& from) noexcept -> frect
+{
+  const frect::point_type pos{static_cast<float>(from.x()),
+                              static_cast<float>(from.y())};
+  const frect::area_type size{static_cast<float>(from.width()),
+                              static_cast<float>(from.height())};
+  return frect{pos, size};
+}
+
+template <>
+[[nodiscard]] constexpr auto cast(const frect& from) noexcept -> irect
+{
+  const irect::point_type pos{static_cast<int>(from.x()),
+                              static_cast<int>(from.y())};
+  const irect::area_type size{static_cast<int>(from.width()),
+                              static_cast<int>(from.height())};
+  return irect{pos, size};
+}
+
+/// \} End of rectangle cast specializations
+
+/**
+ * \brief Returns a textual representation of a rectangle.
+ *
+ * \tparam T the representation type used by the rectangle.
+ *
+ * \param rect the rectangle that will be converted to a string.
+ *
+ * \return a textual representation of the rectangle.
+ *
+ * \since 5.0.0
+ */
+template <typename T>
+[[nodiscard]] auto to_string(const basic_rect<T>& rect) -> std::string
+{
+  return "rect{x: " + detail::to_string(rect.x()).value() +
+         ", y: " + detail::to_string(rect.y()).value() +
+         ", width: " + detail::to_string(rect.width()).value() +
+         ", height: " + detail::to_string(rect.height()).value() + "}";
+}
+
+/**
+ * \brief Prints a textual representation of a rectangle using a stream.
+ *
+ * \tparam T the representation type used by the rectangle.
+ *
+ * \param stream the stream that will be used.
+ * \param rect the rectangle that will be printed.
+ *
+ * \return the used stream.
+ *
+ * \since 5.0.0
+ */
+template <typename T>
+auto operator<<(std::ostream& stream, const basic_rect<T>& rect)
+    -> std::ostream&
+{
+  stream << to_string(rect);
+  return stream;
+}
+
+/// \} End of group math
+
+}  // namespace cen
+
+#endif  // CENTURION_RECTANGLE_HEADER
+// #include "centurion/math/vector3.hpp"
+#ifndef CENTURION_VECTOR3_HEADER
+#define CENTURION_VECTOR3_HEADER
+
+#include <ostream>  // ostream
+#include <string>   // string
+
+// #include "../detail/to_string.hpp"
+
+
+namespace cen {
+
+/// \addtogroup math
+/// \{
+
+/**
+ * \struct vector3
+ *
+ * \brief A simple representation of a 3-dimensional vector.
+ *
+ * \tparam T the representation type, e.g. `float` or `double`.
+ *
+ * \since 5.2.0
+ *
+ * \headerfile vector3.hpp
+ */
+template <typename T>
+struct vector3 final
+{
+  using value_type = T;  ///< The type of the vector components.
+
+  value_type x{};  ///< The x-coordinate of the vector.
+  value_type y{};  ///< The y-coordinate of the vector.
+  value_type z{};  ///< The z-coordinate of the vector.
+
+  /**
+   * \brief Casts the vector to a vector with another representation type.
+   *
+   * \tparam U the target vector type.
+   *
+   * \return the result vector.
+   *
+   * \since 5.2.0
+   */
+  template <typename U>
+  [[nodiscard]] explicit operator vector3<U>() const noexcept
+  {
+    using target_value_type = typename vector3<U>::value_type;
+    return vector3<U>{static_cast<target_value_type>(x),
+                      static_cast<target_value_type>(y),
+                      static_cast<target_value_type>(z)};
+  }
+};
+
+/**
+ * \brief Serializes a 3D-vector.
+ *
+ * \details This function expects that the archive provides an overloaded
+ * `operator()`, used for serializing data. This API is based on the Cereal
+ * serialization library.
+ *
+ * \tparam Archive the type of the archive.
+ * \tparam T the type of the vector components.
+ *
+ * \param archive the archive used to serialize the vector.
+ * \param vector the vector that will be serialized.
+ *
+ * \since 5.3.0
+ */
+template <typename Archive, typename T>
+void serialize(Archive& archive, vector3<T>& vector)
+{
+  archive(vector.x, vector.y, vector.z);
+}
+
+/// \name Vector3 comparison operators
+/// \{
+
+/**
+ * \brief Indicates whether or not two 3D vectors are equal.
+ *
+ * \tparam T the representation type used by the vectors.
+ *
+ * \param lhs the left-hand side vector.
+ * \param rhs the right-hand side vector.
+ *
+ * \return `true` if the vectors are equal; `false` otherwise.
+ *
+ * \since 5.2.0
+ */
+template <typename T>
+[[nodiscard]] constexpr auto operator==(const vector3<T>& lhs,
+                                        const vector3<T>& rhs) noexcept -> bool
+{
+  return (lhs.x == rhs.x) && (lhs.y == rhs.y) && (lhs.z == rhs.z);
+}
+
+/**
+ * \brief Indicates whether or not two 3D vectors aren't equal.
+ *
+ * \tparam T the representation type used by the vectors.
+ *
+ * \param lhs the left-hand side vector.
+ * \param rhs the right-hand side vector.
+ *
+ * \return `true` if the vectors aren't equal; `false` otherwise.
+ *
+ * \since 5.2.0
+ */
+template <typename T>
+[[nodiscard]] constexpr auto operator!=(const vector3<T>& lhs,
+                                        const vector3<T>& rhs) noexcept -> bool
+{
+  return !(lhs == rhs);
+}
+
+/// \} End of vector3 comparison operators
+
+/**
+ * \brief Returns a string that represents a vector.
+ *
+ * \tparam T the representation type used by the vector.
+ *
+ * \param vector the vector that will be converted to a string.
+ *
+ * \return a string that represents the supplied vector.
+ *
+ * \since 5.2.0
+ */
+template <typename T>
+[[nodiscard]] auto to_string(const vector3<T>& vector) -> std::string
+{
+  return "vector3{x: " + detail::to_string(vector.x).value() +
+         ", y: " + detail::to_string(vector.y).value() +
+         ", z: " + detail::to_string(vector.z).value() + "}";
+}
+
+/**
+ * \brief Prints a textual representation of a vector.
+ *
+ * \tparam T the representation type used by the vector.
+ *
+ * \param stream the stream that will be used.
+ * \param vector the vector that will be printed.
+ *
+ * \return the used stream.
+ *
+ * \since 5.2.0
+ */
+template <typename T>
+auto operator<<(std::ostream& stream, const vector3<T>& vector) -> std::ostream&
+{
+  return stream << to_string(vector);
+}
+
+/// \} End of group math
+
+}  // namespace cen
+
+#endif  // CENTURION_VECTOR3_HEADER
+
+// #include "centurion/misc/cast.hpp"
+#ifndef CENTURION_CAST_HEADER
+#define CENTURION_CAST_HEADER
+
+namespace cen {
+
+/**
+ * \brief Casts a value to a value of another type.
+ *
+ * \ingroup misc
+ *
+ * \details This is the default implementation, which simply attempts to use
+ * `static_cast`. The idea is that this function will be specialized for
+ * various Centurion and SDL types. This is useful because it isn't always
+ * possible to implement conversion operators as members.
+ *
+ * \tparam To the type of the value that will be converted.
+ * \tparam From the type that the value will be casted to.
+ *
+ * \param from the value that will be converted.
+ *
+ * \return the result of casting the supplied value to the specified type.
+ *
+ * \since 5.0.0
+ */
+template <typename To, typename From>
+[[nodiscard]] constexpr auto cast(const From& from) noexcept -> To
+{
+  return static_cast<To>(from);
+}
+
+}  // namespace cen
+
+#endif  // CENTURION_CAST_HEADER
+
+// #include "centurion/misc/czstring.hpp"
+#ifndef CENTURION_CZSTRING_HEADER
+#define CENTURION_CZSTRING_HEADER
+
+// #include "not_null.hpp"
+#ifndef CENTURION_NOT_NULL_HEADER
+#define CENTURION_NOT_NULL_HEADER
+
+// #include "sfinae.hpp"
+#ifndef CENTURION_SFINAE_HEADER
+#define CENTURION_SFINAE_HEADER
+
+#include <type_traits>  // enable_if_t, is_same_v, is_integral_v, is_floating_point_v, ...
+
+namespace cen {
+
+/// \addtogroup misc
+/// \{
+
+// clang-format off
+
+template <typename T>
+using enable_if_number_t = std::enable_if_t<!std::is_same_v<T, bool> &&
+                                            (std::is_integral_v<T> ||
+                                             std::is_floating_point_v<T>), int>;
+
+// clang-format on
+
+template <typename T>
+using enable_if_pointer_v = std::enable_if_t<std::is_pointer_v<T>, int>;
+
+template <typename T, typename... Args>
+using enable_if_convertible_t =
+    std::enable_if_t<(std::is_convertible_v<T, Args> || ...), int>;
+
+/// \} End of group misc
+
+}  // namespace cen
+
+#endif  // CENTURION_SFINAE_HEADER
+
+
+namespace cen {
+
+/**
+ * \typedef not_null
+ *
+ * \ingroup misc
+ *
+ * \brief Tag used to indicate that a pointer cannot be null.
+ *
+ * \note This alias is equivalent to `T`, it is a no-op.
+ *
+ * \since 5.0.0
+ */
+template <typename T, enable_if_pointer_v<T> = 0>
+using not_null = T;
+
+}  // namespace cen
+
+#endif  // CENTURION_NOT_NULL_HEADER
+
+
+namespace cen {
+
+/// \addtogroup misc
+/// \{
+
+/**
+ * \typedef czstring
+ *
+ * \brief Alias for a const C-style null-terminated string.
+ */
+using czstring = const char*;
+
+/**
+ * \typedef zstring
+ *
+ * \brief Alias for a C-style null-terminated string.
+ */
+using zstring = char*;
+
+/// \} End of group misc
+
+}  // namespace cen
+
+#endif  // CENTURION_CZSTRING_HEADER
+
+// #include "centurion/misc/exception.hpp"
 #ifndef CENTURION_EXCEPTION_HEADER
 #define CENTURION_EXCEPTION_HEADER
 
@@ -44431,35 +51820,12 @@ enum class device_type
 #define CENTURION_CZSTRING_HEADER
 
 // #include "not_null.hpp"
-#ifndef CENTURION_NOT_NULL_HEADER
-#define CENTURION_NOT_NULL_HEADER
-
-#include <SDL.h>
-
-#include <type_traits>  // enable_if_t, is_pointer_v
-
-namespace cen {
-
-/**
- * \typedef not_null
- *
- * \ingroup misc
- *
- * \brief Tag used to indicate that a pointer cannot be null.
- *
- * \note This alias is equivalent to `T`, it is a no-op.
- *
- * \since 5.0.0
- */
-template <typename T, typename = std::enable_if_t<std::is_pointer_v<T>>>
-using not_null = T;
-
-}  // namespace cen
-
-#endif  // CENTURION_NOT_NULL_HEADER
 
 
 namespace cen {
+
+/// \addtogroup misc
+/// \{
 
 /**
  * \typedef czstring
@@ -44474,6 +51840,8 @@ using czstring = const char*;
  * \brief Alias for a C-style null-terminated string.
  */
 using zstring = char*;
+
+/// \} End of group misc
 
 }  // namespace cen
 
@@ -44651,13 +52019,16 @@ class mix_error final : public cen_error
 
 #endif  // CENTURION_EXCEPTION_HEADER
 
-// #include "misc/integers.hpp"
+// #include "centurion/misc/integers.hpp"
 #ifndef CENTURION_INTEGERS_HEADER
 #define CENTURION_INTEGERS_HEADER
 
 #include <SDL.h>
 
 namespace cen {
+
+/// \addtogroup misc
+/// \{
 
 /// \name Integer aliases
 /// \{
@@ -44865,402 +52236,14 @@ namespace literals {
 }
 
 }  // namespace literals
+
+/// \} End of group misc
+
 }  // namespace cen
 
 #endif  // CENTURION_INTEGERS_HEADER
 
-
-/**
- * \namespace cen
- *
- * \brief The top-level namespace that all components of the library reside in.
- */
-namespace cen {
-
-/// \addtogroup core
-/// \{
-
-/**
- * \struct config
- *
- * \brief Used to specify how the library is initialized.
- *
- * \details All fields are initialized to the default values used by the
- * library.
- *
- * \since 4.0.0
- *
- * \var config::initCore
- * Indicates whether or not the SDL2 core is initialized.
- *
- * \var config::initImage
- * Indicates whether or not SDL2_image is initialized.
- *
- * \var config::initMixer
- * Indicates whether or not SDL2_mixer is initialized.
- *
- * \var config::initTTF
- * Indicates whether or not SDL2_ttf is initialized.
- *
- * \var config::coreFlags
- * Flags passed on to `SDL_Init()`, if \ref config.initCore is `true`.
- *
- * \var config::imageFlags
- * Flags passed on to `IMG_Init()`, if \ref config.initImage is
- * `true`.
- *
- * \var config::mixerFlags
- * Flags passed on to `Mix_Init()`, if \ref config.initMixer is
- * `true`.
- *
- * \var config::mixerFreq
- * The frequency used by SDL2_mixer, if \ref config.initMixer is
- * `true`.
- *
- * \var config::mixerFormat
- * The format used by SDL2_mixer, if \ref config.initMixer is `true`.
- *
- * \var config::mixerChannels
- * The amount of channels used by SDL2_mixer, if \ref config.initMixer
- * is `true`.
- *
- * \var config::mixerChunkSize
- * The chunk size used by SDL2_mixer, if \ref config.initMixer is
- * `true`.
- *
- * \headerfile library.hpp
- */
-struct config final
-{
-  bool initCore{true};
-  bool initImage{true};
-  bool initMixer{true};
-  bool initTTF{true};
-
-  u32 coreFlags{SDL_INIT_EVERYTHING};
-
-  int imageFlags{IMG_INIT_PNG | IMG_INIT_JPG | IMG_INIT_TIF | IMG_INIT_WEBP};
-
-  int mixerFlags{MIX_INIT_MP3 | MIX_INIT_OGG | MIX_INIT_FLAC | MIX_INIT_MID |
-                 MIX_INIT_MOD | MIX_INIT_OPUS};
-
-  int mixerFreq{MIX_DEFAULT_FREQUENCY};
-  u16 mixerFormat{MIX_DEFAULT_FORMAT};
-  int mixerChannels{MIX_DEFAULT_CHANNELS};
-  int mixerChunkSize{4096};
-};
-
-/**
- * \class library
- *
- * \brief Used to initialize and de-initialize the library.
- *
- * \note The signature of the main-method must be `ìnt(int, char**)` when
- * using the Centurion library!
- *
- * \since 3.0.0
- *
- * \headerfile library.hpp
- */
-class library final
-{
- public:
-  /**
-   * \brief Initializes the library.
-   *
-   * \note Make sure to have the `library` instance as a local variable that
-   * will outlive the duration of your main program. It's not sufficient to just
-   * call the constructor but not store the result as a variable.
-   *
-   * \pre there mustn't exist any other instances of this class at the time of
-   * invocation of this constructor.
-   *
-   * \throws sdl_error if the core SDL2 library can't be initialized.
-   * \throws img_error if the SDL2_image library can't be initialized.
-   * \throws ttf_error if the SDL2_ttf library can't be initialized.
-   * \throws mix_error if the SDL2_mixer library can't be initialized.
-   *
-   * \since 3.0.0
-   */
-  library()
-  {
-    init();
-  }
-
-  /**
-   * \brief Initializes the library according to the supplied configuration.
-   *
-   * \pre there mustn't exist any other instances of this class at the time of
-   * invocation of this constructor.
-   *
-   * \param cfg the configuration spec, determines what gets initialized.
-   *
-   * \throws sdl_error if the core SDL2 library can't be initialized.
-   * \throws img_error if the SDL2_image library can't be initialized.
-   * \throws ttf_error if the SDL2_ttf library can't be initialized.
-   * \throws mix_error if the SDL2_mixer library can't be initialized.
-   *
-   * \since 4.0.0
-   */
-  explicit library(const config& cfg) : m_cfg{cfg}
-  {
-    init();
-  }
-
-  library(const library&) = delete;
-
-  library(library&&) = delete;
-
-  auto operator=(const library&) -> library& = delete;
-
-  auto operator=(library&&) -> library& = delete;
-
- private:
-  class sdl final
-  {
-   public:
-    explicit sdl(const u32 flags)
-    {
-      const auto result = SDL_Init(flags);
-      if (result < 0)
-      {
-        throw sdl_error{};
-      }
-    }
-
-    ~sdl() noexcept
-    {
-      SDL_Quit();
-    }
-  };
-
-  class sdl_ttf final
-  {
-   public:
-    explicit sdl_ttf()
-    {
-      const auto result = TTF_Init();
-      if (result == -1)
-      {
-        throw ttf_error{};
-      }
-    }
-
-    ~sdl_ttf() noexcept
-    {
-      TTF_Quit();
-    }
-  };
-
-  class sdl_mixer final
-  {
-   public:
-    sdl_mixer(const int flags,
-              const int freq,
-              const u16 format,
-              const int nChannels,
-              const int chunkSize)
-    {
-      if (!Mix_Init(flags))
-      {
-        throw mix_error{};
-      }
-
-      if (Mix_OpenAudio(freq, format, nChannels, chunkSize) == -1)
-      {
-        throw mix_error{};
-      }
-    }
-
-    ~sdl_mixer() noexcept
-    {
-      Mix_CloseAudio();
-      Mix_Quit();
-    }
-  };
-
-  class sdl_image final
-  {
-   public:
-    explicit sdl_image(const int flags)
-    {
-      if (!IMG_Init(flags))
-      {
-        throw img_error{};
-      }
-    }
-
-    ~sdl_image() noexcept
-    {
-      IMG_Quit();
-    }
-  };
-
-  config m_cfg;
-  std::optional<sdl> m_sdl;
-  std::optional<sdl_image> m_img;
-  std::optional<sdl_ttf> m_ttf;
-  std::optional<sdl_mixer> m_mixer;
-
-  void init()
-  {
-    if (m_cfg.initCore)
-    {
-      m_sdl.emplace(m_cfg.coreFlags);
-    }
-
-    if (m_cfg.initImage)
-    {
-      m_img.emplace(m_cfg.imageFlags);
-    }
-
-    if (m_cfg.initTTF)
-    {
-      m_ttf.emplace();
-    }
-
-    if (m_cfg.initMixer)
-    {
-      m_mixer.emplace(m_cfg.mixerFlags,
-                      m_cfg.mixerFreq,
-                      m_cfg.mixerFormat,
-                      m_cfg.mixerChannels,
-                      m_cfg.mixerChunkSize);
-    }
-  }
-};
-
-/// \name SDL version queries
-/// \{
-
-/**
- * \brief Returns the version of SDL2 that is linked against the program.
- *
- * \note The linked version isn't necessarily the same as the version of SDL
- * that the program was compiled against.
- *
- * \return the linked version of SDL2.
- *
- * \since 5.2.0
- */
-[[nodiscard]] inline auto sdl_linked_version() noexcept -> SDL_version
-{
-  SDL_version version;
-  SDL_GetVersion(&version);
-  return version;
-}
-
-/**
- * \brief Returns the compile-time version of SDL2 that is being used.
- *
- * \return the compile-time version of SDL2 that is being used.
- *
- * \since 5.1.0
- */
-[[nodiscard]] constexpr auto sdl_version() noexcept -> SDL_version
-{
-  return {SDL_MAJOR_VERSION, SDL_MINOR_VERSION, SDL_PATCHLEVEL};
-}
-
-/**
- * \brief Returns the version of SDL2_image that is linked against the program.
- *
- * \note The linked version isn't necessarily the same as the version of
- * SDL2_image that the program was compiled against.
- *
- * \return the linked version of SDL2_image.
- *
- * \since 6.0.0
- */
-[[nodiscard]] inline auto sdl_image_linked_version() noexcept -> SDL_version
-{
-  const auto* version = IMG_Linked_Version();
-  assert(version);  // Sanity check
-  return *version;
-}
-
-/**
- * \brief Returns the compile-time version of SDL2_image that is being used.
- *
- * \return the compile-time version of SDL2_image that is being used.
- *
- * \since 5.1.0
- */
-[[nodiscard]] constexpr auto sdl_image_version() noexcept -> SDL_version
-{
-  return {SDL_IMAGE_MAJOR_VERSION,
-          SDL_IMAGE_MINOR_VERSION,
-          SDL_IMAGE_PATCHLEVEL};
-}
-
-/**
- * \brief Returns the version of SDL2_mixer that is linked against the program.
- *
- * \note The linked version isn't necessarily the same as the version of
- * SDL2_mixer that the program was compiled against.
- *
- * \return the linked version of SDL2_mixer.
- *
- * \since 6.0.0
- */
-[[nodiscard]] inline auto sdl_mixer_linked_version() noexcept -> SDL_version
-{
-  const auto* version = Mix_Linked_Version();
-  assert(version);  // Sanity check
-  return *version;
-}
-
-/**
- * \brief Returns the compile-time version of SDL2_mixer that is being used.
- *
- * \return the compile-time version of SDL2_mixer that is being used.
- *
- * \since 5.1.0
- */
-[[nodiscard]] constexpr auto sdl_mixer_version() noexcept -> SDL_version
-{
-  return {SDL_MIXER_MAJOR_VERSION,
-          SDL_MIXER_MINOR_VERSION,
-          SDL_MIXER_PATCHLEVEL};
-}
-
-/**
- * \brief Returns the version of SDL2_ttf that is linked against the program.
- *
- * \note The linked version isn't necessarily the same as the version of
- * SDL2_ttf that the program was compiled against.
- *
- * \return the linked version of SDL2_ttf.
- *
- * \since 6.0.0
- */
-[[nodiscard]] inline auto sdl_ttf_linked_version() noexcept -> SDL_version
-{
-  const auto* version = TTF_Linked_Version();
-  assert(version);  // Sanity check
-  return *version;
-}
-
-/**
- * \brief Returns the compile-time version of SDL2_ttf that is being used.
- *
- * \return the compile-time version of SDL2_ttf that is being used.
- *
- * \since 5.1.0
- */
-[[nodiscard]] constexpr auto sdl_ttf_version() noexcept -> SDL_version
-{
-  return {SDL_TTF_MAJOR_VERSION, SDL_TTF_MINOR_VERSION, SDL_TTF_PATCHLEVEL};
-}
-
-/// \} End of SDL version queries
-/// \} End of group core
-
-}  // namespace cen
-
-#endif  // CENTURION_LIBRARY_HEADER
-
-// #include "centurion/log.hpp"
+// #include "centurion/misc/log.hpp"
 #ifndef CENTURION_LOG_HEADER
 #define CENTURION_LOG_HEADER
 
@@ -45270,11 +52253,14 @@ class library final
 #include <string>   // string
 #include <utility>  // forward
 
-// #include "macros.hpp"
+// #include "../core/macros.hpp"
 #ifndef CENTURION_MACROS_HEADER
 #define CENTURION_MACROS_HEADER
 
 #include <SDL.h>
+
+/// \addtogroup core
+/// \{
 
 #ifndef __clang__
 
@@ -45314,62 +52300,14 @@ class library final
 using SDL_KeyCode = decltype(SDLK_UNKNOWN);
 
 #endif  // CENTURION_SDL_VERSION_IS(2, 0, 10)
+
+/// \} End of group core
+
 #endif  // CENTURION_MACROS_HEADER
 
-// #include "misc/czstring.hpp"
-#ifndef CENTURION_CZSTRING_HEADER
-#define CENTURION_CZSTRING_HEADER
+// #include "czstring.hpp"
 
 // #include "not_null.hpp"
-
-
-namespace cen {
-
-/**
- * \typedef czstring
- *
- * \brief Alias for a const C-style null-terminated string.
- */
-using czstring = const char*;
-
-/**
- * \typedef zstring
- *
- * \brief Alias for a C-style null-terminated string.
- */
-using zstring = char*;
-
-}  // namespace cen
-
-#endif  // CENTURION_CZSTRING_HEADER
-
-// #include "misc/not_null.hpp"
-#ifndef CENTURION_NOT_NULL_HEADER
-#define CENTURION_NOT_NULL_HEADER
-
-#include <SDL.h>
-
-#include <type_traits>  // enable_if_t, is_pointer_v
-
-namespace cen {
-
-/**
- * \typedef not_null
- *
- * \ingroup misc
- *
- * \brief Tag used to indicate that a pointer cannot be null.
- *
- * \note This alias is equivalent to `T`, it is a no-op.
- *
- * \since 5.0.0
- */
-template <typename T, typename = std::enable_if_t<std::is_pointer_v<T>>>
-using not_null = T;
-
-}  // namespace cen
-
-#endif  // CENTURION_NOT_NULL_HEADER
 
 
 /// \addtogroup misc
@@ -46048,3342 +52986,12 @@ inline void set_priority(const category category, const priority prio) noexcept
 
 #endif  // CENTURION_LOG_HEADER
 
-// #include "centurion/math/area.hpp"
-#ifndef CENTURION_AREA_HEADER
-#define CENTURION_AREA_HEADER
-
-#include <ostream>      // ostream
-#include <string>       // string
-#include <type_traits>  // is_integral_v, is_floating_point_v, is_same_v
-
-// #include "../detail/to_string.hpp"
-#ifndef CENTURION_DETAIL_TO_STRING_HEADER
-#define CENTURION_DETAIL_TO_STRING_HEADER
-
-#include <array>         // array
-#include <charconv>      // to_chars
-#include <optional>      // optional, nullopt
-#include <string>        // string
-#include <system_error>  // errc
-#include <type_traits>   // is_floating_point_v
-
-// #include "../compiler.hpp"
-#ifndef CENTURION_COMPILER_HEADER
-#define CENTURION_COMPILER_HEADER
-
-#include <SDL.h>
-
-namespace cen {
-
-/// \addtogroup compiler
-/// \{
-
-/**
- * \brief Indicates whether or not a "debug" build mode is active.
- *
- * \note This is intended to be use with `if constexpr`-statements instead of
- * raw `#ifdef` conditional compilation, since the use of `if constexpr`
- * prevents any branch to be ill-formed, which avoids code rot.
- *
- * \return `true` if a debug build mode is currently active; `false` otherwise.
- *
- * \since 5.3.0
- */
-[[nodiscard]] constexpr auto is_debug_build() noexcept -> bool
-{
-#ifndef NDEBUG
-  return true;
-#else
-  return false;
-#endif  // NDEBUG
-}
-
-/**
- * \brief Indicates whether or not a "release" build mode is active.
- *
- * \note This is intended to be use with `if constexpr`-statements instead of
- * raw `#ifdef` conditional compilation, since the use of `if constexpr`
- * prevents any branch to be ill-formed, which avoids code rot.
- *
- * \return `true` if a release build mode is currently active; `false`
- * otherwise.
- *
- * \since 5.3.0
- */
-[[nodiscard]] constexpr auto is_release_build() noexcept -> bool
-{
-  return !is_debug_build();
-}
-
-/**
- * \brief Indicates whether or not the compiler is MSVC.
- *
- * \return `true` if MSVC is detected as the current compiler; `false`
- * otherwise.
- *
- * \since 5.3.0
- */
-[[nodiscard]] constexpr auto on_msvc() noexcept -> bool
-{
-#ifdef _MSC_VER
-  return true;
-#else
-  return false;
-#endif  // _MSC_VER
-}
-
-/**
- * \brief Indicates whether or not the compiler is GCC.
- *
- * \return `true` if GCC is detected as the current compiler; `false`
- * otherwise.
- *
- * \since 5.3.0
- */
-[[nodiscard]] constexpr auto on_gcc() noexcept -> bool
-{
-#ifdef __GNUC__
-  return true;
-#else
-  return false;
-#endif  // __GNUC__
-}
-
-/**
- * \brief Indicates whether or not the compiler is Clang.
- *
- * \return `true` if Clang is detected as the current compiler; `false`
- * otherwise.
- *
- * \since 5.3.0
- */
-[[nodiscard]] constexpr auto on_clang() noexcept -> bool
-{
-#ifdef __clang__
-  return true;
-#else
-  return false;
-#endif  // __clang__
-}
-
-/**
- * \brief Indicates whether or not the compiler is Emscripten.
- *
- * \return `true` if Emscripten is detected as the current compiler; `false`
- * otherwise.
- *
- * \since 5.3.0
- */
-[[nodiscard]] constexpr auto on_emscripten() noexcept -> bool
-{
-#ifdef __EMSCRIPTEN__
-  return true;
-#else
-  return false;
-#endif  // __EMSCRIPTEN__
-}
-
-/**
- * \brief Indicates whether or not the compiler is Intel C++.
- *
- * \return `true` if Intel C++ is detected as the current compiler; `false`
- * otherwise.
- *
- * \since 5.3.0
- */
-[[nodiscard]] constexpr auto on_intel_cpp() noexcept -> bool
-{
-#ifdef __INTEL_COMPILER
-  return true;
-#else
-  return false;
-#endif  // __INTEL_COMPILER
-}
-
-/// \} End of compiler group
-
-}  // namespace cen
-
-#endif  // CENTURION_COMPILER_HEADER
-
-
-/// \cond FALSE
-namespace cen::detail {
-
-/**
- * \brief Returns a string representation of an arithmetic value.
- *
- * \note This function is guaranteed to work for 32-bit integers and floats.
- * You might have to increase the buffer size for larger types.
- *
- * \remark On GCC, this function simply calls `std::to_string`, since the
- * `std::to_chars` implementation seems to be lacking at the time of writing.
- *
- * \tparam bufferSize the size of the stack buffer used, must be big enough
- * to store the characters of the string representation of the value.
- * \tparam T the type of the value that will be converted, must be arithmetic.
- *
- * \param value the value that will be converted.
- *
- * \return a string representation of the supplied value; `std::nullopt` if
- * something goes wrong.
- *
- * \since 5.0.0
- */
-template <std::size_t bufferSize = 16, typename T>
-[[nodiscard]] auto to_string(T value) -> std::optional<std::string>
-{
-  if constexpr (on_gcc() || (on_clang() && std::is_floating_point_v<T>))
-  {
-    return std::to_string(value);
-  }
-  else
-  {
-    std::array<char, bufferSize> buffer{};
-    const auto [ptr, err] =
-        std::to_chars(buffer.data(), buffer.data() + buffer.size(), value);
-
-    if (err == std::errc{})
-    {
-      return std::string{buffer.data(), ptr};
-    }
-    else
-    {
-      return std::nullopt;
-    }
-  }
-}
-
-}  // namespace cen::detail
-/// \endcond
-
-#endif  // CENTURION_DETAIL_TO_STRING_HEADER
-
-// #include "../misc/cast.hpp"
-#ifndef CENTURION_CAST_HEADER
-#define CENTURION_CAST_HEADER
-
-namespace cen {
-
-/**
- * \brief Casts a value to a value of another type.
- *
- * \ingroup misc
- *
- * \details This is the default implementation, which simply attempts to use
- * `static_cast`. The idea is that this function will be specialized for
- * various Centurion and SDL types. This is useful because it isn't always
- * possible to implement conversion operators as members.
- *
- * \tparam To the type of the value that will be converted.
- * \tparam From the type that the value will be casted to.
- *
- * \param from the value that will be converted.
- *
- * \return the result of casting the supplied value to the specified type.
- *
- * \since 5.0.0
- */
-template <typename To, typename From>
-[[nodiscard]] constexpr auto cast(const From& from) noexcept -> To
-{
-  return static_cast<To>(from);
-}
-
-}  // namespace cen
-
-#endif  // CENTURION_CAST_HEADER
-
-
-namespace cen {
-
-/// \addtogroup math
-/// \{
-
-/**
- * \struct basic_area
- *
- * \brief Simply represents an area with a width and height.
- *
- * \tparam T the type of the components of the area. Must
- * be either an integral or floating-point type. Can't be `bool`.
- *
- * \since 4.0.0
- *
- * \see `iarea`
- * \see `farea`
- * \see `darea`
- *
- * \headerfile area.hpp
- */
-template <typename T>
-struct basic_area final
-{
-  using value_type = T;
-
-  T width{0};   ///< The width of the area.
-  T height{0};  ///< The height of the area.
-
-  static_assert(std::is_integral_v<T> || std::is_floating_point_v<T>);
-  static_assert(!std::is_same_v<T, bool>);
-};
-
-/**
- * \brief Returns the size (width x height) of an area.
- *
- * \tparam T the representation type.
- *
- * \param area the area instance that will be calculated.
- *
- * \return the size of the area.
- *
- * \since 5.3.0
- */
-template <typename T>
-[[nodiscard]] constexpr auto area_of(const basic_area<T>& area) noexcept -> T
-{
-  return area.width * area.height;
-}
-
-/**
- * \typedef iarea
- *
- * \brief An alias for `int` areas.
- *
- * \since 4.1.0
- */
-using iarea = basic_area<int>;
-
-/**
- * \typedef farea
- *
- * \brief An alias for `float` areas.
- *
- * \since 4.1.0
- */
-using farea = basic_area<float>;
-
-/**
- * \typedef darea
- *
- * \brief An alias for `double` areas.
- *
- * \since 4.1.0
- */
-using darea = basic_area<double>;
-
-/**
- * \brief Serializes an area instance.
- *
- * \details This function expects that the archive provides an overloaded
- * `operator()`, used for serializing data. This API is based on the Cereal
- * serialization library.
- *
- * \tparam Archive the type of the archive.
- * \tparam T the type of the area components.
- *
- * \param archive the archive used to serialize the area.
- * \param area the area that will be serialized.
- *
- * \since 5.3.0
- */
-template <typename Archive, typename T>
-void serialize(Archive& archive, basic_area<T>& area)
-{
-  archive(area.width, area.height);
-}
-
-/// \name Area cast specializations
-/// \{
-
-template <>
-[[nodiscard]] constexpr auto cast(const iarea& from) noexcept -> darea
-{
-  return {static_cast<double>(from.width), static_cast<double>(from.height)};
-}
-
-template <>
-[[nodiscard]] constexpr auto cast(const iarea& from) noexcept -> farea
-{
-  return {static_cast<float>(from.width), static_cast<float>(from.height)};
-}
-
-template <>
-[[nodiscard]] constexpr auto cast(const farea& from) noexcept -> darea
-{
-  return {static_cast<double>(from.width), static_cast<double>(from.height)};
-}
-
-template <>
-[[nodiscard]] constexpr auto cast(const farea& from) noexcept -> iarea
-{
-  return {static_cast<int>(from.width), static_cast<int>(from.height)};
-}
-
-template <>
-[[nodiscard]] constexpr auto cast(const darea& from) noexcept -> farea
-{
-  return {static_cast<float>(from.width), static_cast<float>(from.height)};
-}
-
-template <>
-[[nodiscard]] constexpr auto cast(const darea& from) noexcept -> iarea
-{
-  return {static_cast<int>(from.width), static_cast<int>(from.height)};
-}
-
-/// \} End of area cast specializations
-
-/// \name Area comparison operators
-/// \{
-
-/**
- * \brief Indicates whether or not two areas are considered to be equal.
- *
- * \param lhs the left-hand side area.
- * \param rhs the right-hand side area.
- *
- * \return `true` if the areas are equal; `false` otherwise.
- *
- * \since 4.1.0
- */
-template <typename T>
-[[nodiscard]] constexpr auto operator==(const basic_area<T>& lhs,
-                                        const basic_area<T>& rhs) noexcept
-    -> bool
-{
-  return (lhs.width == rhs.width) && (lhs.height == rhs.height);
-}
-
-/**
- * \brief Indicates whether or not two areas aren't considered to be equal.
- *
- * \param lhs the left-hand side area.
- * \param rhs the right-hand side area.
- *
- * \return `true` if the areas aren't equal; `false` otherwise.
- *
- * \since 4.1.0
- */
-template <typename T>
-[[nodiscard]] constexpr auto operator!=(const basic_area<T>& lhs,
-                                        const basic_area<T>& rhs) noexcept
-    -> bool
-{
-  return !(lhs == rhs);
-}
-
-/// \} End of area comparison operators
-
-/**
- * \brief Returns a textual representation of an area.
- *
- * \tparam T the type of the area components.
- *
- * \param area the area that will be converted.
- *
- * \return a string that represents the area.
- *
- * \since 5.0.0
- */
-template <typename T>
-[[nodiscard]] auto to_string(const basic_area<T>& area) -> std::string
-{
-  return "area{width: " + detail::to_string(area.width).value() +
-         ", height: " + detail::to_string(area.height).value() + "}";
-}
-
-/**
- * \brief Prints a textual representation of an area using a stream.
- *
- * \tparam T the type of the area components.
- *
- * \param stream the stream that will be used.
- * \param area the are that will be printed.
- *
- * \return the used stream.
- *
- * \since 5.0.0
- */
-template <typename T>
-auto operator<<(std::ostream& stream, const basic_area<T>& area)
-    -> std::ostream&
-{
-  return stream << to_string(area);
-}
-
-/// \} End of group math
-
-}  // namespace cen
-
-#endif  // CENTURION_AREA_HEADER
-// #include "centurion/math/point.hpp"
-#ifndef CENTURION_POINT_HEADER
-#define CENTURION_POINT_HEADER
-
-#include <SDL.h>
-
-#include <cmath>        // sqrt, abs, round
-#include <ostream>      // ostream
-#include <string>       // string
-#include <type_traits>  // enable_if_t, conditional_t, is_convertible_v, ...
-
-// #include "../detail/to_string.hpp"
-
-// #include "../misc/cast.hpp"
-
-
-namespace cen {
-
-/// \addtogroup math
-/// \{
-
-/**
- * \brief Provides traits used by the `basic_point` class.
- *
- * \tparam T the representation type. Must be convertible to `int` or `float`.
- *
- * \since 5.0.0
- *
- * \see `basic_point`
- * \see `ipoint`
- * \see `fpoint`
- *
- * \headerfile point.hpp
- */
-template <typename T,
-          std::enable_if_t<std::is_convertible_v<T, int> ||
-                               std::is_convertible_v<T, float>,
-                           int> = 0>
-class point_traits final
-{
- public:
-  /**
-   * \var isIntegral
-   *
-   * \brief Indicates whether or not the point is based on an integral type.
-   *
-   * \since 5.0.0
-   */
-  inline constexpr static bool isIntegral = std::is_integral_v<T>;
-
-  /**
-   * \var isFloating
-   *
-   * \brief Indicates whether or not the point is based on a floating-point
-   * type.
-   *
-   * \since 5.0.0
-   */
-  inline constexpr static bool isFloating = std::is_floating_point_v<T>;
-
-  /**
-   * \typedef value_type
-   *
-   * \brief The actual representation type, i.e. `int` or `float`.
-   *
-   * \since 5.0.0
-   */
-  using value_type = std::conditional_t<isIntegral, int, float>;
-
-  /**
-   * \typedef point_type
-   *
-   * \brief The SDL point type, i.e. `SDL_Point` or `SDL_FPoint`.
-   *
-   * \since 5.0.0
-   */
-  using point_type = std::conditional_t<isIntegral, SDL_Point, SDL_FPoint>;
-};
-
-template <typename T>
-class basic_point;
-
-/**
- * \typedef ipoint
- *
- * \brief Alias for an `int`-based point.
- *
- * \details This type corresponds to `SDL_Point`.
- *
- * \since 5.0.0
- */
-using ipoint = basic_point<int>;
-
-/**
- * \typedef fpoint
- *
- * \brief Alias for a `float`-based point.
- *
- * \details This type corresponds to `SDL_FPoint`.
- *
- * \since 5.0.0
- */
-using fpoint = basic_point<float>;
-
-/**
- * \class basic_point
- *
- * \brief Represents a two-dimensional point.
- *
- * \details This class is designed as a wrapper for `SDL_Point` and
- * `SDL_FPoint`. The representation is specified by the type parameter.
- *
- * \note This point class will only use `int` or `float` as the actual
- * internal representation.
- *
- * \tparam T the representation type. Must be convertible to `int` or `float`.
- *
- * \since 5.0.0
- *
- * \see `ipoint`
- * \see `fpoint`
- *
- * \headerfile point.hpp
- */
-template <typename T>
-class basic_point final
-{
- public:
-  /**
-   * \copydoc point_traits::isIntegral
-   */
-  inline constexpr static bool isIntegral = point_traits<T>::isIntegral;
-
-  /**
-   * \copydoc point_traits::isFloating
-   */
-  inline constexpr static bool isFloating = point_traits<T>::isFloating;
-
-  /**
-   * \copydoc point_traits::value_type
-   */
-  using value_type = typename point_traits<T>::value_type;
-
-  /**
-   * \copydoc point_traits::point_type
-   */
-  using point_type = typename point_traits<T>::point_type;
-
-  /// \name Construction
-  /// \{
-
-  /**
-   * \brief Creates a zero-initialized point.
-   *
-   * \since 5.0.0
-   */
-  constexpr basic_point() noexcept = default;
-
-  /**
-   * \brief Creates a point with the specified coordinates.
-   *
-   * \param x the x-coordinate that will be used.
-   * \param y the y-coordinate that will be used.
-   *
-   * \since 5.0.0
-   */
-  constexpr basic_point(const value_type x, const value_type y) noexcept
-  {
-    m_point.x = x;
-    m_point.y = y;
-  };
-
-  /// \} End of construction
-
-  /// \name Setters
-  /// \{
-
-  /**
-   * \brief Sets the x-coordinate of the point.
-   *
-   * \param x the new x-coordinate.
-   *
-   * \since 5.0.0
-   */
-  constexpr void set_x(const value_type x) noexcept
-  {
-    m_point.x = x;
-  }
-
-  /**
-   * \brief Sets the y-coordinate of the point.
-   *
-   * \param y the new y-coordinate.
-   *
-   * \since 5.0.0
-   */
-  constexpr void set_y(const value_type y) noexcept
-  {
-    m_point.y = y;
-  }
-
-  /// \} End of setters
-
-  /// \name Getters
-  /// \{
-
-  /**
-   * \brief Returns the x-coordinate of the point.
-   *
-   * \return the x-coordinate.
-   *
-   * \since 5.0.0
-   */
-  [[nodiscard]] constexpr auto x() const noexcept -> value_type
-  {
-    return m_point.x;
-  }
-
-  /**
-   * \brief Returns the y-coordinate of the point.
-   *
-   * \return the y-coordinate.
-   *
-   * \since 5.0.0
-   */
-  [[nodiscard]] constexpr auto y() const noexcept -> value_type
-  {
-    return m_point.y;
-  }
-
-  /**
-   * \brief Returns the internal point representation.
-   *
-   * \return a reference to the internal representation.
-   *
-   * \since 5.0.0
-   */
-  [[nodiscard]] constexpr auto get() noexcept -> point_type&
-  {
-    return m_point;
-  }
-
-  /**
-   * \copydoc get
-   */
-  [[nodiscard]] constexpr auto get() const noexcept -> const point_type&
-  {
-    return m_point;
-  }
-
-  /**
-   * \brief Returns a pointer to the internal point representation.
-   *
-   * \note Don't cache the returned pointer.
-   *
-   * \return a pointer to the point representation.
-   *
-   * \since 5.2.0
-   */
-  [[nodiscard]] auto data() noexcept -> point_type*
-  {
-    return &m_point;
-  }
-
-  /**
-   * \copydoc data()
-   */
-  [[nodiscard]] auto data() const noexcept -> const point_type*
-  {
-    return &m_point;
-  }
-
-  /// \} End of getters
-
-  /// \name Conversions
-  /// \{
-
-  /**
-   * \brief Converts to the internal representation.
-   *
-   * \return a copy of the internal point.
-   *
-   * \see `cen::cast`
-   *
-   * \since 5.0.0
-   */
-  [[nodiscard]] constexpr explicit operator point_type() const noexcept
-  {
-    return m_point;
-  }
-
-  /**
-   * \brief Returns a pointer to the internal point.
-   *
-   * \note You shouldn't store the returned pointer. However, this conversion
-   * is safe since `reinterpret_cast` isn't used.
-   *
-   * \return a pointer to the internal point instance.
-   *
-   * \since 5.0.0
-   */
-  [[nodiscard]] explicit operator point_type*() noexcept
-  {
-    return &m_point;
-  }
-
-  /**
-   * \brief Returns a pointer to the internal point.
-   *
-   * \note You shouldn't store the returned pointer. However, this conversion
-   * is safe since `reinterpret_cast` isn't used.
-   *
-   * \return a pointer to the internal point instance.
-   *
-   * \since 5.0.0
-   */
-  [[nodiscard]] explicit operator const point_type*() const noexcept
-  {
-    return &m_point;
-  }
-
-  /// \} End of conversions
-
-  /**
-   * \brief Serializes the point.
-   *
-   * \details This function expects that the archive provides an overloaded
-   * `operator()`, used for serializing data. This API is based on the Cereal
-   * serialization library.
-   *
-   * \tparam Archive the type of the archive.
-   *
-   * \param archive the archive used to serialize the point.
-   *
-   * \since 5.3.0
-   */
-  template <typename Archive>
-  void serialize(Archive& archive)
-  {
-    archive(m_point.x, m_point.y);
-  }
-
- private:
-  point_type m_point{0, 0};
-};
-
-/**
- * \brief Returns the distance between two points.
- *
- * \tparam T the representation type used by the points.
- *
- * \param from the first point.
- * \param to the second point.
- *
- * \return the distance between the two points.
- *
- * \since 5.0.0
- */
-template <typename T>
-[[nodiscard]] inline auto distance(const basic_point<T>& from,
-                                   const basic_point<T>& to) noexcept ->
-    typename point_traits<T>::value_type
-{
-  if constexpr (basic_point<T>::isIntegral)
-  {
-    const auto xDiff = std::abs(from.x() - to.x());
-    const auto yDiff = std::abs(from.y() - to.y());
-    const auto dist = std::sqrt(xDiff + yDiff);
-    return static_cast<int>(std::round(dist));
-  }
-  else
-  {
-    return std::sqrt(std::abs(from.x() - to.x()) + std::abs(from.y() - to.y()));
-  }
-}
-
-[[nodiscard]] inline auto to_string(const ipoint& point) -> std::string
-{
-  return "ipoint{X: " + detail::to_string(point.x()).value() +
-         ", Y: " + detail::to_string(point.y()).value() + "}";
-}
-
-[[nodiscard]] inline auto to_string(const fpoint& point) -> std::string
-{
-  return "fpoint{X: " + detail::to_string(point.x()).value() +
-         ", Y: " + detail::to_string(point.y()).value() + "}";
-}
-
-template <typename T>
-auto operator<<(std::ostream& stream, const basic_point<T>& point)
-    -> std::ostream&
-{
-  return stream << to_string(point);
-}
-
-/// \name Point cast specializations
-/// \{
-
-/**
- * \brief Converts an `fpoint` instance to the corresponding `ipoint`.
- *
- * \details This function casts the coordinates of the supplied point to
- * `int`, and uses the obtained values to create an `ipoint` instance.
- *
- * \param from the point that will be converted.
- *
- * \return an `ipoint` instance that corresponds to the supplied `fpoint`.
- *
- * \since 5.0.0
- */
-template <>
-[[nodiscard]] constexpr auto cast(const fpoint& from) noexcept -> ipoint
-{
-  const auto x = static_cast<int>(from.x());
-  const auto y = static_cast<int>(from.y());
-  return ipoint{x, y};
-}
-
-/**
- * \brief Converts an `ipoint` instance to the corresponding `fpoint`.
- *
- * \details This function casts the coordinates of the supplied point to
- * `float`, and uses the obtained values to create an `fpoint` instance.
- *
- * \param from the point that will be converted.
- *
- * \return an `fpoint` instance that corresponds to the supplied `ipoint`.
- *
- * \since 5.0.0
- */
-template <>
-[[nodiscard]] constexpr auto cast(const ipoint& from) noexcept -> fpoint
-{
-  const auto x = static_cast<float>(from.x());
-  const auto y = static_cast<float>(from.y());
-  return fpoint{x, y};
-}
-
-/**
- * \brief Converts an `SDL_FPoint` instance to the corresponding `SDL_Point`.
- *
- * \details This function casts the coordinates of the supplied point to
- * `int`, and uses the obtained values to create an `SDL_Point` instance.
- *
- * \param from the point that will be converted.
- *
- * \return an `SDL_Point` instance that corresponds to the supplied
- * `SDL_FPoint`.
- *
- * \since 5.0.0
- */
-template <>
-[[nodiscard]] constexpr auto cast(const SDL_FPoint& from) noexcept -> SDL_Point
-{
-  const auto x = static_cast<int>(from.x);
-  const auto y = static_cast<int>(from.y);
-  return SDL_Point{x, y};
-}
-
-/**
- * \brief Converts an `SDL_Point` instance to the corresponding `SDL_FPoint`.
- *
- * \details This function casts the coordinates of the supplied point to
- * `float`, and uses the obtained values to create an `SDL_FPoint` instance.
- *
- * \param from the point that will be converted.
- *
- * \return an `SDL_FPoint` instance that corresponds to the supplied
- * `SDL_Point`.
- *
- * \since 5.0.0
- */
-template <>
-[[nodiscard]] constexpr auto cast(const SDL_Point& from) noexcept -> SDL_FPoint
-{
-  const auto x = static_cast<float>(from.x);
-  const auto y = static_cast<float>(from.y);
-  return SDL_FPoint{x, y};
-}
-
-/// \} End of point cast specializations
-
-/// \name Point addition and subtraction operators
-/// \{
-
-template <typename T>
-[[nodiscard]] constexpr auto operator+(const basic_point<T>& lhs,
-                                       const basic_point<T>& rhs) noexcept
-    -> basic_point<T>
-{
-  return {lhs.x() + rhs.x(), lhs.y() + rhs.y()};
-}
-
-template <typename T>
-[[nodiscard]] constexpr auto operator-(const basic_point<T>& lhs,
-                                       const basic_point<T>& rhs) noexcept
-    -> basic_point<T>
-{
-  return {lhs.x() - rhs.x(), lhs.y() - rhs.y()};
-}
-
-/// \} End of point addition and subtraction operators
-
-/// \name Point comparison operators
-/// \{
-
-[[nodiscard]] constexpr auto operator==(const ipoint& lhs,
-                                        const ipoint& rhs) noexcept -> bool
-{
-  return (lhs.x() == rhs.x()) && (lhs.y() == rhs.y());
-}
-
-[[nodiscard]] constexpr auto operator==(const fpoint& lhs,
-                                        const fpoint& rhs) noexcept -> bool
-{
-  return (lhs.x() == rhs.x()) && (lhs.y() == rhs.y());
-}
-
-[[nodiscard]] constexpr auto operator!=(const ipoint& lhs,
-                                        const ipoint& rhs) noexcept -> bool
-{
-  return !(lhs == rhs);
-}
-
-[[nodiscard]] constexpr auto operator!=(const fpoint& lhs,
-                                        const fpoint& rhs) noexcept -> bool
-{
-  return !(lhs == rhs);
-}
-
-/// \} End of point comparison operators
-
-/// \} End of group math
-
-}  // namespace cen
-
-#endif  // CENTURION_POINT_HEADER
-// #include "centurion/math/rect.hpp"
-#ifndef CENTURION_RECTANGLE_HEADER
-#define CENTURION_RECTANGLE_HEADER
-
-#include <SDL.h>
-
-#include <ostream>      // ostream
-#include <string>       // string
-#include <type_traits>  // enable_if_t, is_convertible_v, conditional_t, ...
-
-// #include "../detail/max.hpp"
-#ifndef CENTURION_DETAIL_MAX_HEADER
-#define CENTURION_DETAIL_MAX_HEADER
-
-/// \cond FALSE
-namespace cen::detail {
-
-// clang-format off
-
-template <typename T>
-[[nodiscard]] constexpr auto max(const T& left, const T& right)
-    noexcept(noexcept(left < right)) -> T
-{
-  return (left < right) ? right : left;
-}
-
-// clang-format on
-
-}  // namespace cen::detail
-/// \endcond
-
-#endif  // CENTURION_DETAIL_MAX_HEADER
-
-// #include "../detail/min.hpp"
-#ifndef CENTURION_DETAIL_MIN_HEADER
-#define CENTURION_DETAIL_MIN_HEADER
-
-/// \cond FALSE
-namespace cen::detail {
-
-// clang-format off
-
-template <typename T>
-[[nodiscard]] constexpr auto min(const T& left, const T& right)
-    noexcept(noexcept(left < right)) -> T
-{
-  return (left < right) ? left : right;
-}
-
-// clang-format on
-
-}  // namespace cen::detail
-/// \endcond
-
-#endif  // CENTURION_DETAIL_MIN_HEADER
-
-// #include "../detail/to_string.hpp"
-
-// #include "../misc/cast.hpp"
-
-// #include "area.hpp"
-#ifndef CENTURION_AREA_HEADER
-#define CENTURION_AREA_HEADER
-
-#include <ostream>      // ostream
-#include <string>       // string
-#include <type_traits>  // is_integral_v, is_floating_point_v, is_same_v
-
-// #include "../detail/to_string.hpp"
-
-// #include "../misc/cast.hpp"
-
-
-namespace cen {
-
-/// \addtogroup math
-/// \{
-
-/**
- * \struct basic_area
- *
- * \brief Simply represents an area with a width and height.
- *
- * \tparam T the type of the components of the area. Must
- * be either an integral or floating-point type. Can't be `bool`.
- *
- * \since 4.0.0
- *
- * \see `iarea`
- * \see `farea`
- * \see `darea`
- *
- * \headerfile area.hpp
- */
-template <typename T>
-struct basic_area final
-{
-  using value_type = T;
-
-  T width{0};   ///< The width of the area.
-  T height{0};  ///< The height of the area.
-
-  static_assert(std::is_integral_v<T> || std::is_floating_point_v<T>);
-  static_assert(!std::is_same_v<T, bool>);
-};
-
-/**
- * \brief Returns the size (width x height) of an area.
- *
- * \tparam T the representation type.
- *
- * \param area the area instance that will be calculated.
- *
- * \return the size of the area.
- *
- * \since 5.3.0
- */
-template <typename T>
-[[nodiscard]] constexpr auto area_of(const basic_area<T>& area) noexcept -> T
-{
-  return area.width * area.height;
-}
-
-/**
- * \typedef iarea
- *
- * \brief An alias for `int` areas.
- *
- * \since 4.1.0
- */
-using iarea = basic_area<int>;
-
-/**
- * \typedef farea
- *
- * \brief An alias for `float` areas.
- *
- * \since 4.1.0
- */
-using farea = basic_area<float>;
-
-/**
- * \typedef darea
- *
- * \brief An alias for `double` areas.
- *
- * \since 4.1.0
- */
-using darea = basic_area<double>;
-
-/**
- * \brief Serializes an area instance.
- *
- * \details This function expects that the archive provides an overloaded
- * `operator()`, used for serializing data. This API is based on the Cereal
- * serialization library.
- *
- * \tparam Archive the type of the archive.
- * \tparam T the type of the area components.
- *
- * \param archive the archive used to serialize the area.
- * \param area the area that will be serialized.
- *
- * \since 5.3.0
- */
-template <typename Archive, typename T>
-void serialize(Archive& archive, basic_area<T>& area)
-{
-  archive(area.width, area.height);
-}
-
-/// \name Area cast specializations
-/// \{
-
-template <>
-[[nodiscard]] constexpr auto cast(const iarea& from) noexcept -> darea
-{
-  return {static_cast<double>(from.width), static_cast<double>(from.height)};
-}
-
-template <>
-[[nodiscard]] constexpr auto cast(const iarea& from) noexcept -> farea
-{
-  return {static_cast<float>(from.width), static_cast<float>(from.height)};
-}
-
-template <>
-[[nodiscard]] constexpr auto cast(const farea& from) noexcept -> darea
-{
-  return {static_cast<double>(from.width), static_cast<double>(from.height)};
-}
-
-template <>
-[[nodiscard]] constexpr auto cast(const farea& from) noexcept -> iarea
-{
-  return {static_cast<int>(from.width), static_cast<int>(from.height)};
-}
-
-template <>
-[[nodiscard]] constexpr auto cast(const darea& from) noexcept -> farea
-{
-  return {static_cast<float>(from.width), static_cast<float>(from.height)};
-}
-
-template <>
-[[nodiscard]] constexpr auto cast(const darea& from) noexcept -> iarea
-{
-  return {static_cast<int>(from.width), static_cast<int>(from.height)};
-}
-
-/// \} End of area cast specializations
-
-/// \name Area comparison operators
-/// \{
-
-/**
- * \brief Indicates whether or not two areas are considered to be equal.
- *
- * \param lhs the left-hand side area.
- * \param rhs the right-hand side area.
- *
- * \return `true` if the areas are equal; `false` otherwise.
- *
- * \since 4.1.0
- */
-template <typename T>
-[[nodiscard]] constexpr auto operator==(const basic_area<T>& lhs,
-                                        const basic_area<T>& rhs) noexcept
-    -> bool
-{
-  return (lhs.width == rhs.width) && (lhs.height == rhs.height);
-}
-
-/**
- * \brief Indicates whether or not two areas aren't considered to be equal.
- *
- * \param lhs the left-hand side area.
- * \param rhs the right-hand side area.
- *
- * \return `true` if the areas aren't equal; `false` otherwise.
- *
- * \since 4.1.0
- */
-template <typename T>
-[[nodiscard]] constexpr auto operator!=(const basic_area<T>& lhs,
-                                        const basic_area<T>& rhs) noexcept
-    -> bool
-{
-  return !(lhs == rhs);
-}
-
-/// \} End of area comparison operators
-
-/**
- * \brief Returns a textual representation of an area.
- *
- * \tparam T the type of the area components.
- *
- * \param area the area that will be converted.
- *
- * \return a string that represents the area.
- *
- * \since 5.0.0
- */
-template <typename T>
-[[nodiscard]] auto to_string(const basic_area<T>& area) -> std::string
-{
-  return "area{width: " + detail::to_string(area.width).value() +
-         ", height: " + detail::to_string(area.height).value() + "}";
-}
-
-/**
- * \brief Prints a textual representation of an area using a stream.
- *
- * \tparam T the type of the area components.
- *
- * \param stream the stream that will be used.
- * \param area the are that will be printed.
- *
- * \return the used stream.
- *
- * \since 5.0.0
- */
-template <typename T>
-auto operator<<(std::ostream& stream, const basic_area<T>& area)
-    -> std::ostream&
-{
-  return stream << to_string(area);
-}
-
-/// \} End of group math
-
-}  // namespace cen
-
-#endif  // CENTURION_AREA_HEADER
-// #include "point.hpp"
-#ifndef CENTURION_POINT_HEADER
-#define CENTURION_POINT_HEADER
-
-#include <SDL.h>
-
-#include <cmath>        // sqrt, abs, round
-#include <ostream>      // ostream
-#include <string>       // string
-#include <type_traits>  // enable_if_t, conditional_t, is_convertible_v, ...
-
-// #include "../detail/to_string.hpp"
-
-// #include "../misc/cast.hpp"
-
-
-namespace cen {
-
-/// \addtogroup math
-/// \{
-
-/**
- * \brief Provides traits used by the `basic_point` class.
- *
- * \tparam T the representation type. Must be convertible to `int` or `float`.
- *
- * \since 5.0.0
- *
- * \see `basic_point`
- * \see `ipoint`
- * \see `fpoint`
- *
- * \headerfile point.hpp
- */
-template <typename T,
-          std::enable_if_t<std::is_convertible_v<T, int> ||
-                               std::is_convertible_v<T, float>,
-                           int> = 0>
-class point_traits final
-{
- public:
-  /**
-   * \var isIntegral
-   *
-   * \brief Indicates whether or not the point is based on an integral type.
-   *
-   * \since 5.0.0
-   */
-  inline constexpr static bool isIntegral = std::is_integral_v<T>;
-
-  /**
-   * \var isFloating
-   *
-   * \brief Indicates whether or not the point is based on a floating-point
-   * type.
-   *
-   * \since 5.0.0
-   */
-  inline constexpr static bool isFloating = std::is_floating_point_v<T>;
-
-  /**
-   * \typedef value_type
-   *
-   * \brief The actual representation type, i.e. `int` or `float`.
-   *
-   * \since 5.0.0
-   */
-  using value_type = std::conditional_t<isIntegral, int, float>;
-
-  /**
-   * \typedef point_type
-   *
-   * \brief The SDL point type, i.e. `SDL_Point` or `SDL_FPoint`.
-   *
-   * \since 5.0.0
-   */
-  using point_type = std::conditional_t<isIntegral, SDL_Point, SDL_FPoint>;
-};
-
-template <typename T>
-class basic_point;
-
-/**
- * \typedef ipoint
- *
- * \brief Alias for an `int`-based point.
- *
- * \details This type corresponds to `SDL_Point`.
- *
- * \since 5.0.0
- */
-using ipoint = basic_point<int>;
-
-/**
- * \typedef fpoint
- *
- * \brief Alias for a `float`-based point.
- *
- * \details This type corresponds to `SDL_FPoint`.
- *
- * \since 5.0.0
- */
-using fpoint = basic_point<float>;
-
-/**
- * \class basic_point
- *
- * \brief Represents a two-dimensional point.
- *
- * \details This class is designed as a wrapper for `SDL_Point` and
- * `SDL_FPoint`. The representation is specified by the type parameter.
- *
- * \note This point class will only use `int` or `float` as the actual
- * internal representation.
- *
- * \tparam T the representation type. Must be convertible to `int` or `float`.
- *
- * \since 5.0.0
- *
- * \see `ipoint`
- * \see `fpoint`
- *
- * \headerfile point.hpp
- */
-template <typename T>
-class basic_point final
-{
- public:
-  /**
-   * \copydoc point_traits::isIntegral
-   */
-  inline constexpr static bool isIntegral = point_traits<T>::isIntegral;
-
-  /**
-   * \copydoc point_traits::isFloating
-   */
-  inline constexpr static bool isFloating = point_traits<T>::isFloating;
-
-  /**
-   * \copydoc point_traits::value_type
-   */
-  using value_type = typename point_traits<T>::value_type;
-
-  /**
-   * \copydoc point_traits::point_type
-   */
-  using point_type = typename point_traits<T>::point_type;
-
-  /// \name Construction
-  /// \{
-
-  /**
-   * \brief Creates a zero-initialized point.
-   *
-   * \since 5.0.0
-   */
-  constexpr basic_point() noexcept = default;
-
-  /**
-   * \brief Creates a point with the specified coordinates.
-   *
-   * \param x the x-coordinate that will be used.
-   * \param y the y-coordinate that will be used.
-   *
-   * \since 5.0.0
-   */
-  constexpr basic_point(const value_type x, const value_type y) noexcept
-  {
-    m_point.x = x;
-    m_point.y = y;
-  };
-
-  /// \} End of construction
-
-  /// \name Setters
-  /// \{
-
-  /**
-   * \brief Sets the x-coordinate of the point.
-   *
-   * \param x the new x-coordinate.
-   *
-   * \since 5.0.0
-   */
-  constexpr void set_x(const value_type x) noexcept
-  {
-    m_point.x = x;
-  }
-
-  /**
-   * \brief Sets the y-coordinate of the point.
-   *
-   * \param y the new y-coordinate.
-   *
-   * \since 5.0.0
-   */
-  constexpr void set_y(const value_type y) noexcept
-  {
-    m_point.y = y;
-  }
-
-  /// \} End of setters
-
-  /// \name Getters
-  /// \{
-
-  /**
-   * \brief Returns the x-coordinate of the point.
-   *
-   * \return the x-coordinate.
-   *
-   * \since 5.0.0
-   */
-  [[nodiscard]] constexpr auto x() const noexcept -> value_type
-  {
-    return m_point.x;
-  }
-
-  /**
-   * \brief Returns the y-coordinate of the point.
-   *
-   * \return the y-coordinate.
-   *
-   * \since 5.0.0
-   */
-  [[nodiscard]] constexpr auto y() const noexcept -> value_type
-  {
-    return m_point.y;
-  }
-
-  /**
-   * \brief Returns the internal point representation.
-   *
-   * \return a reference to the internal representation.
-   *
-   * \since 5.0.0
-   */
-  [[nodiscard]] constexpr auto get() noexcept -> point_type&
-  {
-    return m_point;
-  }
-
-  /**
-   * \copydoc get
-   */
-  [[nodiscard]] constexpr auto get() const noexcept -> const point_type&
-  {
-    return m_point;
-  }
-
-  /**
-   * \brief Returns a pointer to the internal point representation.
-   *
-   * \note Don't cache the returned pointer.
-   *
-   * \return a pointer to the point representation.
-   *
-   * \since 5.2.0
-   */
-  [[nodiscard]] auto data() noexcept -> point_type*
-  {
-    return &m_point;
-  }
-
-  /**
-   * \copydoc data()
-   */
-  [[nodiscard]] auto data() const noexcept -> const point_type*
-  {
-    return &m_point;
-  }
-
-  /// \} End of getters
-
-  /// \name Conversions
-  /// \{
-
-  /**
-   * \brief Converts to the internal representation.
-   *
-   * \return a copy of the internal point.
-   *
-   * \see `cen::cast`
-   *
-   * \since 5.0.0
-   */
-  [[nodiscard]] constexpr explicit operator point_type() const noexcept
-  {
-    return m_point;
-  }
-
-  /**
-   * \brief Returns a pointer to the internal point.
-   *
-   * \note You shouldn't store the returned pointer. However, this conversion
-   * is safe since `reinterpret_cast` isn't used.
-   *
-   * \return a pointer to the internal point instance.
-   *
-   * \since 5.0.0
-   */
-  [[nodiscard]] explicit operator point_type*() noexcept
-  {
-    return &m_point;
-  }
-
-  /**
-   * \brief Returns a pointer to the internal point.
-   *
-   * \note You shouldn't store the returned pointer. However, this conversion
-   * is safe since `reinterpret_cast` isn't used.
-   *
-   * \return a pointer to the internal point instance.
-   *
-   * \since 5.0.0
-   */
-  [[nodiscard]] explicit operator const point_type*() const noexcept
-  {
-    return &m_point;
-  }
-
-  /// \} End of conversions
-
-  /**
-   * \brief Serializes the point.
-   *
-   * \details This function expects that the archive provides an overloaded
-   * `operator()`, used for serializing data. This API is based on the Cereal
-   * serialization library.
-   *
-   * \tparam Archive the type of the archive.
-   *
-   * \param archive the archive used to serialize the point.
-   *
-   * \since 5.3.0
-   */
-  template <typename Archive>
-  void serialize(Archive& archive)
-  {
-    archive(m_point.x, m_point.y);
-  }
-
- private:
-  point_type m_point{0, 0};
-};
-
-/**
- * \brief Returns the distance between two points.
- *
- * \tparam T the representation type used by the points.
- *
- * \param from the first point.
- * \param to the second point.
- *
- * \return the distance between the two points.
- *
- * \since 5.0.0
- */
-template <typename T>
-[[nodiscard]] inline auto distance(const basic_point<T>& from,
-                                   const basic_point<T>& to) noexcept ->
-    typename point_traits<T>::value_type
-{
-  if constexpr (basic_point<T>::isIntegral)
-  {
-    const auto xDiff = std::abs(from.x() - to.x());
-    const auto yDiff = std::abs(from.y() - to.y());
-    const auto dist = std::sqrt(xDiff + yDiff);
-    return static_cast<int>(std::round(dist));
-  }
-  else
-  {
-    return std::sqrt(std::abs(from.x() - to.x()) + std::abs(from.y() - to.y()));
-  }
-}
-
-[[nodiscard]] inline auto to_string(const ipoint& point) -> std::string
-{
-  return "ipoint{X: " + detail::to_string(point.x()).value() +
-         ", Y: " + detail::to_string(point.y()).value() + "}";
-}
-
-[[nodiscard]] inline auto to_string(const fpoint& point) -> std::string
-{
-  return "fpoint{X: " + detail::to_string(point.x()).value() +
-         ", Y: " + detail::to_string(point.y()).value() + "}";
-}
-
-template <typename T>
-auto operator<<(std::ostream& stream, const basic_point<T>& point)
-    -> std::ostream&
-{
-  return stream << to_string(point);
-}
-
-/// \name Point cast specializations
-/// \{
-
-/**
- * \brief Converts an `fpoint` instance to the corresponding `ipoint`.
- *
- * \details This function casts the coordinates of the supplied point to
- * `int`, and uses the obtained values to create an `ipoint` instance.
- *
- * \param from the point that will be converted.
- *
- * \return an `ipoint` instance that corresponds to the supplied `fpoint`.
- *
- * \since 5.0.0
- */
-template <>
-[[nodiscard]] constexpr auto cast(const fpoint& from) noexcept -> ipoint
-{
-  const auto x = static_cast<int>(from.x());
-  const auto y = static_cast<int>(from.y());
-  return ipoint{x, y};
-}
-
-/**
- * \brief Converts an `ipoint` instance to the corresponding `fpoint`.
- *
- * \details This function casts the coordinates of the supplied point to
- * `float`, and uses the obtained values to create an `fpoint` instance.
- *
- * \param from the point that will be converted.
- *
- * \return an `fpoint` instance that corresponds to the supplied `ipoint`.
- *
- * \since 5.0.0
- */
-template <>
-[[nodiscard]] constexpr auto cast(const ipoint& from) noexcept -> fpoint
-{
-  const auto x = static_cast<float>(from.x());
-  const auto y = static_cast<float>(from.y());
-  return fpoint{x, y};
-}
-
-/**
- * \brief Converts an `SDL_FPoint` instance to the corresponding `SDL_Point`.
- *
- * \details This function casts the coordinates of the supplied point to
- * `int`, and uses the obtained values to create an `SDL_Point` instance.
- *
- * \param from the point that will be converted.
- *
- * \return an `SDL_Point` instance that corresponds to the supplied
- * `SDL_FPoint`.
- *
- * \since 5.0.0
- */
-template <>
-[[nodiscard]] constexpr auto cast(const SDL_FPoint& from) noexcept -> SDL_Point
-{
-  const auto x = static_cast<int>(from.x);
-  const auto y = static_cast<int>(from.y);
-  return SDL_Point{x, y};
-}
-
-/**
- * \brief Converts an `SDL_Point` instance to the corresponding `SDL_FPoint`.
- *
- * \details This function casts the coordinates of the supplied point to
- * `float`, and uses the obtained values to create an `SDL_FPoint` instance.
- *
- * \param from the point that will be converted.
- *
- * \return an `SDL_FPoint` instance that corresponds to the supplied
- * `SDL_Point`.
- *
- * \since 5.0.0
- */
-template <>
-[[nodiscard]] constexpr auto cast(const SDL_Point& from) noexcept -> SDL_FPoint
-{
-  const auto x = static_cast<float>(from.x);
-  const auto y = static_cast<float>(from.y);
-  return SDL_FPoint{x, y};
-}
-
-/// \} End of point cast specializations
-
-/// \name Point addition and subtraction operators
-/// \{
-
-template <typename T>
-[[nodiscard]] constexpr auto operator+(const basic_point<T>& lhs,
-                                       const basic_point<T>& rhs) noexcept
-    -> basic_point<T>
-{
-  return {lhs.x() + rhs.x(), lhs.y() + rhs.y()};
-}
-
-template <typename T>
-[[nodiscard]] constexpr auto operator-(const basic_point<T>& lhs,
-                                       const basic_point<T>& rhs) noexcept
-    -> basic_point<T>
-{
-  return {lhs.x() - rhs.x(), lhs.y() - rhs.y()};
-}
-
-/// \} End of point addition and subtraction operators
-
-/// \name Point comparison operators
-/// \{
-
-[[nodiscard]] constexpr auto operator==(const ipoint& lhs,
-                                        const ipoint& rhs) noexcept -> bool
-{
-  return (lhs.x() == rhs.x()) && (lhs.y() == rhs.y());
-}
-
-[[nodiscard]] constexpr auto operator==(const fpoint& lhs,
-                                        const fpoint& rhs) noexcept -> bool
-{
-  return (lhs.x() == rhs.x()) && (lhs.y() == rhs.y());
-}
-
-[[nodiscard]] constexpr auto operator!=(const ipoint& lhs,
-                                        const ipoint& rhs) noexcept -> bool
-{
-  return !(lhs == rhs);
-}
-
-[[nodiscard]] constexpr auto operator!=(const fpoint& lhs,
-                                        const fpoint& rhs) noexcept -> bool
-{
-  return !(lhs == rhs);
-}
-
-/// \} End of point comparison operators
-
-/// \} End of group math
-
-}  // namespace cen
-
-#endif  // CENTURION_POINT_HEADER
-
-namespace cen {
-
-/// \addtogroup math
-/// \{
-
-/**
- * \class rect_traits
- *
- * \brief Provides rectangle traits used by `basic_rect`.
- *
- * \note Whilst it is possible to supply a type that isn't `int` or `float`,
- * rectangles will always use one of them as the representation type.
- *
- * \tparam T the representation type, must be convertible to `int` or `float`.
- *
- * \see `basic_rect`
- * \see `irect`
- * \see `frect`
- *
- * \since 5.0.0
- *
- * \headerfile rect.hpp
- */
-template <typename T,
-          typename = std::enable_if_t<std::is_convertible_v<T, int> ||
-                                      std::is_convertible_v<T, float>>>
-class rect_traits final
-{
- public:
-  /**
-   * \var isIntegral
-   *
-   * \brief Indicates whether or not the rectangle is based on an integral type.
-   *
-   * \since 5.0.0
-   */
-  inline constexpr static bool isIntegral = std::is_integral_v<T>;
-
-  /**
-   * \var isFloating
-   *
-   * \brief Indicates whether or not the rectangle is based on a floating-point
-   * type.
-   *
-   * \since 5.0.0
-   */
-  inline constexpr static bool isFloating = std::is_floating_point_v<T>;
-
-  /**
-   * \typedef value_type
-   *
-   * \brief The representation type, i.e. `int` or `float`.
-   *
-   * \since 5.0.0
-   */
-  using value_type = std::conditional_t<isIntegral, int, float>;
-
-  /**
-   * \typedef point_type
-   *
-   * \brief The point type used, i.e. `ipoint` or `fpoint`.
-   *
-   * \since 5.0.0
-   */
-  using point_type = std::conditional_t<isIntegral, ipoint, fpoint>;
-
-  /**
-   * \typedef area_type
-   *
-   * \brief The area type used, i.e. `iarea` or `farea`.
-   *
-   * \since 5.0.0
-   */
-  using area_type = std::conditional_t<isIntegral, iarea, farea>;
-
-  /**
-   * \typedef rect_type
-   *
-   * \brief The underlying SDL rectangle type, i.e. `SDL_Rect` or `SDL_FRect`.
-   *
-   * \since 5.0.0
-   */
-  using rect_type = std::conditional_t<isIntegral, SDL_Rect, SDL_FRect>;
-};
-
-template <typename T>
-class basic_rect;
-
-/**
- * \typedef irect
- *
- * \brief Alias for an `int`-based rectangle.
- *
- * \since 5.0.0
- */
-using irect = basic_rect<int>;
-
-/**
- * \typedef frect
- *
- * \brief Alias for a `float`-based rectangle.
- *
- * \since 5.0.0
- */
-using frect = basic_rect<float>;
-
-/**
- * \class basic_rect
- *
- * \brief A simple rectangle implementation.
- *
- * \tparam T the representation type. Must be convertible to either `int` or
- * `float`.
- *
- * \see `irect`
- * \see `frect`
- *
- * \since 4.0.0
- *
- * \headerfile rect.hpp
- */
-template <typename T>
-class basic_rect final
-{
- public:
-  /**
-   * \copydoc rect_traits<T>::isIntegral
-   */
-  inline constexpr static bool isIntegral = rect_traits<T>::isIntegral;
-
-  /**
-   * \copydoc rect_traits<T>::isFloating
-   */
-  inline constexpr static bool isFloating = rect_traits<T>::isFloating;
-
-  /**
-   * \copydoc rect_traits<T>::value_type
-   */
-  using value_type = typename rect_traits<T>::value_type;
-
-  /**
-   * \copydoc rect_traits<T>::point_type
-   */
-  using point_type = typename rect_traits<T>::point_type;
-
-  /**
-   * \copydoc rect_traits<T>::area_type
-   */
-  using area_type = typename rect_traits<T>::area_type;
-
-  /**
-   * \copydoc rect_traits<T>::rect_type
-   */
-  using rect_type = typename rect_traits<T>::rect_type;
-
-  /// \name Construction
-  /// \{
-
-  /**
-   * \brief Creates a rectangle with the components (0, 0, 0, 0).
-   *
-   * \since 4.0.0
-   */
-  constexpr basic_rect() noexcept = default;
-
-  /**
-   * \brief Creates a rectangle based on an SDL rectangle.
-   *
-   * \param rect the rectangle that will be copied.
-   *
-   * \since 5.3.0
-   */
-  constexpr explicit basic_rect(const rect_type& rect) noexcept : m_rect{rect}
-  {}
-
-  /**
-   * \brief Creates a rectangle with the supplied position and size.
-   *
-   * \param position the position of the rectangle.
-   * \param size the size of the rectangle.
-   *
-   * \since 4.1.0
-   */
-  constexpr basic_rect(const point_type& position,
-                       const area_type& size) noexcept
-      : m_rect{position.x(), position.y(), size.width, size.height}
-  {}
-
-  /**
-   * \brief Creates a rectangle with the supplied position and size.
-   *
-   * \param x the x-coordinate of the rectangle.
-   * \param y the y-coordinate of the rectangle.
-   * \param width the width of the rectangle.
-   * \param height the height of the rectangle.
-   *
-   * \since 5.3.0
-   */
-  constexpr basic_rect(const value_type x,
-                       const value_type y,
-                       const value_type width,
-                       const value_type height) noexcept
-      : m_rect{x, y, width, height}
-  {}
-
-  /// \} End of construction
-
-  /// \name Setters
-  /// \{
-
-  /**
-   * \brief Sets the x-coordinate of the rectangle.
-   *
-   * \param x the new x-coordinate of the rectangle.
-   *
-   * \since 4.0.0
-   */
-  constexpr void set_x(const value_type x) noexcept
-  {
-    m_rect.x = x;
-  }
-
-  /**
-   * \brief Sets the y-coordinate of the rectangle.
-   *
-   * \param y the new y-coordinate of the rectangle.
-   *
-   * \since 4.0.0
-   */
-  constexpr void set_y(const value_type y) noexcept
-  {
-    m_rect.y = y;
-  }
-
-  /**
-   * \brief Sets the maximum x-coordinate of the rectangle.
-   *
-   * \note This function preserves the width of the rectangle.
-   *
-   * \param maxX the new maximum x-coordinate of the rectangle.
-   *
-   * \since 5.1.0
-   */
-  constexpr void set_max_x(const value_type maxX) noexcept
-  {
-    m_rect.x = maxX - m_rect.w;
-  }
-
-  /**
-   * \brief Sets the maximum y-coordinate of the rectangle.
-   *
-   * \note This function preserves the height of the rectangle.
-   *
-   * \param maxY the new maximum y-coordinate of the rectangle.
-   *
-   * \since 5.1.0
-   */
-  constexpr void set_max_y(const value_type maxY) noexcept
-  {
-    m_rect.y = maxY - m_rect.h;
-  }
-
-  /**
-   * \brief Sets the position of the rectangle.
-   *
-   * \note Some frameworks have this kind of function change the size of the
-   * rectangle. However, this function does *not* change the size of the
-   * rectangle.
-   *
-   * \param pos the new position of the rectangle.
-   *
-   * \since 5.1.0
-   */
-  constexpr void set_position(const point_type& pos) noexcept
-  {
-    m_rect.x = pos.x();
-    m_rect.y = pos.y();
-  }
-
-  /**
-   * \brief Sets the width of the rectangle.
-   *
-   * \param width the new width of the rectangle.
-   *
-   * \since 4.0.0
-   */
-  constexpr void set_width(const value_type width) noexcept
-  {
-    m_rect.w = width;
-  }
-
-  /**
-   * \brief Sets the height of the rectangle.
-   *
-   * \param height the new height of the rectangle.
-   *
-   * \since 4.0.0
-   */
-  constexpr void set_height(const value_type height) noexcept
-  {
-    m_rect.h = height;
-  }
-
-  /**
-   * \brief Sets the size of the rectangle.
-   *
-   * \param size the new size of the rectangle.
-   *
-   * \since 5.1.0
-   */
-  constexpr void set_size(const area_type& size) noexcept
-  {
-    m_rect.w = size.width;
-    m_rect.h = size.height;
-  };
-
-  /// \} End of setters
-
-  /// \name Queries
-  /// \{
-
-  /**
-   * \brief Returns the x-coordinate of the rectangle.
-   *
-   * \return the x-coordinate of the rectangle.
-   *
-   * \since 4.0.0
-   */
-  [[nodiscard]] constexpr auto x() const noexcept -> value_type
-  {
-    return m_rect.x;
-  }
-
-  /**
-   * \brief Returns the y-coordinate of the rectangle.
-   *
-   * \return the y-coordinate of the rectangle.
-   *
-   * \since 4.0.0
-   */
-  [[nodiscard]] constexpr auto y() const noexcept -> value_type
-  {
-    return m_rect.y;
-  }
-
-  /**
-   * \brief Returns the position of the rectangle.
-   *
-   * \return the position of the rectangle.
-   *
-   * \since 4.1.0
-   */
-  [[nodiscard]] constexpr auto position() const noexcept -> point_type
-  {
-    return point_type{m_rect.x, m_rect.y};
-  }
-
-  /**
-   * \brief Returns the width of the rectangle.
-   *
-   * \return the width of the rectangle.
-   *
-   * \since 4.0.0
-   */
-  [[nodiscard]] constexpr auto width() const noexcept -> value_type
-  {
-    return m_rect.w;
-  }
-
-  /**
-   * \brief Returns the height of the rectangle.
-   *
-   * \return the height of the rectangle.
-   *
-   * \since 4.0.0
-   */
-  [[nodiscard]] constexpr auto height() const noexcept -> value_type
-  {
-    return m_rect.h;
-  }
-
-  /**
-   * \brief Returns the size of the rectangle.
-   *
-   * \return the size of the rectangle.
-   *
-   * \since 4.1.0
-   */
-  [[nodiscard]] constexpr auto size() const noexcept -> area_type
-  {
-    return area_type{m_rect.w, m_rect.h};
-  }
-
-  /**
-   * \brief Returns the maximum x-coordinate of the rectangle.
-   *
-   * \return the maximum x-coordinate of the rectangle.
-   *
-   * \since 4.0.0
-   */
-  [[nodiscard]] constexpr auto max_x() const noexcept -> value_type
-  {
-    return x() + width();
-  }
-
-  /**
-   * \brief Returns the maximum y-coordinate of the rectangle.
-   *
-   * \return the maximum y-coordinate of the rectangle.
-   *
-   * \since 4.0.0
-   */
-  [[nodiscard]] constexpr auto max_y() const noexcept -> value_type
-  {
-    return y() + height();
-  }
-
-  /**
-   * \brief Returns the x-coordinate of the center point of the rectangle.
-   *
-   * \return the x-coordinate of the center point of the rectangle.
-   *
-   * \since 4.0.0
-   */
-  [[nodiscard]] constexpr auto center_x() const noexcept -> value_type
-  {
-    return x() + (width() / static_cast<value_type>(2));
-  }
-
-  /**
-   * \brief Returns the y-coordinate of the center point of the rectangle.
-   *
-   * \return the y-coordinate of the center point of the rectangle.
-   *
-   * \since 4.0.0
-   */
-  [[nodiscard]] constexpr auto center_y() const noexcept -> value_type
-  {
-    return y() + (height() / static_cast<value_type>(2));
-  }
-
-  /**
-   * \brief Returns the center point of the rectangle.
-   *
-   * \return the center point of the rectangle.
-   *
-   * \since 4.0.0
-   */
-  [[nodiscard]] constexpr auto center() const noexcept -> point_type
-  {
-    return {center_x(), center_y()};
-  }
-
-  /**
-   * \brief Returns the total area of the rectangle.
-   *
-   * \return the area of the rectangle.
-   *
-   * \since 4.2.0
-   */
-  [[nodiscard]] constexpr auto area() const noexcept -> value_type
-  {
-    return width() * height();
-  }
-
-  /**
-   * \brief Indicates whether or not the rectangle contains the point.
-   *
-   * \param point the point that will be checked.
-   *
-   * \return `true` if the rectangle contains the point; `false` otherwise.
-   *
-   * \since 4.0.0
-   */
-  [[nodiscard]] constexpr auto contains(const point_type& point) const noexcept
-      -> bool
-  {
-    const auto px = point.x();
-    const auto py = point.y();
-    return !(px < x() || py < y() || px > max_x() || py > max_y());
-  }
-
-  /**
-   * \brief Indicates whether or not the rectangle has an area.
-   *
-   * \details The rectangle has an area if both the width and height are
-   * greater than zero.
-   *
-   * \return `true` if the rectangle has an area; `false` otherwise.
-   *
-   * \since 4.0.0
-   */
-  [[nodiscard]] constexpr auto has_area() const noexcept -> bool
-  {
-    return (width() > 0) && (height() > 0);
-  }
-
-  /**
-   * \brief Returns a pointer to the internal rectangle representation.
-   *
-   * \note Don't cache the returned pointer.
-   *
-   * \return a pointer to the rectangle representation.
-   *
-   * \since 5.2.0
-   */
-  [[nodiscard]] auto data() noexcept -> rect_type*
-  {
-    return &m_rect;
-  }
-
-  /**
-   * \copydoc data()
-   */
-  [[nodiscard]] auto data() const noexcept -> const rect_type*
-  {
-    return &m_rect;
-  }
-
-  /**
-   * \brief Returns the internal rectangle.
-   *
-   * \return a reference to the internal rectangle.
-   *
-   * \since 5.0.0
-   */
-  [[nodiscard]] constexpr auto get() noexcept -> rect_type&
-  {
-    return m_rect;
-  }
-
-  /**
-   * \brief Returns the internal rectangle.
-   *
-   * \return a reference to the internal rectangle.
-   *
-   * \since 5.0.0
-   */
-  [[nodiscard]] constexpr auto get() const noexcept -> const rect_type&
-  {
-    return m_rect;
-  }
-
-  /// \} End of queries
-
-  /// \name Conversions
-  /// \{
-
-  /**
-   * \brief Returns a pointer to the internal rectangle.
-   *
-   * \return a pointer to the internal rectangle.
-   *
-   * \since 5.0.0
-   */
-  [[nodiscard]] explicit operator rect_type*() noexcept
-  {
-    return &m_rect;
-  }
-
-  /**
-   * \brief Returns a pointer to the internal rectangle.
-   *
-   * \return a pointer to the internal rectangle.
-   *
-   * \since 5.0.0
-   */
-  [[nodiscard]] explicit operator const rect_type*() const noexcept
-  {
-    return &m_rect;
-  }
-
-  /// \} End of conversions
-
-  /**
-   * \brief Serializes the rectangle.
-   *
-   * \details This function expects that the archive provides an overloaded
-   * `operator()`, used for serializing data. This API is based on the Cereal
-   * serialization library.
-   *
-   * \tparam Archive the type of the archive.
-   *
-   * \param archive the archive used to serialize the rectangle.
-   *
-   * \since 5.3.0
-   */
-  template <typename Archive>
-  void serialize(Archive& archive)
-  {
-    archive(m_rect.x, m_rect.y, m_rect.w, m_rect.h);
-  }
-
- private:
-  rect_type m_rect{0, 0, 0, 0};
-};
-
-/// \name Rectangle functions
-/// \{
-
-/**
- * \brief Indicates whether or not the two rectangles intersect.
- *
- * \details This function does *not* consider rectangles with overlapping
- * borders as intersecting. If you want such behaviour, see the
- * `collides` function.
- *
- * \tparam T the representation type used by the rectangles.
- *
- * \param fst the first rectangle.
- * \param snd the second rectangle.
- *
- * \return `true` if the rectangles intersect; `false` otherwise.
- *
- * \see `collides`
- *
- * \since 4.0.0
- */
-template <typename T>
-[[nodiscard]] constexpr auto intersects(const basic_rect<T>& fst,
-                                        const basic_rect<T>& snd) noexcept
-    -> bool
-{
-  return !(fst.x() >= snd.max_x() || fst.max_x() <= snd.x() ||
-           fst.y() >= snd.max_y() || fst.max_y() <= snd.y());
-}
-
-/**
- * \brief Indicates whether or not two rectangles are colliding.
- *
- * \details This function considers rectangles with overlapping borders as
- * colliding.
- *
- * \tparam T the representation type used by the rectangles.
- *
- * \param fst the first rectangle.
- * \param snd the second rectangle.
- *
- * \return `true` if the rectangles collide; `false` otherwise.
- *
- * \see `intersects`
- *
- * \since 4.0.0
- */
-template <typename T>
-[[nodiscard]] constexpr auto collides(const basic_rect<T>& fst,
-                                      const basic_rect<T>& snd) noexcept -> bool
-{
-  return !(fst.x() > snd.max_x() || fst.max_x() < snd.x() ||
-           fst.y() > snd.max_y() || fst.max_y() < snd.y());
-}
-
-/**
- * \brief Returns the union of two rectangles.
- *
- * \details Returns a rectangle that represents the union of two rectangles.
- *
- * \tparam T the representation type used by the rectangles.
- *
- * \param fst the first rectangle.
- * \param snd the second rectangle.
- *
- * \return a rectangle that represents the union of the rectangles.
- *
- * \since 5.0.0
- */
-template <typename T>
-[[nodiscard]] constexpr auto get_union(const basic_rect<T>& fst,
-                                       const basic_rect<T>& snd) noexcept
-    -> basic_rect<T>
-{
-  const auto fstHasArea = fst.has_area();
-  const auto sndHasArea = snd.has_area();
-
-  if (!fstHasArea && !sndHasArea)
-  {
-    return {};
-  }
-  else if (!fstHasArea)
-  {
-    return snd;
-  }
-  else if (!sndHasArea)
-  {
-    return fst;
-  }
-
-  const auto x = detail::min(fst.x(), snd.x());
-  const auto y = detail::min(fst.y(), snd.y());
-  const auto maxX = detail::max(fst.max_x(), snd.max_x());
-  const auto maxY = detail::max(fst.max_y(), snd.max_y());
-
-  return {{x, y}, {maxX - x, maxY - y}};
-}
-
-/// \} End of rectangle functions
-
-/// \name Rectangle comparison operators
-/// \{
-
-/**
- * \brief Indicates whether or not two rectangles are equal.
- *
- * \tparam T the representation type used by the rectangles.
- *
- * \param lhs the left-hand side rectangle.
- * \param rhs the right-hand side rectangle.
- *
- * \return `true` if the rectangles are equal; `false` otherwise.
- *
- * \since 4.0.0
- */
-template <typename T>
-[[nodiscard]] constexpr auto operator==(const basic_rect<T>& lhs,
-                                        const basic_rect<T>& rhs) noexcept
-    -> bool
-{
-  return (lhs.x() == rhs.x()) && (lhs.y() == rhs.y()) &&
-         (lhs.width() == rhs.width()) && (lhs.height() == rhs.height());
-}
-
-/**
- * \brief Indicates whether or not two rectangles aren't equal.
- *
- * \tparam T the representation type used by the rectangles.
- *
- * \param lhs the left-hand side rectangle.
- * \param rhs the right-hand side rectangle.
- *
- * \return `true` if the rectangles aren't equal; `false` otherwise.
- *
- * \since 4.0.0
- */
-template <typename T>
-[[nodiscard]] constexpr auto operator!=(const basic_rect<T>& lhs,
-                                        const basic_rect<T>& rhs) noexcept
-    -> bool
-{
-  return !(lhs == rhs);
-}
-
-/// \} End of rectangle comparison operators
-
-/// \name Rectangle cast specializations
-/// \{
-
-template <>
-[[nodiscard]] constexpr auto cast(const irect& from) noexcept -> frect
-{
-  const frect::point_type pos{static_cast<float>(from.x()),
-                              static_cast<float>(from.y())};
-  const frect::area_type size{static_cast<float>(from.width()),
-                              static_cast<float>(from.height())};
-  return frect{pos, size};
-}
-
-template <>
-[[nodiscard]] constexpr auto cast(const frect& from) noexcept -> irect
-{
-  const irect::point_type pos{static_cast<int>(from.x()),
-                              static_cast<int>(from.y())};
-  const irect::area_type size{static_cast<int>(from.width()),
-                              static_cast<int>(from.height())};
-  return irect{pos, size};
-}
-
-/// \} End of rectangle cast specializations
-
-/**
- * \brief Returns a textual representation of a rectangle.
- *
- * \tparam T the representation type used by the rectangle.
- *
- * \param rect the rectangle that will be converted to a string.
- *
- * \return a textual representation of the rectangle.
- *
- * \since 5.0.0
- */
-template <typename T>
-[[nodiscard]] auto to_string(const basic_rect<T>& rect) -> std::string
-{
-  return "rect{x: " + detail::to_string(rect.x()).value() +
-         ", y: " + detail::to_string(rect.y()).value() +
-         ", width: " + detail::to_string(rect.width()).value() +
-         ", height: " + detail::to_string(rect.height()).value() + "}";
-}
-
-/**
- * \brief Prints a textual representation of a rectangle using a stream.
- *
- * \tparam T the representation type used by the rectangle.
- *
- * \param stream the stream that will be used.
- * \param rect the rectangle that will be printed.
- *
- * \return the used stream.
- *
- * \since 5.0.0
- */
-template <typename T>
-auto operator<<(std::ostream& stream, const basic_rect<T>& rect)
-    -> std::ostream&
-{
-  stream << to_string(rect);
-  return stream;
-}
-
-/// \} End of group math
-
-}  // namespace cen
-
-#endif  // CENTURION_RECTANGLE_HEADER
-// #include "centurion/math/vector3.hpp"
-#ifndef CENTURION_VECTOR3_HEADER
-#define CENTURION_VECTOR3_HEADER
-
-#include <ostream>  // ostream
-#include <string>   // string
-
-// #include "../detail/to_string.hpp"
-
-
-namespace cen {
-
-/// \addtogroup math
-/// \{
-
-/**
- * \struct vector3
- *
- * \brief A simple representation of a 3-dimensional vector.
- *
- * \tparam T the representation type, e.g. `float` or `double`.
- *
- * \since 5.2.0
- *
- * \headerfile vector3.hpp
- */
-template <typename T>
-struct vector3 final
-{
-  using value_type = T;  ///< The type of the vector components.
-
-  value_type x{};  ///< The x-coordinate of the vector.
-  value_type y{};  ///< The y-coordinate of the vector.
-  value_type z{};  ///< The z-coordinate of the vector.
-
-  /**
-   * \brief Casts the vector to a vector with another representation type.
-   *
-   * \tparam U the target vector type.
-   *
-   * \return the result vector.
-   *
-   * \since 5.2.0
-   */
-  template <typename U>
-  [[nodiscard]] explicit operator vector3<U>() const noexcept
-  {
-    using target_value_type = typename vector3<U>::value_type;
-    return vector3<U>{static_cast<target_value_type>(x),
-                      static_cast<target_value_type>(y),
-                      static_cast<target_value_type>(z)};
-  }
-};
-
-/**
- * \brief Serializes a 3D-vector.
- *
- * \details This function expects that the archive provides an overloaded
- * `operator()`, used for serializing data. This API is based on the Cereal
- * serialization library.
- *
- * \tparam Archive the type of the archive.
- * \tparam T the type of the vector components.
- *
- * \param archive the archive used to serialize the vector.
- * \param vector the vector that will be serialized.
- *
- * \since 5.3.0
- */
-template <typename Archive, typename T>
-void serialize(Archive& archive, vector3<T>& vector)
-{
-  archive(vector.x, vector.y, vector.z);
-}
-
-/// \name Vector3 comparison operators
-/// \{
-
-/**
- * \brief Indicates whether or not two 3D vectors are equal.
- *
- * \tparam T the representation type used by the vectors.
- *
- * \param lhs the left-hand side vector.
- * \param rhs the right-hand side vector.
- *
- * \return `true` if the vectors are equal; `false` otherwise.
- *
- * \since 5.2.0
- */
-template <typename T>
-[[nodiscard]] constexpr auto operator==(const vector3<T>& lhs,
-                                        const vector3<T>& rhs) noexcept -> bool
-{
-  return (lhs.x == rhs.x) && (lhs.y == rhs.y) && (lhs.z == rhs.z);
-}
-
-/**
- * \brief Indicates whether or not two 3D vectors aren't equal.
- *
- * \tparam T the representation type used by the vectors.
- *
- * \param lhs the left-hand side vector.
- * \param rhs the right-hand side vector.
- *
- * \return `true` if the vectors aren't equal; `false` otherwise.
- *
- * \since 5.2.0
- */
-template <typename T>
-[[nodiscard]] constexpr auto operator!=(const vector3<T>& lhs,
-                                        const vector3<T>& rhs) noexcept -> bool
-{
-  return !(lhs == rhs);
-}
-
-/// \} End of vector3 comparison operators
-
-/**
- * \brief Returns a string that represents a vector.
- *
- * \tparam T the representation type used by the vector.
- *
- * \param vector the vector that will be converted to a string.
- *
- * \return a string that represents the supplied vector.
- *
- * \since 5.2.0
- */
-template <typename T>
-[[nodiscard]] auto to_string(const vector3<T>& vector) -> std::string
-{
-  return "vector3{x: " + detail::to_string(vector.x).value() +
-         ", y: " + detail::to_string(vector.y).value() +
-         ", z: " + detail::to_string(vector.z).value() + "}";
-}
-
-/**
- * \brief Prints a textual representation of a vector.
- *
- * \tparam T the representation type used by the vector.
- *
- * \param stream the stream that will be used.
- * \param vector the vector that will be printed.
- *
- * \return the used stream.
- *
- * \since 5.2.0
- */
-template <typename T>
-auto operator<<(std::ostream& stream, const vector3<T>& vector) -> std::ostream&
-{
-  return stream << to_string(vector);
-}
-
-/// \} End of group math
-
-}  // namespace cen
-
-#endif  // CENTURION_VECTOR3_HEADER
-
-// #include "centurion/misc/cast.hpp"
-#ifndef CENTURION_CAST_HEADER
-#define CENTURION_CAST_HEADER
-
-namespace cen {
-
-/**
- * \brief Casts a value to a value of another type.
- *
- * \ingroup misc
- *
- * \details This is the default implementation, which simply attempts to use
- * `static_cast`. The idea is that this function will be specialized for
- * various Centurion and SDL types. This is useful because it isn't always
- * possible to implement conversion operators as members.
- *
- * \tparam To the type of the value that will be converted.
- * \tparam From the type that the value will be casted to.
- *
- * \param from the value that will be converted.
- *
- * \return the result of casting the supplied value to the specified type.
- *
- * \since 5.0.0
- */
-template <typename To, typename From>
-[[nodiscard]] constexpr auto cast(const From& from) noexcept -> To
-{
-  return static_cast<To>(from);
-}
-
-}  // namespace cen
-
-#endif  // CENTURION_CAST_HEADER
-
-// #include "centurion/misc/czstring.hpp"
-#ifndef CENTURION_CZSTRING_HEADER
-#define CENTURION_CZSTRING_HEADER
-
-// #include "not_null.hpp"
-#ifndef CENTURION_NOT_NULL_HEADER
-#define CENTURION_NOT_NULL_HEADER
-
-#include <SDL.h>
-
-#include <type_traits>  // enable_if_t, is_pointer_v
-
-namespace cen {
-
-/**
- * \typedef not_null
- *
- * \ingroup misc
- *
- * \brief Tag used to indicate that a pointer cannot be null.
- *
- * \note This alias is equivalent to `T`, it is a no-op.
- *
- * \since 5.0.0
- */
-template <typename T, typename = std::enable_if_t<std::is_pointer_v<T>>>
-using not_null = T;
-
-}  // namespace cen
-
-#endif  // CENTURION_NOT_NULL_HEADER
-
-
-namespace cen {
-
-/**
- * \typedef czstring
- *
- * \brief Alias for a const C-style null-terminated string.
- */
-using czstring = const char*;
-
-/**
- * \typedef zstring
- *
- * \brief Alias for a C-style null-terminated string.
- */
-using zstring = char*;
-
-}  // namespace cen
-
-#endif  // CENTURION_CZSTRING_HEADER
-
-// #include "centurion/misc/exception.hpp"
-#ifndef CENTURION_EXCEPTION_HEADER
-#define CENTURION_EXCEPTION_HEADER
-
-#include <SDL.h>
-#include <SDL_image.h>
-#include <SDL_mixer.h>
-#include <SDL_ttf.h>
-
-#include <exception>  // exception
-
-// #include "czstring.hpp"
-#ifndef CENTURION_CZSTRING_HEADER
-#define CENTURION_CZSTRING_HEADER
-
-// #include "not_null.hpp"
-
-
-namespace cen {
-
-/**
- * \typedef czstring
- *
- * \brief Alias for a const C-style null-terminated string.
- */
-using czstring = const char*;
-
-/**
- * \typedef zstring
- *
- * \brief Alias for a C-style null-terminated string.
- */
-using zstring = char*;
-
-}  // namespace cen
-
-#endif  // CENTURION_CZSTRING_HEADER
-
-
-namespace cen {
-
-/// \addtogroup misc
-/// \{
-
-/**
- * \class cen_error
- *
- * \brief The base of all exceptions explicitly thrown by the library.
- *
- * \headerfile exception.hpp
- *
- * \since 3.0.0
- */
-class cen_error : public std::exception
-{
- public:
-  cen_error() noexcept = default;
-
-  /**
-   * \param what the message of the exception.
-   *
-   * \since 3.0.0
-   */
-  explicit cen_error(const czstring what) noexcept
-      : m_what{what ? what : m_what}
-  {}
-
-  [[nodiscard]] auto what() const noexcept -> czstring override
-  {
-    return m_what;
-  }
-
- private:
-  czstring m_what{"N/A"};
-};
-
-/**
- * \class sdl_error
- *
- * \brief Represents an error related to the core SDL2 library.
- *
- * \since 5.0.0
- *
- * \headerfile exception.hpp
- */
-class sdl_error final : public cen_error
-{
- public:
-  /**
-   * \brief Creates an `sdl_error` with the error message obtained from
-   * `SDL_GetError()`.
-   *
-   * \since 5.0.0
-   */
-  sdl_error() noexcept : cen_error{SDL_GetError()}
-  {}
-
-  /**
-   * \brief Creates an `sdl_error` with the specified error message.
-   *
-   * \param what the error message that will be used.
-   *
-   * \since 5.0.0
-   */
-  explicit sdl_error(const czstring what) noexcept : cen_error{what}
-  {}
-};
-
-/**
- * \class img_error
- *
- * \brief Represents an error related to the SDL2_image library.
- *
- * \since 5.0.0
- *
- * \headerfile exception.hpp
- */
-class img_error final : public cen_error
-{
- public:
-  /**
-   * \brief Creates an `img_error` with the error message obtained from
-   * `IMG_GetError()`.
-   *
-   * \since 5.0.0
-   */
-  img_error() noexcept : cen_error{IMG_GetError()}
-  {}
-
-  /**
-   * \brief Creates an `img_error` with the specified error message.
-   *
-   * \param what the error message that will be used.
-   *
-   * \since 5.0.0
-   */
-  explicit img_error(const czstring what) noexcept : cen_error{what}
-  {}
-};
-
-/**
- * \class ttf_error
- *
- * \brief Represents an error related to the SDL2_ttf library.
- *
- * \since 5.0.0
- *
- * \headerfile exception.hpp
- */
-class ttf_error final : public cen_error
-{
- public:
-  /**
-   * \brief Creates a `ttf_error` with the error message obtained from
-   * `TTF_GetError()`.
-   *
-   * \since 5.0.0
-   */
-  ttf_error() noexcept : cen_error{TTF_GetError()}
-  {}
-
-  /**
-   * \brief Creates a `ttf_error` with the specified error message.
-   *
-   * \param what the error message that will be used.
-   *
-   * \since 5.0.0
-   */
-  explicit ttf_error(const czstring what) noexcept : cen_error{what}
-  {}
-};
-
-/**
- * \class mix_error
- *
- * \brief Represents an error related to the SDL2_mixer library.
- *
- * \since 5.0.0
- *
- * \headerfile exception.hpp
- */
-class mix_error final : public cen_error
-{
- public:
-  /**
-   * \brief Creates a `mix_error` with the error message obtained from
-   * `Mix_GetError()`.
-   *
-   * \since 5.0.0
-   */
-  mix_error() noexcept : cen_error{Mix_GetError()}
-  {}
-
-  /**
-   * \brief Creates a `mix_error` with the specified error message.
-   *
-   * \param what the error message that will be used.
-   *
-   * \since 5.0.0
-   */
-  explicit mix_error(const czstring what) noexcept : cen_error{what}
-  {}
-};
-
-/// \} End of group misc
-
-}  // namespace cen
-
-#endif  // CENTURION_EXCEPTION_HEADER
-
-// #include "centurion/misc/integers.hpp"
-#ifndef CENTURION_INTEGERS_HEADER
-#define CENTURION_INTEGERS_HEADER
-
-#include <SDL.h>
-
-namespace cen {
-
-/// \name Integer aliases
-/// \{
-
-/**
- * \typedef u64
- *
- * \brief Alias for a 64-bit unsigned integer.
- */
-using u64 = Uint64;
-
-/**
- * \typedef u32
- *
- * \brief Alias for a 32-bit unsigned integer.
- */
-using u32 = Uint32;
-
-/**
- * \typedef u16
- *
- * \brief Alias for a 16-bit unsigned integer.
- */
-using u16 = Uint16;
-
-/**
- * \typedef u8
- *
- * \brief Alias for an 8-bit unsigned integer.
- */
-using u8 = Uint8;
-
-/**
- * \typedef i64
- *
- * \brief Alias for a 64-bit signed integer.
- */
-using i64 = Sint64;
-
-/**
- * \typedef i32
- *
- * \brief Alias for a 32-bit signed integer.
- */
-using i32 = Sint32;
-
-/**
- * \typedef i16
- *
- * \brief Alias for a 16-bit signed integer.
- */
-using i16 = Sint16;
-
-/**
- * \typedef i8
- *
- * \brief Alias for an 8-bit signed integer.
- */
-using i8 = Sint8;
-
-/// \} End of integer aliases
-
-// clang-format off
-
-/**
- * \brief Obtains the size of a container as an `int`.
- *
- * \tparam T a "container" that provides a `size()` member function.
- *
- * \param container the container to query the size of.
- *
- * \return the size of the container as an `int` value.
- *
- * \since 5.3.0
- */
-template <typename T>
-[[nodiscard]] constexpr auto isize(const T& container) noexcept(noexcept(container.size()))
-    -> int
-{
-  return static_cast<int>(container.size());
-}
-
-// clang-format on
-
-namespace literals {
-
-/**
- * \brief Creates an 8-bit unsigned integer.
- *
- * \param value the value that will be converted.
- *
- * \return an 8-bit unsigned integer.
- *
- * \since 5.3.0
- */
-[[nodiscard]] constexpr auto operator""_u8(unsigned long long value) noexcept
-    -> u8
-{
-  return static_cast<u8>(value);
-}
-
-/**
- * \brief Creates a 16-bit unsigned integer.
- *
- * \param value the value that will be converted.
- *
- * \return a 16-bit unsigned integer.
- *
- * \since 5.3.0
- */
-[[nodiscard]] constexpr auto operator""_u16(unsigned long long value) noexcept
-    -> u16
-{
-  return static_cast<u16>(value);
-}
-
-/**
- * \brief Creates a 32-bit unsigned integer.
- *
- * \param value the value that will be converted.
- *
- * \return a 32-bit unsigned integer.
- *
- * \since 5.3.0
- */
-[[nodiscard]] constexpr auto operator""_u32(unsigned long long value) noexcept
-    -> u32
-{
-  return static_cast<u32>(value);
-}
-
-/**
- * \brief Creates a 64-bit unsigned integer.
- *
- * \param value the value that will be converted.
- *
- * \return a 64-bit unsigned integer.
- *
- * \since 5.3.0
- */
-[[nodiscard]] constexpr auto operator""_u64(unsigned long long value) noexcept
-    -> u64
-{
-  return static_cast<u64>(value);
-}
-
-/**
- * \brief Creates an 8-bit signed integer.
- *
- * \param value the value that will be converted.
- *
- * \return an 8-bit signed integer.
- *
- * \since 5.3.0
- */
-[[nodiscard]] constexpr auto operator""_i8(unsigned long long value) noexcept
-    -> i8
-{
-  return static_cast<i8>(value);
-}
-
-/**
- * \brief Creates a 16-bit signed integer.
- *
- * \param value the value that will be converted.
- *
- * \return a 16-bit signed integer.
- *
- * \since 5.3.0
- */
-[[nodiscard]] constexpr auto operator""_i16(unsigned long long value) noexcept
-    -> i16
-{
-  return static_cast<i16>(value);
-}
-
-/**
- * \brief Creates a 32-bit signed integer.
- *
- * \param value the value that will be converted.
- *
- * \return a 32-bit signed integer.
- *
- * \since 5.3.0
- */
-[[nodiscard]] constexpr auto operator""_i32(unsigned long long value) noexcept
-    -> i32
-{
-  return static_cast<i32>(value);
-}
-
-/**
- * \brief Creates a 64-bit signed integer.
- *
- * \param value the value that will be converted.
- *
- * \return a 64-bit signed integer.
- *
- * \since 5.3.0
- */
-[[nodiscard]] constexpr auto operator""_i64(unsigned long long value) noexcept
-    -> i64
-{
-  return static_cast<i64>(value);
-}
-
-}  // namespace literals
-}  // namespace cen
-
-#endif  // CENTURION_INTEGERS_HEADER
-
 // #include "centurion/misc/not_null.hpp"
 #ifndef CENTURION_NOT_NULL_HEADER
 #define CENTURION_NOT_NULL_HEADER
 
-#include <SDL.h>
+// #include "sfinae.hpp"
 
-#include <type_traits>  // enable_if_t, is_pointer_v
 
 namespace cen {
 
@@ -49398,7 +53006,7 @@ namespace cen {
  *
  * \since 5.0.0
  */
-template <typename T, typename = std::enable_if_t<std::is_pointer_v<T>>>
+template <typename T, enable_if_pointer_v<T> = 0>
 using not_null = T;
 
 }  // namespace cen
@@ -49409,7 +53017,8 @@ using not_null = T;
 #ifndef CENTURION_OWNER_HEADER
 #define CENTURION_OWNER_HEADER
 
-#include <type_traits>  // enable_if_t, is_pointer_v
+// #include "sfinae.hpp"
+
 
 namespace cen {
 
@@ -49424,12 +53033,45 @@ namespace cen {
  * function will claim ownership of that pointer. Subsequently, if a function
  * returns an `owner<T*>`, then ownership is transferred to the caller.
  */
-template <typename T, typename = std::enable_if_t<std::is_pointer_v<T>>>
+template <typename T, enable_if_pointer_v<T> = 0>
 using owner = T;
 
 }  // namespace cen
 
 #endif  // CENTURION_OWNER_HEADER
+// #include "centurion/misc/sfinae.hpp"
+#ifndef CENTURION_SFINAE_HEADER
+#define CENTURION_SFINAE_HEADER
+
+#include <type_traits>  // enable_if_t, is_same_v, is_integral_v, is_floating_point_v, ...
+
+namespace cen {
+
+/// \addtogroup misc
+/// \{
+
+// clang-format off
+
+template <typename T>
+using enable_if_number_t = std::enable_if_t<!std::is_same_v<T, bool> &&
+                                            (std::is_integral_v<T> ||
+                                             std::is_floating_point_v<T>), int>;
+
+// clang-format on
+
+template <typename T>
+using enable_if_pointer_v = std::enable_if_t<std::is_pointer_v<T>, int>;
+
+template <typename T, typename... Args>
+using enable_if_convertible_t =
+    std::enable_if_t<(std::is_convertible_v<T, Args> || ...), int>;
+
+/// \} End of group misc
+
+}  // namespace cen
+
+#endif  // CENTURION_SFINAE_HEADER
+
 // #include "centurion/misc/time.hpp"
 #ifndef CENTURION_TIME_HEADER
 #define CENTURION_TIME_HEADER
@@ -49445,6 +53087,9 @@ using owner = T;
 
 namespace cen {
 
+/// \addtogroup misc
+/// \{
+
 /// \name Integer aliases
 /// \{
 
@@ -49651,6 +53296,9 @@ namespace literals {
 }
 
 }  // namespace literals
+
+/// \} End of group misc
+
 }  // namespace cen
 
 #endif  // CENTURION_INTEGERS_HEADER
@@ -49740,145 +53388,6 @@ constexpr auto operator"" _s(const unsigned long long int value) noexcept
 
 #endif  // CENTURION_TIME_HEADER
 
-// #include "centurion/sdl_string.hpp"
-#ifndef CENTURION_SDL_STRING_HEADER
-#define CENTURION_SDL_STRING_HEADER
-
-#include <SDL.h>
-
-#include <memory>  // unique_ptr
-#include <string>  // string
-
-// #include "detail/sdl_deleter.hpp"
-#ifndef CENTURION_DETAIL_SDL_DELETER_HEADER
-#define CENTURION_DETAIL_SDL_DELETER_HEADER
-
-#include <SDL.h>
-
-/// \cond FALSE
-namespace cen::detail {
-
-template <typename T>
-struct sdl_deleter final
-{
-  void operator()(T* ptr) noexcept
-  {
-    SDL_free(ptr);
-  }
-};
-
-}  // namespace cen::detail
-/// \endcond
-
-#endif  // CENTURION_DETAIL_SDL_DELETER_HEADER
-
-// #include "misc/czstring.hpp"
-
-// #include "misc/owner.hpp"
-#ifndef CENTURION_OWNER_HEADER
-#define CENTURION_OWNER_HEADER
-
-#include <type_traits>  // enable_if_t, is_pointer_v
-
-namespace cen {
-
-/**
- * \typedef owner
- *
- * \ingroup misc
- *
- * \brief Tag used to denote ownership of raw pointers directly in code.
- *
- * \details If a function takes an `owner<T*>` as a parameter, then the
- * function will claim ownership of that pointer. Subsequently, if a function
- * returns an `owner<T*>`, then ownership is transferred to the caller.
- */
-template <typename T, typename = std::enable_if_t<std::is_pointer_v<T>>>
-using owner = T;
-
-}  // namespace cen
-
-#endif  // CENTURION_OWNER_HEADER
-
-namespace cen {
-
-/**
- * \class sdl_string
- *
- * \brief Represents a string obtained from SDL, usually a `char*` that has to
- * be freed using `SDL_free`.
- *
- * \since 5.0.0
- *
- * \headerfile sdl_string.hpp
- */
-class sdl_string final
-{
- public:
-  /**
-   * \brief
-   *
-   * \param str the string that will be claimed, can be null.
-   *
-   * \since 5.0.0
-   */
-  explicit sdl_string(owner<zstring> str) noexcept : m_str{str}
-  {}
-
-  /**
-   * \brief Returns the internal string, which might be null.
-   *
-   * \return the internal string; `nullptr` if there is none.
-   *
-   * \since 5.0.0
-   */
-  [[nodiscard]] auto get() const noexcept -> czstring
-  {
-    return m_str.get();
-  }
-
-  /**
-   * \brief Returns a copy of the internal string.
-   *
-   * \details This function returns the empty string if the internal string
-   * is a null pointer.
-   *
-   * \return a copy of the internal string.
-   *
-   * \since 5.0.0
-   */
-  [[nodiscard]] auto copy() const -> std::string
-  {
-    if (m_str)
-    {
-      return std::string{get()};
-    }
-    else
-    {
-      return std::string{};
-    }
-  }
-
-  /**
-   * \brief Indicates whether or not the internal string is non-null.
-   *
-   * \return `true` if the internal string is non-null; `false` otherwise.
-   *
-   * \since 5.0.0
-   */
-  explicit operator bool() const noexcept
-  {
-    return m_str.operator bool();
-  }
-
- private:
-  std::unique_ptr<char, detail::sdl_deleter<char>> m_str;
-};
-
-}  // namespace cen
-
-#endif  // CENTURION_SDL_STRING_HEADER
-
 // #include "centurion/system/battery.hpp"
 #ifndef CENTURION_BATTERY_HEADER
 #define CENTURION_BATTERY_HEADER
@@ -49941,6 +53450,9 @@ template <typename T, typename... Args>
 #include <SDL.h>
 
 namespace cen {
+
+/// \addtogroup misc
+/// \{
 
 /// \name Integer aliases
 /// \{
@@ -50148,6 +53660,9 @@ namespace literals {
 }
 
 }  // namespace literals
+
+/// \} End of group misc
+
 }  // namespace cen
 
 #endif  // CENTURION_INTEGERS_HEADER
@@ -50495,6 +54010,9 @@ namespace battery {
 
 namespace cen {
 
+/// \addtogroup misc
+/// \{
+
 /// \name Integer aliases
 /// \{
 
@@ -50701,6 +54219,9 @@ namespace literals {
 }
 
 }  // namespace literals
+
+/// \} End of group misc
+
 }  // namespace cen
 
 #endif  // CENTURION_INTEGERS_HEADER
@@ -50863,9 +54384,39 @@ namespace cen {
 #ifndef CENTURION_NOT_NULL_HEADER
 #define CENTURION_NOT_NULL_HEADER
 
-#include <SDL.h>
+// #include "sfinae.hpp"
+#ifndef CENTURION_SFINAE_HEADER
+#define CENTURION_SFINAE_HEADER
 
-#include <type_traits>  // enable_if_t, is_pointer_v
+#include <type_traits>  // enable_if_t, is_same_v, is_integral_v, is_floating_point_v, ...
+
+namespace cen {
+
+/// \addtogroup misc
+/// \{
+
+// clang-format off
+
+template <typename T>
+using enable_if_number_t = std::enable_if_t<!std::is_same_v<T, bool> &&
+                                            (std::is_integral_v<T> ||
+                                             std::is_floating_point_v<T>), int>;
+
+// clang-format on
+
+template <typename T>
+using enable_if_pointer_v = std::enable_if_t<std::is_pointer_v<T>, int>;
+
+template <typename T, typename... Args>
+using enable_if_convertible_t =
+    std::enable_if_t<(std::is_convertible_v<T, Args> || ...), int>;
+
+/// \} End of group misc
+
+}  // namespace cen
+
+#endif  // CENTURION_SFINAE_HEADER
+
 
 namespace cen {
 
@@ -50880,7 +54431,7 @@ namespace cen {
  *
  * \since 5.0.0
  */
-template <typename T, typename = std::enable_if_t<std::is_pointer_v<T>>>
+template <typename T, enable_if_pointer_v<T> = 0>
 using not_null = T;
 
 }  // namespace cen
@@ -50889,6 +54440,9 @@ using not_null = T;
 
 
 namespace cen {
+
+/// \addtogroup misc
+/// \{
 
 /**
  * \typedef czstring
@@ -50904,6 +54458,8 @@ using czstring = const char*;
  */
 using zstring = char*;
 
+/// \} End of group misc
+
 }  // namespace cen
 
 #endif  // CENTURION_CZSTRING_HEADER
@@ -50912,9 +54468,8 @@ using zstring = char*;
 #ifndef CENTURION_NOT_NULL_HEADER
 #define CENTURION_NOT_NULL_HEADER
 
-#include <SDL.h>
+// #include "sfinae.hpp"
 
-#include <type_traits>  // enable_if_t, is_pointer_v
 
 namespace cen {
 
@@ -50929,14 +54484,14 @@ namespace cen {
  *
  * \since 5.0.0
  */
-template <typename T, typename = std::enable_if_t<std::is_pointer_v<T>>>
+template <typename T, enable_if_pointer_v<T> = 0>
 using not_null = T;
 
 }  // namespace cen
 
 #endif  // CENTURION_NOT_NULL_HEADER
 
-// #include "../sdl_string.hpp"
+// #include "../core/sdl_string.hpp"
 #ifndef CENTURION_SDL_STRING_HEADER
 #define CENTURION_SDL_STRING_HEADER
 
@@ -50945,7 +54500,7 @@ using not_null = T;
 #include <memory>  // unique_ptr
 #include <string>  // string
 
-// #include "detail/sdl_deleter.hpp"
+// #include "../detail/sdl_deleter.hpp"
 #ifndef CENTURION_DETAIL_SDL_DELETER_HEADER
 #define CENTURION_DETAIL_SDL_DELETER_HEADER
 
@@ -50968,7 +54523,7 @@ struct sdl_deleter final
 
 #endif  // CENTURION_DETAIL_SDL_DELETER_HEADER
 
-// #include "misc/czstring.hpp"
+// #include "../misc/czstring.hpp"
 #ifndef CENTURION_CZSTRING_HEADER
 #define CENTURION_CZSTRING_HEADER
 
@@ -50976,9 +54531,39 @@ struct sdl_deleter final
 #ifndef CENTURION_NOT_NULL_HEADER
 #define CENTURION_NOT_NULL_HEADER
 
-#include <SDL.h>
+// #include "sfinae.hpp"
+#ifndef CENTURION_SFINAE_HEADER
+#define CENTURION_SFINAE_HEADER
 
-#include <type_traits>  // enable_if_t, is_pointer_v
+#include <type_traits>  // enable_if_t, is_same_v, is_integral_v, is_floating_point_v, ...
+
+namespace cen {
+
+/// \addtogroup misc
+/// \{
+
+// clang-format off
+
+template <typename T>
+using enable_if_number_t = std::enable_if_t<!std::is_same_v<T, bool> &&
+                                            (std::is_integral_v<T> ||
+                                             std::is_floating_point_v<T>), int>;
+
+// clang-format on
+
+template <typename T>
+using enable_if_pointer_v = std::enable_if_t<std::is_pointer_v<T>, int>;
+
+template <typename T, typename... Args>
+using enable_if_convertible_t =
+    std::enable_if_t<(std::is_convertible_v<T, Args> || ...), int>;
+
+/// \} End of group misc
+
+}  // namespace cen
+
+#endif  // CENTURION_SFINAE_HEADER
+
 
 namespace cen {
 
@@ -50993,7 +54578,7 @@ namespace cen {
  *
  * \since 5.0.0
  */
-template <typename T, typename = std::enable_if_t<std::is_pointer_v<T>>>
+template <typename T, enable_if_pointer_v<T> = 0>
 using not_null = T;
 
 }  // namespace cen
@@ -51002,6 +54587,9 @@ using not_null = T;
 
 
 namespace cen {
+
+/// \addtogroup misc
+/// \{
 
 /**
  * \typedef czstring
@@ -51017,15 +54605,18 @@ using czstring = const char*;
  */
 using zstring = char*;
 
+/// \} End of group misc
+
 }  // namespace cen
 
 #endif  // CENTURION_CZSTRING_HEADER
 
-// #include "misc/owner.hpp"
+// #include "../misc/owner.hpp"
 #ifndef CENTURION_OWNER_HEADER
 #define CENTURION_OWNER_HEADER
 
-#include <type_traits>  // enable_if_t, is_pointer_v
+// #include "sfinae.hpp"
+
 
 namespace cen {
 
@@ -51040,7 +54631,7 @@ namespace cen {
  * function will claim ownership of that pointer. Subsequently, if a function
  * returns an `owner<T*>`, then ownership is transferred to the caller.
  */
-template <typename T, typename = std::enable_if_t<std::is_pointer_v<T>>>
+template <typename T, enable_if_pointer_v<T> = 0>
 using owner = T;
 
 }  // namespace cen
@@ -51048,6 +54639,9 @@ using owner = T;
 #endif  // CENTURION_OWNER_HEADER
 
 namespace cen {
+
+/// \addtogroup core
+/// \{
 
 /**
  * \class sdl_string
@@ -51121,6 +54715,8 @@ class sdl_string final
  private:
   std::unique_ptr<char, detail::sdl_deleter<char>> m_str;
 };
+
+/// \} End of group core
 
 }  // namespace cen
 
@@ -51215,10 +54811,11 @@ inline auto set_text(const std::string& text) noexcept -> bool
 // #include "../misc/time.hpp"
 
 
+/// \addtogroup system
+/// \{
+
 /**
  * \namespace cen::counter
- *
- * \ingroup system
  *
  * \brief Provides timing utilities.
  *
@@ -51227,9 +54824,6 @@ inline auto set_text(const std::string& text) noexcept -> bool
  * \headerfile counter.hpp
  */
 namespace cen::counter {
-
-/// \addtogroup system
-/// \{
 
 /**
  * \brief Returns the frequency of the system high-performance counter.
@@ -51291,9 +54885,9 @@ template <typename T>
 
 // clang-format on
 
-/// \} End of group system
-
 }  // namespace cen::counter
+
+/// \} End of group system
 
 #endif  // CENTURION_TIMER_HEADER
 // #include "centurion/system/cpu.hpp"
@@ -51305,10 +54899,131 @@ template <typename T>
 #include <cstddef>  // size_t
 #include <memory>   // unique_ptr
 
+/// \addtogroup system
+/// \{
+
+namespace cen {
+
+/**
+ * \class simd_block
+ *
+ * \brief Represents a block of memory, allocated in SIMD-friendly way.
+ *
+ * \since 5.2.0
+ *
+ * \headerfile cpu.hpp
+ */
+class simd_block final
+{
+ public:
+  /**
+   * \brief Allocates a block of SIMD-friendly memory.
+   *
+   * \note The allocation might fail, in which case the internal pointer is
+   * null.
+   *
+   * \param size the size of the memory block.
+   *
+   * \since 5.2.0
+   */
+  explicit simd_block(const std::size_t size) noexcept
+      : m_data{SDL_SIMDAlloc(size)}
+  {}
+
+#if SDL_VERSION_ATLEAST(2, 0, 14)
+
+  /**
+   * \brief Reallocates the associated memory block.
+   *
+   * \param size the size of the new memory block.
+   *
+   * \since 5.2.0
+   */
+  void reallocate(const std::size_t size) noexcept
+  {
+    // We temporarily release the ownership of the pointer in order to avoid a
+    // double delete, since the reallocation will free the previously allocated
+    // memory.
+    auto* ptr = m_data.release();
+    m_data.reset(SDL_SIMDRealloc(ptr, size));
+  }
+
+#endif  // SDL_VERSION_ATLEAST(2, 0, 14)
+
+  /**
+   * \brief Returns a pointer to the associated memory block.
+   *
+   * \return a pointer to the memory block.
+   *
+   * \since 5.2.0
+   */
+  [[nodiscard]] auto data() noexcept -> void*
+  {
+    return m_data.get();
+  }
+
+  /**
+   * \copydoc data()
+   */
+  [[nodiscard]] auto data() const noexcept -> const void*
+  {
+    return m_data.get();
+  }
+
+  /**
+   * \brief Returns a reinterpreted pointer to the associated memory block.
+   *
+   * \warning It's your responsibility to make sure to avoid any potential
+   * undefined behaviour using this function, since it uses `reinterpret_cast`.
+   *
+   * \tparam T the type used when reinterpreting the internal pointer.
+   *
+   * \return a pointer to the associated memory block.
+   *
+   * \since 5.2.0
+   */
+  template <typename T>
+  [[nodiscard]] auto cast_data() noexcept -> T*
+  {
+    return reinterpret_cast<T*>(data());
+  }
+
+  /**
+   * \copydoc cast_data()
+   */
+  template <typename T>
+  [[nodiscard]] auto cast_data() const noexcept -> const T*
+  {
+    return reinterpret_cast<const T*>(data());
+  }
+
+  /**
+   * \brief Indicates whether or not the internal pointer isn't null.
+   *
+   * \return `true` if the internal pointer is non-null; `false` otherwise.
+   *
+   * \since 5.2.0
+   */
+  explicit operator bool() const noexcept
+  {
+    return m_data.operator bool();
+  }
+
+ private:
+  struct deleter final
+  {
+    void operator()(void* ptr) noexcept
+    {
+      SDL_SIMDFree(ptr);
+    }
+  };
+  std::unique_ptr<void, deleter> m_data;
+};
+
+}  // namespace cen
+
 /**
  * \namespace cen::cpu
- *
- * \ingroup system
  *
  * \brief Provides methods for obtaining information about the processor.
  *
@@ -51317,9 +55032,6 @@ template <typename T>
  * \headerfile cpu.hpp
  */
 namespace cen::cpu {
-
-/// \addtogroup system
-/// \{
 
 /**
  * \brief Returns the CPU L1 cache line size.
@@ -51556,125 +55268,9 @@ namespace cen::cpu {
   return SDL_BYTEORDER == SDL_LIL_ENDIAN;
 }
 
-/**
- * \class simd_block
- *
- * \brief Represents a block of memory, allocated in SIMD-friendly way.
- *
- * \since 5.2.0
- *
- * \headerfile cpu.hpp
- */
-class simd_block final
-{
- public:
-  /**
-   * \brief Allocates a block of SIMD-friendly memory.
-   *
-   * \note The allocation might fail, in which case the internal pointer is
-   * null.
-   *
-   * \param size the size of the memory block.
-   *
-   * \since 5.2.0
-   */
-  explicit simd_block(const std::size_t size) noexcept
-      : m_data{SDL_SIMDAlloc(size)}
-  {}
-
-#if SDL_VERSION_ATLEAST(2, 0, 14)
-
-  /**
-   * \brief Reallocates the associated memory block.
-   *
-   * \param size the size of the new memory block.
-   *
-   * \since 5.2.0
-   */
-  void reallocate(const std::size_t size) noexcept
-  {
-    // We temporarily release the ownership of the pointer in order to avoid a
-    // double delete, since the reallocation will free the previously allocated
-    // memory.
-    auto* ptr = m_data.release();
-    m_data.reset(SDL_SIMDRealloc(ptr, size));
-  }
-
-#endif  // SDL_VERSION_ATLEAST(2, 0, 14)
-
-  /**
-   * \brief Returns a pointer to the associated memory block.
-   *
-   * \return a pointer to the memory block.
-   *
-   * \since 5.2.0
-   */
-  [[nodiscard]] auto data() noexcept -> void*
-  {
-    return m_data.get();
-  }
-
-  /**
-   * \copydoc data()
-   */
-  [[nodiscard]] auto data() const noexcept -> const void*
-  {
-    return m_data.get();
-  }
-
-  /**
-   * \brief Returns a reinterpreted pointer to the associated memory block.
-   *
-   * \warning It's your responsibility to make sure to avoid any potential
-   * undefined behaviour using this function, since it uses `reinterpret_cast`.
-   *
-   * \tparam T the type used when reinterpreting the internal pointer.
-   *
-   * \return a pointer to the associated memory block.
-   *
-   * \since 5.2.0
-   */
-  template <typename T>
-  [[nodiscard]] auto cast_data() noexcept -> T*
-  {
-    return reinterpret_cast<T*>(data());
-  }
-
-  /**
-   * \copydoc cast_data()
-   */
-  template <typename T>
-  [[nodiscard]] auto cast_data() const noexcept -> const T*
-  {
-    return reinterpret_cast<const T*>(data());
-  }
-
-  /**
-   * \brief Indicates whether or not the internal pointer isn't null.
-   *
-   * \return `true` if the internal pointer is non-null; `false` otherwise.
-   *
-   * \since 5.2.0
-   */
-  explicit operator bool() const noexcept
-  {
-    return m_data.operator bool();
-  }
-
- private:
-  struct deleter final
-  {
-    void operator()(void* ptr) noexcept
-    {
-      SDL_SIMDFree(ptr);
-    }
-  };
-  std::unique_ptr<void, deleter> m_data;
-};
+}  // namespace cen::cpu
 
 /// \} End of group system
-
-}  // namespace cen::cpu
 
 #endif  // CENTURION_CPU_HEADER
 // #include "centurion/system/locale.hpp"
@@ -51701,9 +55297,39 @@ class simd_block final
 #ifndef CENTURION_NOT_NULL_HEADER
 #define CENTURION_NOT_NULL_HEADER
 
-#include <SDL.h>
+// #include "sfinae.hpp"
+#ifndef CENTURION_SFINAE_HEADER
+#define CENTURION_SFINAE_HEADER
 
-#include <type_traits>  // enable_if_t, is_pointer_v
+#include <type_traits>  // enable_if_t, is_same_v, is_integral_v, is_floating_point_v, ...
+
+namespace cen {
+
+/// \addtogroup misc
+/// \{
+
+// clang-format off
+
+template <typename T>
+using enable_if_number_t = std::enable_if_t<!std::is_same_v<T, bool> &&
+                                            (std::is_integral_v<T> ||
+                                             std::is_floating_point_v<T>), int>;
+
+// clang-format on
+
+template <typename T>
+using enable_if_pointer_v = std::enable_if_t<std::is_pointer_v<T>, int>;
+
+template <typename T, typename... Args>
+using enable_if_convertible_t =
+    std::enable_if_t<(std::is_convertible_v<T, Args> || ...), int>;
+
+/// \} End of group misc
+
+}  // namespace cen
+
+#endif  // CENTURION_SFINAE_HEADER
+
 
 namespace cen {
 
@@ -51718,7 +55344,7 @@ namespace cen {
  *
  * \since 5.0.0
  */
-template <typename T, typename = std::enable_if_t<std::is_pointer_v<T>>>
+template <typename T, enable_if_pointer_v<T> = 0>
 using not_null = T;
 
 }  // namespace cen
@@ -51727,6 +55353,9 @@ using not_null = T;
 
 
 namespace cen {
+
+/// \addtogroup misc
+/// \{
 
 /**
  * \typedef czstring
@@ -51741,6 +55370,8 @@ using czstring = const char*;
  * \brief Alias for a C-style null-terminated string.
  */
 using zstring = char*;
+
+/// \} End of group misc
 
 }  // namespace cen
 
@@ -51991,9 +55622,39 @@ class locale final
 #ifndef CENTURION_NOT_NULL_HEADER
 #define CENTURION_NOT_NULL_HEADER
 
-#include <SDL.h>
+// #include "sfinae.hpp"
+#ifndef CENTURION_SFINAE_HEADER
+#define CENTURION_SFINAE_HEADER
 
-#include <type_traits>  // enable_if_t, is_pointer_v
+#include <type_traits>  // enable_if_t, is_same_v, is_integral_v, is_floating_point_v, ...
+
+namespace cen {
+
+/// \addtogroup misc
+/// \{
+
+// clang-format off
+
+template <typename T>
+using enable_if_number_t = std::enable_if_t<!std::is_same_v<T, bool> &&
+                                            (std::is_integral_v<T> ||
+                                             std::is_floating_point_v<T>), int>;
+
+// clang-format on
+
+template <typename T>
+using enable_if_pointer_v = std::enable_if_t<std::is_pointer_v<T>, int>;
+
+template <typename T, typename... Args>
+using enable_if_convertible_t =
+    std::enable_if_t<(std::is_convertible_v<T, Args> || ...), int>;
+
+/// \} End of group misc
+
+}  // namespace cen
+
+#endif  // CENTURION_SFINAE_HEADER
+
 
 namespace cen {
 
@@ -52008,7 +55669,7 @@ namespace cen {
  *
  * \since 5.0.0
  */
-template <typename T, typename = std::enable_if_t<std::is_pointer_v<T>>>
+template <typename T, enable_if_pointer_v<T> = 0>
 using not_null = T;
 
 }  // namespace cen
@@ -52017,6 +55678,9 @@ using not_null = T;
 
 
 namespace cen {
+
+/// \addtogroup misc
+/// \{
 
 /**
  * \typedef czstring
@@ -52031,6 +55695,8 @@ using czstring = const char*;
  * \brief Alias for a C-style null-terminated string.
  */
 using zstring = char*;
+
+/// \} End of group misc
 
 }  // namespace cen
 
@@ -52216,10 +55882,10 @@ using owning_type = std::true_type;
 using handle_type = std::false_type;
 
 template <typename T>
-using is_owner = std::enable_if_t<std::is_same_v<T, owning_type>, bool>;
+using is_owner = std::enable_if_t<std::is_same_v<T, owning_type>, int>;
 
 template <typename T>
-using is_handle = std::enable_if_t<std::is_same_v<T, handle_type>, bool>;
+using is_handle = std::enable_if_t<std::is_same_v<T, handle_type>, int>;
 
 template <typename T>
 [[nodiscard]] constexpr auto is_owning() noexcept -> bool
@@ -52240,7 +55906,7 @@ class pointer_manager final
   explicit pointer_manager(Type* ptr) noexcept : m_ptr{ptr}
   {}
 
-  template <typename BB = B, is_owner<BB> = true>
+  template <typename BB = B, is_owner<BB> = 0>
   void reset(Type* ptr) noexcept
   {
     m_ptr.reset(ptr);
@@ -52278,7 +55944,7 @@ class pointer_manager final
     return get();
   }
 
-  template <typename BB = B, is_owner<BB> = true>
+  template <typename BB = B, is_owner<BB> = 0>
   [[nodiscard]] auto release() noexcept -> Type*
   {
     return m_ptr.release();
@@ -52313,9 +55979,39 @@ class pointer_manager final
 #ifndef CENTURION_NOT_NULL_HEADER
 #define CENTURION_NOT_NULL_HEADER
 
-#include <SDL.h>
+// #include "sfinae.hpp"
+#ifndef CENTURION_SFINAE_HEADER
+#define CENTURION_SFINAE_HEADER
 
-#include <type_traits>  // enable_if_t, is_pointer_v
+#include <type_traits>  // enable_if_t, is_same_v, is_integral_v, is_floating_point_v, ...
+
+namespace cen {
+
+/// \addtogroup misc
+/// \{
+
+// clang-format off
+
+template <typename T>
+using enable_if_number_t = std::enable_if_t<!std::is_same_v<T, bool> &&
+                                            (std::is_integral_v<T> ||
+                                             std::is_floating_point_v<T>), int>;
+
+// clang-format on
+
+template <typename T>
+using enable_if_pointer_v = std::enable_if_t<std::is_pointer_v<T>, int>;
+
+template <typename T, typename... Args>
+using enable_if_convertible_t =
+    std::enable_if_t<(std::is_convertible_v<T, Args> || ...), int>;
+
+/// \} End of group misc
+
+}  // namespace cen
+
+#endif  // CENTURION_SFINAE_HEADER
+
 
 namespace cen {
 
@@ -52330,7 +56026,7 @@ namespace cen {
  *
  * \since 5.0.0
  */
-template <typename T, typename = std::enable_if_t<std::is_pointer_v<T>>>
+template <typename T, enable_if_pointer_v<T> = 0>
 using not_null = T;
 
 }  // namespace cen
@@ -52339,6 +56035,9 @@ using not_null = T;
 
 
 namespace cen {
+
+/// \addtogroup misc
+/// \{
 
 /**
  * \typedef czstring
@@ -52353,6 +56052,8 @@ using czstring = const char*;
  * \brief Alias for a C-style null-terminated string.
  */
 using zstring = char*;
+
+/// \} End of group misc
 
 }  // namespace cen
 
@@ -52378,6 +56079,9 @@ using zstring = char*;
 
 namespace cen {
 
+/// \addtogroup misc
+/// \{
+
 /**
  * \typedef czstring
  *
@@ -52391,6 +56095,8 @@ using czstring = const char*;
  * \brief Alias for a C-style null-terminated string.
  */
 using zstring = char*;
+
+/// \} End of group misc
 
 }  // namespace cen
 
@@ -52575,6 +56281,9 @@ class mix_error final : public cen_error
 #include <SDL.h>
 
 namespace cen {
+
+/// \addtogroup misc
+/// \{
 
 /// \name Integer aliases
 /// \{
@@ -52782,6 +56491,9 @@ namespace literals {
 }
 
 }  // namespace literals
+
+/// \} End of group misc
+
 }  // namespace cen
 
 #endif  // CENTURION_INTEGERS_HEADER
@@ -52790,9 +56502,8 @@ namespace literals {
 #ifndef CENTURION_NOT_NULL_HEADER
 #define CENTURION_NOT_NULL_HEADER
 
-#include <SDL.h>
+// #include "sfinae.hpp"
 
-#include <type_traits>  // enable_if_t, is_pointer_v
 
 namespace cen {
 
@@ -52807,7 +56518,7 @@ namespace cen {
  *
  * \since 5.0.0
  */
-template <typename T, typename = std::enable_if_t<std::is_pointer_v<T>>>
+template <typename T, enable_if_pointer_v<T> = 0>
 using not_null = T;
 
 }  // namespace cen
@@ -52836,7 +56547,7 @@ using not_null = T;
 #include <system_error>  // errc
 #include <type_traits>   // is_floating_point_v
 
-// #include "../compiler.hpp"
+// #include "../compiler/compiler.hpp"
 #ifndef CENTURION_COMPILER_HEADER
 #define CENTURION_COMPILER_HEADER
 
@@ -53494,7 +57205,7 @@ class color final
    * component to obtain the blended color. The bias parameter is the "alpha"
    * for the interpolation, which determines how the input colors are blended.
    * For example, a bias of 0 or 1 will simply result in the first or second
-   * color being returned, respectively. Subsequently, a bias of 0.5 with blend
+   * color being returned, respectively. Subsequently, a bias of 0.5 will blend
    * the two colors evenly.
    *
    * \param a the first color.
@@ -53895,7 +57606,7 @@ class basic_pixel_format_info final
    *
    * \since 5.2.0
    */
-  template <typename BB = B, detail::is_owner<BB> = true>
+  template <typename BB = B, detail::is_owner<BB> = 0>
   explicit basic_pixel_format_info(const pixel_format format)
       : m_format{SDL_AllocFormat(static_cast<u32>(format))}
   {
@@ -53914,7 +57625,7 @@ class basic_pixel_format_info final
    *
    * \since 5.2.0
    */
-  template <typename BB = B, detail::is_handle<BB> = true>
+  template <typename BB = B, detail::is_handle<BB> = 0>
   explicit basic_pixel_format_info(const pixel_format_info& info) noexcept
       : m_format{info.get()}
   {}
@@ -54055,7 +57766,7 @@ class basic_pixel_format_info final
    *
    * \since 5.2.0
    */
-  template <typename BB = B, detail::is_handle<BB> = true>
+  template <typename BB = B, detail::is_handle<BB> = 0>
   [[nodiscard]] explicit operator bool() const noexcept
   {
     return m_format;
@@ -54423,10 +58134,11 @@ inline auto open_url(const std::string& url) noexcept -> bool
 
 #include <SDL.h>
 
+/// \addtogroup system
+/// \{
+
 /**
  * \namespace cen::ram
- *
- * \ingroup system
  *
  * \brief Contains functions related to the system memory.
  *
@@ -54435,9 +58147,6 @@ inline auto open_url(const std::string& url) noexcept -> bool
  * \headerfile ram.hpp
  */
 namespace cen::ram {
-
-/// \addtogroup system
-/// \{
 
 /**
  * \brief Returns the total amount of system RAM in megabytes.
@@ -54463,9 +58172,9 @@ namespace cen::ram {
   return amount_mb() / 1'000;
 }
 
-/// \} End of group system
-
 }  // namespace cen::ram
+
+/// \} End of group system
 
 #endif  // CENTURION_RAM_HEADER
 // #include "centurion/system/shared_object.hpp"
@@ -54500,6 +58209,9 @@ namespace cen::ram {
 
 namespace cen {
 
+/// \addtogroup misc
+/// \{
+
 /**
  * \typedef czstring
  *
@@ -54513,6 +58225,8 @@ using czstring = const char*;
  * \brief Alias for a C-style null-terminated string.
  */
 using zstring = char*;
+
+/// \} End of group misc
 
 }  // namespace cen
 
@@ -54833,9 +58547,39 @@ class shared_object final
 #ifndef CENTURION_NOT_NULL_HEADER
 #define CENTURION_NOT_NULL_HEADER
 
-#include <SDL.h>
+// #include "sfinae.hpp"
+#ifndef CENTURION_SFINAE_HEADER
+#define CENTURION_SFINAE_HEADER
 
-#include <type_traits>  // enable_if_t, is_pointer_v
+#include <type_traits>  // enable_if_t, is_same_v, is_integral_v, is_floating_point_v, ...
+
+namespace cen {
+
+/// \addtogroup misc
+/// \{
+
+// clang-format off
+
+template <typename T>
+using enable_if_number_t = std::enable_if_t<!std::is_same_v<T, bool> &&
+                                            (std::is_integral_v<T> ||
+                                             std::is_floating_point_v<T>), int>;
+
+// clang-format on
+
+template <typename T>
+using enable_if_pointer_v = std::enable_if_t<std::is_pointer_v<T>, int>;
+
+template <typename T, typename... Args>
+using enable_if_convertible_t =
+    std::enable_if_t<(std::is_convertible_v<T, Args> || ...), int>;
+
+/// \} End of group misc
+
+}  // namespace cen
+
+#endif  // CENTURION_SFINAE_HEADER
+
 
 namespace cen {
 
@@ -54850,7 +58594,7 @@ namespace cen {
  *
  * \since 5.0.0
  */
-template <typename T, typename = std::enable_if_t<std::is_pointer_v<T>>>
+template <typename T, enable_if_pointer_v<T> = 0>
 using not_null = T;
 
 }  // namespace cen
@@ -54859,6 +58603,9 @@ using not_null = T;
 
 
 namespace cen {
+
+/// \addtogroup misc
+/// \{
 
 /**
  * \typedef czstring
@@ -54873,6 +58620,8 @@ using czstring = const char*;
  * \brief Alias for a C-style null-terminated string.
  */
 using zstring = char*;
+
+/// \} End of group misc
 
 }  // namespace cen
 
@@ -55058,6 +58807,9 @@ class mix_error final : public cen_error
 
 namespace cen {
 
+/// \addtogroup misc
+/// \{
+
 /// \name Integer aliases
 /// \{
 
@@ -55264,6 +59016,9 @@ namespace literals {
 }
 
 }  // namespace literals
+
+/// \} End of group misc
+
 }  // namespace cen
 
 #endif  // CENTURION_INTEGERS_HEADER
@@ -55283,6 +59038,9 @@ namespace literals {
 
 namespace cen {
 
+/// \addtogroup misc
+/// \{
+
 /// \name Integer aliases
 /// \{
 
@@ -55489,6 +59247,9 @@ namespace literals {
 }
 
 }  // namespace literals
+
+/// \} End of group misc
+
 }  // namespace cen
 
 #endif  // CENTURION_INTEGERS_HEADER
@@ -56290,7 +60051,7 @@ template <typename T>
 #include <system_error>  // errc
 #include <type_traits>   // is_floating_point_v
 
-// #include "../compiler.hpp"
+// #include "../compiler/compiler.hpp"
 #ifndef CENTURION_COMPILER_HEADER
 #define CENTURION_COMPILER_HEADER
 
@@ -56491,6 +60252,9 @@ template <std::size_t bufferSize = 16, typename T>
 
 namespace cen {
 
+/// \addtogroup misc
+/// \{
+
 /**
  * \typedef czstring
  *
@@ -56505,6 +60269,8 @@ using czstring = const char*;
  */
 using zstring = char*;
 
+/// \} End of group misc
+
 }  // namespace cen
 
 #endif  // CENTURION_CZSTRING_HEADER
@@ -56517,9 +60283,8 @@ using zstring = char*;
 #ifndef CENTURION_NOT_NULL_HEADER
 #define CENTURION_NOT_NULL_HEADER
 
-#include <SDL.h>
+// #include "sfinae.hpp"
 
-#include <type_traits>  // enable_if_t, is_pointer_v
 
 namespace cen {
 
@@ -56534,7 +60299,7 @@ namespace cen {
  *
  * \since 5.0.0
  */
-template <typename T, typename = std::enable_if_t<std::is_pointer_v<T>>>
+template <typename T, enable_if_pointer_v<T> = 0>
 using not_null = T;
 
 }  // namespace cen
@@ -57201,7 +60966,7 @@ enum class blend_mode
 #include <system_error>  // errc
 #include <type_traits>   // is_floating_point_v
 
-// #include "../compiler.hpp"
+// #include "../compiler/compiler.hpp"
 #ifndef CENTURION_COMPILER_HEADER
 #define CENTURION_COMPILER_HEADER
 
@@ -57400,6 +61165,9 @@ template <std::size_t bufferSize = 16, typename T>
 #include <SDL.h>
 
 namespace cen {
+
+/// \addtogroup misc
+/// \{
 
 /// \name Integer aliases
 /// \{
@@ -57607,6 +61375,9 @@ namespace literals {
 }
 
 }  // namespace literals
+
+/// \} End of group misc
+
 }  // namespace cen
 
 #endif  // CENTURION_INTEGERS_HEADER
@@ -58075,7 +61846,7 @@ class color final
    * component to obtain the blended color. The bias parameter is the "alpha"
    * for the interpolation, which determines how the input colors are blended.
    * For example, a bias of 0 or 1 will simply result in the first or second
-   * color being returned, respectively. Subsequently, a bias of 0.5 with blend
+   * color being returned, respectively. Subsequently, a bias of 0.5 will blend
    * the two colors evenly.
    *
    * \param a the first color.
@@ -58777,7 +62548,7 @@ class color final
    * component to obtain the blended color. The bias parameter is the "alpha"
    * for the interpolation, which determines how the input colors are blended.
    * For example, a bias of 0 or 1 will simply result in the first or second
-   * color being returned, respectively. Subsequently, a bias of 0.5 with blend
+   * color being returned, respectively. Subsequently, a bias of 0.5 will blend
    * the two colors evenly.
    *
    * \param a the first color.
@@ -60093,9 +63864,39 @@ inline constexpr color yellow_green{0x9A, 0xCD, 0x32};
 #ifndef CENTURION_NOT_NULL_HEADER
 #define CENTURION_NOT_NULL_HEADER
 
-#include <SDL.h>
+// #include "sfinae.hpp"
+#ifndef CENTURION_SFINAE_HEADER
+#define CENTURION_SFINAE_HEADER
 
-#include <type_traits>  // enable_if_t, is_pointer_v
+#include <type_traits>  // enable_if_t, is_same_v, is_integral_v, is_floating_point_v, ...
+
+namespace cen {
+
+/// \addtogroup misc
+/// \{
+
+// clang-format off
+
+template <typename T>
+using enable_if_number_t = std::enable_if_t<!std::is_same_v<T, bool> &&
+                                            (std::is_integral_v<T> ||
+                                             std::is_floating_point_v<T>), int>;
+
+// clang-format on
+
+template <typename T>
+using enable_if_pointer_v = std::enable_if_t<std::is_pointer_v<T>, int>;
+
+template <typename T, typename... Args>
+using enable_if_convertible_t =
+    std::enable_if_t<(std::is_convertible_v<T, Args> || ...), int>;
+
+/// \} End of group misc
+
+}  // namespace cen
+
+#endif  // CENTURION_SFINAE_HEADER
+
 
 namespace cen {
 
@@ -60110,7 +63911,7 @@ namespace cen {
  *
  * \since 5.0.0
  */
-template <typename T, typename = std::enable_if_t<std::is_pointer_v<T>>>
+template <typename T, enable_if_pointer_v<T> = 0>
 using not_null = T;
 
 }  // namespace cen
@@ -60119,6 +63920,9 @@ using not_null = T;
 
 
 namespace cen {
+
+/// \addtogroup misc
+/// \{
 
 /**
  * \typedef czstring
@@ -60133,6 +63937,8 @@ using czstring = const char*;
  * \brief Alias for a C-style null-terminated string.
  */
 using zstring = char*;
+
+/// \} End of group misc
 
 }  // namespace cen
 
@@ -60318,10 +64124,10 @@ using owning_type = std::true_type;
 using handle_type = std::false_type;
 
 template <typename T>
-using is_owner = std::enable_if_t<std::is_same_v<T, owning_type>, bool>;
+using is_owner = std::enable_if_t<std::is_same_v<T, owning_type>, int>;
 
 template <typename T>
-using is_handle = std::enable_if_t<std::is_same_v<T, handle_type>, bool>;
+using is_handle = std::enable_if_t<std::is_same_v<T, handle_type>, int>;
 
 template <typename T>
 [[nodiscard]] constexpr auto is_owning() noexcept -> bool
@@ -60342,7 +64148,7 @@ class pointer_manager final
   explicit pointer_manager(Type* ptr) noexcept : m_ptr{ptr}
   {}
 
-  template <typename BB = B, is_owner<BB> = true>
+  template <typename BB = B, is_owner<BB> = 0>
   void reset(Type* ptr) noexcept
   {
     m_ptr.reset(ptr);
@@ -60380,7 +64186,7 @@ class pointer_manager final
     return get();
   }
 
-  template <typename BB = B, is_owner<BB> = true>
+  template <typename BB = B, is_owner<BB> = 0>
   [[nodiscard]] auto release() noexcept -> Type*
   {
     return m_ptr.release();
@@ -60416,7 +64222,7 @@ class pointer_manager final
 #include <cmath>        // sqrt, abs, round
 #include <ostream>      // ostream
 #include <string>       // string
-#include <type_traits>  // enable_if_t, conditional_t, is_convertible_v, ...
+#include <type_traits>  // conditional_t, is_integral_v, is_floating_point_v, ...
 
 // #include "../detail/to_string.hpp"
 #ifndef CENTURION_DETAIL_TO_STRING_HEADER
@@ -60429,7 +64235,7 @@ class pointer_manager final
 #include <system_error>  // errc
 #include <type_traits>   // is_floating_point_v
 
-// #include "../compiler.hpp"
+// #include "../compiler/compiler.hpp"
 #ifndef CENTURION_COMPILER_HEADER
 #define CENTURION_COMPILER_HEADER
 
@@ -60656,6 +64462,39 @@ template <typename To, typename From>
 
 #endif  // CENTURION_CAST_HEADER
 
+// #include "../misc/sfinae.hpp"
+#ifndef CENTURION_SFINAE_HEADER
+#define CENTURION_SFINAE_HEADER
+
+#include <type_traits>  // enable_if_t, is_same_v, is_integral_v, is_floating_point_v, ...
+
+namespace cen {
+
+/// \addtogroup misc
+/// \{
+
+// clang-format off
+
+template <typename T>
+using enable_if_number_t = std::enable_if_t<!std::is_same_v<T, bool> &&
+                                            (std::is_integral_v<T> ||
+                                             std::is_floating_point_v<T>), int>;
+
+// clang-format on
+
+template <typename T>
+using enable_if_pointer_v = std::enable_if_t<std::is_pointer_v<T>, int>;
+
+template <typename T, typename... Args>
+using enable_if_convertible_t =
+    std::enable_if_t<(std::is_convertible_v<T, Args> || ...), int>;
+
+/// \} End of group misc
+
+}  // namespace cen
+
+#endif  // CENTURION_SFINAE_HEADER
+
 
 namespace cen {
 
@@ -60675,10 +64514,7 @@ namespace cen {
  *
  * \headerfile point.hpp
  */
-template <typename T,
-          std::enable_if_t<std::is_convertible_v<T, int> ||
-                               std::is_convertible_v<T, float>,
-                           int> = 0>
+template <typename T, enable_if_convertible_t<T, int, float> = 0>
 class point_traits final
 {
  public:
@@ -60987,6 +64823,36 @@ class basic_point final
   point_type m_point{0, 0};
 };
 
+/// \name Point-related functions
+/// \{
+
+/**
+ * \brief Creates a point instance with automatically deduced precision.
+ *
+ * \note The only supported precisions for points are `int` and `float`, so
+ * this function will cast the supplied values to the corresponding type. For
+ * example, if you supply two doubles to this function, the returned point will
+ * use float as the precision.
+ *
+ * \tparam T the deduced precision type, must be a numerical type other than
+ * `bool`.
+ *
+ * \param x the x-coordinate of the point.
+ * \param y the y-coordinate of the point.
+ *
+ * \return the created point.
+ *
+ * \since 6.0.0
+ */
+template <typename T, enable_if_number_t<T> = 0>
+[[nodiscard]] constexpr auto point(const T x, const T y) noexcept
+    -> basic_point<typename point_traits<T>::value_type>
+{
+  using value_type = typename point_traits<T>::value_type;
+  return basic_point<value_type>{static_cast<value_type>(x),
+                                 static_cast<value_type>(y)};
+}
+
 /**
  * \brief Returns the distance between two points.
  *
@@ -61000,8 +64866,8 @@ class basic_point final
  * \since 5.0.0
  */
 template <typename T>
-[[nodiscard]] inline auto distance(const basic_point<T>& from,
-                                   const basic_point<T>& to) noexcept ->
+[[nodiscard]] auto distance(const basic_point<T>& from,
+                            const basic_point<T>& to) noexcept ->
     typename point_traits<T>::value_type
 {
   if constexpr (basic_point<T>::isIntegral)
@@ -61017,13 +64883,15 @@ template <typename T>
   }
 }
 
-[[nodiscard]] inline auto to_string(const ipoint& point) -> std::string
+/// \} End of point-related functions
+
+[[nodiscard]] inline auto to_string(const ipoint point) -> std::string
 {
   return "ipoint{X: " + detail::to_string(point.x()).value() +
          ", Y: " + detail::to_string(point.y()).value() + "}";
 }
 
-[[nodiscard]] inline auto to_string(const fpoint& point) -> std::string
+[[nodiscard]] inline auto to_string(const fpoint point) -> std::string
 {
   return "fpoint{X: " + detail::to_string(point.x()).value() +
          ", Y: " + detail::to_string(point.y()).value() + "}";
@@ -61147,26 +65015,26 @@ template <typename T>
 /// \name Point comparison operators
 /// \{
 
-[[nodiscard]] constexpr auto operator==(const ipoint& lhs,
-                                        const ipoint& rhs) noexcept -> bool
+[[nodiscard]] constexpr auto operator==(const ipoint lhs,
+                                        const ipoint rhs) noexcept -> bool
 {
   return (lhs.x() == rhs.x()) && (lhs.y() == rhs.y());
 }
 
-[[nodiscard]] constexpr auto operator==(const fpoint& lhs,
-                                        const fpoint& rhs) noexcept -> bool
+[[nodiscard]] constexpr auto operator==(const fpoint lhs,
+                                        const fpoint rhs) noexcept -> bool
 {
   return (lhs.x() == rhs.x()) && (lhs.y() == rhs.y());
 }
 
-[[nodiscard]] constexpr auto operator!=(const ipoint& lhs,
-                                        const ipoint& rhs) noexcept -> bool
+[[nodiscard]] constexpr auto operator!=(const ipoint lhs,
+                                        const ipoint rhs) noexcept -> bool
 {
   return !(lhs == rhs);
 }
 
-[[nodiscard]] constexpr auto operator!=(const fpoint& lhs,
-                                        const fpoint& rhs) noexcept -> bool
+[[nodiscard]] constexpr auto operator!=(const fpoint lhs,
+                                        const fpoint rhs) noexcept -> bool
 {
   return !(lhs == rhs);
 }
@@ -61255,6 +65123,36 @@ namespace cen {
 /// \addtogroup math
 /// \{
 
+template <typename T>
+struct basic_area;
+
+/**
+ * \typedef iarea
+ *
+ * \brief An alias for `int` areas.
+ *
+ * \since 4.1.0
+ */
+using iarea = basic_area<int>;
+
+/**
+ * \typedef farea
+ *
+ * \brief An alias for `float` areas.
+ *
+ * \since 4.1.0
+ */
+using farea = basic_area<float>;
+
+/**
+ * \typedef darea
+ *
+ * \brief An alias for `double` areas.
+ *
+ * \since 4.1.0
+ */
+using darea = basic_area<double>;
+
 /**
  * \struct basic_area
  *
@@ -61283,6 +65181,28 @@ struct basic_area final
   static_assert(!std::is_same_v<T, bool>);
 };
 
+/// \name Area-related functions
+/// \{
+
+/**
+ * \brief Creates an area instance with automatically deduced precision.
+ *
+ * \tparam T the deduced type of the width and height values.
+ *
+ * \param width the width of the area.
+ * \param height the height of the area.
+ *
+ * \return an area instance with the specified width and height.
+ *
+ * \since 6.0.0
+ */
+template <typename T>
+[[nodiscard]] constexpr auto area(const T width, const T height) noexcept
+    -> basic_area<T>
+{
+  return {width, height};
+}
+
 /**
  * \brief Returns the size (width x height) of an area.
  *
@@ -61300,32 +65220,7 @@ template <typename T>
   return area.width * area.height;
 }
 
-/**
- * \typedef iarea
- *
- * \brief An alias for `int` areas.
- *
- * \since 4.1.0
- */
-using iarea = basic_area<int>;
-
-/**
- * \typedef farea
- *
- * \brief An alias for `float` areas.
- *
- * \since 4.1.0
- */
-using farea = basic_area<float>;
-
-/**
- * \typedef darea
- *
- * \brief An alias for `double` areas.
- *
- * \since 4.1.0
- */
-using darea = basic_area<double>;
+/// \} End of area-related functions
 
 /**
  * \brief Serializes an area instance.
@@ -61480,7 +65375,7 @@ auto operator<<(std::ostream& stream, const basic_area<T>& area)
 
 #include <ostream>      // ostream
 #include <string>       // string
-#include <type_traits>  // enable_if_t, is_convertible_v, conditional_t, ...
+#include <type_traits>  // conditional_t, is_integral_v, is_floating_point_v, ...
 
 // #include "../detail/max.hpp"
 #ifndef CENTURION_DETAIL_MAX_HEADER
@@ -61532,6 +65427,8 @@ template <typename T>
 
 // #include "../misc/cast.hpp"
 
+// #include "../misc/sfinae.hpp"
+
 // #include "area.hpp"
 #ifndef CENTURION_AREA_HEADER
 #define CENTURION_AREA_HEADER
@@ -61549,6 +65446,36 @@ namespace cen {
 
 /// \addtogroup math
 /// \{
+
+template <typename T>
+struct basic_area;
+
+/**
+ * \typedef iarea
+ *
+ * \brief An alias for `int` areas.
+ *
+ * \since 4.1.0
+ */
+using iarea = basic_area<int>;
+
+/**
+ * \typedef farea
+ *
+ * \brief An alias for `float` areas.
+ *
+ * \since 4.1.0
+ */
+using farea = basic_area<float>;
+
+/**
+ * \typedef darea
+ *
+ * \brief An alias for `double` areas.
+ *
+ * \since 4.1.0
+ */
+using darea = basic_area<double>;
 
 /**
  * \struct basic_area
@@ -61578,6 +65505,28 @@ struct basic_area final
   static_assert(!std::is_same_v<T, bool>);
 };
 
+/// \name Area-related functions
+/// \{
+
+/**
+ * \brief Creates an area instance with automatically deduced precision.
+ *
+ * \tparam T the deduced type of the width and height values.
+ *
+ * \param width the width of the area.
+ * \param height the height of the area.
+ *
+ * \return an area instance with the specified width and height.
+ *
+ * \since 6.0.0
+ */
+template <typename T>
+[[nodiscard]] constexpr auto area(const T width, const T height) noexcept
+    -> basic_area<T>
+{
+  return {width, height};
+}
+
 /**
  * \brief Returns the size (width x height) of an area.
  *
@@ -61595,32 +65544,7 @@ template <typename T>
   return area.width * area.height;
 }
 
-/**
- * \typedef iarea
- *
- * \brief An alias for `int` areas.
- *
- * \since 4.1.0
- */
-using iarea = basic_area<int>;
-
-/**
- * \typedef farea
- *
- * \brief An alias for `float` areas.
- *
- * \since 4.1.0
- */
-using farea = basic_area<float>;
-
-/**
- * \typedef darea
- *
- * \brief An alias for `double` areas.
- *
- * \since 4.1.0
- */
-using darea = basic_area<double>;
+/// \} End of area-related functions
 
 /**
  * \brief Serializes an area instance.
@@ -61776,11 +65700,13 @@ auto operator<<(std::ostream& stream, const basic_area<T>& area)
 #include <cmath>        // sqrt, abs, round
 #include <ostream>      // ostream
 #include <string>       // string
-#include <type_traits>  // enable_if_t, conditional_t, is_convertible_v, ...
+#include <type_traits>  // conditional_t, is_integral_v, is_floating_point_v, ...
 
 // #include "../detail/to_string.hpp"
 
 // #include "../misc/cast.hpp"
+
+// #include "../misc/sfinae.hpp"
 
 
 namespace cen {
@@ -61801,10 +65727,7 @@ namespace cen {
  *
  * \headerfile point.hpp
  */
-template <typename T,
-          std::enable_if_t<std::is_convertible_v<T, int> ||
-                               std::is_convertible_v<T, float>,
-                           int> = 0>
+template <typename T, enable_if_convertible_t<T, int, float> = 0>
 class point_traits final
 {
  public:
@@ -62113,6 +66036,36 @@ class basic_point final
   point_type m_point{0, 0};
 };
 
+/// \name Point-related functions
+/// \{
+
+/**
+ * \brief Creates a point instance with automatically deduced precision.
+ *
+ * \note The only supported precisions for points are `int` and `float`, so
+ * this function will cast the supplied values to the corresponding type. For
+ * example, if you supply two doubles to this function, the returned point will
+ * use float as the precision.
+ *
+ * \tparam T the deduced precision type, must be a numerical type other than
+ * `bool`.
+ *
+ * \param x the x-coordinate of the point.
+ * \param y the y-coordinate of the point.
+ *
+ * \return the created point.
+ *
+ * \since 6.0.0
+ */
+template <typename T, enable_if_number_t<T> = 0>
+[[nodiscard]] constexpr auto point(const T x, const T y) noexcept
+    -> basic_point<typename point_traits<T>::value_type>
+{
+  using value_type = typename point_traits<T>::value_type;
+  return basic_point<value_type>{static_cast<value_type>(x),
+                                 static_cast<value_type>(y)};
+}
+
 /**
  * \brief Returns the distance between two points.
  *
@@ -62126,8 +66079,8 @@ class basic_point final
  * \since 5.0.0
  */
 template <typename T>
-[[nodiscard]] inline auto distance(const basic_point<T>& from,
-                                   const basic_point<T>& to) noexcept ->
+[[nodiscard]] auto distance(const basic_point<T>& from,
+                            const basic_point<T>& to) noexcept ->
     typename point_traits<T>::value_type
 {
   if constexpr (basic_point<T>::isIntegral)
@@ -62143,13 +66096,15 @@ template <typename T>
   }
 }
 
-[[nodiscard]] inline auto to_string(const ipoint& point) -> std::string
+/// \} End of point-related functions
+
+[[nodiscard]] inline auto to_string(const ipoint point) -> std::string
 {
   return "ipoint{X: " + detail::to_string(point.x()).value() +
          ", Y: " + detail::to_string(point.y()).value() + "}";
 }
 
-[[nodiscard]] inline auto to_string(const fpoint& point) -> std::string
+[[nodiscard]] inline auto to_string(const fpoint point) -> std::string
 {
   return "fpoint{X: " + detail::to_string(point.x()).value() +
          ", Y: " + detail::to_string(point.y()).value() + "}";
@@ -62273,26 +66228,26 @@ template <typename T>
 /// \name Point comparison operators
 /// \{
 
-[[nodiscard]] constexpr auto operator==(const ipoint& lhs,
-                                        const ipoint& rhs) noexcept -> bool
+[[nodiscard]] constexpr auto operator==(const ipoint lhs,
+                                        const ipoint rhs) noexcept -> bool
 {
   return (lhs.x() == rhs.x()) && (lhs.y() == rhs.y());
 }
 
-[[nodiscard]] constexpr auto operator==(const fpoint& lhs,
-                                        const fpoint& rhs) noexcept -> bool
+[[nodiscard]] constexpr auto operator==(const fpoint lhs,
+                                        const fpoint rhs) noexcept -> bool
 {
   return (lhs.x() == rhs.x()) && (lhs.y() == rhs.y());
 }
 
-[[nodiscard]] constexpr auto operator!=(const ipoint& lhs,
-                                        const ipoint& rhs) noexcept -> bool
+[[nodiscard]] constexpr auto operator!=(const ipoint lhs,
+                                        const ipoint rhs) noexcept -> bool
 {
   return !(lhs == rhs);
 }
 
-[[nodiscard]] constexpr auto operator!=(const fpoint& lhs,
-                                        const fpoint& rhs) noexcept -> bool
+[[nodiscard]] constexpr auto operator!=(const fpoint lhs,
+                                        const fpoint rhs) noexcept -> bool
 {
   return !(lhs == rhs);
 }
@@ -62328,9 +66283,7 @@ namespace cen {
  *
  * \headerfile rect.hpp
  */
-template <typename T,
-          typename = std::enable_if_t<std::is_convertible_v<T, int> ||
-                                      std::is_convertible_v<T, float>>>
+template <typename T, enable_if_convertible_t<T, int, float> = 0>
 class rect_traits final
 {
  public:
@@ -62906,6 +66859,39 @@ class basic_rect final
 /// \{
 
 /**
+ * \brief Creates a rectangle with automatically deduced precision.
+ *
+ * \note The only supported precisions for rectangles are `int` and `float`, so
+ * this function will cast the supplied values to the corresponding type. For
+ * example, if you supply doubles to this function, the returned point will
+ * use float as the precision.
+ *
+ * \tparam T the deduced precision type.
+ *
+ * \param x the x-coordinate of the rectangle.
+ * \param y the y-coordinate of the rectangle.
+ * \param width the width of the rectangle.
+ * \param height the height of the rectangle.
+ *
+ * \return a rectangle with the specified position and size.
+ *
+ * \since 6.0.0
+ */
+template <typename T, enable_if_number_t<T> = 0>
+[[nodiscard]] constexpr auto rect(const T x,
+                                  const T y,
+                                  const T width,
+                                  const T height) noexcept
+    -> basic_rect<typename rect_traits<T>::value_type>
+{
+  using value_type = typename rect_traits<T>::value_type;
+  return basic_rect<value_type>{static_cast<value_type>(x),
+                                static_cast<value_type>(y),
+                                static_cast<value_type>(width),
+                                static_cast<value_type>(height)};
+}
+
+/**
  * \brief Indicates whether or not the two rectangles intersect.
  *
  * \details This function does *not* consider rectangles with overlapping
@@ -63126,9 +67112,39 @@ auto operator<<(std::ostream& stream, const basic_rect<T>& rect)
 #ifndef CENTURION_NOT_NULL_HEADER
 #define CENTURION_NOT_NULL_HEADER
 
-#include <SDL.h>
+// #include "sfinae.hpp"
+#ifndef CENTURION_SFINAE_HEADER
+#define CENTURION_SFINAE_HEADER
 
-#include <type_traits>  // enable_if_t, is_pointer_v
+#include <type_traits>  // enable_if_t, is_same_v, is_integral_v, is_floating_point_v, ...
+
+namespace cen {
+
+/// \addtogroup misc
+/// \{
+
+// clang-format off
+
+template <typename T>
+using enable_if_number_t = std::enable_if_t<!std::is_same_v<T, bool> &&
+                                            (std::is_integral_v<T> ||
+                                             std::is_floating_point_v<T>), int>;
+
+// clang-format on
+
+template <typename T>
+using enable_if_pointer_v = std::enable_if_t<std::is_pointer_v<T>, int>;
+
+template <typename T, typename... Args>
+using enable_if_convertible_t =
+    std::enable_if_t<(std::is_convertible_v<T, Args> || ...), int>;
+
+/// \} End of group misc
+
+}  // namespace cen
+
+#endif  // CENTURION_SFINAE_HEADER
+
 
 namespace cen {
 
@@ -63143,7 +67159,7 @@ namespace cen {
  *
  * \since 5.0.0
  */
-template <typename T, typename = std::enable_if_t<std::is_pointer_v<T>>>
+template <typename T, enable_if_pointer_v<T> = 0>
 using not_null = T;
 
 }  // namespace cen
@@ -63152,6 +67168,9 @@ using not_null = T;
 
 
 namespace cen {
+
+/// \addtogroup misc
+/// \{
 
 /**
  * \typedef czstring
@@ -63166,6 +67185,8 @@ using czstring = const char*;
  * \brief Alias for a C-style null-terminated string.
  */
 using zstring = char*;
+
+/// \} End of group misc
 
 }  // namespace cen
 
@@ -63191,6 +67212,9 @@ using zstring = char*;
 
 namespace cen {
 
+/// \addtogroup misc
+/// \{
+
 /**
  * \typedef czstring
  *
@@ -63204,6 +67228,8 @@ using czstring = const char*;
  * \brief Alias for a C-style null-terminated string.
  */
 using zstring = char*;
+
+/// \} End of group misc
 
 }  // namespace cen
 
@@ -63387,9 +67413,8 @@ class mix_error final : public cen_error
 #ifndef CENTURION_NOT_NULL_HEADER
 #define CENTURION_NOT_NULL_HEADER
 
-#include <SDL.h>
+// #include "sfinae.hpp"
 
-#include <type_traits>  // enable_if_t, is_pointer_v
 
 namespace cen {
 
@@ -63404,7 +67429,7 @@ namespace cen {
  *
  * \since 5.0.0
  */
-template <typename T, typename = std::enable_if_t<std::is_pointer_v<T>>>
+template <typename T, enable_if_pointer_v<T> = 0>
 using not_null = T;
 
 }  // namespace cen
@@ -63415,7 +67440,8 @@ using not_null = T;
 #ifndef CENTURION_OWNER_HEADER
 #define CENTURION_OWNER_HEADER
 
-#include <type_traits>  // enable_if_t, is_pointer_v
+// #include "sfinae.hpp"
+
 
 namespace cen {
 
@@ -63430,7 +67456,7 @@ namespace cen {
  * function will claim ownership of that pointer. Subsequently, if a function
  * returns an `owner<T*>`, then ownership is transferred to the caller.
  */
-template <typename T, typename = std::enable_if_t<std::is_pointer_v<T>>>
+template <typename T, enable_if_pointer_v<T> = 0>
 using owner = T;
 
 }  // namespace cen
@@ -63741,7 +67767,7 @@ class basic_pixel_format_info final
    *
    * \since 5.2.0
    */
-  template <typename BB = B, detail::is_owner<BB> = true>
+  template <typename BB = B, detail::is_owner<BB> = 0>
   explicit basic_pixel_format_info(const pixel_format format)
       : m_format{SDL_AllocFormat(static_cast<u32>(format))}
   {
@@ -63760,7 +67786,7 @@ class basic_pixel_format_info final
    *
    * \since 5.2.0
    */
-  template <typename BB = B, detail::is_handle<BB> = true>
+  template <typename BB = B, detail::is_handle<BB> = 0>
   explicit basic_pixel_format_info(const pixel_format_info& info) noexcept
       : m_format{info.get()}
   {}
@@ -63901,7 +67927,7 @@ class basic_pixel_format_info final
    *
    * \since 5.2.0
    */
-  template <typename BB = B, detail::is_handle<BB> = true>
+  template <typename BB = B, detail::is_handle<BB> = 0>
   [[nodiscard]] explicit operator bool() const noexcept
   {
     return m_format;
@@ -64067,7 +68093,7 @@ class basic_surface final
    *
    * \since 4.0.0
    */
-  template <typename TT = T, detail::is_owner<TT> = true>
+  template <typename TT = T, detail::is_owner<TT> = 0>
   explicit basic_surface(const not_null<czstring> file)
       : m_surface{IMG_Load(file)}
   {
@@ -64088,7 +68114,7 @@ class basic_surface final
    *
    * \since 5.3.0
    */
-  template <typename TT = T, detail::is_owner<TT> = true>
+  template <typename TT = T, detail::is_owner<TT> = 0>
   explicit basic_surface(const std::string& file) : basic_surface{file.c_str()}
   {}
 
@@ -64104,7 +68130,7 @@ class basic_surface final
    *
    * \since 5.3.0
    */
-  template <typename TT = T, detail::is_owner<TT> = true>
+  template <typename TT = T, detail::is_owner<TT> = 0>
   basic_surface(const iarea size, const pixel_format pixelFormat)
       : m_surface{SDL_CreateRGBSurfaceWithFormat(0,
                                                  size.width,
@@ -64131,7 +68157,7 @@ class basic_surface final
    *
    * \since 5.2.0
    */
-  template <typename TT = T, detail::is_owner<TT> = true>
+  template <typename TT = T, detail::is_owner<TT> = 0>
   [[nodiscard]] static auto with_format(const not_null<czstring> file,
                                         const blend_mode blendMode,
                                         const pixel_format pixelFormat)
@@ -64148,7 +68174,7 @@ class basic_surface final
   /**
    * \see with_format()
    */
-  template <typename TT = T, detail::is_owner<TT> = true>
+  template <typename TT = T, detail::is_owner<TT> = 0>
   [[nodiscard]] static auto with_format(const std::string& file,
                                         const blend_mode blendMode,
                                         const pixel_format pixelFormat)
@@ -64170,7 +68196,7 @@ class basic_surface final
    *
    * \since 5.3.0
    */
-  template <typename TT = T, detail::is_owner<TT> = true>
+  template <typename TT = T, detail::is_owner<TT> = 0>
   [[nodiscard]] static auto from_bmp(const not_null<czstring> file)
       -> basic_surface
   {
@@ -64181,7 +68207,7 @@ class basic_surface final
   /**
    * \see from_bmp()
    */
-  template <typename TT = T, detail::is_owner<TT> = true>
+  template <typename TT = T, detail::is_owner<TT> = 0>
   [[nodiscard]] static auto from_bmp(const std::string& file) -> basic_surface
   {
     return from_bmp(file.c_str());
@@ -64413,7 +68439,7 @@ class basic_surface final
    *
    * \since 4.0.0
    */
-  void set_pixel(const ipoint& pixel, const color& color) noexcept
+  void set_pixel(const ipoint pixel, const color& color) noexcept
   {
     if (!in_bounds(pixel) || !lock())
     {
@@ -64729,7 +68755,7 @@ class basic_surface final
    *
    * \since 5.0.0
    */
-  template <typename TT = T, detail::is_handle<TT> = true>
+  template <typename TT = T, detail::is_handle<TT> = 0>
   explicit operator bool() const noexcept
   {
     return m_surface != nullptr;
@@ -64797,7 +68823,7 @@ class basic_surface final
    *
    * \since 4.0.0
    */
-  [[nodiscard]] auto in_bounds(const ipoint& point) const noexcept -> bool
+  [[nodiscard]] auto in_bounds(const ipoint point) const noexcept -> bool
   {
     return !(point.x() < 0 || point.y() < 0 || point.x() >= width() ||
              point.y() >= height());
@@ -64959,7 +68985,7 @@ class basic_cursor final
    *
    * \since 4.0.0
    */
-  template <typename TT = T, detail::is_owner<TT> = true>
+  template <typename TT = T, detail::is_owner<TT> = 0>
   explicit basic_cursor(const system_cursor cursor)
       : m_cursor{SDL_CreateSystemCursor(static_cast<SDL_SystemCursor>(cursor))}
   {
@@ -64982,8 +69008,8 @@ class basic_cursor final
    *
    * \since 4.0.0
    */
-  template <typename TT = T, detail::is_owner<TT> = true>
-  basic_cursor(const surface& surface, const ipoint& hotspot)
+  template <typename TT = T, detail::is_owner<TT> = 0>
+  basic_cursor(const surface& surface, const ipoint hotspot)
       : m_cursor{SDL_CreateColorCursor(surface.get(), hotspot.x(), hotspot.y())}
   {
     if (!m_cursor)
@@ -65005,7 +69031,7 @@ class basic_cursor final
    *
    * \since 5.0.0
    */
-  template <typename TT = T, detail::is_handle<TT> = true>
+  template <typename TT = T, detail::is_handle<TT> = 0>
   explicit basic_cursor(SDL_Cursor* cursor) noexcept : m_cursor{cursor}
   {}
 
@@ -65018,7 +69044,7 @@ class basic_cursor final
    *
    * \since 5.0.0
    */
-  template <typename TT = T, detail::is_handle<TT> = true>
+  template <typename TT = T, detail::is_handle<TT> = 0>
   explicit basic_cursor(const cursor& owner) noexcept : m_cursor{owner.get()}
   {}
 
@@ -65167,7 +69193,7 @@ class basic_cursor final
    *
    * \since 5.0.0
    */
-  template <typename TT = T, detail::is_handle<TT> = true>
+  template <typename TT = T, detail::is_handle<TT> = 0>
   explicit operator bool() const noexcept
   {
     return m_cursor != nullptr;
@@ -65284,7 +69310,7 @@ class basic_cursor final
 #include <type_traits>       // is_same_v, decay_t
 #include <vector>            // vector
 
-// #include "../compiler.hpp"
+// #include "../compiler/compiler.hpp"
 #ifndef CENTURION_COMPILER_HEADER
 #define CENTURION_COMPILER_HEADER
 
@@ -65933,8 +69959,6 @@ class font final
     {
       throw ttf_error{};
     }
-
-    m_style = TTF_GetFontStyle(m_font.get());
   }
 
   /**
@@ -65963,8 +69987,7 @@ class font final
    */
   void reset() noexcept
   {
-    m_style = TTF_STYLE_NORMAL;
-    TTF_SetFontStyle(m_font.get(), m_style);
+    TTF_SetFontStyle(m_font.get(), TTF_STYLE_NORMAL);
   }
 
   /**
@@ -66094,7 +70117,7 @@ class font final
    */
   [[nodiscard]] auto is_bold() const noexcept -> bool
   {
-    return m_style & TTF_STYLE_BOLD;
+    return TTF_GetFontStyle(m_font.get()) & TTF_STYLE_BOLD;
   }
 
   /**
@@ -66106,7 +70129,7 @@ class font final
    */
   [[nodiscard]] auto is_italic() const noexcept -> bool
   {
-    return m_style & TTF_STYLE_ITALIC;
+    return TTF_GetFontStyle(m_font.get()) & TTF_STYLE_ITALIC;
   }
 
   /**
@@ -66118,7 +70141,7 @@ class font final
    */
   [[nodiscard]] auto is_underlined() const noexcept -> bool
   {
-    return m_style & TTF_STYLE_UNDERLINE;
+    return TTF_GetFontStyle(m_font.get()) & TTF_STYLE_UNDERLINE;
   }
 
   /**
@@ -66130,7 +70153,7 @@ class font final
    */
   [[nodiscard]] auto is_strikethrough() const noexcept -> bool
   {
-    return m_style & TTF_STYLE_STRIKETHROUGH;
+    return TTF_GetFontStyle(m_font.get()) & TTF_STYLE_STRIKETHROUGH;
   }
 
   /**
@@ -66333,9 +70356,7 @@ class font final
                                     const unicode secondGlyph) const noexcept
       -> int
   {
-    const auto amount =
-        TTF_GetFontKerningSizeGlyphs(m_font.get(), firstGlyph, secondGlyph);
-    return amount;
+    return TTF_GetFontKerningSizeGlyphs(m_font.get(), firstGlyph, secondGlyph);
   }
 
   /**
@@ -66391,23 +70412,72 @@ class font final
   /// \{
 
   /**
+   * \brief Returns the size of the supplied string, if it was rendered using
+   * the font.
+   *
+   * \param str the string to determine the size of, can't be null.
+   *
+   * \return the size of the string, if it was rendered using the font;
+   * `std::nullopt` if something goes wrong.
+   *
+   * \since 4.0.0
+   */
+  [[nodiscard]] auto string_size(const not_null<czstring> str) const noexcept
+      -> std::optional<iarea>
+  {
+    assert(str);
+
+    int width{};
+    int height{};
+    if (TTF_SizeText(m_font.get(), str, &width, &height) != -1)
+    {
+      return iarea{width, height};
+    }
+    else
+    {
+      return std::nullopt;
+    }
+  }
+
+  /**
+   * \brief Returns the size of the supplied string, if it was rendered using
+   * the font.
+   *
+   * \param str the string to determine the size of.
+   *
+   * \return the size of the string, if it was rendered using the font;
+   * `std::nullopt` if something goes wrong.
+   *
+   * \since 5.3.0
+   */
+  [[nodiscard]] auto string_size(const std::string& str) const noexcept
+      -> std::optional<iarea>
+  {
+    return string_size(str.c_str());
+  }
+
+  /**
    * \brief Returns the width of the supplied string, if it was rendered using
    * the font.
    *
    * \param str the string to determine the width of, can't be null.
    *
    * \return the width of the supplied string, if it was rendered using the
-   * font.
+   * font; `std::nullopt` if something goes wrong.
    *
    * \since 3.0.0
    */
   [[nodiscard]] auto string_width(const not_null<czstring> str) const noexcept
-      -> int
+      -> std::optional<int>
   {
-    assert(str);
-    int width{};
-    TTF_SizeText(m_font.get(), str, &width, nullptr);
-    return width;
+    if (const auto size = string_size(str))
+    {
+      return size->width;
+    }
+    else
+    {
+      return std::nullopt;
+    }
   }
 
   /**
@@ -66417,11 +70487,12 @@ class font final
    * \param str the string to determine the width of.
    *
    * \return the width of the supplied string, if it was rendered using the
-   * font.
+   * font; `std::nullopt` if something goes wrong.
    *
    * \since 5.3.0
    */
-  [[nodiscard]] auto string_width(const std::string& str) const noexcept -> int
+  [[nodiscard]] auto string_width(const std::string& str) const noexcept
+      -> std::optional<int>
   {
     return string_width(str.c_str());
   }
@@ -66433,17 +70504,21 @@ class font final
    * \param str the string to determine the height of, can't be null.
    *
    * \return the height of the supplied string, if it was rendered using the
-   * font.
+   * font; `std::nullopt` if something goes wrong.
    *
    * \since 3.0.0
    */
   [[nodiscard]] auto string_height(const not_null<czstring> str) const noexcept
-      -> int
+      -> std::optional<int>
   {
-    assert(str);
-    int height{};
-    TTF_SizeText(m_font.get(), str, nullptr, &height);
-    return height;
+    if (const auto size = string_size(str))
+    {
+      return size->height;
+    }
+    else
+    {
+      return std::nullopt;
+    }
   }
 
   /**
@@ -66453,48 +70528,14 @@ class font final
    * \param str the string to determine the height of.
    *
    * \return the height of the supplied string, if it was rendered using the
-   * font.
+   * font; `std::nullopt` if something goes wrong.
    *
    * \since 5.3.0
    */
-  [[nodiscard]] auto string_height(const std::string& str) const noexcept -> int
+  [[nodiscard]] auto string_height(const std::string& str) const noexcept
+      -> std::optional<int>
   {
     return string_height(str.c_str());
-  }
-
-  /**
-   * \brief Returns the size of the supplied string, if it was rendered using
-   * the font.
-   *
-   * \param str the string to determine the size of, can't be null.
-   *
-   * \return the size of the string, if it was rendered using the font.
-   *
-   * \since 4.0.0
-   */
-  [[nodiscard]] auto string_size(const not_null<czstring> str) const noexcept
-      -> iarea
-  {
-    assert(str);
-    int width{};
-    int height{};
-    TTF_SizeText(m_font.get(), str, &width, &height);
-    return {width, height};
-  }
-
-  /**
-   * \brief Returns the size of the supplied string, if it was rendered using
-   * the font.
-   *
-   * \param str the string to determine the size of.
-   *
-   * \return the size of the string, if it was rendered using the font.
-   *
-   * \since 5.3.0
-   */
-  [[nodiscard]] auto string_size(const std::string& str) const noexcept -> iarea
-  {
-    return string_size(str.c_str());
   }
 
   /// \} End of rendered string size functions
@@ -66555,7 +70596,6 @@ class font final
   };
 
   std::unique_ptr<TTF_Font, deleter> m_font;
-  int m_style{};
   int m_size{};
 
   /**
@@ -66570,8 +70610,8 @@ class font final
    */
   void add_style(const int mask) noexcept
   {
-    m_style |= mask;
-    TTF_SetFontStyle(m_font.get(), m_style);
+    const auto style = TTF_GetFontStyle(m_font.get());
+    TTF_SetFontStyle(m_font.get(), style | mask);
   }
 
   /**
@@ -66586,8 +70626,8 @@ class font final
    */
   void remove_style(const int mask) noexcept
   {
-    m_style &= ~mask;
-    TTF_SetFontStyle(m_font.get(), m_style);
+    const auto style = TTF_GetFontStyle(m_font.get());
+    TTF_SetFontStyle(m_font.get(), style & ~mask);
   }
 };
 
@@ -66749,8 +70789,6 @@ class font final
     {
       throw ttf_error{};
     }
-
-    m_style = TTF_GetFontStyle(m_font.get());
   }
 
   /**
@@ -66779,8 +70817,7 @@ class font final
    */
   void reset() noexcept
   {
-    m_style = TTF_STYLE_NORMAL;
-    TTF_SetFontStyle(m_font.get(), m_style);
+    TTF_SetFontStyle(m_font.get(), TTF_STYLE_NORMAL);
   }
 
   /**
@@ -66910,7 +70947,7 @@ class font final
    */
   [[nodiscard]] auto is_bold() const noexcept -> bool
   {
-    return m_style & TTF_STYLE_BOLD;
+    return TTF_GetFontStyle(m_font.get()) & TTF_STYLE_BOLD;
   }
 
   /**
@@ -66922,7 +70959,7 @@ class font final
    */
   [[nodiscard]] auto is_italic() const noexcept -> bool
   {
-    return m_style & TTF_STYLE_ITALIC;
+    return TTF_GetFontStyle(m_font.get()) & TTF_STYLE_ITALIC;
   }
 
   /**
@@ -66934,7 +70971,7 @@ class font final
    */
   [[nodiscard]] auto is_underlined() const noexcept -> bool
   {
-    return m_style & TTF_STYLE_UNDERLINE;
+    return TTF_GetFontStyle(m_font.get()) & TTF_STYLE_UNDERLINE;
   }
 
   /**
@@ -66946,7 +70983,7 @@ class font final
    */
   [[nodiscard]] auto is_strikethrough() const noexcept -> bool
   {
-    return m_style & TTF_STYLE_STRIKETHROUGH;
+    return TTF_GetFontStyle(m_font.get()) & TTF_STYLE_STRIKETHROUGH;
   }
 
   /**
@@ -67149,9 +71186,7 @@ class font final
                                     const unicode secondGlyph) const noexcept
       -> int
   {
-    const auto amount =
-        TTF_GetFontKerningSizeGlyphs(m_font.get(), firstGlyph, secondGlyph);
-    return amount;
+    return TTF_GetFontKerningSizeGlyphs(m_font.get(), firstGlyph, secondGlyph);
   }
 
   /**
@@ -67207,23 +71242,72 @@ class font final
   /// \{
 
   /**
+   * \brief Returns the size of the supplied string, if it was rendered using
+   * the font.
+   *
+   * \param str the string to determine the size of, can't be null.
+   *
+   * \return the size of the string, if it was rendered using the font;
+   * `std::nullopt` if something goes wrong.
+   *
+   * \since 4.0.0
+   */
+  [[nodiscard]] auto string_size(const not_null<czstring> str) const noexcept
+      -> std::optional<iarea>
+  {
+    assert(str);
+
+    int width{};
+    int height{};
+    if (TTF_SizeText(m_font.get(), str, &width, &height) != -1)
+    {
+      return iarea{width, height};
+    }
+    else
+    {
+      return std::nullopt;
+    }
+  }
+
+  /**
+   * \brief Returns the size of the supplied string, if it was rendered using
+   * the font.
+   *
+   * \param str the string to determine the size of.
+   *
+   * \return the size of the string, if it was rendered using the font;
+   * `std::nullopt` if something goes wrong.
+   *
+   * \since 5.3.0
+   */
+  [[nodiscard]] auto string_size(const std::string& str) const noexcept
+      -> std::optional<iarea>
+  {
+    return string_size(str.c_str());
+  }
+
+  /**
    * \brief Returns the width of the supplied string, if it was rendered using
    * the font.
    *
    * \param str the string to determine the width of, can't be null.
    *
    * \return the width of the supplied string, if it was rendered using the
-   * font.
+   * font; `std::nullopt` if something goes wrong.
    *
    * \since 3.0.0
    */
   [[nodiscard]] auto string_width(const not_null<czstring> str) const noexcept
-      -> int
+      -> std::optional<int>
   {
-    assert(str);
-    int width{};
-    TTF_SizeText(m_font.get(), str, &width, nullptr);
-    return width;
+    if (const auto size = string_size(str))
+    {
+      return size->width;
+    }
+    else
+    {
+      return std::nullopt;
+    }
   }
 
   /**
@@ -67233,11 +71317,12 @@ class font final
    * \param str the string to determine the width of.
    *
    * \return the width of the supplied string, if it was rendered using the
-   * font.
+   * font; `std::nullopt` if something goes wrong.
    *
    * \since 5.3.0
    */
-  [[nodiscard]] auto string_width(const std::string& str) const noexcept -> int
+  [[nodiscard]] auto string_width(const std::string& str) const noexcept
+      -> std::optional<int>
   {
     return string_width(str.c_str());
   }
@@ -67249,17 +71334,21 @@ class font final
    * \param str the string to determine the height of, can't be null.
    *
    * \return the height of the supplied string, if it was rendered using the
-   * font.
+   * font; `std::nullopt` if something goes wrong.
    *
    * \since 3.0.0
    */
   [[nodiscard]] auto string_height(const not_null<czstring> str) const noexcept
-      -> int
+      -> std::optional<int>
   {
-    assert(str);
-    int height{};
-    TTF_SizeText(m_font.get(), str, nullptr, &height);
-    return height;
+    if (const auto size = string_size(str))
+    {
+      return size->height;
+    }
+    else
+    {
+      return std::nullopt;
+    }
   }
 
   /**
@@ -67269,48 +71358,14 @@ class font final
    * \param str the string to determine the height of.
    *
    * \return the height of the supplied string, if it was rendered using the
-   * font.
+   * font; `std::nullopt` if something goes wrong.
    *
    * \since 5.3.0
    */
-  [[nodiscard]] auto string_height(const std::string& str) const noexcept -> int
+  [[nodiscard]] auto string_height(const std::string& str) const noexcept
+      -> std::optional<int>
   {
     return string_height(str.c_str());
-  }
-
-  /**
-   * \brief Returns the size of the supplied string, if it was rendered using
-   * the font.
-   *
-   * \param str the string to determine the size of, can't be null.
-   *
-   * \return the size of the string, if it was rendered using the font.
-   *
-   * \since 4.0.0
-   */
-  [[nodiscard]] auto string_size(const not_null<czstring> str) const noexcept
-      -> iarea
-  {
-    assert(str);
-    int width{};
-    int height{};
-    TTF_SizeText(m_font.get(), str, &width, &height);
-    return {width, height};
-  }
-
-  /**
-   * \brief Returns the size of the supplied string, if it was rendered using
-   * the font.
-   *
-   * \param str the string to determine the size of.
-   *
-   * \return the size of the string, if it was rendered using the font.
-   *
-   * \since 5.3.0
-   */
-  [[nodiscard]] auto string_size(const std::string& str) const noexcept -> iarea
-  {
-    return string_size(str.c_str());
   }
 
   /// \} End of rendered string size functions
@@ -67371,7 +71426,6 @@ class font final
   };
 
   std::unique_ptr<TTF_Font, deleter> m_font;
-  int m_style{};
   int m_size{};
 
   /**
@@ -67386,8 +71440,8 @@ class font final
    */
   void add_style(const int mask) noexcept
   {
-    m_style |= mask;
-    TTF_SetFontStyle(m_font.get(), m_style);
+    const auto style = TTF_GetFontStyle(m_font.get());
+    TTF_SetFontStyle(m_font.get(), style | mask);
   }
 
   /**
@@ -67402,8 +71456,8 @@ class font final
    */
   void remove_style(const int mask) noexcept
   {
-    m_style &= ~mask;
-    TTF_SetFontStyle(m_font.get(), m_style);
+    const auto style = TTF_GetFontStyle(m_font.get());
+    TTF_SetFontStyle(m_font.get(), style & ~mask);
   }
 };
 
@@ -67736,7 +71790,7 @@ class basic_texture final
    *
    * \since 5.0.0
    */
-  template <typename TT = T, detail::is_handle<TT> = true>
+  template <typename TT = T, detail::is_handle<TT> = 0>
   explicit basic_texture(texture& owner) noexcept : m_texture{owner.get()}
   {}
 
@@ -67753,7 +71807,7 @@ class basic_texture final
    *
    * \since 4.0.0
    */
-  template <typename Renderer, typename TT = T, detail::is_owner<TT> = true>
+  template <typename Renderer, typename TT = T, detail::is_owner<TT> = 0>
   basic_texture(const Renderer& renderer, const not_null<czstring> path)
       : m_texture{IMG_LoadTexture(renderer.get(), path)}
   {
@@ -67776,7 +71830,7 @@ class basic_texture final
    *
    * \since 5.3.0
    */
-  template <typename Renderer, typename TT = T, detail::is_owner<TT> = true>
+  template <typename Renderer, typename TT = T, detail::is_owner<TT> = 0>
   basic_texture(const Renderer& renderer, const std::string& path)
       : basic_texture{renderer, path.c_str()}
   {}
@@ -67794,7 +71848,7 @@ class basic_texture final
    *
    * \since 4.0.0
    */
-  template <typename Renderer, typename TT = T, detail::is_owner<TT> = true>
+  template <typename Renderer, typename TT = T, detail::is_owner<TT> = 0>
   basic_texture(const Renderer& renderer, const surface& surface)
       : m_texture{SDL_CreateTextureFromSurface(renderer.get(), surface.get())}
   {
@@ -67819,11 +71873,11 @@ class basic_texture final
    *
    * \since 4.0.0
    */
-  template <typename Renderer, typename TT = T, detail::is_owner<TT> = true>
+  template <typename Renderer, typename TT = T, detail::is_owner<TT> = 0>
   basic_texture(const Renderer& renderer,
                 const pixel_format format,
                 const texture_access access,
-                const iarea& size)
+                const iarea size)
       : m_texture{SDL_CreateTexture(renderer.get(),
                                     static_cast<u32>(format),
                                     static_cast<int>(access),
@@ -67856,7 +71910,7 @@ class basic_texture final
    *
    * \since 4.0.0
    */
-  template <typename Renderer, typename TT = T, detail::is_owner<TT> = true>
+  template <typename Renderer, typename TT = T, detail::is_owner<TT> = 0>
   [[nodiscard]] static auto streaming(const Renderer& renderer,
                                       const not_null<czstring> path,
                                       const pixel_format format)
@@ -67892,7 +71946,7 @@ class basic_texture final
    * \see streaming()
    * \since 5.3.0
    */
-  template <typename Renderer, typename TT = T, detail::is_owner<TT> = true>
+  template <typename Renderer, typename TT = T, detail::is_owner<TT> = 0>
   [[nodiscard]] static auto streaming(const Renderer& renderer,
                                       const std::string& path,
                                       const pixel_format format)
@@ -67917,7 +71971,7 @@ class basic_texture final
    *
    * \since 4.0.0
    */
-  void set_pixel(const ipoint& pixel, const color& color)
+  void set_pixel(const ipoint pixel, const color& color)
   {
     if (access() != texture_access::streaming || (pixel.x() < 0) ||
         (pixel.y() < 0) || (pixel.x() >= width()) || (pixel.y() >= height()))
@@ -68186,7 +72240,7 @@ class basic_texture final
    *
    * \since 5.0.0
    */
-  template <typename TT = T, detail::is_owner<TT> = true>
+  template <typename TT = T, detail::is_owner<TT> = 0>
   [[nodiscard]] auto release() noexcept -> owner<SDL_Texture*>
   {
     return m_texture.release();
@@ -68218,7 +72272,7 @@ class basic_texture final
    *
    * \since 5.0.0
    */
-  template <typename TT = T, detail::is_handle<TT> = true>
+  template <typename TT = T, detail::is_handle<TT> = 0>
   explicit operator bool() const noexcept
   {
     return m_texture != nullptr;
@@ -70591,9 +74645,9 @@ class basic_window final
    *
    * \since 3.0.0
    */
-  template <typename BB = B, detail::is_owner<BB> = true>
+  template <typename BB = B, detail::is_owner<BB> = 0>
   explicit basic_window(const not_null<czstring> title,
-                        const iarea& size = default_size(),
+                        const iarea size = default_size(),
                         const u32 flags = default_flags())
   {
     assert(title);
@@ -70638,9 +74692,9 @@ class basic_window final
    *
    * \since 5.3.0
    */
-  template <typename BB = B, detail::is_owner<BB> = true>
+  template <typename BB = B, detail::is_owner<BB> = 0>
   explicit basic_window(const std::string& title,
-                        const iarea& size = default_size(),
+                        const iarea size = default_size(),
                         const u32 flags = default_flags())
       : basic_window{title.c_str(), size, flags}
   {}
@@ -70655,7 +74709,7 @@ class basic_window final
    *
    * \since 3.0.0
    */
-  template <typename BB = B, detail::is_owner<BB> = true>
+  template <typename BB = B, detail::is_owner<BB> = 0>
   basic_window() : basic_window{"Centurion window"}
   {}
 
@@ -70666,7 +74720,7 @@ class basic_window final
    *
    * \since 5.0.0
    */
-  template <typename BB = B, detail::is_handle<BB> = true>
+  template <typename BB = B, detail::is_handle<BB> = 0>
   explicit basic_window(const window& owner) noexcept : m_window{owner.get()}
   {}
 
@@ -70760,12 +74814,14 @@ class basic_window final
    * \param fullscreen `true` if the window should enable fullscreen mode;
    * `false` for windowed mode.
    *
+   * \return `true` on success; `false` otherwise.
+   *
    * \since 3.0.0
    */
-  void set_fullscreen(const bool fullscreen) noexcept
+  auto set_fullscreen(const bool fullscreen) noexcept -> bool
   {
     constexpr auto flag = static_cast<unsigned>(SDL_WINDOW_FULLSCREEN);
-    SDL_SetWindowFullscreen(m_window, fullscreen ? flag : 0);
+    return SDL_SetWindowFullscreen(m_window, fullscreen ? flag : 0) == 0;
   }
 
   /**
@@ -70776,12 +74832,14 @@ class basic_window final
    * \param fullscreen `true` if the window should enable fullscreen desktop
    * mode; `false` for windowed mode.
    *
+   * \return `true` on success; `false` otherwise.
+   *
    * \since 4.0.0
    */
-  void set_fullscreen_desktop(const bool fullscreen) noexcept
+  auto set_fullscreen_desktop(const bool fullscreen) noexcept -> bool
   {
-    const auto flag = static_cast<unsigned>(SDL_WINDOW_FULLSCREEN_DESKTOP);
-    SDL_SetWindowFullscreen(m_window, fullscreen ? flag : 0);
+    constexpr auto flag = static_cast<unsigned>(SDL_WINDOW_FULLSCREEN_DESKTOP);
+    return SDL_SetWindowFullscreen(m_window, fullscreen ? flag : 0) == 0;
   }
 
   /**
@@ -70857,11 +74915,13 @@ class basic_window final
    *
    * \param opacity the opacity, in the range [0, 1].
    *
+   * \return `true` on success; `false` otherwise.
+   *
    * \since 3.0.0
    */
-  void set_opacity(const float opacity) noexcept
+  auto set_opacity(const float opacity) noexcept -> bool
   {
-    SDL_SetWindowOpacity(m_window, opacity);
+    return SDL_SetWindowOpacity(m_window, opacity) == 0;
   }
 
   /**
@@ -70893,10 +74953,8 @@ class basic_window final
    */
   auto set_brightness(const float brightness) noexcept -> bool
   {
-    const auto res =
-        SDL_SetWindowBrightness(m_window,
-                                detail::clamp(brightness, 0.0f, 1.0f));
-    return res == 0;
+    return SDL_SetWindowBrightness(m_window,
+                                   detail::clamp(brightness, 0.0f, 1.0f)) == 0;
   }
 
   /**
@@ -70908,13 +74966,15 @@ class basic_window final
    * \param capturingMouse `true` if the mouse should be captured; `false`
    * otherwise.
    *
+   * \return `true` on success; `false` otherwise.
+   *
    * \see `SDL_CaptureMouse`
    *
    * \since 5.0.0
    */
-  static void set_capturing_mouse(const bool capturingMouse) noexcept
+  static auto set_capturing_mouse(const bool capturingMouse) noexcept -> bool
   {
-    SDL_CaptureMouse(detail::convert_bool(capturingMouse));
+    return SDL_CaptureMouse(detail::convert_bool(capturingMouse)) == 0;
   }
 
   /// \} End of setters
@@ -70968,7 +75028,7 @@ class basic_window final
    *
    * \since 5.0.0
    */
-  void set_position(const ipoint& position) noexcept
+  void set_position(const ipoint position) noexcept
   {
     SDL_SetWindowPosition(m_window, position.x(), position.y());
   }
@@ -70982,9 +75042,7 @@ class basic_window final
    */
   [[nodiscard]] auto x() const noexcept -> int
   {
-    int x{};
-    SDL_GetWindowPosition(m_window, &x, nullptr);
-    return x;
+    return position().x();
   }
 
   /**
@@ -70996,9 +75054,7 @@ class basic_window final
    */
   [[nodiscard]] auto y() const noexcept -> int
   {
-    int y{};
-    SDL_GetWindowPosition(m_window, nullptr, &y);
-    return y;
+    return position().y();
   }
 
   /**
@@ -71061,7 +75117,7 @@ class basic_window final
    *
    * \since 5.0.0
    */
-  void set_size(const iarea& size) noexcept
+  void set_size(const iarea size) noexcept
   {
     const auto width = detail::max(size.width, 1);
     const auto height = detail::max(size.height, 1);
@@ -71079,7 +75135,7 @@ class basic_window final
    *
    * \since 3.0.0
    */
-  void set_min_size(const iarea& size) noexcept
+  void set_min_size(const iarea size) noexcept
   {
     SDL_SetWindowMinimumSize(m_window, size.width, size.height);
   }
@@ -71095,7 +75151,7 @@ class basic_window final
    *
    * \since 3.0.0
    */
-  void set_max_size(const iarea& size) noexcept
+  void set_max_size(const iarea size) noexcept
   {
     SDL_SetWindowMaximumSize(m_window, size.width, size.height);
   }
@@ -71109,9 +75165,7 @@ class basic_window final
    */
   [[nodiscard]] auto width() const noexcept -> int
   {
-    int width{};
-    SDL_GetWindowSize(m_window, &width, nullptr);
-    return width;
+    return size().width;
   }
 
   /**
@@ -71123,9 +75177,7 @@ class basic_window final
    */
   [[nodiscard]] auto height() const noexcept -> int
   {
-    int height{};
-    SDL_GetWindowSize(m_window, nullptr, &height);
-    return height;
+    return size().height;
   }
 
   /**
@@ -71184,7 +75236,7 @@ class basic_window final
    *
    * \since 5.0.0
    */
-  template <typename BB = B, detail::is_owner<BB> = true>
+  template <typename BB = B, detail::is_owner<BB> = 0>
   [[nodiscard]] constexpr static auto default_size() noexcept -> iarea
   {
     return {800, 600};
@@ -71428,7 +75480,7 @@ class basic_window final
     return static_cast<bool>(flags() & flag);
   }
 
-  template <typename BB = B, detail::is_owner<BB> = true>
+  template <typename BB = B, detail::is_owner<BB> = 0>
   [[nodiscard]] constexpr static auto default_flags() noexcept -> u32
   {
     return SDL_WINDOW_HIDDEN;
@@ -71554,6 +75606,20 @@ class basic_window final
   }
 
   /**
+   * \brief Indicates whether or not the screen keyboard is shown for the
+   * window.
+   *
+   * \return `true` if the screen keyboard is shown for the window; `false`
+   * otherwise.
+   *
+   * \since 6.0.0
+   */
+  [[nodiscard]] auto is_screen_keyboard_shown() const noexcept -> bool
+  {
+    return SDL_IsScreenKeyboardShown(get()) == SDL_TRUE;
+  }
+
+  /**
    * \brief Returns a pointer to the associated SDL window.
    *
    * \warning Don't take ownership of the returned pointer!
@@ -71608,7 +75674,7 @@ class basic_window final
    *
    * \since 5.0.0
    */
-  template <typename BB = B, detail::is_handle<BB> = true>
+  template <typename BB = B, detail::is_handle<BB> = 0>
   explicit operator bool() const noexcept
   {
     return m_window != nullptr;
@@ -72455,9 +76521,39 @@ enum class attribute
 #ifndef CENTURION_NOT_NULL_HEADER
 #define CENTURION_NOT_NULL_HEADER
 
-#include <SDL.h>
+// #include "sfinae.hpp"
+#ifndef CENTURION_SFINAE_HEADER
+#define CENTURION_SFINAE_HEADER
 
-#include <type_traits>  // enable_if_t, is_pointer_v
+#include <type_traits>  // enable_if_t, is_same_v, is_integral_v, is_floating_point_v, ...
+
+namespace cen {
+
+/// \addtogroup misc
+/// \{
+
+// clang-format off
+
+template <typename T>
+using enable_if_number_t = std::enable_if_t<!std::is_same_v<T, bool> &&
+                                            (std::is_integral_v<T> ||
+                                             std::is_floating_point_v<T>), int>;
+
+// clang-format on
+
+template <typename T>
+using enable_if_pointer_v = std::enable_if_t<std::is_pointer_v<T>, int>;
+
+template <typename T, typename... Args>
+using enable_if_convertible_t =
+    std::enable_if_t<(std::is_convertible_v<T, Args> || ...), int>;
+
+/// \} End of group misc
+
+}  // namespace cen
+
+#endif  // CENTURION_SFINAE_HEADER
+
 
 namespace cen {
 
@@ -72472,7 +76568,7 @@ namespace cen {
  *
  * \since 5.0.0
  */
-template <typename T, typename = std::enable_if_t<std::is_pointer_v<T>>>
+template <typename T, enable_if_pointer_v<T> = 0>
 using not_null = T;
 
 }  // namespace cen
@@ -72481,6 +76577,9 @@ using not_null = T;
 
 
 namespace cen {
+
+/// \addtogroup misc
+/// \{
 
 /**
  * \typedef czstring
@@ -72495,6 +76594,8 @@ using czstring = const char*;
  * \brief Alias for a C-style null-terminated string.
  */
 using zstring = char*;
+
+/// \} End of group misc
 
 }  // namespace cen
 
@@ -72680,10 +76781,10 @@ using owning_type = std::true_type;
 using handle_type = std::false_type;
 
 template <typename T>
-using is_owner = std::enable_if_t<std::is_same_v<T, owning_type>, bool>;
+using is_owner = std::enable_if_t<std::is_same_v<T, owning_type>, int>;
 
 template <typename T>
-using is_handle = std::enable_if_t<std::is_same_v<T, handle_type>, bool>;
+using is_handle = std::enable_if_t<std::is_same_v<T, handle_type>, int>;
 
 template <typename T>
 [[nodiscard]] constexpr auto is_owning() noexcept -> bool
@@ -72704,7 +76805,7 @@ class pointer_manager final
   explicit pointer_manager(Type* ptr) noexcept : m_ptr{ptr}
   {}
 
-  template <typename BB = B, is_owner<BB> = true>
+  template <typename BB = B, is_owner<BB> = 0>
   void reset(Type* ptr) noexcept
   {
     m_ptr.reset(ptr);
@@ -72742,7 +76843,7 @@ class pointer_manager final
     return get();
   }
 
-  template <typename BB = B, is_owner<BB> = true>
+  template <typename BB = B, is_owner<BB> = 0>
   [[nodiscard]] auto release() noexcept -> Type*
   {
     return m_ptr.release();
@@ -72788,9 +76889,39 @@ class pointer_manager final
 #ifndef CENTURION_NOT_NULL_HEADER
 #define CENTURION_NOT_NULL_HEADER
 
-#include <SDL.h>
+// #include "sfinae.hpp"
+#ifndef CENTURION_SFINAE_HEADER
+#define CENTURION_SFINAE_HEADER
 
-#include <type_traits>  // enable_if_t, is_pointer_v
+#include <type_traits>  // enable_if_t, is_same_v, is_integral_v, is_floating_point_v, ...
+
+namespace cen {
+
+/// \addtogroup misc
+/// \{
+
+// clang-format off
+
+template <typename T>
+using enable_if_number_t = std::enable_if_t<!std::is_same_v<T, bool> &&
+                                            (std::is_integral_v<T> ||
+                                             std::is_floating_point_v<T>), int>;
+
+// clang-format on
+
+template <typename T>
+using enable_if_pointer_v = std::enable_if_t<std::is_pointer_v<T>, int>;
+
+template <typename T, typename... Args>
+using enable_if_convertible_t =
+    std::enable_if_t<(std::is_convertible_v<T, Args> || ...), int>;
+
+/// \} End of group misc
+
+}  // namespace cen
+
+#endif  // CENTURION_SFINAE_HEADER
+
 
 namespace cen {
 
@@ -72805,7 +76936,7 @@ namespace cen {
  *
  * \since 5.0.0
  */
-template <typename T, typename = std::enable_if_t<std::is_pointer_v<T>>>
+template <typename T, enable_if_pointer_v<T> = 0>
 using not_null = T;
 
 }  // namespace cen
@@ -72814,6 +76945,9 @@ using not_null = T;
 
 
 namespace cen {
+
+/// \addtogroup misc
+/// \{
 
 /**
  * \typedef czstring
@@ -72828,6 +76962,8 @@ using czstring = const char*;
  * \brief Alias for a C-style null-terminated string.
  */
 using zstring = char*;
+
+/// \} End of group misc
 
 }  // namespace cen
 
@@ -73193,9 +77329,39 @@ template <typename T>
 #ifndef CENTURION_NOT_NULL_HEADER
 #define CENTURION_NOT_NULL_HEADER
 
-#include <SDL.h>
+// #include "sfinae.hpp"
+#ifndef CENTURION_SFINAE_HEADER
+#define CENTURION_SFINAE_HEADER
 
-#include <type_traits>  // enable_if_t, is_pointer_v
+#include <type_traits>  // enable_if_t, is_same_v, is_integral_v, is_floating_point_v, ...
+
+namespace cen {
+
+/// \addtogroup misc
+/// \{
+
+// clang-format off
+
+template <typename T>
+using enable_if_number_t = std::enable_if_t<!std::is_same_v<T, bool> &&
+                                            (std::is_integral_v<T> ||
+                                             std::is_floating_point_v<T>), int>;
+
+// clang-format on
+
+template <typename T>
+using enable_if_pointer_v = std::enable_if_t<std::is_pointer_v<T>, int>;
+
+template <typename T, typename... Args>
+using enable_if_convertible_t =
+    std::enable_if_t<(std::is_convertible_v<T, Args> || ...), int>;
+
+/// \} End of group misc
+
+}  // namespace cen
+
+#endif  // CENTURION_SFINAE_HEADER
+
 
 namespace cen {
 
@@ -73210,7 +77376,7 @@ namespace cen {
  *
  * \since 5.0.0
  */
-template <typename T, typename = std::enable_if_t<std::is_pointer_v<T>>>
+template <typename T, enable_if_pointer_v<T> = 0>
 using not_null = T;
 
 }  // namespace cen
@@ -73219,6 +77385,9 @@ using not_null = T;
 
 
 namespace cen {
+
+/// \addtogroup misc
+/// \{
 
 /**
  * \typedef czstring
@@ -73233,6 +77402,8 @@ using czstring = const char*;
  * \brief Alias for a C-style null-terminated string.
  */
 using zstring = char*;
+
+/// \} End of group misc
 
 }  // namespace cen
 
@@ -73418,10 +77589,10 @@ using owning_type = std::true_type;
 using handle_type = std::false_type;
 
 template <typename T>
-using is_owner = std::enable_if_t<std::is_same_v<T, owning_type>, bool>;
+using is_owner = std::enable_if_t<std::is_same_v<T, owning_type>, int>;
 
 template <typename T>
-using is_handle = std::enable_if_t<std::is_same_v<T, handle_type>, bool>;
+using is_handle = std::enable_if_t<std::is_same_v<T, handle_type>, int>;
 
 template <typename T>
 [[nodiscard]] constexpr auto is_owning() noexcept -> bool
@@ -73442,7 +77613,7 @@ class pointer_manager final
   explicit pointer_manager(Type* ptr) noexcept : m_ptr{ptr}
   {}
 
-  template <typename BB = B, is_owner<BB> = true>
+  template <typename BB = B, is_owner<BB> = 0>
   void reset(Type* ptr) noexcept
   {
     m_ptr.reset(ptr);
@@ -73480,7 +77651,7 @@ class pointer_manager final
     return get();
   }
 
-  template <typename BB = B, is_owner<BB> = true>
+  template <typename BB = B, is_owner<BB> = 0>
   [[nodiscard]] auto release() noexcept -> Type*
   {
     return m_ptr.release();
@@ -73518,7 +77689,7 @@ class pointer_manager final
 #include <system_error>  // errc
 #include <type_traits>   // is_floating_point_v
 
-// #include "../compiler.hpp"
+// #include "../compiler/compiler.hpp"
 #ifndef CENTURION_COMPILER_HEADER
 #define CENTURION_COMPILER_HEADER
 
@@ -73729,7 +77900,7 @@ template <std::size_t bufferSize = 16, typename T>
 #include <system_error>  // errc
 #include <type_traits>   // is_floating_point_v
 
-// #include "../compiler.hpp"
+// #include "../compiler/compiler.hpp"
 #ifndef CENTURION_COMPILER_HEADER
 #define CENTURION_COMPILER_HEADER
 
@@ -73962,6 +78133,36 @@ namespace cen {
 /// \addtogroup math
 /// \{
 
+template <typename T>
+struct basic_area;
+
+/**
+ * \typedef iarea
+ *
+ * \brief An alias for `int` areas.
+ *
+ * \since 4.1.0
+ */
+using iarea = basic_area<int>;
+
+/**
+ * \typedef farea
+ *
+ * \brief An alias for `float` areas.
+ *
+ * \since 4.1.0
+ */
+using farea = basic_area<float>;
+
+/**
+ * \typedef darea
+ *
+ * \brief An alias for `double` areas.
+ *
+ * \since 4.1.0
+ */
+using darea = basic_area<double>;
+
 /**
  * \struct basic_area
  *
@@ -73990,6 +78191,28 @@ struct basic_area final
   static_assert(!std::is_same_v<T, bool>);
 };
 
+/// \name Area-related functions
+/// \{
+
+/**
+ * \brief Creates an area instance with automatically deduced precision.
+ *
+ * \tparam T the deduced type of the width and height values.
+ *
+ * \param width the width of the area.
+ * \param height the height of the area.
+ *
+ * \return an area instance with the specified width and height.
+ *
+ * \since 6.0.0
+ */
+template <typename T>
+[[nodiscard]] constexpr auto area(const T width, const T height) noexcept
+    -> basic_area<T>
+{
+  return {width, height};
+}
+
 /**
  * \brief Returns the size (width x height) of an area.
  *
@@ -74007,32 +78230,7 @@ template <typename T>
   return area.width * area.height;
 }
 
-/**
- * \typedef iarea
- *
- * \brief An alias for `int` areas.
- *
- * \since 4.1.0
- */
-using iarea = basic_area<int>;
-
-/**
- * \typedef farea
- *
- * \brief An alias for `float` areas.
- *
- * \since 4.1.0
- */
-using farea = basic_area<float>;
-
-/**
- * \typedef darea
- *
- * \brief An alias for `double` areas.
- *
- * \since 4.1.0
- */
-using darea = basic_area<double>;
+/// \} End of area-related functions
 
 /**
  * \brief Serializes an area instance.
@@ -74187,7 +78385,7 @@ auto operator<<(std::ostream& stream, const basic_area<T>& area)
 
 #include <ostream>      // ostream
 #include <string>       // string
-#include <type_traits>  // enable_if_t, is_convertible_v, conditional_t, ...
+#include <type_traits>  // conditional_t, is_integral_v, is_floating_point_v, ...
 
 // #include "../detail/max.hpp"
 #ifndef CENTURION_DETAIL_MAX_HEADER
@@ -74239,6 +78437,39 @@ template <typename T>
 
 // #include "../misc/cast.hpp"
 
+// #include "../misc/sfinae.hpp"
+#ifndef CENTURION_SFINAE_HEADER
+#define CENTURION_SFINAE_HEADER
+
+#include <type_traits>  // enable_if_t, is_same_v, is_integral_v, is_floating_point_v, ...
+
+namespace cen {
+
+/// \addtogroup misc
+/// \{
+
+// clang-format off
+
+template <typename T>
+using enable_if_number_t = std::enable_if_t<!std::is_same_v<T, bool> &&
+                                            (std::is_integral_v<T> ||
+                                             std::is_floating_point_v<T>), int>;
+
+// clang-format on
+
+template <typename T>
+using enable_if_pointer_v = std::enable_if_t<std::is_pointer_v<T>, int>;
+
+template <typename T, typename... Args>
+using enable_if_convertible_t =
+    std::enable_if_t<(std::is_convertible_v<T, Args> || ...), int>;
+
+/// \} End of group misc
+
+}  // namespace cen
+
+#endif  // CENTURION_SFINAE_HEADER
+
 // #include "area.hpp"
 #ifndef CENTURION_AREA_HEADER
 #define CENTURION_AREA_HEADER
@@ -74256,6 +78487,36 @@ namespace cen {
 
 /// \addtogroup math
 /// \{
+
+template <typename T>
+struct basic_area;
+
+/**
+ * \typedef iarea
+ *
+ * \brief An alias for `int` areas.
+ *
+ * \since 4.1.0
+ */
+using iarea = basic_area<int>;
+
+/**
+ * \typedef farea
+ *
+ * \brief An alias for `float` areas.
+ *
+ * \since 4.1.0
+ */
+using farea = basic_area<float>;
+
+/**
+ * \typedef darea
+ *
+ * \brief An alias for `double` areas.
+ *
+ * \since 4.1.0
+ */
+using darea = basic_area<double>;
 
 /**
  * \struct basic_area
@@ -74285,6 +78546,28 @@ struct basic_area final
   static_assert(!std::is_same_v<T, bool>);
 };
 
+/// \name Area-related functions
+/// \{
+
+/**
+ * \brief Creates an area instance with automatically deduced precision.
+ *
+ * \tparam T the deduced type of the width and height values.
+ *
+ * \param width the width of the area.
+ * \param height the height of the area.
+ *
+ * \return an area instance with the specified width and height.
+ *
+ * \since 6.0.0
+ */
+template <typename T>
+[[nodiscard]] constexpr auto area(const T width, const T height) noexcept
+    -> basic_area<T>
+{
+  return {width, height};
+}
+
 /**
  * \brief Returns the size (width x height) of an area.
  *
@@ -74302,32 +78585,7 @@ template <typename T>
   return area.width * area.height;
 }
 
-/**
- * \typedef iarea
- *
- * \brief An alias for `int` areas.
- *
- * \since 4.1.0
- */
-using iarea = basic_area<int>;
-
-/**
- * \typedef farea
- *
- * \brief An alias for `float` areas.
- *
- * \since 4.1.0
- */
-using farea = basic_area<float>;
-
-/**
- * \typedef darea
- *
- * \brief An alias for `double` areas.
- *
- * \since 4.1.0
- */
-using darea = basic_area<double>;
+/// \} End of area-related functions
 
 /**
  * \brief Serializes an area instance.
@@ -74483,11 +78741,13 @@ auto operator<<(std::ostream& stream, const basic_area<T>& area)
 #include <cmath>        // sqrt, abs, round
 #include <ostream>      // ostream
 #include <string>       // string
-#include <type_traits>  // enable_if_t, conditional_t, is_convertible_v, ...
+#include <type_traits>  // conditional_t, is_integral_v, is_floating_point_v, ...
 
 // #include "../detail/to_string.hpp"
 
 // #include "../misc/cast.hpp"
+
+// #include "../misc/sfinae.hpp"
 
 
 namespace cen {
@@ -74508,10 +78768,7 @@ namespace cen {
  *
  * \headerfile point.hpp
  */
-template <typename T,
-          std::enable_if_t<std::is_convertible_v<T, int> ||
-                               std::is_convertible_v<T, float>,
-                           int> = 0>
+template <typename T, enable_if_convertible_t<T, int, float> = 0>
 class point_traits final
 {
  public:
@@ -74820,6 +79077,36 @@ class basic_point final
   point_type m_point{0, 0};
 };
 
+/// \name Point-related functions
+/// \{
+
+/**
+ * \brief Creates a point instance with automatically deduced precision.
+ *
+ * \note The only supported precisions for points are `int` and `float`, so
+ * this function will cast the supplied values to the corresponding type. For
+ * example, if you supply two doubles to this function, the returned point will
+ * use float as the precision.
+ *
+ * \tparam T the deduced precision type, must be a numerical type other than
+ * `bool`.
+ *
+ * \param x the x-coordinate of the point.
+ * \param y the y-coordinate of the point.
+ *
+ * \return the created point.
+ *
+ * \since 6.0.0
+ */
+template <typename T, enable_if_number_t<T> = 0>
+[[nodiscard]] constexpr auto point(const T x, const T y) noexcept
+    -> basic_point<typename point_traits<T>::value_type>
+{
+  using value_type = typename point_traits<T>::value_type;
+  return basic_point<value_type>{static_cast<value_type>(x),
+                                 static_cast<value_type>(y)};
+}
+
 /**
  * \brief Returns the distance between two points.
  *
@@ -74833,8 +79120,8 @@ class basic_point final
  * \since 5.0.0
  */
 template <typename T>
-[[nodiscard]] inline auto distance(const basic_point<T>& from,
-                                   const basic_point<T>& to) noexcept ->
+[[nodiscard]] auto distance(const basic_point<T>& from,
+                            const basic_point<T>& to) noexcept ->
     typename point_traits<T>::value_type
 {
   if constexpr (basic_point<T>::isIntegral)
@@ -74850,13 +79137,15 @@ template <typename T>
   }
 }
 
-[[nodiscard]] inline auto to_string(const ipoint& point) -> std::string
+/// \} End of point-related functions
+
+[[nodiscard]] inline auto to_string(const ipoint point) -> std::string
 {
   return "ipoint{X: " + detail::to_string(point.x()).value() +
          ", Y: " + detail::to_string(point.y()).value() + "}";
 }
 
-[[nodiscard]] inline auto to_string(const fpoint& point) -> std::string
+[[nodiscard]] inline auto to_string(const fpoint point) -> std::string
 {
   return "fpoint{X: " + detail::to_string(point.x()).value() +
          ", Y: " + detail::to_string(point.y()).value() + "}";
@@ -74980,26 +79269,26 @@ template <typename T>
 /// \name Point comparison operators
 /// \{
 
-[[nodiscard]] constexpr auto operator==(const ipoint& lhs,
-                                        const ipoint& rhs) noexcept -> bool
+[[nodiscard]] constexpr auto operator==(const ipoint lhs,
+                                        const ipoint rhs) noexcept -> bool
 {
   return (lhs.x() == rhs.x()) && (lhs.y() == rhs.y());
 }
 
-[[nodiscard]] constexpr auto operator==(const fpoint& lhs,
-                                        const fpoint& rhs) noexcept -> bool
+[[nodiscard]] constexpr auto operator==(const fpoint lhs,
+                                        const fpoint rhs) noexcept -> bool
 {
   return (lhs.x() == rhs.x()) && (lhs.y() == rhs.y());
 }
 
-[[nodiscard]] constexpr auto operator!=(const ipoint& lhs,
-                                        const ipoint& rhs) noexcept -> bool
+[[nodiscard]] constexpr auto operator!=(const ipoint lhs,
+                                        const ipoint rhs) noexcept -> bool
 {
   return !(lhs == rhs);
 }
 
-[[nodiscard]] constexpr auto operator!=(const fpoint& lhs,
-                                        const fpoint& rhs) noexcept -> bool
+[[nodiscard]] constexpr auto operator!=(const fpoint lhs,
+                                        const fpoint rhs) noexcept -> bool
 {
   return !(lhs == rhs);
 }
@@ -75035,9 +79324,7 @@ namespace cen {
  *
  * \headerfile rect.hpp
  */
-template <typename T,
-          typename = std::enable_if_t<std::is_convertible_v<T, int> ||
-                                      std::is_convertible_v<T, float>>>
+template <typename T, enable_if_convertible_t<T, int, float> = 0>
 class rect_traits final
 {
  public:
@@ -75613,6 +79900,39 @@ class basic_rect final
 /// \{
 
 /**
+ * \brief Creates a rectangle with automatically deduced precision.
+ *
+ * \note The only supported precisions for rectangles are `int` and `float`, so
+ * this function will cast the supplied values to the corresponding type. For
+ * example, if you supply doubles to this function, the returned point will
+ * use float as the precision.
+ *
+ * \tparam T the deduced precision type.
+ *
+ * \param x the x-coordinate of the rectangle.
+ * \param y the y-coordinate of the rectangle.
+ * \param width the width of the rectangle.
+ * \param height the height of the rectangle.
+ *
+ * \return a rectangle with the specified position and size.
+ *
+ * \since 6.0.0
+ */
+template <typename T, enable_if_number_t<T> = 0>
+[[nodiscard]] constexpr auto rect(const T x,
+                                  const T y,
+                                  const T width,
+                                  const T height) noexcept
+    -> basic_rect<typename rect_traits<T>::value_type>
+{
+  using value_type = typename rect_traits<T>::value_type;
+  return basic_rect<value_type>{static_cast<value_type>(x),
+                                static_cast<value_type>(y),
+                                static_cast<value_type>(width),
+                                static_cast<value_type>(height)};
+}
+
+/**
  * \brief Indicates whether or not the two rectangles intersect.
  *
  * \details This function does *not* consider rectangles with overlapping
@@ -75833,9 +80153,39 @@ auto operator<<(std::ostream& stream, const basic_rect<T>& rect)
 #ifndef CENTURION_NOT_NULL_HEADER
 #define CENTURION_NOT_NULL_HEADER
 
-#include <SDL.h>
+// #include "sfinae.hpp"
+#ifndef CENTURION_SFINAE_HEADER
+#define CENTURION_SFINAE_HEADER
 
-#include <type_traits>  // enable_if_t, is_pointer_v
+#include <type_traits>  // enable_if_t, is_same_v, is_integral_v, is_floating_point_v, ...
+
+namespace cen {
+
+/// \addtogroup misc
+/// \{
+
+// clang-format off
+
+template <typename T>
+using enable_if_number_t = std::enable_if_t<!std::is_same_v<T, bool> &&
+                                            (std::is_integral_v<T> ||
+                                             std::is_floating_point_v<T>), int>;
+
+// clang-format on
+
+template <typename T>
+using enable_if_pointer_v = std::enable_if_t<std::is_pointer_v<T>, int>;
+
+template <typename T, typename... Args>
+using enable_if_convertible_t =
+    std::enable_if_t<(std::is_convertible_v<T, Args> || ...), int>;
+
+/// \} End of group misc
+
+}  // namespace cen
+
+#endif  // CENTURION_SFINAE_HEADER
+
 
 namespace cen {
 
@@ -75850,7 +80200,7 @@ namespace cen {
  *
  * \since 5.0.0
  */
-template <typename T, typename = std::enable_if_t<std::is_pointer_v<T>>>
+template <typename T, enable_if_pointer_v<T> = 0>
 using not_null = T;
 
 }  // namespace cen
@@ -75859,6 +80209,9 @@ using not_null = T;
 
 
 namespace cen {
+
+/// \addtogroup misc
+/// \{
 
 /**
  * \typedef czstring
@@ -75873,6 +80226,8 @@ using czstring = const char*;
  * \brief Alias for a C-style null-terminated string.
  */
 using zstring = char*;
+
+/// \} End of group misc
 
 }  // namespace cen
 
@@ -75898,6 +80253,9 @@ using zstring = char*;
 
 namespace cen {
 
+/// \addtogroup misc
+/// \{
+
 /**
  * \typedef czstring
  *
@@ -75911,6 +80269,8 @@ using czstring = const char*;
  * \brief Alias for a C-style null-terminated string.
  */
 using zstring = char*;
+
+/// \} End of group misc
 
 }  // namespace cen
 
@@ -76092,9 +80452,8 @@ class mix_error final : public cen_error
 #ifndef CENTURION_NOT_NULL_HEADER
 #define CENTURION_NOT_NULL_HEADER
 
-#include <SDL.h>
+// #include "sfinae.hpp"
 
-#include <type_traits>  // enable_if_t, is_pointer_v
 
 namespace cen {
 
@@ -76109,7 +80468,7 @@ namespace cen {
  *
  * \since 5.0.0
  */
-template <typename T, typename = std::enable_if_t<std::is_pointer_v<T>>>
+template <typename T, enable_if_pointer_v<T> = 0>
 using not_null = T;
 
 }  // namespace cen
@@ -76137,6 +80496,9 @@ using not_null = T;
 #include <SDL.h>
 
 namespace cen {
+
+/// \addtogroup misc
+/// \{
 
 /// \name Integer aliases
 /// \{
@@ -76344,6 +80706,9 @@ namespace literals {
 }
 
 }  // namespace literals
+
+/// \} End of group misc
+
 }  // namespace cen
 
 #endif  // CENTURION_INTEGERS_HEADER
@@ -76829,7 +81194,7 @@ class color final
    * component to obtain the blended color. The bias parameter is the "alpha"
    * for the interpolation, which determines how the input colors are blended.
    * For example, a bias of 0 or 1 will simply result in the first or second
-   * color being returned, respectively. Subsequently, a bias of 0.5 with blend
+   * color being returned, respectively. Subsequently, a bias of 0.5 will blend
    * the two colors evenly.
    *
    * \param a the first color.
@@ -77230,7 +81595,7 @@ class basic_pixel_format_info final
    *
    * \since 5.2.0
    */
-  template <typename BB = B, detail::is_owner<BB> = true>
+  template <typename BB = B, detail::is_owner<BB> = 0>
   explicit basic_pixel_format_info(const pixel_format format)
       : m_format{SDL_AllocFormat(static_cast<u32>(format))}
   {
@@ -77249,7 +81614,7 @@ class basic_pixel_format_info final
    *
    * \since 5.2.0
    */
-  template <typename BB = B, detail::is_handle<BB> = true>
+  template <typename BB = B, detail::is_handle<BB> = 0>
   explicit basic_pixel_format_info(const pixel_format_info& info) noexcept
       : m_format{info.get()}
   {}
@@ -77390,7 +81755,7 @@ class basic_pixel_format_info final
    *
    * \since 5.2.0
    */
-  template <typename BB = B, detail::is_handle<BB> = true>
+  template <typename BB = B, detail::is_handle<BB> = 0>
   [[nodiscard]] explicit operator bool() const noexcept
   {
     return m_format;
@@ -77504,7 +81869,8 @@ class basic_pixel_format_info final
 #ifndef CENTURION_OWNER_HEADER
 #define CENTURION_OWNER_HEADER
 
-#include <type_traits>  // enable_if_t, is_pointer_v
+// #include "sfinae.hpp"
+
 
 namespace cen {
 
@@ -77519,7 +81885,7 @@ namespace cen {
  * function will claim ownership of that pointer. Subsequently, if a function
  * returns an `owner<T*>`, then ownership is transferred to the caller.
  */
-template <typename T, typename = std::enable_if_t<std::is_pointer_v<T>>>
+template <typename T, enable_if_pointer_v<T> = 0>
 using owner = T;
 
 }  // namespace cen
@@ -77715,7 +82081,7 @@ class basic_surface final
    *
    * \since 4.0.0
    */
-  template <typename TT = T, detail::is_owner<TT> = true>
+  template <typename TT = T, detail::is_owner<TT> = 0>
   explicit basic_surface(const not_null<czstring> file)
       : m_surface{IMG_Load(file)}
   {
@@ -77736,7 +82102,7 @@ class basic_surface final
    *
    * \since 5.3.0
    */
-  template <typename TT = T, detail::is_owner<TT> = true>
+  template <typename TT = T, detail::is_owner<TT> = 0>
   explicit basic_surface(const std::string& file) : basic_surface{file.c_str()}
   {}
 
@@ -77752,7 +82118,7 @@ class basic_surface final
    *
    * \since 5.3.0
    */
-  template <typename TT = T, detail::is_owner<TT> = true>
+  template <typename TT = T, detail::is_owner<TT> = 0>
   basic_surface(const iarea size, const pixel_format pixelFormat)
       : m_surface{SDL_CreateRGBSurfaceWithFormat(0,
                                                  size.width,
@@ -77779,7 +82145,7 @@ class basic_surface final
    *
    * \since 5.2.0
    */
-  template <typename TT = T, detail::is_owner<TT> = true>
+  template <typename TT = T, detail::is_owner<TT> = 0>
   [[nodiscard]] static auto with_format(const not_null<czstring> file,
                                         const blend_mode blendMode,
                                         const pixel_format pixelFormat)
@@ -77796,7 +82162,7 @@ class basic_surface final
   /**
    * \see with_format()
    */
-  template <typename TT = T, detail::is_owner<TT> = true>
+  template <typename TT = T, detail::is_owner<TT> = 0>
   [[nodiscard]] static auto with_format(const std::string& file,
                                         const blend_mode blendMode,
                                         const pixel_format pixelFormat)
@@ -77818,7 +82184,7 @@ class basic_surface final
    *
    * \since 5.3.0
    */
-  template <typename TT = T, detail::is_owner<TT> = true>
+  template <typename TT = T, detail::is_owner<TT> = 0>
   [[nodiscard]] static auto from_bmp(const not_null<czstring> file)
       -> basic_surface
   {
@@ -77829,7 +82195,7 @@ class basic_surface final
   /**
    * \see from_bmp()
    */
-  template <typename TT = T, detail::is_owner<TT> = true>
+  template <typename TT = T, detail::is_owner<TT> = 0>
   [[nodiscard]] static auto from_bmp(const std::string& file) -> basic_surface
   {
     return from_bmp(file.c_str());
@@ -78061,7 +82427,7 @@ class basic_surface final
    *
    * \since 4.0.0
    */
-  void set_pixel(const ipoint& pixel, const color& color) noexcept
+  void set_pixel(const ipoint pixel, const color& color) noexcept
   {
     if (!in_bounds(pixel) || !lock())
     {
@@ -78377,7 +82743,7 @@ class basic_surface final
    *
    * \since 5.0.0
    */
-  template <typename TT = T, detail::is_handle<TT> = true>
+  template <typename TT = T, detail::is_handle<TT> = 0>
   explicit operator bool() const noexcept
   {
     return m_surface != nullptr;
@@ -78445,7 +82811,7 @@ class basic_surface final
    *
    * \since 4.0.0
    */
-  [[nodiscard]] auto in_bounds(const ipoint& point) const noexcept -> bool
+  [[nodiscard]] auto in_bounds(const ipoint point) const noexcept -> bool
   {
     return !(point.x() < 0 || point.y() < 0 || point.x() >= width() ||
              point.y() >= height());
@@ -78608,9 +82974,9 @@ class basic_window final
    *
    * \since 3.0.0
    */
-  template <typename BB = B, detail::is_owner<BB> = true>
+  template <typename BB = B, detail::is_owner<BB> = 0>
   explicit basic_window(const not_null<czstring> title,
-                        const iarea& size = default_size(),
+                        const iarea size = default_size(),
                         const u32 flags = default_flags())
   {
     assert(title);
@@ -78655,9 +83021,9 @@ class basic_window final
    *
    * \since 5.3.0
    */
-  template <typename BB = B, detail::is_owner<BB> = true>
+  template <typename BB = B, detail::is_owner<BB> = 0>
   explicit basic_window(const std::string& title,
-                        const iarea& size = default_size(),
+                        const iarea size = default_size(),
                         const u32 flags = default_flags())
       : basic_window{title.c_str(), size, flags}
   {}
@@ -78672,7 +83038,7 @@ class basic_window final
    *
    * \since 3.0.0
    */
-  template <typename BB = B, detail::is_owner<BB> = true>
+  template <typename BB = B, detail::is_owner<BB> = 0>
   basic_window() : basic_window{"Centurion window"}
   {}
 
@@ -78683,7 +83049,7 @@ class basic_window final
    *
    * \since 5.0.0
    */
-  template <typename BB = B, detail::is_handle<BB> = true>
+  template <typename BB = B, detail::is_handle<BB> = 0>
   explicit basic_window(const window& owner) noexcept : m_window{owner.get()}
   {}
 
@@ -78777,12 +83143,14 @@ class basic_window final
    * \param fullscreen `true` if the window should enable fullscreen mode;
    * `false` for windowed mode.
    *
+   * \return `true` on success; `false` otherwise.
+   *
    * \since 3.0.0
    */
-  void set_fullscreen(const bool fullscreen) noexcept
+  auto set_fullscreen(const bool fullscreen) noexcept -> bool
   {
     constexpr auto flag = static_cast<unsigned>(SDL_WINDOW_FULLSCREEN);
-    SDL_SetWindowFullscreen(m_window, fullscreen ? flag : 0);
+    return SDL_SetWindowFullscreen(m_window, fullscreen ? flag : 0) == 0;
   }
 
   /**
@@ -78793,12 +83161,14 @@ class basic_window final
    * \param fullscreen `true` if the window should enable fullscreen desktop
    * mode; `false` for windowed mode.
    *
+   * \return `true` on success; `false` otherwise.
+   *
    * \since 4.0.0
    */
-  void set_fullscreen_desktop(const bool fullscreen) noexcept
+  auto set_fullscreen_desktop(const bool fullscreen) noexcept -> bool
   {
-    const auto flag = static_cast<unsigned>(SDL_WINDOW_FULLSCREEN_DESKTOP);
-    SDL_SetWindowFullscreen(m_window, fullscreen ? flag : 0);
+    constexpr auto flag = static_cast<unsigned>(SDL_WINDOW_FULLSCREEN_DESKTOP);
+    return SDL_SetWindowFullscreen(m_window, fullscreen ? flag : 0) == 0;
   }
 
   /**
@@ -78874,11 +83244,13 @@ class basic_window final
    *
    * \param opacity the opacity, in the range [0, 1].
    *
+   * \return `true` on success; `false` otherwise.
+   *
    * \since 3.0.0
    */
-  void set_opacity(const float opacity) noexcept
+  auto set_opacity(const float opacity) noexcept -> bool
   {
-    SDL_SetWindowOpacity(m_window, opacity);
+    return SDL_SetWindowOpacity(m_window, opacity) == 0;
   }
 
   /**
@@ -78910,10 +83282,8 @@ class basic_window final
    */
   auto set_brightness(const float brightness) noexcept -> bool
   {
-    const auto res =
-        SDL_SetWindowBrightness(m_window,
-                                detail::clamp(brightness, 0.0f, 1.0f));
-    return res == 0;
+    return SDL_SetWindowBrightness(m_window,
+                                   detail::clamp(brightness, 0.0f, 1.0f)) == 0;
   }
 
   /**
@@ -78925,13 +83295,15 @@ class basic_window final
    * \param capturingMouse `true` if the mouse should be captured; `false`
    * otherwise.
    *
+   * \return `true` on success; `false` otherwise.
+   *
    * \see `SDL_CaptureMouse`
    *
    * \since 5.0.0
    */
-  static void set_capturing_mouse(const bool capturingMouse) noexcept
+  static auto set_capturing_mouse(const bool capturingMouse) noexcept -> bool
   {
-    SDL_CaptureMouse(detail::convert_bool(capturingMouse));
+    return SDL_CaptureMouse(detail::convert_bool(capturingMouse)) == 0;
   }
 
   /// \} End of setters
@@ -78985,7 +83357,7 @@ class basic_window final
    *
    * \since 5.0.0
    */
-  void set_position(const ipoint& position) noexcept
+  void set_position(const ipoint position) noexcept
   {
     SDL_SetWindowPosition(m_window, position.x(), position.y());
   }
@@ -78999,9 +83371,7 @@ class basic_window final
    */
   [[nodiscard]] auto x() const noexcept -> int
   {
-    int x{};
-    SDL_GetWindowPosition(m_window, &x, nullptr);
-    return x;
+    return position().x();
   }
 
   /**
@@ -79013,9 +83383,7 @@ class basic_window final
    */
   [[nodiscard]] auto y() const noexcept -> int
   {
-    int y{};
-    SDL_GetWindowPosition(m_window, nullptr, &y);
-    return y;
+    return position().y();
   }
 
   /**
@@ -79078,7 +83446,7 @@ class basic_window final
    *
    * \since 5.0.0
    */
-  void set_size(const iarea& size) noexcept
+  void set_size(const iarea size) noexcept
   {
     const auto width = detail::max(size.width, 1);
     const auto height = detail::max(size.height, 1);
@@ -79096,7 +83464,7 @@ class basic_window final
    *
    * \since 3.0.0
    */
-  void set_min_size(const iarea& size) noexcept
+  void set_min_size(const iarea size) noexcept
   {
     SDL_SetWindowMinimumSize(m_window, size.width, size.height);
   }
@@ -79112,7 +83480,7 @@ class basic_window final
    *
    * \since 3.0.0
    */
-  void set_max_size(const iarea& size) noexcept
+  void set_max_size(const iarea size) noexcept
   {
     SDL_SetWindowMaximumSize(m_window, size.width, size.height);
   }
@@ -79126,9 +83494,7 @@ class basic_window final
    */
   [[nodiscard]] auto width() const noexcept -> int
   {
-    int width{};
-    SDL_GetWindowSize(m_window, &width, nullptr);
-    return width;
+    return size().width;
   }
 
   /**
@@ -79140,9 +83506,7 @@ class basic_window final
    */
   [[nodiscard]] auto height() const noexcept -> int
   {
-    int height{};
-    SDL_GetWindowSize(m_window, nullptr, &height);
-    return height;
+    return size().height;
   }
 
   /**
@@ -79201,7 +83565,7 @@ class basic_window final
    *
    * \since 5.0.0
    */
-  template <typename BB = B, detail::is_owner<BB> = true>
+  template <typename BB = B, detail::is_owner<BB> = 0>
   [[nodiscard]] constexpr static auto default_size() noexcept -> iarea
   {
     return {800, 600};
@@ -79445,7 +83809,7 @@ class basic_window final
     return static_cast<bool>(flags() & flag);
   }
 
-  template <typename BB = B, detail::is_owner<BB> = true>
+  template <typename BB = B, detail::is_owner<BB> = 0>
   [[nodiscard]] constexpr static auto default_flags() noexcept -> u32
   {
     return SDL_WINDOW_HIDDEN;
@@ -79571,6 +83935,20 @@ class basic_window final
   }
 
   /**
+   * \brief Indicates whether or not the screen keyboard is shown for the
+   * window.
+   *
+   * \return `true` if the screen keyboard is shown for the window; `false`
+   * otherwise.
+   *
+   * \since 6.0.0
+   */
+  [[nodiscard]] auto is_screen_keyboard_shown() const noexcept -> bool
+  {
+    return SDL_IsScreenKeyboardShown(get()) == SDL_TRUE;
+  }
+
+  /**
    * \brief Returns a pointer to the associated SDL window.
    *
    * \warning Don't take ownership of the returned pointer!
@@ -79625,7 +84003,7 @@ class basic_window final
    *
    * \since 5.0.0
    */
-  template <typename BB = B, detail::is_handle<BB> = true>
+  template <typename BB = B, detail::is_handle<BB> = 0>
   explicit operator bool() const noexcept
   {
     return m_window != nullptr;
@@ -79791,7 +84169,7 @@ class basic_context final
 #include <system_error>  // errc
 #include <type_traits>   // is_floating_point_v
 
-// #include "../compiler.hpp"
+// #include "../compiler/compiler.hpp"
 #ifndef CENTURION_COMPILER_HEADER
 #define CENTURION_COMPILER_HEADER
 
@@ -80024,6 +84402,36 @@ namespace cen {
 /// \addtogroup math
 /// \{
 
+template <typename T>
+struct basic_area;
+
+/**
+ * \typedef iarea
+ *
+ * \brief An alias for `int` areas.
+ *
+ * \since 4.1.0
+ */
+using iarea = basic_area<int>;
+
+/**
+ * \typedef farea
+ *
+ * \brief An alias for `float` areas.
+ *
+ * \since 4.1.0
+ */
+using farea = basic_area<float>;
+
+/**
+ * \typedef darea
+ *
+ * \brief An alias for `double` areas.
+ *
+ * \since 4.1.0
+ */
+using darea = basic_area<double>;
+
 /**
  * \struct basic_area
  *
@@ -80052,6 +84460,28 @@ struct basic_area final
   static_assert(!std::is_same_v<T, bool>);
 };
 
+/// \name Area-related functions
+/// \{
+
+/**
+ * \brief Creates an area instance with automatically deduced precision.
+ *
+ * \tparam T the deduced type of the width and height values.
+ *
+ * \param width the width of the area.
+ * \param height the height of the area.
+ *
+ * \return an area instance with the specified width and height.
+ *
+ * \since 6.0.0
+ */
+template <typename T>
+[[nodiscard]] constexpr auto area(const T width, const T height) noexcept
+    -> basic_area<T>
+{
+  return {width, height};
+}
+
 /**
  * \brief Returns the size (width x height) of an area.
  *
@@ -80069,32 +84499,7 @@ template <typename T>
   return area.width * area.height;
 }
 
-/**
- * \typedef iarea
- *
- * \brief An alias for `int` areas.
- *
- * \since 4.1.0
- */
-using iarea = basic_area<int>;
-
-/**
- * \typedef farea
- *
- * \brief An alias for `float` areas.
- *
- * \since 4.1.0
- */
-using farea = basic_area<float>;
-
-/**
- * \typedef darea
- *
- * \brief An alias for `double` areas.
- *
- * \since 4.1.0
- */
-using darea = basic_area<double>;
+/// \} End of area-related functions
 
 /**
  * \brief Serializes an area instance.
@@ -80250,6 +84655,9 @@ auto operator<<(std::ostream& stream, const basic_area<T>& area)
 
 namespace cen {
 
+/// \addtogroup misc
+/// \{
+
 /**
  * \typedef czstring
  *
@@ -80264,6 +84672,8 @@ using czstring = const char*;
  */
 using zstring = char*;
 
+/// \} End of group misc
+
 }  // namespace cen
 
 #endif  // CENTURION_CZSTRING_HEADER
@@ -80272,9 +84682,8 @@ using zstring = char*;
 #ifndef CENTURION_NOT_NULL_HEADER
 #define CENTURION_NOT_NULL_HEADER
 
-#include <SDL.h>
+// #include "sfinae.hpp"
 
-#include <type_traits>  // enable_if_t, is_pointer_v
 
 namespace cen {
 
@@ -80289,7 +84698,7 @@ namespace cen {
  *
  * \since 5.0.0
  */
-template <typename T, typename = std::enable_if_t<std::is_pointer_v<T>>>
+template <typename T, enable_if_pointer_v<T> = 0>
 using not_null = T;
 
 }  // namespace cen
@@ -80881,7 +85290,7 @@ class basic_pixel_format_info final
    *
    * \since 5.2.0
    */
-  template <typename BB = B, detail::is_owner<BB> = true>
+  template <typename BB = B, detail::is_owner<BB> = 0>
   explicit basic_pixel_format_info(const pixel_format format)
       : m_format{SDL_AllocFormat(static_cast<u32>(format))}
   {
@@ -80900,7 +85309,7 @@ class basic_pixel_format_info final
    *
    * \since 5.2.0
    */
-  template <typename BB = B, detail::is_handle<BB> = true>
+  template <typename BB = B, detail::is_handle<BB> = 0>
   explicit basic_pixel_format_info(const pixel_format_info& info) noexcept
       : m_format{info.get()}
   {}
@@ -81041,7 +85450,7 @@ class basic_pixel_format_info final
    *
    * \since 5.2.0
    */
-  template <typename BB = B, detail::is_handle<BB> = true>
+  template <typename BB = B, detail::is_handle<BB> = 0>
   [[nodiscard]] explicit operator bool() const noexcept
   {
     return m_format;
@@ -82092,7 +86501,7 @@ class basic_renderer final
    *
    * \since 4.0.0
    */
-  template <typename Window, typename BB = B, detail::is_owner<BB> = true>
+  template <typename Window, typename BB = B, detail::is_owner<BB> = 0>
   explicit basic_renderer(const Window& window,
                           const u32 flags = default_flags())
       : m_renderer{SDL_CreateRenderer(window.get(), -1, flags)}
@@ -82103,7 +86512,7 @@ class basic_renderer final
     }
   }
 
-  template <typename BB = B, detail::is_handle<BB> = true>
+  template <typename BB = B, detail::is_handle<BB> = 0>
   explicit basic_renderer(const renderer& owner) noexcept
       : m_renderer{owner.get()}
   {}
@@ -82420,7 +86829,7 @@ class basic_renderer final
    *
    * \since 6.0.0
    */
-  void fill_circle(const fpoint& center, const float radius)
+  void fill_circle(const fpoint center, const float radius)
   {
     const auto cx = center.x();
     const auto cy = center.y();
@@ -82454,7 +86863,7 @@ class basic_renderer final
    *
    * \since 4.1.0
    */
-  template <typename R, typename BB = B, detail::is_owner<BB> = true>
+  template <typename R, typename BB = B, detail::is_owner<BB> = 0>
   void draw_rect_t(const basic_rect<R>& rect) noexcept
   {
     draw_rect(translate(rect));
@@ -82472,7 +86881,7 @@ class basic_renderer final
    *
    * \since 4.1.0
    */
-  template <typename R, typename BB = B, detail::is_owner<BB> = true>
+  template <typename R, typename BB = B, detail::is_owner<BB> = 0>
   void fill_rect_t(const basic_rect<R>& rect) noexcept
   {
     fill_rect(translate(rect));
@@ -82491,7 +86900,7 @@ class basic_renderer final
    *
    * \since 6.0.0
    */
-  template <typename U, typename BB = B, detail::is_owner<BB> = true>
+  template <typename U, typename BB = B, detail::is_owner<BB> = 0>
   void draw_point_t(const basic_point<U>& point) noexcept
   {
     draw_point(translate(point));
@@ -82511,7 +86920,7 @@ class basic_renderer final
    *
    * \since 6.0.0
    */
-  template <typename U, typename BB = B, detail::is_owner<BB> = true>
+  template <typename U, typename BB = B, detail::is_owner<BB> = 0>
   void draw_circle_t(const basic_point<U>& position,
                      const float radius) noexcept
   {
@@ -82531,8 +86940,8 @@ class basic_renderer final
    *
    * \since 6.0.0
    */
-  template <typename BB = B, detail::is_owner<BB> = true>
-  void fill_circle_t(const fpoint& center, const float radius)
+  template <typename BB = B, detail::is_owner<BB> = 0>
+  void fill_circle_t(const fpoint center, const float radius)
   {
     fill_circle(translate(center), radius);
   }
@@ -83041,7 +87450,7 @@ class basic_renderer final
    */
   auto render_glyph(const font_cache& cache,
                     const unicode glyph,
-                    const ipoint& position) -> int
+                    const ipoint position) -> int
   {
     if (const auto* data = cache.try_at(glyph))
     {
@@ -83367,7 +87776,7 @@ class basic_renderer final
   template <typename P,
             typename U,
             typename BB = B,
-            detail::is_owner<BB> = true>
+            detail::is_owner<BB> = 0>
   void render_t(const basic_texture<U>& texture,
                 const basic_point<P>& position) noexcept
   {
@@ -83392,7 +87801,7 @@ class basic_renderer final
   template <typename P,
             typename U,
             typename BB = B,
-            detail::is_owner<BB> = true>
+            detail::is_owner<BB> = 0>
   void render_t(const basic_texture<U>& texture,
                 const basic_rect<P>& destination) noexcept
   {
@@ -83421,7 +87830,7 @@ class basic_renderer final
   template <typename P,
             typename U,
             typename BB = B,
-            detail::is_owner<BB> = true>
+            detail::is_owner<BB> = 0>
   void render_t(const basic_texture<U>& texture,
                 const irect& source,
                 const basic_rect<P>& destination) noexcept
@@ -83450,7 +87859,7 @@ class basic_renderer final
   template <typename P,
             typename U,
             typename BB = B,
-            detail::is_owner<BB> = true>
+            detail::is_owner<BB> = 0>
   void render_t(const basic_texture<U>& texture,
                 const irect& source,
                 const basic_rect<P>& destination,
@@ -83484,7 +87893,7 @@ class basic_renderer final
             typename P,
             typename U,
             typename BB = B,
-            detail::is_owner<BB> = true>
+            detail::is_owner<BB> = 0>
   void render_t(const basic_texture<U>& texture,
                 const irect& source,
                 const basic_rect<R>& destination,
@@ -83517,7 +87926,7 @@ class basic_renderer final
             typename P,
             typename U,
             typename BB = B,
-            detail::is_owner<BB> = true>
+            detail::is_owner<BB> = 0>
   void render_t(const basic_texture<U>& texture,
                 const irect& source,
                 const basic_rect<R>& destination,
@@ -83544,7 +87953,7 @@ class basic_renderer final
    *
    * \since 3.0.0
    */
-  template <typename BB = B, detail::is_owner<BB> = true>
+  template <typename BB = B, detail::is_owner<BB> = 0>
   void set_translation_viewport(const frect& viewport) noexcept
   {
     m_renderer.translation = viewport;
@@ -83559,7 +87968,7 @@ class basic_renderer final
    *
    * \since 3.0.0
    */
-  template <typename BB = B, detail::is_owner<BB> = true>
+  template <typename BB = B, detail::is_owner<BB> = 0>
   [[nodiscard]] auto translation_viewport() const noexcept -> const frect&
   {
     return m_renderer.translation;
@@ -83581,7 +87990,7 @@ class basic_renderer final
    *
    * \since 5.0.0
    */
-  template <typename BB = B, detail::is_owner<BB> = true>
+  template <typename BB = B, detail::is_owner<BB> = 0>
   void add_font(const std::size_t id, font&& font)
   {
     auto& fonts = m_renderer.fonts;
@@ -83605,7 +88014,7 @@ class basic_renderer final
    *
    * \since 5.0.0
    */
-  template <typename... Args, typename BB = B, detail::is_owner<BB> = true>
+  template <typename... Args, typename BB = B, detail::is_owner<BB> = 0>
   void emplace_font(const std::size_t id, Args&&... args)
   {
     auto& fonts = m_renderer.fonts;
@@ -83626,7 +88035,7 @@ class basic_renderer final
    *
    * \since 5.0.0
    */
-  template <typename BB = B, detail::is_owner<BB> = true>
+  template <typename BB = B, detail::is_owner<BB> = 0>
   void remove_font(const std::size_t id)
   {
     m_renderer.fonts.erase(id);
@@ -83643,7 +88052,7 @@ class basic_renderer final
    *
    * \since 5.0.0
    */
-  template <typename BB = B, detail::is_owner<BB> = true>
+  template <typename BB = B, detail::is_owner<BB> = 0>
   [[nodiscard]] auto get_font(const std::size_t id) -> font&
   {
     return m_renderer.fonts.at(id);
@@ -83652,7 +88061,7 @@ class basic_renderer final
   /**
    * \copydoc get_font
    */
-  template <typename BB = B, detail::is_owner<BB> = true>
+  template <typename BB = B, detail::is_owner<BB> = 0>
   [[nodiscard]] auto get_font(const std::size_t id) const -> const font&
   {
     return m_renderer.fonts.at(id);
@@ -83669,7 +88078,7 @@ class basic_renderer final
    *
    * \since 4.1.0
    */
-  template <typename BB = B, detail::is_owner<BB> = true>
+  template <typename BB = B, detail::is_owner<BB> = 0>
   [[nodiscard]] auto has_font(const std::size_t id) const noexcept -> bool
   {
     return static_cast<bool>(m_renderer.fonts.count(id));
@@ -83797,7 +88206,7 @@ class basic_renderer final
    *
    * \since 3.0.0
    */
-  void set_logical_size(const iarea& size) noexcept
+  void set_logical_size(const iarea size) noexcept
   {
     if ((size.width >= 0) && (size.height >= 0))
     {
@@ -84204,7 +88613,7 @@ class basic_renderer final
    *
    * \since 5.0.0
    */
-  template <typename BB = B, detail::is_handle<BB> = true>
+  template <typename BB = B, detail::is_handle<BB> = 0>
   explicit operator bool() const noexcept
   {
     return m_renderer != nullptr;
@@ -84261,7 +88670,7 @@ class basic_renderer final
     return texture;
   }
 
-  template <typename T, typename BB = B, detail::is_owner<BB> = true>
+  template <typename T, typename BB = B, detail::is_owner<BB> = 0>
   [[nodiscard]] auto translate(const basic_point<T>& point) const noexcept
       -> basic_point<T>
   {
@@ -84274,7 +88683,7 @@ class basic_renderer final
     return basic_point<T>{x, y};
   }
 
-  template <typename T, typename BB = B, detail::is_owner<BB> = true>
+  template <typename T, typename BB = B, detail::is_owner<BB> = 0>
   [[nodiscard]] auto translate(const basic_rect<T>& rect) const noexcept
       -> basic_rect<T>
   {
@@ -84984,7 +89393,7 @@ class basic_surface final
    *
    * \since 4.0.0
    */
-  template <typename TT = T, detail::is_owner<TT> = true>
+  template <typename TT = T, detail::is_owner<TT> = 0>
   explicit basic_surface(const not_null<czstring> file)
       : m_surface{IMG_Load(file)}
   {
@@ -85005,7 +89414,7 @@ class basic_surface final
    *
    * \since 5.3.0
    */
-  template <typename TT = T, detail::is_owner<TT> = true>
+  template <typename TT = T, detail::is_owner<TT> = 0>
   explicit basic_surface(const std::string& file) : basic_surface{file.c_str()}
   {}
 
@@ -85021,7 +89430,7 @@ class basic_surface final
    *
    * \since 5.3.0
    */
-  template <typename TT = T, detail::is_owner<TT> = true>
+  template <typename TT = T, detail::is_owner<TT> = 0>
   basic_surface(const iarea size, const pixel_format pixelFormat)
       : m_surface{SDL_CreateRGBSurfaceWithFormat(0,
                                                  size.width,
@@ -85048,7 +89457,7 @@ class basic_surface final
    *
    * \since 5.2.0
    */
-  template <typename TT = T, detail::is_owner<TT> = true>
+  template <typename TT = T, detail::is_owner<TT> = 0>
   [[nodiscard]] static auto with_format(const not_null<czstring> file,
                                         const blend_mode blendMode,
                                         const pixel_format pixelFormat)
@@ -85065,7 +89474,7 @@ class basic_surface final
   /**
    * \see with_format()
    */
-  template <typename TT = T, detail::is_owner<TT> = true>
+  template <typename TT = T, detail::is_owner<TT> = 0>
   [[nodiscard]] static auto with_format(const std::string& file,
                                         const blend_mode blendMode,
                                         const pixel_format pixelFormat)
@@ -85087,7 +89496,7 @@ class basic_surface final
    *
    * \since 5.3.0
    */
-  template <typename TT = T, detail::is_owner<TT> = true>
+  template <typename TT = T, detail::is_owner<TT> = 0>
   [[nodiscard]] static auto from_bmp(const not_null<czstring> file)
       -> basic_surface
   {
@@ -85098,7 +89507,7 @@ class basic_surface final
   /**
    * \see from_bmp()
    */
-  template <typename TT = T, detail::is_owner<TT> = true>
+  template <typename TT = T, detail::is_owner<TT> = 0>
   [[nodiscard]] static auto from_bmp(const std::string& file) -> basic_surface
   {
     return from_bmp(file.c_str());
@@ -85330,7 +89739,7 @@ class basic_surface final
    *
    * \since 4.0.0
    */
-  void set_pixel(const ipoint& pixel, const color& color) noexcept
+  void set_pixel(const ipoint pixel, const color& color) noexcept
   {
     if (!in_bounds(pixel) || !lock())
     {
@@ -85646,7 +90055,7 @@ class basic_surface final
    *
    * \since 5.0.0
    */
-  template <typename TT = T, detail::is_handle<TT> = true>
+  template <typename TT = T, detail::is_handle<TT> = 0>
   explicit operator bool() const noexcept
   {
     return m_surface != nullptr;
@@ -85714,7 +90123,7 @@ class basic_surface final
    *
    * \since 4.0.0
    */
-  [[nodiscard]] auto in_bounds(const ipoint& point) const noexcept -> bool
+  [[nodiscard]] auto in_bounds(const ipoint point) const noexcept -> bool
   {
     return !(point.x() < 0 || point.y() < 0 || point.x() >= width() ||
              point.y() >= height());
@@ -85893,7 +90302,7 @@ class basic_texture final
    *
    * \since 5.0.0
    */
-  template <typename TT = T, detail::is_handle<TT> = true>
+  template <typename TT = T, detail::is_handle<TT> = 0>
   explicit basic_texture(texture& owner) noexcept : m_texture{owner.get()}
   {}
 
@@ -85910,7 +90319,7 @@ class basic_texture final
    *
    * \since 4.0.0
    */
-  template <typename Renderer, typename TT = T, detail::is_owner<TT> = true>
+  template <typename Renderer, typename TT = T, detail::is_owner<TT> = 0>
   basic_texture(const Renderer& renderer, const not_null<czstring> path)
       : m_texture{IMG_LoadTexture(renderer.get(), path)}
   {
@@ -85933,7 +90342,7 @@ class basic_texture final
    *
    * \since 5.3.0
    */
-  template <typename Renderer, typename TT = T, detail::is_owner<TT> = true>
+  template <typename Renderer, typename TT = T, detail::is_owner<TT> = 0>
   basic_texture(const Renderer& renderer, const std::string& path)
       : basic_texture{renderer, path.c_str()}
   {}
@@ -85951,7 +90360,7 @@ class basic_texture final
    *
    * \since 4.0.0
    */
-  template <typename Renderer, typename TT = T, detail::is_owner<TT> = true>
+  template <typename Renderer, typename TT = T, detail::is_owner<TT> = 0>
   basic_texture(const Renderer& renderer, const surface& surface)
       : m_texture{SDL_CreateTextureFromSurface(renderer.get(), surface.get())}
   {
@@ -85976,11 +90385,11 @@ class basic_texture final
    *
    * \since 4.0.0
    */
-  template <typename Renderer, typename TT = T, detail::is_owner<TT> = true>
+  template <typename Renderer, typename TT = T, detail::is_owner<TT> = 0>
   basic_texture(const Renderer& renderer,
                 const pixel_format format,
                 const texture_access access,
-                const iarea& size)
+                const iarea size)
       : m_texture{SDL_CreateTexture(renderer.get(),
                                     static_cast<u32>(format),
                                     static_cast<int>(access),
@@ -86013,7 +90422,7 @@ class basic_texture final
    *
    * \since 4.0.0
    */
-  template <typename Renderer, typename TT = T, detail::is_owner<TT> = true>
+  template <typename Renderer, typename TT = T, detail::is_owner<TT> = 0>
   [[nodiscard]] static auto streaming(const Renderer& renderer,
                                       const not_null<czstring> path,
                                       const pixel_format format)
@@ -86049,7 +90458,7 @@ class basic_texture final
    * \see streaming()
    * \since 5.3.0
    */
-  template <typename Renderer, typename TT = T, detail::is_owner<TT> = true>
+  template <typename Renderer, typename TT = T, detail::is_owner<TT> = 0>
   [[nodiscard]] static auto streaming(const Renderer& renderer,
                                       const std::string& path,
                                       const pixel_format format)
@@ -86074,7 +90483,7 @@ class basic_texture final
    *
    * \since 4.0.0
    */
-  void set_pixel(const ipoint& pixel, const color& color)
+  void set_pixel(const ipoint pixel, const color& color)
   {
     if (access() != texture_access::streaming || (pixel.x() < 0) ||
         (pixel.y() < 0) || (pixel.x() >= width()) || (pixel.y() >= height()))
@@ -86343,7 +90752,7 @@ class basic_texture final
    *
    * \since 5.0.0
    */
-  template <typename TT = T, detail::is_owner<TT> = true>
+  template <typename TT = T, detail::is_owner<TT> = 0>
   [[nodiscard]] auto release() noexcept -> owner<SDL_Texture*>
   {
     return m_texture.release();
@@ -86375,7 +90784,7 @@ class basic_texture final
    *
    * \since 5.0.0
    */
-  template <typename TT = T, detail::is_handle<TT> = true>
+  template <typename TT = T, detail::is_handle<TT> = 0>
   explicit operator bool() const noexcept
   {
     return m_texture != nullptr;
@@ -86610,7 +91019,7 @@ enum class texture_access
 #include <type_traits>       // is_same_v, decay_t
 #include <vector>            // vector
 
-// #include "../compiler.hpp"
+// #include "../compiler/compiler.hpp"
 
 // #include "../misc/integers.hpp"
 
@@ -87059,9 +91468,39 @@ constexpr auto operator""_uni(const unsigned long long int i) noexcept
 #ifndef CENTURION_NOT_NULL_HEADER
 #define CENTURION_NOT_NULL_HEADER
 
-#include <SDL.h>
+// #include "sfinae.hpp"
+#ifndef CENTURION_SFINAE_HEADER
+#define CENTURION_SFINAE_HEADER
 
-#include <type_traits>  // enable_if_t, is_pointer_v
+#include <type_traits>  // enable_if_t, is_same_v, is_integral_v, is_floating_point_v, ...
+
+namespace cen {
+
+/// \addtogroup misc
+/// \{
+
+// clang-format off
+
+template <typename T>
+using enable_if_number_t = std::enable_if_t<!std::is_same_v<T, bool> &&
+                                            (std::is_integral_v<T> ||
+                                             std::is_floating_point_v<T>), int>;
+
+// clang-format on
+
+template <typename T>
+using enable_if_pointer_v = std::enable_if_t<std::is_pointer_v<T>, int>;
+
+template <typename T, typename... Args>
+using enable_if_convertible_t =
+    std::enable_if_t<(std::is_convertible_v<T, Args> || ...), int>;
+
+/// \} End of group misc
+
+}  // namespace cen
+
+#endif  // CENTURION_SFINAE_HEADER
+
 
 namespace cen {
 
@@ -87076,7 +91515,7 @@ namespace cen {
  *
  * \since 5.0.0
  */
-template <typename T, typename = std::enable_if_t<std::is_pointer_v<T>>>
+template <typename T, enable_if_pointer_v<T> = 0>
 using not_null = T;
 
 }  // namespace cen
@@ -87085,6 +91524,9 @@ using not_null = T;
 
 
 namespace cen {
+
+/// \addtogroup misc
+/// \{
 
 /**
  * \typedef czstring
@@ -87099,6 +91541,8 @@ using czstring = const char*;
  * \brief Alias for a C-style null-terminated string.
  */
 using zstring = char*;
+
+/// \} End of group misc
 
 }  // namespace cen
 
@@ -87292,9 +91736,39 @@ template <typename T>
 #ifndef CENTURION_NOT_NULL_HEADER
 #define CENTURION_NOT_NULL_HEADER
 
-#include <SDL.h>
+// #include "sfinae.hpp"
+#ifndef CENTURION_SFINAE_HEADER
+#define CENTURION_SFINAE_HEADER
 
-#include <type_traits>  // enable_if_t, is_pointer_v
+#include <type_traits>  // enable_if_t, is_same_v, is_integral_v, is_floating_point_v, ...
+
+namespace cen {
+
+/// \addtogroup misc
+/// \{
+
+// clang-format off
+
+template <typename T>
+using enable_if_number_t = std::enable_if_t<!std::is_same_v<T, bool> &&
+                                            (std::is_integral_v<T> ||
+                                             std::is_floating_point_v<T>), int>;
+
+// clang-format on
+
+template <typename T>
+using enable_if_pointer_v = std::enable_if_t<std::is_pointer_v<T>, int>;
+
+template <typename T, typename... Args>
+using enable_if_convertible_t =
+    std::enable_if_t<(std::is_convertible_v<T, Args> || ...), int>;
+
+/// \} End of group misc
+
+}  // namespace cen
+
+#endif  // CENTURION_SFINAE_HEADER
+
 
 namespace cen {
 
@@ -87309,7 +91783,7 @@ namespace cen {
  *
  * \since 5.0.0
  */
-template <typename T, typename = std::enable_if_t<std::is_pointer_v<T>>>
+template <typename T, enable_if_pointer_v<T> = 0>
 using not_null = T;
 
 }  // namespace cen
@@ -87318,6 +91792,9 @@ using not_null = T;
 
 
 namespace cen {
+
+/// \addtogroup misc
+/// \{
 
 /**
  * \typedef czstring
@@ -87332,6 +91809,8 @@ using czstring = const char*;
  * \brief Alias for a C-style null-terminated string.
  */
 using zstring = char*;
+
+/// \} End of group misc
 
 }  // namespace cen
 
@@ -87517,10 +91996,10 @@ using owning_type = std::true_type;
 using handle_type = std::false_type;
 
 template <typename T>
-using is_owner = std::enable_if_t<std::is_same_v<T, owning_type>, bool>;
+using is_owner = std::enable_if_t<std::is_same_v<T, owning_type>, int>;
 
 template <typename T>
-using is_handle = std::enable_if_t<std::is_same_v<T, handle_type>, bool>;
+using is_handle = std::enable_if_t<std::is_same_v<T, handle_type>, int>;
 
 template <typename T>
 [[nodiscard]] constexpr auto is_owning() noexcept -> bool
@@ -87541,7 +92020,7 @@ class pointer_manager final
   explicit pointer_manager(Type* ptr) noexcept : m_ptr{ptr}
   {}
 
-  template <typename BB = B, is_owner<BB> = true>
+  template <typename BB = B, is_owner<BB> = 0>
   void reset(Type* ptr) noexcept
   {
     m_ptr.reset(ptr);
@@ -87579,7 +92058,7 @@ class pointer_manager final
     return get();
   }
 
-  template <typename BB = B, is_owner<BB> = true>
+  template <typename BB = B, is_owner<BB> = 0>
   [[nodiscard]] auto release() noexcept -> Type*
   {
     return m_ptr.release();
@@ -87617,7 +92096,7 @@ class pointer_manager final
 #include <system_error>  // errc
 #include <type_traits>   // is_floating_point_v
 
-// #include "../compiler.hpp"
+// #include "../compiler/compiler.hpp"
 #ifndef CENTURION_COMPILER_HEADER
 #define CENTURION_COMPILER_HEADER
 
@@ -87828,7 +92307,7 @@ template <std::size_t bufferSize = 16, typename T>
 #include <system_error>  // errc
 #include <type_traits>   // is_floating_point_v
 
-// #include "../compiler.hpp"
+// #include "../compiler/compiler.hpp"
 #ifndef CENTURION_COMPILER_HEADER
 #define CENTURION_COMPILER_HEADER
 
@@ -88061,6 +92540,36 @@ namespace cen {
 /// \addtogroup math
 /// \{
 
+template <typename T>
+struct basic_area;
+
+/**
+ * \typedef iarea
+ *
+ * \brief An alias for `int` areas.
+ *
+ * \since 4.1.0
+ */
+using iarea = basic_area<int>;
+
+/**
+ * \typedef farea
+ *
+ * \brief An alias for `float` areas.
+ *
+ * \since 4.1.0
+ */
+using farea = basic_area<float>;
+
+/**
+ * \typedef darea
+ *
+ * \brief An alias for `double` areas.
+ *
+ * \since 4.1.0
+ */
+using darea = basic_area<double>;
+
 /**
  * \struct basic_area
  *
@@ -88089,6 +92598,28 @@ struct basic_area final
   static_assert(!std::is_same_v<T, bool>);
 };
 
+/// \name Area-related functions
+/// \{
+
+/**
+ * \brief Creates an area instance with automatically deduced precision.
+ *
+ * \tparam T the deduced type of the width and height values.
+ *
+ * \param width the width of the area.
+ * \param height the height of the area.
+ *
+ * \return an area instance with the specified width and height.
+ *
+ * \since 6.0.0
+ */
+template <typename T>
+[[nodiscard]] constexpr auto area(const T width, const T height) noexcept
+    -> basic_area<T>
+{
+  return {width, height};
+}
+
 /**
  * \brief Returns the size (width x height) of an area.
  *
@@ -88106,32 +92637,7 @@ template <typename T>
   return area.width * area.height;
 }
 
-/**
- * \typedef iarea
- *
- * \brief An alias for `int` areas.
- *
- * \since 4.1.0
- */
-using iarea = basic_area<int>;
-
-/**
- * \typedef farea
- *
- * \brief An alias for `float` areas.
- *
- * \since 4.1.0
- */
-using farea = basic_area<float>;
-
-/**
- * \typedef darea
- *
- * \brief An alias for `double` areas.
- *
- * \since 4.1.0
- */
-using darea = basic_area<double>;
+/// \} End of area-related functions
 
 /**
  * \brief Serializes an area instance.
@@ -88286,7 +92792,7 @@ auto operator<<(std::ostream& stream, const basic_area<T>& area)
 
 #include <ostream>      // ostream
 #include <string>       // string
-#include <type_traits>  // enable_if_t, is_convertible_v, conditional_t, ...
+#include <type_traits>  // conditional_t, is_integral_v, is_floating_point_v, ...
 
 // #include "../detail/max.hpp"
 #ifndef CENTURION_DETAIL_MAX_HEADER
@@ -88338,6 +92844,39 @@ template <typename T>
 
 // #include "../misc/cast.hpp"
 
+// #include "../misc/sfinae.hpp"
+#ifndef CENTURION_SFINAE_HEADER
+#define CENTURION_SFINAE_HEADER
+
+#include <type_traits>  // enable_if_t, is_same_v, is_integral_v, is_floating_point_v, ...
+
+namespace cen {
+
+/// \addtogroup misc
+/// \{
+
+// clang-format off
+
+template <typename T>
+using enable_if_number_t = std::enable_if_t<!std::is_same_v<T, bool> &&
+                                            (std::is_integral_v<T> ||
+                                             std::is_floating_point_v<T>), int>;
+
+// clang-format on
+
+template <typename T>
+using enable_if_pointer_v = std::enable_if_t<std::is_pointer_v<T>, int>;
+
+template <typename T, typename... Args>
+using enable_if_convertible_t =
+    std::enable_if_t<(std::is_convertible_v<T, Args> || ...), int>;
+
+/// \} End of group misc
+
+}  // namespace cen
+
+#endif  // CENTURION_SFINAE_HEADER
+
 // #include "area.hpp"
 #ifndef CENTURION_AREA_HEADER
 #define CENTURION_AREA_HEADER
@@ -88355,6 +92894,36 @@ namespace cen {
 
 /// \addtogroup math
 /// \{
+
+template <typename T>
+struct basic_area;
+
+/**
+ * \typedef iarea
+ *
+ * \brief An alias for `int` areas.
+ *
+ * \since 4.1.0
+ */
+using iarea = basic_area<int>;
+
+/**
+ * \typedef farea
+ *
+ * \brief An alias for `float` areas.
+ *
+ * \since 4.1.0
+ */
+using farea = basic_area<float>;
+
+/**
+ * \typedef darea
+ *
+ * \brief An alias for `double` areas.
+ *
+ * \since 4.1.0
+ */
+using darea = basic_area<double>;
 
 /**
  * \struct basic_area
@@ -88384,6 +92953,28 @@ struct basic_area final
   static_assert(!std::is_same_v<T, bool>);
 };
 
+/// \name Area-related functions
+/// \{
+
+/**
+ * \brief Creates an area instance with automatically deduced precision.
+ *
+ * \tparam T the deduced type of the width and height values.
+ *
+ * \param width the width of the area.
+ * \param height the height of the area.
+ *
+ * \return an area instance with the specified width and height.
+ *
+ * \since 6.0.0
+ */
+template <typename T>
+[[nodiscard]] constexpr auto area(const T width, const T height) noexcept
+    -> basic_area<T>
+{
+  return {width, height};
+}
+
 /**
  * \brief Returns the size (width x height) of an area.
  *
@@ -88401,32 +92992,7 @@ template <typename T>
   return area.width * area.height;
 }
 
-/**
- * \typedef iarea
- *
- * \brief An alias for `int` areas.
- *
- * \since 4.1.0
- */
-using iarea = basic_area<int>;
-
-/**
- * \typedef farea
- *
- * \brief An alias for `float` areas.
- *
- * \since 4.1.0
- */
-using farea = basic_area<float>;
-
-/**
- * \typedef darea
- *
- * \brief An alias for `double` areas.
- *
- * \since 4.1.0
- */
-using darea = basic_area<double>;
+/// \} End of area-related functions
 
 /**
  * \brief Serializes an area instance.
@@ -88582,11 +93148,13 @@ auto operator<<(std::ostream& stream, const basic_area<T>& area)
 #include <cmath>        // sqrt, abs, round
 #include <ostream>      // ostream
 #include <string>       // string
-#include <type_traits>  // enable_if_t, conditional_t, is_convertible_v, ...
+#include <type_traits>  // conditional_t, is_integral_v, is_floating_point_v, ...
 
 // #include "../detail/to_string.hpp"
 
 // #include "../misc/cast.hpp"
+
+// #include "../misc/sfinae.hpp"
 
 
 namespace cen {
@@ -88607,10 +93175,7 @@ namespace cen {
  *
  * \headerfile point.hpp
  */
-template <typename T,
-          std::enable_if_t<std::is_convertible_v<T, int> ||
-                               std::is_convertible_v<T, float>,
-                           int> = 0>
+template <typename T, enable_if_convertible_t<T, int, float> = 0>
 class point_traits final
 {
  public:
@@ -88919,6 +93484,36 @@ class basic_point final
   point_type m_point{0, 0};
 };
 
+/// \name Point-related functions
+/// \{
+
+/**
+ * \brief Creates a point instance with automatically deduced precision.
+ *
+ * \note The only supported precisions for points are `int` and `float`, so
+ * this function will cast the supplied values to the corresponding type. For
+ * example, if you supply two doubles to this function, the returned point will
+ * use float as the precision.
+ *
+ * \tparam T the deduced precision type, must be a numerical type other than
+ * `bool`.
+ *
+ * \param x the x-coordinate of the point.
+ * \param y the y-coordinate of the point.
+ *
+ * \return the created point.
+ *
+ * \since 6.0.0
+ */
+template <typename T, enable_if_number_t<T> = 0>
+[[nodiscard]] constexpr auto point(const T x, const T y) noexcept
+    -> basic_point<typename point_traits<T>::value_type>
+{
+  using value_type = typename point_traits<T>::value_type;
+  return basic_point<value_type>{static_cast<value_type>(x),
+                                 static_cast<value_type>(y)};
+}
+
 /**
  * \brief Returns the distance between two points.
  *
@@ -88932,8 +93527,8 @@ class basic_point final
  * \since 5.0.0
  */
 template <typename T>
-[[nodiscard]] inline auto distance(const basic_point<T>& from,
-                                   const basic_point<T>& to) noexcept ->
+[[nodiscard]] auto distance(const basic_point<T>& from,
+                            const basic_point<T>& to) noexcept ->
     typename point_traits<T>::value_type
 {
   if constexpr (basic_point<T>::isIntegral)
@@ -88949,13 +93544,15 @@ template <typename T>
   }
 }
 
-[[nodiscard]] inline auto to_string(const ipoint& point) -> std::string
+/// \} End of point-related functions
+
+[[nodiscard]] inline auto to_string(const ipoint point) -> std::string
 {
   return "ipoint{X: " + detail::to_string(point.x()).value() +
          ", Y: " + detail::to_string(point.y()).value() + "}";
 }
 
-[[nodiscard]] inline auto to_string(const fpoint& point) -> std::string
+[[nodiscard]] inline auto to_string(const fpoint point) -> std::string
 {
   return "fpoint{X: " + detail::to_string(point.x()).value() +
          ", Y: " + detail::to_string(point.y()).value() + "}";
@@ -89079,26 +93676,26 @@ template <typename T>
 /// \name Point comparison operators
 /// \{
 
-[[nodiscard]] constexpr auto operator==(const ipoint& lhs,
-                                        const ipoint& rhs) noexcept -> bool
+[[nodiscard]] constexpr auto operator==(const ipoint lhs,
+                                        const ipoint rhs) noexcept -> bool
 {
   return (lhs.x() == rhs.x()) && (lhs.y() == rhs.y());
 }
 
-[[nodiscard]] constexpr auto operator==(const fpoint& lhs,
-                                        const fpoint& rhs) noexcept -> bool
+[[nodiscard]] constexpr auto operator==(const fpoint lhs,
+                                        const fpoint rhs) noexcept -> bool
 {
   return (lhs.x() == rhs.x()) && (lhs.y() == rhs.y());
 }
 
-[[nodiscard]] constexpr auto operator!=(const ipoint& lhs,
-                                        const ipoint& rhs) noexcept -> bool
+[[nodiscard]] constexpr auto operator!=(const ipoint lhs,
+                                        const ipoint rhs) noexcept -> bool
 {
   return !(lhs == rhs);
 }
 
-[[nodiscard]] constexpr auto operator!=(const fpoint& lhs,
-                                        const fpoint& rhs) noexcept -> bool
+[[nodiscard]] constexpr auto operator!=(const fpoint lhs,
+                                        const fpoint rhs) noexcept -> bool
 {
   return !(lhs == rhs);
 }
@@ -89134,9 +93731,7 @@ namespace cen {
  *
  * \headerfile rect.hpp
  */
-template <typename T,
-          typename = std::enable_if_t<std::is_convertible_v<T, int> ||
-                                      std::is_convertible_v<T, float>>>
+template <typename T, enable_if_convertible_t<T, int, float> = 0>
 class rect_traits final
 {
  public:
@@ -89712,6 +94307,39 @@ class basic_rect final
 /// \{
 
 /**
+ * \brief Creates a rectangle with automatically deduced precision.
+ *
+ * \note The only supported precisions for rectangles are `int` and `float`, so
+ * this function will cast the supplied values to the corresponding type. For
+ * example, if you supply doubles to this function, the returned point will
+ * use float as the precision.
+ *
+ * \tparam T the deduced precision type.
+ *
+ * \param x the x-coordinate of the rectangle.
+ * \param y the y-coordinate of the rectangle.
+ * \param width the width of the rectangle.
+ * \param height the height of the rectangle.
+ *
+ * \return a rectangle with the specified position and size.
+ *
+ * \since 6.0.0
+ */
+template <typename T, enable_if_number_t<T> = 0>
+[[nodiscard]] constexpr auto rect(const T x,
+                                  const T y,
+                                  const T width,
+                                  const T height) noexcept
+    -> basic_rect<typename rect_traits<T>::value_type>
+{
+  using value_type = typename rect_traits<T>::value_type;
+  return basic_rect<value_type>{static_cast<value_type>(x),
+                                static_cast<value_type>(y),
+                                static_cast<value_type>(width),
+                                static_cast<value_type>(height)};
+}
+
+/**
  * \brief Indicates whether or not the two rectangles intersect.
  *
  * \details This function does *not* consider rectangles with overlapping
@@ -89932,9 +94560,39 @@ auto operator<<(std::ostream& stream, const basic_rect<T>& rect)
 #ifndef CENTURION_NOT_NULL_HEADER
 #define CENTURION_NOT_NULL_HEADER
 
-#include <SDL.h>
+// #include "sfinae.hpp"
+#ifndef CENTURION_SFINAE_HEADER
+#define CENTURION_SFINAE_HEADER
 
-#include <type_traits>  // enable_if_t, is_pointer_v
+#include <type_traits>  // enable_if_t, is_same_v, is_integral_v, is_floating_point_v, ...
+
+namespace cen {
+
+/// \addtogroup misc
+/// \{
+
+// clang-format off
+
+template <typename T>
+using enable_if_number_t = std::enable_if_t<!std::is_same_v<T, bool> &&
+                                            (std::is_integral_v<T> ||
+                                             std::is_floating_point_v<T>), int>;
+
+// clang-format on
+
+template <typename T>
+using enable_if_pointer_v = std::enable_if_t<std::is_pointer_v<T>, int>;
+
+template <typename T, typename... Args>
+using enable_if_convertible_t =
+    std::enable_if_t<(std::is_convertible_v<T, Args> || ...), int>;
+
+/// \} End of group misc
+
+}  // namespace cen
+
+#endif  // CENTURION_SFINAE_HEADER
+
 
 namespace cen {
 
@@ -89949,7 +94607,7 @@ namespace cen {
  *
  * \since 5.0.0
  */
-template <typename T, typename = std::enable_if_t<std::is_pointer_v<T>>>
+template <typename T, enable_if_pointer_v<T> = 0>
 using not_null = T;
 
 }  // namespace cen
@@ -89958,6 +94616,9 @@ using not_null = T;
 
 
 namespace cen {
+
+/// \addtogroup misc
+/// \{
 
 /**
  * \typedef czstring
@@ -89972,6 +94633,8 @@ using czstring = const char*;
  * \brief Alias for a C-style null-terminated string.
  */
 using zstring = char*;
+
+/// \} End of group misc
 
 }  // namespace cen
 
@@ -89997,6 +94660,9 @@ using zstring = char*;
 
 namespace cen {
 
+/// \addtogroup misc
+/// \{
+
 /**
  * \typedef czstring
  *
@@ -90010,6 +94676,8 @@ using czstring = const char*;
  * \brief Alias for a C-style null-terminated string.
  */
 using zstring = char*;
+
+/// \} End of group misc
 
 }  // namespace cen
 
@@ -90191,9 +94859,8 @@ class mix_error final : public cen_error
 #ifndef CENTURION_NOT_NULL_HEADER
 #define CENTURION_NOT_NULL_HEADER
 
-#include <SDL.h>
+// #include "sfinae.hpp"
 
-#include <type_traits>  // enable_if_t, is_pointer_v
 
 namespace cen {
 
@@ -90208,7 +94875,7 @@ namespace cen {
  *
  * \since 5.0.0
  */
-template <typename T, typename = std::enable_if_t<std::is_pointer_v<T>>>
+template <typename T, enable_if_pointer_v<T> = 0>
 using not_null = T;
 
 }  // namespace cen
@@ -90236,6 +94903,9 @@ using not_null = T;
 #include <SDL.h>
 
 namespace cen {
+
+/// \addtogroup misc
+/// \{
 
 /// \name Integer aliases
 /// \{
@@ -90443,6 +95113,9 @@ namespace literals {
 }
 
 }  // namespace literals
+
+/// \} End of group misc
+
 }  // namespace cen
 
 #endif  // CENTURION_INTEGERS_HEADER
@@ -90928,7 +95601,7 @@ class color final
    * component to obtain the blended color. The bias parameter is the "alpha"
    * for the interpolation, which determines how the input colors are blended.
    * For example, a bias of 0 or 1 will simply result in the first or second
-   * color being returned, respectively. Subsequently, a bias of 0.5 with blend
+   * color being returned, respectively. Subsequently, a bias of 0.5 will blend
    * the two colors evenly.
    *
    * \param a the first color.
@@ -91329,7 +96002,7 @@ class basic_pixel_format_info final
    *
    * \since 5.2.0
    */
-  template <typename BB = B, detail::is_owner<BB> = true>
+  template <typename BB = B, detail::is_owner<BB> = 0>
   explicit basic_pixel_format_info(const pixel_format format)
       : m_format{SDL_AllocFormat(static_cast<u32>(format))}
   {
@@ -91348,7 +96021,7 @@ class basic_pixel_format_info final
    *
    * \since 5.2.0
    */
-  template <typename BB = B, detail::is_handle<BB> = true>
+  template <typename BB = B, detail::is_handle<BB> = 0>
   explicit basic_pixel_format_info(const pixel_format_info& info) noexcept
       : m_format{info.get()}
   {}
@@ -91489,7 +96162,7 @@ class basic_pixel_format_info final
    *
    * \since 5.2.0
    */
-  template <typename BB = B, detail::is_handle<BB> = true>
+  template <typename BB = B, detail::is_handle<BB> = 0>
   [[nodiscard]] explicit operator bool() const noexcept
   {
     return m_format;
@@ -91603,7 +96276,8 @@ class basic_pixel_format_info final
 #ifndef CENTURION_OWNER_HEADER
 #define CENTURION_OWNER_HEADER
 
-#include <type_traits>  // enable_if_t, is_pointer_v
+// #include "sfinae.hpp"
+
 
 namespace cen {
 
@@ -91618,7 +96292,7 @@ namespace cen {
  * function will claim ownership of that pointer. Subsequently, if a function
  * returns an `owner<T*>`, then ownership is transferred to the caller.
  */
-template <typename T, typename = std::enable_if_t<std::is_pointer_v<T>>>
+template <typename T, enable_if_pointer_v<T> = 0>
 using owner = T;
 
 }  // namespace cen
@@ -91814,7 +96488,7 @@ class basic_surface final
    *
    * \since 4.0.0
    */
-  template <typename TT = T, detail::is_owner<TT> = true>
+  template <typename TT = T, detail::is_owner<TT> = 0>
   explicit basic_surface(const not_null<czstring> file)
       : m_surface{IMG_Load(file)}
   {
@@ -91835,7 +96509,7 @@ class basic_surface final
    *
    * \since 5.3.0
    */
-  template <typename TT = T, detail::is_owner<TT> = true>
+  template <typename TT = T, detail::is_owner<TT> = 0>
   explicit basic_surface(const std::string& file) : basic_surface{file.c_str()}
   {}
 
@@ -91851,7 +96525,7 @@ class basic_surface final
    *
    * \since 5.3.0
    */
-  template <typename TT = T, detail::is_owner<TT> = true>
+  template <typename TT = T, detail::is_owner<TT> = 0>
   basic_surface(const iarea size, const pixel_format pixelFormat)
       : m_surface{SDL_CreateRGBSurfaceWithFormat(0,
                                                  size.width,
@@ -91878,7 +96552,7 @@ class basic_surface final
    *
    * \since 5.2.0
    */
-  template <typename TT = T, detail::is_owner<TT> = true>
+  template <typename TT = T, detail::is_owner<TT> = 0>
   [[nodiscard]] static auto with_format(const not_null<czstring> file,
                                         const blend_mode blendMode,
                                         const pixel_format pixelFormat)
@@ -91895,7 +96569,7 @@ class basic_surface final
   /**
    * \see with_format()
    */
-  template <typename TT = T, detail::is_owner<TT> = true>
+  template <typename TT = T, detail::is_owner<TT> = 0>
   [[nodiscard]] static auto with_format(const std::string& file,
                                         const blend_mode blendMode,
                                         const pixel_format pixelFormat)
@@ -91917,7 +96591,7 @@ class basic_surface final
    *
    * \since 5.3.0
    */
-  template <typename TT = T, detail::is_owner<TT> = true>
+  template <typename TT = T, detail::is_owner<TT> = 0>
   [[nodiscard]] static auto from_bmp(const not_null<czstring> file)
       -> basic_surface
   {
@@ -91928,7 +96602,7 @@ class basic_surface final
   /**
    * \see from_bmp()
    */
-  template <typename TT = T, detail::is_owner<TT> = true>
+  template <typename TT = T, detail::is_owner<TT> = 0>
   [[nodiscard]] static auto from_bmp(const std::string& file) -> basic_surface
   {
     return from_bmp(file.c_str());
@@ -92160,7 +96834,7 @@ class basic_surface final
    *
    * \since 4.0.0
    */
-  void set_pixel(const ipoint& pixel, const color& color) noexcept
+  void set_pixel(const ipoint pixel, const color& color) noexcept
   {
     if (!in_bounds(pixel) || !lock())
     {
@@ -92476,7 +97150,7 @@ class basic_surface final
    *
    * \since 5.0.0
    */
-  template <typename TT = T, detail::is_handle<TT> = true>
+  template <typename TT = T, detail::is_handle<TT> = 0>
   explicit operator bool() const noexcept
   {
     return m_surface != nullptr;
@@ -92544,7 +97218,7 @@ class basic_surface final
    *
    * \since 4.0.0
    */
-  [[nodiscard]] auto in_bounds(const ipoint& point) const noexcept -> bool
+  [[nodiscard]] auto in_bounds(const ipoint point) const noexcept -> bool
   {
     return !(point.x() < 0 || point.y() < 0 || point.x() >= width() ||
              point.y() >= height());
@@ -92707,9 +97381,9 @@ class basic_window final
    *
    * \since 3.0.0
    */
-  template <typename BB = B, detail::is_owner<BB> = true>
+  template <typename BB = B, detail::is_owner<BB> = 0>
   explicit basic_window(const not_null<czstring> title,
-                        const iarea& size = default_size(),
+                        const iarea size = default_size(),
                         const u32 flags = default_flags())
   {
     assert(title);
@@ -92754,9 +97428,9 @@ class basic_window final
    *
    * \since 5.3.0
    */
-  template <typename BB = B, detail::is_owner<BB> = true>
+  template <typename BB = B, detail::is_owner<BB> = 0>
   explicit basic_window(const std::string& title,
-                        const iarea& size = default_size(),
+                        const iarea size = default_size(),
                         const u32 flags = default_flags())
       : basic_window{title.c_str(), size, flags}
   {}
@@ -92771,7 +97445,7 @@ class basic_window final
    *
    * \since 3.0.0
    */
-  template <typename BB = B, detail::is_owner<BB> = true>
+  template <typename BB = B, detail::is_owner<BB> = 0>
   basic_window() : basic_window{"Centurion window"}
   {}
 
@@ -92782,7 +97456,7 @@ class basic_window final
    *
    * \since 5.0.0
    */
-  template <typename BB = B, detail::is_handle<BB> = true>
+  template <typename BB = B, detail::is_handle<BB> = 0>
   explicit basic_window(const window& owner) noexcept : m_window{owner.get()}
   {}
 
@@ -92876,12 +97550,14 @@ class basic_window final
    * \param fullscreen `true` if the window should enable fullscreen mode;
    * `false` for windowed mode.
    *
+   * \return `true` on success; `false` otherwise.
+   *
    * \since 3.0.0
    */
-  void set_fullscreen(const bool fullscreen) noexcept
+  auto set_fullscreen(const bool fullscreen) noexcept -> bool
   {
     constexpr auto flag = static_cast<unsigned>(SDL_WINDOW_FULLSCREEN);
-    SDL_SetWindowFullscreen(m_window, fullscreen ? flag : 0);
+    return SDL_SetWindowFullscreen(m_window, fullscreen ? flag : 0) == 0;
   }
 
   /**
@@ -92892,12 +97568,14 @@ class basic_window final
    * \param fullscreen `true` if the window should enable fullscreen desktop
    * mode; `false` for windowed mode.
    *
+   * \return `true` on success; `false` otherwise.
+   *
    * \since 4.0.0
    */
-  void set_fullscreen_desktop(const bool fullscreen) noexcept
+  auto set_fullscreen_desktop(const bool fullscreen) noexcept -> bool
   {
-    const auto flag = static_cast<unsigned>(SDL_WINDOW_FULLSCREEN_DESKTOP);
-    SDL_SetWindowFullscreen(m_window, fullscreen ? flag : 0);
+    constexpr auto flag = static_cast<unsigned>(SDL_WINDOW_FULLSCREEN_DESKTOP);
+    return SDL_SetWindowFullscreen(m_window, fullscreen ? flag : 0) == 0;
   }
 
   /**
@@ -92973,11 +97651,13 @@ class basic_window final
    *
    * \param opacity the opacity, in the range [0, 1].
    *
+   * \return `true` on success; `false` otherwise.
+   *
    * \since 3.0.0
    */
-  void set_opacity(const float opacity) noexcept
+  auto set_opacity(const float opacity) noexcept -> bool
   {
-    SDL_SetWindowOpacity(m_window, opacity);
+    return SDL_SetWindowOpacity(m_window, opacity) == 0;
   }
 
   /**
@@ -93009,10 +97689,8 @@ class basic_window final
    */
   auto set_brightness(const float brightness) noexcept -> bool
   {
-    const auto res =
-        SDL_SetWindowBrightness(m_window,
-                                detail::clamp(brightness, 0.0f, 1.0f));
-    return res == 0;
+    return SDL_SetWindowBrightness(m_window,
+                                   detail::clamp(brightness, 0.0f, 1.0f)) == 0;
   }
 
   /**
@@ -93024,13 +97702,15 @@ class basic_window final
    * \param capturingMouse `true` if the mouse should be captured; `false`
    * otherwise.
    *
+   * \return `true` on success; `false` otherwise.
+   *
    * \see `SDL_CaptureMouse`
    *
    * \since 5.0.0
    */
-  static void set_capturing_mouse(const bool capturingMouse) noexcept
+  static auto set_capturing_mouse(const bool capturingMouse) noexcept -> bool
   {
-    SDL_CaptureMouse(detail::convert_bool(capturingMouse));
+    return SDL_CaptureMouse(detail::convert_bool(capturingMouse)) == 0;
   }
 
   /// \} End of setters
@@ -93084,7 +97764,7 @@ class basic_window final
    *
    * \since 5.0.0
    */
-  void set_position(const ipoint& position) noexcept
+  void set_position(const ipoint position) noexcept
   {
     SDL_SetWindowPosition(m_window, position.x(), position.y());
   }
@@ -93098,9 +97778,7 @@ class basic_window final
    */
   [[nodiscard]] auto x() const noexcept -> int
   {
-    int x{};
-    SDL_GetWindowPosition(m_window, &x, nullptr);
-    return x;
+    return position().x();
   }
 
   /**
@@ -93112,9 +97790,7 @@ class basic_window final
    */
   [[nodiscard]] auto y() const noexcept -> int
   {
-    int y{};
-    SDL_GetWindowPosition(m_window, nullptr, &y);
-    return y;
+    return position().y();
   }
 
   /**
@@ -93177,7 +97853,7 @@ class basic_window final
    *
    * \since 5.0.0
    */
-  void set_size(const iarea& size) noexcept
+  void set_size(const iarea size) noexcept
   {
     const auto width = detail::max(size.width, 1);
     const auto height = detail::max(size.height, 1);
@@ -93195,7 +97871,7 @@ class basic_window final
    *
    * \since 3.0.0
    */
-  void set_min_size(const iarea& size) noexcept
+  void set_min_size(const iarea size) noexcept
   {
     SDL_SetWindowMinimumSize(m_window, size.width, size.height);
   }
@@ -93211,7 +97887,7 @@ class basic_window final
    *
    * \since 3.0.0
    */
-  void set_max_size(const iarea& size) noexcept
+  void set_max_size(const iarea size) noexcept
   {
     SDL_SetWindowMaximumSize(m_window, size.width, size.height);
   }
@@ -93225,9 +97901,7 @@ class basic_window final
    */
   [[nodiscard]] auto width() const noexcept -> int
   {
-    int width{};
-    SDL_GetWindowSize(m_window, &width, nullptr);
-    return width;
+    return size().width;
   }
 
   /**
@@ -93239,9 +97913,7 @@ class basic_window final
    */
   [[nodiscard]] auto height() const noexcept -> int
   {
-    int height{};
-    SDL_GetWindowSize(m_window, nullptr, &height);
-    return height;
+    return size().height;
   }
 
   /**
@@ -93300,7 +97972,7 @@ class basic_window final
    *
    * \since 5.0.0
    */
-  template <typename BB = B, detail::is_owner<BB> = true>
+  template <typename BB = B, detail::is_owner<BB> = 0>
   [[nodiscard]] constexpr static auto default_size() noexcept -> iarea
   {
     return {800, 600};
@@ -93544,7 +98216,7 @@ class basic_window final
     return static_cast<bool>(flags() & flag);
   }
 
-  template <typename BB = B, detail::is_owner<BB> = true>
+  template <typename BB = B, detail::is_owner<BB> = 0>
   [[nodiscard]] constexpr static auto default_flags() noexcept -> u32
   {
     return SDL_WINDOW_HIDDEN;
@@ -93670,6 +98342,20 @@ class basic_window final
   }
 
   /**
+   * \brief Indicates whether or not the screen keyboard is shown for the
+   * window.
+   *
+   * \return `true` if the screen keyboard is shown for the window; `false`
+   * otherwise.
+   *
+   * \since 6.0.0
+   */
+  [[nodiscard]] auto is_screen_keyboard_shown() const noexcept -> bool
+  {
+    return SDL_IsScreenKeyboardShown(get()) == SDL_TRUE;
+  }
+
+  /**
    * \brief Returns a pointer to the associated SDL window.
    *
    * \warning Don't take ownership of the returned pointer!
@@ -93724,7 +98410,7 @@ class basic_window final
    *
    * \since 5.0.0
    */
-  template <typename BB = B, detail::is_handle<BB> = true>
+  template <typename BB = B, detail::is_handle<BB> = 0>
   explicit operator bool() const noexcept
   {
     return m_window != nullptr;
@@ -93875,6 +98561,9 @@ template <typename T>
 
 namespace cen {
 
+/// \addtogroup misc
+/// \{
+
 /**
  * \typedef czstring
  *
@@ -93888,6 +98577,8 @@ using czstring = const char*;
  * \brief Alias for a C-style null-terminated string.
  */
 using zstring = char*;
+
+/// \} End of group misc
 
 }  // namespace cen
 
@@ -94228,9 +98919,9 @@ class basic_window final
    *
    * \since 3.0.0
    */
-  template <typename BB = B, detail::is_owner<BB> = true>
+  template <typename BB = B, detail::is_owner<BB> = 0>
   explicit basic_window(const not_null<czstring> title,
-                        const iarea& size = default_size(),
+                        const iarea size = default_size(),
                         const u32 flags = default_flags())
   {
     assert(title);
@@ -94275,9 +98966,9 @@ class basic_window final
    *
    * \since 5.3.0
    */
-  template <typename BB = B, detail::is_owner<BB> = true>
+  template <typename BB = B, detail::is_owner<BB> = 0>
   explicit basic_window(const std::string& title,
-                        const iarea& size = default_size(),
+                        const iarea size = default_size(),
                         const u32 flags = default_flags())
       : basic_window{title.c_str(), size, flags}
   {}
@@ -94292,7 +98983,7 @@ class basic_window final
    *
    * \since 3.0.0
    */
-  template <typename BB = B, detail::is_owner<BB> = true>
+  template <typename BB = B, detail::is_owner<BB> = 0>
   basic_window() : basic_window{"Centurion window"}
   {}
 
@@ -94303,7 +98994,7 @@ class basic_window final
    *
    * \since 5.0.0
    */
-  template <typename BB = B, detail::is_handle<BB> = true>
+  template <typename BB = B, detail::is_handle<BB> = 0>
   explicit basic_window(const window& owner) noexcept : m_window{owner.get()}
   {}
 
@@ -94397,12 +99088,14 @@ class basic_window final
    * \param fullscreen `true` if the window should enable fullscreen mode;
    * `false` for windowed mode.
    *
+   * \return `true` on success; `false` otherwise.
+   *
    * \since 3.0.0
    */
-  void set_fullscreen(const bool fullscreen) noexcept
+  auto set_fullscreen(const bool fullscreen) noexcept -> bool
   {
     constexpr auto flag = static_cast<unsigned>(SDL_WINDOW_FULLSCREEN);
-    SDL_SetWindowFullscreen(m_window, fullscreen ? flag : 0);
+    return SDL_SetWindowFullscreen(m_window, fullscreen ? flag : 0) == 0;
   }
 
   /**
@@ -94413,12 +99106,14 @@ class basic_window final
    * \param fullscreen `true` if the window should enable fullscreen desktop
    * mode; `false` for windowed mode.
    *
+   * \return `true` on success; `false` otherwise.
+   *
    * \since 4.0.0
    */
-  void set_fullscreen_desktop(const bool fullscreen) noexcept
+  auto set_fullscreen_desktop(const bool fullscreen) noexcept -> bool
   {
-    const auto flag = static_cast<unsigned>(SDL_WINDOW_FULLSCREEN_DESKTOP);
-    SDL_SetWindowFullscreen(m_window, fullscreen ? flag : 0);
+    constexpr auto flag = static_cast<unsigned>(SDL_WINDOW_FULLSCREEN_DESKTOP);
+    return SDL_SetWindowFullscreen(m_window, fullscreen ? flag : 0) == 0;
   }
 
   /**
@@ -94494,11 +99189,13 @@ class basic_window final
    *
    * \param opacity the opacity, in the range [0, 1].
    *
+   * \return `true` on success; `false` otherwise.
+   *
    * \since 3.0.0
    */
-  void set_opacity(const float opacity) noexcept
+  auto set_opacity(const float opacity) noexcept -> bool
   {
-    SDL_SetWindowOpacity(m_window, opacity);
+    return SDL_SetWindowOpacity(m_window, opacity) == 0;
   }
 
   /**
@@ -94530,10 +99227,8 @@ class basic_window final
    */
   auto set_brightness(const float brightness) noexcept -> bool
   {
-    const auto res =
-        SDL_SetWindowBrightness(m_window,
-                                detail::clamp(brightness, 0.0f, 1.0f));
-    return res == 0;
+    return SDL_SetWindowBrightness(m_window,
+                                   detail::clamp(brightness, 0.0f, 1.0f)) == 0;
   }
 
   /**
@@ -94545,13 +99240,15 @@ class basic_window final
    * \param capturingMouse `true` if the mouse should be captured; `false`
    * otherwise.
    *
+   * \return `true` on success; `false` otherwise.
+   *
    * \see `SDL_CaptureMouse`
    *
    * \since 5.0.0
    */
-  static void set_capturing_mouse(const bool capturingMouse) noexcept
+  static auto set_capturing_mouse(const bool capturingMouse) noexcept -> bool
   {
-    SDL_CaptureMouse(detail::convert_bool(capturingMouse));
+    return SDL_CaptureMouse(detail::convert_bool(capturingMouse)) == 0;
   }
 
   /// \} End of setters
@@ -94605,7 +99302,7 @@ class basic_window final
    *
    * \since 5.0.0
    */
-  void set_position(const ipoint& position) noexcept
+  void set_position(const ipoint position) noexcept
   {
     SDL_SetWindowPosition(m_window, position.x(), position.y());
   }
@@ -94619,9 +99316,7 @@ class basic_window final
    */
   [[nodiscard]] auto x() const noexcept -> int
   {
-    int x{};
-    SDL_GetWindowPosition(m_window, &x, nullptr);
-    return x;
+    return position().x();
   }
 
   /**
@@ -94633,9 +99328,7 @@ class basic_window final
    */
   [[nodiscard]] auto y() const noexcept -> int
   {
-    int y{};
-    SDL_GetWindowPosition(m_window, nullptr, &y);
-    return y;
+    return position().y();
   }
 
   /**
@@ -94698,7 +99391,7 @@ class basic_window final
    *
    * \since 5.0.0
    */
-  void set_size(const iarea& size) noexcept
+  void set_size(const iarea size) noexcept
   {
     const auto width = detail::max(size.width, 1);
     const auto height = detail::max(size.height, 1);
@@ -94716,7 +99409,7 @@ class basic_window final
    *
    * \since 3.0.0
    */
-  void set_min_size(const iarea& size) noexcept
+  void set_min_size(const iarea size) noexcept
   {
     SDL_SetWindowMinimumSize(m_window, size.width, size.height);
   }
@@ -94732,7 +99425,7 @@ class basic_window final
    *
    * \since 3.0.0
    */
-  void set_max_size(const iarea& size) noexcept
+  void set_max_size(const iarea size) noexcept
   {
     SDL_SetWindowMaximumSize(m_window, size.width, size.height);
   }
@@ -94746,9 +99439,7 @@ class basic_window final
    */
   [[nodiscard]] auto width() const noexcept -> int
   {
-    int width{};
-    SDL_GetWindowSize(m_window, &width, nullptr);
-    return width;
+    return size().width;
   }
 
   /**
@@ -94760,9 +99451,7 @@ class basic_window final
    */
   [[nodiscard]] auto height() const noexcept -> int
   {
-    int height{};
-    SDL_GetWindowSize(m_window, nullptr, &height);
-    return height;
+    return size().height;
   }
 
   /**
@@ -94821,7 +99510,7 @@ class basic_window final
    *
    * \since 5.0.0
    */
-  template <typename BB = B, detail::is_owner<BB> = true>
+  template <typename BB = B, detail::is_owner<BB> = 0>
   [[nodiscard]] constexpr static auto default_size() noexcept -> iarea
   {
     return {800, 600};
@@ -95065,7 +99754,7 @@ class basic_window final
     return static_cast<bool>(flags() & flag);
   }
 
-  template <typename BB = B, detail::is_owner<BB> = true>
+  template <typename BB = B, detail::is_owner<BB> = 0>
   [[nodiscard]] constexpr static auto default_flags() noexcept -> u32
   {
     return SDL_WINDOW_HIDDEN;
@@ -95191,6 +99880,20 @@ class basic_window final
   }
 
   /**
+   * \brief Indicates whether or not the screen keyboard is shown for the
+   * window.
+   *
+   * \return `true` if the screen keyboard is shown for the window; `false`
+   * otherwise.
+   *
+   * \since 6.0.0
+   */
+  [[nodiscard]] auto is_screen_keyboard_shown() const noexcept -> bool
+  {
+    return SDL_IsScreenKeyboardShown(get()) == SDL_TRUE;
+  }
+
+  /**
    * \brief Returns a pointer to the associated SDL window.
    *
    * \warning Don't take ownership of the returned pointer!
@@ -95245,7 +99948,7 @@ class basic_window final
    *
    * \since 5.0.0
    */
-  template <typename BB = B, detail::is_handle<BB> = true>
+  template <typename BB = B, detail::is_handle<BB> = 0>
   explicit operator bool() const noexcept
   {
     return m_window != nullptr;
@@ -95437,7 +100140,7 @@ class basic_renderer final
    *
    * \since 4.0.0
    */
-  template <typename Window, typename BB = B, detail::is_owner<BB> = true>
+  template <typename Window, typename BB = B, detail::is_owner<BB> = 0>
   explicit basic_renderer(const Window& window,
                           const u32 flags = default_flags())
       : m_renderer{SDL_CreateRenderer(window.get(), -1, flags)}
@@ -95448,7 +100151,7 @@ class basic_renderer final
     }
   }
 
-  template <typename BB = B, detail::is_handle<BB> = true>
+  template <typename BB = B, detail::is_handle<BB> = 0>
   explicit basic_renderer(const renderer& owner) noexcept
       : m_renderer{owner.get()}
   {}
@@ -95765,7 +100468,7 @@ class basic_renderer final
    *
    * \since 6.0.0
    */
-  void fill_circle(const fpoint& center, const float radius)
+  void fill_circle(const fpoint center, const float radius)
   {
     const auto cx = center.x();
     const auto cy = center.y();
@@ -95799,7 +100502,7 @@ class basic_renderer final
    *
    * \since 4.1.0
    */
-  template <typename R, typename BB = B, detail::is_owner<BB> = true>
+  template <typename R, typename BB = B, detail::is_owner<BB> = 0>
   void draw_rect_t(const basic_rect<R>& rect) noexcept
   {
     draw_rect(translate(rect));
@@ -95817,7 +100520,7 @@ class basic_renderer final
    *
    * \since 4.1.0
    */
-  template <typename R, typename BB = B, detail::is_owner<BB> = true>
+  template <typename R, typename BB = B, detail::is_owner<BB> = 0>
   void fill_rect_t(const basic_rect<R>& rect) noexcept
   {
     fill_rect(translate(rect));
@@ -95836,7 +100539,7 @@ class basic_renderer final
    *
    * \since 6.0.0
    */
-  template <typename U, typename BB = B, detail::is_owner<BB> = true>
+  template <typename U, typename BB = B, detail::is_owner<BB> = 0>
   void draw_point_t(const basic_point<U>& point) noexcept
   {
     draw_point(translate(point));
@@ -95856,7 +100559,7 @@ class basic_renderer final
    *
    * \since 6.0.0
    */
-  template <typename U, typename BB = B, detail::is_owner<BB> = true>
+  template <typename U, typename BB = B, detail::is_owner<BB> = 0>
   void draw_circle_t(const basic_point<U>& position,
                      const float radius) noexcept
   {
@@ -95876,8 +100579,8 @@ class basic_renderer final
    *
    * \since 6.0.0
    */
-  template <typename BB = B, detail::is_owner<BB> = true>
-  void fill_circle_t(const fpoint& center, const float radius)
+  template <typename BB = B, detail::is_owner<BB> = 0>
+  void fill_circle_t(const fpoint center, const float radius)
   {
     fill_circle(translate(center), radius);
   }
@@ -96386,7 +101089,7 @@ class basic_renderer final
    */
   auto render_glyph(const font_cache& cache,
                     const unicode glyph,
-                    const ipoint& position) -> int
+                    const ipoint position) -> int
   {
     if (const auto* data = cache.try_at(glyph))
     {
@@ -96712,7 +101415,7 @@ class basic_renderer final
   template <typename P,
             typename U,
             typename BB = B,
-            detail::is_owner<BB> = true>
+            detail::is_owner<BB> = 0>
   void render_t(const basic_texture<U>& texture,
                 const basic_point<P>& position) noexcept
   {
@@ -96737,7 +101440,7 @@ class basic_renderer final
   template <typename P,
             typename U,
             typename BB = B,
-            detail::is_owner<BB> = true>
+            detail::is_owner<BB> = 0>
   void render_t(const basic_texture<U>& texture,
                 const basic_rect<P>& destination) noexcept
   {
@@ -96766,7 +101469,7 @@ class basic_renderer final
   template <typename P,
             typename U,
             typename BB = B,
-            detail::is_owner<BB> = true>
+            detail::is_owner<BB> = 0>
   void render_t(const basic_texture<U>& texture,
                 const irect& source,
                 const basic_rect<P>& destination) noexcept
@@ -96795,7 +101498,7 @@ class basic_renderer final
   template <typename P,
             typename U,
             typename BB = B,
-            detail::is_owner<BB> = true>
+            detail::is_owner<BB> = 0>
   void render_t(const basic_texture<U>& texture,
                 const irect& source,
                 const basic_rect<P>& destination,
@@ -96829,7 +101532,7 @@ class basic_renderer final
             typename P,
             typename U,
             typename BB = B,
-            detail::is_owner<BB> = true>
+            detail::is_owner<BB> = 0>
   void render_t(const basic_texture<U>& texture,
                 const irect& source,
                 const basic_rect<R>& destination,
@@ -96862,7 +101565,7 @@ class basic_renderer final
             typename P,
             typename U,
             typename BB = B,
-            detail::is_owner<BB> = true>
+            detail::is_owner<BB> = 0>
   void render_t(const basic_texture<U>& texture,
                 const irect& source,
                 const basic_rect<R>& destination,
@@ -96889,7 +101592,7 @@ class basic_renderer final
    *
    * \since 3.0.0
    */
-  template <typename BB = B, detail::is_owner<BB> = true>
+  template <typename BB = B, detail::is_owner<BB> = 0>
   void set_translation_viewport(const frect& viewport) noexcept
   {
     m_renderer.translation = viewport;
@@ -96904,7 +101607,7 @@ class basic_renderer final
    *
    * \since 3.0.0
    */
-  template <typename BB = B, detail::is_owner<BB> = true>
+  template <typename BB = B, detail::is_owner<BB> = 0>
   [[nodiscard]] auto translation_viewport() const noexcept -> const frect&
   {
     return m_renderer.translation;
@@ -96926,7 +101629,7 @@ class basic_renderer final
    *
    * \since 5.0.0
    */
-  template <typename BB = B, detail::is_owner<BB> = true>
+  template <typename BB = B, detail::is_owner<BB> = 0>
   void add_font(const std::size_t id, font&& font)
   {
     auto& fonts = m_renderer.fonts;
@@ -96950,7 +101653,7 @@ class basic_renderer final
    *
    * \since 5.0.0
    */
-  template <typename... Args, typename BB = B, detail::is_owner<BB> = true>
+  template <typename... Args, typename BB = B, detail::is_owner<BB> = 0>
   void emplace_font(const std::size_t id, Args&&... args)
   {
     auto& fonts = m_renderer.fonts;
@@ -96971,7 +101674,7 @@ class basic_renderer final
    *
    * \since 5.0.0
    */
-  template <typename BB = B, detail::is_owner<BB> = true>
+  template <typename BB = B, detail::is_owner<BB> = 0>
   void remove_font(const std::size_t id)
   {
     m_renderer.fonts.erase(id);
@@ -96988,7 +101691,7 @@ class basic_renderer final
    *
    * \since 5.0.0
    */
-  template <typename BB = B, detail::is_owner<BB> = true>
+  template <typename BB = B, detail::is_owner<BB> = 0>
   [[nodiscard]] auto get_font(const std::size_t id) -> font&
   {
     return m_renderer.fonts.at(id);
@@ -96997,7 +101700,7 @@ class basic_renderer final
   /**
    * \copydoc get_font
    */
-  template <typename BB = B, detail::is_owner<BB> = true>
+  template <typename BB = B, detail::is_owner<BB> = 0>
   [[nodiscard]] auto get_font(const std::size_t id) const -> const font&
   {
     return m_renderer.fonts.at(id);
@@ -97014,7 +101717,7 @@ class basic_renderer final
    *
    * \since 4.1.0
    */
-  template <typename BB = B, detail::is_owner<BB> = true>
+  template <typename BB = B, detail::is_owner<BB> = 0>
   [[nodiscard]] auto has_font(const std::size_t id) const noexcept -> bool
   {
     return static_cast<bool>(m_renderer.fonts.count(id));
@@ -97142,7 +101845,7 @@ class basic_renderer final
    *
    * \since 3.0.0
    */
-  void set_logical_size(const iarea& size) noexcept
+  void set_logical_size(const iarea size) noexcept
   {
     if ((size.width >= 0) && (size.height >= 0))
     {
@@ -97549,7 +102252,7 @@ class basic_renderer final
    *
    * \since 5.0.0
    */
-  template <typename BB = B, detail::is_handle<BB> = true>
+  template <typename BB = B, detail::is_handle<BB> = 0>
   explicit operator bool() const noexcept
   {
     return m_renderer != nullptr;
@@ -97606,7 +102309,7 @@ class basic_renderer final
     return texture;
   }
 
-  template <typename T, typename BB = B, detail::is_owner<BB> = true>
+  template <typename T, typename BB = B, detail::is_owner<BB> = 0>
   [[nodiscard]] auto translate(const basic_point<T>& point) const noexcept
       -> basic_point<T>
   {
@@ -97619,7 +102322,7 @@ class basic_renderer final
     return basic_point<T>{x, y};
   }
 
-  template <typename T, typename BB = B, detail::is_owner<BB> = true>
+  template <typename T, typename BB = B, detail::is_owner<BB> = 0>
   [[nodiscard]] auto translate(const basic_rect<T>& rect) const noexcept
       -> basic_rect<T>
   {
