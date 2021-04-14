@@ -11,7 +11,8 @@ namespace wanderer::sys {
 void update_chase(entt::registry& registry, entt::dispatcher& dispatcher)
 {
   const auto view = registry.view<comp::chase, comp::movable>();
-  view.each([&](const entt::entity entity, comp::chase& chase, comp::movable& movable) {
+  for (auto&& [entity, chase, movable] : view.each())
+  {
     const auto& targetMovable = registry.get<comp::movable>(chase.target);
 
     if (distance(movable.position, targetMovable.position) <= chase.range)
@@ -36,7 +37,7 @@ void update_chase(entt::registry& registry, entt::dispatcher& dispatcher)
 
       // TODO roam
     }
-  });
+  }
 }
 
 }  // namespace wanderer::sys
