@@ -16,8 +16,8 @@ void update_level_switch_animations(entt::registry& registry,
                                     entt::dispatcher& dispatcher,
                                     const delta_t dt)
 {
-  const auto view = registry.view<comp::level_switch_animation>();
-  view.each([&](comp::level_switch_animation& animation) {
+  for (auto&& [entity, animation] : registry.view<comp::level_switch_animation>().each())
+  {
     animation.width += animation.xStepSize * animation.speed * dt;
     animation.height += animation.yStepSize * animation.speed * dt;
 
@@ -39,14 +39,15 @@ void update_level_switch_animations(entt::registry& registry,
         dispatcher.enqueue<event::level_faded_out>();
       }
     }
-  });
+  }
 }
 
 void render_level_switch_animations(const entt::registry& registry,
                                     cen::renderer& renderer)
 {
   const auto view = registry.view<const comp::level_switch_animation>();
-  view.each([&](const comp::level_switch_animation& animation) noexcept {
+  for (auto&& [entity, animation] : view.each())
+  {
     constexpr auto logicalSize = glob::logical_size<cen::farea>;
     constexpr auto width = logicalSize.width;
     constexpr auto height = logicalSize.height;
@@ -54,11 +55,11 @@ void render_level_switch_animations(const entt::registry& registry,
     const auto hSize = animation.width;
     const auto vSize = animation.height;
     renderer.set_color(gray);
-    renderer.fill_rect<float>({{}, {width, vSize}});
-    renderer.fill_rect<float>({{0, height - vSize}, {width, vSize}});
-    renderer.fill_rect<float>({{}, {hSize, height}});
-    renderer.fill_rect<float>({{width - hSize, 0}, {hSize, height}});
-  });
+    renderer.fill_rect(cen::rect(0.0f, 0.0f, width, vSize));
+    renderer.fill_rect(cen::rect(0.0f, height - vSize, width, vSize));
+    renderer.fill_rect(cen::rect(0.0f, 0.0f, hSize, height));
+    renderer.fill_rect(cen::rect(width - hSize, 0.0f, hSize, height));
+  }
 }
 
 void start_level_fade_animation(entt::registry& registry, const map_id map)

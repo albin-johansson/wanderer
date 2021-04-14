@@ -11,26 +11,26 @@ namespace {
   maybe<comp::inventory::entity> result;
 
   const auto view = registry.view<comp::inventory, comp::object>();
-  view.each(
-      [&](const entt::entity entity, const comp::inventory&, const comp::object& object) {
-        if (object.id == id)
-        {
-          result.emplace(entity);
-        }
-      });
+  for (auto&& [entity, inventory, object] : view.each())
+  {
+    if (object.id == id)
+    {
+      result.emplace(entity);
+    }
+  }
 
   return result;
 }
 
 void set_up_container_triggers(entt::registry& registry)
 {
-  const auto view = registry.view<comp::container_trigger>();
-  view.each([&](comp::container_trigger& trigger) {
+  for (auto&& [entity, trigger] : registry.view<comp::container_trigger>().each())
+  {
     if (const auto result = find_inventory(registry, trigger.inventoryId))
     {
       trigger.inventoryEntity = comp::inventory::entity{*result};
     }
-  });
+  }
 }
 
 }  // namespace

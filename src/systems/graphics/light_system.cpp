@@ -22,8 +22,7 @@ inline const auto texture_path = resources::texture("ardentryst/glow.png");
 
 void update_lights(entt::registry& registry)
 {
-  const auto view = registry.view<comp::point_light>();
-  for (auto&& [entity, light] : view.each())
+  for (auto&& [entity, light] : registry.view<comp::point_light>().each())
   {
     light.fluctuation += next_bool() ? light.fluctuationStep : -light.fluctuationStep;
 
@@ -64,8 +63,7 @@ void render_lights(const entt::registry& registry,
 
   constexpr cen::irect source{{}, {80, 80}};
 
-  const auto view = registry.view<const comp::point_light>();
-  for (auto&& [entity, light] : view.each())
+  for (auto&& [entity, light] : registry.view<const comp::point_light>().each())
   {
     const auto& pos = light.position;
 
@@ -86,8 +84,7 @@ void render_lights(const entt::registry& registry,
 
 void render_light_overlay(const ctx::time_of_day& time, graphics_context& graphics)
 {
-  const auto opacity = time.opacity;
-  graphics.renderer().fill_with(cen::colors::black.with_alpha(opacity));
+  graphics.renderer().fill_with(cen::colors::black.with_alpha(time.opacity));
 }
 
 }  // namespace wanderer::sys

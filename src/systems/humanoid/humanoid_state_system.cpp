@@ -8,17 +8,17 @@ namespace {
 
 void update_attacking_humanoids(entt::registry& registry, entt::dispatcher& dispatcher)
 {
-  registry.view<comp::humanoid_attack>().each(
-      [&](const entt::entity entity, const comp::humanoid_attack& attack) {
-        if (attack.done)
-        {
-          dispatcher.enqueue<event::end_attack>(registry,
-                                                dispatcher,
-                                                entity,
-                                                attack.weapon,
-                                                direction::down);
-        }
-      });
+  for (auto&& [entity, attack] : registry.view<comp::humanoid_attack>().each())
+  {
+    if (attack.done)
+    {
+      dispatcher.enqueue<event::end_attack>(registry,
+                                            dispatcher,
+                                            entity,
+                                            attack.weapon,
+                                            direction::down);
+    }
+  }
 }
 
 }  // namespace

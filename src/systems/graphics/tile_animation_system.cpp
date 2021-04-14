@@ -8,7 +8,8 @@ namespace wanderer::sys {
 
 void update_tile_animations(entt::registry& registry)
 {
-  registry.view<comp::animated_tile>().each([](comp::animated_tile& tile) {
+  for (auto&& [entity, tile] : registry.view<comp::animated_tile>().each())
+  {
     const auto now = cen::counter::ticks();
     const auto elapsed = now - tile.then;
     if (elapsed >= tile.frames.at(tile.index).duration)
@@ -20,7 +21,7 @@ void update_tile_animations(entt::registry& registry)
         tile.index = 0;
       }
     }
-  });
+  }
 }
 
 }  // namespace wanderer::sys

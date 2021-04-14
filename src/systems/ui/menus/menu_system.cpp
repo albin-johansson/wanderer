@@ -86,8 +86,8 @@ void switch_menu(entt::registry& registry, const menu_id id)
 {
   registry.unset<ctx::active_menu>();
 
-  const auto view = registry.view<comp::menu>();
-  view.each([&](const entt::entity entity, const comp::menu& menu) {
+  for (auto&& [entity, menu] : registry.view<comp::menu>().each())
+  {
     if (menu.id == id)
     {
       registry.set<ctx::active_menu>(comp::menu::entity{entity});
@@ -97,7 +97,7 @@ void switch_menu(entt::registry& registry, const menu_id id)
         update_saves_menu(registry);
       }
     }
-  });
+  }
 }
 
 auto is_current_menu_blocking(const entt::registry& registry) -> bool

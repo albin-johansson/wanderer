@@ -60,7 +60,8 @@ void render_inventory(const entt::registry& registry,
                       const cen::ipoint& mousePos)
 {
   const auto view = registry.view<const comp::inventory, const comp::active_inventory>();
-  view.each([&](const comp::inventory& inventory) {
+  for (auto&& [entity, inventory] : view.each())
+  {
     const auto nItems = inventory.items.size();
 
     renderer.fill_with(glob::transparent_black);
@@ -96,7 +97,7 @@ void render_inventory(const entt::registry& registry,
       renderer.set_color(cen::colors::dark_green);
       renderer.draw_rect(rect);
     }
-  });
+  }
 }
 
 }  // namespace wanderer::sys

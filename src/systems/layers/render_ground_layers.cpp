@@ -33,10 +33,10 @@ void render_ground_layers(const entt::registry& registry, graphics_context& grap
   const auto& tileset = registry.ctx<ctx::tileset>();
   const auto& bounds = registry.ctx<ctx::render_bounds>();
 
-  const auto view = registry.view<const comp::tile_layer>();
-  view.each([&](const comp::tile_layer& layer) {
+  for (auto&& [entity, layer] : registry.view<const comp::tile_layer>().each())
+  {
     render_tile_layer(registry, layer, graphics, tileset, bounds);
-  });
+  }
 }
 
 }  // namespace wanderer::sys

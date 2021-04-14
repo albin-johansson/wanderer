@@ -205,16 +205,17 @@ void enter_spear_animation(entt::registry& registry, const entt::entity entity) 
 
 void update_humanoid_animations(entt::registry& registry)
 {
-  registry.view<comp::humanoid>().each([&](const entt::entity entity) {
+  for (auto&& [entity] : registry.view<comp::humanoid>().each())
+  {
     if (registry.has<comp::humanoid_move>(entity))
     {
       update_move_animation(registry, entity);
     }
-    if (registry.has<comp::humanoid_attack>(entity))
+    else if (registry.has<comp::humanoid_attack>(entity))
     {
       update_attack_animation(registry, entity);
     }
-  });
+  }
 }
 
 }  // namespace wanderer::sys
