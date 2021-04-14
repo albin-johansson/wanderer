@@ -52,7 +52,7 @@ template <typename T>
   }
 }
 
-[[nodiscard]] inline auto get_bool() -> bool
+[[nodiscard]] inline auto next_bool() -> bool
 {
   return get_random(0, 99) < 50;
 }
