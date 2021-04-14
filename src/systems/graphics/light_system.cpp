@@ -23,14 +23,15 @@ inline const auto texture_path = resources::texture("ardentryst/glow.png");
 void update_lights(entt::registry& registry)
 {
   const auto view = registry.view<comp::point_light>();
-  view.each([&](comp::point_light& light) {
-    light.fluctuation += get_bool() ? light.fluctuationStep : -light.fluctuationStep;
+  for (auto&& [entity, light] : view.each())
+  {
+    light.fluctuation += next_bool() ? light.fluctuationStep : -light.fluctuationStep;
 
     const auto min = light.size - light.fluctuationLimit;
     const auto max = light.size + light.fluctuationLimit;
 
     light.fluctuation = std::clamp(light.fluctuation, min, max);
-  });
+  }
 }
 
 void update_player_light_position(entt::registry& registry)
@@ -64,7 +65,8 @@ void render_lights(const entt::registry& registry,
   constexpr cen::irect source{{}, {80, 80}};
 
   const auto view = registry.view<const comp::point_light>();
-  view.each([&](const comp::point_light& light) {
+  for (auto&& [entity, light] : view.each())
+  {
     const auto& pos = light.position;
 
     const auto size = light.size + light.fluctuation;
@@ -75,7 +77,7 @@ void render_lights(const entt::registry& registry,
     {
       graphics.render(index, source, dst);
     }
-  });
+  }
 
   renderer.set_target(nullptr);
   renderer.set_blend_mode(cen::blend_mode::blend);
