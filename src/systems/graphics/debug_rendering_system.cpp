@@ -17,7 +17,8 @@ namespace {
 void render_hitboxes(const entt::registry& registry, cen::renderer& renderer)
 {
   const auto view = registry.view<const comp::hitbox>();
-  view.each([&](const entt::entity entity, const comp::hitbox& hitbox) {
+  for (auto&& [entity, hitbox] : view.each())
+  {
     if (registry.has<comp::portal>(entity) ||
         registry.has<comp::container_trigger>(entity))
     {
@@ -38,7 +39,7 @@ void render_hitboxes(const entt::registry& registry, cen::renderer& renderer)
 
     renderer.set_color(renderer.get_color().with_alpha(255));
     renderer.draw_rect_t(hitbox.bounds);
-  });
+  }
 }
 
 void render_enabled_trigger_indicator(const entt::registry& registry,
@@ -70,11 +71,11 @@ void render_chase_ranges(const entt::registry& registry, cen::renderer& renderer
   renderer.set_color(cen::colors::red);
 
   const auto view = registry.view<const comp::depth_drawable, const comp::chase>();
-  view.each([&](const comp::depth_drawable& drawable, const comp::chase& chase) {
+  for (auto&& [entity, drawable, chase] : view.each())
+  {
     renderer.draw_circle_t(drawable.dst.center(), chase.range);
-  });
+  }
 }
-
 
 void render_development_build_label(graphics_context& graphics)
 {
