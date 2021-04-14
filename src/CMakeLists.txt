@@ -60,6 +60,7 @@ set(SOURCE_FILES
     core/render_text.hpp
     core/serialization.hpp
     core/stack_resource.hpp
+    core/text_size.hpp
 
     core/aliases/aabb_tree.hpp
     core/aliases/buffer.hpp
