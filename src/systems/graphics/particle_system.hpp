@@ -1,17 +1,23 @@
 #pragma once
 
-#include <centurion.hpp>
-#include <entt.hpp>
+#include <centurion.hpp>  // renderer, color
+#include <entt.hpp>       // registry
 
 #include "delta.hpp"
 #include "float2.hpp"
 
 namespace wanderer::sys {
 
+void spawn_particles(entt::registry& registry,
+                     float2 origin,
+                     int count,
+                     float duration,
+                     const cen::color& color);
+
 void add_particle(entt::registry& registry,
-                  const float2& position,
-                  const cen::color& color,
-                  int nTicks);
+                  float2 position,
+                  float duration,
+                  const cen::color& color);
 
 void update_particles(entt::registry& registry, delta_t dt);
 

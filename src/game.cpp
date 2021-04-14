@@ -266,10 +266,11 @@ void game::on_close_inventory(const event::close_inventory&)
 
 void game::on_particle_event(const event::spawn_particles& event)
 {
-  for (auto i = 0; i < event.count; ++i)
-  {
-    sys::add_particle(m_levels.registry(), event.position, event.baseColor, event.nTicks);
-  }
+  sys::spawn_particles(m_levels.registry(),
+                       event.position,
+                       event.count,
+                       event.duration,
+                       event.color);
 }
 
 void game::on_quit_event(const event::quit_event&)

@@ -1,18 +1,17 @@
 #pragma once
 
-#include <centurion.hpp>
+#include <centurion.hpp>  // color
 
 #include "float2.hpp"
-#include "milliseconds.hpp"
 
 namespace wanderer::event {
 
 struct spawn_particles final
 {
   float2 position;
-  cen::color baseColor;
-  int count;
-  int nTicks;
+  int count{};
+  float duration{25};
+  cen::color color;
 };
 
 }  // namespace wanderer::event

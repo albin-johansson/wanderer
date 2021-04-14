@@ -63,7 +63,7 @@ void on_attack_end(const event::end_attack& event)
   if (const auto* movable = registry.try_get<comp::movable>(event.sourceEntity))
   {
     const auto position = get_particle_position(movable->position, *movable);
-    dispatcher.enqueue<event::spawn_particles>(position, cen::colors::dark_gray, 5, 500);
+    dispatcher.enqueue<event::spawn_particles>(position, 5, 25.0f, cen::colors::dark_gray);
   }
 
   enter_idle_animation(event.registry, event.sourceEntity);

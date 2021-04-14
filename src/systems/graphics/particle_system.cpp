@@ -1,38 +1,68 @@
 #include "particle_system.hpp"
 
-#include <centurion.hpp>
-
 #include "get_random.hpp"
 #include "particle.hpp"
 
+using namespace cen::literals;
+
 namespace wanderer::sys {
 
-void add_particle(entt::registry& registry,
-                  const float2& position,
-                  const cen::color& color,
-                  const int nTicks)
+inline constexpr float time_step = 10;     // How much time passes each frame
+inline constexpr float initial_z_pos = 2;  // The initial theoretical Z-coordinate
+
+inline constexpr float min_initial_x_accel = -20;
+inline constexpr float max_initial_x_accel = 20;
+
+inline constexpr float min_initial_y_accel = -10;
+inline constexpr float max_initial_y_accel = 10;
+
+inline constexpr float min_initial_z_accel = 3;
+inline constexpr float max_initial_z_accel = 6;
+
+// Z-acceleration is decremented with this each frame
+inline constexpr float z_accel_decrement = 30;
+
+// These are used to scale the acceleration once a particle has a negative Z-coordinate
+inline constexpr float x_accel = 36;
+inline constexpr float y_accel = 36;
+inline constexpr float z_accel = -30;
+
+void spawn_particles(entt::registry& registry,
+                     const float2 origin,
+                     const int count,
+                     const float duration,
+                     const cen::color& color)
 {
-  using namespace cen::literals;
+  for (auto i = 0; i < count; ++i)
+  {
+    add_particle(registry, origin, duration, color);
+  }
+}
 
+void add_particle(entt::registry& registry,
+                  const float2 position,
+                  const float duration,
+                  const cen::color& color)
+{
   auto& particle = registry.emplace<comp::particle>(registry.create());
-  particle.position = {position.x, position.y, 2};
+  particle.position = {position.x, position.y, initial_z_pos};
 
-  particle.acceleration.x = get_random(-12.0f, 12.0f);
-  particle.acceleration.y = get_random(-8.0f, 8.0f);
-  particle.acceleration.z = get_random(0.0f, 3.5f) + 2.0f;
+  particle.acceleration.x = get_random(min_initial_x_accel, max_initial_x_accel);
+  particle.acceleration.y = get_random(min_initial_y_accel, max_initial_y_accel);
+  particle.acceleration.z = get_random(min_initial_z_accel, max_initial_z_accel);
 
-  particle.tick = 0;
-  particle.nTicks = nTicks;
+  particle.now = 0;
+  particle.duration = duration;
   particle.color = color;
 }
 
 void update_particles(entt::registry& registry, const delta_t dt)
 {
   const auto now = cen::counter::ticks();
-  const auto view = registry.view<comp::particle>();
-  view.each([&](const entt::entity entity, comp::particle& particle) {
-    ++particle.tick;
-    if (particle.tick >= particle.nTicks)
+  for (auto&& [entity, particle] : registry.view<comp::particle>().each())
+  {
+    particle.now += time_step * dt;
+    if (particle.now >= particle.duration)
     {
       registry.destroy(entity);
     }
@@ -43,26 +73,27 @@ void update_particles(entt::registry& registry, const delta_t dt)
       if (particle.position.z < 0)
       {
         particle.position.z = 0;
-        particle.acceleration.x *= 0.6f;
-        particle.acceleration.y *= 0.6f;
-        particle.acceleration.z *= -0.5f;
+        particle.acceleration.x *= x_accel * dt;
+        particle.acceleration.y *= y_accel * dt;
+        particle.acceleration.z *= z_accel * dt;
       }
 
-      particle.acceleration.z -= 0.15f;
+      particle.acceleration.z -= z_accel_decrement * dt;
     }
-  });
+  }
 }
 
 void render_particles(const entt::registry& registry, cen::renderer& renderer)
 {
-  const auto view = registry.view<const comp::particle>();
-  view.each([&](const comp::particle& particle) {
-    const cen::frect rect{
-        {particle.position.x, particle.position.y - particle.position.z},
-        {2.0f, 2.0f}};
+  for (auto&& [entity, particle] : registry.view<const comp::particle>().each())
+  {
+    const auto rect = cen::rect(particle.position.x,
+                                particle.position.y - particle.position.z,
+                                2.0f,
+                                2.0f);
     renderer.set_color(particle.color);
     renderer.fill_rect_t(rect);
-  });
+  }
 }
 
 }  // namespace wanderer::sys
