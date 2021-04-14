@@ -1,5 +1,7 @@
 #include "graphics_context.hpp"
 
+#include <utility>  // move
+
 #include "make_renderer.hpp"
 #include "menu_constants.hpp"
 #include "resources.hpp"
@@ -20,7 +22,7 @@ graphics_context::graphics_context(const cen::window& window)
   m_smallFontCache.add_latin1(m_renderer);
 }
 
-auto graphics_context::load(const texture_id id, const std::string& path) -> texture_index
+auto graphics_context::load(const texture_id id, std::string path) -> texture_index
 {
   if (const auto it = m_identifiers.find(id); it != m_identifiers.end())
   {
@@ -29,7 +31,7 @@ auto graphics_context::load(const texture_id id, const std::string& path) -> tex
 
   const auto index = m_textures.size();
 
-  m_textures.emplace_back(m_renderer, path);
+  m_textures.emplace_back(m_renderer, std::move(path));
   m_identifiers.try_emplace(id, index);
 
   return texture_index{index};

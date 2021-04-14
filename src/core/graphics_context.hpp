@@ -19,15 +19,17 @@ class graphics_context final
  public:
   explicit graphics_context(const cen::window& window);
 
-  auto load(texture_id id, const std::string& path) -> texture_index;
+  auto load(texture_id id, std::string path) -> texture_index;
 
-  void render(texture_index index, const cen::irect& src, const cen::frect& dst) noexcept
+  // Convenience function for rendering indexed textures
+  void render(const texture_index index,
+              const cen::irect& src,
+              const cen::frect& dst) noexcept
   {
-    const auto& texture = find(index);
-    m_renderer.render_t(texture, src, dst);
+    m_renderer.render_t(find(index), src, dst);
   }
 
-  [[nodiscard]] auto to_index(texture_id id) const -> texture_index
+  [[nodiscard]] auto to_index(const texture_id id) const -> texture_index
   {
     return m_identifiers.at(id);
   }
@@ -39,12 +41,12 @@ class graphics_context final
     return m_textures[index];
   }
 
-  [[nodiscard]] auto small_font_cache() -> cen::font_cache&
+  [[nodiscard]] auto small_font_cache() noexcept -> cen::font_cache&
   {
     return m_smallFontCache;
   }
 
-  [[nodiscard]] auto light_canvas() -> cen::texture&
+  [[nodiscard]] auto light_canvas() noexcept -> cen::texture&
   {
     return m_lightCanvas;
   }
