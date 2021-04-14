@@ -15,12 +15,12 @@ set(SOURCE_FILES
     components/humanoid_state.hpp
     components/movable.hpp
     components/object.hpp
-    components/particle.hpp
 
     components/graphics/animated.hpp
     components/graphics/animated_tile.hpp
     components/graphics/depth_drawable.hpp
     components/graphics/level_switch_animation.hpp
+    components/graphics/particle.hpp
     components/graphics/point_light.hpp
 
     components/input/key_bind.hpp
