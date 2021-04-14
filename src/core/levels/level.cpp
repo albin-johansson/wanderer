@@ -39,9 +39,11 @@ level::level(const ir::level& data, graphics_context& graphics)
 
   spawn_humanoids(tilemap, graphics);
 
-  each<comp::depth_drawable, comp::humanoid>([&](comp::depth_drawable& drawable) {
+  for (auto&& [entity, drawable] :
+       m_registry.view<comp::depth_drawable, comp::humanoid>().each())
+  {
     drawable.layer = tilemap.humanoidLayer;
-  });
+  }
 
   sys::center_viewport_on(m_registry, player_spawnpoint());
   sys::update_drawables(m_registry);
