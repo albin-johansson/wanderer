@@ -66,7 +66,7 @@ void handle_idle_input(entt::registry& registry,
 {
   const auto player = registry.ctx<ctx::player>().entity;
 
-  assert(registry.has<comp::humanoid_idle>(player));
+  assert(registry.all_of<comp::humanoid_idle>(player));
   const auto& keyboard = input.keyboard;
 
   if (keyboard.just_released(binds.interact))

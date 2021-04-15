@@ -96,7 +96,7 @@ void update_move_animation(entt::registry& registry, const entt::entity entity) 
  */
 void update_attack_animation(entt::registry& registry, const entt::entity entity) noexcept
 {
-  assert(registry.has<comp::humanoid_attack>(entity));
+  assert(registry.all_of<comp::humanoid_attack>(entity));
   auto* animated = registry.try_get<comp::animated>(entity);
   auto* drawable = registry.try_get<comp::depth_drawable>(entity);
 
@@ -207,11 +207,11 @@ void update_humanoid_animations(entt::registry& registry)
 {
   for (auto&& [entity] : registry.view<comp::humanoid>().each())
   {
-    if (registry.has<comp::humanoid_move>(entity))
+    if (registry.all_of<comp::humanoid_move>(entity))
     {
       update_move_animation(registry, entity);
     }
-    else if (registry.has<comp::humanoid_attack>(entity))
+    else if (registry.all_of<comp::humanoid_attack>(entity))
     {
       update_attack_animation(registry, entity);
     }

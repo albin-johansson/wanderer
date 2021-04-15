@@ -59,7 +59,7 @@ void render_lights(const entt::registry& registry,
   texture.set_blend_mode(cen::blend_mode::mod);
 
   const auto index = graphics.load("point_light"_hs, texture_path);
-  const auto& viewport = registry.ctx<ctx::viewport>();
+  const auto& viewport = registry.ctx<const ctx::viewport>();
 
   constexpr cen::irect source{{}, {80, 80}};
 

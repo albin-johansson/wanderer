@@ -115,7 +115,7 @@ void game::render(graphics_context& graphics, const cen::ipoint mousePos)
   sys::render_drawables(registry, graphics);
   sys::render_particles(registry, renderer);
 
-  if (registry.try_ctx<ctx::outside_level>())
+  if (registry.try_ctx<const ctx::outside_level>())
   {
     const auto& time = m_shared.ctx<ctx::time_of_day>();
     const auto& settings = m_shared.ctx<ctx::settings>();

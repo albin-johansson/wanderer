@@ -97,13 +97,13 @@ void center_viewport_on(entt::registry& registry, const float2& position)
 
 void update_viewport(level& level, const entt::entity movableEntity, const delta_t dt)
 {
-  const auto& movable = level.get<comp::movable>(movableEntity);
+  const auto& movable = level.get<const comp::movable>(movableEntity);
   track(level.ctx<ctx::viewport>(), movable.position, dt);
 }
 
 void translate_viewport(const entt::registry& registry, cen::renderer& renderer)
 {
-  const auto& viewport = registry.ctx<ctx::viewport>();
+  const auto& viewport = registry.ctx<const ctx::viewport>();
   renderer.set_translation_viewport(viewport.bounds);
 }
 

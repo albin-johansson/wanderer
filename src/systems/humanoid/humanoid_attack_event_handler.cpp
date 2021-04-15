@@ -40,7 +40,7 @@ namespace {
 void on_attack_begin(const event::begin_attack& event)
 {
   auto& registry = event.registry.get();
-  assert(!registry.has<comp::humanoid_attack>(event.sourceEntity));
+  assert(!registry.all_of<comp::humanoid_attack>(event.sourceEntity));
 
   auto& attack = registry.emplace<comp::humanoid_attack>(event.sourceEntity);
   attack.weapon = event.weapon;
@@ -53,10 +53,10 @@ void on_attack_end(const event::end_attack& event)
 {
   auto& registry = event.registry.get();
   auto& dispatcher = event.dispatcher.get();
-  assert(registry.has<comp::humanoid_attack>(event.sourceEntity));
+  assert(registry.all_of<comp::humanoid_attack>(event.sourceEntity));
 
   registry.emplace<comp::humanoid_idle>(event.sourceEntity);
-  assert(!registry.has<comp::humanoid_attack>(event.sourceEntity));
+  assert(!registry.all_of<comp::humanoid_attack>(event.sourceEntity));
 
   // TODO deal damage (need target area)
 

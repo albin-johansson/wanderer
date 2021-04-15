@@ -20,7 +20,7 @@ void update_chase(entt::registry& registry, entt::dispatcher& dispatcher)
       movable.velocity = movable.position;
       movable.velocity.point_at(targetMovable.position, movable.speed);
 
-      if (!registry.has<comp::humanoid_move>(entity))
+      if (!registry.all_of<comp::humanoid_move>(entity))
       {
         registry.emplace<comp::humanoid_move>(entity);
         enter_move_animation(registry, entity, dominant_direction(movable));
@@ -29,7 +29,7 @@ void update_chase(entt::registry& registry, entt::dispatcher& dispatcher)
     else
     {
       movable.velocity.zero();
-      if (!registry.has<comp::humanoid_idle>(entity))
+      if (!registry.all_of<comp::humanoid_idle>(entity))
       {
         registry.emplace<comp::humanoid_idle>(entity);
         enter_idle_animation(registry, entity);

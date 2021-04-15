@@ -75,7 +75,7 @@ void update_render_bounds(entt::registry& registry, const int nRows, const int n
 auto get_render_bounds(const entt::registry& registry, const int rows, const int cols)
     -> ctx::render_bounds
 {
-  const auto& viewport = registry.ctx<ctx::viewport>();
+  const auto& viewport = registry.ctx<const ctx::viewport>();
 
   ctx::render_bounds bounds;
   bounds.minCol = calculate_min_col(viewport.bounds.x());

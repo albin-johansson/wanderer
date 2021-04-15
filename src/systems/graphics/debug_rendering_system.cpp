@@ -19,8 +19,8 @@ void render_hitboxes(const entt::registry& registry, cen::renderer& renderer)
   const auto view = registry.view<const comp::hitbox>();
   for (auto&& [entity, hitbox] : view.each())
   {
-    if (registry.has<comp::portal>(entity) ||
-        registry.has<comp::container_trigger>(entity))
+    if (registry.all_of<comp::portal>(entity) ||
+        registry.all_of<comp::container_trigger>(entity))
     {
       renderer.set_color(cen::colors::cyan);
     }
@@ -46,7 +46,7 @@ void render_enabled_trigger_indicator(const entt::registry& registry,
                                       const entt::entity entity,
                                       cen::renderer& renderer)
 {
-  assert(registry.has<comp::hitbox>(entity));
+  assert(registry.all_of<comp::hitbox>(entity));
   const auto& hitbox = registry.get<comp::hitbox>(entity);
 
   renderer.set_color(cen::colors::cyan.with_alpha(100));
@@ -55,7 +55,7 @@ void render_enabled_trigger_indicator(const entt::registry& registry,
 
 void render_trigger_indicators(const entt::registry& registry, cen::renderer& renderer)
 {
-  const auto entity = registry.ctx<ctx::player>().entity;
+  const auto entity = registry.ctx<const ctx::player>().entity;
   if (const auto* iwp = registry.try_get<comp::is_within_portal>(entity))
   {
     render_enabled_trigger_indicator(registry, iwp->portalEntity, renderer);
@@ -103,7 +103,7 @@ void render_menu_debug_info(const entt::registry& registry, graphics_context& gr
 {
   auto& renderer = graphics.renderer();
 
-  const auto menuEntity = registry.ctx<ctx::active_menu>().entity;
+  const auto menuEntity = registry.ctx<const ctx::active_menu>().entity;
   const auto& menu = registry.get<comp::menu>(menuEntity);
 
   if (menu.id != menu_id::in_game)

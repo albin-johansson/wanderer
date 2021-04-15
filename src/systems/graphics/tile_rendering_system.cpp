@@ -21,7 +21,7 @@ auto get_animated_tile(const entt::registry& registry,
                        const comp::tile::entity tileEntity,
                        const ctx::tileset& tileset) -> const comp::tile&
 {
-  assert(registry.has<comp::animated_tile>(tileEntity));
+  assert(registry.all_of<comp::animated_tile>(tileEntity));
 
   const auto& animatedTile = registry.get<comp::animated_tile>(tileEntity);
   const auto tileId = animatedTile.frames.at(animatedTile.index).tile;

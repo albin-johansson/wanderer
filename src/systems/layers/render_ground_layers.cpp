@@ -15,7 +15,7 @@ void render_tile_layer(const entt::registry& registry,
 {
   visit_tiles(layer, bounds, [&](const tile_id id, const int row, const int col) {
     const auto entity = tileset.tiles.at(id);
-    if (registry.has<comp::animated_tile>(entity))
+    if (registry.all_of<comp::animated_tile>(entity))
     {
       render_tile(graphics, get_animated_tile(registry, entity, tileset), row, col);
     }
@@ -30,8 +30,8 @@ void render_tile_layer(const entt::registry& registry,
 
 void render_ground_layers(const entt::registry& registry, graphics_context& graphics)
 {
-  const auto& tileset = registry.ctx<ctx::tileset>();
-  const auto& bounds = registry.ctx<ctx::render_bounds>();
+  const auto& tileset = registry.ctx<const ctx::tileset>();
+  const auto& bounds = registry.ctx<const ctx::render_bounds>();
 
   for (auto&& [entity, layer] : registry.view<const comp::tile_layer>().each())
   {
