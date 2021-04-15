@@ -1,8 +1,9 @@
 #pragma once
 
-#include <centurion.hpp>  // keyboard, mouse, renderer
+#include <centurion.hpp>  // keyboard, mouse
 #include <entt.hpp>       // registry
 
+#include "graphics_context.hpp"
 #include "input.hpp"
 #include "menu.hpp"
 #include "menu_id.hpp"
@@ -46,9 +47,9 @@ void switch_menu(entt::registry& registry, menu_id id);
  * \brief Renders the currently active menu.
  *
  * \param registry the menu registry.
- * \param renderer the renderer that will be used.
+ * \param graphics the graphics context that will be used.
  */
-void render_menu(const entt::registry& registry, cen::renderer& renderer);
+void render_menu(const entt::registry& registry, graphics_context& graphics);
 
 /**
  * \brief Indicates whether or not the current menu is blocking.

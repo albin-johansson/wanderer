@@ -3,16 +3,21 @@
 #include "button_system.hpp"
 #include "checkbox.hpp"
 #include "checkbox_system.hpp"
-#include "grid_system.hpp"
+#include "grid.hpp"
 #include "label_system.hpp"
 #include "line_system.hpp"
 #include "menu.hpp"
 #include "menu_constants.hpp"
 #include "menu_system.hpp"
 #include "render_text.hpp"
+#include "resources.hpp"
+
+using namespace entt::literals;
 
 namespace wanderer::sys {
 namespace {
+
+inline const auto backdrop_path = resources::texture("backdrop.png");
 
 void render_title(const std::string& title,
                   const comp::menu_drawable& drawable,
@@ -43,15 +48,19 @@ void render_title(const std::string& title,
 
 }  // namespace
 
-void render_menu(const entt::registry& registry, cen::renderer& renderer)
+void render_menu(const entt::registry& registry, graphics_context& graphics)
 {
   const auto menuEntity = registry.ctx<const ctx::active_menu>().entity;
 
   const auto& menu = registry.get<comp::menu>(menuEntity);
   const auto& drawable = registry.get<comp::menu_drawable>(menuEntity);
 
+  auto& renderer = graphics.renderer();
+
   if (menu.blocking)
   {
+    const auto index = graphics.load("backdrop"_hs, backdrop_path);
+    renderer.render(graphics.find(index), cen::irect{{}, glob::logical_size<>});
     renderer.fill_with(glob::transparent_black);
   }
 
