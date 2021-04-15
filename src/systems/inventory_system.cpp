@@ -84,8 +84,8 @@ void render_inventory(const entt::registry& registry,
 
         if (index < nItems)
         {
-          const auto& item = registry.get<comp::item>(inventory.items.at(index));
-          renderer.render(*item.texture, rect);
+//          const auto& item = registry.get<comp::item>(inventory.items.at(index));
+//          renderer.render(*item.texture, rect);
         }
       }
     }
