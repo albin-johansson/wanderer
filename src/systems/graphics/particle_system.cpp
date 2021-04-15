@@ -3,8 +3,6 @@
 #include "get_random.hpp"
 #include "particle.hpp"
 
-using namespace cen::literals;
-
 namespace wanderer::sys {
 
 inline constexpr float time_step = 10;     // How much time passes each frame
