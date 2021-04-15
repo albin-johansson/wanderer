@@ -36,6 +36,7 @@ set(SOURCE_FILES
     components/map/tile_object.hpp
     components/map/tilemap.hpp
 
+    components/ui/associated_menu.hpp
     components/ui/button.hpp
     components/ui/button_group.hpp
     components/ui/checkbox.hpp
