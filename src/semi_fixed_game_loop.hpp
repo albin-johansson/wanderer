@@ -1,16 +1,18 @@
 #pragma once
 
-#include <algorithm>  // min
-#include <centurion.hpp>
+#include <algorithm>      // min
+#include <centurion.hpp>  // ...
+#include <concepts>       // floating_point
 
 #include "delta.hpp"
 
 namespace wanderer {
 
-template <typename T>
+template <std::floating_point T>
 [[nodiscard]] auto tick_rate() -> T
 {
-  return std::min<T>(120.0, static_cast<T>(cen::screen::refresh_rate().value()));
+  return std::min(static_cast<T>(120.0),
+                  static_cast<T>(cen::screen::refresh_rate().value()));
 }
 
 template <typename T>
