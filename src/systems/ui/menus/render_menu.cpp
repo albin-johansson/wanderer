@@ -45,7 +45,7 @@ void render_title(const std::string& title,
 
 void render_menu(const entt::registry& registry, cen::renderer& renderer)
 {
-  const auto menuEntity = registry.ctx<ctx::active_menu>().entity;
+  const auto menuEntity = registry.ctx<const ctx::active_menu>().entity;
 
   const auto& menu = registry.get<comp::menu>(menuEntity);
   const auto& drawable = registry.get<comp::menu_drawable>(menuEntity);
