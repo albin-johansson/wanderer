@@ -22,7 +22,9 @@ struct button final
   std::string text;
   float row;
   float col;
+  bool enabled{true};
   bool hover{false};
+  bool visible{true};
 };
 
 struct button_pack final
