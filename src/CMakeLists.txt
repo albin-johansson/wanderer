@@ -108,6 +108,7 @@ set(SOURCE_FILES
     core/ecs/add_humanoid_state_dependencies.hpp
     core/ecs/make_registry.cpp
     core/ecs/make_registry.hpp
+    core/ecs/registry_utils.hpp
 
     core/resources/resources.cpp
     core/resources/resources.hpp
