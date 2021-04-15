@@ -46,6 +46,7 @@ set(SOURCE_FILES
     components/ui/saves_menu.hpp
 
     core/centurion_utils.hpp
+    core/common_concepts.hpp
     core/direction.hpp
     core/game_constants.hpp
     core/graphics_context.cpp
