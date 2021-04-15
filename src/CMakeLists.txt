@@ -55,6 +55,7 @@ set(SOURCE_FILES
     core/make_renderer.hpp
     core/menu_constants.hpp
     core/menu_id.hpp
+    core/nenya.hpp
     core/null_entity.hpp
     core/render_text.cpp
     core/render_text.hpp
@@ -72,7 +73,6 @@ set(SOURCE_FILES
     core/aliases/map_id.hpp
     core/aliases/maybe.hpp
     core/aliases/milliseconds.hpp
-    core/aliases/texture_handle.hpp
     core/aliases/texture_id.hpp
     core/aliases/texture_index.hpp
     core/aliases/tile_id.hpp

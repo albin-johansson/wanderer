@@ -1,20 +1,14 @@
 #pragma once
 
-#include <named_type.hpp>
-
 #include "ints.hpp"
+#include "nenya.hpp"
 
 namespace wanderer {
 namespace detail {
 struct tile_id_t;
 }
 
-using tile_id = fluent::NamedType<u32,
-                                  detail::tile_id_t,
-                                  fluent::Comparable,
-                                  fluent::Hashable,
-                                  fluent::Addable,
-                                  fluent::PreIncrementable>;
+using tile_id = nenya::mirror_type<u32, detail::tile_id_t>;
 
 namespace glob {
 inline constexpr tile_id empty_tile{0};

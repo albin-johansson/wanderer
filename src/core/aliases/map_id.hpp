@@ -1,18 +1,13 @@
 #pragma once
 
-#include <named_type.hpp>
-
 #include "ints.hpp"
+#include "nenya.hpp"
 
 namespace wanderer {
 namespace detail {
 struct map_id_t;
 }
 
-using map_id = fluent::NamedType<i32,
-                                 detail::map_id_t,
-                                 fluent::Comparable,
-                                 fluent::Hashable,
-                                 fluent::PreIncrementable>;
+using map_id = nenya::mirror_type<i32, detail::map_id_t>;
 
 }  // namespace wanderer

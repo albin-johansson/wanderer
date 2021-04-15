@@ -1,16 +1,14 @@
 #pragma once
 
 #include <cstddef>  // size_t
-#include <named_type.hpp>
+
+#include "nenya.hpp"
 
 namespace wanderer {
 namespace detail {
 struct texture_index_t;
 }
 
-using texture_index = fluent::NamedType<std::size_t,
-                                        detail::texture_index_t,
-                                        fluent::Comparable,
-                                        fluent::FunctionCallable>;
+using texture_index = nenya::mirror_type<std::size_t, detail::texture_index_t>;
 
 }  // namespace wanderer

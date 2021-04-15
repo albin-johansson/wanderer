@@ -1,7 +1,7 @@
 #pragma once
 
-#include <abby.hpp>
-#include <entt.hpp>
+#include <abby.hpp>  // tree
+#include <entt.hpp>  // entity
 
 #include "float2.hpp"
 

@@ -1,15 +1,14 @@
 #pragma once
 
-#include <named_type.hpp>
-
 #include "ints.hpp"
+#include "nenya.hpp"
 
 namespace wanderer {
 namespace detail {
 struct depth_tag_t;
 }
 
-using depth_t = fluent::NamedType<i32, detail::depth_tag_t, fluent::Comparable>;
+using depth_t = nenya::mirror_type<i32, detail::depth_tag_t>;
 
 [[nodiscard]] constexpr auto operator"" _depth(unsigned long long d) noexcept -> depth_t
 {

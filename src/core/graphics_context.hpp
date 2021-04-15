@@ -8,7 +8,6 @@
 #include <string>         // string
 #include <vector>         // vector
 
-#include "texture_handle.hpp"
 #include "texture_id.hpp"
 #include "texture_index.hpp"
 

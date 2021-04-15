@@ -1,13 +1,13 @@
 #pragma once
 
-#include <entt.hpp>
-#include <named_type.hpp>
+#include <entt.hpp>  // entity, null_t
+
+#include "nenya.hpp"
 
 namespace wanderer {
 
 template <typename T>
-using entity_type =
-    fluent::NamedType<entt::entity, T, fluent::Comparable, fluent::FunctionCallable>;
+using entity_type = nenya::mirror_type<entt::entity, T>;
 
 template <typename T>
 [[nodiscard]] constexpr auto operator==(const entity_type<T> e, const entt::null_t null)
