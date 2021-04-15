@@ -23,9 +23,9 @@ namespace {
 
 void log_settings(const ctx::settings& settings)
 {
-  cen::log::info("  [BOOL] fullscreen = %i", settings.fullscreen);
-  cen::log::info("  [BOOL] integerScaling = %i", settings.integerScaling);
-  cen::log::info("  [BOOL] simulateLights = %i", settings.simulateLights);
+  cen::log::info("  [bool] fullscreen = %i", settings.fullscreen);
+  cen::log::info("  [bool] integerScaling = %i", settings.integerScaling);
+  cen::log::info("  [bool] simulateLights = %i", settings.simulateLights);
 }
 
 [[nodiscard]] auto read_settings(const std::filesystem::path& path,
