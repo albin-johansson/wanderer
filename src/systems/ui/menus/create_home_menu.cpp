@@ -18,7 +18,7 @@ void add_buttons(entt::registry& registry, const comp::menu::entity entity)
   b.reserve(5);
 
   // clang-format off
-  auto row = 5;
+  float row = 5;
   b.push_back(make_button(registry, "Play", menu_action::goto_in_game, row++));
 
   ++row;
