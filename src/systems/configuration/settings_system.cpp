@@ -96,7 +96,7 @@ auto toggle_simulate_lights(entt::registry& registry) -> bool
 void save_settings_before_exit(const entt::registry& registry)
 {
   const auto path = files_directory() / "settings.ini";
-  const auto& settings = registry.ctx<ctx::settings>();
+  const auto& settings = registry.ctx<const ctx::settings>();
 
   const auto toString = [](const bool value) {
     return value ? "true" : "false";

@@ -21,45 +21,45 @@ TEST(HumanoidState, Dependencies)
 
   {  // Idle
     ASSERT_TRUE(registry.valid(entity));
-    ASSERT_FALSE(registry.has<idle>(entity));
+    ASSERT_FALSE(registry.all_of<idle>(entity));
 
     registry.emplace<idle>(entity);
-    EXPECT_TRUE(registry.has<idle>(entity));
-    EXPECT_FALSE(registry.has<move>(entity));
-    EXPECT_FALSE(registry.has<attack>(entity));
-    EXPECT_FALSE(registry.has<die>(entity));
+    EXPECT_TRUE(registry.all_of<idle>(entity));
+    EXPECT_FALSE(registry.all_of<move>(entity));
+    EXPECT_FALSE(registry.all_of<attack>(entity));
+    EXPECT_FALSE(registry.all_of<die>(entity));
   }
 
   {  // Move
     ASSERT_TRUE(registry.valid(entity));
-    ASSERT_FALSE(registry.has<move>(entity));
+    ASSERT_FALSE(registry.all_of<move>(entity));
 
     registry.emplace<move>(entity);
-    EXPECT_TRUE(registry.has<move>(entity));
-    EXPECT_FALSE(registry.has<idle>(entity));
-    EXPECT_FALSE(registry.has<attack>(entity));
-    EXPECT_FALSE(registry.has<die>(entity));
+    EXPECT_TRUE(registry.all_of<move>(entity));
+    EXPECT_FALSE(registry.all_of<idle>(entity));
+    EXPECT_FALSE(registry.all_of<attack>(entity));
+    EXPECT_FALSE(registry.all_of<die>(entity));
   }
 
   {  // Attack
     ASSERT_TRUE(registry.valid(entity));
-    ASSERT_FALSE(registry.has<attack>(entity));
+    ASSERT_FALSE(registry.all_of<attack>(entity));
 
     registry.emplace<attack>(entity);
-    EXPECT_TRUE(registry.has<attack>(entity));
-    EXPECT_FALSE(registry.has<move>(entity));
-    EXPECT_FALSE(registry.has<idle>(entity));
-    EXPECT_FALSE(registry.has<die>(entity));
+    EXPECT_TRUE(registry.all_of<attack>(entity));
+    EXPECT_FALSE(registry.all_of<move>(entity));
+    EXPECT_FALSE(registry.all_of<idle>(entity));
+    EXPECT_FALSE(registry.all_of<die>(entity));
   }
 
   {  // Die
     ASSERT_TRUE(registry.valid(entity));
-    ASSERT_FALSE(registry.has<die>(entity));
+    ASSERT_FALSE(registry.all_of<die>(entity));
 
     registry.emplace<die>(entity);
-    EXPECT_TRUE(registry.has<die>(entity));
-    EXPECT_FALSE(registry.has<attack>(entity));
-    EXPECT_FALSE(registry.has<move>(entity));
-    EXPECT_FALSE(registry.has<idle>(entity));
+    EXPECT_TRUE(registry.all_of<die>(entity));
+    EXPECT_FALSE(registry.all_of<attack>(entity));
+    EXPECT_FALSE(registry.all_of<move>(entity));
+    EXPECT_FALSE(registry.all_of<idle>(entity));
   }
 }

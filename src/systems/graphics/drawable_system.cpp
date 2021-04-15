@@ -19,7 +19,7 @@ void update_drawables(entt::registry& registry)
 
 void render_drawables(const entt::registry& registry, graphics_context& graphics)
 {
-  const auto bounds = to_rect(registry.ctx<ctx::render_bounds>());
+  const auto bounds = to_rect(registry.ctx<const ctx::render_bounds>());
   for (auto&& [entity, drawable] : registry.view<const comp::depth_drawable>().each())
   {
     if (cen::intersects(bounds, drawable.dst))

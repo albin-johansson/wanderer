@@ -142,7 +142,7 @@ void update_time(entt::registry& registry, const delta_t dt)
 void render_clock(const entt::registry& registry, graphics_context& graphics)
 {
   auto& renderer = graphics.renderer();
-  const auto& time = registry.ctx<ctx::time_of_day>();
+  const auto& time = registry.ctx<const ctx::time_of_day>();
 
   const auto h = static_cast<int>(time.hour) % 24;
   const auto m = static_cast<int>(time.minute) % 60;

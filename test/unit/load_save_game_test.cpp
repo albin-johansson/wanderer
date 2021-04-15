@@ -11,12 +11,12 @@ using namespace wanderer;
 TEST(LoadSaveGame, Usage)
 {
   cen::window window;
-  graphics_context ctx{window};
+  graphics_context graphics{window};
 
   const auto freq = static_cast<long double>(cen::counter::high_res_freq());
 
   {
-    level_manager levels{ctx};
+    level_manager levels{graphics};
 
     const auto before = cen::counter::now();
     save_game("test", levels);
@@ -29,7 +29,7 @@ TEST(LoadSaveGame, Usage)
 
   {
     const auto before = cen::counter::now();
-    level_manager levels = load_game("test", ctx);
+    level_manager levels = load_game("test", graphics);
     const auto after = cen::counter::now();
 
     const auto diff = static_cast<long double>(after - before);
