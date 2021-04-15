@@ -242,7 +242,7 @@ set(SOURCE_FILES
     systems/saves/saves_system.cpp
     systems/saves/saves_system.hpp
 
-    systems/ui/grid_system.hpp
+    systems/ui/grid.hpp
 
     systems/ui/buttons/button_factory_system.cpp
     systems/ui/buttons/button_system.cpp
