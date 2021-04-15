@@ -1,28 +1,19 @@
 #pragma once
 
+#include <numbers>  // pi_v
+
 namespace wanderer {
 
-template <typename T>
-inline constexpr T pi{static_cast<T>(3.14159265358979323)};
+inline constexpr auto pi = std::numbers::pi_v<float>;
 
 [[nodiscard]] inline constexpr auto to_degrees(const float radians) noexcept -> float
 {
-  return (radians * 180.0f) / pi<float>;
-}
-
-[[nodiscard]] inline constexpr auto to_degrees(const double radians) noexcept -> double
-{
-  return (radians * 180.0) / pi<double>;
+  return (radians * 180.0f) / pi;
 }
 
 [[nodiscard]] inline constexpr auto to_radians(const float degrees) noexcept -> float
 {
-  return (degrees * pi<float>) / 180.0f;
-}
-
-[[nodiscard]] inline constexpr auto to_radians(const double degrees) noexcept -> double
-{
-  return (degrees * pi<double>) / 180.0;
+  return (degrees * pi) / 180.0f;
 }
 
 }  // namespace wanderer
