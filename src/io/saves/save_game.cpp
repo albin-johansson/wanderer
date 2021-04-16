@@ -16,9 +16,9 @@ namespace {
 {
   if (std::filesystem::exists(path))
   {
-    for (auto index = 1; index < 101; ++index)  // Give up after 100 tries
+    for (auto index = 0; index < 100; ++index)  // Give up after 100 tries
     {
-      const auto name = path.filename().string() + " " + std::to_string(index);
+      const auto name = path.filename().string() + " " + std::to_string(index + 1);
       auto newPath = path.parent_path() / name;
       if (!std::filesystem::exists(newPath))
       {

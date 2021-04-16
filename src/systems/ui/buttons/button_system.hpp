@@ -2,6 +2,7 @@
 
 #include <centurion.hpp>  // mouse, renderer
 #include <entt.hpp>       // registry, dispatcher
+#include <vector>         // vector
 
 #include "button.hpp"
 #include "button_group.hpp"
@@ -34,6 +35,9 @@ auto query_button(entt::registry& registry,
                                        const comp::menu::entity menuEntity,
                                        const cen::mouse& mouse)
     -> maybe<comp::button::entity>;
+
+[[nodiscard]] auto is_in_button_group(const std::vector<comp::button::entity>& buttons,
+                                      const comp::button::entity button) -> bool;
 
 void render_button(const entt::registry& registry,
                    cen::renderer& renderer,

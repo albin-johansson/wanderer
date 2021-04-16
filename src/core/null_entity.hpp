@@ -1,6 +1,6 @@
 #pragma once
 
-#include <concepts>  // convertible_to
+#include <concepts>  // convertible_to, constructible_from
 #include <entt.hpp>  // entity, null
 
 namespace wanderer {
@@ -29,6 +29,12 @@ template <has_entity_member T>
 [[nodiscard]] constexpr auto null() noexcept
 {
   return typename T::entity{entt::entity{entt::null}};
+}
+
+template <std::constructible_from<entt::entity> T>
+void nullify(T& entity) noexcept
+{
+  entity = T{entt::entity{entt::null}};
 }
 
 }  // namespace wanderer

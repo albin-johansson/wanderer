@@ -56,7 +56,7 @@ class semi_fixed_game_loop
       }
 
       const auto deltaTime = std::min(frameTime, m_fixedDelta);
-      const auto delta = static_cast<delta_time::value_type>(deltaTime.count());
+      const delta_time delta{static_cast<delta_time::value_type>(deltaTime.count())};
       engine->update_logic(delta);
 
       frameTime -= deltaTime;

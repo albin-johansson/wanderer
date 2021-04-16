@@ -1,31 +1,25 @@
-#include "button_system.hpp"
-#include "grid_system.hpp"
-#include "menu_constants.hpp"
-#include "render_text.hpp"
+#include "core/menu_constants.hpp"
+#include "core/render_text.hpp"
+#include "systems/ui/buttons/button_system.hpp"
+#include "systems/ui/grid.hpp"
 
 namespace wanderer::sys {
 namespace {
 
+inline constexpr auto button_outline_fg_color = cen::colors::ghost_white;
+inline constexpr auto button_outline_bg_color = button_outline_fg_color.with_alpha(0x22);
 inline constexpr auto button_font = glob::menu_font_m;
 
 void update_bounds(const comp::button& button,
-                   const comp::button_drawable& drawable,
+                   cen::frect& bounds,
                    cen::renderer& renderer)
 {
-  auto& bounds = drawable.bounds;
-  auto& font = renderer.get_font(button_font);
-
+  const auto& font = renderer.get_font(button_font);
   const auto [width, height] = font.string_size(button.text).value();
+
   bounds.set_size({width * 1.25f, height * 1.5f});
-
-  const auto halfWidth = bounds.width() / 2.0f;
-  const auto halfHeight = bounds.height() / 2.0f;
-
-  const auto x = column_to_x(button.col) - halfWidth;
-  const auto y = row_to_y(button.row) + ((glob::menu_row_size - bounds.height()) / 2.0f);
-
-  bounds.set_x(static_cast<float>(x));
-  bounds.set_y(static_cast<float>(y));
+  bounds.set_x(column_to_x(button.col) - (bounds.width() / 2.0f));
+  bounds.set_y(row_to_y(button.row) + ((glob::menu_row_size - bounds.height()) / 2.0f));
 }
 
 void init_text(const comp::button_drawable& drawable,
@@ -51,22 +45,23 @@ void render_text(const comp::button& button,
   {
     const auto& font = renderer.get_font(button_font);
     const auto [width, height] = font.string_size(button.text).value();
-    const auto x = drawable.bounds.center_x() - (width / 2.0f);
-    const auto y = drawable.bounds.center_y() - (height / 2.0f);
-    drawable.textPos = {x, y};
+    drawable.textPos = {drawable.bounds.center_x() - (width / 2.0f),
+                        drawable.bounds.center_y() - (height / 2.0f)};
   }
 
-  renderer.render(drawable.texture.value(), *drawable.textPos);
+  auto& texture = drawable.texture.value();
+  texture.set_alpha(button.enabled ? 255 : 100);
+
+  renderer.render(texture, *drawable.textPos);
+  texture.set_alpha(255);
 }
 
-void render_background(const comp::button_drawable& drawable, cen::renderer& renderer)
+void render_outline(const comp::button_drawable& drawable, cen::renderer& renderer)
 {
-  constexpr auto bg = cen::colors::ghost_white.with_alpha(0x22);
-
-  renderer.set_color(bg);
+  renderer.set_color(button_outline_bg_color);
   renderer.fill_rect(drawable.bounds);
 
-  renderer.set_color(cen::colors::ghost_white);
+  renderer.set_color(button_outline_fg_color);
   renderer.draw_rect(drawable.bounds);
 }
 
@@ -79,15 +74,20 @@ void render_button(const entt::registry& registry,
   const auto& button = registry.get<comp::button>(buttonEntity);
   const auto& drawable = registry.get<comp::button_drawable>(buttonEntity);
 
+  if (!button.visible)
+  {
+    return;
+  }
+
   if (!drawable.texture)
   {
-    update_bounds(button, drawable, renderer);
+    update_bounds(button, drawable.bounds, renderer);
     init_text(drawable, button.text, renderer);
   }
 
-  if (button.hover)
+  if (button.hover && button.enabled)
   {
-    render_background(drawable, renderer);
+    render_outline(drawable, renderer);
   }
 
   render_text(button, drawable, renderer);

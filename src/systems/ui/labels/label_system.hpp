@@ -4,15 +4,23 @@
 #include <entt.hpp>       // registry
 #include <string>         // string
 
-#include "label.hpp"
+#include "components/ui/label.hpp"
+#include "components/ui/menu.hpp"
 
 namespace wanderer::sys {
 
-auto make_label(entt::registry& registry, std::string text, float x, float y)
-    -> comp::label::entity;
+/// Creates a label entity
+auto make_label(entt::registry& registry,
+                comp::menu::entity menu,
+                std::string text,
+                float row,
+                float col,
+                text_size size = text_size::small) -> comp::label::entity;
 
-void render_labels(const entt::registry& registry,
-                   cen::renderer& renderer,
-                   const comp::label_pack& pack);
+/// Updates the text of a label
+void set_text(comp::label& label, std::string text);
+
+// Renders all labels in the currently active menu
+void render_labels(const entt::registry& registry, cen::renderer& renderer);
 
 }  // namespace wanderer::sys

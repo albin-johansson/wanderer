@@ -69,10 +69,7 @@ void render_menu(const entt::registry& registry, graphics_context& graphics)
     render_lines(registry, renderer, *pack);
   }
 
-  if (const auto* pack = registry.try_get<comp::label_pack>(menuEntity))
-  {
-    render_labels(registry, renderer, *pack);
-  }
+  render_labels(registry, renderer);
 
   if (const auto* pack = registry.try_get<comp::button_pack>(menuEntity))
   {
@@ -90,6 +87,22 @@ void render_menu(const entt::registry& registry, graphics_context& graphics)
   }
 
   render_title(menu.title, drawable, renderer);
+
+  if (menu.blocking)
+  {
+    constexpr auto id = 9'999;  // FIXME
+    auto& cache = graphics.small_font_cache();
+
+    if (!cache.has_stored(id))
+    {
+      renderer.set_color(cen::colors::white);
+      cache.store_blended_utf8(id, "Developed by Albin Johansson", renderer);
+    }
+
+    const auto& texture = cache.get_stored(id);
+    const auto y = glob::logical_height<int> - texture.height() - 6;
+    renderer.render(texture, cen::point(6, y));
+  }
 }
 
 }  // namespace wanderer::sys

@@ -1,25 +1,23 @@
 #pragma once
 
 #include <centurion.hpp>  // keyboard, mouse
-#include <entt.hpp>       // registry
+#include <entt.hpp>       // registry, dispatcher
+#include <string>         // string
 
-#include "graphics_context.hpp"
-#include "input.hpp"
-#include "menu.hpp"
-#include "menu_id.hpp"
+#include "components/ui/menu.hpp"
+#include "core/graphics_context.hpp"
+#include "core/input.hpp"
+#include "core/menu_id.hpp"
 
 namespace wanderer::sys {
 
+/// Creates a menu entity
 auto make_menu(entt::registry& registry,
                std::string title,
                menu_id id,
                bool blocking = true) -> comp::menu::entity;
 
-/**
- * \brief Creates and returns a menu registry.
- *
- * \return a registry with all of the game menus.
- */
+/// Creates and returns a menu registry
 [[nodiscard]] auto create_menus() -> entt::registry;
 
 /**

@@ -1,5 +1,7 @@
 #include "button_system.hpp"
 
+#include <ranges>  // any_of
+
 #include "button_pressed_event.hpp"
 #include "checkbox.hpp"
 #include "cursors.hpp"
@@ -17,10 +19,13 @@ template <typename T>
     auto& button = registry.get<comp::button>(entity);
     const auto& drawable = registry.get<comp::button_drawable>(entity);
 
-    button.hover = drawable.bounds.contains(mousePos);
-    if (button.hover)
+    if (button.visible)
     {
-      return comp::button::entity{entity.get()};
+      button.hover = drawable.bounds.contains(mousePos);
+      if (button.hover)
+      {
+        return comp::button::entity{entity.get()};
+      }
     }
   }
 
@@ -35,7 +40,7 @@ auto query_button(entt::registry& registry,
                   const cen::mouse& mouse) -> bool
 {
   auto& button = registry.get<comp::button>(buttonEntity);
-  if (button.hover)
+  if (button.hover && button.enabled)
   {
     auto& cursors = registry.ctx<comp::cursors>();
     cursors.data.at(cen::system_cursor::hand).enable();
@@ -89,6 +94,14 @@ auto update_button_hover(entt::registry& registry,
   }
 
   return std::nullopt;
+}
+
+auto is_in_button_group(const std::vector<comp::button::entity>& buttons,
+                        const comp::button::entity button) -> bool
+{
+  return std::ranges::any_of(buttons, [button](const comp::button::entity entity) {
+    return entity.get() == button;
+  });
 }
 
 }  // namespace wanderer::sys

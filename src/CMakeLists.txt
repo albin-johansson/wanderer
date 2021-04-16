@@ -67,7 +67,7 @@ set(SOURCE_FILES
 
     core/aliases/aabb_tree.hpp
     core/aliases/buffer.hpp
-    core/aliases/delta.hpp
+    core/aliases/delta_time.hpp
     core/aliases/depth.hpp
     core/aliases/entity_type.hpp
     core/aliases/float2.hpp
@@ -258,6 +258,7 @@ set(SOURCE_FILES
     systems/ui/hud/level_switch_animation_system.cpp
     systems/ui/hud/level_switch_animation_system.hpp
 
+    systems/ui/labels/label_system.cpp
     systems/ui/labels/label_system.hpp
     systems/ui/labels/make_label.cpp
     systems/ui/labels/render_labels.cpp
@@ -266,22 +267,23 @@ set(SOURCE_FILES
     systems/ui/lines/make_line.cpp
     systems/ui/lines/render_lines.cpp
 
-    systems/ui/menus/create_controls_menu.cpp
-    systems/ui/menus/create_controls_menu.hpp
-    systems/ui/menus/create_home_menu.cpp
-    systems/ui/menus/create_home_menu.hpp
-    systems/ui/menus/create_in_game_menu.cpp
-    systems/ui/menus/create_in_game_menu.hpp
-    systems/ui/menus/create_saves_menu.cpp
-    systems/ui/menus/create_settings_menu.cpp
-    systems/ui/menus/create_settings_menu.hpp
+    systems/ui/menus/controls/create_controls_menu.cpp
+    systems/ui/menus/controls/create_controls_menu.hpp
+    systems/ui/menus/home/create_home_menu.cpp
+    systems/ui/menus/home/create_home_menu.hpp
+    systems/ui/menus/in-game/create_in_game_menu.cpp
+    systems/ui/menus/in-game/create_in_game_menu.hpp
+    systems/ui/menus/settings/create_settings_menu.cpp
+    systems/ui/menus/settings/create_settings_menu.hpp
     systems/ui/menus/make_menu.cpp
     systems/ui/menus/render_menu.cpp
     systems/ui/menus/menu_system.cpp
     systems/ui/menus/menu_system.hpp
-    systems/ui/menus/saves_menu_system.cpp
-    systems/ui/menus/saves_menu_system.hpp
-    systems/ui/menus/sync_settings_menu.cpp
+    systems/ui/menus/settings/sync_settings_menu.cpp
+
+    systems/ui/menus/saves/create_saves_menu.cpp
+    systems/ui/menus/saves/saves_menu_system.cpp
+    systems/ui/menus/saves/saves_menu_system.hpp
     )
 
 add_library(${WANDERER_LIB_TARGET} ${SOURCE_FILES})

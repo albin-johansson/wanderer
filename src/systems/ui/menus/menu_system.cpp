@@ -1,19 +1,17 @@
 #include "menu_system.hpp"
 
-#include <centurion.hpp>
-
-#include "active_menu.hpp"
-#include "button_pressed_event.hpp"
-#include "button_system.hpp"
+#include "components/ui/cursors.hpp"
+#include "core/null_entity.hpp"
 #include "create_controls_menu.hpp"
-#include "create_home_menu.hpp"
-#include "create_in_game_menu.hpp"
-#include "create_settings_menu.hpp"
-#include "cursors.hpp"
-#include "menu.hpp"
+#include "ctx/active_menu.hpp"
+#include "ctx/time_of_day.hpp"
+#include "events/button_pressed_event.hpp"
+#include "events/switch_menu_event.hpp"
 #include "saves_menu_system.hpp"
-#include "switch_menu_event.hpp"
-#include "time_of_day.hpp"
+#include "systems/ui/buttons/button_system.hpp"
+#include "systems/ui/menus/home/create_home_menu.hpp"
+#include "systems/ui/menus/in-game/create_in_game_menu.hpp"
+#include "systems/ui/menus/settings/create_settings_menu.hpp"
 
 namespace wanderer::sys {
 namespace {
@@ -48,7 +46,7 @@ auto create_menus() -> entt::registry
   registry.set<ctx::active_menu>(home);
   registry.set<ctx::time_of_day>();
 
-  auto& cursors = registry.set<comp::cursors>();
+  auto& cursors = registry.set<comp::cursors>();  // TODO ctx::cursors
   cursors.data.try_emplace(cen::system_cursor::hand, cen::system_cursor::hand);
 
   return registry;
@@ -67,7 +65,10 @@ void update_menu(entt::registry& registry,
     {
       if (auto* group = registry.try_get<comp::button_group>(menuEntity))
       {
-        group->selected = *button;
+        if (sys::is_in_button_group(group->buttons, *button))
+        {
+          group->selected = *button;
+        }
       }
     }
   }
@@ -88,6 +89,8 @@ void switch_menu(entt::registry& registry, const menu_id id)
 
   for (auto&& [entity, menu] : registry.view<comp::menu>().each())
   {
+    // TODO emit event here that specific menu systems can listen to
+
     if (menu.id == id)
     {
       registry.set<ctx::active_menu>(comp::menu::entity{entity});
@@ -102,7 +105,7 @@ void switch_menu(entt::registry& registry, const menu_id id)
 
 auto is_current_menu_blocking(const entt::registry& registry) -> bool
 {
-  const auto menuEntity = registry.ctx<ctx::active_menu>().entity;
+  const auto menuEntity = registry.ctx<const ctx::active_menu>().entity;
   return registry.get<comp::menu>(menuEntity).blocking;
 }
 

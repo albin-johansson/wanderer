@@ -6,6 +6,7 @@
 
 #include "entity_type.hpp"
 #include "maybe.hpp"
+#include "text_size.hpp"
 
 namespace wanderer::comp {
 namespace detail {
@@ -16,9 +17,12 @@ struct label final
 {
   using entity = entity_type<detail::label_entity_t>;
 
-  cen::fpoint position;
+  float row;
+  float col;
   std::string text;
   cen::color color;
+  text_size size;
+
   mutable maybe<cen::texture> texture;
 };
 

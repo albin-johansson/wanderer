@@ -1,12 +1,13 @@
 #include "create_settings_menu.hpp"
 
+#include <string>   // string
+#include <utility>  // move
+
 #include "button_system.hpp"
 #include "checkbox.hpp"
 #include "checkbox_system.hpp"
 #include "key_bind_system.hpp"
 #include "menu_system.hpp"
-
-using namespace entt::literals;
 
 namespace wanderer::sys {
 namespace {
@@ -14,21 +15,31 @@ namespace {
 void add_buttons(entt::registry& registry, const comp::menu::entity entity)
 {
   auto& pack = registry.emplace<comp::button_pack>(entity);
-  auto& vec = pack.buttons;
 
-  vec.push_back(make_button(registry, "Return", menu_action::goto_home, 4));
+  const auto button = [&](std::string text,
+                          const menu_action action,
+                          const float row,
+                          const float col = -1) {
+    pack.buttons.push_back(make_button(registry, std::move(text), action, row, col));
+  };
+
+  button("Return", menu_action::goto_home, 4);
 }
 
 void add_checkboxes(entt::registry& registry, const comp::menu::entity entity)
 {
   auto& pack = registry.emplace<comp::checkbox_pack>(entity);
-  auto& vec = pack.checkboxes;
 
-  // clang-format off
-  vec.push_back(add_checkbox(registry, "Fullscreen", 6, 13, menu_action::toggle_fullscreen));
-  vec.push_back(add_checkbox(registry, "Integer scaling", 7, 13, menu_action::toggle_integer_scaling));
-  vec.push_back(add_checkbox(registry, "Simulate lights", 8, 13, menu_action::toggle_lights));
-  // clang-format on
+  const auto checkbox = [&](std::string text,
+                            const float row,
+                            const float col,
+                            const menu_action action) {
+    pack.checkboxes.push_back(add_checkbox(registry, std::move(text), row, col, action));
+  };
+
+  checkbox("Fullscreen", 6, 13, menu_action::toggle_fullscreen);
+  checkbox("Integer scaling", 7, 13, menu_action::toggle_integer_scaling);
+  checkbox("Simulate lights", 8, 13, menu_action::toggle_lights);
 }
 
 }  // namespace

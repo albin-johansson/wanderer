@@ -2,6 +2,7 @@
 
 #include "animation_system.hpp"
 #include "button.hpp"
+#include "button_group.hpp"
 #include "chase_system.hpp"
 #include "debug_rendering_system.hpp"
 #include "depth_system.hpp"
@@ -25,6 +26,7 @@
 #include "particle_system.hpp"
 #include "portal_system.hpp"
 #include "save_game.hpp"
+#include "saves_menu_system.hpp"
 #include "settings.hpp"
 #include "settings_system.hpp"
 #include "tile_animation_system.hpp"
@@ -67,7 +69,7 @@ void game::handle_input(const input& input)
   sys::update_input(level->registry(), m_dispatcher, input, binds);
 }
 
-void game::tick(const delta_t dt)
+void game::tick(const delta_time dt)
 {
   m_dispatcher.update();
 
@@ -117,16 +119,10 @@ void game::render(graphics_context& graphics, const cen::ipoint mousePos)
 
   if (registry.try_ctx<const ctx::outside_level>())
   {
-    const auto& time = m_shared.ctx<ctx::time_of_day>();
-    const auto& settings = m_shared.ctx<ctx::settings>();
-    if (settings.simulateLights)
-    {
-      sys::render_lights(registry, time, graphics);
-    }
-    else
-    {
-      sys::render_light_overlay(time, graphics);
-    }
+    sys::render_lights(registry,
+                       graphics,
+                       m_shared.ctx<ctx::time_of_day>(),
+                       m_shared.ctx<ctx::settings>());
   }
 
   sys::render_clock(m_shared, graphics);
@@ -220,6 +216,14 @@ void game::on_button_pressed(const event::button_pressed& event)
     }
     case menu_action::load_game: {
       // TODO
+      break;
+    }
+    case menu_action::decrement_saves_button_group_page: {
+      sys::decrement_saves_button_group_page(m_shared);
+      break;
+    }
+    case menu_action::increment_saves_button_group_page: {
+      sys::increment_saves_button_group_page(m_shared);
       break;
     }
     case menu_action::quit: {
