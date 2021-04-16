@@ -8,7 +8,8 @@ namespace wanderer {
 
 auto make_renderer(const cen::window& window) -> cen::renderer
 {
-  cen::renderer renderer{window, SDL_RENDERER_ACCELERATED | SDL_RENDERER_TARGETTEXTURE};
+  cen::renderer renderer{window,
+                         cen::renderer::accelerated | cen::renderer::target_textures};
   renderer.set_blend_mode(cen::blend_mode::blend);
 
   const auto typeWriter = resources::font("type_writer.ttf");
