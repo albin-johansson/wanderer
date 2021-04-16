@@ -3,7 +3,7 @@
 #include <centurion.hpp>  // renderer, farea
 #include <entt.hpp>       // registry
 
-#include "delta.hpp"
+#include "delta_time.hpp"
 #include "float2.hpp"
 #include "level.hpp"
 #include "viewport.hpp"
@@ -24,7 +24,7 @@ void center_viewport_on(entt::registry& registry, const float2& position);
  * \param movableEntity the entity ID for the movable.
  * \param dt the delta time, in seconds.
  */
-void update_viewport(level& level, const entt::entity movableEntity, const delta_t dt);
+void update_viewport(level& level, const entt::entity movableEntity, const delta_time dt);
 
 void translate_viewport(const entt::registry& registry, cen::renderer& renderer);
 

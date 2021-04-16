@@ -119,7 +119,7 @@ inline const phase night_phase{
 
 }  // namespace
 
-void update_time(entt::registry& registry, const delta_t dt)
+void update_time(entt::registry& registry, const delta_time dt)
 {
   auto& time = registry.ctx<ctx::time_of_day>();
 

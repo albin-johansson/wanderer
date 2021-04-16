@@ -10,7 +10,7 @@ namespace {
 [[nodiscard]] auto next_vertical_hitbox(const comp::movable& movable,
                                         const comp::hitbox& hitbox,
                                         const float2& oldPosition,
-                                        const delta_t dt) -> maybe<comp::hitbox>
+                                        const delta_time dt) -> maybe<comp::hitbox>
 {
   if (movable.velocity.y != 0)
   {
@@ -28,7 +28,7 @@ namespace {
 [[nodiscard]] auto next_horizontal_hitbox(const comp::movable& movable,
                                           const comp::hitbox& hitbox,
                                           const float2& oldPosition,
-                                          const delta_t dt) -> maybe<comp::hitbox>
+                                          const delta_time dt) -> maybe<comp::hitbox>
 {
   if (movable.velocity.x != 0)
   {
@@ -153,7 +153,7 @@ auto create_hitbox(std::initializer_list<comp::subhitbox> boxes) -> comp::hitbox
 auto make_next_hitboxes(const comp::movable& movable,
                         const comp::hitbox& hitbox,
                         const float2& oldPosition,
-                        const delta_t dt) -> next_hitboxes
+                        const delta_time dt) -> next_hitboxes
 {
   return {next_horizontal_hitbox(movable, hitbox, oldPosition, dt),
           next_vertical_hitbox(movable, hitbox, oldPosition, dt)};

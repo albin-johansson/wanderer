@@ -29,9 +29,6 @@ class wanderer_engine final : public semi_fixed_game_loop<wanderer_engine>
   /**
    * \brief Initializes the application.
    *
-   * \details The application window will always be in windowed mode in debug
-   * mode, in order to be able to debug the program with breakpoints.
-   *
    * \since 0.1.0
    */
   wanderer_engine();
@@ -45,7 +42,7 @@ class wanderer_engine final : public semi_fixed_game_loop<wanderer_engine>
 
   auto update_input() -> bool;
 
-  void update_logic(delta_t dt);
+  void update_logic(delta_time dt);
 
  private:
   cen::window m_window;         ///< Application window.

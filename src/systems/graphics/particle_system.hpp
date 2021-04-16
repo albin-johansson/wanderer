@@ -3,7 +3,7 @@
 #include <centurion.hpp>  // renderer, color
 #include <entt.hpp>       // registry
 
-#include "delta.hpp"
+#include "delta_time.hpp"
 #include "float2.hpp"
 
 namespace wanderer::sys {
@@ -19,7 +19,7 @@ void add_particle(entt::registry& registry,
                   float duration,
                   const cen::color& color);
 
-void update_particles(entt::registry& registry, delta_t dt);
+void update_particles(entt::registry& registry, delta_time dt);
 
 void render_particles(const entt::registry& registry, cen::renderer& renderer);
 

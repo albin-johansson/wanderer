@@ -56,7 +56,7 @@ auto wanderer_engine::update_input() -> bool
   return !m_game.quit_requested() && !cen::event::in_queue(cen::event_type::quit);
 }
 
-void wanderer_engine::update_logic(const delta_t dt)
+void wanderer_engine::update_logic(const delta_time dt)
 {
   m_game.tick(dt);
 }

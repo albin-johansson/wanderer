@@ -3,7 +3,7 @@
 #include <centurion.hpp>  // renderer
 #include <entt.hpp>       // registry, dispatcher
 
-#include "delta.hpp"
+#include "delta_time.hpp"
 #include "level_fade_events_event.hpp"
 #include "map_id.hpp"
 
@@ -21,7 +21,7 @@ namespace wanderer::sys {
  */
 void update_level_switch_animations(entt::registry& registry,
                                     entt::dispatcher& dispatcher,
-                                    delta_t dt);
+                                    delta_time dt);
 
 /**
  * \brief Renders all level switch animations, although there should only

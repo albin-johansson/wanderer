@@ -3,7 +3,7 @@
 #include <entt.hpp>
 #include <initializer_list>  // initializer_list
 
-#include "delta.hpp"
+#include "delta_time.hpp"
 #include "float2.hpp"
 #include "hitbox.hpp"
 #include "maybe.hpp"
@@ -79,7 +79,7 @@ void set_position(comp::hitbox& hitbox, const float2& position) noexcept;
 [[nodiscard]] auto make_next_hitboxes(const comp::movable& movable,
                                       const comp::hitbox& hitbox,
                                       const float2& oldPosition,
-                                      delta_t dt) -> next_hitboxes;
+                                      delta_time dt) -> next_hitboxes;
 
 [[nodiscard]] auto query_collisions(const next_hitboxes& next, const comp::hitbox& other)
     -> collision_result;

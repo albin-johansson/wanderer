@@ -54,7 +54,7 @@ void add_particle(entt::registry& registry,
   particle.color = color;
 }
 
-void update_particles(entt::registry& registry, const delta_t dt)
+void update_particles(entt::registry& registry, const delta_time dt)
 {
   const auto now = cen::counter::ticks();
   for (auto&& [entity, particle] : registry.view<comp::particle>().each())

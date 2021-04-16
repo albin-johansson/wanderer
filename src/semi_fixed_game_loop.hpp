@@ -4,7 +4,7 @@
 #include <centurion.hpp>  // ...
 #include <concepts>       // floating_point
 
-#include "delta.hpp"
+#include "delta_time.hpp"
 
 namespace wanderer {
 
@@ -56,7 +56,7 @@ class semi_fixed_game_loop
       }
 
       const auto deltaTime = std::min(frameTime, m_fixedDelta);
-      const delta_t delta{static_cast<delta_t::value_type>(deltaTime.count())};
+      const auto delta = static_cast<delta_time::value_type>(deltaTime.count());
       engine->update_logic(delta);
 
       frameTime -= deltaTime;

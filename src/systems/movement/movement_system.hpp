@@ -2,7 +2,7 @@
 
 #include <entt.hpp>
 
-#include "delta.hpp"
+#include "delta_time.hpp"
 #include "level.hpp"
 
 namespace wanderer::sys {
@@ -17,6 +17,6 @@ namespace wanderer::sys {
  * \param level the currently active level.
  * \param dt the delta time.
  */
-void update_movement(level& level, const delta_t dt);
+void update_movement(level& level, const delta_time dt);
 
 }  // namespace wanderer::sys

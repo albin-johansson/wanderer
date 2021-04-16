@@ -98,7 +98,7 @@ void update_hitbox(level& level,
                    comp::movable& movable,
                    comp::hitbox& hitbox,
                    const float2& oldPosition,
-                   const delta_t dt)
+                   const delta_time dt)
 {
   const auto oldAabbPos = level.get_aabb(entity).min();
 
@@ -154,7 +154,7 @@ void update_hitbox(level& level,
 
 }  // namespace
 
-void update_movement(level& level, const delta_t dt)
+void update_movement(level& level, const delta_time dt)
 {
   level.each<comp::movable>([&](const entt::entity entity, comp::movable& movable) {
     const auto oldPosition = movable.position;

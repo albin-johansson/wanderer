@@ -4,7 +4,7 @@
 
 #include "button_pressed_event.hpp"
 #include "close_inventory_event.hpp"
-#include "delta.hpp"
+#include "delta_time.hpp"
 #include "graphics_context.hpp"
 #include "input.hpp"
 #include "level.hpp"
@@ -50,9 +50,9 @@ class game final
   /**
    * \brief Updates the state of the game.
    *
-   * \param dt the delta_t time, in seconds.
+   * \param dt the delta time, in seconds.
    */
-  void tick(delta_t dt);
+  void tick(delta_time dt);
 
   /**
    * \brief Renders the game.
