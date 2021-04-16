@@ -3,8 +3,8 @@
 #include <filesystem>  // exists, copy
 #include <fstream>     // ifstream
 
-#include "files_directory.hpp"
-#include "ini.hpp"
+#include "io/files_directory.hpp"
+#include "io/ini.hpp"
 
 namespace wanderer::sys {
 
