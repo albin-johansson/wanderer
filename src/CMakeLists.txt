@@ -345,6 +345,10 @@ target_include_directories(${WANDERER_LIB_TARGET}
     PUBLIC systems/ui/labels
     PUBLIC systems/ui/lines
     PUBLIC systems/ui/menus
+    PUBLIC systems/ui/menus/controls
+    PUBLIC systems/ui/menus/in-game
+    PUBLIC systems/ui/menus/saves
+    PUBLIC systems/ui/menus/settings
     PUBLIC systems/movement
     PUBLIC systems/saves
     PUBLIC systems/tile
