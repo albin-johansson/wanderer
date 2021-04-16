@@ -8,15 +8,13 @@ namespace wanderer {
 
 auto make_renderer(const cen::window& window) -> cen::renderer
 {
-  const auto flags = static_cast<SDL_RendererFlags>(SDL_RENDERER_ACCELERATED |
-                                                    SDL_RENDERER_TARGETTEXTURE);
-  cen::renderer renderer{window, flags};
-
+  cen::renderer renderer{window, SDL_RENDERER_ACCELERATED | SDL_RENDERER_TARGETTEXTURE};
   renderer.set_blend_mode(cen::blend_mode::blend);
 
-  renderer.emplace_font(glob::menu_font_s, resources::font("type_writer.ttf"), 8);
-  renderer.emplace_font(glob::menu_font_m, resources::font("type_writer.ttf"), 16);
-  renderer.emplace_font(glob::menu_font_l, resources::font("type_writer.ttf"), 24);
+  const auto typeWriter = resources::font("type_writer.ttf");
+  renderer.emplace_font(glob::menu_font_s, typeWriter, 8);
+  renderer.emplace_font(glob::menu_font_m, typeWriter, 16);
+  renderer.emplace_font(glob::menu_font_l, typeWriter, 24);
 
   renderer.set_logical_size(glob::logical_size<>);
   renderer.set_logical_integer_scale(true);
