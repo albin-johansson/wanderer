@@ -495,6 +495,8 @@ constexpr auto operator"" _s(const unsigned long long int value) noexcept
 
 namespace cen {
 
+// TODO Centurion 6: Document and test
+
 /// \addtogroup audio
 /// \{
 
@@ -616,7 +618,7 @@ namespace cen::detail {
  * \since 3.0.0
  */
 template <typename T>
-[[nodiscard]] auto address_of(T* ptr) -> std::string
+[[nodiscard]] auto address_of(const T* ptr) -> std::string
 {
   if (ptr)
   {
@@ -711,11 +713,16 @@ template <typename T>
     noexcept(noexcept(value < min) && noexcept(value > max)) -> T
 {
   assert(min <= max);
-  if (value < min) {
+  if (value < min)
+  {
     return min;
-  } else if (value > max) {
+  }
+  else if (value > max)
+  {
     return max;
-  } else {
+  }
+  else
+  {
     return value;
   }
 }
@@ -1527,6 +1534,8 @@ class music final
   /// \name Playback position functions
   /// \{
 
+  // TODO Centurion 6: Document and test
+
   static void rewind() noexcept
   {
     Mix_RewindMusic();
@@ -1773,9 +1782,7 @@ inline auto operator<<(std::ostream& stream, const music& music)
   return static_cast<Mix_Fading>(lhs) == rhs;
 }
 
-/**
- * \copydoc operator==(fade_status, Mix_Fading)
- */
+/// \copydoc operator==(fade_status, Mix_Fading)
 [[nodiscard]] constexpr auto operator==(const Mix_Fading lhs,
                                         const fade_status rhs) noexcept -> bool
 {
@@ -1800,9 +1807,7 @@ inline auto operator<<(std::ostream& stream, const music& music)
   return !(lhs == rhs);
 }
 
-/**
- * \copydoc operator!=(fade_status, Mix_Fading)
- */
+/// \copydoc operator!=(fade_status, Mix_Fading)
 [[nodiscard]] constexpr auto operator!=(const Mix_Fading lhs,
                                         const Mix_Fading rhs) noexcept -> bool
 {
@@ -1826,9 +1831,7 @@ inline auto operator<<(std::ostream& stream, const music& music)
   return static_cast<Mix_MusicType>(lhs) == rhs;
 }
 
-/**
- * \copydoc operator==(music_type, Mix_MusicType)
- */
+/// \copydoc operator==(music_type, Mix_MusicType)
 [[nodiscard]] constexpr auto operator==(const Mix_MusicType lhs,
                                         const music_type rhs) noexcept -> bool
 {
@@ -1852,9 +1855,7 @@ inline auto operator<<(std::ostream& stream, const music& music)
   return !(lhs == rhs);
 }
 
-/**
- * \copydoc operator!=(music_type, Mix_MusicType)
- */
+/// \copydoc operator!=(music_type, Mix_MusicType)
 [[nodiscard]] constexpr auto operator!=(const Mix_MusicType lhs,
                                         const music_type rhs) noexcept -> bool
 {
@@ -2627,6 +2628,8 @@ class basic_sound_effect final
 
   /// \name Decoder functions
   /// \{
+
+  // TODO Centurion 6: Document and test
 
   template <typename TT = T, detail::is_owner<TT> = 0>
   [[nodiscard]] static auto get_decoder(const int index) noexcept -> czstring
@@ -4206,7 +4209,7 @@ namespace cen::detail {
  * \since 3.0.0
  */
 template <typename T>
-[[nodiscard]] auto address_of(T* ptr) -> std::string
+[[nodiscard]] auto address_of(const T* ptr) -> std::string
 {
   if (ptr)
   {
@@ -4301,11 +4304,16 @@ template <typename T>
     noexcept(noexcept(value < min) && noexcept(value > max)) -> T
 {
   assert(min <= max);
-  if (value < min) {
+  if (value < min)
+  {
     return min;
-  } else if (value > max) {
+  }
+  else if (value > max)
+  {
     return max;
-  } else {
+  }
+  else
+  {
     return value;
   }
 }
@@ -5504,6 +5512,59 @@ namespace cen::detail {
 #ifndef CENTURION_DETAIL_STACK_RESOURCE_HEADER
 #define CENTURION_DETAIL_STACK_RESOURCE_HEADER
 
+// #include "../core/macros.hpp"
+#ifndef CENTURION_MACROS_HEADER
+#define CENTURION_MACROS_HEADER
+
+#include <SDL.h>
+
+/// \addtogroup core
+/// \{
+
+#ifndef __clang__
+
+/**
+ * \def CENTURION_HAS_STD_MEMORY_RESOURCE
+ *
+ * \brief This macro is defined if the `memory_resource` header is available.
+ *
+ * \note This is a very rough check, that assumes that as long as we are not
+ * using Clang, we are fine.
+ *
+ * \todo C++20: Use the feature test macro for this instead.
+ *
+ * \since 5.3.0
+ */
+#define CENTURION_HAS_STD_MEMORY_RESOURCE
+
+#endif  // __clang__
+
+/**
+ * \def CENTURION_SDL_VERSION_IS
+ *
+ * \brief This macro is meant to be used when conditionally including code for a
+ * specific version of SDL. It is useful for applying workarounds.
+ *
+ * \since 5.3.0
+ */
+#define CENTURION_SDL_VERSION_IS(x, y, z)                      \
+  ((SDL_MAJOR_VERSION == (x)) && (SDL_MINOR_VERSION == (y)) && \
+   (SDL_PATCHLEVEL == (z)))
+
+#if CENTURION_SDL_VERSION_IS(2, 0, 10)
+
+// Workaround for this enum being completely anonymous in SDL 2.0.10. We include
+// this here because multiple files (key_code.hpp and scan_code.hpp) depend on
+// this definition.
+using SDL_KeyCode = decltype(SDLK_UNKNOWN);
+
+#endif  // CENTURION_SDL_VERSION_IS(2, 0, 10)
+
+/// \} End of group core
+
+#endif  // CENTURION_MACROS_HEADER
+
+
 #ifdef CENTURION_HAS_STD_MEMORY_RESOURCE
 
 #include <array>            // array
@@ -6205,9 +6266,7 @@ enum class event_type
   return static_cast<SDL_EventType>(lhs) == rhs;
 }
 
-/**
- * \copydoc operator==(const event_type, const SDL_EventType)
- */
+/// \copydoc operator==(const event_type, const SDL_EventType)
 [[nodiscard]] constexpr auto operator==(const SDL_EventType lhs,
                                         const event_type rhs) noexcept -> bool
 {
@@ -6231,9 +6290,7 @@ enum class event_type
   return !(lhs == rhs);
 }
 
-/**
- * \copydoc operator!=(const event_type, const SDL_EventType)
- */
+/// \copydoc operator!=(const event_type, const SDL_EventType)
 [[nodiscard]] constexpr auto operator!=(const SDL_EventType lhs,
                                         const event_type rhs) noexcept -> bool
 {
@@ -6925,7 +6982,7 @@ namespace cen::detail {
  * \since 3.0.0
  */
 template <typename T>
-[[nodiscard]] auto address_of(T* ptr) -> std::string
+[[nodiscard]] auto address_of(const T* ptr) -> std::string
 {
   if (ptr)
   {
@@ -9483,9 +9540,7 @@ inline auto operator<<(std::ostream& stream, const color& color)
          (lhs.blue() == rhs.blue()) && (lhs.alpha() == rhs.alpha());
 }
 
-/**
- * \copydoc operator==(const color&, const color&)
- */
+/// \copydoc operator==(const color&, const color&)
 [[nodiscard]] constexpr auto operator==(const color& lhs,
                                         const SDL_Color& rhs) noexcept -> bool
 {
@@ -9493,9 +9548,7 @@ inline auto operator<<(std::ostream& stream, const color& color)
          (lhs.blue() == rhs.b) && (lhs.alpha() == rhs.a);
 }
 
-/**
- * \copydoc operator==(const color&, const color&)
- */
+/// \copydoc operator==(const color&, const color&)
 [[nodiscard]] constexpr auto operator==(const SDL_Color& lhs,
                                         const color& rhs) noexcept -> bool
 {
@@ -9522,9 +9575,7 @@ inline auto operator<<(std::ostream& stream, const color& color)
          (lhs.blue() == rhs.b);
 }
 
-/**
- * \copydoc operator==(const color&, const SDL_MessageBoxColor&)
- */
+/// \copydoc operator==(const color&, const SDL_MessageBoxColor&)
 [[nodiscard]] constexpr auto operator==(const SDL_MessageBoxColor& lhs,
                                         const color& rhs) noexcept -> bool
 {
@@ -9547,18 +9598,14 @@ inline auto operator<<(std::ostream& stream, const color& color)
   return !(lhs == rhs);
 }
 
-/**
- * \copydoc operator!=(const color&, const color&)
- */
+/// \copydoc operator!=(const color&, const color&)
 [[nodiscard]] constexpr auto operator!=(const color& lhs,
                                         const SDL_Color& rhs) noexcept -> bool
 {
   return !(lhs == rhs);
 }
 
-/**
- * \copydoc operator!=(const color&, const color&)
- */
+/// \copydoc operator!=(const color&, const color&)
 [[nodiscard]] constexpr auto operator!=(const SDL_Color& lhs,
                                         const color& rhs) noexcept -> bool
 {
@@ -9584,9 +9631,7 @@ inline auto operator<<(std::ostream& stream, const color& color)
   return !(lhs == rhs);
 }
 
-/**
- * \copydoc operator!=(const color&, const SDL_MessageBoxColor&)
- */
+/// \copydoc operator!=(const color&, const SDL_MessageBoxColor&)
 [[nodiscard]] constexpr auto operator!=(const SDL_MessageBoxColor& lhs,
                                         const color& rhs) noexcept -> bool
 {
@@ -11745,9 +11790,7 @@ auto operator<<(std::ostream& stream, const basic_sensor<T>& sensor)
   return static_cast<SDL_SensorType>(lhs) == rhs;
 }
 
-/**
- * \copydoc operator==(const sensor_type, const SDL_SensorType)
- */
+/// \copydoc operator==(const sensor_type, const SDL_SensorType)
 [[nodiscard]] constexpr auto operator==(const SDL_SensorType lhs,
                                         const sensor_type rhs) noexcept -> bool
 {
@@ -11771,9 +11814,7 @@ auto operator<<(std::ostream& stream, const basic_sensor<T>& sensor)
   return !(lhs == rhs);
 }
 
-/**
- * \copydoc operator!=(const sensor_type, const SDL_SensorType)
- */
+/// \copydoc operator!=(const sensor_type, const SDL_SensorType)
 [[nodiscard]] constexpr auto operator!=(const SDL_SensorType lhs,
                                         const sensor_type rhs) noexcept -> bool
 {
@@ -11997,9 +12038,7 @@ enum class device_type
   return static_cast<SDL_TouchDeviceType>(lhs) == rhs;
 }
 
-/**
- * \copydoc operator==(device_type, SDL_TouchDeviceType)
- */
+/// \copydoc operator==(device_type, SDL_TouchDeviceType)
 [[nodiscard]] constexpr auto operator==(const SDL_TouchDeviceType lhs,
                                         const device_type rhs) noexcept -> bool
 {
@@ -12023,9 +12062,7 @@ enum class device_type
   return !(lhs == rhs);
 }
 
-/**
- * \copydoc operator!=(device_type, SDL_TouchDeviceType)
- */
+/// \copydoc operator!=(device_type, SDL_TouchDeviceType)
 [[nodiscard]] constexpr auto operator!=(const SDL_TouchDeviceType lhs,
                                         const device_type rhs) noexcept -> bool
 {
@@ -13449,9 +13486,7 @@ auto operator<<(std::ostream& stream, const basic_controller<T>& controller)
   return static_cast<SDL_GameControllerType>(lhs) == rhs;
 }
 
-/**
- * \copydoc operator==(controller_type, SDL_GameControllerType)
- */
+/// \copydoc operator==(controller_type, SDL_GameControllerType)
 [[nodiscard]] constexpr auto operator==(const SDL_GameControllerType lhs,
                                         const controller_type rhs) noexcept
     -> bool
@@ -13477,9 +13512,7 @@ auto operator<<(std::ostream& stream, const basic_controller<T>& controller)
   return !(lhs == rhs);
 }
 
-/**
- * \copydoc operator!=(controller_type, SDL_GameControllerType)
- */
+/// \copydoc operator!=(controller_type, SDL_GameControllerType)
 [[nodiscard]] constexpr auto operator!=(const SDL_GameControllerType lhs,
                                         const controller_type rhs) noexcept
     -> bool
@@ -13506,9 +13539,7 @@ auto operator<<(std::ostream& stream, const basic_controller<T>& controller)
   return static_cast<SDL_GameControllerAxis>(lhs) == rhs;
 }
 
-/**
- * \copydoc operator==(controller_axis, SDL_GameControllerAxis)
- */
+/// \copydoc operator==(controller_axis, SDL_GameControllerAxis)
 [[nodiscard]] constexpr auto operator==(const SDL_GameControllerAxis lhs,
                                         const controller_axis rhs) noexcept
     -> bool
@@ -13534,9 +13565,7 @@ auto operator<<(std::ostream& stream, const basic_controller<T>& controller)
   return !(lhs == rhs);
 }
 
-/**
- * \copydoc operator!=(controller_axis, SDL_GameControllerAxis)
- */
+/// \copydoc operator!=(controller_axis, SDL_GameControllerAxis)
 [[nodiscard]] constexpr auto operator!=(const SDL_GameControllerAxis lhs,
                                         const controller_axis rhs) noexcept
     -> bool
@@ -13563,9 +13592,7 @@ auto operator<<(std::ostream& stream, const basic_controller<T>& controller)
   return static_cast<SDL_GameControllerButton>(lhs) == rhs;
 }
 
-/**
- * \copydoc operator==(controller_button, SDL_GameControllerButton)
- */
+/// \copydoc operator==(controller_button, SDL_GameControllerButton)
 [[nodiscard]] constexpr auto operator==(const SDL_GameControllerButton lhs,
                                         const controller_button rhs) noexcept
     -> bool
@@ -13592,9 +13619,7 @@ auto operator<<(std::ostream& stream, const basic_controller<T>& controller)
   return !(lhs == rhs);
 }
 
-/**
- * \copydoc operator!=(controller_button, SDL_GameControllerButton)
- */
+/// \copydoc operator!=(controller_button, SDL_GameControllerButton)
 [[nodiscard]] constexpr auto operator!=(const SDL_GameControllerButton lhs,
                                         const controller_button rhs) noexcept
     -> bool
@@ -13619,9 +13644,7 @@ auto operator<<(std::ostream& stream, const basic_controller<T>& controller)
   return static_cast<SDL_GameControllerBindType>(lhs) == rhs;
 }
 
-/**
- * \copydoc operator==(controller_bind_type, SDL_GameControllerBindType)
- */
+/// \copydoc operator==(controller_bind_type, SDL_GameControllerBindType)
 [[nodiscard]] constexpr auto operator==(const SDL_GameControllerBindType lhs,
                                         const controller_bind_type rhs) noexcept
     -> bool
@@ -13647,9 +13670,7 @@ auto operator<<(std::ostream& stream, const basic_controller<T>& controller)
   return !(lhs == rhs);
 }
 
-/**
- * \copydoc operator!=(controller_bind_type, SDL_GameControllerBindType)
- */
+/// \copydoc operator!=(controller_bind_type, SDL_GameControllerBindType)
 [[nodiscard]] constexpr auto operator!=(const SDL_GameControllerBindType lhs,
                                         const controller_bind_type rhs) noexcept
     -> bool
@@ -19436,10 +19457,7 @@ inline auto as_sdl_event(const common_event<SDL_MouseWheelEvent>& event)
   return lhs == static_cast<mouse_wheel_direction>(rhs);
 }
 
-/**
- * \copydoc operator==(mouse_wheel_direction, SDL_MouseWheelDirection)
- *
- */
+/// \copydoc operator==(mouse_wheel_direction, SDL_MouseWheelDirection)
 [[nodiscard]] constexpr auto operator==(
     const SDL_MouseWheelDirection lhs,
     const mouse_wheel_direction rhs) noexcept -> bool
@@ -19465,9 +19483,7 @@ inline auto as_sdl_event(const common_event<SDL_MouseWheelEvent>& event)
   return !(lhs == rhs);
 }
 
-/**
- * \copydoc operator!=(mouse_wheel_direction, SDL_MouseWheelDirection)
- */
+/// \copydoc operator!=(mouse_wheel_direction, SDL_MouseWheelDirection)
 [[nodiscard]] constexpr auto operator!=(
     const SDL_MouseWheelDirection lhs,
     const mouse_wheel_direction rhs) noexcept -> bool
@@ -19814,11 +19830,16 @@ template <typename T>
     noexcept(noexcept(value < min) && noexcept(value > max)) -> T
 {
   assert(min <= max);
-  if (value < min) {
+  if (value < min)
+  {
     return min;
-  } else if (value > max) {
+  }
+  else if (value > max)
+  {
     return max;
-  } else {
+  }
+  else
+  {
     return value;
   }
 }
@@ -20740,9 +20761,7 @@ inline auto as_sdl_event(const common_event<SDL_WindowEvent>& event)
   return static_cast<SDL_WindowEventID>(lhs) == rhs;
 }
 
-/**
- * \copydoc operator==(window_event_id, SDL_WindowEventID)
- */
+/// \copydoc operator==(window_event_id, SDL_WindowEventID)
 [[nodiscard]] constexpr auto operator==(const SDL_WindowEventID lhs,
                                         const window_event_id rhs) noexcept
     -> bool
@@ -20768,9 +20787,7 @@ inline auto as_sdl_event(const common_event<SDL_WindowEvent>& event)
   return !(lhs == rhs);
 }
 
-/**
- * \copydoc operator!=(window_event_id, SDL_WindowEventID)
- */
+/// \copydoc operator!=(window_event_id, SDL_WindowEventID)
 [[nodiscard]] constexpr auto operator!=(const SDL_WindowEventID lhs,
                                         const window_event_id rhs) noexcept
     -> bool
@@ -22482,9 +22499,7 @@ enum class event_type
   return static_cast<SDL_EventType>(lhs) == rhs;
 }
 
-/**
- * \copydoc operator==(const event_type, const SDL_EventType)
- */
+/// \copydoc operator==(const event_type, const SDL_EventType)
 [[nodiscard]] constexpr auto operator==(const SDL_EventType lhs,
                                         const event_type rhs) noexcept -> bool
 {
@@ -22508,9 +22523,7 @@ enum class event_type
   return !(lhs == rhs);
 }
 
-/**
- * \copydoc operator!=(const event_type, const SDL_EventType)
- */
+/// \copydoc operator!=(const event_type, const SDL_EventType)
 [[nodiscard]] constexpr auto operator!=(const SDL_EventType lhs,
                                         const event_type rhs) noexcept -> bool
 {
@@ -24348,10 +24361,7 @@ inline auto as_sdl_event(const common_event<SDL_MouseWheelEvent>& event)
   return lhs == static_cast<mouse_wheel_direction>(rhs);
 }
 
-/**
- * \copydoc operator==(mouse_wheel_direction, SDL_MouseWheelDirection)
- *
- */
+/// \copydoc operator==(mouse_wheel_direction, SDL_MouseWheelDirection)
 [[nodiscard]] constexpr auto operator==(
     const SDL_MouseWheelDirection lhs,
     const mouse_wheel_direction rhs) noexcept -> bool
@@ -24377,9 +24387,7 @@ inline auto as_sdl_event(const common_event<SDL_MouseWheelEvent>& event)
   return !(lhs == rhs);
 }
 
-/**
- * \copydoc operator!=(mouse_wheel_direction, SDL_MouseWheelDirection)
- */
+/// \copydoc operator!=(mouse_wheel_direction, SDL_MouseWheelDirection)
 [[nodiscard]] constexpr auto operator!=(
     const SDL_MouseWheelDirection lhs,
     const mouse_wheel_direction rhs) noexcept -> bool
@@ -25515,9 +25523,7 @@ inline auto as_sdl_event(const common_event<SDL_WindowEvent>& event)
   return static_cast<SDL_WindowEventID>(lhs) == rhs;
 }
 
-/**
- * \copydoc operator==(window_event_id, SDL_WindowEventID)
- */
+/// \copydoc operator==(window_event_id, SDL_WindowEventID)
 [[nodiscard]] constexpr auto operator==(const SDL_WindowEventID lhs,
                                         const window_event_id rhs) noexcept
     -> bool
@@ -25543,9 +25549,7 @@ inline auto as_sdl_event(const common_event<SDL_WindowEvent>& event)
   return !(lhs == rhs);
 }
 
-/**
- * \copydoc operator!=(window_event_id, SDL_WindowEventID)
- */
+/// \copydoc operator!=(window_event_id, SDL_WindowEventID)
 [[nodiscard]] constexpr auto operator!=(const SDL_WindowEventID lhs,
                                         const window_event_id rhs) noexcept
     -> bool
@@ -26979,11 +26983,11 @@ class file final
 #include <cassert>  // assert
 #include <string>   // string
 
+// #include "../core/sdl_string.hpp"
+
 // #include "../misc/czstring.hpp"
 
 // #include "../misc/not_null.hpp"
-
-// #include "../core/sdl_string.hpp"
 
 
 namespace cen {
@@ -29562,9 +29566,7 @@ inline void put(const std::string& str) noexcept
   log::info("%s", str.c_str());
 }
 
-/**
- * \copydoc put(const std::string&)
- */
+/// \copydoc put(const std::string&)
 inline void put(const not_null<czstring> str) noexcept
 {
   log::info("%s", str);
@@ -29659,9 +29661,7 @@ inline void set_priority(const category category, const priority prio) noexcept
   return static_cast<SDL_LogPriority>(lhs) == rhs;
 }
 
-/**
- * \copydoc operator==(priority, SDL_LogPriority)
- */
+/// \copydoc operator==(priority, SDL_LogPriority)
 [[nodiscard]] constexpr auto operator==(const SDL_LogPriority lhs,
                                         const priority rhs) noexcept -> bool
 {
@@ -29686,9 +29686,7 @@ inline void set_priority(const category category, const priority prio) noexcept
   return !(lhs == rhs);
 }
 
-/**
- * \copydoc operator!=(priority, SDL_LogPriority)
- */
+/// \copydoc operator!=(priority, SDL_LogPriority)
 [[nodiscard]] constexpr auto operator!=(const SDL_LogPriority lhs,
                                         const priority rhs) noexcept -> bool
 {
@@ -29712,9 +29710,7 @@ inline void set_priority(const category category, const priority prio) noexcept
   return static_cast<SDL_LogCategory>(lhs) == rhs;
 }
 
-/**
- * \copydoc operator==(category, SDL_LogCategory)
- */
+/// \copydoc operator==(category, SDL_LogCategory)
 [[nodiscard]] constexpr auto operator==(const SDL_LogCategory lhs,
                                         const category rhs) noexcept -> bool
 {
@@ -29738,9 +29734,7 @@ inline void set_priority(const category category, const priority prio) noexcept
   return !(lhs == rhs);
 }
 
-/**
- * \copydoc operator!=(category, SDL_LogCategory)
- */
+/// \copydoc operator!=(category, SDL_LogCategory)
 [[nodiscard]] constexpr auto operator!=(const SDL_LogCategory lhs,
                                         const category rhs) noexcept -> bool
 {
@@ -30995,7 +30989,7 @@ namespace cen::detail {
  * \since 3.0.0
  */
 template <typename T>
-[[nodiscard]] auto address_of(T* ptr) -> std::string
+[[nodiscard]] auto address_of(const T* ptr) -> std::string
 {
   if (ptr)
   {
@@ -33553,9 +33547,7 @@ inline auto operator<<(std::ostream& stream, const color& color)
          (lhs.blue() == rhs.blue()) && (lhs.alpha() == rhs.alpha());
 }
 
-/**
- * \copydoc operator==(const color&, const color&)
- */
+/// \copydoc operator==(const color&, const color&)
 [[nodiscard]] constexpr auto operator==(const color& lhs,
                                         const SDL_Color& rhs) noexcept -> bool
 {
@@ -33563,9 +33555,7 @@ inline auto operator<<(std::ostream& stream, const color& color)
          (lhs.blue() == rhs.b) && (lhs.alpha() == rhs.a);
 }
 
-/**
- * \copydoc operator==(const color&, const color&)
- */
+/// \copydoc operator==(const color&, const color&)
 [[nodiscard]] constexpr auto operator==(const SDL_Color& lhs,
                                         const color& rhs) noexcept -> bool
 {
@@ -33592,9 +33582,7 @@ inline auto operator<<(std::ostream& stream, const color& color)
          (lhs.blue() == rhs.b);
 }
 
-/**
- * \copydoc operator==(const color&, const SDL_MessageBoxColor&)
- */
+/// \copydoc operator==(const color&, const SDL_MessageBoxColor&)
 [[nodiscard]] constexpr auto operator==(const SDL_MessageBoxColor& lhs,
                                         const color& rhs) noexcept -> bool
 {
@@ -33617,18 +33605,14 @@ inline auto operator<<(std::ostream& stream, const color& color)
   return !(lhs == rhs);
 }
 
-/**
- * \copydoc operator!=(const color&, const color&)
- */
+/// \copydoc operator!=(const color&, const color&)
 [[nodiscard]] constexpr auto operator!=(const color& lhs,
                                         const SDL_Color& rhs) noexcept -> bool
 {
   return !(lhs == rhs);
 }
 
-/**
- * \copydoc operator!=(const color&, const color&)
- */
+/// \copydoc operator!=(const color&, const color&)
 [[nodiscard]] constexpr auto operator!=(const SDL_Color& lhs,
                                         const color& rhs) noexcept -> bool
 {
@@ -33654,9 +33638,7 @@ inline auto operator<<(std::ostream& stream, const color& color)
   return !(lhs == rhs);
 }
 
-/**
- * \copydoc operator!=(const color&, const SDL_MessageBoxColor&)
- */
+/// \copydoc operator!=(const color&, const SDL_MessageBoxColor&)
 [[nodiscard]] constexpr auto operator!=(const SDL_MessageBoxColor& lhs,
                                         const color& rhs) noexcept -> bool
 {
@@ -35815,9 +35797,7 @@ auto operator<<(std::ostream& stream, const basic_sensor<T>& sensor)
   return static_cast<SDL_SensorType>(lhs) == rhs;
 }
 
-/**
- * \copydoc operator==(const sensor_type, const SDL_SensorType)
- */
+/// \copydoc operator==(const sensor_type, const SDL_SensorType)
 [[nodiscard]] constexpr auto operator==(const SDL_SensorType lhs,
                                         const sensor_type rhs) noexcept -> bool
 {
@@ -35841,9 +35821,7 @@ auto operator<<(std::ostream& stream, const basic_sensor<T>& sensor)
   return !(lhs == rhs);
 }
 
-/**
- * \copydoc operator!=(const sensor_type, const SDL_SensorType)
- */
+/// \copydoc operator!=(const sensor_type, const SDL_SensorType)
 [[nodiscard]] constexpr auto operator!=(const SDL_SensorType lhs,
                                         const sensor_type rhs) noexcept -> bool
 {
@@ -36067,9 +36045,7 @@ enum class device_type
   return static_cast<SDL_TouchDeviceType>(lhs) == rhs;
 }
 
-/**
- * \copydoc operator==(device_type, SDL_TouchDeviceType)
- */
+/// \copydoc operator==(device_type, SDL_TouchDeviceType)
 [[nodiscard]] constexpr auto operator==(const SDL_TouchDeviceType lhs,
                                         const device_type rhs) noexcept -> bool
 {
@@ -36093,9 +36069,7 @@ enum class device_type
   return !(lhs == rhs);
 }
 
-/**
- * \copydoc operator!=(device_type, SDL_TouchDeviceType)
- */
+/// \copydoc operator!=(device_type, SDL_TouchDeviceType)
 [[nodiscard]] constexpr auto operator!=(const SDL_TouchDeviceType lhs,
                                         const device_type rhs) noexcept -> bool
 {
@@ -37519,9 +37493,7 @@ auto operator<<(std::ostream& stream, const basic_controller<T>& controller)
   return static_cast<SDL_GameControllerType>(lhs) == rhs;
 }
 
-/**
- * \copydoc operator==(controller_type, SDL_GameControllerType)
- */
+/// \copydoc operator==(controller_type, SDL_GameControllerType)
 [[nodiscard]] constexpr auto operator==(const SDL_GameControllerType lhs,
                                         const controller_type rhs) noexcept
     -> bool
@@ -37547,9 +37519,7 @@ auto operator<<(std::ostream& stream, const basic_controller<T>& controller)
   return !(lhs == rhs);
 }
 
-/**
- * \copydoc operator!=(controller_type, SDL_GameControllerType)
- */
+/// \copydoc operator!=(controller_type, SDL_GameControllerType)
 [[nodiscard]] constexpr auto operator!=(const SDL_GameControllerType lhs,
                                         const controller_type rhs) noexcept
     -> bool
@@ -37576,9 +37546,7 @@ auto operator<<(std::ostream& stream, const basic_controller<T>& controller)
   return static_cast<SDL_GameControllerAxis>(lhs) == rhs;
 }
 
-/**
- * \copydoc operator==(controller_axis, SDL_GameControllerAxis)
- */
+/// \copydoc operator==(controller_axis, SDL_GameControllerAxis)
 [[nodiscard]] constexpr auto operator==(const SDL_GameControllerAxis lhs,
                                         const controller_axis rhs) noexcept
     -> bool
@@ -37604,9 +37572,7 @@ auto operator<<(std::ostream& stream, const basic_controller<T>& controller)
   return !(lhs == rhs);
 }
 
-/**
- * \copydoc operator!=(controller_axis, SDL_GameControllerAxis)
- */
+/// \copydoc operator!=(controller_axis, SDL_GameControllerAxis)
 [[nodiscard]] constexpr auto operator!=(const SDL_GameControllerAxis lhs,
                                         const controller_axis rhs) noexcept
     -> bool
@@ -37633,9 +37599,7 @@ auto operator<<(std::ostream& stream, const basic_controller<T>& controller)
   return static_cast<SDL_GameControllerButton>(lhs) == rhs;
 }
 
-/**
- * \copydoc operator==(controller_button, SDL_GameControllerButton)
- */
+/// \copydoc operator==(controller_button, SDL_GameControllerButton)
 [[nodiscard]] constexpr auto operator==(const SDL_GameControllerButton lhs,
                                         const controller_button rhs) noexcept
     -> bool
@@ -37662,9 +37626,7 @@ auto operator<<(std::ostream& stream, const basic_controller<T>& controller)
   return !(lhs == rhs);
 }
 
-/**
- * \copydoc operator!=(controller_button, SDL_GameControllerButton)
- */
+/// \copydoc operator!=(controller_button, SDL_GameControllerButton)
 [[nodiscard]] constexpr auto operator!=(const SDL_GameControllerButton lhs,
                                         const controller_button rhs) noexcept
     -> bool
@@ -37689,9 +37651,7 @@ auto operator<<(std::ostream& stream, const basic_controller<T>& controller)
   return static_cast<SDL_GameControllerBindType>(lhs) == rhs;
 }
 
-/**
- * \copydoc operator==(controller_bind_type, SDL_GameControllerBindType)
- */
+/// \copydoc operator==(controller_bind_type, SDL_GameControllerBindType)
 [[nodiscard]] constexpr auto operator==(const SDL_GameControllerBindType lhs,
                                         const controller_bind_type rhs) noexcept
     -> bool
@@ -37717,9 +37677,7 @@ auto operator<<(std::ostream& stream, const basic_controller<T>& controller)
   return !(lhs == rhs);
 }
 
-/**
- * \copydoc operator!=(controller_bind_type, SDL_GameControllerBindType)
- */
+/// \copydoc operator!=(controller_bind_type, SDL_GameControllerBindType)
 [[nodiscard]] constexpr auto operator!=(const SDL_GameControllerBindType lhs,
                                         const controller_bind_type rhs) noexcept
     -> bool
@@ -37786,11 +37744,16 @@ template <typename T>
     noexcept(noexcept(value < min) && noexcept(value > max)) -> T
 {
   assert(min <= max);
-  if (value < min) {
+  if (value < min)
+  {
     return min;
-  } else if (value > max) {
+  }
+  else if (value > max)
+  {
     return max;
-  } else {
+  }
+  else
+  {
     return value;
   }
 }
@@ -46140,24 +46103,16 @@ template <typename T>
 class basic_point final
 {
  public:
-  /**
-   * \copydoc point_traits::isIntegral
-   */
+  /// \copydoc point_traits::isIntegral
   inline constexpr static bool isIntegral = point_traits<T>::isIntegral;
 
-  /**
-   * \copydoc point_traits::isFloating
-   */
+  /// \copydoc point_traits::isFloating
   inline constexpr static bool isFloating = point_traits<T>::isFloating;
 
-  /**
-   * \copydoc point_traits::value_type
-   */
+  /// \copydoc point_traits::value_type
   using value_type = typename point_traits<T>::value_type;
 
-  /**
-   * \copydoc point_traits::point_type
-   */
+  /// \copydoc point_traits::point_type
   using point_type = typename point_traits<T>::point_type;
 
   /// \name Construction
@@ -46254,9 +46209,7 @@ class basic_point final
     return m_point;
   }
 
-  /**
-   * \copydoc get
-   */
+  /// \copydoc get
   [[nodiscard]] constexpr auto get() const noexcept -> const point_type&
   {
     return m_point;
@@ -46276,9 +46229,7 @@ class basic_point final
     return &m_point;
   }
 
-  /**
-   * \copydoc data()
-   */
+  /// \copydoc data
   [[nodiscard]] auto data() const noexcept -> const point_type*
   {
     return &m_point;
@@ -46303,34 +46254,16 @@ class basic_point final
     return m_point;
   }
 
-  /**
-   * \brief Returns a pointer to the internal point.
-   *
-   * \note You shouldn't store the returned pointer. However, this conversion
-   * is safe since `reinterpret_cast` isn't used.
-   *
-   * \return a pointer to the internal point instance.
-   *
-   * \since 5.0.0
-   */
+  /// \copydoc data()
   [[nodiscard]] explicit operator point_type*() noexcept
   {
-    return &m_point;
+    return data();
   }
 
-  /**
-   * \brief Returns a pointer to the internal point.
-   *
-   * \note You shouldn't store the returned pointer. However, this conversion
-   * is safe since `reinterpret_cast` isn't used.
-   *
-   * \return a pointer to the internal point instance.
-   *
-   * \since 5.0.0
-   */
+  /// \copydoc data()
   [[nodiscard]] explicit operator const point_type*() const noexcept
   {
-    return &m_point;
+    return data();
   }
 
   /// \} End of conversions
@@ -48394,9 +48327,7 @@ auto operator<<(std::ostream& stream, const basic_sensor<T>& sensor)
   return static_cast<SDL_SensorType>(lhs) == rhs;
 }
 
-/**
- * \copydoc operator==(const sensor_type, const SDL_SensorType)
- */
+/// \copydoc operator==(const sensor_type, const SDL_SensorType)
 [[nodiscard]] constexpr auto operator==(const SDL_SensorType lhs,
                                         const sensor_type rhs) noexcept -> bool
 {
@@ -48420,9 +48351,7 @@ auto operator<<(std::ostream& stream, const basic_sensor<T>& sensor)
   return !(lhs == rhs);
 }
 
-/**
- * \copydoc operator!=(const sensor_type, const SDL_SensorType)
- */
+/// \copydoc operator!=(const sensor_type, const SDL_SensorType)
 [[nodiscard]] constexpr auto operator!=(const SDL_SensorType lhs,
                                         const sensor_type rhs) noexcept -> bool
 {
@@ -48646,9 +48575,7 @@ enum class device_type
   return static_cast<SDL_TouchDeviceType>(lhs) == rhs;
 }
 
-/**
- * \copydoc operator==(device_type, SDL_TouchDeviceType)
- */
+/// \copydoc operator==(device_type, SDL_TouchDeviceType)
 [[nodiscard]] constexpr auto operator==(const SDL_TouchDeviceType lhs,
                                         const device_type rhs) noexcept -> bool
 {
@@ -48672,9 +48599,7 @@ enum class device_type
   return !(lhs == rhs);
 }
 
-/**
- * \copydoc operator!=(device_type, SDL_TouchDeviceType)
- */
+/// \copydoc operator!=(device_type, SDL_TouchDeviceType)
 [[nodiscard]] constexpr auto operator!=(const SDL_TouchDeviceType lhs,
                                         const device_type rhs) noexcept -> bool
 {
@@ -49342,24 +49267,16 @@ template <typename T>
 class basic_point final
 {
  public:
-  /**
-   * \copydoc point_traits::isIntegral
-   */
+  /// \copydoc point_traits::isIntegral
   inline constexpr static bool isIntegral = point_traits<T>::isIntegral;
 
-  /**
-   * \copydoc point_traits::isFloating
-   */
+  /// \copydoc point_traits::isFloating
   inline constexpr static bool isFloating = point_traits<T>::isFloating;
 
-  /**
-   * \copydoc point_traits::value_type
-   */
+  /// \copydoc point_traits::value_type
   using value_type = typename point_traits<T>::value_type;
 
-  /**
-   * \copydoc point_traits::point_type
-   */
+  /// \copydoc point_traits::point_type
   using point_type = typename point_traits<T>::point_type;
 
   /// \name Construction
@@ -49456,9 +49373,7 @@ class basic_point final
     return m_point;
   }
 
-  /**
-   * \copydoc get
-   */
+  /// \copydoc get
   [[nodiscard]] constexpr auto get() const noexcept -> const point_type&
   {
     return m_point;
@@ -49478,9 +49393,7 @@ class basic_point final
     return &m_point;
   }
 
-  /**
-   * \copydoc data()
-   */
+  /// \copydoc data
   [[nodiscard]] auto data() const noexcept -> const point_type*
   {
     return &m_point;
@@ -49505,34 +49418,16 @@ class basic_point final
     return m_point;
   }
 
-  /**
-   * \brief Returns a pointer to the internal point.
-   *
-   * \note You shouldn't store the returned pointer. However, this conversion
-   * is safe since `reinterpret_cast` isn't used.
-   *
-   * \return a pointer to the internal point instance.
-   *
-   * \since 5.0.0
-   */
+  /// \copydoc data()
   [[nodiscard]] explicit operator point_type*() noexcept
   {
-    return &m_point;
+    return data();
   }
 
-  /**
-   * \brief Returns a pointer to the internal point.
-   *
-   * \note You shouldn't store the returned pointer. However, this conversion
-   * is safe since `reinterpret_cast` isn't used.
-   *
-   * \return a pointer to the internal point instance.
-   *
-   * \since 5.0.0
-   */
+  /// \copydoc data()
   [[nodiscard]] explicit operator const point_type*() const noexcept
   {
-    return &m_point;
+    return data();
   }
 
   /// \} End of conversions
@@ -50234,24 +50129,16 @@ template <typename T>
 class basic_point final
 {
  public:
-  /**
-   * \copydoc point_traits::isIntegral
-   */
+  /// \copydoc point_traits::isIntegral
   inline constexpr static bool isIntegral = point_traits<T>::isIntegral;
 
-  /**
-   * \copydoc point_traits::isFloating
-   */
+  /// \copydoc point_traits::isFloating
   inline constexpr static bool isFloating = point_traits<T>::isFloating;
 
-  /**
-   * \copydoc point_traits::value_type
-   */
+  /// \copydoc point_traits::value_type
   using value_type = typename point_traits<T>::value_type;
 
-  /**
-   * \copydoc point_traits::point_type
-   */
+  /// \copydoc point_traits::point_type
   using point_type = typename point_traits<T>::point_type;
 
   /// \name Construction
@@ -50348,9 +50235,7 @@ class basic_point final
     return m_point;
   }
 
-  /**
-   * \copydoc get
-   */
+  /// \copydoc get
   [[nodiscard]] constexpr auto get() const noexcept -> const point_type&
   {
     return m_point;
@@ -50370,9 +50255,7 @@ class basic_point final
     return &m_point;
   }
 
-  /**
-   * \copydoc data()
-   */
+  /// \copydoc data
   [[nodiscard]] auto data() const noexcept -> const point_type*
   {
     return &m_point;
@@ -50397,34 +50280,16 @@ class basic_point final
     return m_point;
   }
 
-  /**
-   * \brief Returns a pointer to the internal point.
-   *
-   * \note You shouldn't store the returned pointer. However, this conversion
-   * is safe since `reinterpret_cast` isn't used.
-   *
-   * \return a pointer to the internal point instance.
-   *
-   * \since 5.0.0
-   */
+  /// \copydoc data()
   [[nodiscard]] explicit operator point_type*() noexcept
   {
-    return &m_point;
+    return data();
   }
 
-  /**
-   * \brief Returns a pointer to the internal point.
-   *
-   * \note You shouldn't store the returned pointer. However, this conversion
-   * is safe since `reinterpret_cast` isn't used.
-   *
-   * \return a pointer to the internal point instance.
-   *
-   * \since 5.0.0
-   */
+  /// \copydoc data()
   [[nodiscard]] explicit operator const point_type*() const noexcept
   {
-    return &m_point;
+    return data();
   }
 
   /// \} End of conversions
@@ -50703,59 +50568,12 @@ template <typename T, enable_if_convertible_t<T, int, float> = 0>
 class rect_traits final
 {
  public:
-  /**
-   * \var isIntegral
-   *
-   * \brief Indicates whether or not the rectangle is based on an integral type.
-   *
-   * \since 5.0.0
-   */
   inline constexpr static bool isIntegral = std::is_integral_v<T>;
-
-  /**
-   * \var isFloating
-   *
-   * \brief Indicates whether or not the rectangle is based on a floating-point
-   * type.
-   *
-   * \since 5.0.0
-   */
   inline constexpr static bool isFloating = std::is_floating_point_v<T>;
 
-  /**
-   * \typedef value_type
-   *
-   * \brief The representation type, i.e. `int` or `float`.
-   *
-   * \since 5.0.0
-   */
   using value_type = std::conditional_t<isIntegral, int, float>;
-
-  /**
-   * \typedef point_type
-   *
-   * \brief The point type used, i.e. `ipoint` or `fpoint`.
-   *
-   * \since 5.0.0
-   */
   using point_type = std::conditional_t<isIntegral, ipoint, fpoint>;
-
-  /**
-   * \typedef area_type
-   *
-   * \brief The area type used, i.e. `iarea` or `farea`.
-   *
-   * \since 5.0.0
-   */
   using area_type = std::conditional_t<isIntegral, iarea, farea>;
-
-  /**
-   * \typedef rect_type
-   *
-   * \brief The underlying SDL rectangle type, i.e. `SDL_Rect` or `SDL_FRect`.
-   *
-   * \since 5.0.0
-   */
   using rect_type = std::conditional_t<isIntegral, SDL_Rect, SDL_FRect>;
 };
 
@@ -50800,32 +50618,53 @@ class basic_rect final
 {
  public:
   /**
-   * \copydoc rect_traits<T>::isIntegral
+   * \brief Indicates whether or not the rectangle is based on an integral type.
+   *
+   * \since 5.0.0
    */
   inline constexpr static bool isIntegral = rect_traits<T>::isIntegral;
 
   /**
-   * \copydoc rect_traits<T>::isFloating
+   * \brief Indicates whether or not the rectangle is based on a floating-point
+   * type.
+   *
+   * \since 5.0.0
    */
   inline constexpr static bool isFloating = rect_traits<T>::isFloating;
 
   /**
-   * \copydoc rect_traits<T>::value_type
+   * \typedef value_type
+   *
+   * \brief The representation type, i.e. `int` or `float`.
+   *
+   * \since 5.0.0
    */
   using value_type = typename rect_traits<T>::value_type;
 
   /**
-   * \copydoc rect_traits<T>::point_type
+   * \typedef point_type
+   *
+   * \brief The point type used, i.e. `ipoint` or `fpoint`.
+   *
+   * \since 5.0.0
    */
   using point_type = typename rect_traits<T>::point_type;
 
   /**
-   * \copydoc rect_traits<T>::area_type
+   * \typedef area_type
+   *
+   * \brief The area type used, i.e. `iarea` or `farea`.
+   *
+   * \since 5.0.0
    */
   using area_type = typename rect_traits<T>::area_type;
 
   /**
-   * \copydoc rect_traits<T>::rect_type
+   * \typedef rect_type
+   *
+   * \brief The underlying SDL rectangle type, i.e. `SDL_Rect` or `SDL_FRect`.
+   *
+   * \since 5.0.0
    */
   using rect_type = typename rect_traits<T>::rect_type;
 
@@ -52667,9 +52506,7 @@ inline void put(const std::string& str) noexcept
   log::info("%s", str.c_str());
 }
 
-/**
- * \copydoc put(const std::string&)
- */
+/// \copydoc put(const std::string&)
 inline void put(const not_null<czstring> str) noexcept
 {
   log::info("%s", str);
@@ -52764,9 +52601,7 @@ inline void set_priority(const category category, const priority prio) noexcept
   return static_cast<SDL_LogPriority>(lhs) == rhs;
 }
 
-/**
- * \copydoc operator==(priority, SDL_LogPriority)
- */
+/// \copydoc operator==(priority, SDL_LogPriority)
 [[nodiscard]] constexpr auto operator==(const SDL_LogPriority lhs,
                                         const priority rhs) noexcept -> bool
 {
@@ -52791,9 +52626,7 @@ inline void set_priority(const category category, const priority prio) noexcept
   return !(lhs == rhs);
 }
 
-/**
- * \copydoc operator!=(priority, SDL_LogPriority)
- */
+/// \copydoc operator!=(priority, SDL_LogPriority)
 [[nodiscard]] constexpr auto operator!=(const SDL_LogPriority lhs,
                                         const priority rhs) noexcept -> bool
 {
@@ -52817,9 +52650,7 @@ inline void set_priority(const category category, const priority prio) noexcept
   return static_cast<SDL_LogCategory>(lhs) == rhs;
 }
 
-/**
- * \copydoc operator==(category, SDL_LogCategory)
- */
+/// \copydoc operator==(category, SDL_LogCategory)
 [[nodiscard]] constexpr auto operator==(const SDL_LogCategory lhs,
                                         const category rhs) noexcept -> bool
 {
@@ -52843,9 +52674,7 @@ inline void set_priority(const category category, const priority prio) noexcept
   return !(lhs == rhs);
 }
 
-/**
- * \copydoc operator!=(category, SDL_LogCategory)
- */
+/// \copydoc operator!=(category, SDL_LogCategory)
 [[nodiscard]] constexpr auto operator!=(const SDL_LogCategory lhs,
                                         const category rhs) noexcept -> bool
 {
@@ -53954,9 +53783,7 @@ namespace battery {
   return static_cast<SDL_PowerState>(lhs) == rhs;
 }
 
-/**
- * \copydoc operator==(power_state, SDL_PowerState)
- */
+/// \copydoc operator==(power_state, SDL_PowerState)
 [[nodiscard]] constexpr auto operator==(const SDL_PowerState lhs,
                                         const power_state rhs) noexcept -> bool
 {
@@ -53980,9 +53807,7 @@ namespace battery {
   return !(lhs == rhs);
 }
 
-/**
- * \copydoc operator!=(power_state, SDL_PowerState)
- */
+/// \copydoc operator!=(power_state, SDL_PowerState)
 [[nodiscard]] constexpr auto operator!=(const SDL_PowerState lhs,
                                         const power_state rhs) noexcept -> bool
 {
@@ -54249,25 +54074,19 @@ namespace cen {
   return SDL_Swap16(value);
 }
 
-/**
- * \copydoc swap_byte_order()
- */
+/// \copydoc swap_byte_order()
 [[nodiscard]] inline auto swap_byte_order(const u32 value) noexcept -> u32
 {
   return SDL_Swap32(value);
 }
 
-/**
- * \copydoc swap_byte_order()
- */
+/// \copydoc swap_byte_order()
 [[nodiscard]] inline auto swap_byte_order(const u64 value) noexcept -> u64
 {
   return SDL_Swap64(value);
 }
 
-/**
- * \copydoc swap_byte_order()
- */
+/// \copydoc swap_byte_order()
 [[nodiscard]] inline auto swap_byte_order(const float value) noexcept -> float
 {
   return SDL_SwapFloat(value);
@@ -54292,25 +54111,19 @@ namespace cen {
   return SDL_SwapBE16(value);
 }
 
-/**
- * \copydoc swap_big_endian()
- */
+/// \copydoc swap_big_endian()
 [[nodiscard]] inline auto swap_big_endian(const u32 value) noexcept -> u32
 {
   return SDL_SwapBE32(value);
 }
 
-/**
- * \copydoc swap_big_endian()
- */
+/// \copydoc swap_big_endian()
 [[nodiscard]] inline auto swap_big_endian(const u64 value) noexcept -> u64
 {
   return SDL_SwapBE64(value);
 }
 
-/**
- * \copydoc swap_big_endian()
- */
+/// \copydoc swap_big_endian()
 [[nodiscard]] inline auto swap_big_endian(const float value) noexcept -> float
 {
   return SDL_SwapFloatBE(value);
@@ -54335,25 +54148,19 @@ namespace cen {
   return SDL_SwapLE16(value);
 }
 
-/**
- * \copydoc swap_little_endian()
- */
+/// \copydoc swap_little_endian()
 [[nodiscard]] inline auto swap_little_endian(const u32 value) noexcept -> u32
 {
   return SDL_SwapLE32(value);
 }
 
-/**
- * \copydoc swap_little_endian()
- */
+/// \copydoc swap_little_endian()
 [[nodiscard]] inline auto swap_little_endian(const u64 value) noexcept -> u64
 {
   return SDL_SwapLE64(value);
 }
 
-/**
- * \copydoc swap_little_endian()
- */
+/// \copydoc swap_little_endian()
 [[nodiscard]] inline auto swap_little_endian(const float value) noexcept
     -> float
 {
@@ -54375,121 +54182,6 @@ namespace cen {
 
 #include <cassert>  // assert
 #include <string>   // string
-
-// #include "../misc/czstring.hpp"
-#ifndef CENTURION_CZSTRING_HEADER
-#define CENTURION_CZSTRING_HEADER
-
-// #include "not_null.hpp"
-#ifndef CENTURION_NOT_NULL_HEADER
-#define CENTURION_NOT_NULL_HEADER
-
-// #include "sfinae.hpp"
-#ifndef CENTURION_SFINAE_HEADER
-#define CENTURION_SFINAE_HEADER
-
-#include <type_traits>  // enable_if_t, is_same_v, is_integral_v, is_floating_point_v, ...
-
-namespace cen {
-
-/// \addtogroup misc
-/// \{
-
-// clang-format off
-
-template <typename T>
-using enable_if_number_t = std::enable_if_t<!std::is_same_v<T, bool> &&
-                                            (std::is_integral_v<T> ||
-                                             std::is_floating_point_v<T>), int>;
-
-// clang-format on
-
-template <typename T>
-using enable_if_pointer_v = std::enable_if_t<std::is_pointer_v<T>, int>;
-
-template <typename T, typename... Args>
-using enable_if_convertible_t =
-    std::enable_if_t<(std::is_convertible_v<T, Args> || ...), int>;
-
-/// \} End of group misc
-
-}  // namespace cen
-
-#endif  // CENTURION_SFINAE_HEADER
-
-
-namespace cen {
-
-/**
- * \typedef not_null
- *
- * \ingroup misc
- *
- * \brief Tag used to indicate that a pointer cannot be null.
- *
- * \note This alias is equivalent to `T`, it is a no-op.
- *
- * \since 5.0.0
- */
-template <typename T, enable_if_pointer_v<T> = 0>
-using not_null = T;
-
-}  // namespace cen
-
-#endif  // CENTURION_NOT_NULL_HEADER
-
-
-namespace cen {
-
-/// \addtogroup misc
-/// \{
-
-/**
- * \typedef czstring
- *
- * \brief Alias for a const C-style null-terminated string.
- */
-using czstring = const char*;
-
-/**
- * \typedef zstring
- *
- * \brief Alias for a C-style null-terminated string.
- */
-using zstring = char*;
-
-/// \} End of group misc
-
-}  // namespace cen
-
-#endif  // CENTURION_CZSTRING_HEADER
-
-// #include "../misc/not_null.hpp"
-#ifndef CENTURION_NOT_NULL_HEADER
-#define CENTURION_NOT_NULL_HEADER
-
-// #include "sfinae.hpp"
-
-
-namespace cen {
-
-/**
- * \typedef not_null
- *
- * \ingroup misc
- *
- * \brief Tag used to indicate that a pointer cannot be null.
- *
- * \note This alias is equivalent to `T`, it is a no-op.
- *
- * \since 5.0.0
- */
-template <typename T, enable_if_pointer_v<T> = 0>
-using not_null = T;
-
-}  // namespace cen
-
-#endif  // CENTURION_NOT_NULL_HEADER
 
 // #include "../core/sdl_string.hpp"
 #ifndef CENTURION_SDL_STRING_HEADER
@@ -54721,6 +54413,121 @@ class sdl_string final
 }  // namespace cen
 
 #endif  // CENTURION_SDL_STRING_HEADER
+
+// #include "../misc/czstring.hpp"
+#ifndef CENTURION_CZSTRING_HEADER
+#define CENTURION_CZSTRING_HEADER
+
+// #include "not_null.hpp"
+#ifndef CENTURION_NOT_NULL_HEADER
+#define CENTURION_NOT_NULL_HEADER
+
+// #include "sfinae.hpp"
+#ifndef CENTURION_SFINAE_HEADER
+#define CENTURION_SFINAE_HEADER
+
+#include <type_traits>  // enable_if_t, is_same_v, is_integral_v, is_floating_point_v, ...
+
+namespace cen {
+
+/// \addtogroup misc
+/// \{
+
+// clang-format off
+
+template <typename T>
+using enable_if_number_t = std::enable_if_t<!std::is_same_v<T, bool> &&
+                                            (std::is_integral_v<T> ||
+                                             std::is_floating_point_v<T>), int>;
+
+// clang-format on
+
+template <typename T>
+using enable_if_pointer_v = std::enable_if_t<std::is_pointer_v<T>, int>;
+
+template <typename T, typename... Args>
+using enable_if_convertible_t =
+    std::enable_if_t<(std::is_convertible_v<T, Args> || ...), int>;
+
+/// \} End of group misc
+
+}  // namespace cen
+
+#endif  // CENTURION_SFINAE_HEADER
+
+
+namespace cen {
+
+/**
+ * \typedef not_null
+ *
+ * \ingroup misc
+ *
+ * \brief Tag used to indicate that a pointer cannot be null.
+ *
+ * \note This alias is equivalent to `T`, it is a no-op.
+ *
+ * \since 5.0.0
+ */
+template <typename T, enable_if_pointer_v<T> = 0>
+using not_null = T;
+
+}  // namespace cen
+
+#endif  // CENTURION_NOT_NULL_HEADER
+
+
+namespace cen {
+
+/// \addtogroup misc
+/// \{
+
+/**
+ * \typedef czstring
+ *
+ * \brief Alias for a const C-style null-terminated string.
+ */
+using czstring = const char*;
+
+/**
+ * \typedef zstring
+ *
+ * \brief Alias for a C-style null-terminated string.
+ */
+using zstring = char*;
+
+/// \} End of group misc
+
+}  // namespace cen
+
+#endif  // CENTURION_CZSTRING_HEADER
+
+// #include "../misc/not_null.hpp"
+#ifndef CENTURION_NOT_NULL_HEADER
+#define CENTURION_NOT_NULL_HEADER
+
+// #include "sfinae.hpp"
+
+
+namespace cen {
+
+/**
+ * \typedef not_null
+ *
+ * \ingroup misc
+ *
+ * \brief Tag used to indicate that a pointer cannot be null.
+ *
+ * \note This alias is equivalent to `T`, it is a no-op.
+ *
+ * \since 5.0.0
+ */
+template <typename T, enable_if_pointer_v<T> = 0>
+using not_null = T;
+
+}  // namespace cen
+
+#endif  // CENTURION_NOT_NULL_HEADER
 
 
 /// \addtogroup system
@@ -57306,9 +57113,7 @@ inline auto operator<<(std::ostream& stream, const color& color)
          (lhs.blue() == rhs.blue()) && (lhs.alpha() == rhs.alpha());
 }
 
-/**
- * \copydoc operator==(const color&, const color&)
- */
+/// \copydoc operator==(const color&, const color&)
 [[nodiscard]] constexpr auto operator==(const color& lhs,
                                         const SDL_Color& rhs) noexcept -> bool
 {
@@ -57316,9 +57121,7 @@ inline auto operator<<(std::ostream& stream, const color& color)
          (lhs.blue() == rhs.b) && (lhs.alpha() == rhs.a);
 }
 
-/**
- * \copydoc operator==(const color&, const color&)
- */
+/// \copydoc operator==(const color&, const color&)
 [[nodiscard]] constexpr auto operator==(const SDL_Color& lhs,
                                         const color& rhs) noexcept -> bool
 {
@@ -57345,9 +57148,7 @@ inline auto operator<<(std::ostream& stream, const color& color)
          (lhs.blue() == rhs.b);
 }
 
-/**
- * \copydoc operator==(const color&, const SDL_MessageBoxColor&)
- */
+/// \copydoc operator==(const color&, const SDL_MessageBoxColor&)
 [[nodiscard]] constexpr auto operator==(const SDL_MessageBoxColor& lhs,
                                         const color& rhs) noexcept -> bool
 {
@@ -57370,18 +57171,14 @@ inline auto operator<<(std::ostream& stream, const color& color)
   return !(lhs == rhs);
 }
 
-/**
- * \copydoc operator!=(const color&, const color&)
- */
+/// \copydoc operator!=(const color&, const color&)
 [[nodiscard]] constexpr auto operator!=(const color& lhs,
                                         const SDL_Color& rhs) noexcept -> bool
 {
   return !(lhs == rhs);
 }
 
-/**
- * \copydoc operator!=(const color&, const color&)
- */
+/// \copydoc operator!=(const color&, const color&)
 [[nodiscard]] constexpr auto operator!=(const SDL_Color& lhs,
                                         const color& rhs) noexcept -> bool
 {
@@ -57407,9 +57204,7 @@ inline auto operator<<(std::ostream& stream, const color& color)
   return !(lhs == rhs);
 }
 
-/**
- * \copydoc operator!=(const color&, const SDL_MessageBoxColor&)
- */
+/// \copydoc operator!=(const color&, const SDL_MessageBoxColor&)
 [[nodiscard]] constexpr auto operator!=(const SDL_MessageBoxColor& lhs,
                                         const color& rhs) noexcept -> bool
 {
@@ -57805,9 +57600,7 @@ class basic_pixel_format_info final
   return static_cast<SDL_PixelFormatEnum>(lhs) == rhs;
 }
 
-/**
- * \copydoc operator==(pixel_format, SDL_PixelFormatEnum)
- */
+/// \copydoc operator==(pixel_format, SDL_PixelFormatEnum)
 [[nodiscard]] constexpr auto operator==(const SDL_PixelFormatEnum lhs,
                                         const pixel_format rhs) noexcept -> bool
 {
@@ -57831,9 +57624,7 @@ class basic_pixel_format_info final
   return !(lhs == rhs);
 }
 
-/**
- * \copydoc operator!=(pixel_format, SDL_PixelFormatEnum)
- */
+/// \copydoc operator!=(pixel_format, SDL_PixelFormatEnum)
 [[nodiscard]] constexpr auto operator!=(const SDL_PixelFormatEnum lhs,
                                         const pixel_format rhs) noexcept -> bool
 {
@@ -60021,7 +59812,7 @@ namespace cen::detail {
  * \since 3.0.0
  */
 template <typename T>
-[[nodiscard]] auto address_of(T* ptr) -> std::string
+[[nodiscard]] auto address_of(const T* ptr) -> std::string
 {
   if (ptr)
   {
@@ -60672,9 +60463,7 @@ inline auto operator<<(std::ostream& stream, const thread& thread)
   return static_cast<SDL_ThreadPriority>(lhs) == rhs;
 }
 
-/**
- * \copydoc operator==(thread_priority, SDL_ThreadPriority)
- */
+/// \copydoc operator==(thread_priority, SDL_ThreadPriority)
 [[nodiscard]] constexpr auto operator==(const SDL_ThreadPriority lhs,
                                         const thread_priority rhs) noexcept
     -> bool
@@ -60699,9 +60488,7 @@ inline auto operator<<(std::ostream& stream, const thread& thread)
   return !(lhs == rhs);
 }
 
-/**
- * \copydoc operator!=(thread_priority, SDL_ThreadPriority)
- */
+/// \copydoc operator!=(thread_priority, SDL_ThreadPriority)
 [[nodiscard]] constexpr auto operator!=(const SDL_ThreadPriority lhs,
                                         const thread_priority rhs) noexcept
     -> bool
@@ -60901,9 +60688,7 @@ enum class blend_mode
   return static_cast<SDL_BlendMode>(lhs) == rhs;
 }
 
-/**
- * \copydoc operator==(blend_mode, SDL_BlendMode)
- */
+/// \copydoc operator==(blend_mode, SDL_BlendMode)
 [[nodiscard]] constexpr auto operator==(const SDL_BlendMode lhs,
                                         const blend_mode rhs) noexcept -> bool
 {
@@ -60927,9 +60712,7 @@ enum class blend_mode
   return !(lhs == rhs);
 }
 
-/**
- * \copydoc operator!=(blend_mode, SDL_BlendMode)
- */
+/// \copydoc operator!=(blend_mode, SDL_BlendMode)
 [[nodiscard]] constexpr auto operator!=(const SDL_BlendMode lhs,
                                         const blend_mode rhs) noexcept -> bool
 {
@@ -61947,9 +61730,7 @@ inline auto operator<<(std::ostream& stream, const color& color)
          (lhs.blue() == rhs.blue()) && (lhs.alpha() == rhs.alpha());
 }
 
-/**
- * \copydoc operator==(const color&, const color&)
- */
+/// \copydoc operator==(const color&, const color&)
 [[nodiscard]] constexpr auto operator==(const color& lhs,
                                         const SDL_Color& rhs) noexcept -> bool
 {
@@ -61957,9 +61738,7 @@ inline auto operator<<(std::ostream& stream, const color& color)
          (lhs.blue() == rhs.b) && (lhs.alpha() == rhs.a);
 }
 
-/**
- * \copydoc operator==(const color&, const color&)
- */
+/// \copydoc operator==(const color&, const color&)
 [[nodiscard]] constexpr auto operator==(const SDL_Color& lhs,
                                         const color& rhs) noexcept -> bool
 {
@@ -61986,9 +61765,7 @@ inline auto operator<<(std::ostream& stream, const color& color)
          (lhs.blue() == rhs.b);
 }
 
-/**
- * \copydoc operator==(const color&, const SDL_MessageBoxColor&)
- */
+/// \copydoc operator==(const color&, const SDL_MessageBoxColor&)
 [[nodiscard]] constexpr auto operator==(const SDL_MessageBoxColor& lhs,
                                         const color& rhs) noexcept -> bool
 {
@@ -62011,18 +61788,14 @@ inline auto operator<<(std::ostream& stream, const color& color)
   return !(lhs == rhs);
 }
 
-/**
- * \copydoc operator!=(const color&, const color&)
- */
+/// \copydoc operator!=(const color&, const color&)
 [[nodiscard]] constexpr auto operator!=(const color& lhs,
                                         const SDL_Color& rhs) noexcept -> bool
 {
   return !(lhs == rhs);
 }
 
-/**
- * \copydoc operator!=(const color&, const color&)
- */
+/// \copydoc operator!=(const color&, const color&)
 [[nodiscard]] constexpr auto operator!=(const SDL_Color& lhs,
                                         const color& rhs) noexcept -> bool
 {
@@ -62048,9 +61821,7 @@ inline auto operator<<(std::ostream& stream, const color& color)
   return !(lhs == rhs);
 }
 
-/**
- * \copydoc operator!=(const color&, const SDL_MessageBoxColor&)
- */
+/// \copydoc operator!=(const color&, const SDL_MessageBoxColor&)
 [[nodiscard]] constexpr auto operator!=(const SDL_MessageBoxColor& lhs,
                                         const color& rhs) noexcept -> bool
 {
@@ -62649,9 +62420,7 @@ inline auto operator<<(std::ostream& stream, const color& color)
          (lhs.blue() == rhs.blue()) && (lhs.alpha() == rhs.alpha());
 }
 
-/**
- * \copydoc operator==(const color&, const color&)
- */
+/// \copydoc operator==(const color&, const color&)
 [[nodiscard]] constexpr auto operator==(const color& lhs,
                                         const SDL_Color& rhs) noexcept -> bool
 {
@@ -62659,9 +62428,7 @@ inline auto operator<<(std::ostream& stream, const color& color)
          (lhs.blue() == rhs.b) && (lhs.alpha() == rhs.a);
 }
 
-/**
- * \copydoc operator==(const color&, const color&)
- */
+/// \copydoc operator==(const color&, const color&)
 [[nodiscard]] constexpr auto operator==(const SDL_Color& lhs,
                                         const color& rhs) noexcept -> bool
 {
@@ -62688,9 +62455,7 @@ inline auto operator<<(std::ostream& stream, const color& color)
          (lhs.blue() == rhs.b);
 }
 
-/**
- * \copydoc operator==(const color&, const SDL_MessageBoxColor&)
- */
+/// \copydoc operator==(const color&, const SDL_MessageBoxColor&)
 [[nodiscard]] constexpr auto operator==(const SDL_MessageBoxColor& lhs,
                                         const color& rhs) noexcept -> bool
 {
@@ -62713,18 +62478,14 @@ inline auto operator<<(std::ostream& stream, const color& color)
   return !(lhs == rhs);
 }
 
-/**
- * \copydoc operator!=(const color&, const color&)
- */
+/// \copydoc operator!=(const color&, const color&)
 [[nodiscard]] constexpr auto operator!=(const color& lhs,
                                         const SDL_Color& rhs) noexcept -> bool
 {
   return !(lhs == rhs);
 }
 
-/**
- * \copydoc operator!=(const color&, const color&)
- */
+/// \copydoc operator!=(const color&, const color&)
 [[nodiscard]] constexpr auto operator!=(const SDL_Color& lhs,
                                         const color& rhs) noexcept -> bool
 {
@@ -62750,9 +62511,7 @@ inline auto operator<<(std::ostream& stream, const color& color)
   return !(lhs == rhs);
 }
 
-/**
- * \copydoc operator!=(const color&, const SDL_MessageBoxColor&)
- */
+/// \copydoc operator!=(const color&, const SDL_MessageBoxColor&)
 [[nodiscard]] constexpr auto operator!=(const SDL_MessageBoxColor& lhs,
                                         const color& rhs) noexcept -> bool
 {
@@ -64605,24 +64364,16 @@ template <typename T>
 class basic_point final
 {
  public:
-  /**
-   * \copydoc point_traits::isIntegral
-   */
+  /// \copydoc point_traits::isIntegral
   inline constexpr static bool isIntegral = point_traits<T>::isIntegral;
 
-  /**
-   * \copydoc point_traits::isFloating
-   */
+  /// \copydoc point_traits::isFloating
   inline constexpr static bool isFloating = point_traits<T>::isFloating;
 
-  /**
-   * \copydoc point_traits::value_type
-   */
+  /// \copydoc point_traits::value_type
   using value_type = typename point_traits<T>::value_type;
 
-  /**
-   * \copydoc point_traits::point_type
-   */
+  /// \copydoc point_traits::point_type
   using point_type = typename point_traits<T>::point_type;
 
   /// \name Construction
@@ -64719,9 +64470,7 @@ class basic_point final
     return m_point;
   }
 
-  /**
-   * \copydoc get
-   */
+  /// \copydoc get
   [[nodiscard]] constexpr auto get() const noexcept -> const point_type&
   {
     return m_point;
@@ -64741,9 +64490,7 @@ class basic_point final
     return &m_point;
   }
 
-  /**
-   * \copydoc data()
-   */
+  /// \copydoc data
   [[nodiscard]] auto data() const noexcept -> const point_type*
   {
     return &m_point;
@@ -64768,34 +64515,16 @@ class basic_point final
     return m_point;
   }
 
-  /**
-   * \brief Returns a pointer to the internal point.
-   *
-   * \note You shouldn't store the returned pointer. However, this conversion
-   * is safe since `reinterpret_cast` isn't used.
-   *
-   * \return a pointer to the internal point instance.
-   *
-   * \since 5.0.0
-   */
+  /// \copydoc data()
   [[nodiscard]] explicit operator point_type*() noexcept
   {
-    return &m_point;
+    return data();
   }
 
-  /**
-   * \brief Returns a pointer to the internal point.
-   *
-   * \note You shouldn't store the returned pointer. However, this conversion
-   * is safe since `reinterpret_cast` isn't used.
-   *
-   * \return a pointer to the internal point instance.
-   *
-   * \since 5.0.0
-   */
+  /// \copydoc data()
   [[nodiscard]] explicit operator const point_type*() const noexcept
   {
-    return &m_point;
+    return data();
   }
 
   /// \} End of conversions
@@ -65082,7 +64811,7 @@ namespace cen::detail {
  * \since 3.0.0
  */
 template <typename T>
-[[nodiscard]] auto address_of(T* ptr) -> std::string
+[[nodiscard]] auto address_of(const T* ptr) -> std::string
 {
   if (ptr)
   {
@@ -65818,24 +65547,16 @@ template <typename T>
 class basic_point final
 {
  public:
-  /**
-   * \copydoc point_traits::isIntegral
-   */
+  /// \copydoc point_traits::isIntegral
   inline constexpr static bool isIntegral = point_traits<T>::isIntegral;
 
-  /**
-   * \copydoc point_traits::isFloating
-   */
+  /// \copydoc point_traits::isFloating
   inline constexpr static bool isFloating = point_traits<T>::isFloating;
 
-  /**
-   * \copydoc point_traits::value_type
-   */
+  /// \copydoc point_traits::value_type
   using value_type = typename point_traits<T>::value_type;
 
-  /**
-   * \copydoc point_traits::point_type
-   */
+  /// \copydoc point_traits::point_type
   using point_type = typename point_traits<T>::point_type;
 
   /// \name Construction
@@ -65932,9 +65653,7 @@ class basic_point final
     return m_point;
   }
 
-  /**
-   * \copydoc get
-   */
+  /// \copydoc get
   [[nodiscard]] constexpr auto get() const noexcept -> const point_type&
   {
     return m_point;
@@ -65954,9 +65673,7 @@ class basic_point final
     return &m_point;
   }
 
-  /**
-   * \copydoc data()
-   */
+  /// \copydoc data
   [[nodiscard]] auto data() const noexcept -> const point_type*
   {
     return &m_point;
@@ -65981,34 +65698,16 @@ class basic_point final
     return m_point;
   }
 
-  /**
-   * \brief Returns a pointer to the internal point.
-   *
-   * \note You shouldn't store the returned pointer. However, this conversion
-   * is safe since `reinterpret_cast` isn't used.
-   *
-   * \return a pointer to the internal point instance.
-   *
-   * \since 5.0.0
-   */
+  /// \copydoc data()
   [[nodiscard]] explicit operator point_type*() noexcept
   {
-    return &m_point;
+    return data();
   }
 
-  /**
-   * \brief Returns a pointer to the internal point.
-   *
-   * \note You shouldn't store the returned pointer. However, this conversion
-   * is safe since `reinterpret_cast` isn't used.
-   *
-   * \return a pointer to the internal point instance.
-   *
-   * \since 5.0.0
-   */
+  /// \copydoc data()
   [[nodiscard]] explicit operator const point_type*() const noexcept
   {
-    return &m_point;
+    return data();
   }
 
   /// \} End of conversions
@@ -66287,59 +65986,12 @@ template <typename T, enable_if_convertible_t<T, int, float> = 0>
 class rect_traits final
 {
  public:
-  /**
-   * \var isIntegral
-   *
-   * \brief Indicates whether or not the rectangle is based on an integral type.
-   *
-   * \since 5.0.0
-   */
   inline constexpr static bool isIntegral = std::is_integral_v<T>;
-
-  /**
-   * \var isFloating
-   *
-   * \brief Indicates whether or not the rectangle is based on a floating-point
-   * type.
-   *
-   * \since 5.0.0
-   */
   inline constexpr static bool isFloating = std::is_floating_point_v<T>;
 
-  /**
-   * \typedef value_type
-   *
-   * \brief The representation type, i.e. `int` or `float`.
-   *
-   * \since 5.0.0
-   */
   using value_type = std::conditional_t<isIntegral, int, float>;
-
-  /**
-   * \typedef point_type
-   *
-   * \brief The point type used, i.e. `ipoint` or `fpoint`.
-   *
-   * \since 5.0.0
-   */
   using point_type = std::conditional_t<isIntegral, ipoint, fpoint>;
-
-  /**
-   * \typedef area_type
-   *
-   * \brief The area type used, i.e. `iarea` or `farea`.
-   *
-   * \since 5.0.0
-   */
   using area_type = std::conditional_t<isIntegral, iarea, farea>;
-
-  /**
-   * \typedef rect_type
-   *
-   * \brief The underlying SDL rectangle type, i.e. `SDL_Rect` or `SDL_FRect`.
-   *
-   * \since 5.0.0
-   */
   using rect_type = std::conditional_t<isIntegral, SDL_Rect, SDL_FRect>;
 };
 
@@ -66384,32 +66036,53 @@ class basic_rect final
 {
  public:
   /**
-   * \copydoc rect_traits<T>::isIntegral
+   * \brief Indicates whether or not the rectangle is based on an integral type.
+   *
+   * \since 5.0.0
    */
   inline constexpr static bool isIntegral = rect_traits<T>::isIntegral;
 
   /**
-   * \copydoc rect_traits<T>::isFloating
+   * \brief Indicates whether or not the rectangle is based on a floating-point
+   * type.
+   *
+   * \since 5.0.0
    */
   inline constexpr static bool isFloating = rect_traits<T>::isFloating;
 
   /**
-   * \copydoc rect_traits<T>::value_type
+   * \typedef value_type
+   *
+   * \brief The representation type, i.e. `int` or `float`.
+   *
+   * \since 5.0.0
    */
   using value_type = typename rect_traits<T>::value_type;
 
   /**
-   * \copydoc rect_traits<T>::point_type
+   * \typedef point_type
+   *
+   * \brief The point type used, i.e. `ipoint` or `fpoint`.
+   *
+   * \since 5.0.0
    */
   using point_type = typename rect_traits<T>::point_type;
 
   /**
-   * \copydoc rect_traits<T>::area_type
+   * \typedef area_type
+   *
+   * \brief The area type used, i.e. `iarea` or `farea`.
+   *
+   * \since 5.0.0
    */
   using area_type = typename rect_traits<T>::area_type;
 
   /**
-   * \copydoc rect_traits<T>::rect_type
+   * \typedef rect_type
+   *
+   * \brief The underlying SDL rectangle type, i.e. `SDL_Rect` or `SDL_FRect`.
+   *
+   * \since 5.0.0
    */
   using rect_type = typename rect_traits<T>::rect_type;
 
@@ -67520,9 +67193,7 @@ enum class blend_mode
   return static_cast<SDL_BlendMode>(lhs) == rhs;
 }
 
-/**
- * \copydoc operator==(blend_mode, SDL_BlendMode)
- */
+/// \copydoc operator==(blend_mode, SDL_BlendMode)
 [[nodiscard]] constexpr auto operator==(const SDL_BlendMode lhs,
                                         const blend_mode rhs) noexcept -> bool
 {
@@ -67546,9 +67217,7 @@ enum class blend_mode
   return !(lhs == rhs);
 }
 
-/**
- * \copydoc operator!=(blend_mode, SDL_BlendMode)
- */
+/// \copydoc operator!=(blend_mode, SDL_BlendMode)
 [[nodiscard]] constexpr auto operator!=(const SDL_BlendMode lhs,
                                         const blend_mode rhs) noexcept -> bool
 {
@@ -67966,9 +67635,7 @@ class basic_pixel_format_info final
   return static_cast<SDL_PixelFormatEnum>(lhs) == rhs;
 }
 
-/**
- * \copydoc operator==(pixel_format, SDL_PixelFormatEnum)
- */
+/// \copydoc operator==(pixel_format, SDL_PixelFormatEnum)
 [[nodiscard]] constexpr auto operator==(const SDL_PixelFormatEnum lhs,
                                         const pixel_format rhs) noexcept -> bool
 {
@@ -67992,9 +67659,7 @@ class basic_pixel_format_info final
   return !(lhs == rhs);
 }
 
-/**
- * \copydoc operator!=(pixel_format, SDL_PixelFormatEnum)
- */
+/// \copydoc operator!=(pixel_format, SDL_PixelFormatEnum)
 [[nodiscard]] constexpr auto operator!=(const SDL_PixelFormatEnum lhs,
                                         const pixel_format rhs) noexcept -> bool
 {
@@ -69232,9 +68897,7 @@ class basic_cursor final
   return static_cast<SDL_SystemCursor>(lhs) == rhs;
 }
 
-/**
- * \copydoc operator==(system_cursor, SDL_SystemCursor)
- */
+/// \copydoc operator==(system_cursor, SDL_SystemCursor)
 [[nodiscard]] constexpr auto operator==(const SDL_SystemCursor lhs,
                                         const system_cursor rhs) noexcept
     -> bool
@@ -69260,9 +68923,7 @@ class basic_cursor final
   return !(lhs == rhs);
 }
 
-/**
- * \copydoc operator!=(system_cursor, SDL_SystemCursor)
- */
+/// \copydoc operator!=(system_cursor, SDL_SystemCursor)
 [[nodiscard]] constexpr auto operator!=(const SDL_SystemCursor lhs,
                                         const system_cursor rhs) noexcept
     -> bool
@@ -71585,9 +71246,7 @@ enum class scale_mode
   return static_cast<SDL_ScaleMode>(lhs) == rhs;
 }
 
-/**
- * \copydoc operator==(scale_mode, SDL_ScaleMode)
- */
+/// \copydoc operator==(scale_mode, SDL_ScaleMode)
 [[nodiscard]] constexpr auto operator==(const SDL_ScaleMode lhs,
                                         const scale_mode rhs) noexcept -> bool
 {
@@ -71611,9 +71270,7 @@ enum class scale_mode
   return !(lhs == rhs);
 }
 
-/**
- * \copydoc operator!=(scale_mode, SDL_ScaleMode)
- */
+/// \copydoc operator!=(scale_mode, SDL_ScaleMode)
 [[nodiscard]] constexpr auto operator!=(const SDL_ScaleMode lhs,
                                         const scale_mode rhs) noexcept -> bool
 {
@@ -71683,9 +71340,7 @@ enum class texture_access
   return static_cast<SDL_TextureAccess>(lhs) == rhs;
 }
 
-/**
- * \copydoc operator==(texture_access, SDL_TextureAccess)
- */
+/// \copydoc operator==(texture_access, SDL_TextureAccess)
 [[nodiscard]] constexpr auto operator==(const SDL_TextureAccess lhs,
                                         const texture_access rhs) noexcept
     -> bool
@@ -71712,9 +71367,7 @@ enum class texture_access
   return !(lhs == rhs);
 }
 
-/**
- * \copydoc operator!=(texture_access, SDL_TextureAccess)
- */
+/// \copydoc operator!=(texture_access, SDL_TextureAccess)
 [[nodiscard]] constexpr auto operator!=(const SDL_TextureAccess lhs,
                                         const texture_access rhs) noexcept
     -> bool
@@ -73314,6 +72967,59 @@ namespace cen {
 #ifndef CENTURION_DETAIL_STACK_RESOURCE_HEADER
 #define CENTURION_DETAIL_STACK_RESOURCE_HEADER
 
+// #include "../core/macros.hpp"
+#ifndef CENTURION_MACROS_HEADER
+#define CENTURION_MACROS_HEADER
+
+#include <SDL.h>
+
+/// \addtogroup core
+/// \{
+
+#ifndef __clang__
+
+/**
+ * \def CENTURION_HAS_STD_MEMORY_RESOURCE
+ *
+ * \brief This macro is defined if the `memory_resource` header is available.
+ *
+ * \note This is a very rough check, that assumes that as long as we are not
+ * using Clang, we are fine.
+ *
+ * \todo C++20: Use the feature test macro for this instead.
+ *
+ * \since 5.3.0
+ */
+#define CENTURION_HAS_STD_MEMORY_RESOURCE
+
+#endif  // __clang__
+
+/**
+ * \def CENTURION_SDL_VERSION_IS
+ *
+ * \brief This macro is meant to be used when conditionally including code for a
+ * specific version of SDL. It is useful for applying workarounds.
+ *
+ * \since 5.3.0
+ */
+#define CENTURION_SDL_VERSION_IS(x, y, z)                      \
+  ((SDL_MAJOR_VERSION == (x)) && (SDL_MINOR_VERSION == (y)) && \
+   (SDL_PATCHLEVEL == (z)))
+
+#if CENTURION_SDL_VERSION_IS(2, 0, 10)
+
+// Workaround for this enum being completely anonymous in SDL 2.0.10. We include
+// this here because multiple files (key_code.hpp and scan_code.hpp) depend on
+// this definition.
+using SDL_KeyCode = decltype(SDLK_UNKNOWN);
+
+#endif  // CENTURION_SDL_VERSION_IS(2, 0, 10)
+
+/// \} End of group core
+
+#endif  // CENTURION_MACROS_HEADER
+
+
 #ifdef CENTURION_HAS_STD_MEMORY_RESOURCE
 
 #include <array>            // array
@@ -74471,11 +74177,16 @@ template <typename T>
     noexcept(noexcept(value < min) && noexcept(value > max)) -> T
 {
   assert(min <= max);
-  if (value < min) {
+  if (value < min)
+  {
     return min;
-  } else if (value > max) {
+  }
+  else if (value > max)
+  {
     return max;
-  } else {
+  }
+  else
+  {
     return value;
   }
 }
@@ -74551,6 +74262,8 @@ template <typename T>
 
 // #include "../misc/exception.hpp"
 
+// #include "../misc/integers.hpp"
+
 // #include "../misc/not_null.hpp"
 
 // #include "pixel_format.hpp"
@@ -74600,6 +74313,32 @@ template <typename B>
 class basic_window final
 {
  public:
+  enum window_flags : u32
+  {
+    fullscreen = SDL_WINDOW_FULLSCREEN,
+    opengl = SDL_WINDOW_OPENGL,
+    shown = SDL_WINDOW_SHOWN,
+    hidden = SDL_WINDOW_HIDDEN,
+    borderless = SDL_WINDOW_BORDERLESS,
+    resizable = SDL_WINDOW_RESIZABLE,
+    minimized = SDL_WINDOW_MINIMIZED,
+    maximized = SDL_WINDOW_MAXIMIZED,
+    input_grabbed = SDL_WINDOW_INPUT_GRABBED,
+    input_focus = SDL_WINDOW_INPUT_FOCUS,
+    mouse_focus = SDL_WINDOW_MOUSE_FOCUS,
+    fullscreen_desktop = SDL_WINDOW_FULLSCREEN_DESKTOP,
+    foreign = SDL_WINDOW_FOREIGN,
+    high_dpi = SDL_WINDOW_ALLOW_HIGHDPI,
+    mouse_capture = SDL_WINDOW_MOUSE_CAPTURE,
+    always_on_top = SDL_WINDOW_ALWAYS_ON_TOP,
+    skip_taskbar = SDL_WINDOW_SKIP_TASKBAR,
+    utility = SDL_WINDOW_UTILITY,
+    tooltip = SDL_WINDOW_TOOLTIP,
+    popup_menu = SDL_WINDOW_POPUP_MENU,
+    vulkan = SDL_WINDOW_VULKAN,
+    metal = SDL_WINDOW_METAL
+  };
+
   /// \name Construction
   /// \{
 
@@ -74656,8 +74395,7 @@ class basic_window final
     {
       throw cen_error{"Bad window width!"};
     }
-
-    if (size.height < 1)
+    else if (size.height < 1)
     {
       throw cen_error{"Bad window height!"};
     }
@@ -74681,7 +74419,7 @@ class basic_window final
    *
    * \param title the title of the window.
    * \param size the size of the window, components must be greater than zero.
-   * \param flags the window flags.
+   * \param flags the window flags, see `SDL_WindowFlags`.
    *
    * \throws cen_error if the supplied width or height aren't
    * greater than zero.
@@ -75274,7 +75012,7 @@ class basic_window final
    */
   [[nodiscard]] auto has_input_focus() const noexcept -> bool
   {
-    return static_cast<bool>(flags() & SDL_WINDOW_INPUT_FOCUS);
+    return static_cast<bool>(flags() & input_focus);
   }
 
   /**
@@ -75286,7 +75024,7 @@ class basic_window final
    */
   [[nodiscard]] auto has_mouse_focus() const noexcept -> bool
   {
-    return static_cast<bool>(flags() & SDL_WINDOW_MOUSE_FOCUS);
+    return static_cast<bool>(flags() & mouse_focus);
   }
 
   /**
@@ -75302,7 +75040,7 @@ class basic_window final
    */
   [[nodiscard]] auto is_borderless() const noexcept -> bool
   {
-    return flags() & SDL_WINDOW_BORDERLESS;
+    return flags() & borderless;
   }
 
   /**
@@ -75332,7 +75070,7 @@ class basic_window final
    */
   [[nodiscard]] auto is_resizable() const noexcept -> bool
   {
-    return static_cast<bool>(flags() & SDL_WINDOW_RESIZABLE);
+    return static_cast<bool>(flags() & resizable);
   }
 
   /**
@@ -75344,7 +75082,7 @@ class basic_window final
    */
   [[nodiscard]] auto is_fullscreen() const noexcept -> bool
   {
-    return static_cast<bool>(flags() & SDL_WINDOW_FULLSCREEN);
+    return static_cast<bool>(flags() & fullscreen);
   }
 
   /**
@@ -75357,7 +75095,7 @@ class basic_window final
    */
   [[nodiscard]] auto is_fullscreen_desktop() const noexcept -> bool
   {
-    return static_cast<bool>(flags() & SDL_WINDOW_FULLSCREEN_DESKTOP);
+    return static_cast<bool>(flags() & fullscreen_desktop);
   }
 
   /**
@@ -75369,7 +75107,7 @@ class basic_window final
    */
   [[nodiscard]] auto is_visible() const noexcept -> bool
   {
-    return static_cast<bool>(flags() & SDL_WINDOW_SHOWN);
+    return static_cast<bool>(flags() & shown);
   }
 
   /**
@@ -75383,7 +75121,7 @@ class basic_window final
    */
   [[nodiscard]] auto is_opengl() const noexcept -> bool
   {
-    return static_cast<bool>(flags() & SDL_WINDOW_OPENGL);
+    return static_cast<bool>(flags() & opengl);
   }
 
   /**
@@ -75396,7 +75134,7 @@ class basic_window final
    */
   [[nodiscard]] auto is_vulkan() const noexcept -> bool
   {
-    return static_cast<bool>(flags() & SDL_WINDOW_VULKAN);
+    return static_cast<bool>(flags() & vulkan);
   }
 
   /**
@@ -75408,7 +75146,7 @@ class basic_window final
    */
   [[nodiscard]] auto is_foreign() const noexcept -> bool
   {
-    return static_cast<bool>(flags() & SDL_WINDOW_FOREIGN);
+    return static_cast<bool>(flags() & foreign);
   }
 
   /**
@@ -75420,7 +75158,7 @@ class basic_window final
    */
   [[nodiscard]] auto is_capturing_mouse() const noexcept -> bool
   {
-    return static_cast<bool>(flags() & SDL_WINDOW_MOUSE_CAPTURE);
+    return static_cast<bool>(flags() & mouse_capture);
   }
 
   /**
@@ -75432,7 +75170,7 @@ class basic_window final
    */
   [[nodiscard]] auto is_minimized() const noexcept -> bool
   {
-    return static_cast<bool>(flags() & SDL_WINDOW_MINIMIZED);
+    return static_cast<bool>(flags() & minimized);
   }
 
   /**
@@ -75444,7 +75182,7 @@ class basic_window final
    */
   [[nodiscard]] auto is_maximized() const noexcept -> bool
   {
-    return static_cast<bool>(flags() & SDL_WINDOW_MAXIMIZED);
+    return static_cast<bool>(flags() & maximized);
   }
 
   /**
@@ -75456,16 +75194,16 @@ class basic_window final
    *
    * \since 4.0.0
    */
-  [[nodiscard]] auto always_on_top() const noexcept -> bool
+  [[nodiscard]] auto is_always_on_top() const noexcept -> bool
   {
-    return static_cast<bool>(flags() & SDL_WINDOW_ALWAYS_ON_TOP);
+    return static_cast<bool>(flags() & always_on_top);
   }
 
   /**
    * \brief Indicates whether or not a flag is set.
    *
-   * \details Some of the use cases of this method can be replaced by more
-   * explicit methods, e.g. `is_fullscreen()` instead of
+   * \details Some of the use cases of this function can be replaced by more
+   * explicit functions, e.g. `is_fullscreen()` instead of
    * `check_flag(SDL_WINDOW_FULLSCREEN)`.
    *
    * \param flag the flag that will be tested.
@@ -75480,10 +75218,28 @@ class basic_window final
     return static_cast<bool>(flags() & flag);
   }
 
+  /**
+   * \brief Indicates whether or not a flag is set.
+   *
+   * \details Some of the use cases of this function can be replaced by more
+   * explicit functions, e.g. `is_fullscreen()` instead of
+   * `check_flag(cen::window::fullscreen)`.
+   *
+   * \param flag the flag that will be tested.
+   *
+   * \return `true` if the flag is set; `false` otherwise.
+   *
+   * \since 6.0.0
+   */
+  [[nodiscard]] auto check_flag(const window_flags flag) const noexcept -> bool
+  {
+    return static_cast<bool>(flags() & flag);
+  }
+
   template <typename BB = B, detail::is_owner<BB> = 0>
   [[nodiscard]] constexpr static auto default_flags() noexcept -> u32
   {
-    return SDL_WINDOW_HIDDEN;
+    return hidden;
   }
 
   /// \} End of flag queries
@@ -76321,9 +76077,7 @@ class message_box final
   return static_cast<SDL_MessageBoxButtonFlags>(lhs) == rhs;
 }
 
-/**
- * \copydoc operator==(message_box::default_button, SDL_MessageBoxButtonFlags)
- */
+/// \copydoc operator==(message_box::default_button, SDL_MessageBoxButtonFlags)
 [[nodiscard]] constexpr auto operator==(
     const SDL_MessageBoxButtonFlags lhs,
     const message_box::default_button rhs) noexcept -> bool
@@ -76348,9 +76102,7 @@ class message_box final
   return !(lhs == rhs);
 }
 
-/**
- * \copydoc operator!=(message_box::default_button, SDL_MessageBoxButtonFlags)
- */
+/// \copydoc operator!=(message_box::default_button, SDL_MessageBoxButtonFlags)
 [[nodiscard]] constexpr auto operator!=(
     const SDL_MessageBoxButtonFlags lhs,
     const message_box::default_button rhs) noexcept -> bool
@@ -76375,9 +76127,7 @@ class message_box final
   return lhs == static_cast<SDL_MessageBoxColorType>(rhs);
 }
 
-/**
- * \copydoc operator==(SDL_MessageBoxColorType, message_box::color_id)
- */
+/// \copydoc operator==(SDL_MessageBoxColorType, message_box::color_id)
 [[nodiscard]] constexpr auto operator==(
     const message_box::color_id lhs,
     const SDL_MessageBoxColorType rhs) noexcept -> bool
@@ -76402,9 +76152,7 @@ class message_box final
   return !(lhs == rhs);
 }
 
-/**
- * \copydoc operator!=(SDL_MessageBoxColorType, message_box::color_id)
- */
+/// \copydoc operator!=(SDL_MessageBoxColorType, message_box::color_id)
 [[nodiscard]] constexpr auto operator!=(
     const message_box::color_id lhs,
     const SDL_MessageBoxColorType rhs) noexcept -> bool
@@ -77178,7 +76926,7 @@ namespace cen::detail {
  * \since 3.0.0
  */
 template <typename T>
-[[nodiscard]] auto address_of(T* ptr) -> std::string
+[[nodiscard]] auto address_of(const T* ptr) -> std::string
 {
   if (ptr)
   {
@@ -77234,11 +76982,16 @@ template <typename T>
     noexcept(noexcept(value < min) && noexcept(value > max)) -> T
 {
   assert(min <= max);
-  if (value < min) {
+  if (value < min)
+  {
     return min;
-  } else if (value > max) {
+  }
+  else if (value > max)
+  {
     return max;
-  } else {
+  }
+  else
+  {
     return value;
   }
 }
@@ -78859,24 +78612,16 @@ template <typename T>
 class basic_point final
 {
  public:
-  /**
-   * \copydoc point_traits::isIntegral
-   */
+  /// \copydoc point_traits::isIntegral
   inline constexpr static bool isIntegral = point_traits<T>::isIntegral;
 
-  /**
-   * \copydoc point_traits::isFloating
-   */
+  /// \copydoc point_traits::isFloating
   inline constexpr static bool isFloating = point_traits<T>::isFloating;
 
-  /**
-   * \copydoc point_traits::value_type
-   */
+  /// \copydoc point_traits::value_type
   using value_type = typename point_traits<T>::value_type;
 
-  /**
-   * \copydoc point_traits::point_type
-   */
+  /// \copydoc point_traits::point_type
   using point_type = typename point_traits<T>::point_type;
 
   /// \name Construction
@@ -78973,9 +78718,7 @@ class basic_point final
     return m_point;
   }
 
-  /**
-   * \copydoc get
-   */
+  /// \copydoc get
   [[nodiscard]] constexpr auto get() const noexcept -> const point_type&
   {
     return m_point;
@@ -78995,9 +78738,7 @@ class basic_point final
     return &m_point;
   }
 
-  /**
-   * \copydoc data()
-   */
+  /// \copydoc data
   [[nodiscard]] auto data() const noexcept -> const point_type*
   {
     return &m_point;
@@ -79022,34 +78763,16 @@ class basic_point final
     return m_point;
   }
 
-  /**
-   * \brief Returns a pointer to the internal point.
-   *
-   * \note You shouldn't store the returned pointer. However, this conversion
-   * is safe since `reinterpret_cast` isn't used.
-   *
-   * \return a pointer to the internal point instance.
-   *
-   * \since 5.0.0
-   */
+  /// \copydoc data()
   [[nodiscard]] explicit operator point_type*() noexcept
   {
-    return &m_point;
+    return data();
   }
 
-  /**
-   * \brief Returns a pointer to the internal point.
-   *
-   * \note You shouldn't store the returned pointer. However, this conversion
-   * is safe since `reinterpret_cast` isn't used.
-   *
-   * \return a pointer to the internal point instance.
-   *
-   * \since 5.0.0
-   */
+  /// \copydoc data()
   [[nodiscard]] explicit operator const point_type*() const noexcept
   {
-    return &m_point;
+    return data();
   }
 
   /// \} End of conversions
@@ -79328,59 +79051,12 @@ template <typename T, enable_if_convertible_t<T, int, float> = 0>
 class rect_traits final
 {
  public:
-  /**
-   * \var isIntegral
-   *
-   * \brief Indicates whether or not the rectangle is based on an integral type.
-   *
-   * \since 5.0.0
-   */
   inline constexpr static bool isIntegral = std::is_integral_v<T>;
-
-  /**
-   * \var isFloating
-   *
-   * \brief Indicates whether or not the rectangle is based on a floating-point
-   * type.
-   *
-   * \since 5.0.0
-   */
   inline constexpr static bool isFloating = std::is_floating_point_v<T>;
 
-  /**
-   * \typedef value_type
-   *
-   * \brief The representation type, i.e. `int` or `float`.
-   *
-   * \since 5.0.0
-   */
   using value_type = std::conditional_t<isIntegral, int, float>;
-
-  /**
-   * \typedef point_type
-   *
-   * \brief The point type used, i.e. `ipoint` or `fpoint`.
-   *
-   * \since 5.0.0
-   */
   using point_type = std::conditional_t<isIntegral, ipoint, fpoint>;
-
-  /**
-   * \typedef area_type
-   *
-   * \brief The area type used, i.e. `iarea` or `farea`.
-   *
-   * \since 5.0.0
-   */
   using area_type = std::conditional_t<isIntegral, iarea, farea>;
-
-  /**
-   * \typedef rect_type
-   *
-   * \brief The underlying SDL rectangle type, i.e. `SDL_Rect` or `SDL_FRect`.
-   *
-   * \since 5.0.0
-   */
   using rect_type = std::conditional_t<isIntegral, SDL_Rect, SDL_FRect>;
 };
 
@@ -79425,32 +79101,53 @@ class basic_rect final
 {
  public:
   /**
-   * \copydoc rect_traits<T>::isIntegral
+   * \brief Indicates whether or not the rectangle is based on an integral type.
+   *
+   * \since 5.0.0
    */
   inline constexpr static bool isIntegral = rect_traits<T>::isIntegral;
 
   /**
-   * \copydoc rect_traits<T>::isFloating
+   * \brief Indicates whether or not the rectangle is based on a floating-point
+   * type.
+   *
+   * \since 5.0.0
    */
   inline constexpr static bool isFloating = rect_traits<T>::isFloating;
 
   /**
-   * \copydoc rect_traits<T>::value_type
+   * \typedef value_type
+   *
+   * \brief The representation type, i.e. `int` or `float`.
+   *
+   * \since 5.0.0
    */
   using value_type = typename rect_traits<T>::value_type;
 
   /**
-   * \copydoc rect_traits<T>::point_type
+   * \typedef point_type
+   *
+   * \brief The point type used, i.e. `ipoint` or `fpoint`.
+   *
+   * \since 5.0.0
    */
   using point_type = typename rect_traits<T>::point_type;
 
   /**
-   * \copydoc rect_traits<T>::area_type
+   * \typedef area_type
+   *
+   * \brief The area type used, i.e. `iarea` or `farea`.
+   *
+   * \since 5.0.0
    */
   using area_type = typename rect_traits<T>::area_type;
 
   /**
-   * \copydoc rect_traits<T>::rect_type
+   * \typedef rect_type
+   *
+   * \brief The underlying SDL rectangle type, i.e. `SDL_Rect` or `SDL_FRect`.
+   *
+   * \since 5.0.0
    */
   using rect_type = typename rect_traits<T>::rect_type;
 
@@ -80448,47 +80145,6 @@ class mix_error final : public cen_error
 
 #endif  // CENTURION_EXCEPTION_HEADER
 
-// #include "../misc/not_null.hpp"
-#ifndef CENTURION_NOT_NULL_HEADER
-#define CENTURION_NOT_NULL_HEADER
-
-// #include "sfinae.hpp"
-
-
-namespace cen {
-
-/**
- * \typedef not_null
- *
- * \ingroup misc
- *
- * \brief Tag used to indicate that a pointer cannot be null.
- *
- * \note This alias is equivalent to `T`, it is a no-op.
- *
- * \since 5.0.0
- */
-template <typename T, enable_if_pointer_v<T> = 0>
-using not_null = T;
-
-}  // namespace cen
-
-#endif  // CENTURION_NOT_NULL_HEADER
-
-// #include "pixel_format.hpp"
-#ifndef CENTURION_PIXEL_FORMAT_HEADER
-#define CENTURION_PIXEL_FORMAT_HEADER
-
-#include <SDL.h>
-
-#include <type_traits>  // true_type, false_type
-
-// #include "../detail/owner_handle_api.hpp"
-
-// #include "../misc/czstring.hpp"
-
-// #include "../misc/exception.hpp"
-
 // #include "../misc/integers.hpp"
 #ifndef CENTURION_INTEGERS_HEADER
 #define CENTURION_INTEGERS_HEADER
@@ -80712,6 +80368,49 @@ namespace literals {
 }  // namespace cen
 
 #endif  // CENTURION_INTEGERS_HEADER
+
+// #include "../misc/not_null.hpp"
+#ifndef CENTURION_NOT_NULL_HEADER
+#define CENTURION_NOT_NULL_HEADER
+
+// #include "sfinae.hpp"
+
+
+namespace cen {
+
+/**
+ * \typedef not_null
+ *
+ * \ingroup misc
+ *
+ * \brief Tag used to indicate that a pointer cannot be null.
+ *
+ * \note This alias is equivalent to `T`, it is a no-op.
+ *
+ * \since 5.0.0
+ */
+template <typename T, enable_if_pointer_v<T> = 0>
+using not_null = T;
+
+}  // namespace cen
+
+#endif  // CENTURION_NOT_NULL_HEADER
+
+// #include "pixel_format.hpp"
+#ifndef CENTURION_PIXEL_FORMAT_HEADER
+#define CENTURION_PIXEL_FORMAT_HEADER
+
+#include <SDL.h>
+
+#include <type_traits>  // true_type, false_type
+
+// #include "../detail/owner_handle_api.hpp"
+
+// #include "../misc/czstring.hpp"
+
+// #include "../misc/exception.hpp"
+
+// #include "../misc/integers.hpp"
 
 // #include "../misc/not_null.hpp"
 
@@ -81295,9 +80994,7 @@ inline auto operator<<(std::ostream& stream, const color& color)
          (lhs.blue() == rhs.blue()) && (lhs.alpha() == rhs.alpha());
 }
 
-/**
- * \copydoc operator==(const color&, const color&)
- */
+/// \copydoc operator==(const color&, const color&)
 [[nodiscard]] constexpr auto operator==(const color& lhs,
                                         const SDL_Color& rhs) noexcept -> bool
 {
@@ -81305,9 +81002,7 @@ inline auto operator<<(std::ostream& stream, const color& color)
          (lhs.blue() == rhs.b) && (lhs.alpha() == rhs.a);
 }
 
-/**
- * \copydoc operator==(const color&, const color&)
- */
+/// \copydoc operator==(const color&, const color&)
 [[nodiscard]] constexpr auto operator==(const SDL_Color& lhs,
                                         const color& rhs) noexcept -> bool
 {
@@ -81334,9 +81029,7 @@ inline auto operator<<(std::ostream& stream, const color& color)
          (lhs.blue() == rhs.b);
 }
 
-/**
- * \copydoc operator==(const color&, const SDL_MessageBoxColor&)
- */
+/// \copydoc operator==(const color&, const SDL_MessageBoxColor&)
 [[nodiscard]] constexpr auto operator==(const SDL_MessageBoxColor& lhs,
                                         const color& rhs) noexcept -> bool
 {
@@ -81359,18 +81052,14 @@ inline auto operator<<(std::ostream& stream, const color& color)
   return !(lhs == rhs);
 }
 
-/**
- * \copydoc operator!=(const color&, const color&)
- */
+/// \copydoc operator!=(const color&, const color&)
 [[nodiscard]] constexpr auto operator!=(const color& lhs,
                                         const SDL_Color& rhs) noexcept -> bool
 {
   return !(lhs == rhs);
 }
 
-/**
- * \copydoc operator!=(const color&, const color&)
- */
+/// \copydoc operator!=(const color&, const color&)
 [[nodiscard]] constexpr auto operator!=(const SDL_Color& lhs,
                                         const color& rhs) noexcept -> bool
 {
@@ -81396,9 +81085,7 @@ inline auto operator<<(std::ostream& stream, const color& color)
   return !(lhs == rhs);
 }
 
-/**
- * \copydoc operator!=(const color&, const SDL_MessageBoxColor&)
- */
+/// \copydoc operator!=(const color&, const SDL_MessageBoxColor&)
 [[nodiscard]] constexpr auto operator!=(const SDL_MessageBoxColor& lhs,
                                         const color& rhs) noexcept -> bool
 {
@@ -81794,9 +81481,7 @@ class basic_pixel_format_info final
   return static_cast<SDL_PixelFormatEnum>(lhs) == rhs;
 }
 
-/**
- * \copydoc operator==(pixel_format, SDL_PixelFormatEnum)
- */
+/// \copydoc operator==(pixel_format, SDL_PixelFormatEnum)
 [[nodiscard]] constexpr auto operator==(const SDL_PixelFormatEnum lhs,
                                         const pixel_format rhs) noexcept -> bool
 {
@@ -81820,9 +81505,7 @@ class basic_pixel_format_info final
   return !(lhs == rhs);
 }
 
-/**
- * \copydoc operator!=(pixel_format, SDL_PixelFormatEnum)
- */
+/// \copydoc operator!=(pixel_format, SDL_PixelFormatEnum)
 [[nodiscard]] constexpr auto operator!=(const SDL_PixelFormatEnum lhs,
                                         const pixel_format rhs) noexcept -> bool
 {
@@ -81949,9 +81632,7 @@ enum class blend_mode
   return static_cast<SDL_BlendMode>(lhs) == rhs;
 }
 
-/**
- * \copydoc operator==(blend_mode, SDL_BlendMode)
- */
+/// \copydoc operator==(blend_mode, SDL_BlendMode)
 [[nodiscard]] constexpr auto operator==(const SDL_BlendMode lhs,
                                         const blend_mode rhs) noexcept -> bool
 {
@@ -81975,9 +81656,7 @@ enum class blend_mode
   return !(lhs == rhs);
 }
 
-/**
- * \copydoc operator!=(blend_mode, SDL_BlendMode)
- */
+/// \copydoc operator!=(blend_mode, SDL_BlendMode)
 [[nodiscard]] constexpr auto operator!=(const SDL_BlendMode lhs,
                                         const blend_mode rhs) noexcept -> bool
 {
@@ -82929,6 +82608,32 @@ template <typename B>
 class basic_window final
 {
  public:
+  enum window_flags : u32
+  {
+    fullscreen = SDL_WINDOW_FULLSCREEN,
+    opengl = SDL_WINDOW_OPENGL,
+    shown = SDL_WINDOW_SHOWN,
+    hidden = SDL_WINDOW_HIDDEN,
+    borderless = SDL_WINDOW_BORDERLESS,
+    resizable = SDL_WINDOW_RESIZABLE,
+    minimized = SDL_WINDOW_MINIMIZED,
+    maximized = SDL_WINDOW_MAXIMIZED,
+    input_grabbed = SDL_WINDOW_INPUT_GRABBED,
+    input_focus = SDL_WINDOW_INPUT_FOCUS,
+    mouse_focus = SDL_WINDOW_MOUSE_FOCUS,
+    fullscreen_desktop = SDL_WINDOW_FULLSCREEN_DESKTOP,
+    foreign = SDL_WINDOW_FOREIGN,
+    high_dpi = SDL_WINDOW_ALLOW_HIGHDPI,
+    mouse_capture = SDL_WINDOW_MOUSE_CAPTURE,
+    always_on_top = SDL_WINDOW_ALWAYS_ON_TOP,
+    skip_taskbar = SDL_WINDOW_SKIP_TASKBAR,
+    utility = SDL_WINDOW_UTILITY,
+    tooltip = SDL_WINDOW_TOOLTIP,
+    popup_menu = SDL_WINDOW_POPUP_MENU,
+    vulkan = SDL_WINDOW_VULKAN,
+    metal = SDL_WINDOW_METAL
+  };
+
   /// \name Construction
   /// \{
 
@@ -82985,8 +82690,7 @@ class basic_window final
     {
       throw cen_error{"Bad window width!"};
     }
-
-    if (size.height < 1)
+    else if (size.height < 1)
     {
       throw cen_error{"Bad window height!"};
     }
@@ -83010,7 +82714,7 @@ class basic_window final
    *
    * \param title the title of the window.
    * \param size the size of the window, components must be greater than zero.
-   * \param flags the window flags.
+   * \param flags the window flags, see `SDL_WindowFlags`.
    *
    * \throws cen_error if the supplied width or height aren't
    * greater than zero.
@@ -83603,7 +83307,7 @@ class basic_window final
    */
   [[nodiscard]] auto has_input_focus() const noexcept -> bool
   {
-    return static_cast<bool>(flags() & SDL_WINDOW_INPUT_FOCUS);
+    return static_cast<bool>(flags() & input_focus);
   }
 
   /**
@@ -83615,7 +83319,7 @@ class basic_window final
    */
   [[nodiscard]] auto has_mouse_focus() const noexcept -> bool
   {
-    return static_cast<bool>(flags() & SDL_WINDOW_MOUSE_FOCUS);
+    return static_cast<bool>(flags() & mouse_focus);
   }
 
   /**
@@ -83631,7 +83335,7 @@ class basic_window final
    */
   [[nodiscard]] auto is_borderless() const noexcept -> bool
   {
-    return flags() & SDL_WINDOW_BORDERLESS;
+    return flags() & borderless;
   }
 
   /**
@@ -83661,7 +83365,7 @@ class basic_window final
    */
   [[nodiscard]] auto is_resizable() const noexcept -> bool
   {
-    return static_cast<bool>(flags() & SDL_WINDOW_RESIZABLE);
+    return static_cast<bool>(flags() & resizable);
   }
 
   /**
@@ -83673,7 +83377,7 @@ class basic_window final
    */
   [[nodiscard]] auto is_fullscreen() const noexcept -> bool
   {
-    return static_cast<bool>(flags() & SDL_WINDOW_FULLSCREEN);
+    return static_cast<bool>(flags() & fullscreen);
   }
 
   /**
@@ -83686,7 +83390,7 @@ class basic_window final
    */
   [[nodiscard]] auto is_fullscreen_desktop() const noexcept -> bool
   {
-    return static_cast<bool>(flags() & SDL_WINDOW_FULLSCREEN_DESKTOP);
+    return static_cast<bool>(flags() & fullscreen_desktop);
   }
 
   /**
@@ -83698,7 +83402,7 @@ class basic_window final
    */
   [[nodiscard]] auto is_visible() const noexcept -> bool
   {
-    return static_cast<bool>(flags() & SDL_WINDOW_SHOWN);
+    return static_cast<bool>(flags() & shown);
   }
 
   /**
@@ -83712,7 +83416,7 @@ class basic_window final
    */
   [[nodiscard]] auto is_opengl() const noexcept -> bool
   {
-    return static_cast<bool>(flags() & SDL_WINDOW_OPENGL);
+    return static_cast<bool>(flags() & opengl);
   }
 
   /**
@@ -83725,7 +83429,7 @@ class basic_window final
    */
   [[nodiscard]] auto is_vulkan() const noexcept -> bool
   {
-    return static_cast<bool>(flags() & SDL_WINDOW_VULKAN);
+    return static_cast<bool>(flags() & vulkan);
   }
 
   /**
@@ -83737,7 +83441,7 @@ class basic_window final
    */
   [[nodiscard]] auto is_foreign() const noexcept -> bool
   {
-    return static_cast<bool>(flags() & SDL_WINDOW_FOREIGN);
+    return static_cast<bool>(flags() & foreign);
   }
 
   /**
@@ -83749,7 +83453,7 @@ class basic_window final
    */
   [[nodiscard]] auto is_capturing_mouse() const noexcept -> bool
   {
-    return static_cast<bool>(flags() & SDL_WINDOW_MOUSE_CAPTURE);
+    return static_cast<bool>(flags() & mouse_capture);
   }
 
   /**
@@ -83761,7 +83465,7 @@ class basic_window final
    */
   [[nodiscard]] auto is_minimized() const noexcept -> bool
   {
-    return static_cast<bool>(flags() & SDL_WINDOW_MINIMIZED);
+    return static_cast<bool>(flags() & minimized);
   }
 
   /**
@@ -83773,7 +83477,7 @@ class basic_window final
    */
   [[nodiscard]] auto is_maximized() const noexcept -> bool
   {
-    return static_cast<bool>(flags() & SDL_WINDOW_MAXIMIZED);
+    return static_cast<bool>(flags() & maximized);
   }
 
   /**
@@ -83785,16 +83489,16 @@ class basic_window final
    *
    * \since 4.0.0
    */
-  [[nodiscard]] auto always_on_top() const noexcept -> bool
+  [[nodiscard]] auto is_always_on_top() const noexcept -> bool
   {
-    return static_cast<bool>(flags() & SDL_WINDOW_ALWAYS_ON_TOP);
+    return static_cast<bool>(flags() & always_on_top);
   }
 
   /**
    * \brief Indicates whether or not a flag is set.
    *
-   * \details Some of the use cases of this method can be replaced by more
-   * explicit methods, e.g. `is_fullscreen()` instead of
+   * \details Some of the use cases of this function can be replaced by more
+   * explicit functions, e.g. `is_fullscreen()` instead of
    * `check_flag(SDL_WINDOW_FULLSCREEN)`.
    *
    * \param flag the flag that will be tested.
@@ -83809,10 +83513,28 @@ class basic_window final
     return static_cast<bool>(flags() & flag);
   }
 
+  /**
+   * \brief Indicates whether or not a flag is set.
+   *
+   * \details Some of the use cases of this function can be replaced by more
+   * explicit functions, e.g. `is_fullscreen()` instead of
+   * `check_flag(cen::window::fullscreen)`.
+   *
+   * \param flag the flag that will be tested.
+   *
+   * \return `true` if the flag is set; `false` otherwise.
+   *
+   * \since 6.0.0
+   */
+  [[nodiscard]] auto check_flag(const window_flags flag) const noexcept -> bool
+  {
+    return static_cast<bool>(flags() & flag);
+  }
+
   template <typename BB = B, detail::is_owner<BB> = 0>
   [[nodiscard]] constexpr static auto default_flags() noexcept -> u32
   {
-    return SDL_WINDOW_HIDDEN;
+    return hidden;
   }
 
   /// \} End of flag queries
@@ -84067,6 +83789,8 @@ namespace cen::gl {
 
 /// \addtogroup video
 /// \{
+
+// TODO Centurion 6: document and test
 
 template <typename T>
 class basic_context;
@@ -84795,6 +84519,8 @@ namespace cen::gl {
 /// \addtogroup video
 /// \{
 
+// TODO Centurion 6: document and test
+
 template <typename T>
 class basic_context;
 
@@ -84920,6 +84646,8 @@ template <typename T>
 
   return {width, height};
 }
+
+// TODO Centurion 6: document and test
 
 inline void reset_attributes() noexcept
 {
@@ -85489,9 +85217,7 @@ class basic_pixel_format_info final
   return static_cast<SDL_PixelFormatEnum>(lhs) == rhs;
 }
 
-/**
- * \copydoc operator==(pixel_format, SDL_PixelFormatEnum)
- */
+/// \copydoc operator==(pixel_format, SDL_PixelFormatEnum)
 [[nodiscard]] constexpr auto operator==(const SDL_PixelFormatEnum lhs,
                                         const pixel_format rhs) noexcept -> bool
 {
@@ -85515,9 +85241,7 @@ class basic_pixel_format_info final
   return !(lhs == rhs);
 }
 
-/**
- * \copydoc operator!=(pixel_format, SDL_PixelFormatEnum)
- */
+/// \copydoc operator!=(pixel_format, SDL_PixelFormatEnum)
 [[nodiscard]] constexpr auto operator!=(const SDL_PixelFormatEnum lhs,
                                         const pixel_format rhs) noexcept -> bool
 {
@@ -86466,6 +86190,14 @@ template <typename B>
 class basic_renderer final
 {
  public:
+  enum renderer_flags : u32
+  {
+    software = SDL_RENDERER_SOFTWARE,              ///< Software renderer
+    accelerated = SDL_RENDERER_ACCELERATED,        ///< Hardware-accelerated
+    target_textures = SDL_RENDERER_TARGETTEXTURE,  ///< Supports target textures
+    vsync = SDL_RENDERER_PRESENTVSYNC              ///< Renderer Uses VSync
+  };
+
   /// \name Construction
   /// \{
 
@@ -86483,8 +86215,10 @@ class basic_renderer final
   explicit basic_renderer(SDL_Renderer* renderer) noexcept(!detail::is_owning<B>())
       : m_renderer{renderer}
   {
-    if constexpr (detail::is_owning<B>()) {
-      if (!get()) {
+    if constexpr (detail::is_owning<B>())
+    {
+      if (!get())
+      {
         throw cen_error{"Cannot create renderer from null pointer!"};
       }
     }
@@ -86495,7 +86229,7 @@ class basic_renderer final
    * \brief Creates an owning renderer based on the supplied window.
    *
    * \param window the associated window instance.
-   * \param flags the renderer flags that will be used.
+   * \param flags the renderer flags that will be used, see `renderer_flags`.
    *
    * \throws sdl_error if something goes wrong when creating the renderer.
    *
@@ -87773,10 +87507,7 @@ class basic_renderer final
    *
    * \since 4.0.0
    */
-  template <typename P,
-            typename U,
-            typename BB = B,
-            detail::is_owner<BB> = 0>
+  template <typename P, typename U, typename BB = B, detail::is_owner<BB> = 0>
   void render_t(const basic_texture<U>& texture,
                 const basic_point<P>& position) noexcept
   {
@@ -87798,10 +87529,7 @@ class basic_renderer final
    *
    * \since 4.0.0
    */
-  template <typename P,
-            typename U,
-            typename BB = B,
-            detail::is_owner<BB> = 0>
+  template <typename P, typename U, typename BB = B, detail::is_owner<BB> = 0>
   void render_t(const basic_texture<U>& texture,
                 const basic_rect<P>& destination) noexcept
   {
@@ -87827,10 +87555,7 @@ class basic_renderer final
    *
    * \since 4.0.0
    */
-  template <typename P,
-            typename U,
-            typename BB = B,
-            detail::is_owner<BB> = 0>
+  template <typename P, typename U, typename BB = B, detail::is_owner<BB> = 0>
   void render_t(const basic_texture<U>& texture,
                 const irect& source,
                 const basic_rect<P>& destination) noexcept
@@ -87856,10 +87581,7 @@ class basic_renderer final
    *
    * \since 4.0.0
    */
-  template <typename P,
-            typename U,
-            typename BB = B,
-            detail::is_owner<BB> = 0>
+  template <typename P, typename U, typename BB = B, detail::is_owner<BB> = 0>
   void render_t(const basic_texture<U>& texture,
                 const irect& source,
                 const basic_rect<P>& destination,
@@ -88598,7 +88320,7 @@ class basic_renderer final
    */
   [[nodiscard]] constexpr static auto default_flags() noexcept -> u32
   {
-    return SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC;
+    return accelerated | vsync;
   }
 
   /// \} End of flag queries
@@ -88762,9 +88484,7 @@ enum class scale_mode
   return static_cast<SDL_ScaleMode>(lhs) == rhs;
 }
 
-/**
- * \copydoc operator==(scale_mode, SDL_ScaleMode)
- */
+/// \copydoc operator==(scale_mode, SDL_ScaleMode)
 [[nodiscard]] constexpr auto operator==(const SDL_ScaleMode lhs,
                                         const scale_mode rhs) noexcept -> bool
 {
@@ -88788,9 +88508,7 @@ enum class scale_mode
   return !(lhs == rhs);
 }
 
-/**
- * \copydoc operator!=(scale_mode, SDL_ScaleMode)
- */
+/// \copydoc operator!=(scale_mode, SDL_ScaleMode)
 [[nodiscard]] constexpr auto operator!=(const SDL_ScaleMode lhs,
                                         const scale_mode rhs) noexcept -> bool
 {
@@ -90965,9 +90683,7 @@ enum class texture_access
   return static_cast<SDL_TextureAccess>(lhs) == rhs;
 }
 
-/**
- * \copydoc operator==(texture_access, SDL_TextureAccess)
- */
+/// \copydoc operator==(texture_access, SDL_TextureAccess)
 [[nodiscard]] constexpr auto operator==(const SDL_TextureAccess lhs,
                                         const texture_access rhs) noexcept
     -> bool
@@ -90994,9 +90710,7 @@ enum class texture_access
   return !(lhs == rhs);
 }
 
-/**
- * \copydoc operator!=(texture_access, SDL_TextureAccess)
- */
+/// \copydoc operator!=(texture_access, SDL_TextureAccess)
 [[nodiscard]] constexpr auto operator!=(const SDL_TextureAccess lhs,
                                         const texture_access rhs) noexcept
     -> bool
@@ -91585,7 +91299,7 @@ namespace cen::detail {
  * \since 3.0.0
  */
 template <typename T>
-[[nodiscard]] auto address_of(T* ptr) -> std::string
+[[nodiscard]] auto address_of(const T* ptr) -> std::string
 {
   if (ptr)
   {
@@ -91641,11 +91355,16 @@ template <typename T>
     noexcept(noexcept(value < min) && noexcept(value > max)) -> T
 {
   assert(min <= max);
-  if (value < min) {
+  if (value < min)
+  {
     return min;
-  } else if (value > max) {
+  }
+  else if (value > max)
+  {
     return max;
-  } else {
+  }
+  else
+  {
     return value;
   }
 }
@@ -93266,24 +92985,16 @@ template <typename T>
 class basic_point final
 {
  public:
-  /**
-   * \copydoc point_traits::isIntegral
-   */
+  /// \copydoc point_traits::isIntegral
   inline constexpr static bool isIntegral = point_traits<T>::isIntegral;
 
-  /**
-   * \copydoc point_traits::isFloating
-   */
+  /// \copydoc point_traits::isFloating
   inline constexpr static bool isFloating = point_traits<T>::isFloating;
 
-  /**
-   * \copydoc point_traits::value_type
-   */
+  /// \copydoc point_traits::value_type
   using value_type = typename point_traits<T>::value_type;
 
-  /**
-   * \copydoc point_traits::point_type
-   */
+  /// \copydoc point_traits::point_type
   using point_type = typename point_traits<T>::point_type;
 
   /// \name Construction
@@ -93380,9 +93091,7 @@ class basic_point final
     return m_point;
   }
 
-  /**
-   * \copydoc get
-   */
+  /// \copydoc get
   [[nodiscard]] constexpr auto get() const noexcept -> const point_type&
   {
     return m_point;
@@ -93402,9 +93111,7 @@ class basic_point final
     return &m_point;
   }
 
-  /**
-   * \copydoc data()
-   */
+  /// \copydoc data
   [[nodiscard]] auto data() const noexcept -> const point_type*
   {
     return &m_point;
@@ -93429,34 +93136,16 @@ class basic_point final
     return m_point;
   }
 
-  /**
-   * \brief Returns a pointer to the internal point.
-   *
-   * \note You shouldn't store the returned pointer. However, this conversion
-   * is safe since `reinterpret_cast` isn't used.
-   *
-   * \return a pointer to the internal point instance.
-   *
-   * \since 5.0.0
-   */
+  /// \copydoc data()
   [[nodiscard]] explicit operator point_type*() noexcept
   {
-    return &m_point;
+    return data();
   }
 
-  /**
-   * \brief Returns a pointer to the internal point.
-   *
-   * \note You shouldn't store the returned pointer. However, this conversion
-   * is safe since `reinterpret_cast` isn't used.
-   *
-   * \return a pointer to the internal point instance.
-   *
-   * \since 5.0.0
-   */
+  /// \copydoc data()
   [[nodiscard]] explicit operator const point_type*() const noexcept
   {
-    return &m_point;
+    return data();
   }
 
   /// \} End of conversions
@@ -93735,59 +93424,12 @@ template <typename T, enable_if_convertible_t<T, int, float> = 0>
 class rect_traits final
 {
  public:
-  /**
-   * \var isIntegral
-   *
-   * \brief Indicates whether or not the rectangle is based on an integral type.
-   *
-   * \since 5.0.0
-   */
   inline constexpr static bool isIntegral = std::is_integral_v<T>;
-
-  /**
-   * \var isFloating
-   *
-   * \brief Indicates whether or not the rectangle is based on a floating-point
-   * type.
-   *
-   * \since 5.0.0
-   */
   inline constexpr static bool isFloating = std::is_floating_point_v<T>;
 
-  /**
-   * \typedef value_type
-   *
-   * \brief The representation type, i.e. `int` or `float`.
-   *
-   * \since 5.0.0
-   */
   using value_type = std::conditional_t<isIntegral, int, float>;
-
-  /**
-   * \typedef point_type
-   *
-   * \brief The point type used, i.e. `ipoint` or `fpoint`.
-   *
-   * \since 5.0.0
-   */
   using point_type = std::conditional_t<isIntegral, ipoint, fpoint>;
-
-  /**
-   * \typedef area_type
-   *
-   * \brief The area type used, i.e. `iarea` or `farea`.
-   *
-   * \since 5.0.0
-   */
   using area_type = std::conditional_t<isIntegral, iarea, farea>;
-
-  /**
-   * \typedef rect_type
-   *
-   * \brief The underlying SDL rectangle type, i.e. `SDL_Rect` or `SDL_FRect`.
-   *
-   * \since 5.0.0
-   */
   using rect_type = std::conditional_t<isIntegral, SDL_Rect, SDL_FRect>;
 };
 
@@ -93832,32 +93474,53 @@ class basic_rect final
 {
  public:
   /**
-   * \copydoc rect_traits<T>::isIntegral
+   * \brief Indicates whether or not the rectangle is based on an integral type.
+   *
+   * \since 5.0.0
    */
   inline constexpr static bool isIntegral = rect_traits<T>::isIntegral;
 
   /**
-   * \copydoc rect_traits<T>::isFloating
+   * \brief Indicates whether or not the rectangle is based on a floating-point
+   * type.
+   *
+   * \since 5.0.0
    */
   inline constexpr static bool isFloating = rect_traits<T>::isFloating;
 
   /**
-   * \copydoc rect_traits<T>::value_type
+   * \typedef value_type
+   *
+   * \brief The representation type, i.e. `int` or `float`.
+   *
+   * \since 5.0.0
    */
   using value_type = typename rect_traits<T>::value_type;
 
   /**
-   * \copydoc rect_traits<T>::point_type
+   * \typedef point_type
+   *
+   * \brief The point type used, i.e. `ipoint` or `fpoint`.
+   *
+   * \since 5.0.0
    */
   using point_type = typename rect_traits<T>::point_type;
 
   /**
-   * \copydoc rect_traits<T>::area_type
+   * \typedef area_type
+   *
+   * \brief The area type used, i.e. `iarea` or `farea`.
+   *
+   * \since 5.0.0
    */
   using area_type = typename rect_traits<T>::area_type;
 
   /**
-   * \copydoc rect_traits<T>::rect_type
+   * \typedef rect_type
+   *
+   * \brief The underlying SDL rectangle type, i.e. `SDL_Rect` or `SDL_FRect`.
+   *
+   * \since 5.0.0
    */
   using rect_type = typename rect_traits<T>::rect_type;
 
@@ -94855,47 +94518,6 @@ class mix_error final : public cen_error
 
 #endif  // CENTURION_EXCEPTION_HEADER
 
-// #include "../misc/not_null.hpp"
-#ifndef CENTURION_NOT_NULL_HEADER
-#define CENTURION_NOT_NULL_HEADER
-
-// #include "sfinae.hpp"
-
-
-namespace cen {
-
-/**
- * \typedef not_null
- *
- * \ingroup misc
- *
- * \brief Tag used to indicate that a pointer cannot be null.
- *
- * \note This alias is equivalent to `T`, it is a no-op.
- *
- * \since 5.0.0
- */
-template <typename T, enable_if_pointer_v<T> = 0>
-using not_null = T;
-
-}  // namespace cen
-
-#endif  // CENTURION_NOT_NULL_HEADER
-
-// #include "pixel_format.hpp"
-#ifndef CENTURION_PIXEL_FORMAT_HEADER
-#define CENTURION_PIXEL_FORMAT_HEADER
-
-#include <SDL.h>
-
-#include <type_traits>  // true_type, false_type
-
-// #include "../detail/owner_handle_api.hpp"
-
-// #include "../misc/czstring.hpp"
-
-// #include "../misc/exception.hpp"
-
 // #include "../misc/integers.hpp"
 #ifndef CENTURION_INTEGERS_HEADER
 #define CENTURION_INTEGERS_HEADER
@@ -95119,6 +94741,49 @@ namespace literals {
 }  // namespace cen
 
 #endif  // CENTURION_INTEGERS_HEADER
+
+// #include "../misc/not_null.hpp"
+#ifndef CENTURION_NOT_NULL_HEADER
+#define CENTURION_NOT_NULL_HEADER
+
+// #include "sfinae.hpp"
+
+
+namespace cen {
+
+/**
+ * \typedef not_null
+ *
+ * \ingroup misc
+ *
+ * \brief Tag used to indicate that a pointer cannot be null.
+ *
+ * \note This alias is equivalent to `T`, it is a no-op.
+ *
+ * \since 5.0.0
+ */
+template <typename T, enable_if_pointer_v<T> = 0>
+using not_null = T;
+
+}  // namespace cen
+
+#endif  // CENTURION_NOT_NULL_HEADER
+
+// #include "pixel_format.hpp"
+#ifndef CENTURION_PIXEL_FORMAT_HEADER
+#define CENTURION_PIXEL_FORMAT_HEADER
+
+#include <SDL.h>
+
+#include <type_traits>  // true_type, false_type
+
+// #include "../detail/owner_handle_api.hpp"
+
+// #include "../misc/czstring.hpp"
+
+// #include "../misc/exception.hpp"
+
+// #include "../misc/integers.hpp"
 
 // #include "../misc/not_null.hpp"
 
@@ -95702,9 +95367,7 @@ inline auto operator<<(std::ostream& stream, const color& color)
          (lhs.blue() == rhs.blue()) && (lhs.alpha() == rhs.alpha());
 }
 
-/**
- * \copydoc operator==(const color&, const color&)
- */
+/// \copydoc operator==(const color&, const color&)
 [[nodiscard]] constexpr auto operator==(const color& lhs,
                                         const SDL_Color& rhs) noexcept -> bool
 {
@@ -95712,9 +95375,7 @@ inline auto operator<<(std::ostream& stream, const color& color)
          (lhs.blue() == rhs.b) && (lhs.alpha() == rhs.a);
 }
 
-/**
- * \copydoc operator==(const color&, const color&)
- */
+/// \copydoc operator==(const color&, const color&)
 [[nodiscard]] constexpr auto operator==(const SDL_Color& lhs,
                                         const color& rhs) noexcept -> bool
 {
@@ -95741,9 +95402,7 @@ inline auto operator<<(std::ostream& stream, const color& color)
          (lhs.blue() == rhs.b);
 }
 
-/**
- * \copydoc operator==(const color&, const SDL_MessageBoxColor&)
- */
+/// \copydoc operator==(const color&, const SDL_MessageBoxColor&)
 [[nodiscard]] constexpr auto operator==(const SDL_MessageBoxColor& lhs,
                                         const color& rhs) noexcept -> bool
 {
@@ -95766,18 +95425,14 @@ inline auto operator<<(std::ostream& stream, const color& color)
   return !(lhs == rhs);
 }
 
-/**
- * \copydoc operator!=(const color&, const color&)
- */
+/// \copydoc operator!=(const color&, const color&)
 [[nodiscard]] constexpr auto operator!=(const color& lhs,
                                         const SDL_Color& rhs) noexcept -> bool
 {
   return !(lhs == rhs);
 }
 
-/**
- * \copydoc operator!=(const color&, const color&)
- */
+/// \copydoc operator!=(const color&, const color&)
 [[nodiscard]] constexpr auto operator!=(const SDL_Color& lhs,
                                         const color& rhs) noexcept -> bool
 {
@@ -95803,9 +95458,7 @@ inline auto operator<<(std::ostream& stream, const color& color)
   return !(lhs == rhs);
 }
 
-/**
- * \copydoc operator!=(const color&, const SDL_MessageBoxColor&)
- */
+/// \copydoc operator!=(const color&, const SDL_MessageBoxColor&)
 [[nodiscard]] constexpr auto operator!=(const SDL_MessageBoxColor& lhs,
                                         const color& rhs) noexcept -> bool
 {
@@ -96201,9 +95854,7 @@ class basic_pixel_format_info final
   return static_cast<SDL_PixelFormatEnum>(lhs) == rhs;
 }
 
-/**
- * \copydoc operator==(pixel_format, SDL_PixelFormatEnum)
- */
+/// \copydoc operator==(pixel_format, SDL_PixelFormatEnum)
 [[nodiscard]] constexpr auto operator==(const SDL_PixelFormatEnum lhs,
                                         const pixel_format rhs) noexcept -> bool
 {
@@ -96227,9 +95878,7 @@ class basic_pixel_format_info final
   return !(lhs == rhs);
 }
 
-/**
- * \copydoc operator!=(pixel_format, SDL_PixelFormatEnum)
- */
+/// \copydoc operator!=(pixel_format, SDL_PixelFormatEnum)
 [[nodiscard]] constexpr auto operator!=(const SDL_PixelFormatEnum lhs,
                                         const pixel_format rhs) noexcept -> bool
 {
@@ -96356,9 +96005,7 @@ enum class blend_mode
   return static_cast<SDL_BlendMode>(lhs) == rhs;
 }
 
-/**
- * \copydoc operator==(blend_mode, SDL_BlendMode)
- */
+/// \copydoc operator==(blend_mode, SDL_BlendMode)
 [[nodiscard]] constexpr auto operator==(const SDL_BlendMode lhs,
                                         const blend_mode rhs) noexcept -> bool
 {
@@ -96382,9 +96029,7 @@ enum class blend_mode
   return !(lhs == rhs);
 }
 
-/**
- * \copydoc operator!=(blend_mode, SDL_BlendMode)
- */
+/// \copydoc operator!=(blend_mode, SDL_BlendMode)
 [[nodiscard]] constexpr auto operator!=(const SDL_BlendMode lhs,
                                         const blend_mode rhs) noexcept -> bool
 {
@@ -97336,6 +96981,32 @@ template <typename B>
 class basic_window final
 {
  public:
+  enum window_flags : u32
+  {
+    fullscreen = SDL_WINDOW_FULLSCREEN,
+    opengl = SDL_WINDOW_OPENGL,
+    shown = SDL_WINDOW_SHOWN,
+    hidden = SDL_WINDOW_HIDDEN,
+    borderless = SDL_WINDOW_BORDERLESS,
+    resizable = SDL_WINDOW_RESIZABLE,
+    minimized = SDL_WINDOW_MINIMIZED,
+    maximized = SDL_WINDOW_MAXIMIZED,
+    input_grabbed = SDL_WINDOW_INPUT_GRABBED,
+    input_focus = SDL_WINDOW_INPUT_FOCUS,
+    mouse_focus = SDL_WINDOW_MOUSE_FOCUS,
+    fullscreen_desktop = SDL_WINDOW_FULLSCREEN_DESKTOP,
+    foreign = SDL_WINDOW_FOREIGN,
+    high_dpi = SDL_WINDOW_ALLOW_HIGHDPI,
+    mouse_capture = SDL_WINDOW_MOUSE_CAPTURE,
+    always_on_top = SDL_WINDOW_ALWAYS_ON_TOP,
+    skip_taskbar = SDL_WINDOW_SKIP_TASKBAR,
+    utility = SDL_WINDOW_UTILITY,
+    tooltip = SDL_WINDOW_TOOLTIP,
+    popup_menu = SDL_WINDOW_POPUP_MENU,
+    vulkan = SDL_WINDOW_VULKAN,
+    metal = SDL_WINDOW_METAL
+  };
+
   /// \name Construction
   /// \{
 
@@ -97392,8 +97063,7 @@ class basic_window final
     {
       throw cen_error{"Bad window width!"};
     }
-
-    if (size.height < 1)
+    else if (size.height < 1)
     {
       throw cen_error{"Bad window height!"};
     }
@@ -97417,7 +97087,7 @@ class basic_window final
    *
    * \param title the title of the window.
    * \param size the size of the window, components must be greater than zero.
-   * \param flags the window flags.
+   * \param flags the window flags, see `SDL_WindowFlags`.
    *
    * \throws cen_error if the supplied width or height aren't
    * greater than zero.
@@ -98010,7 +97680,7 @@ class basic_window final
    */
   [[nodiscard]] auto has_input_focus() const noexcept -> bool
   {
-    return static_cast<bool>(flags() & SDL_WINDOW_INPUT_FOCUS);
+    return static_cast<bool>(flags() & input_focus);
   }
 
   /**
@@ -98022,7 +97692,7 @@ class basic_window final
    */
   [[nodiscard]] auto has_mouse_focus() const noexcept -> bool
   {
-    return static_cast<bool>(flags() & SDL_WINDOW_MOUSE_FOCUS);
+    return static_cast<bool>(flags() & mouse_focus);
   }
 
   /**
@@ -98038,7 +97708,7 @@ class basic_window final
    */
   [[nodiscard]] auto is_borderless() const noexcept -> bool
   {
-    return flags() & SDL_WINDOW_BORDERLESS;
+    return flags() & borderless;
   }
 
   /**
@@ -98068,7 +97738,7 @@ class basic_window final
    */
   [[nodiscard]] auto is_resizable() const noexcept -> bool
   {
-    return static_cast<bool>(flags() & SDL_WINDOW_RESIZABLE);
+    return static_cast<bool>(flags() & resizable);
   }
 
   /**
@@ -98080,7 +97750,7 @@ class basic_window final
    */
   [[nodiscard]] auto is_fullscreen() const noexcept -> bool
   {
-    return static_cast<bool>(flags() & SDL_WINDOW_FULLSCREEN);
+    return static_cast<bool>(flags() & fullscreen);
   }
 
   /**
@@ -98093,7 +97763,7 @@ class basic_window final
    */
   [[nodiscard]] auto is_fullscreen_desktop() const noexcept -> bool
   {
-    return static_cast<bool>(flags() & SDL_WINDOW_FULLSCREEN_DESKTOP);
+    return static_cast<bool>(flags() & fullscreen_desktop);
   }
 
   /**
@@ -98105,7 +97775,7 @@ class basic_window final
    */
   [[nodiscard]] auto is_visible() const noexcept -> bool
   {
-    return static_cast<bool>(flags() & SDL_WINDOW_SHOWN);
+    return static_cast<bool>(flags() & shown);
   }
 
   /**
@@ -98119,7 +97789,7 @@ class basic_window final
    */
   [[nodiscard]] auto is_opengl() const noexcept -> bool
   {
-    return static_cast<bool>(flags() & SDL_WINDOW_OPENGL);
+    return static_cast<bool>(flags() & opengl);
   }
 
   /**
@@ -98132,7 +97802,7 @@ class basic_window final
    */
   [[nodiscard]] auto is_vulkan() const noexcept -> bool
   {
-    return static_cast<bool>(flags() & SDL_WINDOW_VULKAN);
+    return static_cast<bool>(flags() & vulkan);
   }
 
   /**
@@ -98144,7 +97814,7 @@ class basic_window final
    */
   [[nodiscard]] auto is_foreign() const noexcept -> bool
   {
-    return static_cast<bool>(flags() & SDL_WINDOW_FOREIGN);
+    return static_cast<bool>(flags() & foreign);
   }
 
   /**
@@ -98156,7 +97826,7 @@ class basic_window final
    */
   [[nodiscard]] auto is_capturing_mouse() const noexcept -> bool
   {
-    return static_cast<bool>(flags() & SDL_WINDOW_MOUSE_CAPTURE);
+    return static_cast<bool>(flags() & mouse_capture);
   }
 
   /**
@@ -98168,7 +97838,7 @@ class basic_window final
    */
   [[nodiscard]] auto is_minimized() const noexcept -> bool
   {
-    return static_cast<bool>(flags() & SDL_WINDOW_MINIMIZED);
+    return static_cast<bool>(flags() & minimized);
   }
 
   /**
@@ -98180,7 +97850,7 @@ class basic_window final
    */
   [[nodiscard]] auto is_maximized() const noexcept -> bool
   {
-    return static_cast<bool>(flags() & SDL_WINDOW_MAXIMIZED);
+    return static_cast<bool>(flags() & maximized);
   }
 
   /**
@@ -98192,16 +97862,16 @@ class basic_window final
    *
    * \since 4.0.0
    */
-  [[nodiscard]] auto always_on_top() const noexcept -> bool
+  [[nodiscard]] auto is_always_on_top() const noexcept -> bool
   {
-    return static_cast<bool>(flags() & SDL_WINDOW_ALWAYS_ON_TOP);
+    return static_cast<bool>(flags() & always_on_top);
   }
 
   /**
    * \brief Indicates whether or not a flag is set.
    *
-   * \details Some of the use cases of this method can be replaced by more
-   * explicit methods, e.g. `is_fullscreen()` instead of
+   * \details Some of the use cases of this function can be replaced by more
+   * explicit functions, e.g. `is_fullscreen()` instead of
    * `check_flag(SDL_WINDOW_FULLSCREEN)`.
    *
    * \param flag the flag that will be tested.
@@ -98216,10 +97886,28 @@ class basic_window final
     return static_cast<bool>(flags() & flag);
   }
 
+  /**
+   * \brief Indicates whether or not a flag is set.
+   *
+   * \details Some of the use cases of this function can be replaced by more
+   * explicit functions, e.g. `is_fullscreen()` instead of
+   * `check_flag(cen::window::fullscreen)`.
+   *
+   * \param flag the flag that will be tested.
+   *
+   * \return `true` if the flag is set; `false` otherwise.
+   *
+   * \since 6.0.0
+   */
+  [[nodiscard]] auto check_flag(const window_flags flag) const noexcept -> bool
+  {
+    return static_cast<bool>(flags() & flag);
+  }
+
   template <typename BB = B, detail::is_owner<BB> = 0>
   [[nodiscard]] constexpr static auto default_flags() noexcept -> u32
   {
-    return SDL_WINDOW_HIDDEN;
+    return hidden;
   }
 
   /// \} End of flag queries
@@ -98481,6 +98169,8 @@ auto operator<<(std::ostream& stream, const basic_window<T>& window)
  * \since 6.0.0
  */
 namespace cen::vk {
+
+// TODO Centurion 6: document and test
 
 [[nodiscard]] inline auto get_instance_proc_addr() noexcept -> void*
 {
@@ -98762,6 +98452,8 @@ class mix_error final : public cen_error
 
 namespace cen::vk {
 
+// TODO Centurion 6: document and test
+
 class library final
 {
  public:
@@ -98825,6 +98517,8 @@ class library final
 
 // #include "../misc/exception.hpp"
 
+// #include "../misc/integers.hpp"
+
 // #include "../misc/not_null.hpp"
 
 // #include "pixel_format.hpp"
@@ -98874,6 +98568,32 @@ template <typename B>
 class basic_window final
 {
  public:
+  enum window_flags : u32
+  {
+    fullscreen = SDL_WINDOW_FULLSCREEN,
+    opengl = SDL_WINDOW_OPENGL,
+    shown = SDL_WINDOW_SHOWN,
+    hidden = SDL_WINDOW_HIDDEN,
+    borderless = SDL_WINDOW_BORDERLESS,
+    resizable = SDL_WINDOW_RESIZABLE,
+    minimized = SDL_WINDOW_MINIMIZED,
+    maximized = SDL_WINDOW_MAXIMIZED,
+    input_grabbed = SDL_WINDOW_INPUT_GRABBED,
+    input_focus = SDL_WINDOW_INPUT_FOCUS,
+    mouse_focus = SDL_WINDOW_MOUSE_FOCUS,
+    fullscreen_desktop = SDL_WINDOW_FULLSCREEN_DESKTOP,
+    foreign = SDL_WINDOW_FOREIGN,
+    high_dpi = SDL_WINDOW_ALLOW_HIGHDPI,
+    mouse_capture = SDL_WINDOW_MOUSE_CAPTURE,
+    always_on_top = SDL_WINDOW_ALWAYS_ON_TOP,
+    skip_taskbar = SDL_WINDOW_SKIP_TASKBAR,
+    utility = SDL_WINDOW_UTILITY,
+    tooltip = SDL_WINDOW_TOOLTIP,
+    popup_menu = SDL_WINDOW_POPUP_MENU,
+    vulkan = SDL_WINDOW_VULKAN,
+    metal = SDL_WINDOW_METAL
+  };
+
   /// \name Construction
   /// \{
 
@@ -98930,8 +98650,7 @@ class basic_window final
     {
       throw cen_error{"Bad window width!"};
     }
-
-    if (size.height < 1)
+    else if (size.height < 1)
     {
       throw cen_error{"Bad window height!"};
     }
@@ -98955,7 +98674,7 @@ class basic_window final
    *
    * \param title the title of the window.
    * \param size the size of the window, components must be greater than zero.
-   * \param flags the window flags.
+   * \param flags the window flags, see `SDL_WindowFlags`.
    *
    * \throws cen_error if the supplied width or height aren't
    * greater than zero.
@@ -99548,7 +99267,7 @@ class basic_window final
    */
   [[nodiscard]] auto has_input_focus() const noexcept -> bool
   {
-    return static_cast<bool>(flags() & SDL_WINDOW_INPUT_FOCUS);
+    return static_cast<bool>(flags() & input_focus);
   }
 
   /**
@@ -99560,7 +99279,7 @@ class basic_window final
    */
   [[nodiscard]] auto has_mouse_focus() const noexcept -> bool
   {
-    return static_cast<bool>(flags() & SDL_WINDOW_MOUSE_FOCUS);
+    return static_cast<bool>(flags() & mouse_focus);
   }
 
   /**
@@ -99576,7 +99295,7 @@ class basic_window final
    */
   [[nodiscard]] auto is_borderless() const noexcept -> bool
   {
-    return flags() & SDL_WINDOW_BORDERLESS;
+    return flags() & borderless;
   }
 
   /**
@@ -99606,7 +99325,7 @@ class basic_window final
    */
   [[nodiscard]] auto is_resizable() const noexcept -> bool
   {
-    return static_cast<bool>(flags() & SDL_WINDOW_RESIZABLE);
+    return static_cast<bool>(flags() & resizable);
   }
 
   /**
@@ -99618,7 +99337,7 @@ class basic_window final
    */
   [[nodiscard]] auto is_fullscreen() const noexcept -> bool
   {
-    return static_cast<bool>(flags() & SDL_WINDOW_FULLSCREEN);
+    return static_cast<bool>(flags() & fullscreen);
   }
 
   /**
@@ -99631,7 +99350,7 @@ class basic_window final
    */
   [[nodiscard]] auto is_fullscreen_desktop() const noexcept -> bool
   {
-    return static_cast<bool>(flags() & SDL_WINDOW_FULLSCREEN_DESKTOP);
+    return static_cast<bool>(flags() & fullscreen_desktop);
   }
 
   /**
@@ -99643,7 +99362,7 @@ class basic_window final
    */
   [[nodiscard]] auto is_visible() const noexcept -> bool
   {
-    return static_cast<bool>(flags() & SDL_WINDOW_SHOWN);
+    return static_cast<bool>(flags() & shown);
   }
 
   /**
@@ -99657,7 +99376,7 @@ class basic_window final
    */
   [[nodiscard]] auto is_opengl() const noexcept -> bool
   {
-    return static_cast<bool>(flags() & SDL_WINDOW_OPENGL);
+    return static_cast<bool>(flags() & opengl);
   }
 
   /**
@@ -99670,7 +99389,7 @@ class basic_window final
    */
   [[nodiscard]] auto is_vulkan() const noexcept -> bool
   {
-    return static_cast<bool>(flags() & SDL_WINDOW_VULKAN);
+    return static_cast<bool>(flags() & vulkan);
   }
 
   /**
@@ -99682,7 +99401,7 @@ class basic_window final
    */
   [[nodiscard]] auto is_foreign() const noexcept -> bool
   {
-    return static_cast<bool>(flags() & SDL_WINDOW_FOREIGN);
+    return static_cast<bool>(flags() & foreign);
   }
 
   /**
@@ -99694,7 +99413,7 @@ class basic_window final
    */
   [[nodiscard]] auto is_capturing_mouse() const noexcept -> bool
   {
-    return static_cast<bool>(flags() & SDL_WINDOW_MOUSE_CAPTURE);
+    return static_cast<bool>(flags() & mouse_capture);
   }
 
   /**
@@ -99706,7 +99425,7 @@ class basic_window final
    */
   [[nodiscard]] auto is_minimized() const noexcept -> bool
   {
-    return static_cast<bool>(flags() & SDL_WINDOW_MINIMIZED);
+    return static_cast<bool>(flags() & minimized);
   }
 
   /**
@@ -99718,7 +99437,7 @@ class basic_window final
    */
   [[nodiscard]] auto is_maximized() const noexcept -> bool
   {
-    return static_cast<bool>(flags() & SDL_WINDOW_MAXIMIZED);
+    return static_cast<bool>(flags() & maximized);
   }
 
   /**
@@ -99730,16 +99449,16 @@ class basic_window final
    *
    * \since 4.0.0
    */
-  [[nodiscard]] auto always_on_top() const noexcept -> bool
+  [[nodiscard]] auto is_always_on_top() const noexcept -> bool
   {
-    return static_cast<bool>(flags() & SDL_WINDOW_ALWAYS_ON_TOP);
+    return static_cast<bool>(flags() & always_on_top);
   }
 
   /**
    * \brief Indicates whether or not a flag is set.
    *
-   * \details Some of the use cases of this method can be replaced by more
-   * explicit methods, e.g. `is_fullscreen()` instead of
+   * \details Some of the use cases of this function can be replaced by more
+   * explicit functions, e.g. `is_fullscreen()` instead of
    * `check_flag(SDL_WINDOW_FULLSCREEN)`.
    *
    * \param flag the flag that will be tested.
@@ -99754,10 +99473,28 @@ class basic_window final
     return static_cast<bool>(flags() & flag);
   }
 
+  /**
+   * \brief Indicates whether or not a flag is set.
+   *
+   * \details Some of the use cases of this function can be replaced by more
+   * explicit functions, e.g. `is_fullscreen()` instead of
+   * `check_flag(cen::window::fullscreen)`.
+   *
+   * \param flag the flag that will be tested.
+   *
+   * \return `true` if the flag is set; `false` otherwise.
+   *
+   * \since 6.0.0
+   */
+  [[nodiscard]] auto check_flag(const window_flags flag) const noexcept -> bool
+  {
+    return static_cast<bool>(flags() & flag);
+  }
+
   template <typename BB = B, detail::is_owner<BB> = 0>
   [[nodiscard]] constexpr static auto default_flags() noexcept -> u32
   {
-    return SDL_WINDOW_HIDDEN;
+    return hidden;
   }
 
   /// \} End of flag queries
@@ -100105,6 +99842,14 @@ template <typename B>
 class basic_renderer final
 {
  public:
+  enum renderer_flags : u32
+  {
+    software = SDL_RENDERER_SOFTWARE,              ///< Software renderer
+    accelerated = SDL_RENDERER_ACCELERATED,        ///< Hardware-accelerated
+    target_textures = SDL_RENDERER_TARGETTEXTURE,  ///< Supports target textures
+    vsync = SDL_RENDERER_PRESENTVSYNC              ///< Renderer Uses VSync
+  };
+
   /// \name Construction
   /// \{
 
@@ -100122,8 +99867,10 @@ class basic_renderer final
   explicit basic_renderer(SDL_Renderer* renderer) noexcept(!detail::is_owning<B>())
       : m_renderer{renderer}
   {
-    if constexpr (detail::is_owning<B>()) {
-      if (!get()) {
+    if constexpr (detail::is_owning<B>())
+    {
+      if (!get())
+      {
         throw cen_error{"Cannot create renderer from null pointer!"};
       }
     }
@@ -100134,7 +99881,7 @@ class basic_renderer final
    * \brief Creates an owning renderer based on the supplied window.
    *
    * \param window the associated window instance.
-   * \param flags the renderer flags that will be used.
+   * \param flags the renderer flags that will be used, see `renderer_flags`.
    *
    * \throws sdl_error if something goes wrong when creating the renderer.
    *
@@ -101412,10 +101159,7 @@ class basic_renderer final
    *
    * \since 4.0.0
    */
-  template <typename P,
-            typename U,
-            typename BB = B,
-            detail::is_owner<BB> = 0>
+  template <typename P, typename U, typename BB = B, detail::is_owner<BB> = 0>
   void render_t(const basic_texture<U>& texture,
                 const basic_point<P>& position) noexcept
   {
@@ -101437,10 +101181,7 @@ class basic_renderer final
    *
    * \since 4.0.0
    */
-  template <typename P,
-            typename U,
-            typename BB = B,
-            detail::is_owner<BB> = 0>
+  template <typename P, typename U, typename BB = B, detail::is_owner<BB> = 0>
   void render_t(const basic_texture<U>& texture,
                 const basic_rect<P>& destination) noexcept
   {
@@ -101466,10 +101207,7 @@ class basic_renderer final
    *
    * \since 4.0.0
    */
-  template <typename P,
-            typename U,
-            typename BB = B,
-            detail::is_owner<BB> = 0>
+  template <typename P, typename U, typename BB = B, detail::is_owner<BB> = 0>
   void render_t(const basic_texture<U>& texture,
                 const irect& source,
                 const basic_rect<P>& destination) noexcept
@@ -101495,10 +101233,7 @@ class basic_renderer final
    *
    * \since 4.0.0
    */
-  template <typename P,
-            typename U,
-            typename BB = B,
-            detail::is_owner<BB> = 0>
+  template <typename P, typename U, typename BB = B, detail::is_owner<BB> = 0>
   void render_t(const basic_texture<U>& texture,
                 const irect& source,
                 const basic_rect<P>& destination,
@@ -102237,7 +101972,7 @@ class basic_renderer final
    */
   [[nodiscard]] constexpr static auto default_flags() noexcept -> u32
   {
-    return SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC;
+    return accelerated | vsync;
   }
 
   /// \} End of flag queries
