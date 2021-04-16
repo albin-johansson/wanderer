@@ -1,10 +1,10 @@
 #include "chase_system.hpp"
 
-#include "chase.hpp"
-#include "humanoid_animation_system.hpp"
-#include "humanoid_state.hpp"
-#include "movable.hpp"
-#include "movable_system.hpp"
+#include "components/chase.hpp"
+#include "components/humanoid_state.hpp"
+#include "components/movable.hpp"
+#include "systems/humanoid/humanoid_animation_system.hpp"
+#include "systems/movement/movable_system.hpp"
 
 namespace wanderer::sys {
 
