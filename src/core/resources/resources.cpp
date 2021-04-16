@@ -6,22 +6,26 @@ namespace wanderer::resources {
 
 auto texture(cen::czstring resource) -> std::string
 {
-  return "resources/images/"s + resource;
+  static const auto dir = "resources/images/"s;
+  return dir + resource;
 }
 
 auto font(cen::czstring resource) -> std::string
 {
-  return "resources/fonts/"s + resource;
+  static const auto dir = "resources/fonts/"s;
+  return dir + resource;
 }
 
 auto sound(cen::czstring resource) -> std::string
 {
-  return "resources/audio/"s + resource;
+  static const auto dir = "resources/audio/"s;
+  return dir + resource;
 }
 
 auto map(cen::czstring resource) -> std::string
 {
-  return "resources/maps/"s + resource;
+  static const auto dir = "resources/maps/"s;
+  return dir + resource;
 }
 
 }  // namespace wanderer::resources
