@@ -12,6 +12,8 @@ namespace wanderer::sys {
 /**
  * \brief Renders all of the tile layers in a map.
  *
+ * \ingroup systems
+ *
  * \param registry the current level registry.
  * \param graphics the graphics context that will be used for rendering.
  */
