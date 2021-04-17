@@ -5,6 +5,8 @@ namespace wanderer {
 /**
  * \enum direction
  *
+ * \ingroup core
+ *
  * \brief Represents four different directions.
  *
  * \headerfile direction.hpp
