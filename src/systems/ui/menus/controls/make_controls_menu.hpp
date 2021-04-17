@@ -13,4 +13,4 @@ auto make_controls_menu(entt::registry& registry) -> comp::menu::entity;
 
 /// \} End of menus
 
-}
+}  // namespace wanderer::sys

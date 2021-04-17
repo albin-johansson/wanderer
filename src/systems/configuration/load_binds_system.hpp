@@ -21,4 +21,4 @@ namespace wanderer::sys {
 
 /// \} End of configuration
 
-}
+}  // namespace wanderer::sys

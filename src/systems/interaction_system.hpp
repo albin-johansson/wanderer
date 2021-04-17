@@ -21,4 +21,4 @@ void on_interact(const interact_event& event);
 
 /// \} End of event handlers
 
-}
+}  // namespace wanderer::sys

@@ -129,10 +129,8 @@ void update_hitbox(level& level,
 
   for (const auto candidate : candidates)
   {
-    const auto collisions = update_movable(movable,
-                                           oldPosition,
-                                           level.get<comp::hitbox>(candidate),
-                                           next);
+    const auto collisions =
+        update_movable(movable, oldPosition, level.get<comp::hitbox>(candidate), next);
     if (collisions.vertical || collisions.horizontal)
     {
       restorePosition(collisions);
