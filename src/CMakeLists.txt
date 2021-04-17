@@ -230,10 +230,10 @@ set(SOURCE_FILES
     systems/input/movement_input_system.cpp
     systems/input/movement_input_system.hpp
 
+    systems/movement/direction_system.hpp
+    systems/movement/direction_system.cpp
     systems/movement/hitbox_system.cpp
     systems/movement/hitbox_system.hpp
-    systems/movement/movable_system.hpp
-    systems/movement/movable_system.cpp
     systems/movement/movement_system.cpp
     systems/movement/movement_system.hpp
     systems/movement/portal_system.cpp

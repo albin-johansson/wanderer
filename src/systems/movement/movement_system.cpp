@@ -7,8 +7,8 @@
 #include "components/movable.hpp"
 #include "core/stack_resource.hpp"
 #include "core/utils/centurion_utils.hpp"
+#include "systems/movement/direction_system.hpp"
 #include "systems/movement/hitbox_system.hpp"
-#include "systems/movement/movable_system.hpp"
 
 namespace wanderer::sys {
 namespace {
