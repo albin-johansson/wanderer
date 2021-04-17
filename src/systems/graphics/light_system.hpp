@@ -11,10 +11,37 @@ namespace wanderer::sys {
 /// \name Lights
 /// \{
 
+/**
+ * \brief Updates the fluctuations of all lights.
+ *
+ * \ingroup systems
+ *
+ * \param registry the current level registry.
+ */
 void update_lights(entt::registry& registry);
 
+/**
+ * \brief Updates the position of the light attached to the player entity.
+ *
+ * \ingroup systems
+ *
+ * \param registry the current level registry.
+ */
 void update_player_light_position(entt::registry& registry);
 
+/**
+ * \brief Renders all lights currently in the viewport bounds.
+ *
+ * \details This function will just render a simple transparent overlay if light
+ * simulation has been disabled.
+ *
+ * \ingroup systems
+ *
+ * \param registry the current level registry.
+ * \param graphics the graphics context that will be used.
+ * \param time the current time state.
+ * \param settings the current settings.
+ */
 void render_lights(const entt::registry& registry,
                    graphics_context& graphics,
                    const ctx::time_of_day& time,
