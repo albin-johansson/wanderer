@@ -58,6 +58,6 @@ void start_level_fade_animation(entt::registry& registry, map_id map);
  * \since 0.1.0
  */
 void end_level_fade_animation(entt::registry& registry,
-                              const event::level_faded_in& event);
+                              const level_faded_in_event& event);
 
 }  // namespace wanderer::sys

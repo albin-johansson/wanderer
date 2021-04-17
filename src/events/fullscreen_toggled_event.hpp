@@ -1,10 +1,10 @@
 #pragma once
 
-namespace wanderer::event {
+namespace wanderer {
 
-struct fullscreen_toggled final
+struct fullscreen_toggled_event final
 {
   bool enabled;
 };
 
-}  // namespace wanderer::event
+}  // namespace wanderer

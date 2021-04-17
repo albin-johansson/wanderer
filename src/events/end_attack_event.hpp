@@ -5,7 +5,7 @@
 
 #include "core/direction.hpp"
 
-namespace wanderer::event {
+namespace wanderer {
 
 /**
  * \struct end_attack_event
@@ -14,7 +14,7 @@ namespace wanderer::event {
  *
  * \headerfile end_attack_event.hpp
  */
-struct end_attack final
+struct end_attack_event final
 {
   std::reference_wrapper<entt::registry> registry;      ///< The associated registry.
   std::reference_wrapper<entt::dispatcher> dispatcher;  ///< The common dispatcher.
@@ -23,4 +23,4 @@ struct end_attack final
   direction dir{direction::down};         ///< The attack direction.
 };
 
-}  // namespace wanderer::event
+}  // namespace wanderer

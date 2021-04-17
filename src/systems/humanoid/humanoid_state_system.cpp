@@ -12,11 +12,11 @@ void update_attacking_humanoids(entt::registry& registry, entt::dispatcher& disp
   {
     if (attack.done)
     {
-      dispatcher.enqueue<event::end_attack>(registry,
-                                            dispatcher,
-                                            entity,
-                                            attack.weapon,
-                                            direction::down);
+      dispatcher.enqueue<end_attack_event>(registry,
+                                           dispatcher,
+                                           entity,
+                                           attack.weapon,
+                                           direction::down);
     }
   }
 }

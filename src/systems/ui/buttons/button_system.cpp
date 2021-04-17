@@ -47,7 +47,7 @@ auto query_button(entt::registry& registry,
 
     if (mouse.was_left_button_released())
     {
-      dispatcher.enqueue<event::button_pressed>(button.action);
+      dispatcher.enqueue<button_pressed_event>(button.action);
       button.hover = false;
 
       if (auto* checkbox = registry.try_get<comp::checkbox>(buttonEntity))

@@ -42,15 +42,15 @@ game::game(graphics_context& graphics)
     , m_shared{sys::create_menus()}
 {
   // clang-format off
-  m_dispatcher.sink<event::switch_map>().connect<&game::on_switch_map>(this);
-  m_dispatcher.sink<event::switch_menu>().connect<&game::on_switch_menu_event>(this);
-  m_dispatcher.sink<event::button_pressed>().connect<&game::on_button_pressed>(this);
-  m_dispatcher.sink<event::show_inventory>().connect<&game::on_show_inventory>(this);
-  m_dispatcher.sink<event::close_inventory>().connect<&game::on_close_inventory>(this);
-  m_dispatcher.sink<event::level_faded_in>().connect<&game::on_level_animation_faded_in>(this);
-  m_dispatcher.sink<event::level_faded_out>().connect<&game::on_level_animation_faded_out>(this);
-  m_dispatcher.sink<event::spawn_particles>().connect<&game::on_particle_event>(this);
-  m_dispatcher.sink<event::quit_event>().connect<&game::on_quit_event>(this);
+  m_dispatcher.sink<switch_map_event>().connect<&game::on_switch_map>(this);
+  m_dispatcher.sink<switch_menu_event>().connect<&game::on_switch_menu_event>(this);
+  m_dispatcher.sink<button_pressed_event>().connect<&game::on_button_pressed>(this);
+  m_dispatcher.sink<show_inventory_event>().connect<&game::on_show_inventory>(this);
+  m_dispatcher.sink<close_inventory_event>().connect<&game::on_close_inventory>(this);
+  m_dispatcher.sink<level_faded_in_event>().connect<&game::on_level_animation_faded_in>(this);
+  m_dispatcher.sink<level_faded_out_event>().connect<&game::on_level_animation_faded_out>(this);
+  m_dispatcher.sink<spawn_particles_event>().connect<&game::on_particle_event>(this);
+  m_dispatcher.sink<quit_event>().connect<&game::on_quit_event>(this);
   // clang-format on
 }
 
@@ -149,8 +149,8 @@ void game::on_start()
   m_shared.ctx<ctx::time_of_day>().seconds = 43'200;  // Start at 12:00
 
   const auto& settings = m_shared.ctx<ctx::settings>();
-  m_dispatcher.enqueue<event::fullscreen_toggled>(settings.fullscreen);
-  m_dispatcher.enqueue<event::integer_scaling_toggled>(settings.integerScaling);
+  m_dispatcher.enqueue<fullscreen_toggled_event>(settings.fullscreen);
+  m_dispatcher.enqueue<integer_scaling_toggled_event>(settings.integerScaling);
 
   sys::sync_settings_menu(m_shared);
   m_dispatcher.update();
@@ -172,17 +172,17 @@ auto game::is_inventory_active() const -> bool
          !m_levels.registry().view<const comp::active_inventory>().empty();
 }
 
-void game::on_switch_map(const event::switch_map& event)
+void game::on_switch_map(const switch_map_event& event)
 {
   sys::start_level_fade_animation(m_levels.registry(), event.map);
 }
 
-void game::on_switch_menu_event(const event::switch_menu& event)
+void game::on_switch_menu_event(const switch_menu_event& event)
 {
   sys::switch_menu(m_shared, event.id);
 }
 
-void game::on_button_pressed(const event::button_pressed& event)
+void game::on_button_pressed(const button_pressed_event& event)
 {
   switch (event.action)
   {
@@ -190,28 +190,28 @@ void game::on_button_pressed(const event::button_pressed& event)
       break;
 
     case menu_action::goto_in_game: {
-      m_dispatcher.enqueue<event::switch_menu>(menu_id::in_game);
+      m_dispatcher.enqueue<switch_menu_event>(menu_id::in_game);
       break;
     }
     case menu_action::goto_home: {
-      m_dispatcher.enqueue<event::switch_menu>(menu_id::home);
+      m_dispatcher.enqueue<switch_menu_event>(menu_id::home);
       break;
     }
     case menu_action::goto_controls: {
-      m_dispatcher.enqueue<event::switch_menu>(menu_id::controls);
+      m_dispatcher.enqueue<switch_menu_event>(menu_id::controls);
       break;
     }
     case menu_action::goto_settings: {
-      m_dispatcher.enqueue<event::switch_menu>(menu_id::settings);
+      m_dispatcher.enqueue<switch_menu_event>(menu_id::settings);
       break;
     }
     case menu_action::goto_saves: {
-      m_dispatcher.enqueue<event::switch_menu>(menu_id::saves);
+      m_dispatcher.enqueue<switch_menu_event>(menu_id::saves);
       break;
     }
     case menu_action::quick_save: {
       save_game("quick_save", m_levels);
-      m_dispatcher.enqueue<event::switch_menu>(menu_id::in_game);
+      m_dispatcher.enqueue<switch_menu_event>(menu_id::in_game);
       break;
     }
     case menu_action::load_game: {
@@ -227,17 +227,17 @@ void game::on_button_pressed(const event::button_pressed& event)
       break;
     }
     case menu_action::quit: {
-      m_dispatcher.enqueue<event::quit_event>();
+      m_dispatcher.enqueue<quit_event>();
       break;
     }
     case menu_action::toggle_fullscreen: {
       const auto enabled = sys::toggle_fullscreen(m_shared);
-      m_dispatcher.enqueue<event::fullscreen_toggled>(enabled);
+      m_dispatcher.enqueue<fullscreen_toggled_event>(enabled);
       break;
     }
     case menu_action::toggle_integer_scaling: {
       const auto enabled = sys::toggle_integer_scaling(m_shared);
-      m_dispatcher.enqueue<event::integer_scaling_toggled>(enabled);
+      m_dispatcher.enqueue<integer_scaling_toggled_event>(enabled);
       break;
     }
     case menu_action::toggle_lights: {
@@ -247,28 +247,28 @@ void game::on_button_pressed(const event::button_pressed& event)
   }
 }
 
-void game::on_level_animation_faded_in(const event::level_faded_in& event)
+void game::on_level_animation_faded_in(const level_faded_in_event& event)
 {
   m_levels.switch_to(event.map);
   sys::end_level_fade_animation(m_levels.registry(), event);
 }
 
-void game::on_level_animation_faded_out(const event::level_faded_out&)
+void game::on_level_animation_faded_out(const level_faded_out_event&)
 {
   m_levels.clear<comp::level_switch_animation>();
 }
 
-void game::on_show_inventory(const event::show_inventory& event)
+void game::on_show_inventory(const show_inventory_event& event)
 {
   m_levels.emplace<comp::active_inventory>(event.inventoryEntity);
 }
 
-void game::on_close_inventory(const event::close_inventory&)
+void game::on_close_inventory(const close_inventory_event&)
 {
   m_levels.clear<comp::active_inventory>();
 }
 
-void game::on_particle_event(const event::spawn_particles& event)
+void game::on_particle_event(const spawn_particles_event& event)
 {
   sys::spawn_particles(m_levels.registry(),
                        event.position,
@@ -277,7 +277,7 @@ void game::on_particle_event(const event::spawn_particles& event)
                        event.color);
 }
 
-void game::on_quit_event(const event::quit_event&)
+void game::on_quit_event(const quit_event&)
 {
   m_quit = true;
 }

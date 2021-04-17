@@ -1,8 +1,8 @@
 #pragma once
 
-namespace wanderer::event {
+namespace wanderer {
 
-struct close_inventory final
+struct close_inventory_event final
 {};
 
-}  // namespace wanderer::event
+}  // namespace wanderer

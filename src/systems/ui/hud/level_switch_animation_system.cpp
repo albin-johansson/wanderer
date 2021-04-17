@@ -25,18 +25,18 @@ void update_level_switch_animations(entt::registry& registry,
     {
       if (animation.width >= glob::logical_width<float> / 2.0f)
       {
-        dispatcher.enqueue<event::level_faded_in>(animation.map.value(),
-                                                  animation.width,
-                                                  animation.height,
-                                                  -animation.xStepSize,
-                                                  -animation.yStepSize);
+        dispatcher.enqueue<level_faded_in_event>(animation.map.value(),
+                                                 animation.width,
+                                                 animation.height,
+                                                 -animation.xStepSize,
+                                                 -animation.yStepSize);
       }
     }
     else
     {
       if (animation.width <= 0)
       {
-        dispatcher.enqueue<event::level_faded_out>();
+        dispatcher.enqueue<level_faded_out_event>();
       }
     }
   }
@@ -74,8 +74,7 @@ void start_level_fade_animation(entt::registry& registry, const map_id map)
   animation.fadingIn = true;
 }
 
-void end_level_fade_animation(entt::registry& registry,
-                              const event::level_faded_in& event)
+void end_level_fade_animation(entt::registry& registry, const level_faded_in_event& event)
 {
   auto& animation = registry.emplace<comp::level_switch_animation>(registry.create());
   animation.map = std::nullopt;

@@ -37,7 +37,7 @@ namespace {
 
 }  // namespace
 
-void on_attack_begin(const event::begin_attack& event)
+void on_attack_begin(const begin_attack_event& event)
 {
   auto& registry = event.registry.get();
   assert(!registry.all_of<comp::humanoid_attack>(event.sourceEntity));
@@ -49,7 +49,7 @@ void on_attack_begin(const event::begin_attack& event)
   enter_melee_animation(event.registry, event.sourceEntity);
 }
 
-void on_attack_end(const event::end_attack& event)
+void on_attack_end(const end_attack_event& event)
 {
   auto& registry = event.registry.get();
   auto& dispatcher = event.dispatcher.get();
@@ -63,10 +63,7 @@ void on_attack_end(const event::end_attack& event)
   if (const auto* movable = registry.try_get<comp::movable>(event.sourceEntity))
   {
     const auto position = get_particle_position(movable->position, *movable);
-    dispatcher.enqueue<event::spawn_particles>(position,
-                                               5,
-                                               25.0f,
-                                               cen::colors::dark_gray);
+    dispatcher.enqueue<spawn_particles_event>(position, 5, 25.0f, cen::colors::dark_gray);
   }
 
   enter_idle_animation(event.registry, event.sourceEntity);

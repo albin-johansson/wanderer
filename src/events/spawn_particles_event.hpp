@@ -4,9 +4,9 @@
 
 #include "core/aliases/float2.hpp"
 
-namespace wanderer::event {
+namespace wanderer {
 
-struct spawn_particles final
+struct spawn_particles_event final
 {
   float2 position;
   int count{};
@@ -14,4 +14,4 @@ struct spawn_particles final
   cen::color color;
 };
 
-}  // namespace wanderer::event
+}  // namespace wanderer

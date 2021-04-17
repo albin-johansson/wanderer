@@ -92,23 +92,23 @@ class game final
 
   [[nodiscard]] auto is_inventory_active() const -> bool;
 
-  void on_switch_map(const event::switch_map& event);
+  void on_switch_map(const switch_map_event& event);
 
-  void on_switch_menu_event(const event::switch_menu& event);
+  void on_switch_menu_event(const switch_menu_event& event);
 
-  void on_button_pressed(const event::button_pressed& event);
+  void on_button_pressed(const button_pressed_event& event);
 
-  void on_level_animation_faded_in(const event::level_faded_in& event);
+  void on_level_animation_faded_in(const level_faded_in_event& event);
 
-  void on_level_animation_faded_out(const event::level_faded_out&);
+  void on_level_animation_faded_out(const level_faded_out_event&);
 
-  void on_show_inventory(const event::show_inventory& event);
+  void on_show_inventory(const show_inventory_event& event);
 
-  void on_close_inventory(const event::close_inventory&);
+  void on_close_inventory(const close_inventory_event&);
 
-  void on_particle_event(const event::spawn_particles& event);
+  void on_particle_event(const spawn_particles_event& event);
 
-  void on_quit_event(const event::quit_event&);
+  void on_quit_event(const quit_event&);
 };
 
 }  // namespace wanderer

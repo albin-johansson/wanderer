@@ -4,12 +4,12 @@
 
 #include "io/menu/menu_action.hpp"
 
-namespace wanderer::event {
+namespace wanderer {
 
-struct button_pressed final
+struct button_pressed_event final
 {
   menu_action action;
   entt::id_type source;
 };
 
-}  // namespace wanderer::event
+}  // namespace wanderer

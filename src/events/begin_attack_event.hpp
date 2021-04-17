@@ -5,16 +5,16 @@
 
 #include "core/direction.hpp"
 
-namespace wanderer::event {
+namespace wanderer {
 
 /**
- * \struct begin_attack
+ * \struct begin_attack_event
  *
  * \brief Represents the data associated with the start of an attack.
  *
  * \headerfile begin_attack_event.hpp
  */
-struct begin_attack final
+struct begin_attack_event final
 {
   std::reference_wrapper<entt::registry> registry;  ///< The associated registry.
   entt::entity sourceEntity{entt::null};  ///< The entity that initiated the attack.
@@ -22,4 +22,4 @@ struct begin_attack final
   direction dir{direction::down};         ///< The attack direction.
 };
 
-}  // namespace wanderer::event
+}  // namespace wanderer

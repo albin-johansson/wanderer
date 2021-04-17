@@ -1,8 +1,8 @@
 #pragma once
 
-namespace wanderer::event {
+namespace wanderer {
 
 struct quit_event final
 {};
 
-}  // namespace wanderer::event
+}  // namespace wanderer

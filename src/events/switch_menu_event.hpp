@@ -2,11 +2,11 @@
 
 #include "core/menu_id.hpp"
 
-namespace wanderer::event {
+namespace wanderer {
 
-struct switch_menu final
+struct switch_menu_event final
 {
   menu_id id;
 };
 
-}  // namespace wanderer::event
+}  // namespace wanderer

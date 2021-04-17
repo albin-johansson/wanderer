@@ -1,10 +1,10 @@
 #pragma once
 
-namespace wanderer::event {
+namespace wanderer {
 
-struct integer_scaling_toggled final
+struct integer_scaling_toggled_event final
 {
   bool enabled;
 };
 
-}  // namespace wanderer::event
+}  // namespace wanderer

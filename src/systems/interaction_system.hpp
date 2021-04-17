@@ -4,6 +4,6 @@
 
 namespace wanderer::sys {
 
-void on_interact(const event::interact& event);
+void on_interact(const interact_event& event);
 
 }

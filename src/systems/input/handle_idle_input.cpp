@@ -53,7 +53,7 @@ void check_for_movement(entt::registry& registry,
   if (const auto dir = get_direction(keyboard, binds))
   {
     const auto player = registry.ctx<ctx::player>().entity;
-    dispatcher.enqueue<event::begin_humanoid_move>(registry, player, *dir);
+    dispatcher.enqueue<begin_humanoid_move_event>(registry, player, *dir);
   }
 }
 
@@ -71,17 +71,17 @@ void handle_idle_input(entt::registry& registry,
 
   if (keyboard.just_released(binds.interact))
   {
-    dispatcher.enqueue<event::interact>(registry, dispatcher);
+    dispatcher.enqueue<interact_event>(registry, dispatcher);
   }
   else if (registry.empty<comp::active_inventory>())
   {
     if (keyboard.is_pressed(binds.attack))
     {
       // FIXME
-      dispatcher.enqueue<event::begin_attack>(registry,
-                                              player,
-                                              entt::null,
-                                              direction::down);
+      dispatcher.enqueue<begin_attack_event>(registry,
+                                             player,
+                                             entt::null,
+                                             direction::down);
     }
     else
     {

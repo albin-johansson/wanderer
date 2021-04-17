@@ -16,7 +16,7 @@ void enqueue_switch_map_event(entt::registry& registry,
                               const entt::entity portalEntity)
 {
   const auto& portal = registry.get<comp::portal>(portalEntity);
-  dispatcher.enqueue<event::switch_map>(portal.target.value());
+  dispatcher.enqueue<switch_map_event>(portal.target.value());
 }
 
 void enqueue_inventory_event(entt::registry& registry,
@@ -26,17 +26,17 @@ void enqueue_inventory_event(entt::registry& registry,
   if (registry.empty<comp::active_inventory>())
   {
     const auto& trigger = registry.get<comp::container_trigger>(triggerEntity);
-    dispatcher.enqueue<event::show_inventory>(trigger.inventoryEntity);
+    dispatcher.enqueue<show_inventory_event>(trigger.inventoryEntity);
   }
   else
   {
-    dispatcher.enqueue<event::close_inventory>();
+    dispatcher.enqueue<close_inventory_event>();
   }
 }
 
 }  // namespace
 
-void on_interact(const event::interact& event)
+void on_interact(const interact_event& event)
 {
   auto& registry = event.registry.get();
   auto& dispatcher = event.dispatcher.get();

@@ -13,7 +13,7 @@ namespace wanderer::sys {
  *
  * \param event the data for the event.
  */
-void on_move_begin(const event::begin_humanoid_move& event);
+void on_move_begin(const begin_humanoid_move_event& event);
 
 /**
  * \brief Handles the event of ending the movement of a humanoid.
@@ -24,6 +24,6 @@ void on_move_begin(const event::begin_humanoid_move& event);
  *
  * \param event the data for the event.
  */
-void on_move_end(const event::end_humanoid_move& event);
+void on_move_end(const end_humanoid_move_event& event);
 
 }  // namespace wanderer::sys

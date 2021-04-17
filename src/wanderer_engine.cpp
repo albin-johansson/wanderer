@@ -12,9 +12,9 @@ wanderer_engine::wanderer_engine()
   m_input.mouse.set_logical_size(glob::logical_size<>);
 
   // clang-format off
-  m_game.sink<event::fullscreen_toggled>()
+  m_game.sink<fullscreen_toggled_event>()
         .connect<&wanderer_engine::on_fullscreen_toggled>(this);
-  m_game.sink<event::integer_scaling_toggled>()
+  m_game.sink<integer_scaling_toggled_event>()
         .connect<&wanderer_engine::on_integer_scaling_toggled>(this);
   // clang-format on
 }
@@ -61,7 +61,7 @@ void wanderer_engine::update_logic(const delta_time dt)
   m_game.tick(dt);
 }
 
-void wanderer_engine::on_fullscreen_toggled(const event::fullscreen_toggled& event)
+void wanderer_engine::on_fullscreen_toggled(const fullscreen_toggled_event& event)
 {
   // TODO make it possible to specify whether to use real fullscreen or fullscreen desktop
   if (event.enabled)
@@ -78,7 +78,7 @@ void wanderer_engine::on_fullscreen_toggled(const event::fullscreen_toggled& eve
 }
 
 void wanderer_engine::on_integer_scaling_toggled(
-    const event::integer_scaling_toggled& event)
+    const integer_scaling_toggled_event& event)
 {
   m_graphics.renderer().set_logical_integer_scale(event.enabled);
 }

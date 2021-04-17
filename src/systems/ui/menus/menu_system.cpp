@@ -26,7 +26,7 @@ void query_binds(entt::registry& registry,
     auto& bind = registry.get<comp::key_bind>(entity);
     if (keys.just_released(bind.key))
     {
-      dispatcher.enqueue<event::button_pressed>(bind.action, 0u);
+      dispatcher.enqueue<button_pressed_event>(bind.action, 0u);
     }
   }
 }
