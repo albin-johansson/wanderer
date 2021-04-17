@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 
-#include "angles.hpp"
-#include "float2.hpp"
+#include "core/aliases/float2.hpp"
+#include "core/math/angles.hpp"
 
 using namespace wanderer;
 
@@ -218,7 +218,7 @@ TEST(Vector2, Angle)
     const float2 snd{30'979, 77'437};
 
     // Obtained with wolfram alpha
-    const auto expected = 0.5 * (pi<double> - 2 * std::atan(1614023709.0 / 771645137.0));
+    const auto expected = 0.5 * (pi - 2 * std::atan(1614023709.0 / 771645137.0));
 
     EXPECT_FLOAT_EQ(expected, angle(fst, snd));
     EXPECT_FLOAT_EQ(-expected, angle(snd, fst));

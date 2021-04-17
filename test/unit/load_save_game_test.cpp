@@ -3,8 +3,8 @@
 #include <centurion.hpp>
 #include <iostream>  // cout
 
-#include "load_game.hpp"
-#include "save_game.hpp"
+#include "io/saves/load_game.hpp"
+#include "io/saves/save_game.hpp"
 
 using namespace wanderer;
 

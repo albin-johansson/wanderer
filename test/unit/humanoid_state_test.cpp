@@ -1,8 +1,8 @@
-#include "humanoid_state.hpp"
+#include "components/humanoid_state.hpp"
 
 #include <gtest/gtest.h>
 
-#include "add_humanoid_state_dependencies.hpp"
+#include "core/ecs/add_humanoid_state_dependencies.hpp"
 
 using namespace wanderer;
 

@@ -1,10 +1,10 @@
-#include "hitbox.hpp"
+#include "components/hitbox.hpp"
 
 #include <gtest/gtest.h>
 
-#include "centurion_utils.hpp"
-#include "hitbox_system.hpp"
-#include "movable.hpp"
+#include "components/movable.hpp"
+#include "core/centurion_utils.hpp"
+#include "systems/movement/hitbox_system.hpp"
 
 using namespace wanderer;
 
