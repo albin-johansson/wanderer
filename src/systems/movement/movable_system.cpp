@@ -47,13 +47,14 @@ auto dominant_direction(const comp::movable& movable) noexcept -> direction
   {
     return *horizontal;
   }
-
-  if (const auto vertical = vertical_dominant_direction(movable))
+  else if (const auto vertical = vertical_dominant_direction(movable))
   {
     return *vertical;
   }
-
-  return movable.dir;
+  else
+  {
+    return movable.dir;
+  }
 }
 
 }  // namespace wanderer::sys

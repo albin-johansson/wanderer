@@ -11,6 +11,8 @@ namespace wanderer::sys {
 /**
  * \brief Returns the appropriate dominant direction for a movable component.
  *
+ * \ingroup systems
+ *
  * \param movable the movable component that will be used.
  *
  * \return the calculated dominant direction for the movable.
