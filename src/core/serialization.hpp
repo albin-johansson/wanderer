@@ -11,7 +11,12 @@
 
 namespace wanderer {
 
+/// \addtogroup core
+/// \{
+
 using input_archive = cereal::BinaryInputArchive;
 using output_archive = cereal::BinaryOutputArchive;
+
+/// \} End of group core
 
 }  // namespace wanderer
