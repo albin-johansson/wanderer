@@ -6,6 +6,9 @@
 
 namespace wanderer::glob {
 
+/// \addtogroup core
+/// \{
+
 inline constexpr int small_font_size = 8;
 inline constexpr int medium_font_size = 16;
 inline constexpr int large_font_size = 24;
@@ -19,5 +22,7 @@ inline constexpr float menu_col_size = 30;
 
 inline constexpr float menu_rows = logical_height<float> / menu_row_size;
 inline constexpr float menu_columns = logical_width<float> / menu_col_size;
+
+/// \} End of group core
 
 }  // namespace wanderer::glob
