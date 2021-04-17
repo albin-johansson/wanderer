@@ -4,6 +4,9 @@
 
 namespace wanderer {
 
+/// \addtogroup core
+/// \{
+
 /**
  * \brief Indicates whether or not two floating-point values are almost equal.
  *
@@ -18,26 +21,29 @@ namespace wanderer {
  *
  * \since 0.1.0
  */
-[[nodiscard]] inline auto almost_equal(const double a,
-                                       const double b,
-                                       const double epsilon = 0.001) -> bool
+[[nodiscard]] inline auto almost_equal(
+    const double a,
+    const double b,
+    const double epsilon = 0.001) noexcept(noexcept(std::abs(a))) -> bool
 {
   return std::abs(a - b) < epsilon;
 }
 
-/**
- * \copydoc almost_equal(double, double, double)
- */
-[[nodiscard]] inline auto almost_equal(const float a,
-                                       const float b,
-                                       const float epsilon = 0.001f) noexcept -> bool
+/// \copydoc almost_equal(double, double, double)
+[[nodiscard]] inline auto almost_equal(
+    const float a,
+    const float b,
+    const float epsilon = 0.001f) noexcept(noexcept(std::abs(a))) -> bool
 {
   return std::abs(a - b) < epsilon;
 }
 
-[[nodiscard]] inline auto round(const float f) noexcept -> int
+/// Rounds a `float` and returns it as an `int`
+[[nodiscard]] inline auto round(const float f) noexcept(noexcept(std::round(f))) -> int
 {
   return static_cast<int>(std::round(f));
 }
+
+/// \} End of group core
 
 }  // namespace wanderer
