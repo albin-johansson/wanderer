@@ -9,23 +9,20 @@ namespace wanderer::sys {
 /// \{
 
 /**
- * \brief Handles the event of beginning the movement of a humanoid.
+ * \brief Handles the event of beginning to move a humanoid.
  *
- * \pre `event.registry` must not be null.
- * \pre `event.entity` must not have a `humanoid_move` component.
+ * \ingroup systems
  *
- * \param event the data for the event.
+ * \param event the associated event data.
  */
 void on_move_begin(const begin_humanoid_move_event& event);
 
 /**
  * \brief Handles the event of ending the movement of a humanoid.
  *
- * \pre `event.registry` must not be null.
- * \pre `event.entity` must have a `humanoid_move`
- * component.
+ * \ingroup systems
  *
- * \param event the data for the event.
+ * \param event the associated event data.
  */
 void on_move_end(const end_humanoid_move_event& event);
 
