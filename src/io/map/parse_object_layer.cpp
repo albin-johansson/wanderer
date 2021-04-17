@@ -16,7 +16,7 @@ namespace {
                         static_cast<float>(object.height()) * yRatio};
   const comp::subhitbox subhitbox{{}, size};
 
-  auto hitbox = sys::create_hitbox({subhitbox});
+  auto hitbox = sys::make_hitbox({subhitbox});
   hitbox.enabled = false;
 
   const float2 pos{static_cast<float>(object.x()) * xRatio,

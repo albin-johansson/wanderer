@@ -62,7 +62,7 @@ void add_hitbox(entt::registry& registry,
   constexpr auto y0 = glob::tile_height<>;
   constexpr auto y1 = 0.75f * glob::tile_height<>;
 
-  auto hitbox = create_hitbox({{{x0, y0}, {x1, y1}}});
+  auto hitbox = make_hitbox({{{x0, y0}, {x1, y1}}});
   sys::set_position(hitbox, position);
 
   const auto lower = to_vector(hitbox.bounds.position());

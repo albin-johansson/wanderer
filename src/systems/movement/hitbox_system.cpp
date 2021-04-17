@@ -34,7 +34,6 @@ namespace {
   {
     auto next = oldPosition;
     next.x = oldPosition.x + (movable.velocity.x * dt);
-
     return with_position(hitbox, next);
   }
   else
@@ -57,7 +56,7 @@ void update_bounds(comp::hitbox& hitbox) noexcept
   float mx{};
   float my{};
 
-  bool first{true};
+  bool first = true;
   for (const auto& [offset, size] : hitbox.boxes)
   {
     if (first)
@@ -100,32 +99,24 @@ auto with_position(const comp::hitbox& hitbox, const float2 position) noexcept
 
 auto intersects(const comp::hitbox& fst, const comp::hitbox& snd) noexcept -> bool
 {
-  if (&fst == &snd)
+  // 1. A hitbox doesn't intersect itself
+  // 2. The hitboxes can't intersect if their bounding rectangles don't intersect
+  // 3. The hitboxes can't intersect unless both are enabled
+  if (&fst == &snd || !cen::intersects(fst.bounds, snd.bounds) || !fst.enabled ||
+      !snd.enabled)
   {
-    return false;
-  }
-
-  if (!cen::intersects(fst.bounds, snd.bounds))
-  {
-    // Cannot intersect if the bounding rectangles don't intersect
-    return false;
-  }
-
-  if (!fst.enabled || !snd.enabled)
-  {
-    // Cannot intersect if either hitbox isn't enabled
     return false;
   }
 
   for (const auto& [fstOffset, fstSize] : fst.boxes)
   {
-    const cen::frect rectA{to_point(fst.origin + fstOffset), fstSize};
+    const auto fstRect = cen::frect{to_point(fst.origin + fstOffset), fstSize};
 
     for (const auto& [sndOffset, sndSize] : snd.boxes)
     {
-      const cen::frect rectB{to_point(snd.origin + sndOffset), sndSize};
+      const auto sndRect = cen::frect{to_point(snd.origin + sndOffset), sndSize};
 
-      if (cen::collides(rectA, rectB))
+      if (cen::collides(fstRect, sndRect))
       {
         return true;
       }
@@ -135,7 +126,7 @@ auto intersects(const comp::hitbox& fst, const comp::hitbox& snd) noexcept -> bo
   return false;
 }
 
-auto create_hitbox(std::initializer_list<comp::subhitbox> boxes) -> comp::hitbox
+auto make_hitbox(const std::initializer_list<comp::subhitbox> boxes) -> comp::hitbox
 {
   comp::hitbox hb;
 
@@ -159,13 +150,13 @@ auto make_next_hitboxes(const comp::movable& movable,
           next_vertical_hitbox(movable, hitbox, oldPosition, dt)};
 }
 
-auto query_collisions(const next_hitboxes& next, const comp::hitbox& other)
+auto query_collisions(const next_hitboxes& next, const comp::hitbox& obstacle)
     -> collision_result
 {
   collision_result result;
 
-  result.horizontal = next.horizontal && intersects(*next.horizontal, other);
-  result.vertical = next.vertical && intersects(*next.vertical, other);
+  result.horizontal = next.horizontal && intersects(*next.horizontal, obstacle);
+  result.vertical = next.vertical && intersects(*next.vertical, obstacle);
 
   return result;
 }
