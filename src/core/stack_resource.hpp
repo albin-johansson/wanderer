@@ -6,15 +6,24 @@
 
 namespace wanderer {
 
+/**
+ * \brief Represents a buffer of stack memory, for avoiding dynamic memory allocations.
+ *
+ * \ingroup core
+ *
+ * \tparam size the size of the stack buffer.
+ */
 template <std::size_t size>
 class stack_resource final
 {
  public:
+  /// Returns the associated memory resource
   [[nodiscard]] auto get() noexcept -> std::pmr::memory_resource*
   {
     return &m_resource;
   }
 
+  /// \copydoc get()
   [[nodiscard]] auto get() const noexcept -> const std::pmr::memory_resource*
   {
     return &m_resource;
