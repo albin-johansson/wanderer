@@ -5,6 +5,10 @@
 #include <iterator>    // output_iterator
 #include <utility>     // forward, move
 
+#include "components/ctx/player.hpp"
+#include "components/ctx/render_bounds.hpp"
+#include "components/ctx/tileset.hpp"
+#include "components/ctx/viewport.hpp"
 #include "components/map/spawnpoint.hpp"
 #include "components/map/tilemap.hpp"
 #include "core/aliases/aabb_tree.hpp"
@@ -14,10 +18,6 @@
 #include "core/aliases/maybe.hpp"
 #include "core/graphics_context.hpp"
 #include "core/null_entity.hpp"
-#include "ctx/player.hpp"
-#include "ctx/render_bounds.hpp"
-#include "ctx/tileset.hpp"
-#include "ctx/viewport.hpp"
 #include "io/map/parse_ir.hpp"
 
 namespace wanderer {

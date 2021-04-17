@@ -1,14 +1,14 @@
 #include "debug_rendering_system.hpp"
 
 #include "components/chase.hpp"
+#include "components/ctx/active_menu.hpp"
+#include "components/ctx/player.hpp"
 #include "components/graphics/depth_drawable.hpp"
 #include "components/hitbox.hpp"
 #include "components/inventory/container_trigger.hpp"
 #include "components/map/portal.hpp"
 #include "core/centurion_utils.hpp"
 #include "core/menu_constants.hpp"
-#include "ctx/active_menu.hpp"
-#include "ctx/player.hpp"
 #include "systems/ui/menus/menu_system.hpp"
 
 namespace wanderer::sys {

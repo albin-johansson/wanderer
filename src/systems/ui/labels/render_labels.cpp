@@ -1,7 +1,7 @@
+#include "components/ctx/active_menu.hpp"
 #include "components/ui/associated_menu.hpp"
 #include "core/menu_constants.hpp"
 #include "core/render_text.hpp"
-#include "ctx/active_menu.hpp"
 #include "systems/ui/grid.hpp"
 #include "systems/ui/labels/label_system.hpp"
 

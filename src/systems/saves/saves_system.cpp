@@ -1,6 +1,14 @@
 #include "saves_system.hpp"
 
 #include "components/chase.hpp"
+#include "components/ctx/active_menu.hpp"
+#include "components/ctx/binds.hpp"
+#include "components/ctx/outside_level.hpp"
+#include "components/ctx/player.hpp"
+#include "components/ctx/render_bounds.hpp"
+#include "components/ctx/tileset.hpp"
+#include "components/ctx/time_of_day.hpp"
+#include "components/ctx/viewport.hpp"
 #include "components/float3.hpp"
 #include "components/graphics/animated.hpp"
 #include "components/graphics/animated_tile.hpp"
@@ -19,14 +27,6 @@
 #include "components/map/tilemap.hpp"
 #include "components/movable.hpp"
 #include "components/object.hpp"
-#include "ctx/active_menu.hpp"
-#include "ctx/binds.hpp"
-#include "ctx/outside_level.hpp"
-#include "ctx/player.hpp"
-#include "ctx/render_bounds.hpp"
-#include "ctx/tileset.hpp"
-#include "ctx/time_of_day.hpp"
-#include "ctx/viewport.hpp"
 
 namespace wanderer::sys {
 namespace {

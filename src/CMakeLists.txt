@@ -116,15 +116,15 @@ set(SOURCE_FILES
 
     core/settings/setting_id.hpp
 
-    ctx/active_menu.hpp
-    ctx/binds.hpp
-    ctx/outside_level.hpp
-    ctx/player.hpp
-    ctx/render_bounds.hpp
-    ctx/settings.hpp
-    ctx/tileset.hpp
-    ctx/time_of_day.hpp
-    ctx/viewport.hpp
+    components/ctx/active_menu.hpp
+    components/ctx/binds.hpp
+    components/ctx/outside_level.hpp
+    components/ctx/player.hpp
+    components/ctx/render_bounds.hpp
+    components/ctx/settings.hpp
+    components/ctx/tileset.hpp
+    components/ctx/time_of_day.hpp
+    components/ctx/viewport.hpp
 
     events/begin_attack_event.hpp
     events/begin_humanoid_move_event.hpp

@@ -2,8 +2,8 @@
 
 #include <entt.hpp>  // registry
 
+#include "components/ctx/tileset.hpp"
 #include "core/graphics_context.hpp"
-#include "ctx/tileset.hpp"
 #include "io/map/parse_ir.hpp"
 
 namespace wanderer {

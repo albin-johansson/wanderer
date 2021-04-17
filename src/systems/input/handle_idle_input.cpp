@@ -1,11 +1,11 @@
 #include <cassert>   // assert
 #include <optional>  // optional
 
+#include "components/ctx/binds.hpp"
+#include "components/ctx/player.hpp"
 #include "components/humanoid_state.hpp"
 #include "components/inventory/inventory.hpp"
 #include "core/direction.hpp"
-#include "ctx/binds.hpp"
-#include "ctx/player.hpp"
 #include "events/begin_attack_event.hpp"
 #include "events/begin_humanoid_move_event.hpp"
 #include "events/interact_event.hpp"

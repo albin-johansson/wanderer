@@ -3,9 +3,9 @@
 #include <concepts>  // invocable
 #include <entt.hpp>  // registry
 
+#include "components/ctx/render_bounds.hpp"
 #include "components/map/tile_layer.hpp"
 #include "core/graphics_context.hpp"
-#include "ctx/render_bounds.hpp"
 
 namespace wanderer::sys {
 

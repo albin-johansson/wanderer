@@ -2,11 +2,11 @@
 
 #include <entt.hpp>  // registry, entity
 
+#include "components/ctx/player.hpp"
 #include "core/aliases/aabb_tree.hpp"
 #include "core/aliases/float2.hpp"
 #include "core/graphics_context.hpp"
 #include "core/levels/level.hpp"
-#include "ctx/player.hpp"
 
 namespace wanderer::sys {
 

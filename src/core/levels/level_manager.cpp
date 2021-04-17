@@ -3,11 +3,11 @@
 #include <cassert>  // assert
 #include <utility>  // move
 
+#include "components/ctx/outside_level.hpp"
 #include "components/graphics/level_switch_animation.hpp"
 #include "components/map/portal.hpp"
 #include "components/movable.hpp"
 #include "core/resources/resources.hpp"
-#include "ctx/outside_level.hpp"
 #include "io/map/parse_world.hpp"
 #include "systems/graphics/viewport_system.hpp"
 

@@ -3,7 +3,7 @@
 #include <centurion.hpp>  // renderer
 #include <entt.hpp>       // registry
 
-#include "ctx/player.hpp"
+#include "components/ctx/player.hpp"
 
 namespace wanderer::sys {
 

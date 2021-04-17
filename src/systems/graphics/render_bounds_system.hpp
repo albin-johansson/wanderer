@@ -3,7 +3,7 @@
 #include <centurion.hpp>  // frect
 #include <entt.hpp>       // registry
 
-#include "ctx/render_bounds.hpp"
+#include "components/ctx/render_bounds.hpp"
 
 namespace wanderer::sys {
 

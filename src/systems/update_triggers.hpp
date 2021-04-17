@@ -2,8 +2,8 @@
 
 #include <entt.hpp>  // registry
 
+#include "components/ctx/player.hpp"
 #include "components/hitbox.hpp"
-#include "ctx/player.hpp"
 #include "systems/movement/hitbox_system.hpp"
 
 namespace wanderer::sys {
