@@ -12,22 +12,19 @@ wanderer_engine::wanderer_engine()
   m_input.mouse.set_logical_size(glob::logical_size<>);
 
   // clang-format off
-  m_game.sink<fullscreen_toggled_event>()
-        .connect<&wanderer_engine::on_fullscreen_toggled>(this);
-  m_game.sink<integer_scaling_toggled_event>()
-        .connect<&wanderer_engine::on_integer_scaling_toggled>(this);
+  m_game.sink<fullscreen_toggled_event>().connect<&wanderer_engine::on_fullscreen_toggled>(this);
+  m_game.sink<integer_scaling_toggled_event>().connect<&wanderer_engine::on_integer_scaling_toggled>(this);
   // clang-format on
 }
 
 auto wanderer_engine::run() -> int
 {
-  auto& renderer = m_graphics.renderer();
-
   m_window.show();
-  fetch_current_time();
 
+  fetch_current_time();
   m_game.on_start();
 
+  auto& renderer = m_graphics.renderer();
   while (is_running())
   {
     tick();
@@ -38,7 +35,6 @@ auto wanderer_engine::run() -> int
   }
 
   m_game.on_exit();
-
   m_window.hide();
 
   return 0;
