@@ -1,6 +1,6 @@
 #pragma once
 
-#include <centurion.hpp>
+#include <centurion.hpp>  // window
 
 #include "core/game.hpp"
 #include "core/graphics/graphics_context.hpp"
@@ -14,10 +14,10 @@ namespace wanderer {
 /**
  * \class wanderer_engine
  *
- * \brief Represents the Wanderer application.
+ * \brief Represents the Wanderer engine.
  *
- * \details This is the top-level representation of the entire game that
- * handles the application window, input, game state/logic, etc.
+ * \details This is the top-level representation of the entire game that handles the
+ * game window, graphics context, input, game state, etc.
  *
  * \since 0.1.0
  *
@@ -27,21 +27,31 @@ class wanderer_engine final : public semi_fixed_game_loop<wanderer_engine>
 {
  public:
   /**
-   * \brief Initializes the application.
+   * \brief Initializes the game.
    *
    * \since 0.1.0
    */
   wanderer_engine();
 
   /**
-   * \brief Runs the game.
+   * \brief Starts running the game.
    *
    * \return `0` on normal exit.
    */
   auto run() -> int;
 
+  /**
+   * \brief Updates the input state and checks if the game should quit.
+   *
+   * \return `true` if the game should continue running; `false` otherwise.
+   */
   auto update_input() -> bool;
 
+  /**
+   * \brief Updates the game logic.
+   *
+   * \param dt the current delta time.
+   */
   void update_logic(delta_time dt);
 
  private:
