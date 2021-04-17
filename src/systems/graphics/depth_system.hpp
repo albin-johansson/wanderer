@@ -10,6 +10,8 @@ namespace wanderer::sys {
 /**
  * \brief Sorts all depth drawables.
  *
+ * \ingroup systems
+ *
  * \param registry the current level registry.
  *
  * \since 0.1.0
