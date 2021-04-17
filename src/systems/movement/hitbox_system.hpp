@@ -52,8 +52,7 @@ void set_position(comp::hitbox& hitbox, float2 position) noexcept;
  * \details Determines whether or not two hitboxes are currently intersecting
  * each other.
  *
- * \note Checking whether or not a hitbox intersects itself will result in the
- * method returning `false`.
+ * \note Hitboxes are not considered to intersect themselves.
  *
  * \param fst the first hitbox.
  * \param snd the second hitbox.
