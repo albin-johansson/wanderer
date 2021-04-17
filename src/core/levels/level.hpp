@@ -17,7 +17,7 @@
 #include "core/aliases/map_id.hpp"
 #include "core/aliases/maybe.hpp"
 #include "core/ecs/null_entity.hpp"
-#include "core/graphics_context.hpp"
+#include "core/graphics/graphics_context.hpp"
 #include "io/map/parse_ir.hpp"
 
 namespace wanderer {

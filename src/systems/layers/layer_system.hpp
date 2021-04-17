@@ -5,7 +5,7 @@
 
 #include "components/ctx/render_bounds.hpp"
 #include "components/map/tile_layer.hpp"
-#include "core/graphics_context.hpp"
+#include "core/graphics/graphics_context.hpp"
 
 namespace wanderer::sys {
 

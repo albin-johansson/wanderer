@@ -2,7 +2,7 @@
 
 #include <entt.hpp>  // registry
 
-#include "core/graphics_context.hpp"
+#include "core/graphics/graphics_context.hpp"
 
 namespace wanderer::sys {
 

@@ -2,7 +2,7 @@
 
 #include <string>  // string
 
-#include "core/graphics_context.hpp"
+#include "core/graphics/graphics_context.hpp"
 #include "core/levels/level_manager.hpp"
 
 namespace wanderer {

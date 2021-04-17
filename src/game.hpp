@@ -3,7 +3,7 @@
 #include <centurion.hpp>
 
 #include "core/aliases/delta_time.hpp"
-#include "core/graphics_context.hpp"
+#include "core/graphics/graphics_context.hpp"
 #include "core/input.hpp"
 #include "core/levels/level.hpp"
 #include "core/levels/level_manager.hpp"

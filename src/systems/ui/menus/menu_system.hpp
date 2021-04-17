@@ -5,7 +5,7 @@
 #include <string>         // string
 
 #include "components/ui/menu.hpp"
-#include "core/graphics_context.hpp"
+#include "core/graphics/graphics_context.hpp"
 #include "core/input.hpp"
 #include "core/menu_id.hpp"
 

@@ -60,17 +60,11 @@ set(SOURCE_FILES
     core/common_concepts.hpp
     core/direction.hpp
     core/game_constants.hpp
-    core/graphics_context.cpp
-    core/graphics_context.hpp
     core/input.hpp
-    core/make_renderer.cpp
-    core/make_renderer.hpp
     core/menu_action.hpp
     core/menu_constants.hpp
     core/menu_id.hpp
     core/nenya.hpp
-    core/render_text.cpp
-    core/render_text.hpp
     core/resources.cpp
     core/resources.hpp
     core/serialization.hpp
@@ -101,6 +95,13 @@ set(SOURCE_FILES
     core/ecs/make_registry.hpp
     core/ecs/null_entity.hpp
     core/ecs/registry_utils.hpp
+
+    core/graphics/graphics_context.cpp
+    core/graphics/graphics_context.hpp
+    core/graphics/make_renderer.cpp
+    core/graphics/make_renderer.hpp
+    core/graphics/render_text.cpp
+    core/graphics/render_text.hpp
 
     core/levels/add_ground_layers.cpp
     core/levels/add_ground_layers.hpp

@@ -4,7 +4,7 @@
 
 #include "components/ctx/settings.hpp"
 #include "components/ctx/time_of_day.hpp"
-#include "core/graphics_context.hpp"
+#include "core/graphics/graphics_context.hpp"
 
 namespace wanderer::sys {
 

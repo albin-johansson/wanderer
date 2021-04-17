@@ -2,7 +2,7 @@
 
 #include <centurion.hpp>
 
-#include "core/graphics_context.hpp"
+#include "core/graphics/graphics_context.hpp"
 #include "core/input.hpp"
 #include "events/fullscreen_toggled_event.hpp"
 #include "events/integer_scaling_toggled_event.hpp"

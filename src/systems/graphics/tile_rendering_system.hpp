@@ -2,7 +2,7 @@
 
 #include "components/ctx/tileset.hpp"
 #include "components/map/tile.hpp"
-#include "core/graphics_context.hpp"
+#include "core/graphics/graphics_context.hpp"
 
 namespace wanderer::sys {
 

@@ -5,7 +5,7 @@
 #include "components/ctx/player.hpp"
 #include "core/aliases/aabb_tree.hpp"
 #include "core/aliases/float2.hpp"
-#include "core/graphics_context.hpp"
+#include "core/graphics/graphics_context.hpp"
 #include "core/levels/level.hpp"
 
 namespace wanderer::sys {

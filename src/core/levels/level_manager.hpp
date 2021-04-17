@@ -8,7 +8,7 @@
 
 #include "core/aliases/map_id.hpp"
 #include "core/aliases/maybe.hpp"
-#include "core/graphics_context.hpp"
+#include "core/graphics/graphics_context.hpp"
 #include "core/levels/level.hpp"
 #include "io/saves/save_file_info.hpp"
 

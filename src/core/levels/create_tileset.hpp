@@ -3,7 +3,7 @@
 #include <entt.hpp>  // registry
 
 #include "components/ctx/tileset.hpp"
-#include "core/graphics_context.hpp"
+#include "core/graphics/graphics_context.hpp"
 #include "io/map/parse_ir.hpp"
 
 namespace wanderer {

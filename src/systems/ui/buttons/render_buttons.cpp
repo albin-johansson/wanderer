@@ -1,5 +1,5 @@
+#include "core/graphics/render_text.hpp"
 #include "core/menu_constants.hpp"
-#include "core/render_text.hpp"
 #include "systems/ui/buttons/button_system.hpp"
 #include "systems/ui/grid.hpp"
 
