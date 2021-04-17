@@ -13,6 +13,8 @@ namespace wanderer::sys {
 /**
  * \brief Handles the player input if the player is moving.
  *
+ * \ingroup systems
+ *
  * \param registry the current registry.
  * \param dispatcher the event dispatcher that is being used.
  * \param input the current input state.
