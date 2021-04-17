@@ -312,49 +312,7 @@ target_include_directories(${WANDERER_LIB_TARGET}
     SYSTEM PUBLIC ${LIBRARY_DIR}/step)
 
 # Wanderer directories
-target_include_directories(${WANDERER_LIB_TARGET}
-    PUBLIC .
-    PUBLIC components
-    PUBLIC components/graphics
-    PUBLIC components/input
-    PUBLIC components/inventory
-    PUBLIC components/map
-    PUBLIC components/ui
-    PUBLIC core
-    PUBLIC core/aliases
-    PUBLIC core/ecs
-    PUBLIC core/levels
-    PUBLIC core/math
-    PUBLIC core/resources
-    PUBLIC core/settings
-    PUBLIC ctx
-    PUBLIC events
-    PUBLIC io
-    PUBLIC io/map
-    PUBLIC io/menu
-    PUBLIC io/saves
-    PUBLIC systems
-    PUBLIC systems/ai
-    PUBLIC systems/configuration
-    PUBLIC systems/graphics
-    PUBLIC systems/humanoid
-    PUBLIC systems/input
-    PUBLIC systems/layers
-    PUBLIC systems/ui
-    PUBLIC systems/ui/buttons
-    PUBLIC systems/ui/checkboxes
-    PUBLIC systems/ui/hud
-    PUBLIC systems/ui/labels
-    PUBLIC systems/ui/lines
-    PUBLIC systems/ui/menus
-    PUBLIC systems/ui/menus/controls
-    PUBLIC systems/ui/menus/in-game
-    PUBLIC systems/ui/menus/saves
-    PUBLIC systems/ui/menus/settings
-    PUBLIC systems/movement
-    PUBLIC systems/saves
-    PUBLIC systems/tile
-    PUBLIC systems/viewport)
+target_include_directories(${WANDERER_LIB_TARGET} PUBLIC .)
 
 target_link_libraries(${WANDERER_LIB_TARGET}
     PUBLIC ${SDL2_IMAGE_LIBRARIES}
