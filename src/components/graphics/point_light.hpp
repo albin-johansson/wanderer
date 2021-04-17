@@ -1,6 +1,6 @@
 #pragma once
 
-#include "float2.hpp"
+#include "core/aliases/float2.hpp"
 
 namespace wanderer::comp {
 
