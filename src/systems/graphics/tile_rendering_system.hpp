@@ -6,6 +6,9 @@
 
 namespace wanderer::sys {
 
+/// \name Tiles
+/// \{
+
 // TODO make row and col floats
 void render_tile(graphics_context& graphics,
                  const comp::tile& tile,
@@ -15,5 +18,7 @@ void render_tile(graphics_context& graphics,
 [[nodiscard]] auto get_animated_tile(const entt::registry& registry,
                                      comp::tile::entity tileEntity,
                                      const ctx::tileset& tileset) -> const comp::tile&;
+
+/// \} End of tiles
 
 }  // namespace wanderer::sys

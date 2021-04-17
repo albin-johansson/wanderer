@@ -5,6 +5,9 @@
 
 namespace wanderer::sys {
 
+/// \name Movement
+/// \{
+
 /**
  * \brief Updates the state of components related to movement.
  *
@@ -16,5 +19,7 @@ namespace wanderer::sys {
  * \param dt the delta time.
  */
 void update_movement(level& level, const delta_time dt);
+
+/// \} End of movement
 
 }  // namespace wanderer::sys

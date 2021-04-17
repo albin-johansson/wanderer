@@ -6,6 +6,9 @@
 
 namespace wanderer::sys {
 
+/// \name Menus
+/// \{
+
 /// Creates the saves menu entity
 auto create_saves_menu(entt::registry& registry) -> comp::menu::entity;
 
@@ -17,5 +20,7 @@ void increment_saves_button_group_page(entt::registry& registry);
 
 /// Decrements the current saves button group page index
 void decrement_saves_button_group_page(entt::registry& registry);
+
+/// \} End of menus
 
 }  // namespace wanderer::sys

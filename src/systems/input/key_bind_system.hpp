@@ -9,6 +9,9 @@
 
 namespace wanderer::sys {
 
+/// \name Input
+/// \{
+
 template <typename... T>
 void add_binds(entt::registry& registry, const entt::entity entity, T... bind)
 {
@@ -29,5 +32,7 @@ void add_binds(entt::registry& registry, const entt::entity entity, T... bind)
 
 auto make_bind(entt::registry& registry, cen::scan_code key, menu_action action)
     -> comp::key_bind::entity;
+
+/// \} End of input
 
 }  // namespace wanderer::sys

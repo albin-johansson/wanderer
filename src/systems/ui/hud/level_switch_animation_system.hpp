@@ -9,6 +9,9 @@
 
 namespace wanderer::sys {
 
+/// \name UI
+/// \{
+
 /**
  * \brief Updates the state of a level switch animations, although there should
  * only ever be one active at a time.
@@ -59,5 +62,7 @@ void start_level_fade_animation(entt::registry& registry, map_id map);
  */
 void end_level_fade_animation(entt::registry& registry,
                               const level_faded_in_event& event);
+
+/// \} End of UI
 
 }  // namespace wanderer::sys

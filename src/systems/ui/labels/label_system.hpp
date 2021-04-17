@@ -9,6 +9,9 @@
 
 namespace wanderer::sys {
 
+/// \name Labels
+/// \{
+
 /// Creates a label entity
 auto make_label(entt::registry& registry,
                 comp::menu::entity menu,
@@ -22,5 +25,7 @@ void set_text(comp::label& label, std::string text);
 
 // Renders all labels in the currently active menu
 void render_labels(const entt::registry& registry, cen::renderer& renderer);
+
+/// \} End of labels
 
 }  // namespace wanderer::sys

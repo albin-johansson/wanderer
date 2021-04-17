@@ -9,6 +9,9 @@
 
 namespace wanderer::sys {
 
+/// \name Tile layers
+/// \{
+
 /**
  * \brief Visits all tiles in a tile layer that are within the specified bounds.
  *
@@ -42,5 +45,7 @@ void visit_tiles(const comp::tile_layer& layer,
     }
   }
 }
+
+/// \} End of tile layers
 
 }  // namespace wanderer::sys

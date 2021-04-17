@@ -6,6 +6,9 @@
 
 namespace wanderer::sys {
 
+/// \name Humanoids
+/// \{
+
 /**
  * \brief Makes a humanoid enter the idle animation.
  *
@@ -81,5 +84,7 @@ void enter_spear_animation(entt::registry& registry, entt::entity entity) noexce
  * \param registry the registry that holds the humanoids that will be updated.
  */
 void update_humanoid_animations(entt::registry& registry);
+
+/// \} End of humanoids
 
 }  // namespace wanderer::sys

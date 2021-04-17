@@ -6,6 +6,9 @@
 
 namespace wanderer::sys {
 
+/// \name Drawables
+/// \{
+
 void update_drawables(entt::registry& registry);
 
 /**
@@ -19,5 +22,7 @@ void update_drawables(entt::registry& registry);
  * \since 0.1.0
  */
 void render_drawables(const entt::registry& registry, graphics_context& graphics);
+
+/// \} End of drawables
 
 }  // namespace wanderer::sys

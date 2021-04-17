@@ -11,6 +11,9 @@
 
 namespace wanderer::sys {
 
+/// \name Buttons
+/// \{
+
 void add_button(entt::registry& registry,
                 entt::entity entity,
                 std::string text,
@@ -50,5 +53,7 @@ void render_buttons(const entt::registry& registry,
 void render_button_group(const entt::registry& registry,
                          cen::renderer& renderer,
                          const comp::button_group& group);
+
+/// \} End of buttons
 
 }  // namespace wanderer::sys

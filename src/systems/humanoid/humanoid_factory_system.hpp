@@ -10,6 +10,9 @@
 
 namespace wanderer::sys {
 
+/// \name Humanoids
+/// \{
+
 auto add_player(entt::registry& registry,
                 aabb_tree& tree,
                 float2 position,
@@ -19,5 +22,7 @@ auto add_skeleton(entt::registry& registry,
                   aabb_tree& tree,
                   float2 position,
                   graphics_context& graphics) -> entt::entity;
+
+/// \} End of humanoid
 
 }  // namespace wanderer::sys

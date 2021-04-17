@@ -9,6 +9,9 @@
 
 namespace wanderer::sys {
 
+/// \name Checkboxes
+/// \{
+
 auto add_checkbox(entt::registry& registry,
                   std::string text,
                   const int row,
@@ -19,5 +22,7 @@ auto add_checkbox(entt::registry& registry,
 void render_checkboxes(const entt::registry& registry,
                        cen::renderer& renderer,
                        const comp::checkbox_pack& pack);
+
+/// \} End of checkboxes
 
 }  // namespace wanderer::sys

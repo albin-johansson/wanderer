@@ -6,6 +6,9 @@
 
 namespace wanderer::sys {
 
+/// \name UI
+/// \{
+
 [[nodiscard]] constexpr auto column_to_x(const float column) -> float
 {
   // make centered if column index is -1
@@ -28,5 +31,7 @@ namespace wanderer::sys {
 {
   return {column_to_x(column), row_to_y(row)};
 }
+
+/// \} End of UI
 
 }  // namespace wanderer::sys

@@ -4,6 +4,9 @@
 
 namespace wanderer::sys {
 
+/// \name Animation
+/// \{
+
 /**
  * \brief Updates all `animated` components in a registry.
  *
@@ -12,5 +15,7 @@ namespace wanderer::sys {
  * \since 0.1.0
  */
 void update_animations(entt::registry& registry) noexcept;
+
+/// \} End of animation
 
 }  // namespace wanderer::sys

@@ -7,6 +7,9 @@
 
 namespace wanderer::sys {
 
+/// \name Render bounds
+/// \{
+
 void update_render_bounds(entt::registry& registry, int nRows, int nCols);
 
 /**
@@ -22,5 +25,7 @@ void update_render_bounds(entt::registry& registry, int nRows, int nCols);
     -> ctx::render_bounds;
 
 [[nodiscard]] auto to_rect(const ctx::render_bounds& bounds) noexcept -> cen::frect;
+
+/// \} End of render bounds
 
 }  // namespace wanderer::sys

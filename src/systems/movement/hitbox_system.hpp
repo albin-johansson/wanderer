@@ -10,6 +10,9 @@
 
 namespace wanderer::sys {
 
+/// \name Movement
+/// \{
+
 struct next_hitboxes final
 {
   maybe<comp::hitbox> horizontal;
@@ -82,5 +85,7 @@ void set_position(comp::hitbox& hitbox, const float2& position) noexcept;
 
 [[nodiscard]] auto query_collisions(const next_hitboxes& next, const comp::hitbox& other)
     -> collision_result;
+
+/// \} End of movement
 
 }  // namespace wanderer::sys

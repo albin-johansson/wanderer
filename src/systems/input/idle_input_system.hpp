@@ -7,6 +7,9 @@
 
 namespace wanderer::sys {
 
+/// \name Input
+/// \{
+
 /**
  * \brief Handles the player input if the player is idle.
  *
@@ -19,5 +22,7 @@ void handle_idle_input(entt::registry& registry,
                        entt::dispatcher& dispatcher,
                        const input& input,
                        const ctx::binds& binds);
+
+/// \} End of input
 
 }  // namespace wanderer::sys

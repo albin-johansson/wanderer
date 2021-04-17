@@ -8,6 +8,9 @@
 
 namespace wanderer::sys {
 
+/// \name Input
+/// \{
+
 /**
  * \brief Handles the current player input.
  *
@@ -20,5 +23,7 @@ void update_input(entt::registry& registry,
                   entt::dispatcher& dispatcher,
                   const input& input,
                   const ctx::binds& binds);
+
+/// \} End of input
 
 }  // namespace wanderer::sys

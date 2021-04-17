@@ -6,6 +6,9 @@
 
 namespace wanderer::sys {
 
+/// \name Tile layers
+/// \{
+
 /**
  * \brief Renders all of the tile layers in a map.
  *
@@ -13,5 +16,7 @@ namespace wanderer::sys {
  * \param graphics the graphics context that will be used for rendering.
  */
 void render_tile_layers(const entt::registry& registry, graphics_context& graphics);
+
+/// \} End of tile layers
 
 }  // namespace wanderer::sys

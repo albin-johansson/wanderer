@@ -8,6 +8,9 @@
 
 namespace wanderer::sys {
 
+/// \name Lights
+/// \{
+
 void update_lights(entt::registry& registry);
 
 void update_player_light_position(entt::registry& registry);
@@ -16,5 +19,7 @@ void render_lights(const entt::registry& registry,
                    graphics_context& graphics,
                    const ctx::time_of_day& time,
                    const ctx::settings& settings);
+
+/// \} End of lights
 
 }  // namespace wanderer::sys

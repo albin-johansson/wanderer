@@ -11,6 +11,9 @@
 
 namespace wanderer::sys {
 
+/// \name Menus
+/// \{
+
 /// Creates a menu entity
 auto make_menu(entt::registry& registry,
                std::string title,
@@ -57,5 +60,7 @@ void render_menu(const entt::registry& registry, graphics_context& graphics);
  * \return `true` if the current menu is blocking; `false` otherwise
  */
 [[nodiscard]] auto is_current_menu_blocking(const entt::registry& registry) -> bool;
+
+/// \} End of menus
 
 }  // namespace wanderer::sys

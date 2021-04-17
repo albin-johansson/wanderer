@@ -8,6 +8,9 @@
 
 namespace wanderer::sys {
 
+/// \name Particles
+/// \{
+
 void spawn_particles(entt::registry& registry,
                      float2 origin,
                      int count,
@@ -22,5 +25,7 @@ void add_particle(entt::registry& registry,
 void update_particles(entt::registry& registry, delta_time dt);
 
 void render_particles(const entt::registry& registry, cen::renderer& renderer);
+
+/// } End of particles
 
 }  // namespace wanderer::sys

@@ -6,6 +6,9 @@
 
 namespace wanderer::sys {
 
+/// \name Debug
+/// \{
+
 /**
  * \brief Renders debug information, such as hitboxes and triggers.
  *
@@ -21,5 +24,7 @@ void render_debug_info(const entt::registry& registry, graphics_context& graphic
  * \param graphics the graphics context that will be used.
  */
 void render_menu_debug_info(const entt::registry& registry, graphics_context& graphics);
+
+/// \} End of debug
 
 }  // namespace wanderer::sys
