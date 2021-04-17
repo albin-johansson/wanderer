@@ -13,6 +13,8 @@ namespace wanderer::sys {
 /**
  * \brief Handles the player input if the player is idle.
  *
+ * \ingroup systems
+ *
  * \param registry the associated registry.
  * \param dispatcher the dispatcher used for events.
  * \param input the current input state.
