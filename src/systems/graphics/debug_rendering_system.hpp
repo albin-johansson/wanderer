@@ -12,6 +12,8 @@ namespace wanderer::sys {
 /**
  * \brief Renders debug information, such as hitboxes and triggers.
  *
+ * \ingroup systems
+ *
  * \param registry the level registry.
  * \param graphics the graphics context that will be used.
  */
@@ -19,6 +21,8 @@ void render_debug_info(const entt::registry& registry, graphics_context& graphic
 
 /**
  * \brief Renders debug information for menus, such as the UI grid.
+ *
+ * \ingroup systems
  *
  * \param registry the menu registry.
  * \param graphics the graphics context that will be used.
