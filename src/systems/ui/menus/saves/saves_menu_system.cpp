@@ -12,6 +12,7 @@
 #include "components/ui/saves_menu.hpp"
 #include "core/ecs/null_entity.hpp"
 #include "core/ecs/registry_utils.hpp"
+#include "core/math/floating.hpp"
 #include "core/menu_action.hpp"
 #include "io/files_directory.hpp"
 #include "systems/ui/buttons/button_system.hpp"
@@ -29,8 +30,7 @@ inline constexpr int buttons_per_page = 8;
 /// Returns the number of pages necessary for a button group
 [[nodiscard]] auto page_count(const comp::button_group& group) -> int
 {
-  const auto itemsPerPage = static_cast<float>(group.itemsPerPage);
-  return static_cast<int>(std::round(group.buttons.size() / itemsPerPage));
+  return round(group.buttons.size() / static_cast<float>(group.itemsPerPage));
 }
 
 /// Returns the appropriate text for the page indicator label
