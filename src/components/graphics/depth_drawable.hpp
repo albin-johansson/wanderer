@@ -2,10 +2,10 @@
 
 #include <centurion.hpp>  // irect, frect
 
-#include "depth.hpp"
-#include "ints.hpp"
-#include "texture_id.hpp"
-#include "texture_index.hpp"
+#include "core/aliases/depth.hpp"
+#include "core/aliases/ints.hpp"
+#include "core/aliases/texture_id.hpp"
+#include "core/aliases/texture_index.hpp"
 
 namespace wanderer::comp {
 
@@ -37,7 +37,7 @@ struct depth_drawable final
 
 void serialize(auto& archive, depth_drawable& drawable, u32 version)
 {
-  archive(drawable.texture, drawable.layer, drawable.depth, drawable.src, drawable.dst);
+  archive(drawable.texture, drawable.src, drawable.dst, drawable.layer, drawable.depth);
 }
 
 }  // namespace wanderer::comp
