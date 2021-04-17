@@ -126,22 +126,23 @@ auto level::registry() const -> const entt::registry&
 
 void level::spawn_humanoids(const comp::tilemap& tilemap, graphics_context& graphics)
 {
-  // The player has to be created before other humanoids
+  // The player has to be created before other humanoids!
   m_registry.set<ctx::player>(
-      sys::add_player(m_registry, m_tree, *m_playerSpawnPosition, graphics));
+      sys::make_player(m_registry, m_tree, *m_playerSpawnPosition, graphics));
 
-  each<comp::spawnpoint>([&, this](const comp::spawnpoint& spawnpoint) {
+  for (auto&& [entity, spawnpoint] : m_registry.view<comp::spawnpoint>().each())
+  {
     switch (spawnpoint.type)
     {
       case comp::spawnpoint_type::player:
         break;
 
       case comp::spawnpoint_type::skeleton: {
-        sys::add_skeleton(m_registry, m_tree, spawnpoint.position, graphics);
+        sys::make_skeleton(m_registry, m_tree, spawnpoint.position, graphics);
         break;
       }
     }
-  });
+  }
 }
 
 }  // namespace wanderer

@@ -22,6 +22,9 @@ using namespace entt::literals;
 namespace wanderer::sys {
 namespace {
 
+inline constexpr int humanoid_source_width = 64;
+inline constexpr int humanoid_source_height = 64;
+
 void add_movable(entt::registry& registry, const entt::entity entity)
 {
   auto& movable = registry.emplace<comp::movable>(entity);
@@ -34,7 +37,7 @@ void add_depth_drawable(entt::registry& registry,
 {
   auto& drawable = registry.emplace<comp::depth_drawable>(entity);
   drawable.texture = texture;
-  drawable.src = {{}, {64, 64}};
+  drawable.src = {{}, {humanoid_source_width, humanoid_source_height}};
   drawable.dst = {{}, glob::humanoid_draw_size<>};
 }
 
@@ -54,10 +57,10 @@ void add_hitbox(entt::registry& registry,
                 aabb_tree& tree,
                 const float2 position)
 {
-  const auto x0 = 0.5625f * glob::tile_width<>;
-  const auto x1 = 0.875f * glob::tile_width<>;
-  const auto y0 = glob::tile_height<>;
-  const auto y1 = 0.75f * glob::tile_height<>;
+  constexpr auto x0 = 0.5625f * glob::tile_width<>;
+  constexpr auto x1 = 0.875f * glob::tile_width<>;
+  constexpr auto y0 = glob::tile_height<>;
+  constexpr auto y1 = 0.75f * glob::tile_height<>;
 
   auto hitbox = create_hitbox({{{x0, y0}, {x1, y1}}});
   sys::set_position(hitbox, position);
@@ -70,27 +73,22 @@ void add_hitbox(entt::registry& registry,
 }
 
 /**
- * \brief Adds a humanoid entity to the registry and returns the associated
- * identifier.
+ * \brief Creates a humanoid entity.
  *
  * \details The entity will have `movable`, `depth_drawable`, `animated`,
  * `hitbox`, `humanoid` and `humanoid_idle` components added to it. Select
- * components will have default values assigned to them, which might have to be
+ * components will have default values assigned to them, whilst others might have to be
  * tweaked for the specific humanoid.
  *
- * \pre `texture` must be a valid handle.
- *
  * \param registry the registry that will be used.
- * \param texture the handle to the texture that will be used by the humanoid.
+ * \param texture the index of the texture that will be used by the humanoid.
  *
- * \return the identifier associated with the created humanoid.
+ * \return the created entity.
  */
 [[nodiscard]] auto make_humanoid(entt::registry& registry,
                                  aabb_tree& tree,
                                  const texture_index texture) -> entt::entity
 {
-  assert(texture);  // require valid handle
-
   const auto entity = registry.create();
 
   registry.emplace<comp::humanoid>(entity);
@@ -106,12 +104,13 @@ void add_hitbox(entt::registry& registry,
 
 }  // namespace
 
-auto add_player(entt::registry& registry,
-                aabb_tree& tree,
-                const float2 position,
-                graphics_context& graphics) -> entt::entity
+auto make_player(entt::registry& registry,
+                 aabb_tree& tree,
+                 const float2 position,
+                 graphics_context& graphics) -> entt::entity
 {
-  const auto texture = graphics.load("player"_hs, resources::texture("player.png"));
+  static const auto path = resources::texture("player.png");
+  const auto texture = graphics.load("player"_hs, path);
   const auto player = make_humanoid(registry, tree, texture);
 
   auto& movable = registry.get<comp::movable>(player);
@@ -129,12 +128,13 @@ auto add_player(entt::registry& registry,
   return player;
 }
 
-auto add_skeleton(entt::registry& registry,
-                  aabb_tree& tree,
-                  const float2 position,
-                  graphics_context& graphics) -> entt::entity
+auto make_skeleton(entt::registry& registry,
+                   aabb_tree& tree,
+                   const float2 position,
+                   graphics_context& graphics) -> entt::entity
 {
-  const auto texture = graphics.load("skeleton"_hs, resources::texture("skeleton.png"));
+  static const auto path = resources::texture("skeleton.png");
+  const auto texture = graphics.load("skeleton"_hs, path);
   const auto skeleton = make_humanoid(registry, tree, texture);
 
   auto& movable = registry.get<comp::movable>(skeleton);
