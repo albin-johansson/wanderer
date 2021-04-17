@@ -171,6 +171,7 @@ set(SOURCE_FILES
     systems/interaction_system.hpp
     systems/inventory_system.cpp
     systems/inventory_system.hpp
+    systems/tile_layer_system.hpp
     systems/time_system.cpp
     systems/time_system.hpp
     systems/update_triggers.hpp
@@ -223,9 +224,6 @@ set(SOURCE_FILES
     systems/input/input_system.hpp
     systems/input/key_bind_system.cpp
     systems/input/key_bind_system.hpp
-
-    systems/layers/layer_system.hpp
-    systems/layers/render_ground_layers.cpp
 
     systems/movement/hitbox_system.cpp
     systems/movement/hitbox_system.hpp
@@ -284,7 +282,7 @@ set(SOURCE_FILES
     systems/ui/menus/settings/create_settings_menu.cpp
     systems/ui/menus/settings/create_settings_menu.hpp
     systems/ui/menus/settings/sync_settings_menu.cpp
-    )
+    systems/graphics/tile_layer_rendering_system.cpp systems/graphics/tile_layer_rendering_system.hpp)
 
 add_library(${WANDERER_LIB_TARGET} ${SOURCE_FILES})
 

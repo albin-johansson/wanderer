@@ -26,9 +26,9 @@
 #include "systems/humanoid/humanoid_state_system.hpp"
 #include "systems/input/input_system.hpp"
 #include "systems/inventory_system.hpp"
-#include "systems/layers/layer_system.hpp"
 #include "systems/movement/movement_system.hpp"
 #include "systems/movement/portal_system.hpp"
+#include "systems/tile_layer_system.hpp"
 #include "systems/time_system.hpp"
 #include "systems/ui/hud/level_switch_animation_system.hpp"
 #include "systems/ui/menus/menu_system.hpp"
@@ -113,7 +113,7 @@ void game::render(graphics_context& graphics, const cen::ipoint mousePos)
   sys::translate_viewport(registry, renderer);
   level->update_render_bounds();
 
-  sys::render_ground_layers(registry, graphics);
+  sys::render_tile_layers(registry, graphics);
   sys::render_drawables(registry, graphics);
   sys::render_particles(registry, renderer);
 

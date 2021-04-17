@@ -43,37 +43,4 @@ void visit_tiles(const comp::tile_layer& layer,
   }
 }
 
-/**
- * \brief Visits all tiles in a tile layer.
- *
- * \details Empty tiles will be ignored by this function.
- *
- * \tparam T the type of the function object.
- *
- * \param layer the layer whose tiles will be visited.
- * \param callable the function object that will be invoked for each tile.
- *
- * \since 0.1.0
- */
-template <std::invocable<tile_id, int, int> T>
-void visit_tiles(const comp::tile_layer& layer, T&& callable)
-{
-  ctx::render_bounds bounds;
-  bounds.minRow = 0;
-  bounds.minCol = 0;
-  bounds.maxRow = layer.matrix.size();
-  bounds.maxCol = layer.matrix.at(0).size();
-  visit_tiles(layer, bounds, callable);
-}
-
-/**
- * \brief Renders all of the ground layers in a map.
- *
- * \param registry the registry that holds the layers.
- * \param graphics the graphics context that will be used when rendering.
- *
- * \since 0.1.0
- */
-void render_ground_layers(const entt::registry& registry, graphics_context& graphics);
-
 }  // namespace wanderer::sys

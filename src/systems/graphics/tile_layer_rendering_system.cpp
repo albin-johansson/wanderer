@@ -1,8 +1,11 @@
+#include "tile_layer_rendering_system.hpp"
+
+#include "components/ctx/render_bounds.hpp"
 #include "components/graphics/tile_animation.hpp"
 #include "components/map/tile_layer.hpp"
 #include "components/map/tilemap.hpp"
 #include "systems/graphics/tile_rendering_system.hpp"
-#include "systems/layers/layer_system.hpp"
+#include "systems/tile_layer_system.hpp"
 
 namespace wanderer::sys {
 namespace {
@@ -28,7 +31,7 @@ void render_tile_layer(const entt::registry& registry,
 
 }  // namespace
 
-void render_ground_layers(const entt::registry& registry, graphics_context& graphics)
+void render_tile_layers(const entt::registry& registry, graphics_context& graphics)
 {
   const auto& tileset = registry.ctx<const ctx::tileset>();
   const auto& bounds = registry.ctx<const ctx::render_bounds>();
