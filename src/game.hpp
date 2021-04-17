@@ -38,7 +38,7 @@ class game final
    */
   explicit game(graphics_context& graphics);
 
-  ~game() noexcept;
+  ~game();
 
   /**
    * \brief Responds to user input.

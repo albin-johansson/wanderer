@@ -54,7 +54,7 @@ game::game(graphics_context& graphics)
   // clang-format on
 }
 
-game::~game() noexcept
+game::~game()
 {
   disconnect_events(m_dispatcher);
   m_dispatcher.disconnect(this);
