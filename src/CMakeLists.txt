@@ -108,14 +108,14 @@ set(SOURCE_FILES
     core/levels/add_objects.hpp
     core/levels/add_tile_objects.cpp
     core/levels/add_tile_objects.hpp
-    core/levels/create_tilemap.cpp
-    core/levels/create_tilemap.hpp
-    core/levels/create_tileset.cpp
-    core/levels/create_tileset.hpp
     core/levels/level.cpp
     core/levels/level.hpp
     core/levels/level_manager.cpp
     core/levels/level_manager.hpp
+    core/levels/make_tilemap.cpp
+    core/levels/make_tilemap.hpp
+    core/levels/make_tileset.cpp
+    core/levels/make_tileset.hpp
 
     core/math/angles.hpp
     core/math/floating.hpp
@@ -271,21 +271,21 @@ set(SOURCE_FILES
     systems/ui/menus/menu_system.hpp
     systems/ui/menus/render_menu.cpp
 
-    systems/ui/menus/controls/create_controls_menu.cpp
-    systems/ui/menus/controls/create_controls_menu.hpp
+    systems/ui/menus/controls/make_controls_menu.cpp
+    systems/ui/menus/controls/make_controls_menu.hpp
 
-    systems/ui/menus/home/create_home_menu.cpp
-    systems/ui/menus/home/create_home_menu.hpp
+    systems/ui/menus/home/make_home_menu.cpp
+    systems/ui/menus/home/make_home_menu.hpp
 
-    systems/ui/menus/in-game/create_in_game_menu.cpp
-    systems/ui/menus/in-game/create_in_game_menu.hpp
+    systems/ui/menus/in-game/make_in_game_menu.cpp
+    systems/ui/menus/in-game/make_in_game_menu.hpp
 
-    systems/ui/menus/saves/create_saves_menu.cpp
+    systems/ui/menus/saves/make_saves_menu.cpp
     systems/ui/menus/saves/saves_menu_system.cpp
     systems/ui/menus/saves/saves_menu_system.hpp
 
-    systems/ui/menus/settings/create_settings_menu.cpp
-    systems/ui/menus/settings/create_settings_menu.hpp
+    systems/ui/menus/settings/make_settings_menu.cpp
+    systems/ui/menus/settings/make_settings_menu.hpp
     systems/ui/menus/settings/sync_settings_menu.cpp
     )
 

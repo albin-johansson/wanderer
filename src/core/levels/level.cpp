@@ -9,8 +9,8 @@
 #include "core/ecs/make_registry.hpp"
 #include "core/serialization.hpp"
 #include "core/utils/centurion_utils.hpp"
-#include "create_tilemap.hpp"
-#include "create_tileset.hpp"
+#include "make_tilemap.hpp"
+#include "make_tileset.hpp"
 #include "systems/graphics/depth_system.hpp"
 #include "systems/graphics/drawable_system.hpp"
 #include "systems/graphics/render_bounds_system.hpp"
@@ -28,8 +28,8 @@ level::level(const ir::level& data, graphics_context& graphics)
   m_tree.set_thickness_factor(std::nullopt);
 
   load_tileset_textures(data, graphics);
-  auto& tileset = create_tileset(data.tilesets, m_registry, graphics);
-  auto& tilemap = create_tilemap(data, m_registry, m_tilemap);
+  auto& tileset = make_tileset(data.tilesets, m_registry, graphics);
+  auto& tilemap = make_tilemap(data, m_registry, m_tilemap);
 
   m_registry.set<ctx::viewport>(sys::make_viewport(tilemap.size));
 

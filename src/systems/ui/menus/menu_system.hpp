@@ -21,7 +21,7 @@ auto make_menu(entt::registry& registry,
                bool blocking = true) -> comp::menu::entity;
 
 /// Creates and returns a menu registry
-[[nodiscard]] auto create_menus() -> entt::registry;
+[[nodiscard]] auto make_menus() -> entt::registry;
 
 /**
  * \brief Updates the currently active menu.

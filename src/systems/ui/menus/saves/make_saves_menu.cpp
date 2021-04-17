@@ -105,7 +105,7 @@ inline constexpr auto y_1 = row_to_y(glob::menu_rows - 2);
 
 }  // namespace
 
-auto create_saves_menu(entt::registry& registry) -> comp::menu::entity
+auto make_saves_menu(entt::registry& registry) -> comp::menu::entity
 {
   const auto menuEntity = make_menu(registry, "Saves", menu_id::saves);
   registry.emplace<comp::saves_menu>(menuEntity);

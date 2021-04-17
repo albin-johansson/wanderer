@@ -1,14 +1,14 @@
-#include "create_tileset.hpp"
+#include "make_tileset.hpp"
 
 #include <cstddef>  // size_t
 
 namespace wanderer {
 namespace {
 
-void create_tiles(entt::registry& registry,
-                  ctx::tileset& tileset,
-                  const std::map<tile_id, ir::tile>& tiles,
-                  const graphics_context& graphics)
+void make_tiles(entt::registry& registry,
+                ctx::tileset& tileset,
+                const std::map<tile_id, ir::tile>& tiles,
+                const graphics_context& graphics)
 {
   for (const auto& [id, tileData] : tiles)
   {
@@ -43,9 +43,9 @@ void load_tileset_textures(const ir::level& data, graphics_context& graphics)
   }
 }
 
-auto create_tileset(const std::vector<ir::tileset>& data,
-                    entt::registry& registry,
-                    const graphics_context& graphics) -> ctx::tileset&
+auto make_tileset(const std::vector<ir::tileset>& data,
+                  entt::registry& registry,
+                  const graphics_context& graphics) -> ctx::tileset&
 {
   auto& tileset = registry.set<ctx::tileset>();
 
@@ -62,7 +62,7 @@ auto create_tileset(const std::vector<ir::tileset>& data,
 
   for (const auto& ts : data)
   {
-    create_tiles(registry, tileset, ts.tiles, graphics);
+    make_tiles(registry, tileset, ts.tiles, graphics);
   }
 
   return tileset;

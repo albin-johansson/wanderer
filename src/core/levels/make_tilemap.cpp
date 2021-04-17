@@ -1,10 +1,10 @@
-#include "create_tilemap.hpp"
+#include "make_tilemap.hpp"
 
 namespace wanderer {
 
-auto create_tilemap(const ir::level& data,
-                    entt::registry& registry,
-                    const comp::tilemap::entity entity) -> comp::tilemap&
+auto make_tilemap(const ir::level& data,
+                  entt::registry& registry,
+                  comp::tilemap::entity entity) -> comp::tilemap&
 {
   auto& tilemap = registry.emplace<comp::tilemap>(entity);
 

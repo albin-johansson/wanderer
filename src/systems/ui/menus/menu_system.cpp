@@ -7,11 +7,11 @@
 #include "events/button_pressed_event.hpp"
 #include "events/switch_menu_event.hpp"
 #include "systems/ui/buttons/button_system.hpp"
-#include "systems/ui/menus/controls/create_controls_menu.hpp"
-#include "systems/ui/menus/home/create_home_menu.hpp"
-#include "systems/ui/menus/in-game/create_in_game_menu.hpp"
+#include "systems/ui/menus/controls/make_controls_menu.hpp"
+#include "systems/ui/menus/home/make_home_menu.hpp"
+#include "systems/ui/menus/in-game/make_in_game_menu.hpp"
 #include "systems/ui/menus/saves/saves_menu_system.hpp"
-#include "systems/ui/menus/settings/create_settings_menu.hpp"
+#include "systems/ui/menus/settings/make_settings_menu.hpp"
 
 namespace wanderer::sys {
 namespace {
@@ -33,15 +33,15 @@ void query_binds(entt::registry& registry,
 
 }  // namespace
 
-auto create_menus() -> entt::registry
+auto make_menus() -> entt::registry
 {
   entt::registry registry;
 
-  const auto home = create_home_menu(registry);
-  create_in_game_menu(registry);
-  create_controls_menu(registry);
-  create_settings_menu(registry);
-  create_saves_menu(registry);
+  const auto home = make_home_menu(registry);
+  make_in_game_menu(registry);
+  make_controls_menu(registry);
+  make_settings_menu(registry);
+  make_saves_menu(registry);
 
   registry.set<ctx::active_menu>(home);
   registry.set<ctx::time_of_day>();

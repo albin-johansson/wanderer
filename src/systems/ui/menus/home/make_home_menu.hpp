@@ -9,9 +9,8 @@ namespace wanderer::sys {
 /// \name Menus
 /// \{
 
-/// Creates the setting menu entity
-auto create_settings_menu(entt::registry& registry) -> comp::menu::entity;
+auto make_home_menu(entt::registry& registry) -> comp::menu::entity;
 
 /// \} End of menus
 
-}  // namespace wanderer::sys
+}

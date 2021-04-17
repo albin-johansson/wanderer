@@ -1,4 +1,4 @@
-#include "create_home_menu.hpp"
+#include "make_home_menu.hpp"
 
 #include <string>   // string
 #include <utility>  // move
@@ -41,7 +41,7 @@ void add_buttons(entt::registry& registry, const comp::menu::entity entity)
 
 }  // namespace
 
-auto create_home_menu(entt::registry& registry) -> comp::menu::entity
+auto make_home_menu(entt::registry& registry) -> comp::menu::entity
 {
   const auto entity = make_menu(registry, "Wanderer", menu_id::home);
   registry.set<comp::home_menu>(entity);

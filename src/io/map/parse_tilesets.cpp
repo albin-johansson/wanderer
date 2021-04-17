@@ -9,7 +9,7 @@
 namespace wanderer {
 namespace {
 
-[[nodiscard]] auto create_texture(const std::filesystem::path& path) -> ir::texture
+[[nodiscard]] auto make_texture(const std::filesystem::path& path) -> ir::texture
 {
   ir::texture texture;
 
@@ -54,7 +54,7 @@ auto parse_tilesets(const tileset_collection& tilesets,
     auto& tileset = vec.emplace_back();
 
     const auto path = directory / stepTileset->image();
-    tileset.sheet = create_texture(path);
+    tileset.sheet = make_texture(path);
     tileset.xRatio = glob::tile_width<> / stepTileset->tile_width();
     tileset.yRatio = glob::tile_height<> / stepTileset->tile_height();
 

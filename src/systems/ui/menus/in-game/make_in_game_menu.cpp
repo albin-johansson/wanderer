@@ -1,4 +1,4 @@
-#include "create_in_game_menu.hpp"
+#include "make_in_game_menu.hpp"
 
 #include "components/input/key_bind.hpp"
 #include "core/menu_action.hpp"
@@ -7,7 +7,7 @@
 
 namespace wanderer::sys {
 
-auto create_in_game_menu(entt::registry& registry) -> comp::menu::entity
+auto make_in_game_menu(entt::registry& registry) -> comp::menu::entity
 {
   const auto entity = make_menu(registry, std::string{}, menu_id::in_game, false);
   registry.set<comp::in_game_menu>(entity);

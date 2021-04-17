@@ -9,7 +9,7 @@ namespace wanderer::sys {
 /// \name Menus
 /// \{
 
-auto create_controls_menu(entt::registry& registry) -> comp::menu::entity;
+auto make_controls_menu(entt::registry& registry) -> comp::menu::entity;
 
 /// \} End of menus
 

@@ -1,4 +1,4 @@
-#include "create_controls_menu.hpp"
+#include "make_controls_menu.hpp"
 
 #include <string>   // string
 #include <utility>  // move
@@ -47,7 +47,7 @@ void add_labels(entt::registry& registry, const comp::menu::entity entity)
 
 }  // namespace
 
-auto create_controls_menu(entt::registry& registry) -> comp::menu::entity
+auto make_controls_menu(entt::registry& registry) -> comp::menu::entity
 {
   const auto entity = make_menu(registry, "Controls", menu_id::controls);
   registry.set<comp::controls_menu>(entity);

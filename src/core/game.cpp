@@ -40,7 +40,7 @@ namespace wanderer {
 game::game(graphics_context& graphics)
     : m_dispatcher{make_dispatcher()}
     , m_levels{graphics}
-    , m_shared{sys::create_menus()}
+    , m_shared{sys::make_menus()}
 {
   // clang-format off
   m_dispatcher.sink<switch_map_event>().connect<&game::on_switch_map>(this);

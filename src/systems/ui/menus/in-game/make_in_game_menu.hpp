@@ -9,7 +9,7 @@ namespace wanderer::sys {
 /// \name Menus
 /// \{
 
-auto create_home_menu(entt::registry& registry) -> comp::menu::entity;
+auto make_in_game_menu(entt::registry& registry) -> comp::menu::entity;
 
 /// \} End of menus
 
