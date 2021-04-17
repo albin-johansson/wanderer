@@ -4,6 +4,9 @@
 
 namespace wanderer {
 
+/// \addtogroup core
+/// \{
+
 inline constexpr auto pi = std::numbers::pi_v<float>;
 
 [[nodiscard]] inline constexpr auto to_degrees(const float radians) noexcept -> float
@@ -15,5 +18,7 @@ inline constexpr auto pi = std::numbers::pi_v<float>;
 {
   return (degrees * pi) / 180.0f;
 }
+
+/// \} End of group core
 
 }  // namespace wanderer
