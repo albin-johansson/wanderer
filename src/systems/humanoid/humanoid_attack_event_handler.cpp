@@ -13,25 +13,23 @@ namespace wanderer::sys {
 namespace {
 
 [[nodiscard]] auto get_particle_position(const float2 position,
-                                         const comp::movable& movable)
+                                         const direction dir) noexcept -> float2
 {
-  switch (movable.dir)
+  switch (dir)
   {
+    default:
+      [[fallthrough]];
+    case direction::up:
+      return {position.x + glob::tile_width<>, position.y};
+
     case direction::right:
-      return float2{position.x + (glob::tile_width<> * 2.0f),
-                    position.y + glob::tile_height<>};
+      return {position.x + (glob::tile_width<> * 2.0f), position.y + glob::tile_height<>};
 
     case direction::down:
-      return float2{position.x + glob::tile_width<>,
-                    position.y + (glob::tile_height<> * 2.0f)};
+      return {position.x + glob::tile_width<>, position.y + (glob::tile_height<> * 2.0f)};
 
     case direction::left:
-      return float2{position.x, position.y + glob::tile_height<>};
-
-    case direction::up:
-      [[fallthrough]];
-    default:
-      return float2{position.x + glob::tile_width<>, position.y};
+      return {position.x, position.y + glob::tile_height<>};
   }
 }
 
@@ -62,7 +60,7 @@ void on_attack_end(const end_attack_event& event)
 
   if (const auto* movable = registry.try_get<comp::movable>(event.sourceEntity))
   {
-    const auto position = get_particle_position(movable->position, *movable);
+    const auto position = get_particle_position(movable->position, movable->dir);
     dispatcher.enqueue<spawn_particles_event>(position, 5, 25.0f, cen::colors::dark_gray);
   }
 

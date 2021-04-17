@@ -9,22 +9,20 @@ namespace wanderer::sys {
 /// \{
 
 /**
- * Handles the event of beginning a humanoid attack sequence.
+ * \brief Handles the event of beginning a humanoid attack sequence.
  *
- * \pre `event.registry` must not be null.
- * \pre `event.sourceEntity` must not have a
- * `humanoid_attack` component.
- * \param event the event data associated with the start of the attack.
+ * \ingroup systems
+ *
+ * \param event the associated event data.
  */
 void on_attack_begin(const begin_attack_event& event);
 
 /**
- * Handles the event of beginning a humanoid attack sequence.
+ * \brief Handles the event of beginning a humanoid attack sequence.
  *
- * \pre `event.registry` must not be null.
- * \pre `event.sourceEntity` must have a
- * `humanoid_attack` component.
- * \param event the event data associated with the end of the attack.
+ * \ingroup systems
+ *
+ * \param event the associated event data.
  */
 void on_attack_end(const end_attack_event& event);
 
