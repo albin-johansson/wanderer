@@ -1,7 +1,7 @@
 #pragma once
 
-#include "ints.hpp"
-#include "milliseconds.hpp"
+#include "core/aliases/ints.hpp"
+#include "core/aliases/milliseconds.hpp"
 
 namespace wanderer::comp {
 
@@ -10,23 +10,14 @@ namespace wanderer::comp {
  *
  * \brief Represents a general animation.
  *
- * \var animated::frame
- * The current frame index. Starts at 0.
- * \var animated::nFrames
- * The amount of frames in the animation.
- * \var animated::then
- * The time of the previous update of the animation, in milliseconds.
- * \var animated::delay
- * The duration of each frame in the animation, in milliseconds.
- *
  * \headerfile animated.hpp
  */
 struct animated final
 {
-  i32 frame{0};
-  i32 nFrames{1};
-  ms_t then{0};
-  ms_t delay{100};
+  i32 frame{0};     ///< Current frame index.
+  i32 nFrames{1};   ///< Amount of frames in the animation.
+  ms_t then{0};     ///< Time of the previous update of the animation.
+  ms_t delay{100};  ///< Duration of each frame in the animation
 };
 
 void serialize(auto& archive, animated& a, u32 version)
