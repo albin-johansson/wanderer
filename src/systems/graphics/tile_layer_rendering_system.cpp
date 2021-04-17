@@ -16,15 +16,15 @@ void render_tile_layer(const entt::registry& registry,
                        const ctx::tileset& tileset,
                        const ctx::render_bounds& bounds)
 {
-  visit_tiles(layer, bounds, [&](const tile_id id, const int row, const int col) {
+  visit_tiles(layer, bounds, [&](const tile_id id, const grid_position position) {
     const auto entity = tileset.tiles.at(id);
     if (registry.all_of<comp::tile_animation>(entity))
     {
-      render_tile(graphics, get_animated_tile(registry, entity, tileset), row, col);
+      render_tile(graphics, get_animated_tile(registry, entity, tileset), position);
     }
     else
     {
-      render_tile(graphics, registry.get<comp::tile>(entity), row, col);
+      render_tile(graphics, registry.get<comp::tile>(entity), position);
     }
   });
 }

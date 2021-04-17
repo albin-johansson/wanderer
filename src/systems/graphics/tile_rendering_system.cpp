@@ -9,23 +9,22 @@ namespace wanderer::sys {
 
 void render_tile(graphics_context& graphics,
                  const comp::tile& tile,
-                 const int row,
-                 const int col) noexcept
+                 const grid_position position) noexcept
 {
-  const auto x = static_cast<float>(col) * glob::tile_width<>;
-  const auto y = static_cast<float>(row) * glob::tile_height<>;
-  const cen::frect dst{{x, y}, glob::tile_size<cen::farea>};
-
+  const auto dst = cen::rect(position.col * glob::tile_width<>,
+                             position.row * glob::tile_height<>,
+                             glob::tile_width<>,
+                             glob::tile_height<>);
   graphics.render(tile.texture, tile.src, dst);
 }
 
 auto get_animated_tile(const entt::registry& registry,
-                       const comp::tile::entity tileEntity,
+                       const comp::tile::entity tile,
                        const ctx::tileset& tileset) -> const comp::tile&
 {
-  assert(registry.all_of<comp::tile_animation>(tileEntity));
+  assert(registry.all_of<comp::tile_animation>(tile));
 
-  const auto& animation = registry.get<comp::tile_animation>(tileEntity);
+  const auto& animation = registry.get<comp::tile_animation>(tile);
   const auto tileId = animation.frames.at(animation.index).tile;
 
   return registry.get<comp::tile>(tileset.tiles.at(tileId));

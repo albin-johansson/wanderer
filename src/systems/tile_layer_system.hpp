@@ -1,11 +1,13 @@
 #pragma once
 
+#include <cassert>   // assert
 #include <concepts>  // invocable
 #include <entt.hpp>  // registry
 
 #include "components/ctx/render_bounds.hpp"
 #include "components/map/tile_layer.hpp"
 #include "core/graphics/graphics_context.hpp"
+#include "core/grid_position.hpp"
 
 namespace wanderer::sys {
 
@@ -19,6 +21,8 @@ namespace wanderer::sys {
  * the function object features two integers, that correspond to the row and column
  * indices, respectively.
  *
+ * \ingroup systems
+ *
  * \tparam T the type of the function object.
  *
  * \param layer the layer whose tiles will be visited.
@@ -28,7 +32,7 @@ namespace wanderer::sys {
  *
  * \since 0.1.0
  */
-template <std::invocable<tile_id, int, int> T>
+template <std::invocable<tile_id, grid_position> T>
 void visit_tiles(const comp::tile_layer& layer,
                  const ctx::render_bounds& bounds,
                  T&& callable)
@@ -37,10 +41,15 @@ void visit_tiles(const comp::tile_layer& layer,
   {
     for (auto col = bounds.minCol; col < bounds.maxCol; ++col)
     {
-      const auto id = layer.matrix.at(row).at(col);
+      assert(row >= 0);
+      assert(row < layer.matrix.size());
+      assert(col >= 0);
+      assert(col < layer.matrix.at(row).size());
+
+      const auto id = layer.matrix[row][col];
       if (!is_empty(id))
       {
-        callable(id, row, col);
+        callable(id, grid_position{static_cast<float>(row), static_cast<float>(col)});
       }
     }
   }
