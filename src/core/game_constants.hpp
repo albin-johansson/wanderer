@@ -4,7 +4,13 @@
 
 #include "core/aliases/float2.hpp"
 
+/// \namespace wanderer::glob
+/// \brief Contains various constants.
+/// \ingroup core
 namespace wanderer::glob {
+
+/// \addtogroup core
+/// \{
 
 template <typename T = int>
 inline constexpr T logical_width{960};
@@ -35,5 +41,7 @@ inline constexpr float player_speed{1.25f * humanoid_draw_width};
 inline constexpr float monster_speed{0.75f * player_speed};
 
 inline constexpr cen::color transparent_black = cen::colors::black.with_alpha(0xBB);
+
+/// \} End of group core
 
 }  // namespace wanderer::glob
