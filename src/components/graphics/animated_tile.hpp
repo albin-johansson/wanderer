@@ -2,9 +2,9 @@
 
 #include <vector>  // vector
 
-#include "ints.hpp"
-#include "milliseconds.hpp"
-#include "tile_id.hpp"
+#include "core/aliases/ints.hpp"
+#include "core/aliases/milliseconds.hpp"
+#include "core/aliases/tile_id.hpp"
 
 namespace wanderer::comp {
 
@@ -13,18 +13,18 @@ namespace wanderer::comp {
  *
  * \brief Represents a frame in a tile animation.
  *
- * \var frame::tile
- * The tile ID of the tile that should be rendered when the frame is active.
- * \var frame::duration
- * The duration that the frame should be active, in milliseconds.
- *
  * \headerfile animated_tile.hpp
  */
 struct frame final
 {
-  tile_id tile{glob::empty_tile};
-  ms_t duration{};
+  tile_id tile{glob::empty_tile};  ///< ID of the tile that should be rendered.
+  ms_t duration{};                 ///< The duration that the frame is active.
 };
+
+void serialize(auto& archive, frame& f, u32 version)
+{
+  archive(f.tile, f.duration);
+}
 
 /**
  * \struct animated_tile
@@ -37,26 +37,14 @@ struct frame final
  * means that an arbitrary set of tiles in a tileset can make up a tile
  * animation.
  *
- * \var animated_tile::index
- * The current frame index. Starts at 0.
- * \var animated_tile::then
- * The time of the previous update, in milliseconds.
- * \var animated_tile::frames
- * The frames that constitute the animation.
- *
  * \headerfile animated_tile.hpp
  */
-struct animated_tile final
+struct animated_tile final  // TODO rename to tile_animation?
 {
-  int index{0};
-  ms_t then{};
-  std::vector<frame> frames;
+  int index{0};               ///< Current frame index.
+  ms_t then{};                ///< Time of the previous update.
+  std::vector<frame> frames;  ///< The frames that constitute the animation.
 };
-
-void serialize(auto& archive, frame& f, u32 version)
-{
-  archive(f.tile, f.duration);
-}
 
 void serialize(auto& archive, animated_tile& a, u32 version)
 {
