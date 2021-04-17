@@ -72,6 +72,8 @@ set(SOURCE_FILES
     core/null_entity.hpp
     core/render_text.cpp
     core/render_text.hpp
+    core/resources.cpp
+    core/resources.hpp
     core/serialization.hpp
     core/stack_resource.hpp
     core/text_size.hpp
@@ -120,9 +122,6 @@ set(SOURCE_FILES
     core/math/get_random.hpp
     core/math/index_to_matrix.hpp
     core/math/vector2.hpp
-
-    core/resources/resources.cpp
-    core/resources/resources.hpp
 
     core/settings/setting_id.hpp
 

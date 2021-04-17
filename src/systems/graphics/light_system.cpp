@@ -9,7 +9,7 @@
 #include "components/graphics/point_light.hpp"
 #include "core/centurion_utils.hpp"
 #include "core/math/get_random.hpp"
-#include "core/resources/resources.hpp"
+#include "core/resources.hpp"
 
 using namespace entt::literals;
 

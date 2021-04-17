@@ -4,7 +4,7 @@
 
 #include "core/make_renderer.hpp"
 #include "core/menu_constants.hpp"
-#include "core/resources/resources.hpp"
+#include "resources.hpp"
 
 namespace wanderer {
 namespace {

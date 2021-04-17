@@ -2,7 +2,7 @@
 
 #include "core/game_constants.hpp"
 #include "core/menu_constants.hpp"
-#include "core/resources/resources.hpp"
+#include "resources.hpp"
 
 namespace wanderer {
 

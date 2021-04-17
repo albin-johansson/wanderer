@@ -4,7 +4,7 @@
 #include "components/ui/menu.hpp"
 #include "core/menu_constants.hpp"
 #include "core/render_text.hpp"
-#include "core/resources/resources.hpp"
+#include "core/resources.hpp"
 #include "systems/ui/buttons/button_system.hpp"
 #include "systems/ui/checkboxes/checkbox_system.hpp"
 #include "systems/ui/grid.hpp"

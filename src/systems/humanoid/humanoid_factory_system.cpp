@@ -14,7 +14,7 @@
 #include "core/centurion_utils.hpp"
 #include "core/direction.hpp"
 #include "core/game_constants.hpp"
-#include "core/resources/resources.hpp"
+#include "core/resources.hpp"
 #include "systems/movement/hitbox_system.hpp"
 
 using namespace entt::literals;
