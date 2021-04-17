@@ -74,7 +74,7 @@ void level::save(const std::filesystem::path& path) const
   archive(m_playerSpawnPosition);
 }
 
-void level::relocate_aabb(const entt::entity entity, const float2& position)
+void level::relocate_aabb(const entt::entity entity, const float2 position)
 {
   m_tree.relocate(entity, position);
 }
@@ -99,7 +99,7 @@ auto level::tilemap() const -> comp::tilemap::entity
   return m_tilemap;
 }
 
-auto level::player_spawnpoint() const -> const float2&
+auto level::player_spawnpoint() const -> float2
 {
   return m_playerSpawnPosition.value();
 }

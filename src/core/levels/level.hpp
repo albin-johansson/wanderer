@@ -45,7 +45,7 @@ class level final
   // Saves the level as a binary file
   void save(const std::filesystem::path& path) const;
 
-  void relocate_aabb(entt::entity entity, const float2& position);
+  void relocate_aabb(entt::entity entity, float2 position);
 
   void update_render_bounds();
 
@@ -111,7 +111,7 @@ class level final
    *
    * \since 0.1.0
    */
-  [[nodiscard]] auto player_spawnpoint() const -> const float2&;
+  [[nodiscard]] auto player_spawnpoint() const -> float2;
 
   /**
    * \brief Returns the number of rows in the level tilemap.

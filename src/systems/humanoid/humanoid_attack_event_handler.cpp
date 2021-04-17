@@ -12,7 +12,7 @@
 namespace wanderer::sys {
 namespace {
 
-[[nodiscard]] auto get_particle_position(const float2& position,
+[[nodiscard]] auto get_particle_position(const float2 position,
                                          const comp::movable& movable)
 {
   switch (movable.dir)

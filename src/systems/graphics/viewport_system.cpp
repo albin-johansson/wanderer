@@ -8,7 +8,7 @@ namespace {
 
 inline constexpr float camera_speed = 10.0f;
 
-[[nodiscard]] auto next_camera_position(const float2& target,
+[[nodiscard]] auto next_camera_position(const float2 target,
                                         const ctx::viewport& viewport,
                                         const delta_time dt) -> float2
 {
@@ -62,7 +62,7 @@ inline constexpr float camera_speed = 10.0f;
   return float2{getX(target.x), getY(target.y)};
 }
 
-[[nodiscard]] auto make_target_vector(const float2& position,
+[[nodiscard]] auto make_target_vector(const float2 position,
                                       const ctx::viewport& viewport) noexcept -> float2
 {
   constexpr auto halfWidth = glob::humanoid_draw_width / 2.0f;
@@ -77,7 +77,7 @@ inline constexpr float camera_speed = 10.0f;
   return {x, y};
 }
 
-void track(ctx::viewport& viewport, const float2& position, const delta_time dt)
+void track(ctx::viewport& viewport, const float2 position, const delta_time dt)
 {
   const auto next =
       next_camera_position(make_target_vector(position, viewport), viewport, dt);
@@ -87,7 +87,7 @@ void track(ctx::viewport& viewport, const float2& position, const delta_time dt)
 
 }  // namespace
 
-auto make_viewport(const cen::farea& levelSize) noexcept -> ctx::viewport
+auto make_viewport(const cen::farea levelSize) noexcept -> ctx::viewport
 {
   ctx::viewport viewport;
 
@@ -97,7 +97,7 @@ auto make_viewport(const cen::farea& levelSize) noexcept -> ctx::viewport
   return viewport;
 }
 
-void center_viewport_on(entt::registry& registry, const float2& position)
+void center_viewport_on(entt::registry& registry, const float2 position)
 {
   auto& viewport = registry.ctx<ctx::viewport>();
   const auto target = make_target_vector(position, viewport);
