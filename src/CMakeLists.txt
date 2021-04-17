@@ -69,7 +69,6 @@ set(SOURCE_FILES
     core/menu_constants.hpp
     core/menu_id.hpp
     core/nenya.hpp
-    core/null_entity.hpp
     core/render_text.cpp
     core/render_text.hpp
     core/resources.cpp
@@ -100,6 +99,7 @@ set(SOURCE_FILES
     core/ecs/make_dispatcher.hpp
     core/ecs/make_registry.cpp
     core/ecs/make_registry.hpp
+    core/ecs/null_entity.hpp
     core/ecs/registry_utils.hpp
 
     core/levels/add_ground_layers.cpp

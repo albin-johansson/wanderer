@@ -2,7 +2,7 @@
 
 #include "core/aliases/entity_type.hpp"
 #include "core/aliases/ints.hpp"
-#include "core/null_entity.hpp"
+#include "core/ecs/null_entity.hpp"
 #include "inventory.hpp"
 
 namespace wanderer::comp {

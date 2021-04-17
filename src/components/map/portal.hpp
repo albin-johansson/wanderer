@@ -7,7 +7,7 @@
 #include "core/aliases/ints.hpp"
 #include "core/aliases/map_id.hpp"
 #include "core/aliases/maybe.hpp"
-#include "core/null_entity.hpp"
+#include "core/ecs/null_entity.hpp"
 
 namespace wanderer::comp {
 namespace detail {

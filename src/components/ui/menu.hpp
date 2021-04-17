@@ -7,8 +7,8 @@
 #include "components/input/key_bind.hpp"
 #include "core/aliases/entity_type.hpp"
 #include "core/aliases/maybe.hpp"
+#include "core/ecs/null_entity.hpp"
 #include "core/menu_id.hpp"
-#include "core/null_entity.hpp"
 
 namespace wanderer::comp {
 namespace detail {

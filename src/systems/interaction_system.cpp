@@ -3,7 +3,7 @@
 #include "components/ctx/player.hpp"
 #include "components/inventory/container_trigger.hpp"
 #include "components/map/portal.hpp"
-#include "core/null_entity.hpp"
+#include "core/ecs/null_entity.hpp"
 #include "events/close_inventory_event.hpp"
 #include "events/show_inventory_event.hpp"
 #include "events/switch_map_event.hpp"

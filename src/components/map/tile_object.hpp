@@ -4,7 +4,7 @@
 #include "core/aliases/entity_type.hpp"
 #include "core/aliases/ints.hpp"
 #include "core/aliases/tile_id.hpp"
-#include "core/null_entity.hpp"
+#include "core/ecs/null_entity.hpp"
 
 namespace wanderer::comp {
 namespace detail {

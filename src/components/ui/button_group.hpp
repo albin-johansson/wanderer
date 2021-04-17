@@ -5,7 +5,7 @@
 #include "components/ui/button.hpp"
 #include "components/ui/label.hpp"
 #include "core/aliases/entity_type.hpp"
-#include "core/null_entity.hpp"
+#include "core/ecs/null_entity.hpp"
 
 namespace wanderer::comp {
 namespace detail {

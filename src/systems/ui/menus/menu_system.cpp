@@ -3,7 +3,7 @@
 #include "components/ctx/active_menu.hpp"
 #include "components/ctx/time_of_day.hpp"
 #include "components/ui/cursors.hpp"
-#include "core/null_entity.hpp"
+#include "core/ecs/null_entity.hpp"
 #include "events/button_pressed_event.hpp"
 #include "events/switch_menu_event.hpp"
 #include "systems/ui/buttons/button_system.hpp"
