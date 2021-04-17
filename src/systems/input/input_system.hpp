@@ -14,6 +14,8 @@ namespace wanderer::sys {
 /**
  * \brief Handles the current player input.
  *
+ * \ingroup systems
+ *
  * \param registry the current level registry.
  * \param dispatcher the event dispatcher that will be used.
  * \param input the current input state.
