@@ -3,8 +3,6 @@ cmake_minimum_required(VERSION 3.15)
 project(wanderer-src CXX)
 
 set(SOURCE_FILES
-    game.hpp
-    game.cpp
     semi_fixed_game_loop.hpp
     wanderer_engine.cpp
     wanderer_engine.hpp
@@ -58,6 +56,8 @@ set(SOURCE_FILES
 
     core/common_concepts.hpp
     core/direction.hpp
+    core/game.hpp
+    core/game.cpp
     core/game_constants.hpp
     core/input.hpp
     core/menu_action.hpp
