@@ -6,7 +6,7 @@
 
 #include "core/aliases/entity_type.hpp"
 #include "core/aliases/maybe.hpp"
-#include "io/menu/menu_action.hpp"
+#include "core/menu_action.hpp"
 
 namespace wanderer::comp {
 namespace detail {

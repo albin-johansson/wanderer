@@ -156,7 +156,7 @@ set(SOURCE_FILES
     io/map/parse_world.cpp
     io/map/parse_world.hpp
 
-    io/menu/menu_action.hpp
+    core/menu_action.hpp
 
     io/saves/load_game.cpp
     io/saves/load_game.hpp

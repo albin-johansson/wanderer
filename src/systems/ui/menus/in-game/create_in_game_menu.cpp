@@ -1,7 +1,7 @@
 #include "create_in_game_menu.hpp"
 
 #include "components/input/key_bind.hpp"
-#include "io/menu/menu_action.hpp"
+#include "core/menu_action.hpp"
 #include "systems/input/key_bind_system.hpp"
 #include "systems/ui/menus/menu_system.hpp"
 

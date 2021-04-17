@@ -11,9 +11,9 @@
 #include "components/ui/menu.hpp"
 #include "components/ui/saves_menu.hpp"
 #include "core/ecs/registry_utils.hpp"
+#include "core/menu_action.hpp"
 #include "core/null_entity.hpp"
 #include "io/files_directory.hpp"
-#include "io/menu/menu_action.hpp"
 #include "systems/ui/buttons/button_system.hpp"
 #include "systems/ui/labels/label_system.hpp"
 

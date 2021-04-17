@@ -2,7 +2,7 @@
 
 #include <entt.hpp>  // id_type
 
-#include "io/menu/menu_action.hpp"
+#include "core/menu_action.hpp"
 
 namespace wanderer {
 

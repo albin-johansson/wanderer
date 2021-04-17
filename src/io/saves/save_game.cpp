@@ -4,6 +4,7 @@
 #include <iomanip>   // setw
 #include <json.hpp>  // json
 #include <string>    // string, to_string
+#include <utility>   // move
 
 #include "io/files_directory.hpp"
 

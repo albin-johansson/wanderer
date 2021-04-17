@@ -5,7 +5,7 @@
 #include <type_traits>    // is_same_v
 
 #include "components/input/key_bind.hpp"
-#include "io/menu/menu_action.hpp"
+#include "core/menu_action.hpp"
 
 namespace wanderer::sys {
 

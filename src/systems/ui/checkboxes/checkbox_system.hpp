@@ -5,7 +5,7 @@
 #include <string>         // string
 
 #include "components/ui/checkbox.hpp"
-#include "io/menu/menu_action.hpp"
+#include "core/menu_action.hpp"
 
 namespace wanderer::sys {
 

@@ -4,7 +4,7 @@
 #include <vector>         // vector
 
 #include "core/aliases/entity_type.hpp"
-#include "io/menu/menu_action.hpp"
+#include "core/menu_action.hpp"
 
 namespace wanderer::comp {
 namespace detail {
