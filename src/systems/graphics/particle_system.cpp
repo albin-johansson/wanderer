@@ -1,9 +1,11 @@
 #include "particle_system.hpp"
 
+#include "components/ctx/viewport.hpp"
 #include "components/graphics/particle.hpp"
 #include "core/math/get_random.hpp"
 
 namespace wanderer::sys {
+namespace {
 
 inline constexpr float time_step = 10;     // How much time passes each frame
 inline constexpr float initial_z_pos = 2;  // The initial theoretical Z-coordinate
@@ -25,22 +27,10 @@ inline constexpr float x_accel = 36;
 inline constexpr float y_accel = 36;
 inline constexpr float z_accel = -30;
 
-void spawn_particles(entt::registry& registry,
-                     const float2 origin,
-                     const int count,
-                     const float duration,
-                     const cen::color& color)
-{
-  for (auto i = 0; i < count; ++i)
-  {
-    add_particle(registry, origin, duration, color);
-  }
-}
-
-void add_particle(entt::registry& registry,
-                  const float2 position,
-                  const float duration,
-                  const cen::color& color)
+void spawn_particle(entt::registry& registry,
+                    const float2 position,
+                    const float duration,
+                    const cen::color& color)
 {
   auto& particle = registry.emplace<comp::particle>(registry.create());
   particle.position = {position.x, position.y, initial_z_pos};
@@ -52,6 +42,20 @@ void add_particle(entt::registry& registry,
   particle.now = 0;
   particle.duration = duration;
   particle.color = color;
+}
+
+}  // namespace
+
+void spawn_particles(entt::registry& registry,
+                     const float2 origin,
+                     const int count,
+                     const float duration,
+                     const cen::color& color)
+{
+  for (auto i = 0; i < count; ++i)
+  {
+    spawn_particle(registry, origin, duration, color);
+  }
 }
 
 void update_particles(entt::registry& registry, const delta_time dt)
@@ -81,16 +85,22 @@ void update_particles(entt::registry& registry, const delta_time dt)
   }
 }
 
-void render_particles(const entt::registry& registry, cen::renderer& renderer)
+void render_particles(const entt::registry& registry, graphics_context& graphics)
 {
+  const auto& viewport = registry.ctx<const ctx::viewport>();
+  auto& renderer = graphics.renderer();
+
   for (auto&& [entity, particle] : registry.view<const comp::particle>().each())
   {
     const auto rect = cen::rect(particle.position.x,
                                 particle.position.y - particle.position.z,
                                 2.0f,
                                 2.0f);
-    renderer.set_color(particle.color);
-    renderer.fill_rect_t(rect);
+    if (cen::intersects(viewport.bounds, rect))
+    {
+      renderer.set_color(particle.color);
+      renderer.fill_rect_t(rect);
+    }
   }
 }
 

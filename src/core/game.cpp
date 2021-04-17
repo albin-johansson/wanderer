@@ -116,7 +116,7 @@ void game::render(graphics_context& graphics, const cen::ipoint mousePos)
 
   sys::render_tile_layers(registry, graphics);
   sys::render_drawables(registry, graphics);
-  sys::render_particles(registry, renderer);
+  sys::render_particles(registry, graphics);
 
   if (registry.try_ctx<const ctx::outside_level>())
   {
