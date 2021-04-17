@@ -4,7 +4,8 @@
 
 namespace wanderer {
 
-/// A simple wrapper around the keyboard and mouse state
+/// \brief A simple wrapper around the keyboard and mouse state
+/// \ingroup core
 struct input final
 {
   cen::keyboard keyboard;  ///< The keyboard state.
