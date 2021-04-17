@@ -1,3 +1,5 @@
+#include "idle_input_system.hpp"
+
 #include <cassert>   // assert
 #include <optional>  // optional
 
@@ -9,7 +11,6 @@
 #include "events/begin_attack_event.hpp"
 #include "events/begin_humanoid_move_event.hpp"
 #include "events/interact_event.hpp"
-#include "systems/input/input_system.hpp"
 
 namespace wanderer::sys {
 namespace {

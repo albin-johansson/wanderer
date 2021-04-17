@@ -20,6 +20,7 @@
 #include "systems/graphics/light_system.hpp"
 #include "systems/graphics/particle_system.hpp"
 #include "systems/graphics/tile_animation_system.hpp"
+#include "systems/graphics/tile_layer_rendering_system.hpp"
 #include "systems/graphics/tile_object_animation_system.hpp"
 #include "systems/graphics/viewport_system.hpp"
 #include "systems/humanoid/humanoid_animation_system.hpp"

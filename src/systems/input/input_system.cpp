@@ -1,6 +1,8 @@
 #include "input_system.hpp"
 
 #include "components/humanoid_state.hpp"
+#include "systems/input/idle_input_system.hpp"
+#include "systems/input/movement_input_system.hpp"
 
 namespace wanderer::sys {
 

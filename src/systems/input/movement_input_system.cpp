@@ -1,3 +1,5 @@
+#include "movement_input_system.hpp"
+
 #include <cassert>  // assert
 
 #include "components/ctx/binds.hpp"
@@ -8,7 +10,6 @@
 #include "events/begin_attack_event.hpp"
 #include "events/end_humanoid_move_event.hpp"
 #include "events/interact_event.hpp"
-#include "systems/input/input_system.hpp"
 
 namespace wanderer::sys {
 namespace {

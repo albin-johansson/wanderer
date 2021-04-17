@@ -200,6 +200,8 @@ set(SOURCE_FILES
     systems/graphics/render_bounds_system.hpp
     systems/graphics/tile_animation_system.cpp
     systems/graphics/tile_animation_system.hpp
+    systems/graphics/tile_layer_rendering_system.cpp
+    systems/graphics/tile_layer_rendering_system.hpp
     systems/graphics/tile_object_animation_system.cpp
     systems/graphics/tile_object_animation_system.hpp
     systems/graphics/tile_rendering_system.cpp
@@ -218,12 +220,14 @@ set(SOURCE_FILES
     systems/humanoid/humanoid_state_system.cpp
     systems/humanoid/humanoid_state_system.hpp
 
-    systems/input/handle_idle_input.cpp
-    systems/input/handle_move_input.cpp
+    systems/input/idle_input_system.cpp
+    systems/input/idle_input_system.hpp
     systems/input/input_system.cpp
     systems/input/input_system.hpp
     systems/input/key_bind_system.cpp
     systems/input/key_bind_system.hpp
+    systems/input/movement_input_system.cpp
+    systems/input/movement_input_system.hpp
 
     systems/movement/hitbox_system.cpp
     systems/movement/hitbox_system.hpp
@@ -282,7 +286,7 @@ set(SOURCE_FILES
     systems/ui/menus/settings/create_settings_menu.cpp
     systems/ui/menus/settings/create_settings_menu.hpp
     systems/ui/menus/settings/sync_settings_menu.cpp
-    systems/graphics/tile_layer_rendering_system.cpp systems/graphics/tile_layer_rendering_system.hpp)
+    )
 
 add_library(${WANDERER_LIB_TARGET} ${SOURCE_FILES})
 
