@@ -1,7 +1,7 @@
 #pragma once
 
-#include "map_id.hpp"
-#include "maybe.hpp"
+#include "core/aliases/map_id.hpp"
+#include "core/aliases/maybe.hpp"
 
 namespace wanderer::comp {
 
