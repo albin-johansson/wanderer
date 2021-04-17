@@ -10,6 +10,8 @@ namespace wanderer::sys {
 /**
  * \brief Updates all `animated` components in a registry.
  *
+ * \ingroup systems
+ *
  * \param registry the registry that contains the animated components.
  *
  * \since 0.1.0
