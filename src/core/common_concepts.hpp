@@ -5,6 +5,9 @@
 
 namespace wanderer {
 
+/// \addtogroup core
+/// \{
+
 // clang-format off
 
 template <typename T, typename Elem>
@@ -20,5 +23,7 @@ concept container_type = std::ranges::range<T> &&
                          has_value_type<T, Elem>;
 
 // clang-format on
+
+/// \} End of group core
 
 }  // namespace wanderer
