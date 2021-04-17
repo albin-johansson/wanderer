@@ -1,4 +1,4 @@
-#include "components/graphics/animated_tile.hpp"
+#include "components/graphics/tile_animation.hpp"
 #include "components/map/tile_layer.hpp"
 #include "components/map/tilemap.hpp"
 #include "systems/graphics/tile_rendering_system.hpp"
@@ -15,7 +15,7 @@ void render_tile_layer(const entt::registry& registry,
 {
   visit_tiles(layer, bounds, [&](const tile_id id, const int row, const int col) {
     const auto entity = tileset.tiles.at(id);
-    if (registry.all_of<comp::animated_tile>(entity))
+    if (registry.all_of<comp::tile_animation>(entity))
     {
       render_tile(graphics, get_animated_tile(registry, entity, tileset), row, col);
     }

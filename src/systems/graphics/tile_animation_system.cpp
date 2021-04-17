@@ -2,23 +2,23 @@
 
 #include <centurion.hpp>  // ticks
 
-#include "components/graphics/animated_tile.hpp"
+#include "components/graphics/tile_animation.hpp"
 
 namespace wanderer::sys {
 
 void update_tile_animations(entt::registry& registry)
 {
-  for (auto&& [entity, tile] : registry.view<comp::animated_tile>().each())
+  for (auto&& [entity, animation] : registry.view<comp::tile_animation>().each())
   {
     const auto now = cen::counter::ticks();
-    const auto elapsed = now - tile.then;
-    if (elapsed >= tile.frames.at(tile.index).duration)
+    const auto elapsed = now - animation.then;
+    if (elapsed >= animation.frames.at(animation.index).duration)
     {
-      tile.then = now;
-      ++tile.index;
-      if (tile.index >= tile.frames.size())
+      animation.then = now;
+      ++animation.index;
+      if (animation.index >= animation.frames.size())
       {
-        tile.index = 0;
+        animation.index = 0;
       }
     }
   }

@@ -13,7 +13,7 @@ namespace wanderer::comp {
  *
  * \brief Represents a frame in a tile animation.
  *
- * \headerfile animated_tile.hpp
+ * \headerfile tile_animation.hpp
  */
 struct frame final
 {
@@ -27,9 +27,9 @@ void serialize(auto& archive, frame& f, u32 version)
 }
 
 /**
- * \struct animated_tile
+ * \struct tile_animation
  *
- * \brief Represents the animation associated with a tile.
+ * \brief Represents animations used by tiles.
  *
  * \details An animated tile is different than a normal animated entity,
  * since animated tiles can have different durations for each frame.
@@ -37,16 +37,16 @@ void serialize(auto& archive, frame& f, u32 version)
  * means that an arbitrary set of tiles in a tileset can make up a tile
  * animation.
  *
- * \headerfile animated_tile.hpp
+ * \headerfile tile_animation.hpp
  */
-struct animated_tile final  // TODO rename to tile_animation?
+struct tile_animation final
 {
   int index{0};               ///< Current frame index.
   ms_t then{};                ///< Time of the previous update.
   std::vector<frame> frames;  ///< The frames that constitute the animation.
 };
 
-void serialize(auto& archive, animated_tile& a, u32 version)
+void serialize(auto& archive, tile_animation& a, u32 version)
 {
   archive(a.index, a.then, a.frames);
 }

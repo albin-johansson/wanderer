@@ -42,9 +42,9 @@ void add_tile_objects(entt::registry& registry,
     }
 
     if (const auto* animation =
-            registry.try_get<comp::animated_tile>(tileObject.tileEntity))
+            registry.try_get<comp::tile_animation>(tileObject.tileEntity))
     {
-      registry.emplace<comp::animated_tile>(entity, *animation);
+      registry.emplace<comp::tile_animation>(entity, *animation);
     }
   }
 }

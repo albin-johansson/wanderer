@@ -11,10 +11,10 @@
 #include "components/ctx/viewport.hpp"
 #include "components/float3.hpp"
 #include "components/graphics/animated.hpp"
-#include "components/graphics/animated_tile.hpp"
 #include "components/graphics/depth_drawable.hpp"
 #include "components/graphics/particle.hpp"
 #include "components/graphics/point_light.hpp"
+#include "components/graphics/tile_animation.hpp"
 #include "components/hitbox.hpp"
 #include "components/humanoid_state.hpp"
 #include "components/inventory/container_trigger.hpp"
@@ -44,7 +44,7 @@ void process(T& handle, Archive& archive)
                           ctx::time_of_day,
                           ctx::viewport,
                           comp::animated,
-                          comp::animated_tile,
+                          comp::tile_animation,
                           comp::chase,
                           comp::container_trigger,
                           comp::depth_drawable,

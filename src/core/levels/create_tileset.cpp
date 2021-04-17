@@ -27,7 +27,7 @@ void create_tiles(entt::registry& registry,
 
       if (fancy.animation)
       {
-        registry.emplace<comp::animated_tile>(entity, *fancy.animation);
+        registry.emplace<comp::tile_animation>(entity, *fancy.animation);
       }
     }
   }

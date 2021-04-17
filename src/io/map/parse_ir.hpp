@@ -5,9 +5,9 @@
 #include <string>         // string
 #include <vector>         // vector
 
-#include "components/graphics/animated_tile.hpp"
 #include "components/graphics/depth_drawable.hpp"
 #include "components/graphics/point_light.hpp"
+#include "components/graphics/tile_animation.hpp"
 #include "components/hitbox.hpp"
 #include "components/inventory/container_trigger.hpp"
 #include "components/inventory/inventory.hpp"
@@ -31,9 +31,9 @@ struct texture final
 
 struct fancy_tile final
 {
-  depth_t depth{5};                      ///< Render depth index.
-  maybe<comp::hitbox> hitbox;            ///< Optional hitbox "template".
-  maybe<comp::animated_tile> animation;  ///< Optional tile animation.
+  depth_t depth{5};                       ///< Render depth index.
+  maybe<comp::hitbox> hitbox;             ///< Optional hitbox "template".
+  maybe<comp::tile_animation> animation;  ///< Optional tile animation.
 };
 
 struct tile final

@@ -2,7 +2,7 @@
 
 #include <centurion.hpp>  // farea, frect
 
-#include "components/graphics/animated_tile.hpp"
+#include "components/graphics/tile_animation.hpp"
 #include "core/game_constants.hpp"
 
 namespace wanderer::sys {
@@ -23,13 +23,12 @@ auto get_animated_tile(const entt::registry& registry,
                        const comp::tile::entity tileEntity,
                        const ctx::tileset& tileset) -> const comp::tile&
 {
-  assert(registry.all_of<comp::animated_tile>(tileEntity));
+  assert(registry.all_of<comp::tile_animation>(tileEntity));
 
-  const auto& animatedTile = registry.get<comp::animated_tile>(tileEntity);
-  const auto tileId = animatedTile.frames.at(animatedTile.index).tile;
-  const auto animatedEntity = tileset.tiles.at(tileId);
+  const auto& animation = registry.get<comp::tile_animation>(tileEntity);
+  const auto tileId = animation.frames.at(animation.index).tile;
 
-  return registry.get<comp::tile>(animatedEntity);
+  return registry.get<comp::tile>(tileset.tiles.at(tileId));
 }
 
 }  // namespace wanderer::sys

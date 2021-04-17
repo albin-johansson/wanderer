@@ -1,7 +1,7 @@
 #include "tile_object_animation_system.hpp"
 
-#include "components/graphics/animated_tile.hpp"
 #include "components/graphics/depth_drawable.hpp"
+#include "components/graphics/tile_animation.hpp"
 #include "components/map/tile_object.hpp"
 #include "systems/graphics/tile_rendering_system.hpp"
 
@@ -14,7 +14,7 @@ void update_tile_object_animations(entt::registry& registry)
   const auto view = registry.view<const comp::tile_object, comp::depth_drawable>();
   for (auto&& [entity, object, drawable] : view.each())
   {
-    if (registry.all_of<comp::animated_tile>(object.tileEntity))
+    if (registry.all_of<comp::tile_animation>(object.tileEntity))
     {
       const auto& tile = get_animated_tile(registry, object.tileEntity, tileset);
       drawable.src = tile.src;

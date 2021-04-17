@@ -17,7 +17,7 @@ set(SOURCE_FILES
     components/object.hpp
 
     components/graphics/animated.hpp
-    components/graphics/animated_tile.hpp
+    components/graphics/tile_animation.hpp
     components/graphics/depth_drawable.hpp
     components/graphics/level_switch_animation.hpp
     components/graphics/particle.hpp
