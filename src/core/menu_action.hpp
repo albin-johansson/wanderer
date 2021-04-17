@@ -2,6 +2,8 @@
 
 namespace wanderer {
 
+/// \brief Provides identifiers for all of the possible menu actions.
+/// \ingroup core
 enum class menu_action
 {
   none,
