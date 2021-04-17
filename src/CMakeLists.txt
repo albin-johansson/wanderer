@@ -59,6 +59,7 @@ set(SOURCE_FILES
     core/game.hpp
     core/game.cpp
     core/game_constants.hpp
+    core/grid_position.hpp
     core/input.hpp
     core/menu_action.hpp
     core/menu_constants.hpp
