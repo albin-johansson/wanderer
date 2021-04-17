@@ -124,7 +124,6 @@ set(SOURCE_FILES
     core/math/index_to_matrix.hpp
     core/math/vector2.hpp
 
-    core/settings/setting_id.hpp
 
     events/begin_attack_event.hpp
     events/begin_humanoid_move_event.hpp
