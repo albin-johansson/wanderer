@@ -1,5 +1,17 @@
 #pragma once
 
+/// \defgroup systems Systems
+/// \brief Contains all of the systems, that provide all of the game logic.
+
+/// \defgroup components Components
+/// \brief Contains all of the components.
+
+/// \defgroup core Core
+/// \brief Contains "core" game components, used throughout the game.
+
+/// \defgroup events Events
+/// \brief Contains all events emitted in the game.
+
 #include <centurion.hpp>
 
 #include "core/aliases/delta_time.hpp"
@@ -20,6 +32,8 @@ namespace wanderer {
 
 /**
  * \class game
+ *
+ * \ingroup core
  *
  * \brief Represents the Wanderer game.
  *
