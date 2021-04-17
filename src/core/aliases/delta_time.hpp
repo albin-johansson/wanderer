@@ -1,6 +1,6 @@
 #pragma once
 
-#include "core/nenya.hpp"
+#include "core/utils/nenya.hpp"
 
 namespace wanderer {
 namespace detail {

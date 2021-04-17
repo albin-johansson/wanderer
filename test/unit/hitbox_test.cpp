@@ -3,7 +3,7 @@
 #include <gtest/gtest.h>
 
 #include "components/movable.hpp"
-#include "core/centurion_utils.hpp"
+#include "core/utils/centurion_utils.hpp"
 #include "systems/movement/hitbox_system.hpp"
 
 using namespace wanderer;

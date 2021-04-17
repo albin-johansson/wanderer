@@ -1,6 +1,6 @@
 #include "add_tile_objects.hpp"
 
-#include "core/centurion_utils.hpp"
+#include "core/utils/centurion_utils.hpp"
 
 namespace wanderer {
 namespace {

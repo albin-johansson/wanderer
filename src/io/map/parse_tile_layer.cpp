@@ -1,7 +1,7 @@
 #include "parse_tile_layer.hpp"
 
-#include "core/centurion_utils.hpp"
 #include "core/game_constants.hpp"
+#include "core/utils/centurion_utils.hpp"
 #include "systems/movement/hitbox_system.hpp"
 
 namespace wanderer {

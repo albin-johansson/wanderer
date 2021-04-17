@@ -6,8 +6,8 @@
 #include "components/hitbox.hpp"
 #include "components/movable.hpp"
 #include "core/aliases/maybe.hpp"
-#include "core/centurion_utils.hpp"
 #include "core/stack_resource.hpp"
+#include "core/utils/centurion_utils.hpp"
 #include "systems/movement/hitbox_system.hpp"
 #include "systems/movement/movable_system.hpp"
 

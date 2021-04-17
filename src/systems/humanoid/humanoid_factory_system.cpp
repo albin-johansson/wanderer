@@ -11,10 +11,10 @@
 #include "components/hitbox.hpp"
 #include "components/humanoid_state.hpp"
 #include "components/movable.hpp"
-#include "core/centurion_utils.hpp"
 #include "core/direction.hpp"
 #include "core/game_constants.hpp"
 #include "core/resources.hpp"
+#include "core/utils/centurion_utils.hpp"
 #include "systems/movement/hitbox_system.hpp"
 
 using namespace entt::literals;

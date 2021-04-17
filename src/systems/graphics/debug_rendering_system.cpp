@@ -7,8 +7,8 @@
 #include "components/hitbox.hpp"
 #include "components/inventory/container_trigger.hpp"
 #include "components/map/portal.hpp"
-#include "core/centurion_utils.hpp"
 #include "core/menu_constants.hpp"
+#include "core/utils/centurion_utils.hpp"
 #include "systems/ui/menus/menu_system.hpp"
 
 namespace wanderer::sys {

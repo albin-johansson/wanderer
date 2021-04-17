@@ -56,7 +56,6 @@ set(SOURCE_FILES
     components/ui/menu.hpp
     components/ui/saves_menu.hpp
 
-    core/centurion_utils.hpp
     core/common_concepts.hpp
     core/direction.hpp
     core/game_constants.hpp
@@ -64,7 +63,6 @@ set(SOURCE_FILES
     core/menu_action.hpp
     core/menu_constants.hpp
     core/menu_id.hpp
-    core/nenya.hpp
     core/resources.cpp
     core/resources.hpp
     core/serialization.hpp
@@ -124,6 +122,8 @@ set(SOURCE_FILES
     core/math/index_to_matrix.hpp
     core/math/vector2.hpp
 
+    core/utils/centurion_utils.hpp
+    core/utils/nenya.hpp
 
     events/begin_attack_event.hpp
     events/begin_humanoid_move_event.hpp
