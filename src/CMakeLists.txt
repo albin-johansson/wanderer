@@ -5,9 +5,9 @@ project(wanderer-src CXX)
 set(SOURCE_FILES
     game.hpp
     game.cpp
+    semi_fixed_game_loop.hpp
     wanderer_engine.cpp
     wanderer_engine.hpp
-    semi_fixed_game_loop.hpp
 
     components/chase.hpp
     components/float3.hpp
@@ -16,12 +16,22 @@ set(SOURCE_FILES
     components/movable.hpp
     components/object.hpp
 
+    components/ctx/active_menu.hpp
+    components/ctx/binds.hpp
+    components/ctx/outside_level.hpp
+    components/ctx/player.hpp
+    components/ctx/render_bounds.hpp
+    components/ctx/settings.hpp
+    components/ctx/tileset.hpp
+    components/ctx/time_of_day.hpp
+    components/ctx/viewport.hpp
+
     components/graphics/animated.hpp
-    components/graphics/tile_animation.hpp
     components/graphics/depth_drawable.hpp
     components/graphics/level_switch_animation.hpp
     components/graphics/particle.hpp
     components/graphics/point_light.hpp
+    components/graphics/tile_animation.hpp
 
     components/input/key_bind.hpp
 
@@ -55,6 +65,7 @@ set(SOURCE_FILES
     core/input.hpp
     core/make_renderer.cpp
     core/make_renderer.hpp
+    core/menu_action.hpp
     core/menu_constants.hpp
     core/menu_id.hpp
     core/nenya.hpp
@@ -79,10 +90,15 @@ set(SOURCE_FILES
     core/aliases/texture_index.hpp
     core/aliases/tile_id.hpp
 
+    core/ecs/add_humanoid_state_dependencies.cpp
+    core/ecs/add_humanoid_state_dependencies.hpp
     core/ecs/event_connections.cpp
     core/ecs/event_connections.hpp
     core/ecs/make_dispatcher.cpp
     core/ecs/make_dispatcher.hpp
+    core/ecs/make_registry.cpp
+    core/ecs/make_registry.hpp
+    core/ecs/registry_utils.hpp
 
     core/levels/add_ground_layers.cpp
     core/levels/add_ground_layers.hpp
@@ -105,26 +121,10 @@ set(SOURCE_FILES
     core/math/index_to_matrix.hpp
     core/math/vector2.hpp
 
-    core/ecs/add_humanoid_state_dependencies.cpp
-    core/ecs/add_humanoid_state_dependencies.hpp
-    core/ecs/make_registry.cpp
-    core/ecs/make_registry.hpp
-    core/ecs/registry_utils.hpp
-
     core/resources/resources.cpp
     core/resources/resources.hpp
 
     core/settings/setting_id.hpp
-
-    components/ctx/active_menu.hpp
-    components/ctx/binds.hpp
-    components/ctx/outside_level.hpp
-    components/ctx/player.hpp
-    components/ctx/render_bounds.hpp
-    components/ctx/settings.hpp
-    components/ctx/tileset.hpp
-    components/ctx/time_of_day.hpp
-    components/ctx/viewport.hpp
 
     events/begin_attack_event.hpp
     events/begin_humanoid_move_event.hpp
@@ -142,6 +142,10 @@ set(SOURCE_FILES
     events/switch_map_event.hpp
     events/switch_menu_event.hpp
 
+    io/files_directory.cpp
+    io/files_directory.hpp
+    io/ini.hpp
+
     io/map/parse_ir.hpp
     io/map/parse_layers.cpp
     io/map/parse_layers.hpp
@@ -156,8 +160,6 @@ set(SOURCE_FILES
     io/map/parse_world.cpp
     io/map/parse_world.hpp
 
-    core/menu_action.hpp
-
     io/saves/load_game.cpp
     io/saves/load_game.hpp
     io/saves/parse_save_file.cpp
@@ -165,10 +167,6 @@ set(SOURCE_FILES
     io/saves/save_file_info.hpp
     io/saves/save_game.cpp
     io/saves/save_game.hpp
-
-    io/files_directory.cpp
-    io/files_directory.hpp
-    io/ini.hpp
 
     systems/interaction_system.cpp
     systems/interaction_system.hpp
@@ -186,36 +184,6 @@ set(SOURCE_FILES
     systems/configuration/settings_system.cpp
     systems/configuration/settings_system.hpp
 
-    systems/humanoid/humanoid_animation_system.cpp
-    systems/humanoid/humanoid_animation_system.hpp
-    systems/humanoid/humanoid_attack_event_handler.cpp
-    systems/humanoid/humanoid_attack_event_handler.hpp
-    systems/humanoid/humanoid_factory_system.cpp
-    systems/humanoid/humanoid_factory_system.hpp
-    systems/humanoid/humanoid_move_event_handler.cpp
-    systems/humanoid/humanoid_move_event_handler.hpp
-    systems/humanoid/humanoid_state_system.cpp
-    systems/humanoid/humanoid_state_system.hpp
-
-    systems/input/handle_idle_input.cpp
-    systems/input/input_system.cpp
-    systems/input/input_system.hpp
-    systems/input/key_bind_system.cpp
-    systems/input/key_bind_system.hpp
-    systems/input/handle_move_input.cpp
-
-    systems/layers/render_ground_layers.cpp
-    systems/layers/layer_system.hpp
-
-    systems/movement/hitbox_system.cpp
-    systems/movement/hitbox_system.hpp
-    systems/movement/movable_system.hpp
-    systems/movement/movable_system.cpp
-    systems/movement/movement_system.cpp
-    systems/movement/movement_system.hpp
-    systems/movement/portal_system.cpp
-    systems/movement/portal_system.hpp
-
     systems/graphics/animation_system.cpp
     systems/graphics/animation_system.hpp
     systems/graphics/debug_rendering_system.cpp
@@ -226,7 +194,6 @@ set(SOURCE_FILES
     systems/graphics/drawable_system.hpp
     systems/graphics/light_system.cpp
     systems/graphics/light_system.hpp
-    systems/graphics/make_viewport.cpp
     systems/graphics/particle_system.hpp
     systems/graphics/particle_system.cpp
     systems/graphics/render_bounds_system.cpp
@@ -239,6 +206,36 @@ set(SOURCE_FILES
     systems/graphics/tile_rendering_system.hpp
     systems/graphics/viewport_system.cpp
     systems/graphics/viewport_system.hpp
+
+    systems/humanoid/humanoid_animation_system.cpp
+    systems/humanoid/humanoid_animation_system.hpp
+    systems/humanoid/humanoid_attack_event_handler.cpp
+    systems/humanoid/humanoid_attack_event_handler.hpp
+    systems/humanoid/humanoid_factory_system.cpp
+    systems/humanoid/humanoid_factory_system.hpp
+    systems/humanoid/humanoid_move_event_handler.cpp
+    systems/humanoid/humanoid_move_event_handler.hpp
+    systems/humanoid/humanoid_state_system.cpp
+    systems/humanoid/humanoid_state_system.hpp
+
+    systems/input/handle_idle_input.cpp
+    systems/input/handle_move_input.cpp
+    systems/input/input_system.cpp
+    systems/input/input_system.hpp
+    systems/input/key_bind_system.cpp
+    systems/input/key_bind_system.hpp
+
+    systems/layers/layer_system.hpp
+    systems/layers/render_ground_layers.cpp
+
+    systems/movement/hitbox_system.cpp
+    systems/movement/hitbox_system.hpp
+    systems/movement/movable_system.hpp
+    systems/movement/movable_system.cpp
+    systems/movement/movement_system.cpp
+    systems/movement/movement_system.hpp
+    systems/movement/portal_system.cpp
+    systems/movement/portal_system.hpp
 
     systems/saves/saves_system.cpp
     systems/saves/saves_system.hpp
@@ -267,23 +264,27 @@ set(SOURCE_FILES
     systems/ui/lines/make_line.cpp
     systems/ui/lines/render_lines.cpp
 
-    systems/ui/menus/controls/create_controls_menu.cpp
-    systems/ui/menus/controls/create_controls_menu.hpp
-    systems/ui/menus/home/create_home_menu.cpp
-    systems/ui/menus/home/create_home_menu.hpp
-    systems/ui/menus/in-game/create_in_game_menu.cpp
-    systems/ui/menus/in-game/create_in_game_menu.hpp
-    systems/ui/menus/settings/create_settings_menu.cpp
-    systems/ui/menus/settings/create_settings_menu.hpp
     systems/ui/menus/make_menu.cpp
-    systems/ui/menus/render_menu.cpp
     systems/ui/menus/menu_system.cpp
     systems/ui/menus/menu_system.hpp
-    systems/ui/menus/settings/sync_settings_menu.cpp
+    systems/ui/menus/render_menu.cpp
+
+    systems/ui/menus/controls/create_controls_menu.cpp
+    systems/ui/menus/controls/create_controls_menu.hpp
+
+    systems/ui/menus/home/create_home_menu.cpp
+    systems/ui/menus/home/create_home_menu.hpp
+
+    systems/ui/menus/in-game/create_in_game_menu.cpp
+    systems/ui/menus/in-game/create_in_game_menu.hpp
 
     systems/ui/menus/saves/create_saves_menu.cpp
     systems/ui/menus/saves/saves_menu_system.cpp
     systems/ui/menus/saves/saves_menu_system.hpp
+
+    systems/ui/menus/settings/create_settings_menu.cpp
+    systems/ui/menus/settings/create_settings_menu.hpp
+    systems/ui/menus/settings/sync_settings_menu.cpp
     )
 
 add_library(${WANDERER_LIB_TARGET} ${SOURCE_FILES})

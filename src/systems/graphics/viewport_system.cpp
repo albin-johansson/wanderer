@@ -87,6 +87,16 @@ void track(ctx::viewport& viewport, const float2& position, const delta_time dt)
 
 }  // namespace
 
+auto make_viewport(const cen::farea& levelSize) noexcept -> ctx::viewport
+{
+  ctx::viewport viewport;
+
+  viewport.bounds = {{}, glob::logical_size<cen::farea>};
+  viewport.levelSize = levelSize;
+
+  return viewport;
+}
+
 void center_viewport_on(entt::registry& registry, const float2& position)
 {
   auto& viewport = registry.ctx<ctx::viewport>();
