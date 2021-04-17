@@ -94,7 +94,9 @@ void game::tick(const delta_time dt)
 
   sys::update_portal_triggers(registry);
   sys::update_inventory_triggers(registry);
-  sys::update_viewport(*level, registry.ctx<ctx::player>().entity, dt);
+
+  const auto player = registry.ctx<ctx::player>().entity;
+  sys::update_viewport(registry, comp::movable::entity{player}, dt);
   sys::update_depth(registry);
 
   sys::update_animations(registry);

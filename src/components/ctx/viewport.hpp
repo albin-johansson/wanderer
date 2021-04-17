@@ -28,7 +28,7 @@ struct viewport final
 {
   cen::frect bounds;
   cen::farea levelSize;
-  bool keepInBounds{false};
+  bool keepInBounds{};
 };
 
 void serialize(auto& archive, viewport& v, u32 version)

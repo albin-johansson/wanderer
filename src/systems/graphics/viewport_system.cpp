@@ -62,8 +62,8 @@ inline constexpr float camera_speed = 10.0f;
   return float2{getX(target.x), getY(target.y)};
 }
 
-[[nodiscard]] auto make_target_vector(const float2 position,
-                                      const ctx::viewport& viewport) noexcept -> float2
+[[nodiscard]] auto make_target(const float2 position,
+                               const ctx::viewport& viewport) noexcept -> float2
 {
   constexpr auto halfWidth = glob::humanoid_draw_width / 2.0f;
   constexpr auto halfHeight = glob::humanoid_draw_height / 2.0f;
@@ -79,8 +79,7 @@ inline constexpr float camera_speed = 10.0f;
 
 void track(ctx::viewport& viewport, const float2 position, const delta_time dt)
 {
-  const auto next =
-      next_camera_position(make_target_vector(position, viewport), viewport, dt);
+  const auto next = next_camera_position(make_target(position, viewport), viewport, dt);
   viewport.bounds.set_x(next.x);
   viewport.bounds.set_y(next.y);
 }
@@ -91,7 +90,7 @@ auto make_viewport(const cen::farea levelSize) noexcept -> ctx::viewport
 {
   ctx::viewport viewport;
 
-  viewport.bounds = {{}, glob::logical_size<cen::farea>};
+  viewport.bounds.set_size(glob::logical_size<cen::farea>);
   viewport.levelSize = levelSize;
 
   return viewport;
@@ -100,15 +99,17 @@ auto make_viewport(const cen::farea levelSize) noexcept -> ctx::viewport
 void center_viewport_on(entt::registry& registry, const float2 position)
 {
   auto& viewport = registry.ctx<ctx::viewport>();
-  const auto target = make_target_vector(position, viewport);
+  const auto target = make_target(position, viewport);
   viewport.bounds.set_x(target.x);
   viewport.bounds.set_y(target.y);
 }
 
-void update_viewport(level& level, const entt::entity movableEntity, const delta_time dt)
+void update_viewport(entt::registry& registry,
+                     const comp::movable::entity target,
+                     const delta_time dt)
 {
-  const auto& movable = level.get<const comp::movable>(movableEntity);
-  track(level.ctx<ctx::viewport>(), movable.position, dt);
+  const auto& movable = registry.get<const comp::movable>(target);
+  track(registry.ctx<ctx::viewport>(), movable.position, dt);
 }
 
 void translate_viewport(const entt::registry& registry, cen::renderer& renderer)
