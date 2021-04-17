@@ -2,7 +2,7 @@
 
 #include <entt.hpp>  // entity, null_t
 
-#include "nenya.hpp"
+#include "core/nenya.hpp"
 
 namespace wanderer {
 

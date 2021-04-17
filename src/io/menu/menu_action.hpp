@@ -2,6 +2,7 @@
 
 namespace wanderer {
 
+// TODO move this to core
 enum class menu_action
 {
   none,

@@ -3,7 +3,7 @@
 #include <cassert>    // assert
 #include <stdexcept>  // runtime_error
 
-#include "hitbox_system.hpp"
+#include "systems/movement/hitbox_system.hpp"
 
 namespace wanderer {
 namespace {

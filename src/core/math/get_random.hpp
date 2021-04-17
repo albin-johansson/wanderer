@@ -52,6 +52,7 @@ template <typename T>
   }
 }
 
+/// Returns a random boolean value
 [[nodiscard]] inline auto next_bool() -> bool
 {
   return get_random(0, 99) < 50;

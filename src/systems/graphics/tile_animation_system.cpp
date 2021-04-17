@@ -1,8 +1,8 @@
 #include "tile_animation_system.hpp"
 
-#include <centurion.hpp>
+#include <centurion.hpp>  // ticks
 
-#include "animated_tile.hpp"
+#include "components/graphics/animated_tile.hpp"
 
 namespace wanderer::sys {
 

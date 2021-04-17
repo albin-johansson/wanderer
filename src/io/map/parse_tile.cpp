@@ -1,12 +1,12 @@
 #include "parse_tile.hpp"
 
-#include <cassert>  // assert
-#include <centurion.hpp>
-#include <cstddef>  // size_t
+#include <cassert>        // assert
+#include <centurion.hpp>  // irect, farea, ticks
+#include <cstddef>        // size_t
 
-#include "hitbox_system.hpp"
-#include "index_to_matrix.hpp"
-#include "maybe.hpp"
+#include "core/aliases/maybe.hpp"
+#include "core/math/index_to_matrix.hpp"
+#include "systems/movement/hitbox_system.hpp"
 
 namespace wanderer {
 namespace {

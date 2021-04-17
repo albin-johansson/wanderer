@@ -1,8 +1,8 @@
 #pragma once
 
-#include <centurion.hpp>
+#include <centurion.hpp>  // scan_code
 
-#include "ints.hpp"
+#include "core/aliases/ints.hpp"
 
 namespace wanderer::ctx {
 

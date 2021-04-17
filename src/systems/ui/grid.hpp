@@ -1,8 +1,8 @@
 #pragma once
 
-#include <centurion.hpp>
+#include <centurion.hpp>  // fpoint
 
-#include "menu_constants.hpp"
+#include "core/menu_constants.hpp"
 
 namespace wanderer::sys {
 

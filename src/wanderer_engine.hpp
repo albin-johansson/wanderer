@@ -2,11 +2,11 @@
 
 #include <centurion.hpp>
 
-#include "fullscreen_toggled_event.hpp"
+#include "core/graphics_context.hpp"
+#include "core/input.hpp"
+#include "events/fullscreen_toggled_event.hpp"
+#include "events/integer_scaling_toggled_event.hpp"
 #include "game.hpp"
-#include "graphics_context.hpp"
-#include "input.hpp"
-#include "integer_scaling_toggled_event.hpp"
 #include "semi_fixed_game_loop.hpp"
 
 namespace wanderer {

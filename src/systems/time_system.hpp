@@ -2,8 +2,8 @@
 
 #include <entt.hpp>  // registry
 
-#include "delta_time.hpp"
-#include "graphics_context.hpp"
+#include "core/aliases/delta_time.hpp"
+#include "core/graphics_context.hpp"
 
 namespace wanderer::sys {
 

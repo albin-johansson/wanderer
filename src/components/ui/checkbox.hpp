@@ -2,7 +2,7 @@
 
 #include <vector>  // vector
 
-#include "entity_type.hpp"
+#include "core/aliases/entity_type.hpp"
 
 namespace wanderer::comp {
 namespace detail {

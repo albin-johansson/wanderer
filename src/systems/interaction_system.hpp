@@ -1,6 +1,6 @@
 #pragma once
 
-#include "interact_event.hpp"
+#include "events/interact_event.hpp"
 
 namespace wanderer::sys {
 

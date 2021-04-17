@@ -1,13 +1,12 @@
 #pragma once
 
-#include <entt.hpp>
 #include <initializer_list>  // initializer_list
 
-#include "delta_time.hpp"
-#include "float2.hpp"
-#include "hitbox.hpp"
-#include "maybe.hpp"
-#include "movable.hpp"
+#include "components/hitbox.hpp"
+#include "components/movable.hpp"
+#include "core/aliases/delta_time.hpp"
+#include "core/aliases/float2.hpp"
+#include "core/aliases/maybe.hpp"
 
 namespace wanderer::sys {
 

@@ -1,13 +1,12 @@
 #pragma once
 
-#include <abby.hpp>
-#include <entt.hpp>
+#include <entt.hpp>  // registry, entity
 
-#include "aabb_tree.hpp"
-#include "float2.hpp"
-#include "graphics_context.hpp"
-#include "level.hpp"
-#include "player.hpp"
+#include "core/aliases/aabb_tree.hpp"
+#include "core/aliases/float2.hpp"
+#include "core/graphics_context.hpp"
+#include "core/levels/level.hpp"
+#include "ctx/player.hpp"
 
 namespace wanderer::sys {
 

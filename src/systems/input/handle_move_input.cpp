@@ -1,14 +1,14 @@
 #include <cassert>  // assert
 
-#include "begin_attack_event.hpp"
-#include "binds.hpp"
-#include "direction.hpp"
-#include "end_humanoid_move_event.hpp"
-#include "humanoid_state.hpp"
-#include "input_system.hpp"
-#include "interact_event.hpp"
-#include "movable.hpp"
-#include "player.hpp"
+#include "components/humanoid_state.hpp"
+#include "components/movable.hpp"
+#include "core/direction.hpp"
+#include "ctx/binds.hpp"
+#include "ctx/player.hpp"
+#include "events/begin_attack_event.hpp"
+#include "events/end_humanoid_move_event.hpp"
+#include "events/interact_event.hpp"
+#include "systems/input/input_system.hpp"
 
 namespace wanderer::sys {
 namespace {

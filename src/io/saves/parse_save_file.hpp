@@ -2,8 +2,8 @@
 
 #include <filesystem>  // path
 
-#include "map_id.hpp"
-#include "save_file_info.hpp"
+#include "core/aliases/map_id.hpp"
+#include "io/saves/save_file_info.hpp"
 
 namespace wanderer {
 

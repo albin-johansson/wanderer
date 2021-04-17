@@ -3,7 +3,7 @@
 #include <abby.hpp>  // tree
 #include <entt.hpp>  // entity
 
-#include "float2.hpp"
+#include "core/aliases/float2.hpp"
 
 namespace wanderer {
 

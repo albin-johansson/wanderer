@@ -1,16 +1,16 @@
-#include "active_menu.hpp"
-#include "button_group.hpp"
-#include "button_system.hpp"
-#include "checkbox.hpp"
-#include "checkbox_system.hpp"
-#include "grid.hpp"
-#include "label_system.hpp"
-#include "line_system.hpp"
-#include "menu.hpp"
-#include "menu_constants.hpp"
-#include "menu_system.hpp"
-#include "render_text.hpp"
-#include "resources.hpp"
+#include "components/ui/button_group.hpp"
+#include "components/ui/checkbox.hpp"
+#include "components/ui/menu.hpp"
+#include "core/menu_constants.hpp"
+#include "core/render_text.hpp"
+#include "core/resources/resources.hpp"
+#include "ctx/active_menu.hpp"
+#include "systems/ui/buttons/button_system.hpp"
+#include "systems/ui/checkboxes/checkbox_system.hpp"
+#include "systems/ui/grid.hpp"
+#include "systems/ui/labels/label_system.hpp"
+#include "systems/ui/lines/line_system.hpp"
+#include "systems/ui/menus/menu_system.hpp"
 
 using namespace entt::literals;
 
@@ -90,7 +90,7 @@ void render_menu(const entt::registry& registry, graphics_context& graphics)
 
   if (menu.blocking)
   {
-    constexpr auto id = 9'999;  // FIXME
+    constexpr auto id = "developed_by_albin_johansson"_hs;
     auto& cache = graphics.small_font_cache();
 
     if (!cache.has_stored(id))

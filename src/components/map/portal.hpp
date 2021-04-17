@@ -1,12 +1,13 @@
 #pragma once
 
 #include <filesystem>  // path
+#include <string>      // string
 
-#include "entity_type.hpp"
-#include "ints.hpp"
-#include "map_id.hpp"
-#include "maybe.hpp"
-#include "null_entity.hpp"
+#include "core/aliases/entity_type.hpp"
+#include "core/aliases/ints.hpp"
+#include "core/aliases/map_id.hpp"
+#include "core/aliases/maybe.hpp"
+#include "core/null_entity.hpp"
 
 namespace wanderer::comp {
 namespace detail {
@@ -16,6 +17,7 @@ struct portal_entity_t;
 struct portal final
 {
   using entity = entity_type<detail::portal_entity_t>;
+
   std::string path;      ///< Path to target map file.
   maybe<map_id> target;  ///< Identifier associated with target map.
 };

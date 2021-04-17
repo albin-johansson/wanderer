@@ -1,6 +1,6 @@
 #pragma once
 
-#include "map_id.hpp"
+#include "core/aliases/map_id.hpp"
 
 namespace wanderer::event {
 

@@ -2,7 +2,7 @@
 
 #include <entt.hpp>  // registry
 
-#include "common_concepts.hpp"
+#include "core/common_concepts.hpp"
 
 namespace wanderer {
 

@@ -1,12 +1,12 @@
 #include "interaction_system.hpp"
 
-#include "close_inventory_event.hpp"
-#include "container_trigger.hpp"
-#include "null_entity.hpp"
-#include "player.hpp"
-#include "portal.hpp"
-#include "show_inventory_event.hpp"
-#include "switch_map_event.hpp"
+#include "components/inventory/container_trigger.hpp"
+#include "components/map/portal.hpp"
+#include "core/null_entity.hpp"
+#include "ctx/player.hpp"
+#include "events/close_inventory_event.hpp"
+#include "events/show_inventory_event.hpp"
+#include "events/switch_map_event.hpp"
 
 namespace wanderer::sys {
 namespace {

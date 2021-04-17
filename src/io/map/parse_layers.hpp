@@ -1,8 +1,8 @@
 #pragma once
 
-#include <step_map.hpp>
+#include <step_map.hpp>  // map
 
-#include "parse_ir.hpp"
+#include "io/map/parse_ir.hpp"
 
 namespace wanderer {
 

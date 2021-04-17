@@ -1,6 +1,6 @@
 #pragma once
 
-#include <entt.hpp>
+#include <entt.hpp>  // id_type
 
 namespace wanderer {
 

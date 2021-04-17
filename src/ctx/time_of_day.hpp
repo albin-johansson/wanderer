@@ -2,7 +2,7 @@
 
 #include <centurion.hpp>  // color
 
-#include "ints.hpp"
+#include "core/aliases/ints.hpp"
 
 namespace wanderer::ctx {
 

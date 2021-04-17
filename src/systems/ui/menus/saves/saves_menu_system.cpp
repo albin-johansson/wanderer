@@ -5,17 +5,17 @@
 #include <string>      // to_string
 #include <utility>     // move
 
-#include "active_menu.hpp"
-#include "button_group.hpp"
-#include "button_system.hpp"
-#include "files_directory.hpp"
-#include "label.hpp"
-#include "label_system.hpp"
-#include "menu.hpp"
-#include "menu_action.hpp"
-#include "null_entity.hpp"
-#include "registry_utils.hpp"
-#include "saves_menu.hpp"
+#include "components/ui/button_group.hpp"
+#include "components/ui/label.hpp"
+#include "components/ui/menu.hpp"
+#include "components/ui/saves_menu.hpp"
+#include "core/ecs/registry_utils.hpp"
+#include "core/null_entity.hpp"
+#include "ctx/active_menu.hpp"
+#include "io/files_directory.hpp"
+#include "io/menu/menu_action.hpp"
+#include "systems/ui/buttons/button_system.hpp"
+#include "systems/ui/labels/label_system.hpp"
 
 namespace wanderer::sys {
 namespace {

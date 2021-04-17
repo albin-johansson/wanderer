@@ -2,9 +2,9 @@
 
 #include <step_map.hpp>
 
-#include "parse_ir.hpp"
-#include "texture_id.hpp"
-#include "tile_id.hpp"
+#include "core/aliases/texture_id.hpp"
+#include "core/aliases/tile_id.hpp"
+#include "io/map/parse_ir.hpp"
 
 namespace wanderer {
 

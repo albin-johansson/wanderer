@@ -1,8 +1,8 @@
 #include "make_renderer.hpp"
 
-#include "game_constants.hpp"
-#include "menu_constants.hpp"
-#include "resources.hpp"
+#include "core/game_constants.hpp"
+#include "core/menu_constants.hpp"
+#include "core/resources/resources.hpp"
 
 namespace wanderer {
 

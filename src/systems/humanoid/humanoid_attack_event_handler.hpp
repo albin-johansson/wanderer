@@ -1,7 +1,7 @@
 #pragma once
 
-#include "begin_attack_event.hpp"
-#include "end_attack_event.hpp"
+#include "events/begin_attack_event.hpp"
+#include "events/end_attack_event.hpp"
 
 namespace wanderer::sys {
 

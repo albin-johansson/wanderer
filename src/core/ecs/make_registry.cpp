@@ -1,7 +1,7 @@
 #include "make_registry.hpp"
 
-#include "add_humanoid_state_dependencies.hpp"
-#include "particle.hpp"
+#include "components/graphics/particle.hpp"
+#include "core/ecs/add_humanoid_state_dependencies.hpp"
 
 namespace wanderer {
 

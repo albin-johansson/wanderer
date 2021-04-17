@@ -4,8 +4,8 @@
 #include <entt.hpp>       // registry
 #include <string>         // string
 
-#include "checkbox.hpp"
-#include "menu_action.hpp"
+#include "components/ui/checkbox.hpp"
+#include "io/menu/menu_action.hpp"
 
 namespace wanderer::sys {
 

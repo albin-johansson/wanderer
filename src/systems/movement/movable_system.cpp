@@ -1,6 +1,6 @@
 #include "movable_system.hpp"
 
-#include "maybe.hpp"
+#include "core/aliases/maybe.hpp"
 
 namespace wanderer::sys {
 namespace {

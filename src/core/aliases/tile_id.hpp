@@ -1,7 +1,7 @@
 #pragma once
 
-#include "ints.hpp"
-#include "nenya.hpp"
+#include "core/aliases/ints.hpp"
+#include "core/nenya.hpp"
 
 namespace wanderer {
 namespace detail {

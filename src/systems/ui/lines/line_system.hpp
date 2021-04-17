@@ -3,7 +3,7 @@
 #include <centurion.hpp>  // renderer, fpoint
 #include <entt.hpp>       // registry
 
-#include "line.hpp"
+#include "components/ui/line.hpp"
 
 namespace wanderer::sys {
 

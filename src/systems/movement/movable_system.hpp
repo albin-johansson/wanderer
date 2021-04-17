@@ -1,7 +1,7 @@
 #pragma once
 
-#include "direction.hpp"
-#include "movable.hpp"
+#include "components/movable.hpp"
+#include "core/direction.hpp"
 
 namespace wanderer::sys {
 

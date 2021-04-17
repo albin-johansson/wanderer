@@ -2,8 +2,8 @@
 
 #include <vector>  // vector
 
-#include "entity_type.hpp"
-#include "ints.hpp"
+#include "core/aliases/entity_type.hpp"
+#include "core/aliases/ints.hpp"
 #include "item.hpp"
 
 namespace wanderer::comp {
@@ -14,6 +14,7 @@ struct inventory_entity_t;
 struct inventory final
 {
   using entity = entity_type<detail::inventory_entity_t>;
+
   std::vector<item::entity> items;  ///< List of items in the inventory.
   int capacity;                     ///< Maximum capacity of inventory.
 };

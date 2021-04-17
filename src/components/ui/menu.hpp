@@ -1,14 +1,14 @@
 #pragma once
 
-#include <centurion.hpp>
-#include <string>  // string
-#include <vector>  // vector
+#include <centurion.hpp>  // texture, fpoint
+#include <string>         // string
+#include <vector>         // vector
 
-#include "entity_type.hpp"
-#include "key_bind.hpp"
-#include "maybe.hpp"
-#include "menu_id.hpp"
-#include "null_entity.hpp"
+#include "components/input/key_bind.hpp"
+#include "core/aliases/entity_type.hpp"
+#include "core/aliases/maybe.hpp"
+#include "core/menu_id.hpp"
+#include "core/null_entity.hpp"
 
 namespace wanderer::comp {
 namespace detail {

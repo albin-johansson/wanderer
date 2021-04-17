@@ -1,25 +1,25 @@
 #pragma once
 
-#include <centurion.hpp>
-#include <map>     // map
-#include <string>  // string
-#include <vector>  // vector
+#include <centurion.hpp>  // irect, frect
+#include <map>            // map
+#include <string>         // string
+#include <vector>         // vector
 
-#include "animated_tile.hpp"
-#include "container_trigger.hpp"
-#include "depth.hpp"
-#include "depth_drawable.hpp"
-#include "hitbox.hpp"
-#include "inventory.hpp"
-#include "maybe.hpp"
-#include "object.hpp"
-#include "point_light.hpp"
-#include "portal.hpp"
-#include "spawnpoint.hpp"
-#include "texture_id.hpp"
-#include "tile_id.hpp"
-#include "tile_layer.hpp"
-#include "tile_object.hpp"
+#include "components/graphics/animated_tile.hpp"
+#include "components/graphics/depth_drawable.hpp"
+#include "components/graphics/point_light.hpp"
+#include "components/hitbox.hpp"
+#include "components/inventory/container_trigger.hpp"
+#include "components/inventory/inventory.hpp"
+#include "components/map/portal.hpp"
+#include "components/map/spawnpoint.hpp"
+#include "components/map/tile_layer.hpp"
+#include "components/map/tile_object.hpp"
+#include "components/object.hpp"
+#include "core/aliases/depth.hpp"
+#include "core/aliases/maybe.hpp"
+#include "core/aliases/texture_id.hpp"
+#include "core/aliases/tile_id.hpp"
 
 namespace wanderer::ir {
 

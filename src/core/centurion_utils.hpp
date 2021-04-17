@@ -1,10 +1,9 @@
 #pragma once
 
-#include <centurion.hpp>
-#include <cmath>  // lerp
+#include <centurion.hpp>  // basic_point, basic_area
+#include <cmath>          // lerp
 
-#include "float2.hpp"
-#include "ints.hpp"
+#include "core/math/vector2.hpp"
 
 namespace wanderer {
 

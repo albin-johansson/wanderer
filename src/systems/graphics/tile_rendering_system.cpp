@@ -1,7 +1,9 @@
 #include "tile_rendering_system.hpp"
 
-#include "animated_tile.hpp"
-#include "game_constants.hpp"
+#include <centurion.hpp>  // farea, frect
+
+#include "components/graphics/animated_tile.hpp"
+#include "core/game_constants.hpp"
 
 namespace wanderer::sys {
 

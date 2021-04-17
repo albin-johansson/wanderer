@@ -1,7 +1,7 @@
 #pragma once
 
-#include "inventory.hpp"
-#include "null_entity.hpp"
+#include "components/inventory/inventory.hpp"
+#include "core/null_entity.hpp"
 
 namespace wanderer::event {
 

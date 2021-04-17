@@ -1,9 +1,9 @@
 #include "tile_object_animation_system.hpp"
 
-#include "animated_tile.hpp"
-#include "depth_drawable.hpp"
-#include "tile_object.hpp"
-#include "tile_rendering_system.hpp"
+#include "components/graphics/animated_tile.hpp"
+#include "components/graphics/depth_drawable.hpp"
+#include "components/map/tile_object.hpp"
+#include "systems/graphics/tile_rendering_system.hpp"
 
 namespace wanderer::sys {
 

@@ -1,15 +1,16 @@
 #pragma once
 
+#include <entt.hpp>       // registry, entity
 #include <filesystem>     // path
 #include <memory>         // unique_ptr
 #include <unordered_map>  // unordered_map
 #include <utility>        // forward
 
-#include "graphics_context.hpp"
-#include "level.hpp"
-#include "map_id.hpp"
-#include "maybe.hpp"
-#include "save_file_info.hpp"
+#include "core/aliases/map_id.hpp"
+#include "core/aliases/maybe.hpp"
+#include "core/graphics_context.hpp"
+#include "core/levels/level.hpp"
+#include "io/saves/save_file_info.hpp"
 
 namespace wanderer {
 

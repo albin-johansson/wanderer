@@ -1,12 +1,12 @@
 #pragma once
 
-#include <centurion.hpp>
+#include <centurion.hpp>  // farea
 
-#include "entity_type.hpp"
-#include "ints.hpp"
-#include "map_id.hpp"
-#include "null_entity.hpp"
-#include "tileset.hpp"
+#include "core/aliases/entity_type.hpp"
+#include "core/aliases/ints.hpp"
+#include "core/aliases/map_id.hpp"
+#include "core/null_entity.hpp"
+#include "ctx/tileset.hpp"
 
 namespace wanderer::comp {
 namespace detail {

@@ -1,10 +1,10 @@
 #pragma once
 
-#include <entt.hpp>
+#include <entt.hpp>  // registry
 
-#include "hitbox.hpp"
-#include "hitbox_system.hpp"
-#include "player.hpp"
+#include "components/hitbox.hpp"
+#include "ctx/player.hpp"
+#include "systems/movement/hitbox_system.hpp"
 
 namespace wanderer::sys {
 
@@ -14,9 +14,9 @@ void update_triggers(entt::registry& registry, RemovalPredicate&& predicate)
   const auto player = registry.ctx<ctx::player>().entity;
   const auto& playerHitbox = registry.get<comp::hitbox>(player);
 
-  const auto view = registry.view<Trigger, comp::hitbox>();
-  view.each([&](const entt::entity e, const Trigger&, comp::hitbox& hitbox) {
-    const auto triggerEntity = typename Trigger::entity{e};
+  for (auto&& [entity, trigger, hitbox] : registry.view<Trigger, comp::hitbox>().each())
+  {
+    const auto triggerEntity = typename Trigger::entity{entity};
     hitbox.enabled = true;
 
     if (sys::intersects(playerHitbox, hitbox))
@@ -32,7 +32,7 @@ void update_triggers(entt::registry& registry, RemovalPredicate&& predicate)
     }
 
     hitbox.enabled = false;
-  });
+  }
 }
 
 }  // namespace wanderer::sys

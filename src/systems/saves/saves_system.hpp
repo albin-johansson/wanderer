@@ -2,7 +2,7 @@
 
 #include <entt.hpp>  // registry
 
-#include "serialization.hpp"
+#include "core/serialization.hpp"
 
 namespace wanderer::sys {
 

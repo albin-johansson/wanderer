@@ -1,6 +1,6 @@
 #include "wanderer_engine.hpp"
 
-#include "game_constants.hpp"
+#include "core/game_constants.hpp"
 
 namespace wanderer {
 

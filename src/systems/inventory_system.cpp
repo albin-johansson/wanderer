@@ -1,12 +1,12 @@
 #include "inventory_system.hpp"
 
-#include "container_trigger.hpp"
-#include "game_constants.hpp"
-#include "index_to_matrix.hpp"
-#include "inventory.hpp"
-#include "item.hpp"
-#include "maybe.hpp"
-#include "update_triggers.hpp"
+#include "components/inventory/container_trigger.hpp"
+#include "components/inventory/inventory.hpp"
+#include "components/inventory/item.hpp"
+#include "core/aliases/maybe.hpp"
+#include "core/game_constants.hpp"
+#include "core/math/index_to_matrix.hpp"
+#include "systems/update_triggers.hpp"
 
 namespace wanderer::sys {
 namespace {
@@ -84,8 +84,9 @@ void render_inventory(const entt::registry& registry,
 
         if (index < nItems)
         {
-//          const auto& item = registry.get<comp::item>(inventory.items.at(index));
-//          renderer.render(*item.texture, rect);
+          //          const auto& item =
+          //          registry.get<comp::item>(inventory.items.at(index));
+          //          renderer.render(*item.texture, rect);
         }
       }
     }

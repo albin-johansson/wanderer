@@ -1,6 +1,6 @@
 #pragma once
 
-#include "menu_id.hpp"
+#include "core/menu_id.hpp"
 
 namespace wanderer::event {
 

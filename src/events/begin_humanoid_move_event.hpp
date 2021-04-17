@@ -3,7 +3,7 @@
 #include <entt.hpp>    // registry, entity
 #include <functional>  // reference_wrapper
 
-#include "direction.hpp"
+#include "core/direction.hpp"
 
 namespace wanderer::event {
 

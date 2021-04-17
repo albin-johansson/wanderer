@@ -1,9 +1,7 @@
 #pragma once
 
-#include <entt.hpp>
-
-#include "delta_time.hpp"
-#include "level.hpp"
+#include "core/aliases/delta_time.hpp"
+#include "core/levels/level.hpp"
 
 namespace wanderer::sys {
 

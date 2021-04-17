@@ -1,4 +1,4 @@
-#include "game_constants.hpp"
+#include "core/game_constants.hpp"
 #include "viewport_system.hpp"
 
 namespace wanderer::sys {

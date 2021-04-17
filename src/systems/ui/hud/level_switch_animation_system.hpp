@@ -3,9 +3,9 @@
 #include <centurion.hpp>  // renderer
 #include <entt.hpp>       // registry, dispatcher
 
-#include "delta_time.hpp"
-#include "level_fade_events_event.hpp"
-#include "map_id.hpp"
+#include "core/aliases/delta_time.hpp"
+#include "core/aliases/map_id.hpp"
+#include "events/level_fade_events_event.hpp"
 
 namespace wanderer::sys {
 

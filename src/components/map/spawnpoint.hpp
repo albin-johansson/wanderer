@@ -1,7 +1,7 @@
 #pragma once
 
-#include "float2.hpp"
-#include "ints.hpp"
+#include "core/aliases/float2.hpp"
+#include "core/aliases/ints.hpp"
 
 namespace wanderer::comp {
 

@@ -2,7 +2,7 @@
 
 #include <step_map.hpp>
 
-#include "parse_ir.hpp"
+#include "io/map/parse_ir.hpp"
 
 namespace wanderer {
 

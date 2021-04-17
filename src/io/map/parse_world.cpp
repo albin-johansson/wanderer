@@ -2,9 +2,9 @@
 
 #include <step_map.hpp>
 
-#include "game_constants.hpp"
-#include "parse_layers.hpp"
-#include "parse_tilesets.hpp"
+#include "core/game_constants.hpp"
+#include "io/map/parse_layers.hpp"
+#include "io/map/parse_tilesets.hpp"
 
 namespace wanderer {
 namespace {

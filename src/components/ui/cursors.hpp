@@ -1,6 +1,6 @@
 #pragma once
 
-#include <centurion.hpp>
+#include <centurion.hpp>  // system_cursor, cursor
 #include <unordered_map>  // unordered_map
 
 namespace wanderer::comp {

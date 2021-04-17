@@ -2,10 +2,10 @@
 
 #include <vector>  // vector
 
-#include "button.hpp"
-#include "entity_type.hpp"
-#include "label.hpp"
-#include "null_entity.hpp"
+#include "components/ui/button.hpp"
+#include "components/ui/label.hpp"
+#include "core/aliases/entity_type.hpp"
+#include "core/null_entity.hpp"
 
 namespace wanderer::comp {
 namespace detail {

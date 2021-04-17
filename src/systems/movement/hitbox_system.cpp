@@ -2,7 +2,7 @@
 
 #include <algorithm>  // min, max
 
-#include "centurion_utils.hpp"
+#include "core/centurion_utils.hpp"
 
 namespace wanderer::sys {
 namespace {

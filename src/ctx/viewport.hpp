@@ -1,9 +1,9 @@
 #pragma once
 
-#include <centurion.hpp>
+#include <centurion.hpp>  // farea, frect
 
-#include "entity_type.hpp"
-#include "ints.hpp"
+#include "core/aliases/entity_type.hpp"
+#include "core/aliases/ints.hpp"
 
 namespace wanderer::ctx {
 

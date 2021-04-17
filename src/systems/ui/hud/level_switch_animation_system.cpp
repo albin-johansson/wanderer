@@ -1,7 +1,7 @@
 #include "level_switch_animation_system.hpp"
 
-#include "game_constants.hpp"
-#include "level_switch_animation.hpp"
+#include "components/graphics/level_switch_animation.hpp"
+#include "core/game_constants.hpp"
 
 namespace wanderer::sys {
 namespace {

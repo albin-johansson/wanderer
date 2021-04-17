@@ -1,6 +1,6 @@
-#include "add_objects.hpp"
+#include "core/levels/add_objects.hpp"
 
-#include "inventory.hpp"
+#include "components/inventory/inventory.hpp"
 
 namespace wanderer {
 namespace {

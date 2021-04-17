@@ -1,13 +1,13 @@
 #include "humanoid_attack_event_handler.hpp"
 
-#include <cassert>  // assert
-#include <centurion.hpp>
+#include <cassert>        // assert
+#include <centurion.hpp>  // colors
 
-#include "game_constants.hpp"
-#include "humanoid_animation_system.hpp"
-#include "humanoid_state.hpp"
-#include "movable.hpp"
-#include "spawn_particles_event.hpp"
+#include "components/humanoid_state.hpp"
+#include "components/movable.hpp"
+#include "core/game_constants.hpp"
+#include "events/spawn_particles_event.hpp"
+#include "systems/humanoid/humanoid_animation_system.hpp"
 
 namespace wanderer::sys {
 namespace {
@@ -63,7 +63,10 @@ void on_attack_end(const event::end_attack& event)
   if (const auto* movable = registry.try_get<comp::movable>(event.sourceEntity))
   {
     const auto position = get_particle_position(movable->position, *movable);
-    dispatcher.enqueue<event::spawn_particles>(position, 5, 25.0f, cen::colors::dark_gray);
+    dispatcher.enqueue<event::spawn_particles>(position,
+                                               5,
+                                               25.0f,
+                                               cen::colors::dark_gray);
   }
 
   enter_idle_animation(event.registry, event.sourceEntity);

@@ -3,8 +3,8 @@
 #include <centurion.hpp>  // scan_code
 #include <vector>         // vector
 
-#include "entity_type.hpp"
-#include "menu_action.hpp"
+#include "core/aliases/entity_type.hpp"
+#include "io/menu/menu_action.hpp"
 
 namespace wanderer::comp {
 namespace detail {

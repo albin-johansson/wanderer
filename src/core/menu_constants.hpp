@@ -1,14 +1,14 @@
 #pragma once
 
-#include <entt.hpp>
+#include <entt.hpp>  // hashed_string, id_type
 
-#include "game_constants.hpp"
+#include "core/game_constants.hpp"
 
 namespace wanderer::glob {
 
-inline constexpr entt::hashed_string menu_font_s{"typewriter_s"};
-inline constexpr entt::hashed_string menu_font_m{"typewriter_m"};
-inline constexpr entt::hashed_string menu_font_l{"typewriter_l"};
+inline constexpr entt::id_type menu_font_s = entt::hashed_string{"typewriter_s"};
+inline constexpr entt::id_type menu_font_m = entt::hashed_string{"typewriter_m"};
+inline constexpr entt::id_type menu_font_l = entt::hashed_string{"typewriter_l"};
 
 inline constexpr float menu_row_size = 30;
 inline constexpr float menu_col_size = 30;

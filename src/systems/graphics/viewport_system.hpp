@@ -3,10 +3,10 @@
 #include <centurion.hpp>  // renderer, farea
 #include <entt.hpp>       // registry
 
-#include "delta_time.hpp"
-#include "float2.hpp"
-#include "level.hpp"
-#include "viewport.hpp"
+#include "core/aliases/delta_time.hpp"
+#include "core/aliases/float2.hpp"
+#include "core/levels/level.hpp"
+#include "ctx/viewport.hpp"
 
 namespace wanderer::sys {
 

@@ -2,9 +2,9 @@
 
 #include <ranges>  // any_of
 
-#include "button_pressed_event.hpp"
-#include "checkbox.hpp"
-#include "cursors.hpp"
+#include "components/ui/checkbox.hpp"
+#include "components/ui/cursors.hpp"
+#include "events/button_pressed_event.hpp"
 
 namespace wanderer::sys {
 namespace {

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "vector2.hpp"
+#include "core/math/vector2.hpp"
 
 namespace wanderer {
 

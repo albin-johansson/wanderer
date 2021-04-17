@@ -3,11 +3,11 @@
 #include <string>   // string
 #include <utility>  // move
 
-#include "button_system.hpp"
-#include "checkbox.hpp"
-#include "checkbox_system.hpp"
-#include "key_bind_system.hpp"
-#include "menu_system.hpp"
+#include "components/ui/checkbox.hpp"
+#include "systems/input/key_bind_system.hpp"
+#include "systems/ui/buttons/button_system.hpp"
+#include "systems/ui/checkboxes/checkbox_system.hpp"
+#include "systems/ui/menus/menu_system.hpp"
 
 namespace wanderer::sys {
 namespace {

@@ -2,9 +2,9 @@
 
 #include <entt.hpp>  // registry, dispatcher
 
-#include "binds.hpp"
-#include "input.hpp"
-#include "player.hpp"
+#include "core/input.hpp"
+#include "ctx/binds.hpp"
+#include "ctx/player.hpp"
 
 namespace wanderer::sys {
 

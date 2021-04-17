@@ -2,7 +2,7 @@
 
 #include <entt.hpp>  // entity, null
 
-#include "ints.hpp"
+#include "core/aliases/ints.hpp"
 
 namespace wanderer::ctx {
 

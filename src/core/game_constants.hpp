@@ -1,8 +1,8 @@
 #pragma once
 
-#include <centurion.hpp>
+#include <centurion.hpp>  // iarea, farea, color
 
-#include "float2.hpp"
+#include "core/aliases/float2.hpp"
 
 namespace wanderer::glob {
 

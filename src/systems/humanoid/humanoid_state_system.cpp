@@ -1,7 +1,7 @@
 #include "humanoid_state_system.hpp"
 
-#include "end_attack_event.hpp"
-#include "humanoid_state.hpp"
+#include "components/humanoid_state.hpp"
+#include "events/end_attack_event.hpp"
 
 namespace wanderer::sys {
 namespace {

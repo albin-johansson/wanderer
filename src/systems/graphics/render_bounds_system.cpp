@@ -1,7 +1,7 @@
 #include "render_bounds_system.hpp"
 
-#include "game_constants.hpp"
-#include "viewport.hpp"
+#include "core/game_constants.hpp"
+#include "ctx/viewport.hpp"
 
 namespace wanderer::sys {
 namespace {

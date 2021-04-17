@@ -2,7 +2,7 @@
 
 #include <entt.hpp>  // registry
 
-#include "menu.hpp"
+#include "components/ui/menu.hpp"
 
 namespace wanderer::sys {
 

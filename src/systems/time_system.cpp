@@ -2,10 +2,10 @@
 
 #include <cmath>  // floor, ceil, lerp
 
-#include "get_random.hpp"
-#include "ints.hpp"
-#include "menu_constants.hpp"
-#include "time_of_day.hpp"
+#include "core/aliases/ints.hpp"
+#include "core/math/get_random.hpp"
+#include "core/menu_constants.hpp"
+#include "ctx/time_of_day.hpp"
 
 namespace wanderer::sys {
 namespace {

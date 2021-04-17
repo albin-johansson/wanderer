@@ -1,8 +1,8 @@
 #pragma once
 
-#include <centurion.hpp>
+#include <centurion.hpp>  // milliseconds
 
-#include "ints.hpp"
+#include "core/aliases/ints.hpp"
 
 namespace wanderer {
 

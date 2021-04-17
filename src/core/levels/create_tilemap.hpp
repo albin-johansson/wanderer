@@ -1,9 +1,9 @@
 #pragma once
 
-#include <entt.hpp>
+#include <entt.hpp>  // registry
 
-#include "parse_ir.hpp"
-#include "tilemap.hpp"
+#include "components/map/tilemap.hpp"
+#include "io/map/parse_ir.hpp"
 
 namespace wanderer {
 

@@ -3,13 +3,13 @@
 #include <cmath>   // clamp
 #include <string>  // string
 
-#include "centurion_utils.hpp"
-#include "depth_drawable.hpp"
-#include "get_random.hpp"
-#include "player.hpp"
-#include "point_light.hpp"
-#include "resources.hpp"
-#include "viewport.hpp"
+#include "components/graphics/depth_drawable.hpp"
+#include "components/graphics/point_light.hpp"
+#include "core/centurion_utils.hpp"
+#include "core/math/get_random.hpp"
+#include "core/resources/resources.hpp"
+#include "ctx/player.hpp"
+#include "ctx/viewport.hpp"
 
 using namespace entt::literals;
 

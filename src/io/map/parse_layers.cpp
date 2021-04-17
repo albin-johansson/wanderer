@@ -1,7 +1,7 @@
 #include "parse_layers.hpp"
 
-#include "parse_object_layer.hpp"
-#include "parse_tile_layer.hpp"
+#include "io/map/parse_object_layer.hpp"
+#include "io/map/parse_tile_layer.hpp"
 
 namespace wanderer {
 

@@ -1,7 +1,7 @@
 #include "load_game.hpp"
 
-#include "files_directory.hpp"
-#include "parse_save_file.hpp"
+#include "io/files_directory.hpp"
+#include "io/saves/parse_save_file.hpp"
 
 namespace wanderer {
 

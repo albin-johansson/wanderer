@@ -1,7 +1,7 @@
 #pragma once
 
-#include "menu.hpp"
-#include "null_entity.hpp"
+#include "components/ui/menu.hpp"
+#include "core/null_entity.hpp"
 
 namespace wanderer::ctx {
 

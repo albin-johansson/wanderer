@@ -4,10 +4,10 @@
 #include <entt.hpp>       // registry, dispatcher
 #include <vector>         // vector
 
-#include "button.hpp"
-#include "button_group.hpp"
-#include "maybe.hpp"
-#include "menu.hpp"
+#include "components/ui/button.hpp"
+#include "components/ui/button_group.hpp"
+#include "components/ui/menu.hpp"
+#include "core/aliases/maybe.hpp"
 
 namespace wanderer::sys {
 

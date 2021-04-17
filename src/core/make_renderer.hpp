@@ -1,6 +1,6 @@
 #pragma once
 
-#include <centurion.hpp>
+#include <centurion.hpp>  // window, renderer
 
 namespace wanderer {
 

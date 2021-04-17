@@ -2,7 +2,7 @@
 
 #include <centurion.hpp>  // color
 
-#include "float2.hpp"
+#include "core/aliases/float2.hpp"
 
 namespace wanderer::event {
 

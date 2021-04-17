@@ -3,8 +3,8 @@
 #include <centurion.hpp>  // renderer, color
 #include <entt.hpp>       // registry
 
-#include "delta_time.hpp"
-#include "float2.hpp"
+#include "core/aliases/delta_time.hpp"
+#include "core/aliases/float2.hpp"
 
 namespace wanderer::sys {
 

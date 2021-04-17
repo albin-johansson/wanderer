@@ -3,8 +3,8 @@
 #include <entt.hpp>  // hashed_string
 #include <utility>   // move
 
-#include "game_constants.hpp"
-#include "parse_tile.hpp"
+#include "core/game_constants.hpp"
+#include "io/map/parse_tile.hpp"
 
 namespace wanderer {
 namespace {

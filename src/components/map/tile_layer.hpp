@@ -1,10 +1,10 @@
 #pragma once
 
-#include <vector>
+#include <vector>  // vector
 
-#include "entity_type.hpp"
-#include "ints.hpp"
-#include "tile_id.hpp"
+#include "core/aliases/entity_type.hpp"
+#include "core/aliases/ints.hpp"
+#include "core/aliases/tile_id.hpp"
 
 namespace wanderer::comp {
 namespace detail {

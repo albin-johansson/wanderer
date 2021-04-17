@@ -4,7 +4,7 @@
 #include <centurion.hpp>  // ...
 #include <concepts>       // floating_point
 
-#include "delta_time.hpp"
+#include "core/aliases/delta_time.hpp"
 
 namespace wanderer {
 

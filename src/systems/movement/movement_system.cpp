@@ -3,13 +3,13 @@
 #include <iterator>  // back_inserter
 #include <vector>    // vector
 
-#include "centurion_utils.hpp"
-#include "hitbox.hpp"
-#include "hitbox_system.hpp"
-#include "maybe.hpp"
-#include "movable.hpp"
-#include "movable_system.hpp"
-#include "stack_resource.hpp"
+#include "components/hitbox.hpp"
+#include "components/movable.hpp"
+#include "core/aliases/maybe.hpp"
+#include "core/centurion_utils.hpp"
+#include "core/stack_resource.hpp"
+#include "systems/movement/hitbox_system.hpp"
+#include "systems/movement/movable_system.hpp"
 
 namespace wanderer::sys {
 namespace {

@@ -1,12 +1,11 @@
 #pragma once
 
-#include <entt.hpp>
 #include <unordered_map>  // unordered_map
 
-#include "entity_type.hpp"
-#include "ints.hpp"
-#include "tile.hpp"
-#include "tile_id.hpp"
+#include "components/map/tile.hpp"
+#include "core/aliases/entity_type.hpp"
+#include "core/aliases/ints.hpp"
+#include "core/aliases/tile_id.hpp"
 
 namespace wanderer::ctx {
 namespace detail {

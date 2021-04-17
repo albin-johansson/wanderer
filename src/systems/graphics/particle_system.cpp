@@ -1,7 +1,7 @@
 #include "particle_system.hpp"
 
-#include "get_random.hpp"
-#include "particle.hpp"
+#include "components/graphics/particle.hpp"
+#include "core/math/get_random.hpp"
 
 namespace wanderer::sys {
 

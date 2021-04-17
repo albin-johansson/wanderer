@@ -1,9 +1,9 @@
 #pragma once
 
-#include <entt.hpp>
+#include <entt.hpp>  // entity
 
-#include "direction.hpp"
-#include "ints.hpp"
+#include "core/aliases/ints.hpp"
+#include "core/direction.hpp"
 
 namespace wanderer::comp {
 

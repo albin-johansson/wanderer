@@ -3,13 +3,13 @@
 #include <cassert>  // assert
 #include <utility>  // move
 
-#include "level_switch_animation.hpp"
-#include "movable.hpp"
-#include "outside_level.hpp"
-#include "parse_world.hpp"
-#include "portal.hpp"
-#include "resources.hpp"
-#include "viewport_system.hpp"
+#include "components/graphics/level_switch_animation.hpp"
+#include "components/map/portal.hpp"
+#include "components/movable.hpp"
+#include "core/resources/resources.hpp"
+#include "ctx/outside_level.hpp"
+#include "io/map/parse_world.hpp"
+#include "systems/graphics/viewport_system.hpp"
 
 namespace wanderer {
 

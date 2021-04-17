@@ -1,12 +1,12 @@
 #pragma once
 
-#include <centurion.hpp>
-#include <string>  // string
-#include <vector>  // vector
+#include <centurion.hpp>  // color, texture
+#include <string>         // string
+#include <vector>         // vector
 
-#include "entity_type.hpp"
-#include "maybe.hpp"
-#include "text_size.hpp"
+#include "core/aliases/entity_type.hpp"
+#include "core/aliases/maybe.hpp"
+#include "core/text_size.hpp"
 
 namespace wanderer::comp {
 namespace detail {

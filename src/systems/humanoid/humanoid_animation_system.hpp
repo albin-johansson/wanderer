@@ -1,8 +1,8 @@
 #pragma once
 
-#include <entt.hpp>
+#include <entt.hpp>  // registry, entity
 
-#include "direction.hpp"
+#include "core/direction.hpp"
 
 namespace wanderer::sys {
 

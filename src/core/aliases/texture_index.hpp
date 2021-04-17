@@ -2,7 +2,7 @@
 
 #include <cstddef>  // size_t
 
-#include "nenya.hpp"
+#include "core/nenya.hpp"
 
 namespace wanderer {
 namespace detail {

@@ -2,9 +2,9 @@
 
 #include <utility>  // move
 
-#include "make_renderer.hpp"
-#include "menu_constants.hpp"
-#include "resources.hpp"
+#include "core/make_renderer.hpp"
+#include "core/menu_constants.hpp"
+#include "core/resources/resources.hpp"
 
 namespace wanderer {
 

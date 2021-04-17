@@ -1,6 +1,6 @@
 #include "input_system.hpp"
 
-#include "humanoid_state.hpp"
+#include "components/humanoid_state.hpp"
 
 namespace wanderer::sys {
 

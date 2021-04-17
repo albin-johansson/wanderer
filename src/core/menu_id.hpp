@@ -13,6 +13,7 @@ enum class menu_id
   controls
 };
 
+// TODO remove
 NLOHMANN_JSON_SERIALIZE_ENUM(menu_id,
                              {{menu_id::in_game, "in_game"},
                               {menu_id::home, "home"},

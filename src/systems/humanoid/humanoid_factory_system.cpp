@@ -1,21 +1,21 @@
 #include "humanoid_factory_system.hpp"
 
-#include <cassert>  // assert
-#include <centurion.hpp>
-#include <utility>  // move
+#include <cassert>        // assert
+#include <centurion.hpp>  // ticks
+#include <utility>        // move
 
-#include "animated.hpp"
-#include "centurion_utils.hpp"
-#include "chase.hpp"
-#include "depth_drawable.hpp"
-#include "direction.hpp"
-#include "game_constants.hpp"
-#include "hitbox.hpp"
-#include "hitbox_system.hpp"
-#include "humanoid_state.hpp"
-#include "movable.hpp"
-#include "point_light.hpp"
-#include "resources.hpp"
+#include "components/chase.hpp"
+#include "components/graphics/animated.hpp"
+#include "components/graphics/depth_drawable.hpp"
+#include "components/graphics/point_light.hpp"
+#include "components/hitbox.hpp"
+#include "components/humanoid_state.hpp"
+#include "components/movable.hpp"
+#include "core/centurion_utils.hpp"
+#include "core/direction.hpp"
+#include "core/game_constants.hpp"
+#include "core/resources/resources.hpp"
+#include "systems/movement/hitbox_system.hpp"
 
 using namespace entt::literals;
 

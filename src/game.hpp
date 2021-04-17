@@ -2,19 +2,19 @@
 
 #include <centurion.hpp>
 
-#include "button_pressed_event.hpp"
-#include "close_inventory_event.hpp"
-#include "delta_time.hpp"
-#include "graphics_context.hpp"
-#include "input.hpp"
-#include "level.hpp"
-#include "level_fade_events_event.hpp"
-#include "level_manager.hpp"
-#include "quit_event.hpp"
-#include "show_inventory_event.hpp"
-#include "spawn_particles_event.hpp"
-#include "switch_map_event.hpp"
-#include "switch_menu_event.hpp"
+#include "core/aliases/delta_time.hpp"
+#include "core/graphics_context.hpp"
+#include "core/input.hpp"
+#include "core/levels/level.hpp"
+#include "core/levels/level_manager.hpp"
+#include "events/button_pressed_event.hpp"
+#include "events/close_inventory_event.hpp"
+#include "events/level_fade_events_event.hpp"
+#include "events/quit_event.hpp"
+#include "events/show_inventory_event.hpp"
+#include "events/spawn_particles_event.hpp"
+#include "events/switch_map_event.hpp"
+#include "events/switch_menu_event.hpp"
 
 namespace wanderer {
 

@@ -8,8 +8,8 @@
 #include <string>         // string
 #include <vector>         // vector
 
-#include "texture_id.hpp"
-#include "texture_index.hpp"
+#include "core/aliases/texture_id.hpp"
+#include "core/aliases/texture_index.hpp"
 
 namespace wanderer {
 

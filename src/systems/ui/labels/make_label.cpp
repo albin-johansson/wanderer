@@ -1,9 +1,9 @@
 #include <centurion.hpp>
 #include <utility>  // move
 
-#include "associated_menu.hpp"
-#include "files_directory.hpp"
-#include "label_system.hpp"
+#include "components/ui/associated_menu.hpp"
+#include "io/files_directory.hpp"
+#include "systems/ui/labels/label_system.hpp"
 
 namespace wanderer::sys {
 

@@ -1,13 +1,12 @@
 #pragma once
 
-#include <centurion.hpp>
-
-#include "graphics_context.hpp"
-#include "tile.hpp"
-#include "tileset.hpp"
+#include "components/map/tile.hpp"
+#include "core/graphics_context.hpp"
+#include "ctx/tileset.hpp"
 
 namespace wanderer::sys {
 
+// TODO make row and col floats
 void render_tile(graphics_context& graphics,
                  const comp::tile& tile,
                  int row,

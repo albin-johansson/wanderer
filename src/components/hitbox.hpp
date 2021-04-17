@@ -1,11 +1,11 @@
 #pragma once
 
-#include <centurion.hpp>
-#include <vector>  // vector
+#include <centurion.hpp>  // farea, frect
+#include <vector>         // vector
 
-#include "entity_type.hpp"
-#include "float2.hpp"
-#include "ints.hpp"
+#include "core/aliases/entity_type.hpp"
+#include "core/aliases/float2.hpp"
+#include "core/aliases/ints.hpp"
 
 namespace wanderer::comp {
 namespace detail {
@@ -21,15 +21,12 @@ struct hitbox_entity_t;
  * The offset that the subhitbox is positioned at, relative to the origin
  * position. This is useful for updating the position of a `hitbox`.
  *
- * \var subhitbox::size
- * The size of the subhitbox.
- *
  * \headerfile hitbox.hpp
  */
 struct subhitbox final
 {
-  float2 offset;
-  cen::farea size;
+  float2 offset;    ///< Offset relative to the parent hitbox.
+  cen::farea size;  ///< The size of the subhitbox.
 };
 
 /**

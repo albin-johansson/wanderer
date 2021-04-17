@@ -1,10 +1,10 @@
 #pragma once
 
-#include <entt.hpp>
+#include <entt.hpp>  // registry
 
-#include "graphics_context.hpp"
-#include "parse_ir.hpp"
-#include "tileset.hpp"
+#include "core/graphics_context.hpp"
+#include "ctx/tileset.hpp"
+#include "io/map/parse_ir.hpp"
 
 namespace wanderer {
 

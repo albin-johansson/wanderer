@@ -4,8 +4,8 @@
 #include <entt.hpp>       // registry
 #include <type_traits>    // is_same_v
 
-#include "key_bind.hpp"
-#include "menu_action.hpp"
+#include "components/input/key_bind.hpp"
+#include "io/menu/menu_action.hpp"
 
 namespace wanderer::sys {
 

@@ -1,7 +1,7 @@
-#include "button_system.hpp"
-#include "checkbox_system.hpp"
-#include "grid.hpp"
-#include "render_text.hpp"
+#include "core/render_text.hpp"
+#include "systems/ui/buttons/button_system.hpp"
+#include "systems/ui/checkboxes/checkbox_system.hpp"
+#include "systems/ui/grid.hpp"
 
 namespace wanderer::sys {
 
