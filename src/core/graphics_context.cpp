@@ -7,10 +7,15 @@
 #include "core/resources/resources.hpp"
 
 namespace wanderer {
+namespace {
+inline const auto font_path = resources::font("type_writer.ttf");
+}
 
 graphics_context::graphics_context(const cen::window& window)
     : m_renderer{make_renderer(window)}
-    , m_smallFontCache{resources::font("type_writer.ttf"), 8}
+    , m_smallFontCache{font_path, glob::small_font_size}
+    , m_mediumFontCache{font_path, glob::medium_font_size}
+    , m_largeFontCache{font_path, glob::large_font_size}
     , m_lightCanvas{m_renderer,
                     window.get_pixel_format(),
                     cen::texture_access::target,
@@ -28,13 +33,15 @@ auto graphics_context::load(const texture_id id, std::string path) -> texture_in
   {
     return it->second;
   }
+  else
+  {
+    const auto index = m_textures.size();
 
-  const auto index = m_textures.size();
+    m_textures.emplace_back(m_renderer, std::move(path));
+    m_identifiers.try_emplace(id, index);
 
-  m_textures.emplace_back(m_renderer, std::move(path));
-  m_identifiers.try_emplace(id, index);
-
-  return texture_index{index};
+    return texture_index{index};
+  }
 }
 
 }  // namespace wanderer

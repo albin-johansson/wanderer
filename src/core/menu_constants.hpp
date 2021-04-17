@@ -6,6 +6,10 @@
 
 namespace wanderer::glob {
 
+inline constexpr int small_font_size = 8;
+inline constexpr int medium_font_size = 16;
+inline constexpr int large_font_size = 24;
+
 inline constexpr entt::id_type menu_font_s = entt::hashed_string{"typewriter_s"};
 inline constexpr entt::id_type menu_font_m = entt::hashed_string{"typewriter_m"};
 inline constexpr entt::id_type menu_font_l = entt::hashed_string{"typewriter_l"};
