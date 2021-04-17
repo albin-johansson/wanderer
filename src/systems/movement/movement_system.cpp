@@ -5,7 +5,6 @@
 
 #include "components/hitbox.hpp"
 #include "components/movable.hpp"
-#include "core/aliases/maybe.hpp"
 #include "core/stack_resource.hpp"
 #include "core/utils/centurion_utils.hpp"
 #include "systems/movement/hitbox_system.hpp"
@@ -36,7 +35,6 @@ namespace {
 // Checks for collisions, stops the movable if there are collisions
 [[nodiscard]] auto update_movable(comp::movable& movable,
                                   const float2 oldPosition,
-                                  const comp::hitbox& source,
                                   const comp::hitbox& other,
                                   const next_hitboxes& next) -> collision_result
 {
@@ -59,11 +57,8 @@ namespace {
 
 [[nodiscard]] auto check_out_of_bounds(level& level,
                                        const next_hitboxes& next,
-                                       const entt::entity entity,
                                        comp::movable& movable,
-                                       comp::hitbox& hitbox,
-                                       const float2 oldPosition,
-                                       const float2 oldAabbPos) -> collision_result
+                                       const float2 oldPosition) -> collision_result
 {
   collision_result collisions;
 
@@ -125,13 +120,7 @@ void update_hitbox(level& level,
   };
 
   {
-    const auto collisions = check_out_of_bounds(level,
-                                                next,
-                                                entity,
-                                                movable,
-                                                hitbox,
-                                                oldPosition,
-                                                oldAabbPos);
+    const auto collisions = check_out_of_bounds(level, next, movable, oldPosition);
     if (collisions.vertical || collisions.horizontal)
     {
       restorePosition(collisions);
@@ -142,7 +131,6 @@ void update_hitbox(level& level,
   {
     const auto collisions = update_movable(movable,
                                            oldPosition,
-                                           hitbox,
                                            level.get<comp::hitbox>(candidate),
                                            next);
     if (collisions.vertical || collisions.horizontal)
@@ -156,7 +144,9 @@ void update_hitbox(level& level,
 
 void update_movement(level& level, const delta_time dt)
 {
-  level.each<comp::movable>([&](const entt::entity entity, comp::movable& movable) {
+  auto& registry = level.registry();
+  for (auto&& [entity, movable] : registry.view<comp::movable>().each())
+  {
     const auto oldPosition = movable.position;
 
     movable.position += (movable.velocity * dt);
@@ -166,7 +156,7 @@ void update_movement(level& level, const delta_time dt)
     {
       update_hitbox(level, entity, movable, *hitbox, oldPosition, dt);
     }
-  });
+  }
 }
 
 }  // namespace wanderer::sys

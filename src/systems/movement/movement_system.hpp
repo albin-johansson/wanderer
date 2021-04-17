@@ -9,14 +9,16 @@ namespace wanderer::sys {
 /// \{
 
 /**
- * \brief Updates the state of components related to movement.
+ * \brief Updates the movement of movable entities.
  *
- * \details This system iterates entities with `movable` components, whilst
- * also checking if they feature a `hitbox` component. This system will
- * perform collision detection for those movables that feature hitboxes.
+ * \details Whilst this function will primarily update entities with `movable` components,
+ * it also checks if the entities has `hitbox` components, for which it will perform
+ * collision detection.
+ *
+ * \ingroup systems
  *
  * \param level the currently active level.
- * \param dt the delta time.
+ * \param dt the current delta time.
  */
 void update_movement(level& level, const delta_time dt);
 
