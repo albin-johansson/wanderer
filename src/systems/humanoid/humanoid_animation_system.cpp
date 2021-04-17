@@ -68,21 +68,18 @@ inline constexpr ms_t attack_delay{70};
  * \param registry the associated registry.
  * \param entity the entity that will be updated.
  */
-void update_move_animation(entt::registry& registry, const entt::entity entity) noexcept
+void update_move_animation(entt::registry& registry, const entt::entity entity)
 {
-  auto* animated = registry.try_get<comp::animated>(entity);
-  auto* drawable = registry.try_get<comp::depth_drawable>(entity);
-  const auto* movable = registry.try_get<comp::movable>(entity);
+  auto& animated = registry.get<comp::animated>(entity);
+  auto& drawable = registry.get<comp::depth_drawable>(entity);
+  const auto& movable = registry.get<comp::movable>(entity);
 
-  if (animated && drawable && movable)
+  drawable.src.set_x(movable.velocity.is_zero() ? 0 : animated.frame * 64);
+  const auto srcY = source_y(move_source_y, movable.dir);
+  if (drawable.src.y() != srcY)
   {
-    drawable->src.set_x(movable->velocity.is_zero() ? 0 : animated->frame * 64);
-    const auto srcY = source_y(move_source_y, movable->dir);
-    if (drawable->src.y() != srcY)
-    {
-      animated->frame = 0;
-      drawable->src.set_y(srcY);
-    }
+    animated.frame = 0;
+    drawable.src.set_y(srcY);
   }
 }
 
@@ -94,30 +91,28 @@ void update_move_animation(entt::registry& registry, const entt::entity entity) 
  * \param registry the associated registry.
  * \param entity the entity that will be updated.
  */
-void update_attack_animation(entt::registry& registry, const entt::entity entity) noexcept
+void update_attack_animation(entt::registry& registry, const entt::entity entity)
 {
   assert(registry.all_of<comp::humanoid_attack>(entity));
-  auto* animated = registry.try_get<comp::animated>(entity);
-  auto* drawable = registry.try_get<comp::depth_drawable>(entity);
 
-  if (animated && drawable)
+  auto& animated = registry.get<comp::animated>(entity);
+  auto& drawable = registry.get<comp::depth_drawable>(entity);
+
+  drawable.src.set_x(animated.frame * 64);
+  if (animated.frame == animated.nFrames - 1)
   {
-    drawable->src.set_x(animated->frame * 64);
-    if (animated->frame == animated->nFrames - 1)
-    {
-      auto& attack = registry.get<comp::humanoid_attack>(entity);
-      attack.done = true;
-    }
+    auto& attack = registry.get<comp::humanoid_attack>(entity);
+    attack.done = true;
   }
 }
 
 /**
- * \brief General method for entering an animation.
+ * \brief Sets the animation of an entity.
  *
- * \note This method only works for LPC spritesheets. Which should be used
+ * \note This function only works for LPC spritesheets. Which should be used
  * for all humanoids.
  *
- * \param registry the associated registry.
+ * \param registry the current level registry.
  * \param entity the entity that will enter the animation.
  * \param nFrames the number of frames in the animation.
  * \param delay the duration of each frame in the animation.
@@ -128,20 +123,17 @@ void enter_animation(entt::registry& registry,
                      const entt::entity entity,
                      const u32 nFrames,
                      const ms_t delay,
-                     const int sourceY) noexcept
+                     const int sourceY)
 {
-  auto* animated = registry.try_get<comp::animated>(entity);
-  auto* drawable = registry.try_get<comp::depth_drawable>(entity);
-  const auto* movable = registry.try_get<comp::movable>(entity);
+  auto& animated = registry.get<comp::animated>(entity);
+  animated.frame = 0;
+  animated.nFrames = nFrames;
+  animated.delay = delay;
 
-  if (animated && drawable && movable)
-  {
-    animated->frame = 0;
-    animated->nFrames = nFrames;
-    animated->delay = delay;
-    drawable->src.set_x(0);
-    drawable->src.set_y(source_y(sourceY, movable->dir));
-  }
+  auto& drawable = registry.get<comp::depth_drawable>(entity);
+  const auto& movable = registry.get<comp::movable>(entity);
+  drawable.src.set_x(0);
+  drawable.src.set_y(source_y(sourceY, movable.dir));
 }
 
 void enter_animation(entt::registry& registry,
@@ -149,31 +141,28 @@ void enter_animation(entt::registry& registry,
                      const u32 nFrames,
                      const ms_t delay,
                      const int sourceY,
-                     const direction dir) noexcept
+                     const direction dir)
 {
-  auto* animated = registry.try_get<comp::animated>(entity);
-  auto* drawable = registry.try_get<comp::depth_drawable>(entity);
+  auto& animated = registry.get<comp::animated>(entity);
+  animated.frame = 0;
+  animated.nFrames = nFrames;
+  animated.delay = delay;
 
-  if (animated && drawable)
-  {
-    animated->frame = 0;
-    animated->nFrames = nFrames;
-    animated->delay = delay;
-    drawable->src.set_x(0);
-    drawable->src.set_y(source_y(sourceY, dir));
-  }
+  auto& drawable = registry.get<comp::depth_drawable>(entity);
+  drawable.src.set_x(0);
+  drawable.src.set_y(source_y(sourceY, dir));
 }
 
 }  // namespace
 
-void enter_idle_animation(entt::registry& registry, const entt::entity entity) noexcept
+void enter_idle_animation(entt::registry& registry, const entt::entity entity)
 {
   enter_animation(registry, entity, n_idle_frames, idle_delay, idle_source_y);
 }
 
 void enter_move_animation(entt::registry& registry,
                           const entt::entity entity,
-                          const direction dir) noexcept
+                          const direction dir)
 {
   enter_animation(registry,
                   entity,
@@ -183,22 +172,22 @@ void enter_move_animation(entt::registry& registry,
                   dir);
 }
 
-void enter_melee_animation(entt::registry& registry, const entt::entity entity) noexcept
+void enter_melee_animation(entt::registry& registry, const entt::entity entity)
 {
   enter_animation(registry, entity, n_melee_frames, attack_delay, melee_source_y);
 }
 
-void enter_spell_animation(entt::registry& registry, const entt::entity entity) noexcept
+void enter_spell_animation(entt::registry& registry, const entt::entity entity)
 {
   enter_animation(registry, entity, n_magic_frames, attack_delay, magic_source_y);
 }
 
-void enter_bow_animation(entt::registry& registry, const entt::entity entity) noexcept
+void enter_bow_animation(entt::registry& registry, const entt::entity entity)
 {
   enter_animation(registry, entity, n_bow_frames, attack_delay, bow_source_y);
 }
 
-void enter_spear_animation(entt::registry& registry, const entt::entity entity) noexcept
+void enter_spear_animation(entt::registry& registry, const entt::entity entity)
 {
   enter_animation(registry, entity, n_spear_frames, attack_delay, spear_source_y);
 }
