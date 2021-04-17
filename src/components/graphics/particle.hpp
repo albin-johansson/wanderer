@@ -2,7 +2,7 @@
 
 #include <centurion.hpp>  // color
 
-#include "float3.hpp"
+#include "components/float3.hpp"
 
 namespace wanderer::comp {
 
