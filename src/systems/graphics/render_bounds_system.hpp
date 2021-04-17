@@ -10,21 +10,20 @@ namespace wanderer::sys {
 /// \name Render bounds
 /// \{
 
-void update_render_bounds(entt::registry& registry, int nRows, int nCols);
-
 /**
- * \brief Calculates and returns the current render bounds.
+ * \brief Updates the current render bounds.
  *
- * \param registry the current registry.
- * \param rows the number of rows in the current tilemap.
- * \param cols the number of columns in the current tilemap.
+ * \note This function overwrites the `render_bounds` context variable for the supplied
+ * registry, so the supplied registry doesn't need to contain a `render_bounds` context
+ * variable before calling this function.
  *
- * \return the render bounds that should be used when rendering the tilemap.
+ * \ingroup systems
+ *
+ * \param registry the current level registry.
+ * \param nRows the amount of tile rows in the current level.
+ * \param nCols the amount of tile columns in the current level.
  */
-[[nodiscard]] auto get_render_bounds(const entt::registry& registry, int rows, int cols)
-    -> ctx::render_bounds;
-
-[[nodiscard]] auto to_rect(const ctx::render_bounds& bounds) noexcept -> cen::frect;
+void update_render_bounds(entt::registry& registry, int nRows, int nCols);
 
 /// \} End of render bounds
 

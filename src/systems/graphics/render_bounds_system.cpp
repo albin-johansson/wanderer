@@ -65,36 +65,12 @@ namespace {
 void update_render_bounds(entt::registry& registry, const int nRows, const int nCols)
 {
   const auto& viewport = registry.ctx<ctx::viewport>();
+
   auto& bounds = registry.set<ctx::render_bounds>();
   bounds.minCol = calculate_min_col(viewport.bounds.x());
   bounds.minRow = calculate_min_row(viewport.bounds.y());
   bounds.maxCol = calculate_max_col(viewport.bounds.max_x(), nCols);
   bounds.maxRow = calculate_max_row(viewport.bounds.max_y(), nRows);
-}
-
-auto get_render_bounds(const entt::registry& registry, const int rows, const int cols)
-    -> ctx::render_bounds
-{
-  const auto& viewport = registry.ctx<const ctx::viewport>();
-
-  ctx::render_bounds bounds;
-  bounds.minCol = calculate_min_col(viewport.bounds.x());
-  bounds.minRow = calculate_min_row(viewport.bounds.y());
-  bounds.maxCol = calculate_max_col(viewport.bounds.max_x(), cols);
-  bounds.maxRow = calculate_max_row(viewport.bounds.max_y(), rows);
-
-  return bounds;
-}
-
-auto to_rect(const ctx::render_bounds& bounds) noexcept -> cen::frect
-{
-  const auto x = static_cast<float>(bounds.minCol) * glob::tile_width<>;
-  const auto y = static_cast<float>(bounds.minRow) * glob::tile_height<>;
-
-  const auto w = static_cast<float>(bounds.maxCol - bounds.minCol) * glob::tile_width<>;
-  const auto h = static_cast<float>(bounds.maxRow - bounds.minRow) * glob::tile_height<>;
-
-  return cen::frect{{x, y}, {w, h}};
 }
 
 }  // namespace wanderer::sys
