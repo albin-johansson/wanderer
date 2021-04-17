@@ -147,14 +147,13 @@ void render_clock(const entt::registry& registry, graphics_context& graphics)
   const auto h = static_cast<int>(time.hour) % 24;
   const auto m = static_cast<int>(time.minute) % 60;
 
-  const auto hourPrefix = h < 10 ? std::string{"0"} : std::string{};
-  const auto minutesPrefix = m < 10 ? std::string{"0"} : std::string{};
+  const auto hourPrefix = (h < 10) ? std::string{"0"} : std::string{};
+  const auto minutesPrefix = (m < 10) ? std::string{"0"} : std::string{};
 
-  const auto hourStr = hourPrefix + std::to_string(h);
-  const auto minuteStr = minutesPrefix + std::to_string(m);
-
-  auto& cache = graphics.small_font_cache();
-  renderer.render_text(cache, hourStr + ": " + minuteStr, {6, 6});
+  renderer.render_text(
+      graphics.small_font_cache(),
+      hourPrefix + std::to_string(h) + ": " + minutesPrefix + std::to_string(m),
+      {6, 6});
 }
 
 }  // namespace wanderer::sys
