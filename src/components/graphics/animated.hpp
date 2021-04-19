@@ -10,6 +10,8 @@ namespace wanderer::comp {
  *
  * \brief Represents a general animation.
  *
+ * \ingroup components
+ *
  * \headerfile animated.hpp
  */
 struct animated final
