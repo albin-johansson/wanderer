@@ -11,6 +11,8 @@
 namespace wanderer::sys {
 namespace {
 
+inline const auto settings_file = files_directory() / "settings.ini";
+
 [[nodiscard]] auto default_settings() noexcept -> ctx::settings
 {
   ctx::settings settings;
@@ -58,17 +60,16 @@ void log_settings(const ctx::settings& settings)
 
 void load_settings(entt::registry& registry)
 {
-  const auto path = files_directory() / "settings.ini";
   const auto defaults = default_settings();
 
-  if (std::filesystem::exists(path))
+  if (std::filesystem::exists(settings_file))
   {
-    registry.set<ctx::settings>(read_settings(path, defaults));
+    registry.set<ctx::settings>(read_settings(settings_file, defaults));
   }
   else
   {
     CENTURION_LOG_INFO("Copying default settings to preferred path...");
-    std::filesystem::copy("resources/settings.ini", path);
+    std::filesystem::copy("resources/settings.ini", settings_file);
     registry.set<ctx::settings>(defaults);
   }
 }
@@ -96,14 +97,13 @@ auto toggle_simulate_lights(entt::registry& registry) -> bool
 
 void save_settings_before_exit(const entt::registry& registry)
 {
-  const auto path = files_directory() / "settings.ini";
   const auto& settings = registry.ctx<const ctx::settings>();
 
   const auto toString = [](const bool value) {
     return value ? "true" : "false";
   };
 
-  std::ofstream stream{path};
+  std::ofstream stream{settings_file};
   stream << "[Graphics]\n";
 
   stream << "Fullscreen=" << toString(settings.fullscreen) << '\n';
