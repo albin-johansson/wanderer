@@ -4,6 +4,13 @@
 
 namespace wanderer::comp {
 
+/**
+ * \struct point_light
+ *
+ * \brief Represents a light source.
+ *
+ * \ingroup components
+ */
 struct point_light final
 {
   float2 position;         ///< The world position of the light.
