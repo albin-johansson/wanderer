@@ -24,6 +24,8 @@ namespace wanderer::comp {
  * with a lower center y-coordinate value will be rendered before an entity with
  * a higher value.
  *
+ * \ingroup components
+ *
  * \headerfile depth_drawable.hpp
  */
 struct depth_drawable final
