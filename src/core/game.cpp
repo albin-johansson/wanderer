@@ -85,7 +85,7 @@ void game::tick(const delta_time dt)
   sys::update_humanoid_states(registry, m_dispatcher);
 
   sys::update_chase(registry, m_dispatcher);
-  sys::update_movement(registry, level.get_aabb_tree(), dt);
+  sys::update_movement(registry, level.tree(), dt);
   sys::update_drawables(registry);
   sys::update_particles(registry, dt);
   sys::update_lights(registry);

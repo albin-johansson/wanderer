@@ -74,11 +74,6 @@ void level::save(const std::filesystem::path& path) const
   archive(m_playerSpawnPosition);
 }
 
-void level::relocate_aabb(const entt::entity entity, const float2 position)
-{
-  m_tree.relocate(entity, position);
-}
-
 void level::update_render_bounds()
 {
   sys::update_render_bounds(m_registry, row_count(), col_count());
@@ -87,11 +82,6 @@ void level::update_render_bounds()
 auto level::id() const noexcept -> map_id
 {
   return m_registry.get<comp::tilemap>(m_tilemap).id;
-}
-
-auto level::get_aabb(const entt::entity id) const -> const level::aabb_type&
-{
-  return m_tree.get_aabb(id);
 }
 
 auto level::tilemap() const -> comp::tilemap::entity
@@ -124,7 +114,7 @@ auto level::registry() const -> const entt::registry&
   return m_registry;
 }
 
-auto level::get_aabb_tree() -> aabb_tree&
+auto level::tree() -> aabb_tree&
 {
   return m_tree;
 }

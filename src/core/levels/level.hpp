@@ -36,71 +36,42 @@ class level final
  public:
   using aabb_type = typename aabb_tree::aabb_type;
 
-  // Creates a level based on a parsed map file
-  level(const ir::level& ordered, graphics_context& graphics);
+  /**
+   * \brief Creates a level based on a parsed tilemap file.
+   *
+   * \param data the parsed tilemap data.
+   * \param graphics the graphics context used when loading textures.
+   */
+  level(const ir::level& data, graphics_context& graphics);
 
-  // Opens a level from a binary save file
+  /**
+   * \brief Creates a level from a binary save file.
+   *
+   * \param path the file path of the binary save file.
+   * \param graphics the graphics context used when loading textures.
+   */
   level(const std::filesystem::path& path, graphics_context& graphics);
 
-  // Saves the level as a binary file
+  /**
+   * \brief Saves the level as a binary save file.
+   *
+   * \param path the file path of the binary save file.
+   */
   void save(const std::filesystem::path& path) const;
-
-  void relocate_aabb(entt::entity entity, float2 position);
 
   void update_render_bounds();
 
-  template <typename... Components, typename T>
-  void each(T&& lambda)
-  {
-    m_registry.view<Components...>().each(std::forward<T>(lambda));
-  }
-
-  template <typename Component>
-  void clear()
-  {
-    m_registry.clear<Component>();
-  }
-
-  template <std::output_iterator<entt::entity> T>
-  void query_collisions(const entt::entity id, T iterator) const
-  {
-    return m_tree.query(id, iterator);
-  }
-
-  template <typename Component, typename... Args>
-  decltype(auto) emplace(const entt::entity entity, Args&&... args)
-  {
-    return m_registry.emplace<Component>(entity, std::forward<Args>(args)...);
-  }
-
-  template <typename Component>
-  [[nodiscard]] decltype(auto) get(const entt::entity entity)
-  {
-    return m_registry.get<Component>(entity);
-  }
-
-  template <typename Component>
-  [[nodiscard]] decltype(auto) ctx()
-  {
-    return m_registry.ctx<Component>();
-  }
-
-  template <typename Component>
-  [[nodiscard]] decltype(auto) try_get(const entt::entity entity)
-  {
-    return m_registry.try_get<Component>(entity);
-  }
-
+  /**
+   * \brief Returns the unique ID associated with the level.
+   *
+   * \return the ID of the level.
+   */
   [[nodiscard]] auto id() const noexcept -> map_id;
-
-  [[nodiscard]] auto get_aabb(entt::entity id) const -> const aabb_type&;
 
   /**
    * \brief Returns the tilemap entity associated with the level.
    *
    * \return the tilemap entity.
-   *
-   * \since 0.1.0
    */
   [[nodiscard]] auto tilemap() const -> comp::tilemap::entity;
 
@@ -108,8 +79,6 @@ class level final
    * \brief Returns the spawnpoint of the player in the level.
    *
    * \return the player spawnpoint.
-   *
-   * \since 0.1.0
    */
   [[nodiscard]] auto player_spawnpoint() const -> float2;
 
@@ -117,8 +86,6 @@ class level final
    * \brief Returns the number of rows in the level tilemap.
    *
    * \return the amount of rows in the tilemap.
-   *
-   * \since 0.1.0
    */
   [[nodiscard]] auto row_count() const -> int;
 
@@ -126,8 +93,6 @@ class level final
    * \brief Returns the number of columns in the level tilemap.
    *
    * \return the amount of columns in the tilemap.
-   *
-   * \since 0.1.0
    */
   [[nodiscard]] auto col_count() const -> int;
 
@@ -135,14 +100,18 @@ class level final
    * \brief Returns the registry associated with the level.
    *
    * \return the registry associated with the level.
-   *
-   * \since 0.1.0
    */
   [[nodiscard]] auto registry() -> entt::registry&;
 
+  /// \copydoc registry()
   [[nodiscard]] auto registry() const -> const entt::registry&;
 
-  [[nodiscard]] auto get_aabb_tree() -> aabb_tree&;
+  /**
+   * \brief Returns the AABB tree used by the level.
+   *
+   * \return the associated AABB tree.
+   */
+  [[nodiscard]] auto tree() -> aabb_tree&;
 
  private:
   entt::registry m_registry;
