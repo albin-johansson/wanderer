@@ -46,25 +46,18 @@ level_manager::level_manager(const save_file_info& info, graphics_context& graph
   }
 }
 
-void level_manager::enable_world()
-{
-  m_current = m_world;
-}
-
 void level_manager::switch_to(const map_id id)
 {
-  {
-    auto* currentLevel = current();
-    auto& registry = currentLevel->registry();
+  auto& currentLevel = current();
+  auto& registry = currentLevel.registry();
 
-    registry.clear<comp::level_switch_animation>();
+  registry.clear<comp::level_switch_animation>();
 
-    const auto player = currentLevel->ctx<ctx::player>().entity;
-    auto& movable = currentLevel->get<comp::movable>(player);
-    movable.velocity.zero();
+  const auto player = currentLevel.ctx<ctx::player>().entity;
+  auto& movable = currentLevel.get<comp::movable>(player);
+  movable.velocity.zero();
 
-    sys::center_viewport_on(registry, movable.position);
-  }
+  sys::center_viewport_on(registry, movable.position);
 
   assert(m_levels.count(id));
   m_current = id;
@@ -72,24 +65,24 @@ void level_manager::switch_to(const map_id id)
 
 auto level_manager::registry() -> entt::registry&
 {
-  return current()->registry();
+  return current().registry();
 }
 
 auto level_manager::registry() const -> const entt::registry&
 {
-  return current()->registry();
+  return current().registry();
 }
 
-auto level_manager::current() noexcept -> level*
+auto level_manager::current() noexcept -> level&
 {
   assert(m_current);
-  return m_levels.at(*m_current).get();
+  return *m_levels.at(*m_current);
 }
 
-auto level_manager::current() const noexcept -> const level*
+auto level_manager::current() const noexcept -> const level&
 {
   assert(m_current);
-  return m_levels.at(*m_current).get();
+  return *m_levels.at(*m_current);
 }
 
 auto level_manager::world() const -> map_id

@@ -142,6 +142,8 @@ class level final
 
   [[nodiscard]] auto registry() const -> const entt::registry&;
 
+  [[nodiscard]] auto get_aabb_tree() -> aabb_tree&;
+
  private:
   entt::registry m_registry;
   aabb_tree m_tree;

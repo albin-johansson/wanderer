@@ -19,31 +19,17 @@ class level_manager final
  public:
   explicit level_manager(graphics_context& graphics);
 
-  explicit level_manager(const save_file_info& info, graphics_context& graphics);
-
-  void enable_world();
+  level_manager(const save_file_info& info, graphics_context& graphics);
 
   void switch_to(map_id id);
-
-  template <typename Component>
-  void clear()
-  {
-    current()->template clear<Component>();
-  }
-
-  template <typename Component, typename... Args>
-  decltype(auto) emplace(entt::entity e, Args&&... args)
-  {
-    current()->template emplace<Component>(e, std::forward<Args>(args)...);
-  }
 
   [[nodiscard]] auto registry() -> entt::registry&;
 
   [[nodiscard]] auto registry() const -> const entt::registry&;
 
-  [[nodiscard]] auto current() noexcept -> level*;
+  [[nodiscard]] auto current() noexcept -> level&;
 
-  [[nodiscard]] auto current() const noexcept -> const level*;
+  [[nodiscard]] auto current() const noexcept -> const level&;
 
   [[nodiscard]] auto world() const -> map_id;
 

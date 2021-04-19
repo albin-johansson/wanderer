@@ -124,6 +124,11 @@ auto level::registry() const -> const entt::registry&
   return m_registry;
 }
 
+auto level::get_aabb_tree() -> aabb_tree&
+{
+  return m_tree;
+}
+
 void level::spawn_humanoids(const comp::tilemap& tilemap, graphics_context& graphics)
 {
   // The player has to be created before other humanoids!

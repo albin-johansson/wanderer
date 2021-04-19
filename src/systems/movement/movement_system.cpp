@@ -3,6 +3,7 @@
 #include <iterator>  // back_inserter
 #include <vector>    // vector
 
+#include "components/ctx/viewport.hpp"
 #include "components/hitbox.hpp"
 #include "components/movable.hpp"
 #include "core/stack_resource.hpp"
@@ -55,14 +56,14 @@ namespace {
   return collisions;
 }
 
-[[nodiscard]] auto check_out_of_bounds(level& level,
+[[nodiscard]] auto check_out_of_bounds(entt::registry& registry,
                                        const next_hitboxes& next,
                                        comp::movable& movable,
                                        const float2 oldPosition) -> collision_result
 {
   collision_result collisions;
 
-  const auto& viewport = level.ctx<ctx::viewport>();
+  const auto& viewport = registry.ctx<ctx::viewport>();
   if (next.horizontal)
   {
     if ((next.horizontal->bounds.x() <= 0) ||
@@ -88,17 +89,19 @@ namespace {
   return collisions;
 }
 
-void update_hitbox(level& level,
+void update_hitbox(entt::registry& registry,
+                   aabb_tree& tree,
                    const entt::entity entity,
-                   comp::movable& movable,
-                   comp::hitbox& hitbox,
                    const float2 oldPosition,
                    const delta_time dt)
 {
-  const auto oldAabbPos = level.get_aabb(entity).min();
+  const auto oldAabbPos = tree.get_aabb(entity).min();
+
+  auto& hitbox = registry.get<comp::hitbox>(entity);
+  auto& movable = registry.get<comp::movable>(entity);
 
   set_position(hitbox, movable.position);
-  level.relocate_aabb(entity, to_vector(hitbox.bounds.position()));
+  tree.relocate(entity, to_vector(hitbox.bounds.position()));
 
   if (movable.velocity.is_zero())
   {
@@ -107,7 +110,7 @@ void update_hitbox(level& level,
 
   stack_resource<sizeof(entt::entity) * 20> resource;
   std::pmr::vector<entt::entity> candidates{resource.get()};
-  level.query_collisions(entity, std::back_inserter(candidates));
+  tree.query(entity, std::back_inserter(candidates));
 
   const auto next = make_next_hitboxes(movable, hitbox, oldPosition, dt);
 
@@ -116,11 +119,11 @@ void update_hitbox(level& level,
     const auto pos = restore_aabb_position(oldAabbPos,
                                            to_vector(hitbox.bounds.position()),
                                            collisions);
-    level.relocate_aabb(entity, pos);
+    tree.relocate(entity, pos);
   };
 
   {
-    const auto collisions = check_out_of_bounds(level, next, movable, oldPosition);
+    const auto collisions = check_out_of_bounds(registry, next, movable, oldPosition);
     if (collisions.vertical || collisions.horizontal)
     {
       restorePosition(collisions);
@@ -130,7 +133,7 @@ void update_hitbox(level& level,
   for (const auto candidate : candidates)
   {
     const auto collisions =
-        update_movable(movable, oldPosition, level.get<comp::hitbox>(candidate), next);
+        update_movable(movable, oldPosition, registry.get<comp::hitbox>(candidate), next);
     if (collisions.vertical || collisions.horizontal)
     {
       restorePosition(collisions);
@@ -140,9 +143,8 @@ void update_hitbox(level& level,
 
 }  // namespace
 
-void update_movement(level& level, const delta_time dt)
+void update_movement(entt::registry& registry, aabb_tree& tree, const delta_time dt)
 {
-  auto& registry = level.registry();
   for (auto&& [entity, movable] : registry.view<comp::movable>().each())
   {
     const auto oldPosition = movable.position;
@@ -150,9 +152,9 @@ void update_movement(level& level, const delta_time dt)
     movable.position += (movable.velocity * dt);
     movable.dir = dominant_direction(movable);
 
-    if (auto* hitbox = level.try_get<comp::hitbox>(entity))
+    if (registry.all_of<comp::hitbox>(entity))
     {
-      update_hitbox(level, entity, movable, *hitbox, oldPosition, dt);
+      update_hitbox(registry, tree, entity, oldPosition, dt);
     }
   }
 }

@@ -63,11 +63,10 @@ game::~game()
 
 void game::handle_input(const input& input)
 {
-  auto* level = m_levels.current();
   sys::update_menu(m_shared, m_dispatcher, input);
 
   const auto& binds = m_shared.ctx<ctx::binds>();
-  sys::update_input(level->registry(), m_dispatcher, input, binds);
+  sys::update_input(m_levels.registry(), m_dispatcher, input, binds);
 }
 
 void game::tick(const delta_time dt)
@@ -81,12 +80,12 @@ void game::tick(const delta_time dt)
 
   sys::update_time(m_shared, dt);
 
-  auto* level = m_levels.current();
-  auto& registry = level->registry();
+  auto& level = m_levels.current();
+  auto& registry = level.registry();
   sys::update_humanoid_states(registry, m_dispatcher);
 
   sys::update_chase(registry, m_dispatcher);
-  sys::update_movement(*level, dt);
+  sys::update_movement(registry, level.get_aabb_tree(), dt);
   sys::update_drawables(registry);
   sys::update_particles(registry, dt);
   sys::update_lights(registry);
@@ -110,11 +109,11 @@ void game::render(graphics_context& graphics, const cen::ipoint mousePos)
 {
   auto& renderer = graphics.renderer();
 
-  auto* level = m_levels.current();
-  const auto& registry = level->registry();
+  auto& level = m_levels.current();
+  const auto& registry = level.registry();
 
   sys::translate_viewport(registry, renderer);
-  level->update_render_bounds();
+  level.update_render_bounds();
 
   sys::render_tile_layers(registry, graphics);
   sys::render_drawables(registry, graphics);
@@ -258,17 +257,17 @@ void game::on_level_animation_faded_in(const level_faded_in_event& event)
 
 void game::on_level_animation_faded_out(const level_faded_out_event&)
 {
-  m_levels.clear<comp::level_switch_animation>();
+  m_levels.registry().clear<comp::level_switch_animation>();
 }
 
 void game::on_show_inventory(const show_inventory_event& event)
 {
-  m_levels.emplace<comp::active_inventory>(event.inventoryEntity);
+  m_levels.registry().emplace<comp::active_inventory>(event.inventoryEntity);
 }
 
 void game::on_close_inventory(const close_inventory_event&)
 {
-  m_levels.clear<comp::active_inventory>();
+  m_levels.registry().clear<comp::active_inventory>();
 }
 
 void game::on_particle_event(const spawn_particles_event& event)
