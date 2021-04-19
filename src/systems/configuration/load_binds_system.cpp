@@ -9,11 +9,13 @@
 namespace wanderer::sys {
 namespace {
 
-[[nodiscard]] auto parse_binds(const std::filesystem::path& path) -> ctx::binds
-{
-  CENTURION_LOG_INFO("Reading binds: \"%s\"", path.string().c_str());
+inline const auto binds_file = files_directory() / "binds.ini";
 
-  std::ifstream stream{path};
+[[nodiscard]] auto parse_binds() -> ctx::binds
+{
+  CENTURION_LOG_INFO("Reading binds: \"%s\"", binds_file.string().c_str());
+
+  std::ifstream stream{binds_file};
   const ini_file file{stream};
 
   ctx::binds binds;
@@ -33,14 +35,13 @@ namespace {
 
 auto load_binds() -> ctx::binds
 {
-  static const auto path = files_directory() / "binds.ini";
-  if (std::filesystem::exists(path))
+  if (std::filesystem::exists(binds_file))
   {
-    return parse_binds(path);
+    return parse_binds();
   }
   else
   {
-    std::filesystem::copy("resources/binds.ini", path);
+    std::filesystem::copy("resources/binds.ini", binds_file);
     return ctx::binds{};
   }
 }
