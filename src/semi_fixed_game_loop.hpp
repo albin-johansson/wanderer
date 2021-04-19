@@ -71,7 +71,7 @@ class semi_fixed_game_loop
   }
 
  private:
-  constexpr inline static int m_maxSteps = 5;
+  inline constexpr static int m_maxSteps = 5;
 
   seconds_type m_currentTime;
   precision_type m_tickRate;
