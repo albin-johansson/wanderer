@@ -72,6 +72,7 @@ set(SOURCE_FILES
 
     core/aliases/aabb_tree.hpp
     core/aliases/buffer.hpp
+    core/aliases/czstring.hpp
     core/aliases/delta_time.hpp
     core/aliases/depth.hpp
     core/aliases/entity_type.hpp

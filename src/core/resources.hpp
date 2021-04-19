@@ -1,7 +1,8 @@
 #pragma once
 
-#include <centurion.hpp>  // czstring
-#include <string>         // string
+#include <string>  // string
+
+#include "core/aliases/czstring.hpp"
 
 /// \namespace wanderer::resources
 /// \brief Contains utilities for obtaining resource paths.
@@ -17,7 +18,7 @@ namespace wanderer::resources {
  *
  * \return the path of the texture.
  */
-[[nodiscard]] auto texture(cen::czstring resource) -> std::string;
+[[nodiscard]] auto texture(czstring resource) -> std::string;
 
 /**
  * \brief Returns the file path for a font with the specified name.
@@ -28,7 +29,7 @@ namespace wanderer::resources {
  *
  * \return the path of the font.
  */
-[[nodiscard]] auto font(cen::czstring resource) -> std::string;
+[[nodiscard]] auto font(czstring resource) -> std::string;
 
 /**
  * \brief Returns the file path for a sound with the specified name.
@@ -39,7 +40,7 @@ namespace wanderer::resources {
  *
  * \return the path of the sound.
  */
-[[nodiscard]] auto sound(cen::czstring resource) -> std::string;
+[[nodiscard]] auto sound(czstring resource) -> std::string;
 
 /**
  * \brief Returns the file path for a map with the specified name.
@@ -50,6 +51,6 @@ namespace wanderer::resources {
  *
  * \return the path of the map.
  */
-[[nodiscard]] auto map(cen::czstring resource) -> std::string;
+[[nodiscard]] auto map(czstring resource) -> std::string;
 
 }  // namespace wanderer::resources
