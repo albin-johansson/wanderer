@@ -83,7 +83,7 @@ void render_lights(const entt::registry& registry,
 
     renderer.set_target(nullptr);
     renderer.set_blend_mode(cen::blend_mode::blend);
-    renderer.render<int>(texture, {0, 0});
+    renderer.render(texture, cen::point(0, 0));
   }
   else
   {
