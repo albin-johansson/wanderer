@@ -6,7 +6,7 @@
 
 namespace wanderer::sys {
 
-void update_animations(entt::registry& registry) noexcept
+void update_animations(entt::registry& registry)
 {
   for (auto&& [entity, animated] : registry.view<comp::animated>().each())
   {
