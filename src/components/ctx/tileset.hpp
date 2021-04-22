@@ -21,8 +21,6 @@ struct tileset_entity_t;
  * The tiles contained in the tileset. Maps tile identifiers with tile entity
  * identifiers.
  *
- * \todo is this a component? Or should it be a member of the game class.
- *
  * \headerfile tileset.hpp
  */
 struct tileset final
