@@ -147,7 +147,7 @@ void handle_move_input(entt::registry& registry,
   }
   else if (keyboard.is_pressed(binds.attack))
   {
-    movable.velocity.zero();
+    movable.velocity.reset();
 
     // FIXME null weapon
     dispatcher.enqueue<begin_attack_event>(registry, player, entt::null, movable.dir);

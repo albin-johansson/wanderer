@@ -1,6 +1,7 @@
 #pragma once
 
-#include <cmath>  // acos, sqrt, lerp
+#include <cmath>     // acos, sqrt, lerp
+#include <concepts>  // floating_point
 
 #include "angles.hpp"
 #include "floating.hpp"
@@ -21,7 +22,7 @@ namespace wanderer {
  *
  * \headerfile vector2.hpp
  */
-template <typename T>
+template <std::floating_point T>
 struct basic_vector2 final
 {
   using value_type = T;
@@ -86,7 +87,7 @@ struct basic_vector2 final
    *
    * \since 0.1.0
    */
-  constexpr void zero() noexcept
+  constexpr void reset() noexcept
   {
     x = 0;
     y = 0;
@@ -106,7 +107,7 @@ struct basic_vector2 final
   {
     if (mag <= 0)
     {
-      zero();
+      reset();
       return;
     }
 
@@ -186,7 +187,7 @@ struct basic_vector2 final
   {
     if (length <= 0)
     {
-      zero();
+      reset();
     }
     else
     {

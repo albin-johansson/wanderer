@@ -65,12 +65,12 @@ TEST(Vector2, Norm)
   }
 }
 
-TEST(Vector2, Zero)
+TEST(Vector2, Reset)
 {
   float2 vector{849, 241};
   EXPECT_FALSE(vector.is_zero());
 
-  vector.zero();
+  vector.reset();
   EXPECT_TRUE(vector.is_zero());
 }
 

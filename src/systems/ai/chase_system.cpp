@@ -28,7 +28,7 @@ void update_chase(entt::registry& registry, entt::dispatcher& dispatcher)
     }
     else
     {
-      movable.velocity.zero();
+      movable.velocity.reset();
       if (!registry.all_of<comp::humanoid_idle>(entity))
       {
         registry.emplace<comp::humanoid_idle>(entity);

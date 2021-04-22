@@ -55,7 +55,7 @@ void level_manager::switch_to(const map_id id)
 
   const auto player = currentLevel.registry().ctx<ctx::player>().entity;
   auto& movable = currentLevel.registry().get<comp::movable>(player);
-  movable.velocity.zero();
+  movable.velocity.reset();
 
   sys::center_viewport_on(registry, movable.position);
 
