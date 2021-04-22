@@ -1,6 +1,7 @@
 #pragma once
 
-#include <entt.hpp>  // registry
+#include <concepts>  // convertible_to
+#include <entt.hpp>  // registry, entity
 
 #include "core/common_concepts.hpp"
 
@@ -15,6 +16,15 @@ void destroy_and_clear(entt::registry& registry, T& container)
     registry.destroy(entity);
   }
   container.clear();
+}
+
+template <std::convertible_to<entt::entity> T>
+void destroy_if_exists(entt::registry& registry, const T entity)
+{
+  if (entity != entt::null)
+  {
+    registry.destroy(entity);
+  }
 }
 
 }  // namespace wanderer
