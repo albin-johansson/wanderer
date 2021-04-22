@@ -14,6 +14,7 @@
 #include "core/ecs/registry_utils.hpp"
 #include "core/math/floating.hpp"
 #include "core/menu_action.hpp"
+#include "core/utils/time_utils.hpp"
 #include "io/files_directory.hpp"
 #include "systems/ui/buttons/button_system.hpp"
 #include "systems/ui/labels/label_system.hpp"
@@ -26,6 +27,8 @@ inline constexpr float save_entry_col = 6;
 inline constexpr float page_indicator_row = 15.25f;
 inline constexpr float page_indicator_col = 5.2f;
 inline constexpr int buttons_per_page = 8;
+
+inline const auto saves_directory = files_directory() / "saves";
 
 /// Returns the number of pages necessary for a button group
 [[nodiscard]] auto page_count(const comp::button_group& group) -> int
@@ -45,8 +48,7 @@ void fetch_saves(entt::registry& registry, comp::saves_menu& savesMenu)
 {
   destroy_and_clear(registry, savesMenu.entries);
 
-  static const auto saves = files_directory() / "saves";
-  for (const auto& entry : std::filesystem::directory_iterator(saves))
+  for (const auto& entry : std::filesystem::directory_iterator(saves_directory))
   {
     if (entry.is_directory())
     {
@@ -84,17 +86,22 @@ void refresh_save_entry_buttons(entt::registry& registry,
   destroy_and_clear(registry, group.buttons);
 
   const auto maxRow = group.itemsPerPage;
-  for (int row = 0; const auto entryEntity : savesMenu.entries)
+  for (auto row = 0; const auto entryEntity : savesMenu.entries)
   {
     const auto& entry = registry.get<comp::saves_menu_entry>(entryEntity);
     const auto actualRow = save_entry_row + std::fmod(row, maxRow);
 
-    // TODO action
-    const auto buttonEntity =
-        make_button(registry, entry.name, menu_action::none, actualRow, save_entry_col);
+    const auto buttonEntity = make_button(registry,
+                                          entry.name,
+                                          menu_action::change_save_preview,
+                                          actualRow,
+                                          save_entry_col);
 
     auto& button = registry.get<comp::button>(buttonEntity);
     button.visible = row < maxRow;
+
+    auto& associated = registry.emplace<comp::associated_saves_entry>(buttonEntity);
+    associated.entry = entryEntity;
 
     if (group.selected == entt::null)
     {
@@ -189,6 +196,39 @@ void update_saves_menu(entt::registry& registry)
 
   fetch_saves(registry, registry.get<comp::saves_menu>(menuEntity));
   refresh_saves_menu_contents(registry, menuEntity);
+  change_save_preview(registry);
+}
+
+void change_save_preview(entt::registry& registry)
+{
+  const auto activeMenu = registry.ctx<ctx::active_menu>().entity;
+  assert(registry.get<comp::menu>(activeMenu).id == menu_id::saves);
+
+  auto& savesMenu = registry.get<comp::saves_menu>(activeMenu);
+
+  destroy_if_exists(registry, savesMenu.titleLabel);
+  destroy_if_exists(registry, savesMenu.timeLabel);
+
+  auto& group = registry.get<comp::button_group>(activeMenu);
+  if (group.selected != entt::null)
+  {
+    const auto associatedEntry =
+        registry.get<comp::associated_saves_entry>(group.selected).entry;
+
+    const auto& entry = registry.get<comp::saves_menu_entry>(associatedEntry);
+
+    // TODO add more information about the selected save
+
+    savesMenu.titleLabel =
+        make_label(registry, activeMenu, entry.name, 6, 11, text_size::large);
+
+    savesMenu.timeLabel = make_label(
+        registry,
+        activeMenu,
+        "Last modified:  " + file_modification_time(saves_directory / entry.name),
+        7,
+        11);
+  }
 }
 
 void increment_saves_button_group_page(entt::registry& registry)

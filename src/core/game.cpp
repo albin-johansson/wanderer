@@ -220,6 +220,10 @@ void game::on_button_pressed(const button_pressed_event& event)
       // TODO
       break;
     }
+    case menu_action::change_save_preview: {
+      sys::change_save_preview(m_shared);
+      break;
+    }
     case menu_action::decrement_saves_button_group_page: {
       sys::decrement_saves_button_group_page(m_shared);
       break;
