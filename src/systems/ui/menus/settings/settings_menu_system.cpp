@@ -1,7 +1,8 @@
+#include "settings_menu_system.hpp"
+
 #include "components/ctx/settings.hpp"
 #include "components/ui/button.hpp"
 #include "components/ui/checkbox.hpp"
-#include "systems/ui/menus/menu_system.hpp"
 
 namespace wanderer::sys {
 

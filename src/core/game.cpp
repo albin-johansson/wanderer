@@ -35,6 +35,7 @@
 #include "systems/ui/hud/level_switch_animation_system.hpp"
 #include "systems/ui/menus/menu_system.hpp"
 #include "systems/ui/menus/saves/saves_menu_system.hpp"
+#include "systems/ui/menus/settings/settings_menu_system.hpp"
 
 namespace wanderer {
 

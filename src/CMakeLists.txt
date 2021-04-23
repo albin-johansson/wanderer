@@ -297,9 +297,10 @@ set(SOURCE_FILES
     systems/ui/menus/saves/saves_menu_system.cpp
     systems/ui/menus/saves/saves_menu_system.hpp
 
-    systems/ui/menus/settings/make_settings_menu.cpp
-    systems/ui/menus/settings/make_settings_menu.hpp
-    systems/ui/menus/settings/sync_settings_menu.cpp
+    systems/ui/menus/settings/settings_menu_factory_system.cpp
+    systems/ui/menus/settings/settings_menu_factory_system.hpp
+    systems/ui/menus/settings/settings_menu_system.cpp
+    systems/ui/menus/settings/settings_menu_system.hpp
     )
 
 add_library(${WANDERER_LIB_TARGET} ${SOURCE_FILES})
