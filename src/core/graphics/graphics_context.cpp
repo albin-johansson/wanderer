@@ -20,6 +20,7 @@ graphics_context::graphics_context(const cen::window& window)
                     window.get_pixel_format(),
                     cen::texture_access::target,
                     glob::logical_size<>}
+    , m_format{window.get_pixel_format()}
 {
   m_textures.reserve(10);
 

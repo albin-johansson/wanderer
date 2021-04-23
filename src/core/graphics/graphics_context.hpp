@@ -156,6 +156,12 @@ class graphics_context final
     return m_renderer;
   }
 
+  /// Returns the pixel format of the associated window.
+  [[nodiscard]] auto pixel_format() const noexcept -> cen::pixel_format
+  {
+    return m_format;
+  }
+
  private:
   cen::renderer m_renderer;
   std::vector<cen::texture> m_textures;
@@ -166,6 +172,7 @@ class graphics_context final
 
   // Used as a rendering target for simulating lights
   cen::texture m_lightCanvas;
+  cen::pixel_format m_format;
 
   // We store used IDs so that we avoid loading the same texture more than once
   std::unordered_map<texture_id, texture_index> m_identifiers;
