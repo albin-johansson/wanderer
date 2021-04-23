@@ -88,7 +88,7 @@ void render_menu(const entt::registry& registry, graphics_context& graphics)
 
   if (const auto* pack = registry.try_get<comp::checkbox_pack>(menuEntity))
   {
-    render_checkboxes(registry, renderer, *pack);
+    render_checkboxes(registry, graphics, *pack);
   }
 
   render_title(menu.title, drawable, renderer);
