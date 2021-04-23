@@ -9,9 +9,6 @@ namespace wanderer::sys {
 /// \name Menus
 /// \{
 
-/// Creates the saves menu entity
-auto make_saves_menu(entt::registry& registry) -> comp::menu::entity;
-
 /// Refreshes the state of the saves menu, e.g. fetches the currently available save files
 void update_saves_menu(entt::registry& registry);
 
