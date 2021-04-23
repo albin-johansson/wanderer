@@ -281,8 +281,8 @@ set(SOURCE_FILES
     systems/ui/menus/menu_system.hpp
     systems/ui/menus/render_menu.cpp
 
-    systems/ui/menus/controls/make_controls_menu.cpp
-    systems/ui/menus/controls/make_controls_menu.hpp
+    systems/ui/menus/controls/controls_menu_factory_system.cpp
+    systems/ui/menus/controls/controls_menu_factory_system.hpp
 
     systems/ui/menus/home/home_menu_factory_system.cpp
     systems/ui/menus/home/home_menu_factory_system.hpp
