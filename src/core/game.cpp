@@ -64,9 +64,7 @@ game::~game()
 void game::handle_input(const input& input)
 {
   sys::update_menu(m_shared, m_dispatcher, input);
-
-  const auto& binds = m_shared.ctx<ctx::binds>();
-  sys::update_input(m_levels.registry(), m_dispatcher, input, binds);
+  sys::update_input(m_levels.registry(), m_dispatcher, input, m_shared.ctx<ctx::binds>());
 }
 
 void game::tick(const delta_time dt)
