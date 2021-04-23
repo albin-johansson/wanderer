@@ -7,17 +7,17 @@
 
 #include "components/ctx/active_menu.hpp"
 #include "components/ui/button_group.hpp"
-#include "components/ui/label.hpp"
-#include "components/ui/menu.hpp"
+#include "components/ui/lazy_texture.hpp"
 #include "components/ui/saves_menu.hpp"
-#include "core/ecs/null_entity.hpp"
 #include "core/ecs/registry_utils.hpp"
 #include "core/math/floating.hpp"
-#include "core/menu_action.hpp"
+#include "core/menu_constants.hpp"
 #include "core/utils/time_utils.hpp"
 #include "io/files_directory.hpp"
 #include "systems/ui/buttons/button_system.hpp"
 #include "systems/ui/labels/label_system.hpp"
+#include "systems/ui/lazy-textures/lazy_texture_factory_system.hpp"
+#include "systems/ui/menus/saves/saves_menu_entry_factory_system.hpp"
 
 namespace wanderer::sys {
 namespace {
@@ -33,7 +33,8 @@ inline const auto saves_directory = files_directory() / "saves";
 /// Returns the number of pages necessary for a button group
 [[nodiscard]] auto page_count(const comp::button_group& group) -> int
 {
-  return round(group.buttons.size() / static_cast<float>(group.itemsPerPage));
+  return std::max(1,
+                  round(group.buttons.size() / static_cast<float>(group.itemsPerPage)));
 }
 
 /// Returns the appropriate text for the page indicator label
@@ -52,12 +53,7 @@ void fetch_saves(entt::registry& registry, comp::saves_menu& savesMenu)
   {
     if (entry.is_directory())
     {
-      const auto entity = comp::saves_menu_entry::entity{registry.create()};
-
-      auto& item = registry.emplace<comp::saves_menu_entry>(entity);
-      item.name = entry.path().filename().string();
-
-      savesMenu.entries.push_back(entity);
+      savesMenu.entries.push_back(make_saves_menu_entry(registry, entry.path()));
     }
   }
 }
@@ -208,6 +204,8 @@ void change_save_preview(entt::registry& registry)
 
   destroy_if_exists(registry, savesMenu.titleLabel);
   destroy_if_exists(registry, savesMenu.timeLabel);
+  destroy_if_exists(registry, savesMenu.dataVersionLabel);
+  destroy_if_exists(registry, savesMenu.previewTexture);
 
   auto& group = registry.get<comp::button_group>(activeMenu);
   if (group.selected != entt::null)
@@ -217,17 +215,28 @@ void change_save_preview(entt::registry& registry)
 
     const auto& entry = registry.get<comp::saves_menu_entry>(associatedEntry);
 
-    // TODO add more information about the selected save
+    const auto label = [&](std::string text,
+                           const float row,
+                           const float col,
+                           const text_size size = text_size::small) {
+      return make_label(registry, activeMenu, std::move(text), row, col, size);
+    };
 
-    savesMenu.titleLabel =
-        make_label(registry, activeMenu, entry.name, 6, 11, text_size::large);
+    savesMenu.titleLabel = label(entry.name, 6, 11, text_size::large);
+    savesMenu.timeLabel =
+        label("Last modified:  " + file_modification_time(saves_directory / entry.name),
+              7.4f,
+              11.0f);
+    savesMenu.dataVersionLabel =
+        label("Data version:  " + std::to_string(entry.dataVersion), 8.4f, 11.0f);
 
-    savesMenu.timeLabel = make_label(
-        registry,
-        activeMenu,
-        "Last modified:  " + file_modification_time(saves_directory / entry.name),
-        7,
-        11);
+    const auto width = glob::menu_col_size * 9.0f;
+    const auto height = (width / 16.0f) * 9.0f;  // Assume 16:9 aspect ratio
+    savesMenu.previewTexture = make_lazy_texture(registry,
+                                                 activeMenu,
+                                                 entry.preview,
+                                                 grid_position{6.0f, 20.0f},
+                                                 cen::area(width, height));
   }
 }
 

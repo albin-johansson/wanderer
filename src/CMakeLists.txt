@@ -267,6 +267,8 @@ set(SOURCE_FILES
     systems/ui/labels/make_label.cpp
     systems/ui/labels/render_labels.cpp
 
+    systems/ui/lazy-textures/lazy_texture_factory_system.cpp
+    systems/ui/lazy-textures/lazy_texture_factory_system.hpp
     systems/ui/lazy-textures/lazy_texture_rendering_system.cpp
     systems/ui/lazy-textures/lazy_texture_rendering_system.hpp
 
@@ -289,6 +291,8 @@ set(SOURCE_FILES
     systems/ui/menus/in-game/make_in_game_menu.hpp
 
     systems/ui/menus/saves/make_saves_menu.cpp
+    systems/ui/menus/saves/saves_menu_entry_factory_system.cpp
+    systems/ui/menus/saves/saves_menu_entry_factory_system.hpp
     systems/ui/menus/saves/saves_menu_system.cpp
     systems/ui/menus/saves/saves_menu_system.hpp
 
