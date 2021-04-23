@@ -235,7 +235,7 @@ void change_save_preview(entt::registry& registry)
     savesMenu.previewTexture = make_lazy_texture(registry,
                                                  activeMenu,
                                                  entry.preview,
-                                                 grid_position{6.0f, 20.0f},
+                                                 grid_position{7.0f, 20.0f},
                                                  cen::area(width, height));
   }
 }
