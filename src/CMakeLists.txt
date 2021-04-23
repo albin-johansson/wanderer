@@ -287,8 +287,8 @@ set(SOURCE_FILES
     systems/ui/menus/home/make_home_menu.cpp
     systems/ui/menus/home/make_home_menu.hpp
 
-    systems/ui/menus/in-game/make_in_game_menu.cpp
-    systems/ui/menus/in-game/make_in_game_menu.hpp
+    systems/ui/menus/in-game/in_game_menu_factory_system.cpp
+    systems/ui/menus/in-game/in_game_menu_factory_system.hpp
 
     systems/ui/menus/saves/saves_menu_entry_factory_system.cpp
     systems/ui/menus/saves/saves_menu_entry_factory_system.hpp

@@ -9,7 +9,7 @@
 #include "systems/ui/buttons/button_system.hpp"
 #include "systems/ui/menus/controls/make_controls_menu.hpp"
 #include "systems/ui/menus/home/make_home_menu.hpp"
-#include "systems/ui/menus/in-game/make_in_game_menu.hpp"
+#include "systems/ui/menus/in-game/in_game_menu_factory_system.hpp"
 #include "systems/ui/menus/saves/saves_menu_factory_system.hpp"
 #include "systems/ui/menus/saves/saves_menu_system.hpp"
 #include "systems/ui/menus/settings/settings_menu_factory_system.hpp"
