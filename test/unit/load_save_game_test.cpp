@@ -17,9 +17,10 @@ TEST(LoadSaveGame, Usage)
 
   {
     level_manager levels{graphics};
+    cen::surface snapshot{"resources/snapshot.png"};
 
     const auto before = cen::counter::now();
-    save_game("test", levels);
+    save_game("test", levels, snapshot);
     const auto after = cen::counter::now();
 
     const auto diff = static_cast<long double>(after - before);
