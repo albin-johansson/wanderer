@@ -278,9 +278,10 @@ set(SOURCE_FILES
 
     systems/ui/menus/menu_factory_system.cpp
     systems/ui/menus/menu_factory_system.hpp
+    systems/ui/menus/menu_rendering_system.cpp
+    systems/ui/menus/menu_rendering_system.hpp
     systems/ui/menus/menu_system.cpp
     systems/ui/menus/menu_system.hpp
-    systems/ui/menus/render_menu.cpp
 
     systems/ui/menus/controls/controls_menu_factory_system.cpp
     systems/ui/menus/controls/controls_menu_factory_system.hpp

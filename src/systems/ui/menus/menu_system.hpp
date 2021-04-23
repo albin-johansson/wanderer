@@ -1,11 +1,7 @@
 #pragma once
 
-#include <centurion.hpp>  // keyboard, mouse
-#include <entt.hpp>       // registry, dispatcher
-#include <string>         // string
+#include <entt.hpp>  // registry, dispatcher
 
-#include "components/ui/menu.hpp"
-#include "core/graphics/graphics_context.hpp"
 #include "core/input.hpp"
 #include "core/menu_id.hpp"
 
@@ -16,6 +12,8 @@ namespace wanderer::sys {
 
 /**
  * \brief Updates the currently active menu.
+ *
+ * \ingroup systems
  *
  * \param registry the menu registry.
  * \param dispatcher the event dispatcher that will be used.
@@ -28,23 +26,19 @@ void update_menu(entt::registry& registry,
 /**
  * \brief Changes the currently active menu.
  *
+ * \ingroup systems
+ *
  * \param registry the menu registry.
  * \param id the ID associated with the menu that will be selected.
  */
 void switch_menu(entt::registry& registry, menu_id id);
 
 /**
- * \brief Renders the currently active menu.
- *
- * \param registry the menu registry.
- * \param graphics the graphics context that will be used.
- */
-void render_menu(const entt::registry& registry, graphics_context& graphics);
-
-/**
  * \brief Indicates whether or not the current menu is blocking.
  *
  * \details A blocking menu is meant to prevent the game from updating.
+ *
+ * \ingroup systems
  *
  * \return `true` if the current menu is blocking; `false` otherwise
  */
