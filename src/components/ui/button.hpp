@@ -6,6 +6,7 @@
 
 #include "core/aliases/entity_type.hpp"
 #include "core/aliases/maybe.hpp"
+#include "core/grid_position.hpp"
 #include "core/menu_action.hpp"
 
 namespace wanderer::comp {
@@ -20,8 +21,7 @@ struct button final
 
   menu_action action;
   std::string text;
-  float row;
-  float col;
+  grid_position position;
   bool enabled{true};
   bool hover{false};
   bool visible{true};

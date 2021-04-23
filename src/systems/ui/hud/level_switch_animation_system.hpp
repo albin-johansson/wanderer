@@ -16,6 +16,8 @@ namespace wanderer::sys {
  * \brief Updates the state of a level switch animations, although there should
  * only ever be one active at a time.
  *
+ * \ingroup systems
+ *
  * \param registry the registry associated with the current level.
  * \param dispatcher the event dispatcher that will be used.
  * \param dt the current delta time.
@@ -30,6 +32,8 @@ void update_level_switch_animations(entt::registry& registry,
  * \brief Renders all level switch animations, although there should only
  * ever be one active at a time.
  *
+ * \ingroup systems
+ *
  * \param registry the registry associated with the current level.
  * \param renderer the renderer that will be used.
  *
@@ -40,6 +44,8 @@ void render_level_switch_animations(const entt::registry& registry,
 
 /**
  * \brief Begins a level switch animation.
+ *
+ * \ingroup systems
  *
  * \param registry the registry associated with the current level.
  * \param map the ID of the target map.
@@ -54,6 +60,8 @@ void start_level_fade_animation(entt::registry& registry, map_id map);
  * \note The registry that is supplied to this function should not be the
  * same as the registry supplied to `start_level_fade_animation()`, before
  * calling this function.
+ *
+ * \ingroup systems
  *
  * \param registry the registry associated with the current level.
  * \param event the event that contains information about the animation.

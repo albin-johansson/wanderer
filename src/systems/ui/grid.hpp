@@ -2,6 +2,7 @@
 
 #include <centurion.hpp>  // fpoint
 
+#include "core/grid_position.hpp"
 #include "core/menu_constants.hpp"
 
 namespace wanderer::sys {
@@ -30,6 +31,11 @@ namespace wanderer::sys {
 [[nodiscard]] constexpr auto from_grid(const float row, const float column) -> cen::fpoint
 {
   return {column_to_x(column), row_to_y(row)};
+}
+
+[[nodiscard]] constexpr auto from_grid(const grid_position position) -> cen::fpoint
+{
+  return {column_to_x(position.col), row_to_y(position.row)};
 }
 
 /// \} End of UI

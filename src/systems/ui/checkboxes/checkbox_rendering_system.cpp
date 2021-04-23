@@ -1,14 +1,16 @@
+#include "systems/ui/checkboxes/checkbox_rendering_system.hpp"
+
 #include "core/graphics/render_text.hpp"
 #include "systems/ui/buttons/button_system.hpp"
-#include "systems/ui/checkboxes/checkbox_system.hpp"
 #include "systems/ui/grid.hpp"
 
 namespace wanderer::sys {
 
 void render_checkboxes(const entt::registry& registry,
-                       cen::renderer& renderer,
+                       graphics_context& graphics,
                        const comp::checkbox_pack& pack)
 {
+  auto& renderer = graphics.renderer();
   for (const auto entity : pack.checkboxes)
   {
     const auto& button = registry.get<comp::button>(entity);

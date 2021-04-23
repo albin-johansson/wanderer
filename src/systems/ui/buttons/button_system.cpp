@@ -1,10 +1,10 @@
 #include "button_system.hpp"
 
-#include <ranges>  // any_of
-
+#include "components/ctx/active_menu.hpp"
 #include "components/ui/checkbox.hpp"
 #include "components/ui/cursors.hpp"
 #include "events/button_pressed_event.hpp"
+#include "systems/ui/cursor_system.hpp"
 
 namespace wanderer::sys {
 namespace {
@@ -42,8 +42,7 @@ auto query_button(entt::registry& registry,
   auto& button = registry.get<comp::button>(buttonEntity);
   if (button.hover && button.enabled)
   {
-    auto& cursors = registry.ctx<comp::cursors>();
-    cursors.data.at(cen::system_cursor::hand).enable();
+    enable_cursor(registry, cen::system_cursor::hand);
 
     if (mouse.was_left_button_released())
     {
@@ -63,10 +62,10 @@ auto query_button(entt::registry& registry,
   return false;
 }
 
-auto update_button_hover(entt::registry& registry,
-                         const comp::menu::entity menuEntity,
-                         const cen::mouse& mouse) -> maybe<comp::button::entity>
+auto update_button_hover(entt::registry& registry, const cen::mouse& mouse)
+    -> maybe<comp::button::entity>
 {
+  const auto menuEntity = registry.ctx<ctx::active_menu>().entity;
   const auto mousePos = cen::cast<cen::fpoint>(mouse.position());
 
   if (const auto* buttonPack = registry.try_get<comp::button_pack>(menuEntity))
@@ -94,14 +93,6 @@ auto update_button_hover(entt::registry& registry,
   }
 
   return std::nullopt;
-}
-
-auto is_in_button_group(const std::vector<comp::button::entity>& buttons,
-                        const comp::button::entity button) -> bool
-{
-  return std::ranges::any_of(buttons, [button](const comp::button::entity entity) {
-    return entity.get() == button;
-  });
 }
 
 }  // namespace wanderer::sys

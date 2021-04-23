@@ -10,10 +10,12 @@
 #include "core/menu_constants.hpp"
 #include "io/files_directory.hpp"
 #include "systems/input/key_bind_system.hpp"
+#include "systems/ui/buttons/button_factory_system.hpp"
 #include "systems/ui/buttons/button_system.hpp"
 #include "systems/ui/grid.hpp"
-#include "systems/ui/labels/label_system.hpp"
-#include "systems/ui/lines/line_system.hpp"
+#include "systems/ui/labels/label_factory_system.hpp"
+#include "systems/ui/lines/line_factory_system.hpp"
+#include "systems/ui/lines/line_rendering_system.hpp"
 #include "systems/ui/menus/menu_factory_system.hpp"
 
 namespace wanderer::sys {
@@ -40,16 +42,17 @@ inline constexpr auto y_1 = row_to_y(glob::menu_rows - 2);
 {
   std::vector<comp::label::entity> labels;
 
-  const auto addLabel = [&](std::string text,
-                            const float row,
-                            const float col,
-                            const text_size size = text_size::small) {
-    labels.push_back(make_label(registry, menu, std::move(text), row, col, size));
+  const auto label = [&](std::string text,
+                         const float row,
+                         const float col,
+                         const text_size size = text_size::small) {
+    labels.push_back(
+        make_label(registry, menu, std::move(text), grid_position{row, col}, size));
   };
 
-  addLabel("Location:   " + (files_directory() / "saves").string(),
-           glob::menu_rows - 1.7f,
-           2);
+  label("Location:   " + (files_directory() / "saves").string(),
+        glob::menu_rows - 1.7f,
+        2);
 
   return labels;
 }
@@ -60,26 +63,27 @@ inline constexpr auto y_1 = row_to_y(glob::menu_rows - 2);
 {
   std::vector<comp::button::entity> buttons;
 
-  const auto addButton = [&](std::string text,
-                             const menu_action action,
-                             const float row,
-                             const float col = -1) {
-    const auto entity = make_button(registry, std::move(text), action, row, col);
+  const auto button = [&](std::string text,
+                          const menu_action action,
+                          const float row,
+                          const float col = -1) {
+    const auto entity =
+        make_button(registry, std::move(text), action, grid_position{row, col});
     buttons.push_back(entity);
     return entity;
   };
 
-  addButton("Return", menu_action::goto_home, 3.5f);
+  button("Return", menu_action::goto_home, 3.5f);
 
   auto& savesMenu = registry.get<comp::saves_menu>(menuEntity);
 
-  savesMenu.loadButton = addButton("Load", menu_action::load_game, 15, 12);
-  savesMenu.deleteButton = addButton("Delete", menu_action::none, 15, 27.5f);
+  savesMenu.loadButton = button("Load", menu_action::load_game, 15, 12);
+  savesMenu.deleteButton = button("Delete", menu_action::none, 15, 27.5f);
 
   savesMenu.decrementButton =
-      addButton("<", menu_action::decrement_saves_button_group_page, 15, 4);
+      button("<", menu_action::decrement_saves_button_group_page, 15, 4);
   savesMenu.incrementButton =
-      addButton(">", menu_action::increment_saves_button_group_page, 15, 8);
+      button(">", menu_action::increment_saves_button_group_page, 15, 8);
 
   return buttons;
 }
@@ -88,22 +92,22 @@ inline constexpr auto y_1 = row_to_y(glob::menu_rows - 2);
 {
   std::vector<comp::line::entity> lines;
 
-  const auto addLine = [&](const cen::fpoint start, const cen::fpoint end) {
+  const auto line = [&](const cen::fpoint start, const cen::fpoint end) {
     lines.push_back(make_line(registry, start, end));
   };
 
   // Surrounding box
-  addLine({x_0, y_0}, {x_0, y_1});
-  addLine({x_1, y_0}, {x_1, y_1});
-  addLine({x_0, y_0}, {x_1, y_0});
-  addLine({x_0, y_1}, {x_1, y_1});
+  line({x_0, y_0}, {x_0, y_1});
+  line({x_1, y_0}, {x_1, y_1});
+  line({x_0, y_0}, {x_1, y_0});
+  line({x_0, y_1}, {x_1, y_1});
 
   // Vertical save entry separator
-  addLine({column_to_x(10), y_0 + 10}, {column_to_x(10), y_1 - 10});
+  line({column_to_x(10), y_0 + 10}, {column_to_x(10), y_1 - 10});
 
   // Horizontal bottom button separator
-  addLine(from_grid(15, 11), from_grid(15, 29));
-  addLine(from_grid(15, 3), from_grid(15, 9));
+  line(from_grid(15, 11), from_grid(15, 29));
+  line(from_grid(15, 3), from_grid(15, 9));
 
   return lines;
 }

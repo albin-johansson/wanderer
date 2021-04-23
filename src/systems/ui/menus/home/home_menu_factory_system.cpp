@@ -5,6 +5,7 @@
 
 #include "components/ui/button.hpp"
 #include "systems/input/key_bind_system.hpp"
+#include "systems/ui/buttons/button_factory_system.hpp"
 #include "systems/ui/buttons/button_system.hpp"
 #include "systems/ui/menus/menu_factory_system.hpp"
 
@@ -20,7 +21,8 @@ void add_buttons(entt::registry& registry, const comp::menu::entity entity)
                           const menu_action action,
                           const float row,
                           const float col = -1) {
-    pack.buttons.push_back(make_button(registry, std::move(text), action, row, col));
+    pack.buttons.push_back(
+        make_button(registry, std::move(text), action, grid_position{row, col}));
   };
 
   float row = 5;

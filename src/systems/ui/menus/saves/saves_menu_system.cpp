@@ -14,7 +14,9 @@
 #include "core/menu_constants.hpp"
 #include "core/utils/time_utils.hpp"
 #include "io/files_directory.hpp"
+#include "systems/ui/buttons/button_factory_system.hpp"
 #include "systems/ui/buttons/button_system.hpp"
+#include "systems/ui/labels/label_factory_system.hpp"
 #include "systems/ui/labels/label_system.hpp"
 #include "systems/ui/lazy-textures/lazy_texture_factory_system.hpp"
 #include "systems/ui/menus/saves/saves_menu_entry_factory_system.hpp"
@@ -81,17 +83,16 @@ void refresh_save_entry_buttons(entt::registry& registry,
 
   destroy_and_clear(registry, group.buttons);
 
-  const auto maxRow = group.itemsPerPage;
+  const auto maxRow = static_cast<float>(group.itemsPerPage);
   for (auto row = 0; const auto entryEntity : savesMenu.entries)
   {
     const auto& entry = registry.get<comp::saves_menu_entry>(entryEntity);
-    const auto actualRow = save_entry_row + std::fmod(row, maxRow);
+    const auto actualRow = save_entry_row + std::fmod(static_cast<float>(row), maxRow);
 
     const auto buttonEntity = make_button(registry,
                                           entry.name,
                                           menu_action::change_save_preview,
-                                          actualRow,
-                                          save_entry_col);
+                                          grid_position{actualRow, save_entry_col});
 
     auto& button = registry.get<comp::button>(buttonEntity);
     button.visible = row < maxRow;
@@ -115,12 +116,12 @@ void refresh_page_indicator_label(entt::registry& registry,
 {
   if (group.indicatorLabel == entt::null)
   {
-    group.indicatorLabel = sys::make_label(registry,
-                                           menuEntity,
-                                           get_page_indicator_text(group),
-                                           page_indicator_row,
-                                           page_indicator_col,
-                                           text_size::medium);
+    group.indicatorLabel =
+        sys::make_label(registry,
+                        menuEntity,
+                        get_page_indicator_text(group),
+                        grid_position{page_indicator_row, page_indicator_col},
+                        text_size::medium);
   }
   else
   {
@@ -219,7 +220,11 @@ void change_save_preview(entt::registry& registry)
                            const float row,
                            const float col,
                            const text_size size = text_size::small) {
-      return make_label(registry, activeMenu, std::move(text), row, col, size);
+      return make_label(registry,
+                        activeMenu,
+                        std::move(text),
+                        grid_position{row, col},
+                        size);
     };
 
     savesMenu.titleLabel = label(entry.name, 6, 11, text_size::large);

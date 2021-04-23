@@ -5,8 +5,10 @@
 
 #include "components/ui/checkbox.hpp"
 #include "systems/input/key_bind_system.hpp"
+#include "systems/ui/buttons/button_factory_system.hpp"
 #include "systems/ui/buttons/button_system.hpp"
-#include "systems/ui/checkboxes/checkbox_system.hpp"
+#include "systems/ui/checkboxes/checkbox_factory_system.hpp"
+#include "systems/ui/checkboxes/checkbox_rendering_system.hpp"
 #include "systems/ui/menus/menu_factory_system.hpp"
 
 namespace wanderer::sys {
@@ -20,7 +22,8 @@ void add_buttons(entt::registry& registry, const comp::menu::entity entity)
                           const menu_action action,
                           const float row,
                           const float col = -1) {
-    pack.buttons.push_back(make_button(registry, std::move(text), action, row, col));
+    pack.buttons.push_back(
+        make_button(registry, std::move(text), action, grid_position{row, col}));
   };
 
   button("Return", menu_action::goto_home, 4);
@@ -30,12 +33,11 @@ void add_checkboxes(entt::registry& registry, const comp::menu::entity entity)
 {
   auto& pack = registry.emplace<comp::checkbox_pack>(entity);
 
-  const auto checkbox = [&](std::string text,
-                            const float row,
-                            const float col,
-                            const menu_action action) {
-    pack.checkboxes.push_back(add_checkbox(registry, std::move(text), row, col, action));
-  };
+  const auto checkbox =
+      [&](std::string text, const float row, const float col, const menu_action action) {
+        pack.checkboxes.push_back(
+            make_checkbox(registry, std::move(text), grid_position{row, col}, action));
+      };
 
   checkbox("Fullscreen", 6, 13, menu_action::toggle_fullscreen);
   checkbox("Integer scaling", 7, 13, menu_action::toggle_integer_scaling);

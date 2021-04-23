@@ -1,6 +1,7 @@
+#include "button_rendering_system.hpp"
+
 #include "core/graphics/render_text.hpp"
 #include "core/menu_constants.hpp"
-#include "systems/ui/buttons/button_system.hpp"
 #include "systems/ui/grid.hpp"
 
 namespace wanderer::sys {
@@ -17,9 +18,10 @@ void update_bounds(const comp::button& button,
   const auto& font = renderer.get_font(button_font);
   const auto [width, height] = font.string_size(button.text).value();
 
+  const auto pos = from_grid(button.position);
   bounds.set_size({width * 1.25f, height * 1.5f});
-  bounds.set_x(column_to_x(button.col) - (bounds.width() / 2.0f));
-  bounds.set_y(row_to_y(button.row) + ((glob::menu_row_size - bounds.height()) / 2.0f));
+  bounds.set_x(pos.x() - (bounds.width() / 2.0f));
+  bounds.set_y(pos.y() + ((glob::menu_row_size - bounds.height()) / 2.0f));
 }
 
 void init_text(const comp::button_drawable& drawable,
@@ -65,12 +67,11 @@ void render_outline(const comp::button_drawable& drawable, cen::renderer& render
   renderer.draw_rect(drawable.bounds);
 }
 
-}  // namespace
-
 void render_button(const entt::registry& registry,
-                   cen::renderer& renderer,
+                   graphics_context& graphics,
                    const comp::button::entity buttonEntity)
 {
+  auto& renderer = graphics.renderer();
   const auto& button = registry.get<comp::button>(buttonEntity);
   const auto& drawable = registry.get<comp::button_drawable>(buttonEntity);
 
@@ -93,13 +94,34 @@ void render_button(const entt::registry& registry,
   render_text(button, drawable, renderer);
 }
 
+}  // namespace
+
 void render_buttons(const entt::registry& registry,
-                    cen::renderer& renderer,
+                    graphics_context& graphics,
                     const comp::button_pack& pack)
 {
   for (const auto entity : pack.buttons)
   {
-    render_button(registry, renderer, entity);
+    render_button(registry, graphics, entity);
+  }
+}
+
+void render_button_group(const entt::registry& registry,
+                         graphics_context& graphics,
+                         const comp::button_group& group)
+{
+  if (group.selected != entt::null)
+  {
+    auto& renderer = graphics.renderer();
+    const auto& button = registry.get<comp::button>(group.selected);
+    const auto& drawable = registry.get<comp::button_drawable>(group.selected);
+    renderer.set_color(cen::colors::dark_green);
+    renderer.fill_rect(drawable.bounds);
+  }
+
+  for (const auto entity : group.buttons)
+  {
+    render_button(registry, graphics, entity);
   }
 }
 

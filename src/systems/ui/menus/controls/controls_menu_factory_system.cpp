@@ -6,7 +6,9 @@
 #include "components/ui/button.hpp"
 #include "components/ui/label.hpp"
 #include "systems/input/key_bind_system.hpp"
+#include "systems/ui/buttons/button_factory_system.hpp"
 #include "systems/ui/buttons/button_system.hpp"
+#include "systems/ui/labels/label_factory_system.hpp"
 #include "systems/ui/labels/label_system.hpp"
 #include "systems/ui/menus/menu_factory_system.hpp"
 
@@ -21,7 +23,8 @@ void add_buttons(entt::registry& registry, const comp::menu::entity entity)
                           const menu_action action,
                           const float row,
                           const float col = -1) {
-    pack.buttons.push_back(make_button(registry, std::move(text), action, row, col));
+    pack.buttons.push_back(
+        make_button(registry, std::move(text), action, grid_position{row, col}));
   };
 
   button("Return", menu_action::goto_home, 4);
@@ -32,7 +35,8 @@ void add_labels(entt::registry& registry, const comp::menu::entity entity)
   auto& pack = registry.emplace<comp::label_pack>(entity);
 
   const auto label = [&](std::string text, const float row, const float col) {
-    pack.labels.push_back(sys::make_label(registry, entity, std::move(text), row, col));
+    pack.labels.push_back(
+        sys::make_label(registry, entity, std::move(text), grid_position{row, col}));
   };
 
   float row = 6;

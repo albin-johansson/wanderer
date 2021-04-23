@@ -1,9 +1,11 @@
+#include "label_rendering_system.hpp"
+
 #include "components/ctx/active_menu.hpp"
 #include "components/ui/associated_menu.hpp"
+#include "components/ui/label.hpp"
 #include "core/graphics/render_text.hpp"
 #include "core/menu_constants.hpp"
 #include "systems/ui/grid.hpp"
-#include "systems/ui/labels/label_system.hpp"
 
 namespace wanderer::sys {
 
@@ -25,9 +27,10 @@ namespace wanderer::sys {
   }
 }
 
-void render_labels(const entt::registry& registry, cen::renderer& renderer)
+void render_labels(const entt::registry& registry, graphics_context& graphics)
 {
   const auto active = registry.ctx<const ctx::active_menu>().entity;
+  auto& renderer = graphics.renderer();
 
   const auto view = registry.view<const comp::label, const comp::associated_menu>();
   for (auto&& [entity, label, associated] : view.each())
@@ -42,7 +45,7 @@ void render_labels(const entt::registry& registry, cen::renderer& renderer)
         label.texture = render_text(renderer, label.text, font);
       }
 
-      renderer.render(*label.texture, from_grid(label.row, label.col));
+      renderer.render(*label.texture, from_grid(label.position));
     }
   }
 }

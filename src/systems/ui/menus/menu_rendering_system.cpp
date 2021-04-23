@@ -7,12 +7,14 @@
 #include "core/graphics/render_text.hpp"
 #include "core/menu_constants.hpp"
 #include "core/resources.hpp"
+#include "systems/ui/buttons/button_rendering_system.hpp"
 #include "systems/ui/buttons/button_system.hpp"
-#include "systems/ui/checkboxes/checkbox_system.hpp"
+#include "systems/ui/checkboxes/checkbox_rendering_system.hpp"
 #include "systems/ui/grid.hpp"
+#include "systems/ui/labels/label_rendering_system.hpp"
 #include "systems/ui/labels/label_system.hpp"
 #include "systems/ui/lazy-textures/lazy_texture_rendering_system.hpp"
-#include "systems/ui/lines/line_system.hpp"
+#include "systems/ui/lines/line_rendering_system.hpp"
 
 using namespace entt::literals;
 
@@ -68,20 +70,20 @@ void render_menu(const entt::registry& registry, graphics_context& graphics)
 
   if (const auto* pack = registry.try_get<comp::line_pack>(menuEntity))
   {
-    render_lines(registry, renderer, *pack);
+    render_lines(registry, graphics, *pack);
   }
 
   render_lazy_textures(registry, graphics);
-  render_labels(registry, renderer);
+  render_labels(registry, graphics);
 
   if (const auto* pack = registry.try_get<comp::button_pack>(menuEntity))
   {
-    render_buttons(registry, renderer, *pack);
+    render_buttons(registry, graphics, *pack);
   }
 
   if (const auto* group = registry.try_get<comp::button_group>(menuEntity))
   {
-    render_button_group(registry, renderer, *group);
+    render_button_group(registry, graphics, *group);
   }
 
   if (const auto* pack = registry.try_get<comp::checkbox_pack>(menuEntity))

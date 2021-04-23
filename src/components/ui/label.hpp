@@ -6,6 +6,7 @@
 
 #include "core/aliases/entity_type.hpp"
 #include "core/aliases/maybe.hpp"
+#include "core/grid_position.hpp"
 #include "core/text_size.hpp"
 
 namespace wanderer::comp {
@@ -17,8 +18,7 @@ struct label final
 {
   using entity = entity_type<detail::label_entity_t>;
 
-  float row;
-  float col;
+  grid_position position;
   std::string text;
   cen::color color;
   text_size size;

@@ -247,34 +247,41 @@ set(SOURCE_FILES
     systems/saves/saves_system.cpp
     systems/saves/saves_system.hpp
 
+    systems/ui/cursor_system.cpp
+    systems/ui/cursor_system.hpp
     systems/ui/grid.hpp
 
     systems/ui/buttons/button_factory_system.cpp
+    systems/ui/buttons/button_factory_system.hpp
+    systems/ui/buttons/button_rendering_system.cpp
+    systems/ui/buttons/button_rendering_system.hpp
     systems/ui/buttons/button_system.cpp
     systems/ui/buttons/button_system.hpp
-    systems/ui/buttons/render_button_group.cpp
-    systems/ui/buttons/render_buttons.cpp
 
-    systems/ui/checkboxes/add_checkbox.cpp
-    systems/ui/checkboxes/checkbox_system.hpp
-    systems/ui/checkboxes/render_checkboxes.cpp
+    systems/ui/checkboxes/checkbox_factory_system.cpp
+    systems/ui/checkboxes/checkbox_factory_system.hpp
+    systems/ui/checkboxes/checkbox_rendering_system.hpp
+    systems/ui/checkboxes/checkbox_rendering_system.cpp
 
     systems/ui/hud/level_switch_animation_system.cpp
     systems/ui/hud/level_switch_animation_system.hpp
 
+    systems/ui/labels/label_factory_system.cpp
+    systems/ui/labels/label_factory_system.hpp
+    systems/ui/labels/label_rendering_system.cpp
+    systems/ui/labels/label_rendering_system.hpp
     systems/ui/labels/label_system.cpp
     systems/ui/labels/label_system.hpp
-    systems/ui/labels/make_label.cpp
-    systems/ui/labels/render_labels.cpp
 
     systems/ui/lazy-textures/lazy_texture_factory_system.cpp
     systems/ui/lazy-textures/lazy_texture_factory_system.hpp
     systems/ui/lazy-textures/lazy_texture_rendering_system.cpp
     systems/ui/lazy-textures/lazy_texture_rendering_system.hpp
 
-    systems/ui/lines/line_system.hpp
-    systems/ui/lines/make_line.cpp
-    systems/ui/lines/render_lines.cpp
+    systems/ui/lines/line_factory_system.cpp
+    systems/ui/lines/line_factory_system.hpp
+    systems/ui/lines/line_rendering_system.hpp
+    systems/ui/lines/line_rendering_system.cpp
 
     systems/ui/menus/menu_factory_system.cpp
     systems/ui/menus/menu_factory_system.hpp

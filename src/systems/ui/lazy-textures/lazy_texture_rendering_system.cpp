@@ -28,6 +28,9 @@ void render_lazy_textures(const entt::registry& registry, graphics_context& grap
       const auto rect = cen::rect(position.x(), position.y(), size.width, size.height);
 
       renderer.render(*lazy.texture, rect);
+
+      renderer.set_color(cen::colors::white);
+      renderer.draw_rect(rect);
     }
   }
 }
