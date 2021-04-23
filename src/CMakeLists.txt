@@ -50,6 +50,7 @@ set(SOURCE_FILES
     components/ui/checkbox.hpp
     components/ui/cursors.hpp
     components/ui/label.hpp
+    components/ui/lazy_texture.hpp
     components/ui/line.hpp
     components/ui/menu.hpp
     components/ui/saves_menu.hpp
