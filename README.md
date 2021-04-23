@@ -6,8 +6,3 @@
 [![CI: Windows](https://github.com/albin-johansson/wanderer/actions/workflows/windows.yml/badge.svg?branch=dev)](https://github.com/albin-johansson/wanderer/actions/workflows/windows.yml)
 
 Wanderer is an 2D indie game, being developed for fun. At the time of writing, the game is still in an experimental state and isn't ready to be played. This project also serves as a "tech demo" for the Centurion library, which is also developed by me.
-
-## Compatibility
-
-Wanderer is developed using MSVC, intended to run on Windows machines. As a result, the codebase occasionally takes
-advantage of minor non-standard improvements of the STL found in the MSVC STL implementation, such as better `noexcept` coverage. Other than that, the code should be platform independent.
