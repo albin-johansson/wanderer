@@ -61,13 +61,13 @@ void update_menu(entt::registry& registry,
   const auto menuEntity = registry.ctx<ctx::active_menu>().entity;
   const auto& menu = registry.get<comp::menu>(menuEntity);
 
-  if (const auto button = update_button_hover(registry, menuEntity, input.mouse))
+  if (const auto button = update_button_hover(registry, input.mouse))
   {
     if (query_button(registry, dispatcher, *button, input.mouse))
     {
       if (auto* group = registry.try_get<comp::button_group>(menuEntity))
       {
-        if (sys::is_in_button_group(group->buttons, *button))
+        if (sys::in_button_group(group->buttons, *button))
         {
           group->selected = *button;
         }
