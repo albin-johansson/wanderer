@@ -7,7 +7,22 @@
 
 namespace wanderer::sys {
 
-auto make_saves_menu_entry(entt::registry& registry, const std::filesystem::path& path)
+/// \name Menus
+/// \{
+
+/**
+ * \brief Creates a saves menu entry entity.
+ *
+ * \ingroup systems
+ *
+ * \param registry the menu registry.
+ * \param dir the path of the save file directory.
+ *
+ * \return
+ */
+auto make_saves_menu_entry(entt::registry& registry, const std::filesystem::path& dir)
     -> comp::saves_menu_entry::entity;
 
-}
+/// \} End of menus
+
+}  // namespace wanderer::sys

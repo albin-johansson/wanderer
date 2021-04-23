@@ -9,7 +9,15 @@ namespace wanderer::sys {
 /// \name Menus
 /// \{
 
-/// Creates the setting menu entity
+/**
+ * \brief Creates the settings menu.
+ *
+ * \ingroup systems
+ *
+ * \param registry the menu registry.
+ *
+ * \return the created entity.
+ */
 auto make_settings_menu(entt::registry& registry) -> comp::menu::entity;
 
 /// \} End of menus
