@@ -2,7 +2,7 @@
 
 #include <cmath>       // round, fmod
 #include <filesystem>  // directory_iterator
-#include <string>      // to_string
+#include <string>      // string, to_string
 #include <utility>     // move
 
 #include "components/ctx/active_menu.hpp"
