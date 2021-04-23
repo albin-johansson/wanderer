@@ -1,9 +1,8 @@
 #pragma once
 
-#include <centurion.hpp> // czstring
+#include <centurion.hpp>  // czstring
 
-namespace wanderer 
-{
+namespace wanderer {
 
 using cen::czstring;
 

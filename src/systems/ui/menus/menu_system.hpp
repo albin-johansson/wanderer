@@ -14,15 +14,6 @@ namespace wanderer::sys {
 /// \name Menus
 /// \{
 
-/// Creates a menu entity
-auto make_menu(entt::registry& registry,
-               std::string title,
-               menu_id id,
-               bool blocking = true) -> comp::menu::entity;
-
-/// Creates and returns a menu registry
-[[nodiscard]] auto make_menus() -> entt::registry;
-
 /**
  * \brief Updates the currently active menu.
  *

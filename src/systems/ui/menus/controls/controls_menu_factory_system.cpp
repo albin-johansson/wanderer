@@ -8,7 +8,7 @@
 #include "systems/input/key_bind_system.hpp"
 #include "systems/ui/buttons/button_system.hpp"
 #include "systems/ui/labels/label_system.hpp"
-#include "systems/ui/menus/menu_system.hpp"
+#include "systems/ui/menus/menu_factory_system.hpp"
 
 namespace wanderer::sys {
 namespace {

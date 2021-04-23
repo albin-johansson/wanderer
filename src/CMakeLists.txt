@@ -276,7 +276,8 @@ set(SOURCE_FILES
     systems/ui/lines/make_line.cpp
     systems/ui/lines/render_lines.cpp
 
-    systems/ui/menus/make_menu.cpp
+    systems/ui/menus/menu_factory_system.cpp
+    systems/ui/menus/menu_factory_system.hpp
     systems/ui/menus/menu_system.cpp
     systems/ui/menus/menu_system.hpp
     systems/ui/menus/render_menu.cpp
