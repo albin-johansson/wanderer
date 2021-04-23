@@ -9,6 +9,7 @@
 #include "systems/ui/checkboxes/checkbox_system.hpp"
 #include "systems/ui/grid.hpp"
 #include "systems/ui/labels/label_system.hpp"
+#include "systems/ui/lazy-textures/lazy_texture_rendering_system.hpp"
 #include "systems/ui/lines/line_system.hpp"
 #include "systems/ui/menus/menu_system.hpp"
 
@@ -69,6 +70,7 @@ void render_menu(const entt::registry& registry, graphics_context& graphics)
     render_lines(registry, renderer, *pack);
   }
 
+  render_lazy_textures(registry, graphics);
   render_labels(registry, renderer);
 
   if (const auto* pack = registry.try_get<comp::button_pack>(menuEntity))
