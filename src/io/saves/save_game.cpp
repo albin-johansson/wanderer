@@ -33,13 +33,16 @@ namespace {
 
 }  // namespace
 
-void save_game(const std::string& name, const level_manager& levels)
+void save_game(const std::string& name,
+               const level_manager& levels,
+               const cen::surface& snapshot)
 {
   static const auto savesDir = files_directory() / "saves";
   const auto dir = unique_path(savesDir / name);
   const auto saveName = dir.filename().string();
 
   std::filesystem::create_directories(dir);
+  snapshot.save_as_png(std::filesystem::absolute(dir / "snapshot.png").string());
 
   json_type json;
 

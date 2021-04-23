@@ -19,6 +19,7 @@ set(SOURCE_FILES
     components/ctx/outside_level.hpp
     components/ctx/player.hpp
     components/ctx/render_bounds.hpp
+    components/ctx/renderer_snapshot.hpp
     components/ctx/settings.hpp
     components/ctx/tileset.hpp
     components/ctx/time_of_day.hpp

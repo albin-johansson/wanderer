@@ -6,6 +6,9 @@
 /// \defgroup components Components
 /// \brief Contains all of the components.
 
+/// \defgroup ctx Context components
+/// \brief Contains all singleton components.
+
 /// \defgroup core Core
 /// \brief Contains "core" game components, used throughout the game.
 
@@ -100,7 +103,8 @@ class game final
   entt::dispatcher m_dispatcher;
   level_manager m_levels;
   entt::registry m_shared;  // Shared data registry, contains menus, settings, etc.
-  bool m_quit{false};
+  bool m_updateSnapshot{};
+  bool m_quit{};
 
   [[nodiscard]] auto is_paused() const -> bool;
 

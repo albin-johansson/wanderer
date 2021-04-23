@@ -1,6 +1,7 @@
 #include "game.hpp"
 
 #include "components/ctx/outside_level.hpp"
+#include "components/ctx/renderer_snapshot.hpp"
 #include "components/ctx/settings.hpp"
 #include "components/graphics/level_switch_animation.hpp"
 #include "components/ui/button.hpp"
@@ -127,6 +128,12 @@ void game::render(graphics_context& graphics, const cen::ipoint mousePos)
 
   sys::render_clock(m_shared, graphics);
 
+  if (m_updateSnapshot)
+  {
+    m_shared.set<ctx::renderer_snapshot>(renderer.capture(graphics.pixel_format()));
+    m_updateSnapshot = false;
+  }
+
   if constexpr (cen::is_debug_build())
   {
     sys::render_debug_info(registry, graphics);
@@ -194,6 +201,7 @@ void game::on_button_pressed(const button_pressed_event& event)
       break;
     }
     case menu_action::goto_home: {
+      m_updateSnapshot = true;
       m_dispatcher.enqueue<switch_menu_event>(menu_id::home);
       break;
     }
@@ -210,7 +218,9 @@ void game::on_button_pressed(const button_pressed_event& event)
       break;
     }
     case menu_action::quick_save: {
-      save_game("quick_save", m_levels);
+      // FIXME don't allow quick saves before the in-game menu has been active once
+      const auto& snapshot = m_shared.ctx<ctx::renderer_snapshot>();
+      save_game("quick_save", m_levels, snapshot.surface);
       m_dispatcher.enqueue<switch_menu_event>(menu_id::in_game);
       break;
     }
