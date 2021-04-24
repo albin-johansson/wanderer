@@ -39,7 +39,7 @@ void update_menu(entt::registry& registry,
   {
     if (associated.entity == menuEntity && input.keyboard.just_released(bind.key))
     {
-      dispatcher.enqueue<button_pressed_event>(bind.action, 0u);
+      dispatcher.enqueue<button_pressed_event>(bind.action);
     }
   }
 }
