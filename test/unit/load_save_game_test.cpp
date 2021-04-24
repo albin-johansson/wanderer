@@ -3,6 +3,7 @@
 #include <centurion.hpp>
 #include <iostream>  // cout
 
+#include "io/files_directory.hpp"
 #include "io/saves/load_game.hpp"
 #include "io/saves/save_game.hpp"
 
@@ -37,4 +38,6 @@ TEST(LoadSaveGame, Usage)
     const auto millis = (diff / freq) * 1'000.0l;
     std::cout << "load_game(): " << millis << " ms\n";
   }
+
+  std::filesystem::remove_all(files_directory() / "saves" / "test");
 }
