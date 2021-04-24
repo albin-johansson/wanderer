@@ -26,7 +26,10 @@ class semi_fixed_game_loop
       : m_currentTime{cen::counter::now_in_seconds<precision_type>()}
       , m_tickRate{tick_rate<precision_type>()}
       , m_fixedDelta{1.0 / m_tickRate}
-  {}
+  {
+    CENTURION_LOG_INFO("Game loop tick rate: %f", m_tickRate);
+    CENTURION_LOG_INFO("Game loop fixed delta: %f", m_fixedDelta);
+  }
 
   void fetch_current_time() noexcept
   {
