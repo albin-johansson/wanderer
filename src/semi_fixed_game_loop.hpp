@@ -40,10 +40,9 @@ class semi_fixed_game_loop
   {
     const auto newTime = cen::counter::now_in_seconds<precision_type>();
     auto frameTime = newTime - m_currentTime;
-    m_currentTime = newTime;
 
-    auto* engine = derived();
-    int nSteps{0};
+    m_currentTime = newTime;
+    auto nSteps = 0;
 
     while (frameTime > seconds_type::zero())
     {
@@ -52,7 +51,7 @@ class semi_fixed_game_loop
         break;  // avoids spiral-of-death by limiting maximum amount of steps
       }
 
-      m_running = engine->update_input();
+      m_running = engine()->update_input();
       if (!m_running)
       {
         break;
@@ -60,7 +59,7 @@ class semi_fixed_game_loop
 
       const auto deltaTime = std::min(frameTime, m_fixedDelta);
       const delta_time delta{static_cast<delta_time::value_type>(deltaTime.count())};
-      engine->update_logic(delta);
+      engine()->update_logic(delta);
 
       frameTime -= deltaTime;
 
@@ -81,7 +80,7 @@ class semi_fixed_game_loop
   seconds_type m_fixedDelta;
   bool m_running{true};
 
-  [[nodiscard]] auto derived() noexcept -> T*
+  [[nodiscard]] auto engine() noexcept -> T*
   {
     return static_cast<T*>(this);
   }
