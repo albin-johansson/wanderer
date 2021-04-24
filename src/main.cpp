@@ -2,9 +2,9 @@
 
 #include "wanderer_engine.hpp"
 
-int main(int, char**)
+auto main(int, char**) -> int
 {
-  cen::library lib;
+  cen::library centurion;
   cen::log::set_priority(cen::log::priority::info);
 
   wanderer::wanderer_engine engine;
