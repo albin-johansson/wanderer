@@ -3,6 +3,7 @@
 #include <cereal/archives/binary.hpp>  // BinaryOutputArchive, BinaryInputArchive
 
 // Include some common type serializers
+#include <cereal/types/array.hpp>
 #include <cereal/types/chrono.hpp>
 #include <cereal/types/optional.hpp>
 #include <cereal/types/string.hpp>
