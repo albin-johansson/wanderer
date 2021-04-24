@@ -24,7 +24,7 @@ auto file_modification_time(const std::filesystem::path& path) -> std::string
      characters. However, the MSVC documentation states that the buffer of ctime_s *must*
      be large enough to hold at least 26 characters. */
   char buffer[26];
-  if (ctime_s(buffer, sizeof buffer, &time) == 0)  // ctime_s is an MSVC extension
+  if (ctime_s(buffer, sizeof buffer, &time) == 0)
   {
     return std::string{buffer, 24};
   }
