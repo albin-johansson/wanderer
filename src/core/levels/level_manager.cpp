@@ -36,8 +36,8 @@ level_manager::level_manager(graphics_context& graphics)
 }
 
 level_manager::level_manager(const save_file_info& info, graphics_context& graphics)
-    : m_world{info.world}
-    , m_current{info.current}
+    : m_current{info.current}
+    , m_world{info.world}
 {
   m_levels.reserve(info.paths.size());
   for (const auto& [id, path] : info.paths)
