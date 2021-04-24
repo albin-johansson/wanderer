@@ -2,15 +2,9 @@
 
 #include "components/ctx/active_menu.hpp"
 #include "components/ctx/cursors.hpp"
-#include "components/ctx/time_of_day.hpp"
 #include "events/button_pressed_event.hpp"
 #include "systems/ui/buttons/button_system.hpp"
-#include "systems/ui/menus/controls/controls_menu_factory_system.hpp"
-#include "systems/ui/menus/home/home_menu_factory_system.hpp"
-#include "systems/ui/menus/in-game/in_game_menu_factory_system.hpp"
-#include "systems/ui/menus/saves/saves_menu_factory_system.hpp"
 #include "systems/ui/menus/saves/saves_menu_system.hpp"
-#include "systems/ui/menus/settings/settings_menu_factory_system.hpp"
 
 namespace wanderer::sys {
 namespace {
@@ -31,25 +25,6 @@ void query_binds(entt::registry& registry,
 }
 
 }  // namespace
-
-auto make_menus() -> entt::registry
-{
-  entt::registry registry;
-
-  const auto home = make_home_menu(registry);
-  make_in_game_menu(registry);
-  make_controls_menu(registry);
-  make_settings_menu(registry);
-  make_saves_menu(registry);
-
-  registry.set<ctx::active_menu>(home);
-  registry.set<ctx::time_of_day>();
-
-  auto& cursors = registry.set<ctx::cursors>();
-  cursors.data.try_emplace(cen::system_cursor::hand, cen::system_cursor::hand);
-
-  return registry;
-}
 
 void update_menu(entt::registry& registry,
                  entt::dispatcher& dispatcher,

@@ -30,6 +30,7 @@
 #include "systems/inventory_system.hpp"
 #include "systems/movement/movement_system.hpp"
 #include "systems/movement/portal_system.hpp"
+#include "systems/shared_registry_factory_system.hpp"
 #include "systems/tile_layer_system.hpp"
 #include "systems/time_system.hpp"
 #include "systems/ui/hud/level_switch_animation_system.hpp"
@@ -44,7 +45,7 @@ namespace wanderer {
 game::game(graphics_context& graphics)
     : m_dispatcher{make_dispatcher()}
     , m_levels{graphics}
-    , m_shared{sys::make_menus()}
+    , m_shared{sys::make_shared_registry()}
 {
   // clang-format off
   m_dispatcher.sink<switch_map_event>().connect<&game::on_switch_map>(this);

@@ -177,6 +177,8 @@ set(SOURCE_FILES
     systems/interaction_system.hpp
     systems/inventory_system.cpp
     systems/inventory_system.hpp
+    systems/shared_registry_factory_system.cpp
+    systems/shared_registry_factory_system.hpp
     systems/tile_layer_system.hpp
     systems/time_system.cpp
     systems/time_system.hpp

@@ -17,9 +17,6 @@ auto make_menu(entt::registry& registry,
                menu_id id,
                bool blocking = true) -> comp::menu::entity;
 
-/// Creates and returns a menu registry
-[[nodiscard]] auto make_menus() -> entt::registry;
-
 /// \} End of menus
 
 }  // namespace wanderer::sys
