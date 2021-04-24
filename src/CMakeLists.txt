@@ -70,6 +70,7 @@ set(SOURCE_FILES
     core/resources.hpp
     core/serialization.hpp
     core/stack_resource.hpp
+    core/static_vector.hpp
     core/text_size.hpp
 
     core/aliases/aabb_tree.hpp

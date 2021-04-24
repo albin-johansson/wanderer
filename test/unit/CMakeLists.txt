@@ -8,6 +8,7 @@ set(TEST_FILES
     humanoid_state_test.cpp
     ini_test.cpp
     load_save_game_test.cpp
+    static_vector_test.cpp
     test_main.cpp
     vector2_test.cpp
     )
