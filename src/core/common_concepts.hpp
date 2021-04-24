@@ -11,7 +11,7 @@ namespace wanderer {
 // clang-format off
 
 template <typename T, typename Elem>
-concept has_value_type = requires (T t)
+concept has_value_type = requires
 {
   typename T::value_type;
   std::convertible_to<typename T::value_type, Elem>;
