@@ -13,13 +13,13 @@ namespace wanderer::sys {
  * \brief Refreshes the state of the saves menu.
  *
  * \details This function updates the saves menu by fetching the currently available save
- * files. This is meant to be called just before the saves menu is enabled.
+ * files.
  *
  * \ingroup systems
  *
  * \param registry the menu registry.
  */
-void update_saves_menu(entt::registry& registry);
+void on_saves_menu_enabled(entt::registry& registry);
 
 /**
  * \brief Updates the save file preview.
