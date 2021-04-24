@@ -122,7 +122,7 @@ set(SOURCE_FILES
 
     core/math/angles.hpp
     core/math/floating.hpp
-    core/math/get_random.hpp
+    core/math/random_utils.hpp
     core/math/index_to_matrix.hpp
     core/math/vector2.hpp
 

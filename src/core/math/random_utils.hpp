@@ -8,25 +8,25 @@
 
 namespace wanderer {
 
-[[nodiscard]] inline auto get_seeded_engine() -> std::mt19937
+using random_engine = std::mt19937;
+
+[[nodiscard]] inline auto get_seeded_engine() -> random_engine
 {
   // Based on
   // https://codereview.stackexchange.com/questions/109260/seed-stdmt19937-from-stdrandom-device
 
-  using device = std::random_device;
+  constexpr auto n = random_engine::state_size;
 
-  constexpr auto n = std::mt19937::state_size;
-
-  device source;
-  std::array<device::result_type, (n - 1) / sizeof(source()) + 1> data{};
+  std::random_device source;
+  std::array<std::random_device::result_type, (n - 1) / sizeof(source()) + 1> data{};
 
   std::generate(data.begin(), data.end(), std::ref(source));
   std::seed_seq seeds(data.begin(), data.end());
 
-  return std::mt19937(seeds);
+  return random_engine(seeds);
 }
 
-inline std::mt19937 engine{get_seeded_engine()};
+inline random_engine engine{get_seeded_engine()};
 
 /**
  * \brief Returns a random value in the specified inclusive range.

@@ -4,7 +4,7 @@
 
 #include "components/ctx/time_of_day.hpp"
 #include "core/aliases/ints.hpp"
-#include "core/math/get_random.hpp"
+#include "core/math/random_utils.hpp"
 #include "core/menu_constants.hpp"
 
 namespace wanderer::sys {

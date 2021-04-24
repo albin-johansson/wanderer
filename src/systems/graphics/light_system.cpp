@@ -7,7 +7,7 @@
 #include "components/ctx/viewport.hpp"
 #include "components/graphics/depth_drawable.hpp"
 #include "components/graphics/point_light.hpp"
-#include "core/math/get_random.hpp"
+#include "core/math/random_utils.hpp"
 #include "core/resources.hpp"
 #include "core/utils/centurion_utils.hpp"
 
