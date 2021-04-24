@@ -29,9 +29,9 @@ struct tile_layer final
   int z;               ///< Index that indicates when the layer should be rendered.
 };
 
-void serialize(auto& archive, tile_layer& tl, u32 version)
+void serialize(auto& archive, tile_layer& layer, u32 version)
 {
-  archive(tl.matrix, tl.z);
+  archive(layer.matrix, layer.z);
 }
 
 }  // namespace wanderer::comp
