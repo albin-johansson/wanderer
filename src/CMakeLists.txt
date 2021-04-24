@@ -16,6 +16,7 @@ set(SOURCE_FILES
 
     components/ctx/active_menu.hpp
     components/ctx/binds.hpp
+    components/ctx/cursors.hpp
     components/ctx/outside_level.hpp
     components/ctx/player.hpp
     components/ctx/render_bounds.hpp
@@ -49,7 +50,6 @@ set(SOURCE_FILES
     components/ui/button.hpp
     components/ui/button_group.hpp
     components/ui/checkbox.hpp
-    components/ui/cursors.hpp
     components/ui/label.hpp
     components/ui/lazy_texture.hpp
     components/ui/line.hpp

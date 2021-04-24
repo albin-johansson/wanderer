@@ -1,8 +1,8 @@
 #include "menu_system.hpp"
 
 #include "components/ctx/active_menu.hpp"
+#include "components/ctx/cursors.hpp"
 #include "components/ctx/time_of_day.hpp"
-#include "components/ui/cursors.hpp"
 #include "events/button_pressed_event.hpp"
 #include "systems/ui/buttons/button_system.hpp"
 #include "systems/ui/menus/controls/controls_menu_factory_system.hpp"
@@ -45,7 +45,7 @@ auto make_menus() -> entt::registry
   registry.set<ctx::active_menu>(home);
   registry.set<ctx::time_of_day>();
 
-  auto& cursors = registry.set<comp::cursors>();  // TODO ctx::cursors
+  auto& cursors = registry.set<ctx::cursors>();
   cursors.data.try_emplace(cen::system_cursor::hand, cen::system_cursor::hand);
 
   return registry;
@@ -88,8 +88,6 @@ void switch_menu(entt::registry& registry, const menu_id id)
 
   for (auto&& [entity, menu] : registry.view<comp::menu>().each())
   {
-    // TODO emit event here that specific menu systems can listen to
-
     if (menu.id == id)
     {
       registry.set<ctx::active_menu>(comp::menu::entity{entity});
