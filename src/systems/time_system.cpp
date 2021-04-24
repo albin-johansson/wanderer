@@ -4,8 +4,8 @@
 
 #include "components/ctx/time_of_day.hpp"
 #include "core/aliases/ints.hpp"
-#include "core/math/random_utils.hpp"
 #include "core/menu_constants.hpp"
+#include "core/utils/random_utils.hpp"
 
 namespace wanderer::sys {
 namespace {

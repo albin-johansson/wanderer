@@ -2,7 +2,7 @@
 
 #include "components/ctx/viewport.hpp"
 #include "components/graphics/particle.hpp"
-#include "core/math/random_utils.hpp"
+#include "core/utils/random_utils.hpp"
 
 namespace wanderer::sys {
 namespace {

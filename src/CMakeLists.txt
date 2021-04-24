@@ -122,12 +122,12 @@ set(SOURCE_FILES
 
     core/math/angles.hpp
     core/math/floating.hpp
-    core/math/random_utils.hpp
     core/math/index_to_matrix.hpp
     core/math/vector2.hpp
 
     core/utils/centurion_utils.hpp
     core/utils/nenya.hpp
+    core/utils/random_utils.hpp
     core/utils/time_utils.cpp
     core/utils/time_utils.hpp
 

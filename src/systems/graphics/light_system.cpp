@@ -7,9 +7,9 @@
 #include "components/ctx/viewport.hpp"
 #include "components/graphics/depth_drawable.hpp"
 #include "components/graphics/point_light.hpp"
-#include "core/math/random_utils.hpp"
 #include "core/resources.hpp"
 #include "core/utils/centurion_utils.hpp"
+#include "core/utils/random_utils.hpp"
 
 using namespace entt::literals;
 
