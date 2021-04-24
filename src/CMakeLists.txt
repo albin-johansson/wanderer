@@ -148,8 +148,8 @@ set(SOURCE_FILES
     events/switch_map_event.hpp
     events/switch_menu_event.hpp
 
-    io/files_directory.cpp
-    io/files_directory.hpp
+    io/directories.cpp
+    io/directories.hpp
     io/ini.hpp
 
     io/map/parse_ir.hpp

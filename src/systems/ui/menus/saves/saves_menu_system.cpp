@@ -14,7 +14,7 @@
 #include "core/math/floating.hpp"
 #include "core/menu_constants.hpp"
 #include "core/utils/time_utils.hpp"
-#include "io/files_directory.hpp"
+#include "io/directories.hpp"
 #include "systems/ui/buttons/button_factory_system.hpp"
 #include "systems/ui/buttons/button_system.hpp"
 #include "systems/ui/labels/label_factory_system.hpp"
@@ -30,8 +30,6 @@ inline constexpr float save_entry_col = 6;
 inline constexpr float page_indicator_row = 15.25f;
 inline constexpr float page_indicator_col = 5.2f;
 inline constexpr int buttons_per_page = 8;
-
-inline const auto saves_directory = files_directory() / "saves";
 
 /// Returns the number of pages necessary for a button group
 [[nodiscard]] auto page_count(const comp::button_group& group) -> int
@@ -52,7 +50,7 @@ void fetch_saves(entt::registry& registry, comp::saves_menu& savesMenu)
 {
   destroy_and_clear(registry, savesMenu.entries);
 
-  for (const auto& entry : std::filesystem::directory_iterator(saves_directory))
+  for (const auto& entry : std::filesystem::directory_iterator(saves_directory()))
   {
     if (entry.is_directory())
     {
@@ -237,7 +235,7 @@ void change_save_preview(entt::registry& registry)
 
     savesMenu.titleLabel = label(entry.name, 6, 11, text_size::large);
     savesMenu.timeLabel =
-        label("Last modified:  " + file_modification_time(saves_directory / entry.name),
+        label("Last modified:  " + file_modification_time(saves_directory() / entry.name),
               7.4f,
               11.0f);
     savesMenu.dataVersionLabel =

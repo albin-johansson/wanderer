@@ -6,7 +6,7 @@
 #include <string>    // string, to_string
 #include <utility>   // move
 
-#include "io/files_directory.hpp"
+#include "io/directories.hpp"
 
 using json_type = nlohmann::json;
 
@@ -37,8 +37,7 @@ void save_game(const std::string& name,
                const level_manager& levels,
                const cen::surface& snapshot)
 {
-  static const auto savesDir = files_directory() / "saves";
-  const auto dir = unique_path(savesDir / name);
+  const auto dir = unique_path(saves_directory() / name);
   const auto saveName = dir.filename().string();
 
   std::filesystem::create_directories(dir);

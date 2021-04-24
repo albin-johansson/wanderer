@@ -3,7 +3,7 @@
 #include <centurion.hpp>
 #include <iostream>  // cout
 
-#include "io/files_directory.hpp"
+#include "io/directories.hpp"
 #include "io/saves/load_game.hpp"
 #include "io/saves/save_game.hpp"
 
@@ -39,5 +39,5 @@ TEST(LoadSaveGame, Usage)
     std::cout << "load_game(): " << millis << " ms\n";
   }
 
-  std::filesystem::remove_all(files_directory() / "saves" / "test");
+  std::filesystem::remove_all(saves_directory() / "test");
 }

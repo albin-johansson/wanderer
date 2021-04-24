@@ -9,7 +9,7 @@
 #include "components/ui/line.hpp"
 #include "components/ui/saves_menu.hpp"
 #include "core/menu_constants.hpp"
-#include "io/files_directory.hpp"
+#include "io/directories.hpp"
 #include "systems/input/key_bind_system.hpp"
 #include "systems/ui/buttons/button_factory_system.hpp"
 #include "systems/ui/labels/label_factory_system.hpp"
@@ -41,9 +41,7 @@ void make_labels(entt::registry& registry, const comp::menu::entity menu)
     make_label(registry, menu, std::move(text), grid_position{row, col}, size);
   };
 
-  label("Location:   " + (files_directory() / "saves").string(),
-        glob::menu_rows - 1.7f,
-        2);
+  label("Location:   " + saves_directory().string(), glob::menu_rows - 1.7f, 2);
 }
 
 void make_buttons(entt::registry& registry, const comp::menu::entity menuEntity)
