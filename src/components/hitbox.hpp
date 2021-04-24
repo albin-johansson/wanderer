@@ -1,25 +1,24 @@
 #pragma once
 
+#include <array>          // array
 #include <centurion.hpp>  // farea, frect
-#include <vector>         // vector
+#include <cstddef>        // size_t
 
 #include "core/aliases/entity_type.hpp"
 #include "core/aliases/float2.hpp"
 #include "core/aliases/ints.hpp"
+#include "core/static_vector.hpp"
 
 namespace wanderer::comp {
 namespace detail {
 struct hitbox_entity_t;
 }
 
+/// The maximum number of subhitboxes a single hitbox can contain.
+inline constexpr std::size_t max_subhitbox_count = 5;
+
 /**
- * \struct subhitbox
- *
  * \brief Represents a "subhitbox", a member of a `hitbox` instance.
- *
- * \var subhitbox::offset
- * The offset that the subhitbox is positioned at, relative to the origin
- * position. This is useful for updating the position of a `hitbox`.
  *
  * \headerfile hitbox.hpp
  */
@@ -30,15 +29,9 @@ struct subhitbox final
 };
 
 /**
- * \struct hitbox
- *
  * \brief Represents a hitbox that supports multiple subhitboxes.
  *
- * \var hitbox::bounds
- * The bounding area of the hitbox.
- *
- * \var hitbox::boxes
- * The subhitboxes contained in the hitbox.
+ * \ingroup components
  *
  * \headerfile hitbox.hpp
  */
@@ -46,18 +39,18 @@ struct hitbox final
 {
   using entity = entity_type<detail::hitbox_entity_t>;
 
-  float2 origin;
-  cen::frect bounds;
-  std::vector<subhitbox> boxes;
-  bool enabled{true};
+  float2 origin;      ///< The position of the hitbox.
+  cen::frect bounds;  ///< The bounding rectangle of all subhitboxes.
+  static_vector<subhitbox, max_subhitbox_count> boxes;  ///< The associated subhitboxes.
+  bool enabled{true};  ///< Whether or not the hitbox can collide with other hitboxes.
 };
 
-void serialize(auto& archive, subhitbox& sh, u32 version)
+void serialize(auto& archive, subhitbox& sh)
 {
   archive(sh.offset, sh.size);
 }
 
-void serialize(auto& archive, hitbox& h, u32 version)
+void serialize(auto& archive, hitbox& h)
 {
   archive(h.origin, h.bounds, h.boxes, h.enabled);
 }

@@ -130,7 +130,6 @@ auto make_hitbox(const std::initializer_list<comp::subhitbox> boxes) -> comp::hi
 {
   comp::hitbox hb;
 
-  hb.boxes.reserve(boxes.size());
   for (const auto& box : boxes)
   {
     hb.boxes.push_back(box);
