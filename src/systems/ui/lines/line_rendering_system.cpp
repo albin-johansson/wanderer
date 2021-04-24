@@ -1,5 +1,7 @@
 #include "line_rendering_system.hpp"
 
+#include "systems/ui/grid.hpp"
+
 namespace wanderer::sys {
 
 void render_lines(const entt::registry& registry,
@@ -12,7 +14,7 @@ void render_lines(const entt::registry& registry,
   for (const auto entity : pack.lines)
   {
     const auto& line = registry.get<comp::line>(entity);
-    renderer.draw_line(line.start, line.end);
+    renderer.draw_line(from_grid(line.start), from_grid(line.end));
   }
 }
 

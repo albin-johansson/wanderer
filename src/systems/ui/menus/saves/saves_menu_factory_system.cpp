@@ -11,21 +11,18 @@
 #include "io/files_directory.hpp"
 #include "systems/input/key_bind_system.hpp"
 #include "systems/ui/buttons/button_factory_system.hpp"
-#include "systems/ui/buttons/button_system.hpp"
-#include "systems/ui/grid.hpp"
 #include "systems/ui/labels/label_factory_system.hpp"
 #include "systems/ui/lines/line_factory_system.hpp"
-#include "systems/ui/lines/line_rendering_system.hpp"
 #include "systems/ui/menus/menu_factory_system.hpp"
 
 namespace wanderer::sys {
 namespace {
 
-inline constexpr auto x_0 = column_to_x(2);
-inline constexpr auto x_1 = column_to_x(glob::menu_columns - 2);
+inline constexpr auto col_0 = 2;
+inline constexpr auto col_1 = glob::menu_columns - 2;
 
-inline constexpr auto y_0 = row_to_y(5);
-inline constexpr auto y_1 = row_to_y(glob::menu_rows - 2);
+inline constexpr auto row_0 = 5;
+inline constexpr auto row_1 = glob::menu_rows - 2;
 
 [[nodiscard]] auto make_binds(entt::registry& registry)
     -> std::vector<comp::key_bind::entity>
@@ -92,22 +89,22 @@ inline constexpr auto y_1 = row_to_y(glob::menu_rows - 2);
 {
   std::vector<comp::line::entity> lines;
 
-  const auto line = [&](const cen::fpoint start, const cen::fpoint end) {
+  const auto line = [&](const grid_position start, const grid_position end) {
     lines.push_back(make_line(registry, start, end));
   };
 
   // Surrounding box
-  line({x_0, y_0}, {x_0, y_1});
-  line({x_1, y_0}, {x_1, y_1});
-  line({x_0, y_0}, {x_1, y_0});
-  line({x_0, y_1}, {x_1, y_1});
+  line({row_0, col_0}, {row_1, col_0});
+  line({row_0, col_1}, {row_1, col_1});
+  line({row_0, col_0}, {row_0, col_1});
+  line({row_1, col_0}, {row_1, col_1});
 
   // Vertical save entry separator
-  line({column_to_x(10), y_0 + 10}, {column_to_x(10), y_1 - 10});
+  line({row_0 + 0.5f, 10}, {row_1 - 0.5f, 10});
 
   // Horizontal bottom button separator
-  line(from_grid(15, 11), from_grid(15, 29));
-  line(from_grid(15, 3), from_grid(15, 9));
+  line({15, 11}, {15, 29});
+  line({15, 3}, {15, 9});
 
   return lines;
 }

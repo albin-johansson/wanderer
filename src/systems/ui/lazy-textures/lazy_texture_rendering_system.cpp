@@ -23,7 +23,7 @@ void render_lazy_textures(const entt::registry& registry, graphics_context& grap
         lazy.texture = cen::texture{renderer, lazy.surface};
       }
 
-      const auto position = from_grid(lazy.row, lazy.col);
+      const auto position = from_grid(lazy.position);
       const auto& size = lazy.size;
       const auto rect = cen::rect(position.x(), position.y(), size.width, size.height);
 

@@ -1,21 +1,21 @@
 #pragma once
 
-#include <centurion.hpp>  // fpoint
-#include <vector>         // vector
+#include <vector>  // vector
 
 #include "core/aliases/entity_type.hpp"
+#include "core/grid_position.hpp"
 
 namespace wanderer::comp {
 namespace detail {
-struct line_entity_t;
+struct line_t;
 }
 
 struct line final
 {
-  using entity = entity_type<detail::line_entity_t>;
+  using entity = entity_type<detail::line_t>;
 
-  cen::fpoint start;
-  cen::fpoint end;
+  grid_position start;
+  grid_position end;
 };
 
 struct line_pack final

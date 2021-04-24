@@ -1,6 +1,5 @@
 #pragma once
 
-#include <centurion.hpp>
 #include <entt.hpp>  // registry
 
 #include "components/ui/line.hpp"
@@ -16,12 +15,12 @@ namespace wanderer::sys {
  * \ingroup systems
  *
  * \param registry the menu registry.
- * \param start the start point.
- * \param end the end point.
+ * \param start the start position.
+ * \param end the end position.
  *
  * \return the created entity.
  */
-auto make_line(entt::registry& registry, cen::fpoint start, cen::fpoint end)
+auto make_line(entt::registry& registry, grid_position start, grid_position end)
     -> comp::line::entity;
 
 /// \} End of lines
