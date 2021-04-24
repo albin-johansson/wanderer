@@ -50,9 +50,27 @@ void render_title(const std::string& title,
   renderer.render(texture, *drawable.position);
 }
 
+void render_author_label(graphics_context& graphics)
+{
+  constexpr auto id = "developed_by_albin_johansson"_hs;
+
+  auto& renderer = graphics.renderer();
+  auto& cache = graphics.small_font_cache();
+
+  if (!cache.has_stored(id))
+  {
+    renderer.set_color(cen::colors::white);
+    cache.store_blended_utf8(id, "Developed by Albin Johansson", renderer);
+  }
+
+  const auto& texture = cache.get_stored(id);
+  const auto y = glob::logical_height<int> - texture.height() - 6;
+  renderer.render(texture, cen::point(6, y));
+}
+
 }  // namespace
 
-void render_menu(const entt::registry& registry, graphics_context& graphics)
+void render_active_menu(const entt::registry& registry, graphics_context& graphics)
 {
   const auto menuEntity = registry.ctx<const ctx::active_menu>().entity;
 
@@ -95,18 +113,7 @@ void render_menu(const entt::registry& registry, graphics_context& graphics)
 
   if (menu.blocking)
   {
-    constexpr auto id = "developed_by_albin_johansson"_hs;
-    auto& cache = graphics.small_font_cache();
-
-    if (!cache.has_stored(id))
-    {
-      renderer.set_color(cen::colors::white);
-      cache.store_blended_utf8(id, "Developed by Albin Johansson", renderer);
-    }
-
-    const auto& texture = cache.get_stored(id);
-    const auto y = glob::logical_height<int> - texture.height() - 6;
-    renderer.render(texture, cen::point(6, y));
+    render_author_label(graphics);
   }
 }
 

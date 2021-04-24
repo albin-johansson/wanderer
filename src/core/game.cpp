@@ -145,7 +145,7 @@ void game::render(graphics_context& graphics, const cen::ipoint mousePos)
 
   sys::render_inventory(registry, renderer, mousePos);
   sys::render_level_switch_animations(registry, renderer);
-  sys::render_menu(m_shared, graphics);
+  sys::render_active_menu(m_shared, graphics);
 
   if constexpr (cen::is_debug_build())
   {

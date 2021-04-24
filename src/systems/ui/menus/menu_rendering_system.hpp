@@ -17,7 +17,7 @@ namespace wanderer::sys {
  * \param registry the menu registry.
  * \param graphics the graphics context that will be used.
  */
-void render_menu(const entt::registry& registry, graphics_context& graphics);
+void render_active_menu(const entt::registry& registry, graphics_context& graphics);
 
 /// \} End of menus
 
