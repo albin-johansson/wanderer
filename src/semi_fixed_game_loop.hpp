@@ -23,19 +23,19 @@ class semi_fixed_game_loop
   using seconds_type = cen::seconds<precision_type>;
 
   semi_fixed_game_loop()
-      : m_currentTime{cen::counter::now_sec<precision_type>()}
+      : m_currentTime{cen::counter::now_in_seconds<precision_type>()}
       , m_tickRate{tick_rate<precision_type>()}
       , m_fixedDelta{1.0 / m_tickRate}
   {}
 
   void fetch_current_time() noexcept
   {
-    m_currentTime = cen::counter::now_sec<precision_type>();
+    m_currentTime = cen::counter::now_in_seconds<precision_type>();
   }
 
   void tick()
   {
-    const auto newTime = cen::counter::now_sec<precision_type>();
+    const auto newTime = cen::counter::now_in_seconds<precision_type>();
     auto frameTime = newTime - m_currentTime;
     m_currentTime = newTime;
 
