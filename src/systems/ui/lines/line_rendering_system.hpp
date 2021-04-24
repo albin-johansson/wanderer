@@ -2,7 +2,6 @@
 
 #include <entt.hpp>  // registry
 
-#include "components/ui/line.hpp"
 #include "core/graphics/graphics_context.hpp"
 
 namespace wanderer::sys {
@@ -11,17 +10,14 @@ namespace wanderer::sys {
 /// \{
 
 /**
- * \brief Renders a group of lines.
+ * \brief Renders all lines in the currently active menu.
  *
  * \ingroup systems
  *
  * \param registry the menu registry.
  * \param graphics the graphics context that will be used.
- * \param pack the lines that will be rendered.
  */
-void render_lines(const entt::registry& registry,
-                  graphics_context& graphics,
-                  const comp::line_pack& pack);
+void render_lines(const entt::registry& registry, graphics_context& graphics);
 
 /// \} End of lines
 

@@ -5,6 +5,8 @@
 #include <type_traits>    // is_same_v
 
 #include "components/input/key_bind.hpp"
+#include "components/ui/associated_menu.hpp"
+#include "components/ui/menu.hpp"
 #include "core/menu_action.hpp"
 
 namespace wanderer::sys {
@@ -22,25 +24,23 @@ namespace wanderer::sys {
  * \tparam T the pack of `comp::key_bind` instances.
  *
  * \param registry the registry that contains the menus.
- * \param entity the entity that will have an `comp::key_bind_pack` added to it.
+ * \param menuEntity the menu entity that will feature the binds.
  * \param binds the pack of key binds.
  */
 template <typename... T>
-void add_binds(entt::registry& registry, const entt::entity entity, T... binds)
+void add_binds(entt::registry& registry, const comp::menu::entity menuEntity, T... binds)
 {
   static_assert((std::is_same_v<T, comp::key_bind>, ...));
 
-  auto& pack = registry.emplace<comp::key_bind_pack>(entity);
-
   const auto addBind = [&](const comp::key_bind bind) {
     const auto entity = comp::key_bind::entity{registry.create()};
-
     registry.emplace<comp::key_bind>(entity, bind);
 
-    return entity;
+    auto& associated = registry.emplace<comp::associated_menu>(entity);
+    associated.entity = menuEntity;
   };
 
-  (pack.binds.push_back(addBind(binds)), ...);
+  (addBind(binds), ...);
 }
 
 /**

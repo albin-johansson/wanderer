@@ -2,37 +2,12 @@
 
 #include "components/ctx/active_menu.hpp"
 #include "components/ctx/cursors.hpp"
+#include "components/ui/associated_menu.hpp"
 #include "components/ui/checkbox.hpp"
 #include "events/button_pressed_event.hpp"
 #include "systems/ui/cursor_system.hpp"
 
 namespace wanderer::sys {
-namespace {
-
-template <typename T>
-[[nodiscard]] auto check(entt::registry& registry,
-                         const std::vector<T>& buttons,
-                         const cen::fpoint& mousePos) -> maybe<comp::button::entity>
-{
-  for (const auto entity : buttons)
-  {
-    auto& button = registry.get<comp::button>(entity);
-    const auto& drawable = registry.get<comp::button_drawable>(entity);
-
-    if (button.visible)
-    {
-      button.hover = drawable.bounds.contains(mousePos);
-      if (button.hover)
-      {
-        return comp::button::entity{entity.get()};
-      }
-    }
-  }
-
-  return std::nullopt;
-}
-
-}  // namespace
 
 auto query_button(entt::registry& registry,
                   entt::dispatcher& dispatcher,
@@ -68,27 +43,21 @@ auto update_button_hover(entt::registry& registry, const cen::mouse& mouse)
   const auto menuEntity = registry.ctx<ctx::active_menu>().entity;
   const auto mousePos = cen::cast<cen::fpoint>(mouse.position());
 
-  if (const auto* buttonPack = registry.try_get<comp::button_pack>(menuEntity))
+  for (auto&& [entity, button, associated] :
+       registry.view<comp::button, comp::associated_menu>().each())
   {
-    if (const auto button = check(registry, buttonPack->buttons, mousePos))
+    if (associated.entity == menuEntity)
     {
-      return button;
-    }
-  }
-
-  if (const auto* group = registry.try_get<comp::button_group>(menuEntity))
-  {
-    if (const auto button = check(registry, group->buttons, mousePos))
-    {
-      return button;
-    }
-  }
-
-  if (const auto* buttonPack = registry.try_get<comp::checkbox_pack>(menuEntity))
-  {
-    if (const auto button = check(registry, buttonPack->checkboxes, mousePos))
-    {
-      return button;
+      auto& button = registry.get<comp::button>(entity);
+      if (button.visible)
+      {
+        const auto& drawable = registry.get<comp::button_drawable>(entity);
+        button.hover = drawable.bounds.contains(mousePos);
+        if (button.hover)
+        {
+          return comp::button::entity{entity};
+        }
+      }
     }
   }
 

@@ -1,7 +1,5 @@
 #pragma once
 
-#include <vector>  // vector
-
 #include "core/aliases/entity_type.hpp"
 
 namespace wanderer::comp {
@@ -14,11 +12,6 @@ struct checkbox final
   using entity = entity_type<detail::checkbox_entity_t>;
 
   bool checked;
-};
-
-struct checkbox_pack final
-{
-  std::vector<checkbox::entity> checkboxes;
 };
 
 }  // namespace wanderer::comp

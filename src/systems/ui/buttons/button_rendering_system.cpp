@@ -1,5 +1,8 @@
 #include "button_rendering_system.hpp"
 
+#include "components/ctx/active_menu.hpp"
+#include "components/ui/associated_menu.hpp"
+#include "components/ui/checkbox.hpp"
 #include "core/graphics/render_text.hpp"
 #include "core/menu_constants.hpp"
 #include "systems/ui/grid.hpp"
@@ -96,32 +99,36 @@ void render_button(const entt::registry& registry,
 
 }  // namespace
 
-void render_buttons(const entt::registry& registry,
-                    graphics_context& graphics,
-                    const comp::button_pack& pack)
+void render_buttons(const entt::registry& registry, graphics_context& graphics)
 {
-  for (const auto entity : pack.buttons)
+  const auto menuEntity = registry.ctx<const ctx::active_menu>().entity;
+
+  for (auto&& [entity, button, associated] :
+       registry.view<const comp::button, const comp::associated_menu>().each())
   {
-    render_button(registry, graphics, entity);
+    if (associated.entity == menuEntity && !registry.all_of<comp::checkbox>(entity))
+    {
+      render_button(registry, graphics, comp::button::entity{entity});
+    }
   }
 }
 
-void render_button_group(const entt::registry& registry,
-                         graphics_context& graphics,
-                         const comp::button_group& group)
+void render_button_group_indicators(const entt::registry& registry,
+                                     graphics_context& graphics)
 {
-  if (group.selected != entt::null)
-  {
-    auto& renderer = graphics.renderer();
-    const auto& button = registry.get<comp::button>(group.selected);
-    const auto& drawable = registry.get<comp::button_drawable>(group.selected);
-    renderer.set_color(cen::colors::dark_green);
-    renderer.fill_rect(drawable.bounds);
-  }
+  const auto menuEntity = registry.ctx<const ctx::active_menu>().entity;
 
-  for (const auto entity : group.buttons)
+  for (auto&& [entity, group, associated] :
+       registry.view<const comp::button_group, const comp::associated_menu>().each())
   {
-    render_button(registry, graphics, entity);
+    if (associated.entity == menuEntity && group.selected != entt::null)
+    {
+      auto& renderer = graphics.renderer();
+      const auto& button = registry.get<comp::button>(group.selected);
+      const auto& drawable = registry.get<comp::button_drawable>(group.selected);
+      renderer.set_color(cen::colors::dark_green);
+      renderer.fill_rect(drawable.bounds);
+    }
   }
 }
 

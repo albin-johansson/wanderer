@@ -11,17 +11,14 @@ namespace wanderer::sys {
 /// \{
 
 /**
- * \brief Renders a group of checkboxes.
+ * \brief Renders all checkboxes in the currently selected menu.
  *
  * \ingroup systems
  *
  * \param registry the menu registry.
  * \param graphics the graphics context that will be used.
- * \param pack the checkboxes that will be rendered.
  */
-void render_checkboxes(const entt::registry& registry,
-                       graphics_context& graphics,
-                       const comp::checkbox_pack& pack);
+void render_checkboxes(const entt::registry& registry, graphics_context& graphics);
 
 /// \} End of checkboxes
 

@@ -2,7 +2,6 @@
 
 #include <centurion.hpp>  // color, texture
 #include <string>         // string
-#include <vector>         // vector
 
 #include "core/aliases/entity_type.hpp"
 #include "core/aliases/maybe.hpp"
@@ -24,11 +23,6 @@ struct label final
   text_size size;
 
   mutable maybe<cen::texture> texture;
-};
-
-struct label_pack final
-{
-  std::vector<label::entity> labels;
 };
 
 }  // namespace wanderer::comp

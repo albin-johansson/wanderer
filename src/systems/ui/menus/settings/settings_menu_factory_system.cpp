@@ -3,40 +3,41 @@
 #include <string>   // string
 #include <utility>  // move
 
+#include "components/ui/associated_menu.hpp"
 #include "components/ui/checkbox.hpp"
 #include "systems/input/key_bind_system.hpp"
 #include "systems/ui/buttons/button_factory_system.hpp"
-#include "systems/ui/buttons/button_system.hpp"
 #include "systems/ui/checkboxes/checkbox_factory_system.hpp"
-#include "systems/ui/checkboxes/checkbox_rendering_system.hpp"
 #include "systems/ui/menus/menu_factory_system.hpp"
 
 namespace wanderer::sys {
 namespace {
 
-void add_buttons(entt::registry& registry, const comp::menu::entity entity)
+void add_buttons(entt::registry& registry, const comp::menu::entity menuEntity)
 {
-  auto& pack = registry.emplace<comp::button_pack>(entity);
-
   const auto button = [&](std::string text,
                           const menu_action action,
                           const float row,
                           const float col = -1) {
-    pack.buttons.push_back(
-        make_button(registry, std::move(text), action, grid_position{row, col}));
+    const auto entity =
+        make_button(registry, std::move(text), action, grid_position{row, col});
+
+    auto& associated = registry.emplace<comp::associated_menu>(entity);
+    associated.entity = menuEntity;
   };
 
   button("Return", menu_action::goto_home, 4);
 }
 
-void add_checkboxes(entt::registry& registry, const comp::menu::entity entity)
+void add_checkboxes(entt::registry& registry, const comp::menu::entity menuEntity)
 {
-  auto& pack = registry.emplace<comp::checkbox_pack>(entity);
-
   const auto checkbox =
       [&](std::string text, const float row, const float col, const menu_action action) {
-        pack.checkboxes.push_back(
-            make_checkbox(registry, std::move(text), grid_position{row, col}, action));
+        const auto entity =
+            make_checkbox(registry, std::move(text), grid_position{row, col}, action);
+
+        auto& associated = registry.emplace<comp::associated_menu>(entity);
+        associated.entity = menuEntity;
       };
 
   checkbox("Fullscreen", 6, 13, menu_action::toggle_fullscreen);

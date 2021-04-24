@@ -6,6 +6,7 @@
 #include <utility>     // move
 
 #include "components/ctx/active_menu.hpp"
+#include "components/ui/associated_menu.hpp"
 #include "components/ui/button_group.hpp"
 #include "components/ui/lazy_texture.hpp"
 #include "components/ui/saves_menu.hpp"
@@ -97,8 +98,11 @@ void refresh_save_entry_buttons(entt::registry& registry,
     auto& button = registry.get<comp::button>(buttonEntity);
     button.visible = row < maxRow;
 
-    auto& associated = registry.emplace<comp::associated_saves_entry>(buttonEntity);
-    associated.entry = entryEntity;
+    auto& associatedMenu = registry.emplace<comp::associated_menu>(buttonEntity);
+    associatedMenu.entity = menuEntity;
+
+    auto& associatedEntry = registry.emplace<comp::associated_saves_entry>(buttonEntity);
+    associatedEntry.entry = entryEntity;
 
     if (group.selected == entt::null)
     {
@@ -137,6 +141,10 @@ void refresh_saves_menu_contents(entt::registry& registry,
   nullify(group.selected);
   group.currentPage = 0;
   group.itemsPerPage = buttons_per_page;
+
+  // This is strange, but required due to how the button group rendering works
+  auto& associated = registry.get_or_emplace<comp::associated_menu>(menuEntity);
+  associated.entity = menuEntity;
 
   refresh_save_entry_buttons(registry, group, menuEntity);
   refresh_page_indicator_label(registry, group, menuEntity);

@@ -12,30 +12,26 @@ namespace wanderer::sys {
 /// \{
 
 /**
- * \brief Renders a button pack.
+ * \brief Renders all buttons in the currently active menu.
  *
  * \ingroup systems
  *
  * \param registry the menu registry.
  * \param graphics the graphics context that will be used.
- * \param pack the buttons that will be rendered.
  */
-void render_buttons(const entt::registry& registry,
-                    graphics_context& graphics,
-                    const comp::button_pack& pack);
+void render_buttons(const entt::registry& registry, graphics_context& graphics);
 
 /**
- * \brief Renders a button group.
+ * \brief Renders visual cues for the enabled buttons in button groups in the currently
+ * active menu.
  *
  * \ingroup systems
  *
  * \param registry the menu registry.
  * \param graphics the graphics context that will be used.
- * \param group the buttons that will be rendered.
  */
-void render_button_group(const entt::registry& registry,
-                         graphics_context& graphics,
-                         const comp::button_group& group);
+void render_button_group_indicators(const entt::registry& registry,
+                                    graphics_context& graphics);
 
 /// \} End of buttons
 

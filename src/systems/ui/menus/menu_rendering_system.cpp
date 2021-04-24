@@ -86,28 +86,12 @@ void render_active_menu(const entt::registry& registry, graphics_context& graphi
     renderer.fill_with(glob::transparent_black);
   }
 
-  if (const auto* pack = registry.try_get<comp::line_pack>(menuEntity))
-  {
-    render_lines(registry, graphics, *pack);
-  }
-
+  render_lines(registry, graphics);
   render_lazy_textures(registry, graphics);
+  render_button_group_indicators(registry, graphics);
+  render_buttons(registry, graphics);
+  render_checkboxes(registry, graphics);
   render_labels(registry, graphics);
-
-  if (const auto* pack = registry.try_get<comp::button_pack>(menuEntity))
-  {
-    render_buttons(registry, graphics, *pack);
-  }
-
-  if (const auto* group = registry.try_get<comp::button_group>(menuEntity))
-  {
-    render_button_group(registry, graphics, *group);
-  }
-
-  if (const auto* pack = registry.try_get<comp::checkbox_pack>(menuEntity))
-  {
-    render_checkboxes(registry, graphics, *pack);
-  }
 
   render_title(menu.title, drawable, renderer);
 

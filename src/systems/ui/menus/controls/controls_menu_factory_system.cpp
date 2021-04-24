@@ -3,28 +3,28 @@
 #include <string>   // string
 #include <utility>  // move
 
+#include "components/ui/associated_menu.hpp"
 #include "components/ui/button.hpp"
 #include "components/ui/label.hpp"
 #include "systems/input/key_bind_system.hpp"
 #include "systems/ui/buttons/button_factory_system.hpp"
-#include "systems/ui/buttons/button_system.hpp"
 #include "systems/ui/labels/label_factory_system.hpp"
-#include "systems/ui/labels/label_system.hpp"
 #include "systems/ui/menus/menu_factory_system.hpp"
 
 namespace wanderer::sys {
 namespace {
 
-void add_buttons(entt::registry& registry, const comp::menu::entity entity)
+void add_buttons(entt::registry& registry, const comp::menu::entity menuEntity)
 {
-  auto& pack = registry.emplace<comp::button_pack>(entity);
-
   const auto button = [&](std::string text,
                           const menu_action action,
                           const float row,
                           const float col = -1) {
-    pack.buttons.push_back(
-        make_button(registry, std::move(text), action, grid_position{row, col}));
+    const auto entity =
+        make_button(registry, std::move(text), action, grid_position{row, col});
+
+    auto& associated = registry.emplace<comp::associated_menu>(entity);
+    associated.entity = menuEntity;
   };
 
   button("Return", menu_action::goto_home, 4);
@@ -32,11 +32,8 @@ void add_buttons(entt::registry& registry, const comp::menu::entity entity)
 
 void add_labels(entt::registry& registry, const comp::menu::entity entity)
 {
-  auto& pack = registry.emplace<comp::label_pack>(entity);
-
   const auto label = [&](std::string text, const float row, const float col) {
-    pack.labels.push_back(
-        sys::make_label(registry, entity, std::move(text), grid_position{row, col}));
+    sys::make_label(registry, entity, std::move(text), grid_position{row, col});
   };
 
   float row = 6;

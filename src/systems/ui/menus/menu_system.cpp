@@ -2,29 +2,12 @@
 
 #include "components/ctx/active_menu.hpp"
 #include "components/ctx/cursors.hpp"
+#include "components/ui/associated_menu.hpp"
 #include "events/button_pressed_event.hpp"
 #include "systems/ui/buttons/button_system.hpp"
 #include "systems/ui/menus/saves/saves_menu_system.hpp"
 
 namespace wanderer::sys {
-namespace {
-
-void query_binds(entt::registry& registry,
-                 entt::dispatcher& dispatcher,
-                 comp::key_bind_pack& pack,
-                 const cen::keyboard& keys)
-{
-  for (const auto entity : pack.binds)
-  {
-    auto& bind = registry.get<comp::key_bind>(entity);
-    if (keys.just_released(bind.key))
-    {
-      dispatcher.enqueue<button_pressed_event>(bind.action, 0u);
-    }
-  }
-}
-
-}  // namespace
 
 void update_menu(entt::registry& registry,
                  entt::dispatcher& dispatcher,
@@ -51,9 +34,13 @@ void update_menu(entt::registry& registry,
     cen::cursor::reset();
   }
 
-  if (auto* binds = registry.try_get<comp::key_bind_pack>(menuEntity))
+  for (auto&& [entity, bind, associated] :
+       registry.view<comp::key_bind, comp::associated_menu>().each())
   {
-    query_binds(registry, dispatcher, *binds, input.keyboard);
+    if (associated.entity == menuEntity && input.keyboard.just_released(bind.key))
+    {
+      dispatcher.enqueue<button_pressed_event>(bind.action, 0u);
+    }
   }
 }
 

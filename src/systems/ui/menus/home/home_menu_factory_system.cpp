@@ -3,10 +3,10 @@
 #include <string>   // string
 #include <utility>  // move
 
+#include "components/ui/associated_menu.hpp"
 #include "components/ui/button.hpp"
 #include "systems/input/key_bind_system.hpp"
 #include "systems/ui/buttons/button_factory_system.hpp"
-#include "systems/ui/buttons/button_system.hpp"
 #include "systems/ui/menus/menu_factory_system.hpp"
 
 namespace wanderer::sys {
@@ -14,15 +14,15 @@ namespace {
 
 void add_buttons(entt::registry& registry, const comp::menu::entity entity)
 {
-  auto& pack = registry.emplace<comp::button_pack>(entity);
-  pack.buttons.reserve(6);
-
   const auto button = [&](std::string text,
                           const menu_action action,
                           const float row,
                           const float col = -1) {
-    pack.buttons.push_back(
-        make_button(registry, std::move(text), action, grid_position{row, col}));
+    const auto button =
+        make_button(registry, std::move(text), action, grid_position{row, col});
+
+    auto& associated = registry.emplace<comp::associated_menu>(button);
+    associated.entity = entity;
   };
 
   float row = 5;

@@ -1,7 +1,5 @@
 #pragma once
 
-#include <vector>  // vector
-
 #include "core/aliases/entity_type.hpp"
 #include "core/grid_position.hpp"
 
@@ -16,11 +14,6 @@ struct line final
 
   grid_position start;
   grid_position end;
-};
-
-struct line_pack final
-{
-  std::vector<line::entity> lines;
 };
 
 }  // namespace wanderer::comp

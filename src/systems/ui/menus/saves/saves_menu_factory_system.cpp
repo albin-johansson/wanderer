@@ -3,6 +3,7 @@
 #include <centurion.hpp>  // scancodes
 #include <vector>         // vector
 
+#include "components/ui/associated_menu.hpp"
 #include "components/ui/button.hpp"
 #include "components/ui/label.hpp"
 #include "components/ui/line.hpp"
@@ -24,49 +25,39 @@ inline constexpr auto col_1 = glob::menu_columns - 2;
 inline constexpr auto row_0 = 5;
 inline constexpr auto row_1 = glob::menu_rows - 2;
 
-[[nodiscard]] auto make_binds(entt::registry& registry)
-    -> std::vector<comp::key_bind::entity>
+void make_binds(entt::registry& registry, const comp::menu::entity menu)
 {
-  std::vector<comp::key_bind::entity> binds;
-
-  binds.push_back(make_bind(registry, cen::scancodes::escape, menu_action::goto_home));
-
-  return binds;
+  add_binds(registry,
+            menu,
+            comp::key_bind{cen::scancodes::escape, menu_action::goto_home});
 }
 
-[[nodiscard]] auto make_labels(entt::registry& registry, const comp::menu::entity menu)
-    -> std::vector<comp::label::entity>
+void make_labels(entt::registry& registry, const comp::menu::entity menu)
 {
-  std::vector<comp::label::entity> labels;
-
   const auto label = [&](std::string text,
                          const float row,
                          const float col,
                          const text_size size = text_size::small) {
-    labels.push_back(
-        make_label(registry, menu, std::move(text), grid_position{row, col}, size));
+    make_label(registry, menu, std::move(text), grid_position{row, col}, size);
   };
 
   label("Location:   " + (files_directory() / "saves").string(),
         glob::menu_rows - 1.7f,
         2);
-
-  return labels;
 }
 
-[[nodiscard]] auto make_buttons(entt::registry& registry,
-                                const comp::menu::entity menuEntity)
-    -> std::vector<comp::button::entity>
+void make_buttons(entt::registry& registry, const comp::menu::entity menuEntity)
 {
-  std::vector<comp::button::entity> buttons;
-
   const auto button = [&](std::string text,
                           const menu_action action,
                           const float row,
                           const float col = -1) {
     const auto entity =
         make_button(registry, std::move(text), action, grid_position{row, col});
-    buttons.push_back(entity);
+
+    auto& associated = registry.emplace<comp::associated_menu>(entity);
+    associated.entity = menuEntity;
+
     return entity;
   };
 
@@ -81,16 +72,15 @@ inline constexpr auto row_1 = glob::menu_rows - 2;
       button("<", menu_action::decrement_saves_button_group_page, 15, 4);
   savesMenu.incrementButton =
       button(">", menu_action::increment_saves_button_group_page, 15, 8);
-
-  return buttons;
 }
 
-[[nodiscard]] auto make_lines(entt::registry& registry) -> std::vector<comp::line::entity>
+void make_lines(entt::registry& registry, const comp::menu::entity menuEntity)
 {
-  std::vector<comp::line::entity> lines;
-
   const auto line = [&](const grid_position start, const grid_position end) {
-    lines.push_back(make_line(registry, start, end));
+    const auto entity = make_line(registry, start, end);
+
+    auto& associated = registry.emplace<comp::associated_menu>(entity);
+    associated.entity = menuEntity;
   };
 
   // Surrounding box
@@ -105,8 +95,6 @@ inline constexpr auto row_1 = glob::menu_rows - 2;
   // Horizontal bottom button separator
   line({15, 11}, {15, 29});
   line({15, 3}, {15, 9});
-
-  return lines;
 }
 
 }  // namespace
@@ -116,17 +104,10 @@ auto make_saves_menu(entt::registry& registry) -> comp::menu::entity
   const auto menuEntity = make_menu(registry, "Saves", menu_id::saves);
   registry.emplace<comp::saves_menu>(menuEntity);
 
-  auto& bindsPack = registry.emplace<comp::key_bind_pack>(menuEntity);
-  bindsPack.binds = make_binds(registry);
-
-  auto& buttonPack = registry.emplace<comp::button_pack>(menuEntity);
-  buttonPack.buttons = make_buttons(registry, menuEntity);
-
-  auto& labelPack = registry.emplace<comp::label_pack>(menuEntity);
-  labelPack.labels = make_labels(registry, menuEntity);
-
-  auto& linePack = registry.emplace<comp::line_pack>(menuEntity);
-  linePack.lines = make_lines(registry);
+  make_binds(registry, menuEntity);
+  make_buttons(registry, menuEntity);
+  make_labels(registry, menuEntity);
+  make_lines(registry, menuEntity);
 
   return menuEntity;
 }
