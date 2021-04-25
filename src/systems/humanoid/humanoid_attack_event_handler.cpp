@@ -54,6 +54,7 @@ void on_attack_end(const end_attack_event& event)
   assert(registry.all_of<comp::humanoid_attack>(event.sourceEntity));
 
   registry.emplace<comp::humanoid_idle>(event.sourceEntity);
+  enter_idle_animation(event.registry, event.sourceEntity);
   assert(!registry.all_of<comp::humanoid_attack>(event.sourceEntity));
 
   // TODO deal damage (need target area)
@@ -63,8 +64,6 @@ void on_attack_end(const end_attack_event& event)
     const auto position = get_particle_position(movable->position, movable->dir);
     dispatcher.enqueue<spawn_particles_event>(position, 5, 25.0f, cen::colors::dark_gray);
   }
-
-  enter_idle_animation(event.registry, event.sourceEntity);
 }
 
 }  // namespace wanderer::sys
