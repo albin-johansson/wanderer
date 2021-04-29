@@ -5,6 +5,7 @@
 #include "components/ctx/time_of_day.hpp"
 #include "core/aliases/ints.hpp"
 #include "core/menu_constants.hpp"
+#include "core/static_vector.hpp"
 #include "core/utils/random_utils.hpp"
 
 namespace wanderer::sys {
@@ -21,8 +22,8 @@ struct phase final
 {
   float phaseStart;
   float phaseEnd;
-  std::vector<float> opacities;
-  std::vector<cen::color> colors;
+  static_vector<float, 5> opacities;
+  static_vector<cen::color, 5> colors;
 };
 
 inline const phase sunrise_phase{
