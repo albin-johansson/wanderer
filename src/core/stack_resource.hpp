@@ -1,7 +1,7 @@
 #pragma once
 
 #include <array>            // array
-#include <cstddef>          // byte
+#include <cstddef>          // byte, size_t
 #include <memory_resource>  // monotonic_buffer_resource
 
 namespace wanderer {
