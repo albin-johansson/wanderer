@@ -26,6 +26,8 @@ graphics_context::graphics_context(const cen::window& window)
 
   m_renderer.set_color(cen::colors::white);
   m_smallFontCache.add_latin1(m_renderer);
+
+  m_lightCanvas.set_blend_mode(cen::blend_mode::mod);
 }
 
 auto graphics_context::load(const texture_id id, std::string path) -> texture_index
