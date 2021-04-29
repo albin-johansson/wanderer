@@ -58,43 +58,47 @@ inline const phase night_phase{
     .opacities = {0.35f},
     .colors = {cen::color::blend(cen::colors::black, cen::colors::navy, 0.3)}};
 
-[[nodiscard]] auto get_color(const phase& currentPhase, const float hour) -> cen::color
+template <typename T, typename Container, typename Callable>
+[[nodiscard]] auto next_value(const phase& current,
+                              const Container& container,
+                              const float hour,
+                              Callable callable) -> T
 {
-  if (currentPhase.colors.size() == 1)
+  if (container.size() == 1)
   {
-    return currentPhase.colors.at(0);
+    return container.at(0);
   }
   else
   {
-    const auto a = hour - currentPhase.phaseStart;
-    const auto b = currentPhase.phaseEnd - currentPhase.phaseStart;
+    const auto a = hour - current.phaseStart;
+    const auto b = current.phaseEnd - current.phaseStart;
 
-    const auto cc =
-        (a / b) * (static_cast<float>(cen::isize(currentPhase.colors)) - 1.0f);
-    const auto c1 = currentPhase.colors.at(static_cast<std::size_t>(std::floor(cc)));
-    const auto c2 = currentPhase.colors.at(static_cast<std::size_t>(std::ceil(cc)));
+    const auto xx = (a / b) * (static_cast<float>(cen::isize(container)) - 1.0f);
+    const auto xFloor = std::floor(xx);
 
-    return cen::color::blend(c1, c2, cc - std::floor(cc));
+    const auto x1 = container.at(static_cast<std::size_t>(xFloor));
+    const auto x2 = container.at(static_cast<std::size_t>(std::ceil(xx)));
+
+    return callable(x1, x2, xx - xFloor);
   }
+}
+
+[[nodiscard]] auto get_color(const phase& currentPhase, const float hour) -> cen::color
+{
+  return next_value<cen::color>(currentPhase,
+                                currentPhase.colors,
+                                hour,
+                                cen::color::blend);
 }
 
 [[nodiscard]] auto get_darkness(const phase& current, const float hour) -> float
 {
-  if (current.opacities.size() == 1)
-  {
-    return current.opacities.at(0);
-  }
-  else
-  {
-    const auto a = static_cast<float>(hour - current.phaseStart);
-    const auto b = static_cast<float>(current.phaseEnd - current.phaseStart);
-
-    const auto dd = (a / b) * (static_cast<float>(cen::isize(current.opacities)) - 1.0f);
-    const auto d1 = current.opacities.at(static_cast<std::size_t>(std::floor(dd)));
-    const auto d2 = current.opacities.at(static_cast<std::size_t>(std::ceil(dd)));
-
-    return std::lerp(d1, d2, dd - std::floor(dd));
-  }
+  return next_value<float>(current,
+                           current.opacities,
+                           hour,
+                           [](float a, float b, float bias) noexcept {
+                             return std::lerp(a, b, bias);
+                           });
 }
 
 [[nodiscard]] auto get_phase(const float hour) -> const phase&
