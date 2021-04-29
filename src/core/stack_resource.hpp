@@ -13,7 +13,7 @@ namespace wanderer {
  *
  * \tparam size the size of the stack buffer.
  */
-template <std::size_t size>
+template <std::size_t Size>
 class stack_resource final
 {
  public:
@@ -30,7 +30,7 @@ class stack_resource final
   }
 
  private:
-  std::array<std::byte, size> m_buffer;
+  std::array<std::byte, Size> m_buffer;
   std::pmr::monotonic_buffer_resource m_resource{m_buffer.data(), sizeof m_buffer};
 };
 
