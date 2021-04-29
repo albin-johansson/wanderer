@@ -175,6 +175,136 @@ using zstring = char*;
 
 #endif  // CENTURION_CZSTRING_HEADER
 
+// #include "../core/result.hpp"
+#ifndef CENTURION_RESULT_HEADER
+#define CENTURION_RESULT_HEADER
+
+namespace cen {
+
+/// \addtogroup core
+/// \{
+
+/**
+ * \class result
+ *
+ * \brief A simple indicator for the result of different operations.
+ *
+ * \details The idea behind this class is to make results of various operations
+ * unambiguous. Quite an amount of functions in the library may fail, and
+ * earlier versions of Centurion would usually return a `bool` in those cases,
+ * where `true` and `false` would indicate success and failure, respectively.
+ * This class is a development of that practice. For instance, this class is
+ * contextually convertible to `bool`, where a successful result is still
+ * converted to `true`, and vice versa. However, this class also enables
+ * explicit checks against `success` and `failure` constants, which makes
+ * code very easy to read and unambiguous.
+ * \code{cpp}
+ *   cen::window window;
+ *
+ *   if (window.set_opacity(0.4f))
+ *   {
+ *     // Success!
+ *   }
+ *
+ *   if (window.set_opacity(0.4f) == cen::success)
+ *   {
+ *     // Success!
+ *   }
+ *
+ *   if (window.set_opacity(0.4f) == cen::failure)
+ *   {
+ *     // Failure!
+ *   }
+ * \endcode
+ *
+ * \see `success`
+ * \see `failure`
+ *
+ * \since 6.0.0
+ */
+class result final
+{
+ public:
+  /**
+   * \brief Creates a result.
+   *
+   * \param success `true` if the result is successful; `false` otherwise.
+   *
+   * \since 6.0.0
+   */
+  constexpr result(const bool success) noexcept  // NOLINT implicit
+      : m_success{success}
+  {}
+
+  /// \name Comparison operators
+  /// \{
+
+  /**
+   * \brief Indicates whether or not two results have the same success value.
+   *
+   * \param other the other result.
+   *
+   * \return `true` if the results are equal; `false` otherwise.
+   *
+   * \since 6.0.0
+   */
+  [[nodiscard]] constexpr auto operator==(const result other) const noexcept -> bool
+  {
+    return m_success == other.m_success;
+  }
+
+  /**
+   * \brief Indicates whether or not two results don't have the same success
+   * value.
+   *
+   * \param other the other result.
+   *
+   * \return `true` if the results aren't equal; `false` otherwise.
+   *
+   * \since 6.0.0
+   */
+  [[nodiscard]] constexpr auto operator!=(const result other) const noexcept -> bool
+  {
+    return !(*this == other);
+  }
+
+  /// \} End of comparison operators
+
+  /// \name Conversions
+  /// \{
+
+  /**
+   * \brief Indicates whether or not the result is successful.
+   *
+   * \return `true` if the result is successful; `false` otherwise.
+   *
+   * \since 6.0.0
+   */
+  [[nodiscard]] constexpr explicit operator bool() const noexcept
+  {
+    return m_success;
+  }
+
+  /// \} End of conversions
+
+ private:
+  bool m_success{};
+};
+
+/// Represents a successful result.
+/// \since 6.0.0
+inline constexpr result success{true};
+
+/// Represents a failure of some kind.
+/// \since 6.0.0
+inline constexpr result failure{false};
+
+/// \} End of group core
+
+}  // namespace cen
+
+#endif  // CENTURION_RESULT_HEADER
+
 // #include "../core/time.hpp"
 #ifndef CENTURION_TIME_HEADER
 #define CENTURION_TIME_HEADER
@@ -196,60 +326,32 @@ namespace cen {
 /// \name Integer aliases
 /// \{
 
-/**
- * \typedef u64
- *
- * \brief Alias for a 64-bit unsigned integer.
- */
+using uint = unsigned int;
+
+using ulonglong = unsigned long long;
+
+/// Alias for a 64-bit unsigned integer.
 using u64 = Uint64;
 
-/**
- * \typedef u32
- *
- * \brief Alias for a 32-bit unsigned integer.
- */
+/// Alias for a 32-bit unsigned integer.
 using u32 = Uint32;
 
-/**
- * \typedef u16
- *
- * \brief Alias for a 16-bit unsigned integer.
- */
+/// Alias for a 16-bit unsigned integer.
 using u16 = Uint16;
 
-/**
- * \typedef u8
- *
- * \brief Alias for an 8-bit unsigned integer.
- */
+/// Alias for an 8-bit unsigned integer.
 using u8 = Uint8;
 
-/**
- * \typedef i64
- *
- * \brief Alias for a 64-bit signed integer.
- */
+/// Alias for a 64-bit signed integer.
 using i64 = Sint64;
 
-/**
- * \typedef i32
- *
- * \brief Alias for a 32-bit signed integer.
- */
+/// Alias for a 32-bit signed integer.
 using i32 = Sint32;
 
-/**
- * \typedef i16
- *
- * \brief Alias for a 16-bit signed integer.
- */
+/// Alias for a 16-bit signed integer.
 using i16 = Sint16;
 
-/**
- * \typedef i8
- *
- * \brief Alias for an 8-bit signed integer.
- */
+/// Alias for an 8-bit signed integer.
 using i8 = Sint8;
 
 /// \} End of integer aliases
@@ -287,7 +389,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u8(unsigned long long value) noexcept -> u8
+[[nodiscard]] constexpr auto operator""_u8(const ulonglong value) noexcept -> u8
 {
   return static_cast<u8>(value);
 }
@@ -301,7 +403,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u16(unsigned long long value) noexcept -> u16
+[[nodiscard]] constexpr auto operator""_u16(const ulonglong value) noexcept -> u16
 {
   return static_cast<u16>(value);
 }
@@ -315,7 +417,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u32(unsigned long long value) noexcept -> u32
+[[nodiscard]] constexpr auto operator""_u32(const ulonglong value) noexcept -> u32
 {
   return static_cast<u32>(value);
 }
@@ -329,7 +431,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u64(unsigned long long value) noexcept -> u64
+[[nodiscard]] constexpr auto operator""_u64(const ulonglong value) noexcept -> u64
 {
   return static_cast<u64>(value);
 }
@@ -343,7 +445,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i8(unsigned long long value) noexcept -> i8
+[[nodiscard]] constexpr auto operator""_i8(const ulonglong value) noexcept -> i8
 {
   return static_cast<i8>(value);
 }
@@ -357,7 +459,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i16(unsigned long long value) noexcept -> i16
+[[nodiscard]] constexpr auto operator""_i16(const ulonglong value) noexcept -> i16
 {
   return static_cast<i16>(value);
 }
@@ -371,7 +473,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i32(unsigned long long value) noexcept -> i32
+[[nodiscard]] constexpr auto operator""_i32(const ulonglong value) noexcept -> i32
 {
   return static_cast<i32>(value);
 }
@@ -385,7 +487,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i64(unsigned long long value) noexcept -> i64
+[[nodiscard]] constexpr auto operator""_i64(const ulonglong value) noexcept -> i64
 {
   return static_cast<i64>(value);
 }
@@ -451,25 +553,22 @@ using minutes = std::chrono::duration<T, std::ratio<60>>;
 
 namespace literals {
 
-constexpr auto operator"" _ns(const unsigned long long int value) noexcept
-    -> nanoseconds<u32>
+constexpr auto operator"" _ns(const ulonglong value) noexcept -> nanoseconds<u32>
 {
   return nanoseconds<u32>{value};
 }
 
-constexpr auto operator"" _us(const unsigned long long int value) noexcept
-    -> microseconds<u32>
+constexpr auto operator"" _us(const ulonglong value) noexcept -> microseconds<u32>
 {
   return microseconds<u32>{value};
 }
 
-constexpr auto operator"" _ms(const unsigned long long int value) noexcept
-    -> milliseconds<u32>
+constexpr auto operator"" _ms(const ulonglong value) noexcept -> milliseconds<u32>
 {
   return milliseconds<u32>{value};
 }
 
-constexpr auto operator"" _s(const unsigned long long int value) noexcept -> seconds<u32>
+constexpr auto operator"" _s(const ulonglong value) noexcept -> seconds<u32>
 {
   return seconds<u32>{value};
 }
@@ -485,19 +584,37 @@ constexpr auto operator"" _s(const unsigned long long int value) noexcept -> sec
 
 namespace cen {
 
-// TODO Centurion 6: Document and test
-
 /// \addtogroup audio
 /// \{
 
 /// \name Sound fonts
 /// \{
 
-inline auto set_sound_fonts(const czstring fonts) noexcept -> bool
+/**
+ * \brief Sets the paths to the available SoundFont files.
+ *
+ * \param paths a string of SoundFont paths, separated by semicolons.
+ *
+ * \return `success` if the operation was successful; `failure` otherwise.
+ *
+ * \see `Mix_SetSoundFonts`
+ *
+ * \since 6.0.0
+ */
+inline auto set_sound_fonts(const czstring paths) noexcept -> result
 {
-  return Mix_SetSoundFonts(fonts) != 0;
+  return Mix_SetSoundFonts(paths) != 0;
 }
 
+/**
+ * \brief Returns a path to a SoundFont file.
+ *
+ * \return a path to a SoundFonts file; can be null.
+ *
+ * \see `Mix_GetSoundFonts`
+ *
+ * \since 6.0.0
+ */
 [[nodiscard]] inline auto get_sound_fonts() noexcept -> czstring
 {
   return Mix_GetSoundFonts();
@@ -510,15 +627,39 @@ inline auto set_sound_fonts(const czstring fonts) noexcept -> bool
 
 using sound_font_visit_callback = int(SDLCALL*)(czstring, void*) noexcept;
 
+/**
+ * \brief Visits each available SoundFont path.
+ *
+ * \tparam T the type of the associated data.
+ *
+ * \param callable the callable that will be invoked for each SoundFont path.
+ * \param data optional user data.
+ *
+ * \return `success` if the operation was successful; `failure` otherwise.
+ *
+ * \see `Mix_EachSoundFont`
+ *
+ * \since 6.0.0
+ */
 template <typename T = void>
 auto each_sound_font(sound_font_visit_callback callable, T* data = nullptr) noexcept
-    -> bool
+    -> result
 {
   return Mix_EachSoundFont(callable, static_cast<void*>(data)) != 0;
 }
 
 using channel_finished_callback = void(SDLCALL*)(int) noexcept;
 
+/**
+ * \brief Assigns a callback for when a channel finishes its playback.
+ *
+ * \param callback the callback that will be used; can safely be null to disable the
+ * callback.
+ *
+ * \see `Mix_ChannelFinished`
+ *
+ * \since 6.0.0
+ */
 inline void on_channel_finished(channel_finished_callback callback) noexcept
 {
   Mix_ChannelFinished(callback);
@@ -529,37 +670,105 @@ inline void on_channel_finished(channel_finished_callback callback) noexcept
 /// \name Channel functions
 /// \{
 
+/**
+ * \brief Changes the amount of channels managed by the mixer.
+ *
+ * \note The the channel count is decreased, the removed channels are stopped.
+ *
+ * \param count the total amount of channels managed by the mixer.
+ *
+ * \return the number of allocated channels.
+ *
+ * \see `Mix_AllocateChannels`
+ *
+ * \since 6.0.0
+ */
 inline auto allocate_channels(const int count) noexcept -> int
 {
   return Mix_AllocateChannels(count);
 }
 
+/**
+ * \brief Reserves a group of channels for the use of the application.
+ *
+ * \param count the desired amount of channels to be reserved.
+ *
+ * \return the number of reserved channels.
+ *
+ * \see `Mix_ReserveChannels`
+ *
+ * \since 6.0.0
+ */
 inline auto reserve_channels(const int count) noexcept -> int
 {
   return Mix_ReserveChannels(count);
 }
 
+/**
+ * \brief Sets a channel to stop playing after the specified amount of time.
+ *
+ * \param channel the channel that will be affected.
+ * \param ms the duration of the expiration.
+ *
+ * \return `success` if the operation was successful; `failure` otherwise.
+ *
+ * \see `Mix_ExpireChannel`
+ *
+ * \since 6.0.0
+ */
 inline auto expire_channel(const int channel,
                            const milliseconds<int> ms) noexcept(noexcept(ms.count()))
-    -> bool
+    -> result
 {
   return Mix_ExpireChannel(channel, ms.count()) != 0;
 }
 
-inline auto set_channel_group(const int channel, const int group) noexcept -> bool
+/**
+ * \brief Removes the current expiration from the specified channel.
+ *
+ * \param channel the channel that will be affected.
+ *
+ * \return `success` if the operation was successful; `failure` otherwise.
+ *
+ * \since 6.0.0
+ */
+inline auto remove_expiration(const int channel) noexcept -> result
+{
+  return Mix_ExpireChannel(channel, -1) != 0;
+}
+
+/**
+ * \brief Sets the group that a channel belongs to.
+ *
+ * \param channel the channel that will be affected.
+ * \param group the group will be assigned to the channel.
+ *
+ * \return `success` if the group was assigned successfully; `failure` otherwise.
+ *
+ * \see `Mix_GroupChannel`
+ *
+ * \since 6.0.0
+ */
+inline auto set_channel_group(const int channel, const int group) noexcept -> result
 {
   return Mix_GroupChannel(channel, group) == 1;
 }
 
-inline auto reset_channel_group(const int channel) noexcept -> bool
+/**
+ * \brief Resets the group that a channel is assigned to.
+ *
+ * \param channel the channel which reset to belong to the default channel group.
+ *
+ * \return `success` if the channel group was reset successfully; `failure` otherwise.
+ *
+ * \since 6.0.0
+ */
+inline auto reset_channel_group(const int channel) noexcept -> result
 {
   return set_channel_group(channel, -1);
 }
 
-// TODO Mix_GroupChannels();
-
 /// \} End of channel functions
-
 /// \} End of group audio
 
 }  // namespace cen
@@ -822,134 +1031,6 @@ using not_null = T;
 #endif  // CENTURION_NOT_NULL_HEADER
 
 // #include "../core/result.hpp"
-#ifndef CENTURION_RESULT_HEADER
-#define CENTURION_RESULT_HEADER
-
-namespace cen {
-
-/// \addtogroup core
-/// \{
-
-/**
- * \class result
- *
- * \brief A simple indicator for the result of different operations.
- *
- * \details The idea behind this class is to make results of various operations
- * unambiguous. Quite an amount of functions in the library may fail, and
- * earlier versions of Centurion would usually return a `bool` in those cases,
- * where `true` and `false` would indicate success and failure, respectively.
- * This class is a development of that practice. For instance, this class is
- * contextually convertible to `bool`, where a successful result is still
- * converted to `true`, and vice versa. However, this class also enables
- * explicit checks against `success` and `failure` constants, which makes
- * code very easy to read and unambiguous.
- * \code{cpp}
- *   cen::window window;
- *
- *   if (window.set_opacity(0.4f))
- *   {
- *     // Success!
- *   }
- *
- *   if (window.set_opacity(0.4f) == cen::success)
- *   {
- *     // Success!
- *   }
- *
- *   if (window.set_opacity(0.4f) == cen::failure)
- *   {
- *     // Failure!
- *   }
- * \endcode
- *
- * \see `success`
- * \see `failure`
- *
- * \since 6.0.0
- */
-class result final
-{
- public:
-  /**
-   * \brief Creates a result.
-   *
-   * \param success `true` if the result is successful; `false` otherwise.
-   *
-   * \since 6.0.0
-   */
-  constexpr result(const bool success) noexcept  // NOLINT implicit
-      : m_success{success}
-  {}
-
-  /// \name Comparison operators
-  /// \{
-
-  /**
-   * \brief Indicates whether or not two results have the same success value.
-   *
-   * \param other the other result.
-   *
-   * \return `true` if the results are equal; `false` otherwise.
-   *
-   * \since 6.0.0
-   */
-  [[nodiscard]] constexpr auto operator==(const result other) const noexcept -> bool
-  {
-    return m_success == other.m_success;
-  }
-
-  /**
-   * \brief Indicates whether or not two results don't have the same success
-   * value.
-   *
-   * \param other the other result.
-   *
-   * \return `true` if the results aren't equal; `false` otherwise.
-   *
-   * \since 6.0.0
-   */
-  [[nodiscard]] constexpr auto operator!=(const result other) const noexcept -> bool
-  {
-    return !(*this == other);
-  }
-
-  /// \} End of comparison operators
-
-  /// \name Conversions
-  /// \{
-
-  /**
-   * \brief Indicates whether or not the result is successful.
-   *
-   * \return `true` if the result is successful; `false` otherwise.
-   *
-   * \since 6.0.0
-   */
-  [[nodiscard]] constexpr explicit operator bool() const noexcept
-  {
-    return m_success;
-  }
-
-  /// \} End of conversions
-
- private:
-  bool m_success{};
-};
-
-/// Represents a successful result.
-/// \since 6.0.0
-inline constexpr result success{true};
-
-/// Represents a failure of some kind.
-/// \since 6.0.0
-inline constexpr result failure{false};
-
-/// \} End of group core
-
-}  // namespace cen
-
-#endif  // CENTURION_RESULT_HEADER
 
 // #include "../core/time.hpp"
 
@@ -1587,11 +1668,12 @@ class music final
    *
    * \param ms the amount of time for the fade to complete, in milliseconds.
    *
-   * \return `true` on success; `false` on failure.
+   * \return `success` if the fade is successful; `failure` on failure.
    *
    * \since 3.0.0
    */
-  static auto fade_out(const milliseconds<int> ms) noexcept(noexcept(ms.count())) -> bool
+  static auto fade_out(const milliseconds<int> ms) noexcept(noexcept(ms.count()))
+      -> result
   {
     assert(ms.count() > 0);
     if (!is_fading())
@@ -1600,7 +1682,7 @@ class music final
     }
     else
     {
-      return false;
+      return failure;
     }
   }
 
@@ -1635,14 +1717,31 @@ class music final
   /// \name Playback position functions
   /// \{
 
-  // TODO Centurion 6: Document and test
-
+  /**
+   * \brief Rewinds the music stream to the initial position.
+   *
+   * \see `Mix_RewindMusic`
+   *
+   * \since 6.0.0
+   */
   static void rewind() noexcept
   {
     Mix_RewindMusic();
   }
 
-  static auto set_position(const double position) noexcept -> bool
+  /**
+   * \brief Sets the position in the music stream.
+   *
+   * \param position the new music stream position.
+   *
+   * \return `success` if the music position was successfully changed; `failure`
+   * otherwise.
+   *
+   * \see `Mix_SetMusicPosition`
+   *
+   * \since 6.0.0
+   */
+  static auto set_position(const double position) noexcept -> result
   {
     return Mix_SetMusicPosition(position) == 0;
   }
@@ -1775,16 +1874,48 @@ class music final
   /// \name Decoder functions
   /// \{
 
+  /**
+   * \brief Returns the name of the decoder associated with the specified index.
+   *
+   * \param index the index of the desired decoder.
+   *
+   * \return the name of the decoder associated with the specified index; a null string is
+   * returned if the index is invalid.
+   *
+   * \see `Mix_GetMusicDecoder`
+   *
+   * \since 6.0.0
+   */
   [[nodiscard]] static auto get_decoder(const int index) noexcept -> czstring
   {
     return Mix_GetMusicDecoder(index);
   }
 
+  /**
+   * \brief Indicates whether or not the system has the specified music decoder.
+   *
+   * \param name the name of the decoder to check.
+   *
+   * \return `true` if the system has the specified decoder; `false` otherwise.
+   *
+   * \see `Mix_HasMusicDecoder`
+   *
+   * \since 6.0.0
+   */
   [[nodiscard]] static auto has_decoder(const czstring name) noexcept -> bool
   {
     return Mix_HasMusicDecoder(name) == SDL_TRUE;
   }
 
+  /**
+   * \brief Returns the number of available music decoders.
+   *
+   * \return the number of available music decoders.
+   *
+   * \see `Mix_GetNumMusicDecoders`
+   *
+   * \since 6.0.0
+   */
   [[nodiscard]] static auto decoder_count() noexcept -> int
   {
     return Mix_GetNumMusicDecoders();
@@ -2767,20 +2898,56 @@ class basic_sound_effect final
   /// \name Decoder functions
   /// \{
 
-  // TODO Centurion 6: Document and test
-
+  /**
+   * \brief Returns the name of the decoder associated with the specified index.
+   *
+   * \tparam TT dummy parameter for SFINAE.
+   *
+   * \param index the index of the desired decoder.
+   *
+   * \return the name of the decoder associated with the specified index; a null string is
+   * returned if the index is invalid.
+   *
+   * \see `Mix_GetChunkDecoder`
+   *
+   * \since 6.0.0
+   */
   template <typename TT = T, detail::is_owner<TT> = 0>
   [[nodiscard]] static auto get_decoder(const int index) noexcept -> czstring
   {
     return Mix_GetChunkDecoder(index);
   }
 
+  /**
+   * \brief Indicates whether or not the system has the specified sound effect decoder.
+   *
+   * \tparam TT dummy parameter for SFINAE.
+   *
+   * \param name the name of the decoder to check.
+   *
+   * \return `true` if the system has the specified decoder; `false` otherwise.
+   *
+   * \see `Mix_HasChunkDecoder`
+   *
+   * \since 6.0.0
+   */
   template <typename TT = T, detail::is_owner<TT> = 0>
   [[nodiscard]] static auto has_decoder(const czstring name) noexcept -> bool
   {
     return Mix_HasChunkDecoder(name) == SDL_TRUE;
   }
 
+  /**
+   * \brief Returns the number of available sound effect decoders.
+   *
+   * \tparam TT dummy parameter for SFINAE.
+   *
+   * \return the number of available sound effect decoders.
+   *
+   * \see `Mix_GetNumChunkDecoders`
+   *
+   * \since 6.0.0
+   */
   template <typename TT = T, detail::is_owner<TT> = 0>
   [[nodiscard]] static auto decoder_count() noexcept -> int
   {
@@ -3396,60 +3563,32 @@ namespace cen {
 /// \name Integer aliases
 /// \{
 
-/**
- * \typedef u64
- *
- * \brief Alias for a 64-bit unsigned integer.
- */
+using uint = unsigned int;
+
+using ulonglong = unsigned long long;
+
+/// Alias for a 64-bit unsigned integer.
 using u64 = Uint64;
 
-/**
- * \typedef u32
- *
- * \brief Alias for a 32-bit unsigned integer.
- */
+/// Alias for a 32-bit unsigned integer.
 using u32 = Uint32;
 
-/**
- * \typedef u16
- *
- * \brief Alias for a 16-bit unsigned integer.
- */
+/// Alias for a 16-bit unsigned integer.
 using u16 = Uint16;
 
-/**
- * \typedef u8
- *
- * \brief Alias for an 8-bit unsigned integer.
- */
+/// Alias for an 8-bit unsigned integer.
 using u8 = Uint8;
 
-/**
- * \typedef i64
- *
- * \brief Alias for a 64-bit signed integer.
- */
+/// Alias for a 64-bit signed integer.
 using i64 = Sint64;
 
-/**
- * \typedef i32
- *
- * \brief Alias for a 32-bit signed integer.
- */
+/// Alias for a 32-bit signed integer.
 using i32 = Sint32;
 
-/**
- * \typedef i16
- *
- * \brief Alias for a 16-bit signed integer.
- */
+/// Alias for a 16-bit signed integer.
 using i16 = Sint16;
 
-/**
- * \typedef i8
- *
- * \brief Alias for an 8-bit signed integer.
- */
+/// Alias for an 8-bit signed integer.
 using i8 = Sint8;
 
 /// \} End of integer aliases
@@ -3487,7 +3626,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u8(unsigned long long value) noexcept -> u8
+[[nodiscard]] constexpr auto operator""_u8(const ulonglong value) noexcept -> u8
 {
   return static_cast<u8>(value);
 }
@@ -3501,7 +3640,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u16(unsigned long long value) noexcept -> u16
+[[nodiscard]] constexpr auto operator""_u16(const ulonglong value) noexcept -> u16
 {
   return static_cast<u16>(value);
 }
@@ -3515,7 +3654,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u32(unsigned long long value) noexcept -> u32
+[[nodiscard]] constexpr auto operator""_u32(const ulonglong value) noexcept -> u32
 {
   return static_cast<u32>(value);
 }
@@ -3529,7 +3668,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u64(unsigned long long value) noexcept -> u64
+[[nodiscard]] constexpr auto operator""_u64(const ulonglong value) noexcept -> u64
 {
   return static_cast<u64>(value);
 }
@@ -3543,7 +3682,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i8(unsigned long long value) noexcept -> i8
+[[nodiscard]] constexpr auto operator""_i8(const ulonglong value) noexcept -> i8
 {
   return static_cast<i8>(value);
 }
@@ -3557,7 +3696,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i16(unsigned long long value) noexcept -> i16
+[[nodiscard]] constexpr auto operator""_i16(const ulonglong value) noexcept -> i16
 {
   return static_cast<i16>(value);
 }
@@ -3571,7 +3710,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i32(unsigned long long value) noexcept -> i32
+[[nodiscard]] constexpr auto operator""_i32(const ulonglong value) noexcept -> i32
 {
   return static_cast<i32>(value);
 }
@@ -3585,7 +3724,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i64(unsigned long long value) noexcept -> i64
+[[nodiscard]] constexpr auto operator""_i64(const ulonglong value) noexcept -> i64
 {
   return static_cast<i64>(value);
 }
@@ -3841,60 +3980,32 @@ namespace cen {
 /// \name Integer aliases
 /// \{
 
-/**
- * \typedef u64
- *
- * \brief Alias for a 64-bit unsigned integer.
- */
+using uint = unsigned int;
+
+using ulonglong = unsigned long long;
+
+/// Alias for a 64-bit unsigned integer.
 using u64 = Uint64;
 
-/**
- * \typedef u32
- *
- * \brief Alias for a 32-bit unsigned integer.
- */
+/// Alias for a 32-bit unsigned integer.
 using u32 = Uint32;
 
-/**
- * \typedef u16
- *
- * \brief Alias for a 16-bit unsigned integer.
- */
+/// Alias for a 16-bit unsigned integer.
 using u16 = Uint16;
 
-/**
- * \typedef u8
- *
- * \brief Alias for an 8-bit unsigned integer.
- */
+/// Alias for an 8-bit unsigned integer.
 using u8 = Uint8;
 
-/**
- * \typedef i64
- *
- * \brief Alias for a 64-bit signed integer.
- */
+/// Alias for a 64-bit signed integer.
 using i64 = Sint64;
 
-/**
- * \typedef i32
- *
- * \brief Alias for a 32-bit signed integer.
- */
+/// Alias for a 32-bit signed integer.
 using i32 = Sint32;
 
-/**
- * \typedef i16
- *
- * \brief Alias for a 16-bit signed integer.
- */
+/// Alias for a 16-bit signed integer.
 using i16 = Sint16;
 
-/**
- * \typedef i8
- *
- * \brief Alias for an 8-bit signed integer.
- */
+/// Alias for an 8-bit signed integer.
 using i8 = Sint8;
 
 /// \} End of integer aliases
@@ -3932,7 +4043,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u8(unsigned long long value) noexcept -> u8
+[[nodiscard]] constexpr auto operator""_u8(const ulonglong value) noexcept -> u8
 {
   return static_cast<u8>(value);
 }
@@ -3946,7 +4057,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u16(unsigned long long value) noexcept -> u16
+[[nodiscard]] constexpr auto operator""_u16(const ulonglong value) noexcept -> u16
 {
   return static_cast<u16>(value);
 }
@@ -3960,7 +4071,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u32(unsigned long long value) noexcept -> u32
+[[nodiscard]] constexpr auto operator""_u32(const ulonglong value) noexcept -> u32
 {
   return static_cast<u32>(value);
 }
@@ -3974,7 +4085,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u64(unsigned long long value) noexcept -> u64
+[[nodiscard]] constexpr auto operator""_u64(const ulonglong value) noexcept -> u64
 {
   return static_cast<u64>(value);
 }
@@ -3988,7 +4099,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i8(unsigned long long value) noexcept -> i8
+[[nodiscard]] constexpr auto operator""_i8(const ulonglong value) noexcept -> i8
 {
   return static_cast<i8>(value);
 }
@@ -4002,7 +4113,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i16(unsigned long long value) noexcept -> i16
+[[nodiscard]] constexpr auto operator""_i16(const ulonglong value) noexcept -> i16
 {
   return static_cast<i16>(value);
 }
@@ -4016,7 +4127,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i32(unsigned long long value) noexcept -> i32
+[[nodiscard]] constexpr auto operator""_i32(const ulonglong value) noexcept -> i32
 {
   return static_cast<i32>(value);
 }
@@ -4030,7 +4141,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i64(unsigned long long value) noexcept -> i64
+[[nodiscard]] constexpr auto operator""_i64(const ulonglong value) noexcept -> i64
 {
   return static_cast<i64>(value);
 }
@@ -5487,25 +5598,22 @@ using minutes = std::chrono::duration<T, std::ratio<60>>;
 
 namespace literals {
 
-constexpr auto operator"" _ns(const unsigned long long int value) noexcept
-    -> nanoseconds<u32>
+constexpr auto operator"" _ns(const ulonglong value) noexcept -> nanoseconds<u32>
 {
   return nanoseconds<u32>{value};
 }
 
-constexpr auto operator"" _us(const unsigned long long int value) noexcept
-    -> microseconds<u32>
+constexpr auto operator"" _us(const ulonglong value) noexcept -> microseconds<u32>
 {
   return microseconds<u32>{value};
 }
 
-constexpr auto operator"" _ms(const unsigned long long int value) noexcept
-    -> milliseconds<u32>
+constexpr auto operator"" _ms(const ulonglong value) noexcept -> milliseconds<u32>
 {
   return milliseconds<u32>{value};
 }
 
-constexpr auto operator"" _s(const unsigned long long int value) noexcept -> seconds<u32>
+constexpr auto operator"" _s(const ulonglong value) noexcept -> seconds<u32>
 {
   return seconds<u32>{value};
 }
@@ -6151,6 +6259,194 @@ namespace cen::detail {
 
 // #include "../core/czstring.hpp"
 
+// #include "../core/integers.hpp"
+#ifndef CENTURION_INTEGERS_HEADER
+#define CENTURION_INTEGERS_HEADER
+
+#include <SDL.h>
+
+namespace cen {
+
+/// \addtogroup core
+/// \{
+
+/// \name Integer aliases
+/// \{
+
+using uint = unsigned int;
+
+using ulonglong = unsigned long long;
+
+/// Alias for a 64-bit unsigned integer.
+using u64 = Uint64;
+
+/// Alias for a 32-bit unsigned integer.
+using u32 = Uint32;
+
+/// Alias for a 16-bit unsigned integer.
+using u16 = Uint16;
+
+/// Alias for an 8-bit unsigned integer.
+using u8 = Uint8;
+
+/// Alias for a 64-bit signed integer.
+using i64 = Sint64;
+
+/// Alias for a 32-bit signed integer.
+using i32 = Sint32;
+
+/// Alias for a 16-bit signed integer.
+using i16 = Sint16;
+
+/// Alias for an 8-bit signed integer.
+using i8 = Sint8;
+
+/// \} End of integer aliases
+
+// clang-format off
+
+/**
+ * \brief Obtains the size of a container as an `int`.
+ *
+ * \tparam T a "container" that provides a `size()` member function.
+ *
+ * \param container the container to query the size of.
+ *
+ * \return the size of the container as an `int` value.
+ *
+ * \since 5.3.0
+ */
+template <typename T>
+[[nodiscard]] constexpr auto isize(const T& container) noexcept(noexcept(container.size()))
+    -> int
+{
+  return static_cast<int>(container.size());
+}
+
+// clang-format on
+
+namespace literals {
+
+/**
+ * \brief Creates an 8-bit unsigned integer.
+ *
+ * \param value the value that will be converted.
+ *
+ * \return an 8-bit unsigned integer.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto operator""_u8(const ulonglong value) noexcept -> u8
+{
+  return static_cast<u8>(value);
+}
+
+/**
+ * \brief Creates a 16-bit unsigned integer.
+ *
+ * \param value the value that will be converted.
+ *
+ * \return a 16-bit unsigned integer.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto operator""_u16(const ulonglong value) noexcept -> u16
+{
+  return static_cast<u16>(value);
+}
+
+/**
+ * \brief Creates a 32-bit unsigned integer.
+ *
+ * \param value the value that will be converted.
+ *
+ * \return a 32-bit unsigned integer.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto operator""_u32(const ulonglong value) noexcept -> u32
+{
+  return static_cast<u32>(value);
+}
+
+/**
+ * \brief Creates a 64-bit unsigned integer.
+ *
+ * \param value the value that will be converted.
+ *
+ * \return a 64-bit unsigned integer.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto operator""_u64(const ulonglong value) noexcept -> u64
+{
+  return static_cast<u64>(value);
+}
+
+/**
+ * \brief Creates an 8-bit signed integer.
+ *
+ * \param value the value that will be converted.
+ *
+ * \return an 8-bit signed integer.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto operator""_i8(const ulonglong value) noexcept -> i8
+{
+  return static_cast<i8>(value);
+}
+
+/**
+ * \brief Creates a 16-bit signed integer.
+ *
+ * \param value the value that will be converted.
+ *
+ * \return a 16-bit signed integer.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto operator""_i16(const ulonglong value) noexcept -> i16
+{
+  return static_cast<i16>(value);
+}
+
+/**
+ * \brief Creates a 32-bit signed integer.
+ *
+ * \param value the value that will be converted.
+ *
+ * \return a 32-bit signed integer.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto operator""_i32(const ulonglong value) noexcept -> i32
+{
+  return static_cast<i32>(value);
+}
+
+/**
+ * \brief Creates a 64-bit signed integer.
+ *
+ * \param value the value that will be converted.
+ *
+ * \return a 64-bit signed integer.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto operator""_i64(const ulonglong value) noexcept -> i64
+{
+  return static_cast<i64>(value);
+}
+
+}  // namespace literals
+
+/// \} End of group core
+
+}  // namespace cen
+
+#endif  // CENTURION_INTEGERS_HEADER
+
 // #include "czstring_compare.hpp"
 #ifndef CENTURION_DETAIL_CZSTRING_COMPARE_HEADER
 #define CENTURION_DETAIL_CZSTRING_COMPARE_HEADER
@@ -6582,16 +6878,16 @@ class int_hint : public crtp_hint<int_hint<Hint>, int>
 
 // A hint class that only accepts unsigned integers
 template <typename Hint>
-class unsigned_int_hint : public crtp_hint<int_hint<Hint>, unsigned int>
+class unsigned_int_hint : public crtp_hint<int_hint<Hint>, uint>
 {
  public:
   template <typename T>
   [[nodiscard]] constexpr static auto valid_arg() noexcept -> bool
   {
-    return std::is_same_v<T, unsigned int>;
+    return std::is_same_v<T, uint>;
   }
 
-  [[nodiscard]] static auto current_value() noexcept -> std::optional<unsigned int>
+  [[nodiscard]] static auto current_value() noexcept -> std::optional<uint>
   {
     const czstring value = SDL_GetHint(Hint::name());
     if (!value)
@@ -6600,7 +6896,7 @@ class unsigned_int_hint : public crtp_hint<int_hint<Hint>, unsigned int>
     }
     else
     {
-      return static_cast<unsigned int>(std::stoul(value));
+      return static_cast<uint>(std::stoul(value));
     }
   }
 };
@@ -7515,60 +7811,32 @@ namespace cen {
 /// \name Integer aliases
 /// \{
 
-/**
- * \typedef u64
- *
- * \brief Alias for a 64-bit unsigned integer.
- */
+using uint = unsigned int;
+
+using ulonglong = unsigned long long;
+
+/// Alias for a 64-bit unsigned integer.
 using u64 = Uint64;
 
-/**
- * \typedef u32
- *
- * \brief Alias for a 32-bit unsigned integer.
- */
+/// Alias for a 32-bit unsigned integer.
 using u32 = Uint32;
 
-/**
- * \typedef u16
- *
- * \brief Alias for a 16-bit unsigned integer.
- */
+/// Alias for a 16-bit unsigned integer.
 using u16 = Uint16;
 
-/**
- * \typedef u8
- *
- * \brief Alias for an 8-bit unsigned integer.
- */
+/// Alias for an 8-bit unsigned integer.
 using u8 = Uint8;
 
-/**
- * \typedef i64
- *
- * \brief Alias for a 64-bit signed integer.
- */
+/// Alias for a 64-bit signed integer.
 using i64 = Sint64;
 
-/**
- * \typedef i32
- *
- * \brief Alias for a 32-bit signed integer.
- */
+/// Alias for a 32-bit signed integer.
 using i32 = Sint32;
 
-/**
- * \typedef i16
- *
- * \brief Alias for a 16-bit signed integer.
- */
+/// Alias for a 16-bit signed integer.
 using i16 = Sint16;
 
-/**
- * \typedef i8
- *
- * \brief Alias for an 8-bit signed integer.
- */
+/// Alias for an 8-bit signed integer.
 using i8 = Sint8;
 
 /// \} End of integer aliases
@@ -7606,7 +7874,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u8(unsigned long long value) noexcept -> u8
+[[nodiscard]] constexpr auto operator""_u8(const ulonglong value) noexcept -> u8
 {
   return static_cast<u8>(value);
 }
@@ -7620,7 +7888,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u16(unsigned long long value) noexcept -> u16
+[[nodiscard]] constexpr auto operator""_u16(const ulonglong value) noexcept -> u16
 {
   return static_cast<u16>(value);
 }
@@ -7634,7 +7902,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u32(unsigned long long value) noexcept -> u32
+[[nodiscard]] constexpr auto operator""_u32(const ulonglong value) noexcept -> u32
 {
   return static_cast<u32>(value);
 }
@@ -7648,7 +7916,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u64(unsigned long long value) noexcept -> u64
+[[nodiscard]] constexpr auto operator""_u64(const ulonglong value) noexcept -> u64
 {
   return static_cast<u64>(value);
 }
@@ -7662,7 +7930,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i8(unsigned long long value) noexcept -> i8
+[[nodiscard]] constexpr auto operator""_i8(const ulonglong value) noexcept -> i8
 {
   return static_cast<i8>(value);
 }
@@ -7676,7 +7944,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i16(unsigned long long value) noexcept -> i16
+[[nodiscard]] constexpr auto operator""_i16(const ulonglong value) noexcept -> i16
 {
   return static_cast<i16>(value);
 }
@@ -7690,7 +7958,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i32(unsigned long long value) noexcept -> i32
+[[nodiscard]] constexpr auto operator""_i32(const ulonglong value) noexcept -> i32
 {
   return static_cast<i32>(value);
 }
@@ -7704,7 +7972,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i64(unsigned long long value) noexcept -> i64
+[[nodiscard]] constexpr auto operator""_i64(const ulonglong value) noexcept -> i64
 {
   return static_cast<i64>(value);
 }
@@ -8608,60 +8876,32 @@ namespace cen {
 /// \name Integer aliases
 /// \{
 
-/**
- * \typedef u64
- *
- * \brief Alias for a 64-bit unsigned integer.
- */
+using uint = unsigned int;
+
+using ulonglong = unsigned long long;
+
+/// Alias for a 64-bit unsigned integer.
 using u64 = Uint64;
 
-/**
- * \typedef u32
- *
- * \brief Alias for a 32-bit unsigned integer.
- */
+/// Alias for a 32-bit unsigned integer.
 using u32 = Uint32;
 
-/**
- * \typedef u16
- *
- * \brief Alias for a 16-bit unsigned integer.
- */
+/// Alias for a 16-bit unsigned integer.
 using u16 = Uint16;
 
-/**
- * \typedef u8
- *
- * \brief Alias for an 8-bit unsigned integer.
- */
+/// Alias for an 8-bit unsigned integer.
 using u8 = Uint8;
 
-/**
- * \typedef i64
- *
- * \brief Alias for a 64-bit signed integer.
- */
+/// Alias for a 64-bit signed integer.
 using i64 = Sint64;
 
-/**
- * \typedef i32
- *
- * \brief Alias for a 32-bit signed integer.
- */
+/// Alias for a 32-bit signed integer.
 using i32 = Sint32;
 
-/**
- * \typedef i16
- *
- * \brief Alias for a 16-bit signed integer.
- */
+/// Alias for a 16-bit signed integer.
 using i16 = Sint16;
 
-/**
- * \typedef i8
- *
- * \brief Alias for an 8-bit signed integer.
- */
+/// Alias for an 8-bit signed integer.
 using i8 = Sint8;
 
 /// \} End of integer aliases
@@ -8699,7 +8939,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u8(unsigned long long value) noexcept -> u8
+[[nodiscard]] constexpr auto operator""_u8(const ulonglong value) noexcept -> u8
 {
   return static_cast<u8>(value);
 }
@@ -8713,7 +8953,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u16(unsigned long long value) noexcept -> u16
+[[nodiscard]] constexpr auto operator""_u16(const ulonglong value) noexcept -> u16
 {
   return static_cast<u16>(value);
 }
@@ -8727,7 +8967,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u32(unsigned long long value) noexcept -> u32
+[[nodiscard]] constexpr auto operator""_u32(const ulonglong value) noexcept -> u32
 {
   return static_cast<u32>(value);
 }
@@ -8741,7 +8981,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u64(unsigned long long value) noexcept -> u64
+[[nodiscard]] constexpr auto operator""_u64(const ulonglong value) noexcept -> u64
 {
   return static_cast<u64>(value);
 }
@@ -8755,7 +8995,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i8(unsigned long long value) noexcept -> i8
+[[nodiscard]] constexpr auto operator""_i8(const ulonglong value) noexcept -> i8
 {
   return static_cast<i8>(value);
 }
@@ -8769,7 +9009,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i16(unsigned long long value) noexcept -> i16
+[[nodiscard]] constexpr auto operator""_i16(const ulonglong value) noexcept -> i16
 {
   return static_cast<i16>(value);
 }
@@ -8783,7 +9023,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i32(unsigned long long value) noexcept -> i32
+[[nodiscard]] constexpr auto operator""_i32(const ulonglong value) noexcept -> i32
 {
   return static_cast<i32>(value);
 }
@@ -8797,7 +9037,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i64(unsigned long long value) noexcept -> i64
+[[nodiscard]] constexpr auto operator""_i64(const ulonglong value) noexcept -> i64
 {
   return static_cast<i64>(value);
 }
@@ -9150,60 +9390,32 @@ namespace cen {
 /// \name Integer aliases
 /// \{
 
-/**
- * \typedef u64
- *
- * \brief Alias for a 64-bit unsigned integer.
- */
+using uint = unsigned int;
+
+using ulonglong = unsigned long long;
+
+/// Alias for a 64-bit unsigned integer.
 using u64 = Uint64;
 
-/**
- * \typedef u32
- *
- * \brief Alias for a 32-bit unsigned integer.
- */
+/// Alias for a 32-bit unsigned integer.
 using u32 = Uint32;
 
-/**
- * \typedef u16
- *
- * \brief Alias for a 16-bit unsigned integer.
- */
+/// Alias for a 16-bit unsigned integer.
 using u16 = Uint16;
 
-/**
- * \typedef u8
- *
- * \brief Alias for an 8-bit unsigned integer.
- */
+/// Alias for an 8-bit unsigned integer.
 using u8 = Uint8;
 
-/**
- * \typedef i64
- *
- * \brief Alias for a 64-bit signed integer.
- */
+/// Alias for a 64-bit signed integer.
 using i64 = Sint64;
 
-/**
- * \typedef i32
- *
- * \brief Alias for a 32-bit signed integer.
- */
+/// Alias for a 32-bit signed integer.
 using i32 = Sint32;
 
-/**
- * \typedef i16
- *
- * \brief Alias for a 16-bit signed integer.
- */
+/// Alias for a 16-bit signed integer.
 using i16 = Sint16;
 
-/**
- * \typedef i8
- *
- * \brief Alias for an 8-bit signed integer.
- */
+/// Alias for an 8-bit signed integer.
 using i8 = Sint8;
 
 /// \} End of integer aliases
@@ -9241,7 +9453,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u8(unsigned long long value) noexcept -> u8
+[[nodiscard]] constexpr auto operator""_u8(const ulonglong value) noexcept -> u8
 {
   return static_cast<u8>(value);
 }
@@ -9255,7 +9467,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u16(unsigned long long value) noexcept -> u16
+[[nodiscard]] constexpr auto operator""_u16(const ulonglong value) noexcept -> u16
 {
   return static_cast<u16>(value);
 }
@@ -9269,7 +9481,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u32(unsigned long long value) noexcept -> u32
+[[nodiscard]] constexpr auto operator""_u32(const ulonglong value) noexcept -> u32
 {
   return static_cast<u32>(value);
 }
@@ -9283,7 +9495,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u64(unsigned long long value) noexcept -> u64
+[[nodiscard]] constexpr auto operator""_u64(const ulonglong value) noexcept -> u64
 {
   return static_cast<u64>(value);
 }
@@ -9297,7 +9509,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i8(unsigned long long value) noexcept -> i8
+[[nodiscard]] constexpr auto operator""_i8(const ulonglong value) noexcept -> i8
 {
   return static_cast<i8>(value);
 }
@@ -9311,7 +9523,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i16(unsigned long long value) noexcept -> i16
+[[nodiscard]] constexpr auto operator""_i16(const ulonglong value) noexcept -> i16
 {
   return static_cast<i16>(value);
 }
@@ -9325,7 +9537,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i32(unsigned long long value) noexcept -> i32
+[[nodiscard]] constexpr auto operator""_i32(const ulonglong value) noexcept -> i32
 {
   return static_cast<i32>(value);
 }
@@ -9339,7 +9551,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i64(unsigned long long value) noexcept -> i64
+[[nodiscard]] constexpr auto operator""_i64(const ulonglong value) noexcept -> i64
 {
   return static_cast<i64>(value);
 }
@@ -9405,25 +9617,22 @@ using minutes = std::chrono::duration<T, std::ratio<60>>;
 
 namespace literals {
 
-constexpr auto operator"" _ns(const unsigned long long int value) noexcept
-    -> nanoseconds<u32>
+constexpr auto operator"" _ns(const ulonglong value) noexcept -> nanoseconds<u32>
 {
   return nanoseconds<u32>{value};
 }
 
-constexpr auto operator"" _us(const unsigned long long int value) noexcept
-    -> microseconds<u32>
+constexpr auto operator"" _us(const ulonglong value) noexcept -> microseconds<u32>
 {
   return microseconds<u32>{value};
 }
 
-constexpr auto operator"" _ms(const unsigned long long int value) noexcept
-    -> milliseconds<u32>
+constexpr auto operator"" _ms(const ulonglong value) noexcept -> milliseconds<u32>
 {
   return milliseconds<u32>{value};
 }
 
-constexpr auto operator"" _s(const unsigned long long int value) noexcept -> seconds<u32>
+constexpr auto operator"" _s(const ulonglong value) noexcept -> seconds<u32>
 {
   return seconds<u32>{value};
 }
@@ -10165,60 +10374,32 @@ namespace cen {
 /// \name Integer aliases
 /// \{
 
-/**
- * \typedef u64
- *
- * \brief Alias for a 64-bit unsigned integer.
- */
+using uint = unsigned int;
+
+using ulonglong = unsigned long long;
+
+/// Alias for a 64-bit unsigned integer.
 using u64 = Uint64;
 
-/**
- * \typedef u32
- *
- * \brief Alias for a 32-bit unsigned integer.
- */
+/// Alias for a 32-bit unsigned integer.
 using u32 = Uint32;
 
-/**
- * \typedef u16
- *
- * \brief Alias for a 16-bit unsigned integer.
- */
+/// Alias for a 16-bit unsigned integer.
 using u16 = Uint16;
 
-/**
- * \typedef u8
- *
- * \brief Alias for an 8-bit unsigned integer.
- */
+/// Alias for an 8-bit unsigned integer.
 using u8 = Uint8;
 
-/**
- * \typedef i64
- *
- * \brief Alias for a 64-bit signed integer.
- */
+/// Alias for a 64-bit signed integer.
 using i64 = Sint64;
 
-/**
- * \typedef i32
- *
- * \brief Alias for a 32-bit signed integer.
- */
+/// Alias for a 32-bit signed integer.
 using i32 = Sint32;
 
-/**
- * \typedef i16
- *
- * \brief Alias for a 16-bit signed integer.
- */
+/// Alias for a 16-bit signed integer.
 using i16 = Sint16;
 
-/**
- * \typedef i8
- *
- * \brief Alias for an 8-bit signed integer.
- */
+/// Alias for an 8-bit signed integer.
 using i8 = Sint8;
 
 /// \} End of integer aliases
@@ -10256,7 +10437,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u8(unsigned long long value) noexcept -> u8
+[[nodiscard]] constexpr auto operator""_u8(const ulonglong value) noexcept -> u8
 {
   return static_cast<u8>(value);
 }
@@ -10270,7 +10451,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u16(unsigned long long value) noexcept -> u16
+[[nodiscard]] constexpr auto operator""_u16(const ulonglong value) noexcept -> u16
 {
   return static_cast<u16>(value);
 }
@@ -10284,7 +10465,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u32(unsigned long long value) noexcept -> u32
+[[nodiscard]] constexpr auto operator""_u32(const ulonglong value) noexcept -> u32
 {
   return static_cast<u32>(value);
 }
@@ -10298,7 +10479,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u64(unsigned long long value) noexcept -> u64
+[[nodiscard]] constexpr auto operator""_u64(const ulonglong value) noexcept -> u64
 {
   return static_cast<u64>(value);
 }
@@ -10312,7 +10493,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i8(unsigned long long value) noexcept -> i8
+[[nodiscard]] constexpr auto operator""_i8(const ulonglong value) noexcept -> i8
 {
   return static_cast<i8>(value);
 }
@@ -10326,7 +10507,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i16(unsigned long long value) noexcept -> i16
+[[nodiscard]] constexpr auto operator""_i16(const ulonglong value) noexcept -> i16
 {
   return static_cast<i16>(value);
 }
@@ -10340,7 +10521,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i32(unsigned long long value) noexcept -> i32
+[[nodiscard]] constexpr auto operator""_i32(const ulonglong value) noexcept -> i32
 {
   return static_cast<i32>(value);
 }
@@ -10354,7 +10535,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i64(unsigned long long value) noexcept -> i64
+[[nodiscard]] constexpr auto operator""_i64(const ulonglong value) noexcept -> i64
 {
   return static_cast<i64>(value);
 }
@@ -11879,11 +12060,11 @@ class basic_joystick final
    *
    * \param index the device index of the virtual joystick.
    *
-   * \return `true` on success; `false` otherwise.
+   * \return `success` if the joystick was successfully disconnected; `failure` otherwise.
    *
    * \since 5.2.0
    */
-  static auto detach_virtual(const int index) noexcept -> bool
+  static auto detach_virtual(const int index) noexcept -> result
   {
     return SDL_JoystickDetachVirtual(index) == 0;
   }
@@ -16023,6 +16204,136 @@ inline auto as_sdl_event(const common_event<SDL_DropEvent>& event) -> SDL_Event
 #include <optional>  // optional
 #include <utility>   // move
 #include <variant>   // variant, holds_alternative, monostate, get, get_if
+
+// #include "../core/result.hpp"
+#ifndef CENTURION_RESULT_HEADER
+#define CENTURION_RESULT_HEADER
+
+namespace cen {
+
+/// \addtogroup core
+/// \{
+
+/**
+ * \class result
+ *
+ * \brief A simple indicator for the result of different operations.
+ *
+ * \details The idea behind this class is to make results of various operations
+ * unambiguous. Quite an amount of functions in the library may fail, and
+ * earlier versions of Centurion would usually return a `bool` in those cases,
+ * where `true` and `false` would indicate success and failure, respectively.
+ * This class is a development of that practice. For instance, this class is
+ * contextually convertible to `bool`, where a successful result is still
+ * converted to `true`, and vice versa. However, this class also enables
+ * explicit checks against `success` and `failure` constants, which makes
+ * code very easy to read and unambiguous.
+ * \code{cpp}
+ *   cen::window window;
+ *
+ *   if (window.set_opacity(0.4f))
+ *   {
+ *     // Success!
+ *   }
+ *
+ *   if (window.set_opacity(0.4f) == cen::success)
+ *   {
+ *     // Success!
+ *   }
+ *
+ *   if (window.set_opacity(0.4f) == cen::failure)
+ *   {
+ *     // Failure!
+ *   }
+ * \endcode
+ *
+ * \see `success`
+ * \see `failure`
+ *
+ * \since 6.0.0
+ */
+class result final
+{
+ public:
+  /**
+   * \brief Creates a result.
+   *
+   * \param success `true` if the result is successful; `false` otherwise.
+   *
+   * \since 6.0.0
+   */
+  constexpr result(const bool success) noexcept  // NOLINT implicit
+      : m_success{success}
+  {}
+
+  /// \name Comparison operators
+  /// \{
+
+  /**
+   * \brief Indicates whether or not two results have the same success value.
+   *
+   * \param other the other result.
+   *
+   * \return `true` if the results are equal; `false` otherwise.
+   *
+   * \since 6.0.0
+   */
+  [[nodiscard]] constexpr auto operator==(const result other) const noexcept -> bool
+  {
+    return m_success == other.m_success;
+  }
+
+  /**
+   * \brief Indicates whether or not two results don't have the same success
+   * value.
+   *
+   * \param other the other result.
+   *
+   * \return `true` if the results aren't equal; `false` otherwise.
+   *
+   * \since 6.0.0
+   */
+  [[nodiscard]] constexpr auto operator!=(const result other) const noexcept -> bool
+  {
+    return !(*this == other);
+  }
+
+  /// \} End of comparison operators
+
+  /// \name Conversions
+  /// \{
+
+  /**
+   * \brief Indicates whether or not the result is successful.
+   *
+   * \return `true` if the result is successful; `false` otherwise.
+   *
+   * \since 6.0.0
+   */
+  [[nodiscard]] constexpr explicit operator bool() const noexcept
+  {
+    return m_success;
+  }
+
+  /// \} End of conversions
+
+ private:
+  bool m_success{};
+};
+
+/// Represents a successful result.
+/// \since 6.0.0
+inline constexpr result success{true};
+
+/// Represents a failure of some kind.
+/// \since 6.0.0
+inline constexpr result failure{false};
+
+/// \} End of group core
+
+}  // namespace cen
+
+#endif  // CENTURION_RESULT_HEADER
 
 // #include "audio_device_event.hpp"
 #ifndef CENTURION_AUDIO_DEVICE_EVENT_HEADER
@@ -22412,16 +22723,15 @@ class event final
    *
    * \param event the event that will be pushed onto the event queue.
    *
-   * \return `true` if the event was successfully added; `false` otherwise.
+   * \return `success` if the event was successfully added; `failure` otherwise.
    *
    * \since 5.1.0
    */
   template <typename T>
-  static auto push(const common_event<T>& event) noexcept -> bool
+  static auto push(const common_event<T>& event) noexcept -> result
   {
     auto sdlEvent = as_sdl_event(event);
-    const auto result = SDL_PushEvent(&sdlEvent);
-    return result >= 0;
+    return SDL_PushEvent(&sdlEvent) >= 0;
   }
 
   /**
@@ -23060,6 +23370,8 @@ inline constexpr int tuple_type_index_v = tuple_type_index<Target, T...>::value;
 #include <utility>   // move
 #include <variant>   // variant, holds_alternative, monostate, get, get_if
 
+// #include "../core/result.hpp"
+
 // #include "audio_device_event.hpp"
 
 // #include "common_event.hpp"
@@ -23185,16 +23497,15 @@ class event final
    *
    * \param event the event that will be pushed onto the event queue.
    *
-   * \return `true` if the event was successfully added; `false` otherwise.
+   * \return `success` if the event was successfully added; `failure` otherwise.
    *
    * \since 5.1.0
    */
   template <typename T>
-  static auto push(const common_event<T>& event) noexcept -> bool
+  static auto push(const common_event<T>& event) noexcept -> result
   {
     auto sdlEvent = as_sdl_event(event);
-    const auto result = SDL_PushEvent(&sdlEvent);
-    return result >= 0;
+    return SDL_PushEvent(&sdlEvent) >= 0;
   }
 
   /**
@@ -27397,60 +27708,32 @@ namespace cen {
 /// \name Integer aliases
 /// \{
 
-/**
- * \typedef u64
- *
- * \brief Alias for a 64-bit unsigned integer.
- */
+using uint = unsigned int;
+
+using ulonglong = unsigned long long;
+
+/// Alias for a 64-bit unsigned integer.
 using u64 = Uint64;
 
-/**
- * \typedef u32
- *
- * \brief Alias for a 32-bit unsigned integer.
- */
+/// Alias for a 32-bit unsigned integer.
 using u32 = Uint32;
 
-/**
- * \typedef u16
- *
- * \brief Alias for a 16-bit unsigned integer.
- */
+/// Alias for a 16-bit unsigned integer.
 using u16 = Uint16;
 
-/**
- * \typedef u8
- *
- * \brief Alias for an 8-bit unsigned integer.
- */
+/// Alias for an 8-bit unsigned integer.
 using u8 = Uint8;
 
-/**
- * \typedef i64
- *
- * \brief Alias for a 64-bit signed integer.
- */
+/// Alias for a 64-bit signed integer.
 using i64 = Sint64;
 
-/**
- * \typedef i32
- *
- * \brief Alias for a 32-bit signed integer.
- */
+/// Alias for a 32-bit signed integer.
 using i32 = Sint32;
 
-/**
- * \typedef i16
- *
- * \brief Alias for a 16-bit signed integer.
- */
+/// Alias for a 16-bit signed integer.
 using i16 = Sint16;
 
-/**
- * \typedef i8
- *
- * \brief Alias for an 8-bit signed integer.
- */
+/// Alias for an 8-bit signed integer.
 using i8 = Sint8;
 
 /// \} End of integer aliases
@@ -27488,7 +27771,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u8(unsigned long long value) noexcept -> u8
+[[nodiscard]] constexpr auto operator""_u8(const ulonglong value) noexcept -> u8
 {
   return static_cast<u8>(value);
 }
@@ -27502,7 +27785,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u16(unsigned long long value) noexcept -> u16
+[[nodiscard]] constexpr auto operator""_u16(const ulonglong value) noexcept -> u16
 {
   return static_cast<u16>(value);
 }
@@ -27516,7 +27799,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u32(unsigned long long value) noexcept -> u32
+[[nodiscard]] constexpr auto operator""_u32(const ulonglong value) noexcept -> u32
 {
   return static_cast<u32>(value);
 }
@@ -27530,7 +27813,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u64(unsigned long long value) noexcept -> u64
+[[nodiscard]] constexpr auto operator""_u64(const ulonglong value) noexcept -> u64
 {
   return static_cast<u64>(value);
 }
@@ -27544,7 +27827,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i8(unsigned long long value) noexcept -> i8
+[[nodiscard]] constexpr auto operator""_i8(const ulonglong value) noexcept -> i8
 {
   return static_cast<i8>(value);
 }
@@ -27558,7 +27841,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i16(unsigned long long value) noexcept -> i16
+[[nodiscard]] constexpr auto operator""_i16(const ulonglong value) noexcept -> i16
 {
   return static_cast<i16>(value);
 }
@@ -27572,7 +27855,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i32(unsigned long long value) noexcept -> i32
+[[nodiscard]] constexpr auto operator""_i32(const ulonglong value) noexcept -> i32
 {
   return static_cast<i32>(value);
 }
@@ -27586,7 +27869,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i64(unsigned long long value) noexcept -> i64
+[[nodiscard]] constexpr auto operator""_i64(const ulonglong value) noexcept -> i64
 {
   return static_cast<i64>(value);
 }
@@ -27820,7 +28103,7 @@ enum class seek_mode
  *
  * \headerfile file_type.hpp
  */
-enum class file_type : unsigned
+enum class file_type : uint
 {
   unknown = SDL_RWOPS_UNKNOWN,     ///< An unknown file type.
   win32 = SDL_RWOPS_WINFILE,       ///< A Win32 file.
@@ -27866,12 +28149,12 @@ class file final
    * \brief Opens the file at the specified file path.
    *
    * \details Be sure to check the validity of the file, after construction.
-     \verbatim
-       cen::file file{"foo", cen::file_mode::read_existing_binary};
-       if (file) {
-         // File was opened successfully!
-       }
-     \endverbatim
+   * \code{cpp}
+   *   cen::file file{"foo", cen::file_mode::read_existing_binary};
+   *   if (file) {
+   *     // File was opened successfully!
+   *   }
+   * \endcode
    *
    * \param path the path of the file.
    * \param mode the mode that will be used to open the file.
@@ -28305,8 +28588,6 @@ class file final
   /// \name File type queries
   /// \{
 
-  // TODO Centurion 6: Document and test these functions
-
   /**
    * \brief Indicates whether or not the file represents a PNG image.
    *
@@ -28319,77 +28600,175 @@ class file final
     return IMG_isPNG(m_context.get()) == 1;
   }
 
+  /**
+   * \brief Indicates whether or not the file represents an ICO image.
+   *
+   * \return `true` if the file is an ICO image; `false` otherwise.
+   *
+   * \since 6.0.0
+   */
   [[nodiscard]] auto is_ico() const noexcept -> bool
   {
     return IMG_isICO(m_context.get()) == 1;
   }
 
+  /**
+   * \brief Indicates whether or not the file represents a JPG image.
+   *
+   * \return `true` if the file is a JPG image; `false` otherwise.
+   *
+   * \since 6.0.0
+   */
   [[nodiscard]] auto is_jpg() const noexcept -> bool
   {
     return IMG_isJPG(m_context.get()) == 1;
   }
 
+  /**
+   * \brief Indicates whether or not the file represents a BMP image.
+   *
+   * \return `true` if the file is a BMP image; `false` otherwise.
+   *
+   * \since 6.0.0
+   */
   [[nodiscard]] auto is_bmp() const noexcept -> bool
   {
     return IMG_isBMP(m_context.get()) == 1;
   }
 
+  /**
+   * \brief Indicates whether or not the file represents a GIF.
+   *
+   * \return `true` if the file is a GIF; `false` otherwise.
+   *
+   * \since 6.0.0
+   */
   [[nodiscard]] auto is_gif() const noexcept -> bool
   {
     return IMG_isGIF(m_context.get()) == 1;
   }
 
+  /**
+   * \brief Indicates whether or not the file represents an SVG image.
+   *
+   * \return `true` if the file is an SVG image; `false` otherwise.
+   *
+   * \since 6.0.0
+   */
   [[nodiscard]] auto is_svg() const noexcept -> bool
   {
     return IMG_isSVG(m_context.get()) == 1;
   }
 
+  /**
+   * \brief Indicates whether or not the file represents a WEBP image.
+   *
+   * \return `true` if the file is a WEBP image; `false` otherwise.
+   *
+   * \since 6.0.0
+   */
   [[nodiscard]] auto is_webp() const noexcept -> bool
   {
     return IMG_isWEBP(m_context.get()) == 1;
   }
 
+  /**
+   * \brief Indicates whether or not the file represents a TIF image.
+   *
+   * \return `true` if the file is a TIF image; `false` otherwise.
+   *
+   * \since 6.0.0
+   */
   [[nodiscard]] auto is_tif() const noexcept -> bool
   {
     return IMG_isTIF(m_context.get()) == 1;
   }
 
+  /**
+   * \brief Indicates whether or not the file represents a PNM image.
+   *
+   * \return `true` if the file is a PNM image; `false` otherwise.
+   *
+   * \since 6.0.0
+   */
   [[nodiscard]] auto is_pnm() const noexcept -> bool
   {
     return IMG_isPNM(m_context.get()) == 1;
   }
 
+  /**
+   * \brief Indicates whether or not the file represents a PCX image.
+   *
+   * \return `true` if the file is a PCX image; `false` otherwise.
+   *
+   * \since 6.0.0
+   */
   [[nodiscard]] auto is_pcx() const noexcept -> bool
   {
     return IMG_isPCX(m_context.get()) == 1;
   }
 
+  /**
+   * \brief Indicates whether or not the file represents an LBM image.
+   *
+   * \return `true` if the file is an LBM image; `false` otherwise.
+   *
+   * \since 6.0.0
+   */
   [[nodiscard]] auto is_lbm() const noexcept -> bool
   {
     return IMG_isLBM(m_context.get()) == 1;
   }
 
+  /**
+   * \brief Indicates whether or not the file represents a CUR image.
+   *
+   * \return `true` if the file is a CUR image; `false` otherwise.
+   *
+   * \since 6.0.0
+   */
   [[nodiscard]] auto is_cur() const noexcept -> bool
   {
     return IMG_isCUR(m_context.get()) == 1;
   }
 
+  /**
+   * \brief Indicates whether or not the file represents an XCF image.
+   *
+   * \return `true` if the file is an XCF image; `false` otherwise.
+   *
+   * \since 6.0.0
+   */
   [[nodiscard]] auto is_xcf() const noexcept -> bool
   {
     return IMG_isXCF(m_context.get()) == 1;
   }
 
+  /**
+   * \brief Indicates whether or not the file represents an XPM image.
+   *
+   * \return `true` if the file is an XPM image; `false` otherwise.
+   *
+   * \since 6.0.0
+   */
   [[nodiscard]] auto is_xpm() const noexcept -> bool
   {
     return IMG_isXPM(m_context.get()) == 1;
   }
 
+  /**
+   * \brief Indicates whether or not the file represents an XV image.
+   *
+   * \return `true` if the file is an XV image; `false` otherwise.
+   *
+   * \since 6.0.0
+   */
   [[nodiscard]] auto is_xv() const noexcept -> bool
   {
     return IMG_isXV(m_context.get()) == 1;
   }
 
-  /// \}
+  /// \} End of file type queries
 
   /**
    * \brief Seeks to the specified offset, using the specified seek mode.
@@ -28822,6 +29201,194 @@ using zstring = char*;
 }  // namespace cen
 
 #endif  // CENTURION_CZSTRING_HEADER
+
+// #include "../core/integers.hpp"
+#ifndef CENTURION_INTEGERS_HEADER
+#define CENTURION_INTEGERS_HEADER
+
+#include <SDL.h>
+
+namespace cen {
+
+/// \addtogroup core
+/// \{
+
+/// \name Integer aliases
+/// \{
+
+using uint = unsigned int;
+
+using ulonglong = unsigned long long;
+
+/// Alias for a 64-bit unsigned integer.
+using u64 = Uint64;
+
+/// Alias for a 32-bit unsigned integer.
+using u32 = Uint32;
+
+/// Alias for a 16-bit unsigned integer.
+using u16 = Uint16;
+
+/// Alias for an 8-bit unsigned integer.
+using u8 = Uint8;
+
+/// Alias for a 64-bit signed integer.
+using i64 = Sint64;
+
+/// Alias for a 32-bit signed integer.
+using i32 = Sint32;
+
+/// Alias for a 16-bit signed integer.
+using i16 = Sint16;
+
+/// Alias for an 8-bit signed integer.
+using i8 = Sint8;
+
+/// \} End of integer aliases
+
+// clang-format off
+
+/**
+ * \brief Obtains the size of a container as an `int`.
+ *
+ * \tparam T a "container" that provides a `size()` member function.
+ *
+ * \param container the container to query the size of.
+ *
+ * \return the size of the container as an `int` value.
+ *
+ * \since 5.3.0
+ */
+template <typename T>
+[[nodiscard]] constexpr auto isize(const T& container) noexcept(noexcept(container.size()))
+    -> int
+{
+  return static_cast<int>(container.size());
+}
+
+// clang-format on
+
+namespace literals {
+
+/**
+ * \brief Creates an 8-bit unsigned integer.
+ *
+ * \param value the value that will be converted.
+ *
+ * \return an 8-bit unsigned integer.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto operator""_u8(const ulonglong value) noexcept -> u8
+{
+  return static_cast<u8>(value);
+}
+
+/**
+ * \brief Creates a 16-bit unsigned integer.
+ *
+ * \param value the value that will be converted.
+ *
+ * \return a 16-bit unsigned integer.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto operator""_u16(const ulonglong value) noexcept -> u16
+{
+  return static_cast<u16>(value);
+}
+
+/**
+ * \brief Creates a 32-bit unsigned integer.
+ *
+ * \param value the value that will be converted.
+ *
+ * \return a 32-bit unsigned integer.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto operator""_u32(const ulonglong value) noexcept -> u32
+{
+  return static_cast<u32>(value);
+}
+
+/**
+ * \brief Creates a 64-bit unsigned integer.
+ *
+ * \param value the value that will be converted.
+ *
+ * \return a 64-bit unsigned integer.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto operator""_u64(const ulonglong value) noexcept -> u64
+{
+  return static_cast<u64>(value);
+}
+
+/**
+ * \brief Creates an 8-bit signed integer.
+ *
+ * \param value the value that will be converted.
+ *
+ * \return an 8-bit signed integer.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto operator""_i8(const ulonglong value) noexcept -> i8
+{
+  return static_cast<i8>(value);
+}
+
+/**
+ * \brief Creates a 16-bit signed integer.
+ *
+ * \param value the value that will be converted.
+ *
+ * \return a 16-bit signed integer.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto operator""_i16(const ulonglong value) noexcept -> i16
+{
+  return static_cast<i16>(value);
+}
+
+/**
+ * \brief Creates a 32-bit signed integer.
+ *
+ * \param value the value that will be converted.
+ *
+ * \return a 32-bit signed integer.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto operator""_i32(const ulonglong value) noexcept -> i32
+{
+  return static_cast<i32>(value);
+}
+
+/**
+ * \brief Creates a 64-bit signed integer.
+ *
+ * \param value the value that will be converted.
+ *
+ * \return a 64-bit signed integer.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto operator""_i64(const ulonglong value) noexcept -> i64
+{
+  return static_cast<i64>(value);
+}
+
+}  // namespace literals
+
+/// \} End of group core
+
+}  // namespace cen
+
+#endif  // CENTURION_INTEGERS_HEADER
 
 // #include "czstring_compare.hpp"
 #ifndef CENTURION_DETAIL_CZSTRING_COMPARE_HEADER
@@ -29292,16 +29859,16 @@ class int_hint : public crtp_hint<int_hint<Hint>, int>
 
 // A hint class that only accepts unsigned integers
 template <typename Hint>
-class unsigned_int_hint : public crtp_hint<int_hint<Hint>, unsigned int>
+class unsigned_int_hint : public crtp_hint<int_hint<Hint>, uint>
 {
  public:
   template <typename T>
   [[nodiscard]] constexpr static auto valid_arg() noexcept -> bool
   {
-    return std::is_same_v<T, unsigned int>;
+    return std::is_same_v<T, uint>;
   }
 
-  [[nodiscard]] static auto current_value() noexcept -> std::optional<unsigned int>
+  [[nodiscard]] static auto current_value() noexcept -> std::optional<uint>
   {
     const czstring value = SDL_GetHint(Hint::name());
     if (!value)
@@ -29310,7 +29877,7 @@ class unsigned_int_hint : public crtp_hint<int_hint<Hint>, unsigned int>
     }
     else
     {
-      return static_cast<unsigned int>(std::stoul(value));
+      return static_cast<uint>(std::stoul(value));
     }
   }
 };
@@ -31427,6 +31994,136 @@ inline void set_priority(const category category, const priority prio) noexcept
 
 #endif  // CENTURION_LOG_HEADER
 
+// #include "../core/result.hpp"
+#ifndef CENTURION_RESULT_HEADER
+#define CENTURION_RESULT_HEADER
+
+namespace cen {
+
+/// \addtogroup core
+/// \{
+
+/**
+ * \class result
+ *
+ * \brief A simple indicator for the result of different operations.
+ *
+ * \details The idea behind this class is to make results of various operations
+ * unambiguous. Quite an amount of functions in the library may fail, and
+ * earlier versions of Centurion would usually return a `bool` in those cases,
+ * where `true` and `false` would indicate success and failure, respectively.
+ * This class is a development of that practice. For instance, this class is
+ * contextually convertible to `bool`, where a successful result is still
+ * converted to `true`, and vice versa. However, this class also enables
+ * explicit checks against `success` and `failure` constants, which makes
+ * code very easy to read and unambiguous.
+ * \code{cpp}
+ *   cen::window window;
+ *
+ *   if (window.set_opacity(0.4f))
+ *   {
+ *     // Success!
+ *   }
+ *
+ *   if (window.set_opacity(0.4f) == cen::success)
+ *   {
+ *     // Success!
+ *   }
+ *
+ *   if (window.set_opacity(0.4f) == cen::failure)
+ *   {
+ *     // Failure!
+ *   }
+ * \endcode
+ *
+ * \see `success`
+ * \see `failure`
+ *
+ * \since 6.0.0
+ */
+class result final
+{
+ public:
+  /**
+   * \brief Creates a result.
+   *
+   * \param success `true` if the result is successful; `false` otherwise.
+   *
+   * \since 6.0.0
+   */
+  constexpr result(const bool success) noexcept  // NOLINT implicit
+      : m_success{success}
+  {}
+
+  /// \name Comparison operators
+  /// \{
+
+  /**
+   * \brief Indicates whether or not two results have the same success value.
+   *
+   * \param other the other result.
+   *
+   * \return `true` if the results are equal; `false` otherwise.
+   *
+   * \since 6.0.0
+   */
+  [[nodiscard]] constexpr auto operator==(const result other) const noexcept -> bool
+  {
+    return m_success == other.m_success;
+  }
+
+  /**
+   * \brief Indicates whether or not two results don't have the same success
+   * value.
+   *
+   * \param other the other result.
+   *
+   * \return `true` if the results aren't equal; `false` otherwise.
+   *
+   * \since 6.0.0
+   */
+  [[nodiscard]] constexpr auto operator!=(const result other) const noexcept -> bool
+  {
+    return !(*this == other);
+  }
+
+  /// \} End of comparison operators
+
+  /// \name Conversions
+  /// \{
+
+  /**
+   * \brief Indicates whether or not the result is successful.
+   *
+   * \return `true` if the result is successful; `false` otherwise.
+   *
+   * \since 6.0.0
+   */
+  [[nodiscard]] constexpr explicit operator bool() const noexcept
+  {
+    return m_success;
+  }
+
+  /// \} End of conversions
+
+ private:
+  bool m_success{};
+};
+
+/// Represents a successful result.
+/// \since 6.0.0
+inline constexpr result success{true};
+
+/// Represents a failure of some kind.
+/// \since 6.0.0
+inline constexpr result failure{false};
+
+/// \} End of group core
+
+}  // namespace cen
+
+#endif  // CENTURION_RESULT_HEADER
+
 
 namespace cen {
 
@@ -31467,7 +32164,7 @@ enum class hint_priority
  *
  * \param value the new value that will be set for the specified hint.
  *
- * \return `true` if the hint was successfully set; `false` otherwise.
+ * \return `success` if the hint was successfully set; `failure` otherwise.
  *
  * \since 4.1.0
  */
@@ -31475,7 +32172,7 @@ template <typename Hint,
           hint_priority priority = hint_priority::normal,
           typename Value,
           typename = std::enable_if_t<Hint::template valid_arg<Value>()>>
-auto set_hint(const Value& value) -> bool
+auto set_hint(const Value& value) -> result
 {
   return static_cast<bool>(
       SDL_SetHintWithPriority(Hint::name(),
@@ -32590,60 +33287,32 @@ namespace cen {
 /// \name Integer aliases
 /// \{
 
-/**
- * \typedef u64
- *
- * \brief Alias for a 64-bit unsigned integer.
- */
+using uint = unsigned int;
+
+using ulonglong = unsigned long long;
+
+/// Alias for a 64-bit unsigned integer.
 using u64 = Uint64;
 
-/**
- * \typedef u32
- *
- * \brief Alias for a 32-bit unsigned integer.
- */
+/// Alias for a 32-bit unsigned integer.
 using u32 = Uint32;
 
-/**
- * \typedef u16
- *
- * \brief Alias for a 16-bit unsigned integer.
- */
+/// Alias for a 16-bit unsigned integer.
 using u16 = Uint16;
 
-/**
- * \typedef u8
- *
- * \brief Alias for an 8-bit unsigned integer.
- */
+/// Alias for an 8-bit unsigned integer.
 using u8 = Uint8;
 
-/**
- * \typedef i64
- *
- * \brief Alias for a 64-bit signed integer.
- */
+/// Alias for a 64-bit signed integer.
 using i64 = Sint64;
 
-/**
- * \typedef i32
- *
- * \brief Alias for a 32-bit signed integer.
- */
+/// Alias for a 32-bit signed integer.
 using i32 = Sint32;
 
-/**
- * \typedef i16
- *
- * \brief Alias for a 16-bit signed integer.
- */
+/// Alias for a 16-bit signed integer.
 using i16 = Sint16;
 
-/**
- * \typedef i8
- *
- * \brief Alias for an 8-bit signed integer.
- */
+/// Alias for an 8-bit signed integer.
 using i8 = Sint8;
 
 /// \} End of integer aliases
@@ -32681,7 +33350,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u8(unsigned long long value) noexcept -> u8
+[[nodiscard]] constexpr auto operator""_u8(const ulonglong value) noexcept -> u8
 {
   return static_cast<u8>(value);
 }
@@ -32695,7 +33364,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u16(unsigned long long value) noexcept -> u16
+[[nodiscard]] constexpr auto operator""_u16(const ulonglong value) noexcept -> u16
 {
   return static_cast<u16>(value);
 }
@@ -32709,7 +33378,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u32(unsigned long long value) noexcept -> u32
+[[nodiscard]] constexpr auto operator""_u32(const ulonglong value) noexcept -> u32
 {
   return static_cast<u32>(value);
 }
@@ -32723,7 +33392,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u64(unsigned long long value) noexcept -> u64
+[[nodiscard]] constexpr auto operator""_u64(const ulonglong value) noexcept -> u64
 {
   return static_cast<u64>(value);
 }
@@ -32737,7 +33406,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i8(unsigned long long value) noexcept -> i8
+[[nodiscard]] constexpr auto operator""_i8(const ulonglong value) noexcept -> i8
 {
   return static_cast<i8>(value);
 }
@@ -32751,7 +33420,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i16(unsigned long long value) noexcept -> i16
+[[nodiscard]] constexpr auto operator""_i16(const ulonglong value) noexcept -> i16
 {
   return static_cast<i16>(value);
 }
@@ -32765,7 +33434,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i32(unsigned long long value) noexcept -> i32
+[[nodiscard]] constexpr auto operator""_i32(const ulonglong value) noexcept -> i32
 {
   return static_cast<i32>(value);
 }
@@ -32779,7 +33448,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i64(unsigned long long value) noexcept -> i64
+[[nodiscard]] constexpr auto operator""_i64(const ulonglong value) noexcept -> i64
 {
   return static_cast<i64>(value);
 }
@@ -33132,60 +33801,32 @@ namespace cen {
 /// \name Integer aliases
 /// \{
 
-/**
- * \typedef u64
- *
- * \brief Alias for a 64-bit unsigned integer.
- */
+using uint = unsigned int;
+
+using ulonglong = unsigned long long;
+
+/// Alias for a 64-bit unsigned integer.
 using u64 = Uint64;
 
-/**
- * \typedef u32
- *
- * \brief Alias for a 32-bit unsigned integer.
- */
+/// Alias for a 32-bit unsigned integer.
 using u32 = Uint32;
 
-/**
- * \typedef u16
- *
- * \brief Alias for a 16-bit unsigned integer.
- */
+/// Alias for a 16-bit unsigned integer.
 using u16 = Uint16;
 
-/**
- * \typedef u8
- *
- * \brief Alias for an 8-bit unsigned integer.
- */
+/// Alias for an 8-bit unsigned integer.
 using u8 = Uint8;
 
-/**
- * \typedef i64
- *
- * \brief Alias for a 64-bit signed integer.
- */
+/// Alias for a 64-bit signed integer.
 using i64 = Sint64;
 
-/**
- * \typedef i32
- *
- * \brief Alias for a 32-bit signed integer.
- */
+/// Alias for a 32-bit signed integer.
 using i32 = Sint32;
 
-/**
- * \typedef i16
- *
- * \brief Alias for a 16-bit signed integer.
- */
+/// Alias for a 16-bit signed integer.
 using i16 = Sint16;
 
-/**
- * \typedef i8
- *
- * \brief Alias for an 8-bit signed integer.
- */
+/// Alias for an 8-bit signed integer.
 using i8 = Sint8;
 
 /// \} End of integer aliases
@@ -33223,7 +33864,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u8(unsigned long long value) noexcept -> u8
+[[nodiscard]] constexpr auto operator""_u8(const ulonglong value) noexcept -> u8
 {
   return static_cast<u8>(value);
 }
@@ -33237,7 +33878,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u16(unsigned long long value) noexcept -> u16
+[[nodiscard]] constexpr auto operator""_u16(const ulonglong value) noexcept -> u16
 {
   return static_cast<u16>(value);
 }
@@ -33251,7 +33892,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u32(unsigned long long value) noexcept -> u32
+[[nodiscard]] constexpr auto operator""_u32(const ulonglong value) noexcept -> u32
 {
   return static_cast<u32>(value);
 }
@@ -33265,7 +33906,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u64(unsigned long long value) noexcept -> u64
+[[nodiscard]] constexpr auto operator""_u64(const ulonglong value) noexcept -> u64
 {
   return static_cast<u64>(value);
 }
@@ -33279,7 +33920,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i8(unsigned long long value) noexcept -> i8
+[[nodiscard]] constexpr auto operator""_i8(const ulonglong value) noexcept -> i8
 {
   return static_cast<i8>(value);
 }
@@ -33293,7 +33934,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i16(unsigned long long value) noexcept -> i16
+[[nodiscard]] constexpr auto operator""_i16(const ulonglong value) noexcept -> i16
 {
   return static_cast<i16>(value);
 }
@@ -33307,7 +33948,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i32(unsigned long long value) noexcept -> i32
+[[nodiscard]] constexpr auto operator""_i32(const ulonglong value) noexcept -> i32
 {
   return static_cast<i32>(value);
 }
@@ -33321,7 +33962,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i64(unsigned long long value) noexcept -> i64
+[[nodiscard]] constexpr auto operator""_i64(const ulonglong value) noexcept -> i64
 {
   return static_cast<i64>(value);
 }
@@ -33387,25 +34028,22 @@ using minutes = std::chrono::duration<T, std::ratio<60>>;
 
 namespace literals {
 
-constexpr auto operator"" _ns(const unsigned long long int value) noexcept
-    -> nanoseconds<u32>
+constexpr auto operator"" _ns(const ulonglong value) noexcept -> nanoseconds<u32>
 {
   return nanoseconds<u32>{value};
 }
 
-constexpr auto operator"" _us(const unsigned long long int value) noexcept
-    -> microseconds<u32>
+constexpr auto operator"" _us(const ulonglong value) noexcept -> microseconds<u32>
 {
   return microseconds<u32>{value};
 }
 
-constexpr auto operator"" _ms(const unsigned long long int value) noexcept
-    -> milliseconds<u32>
+constexpr auto operator"" _ms(const ulonglong value) noexcept -> milliseconds<u32>
 {
   return milliseconds<u32>{value};
 }
 
-constexpr auto operator"" _s(const unsigned long long int value) noexcept -> seconds<u32>
+constexpr auto operator"" _s(const ulonglong value) noexcept -> seconds<u32>
 {
   return seconds<u32>{value};
 }
@@ -34147,60 +34785,32 @@ namespace cen {
 /// \name Integer aliases
 /// \{
 
-/**
- * \typedef u64
- *
- * \brief Alias for a 64-bit unsigned integer.
- */
+using uint = unsigned int;
+
+using ulonglong = unsigned long long;
+
+/// Alias for a 64-bit unsigned integer.
 using u64 = Uint64;
 
-/**
- * \typedef u32
- *
- * \brief Alias for a 32-bit unsigned integer.
- */
+/// Alias for a 32-bit unsigned integer.
 using u32 = Uint32;
 
-/**
- * \typedef u16
- *
- * \brief Alias for a 16-bit unsigned integer.
- */
+/// Alias for a 16-bit unsigned integer.
 using u16 = Uint16;
 
-/**
- * \typedef u8
- *
- * \brief Alias for an 8-bit unsigned integer.
- */
+/// Alias for an 8-bit unsigned integer.
 using u8 = Uint8;
 
-/**
- * \typedef i64
- *
- * \brief Alias for a 64-bit signed integer.
- */
+/// Alias for a 64-bit signed integer.
 using i64 = Sint64;
 
-/**
- * \typedef i32
- *
- * \brief Alias for a 32-bit signed integer.
- */
+/// Alias for a 32-bit signed integer.
 using i32 = Sint32;
 
-/**
- * \typedef i16
- *
- * \brief Alias for a 16-bit signed integer.
- */
+/// Alias for a 16-bit signed integer.
 using i16 = Sint16;
 
-/**
- * \typedef i8
- *
- * \brief Alias for an 8-bit signed integer.
- */
+/// Alias for an 8-bit signed integer.
 using i8 = Sint8;
 
 /// \} End of integer aliases
@@ -34238,7 +34848,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u8(unsigned long long value) noexcept -> u8
+[[nodiscard]] constexpr auto operator""_u8(const ulonglong value) noexcept -> u8
 {
   return static_cast<u8>(value);
 }
@@ -34252,7 +34862,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u16(unsigned long long value) noexcept -> u16
+[[nodiscard]] constexpr auto operator""_u16(const ulonglong value) noexcept -> u16
 {
   return static_cast<u16>(value);
 }
@@ -34266,7 +34876,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u32(unsigned long long value) noexcept -> u32
+[[nodiscard]] constexpr auto operator""_u32(const ulonglong value) noexcept -> u32
 {
   return static_cast<u32>(value);
 }
@@ -34280,7 +34890,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u64(unsigned long long value) noexcept -> u64
+[[nodiscard]] constexpr auto operator""_u64(const ulonglong value) noexcept -> u64
 {
   return static_cast<u64>(value);
 }
@@ -34294,7 +34904,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i8(unsigned long long value) noexcept -> i8
+[[nodiscard]] constexpr auto operator""_i8(const ulonglong value) noexcept -> i8
 {
   return static_cast<i8>(value);
 }
@@ -34308,7 +34918,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i16(unsigned long long value) noexcept -> i16
+[[nodiscard]] constexpr auto operator""_i16(const ulonglong value) noexcept -> i16
 {
   return static_cast<i16>(value);
 }
@@ -34322,7 +34932,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i32(unsigned long long value) noexcept -> i32
+[[nodiscard]] constexpr auto operator""_i32(const ulonglong value) noexcept -> i32
 {
   return static_cast<i32>(value);
 }
@@ -34336,7 +34946,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i64(unsigned long long value) noexcept -> i64
+[[nodiscard]] constexpr auto operator""_i64(const ulonglong value) noexcept -> i64
 {
   return static_cast<i64>(value);
 }
@@ -35861,11 +36471,11 @@ class basic_joystick final
    *
    * \param index the device index of the virtual joystick.
    *
-   * \return `true` on success; `false` otherwise.
+   * \return `success` if the joystick was successfully disconnected; `failure` otherwise.
    *
    * \since 5.2.0
    */
-  static auto detach_virtual(const int index) noexcept -> bool
+  static auto detach_virtual(const int index) noexcept -> result
   {
     return SDL_JoystickDetachVirtual(index) == 0;
   }
@@ -41569,7 +42179,7 @@ class basic_haptic final
    */
   [[nodiscard]] auto has_feature(const haptic_feature feature) const noexcept -> bool
   {
-    return has_feature(static_cast<unsigned>(feature));
+    return has_feature(static_cast<uint>(feature));
   }
 
   /**
@@ -42026,12 +42636,11 @@ class basic_haptic final
    *
    * \param flag the mask of feature flags.
    *
-   * \return `true` if the haptic device supports the features; `false`
-   otherwise.
+   * \return `true` if the haptic device supports the features; `false` otherwise.
    *
    * \since 5.2.0
    */
-  [[nodiscard]] auto has_feature(const unsigned flag) const noexcept -> bool
+  [[nodiscard]] auto has_feature(const uint flag) const noexcept -> bool
   {
     return static_cast<bool>(flag & SDL_HapticQuery(m_haptic));
   }
@@ -42473,11 +43082,11 @@ class basic_joystick final
    *
    * \param index the device index of the virtual joystick.
    *
-   * \return `true` on success; `false` otherwise.
+   * \return `success` if the joystick was successfully disconnected; `failure` otherwise.
    *
    * \since 5.2.0
    */
-  static auto detach_virtual(const int index) noexcept -> bool
+  static auto detach_virtual(const int index) noexcept -> result
   {
     return SDL_JoystickDetachVirtual(index) == 0;
   }
@@ -47117,6 +47726,15 @@ class keyboard final
 };
 
 /**
+ * \typedef key_state
+ *
+ * \brief This is provided for backwards compatibility with Centurion 5.
+ *
+ * \deprecated This was deprecated in Centurion 6.0.0.
+ */
+using key_state [[deprecated]] = keyboard;
+
+/**
  * \brief Indicates whether or not the platform has screen keyboard support.
  *
  * \return `true` if the current platform has some form of screen keyboard
@@ -47285,7 +47903,7 @@ template <typename T>
  * \since 5.3.0
  */
 template <typename T>
-[[nodiscard]] constexpr auto area_of(const basic_area<T>& area) noexcept -> T
+[[nodiscard]] constexpr auto area_of(const basic_area<T> area) noexcept -> T
 {
   return area.width * area.height;
 }
@@ -47822,7 +48440,7 @@ template <typename T, enable_if_number_t<T> = 0>
  * \since 5.0.0
  */
 template <typename T>
-[[nodiscard]] auto distance(const basic_point<T>& from, const basic_point<T>& to) noexcept
+[[nodiscard]] auto distance(const basic_point<T> from, const basic_point<T> to) noexcept
     -> typename point_traits<T>::value_type
 {
   if constexpr (basic_point<T>::isIntegral)
@@ -48279,6 +48897,15 @@ class mouse final
   bool m_prevLeftPressed{};
   bool m_prevRightPressed{};
 };
+
+/**
+ * \typedef mouse_state
+ *
+ * \brief This is provided for backwards compatibility with Centurion 5.
+ *
+ * \deprecated This was deprecated in Centurion 6.0.0.
+ */
+using mouse_state [[deprecated]] = mouse;
 
 /// \} End of group input
 
@@ -50431,7 +51058,7 @@ template <typename T>
  * \since 5.3.0
  */
 template <typename T>
-[[nodiscard]] constexpr auto area_of(const basic_area<T>& area) noexcept -> T
+[[nodiscard]] constexpr auto area_of(const basic_area<T> area) noexcept -> T
 {
   return area.width * area.height;
 }
@@ -50968,7 +51595,7 @@ template <typename T, enable_if_number_t<T> = 0>
  * \since 5.0.0
  */
 template <typename T>
-[[nodiscard]] auto distance(const basic_point<T>& from, const basic_point<T>& to) noexcept
+[[nodiscard]] auto distance(const basic_point<T> from, const basic_point<T> to) noexcept
     -> typename point_traits<T>::value_type
 {
   if constexpr (basic_point<T>::isIntegral)
@@ -51307,7 +51934,7 @@ template <typename T>
  * \since 5.3.0
  */
 template <typename T>
-[[nodiscard]] constexpr auto area_of(const basic_area<T>& area) noexcept -> T
+[[nodiscard]] constexpr auto area_of(const basic_area<T> area) noexcept -> T
 {
   return area.width * area.height;
 }
@@ -51813,7 +52440,7 @@ template <typename T, enable_if_number_t<T> = 0>
  * \since 5.0.0
  */
 template <typename T>
-[[nodiscard]] auto distance(const basic_point<T>& from, const basic_point<T>& to) noexcept
+[[nodiscard]] auto distance(const basic_point<T> from, const basic_point<T> to) noexcept
     -> typename point_traits<T>::value_type
 {
   if constexpr (basic_point<T>::isIntegral)
@@ -53052,60 +53679,32 @@ namespace cen {
 /// \name Integer aliases
 /// \{
 
-/**
- * \typedef u64
- *
- * \brief Alias for a 64-bit unsigned integer.
- */
+using uint = unsigned int;
+
+using ulonglong = unsigned long long;
+
+/// Alias for a 64-bit unsigned integer.
 using u64 = Uint64;
 
-/**
- * \typedef u32
- *
- * \brief Alias for a 32-bit unsigned integer.
- */
+/// Alias for a 32-bit unsigned integer.
 using u32 = Uint32;
 
-/**
- * \typedef u16
- *
- * \brief Alias for a 16-bit unsigned integer.
- */
+/// Alias for a 16-bit unsigned integer.
 using u16 = Uint16;
 
-/**
- * \typedef u8
- *
- * \brief Alias for an 8-bit unsigned integer.
- */
+/// Alias for an 8-bit unsigned integer.
 using u8 = Uint8;
 
-/**
- * \typedef i64
- *
- * \brief Alias for a 64-bit signed integer.
- */
+/// Alias for a 64-bit signed integer.
 using i64 = Sint64;
 
-/**
- * \typedef i32
- *
- * \brief Alias for a 32-bit signed integer.
- */
+/// Alias for a 32-bit signed integer.
 using i32 = Sint32;
 
-/**
- * \typedef i16
- *
- * \brief Alias for a 16-bit signed integer.
- */
+/// Alias for a 16-bit signed integer.
 using i16 = Sint16;
 
-/**
- * \typedef i8
- *
- * \brief Alias for an 8-bit signed integer.
- */
+/// Alias for an 8-bit signed integer.
 using i8 = Sint8;
 
 /// \} End of integer aliases
@@ -53143,7 +53742,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u8(unsigned long long value) noexcept -> u8
+[[nodiscard]] constexpr auto operator""_u8(const ulonglong value) noexcept -> u8
 {
   return static_cast<u8>(value);
 }
@@ -53157,7 +53756,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u16(unsigned long long value) noexcept -> u16
+[[nodiscard]] constexpr auto operator""_u16(const ulonglong value) noexcept -> u16
 {
   return static_cast<u16>(value);
 }
@@ -53171,7 +53770,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u32(unsigned long long value) noexcept -> u32
+[[nodiscard]] constexpr auto operator""_u32(const ulonglong value) noexcept -> u32
 {
   return static_cast<u32>(value);
 }
@@ -53185,7 +53784,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u64(unsigned long long value) noexcept -> u64
+[[nodiscard]] constexpr auto operator""_u64(const ulonglong value) noexcept -> u64
 {
   return static_cast<u64>(value);
 }
@@ -53199,7 +53798,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i8(unsigned long long value) noexcept -> i8
+[[nodiscard]] constexpr auto operator""_i8(const ulonglong value) noexcept -> i8
 {
   return static_cast<i8>(value);
 }
@@ -53213,7 +53812,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i16(unsigned long long value) noexcept -> i16
+[[nodiscard]] constexpr auto operator""_i16(const ulonglong value) noexcept -> i16
 {
   return static_cast<i16>(value);
 }
@@ -53227,7 +53826,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i32(unsigned long long value) noexcept -> i32
+[[nodiscard]] constexpr auto operator""_i32(const ulonglong value) noexcept -> i32
 {
   return static_cast<i32>(value);
 }
@@ -53241,7 +53840,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i64(unsigned long long value) noexcept -> i64
+[[nodiscard]] constexpr auto operator""_i64(const ulonglong value) noexcept -> i64
 {
   return static_cast<i64>(value);
 }
@@ -53307,25 +53906,22 @@ using minutes = std::chrono::duration<T, std::ratio<60>>;
 
 namespace literals {
 
-constexpr auto operator"" _ns(const unsigned long long int value) noexcept
-    -> nanoseconds<u32>
+constexpr auto operator"" _ns(const ulonglong value) noexcept -> nanoseconds<u32>
 {
   return nanoseconds<u32>{value};
 }
 
-constexpr auto operator"" _us(const unsigned long long int value) noexcept
-    -> microseconds<u32>
+constexpr auto operator"" _us(const ulonglong value) noexcept -> microseconds<u32>
 {
   return microseconds<u32>{value};
 }
 
-constexpr auto operator"" _ms(const unsigned long long int value) noexcept
-    -> milliseconds<u32>
+constexpr auto operator"" _ms(const ulonglong value) noexcept -> milliseconds<u32>
 {
   return milliseconds<u32>{value};
 }
 
-constexpr auto operator"" _s(const unsigned long long int value) noexcept -> seconds<u32>
+constexpr auto operator"" _s(const ulonglong value) noexcept -> seconds<u32>
 {
   return seconds<u32>{value};
 }
@@ -53629,60 +54225,32 @@ namespace cen {
 /// \name Integer aliases
 /// \{
 
-/**
- * \typedef u64
- *
- * \brief Alias for a 64-bit unsigned integer.
- */
+using uint = unsigned int;
+
+using ulonglong = unsigned long long;
+
+/// Alias for a 64-bit unsigned integer.
 using u64 = Uint64;
 
-/**
- * \typedef u32
- *
- * \brief Alias for a 32-bit unsigned integer.
- */
+/// Alias for a 32-bit unsigned integer.
 using u32 = Uint32;
 
-/**
- * \typedef u16
- *
- * \brief Alias for a 16-bit unsigned integer.
- */
+/// Alias for a 16-bit unsigned integer.
 using u16 = Uint16;
 
-/**
- * \typedef u8
- *
- * \brief Alias for an 8-bit unsigned integer.
- */
+/// Alias for an 8-bit unsigned integer.
 using u8 = Uint8;
 
-/**
- * \typedef i64
- *
- * \brief Alias for a 64-bit signed integer.
- */
+/// Alias for a 64-bit signed integer.
 using i64 = Sint64;
 
-/**
- * \typedef i32
- *
- * \brief Alias for a 32-bit signed integer.
- */
+/// Alias for a 32-bit signed integer.
 using i32 = Sint32;
 
-/**
- * \typedef i16
- *
- * \brief Alias for a 16-bit signed integer.
- */
+/// Alias for a 16-bit signed integer.
 using i16 = Sint16;
 
-/**
- * \typedef i8
- *
- * \brief Alias for an 8-bit signed integer.
- */
+/// Alias for an 8-bit signed integer.
 using i8 = Sint8;
 
 /// \} End of integer aliases
@@ -53720,7 +54288,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u8(unsigned long long value) noexcept -> u8
+[[nodiscard]] constexpr auto operator""_u8(const ulonglong value) noexcept -> u8
 {
   return static_cast<u8>(value);
 }
@@ -53734,7 +54302,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u16(unsigned long long value) noexcept -> u16
+[[nodiscard]] constexpr auto operator""_u16(const ulonglong value) noexcept -> u16
 {
   return static_cast<u16>(value);
 }
@@ -53748,7 +54316,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u32(unsigned long long value) noexcept -> u32
+[[nodiscard]] constexpr auto operator""_u32(const ulonglong value) noexcept -> u32
 {
   return static_cast<u32>(value);
 }
@@ -53762,7 +54330,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u64(unsigned long long value) noexcept -> u64
+[[nodiscard]] constexpr auto operator""_u64(const ulonglong value) noexcept -> u64
 {
   return static_cast<u64>(value);
 }
@@ -53776,7 +54344,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i8(unsigned long long value) noexcept -> i8
+[[nodiscard]] constexpr auto operator""_i8(const ulonglong value) noexcept -> i8
 {
   return static_cast<i8>(value);
 }
@@ -53790,7 +54358,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i16(unsigned long long value) noexcept -> i16
+[[nodiscard]] constexpr auto operator""_i16(const ulonglong value) noexcept -> i16
 {
   return static_cast<i16>(value);
 }
@@ -53804,7 +54372,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i32(unsigned long long value) noexcept -> i32
+[[nodiscard]] constexpr auto operator""_i32(const ulonglong value) noexcept -> i32
 {
   return static_cast<i32>(value);
 }
@@ -53818,7 +54386,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i64(unsigned long long value) noexcept -> i64
+[[nodiscard]] constexpr auto operator""_i64(const ulonglong value) noexcept -> i64
 {
   return static_cast<i64>(value);
 }
@@ -54077,6 +54645,136 @@ using not_null = T;
 
 #endif  // CENTURION_NOT_NULL_HEADER
 
+// #include "../core/result.hpp"
+#ifndef CENTURION_RESULT_HEADER
+#define CENTURION_RESULT_HEADER
+
+namespace cen {
+
+/// \addtogroup core
+/// \{
+
+/**
+ * \class result
+ *
+ * \brief A simple indicator for the result of different operations.
+ *
+ * \details The idea behind this class is to make results of various operations
+ * unambiguous. Quite an amount of functions in the library may fail, and
+ * earlier versions of Centurion would usually return a `bool` in those cases,
+ * where `true` and `false` would indicate success and failure, respectively.
+ * This class is a development of that practice. For instance, this class is
+ * contextually convertible to `bool`, where a successful result is still
+ * converted to `true`, and vice versa. However, this class also enables
+ * explicit checks against `success` and `failure` constants, which makes
+ * code very easy to read and unambiguous.
+ * \code{cpp}
+ *   cen::window window;
+ *
+ *   if (window.set_opacity(0.4f))
+ *   {
+ *     // Success!
+ *   }
+ *
+ *   if (window.set_opacity(0.4f) == cen::success)
+ *   {
+ *     // Success!
+ *   }
+ *
+ *   if (window.set_opacity(0.4f) == cen::failure)
+ *   {
+ *     // Failure!
+ *   }
+ * \endcode
+ *
+ * \see `success`
+ * \see `failure`
+ *
+ * \since 6.0.0
+ */
+class result final
+{
+ public:
+  /**
+   * \brief Creates a result.
+   *
+   * \param success `true` if the result is successful; `false` otherwise.
+   *
+   * \since 6.0.0
+   */
+  constexpr result(const bool success) noexcept  // NOLINT implicit
+      : m_success{success}
+  {}
+
+  /// \name Comparison operators
+  /// \{
+
+  /**
+   * \brief Indicates whether or not two results have the same success value.
+   *
+   * \param other the other result.
+   *
+   * \return `true` if the results are equal; `false` otherwise.
+   *
+   * \since 6.0.0
+   */
+  [[nodiscard]] constexpr auto operator==(const result other) const noexcept -> bool
+  {
+    return m_success == other.m_success;
+  }
+
+  /**
+   * \brief Indicates whether or not two results don't have the same success
+   * value.
+   *
+   * \param other the other result.
+   *
+   * \return `true` if the results aren't equal; `false` otherwise.
+   *
+   * \since 6.0.0
+   */
+  [[nodiscard]] constexpr auto operator!=(const result other) const noexcept -> bool
+  {
+    return !(*this == other);
+  }
+
+  /// \} End of comparison operators
+
+  /// \name Conversions
+  /// \{
+
+  /**
+   * \brief Indicates whether or not the result is successful.
+   *
+   * \return `true` if the result is successful; `false` otherwise.
+   *
+   * \since 6.0.0
+   */
+  [[nodiscard]] constexpr explicit operator bool() const noexcept
+  {
+    return m_success;
+  }
+
+  /// \} End of conversions
+
+ private:
+  bool m_success{};
+};
+
+/// Represents a successful result.
+/// \since 6.0.0
+inline constexpr result success{true};
+
+/// Represents a failure of some kind.
+/// \since 6.0.0
+inline constexpr result failure{false};
+
+/// \} End of group core
+
+}  // namespace cen
+
+#endif  // CENTURION_RESULT_HEADER
+
 // #include "../core/sdl_string.hpp"
 #ifndef CENTURION_SDL_STRING_HEADER
 #define CENTURION_SDL_STRING_HEADER
@@ -54334,11 +55032,11 @@ inline auto set_text(const not_null<czstring> text) noexcept -> bool
  *
  * \param text the text that will be stored in the clipboard.
  *
- * \return `true` if the clipboard text was successfully set; `false` otherwise.
+ * \return `success` if the clipboard text was successfully set; `failure` otherwise.
  *
  * \since 5.3.0
  */
-inline auto set_text(const std::string& text) noexcept -> bool
+inline auto set_text(const std::string& text) noexcept -> result
 {
   return set_text(text.c_str());
 }
@@ -55126,6 +55824,8 @@ class locale final
 
 // #include "../core/not_null.hpp"
 
+// #include "../core/result.hpp"
+
 // #include "../detail/czstring_eq.hpp"
 
 // #include "../video/pixel_format.hpp"
@@ -55452,60 +56152,32 @@ namespace cen {
 /// \name Integer aliases
 /// \{
 
-/**
- * \typedef u64
- *
- * \brief Alias for a 64-bit unsigned integer.
- */
+using uint = unsigned int;
+
+using ulonglong = unsigned long long;
+
+/// Alias for a 64-bit unsigned integer.
 using u64 = Uint64;
 
-/**
- * \typedef u32
- *
- * \brief Alias for a 32-bit unsigned integer.
- */
+/// Alias for a 32-bit unsigned integer.
 using u32 = Uint32;
 
-/**
- * \typedef u16
- *
- * \brief Alias for a 16-bit unsigned integer.
- */
+/// Alias for a 16-bit unsigned integer.
 using u16 = Uint16;
 
-/**
- * \typedef u8
- *
- * \brief Alias for an 8-bit unsigned integer.
- */
+/// Alias for an 8-bit unsigned integer.
 using u8 = Uint8;
 
-/**
- * \typedef i64
- *
- * \brief Alias for a 64-bit signed integer.
- */
+/// Alias for a 64-bit signed integer.
 using i64 = Sint64;
 
-/**
- * \typedef i32
- *
- * \brief Alias for a 32-bit signed integer.
- */
+/// Alias for a 32-bit signed integer.
 using i32 = Sint32;
 
-/**
- * \typedef i16
- *
- * \brief Alias for a 16-bit signed integer.
- */
+/// Alias for a 16-bit signed integer.
 using i16 = Sint16;
 
-/**
- * \typedef i8
- *
- * \brief Alias for an 8-bit signed integer.
- */
+/// Alias for an 8-bit signed integer.
 using i8 = Sint8;
 
 /// \} End of integer aliases
@@ -55543,7 +56215,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u8(unsigned long long value) noexcept -> u8
+[[nodiscard]] constexpr auto operator""_u8(const ulonglong value) noexcept -> u8
 {
   return static_cast<u8>(value);
 }
@@ -55557,7 +56229,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u16(unsigned long long value) noexcept -> u16
+[[nodiscard]] constexpr auto operator""_u16(const ulonglong value) noexcept -> u16
 {
   return static_cast<u16>(value);
 }
@@ -55571,7 +56243,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u32(unsigned long long value) noexcept -> u32
+[[nodiscard]] constexpr auto operator""_u32(const ulonglong value) noexcept -> u32
 {
   return static_cast<u32>(value);
 }
@@ -55585,7 +56257,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u64(unsigned long long value) noexcept -> u64
+[[nodiscard]] constexpr auto operator""_u64(const ulonglong value) noexcept -> u64
 {
   return static_cast<u64>(value);
 }
@@ -55599,7 +56271,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i8(unsigned long long value) noexcept -> i8
+[[nodiscard]] constexpr auto operator""_i8(const ulonglong value) noexcept -> i8
 {
   return static_cast<i8>(value);
 }
@@ -55613,7 +56285,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i16(unsigned long long value) noexcept -> i16
+[[nodiscard]] constexpr auto operator""_i16(const ulonglong value) noexcept -> i16
 {
   return static_cast<i16>(value);
 }
@@ -55627,7 +56299,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i32(unsigned long long value) noexcept -> i32
+[[nodiscard]] constexpr auto operator""_i32(const ulonglong value) noexcept -> i32
 {
   return static_cast<i32>(value);
 }
@@ -55641,7 +56313,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i64(unsigned long long value) noexcept -> i64
+[[nodiscard]] constexpr auto operator""_i64(const ulonglong value) noexcept -> i64
 {
   return static_cast<i64>(value);
 }
@@ -57402,7 +58074,7 @@ enum class platform_id
  * \brief Attempts to open a URL using a web browser or even a file manager for
  * local files.
  *
- * \note This function will return `true` if there was at least an "attempt" to
+ * \note This function will return `success` if there was at least an "attempt" to
  * open the specified URL, but it doesn't mean that the URL was successfully
  * loaded.
  *
@@ -57411,13 +58083,13 @@ enum class platform_id
  *
  * \param url the URL that should be opened, cannot be null.
  *
- * \return `true` on success; `false` otherwise.
+ * \return `success` if there was an attempt to open the URL; `failure` otherwise.
  *
  * \see SDL_OpenURL
  *
  * \since 5.2.0
  */
-inline auto open_url(const not_null<czstring> url) noexcept -> bool
+inline auto open_url(const not_null<czstring> url) noexcept -> result
 {
   assert(url);
   return SDL_OpenURL(url) == 0;
@@ -57427,7 +58099,7 @@ inline auto open_url(const not_null<czstring> url) noexcept -> bool
  * \see open_url()
  * \since 5.3.0
  */
-inline auto open_url(const std::string& url) noexcept -> bool
+inline auto open_url(const std::string& url) noexcept -> result
 {
   return open_url(url.c_str());
 }
@@ -58302,60 +58974,32 @@ namespace cen {
 /// \name Integer aliases
 /// \{
 
-/**
- * \typedef u64
- *
- * \brief Alias for a 64-bit unsigned integer.
- */
+using uint = unsigned int;
+
+using ulonglong = unsigned long long;
+
+/// Alias for a 64-bit unsigned integer.
 using u64 = Uint64;
 
-/**
- * \typedef u32
- *
- * \brief Alias for a 32-bit unsigned integer.
- */
+/// Alias for a 32-bit unsigned integer.
 using u32 = Uint32;
 
-/**
- * \typedef u16
- *
- * \brief Alias for a 16-bit unsigned integer.
- */
+/// Alias for a 16-bit unsigned integer.
 using u16 = Uint16;
 
-/**
- * \typedef u8
- *
- * \brief Alias for an 8-bit unsigned integer.
- */
+/// Alias for an 8-bit unsigned integer.
 using u8 = Uint8;
 
-/**
- * \typedef i64
- *
- * \brief Alias for a 64-bit signed integer.
- */
+/// Alias for a 64-bit signed integer.
 using i64 = Sint64;
 
-/**
- * \typedef i32
- *
- * \brief Alias for a 32-bit signed integer.
- */
+/// Alias for a 32-bit signed integer.
 using i32 = Sint32;
 
-/**
- * \typedef i16
- *
- * \brief Alias for a 16-bit signed integer.
- */
+/// Alias for a 16-bit signed integer.
 using i16 = Sint16;
 
-/**
- * \typedef i8
- *
- * \brief Alias for an 8-bit signed integer.
- */
+/// Alias for an 8-bit signed integer.
 using i8 = Sint8;
 
 /// \} End of integer aliases
@@ -58393,7 +59037,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u8(unsigned long long value) noexcept -> u8
+[[nodiscard]] constexpr auto operator""_u8(const ulonglong value) noexcept -> u8
 {
   return static_cast<u8>(value);
 }
@@ -58407,7 +59051,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u16(unsigned long long value) noexcept -> u16
+[[nodiscard]] constexpr auto operator""_u16(const ulonglong value) noexcept -> u16
 {
   return static_cast<u16>(value);
 }
@@ -58421,7 +59065,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u32(unsigned long long value) noexcept -> u32
+[[nodiscard]] constexpr auto operator""_u32(const ulonglong value) noexcept -> u32
 {
   return static_cast<u32>(value);
 }
@@ -58435,7 +59079,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u64(unsigned long long value) noexcept -> u64
+[[nodiscard]] constexpr auto operator""_u64(const ulonglong value) noexcept -> u64
 {
   return static_cast<u64>(value);
 }
@@ -58449,7 +59093,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i8(unsigned long long value) noexcept -> i8
+[[nodiscard]] constexpr auto operator""_i8(const ulonglong value) noexcept -> i8
 {
   return static_cast<i8>(value);
 }
@@ -58463,7 +59107,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i16(unsigned long long value) noexcept -> i16
+[[nodiscard]] constexpr auto operator""_i16(const ulonglong value) noexcept -> i16
 {
   return static_cast<i16>(value);
 }
@@ -58477,7 +59121,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i32(unsigned long long value) noexcept -> i32
+[[nodiscard]] constexpr auto operator""_i32(const ulonglong value) noexcept -> i32
 {
   return static_cast<i32>(value);
 }
@@ -58491,7 +59135,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i64(unsigned long long value) noexcept -> i64
+[[nodiscard]] constexpr auto operator""_i64(const ulonglong value) noexcept -> i64
 {
   return static_cast<i64>(value);
 }
@@ -58655,60 +59299,32 @@ namespace cen {
 /// \name Integer aliases
 /// \{
 
-/**
- * \typedef u64
- *
- * \brief Alias for a 64-bit unsigned integer.
- */
+using uint = unsigned int;
+
+using ulonglong = unsigned long long;
+
+/// Alias for a 64-bit unsigned integer.
 using u64 = Uint64;
 
-/**
- * \typedef u32
- *
- * \brief Alias for a 32-bit unsigned integer.
- */
+/// Alias for a 32-bit unsigned integer.
 using u32 = Uint32;
 
-/**
- * \typedef u16
- *
- * \brief Alias for a 16-bit unsigned integer.
- */
+/// Alias for a 16-bit unsigned integer.
 using u16 = Uint16;
 
-/**
- * \typedef u8
- *
- * \brief Alias for an 8-bit unsigned integer.
- */
+/// Alias for an 8-bit unsigned integer.
 using u8 = Uint8;
 
-/**
- * \typedef i64
- *
- * \brief Alias for a 64-bit signed integer.
- */
+/// Alias for a 64-bit signed integer.
 using i64 = Sint64;
 
-/**
- * \typedef i32
- *
- * \brief Alias for a 32-bit signed integer.
- */
+/// Alias for a 32-bit signed integer.
 using i32 = Sint32;
 
-/**
- * \typedef i16
- *
- * \brief Alias for a 16-bit signed integer.
- */
+/// Alias for a 16-bit signed integer.
 using i16 = Sint16;
 
-/**
- * \typedef i8
- *
- * \brief Alias for an 8-bit signed integer.
- */
+/// Alias for an 8-bit signed integer.
 using i8 = Sint8;
 
 /// \} End of integer aliases
@@ -58746,7 +59362,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u8(unsigned long long value) noexcept -> u8
+[[nodiscard]] constexpr auto operator""_u8(const ulonglong value) noexcept -> u8
 {
   return static_cast<u8>(value);
 }
@@ -58760,7 +59376,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u16(unsigned long long value) noexcept -> u16
+[[nodiscard]] constexpr auto operator""_u16(const ulonglong value) noexcept -> u16
 {
   return static_cast<u16>(value);
 }
@@ -58774,7 +59390,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u32(unsigned long long value) noexcept -> u32
+[[nodiscard]] constexpr auto operator""_u32(const ulonglong value) noexcept -> u32
 {
   return static_cast<u32>(value);
 }
@@ -58788,7 +59404,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u64(unsigned long long value) noexcept -> u64
+[[nodiscard]] constexpr auto operator""_u64(const ulonglong value) noexcept -> u64
 {
   return static_cast<u64>(value);
 }
@@ -58802,7 +59418,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i8(unsigned long long value) noexcept -> i8
+[[nodiscard]] constexpr auto operator""_i8(const ulonglong value) noexcept -> i8
 {
   return static_cast<i8>(value);
 }
@@ -58816,7 +59432,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i16(unsigned long long value) noexcept -> i16
+[[nodiscard]] constexpr auto operator""_i16(const ulonglong value) noexcept -> i16
 {
   return static_cast<i16>(value);
 }
@@ -58830,7 +59446,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i32(unsigned long long value) noexcept -> i32
+[[nodiscard]] constexpr auto operator""_i32(const ulonglong value) noexcept -> i32
 {
   return static_cast<i32>(value);
 }
@@ -58844,7 +59460,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i64(unsigned long long value) noexcept -> i64
+[[nodiscard]] constexpr auto operator""_i64(const ulonglong value) noexcept -> i64
 {
   return static_cast<i64>(value);
 }
@@ -58910,25 +59526,22 @@ using minutes = std::chrono::duration<T, std::ratio<60>>;
 
 namespace literals {
 
-constexpr auto operator"" _ns(const unsigned long long int value) noexcept
-    -> nanoseconds<u32>
+constexpr auto operator"" _ns(const ulonglong value) noexcept -> nanoseconds<u32>
 {
   return nanoseconds<u32>{value};
 }
 
-constexpr auto operator"" _us(const unsigned long long int value) noexcept
-    -> microseconds<u32>
+constexpr auto operator"" _us(const ulonglong value) noexcept -> microseconds<u32>
 {
   return microseconds<u32>{value};
 }
 
-constexpr auto operator"" _ms(const unsigned long long int value) noexcept
-    -> milliseconds<u32>
+constexpr auto operator"" _ms(const ulonglong value) noexcept -> milliseconds<u32>
 {
   return milliseconds<u32>{value};
 }
 
-constexpr auto operator"" _s(const unsigned long long int value) noexcept -> seconds<u32>
+constexpr auto operator"" _s(const ulonglong value) noexcept -> seconds<u32>
 {
   return seconds<u32>{value};
 }
@@ -59662,6 +60275,8 @@ using not_null = T;
 
 #endif  // CENTURION_NOT_NULL_HEADER
 
+// #include "../core/result.hpp"
+
 // #include "../core/time.hpp"
 
 // #include "../detail/address_of.hpp"
@@ -60049,11 +60664,11 @@ class thread final
    *
    * \param priority the priority that will be used.
    *
-   * \return `true` if the priority was successfully set; `false` otherwise.
+   * \return `success` if the priority was successfully set; `failure` otherwise.
    *
    * \since 5.0.0
    */
-  static auto set_priority(const thread_priority priority) noexcept -> bool
+  static auto set_priority(const thread_priority priority) noexcept -> result
   {
     const auto prio = static_cast<SDL_ThreadPriority>(priority);
     return SDL_SetThreadPriority(prio) == 0;
@@ -60553,60 +61168,32 @@ namespace cen {
 /// \name Integer aliases
 /// \{
 
-/**
- * \typedef u64
- *
- * \brief Alias for a 64-bit unsigned integer.
- */
+using uint = unsigned int;
+
+using ulonglong = unsigned long long;
+
+/// Alias for a 64-bit unsigned integer.
 using u64 = Uint64;
 
-/**
- * \typedef u32
- *
- * \brief Alias for a 32-bit unsigned integer.
- */
+/// Alias for a 32-bit unsigned integer.
 using u32 = Uint32;
 
-/**
- * \typedef u16
- *
- * \brief Alias for a 16-bit unsigned integer.
- */
+/// Alias for a 16-bit unsigned integer.
 using u16 = Uint16;
 
-/**
- * \typedef u8
- *
- * \brief Alias for an 8-bit unsigned integer.
- */
+/// Alias for an 8-bit unsigned integer.
 using u8 = Uint8;
 
-/**
- * \typedef i64
- *
- * \brief Alias for a 64-bit signed integer.
- */
+/// Alias for a 64-bit signed integer.
 using i64 = Sint64;
 
-/**
- * \typedef i32
- *
- * \brief Alias for a 32-bit signed integer.
- */
+/// Alias for a 32-bit signed integer.
 using i32 = Sint32;
 
-/**
- * \typedef i16
- *
- * \brief Alias for a 16-bit signed integer.
- */
+/// Alias for a 16-bit signed integer.
 using i16 = Sint16;
 
-/**
- * \typedef i8
- *
- * \brief Alias for an 8-bit signed integer.
- */
+/// Alias for an 8-bit signed integer.
 using i8 = Sint8;
 
 /// \} End of integer aliases
@@ -60644,7 +61231,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u8(unsigned long long value) noexcept -> u8
+[[nodiscard]] constexpr auto operator""_u8(const ulonglong value) noexcept -> u8
 {
   return static_cast<u8>(value);
 }
@@ -60658,7 +61245,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u16(unsigned long long value) noexcept -> u16
+[[nodiscard]] constexpr auto operator""_u16(const ulonglong value) noexcept -> u16
 {
   return static_cast<u16>(value);
 }
@@ -60672,7 +61259,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u32(unsigned long long value) noexcept -> u32
+[[nodiscard]] constexpr auto operator""_u32(const ulonglong value) noexcept -> u32
 {
   return static_cast<u32>(value);
 }
@@ -60686,7 +61273,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u64(unsigned long long value) noexcept -> u64
+[[nodiscard]] constexpr auto operator""_u64(const ulonglong value) noexcept -> u64
 {
   return static_cast<u64>(value);
 }
@@ -60700,7 +61287,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i8(unsigned long long value) noexcept -> i8
+[[nodiscard]] constexpr auto operator""_i8(const ulonglong value) noexcept -> i8
 {
   return static_cast<i8>(value);
 }
@@ -60714,7 +61301,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i16(unsigned long long value) noexcept -> i16
+[[nodiscard]] constexpr auto operator""_i16(const ulonglong value) noexcept -> i16
 {
   return static_cast<i16>(value);
 }
@@ -60728,7 +61315,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i32(unsigned long long value) noexcept -> i32
+[[nodiscard]] constexpr auto operator""_i32(const ulonglong value) noexcept -> i32
 {
   return static_cast<i32>(value);
 }
@@ -60742,7 +61329,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i64(unsigned long long value) noexcept -> i64
+[[nodiscard]] constexpr auto operator""_i64(const ulonglong value) noexcept -> i64
 {
   return static_cast<i64>(value);
 }
@@ -64414,7 +65001,7 @@ template <typename T, enable_if_number_t<T> = 0>
  * \since 5.0.0
  */
 template <typename T>
-[[nodiscard]] auto distance(const basic_point<T>& from, const basic_point<T>& to) noexcept
+[[nodiscard]] auto distance(const basic_point<T> from, const basic_point<T> to) noexcept
     -> typename point_traits<T>::value_type
 {
   if constexpr (basic_point<T>::isIntegral)
@@ -65264,7 +65851,7 @@ template <typename T>
  * \since 5.3.0
  */
 template <typename T>
-[[nodiscard]] constexpr auto area_of(const basic_area<T>& area) noexcept -> T
+[[nodiscard]] constexpr auto area_of(const basic_area<T> area) noexcept -> T
 {
   return area.width * area.height;
 }
@@ -65574,7 +66161,7 @@ template <typename T>
  * \since 5.3.0
  */
 template <typename T>
-[[nodiscard]] constexpr auto area_of(const basic_area<T>& area) noexcept -> T
+[[nodiscard]] constexpr auto area_of(const basic_area<T> area) noexcept -> T
 {
   return area.width * area.height;
 }
@@ -66080,7 +66667,7 @@ template <typename T, enable_if_number_t<T> = 0>
  * \since 5.0.0
  */
 template <typename T>
-[[nodiscard]] auto distance(const basic_point<T>& from, const basic_point<T>& to) noexcept
+[[nodiscard]] auto distance(const basic_point<T> from, const basic_point<T> to) noexcept
     -> typename point_traits<T>::value_type
 {
   if constexpr (basic_point<T>::isIntegral)
@@ -69493,7 +70080,7 @@ constexpr auto operator""_uni(const char c) noexcept -> unicode
  *
  * \since 5.0.0
  */
-constexpr auto operator""_uni(const unsigned long long int i) noexcept -> unicode
+constexpr auto operator""_uni(const ulonglong i) noexcept -> unicode
 {
   return static_cast<unicode>(i);
 }
@@ -74655,13 +75242,13 @@ class basic_window final
    * \param capturingMouse `true` if the mouse should be captured; `false`
    * otherwise.
    *
-   * \return `true` on success; `false` otherwise.
+   * \return `success` on the mouse capture was successfully changed; `failure` otherwise.
    *
    * \see `SDL_CaptureMouse`
    *
    * \since 5.0.0
    */
-  static auto set_capturing_mouse(const bool capturingMouse) noexcept -> bool
+  static auto set_capturing_mouse(const bool capturingMouse) noexcept -> result
   {
     return SDL_CaptureMouse(detail::convert_bool(capturingMouse)) == 0;
   }
@@ -76114,21 +76701,21 @@ class message_box final
 #include <SDL.h>
 #include <SDL_opengl.h>
 
-namespace cen::gl {
+namespace cen {
 
 /// \addtogroup video
 /// \{
 
 /**
- * \enum attribute
+ * \enum gl_attribute
  *
  * \brief Provides identifiers for different OpenGL attributes.
  *
  * \since 6.0.0
  *
- * \headerfile opengl.hpp
+ * \headerfile gl_attribute.hpp
  */
-enum class attribute
+enum class gl_attribute
 {
   red_size = SDL_GL_RED_SIZE,
   green_size = SDL_GL_GREEN_SIZE,
@@ -76165,7 +76752,7 @@ enum class attribute
 
 /// \} End of group video
 
-}  // namespace cen::gl
+}  // namespace cen
 
 #endif  // CENTURION_NO_OPENGL
 #endif  // CENTURION_GL_ATTRIBUTE_HEADER
@@ -76179,7 +76766,8 @@ enum class attribute
 #include <SDL.h>
 #include <SDL_opengl.h>
 
-#include <memory>  // unique_ptr
+#include <cassert>  // assert
+#include <memory>   // unique_ptr
 
 // #include "../../core/exception.hpp"
 #ifndef CENTURION_EXCEPTION_HEADER
@@ -77284,60 +77872,32 @@ namespace cen {
 /// \name Integer aliases
 /// \{
 
-/**
- * \typedef u64
- *
- * \brief Alias for a 64-bit unsigned integer.
- */
+using uint = unsigned int;
+
+using ulonglong = unsigned long long;
+
+/// Alias for a 64-bit unsigned integer.
 using u64 = Uint64;
 
-/**
- * \typedef u32
- *
- * \brief Alias for a 32-bit unsigned integer.
- */
+/// Alias for a 32-bit unsigned integer.
 using u32 = Uint32;
 
-/**
- * \typedef u16
- *
- * \brief Alias for a 16-bit unsigned integer.
- */
+/// Alias for a 16-bit unsigned integer.
 using u16 = Uint16;
 
-/**
- * \typedef u8
- *
- * \brief Alias for an 8-bit unsigned integer.
- */
+/// Alias for an 8-bit unsigned integer.
 using u8 = Uint8;
 
-/**
- * \typedef i64
- *
- * \brief Alias for a 64-bit signed integer.
- */
+/// Alias for a 64-bit signed integer.
 using i64 = Sint64;
 
-/**
- * \typedef i32
- *
- * \brief Alias for a 32-bit signed integer.
- */
+/// Alias for a 32-bit signed integer.
 using i32 = Sint32;
 
-/**
- * \typedef i16
- *
- * \brief Alias for a 16-bit signed integer.
- */
+/// Alias for a 16-bit signed integer.
 using i16 = Sint16;
 
-/**
- * \typedef i8
- *
- * \brief Alias for an 8-bit signed integer.
- */
+/// Alias for an 8-bit signed integer.
 using i8 = Sint8;
 
 /// \} End of integer aliases
@@ -77375,7 +77935,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u8(unsigned long long value) noexcept -> u8
+[[nodiscard]] constexpr auto operator""_u8(const ulonglong value) noexcept -> u8
 {
   return static_cast<u8>(value);
 }
@@ -77389,7 +77949,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u16(unsigned long long value) noexcept -> u16
+[[nodiscard]] constexpr auto operator""_u16(const ulonglong value) noexcept -> u16
 {
   return static_cast<u16>(value);
 }
@@ -77403,7 +77963,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u32(unsigned long long value) noexcept -> u32
+[[nodiscard]] constexpr auto operator""_u32(const ulonglong value) noexcept -> u32
 {
   return static_cast<u32>(value);
 }
@@ -77417,7 +77977,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u64(unsigned long long value) noexcept -> u64
+[[nodiscard]] constexpr auto operator""_u64(const ulonglong value) noexcept -> u64
 {
   return static_cast<u64>(value);
 }
@@ -77431,7 +77991,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i8(unsigned long long value) noexcept -> i8
+[[nodiscard]] constexpr auto operator""_i8(const ulonglong value) noexcept -> i8
 {
   return static_cast<i8>(value);
 }
@@ -77445,7 +78005,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i16(unsigned long long value) noexcept -> i16
+[[nodiscard]] constexpr auto operator""_i16(const ulonglong value) noexcept -> i16
 {
   return static_cast<i16>(value);
 }
@@ -77459,7 +78019,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i32(unsigned long long value) noexcept -> i32
+[[nodiscard]] constexpr auto operator""_i32(const ulonglong value) noexcept -> i32
 {
   return static_cast<i32>(value);
 }
@@ -77473,7 +78033,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i64(unsigned long long value) noexcept -> i64
+[[nodiscard]] constexpr auto operator""_i64(const ulonglong value) noexcept -> i64
 {
   return static_cast<i64>(value);
 }
@@ -78713,7 +79273,7 @@ template <typename T>
  * \since 5.3.0
  */
 template <typename T>
-[[nodiscard]] constexpr auto area_of(const basic_area<T>& area) noexcept -> T
+[[nodiscard]] constexpr auto area_of(const basic_area<T> area) noexcept -> T
 {
   return area.width * area.height;
 }
@@ -79054,7 +79614,7 @@ template <typename T>
  * \since 5.3.0
  */
 template <typename T>
-[[nodiscard]] constexpr auto area_of(const basic_area<T>& area) noexcept -> T
+[[nodiscard]] constexpr auto area_of(const basic_area<T> area) noexcept -> T
 {
   return area.width * area.height;
 }
@@ -79560,7 +80120,7 @@ template <typename T, enable_if_number_t<T> = 0>
  * \since 5.0.0
  */
 template <typename T>
-[[nodiscard]] auto distance(const basic_point<T>& from, const basic_point<T>& to) noexcept
+[[nodiscard]] auto distance(const basic_point<T> from, const basic_point<T> to) noexcept
     -> typename point_traits<T>::value_type
 {
   if constexpr (basic_point<T>::isIntegral)
@@ -83244,13 +83804,13 @@ class basic_window final
    * \param capturingMouse `true` if the mouse should be captured; `false`
    * otherwise.
    *
-   * \return `true` on success; `false` otherwise.
+   * \return `success` on the mouse capture was successfully changed; `failure` otherwise.
    *
    * \see `SDL_CaptureMouse`
    *
    * \since 5.0.0
    */
-  static auto set_capturing_mouse(const bool capturingMouse) noexcept -> bool
+  static auto set_capturing_mouse(const bool capturingMouse) noexcept -> result
   {
     return SDL_CaptureMouse(detail::convert_bool(capturingMouse)) == 0;
   }
@@ -84026,23 +84586,45 @@ auto operator<<(std::ostream& stream, const basic_window<T>& window) -> std::ost
 #endif  // CENTURION_WINDOW_HEADER
 
 
-namespace cen::gl {
-
 /// \addtogroup video
 /// \{
 
-// TODO Centurion 6: document and test
+namespace cen::gl {
 
 template <typename T>
 class basic_context;
 
+///< An owning OpenGL context.
 using context = basic_context<detail::owning_type>;
+
+///< A non-owning OpenGL context.
 using context_handle = basic_context<detail::handle_type>;
 
+/**
+ * \class basic_context
+ *
+ * \brief Represents an OpenGL context.
+ *
+ * \tparam T `owning_type` for owning semantics; `handle_type` for non-owning semantics.
+ *
+ * \since 6.0.0
+ */
 template <typename T>
 class basic_context final
 {
  public:
+  /// \name Construction
+  /// \{
+
+  /**
+   * \brief Creates a context instance from an existing OpenGL context.
+   *
+   * \param context the existing OpenGL context.
+   *
+   * \throws cen_error if the context is owning and the supplied pointer is null.
+   *
+   * \since 6.0.0
+   */
   explicit basic_context(SDL_GLContext context) noexcept(!detail::is_owning<T>())
       : m_context{context}
   {
@@ -84055,6 +84637,18 @@ class basic_context final
     }
   }
 
+  /**
+   * \brief Creates an OpenGL context based on the supplied window.
+   *
+   * \tparam U the ownership semantics of the window.
+   *
+   * \param window the OpenGL window.
+   *
+   * \throws sdl_error if the context has owning semantics and the OpenGL context couldn't
+   * be initialized.
+   *
+   * \since 6.0.0
+   */
   template <typename U>
   explicit basic_context(basic_window<U>& window) noexcept(!detail::is_owning<T>())
       : m_context{SDL_GL_CreateContext(window.get())}
@@ -84068,12 +84662,35 @@ class basic_context final
     }
   }
 
+  /// \} End of construction
+
+  /**
+   * \brief Makes the context the current OpenGL context for an OpenGL window.
+   *
+   * \pre `window` must be an OpenGL window.
+   *
+   * \tparam U the ownership semantics of the window.
+   *
+   * \param window the OpenGL window.
+   *
+   * \return `success` if the was operation was successful; `failure` otherwise.
+   *
+   * \since 6.0.0
+   */
   template <typename U>
   auto make_current(basic_window<U>& window) -> result
   {
+    assert(window.is_opengl());
     return SDL_GL_MakeCurrent(window.get(), m_context.get()) == 0;
   }
 
+  /**
+   * \brief Returns the associated OpenGL context.
+   *
+   * \return the handle to the associated OpenGL context.
+   *
+   * \since 6.0.0
+   */
   [[nodiscard]] auto get() const noexcept -> SDL_GLContext
   {
     return m_context.get();
@@ -84091,9 +84708,9 @@ class basic_context final
   std::unique_ptr<void, deleter> m_context;
 };
 
-/// \} End of group video
-
 }  // namespace cen::gl
+
+/// \} End of group video
 
 #endif  // CENTURION_NO_OPENGL
 #endif  // CENTURION_GL_CONTEXT_HEADER
@@ -84169,6 +84786,8 @@ using not_null = T;
 }  // namespace cen
 
 #endif  // CENTURION_NOT_NULL_HEADER
+
+// #include "../../core/result.hpp"
 
 // #include "../../math/area.hpp"
 #ifndef CENTURION_AREA_HEADER
@@ -84513,7 +85132,7 @@ template <typename T>
  * \since 5.3.0
  */
 template <typename T>
-[[nodiscard]] constexpr auto area_of(const basic_area<T>& area) noexcept -> T
+[[nodiscard]] constexpr auto area_of(const basic_area<T> area) noexcept -> T
 {
   return area.width * area.height;
 }
@@ -84673,21 +85292,21 @@ auto operator<<(std::ostream& stream, const basic_area<T>& area) -> std::ostream
 #include <SDL.h>
 #include <SDL_opengl.h>
 
-namespace cen::gl {
+namespace cen {
 
 /// \addtogroup video
 /// \{
 
 /**
- * \enum attribute
+ * \enum gl_attribute
  *
  * \brief Provides identifiers for different OpenGL attributes.
  *
  * \since 6.0.0
  *
- * \headerfile opengl.hpp
+ * \headerfile gl_attribute.hpp
  */
-enum class attribute
+enum class gl_attribute
 {
   red_size = SDL_GL_RED_SIZE,
   green_size = SDL_GL_GREEN_SIZE,
@@ -84724,7 +85343,7 @@ enum class attribute
 
 /// \} End of group video
 
-}  // namespace cen::gl
+}  // namespace cen
 
 #endif  // CENTURION_NO_OPENGL
 #endif  // CENTURION_GL_ATTRIBUTE_HEADER
@@ -84738,7 +85357,8 @@ enum class attribute
 #include <SDL.h>
 #include <SDL_opengl.h>
 
-#include <memory>  // unique_ptr
+#include <cassert>  // assert
+#include <memory>   // unique_ptr
 
 // #include "../../core/exception.hpp"
 
@@ -84749,23 +85369,45 @@ enum class attribute
 // #include "../window.hpp"
 
 
-namespace cen::gl {
-
 /// \addtogroup video
 /// \{
 
-// TODO Centurion 6: document and test
+namespace cen::gl {
 
 template <typename T>
 class basic_context;
 
+///< An owning OpenGL context.
 using context = basic_context<detail::owning_type>;
+
+///< A non-owning OpenGL context.
 using context_handle = basic_context<detail::handle_type>;
 
+/**
+ * \class basic_context
+ *
+ * \brief Represents an OpenGL context.
+ *
+ * \tparam T `owning_type` for owning semantics; `handle_type` for non-owning semantics.
+ *
+ * \since 6.0.0
+ */
 template <typename T>
 class basic_context final
 {
  public:
+  /// \name Construction
+  /// \{
+
+  /**
+   * \brief Creates a context instance from an existing OpenGL context.
+   *
+   * \param context the existing OpenGL context.
+   *
+   * \throws cen_error if the context is owning and the supplied pointer is null.
+   *
+   * \since 6.0.0
+   */
   explicit basic_context(SDL_GLContext context) noexcept(!detail::is_owning<T>())
       : m_context{context}
   {
@@ -84778,6 +85420,18 @@ class basic_context final
     }
   }
 
+  /**
+   * \brief Creates an OpenGL context based on the supplied window.
+   *
+   * \tparam U the ownership semantics of the window.
+   *
+   * \param window the OpenGL window.
+   *
+   * \throws sdl_error if the context has owning semantics and the OpenGL context couldn't
+   * be initialized.
+   *
+   * \since 6.0.0
+   */
   template <typename U>
   explicit basic_context(basic_window<U>& window) noexcept(!detail::is_owning<T>())
       : m_context{SDL_GL_CreateContext(window.get())}
@@ -84791,12 +85445,35 @@ class basic_context final
     }
   }
 
+  /// \} End of construction
+
+  /**
+   * \brief Makes the context the current OpenGL context for an OpenGL window.
+   *
+   * \pre `window` must be an OpenGL window.
+   *
+   * \tparam U the ownership semantics of the window.
+   *
+   * \param window the OpenGL window.
+   *
+   * \return `success` if the was operation was successful; `failure` otherwise.
+   *
+   * \since 6.0.0
+   */
   template <typename U>
   auto make_current(basic_window<U>& window) -> result
   {
+    assert(window.is_opengl());
     return SDL_GL_MakeCurrent(window.get(), m_context.get()) == 0;
   }
 
+  /**
+   * \brief Returns the associated OpenGL context.
+   *
+   * \return the handle to the associated OpenGL context.
+   *
+   * \since 6.0.0
+   */
   [[nodiscard]] auto get() const noexcept -> SDL_GLContext
   {
     return m_context.get();
@@ -84814,25 +85491,47 @@ class basic_context final
   std::unique_ptr<void, deleter> m_context;
 };
 
-/// \} End of group video
-
 }  // namespace cen::gl
+
+/// \} End of group video
 
 #endif  // CENTURION_NO_OPENGL
 #endif  // CENTURION_GL_CONTEXT_HEADER
 
 
-/// \addtogroup video
-/// \{
+namespace cen {
+
+/**
+ * \enum gl_swap_interval
+ *
+ * \brief Provides identifiers that represent different swap interval modes.
+ *
+ * \ingroup video
+ *
+ * \since 6.0.0
+ */
+enum class gl_swap_interval
+{
+  immediate = 0,       ///< Immediate updates.
+  synchronized = 1,    ///< Updates synchronized with vertical retrace (VSync).
+  late_immediate = -1  ///< Allow immediate late swaps, instead of waiting for retrace.
+};
+
+}  // namespace cen
 
 /**
  * \namespace cen::gl
  *
  * \brief Contains OpenGL-related components.
  *
+ * \ingroup video
+ *
  * \since 6.0.0
  */
 namespace cen::gl {
+
+/// \addtogroup video
+/// \{
 
 /**
  * \brief Swaps the buffers for an OpenGL window.
@@ -84877,19 +85576,42 @@ template <typename T>
   return {width, height};
 }
 
-// TODO Centurion 6: document and test
-
+/**
+ * \brief Resets all OpenGL context attributes to their default values.
+ *
+ * \since 6.0.0
+ */
 inline void reset_attributes() noexcept
 {
   SDL_GL_ResetAttributes();
 }
 
-inline auto set(const attribute attr, const int value) noexcept -> bool
+/**
+ * \brief Sets the value of an OpenGL context attribute.
+ *
+ * \param attr the attribute that will be set.
+ * \param value the new value of the attribute.
+ *
+ * \return `success` if the attribute was successfully set; `failure` otherwise.
+ *
+ * \since 6.0.0
+ */
+inline auto set(const gl_attribute attr, const int value) noexcept -> result
 {
   return SDL_GL_SetAttribute(static_cast<SDL_GLattr>(attr), value) == 0;
 }
 
-inline auto get(const attribute attr) noexcept -> std::optional<int>
+/**
+ * \brief Returns the current value of an OpenGL context attribute.
+ *
+ * \param attr the OpenGL context attribute to check.
+ *
+ * \return the value of the specified attribute; `std::nullopt` if the value could not be
+ * obtained.
+ *
+ * \since 6.0.0
+ */
+inline auto get(const gl_attribute attr) noexcept -> std::optional<int>
 {
   int value{};
   if (SDL_GL_GetAttribute(static_cast<SDL_GLattr>(attr), &value) == 0)
@@ -84902,46 +85624,86 @@ inline auto get(const attribute attr) noexcept -> std::optional<int>
   }
 }
 
-inline auto set_swap_interval(const int interval) noexcept -> bool
+/**
+ * \brief Sets the swap interval strategy that will be used.
+ *
+ * \param interval the swap interval that will be used.
+ *
+ * \return `success` if the swap interval successfully set; `failure` if it isn't
+ * supported.
+ *
+ * \since 6.0.0
+ */
+inline auto set_swap_interval(const gl_swap_interval interval) noexcept -> result
 {
-  return SDL_GL_SetSwapInterval(interval) == 0;
+  return SDL_GL_SetSwapInterval(static_cast<int>(interval)) == 0;
 }
 
-[[nodiscard]] inline auto swap_interval() noexcept -> int
+/**
+ * \brief Returns the swap interval used by the current OpenGL context.
+ *
+ * \note `gl_swap_interval::immediate` is returned if the swap interval couldn't be
+ * determined.
+ *
+ * \return the current swap interval.
+ *
+ * \since 6.0.0
+ */
+[[nodiscard]] inline auto swap_interval() noexcept -> gl_swap_interval
 {
-  return SDL_GL_GetSwapInterval();
+  return gl_swap_interval{SDL_GL_GetSwapInterval()};
 }
 
+/**
+ * \brief Returns a handle to the currently active OpenGL window.
+ *
+ * \return a potentially invalid handle to the current OpenGL window.
+ *
+ * \since 6.0.0
+ */
 [[nodiscard]] inline auto get_window() noexcept -> window_handle
 {
   return window_handle{SDL_GL_GetCurrentWindow()};
 }
 
+/**
+ * \brief Returns a handle to the currently active OpenGL context.
+ *
+ * \return a potentially invalid handle to the current OpenGL context.
+ *
+ * \since 6.0.0
+ */
 [[nodiscard]] inline auto get_context() noexcept -> context_handle
 {
   return context_handle{SDL_GL_GetCurrentContext()};
 }
 
-// clang-format off
-
-[[nodiscard]] inline auto is_extension_supported(const not_null<czstring> extension) noexcept
-    -> bool
+/**
+ * \brief Indicates whether or not the specified extension is supported.
+ *
+ * \param extension the extension that will be checked.
+ *
+ * \return `true` if the specified extension is supported; `false` otherwise.
+ *
+ * \since 6.0.0
+ */
+[[nodiscard]] inline auto is_extension_supported(
+    const not_null<czstring> extension) noexcept -> bool
 {
   assert(extension);
   return SDL_GL_ExtensionSupported(extension) == SDL_TRUE;
 }
 
-// clang-format on
-
+/// \copydoc is_extension_supported()
 [[nodiscard]] inline auto is_extension_supported(const std::string& extension) noexcept
     -> bool
 {
   return is_extension_supported(extension.c_str());
 }
 
-}  // namespace cen::gl
-
 /// \} End of group video
+
+}  // namespace cen::gl
 
 #endif  // CENTURION_NO_OPENGL
 #endif  // CENTURION_GL_CORE_HEADER
@@ -84964,13 +85726,13 @@ inline auto set_swap_interval(const int interval) noexcept -> bool
 // #include "../../core/not_null.hpp"
 
 
+namespace cen {
+
 /// \addtogroup video
 /// \{
 
-namespace cen::gl {
-
 /**
- * \class library
+ * \class gl_library
  *
  * \brief Manages the initialization and de-initialization of an OpenGL library.
  *
@@ -84978,20 +85740,20 @@ namespace cen::gl {
  *
  * \headerfile gl_library.hpp
  */
-class library final
+class gl_library final
 {
  public:
   /**
    * \brief Loads an OpenGL library.
    *
-   * \param path the file path to the OpenGL library that will be used; null
+   * \param path the file path to the OpenGL library that will be used; a null path
    * indicates that the default library will be used.
    *
    * \throws sdl_error if the OpenGL library can't be loaded.
    *
    * \since 6.0.0
    */
-  explicit library(const czstring path = nullptr)
+  explicit gl_library(const czstring path = nullptr)
   {
     if (SDL_GL_LoadLibrary(path) == -1)
     {
@@ -84999,13 +85761,13 @@ class library final
     }
   }
 
-  library(const library&) = delete;
-  library(library&&) = delete;
+  gl_library(const gl_library&) = delete;
+  gl_library(gl_library&&) = delete;
 
-  auto operator=(const library&) -> library& = delete;
-  auto operator=(library&&) -> library& = delete;
+  auto operator=(const gl_library&) -> gl_library& = delete;
+  auto operator=(gl_library&&) -> gl_library& = delete;
 
-  ~library() noexcept
+  ~gl_library() noexcept
   {
     SDL_GL_UnloadLibrary();
   }
@@ -85039,9 +85801,9 @@ class library final
   // clang-format on
 };
 
-}  // namespace cen::gl
-
 /// \} End of group video
+
+}  // namespace cen
 
 #endif  // CENTURION_NO_OPENGL
 #endif  // CENTURION_GL_LIBRARY_HEADER
@@ -86803,6 +87565,38 @@ class basic_renderer final
   /// \{
 
   /**
+   * \brief Fills the entire rendering target with the currently selected color.
+   *
+   * \details This function is different from `clear()` and `clear_with()` in
+   * that it can be used as an intermediate rendering command (just like all
+   * rendering functions). An example of a use case of this function could be
+   * for rendering a transparent background for game menus.
+   *
+   * \since 5.1.0
+   */
+  void fill() noexcept
+  {
+    fill_rect<int>({{}, output_size()});
+  }
+
+  /**
+   * \brief Fills the entire rendering target with the specified color.
+   *
+   * \note This function does not affect the currently set color.
+   *
+   * \copydetails fill()
+   */
+  void fill_with(const color& color) noexcept
+  {
+    const auto oldColor = get_color();
+
+    set_color(color);
+    fill();
+
+    set_color(oldColor);
+  }
+
+  /**
    * \brief Renders the outline of a rectangle in the currently selected color.
    *
    * \tparam U the representation type used by the rectangle.
@@ -86844,38 +87638,6 @@ class basic_renderer final
     {
       SDL_RenderFillRectF(get(), rect.data());
     }
-  }
-
-  /**
-   * \brief Fills the entire rendering target with the currently selected color.
-   *
-   * \details This function is different from `clear()` and `clear_with()` in
-   * that it can be used as an intermediate rendering command (just like all
-   * rendering functions). An example of a use case of this function could be
-   * for rendering a transparent background for game menus.
-   *
-   * \since 5.1.0
-   */
-  void fill() noexcept
-  {
-    fill_rect<int>({{}, output_size()});
-  }
-
-  /**
-   * \brief Fills the entire rendering target with the specified color.
-   *
-   * \note This function does not affect the currently set color.
-   *
-   * \copydetails fill()
-   */
-  void fill_with(const color& color) noexcept
-  {
-    const auto oldColor = get_color();
-
-    set_color(color);
-    fill();
-
-    set_color(oldColor);
   }
 
   /**
@@ -88241,7 +89003,7 @@ class basic_renderer final
    * \since 4.1.0
    */
   template <typename TT = T, detail::is_owner<TT> = 0>
-  [[nodiscard]] auto has_font(const std::size_t id) const noexcept -> bool
+  [[nodiscard]] auto has_font(const std::size_t id) const -> bool
   {
     return static_cast<bool>(m_renderer.fonts.count(id));
   }
@@ -88295,7 +89057,7 @@ class basic_renderer final
    *
    * \since 3.0.0
    */
-  void set_viewport(const irect& viewport) noexcept
+  void set_viewport(const irect viewport) noexcept
   {
     SDL_RenderSetViewport(get(), viewport.data());
   }
@@ -88387,7 +89149,7 @@ class basic_renderer final
    *
    * \since 3.0.0
    */
-  void set_logical_integer_scale(const bool enabled) noexcept
+  void set_logical_integer_scaling(const bool enabled) noexcept
   {
     SDL_RenderSetIntegerScale(get(), detail::convert_bool(enabled));
   }
@@ -91555,7 +92317,7 @@ constexpr auto operator""_uni(const char c) noexcept -> unicode
  *
  * \since 5.0.0
  */
-constexpr auto operator""_uni(const unsigned long long int i) noexcept -> unicode
+constexpr auto operator""_uni(const ulonglong i) noexcept -> unicode
 {
   return static_cast<unicode>(i);
 }
@@ -91577,8 +92339,10 @@ constexpr auto operator""_uni(const unsigned long long int i) noexcept -> unicod
 #include <SDL.h>
 #include <SDL_vulkan.h>
 
-#include <cassert>  // assert
-#include <memory>   // unique_ptr
+#include <cassert>   // assert
+#include <memory>    // unique_ptr
+#include <optional>  // optional
+#include <vector>    // vector
 
 // #include "../../core/czstring.hpp"
 #ifndef CENTURION_CZSTRING_HEADER
@@ -91667,6 +92431,324 @@ using zstring = char*;
 }  // namespace cen
 
 #endif  // CENTURION_CZSTRING_HEADER
+
+// #include "../../core/integers.hpp"
+#ifndef CENTURION_INTEGERS_HEADER
+#define CENTURION_INTEGERS_HEADER
+
+#include <SDL.h>
+
+namespace cen {
+
+/// \addtogroup core
+/// \{
+
+/// \name Integer aliases
+/// \{
+
+using uint = unsigned int;
+
+using ulonglong = unsigned long long;
+
+/// Alias for a 64-bit unsigned integer.
+using u64 = Uint64;
+
+/// Alias for a 32-bit unsigned integer.
+using u32 = Uint32;
+
+/// Alias for a 16-bit unsigned integer.
+using u16 = Uint16;
+
+/// Alias for an 8-bit unsigned integer.
+using u8 = Uint8;
+
+/// Alias for a 64-bit signed integer.
+using i64 = Sint64;
+
+/// Alias for a 32-bit signed integer.
+using i32 = Sint32;
+
+/// Alias for a 16-bit signed integer.
+using i16 = Sint16;
+
+/// Alias for an 8-bit signed integer.
+using i8 = Sint8;
+
+/// \} End of integer aliases
+
+// clang-format off
+
+/**
+ * \brief Obtains the size of a container as an `int`.
+ *
+ * \tparam T a "container" that provides a `size()` member function.
+ *
+ * \param container the container to query the size of.
+ *
+ * \return the size of the container as an `int` value.
+ *
+ * \since 5.3.0
+ */
+template <typename T>
+[[nodiscard]] constexpr auto isize(const T& container) noexcept(noexcept(container.size()))
+    -> int
+{
+  return static_cast<int>(container.size());
+}
+
+// clang-format on
+
+namespace literals {
+
+/**
+ * \brief Creates an 8-bit unsigned integer.
+ *
+ * \param value the value that will be converted.
+ *
+ * \return an 8-bit unsigned integer.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto operator""_u8(const ulonglong value) noexcept -> u8
+{
+  return static_cast<u8>(value);
+}
+
+/**
+ * \brief Creates a 16-bit unsigned integer.
+ *
+ * \param value the value that will be converted.
+ *
+ * \return a 16-bit unsigned integer.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto operator""_u16(const ulonglong value) noexcept -> u16
+{
+  return static_cast<u16>(value);
+}
+
+/**
+ * \brief Creates a 32-bit unsigned integer.
+ *
+ * \param value the value that will be converted.
+ *
+ * \return a 32-bit unsigned integer.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto operator""_u32(const ulonglong value) noexcept -> u32
+{
+  return static_cast<u32>(value);
+}
+
+/**
+ * \brief Creates a 64-bit unsigned integer.
+ *
+ * \param value the value that will be converted.
+ *
+ * \return a 64-bit unsigned integer.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto operator""_u64(const ulonglong value) noexcept -> u64
+{
+  return static_cast<u64>(value);
+}
+
+/**
+ * \brief Creates an 8-bit signed integer.
+ *
+ * \param value the value that will be converted.
+ *
+ * \return an 8-bit signed integer.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto operator""_i8(const ulonglong value) noexcept -> i8
+{
+  return static_cast<i8>(value);
+}
+
+/**
+ * \brief Creates a 16-bit signed integer.
+ *
+ * \param value the value that will be converted.
+ *
+ * \return a 16-bit signed integer.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto operator""_i16(const ulonglong value) noexcept -> i16
+{
+  return static_cast<i16>(value);
+}
+
+/**
+ * \brief Creates a 32-bit signed integer.
+ *
+ * \param value the value that will be converted.
+ *
+ * \return a 32-bit signed integer.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto operator""_i32(const ulonglong value) noexcept -> i32
+{
+  return static_cast<i32>(value);
+}
+
+/**
+ * \brief Creates a 64-bit signed integer.
+ *
+ * \param value the value that will be converted.
+ *
+ * \return a 64-bit signed integer.
+ *
+ * \since 5.3.0
+ */
+[[nodiscard]] constexpr auto operator""_i64(const ulonglong value) noexcept -> i64
+{
+  return static_cast<i64>(value);
+}
+
+}  // namespace literals
+
+/// \} End of group core
+
+}  // namespace cen
+
+#endif  // CENTURION_INTEGERS_HEADER
+
+// #include "../../core/result.hpp"
+#ifndef CENTURION_RESULT_HEADER
+#define CENTURION_RESULT_HEADER
+
+namespace cen {
+
+/// \addtogroup core
+/// \{
+
+/**
+ * \class result
+ *
+ * \brief A simple indicator for the result of different operations.
+ *
+ * \details The idea behind this class is to make results of various operations
+ * unambiguous. Quite an amount of functions in the library may fail, and
+ * earlier versions of Centurion would usually return a `bool` in those cases,
+ * where `true` and `false` would indicate success and failure, respectively.
+ * This class is a development of that practice. For instance, this class is
+ * contextually convertible to `bool`, where a successful result is still
+ * converted to `true`, and vice versa. However, this class also enables
+ * explicit checks against `success` and `failure` constants, which makes
+ * code very easy to read and unambiguous.
+ * \code{cpp}
+ *   cen::window window;
+ *
+ *   if (window.set_opacity(0.4f))
+ *   {
+ *     // Success!
+ *   }
+ *
+ *   if (window.set_opacity(0.4f) == cen::success)
+ *   {
+ *     // Success!
+ *   }
+ *
+ *   if (window.set_opacity(0.4f) == cen::failure)
+ *   {
+ *     // Failure!
+ *   }
+ * \endcode
+ *
+ * \see `success`
+ * \see `failure`
+ *
+ * \since 6.0.0
+ */
+class result final
+{
+ public:
+  /**
+   * \brief Creates a result.
+   *
+   * \param success `true` if the result is successful; `false` otherwise.
+   *
+   * \since 6.0.0
+   */
+  constexpr result(const bool success) noexcept  // NOLINT implicit
+      : m_success{success}
+  {}
+
+  /// \name Comparison operators
+  /// \{
+
+  /**
+   * \brief Indicates whether or not two results have the same success value.
+   *
+   * \param other the other result.
+   *
+   * \return `true` if the results are equal; `false` otherwise.
+   *
+   * \since 6.0.0
+   */
+  [[nodiscard]] constexpr auto operator==(const result other) const noexcept -> bool
+  {
+    return m_success == other.m_success;
+  }
+
+  /**
+   * \brief Indicates whether or not two results don't have the same success
+   * value.
+   *
+   * \param other the other result.
+   *
+   * \return `true` if the results aren't equal; `false` otherwise.
+   *
+   * \since 6.0.0
+   */
+  [[nodiscard]] constexpr auto operator!=(const result other) const noexcept -> bool
+  {
+    return !(*this == other);
+  }
+
+  /// \} End of comparison operators
+
+  /// \name Conversions
+  /// \{
+
+  /**
+   * \brief Indicates whether or not the result is successful.
+   *
+   * \return `true` if the result is successful; `false` otherwise.
+   *
+   * \since 6.0.0
+   */
+  [[nodiscard]] constexpr explicit operator bool() const noexcept
+  {
+    return m_success;
+  }
+
+  /// \} End of conversions
+
+ private:
+  bool m_success{};
+};
+
+/// Represents a successful result.
+/// \since 6.0.0
+inline constexpr result success{true};
+
+/// Represents a failure of some kind.
+/// \since 6.0.0
+inline constexpr result failure{false};
+
+/// \} End of group core
+
+}  // namespace cen
+
+#endif  // CENTURION_RESULT_HEADER
 
 // #include "../window.hpp"
 #ifndef CENTURION_WINDOW_HEADER
@@ -91996,60 +93078,32 @@ namespace cen {
 /// \name Integer aliases
 /// \{
 
-/**
- * \typedef u64
- *
- * \brief Alias for a 64-bit unsigned integer.
- */
+using uint = unsigned int;
+
+using ulonglong = unsigned long long;
+
+/// Alias for a 64-bit unsigned integer.
 using u64 = Uint64;
 
-/**
- * \typedef u32
- *
- * \brief Alias for a 32-bit unsigned integer.
- */
+/// Alias for a 32-bit unsigned integer.
 using u32 = Uint32;
 
-/**
- * \typedef u16
- *
- * \brief Alias for a 16-bit unsigned integer.
- */
+/// Alias for a 16-bit unsigned integer.
 using u16 = Uint16;
 
-/**
- * \typedef u8
- *
- * \brief Alias for an 8-bit unsigned integer.
- */
+/// Alias for an 8-bit unsigned integer.
 using u8 = Uint8;
 
-/**
- * \typedef i64
- *
- * \brief Alias for a 64-bit signed integer.
- */
+/// Alias for a 64-bit signed integer.
 using i64 = Sint64;
 
-/**
- * \typedef i32
- *
- * \brief Alias for a 32-bit signed integer.
- */
+/// Alias for a 32-bit signed integer.
 using i32 = Sint32;
 
-/**
- * \typedef i16
- *
- * \brief Alias for a 16-bit signed integer.
- */
+/// Alias for a 16-bit signed integer.
 using i16 = Sint16;
 
-/**
- * \typedef i8
- *
- * \brief Alias for an 8-bit signed integer.
- */
+/// Alias for an 8-bit signed integer.
 using i8 = Sint8;
 
 /// \} End of integer aliases
@@ -92087,7 +93141,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u8(unsigned long long value) noexcept -> u8
+[[nodiscard]] constexpr auto operator""_u8(const ulonglong value) noexcept -> u8
 {
   return static_cast<u8>(value);
 }
@@ -92101,7 +93155,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u16(unsigned long long value) noexcept -> u16
+[[nodiscard]] constexpr auto operator""_u16(const ulonglong value) noexcept -> u16
 {
   return static_cast<u16>(value);
 }
@@ -92115,7 +93169,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u32(unsigned long long value) noexcept -> u32
+[[nodiscard]] constexpr auto operator""_u32(const ulonglong value) noexcept -> u32
 {
   return static_cast<u32>(value);
 }
@@ -92129,7 +93183,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_u64(unsigned long long value) noexcept -> u64
+[[nodiscard]] constexpr auto operator""_u64(const ulonglong value) noexcept -> u64
 {
   return static_cast<u64>(value);
 }
@@ -92143,7 +93197,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i8(unsigned long long value) noexcept -> i8
+[[nodiscard]] constexpr auto operator""_i8(const ulonglong value) noexcept -> i8
 {
   return static_cast<i8>(value);
 }
@@ -92157,7 +93211,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i16(unsigned long long value) noexcept -> i16
+[[nodiscard]] constexpr auto operator""_i16(const ulonglong value) noexcept -> i16
 {
   return static_cast<i16>(value);
 }
@@ -92171,7 +93225,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i32(unsigned long long value) noexcept -> i32
+[[nodiscard]] constexpr auto operator""_i32(const ulonglong value) noexcept -> i32
 {
   return static_cast<i32>(value);
 }
@@ -92185,7 +93239,7 @@ namespace literals {
  *
  * \since 5.3.0
  */
-[[nodiscard]] constexpr auto operator""_i64(unsigned long long value) noexcept -> i64
+[[nodiscard]] constexpr auto operator""_i64(const ulonglong value) noexcept -> i64
 {
   return static_cast<i64>(value);
 }
@@ -93425,7 +94479,7 @@ template <typename T>
  * \since 5.3.0
  */
 template <typename T>
-[[nodiscard]] constexpr auto area_of(const basic_area<T>& area) noexcept -> T
+[[nodiscard]] constexpr auto area_of(const basic_area<T> area) noexcept -> T
 {
   return area.width * area.height;
 }
@@ -93766,7 +94820,7 @@ template <typename T>
  * \since 5.3.0
  */
 template <typename T>
-[[nodiscard]] constexpr auto area_of(const basic_area<T>& area) noexcept -> T
+[[nodiscard]] constexpr auto area_of(const basic_area<T> area) noexcept -> T
 {
   return area.width * area.height;
 }
@@ -94272,7 +95326,7 @@ template <typename T, enable_if_number_t<T> = 0>
  * \since 5.0.0
  */
 template <typename T>
-[[nodiscard]] auto distance(const basic_point<T>& from, const basic_point<T>& to) noexcept
+[[nodiscard]] auto distance(const basic_point<T> from, const basic_point<T> to) noexcept
     -> typename point_traits<T>::value_type
 {
   if constexpr (basic_point<T>::isIntegral)
@@ -97956,13 +99010,13 @@ class basic_window final
    * \param capturingMouse `true` if the mouse should be captured; `false`
    * otherwise.
    *
-   * \return `true` on success; `false` otherwise.
+   * \return `success` on the mouse capture was successfully changed; `failure` otherwise.
    *
    * \see `SDL_CaptureMouse`
    *
    * \since 5.0.0
    */
-  static auto set_capturing_mouse(const bool capturingMouse) noexcept -> bool
+  static auto set_capturing_mouse(const bool capturingMouse) noexcept -> result
   {
     return SDL_CaptureMouse(detail::convert_bool(capturingMouse)) == 0;
   }
@@ -98750,31 +99804,81 @@ auto operator<<(std::ostream& stream, const basic_window<T>& window) -> std::ost
  */
 namespace cen::vk {
 
-// TODO Centurion 6: document and test
-
+/**
+ * \brief Returns the address of the `vkGetInstanceProcAddr` function.
+ *
+ * \return the address of the `vkGetInstanceProcAddr` function.
+ *
+ * \since 6.0.0
+ */
 [[nodiscard]] inline auto get_instance_proc_addr() noexcept -> void*
 {
   return SDL_Vulkan_GetVkGetInstanceProcAddr();
 }
 
+/**
+ * \brief Creates a rendering surface for a Vulkan window.
+ *
+ * \pre `window` must be a Vulkan window.
+ *
+ * \tparam T the ownership semantics of the window.
+ *
+ * \param window the Vulkan window.
+ * \param instance the current Vulkan instance.
+ * \param[out] outSurface the handle that will receive the handle of the created surface.
+ *
+ * \return `success` if the surface was succesfully created; `failure` otherwise.
+ *
+ * \since 6.0.0
+ */
 template <typename T>
 auto create_surface(basic_window<T>& window,
                     VkInstance instance,
-                    VkSurfaceKHR* outSurface) noexcept -> bool
+                    VkSurfaceKHR* outSurface) noexcept -> result
 {
   assert(window.is_vulkan());
   return SDL_Vulkan_CreateSurface(window.get(), instance, outSurface) == SDL_TRUE;
 }
 
-template <typename T>
-auto get_extensions(basic_window<T>& window,
-                    unsigned* outCount,
-                    czstring* outNames) noexcept -> bool
+/**
+ * \brief Returns the extensions required to create a Vulkan surface.
+ *
+ * \return the required Vulkan extensions; `std::nullopt` if something goes wrong.
+ *
+ * \since 6.0.0
+ */
+inline auto required_extensions() -> std::optional<std::vector<czstring>>
 {
-  assert(window.is_vulkan());
-  return SDL_Vulkan_GetInstanceExtensions(window.get(), outCount, outNames) == SDL_TRUE;
+  uint count{};
+  if (!SDL_Vulkan_GetInstanceExtensions(nullptr, &count, nullptr))
+  {
+    return std::nullopt;
+  }
+
+  std::vector<czstring> names;
+  names.reserve(count);
+
+  if (!SDL_Vulkan_GetInstanceExtensions(nullptr, &count, names.data()))
+  {
+    return std::nullopt;
+  }
+
+  return names;
 }
 
+/**
+ * \brief Returns the size of the drawable surface associated with the window.
+ *
+ * \pre `window` must be a Vulkan window.
+ *
+ * \tparam T the ownership semantics of the window.
+ *
+ * \param window the Vulkan window that will be queried.
+ *
+ * \return the size of the window drawable.
+ *
+ * \since 6.0.0
+ */
 template <typename T>
 [[nodiscard]] auto drawable_size(const basic_window<T>& window) noexcept -> iarea
 {
@@ -99024,14 +100128,25 @@ class mix_error final : public cen_error
 /// \addtogroup video
 /// \{
 
-namespace cen::vk {
+namespace cen {
 
-// TODO Centurion 6: document and test
-
-class library final
+/**
+ * \class vk_library
+ *
+ * \brief Responsible for loading and unloading a Vulkan library.
+ *
+ * \since 6.0.0
+ */
+class vk_library final
 {
  public:
-  explicit library(const czstring path = nullptr)
+  /**
+   * \brief Loads a Vulkan library.
+   *
+   * \param path optional file path to a Vulkan library; a null path indicates that the
+   * default library will be used.
+   */
+  explicit vk_library(const czstring path = nullptr)
   {
     const auto result = SDL_Vulkan_LoadLibrary(path);
     if (result == -1)
@@ -99040,19 +100155,19 @@ class library final
     }
   }
 
-  library(const library&) = delete;
-  library(library&&) = delete;
+  vk_library(const vk_library&) = delete;
+  vk_library(vk_library&&) = delete;
 
-  auto operator=(const library&) -> library& = delete;
-  auto operator=(library&&) -> library& = delete;
+  auto operator=(const vk_library&) -> vk_library& = delete;
+  auto operator=(vk_library&&) -> vk_library& = delete;
 
-  ~library() noexcept
+  ~vk_library() noexcept
   {
     SDL_Vulkan_UnloadLibrary();
   }
 };
 
-}  // namespace cen::vk
+}  // namespace cen
 
 /// \} End of group video
 
@@ -99548,13 +100663,13 @@ class basic_window final
    * \param capturingMouse `true` if the mouse should be captured; `false`
    * otherwise.
    *
-   * \return `true` on success; `false` otherwise.
+   * \return `success` on the mouse capture was successfully changed; `failure` otherwise.
    *
    * \see `SDL_CaptureMouse`
    *
    * \since 5.0.0
    */
-  static auto set_capturing_mouse(const bool capturingMouse) noexcept -> bool
+  static auto set_capturing_mouse(const bool capturingMouse) noexcept -> result
   {
     return SDL_CaptureMouse(detail::convert_bool(capturingMouse)) == 0;
   }
@@ -100579,6 +101694,38 @@ class basic_renderer final
   /// \{
 
   /**
+   * \brief Fills the entire rendering target with the currently selected color.
+   *
+   * \details This function is different from `clear()` and `clear_with()` in
+   * that it can be used as an intermediate rendering command (just like all
+   * rendering functions). An example of a use case of this function could be
+   * for rendering a transparent background for game menus.
+   *
+   * \since 5.1.0
+   */
+  void fill() noexcept
+  {
+    fill_rect<int>({{}, output_size()});
+  }
+
+  /**
+   * \brief Fills the entire rendering target with the specified color.
+   *
+   * \note This function does not affect the currently set color.
+   *
+   * \copydetails fill()
+   */
+  void fill_with(const color& color) noexcept
+  {
+    const auto oldColor = get_color();
+
+    set_color(color);
+    fill();
+
+    set_color(oldColor);
+  }
+
+  /**
    * \brief Renders the outline of a rectangle in the currently selected color.
    *
    * \tparam U the representation type used by the rectangle.
@@ -100620,38 +101767,6 @@ class basic_renderer final
     {
       SDL_RenderFillRectF(get(), rect.data());
     }
-  }
-
-  /**
-   * \brief Fills the entire rendering target with the currently selected color.
-   *
-   * \details This function is different from `clear()` and `clear_with()` in
-   * that it can be used as an intermediate rendering command (just like all
-   * rendering functions). An example of a use case of this function could be
-   * for rendering a transparent background for game menus.
-   *
-   * \since 5.1.0
-   */
-  void fill() noexcept
-  {
-    fill_rect<int>({{}, output_size()});
-  }
-
-  /**
-   * \brief Fills the entire rendering target with the specified color.
-   *
-   * \note This function does not affect the currently set color.
-   *
-   * \copydetails fill()
-   */
-  void fill_with(const color& color) noexcept
-  {
-    const auto oldColor = get_color();
-
-    set_color(color);
-    fill();
-
-    set_color(oldColor);
   }
 
   /**
@@ -102017,7 +103132,7 @@ class basic_renderer final
    * \since 4.1.0
    */
   template <typename TT = T, detail::is_owner<TT> = 0>
-  [[nodiscard]] auto has_font(const std::size_t id) const noexcept -> bool
+  [[nodiscard]] auto has_font(const std::size_t id) const -> bool
   {
     return static_cast<bool>(m_renderer.fonts.count(id));
   }
@@ -102071,7 +103186,7 @@ class basic_renderer final
    *
    * \since 3.0.0
    */
-  void set_viewport(const irect& viewport) noexcept
+  void set_viewport(const irect viewport) noexcept
   {
     SDL_RenderSetViewport(get(), viewport.data());
   }
@@ -102163,7 +103278,7 @@ class basic_renderer final
    *
    * \since 3.0.0
    */
-  void set_logical_integer_scale(const bool enabled) noexcept
+  void set_logical_integer_scaling(const bool enabled) noexcept
   {
     SDL_RenderSetIntegerScale(get(), detail::convert_bool(enabled));
   }

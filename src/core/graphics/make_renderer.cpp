@@ -18,7 +18,7 @@ auto make_renderer(const cen::window& window) -> cen::renderer
   renderer.emplace_font(glob::menu_font_l, typeWriter, glob::large_font_size);
 
   renderer.set_logical_size(glob::logical_size<>);
-  renderer.set_logical_integer_scale(true);
+  renderer.set_logical_integer_scaling(true);
 
   return renderer;
 }
