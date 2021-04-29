@@ -10,8 +10,8 @@ namespace wanderer::sys {
 
 void update_chase(entt::registry& registry, entt::dispatcher& dispatcher)
 {
-  const auto view = registry.view<comp::chase, comp::movable>();
-  for (auto&& [entity, chase, movable] : view.each())
+  for (auto&& [entity, chase, movable] :
+       registry.view<comp::chase, comp::movable>().each())
   {
     const auto& targetMovable = registry.get<comp::movable>(chase.target);
 
