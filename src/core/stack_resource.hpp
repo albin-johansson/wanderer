@@ -8,6 +8,12 @@ namespace wanderer {
 
 /**
  * \brief Represents a buffer of stack memory, for avoiding dynamic memory allocations.
+ * 
+ * \details The following is an example of you can use this class.
+ * \code{cpp}
+ *   stack_resource<128> resource;
+ *   std::pmr::vector<int> vector{resource.get()};
+ * \endcode
  *
  * \ingroup core
  *
