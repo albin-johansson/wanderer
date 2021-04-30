@@ -73,7 +73,8 @@ struct basic_vector2 final
    */
   void norm()
   {
-    if (const auto mag = magnitude(); mag != 0)
+    const auto mag = magnitude();
+    if (mag != 0) [[likely]]
     {
       x /= mag;
       y /= mag;
@@ -105,20 +106,17 @@ struct basic_vector2 final
    */
   void set_magnitude(const T mag)
   {
-    if (mag <= 0)
+    if (mag > 0) [[likely]]
     {
-      reset();
-      return;
-    }
-
-    const auto previousMag = magnitude();
-    if (previousMag == 0 || previousMag == mag)
-    {
-      return;  // no need to scale
+      const auto previousMag = magnitude();
+      if (previousMag != 0 && previousMag != mag)
+      {
+        scale(mag / previousMag);
+      }
     }
     else
     {
-      scale(mag / previousMag);
+      reset();
     }
   }
 
@@ -185,16 +183,16 @@ struct basic_vector2 final
    */
   void point_at(const basic_vector2<T>& target, const T length)
   {
-    if (length <= 0)
-    {
-      reset();
-    }
-    else
+    if (length >= 0) [[likely]]
     {
       x = target.x - x;
       y = target.y - y;
       norm();
       scale(length);
+    }
+    else
+    {
+      reset();
     }
   }
 
@@ -472,7 +470,8 @@ template <typename T>
   const auto cos = (lhs * rhs) / mag1 / mag2;
   const auto sin = cross(lhs, rhs) / mag1 / mag2;
 
-  if (const auto angle = std::acos(cos); sin < 0)
+  const auto angle = std::acos(cos);
+  if (sin < 0)
   {
     return -angle;
   }
