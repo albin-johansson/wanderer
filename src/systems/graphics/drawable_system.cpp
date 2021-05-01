@@ -9,8 +9,8 @@ namespace wanderer::sys {
 
 void update_drawables(entt::registry& registry)
 {
-  const auto view = registry.view<const comp::movable, comp::depth_drawable>();
-  for (auto&& [entity, movable, drawable] : view.each())
+  for (auto&& [entity, movable, drawable] :
+       registry.view<const comp::movable, comp::depth_drawable>().each())
   {
     drawable.dst.set_x(movable.position.x);
     drawable.dst.set_y(movable.position.y);
