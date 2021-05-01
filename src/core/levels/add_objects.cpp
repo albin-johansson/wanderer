@@ -10,8 +10,8 @@ namespace {
 {
   maybe<comp::inventory::entity> result;
 
-  const auto view = registry.view<comp::inventory, comp::object>();
-  for (auto&& [entity, inventory, object] : view.each())
+  for (auto&& [entity, inventory, object] :
+       registry.view<comp::inventory, comp::object>().each())
   {
     if (object.id == id)
     {
