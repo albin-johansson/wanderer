@@ -45,8 +45,8 @@ void update_level_switch_animations(entt::registry& registry,
 void render_level_switch_animations(const entt::registry& registry,
                                     cen::renderer& renderer)
 {
-  const auto view = registry.view<const comp::level_switch_animation>();
-  for (auto&& [entity, animation] : view.each())
+  for (auto&& [entity, animation] :
+       registry.view<const comp::level_switch_animation>().each())
   {
     constexpr auto logicalSize = glob::logical_size<cen::farea>;
     constexpr auto width = logicalSize.width;
