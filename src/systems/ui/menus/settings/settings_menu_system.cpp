@@ -10,8 +10,8 @@ void sync_settings_menu(entt::registry& registry)
 {
   const auto& settings = registry.ctx<ctx::settings>();
 
-  const auto view = registry.view<const comp::button, comp::checkbox>();
-  for (auto&& [entity, button, checkbox] : view.each())
+  for (auto&& [entity, button, checkbox] :
+       registry.view<const comp::button, comp::checkbox>().each())
   {
     if (button.action == menu_action::toggle_fullscreen)
     {
