@@ -16,8 +16,7 @@ namespace {
 
 void render_hitboxes(const entt::registry& registry, cen::renderer& renderer)
 {
-  const auto view = registry.view<const comp::hitbox>();
-  for (auto&& [entity, hitbox] : view.each())
+  for (auto&& [entity, hitbox] : registry.view<const comp::hitbox>().each())
   {
     if (registry.all_of<comp::portal>(entity) ||
         registry.all_of<comp::container_trigger>(entity))
@@ -70,8 +69,8 @@ void render_chase_ranges(const entt::registry& registry, cen::renderer& renderer
 {
   renderer.set_color(cen::colors::red);
 
-  const auto view = registry.view<const comp::depth_drawable, const comp::chase>();
-  for (auto&& [entity, drawable, chase] : view.each())
+  for (auto&& [entity, drawable, chase] :
+       registry.view<const comp::depth_drawable, const comp::chase>().each())
   {
     renderer.draw_circle_t(drawable.dst.center(), chase.range);
   }
