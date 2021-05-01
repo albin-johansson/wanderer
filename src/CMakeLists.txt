@@ -128,10 +128,10 @@ set(SOURCE_FILES
     core/math/vector2.hpp
 
     core/utils/centurion_utils.hpp
+    core/utils/file_utils.cpp
+    core/utils/file_utils.hpp
     core/utils/nenya.hpp
     core/utils/random_utils.hpp
-    core/utils/time_utils.cpp
-    core/utils/time_utils.hpp
 
     events/begin_attack_event.hpp
     events/begin_humanoid_move_event.hpp
