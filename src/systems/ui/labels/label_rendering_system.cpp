@@ -32,8 +32,8 @@ void render_labels(const entt::registry& registry, graphics_context& graphics)
   const auto active = registry.ctx<const ctx::active_menu>().entity;
   auto& renderer = graphics.renderer();
 
-  const auto view = registry.view<const comp::label, const comp::associated_menu>();
-  for (auto&& [entity, label, associated] : view.each())
+  for (auto&& [entity, label, associated] :
+       registry.view<const comp::label, const comp::associated_menu>().each())
   {
     if (active.get() == associated.entity)
     {
