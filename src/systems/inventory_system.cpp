@@ -59,8 +59,8 @@ void render_inventory(const entt::registry& registry,
                       cen::renderer& renderer,
                       const cen::ipoint& mousePos)
 {
-  const auto view = registry.view<const comp::inventory, const comp::active_inventory>();
-  for (auto&& [entity, inventory] : view.each())
+  for (auto&& [entity, inventory] :
+       registry.view<const comp::inventory, const comp::active_inventory>().each())
   {
     const auto nItems = inventory.items.size();
 
