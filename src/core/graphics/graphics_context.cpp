@@ -9,7 +9,7 @@
 namespace wanderer {
 namespace {
 inline const auto font_path = resources::font("type_writer.ttf");
-}
+}  // namespace
 
 graphics_context::graphics_context(const cen::window& window)
     : m_renderer{make_renderer(window)}
