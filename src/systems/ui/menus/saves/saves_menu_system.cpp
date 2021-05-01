@@ -13,7 +13,7 @@
 #include "core/ecs/registry_utils.hpp"
 #include "core/math/floating.hpp"
 #include "core/menu_constants.hpp"
-#include "core/utils/time_utils.hpp"
+#include "core/utils/file_utils.hpp"
 #include "io/directories.hpp"
 #include "systems/ui/buttons/button_factory_system.hpp"
 #include "systems/ui/buttons/button_system.hpp"
@@ -235,7 +235,7 @@ void change_save_preview(entt::registry& registry)
 
     savesMenu.titleLabel = label(entry.name, 6, 11, text_size::large);
     savesMenu.timeLabel =
-        label("Last modified:  " + file_modification_time(saves_directory() / entry.name),
+        label("Last modified:  " + last_modified(saves_directory() / entry.name),
               7.4f,
               11.0f);
     savesMenu.dataVersionLabel =

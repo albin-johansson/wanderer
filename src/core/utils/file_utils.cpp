@@ -1,4 +1,4 @@
-#include "time_utils.hpp"
+#include "file_utils.hpp"
 
 #include <ctime>  // ctime_s
 
@@ -11,7 +11,7 @@ namespace wanderer {
 // TODO when MSVC implements the date and time zone additions to std::chrono, use those
 //   instead of the old C-style APIs
 
-auto file_modification_time(const std::filesystem::path& path) -> std::string
+auto last_modified(const std::filesystem::path& path) -> std::string
 {
   const auto writeTime = std::filesystem::last_write_time(path);
 
