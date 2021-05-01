@@ -12,9 +12,8 @@ namespace wanderer {
 template <std::ranges::range T, std::invocable<const typename T::value_type&> Callable>
 [[nodiscard]] constexpr auto accumulate(const T& range, Callable&& callable)
 {
-  using value_type = std::invoke_result_t<Callable, typename T::value_type>;
+  std::invoke_result_t<Callable, typename T::value_type> value{};
 
-  value_type value{};
   for (const auto& elem : range)
   {
     value += callable(elem);
