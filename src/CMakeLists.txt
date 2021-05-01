@@ -56,6 +56,7 @@ set(SOURCE_FILES
     components/ui/menu.hpp
     components/ui/saves_menu.hpp
 
+    core/algorithms.hpp
     core/common_concepts.hpp
     core/direction.hpp
     core/game.hpp

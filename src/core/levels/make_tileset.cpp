@@ -1,6 +1,6 @@
 #include "make_tileset.hpp"
 
-#include <cstddef>  // size_t
+#include "core/algorithms.hpp"
 
 namespace wanderer {
 namespace {
@@ -49,16 +49,9 @@ auto make_tileset(const std::vector<ir::tileset>& data,
 {
   auto& tileset = registry.set<ctx::tileset>();
 
-  std::size_t nTiles{};
-  for (const auto& ts : data)
-  {
-    for (const auto& tile : ts.tiles)
-    {
-      ++nTiles;
-    }
-  }
-
-  tileset.tiles.reserve(nTiles);
+  tileset.tiles.reserve(accumulate(data, [](const ir::tileset& tileset) {
+    return tileset.tiles.size();
+  }));
 
   for (const auto& ts : data)
   {
