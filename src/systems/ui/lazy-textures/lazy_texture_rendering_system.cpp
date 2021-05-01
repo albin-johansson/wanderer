@@ -12,9 +12,8 @@ void render_lazy_textures(const entt::registry& registry, graphics_context& grap
   auto& renderer = graphics.renderer();
   const auto active = registry.ctx<const ctx::active_menu>().entity;
 
-  const auto view =
-      registry.view<const comp::lazy_texture, const comp::associated_menu>();
-  for (auto&& [entity, lazy, associated] : view.each())
+  for (auto&& [entity, lazy, associated] :
+       registry.view<const comp::lazy_texture, const comp::associated_menu>().each())
   {
     if (active.get() == associated.entity)
     {
