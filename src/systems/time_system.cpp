@@ -3,10 +3,8 @@
 #include <cmath>  // floor, ceil, lerp
 
 #include "components/ctx/time_of_day.hpp"
-#include "core/aliases/ints.hpp"
-#include "core/menu_constants.hpp"
+#include "core/common_concepts.hpp"
 #include "core/static_vector.hpp"
-#include "core/utils/random_utils.hpp"
 
 namespace wanderer::sys {
 namespace {
@@ -22,21 +20,18 @@ struct phase final
 {
   float phaseStart;
   float phaseEnd;
-  static_vector<float, 5> opacities;
   static_vector<cen::color, 5> colors;
 };
 
 inline const phase sunrise_phase{
     .phaseStart = sunrise,
     .phaseEnd = daytime,
-    .opacities = {0.35f, 0.2f},
     .colors = {cen::color::blend(cen::colors::black, cen::colors::navy, 0.3),
                cen::colors::orange}};
 
 inline const phase day_phase{
     .phaseStart = daytime,
     .phaseEnd = sunset,
-    .opacities = {0.2f, 0.0f, 0.0f, 0.0f, 0.2f},
     .colors = {cen::colors::orange,
                cen::color::blend(cen::colors::white, cen::colors::orange),
                cen::colors::white,
@@ -46,7 +41,6 @@ inline const phase day_phase{
 inline const phase sunset_phase{
     .phaseStart = sunset,
     .phaseEnd = night,
-    .opacities = {0.2f, 0.35f},
     .colors = {cen::color::blend(cen::colors::white, cen::colors::orange, 0.4),
                cen::color::blend(cen::colors::white, cen::colors::orange, 0.75),
                cen::colors::orange,
@@ -56,7 +50,6 @@ inline const phase sunset_phase{
 inline const phase night_phase{
     .phaseStart = night,
     .phaseEnd = sunrise,
-    .opacities = {0.35f},
     .colors = {cen::color::blend(cen::colors::black, cen::colors::navy, 0.3)}};
 
 template <typename T, typename Container, typename Callable>
@@ -84,22 +77,25 @@ template <typename T, typename Container, typename Callable>
   }
 }
 
-[[nodiscard]] auto get_color(const phase& currentPhase, const float hour) -> cen::color
+[[nodiscard]] auto get_color(const phase& current, const float hour) -> cen::color
 {
-  return next_value<cen::color>(currentPhase,
-                                currentPhase.colors,
-                                hour,
-                                cen::color::blend);
-}
+  if (current.colors.size() == 1)
+  {
+    return current.colors.at(0);
+  }
+  else
+  {
+    const auto a = hour - current.phaseStart;
+    const auto b = current.phaseEnd - current.phaseStart;
 
-[[nodiscard]] auto get_darkness(const phase& current, const float hour) -> float
-{
-  return next_value<float>(current,
-                           current.opacities,
-                           hour,
-                           [](float a, float b, float bias) noexcept {
-                             return std::lerp(a, b, bias);
-                           });
+    const auto dd = (a / b) * (static_cast<float>(cen::isize(current.colors)) - 1.0f);
+    const auto ddFloor = std::floor(dd);
+
+    const auto c1 = current.colors.at(static_cast<std::size_t>(ddFloor));
+    const auto c2 = current.colors.at(static_cast<std::size_t>(std::ceil(dd)));
+
+    return cen::color::blend(c1, c2, dd - ddFloor);
+  }
 }
 
 [[nodiscard]] auto get_phase(const float hour) -> const phase&
@@ -134,7 +130,6 @@ void update_time(entt::registry& registry, const delta_time dt)
 
   const auto& phase = get_phase(time.hour);
   time.color = get_color(phase, time.hour);
-  time.opacity = static_cast<u8>(get_darkness(phase, time.hour) * 255.0);
 
   if (time.hour >= 24)
   {

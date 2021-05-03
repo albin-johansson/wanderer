@@ -12,13 +12,12 @@ struct time_of_day final
   float minute{};   ///< [0, 60)
   float seconds{};  ///< This has no predefined range, it is reset once per in-game day
 
-  u8 opacity{};
   cen::color color;
 };
 
 void serialize(auto& archive, time_of_day& t)
 {
-  archive(t.hour, t.minute, t.seconds, t.opacity, t.color);
+  archive(t.hour, t.minute, t.seconds, t.color);
 }
 
 }  // namespace wanderer::ctx

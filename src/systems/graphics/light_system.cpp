@@ -1,7 +1,6 @@
 #include "light_system.hpp"
 
-#include <cmath>   // clamp
-#include <string>  // string
+#include <cmath>  // clamp
 
 #include "components/ctx/player.hpp"
 #include "components/ctx/viewport.hpp"
@@ -15,9 +14,7 @@ using namespace entt::literals;
 
 namespace wanderer::sys {
 namespace {
-
 inline const auto texture_path = resources::texture("ardentryst/glow.png");
-
 }
 
 void update_lights(entt::registry& registry)
@@ -48,47 +45,31 @@ void render_lights(const entt::registry& registry,
                    const ctx::settings& settings)
 {
   auto& renderer = graphics.renderer();
+  auto& texture = graphics.light_canvas();
 
-  if (settings.simulateLights)
+  renderer.set_target(texture);
+  renderer.clear_with(time.color);
+
+  const auto index = graphics.load("point_light"_hs, texture_path);
+  const auto& viewport = registry.ctx<const ctx::viewport>();
+  constexpr auto source = cen::rect(0, 0, 80, 80);
+
+  for (auto&& [entity, light] : registry.view<const comp::point_light>().each())
   {
-    auto& texture = graphics.light_canvas();
-    texture.set_alpha(time.opacity);
+    const auto& pos = light.position;
 
-    renderer.set_target(&texture);
-    renderer.clear_with(cen::colors::black);
+    const auto size = light.size + light.fluctuation;
+    const auto halfSize = size / 2.0f;
 
-    texture.set_blend_mode(cen::blend_mode::blend);
-    renderer.fill_with(time.color);
-
-    texture.set_blend_mode(cen::blend_mode::mod);
-
-    const auto index = graphics.load("point_light"_hs, texture_path);
-    const auto& viewport = registry.ctx<const ctx::viewport>();
-
-    constexpr cen::irect source{{}, {80, 80}};
-
-    for (auto&& [entity, light] : registry.view<const comp::point_light>().each())
+    const cen::frect dst{pos.x - halfSize, pos.y - halfSize, size, size};
+    if (cen::intersects(viewport.bounds, dst))
     {
-      const auto& pos = light.position;
-
-      const auto size = light.size + light.fluctuation;
-      const auto halfSize = size / 2.0f;
-
-      const cen::frect dst{pos.x - halfSize, pos.y - halfSize, size, size};
-      if (cen::intersects(viewport.bounds, dst))
-      {
-        graphics.render(index, source, dst);
-      }
+      graphics.render(index, source, dst);
     }
+  }
 
-    renderer.set_target(nullptr);
-    renderer.set_blend_mode(cen::blend_mode::blend);
-    renderer.render(texture, cen::point(0, 0));
-  }
-  else
-  {
-    renderer.fill_with(cen::colors::black.with_alpha(time.opacity));
-  }
+  renderer.reset_target();
+  renderer.render(texture, cen::point(0, 0));
 }
 
 }  // namespace wanderer::sys
