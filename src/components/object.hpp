@@ -12,7 +12,7 @@ struct object final
 {
   using entity = entity_type<detail::object_entity_t>;
 
-  int id;
+  int id{};
 };
 
 void serialize(auto& archive, object& o, u32 version)
