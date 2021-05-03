@@ -15,7 +15,8 @@ struct chase final
   using entity = entity_type<detail::chase_entity_t>;
 
   entt::entity target{entt::null};
-  float range;
+  float range{};
+  bool active{};
 };
 
 void serialize(auto& archive, chase& c, u32 version)
