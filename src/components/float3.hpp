@@ -4,9 +4,9 @@ namespace wanderer::comp {
 
 struct float3 final
 {
-  float x;
-  float y;
-  float z;
+  float x{};
+  float y{};
+  float z{};
 };
 
 void serialize(auto& archive, float3& f)
