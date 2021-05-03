@@ -3,10 +3,57 @@
 #include "components/chase.hpp"
 #include "components/humanoid_state.hpp"
 #include "components/movable.hpp"
-#include "systems/humanoid/humanoid_animation_system.hpp"
-#include "systems/movement/direction_system.hpp"
+#include "components/roam.hpp"
+#include "systems/humanoid/humanoid_state_system.hpp"
 
 namespace wanderer::sys {
+namespace {
+
+inline constexpr float cooldown_duration = 200;
+
+void begin_chase(entt::registry& registry,
+                 const entt::entity entity,
+                 comp::chase& chase,
+                 comp::movable& movable,
+                 const float2 destination)
+{
+  registry.remove_if_exists<comp::roam>(entity);
+
+  movable.velocity = movable.position;
+  movable.velocity.point_at(destination, movable.speed);
+
+  if (!registry.all_of<comp::humanoid_move>(entity))
+  {
+    make_humanoid_move(registry, entity);
+  }
+
+  chase.active = true;
+}
+
+void end_chase(entt::registry& registry,
+               const entt::entity entity,
+               comp::chase& chase,
+               comp::movable& movable)
+{
+  if (chase.active)
+  {
+    if (!registry.all_of<comp::humanoid_idle>(entity))
+    {
+      make_humanoid_idle(registry, entity);
+    }
+
+    if (!registry.all_of<comp::roam>(entity))
+    {
+      auto& roam = registry.emplace<comp::roam>(entity);
+      roam.cooldownDuration = cooldown_duration;
+      roam.cooldown = 0;
+    }
+  }
+
+  chase.active = false;
+}
+
+}  // namespace
 
 void update_chase(entt::registry& registry, entt::dispatcher& dispatcher)
 {
@@ -17,25 +64,11 @@ void update_chase(entt::registry& registry, entt::dispatcher& dispatcher)
 
     if (distance(movable.position, targetMovable.position) <= chase.range)
     {
-      movable.velocity = movable.position;
-      movable.velocity.point_at(targetMovable.position, movable.speed);
-
-      if (!registry.all_of<comp::humanoid_move>(entity))
-      {
-        registry.emplace<comp::humanoid_move>(entity);
-        enter_move_animation(registry, entity, dominant_direction(movable));
-      }
+      begin_chase(registry, entity, chase, movable, targetMovable.position);
     }
     else
     {
-      movable.velocity.reset();
-      if (!registry.all_of<comp::humanoid_idle>(entity))
-      {
-        registry.emplace<comp::humanoid_idle>(entity);
-        enter_idle_animation(registry, entity);
-      }
-
-      // TODO roam
+      end_chase(registry, entity, chase, movable);
     }
   }
 }

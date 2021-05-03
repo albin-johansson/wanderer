@@ -13,6 +13,7 @@ set(SOURCE_FILES
     components/humanoid_state.hpp
     components/movable.hpp
     components/object.hpp
+    components/roam.hpp
 
     components/ctx/active_menu.hpp
     components/ctx/binds.hpp
@@ -188,6 +189,8 @@ set(SOURCE_FILES
 
     systems/ai/chase_system.cpp
     systems/ai/chase_system.hpp
+    systems/ai/roam_system.cpp
+    systems/ai/roam_system.hpp
 
     systems/configuration/load_binds_system.cpp
     systems/configuration/load_binds_system.hpp

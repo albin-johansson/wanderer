@@ -12,6 +12,7 @@
 #include "events/integer_scaling_toggled_event.hpp"
 #include "io/saves/save_game.hpp"
 #include "systems/ai/chase_system.hpp"
+#include "systems/ai/roam_system.hpp"
 #include "systems/configuration/load_binds_system.hpp"
 #include "systems/configuration/settings_system.hpp"
 #include "systems/graphics/animation_system.hpp"
@@ -88,6 +89,7 @@ void game::tick(const delta_time dt)
   sys::update_humanoid_states(registry, m_dispatcher);
 
   sys::update_chase(registry, m_dispatcher);
+  sys::update_roaming(registry, dt);
   sys::update_movement(registry, level.tree(), dt);
   sys::update_drawables(registry);
   sys::update_particles(registry, dt);
