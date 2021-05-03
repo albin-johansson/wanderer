@@ -14,14 +14,14 @@ struct chase final
 {
   using entity = entity_type<detail::chase_entity_t>;
 
-  entt::entity target{entt::null};
-  float range{};
-  bool active{};
+  entt::entity target{entt::null};  ///< The entity that will be chased.
+  float range{};  ///< The maximum distance at which the target can be chased.
+  bool active{};  ///< Whether or not the target is within range.
 };
 
 void serialize(auto& archive, chase& c, u32 version)
 {
-  archive(c.range);  // We intentionally do not serialize the target entity
+  archive(c.range, c.active);  // We intentionally do not serialize the target entity
 }
 
 }  // namespace wanderer::comp
