@@ -258,10 +258,6 @@ void game::on_button_pressed(const button_pressed_event& event)
       m_dispatcher.enqueue<integer_scaling_toggled_event>(enabled);
       break;
     }
-    case menu_action::toggle_lights: {
-      sys::toggle_simulate_lights(m_shared);
-      break;
-    }
   }
 }
 

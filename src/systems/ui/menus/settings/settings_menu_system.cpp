@@ -21,10 +21,6 @@ void sync_settings_menu(entt::registry& registry)
     {
       checkbox.checked = settings.integerScaling;
     }
-    else if (button.action == menu_action::toggle_lights)
-    {
-      checkbox.checked = settings.simulateLights;
-    }
   }
 }
 

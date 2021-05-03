@@ -19,8 +19,7 @@ enum class menu_action
   decrement_saves_button_group_page,
   quit,
   toggle_fullscreen,
-  toggle_integer_scaling,
-  toggle_lights
+  toggle_integer_scaling
 };
 
 }  // namespace wanderer

@@ -42,7 +42,6 @@ void add_checkboxes(entt::registry& registry, const comp::menu::entity menuEntit
 
   checkbox("Fullscreen", 6, 13, menu_action::toggle_fullscreen);
   checkbox("Integer scaling", 7, 13, menu_action::toggle_integer_scaling);
-  checkbox("Simulate lights", 8, 13, menu_action::toggle_lights);
 }
 
 }  // namespace

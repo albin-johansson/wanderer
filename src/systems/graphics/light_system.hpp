@@ -32,9 +32,6 @@ void update_player_light_position(entt::registry& registry);
 /**
  * \brief Renders all lights currently in the viewport bounds.
  *
- * \details This function will just render a simple transparent overlay if light
- * simulation has been disabled.
- *
  * \ingroup systems
  *
  * \param registry the current level registry.

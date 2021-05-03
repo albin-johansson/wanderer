@@ -42,17 +42,6 @@ auto toggle_fullscreen(entt::registry& registry) -> bool;
 auto toggle_integer_scaling(entt::registry& registry) -> bool;
 
 /**
- * \brief Toggles the value of the "simulate lights" setting.
- *
- * \ingroup systems
- *
- * \param registry the shared data registry that contains the settings.
- *
- * \return the new value of the setting.
- */
-auto toggle_simulate_lights(entt::registry& registry) -> bool;
-
-/**
  * \brief Updates the settings file in the preferred file directory.
  *
  * \ingroup systems

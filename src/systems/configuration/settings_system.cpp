@@ -19,7 +19,6 @@ inline const auto settings_file = files_directory() / "settings.ini";
 
   settings.fullscreen = true;
   settings.integerScaling = true;
-  settings.simulateLights = true;
 
   return settings;
 }
@@ -28,7 +27,6 @@ void log_settings(const ctx::settings& settings)
 {
   cen::log::info("  [bool] fullscreen = %i", settings.fullscreen);
   cen::log::info("  [bool] integerScaling = %i", settings.integerScaling);
-  cen::log::info("  [bool] simulateLights = %i", settings.simulateLights);
 }
 
 [[nodiscard]] auto read_settings(const std::filesystem::path& path,
@@ -44,7 +42,6 @@ void log_settings(const ctx::settings& settings)
   // clang-format off
   settings.fullscreen = file.get<bool>("Graphics", "Fullscreen").value_or(defaults.fullscreen);
   settings.integerScaling = file.get<bool>("Graphics", "UseIntegerScaling").value_or(defaults.integerScaling);
-  settings.simulateLights = file.get<bool>("Graphics", "SimulateLights").value_or(defaults.simulateLights);
   // clang-format on
 
   if constexpr (cen::is_debug_build())
@@ -88,13 +85,6 @@ auto toggle_integer_scaling(entt::registry& registry) -> bool
   return settings.integerScaling;
 }
 
-auto toggle_simulate_lights(entt::registry& registry) -> bool
-{
-  auto& settings = registry.ctx<ctx::settings>();
-  settings.simulateLights = !settings.simulateLights;
-  return settings.simulateLights;
-}
-
 void save_settings_before_exit(const entt::registry& registry)
 {
   const auto& settings = registry.ctx<const ctx::settings>();
@@ -108,7 +98,6 @@ void save_settings_before_exit(const entt::registry& registry)
 
   stream << "Fullscreen=" << toString(settings.fullscreen) << '\n';
   stream << "UseIntegerScaling=" << toString(settings.integerScaling) << '\n';
-  stream << "SimulateLights=" << toString(settings.simulateLights);
 
   if constexpr (cen::is_debug_build())
   {
