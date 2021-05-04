@@ -13,7 +13,7 @@ namespace {
 
 inline const auto settings_file = files_directory() / "settings.ini";
 
-[[nodiscard]] auto default_settings() noexcept -> ctx::settings
+[[nodiscard]] constexpr auto default_settings() noexcept -> ctx::settings
 {
   ctx::settings settings;
 
@@ -29,20 +29,18 @@ void log_settings(const ctx::settings& settings)
   cen::log::info("  [bool] integerScaling = %i", settings.integerScaling);
 }
 
-[[nodiscard]] auto read_settings(const std::filesystem::path& path,
-                                 const ctx::settings& defaults) -> ctx::settings
+[[nodiscard]] auto read_settings(const std::filesystem::path& path) -> ctx::settings
 {
+  CENTURION_LOG_INFO("Reading settings: \"%s\"", path.string().c_str());
+
   std::ifstream stream{path};
   const ini_file file{stream};
 
-  CENTURION_LOG_INFO("Reading settings: \"%s\"", path.string().c_str());
-
-  ctx::settings settings{};
-
-  // clang-format off
-  settings.fullscreen = file.get<bool>("Graphics", "Fullscreen").value_or(defaults.fullscreen);
-  settings.integerScaling = file.get<bool>("Graphics", "UseIntegerScaling").value_or(defaults.integerScaling);
-  // clang-format on
+  auto settings = default_settings();
+  settings.fullscreen =
+      file.get<bool>("Graphics", "Fullscreen").value_or(settings.fullscreen);
+  settings.integerScaling =
+      file.get<bool>("Graphics", "UseIntegerScaling").value_or(settings.integerScaling);
 
   if constexpr (cen::is_debug_build())
   {
@@ -57,17 +55,15 @@ void log_settings(const ctx::settings& settings)
 
 void load_settings(entt::registry& registry)
 {
-  const auto defaults = default_settings();
-
   if (std::filesystem::exists(settings_file))
   {
-    registry.set<ctx::settings>(read_settings(settings_file, defaults));
+    registry.set<ctx::settings>(read_settings(settings_file));
   }
   else
   {
     CENTURION_LOG_INFO("Copying default settings to preferred path...");
     std::filesystem::copy("resources/settings.ini", settings_file);
-    registry.set<ctx::settings>(defaults);
+    registry.set<ctx::settings>(default_settings());
   }
 }
 
@@ -89,15 +85,14 @@ void save_settings_before_exit(const entt::registry& registry)
 {
   const auto& settings = registry.ctx<const ctx::settings>();
 
-  const auto toString = [](const bool value) {
+  const auto stringify = [](const bool value) {
     return value ? "true" : "false";
   };
 
   std::ofstream stream{settings_file};
   stream << "[Graphics]\n";
-
-  stream << "Fullscreen=" << toString(settings.fullscreen) << '\n';
-  stream << "UseIntegerScaling=" << toString(settings.integerScaling) << '\n';
+  stream << "Fullscreen=" << stringify(settings.fullscreen) << '\n';
+  stream << "UseIntegerScaling=" << stringify(settings.integerScaling) << '\n';
 
   if constexpr (cen::is_debug_build())
   {
