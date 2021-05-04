@@ -5,7 +5,7 @@
 namespace wanderer::sys {
 namespace {
 
-auto horizontal_dominant_direction(const comp::movable& movable) noexcept
+[[nodiscard]] auto horizontal_dominant_direction(const comp::movable& movable) noexcept
     -> maybe<direction>
 {
   if (movable.velocity.x < 0)
@@ -22,7 +22,7 @@ auto horizontal_dominant_direction(const comp::movable& movable) noexcept
   }
 }
 
-auto vertical_dominant_direction(const comp::movable& movable) noexcept
+[[nodiscard]] auto vertical_dominant_direction(const comp::movable& movable) noexcept
     -> maybe<direction>
 {
   if (movable.velocity.y < 0)
