@@ -11,6 +11,7 @@
 #include "components/hitbox.hpp"
 #include "components/humanoid_state.hpp"
 #include "components/movable.hpp"
+#include "components/roam.hpp"
 #include "core/direction.hpp"
 #include "core/game_constants.hpp"
 #include "core/resources.hpp"
@@ -145,6 +146,9 @@ auto make_skeleton(entt::registry& registry,
   auto& chase = registry.emplace<comp::chase>(skeleton);
   chase.target = registry.ctx<ctx::player>().entity;
   chase.range = 150;
+
+  auto& roam = registry.emplace<comp::roam>(skeleton);
+  roam.cooldownDuration = 100;
 
   return skeleton;
 }
