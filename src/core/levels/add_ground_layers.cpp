@@ -6,8 +6,7 @@ void add_ground_layers(entt::registry& registry, const ir::level& data)
 {
   for (const auto& groundLayer : data.groundLayers)
   {
-    const auto entity = registry.create();
-    auto& layer = registry.emplace<comp::tile_layer>(entity, groundLayer);
+    auto& layer = registry.emplace<comp::tile_layer>(registry.create(), groundLayer);
     layer.matrix.shrink_to_fit();
   }
 
