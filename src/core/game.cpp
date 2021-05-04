@@ -4,8 +4,6 @@
 #include "components/ctx/renderer_snapshot.hpp"
 #include "components/ctx/settings.hpp"
 #include "components/graphics/level_switch_animation.hpp"
-#include "components/ui/button.hpp"
-#include "components/ui/button_group.hpp"
 #include "core/ecs/event_connections.hpp"
 #include "core/ecs/make_dispatcher.hpp"
 #include "events/fullscreen_toggled_event.hpp"
@@ -21,6 +19,7 @@
 #include "systems/graphics/drawable_system.hpp"
 #include "systems/graphics/light_system.hpp"
 #include "systems/graphics/particle_system.hpp"
+#include "systems/graphics/render_bounds_system.hpp"
 #include "systems/graphics/tile_animation_system.hpp"
 #include "systems/graphics/tile_layer_rendering_system.hpp"
 #include "systems/graphics/tile_object_animation_system.hpp"
@@ -32,10 +31,8 @@
 #include "systems/movement/movement_system.hpp"
 #include "systems/movement/portal_system.hpp"
 #include "systems/shared_registry_factory_system.hpp"
-#include "systems/tile_layer_system.hpp"
 #include "systems/time_system.hpp"
 #include "systems/ui/hud/level_switch_animation_system.hpp"
-#include "systems/ui/menus/menu_factory_system.hpp"
 #include "systems/ui/menus/menu_rendering_system.hpp"
 #include "systems/ui/menus/menu_system.hpp"
 #include "systems/ui/menus/saves/saves_menu_system.hpp"
@@ -113,12 +110,10 @@ void game::tick(const delta_time dt)
 void game::render(graphics_context& graphics, const cen::ipoint mousePos)
 {
   auto& renderer = graphics.renderer();
-
-  auto& level = m_levels.current();
-  const auto& registry = level.registry();
+  auto& registry = m_levels.registry();
 
   sys::translate_viewport(registry, renderer);
-  level.update_render_bounds();
+  sys::update_render_bounds(registry);
 
   sys::render_tile_layers(registry, graphics);
   sys::render_drawables(registry, graphics);

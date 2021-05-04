@@ -1,9 +1,6 @@
 #pragma once
 
-#include <centurion.hpp>  // frect
 #include <entt.hpp>       // registry
-
-#include "components/ctx/render_bounds.hpp"
 
 namespace wanderer::sys {
 
@@ -20,10 +17,8 @@ namespace wanderer::sys {
  * \ingroup systems
  *
  * \param registry the current level registry.
- * \param nRows the amount of tile rows in the current level.
- * \param nCols the amount of tile columns in the current level.
  */
-void update_render_bounds(entt::registry& registry, int nRows, int nCols);
+void update_render_bounds(entt::registry& registry);
 
 /// \} End of render bounds
 

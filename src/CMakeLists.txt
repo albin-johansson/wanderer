@@ -18,6 +18,7 @@ set(SOURCE_FILES
     components/ctx/active_menu.hpp
     components/ctx/binds.hpp
     components/ctx/cursors.hpp
+    components/ctx/level_size.hpp
     components/ctx/outside_level.hpp
     components/ctx/player.hpp
     components/ctx/render_bounds.hpp

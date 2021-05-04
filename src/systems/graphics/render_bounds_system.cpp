@@ -1,5 +1,7 @@
 #include "render_bounds_system.hpp"
 
+#include "components/ctx/level_size.hpp"
+#include "components/ctx/render_bounds.hpp"
 #include "components/ctx/viewport.hpp"
 #include "core/game_constants.hpp"
 
@@ -62,15 +64,16 @@ namespace {
 
 }  // namespace
 
-void update_render_bounds(entt::registry& registry, const int nRows, const int nCols)
+void update_render_bounds(entt::registry& registry)
 {
   const auto& viewport = registry.ctx<ctx::viewport>();
+  const auto& size = registry.ctx<ctx::level_size>();
 
   auto& bounds = registry.set<ctx::render_bounds>();
   bounds.minCol = calculate_min_col(viewport.bounds.x());
   bounds.minRow = calculate_min_row(viewport.bounds.y());
-  bounds.maxCol = calculate_max_col(viewport.bounds.max_x(), nCols);
-  bounds.maxRow = calculate_max_row(viewport.bounds.max_y(), nRows);
+  bounds.maxCol = calculate_max_col(viewport.bounds.max_x(), size.cols);
+  bounds.maxRow = calculate_max_row(viewport.bounds.max_y(), size.rows);
 }
 
 }  // namespace wanderer::sys

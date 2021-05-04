@@ -34,8 +34,6 @@ namespace wanderer {
 class level final
 {
  public:
-  using aabb_type = typename aabb_tree::aabb_type;
-
   /**
    * \brief Creates a level based on a parsed tilemap file.
    *
@@ -52,65 +50,31 @@ class level final
    */
   level(const std::filesystem::path& path, graphics_context& graphics);
 
-  /**
-   * \brief Saves the level as a binary save file.
-   *
-   * \param path the file path of the binary save file.
-   */
+  /// \brief Saves the level as a binary save file.
   void save(const std::filesystem::path& path) const;
 
-  void update_render_bounds();
-
-  /**
-   * \brief Returns the unique ID associated with the level.
-   *
-   * \return the ID of the level.
-   */
+  /// Returns the unique ID associated with the level.
   [[nodiscard]] auto id() const noexcept -> map_id;
 
-  /**
-   * \brief Returns the tilemap entity associated with the level.
-   *
-   * \return the tilemap entity.
-   */
+  /// Returns the tilemap entity associated with the level.
   [[nodiscard]] auto tilemap() const -> comp::tilemap::entity;
 
-  /**
-   * \brief Returns the spawnpoint of the player in the level.
-   *
-   * \return the player spawnpoint.
-   */
+  /// Returns the spawnpoint of the player in the level.
   [[nodiscard]] auto player_spawnpoint() const -> float2;
 
-  /**
-   * \brief Returns the number of rows in the level tilemap.
-   *
-   * \return the amount of rows in the tilemap.
-   */
+  /// Returns the number of rows in the level tilemap.
   [[nodiscard]] auto row_count() const -> int;
 
-  /**
-   * \brief Returns the number of columns in the level tilemap.
-   *
-   * \return the amount of columns in the tilemap.
-   */
+  /// Returns the number of columns in the level tilemap.
   [[nodiscard]] auto col_count() const -> int;
 
-  /**
-   * \brief Returns the registry associated with the level.
-   *
-   * \return the registry associated with the level.
-   */
+  /// Returns the registry associated with the level.
   [[nodiscard]] auto registry() -> entt::registry&;
 
   /// \copydoc registry()
   [[nodiscard]] auto registry() const -> const entt::registry&;
 
-  /**
-   * \brief Returns the AABB tree used by the level.
-   *
-   * \return the associated AABB tree.
-   */
+  /// Returns the AABB tree used by the level.
   [[nodiscard]] auto tree() -> aabb_tree&;
 
  private:

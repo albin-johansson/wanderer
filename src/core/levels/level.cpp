@@ -5,6 +5,7 @@
 #include "add_ground_layers.hpp"
 #include "add_objects.hpp"
 #include "add_tile_objects.hpp"
+#include "components/ctx/level_size.hpp"
 #include "components/humanoid_state.hpp"
 #include "core/ecs/make_registry.hpp"
 #include "core/serialization.hpp"
@@ -30,6 +31,10 @@ level::level(const ir::level& data, graphics_context& graphics)
   load_tileset_textures(data, graphics);
   auto& tileset = make_tileset(data.tilesets, m_registry, graphics);
   auto& tilemap = make_tilemap(data, m_registry, m_tilemap);
+
+  auto& size = m_registry.set<ctx::level_size>();
+  size.rows = tilemap.rows;
+  size.cols = tilemap.cols;
 
   m_registry.set<ctx::viewport>(sys::make_viewport(tilemap.size));
 
@@ -72,11 +77,6 @@ void level::save(const std::filesystem::path& path) const
   archive(m_tree);
   archive(m_tilemap);
   archive(m_playerSpawnPosition);
-}
-
-void level::update_render_bounds()
-{
-  sys::update_render_bounds(m_registry, row_count(), col_count());
 }
 
 auto level::id() const noexcept -> map_id
