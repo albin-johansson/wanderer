@@ -12,6 +12,7 @@ namespace wanderer::sys {
 namespace {
 
 inline constexpr float cooldown_rate = 50;
+inline constexpr float target_error_margin = 1;
 
 [[nodiscard]] auto nearby_position(const float2 position)
 {
@@ -72,12 +73,9 @@ void update_roaming(entt::registry& registry, const delta_time dt)
         target_nearby_position(registry, entity, roam, movable);
       }
     }
-    else
+    else if (distance(movable.position, *roam.destination) < target_error_margin)
     {
-      if (distance(movable.position, *roam.destination) < 5.0f)
-      {
-        begin_cooldown(registry, entity, roam, movable);
-      }
+      begin_cooldown(registry, entity, roam, movable);
     }
   }
 }
