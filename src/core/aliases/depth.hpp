@@ -10,7 +10,7 @@ struct depth_tag_t;
 
 using depth_t = nenya::mirror_type<i32, detail::depth_tag_t>;
 
-[[nodiscard]] constexpr auto operator"" _depth(unsigned long long d) noexcept -> depth_t
+[[nodiscard]] constexpr auto operator"" _depth(const ulonglong d) noexcept -> depth_t
 {
   return depth_t{static_cast<int>(d)};
 }
