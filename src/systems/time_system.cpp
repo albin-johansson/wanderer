@@ -79,23 +79,7 @@ template <typename T, typename Container, typename Callable>
 
 [[nodiscard]] auto get_color(const phase& current, const float hour) -> cen::color
 {
-  if (current.colors.size() == 1)
-  {
-    return current.colors.at(0);
-  }
-  else
-  {
-    const auto a = hour - current.phaseStart;
-    const auto b = current.phaseEnd - current.phaseStart;
-
-    const auto dd = (a / b) * (static_cast<float>(cen::isize(current.colors)) - 1.0f);
-    const auto ddFloor = std::floor(dd);
-
-    const auto c1 = current.colors.at(static_cast<std::size_t>(ddFloor));
-    const auto c2 = current.colors.at(static_cast<std::size_t>(std::ceil(dd)));
-
-    return cen::color::blend(c1, c2, dd - ddFloor);
-  }
+  return next_value<cen::color>(current, current.colors, hour, cen::color::blend);
 }
 
 [[nodiscard]] auto get_phase(const float hour) -> const phase&
