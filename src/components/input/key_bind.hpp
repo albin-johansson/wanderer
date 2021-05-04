@@ -15,7 +15,7 @@ struct key_bind final
   using entity = entity_type<detail::key_bind_t>;
 
   cen::scan_code key;
-  menu_action action;
+  menu_action action{menu_action::none};
 };
 
 }  // namespace wanderer::comp

@@ -29,7 +29,7 @@ struct tile final
   using entity = entity_type<detail::tile_entity_t>;
 
   tile_id id{glob::empty_tile};  ///< Unique ID associated with the tile.
-  texture_index texture;         ///< Associated texture index.
+  texture_index texture{};       ///< Associated texture index.
   cen::irect src;                ///< Region in associated tileset.
   depth_t depth{5};              ///< Rendering depth heuristic.
 };

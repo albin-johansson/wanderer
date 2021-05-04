@@ -18,7 +18,7 @@ struct button final
 {
   using entity = entity_type<detail::button_entity_t>;
 
-  menu_action action;
+  menu_action action{menu_action::none};
   std::string text;
   grid_position position;
   bool enabled{true};

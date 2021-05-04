@@ -20,9 +20,9 @@ struct menu final
 {
   using entity = entity_type<detail::menu_entity_t>;
 
-  menu_id id;
+  menu_id id{};
   std::string title;
-  bool blocking;
+  bool blocking{};
 };
 
 struct home_menu final

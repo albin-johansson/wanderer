@@ -16,7 +16,7 @@ struct inventory final
   using entity = entity_type<detail::inventory_entity_t>;
 
   std::vector<item::entity> items;  ///< List of items in the inventory.
-  int capacity;                     ///< Maximum capacity of inventory.
+  int capacity{};                   ///< Maximum capacity of inventory.
 };
 
 struct active_inventory final

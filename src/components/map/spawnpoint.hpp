@@ -13,7 +13,7 @@ enum class spawnpoint_type
 
 struct spawnpoint final
 {
-  spawnpoint_type type;
+  spawnpoint_type type{};
   float2 position;
 };
 

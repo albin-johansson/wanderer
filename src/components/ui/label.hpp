@@ -20,7 +20,7 @@ struct label final
   grid_position position;
   std::string text;
   cen::color color;
-  text_size size;
+  text_size size{};
 
   mutable maybe<cen::texture> texture;
 };

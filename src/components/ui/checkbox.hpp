@@ -11,7 +11,7 @@ struct checkbox final
 {
   using entity = entity_type<detail::checkbox_entity_t>;
 
-  bool checked;
+  bool checked{};
 };
 
 }  // namespace wanderer::comp

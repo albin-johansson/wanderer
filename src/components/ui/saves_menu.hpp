@@ -22,7 +22,7 @@ struct saves_menu_entry final
 
   std::string name;      ///< The name of the save file.
   cen::surface preview;  ///< The preview image for the save.
-  int dataVersion;       ///< The serialized data version used by the save.
+  int dataVersion{};     ///< The serialized data version used by the save.
 
   // TODO total play time
 };
