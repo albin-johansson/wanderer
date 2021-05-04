@@ -170,8 +170,7 @@ class graphics_context final
   cen::font_cache m_mediumFontCache;
   cen::font_cache m_largeFontCache;
 
-  // Used as a rendering target for simulating lights
-  cen::texture m_lightCanvas;
+  cen::texture m_lightCanvas;  // Used as a rendering target for simulating lights
   cen::pixel_format m_format;
 
   // We store used IDs so that we avoid loading the same texture more than once
