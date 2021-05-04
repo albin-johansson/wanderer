@@ -16,7 +16,6 @@ namespace {
   {
     auto next = oldPosition;
     next.y = oldPosition.y + (movable.velocity.y * dt);
-
     return with_position(hitbox, next);
   }
   else
