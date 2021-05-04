@@ -9,8 +9,8 @@ namespace wanderer {
 
 struct save_file_info final
 {
-  map_id world;
-  map_id current;
+  map_id world{};
+  map_id current{};
   std::map<map_id, std::filesystem::path> paths;
 };
 
