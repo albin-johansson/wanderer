@@ -1,13 +1,12 @@
 #pragma once
 
-#include <entt.hpp>  // entity, null_t
-
-#include "core/utils/nenya.hpp"
+#include <entt.hpp>   // entity, null_t
+#include <nenya.hpp>  // strong_type
 
 namespace wanderer {
 
 template <typename T>
-using entity_type = nenya::mirror_type<entt::entity, T>;
+using entity_type = nenya::strong_type<entt::entity, T>;
 
 template <typename T>
 [[nodiscard]] constexpr auto operator==(const entity_type<T> e, const entt::null_t null)

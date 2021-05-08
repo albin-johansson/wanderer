@@ -1,14 +1,15 @@
 #pragma once
 
+#include <nenya.hpp>  // strong_type
+
 #include "core/aliases/ints.hpp"
-#include "core/utils/nenya.hpp"
 
 namespace wanderer {
 namespace detail {
 struct tile_id_t;
 }
 
-using tile_id = nenya::mirror_type<u32, detail::tile_id_t>;
+using tile_id = nenya::strong_type<u32, detail::tile_id_t>;
 
 namespace glob {
 inline constexpr tile_id empty_tile{0};

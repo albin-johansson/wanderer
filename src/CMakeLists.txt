@@ -132,7 +132,6 @@ set(SOURCE_FILES
     core/utils/centurion_utils.hpp
     core/utils/file_utils.cpp
     core/utils/file_utils.hpp
-    core/utils/nenya.hpp
     core/utils/random_utils.hpp
 
     events/begin_attack_event.hpp
@@ -328,6 +327,7 @@ add_header_only_lib(libENTT ${LIBRARY_DIR}/entt ${LIBRARY_DIR}/entt/entt.hpp)
 add_header_only_lib(libJSON ${LIBRARY_DIR}/json ${LIBRARY_DIR}/json/json.hpp)
 add_header_only_lib(libABBY ${LIBRARY_DIR}/abby ${LIBRARY_DIR}/abby/abby.hpp)
 add_header_only_lib(libCenturion ${LIBRARY_DIR}/centurion ${LIBRARY_DIR}/centurion/centurion.hpp)
+add_header_only_lib(libNenya ${LIBRARY_DIR}/nenya ${LIBRARY_DIR}/nenya/nenya.hpp)
 
 set(NAMED_TYPE_SOURCES
     ${LIBRARY_DIR}/namedtype/named_type.hpp
@@ -354,6 +354,7 @@ target_link_libraries(${WANDERER_LIB_TARGET}
     PUBLIC ${SDL2_TTF_LIBRARIES}
     PUBLIC ${SDL2_LIBRARY}
     PUBLIC libCenturion
+    PUBLIC libNenya
     PUBLIC libENTT
     PUBLIC libJSON
     PUBLIC libABBY
