@@ -34,7 +34,6 @@ target_link_libraries(${WANDERER_TEST_TARGET}
     PUBLIC ${WANDERER_LIB_TARGET}
     PUBLIC libENTT
     PUBLIC libJSON
-    PUBLIC libNamedType
     PUBLIC gtest)
 
 add_test(NAME ${WANDERER_TEST_TARGET} COMMAND ${WANDERER_TEST_TARGET})
