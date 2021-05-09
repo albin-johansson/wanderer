@@ -1,15 +1,15 @@
 #pragma once
 
-#include <step_map.hpp>
+#include <rune.hpp>  // tmx_map, tmx_tile_layer, tmx_properties
 
 #include "io/map/parse_ir.hpp"
 
 namespace wanderer {
 
 void parse_tile_layer(ir::level& data,
-                      const step::map& stepMap,
-                      const step::tile_layer& stepLayer,
-                      const step::properties* layerProperties,
+                      const rune::tmx_map& map,
+                      const rune::tmx_tile_layer& layer,
+                      const rune::tmx_properties& properties,
                       int zIndex);
 
 }

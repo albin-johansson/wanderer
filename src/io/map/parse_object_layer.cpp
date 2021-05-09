@@ -8,32 +8,32 @@
 namespace wanderer {
 namespace {
 
-[[nodiscard]] auto make_hitbox(const step::object& object,
+[[nodiscard]] auto make_hitbox(const rune::tmx_object& object,
                                const float xRatio,
                                const float yRatio) -> comp::hitbox
 {
-  const cen::farea size{static_cast<float>(object.width()) * xRatio,
-                        static_cast<float>(object.height()) * yRatio};
+  const cen::farea size{object.width * xRatio, object.height * yRatio};
   const comp::subhitbox subhitbox{{}, size};
 
   auto hitbox = sys::make_hitbox({subhitbox});
   hitbox.enabled = false;
 
-  const float2 pos{static_cast<float>(object.x()) * xRatio,
-                   static_cast<float>(object.y()) * yRatio};
+  const float2 pos{object.x * xRatio, object.y * yRatio};
   sys::set_position(hitbox, pos);
 
   return hitbox;
 }
 
-[[nodiscard]] auto get_spawnpoint_entity(const step::properties& props)
+[[nodiscard]] auto get_spawnpoint_entity(const rune::tmx_properties& properties)
     -> comp::spawnpoint_type
 {
-  if (props.is("entity", "player"))
+  assert(rune::tmx::is_string(properties, "entity"));
+  const auto entity = rune::tmx::get_string(properties, "entity");
+  if (entity == "player")
   {
     return comp::spawnpoint_type::player;
   }
-  else if (props.is("entity", "skeleton"))
+  else if (entity == "skeleton")
   {
     return comp::spawnpoint_type::skeleton;
   }
@@ -43,58 +43,42 @@ namespace {
   }
 }
 
-[[nodiscard]] auto parse_spawnpoint(const step::object& stepObject,
+[[nodiscard]] auto parse_spawnpoint(const rune::tmx_object& object,
                                     const float xRatio,
                                     const float yRatio) -> comp::spawnpoint
 {
-  const float2 position{static_cast<float>(stepObject.x()) * xRatio,
-                        static_cast<float>(stepObject.y()) * yRatio};
-
-  const auto* props = stepObject.get_properties();
-  assert(props);
-  assert(props->has("entity"));
-  assert(props->get("entity").is<std::string>());
-
   comp::spawnpoint spawnpoint;
 
-  spawnpoint.position = position;
-  spawnpoint.type = get_spawnpoint_entity(*props);
+  spawnpoint.position = float2{object.x * xRatio, object.y * yRatio};
+  spawnpoint.type = get_spawnpoint_entity(object.properties);
 
   return spawnpoint;
 }
 
-[[nodiscard]] auto parse_portal(const step::object& stepObject) -> comp::portal
+[[nodiscard]] auto parse_portal(const rune::tmx_object& object) -> comp::portal
 {
-  const auto* props = stepObject.get_properties();
-  assert(props);
-  assert(props->has("target"));
-  assert(props->get("target").is<int>());
-  assert(props->has("path"));
-  assert(props->get("path").is<step::file>());
+  assert(rune::tmx::is_int(object.properties, "target"));
+  assert(rune::tmx::is_file(object.properties, "path"));
 
   comp::portal portal;
 
-  portal.path = props->get("path").get<step::file>().get();
-  portal.target = map_id{props->get("target").get<int>()};
+  portal.path = rune::tmx::get_file(object.properties, "path").get();
+  portal.target = map_id{rune::tmx::get_int(object.properties, "target")};
 
   return portal;
 }
 
-[[nodiscard]] auto parse_container(const step::object& stepObject) -> comp::inventory
+[[nodiscard]] auto parse_container(const rune::tmx_object& object) -> comp::inventory
 {
-  const auto* props = stepObject.get_properties();
-  assert(props);
-  assert(props->has("capacity"));
-  assert(props->get("capacity").is<int>());
-  assert(props->has("hasRandomLoot"));
-  assert(props->get("hasRandomLoot").is<bool>());
+  assert(rune::tmx::is_int(object.properties, "capacity"));
+  assert(rune::tmx::is_bool(object.properties, "hasRandomLoot"));
 
   comp::inventory inventory;
 
-  inventory.capacity = props->get("capacity").get<int>();
+  inventory.capacity = rune::tmx::get_int(object.properties, "capacity");
   inventory.items.reserve(inventory.capacity);
 
-  if (props->get("hasRandomLoot").get<bool>())
+  if (rune::tmx::get_bool(object.properties, "hasRandomLoot"))
   {
     // TODO
   }
@@ -102,28 +86,24 @@ namespace {
   return inventory;
 }
 
-[[nodiscard]] auto parse_container_trigger(const step::object& object) -> int
+[[nodiscard]] auto parse_container_trigger(const rune::tmx_object& object) -> int
 {
-  const auto* props = object.get_properties();
-  assert(props);
-  assert(props->has("container"));
-  assert(props->get("container").is<step::object_ref>());
-
-  return props->get("container").get<step::object_ref>().get();
+  assert(rune::tmx::is_object(object.properties, "container"));
+  return rune::tmx::get_object(object.properties, "container").get();
 }
 
-[[nodiscard]] auto parse_light(const step::object& object,
+[[nodiscard]] auto parse_light(const rune::tmx_object& object,
                                const float xRatio,
                                const float yRatio) -> comp::point_light
 {
-  assert(object.is_ellipse());
+  assert(object.is_ellipse);
 
   comp::point_light light;
 
-  light.size = static_cast<float>(object.width()) * xRatio;
+  light.size = object.width * xRatio;
 
-  const auto x = static_cast<float>(object.x()) * xRatio;
-  const auto y = static_cast<float>(object.y()) * yRatio;
+  const auto x = object.x * xRatio;
+  const auto y = object.y * yRatio;
 
   light.position.x = x + (light.size / 2.0f);
   light.position.y = y + (light.size / 2.0f);
@@ -132,17 +112,14 @@ namespace {
   light.fluctuationStep = 1;
   light.fluctuation = 0;
 
-  if (const auto* props = object.get_properties())
+  if (const auto* limit = rune::tmx::try_get_float(object.properties, "fluctuationLimit"))
   {
-    if (props->has("fluctuationLimit"))
-    {
-      light.fluctuationLimit = props->get("fluctuationLimit").get<float>();
-    }
+    light.fluctuationLimit = *limit;
+  }
 
-    if (props->has("fluctuationStep"))
-    {
-      light.fluctuationStep = props->get("fluctuationStep").get<float>();
-    }
+  if (const auto* step = rune::tmx::try_get_float(object.properties, "fluctuationStep"))
+  {
+    light.fluctuationStep = *step;
   }
 
   return light;
@@ -151,18 +128,18 @@ namespace {
 }  // namespace
 
 void parse_object_layer(ir::level& data,
-                        const step::map& stepMap,
-                        const step::object_group& group)
+                        const rune::tmx_map& map,
+                        const rune::tmx_object_layer& objectLayer)
 {
-  for (const auto& stepObject : group.objects())
+  for (const auto& object : objectLayer.objects)
   {
     auto& objectData = data.objects.emplace_back();
-    objectData.id = stepObject.id();
+    objectData.id = object.id;
 
-    const auto type = stepObject.type();
+    const auto type = object.type;
     if (type == "Spawnpoint")
     {
-      objectData.spawnpoint = parse_spawnpoint(stepObject, data.xRatio, data.yRatio);
+      objectData.spawnpoint = parse_spawnpoint(object, data.xRatio, data.yRatio);
 
       if (objectData.spawnpoint->type == comp::spawnpoint_type::player)
       {
@@ -171,21 +148,21 @@ void parse_object_layer(ir::level& data,
     }
     else if (type == "Portal")
     {
-      objectData.portal = parse_portal(stepObject);
-      objectData.hitbox = make_hitbox(stepObject, data.xRatio, data.yRatio);
+      objectData.portal = parse_portal(object);
+      objectData.hitbox = make_hitbox(object, data.xRatio, data.yRatio);
     }
     else if (type == "Container")
     {
-      objectData.inventory = parse_container(stepObject);
+      objectData.inventory = parse_container(object);
     }
     else if (type == "ContainerTrigger")
     {
-      objectData.inventoryRef = parse_container_trigger(stepObject);
-      objectData.hitbox = make_hitbox(stepObject, data.xRatio, data.yRatio);
+      objectData.inventoryRef = parse_container_trigger(object);
+      objectData.hitbox = make_hitbox(object, data.xRatio, data.yRatio);
     }
     else if (type == "Light")
     {
-      objectData.light = parse_light(stepObject, data.xRatio, data.yRatio);
+      objectData.light = parse_light(object, data.xRatio, data.yRatio);
     }
   }
 }

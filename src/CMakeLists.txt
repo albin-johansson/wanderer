@@ -323,18 +323,12 @@ add_library(${WANDERER_LIB_TARGET} ${SOURCE_FILES})
 
 wanderer_set_compiler_options(${WANDERER_LIB_TARGET})
 
-add_header_only_lib(libENTT ${LIBRARY_DIR}/entt ${LIBRARY_DIR}/entt/entt.hpp)
-add_header_only_lib(libJSON ${LIBRARY_DIR}/json ${LIBRARY_DIR}/json/json.hpp)
-add_header_only_lib(libABBY ${LIBRARY_DIR}/abby ${LIBRARY_DIR}/abby/abby.hpp)
 add_header_only_lib(libCenturion ${LIBRARY_DIR}/centurion ${LIBRARY_DIR}/centurion/centurion.hpp)
+add_header_only_lib(libRune ${LIBRARY_DIR}/rune ${LIBRARY_DIR}/rune/rune.hpp)
+add_header_only_lib(libABBY ${LIBRARY_DIR}/abby ${LIBRARY_DIR}/abby/abby.hpp)
 add_header_only_lib(libNenya ${LIBRARY_DIR}/nenya ${LIBRARY_DIR}/nenya/nenya.hpp)
-
-set(NAMED_TYPE_SOURCES
-    ${LIBRARY_DIR}/namedtype/named_type.hpp
-    ${LIBRARY_DIR}/namedtype/named_type_impl.hpp
-    ${LIBRARY_DIR}/namedtype/crtp.hpp
-    ${LIBRARY_DIR}/namedtype/underlying_functionalities.hpp)
-add_header_only_lib(libNamedType ${LIBRARY_DIR}/namedtype ${NAMED_TYPE_SOURCES})
+add_header_only_lib(libJSON ${LIBRARY_DIR}/json ${LIBRARY_DIR}/json/json.hpp)
+add_header_only_lib(libENTT ${LIBRARY_DIR}/entt ${LIBRARY_DIR}/entt/entt.hpp)
 
 # Library directories
 target_include_directories(${WANDERER_LIB_TARGET}
@@ -342,8 +336,7 @@ target_include_directories(${WANDERER_LIB_TARGET}
     SYSTEM PUBLIC ${SDL2_IMAGE_INCLUDE_DIRS}
     SYSTEM PUBLIC ${SDL2_MIXER_INCLUDE_DIRS}
     SYSTEM PUBLIC ${SDL2_TTF_INCLUDE_DIRS}
-    SYSTEM PUBLIC ${LIBRARY_DIR}/cereal
-    SYSTEM PUBLIC ${LIBRARY_DIR}/step)
+    SYSTEM PUBLIC ${LIBRARY_DIR}/cereal)
 
 # Wanderer directories
 target_include_directories(${WANDERER_LIB_TARGET} PUBLIC .)
@@ -354,11 +347,11 @@ target_link_libraries(${WANDERER_LIB_TARGET}
     PUBLIC ${SDL2_TTF_LIBRARIES}
     PUBLIC ${SDL2_LIBRARY}
     PUBLIC libCenturion
+    PUBLIC libRune
     PUBLIC libNenya
     PUBLIC libENTT
     PUBLIC libJSON
-    PUBLIC libABBY
-    PUBLIC libNamedType)
+    PUBLIC libABBY)
 
 if (WIN32 AND CMAKE_BUILD_TYPE STREQUAL "Release")
   add_executable(${WANDERER_EXE_TARGET} WIN32 main.cpp)

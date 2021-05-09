@@ -5,20 +5,24 @@
 
 namespace wanderer {
 
-void parse_layers(const step::map& stepMap, ir::level& data)
+void parse_layers(const rune::tmx_map& map, ir::level& data)
 {
   int index{0};
-  for (const auto& stepLayer : stepMap.layers())
+  for (const auto& layer : map.layers)
   {
-    const auto* props = stepLayer.get_properties();
+    const auto& properties = layer.properties;
 
-    if (const auto* tileLayer = stepLayer.try_as<step::tile_layer>())
+    // TODO rune::tmx::try_as_tile_layer(layer)
+
+    if (rune::tmx::is_tile_layer(layer))
     {
-      parse_tile_layer(data, stepMap, *tileLayer, props, index);
+      const auto& tileLayer = rune::tmx::get_tile_layer(layer);
+      parse_tile_layer(data, map, tileLayer, properties, index);
     }
-    else if (const auto* objLayer = stepLayer.try_as<step::object_group>())
+    else if (rune::tmx::is_object_layer(layer))
     {
-      parse_object_layer(data, stepMap, *objLayer);
+      const auto& objectLayer = rune::tmx::get_object_layer(layer);
+      parse_object_layer(data, map, objectLayer);
     }
 
     ++index;

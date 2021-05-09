@@ -21,7 +21,7 @@ namespace {
 }
 
 void add_animation(ir::fancy_tile& tileData,
-                   const step::animation& stepAnimation,
+                   const rune::tmx_animation& animationData,
                    const tile_id firstGid)
 {
   auto& animation = tileData.animation.emplace();
@@ -30,41 +30,24 @@ void add_animation(ir::fancy_tile& tileData,
   animation.then = cen::counter::ticks();
 
   auto& frames = animation.frames;
-  frames.reserve(static_cast<std::size_t>(stepAnimation.num_frames()));
+  frames.reserve(animationData.frames.size());
 
-  for (const auto& stepFrame : stepAnimation.frames())
+  for (const auto& frameData : animationData.frames)
   {
     auto& frame = frames.emplace_back();
-    frame.tile = firstGid + static_cast<tile_id>(stepFrame.tile_id().get());
-    frame.duration = ms_t{stepFrame.duration()};
+    frame.tile = firstGid + static_cast<tile_id>(frameData.tile.get());
+    frame.duration = std::chrono::duration_cast<ms_t>(frameData.duration);
   }
 }
 
 void add_hitbox(ir::fancy_tile& tileData,
-                const step::object& object,
+                const rune::tmx_object& object,
                 const float xRatio,
                 const float yRatio)
 {
-  const float2 offset{static_cast<float>(object.x()) * xRatio,
-                      static_cast<float>(object.y()) * yRatio};
-
-  const cen::farea size{static_cast<float>(object.width()) * xRatio,
-                        static_cast<float>(object.height()) * yRatio};
-
+  const float2 offset{object.x * xRatio, object.y * yRatio};
+  const cen::farea size{object.width * xRatio, object.height * yRatio};
   tileData.hitbox = sys::make_hitbox({{offset, size}});
-}
-
-[[nodiscard]] auto parse_depth(const step::properties& props) -> maybe<depth_t>
-{
-  if (props.has("depth"))
-  {
-    assert(props.get("depth").is<int>());
-    return depth_t{props.get("depth").get<int>()};
-  }
-  else
-  {
-    return std::nullopt;
-  }
 }
 
 }  // namespace
@@ -72,52 +55,49 @@ void add_hitbox(ir::fancy_tile& tileData,
 auto make_tile(const tile_id id,
                const int index,
                const texture_id texture,
-               const step::tileset& tileset) -> ir::tile
+               const rune::tmx_tileset& tileset) -> ir::tile
 {
   ir::tile data;
 
   data.id = id;
   data.texture = texture;
   data.source = to_source_rect(index,
-                               tileset.columns(),
-                               tileset.tile_width(),
-                               tileset.tile_height());
+                               tileset.column_count,
+                               tileset.tile_width,
+                               tileset.tile_height);
 
   return data;
 }
 
 auto parse_fancy_tile(ir::tileset& data,
                       const ir::tile& tileData,
-                      const step::tile& stepTile,
+                      const rune::tmx_tile& tile,
                       const tile_id firstGid) -> ir::fancy_tile
 {
   ir::fancy_tile result;
 
-  if (const auto& stepAnimation = stepTile.get_animation())
+  if (tile.animation)
   {
-    add_animation(result, *stepAnimation, firstGid);
+    add_animation(result, *tile.animation, firstGid);
   }
 
-  if (const auto* layer = stepTile.object_group())
+  if (tile.object_layer)
   {
-    if (const auto* group = layer->try_as<step::object_group>())
+    const auto& objectLayer = rune::tmx::get_object_layer(*tile.object_layer);
+
+    // Only allow one object per tile for now
+    assert(objectLayer.objects.size() == 1);
+
+    const auto& object = objectLayer.objects.at(0);
+    if (object.type == "Hitbox")
     {
-      // Only allow one object per tile for now
-      assert(group->objects().size() == 1);
-      const auto& object = group->objects().at(0);
-      if (object.type() == "Hitbox")
-      {
-        add_hitbox(result, object, data.xRatio, data.yRatio);
-      }
+      add_hitbox(result, object, data.xRatio, data.yRatio);
     }
   }
 
-  if (const auto* props = stepTile.get_properties())
+  if (const auto* depth = rune::tmx::try_get_int(tile.properties, "depth"))
   {
-    if (const auto depth = parse_depth(*props))
-    {
-      result.depth = *depth;
-    }
+    result.depth = depth_t{*depth};
   }
 
   return result;

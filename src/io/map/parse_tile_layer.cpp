@@ -7,7 +7,7 @@
 namespace wanderer {
 namespace {
 
-using tile_data = step::detail::data::gid_data;  // FIXME
+using tile_data = rune::tmx_data::gid_data;
 
 [[nodiscard]] auto make_tile_matrix(const int nRows, const int nCols)
     -> comp::tile_layer::tile_matrix
@@ -17,7 +17,7 @@ using tile_data = step::detail::data::gid_data;  // FIXME
   return {rows, std::vector<tile_id>(cols, glob::empty_tile)};
 }
 
-[[nodiscard]] auto make_ground_layer(const step::tile_layer& tileLayer,
+[[nodiscard]] auto make_ground_layer(const rune::tmx_tile_layer& tileLayer,
                                      const int nRows,
                                      const int nCols,
                                      const int zIndex) -> comp::tile_layer
@@ -27,9 +27,8 @@ using tile_data = step::detail::data::gid_data;  // FIXME
   layer.z = zIndex;
 
   int index{0};
-
-  assert(tileLayer.data());
-  for (const auto gid : tileLayer.data()->as_gid())
+  assert(tileLayer.data);
+  for (const auto gid : std::get<tile_data>(tileLayer.data->tile_data))
   {
     const auto [row, col] = index_to_matrix<std::size_t>(index, nCols);
 
@@ -118,23 +117,19 @@ void add_tile_objects(ir::level& data, const tile_data& tiles, const int zIndex)
 }  // namespace
 
 void parse_tile_layer(ir::level& data,
-                      const step::map& stepMap,
-                      const step::tile_layer& stepLayer,
-                      const step::properties* layerProperties,
+                      const rune::tmx_map& map,
+                      const rune::tmx_tile_layer& layer,
+                      const rune::tmx_properties& properties,
                       const int zIndex)
 {
-  assert(layerProperties);
-  assert(layerProperties->has("ground"));
-  assert(layerProperties->get("ground").is<bool>());
-
-  if (layerProperties->is("ground", true))
+  assert(rune::tmx::is_bool(properties, "ground"));
+  if (rune::tmx::get_bool(properties, "ground"))
   {
-    data.groundLayers.emplace_back(
-        make_ground_layer(stepLayer, stepMap.height(), stepMap.width(), zIndex));
+    data.groundLayers.push_back(make_ground_layer(layer, map.height, map.width, zIndex));
   }
-  else if (const auto* layerData = stepLayer.data())
+  else if (layer.data)
   {
-    add_tile_objects(data, layerData->as_gid(), zIndex);
+    add_tile_objects(data, std::get<tile_data>(layer.data->tile_data), zIndex);
   }
 }
 

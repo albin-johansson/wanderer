@@ -20,49 +20,46 @@ namespace {
   return texture;
 }
 
-void add_tiles(const step::tileset& tileset, ir::tileset& data)
+void add_tiles(const rune::tmx_tileset& tileset, ir::tileset& data)
 {
-  auto id = static_cast<tile_id>(tileset.first_gid().get());
-  const auto tileCount = tileset.tile_count();
-
-  for (auto index = 0; index < tileCount; ++index, ++id)
+  auto id = static_cast<tile_id>(tileset.first_id.get());
+  for (auto index = 0; index < tileset.tile_count; ++index, ++id)
   {
     data.tiles.emplace(id, make_tile(id, index, data.sheet.id, tileset));
   }
 }
 
-void parse_fancy_tiles(ir::tileset& data, const step::tileset& stepTileset)
+void parse_fancy_tiles(ir::tileset& data, const rune::tmx_tileset& tileset)
 {
-  const auto first = static_cast<tile_id>(stepTileset.first_gid().get());
-  for (const auto& stepTile : stepTileset.tiles())
+  const auto first = static_cast<tile_id>(tileset.first_id.get());
+  for (const auto& tsTile : tileset.tiles)
   {
-    const auto gid = first + static_cast<tile_id>(stepTile.id().get());
+    const auto gid = first + static_cast<tile_id>(tsTile.id.get());
     auto& tile = data.tiles.at(gid);
-    tile.fancy = parse_fancy_tile(data, data.tiles.at(gid), stepTile, first);
+    tile.fancy = parse_fancy_tile(data, tile, tsTile, first);
   }
 }
 
 }  // namespace
 
-auto parse_tilesets(const tileset_collection& tilesets,
+auto parse_tilesets(const std::vector<rune::tmx_tileset>& tilesets,
                     const std::filesystem::path& directory) -> std::vector<ir::tileset>
 {
-  std::vector<ir::tileset> vec;
+  std::vector<ir::tileset> results;
 
-  for (const auto& stepTileset : tilesets)
+  for (const auto& ts : tilesets)
   {
-    auto& tileset = vec.emplace_back();
+    auto& tileset = results.emplace_back();
 
-    const auto path = directory / stepTileset->image();
-    tileset.sheet = make_texture(path);
-    tileset.xRatio = glob::tile_width<> / stepTileset->tile_width();
-    tileset.yRatio = glob::tile_height<> / stepTileset->tile_height();
+    tileset.sheet = make_texture(directory / ts.image);
+    tileset.xRatio = glob::tile_width<float> / static_cast<float>(ts.tile_width);
+    tileset.yRatio = glob::tile_height<float> / static_cast<float>(ts.tile_height);
 
-    add_tiles(*stepTileset, tileset);
-    parse_fancy_tiles(tileset, *stepTileset);
+    add_tiles(ts, tileset);
+    parse_fancy_tiles(tileset, ts);
   }
 
-  return vec;
+  return results;
 }
 
 }  // namespace wanderer
