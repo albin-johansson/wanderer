@@ -3535,20 +3535,14 @@ concept layer_value_type = std::same_as<T, tmx_tile_layer> ||
 
 // clang-format on
 
+/// \name Layer type casts
+/// \{
+
 template <layer_value_type T>
 [[nodiscard]] auto get(const tmx_layer& layer) -> const T&
 {
   return std::get<T>(layer.data);
 }
-
-template <layer_value_type T>
-[[nodiscard]] auto try_get(const tmx_layer& layer) noexcept -> const T*
-{
-  return std::get_if<T>(&layer.data);
-}
-
-/// \name Layer type casts
-/// \{
 
 [[nodiscard]] inline auto get_tile_layer(const tmx_layer& layer) -> const tmx_tile_layer&
 {
@@ -3570,6 +3564,36 @@ template <layer_value_type T>
 [[nodiscard]] inline auto get_group(const tmx_layer& layer) -> const tmx_group&
 {
   return get<tmx_group>(layer);
+}
+
+template <layer_value_type T>
+[[nodiscard]] auto try_get(const tmx_layer& layer) noexcept -> const T*
+{
+  return std::get_if<T>(&layer.data);
+}
+
+[[nodiscard]] inline auto try_get_tile_layer(const tmx_layer& layer) noexcept
+    -> const tmx_tile_layer*
+{
+  return try_get<tmx_tile_layer>(layer);
+}
+
+[[nodiscard]] inline auto try_get_object_layer(const tmx_layer& layer) noexcept
+    -> const tmx_object_layer*
+{
+  return try_get<tmx_object_layer>(layer);
+}
+
+[[nodiscard]] inline auto try_get_image_layer(const tmx_layer& layer) noexcept
+    -> const tmx_image_layer*
+{
+  return try_get<tmx_image_layer>(layer);
+}
+
+[[nodiscard]] inline auto try_get_group(const tmx_layer& layer) noexcept
+    -> const tmx_group*
+{
+  return try_get<tmx_group>(layer);
 }
 
 /// \} End of layer type casts
@@ -4518,20 +4542,14 @@ concept layer_value_type = std::same_as<T, tmx_tile_layer> ||
 
 // clang-format on
 
+/// \name Layer type casts
+/// \{
+
 template <layer_value_type T>
 [[nodiscard]] auto get(const tmx_layer& layer) -> const T&
 {
   return std::get<T>(layer.data);
 }
-
-template <layer_value_type T>
-[[nodiscard]] auto try_get(const tmx_layer& layer) noexcept -> const T*
-{
-  return std::get_if<T>(&layer.data);
-}
-
-/// \name Layer type casts
-/// \{
 
 [[nodiscard]] inline auto get_tile_layer(const tmx_layer& layer) -> const tmx_tile_layer&
 {
@@ -4553,6 +4571,36 @@ template <layer_value_type T>
 [[nodiscard]] inline auto get_group(const tmx_layer& layer) -> const tmx_group&
 {
   return get<tmx_group>(layer);
+}
+
+template <layer_value_type T>
+[[nodiscard]] auto try_get(const tmx_layer& layer) noexcept -> const T*
+{
+  return std::get_if<T>(&layer.data);
+}
+
+[[nodiscard]] inline auto try_get_tile_layer(const tmx_layer& layer) noexcept
+    -> const tmx_tile_layer*
+{
+  return try_get<tmx_tile_layer>(layer);
+}
+
+[[nodiscard]] inline auto try_get_object_layer(const tmx_layer& layer) noexcept
+    -> const tmx_object_layer*
+{
+  return try_get<tmx_object_layer>(layer);
+}
+
+[[nodiscard]] inline auto try_get_image_layer(const tmx_layer& layer) noexcept
+    -> const tmx_image_layer*
+{
+  return try_get<tmx_image_layer>(layer);
+}
+
+[[nodiscard]] inline auto try_get_group(const tmx_layer& layer) noexcept
+    -> const tmx_group*
+{
+  return try_get<tmx_group>(layer);
 }
 
 /// \} End of layer type casts
