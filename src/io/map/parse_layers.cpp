@@ -10,19 +10,13 @@ void parse_layers(const rune::tmx_map& map, ir::level& data)
   int index{0};
   for (const auto& layer : map.layers)
   {
-    const auto& properties = layer.properties;
-
-    // TODO rune::tmx::try_as_tile_layer(layer)
-
-    if (rune::tmx::is_tile_layer(layer))
+    if (const auto* tileLayer = rune::tmx::try_get_tile_layer(layer))
     {
-      const auto& tileLayer = rune::tmx::get_tile_layer(layer);
-      parse_tile_layer(data, map, tileLayer, properties, index);
+      parse_tile_layer(data, map, *tileLayer, layer.properties, index);
     }
-    else if (rune::tmx::is_object_layer(layer))
+    else if (const auto* objectLayer = rune::tmx::try_get_object_layer(layer))
     {
-      const auto& objectLayer = rune::tmx::get_object_layer(layer);
-      parse_object_layer(data, map, objectLayer);
+      parse_object_layer(data, map, *objectLayer);
     }
 
     ++index;
