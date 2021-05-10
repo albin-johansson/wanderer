@@ -4628,6 +4628,37 @@ template <std::floating_point T>
 
 #endif  // RUNE_MATH_ALMOST_EQUAL_HPP
 
+// #include "rune/math/index_to_matrix.hpp"
+#ifndef RUNE_MATH_INDEX_TO_MATRIX_HPP
+#define RUNE_MATH_INDEX_TO_MATRIX_HPP
+
+#include <concepts>  // integral
+
+namespace rune {
+
+/// \addtogroup math
+/// \{
+
+template <std::integral T>
+struct matrix_position final
+{
+  T row{};
+  T column{};
+};
+
+template <std::integral T = int>
+[[nodiscard]] constexpr auto index_to_matrix(const T index, const T nColumns) noexcept
+    -> matrix_position<T>
+{
+  return {.row = index / nColumns, .column = index % nColumns};
+}
+
+/// \} End of group math
+
+}  // namespace rune
+
+#endif  // RUNE_MATH_INDEX_TO_MATRIX_HPP
+
 // #include "rune/math/max.hpp"
 #ifndef RUNE_MATH_MAX_HPP
 #define RUNE_MATH_MAX_HPP
