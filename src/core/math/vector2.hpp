@@ -5,7 +5,6 @@
 
 #include "angles.hpp"
 #include "floating.hpp"
-#include "index_to_matrix.hpp"
 
 namespace wanderer {
 
