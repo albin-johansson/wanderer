@@ -2,6 +2,7 @@
 
 #include <cmath>     // acos, sqrt, lerp
 #include <concepts>  // floating_point
+#include <rune.hpp>  // almost_equal
 
 #include "angles.hpp"
 #include "floating.hpp"
@@ -243,7 +244,7 @@ struct basic_vector2 final
    */
   [[nodiscard]] constexpr auto is_zero() const -> bool
   {
-    return almost_equal(x, 0) && almost_equal(y, 0);
+    return rune::almost_equal(x, value_type{0}) && rune::almost_equal(y, value_type{0});
   }
 
   /**
@@ -257,7 +258,7 @@ struct basic_vector2 final
    */
   [[nodiscard]] auto is_unit() const -> bool
   {
-    return almost_equal(magnitude(), 1);
+    return rune::almost_equal(magnitude(), value_type{1});
   }
 
   /**
