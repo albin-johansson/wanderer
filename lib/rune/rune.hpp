@@ -3515,6 +3515,8 @@ struct tmx_layer final
   bool visible{true};
 };
 
+using tmx_layers = std::vector<tmx_layer>;
+
 void from_json(const nlohmann::json& json, tmx_group& group);
 void from_json(const nlohmann::json& json, tmx_layer& layer);
 
@@ -3829,6 +3831,8 @@ struct tmx_tileset final
   std::vector<tmx_wang_set> wang_sets;
   tmx_properties properties;
 };
+
+using tmx_tilesets = std::vector<tmx_tileset>;
 
 /// \} End of group tmx
 
@@ -4521,6 +4525,8 @@ struct tmx_layer final
   std::string name;
   bool visible{true};
 };
+
+using tmx_layers = std::vector<tmx_layer>;
 
 void from_json(const nlohmann::json& json, tmx_group& group);
 void from_json(const nlohmann::json& json, tmx_layer& layer);
@@ -6113,6 +6119,8 @@ struct tmx_tileset final
   std::vector<tmx_wang_set> wang_sets;
   tmx_properties properties;
 };
+
+using tmx_tilesets = std::vector<tmx_tileset>;
 
 /// \} End of group tmx
 

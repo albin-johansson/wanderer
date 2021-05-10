@@ -42,7 +42,7 @@ void parse_fancy_tiles(ir::tileset& data, const rune::tmx_tileset& tileset)
 
 }  // namespace
 
-auto parse_tilesets(const std::vector<rune::tmx_tileset>& tilesets,
+auto parse_tilesets(const rune::tmx_tilesets& tilesets,
                     const std::filesystem::path& directory) -> std::vector<ir::tileset>
 {
   std::vector<ir::tileset> results;

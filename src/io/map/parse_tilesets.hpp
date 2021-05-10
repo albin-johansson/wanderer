@@ -1,14 +1,14 @@
 #pragma once
 
 #include <filesystem>  // path
-#include <rune.hpp>    // tmx_tileset
+#include <rune.hpp>    // tmx_tilesets
 #include <vector>      // vector
 
 #include "io/map/parse_ir.hpp"
 
 namespace wanderer {
 
-[[nodiscard]] auto parse_tilesets(const std::vector<rune::tmx_tileset>& tilesets,
+[[nodiscard]] auto parse_tilesets(const rune::tmx_tilesets& tilesets,
                                   const std::filesystem::path& directory)
     -> std::vector<ir::tileset>;
 
