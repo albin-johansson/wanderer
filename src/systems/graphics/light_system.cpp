@@ -1,6 +1,7 @@
 #include "light_system.hpp"
 
-#include <cmath>  // clamp
+#include <cmath>     // clamp
+#include <rune.hpp>  // next_bool
 
 #include "components/ctx/player.hpp"
 #include "components/ctx/viewport.hpp"
@@ -8,7 +9,6 @@
 #include "components/graphics/point_light.hpp"
 #include "core/resources.hpp"
 #include "core/utils/centurion_utils.hpp"
-#include "core/utils/random_utils.hpp"
 
 using namespace entt::literals;
 
@@ -21,7 +21,8 @@ void update_lights(entt::registry& registry)
 {
   for (auto&& [entity, light] : registry.view<comp::point_light>().each())
   {
-    light.fluctuation += next_bool() ? light.fluctuationStep : -light.fluctuationStep;
+    light.fluctuation +=
+        rune::next_bool() ? light.fluctuationStep : -light.fluctuationStep;
 
     const auto min = light.size - light.fluctuationLimit;
     const auto max = light.size + light.fluctuationLimit;

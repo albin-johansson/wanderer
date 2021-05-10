@@ -1,10 +1,11 @@
 #include "roam_system.hpp"
 
+#include <rune.hpp>  // next_random
+
 #include "components/humanoid_state.hpp"
 #include "components/movable.hpp"
 #include "components/roam.hpp"
 #include "core/game_constants.hpp"
-#include "core/utils/random_utils.hpp"
 #include "systems/humanoid/humanoid_animation_system.hpp"
 #include "systems/movement/direction_system.hpp"
 
@@ -18,8 +19,8 @@ inline constexpr float target_error_margin = 1;
 {
   constexpr auto range = glob::tile_width<float> * 5.0f;
 
-  const auto x = position.x + get_random(-range, range);
-  const auto y = position.y + get_random(-range, range);
+  const auto x = position.x + rune::next_random(-range, range);
+  const auto y = position.y + rune::next_random(-range, range);
 
   return float2{x, y};
 }

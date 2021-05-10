@@ -1,8 +1,9 @@
 #include "particle_system.hpp"
 
+#include <rune.hpp>  // next_random
+
 #include "components/ctx/viewport.hpp"
 #include "components/graphics/particle.hpp"
-#include "core/utils/random_utils.hpp"
 
 namespace wanderer::sys {
 namespace {
@@ -35,9 +36,9 @@ void spawn_particle(entt::registry& registry,
   auto& particle = registry.emplace<comp::particle>(registry.create());
   particle.position = {position.x, position.y, initial_z_pos};
 
-  particle.acceleration.x = get_random(min_initial_x_accel, max_initial_x_accel);
-  particle.acceleration.y = get_random(min_initial_y_accel, max_initial_y_accel);
-  particle.acceleration.z = get_random(min_initial_z_accel, max_initial_z_accel);
+  particle.acceleration.x = rune::next_random(min_initial_x_accel, max_initial_x_accel);
+  particle.acceleration.y = rune::next_random(min_initial_y_accel, max_initial_y_accel);
+  particle.acceleration.z = rune::next_random(min_initial_z_accel, max_initial_z_accel);
 
   particle.now = 0;
   particle.duration = duration;
