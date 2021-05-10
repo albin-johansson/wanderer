@@ -1,11 +1,12 @@
 #include "inventory_system.hpp"
 
+#include <rune.hpp>  // index_to_matrix
+
 #include "components/inventory/container_trigger.hpp"
 #include "components/inventory/inventory.hpp"
 #include "components/inventory/item.hpp"
 #include "core/aliases/maybe.hpp"
 #include "core/game_constants.hpp"
-#include "core/math/index_to_matrix.hpp"
 #include "systems/update_triggers.hpp"
 
 namespace wanderer::sys {
@@ -93,7 +94,7 @@ void render_inventory(const entt::registry& registry,
 
     if (hoverIndex)
     {
-      const auto [row, col] = index_to_matrix(*hoverIndex, n_cols);
+      const auto [row, col] = rune::index_to_matrix(*hoverIndex, n_cols);
       const auto rect = get_rect(row, col);
       renderer.set_color(cen::colors::dark_green);
       renderer.draw_rect(rect);

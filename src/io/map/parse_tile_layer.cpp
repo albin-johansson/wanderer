@@ -1,5 +1,7 @@
 #include "parse_tile_layer.hpp"
 
+#include <rune.hpp>  // index_to_matrix
+
 #include "core/game_constants.hpp"
 #include "core/utils/centurion_utils.hpp"
 #include "systems/movement/hitbox_system.hpp"
@@ -30,7 +32,7 @@ using tile_data = rune::tmx_data::gid_data;
   assert(tileLayer.data);
   for (const auto gid : std::get<tile_data>(tileLayer.data->tile_data))
   {
-    const auto [row, col] = index_to_matrix<std::size_t>(index, nCols);
+    const auto [row, col] = rune::index_to_matrix<std::size_t>(index, nCols);
 
     const tile_id id{gid.get()};
     layer.matrix.at(row).at(col) = id;
@@ -77,7 +79,7 @@ void add_tile_object(ir::level& data,
   auto& tileObjectData = data.tileObjects.emplace_back();
   tileObjectData.tile = tile.id;
 
-  const auto [row, col] = index_to_matrix(tileIndex, data.nCols);
+  const auto [row, col] = rune::index_to_matrix(tileIndex, data.nCols);
   const auto x = col * data.tileWidth * data.xRatio;
   const auto y = row * data.tileHeight * data.yRatio;
   const cen::fpoint position{x, y};

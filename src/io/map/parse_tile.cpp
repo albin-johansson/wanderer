@@ -3,9 +3,9 @@
 #include <cassert>        // assert
 #include <centurion.hpp>  // irect, farea, ticks
 #include <cstddef>        // size_t
+#include <rune.hpp>       // index_to_matrix
 
 #include "core/aliases/maybe.hpp"
-#include "core/math/index_to_matrix.hpp"
 #include "systems/movement/hitbox_system.hpp"
 
 namespace wanderer {
@@ -16,7 +16,7 @@ namespace {
                                   const int tileWidth,
                                   const int tileHeight) noexcept -> cen::irect
 {
-  const auto [row, col] = index_to_matrix(index, nColumns);
+  const auto [row, col] = rune::index_to_matrix(index, nColumns);
   return cen::irect{{col * tileWidth, row * tileHeight}, {tileWidth, tileHeight}};
 }
 
