@@ -72,7 +72,6 @@ set(SOURCE_FILES
     core/resources.cpp
     core/resources.hpp
     core/serialization.hpp
-    core/static_vector.hpp
     core/text_size.hpp
 
     core/aliases/aabb_tree.hpp
