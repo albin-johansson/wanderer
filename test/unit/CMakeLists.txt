@@ -9,7 +9,6 @@ set(TEST_FILES
     ini_test.cpp
     load_save_game_test.cpp
     test_main.cpp
-    vector2_test.cpp
     )
 
 add_executable(${WANDERER_TEST_TARGET} ${TEST_FILES})

@@ -121,7 +121,6 @@ set(SOURCE_FILES
 
     core/math/angles.hpp
     core/math/floating.hpp
-    core/math/vector2.hpp
 
     core/utils/centurion_utils.hpp
     core/utils/file_utils.cpp
