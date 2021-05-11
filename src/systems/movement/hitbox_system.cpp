@@ -27,7 +27,8 @@ namespace {
 [[nodiscard]] auto next_horizontal_hitbox(const comp::movable& movable,
                                           const comp::hitbox& hitbox,
                                           const float2 oldPosition,
-                                          const rune::delta_time dt) -> maybe<comp::hitbox>
+                                          const rune::delta_time dt)
+    -> maybe<comp::hitbox>
 {
   if (movable.velocity.x != 0)
   {
