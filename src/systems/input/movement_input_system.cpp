@@ -129,7 +129,7 @@ void check_released(comp::movable& movable,
 
 void handle_move_input(entt::registry& registry,
                        entt::dispatcher& dispatcher,
-                       const input& input,
+                       const rune::input& input,
                        const ctx::binds& binds)
 {
   const auto player = registry.ctx<ctx::player>().entity;

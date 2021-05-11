@@ -11,7 +11,7 @@ namespace wanderer::sys {
 
 void update_menu(entt::registry& registry,
                  entt::dispatcher& dispatcher,
-                 const input& input)
+                 const rune::input& input)
 {
   const auto menuEntity = registry.ctx<ctx::active_menu>().entity;
   const auto& menu = registry.get<comp::menu>(menuEntity);

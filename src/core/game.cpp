@@ -64,7 +64,7 @@ game::~game()
   m_dispatcher.disconnect(this);
 }
 
-void game::handle_input(const input& input)
+void game::handle_input(const rune::input& input)
 {
   sys::update_menu(m_shared, m_dispatcher, input);
   sys::update_input(m_levels.registry(), m_dispatcher, input, m_shared.ctx<ctx::binds>());

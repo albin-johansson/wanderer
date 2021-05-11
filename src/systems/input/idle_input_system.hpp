@@ -1,9 +1,9 @@
 #pragma once
 
 #include <entt.hpp>  // registry, dispatcher
+#include <rune.hpp>  // input
 
 #include "components/ctx/binds.hpp"
-#include "core/input.hpp"
 
 namespace wanderer::sys {
 
@@ -22,7 +22,7 @@ namespace wanderer::sys {
  */
 void handle_idle_input(entt::registry& registry,
                        entt::dispatcher& dispatcher,
-                       const input& input,
+                       const rune::input& input,
                        const ctx::binds& binds);
 
 /// \} End of input

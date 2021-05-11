@@ -62,7 +62,7 @@ void check_for_movement(entt::registry& registry,
 
 void handle_idle_input(entt::registry& registry,
                        entt::dispatcher& dispatcher,
-                       const input& input,
+                       const rune::input& input,
                        const ctx::binds& binds)
 {
   const auto player = registry.ctx<ctx::player>().entity;

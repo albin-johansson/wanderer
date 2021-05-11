@@ -16,10 +16,10 @@
 /// \brief Contains all events emitted in the game.
 
 #include <centurion.hpp>
+#include <rune.hpp>  // input
 
 #include "core/aliases/delta_time.hpp"
 #include "core/graphics/graphics_context.hpp"
-#include "core/input.hpp"
 #include "core/levels/level.hpp"
 #include "core/levels/level_manager.hpp"
 #include "events/button_pressed_event.hpp"
@@ -62,7 +62,7 @@ class game final
    *
    * \param input the current input state.
    */
-  void handle_input(const input& input);
+  void handle_input(const rune::input& input);
 
   /**
    * \brief Updates the state of the game.
