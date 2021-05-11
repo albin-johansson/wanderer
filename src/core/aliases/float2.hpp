@@ -1,9 +1,9 @@
 #pragma once
 
-#include "core/math/vector2.hpp"
+#include <rune.hpp>  // float2
 
 namespace wanderer {
 
-using float2 = basic_vector2<float>;
+using rune::float2;
 
 }  // namespace wanderer

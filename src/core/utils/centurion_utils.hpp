@@ -1,8 +1,8 @@
 #pragma once
 
 #include <centurion.hpp>  // basic_point, basic_area
-
-#include "core/math/vector2.hpp"
+#include <concepts>       // floating_point
+#include <rune.hpp>       // basic_vector2
 
 namespace wanderer {
 
@@ -20,8 +20,8 @@ namespace wanderer {
  *
  * \return a corresponding Centurion point.
  */
-template <typename T>
-[[nodiscard]] constexpr auto to_point(const basic_vector2<T> vector) noexcept
+template <std::floating_point T>
+[[nodiscard]] constexpr auto to_point(const rune::basic_vector2<T> vector) noexcept
     -> cen::basic_point<T>
 {
   return cen::basic_point<T>{vector.x, vector.y};
@@ -38,11 +38,11 @@ template <typename T>
  *
  * \return a corresponding vector.
  */
-template <typename T>
+template <std::floating_point T>
 [[nodiscard]] constexpr auto to_vector(const cen::basic_point<T> point) noexcept
-    -> basic_vector2<T>
+    -> rune::basic_vector2<T>
 {
-  return basic_vector2<T>{point.x(), point.y()};
+  return rune::basic_vector2<T>{point.x(), point.y()};
 }
 
 /**
@@ -56,11 +56,11 @@ template <typename T>
  *
  * \return a corresponding vector.
  */
-template <typename T>
+template <std::floating_point T>
 [[nodiscard]] constexpr auto to_vector(const cen::basic_area<T> area) noexcept
-    -> basic_vector2<T>
+    -> rune::basic_vector2<T>
 {
-  return basic_vector2<T>{area.width, area.height};
+  return rune::basic_vector2<T>{area.width, area.height};
 }
 
 /// \} End of centurion utilities

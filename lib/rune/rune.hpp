@@ -29,12 +29,14 @@
 
 namespace rune {
 
-/// \addtogroup core
-/// \{
-
+/**
+ * \typedef czstring
+ *
+ * \brief An alias for a C-style null-terminated string.
+ *
+ * \ingroup core
+ */
 using czstring = const char*;
-
-/// \} End of group
 
 }  // namespace rune
 
@@ -49,9 +51,20 @@ namespace rune {
 /// \cond FALSE
 namespace tags {
 struct delta_time_tag;
-}
+}  // namespace tags
 /// \endcond
 
+/// \addtogroup core
+/// \{
+
+/**
+ * \def RUNE_DELTA_TIME_UNDERLYING_TYPE
+ *
+ * \brief The underlying type of the `delta_time` strong type.
+ *
+ * \note The underlying should be a floating-point type, i.e. `float`, `double` or
+ * possibly `long double`.
+ */
 #ifndef RUNE_DELTA_TIME_UNDERLYING_TYPE
 #define RUNE_DELTA_TIME_UNDERLYING_TYPE float
 #endif  // RUNE_DELTA_TIME_UNDERLYING_TYPE
@@ -60,12 +73,12 @@ struct delta_time_tag;
  * \brief The type used for delta time values, e.g. in the `tick()` function of game class
  * implementations.
  *
- * \ingroup core
- *
  * \see `RUNE_DELTA_TIME_UNDERLYING_TYPE`
  */
 using delta_time =
     nenya::strong_type<RUNE_DELTA_TIME_UNDERLYING_TYPE, tags::delta_time_tag>;
+
+/// \} End of group core
 
 }  // namespace rune
 
@@ -131,6 +144,86 @@ using json_type = nlohmann::json;
 }  // namespace rune
 
 #endif  // RUNE_ALIASES_JSON_TYPE_HPP
+
+// #include "rune/aliases/texture_id.hpp"
+#ifndef RUNE_ALIASES_TEXTURE_ID_HPP
+#define RUNE_ALIASES_TEXTURE_ID_HPP
+
+#include <cstddef>    // size_t
+#include <nenya.hpp>  // strong_type
+
+namespace rune {
+
+/// \cond FALSE
+namespace tags {
+struct texture_id_tag;
+}  // namespace tags
+/// \endcond
+
+/// \addtogroup core
+/// \{
+
+/**
+ * \def RUNE_TEXTURE_ID_UNDERLYING_TYPE
+ *
+ * \brief The underlying type of the `texture_id` strong type.
+ *
+ * \details By default, the underlying type is `std::size_t`.
+ *
+ * \note The value of this macro must be of a hashable type.
+ */
+#ifndef RUNE_TEXTURE_ID_UNDERLYING_TYPE
+#define RUNE_TEXTURE_ID_UNDERLYING_TYPE std::size_t
+#endif  // RUNE_TEXTURE_ID_UNDERLYING_TYPE
+
+/**
+ * \typedef texture_id
+ *
+ * \brief Used as unique identifiers for textures.
+ *
+ * \details This is used in order to avoid loading the same texture more than once.
+ *
+ * \see `RUNE_TEXTURE_ID_UNDERLYING_TYPE`
+ */
+using texture_id =
+    nenya::strong_type<RUNE_TEXTURE_ID_UNDERLYING_TYPE, tags::texture_id_tag>;
+
+/// \} End of group core
+
+}  // namespace rune
+
+#endif  // RUNE_ALIASES_TEXTURE_ID_HPP
+
+// #include "rune/aliases/texture_index.hpp"
+#ifndef RUNE_ALIASES_TEXTURE_INDEX_HPP
+#define RUNE_ALIASES_TEXTURE_INDEX_HPP
+
+#include <cstddef>    // size_t
+#include <nenya.hpp>  // strong_type
+
+namespace rune {
+
+/// \cond FALSE
+namespace tags {
+struct texture_index_tag;
+}  // namespace tags
+/// \endcond
+
+/// \addtogroup core
+/// \{
+
+/**
+ * \typedef texture_index
+ *
+ * \brief Strong type for texture indices, used by the `graphics` class.
+ */
+using texture_index = nenya::strong_type<std::size_t, tags::texture_index_tag>;
+
+/// \} End of group core
+
+}  // namespace rune
+
+#endif  // RUNE_ALIASES_TEXTURE_INDEX_HPP
 
 // #include "rune/containers/aabb.hpp"
 #ifndef RUNE_CONTAINERS_AABB_HPP
@@ -461,12 +554,27 @@ namespace rune {
 /// \addtogroup math
 /// \{
 
+/**
+ * \class basic_vector2
+ *
+ * \brief A two-dimensional vector with floating point coordinates.
+ *
+ * \tparam T the representation type, must a floating-point type.
+ *
+ * \see `float2`
+ * \see `double2`
+ * \see `almost_equal(const basic_vector2<T>&, const basic_vector2<T>&, T)`
+ * \see `distance(const basic_vector2<T>&, const basic_vector2<T>&)`
+ * \see `angle(const basic_vector2<T>&, const basic_vector2<T>&)`
+ * \see `cross(const basic_vector2<T>&, const basic_vector2<T>&)`
+ * \see `dot(const basic_vector2<T>&, const basic_vector2<T>&)`
+ */
 template <std::floating_point T>
 class basic_vector2 final
 {
  public:
-  using value_type = T;
-  using vector_type = basic_vector2;
+  using value_type = T;               ///< The type of the coordinates.
+  using vector_type = basic_vector2;  ///< The type of the vector itself.
 
   value_type x{};  ///< The x-coordinate.
   value_type y{};  ///< The y-coordinate.
@@ -474,7 +582,9 @@ class basic_vector2 final
   /// \name Construction
   /// \{
 
-  /// Creates a zero vector.
+  /**
+   * \brief Creates a zero vector.
+   */
   constexpr basic_vector2() noexcept = default;
 
   /**
@@ -491,7 +601,9 @@ class basic_vector2 final
   /// \name Mutators
   /// \{
 
-  /// Turns the vector into the zero vector.
+  /**
+   * \brief Turns the vector into a zero vector.
+   */
   constexpr void reset() noexcept
   {
     x = 0;
@@ -584,30 +696,78 @@ class basic_vector2 final
     look_at(target, magnitude());
   }
 
+  /**
+   * \brief Sets the magnitude of the vector.
+   *
+   * \note If the supplied magnitude is negative, the vector becomes the zero vector.
+   *
+   * \param length the new magnitude of the vector.
+   */
+  void set_magnitude(const T length)
+  {
+    if (length > 0) [[likely]]
+    {
+      const auto previous = magnitude();
+      if (previous != 0 && previous != length)
+      {
+        scale(length / previous);
+      }
+    }
+    else
+    {
+      reset();
+    }
+  }
+
   /// \} End of mutators
 
   /// \name Queries
   /// \{
 
   /// Returns the magnitude, i.e. length, of the vector.
+
+  /**
+   * \brief Returns the magnitude (length) of the vector.
+   *
+   * \return the magnitude of the vector.
+   */
   [[nodiscard]] auto magnitude() const -> value_type
   {
     return std::sqrt((x * x) + (y * y));
   }
 
-  /// Returns the squared magnitude of the vector.
+  /**
+   * \brief Returns the squared magnitude of this vector.
+   *
+   * \details This function can be useful when comparing vectors. It avoids a relatively
+   * expensive square root computation.
+   *
+   * \return the squared magnitude of this vector.
+   */
   [[nodiscard]] constexpr auto magnitude2() const noexcept -> value_type
   {
     return (x * x) + (y * y);
   }
 
-  /// Indicates whether or not the vector is a unit vector.
+  /**
+   * \brief Indicates whether or not the vector is a unit vector.
+   *
+   * \details A unit vector is a vector with length `1`.
+   *
+   * \return `true` if the vector is a unit vector; `false` otherwise.
+   */
   [[nodiscard]] auto is_unit() const -> bool
   {
     return almost_equal(magnitude(), value_type{1});
   }
 
-  /// Indicates whether or not the vector is the zero vector.
+  /**
+   * \brief Indicates whether or not the vector is a zero vector.
+   *
+   * \details A vector is a zero vector if both of its coordinates are zero.
+   *
+   * \return `true` if the vector is a zero vector; `false` otherwise.
+   */
   [[nodiscard]] auto is_zero() const -> bool
   {
     return almost_equal(x, value_type{0}) && almost_equal(y, value_type{0});
@@ -618,7 +778,11 @@ class basic_vector2 final
   /// \name Serialization
   /// \{
 
-  /// Serializes the vector.
+  /**
+   * \brief Serializes the vector.
+   *
+   * \param archive the serialization archive that will be used.
+   */
   void serialize(auto& archive)
   {
     archive(x, y);
@@ -629,7 +793,13 @@ class basic_vector2 final
   /// \name Comparisons
   /// \{
 
-  /// Indicates whether or not two vectors are exactly equal.
+  /**
+   * \brief Indicates whether or not two vectors are *exactly* equal.
+   *
+   * \return `true` if the vectors are exactly equal; `false` otherwise.
+   *
+   * \see `almost_equal(const basic_vector2<T>&, const basic_vector2<T>&, T)`
+   */
   [[nodiscard]] constexpr bool operator==(const vector_type&) const noexcept = default;
 
   /// \} End of comparisons
@@ -640,15 +810,6 @@ using float2 = basic_vector2<float>;
 
 /// A two-dimensional vector using `double` precision.
 using double2 = basic_vector2<double>;
-
-/// Indicates whether or not two vectors are almost equal.
-template <std::floating_point T>
-[[nodiscard]] auto almost_equal(const basic_vector2<T>& a,
-                                const basic_vector2<T>& b,
-                                const T epsilon = default_epsilon) -> bool
-{
-  return almost_equal(a.x, b.x, epsilon) && almost_equal(a.y, b.y, epsilon);
-}
 
 /// \name Vector operators
 /// \{
@@ -661,24 +822,18 @@ constexpr void operator+=(basic_vector2<T>& a, const basic_vector2<T>& b) noexce
 }
 
 template <std::floating_point T>
-constexpr void operator-=(basic_vector2<T>& a, const basic_vector2<T>& b) noexcept
-{
-  a.x -= b.x;
-  a.y -= b.y;
-}
-
-template <std::floating_point T>
-constexpr void operator*=(basic_vector2<T>& vector, const T factor) noexcept
-{
-  vector.scale(factor);
-}
-
-template <std::floating_point T>
 [[nodiscard]] constexpr auto operator+(const basic_vector2<T>& lhs,
                                        const basic_vector2<T>& rhs) noexcept
     -> basic_vector2<T>
 {
   return basic_vector2{lhs.x + rhs.x, lhs.y + rhs.y};
+}
+
+template <std::floating_point T>
+constexpr void operator-=(basic_vector2<T>& a, const basic_vector2<T>& b) noexcept
+{
+  a.x -= b.x;
+  a.y -= b.y;
 }
 
 template <std::floating_point T>
@@ -689,7 +844,143 @@ template <std::floating_point T>
   return basic_vector2{lhs.x - rhs.x, lhs.y - rhs.y};
 }
 
+/**
+ * \brief Returns the dot product of two vectors.
+ *
+ * \note The dot product is commutative, which means that the order of
+ * the operands doesn't matter.
+ *
+ * \param a the first vector.
+ * \param b the second vector.
+ *
+ * \return the dot product of the two vectors.
+ */
+template <std::floating_point T>
+[[nodiscard]] constexpr auto operator*(const basic_vector2<T>& a,
+                                       const basic_vector2<T>& b) noexcept -> T
+{
+  return (a.x * b.x) + (a.y * b.y);
+}
+
+template <std::floating_point T, typename U>
+constexpr void operator*=(basic_vector2<T>& vector, const U factor) noexcept
+{
+  vector.scale(factor);
+}
+
+template <std::floating_point T, typename U>
+[[nodiscard]] constexpr auto operator*(const basic_vector2<T>& vector,
+                                       const U factor) noexcept -> basic_vector2<T>
+{
+  return basic_vector2{vector.x * factor, vector.y * factor};
+}
+
+template <std::floating_point T>
+[[nodiscard]] constexpr auto operator*(const T factor,
+                                       const basic_vector2<T>& vector) noexcept
+    -> basic_vector2<T>
+{
+  return vector * factor;
+}
+
 /// \} End of vector operators
+
+/// \name Vector functions
+/// \{
+
+/**
+ * \brief Indicates whether or not two vectors are *almost* equal.
+ *
+ * \param a the first vector.
+ * \param b the second vector.
+ * \param epsilon the epsilon value that will be used.
+ *
+ * \return `true` if the vectors are almost equal; `false` otherwise.
+ */
+template <std::floating_point T>
+[[nodiscard]] auto almost_equal(const basic_vector2<T>& a,
+                                const basic_vector2<T>& b,
+                                const T epsilon = default_epsilon) -> bool
+{
+  return almost_equal(a.x, b.x, epsilon) && almost_equal(a.y, b.y, epsilon);
+}
+
+/**
+ * \brief Returns the distance between two vectors.
+ *
+ * \details The vectors are treated as points in the plane by this function.
+ *
+ * \param a the first vector.
+ * \param b the second vector.
+ *
+ * \return the distance between the two points.
+ */
+template <std::floating_point T>
+[[nodiscard]] auto distance(const basic_vector2<T>& a, const basic_vector2<T>& b) -> T
+{
+  const auto dx = b.x - a.x;
+  const auto dy = b.y - a.y;
+  return std::sqrt(dx * dx + dy * dy);
+}
+
+/**
+ * \brief Returns the cross product between two vectors.
+ *
+ * \param a the first vector.
+ * \param b the second vector.
+ *
+ * \return the cross product of the vectors.
+ */
+template <std::floating_point T>
+[[nodiscard]] constexpr auto cross(const basic_vector2<T>& a,
+                                   const basic_vector2<T>& b) noexcept -> T
+{
+  return a.x * b.y - a.y * b.x;
+}
+
+/// \copydoc operator*(const basic_vector2<T>&, const basic_vector2<T>&)
+template <std::floating_point T>
+[[nodiscard]] constexpr auto dot(const basic_vector2<T>& a,
+                                 const basic_vector2<T>& b) noexcept -> T
+{
+  return a * b;
+}
+
+/**
+ * \brief Returns the angle between two vectors.
+ *
+ * \note This function returns zero if any of the supplied vectors are zero vectors.
+ *
+ * \param a the first vector.
+ * \param b the second vector.
+ *
+ * \return the angle between the two vectors.
+ */
+template <std::floating_point T>
+[[nodiscard]] auto angle(const basic_vector2<T>& a, const basic_vector2<T>& b) -> T
+{
+  if (a.is_zero() || b.is_zero() || a == b)
+  {
+    return 0;
+  }
+
+  const auto mag1 = a.magnitude();
+  const auto mag2 = b.magnitude();
+
+  const auto cos = (a * b) / mag1 / mag2;
+  const auto sin = cross(a, b) / mag1 / mag2;
+
+  if (const auto angle = std::acos(cos); sin < 0)
+  {
+    return -angle;
+  }
+  else
+  {
+    return angle;
+  }
+}
+
+/// \} End of vector functions
 
 template <std::floating_point T>
 [[nodiscard]] auto to_string(const basic_vector2<T> vec) -> std::string
@@ -2496,12 +2787,14 @@ concept has_less_than = requires (T value)
 
 namespace rune {
 
-/// \addtogroup core
-/// \{
-
+/**
+ * \typedef czstring
+ *
+ * \brief An alias for a C-style null-terminated string.
+ *
+ * \ingroup core
+ */
 using czstring = const char*;
-
-/// \} End of group
 
 }  // namespace rune
 
@@ -3177,8 +3470,6 @@ class vector_map final
 
 #endif  // RUNE_CONTAINERS_VECTOR_MAP_HPP
 
-// #include "rune/core/aabb_tree.hpp"
-
 // #include "rune/core/compiler.hpp"
 #ifndef RUNE_CORE_COMPILER_HPP
 #define RUNE_CORE_COMPILER_HPP
@@ -3295,9 +3586,20 @@ namespace rune {
 /// \cond FALSE
 namespace tags {
 struct delta_time_tag;
-}
+}  // namespace tags
 /// \endcond
 
+/// \addtogroup core
+/// \{
+
+/**
+ * \def RUNE_DELTA_TIME_UNDERLYING_TYPE
+ *
+ * \brief The underlying type of the `delta_time` strong type.
+ *
+ * \note The underlying should be a floating-point type, i.e. `float`, `double` or
+ * possibly `long double`.
+ */
 #ifndef RUNE_DELTA_TIME_UNDERLYING_TYPE
 #define RUNE_DELTA_TIME_UNDERLYING_TYPE float
 #endif  // RUNE_DELTA_TIME_UNDERLYING_TYPE
@@ -3306,12 +3608,12 @@ struct delta_time_tag;
  * \brief The type used for delta time values, e.g. in the `tick()` function of game class
  * implementations.
  *
- * \ingroup core
- *
  * \see `RUNE_DELTA_TIME_UNDERLYING_TYPE`
  */
 using delta_time =
     nenya::strong_type<RUNE_DELTA_TIME_UNDERLYING_TYPE, tags::delta_time_tag>;
+
+/// \} End of group core
 
 }  // namespace rune
 
@@ -3347,10 +3649,28 @@ struct texture_id_tag;
 /// \addtogroup core
 /// \{
 
+/**
+ * \def RUNE_TEXTURE_ID_UNDERLYING_TYPE
+ *
+ * \brief The underlying type of the `texture_id` strong type.
+ *
+ * \details By default, the underlying type is `std::size_t`.
+ *
+ * \note The value of this macro must be of a hashable type.
+ */
 #ifndef RUNE_TEXTURE_ID_UNDERLYING_TYPE
 #define RUNE_TEXTURE_ID_UNDERLYING_TYPE std::size_t
 #endif  // RUNE_TEXTURE_ID_UNDERLYING_TYPE
 
+/**
+ * \typedef texture_id
+ *
+ * \brief Used as unique identifiers for textures.
+ *
+ * \details This is used in order to avoid loading the same texture more than once.
+ *
+ * \see `RUNE_TEXTURE_ID_UNDERLYING_TYPE`
+ */
 using texture_id =
     nenya::strong_type<RUNE_TEXTURE_ID_UNDERLYING_TYPE, tags::texture_id_tag>;
 
@@ -3378,12 +3698,12 @@ struct texture_index_tag;
 /// \addtogroup core
 /// \{
 
-#ifndef RUNE_TEXTURE_INDEX_UNDERLYING_TYPE
-#define RUNE_TEXTURE_INDEX_UNDERLYING_TYPE std::size_t
-#endif  // RUNE_TEXTURE_INDEX_UNDERLYING_TYPE
-
-using texture_index =
-    nenya::strong_type<RUNE_TEXTURE_INDEX_UNDERLYING_TYPE, tags::texture_index_tag>;
+/**
+ * \typedef texture_index
+ *
+ * \brief Strong type for texture indices, used by the `graphics` class.
+ */
+using texture_index = nenya::strong_type<std::size_t, tags::texture_index_tag>;
 
 /// \} End of group core
 
@@ -3501,6 +3821,11 @@ class graphics
   /// \name Texture handling
   /// \{
 
+  /**
+   * \brief Reserves enough memory to store the specified amount of textures.
+   *
+   * \param capacity the new capacity of textures.
+   */
   void reserve(const size_type capacity)
   {
     m_textures.reserve(capacity);
@@ -3592,22 +3917,51 @@ class graphics
   /// \name Font cache handling
   /// \{
 
+  /**
+   * \brief Adds a font cache to the graphics context.
+   *
+   * \tparam Args the types of the font cache constructor arguments.
+   *
+   * \note Any previous font cache associated with the supplied ID is overwritten.
+   *
+   * \param id the unique ID that will be associated with the font cache.
+   * \param args the arguments that will be forwarded to an appropriate font cache
+   * constructor.
+   */
   template <typename... Args>
   void emplace_cache(const font_id id, Args&&... args)
   {
-    m_caches.try_emplace(id, std::forward<Args>(args)...);
+    m_caches.insert_or_assign(id, cen::font_cache{std::forward<Args>(args)...});
   }
 
+  /**
+   * \brief Returns the font cache associated with the specified ID.
+   *
+   * \param id the ID associated with the desired font cache.
+   *
+   * \return the found font cache.
+   *
+   * \throws std::out_of_range if there is no font cache associated with the ID.
+   */
   [[nodiscard]] auto get_cache(const font_id id) -> cen::font_cache&
   {
     return m_caches.at(id);
   }
 
+  /// \copydoc get_cache()
   [[nodiscard]] auto get_cache(const font_id id) const -> const cen::font_cache&
   {
     return m_caches.at(id);
   }
 
+  /**
+   * \brief Indicates whether or not the graphics context has a font cache associated with
+   * the specified ID.
+   *
+   * \param id the ID that will be checked.
+   *
+   * \return `true` if there is a font cache associated with the ID; `false` otherwise.
+   */
   [[nodiscard]] auto contains_cache(const font_id id) const -> bool
   {
     return m_caches.contains(id);
@@ -3615,16 +3969,27 @@ class graphics
 
   /// \} End of font cache handling
 
+  /**
+   * \brief Returns the renderer associated with the graphics context.
+   *
+   * \return the associated renderer.
+   */
   [[nodiscard]] auto renderer() noexcept -> cen::renderer&
   {
     return m_renderer;
   }
 
+  /// \copydoc renderer()
   [[nodiscard]] auto renderer() const noexcept -> const cen::renderer&
   {
     return m_renderer;
   }
 
+  /**
+   * \brief Returns the pixel format used by the associated window.
+   *
+   * \return the associated pixel format.
+   */
   [[nodiscard]] auto format() const noexcept -> cen::pixel_format
   {
     return m_format;
@@ -3805,12 +4170,14 @@ template <has_less_than T>
 
 namespace rune {
 
-/// \addtogroup core
-/// \{
-
+/**
+ * \typedef czstring
+ *
+ * \brief An alias for a C-style null-terminated string.
+ *
+ * \ingroup core
+ */
 using czstring = const char*;
-
-/// \} End of group
 
 }  // namespace rune
 
@@ -3856,11 +4223,11 @@ namespace rune {
  * \brief The maximum tick rate of the game loop, i.e. the maximum amount of ticks per
  * second.
  *
- * \note The value of this macro should be a `double`.
- *
  * \details The game loop will try to run at the refresh rate of the primary screen, as
  * long as the the refresh rate isn't greater than the value of this macro. By default,
  * this macro expands to `120.0`.
+ *
+ * \note The value of this macro should be a `double`.
  */
 #ifndef RUNE_MAX_TICK_RATE
 #define RUNE_MAX_TICK_RATE 120.0
@@ -3871,10 +4238,10 @@ namespace rune {
  *
  * \brief The maximum amount of frames that the game loop can run per tick.
  *
- * \note The value of this macro should be an `int`.
- *
  * \details The purpose of this limit is to avoid the "spiral-of-death". By default, this
  * macro expands to `5`.
+ *
+ * \note The value of this macro should be an `int`.
  */
 #ifndef RUNE_ENGINE_MAX_FRAMES_PER_TICK
 #define RUNE_ENGINE_MAX_FRAMES_PER_TICK 5
@@ -4303,11 +4670,11 @@ namespace rune {
  * \brief The maximum tick rate of the game loop, i.e. the maximum amount of ticks per
  * second.
  *
- * \note The value of this macro should be a `double`.
- *
  * \details The game loop will try to run at the refresh rate of the primary screen, as
  * long as the the refresh rate isn't greater than the value of this macro. By default,
  * this macro expands to `120.0`.
+ *
+ * \note The value of this macro should be a `double`.
  */
 #ifndef RUNE_MAX_TICK_RATE
 #define RUNE_MAX_TICK_RATE 120.0
@@ -4318,10 +4685,10 @@ namespace rune {
  *
  * \brief The maximum amount of frames that the game loop can run per tick.
  *
- * \note The value of this macro should be an `int`.
- *
  * \details The purpose of this limit is to avoid the "spiral-of-death". By default, this
  * macro expands to `5`.
+ *
+ * \note The value of this macro should be an `int`.
  */
 #ifndef RUNE_ENGINE_MAX_FRAMES_PER_TICK
 #define RUNE_ENGINE_MAX_FRAMES_PER_TICK 5
@@ -5445,12 +5812,27 @@ namespace rune {
 /// \addtogroup math
 /// \{
 
+/**
+ * \class basic_vector2
+ *
+ * \brief A two-dimensional vector with floating point coordinates.
+ *
+ * \tparam T the representation type, must a floating-point type.
+ *
+ * \see `float2`
+ * \see `double2`
+ * \see `almost_equal(const basic_vector2<T>&, const basic_vector2<T>&, T)`
+ * \see `distance(const basic_vector2<T>&, const basic_vector2<T>&)`
+ * \see `angle(const basic_vector2<T>&, const basic_vector2<T>&)`
+ * \see `cross(const basic_vector2<T>&, const basic_vector2<T>&)`
+ * \see `dot(const basic_vector2<T>&, const basic_vector2<T>&)`
+ */
 template <std::floating_point T>
 class basic_vector2 final
 {
  public:
-  using value_type = T;
-  using vector_type = basic_vector2;
+  using value_type = T;               ///< The type of the coordinates.
+  using vector_type = basic_vector2;  ///< The type of the vector itself.
 
   value_type x{};  ///< The x-coordinate.
   value_type y{};  ///< The y-coordinate.
@@ -5458,7 +5840,9 @@ class basic_vector2 final
   /// \name Construction
   /// \{
 
-  /// Creates a zero vector.
+  /**
+   * \brief Creates a zero vector.
+   */
   constexpr basic_vector2() noexcept = default;
 
   /**
@@ -5475,7 +5859,9 @@ class basic_vector2 final
   /// \name Mutators
   /// \{
 
-  /// Turns the vector into the zero vector.
+  /**
+   * \brief Turns the vector into a zero vector.
+   */
   constexpr void reset() noexcept
   {
     x = 0;
@@ -5568,30 +5954,78 @@ class basic_vector2 final
     look_at(target, magnitude());
   }
 
+  /**
+   * \brief Sets the magnitude of the vector.
+   *
+   * \note If the supplied magnitude is negative, the vector becomes the zero vector.
+   *
+   * \param length the new magnitude of the vector.
+   */
+  void set_magnitude(const T length)
+  {
+    if (length > 0) [[likely]]
+    {
+      const auto previous = magnitude();
+      if (previous != 0 && previous != length)
+      {
+        scale(length / previous);
+      }
+    }
+    else
+    {
+      reset();
+    }
+  }
+
   /// \} End of mutators
 
   /// \name Queries
   /// \{
 
   /// Returns the magnitude, i.e. length, of the vector.
+
+  /**
+   * \brief Returns the magnitude (length) of the vector.
+   *
+   * \return the magnitude of the vector.
+   */
   [[nodiscard]] auto magnitude() const -> value_type
   {
     return std::sqrt((x * x) + (y * y));
   }
 
-  /// Returns the squared magnitude of the vector.
+  /**
+   * \brief Returns the squared magnitude of this vector.
+   *
+   * \details This function can be useful when comparing vectors. It avoids a relatively
+   * expensive square root computation.
+   *
+   * \return the squared magnitude of this vector.
+   */
   [[nodiscard]] constexpr auto magnitude2() const noexcept -> value_type
   {
     return (x * x) + (y * y);
   }
 
-  /// Indicates whether or not the vector is a unit vector.
+  /**
+   * \brief Indicates whether or not the vector is a unit vector.
+   *
+   * \details A unit vector is a vector with length `1`.
+   *
+   * \return `true` if the vector is a unit vector; `false` otherwise.
+   */
   [[nodiscard]] auto is_unit() const -> bool
   {
     return almost_equal(magnitude(), value_type{1});
   }
 
-  /// Indicates whether or not the vector is the zero vector.
+  /**
+   * \brief Indicates whether or not the vector is a zero vector.
+   *
+   * \details A vector is a zero vector if both of its coordinates are zero.
+   *
+   * \return `true` if the vector is a zero vector; `false` otherwise.
+   */
   [[nodiscard]] auto is_zero() const -> bool
   {
     return almost_equal(x, value_type{0}) && almost_equal(y, value_type{0});
@@ -5602,7 +6036,11 @@ class basic_vector2 final
   /// \name Serialization
   /// \{
 
-  /// Serializes the vector.
+  /**
+   * \brief Serializes the vector.
+   *
+   * \param archive the serialization archive that will be used.
+   */
   void serialize(auto& archive)
   {
     archive(x, y);
@@ -5613,7 +6051,13 @@ class basic_vector2 final
   /// \name Comparisons
   /// \{
 
-  /// Indicates whether or not two vectors are exactly equal.
+  /**
+   * \brief Indicates whether or not two vectors are *exactly* equal.
+   *
+   * \return `true` if the vectors are exactly equal; `false` otherwise.
+   *
+   * \see `almost_equal(const basic_vector2<T>&, const basic_vector2<T>&, T)`
+   */
   [[nodiscard]] constexpr bool operator==(const vector_type&) const noexcept = default;
 
   /// \} End of comparisons
@@ -5624,15 +6068,6 @@ using float2 = basic_vector2<float>;
 
 /// A two-dimensional vector using `double` precision.
 using double2 = basic_vector2<double>;
-
-/// Indicates whether or not two vectors are almost equal.
-template <std::floating_point T>
-[[nodiscard]] auto almost_equal(const basic_vector2<T>& a,
-                                const basic_vector2<T>& b,
-                                const T epsilon = default_epsilon) -> bool
-{
-  return almost_equal(a.x, b.x, epsilon) && almost_equal(a.y, b.y, epsilon);
-}
 
 /// \name Vector operators
 /// \{
@@ -5645,24 +6080,18 @@ constexpr void operator+=(basic_vector2<T>& a, const basic_vector2<T>& b) noexce
 }
 
 template <std::floating_point T>
-constexpr void operator-=(basic_vector2<T>& a, const basic_vector2<T>& b) noexcept
-{
-  a.x -= b.x;
-  a.y -= b.y;
-}
-
-template <std::floating_point T>
-constexpr void operator*=(basic_vector2<T>& vector, const T factor) noexcept
-{
-  vector.scale(factor);
-}
-
-template <std::floating_point T>
 [[nodiscard]] constexpr auto operator+(const basic_vector2<T>& lhs,
                                        const basic_vector2<T>& rhs) noexcept
     -> basic_vector2<T>
 {
   return basic_vector2{lhs.x + rhs.x, lhs.y + rhs.y};
+}
+
+template <std::floating_point T>
+constexpr void operator-=(basic_vector2<T>& a, const basic_vector2<T>& b) noexcept
+{
+  a.x -= b.x;
+  a.y -= b.y;
 }
 
 template <std::floating_point T>
@@ -5673,7 +6102,143 @@ template <std::floating_point T>
   return basic_vector2{lhs.x - rhs.x, lhs.y - rhs.y};
 }
 
+/**
+ * \brief Returns the dot product of two vectors.
+ *
+ * \note The dot product is commutative, which means that the order of
+ * the operands doesn't matter.
+ *
+ * \param a the first vector.
+ * \param b the second vector.
+ *
+ * \return the dot product of the two vectors.
+ */
+template <std::floating_point T>
+[[nodiscard]] constexpr auto operator*(const basic_vector2<T>& a,
+                                       const basic_vector2<T>& b) noexcept -> T
+{
+  return (a.x * b.x) + (a.y * b.y);
+}
+
+template <std::floating_point T, typename U>
+constexpr void operator*=(basic_vector2<T>& vector, const U factor) noexcept
+{
+  vector.scale(factor);
+}
+
+template <std::floating_point T, typename U>
+[[nodiscard]] constexpr auto operator*(const basic_vector2<T>& vector,
+                                       const U factor) noexcept -> basic_vector2<T>
+{
+  return basic_vector2{vector.x * factor, vector.y * factor};
+}
+
+template <std::floating_point T>
+[[nodiscard]] constexpr auto operator*(const T factor,
+                                       const basic_vector2<T>& vector) noexcept
+    -> basic_vector2<T>
+{
+  return vector * factor;
+}
+
 /// \} End of vector operators
+
+/// \name Vector functions
+/// \{
+
+/**
+ * \brief Indicates whether or not two vectors are *almost* equal.
+ *
+ * \param a the first vector.
+ * \param b the second vector.
+ * \param epsilon the epsilon value that will be used.
+ *
+ * \return `true` if the vectors are almost equal; `false` otherwise.
+ */
+template <std::floating_point T>
+[[nodiscard]] auto almost_equal(const basic_vector2<T>& a,
+                                const basic_vector2<T>& b,
+                                const T epsilon = default_epsilon) -> bool
+{
+  return almost_equal(a.x, b.x, epsilon) && almost_equal(a.y, b.y, epsilon);
+}
+
+/**
+ * \brief Returns the distance between two vectors.
+ *
+ * \details The vectors are treated as points in the plane by this function.
+ *
+ * \param a the first vector.
+ * \param b the second vector.
+ *
+ * \return the distance between the two points.
+ */
+template <std::floating_point T>
+[[nodiscard]] auto distance(const basic_vector2<T>& a, const basic_vector2<T>& b) -> T
+{
+  const auto dx = b.x - a.x;
+  const auto dy = b.y - a.y;
+  return std::sqrt(dx * dx + dy * dy);
+}
+
+/**
+ * \brief Returns the cross product between two vectors.
+ *
+ * \param a the first vector.
+ * \param b the second vector.
+ *
+ * \return the cross product of the vectors.
+ */
+template <std::floating_point T>
+[[nodiscard]] constexpr auto cross(const basic_vector2<T>& a,
+                                   const basic_vector2<T>& b) noexcept -> T
+{
+  return a.x * b.y - a.y * b.x;
+}
+
+/// \copydoc operator*(const basic_vector2<T>&, const basic_vector2<T>&)
+template <std::floating_point T>
+[[nodiscard]] constexpr auto dot(const basic_vector2<T>& a,
+                                 const basic_vector2<T>& b) noexcept -> T
+{
+  return a * b;
+}
+
+/**
+ * \brief Returns the angle between two vectors.
+ *
+ * \note This function returns zero if any of the supplied vectors are zero vectors.
+ *
+ * \param a the first vector.
+ * \param b the second vector.
+ *
+ * \return the angle between the two vectors.
+ */
+template <std::floating_point T>
+[[nodiscard]] auto angle(const basic_vector2<T>& a, const basic_vector2<T>& b) -> T
+{
+  if (a.is_zero() || b.is_zero() || a == b)
+  {
+    return 0;
+  }
+
+  const auto mag1 = a.magnitude();
+  const auto mag2 = b.magnitude();
+
+  const auto cos = (a * b) / mag1 / mag2;
+  const auto sin = cross(a, b) / mag1 / mag2;
+
+  if (const auto angle = std::acos(cos); sin < 0)
+  {
+    return -angle;
+  }
+  else
+  {
+    return angle;
+  }
+}
+
+/// \} End of vector functions
 
 template <std::floating_point T>
 [[nodiscard]] auto to_string(const basic_vector2<T> vec) -> std::string
@@ -6314,12 +6879,14 @@ void from_json(const json_type& json, tmx_grid& grid);
 
 namespace rune {
 
-/// \addtogroup core
-/// \{
-
+/**
+ * \typedef czstring
+ *
+ * \brief An alias for a C-style null-terminated string.
+ *
+ * \ingroup core
+ */
 using czstring = const char*;
-
-/// \} End of group
 
 }  // namespace rune
 

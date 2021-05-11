@@ -20,7 +20,7 @@ void begin_chase(entt::registry& registry,
   registry.remove_if_exists<comp::roam>(entity);
 
   movable.velocity = movable.position;
-  movable.velocity.point_at(destination, movable.speed);
+  movable.velocity.look_at(destination, movable.speed);
 
   if (!registry.all_of<comp::humanoid_move>(entity))
   {

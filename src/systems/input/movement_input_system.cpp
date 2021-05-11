@@ -35,7 +35,7 @@ void move(comp::movable& movable, const direction dir) noexcept
       break;
     }
   }
-  movable.velocity.norm();
+  movable.velocity.normalize();
   movable.velocity.scale(movable.speed);
 }
 
@@ -56,7 +56,7 @@ void stop(comp::movable& movable, const direction dir) noexcept
       break;
     }
   }
-  movable.velocity.norm();
+  movable.velocity.normalize();
   movable.velocity.scale(movable.speed);
 }
 

@@ -34,7 +34,7 @@ void target_nearby_position(entt::registry& registry,
   roam.destination = nearby_position(movable.position);
 
   movable.velocity = movable.position;
-  movable.velocity.point_at(*roam.destination, movable.speed);
+  movable.velocity.look_at(*roam.destination, movable.speed);
 
   if (registry.all_of<comp::humanoid>(entity))
   {
