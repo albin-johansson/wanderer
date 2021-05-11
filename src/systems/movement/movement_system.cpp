@@ -95,13 +95,13 @@ void update_hitbox(entt::registry& registry,
                    const float2 oldPosition,
                    const rune::delta_time dt)
 {
-  const auto oldAabbPos = tree.get_aabb(entity).min();
+  const auto oldAabbPos = tree.at(entity).min;
 
   auto& hitbox = registry.get<comp::hitbox>(entity);
   auto& movable = registry.get<comp::movable>(entity);
 
   set_position(hitbox, movable.position);
-  tree.relocate(entity, to_vector(hitbox.bounds.position()));
+  tree.set_position(entity, to_vector(hitbox.bounds.position()));
 
   if (movable.velocity.is_zero())
   {
@@ -119,7 +119,7 @@ void update_hitbox(entt::registry& registry,
     const auto pos = restore_aabb_position(oldAabbPos,
                                            to_vector(hitbox.bounds.position()),
                                            collisions);
-    tree.relocate(entity, pos);
+    tree.set_position(entity, pos);
   };
 
   {

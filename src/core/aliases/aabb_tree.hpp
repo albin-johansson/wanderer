@@ -1,12 +1,10 @@
 #pragma once
 
-#include <abby.hpp>  // tree
 #include <entt.hpp>  // entity
-
-#include "core/aliases/float2.hpp"
+#include <rune.hpp>  // aabb_tree
 
 namespace wanderer {
 
-using aabb_tree = abby::tree<entt::entity, float, float2>;
+using aabb_tree = rune::aabb_tree<entt::entity>;
 
-}
+}  // namespace wanderer

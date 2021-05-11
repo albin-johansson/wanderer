@@ -26,7 +26,7 @@ level::level(const ir::level& data, graphics_context& graphics)
     , m_tilemap{m_registry.create()}
     , m_playerSpawnPosition{data.playerSpawnPoint}
 {
-  m_tree.set_thickness_factor(std::nullopt);
+  m_tree.disable_thickness_factor();
 
   load_tileset_textures(data, graphics);
   auto& tileset = make_tileset(data.tilesets, m_registry, graphics);
