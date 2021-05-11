@@ -1,10 +1,10 @@
 #include "time_system.hpp"
 
-#include <cmath>  // floor, ceil, lerp
+#include <cmath>     // floor, ceil, lerp
+#include <rune.hpp>  // static_vector
 
 #include "components/ctx/time_of_day.hpp"
 #include "core/common_concepts.hpp"
-#include "core/static_vector.hpp"
 
 namespace wanderer::sys {
 namespace {
@@ -20,7 +20,7 @@ struct phase final
 {
   float phaseStart;
   float phaseEnd;
-  static_vector<cen::color, 5> colors;
+  rune::static_vector<cen::color, 5> colors;
 };
 
 inline const phase sunrise_phase{

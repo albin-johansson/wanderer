@@ -3,11 +3,11 @@
 #include <array>          // array
 #include <centurion.hpp>  // farea, frect
 #include <cstddef>        // size_t
+#include <rune.hpp>       // static_vector
 
 #include "core/aliases/entity_type.hpp"
 #include "core/aliases/float2.hpp"
 #include "core/aliases/ints.hpp"
-#include "core/static_vector.hpp"
 
 namespace wanderer::comp {
 namespace detail {
@@ -39,10 +39,10 @@ struct hitbox final
 {
   using entity = entity_type<detail::hitbox_entity_t>;
 
-  float2 origin;      ///< The position of the hitbox.
-  cen::frect bounds;  ///< The bounding rectangle of all subhitboxes.
-  static_vector<subhitbox, max_subhitbox_count> boxes;  ///< The associated subhitboxes.
-  bool enabled{true};  ///< Whether or not the hitbox can collide with other hitboxes.
+  float2 origin;      ///< Position of the hitbox
+  cen::frect bounds;  ///< Bounding rectangle of all subhitboxes
+  rune::static_vector<subhitbox, max_subhitbox_count> boxes;  ///< Associated subhitboxes
+  bool enabled{true};  ///< Whether or not the hitbox can collide with other hitboxes
 };
 
 void serialize(auto& archive, subhitbox& sh)
