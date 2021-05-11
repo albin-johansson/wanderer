@@ -2,10 +2,10 @@
 
 #include <centurion.hpp>  // renderer, farea
 #include <entt.hpp>       // registry
+#include <rune.hpp>       // delta_time
 
 #include "components/ctx/viewport.hpp"
 #include "components/movable.hpp"
-#include "core/aliases/delta_time.hpp"
 #include "core/aliases/float2.hpp"
 #include "core/levels/level.hpp"
 
@@ -46,7 +46,7 @@ void center_viewport_on(entt::registry& registry, float2 position);
  */
 void update_viewport(entt::registry& registry,
                      comp::movable::entity target,
-                     delta_time dt);
+                     rune::delta_time dt);
 
 /**
  * \brief Updates the translation viewport of a renderer based on the current viewport.

@@ -1,10 +1,10 @@
 #pragma once
 
 #include <initializer_list>  // initializer_list
+#include <rune.hpp>          // delta_time
 
 #include "components/hitbox.hpp"
 #include "components/movable.hpp"
-#include "core/aliases/delta_time.hpp"
 #include "core/aliases/float2.hpp"
 #include "core/aliases/maybe.hpp"
 
@@ -112,7 +112,7 @@ void set_position(comp::hitbox& hitbox, float2 position) noexcept;
 [[nodiscard]] auto make_next_hitboxes(const comp::movable& movable,
                                       const comp::hitbox& hitbox,
                                       float2 oldPosition,
-                                      delta_time dt) -> next_hitboxes;
+                                      rune::delta_time dt) -> next_hitboxes;
 
 /**
  * \brief Computes the collisions for a pair of future hitboxes and an obstacle.

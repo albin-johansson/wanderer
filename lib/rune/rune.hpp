@@ -20,7 +20,9 @@
  * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+#ifndef RUNE_NO_PRAGMA_ONCE
 #pragma once
+#endif  // RUNE_NO_PRAGMA_ONCE
 
 // #include "rune/aliases/czstring.hpp"
 
@@ -40,23 +42,30 @@ using czstring = const char*;
 #ifndef RUNE_ALIASES_DELTA_TIME_HPP
 #define RUNE_ALIASES_DELTA_TIME_HPP
 
+#include <nenya.hpp>  // strong_type
+
 namespace rune {
 
-#ifndef RUNE_DELTA_TIME_TYPE
-#define RUNE_DELTA_TIME_TYPE float
-#endif  // RUNE_DELTA_TIME_TYPE
+/// \cond FALSE
+namespace tags {
+struct delta_time_tag;
+}
+/// \endcond
+
+#ifndef RUNE_DELTA_TIME_UNDERLYING_TYPE
+#define RUNE_DELTA_TIME_UNDERLYING_TYPE float
+#endif  // RUNE_DELTA_TIME_UNDERLYING_TYPE
 
 /**
  * \brief The type used for delta time values, e.g. in the `tick()` function of game class
  * implementations.
  *
- * \details By default, this alias is equivalent to `float`.
- *
  * \ingroup core
  *
- * \see `RUNE_DELTA_TIME_TYPE`
+ * \see `RUNE_DELTA_TIME_UNDERLYING_TYPE`
  */
-using delta_time = RUNE_DELTA_TIME_TYPE;
+using delta_time =
+    nenya::strong_type<RUNE_DELTA_TIME_UNDERLYING_TYPE, tags::delta_time_tag>;
 
 }  // namespace rune
 
@@ -1299,7 +1308,7 @@ class aabb_tree final
 
   void insert(const key_type& key, const vector_type& lower, const vector_type& upper)
   {
-    assert(!m_indices.count(key));
+    assert(!m_indices.contains(key));
 
     const auto index = allocate_node();
 
@@ -1403,7 +1412,7 @@ class aabb_tree final
 
     while (count > 1)
     {
-      auto minCost = std::numeric_limits<double>::max();
+      auto minCost = std::numeric_limits<precision_type>::max();
       int iMin{-1};
       int jMin{-1};
 
@@ -1429,19 +1438,21 @@ class aabb_tree final
       const auto index2 = indices.at(jMin);
 
       const auto parentIndex = allocate_node();
-      auto& parentNode = m_nodes.at(parentIndex);
 
-      auto& index1Node = m_nodes.at(index1);
-      auto& index2Node = m_nodes.at(index2);
+      {
+        auto& parentNode = m_nodes.at(parentIndex);
+        auto& index1Node = m_nodes.at(index1);
+        auto& index2Node = m_nodes.at(index2);
 
-      parentNode.left = index1;
-      parentNode.right = index2;
-      parentNode.height = 1 + max(index1Node.height, index2Node.height);
-      parentNode.box = merge(index1Node.box, index2Node.box);
-      parentNode.parent = std::nullopt;
+        parentNode.left = index1;
+        parentNode.right = index2;
+        parentNode.height = 1 + max(index1Node.height, index2Node.height);
+        parentNode.box = merge(index1Node.box, index2Node.box);
+        parentNode.parent = std::nullopt;
 
-      index1Node.parent = parentIndex;
-      index2Node.parent = parentIndex;
+        index1Node.parent = parentIndex;
+        index2Node.parent = parentIndex;
+      }
 
       indices.at(jMin) = indices.at(count - 1);
       indices.at(iMin) = parentIndex;
@@ -1647,20 +1658,65 @@ class aabb_tree final
   /// \{
 
   template <size_type BufferSize = aabb_tree_query_buffer_size,
-            std::output_iterator<key_type> T>
-  void query(const key_type& key, T iterator) const
-  {
-    query_impl<BufferSize>(key, [&](const key_type& key) {
-      *iterator = key;
-      ++iterator;
-    });
-  }
-
-  template <size_type BufferSize = aabb_tree_query_buffer_size,
             std::invocable<key_type> T>
   void query(const key_type& key, T&& callable) const
   {
-    query_impl<BufferSize>(key, callable);
+    if (const auto it = m_indices.find(key); it != m_indices.end())
+    {
+      const auto index = it->second;
+      const auto& sourceNode = m_nodes.at(index);
+
+      stack_resource<BufferSize * sizeof(std::optional<index_type>)> resource;
+      pmr_stack<std::optional<index_type>> stack{resource.get()};
+
+      stack.push(m_root);
+
+      bool quit{};
+      while (!stack.empty() && !quit)
+      {
+        const auto nodeIndex = stack.top();
+        stack.pop();
+
+        if (!nodeIndex)
+        {
+          continue;
+        }
+
+        const auto& node = m_nodes.at(*nodeIndex);
+
+        // Test for overlap between the AABBs
+        if (overlaps(sourceNode.box, node.box, m_touchIsOverlap))
+        {
+          if (is_leaf(node) && node.id && node.id != key)
+          {
+            // The boolean return type is optional
+            if constexpr (std::same_as<bool, std::invoke_result_t<T, key_type>>)
+            {
+              quit = callable(*node.id);
+            }
+            else
+            {
+              callable(*node.id);
+            }
+          }
+          else
+          {
+            stack.push(node.left);
+            stack.push(node.right);
+          }
+        }
+      }
+    }
+  }
+
+  template <size_type BufferSize = aabb_tree_query_buffer_size,
+            std::output_iterator<key_type> T>
+  void query(const key_type& key, T iterator) const
+  {
+    query<BufferSize>(key, [&](const key_type& key) {
+      *iterator = key;
+      ++iterator;
+    });
   }
 
   /// \} End of collision queries
@@ -1764,18 +1820,18 @@ class aabb_tree final
     return index;
   }
 
-  void free_node(const index_type nodeIndex)
+  void free_node(const index_type index)
   {
-    assert(nodeIndex < m_nodeCapacity);
+    assert(index < m_nodeCapacity);
     assert(0 < m_nodeCount);
 
     {
-      auto& node = m_nodes.at(nodeIndex);
+      auto& node = m_nodes.at(index);
       node.next = m_nextFreeIndex;
       node.height = -1;
     }
 
-    m_nextFreeIndex = nodeIndex;
+    m_nextFreeIndex = index;
 
     --m_nodeCount;
   }
@@ -2022,17 +2078,17 @@ class aabb_tree final
     }
   }
 
-  [[nodiscard]] auto balance(const index_type nodeIndex) -> index_type
+  [[nodiscard]] auto balance(const index_type index) -> index_type
   {
-    if (is_leaf(m_nodes.at(nodeIndex)) || (m_nodes.at(nodeIndex).height < 2))
+    if (is_leaf(m_nodes.at(index)) || (m_nodes.at(index).height < 2))
     {
-      return nodeIndex;
+      return index;
     }
 
-    const auto leftIndex = m_nodes.at(nodeIndex).left.value();
+    const auto leftIndex = m_nodes.at(index).left.value();
     assert(leftIndex < m_nodeCapacity);
 
-    const auto rightIndex = m_nodes.at(nodeIndex).right.value();
+    const auto rightIndex = m_nodes.at(index).right.value();
     assert(rightIndex < m_nodeCapacity);
 
     const auto currentBalance =
@@ -2041,18 +2097,18 @@ class aabb_tree final
     // Rotate right branch up.
     if (currentBalance > 1)
     {
-      rotate_right(nodeIndex, leftIndex, rightIndex);
+      rotate_right(index, leftIndex, rightIndex);
       return rightIndex;
     }
 
     // Rotate left branch up.
     if (currentBalance < -1)
     {
-      rotate_left(nodeIndex, leftIndex, rightIndex);
+      rotate_left(index, leftIndex, rightIndex);
       return leftIndex;
     }
 
-    return nodeIndex;
+    return index;
   }
 
   void fix_tree_upwards(std::optional<index_type> index)
@@ -2178,57 +2234,6 @@ class aabb_tree final
 
   template <typename T>
   using pmr_stack = std::stack<T, std::pmr::deque<T>>;
-
-  template <size_type BufferSize = 256, std::invocable<key_type> Callable>
-  void query_impl(const key_type& key, Callable&& callable) const
-  {
-    if (const auto it = m_indices.find(key); it != m_indices.end())
-    {
-      const auto index = it->second;
-      const auto& sourceNode = m_nodes.at(index);
-
-      stack_resource<BufferSize * sizeof(std::optional<index_type>)> resource;
-      pmr_stack<std::optional<index_type>> stack{resource.get()};
-
-      stack.push(m_root);
-
-      bool quit{};
-      while (!stack.empty() && !quit)
-      {
-        const auto nodeIndex = stack.top();
-        stack.pop();
-
-        if (!nodeIndex)
-        {
-          continue;
-        }
-
-        const auto& node = m_nodes.at(*nodeIndex);
-
-        // Test for overlap between the AABBs
-        if (overlaps(sourceNode.box, node.box, m_touchIsOverlap))
-        {
-          if (is_leaf(node) && node.id && node.id != key)
-          {
-            // The boolean return type is optional
-            if constexpr (std::same_as<bool, std::invoke_result_t<Callable, key_type>>)
-            {
-              quit = callable(*node.id);
-            }
-            else
-            {
-              callable(*node.id);
-            }
-          }
-          else
-          {
-            stack.push(node.left);
-            stack.push(node.right);
-          }
-        }
-      }
-    }
-  }
 
   /// \} End of collision queries
 
@@ -3268,8 +3273,10 @@ concept has_less_than = requires (T value)
 #ifndef RUNE_CORE_ENGINE_HPP
 #define RUNE_CORE_ENGINE_HPP
 
+#include <cassert>        // assert
 #include <centurion.hpp>  // window
 #include <concepts>       // derived_from
+#include <optional>       // optional
 
 // #include "game.hpp"
 #ifndef RUNE_CORE_GAME_HPP
@@ -3281,23 +3288,30 @@ concept has_less_than = requires (T value)
 #ifndef RUNE_ALIASES_DELTA_TIME_HPP
 #define RUNE_ALIASES_DELTA_TIME_HPP
 
+#include <nenya.hpp>  // strong_type
+
 namespace rune {
 
-#ifndef RUNE_DELTA_TIME_TYPE
-#define RUNE_DELTA_TIME_TYPE float
-#endif  // RUNE_DELTA_TIME_TYPE
+/// \cond FALSE
+namespace tags {
+struct delta_time_tag;
+}
+/// \endcond
+
+#ifndef RUNE_DELTA_TIME_UNDERLYING_TYPE
+#define RUNE_DELTA_TIME_UNDERLYING_TYPE float
+#endif  // RUNE_DELTA_TIME_UNDERLYING_TYPE
 
 /**
  * \brief The type used for delta time values, e.g. in the `tick()` function of game class
  * implementations.
  *
- * \details By default, this alias is equivalent to `float`.
- *
  * \ingroup core
  *
- * \see `RUNE_DELTA_TIME_TYPE`
+ * \see `RUNE_DELTA_TIME_UNDERLYING_TYPE`
  */
-using delta_time = RUNE_DELTA_TIME_TYPE;
+using delta_time =
+    nenya::strong_type<RUNE_DELTA_TIME_UNDERLYING_TYPE, tags::delta_time_tag>;
 
 }  // namespace rune
 
@@ -3307,12 +3321,126 @@ using delta_time = RUNE_DELTA_TIME_TYPE;
 #ifndef RUNE_CORE_GRAPHICS_HPP
 #define RUNE_CORE_GRAPHICS_HPP
 
+#include <cassert>        // assert
 #include <centurion.hpp>  // window, renderer, texture, font_cache, pixel_format
 #include <cstddef>        // size_t
 #include <string>         // string
 #include <unordered_map>  // unordered_map
 #include <utility>        // forward
 #include <vector>         // vector
+
+// #include "../aliases/texture_id.hpp"
+#ifndef RUNE_ALIASES_TEXTURE_ID_HPP
+#define RUNE_ALIASES_TEXTURE_ID_HPP
+
+#include <cstddef>    // size_t
+#include <nenya.hpp>  // strong_type
+
+namespace rune {
+
+/// \cond FALSE
+namespace tags {
+struct texture_id_tag;
+}  // namespace tags
+/// \endcond
+
+/// \addtogroup core
+/// \{
+
+#ifndef RUNE_TEXTURE_ID_UNDERLYING_TYPE
+#define RUNE_TEXTURE_ID_UNDERLYING_TYPE std::size_t
+#endif  // RUNE_TEXTURE_ID_UNDERLYING_TYPE
+
+using texture_id =
+    nenya::strong_type<RUNE_TEXTURE_ID_UNDERLYING_TYPE, tags::texture_id_tag>;
+
+/// \} End of group core
+
+}  // namespace rune
+
+#endif  // RUNE_ALIASES_TEXTURE_ID_HPP
+
+// #include "../aliases/texture_index.hpp"
+#ifndef RUNE_ALIASES_TEXTURE_INDEX_HPP
+#define RUNE_ALIASES_TEXTURE_INDEX_HPP
+
+#include <cstddef>    // size_t
+#include <nenya.hpp>  // strong_type
+
+namespace rune {
+
+/// \cond FALSE
+namespace tags {
+struct texture_index_tag;
+}  // namespace tags
+/// \endcond
+
+/// \addtogroup core
+/// \{
+
+#ifndef RUNE_TEXTURE_INDEX_UNDERLYING_TYPE
+#define RUNE_TEXTURE_INDEX_UNDERLYING_TYPE std::size_t
+#endif  // RUNE_TEXTURE_INDEX_UNDERLYING_TYPE
+
+using texture_index =
+    nenya::strong_type<RUNE_TEXTURE_INDEX_UNDERLYING_TYPE, tags::texture_index_tag>;
+
+/// \} End of group core
+
+}  // namespace rune
+
+#endif  // RUNE_ALIASES_TEXTURE_INDEX_HPP
+
+// #include "compiler.hpp"
+#ifndef RUNE_CORE_COMPILER_HPP
+#define RUNE_CORE_COMPILER_HPP
+
+namespace rune {
+
+/// \addtogroup core
+/// \{
+
+/// \name Compiler checks
+/// \{
+
+/// Indicates whether or not the current compiler is MSVC
+[[nodiscard]] constexpr auto on_msvc() noexcept -> bool
+{
+#ifdef _MSC_VER
+  return true;
+#else
+  return false;
+#endif  // _MSC_VER
+}
+
+/// Indicates whether or not the current compiler is GCC
+[[nodiscard]] constexpr auto on_gcc() noexcept -> bool
+{
+#ifdef __GNUC__
+  return true;
+#else
+  return false;
+#endif  // __GNUC__
+}
+
+/// Indicates whether or not the current compiler is Clang
+[[nodiscard]] constexpr auto on_clang() noexcept -> bool
+{
+#ifdef __clang__
+  return true;
+#else
+  return false;
+#endif  // __clang__
+}
+
+/// \} End of compiler checks
+
+/// \} End of group core
+
+}  // namespace rune
+
+#endif  // RUNE_CORE_COMPILER_HPP
+
 
 namespace rune {
 
@@ -3337,14 +3465,29 @@ namespace rune {
 
 /// \} End of configuration macros
 
+/**
+ * \class graphics
+ *
+ * \brief Provides the main graphics API.
+ *
+ * \details This class provides a renderer, efficient texture handling, font caches for
+ * efficient text rendering, pixel format information, etc.
+ *
+ * \details For reduced memory consumption and redundancy in loaded textures, this class
+ * manages a collection of textures that are given unique indices when loaded. These
+ * indices literally correspond to indices in an array of textures managed by this class,
+ * which results in very fast constant complexity lookup of textures.
+ *
+ * \details It is safe to derive your own custom graphics context classes from this class.
+ * However, you then need to supply your custom graphics type as a template parameter to
+ * `engine`.
+ */
 class graphics
 {
  public:
   using size_type = std::size_t;
 
   // TODO strong types
-  using texture_index = size_type;
-  using texture_id = size_type;
   using font_id = size_type;
 
   template <typename T>
@@ -3355,9 +3498,25 @@ class graphics
 
   virtual ~graphics() noexcept = default;
 
-  /// \name Texture loading
+  /// \name Texture handling
   /// \{
 
+  void reserve(const size_type capacity)
+  {
+    m_textures.reserve(capacity);
+  }
+
+  /**
+   * \brief Loads a texture and returns the associated index.
+   *
+   * \details If a texture with the specified ID has already been loaded, then this
+   * function does nothing, and just returns the existing texture index.
+   *
+   * \param id the unique ID of the texture.
+   * \param path the file path of the texture.
+   *
+   * \return the index of the loaded texture.
+   */
   auto load(const texture_id id, const std::string& path) -> texture_index
   {
     if (const auto it = m_indices.find(id); it != m_indices.end())
@@ -3371,28 +3530,90 @@ class graphics
       m_textures.emplace_back(m_renderer, path);
       m_indices.try_emplace(id, index);
 
-      return index;
+      return texture_index{index};
     }
   }
 
-  /// \} End of texture loading
-
-  void set_blend_mode(const cen::blend_mode mode)
+  /**
+   * \brief Returns the texture associated with the specified index.
+   *
+   * \details This function performs a very fast index lookup for finding the associated
+   * texture. This function is not bounds checked in optimized builds, but an assertion
+   * will abort the execution of the program in debug builds if an invalid index is used.
+   *
+   * \pre `index` must be associated with an existing texture.
+   *
+   * \param index the index of the desired texture.
+   *
+   * \return the texture associated with the index.
+   */
+  [[nodiscard]] auto at(const texture_index index) const noexcept(on_msvc())
+      -> const cen::texture&
   {
-    m_renderer.set_blend_mode(mode);
+    assert(index < m_textures.size());  // texture_index is unsigned
+    return m_textures[index];
   }
 
-  template <typename... Args>
-  void emplace_font(const size_type id, Args&&... args)
+  /// \copydoc at()
+  [[nodiscard]] auto operator[](const texture_index index) const noexcept(on_msvc())
+      -> const cen::texture&
   {
-    m_renderer.emplace_font(id, std::forward<Args>(args)...);
+    return at(index);
   }
+
+  /**
+   * \brief Indicates whether or not a texture index is associated with a texture.
+   *
+   * \param index the texture index that will be checked.
+   *
+   * \return `true` if the texture index is associated with a texture; `false` otherwise.
+   */
+  [[nodiscard]] auto contains(const texture_index index) const noexcept -> bool
+  {
+    return index < m_textures.size();
+  }
+
+  /**
+   * \brief Returns the texture index associated with the specified ID.
+   *
+   * \param id the ID associated with the texture.
+   *
+   * \return the index of the specified texture.
+   *
+   * \throws std::out_of_range if the supplied ID isn't associated with an index.
+   */
+  [[nodiscard]] auto to_index(const texture_id id) const -> texture_index
+  {
+    return m_indices.at(id);
+  }
+
+  /// \} End of texture handling
+
+  /// \name Font cache handling
+  /// \{
 
   template <typename... Args>
   void emplace_cache(const font_id id, Args&&... args)
   {
     m_caches.try_emplace(id, std::forward<Args>(args)...);
   }
+
+  [[nodiscard]] auto get_cache(const font_id id) -> cen::font_cache&
+  {
+    return m_caches.at(id);
+  }
+
+  [[nodiscard]] auto get_cache(const font_id id) const -> const cen::font_cache&
+  {
+    return m_caches.at(id);
+  }
+
+  [[nodiscard]] auto contains_cache(const font_id id) const -> bool
+  {
+    return m_caches.contains(id);
+  }
+
+  /// \} End of font cache handling
 
   [[nodiscard]] auto renderer() noexcept -> cen::renderer&
   {
@@ -3454,8 +3675,8 @@ namespace rune {
 
 // clang-format off
 
-template <typename T>
-concept game_type = requires (T game, const input& input, graphics& graphics, delta_time dt)
+template <typename T, typename Graphics = graphics>
+concept game_type = requires (T game, const input& input, Graphics& graphics, delta_time dt)
 {
   { game.handle_input(input) };
   { game.tick(dt) };
@@ -3475,6 +3696,12 @@ concept has_on_exit = requires (T game)
   { game.on_exit() };
 };
 
+template <typename T, typename Graphics>
+concept has_init = requires (T game, Graphics& graphics)
+{
+  { game.init(graphics) };
+};
+
 // clang-format on
 
 /// \} End of group core
@@ -3492,9 +3719,80 @@ concept has_on_exit = requires (T game)
 
 #include <algorithm>      // min
 #include <centurion.hpp>  // ...
-#include <concepts>       // floating_point
+#include <concepts>       // floating_point, derived_from
 
 // #include "../aliases/delta_time.hpp"
+
+// #include "../math/min.hpp"
+#ifndef RUNE_MATH_MIN_HPP
+#define RUNE_MATH_MIN_HPP
+
+// #include "../core/concepts.hpp"
+#ifndef RUNE_CORE_CONCEPTS_HPP
+#define RUNE_CORE_CONCEPTS_HPP
+
+#include <concepts>     // convertible_to, same_as
+#include <type_traits>  // is_arithmetic_v, is_default_constructible_v
+
+namespace rune {
+
+/// \addtogroup core
+/// \{
+
+// clang-format off
+
+/// Concept for a type that is either integral or floating-point, but not `bool`.
+template <typename T>
+concept numeric = std::is_arithmetic_v<T> && !std::same_as<T, bool>;
+
+template <typename T>
+concept default_constructible = std::is_default_constructible_v<T>;
+
+template <typename T>
+concept has_value_type = requires
+{
+  typename T::value_type;
+};
+
+template <typename T>
+concept has_less_than = requires (T value)
+{
+  { value < value } -> std::convertible_to<bool>;
+};
+
+// clang-format on
+
+/// \} End of group core
+
+}  // namespace rune
+
+#endif  // RUNE_CORE_CONCEPTS_HPP
+
+namespace rune {
+
+/**
+ * \brief Returns the smallest of two values.
+ *
+ * \note This function exists because `std::min()` isn't marked as `noexcept`.
+ *
+ * \ingroup math
+ *
+ * \tparam T the type of the values.
+ *
+ * \param a the first value.
+ * \param b the second value.
+ *
+ * \return the smallest of the two values.
+ */
+template <has_less_than T>
+[[nodiscard]] constexpr auto min(const T& a, const T& b) noexcept(noexcept(a < b)) -> T
+{
+  return (a < b) ? a : b;
+}
+
+}  // namespace rune
+
+#endif  // RUNE_MATH_MIN_HPP
 
 // #include "rune_error.hpp"
 #ifndef RUNE_CORE_RUNE_ERROR_HPP
@@ -3605,14 +3903,31 @@ inline constexpr int engine_max_frames_per_tick = RUNE_ENGINE_MAX_FRAMES_PER_TIC
  */
 [[nodiscard]] inline auto tick_rate() -> double
 {
-  return std::min(static_cast<double>(max_tick_rate),
-                  static_cast<double>(cen::screen::refresh_rate().value()));
+  return min(max_tick_rate, static_cast<double>(cen::screen::refresh_rate().value()));
 }
 
-template <game_type Game, std::derived_from<graphics> Graphics>
+// clang-format off
+template <typename Game, std::derived_from<graphics> Graphics> requires game_type<Game, Graphics>
 class engine;
+// clang-format on
 
-template <game_type Game, std::derived_from<graphics> Graphics>
+/**
+ * \class semi_fixed_game_loop
+ *
+ * \brief Represents a "semi-fixed" game loop, that strives to use a fixed delta, but it
+ * can be adjusted dynamically for a few frames at a time.
+ *
+ * \details The game loop will use a tick rate that depends on the refresh rate of the
+ * current monitor, but the tick rate is limited to be at most `max_tick_rate`, see
+ * `tick_rate()` for more information.
+ *
+ * \tparam Game the game type.
+ * \tparam Graphics the graphics context type.
+ *
+ * \see `tick_rate()`
+ */
+template <typename Game, std::derived_from<graphics> Graphics>
+    requires game_type<Game, Graphics>
 class semi_fixed_game_loop
 {
  public:
@@ -3657,8 +3972,8 @@ class semi_fixed_game_loop
         break;
       }
 
-      const auto dt = std::min(frameTime, m_delta);
-      m_engine->update_logic(static_cast<delta_time>(dt.count()));
+      const auto dt = min(frameTime, m_delta);
+      m_engine->update_logic(delta_time{static_cast<delta_time::value_type>(dt.count())});
 
       frameTime -= dt;
 
@@ -3695,27 +4010,45 @@ namespace rune {
 
 // clang-format on
 
-template <game_type Game, std::derived_from<graphics> Graphics = graphics>
-class engine
+template <typename Game, std::derived_from<graphics> Graphics = graphics>
+requires game_type<Game, Graphics> class engine
 {
  public:
   using game_type = Game;
   using graphics_type = Graphics;
   using loop_type = semi_fixed_game_loop<game_type, graphics_type>;
 
-  // clang-format off
+  static_assert(std::constructible_from<game_type, graphics_type&> ||
+                    std::default_initializable<game_type>,
+                "Game class must either be default constructible or provide a "
+                "constructor that accepts \"graphics_type&\"");
 
-  engine()
-    : m_loop{this}
-    , m_window{"Rune window"}
-    , m_graphics{m_window}
-  {}
+  engine() : m_loop{this}, m_window{"Rune window"}, m_graphics{m_window}
+  {
+    if constexpr (std::constructible_from<game_type, graphics_type&>)
+    {
+      m_game.emplace(m_graphics);
 
-  // clang-format on
+      if constexpr (has_init<game_type, graphics_type>)
+      {
+        CENTURION_LOG_WARN(
+            "rune::engine > game_type::init(graphics_type&) is not called when "
+            "game_type has a constructor that accepts \"graphics_type&\"");
+      }
+    }
+    else if constexpr (std::default_initializable<game_type>)
+    {
+      m_game.emplace();
+      if constexpr (has_init<game_type, graphics_type>)
+      {
+        m_game->init(m_graphics);
+      }
+    }
+  }
 
   void update_logic(const delta_time dt)
   {
-    m_game.tick(dt);
+    m_game->tick(dt);
   }
 
   auto update_input() -> bool
@@ -3725,9 +4058,9 @@ class engine
 
     cen::event::update();
 
-    m_game.handle_input(m_input);
+    m_game->handle_input(m_input);
 
-    return !m_game.should_quit() && !cen::event::in_queue(cen::event_type::quit);
+    return !m_game->should_quit() && !cen::event::in_queue(cen::event_type::quit);
   }
 
   auto run() -> int
@@ -3738,7 +4071,7 @@ class engine
 
     if constexpr (has_on_start<Game>)
     {
-      m_game.on_start();
+      m_game->on_start();
     }
 
     auto& renderer = m_graphics.renderer();
@@ -3747,18 +4080,60 @@ class engine
       m_loop.tick();
 
       renderer.clear_with(cen::colors::black);
-      m_game.render(m_graphics);
+      m_game->render(m_graphics);
       renderer.present();
     }
 
     if constexpr (has_on_exit<Game>)
     {
-      m_game.on_exit();
+      m_game->on_exit();
     }
 
     m_window.hide();
 
     return 0;
+  }
+
+  [[nodiscard]] auto get_window() noexcept -> cen::window&
+  {
+    return m_window;
+  }
+
+  [[nodiscard]] auto get_window() const noexcept -> const cen::window&
+  {
+    return m_window;
+  }
+
+  [[nodiscard]] auto get_game() -> game_type&
+  {
+    assert(m_game);
+    return *m_game;
+  }
+
+  [[nodiscard]] auto get_game() const -> const game_type&
+  {
+    assert(m_game);
+    return *m_game;
+  }
+
+  [[nodiscard]] auto get_graphics() noexcept -> graphics_type&
+  {
+    return m_graphics;
+  }
+
+  [[nodiscard]] auto get_graphics() const noexcept -> const graphics_type&
+  {
+    return m_graphics;
+  }
+
+  [[nodiscard]] auto get_input() noexcept -> input&
+  {
+    return m_input;
+  }
+
+  [[nodiscard]] auto get_input() const noexcept -> const input&
+  {
+    return m_input;
   }
 
  private:
@@ -3768,7 +4143,7 @@ class engine
   graphics_type m_graphics;
   input m_input;
 
-  game_type m_game;
+  std::optional<game_type> m_game;  // Optional to delay initialization
 };
 
 /// \} End of group core
@@ -3830,8 +4205,8 @@ namespace rune {
 
 // clang-format off
 
-template <typename T>
-concept game_type = requires (T game, const input& input, graphics& graphics, delta_time dt)
+template <typename T, typename Graphics = graphics>
+concept game_type = requires (T game, const input& input, Graphics& graphics, delta_time dt)
 {
   { game.handle_input(input) };
   { game.tick(dt) };
@@ -3849,6 +4224,12 @@ template <typename T>
 concept has_on_exit = requires (T game)
 {
   { game.on_exit() };
+};
+
+template <typename T, typename Graphics>
+concept has_init = requires (T game, Graphics& graphics)
+{
+  { game.init(graphics) };
 };
 
 // clang-format on
@@ -3899,9 +4280,11 @@ class rune_error final : public std::exception
 
 #include <algorithm>      // min
 #include <centurion.hpp>  // ...
-#include <concepts>       // floating_point
+#include <concepts>       // floating_point, derived_from
 
 // #include "../aliases/delta_time.hpp"
+
+// #include "../math/min.hpp"
 
 // #include "rune_error.hpp"
 
@@ -3967,14 +4350,31 @@ inline constexpr int engine_max_frames_per_tick = RUNE_ENGINE_MAX_FRAMES_PER_TIC
  */
 [[nodiscard]] inline auto tick_rate() -> double
 {
-  return std::min(static_cast<double>(max_tick_rate),
-                  static_cast<double>(cen::screen::refresh_rate().value()));
+  return min(max_tick_rate, static_cast<double>(cen::screen::refresh_rate().value()));
 }
 
-template <game_type Game, std::derived_from<graphics> Graphics>
+// clang-format off
+template <typename Game, std::derived_from<graphics> Graphics> requires game_type<Game, Graphics>
 class engine;
+// clang-format on
 
-template <game_type Game, std::derived_from<graphics> Graphics>
+/**
+ * \class semi_fixed_game_loop
+ *
+ * \brief Represents a "semi-fixed" game loop, that strives to use a fixed delta, but it
+ * can be adjusted dynamically for a few frames at a time.
+ *
+ * \details The game loop will use a tick rate that depends on the refresh rate of the
+ * current monitor, but the tick rate is limited to be at most `max_tick_rate`, see
+ * `tick_rate()` for more information.
+ *
+ * \tparam Game the game type.
+ * \tparam Graphics the graphics context type.
+ *
+ * \see `tick_rate()`
+ */
+template <typename Game, std::derived_from<graphics> Graphics>
+    requires game_type<Game, Graphics>
 class semi_fixed_game_loop
 {
  public:
@@ -4019,8 +4419,8 @@ class semi_fixed_game_loop
         break;
       }
 
-      const auto dt = std::min(frameTime, m_delta);
-      m_engine->update_logic(static_cast<delta_time>(dt.count()));
+      const auto dt = min(frameTime, m_delta);
+      m_engine->update_logic(delta_time{static_cast<delta_time::value_type>(dt.count())});
 
       frameTime -= dt;
 
@@ -4060,54 +4460,6 @@ class semi_fixed_game_loop
 #include <system_error>  // errc
 
 // #include "compiler.hpp"
-#ifndef RUNE_CORE_COMPILER_HPP
-#define RUNE_CORE_COMPILER_HPP
-
-namespace rune {
-
-/// \addtogroup core
-/// \{
-
-/// \name Compiler checks
-/// \{
-
-/// Indicates whether or not the current compiler is MSVC
-[[nodiscard]] constexpr auto on_msvc() noexcept -> bool
-{
-#ifdef _MSC_VER
-  return true;
-#else
-  return false;
-#endif  // _MSC_VER
-}
-
-/// Indicates whether or not the current compiler is GCC
-[[nodiscard]] constexpr auto on_gcc() noexcept -> bool
-{
-#ifdef __GNUC__
-  return true;
-#else
-  return false;
-#endif  // __GNUC__
-}
-
-/// Indicates whether or not the current compiler is Clang
-[[nodiscard]] constexpr auto on_clang() noexcept -> bool
-{
-#ifdef __clang__
-  return true;
-#else
-  return false;
-#endif  // __clang__
-}
-
-/// \} End of compiler checks
-
-/// \} End of group core
-
-}  // namespace rune
-
-#endif  // RUNE_CORE_COMPILER_HPP
 
 // #include "concepts.hpp"
 #ifndef RUNE_CORE_CONCEPTS_HPP

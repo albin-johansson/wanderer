@@ -1,9 +1,9 @@
 #pragma once
 
-#include <entt.hpp>  // id_type
+#include <rune.hpp>
 
 namespace wanderer {
 
-using texture_id = entt::id_type;
+using texture_id = rune::texture_id;
 
 }

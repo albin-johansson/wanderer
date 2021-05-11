@@ -66,11 +66,12 @@ game::~game()
 
 void game::handle_input(const rune::input& input)
 {
+  m_mousePos = input.mouse.position();
   sys::update_menu(m_shared, m_dispatcher, input);
   sys::update_input(m_levels.registry(), m_dispatcher, input, m_shared.ctx<ctx::binds>());
 }
 
-void game::tick(const delta_time dt)
+void game::tick(const rune::delta_time dt)
 {
   m_dispatcher.update();
 
@@ -107,7 +108,7 @@ void game::tick(const delta_time dt)
   sys::update_level_switch_animations(registry, m_dispatcher, dt);
 }
 
-void game::render(graphics_context& graphics, const cen::ipoint mousePos)
+void game::render(graphics_context& graphics)
 {
   auto& renderer = graphics.renderer();
   auto& registry = m_levels.registry();
@@ -131,7 +132,7 @@ void game::render(graphics_context& graphics, const cen::ipoint mousePos)
 
   if (m_updateSnapshot)
   {
-    m_shared.set<ctx::renderer_snapshot>(renderer.capture(graphics.pixel_format()));
+    m_shared.set<ctx::renderer_snapshot>(renderer.capture(graphics.format()));
     m_updateSnapshot = false;
   }
 
@@ -140,7 +141,7 @@ void game::render(graphics_context& graphics, const cen::ipoint mousePos)
     sys::render_debug_info(registry, graphics);
   }
 
-  sys::render_inventory(registry, renderer, mousePos);
+  sys::render_inventory(registry, renderer, m_mousePos);
   sys::render_level_switch_animations(registry, renderer);
   sys::render_active_menu(m_shared, graphics);
 

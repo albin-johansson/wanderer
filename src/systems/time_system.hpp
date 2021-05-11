@@ -1,8 +1,8 @@
 #pragma once
 
 #include <entt.hpp>  // registry
+#include <rune.hpp>  // delta_time
 
-#include "core/aliases/delta_time.hpp"
 #include "core/graphics/graphics_context.hpp"
 
 namespace wanderer::sys {
@@ -20,7 +20,7 @@ namespace wanderer::sys {
  *
  * \see `ctx::time_of_day`
  */
-void update_time(entt::registry& registry, delta_time dt);
+void update_time(entt::registry& registry, rune::delta_time dt);
 
 /**
  * \brief Renders a digital clock in the upper left corner of the screen with the current

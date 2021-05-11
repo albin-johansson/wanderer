@@ -14,7 +14,7 @@ inline constexpr cen::color gray{0x11, 0x11, 0x11};
 
 void update_level_switch_animations(entt::registry& registry,
                                     entt::dispatcher& dispatcher,
-                                    const delta_time dt)
+                                    const rune::delta_time dt)
 {
   for (auto&& [entity, animation] : registry.view<comp::level_switch_animation>().each())
   {

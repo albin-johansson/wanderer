@@ -2,8 +2,8 @@
 
 #include <centurion.hpp>  // color
 #include <entt.hpp>       // registry
+#include <rune.hpp>       // delta_time
 
-#include "core/aliases/delta_time.hpp"
 #include "core/aliases/float2.hpp"
 #include "core/graphics/graphics_context.hpp"
 
@@ -38,7 +38,7 @@ void spawn_particles(entt::registry& registry,
  * \param registry the current level registry.
  * \param dt the current delta time.
  */
-void update_particles(entt::registry& registry, delta_time dt);
+void update_particles(entt::registry& registry, rune::delta_time dt);
 
 /**
  * \brief Renders all particles within the current viewport.

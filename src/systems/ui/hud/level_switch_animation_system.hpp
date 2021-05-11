@@ -2,8 +2,8 @@
 
 #include <centurion.hpp>  // renderer
 #include <entt.hpp>       // registry, dispatcher
+#include <rune.hpp>       // delta_time
 
-#include "core/aliases/delta_time.hpp"
 #include "core/aliases/map_id.hpp"
 #include "events/level_fade_events_event.hpp"
 
@@ -26,7 +26,7 @@ namespace wanderer::sys {
  */
 void update_level_switch_animations(entt::registry& registry,
                                     entt::dispatcher& dispatcher,
-                                    delta_time dt);
+                                    rune::delta_time dt);
 
 /**
  * \brief Renders all level switch animations, although there should only

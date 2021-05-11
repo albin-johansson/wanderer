@@ -81,8 +81,8 @@ void render_active_menu(const entt::registry& registry, graphics_context& graphi
 
   if (menu.blocking)
   {
-    const auto index = graphics.load("backdrop"_hs, backdrop_path);
-    renderer.render(graphics.find(index), cen::irect{{}, glob::logical_size<>});
+    const auto index = graphics.load(texture_id{"backdrop"_hs}, backdrop_path);
+    renderer.render(graphics[index], cen::irect{{}, glob::logical_size<>});
     renderer.fill_with(glob::transparent_black);
   }
 

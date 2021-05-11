@@ -3,11 +3,10 @@
 #include <cstddef>    // size_t
 #include <nenya.hpp>  // strong_type
 
-namespace wanderer {
-namespace detail {
-struct texture_index_t;
-}
+#include <rune.hpp>
 
-using texture_index = nenya::strong_type<std::size_t, detail::texture_index_t>;
+namespace wanderer {
+
+using texture_index = rune::texture_index;
 
 }  // namespace wanderer

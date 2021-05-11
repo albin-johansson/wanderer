@@ -3,7 +3,6 @@ cmake_minimum_required(VERSION 3.15)
 project(wanderer-src CXX)
 
 set(SOURCE_FILES
-    semi_fixed_game_loop.hpp
     wanderer_engine.cpp
     wanderer_engine.hpp
 
@@ -76,7 +75,6 @@ set(SOURCE_FILES
     core/aliases/aabb_tree.hpp
     core/aliases/buffer.hpp
     core/aliases/czstring.hpp
-    core/aliases/delta_time.hpp
     core/aliases/depth.hpp
     core/aliases/entity_type.hpp
     core/aliases/float2.hpp

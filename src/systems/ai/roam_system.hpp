@@ -1,8 +1,7 @@
 #pragma once
 
 #include <entt.hpp>  // registry
-
-#include "core/aliases/delta_time.hpp"
+#include <rune.hpp>  // delta_time
 
 namespace wanderer::sys {
 
@@ -17,7 +16,7 @@ namespace wanderer::sys {
  * \param registry the current level registry.
  * \param dt the current delta time.
  */
-void update_roaming(entt::registry& registry, delta_time dt);
+void update_roaming(entt::registry& registry, rune::delta_time dt);
 
 /// \} End of AI
 

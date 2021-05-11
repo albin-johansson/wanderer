@@ -2,17 +2,11 @@
 
 #include <entt.hpp>    // registry
 #include <filesystem>  // path
-#include <iterator>    // output_iterator
-#include <utility>     // forward, move
 
-#include "components/ctx/player.hpp"
-#include "components/ctx/render_bounds.hpp"
 #include "components/ctx/tileset.hpp"
-#include "components/ctx/viewport.hpp"
 #include "components/map/spawnpoint.hpp"
 #include "components/map/tilemap.hpp"
 #include "core/aliases/aabb_tree.hpp"
-#include "core/aliases/delta_time.hpp"
 #include "core/aliases/float2.hpp"
 #include "core/aliases/map_id.hpp"
 #include "core/aliases/maybe.hpp"

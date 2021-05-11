@@ -111,7 +111,9 @@ auto make_player(entt::registry& registry,
                  graphics_context& graphics) -> entt::entity
 {
   static const auto path = resources::texture("player.png");
-  const auto texture = graphics.load("player"_hs, path);
+
+  // TODO "player"_id
+  const auto texture = graphics.load(texture_id{"player"_hs}, path);
   const auto player = make_humanoid(registry, tree, texture);
 
   auto& movable = registry.get<comp::movable>(player);
@@ -135,7 +137,7 @@ auto make_skeleton(entt::registry& registry,
                    graphics_context& graphics) -> entt::entity
 {
   static const auto path = resources::texture("skeleton.png");
-  const auto texture = graphics.load("skeleton"_hs, path);
+  const auto texture = graphics.load(texture_id{"skeleton"_hs}, path);
   const auto skeleton = make_humanoid(registry, tree, texture);
 
   auto& movable = registry.get<comp::movable>(skeleton);

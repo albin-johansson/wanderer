@@ -12,39 +12,35 @@ inline const auto font_path = resources::font("type_writer.ttf");
 }  // namespace
 
 graphics_context::graphics_context(const cen::window& window)
-    : m_renderer{make_renderer(window)}
-    , m_smallFontCache{font_path, glob::small_font_size}
-    , m_mediumFontCache{font_path, glob::medium_font_size}
-    , m_largeFontCache{font_path, glob::large_font_size}
-    , m_lightCanvas{m_renderer,
-                    window.get_pixel_format(),
+    : rune::graphics{window}
+    , m_lightCanvas{renderer(),
+                    format(),
                     cen::texture_access::target,
                     glob::logical_size<>}
-    , m_format{window.get_pixel_format()}
 {
-  m_textures.reserve(10);
+  reserve(10);
 
-  m_renderer.set_color(cen::colors::white);
-  m_smallFontCache.add_latin1(m_renderer);
+  auto& ren = renderer();
+  ren.set_blend_mode(cen::blend_mode::blend);
+
+  ren.emplace_font(glob::menu_font_s, font_path, glob::small_font_size);
+  ren.emplace_font(glob::menu_font_m, font_path, glob::medium_font_size);
+  ren.emplace_font(glob::menu_font_l, font_path, glob::large_font_size);
+
+  ren.set_logical_size(glob::logical_size<>);
+  ren.set_logical_integer_scaling(true);
+
+  emplace_cache(small_font, font_path, glob::small_font_size);
+  emplace_cache(medium_font, font_path, glob::medium_font_size);
+  emplace_cache(large_font, font_path, glob::large_font_size);
+
+  ren.set_color(cen::colors::white);
+
+  get_cache(small_font).add_latin1(ren);
+  get_cache(medium_font).add_latin1(ren);
+  get_cache(large_font).add_latin1(ren);
 
   m_lightCanvas.set_blend_mode(cen::blend_mode::mod);
-}
-
-auto graphics_context::load(const texture_id id, std::string path) -> texture_index
-{
-  if (const auto it = m_identifiers.find(id); it != m_identifiers.end())
-  {
-    return it->second;
-  }
-  else
-  {
-    const auto index = m_textures.size();
-
-    m_textures.emplace_back(m_renderer, std::move(path));
-    m_identifiers.try_emplace(id, index);
-
-    return texture_index{index};
-  }
 }
 
 }  // namespace wanderer

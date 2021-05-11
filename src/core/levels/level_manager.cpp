@@ -4,6 +4,7 @@
 #include <utility>  // move
 
 #include "components/ctx/outside_level.hpp"
+#include "components/ctx/player.hpp"
 #include "components/graphics/level_switch_animation.hpp"
 #include "components/map/portal.hpp"
 #include "components/movable.hpp"

@@ -15,10 +15,9 @@
 /// \defgroup events Events
 /// \brief Contains all events emitted in the game.
 
-#include <centurion.hpp>
-#include <rune.hpp>  // input
+#include <centurion.hpp>  // ipoint
+#include <rune.hpp>       // input, delta_time
 
-#include "core/aliases/delta_time.hpp"
 #include "core/graphics/graphics_context.hpp"
 #include "core/levels/level.hpp"
 #include "core/levels/level_manager.hpp"
@@ -48,11 +47,6 @@ namespace wanderer {
 class game final
 {
  public:
-  /**
-   * \brief Creates a `game` instance.
-   *
-   * \param graphics the associated graphics context.
-   */
   explicit game(graphics_context& graphics);
 
   ~game();
@@ -69,15 +63,14 @@ class game final
    *
    * \param dt the delta time, in seconds.
    */
-  void tick(delta_time dt);
+  void tick(rune::delta_time dt);
 
   /**
    * \brief Renders the game.
    *
    * \param graphics the graphics context used to render the game.
-   * \param mousePos the current position of the mouse.
    */
-  void render(graphics_context& graphics, cen::ipoint mousePos);
+  void render(graphics_context& graphics);
 
   void on_start();
 
@@ -89,12 +82,7 @@ class game final
     return m_dispatcher.sink<Event>();
   }
 
-  /**
-   * \brief Indicates whether or not the game should quit.
-   *
-   * \return `true` if the game should quit; `false` otherwise.
-   */
-  [[nodiscard]] auto quit_requested() const noexcept -> bool
+  [[nodiscard]] auto should_quit() const noexcept -> bool
   {
     return m_quit;
   }
@@ -103,6 +91,7 @@ class game final
   entt::dispatcher m_dispatcher;
   level_manager m_levels;
   entt::registry m_shared;  // Shared data registry, contains menus, settings, etc.
+  cen::ipoint m_mousePos;
   bool m_updateSnapshot{};
   bool m_quit{};
 
