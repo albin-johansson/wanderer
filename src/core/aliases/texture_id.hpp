@@ -1,9 +1,9 @@
 #pragma once
 
-#include <rune.hpp>
+#include <rune.hpp>  // texture_id
 
 namespace wanderer {
 
-using texture_id = rune::texture_id;
+using rune::texture_id;
 
 }
