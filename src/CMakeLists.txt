@@ -317,7 +317,6 @@ wanderer_set_compiler_options(${WANDERER_LIB_TARGET})
 
 add_header_only_lib(libCenturion ${LIBRARY_DIR}/centurion ${LIBRARY_DIR}/centurion/centurion.hpp)
 add_header_only_lib(libRune ${LIBRARY_DIR}/rune ${LIBRARY_DIR}/rune/rune.hpp)
-add_header_only_lib(libABBY ${LIBRARY_DIR}/abby ${LIBRARY_DIR}/abby/abby.hpp)
 add_header_only_lib(libNenya ${LIBRARY_DIR}/nenya ${LIBRARY_DIR}/nenya/nenya.hpp)
 add_header_only_lib(libJSON ${LIBRARY_DIR}/json ${LIBRARY_DIR}/json/json.hpp)
 add_header_only_lib(libENTT ${LIBRARY_DIR}/entt ${LIBRARY_DIR}/entt/entt.hpp)
@@ -342,8 +341,7 @@ target_link_libraries(${WANDERER_LIB_TARGET}
     PUBLIC libRune
     PUBLIC libNenya
     PUBLIC libENTT
-    PUBLIC libJSON
-    PUBLIC libABBY)
+    PUBLIC libJSON)
 
 if (WIN32 AND CMAKE_BUILD_TYPE STREQUAL "Release")
   add_executable(${WANDERER_EXE_TARGET} WIN32 main.cpp)
