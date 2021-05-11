@@ -1,12 +1,12 @@
 #include "movement_system.hpp"
 
 #include <iterator>  // back_inserter
+#include <rune.hpp>  // stack_resource
 #include <vector>    // vector
 
 #include "components/ctx/viewport.hpp"
 #include "components/hitbox.hpp"
 #include "components/movable.hpp"
-#include "core/stack_resource.hpp"
 #include "core/utils/centurion_utils.hpp"
 #include "systems/movement/direction_system.hpp"
 #include "systems/movement/hitbox_system.hpp"
@@ -108,7 +108,7 @@ void update_hitbox(entt::registry& registry,
     return;
   }
 
-  stack_resource<sizeof(entt::entity) * 20> resource;
+  rune::stack_resource<sizeof(aabb_tree::key_type) * 20> resource;
   std::pmr::vector<entt::entity> candidates{resource.get()};
   tree.query(entity, std::back_inserter(candidates));
 
