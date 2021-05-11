@@ -1,12 +1,9 @@
 #pragma once
 
-#include <cstddef>    // size_t
-#include <nenya.hpp>  // strong_type
-
-#include <rune.hpp>
+#include <rune.hpp>  // texture_index
 
 namespace wanderer {
 
-using texture_index = rune::texture_index;
+using rune::texture_index;
 
 }  // namespace wanderer
