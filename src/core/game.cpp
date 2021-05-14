@@ -221,8 +221,10 @@ void game::on_button_pressed(const button_pressed_event& event)
     }
     case menu_action::quick_save: {
       // FIXME don't allow quick saves before the in-game menu has been active once
-      const auto& snapshot = m_shared.ctx<ctx::renderer_snapshot>();
-      save_game("quick_save", m_levels, snapshot.surface);
+      if (const auto* snapshot = m_shared.try_ctx<ctx::renderer_snapshot>())
+      {
+        save_game("quick_save", m_levels, snapshot->surface);
+      }
       m_dispatcher.enqueue<switch_menu_event>(menu_id::in_game);
       break;
     }
