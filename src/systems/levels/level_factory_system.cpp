@@ -27,9 +27,9 @@ void load_tileset_textures(const ir::level& data, graphics_context& graphics)
   }
 }
 
-void load_tilemap(entt::registry& registry,
-                  const comp::tilemap::entity entity,
-                  const ir::level& data)
+[[nodiscard]] auto load_tilemap(entt::registry& registry,
+                                const comp::tilemap::entity entity,
+                                const ir::level& data) -> map_id
 {
   auto& tilemap = registry.emplace<comp::tilemap>(entity);
 
@@ -38,6 +38,8 @@ void load_tilemap(entt::registry& registry,
   tilemap.cols = data.nCols;
   tilemap.size = data.size;
   tilemap.humanoidLayer = data.humanoidLayer;
+
+  return tilemap.id;
 }
 
 void make_tiles(entt::registry& registry,
@@ -252,6 +254,20 @@ void spawn_humanoids(comp::level& level, graphics_context& graphics)
   }
 }
 
+void add_level_size(entt::registry& registry, comp::level& level)
+{
+  const auto& tilemap = registry.get<comp::tilemap>(level.tilemap);
+  auto& size = registry.set<ctx::level_size>();
+  size.rows = tilemap.rows;
+  size.cols = tilemap.cols;
+}
+
+void add_viewport(entt::registry& registry, comp::level& level)
+{
+  const auto& tilemap = registry.get<comp::tilemap>(level.tilemap);
+  registry.set<ctx::viewport>(sys::make_viewport(tilemap.size));
+}
+
 }  // namespace
 
 auto make_level(const ir::level& data, graphics_context& graphics) -> comp::level
@@ -269,20 +285,10 @@ auto make_level(const ir::level& data, graphics_context& graphics) -> comp::leve
   level.tileset = comp::tileset::entity{registry.create()};
 
   load_tileset(registry, level.tileset, graphics, data.tilesets);
-  load_tilemap(registry, level.tilemap, data);
+  level.id = load_tilemap(registry, level.tilemap, data);
 
-  {
-    const auto& tilemap = registry.get<comp::tilemap>(level.tilemap);
-
-    auto& size = registry.set<ctx::level_size>();
-    size.rows = tilemap.rows;
-    size.cols = tilemap.cols;
-
-    level.id = tilemap.id;
-
-    registry.set<ctx::viewport>(sys::make_viewport(tilemap.size));
-  }
-
+  add_level_size(registry, level);
+  add_viewport(registry, level);
   add_ground_layers(registry, data);
   add_tile_objects(level, graphics, data);
   add_objects(registry, data);
@@ -292,15 +298,15 @@ auto make_level(const ir::level& data, graphics_context& graphics) -> comp::leve
   {
     const auto& tilemap = registry.get<comp::tilemap>(level.tilemap);
     for (auto&& [entity, drawable] :
-         level.registry.view<comp::depth_drawable, comp::humanoid>().each())
+         registry.view<comp::depth_drawable, comp::humanoid>().each())
     {
       drawable.layer = tilemap.humanoidLayer;
     }
   }
 
-  sys::center_viewport_on(level.registry, level.player_spawn_position.value());
-  sys::update_drawables(level.registry);
-  sys::update_depth(level.registry);
+  sys::center_viewport_on(registry, level.player_spawn_position.value());
+  sys::update_drawables(registry);
+  sys::update_depth(registry);
 
   level.tree.rebuild();
 
@@ -321,12 +327,8 @@ auto make_level(const std::filesystem::path& path, graphics_context& graphics)
   archive(level.tilemap);
   archive(level.player_spawn_position);
 
-  auto& tilemap = level.registry.get<comp::tilemap>(level.tilemap);
-  level.registry.set<ctx::viewport>(sys::make_viewport(tilemap.size));
-
-  auto& size = level.registry.set<ctx::level_size>();
-  size.rows = tilemap.rows;
-  size.cols = tilemap.cols;
+  add_level_size(level.registry, level);
+  add_viewport(level.registry, level);
 
   return level;
 }
