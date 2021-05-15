@@ -49,15 +49,15 @@ class game final
 
   ~game();
 
+  void on_start();
+
+  void on_exit();
+
   void handle_input(const rune::input& input);
 
   void tick(rune::delta_time dt);
 
   void render(graphics_context& graphics);
-
-  void on_start();
-
-  void on_exit();
 
   void load_save(const std::string& name, graphics_context& graphics);
 
