@@ -10,16 +10,18 @@ namespace wanderer::sys {
 /// \{
 
 /**
- * \brief Returns the currently active level entity.
+ * \brief Returns the currently active level.
  *
  * \ingroup systems
  *
  * \param shared the shared data registry that holds the levels.
  *
- * \return the currently active level entity.
+ * \return the currently active level.
  */
-[[nodiscard]] auto current_level_entity(const entt::registry& shared)
-    -> comp::level::entity;
+[[nodiscard]] auto current_level(entt::registry& shared) -> comp::level&;
+
+/// \copydoc current_level()
+[[nodiscard]] auto current_level(const entt::registry& shared) -> const comp::level&;
 
 /// \} End of levels
 

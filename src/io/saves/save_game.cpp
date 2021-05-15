@@ -49,8 +49,7 @@ void save_game(const std::string& name,
   std::filesystem::create_directories(dir);
   snapshot.save_as_png(std::filesystem::absolute(dir / "snapshot.png").string());
 
-  const auto currentLevelEntity = sys::current_level_entity(shared);
-  const auto& currentLevel = shared.get<comp::level>(currentLevelEntity);
+  const auto& currentLevel = sys::current_level(shared);
 
   json_type json;
 

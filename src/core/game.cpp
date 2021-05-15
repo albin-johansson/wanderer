@@ -75,9 +75,7 @@ void game::handle_input(const rune::input& input)
   m_mousePos = input.mouse.position();
   sys::update_menu(m_shared, m_dispatcher, input);
 
-  const auto entity = sys::current_level_entity(m_shared);
-  auto& level = m_shared.get<comp::level>(entity);
-
+  auto& level = sys::current_level(m_shared);
   sys::update_input(level.registry, m_dispatcher, input, m_shared.ctx<ctx::binds>());
 }
 
@@ -90,11 +88,9 @@ void game::tick(const rune::delta_time dt)
     return;
   }
 
-  const auto entity = sys::current_level_entity(m_shared);
-  auto& level = m_shared.get<comp::level>(entity);
+  auto& level = sys::current_level(m_shared);
 
   sys::update_time(m_shared, dt);
-
   sys::update_humanoid_states(level.registry, m_dispatcher);
 
   sys::update_chase(level.registry, m_dispatcher);
@@ -122,9 +118,7 @@ void game::tick(const rune::delta_time dt)
 void game::render(graphics_context& graphics)
 {
   auto& renderer = graphics.renderer();
-
-  const auto entity = sys::current_level_entity(m_shared);
-  auto& level = m_shared.get<comp::level>(entity);
+  auto& level = sys::current_level(m_shared);
 
   sys::translate_viewport(level.registry, renderer);
   sys::update_render_bounds(level.registry);
@@ -201,8 +195,7 @@ auto game::is_paused() const -> bool
 
 void game::on_switch_map(const switch_map_event& event)
 {
-  const auto entity = sys::current_level_entity(m_shared);
-  auto& level = m_shared.get<comp::level>(entity);
+  auto& level = sys::current_level(m_shared);
   sys::start_level_fade_animation(level.registry, event.map);
 }
 
@@ -288,8 +281,7 @@ void game::on_button_pressed(const button_pressed_event& event)
 void game::on_level_animation_faded_in(const level_faded_in_event& event)
 {
   {
-    const auto levelEntity = sys::current_level_entity(m_shared);
-    auto& currentLevel = m_shared.get<comp::level>(levelEntity);
+    auto& currentLevel = sys::current_level(m_shared);
     currentLevel.registry.clear<comp::level_switch_animation>();
 
     const auto player = singleton_entity<comp::player>(currentLevel.registry);
@@ -309,36 +301,29 @@ void game::on_level_animation_faded_in(const level_faded_in_event& event)
     }
   }
 
-  const auto entity = sys::current_level_entity(m_shared);
-  auto& level = m_shared.get<comp::level>(entity);
-
+  auto& level = sys::current_level(m_shared);
   sys::end_level_fade_animation(level.registry, event);
 }
 
 void game::on_level_animation_faded_out(const level_faded_out_event&)
 {
-  const auto entity = sys::current_level_entity(m_shared);
-  m_shared.get<comp::level>(entity).registry.clear<comp::level_switch_animation>();
+  sys::current_level(m_shared).registry.clear<comp::level_switch_animation>();
 }
 
 void game::on_show_inventory(const show_inventory_event& event)
 {
-  const auto entity = sys::current_level_entity(m_shared);
-  m_shared.get<comp::level>(entity).registry.emplace<comp::active_inventory>(
-      event.inventoryEntity);
+  auto& level = sys::current_level(m_shared);
+  level.registry.emplace<comp::active_inventory>(event.inventoryEntity);
 }
 
 void game::on_close_inventory(const close_inventory_event&)
 {
-  const auto entity = sys::current_level_entity(m_shared);
-  m_shared.get<comp::level>(entity).registry.clear<comp::active_inventory>();
+  sys::current_level(m_shared).registry.clear<comp::active_inventory>();
 }
 
 void game::on_particle_event(const spawn_particles_event& event)
 {
-  const auto entity = sys::current_level_entity(m_shared);
-  auto& level = m_shared.get<comp::level>(entity);
-
+  auto& level = sys::current_level(m_shared);
   sys::spawn_particles(level.registry,
                        event.position,
                        event.count,
