@@ -12,6 +12,7 @@ void save(const comp::level& level, const std::filesystem::path& path)
   std::ofstream stream{path, std::ios::binary};
   output_archive archive{stream};
 
+  // Do not change order!
   sys::save_registry(level.registry, archive);
   archive(level.tree);
   archive(level.tilemap);
