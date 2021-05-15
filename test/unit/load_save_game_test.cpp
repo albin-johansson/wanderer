@@ -15,7 +15,7 @@ TEST(LoadSaveGame, Usage)
   cen::window window;
   graphics_context graphics{window};
 
-  const auto freq = static_cast<long double>(cen::counter::high_res_freq());
+  const auto frequency = static_cast<long double>(cen::counter::frequency());
 
   entt::registry shared;
 
@@ -28,7 +28,7 @@ TEST(LoadSaveGame, Usage)
     const auto after = cen::counter::now();
 
     const auto diff = static_cast<long double>(after - before);
-    const auto millis = (diff / freq) * 1'000.0l;
+    const auto millis = (diff / frequency) * 1'000.0l;
     std::cout << "save_game(): " << millis << " ms\n";
   }
 
@@ -38,7 +38,7 @@ TEST(LoadSaveGame, Usage)
     const auto after = cen::counter::now();
 
     const auto diff = static_cast<long double>(after - before);
-    const auto millis = (diff / freq) * 1'000.0l;
+    const auto millis = (diff / frequency) * 1'000.0l;
     std::cout << "load_game(): " << millis << " ms\n";
   }
 
