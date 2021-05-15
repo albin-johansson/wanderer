@@ -8,10 +8,9 @@ namespace wanderer {
 // clang-format off
 
 template <typename T>
-concept has_entity_member = requires
+concept has_entity_member = std::convertible_to<typename T::entity, entt::entity> && requires
 {
   typename T::entity;
-  std::convertible_to<typename T::entity, entt::entity>;
 };
 
 // clang-format on
