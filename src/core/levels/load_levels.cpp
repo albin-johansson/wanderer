@@ -2,20 +2,13 @@
 
 #include "components/ctx/viewport.hpp"
 #include "components/map/level.hpp"
-#include "components/map/tilemap.hpp"
 #include "components/outside_level.hpp"
-#include "core/aliases/map_id.hpp"
 #include "core/resources.hpp"
 #include "io/map/parse_world.hpp"
 #include "systems/levels/level_factory_system.hpp"
 
 namespace wanderer {
 namespace {
-
-[[nodiscard]] inline auto get_id(const comp::level& level) -> int
-{
-  return level.registry.get<comp::tilemap>(level.tilemap).id;
-}
 
 [[nodiscard]] auto create_world(entt::registry& shared,
                                 graphics_context& graphics,
