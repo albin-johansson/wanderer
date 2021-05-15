@@ -24,7 +24,6 @@ namespace {
   const auto entity = shared.create();
 
   auto& world = shared.emplace<comp::level>(entity, sys::make_level(data.base, graphics));
-  world.id = map_id{get_id(world)};
   world.registry.ctx<ctx::viewport>().keepInBounds = true;
 
   shared.emplace<comp::outside_level>(entity);
