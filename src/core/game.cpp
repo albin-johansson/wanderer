@@ -70,6 +70,25 @@ game::~game()
   m_dispatcher.disconnect(this);
 }
 
+void game::on_start()
+{
+  sys::load_settings(m_shared);
+  m_shared.set<ctx::binds>(sys::load_binds());
+  m_shared.ctx<ctx::time_of_day>().seconds = 43'200;  // Start at 12:00
+
+  const auto& settings = m_shared.ctx<ctx::settings>();
+  m_dispatcher.enqueue<fullscreen_toggled_event>(settings.fullscreen);
+  m_dispatcher.enqueue<integer_scaling_toggled_event>(settings.integer_scaling);
+
+  sys::sync_settings_menu(m_shared);
+  m_dispatcher.update();
+}
+
+void game::on_exit()
+{
+  sys::save_settings_before_exit(m_shared);
+}
+
 void game::handle_input(const rune::input& input)
 {
   m_mousePos = input.mouse.position();
@@ -157,25 +176,6 @@ void game::render(graphics_context& graphics)
   {
     sys::render_menu_debug_info(m_shared, graphics);
   }
-}
-
-void game::on_start()
-{
-  sys::load_settings(m_shared);
-  m_shared.set<ctx::binds>(sys::load_binds());
-  m_shared.ctx<ctx::time_of_day>().seconds = 43'200;  // Start at 12:00
-
-  const auto& settings = m_shared.ctx<ctx::settings>();
-  m_dispatcher.enqueue<fullscreen_toggled_event>(settings.fullscreen);
-  m_dispatcher.enqueue<integer_scaling_toggled_event>(settings.integer_scaling);
-
-  sys::sync_settings_menu(m_shared);
-  m_dispatcher.update();
-}
-
-void game::on_exit()
-{
-  sys::save_settings_before_exit(m_shared);
 }
 
 void game::load_save(const std::string& name, graphics_context& graphics)
