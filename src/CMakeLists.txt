@@ -105,8 +105,8 @@ set(SOURCE_FILES
     core/graphics/render_text.cpp
     core/graphics/render_text.hpp
 
-    core/levels/level_manager.cpp
-    core/levels/level_manager.hpp
+    core/levels/load_levels.cpp
+    core/levels/load_levels.hpp
     core/levels/make_tilemap.cpp
     core/levels/make_tilemap.hpp
 

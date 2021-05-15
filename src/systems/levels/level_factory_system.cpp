@@ -273,9 +273,12 @@ auto make_level(const ir::level& data, graphics_context& graphics) -> comp::leve
 
   {
     const auto& tilemap = registry.get<comp::tilemap>(level.tilemap);
+
     auto& size = registry.set<ctx::level_size>();
     size.rows = tilemap.rows;
     size.cols = tilemap.cols;
+
+    level.id = tilemap.id;
 
     registry.set<ctx::viewport>(sys::make_viewport(tilemap.size));
   }

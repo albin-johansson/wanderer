@@ -7,6 +7,7 @@
 #include "core/ecs/event_connections.hpp"
 #include "core/ecs/make_dispatcher.hpp"
 #include "core/ecs/registry_utils.hpp"
+#include "core/levels/load_levels.hpp"
 #include "events/fullscreen_toggled_event.hpp"
 #include "events/integer_scaling_toggled_event.hpp"
 #include "events/load_game_event.hpp"
@@ -47,8 +48,9 @@ namespace wanderer {
 game::game(graphics_context& graphics)
     : m_shared{sys::make_shared_registry()}
     , m_dispatcher{make_dispatcher()}
-    , m_levels{m_shared, graphics}
 {
+  load_levels(m_shared, graphics);
+
   // clang-format off
   m_dispatcher.sink<switch_map_event>().connect<&game::on_switch_map>(this);
   m_dispatcher.sink<switch_menu_event>().connect<&game::on_switch_menu_event>(this);

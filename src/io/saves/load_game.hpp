@@ -1,9 +1,9 @@
 #pragma once
 
-#include <string>  // string
+#include <entt.hpp>  // registry
+#include <string>    // string
 
 #include "core/graphics/graphics_context.hpp"
-#include "core/levels/level_manager.hpp"
 
 namespace wanderer {
 

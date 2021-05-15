@@ -19,7 +19,6 @@
 #include <rune.hpp>       // input, delta_time
 
 #include "core/graphics/graphics_context.hpp"
-#include "core/levels/level_manager.hpp"
 #include "events/button_pressed_event.hpp"
 #include "events/close_inventory_event.hpp"
 #include "events/level_fade_events_event.hpp"
@@ -76,7 +75,6 @@ class game final
  private:
   entt::registry m_shared;  // Shared data registry, contains menus, settings, etc.
   entt::dispatcher m_dispatcher;
-  level_manager m_levels;
   cen::ipoint m_mousePos;
   bool m_updateSnapshot{};
   bool m_quit{};

@@ -6,6 +6,7 @@
 #include "io/directories.hpp"
 #include "io/saves/load_game.hpp"
 #include "io/saves/save_game.hpp"
+#include "core/levels/load_levels.hpp"
 
 using namespace wanderer;
 
@@ -19,7 +20,7 @@ TEST(LoadSaveGame, Usage)
   entt::registry shared;
 
   {
-    level_manager levels{shared, graphics};
+    load_levels(shared, graphics);
     cen::surface snapshot{"resources/snapshot.png"};
 
     const auto before = cen::counter::now();

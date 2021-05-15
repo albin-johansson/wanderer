@@ -1,9 +1,8 @@
 #pragma once
 
 #include <centurion.hpp>  // surface
+#include <entt.hpp>       // registry
 #include <string>         // string
-
-#include "core/levels/level_manager.hpp"
 
 namespace wanderer {
 
