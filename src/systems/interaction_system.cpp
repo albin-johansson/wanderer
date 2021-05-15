@@ -27,7 +27,7 @@ void enqueue_inventory_event(entt::registry& registry,
   if (registry.empty<comp::active_inventory>())
   {
     const auto& trigger = registry.get<comp::container_trigger>(triggerEntity);
-    dispatcher.enqueue<show_inventory_event>(trigger.inventoryEntity);
+    dispatcher.enqueue<show_inventory_event>(trigger.inventory_entity);
   }
   else
   {
@@ -49,7 +49,7 @@ void on_interact(const interact_event& event)
   }
   else if (const auto* ct = registry.try_get<comp::is_within_container_trigger>(player))
   {
-    enqueue_inventory_event(registry, dispatcher, ct->triggerEntity);
+    enqueue_inventory_event(registry, dispatcher, ct->trigger_entity);
   }
 }
 

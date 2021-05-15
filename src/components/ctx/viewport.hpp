@@ -27,13 +27,13 @@ namespace wanderer::ctx {
 struct viewport final
 {
   cen::frect bounds;
-  cen::farea levelSize;
-  bool keepInBounds{};
+  cen::farea level_size;
+  bool keep_in_bounds{};
 };
 
 void serialize(auto& archive, viewport& v, u32 version)
 {
-  archive(v.bounds, v.levelSize, v.keepInBounds);
+  archive(v.bounds, v.level_size, v.keep_in_bounds);
 }
 
 }  // namespace wanderer::ctx

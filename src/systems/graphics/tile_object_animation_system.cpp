@@ -15,9 +15,9 @@ void update_tile_object_animations(entt::registry& registry)
   for (auto&& [entity, object, drawable] :
        registry.view<const comp::tile_object, comp::depth_drawable>().each())
   {
-    if (registry.all_of<comp::tile_animation>(object.tileEntity))
+    if (registry.all_of<comp::tile_animation>(object.tile_entity))
     {
-      const auto& tile = get_animated_tile(registry, object.tileEntity, tileset);
+      const auto& tile = get_animated_tile(registry, object.tile_entity, tileset);
       drawable.src = tile.src;
     }
   }

@@ -67,7 +67,7 @@ namespace {
   if (next.horizontal)
   {
     if ((next.horizontal->bounds.x() <= 0) ||
-        (next.horizontal->bounds.max_x() >= viewport.levelSize.width))
+        (next.horizontal->bounds.max_x() >= viewport.level_size.width))
     {
       movable.position.x = oldPosition.x;
       movable.velocity.x = 0;
@@ -78,7 +78,7 @@ namespace {
   if (next.vertical)
   {
     if ((next.vertical->bounds.y() <= 0) ||
-        (next.vertical->bounds.max_y() >= viewport.levelSize.height))
+        (next.vertical->bounds.max_y() >= viewport.level_size.height))
     {
       movable.position.y = oldPosition.y;
       movable.velocity.y = 0;

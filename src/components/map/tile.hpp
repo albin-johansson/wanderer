@@ -9,6 +9,7 @@
 #include "core/aliases/tile_id.hpp"
 
 namespace wanderer::comp {
+
 namespace detail {
 struct tile_entity_t;
 }

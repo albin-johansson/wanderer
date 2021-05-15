@@ -23,10 +23,10 @@ void update_lights(entt::registry& registry)
   for (auto&& [entity, light] : registry.view<comp::point_light>().each())
   {
     light.fluctuation +=
-        rune::next_bool() ? light.fluctuationStep : -light.fluctuationStep;
+        rune::next_bool() ? light.fluctuation_step : -light.fluctuation_step;
 
-    const auto min = light.size - light.fluctuationLimit;
-    const auto max = light.size + light.fluctuationLimit;
+    const auto min = light.size - light.fluctuation_limit;
+    const auto max = light.size + light.fluctuation_limit;
 
     light.fluctuation = std::clamp(light.fluctuation, min, max);
   }

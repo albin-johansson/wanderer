@@ -70,10 +70,10 @@ void update_render_bounds(entt::registry& registry)
   const auto& size = registry.ctx<ctx::level_size>();
 
   auto& bounds = registry.set<ctx::render_bounds>();
-  bounds.minCol = calculate_min_col(viewport.bounds.x());
-  bounds.minRow = calculate_min_row(viewport.bounds.y());
-  bounds.maxCol = calculate_max_col(viewport.bounds.max_x(), size.cols);
-  bounds.maxRow = calculate_max_row(viewport.bounds.max_y(), size.rows);
+  bounds.min_col = calculate_min_col(viewport.bounds.x());
+  bounds.min_row = calculate_min_row(viewport.bounds.y());
+  bounds.max_col = calculate_max_col(viewport.bounds.max_x(), size.col_count);
+  bounds.max_row = calculate_max_row(viewport.bounds.max_y(), size.row_count);
 }
 
 }  // namespace wanderer::sys

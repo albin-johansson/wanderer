@@ -18,18 +18,18 @@ void update_level_switch_animations(entt::registry& registry,
 {
   for (auto&& [entity, animation] : registry.view<comp::level_switch_animation>().each())
   {
-    animation.width += animation.xStepSize * animation.speed * dt;
-    animation.height += animation.yStepSize * animation.speed * dt;
+    animation.width += animation.x_step_size * animation.speed * dt;
+    animation.height += animation.y_step_size * animation.speed * dt;
 
-    if (animation.fadingIn)
+    if (animation.fading_in)
     {
       if (animation.width >= glob::logical_width<float> / 2.0f)
       {
         dispatcher.enqueue<level_faded_in_event>(animation.map.value(),
                                                  animation.width,
                                                  animation.height,
-                                                 -animation.xStepSize,
-                                                 -animation.yStepSize);
+                                                 -animation.x_step_size,
+                                                 -animation.y_step_size);
       }
     }
     else
@@ -69,9 +69,9 @@ void start_level_fade_animation(entt::registry& registry, const map_id map)
   animation.speed = speed;
   animation.width = 0;
   animation.height = 0;
-  animation.xStepSize = glob::logical_width<float> / n_steps;
-  animation.yStepSize = glob::logical_height<float> / n_steps;
-  animation.fadingIn = true;
+  animation.x_step_size = glob::logical_width<float> / n_steps;
+  animation.y_step_size = glob::logical_height<float> / n_steps;
+  animation.fading_in = true;
 }
 
 void end_level_fade_animation(entt::registry& registry, const level_faded_in_event& event)
@@ -81,9 +81,9 @@ void end_level_fade_animation(entt::registry& registry, const level_faded_in_eve
   animation.speed = speed;
   animation.width = event.width;
   animation.height = event.height;
-  animation.xStepSize = event.xStepSize;
-  animation.yStepSize = event.yStepSize;
-  animation.fadingIn = false;
+  animation.x_step_size = event.xStepSize;
+  animation.y_step_size = event.yStepSize;
+  animation.fading_in = false;
 }
 
 }  // namespace wanderer::sys

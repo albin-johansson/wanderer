@@ -9,7 +9,7 @@ struct roam final
 {
   maybe<float2> destination;
   float cooldown{};
-  float cooldownDuration{};
+  float cooldown_duration{};
 };
 
 }  // namespace wanderer::comp

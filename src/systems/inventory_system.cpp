@@ -50,7 +50,7 @@ void update_inventory_triggers(entt::registry& registry)
 
   const auto removePredicate = [](const is_within_trigger_t& isWithinTrigger,
                                   const trigger_t::entity triggerEntity) {
-    return isWithinTrigger.triggerEntity == triggerEntity;
+    return isWithinTrigger.trigger_entity == triggerEntity;
   };
 
   sys::update_triggers<trigger_t, is_within_trigger_t>(registry, removePredicate);

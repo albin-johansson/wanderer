@@ -45,7 +45,7 @@ void end_chase(entt::registry& registry,
     if (!registry.all_of<comp::roam>(entity))
     {
       auto& roam = registry.emplace<comp::roam>(entity);
-      roam.cooldownDuration = cooldown_duration;
+      roam.cooldown_duration = cooldown_duration;
       roam.cooldown = 0;
     }
   }

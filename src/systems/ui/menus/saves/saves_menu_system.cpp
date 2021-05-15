@@ -36,14 +36,14 @@ inline constexpr int buttons_per_page = 8;
 [[nodiscard]] auto page_count(const comp::button_group& group) -> int
 {
   return std::max(1,
-                  round(group.buttons.size() / static_cast<float>(group.itemsPerPage)));
+                  round(group.buttons.size() / static_cast<float>(group.items_per_page)));
 }
 
 /// Returns the appropriate text for the page indicator label
 [[nodiscard]] auto get_page_indicator_text(const comp::button_group& group) -> std::string
 {
   const auto nPages = page_count(group);
-  return std::to_string(group.currentPage + 1) + " / " + std::to_string(nPages);
+  return std::to_string(group.current_page + 1) + " / " + std::to_string(nPages);
 }
 
 /// Clears and refreshes the save menu entries for a saves menu
@@ -68,11 +68,11 @@ void update_page_indicators(entt::registry& registry)
   auto& menu = registry.get<comp::saves_menu>(entity);
   const auto& group = registry.get<comp::button_group>(entity);
 
-  const auto currentPage = group.currentPage;
+  const auto currentPage = group.current_page;
   const auto nPages = page_count(group);
 
-  registry.get<comp::button>(menu.decrementButton).enabled = currentPage != 0;
-  registry.get<comp::button>(menu.incrementButton).enabled = currentPage != nPages - 1;
+  registry.get<comp::button>(menu.decrement_button).enabled = currentPage != 0;
+  registry.get<comp::button>(menu.increment_button).enabled = currentPage != nPages - 1;
 }
 
 void refresh_save_entry_buttons(entt::registry& registry,
@@ -83,7 +83,7 @@ void refresh_save_entry_buttons(entt::registry& registry,
 
   destroy_and_clear(registry, group.buttons);
 
-  const auto maxRow = static_cast<float>(group.itemsPerPage);
+  const auto maxRow = static_cast<float>(group.items_per_page);
   for (auto row = 0; const auto entryEntity : savesMenu.entries)
   {
     const auto& entry = registry.get<comp::saves_menu_entry>(entryEntity);
@@ -117,9 +117,9 @@ void refresh_page_indicator_label(entt::registry& registry,
                                   comp::button_group& group,
                                   const comp::menu::entity menuEntity)
 {
-  if (group.indicatorLabel == entt::null)
+  if (group.indicator_label == entt::null)
   {
-    group.indicatorLabel =
+    group.indicator_label =
         sys::make_label(registry,
                         menuEntity,
                         get_page_indicator_text(group),
@@ -128,7 +128,7 @@ void refresh_page_indicator_label(entt::registry& registry,
   }
   else
   {
-    auto& label = registry.get<comp::label>(group.indicatorLabel);
+    auto& label = registry.get<comp::label>(group.indicator_label);
     set_text(label, get_page_indicator_text(group));
   }
 }
@@ -138,8 +138,8 @@ void refresh_saves_menu_contents(entt::registry& registry,
 {
   auto& group = registry.get_or_emplace<comp::button_group>(menuEntity);
   nullify(group.selected);
-  group.currentPage = 0;
-  group.itemsPerPage = buttons_per_page;
+  group.current_page = 0;
+  group.items_per_page = buttons_per_page;
 
   // This is strange, but required due to how the button group rendering works
   auto& associated = registry.get_or_emplace<comp::associated_menu>(menuEntity);
@@ -149,8 +149,8 @@ void refresh_saves_menu_contents(entt::registry& registry,
   refresh_page_indicator_label(registry, group, menuEntity);
 
   auto& savesMenu = registry.get<comp::saves_menu>(menuEntity);
-  registry.get<comp::button>(savesMenu.loadButton).enabled = !group.buttons.empty();
-  registry.get<comp::button>(savesMenu.deleteButton).enabled = !group.buttons.empty();
+  registry.get<comp::button>(savesMenu.load_button).enabled = !group.buttons.empty();
+  registry.get<comp::button>(savesMenu.delete_button).enabled = !group.buttons.empty();
 
   update_page_indicators(registry);
 }
@@ -162,17 +162,17 @@ void change_saves_button_group_page(entt::registry& registry, const int incremen
   if (auto* group = registry.try_get<comp::button_group>(menu))
   {
     const auto nPages = page_count(*group);
-    const auto nextPage = group->currentPage + increment;
+    const auto nextPage = group->current_page + increment;
     if (nextPage >= 0 && nextPage < nPages)
     {
       nullify(group->selected);
-      group->currentPage += increment;
+      group->current_page += increment;
 
-      const auto firstRow = group->currentPage * group->itemsPerPage;
+      const auto firstRow = group->current_page * group->items_per_page;
       for (int row = 0; const auto buttonEntity : group->buttons)
       {
         auto& button = registry.get<comp::button>(buttonEntity);
-        button.visible = row >= firstRow && row <= firstRow + (group->itemsPerPage - 1);
+        button.visible = row >= firstRow && row <= firstRow + (group->items_per_page - 1);
 
         if (button.visible && group->selected == entt::null)
         {
@@ -182,7 +182,7 @@ void change_saves_button_group_page(entt::registry& registry, const int incremen
         ++row;
       }
 
-      auto& label = registry.get<comp::label>(group->indicatorLabel);
+      auto& label = registry.get<comp::label>(group->indicator_label);
       set_text(label, get_page_indicator_text(*group));
 
       update_page_indicators(registry);
@@ -210,10 +210,10 @@ void change_save_preview(entt::registry& registry)
 
   auto& savesMenu = registry.get<comp::saves_menu>(activeMenu);
 
-  destroy_if_exists(registry, savesMenu.titleLabel);
-  destroy_if_exists(registry, savesMenu.timeLabel);
-  destroy_if_exists(registry, savesMenu.dataVersionLabel);
-  destroy_if_exists(registry, savesMenu.previewTexture);
+  destroy_if_exists(registry, savesMenu.title_label);
+  destroy_if_exists(registry, savesMenu.time_label);
+  destroy_if_exists(registry, savesMenu.data_version_label);
+  destroy_if_exists(registry, savesMenu.preview_texture);
 
   auto& group = registry.get<comp::button_group>(activeMenu);
   if (group.selected != entt::null)
@@ -234,17 +234,17 @@ void change_save_preview(entt::registry& registry)
                         size);
     };
 
-    savesMenu.titleLabel = label(entry.name, 6, 11, text_size::large);
-    savesMenu.timeLabel =
+    savesMenu.title_label = label(entry.name, 6, 11, text_size::large);
+    savesMenu.time_label =
         label("Last modified:  " + last_modified(saves_directory() / entry.name),
               7.4f,
               11.0f);
-    savesMenu.dataVersionLabel =
-        label("Data version:  " + std::to_string(entry.dataVersion), 8.4f, 11.0f);
+    savesMenu.data_version_label =
+        label("Data version:  " + std::to_string(entry.data_version), 8.4f, 11.0f);
 
     const auto width = glob::menu_col_size * 9.0f;
     const auto height = (width / 16.0f) * 9.0f;  // Assume 16:9 aspect ratio
-    savesMenu.previewTexture = make_lazy_texture(registry,
+    savesMenu.preview_texture = make_lazy_texture(registry,
                                                  activeMenu,
                                                  entry.preview,
                                                  grid_position{7.0f, 20.0f},

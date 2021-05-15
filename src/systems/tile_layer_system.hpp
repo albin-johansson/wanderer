@@ -37,9 +37,9 @@ void visit_tiles(const comp::tile_layer& layer,
                  const ctx::render_bounds& bounds,
                  T&& callable)
 {
-  for (auto row = bounds.minRow; row < bounds.maxRow; ++row)
+  for (auto row = bounds.min_row; row < bounds.max_row; ++row)
   {
-    for (auto col = bounds.minCol; col < bounds.maxCol; ++col)
+    for (auto col = bounds.min_col; col < bounds.max_col; ++col)
     {
       assert(row >= 0);
       assert(row < layer.matrix.size());

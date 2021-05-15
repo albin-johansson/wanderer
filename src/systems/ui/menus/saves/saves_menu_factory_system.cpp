@@ -63,12 +63,12 @@ void make_buttons(entt::registry& registry, const comp::menu::entity menuEntity)
 
   auto& savesMenu = registry.get<comp::saves_menu>(menuEntity);
 
-  savesMenu.loadButton = button("Load", menu_action::load_game, 15, 12);
-  savesMenu.deleteButton = button("Delete", menu_action::none, 15, 27.5f);
+  savesMenu.load_button = button("Load", menu_action::load_game, 15, 12);
+  savesMenu.delete_button = button("Delete", menu_action::none, 15, 27.5f);
 
-  savesMenu.decrementButton =
+  savesMenu.decrement_button =
       button("<", menu_action::decrement_saves_button_group_page, 15, 4);
-  savesMenu.incrementButton =
+  savesMenu.increment_button =
       button(">", menu_action::increment_saves_button_group_page, 15, 8);
 }
 

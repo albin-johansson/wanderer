@@ -62,7 +62,7 @@ void render_trigger_indicators(const entt::registry& registry, cen::renderer& re
   }
   else if (const auto* iwc = registry.try_get<comp::is_within_container_trigger>(entity))
   {
-    render_enabled_trigger_indicator(registry, iwc->triggerEntity, renderer);
+    render_enabled_trigger_indicator(registry, iwc->trigger_entity, renderer);
   }
 }
 

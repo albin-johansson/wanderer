@@ -19,7 +19,7 @@ void sync_settings_menu(entt::registry& registry)
     }
     else if (button.action == menu_action::toggle_integer_scaling)
     {
-      checkbox.checked = settings.integerScaling;
+      checkbox.checked = settings.integer_scaling;
     }
   }
 }

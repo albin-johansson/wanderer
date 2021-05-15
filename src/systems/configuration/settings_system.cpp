@@ -18,7 +18,7 @@ inline const auto settings_file = files_directory() / "settings.ini";
   ctx::settings settings;
 
   settings.fullscreen = true;
-  settings.integerScaling = true;
+  settings.integer_scaling = true;
 
   return settings;
 }
@@ -26,7 +26,7 @@ inline const auto settings_file = files_directory() / "settings.ini";
 void log_settings(const ctx::settings& settings)
 {
   cen::log::info("  [bool] fullscreen = %i", settings.fullscreen);
-  cen::log::info("  [bool] integerScaling = %i", settings.integerScaling);
+  cen::log::info("  [bool] integerScaling = %i", settings.integer_scaling);
 }
 
 [[nodiscard]] auto read_settings(const std::filesystem::path& path) -> ctx::settings
@@ -39,8 +39,8 @@ void log_settings(const ctx::settings& settings)
   auto settings = default_settings();
   settings.fullscreen =
       file.get<bool>("Graphics", "Fullscreen").value_or(settings.fullscreen);
-  settings.integerScaling =
-      file.get<bool>("Graphics", "UseIntegerScaling").value_or(settings.integerScaling);
+  settings.integer_scaling =
+      file.get<bool>("Graphics", "UseIntegerScaling").value_or(settings.integer_scaling);
 
   if constexpr (cen::is_debug_build())
   {
@@ -77,8 +77,8 @@ auto toggle_fullscreen(entt::registry& registry) -> bool
 auto toggle_integer_scaling(entt::registry& registry) -> bool
 {
   auto& settings = registry.ctx<ctx::settings>();
-  settings.integerScaling = !settings.integerScaling;
-  return settings.integerScaling;
+  settings.integer_scaling = !settings.integer_scaling;
+  return settings.integer_scaling;
 }
 
 void save_settings_before_exit(const entt::registry& registry)
@@ -92,7 +92,7 @@ void save_settings_before_exit(const entt::registry& registry)
   std::ofstream stream{settings_file};
   stream << "[Graphics]\n";
   stream << "Fullscreen=" << stringify(settings.fullscreen) << '\n';
-  stream << "UseIntegerScaling=" << stringify(settings.integerScaling) << '\n';
+  stream << "UseIntegerScaling=" << stringify(settings.integer_scaling) << '\n';
 
   if constexpr (cen::is_debug_build())
   {

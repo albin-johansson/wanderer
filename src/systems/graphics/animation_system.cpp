@@ -16,7 +16,7 @@ void update_animations(entt::registry& registry)
     {
       animated.then = now;
       ++animated.frame;
-      if (animated.frame >= animated.nFrames)
+      if (animated.frame >= animated.frame_count)
       {
         animated.frame = 0;
       }

@@ -34,10 +34,10 @@ void load_tileset_textures(const ir::level& data, graphics_context& graphics)
   auto& tilemap = registry.emplace<comp::tilemap>(entity);
 
   tilemap.id = map_id{data.id};
-  tilemap.rows = data.nRows;
-  tilemap.cols = data.nCols;
+  tilemap.row_count = data.nRows;
+  tilemap.col_count = data.nCols;
   tilemap.size = data.size;
-  tilemap.humanoidLayer = data.humanoidLayer;
+  tilemap.humanoid_layer = data.humanoidLayer;
 
   return tilemap.id;
 }
@@ -133,7 +133,7 @@ void add_tile_objects(comp::level& level,
     const auto entity = comp::tile_object::entity{level.registry.create()};
 
     auto& tileObject = level.registry.emplace<comp::tile_object>(entity);
-    tileObject.tileEntity = tileset.tiles.at(objectData.tile);
+    tileObject.tile_entity = tileset.tiles.at(objectData.tile);
 
     level.registry.emplace<comp::depth_drawable>(entity,
                                                  convert(objectData.drawable, graphics));
@@ -146,7 +146,7 @@ void add_tile_objects(comp::level& level,
     }
 
     if (const auto* animation =
-            level.registry.try_get<comp::tile_animation>(tileObject.tileEntity))
+            level.registry.try_get<comp::tile_animation>(tileObject.tile_entity))
     {
       level.registry.emplace<comp::tile_animation>(entity, *animation);
     }
@@ -174,9 +174,9 @@ void set_up_container_triggers(entt::registry& registry)
 {
   for (auto&& [entity, trigger] : registry.view<comp::container_trigger>().each())
   {
-    if (const auto result = find_inventory(registry, trigger.inventoryId))
+    if (const auto result = find_inventory(registry, trigger.inventory_id))
     {
-      trigger.inventoryEntity = comp::inventory::entity{*result};
+      trigger.inventory_entity = comp::inventory::entity{*result};
     }
   }
 }
@@ -213,8 +213,8 @@ void add_objects(entt::registry& registry, const ir::level& level)
     if (data.inventoryRef)
     {
       auto& trigger = registry.emplace<comp::container_trigger>(entity);
-      trigger.inventoryId = *data.inventoryRef;
-      trigger.inventoryEntity = null<comp::inventory>();  // Set up later
+      trigger.inventory_id = *data.inventoryRef;
+      trigger.inventory_entity = null<comp::inventory>();  // Set up later
     }
 
     if (data.spawnpoint)
@@ -258,8 +258,8 @@ void add_level_size(entt::registry& registry, comp::level& level)
 {
   const auto& tilemap = registry.get<comp::tilemap>(level.tilemap);
   auto& size = registry.set<ctx::level_size>();
-  size.rows = tilemap.rows;
-  size.cols = tilemap.cols;
+  size.row_count = tilemap.row_count;
+  size.col_count = tilemap.col_count;
 }
 
 void add_viewport(entt::registry& registry, comp::level& level)
@@ -300,7 +300,7 @@ auto make_level(const ir::level& data, graphics_context& graphics) -> comp::leve
     for (auto&& [entity, drawable] :
          registry.view<comp::depth_drawable, comp::humanoid>().each())
     {
-      drawable.layer = tilemap.humanoidLayer;
+      drawable.layer = tilemap.humanoid_layer;
     }
   }
 

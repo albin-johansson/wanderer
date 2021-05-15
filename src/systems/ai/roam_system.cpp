@@ -69,7 +69,7 @@ void update_roaming(entt::registry& registry, const rune::delta_time dt)
     if (!roam.destination)
     {
       roam.cooldown += cooldown_rate * dt;
-      if (roam.cooldown >= roam.cooldownDuration)
+      if (roam.cooldown >= roam.cooldown_duration)
       {
         target_nearby_position(registry, entity, roam, movable);
       }

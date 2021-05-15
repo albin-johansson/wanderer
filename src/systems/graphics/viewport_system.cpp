@@ -21,7 +21,7 @@ inline constexpr float camera_speed = 10.0f;
 
   const auto getX = [&](const float x) noexcept -> float {
     const auto value = boundsX + (x - boundsX) * distance;
-    if (viewport.keepInBounds)
+    if (viewport.keep_in_bounds)
     {
       if (value < 0)
       {
@@ -29,7 +29,7 @@ inline constexpr float camera_speed = 10.0f;
       }
       else
       {
-        const auto diff = viewport.levelSize.width - boundsWidth;
+        const auto diff = viewport.level_size.width - boundsWidth;
         return (value > diff) ? diff : value;
       }
     }
@@ -41,7 +41,7 @@ inline constexpr float camera_speed = 10.0f;
 
   const auto getY = [&](const float y) noexcept -> float {
     const auto value = boundsY + (y - boundsY) * distance;
-    if (viewport.keepInBounds)
+    if (viewport.keep_in_bounds)
     {
       if (value < 0)
       {
@@ -49,7 +49,7 @@ inline constexpr float camera_speed = 10.0f;
       }
       else
       {
-        const auto diff = viewport.levelSize.height - boundsHeight;
+        const auto diff = viewport.level_size.height - boundsHeight;
         return (value > diff) ? diff : value;
       }
     }
@@ -91,7 +91,7 @@ auto make_viewport(const cen::farea levelSize) noexcept -> ctx::viewport
   ctx::viewport viewport;
 
   viewport.bounds.set_size(glob::logical_size<cen::farea>);
-  viewport.levelSize = levelSize;
+  viewport.level_size = levelSize;
 
   return viewport;
 }

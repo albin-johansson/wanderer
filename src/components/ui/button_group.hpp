@@ -17,12 +17,10 @@ struct button_group final
   using entity = entity_type<detail::button_group_entity_t>;
 
   std::vector<button::entity> buttons;
-
   button::entity selected{null<button>()};
-  label::entity indicatorLabel{null<label>()};  ///< Reference to associated label
-
-  int currentPage{};   ///< The index of the current page
-  int itemsPerPage{};  ///< The maximum amount of buttons per page
+  label::entity indicator_label{null<label>()};  ///< Reference to associated label
+  int current_page{};                            ///< The index of the current page
+  int items_per_page{};                          ///< Maximum amount of buttons per page
 };
 
 }  // namespace wanderer::comp

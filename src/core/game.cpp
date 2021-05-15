@@ -173,7 +173,7 @@ void game::on_start()
 
   const auto& settings = m_shared.ctx<ctx::settings>();
   m_dispatcher.enqueue<fullscreen_toggled_event>(settings.fullscreen);
-  m_dispatcher.enqueue<integer_scaling_toggled_event>(settings.integerScaling);
+  m_dispatcher.enqueue<integer_scaling_toggled_event>(settings.integer_scaling);
 
   sys::sync_settings_menu(m_shared);
   m_dispatcher.update();

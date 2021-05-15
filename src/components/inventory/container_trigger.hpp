@@ -13,23 +13,23 @@ struct container_trigger_entity_t;
 struct container_trigger final
 {
   using entity = entity_type<detail::container_trigger_entity_t>;
-  inventory::entity inventoryEntity{null<inventory>()};
-  int inventoryId{};
+  inventory::entity inventory_entity{null<inventory>()};
+  int inventory_id{};
 };
 
 struct is_within_container_trigger final
 {
-  container_trigger::entity triggerEntity{null<container_trigger>()};
+  container_trigger::entity trigger_entity{null<container_trigger>()};
 };
 
 void serialize(auto& archive, container_trigger& ct, u32 version)
 {
-  archive(ct.inventoryEntity, ct.inventoryId);
+  archive(ct.inventory_entity, ct.inventory_id);
 }
 
 void serialize(auto& archive, is_within_container_trigger& iwct, u32 version)
 {
-  archive(iwct.triggerEntity);
+  archive(iwct.trigger_entity);
 }
 
 }  // namespace wanderer::comp

@@ -22,7 +22,7 @@ struct saves_menu_entry final
 
   std::string name;      ///< The name of the save file.
   cen::surface preview;  ///< The preview image for the save.
-  int dataVersion{};     ///< The serialized data version used by the save.
+  int data_version{};    ///< The serialized data version used by the save.
 
   // TODO total play time
 };
@@ -38,16 +38,16 @@ struct saves_menu final
 
   std::vector<saves_menu_entry::entity> entries;
 
-  button::entity decrementButton{null<button>()};
-  button::entity incrementButton{null<button>()};
-  button::entity deleteButton{null<button>()};
-  button::entity loadButton{null<button>()};
+  button::entity decrement_button{null<button>()};
+  button::entity increment_button{null<button>()};
+  button::entity delete_button{null<button>()};
+  button::entity load_button{null<button>()};
 
-  label::entity titleLabel{null<label>()};
-  label::entity timeLabel{null<label>()};
-  label::entity dataVersionLabel{null<label>()};
+  label::entity title_label{null<label>()};
+  label::entity time_label{null<label>()};
+  label::entity data_version_label{null<label>()};
 
-  lazy_texture::entity previewTexture{null<lazy_texture>()};
+  lazy_texture::entity preview_texture{null<lazy_texture>()};
 };
 
 }  // namespace wanderer::comp

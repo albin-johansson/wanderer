@@ -15,12 +15,12 @@ struct tile_object final
 {
   using entity = entity_type<detail::tile_object_t>;
 
-  tile::entity tileEntity{null<tile>()};
+  tile::entity tile_entity{null<tile>()};
 };
 
 void serialize(auto& archive, tile_object& to, u32 version)
 {
-  archive(to.tileEntity);
+  archive(to.tile_entity);
 }
 
 }  // namespace wanderer::comp

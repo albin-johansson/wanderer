@@ -51,7 +51,7 @@ void add_animated(entt::registry& registry, const entt::entity entity)
   animated.frame = 0;
   animated.delay = 65_ms;
   animated.then = cen::counter::ticks();
-  animated.nFrames = 1;
+  animated.frame_count = 1;
 }
 
 void add_hitbox(entt::registry& registry,
@@ -126,8 +126,8 @@ auto make_player(entt::registry& registry,
   light.size = 160;
   light.position = position;
   light.fluctuation = 0;
-  light.fluctuationStep = 0;
-  light.fluctuationLimit = 0;
+  light.fluctuation_step = 0;
+  light.fluctuation_limit = 0;
 
   registry.emplace<comp::player>(player);
 
@@ -153,7 +153,7 @@ auto make_skeleton(entt::registry& registry,
   chase.range = 150;
 
   auto& roam = registry.emplace<comp::roam>(skeleton);
-  roam.cooldownDuration = 100;
+  roam.cooldown_duration = 100;
 
   return skeleton;
 }

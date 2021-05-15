@@ -17,7 +17,7 @@ namespace {
   const auto entity = shared.create();
 
   auto& world = shared.emplace<comp::level>(entity, sys::make_level(data.base, graphics));
-  world.registry.ctx<ctx::viewport>().keepInBounds = true;
+  world.registry.ctx<ctx::viewport>().keep_in_bounds = true;
 
   shared.emplace<comp::outside_level>(entity);
 

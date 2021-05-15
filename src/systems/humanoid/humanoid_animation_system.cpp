@@ -99,7 +99,7 @@ void update_attack_animation(entt::registry& registry, const entt::entity entity
   auto& drawable = registry.get<comp::depth_drawable>(entity);
 
   drawable.src.set_x(animated.frame * 64);
-  if (animated.frame == animated.nFrames - 1)
+  if (animated.frame == animated.frame_count - 1)
   {
     auto& attack = registry.get<comp::humanoid_attack>(entity);
     attack.done = true;
@@ -127,7 +127,7 @@ void enter_animation(entt::registry& registry,
 {
   auto& animated = registry.get<comp::animated>(entity);
   animated.frame = 0;
-  animated.nFrames = nFrames;
+  animated.frame_count = nFrames;
   animated.delay = delay;
 
   auto& drawable = registry.get<comp::depth_drawable>(entity);
@@ -145,7 +145,7 @@ void enter_animation(entt::registry& registry,
 {
   auto& animated = registry.get<comp::animated>(entity);
   animated.frame = 0;
-  animated.nFrames = nFrames;
+  animated.frame_count = nFrames;
   animated.delay = delay;
 
   auto& drawable = registry.get<comp::depth_drawable>(entity);
