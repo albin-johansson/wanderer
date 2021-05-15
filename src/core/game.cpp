@@ -180,11 +180,6 @@ void game::render(graphics_context& graphics)
 
 void game::load_save(const std::string& name, graphics_context& graphics)
 {
-  if (const auto* snapshot = m_shared.try_ctx<ctx::renderer_snapshot>())
-  {
-    create_exit_save(m_shared, snapshot->surface);
-  }
-
   load_game(m_shared, graphics, name);
 }
 
