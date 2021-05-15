@@ -8,6 +8,9 @@
 
 namespace wanderer::sys {
 
+/// \name Levels
+/// \{
+
 /**
  * \brief Creates a level based on a parsed tilemap file.
  *
@@ -33,5 +36,7 @@ namespace wanderer::sys {
  */
 [[nodiscard]] auto make_level(const std::filesystem::path& path,
                               graphics_context& graphics) -> comp::level;
+
+/// \} End of levels
 
 }  // namespace wanderer::sys
