@@ -21,7 +21,7 @@ struct chase final
 
 void serialize(auto& archive, chase& c, u32 version)
 {
-  archive(c.range, c.active);  // We intentionally do not serialize the target entity
+  archive(c.target, c.range, c.active);
 }
 
 }  // namespace wanderer::comp
