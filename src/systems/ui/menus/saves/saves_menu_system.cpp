@@ -1,5 +1,6 @@
 #include "saves_menu_system.hpp"
 
+#include <cassert>     // assert
 #include <cmath>       // round, fmod
 #include <filesystem>  // directory_iterator
 #include <string>      // string, to_string
@@ -259,6 +260,20 @@ void increment_saves_button_group_page(entt::registry& registry)
 void decrement_saves_button_group_page(entt::registry& registry)
 {
   change_saves_button_group_page(registry, -1);
+}
+
+auto get_selected_save_name(entt::registry& shared) -> std::string
+{
+  const auto activeMenu = shared.ctx<ctx::active_menu>().entity;
+  assert(shared.get<comp::menu>(activeMenu).id == menu_id::saves);
+
+  auto& group = shared.get<comp::button_group>(activeMenu);
+  assert(group.selected != entt::null);
+
+  const auto associatedEntry =
+      shared.get<comp::associated_saves_entry>(group.selected).entry;
+
+  return shared.get<comp::saves_menu_entry>(associatedEntry).name;
 }
 
 }  // namespace wanderer::sys

@@ -1,6 +1,7 @@
 #include "input_system.hpp"
 
 #include "components/humanoid_state.hpp"
+#include "core/ecs/registry_utils.hpp"
 #include "systems/input/idle_input_system.hpp"
 #include "systems/input/movement_input_system.hpp"
 
@@ -11,7 +12,7 @@ void update_input(entt::registry& registry,
                   const rune::input& input,
                   const ctx::binds& binds)
 {
-  const auto player = registry.ctx<ctx::player>().entity;
+  const auto player = singleton_entity<comp::player>(registry);
   if (registry.all_of<comp::humanoid_idle>(player))
   {
     handle_idle_input(registry, dispatcher, input, binds);

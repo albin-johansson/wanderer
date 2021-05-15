@@ -1,13 +1,16 @@
 #include "game.hpp"
 
-#include "components/ctx/outside_level.hpp"
 #include "components/ctx/renderer_snapshot.hpp"
 #include "components/ctx/settings.hpp"
 #include "components/graphics/level_switch_animation.hpp"
+#include "components/outside_level.hpp"
 #include "core/ecs/event_connections.hpp"
 #include "core/ecs/make_dispatcher.hpp"
+#include "core/ecs/registry_utils.hpp"
 #include "events/fullscreen_toggled_event.hpp"
 #include "events/integer_scaling_toggled_event.hpp"
+#include "events/load_game_event.hpp"
+#include "io/saves/load_game.hpp"
 #include "io/saves/save_game.hpp"
 #include "systems/ai/chase_system.hpp"
 #include "systems/ai/roam_system.hpp"
@@ -28,6 +31,7 @@
 #include "systems/humanoid/humanoid_state_system.hpp"
 #include "systems/input/input_system.hpp"
 #include "systems/inventory_system.hpp"
+#include "systems/levels/level_system.hpp"
 #include "systems/movement/movement_system.hpp"
 #include "systems/movement/portal_system.hpp"
 #include "systems/shared_registry_factory_system.hpp"
@@ -41,9 +45,9 @@
 namespace wanderer {
 
 game::game(graphics_context& graphics)
-    : m_dispatcher{make_dispatcher()}
-    , m_levels{graphics}
-    , m_shared{sys::make_shared_registry()}
+    : m_shared{sys::make_shared_registry()}
+    , m_dispatcher{make_dispatcher()}
+    , m_levels{m_shared, graphics}
 {
   // clang-format off
   m_dispatcher.sink<switch_map_event>().connect<&game::on_switch_map>(this);
@@ -68,7 +72,11 @@ void game::handle_input(const rune::input& input)
 {
   m_mousePos = input.mouse.position();
   sys::update_menu(m_shared, m_dispatcher, input);
-  sys::update_input(m_levels.registry(), m_dispatcher, input, m_shared.ctx<ctx::binds>());
+
+  const auto entity = sys::current_level_entity(m_shared);
+  auto& level = m_shared.get<comp::level>(entity);
+
+  sys::update_input(level.registry, m_dispatcher, input, m_shared.ctx<ctx::binds>());
 }
 
 void game::tick(const rune::delta_time dt)
@@ -80,49 +88,52 @@ void game::tick(const rune::delta_time dt)
     return;
   }
 
+  const auto entity = sys::current_level_entity(m_shared);
+  auto& level = m_shared.get<comp::level>(entity);
+
   sys::update_time(m_shared, dt);
 
-  auto& level = m_levels.current();
-  auto& registry = level.registry();
-  sys::update_humanoid_states(registry, m_dispatcher);
+  sys::update_humanoid_states(level.registry, m_dispatcher);
 
-  sys::update_chase(registry, m_dispatcher);
-  sys::update_roaming(registry, dt);
-  sys::update_movement(registry, level.tree(), dt);
-  sys::update_drawables(registry);
-  sys::update_particles(registry, dt);
-  sys::update_lights(registry);
-  sys::update_player_light_position(registry);
+  sys::update_chase(level.registry, m_dispatcher);
+  sys::update_roaming(level.registry, dt);
+  sys::update_movement(level.registry, level.tree, dt);
+  sys::update_drawables(level.registry);
+  sys::update_particles(level.registry, dt);
+  sys::update_lights(level.registry);
+  sys::update_player_light_position(level.registry);
 
-  sys::update_portal_triggers(registry);
-  sys::update_inventory_triggers(registry);
+  sys::update_portal_triggers(level.registry);
+  sys::update_inventory_triggers(level.registry);
 
-  const auto player = registry.ctx<ctx::player>().entity;
-  sys::update_viewport(registry, comp::movable::entity{player}, dt);
-  sys::update_depth(registry);
+  const auto player = singleton_entity<comp::player>(level.registry);
+  sys::update_viewport(level.registry, comp::movable::entity{player}, dt);
+  sys::update_depth(level.registry);
 
-  sys::update_animations(registry);
-  sys::update_humanoid_animations(registry);
-  sys::update_tile_animations(registry);
-  sys::update_tile_object_animations(registry);
-  sys::update_level_switch_animations(registry, m_dispatcher, dt);
+  sys::update_animations(level.registry);
+  sys::update_humanoid_animations(level.registry);
+  sys::update_tile_animations(level.registry);
+  sys::update_tile_object_animations(level.registry);
+  sys::update_level_switch_animations(level.registry, m_dispatcher, dt);
 }
 
 void game::render(graphics_context& graphics)
 {
   auto& renderer = graphics.renderer();
-  auto& registry = m_levels.registry();
 
-  sys::translate_viewport(registry, renderer);
-  sys::update_render_bounds(registry);
+  const auto entity = sys::current_level_entity(m_shared);
+  auto& level = m_shared.get<comp::level>(entity);
 
-  sys::render_tile_layers(registry, graphics);
-  sys::render_drawables(registry, graphics);
-  sys::render_particles(registry, graphics);
+  sys::translate_viewport(level.registry, renderer);
+  sys::update_render_bounds(level.registry);
 
-  if (registry.try_ctx<const ctx::outside_level>())
+  sys::render_tile_layers(level.registry, graphics);
+  sys::render_drawables(level.registry, graphics);
+  sys::render_particles(level.registry, graphics);
+
+  if (level.registry.size<comp::outside_level>() == 0)
   {
-    sys::render_lights(registry,
+    sys::render_lights(level.registry,
                        graphics,
                        m_shared.ctx<ctx::time_of_day>(),
                        m_shared.ctx<ctx::settings>());
@@ -138,12 +149,13 @@ void game::render(graphics_context& graphics)
 
   if constexpr (cen::is_debug_build())
   {
-    sys::render_debug_info(registry, graphics);
+    sys::render_debug_info(level.registry, graphics);
   }
 
-  sys::render_inventory(registry, renderer, m_mousePos);
-  sys::render_level_switch_animations(registry, renderer);
+  sys::render_inventory(level.registry, renderer, m_mousePos);
+
   sys::render_active_menu(m_shared, graphics);
+  sys::render_level_switch_animations(level.registry, renderer);
 
   if constexpr (cen::is_debug_build())
   {
@@ -170,20 +182,26 @@ void game::on_exit()
   sys::save_settings_before_exit(m_shared);
 }
 
+void game::load_save(const std::string& name, graphics_context& graphics)
+{
+  if (const auto* snapshot = m_shared.try_ctx<ctx::renderer_snapshot>())
+  {
+    create_exit_save(m_shared, snapshot->surface);
+  }
+
+  load_game(m_shared, graphics, name);
+}
+
 auto game::is_paused() const -> bool
 {
   return sys::is_current_menu_blocking(m_shared);
 }
 
-auto game::is_inventory_active() const -> bool
-{
-  return !is_paused() &&
-         !m_levels.registry().view<const comp::active_inventory>().empty();
-}
-
 void game::on_switch_map(const switch_map_event& event)
 {
-  sys::start_level_fade_animation(m_levels.registry(), event.map);
+  const auto entity = sys::current_level_entity(m_shared);
+  auto& level = m_shared.get<comp::level>(entity);
+  sys::start_level_fade_animation(level.registry, event.map);
 }
 
 void game::on_switch_menu_event(const switch_menu_event& event)
@@ -223,13 +241,17 @@ void game::on_button_pressed(const button_pressed_event& event)
       // FIXME don't allow quick saves before the in-game menu has been active once
       if (const auto* snapshot = m_shared.try_ctx<ctx::renderer_snapshot>())
       {
-        save_game("quick_save", m_levels, snapshot->surface);
+        save_game("quick_save", m_shared, snapshot->surface);
       }
       m_dispatcher.enqueue<switch_menu_event>(menu_id::in_game);
       break;
     }
     case menu_action::load_game: {
-      // TODO
+      m_dispatcher.enqueue<load_game_event>(sys::get_selected_save_name(m_shared));
+      m_dispatcher.enqueue<switch_menu_event>(menu_id::in_game);
+
+      // TODO animation
+
       break;
     }
     case menu_action::change_save_preview: {
@@ -263,28 +285,59 @@ void game::on_button_pressed(const button_pressed_event& event)
 
 void game::on_level_animation_faded_in(const level_faded_in_event& event)
 {
-  m_levels.switch_to(event.map);
-  sys::end_level_fade_animation(m_levels.registry(), event);
+  {
+    const auto levelEntity = sys::current_level_entity(m_shared);
+    auto& currentLevel = m_shared.get<comp::level>(levelEntity);
+    currentLevel.registry.clear<comp::level_switch_animation>();
+
+    const auto player = singleton_entity<comp::player>(currentLevel.registry);
+    auto& movable = currentLevel.registry.get<comp::movable>(player);
+    movable.velocity.reset();
+
+    sys::center_viewport_on(currentLevel.registry, movable.position);
+
+    m_shared.clear<comp::active_level>();
+    for (auto&& [entity, level] : m_shared.view<comp::level>().each())
+    {
+      if (level.id == event.map)
+      {
+        m_shared.emplace<comp::active_level>(entity);
+        break;
+      }
+    }
+  }
+
+  const auto entity = sys::current_level_entity(m_shared);
+  auto& level = m_shared.get<comp::level>(entity);
+
+  sys::end_level_fade_animation(level.registry, event);
 }
 
 void game::on_level_animation_faded_out(const level_faded_out_event&)
 {
-  m_levels.registry().clear<comp::level_switch_animation>();
+  const auto entity = sys::current_level_entity(m_shared);
+  m_shared.get<comp::level>(entity).registry.clear<comp::level_switch_animation>();
 }
 
 void game::on_show_inventory(const show_inventory_event& event)
 {
-  m_levels.registry().emplace<comp::active_inventory>(event.inventoryEntity);
+  const auto entity = sys::current_level_entity(m_shared);
+  m_shared.get<comp::level>(entity).registry.emplace<comp::active_inventory>(
+      event.inventoryEntity);
 }
 
 void game::on_close_inventory(const close_inventory_event&)
 {
-  m_levels.registry().clear<comp::active_inventory>();
+  const auto entity = sys::current_level_entity(m_shared);
+  m_shared.get<comp::level>(entity).registry.clear<comp::active_inventory>();
 }
 
 void game::on_particle_event(const spawn_particles_event& event)
 {
-  sys::spawn_particles(m_levels.registry(),
+  const auto entity = sys::current_level_entity(m_shared);
+  auto& level = m_shared.get<comp::level>(entity);
+
+  sys::spawn_particles(level.registry,
                        event.position,
                        event.count,
                        event.duration,

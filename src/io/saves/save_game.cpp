@@ -6,12 +6,18 @@
 #include <string>    // string, to_string
 #include <utility>   // move
 
+#include "components/outside_level.hpp"
 #include "io/directories.hpp"
+#include "systems/levels/level_save_system.hpp"
+#include "systems/levels/level_system.hpp"
 
 using json_type = nlohmann::json;
 
 namespace wanderer {
 namespace {
+
+inline constexpr int binary_data_version = 1;
+inline constexpr int json_format_version = 1;
 
 [[nodiscard]] auto unique_path(std::filesystem::path path) -> std::filesystem::path
 {
@@ -34,7 +40,7 @@ namespace {
 }  // namespace
 
 void save_game(const std::string& name,
-               const level_manager& levels,
+               const entt::registry& shared,
                const cen::surface& snapshot)
 {
   const auto dir = unique_path(saves_directory() / name);
@@ -43,29 +49,37 @@ void save_game(const std::string& name,
   std::filesystem::create_directories(dir);
   snapshot.save_as_png(std::filesystem::absolute(dir / "snapshot.png").string());
 
+  const auto currentLevelEntity = sys::current_level_entity(shared);
+  const auto& currentLevel = shared.get<comp::level>(currentLevelEntity);
+
   json_type json;
 
   json["name"] = saveName;
-  json["json_format_version"] = 1;
-  json["data_format_version"] = 1;
-  json["current_level"] = levels.current_id().get();
-  json["world"] = levels.world().get();
+  json["json_format_version"] = json_format_version;
+  json["data_format_version"] = binary_data_version;
+  json["current_level"] = currentLevel.id.get();
 
-  for (const auto& [id, level] : levels)
+  for (auto&& [entity, level] : shared.view<const comp::level>().each())
   {
-    const auto levelName = "level_" + std::to_string(id.get()) + ".wanderer";
-    level->save(dir / levelName);
+    const auto levelName = "level_" + std::to_string(level.id.get()) + ".wanderer";
+    sys::save(level, dir / levelName);
 
     json_type levelObject;
 
-    levelObject["id"] = id.get();
+    levelObject["id"] = level.id.get();
     levelObject["data"] = levelName;
+    levelObject["outside_level"] = shared.all_of<comp::outside_level>(entity);
 
     json["levels"].emplace_back(std::move(levelObject));
   }
 
   std::ofstream stream{dir / (saveName + ".json")};
   stream << std::setw(2) << json;
+}
+
+void create_exit_save(const entt::registry& shared, const cen::surface& snapshot)
+{
+  // TODO
 }
 
 }  // namespace wanderer

@@ -19,7 +19,6 @@
 #include <rune.hpp>       // input, delta_time
 
 #include "core/graphics/graphics_context.hpp"
-#include "core/levels/level.hpp"
 #include "core/levels/level_manager.hpp"
 #include "events/button_pressed_event.hpp"
 #include "events/close_inventory_event.hpp"
@@ -51,30 +50,17 @@ class game final
 
   ~game();
 
-  /**
-   * \brief Responds to user input.
-   *
-   * \param input the current input state.
-   */
   void handle_input(const rune::input& input);
 
-  /**
-   * \brief Updates the state of the game.
-   *
-   * \param dt the delta time, in seconds.
-   */
   void tick(rune::delta_time dt);
 
-  /**
-   * \brief Renders the game.
-   *
-   * \param graphics the graphics context used to render the game.
-   */
   void render(graphics_context& graphics);
 
   void on_start();
 
   void on_exit();
+
+  void load_save(const std::string& name, graphics_context& graphics);
 
   template <typename Event>
   [[nodiscard]] decltype(auto) sink()
@@ -88,16 +74,14 @@ class game final
   }
 
  private:
+  entt::registry m_shared;  // Shared data registry, contains menus, settings, etc.
   entt::dispatcher m_dispatcher;
   level_manager m_levels;
-  entt::registry m_shared;  // Shared data registry, contains menus, settings, etc.
   cen::ipoint m_mousePos;
   bool m_updateSnapshot{};
   bool m_quit{};
 
   [[nodiscard]] auto is_paused() const -> bool;
-
-  [[nodiscard]] auto is_inventory_active() const -> bool;
 
   void on_switch_map(const switch_map_event& event);
 

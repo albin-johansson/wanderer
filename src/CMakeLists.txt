@@ -12,18 +12,18 @@ set(SOURCE_FILES
     components/humanoid_state.hpp
     components/movable.hpp
     components/object.hpp
+    components/outside_level.hpp
+    components/player.hpp
     components/roam.hpp
+    components/tileset.hpp
 
     components/ctx/active_menu.hpp
     components/ctx/binds.hpp
     components/ctx/cursors.hpp
     components/ctx/level_size.hpp
-    components/ctx/outside_level.hpp
-    components/ctx/player.hpp
     components/ctx/render_bounds.hpp
     components/ctx/renderer_snapshot.hpp
     components/ctx/settings.hpp
-    components/ctx/tileset.hpp
     components/ctx/time_of_day.hpp
     components/ctx/viewport.hpp
 
@@ -40,6 +40,7 @@ set(SOURCE_FILES
     components/inventory/inventory.hpp
     components/inventory/item.hpp
 
+    components/map/level.hpp
     components/map/portal.hpp
     components/map/spawnpoint.hpp
     components/map/tile.hpp
@@ -104,20 +105,10 @@ set(SOURCE_FILES
     core/graphics/render_text.cpp
     core/graphics/render_text.hpp
 
-    core/levels/add_ground_layers.cpp
-    core/levels/add_ground_layers.hpp
-    core/levels/add_objects.cpp
-    core/levels/add_objects.hpp
-    core/levels/add_tile_objects.cpp
-    core/levels/add_tile_objects.hpp
-    core/levels/level.cpp
-    core/levels/level.hpp
     core/levels/level_manager.cpp
     core/levels/level_manager.hpp
     core/levels/make_tilemap.cpp
     core/levels/make_tilemap.hpp
-    core/levels/make_tileset.cpp
-    core/levels/make_tileset.hpp
 
     core/math/angles.hpp
     core/math/floating.hpp
@@ -136,6 +127,7 @@ set(SOURCE_FILES
     events/integer_scaling_toggled_event.hpp
     events/interact_event.hpp
     events/level_fade_events_event.hpp
+    events/load_game_event.hpp
     events/quit_event.hpp
     events/show_inventory_event.hpp
     events/spawn_particles_event.hpp
@@ -233,6 +225,13 @@ set(SOURCE_FILES
     systems/input/key_bind_system.hpp
     systems/input/movement_input_system.cpp
     systems/input/movement_input_system.hpp
+
+    systems/levels/level_factory_system.cpp
+    systems/levels/level_factory_system.hpp
+    systems/levels/level_save_system.cpp
+    systems/levels/level_save_system.hpp
+    systems/levels/level_system.cpp
+    systems/levels/level_system.hpp
 
     systems/movement/direction_system.hpp
     systems/movement/direction_system.cpp

@@ -1,17 +1,23 @@
 #pragma once
 
 #include <filesystem>  // path
-#include <map>         // map
+#include <vector>      // vector
 
 #include "core/aliases/map_id.hpp"
 
 namespace wanderer {
 
+struct save_file_level_info final
+{
+  map_id id;
+  std::filesystem::path path;
+  bool outside_level{};
+};
+
 struct save_file_info final
 {
-  map_id world{};
-  map_id current{};
-  std::map<map_id, std::filesystem::path> paths;
+  map_id current;
+  std::vector<save_file_level_info> levels;
 };
 
 }  // namespace wanderer

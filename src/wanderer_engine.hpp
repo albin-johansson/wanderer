@@ -7,6 +7,7 @@
 #include "core/graphics/graphics_context.hpp"
 #include "events/fullscreen_toggled_event.hpp"
 #include "events/integer_scaling_toggled_event.hpp"
+#include "events/load_game_event.hpp"
 
 namespace wanderer {
 
@@ -21,6 +22,8 @@ class wanderer_engine final : public engine_base
   void on_fullscreen_toggled(const fullscreen_toggled_event& event);
 
   void on_integer_scaling_toggled(const integer_scaling_toggled_event& event);
+
+  void on_load_game_event(const load_game_event& event);
 };
 
 }  // namespace wanderer

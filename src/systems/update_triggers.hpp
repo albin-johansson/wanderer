@@ -2,8 +2,9 @@
 
 #include <entt.hpp>  // registry
 
-#include "components/ctx/player.hpp"
 #include "components/hitbox.hpp"
+#include "components/player.hpp"
+#include "core/ecs/registry_utils.hpp"
 #include "systems/movement/hitbox_system.hpp"
 
 namespace wanderer::sys {
@@ -11,7 +12,7 @@ namespace wanderer::sys {
 template <typename Trigger, typename IsWithinTrigger, typename RemovalPredicate>
 void update_triggers(entt::registry& registry, RemovalPredicate&& predicate)
 {
-  const auto player = registry.ctx<ctx::player>().entity;
+  const auto player = singleton_entity<comp::player>(registry);
   const auto& playerHitbox = registry.get<comp::hitbox>(player);
 
   for (auto&& [entity, trigger, hitbox] : registry.view<Trigger, comp::hitbox>().each())

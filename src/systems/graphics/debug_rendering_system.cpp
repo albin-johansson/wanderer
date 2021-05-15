@@ -2,11 +2,12 @@
 
 #include "components/chase.hpp"
 #include "components/ctx/active_menu.hpp"
-#include "components/ctx/player.hpp"
 #include "components/graphics/depth_drawable.hpp"
 #include "components/hitbox.hpp"
 #include "components/inventory/container_trigger.hpp"
 #include "components/map/portal.hpp"
+#include "components/player.hpp"
+#include "core/ecs/registry_utils.hpp"
 #include "core/menu_constants.hpp"
 #include "core/utils/centurion_utils.hpp"
 #include "systems/ui/menus/menu_system.hpp"
@@ -54,7 +55,7 @@ void render_enabled_trigger_indicator(const entt::registry& registry,
 
 void render_trigger_indicators(const entt::registry& registry, cen::renderer& renderer)
 {
-  const auto entity = registry.ctx<const ctx::player>().entity;
+  const auto entity = singleton_entity<const comp::player>(registry);
   if (const auto* iwp = registry.try_get<comp::is_within_portal>(entity))
   {
     render_enabled_trigger_indicator(registry, iwp->portalEntity, renderer);

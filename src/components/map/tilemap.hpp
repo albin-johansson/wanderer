@@ -2,7 +2,6 @@
 
 #include <centurion.hpp>  // farea
 
-#include "components/ctx/tileset.hpp"
 #include "core/aliases/entity_type.hpp"
 #include "core/aliases/ints.hpp"
 #include "core/aliases/map_id.hpp"

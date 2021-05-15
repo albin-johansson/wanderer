@@ -1,9 +1,10 @@
 #include "interaction_system.hpp"
 
-#include "components/ctx/player.hpp"
 #include "components/inventory/container_trigger.hpp"
 #include "components/map/portal.hpp"
+#include "components/player.hpp"
 #include "core/ecs/null_entity.hpp"
+#include "core/ecs/registry_utils.hpp"
 #include "events/close_inventory_event.hpp"
 #include "events/show_inventory_event.hpp"
 #include "events/switch_map_event.hpp"
@@ -40,7 +41,7 @@ void on_interact(const interact_event& event)
 {
   auto& registry = event.registry.get();
   auto& dispatcher = event.dispatcher.get();
-  const auto player = registry.ctx<ctx::player>().entity;
+  const auto player = singleton_entity<comp::player>(registry);
 
   if (const auto* p = registry.try_get<comp::is_within_portal>(player))
   {

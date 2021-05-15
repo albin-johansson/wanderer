@@ -16,12 +16,14 @@ TEST(LoadSaveGame, Usage)
 
   const auto freq = static_cast<long double>(cen::counter::high_res_freq());
 
+  entt::registry shared;
+
   {
-    level_manager levels{graphics};
+    level_manager levels{shared, graphics};
     cen::surface snapshot{"resources/snapshot.png"};
 
     const auto before = cen::counter::now();
-    save_game("test", levels, snapshot);
+    save_game("test", shared, snapshot);
     const auto after = cen::counter::now();
 
     const auto diff = static_cast<long double>(after - before);
@@ -31,7 +33,7 @@ TEST(LoadSaveGame, Usage)
 
   {
     const auto before = cen::counter::now();
-    level_manager levels = load_game("test", graphics);
+    load_game(shared, graphics, "test");
     const auto after = cen::counter::now();
 
     const auto diff = static_cast<long double>(after - before);

@@ -1,8 +1,7 @@
 #pragma once
 
 #include <entt.hpp>  // registry
-
-#include "components/ui/menu.hpp"
+#include <string>    // string
 
 namespace wanderer::sys {
 
@@ -52,6 +51,19 @@ void increment_saves_button_group_page(entt::registry& registry);
  * \param registry the menu registry.
  */
 void decrement_saves_button_group_page(entt::registry& registry);
+
+/**
+ * \brief Returns the name of the currently selected save file.
+ *
+ * \pre There must be a selected save entry by the time this function is called.
+ *
+ * \ingroup systems
+ *
+ * \param shared the shared data registry.
+ *
+ * \return the name of the currently selected save name.
+ */
+[[nodiscard]] auto get_selected_save_name(entt::registry& shared) -> std::string;
 
 /// \} End of menus
 

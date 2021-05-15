@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cassert>   // assert
 #include <concepts>  // convertible_to
 #include <entt.hpp>  // registry, entity
 
@@ -25,6 +26,34 @@ void destroy_if_exists(entt::registry& registry, const T entity)
   {
     registry.destroy(entity);
   }
+}
+
+template <typename T>
+[[nodiscard]] auto singleton_entity(entt::registry& registry) -> entt::entity
+{
+  const auto view = registry.view<T>();
+  assert(view.size() == 1);
+  return view.front();
+}
+
+template <typename T>
+[[nodiscard]] auto singleton_entity(const entt::registry& registry) -> entt::entity
+{
+  const auto view = registry.view<T>();
+  assert(view.size() == 1);
+  return view.front();
+}
+
+template <typename T>
+[[nodiscard]] auto singleton(entt::registry& registry) -> T&
+{
+  return registry.get<T>(singleton_entity<T>(registry));
+}
+
+template <typename T>
+[[nodiscard]] auto singleton(const entt::registry& registry) -> const T&
+{
+  return registry.get<T>(singleton_entity<T>(registry));
 }
 
 }  // namespace wanderer

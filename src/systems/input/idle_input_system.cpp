@@ -4,10 +4,11 @@
 #include <optional>  // optional
 
 #include "components/ctx/binds.hpp"
-#include "components/ctx/player.hpp"
 #include "components/humanoid_state.hpp"
 #include "components/inventory/inventory.hpp"
+#include "components/player.hpp"
 #include "core/direction.hpp"
+#include "core/ecs/registry_utils.hpp"
 #include "events/begin_attack_event.hpp"
 #include "events/begin_humanoid_move_event.hpp"
 #include "events/interact_event.hpp"
@@ -53,7 +54,7 @@ void check_for_movement(entt::registry& registry,
 {
   if (const auto dir = get_direction(keyboard, binds))
   {
-    const auto player = registry.ctx<ctx::player>().entity;
+    const auto player = singleton_entity<comp::player>(registry);
     dispatcher.enqueue<begin_humanoid_move_event>(registry, player, *dir);
   }
 }
@@ -65,7 +66,7 @@ void handle_idle_input(entt::registry& registry,
                        const rune::input& input,
                        const ctx::binds& binds)
 {
-  const auto player = registry.ctx<ctx::player>().entity;
+  const auto player = singleton_entity<comp::player>(registry);
 
   assert(registry.all_of<comp::humanoid_idle>(player));
   const auto& keyboard = input.keyboard;

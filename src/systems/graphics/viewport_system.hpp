@@ -7,7 +7,6 @@
 #include "components/ctx/viewport.hpp"
 #include "components/movable.hpp"
 #include "core/aliases/float2.hpp"
-#include "core/levels/level.hpp"
 
 namespace wanderer::sys {
 

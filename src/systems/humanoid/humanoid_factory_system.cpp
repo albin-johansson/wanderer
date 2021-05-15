@@ -13,6 +13,7 @@
 #include "components/movable.hpp"
 #include "components/roam.hpp"
 #include "core/direction.hpp"
+#include "core/ecs/registry_utils.hpp"
 #include "core/game_constants.hpp"
 #include "core/resources.hpp"
 #include "core/utils/centurion_utils.hpp"
@@ -128,6 +129,8 @@ auto make_player(entt::registry& registry,
   light.fluctuationStep = 0;
   light.fluctuationLimit = 0;
 
+  registry.emplace<comp::player>(player);
+
   return player;
 }
 
@@ -146,7 +149,7 @@ auto make_skeleton(entt::registry& registry,
   movable.dir = direction::down;
 
   auto& chase = registry.emplace<comp::chase>(skeleton);
-  chase.target = registry.ctx<ctx::player>().entity;
+  chase.target = singleton_entity<comp::player>(registry);
   chase.range = 150;
 
   auto& roam = registry.emplace<comp::roam>(skeleton);

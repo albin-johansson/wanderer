@@ -2,7 +2,7 @@
 
 #include <entt.hpp>  // registry, entity
 
-#include "components/ctx/player.hpp"
+#include "components/player.hpp"
 #include "core/aliases/aabb_tree.hpp"
 #include "core/aliases/float2.hpp"
 #include "core/graphics/graphics_context.hpp"

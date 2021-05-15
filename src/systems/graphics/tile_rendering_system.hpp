@@ -1,7 +1,7 @@
 #pragma once
 
-#include "components/ctx/tileset.hpp"
 #include "components/map/tile.hpp"
+#include "components/tileset.hpp"
 #include "core/graphics/graphics_context.hpp"
 #include "core/grid_position.hpp"
 
@@ -28,7 +28,7 @@ void render_tile(graphics_context& graphics,
  *
  * \details This function is used to determine what tile to render in tile animations.
  *
- * \pre `tile` must feature a `comp::animated_tile` component.
+ * \pre `tile` must feature a `comp::tile_animation` component.
  *
  * \ingroup systems
  *
@@ -40,7 +40,7 @@ void render_tile(graphics_context& graphics,
  */
 [[nodiscard]] auto get_animated_tile(const entt::registry& registry,
                                      comp::tile::entity tile,
-                                     const ctx::tileset& tileset) -> const comp::tile&;
+                                     const comp::tileset& tileset) -> const comp::tile&;
 
 /// \} End of tiles
 

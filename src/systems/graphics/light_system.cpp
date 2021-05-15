@@ -3,10 +3,11 @@
 #include <cmath>     // clamp
 #include <rune.hpp>  // next_bool
 
-#include "components/ctx/player.hpp"
 #include "components/ctx/viewport.hpp"
 #include "components/graphics/depth_drawable.hpp"
 #include "components/graphics/point_light.hpp"
+#include "components/player.hpp"
+#include "core/ecs/registry_utils.hpp"
 #include "core/resources.hpp"
 #include "core/utils/centurion_utils.hpp"
 
@@ -33,7 +34,7 @@ void update_lights(entt::registry& registry)
 
 void update_player_light_position(entt::registry& registry)
 {
-  const auto playerEntity = registry.ctx<ctx::player>().entity;
+  const auto playerEntity = singleton_entity<comp::player>(registry);
   const auto& drawable = registry.get<comp::depth_drawable>(playerEntity);
 
   auto& light = registry.get<comp::point_light>(playerEntity);

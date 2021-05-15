@@ -4,7 +4,7 @@
 #include <rune.hpp>  // input
 
 #include "components/ctx/binds.hpp"
-#include "components/ctx/player.hpp"
+#include "components/player.hpp"
 
 namespace wanderer::sys {
 

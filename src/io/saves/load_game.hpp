@@ -7,7 +7,8 @@
 
 namespace wanderer {
 
-[[nodiscard]] auto load_game(const std::string& name, graphics_context& graphics)
-    -> level_manager;
+void load_game(entt::registry& shared,
+               graphics_context& graphics,
+               const std::string& name);
 
-}
+}  // namespace wanderer

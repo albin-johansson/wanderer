@@ -3,10 +3,11 @@
 #include <cassert>  // assert
 
 #include "components/ctx/binds.hpp"
-#include "components/ctx/player.hpp"
 #include "components/humanoid_state.hpp"
 #include "components/movable.hpp"
+#include "components/player.hpp"
 #include "core/direction.hpp"
+#include "core/ecs/registry_utils.hpp"
 #include "events/begin_attack_event.hpp"
 #include "events/end_humanoid_move_event.hpp"
 #include "events/interact_event.hpp"
@@ -132,7 +133,7 @@ void handle_move_input(entt::registry& registry,
                        const rune::input& input,
                        const ctx::binds& binds)
 {
-  const auto player = registry.ctx<ctx::player>().entity;
+  const auto player = singleton_entity<comp::player>(registry);
   assert(registry.all_of<comp::humanoid_move>(player));
 
   auto& movable = registry.get<comp::movable>(player);

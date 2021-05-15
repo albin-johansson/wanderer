@@ -14,14 +14,14 @@ auto parse_save_file(const std::filesystem::path& path) -> save_file_info
 
   save_file_info contents;
 
-  contents.world = map_id{json.at("world").get<int>()};
-  contents.current = map_id{json.at("current_level").get<int>()};
+  contents.current = map_id{json.at("current_level").get<map_id::value_type>()};
 
   for (const auto& [key, object] : json.at("levels").items())
   {
-    const auto id = map_id{object.at("id").get<int>()};
-    const auto dataFile = object.at("data").get<std::string>();
-    contents.paths.try_emplace(id, path.parent_path() / dataFile);
+    auto& level = contents.levels.emplace_back();
+    level.id = map_id{object.at("id").get<map_id::value_type>()};
+    level.path = path.parent_path() / object.at("data").get<std::string>();
+    level.outside_level = object.at("outside_level").get<bool>();
   }
 
   return contents;
