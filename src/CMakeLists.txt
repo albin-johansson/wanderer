@@ -107,8 +107,6 @@ set(SOURCE_FILES
 
     core/levels/load_levels.cpp
     core/levels/load_levels.hpp
-    core/levels/make_tilemap.cpp
-    core/levels/make_tilemap.hpp
 
     core/math/angles.hpp
     core/math/floating.hpp
