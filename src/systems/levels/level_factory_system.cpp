@@ -312,6 +312,7 @@ auto make_level(const std::filesystem::path& path, graphics_context& graphics)
   std::ifstream stream{path, std::ios::binary};
   input_archive archive{stream};
 
+  // Do not change order!
   level.registry = sys::restore_registry(archive);
   archive(level.tree);
   archive(level.tilemap);
