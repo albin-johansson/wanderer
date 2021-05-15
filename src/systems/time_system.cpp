@@ -26,31 +26,31 @@ struct phase final
 inline const phase sunrise_phase{
     .phaseStart = sunrise,
     .phaseEnd = daytime,
-    .colors = {cen::color::blend(cen::colors::black, cen::colors::navy, 0.3),
+    .colors = {cen::blend(cen::colors::black, cen::colors::navy, 0.3),
                cen::colors::orange}};
 
 inline const phase day_phase{
     .phaseStart = daytime,
     .phaseEnd = sunset,
     .colors = {cen::colors::orange,
-               cen::color::blend(cen::colors::white, cen::colors::orange),
+               cen::blend(cen::colors::white, cen::colors::orange),
                cen::colors::white,
-               cen::color::blend(cen::colors::white, cen::colors::orange, 0.2),
-               cen::color::blend(cen::colors::white, cen::colors::orange, 0.4)}};
+               cen::blend(cen::colors::white, cen::colors::orange, 0.2),
+               cen::blend(cen::colors::white, cen::colors::orange, 0.4)}};
 
 inline const phase sunset_phase{
     .phaseStart = sunset,
     .phaseEnd = night,
-    .colors = {cen::color::blend(cen::colors::white, cen::colors::orange, 0.4),
-               cen::color::blend(cen::colors::white, cen::colors::orange, 0.75),
+    .colors = {cen::blend(cen::colors::white, cen::colors::orange, 0.4),
+               cen::blend(cen::colors::white, cen::colors::orange, 0.75),
                cen::colors::orange,
-               cen::color::blend(cen::colors::black, cen::colors::navy, 0.6),
-               cen::color::blend(cen::colors::black, cen::colors::navy, 0.3)}};
+               cen::blend(cen::colors::black, cen::colors::navy, 0.6),
+               cen::blend(cen::colors::black, cen::colors::navy, 0.3)}};
 
 inline const phase night_phase{
     .phaseStart = night,
     .phaseEnd = sunrise,
-    .colors = {cen::color::blend(cen::colors::black, cen::colors::navy, 0.3)}};
+    .colors = {cen::blend(cen::colors::black, cen::colors::navy, 0.3)}};
 
 template <typename T, typename Container, typename Callable>
 [[nodiscard]] auto next_value(const phase& current,
@@ -79,7 +79,7 @@ template <typename T, typename Container, typename Callable>
 
 [[nodiscard]] auto get_color(const phase& current, const float hour) -> cen::color
 {
-  return next_value<cen::color>(current, current.colors, hour, cen::color::blend);
+  return next_value<cen::color>(current, current.colors, hour, cen::blend);
 }
 
 [[nodiscard]] auto get_phase(const float hour) -> const phase&
