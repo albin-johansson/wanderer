@@ -328,6 +328,11 @@ void game::on_particle_event(const spawn_particles_event& event)
 
 void game::on_quit_event(const quit_event&)
 {
+  if (const auto* snapshot = m_shared.try_ctx<ctx::renderer_snapshot>())
+  {
+    create_exit_save(m_shared, snapshot->surface);
+  }
+
   m_quit = true;
 }
 
