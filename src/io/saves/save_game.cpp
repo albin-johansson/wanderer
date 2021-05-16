@@ -11,6 +11,8 @@
 #include "systems/levels/level_save_system.hpp"
 #include "systems/levels/level_system.hpp"
 
+using namespace std::string_literals;
+
 using json_type = nlohmann::json;
 
 namespace wanderer {
@@ -37,15 +39,11 @@ inline constexpr int json_format_version = 1;
   return path;
 }
 
-}  // namespace
-
-void save_game(const std::string& name,
-               const entt::registry& shared,
-               const cen::surface& snapshot)
+void save_common(const entt::registry& shared,
+                 const std::string& name,
+                 const std::filesystem::path& dir,
+                 const cen::surface& snapshot)
 {
-  const auto dir = unique_path(saves_directory() / name);
-  const auto saveName = dir.filename().string();
-
   std::filesystem::create_directories(dir);
   snapshot.save_as_png(std::filesystem::absolute(dir / "snapshot.png").string());
 
@@ -53,7 +51,7 @@ void save_game(const std::string& name,
 
   json_type json;
 
-  json["name"] = saveName;
+  json["name"] = name;
   json["json_format_version"] = json_format_version;
   json["data_format_version"] = binary_data_version;
   json["current_level"] = currentLevel.id.get();
@@ -72,13 +70,25 @@ void save_game(const std::string& name,
     json["levels"].emplace_back(std::move(levelObject));
   }
 
-  std::ofstream stream{dir / (saveName + ".json")};
+  std::ofstream stream{dir / (name + ".json")};
   stream << std::setw(2) << json;
+}
+
+}  // namespace
+
+void save_game(const std::string& name,
+               const entt::registry& shared,
+               const cen::surface& snapshot)
+{
+  const auto dir = unique_path(saves_directory() / name);
+  const auto saveName = dir.filename().string();
+  save_common(shared, name, dir, snapshot);
 }
 
 void create_exit_save(const entt::registry& shared, const cen::surface& snapshot)
 {
-  // TODO
+  const auto name = "exit_save"s;
+  save_common(shared, name, saves_directory() / name, snapshot);
 }
 
 }  // namespace wanderer
