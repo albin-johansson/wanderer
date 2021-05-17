@@ -5,6 +5,7 @@
 
 #include "core/aliases/texture_id.hpp"
 #include "core/aliases/texture_index.hpp"
+#include "core/menu_constants.hpp"
 
 namespace wanderer {
 
@@ -52,7 +53,15 @@ class graphics_context final : public rune::graphics
    * \param text the string that will be rendered.
    * \param position the position of the rendered string.
    */
-  void render_outlined_text(const auto& text, const cen::ipoint& position);
+  void render_outlined_text(const auto& text, const cen::ipoint& position)
+  {
+    const auto& black = small_black_font_cache();
+    const auto& white = small_font_cache();
+
+    auto& ren = renderer();
+    ren.render_text(black, text, position + cen::point(1, 1));
+    ren.render_text(white, text, position);
+  }
 
   /**
    * \brief Returns the font cache for the "small" black font.

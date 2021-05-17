@@ -2,7 +2,6 @@
 
 #include <utility>  // move
 
-#include "core/menu_constants.hpp"
 #include "core/resources.hpp"
 #include "make_renderer.hpp"
 
@@ -45,16 +44,6 @@ graphics_context::graphics_context(const cen::window& window)
   get_cache(large_font).add_latin1(ren);
 
   m_lightCanvas.set_blend_mode(cen::blend_mode::mod);
-}
-
-void graphics_context::render_outlined_text(auto& text, const cen::ipoint& position)
-{
-  const auto& black = small_black_font_cache();
-  const auto& white = small_font_cache();
-
-  auto& ren = renderer();
-  ren.render_text(black, text, position + cen::point(1, 1));
-  ren.render_text(white, text, position);
 }
 
 }  // namespace wanderer
