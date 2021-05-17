@@ -18,20 +18,20 @@ inline constexpr float night = 22;
 
 struct phase final
 {
-  float phaseStart;
-  float phaseEnd;
+  float phase_start;
+  float phase_end;
   rune::static_vector<cen::color, 5> colors;
 };
 
 inline const phase sunrise_phase{
-    .phaseStart = sunrise,
-    .phaseEnd = daytime,
+    .phase_start = sunrise,
+    .phase_end = daytime,
     .colors = {cen::blend(cen::colors::black, cen::colors::navy, 0.3),
                cen::colors::orange}};
 
 inline const phase day_phase{
-    .phaseStart = daytime,
-    .phaseEnd = sunset,
+    .phase_start = daytime,
+    .phase_end = sunset,
     .colors = {cen::colors::orange,
                cen::blend(cen::colors::white, cen::colors::orange),
                cen::colors::white,
@@ -39,8 +39,8 @@ inline const phase day_phase{
                cen::blend(cen::colors::white, cen::colors::orange, 0.4)}};
 
 inline const phase sunset_phase{
-    .phaseStart = sunset,
-    .phaseEnd = night,
+    .phase_start = sunset,
+    .phase_end = night,
     .colors = {cen::blend(cen::colors::white, cen::colors::orange, 0.4),
                cen::blend(cen::colors::white, cen::colors::orange, 0.75),
                cen::colors::orange,
@@ -48,8 +48,8 @@ inline const phase sunset_phase{
                cen::blend(cen::colors::black, cen::colors::navy, 0.3)}};
 
 inline const phase night_phase{
-    .phaseStart = night,
-    .phaseEnd = sunrise,
+    .phase_start = night,
+    .phase_end = sunrise,
     .colors = {cen::blend(cen::colors::black, cen::colors::navy, 0.3)}};
 
 template <typename T, typename Container, typename Callable>
@@ -64,8 +64,8 @@ template <typename T, typename Container, typename Callable>
   }
   else
   {
-    const auto a = hour - current.phaseStart;
-    const auto b = current.phaseEnd - current.phaseStart;
+    const auto a = hour - current.phase_start;
+    const auto b = current.phase_end - current.phase_start;
 
     const auto xx = (a / b) * (static_cast<float>(cen::isize(container)) - 1.0f);
     const auto xFloor = std::floor(xx);
