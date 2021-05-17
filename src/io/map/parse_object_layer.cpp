@@ -139,17 +139,17 @@ void parse_object_layer(ir::level& data,
     const auto type = object.type;
     if (type == "Spawnpoint")
     {
-      objectData.spawnpoint = parse_spawnpoint(object, data.xRatio, data.yRatio);
+      objectData.spawnpoint = parse_spawnpoint(object, data.x_ratio, data.y_ratio);
 
       if (objectData.spawnpoint->type == comp::spawnpoint_type::player)
       {
-        data.playerSpawnPoint = objectData.spawnpoint->position;
+        data.player_spawn_point = objectData.spawnpoint->position;
       }
     }
     else if (type == "Portal")
     {
       objectData.portal = parse_portal(object);
-      objectData.hitbox = make_hitbox(object, data.xRatio, data.yRatio);
+      objectData.hitbox = make_hitbox(object, data.x_ratio, data.y_ratio);
     }
     else if (type == "Container")
     {
@@ -157,12 +157,12 @@ void parse_object_layer(ir::level& data,
     }
     else if (type == "ContainerTrigger")
     {
-      objectData.inventoryRef = parse_container_trigger(object);
-      objectData.hitbox = make_hitbox(object, data.xRatio, data.yRatio);
+      objectData.inventory_ref = parse_container_trigger(object);
+      objectData.hitbox = make_hitbox(object, data.x_ratio, data.y_ratio);
     }
     else if (type == "Light")
     {
-      objectData.light = parse_light(object, data.xRatio, data.yRatio);
+      objectData.light = parse_light(object, data.x_ratio, data.y_ratio);
     }
   }
 }

@@ -9,8 +9,8 @@ namespace wanderer {
 /**
  * \brief Parses a save file and returns the corresponding world data.
  *
- * \details This function expects that the paths of any potential levels in the
- * world are relative to the main world file.
+ * \details This function expects that the paths of any potential levels in the world are
+ * relative to the main world file.
  *
  * \param world the file path of the world JSON-file.
  *

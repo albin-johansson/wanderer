@@ -34,10 +34,10 @@ void load_tileset_textures(const ir::level& data, graphics_context& graphics)
   auto& tilemap = registry.emplace<comp::tilemap>(entity);
 
   tilemap.id = map_id{data.id};
-  tilemap.row_count = data.nRows;
-  tilemap.col_count = data.nCols;
+  tilemap.row_count = data.row_count;
+  tilemap.col_count = data.col_count;
   tilemap.size = data.size;
-  tilemap.humanoid_layer = data.humanoidLayer;
+  tilemap.humanoid_layer = data.humanoid_layer;
 
   return tilemap.id;
 }
@@ -89,7 +89,7 @@ void load_tileset(entt::registry& registry,
 
 void add_ground_layers(entt::registry& registry, const ir::level& data)
 {
-  for (const auto& groundLayer : data.groundLayers)
+  for (const auto& groundLayer : data.ground_layers)
   {
     auto& layer = registry.emplace<comp::tile_layer>(registry.create(), groundLayer);
     layer.matrix.shrink_to_fit();
@@ -128,7 +128,7 @@ void add_tile_objects(comp::level& level,
 {
   const auto& tileset = level.registry.get<comp::tileset>(level.tileset);
 
-  for (const auto& objectData : levelData.tileObjects)
+  for (const auto& objectData : levelData.tile_objects)
   {
     const auto entity = comp::tile_object::entity{level.registry.create()};
 
@@ -210,10 +210,10 @@ void add_objects(entt::registry& registry, const ir::level& level)
       registry.emplace<comp::inventory>(entity, *data.inventory);
     }
 
-    if (data.inventoryRef)
+    if (data.inventory_ref)
     {
       auto& trigger = registry.emplace<comp::container_trigger>(entity);
-      trigger.inventory_id = *data.inventoryRef;
+      trigger.inventory_id = *data.inventory_ref;
       trigger.inventory_entity = null<comp::inventory>();  // Set up later
     }
 
@@ -278,7 +278,7 @@ auto make_level(const ir::level& data, graphics_context& graphics) -> comp::leve
 
   level.tree.disable_thickness_factor();
   level.registry = make_registry();
-  level.player_spawn_position = data.playerSpawnPoint;
+  level.player_spawn_position = data.player_spawn_point;
 
   auto& registry = level.registry;
   level.tilemap = comp::tilemap::entity{registry.create()};

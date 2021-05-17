@@ -1,5 +1,6 @@
 #include "parse_tile_layer.hpp"
 
+#include <cassert>   // assert
 #include <rune.hpp>  // index_to_matrix
 
 #include "core/game_constants.hpp"
@@ -24,18 +25,19 @@ using tile_data = rune::tmx_data::gid_data;
                                      const int nCols,
                                      const int zIndex) -> comp::tile_layer
 {
+  assert(tileLayer.data);
+
   comp::tile_layer layer;
   layer.matrix = make_tile_matrix(nRows, nCols);
   layer.z = zIndex;
 
-  int index{0};
-  assert(tileLayer.data);
-  for (const auto gid : std::get<tile_data>(tileLayer.data->tile_data))
+  for (int index = 0; const auto gid : std::get<tile_data>(tileLayer.data->tile_data))
   {
     const auto [row, col] = rune::index_to_matrix<std::size_t>(index, nCols);
 
-    const tile_id id{gid.get()};
-    layer.matrix.at(row).at(col) = id;
+    assert(row < layer.matrix.size());
+    assert(col < layer.matrix.at(0).size());
+    layer.matrix[row][col] = tile_id{gid.get()};
 
     ++index;
   }
@@ -59,9 +61,9 @@ using tile_data = rune::tmx_data::gid_data;
 
 [[nodiscard]] auto find_tile(ir::level& data, const tile_id id) -> maybe<ir::tile>
 {
-  for (const auto& ts : data.tilesets)
+  for (const auto& tileset : data.tilesets)
   {
-    if (const auto it = ts.tiles.find(id); it != ts.tiles.end())
+    if (const auto it = tileset.tiles.find(id); it != tileset.tiles.end())
     {
       return it->second;
     }
@@ -76,12 +78,12 @@ void add_tile_object(ir::level& data,
                      const int zIndex)
 {
   const auto tile = find_tile(data, tileId).value();
-  auto& tileObjectData = data.tileObjects.emplace_back();
+  auto& tileObjectData = data.tile_objects.emplace_back();
   tileObjectData.tile = tile.id;
 
-  const auto [row, col] = rune::index_to_matrix(tileIndex, data.nCols);
-  const auto x = col * data.tileWidth * data.xRatio;
-  const auto y = row * data.tileHeight * data.yRatio;
+  const auto [row, col] = rune::index_to_matrix(tileIndex, data.col_count);
+  const auto x = col * data.tile_width * data.x_ratio;
+  const auto y = row * data.tile_height * data.y_ratio;
   const cen::fpoint position{x, y};
 
   tileObjectData.drawable = add_depth_drawable(tile, position, zIndex);
@@ -99,20 +101,17 @@ void add_tile_object(ir::level& data,
 }
 
 void add_tile_objects(ir::level& data, const tile_data& tiles, const int zIndex)
-
 {
-  int tileIndex{0};
-
-  for (const auto gid : tiles)
+  for (int index = 0; const auto gid : tiles)
   {
-    const tile_id tileId{gid.get()};
+    const auto id = tile_id{gid.get()};
 
-    if (!is_empty(tileId))
+    if (!is_empty(id))
     {
-      add_tile_object(data, tileId, tileIndex, zIndex);
+      add_tile_object(data, id, index, zIndex);
     }
 
-    ++tileIndex;
+    ++index;
   }
 }
 
@@ -127,7 +126,7 @@ void parse_tile_layer(ir::level& data,
   assert(rune::tmx::is_bool(properties, "ground"));
   if (rune::tmx::get_bool(properties, "ground"))
   {
-    data.groundLayers.push_back(make_ground_layer(layer, map.height, map.width, zIndex));
+    data.ground_layers.push_back(make_ground_layer(layer, map.height, map.width, zIndex));
   }
   else if (layer.data)
   {

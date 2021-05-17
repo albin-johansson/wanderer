@@ -12,28 +12,24 @@ namespace {
 [[nodiscard]] auto parse_map(const rune::tmx_map& map,
                              const std::filesystem::path& directory) -> ir::level
 {
-  static int tilesetId = 0;
-
   ir::level data;
 
-  data.nCols = map.width;
-  data.nRows = map.height;
-  data.tileWidth = map.tile_width;
-  data.tileHeight = map.tile_height;
-  data.xRatio = glob::tile_width<> / static_cast<float>(data.tileWidth);
-  data.yRatio = glob::tile_height<> / static_cast<float>(data.tileHeight);
-  data.size.width = static_cast<float>(data.nCols) * glob::tile_width<>;
-  data.size.height = static_cast<float>(data.nRows) * glob::tile_height<>;
+  data.col_count = map.width;
+  data.row_count = map.height;
+  data.tile_width = map.tile_width;
+  data.tile_height = map.tile_height;
+  data.x_ratio = glob::tile_width<float> / static_cast<float>(data.tile_width);
+  data.y_ratio = glob::tile_height<float> / static_cast<float>(data.tile_height);
+  data.size.width = static_cast<float>(data.col_count) * glob::tile_width<>;
+  data.size.height = static_cast<float>(data.row_count) * glob::tile_height<>;
 
   data.tilesets = parse_tilesets(map.tilesets, directory);
-  ++tilesetId;
 
-  const auto& properties = map.properties;
-  assert(rune::tmx::is_int(properties, "id"));
-  assert(rune::tmx::is_int(properties, "humanoidLayer"));
+  assert(rune::tmx::is_int(map.properties, "id"));
+  assert(rune::tmx::is_int(map.properties, "humanoidLayer"));
 
-  data.id = rune::tmx::get_int(properties, "id");
-  data.humanoidLayer = rune::tmx::get_int(properties, "humanoidLayer");
+  data.id = rune::tmx::get_int(map.properties, "id");
+  data.humanoid_layer = rune::tmx::get_int(map.properties, "humanoidLayer");
 
   parse_layers(map, data);
 

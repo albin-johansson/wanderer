@@ -91,7 +91,7 @@ auto parse_fancy_tile(ir::tileset& data,
     const auto& object = objectLayer.objects.at(0);
     if (object.type == "Hitbox")
     {
-      add_hitbox(result, object, data.xRatio, data.yRatio);
+      add_hitbox(result, object, data.x_ratio, data.y_ratio);
     }
   }
 

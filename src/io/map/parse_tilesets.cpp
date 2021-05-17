@@ -20,7 +20,7 @@ namespace {
   return texture;
 }
 
-void add_tiles(const rune::tmx_tileset& tileset, ir::tileset& data)
+void add_tiles(ir::tileset& data, const rune::tmx_tileset& tileset)
 {
   auto id = static_cast<tile_id>(tileset.first_id.get());
   for (auto index = 0; index < tileset.tile_count; ++index, ++id)
@@ -29,7 +29,7 @@ void add_tiles(const rune::tmx_tileset& tileset, ir::tileset& data)
   }
 }
 
-void parse_fancy_tiles(ir::tileset& data, const rune::tmx_tileset& tileset)
+void add_fancy_tiles(ir::tileset& data, const rune::tmx_tileset& tileset)
 {
   const auto first = static_cast<tile_id>(tileset.first_id.get());
   for (const auto& tsTile : tileset.tiles)
@@ -47,16 +47,16 @@ auto parse_tilesets(const rune::tmx_tilesets& tilesets,
 {
   std::vector<ir::tileset> results;
 
-  for (const auto& ts : tilesets)
+  for (const auto& tileset : tilesets)
   {
-    auto& tileset = results.emplace_back();
+    auto& data = results.emplace_back();
 
-    tileset.sheet = make_texture(directory / ts.image);
-    tileset.xRatio = glob::tile_width<float> / static_cast<float>(ts.tile_width);
-    tileset.yRatio = glob::tile_height<float> / static_cast<float>(ts.tile_height);
+    data.sheet = make_texture(directory / tileset.image);
+    data.x_ratio = glob::tile_width<float> / static_cast<float>(tileset.tile_width);
+    data.y_ratio = glob::tile_height<float> / static_cast<float>(tileset.tile_height);
 
-    add_tiles(ts, tileset);
-    parse_fancy_tiles(tileset, ts);
+    add_tiles(data, tileset);
+    add_fancy_tiles(data, tileset);
   }
 
   return results;

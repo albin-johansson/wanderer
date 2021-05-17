@@ -7,8 +7,7 @@ namespace wanderer {
 
 void parse_layers(const rune::tmx_map& map, ir::level& data)
 {
-  int index{0};
-  for (const auto& layer : map.layers)
+  for (int index = 0; const auto& layer : map.layers)
   {
     if (const auto* tileLayer = rune::tmx::try_get_tile_layer(layer))
     {
