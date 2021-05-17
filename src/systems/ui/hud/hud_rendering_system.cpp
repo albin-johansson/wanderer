@@ -7,6 +7,7 @@
 #include "core/ecs/registry_utils.hpp"
 #include "core/menu_constants.hpp"
 #include "systems/levels/level_system.hpp"
+#include "systems/ui/grid.hpp"
 
 namespace wanderer::sys {
 namespace {
@@ -14,11 +15,8 @@ namespace {
 void render_message(graphics_context& graphics, const auto& text)
 {
   const auto& cache = graphics.small_font_cache();
-
   const auto width = cache.get_font().string_width(text).value();
-  const auto x = (glob::logical_width<int> - width) / 2;
-
-  graphics.render_outlined_text(text, cen::point(x, 100));
+  graphics.render_outlined_text(text, cen::point(center_x(width), 100));
 }
 
 }  // namespace
