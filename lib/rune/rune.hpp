@@ -8282,12 +8282,12 @@ struct tmx_tileset final
   int image_height{};
   int margin{};
   int spacing{};
-  float json_version{};
 
   std::string name;
   std::string image;
   std::string external_source;
   std::string tiled_version;
+  std::string json_version;
 
   std::optional<tmx_color> background;
   std::optional<tmx_color> transparent;
@@ -10704,12 +10704,12 @@ struct tmx_tileset final
   int image_height{};
   int margin{};
   int spacing{};
-  float json_version{};
 
   std::string name;
   std::string image;
   std::string external_source;
   std::string tiled_version;
+  std::string json_version;
 
   std::optional<tmx_color> background;
   std::optional<tmx_color> transparent;
