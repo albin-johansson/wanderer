@@ -13,6 +13,7 @@ class graphics_context final : public rune::graphics
   inline static constexpr font_id small_font = 0;
   inline static constexpr font_id medium_font = 1;
   inline static constexpr font_id large_font = 2;
+  inline static constexpr font_id small_black_font = 3;
 
  public:
   /**
@@ -41,6 +42,28 @@ class graphics_context final : public rune::graphics
               const cen::frect& dst) noexcept
   {
     renderer().render_t(at(index), src, dst);
+  }
+
+  /**
+   * \brief Renders small white text with a black outline.
+   *
+   * \note The text parameter is generic due to funky overloads of `render_text`.
+   *
+   * \param text the string that will be rendered.
+   * \param position the position of the rendered string.
+   */
+  void render_outlined_text(const auto& text, const cen::ipoint& position);
+
+  /**
+   * \brief Returns the font cache for the "small" black font.
+   *
+   * \see `glob::small_font_size`
+   *
+   * \return the font cache for the smallest black font.
+   */
+  [[nodiscard]] auto small_black_font_cache() noexcept -> cen::font_cache&
+  {
+    return get_cache(small_black_font);
   }
 
   /**
