@@ -23,6 +23,15 @@ namespace wanderer::sys {
 /// \copydoc current_level()
 [[nodiscard]] auto current_level(const entt::registry& shared) -> const comp::level&;
 
+/**
+ * \brief Indicates whether or not the active level is an outside level.
+ *
+ * \param shared the shared data registry that holds the levels.
+ *
+ * \return `true` if the currently active level is outside; `false` otherwise.
+ */
+[[nodiscard]] auto is_current_level_outside(const entt::registry& shared) -> bool;
+
 /// \} End of levels
 
 }  // namespace wanderer::sys

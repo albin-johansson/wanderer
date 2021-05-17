@@ -146,7 +146,7 @@ void game::render(graphics_context& graphics)
   sys::render_drawables(level.registry, graphics);
   sys::render_particles(level.registry, graphics);
 
-  if (level.registry.size<comp::outside_level>() == 0)
+  if (sys::is_current_level_outside(m_shared))
   {
     sys::render_lights(level.registry,
                        graphics,
