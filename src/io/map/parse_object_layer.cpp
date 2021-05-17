@@ -3,6 +3,7 @@
 #include <cassert>    // assert
 #include <stdexcept>  // runtime_error
 
+#include "core/game_constants.hpp"
 #include "systems/movement/hitbox_system.hpp"
 
 namespace wanderer {
@@ -51,6 +52,10 @@ namespace {
 
   spawnpoint.position = float2{object.x * xRatio, object.y * yRatio};
   spawnpoint.type = get_spawnpoint_entity(object.properties);
+
+  // TODO only do this for humanoids, when animals are added
+  spawnpoint.position.x -= glob::humanoid_draw_width / 2.0f;
+  spawnpoint.position.y -= glob::humanoid_draw_height / 2.0f;
 
   return spawnpoint;
 }
