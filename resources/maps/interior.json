@@ -1,12 +1,4 @@
 { "columns":32,
- "editorsettings":
-    {
-     "export":
-        {
-         "format":"",
-         "target":"."
-        }
-    },
  "image":"..\/images\/lpc\/interior.png",
  "imageheight":1024,
  "imagewidth":1024,
@@ -14,7 +6,7 @@
  "name":"interior",
  "spacing":0,
  "tilecount":1024,
- "tiledversion":"1.4.2",
+ "tiledversion":"1.6.0",
  "tileheight":32,
  "tiles":[
         {
@@ -4871,5 +4863,5 @@
         }],
  "tilewidth":32,
  "type":"tileset",
- "version":1.4
+ "version":"1.6"
 }
