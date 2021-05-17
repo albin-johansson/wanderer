@@ -82,7 +82,7 @@ void save_game(const std::string& name,
 {
   const auto dir = unique_path(saves_directory() / name);
   const auto saveName = dir.filename().string();
-  save_common(shared, name, dir, snapshot);
+  save_common(shared, saveName, dir, snapshot);
 }
 
 void create_exit_save(const entt::registry& shared, const cen::surface& snapshot)
