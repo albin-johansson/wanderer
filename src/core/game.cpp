@@ -37,6 +37,7 @@
 #include "systems/movement/portal_system.hpp"
 #include "systems/shared_registry_factory_system.hpp"
 #include "systems/time_system.hpp"
+#include "systems/ui/hud/hud_rendering_system.hpp"
 #include "systems/ui/hud/level_switch_animation_system.hpp"
 #include "systems/ui/menus/menu_rendering_system.hpp"
 #include "systems/ui/menus/menu_system.hpp"
@@ -167,6 +168,7 @@ void game::render(graphics_context& graphics)
     sys::render_debug_info(level.registry, graphics);
   }
 
+  sys::render_hud(m_shared, graphics);
   sys::render_inventory(level.registry, renderer, m_mousePos);
 
   sys::render_active_menu(m_shared, graphics);

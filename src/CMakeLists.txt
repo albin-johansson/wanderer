@@ -259,6 +259,8 @@ set(SOURCE_FILES
     systems/ui/checkboxes/checkbox_rendering_system.hpp
     systems/ui/checkboxes/checkbox_rendering_system.cpp
 
+    systems/ui/hud/hud_rendering_system.cpp
+    systems/ui/hud/hud_rendering_system.hpp
     systems/ui/hud/level_switch_animation_system.cpp
     systems/ui/hud/level_switch_animation_system.hpp
 
