@@ -110,7 +110,7 @@ void game::tick(const rune::delta_time dt)
 
   auto& level = sys::current_level(m_shared);
 
-  sys::update_time(m_shared, dt);
+  sys::update_time(m_shared, m_dispatcher, dt);
   sys::update_humanoid_states(level.registry, m_dispatcher);
 
   sys::update_chase(level.registry, m_dispatcher);

@@ -3,6 +3,7 @@
 #include <centurion.hpp>  // color
 
 #include "core/aliases/ints.hpp"
+#include "core/day_of_week.hpp"
 
 namespace wanderer::ctx {
 
@@ -11,13 +12,14 @@ struct time_of_day final
   float hour{};     ///< [0, 24)
   float minute{};   ///< [0, 60)
   float seconds{};  ///< This has no predefined range, it is reset once per in-game day
-
-  cen::color color;
+  int week{};       ///< The week index.
+  day_of_week day{day_of_week::monday};  ///< The current day.
+  cen::color tint;
 };
 
 void serialize(auto& archive, time_of_day& t)
 {
-  archive(t.hour, t.minute, t.seconds, t.color);
+  archive(t.hour, t.minute, t.seconds, t.week, t.day, t.tint);
 }
 
 }  // namespace wanderer::ctx

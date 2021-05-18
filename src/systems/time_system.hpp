@@ -15,12 +15,15 @@ namespace wanderer::sys {
  *
  * \ingroup systems
  *
- * \param registry the shared data registry, since levels share their time data.
+ * \param shared the shared data registry, since levels share their time data.
+ * \param dispatcher the event dispatcher that will be used.
  * \param dt the current delta time.
  *
  * \see `ctx::time_of_day`
  */
-void update_time(entt::registry& registry, rune::delta_time dt);
+void update_time(entt::registry& shared,
+                 entt::dispatcher& dispatcher,
+                 rune::delta_time dt);
 
 /**
  * \brief Renders a digital clock in the upper left corner of the screen with the current

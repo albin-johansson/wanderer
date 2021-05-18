@@ -1,10 +1,15 @@
 #include "time_system.hpp"
 
-#include <cmath>     // floor, ceil, lerp
-#include <rune.hpp>  // static_vector
+#include <centurion.hpp>  // to_underlying, ...
+#include <cmath>          // floor, ceil, lerp
+#include <rune.hpp>       // static_vector
+#include <stdexcept>      // runtime_error
+#include <string>         // string
+#include <string_view>    // string_view
 
 #include "components/ctx/time_of_day.hpp"
 #include "core/common_concepts.hpp"
+#include "events/day_changed_event.hpp"
 
 namespace wanderer::sys {
 namespace {
@@ -102,42 +107,84 @@ template <typename T, typename Container, typename Callable>
   }
 }
 
+[[nodiscard]] constexpr auto next_day(const day_of_week day) noexcept -> day_of_week
+{
+  return static_cast<day_of_week>((cen::to_underlying(day) + 1) % 7);
+}
+
+[[nodiscard]] constexpr auto to_string(const day_of_week day) -> std::string_view
+{
+  switch (day)
+  {
+    case day_of_week::monday:
+      return "MON";
+
+    case day_of_week::tuesday:
+      return "TUE";
+
+    case day_of_week::wednesday:
+      return "WED";
+
+    case day_of_week::thursday:
+      return "THU";
+
+    case day_of_week::friday:
+      return "FRI";
+
+    case day_of_week::saturday:
+      return "SAT";
+
+    case day_of_week::sunday:
+      return "SUN";
+
+    default:
+      throw std::runtime_error{"Did not recognize day of week!"};
+  }
+}
+
 }  // namespace
 
-void update_time(entt::registry& registry, const rune::delta_time dt)
+void update_time(entt::registry& shared,
+                 entt::dispatcher& dispatcher,
+                 const rune::delta_time dt)
 {
-  auto& time = registry.ctx<ctx::time_of_day>();
+  auto& time = shared.ctx<ctx::time_of_day>();
 
   time.seconds += rate * dt;
   time.minute = time.seconds / 60.0f;
   time.hour = time.minute / 60.0f;
 
   const auto& phase = get_phase(time.hour);
-  time.color = get_color(phase, time.hour);
+  time.tint = get_color(phase, time.hour);
 
   if (time.hour >= 24)
   {
-    // TODO emit day changed event
-
     time.seconds = 0;
+    time.day = next_day(time.day);
+
+    /* Note, string_view::data is not guaranteed to be null-terminated, but
+       we know it is here. */
+    CENTURION_LOG_INFO("Changed day to %s", to_string(time.day).data());
+
+    dispatcher.enqueue<day_changed_event>(time.day);
   }
 }
 
 void render_clock(const entt::registry& registry, graphics_context& graphics)
 {
-  auto& renderer = graphics.renderer();
   const auto& time = registry.ctx<const ctx::time_of_day>();
 
-  const auto h = static_cast<int>(time.hour) % 24;
-  const auto m = static_cast<int>(time.minute) % 60;
+  const auto hour = static_cast<int>(time.hour) % 24;
+  const auto minute = static_cast<int>(time.minute) % 60;
 
-  const auto hourPrefix = (h < 10) ? std::string{"0"} : std::string{};
-  const auto minutesPrefix = (m < 10) ? std::string{"0"} : std::string{};
+  const auto prefix = [](const int value) {
+    return (value < 10) ? std::string{"0"} : std::string{};
+  };
 
-  renderer.render_text(
-      graphics.small_font_cache(),
-      hourPrefix + std::to_string(h) + ": " + minutesPrefix + std::to_string(m),
-      {6, 6});
+  graphics.render_outlined_text(to_string(time.day), cen::point(6, 6));
+  graphics.render_outlined_text(prefix(hour) + std::to_string(hour) + ": " +
+                                    prefix(minute) + std::to_string(minute),
+                                cen::point(30, 6));
 }
 
 }  // namespace wanderer::sys

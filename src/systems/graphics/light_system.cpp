@@ -50,7 +50,7 @@ void render_lights(const entt::registry& registry,
   auto& texture = graphics.light_canvas();
 
   renderer.set_target(texture);
-  renderer.clear_with(time.color);
+  renderer.clear_with(time.tint);
 
   const auto index = graphics.load(texture_id{"point_light"_hs}, texture_path);
   const auto& viewport = registry.ctx<const ctx::viewport>();
