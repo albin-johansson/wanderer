@@ -8,6 +8,7 @@
 #include <string_view>    // string_view
 
 #include "components/ctx/time_of_day.hpp"
+#include "core/aliases/ints.hpp"
 #include "core/common_concepts.hpp"
 #include "events/day_changed_event.hpp"
 
@@ -17,8 +18,8 @@ namespace {
 inline constexpr float rate = 100;
 
 inline constexpr float sunrise = 6;
-inline constexpr float daytime = 8.5f;
-inline constexpr float sunset = 18;
+inline constexpr float daytime = 8;
+inline constexpr float sunset = 20;
 inline constexpr float night = 22;
 
 struct phase final
@@ -28,63 +29,59 @@ struct phase final
   rune::static_vector<cen::color, 5> colors;
 };
 
+inline constexpr auto black = cen::colors::black;
+inline constexpr auto orange = cen::colors::orange;
+inline constexpr auto navy = cen::colors::navy;
+
+inline const auto sunrise_color = cen::blend(black, orange).with_alpha(0x20);
+inline const auto sunrise_end_color = cen::blend(black, orange, 0.25).with_alpha(0x20);
+
+inline const auto day_color = black.with_alpha(0);
+inline const auto day_end_color = cen::blend(black, orange, 0.25).with_alpha(0x20);
+
+inline const auto sunset_color = cen::blend(black, orange).with_alpha(0x20);
+inline const auto night_color = cen::blend(black, navy, 0.3).with_alpha(0xDD);
+
 inline const phase sunrise_phase{
     .phase_start = sunrise,
     .phase_end = daytime,
-    .colors = {cen::blend(cen::colors::black, cen::colors::navy, 0.3),
-               cen::colors::orange}};
+    .colors = {night_color, sunrise_color, sunrise_end_color}};
 
-inline const phase day_phase{
-    .phase_start = daytime,
-    .phase_end = sunset,
-    .colors = {cen::colors::orange,
-               cen::blend(cen::colors::white, cen::colors::orange),
-               cen::colors::white,
-               cen::blend(cen::colors::white, cen::colors::orange, 0.2),
-               cen::blend(cen::colors::white, cen::colors::orange, 0.4)}};
+inline const phase day_phase{.phase_start = daytime,
+                             .phase_end = sunset,
+                             .colors = {sunrise_end_color, day_color, day_end_color}};
 
-inline const phase sunset_phase{
-    .phase_start = sunset,
-    .phase_end = night,
-    .colors = {cen::blend(cen::colors::white, cen::colors::orange, 0.4),
-               cen::blend(cen::colors::white, cen::colors::orange, 0.75),
-               cen::colors::orange,
-               cen::blend(cen::colors::black, cen::colors::navy, 0.6),
-               cen::blend(cen::colors::black, cen::colors::navy, 0.3)}};
+inline const phase sunset_phase{.phase_start = sunset,
+                                .phase_end = night,
+                                .colors = {day_end_color, sunset_color, night_color}};
 
-inline const phase night_phase{
-    .phase_start = night,
-    .phase_end = sunrise,
-    .colors = {cen::blend(cen::colors::black, cen::colors::navy, 0.3)}};
-
-template <typename T, typename Container, typename Callable>
-[[nodiscard]] auto next_value(const phase& current,
-                              const Container& container,
-                              const float hour,
-                              Callable callable) -> T
-{
-  if (container.size() == 1)
-  {
-    return container.at(0);
-  }
-  else
-  {
-    const auto a = hour - current.phase_start;
-    const auto b = current.phase_end - current.phase_start;
-
-    const auto xx = (a / b) * (static_cast<float>(cen::isize(container)) - 1.0f);
-    const auto xFloor = std::floor(xx);
-
-    const auto x1 = container.at(static_cast<std::size_t>(xFloor));
-    const auto x2 = container.at(static_cast<std::size_t>(std::ceil(xx)));
-
-    return callable(x1, x2, xx - xFloor);
-  }
-}
+// Night phase can only have one color
+inline const phase night_phase{.phase_start = night,
+                               .phase_end = sunrise,
+                               .colors = {night_color}};
 
 [[nodiscard]] auto get_color(const phase& current, const float hour) -> cen::color
 {
-  return next_value<cen::color>(current, current.colors, hour, cen::blend);
+  if (current.colors.size() == 1)
+  {
+    return current.colors.at(0);
+  }
+  else
+  {
+    const auto now = hour - current.phase_start;
+    const auto duration = current.phase_end - current.phase_start;
+    const auto progression = now / duration;
+
+    const auto lastIndex = static_cast<float>(cen::isize(current.colors)) - 1.0f;
+    const auto index = progression * lastIndex;
+    const auto indexLower = std::floor(index);
+    const auto indexUpper = std::ceil(index);
+
+    const auto c1 = current.colors.at(static_cast<std::size_t>(indexLower));
+    const auto c2 = current.colors.at(static_cast<std::size_t>(indexUpper));
+
+    return cen::blend(c1, c2, index - indexLower);
+  }
 }
 
 [[nodiscard]] auto get_phase(const float hour) -> const phase&

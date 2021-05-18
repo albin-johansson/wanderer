@@ -43,7 +43,7 @@ graphics_context::graphics_context(const cen::window& window)
   get_cache(medium_font).add_latin1(ren);
   get_cache(large_font).add_latin1(ren);
 
-  m_lightCanvas.set_blend_mode(cen::blend_mode::mod);
+  m_lightCanvas.set_blend_mode(cen::blend_mode::mul);
 }
 
 }  // namespace wanderer
