@@ -12,4 +12,4 @@ namespace wanderer::comp {
 struct player final
 {};
 
-}  // namespace wanderer::ctx
+}  // namespace wanderer::comp

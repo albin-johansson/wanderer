@@ -19,7 +19,7 @@ struct chase final
   bool active{};  ///< Whether or not the target is within range.
 };
 
-void serialize(auto& archive, chase& c, u32 version)
+void serialize(auto& archive, chase& c, uint32 version)
 {
   archive(c.target, c.range, c.active);
 }

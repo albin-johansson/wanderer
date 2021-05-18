@@ -21,7 +21,7 @@ struct frame final
   ms_t duration{};                 ///< The duration that the frame is active.
 };
 
-void serialize(auto& archive, frame& f, u32 version)
+void serialize(auto& archive, frame& f, uint32 version)
 {
   archive(f.tile, f.duration);
 }
@@ -46,7 +46,7 @@ struct tile_animation final
   std::vector<frame> frames;  ///< The frames that constitute the animation.
 };
 
-void serialize(auto& archive, tile_animation& a, u32 version)
+void serialize(auto& archive, tile_animation& a, uint32 version)
 {
   archive(a.index, a.then, a.frames);
 }

@@ -18,7 +18,7 @@ struct tile_object final
   tile::entity tile_entity{null<tile>()};
 };
 
-void serialize(auto& archive, tile_object& to, u32 version)
+void serialize(auto& archive, tile_object& to, uint32 version)
 {
   archive(to.tile_entity);
 }

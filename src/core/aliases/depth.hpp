@@ -9,7 +9,7 @@ namespace detail {
 struct depth_tag_t;
 }
 
-using depth_t = nenya::strong_type<i32, detail::depth_tag_t>;
+using depth_t = nenya::strong_type<int32, detail::depth_tag_t>;
 
 [[nodiscard]] constexpr auto operator"" _depth(const ulonglong d) noexcept -> depth_t
 {

@@ -121,7 +121,7 @@ void update_attack_animation(entt::registry& registry, const entt::entity entity
  */
 void enter_animation(entt::registry& registry,
                      const entt::entity entity,
-                     const u32 nFrames,
+                     const uint32 nFrames,
                      const ms_t delay,
                      const int sourceY)
 {
@@ -138,7 +138,7 @@ void enter_animation(entt::registry& registry,
 
 void enter_animation(entt::registry& registry,
                      const entt::entity entity,
-                     const u32 nFrames,
+                     const uint32 nFrames,
                      const ms_t delay,
                      const int sourceY,
                      const direction dir)

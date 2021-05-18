@@ -65,21 +65,21 @@ struct humanoid_attack final
 struct humanoid_die final
 {};
 
-void serialize(auto&, humanoid&, u32 version)
+void serialize(auto&, humanoid&, uint32 version)
 {}
 
-void serialize(auto&, humanoid_idle&, u32 version)
+void serialize(auto&, humanoid_idle&, uint32 version)
 {}
 
-void serialize(auto&, humanoid_move&, u32 version)
+void serialize(auto&, humanoid_move&, uint32 version)
 {}
 
-void serialize(auto& archive, humanoid_attack& ha, u32 version)
+void serialize(auto& archive, humanoid_attack& ha, uint32 version)
 {
   archive(ha.weapon, ha.done);
 }
 
-void serialize(auto&, humanoid_die&, u32 version)
+void serialize(auto&, humanoid_die&, uint32 version)
 {}
 
 }  // namespace wanderer::comp

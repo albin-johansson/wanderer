@@ -9,7 +9,7 @@ namespace detail {
 struct tile_id_t;
 }
 
-using tile_id = nenya::strong_type<u32, detail::tile_id_t>;
+using tile_id = nenya::strong_type<uint32, detail::tile_id_t>;
 
 namespace glob {
 inline constexpr tile_id empty_tile{0};

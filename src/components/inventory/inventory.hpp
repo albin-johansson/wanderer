@@ -22,12 +22,12 @@ struct inventory final
 struct active_inventory final
 {};
 
-void serialize(auto& archive, inventory& i, u32 version)
+void serialize(auto& archive, inventory& i, uint32 version)
 {
   archive(i.items, i.capacity);
 }
 
-void serialize(auto&, active_inventory&, u32 version)
+void serialize(auto&, active_inventory&, uint32 version)
 {}
 
 }  // namespace wanderer::comp

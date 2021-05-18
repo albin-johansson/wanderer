@@ -15,7 +15,7 @@ struct object final
   int id{};
 };
 
-void serialize(auto& archive, object& o, u32 version)
+void serialize(auto& archive, object& o, uint32 version)
 {
   archive(o.id);
 }

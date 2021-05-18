@@ -29,7 +29,7 @@ struct tile_layer final
   int z{};             ///< Index that indicates when the layer should be rendered.
 };
 
-void serialize(auto& archive, tile_layer& layer, u32 version)
+void serialize(auto& archive, tile_layer& layer, uint32 version)
 {
   archive(layer.matrix, layer.z);
 }

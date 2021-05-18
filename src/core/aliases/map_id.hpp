@@ -9,6 +9,6 @@ namespace detail {
 struct map_id_t;
 }
 
-using map_id = nenya::strong_type<i32, detail::map_id_t>;
+using map_id = nenya::strong_type<int32, detail::map_id_t>;
 
 }  // namespace wanderer

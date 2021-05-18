@@ -35,7 +35,7 @@ struct tilemap final
   int col_count{};       ///< The amount of columns in the tilemap
 };
 
-void serialize(auto& archive, tilemap& tm, u32 version)
+void serialize(auto& archive, tilemap& tm, uint32 version)
 {
   archive(tm.id, tm.humanoid_layer, tm.size, tm.row_count, tm.col_count);
 }

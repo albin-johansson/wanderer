@@ -20,7 +20,7 @@ struct tileset final
   std::unordered_map<tile_id, comp::tile::entity> tiles;  // All available tiles entities.
 };
 
-void serialize(auto& archive, tileset& ts, u32 version)
+void serialize(auto& archive, tileset& ts, uint32 version)
 {
   archive(ts.tiles);
 }
