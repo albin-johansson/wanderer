@@ -60,6 +60,7 @@ set(SOURCE_FILES
 
     core/algorithms.hpp
     core/common_concepts.hpp
+    core/day_of_week.hpp
     core/direction.hpp
     core/game.hpp
     core/game.cpp
