@@ -2,8 +2,20 @@
 
 #include <fstream>   // ifstream
 #include <json.hpp>  // json
+#include <string>    // string
+
+#include "core/aliases/czstring.hpp"
 
 namespace wanderer {
+namespace {
+
+template <typename T>
+[[nodiscard]] auto get(const nlohmann::json& json, const czstring key) -> T
+{
+  return T{json.at(key).get<typename T::value_type>()};
+}
+
+}  // namespace
 
 auto parse_save_file(const std::filesystem::path& path) -> save_file_info
 {
@@ -13,15 +25,15 @@ auto parse_save_file(const std::filesystem::path& path) -> save_file_info
   stream >> json;
 
   save_file_info contents;
-
-  contents.current = map_id{json.at("current_level").get<map_id::value_type>()};
+  contents.current = get<map_id>(json, "current_level");
 
   for (const auto& [key, object] : json.at("levels").items())
   {
     auto& level = contents.levels.emplace_back();
-    level.id = map_id{object.at("id").get<map_id::value_type>()};
+    level.id = get<map_id>(object, "id");
     level.path = path.parent_path() / object.at("data").get<std::string>();
     level.outside_level = object.at("outside_level").get<bool>();
+    level.keep_viewport_in_bounds = object.at("keep_viewport_in_bounds").get<bool>();
   }
 
   return contents;

@@ -4,14 +4,15 @@
 #include <iomanip>   // setw
 #include <json.hpp>  // json
 #include <string>    // string, to_string
-#include <utility>   // move
 
+#include "components/ctx/time_of_day.hpp"
+#include "components/ctx/viewport.hpp"
 #include "components/outside_level.hpp"
+#include "core/ecs/registry_utils.hpp"
+#include "core/serialization.hpp"
 #include "io/directories.hpp"
 #include "systems/levels/level_save_system.hpp"
 #include "systems/levels/level_system.hpp"
-
-using namespace std::string_literals;
 
 using json_type = nlohmann::json;
 
@@ -39,6 +40,38 @@ inline constexpr int json_format_version = 1;
   return path;
 }
 
+void save_shared_registry(const std::filesystem::path& directory,
+                          const entt::registry& shared)
+{
+  std::ofstream stream{directory / "shared_data.wanderer"};
+  output_archive archive{stream};
+
+  const auto& time = shared.ctx<const ctx::time_of_day>();
+  archive(time);
+}
+
+[[nodiscard]] auto save_levels(const entt::registry& shared,
+                               const std::filesystem::path& directory) -> json_type
+{
+  auto levels = json_type::array();
+
+  for (auto&& [entity, level] : shared.view<const comp::level>().each())
+  {
+    const auto name = "level_" + std::to_string(level.id.get()) + ".wanderer";
+    sys::save(level, directory / name);
+
+    auto& object = levels.emplace_back();
+    object["id"] = level.id.get();
+    object["data"] = name;
+    object["outside_level"] = shared.all_of<comp::outside_level>(entity);
+
+    const auto& viewport = level.registry.ctx<const ctx::viewport>();
+    object["keep_viewport_in_bounds"] = viewport.keep_in_bounds;
+  }
+
+  return levels;
+}
+
 void save_common(const entt::registry& shared,
                  const std::string& name,
                  const std::filesystem::path& dir,
@@ -47,28 +80,16 @@ void save_common(const entt::registry& shared,
   std::filesystem::create_directories(dir);
   snapshot.save_as_png(std::filesystem::absolute(dir / "snapshot.png").string());
 
+  save_shared_registry(dir, shared);
+
   const auto& currentLevel = sys::current_level(shared);
 
   json_type json;
-
   json["name"] = name;
   json["json_format_version"] = json_format_version;
   json["data_format_version"] = binary_data_version;
   json["current_level"] = currentLevel.id.get();
-
-  for (auto&& [entity, level] : shared.view<const comp::level>().each())
-  {
-    const auto levelName = "level_" + std::to_string(level.id.get()) + ".wanderer";
-    sys::save(level, dir / levelName);
-
-    json_type levelObject;
-
-    levelObject["id"] = level.id.get();
-    levelObject["data"] = levelName;
-    levelObject["outside_level"] = shared.all_of<comp::outside_level>(entity);
-
-    json["levels"].emplace_back(std::move(levelObject));
-  }
+  json["levels"] = save_levels(shared, dir);
 
   std::ofstream stream{dir / (name + ".json")};
   stream << std::setw(2) << json;
@@ -87,7 +108,7 @@ void save_game(const std::string& name,
 
 void create_exit_save(const entt::registry& shared, const cen::surface& snapshot)
 {
-  const auto name = "exit_save"s;
+  const std::string name{"exit_save"};
   save_common(shared, name, saves_directory() / name, snapshot);
 }
 

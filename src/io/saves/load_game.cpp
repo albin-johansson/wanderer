@@ -1,16 +1,30 @@
 #include "load_game.hpp"
 
 #include <cassert>  // assert
+#include <fstream>  // ifstream
 
+#include "components/ctx/time_of_day.hpp"
+#include "components/ctx/viewport.hpp"
 #include "components/map/level.hpp"
 #include "components/outside_level.hpp"
 #include "core/ecs/add_humanoid_state_dependencies.hpp"
-#include "core/ecs/registry_utils.hpp"
+#include "core/serialization.hpp"
 #include "io/directories.hpp"
 #include "io/saves/parse_save_file.hpp"
 #include "systems/levels/level_factory_system.hpp"
 
 namespace wanderer {
+namespace {
+
+void restore_shared_data(const std::filesystem::path& path, entt::registry& shared)
+{
+  std::ifstream stream{path};
+  input_archive archive{stream};
+
+  shared.set<ctx::time_of_day>(restore<ctx::time_of_day>(archive));
+}
+
+}  // namespace
 
 void load_game(entt::registry& shared,
                graphics_context& graphics,
@@ -21,12 +35,14 @@ void load_game(entt::registry& shared,
 
   shared.clear<comp::level>();
   shared.clear<comp::active_level>();
+  restore_shared_data(saves_directory() / name / "shared_data.wanderer", shared);
 
   for (const auto& data : contents.levels)
   {
     const auto entity = comp::level::entity{shared.create()};
 
-    auto& level = shared.emplace<comp::level>(entity, sys::restore_level(data.path, graphics));
+    auto& level =
+        shared.emplace<comp::level>(entity, sys::restore_level(data.path, graphics));
     level.id = data.id;
 
     if (level.id == contents.current)
@@ -38,6 +54,9 @@ void load_game(entt::registry& shared,
     {
       shared.emplace<comp::outside_level>(entity);
     }
+
+    auto& viewport = level.registry.ctx<ctx::viewport>();
+    viewport.keep_in_bounds = data.keep_viewport_in_bounds;
 
     add_humanoid_state_dependencies(level.registry);
   }
