@@ -18,6 +18,14 @@ namespace wanderer {
 using input_archive = cereal::BinaryInputArchive;
 using output_archive = cereal::BinaryOutputArchive;
 
+template <typename T, typename Archive>
+[[nodiscard]] auto restore(Archive& archive) -> T
+{
+  T obj;
+  archive(obj);
+  return obj;
+}
+
 /// \} End of group core
 
 }  // namespace wanderer
