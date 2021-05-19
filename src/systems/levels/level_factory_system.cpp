@@ -313,7 +313,7 @@ auto make_level(const ir::level& data, graphics_context& graphics) -> comp::leve
   return level;
 }
 
-auto make_level(const std::filesystem::path& path, graphics_context& graphics)
+auto restore_level(const std::filesystem::path& path, graphics_context& graphics)
     -> comp::level
 {
   comp::level level;

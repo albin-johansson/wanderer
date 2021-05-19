@@ -26,7 +26,7 @@ void load_game(entt::registry& shared,
   {
     const auto entity = comp::level::entity{shared.create()};
 
-    auto& level = shared.emplace<comp::level>(entity, sys::make_level(data.path, graphics));
+    auto& level = shared.emplace<comp::level>(entity, sys::restore_level(data.path, graphics));
     level.id = data.id;
 
     if (level.id == contents.current)

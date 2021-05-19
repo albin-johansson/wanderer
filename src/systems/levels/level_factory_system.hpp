@@ -25,7 +25,7 @@ namespace wanderer::sys {
     -> comp::level;
 
 /**
- * \brief Creates a level from a binary save file.
+ * \brief Restores a level from a binary save file.
  *
  * \ingroup systems
  *
@@ -34,8 +34,8 @@ namespace wanderer::sys {
  *
  * \return the parsed level.
  */
-[[nodiscard]] auto make_level(const std::filesystem::path& path,
-                              graphics_context& graphics) -> comp::level;
+[[nodiscard]] auto restore_level(const std::filesystem::path& path,
+                                 graphics_context& graphics) -> comp::level;
 
 /// \} End of levels
 
