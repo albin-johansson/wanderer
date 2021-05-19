@@ -242,8 +242,8 @@ set(SOURCE_FILES
     systems/movement/portal_system.cpp
     systems/movement/portal_system.hpp
 
-    systems/saves/saves_system.cpp
-    systems/saves/saves_system.hpp
+    systems/saves/registry_serialization_system.cpp
+    systems/saves/registry_serialization_system.hpp
 
     systems/ui/cursor_system.cpp
     systems/ui/cursor_system.hpp

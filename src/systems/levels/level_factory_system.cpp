@@ -14,7 +14,7 @@
 #include "systems/graphics/drawable_system.hpp"
 #include "systems/graphics/viewport_system.hpp"
 #include "systems/humanoid/humanoid_factory_system.hpp"
-#include "systems/saves/saves_system.hpp"
+#include "systems/saves/registry_serialization_system.hpp"
 
 namespace wanderer::sys {
 namespace {

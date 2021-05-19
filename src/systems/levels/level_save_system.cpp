@@ -3,7 +3,7 @@
 #include <fstream>  // ofstream
 #include <ios>      // ios
 
-#include "systems/saves/saves_system.hpp"
+#include "systems/saves/registry_serialization_system.hpp"
 
 namespace wanderer::sys {
 
