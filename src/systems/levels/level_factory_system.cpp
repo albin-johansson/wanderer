@@ -6,8 +6,11 @@
 #include "components/ctx/level_size.hpp"
 #include "components/ctx/viewport.hpp"
 #include "components/humanoid_state.hpp"
+#include "components/movable.hpp"
+#include "components/player.hpp"
 #include "core/algorithms.hpp"
 #include "core/ecs/make_registry.hpp"
+#include "core/ecs/registry_utils.hpp"
 #include "core/serialization.hpp"
 #include "core/utils/centurion_utils.hpp"
 #include "systems/graphics/depth_system.hpp"
@@ -329,6 +332,10 @@ auto restore_level(const std::filesystem::path& path, graphics_context& graphics
 
   add_level_size(level.registry, level);
   add_viewport(level.registry, level);
+
+  const auto player = singleton_entity<comp::player>(level.registry);
+  const auto& movable = level.registry.get<comp::movable>(player);
+  center_viewport_on(level.registry, movable.position);
 
   return level;
 }
