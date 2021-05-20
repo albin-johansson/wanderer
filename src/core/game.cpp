@@ -310,7 +310,7 @@ void game::on_level_animation_faded_out(const level_faded_out_event&)
 void game::on_show_inventory(const show_inventory_event& event)
 {
   auto& level = sys::current_level(m_shared);
-  level.registry.emplace<comp::active_inventory>(event.inventoryEntity);
+  level.registry.emplace<comp::active_inventory>(event.inventory_entity);
 }
 
 void game::on_close_inventory(const close_inventory_event&)
