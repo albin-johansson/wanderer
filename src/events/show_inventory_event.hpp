@@ -9,7 +9,7 @@ namespace wanderer {
 /// \ingroup events
 struct show_inventory_event final
 {
-  comp::inventory::entity inventoryEntity{null<comp::inventory>()};
+  comp::inventory::entity inventory_entity{null<comp::inventory>()};
 };
 
 }  // namespace wanderer

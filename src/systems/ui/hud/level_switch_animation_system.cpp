@@ -81,8 +81,8 @@ void end_level_fade_animation(entt::registry& registry, const level_faded_in_eve
   animation.speed = speed;
   animation.width = event.width;
   animation.height = event.height;
-  animation.x_step_size = event.xStepSize;
-  animation.y_step_size = event.yStepSize;
+  animation.x_step_size = event.x_step_size;
+  animation.y_step_size = event.y_step_size;
   animation.fading_in = false;
 }
 

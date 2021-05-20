@@ -12,9 +12,9 @@ namespace wanderer {
 struct begin_attack_event final
 {
   std::reference_wrapper<entt::registry> registry;  ///< The associated registry.
-  entt::entity sourceEntity{entt::null};  ///< The entity that initiated the attack.
-  entt::entity weapon{entt::null};        ///< The weapon entity.
-  direction dir{direction::down};         ///< The attack direction.
+  entt::entity source_entity{entt::null};  ///< The entity that initiated the attack.
+  entt::entity weapon{entt::null};         ///< The weapon entity.
+  direction dir{direction::down};          ///< The attack direction.
 };
 
 }  // namespace wanderer
