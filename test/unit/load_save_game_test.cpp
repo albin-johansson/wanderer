@@ -7,6 +7,7 @@
 #include "io/saves/load_game.hpp"
 #include "io/saves/save_game.hpp"
 #include "core/levels/load_levels.hpp"
+#include "systems/registry/shared_registry_factory_system.hpp"
 
 using namespace wanderer;
 
@@ -17,7 +18,7 @@ TEST(LoadSaveGame, Usage)
 
   const auto frequency = static_cast<long double>(cen::counter::frequency());
 
-  entt::registry shared;
+  auto shared = sys::make_shared_registry();
 
   {
     load_levels(shared, graphics);
