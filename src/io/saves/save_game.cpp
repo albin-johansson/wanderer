@@ -26,10 +26,10 @@ inline constexpr int json_format_version = 1;
 {
   if (std::filesystem::exists(path))
   {
+    const auto prefix = path.filename().string() + " ";
     for (auto index = 0; index < 100; ++index)  // Give up after 100 tries
     {
-      const auto name = path.filename().string() + " " + std::to_string(index + 1);
-      auto newPath = path.parent_path() / name;
+      auto newPath = path.parent_path() / (prefix + std::to_string(index + 1));
       if (!std::filesystem::exists(newPath))
       {
         return newPath;
