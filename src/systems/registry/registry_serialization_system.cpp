@@ -65,8 +65,6 @@ void process(T& handle, Archive& archive)
 
 }  // namespace
 
-// TODO ctx stuff as time_of_day need to be archived
-
 void save_registry(const entt::registry& registry, output_archive& archive)
 {
   entt::snapshot snapshot{registry};

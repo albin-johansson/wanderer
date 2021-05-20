@@ -163,8 +163,6 @@ set(SOURCE_FILES
     systems/interaction_system.hpp
     systems/inventory_system.cpp
     systems/inventory_system.hpp
-    systems/shared_registry_factory_system.cpp
-    systems/shared_registry_factory_system.hpp
     systems/tile_layer_system.hpp
     systems/time_system.cpp
     systems/time_system.hpp
@@ -241,8 +239,10 @@ set(SOURCE_FILES
     systems/movement/portal_system.cpp
     systems/movement/portal_system.hpp
 
-    systems/saves/registry_serialization_system.cpp
-    systems/saves/registry_serialization_system.hpp
+    systems/registry/registry_serialization_system.cpp
+    systems/registry/registry_serialization_system.hpp
+    systems/registry/shared_registry_factory_system.cpp
+    systems/registry/shared_registry_factory_system.hpp
 
     systems/ui/cursor_system.cpp
     systems/ui/cursor_system.hpp

@@ -35,7 +35,7 @@
 #include "systems/levels/level_system.hpp"
 #include "systems/movement/movement_system.hpp"
 #include "systems/movement/portal_system.hpp"
-#include "systems/shared_registry_factory_system.hpp"
+#include "systems/registry/shared_registry_factory_system.hpp"
 #include "systems/time_system.hpp"
 #include "systems/ui/hud/hud_rendering_system.hpp"
 #include "systems/ui/hud/level_switch_animation_system.hpp"
