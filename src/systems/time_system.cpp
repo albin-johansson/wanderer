@@ -24,8 +24,8 @@ inline constexpr float night = 22;
 
 struct phase final
 {
-  float phase_start;
-  float phase_end;
+  float phase_start{};
+  float phase_end{};
   rune::static_vector<cen::color, 5> colors;
 };
 
