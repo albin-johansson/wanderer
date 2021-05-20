@@ -28,7 +28,7 @@ namespace {
 
 void load_levels(entt::registry& shared, graphics_context& graphics)
 {
-  const auto data = parse_world(resources::map("world.json"));
+  const auto data = parse_world(resources::map("main.json"));
   const auto world = create_world(shared, graphics, data);
 
   for (const auto& sublevel : data.levels)
