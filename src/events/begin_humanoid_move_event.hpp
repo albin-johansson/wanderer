@@ -7,13 +7,8 @@
 
 namespace wanderer {
 
-/**
- * \struct begin_humanoid_move_event
- *
- * \brief Used for events dispatched when a humanoid starts to move.
- *
- * \headerfile begin_humanoid_move_event.hpp
- */
+/// \brief Used for events dispatched when a humanoid starts to move.
+/// \ingroup events
 struct begin_humanoid_move_event final
 {
   std::reference_wrapper<entt::registry> registry;  ///< The associated registry.

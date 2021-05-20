@@ -7,13 +7,8 @@
 
 namespace wanderer {
 
-/**
- * \struct end_attack_event
- *
- * \brief Represents the data associated with the end of an attack.
- *
- * \headerfile end_attack_event.hpp
- */
+/// \brief Represents the data associated with the end of an attack.
+/// \ingroup events
 struct end_attack_event final
 {
   std::reference_wrapper<entt::registry> registry;      ///< The associated registry.

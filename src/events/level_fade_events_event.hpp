@@ -4,13 +4,15 @@
 
 namespace wanderer {
 
+/// \brief Emitted when a level animation has finished its first "zoom in" phase.
+/// \ingroup events
 struct level_faded_in_event final
 {
-  map_id map;
-  float width;
-  float height;
-  float xStepSize;
-  float yStepSize;
+  map_id map;       ///< The ID of the map that should be activated.
+  float width;      ///< The current width of the left and right "bars".
+  float height;     ///< The current height of the upper and lower "bars".
+  float xStepSize;  ///< The size of each step in the x-axis.
+  float yStepSize;  ///< The size of each step in the y-axis.
 };
 
 struct level_faded_out_event final

@@ -7,13 +7,8 @@
 
 namespace wanderer {
 
-/**
- * \struct end_humanoid_move_event
- *
- * \brief Used for events dispatched when a humanoid stops moving.
- *
- * \headerfile end_humanoid_move_event.hpp
- */
+/// \brief Used for events dispatched when a humanoid stops moving.
+/// \ingroup events
 struct end_humanoid_move_event final
 {
   std::reference_wrapper<entt::registry> registry;  ///< The associated registry.

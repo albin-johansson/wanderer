@@ -7,13 +7,8 @@
 
 namespace wanderer {
 
-/**
- * \struct begin_attack_event
- *
- * \brief Represents the data associated with the start of an attack.
- *
- * \headerfile begin_attack_event.hpp
- */
+/// \brief Represents the data associated with the start of an attack.
+/// \ingroup events
 struct begin_attack_event final
 {
   std::reference_wrapper<entt::registry> registry;  ///< The associated registry.
