@@ -14,10 +14,10 @@ namespace wanderer::ctx {
  * \var viewport::bounds
  * The position and size of the viewport.
  *
- * \var viewport::levelSize
+ * \var viewport::level_size
  * The size of the level that the viewport is associated with.
  *
- * \var viewport::keepInBounds
+ * \var viewport::keep_in_bounds
  * Indicates whether or not the viewport is allowed to be positioned in a way
  * so that the area outside of the level is displayed. This is usually
  * disabled for small levels (e.g. houses) and enabled for the world levels.
