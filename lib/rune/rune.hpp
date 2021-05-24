@@ -95,11 +95,18 @@ namespace rune {
 /// \addtogroup core
 /// \{
 
+using longlong = long long;
+
+using ushort = unsigned short;
+
 /// Unsigned integer.
-using uint = cen::uint;
+using uint = unsigned;
+
+/// Unsigned long integer.
+using ulong = unsigned long;
 
 /// Used as the argument type to integral literal operators.
-using ulonglong = cen::ulonglong;
+using ulonglong = unsigned long long;
 
 /// 8-bit signed integer.
 using int8 = cen::i8;
@@ -1007,42 +1014,80 @@ namespace rune {
 /// \addtogroup containers
 /// \{
 
+/**
+ * \struct basic_aabb
+ *
+ * \brief Represents an axis-aligned bounding box (AABB).
+ *
+ * \details An AABB is really just a fancy rectangle, used to provide a rough
+ * approximation of the shape of game objects in order to speed up collision detection in
+ * combination with AABB trees.
+ *
+ * \see `aabb_tree`
+ * \see `make_aabb()`
+ */
 template <std::floating_point T>
 struct basic_aabb final
 {
-  using precision_type = T;
-  using vector_type = basic_vector2<precision_type>;
+  using precision_type = T;  ///< The type used as coordinates in the vectors, etc.
+  using vector_type = basic_vector2<precision_type>;  ///< The associated vector type.
 
-  vector_type min;
-  vector_type max;
-  precision_type area{};
+  vector_type min;  ///< The lower bound point, i.e. the upper left corner of the AABB.
+  vector_type max;  ///< The upper bound point, i.e. the lower right corner of the AABB.
+  precision_type area{};  ///< The area heuristic of the AABB.
 
+  /**
+   * \brief Indicates whether or not the AABB contains another AABB.
+   *
+   * \details The supplied AABB is still considered to be contained within the
+   * invoked AABB if the borders of the "inner" AABB are overlapping the borders
+   * of the "outer" AABB.
+   *
+   * \param other the AABB that will be checked.
+   *
+   * \return `true` if the AABB contains the supplied AABB; `false` otherwise.
+   */
   [[nodiscard]] constexpr auto contains(const basic_aabb& other) const noexcept -> bool
   {
     return (other.min.x >= min.x) && (other.min.y >= min.y) && (other.max.x <= max.x) &&
            (other.max.y <= max.y);
   }
 
+  /**
+   * \brief Returns the size (width and height) of the AABB, represented as a vector.
+   *
+   * \return the size of the AABB.
+   */
   [[nodiscard]] constexpr auto size() const noexcept -> vector_type
   {
     return max - min;
   }
 };
 
-/// \name Serialization
-/// \{
-
+/**
+ * \brief Serializes an AABB.
+ *
+ * \param archive the serialization archive that will be used.
+ *
+ * \param aabb the AABB that will be serialized.
+ */
 template <std::floating_point T>
 void serialize(auto& archive, basic_aabb<T>& aabb)
 {
   archive(aabb.min, aabb.max, aabb.area);
 }
 
-/// \} End of serialization
-
 /// \name AABB operators
 /// \{
 
+/**
+ * \brief Indicates whether or not two AABBs are equal.
+ *
+ * \param a the first AABB.
+ * \param b the second AABB.
+ *
+ * \return `true` if the AABBs are *exactly* equal; `false` otherwise.
+ */
 template <std::floating_point T>
 [[nodiscard]] constexpr auto operator==(const basic_aabb<T>& a,
                                         const basic_aabb<T>& b) noexcept -> bool
@@ -1050,6 +1095,14 @@ template <std::floating_point T>
   return a.min == b.min && a.max == b.max;
 }
 
+/**
+ * \brief Indicates whether or not two AABBs aren't equal.
+ *
+ * \param a the first AABB.
+ * \param b the second AABB.
+ *
+ * \return `true` if the AABBs aren't equal; `false` otherwise.
+ */
 template <std::floating_point T>
 [[nodiscard]] constexpr auto operator!=(const basic_aabb<T>& a,
                                         const basic_aabb<T>& b) noexcept -> bool
@@ -1062,6 +1115,13 @@ template <std::floating_point T>
 /// \name AABB functions
 /// \{
 
+/**
+ * \brief Computes the area heuristic of an AABB.
+ *
+ * \param aabb the AABB for which the area heuristic will be calculated.
+ *
+ * \return the area heuristic of the AABB.
+ */
 template <std::floating_point T>
 [[nodiscard]] constexpr auto compute_area(const basic_aabb<T>& aabb) noexcept -> T
 {
@@ -1094,6 +1154,19 @@ template <std::floating_point T>
   return T{2} * sum;
 }
 
+/**
+ * \brief Creates an AABB.
+ *
+ * \pre `lower` must have coordinates smaller than those of `upper`.
+ *
+ * \details Use of this function is the recommended way to create AABBs, since this
+ * function will compute the area heuristic for you.
+ *
+ * \param lower the lower bound point, i.e. the upper left corner of the AABB.
+ * \param upper the upper bound point, i.e. the lower right corner of the AABB.
+ *
+ * \return the created AABB.
+ */
 template <std::floating_point T>
 [[nodiscard]] constexpr auto make_aabb(const basic_vector2<T>& lower,
                                        const basic_vector2<T>& upper) noexcept
@@ -1111,6 +1184,14 @@ template <std::floating_point T>
   return aabb;
 }
 
+/**
+ * \brief Returns the union of two AABBs.
+ *
+ * \param a the first AABB.
+ * \param b the second AABB.
+ *
+ * \return an AABB that corresponds to the union of the two AABBs.
+ */
 template <std::floating_point T>
 [[nodiscard]] constexpr auto merge(const basic_aabb<T>& a,
                                    const basic_aabb<T>& b) noexcept -> basic_aabb<T>
@@ -1127,6 +1208,16 @@ template <std::floating_point T>
   return make_aabb(lower, upper);
 }
 
+/**
+ * \brief Indicates whether or not two AABBs are overlapping each other.
+ *
+ * \param a the first AABB.
+ * \param b the second AABB.
+ * \param touchIsOverlap `true` if two "touching" AABBs should be considered to overlap;
+ * `false` otherwise.
+ *
+ * \return `true` if the AABBs overlap; `false` otherwise.
+ */
 template <std::floating_point T>
 [[nodiscard]] constexpr auto overlaps(const basic_aabb<T>& a,
                                       const basic_aabb<T>& b,
@@ -1144,13 +1235,24 @@ template <std::floating_point T>
   }
 }
 
+/**
+ * \brief Fattens an AABB by the specified factor.
+ *
+ * \details The supplied AABB will be enlarged by having *each* coordinate (i.e. X- and
+ * Y-coordinates of both lower and upper bounds) widened by the specified percentage, e.g.
+ * an AABB with width 100 that is fattened with `percentage` specified as `0.05`, will end
+ * up with having width 110.
+ *
+ * \param aabb the AABB that will be fattened.
+ * \param percentage the percentage of the current size that each coordinate will be
+ * enlarged by.
+ */
 template <std::floating_point T>
-void fatten(basic_aabb<T>& aabb, const T factor) noexcept
+void fatten(basic_aabb<T>& aabb, const T percentage) noexcept
 {
   const auto size = aabb.size();
-
-  const auto dx = factor * size.x;
-  const auto dy = factor * size.y;
+  const auto dx = percentage * size.x;
+  const auto dy = percentage * size.y;
 
   aabb.min.x -= dx;
   aabb.min.y -= dy;
@@ -1196,42 +1298,80 @@ namespace rune {
 /// \addtogroup containers
 /// \{
 
+/**
+ * \struct basic_aabb
+ *
+ * \brief Represents an axis-aligned bounding box (AABB).
+ *
+ * \details An AABB is really just a fancy rectangle, used to provide a rough
+ * approximation of the shape of game objects in order to speed up collision detection in
+ * combination with AABB trees.
+ *
+ * \see `aabb_tree`
+ * \see `make_aabb()`
+ */
 template <std::floating_point T>
 struct basic_aabb final
 {
-  using precision_type = T;
-  using vector_type = basic_vector2<precision_type>;
+  using precision_type = T;  ///< The type used as coordinates in the vectors, etc.
+  using vector_type = basic_vector2<precision_type>;  ///< The associated vector type.
 
-  vector_type min;
-  vector_type max;
-  precision_type area{};
+  vector_type min;  ///< The lower bound point, i.e. the upper left corner of the AABB.
+  vector_type max;  ///< The upper bound point, i.e. the lower right corner of the AABB.
+  precision_type area{};  ///< The area heuristic of the AABB.
 
+  /**
+   * \brief Indicates whether or not the AABB contains another AABB.
+   *
+   * \details The supplied AABB is still considered to be contained within the
+   * invoked AABB if the borders of the "inner" AABB are overlapping the borders
+   * of the "outer" AABB.
+   *
+   * \param other the AABB that will be checked.
+   *
+   * \return `true` if the AABB contains the supplied AABB; `false` otherwise.
+   */
   [[nodiscard]] constexpr auto contains(const basic_aabb& other) const noexcept -> bool
   {
     return (other.min.x >= min.x) && (other.min.y >= min.y) && (other.max.x <= max.x) &&
            (other.max.y <= max.y);
   }
 
+  /**
+   * \brief Returns the size (width and height) of the AABB, represented as a vector.
+   *
+   * \return the size of the AABB.
+   */
   [[nodiscard]] constexpr auto size() const noexcept -> vector_type
   {
     return max - min;
   }
 };
 
-/// \name Serialization
-/// \{
-
+/**
+ * \brief Serializes an AABB.
+ *
+ * \param archive the serialization archive that will be used.
+ *
+ * \param aabb the AABB that will be serialized.
+ */
 template <std::floating_point T>
 void serialize(auto& archive, basic_aabb<T>& aabb)
 {
   archive(aabb.min, aabb.max, aabb.area);
 }
 
-/// \} End of serialization
-
 /// \name AABB operators
 /// \{
 
+/**
+ * \brief Indicates whether or not two AABBs are equal.
+ *
+ * \param a the first AABB.
+ * \param b the second AABB.
+ *
+ * \return `true` if the AABBs are *exactly* equal; `false` otherwise.
+ */
 template <std::floating_point T>
 [[nodiscard]] constexpr auto operator==(const basic_aabb<T>& a,
                                         const basic_aabb<T>& b) noexcept -> bool
@@ -1239,6 +1379,14 @@ template <std::floating_point T>
   return a.min == b.min && a.max == b.max;
 }
 
+/**
+ * \brief Indicates whether or not two AABBs aren't equal.
+ *
+ * \param a the first AABB.
+ * \param b the second AABB.
+ *
+ * \return `true` if the AABBs aren't equal; `false` otherwise.
+ */
 template <std::floating_point T>
 [[nodiscard]] constexpr auto operator!=(const basic_aabb<T>& a,
                                         const basic_aabb<T>& b) noexcept -> bool
@@ -1251,6 +1399,13 @@ template <std::floating_point T>
 /// \name AABB functions
 /// \{
 
+/**
+ * \brief Computes the area heuristic of an AABB.
+ *
+ * \param aabb the AABB for which the area heuristic will be calculated.
+ *
+ * \return the area heuristic of the AABB.
+ */
 template <std::floating_point T>
 [[nodiscard]] constexpr auto compute_area(const basic_aabb<T>& aabb) noexcept -> T
 {
@@ -1283,6 +1438,19 @@ template <std::floating_point T>
   return T{2} * sum;
 }
 
+/**
+ * \brief Creates an AABB.
+ *
+ * \pre `lower` must have coordinates smaller than those of `upper`.
+ *
+ * \details Use of this function is the recommended way to create AABBs, since this
+ * function will compute the area heuristic for you.
+ *
+ * \param lower the lower bound point, i.e. the upper left corner of the AABB.
+ * \param upper the upper bound point, i.e. the lower right corner of the AABB.
+ *
+ * \return the created AABB.
+ */
 template <std::floating_point T>
 [[nodiscard]] constexpr auto make_aabb(const basic_vector2<T>& lower,
                                        const basic_vector2<T>& upper) noexcept
@@ -1300,6 +1468,14 @@ template <std::floating_point T>
   return aabb;
 }
 
+/**
+ * \brief Returns the union of two AABBs.
+ *
+ * \param a the first AABB.
+ * \param b the second AABB.
+ *
+ * \return an AABB that corresponds to the union of the two AABBs.
+ */
 template <std::floating_point T>
 [[nodiscard]] constexpr auto merge(const basic_aabb<T>& a,
                                    const basic_aabb<T>& b) noexcept -> basic_aabb<T>
@@ -1316,6 +1492,16 @@ template <std::floating_point T>
   return make_aabb(lower, upper);
 }
 
+/**
+ * \brief Indicates whether or not two AABBs are overlapping each other.
+ *
+ * \param a the first AABB.
+ * \param b the second AABB.
+ * \param touchIsOverlap `true` if two "touching" AABBs should be considered to overlap;
+ * `false` otherwise.
+ *
+ * \return `true` if the AABBs overlap; `false` otherwise.
+ */
 template <std::floating_point T>
 [[nodiscard]] constexpr auto overlaps(const basic_aabb<T>& a,
                                       const basic_aabb<T>& b,
@@ -1333,13 +1519,24 @@ template <std::floating_point T>
   }
 }
 
+/**
+ * \brief Fattens an AABB by the specified factor.
+ *
+ * \details The supplied AABB will be enlarged by having *each* coordinate (i.e. X- and
+ * Y-coordinates of both lower and upper bounds) widened by the specified percentage, e.g.
+ * an AABB with width 100 that is fattened with `percentage` specified as `0.05`, will end
+ * up with having width 110.
+ *
+ * \param aabb the AABB that will be fattened.
+ * \param percentage the percentage of the current size that each coordinate will be
+ * enlarged by.
+ */
 template <std::floating_point T>
-void fatten(basic_aabb<T>& aabb, const T factor) noexcept
+void fatten(basic_aabb<T>& aabb, const T percentage) noexcept
 {
   const auto size = aabb.size();
-
-  const auto dx = factor * size.x;
-  const auto dy = factor * size.y;
+  const auto dx = percentage * size.x;
+  const auto dy = percentage * size.y;
 
   aabb.min.x -= dx;
   aabb.min.y -= dy;
@@ -1364,15 +1561,25 @@ namespace rune {
 /// \addtogroup containers
 /// \{
 
+/**
+ * \class aabb_node
+ *
+ * \brief Represents a node in an AABB tree.
+ *
+ * \tparam Key the type of the associated key.
+ *
+ * \see `aabb_tree`
+ * \see `is_leaf()`
+ */
 template <typename Key, std::floating_point Precision>
 class aabb_node final
 {
  public:
-  using key_type = Key;
-  using precision_type = Precision;
-  using vector_type = basic_vector2<precision_type>;
-  using aabb_type = basic_aabb<precision_type>;
-  using index_type = std::size_t;
+  using key_type = Key;                               ///< The type of the associated key.
+  using precision_type = Precision;                   ///< The vector coordinate type.
+  using vector_type = basic_vector2<precision_type>;  ///< The associated vector type.
+  using aabb_type = basic_aabb<precision_type>;       ///< The associated AABB type.
+  using index_type = std::size_t;                     ///< The type used for node indices
 
   std::optional<key_type> id;        ///< The user-provided ID associated with the AABB.
   aabb_type box;                     ///< The associated AABB.
@@ -1380,20 +1587,28 @@ class aabb_node final
   std::optional<index_type> left;    ///< Index of left child.
   std::optional<index_type> right;   ///< Index of right child.
   std::optional<index_type> next;    ///< Index of next adjacent node.
-  int height{-1};                    ///< Amount of levels below the node. TODO check doc
+  int height{-1};                    ///< Amount of levels below the node (0 for leaves).
 };
 
-/// \name Serialization
-/// \{
-
+/**
+ * \brief Serializes an AABB node.
+ *
+ * \param archive the serialization archive that will be used.
+ * \param node the AABB node that will be serialized.
+ */
 template <typename Key, std::floating_point Precision>
 void serialize(auto& archive, aabb_node<Key, Precision>& node)
 {
   archive(node.id, node.box, node.parent, node.left, node.right, node.next, node.height);
 }
 
-/// \} End of serialization
-
+/**
+ * \brief Indicates whether or not an AABB node is a leaf in an AABB tree.
+ *
+ * \param node the node that will be checked.
+ *
+ * \return `true` if the node is a leaf; `false` otherwise.
+ */
 template <typename Key, std::floating_point Precision>
 [[nodiscard]] constexpr auto is_leaf(const aabb_node<Key, Precision>& node) noexcept
     -> bool
@@ -1451,15 +1666,25 @@ namespace rune {
 /// \addtogroup containers
 /// \{
 
+/**
+ * \class aabb_node
+ *
+ * \brief Represents a node in an AABB tree.
+ *
+ * \tparam Key the type of the associated key.
+ *
+ * \see `aabb_tree`
+ * \see `is_leaf()`
+ */
 template <typename Key, std::floating_point Precision>
 class aabb_node final
 {
  public:
-  using key_type = Key;
-  using precision_type = Precision;
-  using vector_type = basic_vector2<precision_type>;
-  using aabb_type = basic_aabb<precision_type>;
-  using index_type = std::size_t;
+  using key_type = Key;                               ///< The type of the associated key.
+  using precision_type = Precision;                   ///< The vector coordinate type.
+  using vector_type = basic_vector2<precision_type>;  ///< The associated vector type.
+  using aabb_type = basic_aabb<precision_type>;       ///< The associated AABB type.
+  using index_type = std::size_t;                     ///< The type used for node indices
 
   std::optional<key_type> id;        ///< The user-provided ID associated with the AABB.
   aabb_type box;                     ///< The associated AABB.
@@ -1467,20 +1692,28 @@ class aabb_node final
   std::optional<index_type> left;    ///< Index of left child.
   std::optional<index_type> right;   ///< Index of right child.
   std::optional<index_type> next;    ///< Index of next adjacent node.
-  int height{-1};                    ///< Amount of levels below the node. TODO check doc
+  int height{-1};                    ///< Amount of levels below the node (0 for leaves).
 };
 
-/// \name Serialization
-/// \{
-
+/**
+ * \brief Serializes an AABB node.
+ *
+ * \param archive the serialization archive that will be used.
+ * \param node the AABB node that will be serialized.
+ */
 template <typename Key, std::floating_point Precision>
 void serialize(auto& archive, aabb_node<Key, Precision>& node)
 {
   archive(node.id, node.box, node.parent, node.left, node.right, node.next, node.height);
 }
 
-/// \} End of serialization
-
+/**
+ * \brief Indicates whether or not an AABB node is a leaf in an AABB tree.
+ *
+ * \param node the node that will be checked.
+ *
+ * \return `true` if the node is a leaf; `false` otherwise.
+ */
 template <typename Key, std::floating_point Precision>
 [[nodiscard]] constexpr auto is_leaf(const aabb_node<Key, Precision>& node) noexcept
     -> bool
@@ -1551,10 +1784,29 @@ namespace rune {
 /// \addtogroup containers
 /// \{
 
+/**
+ * \def RUNE_AABB_TREE_DEFAULT_CAPACITY
+ *
+ * \brief The default capacity of entries in AABB trees.
+ *
+ * \note This macro should be expand to an integer value.
+ *
+ * \see `aabb_tree`
+ */
 #ifndef RUNE_AABB_TREE_DEFAULT_CAPACITY
 #define RUNE_AABB_TREE_DEFAULT_CAPACITY 64
 #endif  // RUNE_AABB_TREE_DEFAULT_CAPACITY
 
+/**
+ * \def RUNE_AABB_TREE_QUERY_BUFFER_SIZE
+ *
+ * \brief The default stack buffer size when looking for collision candidates (with
+ * `aabb_tree::query()`), in bytes.
+ *
+ * \note This macro should be expand to an integer value.
+ *
+ * \see `aabb_tree`
+ */
 #ifndef RUNE_AABB_TREE_QUERY_BUFFER_SIZE
 #define RUNE_AABB_TREE_QUERY_BUFFER_SIZE 256
 #endif  // RUNE_AABB_TREE_QUERY_BUFFER_SIZE
@@ -1564,6 +1816,42 @@ inline constexpr std::size_t aabb_tree_default_capacity = RUNE_AABB_TREE_DEFAULT
 inline constexpr std::size_t aabb_tree_query_buffer_size = RUNE_AABB_TREE_QUERY_BUFFER_SIZE;
 // clang-format on
 
+/**
+ * \class aabb_tree
+ *
+ * \brief An implementation of an AABB tree, intended to be used for efficient collision
+ * detection.
+ *
+ * \details The usage of this class is relatively straight forward, register IDs with
+ * AABBs and update their positions (or even size) throughout the duration of your game.
+ * The following code illustrates the use of some of the core functions.
+ * \code{cpp}
+ * rune::aabb_tree<int> tree;  // AABB tree using integer keys
+ *
+ * // Add some AABB entries
+ * tree.insert(42, {10, 10}, {20, 20});
+ * tree.insert(123, {150, 125}, {192, 234});
+ * tree.insert(27, {59, 95}, {73, 106});
+ *
+ * // Update the position of an existing AABB
+ * tree.set_position(42, {27, 43});
+ *
+ * // Query the tree for collision candidates for a certain AABB
+ * tree.query(42, [](int id) {
+ *   // Invoked for each collision candidate (return true to stop query)
+ * });
+ *
+ * // Remove an AABB
+ * tree.erase(27);
+ *
+ * \endcode
+ *
+ * \tparam Key the type of the keys associated with tree entries.
+ * \tparam Precision the floating-point type used, e.g. by stored vectors.
+ *
+ * \see `RUNE_AABB_TREE_DEFAULT_CAPACITY`
+ * \see `RUNE_AABB_TREE_QUERY_BUFFER_SIZE`
+ */
 template <typename Key, std::floating_point Precision = float>
 class aabb_tree final
 {
@@ -1678,9 +1966,9 @@ class aabb_tree final
     }
 
     std::vector<index_type> indices(m_nodeCount);
-    size_type count{0};
+    int count{0};
 
-    for (auto index = 0; index < m_nodeCapacity; ++index)
+    for (size_type index = 0; index < m_nodeCapacity; ++index)
     {
       auto& node = m_nodes.at(index);
 
@@ -1692,7 +1980,7 @@ class aabb_tree final
       if (is_leaf(node))
       {
         node.parent = std::nullopt;
-        indices.at(count) = index;
+        indices.at(static_cast<size_type>(count)) = index;
         ++count;
       }
       else
@@ -1709,11 +1997,11 @@ class aabb_tree final
 
       for (auto i = 0; i < count; ++i)
       {
-        const auto fstAabb = m_nodes.at(indices.at(i)).box;
+        const auto fstAabb = m_nodes.at(indices.at(static_cast<size_type>(i))).box;
 
         for (auto j = (i + 1); j < count; ++j)
         {
-          const auto sndAabb = m_nodes.at(indices.at(j)).box;
+          const auto sndAabb = m_nodes.at(indices.at(static_cast<size_type>(j))).box;
           const auto cost = merge(fstAabb, sndAabb).area;
 
           if (cost < minCost)
@@ -3184,8 +3472,8 @@ class vector_map final
 
   /**
    * \brief Adds a key/value pair to the map.
-   *
-   * \note This function overwrites any previous entry associated with the specified key.
+   * 
+   * \pre `key` must not be associated with an existing entry.
    *
    * \tparam Args the types of the arguments that will be forwarded.
    *
@@ -3197,24 +3485,69 @@ class vector_map final
   template <typename... Args>
   auto emplace(const key_type& key, Args&&... args) -> value_type&
   {
-    erase(key);
+    assert(!contains(key));
     return m_data.emplace_back(key, mapped_type{std::forward<Args>(args)...});
   }
 
   /**
    * \brief Adds a key/value pair to the map.
    *
-   * \note This function overwrites any previous entry associated with the specified key.
+   * \pre `key` must not be associated with an existing entry.
    *
    * \param key the key that will be associated with the value.
    * \param value the value that will be moved into the map.
    *
    * \return a reference to the added key/value pair.
    */
-  auto emplace(const key_type& key, mapped_type&& value) -> value_type&
+  auto emplace(const key_type& key, mapped_type value) -> value_type&
   {
-    erase(key);
+    assert(!contains(key));
     return m_data.emplace_back(key, std::move(value));
+  }
+
+  /**
+   * \brief Adds or replaces a key/value pair in the map.
+   * 
+   * \tparam Args the types of the arguments that will be forwarded.
+   *
+   * \param key the key that will be associated with the value.
+   * \param args the arguments that will be forwarded to a `mapped_type` constructor.
+   *
+   * \return a reference to the added key/value pair.
+   */
+  template <typename... Args>
+  auto emplace_or_replace(const key_type& key, Args&&... args) -> value_type&
+  {
+    if (const auto it = find(key); it != end()) 
+    {
+      it->second = mapped_type{std::forward<Args>(args)...};
+      return *it;
+    } 
+    else
+    {
+      return emplace(key, std::forward<Args>(args)...);
+    }
+  }
+
+  /**
+   * \brief Adds or replaces a key/value pair in the map.
+   *
+   * \param key the key that will be associated with the value.
+   * \param value the value that will be moved into the map.
+   *
+   * \return a reference to the added key/value pair.
+   */
+  auto emplace_or_replace(const key_type& key, mapped_type value) -> value_type&
+  {
+    if (const auto it = find(key); it != end()) 
+    {
+      it->second = std::move(value);
+      return *it;
+    } 
+    else
+    {
+      return emplace(key, std::move(value));
+    }
   }
 
   /**
@@ -3275,6 +3608,7 @@ class vector_map final
     });
   }
 
+  /// \copydoc find()
   template <transparent_to<key_type> T>
   [[nodiscard]] auto find(const T& key) const -> const_iterator
   {
@@ -3565,8 +3899,8 @@ concept has_less_than = requires (T value)
 #define RUNE_CORE_ENGINE_HPP
 
 #include <cassert>        // assert
-#include <centurion.hpp>  // window
-#include <concepts>       // derived_from
+#include <centurion.hpp>  // window, renderer, ...
+#include <concepts>       // derived_from, constructible_from
 #include <optional>       // optional
 
 // #include "game.hpp"
@@ -3630,6 +3964,60 @@ using delta_time =
 #include <unordered_map>  // unordered_map
 #include <utility>        // forward
 #include <vector>         // vector
+
+// #include "../aliases/integers.hpp"
+#ifndef RUNE_ALIASES_INTEGERS_HPP
+#define RUNE_ALIASES_INTEGERS_HPP
+
+#include <centurion.hpp>  // ...
+
+namespace rune {
+
+/// \addtogroup core
+/// \{
+
+using longlong = long long;
+
+using ushort = unsigned short;
+
+/// Unsigned integer.
+using uint = unsigned;
+
+/// Unsigned long integer.
+using ulong = unsigned long;
+
+/// Used as the argument type to integral literal operators.
+using ulonglong = unsigned long long;
+
+/// 8-bit signed integer.
+using int8 = cen::i8;
+
+/// 16-bit signed integer.
+using int16 = cen::i16;
+
+/// 32-bit signed integer.
+using int32 = cen::i32;
+
+/// 64-bit signed integer.
+using int64 = cen::i64;
+
+/// 8-bit unsigned integer.
+using uint8 = cen::u8;
+
+/// 16-bit unsigned integer.
+using uint16 = cen::u16;
+
+/// 32-bit unsigned integer.
+using uint32 = cen::u32;
+
+/// 64-bit unsigned integer.
+using uint64 = cen::u64;
+
+/// \} End of group core
+
+}  // namespace rune
+
+#endif  // RUNE_ALIASES_INTEGERS_HPP
 
 // #include "../aliases/texture_id.hpp"
 #ifndef RUNE_ALIASES_TEXTURE_ID_HPP
@@ -3767,24 +4155,6 @@ namespace rune {
 /// \addtogroup core
 /// \{
 
-/// \name Configuration macros
-/// \{
-
-/**
- * \def RUNE_GRAPHICS_RENDERER_FLAGS
- *
- * \brief The renderer flags used when creating `graphics` instances.
- *
- * \note This macro should expand to a `uint32` value.
- *
- * \details By default, this macro expands to `cen::renderer::default_flags()`.
- */
-#ifndef RUNE_GRAPHICS_RENDERER_FLAGS
-#define RUNE_GRAPHICS_RENDERER_FLAGS cen::renderer::default_flags()
-#endif  // RUNE_GRAPHICS_RENDERER_FLAGS
-
-/// \} End of configuration macros
-
 /**
  * \class graphics
  *
@@ -3810,9 +4180,16 @@ class graphics
   // TODO strong types
   using font_id = size_type;
 
+  /**
+   * \brief Creates a graphics context.
+   *
+   * \tparam T the ownership semantics of the window.
+   * \param window the associated game window.
+   * \param flags the renderer flags supplied to the `cen::renderer` constructor.
+   */
   template <typename T>
-  explicit graphics(const cen::basic_window<T>& window)
-      : m_renderer{window, RUNE_GRAPHICS_RENDERER_FLAGS}
+  graphics(const cen::basic_window<T>& window, const uint32 flags)
+      : m_renderer{window, flags}
       , m_format{window.get_pixel_format()}
   {}
 
@@ -4038,33 +4415,143 @@ namespace rune {
 /// \addtogroup core
 /// \{
 
+///**
+// * \class game_base
+// *
+// * \brief The base class for all game class implementations.
+// *
+// * \details This class should be the base class for the core game class in your game.
+// The
+// * game loop will call the mandatory functions `handle_input()`, `tick()` and `render()`
+// * during each frame, in that order.
+// *
+// * \details Your derived game classes must either be default-constructible or provide a
+// * constructor that accepts `graphics_type&`. The `init()` function is called upon
+// * initialization regardless.
+// *
+// * \tparam Graphics the type of the graphics context.
+// *
+// * \see `engine`
+// * \see `graphics`
+// */
+// template <std::derived_from<graphics> Graphics = graphics>
+// class game_base
+//{
+// public:
+//  using graphics_type = Graphics;
+//
+//  virtual ~game_base() noexcept = default;
+//
+//  /**
+//   * \brief Called when the game is initialized.
+//   *
+//   * \details This function is mainly intended to be overridden by game classes that do
+//   * not provide a constructor that accepts `graphics_type&`. However, this function is
+//   * still called even if the game class provides such a constructor.
+//   *
+//   * \param graphics the graphics context that will be used.
+//   */
+//  virtual void init(graphics_type& graphics)
+//  {}
+//
+//  /**
+//   * \brief Handles player mouse and keyboard input.
+//   *
+//   * \note This function is called before `tick()`.
+//   *
+//   * \param input the current mouse and keyboard state.
+//   */
+//  virtual void handle_input(const input& input) = 0;
+//
+//  /**
+//   * \brief Updates the state of the game by one "tick".
+//   *
+//   * \param dt the current delta time.
+//   */
+//  virtual void tick(delta_time dt) = 0;
+//
+//  /**
+//   * \brief Renders the game.
+//   *
+//   * \param graphics the graphics context that will be used.
+//   */
+//  virtual void render(graphics_type& graphics) const = 0;
+//
+//  /**
+//   * \brief Indicates whether or not the game should quit.
+//   *
+//   * \return `true` if the game should quit; `false` otherwise.
+//   */
+//  [[nodiscard]] virtual auto should_quit() const -> bool = 0;
+//
+//  /**
+//   * \brief Called just before the first iteration of the game loop.
+//   *
+//   * \details This function can be useful to perform some additional setup just before
+//   the
+//   * game starts running.
+//   */
+//  virtual void on_start()
+//  {}
+//
+//  /**
+//   * \brief Called when the game is about to terminate, just after the last iteration of
+//   * the game loop.
+//   *
+//   * \details This function can be useful performing miscellaneous cleanup when the game
+//   * is about to shut down.
+//   *
+//   * \note The game window is still visible when this function is called.
+//   */
+//  virtual void on_exit()
+//  {}
+//};
+
 // clang-format off
 
-template <typename T, typename Graphics = graphics>
-concept game_type = requires (T game, const input& input, Graphics& graphics, delta_time dt)
+/**
+ * \brief Ensures that a type satisfies the requirements of a game class.
+ *
+ * \details `handle_input()` is where the game should respond to user input. Note, `
+ * handle_input()` is called before `tick()`.
+ *
+ * \details `tick()` should update the state of the game by one "tick".
+ *
+ * \details `render()` should render the current game state.
+ *
+ * \details `should_quit()` should indicate if the game should shut down.
+ *
+ * \note There are a few optional "event" functions that you can define. These are
+ * `void init(graphics_type&)`, `void on_start()` and `void on_exit()`.
+ *
+ * \tparam Game the game type.
+ * \tparam Graphics the graphics context type.
+ */
+template <typename Game, typename Graphics>
+concept is_game_type = requires (Game game, Graphics& gfx, const input& input, delta_time dt)
 {
   { game.handle_input(input) };
   { game.tick(dt) };
-  { game.render(graphics) };
+  { game.render(gfx) };
   { game.should_quit() } -> std::convertible_to<bool>;
 };
 
-template <typename T>
-concept has_on_start = requires (T game)
+template <typename Game, typename Graphics>
+concept has_init = requires (Game game, Graphics& gfx)
+{
+  { game.init(gfx) };
+};
+
+template <typename Game>
+concept has_on_start = requires (Game game)
 {
   { game.on_start() };
 };
 
-template <typename T>
-concept has_on_exit = requires (T game)
+template <typename Game>
+concept has_on_exit = requires (Game game)
 {
   { game.on_exit() };
-};
-
-template <typename T, typename Graphics>
-concept has_init = requires (T game, Graphics& graphics)
-{
-  { game.init(graphics) };
 };
 
 // clang-format on
@@ -4158,6 +4645,8 @@ template <has_less_than T>
 }  // namespace rune
 
 #endif  // RUNE_MATH_MIN_HPP
+
+// #include "game.hpp"
 
 // #include "rune_error.hpp"
 #ifndef RUNE_CORE_RUNE_ERROR_HPP
@@ -4274,7 +4763,8 @@ inline constexpr int engine_max_frames_per_tick = RUNE_ENGINE_MAX_FRAMES_PER_TIC
 }
 
 // clang-format off
-template <typename Game, std::derived_from<graphics> Graphics> requires game_type<Game, Graphics>
+template <typename Game, std::derived_from<graphics> Graphics>
+    requires is_game_type<Game, Graphics>
 class engine;
 // clang-format on
 
@@ -4294,7 +4784,6 @@ class engine;
  * \see `tick_rate()`
  */
 template <typename Game, std::derived_from<graphics> Graphics>
-    requires game_type<Game, Graphics>
 class semi_fixed_game_loop
 {
  public:
@@ -4373,45 +4862,239 @@ namespace rune {
 /// \addtogroup core
 /// \{
 
+/**
+ * \struct configuration
+ *
+ * \brief Provides configuration options for different engine aspects.
+ *
+ * \note Members are initialized to their default values, meaning that you do not have to
+ * assign each member if you create custom configurations.
+ *
+ * \see `engine`
+ */
+struct configuration final
+{
+  uint32 renderer_flags = cen::renderer::default_flags();
+  cen::iarea window_size = cen::window::default_size();
+};
+
 // clang-format off
 
-// clang-format on
-
+/**
+ * \class engine
+ *
+ * \brief Represents the core engine in the framework.
+ *
+ * \details One instance of this should be created in your `main` function, and then
+ * call `engine::run()` to launch your game. The game class must either be
+ * default-constructible, or provide at least one constructor that accepts
+ * `graphics_type&`.
+ * \code{cpp}
+ * #include <centurion.hpp>
+ * #include <rune.hpp>
+ *
+ * class AwesomeGame
+ * {
+ *  public:
+ *   explicit AwesomeGame(rune::graphics& graphics)
+ *   {
+ *     // ...
+ *   }
+ *
+ *   void handle_input(const rune::input& input)
+ *   {
+ *     // ...
+ *   }
+ *
+ *   void tick(rune::delta_time dt)
+ *   {
+ *     // ...
+ *   }
+ *
+ *   void render(rune::graphics& graphics) const
+ *   {
+ *     // ...
+ *   }
+ *
+ *   [[nodiscard]] bool should_quit() const
+ *   {
+ *     // ...
+ *   }
+ * };
+ *
+ * int main(int, char**)
+ * {
+ *   cen::library centurion;  // Remember to initialize Centurion!
+ *   rune::engine<AwesomeGame> engine;
+ *   return engine.run();
+ * }
+ * \endcode
+ *
+ * \tparam Game the type of the game class.
+ *
+ * \see `is_game_type`
+ * \see `graphics`
+ */
 template <typename Game, std::derived_from<graphics> Graphics = graphics>
-requires game_type<Game, Graphics> class engine
+    requires is_game_type<Game, Graphics>
+class engine
 {
+  // clang-format on
+
+  // To be able to access update_logic and update_input
+  friend class semi_fixed_game_loop<Game, Graphics>;
+
  public:
-  using game_type = Game;
-  using graphics_type = Graphics;
-  using loop_type = semi_fixed_game_loop<game_type, graphics_type>;
+  using game_type = Game;                                   ///< Game class type.
+  using graphics_type = Graphics;  ///< Graphics context type.
+  using loop_type = semi_fixed_game_loop<Game, graphics_type>;  ///< Game loop type.
 
   static_assert(std::constructible_from<game_type, graphics_type&> ||
                     std::default_initializable<game_type>,
                 "Game class must either be default constructible or provide a "
                 "constructor that accepts \"graphics_type&\"");
 
-  engine() : m_loop{this}, m_window{"Rune window"}, m_graphics{m_window}
+  /**
+   * \brief Creates an engine instance.
+   *
+   * \param cfg optional custom configuration of the engine.
+   */
+  explicit engine(const configuration& cfg = default_cfg())
+      : m_loop{this}
+      , m_window{"Rune window", cfg.window_size}
+      , m_graphics{m_window, cfg.renderer_flags}
   {
     if constexpr (std::constructible_from<game_type, graphics_type&>)
     {
       m_game.emplace(m_graphics);
-
-      if constexpr (has_init<game_type, graphics_type>)
-      {
-        CENTURION_LOG_WARN(
-            "rune::engine > game_type::init(graphics_type&) is not called when "
-            "game_type has a constructor that accepts \"graphics_type&\"");
-      }
     }
-    else if constexpr (std::default_initializable<game_type>)
+    else
     {
       m_game.emplace();
-      if constexpr (has_init<game_type, graphics_type>)
-      {
-        m_game->init(m_graphics);
-      }
+    }
+
+    if constexpr (has_init<game_type, graphics_type>)
+    {
+      m_game->init(m_graphics);
     }
   }
+
+  /**
+   * \brief Starts the game loop and runs the game.
+   *
+   * \return 0 on success.
+   */
+  auto run() -> int
+  {
+    assert(m_game);
+
+    m_window.show();
+    m_loop.fetch_current_time();
+
+    if constexpr (has_on_start<game_type>)
+    {
+      m_game->on_start();
+    }
+
+    auto& renderer = m_graphics.renderer();
+    while (m_loop.is_running())
+    {
+      m_loop.tick();
+      m_game->render(m_graphics);
+    }
+
+    if constexpr (has_on_exit<game_type>)
+    {
+      m_game->on_exit();
+    }
+    m_window.hide();
+
+    return 0;
+  }
+
+  /**
+   * \brief Returns the associated game window.
+   *
+   * \return the associated window.
+   */
+  [[nodiscard]] auto get_window() noexcept -> cen::window&
+  {
+    return m_window;
+  }
+
+  /// \copydoc get_window()
+  [[nodiscard]] auto get_window() const noexcept -> const cen::window&
+  {
+    return m_window;
+  }
+
+  /**
+   * \brief Returns the associated game instance.
+   *
+   * \return the game instance.
+   */
+  [[nodiscard]] auto get_game() -> game_type&
+  {
+    assert(m_game);
+    return *m_game;
+  }
+
+  /// \copydoc get_game()
+  [[nodiscard]] auto get_game() const -> const game_type&
+  {
+    assert(m_game);
+    return *m_game;
+  }
+
+  /**
+   * \brief Returns the associated graphics context.
+   *
+   * \return the graphics context.
+   */
+  [[nodiscard]] auto get_graphics() noexcept -> graphics_type&
+  {
+    return m_graphics;
+  }
+
+  /// \copydoc get_graphics()
+  [[nodiscard]] auto get_graphics() const noexcept -> const graphics_type&
+  {
+    return m_graphics;
+  }
+
+  /**
+   * \brief Returns the current input state.
+   *
+   * \return the input state.
+   */
+  [[nodiscard]] auto get_input() noexcept -> input&
+  {
+    return m_input;
+  }
+
+  /// \copydoc get_input()
+  [[nodiscard]] auto get_input() const noexcept -> const input&
+  {
+    return m_input;
+  }
+
+  /**
+   * \brief Returns the default configuration used by the engine, if no custom
+   * configuration is requested.
+   *
+   * \return the default engine configuration.
+   */
+  [[nodiscard]] constexpr static auto default_cfg() -> configuration
+  {
+    return configuration{};
+  }
+
+ private:
+  loop_type m_loop;                 ///< The game loop.
+  cen::window m_window;             ///< The associated window.
+  graphics_type m_graphics;         ///< The graphics context.
+  input m_input;                    ///< The input state wrapper.
+  std::optional<game_type> m_game;  ///< The game instance, optional delays construction.
 
   void update_logic(const delta_time dt)
   {
@@ -4429,88 +5112,6 @@ requires game_type<Game, Graphics> class engine
 
     return !m_game->should_quit() && !cen::event::in_queue(cen::event_type::quit);
   }
-
-  auto run() -> int
-  {
-    m_window.show();
-
-    m_loop.fetch_current_time();
-
-    if constexpr (has_on_start<Game>)
-    {
-      m_game->on_start();
-    }
-
-    auto& renderer = m_graphics.renderer();
-    while (m_loop.is_running())
-    {
-      m_loop.tick();
-
-      renderer.clear_with(cen::colors::black);
-      m_game->render(m_graphics);
-      renderer.present();
-    }
-
-    if constexpr (has_on_exit<Game>)
-    {
-      m_game->on_exit();
-    }
-
-    m_window.hide();
-
-    return 0;
-  }
-
-  [[nodiscard]] auto get_window() noexcept -> cen::window&
-  {
-    return m_window;
-  }
-
-  [[nodiscard]] auto get_window() const noexcept -> const cen::window&
-  {
-    return m_window;
-  }
-
-  [[nodiscard]] auto get_game() -> game_type&
-  {
-    assert(m_game);
-    return *m_game;
-  }
-
-  [[nodiscard]] auto get_game() const -> const game_type&
-  {
-    assert(m_game);
-    return *m_game;
-  }
-
-  [[nodiscard]] auto get_graphics() noexcept -> graphics_type&
-  {
-    return m_graphics;
-  }
-
-  [[nodiscard]] auto get_graphics() const noexcept -> const graphics_type&
-  {
-    return m_graphics;
-  }
-
-  [[nodiscard]] auto get_input() noexcept -> input&
-  {
-    return m_input;
-  }
-
-  [[nodiscard]] auto get_input() const noexcept -> const input&
-  {
-    return m_input;
-  }
-
- private:
-  loop_type m_loop;
-
-  cen::window m_window;
-  graphics_type m_graphics;
-  input m_input;
-
-  std::optional<game_type> m_game;  // Optional to delay initialization
 };
 
 /// \} End of group core
@@ -4570,33 +5171,143 @@ namespace rune {
 /// \addtogroup core
 /// \{
 
+///**
+// * \class game_base
+// *
+// * \brief The base class for all game class implementations.
+// *
+// * \details This class should be the base class for the core game class in your game.
+// The
+// * game loop will call the mandatory functions `handle_input()`, `tick()` and `render()`
+// * during each frame, in that order.
+// *
+// * \details Your derived game classes must either be default-constructible or provide a
+// * constructor that accepts `graphics_type&`. The `init()` function is called upon
+// * initialization regardless.
+// *
+// * \tparam Graphics the type of the graphics context.
+// *
+// * \see `engine`
+// * \see `graphics`
+// */
+// template <std::derived_from<graphics> Graphics = graphics>
+// class game_base
+//{
+// public:
+//  using graphics_type = Graphics;
+//
+//  virtual ~game_base() noexcept = default;
+//
+//  /**
+//   * \brief Called when the game is initialized.
+//   *
+//   * \details This function is mainly intended to be overridden by game classes that do
+//   * not provide a constructor that accepts `graphics_type&`. However, this function is
+//   * still called even if the game class provides such a constructor.
+//   *
+//   * \param graphics the graphics context that will be used.
+//   */
+//  virtual void init(graphics_type& graphics)
+//  {}
+//
+//  /**
+//   * \brief Handles player mouse and keyboard input.
+//   *
+//   * \note This function is called before `tick()`.
+//   *
+//   * \param input the current mouse and keyboard state.
+//   */
+//  virtual void handle_input(const input& input) = 0;
+//
+//  /**
+//   * \brief Updates the state of the game by one "tick".
+//   *
+//   * \param dt the current delta time.
+//   */
+//  virtual void tick(delta_time dt) = 0;
+//
+//  /**
+//   * \brief Renders the game.
+//   *
+//   * \param graphics the graphics context that will be used.
+//   */
+//  virtual void render(graphics_type& graphics) const = 0;
+//
+//  /**
+//   * \brief Indicates whether or not the game should quit.
+//   *
+//   * \return `true` if the game should quit; `false` otherwise.
+//   */
+//  [[nodiscard]] virtual auto should_quit() const -> bool = 0;
+//
+//  /**
+//   * \brief Called just before the first iteration of the game loop.
+//   *
+//   * \details This function can be useful to perform some additional setup just before
+//   the
+//   * game starts running.
+//   */
+//  virtual void on_start()
+//  {}
+//
+//  /**
+//   * \brief Called when the game is about to terminate, just after the last iteration of
+//   * the game loop.
+//   *
+//   * \details This function can be useful performing miscellaneous cleanup when the game
+//   * is about to shut down.
+//   *
+//   * \note The game window is still visible when this function is called.
+//   */
+//  virtual void on_exit()
+//  {}
+//};
+
 // clang-format off
 
-template <typename T, typename Graphics = graphics>
-concept game_type = requires (T game, const input& input, Graphics& graphics, delta_time dt)
+/**
+ * \brief Ensures that a type satisfies the requirements of a game class.
+ *
+ * \details `handle_input()` is where the game should respond to user input. Note, `
+ * handle_input()` is called before `tick()`.
+ *
+ * \details `tick()` should update the state of the game by one "tick".
+ *
+ * \details `render()` should render the current game state.
+ *
+ * \details `should_quit()` should indicate if the game should shut down.
+ *
+ * \note There are a few optional "event" functions that you can define. These are
+ * `void init(graphics_type&)`, `void on_start()` and `void on_exit()`.
+ *
+ * \tparam Game the game type.
+ * \tparam Graphics the graphics context type.
+ */
+template <typename Game, typename Graphics>
+concept is_game_type = requires (Game game, Graphics& gfx, const input& input, delta_time dt)
 {
   { game.handle_input(input) };
   { game.tick(dt) };
-  { game.render(graphics) };
+  { game.render(gfx) };
   { game.should_quit() } -> std::convertible_to<bool>;
 };
 
-template <typename T>
-concept has_on_start = requires (T game)
+template <typename Game, typename Graphics>
+concept has_init = requires (Game game, Graphics& gfx)
+{
+  { game.init(gfx) };
+};
+
+template <typename Game>
+concept has_on_start = requires (Game game)
 {
   { game.on_start() };
 };
 
-template <typename T>
-concept has_on_exit = requires (T game)
+template <typename Game>
+concept has_on_exit = requires (Game game)
 {
   { game.on_exit() };
-};
-
-template <typename T, typename Graphics>
-concept has_init = requires (T game, Graphics& graphics)
-{
-  { game.init(graphics) };
 };
 
 // clang-format on
@@ -4652,6 +5363,8 @@ class rune_error final : public std::exception
 // #include "../aliases/delta_time.hpp"
 
 // #include "../math/min.hpp"
+
+// #include "game.hpp"
 
 // #include "rune_error.hpp"
 
@@ -4721,7 +5434,8 @@ inline constexpr int engine_max_frames_per_tick = RUNE_ENGINE_MAX_FRAMES_PER_TIC
 }
 
 // clang-format off
-template <typename Game, std::derived_from<graphics> Graphics> requires game_type<Game, Graphics>
+template <typename Game, std::derived_from<graphics> Graphics>
+    requires is_game_type<Game, Graphics>
 class engine;
 // clang-format on
 
@@ -4741,7 +5455,6 @@ class engine;
  * \see `tick_rate()`
  */
 template <typename Game, std::derived_from<graphics> Graphics>
-    requires game_type<Game, Graphics>
 class semi_fixed_game_loop
 {
  public:
@@ -4978,8 +5691,1275 @@ template <numeric T, std::size_t BufferSize = 24>
 
 /// \defgroup containers Containers
 /// \brief Contains performant generic data structures and utilities.
+/// \note The AABB framework was based on the <a
+/// href="https://github.com/lohedges/aabbcc">AABBCC</a> library, written by Lester
+/// Hedges, which uses the Zlib license.
 
 // #include "rune/io/ini.hpp"
+#ifndef RUNE_IO_INI_HPP
+#define RUNE_IO_INI_HPP
+
+#include <algorithm>    // find_if
+#include <cassert>      // assert
+#include <cstddef>      // size_t
+#include <filesystem>   // path
+#include <fstream>      // ifstream
+#include <functional>   // less
+#include <istream>      // istream
+#include <locale>       // locale, isspace
+#include <map>          // map
+#include <optional>     // optional
+#include <ostream>      // ostream
+#include <string>       // basic_string, getline
+#include <string_view>  // basic_string_view
+#include <utility>      // move
+#include <vector>       // vector
+
+// #include "../aliases/integers.hpp"
+#ifndef RUNE_ALIASES_INTEGERS_HPP
+#define RUNE_ALIASES_INTEGERS_HPP
+
+#include <centurion.hpp>  // ...
+
+namespace rune {
+
+/// \addtogroup core
+/// \{
+
+using longlong = long long;
+
+using ushort = unsigned short;
+
+/// Unsigned integer.
+using uint = unsigned;
+
+/// Unsigned long integer.
+using ulong = unsigned long;
+
+/// Used as the argument type to integral literal operators.
+using ulonglong = unsigned long long;
+
+/// 8-bit signed integer.
+using int8 = cen::i8;
+
+/// 16-bit signed integer.
+using int16 = cen::i16;
+
+/// 32-bit signed integer.
+using int32 = cen::i32;
+
+/// 64-bit signed integer.
+using int64 = cen::i64;
+
+/// 8-bit unsigned integer.
+using uint8 = cen::u8;
+
+/// 16-bit unsigned integer.
+using uint16 = cen::u16;
+
+/// 32-bit unsigned integer.
+using uint32 = cen::u32;
+
+/// 64-bit unsigned integer.
+using uint64 = cen::u64;
+
+/// \} End of group core
+
+}  // namespace rune
+
+#endif  // RUNE_ALIASES_INTEGERS_HPP
+
+// #include "../core/rune_error.hpp"
+#ifndef RUNE_CORE_RUNE_ERROR_HPP
+#define RUNE_CORE_RUNE_ERROR_HPP
+
+#include <exception>  // exception
+
+// #include "../aliases/czstring.hpp"
+
+
+namespace rune {
+
+/**
+ * \typedef czstring
+ *
+ * \brief An alias for a C-style null-terminated string.
+ *
+ * \ingroup core
+ */
+using czstring = const char*;
+
+}  // namespace rune
+
+
+namespace rune {
+
+/// \addtogroup core
+/// \{
+
+class rune_error final : public std::exception
+{
+ public:
+  explicit rune_error(const czstring what) noexcept : m_what{what}
+  {}
+
+  [[nodiscard]] auto what() const noexcept -> czstring override
+  {
+    return m_what;
+  }
+
+ private:
+  czstring m_what{"n/a"};
+};
+
+/// \} End of group core
+
+}  // namespace rune
+
+#endif  // RUNE_CORE_RUNE_ERROR_HPP
+
+// #include "ini_section.hpp"
+#ifndef RUNE_IO_INI_SECTION_HPP
+#define RUNE_IO_INI_SECTION_HPP
+
+#include <cstddef>      // size_t
+#include <functional>   // less
+#include <map>          // map
+#include <ostream>      // ostream
+#include <string>       // basic_string
+#include <string_view>  // basic_string_view
+
+// #include "../core/rune_error.hpp"
+
+// #include "ini_value.hpp"
+#ifndef RUNE_IO_INI_VALUE_HPP
+#define RUNE_IO_INI_VALUE_HPP
+
+#include <concepts>     // convertible_to, integral, floating_point, same_as
+#include <nenya.hpp>    // strong_type
+#include <ostream>      // ostream
+#include <string>       // basic_string, to_string
+#include <string_view>  // basic_string_view
+#include <utility>      // move
+#include <variant>      // variant, get, get_if, holds_alternative
+
+// #include "../aliases/czstring.hpp"
+
+
+namespace rune {
+
+/**
+ * \typedef czstring
+ *
+ * \brief An alias for a C-style null-terminated string.
+ *
+ * \ingroup core
+ */
+using czstring = const char*;
+
+}  // namespace rune
+
+// #include "../aliases/integers.hpp"
+
+
+namespace rune {
+
+/// \addtogroup io
+/// \{
+
+/// \name Ini
+/// \{
+
+// clang-format off
+
+template <typename T, typename Char>
+concept is_ini_value = std::integral<T> ||
+                       std::floating_point<T> ||
+                       std::constructible_from<std::basic_string<Char>, T>;
+
+// clang-format on
+
+template <typename Char>
+class basic_ini_value final
+{
+ public:
+  using char_type = Char;
+  using string_type = std::basic_string<char_type>;
+  using string_view_type = std::basic_string_view<char_type>;
+  using value_type = std::variant<string_type, bool, int64, uint64, double>;
+
+  basic_ini_value() = default;
+
+  basic_ini_value(const basic_ini_value&) = default;
+  basic_ini_value(basic_ini_value&&) noexcept = default;
+
+  basic_ini_value& operator=(const basic_ini_value&) = default;
+  basic_ini_value& operator=(basic_ini_value&&) noexcept = default;
+
+  template <typename T>
+  /*implicit*/ basic_ini_value(T value) requires is_ini_value<T, char_type>  // NOLINT
+  {
+    assign(std::move(value));
+  }
+
+  template <typename T>
+  basic_ini_value& operator=(T value) requires is_ini_value<T, char_type>
+  {
+    assign(std::move(value));
+    return *this;
+  }
+
+  // clang-format off
+
+  template <typename T> requires is_ini_value<T, char_type>
+  [[nodiscard]] auto get() const -> const T&
+  {
+    static_assert(std::convertible_to<T, string_type> ||
+                  std::signed_integral<T> ||
+                  std::unsigned_integral<T> ||
+                  std::floating_point<T> ||
+                  std::same_as<T, bool>,
+                  "Invalid template type parameter to basic_ini_value::get!");
+    // clang-format on
+
+    if constexpr (std::convertible_to<T, string_type>)
+    {
+      return std::get<string_type>(m_value);
+    }
+    else if constexpr (std::signed_integral<T>)
+    {
+      return std::get<int64>(m_value);
+    }
+    else if constexpr (std::unsigned_integral<T>)
+    {
+      return std::get<uint64>(m_value);
+    }
+    else if constexpr (std::floating_point<T>)
+    {
+      return std::get<double>(m_value);
+    }
+    else /*if constexpr (std::same_as<T, bool>)*/
+    {
+      return std::get<bool>(m_value);
+    }
+  }
+
+  void get_to(string_type& value) const
+  {
+    value = std::get<string_type>(m_value);
+  }
+
+  void get_to(bool& value) const
+  {
+    value = std::get<bool>(m_value);
+  }
+
+  void get_to(int8& value) const
+  {
+    value = static_cast<int8>(std::get<int64>(m_value));
+  }
+
+  void get_to(int16& value) const
+  {
+    value = static_cast<int16>(std::get<int64>(m_value));
+  }
+
+  void get_to(int32& value) const
+  {
+    value = static_cast<int32>(std::get<int64>(m_value));
+  }
+
+  void get_to(int64& value) const
+  {
+    value = std::get<int64>(m_value);
+  }
+
+  void get_to(uint8& value) const
+  {
+    value = static_cast<uint8>(std::get<uint64>(m_value));
+  }
+
+  void get_to(uint16& value) const
+  {
+    value = static_cast<uint16>(std::get<uint64>(m_value));
+  }
+
+  void get_to(uint32& value) const
+  {
+    value = static_cast<uint32>(std::get<uint64>(m_value));
+  }
+
+  void get_to(uint64& value) const
+  {
+    value = std::get<uint64>(m_value);
+  }
+
+  void get_to(float& value) const
+  {
+    value = static_cast<float>(std::get<double>(m_value));
+  }
+
+  void get_to(double& value) const
+  {
+    value = std::get<double>(m_value);
+  }
+
+  // clang-format off
+
+  template <typename T, typename Tag, nenya::conversion Conv> requires is_ini_value<T, char_type>
+  void get_to(nenya::strong_type<T, Tag, Conv>& value) const
+  {
+    using strong_type = nenya::strong_type<T, Tag, Conv>;
+
+    if constexpr (std::same_as<T, bool>)
+    {
+      value = strong_type{static_cast<T>(std::get<bool>(m_value))};
+    }
+    else if constexpr (std::signed_integral<T>)
+    {
+      value = strong_type{static_cast<T>(std::get<int64>(m_value))};
+    }
+    else if constexpr (std::unsigned_integral<T>)
+    {
+      value = strong_type{static_cast<T>(std::get<uint64>(m_value))};
+    }
+    else if constexpr (std::floating_point<T>)
+    {
+      value = strong_type{static_cast<T>(std::get<double>(m_value))};
+    }
+    else /*if constexpr (std::convertible_to<T, string_type>)*/
+    {
+      value = strong_type{static_cast<T>(std::get<string_type>(m_value))};
+    }
+  }
+
+  // clang-format on
+
+  [[nodiscard]] auto get() const -> const value_type&
+  {
+    return m_value;
+  }
+
+  [[nodiscard]] auto try_get_string() const noexcept -> const string_type*
+  {
+    return std::get_if<string_type>(&m_value);
+  }
+
+  [[nodiscard]] auto try_get_int() const noexcept -> const int64*
+  {
+    return std::get_if<int64>(&m_value);
+  }
+
+  [[nodiscard]] auto try_get_uint() const noexcept -> const uint64*
+  {
+    return std::get_if<uint64>(&m_value);
+  }
+
+  [[nodiscard]] auto try_get_float() const noexcept -> const double*
+  {
+    return std::get_if<double>(&m_value);
+  }
+
+  [[nodiscard]] auto try_get_bool() const noexcept -> const bool*
+  {
+    return std::get_if<bool>(&m_value);
+  }
+
+  [[nodiscard]] auto is_string() const noexcept -> bool
+  {
+    return std::holds_alternative<string_type>(m_value);
+  }
+
+  [[nodiscard]] auto is_int() const noexcept -> bool
+  {
+    return std::holds_alternative<int64>(m_value);
+  }
+
+  [[nodiscard]] auto is_uint() const noexcept -> bool
+  {
+    return std::holds_alternative<uint64>(m_value);
+  }
+
+  [[nodiscard]] auto is_float() const noexcept -> bool
+  {
+    return std::holds_alternative<double>(m_value);
+  }
+
+  [[nodiscard]] auto is_bool() const noexcept -> bool
+  {
+    return std::holds_alternative<bool>(m_value);
+  }
+
+  [[nodiscard]] bool operator==(const basic_ini_value&) const = default;
+
+ private:
+  value_type m_value;
+
+  template <typename T>
+  void assign(T value) requires is_ini_value<T, char_type>
+  {
+    if constexpr (std::same_as<T, bool>)
+    {
+      m_value.template emplace<bool>(std::move(value));
+    }
+    else if constexpr (std::signed_integral<T>)
+    {
+      m_value.template emplace<int64>(std::move(value));
+    }
+    else if constexpr (std::unsigned_integral<T>)
+    {
+      m_value.template emplace<uint64>(std::move(value));
+    }
+    else if constexpr (std::floating_point<T>)
+    {
+      m_value.template emplace<double>(std::move(value));
+    }
+    else /*if constexpr (std::convertible_to<T, string_type>)*/
+    {
+      m_value.template emplace<string_type>(std::move(value));
+    }
+  }
+};
+
+using ini_value = basic_ini_value<char>;
+
+template <typename Char>
+auto operator<<(std::ostream& stream, const basic_ini_value<Char>& value) -> std::ostream&
+{
+  if (const auto* str = value.try_get_string())
+  {
+    stream << *str;
+  }
+  else if (const auto* i = value.try_get_int())
+  {
+    stream << std::to_string(*i);
+  }
+  else if (const auto* u = value.try_get_uint())
+  {
+    stream << std::to_string(*u);
+  }
+  else if (const auto* f = value.try_get_float())
+  {
+    stream << std::to_string(*f);
+  }
+  else if (const auto* b = value.try_get_bool())
+  {
+    stream << ((*b) ? "true" : "false");
+  }
+
+  return stream;
+}
+
+/// \} End of ini
+
+/// \} End of group io
+
+}  // namespace rune
+
+#endif  // RUNE_IO_INI_VALUE_HPP
+
+
+namespace rune {
+
+/// \addtogroup io
+/// \{
+
+/// \name Ini
+/// \{
+
+template <typename Char>
+struct ini_format final
+{
+  using value_type = Char;
+
+  value_type section_start = '[';
+  value_type section_end = ']';
+  value_type assign = '=';
+  value_type comment = ';';
+};
+
+template <typename Char>
+class basic_ini_section final
+{
+ public:
+  using char_type = Char;
+  using value_type = basic_ini_value<char_type>;
+  using string_type = std::basic_string<char_type>;
+  using string_view_type = std::basic_string_view<char_type>;
+  using format_type = ini_format<char_type>;
+  using size_type = std::size_t;
+
+  void dump(std::ostream& stream, const format_type& format) const
+  {
+    for (const auto& [key, value] : m_entries)
+    {
+      stream << key << format.assign << value << '\n';
+    }
+
+    stream << '\n';
+  }
+
+  template <typename T>
+  auto operator[](const T& element) -> value_type&
+  {
+    // TODO get_or_emplace with string_view_type parameter
+    return m_entries[element];
+  }
+
+  // TODO erase
+
+  [[nodiscard]] auto at(const string_view_type element) -> value_type&
+  {
+    if (const auto it = m_entries.find(element); it != m_entries.end())
+    {
+      return it->second;
+    }
+    else
+    {
+      throw rune_error{"basic_ini_section::at(): element does not exist!"};
+    }
+  }
+
+  [[nodiscard]] auto at(const string_view_type element) const -> const value_type&
+  {
+    if (const auto it = m_entries.find(element); it != m_entries.end())
+    {
+      return it->second;
+    }
+    else
+    {
+      throw rune_error{"basic_ini_section::at(): element does not exist!"};
+    }
+  }
+
+  [[nodiscard]] auto contains(const string_view_type element) const -> bool
+  {
+    return m_entries.find(element) != m_entries.end();
+  }
+
+  [[nodiscard]] auto size() const noexcept -> size_type
+  {
+    return m_entries.size();
+  }
+
+  [[nodiscard]] auto empty() const noexcept -> bool
+  {
+    return m_entries.empty();
+  }
+
+ private:
+  std::map<string_type, value_type, std::less<>> m_entries;
+};
+
+/// \} End of ini
+
+/// \} End of group IO
+
+}  // namespace rune
+
+#endif  // RUNE_IO_INI_SECTION_HPP
+
+// #include "ini_value.hpp"
+
+
+namespace rune {
+
+/// \addtogroup io
+/// \{
+
+/// \name Ini
+/// \{
+
+template <typename Char>
+class basic_ini final
+{
+ public:
+  using char_type = Char;
+  using string_type = std::basic_string<char_type>;
+  using string_view_type = std::basic_string_view<char_type>;
+  using section_type = basic_ini_section<char_type>;
+  using format_type = ini_format<char_type>;
+  using size_type = std::size_t;
+  using iterator = typename std::map<string_type, section_type>::iterator;
+  using const_iterator = typename std::map<string_type, section_type>::const_iterator;
+
+  /**
+   * \brief Creates an empty Ini file.
+   *
+   * \param format optional custom format.
+   */
+  explicit basic_ini(const format_type format = format_type{}) : m_format{format}
+  {}
+
+  /**
+   * \brief Parses an `.ini` file based on an input stream.
+   *
+   * \param stream the input stream that will be read.
+   */
+  void read(std::istream& stream)
+  {
+    string_type line;
+    string_type section;
+
+    line.reserve(32);
+    section.reserve(32);
+
+    while (std::getline(stream, line))
+    {
+      trim_left(line);
+      trim_right(line);
+      parse_line(line, section);
+    }
+  }
+
+  /**
+   * \brief Writes the contents of the instance to a stream.
+   *
+   * \param stream the output stream that will be used.
+   */
+  void write(std::ostream& stream) const
+  {
+    for (const auto& [name, values] : m_sections)
+    {
+      stream << m_format.section_start << name << m_format.section_end << '\n';
+      values.dump(stream, m_format);
+    }
+  }
+
+  /**
+   * \brief Adds or replaces a section.
+   *
+   * \param section the name of the section that will be added or replaced.
+   *
+   * \return the new section.
+   */
+  auto emplace_or_replace(string_type section) -> section_type&
+  {
+    const auto [it, inserted] =
+        m_sections.insert_or_assign(std::move(section), section_type{});
+    return it->second;
+  }
+
+  /**
+   * \brief Returns the section with the specified name if there is one, adding a new
+   * section if it doesn't exist.
+   *
+   * \param section the name of the desired section.
+   *
+   * \return the existing section associated with the specified name or a new section if
+   * no such section existed.
+   */
+  auto get_or_emplace(const string_view_type section) -> section_type&
+  {
+    if (const auto it = m_sections.find(section); it != m_sections.end())
+    {
+      return it->second;
+    }
+    else
+    {
+      auto [iterator, inserted] = m_sections.try_emplace(string_type{section});
+      assert(inserted);
+
+      return iterator->second;
+    }
+  }
+
+  /// \copydoc get_or_emplace()
+  auto operator[](const string_view_type section) -> section_type&
+  {
+    return get_or_emplace(section);
+  }
+
+  void erase(const string_view_type section)
+  {
+    if (const auto it = m_sections.find(section); it != m_sections.end())
+    {
+      m_sections.erase(it);
+    }
+  }
+
+  /**
+   * \brief Returns the existing section associated with the specified name.
+   *
+   * \param section the name of the desired section.
+   *
+   * \return the section with the specified name.
+   *
+   * \throws rune_error if there is no section with the specified name.
+   */
+  [[nodiscard]] auto at(const string_view_type section) -> section_type&
+  {
+    if (const auto it = m_sections.find(section); it != m_sections.end())
+    {
+      return it->second;
+    }
+    else
+    {
+      throw rune_error{"basic_ini::at(): section does not exist!"};
+    }
+  }
+
+  /// \copydoc at()
+  [[nodiscard]] auto at(const string_view_type section) const -> const section_type&
+  {
+    if (const auto it = m_sections.find(section); it != m_sections.end())
+    {
+      return it->second;
+    }
+    else
+    {
+      throw rune_error{"basic_ini::at(): section does not exist!"};
+    }
+  }
+
+  /**
+   * \brief Indicates whether or not the specified section exists.
+   *
+   * \param section the name of the section to look for.
+   *
+   * \return `true` if the specified section exists; `false` otherwise.
+   */
+  [[nodiscard]] auto contains(const string_view_type section) const -> bool
+  {
+    return m_sections.find(section) != m_sections.end();
+  }
+
+  /**
+   * \brief Returns the number of sections stored in the `.ini` file.
+   *
+   * \return the number of sections.
+   */
+  [[nodiscard]] auto size() const noexcept -> size_type
+  {
+    return m_sections.size();
+  }
+
+  /**
+   * \brief Indicates whether or not there are no sections.
+   *
+   * \return `true` if there are no sections; `false` otherwise.
+   */
+  [[nodiscard]] auto empty() const noexcept -> bool
+  {
+    return m_sections.empty();
+  }
+
+  /**
+   * \brief Indicates whether or not the parsed contents were valid.
+   *
+   * \return `true` if there are no parse errors associated with the instance; `false`
+   * otherwise.
+   */
+  [[nodiscard]] explicit operator bool() const noexcept
+  {
+    return m_errors.empty();
+  }
+
+  [[nodiscard]] auto errors() const -> const std::vector<string_type>&
+  {
+    return m_errors;
+  }
+
+  [[nodiscard]] auto begin() noexcept -> iterator
+  {
+    return m_sections.begin();
+  }
+
+  [[nodiscard]] auto begin() const noexcept -> const_iterator
+  {
+    return m_sections.begin();
+  }
+
+  [[nodiscard]] auto end() noexcept -> iterator
+  {
+    return m_sections.end();
+  }
+
+  [[nodiscard]] auto end() const noexcept -> const_iterator
+  {
+    return m_sections.end();
+  }
+
+ private:
+  std::map<string_type, section_type, std::less<>> m_sections;
+  std::vector<string_type> m_errors;
+  format_type m_format;
+
+  template <typename T>
+  [[nodiscard]] static auto find_first_non_space(const T begin, const T end)
+  {
+    return std::find_if(begin, end, [](const char_type ch) {
+      return !std::isspace(ch, std::locale::classic());
+    });
+  }
+
+  // Remove leading whitespace
+  void trim_left(string_type& line)
+  {
+    line.erase(line.begin(), find_first_non_space(line.begin(), line.end()));
+  }
+
+  // Remove any trailing whitespace
+  void trim_right(string_type& line)
+  {
+    const auto it = find_first_non_space(line.rbegin(), line.rend());
+    line.erase(it.base(), line.end());
+  }
+
+  auto parse_variable(const string_type& line, const string_type& sectionName) -> bool
+  {
+    const auto assignment = std::ranges::find_if(line, [this](const char_type character) {
+      return character == m_format.assign;
+    });
+
+    string_type variable{line.begin(), assignment};
+    string_type value{assignment + 1, line.end()};
+
+    trim_right(variable);
+    trim_left(variable);
+
+    auto& section = m_sections[sectionName];
+    if (!section.contains(variable))
+    {
+      section[std::move(variable)] = std::move(value);
+      return true;
+    }
+    else
+    {
+      m_errors.push_back(line);
+      return false;
+    }
+  }
+
+  [[nodiscard]] auto parse_section_name(const string_type& line)
+      -> std::optional<string_type>
+  {
+    if (line.back() == m_format.section_end)
+    {
+      return line.substr(1, line.length() - 2);
+    }
+    else
+    {
+      m_errors.push_back(line);
+      return std::nullopt;
+    }
+  }
+
+  void parse_line(const string_type& line, string_type& section)
+  {
+    if (line.empty())
+    {
+      return;
+    }
+
+    const auto& character = line.front();
+
+    if (character == m_format.comment)
+    {
+      return;
+    }
+
+    if (character == m_format.section_start)
+    {
+      if (const auto name = parse_section_name(line))
+      {
+        section = *name;
+      }
+    }
+    else if (parse_variable(line, section))
+    {}
+    else
+    {
+      m_errors.push_back(line);
+    }
+  }
+};
+
+/// Alias for the most likely `basic_ini` type.
+using ini_file = basic_ini<char>;
+
+/**
+ * \brief Writes a `basic_ini` instance to an output stream.
+ *
+ * \tparam Character the character type used.
+ *
+ * \param stream the output stream that will be used.
+ * \param ini the `basic_ini` instance that will be written to the stream.
+ *
+ * \return the used stream.
+ *
+ * \see `basic_ini::write()`
+ */
+template <typename Character>
+auto operator<<(std::ostream& stream, const basic_ini<Character>& ini) -> std::ostream&
+{
+  ini.write(stream);
+  return stream;
+}
+
+/**
+ * \brief Parses an `.ini` file from an input stream.
+ *
+ * \tparam Character the character type used.
+ *
+ * \param stream the input stream.
+ * \param[out] ini the `basic_ini` instance that will be written to.
+ *
+ * \return the read input stream.
+ *
+ * \see `basic_ini::read()`
+ * \see `read_ini()`
+ */
+template <typename Character>
+auto operator>>(std::istream& stream, basic_ini<Character>& ini) -> std::istream&
+{
+  ini.read(stream);
+  return stream;
+}
+
+/**
+ * \brief Parses an `.ini` file and returns its contents.
+ *
+ * \pre `path` must refer to an `.ini` file.
+ *
+ * \tparam Character the character type used.
+ *
+ * \param path the file path of the `.ini` file.
+ *
+ * \return the parsed contents of the `.ini` file.
+ */
+template <typename Character = char>
+[[nodiscard]] auto read_ini(const std::filesystem::path& path) -> basic_ini<Character>
+{
+  assert(path.extension() == ".ini");
+  std::ifstream stream{path};
+
+  ini_file file;
+  stream >> file;
+
+  return file;
+}
+
+/// \} End of ini
+
+/// \} End of group io
+
+}  // namespace rune
+
+#endif  // RUNE_IO_INI_HPP
+
+// #include "rune/io/ini_value.hpp"
+#ifndef RUNE_IO_INI_VALUE_HPP
+#define RUNE_IO_INI_VALUE_HPP
+
+#include <concepts>     // convertible_to, integral, floating_point, same_as
+#include <nenya.hpp>    // strong_type
+#include <ostream>      // ostream
+#include <string>       // basic_string, to_string
+#include <string_view>  // basic_string_view
+#include <utility>      // move
+#include <variant>      // variant, get, get_if, holds_alternative
+
+// #include "../aliases/czstring.hpp"
+
+// #include "../aliases/integers.hpp"
+
+
+namespace rune {
+
+/// \addtogroup io
+/// \{
+
+/// \name Ini
+/// \{
+
+// clang-format off
+
+template <typename T, typename Char>
+concept is_ini_value = std::integral<T> ||
+                       std::floating_point<T> ||
+                       std::constructible_from<std::basic_string<Char>, T>;
+
+// clang-format on
+
+template <typename Char>
+class basic_ini_value final
+{
+ public:
+  using char_type = Char;
+  using string_type = std::basic_string<char_type>;
+  using string_view_type = std::basic_string_view<char_type>;
+  using value_type = std::variant<string_type, bool, int64, uint64, double>;
+
+  basic_ini_value() = default;
+
+  basic_ini_value(const basic_ini_value&) = default;
+  basic_ini_value(basic_ini_value&&) noexcept = default;
+
+  basic_ini_value& operator=(const basic_ini_value&) = default;
+  basic_ini_value& operator=(basic_ini_value&&) noexcept = default;
+
+  template <typename T>
+  /*implicit*/ basic_ini_value(T value) requires is_ini_value<T, char_type>  // NOLINT
+  {
+    assign(std::move(value));
+  }
+
+  template <typename T>
+  basic_ini_value& operator=(T value) requires is_ini_value<T, char_type>
+  {
+    assign(std::move(value));
+    return *this;
+  }
+
+  // clang-format off
+
+  template <typename T> requires is_ini_value<T, char_type>
+  [[nodiscard]] auto get() const -> const T&
+  {
+    static_assert(std::convertible_to<T, string_type> ||
+                  std::signed_integral<T> ||
+                  std::unsigned_integral<T> ||
+                  std::floating_point<T> ||
+                  std::same_as<T, bool>,
+                  "Invalid template type parameter to basic_ini_value::get!");
+    // clang-format on
+
+    if constexpr (std::convertible_to<T, string_type>)
+    {
+      return std::get<string_type>(m_value);
+    }
+    else if constexpr (std::signed_integral<T>)
+    {
+      return std::get<int64>(m_value);
+    }
+    else if constexpr (std::unsigned_integral<T>)
+    {
+      return std::get<uint64>(m_value);
+    }
+    else if constexpr (std::floating_point<T>)
+    {
+      return std::get<double>(m_value);
+    }
+    else /*if constexpr (std::same_as<T, bool>)*/
+    {
+      return std::get<bool>(m_value);
+    }
+  }
+
+  void get_to(string_type& value) const
+  {
+    value = std::get<string_type>(m_value);
+  }
+
+  void get_to(bool& value) const
+  {
+    value = std::get<bool>(m_value);
+  }
+
+  void get_to(int8& value) const
+  {
+    value = static_cast<int8>(std::get<int64>(m_value));
+  }
+
+  void get_to(int16& value) const
+  {
+    value = static_cast<int16>(std::get<int64>(m_value));
+  }
+
+  void get_to(int32& value) const
+  {
+    value = static_cast<int32>(std::get<int64>(m_value));
+  }
+
+  void get_to(int64& value) const
+  {
+    value = std::get<int64>(m_value);
+  }
+
+  void get_to(uint8& value) const
+  {
+    value = static_cast<uint8>(std::get<uint64>(m_value));
+  }
+
+  void get_to(uint16& value) const
+  {
+    value = static_cast<uint16>(std::get<uint64>(m_value));
+  }
+
+  void get_to(uint32& value) const
+  {
+    value = static_cast<uint32>(std::get<uint64>(m_value));
+  }
+
+  void get_to(uint64& value) const
+  {
+    value = std::get<uint64>(m_value);
+  }
+
+  void get_to(float& value) const
+  {
+    value = static_cast<float>(std::get<double>(m_value));
+  }
+
+  void get_to(double& value) const
+  {
+    value = std::get<double>(m_value);
+  }
+
+  // clang-format off
+
+  template <typename T, typename Tag, nenya::conversion Conv> requires is_ini_value<T, char_type>
+  void get_to(nenya::strong_type<T, Tag, Conv>& value) const
+  {
+    using strong_type = nenya::strong_type<T, Tag, Conv>;
+
+    if constexpr (std::same_as<T, bool>)
+    {
+      value = strong_type{static_cast<T>(std::get<bool>(m_value))};
+    }
+    else if constexpr (std::signed_integral<T>)
+    {
+      value = strong_type{static_cast<T>(std::get<int64>(m_value))};
+    }
+    else if constexpr (std::unsigned_integral<T>)
+    {
+      value = strong_type{static_cast<T>(std::get<uint64>(m_value))};
+    }
+    else if constexpr (std::floating_point<T>)
+    {
+      value = strong_type{static_cast<T>(std::get<double>(m_value))};
+    }
+    else /*if constexpr (std::convertible_to<T, string_type>)*/
+    {
+      value = strong_type{static_cast<T>(std::get<string_type>(m_value))};
+    }
+  }
+
+  // clang-format on
+
+  [[nodiscard]] auto get() const -> const value_type&
+  {
+    return m_value;
+  }
+
+  [[nodiscard]] auto try_get_string() const noexcept -> const string_type*
+  {
+    return std::get_if<string_type>(&m_value);
+  }
+
+  [[nodiscard]] auto try_get_int() const noexcept -> const int64*
+  {
+    return std::get_if<int64>(&m_value);
+  }
+
+  [[nodiscard]] auto try_get_uint() const noexcept -> const uint64*
+  {
+    return std::get_if<uint64>(&m_value);
+  }
+
+  [[nodiscard]] auto try_get_float() const noexcept -> const double*
+  {
+    return std::get_if<double>(&m_value);
+  }
+
+  [[nodiscard]] auto try_get_bool() const noexcept -> const bool*
+  {
+    return std::get_if<bool>(&m_value);
+  }
+
+  [[nodiscard]] auto is_string() const noexcept -> bool
+  {
+    return std::holds_alternative<string_type>(m_value);
+  }
+
+  [[nodiscard]] auto is_int() const noexcept -> bool
+  {
+    return std::holds_alternative<int64>(m_value);
+  }
+
+  [[nodiscard]] auto is_uint() const noexcept -> bool
+  {
+    return std::holds_alternative<uint64>(m_value);
+  }
+
+  [[nodiscard]] auto is_float() const noexcept -> bool
+  {
+    return std::holds_alternative<double>(m_value);
+  }
+
+  [[nodiscard]] auto is_bool() const noexcept -> bool
+  {
+    return std::holds_alternative<bool>(m_value);
+  }
+
+  [[nodiscard]] bool operator==(const basic_ini_value&) const = default;
+
+ private:
+  value_type m_value;
+
+  template <typename T>
+  void assign(T value) requires is_ini_value<T, char_type>
+  {
+    if constexpr (std::same_as<T, bool>)
+    {
+      m_value.template emplace<bool>(std::move(value));
+    }
+    else if constexpr (std::signed_integral<T>)
+    {
+      m_value.template emplace<int64>(std::move(value));
+    }
+    else if constexpr (std::unsigned_integral<T>)
+    {
+      m_value.template emplace<uint64>(std::move(value));
+    }
+    else if constexpr (std::floating_point<T>)
+    {
+      m_value.template emplace<double>(std::move(value));
+    }
+    else /*if constexpr (std::convertible_to<T, string_type>)*/
+    {
+      m_value.template emplace<string_type>(std::move(value));
+    }
+  }
+};
+
+using ini_value = basic_ini_value<char>;
+
+template <typename Char>
+auto operator<<(std::ostream& stream, const basic_ini_value<Char>& value) -> std::ostream&
+{
+  if (const auto* str = value.try_get_string())
+  {
+    stream << *str;
+  }
+  else if (const auto* i = value.try_get_int())
+  {
+    stream << std::to_string(*i);
+  }
+  else if (const auto* u = value.try_get_uint())
+  {
+    stream << std::to_string(*u);
+  }
+  else if (const auto* f = value.try_get_float())
+  {
+    stream << std::to_string(*f);
+  }
+  else if (const auto* b = value.try_get_bool())
+  {
+    stream << ((*b) ? "true" : "false");
+  }
+
+  return stream;
+}
+
+/// \} End of ini
+
+/// \} End of group io
+
+}  // namespace rune
+
+#endif  // RUNE_IO_INI_VALUE_HPP
 
 // #include "rune/io/json_utils.hpp"
 #ifndef RUNE_IO_JSON_UTILS_HPP
@@ -6617,11 +8597,18 @@ namespace rune {
 /// \addtogroup core
 /// \{
 
+using longlong = long long;
+
+using ushort = unsigned short;
+
 /// Unsigned integer.
-using uint = cen::uint;
+using uint = unsigned;
+
+/// Unsigned long integer.
+using ulong = unsigned long;
 
 /// Used as the argument type to integral literal operators.
-using ulonglong = cen::ulonglong;
+using ulonglong = unsigned long long;
 
 /// 8-bit signed integer.
 using int8 = cen::i8;
@@ -8377,9 +10364,9 @@ inline void parse_tileset(const json_type& json, tmx_tileset& tileset)
 
 #endif  // RUNE_TMX_PARSE_TILESET_HPP
 
-// #include "rune/tmx/tmx.hpp"
-#ifndef RUNE_TMX_TMX_HPP
-#define RUNE_TMX_TMX_HPP
+// #include "rune/tmx/parse_tmx.hpp"
+#ifndef RUNE_TMX_PARSE_TMX_HPP
+#define RUNE_TMX_PARSE_TMX_HPP
 
 #include <cassert>     // assert
 #include <filesystem>  // path
@@ -8718,7 +10705,7 @@ namespace rune {
 
 }  // namespace rune
 
-#endif  // RUNE_TMX_TMX_HPP
+#endif  // RUNE_TMX_PARSE_TMX_HPP
 
 // #include "rune/tmx/tmx_animation.hpp"
 #ifndef RUNE_TMX_ANIMATION_HPP

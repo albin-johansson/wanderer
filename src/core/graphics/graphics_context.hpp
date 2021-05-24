@@ -3,6 +3,7 @@
 #include <centurion.hpp>  // window, texture
 #include <rune.hpp>       // graphics
 
+#include "core/aliases/ints.hpp"
 #include "core/aliases/texture_id.hpp"
 #include "core/aliases/texture_index.hpp"
 #include "core/menu_constants.hpp"
@@ -21,8 +22,9 @@ class graphics_context final : public rune::graphics
    * \brief Initializes the graphics context.
    *
    * \param window the game window.
+   * \param flags the renderer flags.
    */
-  explicit graphics_context(const cen::window& window);
+  explicit graphics_context(const cen::window& window, uint32 flags);
 
   /**
    * \brief Renders a texture.

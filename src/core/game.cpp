@@ -150,6 +150,8 @@ void game::render(graphics_context& graphics)
   auto& renderer = graphics.renderer();
   auto& level = sys::current_level(m_shared);
 
+  renderer.clear_with(cen::colors::black);
+
   sys::translate_viewport(level.registry, renderer);
   sys::update_render_bounds(level.registry);
 
@@ -190,6 +192,8 @@ void game::render(graphics_context& graphics)
   {
     sys::render_menu_debug_info(m_shared, graphics);
   }
+
+  renderer.present();
 }
 
 void game::load_save(const std::string& name, graphics_context& graphics)

@@ -4,7 +4,10 @@
 
 namespace wanderer {
 
-wanderer_engine::wanderer_engine() : engine_base{}
+wanderer_engine::wanderer_engine()
+    : engine_base{rune::configuration{
+          .renderer_flags = cen::renderer::accelerated | cen::renderer::target_textures,
+      }}
 {
   get_input().mouse.set_logical_size(glob::logical_size<>);
 
