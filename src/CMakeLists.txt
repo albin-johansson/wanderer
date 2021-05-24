@@ -52,6 +52,7 @@ set(SOURCE_FILES
     components/ui/button.hpp
     components/ui/button_group.hpp
     components/ui/checkbox.hpp
+    components/ui/fps_data.hpp
     components/ui/label.hpp
     components/ui/lazy_texture.hpp
     components/ui/line.hpp
@@ -246,6 +247,8 @@ set(SOURCE_FILES
 
     systems/ui/cursor_system.cpp
     systems/ui/cursor_system.hpp
+    systems/ui/fps_system.cpp
+    systems/ui/fps_system.hpp
     systems/ui/grid.hpp
 
     systems/ui/buttons/button_factory_system.cpp

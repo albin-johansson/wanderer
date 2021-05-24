@@ -4,6 +4,7 @@
 #include "components/ctx/settings.hpp"
 #include "components/graphics/level_switch_animation.hpp"
 #include "components/outside_level.hpp"
+#include "components/ui/fps_data.hpp"
 #include "core/ecs/event_connections.hpp"
 #include "core/ecs/make_dispatcher.hpp"
 #include "core/ecs/registry_utils.hpp"
@@ -37,6 +38,7 @@
 #include "systems/movement/portal_system.hpp"
 #include "systems/registry/shared_registry_factory_system.hpp"
 #include "systems/time_system.hpp"
+#include "systems/ui/fps_system.hpp"
 #include "systems/ui/hud/hud_rendering_system.hpp"
 #include "systems/ui/hud/level_switch_animation_system.hpp"
 #include "systems/ui/menus/menu_rendering_system.hpp"
@@ -77,6 +79,13 @@ void game::on_start()
   m_shared.set<ctx::binds>(sys::load_binds());
   m_shared.ctx<ctx::time_of_day>().seconds = 43'200;  // Start at 12:00
 
+  {
+    auto& data = m_shared.emplace<comp::fps_data>(m_shared.create());
+    data.then = cen::counter::ticks();
+    data.interval = ms_t{500};
+    data.next_update = data.then + data.interval;
+  }
+
   const auto& settings = m_shared.ctx<ctx::settings>();
   m_dispatcher.enqueue<fullscreen_toggled_event>(settings.fullscreen);
   m_dispatcher.enqueue<integer_scaling_toggled_event>(settings.integer_scaling);
@@ -102,6 +111,7 @@ void game::handle_input(const rune::input& input)
 void game::tick(const rune::delta_time dt)
 {
   m_dispatcher.update();
+  sys::update_fps(m_shared, dt);
 
   if (is_paused())
   {
@@ -173,6 +183,8 @@ void game::render(graphics_context& graphics)
 
   sys::render_active_menu(m_shared, graphics);
   sys::render_level_switch_animations(level.registry, renderer);
+
+  sys::render_fps(m_shared, graphics);
 
   if constexpr (cen::is_debug_build())
   {
