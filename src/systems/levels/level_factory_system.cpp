@@ -311,7 +311,11 @@ auto make_level(const ir::level& data, graphics_context& graphics) -> comp::leve
   sys::update_drawables(registry);
   sys::update_depth(registry);
 
-  level.tree.rebuild();
+  if constexpr (cen::is_release_build())
+  {
+    // This is very slow in debug builds, which is why we avoid it
+    level.tree.rebuild();
+  }
 
   return level;
 }
