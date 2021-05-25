@@ -6,7 +6,6 @@ set(TEST_FILES
     event_connections_test.cpp
     hitbox_test.cpp
     humanoid_state_test.cpp
-    ini_test.cpp
     load_save_game_test.cpp
     test_main.cpp
     )

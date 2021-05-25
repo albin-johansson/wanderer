@@ -3,10 +3,10 @@
 #include <centurion.hpp>  // ...
 #include <filesystem>     // path, exists, copy
 #include <fstream>        // ifstream
+#include <rune.hpp>       // ini_file
 
 #include "components/ctx/settings.hpp"
 #include "io/directories.hpp"
-#include "io/ini.hpp"
 
 namespace wanderer::sys {
 namespace {
@@ -33,18 +33,16 @@ void log_settings(const ctx::settings& settings)
 {
   CENTURION_LOG_INFO("Reading settings: \"%s\"", path.string().c_str());
 
-  std::ifstream stream{path};
-  const ini_file file{stream};
-
+  const auto ini = rune::read_ini(path);
   auto settings = default_settings();
-  settings.fullscreen =
-      file.get<bool>("Graphics", "Fullscreen").value_or(settings.fullscreen);
-  settings.integer_scaling =
-      file.get<bool>("Graphics", "UseIntegerScaling").value_or(settings.integer_scaling);
+
+  const auto& graphics = ini.at("Graphics");
+  settings.fullscreen = graphics.at("Fullscreen").get<bool>();
+  settings.integer_scaling = graphics.at("UseIntegerScaling").get<bool>();
 
   if constexpr (cen::is_debug_build())
   {
-    cen::log::info("Read settings...");
+    cen::log::info("Finished reading settings...");
     log_settings(settings);
   }
 
@@ -85,14 +83,11 @@ void save_settings_before_exit(const entt::registry& registry)
 {
   const auto& settings = registry.ctx<const ctx::settings>();
 
-  const auto stringify = [](const bool value) {
-    return value ? "true" : "false";
-  };
+  rune::ini_file ini;
+  ini["Graphics"]["Fullscreen"] = settings.fullscreen;
+  ini["Graphics"]["UseIntegerScaling"] = settings.integer_scaling;
 
-  std::ofstream stream{settings_file};
-  stream << "[Graphics]\n";
-  stream << "Fullscreen=" << stringify(settings.fullscreen) << '\n';
-  stream << "UseIntegerScaling=" << stringify(settings.integer_scaling) << '\n';
+  rune::write_ini(ini, settings_file);
 
   if constexpr (cen::is_debug_build())
   {

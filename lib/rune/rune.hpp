@@ -44,8 +44,6 @@ using czstring = const char*;
 #ifndef RUNE_ALIASES_DELTA_TIME_HPP
 #define RUNE_ALIASES_DELTA_TIME_HPP
 
-#include <nenya.hpp>  // strong_type
-
 namespace rune {
 
 /// \cond FALSE
@@ -75,8 +73,7 @@ struct delta_time_tag;
  *
  * \see `RUNE_DELTA_TIME_UNDERLYING_TYPE`
  */
-using delta_time =
-    nenya::strong_type<RUNE_DELTA_TIME_UNDERLYING_TYPE, tags::delta_time_tag>;
+using delta_time = RUNE_DELTA_TIME_UNDERLYING_TYPE;
 
 /// \} End of group core
 
@@ -3913,8 +3910,6 @@ concept has_less_than = requires (T value)
 #ifndef RUNE_ALIASES_DELTA_TIME_HPP
 #define RUNE_ALIASES_DELTA_TIME_HPP
 
-#include <nenya.hpp>  // strong_type
-
 namespace rune {
 
 /// \cond FALSE
@@ -3944,8 +3939,7 @@ struct delta_time_tag;
  *
  * \see `RUNE_DELTA_TIME_UNDERLYING_TYPE`
  */
-using delta_time =
-    nenya::strong_type<RUNE_DELTA_TIME_UNDERLYING_TYPE, tags::delta_time_tag>;
+using delta_time = RUNE_DELTA_TIME_UNDERLYING_TYPE;
 
 /// \} End of group core
 
@@ -4415,98 +4409,6 @@ namespace rune {
 /// \addtogroup core
 /// \{
 
-///**
-// * \class game_base
-// *
-// * \brief The base class for all game class implementations.
-// *
-// * \details This class should be the base class for the core game class in your game.
-// The
-// * game loop will call the mandatory functions `handle_input()`, `tick()` and `render()`
-// * during each frame, in that order.
-// *
-// * \details Your derived game classes must either be default-constructible or provide a
-// * constructor that accepts `graphics_type&`. The `init()` function is called upon
-// * initialization regardless.
-// *
-// * \tparam Graphics the type of the graphics context.
-// *
-// * \see `engine`
-// * \see `graphics`
-// */
-// template <std::derived_from<graphics> Graphics = graphics>
-// class game_base
-//{
-// public:
-//  using graphics_type = Graphics;
-//
-//  virtual ~game_base() noexcept = default;
-//
-//  /**
-//   * \brief Called when the game is initialized.
-//   *
-//   * \details This function is mainly intended to be overridden by game classes that do
-//   * not provide a constructor that accepts `graphics_type&`. However, this function is
-//   * still called even if the game class provides such a constructor.
-//   *
-//   * \param graphics the graphics context that will be used.
-//   */
-//  virtual void init(graphics_type& graphics)
-//  {}
-//
-//  /**
-//   * \brief Handles player mouse and keyboard input.
-//   *
-//   * \note This function is called before `tick()`.
-//   *
-//   * \param input the current mouse and keyboard state.
-//   */
-//  virtual void handle_input(const input& input) = 0;
-//
-//  /**
-//   * \brief Updates the state of the game by one "tick".
-//   *
-//   * \param dt the current delta time.
-//   */
-//  virtual void tick(delta_time dt) = 0;
-//
-//  /**
-//   * \brief Renders the game.
-//   *
-//   * \param graphics the graphics context that will be used.
-//   */
-//  virtual void render(graphics_type& graphics) const = 0;
-//
-//  /**
-//   * \brief Indicates whether or not the game should quit.
-//   *
-//   * \return `true` if the game should quit; `false` otherwise.
-//   */
-//  [[nodiscard]] virtual auto should_quit() const -> bool = 0;
-//
-//  /**
-//   * \brief Called just before the first iteration of the game loop.
-//   *
-//   * \details This function can be useful to perform some additional setup just before
-//   the
-//   * game starts running.
-//   */
-//  virtual void on_start()
-//  {}
-//
-//  /**
-//   * \brief Called when the game is about to terminate, just after the last iteration of
-//   * the game loop.
-//   *
-//   * \details This function can be useful performing miscellaneous cleanup when the game
-//   * is about to shut down.
-//   *
-//   * \note The game window is still visible when this function is called.
-//   */
-//  virtual void on_exit()
-//  {}
-//};
-
 // clang-format off
 
 /**
@@ -4829,7 +4731,7 @@ class semi_fixed_game_loop
       }
 
       const auto dt = min(frameTime, m_delta);
-      m_engine->update_logic(delta_time{static_cast<delta_time::value_type>(dt.count())});
+      m_engine->update_logic(static_cast<delta_time>(dt.count()));
 
       frameTime -= dt;
 
@@ -4862,6 +4764,19 @@ namespace rune {
 /// \addtogroup core
 /// \{
 
+// clang-format off
+
+template <typename T>
+concept is_configuration_type = requires
+{
+  typename T::graphics_type;
+  typename T::delta_type;
+  { T::renderer_flags } -> std::convertible_to<uint32>;
+  { T::window_size } -> std::convertible_to<cen::iarea>;
+};
+
+// clang-format on
+
 /**
  * \struct configuration
  *
@@ -4872,11 +4787,16 @@ namespace rune {
  *
  * \see `engine`
  */
-struct configuration final
+struct configuration
 {
+  using graphics_type = graphics;
+  using delta_type = float;
+
   uint32 renderer_flags = cen::renderer::default_flags();
   cen::iarea window_size = cen::window::default_size();
 };
+
+static_assert(is_configuration_type<configuration>);
 
 // clang-format off
 
@@ -4945,7 +4865,7 @@ class engine
   friend class semi_fixed_game_loop<Game, Graphics>;
 
  public:
-  using game_type = Game;                                   ///< Game class type.
+  using game_type = Game;          ///< Game class type.
   using graphics_type = Graphics;  ///< Graphics context type.
   using loop_type = semi_fixed_game_loop<Game, graphics_type>;  ///< Game loop type.
 
@@ -4961,7 +4881,7 @@ class engine
    */
   explicit engine(const configuration& cfg = default_cfg())
       : m_loop{this}
-      , m_window{"Rune window", cfg.window_size}
+      , m_window{"Rune", cfg.window_size}
       , m_graphics{m_window, cfg.renderer_flags}
   {
     if constexpr (std::constructible_from<game_type, graphics_type&>)
@@ -5170,98 +5090,6 @@ namespace rune {
 
 /// \addtogroup core
 /// \{
-
-///**
-// * \class game_base
-// *
-// * \brief The base class for all game class implementations.
-// *
-// * \details This class should be the base class for the core game class in your game.
-// The
-// * game loop will call the mandatory functions `handle_input()`, `tick()` and `render()`
-// * during each frame, in that order.
-// *
-// * \details Your derived game classes must either be default-constructible or provide a
-// * constructor that accepts `graphics_type&`. The `init()` function is called upon
-// * initialization regardless.
-// *
-// * \tparam Graphics the type of the graphics context.
-// *
-// * \see `engine`
-// * \see `graphics`
-// */
-// template <std::derived_from<graphics> Graphics = graphics>
-// class game_base
-//{
-// public:
-//  using graphics_type = Graphics;
-//
-//  virtual ~game_base() noexcept = default;
-//
-//  /**
-//   * \brief Called when the game is initialized.
-//   *
-//   * \details This function is mainly intended to be overridden by game classes that do
-//   * not provide a constructor that accepts `graphics_type&`. However, this function is
-//   * still called even if the game class provides such a constructor.
-//   *
-//   * \param graphics the graphics context that will be used.
-//   */
-//  virtual void init(graphics_type& graphics)
-//  {}
-//
-//  /**
-//   * \brief Handles player mouse and keyboard input.
-//   *
-//   * \note This function is called before `tick()`.
-//   *
-//   * \param input the current mouse and keyboard state.
-//   */
-//  virtual void handle_input(const input& input) = 0;
-//
-//  /**
-//   * \brief Updates the state of the game by one "tick".
-//   *
-//   * \param dt the current delta time.
-//   */
-//  virtual void tick(delta_time dt) = 0;
-//
-//  /**
-//   * \brief Renders the game.
-//   *
-//   * \param graphics the graphics context that will be used.
-//   */
-//  virtual void render(graphics_type& graphics) const = 0;
-//
-//  /**
-//   * \brief Indicates whether or not the game should quit.
-//   *
-//   * \return `true` if the game should quit; `false` otherwise.
-//   */
-//  [[nodiscard]] virtual auto should_quit() const -> bool = 0;
-//
-//  /**
-//   * \brief Called just before the first iteration of the game loop.
-//   *
-//   * \details This function can be useful to perform some additional setup just before
-//   the
-//   * game starts running.
-//   */
-//  virtual void on_start()
-//  {}
-//
-//  /**
-//   * \brief Called when the game is about to terminate, just after the last iteration of
-//   * the game loop.
-//   *
-//   * \details This function can be useful performing miscellaneous cleanup when the game
-//   * is about to shut down.
-//   *
-//   * \note The game window is still visible when this function is called.
-//   */
-//  virtual void on_exit()
-//  {}
-//};
 
 // clang-format off
 
@@ -5500,7 +5328,7 @@ class semi_fixed_game_loop
       }
 
       const auto dt = min(frameTime, m_delta);
-      m_engine->update_logic(delta_time{static_cast<delta_time::value_type>(dt.count())});
+      m_engine->update_logic(static_cast<delta_time>(dt.count()));
 
       frameTime -= dt;
 
@@ -5699,14 +5527,14 @@ template <numeric T, std::size_t BufferSize = 24>
 #ifndef RUNE_IO_INI_HPP
 #define RUNE_IO_INI_HPP
 
-#include <algorithm>    // find_if
+#include <algorithm>    // find_if, all_of
 #include <cassert>      // assert
 #include <cstddef>      // size_t
 #include <filesystem>   // path
-#include <fstream>      // ifstream
+#include <fstream>      // ifstream, ofstream
 #include <functional>   // less
 #include <istream>      // istream
-#include <locale>       // locale, isspace
+#include <locale>       // locale, isspace, isdigit
 #include <map>          // map
 #include <optional>     // optional
 #include <ostream>      // ostream
@@ -5922,9 +5750,9 @@ class basic_ini_value final
                   "Invalid template type parameter to basic_ini_value::get!");
     // clang-format on
 
-    if constexpr (std::convertible_to<T, string_type>)
+    if constexpr (std::same_as<T, bool>)
     {
-      return std::get<string_type>(m_value);
+      return std::get<bool>(m_value);
     }
     else if constexpr (std::signed_integral<T>)
     {
@@ -5938,9 +5766,9 @@ class basic_ini_value final
     {
       return std::get<double>(m_value);
     }
-    else /*if constexpr (std::same_as<T, bool>)*/
+    else /*if constexpr (std::convertible_to<T, string_type>)*/
     {
-      return std::get<bool>(m_value);
+      return std::get<string_type>(m_value);
     }
   }
 
@@ -6506,6 +6334,31 @@ class basic_ini final
     line.erase(it.base(), line.end());
   }
 
+  [[nodiscard]] static auto is_unsigned(const string_type& str)
+  {
+    return !str.starts_with('-') && str.ends_with('u') &&
+           std::all_of(str.begin(), str.end() - 1, [](const char_type ch) {
+             return std::isdigit(ch, std::locale::classic());
+           });
+  }
+
+  [[nodiscard]] static auto is_signed(const string_type& str)
+  {
+    if (str.starts_with('-'))
+    {
+      // Ignore leading minus
+      return std::all_of(str.begin() + 1, str.end(), [](const char_type ch) {
+        return std::isdigit(ch, std::locale::classic());
+      });
+    }
+    else
+    {
+      return std::ranges::all_of(str, [](const char_type ch) {
+        return std::isdigit(ch, std::locale::classic());
+      });
+    }
+  }
+
   auto parse_variable(const string_type& line, const string_type& sectionName) -> bool
   {
     const auto assignment = std::ranges::find_if(line, [this](const char_type character) {
@@ -6521,7 +6374,27 @@ class basic_ini final
     auto& section = m_sections[sectionName];
     if (!section.contains(variable))
     {
-      section[std::move(variable)] = std::move(value);
+      if (value == "true")
+      {
+        section[std::move(variable)] = true;
+      }
+      else if (value == "false")
+      {
+        section[std::move(variable)] = false;
+      }
+      else if (is_unsigned(value))
+      {
+        section[std::move(variable)] = std::stoul(value);
+      }
+      else if (is_signed(value))
+      {
+        section[std::move(variable)] = std::stoll(value);
+      }
+      else
+      {
+        section[std::move(variable)] = std::move(value);
+      }
+
       return true;
     }
     else
@@ -6581,7 +6454,7 @@ using ini_file = basic_ini<char>;
 /**
  * \brief Writes a `basic_ini` instance to an output stream.
  *
- * \tparam Character the character type used.
+ * \tparam Char the character type used.
  *
  * \param stream the output stream that will be used.
  * \param ini the `basic_ini` instance that will be written to the stream.
@@ -6590,8 +6463,8 @@ using ini_file = basic_ini<char>;
  *
  * \see `basic_ini::write()`
  */
-template <typename Character>
-auto operator<<(std::ostream& stream, const basic_ini<Character>& ini) -> std::ostream&
+template <typename Char>
+auto operator<<(std::ostream& stream, const basic_ini<Char>& ini) -> std::ostream&
 {
   ini.write(stream);
   return stream;
@@ -6600,7 +6473,7 @@ auto operator<<(std::ostream& stream, const basic_ini<Character>& ini) -> std::o
 /**
  * \brief Parses an `.ini` file from an input stream.
  *
- * \tparam Character the character type used.
+ * \tparam Char the character type used.
  *
  * \param stream the input stream.
  * \param[out] ini the `basic_ini` instance that will be written to.
@@ -6610,8 +6483,8 @@ auto operator<<(std::ostream& stream, const basic_ini<Character>& ini) -> std::o
  * \see `basic_ini::read()`
  * \see `read_ini()`
  */
-template <typename Character>
-auto operator>>(std::istream& stream, basic_ini<Character>& ini) -> std::istream&
+template <typename Char>
+auto operator>>(std::istream& stream, basic_ini<Char>& ini) -> std::istream&
 {
   ini.read(stream);
   return stream;
@@ -6620,16 +6493,16 @@ auto operator>>(std::istream& stream, basic_ini<Character>& ini) -> std::istream
 /**
  * \brief Parses an `.ini` file and returns its contents.
  *
- * \pre `path` must refer to an `.ini` file.
+ * \pre `path` must feature the `.ini` extension.
  *
- * \tparam Character the character type used.
+ * \tparam Char the character type used.
  *
  * \param path the file path of the `.ini` file.
  *
  * \return the parsed contents of the `.ini` file.
  */
-template <typename Character = char>
-[[nodiscard]] auto read_ini(const std::filesystem::path& path) -> basic_ini<Character>
+template <typename Char = char>
+[[nodiscard]] auto read_ini(const std::filesystem::path& path) -> basic_ini<Char>
 {
   assert(path.extension() == ".ini");
   std::ifstream stream{path};
@@ -6638,6 +6511,24 @@ template <typename Character = char>
   stream >> file;
 
   return file;
+}
+
+/**
+ * \brief Saves an Ini file to the specified file path.
+ *
+ * \pre `path` must feature the `.ini` extension.
+ *
+ * \tparam Char the character type used.
+ *
+ * \param ini the Ini file that will be saved.
+ * \param path the file path of the ini file.
+ */
+template <typename Char>
+void write_ini(const basic_ini<Char>& ini, const std::filesystem::path& path)
+{
+  assert(path.extension() == ".ini");
+  std::ofstream stream{path};
+  stream << ini;
 }
 
 /// \} End of ini
@@ -6725,9 +6616,9 @@ class basic_ini_value final
                   "Invalid template type parameter to basic_ini_value::get!");
     // clang-format on
 
-    if constexpr (std::convertible_to<T, string_type>)
+    if constexpr (std::same_as<T, bool>)
     {
-      return std::get<string_type>(m_value);
+      return std::get<bool>(m_value);
     }
     else if constexpr (std::signed_integral<T>)
     {
@@ -6741,9 +6632,9 @@ class basic_ini_value final
     {
       return std::get<double>(m_value);
     }
-    else /*if constexpr (std::same_as<T, bool>)*/
+    else /*if constexpr (std::convertible_to<T, string_type>)*/
     {
-      return std::get<bool>(m_value);
+      return std::get<string_type>(m_value);
     }
   }
 

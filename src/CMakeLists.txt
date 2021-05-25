@@ -139,7 +139,6 @@ set(SOURCE_FILES
 
     io/directories.cpp
     io/directories.hpp
-    io/ini.hpp
 
     io/map/parse_ir.hpp
     io/map/parse_layers.cpp
