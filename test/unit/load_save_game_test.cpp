@@ -14,7 +14,8 @@ using namespace wanderer;
 TEST(LoadSaveGame, Usage)
 {
   cen::window window;
-  graphics_context graphics{window};
+  graphics_context graphics{window,
+                            cen::renderer::target_textures | cen::renderer::accelerated};
 
   const auto frequency = static_cast<long double>(cen::counter::frequency());
 
