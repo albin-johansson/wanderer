@@ -109,6 +109,12 @@ set(SOURCE_FILES
 
     core/levels/load_levels.cpp
     core/levels/load_levels.hpp
+    core/levels/load_tilemap.cpp
+    core/levels/load_tilemap.hpp
+    core/levels/load_tiles.cpp
+    core/levels/load_tiles.hpp
+    core/levels/load_tileset_textures.cpp
+    core/levels/load_tileset_textures.hpp
 
     core/math/angles.hpp
     core/math/floating.hpp

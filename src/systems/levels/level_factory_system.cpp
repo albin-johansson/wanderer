@@ -11,6 +11,9 @@
 #include "core/algorithms.hpp"
 #include "core/ecs/make_registry.hpp"
 #include "core/ecs/registry_utils.hpp"
+#include "core/levels/load_tilemap.hpp"
+#include "core/levels/load_tiles.hpp"
+#include "core/levels/load_tileset_textures.hpp"
 #include "core/serialization.hpp"
 #include "core/utils/centurion_utils.hpp"
 #include "systems/graphics/depth_system.hpp"
@@ -21,57 +24,6 @@
 
 namespace wanderer::sys {
 namespace {
-
-void load_tileset_textures(const ir::level& data, graphics_context& graphics)
-{
-  for (const auto& ts : data.tilesets)
-  {
-    graphics.load(ts.sheet.id, ts.sheet.path);
-  }
-}
-
-[[nodiscard]] auto load_tilemap(entt::registry& registry,
-                                const comp::tilemap::entity entity,
-                                const ir::level& data) -> map_id
-{
-  auto& tilemap = registry.emplace<comp::tilemap>(entity);
-
-  tilemap.id = map_id{data.id};
-  tilemap.row_count = data.row_count;
-  tilemap.col_count = data.col_count;
-  tilemap.size = data.size;
-  tilemap.humanoid_layer = data.humanoid_layer;
-
-  return tilemap.id;
-}
-
-void make_tiles(entt::registry& registry,
-                comp::tileset& tileset,
-                const graphics_context& graphics,
-                const std::map<tile_id, ir::tile>& tiles)
-{
-  for (const auto& [id, tileData] : tiles)
-  {
-    const auto tileEntity = comp::tile::entity{registry.create()};
-    tileset.tiles.try_emplace(id, tileEntity);
-
-    auto& tile = registry.emplace<comp::tile>(tileEntity);
-    tile.id = id;
-    tile.texture = graphics.to_index(tileData.texture);
-    tile.src = tileData.source;
-
-    if (tileData.fancy)
-    {
-      const auto& fancy = *tileData.fancy;
-      tile.depth = fancy.depth;
-
-      if (fancy.animation)
-      {
-        registry.emplace<comp::tile_animation>(tileEntity, *fancy.animation);
-      }
-    }
-  }
-}
 
 void load_tileset(entt::registry& registry,
                   const comp::tileset::entity entity,
@@ -86,7 +38,7 @@ void load_tileset(entt::registry& registry,
 
   for (const auto& ts : data)
   {
-    make_tiles(registry, tileset, graphics, ts.tiles);
+    load_tiles(registry, tileset, graphics, ts.tiles);
   }
 }
 
