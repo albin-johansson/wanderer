@@ -1,6 +1,8 @@
 #include "parse_world.hpp"
 
-#include <rune.hpp>
+#include <cassert>        // assert
+#include <centurion.hpp>  // CENTURION_LOG_INFO
+#include <rune.hpp>       // tmx_map, ...
 
 #include "core/game_constants.hpp"
 #include "io/map/parse_layers.hpp"
@@ -20,8 +22,8 @@ namespace {
   data.tile_height = map.tile_height;
   data.x_ratio = glob::tile_width<float> / static_cast<float>(data.tile_width);
   data.y_ratio = glob::tile_height<float> / static_cast<float>(data.tile_height);
-  data.size.width = static_cast<float>(data.col_count) * glob::tile_width<>;
-  data.size.height = static_cast<float>(data.row_count) * glob::tile_height<>;
+  data.size.width = static_cast<float>(data.col_count) * glob::tile_width<float>;
+  data.size.height = static_cast<float>(data.row_count) * glob::tile_height<float>;
 
   data.tilesets = parse_tilesets(map.tilesets, directory);
 
@@ -40,6 +42,7 @@ namespace {
 
 auto parse_world(const std::filesystem::path& world) -> ir::world
 {
+  CENTURION_LOG_INFO("Parsing main level: %s", world.string().c_str());
   const auto tmx = rune::parse_tmx(world);
   const auto directory = std::filesystem::relative(world).parent_path();
 
@@ -51,6 +54,8 @@ auto parse_world(const std::filesystem::path& world) -> ir::world
     if (object.portal)
     {
       const auto levelPath = directory / object.portal->path;
+      CENTURION_LOG_INFO("Parsing level: %s", levelPath.string().c_str());
+
       const auto level = rune::parse_tmx(levelPath);
       data.levels.push_back(parse_map(level, levelPath.parent_path()));
     }
