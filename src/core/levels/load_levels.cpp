@@ -28,6 +28,7 @@ namespace {
 
 void load_levels(entt::registry& shared, graphics_context& graphics)
 {
+  CENTURION_LOG_INFO("Loading levels...");
   const auto data = parse_world(resources::map("main.json"));
   const auto world = create_world(shared, graphics, data);
 
