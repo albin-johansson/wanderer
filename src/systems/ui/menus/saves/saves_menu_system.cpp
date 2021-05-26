@@ -246,10 +246,10 @@ void change_save_preview(entt::registry& registry)
     const auto width = glob::menu_col_size * 9.0f;
     const auto height = (width / 16.0f) * 9.0f;  // Assume 16:9 aspect ratio
     savesMenu.preview_texture = make_lazy_texture(registry,
-                                                 activeMenu,
-                                                 entry.preview,
-                                                 grid_position{7.0f, 20.0f},
-                                                 cen::area(width, height));
+                                                  activeMenu,
+                                                  entry.preview,
+                                                  grid_position{7.0f, 20.0f},
+                                                  cen::area(width, height));
   }
 }
 
