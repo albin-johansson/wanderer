@@ -3,10 +3,10 @@
 #include <centurion.hpp>
 #include <iostream>  // cout
 
-#include "core/levels/load_levels.hpp"
 #include "io/directories.hpp"
 #include "io/saves/load_game.hpp"
 #include "io/saves/save_game.hpp"
+#include "systems/levels/load_levels.hpp"
 #include "systems/registry/shared_registry_factory_system.hpp"
 
 using namespace wanderer;
@@ -22,7 +22,7 @@ TEST(LoadSaveGame, Usage)
   auto shared = sys::make_shared_registry();
 
   {
-    load_levels(shared, graphics);
+    sys::load_levels(shared, graphics);
     cen::surface snapshot{"resources/snapshot.png"};
 
     const auto before = cen::counter::now();
