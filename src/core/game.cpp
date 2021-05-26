@@ -136,7 +136,7 @@ void game::tick(const rune::delta_time dt)
 
   const auto player = singleton_entity<comp::player>(level.registry);
   sys::update_viewport(level.registry, comp::movable::entity{player}, dt);
-  sys::update_depth(level.registry);
+  sys::sort_depth_drawables(level.registry);
 
   sys::update_animations(level.registry);
   sys::update_humanoid_animations(level.registry);
