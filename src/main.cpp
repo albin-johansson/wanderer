@@ -8,6 +8,7 @@
 #include <entt.hpp>       // id_type
 #include <format>         // format
 #include <iostream>       // clog
+#include <rune.hpp>       // ...
 #include <string_view>    // string_view
 
 #include "core/utils/time_utils.hpp"
