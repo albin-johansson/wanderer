@@ -8,7 +8,6 @@
 #include "core/ecs/event_connections.hpp"
 #include "core/ecs/make_dispatcher.hpp"
 #include "core/ecs/registry_utils.hpp"
-#include "core/levels/load_levels.hpp"
 #include "events/fullscreen_toggled_event.hpp"
 #include "events/integer_scaling_toggled_event.hpp"
 #include "events/load_game_event.hpp"
@@ -34,6 +33,7 @@
 #include "systems/input/input_system.hpp"
 #include "systems/inventory_system.hpp"
 #include "systems/levels/level_system.hpp"
+#include "systems/levels/load_levels.hpp"
 #include "systems/movement/movement_system.hpp"
 #include "systems/movement/portal_system.hpp"
 #include "systems/registry/shared_registry_factory_system.hpp"
@@ -52,7 +52,7 @@ game::game(graphics_context& graphics)
     : m_shared{sys::make_shared_registry()}
     , m_dispatcher{make_dispatcher()}
 {
-  load_levels(m_shared, graphics);
+  sys::load_levels(m_shared, graphics);
 
   // clang-format off
   m_dispatcher.sink<switch_map_event>().connect<&game::on_switch_map>(this);

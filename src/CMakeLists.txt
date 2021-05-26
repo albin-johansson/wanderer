@@ -107,15 +107,6 @@ set(SOURCE_FILES
     core/graphics/render_text.cpp
     core/graphics/render_text.hpp
 
-    core/levels/load_levels.cpp
-    core/levels/load_levels.hpp
-    core/levels/load_tilemap.cpp
-    core/levels/load_tilemap.hpp
-    core/levels/load_tiles.cpp
-    core/levels/load_tiles.hpp
-    core/levels/load_tileset_textures.cpp
-    core/levels/load_tileset_textures.hpp
-
     core/math/angles.hpp
     core/math/floating.hpp
 
@@ -237,6 +228,14 @@ set(SOURCE_FILES
     systems/levels/level_save_system.hpp
     systems/levels/level_system.cpp
     systems/levels/level_system.hpp
+    systems/levels/load_levels.cpp
+    systems/levels/load_levels.hpp
+    systems/levels/load_tilemap.cpp
+    systems/levels/load_tilemap.hpp
+    systems/levels/load_tileset.cpp
+    systems/levels/load_tileset.hpp
+    systems/levels/load_tileset_textures.cpp
+    systems/levels/load_tileset_textures.hpp
 
     systems/movement/direction_system.hpp
     systems/movement/direction_system.cpp

@@ -7,7 +7,7 @@
 #include "io/map/parse_world.hpp"
 #include "systems/levels/level_factory_system.hpp"
 
-namespace wanderer {
+namespace wanderer::sys {
 namespace {
 
 [[nodiscard]] auto create_world(entt::registry& shared,
@@ -16,7 +16,7 @@ namespace {
 {
   const auto entity = shared.create();
 
-  auto& world = shared.emplace<comp::level>(entity, sys::make_level(data.base, graphics));
+  auto& world = shared.emplace<comp::level>(entity, make_level(data.base, graphics));
   world.registry.ctx<ctx::viewport>().keep_in_bounds = true;
 
   shared.emplace<comp::outside_level>(entity);
@@ -34,10 +34,10 @@ void load_levels(entt::registry& shared, graphics_context& graphics)
 
   for (const auto& sublevel : data.levels)
   {
-    shared.emplace<comp::level>(shared.create(), sys::make_level(sublevel, graphics));
+    shared.emplace<comp::level>(shared.create(), make_level(sublevel, graphics));
   }
 
   shared.emplace<comp::active_level>(world);
 }
 
-}  // namespace wanderer
+}  // namespace wanderer::sys

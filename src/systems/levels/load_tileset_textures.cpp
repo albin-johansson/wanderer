@@ -2,7 +2,7 @@
 
 #include <centurion.hpp>  // ticks, log
 
-namespace wanderer {
+namespace wanderer::sys {
 
 void load_tileset_textures(const ir::level& data, graphics_context& graphics)
 {
@@ -21,4 +21,4 @@ void load_tileset_textures(const ir::level& data, graphics_context& graphics)
 #endif  // NDEBUG
 }
 
-}  // namespace wanderer
+}  // namespace wanderer::sys

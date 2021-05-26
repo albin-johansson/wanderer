@@ -3,8 +3,8 @@
 #include "core/graphics/graphics_context.hpp"
 #include "io/map/parse_ir.hpp"
 
-namespace wanderer {
+namespace wanderer::sys {
 
 void load_tileset_textures(const ir::level& data, graphics_context& graphics);
 
-}  // namespace wanderer
+}  // namespace wanderer::sys

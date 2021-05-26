@@ -1,6 +1,9 @@
-#include "load_tiles.hpp"
+#include "load_tileset.hpp"
 
-namespace wanderer {
+#include "core/algorithms.hpp"
+#include "core/aliases/tile_id.hpp"
+
+namespace wanderer::sys {
 namespace {
 
 void make_fancy(entt::registry& registry,
@@ -36,8 +39,6 @@ void make_fancy(entt::registry& registry,
   return entity;
 }
 
-}  // namespace
-
 void load_tiles(entt::registry& registry,
                 comp::tileset& tileset,
                 const graphics_context& graphics,
@@ -50,4 +51,23 @@ void load_tiles(entt::registry& registry,
   }
 }
 
-}  // namespace wanderer
+}  // namespace
+
+void load_tileset(entt::registry& registry,
+                  const comp::tileset::entity entity,
+                  const graphics_context& graphics,
+                  const std::vector<ir::tileset>& data)
+{
+  auto& tileset = registry.emplace<comp::tileset>(entity);
+
+  tileset.tiles.reserve(accumulate(data, [](const ir::tileset& tileset) {
+    return tileset.tiles.size();
+  }));
+
+  for (const auto& ts : data)
+  {
+    load_tiles(registry, tileset, graphics, ts.tiles);
+  }
+}
+
+}  // namespace wanderer::sys

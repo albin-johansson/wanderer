@@ -1,6 +1,6 @@
 #include "load_tilemap.hpp"
 
-namespace wanderer {
+namespace wanderer::sys {
 
 auto load_tilemap(entt::registry& registry,
                   const comp::tilemap::entity entity,
@@ -17,4 +17,4 @@ auto load_tilemap(entt::registry& registry,
   return tilemap.id;
 }
 
-}  // namespace wanderer
+}  // namespace wanderer::sys

@@ -12,11 +12,11 @@
 #include "core/algorithms.hpp"
 #include "core/ecs/make_registry.hpp"
 #include "core/ecs/registry_utils.hpp"
-#include "core/levels/load_tilemap.hpp"
-#include "core/levels/load_tiles.hpp"
-#include "core/levels/load_tileset_textures.hpp"
 #include "core/serialization.hpp"
 #include "core/utils/centurion_utils.hpp"
+#include "load_tilemap.hpp"
+#include "load_tileset.hpp"
+#include "load_tileset_textures.hpp"
 #include "systems/graphics/depth_system.hpp"
 #include "systems/graphics/drawable_system.hpp"
 #include "systems/graphics/viewport_system.hpp"
@@ -25,23 +25,6 @@
 
 namespace wanderer::sys {
 namespace {
-
-void load_tileset(entt::registry& registry,
-                  const comp::tileset::entity entity,
-                  const graphics_context& graphics,
-                  const std::vector<ir::tileset>& data)
-{
-  auto& tileset = registry.emplace<comp::tileset>(entity);
-
-  tileset.tiles.reserve(accumulate(data, [](const ir::tileset& tileset) {
-    return tileset.tiles.size();
-  }));
-
-  for (const auto& ts : data)
-  {
-    load_tiles(registry, tileset, graphics, ts.tiles);
-  }
-}
 
 void add_ground_layers(entt::registry& registry, const ir::level& data)
 {
