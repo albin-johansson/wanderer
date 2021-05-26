@@ -236,7 +236,8 @@ void change_save_preview(entt::registry& registry)
 
     savesMenu.title_label = label(entry.name, 6, 11, text_size::large);
     savesMenu.time_label =
-        label("Last modified:  " + last_modified(saves_directory() / entry.name),
+        label("Last played:  " +
+                  last_modified(saves_directory() / entry.name / (entry.name + ".json")),
               7.4f,
               11.0f);
     savesMenu.data_version_label =
