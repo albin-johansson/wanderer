@@ -5,47 +5,53 @@
 #include <SDL.h>
 
 #include <centurion.hpp>  // library
-#include <cstdio>         // printf
 #include <entt.hpp>       // id_type
+#include <format>         // format
+#include <iostream>       // clog
+#include <string_view>    // string_view
 
 #include "core/utils/time_utils.hpp"
 #include "wanderer_engine.hpp"
 
-inline void wanderer_log(void* data,
-                         const int category,
-                         const SDL_LogPriority priority,
-                         const char* msg)
+namespace {
+
+[[nodiscard]] auto to_string(const SDL_LogPriority priority) noexcept -> std::string_view
 {
-  const auto time = wanderer::current_hhmmss();
   switch (priority)
   {
     default:
       [[fallthrough]];
+
     case SDL_LOG_PRIORITY_INFO:
-      std::printf("LOG %s [INFO] >> %s\n", time.c_str(), msg);
-      break;
+      return "INFO";
 
     case SDL_LOG_PRIORITY_VERBOSE:
-      std::printf("LOG %s [VERBOSE] >> %s\n", time.c_str(), msg);
-      break;
+      return "VERBOSE";
 
     case SDL_LOG_PRIORITY_DEBUG:
-      std::printf("LOG %s [DEBUG] >> %s\n", time.c_str(), msg);
-      break;
+      return "DEBUG";
 
     case SDL_LOG_PRIORITY_WARN:
-      std::printf("LOG %s [WARNING] >> %s\n", time.c_str(), msg);
-      break;
+      return "WARNING";
 
     case SDL_LOG_PRIORITY_ERROR:
-      std::printf("LOG %s [ERROR] >> %s\n", time.c_str(), msg);
-      break;
+      return "ERROR";
 
     case SDL_LOG_PRIORITY_CRITICAL:
-      std::printf("LOG %s [CRITICAL] >> %s\n", time.c_str(), msg);
-      break;
+      return "CRITICAL";
   }
 }
+
+void wanderer_log(void* /*data*/,
+                  const int /*category*/,
+                  const SDL_LogPriority priority,
+                  const char* msg)
+{
+  const auto time = wanderer::current_hhmmss();
+  std::clog << std::format("LOG {} [{}] > {}\n", time, to_string(priority), msg);
+}
+
+}  // namespace
 
 auto main(int, char**) -> int
 {
