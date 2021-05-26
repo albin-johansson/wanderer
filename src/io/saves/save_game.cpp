@@ -1,5 +1,6 @@
 #include "save_game.hpp"
 
+#include <format>    // format
 #include <fstream>   // ofstream
 #include <iomanip>   // setw
 #include <json.hpp>  // json
@@ -57,7 +58,7 @@ void save_shared_registry(const std::filesystem::path& directory,
 
   for (auto&& [entity, level] : shared.view<const comp::level>().each())
   {
-    const auto name = "level_" + std::to_string(level.id.get()) + ".wanderer";
+    const auto name = std::format("level_{}.wanderer", level.id.get());
     sys::save(level, directory / name);
 
     auto& object = levels.emplace_back();

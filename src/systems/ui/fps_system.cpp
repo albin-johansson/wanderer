@@ -1,6 +1,7 @@
 #include "fps_system.hpp"
 
 #include <centurion.hpp>  // ticks
+#include <format>         // format
 
 #include "components/ui/fps_data.hpp"
 #include "core/math/floating.hpp"
@@ -31,9 +32,9 @@ void render_fps(const entt::registry& shared, graphics_context& graphics)
   {
     const auto fps = round(1.0 / (static_cast<double>(data.frame.count()) / 1'000.0));
 
-    graphics.render_outlined_text("Frame: " + std::to_string(data.frame.count()) + " ms",
+    graphics.render_outlined_text(std::format("Frame: {} ms", data.frame.count()),
                                   cen::point(glob::logical_width<int> - 125, 6));
-    graphics.render_outlined_text("FPS: " + std::to_string(fps),
+    graphics.render_outlined_text(std::format("FPS: {}", fps),
                                   cen::point(glob::logical_width<int> - 55, 6));
   }
 }

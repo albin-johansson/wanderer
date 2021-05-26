@@ -3,6 +3,7 @@
 #include <cassert>     // assert
 #include <cmath>       // round, fmod
 #include <filesystem>  // directory_iterator
+#include <format>      // format
 #include <string>      // string, to_string
 #include <utility>     // move
 
@@ -42,8 +43,7 @@ inline constexpr int buttons_per_page = 8;
 /// Returns the appropriate text for the page indicator label
 [[nodiscard]] auto get_page_indicator_text(const comp::button_group& group) -> std::string
 {
-  const auto nPages = page_count(group);
-  return std::to_string(group.current_page + 1) + " / " + std::to_string(nPages);
+  return std::format("{} / {}", group.current_page + 1, page_count(group));
 }
 
 /// Clears and refreshes the save menu entries for a saves menu
@@ -240,7 +240,7 @@ void change_save_preview(entt::registry& registry)
               7.4f,
               11.0f);
     savesMenu.data_version_label =
-        label("Data version:  " + std::to_string(entry.data_version), 8.4f, 11.0f);
+        label(std::format("Data version: {}", entry.data_version), 8.4f, 11.0f);
 
     const auto width = glob::menu_col_size * 9.0f;
     const auto height = (width / 16.0f) * 9.0f;  // Assume 16:9 aspect ratio
