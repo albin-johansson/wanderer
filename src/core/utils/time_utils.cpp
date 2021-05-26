@@ -1,55 +1,22 @@
 #include "time_utils.hpp"
 
-#include <array>     // array
-#include <chrono>    // system_clock
-#include <ctime>     // ctime_s
-#include <optional>  // optional
+#include <chrono>  // system_clock, zoned_time, current_zone
+#include <format>  // format
 
-using std::chrono::system_clock;
+namespace chrono = std::chrono;
 
 namespace wanderer {
 
-// TODO when MSVC implements the date and time zone additions to std::chrono, use those
-//   instead of the old C-style APIs
-namespace {
-
-[[nodiscard]] auto stringify(const system_clock::time_point timePoint)
-    -> std::optional<std::string>
+[[nodiscard]] auto to_string(const chrono::system_clock::time_point tp) -> std::string
 {
-  const auto time = system_clock::to_time_t(timePoint);
-
-  /* Note, ctime is specified to return a string using a format using a total of 24
-     characters. However, the MSVC documentation states that the buffer of ctime_s *must*
-     be large enough to hold at least 26 characters. */
-  std::array<char, 26> buffer;
-  if (ctime_s(buffer.data(), buffer.size(), &time) == 0)
-  {
-    return std::string{buffer.data(), 24};
-  }
-  else
-  {
-    return std::nullopt;
-  }
-}
-
-}  // namespace
-
-[[nodiscard]] auto to_string(const system_clock::time_point timePoint) -> std::string
-{
-  if (const auto str = stringify(timePoint))
-  {
-    return *str;
-  }
-  else
-  {
-    return "N/A";
-  }
+  const chrono::zoned_time zoned{chrono::current_zone(), tp};
+  return std::format("{:%F %H:%M:%OS}", zoned);
 }
 
 auto current_hhmmss() -> std::string
 {
-  const auto str = stringify(system_clock::now()).value();
-  return str.substr(11, 8);
+  const chrono::zoned_time zoned{chrono::current_zone(), chrono::system_clock::now()};
+  return std::format("{:%T}", zoned);
 }
 
 }  // namespace wanderer
