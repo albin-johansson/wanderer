@@ -1,7 +1,8 @@
 #include "level_factory_system.hpp"
 
-#include <fstream>  // ifstream
-#include <ios>      // ios
+#include <centurion.hpp>  // ticks, log
+#include <fstream>        // ifstream
+#include <ios>            // ios
 
 #include "components/ctx/level_size.hpp"
 #include "components/ctx/viewport.hpp"
@@ -227,6 +228,10 @@ void add_viewport(entt::registry& registry, comp::level& level)
 
 auto make_level(const ir::level& data, graphics_context& graphics) -> comp::level
 {
+#ifndef NDEBUG
+  const auto begin = cen::counter::ticks();
+#endif  // NDEBUG
+
   load_tileset_textures(data, graphics);
 
   comp::level level;
@@ -268,6 +273,11 @@ auto make_level(const ir::level& data, graphics_context& graphics) -> comp::leve
     // This is very slow in debug builds, which is why we avoid it
     level.tree.rebuild();
   }
+
+#ifndef NDEBUG
+  const auto end = cen::counter::ticks();
+  cen::log::debug("Created level in %u milliseconds", (end - begin).count());
+#endif  // NDEBUG
 
   return level;
 }
