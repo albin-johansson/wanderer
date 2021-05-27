@@ -228,8 +228,16 @@ set(SOURCE_FILES
     systems/levels/level_save_system.hpp
     systems/levels/level_system.cpp
     systems/levels/level_system.hpp
+    systems/levels/load_ground_layers.cpp
+    systems/levels/load_ground_layers.hpp
+    systems/levels/load_humanoids.cpp
+    systems/levels/load_humanoids.hpp
     systems/levels/load_levels.cpp
     systems/levels/load_levels.hpp
+    systems/levels/load_objects.cpp
+    systems/levels/load_objects.hpp
+    systems/levels/load_tile_objects.cpp
+    systems/levels/load_tile_objects.hpp
     systems/levels/load_tilemap.cpp
     systems/levels/load_tilemap.hpp
     systems/levels/load_tileset.cpp
