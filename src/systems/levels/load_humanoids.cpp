@@ -25,10 +25,7 @@ void configure_humanoid_layer(entt::registry& registry,
 void load_humanoids(comp::level& level, graphics_context& graphics)
 {
   // The player has to be created before other humanoids!
-  sys::make_player(level.registry,
-                   level.tree,
-                   level.player_spawn_position.value(),
-                   graphics);
+  sys::make_player(level, graphics);
 
   for (auto&& [entity, spawnpoint] : level.registry.view<comp::spawnpoint>().each())
   {
@@ -38,7 +35,7 @@ void load_humanoids(comp::level& level, graphics_context& graphics)
         break;
 
       case comp::spawnpoint_type::skeleton: {
-        sys::make_skeleton(level.registry, level.tree, spawnpoint.position, graphics);
+        sys::make_skeleton(level, spawnpoint.position, graphics);
         break;
       }
     }

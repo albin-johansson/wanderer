@@ -54,10 +54,7 @@ void add_animated(entt::registry& registry, const entt::entity entity)
   animated.frame_count = 1;
 }
 
-void add_hitbox(entt::registry& registry,
-                const entt::entity entity,
-                aabb_tree& tree,
-                const float2 position)
+void add_hitbox(comp::level& level, const entt::entity entity, const float2 position)
 {
   constexpr auto x0 = 0.5625f * glob::tile_width<>;
   constexpr auto x1 = 0.875f * glob::tile_width<>;
@@ -69,90 +66,76 @@ void add_hitbox(entt::registry& registry,
 
   const auto lower = to_vector(hitbox.bounds.position());
   const auto upper = lower + to_vector(hitbox.bounds.size());
-  tree.insert(entity, lower, upper);
+  level.tree.insert(entity, lower, upper);
 
-  registry.emplace<comp::hitbox>(entity, hitbox);
+  level.registry.emplace<comp::hitbox>(entity, hitbox);
 }
 
-/**
- * \brief Creates a humanoid entity.
- *
- * \details The entity will have `movable`, `depth_drawable`, `animated`,
- * `hitbox`, `humanoid` and `humanoid_idle` components added to it. Select
- * components will have default values assigned to them, whilst others might have to be
- * tweaked for the specific humanoid.
- *
- * \param registry the registry that will be used.
- * \param texture the index of the texture that will be used by the humanoid.
- *
- * \return the created entity.
- */
-[[nodiscard]] auto make_humanoid(entt::registry& registry,
-                                 aabb_tree& tree,
-                                 const texture_index texture) -> entt::entity
+[[nodiscard]] auto make_humanoid(comp::level& level, const texture_index texture)
+    -> entt::entity
 {
-  const auto entity = registry.create();
+  const auto entity = level.registry.create();
 
-  registry.emplace<comp::humanoid>(entity);
-  registry.emplace<comp::humanoid_idle>(entity);
+  level.registry.emplace<comp::humanoid>(entity);
+  level.registry.emplace<comp::humanoid_idle>(entity);
 
-  add_movable(registry, entity);
-  add_depth_drawable(registry, entity, texture);
-  add_animated(registry, entity);
-  add_hitbox(registry, entity, tree, {0, 0});  // FIXME position
+  add_movable(level.registry, entity);
+  add_depth_drawable(level.registry, entity, texture);
+  add_animated(level.registry, entity);
+  add_hitbox(level, entity, {0, 0});  // FIXME position
 
   return entity;
 }
 
-}  // namespace
-
-auto make_player(entt::registry& registry,
-                 aabb_tree& tree,
-                 const float2 position,
-                 graphics_context& graphics) -> entt::entity
+void add_light(entt::registry& registry, const entt::entity entity, const float2 position)
 {
-  static const auto path = resources::texture("player.png");
-
-  // TODO "player"_id
-  const auto texture = graphics.load(texture_id{"player"_hs}, path);
-  const auto player = make_humanoid(registry, tree, texture);
-
-  auto& movable = registry.get<comp::movable>(player);
-  movable.speed = glob::player_speed;
-  movable.position = position;
-  movable.dir = direction::down;
-
-  auto& light = registry.emplace<comp::point_light>(player);
+  auto& light = registry.emplace<comp::point_light>(entity);
   light.size = 160;
   light.position = position;
   light.fluctuation = 0;
   light.fluctuation_step = 0;
   light.fluctuation_limit = 0;
+}
 
-  registry.emplace<comp::player>(player);
+}  // namespace
+
+auto make_player(comp::level& level, graphics_context& graphics) -> entt::entity
+{
+  constexpr auto id = texture_id{"player"_hs};
+  static const auto path = resources::texture("player.png");
+
+  const auto texture = graphics.load(id, path);
+  const auto player = make_humanoid(level, texture);
+
+  auto& movable = level.registry.get<comp::movable>(player);
+  movable.speed = glob::player_speed;
+  movable.position = level.player_spawn_position.value();
+
+  add_light(level.registry, player, movable.position);
+
+  level.registry.emplace<comp::player>(player);
 
   return player;
 }
 
-auto make_skeleton(entt::registry& registry,
-                   aabb_tree& tree,
-                   const float2 position,
-                   graphics_context& graphics) -> entt::entity
+auto make_skeleton(comp::level& level, const float2 position, graphics_context& graphics)
+    -> entt::entity
 {
+  constexpr auto id = texture_id{"skeleton"_hs};
   static const auto path = resources::texture("skeleton.png");
-  const auto texture = graphics.load(texture_id{"skeleton"_hs}, path);
-  const auto skeleton = make_humanoid(registry, tree, texture);
 
-  auto& movable = registry.get<comp::movable>(skeleton);
+  const auto texture = graphics.load(id, path);
+  const auto skeleton = make_humanoid(level, texture);
+
+  auto& movable = level.registry.get<comp::movable>(skeleton);
   movable.speed = glob::monster_speed;
   movable.position = position;
-  movable.dir = direction::down;
 
-  auto& chase = registry.emplace<comp::chase>(skeleton);
-  chase.target = singleton_entity<comp::player>(registry);
+  auto& chase = level.registry.emplace<comp::chase>(skeleton);
+  chase.target = singleton_entity<comp::player>(level.registry);
   chase.range = 150;
 
-  auto& roam = registry.emplace<comp::roam>(skeleton);
+  auto& roam = level.registry.emplace<comp::roam>(skeleton);
   roam.cooldown_duration = 100;
 
   return skeleton;

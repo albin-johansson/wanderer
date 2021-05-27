@@ -2,6 +2,7 @@
 
 #include <entt.hpp>  // registry, entity
 
+#include "components/map/level.hpp"
 #include "components/player.hpp"
 #include "core/aliases/aabb_tree.hpp"
 #include "core/aliases/float2.hpp"
@@ -17,17 +18,12 @@ namespace wanderer::sys {
  *
  * \ingroup systems
  *
- * \param registry the current level registry.
- * \param tree the associated AABB tree.
- * \param position the initial position of the entity.
+ * \param level the level that will contain the player.
  * \param graphics the graphics context used to load the associated textures.
  *
  * \return the created player entity.
  */
-auto make_player(entt::registry& registry,
-                 aabb_tree& tree,
-                 float2 position,
-                 graphics_context& graphics) -> entt::entity;
+auto make_player(comp::level& level, graphics_context& graphics) -> entt::entity;
 
 /**
  * \brief Creates a skeleton entity.
@@ -36,17 +32,14 @@ auto make_player(entt::registry& registry,
  *
  * \ingroup systems
  *
- * \param registry the current level registry.
- * \param tree the associated AABB tree.
+ * \param level the level that will contain the skeleton.
  * \param position the initial position of the entity.
  * \param graphics the graphics context used to load the associated textures.
  *
  * \return the created skeleton entity.
  */
-auto make_skeleton(entt::registry& registry,
-                   aabb_tree& tree,
-                   float2 position,
-                   graphics_context& graphics) -> entt::entity;
+auto make_skeleton(comp::level& level, float2 position, graphics_context& graphics)
+    -> entt::entity;
 
 /// \} End of humanoid
 
