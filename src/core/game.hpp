@@ -24,6 +24,7 @@
 #include "events/level_fade_events_event.hpp"
 #include "events/quit_event.hpp"
 #include "events/show_inventory_event.hpp"
+#include "events/sleep_event.hpp"
 #include "events/spawn_particles_event.hpp"
 #include "events/switch_map_event.hpp"
 #include "events/switch_menu_event.hpp"
@@ -62,7 +63,7 @@ class game final
   void load_save(const std::string& name, graphics_context& graphics);
 
   template <typename Event>
-  [[nodiscard]] decltype(auto) sink()
+  [[nodiscard]] auto sink()
   {
     return m_dispatcher.sink<Event>();
   }
@@ -94,6 +95,8 @@ class game final
   void on_show_inventory(const show_inventory_event& event);
 
   void on_close_inventory(const close_inventory_event&);
+
+  void on_sleep_event(const sleep_event&);
 
   void on_particle_event(const spawn_particles_event& event);
 

@@ -1,5 +1,6 @@
 #include "debug_rendering_system.hpp"
 
+#include "components/bed_trigger.hpp"
 #include "components/chase.hpp"
 #include "components/ctx/active_menu.hpp"
 #include "components/graphics/depth_drawable.hpp"
@@ -19,8 +20,7 @@ void render_hitboxes(const entt::registry& registry, cen::renderer& renderer)
 {
   for (auto&& [entity, hitbox] : registry.view<const comp::hitbox>().each())
   {
-    if (registry.all_of<comp::portal>(entity) ||
-        registry.all_of<comp::container_trigger>(entity))
+    if (registry.any_of<comp::portal, comp::container_trigger, comp::bed_trigger>(entity))
     {
       renderer.set_color(cen::colors::cyan);
     }
@@ -63,6 +63,10 @@ void render_trigger_indicators(const entt::registry& registry, cen::renderer& re
   else if (const auto* iwc = registry.try_get<comp::is_within_container_trigger>(entity))
   {
     render_enabled_trigger_indicator(registry, iwc->trigger_entity, renderer);
+  }
+  else if (const auto iwb = registry.try_get<comp::is_within_bed_trigger>(entity))
+  {
+    render_enabled_trigger_indicator(registry, iwb->trigger_entity, renderer);
   }
 }
 

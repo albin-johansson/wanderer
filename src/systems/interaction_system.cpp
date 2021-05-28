@@ -1,5 +1,6 @@
 #include "interaction_system.hpp"
 
+#include "components/bed_trigger.hpp"
 #include "components/inventory/container_trigger.hpp"
 #include "components/map/portal.hpp"
 #include "components/player.hpp"
@@ -8,6 +9,7 @@
 #include "events/close_inventory_event.hpp"
 #include "events/show_inventory_event.hpp"
 #include "events/switch_map_event.hpp"
+#include "events/sleep_event.hpp"
 
 namespace wanderer::sys {
 namespace {
@@ -35,6 +37,11 @@ void enqueue_inventory_event(entt::registry& registry,
   }
 }
 
+void enqueue_sleep_event(entt::registry& registry, entt::dispatcher& dispatcher)
+{
+  dispatcher.enqueue<sleep_event>();
+}
+
 }  // namespace
 
 void on_interact(const interact_event& event)
@@ -50,6 +57,10 @@ void on_interact(const interact_event& event)
   else if (const auto* ct = registry.try_get<comp::is_within_container_trigger>(player))
   {
     enqueue_inventory_event(registry, dispatcher, ct->trigger_entity);
+  }
+  else if (const auto* bt = registry.try_get<comp::is_within_bed_trigger>(player))
+  {
+    enqueue_sleep_event(registry, dispatcher);
   }
 }
 

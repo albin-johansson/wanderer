@@ -6,6 +6,7 @@ set(SOURCE_FILES
     wanderer_engine.cpp
     wanderer_engine.hpp
 
+    components/bed_trigger.hpp
     components/chase.hpp
     components/float3.hpp
     components/hitbox.hpp
@@ -130,6 +131,7 @@ set(SOURCE_FILES
     events/load_game_event.hpp
     events/quit_event.hpp
     events/show_inventory_event.hpp
+    events/sleep_event.hpp
     events/spawn_particles_event.hpp
     events/switch_map_event.hpp
     events/switch_menu_event.hpp
@@ -162,6 +164,8 @@ set(SOURCE_FILES
     systems/interaction_system.hpp
     systems/inventory_system.cpp
     systems/inventory_system.hpp
+    systems/sleep_system.cpp
+    systems/sleep_system.hpp
     systems/tile_layer_system.hpp
     systems/time_system.cpp
     systems/time_system.hpp

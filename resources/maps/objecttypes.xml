@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objecttypes>
+ <objecttype name="BedTrigger" color="#00ffff"/>
  <objecttype name="Container" color="#00ff7f">
   <property name="capacity" type="int" default="0"/>
   <property name="hasRandomLoot" type="bool" default="false"/>

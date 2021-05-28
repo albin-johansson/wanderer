@@ -71,6 +71,11 @@ void load_objects(entt::registry& registry, const ir::level& level)
       trigger.inventory_entity = null<comp::inventory>();  // Set up later
     }
 
+    if (data.bed_trigger)
+    {
+      registry.emplace<comp::bed_trigger>(entity, *data.bed_trigger);
+    }
+
     if (data.spawnpoint)
     {
       registry.emplace<comp::spawnpoint>(entity, *data.spawnpoint);

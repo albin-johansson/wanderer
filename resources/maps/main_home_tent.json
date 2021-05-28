@@ -157,6 +157,17 @@
                  "width":16,
                  "x":9,
                  "y":80
+                }, 
+                {
+                 "height":32,
+                 "id":6,
+                 "name":"",
+                 "rotation":0,
+                 "type":"BedTrigger",
+                 "visible":true,
+                 "width":16,
+                 "x":88,
+                 "y":51
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -165,7 +176,7 @@
          "y":0
         }],
  "nextlayerid":6,
- "nextobjectid":6,
+ "nextobjectid":7,
  "orientation":"orthogonal",
  "properties":[
         {

@@ -37,6 +37,7 @@
 #include "systems/movement/movement_system.hpp"
 #include "systems/movement/portal_system.hpp"
 #include "systems/registry/shared_registry_factory_system.hpp"
+#include "systems/sleep_system.hpp"
 #include "systems/time_system.hpp"
 #include "systems/ui/fps_system.hpp"
 #include "systems/ui/hud/hud_rendering_system.hpp"
@@ -60,6 +61,7 @@ game::game(graphics_context& graphics)
   m_dispatcher.sink<button_pressed_event>().connect<&game::on_button_pressed>(this);
   m_dispatcher.sink<show_inventory_event>().connect<&game::on_show_inventory>(this);
   m_dispatcher.sink<close_inventory_event>().connect<&game::on_close_inventory>(this);
+  m_dispatcher.sink<sleep_event>().connect<&game::on_sleep_event>(this);
   m_dispatcher.sink<level_faded_in_event>().connect<&game::on_level_animation_faded_in>(this);
   m_dispatcher.sink<level_faded_out_event>().connect<&game::on_level_animation_faded_out>(this);
   m_dispatcher.sink<spawn_particles_event>().connect<&game::on_particle_event>(this);
@@ -133,6 +135,7 @@ void game::tick(const rune::delta_time dt)
 
   sys::update_portal_triggers(level.registry);
   sys::update_inventory_triggers(level.registry);
+  sys::update_bed_triggers(level.registry);
 
   const auto player = singleton_entity<comp::player>(level.registry);
   sys::update_viewport(level.registry, comp::movable::entity{player}, dt);
@@ -332,6 +335,11 @@ void game::on_show_inventory(const show_inventory_event& event)
 void game::on_close_inventory(const close_inventory_event&)
 {
   sys::current_level(m_shared).registry.clear<comp::active_inventory>();
+}
+
+void game::on_sleep_event(const sleep_event&)
+{
+  // TODO play animation and update the time (should emit day changed event as well)
 }
 
 void game::on_particle_event(const spawn_particles_event& event)

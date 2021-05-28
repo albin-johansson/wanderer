@@ -5,6 +5,7 @@
 #include <string>         // string
 #include <vector>         // vector
 
+#include "components/bed_trigger.hpp"
 #include "components/graphics/depth_drawable.hpp"
 #include "components/graphics/point_light.hpp"
 #include "components/graphics/tile_animation.hpp"
@@ -73,6 +74,7 @@ struct object final
   maybe<comp::inventory> inventory;      ///< Optional inventory.
   maybe<comp::portal> portal;            ///< Optional portal.
   maybe<comp::point_light> light;        ///< Optional light.
+  maybe<comp::bed_trigger> bed_trigger;  ///< Optional bed trigger.
   maybe<int> inventory_ref;  ///< Optional inventory ID, used by inv. triggers.
 };
 

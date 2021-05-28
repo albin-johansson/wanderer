@@ -151,11 +151,6 @@ void parse_object_layer(ir::level& data,
         data.player_spawn_point = objectData.spawnpoint->position;
       }
     }
-    else if (type == "Portal")
-    {
-      objectData.portal = parse_portal(object);
-      objectData.hitbox = make_hitbox(object, data.x_ratio, data.y_ratio);
-    }
     else if (type == "Container")
     {
       objectData.inventory = parse_container(object);
@@ -163,6 +158,16 @@ void parse_object_layer(ir::level& data,
     else if (type == "ContainerTrigger")
     {
       objectData.inventory_ref = parse_container_trigger(object);
+      objectData.hitbox = make_hitbox(object, data.x_ratio, data.y_ratio);
+    }
+    else if (type == "BedTrigger")
+    {
+      objectData.bed_trigger.emplace();
+      objectData.hitbox = make_hitbox(object, data.x_ratio, data.y_ratio);
+    }
+    else if (type == "Portal")
+    {
+      objectData.portal = parse_portal(object);
       objectData.hitbox = make_hitbox(object, data.x_ratio, data.y_ratio);
     }
     else if (type == "Light")
