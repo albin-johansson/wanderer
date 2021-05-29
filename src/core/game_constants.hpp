@@ -20,7 +20,8 @@ template <typename T = int>
 inline constexpr T logical_height = 540;
 
 template <typename T = cen::iarea>
-inline constexpr T logical_size{logical_width<>, logical_height<>};
+inline constexpr T logical_size{logical_width<typename T::value_type>,
+                                logical_height<typename T::value_type>};
 
 template <typename T = float>
 inline constexpr T tile_width = 64;
@@ -32,8 +33,8 @@ template <typename T = float2>
 inline constexpr T tile_size{tile_width<typename T::value_type>,
                              tile_height<typename T::value_type>};
 
-inline constexpr float humanoid_draw_width{tile_width<> * 2.0f};
-inline constexpr float humanoid_draw_height{tile_height<> * 2.0f};
+inline constexpr float humanoid_draw_width{tile_width<float> * 2.0f};
+inline constexpr float humanoid_draw_height{tile_height<float> * 2.0f};
 
 template <typename T = cen::farea>
 inline constexpr T humanoid_draw_size{humanoid_draw_width, humanoid_draw_height};
