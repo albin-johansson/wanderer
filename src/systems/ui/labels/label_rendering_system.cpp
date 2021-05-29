@@ -3,8 +3,8 @@
 #include "components/ctx/active_menu.hpp"
 #include "components/ui/associated_menu.hpp"
 #include "components/ui/label.hpp"
+#include "core/game_constants.hpp"
 #include "core/graphics/render_text.hpp"
-#include "core/menu_constants.hpp"
 #include "systems/ui/grid.hpp"
 
 namespace wanderer::sys {

@@ -9,7 +9,7 @@
 #include "components/map/portal.hpp"
 #include "components/player.hpp"
 #include "core/ecs/registry_utils.hpp"
-#include "core/menu_constants.hpp"
+#include "core/game_constants.hpp"
 #include "core/utils/centurion_utils.hpp"
 #include "systems/ui/menus/menu_system.hpp"
 

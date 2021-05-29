@@ -9,7 +9,7 @@
 #include "components/player.hpp"
 #include "components/ui/fps_data.hpp"
 #include "core/ecs/registry_utils.hpp"
-#include "core/menu_constants.hpp"
+#include "core/game_constants.hpp"
 #include "systems/levels/level_system.hpp"
 #include "systems/ui/grid.hpp"
 

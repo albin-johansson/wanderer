@@ -2,8 +2,8 @@
 
 #include <centurion.hpp>  // fpoint
 
+#include "core/game_constants.hpp"
 #include "core/grid_position.hpp"
-#include "core/menu_constants.hpp"
 
 namespace wanderer::sys {
 

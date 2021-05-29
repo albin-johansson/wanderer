@@ -6,7 +6,7 @@
 #include "core/aliases/ints.hpp"
 #include "core/aliases/texture_id.hpp"
 #include "core/aliases/texture_index.hpp"
-#include "core/menu_constants.hpp"
+#include "core/game_constants.hpp"
 
 namespace wanderer {
 

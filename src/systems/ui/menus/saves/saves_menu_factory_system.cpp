@@ -8,7 +8,7 @@
 #include "components/ui/label.hpp"
 #include "components/ui/line.hpp"
 #include "components/ui/saves_menu.hpp"
-#include "core/menu_constants.hpp"
+#include "core/game_constants.hpp"
 #include "io/directories.hpp"
 #include "systems/input/key_bind_system.hpp"
 #include "systems/ui/buttons/button_factory_system.hpp"

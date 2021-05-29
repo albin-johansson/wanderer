@@ -71,7 +71,6 @@ set(SOURCE_FILES
     core/game_constants.hpp
     core/grid_position.hpp
     core/menu_action.hpp
-    core/menu_constants.hpp
     core/menu_id.hpp
     core/resources.cpp
     core/resources.hpp

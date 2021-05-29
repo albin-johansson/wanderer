@@ -307,7 +307,7 @@ void game::on_custom_animation_halfway(const custom_animation_halfway_event& eve
 
   if (event.msg == "sleep")
   {
-    sys::change_to_next_day(m_shared, m_dispatcher, 6);
+    sys::change_to_next_day(m_shared, m_dispatcher, glob::morning_hour);
   }
   else if (event.msg == "load_game")
   {

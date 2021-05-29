@@ -4,8 +4,8 @@
 #include <format>         // format
 
 #include "components/ui/fps_data.hpp"
+#include "core/game_constants.hpp"
 #include "core/math/floating.hpp"
-#include "core/menu_constants.hpp"
 
 namespace wanderer::sys {
 
