@@ -218,7 +218,6 @@ set(SOURCE_FILES
 
     systems/layers/tile_layer_rendering_system.cpp
     systems/layers/tile_layer_rendering_system.hpp
-    systems/layers/tile_layer_system.hpp
 
     systems/levels/level_factory_system.cpp
     systems/levels/level_factory_system.hpp

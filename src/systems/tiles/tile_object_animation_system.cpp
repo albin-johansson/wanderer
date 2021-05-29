@@ -10,7 +10,7 @@ namespace wanderer::sys {
 
 void update_tile_object_animations(entt::registry& registry)
 {
-  const auto& tileset = singleton<const comp::tileset>(registry);
+  const auto& [tilesetEntity, tileset] = singleton<const comp::tileset>(registry);
 
   for (auto&& [entity, object, drawable] :
        registry.view<const comp::tile_object, comp::depth_drawable>().each())

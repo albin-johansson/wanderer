@@ -3,6 +3,7 @@
 #include <cassert>   // assert
 #include <concepts>  // convertible_to
 #include <entt.hpp>  // registry, entity
+#include <utility>   // pair
 
 #include "core/common_concepts.hpp"
 
@@ -45,15 +46,18 @@ template <typename T>
 }
 
 template <typename T>
-[[nodiscard]] auto singleton(entt::registry& registry) -> T&
+[[nodiscard]] auto singleton(entt::registry& registry) -> std::pair<entt::entity, T&>
 {
-  return registry.get<T>(singleton_entity<T>(registry));
+  const auto entity = singleton_entity<T>(registry);
+  return {entity, registry.get<T>(entity)};
 }
 
 template <typename T>
-[[nodiscard]] auto singleton(const entt::registry& registry) -> const T&
+[[nodiscard]] auto singleton(const entt::registry& registry)
+    -> std::pair<entt::entity, const T&>
 {
-  return registry.get<T>(singleton_entity<T>(registry));
+  const auto entity = singleton_entity<T>(registry);
+  return {entity, registry.get<T>(entity)};
 }
 
 }  // namespace wanderer
