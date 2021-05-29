@@ -20,9 +20,9 @@
 
 #include "components/map/level.hpp"
 #include "core/graphics/graphics_context.hpp"
-#include "events/bond_animation_halfway_event.hpp"
 #include "events/button_pressed_event.hpp"
 #include "events/close_inventory_event.hpp"
+#include "events/custom_animation_halfway_event.hpp"
 #include "events/day_changed_event.hpp"
 #include "events/quit_event.hpp"
 #include "events/show_inventory_event.hpp"
@@ -90,7 +90,7 @@ class game final
 
   void on_switch_menu(const switch_menu_event& event);
 
-  void on_bond_animation_halfway(const bond_animation_halfway_event& event);
+  void on_custom_animation_halfway(const custom_animation_halfway_event& event);
 
   void on_show_inventory(const show_inventory_event& event);
 

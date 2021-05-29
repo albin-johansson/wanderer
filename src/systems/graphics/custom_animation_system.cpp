@@ -2,7 +2,7 @@
 
 #include "components/graphics/custom_animation.hpp"
 #include "core/game_constants.hpp"
-#include "events/bond_animation_halfway_event.hpp"
+#include "events/custom_animation_halfway_event.hpp"
 
 namespace wanderer::sys {
 namespace {
@@ -59,7 +59,7 @@ void update_custom_animations(entt::registry& registry,
       animation.x_step_size *= -1;
       animation.y_step_size *= -1;
       animation.fading_in = false;
-      dispatcher.enqueue<bond_animation_halfway_event>(animation.msg, entity);
+      dispatcher.enqueue<custom_animation_halfway_event>(animation.msg, entity);
     }
     else if (animation.width <= 0)
     {

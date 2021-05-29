@@ -121,9 +121,9 @@ set(SOURCE_FILES
 
     events/begin_attack_event.hpp
     events/begin_humanoid_move_event.hpp
-    events/bond_animation_halfway_event.hpp
     events/button_pressed_event.hpp
     events/close_inventory_event.hpp
+    events/custom_animation_halfway_event.hpp
     events/day_changed_event.hpp
     events/end_attack_event.hpp
     events/end_humanoid_move_event.hpp

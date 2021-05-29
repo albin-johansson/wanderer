@@ -4,7 +4,7 @@
 
 #include "components/map/level.hpp"
 #include "core/aliases/map_id.hpp"
-#include "events/bond_animation_halfway_event.hpp"
+#include "events/custom_animation_halfway_event.hpp"
 
 namespace wanderer::sys {
 
@@ -25,7 +25,7 @@ namespace wanderer::sys {
  */
 [[nodiscard]] auto prepare_current_level_before_switch(
     entt::registry& shared,
-    const bond_animation_halfway_event& event) -> map_id;
+    const custom_animation_halfway_event& event) -> map_id;
 
 /**
  * \brief Enables the level associated with the specified ID.

@@ -66,7 +66,7 @@ game::game(graphics_context& graphics)
   m_dispatcher.sink<sleep_event>().connect<&game::on_sleep>(this);
   m_dispatcher.sink<day_changed_event>().connect<&game::on_day_changed>(this);
 
-  m_dispatcher.sink<bond_animation_halfway_event>().connect<&game::on_bond_animation_halfway>(this);
+  m_dispatcher.sink<custom_animation_halfway_event>().connect<&game::on_custom_animation_halfway>(this);
 
   m_dispatcher.sink<spawn_particles_event>().connect<&game::on_spawn_particles>(this);
   m_dispatcher.sink<quit_event>().connect<&game::on_quit>(this);
@@ -300,7 +300,7 @@ void game::on_switch_menu(const switch_menu_event& event)
   sys::switch_menu(m_shared, event.id);
 }
 
-void game::on_bond_animation_halfway(const bond_animation_halfway_event& event)
+void game::on_custom_animation_halfway(const custom_animation_halfway_event& event)
 {
   CENTURION_LOG_DEBUG("on_bond_animation_halfway: %s", event.msg.data());
 

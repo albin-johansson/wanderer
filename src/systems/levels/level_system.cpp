@@ -12,7 +12,7 @@
 namespace wanderer::sys {
 
 auto prepare_current_level_before_switch(entt::registry& shared,
-                                         const bond_animation_halfway_event& event)
+                                         const custom_animation_halfway_event& event)
     -> map_id
 {
   assert(event.msg == "switch_level");

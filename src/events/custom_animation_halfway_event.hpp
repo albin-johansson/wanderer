@@ -5,7 +5,7 @@
 
 namespace wanderer {
 
-struct bond_animation_halfway_event final
+struct custom_animation_halfway_event final
 {
   std::string_view msg;
   entt::entity entity{entt::null};
