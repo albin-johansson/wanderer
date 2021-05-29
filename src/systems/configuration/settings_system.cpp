@@ -2,7 +2,6 @@
 
 #include <centurion.hpp>  // ...
 #include <filesystem>     // path, exists, copy
-#include <fstream>        // ifstream
 #include <rune.hpp>       // ini_file
 
 #include "components/ctx/settings.hpp"
