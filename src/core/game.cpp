@@ -226,6 +226,7 @@ void game::on_button_pressed(const button_pressed_event& event)
       [[fallthrough]];
     case menu_action::none:
       break;
+
     case menu_action::goto_in_game: {
       m_dispatcher.enqueue<switch_menu_event>(menu_id::in_game);
       break;
@@ -302,7 +303,7 @@ void game::on_switch_menu(const switch_menu_event& event)
 
 void game::on_custom_animation_halfway(const custom_animation_halfway_event& event)
 {
-  CENTURION_LOG_DEBUG("on_bond_animation_halfway: %s", event.msg.data());
+  CENTURION_LOG_DEBUG("on_custom_animation_halfway: %s", event.msg.data());
 
   if (event.msg == "sleep")
   {
