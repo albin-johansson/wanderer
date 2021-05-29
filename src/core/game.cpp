@@ -56,19 +56,19 @@ game::game(graphics_context& graphics)
 
   // clang-format off
   m_dispatcher.sink<switch_map_event>().connect<&game::on_switch_map>(this);
-  m_dispatcher.sink<switch_menu_event>().connect<&game::on_switch_menu_event>(this);
+  m_dispatcher.sink<switch_menu_event>().connect<&game::on_switch_menu>(this);
   m_dispatcher.sink<button_pressed_event>().connect<&game::on_button_pressed>(this);
 
   m_dispatcher.sink<show_inventory_event>().connect<&game::on_show_inventory>(this);
   m_dispatcher.sink<close_inventory_event>().connect<&game::on_close_inventory>(this);
 
-  m_dispatcher.sink<sleep_event>().connect<&game::on_sleep_event>(this);
+  m_dispatcher.sink<sleep_event>().connect<&game::on_sleep>(this);
   m_dispatcher.sink<day_changed_event>().connect<&game::on_day_changed>(this);
 
   m_dispatcher.sink<bond_animation_halfway_event>().connect<&game::on_bond_animation_halfway>(this);
 
-  m_dispatcher.sink<spawn_particles_event>().connect<&game::on_particle_event>(this);
-  m_dispatcher.sink<quit_event>().connect<&game::on_quit_event>(this);
+  m_dispatcher.sink<spawn_particles_event>().connect<&game::on_spawn_particles>(this);
+  m_dispatcher.sink<quit_event>().connect<&game::on_quit>(this);
   // clang-format on
 }
 
@@ -294,7 +294,7 @@ void game::on_switch_map(const switch_map_event& event)
   sys::start_level_change_animation(level.registry, event.map);
 }
 
-void game::on_switch_menu_event(const switch_menu_event& event)
+void game::on_switch_menu(const switch_menu_event& event)
 {
   sys::switch_menu(m_shared, event.id);
 }
@@ -332,7 +332,7 @@ void game::on_close_inventory(const close_inventory_event&)
   sys::current_level(m_shared).registry.clear<comp::active_inventory>();
 }
 
-void game::on_sleep_event(const sleep_event&)
+void game::on_sleep(const sleep_event&)
 {
   auto& level = sys::current_level(m_shared);
   sys::start_bond_animation(level.registry, "sleep");
@@ -343,7 +343,7 @@ void game::on_day_changed(const day_changed_event& event)
   // TODO update the state of plants, etc.
 }
 
-void game::on_particle_event(const spawn_particles_event& event)
+void game::on_spawn_particles(const spawn_particles_event& event)
 {
   auto& level = sys::current_level(m_shared);
   sys::spawn_particles(level.registry,
@@ -353,7 +353,7 @@ void game::on_particle_event(const spawn_particles_event& event)
                        event.color);
 }
 
-void game::on_quit_event(const quit_event&)
+void game::on_quit(const quit_event&)
 {
   if (const auto* snapshot = m_shared.try_ctx<ctx::renderer_snapshot>())
   {

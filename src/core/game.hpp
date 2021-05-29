@@ -88,7 +88,7 @@ class game final
 
   void on_switch_map(const switch_map_event& event);
 
-  void on_switch_menu_event(const switch_menu_event& event);
+  void on_switch_menu(const switch_menu_event& event);
 
   void on_bond_animation_halfway(const bond_animation_halfway_event& event);
 
@@ -96,13 +96,13 @@ class game final
 
   void on_close_inventory(const close_inventory_event&);
 
-  void on_sleep_event(const sleep_event&);
+  void on_sleep(const sleep_event&);
 
   void on_day_changed(const day_changed_event& event);
 
-  void on_particle_event(const spawn_particles_event& event);
+  void on_spawn_particles(const spawn_particles_event& event);
 
-  void on_quit_event(const quit_event&);
+  void on_quit(const quit_event&);
 };
 
 }  // namespace wanderer
