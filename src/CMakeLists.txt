@@ -62,7 +62,6 @@ set(SOURCE_FILES
     components/ui/menu.hpp
     components/ui/saves_menu.hpp
 
-    core/algorithms.hpp
     core/common_concepts.hpp
     core/day_of_week.hpp
     core/direction.hpp
@@ -76,6 +75,8 @@ set(SOURCE_FILES
     core/resources.hpp
     core/serialization.hpp
     core/text_size.hpp
+
+    core/algorithms/accumulate.hpp
 
     core/aliases/aabb_tree.hpp
     core/aliases/buffer.hpp

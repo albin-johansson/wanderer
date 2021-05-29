@@ -1,6 +1,6 @@
 #include "load_tileset.hpp"
 
-#include "core/algorithms.hpp"
+#include "core/algorithms/accumulate.hpp"
 #include "core/aliases/tile_id.hpp"
 
 namespace wanderer::sys {
