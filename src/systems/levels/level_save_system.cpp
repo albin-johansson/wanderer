@@ -7,7 +7,7 @@
 
 namespace wanderer::sys {
 
-void save(const comp::level& level, const std::filesystem::path& path)
+void save_level(const comp::level& level, const std::filesystem::path& path)
 {
   std::ofstream stream{path, std::ios::binary};
   output_archive archive{stream};

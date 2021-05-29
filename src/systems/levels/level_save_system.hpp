@@ -17,7 +17,7 @@ namespace wanderer::sys {
  * \param level the level that will be saved.
  * \param path the file path of the binary save file that will be created.
  */
-void save(const comp::level& level, const std::filesystem::path& path);
+void save_level(const comp::level& level, const std::filesystem::path& path);
 
 /// \} End of levels
 
