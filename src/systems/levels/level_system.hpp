@@ -3,11 +3,39 @@
 #include <entt.hpp>  // registry
 
 #include "components/map/level.hpp"
+#include "core/aliases/map_id.hpp"
+#include "events/bond_animation_halfway_event.hpp"
 
 namespace wanderer::sys {
 
 /// \name Levels
 /// \{
+
+/**
+ * \brief Prepares the current level before another level is enabled.
+ *
+ * \pre The event message must be `"switch_level"`.
+ *
+ * \ingroup systems
+ *
+ * \param shared the shared data registry.
+ * \param event the animation event associated with the level switch.
+ *
+ * \return the ID associated with the next level.
+ */
+[[nodiscard]] auto prepare_current_level_before_switch(
+    entt::registry& shared,
+    const bond_animation_halfway_event& event) -> map_id;
+
+/**
+ * \brief Enables the level associated with the specified ID.
+ *
+ * \ingroup systems
+ *
+ * \param shared the shared data registry.
+ * \param id the ID associated with the level that will be enabled.
+ */
+void enable_level(entt::registry& shared, map_id id);
 
 /**
  * \brief Returns the currently active level.

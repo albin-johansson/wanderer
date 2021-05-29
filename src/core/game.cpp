@@ -1,12 +1,7 @@
 #include "game.hpp"
 
-#include <cassert>  // assert
-
 #include "components/ctx/renderer_snapshot.hpp"
 #include "components/ctx/settings.hpp"
-#include "components/graphics/level_switch_animation.hpp"
-#include "components/level_switch_target.hpp"
-#include "components/outside_level.hpp"
 #include "components/ui/fps_data.hpp"
 #include "core/ecs/event_connections.hpp"
 #include "core/ecs/make_dispatcher.hpp"
@@ -217,40 +212,6 @@ void game::load_save(const std::string& name, graphics_context& graphics)
   sys::start_bond_animation(level.registry, "load_game");
 }
 
-auto game::prepare_current_level_before_switch(const bond_animation_halfway_event& event)
-    -> map_id
-{
-  assert(event.msg == "switch_level");
-  auto& level = sys::current_level(m_shared);
-
-  const auto player = singleton_entity<comp::player>(level.registry);
-  auto& movable = level.registry.get<comp::movable>(player);
-  movable.velocity.reset();
-
-  sys::center_viewport_on(level.registry, movable.position);
-
-  const auto next = level.registry.get<comp::level_switch_target>(event.entity).id;
-  level.registry.destroy(event.entity);
-
-  return next;
-}
-
-void game::enable_level(const map_id id)
-{
-  m_shared.clear<comp::active_level>();
-
-  for (auto&& [entity, level] : m_shared.view<comp::level>().each())
-  {
-    if (level.id == id)
-    {
-      m_shared.emplace<comp::active_level>(entity);
-      break;
-    }
-  }
-
-  assert(m_shared.size<comp::active_level>() == 1);
-}
-
 auto game::is_paused() const -> bool
 {
   return sys::is_current_menu_blocking(m_shared);
@@ -352,8 +313,8 @@ void game::on_bond_animation_halfway(const bond_animation_halfway_event& event)
   }
   else if (event.msg == "switch_level")
   {
-    const auto next = prepare_current_level_before_switch(event);
-    enable_level(next);
+    const auto next = sys::prepare_current_level_before_switch(m_shared, event);
+    sys::enable_level(m_shared, next);
 
     auto& level = sys::current_level(m_shared);
     sys::start_reverse_only_bond_animation(level.registry);

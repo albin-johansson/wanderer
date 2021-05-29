@@ -82,11 +82,6 @@ class game final
   bool m_updateSnapshot{};
   bool m_quit{};
 
-  [[nodiscard]] auto prepare_current_level_before_switch(
-      const bond_animation_halfway_event& event) -> map_id;
-
-  void enable_level(map_id id);
-
   [[nodiscard]] auto is_paused() const -> bool;
 
   void on_button_pressed(const button_pressed_event& event);

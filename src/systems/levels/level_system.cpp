@@ -1,9 +1,50 @@
 #include "level_system.hpp"
 
+#include <cassert>  // assert
+
+#include "components/level_switch_target.hpp"
+#include "components/movable.hpp"
 #include "components/outside_level.hpp"
+#include "components/player.hpp"
 #include "core/ecs/registry_utils.hpp"
+#include "systems/graphics/viewport_system.hpp"
 
 namespace wanderer::sys {
+
+auto prepare_current_level_before_switch(entt::registry& shared,
+                                         const bond_animation_halfway_event& event)
+    -> map_id
+{
+  assert(event.msg == "switch_level");
+  auto& level = sys::current_level(shared);
+
+  const auto player = singleton_entity<comp::player>(level.registry);
+  auto& movable = level.registry.get<comp::movable>(player);
+  movable.velocity.reset();
+
+  sys::center_viewport_on(level.registry, movable.position);
+
+  const auto next = level.registry.get<comp::level_switch_target>(event.entity).id;
+  level.registry.destroy(event.entity);
+
+  return next;
+}
+
+void enable_level(entt::registry& shared, const map_id id)
+{
+  shared.clear<comp::active_level>();
+
+  for (auto&& [entity, level] : shared.view<comp::level>().each())
+  {
+    if (level.id == id)
+    {
+      shared.emplace<comp::active_level>(entity);
+      break;
+    }
+  }
+
+  assert(shared.size<comp::active_level>() == 1);
+}
 
 auto current_level(entt::registry& shared) -> comp::level&
 {
