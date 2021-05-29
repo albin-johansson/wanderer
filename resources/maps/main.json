@@ -329,28 +329,6 @@
                  "y":1596
                 }, 
                 {
-                 "height":38,
-                 "id":12,
-                 "name":"Portal to ?",
-                 "properties":[
-                        {
-                         "name":"path",
-                         "type":"file",
-                         "value":"main_home_tent.json"
-                        }, 
-                        {
-                         "name":"target",
-                         "type":"int",
-                         "value":1
-                        }],
-                 "rotation":0,
-                 "type":"Portal",
-                 "visible":true,
-                 "width":32,
-                 "x":3136,
-                 "y":2106
-                }, 
-                {
                  "ellipse":true,
                  "height":40,
                  "id":13,
