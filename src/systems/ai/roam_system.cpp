@@ -15,7 +15,7 @@ namespace {
 inline constexpr float cooldown_rate = 50;
 inline constexpr float target_error_margin = 1;
 
-[[nodiscard]] auto nearby_position(const float2 position)
+[[nodiscard]] auto nearby_position(const float2 position) -> float2
 {
   constexpr auto range = glob::tile_width<float> * 5.0f;
 
