@@ -71,7 +71,6 @@ game::game(graphics_context& graphics)
   m_dispatcher.sink<day_changed_event>().connect<&game::on_day_changed>(this);
 
   m_dispatcher.sink<bond_animation_halfway_event>().connect<&game::on_bond_animation_halfway>(this);
-  m_dispatcher.sink<bond_animation_finished_event>().connect<&game::on_bond_animation_finished>(this);
 
   m_dispatcher.sink<spawn_particles_event>().connect<&game::on_particle_event>(this);
   m_dispatcher.sink<quit_event>().connect<&game::on_quit_event>(this);
