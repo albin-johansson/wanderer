@@ -7,7 +7,7 @@ namespace chrono = std::chrono;
 
 namespace wanderer {
 
-[[nodiscard]] auto to_string(const chrono::system_clock::time_point tp) -> std::string
+auto to_string(const chrono::system_clock::time_point tp) -> std::string
 {
   const chrono::zoned_time zoned{chrono::current_zone(), tp};
   return std::format("{:%F %H:%M:%OS}", zoned);
