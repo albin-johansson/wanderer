@@ -21,6 +21,11 @@ struct is_within_bed_trigger final
   bed_trigger::entity trigger_entity{null<bed_trigger>()};
 };
 
+void serialize(auto& archive, bed_trigger& bt)
+{
+  // Do nothing
+}
+
 void serialize(auto& archive, is_within_bed_trigger& indicator)
 {
   archive(indicator.trigger_entity);

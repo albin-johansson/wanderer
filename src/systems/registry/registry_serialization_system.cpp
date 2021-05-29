@@ -1,5 +1,6 @@
 #include "registry_serialization_system.hpp"
 
+#include "components/bed_trigger.hpp"
 #include "components/chase.hpp"
 #include "components/ctx/active_menu.hpp"
 #include "components/ctx/binds.hpp"
@@ -36,6 +37,7 @@ void process(T& handle, Archive& archive)
 {
   handle.entities(archive)
       .template component<comp::animated,
+                          comp::bed_trigger,
                           comp::tile_animation,
                           comp::chase,
                           comp::container_trigger,
