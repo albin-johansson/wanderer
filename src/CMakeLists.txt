@@ -11,6 +11,7 @@ set(SOURCE_FILES
     components/float3.hpp
     components/hitbox.hpp
     components/humanoid_state.hpp
+    components/level_switch_target.hpp
     components/movable.hpp
     components/object.hpp
     components/outside_level.hpp
@@ -29,6 +30,7 @@ set(SOURCE_FILES
     components/ctx/viewport.hpp
 
     components/graphics/animated.hpp
+    components/graphics/custom_animation.hpp
     components/graphics/depth_drawable.hpp
     components/graphics/level_switch_animation.hpp
     components/graphics/particle.hpp
@@ -119,6 +121,7 @@ set(SOURCE_FILES
 
     events/begin_attack_event.hpp
     events/begin_humanoid_move_event.hpp
+    events/bond_animation_halfway_event.hpp
     events/button_pressed_event.hpp
     events/close_inventory_event.hpp
     events/day_changed_event.hpp
@@ -183,6 +186,8 @@ set(SOURCE_FILES
 
     systems/graphics/animation_system.cpp
     systems/graphics/animation_system.hpp
+    systems/graphics/custom_animation_system.cpp
+    systems/graphics/custom_animation_system.hpp
     systems/graphics/debug_rendering_system.cpp
     systems/graphics/debug_rendering_system.hpp
     systems/graphics/depth_system.cpp

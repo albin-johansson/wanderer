@@ -18,10 +18,12 @@
 #include <centurion.hpp>  // ipoint
 #include <rune.hpp>       // input, delta_time
 
+#include "components/map/level.hpp"
 #include "core/graphics/graphics_context.hpp"
+#include "events/bond_animation_halfway_event.hpp"
 #include "events/button_pressed_event.hpp"
 #include "events/close_inventory_event.hpp"
-#include "events/level_fade_events_event.hpp"
+#include "events/day_changed_event.hpp"
 #include "events/quit_event.hpp"
 #include "events/show_inventory_event.hpp"
 #include "events/sleep_event.hpp"
@@ -80,23 +82,28 @@ class game final
   bool m_updateSnapshot{};
   bool m_quit{};
 
+  [[nodiscard]] auto prepare_current_level_before_switch(
+      const bond_animation_halfway_event& event) -> map_id;
+
+  void enable_level(map_id id);
+
   [[nodiscard]] auto is_paused() const -> bool;
+
+  void on_button_pressed(const button_pressed_event& event);
 
   void on_switch_map(const switch_map_event& event);
 
   void on_switch_menu_event(const switch_menu_event& event);
 
-  void on_button_pressed(const button_pressed_event& event);
-
-  void on_level_animation_faded_in(const level_faded_in_event& event);
-
-  void on_level_animation_faded_out(const level_faded_out_event&);
+  void on_bond_animation_halfway(const bond_animation_halfway_event& event);
 
   void on_show_inventory(const show_inventory_event& event);
 
   void on_close_inventory(const close_inventory_event&);
 
   void on_sleep_event(const sleep_event&);
+
+  void on_day_changed(const day_changed_event& event);
 
   void on_particle_event(const spawn_particles_event& event);
 

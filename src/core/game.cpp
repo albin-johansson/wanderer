@@ -1,8 +1,11 @@
 #include "game.hpp"
 
+#include <cassert>  // assert
+
 #include "components/ctx/renderer_snapshot.hpp"
 #include "components/ctx/settings.hpp"
 #include "components/graphics/level_switch_animation.hpp"
+#include "components/level_switch_target.hpp"
 #include "components/outside_level.hpp"
 #include "components/ui/fps_data.hpp"
 #include "core/ecs/event_connections.hpp"
@@ -18,6 +21,7 @@
 #include "systems/configuration/load_binds_system.hpp"
 #include "systems/configuration/settings_system.hpp"
 #include "systems/graphics/animation_system.hpp"
+#include "systems/graphics/custom_animation_system.hpp"
 #include "systems/graphics/debug_rendering_system.hpp"
 #include "systems/graphics/depth_system.hpp"
 #include "systems/graphics/drawable_system.hpp"
@@ -59,11 +63,16 @@ game::game(graphics_context& graphics)
   m_dispatcher.sink<switch_map_event>().connect<&game::on_switch_map>(this);
   m_dispatcher.sink<switch_menu_event>().connect<&game::on_switch_menu_event>(this);
   m_dispatcher.sink<button_pressed_event>().connect<&game::on_button_pressed>(this);
+
   m_dispatcher.sink<show_inventory_event>().connect<&game::on_show_inventory>(this);
   m_dispatcher.sink<close_inventory_event>().connect<&game::on_close_inventory>(this);
+
   m_dispatcher.sink<sleep_event>().connect<&game::on_sleep_event>(this);
-  m_dispatcher.sink<level_faded_in_event>().connect<&game::on_level_animation_faded_in>(this);
-  m_dispatcher.sink<level_faded_out_event>().connect<&game::on_level_animation_faded_out>(this);
+  m_dispatcher.sink<day_changed_event>().connect<&game::on_day_changed>(this);
+
+  m_dispatcher.sink<bond_animation_halfway_event>().connect<&game::on_bond_animation_halfway>(this);
+  m_dispatcher.sink<bond_animation_finished_event>().connect<&game::on_bond_animation_finished>(this);
+
   m_dispatcher.sink<spawn_particles_event>().connect<&game::on_particle_event>(this);
   m_dispatcher.sink<quit_event>().connect<&game::on_quit_event>(this);
   // clang-format on
@@ -113,14 +122,15 @@ void game::handle_input(const rune::input& input)
 void game::tick(const rune::delta_time dt)
 {
   m_dispatcher.update();
+
+  auto& level = sys::current_level(m_shared);
   sys::update_fps(m_shared, dt);
+  sys::update_custom_animations(level.registry, m_dispatcher, dt);
 
   if (is_paused())
   {
     return;
   }
-
-  auto& level = sys::current_level(m_shared);
 
   sys::update_time(m_shared, m_dispatcher, dt);
   sys::update_humanoid_states(level.registry, m_dispatcher);
@@ -137,15 +147,16 @@ void game::tick(const rune::delta_time dt)
   sys::update_inventory_triggers(level.registry);
   sys::update_bed_triggers(level.registry);
 
-  const auto player = singleton_entity<comp::player>(level.registry);
-  sys::update_viewport(level.registry, comp::movable::entity{player}, dt);
+  {
+    const auto player = singleton_entity<comp::player>(level.registry);
+    sys::update_viewport(level.registry, comp::movable::entity{player}, dt);
+  }
   sys::sort_depth_drawables(level.registry);
 
   sys::update_animations(level.registry);
   sys::update_humanoid_animations(level.registry);
   sys::update_tile_animations(level.registry);
   sys::update_tile_object_animations(level.registry);
-  sys::update_level_switch_animations(level.registry, m_dispatcher, dt);
 }
 
 void game::render(graphics_context& graphics)
@@ -187,7 +198,7 @@ void game::render(graphics_context& graphics)
   sys::render_inventory(level.registry, renderer, m_mousePos);
 
   sys::render_active_menu(m_shared, graphics);
-  sys::render_level_switch_animations(level.registry, renderer);
+  sys::render_custom_animations(level.registry, graphics);
 
   sys::render_fps(m_shared, graphics);
 
@@ -202,6 +213,43 @@ void game::render(graphics_context& graphics)
 void game::load_save(const std::string& name, graphics_context& graphics)
 {
   load_game(m_shared, graphics, name);
+
+  auto& level = sys::current_level(m_shared);
+  sys::start_bond_animation(level.registry, "load_game");
+}
+
+auto game::prepare_current_level_before_switch(const bond_animation_halfway_event& event)
+    -> map_id
+{
+  assert(event.msg == "switch_level");
+  auto& level = sys::current_level(m_shared);
+
+  const auto player = singleton_entity<comp::player>(level.registry);
+  auto& movable = level.registry.get<comp::movable>(player);
+  movable.velocity.reset();
+
+  sys::center_viewport_on(level.registry, movable.position);
+
+  const auto next = level.registry.get<comp::level_switch_target>(event.entity).id;
+  level.registry.destroy(event.entity);
+
+  return next;
+}
+
+void game::enable_level(const map_id id)
+{
+  m_shared.clear<comp::active_level>();
+
+  for (auto&& [entity, level] : m_shared.view<comp::level>().each())
+  {
+    if (level.id == id)
+    {
+      m_shared.emplace<comp::active_level>(entity);
+      break;
+    }
+  }
+
+  assert(m_shared.size<comp::active_level>() == 1);
 }
 
 auto game::is_paused() const -> bool
@@ -209,24 +257,14 @@ auto game::is_paused() const -> bool
   return sys::is_current_menu_blocking(m_shared);
 }
 
-void game::on_switch_map(const switch_map_event& event)
-{
-  auto& level = sys::current_level(m_shared);
-  sys::start_level_fade_animation(level.registry, event.map);
-}
-
-void game::on_switch_menu_event(const switch_menu_event& event)
-{
-  sys::switch_menu(m_shared, event.id);
-}
-
 void game::on_button_pressed(const button_pressed_event& event)
 {
   switch (event.action)
   {
+    default:
+      [[fallthrough]];
     case menu_action::none:
       break;
-
     case menu_action::goto_in_game: {
       m_dispatcher.enqueue<switch_menu_event>(menu_id::in_game);
       break;
@@ -259,10 +297,6 @@ void game::on_button_pressed(const button_pressed_event& event)
     }
     case menu_action::load_game: {
       m_dispatcher.enqueue<load_game_event>(sys::get_selected_save_name(m_shared));
-      m_dispatcher.enqueue<switch_menu_event>(menu_id::in_game);
-
-      // TODO animation
-
       break;
     }
     case menu_action::change_save_preview: {
@@ -277,10 +311,6 @@ void game::on_button_pressed(const button_pressed_event& event)
       sys::increment_saves_button_group_page(m_shared);
       break;
     }
-    case menu_action::quit: {
-      m_dispatcher.enqueue<quit_event>();
-      break;
-    }
     case menu_action::toggle_fullscreen: {
       const auto enabled = sys::toggle_fullscreen(m_shared);
       m_dispatcher.enqueue<fullscreen_toggled_event>(enabled);
@@ -291,39 +321,44 @@ void game::on_button_pressed(const button_pressed_event& event)
       m_dispatcher.enqueue<integer_scaling_toggled_event>(enabled);
       break;
     }
-  }
-}
-
-void game::on_level_animation_faded_in(const level_faded_in_event& event)
-{
-  {
-    auto& currentLevel = sys::current_level(m_shared);
-    currentLevel.registry.clear<comp::level_switch_animation>();
-
-    const auto player = singleton_entity<comp::player>(currentLevel.registry);
-    auto& movable = currentLevel.registry.get<comp::movable>(player);
-    movable.velocity.reset();
-
-    sys::center_viewport_on(currentLevel.registry, movable.position);
-
-    m_shared.clear<comp::active_level>();
-    for (auto&& [entity, level] : m_shared.view<comp::level>().each())
-    {
-      if (level.id == event.map)
-      {
-        m_shared.emplace<comp::active_level>(entity);
-        break;
-      }
+    case menu_action::quit: {
+      m_dispatcher.enqueue<quit_event>();
+      break;
     }
   }
-
-  auto& level = sys::current_level(m_shared);
-  sys::end_level_fade_animation(level.registry, event);
 }
 
-void game::on_level_animation_faded_out(const level_faded_out_event&)
+void game::on_switch_map(const switch_map_event& event)
 {
-  sys::current_level(m_shared).registry.clear<comp::level_switch_animation>();
+  auto& level = sys::current_level(m_shared);
+  sys::start_level_change_animation(level.registry, event.map);
+}
+
+void game::on_switch_menu_event(const switch_menu_event& event)
+{
+  sys::switch_menu(m_shared, event.id);
+}
+
+void game::on_bond_animation_halfway(const bond_animation_halfway_event& event)
+{
+  CENTURION_LOG_DEBUG("on_bond_animation_halfway: %s", event.msg.data());
+
+  if (event.msg == "sleep")
+  {
+    sys::change_to_next_day(m_shared, m_dispatcher, 6);
+  }
+  else if (event.msg == "load_game")
+  {
+    m_dispatcher.enqueue<switch_menu_event>(menu_id::in_game);
+  }
+  else if (event.msg == "switch_level")
+  {
+    const auto next = prepare_current_level_before_switch(event);
+    enable_level(next);
+
+    auto& level = sys::current_level(m_shared);
+    sys::start_reverse_only_bond_animation(level.registry);
+  }
 }
 
 void game::on_show_inventory(const show_inventory_event& event)
@@ -339,7 +374,13 @@ void game::on_close_inventory(const close_inventory_event&)
 
 void game::on_sleep_event(const sleep_event&)
 {
-  // TODO play animation and update the time (should emit day changed event as well)
+  auto& level = sys::current_level(m_shared);
+  sys::start_bond_animation(level.registry, "sleep");
+}
+
+void game::on_day_changed(const day_changed_event& event)
+{
+  // TODO update the state of plants, etc.
 }
 
 void game::on_particle_event(const spawn_particles_event& event)
