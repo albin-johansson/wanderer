@@ -2,11 +2,9 @@
 
 #include <cassert>   // assert
 #include <concepts>  // invocable
-#include <entt.hpp>  // registry
 
 #include "components/ctx/render_bounds.hpp"
 #include "components/map/tile_layer.hpp"
-#include "core/graphics/graphics_context.hpp"
 #include "core/grid_position.hpp"
 
 namespace wanderer::sys {
@@ -17,9 +15,7 @@ namespace wanderer::sys {
 /**
  * \brief Visits all tiles in a tile layer that are within the specified bounds.
  *
- * \details Empty tiles will be ignored by this function. The signature of
- * the function object features two integers, that correspond to the row and column
- * indices, respectively.
+ * \note Empty tiles will be ignored by this function.
  *
  * \ingroup systems
  *
@@ -27,8 +23,7 @@ namespace wanderer::sys {
  *
  * \param layer the layer whose tiles will be visited.
  * \param bounds the bounds that the visited tiles must be within.
- * \param callable the function object that will be invoked for each tile
- * within the bounds.
+ * \param callable the function object that will be invoked for each tile within bounds.
  *
  * \since 0.1.0
  */

@@ -169,7 +169,6 @@ set(SOURCE_FILES
     systems/inventory_system.hpp
     systems/sleep_system.cpp
     systems/sleep_system.hpp
-    systems/tile_layer_system.hpp
     systems/time_system.cpp
     systems/time_system.hpp
     systems/update_triggers.hpp
@@ -202,8 +201,6 @@ set(SOURCE_FILES
     systems/graphics/render_bounds_system.hpp
     systems/graphics/tile_animation_system.cpp
     systems/graphics/tile_animation_system.hpp
-    systems/graphics/tile_layer_rendering_system.cpp
-    systems/graphics/tile_layer_rendering_system.hpp
     systems/graphics/tile_object_animation_system.cpp
     systems/graphics/tile_object_animation_system.hpp
     systems/graphics/tile_rendering_system.cpp
@@ -230,6 +227,10 @@ set(SOURCE_FILES
     systems/input/key_bind_system.hpp
     systems/input/movement_input_system.cpp
     systems/input/movement_input_system.hpp
+
+    systems/layers/tile_layer_rendering_system.cpp
+    systems/layers/tile_layer_rendering_system.hpp
+    systems/layers/tile_layer_system.hpp
 
     systems/levels/level_factory_system.cpp
     systems/levels/level_factory_system.hpp

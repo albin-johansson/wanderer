@@ -6,7 +6,7 @@
 #include "components/map/tilemap.hpp"
 #include "core/ecs/registry_utils.hpp"
 #include "systems/graphics/tile_rendering_system.hpp"
-#include "systems/tile_layer_system.hpp"
+#include "systems/layers/tile_layer_system.hpp"
 
 namespace wanderer::sys {
 
