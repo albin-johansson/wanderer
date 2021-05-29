@@ -26,6 +26,19 @@ void update_time(entt::registry& shared,
                  rune::delta_time dt);
 
 /**
+ * \brief Changes the time to the next day.
+ *
+ * \ingroup systems
+ *
+ * \param shared the shared data registry.
+ * \param dispatcher the event dispatcher that will be used.
+ * \param hour the hour to start the next day at.
+ */
+void change_to_next_day(entt::registry& shared,
+                        entt::dispatcher& dispatcher,
+                        float hour = 0);
+
+/**
  * \brief Renders a digital clock in the upper left corner of the screen with the current
  * time.
  *

@@ -15,6 +15,7 @@
 namespace wanderer::sys {
 namespace {
 
+inline constexpr float seconds_per_hour = 3'600;
 inline constexpr float rate = 100;
 
 inline constexpr float sunrise = 6;
@@ -156,15 +157,23 @@ void update_time(entt::registry& shared,
 
   if (time.hour >= 24)
   {
-    time.seconds = 0;
-    time.day = next_day(time.day);
-
-    /* Note, string_view::data is not guaranteed to be null-terminated, but
-       we know it is here. */
-    CENTURION_LOG_INFO("Changed day to %s", to_string(time.day).data());
-
-    dispatcher.enqueue<day_changed_event>(time.day);
+    change_to_next_day(shared, dispatcher);
   }
+}
+
+void change_to_next_day(entt::registry& shared,
+                        entt::dispatcher& dispatcher,
+                        const float hour)
+{
+  auto& time = shared.ctx<ctx::time_of_day>();
+  time.seconds = hour * seconds_per_hour;
+  time.day = next_day(time.day);
+
+  /* Note, string_view::data is not guaranteed to be null-terminated, but
+     we know it is here. */
+  CENTURION_LOG_INFO("Changed day to %s", to_string(time.day).data());
+
+  dispatcher.enqueue<day_changed_event>(time.day);
 }
 
 void render_clock(const entt::registry& registry, graphics_context& graphics)
