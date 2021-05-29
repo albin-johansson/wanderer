@@ -190,10 +190,6 @@ set(SOURCE_FILES
     systems/graphics/depth_system.hpp
     systems/graphics/drawable_system.cpp
     systems/graphics/drawable_system.hpp
-    systems/graphics/light_system.cpp
-    systems/graphics/light_system.hpp
-    systems/graphics/particle_system.hpp
-    systems/graphics/particle_system.cpp
     systems/graphics/render_bounds_system.cpp
     systems/graphics/render_bounds_system.hpp
     systems/graphics/viewport_system.cpp
@@ -339,6 +335,11 @@ set(SOURCE_FILES
     systems/ui/menus/settings/settings_menu_factory_system.hpp
     systems/ui/menus/settings/settings_menu_system.cpp
     systems/ui/menus/settings/settings_menu_system.hpp
+
+    systems/vfx/light_system.cpp
+    systems/vfx/light_system.hpp
+    systems/vfx/particle_system.hpp
+    systems/vfx/particle_system.cpp
     )
 
 add_library(${WANDERER_LIB_TARGET} ${SOURCE_FILES})

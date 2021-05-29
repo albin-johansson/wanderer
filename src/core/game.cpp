@@ -20,8 +20,6 @@
 #include "systems/graphics/debug_rendering_system.hpp"
 #include "systems/graphics/depth_system.hpp"
 #include "systems/graphics/drawable_system.hpp"
-#include "systems/graphics/light_system.hpp"
-#include "systems/graphics/particle_system.hpp"
 #include "systems/graphics/render_bounds_system.hpp"
 #include "systems/graphics/viewport_system.hpp"
 #include "systems/humanoid/humanoid_animation_system.hpp"
@@ -46,6 +44,8 @@
 #include "systems/ui/menus/menu_system.hpp"
 #include "systems/ui/menus/saves/saves_menu_system.hpp"
 #include "systems/ui/menus/settings/settings_menu_system.hpp"
+#include "systems/vfx/light_system.hpp"
+#include "systems/vfx/particle_system.hpp"
 
 namespace wanderer {
 
