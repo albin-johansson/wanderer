@@ -23,8 +23,6 @@
 #include "systems/graphics/light_system.hpp"
 #include "systems/graphics/particle_system.hpp"
 #include "systems/graphics/render_bounds_system.hpp"
-#include "systems/graphics/tile_animation_system.hpp"
-#include "systems/graphics/tile_object_animation_system.hpp"
 #include "systems/graphics/viewport_system.hpp"
 #include "systems/humanoid/humanoid_animation_system.hpp"
 #include "systems/humanoid/humanoid_state_system.hpp"
@@ -34,10 +32,13 @@
 #include "systems/levels/level_system.hpp"
 #include "systems/levels/load_levels.hpp"
 #include "systems/movement/movement_system.hpp"
-#include "systems/movement/portal_system.hpp"
 #include "systems/registry/shared_registry_factory_system.hpp"
-#include "systems/sleep_system.hpp"
+#include "systems/tiles/tile_animation_system.hpp"
+#include "systems/tiles/tile_object_animation_system.hpp"
 #include "systems/time_system.hpp"
+#include "systems/triggers/bed_trigger_system.hpp"
+#include "systems/triggers/container_trigger_system.hpp"
+#include "systems/triggers/portal_trigger_system.hpp"
 #include "systems/ui/fps_system.hpp"
 #include "systems/ui/hud/hud_rendering_system.hpp"
 #include "systems/ui/hud/level_switch_animation_system.hpp"
@@ -138,7 +139,7 @@ void game::tick(const rune::delta_time dt)
   sys::update_player_light_position(level.registry);
 
   sys::update_portal_triggers(level.registry);
-  sys::update_inventory_triggers(level.registry);
+  sys::update_container_triggers(level.registry);
   sys::update_bed_triggers(level.registry);
 
   {

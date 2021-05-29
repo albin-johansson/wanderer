@@ -167,11 +167,9 @@ set(SOURCE_FILES
     systems/interaction_system.hpp
     systems/inventory_system.cpp
     systems/inventory_system.hpp
-    systems/sleep_system.cpp
-    systems/sleep_system.hpp
     systems/time_system.cpp
     systems/time_system.hpp
-    systems/update_triggers.hpp
+    systems/triggers/update_triggers.hpp
 
     systems/ai/chase_system.cpp
     systems/ai/chase_system.hpp
@@ -199,12 +197,6 @@ set(SOURCE_FILES
     systems/graphics/particle_system.cpp
     systems/graphics/render_bounds_system.cpp
     systems/graphics/render_bounds_system.hpp
-    systems/graphics/tile_animation_system.cpp
-    systems/graphics/tile_animation_system.hpp
-    systems/graphics/tile_object_animation_system.cpp
-    systems/graphics/tile_object_animation_system.hpp
-    systems/graphics/tile_rendering_system.cpp
-    systems/graphics/tile_rendering_system.hpp
     systems/graphics/viewport_system.cpp
     systems/graphics/viewport_system.hpp
 
@@ -261,13 +253,25 @@ set(SOURCE_FILES
     systems/movement/hitbox_system.hpp
     systems/movement/movement_system.cpp
     systems/movement/movement_system.hpp
-    systems/movement/portal_system.cpp
-    systems/movement/portal_system.hpp
 
     systems/registry/registry_serialization_system.cpp
     systems/registry/registry_serialization_system.hpp
     systems/registry/shared_registry_factory_system.cpp
     systems/registry/shared_registry_factory_system.hpp
+
+    systems/tiles/tile_animation_system.cpp
+    systems/tiles/tile_animation_system.hpp
+    systems/tiles/tile_object_animation_system.cpp
+    systems/tiles/tile_object_animation_system.hpp
+    systems/tiles/tile_rendering_system.cpp
+    systems/tiles/tile_rendering_system.hpp
+
+    systems/triggers/bed_trigger_system.cpp
+    systems/triggers/bed_trigger_system.hpp
+    systems/triggers/container_trigger_system.cpp
+    systems/triggers/container_trigger_system.hpp
+    systems/triggers/portal_trigger_system.cpp
+    systems/triggers/portal_trigger_system.hpp
 
     systems/ui/cursor_system.cpp
     systems/ui/cursor_system.hpp

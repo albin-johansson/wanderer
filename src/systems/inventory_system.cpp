@@ -2,12 +2,11 @@
 
 #include <rune.hpp>  // index_to_matrix
 
-#include "components/inventory/container_trigger.hpp"
 #include "components/inventory/inventory.hpp"
 #include "components/inventory/item.hpp"
 #include "core/aliases/maybe.hpp"
 #include "core/game_constants.hpp"
-#include "systems/update_triggers.hpp"
+#include "systems/triggers/update_triggers.hpp"
 
 namespace wanderer::sys {
 namespace {
@@ -42,19 +41,6 @@ inline constexpr cen::ipoint origin = get_render_origin();
 }
 
 }  // namespace
-
-void update_inventory_triggers(entt::registry& registry)
-{
-  using trigger_t = comp::container_trigger;
-  using is_within_trigger_t = comp::is_within_container_trigger;
-
-  const auto removePredicate = [](const is_within_trigger_t& isWithinTrigger,
-                                  const trigger_t::entity triggerEntity) {
-    return isWithinTrigger.trigger_entity == triggerEntity;
-  };
-
-  sys::update_triggers<trigger_t, is_within_trigger_t>(registry, removePredicate);
-}
 
 void render_inventory(const entt::registry& registry,
                       cen::renderer& renderer,

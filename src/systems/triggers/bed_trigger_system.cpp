@@ -1,7 +1,7 @@
-#include "sleep_system.hpp"
+#include "bed_trigger_system.hpp"
 
 #include "components/bed_trigger.hpp"
-#include "systems/update_triggers.hpp"
+#include "update_triggers.hpp"
 
 namespace wanderer::sys {
 

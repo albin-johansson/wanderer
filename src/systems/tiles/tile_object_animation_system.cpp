@@ -4,7 +4,7 @@
 #include "components/graphics/tile_animation.hpp"
 #include "components/map/tile_object.hpp"
 #include "core/ecs/registry_utils.hpp"
-#include "systems/graphics/tile_rendering_system.hpp"
+#include "systems/tiles/tile_rendering_system.hpp"
 
 namespace wanderer::sys {
 
