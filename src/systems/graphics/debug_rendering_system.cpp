@@ -86,7 +86,7 @@ void render_development_build_label(graphics_context& graphics)
   auto& renderer = graphics.renderer();
   const auto& cache = graphics.small_font_cache();
 
-  const char str[] = "Development build";
+  constexpr char str[] = "Development build";
   const auto [width, height] = cache.get_font().string_size(str).value();
   const auto x = glob::logical_width<int> - width - 6;
   const auto y = glob::logical_height<int> - height - 6;
