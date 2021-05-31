@@ -6,7 +6,7 @@
 namespace wanderer::sys {
 namespace {
 
-inline constexpr float camera_speed = 10.0f;
+inline constexpr float camera_speed = 10;
 
 [[nodiscard]] auto next_camera_position(const float2 target,
                                         const ctx::viewport& viewport,
