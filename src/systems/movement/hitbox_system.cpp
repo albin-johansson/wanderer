@@ -7,15 +7,15 @@
 namespace wanderer::sys {
 namespace {
 
-[[nodiscard]] auto next_vertical_hitbox(const comp::movable& movable,
-                                        const comp::hitbox& hitbox,
-                                        const float2 oldPosition,
+[[nodiscard]] auto next_vertical_hitbox(const comp::hitbox& hitbox,
+                                        const float2& position,
+                                        const float2& velocity,
                                         const rune::delta_time dt) -> maybe<comp::hitbox>
 {
-  if (movable.velocity.y != 0)
+  if (velocity.y != 0)
   {
-    auto next = oldPosition;
-    next.y = oldPosition.y + (movable.velocity.y * dt);
+    auto next = position;
+    next.y = position.y + (velocity.y * dt);
     return with_position(hitbox, next);
   }
   else
@@ -24,16 +24,16 @@ namespace {
   }
 }
 
-[[nodiscard]] auto next_horizontal_hitbox(const comp::movable& movable,
-                                          const comp::hitbox& hitbox,
-                                          const float2 oldPosition,
+[[nodiscard]] auto next_horizontal_hitbox(const comp::hitbox& hitbox,
+                                          const float2& position,
+                                          const float2& velocity,
                                           const rune::delta_time dt)
     -> maybe<comp::hitbox>
 {
-  if (movable.velocity.x != 0)
+  if (velocity.x != 0)
   {
-    auto next = oldPosition;
-    next.x = oldPosition.x + (movable.velocity.x * dt);
+    auto next = position;
+    next.x = position.x + (velocity.x * dt);
     return with_position(hitbox, next);
   }
   else
@@ -145,8 +145,8 @@ auto make_next_hitboxes(const comp::movable& movable,
                         const float2 oldPosition,
                         const rune::delta_time dt) -> next_hitboxes
 {
-  return {next_horizontal_hitbox(movable, hitbox, oldPosition, dt),
-          next_vertical_hitbox(movable, hitbox, oldPosition, dt)};
+  return {next_horizontal_hitbox(hitbox, oldPosition, movable.velocity, dt),
+          next_vertical_hitbox(hitbox, oldPosition, movable.velocity, dt)};
 }
 
 auto query_collisions(const next_hitboxes& next, const comp::hitbox& obstacle)
