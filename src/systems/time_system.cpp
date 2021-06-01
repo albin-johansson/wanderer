@@ -2,6 +2,7 @@
 
 #include <centurion.hpp>  // to_underlying, ...
 #include <cmath>          // floor, ceil, lerp
+#include <format>         // format
 #include <rune.hpp>       // static_vector
 #include <stdexcept>      // runtime_error
 #include <string>         // string
@@ -188,9 +189,9 @@ void render_clock(const entt::registry& registry, graphics_context& graphics)
   };
 
   graphics.render_outlined_text(to_string(time.day), cen::point(6, 6));
-  graphics.render_outlined_text(prefix(hour) + std::to_string(hour) + ": " +
-                                    prefix(minute) + std::to_string(minute),
-                                cen::point(30, 6));
+  graphics.render_outlined_text(
+      std::format("{}{}: {}{}", prefix(hour), hour, prefix(minute), minute),
+      cen::point(30, 6));
 }
 
 }  // namespace wanderer::sys
