@@ -3,19 +3,21 @@
 #include <chrono>  // system_clock, zoned_time, current_zone
 #include <format>  // format
 
-namespace chrono = std::chrono;
+using std::chrono::current_zone;
+using std::chrono::system_clock;
+using std::chrono::zoned_time;
 
 namespace wanderer {
 
-auto to_string(const chrono::system_clock::time_point tp) -> std::string
+auto to_string(const system_clock::time_point tp) -> std::string
 {
-  const chrono::zoned_time zoned{chrono::current_zone(), tp};
+  const zoned_time zoned{current_zone(), tp};
   return std::format("{:%F %H:%M:%OS}", zoned);
 }
 
 auto current_hhmmss() -> std::string
 {
-  const chrono::zoned_time zoned{chrono::current_zone(), chrono::system_clock::now()};
+  const zoned_time zoned{current_zone(), system_clock::now()};
   return std::format("{:%T}", zoned);
 }
 
