@@ -9,6 +9,7 @@
 #include <cereal/types/string.hpp>
 #include <cereal/types/unordered_map.hpp>
 #include <cereal/types/vector.hpp>
+#include <concepts>  // default_initializable
 
 namespace wanderer {
 
@@ -18,7 +19,7 @@ namespace wanderer {
 using input_archive = cereal::BinaryInputArchive;
 using output_archive = cereal::BinaryOutputArchive;
 
-template <typename T, typename Archive>
+template <std::default_initializable T, typename Archive>
 [[nodiscard]] auto restore(Archive& archive) -> T
 {
   T obj;
