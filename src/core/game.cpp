@@ -25,7 +25,6 @@
 #include "systems/humanoid/humanoid_animation_system.hpp"
 #include "systems/humanoid/humanoid_state_system.hpp"
 #include "systems/input/input_system.hpp"
-#include "systems/inventory_system.hpp"
 #include "systems/layers/tile_layer_rendering_system.hpp"
 #include "systems/levels/level_system.hpp"
 #include "systems/levels/load_levels.hpp"
@@ -189,8 +188,7 @@ void game::render(graphics_context& graphics)
     sys::render_debug_info(level.registry, graphics);
   }
 
-  sys::render_hud(m_shared, graphics);
-  sys::render_inventory(level.registry, renderer, m_mousePos);
+  sys::render_hud(m_shared, graphics, m_mousePos);
 
   sys::render_active_menu(m_shared, graphics);
   sys::render_custom_animations(level.registry, graphics);

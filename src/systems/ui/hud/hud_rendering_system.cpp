@@ -10,22 +10,17 @@
 #include "components/ui/fps_data.hpp"
 #include "core/ecs/registry_utils.hpp"
 #include "core/game_constants.hpp"
+#include "inventory_rendering_system.hpp"
 #include "systems/levels/level_system.hpp"
 #include "systems/ui/grid.hpp"
 
 namespace wanderer::sys {
 namespace {
 
-inline constexpr auto enter_fmt = "Press \"{}\" to enter";
-inline constexpr auto exit_fmt = "Press \"{}\" to exit";
-inline constexpr auto sleep_fmt = "Press \"{}\" to sleep";
-inline constexpr auto container_fmt = "Press \"{}\" to open container";
-
-inline constexpr auto cell_count = 10;
-inline constexpr auto cell_width = 30;
-inline constexpr auto cell_height = 30;
-inline constexpr auto cell_spacing = 2;
-inline constexpr cen::color cell_color{0xAA, 0xAA, 0xAA, 0xCC};
+inline constexpr auto enter_fmt = "Press \" {}\" to enter";
+inline constexpr auto exit_fmt = "Press \" {}\" to exit";
+inline constexpr auto sleep_fmt = "Press \" {}\" to sleep";
+inline constexpr auto container_fmt = "Press \" {}\" to open container";
 
 void render_hint(graphics_context& graphics, const auto& text)
 {
@@ -61,32 +56,17 @@ void render_hints(const entt::registry& shared, graphics_context& graphics)
   }
 }
 
-void render_item_bar(graphics_context& graphics)
-{
-  constexpr auto width = cell_count * cell_width + (cell_count * cell_spacing);
-  constexpr auto x = center_x(width);
-  constexpr auto y = glob::logical_height<int> - cell_height - 6;
-
-  auto& renderer = graphics.renderer();
-  for (auto i = 0; i < cell_count; ++i)
-  {
-    const auto cell =
-        cen::rect(x + (i * (cell_width + cell_spacing)), y, cell_width, cell_height);
-
-    renderer.set_color(cell_color);
-    renderer.fill_rect(cell);
-
-    renderer.set_color(cen::colors::black);
-    renderer.draw_rect(cell);
-  }
-}
-
 }  // namespace
 
-void render_hud(const entt::registry& shared, graphics_context& graphics)
+void render_hud(const entt::registry& shared,
+                graphics_context& graphics,
+                const cen::ipoint mousePos)
 {
   render_hints(shared, graphics);
-  render_item_bar(graphics);
+
+  const auto& level = current_level(shared);
+  render_inventory_bar(level.registry, graphics);
+  render_inventory(level.registry, graphics, mousePos);
 }
 
 }  // namespace wanderer::sys

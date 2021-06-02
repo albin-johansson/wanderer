@@ -165,8 +165,6 @@ set(SOURCE_FILES
 
     systems/interaction_system.cpp
     systems/interaction_system.hpp
-    systems/inventory_system.cpp
-    systems/inventory_system.hpp
     systems/time_system.cpp
     systems/time_system.hpp
     systems/triggers/update_triggers.hpp
@@ -288,6 +286,8 @@ set(SOURCE_FILES
 
     systems/ui/hud/hud_rendering_system.cpp
     systems/ui/hud/hud_rendering_system.hpp
+    systems/ui/hud/inventory_rendering_system.cpp
+    systems/ui/hud/inventory_rendering_system.hpp
     systems/ui/hud/level_switch_animation_system.cpp
     systems/ui/hud/level_switch_animation_system.hpp
 
