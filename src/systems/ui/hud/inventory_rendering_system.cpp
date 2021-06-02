@@ -111,7 +111,7 @@ void render_inventory(const entt::registry& registry,
       const auto [row, col] = rune::index_to_matrix(*hoverIndex, n_cols);
       const cen::irect rect{getCellPos(row, col), cell_size};
 
-      renderer.set_color(cen::colors::dark_green);
+      renderer.set_color(cen::colors::lime_green);
       renderer.draw_rect(rect);
     }
   }
