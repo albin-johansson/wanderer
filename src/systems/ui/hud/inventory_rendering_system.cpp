@@ -80,7 +80,6 @@ void render_inventory(const entt::registry& registry,
        registry.view<const comp::inventory, const comp::active_inventory>().each())
   {
     renderer.fill_with(glob::transparent_black);
-    graphics.render_outlined_text("Inventory", cen::point(10, 10));
 
     const auto nItems = inventory.items.size();
     maybe<int> hoverIndex;
