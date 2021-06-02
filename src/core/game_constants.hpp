@@ -81,6 +81,8 @@ inline constexpr float menu_col_size = 30;
 inline constexpr float menu_rows = logical_height<float> / menu_row_size;
 inline constexpr float menu_columns = logical_width<float> / menu_col_size;
 
+inline constexpr int default_margin = 6;
+
 /// \} End of UI
 
 /// \} End of group core
