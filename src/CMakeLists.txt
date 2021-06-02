@@ -104,8 +104,6 @@ set(SOURCE_FILES
 
     core/graphics/graphics_context.cpp
     core/graphics/graphics_context.hpp
-    core/graphics/make_renderer.cpp
-    core/graphics/make_renderer.hpp
     core/graphics/render_text.cpp
     core/graphics/render_text.hpp
 
