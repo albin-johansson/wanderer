@@ -301,21 +301,24 @@ void game::on_switch_menu(const switch_menu_event& event)
 
 void game::on_custom_animation_halfway(const custom_animation_halfway_event& event)
 {
-  if (event.id == glob::sleep_id)
+  switch (event.id)
   {
-    sys::change_to_next_day(m_shared, m_dispatcher, glob::morning_hour);
-  }
-  else if (event.id == glob::load_game_id)
-  {
-    m_dispatcher.enqueue<switch_menu_event>(menu_id::in_game);
-  }
-  else if (event.id == glob::switch_level_id)
-  {
-    const auto next = sys::prepare_current_level_before_switch(m_shared, event);
-    sys::enable_level(m_shared, next);
+    case glob::sleep_id:
+      sys::change_to_next_day(m_shared, m_dispatcher, glob::morning_hour);
+      break;
 
-    auto& level = sys::current_level(m_shared);
-    sys::start_reverse_only_bond_animation(level.registry);
+    case glob::load_game_id:
+      m_dispatcher.enqueue<switch_menu_event>(menu_id::in_game);
+      break;
+
+    case glob::switch_level_id:
+      const auto next = sys::prepare_current_level_before_switch(m_shared, event);
+      sys::enable_level(m_shared, next);
+
+      auto& level = sys::current_level(m_shared);
+      sys::start_reverse_only_bond_animation(level.registry);
+
+      break;
   }
 }
 
