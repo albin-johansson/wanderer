@@ -11,14 +11,15 @@
 #include "core/ecs/null_entity.hpp"
 
 namespace wanderer::comp {
-namespace detail {
-struct saves_menu_t;
-struct saves_menu_entry_t;
-}  // namespace detail
+
+namespace tags {
+struct saves_menu_tag;
+struct saves_menu_entry_tag;
+}  // namespace tags
 
 struct saves_menu_entry final
 {
-  using entity = entity_type<detail::saves_menu_entry_t>;
+  using entity = entity_type<tags::saves_menu_entry_tag>;
 
   std::string name;      ///< The name of the save file.
   cen::surface preview;  ///< The preview image for the save.
@@ -34,7 +35,7 @@ struct associated_saves_entry final
 
 struct saves_menu final
 {
-  using entity = entity_type<detail::saves_menu_t>;
+  using entity = entity_type<tags::saves_menu_tag>;
 
   std::vector<saves_menu_entry::entity> entries;
 

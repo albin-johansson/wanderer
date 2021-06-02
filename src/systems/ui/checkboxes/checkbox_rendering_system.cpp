@@ -35,7 +35,7 @@ void render_checkbox(const entt::registry& registry,
     drawable.texture.emplace(render_text(renderer, button.text, font));
   }
 
-  renderer.render(*drawable.texture, drawable.textPos.value());
+  renderer.render(*drawable.texture, drawable.text_pos.value());
 }
 
 }  // namespace

@@ -10,13 +10,14 @@
 #include "core/ecs/null_entity.hpp"
 
 namespace wanderer::comp {
-namespace detail {
-struct portal_entity_t;
-}
+
+namespace tags {
+struct portal_tag;
+}  // namespace tags
 
 struct portal final
 {
-  using entity = entity_type<detail::portal_entity_t>;
+  using entity = entity_type<tags::portal_tag>;
 
   std::string path;      ///< Path to target map file.
   maybe<map_id> target;  ///< Identifier associated with target map.
@@ -24,7 +25,7 @@ struct portal final
 
 struct is_within_portal final
 {
-  portal::entity portalEntity{null<portal>()};  ///< The associated portal.
+  portal::entity portal_entity{null<portal>()};  ///< The associated portal.
 };
 
 void serialize(auto& archive, portal& p, uint32 version)
@@ -34,7 +35,7 @@ void serialize(auto& archive, portal& p, uint32 version)
 
 void serialize(auto& archive, is_within_portal& iwp, uint32 version)
 {
-  archive(iwp.portalEntity);
+  archive(iwp.portal_entity);
 }
 
 }  // namespace wanderer::comp

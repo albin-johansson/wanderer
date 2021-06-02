@@ -24,9 +24,9 @@ auto make_checkbox(entt::registry& registry,
 
   auto& drawable = registry.get<comp::button_drawable>(entity);
   drawable.bounds = cen::cast<cen::frect>(rect);
-  drawable.textPos = drawable.bounds.position();
-  drawable.textPos->set_x(drawable.textPos->x() + 14);
-  drawable.textPos->set_y(drawable.textPos->y() - 2);
+  drawable.text_pos = drawable.bounds.position();
+  drawable.text_pos->set_x(drawable.text_pos->x() + 14);
+  drawable.text_pos->set_y(drawable.text_pos->y() - 2);
 
   auto& checkbox = registry.emplace<comp::checkbox>(entity);
   checkbox.checked = checked;

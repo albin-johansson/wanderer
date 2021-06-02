@@ -6,9 +6,10 @@
 #include "core/direction.hpp"
 
 namespace wanderer::comp {
-namespace detail {
-struct movable_entity;
-}
+
+namespace tags {
+struct movable_tag;
+}  // namespace tags
 
 /**
  * \struct movable
@@ -19,7 +20,7 @@ struct movable_entity;
  */
 struct movable final
 {
-  using entity = entity_type<detail::movable_entity>;
+  using entity = entity_type<tags::movable_tag>;
 
   float2 velocity;                 ///< Current x- and y-axis speed.
   float2 position;                 ///< Current position.

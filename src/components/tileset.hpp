@@ -11,7 +11,7 @@ namespace wanderer::comp {
 
 namespace tags {
 struct tileset_tag;
-}
+}  // namespace tags
 
 struct tileset final
 {

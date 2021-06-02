@@ -4,13 +4,14 @@
 #include "core/grid_position.hpp"
 
 namespace wanderer::comp {
-namespace detail {
-struct line_t;
-}
+
+namespace tags {
+struct line_tag;
+}  // namespace tags
 
 struct line final
 {
-  using entity = entity_type<detail::line_t>;
+  using entity = entity_type<tags::line_tag>;
 
   grid_position start;
   grid_position end;

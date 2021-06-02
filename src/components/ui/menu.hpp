@@ -11,14 +11,15 @@
 #include "core/menu_id.hpp"
 
 namespace wanderer::comp {
-namespace detail {
-struct menu_entity_t;
-struct menu_drawable_entity_t;
-}  // namespace detail
+
+namespace tags {
+struct menu_tag;
+struct menu_drawable_tag;
+}  // namespace tags
 
 struct menu final
 {
-  using entity = entity_type<detail::menu_entity_t>;
+  using entity = entity_type<tags::menu_tag>;
 
   menu_id id{};
   std::string title;
@@ -47,7 +48,7 @@ struct controls_menu final
 
 struct menu_drawable final
 {
-  using entity = entity_type<detail::menu_drawable_entity_t>;
+  using entity = entity_type<tags::menu_drawable_tag>;
 
   mutable maybe<cen::texture> texture;  ///< Title text texture.
   mutable maybe<cen::fpoint> position;  ///< The position of the title text.

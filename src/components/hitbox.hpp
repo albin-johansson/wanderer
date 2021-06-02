@@ -9,9 +9,10 @@
 #include "core/aliases/ints.hpp"
 
 namespace wanderer::comp {
-namespace detail {
-struct hitbox_entity_t;
-}
+
+namespace tags {
+struct hitbox_tag;
+}  // namespace tags
 
 /// The maximum number of subhitboxes a single hitbox can contain.
 inline constexpr usize max_subhitbox_count = 5;
@@ -36,7 +37,7 @@ struct subhitbox final
  */
 struct hitbox final
 {
-  using entity = entity_type<detail::hitbox_entity_t>;
+  using entity = entity_type<tags::hitbox_tag>;
 
   float2 origin;      ///< Position of the hitbox
   cen::frect bounds;  ///< Bounding rectangle of all subhitboxes

@@ -6,13 +6,14 @@
 #include "core/aliases/ints.hpp"
 
 namespace wanderer::comp {
-namespace detail {
-struct chase_entity_t;
-}
+
+namespace tags {
+struct chase_tag;
+}  // namespace tags
 
 struct chase final
 {
-  using entity = entity_type<detail::chase_entity_t>;
+  using entity = entity_type<tags::chase_tag>;
 
   entt::entity target{entt::null};  ///< The entity that will be chased.
   float range{};  ///< The maximum distance at which the target can be chased.

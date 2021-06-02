@@ -9,13 +9,14 @@
 #include "core/text_size.hpp"
 
 namespace wanderer::comp {
-namespace detail {
-struct label_entity_t;
-}
+
+namespace tags {
+struct label_tag;
+}  // namespace tags
 
 struct label final
 {
-  using entity = entity_type<detail::label_entity_t>;
+  using entity = entity_type<tags::label_tag>;
 
   grid_position position;
   std::string text;

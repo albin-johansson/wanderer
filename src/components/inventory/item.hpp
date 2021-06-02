@@ -3,13 +3,14 @@
 #include "core/aliases/entity_type.hpp"
 
 namespace wanderer::comp {
-namespace detail {
-struct item_entity_t;
-}
+
+namespace tags {
+struct item_tag;
+}  // namespace tags
 
 struct item final
 {
-  using entity = entity_type<detail::item_entity_t>;
+  using entity = entity_type<tags::item_tag>;
   // TODO include texture_id
 };
 

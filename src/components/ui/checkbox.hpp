@@ -3,13 +3,14 @@
 #include "core/aliases/entity_type.hpp"
 
 namespace wanderer::comp {
-namespace detail {
-struct checkbox_entity_t;
-}  // namespace detail
+
+namespace tags {
+struct checkbox_tag;
+}  // namespace tags
 
 struct checkbox final
 {
-  using entity = entity_type<detail::checkbox_entity_t>;
+  using entity = entity_type<tags::checkbox_tag>;
 
   bool checked{};
 };
