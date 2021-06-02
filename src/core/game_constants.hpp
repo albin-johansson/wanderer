@@ -13,6 +13,9 @@ namespace wanderer::glob {
 /// \addtogroup core
 /// \{
 
+/// \name Logical size
+/// \{
+
 template <typename T = int>
 inline constexpr T logical_width = 960;
 
@@ -22,6 +25,11 @@ inline constexpr T logical_height = 540;
 template <typename T = cen::iarea>
 inline constexpr T logical_size{logical_width<typename T::value_type>,
                                 logical_height<typename T::value_type>};
+
+/// \} End of logical size
+
+/// \name Tiles
+/// \{
 
 template <typename T = float>
 inline constexpr T tile_width = 64;
@@ -33,15 +41,29 @@ template <typename T = float2>
 inline constexpr T tile_size{tile_width<typename T::value_type>,
                              tile_height<typename T::value_type>};
 
+/// \} End of tiles
+
+/// \name Humanoids
+/// \{
+
 inline constexpr float humanoid_draw_width{tile_width<float> * 2.0f};
 inline constexpr float humanoid_draw_height{tile_height<float> * 2.0f};
-
-template <typename T = cen::farea>
-inline constexpr T humanoid_draw_size{humanoid_draw_width, humanoid_draw_height};
+inline constexpr cen::farea humanoid_draw_size{humanoid_draw_width, humanoid_draw_height};
 
 inline constexpr float player_speed = 1.25f * humanoid_draw_width;
 inline constexpr float monster_speed = 0.75f * player_speed;
+
+/// \} End of humanoids
+
+/// \name Day/Night-cycle
+/// \{
+
 inline constexpr float morning_hour = 6;
+
+/// \} End of day/night-cycle
+
+/// \name UI
+/// \{
 
 inline constexpr cen::color transparent_black = cen::colors::black.with_alpha(0xBB);
 
@@ -58,6 +80,8 @@ inline constexpr float menu_col_size = 30;
 
 inline constexpr float menu_rows = logical_height<float> / menu_row_size;
 inline constexpr float menu_columns = logical_width<float> / menu_col_size;
+
+/// \} End of UI
 
 /// \} End of group core
 

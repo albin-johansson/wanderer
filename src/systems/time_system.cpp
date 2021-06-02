@@ -11,6 +11,7 @@
 #include "components/ctx/time_of_day.hpp"
 #include "core/aliases/ints.hpp"
 #include "core/common_concepts.hpp"
+#include "core/game_constants.hpp"
 #include "events/day_changed_event.hpp"
 
 namespace wanderer::sys {
@@ -19,7 +20,7 @@ namespace {
 inline constexpr float seconds_per_hour = 3'600;
 inline constexpr float rate = 100;
 
-inline constexpr float sunrise = 6;
+inline constexpr float sunrise = glob::morning_hour;
 inline constexpr float daytime = 8;
 inline constexpr float sunset = 20;
 inline constexpr float night = 22;
