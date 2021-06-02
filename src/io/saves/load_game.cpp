@@ -7,7 +7,6 @@
 #include "components/ctx/viewport.hpp"
 #include "components/map/level.hpp"
 #include "components/outside_level.hpp"
-#include "core/ecs/add_humanoid_state_dependencies.hpp"
 #include "core/serialization.hpp"
 #include "io/directories.hpp"
 #include "io/saves/parse_save_file.hpp"
@@ -57,8 +56,6 @@ void load_game(entt::registry& shared,
 
     auto& viewport = level.registry.ctx<ctx::viewport>();
     viewport.keep_in_bounds = data.keep_viewport_in_bounds;
-
-    add_humanoid_state_dependencies(level.registry);
   }
 
   assert(shared.view<comp::active_level>().size() == 1);

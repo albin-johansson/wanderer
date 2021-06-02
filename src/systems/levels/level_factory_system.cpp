@@ -11,6 +11,7 @@
 #include "components/movable.hpp"
 #include "components/player.hpp"
 #include "components/tileset.hpp"
+#include "core/ecs/add_humanoid_state_dependencies.hpp"
 #include "core/ecs/make_registry.hpp"
 #include "core/ecs/registry_utils.hpp"
 #include "core/serialization.hpp"
@@ -104,6 +105,8 @@ auto restore_level(const std::filesystem::path& path, graphics_context& graphics
   archive(level.tree);
   archive(level.tilemap);
   archive(level.player_spawn_position);
+
+  add_humanoid_state_dependencies(level.registry);
 
   add_level_size(level);
   add_viewport(level);
