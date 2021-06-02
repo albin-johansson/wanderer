@@ -32,7 +32,6 @@ set(SOURCE_FILES
     components/graphics/animated.hpp
     components/graphics/custom_animation.hpp
     components/graphics/depth_drawable.hpp
-    components/graphics/level_switch_animation.hpp
     components/graphics/particle.hpp
     components/graphics/point_light.hpp
     components/graphics/tile_animation.hpp
