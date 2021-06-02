@@ -208,7 +208,7 @@ void game::load_save(const std::string& name, graphics_context& graphics)
   load_game(m_shared, graphics, name);
 
   auto& level = sys::current_level(m_shared);
-  sys::start_bond_animation(level.registry, "load_game");
+  sys::start_bond_animation(level.registry, glob::load_game_id);
 }
 
 auto game::is_paused() const -> bool
@@ -301,17 +301,15 @@ void game::on_switch_menu(const switch_menu_event& event)
 
 void game::on_custom_animation_halfway(const custom_animation_halfway_event& event)
 {
-  CENTURION_LOG_DEBUG("on_custom_animation_halfway: %s", event.msg.data());
-
-  if (event.msg == "sleep")
+  if (event.id == glob::sleep_id)
   {
     sys::change_to_next_day(m_shared, m_dispatcher, glob::morning_hour);
   }
-  else if (event.msg == "load_game")
+  else if (event.id == glob::load_game_id)
   {
     m_dispatcher.enqueue<switch_menu_event>(menu_id::in_game);
   }
-  else if (event.msg == "switch_level")
+  else if (event.id == glob::switch_level_id)
   {
     const auto next = sys::prepare_current_level_before_switch(m_shared, event);
     sys::enable_level(m_shared, next);
@@ -335,7 +333,7 @@ void game::on_close_inventory(const close_inventory_event&)
 void game::on_sleep(const sleep_event&)
 {
   auto& level = sys::current_level(m_shared);
-  sys::start_bond_animation(level.registry, "sleep");
+  sys::start_bond_animation(level.registry, glob::sleep_id);
 }
 
 void game::on_day_changed(const day_changed_event& event)

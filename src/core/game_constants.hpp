@@ -4,6 +4,7 @@
 #include <entt.hpp>       // hashed_string, id_type
 
 #include "core/aliases/float2.hpp"
+#include "core/aliases/ints.hpp"
 
 /// \namespace wanderer::glob
 /// \brief Contains various constants.
@@ -61,6 +62,15 @@ inline constexpr float monster_speed = 0.75f * player_speed;
 inline constexpr float morning_hour = 6;
 
 /// \} End of day/night-cycle
+
+/// \name Events
+/// \{
+
+inline constexpr uint32 sleep_id = 1;
+inline constexpr uint32 load_game_id = 2;
+inline constexpr uint32 switch_level_id = 3;
+
+/// \} End of events
 
 /// \name UI
 /// \{

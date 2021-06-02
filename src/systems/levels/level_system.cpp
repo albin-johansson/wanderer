@@ -7,6 +7,7 @@
 #include "components/outside_level.hpp"
 #include "components/player.hpp"
 #include "core/ecs/registry_utils.hpp"
+#include "core/game_constants.hpp"
 #include "systems/graphics/viewport_system.hpp"
 
 namespace wanderer::sys {
@@ -15,7 +16,7 @@ auto prepare_current_level_before_switch(entt::registry& shared,
                                          const custom_animation_halfway_event& event)
     -> map_id
 {
-  assert(event.msg == "switch_level");
+  assert(event.id == glob::switch_level_id);
   auto& level = sys::current_level(shared);
 
   const auto player = singleton_entity<comp::player>(level.registry);
