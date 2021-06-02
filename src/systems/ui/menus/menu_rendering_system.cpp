@@ -42,7 +42,7 @@ void render_title(const std::string& title,
 
   if (!drawable.position)
   {
-    const auto x = (glob::logical_width<float> / 2.0f) - (texture.width() / 2.0f);
+    const auto x = static_cast<float>(center_x(texture.width()));
     constexpr auto y = row_to_y(2);
     drawable.position = {x, y};
   }
@@ -64,8 +64,8 @@ void render_author_label(graphics_context& graphics)
   }
 
   const auto& texture = cache.get_stored(id);
-  const auto y = glob::logical_height<int> - texture.height() - 6;
-  renderer.render(texture, cen::point(6, y));
+  const auto y = glob::logical_height<int> - texture.height() - glob::default_margin;
+  renderer.render(texture, cen::point(glob::default_margin, y));
 }
 
 }  // namespace
