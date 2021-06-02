@@ -2,7 +2,6 @@
 
 #include <array>          // array
 #include <centurion.hpp>  // farea, frect
-#include <cstddef>        // size_t
 #include <rune.hpp>       // static_vector
 
 #include "core/aliases/entity_type.hpp"
@@ -15,7 +14,7 @@ struct hitbox_entity_t;
 }
 
 /// The maximum number of subhitboxes a single hitbox can contain.
-inline constexpr std::size_t max_subhitbox_count = 5;
+inline constexpr usize max_subhitbox_count = 5;
 
 /**
  * \brief Represents a "subhitbox", a member of a `hitbox` instance.

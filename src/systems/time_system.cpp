@@ -79,8 +79,8 @@ inline const phase night_phase{.phase_start = night,
     const auto indexLower = std::floor(index);
     const auto indexUpper = std::ceil(index);
 
-    const auto c1 = current.colors.at(static_cast<std::size_t>(indexLower));
-    const auto c2 = current.colors.at(static_cast<std::size_t>(indexUpper));
+    const auto c1 = current.colors.at(static_cast<usize>(indexLower));
+    const auto c2 = current.colors.at(static_cast<usize>(indexUpper));
 
     return cen::blend(c1, c2, index - indexLower);
   }

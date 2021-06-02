@@ -1,9 +1,11 @@
 #pragma once
 
 #include <centurion.hpp>  // ...
+#include <cstddef>        // size_t
 
 namespace wanderer {
 
+using usize = std::size_t;
 using cen::uint;
 using cen::ulonglong;
 
