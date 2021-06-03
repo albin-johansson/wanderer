@@ -18,7 +18,7 @@ namespace wanderer::sys {
  *
  * \param registry the menu registry.
  */
-void on_saves_menu_enabled(entt::registry& registry);
+void refresh_saves_menu(entt::registry& registry);
 
 /**
  * \brief Updates the save file preview.

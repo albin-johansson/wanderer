@@ -129,6 +129,7 @@ set(SOURCE_FILES
     events/interact_event.hpp
     events/level_fade_events_event.hpp
     events/load_game_event.hpp
+    events/menu_switched_event.hpp
     events/quit_event.hpp
     events/show_inventory_event.hpp
     events/sleep_event.hpp

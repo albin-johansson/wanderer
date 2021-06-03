@@ -192,7 +192,7 @@ void change_saves_button_group_page(entt::registry& registry, const int incremen
 
 }  // namespace
 
-void on_saves_menu_enabled(entt::registry& registry)
+void refresh_saves_menu(entt::registry& registry)
 {
   registry.clear<comp::saves_menu_entry>();
 

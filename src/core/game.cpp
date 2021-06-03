@@ -57,6 +57,7 @@ game::game(graphics_context& graphics)
   // clang-format off
   m_dispatcher.sink<switch_map_event>().connect<&game::on_switch_map>(this);
   m_dispatcher.sink<switch_menu_event>().connect<&game::on_switch_menu>(this);
+  m_dispatcher.sink<menu_switched_event>().connect<&game::on_menu_switched>(this);
   m_dispatcher.sink<button_pressed_event>().connect<&game::on_button_pressed>(this);
 
   m_dispatcher.sink<show_inventory_event>().connect<&game::on_show_inventory>(this);
@@ -296,7 +297,16 @@ void game::on_switch_map(const switch_map_event& event)
 
 void game::on_switch_menu(const switch_menu_event& event)
 {
-  sys::switch_menu(m_shared, event.id);
+  sys::switch_menu(m_shared, m_dispatcher, event.id);
+}
+
+void game::on_menu_switched(const menu_switched_event& event)
+{
+  const auto& menu = m_shared.get<comp::menu>(event.entity);
+  if (menu.id == menu_id::saves)
+  {
+    sys::refresh_saves_menu(m_shared);
+  }
 }
 
 void game::on_custom_animation_halfway(const custom_animation_halfway_event& event)

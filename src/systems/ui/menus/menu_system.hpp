@@ -29,9 +29,10 @@ void update_menu(entt::registry& registry,
  * \ingroup systems
  *
  * \param registry the menu registry.
+ * \param dispatcher the event dispatcher that will be used.
  * \param id the ID associated with the menu that will be selected.
  */
-void switch_menu(entt::registry& registry, menu_id id);
+void switch_menu(entt::registry& registry, entt::dispatcher& dispatcher, menu_id id);
 
 /**
  * \brief Indicates whether or not the current menu is blocking.
