@@ -48,7 +48,6 @@ auto update_button_hover(entt::registry& registry, const cen::mouse& mouse)
   {
     if (associated.entity == menuEntity)
     {
-      auto& button = registry.get<comp::button>(entity);
       if (button.visible)
       {
         const auto& drawable = registry.get<comp::button_drawable>(entity);
