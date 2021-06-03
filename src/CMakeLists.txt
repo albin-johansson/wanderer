@@ -154,6 +154,8 @@ set(SOURCE_FILES
     io/map/parse_world.cpp
     io/map/parse_world.hpp
 
+    io/saves/delete_save.cpp
+    io/saves/delete_save.hpp
     io/saves/load_game.cpp
     io/saves/load_game.hpp
     io/saves/parse_save_file.cpp

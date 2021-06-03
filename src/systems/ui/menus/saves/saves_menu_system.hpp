@@ -35,6 +35,16 @@ void refresh_saves_menu(entt::registry& registry);
 void change_save_preview(entt::registry& registry);
 
 /**
+ * \brief Removes a save file entry and deletes the associated save file.
+ *
+ * \ingroup systems
+ *
+ * \param registry the menu registry.
+ * \param name the name of the save file.
+ */
+void remove_save_entry(entt::registry& registry, const std::string& name);
+
+/**
  * \brief Changes the current save file page to the next one.
  *
  * \ingroup systems

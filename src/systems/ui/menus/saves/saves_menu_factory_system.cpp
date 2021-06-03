@@ -61,15 +61,13 @@ void make_buttons(entt::registry& registry, const comp::menu::entity menuEntity)
 
   button("Return", menu_action::goto_home, 3.5f);
 
+  // clang-format off
   auto& savesMenu = registry.get<comp::saves_menu>(menuEntity);
-
   savesMenu.load_button = button("Load", menu_action::load_game, 15, 12);
-  savesMenu.delete_button = button("Delete", menu_action::none, 15, 27.5f);
-
-  savesMenu.decrement_button =
-      button("<", menu_action::decrement_saves_button_group_page, 15, 4);
-  savesMenu.increment_button =
-      button(">", menu_action::increment_saves_button_group_page, 15, 8);
+  savesMenu.delete_button = button("Delete", menu_action::delete_game, 15, 27.5f);
+  savesMenu.decrement_button = button("<", menu_action::decrement_saves_button_group_page, 15, 4);
+  savesMenu.increment_button = button(">", menu_action::increment_saves_button_group_page, 15, 8);
+  // clang-format on
 }
 
 void make_lines(entt::registry& registry, const comp::menu::entity menuEntity)
@@ -92,7 +90,7 @@ void make_lines(entt::registry& registry, const comp::menu::entity menuEntity)
 
   // Horizontal bottom button separator
   line({15, 11}, {15, 29});
-  line({15, 3}, {15, 9});
+  line({15, col_0 + 1}, {15, 9});
 }
 
 }  // namespace

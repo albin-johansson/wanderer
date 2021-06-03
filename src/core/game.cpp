@@ -9,6 +9,7 @@
 #include "events/fullscreen_toggled_event.hpp"
 #include "events/integer_scaling_toggled_event.hpp"
 #include "events/load_game_event.hpp"
+#include "io/saves/delete_save.hpp"
 #include "io/saves/load_game.hpp"
 #include "io/saves/save_game.hpp"
 #include "systems/ai/chase_system.hpp"
@@ -258,6 +259,11 @@ void game::on_button_pressed(const button_pressed_event& event)
     }
     case menu_action::load_game: {
       m_dispatcher.enqueue<load_game_event>(sys::get_selected_save_name(m_shared));
+      break;
+    }
+    case menu_action::delete_game: {
+      const auto name = sys::get_selected_save_name(m_shared);
+      sys::remove_save_entry(m_shared, name);
       break;
     }
     case menu_action::change_save_preview: {
