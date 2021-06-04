@@ -14,6 +14,7 @@ enum class menu_action
   goto_controls,
   quick_save,
   load_game,
+  delete_game,
   change_save_preview,
   increment_saves_button_group_page,
   decrement_saves_button_group_page,

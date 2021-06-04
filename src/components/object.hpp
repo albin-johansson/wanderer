@@ -4,13 +4,14 @@
 #include "core/aliases/ints.hpp"
 
 namespace wanderer::comp {
-namespace detail {
-struct object_entity_t;
-}
+
+namespace tags {
+struct object_tag;
+}  // namespace tags
 
 struct object final
 {
-  using entity = entity_type<detail::object_entity_t>;
+  using entity = entity_type<tags::object_tag>;
 
   int id{};
 };

@@ -13,12 +13,12 @@
 namespace wanderer::comp {
 
 namespace tags {
-struct level_entity_tag;
-}
+struct level_tag;
+}  // namespace tags
 
 struct level final
 {
-  using entity = entity_type<tags::level_entity_tag>;
+  using entity = entity_type<tags::level_tag>;
 
   map_id id;
 

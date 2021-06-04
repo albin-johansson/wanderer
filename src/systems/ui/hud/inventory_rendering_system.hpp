@@ -1,8 +1,8 @@
 #pragma once
 
-#include <centurion.hpp>  // renderer
 #include <entt.hpp>       // registry
 
+#include "core/graphics/graphics_context.hpp"
 #include "components/player.hpp"
 
 namespace wanderer::sys {
@@ -10,8 +10,11 @@ namespace wanderer::sys {
 /// \name Inventory
 /// \{
 
+void render_inventory_bar(const entt::registry& registry,
+                          graphics_context& graphics);
+
 void render_inventory(const entt::registry& registry,
-                      cen::renderer& renderer,
+                      graphics_context& graphics,
                       const cen::ipoint& mousePos);
 
 /// \} End of inventory

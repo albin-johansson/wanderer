@@ -13,13 +13,12 @@ inline constexpr cen::color gray{0x11, 0x11, 0x11};
 
 }  // namespace
 
-auto start_bond_animation(entt::registry& registry, const std::string_view msg)
-    -> entt::entity
+auto start_bond_animation(entt::registry& registry, const uint32 id) -> entt::entity
 {
   const auto entity = registry.create();
 
   auto& animation = registry.emplace<comp::custom_animation>(entity);
-  animation.msg = msg;
+  animation.id = id;
   animation.speed = speed;
   animation.width = 0;
   animation.height = 0;
@@ -59,7 +58,7 @@ void update_custom_animations(entt::registry& registry,
       animation.x_step_size *= -1;
       animation.y_step_size *= -1;
       animation.fading_in = false;
-      dispatcher.enqueue<custom_animation_halfway_event>(animation.msg, entity);
+      dispatcher.enqueue<custom_animation_halfway_event>(animation.id, entity);
     }
     else if (animation.width <= 0)
     {

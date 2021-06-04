@@ -10,9 +10,9 @@
 
 namespace wanderer::comp {
 
-namespace detail {
-struct tile_entity_t;
-}
+namespace tags {
+struct tile_tag;
+}  // namespace tags
 
 /**
  * \struct tile
@@ -27,7 +27,7 @@ struct tile_entity_t;
  */
 struct tile final
 {
-  using entity = entity_type<detail::tile_entity_t>;
+  using entity = entity_type<tags::tile_tag>;
 
   tile_id id{glob::empty_tile};  ///< Unique ID associated with the tile.
   texture_index texture{};       ///< Associated texture index.

@@ -7,13 +7,14 @@
 #include "item.hpp"
 
 namespace wanderer::comp {
-namespace detail {
-struct inventory_entity_t;
-}
+
+namespace tags {
+struct inventory_tag;
+}  // namespace tags
 
 struct inventory final
 {
-  using entity = entity_type<detail::inventory_entity_t>;
+  using entity = entity_type<tags::inventory_tag>;
 
   std::vector<item::entity> items;  ///< List of items in the inventory.
   int capacity{};                   ///< Maximum capacity of inventory.

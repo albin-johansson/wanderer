@@ -2,7 +2,6 @@
 
 #include <array>          // array
 #include <centurion.hpp>  // farea, frect
-#include <cstddef>        // size_t
 #include <rune.hpp>       // static_vector
 
 #include "core/aliases/entity_type.hpp"
@@ -10,12 +9,13 @@
 #include "core/aliases/ints.hpp"
 
 namespace wanderer::comp {
-namespace detail {
-struct hitbox_entity_t;
-}
+
+namespace tags {
+struct hitbox_tag;
+}  // namespace tags
 
 /// The maximum number of subhitboxes a single hitbox can contain.
-inline constexpr std::size_t max_subhitbox_count = 5;
+inline constexpr usize max_subhitbox_count = 5;
 
 /**
  * \brief Represents a "subhitbox", a member of a `hitbox` instance.
@@ -37,7 +37,7 @@ struct subhitbox final
  */
 struct hitbox final
 {
-  using entity = entity_type<detail::hitbox_entity_t>;
+  using entity = entity_type<tags::hitbox_tag>;
 
   float2 origin;      ///< Position of the hitbox
   cen::frect bounds;  ///< Bounding rectangle of all subhitboxes

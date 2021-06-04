@@ -9,14 +9,15 @@
 #include "core/menu_action.hpp"
 
 namespace wanderer::comp {
-namespace detail {
-struct button_entity_t;
-struct button_drawable_entity_t;
-}  // namespace detail
+
+namespace tags {
+struct button_tag;
+struct button_drawable_tag;
+}  // namespace tags
 
 struct button final
 {
-  using entity = entity_type<detail::button_entity_t>;
+  using entity = entity_type<tags::button_tag>;
 
   menu_action action{menu_action::none};
   std::string text;
@@ -28,11 +29,11 @@ struct button final
 
 struct button_drawable final
 {
-  using entity = entity_type<detail::button_drawable_entity_t>;
+  using entity = entity_type<tags::button_drawable_tag>;
 
   mutable cen::frect bounds;
   mutable maybe<cen::texture> texture;
-  mutable maybe<cen::fpoint> textPos;
+  mutable maybe<cen::fpoint> text_pos;
 };
 
 }  // namespace wanderer::comp

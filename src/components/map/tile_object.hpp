@@ -7,13 +7,14 @@
 #include "core/ecs/null_entity.hpp"
 
 namespace wanderer::comp {
-namespace detail {
-struct tile_object_t;
-}  // namespace detail
+
+namespace tags {
+struct tile_object_tag;
+}  // namespace tags
 
 struct tile_object final
 {
-  using entity = entity_type<detail::tile_object_t>;
+  using entity = entity_type<tags::tile_object_tag>;
 
   tile::entity tile_entity{null<tile>()};
 };

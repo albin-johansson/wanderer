@@ -2,6 +2,7 @@
 
 #include <centurion.hpp>  // to_underlying, ...
 #include <cmath>          // floor, ceil, lerp
+#include <format>         // format
 #include <rune.hpp>       // static_vector
 #include <stdexcept>      // runtime_error
 #include <string>         // string
@@ -10,6 +11,7 @@
 #include "components/ctx/time_of_day.hpp"
 #include "core/aliases/ints.hpp"
 #include "core/common_concepts.hpp"
+#include "core/game_constants.hpp"
 #include "events/day_changed_event.hpp"
 
 namespace wanderer::sys {
@@ -18,7 +20,7 @@ namespace {
 inline constexpr float seconds_per_hour = 3'600;
 inline constexpr float rate = 100;
 
-inline constexpr float sunrise = 6;
+inline constexpr float sunrise = glob::morning_hour;
 inline constexpr float daytime = 8;
 inline constexpr float sunset = 20;
 inline constexpr float night = 22;
@@ -78,8 +80,8 @@ inline const phase night_phase{.phase_start = night,
     const auto indexLower = std::floor(index);
     const auto indexUpper = std::ceil(index);
 
-    const auto c1 = current.colors.at(static_cast<std::size_t>(indexLower));
-    const auto c2 = current.colors.at(static_cast<std::size_t>(indexUpper));
+    const auto c1 = current.colors.at(static_cast<usize>(indexLower));
+    const auto c2 = current.colors.at(static_cast<usize>(indexUpper));
 
     return cen::blend(c1, c2, index - indexLower);
   }
@@ -188,9 +190,9 @@ void render_clock(const entt::registry& registry, graphics_context& graphics)
   };
 
   graphics.render_outlined_text(to_string(time.day), cen::point(6, 6));
-  graphics.render_outlined_text(prefix(hour) + std::to_string(hour) + ": " +
-                                    prefix(minute) + std::to_string(minute),
-                                cen::point(30, 6));
+  graphics.render_outlined_text(
+      std::format("{}{}: {}{}", prefix(hour), hour, prefix(minute), minute),
+      cen::point(30, 6));
 }
 
 }  // namespace wanderer::sys

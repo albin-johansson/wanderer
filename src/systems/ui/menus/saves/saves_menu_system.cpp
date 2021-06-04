@@ -1,5 +1,6 @@
 #include "saves_menu_system.hpp"
 
+#include <algorithm>   // remove_if
 #include <cassert>     // assert
 #include <cmath>       // round, fmod
 #include <filesystem>  // directory_iterator
@@ -17,6 +18,7 @@
 #include "core/math/floating.hpp"
 #include "core/utils/file_utils.hpp"
 #include "io/directories.hpp"
+#include "io/saves/delete_save.hpp"
 #include "systems/ui/buttons/button_factory_system.hpp"
 #include "systems/ui/buttons/button_system.hpp"
 #include "systems/ui/labels/label_factory_system.hpp"
@@ -37,7 +39,8 @@ inline constexpr int buttons_per_page = 8;
 [[nodiscard]] auto page_count(const comp::button_group& group) -> int
 {
   return std::max(1,
-                  round(group.buttons.size() / static_cast<float>(group.items_per_page)));
+                  round(std::ceil(static_cast<float>(group.buttons.size()) /
+                                  static_cast<float>(group.items_per_page))));
 }
 
 /// Returns the appropriate text for the page indicator label
@@ -133,6 +136,19 @@ void refresh_page_indicator_label(entt::registry& registry,
   }
 }
 
+void update_delete_button_enabled(entt::registry& registry,
+                                  comp::button_group& group,
+                                  const comp::button::entity deleteButtonEntity)
+{
+  if (group.selected != entt::null)
+  {
+    const auto& button = registry.get<comp::button>(group.selected);
+
+    auto& deleteButton = registry.get<comp::button>(deleteButtonEntity);
+    deleteButton.enabled = button.text != "exit_save";
+  }
+}
+
 void refresh_saves_menu_contents(entt::registry& registry,
                                  const comp::menu::entity menuEntity)
 {
@@ -152,6 +168,7 @@ void refresh_saves_menu_contents(entt::registry& registry,
   registry.get<comp::button>(savesMenu.load_button).enabled = !group.buttons.empty();
   registry.get<comp::button>(savesMenu.delete_button).enabled = !group.buttons.empty();
 
+  update_delete_button_enabled(registry, group, savesMenu.delete_button);
   update_page_indicators(registry);
 }
 
@@ -186,13 +203,16 @@ void change_saves_button_group_page(entt::registry& registry, const int incremen
       set_text(label, get_page_indicator_text(*group));
 
       update_page_indicators(registry);
+      update_delete_button_enabled(registry,
+                                   *group,
+                                   registry.get<comp::saves_menu>(menu).delete_button);
     }
   }
 }
 
 }  // namespace
 
-void on_saves_menu_enabled(entt::registry& registry)
+void refresh_saves_menu(entt::registry& registry)
 {
   registry.clear<comp::saves_menu_entry>();
 
@@ -250,7 +270,32 @@ void change_save_preview(entt::registry& registry)
                                                   entry.preview,
                                                   grid_position{7.0f, 20.0f},
                                                   cen::area(width, height));
+
+    update_delete_button_enabled(registry, group, savesMenu.delete_button);
   }
+}
+
+void remove_save_entry(entt::registry& registry, const std::string& name)
+{
+  const auto activeMenu = registry.ctx<ctx::active_menu>().entity;
+  assert(registry.get<comp::menu>(activeMenu).id == menu_id::saves);
+
+  auto& savesMenu = registry.get<comp::saves_menu>(activeMenu);
+
+  const auto range = std::ranges::remove_if(savesMenu.entries, [&](entt::entity entity) {
+    const auto& entry = registry.get<comp::saves_menu_entry>(entity);
+    return entry.name == name;
+  });
+
+  for (const auto entity : range)
+  {
+    registry.destroy(entity);
+  }
+
+  savesMenu.entries.erase(range.begin(), range.end());
+
+  delete_save(name);
+  refresh_saves_menu(registry);
 }
 
 void increment_saves_button_group_page(entt::registry& registry)

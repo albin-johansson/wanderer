@@ -58,7 +58,7 @@ void render_trigger_indicators(const entt::registry& registry, cen::renderer& re
   const auto entity = singleton_entity<const comp::player>(registry);
   if (const auto* iwp = registry.try_get<comp::is_within_portal>(entity))
   {
-    render_enabled_trigger_indicator(registry, iwp->portalEntity, renderer);
+    render_enabled_trigger_indicator(registry, iwp->portal_entity, renderer);
   }
   else if (const auto* iwc = registry.try_get<comp::is_within_container_trigger>(entity))
   {

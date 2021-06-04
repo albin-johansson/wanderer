@@ -14,7 +14,7 @@ namespace wanderer::sys {
 /**
  * \brief Prepares the current level before another level is enabled.
  *
- * \pre The event message must be `"switch_level"`.
+ * \pre The event message must be `glob::switch_level_id`.
  *
  * \ingroup systems
  *

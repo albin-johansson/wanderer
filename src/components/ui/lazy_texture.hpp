@@ -7,9 +7,10 @@
 #include "core/grid_position.hpp"
 
 namespace wanderer::comp {
-namespace detail {
-struct lazy_texture_t;
-}
+
+namespace tags {
+struct lazy_texture_tag;
+}  // namespace tags
 
 /**
  * \brief Represents a texture that is lazily initialized.
@@ -18,7 +19,7 @@ struct lazy_texture_t;
  */
 struct lazy_texture final
 {
-  using entity = entity_type<detail::lazy_texture_t>;
+  using entity = entity_type<tags::lazy_texture_tag>;
 
   grid_position position;               ///< The position of the texture.
   cen::farea size;                      ///< The size of the rendered texture.

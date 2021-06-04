@@ -1,9 +1,9 @@
 #pragma once
 
-#include <entt.hpp>     // registry, dispatcher, entity
-#include <rune.hpp>     // delta_time
-#include <string_view>  // string_view
+#include <entt.hpp>  // registry, dispatcher, entity
+#include <rune.hpp>  // delta_time
 
+#include "core/aliases/ints.hpp"
 #include "core/graphics/graphics_context.hpp"
 
 namespace wanderer::sys {
@@ -18,11 +18,11 @@ namespace wanderer::sys {
  * \ingroup systems
  *
  * \param registry the current level registry.
- * \param msg the message that will be associated with the animation.
+ * \param id the ID that will be associated with the animation.
  *
  * \return the created animation entity.
  */
-auto start_bond_animation(entt::registry& registry, std::string_view msg) -> entt::entity;
+auto start_bond_animation(entt::registry& registry, uint32 id) -> entt::entity;
 
 /**
  * \brief Starts a reversed "Bond" animation.

@@ -1,13 +1,12 @@
 #include "file_utils.hpp"
 
-#include <chrono>  // time_point_cast, system_clock
+#include <chrono>  // time_point_cast, system_clock, file_clock
 
 #include "time_utils.hpp"
 
+using std::chrono::file_clock;
 using std::chrono::system_clock;
 using std::chrono::time_point_cast;
-
-using file_clock = std::filesystem::file_time_type::clock;
 
 namespace wanderer {
 

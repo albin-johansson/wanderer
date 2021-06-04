@@ -3,7 +3,6 @@
 #include <utility>  // move
 
 #include "core/resources.hpp"
-#include "make_renderer.hpp"
 
 namespace wanderer {
 namespace {

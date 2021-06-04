@@ -8,13 +8,14 @@
 #include "core/ecs/null_entity.hpp"
 
 namespace wanderer::comp {
-namespace detail {
-struct button_group_entity_t;
-}
+
+namespace tags {
+struct button_group_tag;
+}  // namespace tags
 
 struct button_group final
 {
-  using entity = entity_type<detail::button_group_entity_t>;
+  using entity = entity_type<tags::button_group_tag>;
 
   std::vector<button::entity> buttons;
   button::entity selected{null<button>()};

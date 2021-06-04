@@ -3,6 +3,7 @@
 #include <cassert>   // assert
 #include <rune.hpp>  // index_to_matrix
 
+#include "core/aliases/ints.hpp"
 #include "core/game_constants.hpp"
 #include "core/utils/centurion_utils.hpp"
 #include "systems/movement/hitbox_system.hpp"
@@ -15,8 +16,8 @@ using tile_data = rune::tmx_data::gid_data;
 [[nodiscard]] auto make_tile_matrix(const int nRows, const int nCols)
     -> comp::tile_layer::tile_matrix
 {
-  const auto rows = static_cast<std::size_t>(nRows);
-  const auto cols = static_cast<std::size_t>(nCols);
+  const auto rows = static_cast<usize>(nRows);
+  const auto cols = static_cast<usize>(nCols);
   return {rows, std::vector<tile_id>(cols, glob::empty_tile)};
 }
 
@@ -33,7 +34,7 @@ using tile_data = rune::tmx_data::gid_data;
 
   for (int index = 0; const auto gid : std::get<tile_data>(tileLayer.data->tile_data))
   {
-    const auto [row, col] = rune::index_to_matrix<std::size_t>(index, nCols);
+    const auto [row, col] = rune::index_to_matrix<usize>(index, nCols);
 
     assert(row < layer.matrix.size());
     assert(col < layer.matrix.at(0).size());

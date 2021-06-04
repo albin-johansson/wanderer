@@ -7,9 +7,10 @@
 #include "core/aliases/tile_id.hpp"
 
 namespace wanderer::comp {
-namespace detail {
-struct tile_layer_entity_t;
-}
+
+namespace tags {
+struct tile_layer_tag;
+}  // namespace tags
 
 /**
  * \struct tile_layer
@@ -22,7 +23,7 @@ struct tile_layer_entity_t;
  */
 struct tile_layer final
 {
-  using entity = entity_type<detail::tile_layer_entity_t>;
+  using entity = entity_type<tags::tile_layer_tag>;
   using tile_matrix = std::vector<std::vector<tile_id>>;
 
   tile_matrix matrix;  ///< Matrix of tile IDs that represent the layer.

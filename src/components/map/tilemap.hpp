@@ -8,9 +8,10 @@
 #include "core/ecs/null_entity.hpp"
 
 namespace wanderer::comp {
-namespace detail {
-struct tilemap_entity_t;
-}
+
+namespace tags {
+struct tilemap_tag;
+}  // namespace tags
 
 /**
  * \struct tilemap
@@ -26,7 +27,7 @@ struct tilemap_entity_t;
  */
 struct tilemap final
 {
-  using entity = entity_type<detail::tilemap_entity_t>;
+  using entity = entity_type<tags::tilemap_tag>;
 
   map_id id{0};          ///< The ID associated with the tilemap
   int humanoid_layer{};  ///< The layer that humanoids inhabit

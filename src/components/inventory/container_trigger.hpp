@@ -6,13 +6,15 @@
 #include "inventory.hpp"
 
 namespace wanderer::comp {
-namespace detail {
-struct container_trigger_entity_t;
-}
+
+namespace tags {
+struct container_trigger_tag;
+}  // namespace tags
 
 struct container_trigger final
 {
-  using entity = entity_type<detail::container_trigger_entity_t>;
+  using entity = entity_type<tags::container_trigger_tag>;
+
   inventory::entity inventory_entity{null<inventory>()};
   int inventory_id{};
 };

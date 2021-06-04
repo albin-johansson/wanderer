@@ -4,6 +4,7 @@
 #include "components/ctx/cursors.hpp"
 #include "components/ui/associated_menu.hpp"
 #include "events/button_pressed_event.hpp"
+#include "events/menu_switched_event.hpp"
 #include "systems/ui/buttons/button_system.hpp"
 #include "systems/ui/menus/saves/saves_menu_system.hpp"
 
@@ -44,7 +45,7 @@ void update_menu(entt::registry& registry,
   }
 }
 
-void switch_menu(entt::registry& registry, const menu_id id)
+void switch_menu(entt::registry& registry, entt::dispatcher& dispatcher, const menu_id id)
 {
   registry.unset<ctx::active_menu>();
 
@@ -52,12 +53,9 @@ void switch_menu(entt::registry& registry, const menu_id id)
   {
     if (menu.id == id)
     {
-      registry.set<ctx::active_menu>(comp::menu::entity{entity});
-
-      if (menu.id == menu_id::saves)
-      {
-        on_saves_menu_enabled(registry);
-      }
+      const auto menuEntity = comp::menu::entity{entity};
+      registry.set<ctx::active_menu>(menuEntity);
+      dispatcher.trigger<menu_switched_event>(menuEntity);
     }
   }
 }

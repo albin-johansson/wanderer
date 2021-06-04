@@ -36,8 +36,8 @@ void log_settings(const ctx::settings& settings)
   auto settings = default_settings();
 
   const auto& graphics = ini.at("Graphics");
-  settings.fullscreen = graphics.at("Fullscreen").get<bool>();
-  settings.integer_scaling = graphics.at("UseIntegerScaling").get<bool>();
+  graphics.at("Fullscreen").get_to(settings.fullscreen);
+  graphics.at("UseIntegerScaling").get_to(settings.integer_scaling);
 
   if constexpr (cen::is_debug_build())
   {

@@ -6,13 +6,14 @@
 #include "core/menu_action.hpp"
 
 namespace wanderer::comp {
-namespace detail {
-struct key_bind_t;
-}
+
+namespace tags {
+struct key_bind_tag;
+}  // namespace tags
 
 struct key_bind final
 {
-  using entity = entity_type<detail::key_bind_t>;
+  using entity = entity_type<tags::key_bind_tag>;
 
   cen::scan_code key;
   menu_action action{menu_action::none};

@@ -32,7 +32,6 @@ set(SOURCE_FILES
     components/graphics/animated.hpp
     components/graphics/custom_animation.hpp
     components/graphics/depth_drawable.hpp
-    components/graphics/level_switch_animation.hpp
     components/graphics/particle.hpp
     components/graphics/point_light.hpp
     components/graphics/tile_animation.hpp
@@ -105,8 +104,6 @@ set(SOURCE_FILES
 
     core/graphics/graphics_context.cpp
     core/graphics/graphics_context.hpp
-    core/graphics/make_renderer.cpp
-    core/graphics/make_renderer.hpp
     core/graphics/render_text.cpp
     core/graphics/render_text.hpp
 
@@ -132,6 +129,7 @@ set(SOURCE_FILES
     events/interact_event.hpp
     events/level_fade_events_event.hpp
     events/load_game_event.hpp
+    events/menu_switched_event.hpp
     events/quit_event.hpp
     events/show_inventory_event.hpp
     events/sleep_event.hpp
@@ -156,6 +154,8 @@ set(SOURCE_FILES
     io/map/parse_world.cpp
     io/map/parse_world.hpp
 
+    io/saves/delete_save.cpp
+    io/saves/delete_save.hpp
     io/saves/load_game.cpp
     io/saves/load_game.hpp
     io/saves/parse_save_file.cpp
@@ -165,8 +165,6 @@ set(SOURCE_FILES
 
     systems/interaction_system.cpp
     systems/interaction_system.hpp
-    systems/inventory_system.cpp
-    systems/inventory_system.hpp
     systems/time_system.cpp
     systems/time_system.hpp
     systems/triggers/update_triggers.hpp
@@ -288,6 +286,8 @@ set(SOURCE_FILES
 
     systems/ui/hud/hud_rendering_system.cpp
     systems/ui/hud/hud_rendering_system.hpp
+    systems/ui/hud/inventory_rendering_system.cpp
+    systems/ui/hud/inventory_rendering_system.hpp
     systems/ui/hud/level_switch_animation_system.cpp
     systems/ui/hud/level_switch_animation_system.hpp
 

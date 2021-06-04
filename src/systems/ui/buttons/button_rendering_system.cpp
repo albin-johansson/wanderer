@@ -46,18 +46,18 @@ void render_text(const comp::button& button,
     return;
   }
 
-  if (!drawable.textPos)
+  if (!drawable.text_pos)
   {
     const auto& font = renderer.get_font(button_font);
     const auto [width, height] = font.string_size(button.text).value();
-    drawable.textPos = {drawable.bounds.center_x() - (width / 2.0f),
-                        drawable.bounds.center_y() - (height / 2.0f)};
+    drawable.text_pos = {drawable.bounds.center_x() - (width / 2.0f),
+                         drawable.bounds.center_y() - (height / 2.0f)};
   }
 
   auto& texture = drawable.texture.value();
   texture.set_alpha(button.enabled ? 255 : 100);
 
-  renderer.render(texture, *drawable.textPos);
+  renderer.render(texture, *drawable.text_pos);
   texture.set_alpha(255);
 }
 

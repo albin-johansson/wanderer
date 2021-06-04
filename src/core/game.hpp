@@ -26,6 +26,7 @@
 #include "events/day_changed_event.hpp"
 #include "events/quit_event.hpp"
 #include "events/show_inventory_event.hpp"
+#include "events/menu_switched_event.hpp"
 #include "events/sleep_event.hpp"
 #include "events/spawn_particles_event.hpp"
 #include "events/switch_map_event.hpp"
@@ -89,6 +90,8 @@ class game final
   void on_switch_map(const switch_map_event& event);
 
   void on_switch_menu(const switch_menu_event& event);
+
+  void on_menu_switched(const menu_switched_event& event);
 
   void on_custom_animation_halfway(const custom_animation_halfway_event& event);
 

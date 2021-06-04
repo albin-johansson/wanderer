@@ -40,7 +40,7 @@ void add_depth_drawable(entt::registry& registry,
   auto& drawable = registry.emplace<comp::depth_drawable>(entity);
   drawable.texture = texture;
   drawable.src = {{}, {humanoid_source_width, humanoid_source_height}};
-  drawable.dst = {{}, glob::humanoid_draw_size<>};
+  drawable.dst = {{}, glob::humanoid_draw_size};
 }
 
 void add_animated(entt::registry& registry, const entt::entity entity)

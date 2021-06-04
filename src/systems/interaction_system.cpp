@@ -52,7 +52,7 @@ void on_interact(const interact_event& event)
 
   if (const auto* p = registry.try_get<comp::is_within_portal>(player))
   {
-    enqueue_switch_map_event(registry, dispatcher, p->portalEntity);
+    enqueue_switch_map_event(registry, dispatcher, p->portal_entity);
   }
   else if (const auto* ct = registry.try_get<comp::is_within_container_trigger>(player))
   {
