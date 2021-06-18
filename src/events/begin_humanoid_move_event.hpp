@@ -1,8 +1,8 @@
 #pragma once
 
-#include <entt.hpp>    // registry, entity
-#include <functional>  // reference_wrapper
+#include <entt.hpp>  // registry, entity
 
+#include "core/aliases/ref.hpp"
 #include "core/direction.hpp"
 
 namespace wanderer {
@@ -11,7 +11,7 @@ namespace wanderer {
 /// \ingroup events
 struct begin_humanoid_move_event final
 {
-  std::reference_wrapper<entt::registry> registry;  ///< The associated registry.
+  ref<entt::registry> registry;     ///< The associated registry.
   entt::entity entity{entt::null};  ///< Humanoid that should start moving.
   direction dir{direction::down};   ///< Movement direction.
 };

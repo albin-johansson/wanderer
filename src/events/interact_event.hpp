@@ -1,7 +1,8 @@
 #pragma once
 
-#include <entt.hpp>    // registry, dispatcher
-#include <functional>  // reference_wrapper
+#include <entt.hpp>  // registry, dispatcher
+
+#include "core/aliases/ref.hpp"
 
 namespace wanderer {
 
@@ -9,8 +10,8 @@ namespace wanderer {
 /// \ingroup events
 struct interact_event final
 {
-  std::reference_wrapper<entt::registry> registry;
-  std::reference_wrapper<entt::dispatcher> dispatcher;
+  ref<entt::registry> registry;
+  ref<entt::dispatcher> dispatcher;
 };
 
 }  // namespace wanderer

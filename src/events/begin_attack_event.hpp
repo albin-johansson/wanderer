@@ -1,8 +1,8 @@
 #pragma once
 
-#include <entt.hpp>    // registry, entity, null
-#include <functional>  // reference_wrapper
+#include <entt.hpp>  // registry, entity, null
 
+#include "core/aliases/ref.hpp"
 #include "core/direction.hpp"
 
 namespace wanderer {
@@ -11,7 +11,7 @@ namespace wanderer {
 /// \ingroup events
 struct begin_attack_event final
 {
-  std::reference_wrapper<entt::registry> registry;  ///< The associated registry.
+  ref<entt::registry> registry;            ///< The associated registry.
   entt::entity source_entity{entt::null};  ///< The entity that initiated the attack.
   entt::entity weapon{entt::null};         ///< The weapon entity.
   direction dir{direction::down};          ///< The attack direction.
