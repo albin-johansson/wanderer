@@ -7,6 +7,7 @@
 #include "core/aliases/ints.hpp"
 #include "core/aliases/texture_index.hpp"
 #include "core/aliases/tile_id.hpp"
+#include "core/game_constants.hpp"
 
 namespace wanderer::comp {
 

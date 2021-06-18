@@ -5,11 +5,13 @@
 
 #include "core/aliases/float2.hpp"
 #include "core/aliases/ints.hpp"
+#include "core/aliases/tile_id.hpp"
 
 /// \namespace wanderer::glob
 /// \brief Contains various constants.
 /// \ingroup core
-namespace wanderer::glob {
+namespace wanderer {
+namespace glob {
 
 /// \addtogroup core
 /// \{
@@ -31,6 +33,8 @@ inline constexpr T logical_size{logical_width<typename T::value_type>,
 
 /// \name Tiles
 /// \{
+
+inline constexpr tile_id empty_tile{0};
 
 template <typename T = float>
 inline constexpr T tile_width = 64;
@@ -95,6 +99,13 @@ inline constexpr int default_margin = 6;
 
 /// \} End of UI
 
+}  // namespace glob
+
+[[nodiscard]] inline auto is_empty(const tile_id id) noexcept -> bool
+{
+  return id == glob::empty_tile;
+}
+
 /// \} End of group core
 
-}  // namespace wanderer::glob
+}  // namespace wanderer

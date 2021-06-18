@@ -5,11 +5,12 @@
 #include "core/aliases/ints.hpp"
 
 namespace wanderer {
-namespace detail {
-struct depth_tag_t;
-}
 
-using depth_t = nenya::strong_type<int32, detail::depth_tag_t>;
+namespace tags {
+struct depth_tag;
+}  // namespace tags
+
+using depth_t = nenya::strong_type<int32, tags::depth_tag>;
 
 [[nodiscard]] constexpr auto operator"" _depth(const ulonglong d) noexcept -> depth_t
 {

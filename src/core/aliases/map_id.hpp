@@ -5,10 +5,11 @@
 #include "core/aliases/ints.hpp"
 
 namespace wanderer {
-namespace detail {
-struct map_id_t;
-}
 
-using map_id = nenya::strong_type<int32, detail::map_id_t>;
+namespace tags {
+struct map_id_tag;
+}  // namespace tags
+
+using map_id = nenya::strong_type<int32, tags::map_id_tag>;
 
 }  // namespace wanderer
