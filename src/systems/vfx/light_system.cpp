@@ -56,7 +56,7 @@ void render_lights(const entt::registry& registry,
   const auto& viewport = registry.ctx<const ctx::viewport>();
   constexpr auto source = cen::rect(0, 0, 80, 80);
 
-  for (auto&& [entity, light] : registry.view<const comp::point_light>().each())
+  for (auto&& [entity, light] : registry.view<comp::point_light>().each())
   {
     const auto& pos = light.position;
 

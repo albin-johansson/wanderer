@@ -15,7 +15,7 @@ void render_lines(const entt::registry& registry, graphics_context& graphics)
   renderer.set_color(cen::colors::white);
 
   for (auto&& [entity, line, associated] :
-       registry.view<const comp::line, const comp::associated_menu>().each())
+       registry.view<comp::line, comp::associated_menu>().each())
   {
     if (associated.entity == menuEntity)
     {

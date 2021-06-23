@@ -73,7 +73,7 @@ void render_custom_animations(const entt::registry& registry, graphics_context& 
   constexpr auto height = glob::logical_height<float>;
 
   auto& renderer = graphics.renderer();
-  for (auto&& [entity, animation] : registry.view<const comp::custom_animation>().each())
+  for (auto&& [entity, animation] : registry.view<comp::custom_animation>().each())
   {
     const auto hSize = animation.width;
     const auto vSize = animation.height;

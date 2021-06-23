@@ -33,7 +33,7 @@ void render_labels(const entt::registry& registry, graphics_context& graphics)
   auto& renderer = graphics.renderer();
 
   for (auto&& [entity, label, associated] :
-       registry.view<const comp::label, const comp::associated_menu>().each())
+       registry.view<comp::label, comp::associated_menu>().each())
   {
     if (active.get() == associated.entity)
     {

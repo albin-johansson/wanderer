@@ -28,7 +28,7 @@ void update_fps(entt::registry& shared, const rune::delta_time dt)
 
 void render_fps(const entt::registry& shared, graphics_context& graphics)
 {
-  for (auto&& [entity, data] : shared.view<const comp::fps_data>().each())
+  for (auto&& [entity, data] : shared.view<comp::fps_data>().each())
   {
     const auto fps = round(1.0 / (static_cast<double>(data.frame.count()) / 1'000.0));
 

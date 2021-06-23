@@ -102,10 +102,10 @@ void render_button(const entt::registry& registry,
 void render_buttons(const entt::registry& registry, graphics_context& graphics)
 {
   const auto menuEntity = registry.ctx<const ctx::active_menu>().entity;
-  constexpr auto without = entt::exclude<comp::checkbox>;
 
+  constexpr auto filter = entt::exclude<comp::checkbox>;
   for (auto&& [entity, button, associated] :
-       registry.view<const comp::button, const comp::associated_menu>(without).each())
+       registry.view<comp::button, comp::associated_menu>(filter).each())
   {
     if (associated.entity == menuEntity)
     {
@@ -120,7 +120,7 @@ void render_button_group_indicators(const entt::registry& registry,
   const auto menuEntity = registry.ctx<const ctx::active_menu>().entity;
 
   for (auto&& [entity, group, associated] :
-       registry.view<const comp::button_group, const comp::associated_menu>().each())
+       registry.view<comp::button_group, comp::associated_menu>().each())
   {
     if (associated.entity == menuEntity && group.selected != entt::null)
     {

@@ -56,7 +56,7 @@ void save_shared_registry(const std::filesystem::path& directory,
 {
   auto levels = json_type::array();
 
-  for (auto&& [entity, level] : shared.view<const comp::level>().each())
+  for (auto&& [entity, level] : shared.view<comp::level>().each())
   {
     const auto name = std::format("level_{}.wanderer", level.id.get());
     sys::save_level(level, directory / name);

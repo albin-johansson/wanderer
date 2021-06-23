@@ -91,7 +91,7 @@ void render_particles(const entt::registry& registry, graphics_context& graphics
   const auto& viewport = registry.ctx<const ctx::viewport>();
   auto& renderer = graphics.renderer();
 
-  for (auto&& [entity, particle] : registry.view<const comp::particle>().each())
+  for (auto&& [entity, particle] : registry.view<comp::particle>().each())
   {
     const auto rect = cen::rect(particle.position.x,
                                 particle.position.y - particle.position.z,
