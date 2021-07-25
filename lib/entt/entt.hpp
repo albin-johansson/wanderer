@@ -1161,8 +1161,9 @@ template<typename Type>
 
 
 #include <cstddef>
-#include <utility>
+#include <iterator>
 #include <type_traits>
+#include <utility>
 // #include "../config/config.h"
 
 // #include "fwd.hpp"
@@ -1242,7 +1243,7 @@ struct size_of<Type, std::void_t<decltype(sizeof(Type))>>
  * @tparam Type The type of which to return the size.
  */
 template<class Type>
-inline constexpr auto size_of_v = size_of<Type>::value;
+inline constexpr std::size_t size_of_v = size_of<Type>::value;
 
 
 /**
@@ -1447,7 +1448,7 @@ struct type_list_contains<type_list<Type...>, Other>: std::disjunction<std::is_s
  * @tparam Type Type to look for.
  */
 template<class List, typename Type>
-inline constexpr auto type_list_contains_v = type_list_contains<List, Type>::value;
+inline constexpr bool type_list_contains_v = type_list_contains<List, Type>::value;
 
 
 /*! @brief Primary template isn't defined on purpose. */
@@ -1629,7 +1630,7 @@ template<typename Type>
 /**
  * @brief Provides the member constant `value` to true if a given type is
  * equality comparable, false otherwise.
- * @tparam Type Potentially equality comparable type.
+ * @tparam Type The type to test.
  */
 template<typename Type, typename = void>
 struct is_equality_comparable: std::bool_constant<internal::is_equality_comparable<Type>(choice<2>)> {};
@@ -1637,10 +1638,10 @@ struct is_equality_comparable: std::bool_constant<internal::is_equality_comparab
 
 /**
  * @brief Helper variable template.
- * @tparam Type Potentially equality comparable type.
+ * @tparam Type The type to test.
  */
 template<class Type>
-inline constexpr auto is_equality_comparable_v = is_equality_comparable<Type>::value;
+inline constexpr bool is_equality_comparable_v = is_equality_comparable<Type>::value;
 
 
 /*! @brief Same as std::is_invocable, but with tuples. */
@@ -1659,11 +1660,11 @@ struct is_applicable<Func, Tuple<Args...>>: std::is_invocable<Func, Args...> {};
 
 
 /**
-* @copybrief is_applicable
-* @tparam Func A valid function type.
-* @tparam Tuple Tuple-like type.
-* @tparam Args The list of arguments to use to probe the function type.
-*/
+ * @copybrief is_applicable
+ * @tparam Func A valid function type.
+ * @tparam Tuple Tuple-like type.
+ * @tparam Args The list of arguments to use to probe the function type.
+ */
 template<typename Func, template<typename...> class Tuple, typename... Args>
 struct is_applicable<Func, const Tuple<Args...>>: std::is_invocable<Func, Args...> {};
 
@@ -1674,7 +1675,7 @@ struct is_applicable<Func, const Tuple<Args...>>: std::is_invocable<Func, Args..
  * @tparam Args The list of arguments to use to probe the function type.
  */
 template<typename Func, typename Args>
-inline constexpr auto is_applicable_v = is_applicable<Func, Args>::value;
+inline constexpr bool is_applicable_v = is_applicable<Func, Args>::value;
 
 
 /*! @brief Same as std::is_invocable_r, but with tuples for arguments. */
@@ -1701,14 +1702,14 @@ struct is_applicable_r<Ret, Func, std::tuple<Args...>>: std::is_invocable_r<Ret,
  * @tparam Args The list of arguments to use to probe the function type.
  */
 template<typename Ret, typename Func, typename Args>
-inline constexpr auto is_applicable_r_v = is_applicable_r<Ret, Func, Args>::value;
+inline constexpr bool is_applicable_r_v = is_applicable_r<Ret, Func, Args>::value;
 
 
 /**
-* @brief Provides the member constant `value` to true if a given type is
-* complete, false otherwise.
-* @tparam Type Potential complete type.
-*/
+ * @brief Provides the member constant `value` to true if a given type is
+ * complete, false otherwise.
+ * @tparam Type The type to test.
+ */
 template<typename Type, typename = void>
 struct is_complete: std::false_type {};
 
@@ -1719,11 +1720,68 @@ struct is_complete<Type, std::void_t<decltype(sizeof(Type))>>: std::true_type {}
 
 
 /**
-* @brief Helper variable template.
-* @tparam Type Potential complete type.
-*/
+ * @brief Helper variable template.
+ * @tparam Type The type to test.
+ */
 template<typename Type>
-inline constexpr auto is_complete_v = is_complete<Type>::value;
+inline constexpr bool is_complete_v = is_complete<Type>::value;
+
+
+/**
+ * @brief Provides the member constant `value` to true if a given type is an
+ * iterator, false otherwise.
+ * @tparam Type The type to test.
+ */
+template<typename Type, typename = void>
+struct is_iterator: std::false_type {};
+
+
+/*! @copydoc is_iterator */
+template<typename Type>
+struct is_iterator<Type, std::void_t<typename std::iterator_traits<Type>::iterator_category>>
+    : std::true_type
+{};
+
+
+/**
+ * @brief Helper variable template.
+ * @tparam Type The type to test.
+ */
+template<typename Type>
+inline constexpr bool is_iterator_v = is_iterator<Type>::value;
+
+
+/**
+ * @brief Provides the member constant `value` to true if a given type is of the
+ * required iterator type, false otherwise.
+ * @tparam Type The type to test.
+ * @tparam It Required iterator type.
+ */
+template<typename Type, typename It, typename = void>
+struct is_iterator_type: std::false_type {};
+
+
+/*! @copydoc is_iterator_type */
+template<typename Type, typename It>
+struct is_iterator_type<Type, It, std::enable_if_t<is_iterator_v<Type> && std::is_same_v<Type, It>>>
+    : std::true_type
+{};
+
+
+/*! @copydoc is_iterator_type */
+template<typename Type, typename It>
+struct is_iterator_type<Type, It, std::enable_if_t<!std::is_same_v<Type, It>, std::void_t<typename It::iterator_type>>>
+    : is_iterator_type<Type, typename It::iterator_type>
+{};
+
+
+/**
+ * @brief Helper variable template.
+ * @tparam Type The type to test.
+ * @tparam It Required iterator type.
+ */
+template<typename Type, typename It>
+inline constexpr bool is_iterator_type_v = is_iterator_type<Type, It>::value;
 
 
 /**
@@ -2990,8 +3048,9 @@ template<typename Type>
 
 
 #include <cstddef>
-#include <utility>
+#include <iterator>
 #include <type_traits>
+#include <utility>
 // #include "../config/config.h"
 
 // #include "fwd.hpp"
@@ -3071,7 +3130,7 @@ struct size_of<Type, std::void_t<decltype(sizeof(Type))>>
  * @tparam Type The type of which to return the size.
  */
 template<class Type>
-inline constexpr auto size_of_v = size_of<Type>::value;
+inline constexpr std::size_t size_of_v = size_of<Type>::value;
 
 
 /**
@@ -3276,7 +3335,7 @@ struct type_list_contains<type_list<Type...>, Other>: std::disjunction<std::is_s
  * @tparam Type Type to look for.
  */
 template<class List, typename Type>
-inline constexpr auto type_list_contains_v = type_list_contains<List, Type>::value;
+inline constexpr bool type_list_contains_v = type_list_contains<List, Type>::value;
 
 
 /*! @brief Primary template isn't defined on purpose. */
@@ -3458,7 +3517,7 @@ template<typename Type>
 /**
  * @brief Provides the member constant `value` to true if a given type is
  * equality comparable, false otherwise.
- * @tparam Type Potentially equality comparable type.
+ * @tparam Type The type to test.
  */
 template<typename Type, typename = void>
 struct is_equality_comparable: std::bool_constant<internal::is_equality_comparable<Type>(choice<2>)> {};
@@ -3466,10 +3525,10 @@ struct is_equality_comparable: std::bool_constant<internal::is_equality_comparab
 
 /**
  * @brief Helper variable template.
- * @tparam Type Potentially equality comparable type.
+ * @tparam Type The type to test.
  */
 template<class Type>
-inline constexpr auto is_equality_comparable_v = is_equality_comparable<Type>::value;
+inline constexpr bool is_equality_comparable_v = is_equality_comparable<Type>::value;
 
 
 /*! @brief Same as std::is_invocable, but with tuples. */
@@ -3488,11 +3547,11 @@ struct is_applicable<Func, Tuple<Args...>>: std::is_invocable<Func, Args...> {};
 
 
 /**
-* @copybrief is_applicable
-* @tparam Func A valid function type.
-* @tparam Tuple Tuple-like type.
-* @tparam Args The list of arguments to use to probe the function type.
-*/
+ * @copybrief is_applicable
+ * @tparam Func A valid function type.
+ * @tparam Tuple Tuple-like type.
+ * @tparam Args The list of arguments to use to probe the function type.
+ */
 template<typename Func, template<typename...> class Tuple, typename... Args>
 struct is_applicable<Func, const Tuple<Args...>>: std::is_invocable<Func, Args...> {};
 
@@ -3503,7 +3562,7 @@ struct is_applicable<Func, const Tuple<Args...>>: std::is_invocable<Func, Args..
  * @tparam Args The list of arguments to use to probe the function type.
  */
 template<typename Func, typename Args>
-inline constexpr auto is_applicable_v = is_applicable<Func, Args>::value;
+inline constexpr bool is_applicable_v = is_applicable<Func, Args>::value;
 
 
 /*! @brief Same as std::is_invocable_r, but with tuples for arguments. */
@@ -3530,14 +3589,14 @@ struct is_applicable_r<Ret, Func, std::tuple<Args...>>: std::is_invocable_r<Ret,
  * @tparam Args The list of arguments to use to probe the function type.
  */
 template<typename Ret, typename Func, typename Args>
-inline constexpr auto is_applicable_r_v = is_applicable_r<Ret, Func, Args>::value;
+inline constexpr bool is_applicable_r_v = is_applicable_r<Ret, Func, Args>::value;
 
 
 /**
-* @brief Provides the member constant `value` to true if a given type is
-* complete, false otherwise.
-* @tparam Type Potential complete type.
-*/
+ * @brief Provides the member constant `value` to true if a given type is
+ * complete, false otherwise.
+ * @tparam Type The type to test.
+ */
 template<typename Type, typename = void>
 struct is_complete: std::false_type {};
 
@@ -3548,11 +3607,68 @@ struct is_complete<Type, std::void_t<decltype(sizeof(Type))>>: std::true_type {}
 
 
 /**
-* @brief Helper variable template.
-* @tparam Type Potential complete type.
-*/
+ * @brief Helper variable template.
+ * @tparam Type The type to test.
+ */
 template<typename Type>
-inline constexpr auto is_complete_v = is_complete<Type>::value;
+inline constexpr bool is_complete_v = is_complete<Type>::value;
+
+
+/**
+ * @brief Provides the member constant `value` to true if a given type is an
+ * iterator, false otherwise.
+ * @tparam Type The type to test.
+ */
+template<typename Type, typename = void>
+struct is_iterator: std::false_type {};
+
+
+/*! @copydoc is_iterator */
+template<typename Type>
+struct is_iterator<Type, std::void_t<typename std::iterator_traits<Type>::iterator_category>>
+    : std::true_type
+{};
+
+
+/**
+ * @brief Helper variable template.
+ * @tparam Type The type to test.
+ */
+template<typename Type>
+inline constexpr bool is_iterator_v = is_iterator<Type>::value;
+
+
+/**
+ * @brief Provides the member constant `value` to true if a given type is of the
+ * required iterator type, false otherwise.
+ * @tparam Type The type to test.
+ * @tparam It Required iterator type.
+ */
+template<typename Type, typename It, typename = void>
+struct is_iterator_type: std::false_type {};
+
+
+/*! @copydoc is_iterator_type */
+template<typename Type, typename It>
+struct is_iterator_type<Type, It, std::enable_if_t<is_iterator_v<Type> && std::is_same_v<Type, It>>>
+    : std::true_type
+{};
+
+
+/*! @copydoc is_iterator_type */
+template<typename Type, typename It>
+struct is_iterator_type<Type, It, std::enable_if_t<!std::is_same_v<Type, It>, std::void_t<typename It::iterator_type>>>
+    : is_iterator_type<Type, typename It::iterator_type>
+{};
+
+
+/**
+ * @brief Helper variable template.
+ * @tparam Type The type to test.
+ * @tparam It Required iterator type.
+ */
+template<typename Type, typename It>
+inline constexpr bool is_iterator_type_v = is_iterator_type<Type, It>::value;
 
 
 /**
@@ -4221,8 +4337,9 @@ inline constexpr tombstone_t tombstone{};
 
 
 #include <cstddef>
-#include <utility>
+#include <iterator>
 #include <type_traits>
+#include <utility>
 // #include "../config/config.h"
 #ifndef ENTT_CONFIG_CONFIG_H
 #define ENTT_CONFIG_CONFIG_H
@@ -4415,7 +4532,7 @@ struct size_of<Type, std::void_t<decltype(sizeof(Type))>>
  * @tparam Type The type of which to return the size.
  */
 template<class Type>
-inline constexpr auto size_of_v = size_of<Type>::value;
+inline constexpr std::size_t size_of_v = size_of<Type>::value;
 
 
 /**
@@ -4620,7 +4737,7 @@ struct type_list_contains<type_list<Type...>, Other>: std::disjunction<std::is_s
  * @tparam Type Type to look for.
  */
 template<class List, typename Type>
-inline constexpr auto type_list_contains_v = type_list_contains<List, Type>::value;
+inline constexpr bool type_list_contains_v = type_list_contains<List, Type>::value;
 
 
 /*! @brief Primary template isn't defined on purpose. */
@@ -4802,7 +4919,7 @@ template<typename Type>
 /**
  * @brief Provides the member constant `value` to true if a given type is
  * equality comparable, false otherwise.
- * @tparam Type Potentially equality comparable type.
+ * @tparam Type The type to test.
  */
 template<typename Type, typename = void>
 struct is_equality_comparable: std::bool_constant<internal::is_equality_comparable<Type>(choice<2>)> {};
@@ -4810,10 +4927,10 @@ struct is_equality_comparable: std::bool_constant<internal::is_equality_comparab
 
 /**
  * @brief Helper variable template.
- * @tparam Type Potentially equality comparable type.
+ * @tparam Type The type to test.
  */
 template<class Type>
-inline constexpr auto is_equality_comparable_v = is_equality_comparable<Type>::value;
+inline constexpr bool is_equality_comparable_v = is_equality_comparable<Type>::value;
 
 
 /*! @brief Same as std::is_invocable, but with tuples. */
@@ -4832,11 +4949,11 @@ struct is_applicable<Func, Tuple<Args...>>: std::is_invocable<Func, Args...> {};
 
 
 /**
-* @copybrief is_applicable
-* @tparam Func A valid function type.
-* @tparam Tuple Tuple-like type.
-* @tparam Args The list of arguments to use to probe the function type.
-*/
+ * @copybrief is_applicable
+ * @tparam Func A valid function type.
+ * @tparam Tuple Tuple-like type.
+ * @tparam Args The list of arguments to use to probe the function type.
+ */
 template<typename Func, template<typename...> class Tuple, typename... Args>
 struct is_applicable<Func, const Tuple<Args...>>: std::is_invocable<Func, Args...> {};
 
@@ -4847,7 +4964,7 @@ struct is_applicable<Func, const Tuple<Args...>>: std::is_invocable<Func, Args..
  * @tparam Args The list of arguments to use to probe the function type.
  */
 template<typename Func, typename Args>
-inline constexpr auto is_applicable_v = is_applicable<Func, Args>::value;
+inline constexpr bool is_applicable_v = is_applicable<Func, Args>::value;
 
 
 /*! @brief Same as std::is_invocable_r, but with tuples for arguments. */
@@ -4874,14 +4991,14 @@ struct is_applicable_r<Ret, Func, std::tuple<Args...>>: std::is_invocable_r<Ret,
  * @tparam Args The list of arguments to use to probe the function type.
  */
 template<typename Ret, typename Func, typename Args>
-inline constexpr auto is_applicable_r_v = is_applicable_r<Ret, Func, Args>::value;
+inline constexpr bool is_applicable_r_v = is_applicable_r<Ret, Func, Args>::value;
 
 
 /**
-* @brief Provides the member constant `value` to true if a given type is
-* complete, false otherwise.
-* @tparam Type Potential complete type.
-*/
+ * @brief Provides the member constant `value` to true if a given type is
+ * complete, false otherwise.
+ * @tparam Type The type to test.
+ */
 template<typename Type, typename = void>
 struct is_complete: std::false_type {};
 
@@ -4892,11 +5009,68 @@ struct is_complete<Type, std::void_t<decltype(sizeof(Type))>>: std::true_type {}
 
 
 /**
-* @brief Helper variable template.
-* @tparam Type Potential complete type.
-*/
+ * @brief Helper variable template.
+ * @tparam Type The type to test.
+ */
 template<typename Type>
-inline constexpr auto is_complete_v = is_complete<Type>::value;
+inline constexpr bool is_complete_v = is_complete<Type>::value;
+
+
+/**
+ * @brief Provides the member constant `value` to true if a given type is an
+ * iterator, false otherwise.
+ * @tparam Type The type to test.
+ */
+template<typename Type, typename = void>
+struct is_iterator: std::false_type {};
+
+
+/*! @copydoc is_iterator */
+template<typename Type>
+struct is_iterator<Type, std::void_t<typename std::iterator_traits<Type>::iterator_category>>
+    : std::true_type
+{};
+
+
+/**
+ * @brief Helper variable template.
+ * @tparam Type The type to test.
+ */
+template<typename Type>
+inline constexpr bool is_iterator_v = is_iterator<Type>::value;
+
+
+/**
+ * @brief Provides the member constant `value` to true if a given type is of the
+ * required iterator type, false otherwise.
+ * @tparam Type The type to test.
+ * @tparam It Required iterator type.
+ */
+template<typename Type, typename It, typename = void>
+struct is_iterator_type: std::false_type {};
+
+
+/*! @copydoc is_iterator_type */
+template<typename Type, typename It>
+struct is_iterator_type<Type, It, std::enable_if_t<is_iterator_v<Type> && std::is_same_v<Type, It>>>
+    : std::true_type
+{};
+
+
+/*! @copydoc is_iterator_type */
+template<typename Type, typename It>
+struct is_iterator_type<Type, It, std::enable_if_t<!std::is_same_v<Type, It>, std::void_t<typename It::iterator_type>>>
+    : is_iterator_type<Type, typename It::iterator_type>
+{};
+
+
+/**
+ * @brief Helper variable template.
+ * @tparam Type The type to test.
+ * @tparam It Required iterator type.
+ */
+template<typename Type, typename It>
+inline constexpr bool is_iterator_type_v = is_iterator_type<Type, It>::value;
 
 
 /**
@@ -5980,50 +6154,6 @@ class basic_sparse_set {
         }
     }
 
-    void stable_erase(const Entity entt, void *ud = nullptr) {
-        // last chance to use the entity for derived classes and mixins, if any
-        about_to_pop(entt, ud);
-
-        auto &ref = sparse[page(entt)][offset(entt)];
-        const auto pos = size_type{traits_type::to_entity(ref)};
-        ENTT_ASSERT(packed[pos] == entt, "Invalid entity identifier");
-
-        packed[pos] = std::exchange(free_list, traits_type::construct(static_cast<typename traits_type::entity_type>(pos)));
-        ref = null;
-
-        // strong exception guarantee
-        in_place_pop(pos);
-    }
-
-    void unstable_erase(const Entity entt, void *ud = nullptr) {
-        // last chance to use the entity for derived classes and mixins, if any
-        about_to_pop(entt, ud);
-
-        auto &ref = sparse[page(entt)][offset(entt)];
-        const auto pos = size_type{traits_type::to_entity(ref)};
-        ENTT_ASSERT(packed[pos] == entt, "Invalid entity identifier");
-
-        auto &last = packed[count - 1u];
-
-        packed[pos] = last;
-        sparse[page(last)][offset(last)] = ref;
-        // lazy self-assignment guard
-        ref = null;
-        // unnecessary but it helps to detect nasty bugs
-        ENTT_ASSERT((last = tombstone, true), "");
-
-        --count;
-
-        ENTT_TRY {
-            // strong exception guarantee
-            swap_and_pop(pos);
-        } ENTT_CATCH {
-            last = std::exchange(packed[pos], entt);
-            ref = std::exchange(sparse[page(last)][offset(last)], traits_type::construct(static_cast<typename traits_type::entity_type>(count++)));
-            ENTT_THROW;
-        }
-    }
-
 protected:
     /**
      * @brief Swaps two entities in the internal packed array.
@@ -6033,7 +6163,7 @@ protected:
     virtual void swap_at([[maybe_unused]] const std::size_t lhs, [[maybe_unused]] const std::size_t rhs) {}
 
     /**
-     * @brief Attempts to move an entity in the internal packed array.
+     * @brief Moves an entity in the internal packed array.
      * @param from A valid position of an entity within storage.
      * @param to A valid position of an entity within storage.
      */
@@ -6041,22 +6171,37 @@ protected:
 
     /**
      * @brief Attempts to erase an entity from the internal packed array.
-     * @param pos A valid position of an entity within storage.
+     * @param entt A valid entity identifier.
+     * @param ud Optional user data that are forwarded as-is to derived classes.
      */
-    virtual void swap_and_pop([[maybe_unused]] const std::size_t pos) {}
+    virtual void swap_and_pop(const Entity entt, [[maybe_unused]] void *ud) {
+        auto &ref = sparse[page(entt)][offset(entt)];
+        const auto pos = size_type{traits_type::to_entity(ref)};
+        ENTT_ASSERT(packed[pos] == entt, "Invalid entity identifier");
+        auto &last = packed[--count];
+
+        packed[pos] = last;
+        sparse[page(last)][offset(last)] = ref;
+        // lazy self-assignment guard
+        ref = null;
+        // unnecessary but it helps to detect nasty bugs
+        ENTT_ASSERT((last = tombstone, true), "");
+    }
 
     /**
      * @brief Attempts to erase an entity from the internal packed array.
-     * @param pos A valid position of an entity within storage.
-     */
-    virtual void in_place_pop([[maybe_unused]] const std::size_t pos) {}
-
-    /**
-     * @brief Last chance to use an entity that is about to be erased.
-     * @param entity A valid entity identifier.
+     * @param entt A valid entity identifier.
      * @param ud Optional user data that are forwarded as-is to derived classes.
      */
-    virtual void about_to_pop([[maybe_unused]] const Entity entity, [[maybe_unused]] void *ud) {}
+    virtual void in_place_pop(const Entity entt, [[maybe_unused]] void *ud) {
+        auto &ref = sparse[page(entt)][offset(entt)];
+        const auto pos = size_type{traits_type::to_entity(ref)};
+        ENTT_ASSERT(packed[pos] == entt, "Invalid entity identifier");
+
+        packed[pos] = std::exchange(free_list, traits_type::construct(static_cast<typename traits_type::entity_type>(pos)));
+        // lazy self-assignment guard
+        ref = null;
+    }
 
 public:
     /*! @brief Allocator type. */
@@ -6143,8 +6288,16 @@ public:
      * @brief Returns the deletion policy of a sparse set.
      * @return The deletion policy of the sparse set.
      */
-    deletion_policy policy() const ENTT_NOEXCEPT {
+    [[nodiscard]] deletion_policy policy() const ENTT_NOEXCEPT {
         return mode;
+    }
+
+    /**
+     * @brief Returns the next slot available for insertion.
+     * @return The next slot available for insertion.
+     */
+    [[nodiscard]] size_type slot() const ENTT_NOEXCEPT {
+        return free_list == null ? count : size_type{traits_type::to_entity(free_list)};
     }
 
     /**
@@ -6292,6 +6445,7 @@ public:
      * @return True if the sparse set contains the entity, false otherwise.
      */
     [[nodiscard]] bool contains(const entity_type entt) const ENTT_NOEXCEPT {
+        ENTT_ASSERT(entt != tombstone && entt != null, "Invalid entity");
         const auto curr = page(entt);
         // testing versions permits to avoid accessing the packed array
         return (curr < bucket && sparse[curr] && sparse[curr][offset(entt)] != null);
@@ -6332,6 +6486,29 @@ public:
     }
 
     /**
+     * @brief Appends an entity to a sparse set.
+     *
+     * @warning
+     * Attempting to assign an entity that already belongs to the sparse set
+     * results in undefined behavior.
+     *
+     * @param entt A valid entity identifier.
+     * @return The slot used for insertion.
+     */
+    size_type emplace_back(const entity_type entt) {
+        ENTT_ASSERT(!contains(entt), "Set already contains entity");
+
+        if(count == reserved) {
+            const size_type sz = static_cast<size_type>(reserved * growth_factor);
+            resize_packed(sz + !(sz > reserved));
+        }
+
+        assure_page(page(entt))[offset(entt)] = traits_type::construct(static_cast<typename traits_type::entity_type>(count));
+        packed[count] = entt;
+        return count++;
+    }
+
+    /**
      * @brief Assigns an entity to a sparse set.
      *
      * @warning
@@ -6339,23 +6516,17 @@ public:
      * results in undefined behavior.
      *
      * @param entt A valid entity identifier.
+     * @return The slot used for insertion.
      */
-    void emplace(const entity_type entt) {
-        ENTT_ASSERT(!contains(entt), "Set already contains entity");
-
+    size_type emplace(const entity_type entt) {
         if(free_list == null) {
-            if(count == reserved) {
-                const size_type sz = static_cast<size_type>(reserved * growth_factor);
-                resize_packed(sz + !(sz > reserved));
-            }
-
-            assure_page(page(entt))[offset(entt)] = traits_type::construct(static_cast<typename traits_type::entity_type>(count));
-            packed[count++] = entt;
+            return emplace_back(entt);
         } else {
+            ENTT_ASSERT(!contains(entt), "Set already contains entity");
             const auto pos = size_type{traits_type::to_entity(free_list)};
-            move_and_pop(count, pos);
             sparse[page(entt)][offset(entt)] = traits_type::construct(static_cast<typename traits_type::entity_type>(pos));
             free_list = std::exchange(packed[pos], entt);
+            return pos;
         }
     }
 
@@ -6394,7 +6565,7 @@ public:
      */
     void erase(const entity_type entt, void *ud = nullptr) {
         ENTT_ASSERT(contains(entt), "Set does not contain entity");
-        (mode == deletion_policy::in_place) ? stable_erase(entt, ud) : unstable_erase(entt, ud);
+        (mode == deletion_policy::in_place) ? in_place_pop(entt, ud) : swap_and_pop(entt, ud);
     }
 
     /**
@@ -6421,12 +6592,7 @@ public:
      * @return True if the entity is actually removed, false otherwise.
      */
     bool remove(const entity_type entt, void *ud = nullptr) {
-        if(contains(entt)) {
-            erase(entt, ud);
-            return true;
-        }
-
-        return false;
+        return contains(entt) && (erase(entt, ud), true);
     }
 
     /**
@@ -6482,12 +6648,18 @@ public:
      * @param rhs A valid entity identifier.
      */
     void swap(const entity_type lhs, const entity_type rhs) {
-        const auto from = index(lhs);
-        const auto to = index(rhs);
+        ENTT_ASSERT(contains(lhs), "Set does not contain entity");
+        ENTT_ASSERT(contains(rhs), "Set does not contain entity");
+
+        auto &entt = sparse[page(lhs)][offset(lhs)];
+        auto &other = sparse[page(rhs)][offset(rhs)];
+
+        const auto from = size_type{traits_type::to_entity(entt)};
+        const auto to = size_type{traits_type::to_entity(other)};
 
         // basic no-leak guarantee (with invalid state) if swapping throws
         swap_at(from, to);
-        std::swap(sparse[page(lhs)][offset(lhs)], sparse[page(rhs)][offset(rhs)]);
+        std::swap(entt, other);
         std::swap(packed[from], packed[to]);
     }
 
@@ -6601,7 +6773,7 @@ public:
     void clear(void *ud = nullptr) {
         for(auto &&entity: *this) {
             if(entity != tombstone) {
-                stable_erase(entity, ud);
+                in_place_pop(entity, ud);
             }
         }
 
@@ -6760,8 +6932,9 @@ static_assert(ENTT_PACKED_PAGE && ((ENTT_PACKED_PAGE & (ENTT_PACKED_PAGE - 1)) =
 
 
 #include <cstddef>
-#include <utility>
+#include <iterator>
 #include <type_traits>
+#include <utility>
 // #include "../config/config.h"
 #ifndef ENTT_CONFIG_CONFIG_H
 #define ENTT_CONFIG_CONFIG_H
@@ -6954,7 +7127,7 @@ struct size_of<Type, std::void_t<decltype(sizeof(Type))>>
  * @tparam Type The type of which to return the size.
  */
 template<class Type>
-inline constexpr auto size_of_v = size_of<Type>::value;
+inline constexpr std::size_t size_of_v = size_of<Type>::value;
 
 
 /**
@@ -7159,7 +7332,7 @@ struct type_list_contains<type_list<Type...>, Other>: std::disjunction<std::is_s
  * @tparam Type Type to look for.
  */
 template<class List, typename Type>
-inline constexpr auto type_list_contains_v = type_list_contains<List, Type>::value;
+inline constexpr bool type_list_contains_v = type_list_contains<List, Type>::value;
 
 
 /*! @brief Primary template isn't defined on purpose. */
@@ -7341,7 +7514,7 @@ template<typename Type>
 /**
  * @brief Provides the member constant `value` to true if a given type is
  * equality comparable, false otherwise.
- * @tparam Type Potentially equality comparable type.
+ * @tparam Type The type to test.
  */
 template<typename Type, typename = void>
 struct is_equality_comparable: std::bool_constant<internal::is_equality_comparable<Type>(choice<2>)> {};
@@ -7349,10 +7522,10 @@ struct is_equality_comparable: std::bool_constant<internal::is_equality_comparab
 
 /**
  * @brief Helper variable template.
- * @tparam Type Potentially equality comparable type.
+ * @tparam Type The type to test.
  */
 template<class Type>
-inline constexpr auto is_equality_comparable_v = is_equality_comparable<Type>::value;
+inline constexpr bool is_equality_comparable_v = is_equality_comparable<Type>::value;
 
 
 /*! @brief Same as std::is_invocable, but with tuples. */
@@ -7371,11 +7544,11 @@ struct is_applicable<Func, Tuple<Args...>>: std::is_invocable<Func, Args...> {};
 
 
 /**
-* @copybrief is_applicable
-* @tparam Func A valid function type.
-* @tparam Tuple Tuple-like type.
-* @tparam Args The list of arguments to use to probe the function type.
-*/
+ * @copybrief is_applicable
+ * @tparam Func A valid function type.
+ * @tparam Tuple Tuple-like type.
+ * @tparam Args The list of arguments to use to probe the function type.
+ */
 template<typename Func, template<typename...> class Tuple, typename... Args>
 struct is_applicable<Func, const Tuple<Args...>>: std::is_invocable<Func, Args...> {};
 
@@ -7386,7 +7559,7 @@ struct is_applicable<Func, const Tuple<Args...>>: std::is_invocable<Func, Args..
  * @tparam Args The list of arguments to use to probe the function type.
  */
 template<typename Func, typename Args>
-inline constexpr auto is_applicable_v = is_applicable<Func, Args>::value;
+inline constexpr bool is_applicable_v = is_applicable<Func, Args>::value;
 
 
 /*! @brief Same as std::is_invocable_r, but with tuples for arguments. */
@@ -7413,14 +7586,14 @@ struct is_applicable_r<Ret, Func, std::tuple<Args...>>: std::is_invocable_r<Ret,
  * @tparam Args The list of arguments to use to probe the function type.
  */
 template<typename Ret, typename Func, typename Args>
-inline constexpr auto is_applicable_r_v = is_applicable_r<Ret, Func, Args>::value;
+inline constexpr bool is_applicable_r_v = is_applicable_r<Ret, Func, Args>::value;
 
 
 /**
-* @brief Provides the member constant `value` to true if a given type is
-* complete, false otherwise.
-* @tparam Type Potential complete type.
-*/
+ * @brief Provides the member constant `value` to true if a given type is
+ * complete, false otherwise.
+ * @tparam Type The type to test.
+ */
 template<typename Type, typename = void>
 struct is_complete: std::false_type {};
 
@@ -7431,11 +7604,68 @@ struct is_complete<Type, std::void_t<decltype(sizeof(Type))>>: std::true_type {}
 
 
 /**
-* @brief Helper variable template.
-* @tparam Type Potential complete type.
-*/
+ * @brief Helper variable template.
+ * @tparam Type The type to test.
+ */
 template<typename Type>
-inline constexpr auto is_complete_v = is_complete<Type>::value;
+inline constexpr bool is_complete_v = is_complete<Type>::value;
+
+
+/**
+ * @brief Provides the member constant `value` to true if a given type is an
+ * iterator, false otherwise.
+ * @tparam Type The type to test.
+ */
+template<typename Type, typename = void>
+struct is_iterator: std::false_type {};
+
+
+/*! @copydoc is_iterator */
+template<typename Type>
+struct is_iterator<Type, std::void_t<typename std::iterator_traits<Type>::iterator_category>>
+    : std::true_type
+{};
+
+
+/**
+ * @brief Helper variable template.
+ * @tparam Type The type to test.
+ */
+template<typename Type>
+inline constexpr bool is_iterator_v = is_iterator<Type>::value;
+
+
+/**
+ * @brief Provides the member constant `value` to true if a given type is of the
+ * required iterator type, false otherwise.
+ * @tparam Type The type to test.
+ * @tparam It Required iterator type.
+ */
+template<typename Type, typename It, typename = void>
+struct is_iterator_type: std::false_type {};
+
+
+/*! @copydoc is_iterator_type */
+template<typename Type, typename It>
+struct is_iterator_type<Type, It, std::enable_if_t<is_iterator_v<Type> && std::is_same_v<Type, It>>>
+    : std::true_type
+{};
+
+
+/*! @copydoc is_iterator_type */
+template<typename Type, typename It>
+struct is_iterator_type<Type, It, std::enable_if_t<!std::is_same_v<Type, It>, std::void_t<typename It::iterator_type>>>
+    : is_iterator_type<Type, typename It::iterator_type>
+{};
+
+
+/**
+ * @brief Helper variable template.
+ * @tparam Type The type to test.
+ * @tparam It Required iterator type.
+ */
+template<typename Type, typename It>
+inline constexpr bool is_iterator_type_v = is_iterator_type<Type, It>::value;
 
 
 /**
@@ -8622,40 +8852,46 @@ class basic_storage_impl: public basic_sparse_set<Entity, typename std::allocato
         }
     }
 
-    void maybe_resize_packed(const std::size_t req) {
-        ENTT_ASSERT(!(req < underlying_type::size()), "Invalid request");
+    void assure_at_least(const std::size_t last) {
+        if(const auto idx = page(last - 1u); !(idx < bucket)) {
+            const size_type sz = idx + 1u;
+            const auto mem = bucket_alloc_traits::allocate(bucket_allocator, sz);
+            std::uninitialized_copy(packed, packed + bucket, mem);
+            size_type pos{};
 
-        if(const auto length = (req + packed_page - 1u) / packed_page; bucket != length) {
-            const auto mem = bucket_alloc_traits::allocate(bucket_allocator, length);
-
-            if(bucket > length) {
-                std::uninitialized_copy(packed, packed + length, mem);
-
-                for(auto pos = length; pos < bucket; ++pos) {
-                    alloc_traits::deallocate(allocator, packed[pos], packed_page);
+            ENTT_TRY {
+                for(pos = bucket; pos < sz; ++pos) {
+                    auto pg = alloc_traits::allocate(allocator, packed_page);
+                    bucket_alloc_traits::construct(bucket_allocator, std::addressof(mem[pos]), pg);
                 }
-            } else {
-                std::uninitialized_copy(packed, packed + bucket, mem);
-
-                size_type pos{};
-
-                ENTT_TRY {
-                    for(pos = bucket; pos < length; ++pos) {
-                        auto pg = alloc_traits::allocate(allocator, packed_page);
-                        bucket_alloc_traits::construct(bucket_allocator, std::addressof(mem[pos]), pg);
-                    }
-                } ENTT_CATCH {
-                    for(auto next = bucket; next < pos; ++next) {
-                        alloc_traits::deallocate(allocator, mem[next], packed_page);
-                    }
-
-                    std::destroy(mem, mem + pos);
-                    bucket_alloc_traits::deallocate(bucket_allocator, mem, length);
-                    ENTT_THROW;
+            } ENTT_CATCH {
+                for(auto next = bucket; next < pos; ++next) {
+                    alloc_traits::deallocate(allocator, mem[next], packed_page);
                 }
+
+                std::destroy(mem, mem + pos);
+                bucket_alloc_traits::deallocate(bucket_allocator, mem, sz);
+                ENTT_THROW;
             }
 
             std::destroy(packed, packed + bucket);
+            bucket_alloc_traits::deallocate(bucket_allocator, packed, bucket);
+
+            packed = mem;
+            bucket = sz;
+        }
+    }
+
+    void release_unused_pages() {
+        if(const auto length = underlying_type::size() / packed_page; length < bucket) {
+            const auto mem = bucket_alloc_traits::allocate(bucket_allocator, length);
+            std::uninitialized_copy(packed, packed + length, mem);
+
+            for(auto pos = length; pos < bucket; ++pos) {
+                alloc_traits::deallocate(allocator, packed[pos], packed_page);
+                bucket_alloc_traits::destroy(bucket_allocator, std::addressof(packed[pos]));
+            }
+
             bucket_alloc_traits::deallocate(bucket_allocator, packed, bucket);
 
             packed = mem;
@@ -8664,10 +8900,9 @@ class basic_storage_impl: public basic_sparse_set<Entity, typename std::allocato
     }
 
     template<typename... Args>
-    auto & push_back(Args &&... args) {
-        const auto length = underlying_type::size();
-        ENTT_ASSERT(length < (bucket * packed_page), "No more space left");
-        auto *instance = std::addressof(packed[page(length)][offset(length)]);
+    auto & push_at(const std::size_t pos, Args &&... args) {
+        ENTT_ASSERT(pos < (bucket * packed_page), "Out of bounds index");
+        auto *instance = std::addressof(packed[page(pos)][offset(pos)]);
 
         if constexpr(std::is_aggregate_v<value_type>) {
             alloc_traits::construct(allocator, instance, Type{std::forward<Args>(args)...});
@@ -8678,8 +8913,8 @@ class basic_storage_impl: public basic_sparse_set<Entity, typename std::allocato
         return *instance;
     }
 
-    void pop_back() {
-        alloc_traits::destroy(allocator, std::addressof(packed[underlying_type::size()]));
+    void pop_at(const std::size_t pos) {
+        alloc_traits::destroy(allocator, std::addressof(packed[page(pos)][offset(pos)]));
     }
 
 protected:
@@ -8690,27 +8925,30 @@ protected:
 
     /*! @copydoc basic_sparse_set::move_and_pop */
     void move_and_pop(const std::size_t from, const std::size_t to) final {
-        auto *instance = std::addressof(packed[page(to)][offset(to)]);
-        auto *other = std::addressof(packed[page(from)][offset(from)]);
-        alloc_traits::construct(allocator, instance, std::move(*other));
-        alloc_traits::destroy(allocator, other);
+        push_at(to, std::move(packed[page(from)][offset(from)]));
+        pop_at(from);
     }
 
     /*! @copydoc basic_sparse_set::swap_and_pop */
-    void swap_and_pop(const std::size_t pos) final {
-        const auto length = underlying_type::size();
+    void swap_and_pop(const Entity entt, void *ud) override {
+        const auto pos = underlying_type::index(entt);
+        const auto last = underlying_type::size() - 1u;
         auto &&elem = packed[page(pos)][offset(pos)];
-        auto &&last = packed[page(length)][offset(length)];
 
         // support for nosy destructors
         [[maybe_unused]] auto unused = std::move(elem);
-        elem = std::move(last);
-        alloc_traits::destroy(allocator, std::addressof(last));
+        elem = std::move(packed[page(last)][offset(last)]);
+        pop_at(last);
+
+        underlying_type::swap_and_pop(entt, ud);
     }
 
     /*! @copydoc basic_sparse_set::in_place_pop */
-    void in_place_pop(const std::size_t pos) final {
-        alloc_traits::destroy(allocator, std::addressof(packed[page(pos)][offset(pos)]));
+    void in_place_pop(const Entity entt, void *ud) override {
+        const auto pos = underlying_type::index(entt);
+        underlying_type::in_place_pop(entt, ud);
+        // support for nosy destructors
+        pop_at(pos);
     }
 
 public:
@@ -8793,8 +9031,8 @@ public:
     void reserve(const size_type cap) {
         underlying_type::reserve(cap);
 
-        if(cap > (bucket * packed_page)) {
-            maybe_resize_packed(cap);
+        if(cap > underlying_type::size()) {
+            assure_at_least(cap);
         }
     }
 
@@ -8810,7 +9048,7 @@ public:
     /*! @brief Requests the removal of unused capacity. */
     void shrink_to_fit() {
         underlying_type::shrink_to_fit();
-        maybe_resize_packed(underlying_type::size());
+        release_unused_pages();
     }
 
     /**
@@ -8959,13 +9197,16 @@ public:
      */
     template<typename... Args>
     value_type & emplace(const entity_type entt, Args &&... args) {
-        maybe_resize_packed(underlying_type::size() + 1u);
-        auto &value = push_back(std::forward<Args>(args)...);
+        const auto pos = underlying_type::slot();
+        assure_at_least(pos + 1u);
+
+        auto &value = push_at(pos, std::forward<Args>(args)...);
 
         ENTT_TRY {
-            underlying_type::emplace(entt);
+            [[maybe_unused]] const auto curr = underlying_type::emplace(entt);
+            ENTT_ASSERT(pos == curr, "Misplaced component");
         } ENTT_CATCH {
-            pop_back();
+            pop_at(pos);
             ENTT_THROW;
         }
 
@@ -8975,13 +9216,13 @@ public:
     /**
      * @brief Updates the instance assigned to a given entity in-place.
      * @tparam Func Types of the function objects to invoke.
-     * @param entity A valid entity identifier.
+     * @param entt A valid entity identifier.
      * @param func Valid function objects.
      * @return A reference to the updated instance.
      */
     template<typename... Func>
-    decltype(auto) patch(const entity_type entity, Func &&... func) {
-        const auto idx = underlying_type::index(entity);
+    decltype(auto) patch(const entity_type entt, Func &&... func) {
+        const auto idx = underlying_type::index(entt);
         auto &&elem = packed[page(idx)][offset(idx)];
         (std::forward<Func>(func)(elem), ...);
         return elem;
@@ -9002,17 +9243,17 @@ public:
      */
     template<typename It>
     void insert(It first, It last, const value_type &value = {}) {
-        const auto sz = underlying_type::size() + std::distance(first, last);
-        underlying_type::reserve(sz);
-        maybe_resize_packed(sz);
+        const auto cap = underlying_type::size() + std::distance(first, last);
+        underlying_type::reserve(cap);
+        assure_at_least(cap);
 
         for(; first != last; ++first) {
-            push_back(value);
+            push_at(underlying_type::size(), value);
 
             ENTT_TRY {
-                underlying_type::emplace(*first);
+                underlying_type::emplace_back(*first);
             } ENTT_CATCH {
-                pop_back();
+                pop_at(underlying_type::size());
                 ENTT_THROW;
             }
         }
@@ -9032,17 +9273,17 @@ public:
      */
     template<typename EIt, typename CIt, typename = std::enable_if_t<std::is_same_v<std::decay_t<typename std::iterator_traits<CIt>::value_type>, value_type>>>
     void insert(EIt first, EIt last, CIt from) {
-        const auto sz = underlying_type::size() + std::distance(first, last);
-        underlying_type::reserve(sz);
-        maybe_resize_packed(sz);
+        const auto cap = underlying_type::size() + std::distance(first, last);
+        underlying_type::reserve(cap);
+        assure_at_least(cap);
 
         for(; first != last; ++first, ++from) {
-            push_back(*from);
+            push_at(underlying_type::size(), *from);
 
             ENTT_TRY {
-                underlying_type::emplace(*first);
+                underlying_type::emplace_back(*first);
             } ENTT_CATCH {
-                pop_back();
+                pop_at(underlying_type::size());
                 ENTT_THROW;
             }
         }
@@ -9116,7 +9357,7 @@ private:
     typename alloc_traits::allocator_type allocator;
     typename bucket_alloc_traits::allocator_type bucket_allocator;
     bucket_alloc_pointer packed;
-    std::size_t bucket;
+    size_type bucket;
 };
 
 
@@ -9180,12 +9421,12 @@ public:
     /**
     * @brief Updates the instance assigned to a given entity in-place.
     * @tparam Func Types of the function objects to invoke.
-    * @param entity A valid entity identifier.
+    * @param entt A valid entity identifier.
     * @param func Valid function objects.
     */
     template<typename... Func>
-    void patch([[maybe_unused]] const entity_type entity, Func &&... func) {
-        ENTT_ASSERT(underlying_type::contains(entity), "Storage does not contain entity");
+    void patch([[maybe_unused]] const entity_type entt, Func &&... func) {
+        ENTT_ASSERT(underlying_type::contains(entt), "Storage does not contain entity");
         (std::forward<Func>(func)(), ...);
     }
 
@@ -9226,13 +9467,13 @@ struct storage_adapter_mixin: Type {
     /**
      * @brief Assigns entities to a storage.
      * @tparam Args Types of arguments to use to construct the object.
-     * @param entity A valid entity identifier.
+     * @param entt A valid entity identifier.
      * @param args Parameters to use to initialize the object.
      * @return A reference to the newly created object.
      */
     template<typename... Args>
-    decltype(auto) emplace(basic_registry<entity_type> &, const entity_type entity, Args &&... args) {
-        return Type::emplace(entity, std::forward<Args>(args)...);
+    decltype(auto) emplace(basic_registry<entity_type> &, const entity_type entt, Args &&... args) {
+        return Type::emplace(entt, std::forward<Args>(args)...);
     }
 
     /**
@@ -9253,13 +9494,13 @@ struct storage_adapter_mixin: Type {
     /**
      * @brief Patches the given instance for an entity.
      * @tparam Func Types of the function objects to invoke.
-     * @param entity A valid entity identifier.
+     * @param entt A valid entity identifier.
      * @param func Valid function objects.
      * @return A reference to the patched instance.
      */
     template<typename... Func>
-    decltype(auto) patch(basic_registry<entity_type> &, const entity_type entity, Func &&... func) {
-        return Type::patch(entity, std::forward<Func>(func)...);
+    decltype(auto) patch(basic_registry<entity_type> &, const entity_type entt, Func &&... func) {
+        return Type::patch(entt, std::forward<Func>(func)...);
     }
 };
 
@@ -9270,11 +9511,18 @@ struct storage_adapter_mixin: Type {
  */
 template<typename Type>
 class sigh_storage_mixin final: public Type {
-    /*! @copydoc basic_sparse_set::about_to_pop */
-    void about_to_pop(const typename Type::entity_type entity, void *ud) final {
+    /*! @copydoc basic_sparse_set::swap_and_pop */
+    void swap_and_pop(const typename Type::entity_type entt, void *ud) final {
         ENTT_ASSERT(ud != nullptr, "Invalid pointer to registry");
-        destruction.publish(*static_cast<basic_registry<typename Type::entity_type> *>(ud), entity);
-        Type::about_to_pop(entity, ud);
+        destruction.publish(*static_cast<basic_registry<typename Type::entity_type> *>(ud), entt);
+        Type::swap_and_pop(entt, ud);
+    }
+
+    /*! @copydoc basic_sparse_set::in_place_pop */
+    void in_place_pop(const typename Type::entity_type entt, void *ud) final {
+        ENTT_ASSERT(ud != nullptr, "Invalid pointer to registry");
+        destruction.publish(*static_cast<basic_registry<typename Type::entity_type> *>(ud), entt);
+        Type::in_place_pop(entt, ud);
     }
 
 public:
@@ -9355,15 +9603,15 @@ public:
      * @brief Assigns entities to a storage.
      * @tparam Args Types of arguments to use to construct the object.
      * @param owner The registry that issued the request.
-     * @param entity A valid entity identifier.
+     * @param entt A valid entity identifier.
      * @param args Parameters to use to initialize the object.
      * @return A reference to the newly created object.
      */
     template<typename... Args>
-    decltype(auto) emplace(basic_registry<entity_type> &owner, const entity_type entity, Args &&... args) {
-        Type::emplace(entity, std::forward<Args>(args)...);
-        construction.publish(owner, entity);
-        return this->get(entity);
+    decltype(auto) emplace(basic_registry<entity_type> &owner, const entity_type entt, Args &&... args) {
+        Type::emplace(entt, std::forward<Args>(args)...);
+        construction.publish(owner, entt);
+        return this->get(entt);
     }
 
     /**
@@ -9392,15 +9640,15 @@ public:
      * @brief Patches the given instance for an entity.
      * @tparam Func Types of the function objects to invoke.
      * @param owner The registry that issued the request.
-     * @param entity A valid entity identifier.
+     * @param entt A valid entity identifier.
      * @param func Valid function objects.
      * @return A reference to the patched instance.
      */
     template<typename... Func>
-    decltype(auto) patch(basic_registry<entity_type> &owner, const entity_type entity, Func &&... func) {
-        Type::patch(entity, std::forward<Func>(func)...);
-        update.publish(owner, entity);
-        return this->get(entity);
+    decltype(auto) patch(basic_registry<entity_type> &owner, const entity_type entt, Func &&... func) {
+        Type::patch(entt, std::forward<Func>(func)...);
+        update.publish(owner, entt);
+        return this->get(entt);
     }
 
 private:
@@ -9438,17 +9686,17 @@ struct storage_traits {
  * @brief Gets the element assigned to an entity from a storage, if any.
  * @tparam Type Storage type.
  * @param container A valid instance of a storage class.
- * @param entity A valid entity identifier.
+ * @param entt A valid entity identifier.
  * @return A possibly empty tuple containing the requested element.
  */
 template<typename Type>
-[[nodiscard]] auto get_as_tuple([[maybe_unused]] Type &container, [[maybe_unused]] const typename Type::entity_type entity) {
+[[nodiscard]] auto get_as_tuple([[maybe_unused]] Type &container, [[maybe_unused]] const typename Type::entity_type entt) {
     static_assert(std::is_same_v<std::remove_const_t<Type>, typename storage_traits<typename Type::entity_type, typename Type::value_type>::storage_type>, "Invalid storage");
 
     if constexpr(std::is_void_v<decltype(container.get({}))>) {
         return std::make_tuple();
     } else {
-        return std::forward_as_tuple(container.get(entity));
+        return std::forward_as_tuple(container.get(entt));
     }
 }
 
@@ -11278,8 +11526,9 @@ template<typename Type>
 
 
 #include <cstddef>
-#include <utility>
+#include <iterator>
 #include <type_traits>
+#include <utility>
 // #include "../config/config.h"
 
 // #include "fwd.hpp"
@@ -11359,7 +11608,7 @@ struct size_of<Type, std::void_t<decltype(sizeof(Type))>>
  * @tparam Type The type of which to return the size.
  */
 template<class Type>
-inline constexpr auto size_of_v = size_of<Type>::value;
+inline constexpr std::size_t size_of_v = size_of<Type>::value;
 
 
 /**
@@ -11564,7 +11813,7 @@ struct type_list_contains<type_list<Type...>, Other>: std::disjunction<std::is_s
  * @tparam Type Type to look for.
  */
 template<class List, typename Type>
-inline constexpr auto type_list_contains_v = type_list_contains<List, Type>::value;
+inline constexpr bool type_list_contains_v = type_list_contains<List, Type>::value;
 
 
 /*! @brief Primary template isn't defined on purpose. */
@@ -11746,7 +11995,7 @@ template<typename Type>
 /**
  * @brief Provides the member constant `value` to true if a given type is
  * equality comparable, false otherwise.
- * @tparam Type Potentially equality comparable type.
+ * @tparam Type The type to test.
  */
 template<typename Type, typename = void>
 struct is_equality_comparable: std::bool_constant<internal::is_equality_comparable<Type>(choice<2>)> {};
@@ -11754,10 +12003,10 @@ struct is_equality_comparable: std::bool_constant<internal::is_equality_comparab
 
 /**
  * @brief Helper variable template.
- * @tparam Type Potentially equality comparable type.
+ * @tparam Type The type to test.
  */
 template<class Type>
-inline constexpr auto is_equality_comparable_v = is_equality_comparable<Type>::value;
+inline constexpr bool is_equality_comparable_v = is_equality_comparable<Type>::value;
 
 
 /*! @brief Same as std::is_invocable, but with tuples. */
@@ -11776,11 +12025,11 @@ struct is_applicable<Func, Tuple<Args...>>: std::is_invocable<Func, Args...> {};
 
 
 /**
-* @copybrief is_applicable
-* @tparam Func A valid function type.
-* @tparam Tuple Tuple-like type.
-* @tparam Args The list of arguments to use to probe the function type.
-*/
+ * @copybrief is_applicable
+ * @tparam Func A valid function type.
+ * @tparam Tuple Tuple-like type.
+ * @tparam Args The list of arguments to use to probe the function type.
+ */
 template<typename Func, template<typename...> class Tuple, typename... Args>
 struct is_applicable<Func, const Tuple<Args...>>: std::is_invocable<Func, Args...> {};
 
@@ -11791,7 +12040,7 @@ struct is_applicable<Func, const Tuple<Args...>>: std::is_invocable<Func, Args..
  * @tparam Args The list of arguments to use to probe the function type.
  */
 template<typename Func, typename Args>
-inline constexpr auto is_applicable_v = is_applicable<Func, Args>::value;
+inline constexpr bool is_applicable_v = is_applicable<Func, Args>::value;
 
 
 /*! @brief Same as std::is_invocable_r, but with tuples for arguments. */
@@ -11818,14 +12067,14 @@ struct is_applicable_r<Ret, Func, std::tuple<Args...>>: std::is_invocable_r<Ret,
  * @tparam Args The list of arguments to use to probe the function type.
  */
 template<typename Ret, typename Func, typename Args>
-inline constexpr auto is_applicable_r_v = is_applicable_r<Ret, Func, Args>::value;
+inline constexpr bool is_applicable_r_v = is_applicable_r<Ret, Func, Args>::value;
 
 
 /**
-* @brief Provides the member constant `value` to true if a given type is
-* complete, false otherwise.
-* @tparam Type Potential complete type.
-*/
+ * @brief Provides the member constant `value` to true if a given type is
+ * complete, false otherwise.
+ * @tparam Type The type to test.
+ */
 template<typename Type, typename = void>
 struct is_complete: std::false_type {};
 
@@ -11836,11 +12085,68 @@ struct is_complete<Type, std::void_t<decltype(sizeof(Type))>>: std::true_type {}
 
 
 /**
-* @brief Helper variable template.
-* @tparam Type Potential complete type.
-*/
+ * @brief Helper variable template.
+ * @tparam Type The type to test.
+ */
 template<typename Type>
-inline constexpr auto is_complete_v = is_complete<Type>::value;
+inline constexpr bool is_complete_v = is_complete<Type>::value;
+
+
+/**
+ * @brief Provides the member constant `value` to true if a given type is an
+ * iterator, false otherwise.
+ * @tparam Type The type to test.
+ */
+template<typename Type, typename = void>
+struct is_iterator: std::false_type {};
+
+
+/*! @copydoc is_iterator */
+template<typename Type>
+struct is_iterator<Type, std::void_t<typename std::iterator_traits<Type>::iterator_category>>
+    : std::true_type
+{};
+
+
+/**
+ * @brief Helper variable template.
+ * @tparam Type The type to test.
+ */
+template<typename Type>
+inline constexpr bool is_iterator_v = is_iterator<Type>::value;
+
+
+/**
+ * @brief Provides the member constant `value` to true if a given type is of the
+ * required iterator type, false otherwise.
+ * @tparam Type The type to test.
+ * @tparam It Required iterator type.
+ */
+template<typename Type, typename It, typename = void>
+struct is_iterator_type: std::false_type {};
+
+
+/*! @copydoc is_iterator_type */
+template<typename Type, typename It>
+struct is_iterator_type<Type, It, std::enable_if_t<is_iterator_v<Type> && std::is_same_v<Type, It>>>
+    : std::true_type
+{};
+
+
+/*! @copydoc is_iterator_type */
+template<typename Type, typename It>
+struct is_iterator_type<Type, It, std::enable_if_t<!std::is_same_v<Type, It>, std::void_t<typename It::iterator_type>>>
+    : is_iterator_type<Type, typename It::iterator_type>
+{};
+
+
+/**
+ * @brief Helper variable template.
+ * @tparam Type The type to test.
+ * @tparam It Required iterator type.
+ */
+template<typename Type, typename It>
+inline constexpr bool is_iterator_type_v = is_iterator_type<Type, It>::value;
 
 
 /**
@@ -14610,8 +14916,9 @@ template<typename Type>
 
 
 #include <cstddef>
-#include <utility>
+#include <iterator>
 #include <type_traits>
+#include <utility>
 // #include "../config/config.h"
 
 // #include "fwd.hpp"
@@ -14691,7 +14998,7 @@ struct size_of<Type, std::void_t<decltype(sizeof(Type))>>
  * @tparam Type The type of which to return the size.
  */
 template<class Type>
-inline constexpr auto size_of_v = size_of<Type>::value;
+inline constexpr std::size_t size_of_v = size_of<Type>::value;
 
 
 /**
@@ -14896,7 +15203,7 @@ struct type_list_contains<type_list<Type...>, Other>: std::disjunction<std::is_s
  * @tparam Type Type to look for.
  */
 template<class List, typename Type>
-inline constexpr auto type_list_contains_v = type_list_contains<List, Type>::value;
+inline constexpr bool type_list_contains_v = type_list_contains<List, Type>::value;
 
 
 /*! @brief Primary template isn't defined on purpose. */
@@ -15078,7 +15385,7 @@ template<typename Type>
 /**
  * @brief Provides the member constant `value` to true if a given type is
  * equality comparable, false otherwise.
- * @tparam Type Potentially equality comparable type.
+ * @tparam Type The type to test.
  */
 template<typename Type, typename = void>
 struct is_equality_comparable: std::bool_constant<internal::is_equality_comparable<Type>(choice<2>)> {};
@@ -15086,10 +15393,10 @@ struct is_equality_comparable: std::bool_constant<internal::is_equality_comparab
 
 /**
  * @brief Helper variable template.
- * @tparam Type Potentially equality comparable type.
+ * @tparam Type The type to test.
  */
 template<class Type>
-inline constexpr auto is_equality_comparable_v = is_equality_comparable<Type>::value;
+inline constexpr bool is_equality_comparable_v = is_equality_comparable<Type>::value;
 
 
 /*! @brief Same as std::is_invocable, but with tuples. */
@@ -15108,11 +15415,11 @@ struct is_applicable<Func, Tuple<Args...>>: std::is_invocable<Func, Args...> {};
 
 
 /**
-* @copybrief is_applicable
-* @tparam Func A valid function type.
-* @tparam Tuple Tuple-like type.
-* @tparam Args The list of arguments to use to probe the function type.
-*/
+ * @copybrief is_applicable
+ * @tparam Func A valid function type.
+ * @tparam Tuple Tuple-like type.
+ * @tparam Args The list of arguments to use to probe the function type.
+ */
 template<typename Func, template<typename...> class Tuple, typename... Args>
 struct is_applicable<Func, const Tuple<Args...>>: std::is_invocable<Func, Args...> {};
 
@@ -15123,7 +15430,7 @@ struct is_applicable<Func, const Tuple<Args...>>: std::is_invocable<Func, Args..
  * @tparam Args The list of arguments to use to probe the function type.
  */
 template<typename Func, typename Args>
-inline constexpr auto is_applicable_v = is_applicable<Func, Args>::value;
+inline constexpr bool is_applicable_v = is_applicable<Func, Args>::value;
 
 
 /*! @brief Same as std::is_invocable_r, but with tuples for arguments. */
@@ -15150,14 +15457,14 @@ struct is_applicable_r<Ret, Func, std::tuple<Args...>>: std::is_invocable_r<Ret,
  * @tparam Args The list of arguments to use to probe the function type.
  */
 template<typename Ret, typename Func, typename Args>
-inline constexpr auto is_applicable_r_v = is_applicable_r<Ret, Func, Args>::value;
+inline constexpr bool is_applicable_r_v = is_applicable_r<Ret, Func, Args>::value;
 
 
 /**
-* @brief Provides the member constant `value` to true if a given type is
-* complete, false otherwise.
-* @tparam Type Potential complete type.
-*/
+ * @brief Provides the member constant `value` to true if a given type is
+ * complete, false otherwise.
+ * @tparam Type The type to test.
+ */
 template<typename Type, typename = void>
 struct is_complete: std::false_type {};
 
@@ -15168,11 +15475,68 @@ struct is_complete<Type, std::void_t<decltype(sizeof(Type))>>: std::true_type {}
 
 
 /**
-* @brief Helper variable template.
-* @tparam Type Potential complete type.
-*/
+ * @brief Helper variable template.
+ * @tparam Type The type to test.
+ */
 template<typename Type>
-inline constexpr auto is_complete_v = is_complete<Type>::value;
+inline constexpr bool is_complete_v = is_complete<Type>::value;
+
+
+/**
+ * @brief Provides the member constant `value` to true if a given type is an
+ * iterator, false otherwise.
+ * @tparam Type The type to test.
+ */
+template<typename Type, typename = void>
+struct is_iterator: std::false_type {};
+
+
+/*! @copydoc is_iterator */
+template<typename Type>
+struct is_iterator<Type, std::void_t<typename std::iterator_traits<Type>::iterator_category>>
+    : std::true_type
+{};
+
+
+/**
+ * @brief Helper variable template.
+ * @tparam Type The type to test.
+ */
+template<typename Type>
+inline constexpr bool is_iterator_v = is_iterator<Type>::value;
+
+
+/**
+ * @brief Provides the member constant `value` to true if a given type is of the
+ * required iterator type, false otherwise.
+ * @tparam Type The type to test.
+ * @tparam It Required iterator type.
+ */
+template<typename Type, typename It, typename = void>
+struct is_iterator_type: std::false_type {};
+
+
+/*! @copydoc is_iterator_type */
+template<typename Type, typename It>
+struct is_iterator_type<Type, It, std::enable_if_t<is_iterator_v<Type> && std::is_same_v<Type, It>>>
+    : std::true_type
+{};
+
+
+/*! @copydoc is_iterator_type */
+template<typename Type, typename It>
+struct is_iterator_type<Type, It, std::enable_if_t<!std::is_same_v<Type, It>, std::void_t<typename It::iterator_type>>>
+    : is_iterator_type<Type, typename It::iterator_type>
+{};
+
+
+/**
+ * @brief Helper variable template.
+ * @tparam Type The type to test.
+ * @tparam It Required iterator type.
+ */
+template<typename Type, typename It>
+inline constexpr bool is_iterator_type_v = is_iterator_type<Type, It>::value;
 
 
 /**
@@ -15955,8 +16319,9 @@ template<typename Type>
 
 
 #include <cstddef>
-#include <utility>
+#include <iterator>
 #include <type_traits>
+#include <utility>
 // #include "../config/config.h"
 
 // #include "fwd.hpp"
@@ -16036,7 +16401,7 @@ struct size_of<Type, std::void_t<decltype(sizeof(Type))>>
  * @tparam Type The type of which to return the size.
  */
 template<class Type>
-inline constexpr auto size_of_v = size_of<Type>::value;
+inline constexpr std::size_t size_of_v = size_of<Type>::value;
 
 
 /**
@@ -16241,7 +16606,7 @@ struct type_list_contains<type_list<Type...>, Other>: std::disjunction<std::is_s
  * @tparam Type Type to look for.
  */
 template<class List, typename Type>
-inline constexpr auto type_list_contains_v = type_list_contains<List, Type>::value;
+inline constexpr bool type_list_contains_v = type_list_contains<List, Type>::value;
 
 
 /*! @brief Primary template isn't defined on purpose. */
@@ -16423,7 +16788,7 @@ template<typename Type>
 /**
  * @brief Provides the member constant `value` to true if a given type is
  * equality comparable, false otherwise.
- * @tparam Type Potentially equality comparable type.
+ * @tparam Type The type to test.
  */
 template<typename Type, typename = void>
 struct is_equality_comparable: std::bool_constant<internal::is_equality_comparable<Type>(choice<2>)> {};
@@ -16431,10 +16796,10 @@ struct is_equality_comparable: std::bool_constant<internal::is_equality_comparab
 
 /**
  * @brief Helper variable template.
- * @tparam Type Potentially equality comparable type.
+ * @tparam Type The type to test.
  */
 template<class Type>
-inline constexpr auto is_equality_comparable_v = is_equality_comparable<Type>::value;
+inline constexpr bool is_equality_comparable_v = is_equality_comparable<Type>::value;
 
 
 /*! @brief Same as std::is_invocable, but with tuples. */
@@ -16453,11 +16818,11 @@ struct is_applicable<Func, Tuple<Args...>>: std::is_invocable<Func, Args...> {};
 
 
 /**
-* @copybrief is_applicable
-* @tparam Func A valid function type.
-* @tparam Tuple Tuple-like type.
-* @tparam Args The list of arguments to use to probe the function type.
-*/
+ * @copybrief is_applicable
+ * @tparam Func A valid function type.
+ * @tparam Tuple Tuple-like type.
+ * @tparam Args The list of arguments to use to probe the function type.
+ */
 template<typename Func, template<typename...> class Tuple, typename... Args>
 struct is_applicable<Func, const Tuple<Args...>>: std::is_invocable<Func, Args...> {};
 
@@ -16468,7 +16833,7 @@ struct is_applicable<Func, const Tuple<Args...>>: std::is_invocable<Func, Args..
  * @tparam Args The list of arguments to use to probe the function type.
  */
 template<typename Func, typename Args>
-inline constexpr auto is_applicable_v = is_applicable<Func, Args>::value;
+inline constexpr bool is_applicable_v = is_applicable<Func, Args>::value;
 
 
 /*! @brief Same as std::is_invocable_r, but with tuples for arguments. */
@@ -16495,14 +16860,14 @@ struct is_applicable_r<Ret, Func, std::tuple<Args...>>: std::is_invocable_r<Ret,
  * @tparam Args The list of arguments to use to probe the function type.
  */
 template<typename Ret, typename Func, typename Args>
-inline constexpr auto is_applicable_r_v = is_applicable_r<Ret, Func, Args>::value;
+inline constexpr bool is_applicable_r_v = is_applicable_r<Ret, Func, Args>::value;
 
 
 /**
-* @brief Provides the member constant `value` to true if a given type is
-* complete, false otherwise.
-* @tparam Type Potential complete type.
-*/
+ * @brief Provides the member constant `value` to true if a given type is
+ * complete, false otherwise.
+ * @tparam Type The type to test.
+ */
 template<typename Type, typename = void>
 struct is_complete: std::false_type {};
 
@@ -16513,11 +16878,68 @@ struct is_complete<Type, std::void_t<decltype(sizeof(Type))>>: std::true_type {}
 
 
 /**
-* @brief Helper variable template.
-* @tparam Type Potential complete type.
-*/
+ * @brief Helper variable template.
+ * @tparam Type The type to test.
+ */
 template<typename Type>
-inline constexpr auto is_complete_v = is_complete<Type>::value;
+inline constexpr bool is_complete_v = is_complete<Type>::value;
+
+
+/**
+ * @brief Provides the member constant `value` to true if a given type is an
+ * iterator, false otherwise.
+ * @tparam Type The type to test.
+ */
+template<typename Type, typename = void>
+struct is_iterator: std::false_type {};
+
+
+/*! @copydoc is_iterator */
+template<typename Type>
+struct is_iterator<Type, std::void_t<typename std::iterator_traits<Type>::iterator_category>>
+    : std::true_type
+{};
+
+
+/**
+ * @brief Helper variable template.
+ * @tparam Type The type to test.
+ */
+template<typename Type>
+inline constexpr bool is_iterator_v = is_iterator<Type>::value;
+
+
+/**
+ * @brief Provides the member constant `value` to true if a given type is of the
+ * required iterator type, false otherwise.
+ * @tparam Type The type to test.
+ * @tparam It Required iterator type.
+ */
+template<typename Type, typename It, typename = void>
+struct is_iterator_type: std::false_type {};
+
+
+/*! @copydoc is_iterator_type */
+template<typename Type, typename It>
+struct is_iterator_type<Type, It, std::enable_if_t<is_iterator_v<Type> && std::is_same_v<Type, It>>>
+    : std::true_type
+{};
+
+
+/*! @copydoc is_iterator_type */
+template<typename Type, typename It>
+struct is_iterator_type<Type, It, std::enable_if_t<!std::is_same_v<Type, It>, std::void_t<typename It::iterator_type>>>
+    : is_iterator_type<Type, typename It::iterator_type>
+{};
+
+
+/**
+ * @brief Helper variable template.
+ * @tparam Type The type to test.
+ * @tparam It Required iterator type.
+ */
+template<typename Type, typename It>
+inline constexpr bool is_iterator_type_v = is_iterator_type<Type, It>::value;
 
 
 /**
@@ -17304,6 +17726,7 @@ class view_iterator final {
     }
 
 public:
+    using iterator_type = It;
     using difference_type = typename std::iterator_traits<It>::difference_type;
     using value_type = typename std::iterator_traits<It>::value_type;
     using pointer = typename std::iterator_traits<It>::pointer;
@@ -17378,6 +17801,12 @@ private:
 }
 
 
+/**
+ * Internal details not to be documented.
+ * @endcond
+ */
+
+
 /*! @brief Stable storage policy, aimed at pointer stability. */
 struct stable_storage_policy {
     /**
@@ -17410,12 +17839,6 @@ struct packed_storage_policy {
     * @endcond
     */
 };
-
-
-/**
- * Internal details not to be documented.
- * @endcond
- */
 
 
 /**
@@ -18335,13 +18758,14 @@ template<typename Entity>
 class basic_registry {
     using traits_type = entt_traits<Entity>;
     using poly_storage_type = typename poly_storage_traits<Entity>::storage_type;
+    using basic_common_type = basic_sparse_set<Entity>;
 
     template<typename Component>
     using storage_type = constness_as_t<typename storage_traits<Entity, std::remove_const_t<Component>>::storage_type, Component>;
 
     struct pool_data {
         poly_storage_type poly;
-        std::unique_ptr<basic_sparse_set<Entity>> pool{};
+        std::unique_ptr<basic_common_type> pool{};
     };
 
     template<typename...>
@@ -18351,7 +18775,7 @@ class basic_registry {
     struct group_handler<exclude_t<Exclude...>, get_t<Get...>, Owned...> {
         static_assert(!std::disjunction_v<typename component_traits<Owned>::in_place_delete...>, "Groups do not support in-place delete");
         static_assert(std::conjunction_v<std::is_same<Owned, std::remove_const_t<Owned>>..., std::is_same<Get, std::remove_const_t<Get>>..., std::is_same<Exclude, std::remove_const_t<Exclude>>...>, "One or more component types are invalid");
-        std::conditional_t<sizeof...(Owned) == 0, basic_sparse_set<Entity>, std::size_t> current{};
+        std::conditional_t<sizeof...(Owned) == 0, basic_common_type, std::size_t> current{};
 
         template<typename Component>
         void maybe_valid_if(basic_registry &owner, const Entity entt) {
@@ -18430,10 +18854,10 @@ class basic_registry {
     }
 
     auto release_entity(const Entity entity, const typename traits_type::version_type version) {
-        const auto entt = traits_type::to_entity(entity);
-        entities[entt] = traits_type::construct(traits_type::to_entity(free_list), version + (version == traits_type::to_version(tombstone)));
+        const typename traits_type::version_type vers = version + (version == traits_type::to_version(tombstone));
+        entities[traits_type::to_entity(entity)] = traits_type::construct(traits_type::to_entity(free_list), vers);
         free_list = (tombstone | entity);
-        return traits_type::to_version(entities[entt]);
+        return vers;
     }
 
 public:
@@ -18631,15 +19055,21 @@ public:
     }
 
     /**
-     * @brief Returns the head of the list of destroyed entities.
+     * @brief Returns the head of the list of released entities.
      *
      * This function is intended for use in conjunction with `assign`.<br/>
      * The returned entity has an invalid identifier in all cases.
      *
-     * @return The head of the list of destroyed entities.
+     * @return The head of the list of released entities.
      */
-    [[nodiscard]] entity_type destroyed() const ENTT_NOEXCEPT {
+    [[nodiscard]] entity_type released() const ENTT_NOEXCEPT {
         return free_list;
+    }
+
+    /*! @copydoc released */
+    [[deprecated("Use ::released instead")]]
+    [[nodiscard]] entity_type destroyed() const ENTT_NOEXCEPT {
+        return released();
     }
 
     /**
@@ -18765,7 +19195,55 @@ public:
     }
 
     /**
-     * @brief Destroys an entity.
+     * @brief Releases an entity identifier.
+     *
+     * The version is updated and the identifier can be recycled at any time.
+     *
+     * @warning
+     * Attempting to use an invalid entity results in undefined behavior.
+     *
+     * @param entity A valid entity identifier.
+     * @return The version of the recycled entity.
+     */
+    version_type release(const entity_type entity) {
+        return release(entity, version(entity) + 1u);
+    }
+
+    /**
+     * @brief Releases an entity identifier.
+     *
+     * The suggested version or the valid version closest to the suggested one
+     * is used instead of the implicitly generated version.
+     *
+     * @sa release
+     *
+     * @param entity A valid entity identifier.
+     * @param version A desired version upon destruction.
+     * @return The version actually assigned to the entity.
+     */
+    version_type release(const entity_type entity, const version_type version) {
+        ENTT_ASSERT(orphan(entity), "Non-orphan entity");
+        return release_entity(entity, version);
+    }
+
+    /**
+     * @brief Releases all entity identifiers in a range.
+     *
+     * @sa release
+     *
+     * @tparam It Type of input iterator.
+     * @param first An iterator to the first element of the range of entities.
+     * @param last An iterator past the last element of the range of entities.
+     */
+    template<typename It>
+    void release(It first, It last) {
+        for(; first != last; ++first) {
+            release(*first, version(*first) + 1u);
+        }
+    }
+
+    /**
+     * @brief Destroys an entity and releases its identifier.
      *
      * The version is updated and the identifier can be recycled at any time.
      *
@@ -18780,11 +19258,11 @@ public:
      * @return The version of the recycled entity.
      */
     version_type destroy(const entity_type entity) {
-        return destroy(entity, traits_type::to_version(entity) + 1u);
+        return destroy(entity, version(entity) + 1u);
     }
 
     /**
-     * @brief Destroys an entity.
+     * @brief Destroys an entity and releases its identifier.
      *
      * The suggested version or the valid version closest to the suggested one
      * is used instead of the implicitly generated version.
@@ -18798,15 +19276,15 @@ public:
     version_type destroy(const entity_type entity, const version_type version) {
         ENTT_ASSERT(valid(entity), "Invalid entity");
 
-        for(auto pos = pools.size(); pos; --pos) {
-            pools[pos-1].pool && pools[pos-1].pool->remove(entity, this);
+        for(auto &&pdata: pools) {
+            pdata.pool && pdata.pool->remove(entity, this);
         }
 
         return release_entity(entity, version);
     }
 
     /**
-     * @brief Destroys all the entities in a range.
+     * @brief Destroys all entities in a range and releases their identifiers.
      *
      * @sa destroy
      *
@@ -18816,8 +19294,16 @@ public:
      */
     template<typename It>
     void destroy(It first, It last) {
-        for(; first != last; ++first) {
-            destroy(*first, version(*first) + 1u);
+        if constexpr(is_iterator_type_v<typename basic_common_type::iterator, It>) {
+            for(; first != last; ++first) {
+                destroy(*first, version(*first) + 1u);
+            }
+        } else {
+            for(auto &&pdata: pools) {
+                pdata.pool && pdata.pool->remove(first, last, this);
+            }
+
+            release(first, last);
         }
     }
 
@@ -18992,10 +19478,14 @@ public:
      */
     template<typename... Component, typename It>
     size_type remove(It first, It last) {
+        static_assert(sizeof...(Component) > 0, "Provide one or more component types");
+        const auto cpools = std::make_tuple(assure<Component>()...);
         size_type count{};
 
         for(; first != last; ++first) {
-            count += remove<Component...>(*first);
+            const auto entity = *first;
+            ENTT_ASSERT(valid(entity), "Invalid entity");
+            count += (std::get<storage_type<Component> *>(cpools)->remove(entity, this) + ...);
         }
 
         return count;
@@ -19030,8 +19520,13 @@ public:
      */
     template<typename... Component, typename It>
     void erase(It first, It last) {
+        static_assert(sizeof...(Component) > 0, "Provide one or more component types");
+        const auto cpools = std::make_tuple(assure<Component>()...);
+
         for(; first != last; ++first) {
-            erase<Component...>(*first);
+            const auto entity = *first;
+            ENTT_ASSERT(valid(entity), "Invalid entity");
+            (std::get<storage_type<Component> *>(cpools)->erase(entity, this), ...);
         }
     }
 
@@ -19043,10 +19538,8 @@ public:
     template<typename... Component>
     void compact() {
         if constexpr(sizeof...(Component) == 0) {
-            for(auto pos = pools.size(); pos; --pos) {
-                if(auto &pdata = pools[pos-1]; pdata.pool) {
-                    pdata.pool->compact();
-                }
+            for(auto &&pdata: pools) {
+                pdata.pool && (pdata.pool->compact(), true);
             }
         } else {
             (assure<Component>()->compact(), ...);
@@ -19078,8 +19571,8 @@ public:
     void remove_all(const entity_type entity) {
         ENTT_ASSERT(valid(entity), "Invalid entity");
 
-        for(auto pos = pools.size(); pos; --pos) {
-            pools[pos-1].pool && pools[pos-1].pool->remove(entity, this);
+        for(auto &&pdata: pools) {
+            pdata.pool && pdata.pool->remove(entity, this);
         }
     }
 
@@ -19225,10 +19718,8 @@ public:
     template<typename... Component>
     void clear() {
         if constexpr(sizeof...(Component) == 0) {
-            for(auto pos = pools.size(); pos; --pos) {
-                if(auto &pdata = pools[pos-1]; pdata.pool) {
-                    pdata.pool->clear(this);
-                }
+            for(auto &&pdata: pools) {
+                pdata.pool && (pdata.pool->clear(this), true);
             }
 
             each([this](const auto entity) { release_entity(entity, version(entity) + 1u); });
@@ -19452,8 +19943,8 @@ public:
      */
     template<typename ItComp, typename ItExcl = id_type *>
     [[nodiscard]] basic_runtime_view<Entity> runtime_view(ItComp first, ItComp last, ItExcl from = {}, ItExcl to = {}) const {
-        std::vector<const basic_sparse_set<Entity> *> component(std::distance(first, last));
-        std::vector<const basic_sparse_set<Entity> *> filter(std::distance(from, to));
+        std::vector<const basic_common_type *> component(std::distance(first, last));
+        std::vector<const basic_common_type *> filter(std::distance(from, to));
 
         std::transform(first, last, component.begin(), [this](const auto ctype) {
             const auto it = std::find_if(pools.cbegin(), pools.cend(), [ctype](auto &&pdata) { return pdata.poly && pdata.poly->value_type().hash() == ctype; });
@@ -19855,9 +20346,9 @@ public:
      * registry, a null pointer otherwise.
      */
     template<typename Type>
-    [[nodiscard]] Type * try_ctx() const {
+    [[nodiscard]] std::add_const_t<Type> * try_ctx() const {
         auto it = std::find_if(vars.cbegin(), vars.cend(), [type = type_id<Type>()](auto &&var) { return var.type() == type; });
-        return it == vars.cend() ? nullptr : any_cast<Type>(&*it);
+        return it == vars.cend() ? nullptr : any_cast<std::add_const_t<Type>>(&*it);
     }
 
     /*! @copydoc try_ctx */
@@ -19878,10 +20369,10 @@ public:
      * @return A valid reference to the object in the context of the registry.
      */
     template<typename Type>
-    [[nodiscard]] Type & ctx() const {
+    [[nodiscard]] std::add_const_t<Type> & ctx() const {
         auto it = std::find_if(vars.cbegin(), vars.cend(), [type = type_id<Type>()](auto &&var) { return var.type() == type; });
         ENTT_ASSERT(it != vars.cend(), "Invalid instance");
-        return any_cast<Type &>(*it);
+        return any_cast<std::add_const_t<Type> &>(*it);
     }
 
     /*! @copydoc ctx */
@@ -22097,13 +22588,14 @@ template<typename Entity>
 class basic_registry {
     using traits_type = entt_traits<Entity>;
     using poly_storage_type = typename poly_storage_traits<Entity>::storage_type;
+    using basic_common_type = basic_sparse_set<Entity>;
 
     template<typename Component>
     using storage_type = constness_as_t<typename storage_traits<Entity, std::remove_const_t<Component>>::storage_type, Component>;
 
     struct pool_data {
         poly_storage_type poly;
-        std::unique_ptr<basic_sparse_set<Entity>> pool{};
+        std::unique_ptr<basic_common_type> pool{};
     };
 
     template<typename...>
@@ -22113,7 +22605,7 @@ class basic_registry {
     struct group_handler<exclude_t<Exclude...>, get_t<Get...>, Owned...> {
         static_assert(!std::disjunction_v<typename component_traits<Owned>::in_place_delete...>, "Groups do not support in-place delete");
         static_assert(std::conjunction_v<std::is_same<Owned, std::remove_const_t<Owned>>..., std::is_same<Get, std::remove_const_t<Get>>..., std::is_same<Exclude, std::remove_const_t<Exclude>>...>, "One or more component types are invalid");
-        std::conditional_t<sizeof...(Owned) == 0, basic_sparse_set<Entity>, std::size_t> current{};
+        std::conditional_t<sizeof...(Owned) == 0, basic_common_type, std::size_t> current{};
 
         template<typename Component>
         void maybe_valid_if(basic_registry &owner, const Entity entt) {
@@ -22192,10 +22684,10 @@ class basic_registry {
     }
 
     auto release_entity(const Entity entity, const typename traits_type::version_type version) {
-        const auto entt = traits_type::to_entity(entity);
-        entities[entt] = traits_type::construct(traits_type::to_entity(free_list), version + (version == traits_type::to_version(tombstone)));
+        const typename traits_type::version_type vers = version + (version == traits_type::to_version(tombstone));
+        entities[traits_type::to_entity(entity)] = traits_type::construct(traits_type::to_entity(free_list), vers);
         free_list = (tombstone | entity);
-        return traits_type::to_version(entities[entt]);
+        return vers;
     }
 
 public:
@@ -22393,15 +22885,21 @@ public:
     }
 
     /**
-     * @brief Returns the head of the list of destroyed entities.
+     * @brief Returns the head of the list of released entities.
      *
      * This function is intended for use in conjunction with `assign`.<br/>
      * The returned entity has an invalid identifier in all cases.
      *
-     * @return The head of the list of destroyed entities.
+     * @return The head of the list of released entities.
      */
-    [[nodiscard]] entity_type destroyed() const ENTT_NOEXCEPT {
+    [[nodiscard]] entity_type released() const ENTT_NOEXCEPT {
         return free_list;
+    }
+
+    /*! @copydoc released */
+    [[deprecated("Use ::released instead")]]
+    [[nodiscard]] entity_type destroyed() const ENTT_NOEXCEPT {
+        return released();
     }
 
     /**
@@ -22527,7 +23025,55 @@ public:
     }
 
     /**
-     * @brief Destroys an entity.
+     * @brief Releases an entity identifier.
+     *
+     * The version is updated and the identifier can be recycled at any time.
+     *
+     * @warning
+     * Attempting to use an invalid entity results in undefined behavior.
+     *
+     * @param entity A valid entity identifier.
+     * @return The version of the recycled entity.
+     */
+    version_type release(const entity_type entity) {
+        return release(entity, version(entity) + 1u);
+    }
+
+    /**
+     * @brief Releases an entity identifier.
+     *
+     * The suggested version or the valid version closest to the suggested one
+     * is used instead of the implicitly generated version.
+     *
+     * @sa release
+     *
+     * @param entity A valid entity identifier.
+     * @param version A desired version upon destruction.
+     * @return The version actually assigned to the entity.
+     */
+    version_type release(const entity_type entity, const version_type version) {
+        ENTT_ASSERT(orphan(entity), "Non-orphan entity");
+        return release_entity(entity, version);
+    }
+
+    /**
+     * @brief Releases all entity identifiers in a range.
+     *
+     * @sa release
+     *
+     * @tparam It Type of input iterator.
+     * @param first An iterator to the first element of the range of entities.
+     * @param last An iterator past the last element of the range of entities.
+     */
+    template<typename It>
+    void release(It first, It last) {
+        for(; first != last; ++first) {
+            release(*first, version(*first) + 1u);
+        }
+    }
+
+    /**
+     * @brief Destroys an entity and releases its identifier.
      *
      * The version is updated and the identifier can be recycled at any time.
      *
@@ -22542,11 +23088,11 @@ public:
      * @return The version of the recycled entity.
      */
     version_type destroy(const entity_type entity) {
-        return destroy(entity, traits_type::to_version(entity) + 1u);
+        return destroy(entity, version(entity) + 1u);
     }
 
     /**
-     * @brief Destroys an entity.
+     * @brief Destroys an entity and releases its identifier.
      *
      * The suggested version or the valid version closest to the suggested one
      * is used instead of the implicitly generated version.
@@ -22560,15 +23106,15 @@ public:
     version_type destroy(const entity_type entity, const version_type version) {
         ENTT_ASSERT(valid(entity), "Invalid entity");
 
-        for(auto pos = pools.size(); pos; --pos) {
-            pools[pos-1].pool && pools[pos-1].pool->remove(entity, this);
+        for(auto &&pdata: pools) {
+            pdata.pool && pdata.pool->remove(entity, this);
         }
 
         return release_entity(entity, version);
     }
 
     /**
-     * @brief Destroys all the entities in a range.
+     * @brief Destroys all entities in a range and releases their identifiers.
      *
      * @sa destroy
      *
@@ -22578,8 +23124,16 @@ public:
      */
     template<typename It>
     void destroy(It first, It last) {
-        for(; first != last; ++first) {
-            destroy(*first, version(*first) + 1u);
+        if constexpr(is_iterator_type_v<typename basic_common_type::iterator, It>) {
+            for(; first != last; ++first) {
+                destroy(*first, version(*first) + 1u);
+            }
+        } else {
+            for(auto &&pdata: pools) {
+                pdata.pool && pdata.pool->remove(first, last, this);
+            }
+
+            release(first, last);
         }
     }
 
@@ -22754,10 +23308,14 @@ public:
      */
     template<typename... Component, typename It>
     size_type remove(It first, It last) {
+        static_assert(sizeof...(Component) > 0, "Provide one or more component types");
+        const auto cpools = std::make_tuple(assure<Component>()...);
         size_type count{};
 
         for(; first != last; ++first) {
-            count += remove<Component...>(*first);
+            const auto entity = *first;
+            ENTT_ASSERT(valid(entity), "Invalid entity");
+            count += (std::get<storage_type<Component> *>(cpools)->remove(entity, this) + ...);
         }
 
         return count;
@@ -22792,8 +23350,13 @@ public:
      */
     template<typename... Component, typename It>
     void erase(It first, It last) {
+        static_assert(sizeof...(Component) > 0, "Provide one or more component types");
+        const auto cpools = std::make_tuple(assure<Component>()...);
+
         for(; first != last; ++first) {
-            erase<Component...>(*first);
+            const auto entity = *first;
+            ENTT_ASSERT(valid(entity), "Invalid entity");
+            (std::get<storage_type<Component> *>(cpools)->erase(entity, this), ...);
         }
     }
 
@@ -22805,10 +23368,8 @@ public:
     template<typename... Component>
     void compact() {
         if constexpr(sizeof...(Component) == 0) {
-            for(auto pos = pools.size(); pos; --pos) {
-                if(auto &pdata = pools[pos-1]; pdata.pool) {
-                    pdata.pool->compact();
-                }
+            for(auto &&pdata: pools) {
+                pdata.pool && (pdata.pool->compact(), true);
             }
         } else {
             (assure<Component>()->compact(), ...);
@@ -22840,8 +23401,8 @@ public:
     void remove_all(const entity_type entity) {
         ENTT_ASSERT(valid(entity), "Invalid entity");
 
-        for(auto pos = pools.size(); pos; --pos) {
-            pools[pos-1].pool && pools[pos-1].pool->remove(entity, this);
+        for(auto &&pdata: pools) {
+            pdata.pool && pdata.pool->remove(entity, this);
         }
     }
 
@@ -22987,10 +23548,8 @@ public:
     template<typename... Component>
     void clear() {
         if constexpr(sizeof...(Component) == 0) {
-            for(auto pos = pools.size(); pos; --pos) {
-                if(auto &pdata = pools[pos-1]; pdata.pool) {
-                    pdata.pool->clear(this);
-                }
+            for(auto &&pdata: pools) {
+                pdata.pool && (pdata.pool->clear(this), true);
             }
 
             each([this](const auto entity) { release_entity(entity, version(entity) + 1u); });
@@ -23214,8 +23773,8 @@ public:
      */
     template<typename ItComp, typename ItExcl = id_type *>
     [[nodiscard]] basic_runtime_view<Entity> runtime_view(ItComp first, ItComp last, ItExcl from = {}, ItExcl to = {}) const {
-        std::vector<const basic_sparse_set<Entity> *> component(std::distance(first, last));
-        std::vector<const basic_sparse_set<Entity> *> filter(std::distance(from, to));
+        std::vector<const basic_common_type *> component(std::distance(first, last));
+        std::vector<const basic_common_type *> filter(std::distance(from, to));
 
         std::transform(first, last, component.begin(), [this](const auto ctype) {
             const auto it = std::find_if(pools.cbegin(), pools.cend(), [ctype](auto &&pdata) { return pdata.poly && pdata.poly->value_type().hash() == ctype; });
@@ -23617,9 +24176,9 @@ public:
      * registry, a null pointer otherwise.
      */
     template<typename Type>
-    [[nodiscard]] Type * try_ctx() const {
+    [[nodiscard]] std::add_const_t<Type> * try_ctx() const {
         auto it = std::find_if(vars.cbegin(), vars.cend(), [type = type_id<Type>()](auto &&var) { return var.type() == type; });
-        return it == vars.cend() ? nullptr : any_cast<Type>(&*it);
+        return it == vars.cend() ? nullptr : any_cast<std::add_const_t<Type>>(&*it);
     }
 
     /*! @copydoc try_ctx */
@@ -23640,10 +24199,10 @@ public:
      * @return A valid reference to the object in the context of the registry.
      */
     template<typename Type>
-    [[nodiscard]] Type & ctx() const {
+    [[nodiscard]] std::add_const_t<Type> & ctx() const {
         auto it = std::find_if(vars.cbegin(), vars.cend(), [type = type_id<Type>()](auto &&var) { return var.type() == type; });
         ENTT_ASSERT(it != vars.cend(), "Invalid instance");
-        return any_cast<Type &>(*it);
+        return any_cast<std::add_const_t<Type> &>(*it);
     }
 
     /*! @copydoc ctx */
@@ -24054,7 +24613,7 @@ public:
             archive(*first);
         }
 
-        archive(reg->destroyed());
+        archive(reg->released());
 
         return *this;
     }
@@ -24228,7 +24787,7 @@ public:
      */
     const basic_snapshot_loader & orphans() const {
         reg->orphans([this](const auto entt) {
-            reg->destroy(entt);
+            reg->release(entt);
         });
 
         return *this;
@@ -24484,7 +25043,7 @@ public:
      */
     basic_continuous_loader & orphans() {
         reg->orphans([this](const auto entt) {
-            reg->destroy(entt);
+            reg->release(entt);
         });
 
         return *this;
@@ -24758,50 +25317,6 @@ class basic_sparse_set {
         }
     }
 
-    void stable_erase(const Entity entt, void *ud = nullptr) {
-        // last chance to use the entity for derived classes and mixins, if any
-        about_to_pop(entt, ud);
-
-        auto &ref = sparse[page(entt)][offset(entt)];
-        const auto pos = size_type{traits_type::to_entity(ref)};
-        ENTT_ASSERT(packed[pos] == entt, "Invalid entity identifier");
-
-        packed[pos] = std::exchange(free_list, traits_type::construct(static_cast<typename traits_type::entity_type>(pos)));
-        ref = null;
-
-        // strong exception guarantee
-        in_place_pop(pos);
-    }
-
-    void unstable_erase(const Entity entt, void *ud = nullptr) {
-        // last chance to use the entity for derived classes and mixins, if any
-        about_to_pop(entt, ud);
-
-        auto &ref = sparse[page(entt)][offset(entt)];
-        const auto pos = size_type{traits_type::to_entity(ref)};
-        ENTT_ASSERT(packed[pos] == entt, "Invalid entity identifier");
-
-        auto &last = packed[count - 1u];
-
-        packed[pos] = last;
-        sparse[page(last)][offset(last)] = ref;
-        // lazy self-assignment guard
-        ref = null;
-        // unnecessary but it helps to detect nasty bugs
-        ENTT_ASSERT((last = tombstone, true), "");
-
-        --count;
-
-        ENTT_TRY {
-            // strong exception guarantee
-            swap_and_pop(pos);
-        } ENTT_CATCH {
-            last = std::exchange(packed[pos], entt);
-            ref = std::exchange(sparse[page(last)][offset(last)], traits_type::construct(static_cast<typename traits_type::entity_type>(count++)));
-            ENTT_THROW;
-        }
-    }
-
 protected:
     /**
      * @brief Swaps two entities in the internal packed array.
@@ -24811,7 +25326,7 @@ protected:
     virtual void swap_at([[maybe_unused]] const std::size_t lhs, [[maybe_unused]] const std::size_t rhs) {}
 
     /**
-     * @brief Attempts to move an entity in the internal packed array.
+     * @brief Moves an entity in the internal packed array.
      * @param from A valid position of an entity within storage.
      * @param to A valid position of an entity within storage.
      */
@@ -24819,22 +25334,37 @@ protected:
 
     /**
      * @brief Attempts to erase an entity from the internal packed array.
-     * @param pos A valid position of an entity within storage.
+     * @param entt A valid entity identifier.
+     * @param ud Optional user data that are forwarded as-is to derived classes.
      */
-    virtual void swap_and_pop([[maybe_unused]] const std::size_t pos) {}
+    virtual void swap_and_pop(const Entity entt, [[maybe_unused]] void *ud) {
+        auto &ref = sparse[page(entt)][offset(entt)];
+        const auto pos = size_type{traits_type::to_entity(ref)};
+        ENTT_ASSERT(packed[pos] == entt, "Invalid entity identifier");
+        auto &last = packed[--count];
+
+        packed[pos] = last;
+        sparse[page(last)][offset(last)] = ref;
+        // lazy self-assignment guard
+        ref = null;
+        // unnecessary but it helps to detect nasty bugs
+        ENTT_ASSERT((last = tombstone, true), "");
+    }
 
     /**
      * @brief Attempts to erase an entity from the internal packed array.
-     * @param pos A valid position of an entity within storage.
-     */
-    virtual void in_place_pop([[maybe_unused]] const std::size_t pos) {}
-
-    /**
-     * @brief Last chance to use an entity that is about to be erased.
-     * @param entity A valid entity identifier.
+     * @param entt A valid entity identifier.
      * @param ud Optional user data that are forwarded as-is to derived classes.
      */
-    virtual void about_to_pop([[maybe_unused]] const Entity entity, [[maybe_unused]] void *ud) {}
+    virtual void in_place_pop(const Entity entt, [[maybe_unused]] void *ud) {
+        auto &ref = sparse[page(entt)][offset(entt)];
+        const auto pos = size_type{traits_type::to_entity(ref)};
+        ENTT_ASSERT(packed[pos] == entt, "Invalid entity identifier");
+
+        packed[pos] = std::exchange(free_list, traits_type::construct(static_cast<typename traits_type::entity_type>(pos)));
+        // lazy self-assignment guard
+        ref = null;
+    }
 
 public:
     /*! @brief Allocator type. */
@@ -24921,8 +25451,16 @@ public:
      * @brief Returns the deletion policy of a sparse set.
      * @return The deletion policy of the sparse set.
      */
-    deletion_policy policy() const ENTT_NOEXCEPT {
+    [[nodiscard]] deletion_policy policy() const ENTT_NOEXCEPT {
         return mode;
+    }
+
+    /**
+     * @brief Returns the next slot available for insertion.
+     * @return The next slot available for insertion.
+     */
+    [[nodiscard]] size_type slot() const ENTT_NOEXCEPT {
+        return free_list == null ? count : size_type{traits_type::to_entity(free_list)};
     }
 
     /**
@@ -25070,6 +25608,7 @@ public:
      * @return True if the sparse set contains the entity, false otherwise.
      */
     [[nodiscard]] bool contains(const entity_type entt) const ENTT_NOEXCEPT {
+        ENTT_ASSERT(entt != tombstone && entt != null, "Invalid entity");
         const auto curr = page(entt);
         // testing versions permits to avoid accessing the packed array
         return (curr < bucket && sparse[curr] && sparse[curr][offset(entt)] != null);
@@ -25110,6 +25649,29 @@ public:
     }
 
     /**
+     * @brief Appends an entity to a sparse set.
+     *
+     * @warning
+     * Attempting to assign an entity that already belongs to the sparse set
+     * results in undefined behavior.
+     *
+     * @param entt A valid entity identifier.
+     * @return The slot used for insertion.
+     */
+    size_type emplace_back(const entity_type entt) {
+        ENTT_ASSERT(!contains(entt), "Set already contains entity");
+
+        if(count == reserved) {
+            const size_type sz = static_cast<size_type>(reserved * growth_factor);
+            resize_packed(sz + !(sz > reserved));
+        }
+
+        assure_page(page(entt))[offset(entt)] = traits_type::construct(static_cast<typename traits_type::entity_type>(count));
+        packed[count] = entt;
+        return count++;
+    }
+
+    /**
      * @brief Assigns an entity to a sparse set.
      *
      * @warning
@@ -25117,23 +25679,17 @@ public:
      * results in undefined behavior.
      *
      * @param entt A valid entity identifier.
+     * @return The slot used for insertion.
      */
-    void emplace(const entity_type entt) {
-        ENTT_ASSERT(!contains(entt), "Set already contains entity");
-
+    size_type emplace(const entity_type entt) {
         if(free_list == null) {
-            if(count == reserved) {
-                const size_type sz = static_cast<size_type>(reserved * growth_factor);
-                resize_packed(sz + !(sz > reserved));
-            }
-
-            assure_page(page(entt))[offset(entt)] = traits_type::construct(static_cast<typename traits_type::entity_type>(count));
-            packed[count++] = entt;
+            return emplace_back(entt);
         } else {
+            ENTT_ASSERT(!contains(entt), "Set already contains entity");
             const auto pos = size_type{traits_type::to_entity(free_list)};
-            move_and_pop(count, pos);
             sparse[page(entt)][offset(entt)] = traits_type::construct(static_cast<typename traits_type::entity_type>(pos));
             free_list = std::exchange(packed[pos], entt);
+            return pos;
         }
     }
 
@@ -25172,7 +25728,7 @@ public:
      */
     void erase(const entity_type entt, void *ud = nullptr) {
         ENTT_ASSERT(contains(entt), "Set does not contain entity");
-        (mode == deletion_policy::in_place) ? stable_erase(entt, ud) : unstable_erase(entt, ud);
+        (mode == deletion_policy::in_place) ? in_place_pop(entt, ud) : swap_and_pop(entt, ud);
     }
 
     /**
@@ -25199,12 +25755,7 @@ public:
      * @return True if the entity is actually removed, false otherwise.
      */
     bool remove(const entity_type entt, void *ud = nullptr) {
-        if(contains(entt)) {
-            erase(entt, ud);
-            return true;
-        }
-
-        return false;
+        return contains(entt) && (erase(entt, ud), true);
     }
 
     /**
@@ -25260,12 +25811,18 @@ public:
      * @param rhs A valid entity identifier.
      */
     void swap(const entity_type lhs, const entity_type rhs) {
-        const auto from = index(lhs);
-        const auto to = index(rhs);
+        ENTT_ASSERT(contains(lhs), "Set does not contain entity");
+        ENTT_ASSERT(contains(rhs), "Set does not contain entity");
+
+        auto &entt = sparse[page(lhs)][offset(lhs)];
+        auto &other = sparse[page(rhs)][offset(rhs)];
+
+        const auto from = size_type{traits_type::to_entity(entt)};
+        const auto to = size_type{traits_type::to_entity(other)};
 
         // basic no-leak guarantee (with invalid state) if swapping throws
         swap_at(from, to);
-        std::swap(sparse[page(lhs)][offset(lhs)], sparse[page(rhs)][offset(rhs)]);
+        std::swap(entt, other);
         std::swap(packed[from], packed[to]);
     }
 
@@ -25379,7 +25936,7 @@ public:
     void clear(void *ud = nullptr) {
         for(auto &&entity: *this) {
             if(entity != tombstone) {
-                stable_erase(entity, ud);
+                in_place_pop(entity, ud);
             }
         }
 
@@ -25607,40 +26164,46 @@ class basic_storage_impl: public basic_sparse_set<Entity, typename std::allocato
         }
     }
 
-    void maybe_resize_packed(const std::size_t req) {
-        ENTT_ASSERT(!(req < underlying_type::size()), "Invalid request");
+    void assure_at_least(const std::size_t last) {
+        if(const auto idx = page(last - 1u); !(idx < bucket)) {
+            const size_type sz = idx + 1u;
+            const auto mem = bucket_alloc_traits::allocate(bucket_allocator, sz);
+            std::uninitialized_copy(packed, packed + bucket, mem);
+            size_type pos{};
 
-        if(const auto length = (req + packed_page - 1u) / packed_page; bucket != length) {
-            const auto mem = bucket_alloc_traits::allocate(bucket_allocator, length);
-
-            if(bucket > length) {
-                std::uninitialized_copy(packed, packed + length, mem);
-
-                for(auto pos = length; pos < bucket; ++pos) {
-                    alloc_traits::deallocate(allocator, packed[pos], packed_page);
+            ENTT_TRY {
+                for(pos = bucket; pos < sz; ++pos) {
+                    auto pg = alloc_traits::allocate(allocator, packed_page);
+                    bucket_alloc_traits::construct(bucket_allocator, std::addressof(mem[pos]), pg);
                 }
-            } else {
-                std::uninitialized_copy(packed, packed + bucket, mem);
-
-                size_type pos{};
-
-                ENTT_TRY {
-                    for(pos = bucket; pos < length; ++pos) {
-                        auto pg = alloc_traits::allocate(allocator, packed_page);
-                        bucket_alloc_traits::construct(bucket_allocator, std::addressof(mem[pos]), pg);
-                    }
-                } ENTT_CATCH {
-                    for(auto next = bucket; next < pos; ++next) {
-                        alloc_traits::deallocate(allocator, mem[next], packed_page);
-                    }
-
-                    std::destroy(mem, mem + pos);
-                    bucket_alloc_traits::deallocate(bucket_allocator, mem, length);
-                    ENTT_THROW;
+            } ENTT_CATCH {
+                for(auto next = bucket; next < pos; ++next) {
+                    alloc_traits::deallocate(allocator, mem[next], packed_page);
                 }
+
+                std::destroy(mem, mem + pos);
+                bucket_alloc_traits::deallocate(bucket_allocator, mem, sz);
+                ENTT_THROW;
             }
 
             std::destroy(packed, packed + bucket);
+            bucket_alloc_traits::deallocate(bucket_allocator, packed, bucket);
+
+            packed = mem;
+            bucket = sz;
+        }
+    }
+
+    void release_unused_pages() {
+        if(const auto length = underlying_type::size() / packed_page; length < bucket) {
+            const auto mem = bucket_alloc_traits::allocate(bucket_allocator, length);
+            std::uninitialized_copy(packed, packed + length, mem);
+
+            for(auto pos = length; pos < bucket; ++pos) {
+                alloc_traits::deallocate(allocator, packed[pos], packed_page);
+                bucket_alloc_traits::destroy(bucket_allocator, std::addressof(packed[pos]));
+            }
+
             bucket_alloc_traits::deallocate(bucket_allocator, packed, bucket);
 
             packed = mem;
@@ -25649,10 +26212,9 @@ class basic_storage_impl: public basic_sparse_set<Entity, typename std::allocato
     }
 
     template<typename... Args>
-    auto & push_back(Args &&... args) {
-        const auto length = underlying_type::size();
-        ENTT_ASSERT(length < (bucket * packed_page), "No more space left");
-        auto *instance = std::addressof(packed[page(length)][offset(length)]);
+    auto & push_at(const std::size_t pos, Args &&... args) {
+        ENTT_ASSERT(pos < (bucket * packed_page), "Out of bounds index");
+        auto *instance = std::addressof(packed[page(pos)][offset(pos)]);
 
         if constexpr(std::is_aggregate_v<value_type>) {
             alloc_traits::construct(allocator, instance, Type{std::forward<Args>(args)...});
@@ -25663,8 +26225,8 @@ class basic_storage_impl: public basic_sparse_set<Entity, typename std::allocato
         return *instance;
     }
 
-    void pop_back() {
-        alloc_traits::destroy(allocator, std::addressof(packed[underlying_type::size()]));
+    void pop_at(const std::size_t pos) {
+        alloc_traits::destroy(allocator, std::addressof(packed[page(pos)][offset(pos)]));
     }
 
 protected:
@@ -25675,27 +26237,30 @@ protected:
 
     /*! @copydoc basic_sparse_set::move_and_pop */
     void move_and_pop(const std::size_t from, const std::size_t to) final {
-        auto *instance = std::addressof(packed[page(to)][offset(to)]);
-        auto *other = std::addressof(packed[page(from)][offset(from)]);
-        alloc_traits::construct(allocator, instance, std::move(*other));
-        alloc_traits::destroy(allocator, other);
+        push_at(to, std::move(packed[page(from)][offset(from)]));
+        pop_at(from);
     }
 
     /*! @copydoc basic_sparse_set::swap_and_pop */
-    void swap_and_pop(const std::size_t pos) final {
-        const auto length = underlying_type::size();
+    void swap_and_pop(const Entity entt, void *ud) override {
+        const auto pos = underlying_type::index(entt);
+        const auto last = underlying_type::size() - 1u;
         auto &&elem = packed[page(pos)][offset(pos)];
-        auto &&last = packed[page(length)][offset(length)];
 
         // support for nosy destructors
         [[maybe_unused]] auto unused = std::move(elem);
-        elem = std::move(last);
-        alloc_traits::destroy(allocator, std::addressof(last));
+        elem = std::move(packed[page(last)][offset(last)]);
+        pop_at(last);
+
+        underlying_type::swap_and_pop(entt, ud);
     }
 
     /*! @copydoc basic_sparse_set::in_place_pop */
-    void in_place_pop(const std::size_t pos) final {
-        alloc_traits::destroy(allocator, std::addressof(packed[page(pos)][offset(pos)]));
+    void in_place_pop(const Entity entt, void *ud) override {
+        const auto pos = underlying_type::index(entt);
+        underlying_type::in_place_pop(entt, ud);
+        // support for nosy destructors
+        pop_at(pos);
     }
 
 public:
@@ -25778,8 +26343,8 @@ public:
     void reserve(const size_type cap) {
         underlying_type::reserve(cap);
 
-        if(cap > (bucket * packed_page)) {
-            maybe_resize_packed(cap);
+        if(cap > underlying_type::size()) {
+            assure_at_least(cap);
         }
     }
 
@@ -25795,7 +26360,7 @@ public:
     /*! @brief Requests the removal of unused capacity. */
     void shrink_to_fit() {
         underlying_type::shrink_to_fit();
-        maybe_resize_packed(underlying_type::size());
+        release_unused_pages();
     }
 
     /**
@@ -25944,13 +26509,16 @@ public:
      */
     template<typename... Args>
     value_type & emplace(const entity_type entt, Args &&... args) {
-        maybe_resize_packed(underlying_type::size() + 1u);
-        auto &value = push_back(std::forward<Args>(args)...);
+        const auto pos = underlying_type::slot();
+        assure_at_least(pos + 1u);
+
+        auto &value = push_at(pos, std::forward<Args>(args)...);
 
         ENTT_TRY {
-            underlying_type::emplace(entt);
+            [[maybe_unused]] const auto curr = underlying_type::emplace(entt);
+            ENTT_ASSERT(pos == curr, "Misplaced component");
         } ENTT_CATCH {
-            pop_back();
+            pop_at(pos);
             ENTT_THROW;
         }
 
@@ -25960,13 +26528,13 @@ public:
     /**
      * @brief Updates the instance assigned to a given entity in-place.
      * @tparam Func Types of the function objects to invoke.
-     * @param entity A valid entity identifier.
+     * @param entt A valid entity identifier.
      * @param func Valid function objects.
      * @return A reference to the updated instance.
      */
     template<typename... Func>
-    decltype(auto) patch(const entity_type entity, Func &&... func) {
-        const auto idx = underlying_type::index(entity);
+    decltype(auto) patch(const entity_type entt, Func &&... func) {
+        const auto idx = underlying_type::index(entt);
         auto &&elem = packed[page(idx)][offset(idx)];
         (std::forward<Func>(func)(elem), ...);
         return elem;
@@ -25987,17 +26555,17 @@ public:
      */
     template<typename It>
     void insert(It first, It last, const value_type &value = {}) {
-        const auto sz = underlying_type::size() + std::distance(first, last);
-        underlying_type::reserve(sz);
-        maybe_resize_packed(sz);
+        const auto cap = underlying_type::size() + std::distance(first, last);
+        underlying_type::reserve(cap);
+        assure_at_least(cap);
 
         for(; first != last; ++first) {
-            push_back(value);
+            push_at(underlying_type::size(), value);
 
             ENTT_TRY {
-                underlying_type::emplace(*first);
+                underlying_type::emplace_back(*first);
             } ENTT_CATCH {
-                pop_back();
+                pop_at(underlying_type::size());
                 ENTT_THROW;
             }
         }
@@ -26017,17 +26585,17 @@ public:
      */
     template<typename EIt, typename CIt, typename = std::enable_if_t<std::is_same_v<std::decay_t<typename std::iterator_traits<CIt>::value_type>, value_type>>>
     void insert(EIt first, EIt last, CIt from) {
-        const auto sz = underlying_type::size() + std::distance(first, last);
-        underlying_type::reserve(sz);
-        maybe_resize_packed(sz);
+        const auto cap = underlying_type::size() + std::distance(first, last);
+        underlying_type::reserve(cap);
+        assure_at_least(cap);
 
         for(; first != last; ++first, ++from) {
-            push_back(*from);
+            push_at(underlying_type::size(), *from);
 
             ENTT_TRY {
-                underlying_type::emplace(*first);
+                underlying_type::emplace_back(*first);
             } ENTT_CATCH {
-                pop_back();
+                pop_at(underlying_type::size());
                 ENTT_THROW;
             }
         }
@@ -26101,7 +26669,7 @@ private:
     typename alloc_traits::allocator_type allocator;
     typename bucket_alloc_traits::allocator_type bucket_allocator;
     bucket_alloc_pointer packed;
-    std::size_t bucket;
+    size_type bucket;
 };
 
 
@@ -26165,12 +26733,12 @@ public:
     /**
     * @brief Updates the instance assigned to a given entity in-place.
     * @tparam Func Types of the function objects to invoke.
-    * @param entity A valid entity identifier.
+    * @param entt A valid entity identifier.
     * @param func Valid function objects.
     */
     template<typename... Func>
-    void patch([[maybe_unused]] const entity_type entity, Func &&... func) {
-        ENTT_ASSERT(underlying_type::contains(entity), "Storage does not contain entity");
+    void patch([[maybe_unused]] const entity_type entt, Func &&... func) {
+        ENTT_ASSERT(underlying_type::contains(entt), "Storage does not contain entity");
         (std::forward<Func>(func)(), ...);
     }
 
@@ -26211,13 +26779,13 @@ struct storage_adapter_mixin: Type {
     /**
      * @brief Assigns entities to a storage.
      * @tparam Args Types of arguments to use to construct the object.
-     * @param entity A valid entity identifier.
+     * @param entt A valid entity identifier.
      * @param args Parameters to use to initialize the object.
      * @return A reference to the newly created object.
      */
     template<typename... Args>
-    decltype(auto) emplace(basic_registry<entity_type> &, const entity_type entity, Args &&... args) {
-        return Type::emplace(entity, std::forward<Args>(args)...);
+    decltype(auto) emplace(basic_registry<entity_type> &, const entity_type entt, Args &&... args) {
+        return Type::emplace(entt, std::forward<Args>(args)...);
     }
 
     /**
@@ -26238,13 +26806,13 @@ struct storage_adapter_mixin: Type {
     /**
      * @brief Patches the given instance for an entity.
      * @tparam Func Types of the function objects to invoke.
-     * @param entity A valid entity identifier.
+     * @param entt A valid entity identifier.
      * @param func Valid function objects.
      * @return A reference to the patched instance.
      */
     template<typename... Func>
-    decltype(auto) patch(basic_registry<entity_type> &, const entity_type entity, Func &&... func) {
-        return Type::patch(entity, std::forward<Func>(func)...);
+    decltype(auto) patch(basic_registry<entity_type> &, const entity_type entt, Func &&... func) {
+        return Type::patch(entt, std::forward<Func>(func)...);
     }
 };
 
@@ -26255,11 +26823,18 @@ struct storage_adapter_mixin: Type {
  */
 template<typename Type>
 class sigh_storage_mixin final: public Type {
-    /*! @copydoc basic_sparse_set::about_to_pop */
-    void about_to_pop(const typename Type::entity_type entity, void *ud) final {
+    /*! @copydoc basic_sparse_set::swap_and_pop */
+    void swap_and_pop(const typename Type::entity_type entt, void *ud) final {
         ENTT_ASSERT(ud != nullptr, "Invalid pointer to registry");
-        destruction.publish(*static_cast<basic_registry<typename Type::entity_type> *>(ud), entity);
-        Type::about_to_pop(entity, ud);
+        destruction.publish(*static_cast<basic_registry<typename Type::entity_type> *>(ud), entt);
+        Type::swap_and_pop(entt, ud);
+    }
+
+    /*! @copydoc basic_sparse_set::in_place_pop */
+    void in_place_pop(const typename Type::entity_type entt, void *ud) final {
+        ENTT_ASSERT(ud != nullptr, "Invalid pointer to registry");
+        destruction.publish(*static_cast<basic_registry<typename Type::entity_type> *>(ud), entt);
+        Type::in_place_pop(entt, ud);
     }
 
 public:
@@ -26340,15 +26915,15 @@ public:
      * @brief Assigns entities to a storage.
      * @tparam Args Types of arguments to use to construct the object.
      * @param owner The registry that issued the request.
-     * @param entity A valid entity identifier.
+     * @param entt A valid entity identifier.
      * @param args Parameters to use to initialize the object.
      * @return A reference to the newly created object.
      */
     template<typename... Args>
-    decltype(auto) emplace(basic_registry<entity_type> &owner, const entity_type entity, Args &&... args) {
-        Type::emplace(entity, std::forward<Args>(args)...);
-        construction.publish(owner, entity);
-        return this->get(entity);
+    decltype(auto) emplace(basic_registry<entity_type> &owner, const entity_type entt, Args &&... args) {
+        Type::emplace(entt, std::forward<Args>(args)...);
+        construction.publish(owner, entt);
+        return this->get(entt);
     }
 
     /**
@@ -26377,15 +26952,15 @@ public:
      * @brief Patches the given instance for an entity.
      * @tparam Func Types of the function objects to invoke.
      * @param owner The registry that issued the request.
-     * @param entity A valid entity identifier.
+     * @param entt A valid entity identifier.
      * @param func Valid function objects.
      * @return A reference to the patched instance.
      */
     template<typename... Func>
-    decltype(auto) patch(basic_registry<entity_type> &owner, const entity_type entity, Func &&... func) {
-        Type::patch(entity, std::forward<Func>(func)...);
-        update.publish(owner, entity);
-        return this->get(entity);
+    decltype(auto) patch(basic_registry<entity_type> &owner, const entity_type entt, Func &&... func) {
+        Type::patch(entt, std::forward<Func>(func)...);
+        update.publish(owner, entt);
+        return this->get(entt);
     }
 
 private:
@@ -26423,17 +26998,17 @@ struct storage_traits {
  * @brief Gets the element assigned to an entity from a storage, if any.
  * @tparam Type Storage type.
  * @param container A valid instance of a storage class.
- * @param entity A valid entity identifier.
+ * @param entt A valid entity identifier.
  * @return A possibly empty tuple containing the requested element.
  */
 template<typename Type>
-[[nodiscard]] auto get_as_tuple([[maybe_unused]] Type &container, [[maybe_unused]] const typename Type::entity_type entity) {
+[[nodiscard]] auto get_as_tuple([[maybe_unused]] Type &container, [[maybe_unused]] const typename Type::entity_type entt) {
     static_assert(std::is_same_v<std::remove_const_t<Type>, typename storage_traits<typename Type::entity_type, typename Type::value_type>::storage_type>, "Invalid storage");
 
     if constexpr(std::is_void_v<decltype(container.get({}))>) {
         return std::make_tuple();
     } else {
-        return std::forward_as_tuple(container.get(entity));
+        return std::forward_as_tuple(container.get(entt));
     }
 }
 
@@ -26545,6 +27120,7 @@ class view_iterator final {
     }
 
 public:
+    using iterator_type = It;
     using difference_type = typename std::iterator_traits<It>::difference_type;
     using value_type = typename std::iterator_traits<It>::value_type;
     using pointer = typename std::iterator_traits<It>::pointer;
@@ -26619,6 +27195,12 @@ private:
 }
 
 
+/**
+ * Internal details not to be documented.
+ * @endcond
+ */
+
+
 /*! @brief Stable storage policy, aimed at pointer stability. */
 struct stable_storage_policy {
     /**
@@ -26651,12 +27233,6 @@ struct packed_storage_policy {
     * @endcond
     */
 };
-
-
-/**
- * Internal details not to be documented.
- * @endcond
- */
 
 
 /**
@@ -27904,8 +28480,9 @@ static_assert(ENTT_PACKED_PAGE && ((ENTT_PACKED_PAGE & (ENTT_PACKED_PAGE - 1)) =
 
 
 #include <cstddef>
-#include <utility>
+#include <iterator>
 #include <type_traits>
+#include <utility>
 // #include "../config/config.h"
 #ifndef ENTT_CONFIG_CONFIG_H
 #define ENTT_CONFIG_CONFIG_H
@@ -28098,7 +28675,7 @@ struct size_of<Type, std::void_t<decltype(sizeof(Type))>>
  * @tparam Type The type of which to return the size.
  */
 template<class Type>
-inline constexpr auto size_of_v = size_of<Type>::value;
+inline constexpr std::size_t size_of_v = size_of<Type>::value;
 
 
 /**
@@ -28303,7 +28880,7 @@ struct type_list_contains<type_list<Type...>, Other>: std::disjunction<std::is_s
  * @tparam Type Type to look for.
  */
 template<class List, typename Type>
-inline constexpr auto type_list_contains_v = type_list_contains<List, Type>::value;
+inline constexpr bool type_list_contains_v = type_list_contains<List, Type>::value;
 
 
 /*! @brief Primary template isn't defined on purpose. */
@@ -28485,7 +29062,7 @@ template<typename Type>
 /**
  * @brief Provides the member constant `value` to true if a given type is
  * equality comparable, false otherwise.
- * @tparam Type Potentially equality comparable type.
+ * @tparam Type The type to test.
  */
 template<typename Type, typename = void>
 struct is_equality_comparable: std::bool_constant<internal::is_equality_comparable<Type>(choice<2>)> {};
@@ -28493,10 +29070,10 @@ struct is_equality_comparable: std::bool_constant<internal::is_equality_comparab
 
 /**
  * @brief Helper variable template.
- * @tparam Type Potentially equality comparable type.
+ * @tparam Type The type to test.
  */
 template<class Type>
-inline constexpr auto is_equality_comparable_v = is_equality_comparable<Type>::value;
+inline constexpr bool is_equality_comparable_v = is_equality_comparable<Type>::value;
 
 
 /*! @brief Same as std::is_invocable, but with tuples. */
@@ -28515,11 +29092,11 @@ struct is_applicable<Func, Tuple<Args...>>: std::is_invocable<Func, Args...> {};
 
 
 /**
-* @copybrief is_applicable
-* @tparam Func A valid function type.
-* @tparam Tuple Tuple-like type.
-* @tparam Args The list of arguments to use to probe the function type.
-*/
+ * @copybrief is_applicable
+ * @tparam Func A valid function type.
+ * @tparam Tuple Tuple-like type.
+ * @tparam Args The list of arguments to use to probe the function type.
+ */
 template<typename Func, template<typename...> class Tuple, typename... Args>
 struct is_applicable<Func, const Tuple<Args...>>: std::is_invocable<Func, Args...> {};
 
@@ -28530,7 +29107,7 @@ struct is_applicable<Func, const Tuple<Args...>>: std::is_invocable<Func, Args..
  * @tparam Args The list of arguments to use to probe the function type.
  */
 template<typename Func, typename Args>
-inline constexpr auto is_applicable_v = is_applicable<Func, Args>::value;
+inline constexpr bool is_applicable_v = is_applicable<Func, Args>::value;
 
 
 /*! @brief Same as std::is_invocable_r, but with tuples for arguments. */
@@ -28557,14 +29134,14 @@ struct is_applicable_r<Ret, Func, std::tuple<Args...>>: std::is_invocable_r<Ret,
  * @tparam Args The list of arguments to use to probe the function type.
  */
 template<typename Ret, typename Func, typename Args>
-inline constexpr auto is_applicable_r_v = is_applicable_r<Ret, Func, Args>::value;
+inline constexpr bool is_applicable_r_v = is_applicable_r<Ret, Func, Args>::value;
 
 
 /**
-* @brief Provides the member constant `value` to true if a given type is
-* complete, false otherwise.
-* @tparam Type Potential complete type.
-*/
+ * @brief Provides the member constant `value` to true if a given type is
+ * complete, false otherwise.
+ * @tparam Type The type to test.
+ */
 template<typename Type, typename = void>
 struct is_complete: std::false_type {};
 
@@ -28575,11 +29152,68 @@ struct is_complete<Type, std::void_t<decltype(sizeof(Type))>>: std::true_type {}
 
 
 /**
-* @brief Helper variable template.
-* @tparam Type Potential complete type.
-*/
+ * @brief Helper variable template.
+ * @tparam Type The type to test.
+ */
 template<typename Type>
-inline constexpr auto is_complete_v = is_complete<Type>::value;
+inline constexpr bool is_complete_v = is_complete<Type>::value;
+
+
+/**
+ * @brief Provides the member constant `value` to true if a given type is an
+ * iterator, false otherwise.
+ * @tparam Type The type to test.
+ */
+template<typename Type, typename = void>
+struct is_iterator: std::false_type {};
+
+
+/*! @copydoc is_iterator */
+template<typename Type>
+struct is_iterator<Type, std::void_t<typename std::iterator_traits<Type>::iterator_category>>
+    : std::true_type
+{};
+
+
+/**
+ * @brief Helper variable template.
+ * @tparam Type The type to test.
+ */
+template<typename Type>
+inline constexpr bool is_iterator_v = is_iterator<Type>::value;
+
+
+/**
+ * @brief Provides the member constant `value` to true if a given type is of the
+ * required iterator type, false otherwise.
+ * @tparam Type The type to test.
+ * @tparam It Required iterator type.
+ */
+template<typename Type, typename It, typename = void>
+struct is_iterator_type: std::false_type {};
+
+
+/*! @copydoc is_iterator_type */
+template<typename Type, typename It>
+struct is_iterator_type<Type, It, std::enable_if_t<is_iterator_v<Type> && std::is_same_v<Type, It>>>
+    : std::true_type
+{};
+
+
+/*! @copydoc is_iterator_type */
+template<typename Type, typename It>
+struct is_iterator_type<Type, It, std::enable_if_t<!std::is_same_v<Type, It>, std::void_t<typename It::iterator_type>>>
+    : is_iterator_type<Type, typename It::iterator_type>
+{};
+
+
+/**
+ * @brief Helper variable template.
+ * @tparam Type The type to test.
+ * @tparam It Required iterator type.
+ */
+template<typename Type, typename It>
+inline constexpr bool is_iterator_type_v = is_iterator_type<Type, It>::value;
 
 
 /**
@@ -30340,8 +30974,9 @@ template<typename Type>
 
 
 #include <cstddef>
-#include <utility>
+#include <iterator>
 #include <type_traits>
+#include <utility>
 // #include "../config/config.h"
 
 // #include "fwd.hpp"
@@ -30421,7 +31056,7 @@ struct size_of<Type, std::void_t<decltype(sizeof(Type))>>
  * @tparam Type The type of which to return the size.
  */
 template<class Type>
-inline constexpr auto size_of_v = size_of<Type>::value;
+inline constexpr std::size_t size_of_v = size_of<Type>::value;
 
 
 /**
@@ -30626,7 +31261,7 @@ struct type_list_contains<type_list<Type...>, Other>: std::disjunction<std::is_s
  * @tparam Type Type to look for.
  */
 template<class List, typename Type>
-inline constexpr auto type_list_contains_v = type_list_contains<List, Type>::value;
+inline constexpr bool type_list_contains_v = type_list_contains<List, Type>::value;
 
 
 /*! @brief Primary template isn't defined on purpose. */
@@ -30808,7 +31443,7 @@ template<typename Type>
 /**
  * @brief Provides the member constant `value` to true if a given type is
  * equality comparable, false otherwise.
- * @tparam Type Potentially equality comparable type.
+ * @tparam Type The type to test.
  */
 template<typename Type, typename = void>
 struct is_equality_comparable: std::bool_constant<internal::is_equality_comparable<Type>(choice<2>)> {};
@@ -30816,10 +31451,10 @@ struct is_equality_comparable: std::bool_constant<internal::is_equality_comparab
 
 /**
  * @brief Helper variable template.
- * @tparam Type Potentially equality comparable type.
+ * @tparam Type The type to test.
  */
 template<class Type>
-inline constexpr auto is_equality_comparable_v = is_equality_comparable<Type>::value;
+inline constexpr bool is_equality_comparable_v = is_equality_comparable<Type>::value;
 
 
 /*! @brief Same as std::is_invocable, but with tuples. */
@@ -30838,11 +31473,11 @@ struct is_applicable<Func, Tuple<Args...>>: std::is_invocable<Func, Args...> {};
 
 
 /**
-* @copybrief is_applicable
-* @tparam Func A valid function type.
-* @tparam Tuple Tuple-like type.
-* @tparam Args The list of arguments to use to probe the function type.
-*/
+ * @copybrief is_applicable
+ * @tparam Func A valid function type.
+ * @tparam Tuple Tuple-like type.
+ * @tparam Args The list of arguments to use to probe the function type.
+ */
 template<typename Func, template<typename...> class Tuple, typename... Args>
 struct is_applicable<Func, const Tuple<Args...>>: std::is_invocable<Func, Args...> {};
 
@@ -30853,7 +31488,7 @@ struct is_applicable<Func, const Tuple<Args...>>: std::is_invocable<Func, Args..
  * @tparam Args The list of arguments to use to probe the function type.
  */
 template<typename Func, typename Args>
-inline constexpr auto is_applicable_v = is_applicable<Func, Args>::value;
+inline constexpr bool is_applicable_v = is_applicable<Func, Args>::value;
 
 
 /*! @brief Same as std::is_invocable_r, but with tuples for arguments. */
@@ -30880,14 +31515,14 @@ struct is_applicable_r<Ret, Func, std::tuple<Args...>>: std::is_invocable_r<Ret,
  * @tparam Args The list of arguments to use to probe the function type.
  */
 template<typename Ret, typename Func, typename Args>
-inline constexpr auto is_applicable_r_v = is_applicable_r<Ret, Func, Args>::value;
+inline constexpr bool is_applicable_r_v = is_applicable_r<Ret, Func, Args>::value;
 
 
 /**
-* @brief Provides the member constant `value` to true if a given type is
-* complete, false otherwise.
-* @tparam Type Potential complete type.
-*/
+ * @brief Provides the member constant `value` to true if a given type is
+ * complete, false otherwise.
+ * @tparam Type The type to test.
+ */
 template<typename Type, typename = void>
 struct is_complete: std::false_type {};
 
@@ -30898,11 +31533,68 @@ struct is_complete<Type, std::void_t<decltype(sizeof(Type))>>: std::true_type {}
 
 
 /**
-* @brief Helper variable template.
-* @tparam Type Potential complete type.
-*/
+ * @brief Helper variable template.
+ * @tparam Type The type to test.
+ */
 template<typename Type>
-inline constexpr auto is_complete_v = is_complete<Type>::value;
+inline constexpr bool is_complete_v = is_complete<Type>::value;
+
+
+/**
+ * @brief Provides the member constant `value` to true if a given type is an
+ * iterator, false otherwise.
+ * @tparam Type The type to test.
+ */
+template<typename Type, typename = void>
+struct is_iterator: std::false_type {};
+
+
+/*! @copydoc is_iterator */
+template<typename Type>
+struct is_iterator<Type, std::void_t<typename std::iterator_traits<Type>::iterator_category>>
+    : std::true_type
+{};
+
+
+/**
+ * @brief Helper variable template.
+ * @tparam Type The type to test.
+ */
+template<typename Type>
+inline constexpr bool is_iterator_v = is_iterator<Type>::value;
+
+
+/**
+ * @brief Provides the member constant `value` to true if a given type is of the
+ * required iterator type, false otherwise.
+ * @tparam Type The type to test.
+ * @tparam It Required iterator type.
+ */
+template<typename Type, typename It, typename = void>
+struct is_iterator_type: std::false_type {};
+
+
+/*! @copydoc is_iterator_type */
+template<typename Type, typename It>
+struct is_iterator_type<Type, It, std::enable_if_t<is_iterator_v<Type> && std::is_same_v<Type, It>>>
+    : std::true_type
+{};
+
+
+/*! @copydoc is_iterator_type */
+template<typename Type, typename It>
+struct is_iterator_type<Type, It, std::enable_if_t<!std::is_same_v<Type, It>, std::void_t<typename It::iterator_type>>>
+    : is_iterator_type<Type, typename It::iterator_type>
+{};
+
+
+/**
+ * @brief Helper variable template.
+ * @tparam Type The type to test.
+ * @tparam It Required iterator type.
+ */
+template<typename Type, typename It>
+inline constexpr bool is_iterator_type_v = is_iterator_type<Type, It>::value;
 
 
 /**
@@ -39519,8 +40211,9 @@ template<typename Type>
 
 
 #include <cstddef>
-#include <utility>
+#include <iterator>
 #include <type_traits>
+#include <utility>
 // #include "../config/config.h"
 
 // #include "fwd.hpp"
@@ -39600,7 +40293,7 @@ struct size_of<Type, std::void_t<decltype(sizeof(Type))>>
  * @tparam Type The type of which to return the size.
  */
 template<class Type>
-inline constexpr auto size_of_v = size_of<Type>::value;
+inline constexpr std::size_t size_of_v = size_of<Type>::value;
 
 
 /**
@@ -39805,7 +40498,7 @@ struct type_list_contains<type_list<Type...>, Other>: std::disjunction<std::is_s
  * @tparam Type Type to look for.
  */
 template<class List, typename Type>
-inline constexpr auto type_list_contains_v = type_list_contains<List, Type>::value;
+inline constexpr bool type_list_contains_v = type_list_contains<List, Type>::value;
 
 
 /*! @brief Primary template isn't defined on purpose. */
@@ -39987,7 +40680,7 @@ template<typename Type>
 /**
  * @brief Provides the member constant `value` to true if a given type is
  * equality comparable, false otherwise.
- * @tparam Type Potentially equality comparable type.
+ * @tparam Type The type to test.
  */
 template<typename Type, typename = void>
 struct is_equality_comparable: std::bool_constant<internal::is_equality_comparable<Type>(choice<2>)> {};
@@ -39995,10 +40688,10 @@ struct is_equality_comparable: std::bool_constant<internal::is_equality_comparab
 
 /**
  * @brief Helper variable template.
- * @tparam Type Potentially equality comparable type.
+ * @tparam Type The type to test.
  */
 template<class Type>
-inline constexpr auto is_equality_comparable_v = is_equality_comparable<Type>::value;
+inline constexpr bool is_equality_comparable_v = is_equality_comparable<Type>::value;
 
 
 /*! @brief Same as std::is_invocable, but with tuples. */
@@ -40017,11 +40710,11 @@ struct is_applicable<Func, Tuple<Args...>>: std::is_invocable<Func, Args...> {};
 
 
 /**
-* @copybrief is_applicable
-* @tparam Func A valid function type.
-* @tparam Tuple Tuple-like type.
-* @tparam Args The list of arguments to use to probe the function type.
-*/
+ * @copybrief is_applicable
+ * @tparam Func A valid function type.
+ * @tparam Tuple Tuple-like type.
+ * @tparam Args The list of arguments to use to probe the function type.
+ */
 template<typename Func, template<typename...> class Tuple, typename... Args>
 struct is_applicable<Func, const Tuple<Args...>>: std::is_invocable<Func, Args...> {};
 
@@ -40032,7 +40725,7 @@ struct is_applicable<Func, const Tuple<Args...>>: std::is_invocable<Func, Args..
  * @tparam Args The list of arguments to use to probe the function type.
  */
 template<typename Func, typename Args>
-inline constexpr auto is_applicable_v = is_applicable<Func, Args>::value;
+inline constexpr bool is_applicable_v = is_applicable<Func, Args>::value;
 
 
 /*! @brief Same as std::is_invocable_r, but with tuples for arguments. */
@@ -40059,14 +40752,14 @@ struct is_applicable_r<Ret, Func, std::tuple<Args...>>: std::is_invocable_r<Ret,
  * @tparam Args The list of arguments to use to probe the function type.
  */
 template<typename Ret, typename Func, typename Args>
-inline constexpr auto is_applicable_r_v = is_applicable_r<Ret, Func, Args>::value;
+inline constexpr bool is_applicable_r_v = is_applicable_r<Ret, Func, Args>::value;
 
 
 /**
-* @brief Provides the member constant `value` to true if a given type is
-* complete, false otherwise.
-* @tparam Type Potential complete type.
-*/
+ * @brief Provides the member constant `value` to true if a given type is
+ * complete, false otherwise.
+ * @tparam Type The type to test.
+ */
 template<typename Type, typename = void>
 struct is_complete: std::false_type {};
 
@@ -40077,11 +40770,68 @@ struct is_complete<Type, std::void_t<decltype(sizeof(Type))>>: std::true_type {}
 
 
 /**
-* @brief Helper variable template.
-* @tparam Type Potential complete type.
-*/
+ * @brief Helper variable template.
+ * @tparam Type The type to test.
+ */
 template<typename Type>
-inline constexpr auto is_complete_v = is_complete<Type>::value;
+inline constexpr bool is_complete_v = is_complete<Type>::value;
+
+
+/**
+ * @brief Provides the member constant `value` to true if a given type is an
+ * iterator, false otherwise.
+ * @tparam Type The type to test.
+ */
+template<typename Type, typename = void>
+struct is_iterator: std::false_type {};
+
+
+/*! @copydoc is_iterator */
+template<typename Type>
+struct is_iterator<Type, std::void_t<typename std::iterator_traits<Type>::iterator_category>>
+    : std::true_type
+{};
+
+
+/**
+ * @brief Helper variable template.
+ * @tparam Type The type to test.
+ */
+template<typename Type>
+inline constexpr bool is_iterator_v = is_iterator<Type>::value;
+
+
+/**
+ * @brief Provides the member constant `value` to true if a given type is of the
+ * required iterator type, false otherwise.
+ * @tparam Type The type to test.
+ * @tparam It Required iterator type.
+ */
+template<typename Type, typename It, typename = void>
+struct is_iterator_type: std::false_type {};
+
+
+/*! @copydoc is_iterator_type */
+template<typename Type, typename It>
+struct is_iterator_type<Type, It, std::enable_if_t<is_iterator_v<Type> && std::is_same_v<Type, It>>>
+    : std::true_type
+{};
+
+
+/*! @copydoc is_iterator_type */
+template<typename Type, typename It>
+struct is_iterator_type<Type, It, std::enable_if_t<!std::is_same_v<Type, It>, std::void_t<typename It::iterator_type>>>
+    : is_iterator_type<Type, typename It::iterator_type>
+{};
+
+
+/**
+ * @brief Helper variable template.
+ * @tparam Type The type to test.
+ * @tparam It Required iterator type.
+ */
+template<typename Type, typename It>
+inline constexpr bool is_iterator_type_v = is_iterator_type<Type, It>::value;
 
 
 /**
@@ -40864,8 +41614,9 @@ template<typename Type>
 
 
 #include <cstddef>
-#include <utility>
+#include <iterator>
 #include <type_traits>
+#include <utility>
 // #include "../config/config.h"
 
 // #include "fwd.hpp"
@@ -40945,7 +41696,7 @@ struct size_of<Type, std::void_t<decltype(sizeof(Type))>>
  * @tparam Type The type of which to return the size.
  */
 template<class Type>
-inline constexpr auto size_of_v = size_of<Type>::value;
+inline constexpr std::size_t size_of_v = size_of<Type>::value;
 
 
 /**
@@ -41150,7 +41901,7 @@ struct type_list_contains<type_list<Type...>, Other>: std::disjunction<std::is_s
  * @tparam Type Type to look for.
  */
 template<class List, typename Type>
-inline constexpr auto type_list_contains_v = type_list_contains<List, Type>::value;
+inline constexpr bool type_list_contains_v = type_list_contains<List, Type>::value;
 
 
 /*! @brief Primary template isn't defined on purpose. */
@@ -41332,7 +42083,7 @@ template<typename Type>
 /**
  * @brief Provides the member constant `value` to true if a given type is
  * equality comparable, false otherwise.
- * @tparam Type Potentially equality comparable type.
+ * @tparam Type The type to test.
  */
 template<typename Type, typename = void>
 struct is_equality_comparable: std::bool_constant<internal::is_equality_comparable<Type>(choice<2>)> {};
@@ -41340,10 +42091,10 @@ struct is_equality_comparable: std::bool_constant<internal::is_equality_comparab
 
 /**
  * @brief Helper variable template.
- * @tparam Type Potentially equality comparable type.
+ * @tparam Type The type to test.
  */
 template<class Type>
-inline constexpr auto is_equality_comparable_v = is_equality_comparable<Type>::value;
+inline constexpr bool is_equality_comparable_v = is_equality_comparable<Type>::value;
 
 
 /*! @brief Same as std::is_invocable, but with tuples. */
@@ -41362,11 +42113,11 @@ struct is_applicable<Func, Tuple<Args...>>: std::is_invocable<Func, Args...> {};
 
 
 /**
-* @copybrief is_applicable
-* @tparam Func A valid function type.
-* @tparam Tuple Tuple-like type.
-* @tparam Args The list of arguments to use to probe the function type.
-*/
+ * @copybrief is_applicable
+ * @tparam Func A valid function type.
+ * @tparam Tuple Tuple-like type.
+ * @tparam Args The list of arguments to use to probe the function type.
+ */
 template<typename Func, template<typename...> class Tuple, typename... Args>
 struct is_applicable<Func, const Tuple<Args...>>: std::is_invocable<Func, Args...> {};
 
@@ -41377,7 +42128,7 @@ struct is_applicable<Func, const Tuple<Args...>>: std::is_invocable<Func, Args..
  * @tparam Args The list of arguments to use to probe the function type.
  */
 template<typename Func, typename Args>
-inline constexpr auto is_applicable_v = is_applicable<Func, Args>::value;
+inline constexpr bool is_applicable_v = is_applicable<Func, Args>::value;
 
 
 /*! @brief Same as std::is_invocable_r, but with tuples for arguments. */
@@ -41404,14 +42155,14 @@ struct is_applicable_r<Ret, Func, std::tuple<Args...>>: std::is_invocable_r<Ret,
  * @tparam Args The list of arguments to use to probe the function type.
  */
 template<typename Ret, typename Func, typename Args>
-inline constexpr auto is_applicable_r_v = is_applicable_r<Ret, Func, Args>::value;
+inline constexpr bool is_applicable_r_v = is_applicable_r<Ret, Func, Args>::value;
 
 
 /**
-* @brief Provides the member constant `value` to true if a given type is
-* complete, false otherwise.
-* @tparam Type Potential complete type.
-*/
+ * @brief Provides the member constant `value` to true if a given type is
+ * complete, false otherwise.
+ * @tparam Type The type to test.
+ */
 template<typename Type, typename = void>
 struct is_complete: std::false_type {};
 
@@ -41422,11 +42173,68 @@ struct is_complete<Type, std::void_t<decltype(sizeof(Type))>>: std::true_type {}
 
 
 /**
-* @brief Helper variable template.
-* @tparam Type Potential complete type.
-*/
+ * @brief Helper variable template.
+ * @tparam Type The type to test.
+ */
 template<typename Type>
-inline constexpr auto is_complete_v = is_complete<Type>::value;
+inline constexpr bool is_complete_v = is_complete<Type>::value;
+
+
+/**
+ * @brief Provides the member constant `value` to true if a given type is an
+ * iterator, false otherwise.
+ * @tparam Type The type to test.
+ */
+template<typename Type, typename = void>
+struct is_iterator: std::false_type {};
+
+
+/*! @copydoc is_iterator */
+template<typename Type>
+struct is_iterator<Type, std::void_t<typename std::iterator_traits<Type>::iterator_category>>
+    : std::true_type
+{};
+
+
+/**
+ * @brief Helper variable template.
+ * @tparam Type The type to test.
+ */
+template<typename Type>
+inline constexpr bool is_iterator_v = is_iterator<Type>::value;
+
+
+/**
+ * @brief Provides the member constant `value` to true if a given type is of the
+ * required iterator type, false otherwise.
+ * @tparam Type The type to test.
+ * @tparam It Required iterator type.
+ */
+template<typename Type, typename It, typename = void>
+struct is_iterator_type: std::false_type {};
+
+
+/*! @copydoc is_iterator_type */
+template<typename Type, typename It>
+struct is_iterator_type<Type, It, std::enable_if_t<is_iterator_v<Type> && std::is_same_v<Type, It>>>
+    : std::true_type
+{};
+
+
+/*! @copydoc is_iterator_type */
+template<typename Type, typename It>
+struct is_iterator_type<Type, It, std::enable_if_t<!std::is_same_v<Type, It>, std::void_t<typename It::iterator_type>>>
+    : is_iterator_type<Type, typename It::iterator_type>
+{};
+
+
+/**
+ * @brief Helper variable template.
+ * @tparam Type The type to test.
+ * @tparam It Required iterator type.
+ */
+template<typename Type, typename It>
+inline constexpr bool is_iterator_type_v = is_iterator_type<Type, It>::value;
 
 
 /**
@@ -43910,8 +44718,9 @@ class resource_loader {
 
 
 #include <cstddef>
-#include <utility>
+#include <iterator>
 #include <type_traits>
+#include <utility>
 // #include "../config/config.h"
 #ifndef ENTT_CONFIG_CONFIG_H
 #define ENTT_CONFIG_CONFIG_H
@@ -44104,7 +44913,7 @@ struct size_of<Type, std::void_t<decltype(sizeof(Type))>>
  * @tparam Type The type of which to return the size.
  */
 template<class Type>
-inline constexpr auto size_of_v = size_of<Type>::value;
+inline constexpr std::size_t size_of_v = size_of<Type>::value;
 
 
 /**
@@ -44309,7 +45118,7 @@ struct type_list_contains<type_list<Type...>, Other>: std::disjunction<std::is_s
  * @tparam Type Type to look for.
  */
 template<class List, typename Type>
-inline constexpr auto type_list_contains_v = type_list_contains<List, Type>::value;
+inline constexpr bool type_list_contains_v = type_list_contains<List, Type>::value;
 
 
 /*! @brief Primary template isn't defined on purpose. */
@@ -44491,7 +45300,7 @@ template<typename Type>
 /**
  * @brief Provides the member constant `value` to true if a given type is
  * equality comparable, false otherwise.
- * @tparam Type Potentially equality comparable type.
+ * @tparam Type The type to test.
  */
 template<typename Type, typename = void>
 struct is_equality_comparable: std::bool_constant<internal::is_equality_comparable<Type>(choice<2>)> {};
@@ -44499,10 +45308,10 @@ struct is_equality_comparable: std::bool_constant<internal::is_equality_comparab
 
 /**
  * @brief Helper variable template.
- * @tparam Type Potentially equality comparable type.
+ * @tparam Type The type to test.
  */
 template<class Type>
-inline constexpr auto is_equality_comparable_v = is_equality_comparable<Type>::value;
+inline constexpr bool is_equality_comparable_v = is_equality_comparable<Type>::value;
 
 
 /*! @brief Same as std::is_invocable, but with tuples. */
@@ -44521,11 +45330,11 @@ struct is_applicable<Func, Tuple<Args...>>: std::is_invocable<Func, Args...> {};
 
 
 /**
-* @copybrief is_applicable
-* @tparam Func A valid function type.
-* @tparam Tuple Tuple-like type.
-* @tparam Args The list of arguments to use to probe the function type.
-*/
+ * @copybrief is_applicable
+ * @tparam Func A valid function type.
+ * @tparam Tuple Tuple-like type.
+ * @tparam Args The list of arguments to use to probe the function type.
+ */
 template<typename Func, template<typename...> class Tuple, typename... Args>
 struct is_applicable<Func, const Tuple<Args...>>: std::is_invocable<Func, Args...> {};
 
@@ -44536,7 +45345,7 @@ struct is_applicable<Func, const Tuple<Args...>>: std::is_invocable<Func, Args..
  * @tparam Args The list of arguments to use to probe the function type.
  */
 template<typename Func, typename Args>
-inline constexpr auto is_applicable_v = is_applicable<Func, Args>::value;
+inline constexpr bool is_applicable_v = is_applicable<Func, Args>::value;
 
 
 /*! @brief Same as std::is_invocable_r, but with tuples for arguments. */
@@ -44563,14 +45372,14 @@ struct is_applicable_r<Ret, Func, std::tuple<Args...>>: std::is_invocable_r<Ret,
  * @tparam Args The list of arguments to use to probe the function type.
  */
 template<typename Ret, typename Func, typename Args>
-inline constexpr auto is_applicable_r_v = is_applicable_r<Ret, Func, Args>::value;
+inline constexpr bool is_applicable_r_v = is_applicable_r<Ret, Func, Args>::value;
 
 
 /**
-* @brief Provides the member constant `value` to true if a given type is
-* complete, false otherwise.
-* @tparam Type Potential complete type.
-*/
+ * @brief Provides the member constant `value` to true if a given type is
+ * complete, false otherwise.
+ * @tparam Type The type to test.
+ */
 template<typename Type, typename = void>
 struct is_complete: std::false_type {};
 
@@ -44581,11 +45390,68 @@ struct is_complete<Type, std::void_t<decltype(sizeof(Type))>>: std::true_type {}
 
 
 /**
-* @brief Helper variable template.
-* @tparam Type Potential complete type.
-*/
+ * @brief Helper variable template.
+ * @tparam Type The type to test.
+ */
 template<typename Type>
-inline constexpr auto is_complete_v = is_complete<Type>::value;
+inline constexpr bool is_complete_v = is_complete<Type>::value;
+
+
+/**
+ * @brief Provides the member constant `value` to true if a given type is an
+ * iterator, false otherwise.
+ * @tparam Type The type to test.
+ */
+template<typename Type, typename = void>
+struct is_iterator: std::false_type {};
+
+
+/*! @copydoc is_iterator */
+template<typename Type>
+struct is_iterator<Type, std::void_t<typename std::iterator_traits<Type>::iterator_category>>
+    : std::true_type
+{};
+
+
+/**
+ * @brief Helper variable template.
+ * @tparam Type The type to test.
+ */
+template<typename Type>
+inline constexpr bool is_iterator_v = is_iterator<Type>::value;
+
+
+/**
+ * @brief Provides the member constant `value` to true if a given type is of the
+ * required iterator type, false otherwise.
+ * @tparam Type The type to test.
+ * @tparam It Required iterator type.
+ */
+template<typename Type, typename It, typename = void>
+struct is_iterator_type: std::false_type {};
+
+
+/*! @copydoc is_iterator_type */
+template<typename Type, typename It>
+struct is_iterator_type<Type, It, std::enable_if_t<is_iterator_v<Type> && std::is_same_v<Type, It>>>
+    : std::true_type
+{};
+
+
+/*! @copydoc is_iterator_type */
+template<typename Type, typename It>
+struct is_iterator_type<Type, It, std::enable_if_t<!std::is_same_v<Type, It>, std::void_t<typename It::iterator_type>>>
+    : is_iterator_type<Type, typename It::iterator_type>
+{};
+
+
+/**
+ * @brief Helper variable template.
+ * @tparam Type The type to test.
+ * @tparam It Required iterator type.
+ */
+template<typename Type, typename It>
+inline constexpr bool is_iterator_type_v = is_iterator_type<Type, It>::value;
 
 
 /**
