@@ -79,7 +79,6 @@ set(SOURCE_FILES
 
     core/aliases/aabb_tree.hpp
     core/aliases/buffer.hpp
-    core/aliases/czstring.hpp
     core/aliases/depth.hpp
     core/aliases/entity_type.hpp
     core/aliases/float2.hpp
@@ -88,6 +87,7 @@ set(SOURCE_FILES
     core/aliases/maybe.hpp
     core/aliases/milliseconds.hpp
     core/aliases/ref.hpp
+    core/aliases/str.hpp
     core/aliases/texture_id.hpp
     core/aliases/texture_index.hpp
     core/aliases/tile_id.hpp

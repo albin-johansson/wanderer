@@ -4,13 +4,13 @@
 #include <json.hpp>  // json
 #include <string>    // string
 
-#include "core/aliases/czstring.hpp"
+#include "core/aliases/str.hpp"
 
 namespace wanderer {
 namespace {
 
 template <typename T>
-[[nodiscard]] auto get(const nlohmann::json& json, const czstring key) -> T
+[[nodiscard]] auto get(const nlohmann::json& json, const str key) -> T
 {
   return T{json.at(key).get<typename T::value_type>()};
 }

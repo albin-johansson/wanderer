@@ -2,7 +2,7 @@
 
 #include <string>  // string
 
-#include "core/aliases/czstring.hpp"
+#include "core/aliases/str.hpp"
 
 /// \namespace wanderer::resources
 /// \brief Contains utilities for obtaining resource paths.
@@ -18,7 +18,7 @@ namespace wanderer::resources {
  *
  * \return the path of the texture.
  */
-[[nodiscard]] auto texture(czstring resource) -> std::string;
+[[nodiscard]] auto texture(str resource) -> std::string;
 
 /**
  * \brief Returns the file path for a font with the specified name.
@@ -29,7 +29,7 @@ namespace wanderer::resources {
  *
  * \return the path of the font.
  */
-[[nodiscard]] auto font(czstring resource) -> std::string;
+[[nodiscard]] auto font(str resource) -> std::string;
 
 /**
  * \brief Returns the file path for a sound with the specified name.
@@ -40,7 +40,7 @@ namespace wanderer::resources {
  *
  * \return the path of the sound.
  */
-[[nodiscard]] auto sound(czstring resource) -> std::string;
+[[nodiscard]] auto sound(str resource) -> std::string;
 
 /**
  * \brief Returns the file path for a map with the specified name.
@@ -51,6 +51,6 @@ namespace wanderer::resources {
  *
  * \return the path of the map.
  */
-[[nodiscard]] auto map(czstring resource) -> std::string;
+[[nodiscard]] auto map(str resource) -> std::string;
 
 }  // namespace wanderer::resources

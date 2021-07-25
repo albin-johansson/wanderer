@@ -4,6 +4,6 @@
 
 namespace wanderer {
 
-using cen::czstring;
+using cen::str;
 
-}
+}  // namespace wanderer
