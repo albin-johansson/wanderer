@@ -17,8 +17,8 @@ auto to_string(const system_clock::time_point tp) -> std::string
 
 auto current_hhmmss() -> std::string
 {
-  const zoned_time zoned{current_zone(), system_clock::now()};
-  return std::format("{:%T}", zoned);
+  const zoned_time time{current_zone(), system_clock::now()};
+  return std::format("{:%T}", time);
 }
 
 }  // namespace wanderer
