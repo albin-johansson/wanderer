@@ -30,6 +30,7 @@
 #include "systems/levels/level_system.hpp"
 #include "systems/levels/load_levels.hpp"
 #include "systems/movement/movement_system.hpp"
+#include "systems/plant_system.hpp"
 #include "systems/registry/shared_registry_factory_system.hpp"
 #include "systems/tiles/tile_animation_system.hpp"
 #include "systems/tiles/tile_object_animation_system.hpp"
@@ -136,6 +137,7 @@ void game::tick(const rune::delta_time dt)
   sys::update_movement(level.registry, level.tree, dt);
   sys::update_drawables(level.registry);
   sys::update_particles(level.registry, dt);
+  sys::update_plants(level.registry, dt);
   sys::update_lights(level.registry);
   sys::update_player_light_position(level.registry);
 

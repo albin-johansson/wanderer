@@ -171,6 +171,8 @@ set(SOURCE_FILES
     systems/interaction_system.hpp
     systems/time_system.cpp
     systems/time_system.hpp
+    systems/plant_system.cpp
+    systems/plant_system.hpp
 
     systems/ai/chase_system.cpp
     systems/ai/chase_system.hpp
@@ -261,6 +263,8 @@ set(SOURCE_FILES
     systems/tiles/tile_object_animation_system.hpp
     systems/tiles/tile_rendering_system.cpp
     systems/tiles/tile_rendering_system.hpp
+    systems/tiles/tile_system.cpp
+    systems/tiles/tile_system.hpp
 
     systems/triggers/bed_trigger_system.cpp
     systems/triggers/bed_trigger_system.hpp
