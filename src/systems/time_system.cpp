@@ -36,14 +36,14 @@ inline constexpr auto black = cen::colors::black;
 inline constexpr auto orange = cen::colors::orange;
 inline constexpr auto navy = cen::colors::navy;
 
-inline const auto sunrise_color = cen::blend(black, orange).with_alpha(0x20);
-inline const auto sunrise_end_color = cen::blend(black, orange, 0.25).with_alpha(0x20);
+inline const auto sunrise_color = cen::blend(black, orange, 0.5f).with_alpha(0x20);
+inline const auto sunrise_end_color = cen::blend(black, orange, 0.25f).with_alpha(0x20);
 
 inline const auto day_color = black.with_alpha(0);
-inline const auto day_end_color = cen::blend(black, orange, 0.25).with_alpha(0x20);
+inline const auto day_end_color = cen::blend(black, orange, 0.25f).with_alpha(0x20);
 
-inline const auto sunset_color = cen::blend(black, orange).with_alpha(0x20);
-inline const auto night_color = cen::blend(black, navy, 0.3).with_alpha(0xDD);
+inline const auto sunset_color = cen::blend(black, orange, 0.5f).with_alpha(0x20);
+inline const auto night_color = cen::blend(black, navy, 0.3f).with_alpha(0xDD);
 
 inline const phase sunrise_phase{
     .phase_start = sunrise,
