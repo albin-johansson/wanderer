@@ -5,8 +5,8 @@
 #include <rune.hpp>       // tmx_map, ...
 
 #include "core/game_constants.hpp"
-#include "io/map/parse_layers.hpp"
-#include "io/map/parse_tilesets.hpp"
+#include "io/parsing/parse_layers.hpp"
+#include "io/parsing/parse_tilesets.hpp"
 
 namespace wanderer {
 namespace {

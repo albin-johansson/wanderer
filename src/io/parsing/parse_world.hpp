@@ -2,7 +2,7 @@
 
 #include <filesystem>  // path
 
-#include "io/map/parse_ir.hpp"
+#include "io/parsing/parse_ir.hpp"
 
 namespace wanderer {
 

@@ -8,8 +8,8 @@
 #include "core/ecs/registry_utils.hpp"
 #include "events/close_inventory_event.hpp"
 #include "events/show_inventory_event.hpp"
-#include "events/switch_map_event.hpp"
 #include "events/sleep_event.hpp"
+#include "events/switch_map_event.hpp"
 
 namespace wanderer::sys {
 namespace {

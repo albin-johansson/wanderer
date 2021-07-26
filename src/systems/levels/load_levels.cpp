@@ -4,7 +4,7 @@
 #include "components/map/level.hpp"
 #include "components/outside_level.hpp"
 #include "core/resources.hpp"
-#include "io/map/parse_world.hpp"
+#include "io/parsing/parse_world.hpp"
 #include "systems/levels/level_factory_system.hpp"
 
 namespace wanderer::sys {

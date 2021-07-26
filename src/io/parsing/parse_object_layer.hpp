@@ -2,7 +2,7 @@
 
 #include <rune.hpp>  // tmx_map, tmx_object_layer
 
-#include "io/map/parse_ir.hpp"
+#include "io/parsing/parse_ir.hpp"
 
 namespace wanderer {
 

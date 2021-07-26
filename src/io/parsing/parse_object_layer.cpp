@@ -174,6 +174,8 @@ void parse_object_layer(ir::level& data,
     {
       objectData.light = parse_light(object, data.x_ratio, data.y_ratio);
     }
+    else if (type == "Plant")
+    {}
   }
 }
 
