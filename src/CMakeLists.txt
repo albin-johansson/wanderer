@@ -15,6 +15,7 @@ set(SOURCE_FILES
     components/movable.hpp
     components/object.hpp
     components/outside_level.hpp
+    components/plant.hpp
     components/player.hpp
     components/roam.hpp
     components/tileset.hpp

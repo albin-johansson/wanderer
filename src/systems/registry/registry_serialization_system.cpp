@@ -26,6 +26,7 @@
 #include "components/movable.hpp"
 #include "components/object.hpp"
 #include "components/outside_level.hpp"
+#include "components/plant.hpp"
 #include "components/player.hpp"
 #include "components/tileset.hpp"
 
@@ -56,6 +57,7 @@ void process(T& handle, Archive& archive)
                           comp::particle,
                           comp::portal,
                           comp::point_light,
+                          comp::plant,
                           comp::player,
                           comp::spawnpoint,
                           comp::tile,
