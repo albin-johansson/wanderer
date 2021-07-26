@@ -17,7 +17,7 @@ void begin_chase(entt::registry& registry,
                  comp::movable& movable,
                  const float2 destination)
 {
-  registry.remove_if_exists<comp::roam>(entity);
+  registry.remove<comp::roam>(entity);
 
   movable.velocity = movable.position;
   movable.velocity.look_at(destination, movable.speed);
