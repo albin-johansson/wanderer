@@ -16,6 +16,11 @@
  <objecttype name="Object" color="#ff00ff">
   <property name="depth" type="int" default="5"/>
  </objecttype>
+ <objecttype name="Plant" color="#ffaa7f">
+  <property name="rate" type="float" default="0"/>
+  <property name="tiles" type="string"/>
+  <property name="tileset" type="string"/>
+ </objecttype>
  <objecttype name="Portal" color="#00aaff">
   <property name="path" type="file" default=""/>
   <property name="target" type="int" default="0"/>
