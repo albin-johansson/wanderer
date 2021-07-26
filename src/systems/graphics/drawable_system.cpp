@@ -19,7 +19,7 @@ void update_drawables(entt::registry& registry)
 
 void render_drawables(const entt::registry& registry, graphics_context& graphics)
 {
-  const auto& viewport = registry.ctx<const ctx::viewport>();
+  const auto& viewport = registry.ctx<ctx::viewport>();
 
   for (auto&& [entity, drawable] : registry.view<comp::depth_drawable>().each())
   {
