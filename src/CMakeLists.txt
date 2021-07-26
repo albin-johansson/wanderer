@@ -141,19 +141,19 @@ set(SOURCE_FILES
     io/directories.cpp
     io/directories.hpp
 
-    io/map/parse_ir.hpp
-    io/map/parse_layers.cpp
-    io/map/parse_layers.hpp
-    io/map/parse_object_layer.cpp
-    io/map/parse_object_layer.hpp
-    io/map/parse_tile.cpp
-    io/map/parse_tile.hpp
-    io/map/parse_tile_layer.cpp
-    io/map/parse_tile_layer.hpp
-    io/map/parse_tilesets.cpp
-    io/map/parse_tilesets.hpp
-    io/map/parse_world.cpp
-    io/map/parse_world.hpp
+    io/parsing/parse_ir.hpp
+    io/parsing/parse_layers.cpp
+    io/parsing/parse_layers.hpp
+    io/parsing/parse_object_layer.cpp
+    io/parsing/parse_object_layer.hpp
+    io/parsing/parse_tile.cpp
+    io/parsing/parse_tile.hpp
+    io/parsing/parse_tile_layer.cpp
+    io/parsing/parse_tile_layer.hpp
+    io/parsing/parse_tilesets.cpp
+    io/parsing/parse_tilesets.hpp
+    io/parsing/parse_world.cpp
+    io/parsing/parse_world.hpp
 
     io/saves/delete_save.cpp
     io/saves/delete_save.hpp
