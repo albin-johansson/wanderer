@@ -141,6 +141,8 @@ set(SOURCE_FILES
     io/directories.cpp
     io/directories.hpp
 
+    io/parsing/csv.cpp
+    io/parsing/csv.hpp
     io/parsing/parse_ir.hpp
     io/parsing/parse_layers.cpp
     io/parsing/parse_layers.hpp
