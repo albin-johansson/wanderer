@@ -7,13 +7,25 @@ namespace wanderer {
 
 void parse_layers(const rune::tmx_map& map, ir::level& data)
 {
-  for (int index = 0; const auto& layer : map.layers)
+  /* We parse tile layers and objects layers separately in order to guarantee that the
+     tile data is available once the objects are parsed, since that makes our life a
+     little easier. */
+
+  int index = 0;
+
+  for (const auto& layer : map.layers)
   {
     if (const auto* tileLayer = rune::tmx::try_get_tile_layer(layer))
     {
       parse_tile_layer(data, map, *tileLayer, layer.properties, index);
     }
-    else if (const auto* objectLayer = rune::tmx::try_get_object_layer(layer))
+
+    ++index;
+  }
+
+  for (const auto& layer : map.layers)
+  {
+    if (const auto* objectLayer = rune::tmx::try_get_object_layer(layer))
     {
       parse_object_layer(data, map, *objectLayer);
     }
