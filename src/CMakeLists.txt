@@ -171,7 +171,6 @@ set(SOURCE_FILES
     systems/interaction_system.hpp
     systems/time_system.cpp
     systems/time_system.hpp
-    systems/triggers/update_triggers.hpp
 
     systems/ai/chase_system.cpp
     systems/ai/chase_system.hpp
@@ -269,6 +268,7 @@ set(SOURCE_FILES
     systems/triggers/container_trigger_system.hpp
     systems/triggers/portal_trigger_system.cpp
     systems/triggers/portal_trigger_system.hpp
+    systems/triggers/update_triggers.hpp
 
     systems/ui/cursor_system.cpp
     systems/ui/cursor_system.hpp
