@@ -8,8 +8,7 @@ namespace {
 template <typename T, typename... Args>
 void mutually_exclusive(entt::registry& registry)
 {
-  registry.on_construct<T>()
-      .template connect<&entt::registry::remove_if_exists<Args...>>();
+  registry.on_construct<T>().template connect<&entt::registry::remove<Args...>>();
 }
 
 }  // namespace
