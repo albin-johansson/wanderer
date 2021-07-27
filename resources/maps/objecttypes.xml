@@ -18,6 +18,7 @@
  </objecttype>
  <objecttype name="Plant" color="#ffaa7f">
   <property name="rate" type="float" default="0"/>
+  <property name="tallTiles" type="string"/>
   <property name="tiles" type="string"/>
   <property name="tileset" type="string"/>
  </objecttype>
