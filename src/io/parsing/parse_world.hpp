@@ -4,7 +4,7 @@
 
 #include "io/parsing/parse_ir.hpp"
 
-namespace wanderer {
+namespace wanderer::io {
 
 /**
  * \brief Parses a save file and returns the corresponding world data.
@@ -18,4 +18,4 @@ namespace wanderer {
  */
 [[nodiscard]] auto parse_world(const std::filesystem::path& world) -> ir::world;
 
-}  // namespace wanderer
+}  // namespace wanderer::io

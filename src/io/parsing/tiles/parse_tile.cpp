@@ -8,7 +8,7 @@
 #include "core/aliases/maybe.hpp"
 #include "systems/movement/hitbox_system.hpp"
 
-namespace wanderer {
+namespace wanderer::io {
 namespace {
 
 [[nodiscard]] auto to_source_rect(const int index,
@@ -45,8 +45,8 @@ void add_hitbox(ir::fancy_tile& tileData,
                 const float xRatio,
                 const float yRatio)
 {
-  const float2 offset{object.x * xRatio, object.y * yRatio};
-  const cen::farea size{object.width * xRatio, object.height * yRatio};
+  const auto offset = float2{object.x * xRatio, object.y * yRatio};
+  const auto size = cen::farea{object.width * xRatio, object.height * yRatio};
   tileData.hitbox = sys::make_hitbox({{offset, size}});
 }
 
@@ -103,4 +103,4 @@ auto parse_fancy_tile(ir::tileset& data,
   return result;
 }
 
-}  // namespace wanderer
+}  // namespace wanderer::io

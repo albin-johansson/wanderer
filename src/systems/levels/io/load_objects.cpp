@@ -35,7 +35,9 @@ void set_up_container_triggers(entt::registry& registry)
 
 }  // namespace
 
-void load_objects(entt::registry& registry, const ir::level& level)
+void load_objects(entt::registry& registry,
+                  graphics_context& graphics,
+                  const ir::level& level)
 {
   for (const auto& data : level.objects)
   {
@@ -46,7 +48,12 @@ void load_objects(entt::registry& registry, const ir::level& level)
 
     if (data.drawable)
     {
-      registry.emplace<comp::depth_drawable>(entity, *data.drawable);
+      auto& drawable = registry.emplace<comp::depth_drawable>(entity);
+      drawable.texture = graphics.to_index(data.drawable->texture);
+      drawable.depth = data.drawable->depth;
+      drawable.layer = data.drawable->layer;
+      drawable.src = data.drawable->src;
+      drawable.dst = data.drawable->dst;
     }
 
     if (data.hitbox)
@@ -84,6 +91,11 @@ void load_objects(entt::registry& registry, const ir::level& level)
     if (data.light)
     {
       registry.emplace<comp::point_light>(entity, *data.light);
+    }
+
+    if (data.plant)
+    {
+      registry.emplace<comp::plant>(entity, *data.plant);
     }
   }
 

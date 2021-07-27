@@ -142,21 +142,43 @@ set(SOURCE_FILES
     io/directories.cpp
     io/directories.hpp
 
+    io/parsing/common.hpp
+    io/parsing/common.cpp
     io/parsing/csv.cpp
     io/parsing/csv.hpp
     io/parsing/parse_ir.hpp
     io/parsing/parse_layers.cpp
     io/parsing/parse_layers.hpp
-    io/parsing/parse_object_layer.cpp
-    io/parsing/parse_object_layer.hpp
-    io/parsing/parse_tile.cpp
-    io/parsing/parse_tile.hpp
-    io/parsing/parse_tile_layer.cpp
-    io/parsing/parse_tile_layer.hpp
     io/parsing/parse_tilesets.cpp
     io/parsing/parse_tilesets.hpp
     io/parsing/parse_world.cpp
     io/parsing/parse_world.hpp
+
+    io/parsing/objects/parse_container.cpp
+    io/parsing/objects/parse_container.hpp
+    io/parsing/objects/parse_hitbox.cpp
+    io/parsing/objects/parse_hitbox.hpp
+    io/parsing/objects/parse_light.cpp
+    io/parsing/objects/parse_light.hpp
+    io/parsing/objects/parse_object_layer.cpp
+    io/parsing/objects/parse_object_layer.hpp
+    io/parsing/objects/parse_plant.cpp
+    io/parsing/objects/parse_plant.hpp
+    io/parsing/objects/parse_portal.cpp
+    io/parsing/objects/parse_portal.hpp
+    io/parsing/objects/parse_spawnpoint.cpp
+    io/parsing/objects/parse_spawnpoint.hpp
+
+    io/parsing/tiles/make_tile_matrix.cpp
+    io/parsing/tiles/make_tile_matrix.hpp
+    io/parsing/tiles/parse_ground_layer.cpp
+    io/parsing/tiles/parse_ground_layer.hpp
+    io/parsing/tiles/parse_tile.cpp
+    io/parsing/tiles/parse_tile.hpp
+    io/parsing/tiles/parse_tile_layer.cpp
+    io/parsing/tiles/parse_tile_layer.hpp
+    io/parsing/tiles/parse_tile_objects.cpp
+    io/parsing/tiles/parse_tile_objects.hpp
 
     io/saves/delete_save.cpp
     io/saves/delete_save.hpp
@@ -222,28 +244,29 @@ set(SOURCE_FILES
     systems/layers/tile_layer_rendering_system.cpp
     systems/layers/tile_layer_rendering_system.hpp
 
-    systems/levels/level_factory_system.cpp
-    systems/levels/level_factory_system.hpp
     systems/levels/level_save_system.cpp
     systems/levels/level_save_system.hpp
     systems/levels/level_system.cpp
     systems/levels/level_system.hpp
-    systems/levels/load_ground_layers.cpp
-    systems/levels/load_ground_layers.hpp
-    systems/levels/load_humanoids.cpp
-    systems/levels/load_humanoids.hpp
-    systems/levels/load_levels.cpp
-    systems/levels/load_levels.hpp
-    systems/levels/load_objects.cpp
-    systems/levels/load_objects.hpp
-    systems/levels/load_tile_objects.cpp
-    systems/levels/load_tile_objects.hpp
-    systems/levels/load_tilemap.cpp
-    systems/levels/load_tilemap.hpp
-    systems/levels/load_tileset.cpp
-    systems/levels/load_tileset.hpp
-    systems/levels/load_tileset_textures.cpp
-    systems/levels/load_tileset_textures.hpp
+
+    systems/levels/io/level_factory_system.cpp
+    systems/levels/io/level_factory_system.hpp
+    systems/levels/io/load_ground_layers.cpp
+    systems/levels/io/load_ground_layers.hpp
+    systems/levels/io/load_humanoids.cpp
+    systems/levels/io/load_humanoids.hpp
+    systems/levels/io/load_levels.cpp
+    systems/levels/io/load_levels.hpp
+    systems/levels/io/load_objects.cpp
+    systems/levels/io/load_objects.hpp
+    systems/levels/io/load_tile_objects.cpp
+    systems/levels/io/load_tile_objects.hpp
+    systems/levels/io/load_tilemap.cpp
+    systems/levels/io/load_tilemap.hpp
+    systems/levels/io/load_tileset.cpp
+    systems/levels/io/load_tileset.hpp
+    systems/levels/io/load_tileset_textures.cpp
+    systems/levels/io/load_tileset_textures.hpp
 
     systems/movement/direction_system.hpp
     systems/movement/direction_system.cpp

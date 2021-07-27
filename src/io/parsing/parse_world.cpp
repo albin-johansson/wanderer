@@ -8,7 +8,7 @@
 #include "io/parsing/parse_layers.hpp"
 #include "io/parsing/parse_tilesets.hpp"
 
-namespace wanderer {
+namespace wanderer::io {
 namespace {
 
 [[nodiscard]] auto parse_map(const rune::tmx_map& map,
@@ -64,4 +64,4 @@ auto parse_world(const std::filesystem::path& world) -> ir::world
   return data;
 }
 
-}  // namespace wanderer
+}  // namespace wanderer::io

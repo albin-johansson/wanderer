@@ -5,7 +5,7 @@
 #include "components/outside_level.hpp"
 #include "core/resources.hpp"
 #include "io/parsing/parse_world.hpp"
-#include "systems/levels/level_factory_system.hpp"
+#include "level_factory_system.hpp"
 
 namespace wanderer::sys {
 namespace {
@@ -29,7 +29,7 @@ namespace {
 void load_levels(entt::registry& shared, graphics_context& graphics)
 {
   CENTURION_LOG_INFO("Loading levels...");
-  const auto data = parse_world(resources::map("main.json"));
+  const auto data = io::parse_world(resources::map("main.json"));
   const auto world = create_world(shared, graphics, data);
 
   for (const auto& sublevel : data.levels)

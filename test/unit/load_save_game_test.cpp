@@ -6,7 +6,7 @@
 #include "io/directories.hpp"
 #include "io/saves/load_game.hpp"
 #include "io/saves/save_game.hpp"
-#include "systems/levels/load_levels.hpp"
+#include "systems/levels/io/load_levels.hpp"
 #include "systems/registry/shared_registry_factory_system.hpp"
 
 using namespace wanderer;

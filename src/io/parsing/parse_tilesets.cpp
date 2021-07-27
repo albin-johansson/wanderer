@@ -4,9 +4,9 @@
 #include <utility>   // move
 
 #include "core/game_constants.hpp"
-#include "io/parsing/parse_tile.hpp"
+#include "io/parsing/tiles/parse_tile.hpp"
 
-namespace wanderer {
+namespace wanderer::io {
 namespace {
 
 [[nodiscard]] auto make_texture(const std::filesystem::path& path) -> ir::texture
@@ -51,6 +51,7 @@ auto parse_tilesets(const rune::tmx_tilesets& tilesets,
   {
     auto& data = results.emplace_back();
 
+    data.name = tileset.name;
     data.sheet = make_texture(directory / tileset.image);
     data.x_ratio = glob::tile_width<float> / static_cast<float>(tileset.tile_width);
     data.y_ratio = glob::tile_height<float> / static_cast<float>(tileset.tile_height);
@@ -62,4 +63,4 @@ auto parse_tilesets(const rune::tmx_tilesets& tilesets,
   return results;
 }
 
-}  // namespace wanderer
+}  // namespace wanderer::io

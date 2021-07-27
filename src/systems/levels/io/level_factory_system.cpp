@@ -71,7 +71,7 @@ auto make_level(const ir::level& data, graphics_context& graphics) -> comp::leve
   add_ground_layers(level.registry, data);
 
   load_tile_objects(level, graphics, data);
-  load_objects(level.registry, data);
+  load_objects(level.registry, graphics, data);
   load_humanoids(level, graphics);
 
   sys::center_viewport_on(level.registry, level.player_spawn_position.value());

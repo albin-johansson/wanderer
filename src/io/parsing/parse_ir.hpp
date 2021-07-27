@@ -17,6 +17,7 @@
 #include "components/map/tile_layer.hpp"
 #include "components/map/tile_object.hpp"
 #include "components/object.hpp"
+#include "components/plant.hpp"
 #include "core/aliases/depth.hpp"
 #include "core/aliases/maybe.hpp"
 #include "core/aliases/texture_id.hpp"
@@ -49,6 +50,7 @@ struct tile final
 
 struct tileset final
 {
+  std::string name;
   texture sheet;
   std::map<tile_id, tile> tiles;  ///< Tiles in the tileset.
   float x_ratio{};                ///< Logical tile width divided by tileset tile width.
@@ -69,12 +71,13 @@ struct object final
 {
   int id{};                              ///< Unique object ID.
   maybe<comp::hitbox> hitbox;            ///< Optional hitbox.
-  maybe<comp::depth_drawable> drawable;  ///< Optional drawable.
+  maybe<depth_drawable> drawable;        ///< Optional drawable.
   maybe<comp::spawnpoint> spawnpoint;    ///< Optional spawnpoint.
   maybe<comp::inventory> inventory;      ///< Optional inventory.
   maybe<comp::portal> portal;            ///< Optional portal.
   maybe<comp::point_light> light;        ///< Optional light.
   maybe<comp::bed_trigger> bed_trigger;  ///< Optional bed trigger.
+  maybe<comp::plant> plant;              ///< Optional plant.
   maybe<int> inventory_ref;  ///< Optional inventory ID, used by inv. triggers.
 };
 

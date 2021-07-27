@@ -10,7 +10,7 @@
 #include "core/serialization.hpp"
 #include "io/directories.hpp"
 #include "io/saves/parse_save_file.hpp"
-#include "systems/levels/level_factory_system.hpp"
+#include "systems/levels/io/level_factory_system.hpp"
 
 namespace wanderer {
 namespace {

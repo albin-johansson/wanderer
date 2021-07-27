@@ -6,7 +6,7 @@
 #include "core/aliases/tile_id.hpp"
 #include "io/parsing/parse_ir.hpp"
 
-namespace wanderer {
+namespace wanderer::io {
 
 [[nodiscard]] auto make_tile(tile_id id,
                              int index,
@@ -18,4 +18,4 @@ namespace wanderer {
                                     const rune::tmx_tile& tile,
                                     tile_id firstGid) -> ir::fancy_tile;
 
-}  // namespace wanderer
+}  // namespace wanderer::io

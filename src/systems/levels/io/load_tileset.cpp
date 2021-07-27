@@ -60,9 +60,8 @@ void load_tileset(entt::registry& registry,
 {
   auto& tileset = registry.emplace<comp::tileset>(entity);
 
-  tileset.tiles.reserve(accumulate(data, [](const ir::tileset& tileset) {
-    return tileset.tiles.size();
-  }));
+  tileset.tiles.reserve(
+      accumulate(data, [](const ir::tileset& tileset) { return tileset.tiles.size(); }));
 
   for (const auto& ts : data)
   {
