@@ -88,7 +88,7 @@ void update_particles(entt::registry& registry, const rune::delta_time dt)
 
 void render_particles(const entt::registry& registry, graphics_context& graphics)
 {
-  const auto& viewport = registry.ctx<const ctx::viewport>();
+  const auto& viewport = registry.ctx<ctx::viewport>();
   auto& renderer = graphics.renderer();
 
   for (auto&& [entity, particle] : registry.view<comp::particle>().each())

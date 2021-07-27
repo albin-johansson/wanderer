@@ -180,7 +180,7 @@ void change_to_next_day(entt::registry& shared,
 
 void render_clock(const entt::registry& registry, graphics_context& graphics)
 {
-  const auto& time = registry.ctx<const ctx::time_of_day>();
+  const auto& time = registry.ctx<ctx::time_of_day>();
 
   const auto hour = static_cast<int>(time.hour) % 24;
   const auto minute = static_cast<int>(time.minute) % 60;

@@ -114,7 +114,7 @@ void update_viewport(entt::registry& registry,
 
 void translate_viewport(const entt::registry& registry, cen::renderer& renderer)
 {
-  const auto& viewport = registry.ctx<const ctx::viewport>();
+  const auto& viewport = registry.ctx<ctx::viewport>();
   renderer.set_translation_viewport(viewport.bounds);
 }
 

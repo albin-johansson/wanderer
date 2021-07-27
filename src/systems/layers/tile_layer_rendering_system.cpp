@@ -50,7 +50,7 @@ void render_layer(const entt::registry& registry,
 void render_tile_layers(const entt::registry& registry, graphics_context& graphics)
 {
   const auto& [tilesetEntity, tileset] = singleton<const comp::tileset>(registry);
-  const auto& bounds = registry.ctx<const ctx::render_bounds>();
+  const auto& bounds = registry.ctx<ctx::render_bounds>();
 
   for (auto&& [entity, layer] : registry.view<comp::tile_layer>().each())
   {

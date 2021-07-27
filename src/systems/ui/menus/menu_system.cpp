@@ -62,7 +62,7 @@ void switch_menu(entt::registry& registry, entt::dispatcher& dispatcher, const m
 
 auto is_current_menu_blocking(const entt::registry& registry) -> bool
 {
-  const auto menuEntity = registry.ctx<const ctx::active_menu>().entity;
+  const auto menuEntity = registry.ctx<ctx::active_menu>().entity;
   return registry.get<comp::menu>(menuEntity).blocking;
 }
 

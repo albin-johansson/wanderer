@@ -72,7 +72,7 @@ void render_author_label(graphics_context& graphics)
 
 void render_active_menu(const entt::registry& registry, graphics_context& graphics)
 {
-  const auto menuEntity = registry.ctx<const ctx::active_menu>().entity;
+  const auto menuEntity = registry.ctx<ctx::active_menu>().entity;
 
   const auto& menu = registry.get<comp::menu>(menuEntity);
   const auto& drawable = registry.get<comp::menu_drawable>(menuEntity);

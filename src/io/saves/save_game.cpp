@@ -47,7 +47,7 @@ void save_shared_registry(const std::filesystem::path& directory,
   std::ofstream stream{directory / "shared_data.wanderer"};
   output_archive archive{stream};
 
-  const auto& time = shared.ctx<const ctx::time_of_day>();
+  const auto& time = shared.ctx<ctx::time_of_day>();
   archive(time);
 }
 
@@ -66,7 +66,7 @@ void save_shared_registry(const std::filesystem::path& directory,
     object["data"] = name;
     object["outside_level"] = shared.all_of<comp::outside_level>(entity);
 
-    const auto& viewport = level.registry.ctx<const ctx::viewport>();
+    const auto& viewport = level.registry.ctx<ctx::viewport>();
     object["keep_viewport_in_bounds"] = viewport.keep_in_bounds;
   }
 

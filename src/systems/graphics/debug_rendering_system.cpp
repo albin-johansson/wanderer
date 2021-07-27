@@ -107,7 +107,7 @@ void render_menu_debug_info(const entt::registry& registry, graphics_context& gr
 {
   auto& renderer = graphics.renderer();
 
-  const auto menuEntity = registry.ctx<const ctx::active_menu>().entity;
+  const auto menuEntity = registry.ctx<ctx::active_menu>().entity;
   const auto& menu = registry.get<comp::menu>(menuEntity);
 
   if (menu.id != menu_id::in_game)

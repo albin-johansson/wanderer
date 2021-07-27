@@ -80,7 +80,7 @@ auto toggle_integer_scaling(entt::registry& registry) -> bool
 
 void save_settings_before_exit(const entt::registry& registry)
 {
-  const auto& settings = registry.ctx<const ctx::settings>();
+  const auto& settings = registry.ctx<ctx::settings>();
 
   rune::ini_file ini;
   ini["Graphics"]["Fullscreen"] = settings.fullscreen;

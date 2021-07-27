@@ -53,7 +53,7 @@ void render_lights(const entt::registry& registry,
   renderer.clear_with(time.tint);
 
   const auto index = graphics.load(texture_id{"point_light"_hs}, texture_path);
-  const auto& viewport = registry.ctx<const ctx::viewport>();
+  const auto& viewport = registry.ctx<ctx::viewport>();
   constexpr auto source = cen::rect(0, 0, 80, 80);
 
   for (auto&& [entity, light] : registry.view<comp::point_light>().each())

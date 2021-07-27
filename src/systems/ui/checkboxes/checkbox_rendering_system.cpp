@@ -42,7 +42,7 @@ void render_checkbox(const entt::registry& registry,
 
 void render_checkboxes(const entt::registry& registry, graphics_context& graphics)
 {
-  const auto menuEntity = registry.ctx<const ctx::active_menu>().entity;
+  const auto menuEntity = registry.ctx<ctx::active_menu>().entity;
 
   for (auto&& [entity, checkbox, associated] :
        registry.view<comp::checkbox, comp::associated_menu>().each())

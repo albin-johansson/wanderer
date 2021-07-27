@@ -31,10 +31,10 @@ void render_hint(graphics_context& graphics, const auto& text)
 
 void render_hints(const entt::registry& shared, graphics_context& graphics)
 {
-  const auto& binds = shared.ctx<const ctx::binds>();
+  const auto& binds = shared.ctx<ctx::binds>();
   const auto& level = current_level(shared);
 
-  const auto player = singleton_entity<const comp::player>(level.registry);
+  const auto player = singleton_entity<comp::player>(level.registry);
   if (level.registry.all_of<comp::is_within_portal>(player))
   {
     if (sys::is_current_level_outside(shared))
