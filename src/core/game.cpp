@@ -85,7 +85,7 @@ void game::on_start()
 {
   sys::load_settings(m_shared);
   m_shared.set<ctx::binds>(sys::load_binds());
-  m_shared.ctx<ctx::time_of_day>().seconds = 43'200;  // Start at 12:00
+  m_shared.ctx<ctx::time_of_day>().seconds = sys::hour_to_seconds(12);
 
   {
     auto& data = m_shared.emplace<comp::fps_data>(m_shared.create());

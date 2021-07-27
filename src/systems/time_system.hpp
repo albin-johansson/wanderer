@@ -10,6 +10,11 @@ namespace wanderer::sys {
 /// \name Time
 /// \{
 
+[[nodiscard]] constexpr auto hour_to_seconds(const float hour) noexcept -> float
+{
+  return hour * 3'600.0f;
+}
+
 /**
  * \brief Updates the state of the time.
  *
