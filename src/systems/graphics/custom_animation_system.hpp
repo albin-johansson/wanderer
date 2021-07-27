@@ -30,7 +30,6 @@ auto start_bond_animation(entt::registry& registry, uint32 id) -> entt::entity;
  * \ingroup systems
  *
  * \param registry the current level registry.
- * \param msg the message that will be associated with the animation.
  *
  * \return the created animation entity.
  *
