@@ -4,13 +4,13 @@
 #include <centurion.hpp>  // ticks
 #include <utility>        // move
 
+#include "components/animated.hpp"
 #include "components/chase.hpp"
-#include "components/graphics/animated.hpp"
-#include "components/graphics/depth_drawable.hpp"
-#include "components/graphics/point_light.hpp"
+#include "components/depth_drawable.hpp"
 #include "components/hitbox.hpp"
 #include "components/humanoid_state.hpp"
 #include "components/movable.hpp"
+#include "components/point_light.hpp"
 #include "components/roam.hpp"
 #include "core/direction.hpp"
 #include "core/ecs/registry_utils.hpp"

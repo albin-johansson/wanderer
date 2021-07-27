@@ -2,7 +2,7 @@
 
 #include <rune.hpp>  // tmx_object
 
-#include "components/map/spawnpoint.hpp"
+#include "components/spawnpoint.hpp"
 
 namespace wanderer::io {
 

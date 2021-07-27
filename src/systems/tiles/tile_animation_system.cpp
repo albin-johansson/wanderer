@@ -2,7 +2,7 @@
 
 #include <centurion.hpp>  // ticks
 
-#include "components/graphics/tile_animation.hpp"
+#include "components/tile_animation.hpp"
 
 namespace wanderer::sys {
 

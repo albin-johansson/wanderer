@@ -1,6 +1,6 @@
 #pragma once
 
-#include "components/map/tile.hpp"
+#include "components/tile.hpp"
 #include "components/tileset.hpp"
 #include "core/graphics/graphics_context.hpp"
 #include "core/grid_position.hpp"

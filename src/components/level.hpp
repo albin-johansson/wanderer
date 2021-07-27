@@ -2,13 +2,13 @@
 
 #include <entt.hpp>  // registry
 
-#include "components/map/tilemap.hpp"
 #include "components/tileset.hpp"
 #include "core/aliases/aabb_tree.hpp"
 #include "core/aliases/entity_type.hpp"
 #include "core/aliases/float2.hpp"
 #include "core/aliases/maybe.hpp"
 #include "core/ecs/null_entity.hpp"
+#include "tilemap.hpp"
 
 namespace wanderer::comp {
 

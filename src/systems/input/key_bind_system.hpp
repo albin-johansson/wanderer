@@ -4,7 +4,7 @@
 #include <entt.hpp>       // registry
 #include <type_traits>    // is_same_v
 
-#include "components/input/key_bind.hpp"
+#include "components/key_bind.hpp"
 #include "components/ui/associated_menu.hpp"
 #include "components/ui/menu.hpp"
 #include "core/menu_action.hpp"

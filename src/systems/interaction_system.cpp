@@ -1,9 +1,9 @@
 #include "interaction_system.hpp"
 
 #include "components/bed_trigger.hpp"
-#include "components/inventory/container_trigger.hpp"
-#include "components/map/portal.hpp"
+#include "components/container_trigger.hpp"
 #include "components/player.hpp"
+#include "components/portal.hpp"
 #include "core/ecs/null_entity.hpp"
 #include "core/ecs/registry_utils.hpp"
 #include "events/close_inventory_event.hpp"

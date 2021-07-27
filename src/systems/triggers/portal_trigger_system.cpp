@@ -1,6 +1,6 @@
 #include "portal_trigger_system.hpp"
 
-#include "components/map/portal.hpp"
+#include "components/portal.hpp"
 #include "update_triggers.hpp"
 
 namespace wanderer::sys {

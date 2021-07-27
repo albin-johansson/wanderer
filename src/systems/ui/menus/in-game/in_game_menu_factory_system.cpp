@@ -1,6 +1,6 @@
 #include "in_game_menu_factory_system.hpp"
 
-#include "components/input/key_bind.hpp"
+#include "components/key_bind.hpp"
 #include "core/menu_action.hpp"
 #include "systems/input/key_bind_system.hpp"
 #include "systems/ui/menus/menu_factory_system.hpp"

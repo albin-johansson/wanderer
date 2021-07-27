@@ -6,18 +6,35 @@ set(SOURCE_FILES
     wanderer_engine.cpp
     wanderer_engine.hpp
 
+    components/animated.hpp
     components/bed_trigger.hpp
     components/chase.hpp
+    components/container_trigger.hpp
+    components/custom_animation.hpp
+    components/depth_drawable.hpp
     components/float3.hpp
     components/hitbox.hpp
     components/humanoid_state.hpp
+    components/inventory.hpp
+    components/item.hpp
+    components/key_bind.hpp
+    components/level.hpp
     components/level_switch_target.hpp
     components/movable.hpp
     components/object.hpp
     components/outside_level.hpp
+    components/particle.hpp
     components/plant.hpp
     components/player.hpp
+    components/point_light.hpp
+    components/portal.hpp
     components/roam.hpp
+    components/spawnpoint.hpp
+    components/tile.hpp
+    components/tile_animation.hpp
+    components/tile_layer.hpp
+    components/tile_object.hpp
+    components/tilemap.hpp
     components/tileset.hpp
 
     components/ctx/active_menu.hpp
@@ -29,27 +46,6 @@ set(SOURCE_FILES
     components/ctx/settings.hpp
     components/ctx/time_of_day.hpp
     components/ctx/viewport.hpp
-
-    components/graphics/animated.hpp
-    components/graphics/custom_animation.hpp
-    components/graphics/depth_drawable.hpp
-    components/graphics/particle.hpp
-    components/graphics/point_light.hpp
-    components/graphics/tile_animation.hpp
-
-    components/input/key_bind.hpp
-
-    components/inventory/container_trigger.hpp
-    components/inventory/inventory.hpp
-    components/inventory/item.hpp
-
-    components/map/level.hpp
-    components/map/portal.hpp
-    components/map/spawnpoint.hpp
-    components/map/tile.hpp
-    components/map/tile_layer.hpp
-    components/map/tile_object.hpp
-    components/map/tilemap.hpp
 
     components/ui/associated_menu.hpp
     components/ui/button.hpp

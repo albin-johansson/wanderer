@@ -2,7 +2,7 @@
 
 #include <rune.hpp>  // tmx_object
 
-#include "components/graphics/point_light.hpp"
+#include "components/point_light.hpp"
 
 namespace wanderer::io {
 

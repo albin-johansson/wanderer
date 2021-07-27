@@ -1,6 +1,6 @@
 #include "container_trigger_system.hpp"
 
-#include "components/inventory/container_trigger.hpp"
+#include "components/container_trigger.hpp"
 #include "update_triggers.hpp"
 
 namespace wanderer::sys {

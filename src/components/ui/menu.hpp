@@ -4,7 +4,7 @@
 #include <string>         // string
 #include <vector>         // vector
 
-#include "components/input/key_bind.hpp"
+#include "components/key_bind.hpp"
 #include "core/aliases/entity_type.hpp"
 #include "core/aliases/maybe.hpp"
 #include "core/ecs/null_entity.hpp"

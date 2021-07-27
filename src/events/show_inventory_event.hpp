@@ -1,6 +1,6 @@
 #pragma once
 
-#include "components/inventory/inventory.hpp"
+#include "components/inventory.hpp"
 #include "core/ecs/null_entity.hpp"
 
 namespace wanderer {

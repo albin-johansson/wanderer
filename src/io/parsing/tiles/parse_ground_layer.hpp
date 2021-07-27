@@ -2,7 +2,7 @@
 
 #include <rune.hpp>  // tmx_tile_layer
 
-#include "components/map/tile_layer.hpp"
+#include "components/tile_layer.hpp"
 
 namespace wanderer::io {
 

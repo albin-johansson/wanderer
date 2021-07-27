@@ -2,7 +2,7 @@
 
 #include <filesystem>  // path
 
-#include "components/map/level.hpp"
+#include "components/level.hpp"
 
 namespace wanderer::sys {
 

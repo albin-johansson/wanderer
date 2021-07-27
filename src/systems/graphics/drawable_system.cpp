@@ -1,7 +1,7 @@
 #include "drawable_system.hpp"
 
 #include "components/ctx/viewport.hpp"
-#include "components/graphics/depth_drawable.hpp"
+#include "components/depth_drawable.hpp"
 #include "components/movable.hpp"
 #include "systems/graphics/render_bounds_system.hpp"
 

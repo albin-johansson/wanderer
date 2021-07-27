@@ -2,7 +2,7 @@
 
 #include <entt.hpp>  // registry
 
-#include "components/map/tilemap.hpp"
+#include "components/tilemap.hpp"
 #include "io/parsing/parse_ir.hpp"
 
 namespace wanderer::sys {

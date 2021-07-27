@@ -2,7 +2,7 @@
 
 #include <entt.hpp>  // registry
 
-#include "components/map/tile.hpp"
+#include "components/tile.hpp"
 #include "core/aliases/tile_id.hpp"
 
 namespace wanderer::sys {

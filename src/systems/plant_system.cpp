@@ -2,7 +2,7 @@
 
 #include <algorithm>  // find
 
-#include "components/graphics/depth_drawable.hpp"
+#include "components/depth_drawable.hpp"
 #include "components/plant.hpp"
 #include "core/game_constants.hpp"
 #include "systems/tiles/tile_system.hpp"

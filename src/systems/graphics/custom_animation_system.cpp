@@ -1,6 +1,6 @@
 #include "custom_animation_system.hpp"
 
-#include "components/graphics/custom_animation.hpp"
+#include "components/custom_animation.hpp"
 #include "core/game_constants.hpp"
 #include "events/custom_animation_halfway_event.hpp"
 

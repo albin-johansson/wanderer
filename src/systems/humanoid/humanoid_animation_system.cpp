@@ -2,8 +2,8 @@
 
 #include <cassert>  // assert
 
-#include "components/graphics/animated.hpp"
-#include "components/graphics/depth_drawable.hpp"
+#include "components/animated.hpp"
+#include "components/depth_drawable.hpp"
 #include "components/humanoid_state.hpp"
 #include "components/movable.hpp"
 #include "core/aliases/milliseconds.hpp"

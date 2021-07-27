@@ -5,7 +5,7 @@
 
 #include "components/ctx/time_of_day.hpp"
 #include "components/ctx/viewport.hpp"
-#include "components/map/level.hpp"
+#include "components/level.hpp"
 #include "components/outside_level.hpp"
 #include "core/serialization.hpp"
 #include "io/directories.hpp"

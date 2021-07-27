@@ -1,8 +1,8 @@
 #include "tile_object_animation_system.hpp"
 
-#include "components/graphics/depth_drawable.hpp"
-#include "components/graphics/tile_animation.hpp"
-#include "components/map/tile_object.hpp"
+#include "components/depth_drawable.hpp"
+#include "components/tile_animation.hpp"
+#include "components/tile_object.hpp"
 #include "core/ecs/registry_utils.hpp"
 #include "systems/tiles/tile_rendering_system.hpp"
 

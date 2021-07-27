@@ -3,10 +3,10 @@
 #include <format>  // format
 
 #include "components/bed_trigger.hpp"
+#include "components/container_trigger.hpp"
 #include "components/ctx/binds.hpp"
-#include "components/inventory/container_trigger.hpp"
-#include "components/map/portal.hpp"
 #include "components/player.hpp"
+#include "components/portal.hpp"
 #include "components/ui/fps_data.hpp"
 #include "core/ecs/registry_utils.hpp"
 #include "core/game_constants.hpp"
