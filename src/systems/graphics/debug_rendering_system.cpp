@@ -4,7 +4,7 @@
 #include "components/chase.hpp"
 #include "components/container_trigger.hpp"
 #include "components/ctx/active_menu.hpp"
-#include "components/graphics/depth_drawable.hpp"
+#include "components/depth_drawable.hpp"
 #include "components/hitbox.hpp"
 #include "components/player.hpp"
 #include "components/portal.hpp"
