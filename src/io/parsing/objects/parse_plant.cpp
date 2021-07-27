@@ -1,11 +1,33 @@
 #include "parse_plant.hpp"
 
 #include <cassert>  // assert
+#include <string>   // string
+#include <vector>   // vector
 
 #include "io/parsing/common.hpp"
 #include "io/parsing/csv.hpp"
 
 namespace wanderer::io {
+namespace {
+
+[[nodiscard]] auto parse_tiles(const std::string& csv, const int offset)
+    -> std::vector<tile_id>
+{
+  const auto tokens = parse_csv(csv);
+
+  std::vector<tile_id> tiles;
+  tiles.reserve(tokens.size());
+
+  for (const auto& token : tokens)
+  {
+    const tile_id tile{offset + rune::from_string<tile_id::value_type>(token).value()};
+    tiles.push_back(tile);
+  }
+
+  return tiles;
+}
+
+}  // namespace
 
 auto parse_plant(const ir::level& data, const rune::tmx_object& object) -> comp::plant
 {
@@ -18,16 +40,14 @@ auto parse_plant(const ir::level& data, const rune::tmx_object& object) -> comp:
 
   const auto tileset = rune::tmx::get_string(object.properties, "tileset");
   const auto offset = get_tileset_offset(data, tileset);
+  const auto tileSize = get_tileset_tile_size(data, tileset);
 
-  // TODO allow multiple tiles per frame, e.g. "1,2:3,4,5:6"
-  const auto csv = rune::tmx::get_string(object.properties, "tiles");
-  const auto tokens = parse_csv(csv);
+  plant.tile_height = tileSize->height;
+  plant.tiles = parse_tiles(rune::tmx::get_string(object.properties, "tiles"), offset);
 
-  plant.tiles.reserve(tokens.size());
-  for (const auto& token : tokens)
+  if (const auto* tallTiles = rune::tmx::try_get_string(object.properties, "tallTiles"))
   {
-    const tile_id tile{offset + rune::from_string<tile_id::value_type>(token).value()};
-    plant.tiles.push_back(tile);
+    plant.tall = parse_tiles(*tallTiles, offset);
   }
 
   return plant;

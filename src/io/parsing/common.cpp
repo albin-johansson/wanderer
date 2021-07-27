@@ -35,6 +35,20 @@ auto get_tileset_offset(const ir::level& data, const std::string_view tileset) -
   return offset;
 }
 
+auto get_tileset_tile_size(const ir::level& data, const std::string_view tileset)
+    -> maybe<cen::iarea>
+{
+  for (const auto& ts : data.tilesets)
+  {
+    if (ts.name == tileset)
+    {
+      return cen::iarea{ts.tile_width, ts.tile_height};
+    }
+  }
+
+  return std::nullopt;
+}
+
 auto make_depth_drawable(const ir::tile& tile,
                          const cen::fpoint& pos,
                          const cen::farea& size,

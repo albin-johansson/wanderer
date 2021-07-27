@@ -63,6 +63,8 @@ void parse_object_layer(ir::level& data,
       const cen::fpoint pos{object.x * data.x_ratio, object.y * data.y_ratio};
       const cen::farea size{object.width * data.x_ratio, object.height * data.y_ratio};
 
+      objectData.plant->base_y = pos.y();
+
       const auto tileId = objectData.plant->tiles.at(0);
       const auto tile = find_tile(data.tilesets, tileId).value();
 

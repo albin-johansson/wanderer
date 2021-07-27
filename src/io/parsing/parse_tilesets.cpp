@@ -55,6 +55,8 @@ auto parse_tilesets(const rune::tmx_tilesets& tilesets,
     data.sheet = make_texture(directory / tileset.image);
     data.x_ratio = glob::tile_width<float> / static_cast<float>(tileset.tile_width);
     data.y_ratio = glob::tile_height<float> / static_cast<float>(tileset.tile_height);
+    data.tile_width = tileset.tile_width;
+    data.tile_height = tileset.tile_height;
 
     add_tiles(data, tileset);
     add_fancy_tiles(data, tileset);

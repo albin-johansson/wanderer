@@ -55,6 +55,8 @@ struct tileset final
   std::map<tile_id, tile> tiles;  ///< Tiles in the tileset.
   float x_ratio{};                ///< Logical tile width divided by tileset tile width.
   float y_ratio{};                ///< Logical tile height divided by tileset tile height.
+  int tile_width{};
+  int tile_height{};
 };
 
 struct depth_drawable final
