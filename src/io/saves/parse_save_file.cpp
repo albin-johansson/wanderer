@@ -32,8 +32,8 @@ auto parse_save_file(const std::filesystem::path& path) -> save_file_info
     auto& level = contents.levels.emplace_back();
     level.id = get<map_id>(object, "id");
     level.path = path.parent_path() / object.at("data").get<std::string>();
-    level.outside_level = object.at("outside_level").get<bool>();
-    level.keep_viewport_in_bounds = object.at("keep_viewport_in_bounds").get<bool>();
+    object.at("outside_level").get_to(level.outside_level);
+    object.at("keep_viewport_in_bounds").get_to(level.keep_viewport_in_bounds);
   }
 
   return contents;
