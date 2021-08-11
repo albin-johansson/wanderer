@@ -30,7 +30,7 @@ namespace wanderer::sys {
 void render_labels(const entt::registry& registry, graphics_context& graphics)
 {
   const auto active = registry.ctx<ctx::active_menu>().entity;
-  auto& renderer = graphics.renderer();
+  auto& renderer = graphics.get_renderer();
 
   for (auto&& [entity, label, associated] :
        registry.view<comp::label, comp::associated_menu>().each())

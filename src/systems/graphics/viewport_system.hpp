@@ -1,8 +1,8 @@
 #pragma once
 
-#include <centurion.hpp>  // renderer, farea
-#include <entt.hpp>       // registry
-#include <rune.hpp>       // delta_time
+#include <centurion.hpp>        // renderer, farea
+#include <entt.hpp>             // registry
+#include <rune/everything.hpp>  // delta_time
 
 #include "components/ctx/viewport.hpp"
 #include "components/movable.hpp"

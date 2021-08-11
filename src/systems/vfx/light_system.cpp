@@ -1,7 +1,7 @@
 #include "light_system.hpp"
 
-#include <cmath>     // clamp
-#include <rune.hpp>  // next_bool
+#include <cmath>                // clamp
+#include <rune/everything.hpp>  // next_bool
 
 #include "components/ctx/viewport.hpp"
 #include "components/depth_drawable.hpp"
@@ -46,7 +46,7 @@ void render_lights(const entt::registry& registry,
                    const ctx::time_of_day& time,
                    const ctx::settings& settings)
 {
-  auto& renderer = graphics.renderer();
+  auto& renderer = graphics.get_renderer();
   auto& texture = graphics.light_canvas();
 
   renderer.set_target(texture);

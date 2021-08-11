@@ -1,8 +1,8 @@
 #include "movement_system.hpp"
 
-#include <iterator>  // back_inserter
-#include <rune.hpp>  // stack_resource
-#include <vector>    // vector
+#include <iterator>             // back_inserter
+#include <rune/everything.hpp>  // stack_resource
+#include <vector>               // vector
 
 #include "components/ctx/viewport.hpp"
 #include "components/hitbox.hpp"

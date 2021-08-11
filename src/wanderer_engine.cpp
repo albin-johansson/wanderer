@@ -41,7 +41,7 @@ void wanderer_engine::on_fullscreen_toggled(const fullscreen_toggled_event& even
 void wanderer_engine::on_integer_scaling_toggled(
     const integer_scaling_toggled_event& event)
 {
-  get_graphics().renderer().set_logical_integer_scaling(event.enabled);
+  get_graphics().get_renderer().set_logical_integer_scaling(event.enabled);
 }
 
 void wanderer_engine::on_load_game_event(const load_game_event& event)

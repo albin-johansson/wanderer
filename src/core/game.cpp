@@ -1,5 +1,6 @@
 #include "game.hpp"
 
+#include "aliases/milliseconds.hpp"
 #include "components/ctx/renderer_snapshot.hpp"
 #include "components/ctx/settings.hpp"
 #include "components/ui/fps_data.hpp"
@@ -50,7 +51,7 @@
 
 namespace wanderer {
 
-game::game(graphics_context& graphics)
+game::game(graphics_type& graphics)
     : m_shared{sys::make_shared_registry()}
     , m_dispatcher{make_dispatcher()}
 {
@@ -122,6 +123,8 @@ void game::tick(const rune::delta_time dt)
 
   auto& level = sys::current_level(m_shared);
   sys::update_fps(m_shared, dt);
+
+  sys::update_render_bounds(level.registry);
   sys::update_custom_animations(level.registry, m_dispatcher, dt);
 
   if (is_paused())
@@ -157,15 +160,15 @@ void game::tick(const rune::delta_time dt)
   sys::update_tile_object_animations(level.registry);
 }
 
-void game::render(graphics_context& graphics)
+void game::render(graphics_type& graphics) const
 {
-  auto& renderer = graphics.renderer();
+  auto& renderer = graphics.get_renderer();
   auto& level = sys::current_level(m_shared);
 
   renderer.clear_with(cen::colors::black);
 
   sys::translate_viewport(level.registry, renderer);
-  sys::update_render_bounds(level.registry);
+  // sys::update_render_bounds(level.registry);
 
   sys::render_tile_layers(level.registry, graphics);
   sys::render_drawables(level.registry, graphics);
@@ -207,7 +210,7 @@ void game::render(graphics_context& graphics)
   renderer.present();
 }
 
-void game::load_save(const std::string& name, graphics_context& graphics)
+void game::load_save(const std::string& name, graphics_type& graphics)
 {
   load_game(m_shared, graphics, name);
 

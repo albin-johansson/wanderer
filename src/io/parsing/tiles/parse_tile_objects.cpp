@@ -1,6 +1,6 @@
 #include "parse_tile_objects.hpp"
 
-#include <rune.hpp>  // index_to_matrix
+#include <rune/everything.hpp>  // index_to_matrix
 
 #include "core/game_constants.hpp"
 #include "core/utils/centurion_utils.hpp"

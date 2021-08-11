@@ -11,7 +11,7 @@ void render_lines(const entt::registry& registry, graphics_context& graphics)
 {
   const auto menuEntity = registry.ctx<ctx::active_menu>().entity;
 
-  auto& renderer = graphics.renderer();
+  auto& renderer = graphics.get_renderer();
   renderer.set_color(cen::colors::white);
 
   for (auto&& [entity, line, associated] :

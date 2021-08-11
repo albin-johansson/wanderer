@@ -74,7 +74,7 @@ void render_button(const entt::registry& registry,
                    graphics_context& graphics,
                    const comp::button::entity buttonEntity)
 {
-  auto& renderer = graphics.renderer();
+  auto& renderer = graphics.get_renderer();
   const auto& button = registry.get<comp::button>(buttonEntity);
   const auto& drawable = registry.get<comp::button_drawable>(buttonEntity);
 
@@ -124,7 +124,7 @@ void render_button_group_indicators(const entt::registry& registry,
   {
     if (associated.entity == menuEntity && group.selected != entt::null)
     {
-      auto& renderer = graphics.renderer();
+      auto& renderer = graphics.get_renderer();
       const auto& button = registry.get<comp::button>(group.selected);
       const auto& drawable = registry.get<comp::button_drawable>(group.selected);
       renderer.set_color(cen::colors::dark_green);

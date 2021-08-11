@@ -83,7 +83,7 @@ void render_chase_ranges(const entt::registry& registry, cen::renderer& renderer
 
 void render_development_build_label(graphics_context& graphics)
 {
-  auto& renderer = graphics.renderer();
+  auto& renderer = graphics.get_renderer();
   const auto& cache = graphics.small_font_cache();
 
   constexpr char str[] = "Development build";
@@ -97,7 +97,7 @@ void render_development_build_label(graphics_context& graphics)
 
 void render_debug_info(const entt::registry& registry, graphics_context& graphics)
 {
-  auto& renderer = graphics.renderer();
+  auto& renderer = graphics.get_renderer();
   render_hitboxes(registry, renderer);
   render_trigger_indicators(registry, renderer);
   render_chase_ranges(registry, renderer);
@@ -105,7 +105,7 @@ void render_debug_info(const entt::registry& registry, graphics_context& graphic
 
 void render_menu_debug_info(const entt::registry& registry, graphics_context& graphics)
 {
-  auto& renderer = graphics.renderer();
+  auto& renderer = graphics.get_renderer();
 
   const auto menuEntity = registry.ctx<ctx::active_menu>().entity;
   const auto& menu = registry.get<comp::menu>(menuEntity);

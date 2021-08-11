@@ -1,7 +1,7 @@
 #pragma once
 
-#include <centurion.hpp>  // window
-#include <rune.hpp>       // engine
+#include <centurion.hpp>        // window
+#include <rune/everything.hpp>  // engine
 
 #include "core/game.hpp"
 #include "core/graphics/graphics_context.hpp"

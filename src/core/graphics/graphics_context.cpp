@@ -11,22 +11,22 @@ inline const auto font_path = resources::font("type_writer.ttf");
 
 graphics_context::graphics_context(const cen::window& window, const uint32 flags)
     : rune::graphics{window, flags}
-    , m_lightCanvas{renderer(),
+    , m_lightCanvas{get_renderer(),
                     format(),
                     cen::texture_access::target,
                     glob::logical_size<>}
 {
   reserve(10);
 
-  auto& ren = renderer();
-  ren.set_blend_mode(cen::blend_mode::blend);
+  auto& renderer = get_renderer();
+  renderer.set_blend_mode(cen::blend_mode::blend);
 
-  ren.emplace_font(glob::menu_font_s, font_path, glob::small_font_size);
-  ren.emplace_font(glob::menu_font_m, font_path, glob::medium_font_size);
-  ren.emplace_font(glob::menu_font_l, font_path, glob::large_font_size);
+  renderer.emplace_font(glob::menu_font_s, font_path, glob::small_font_size);
+  renderer.emplace_font(glob::menu_font_m, font_path, glob::medium_font_size);
+  renderer.emplace_font(glob::menu_font_l, font_path, glob::large_font_size);
 
-  ren.set_logical_size(glob::logical_size<>);
-  ren.set_logical_integer_scaling(true);
+  renderer.set_logical_size(glob::logical_size<>);
+  renderer.set_logical_integer_scaling(true);
 
   emplace_cache(small_black_font, font_path, glob::small_font_size);
 
@@ -34,13 +34,13 @@ graphics_context::graphics_context(const cen::window& window, const uint32 flags
   emplace_cache(medium_font, font_path, glob::medium_font_size);
   emplace_cache(large_font, font_path, glob::large_font_size);
 
-  ren.set_color(cen::colors::black);
-  get_cache(small_black_font).add_latin1(ren);
+  renderer.set_color(cen::colors::black);
+  get_cache(small_black_font).add_latin1(renderer);
 
-  ren.set_color(cen::colors::white);
-  get_cache(small_font).add_latin1(ren);
-  get_cache(medium_font).add_latin1(ren);
-  get_cache(large_font).add_latin1(ren);
+  renderer.set_color(cen::colors::white);
+  get_cache(small_font).add_latin1(renderer);
+  get_cache(medium_font).add_latin1(renderer);
+  get_cache(large_font).add_latin1(renderer);
 
   m_lightCanvas.set_blend_mode(cen::blend_mode::mul);
 }

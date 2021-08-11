@@ -1,12 +1,12 @@
 #include "time_system.hpp"
 
-#include <centurion.hpp>  // to_underlying, ...
-#include <cmath>          // floor, ceil, lerp
-#include <format>         // format
-#include <rune.hpp>       // static_vector
-#include <stdexcept>      // runtime_error
-#include <string>         // string
-#include <string_view>    // string_view
+#include <centurion.hpp>        // to_underlying, ...
+#include <cmath>                // floor, ceil, lerp
+#include <format>               // format
+#include <rune/everything.hpp>  // static_vector
+#include <stdexcept>            // runtime_error
+#include <string>               // string
+#include <string_view>          // string_view
 
 #include "components/ctx/time_of_day.hpp"
 #include "core/aliases/ints.hpp"

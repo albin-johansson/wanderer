@@ -1,6 +1,6 @@
 #pragma once
 
-#include <rune.hpp>  // tmx_tile_layer
+#include <rune/everything.hpp>  // tmx_tile_layer
 
 #include "components/tile_layer.hpp"
 

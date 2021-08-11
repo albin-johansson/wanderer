@@ -1,6 +1,6 @@
 #pragma once
 
-#include <rune.hpp>  // float2
+#include <rune/everything.hpp>  // float2
 
 namespace wanderer {
 

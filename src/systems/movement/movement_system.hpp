@@ -1,7 +1,7 @@
 #pragma once
 
-#include <entt.hpp>  // registry
-#include <rune.hpp>  // delta_time
+#include <entt.hpp>             // registry
+#include <rune/everything.hpp>  // delta_time
 
 #include "core/aliases/aabb_tree.hpp"
 

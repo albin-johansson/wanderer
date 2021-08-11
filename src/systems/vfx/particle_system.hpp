@@ -1,8 +1,8 @@
 #pragma once
 
-#include <centurion.hpp>  // color
-#include <entt.hpp>       // registry
-#include <rune.hpp>       // delta_time
+#include <centurion.hpp>        // color
+#include <entt.hpp>             // registry
+#include <rune/everything.hpp>  // delta_time
 
 #include "core/aliases/float2.hpp"
 #include "core/graphics/graphics_context.hpp"

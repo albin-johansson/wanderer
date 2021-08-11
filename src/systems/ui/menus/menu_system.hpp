@@ -1,7 +1,7 @@
 #pragma once
 
-#include <entt.hpp>  // registry, dispatcher
-#include <rune.hpp>  // input
+#include <entt.hpp>             // registry, dispatcher
+#include <rune/everything.hpp>  // input
 
 #include "core/menu_id.hpp"
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <rune.hpp>  // tmx_map
+#include <rune/everything.hpp>  // tmx_map
 
 #include "io/parsing/parse_ir.hpp"
 

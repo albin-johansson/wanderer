@@ -1,6 +1,6 @@
 #pragma once
 
-#include <rune.hpp>  // tmx_object
+#include <rune/everything.hpp>  // tmx_object
 
 #include "components/portal.hpp"
 

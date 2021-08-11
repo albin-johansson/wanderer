@@ -15,8 +15,8 @@
 /// \defgroup events Events
 /// \brief Contains all events emitted in the game.
 
-#include <centurion.hpp>  // ipoint
-#include <rune.hpp>       // input, delta_time
+#include <centurion.hpp>        // ipoint
+#include <rune/everything.hpp>  // basic_game, input, delta_time
 
 #include "components/level.hpp"
 #include "core/graphics/graphics_context.hpp"
@@ -46,24 +46,24 @@ namespace wanderer {
  *
  * \headerfile game.hpp
  */
-class game final
+class game final : public rune::basic_game<graphics_context>
 {
  public:
-  explicit game(graphics_context& graphics);
+  explicit game(graphics_type& graphics);
 
   ~game();
 
-  void on_start();
+  void on_start() override;
 
-  void on_exit();
+  void on_exit() override;
 
-  void handle_input(const rune::input& input);
+  void handle_input(const rune::input& input) override;
 
-  void tick(rune::delta_time dt);
+  void tick(rune::delta_time dt) override;
 
-  void render(graphics_context& graphics);
+  void render(graphics_type& gfx) const override;
 
-  void load_save(const std::string& name, graphics_context& graphics);
+  void load_save(const std::string& name, graphics_type& graphics);
 
   template <typename Event>
   [[nodiscard]] auto sink()
@@ -71,16 +71,16 @@ class game final
     return m_dispatcher.sink<Event>();
   }
 
-  [[nodiscard]] auto should_quit() const noexcept -> bool
+  [[nodiscard]] auto should_quit() const noexcept -> bool override
   {
     return m_quit;
   }
 
  private:
-  entt::registry m_shared;  // Shared data registry, contains menus, settings, etc.
+  mutable entt::registry m_shared;  // Contains menus, settings, etc.
   entt::dispatcher m_dispatcher;
   cen::ipoint m_mousePos;
-  bool m_updateSnapshot{};
+  mutable bool m_updateSnapshot{};
   bool m_quit{};
 
   [[nodiscard]] auto is_paused() const -> bool;

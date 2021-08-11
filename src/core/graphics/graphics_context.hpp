@@ -1,7 +1,7 @@
 #pragma once
 
-#include <centurion.hpp>  // window, texture
-#include <rune.hpp>       // graphics
+#include <centurion.hpp>        // window, texture
+#include <rune/everything.hpp>  // graphics
 
 #include "core/aliases/ints.hpp"
 #include "core/aliases/texture_id.hpp"
@@ -12,10 +12,10 @@ namespace wanderer {
 
 class graphics_context final : public rune::graphics
 {
-  inline static constexpr font_id small_font = 0;
-  inline static constexpr font_id medium_font = 1;
-  inline static constexpr font_id large_font = 2;
-  inline static constexpr font_id small_black_font = 3;
+  inline static constexpr rune::font_id small_font = 0;
+  inline static constexpr rune::font_id medium_font = 1;
+  inline static constexpr rune::font_id large_font = 2;
+  inline static constexpr rune::font_id small_black_font = 3;
 
  public:
   /**
@@ -44,7 +44,7 @@ class graphics_context final : public rune::graphics
               const cen::irect& src,
               const cen::frect& dst) noexcept
   {
-    renderer().render_t(at(index), src, dst);
+    get_renderer().render_t(at(index), src, dst);
   }
 
   /**
@@ -60,9 +60,9 @@ class graphics_context final : public rune::graphics
     const auto& black = small_black_font_cache();
     const auto& white = small_font_cache();
 
-    auto& ren = renderer();
-    ren.render_text(black, text, position + cen::point(1, 1));
-    ren.render_text(white, text, position);
+    auto& renderer = get_renderer();
+    renderer.render_text(black, text, position + cen::point(1, 1));
+    renderer.render_text(white, text, position);
   }
 
   /**

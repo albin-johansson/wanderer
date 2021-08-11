@@ -4,9 +4,9 @@
 
 #include <SDL.h>
 
-#include <centurion.hpp>  // library
-#include <entt.hpp>       // id_type
-#include <rune.hpp>       // ...
+#include <centurion.hpp>        // library
+#include <entt.hpp>             // id_type
+#include <rune/everything.hpp>  // ...
 
 #include "wanderer_engine.hpp"
 

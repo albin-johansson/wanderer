@@ -1,6 +1,6 @@
 #pragma once
 
-#include <rune.hpp>  // delta_time
+#include <rune/everything.hpp>  // delta_time
 
 #include "core/aliases/milliseconds.hpp"
 

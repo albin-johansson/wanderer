@@ -1,8 +1,8 @@
 #include "parse_world.hpp"
 
-#include <cassert>        // assert
-#include <centurion.hpp>  // CENTURION_LOG_INFO
-#include <rune.hpp>       // tmx_map, ...
+#include <cassert>              // assert
+#include <centurion.hpp>        // CENTURION_LOG_INFO
+#include <rune/everything.hpp>  // tmx_map, ...
 
 #include "core/game_constants.hpp"
 #include "io/parsing/parse_layers.hpp"

@@ -54,7 +54,7 @@ void render_author_label(graphics_context& graphics)
 {
   constexpr auto id = "developed_by_albin_johansson"_hs;
 
-  auto& renderer = graphics.renderer();
+  auto& renderer = graphics.get_renderer();
   auto& cache = graphics.small_font_cache();
 
   if (!cache.has_stored(id))
@@ -77,7 +77,7 @@ void render_active_menu(const entt::registry& registry, graphics_context& graphi
   const auto& menu = registry.get<comp::menu>(menuEntity);
   const auto& drawable = registry.get<comp::menu_drawable>(menuEntity);
 
-  auto& renderer = graphics.renderer();
+  auto& renderer = graphics.get_renderer();
 
   if (menu.blocking)
   {

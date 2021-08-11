@@ -1,6 +1,6 @@
 #include "particle_system.hpp"
 
-#include <rune.hpp>  // next_random
+#include <rune/everything.hpp>  // next_random
 
 #include "components/ctx/viewport.hpp"
 #include "components/particle.hpp"
@@ -89,7 +89,7 @@ void update_particles(entt::registry& registry, const rune::delta_time dt)
 void render_particles(const entt::registry& registry, graphics_context& graphics)
 {
   const auto& viewport = registry.ctx<ctx::viewport>();
-  auto& renderer = graphics.renderer();
+  auto& renderer = graphics.get_renderer();
 
   for (auto&& [entity, particle] : registry.view<comp::particle>().each())
   {

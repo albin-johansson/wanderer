@@ -1,7 +1,7 @@
 #include "load_binds_system.hpp"
 
-#include <filesystem>  // exists, copy, path
-#include <rune.hpp>    // ini_file
+#include <filesystem>           // exists, copy, path
+#include <rune/everything.hpp>  // ini_file
 
 #include "io/directories.hpp"
 

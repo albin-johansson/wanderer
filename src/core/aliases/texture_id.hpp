@@ -1,6 +1,6 @@
 #pragma once
 
-#include <rune.hpp>  // texture_id
+#include <rune/everything.hpp>  // texture_id
 
 namespace wanderer {
 

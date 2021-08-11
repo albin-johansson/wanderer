@@ -8,4 +8,4 @@ namespace wanderer {
 
 using ms_t = cen::milliseconds<uint32>;
 
-}
+}  // namespace wanderer

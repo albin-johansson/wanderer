@@ -1,6 +1,6 @@
 #include "inventory_rendering_system.hpp"
 
-#include <rune.hpp>  // index_to_matrix
+#include <rune/everything.hpp>  // index_to_matrix
 
 #include "components/inventory.hpp"
 #include "components/item.hpp"
@@ -49,7 +49,7 @@ void render_inventory_bar(const entt::registry& registry, graphics_context& grap
   constexpr auto x = center_x(totalWidth);
   constexpr auto y = glob::logical_height<int> - bar_cell_height - glob::default_margin;
 
-  auto& renderer = graphics.renderer();
+  auto& renderer = graphics.get_renderer();
   for (auto i = 0; i < bar_cell_count; ++i)
   {
     const auto cell = cen::rect(x + (i * (bar_cell_width + bar_cell_spacing)),
@@ -69,7 +69,7 @@ void render_inventory(const entt::registry& registry,
                       graphics_context& graphics,
                       const cen::ipoint& mousePos)
 {
-  auto& renderer = graphics.renderer();
+  auto& renderer = graphics.get_renderer();
 
   const auto getCellPos = [](const int row, const int col) noexcept {
     return cen::ipoint{origin.x() + (col * (cell_width + spacing)),

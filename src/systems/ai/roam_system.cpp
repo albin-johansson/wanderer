@@ -1,6 +1,6 @@
 #include "roam_system.hpp"
 
-#include <rune.hpp>  // next_random
+#include <rune/everything.hpp>  // next_random
 
 #include "components/humanoid_state.hpp"
 #include "components/movable.hpp"

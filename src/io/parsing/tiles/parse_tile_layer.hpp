@@ -1,6 +1,6 @@
 #pragma once
 
-#include <rune.hpp>  // tmx_map, tmx_tile_layer, tmx_properties
+#include <rune/everything.hpp>  // tmx_map, tmx_tile_layer, tmx_properties
 
 #include "io/parsing/parse_ir.hpp"
 

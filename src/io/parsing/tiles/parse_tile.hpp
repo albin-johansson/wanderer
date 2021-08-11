@@ -1,6 +1,6 @@
 #pragma once
 
-#include <rune.hpp>  // tmx_tile, tmx_tileset
+#include <rune/everything.hpp>  // tmx_tile, tmx_tileset
 
 #include "core/aliases/texture_id.hpp"
 #include "core/aliases/tile_id.hpp"

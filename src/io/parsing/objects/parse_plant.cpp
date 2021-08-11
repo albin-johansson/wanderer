@@ -45,7 +45,7 @@ auto parse_plant(const ir::level& data, const rune::tmx_object& object) -> comp:
   plant.tile_height = tileSize->height;
   plant.tiles = parse_tiles(rune::tmx::get_string(object.properties, "tiles"), offset);
 
-  if (const auto* tallTiles = rune::tmx::try_get_string(object.properties, "tallTiles"))
+  if (const auto* tallTiles = rune::tmx::get_if_string(object.properties, "tallTiles"))
   {
     plant.tall = parse_tiles(*tallTiles, offset);
   }

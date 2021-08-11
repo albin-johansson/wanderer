@@ -1,8 +1,8 @@
 #pragma once
 
-#include <array>          // array
-#include <centurion.hpp>  // farea, frect
-#include <rune.hpp>       // static_vector
+#include <array>                // array
+#include <centurion.hpp>        // farea, frect
+#include <rune/everything.hpp>  // static_vector
 
 #include "core/aliases/entity_type.hpp"
 #include "core/aliases/float2.hpp"

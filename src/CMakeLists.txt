@@ -374,7 +374,6 @@ add_library(${WANDERER_LIB_TARGET} ${SOURCE_FILES})
 wanderer_set_compiler_options(${WANDERER_LIB_TARGET})
 
 add_header_only_lib(libCenturion ${LIBRARY_DIR}/centurion ${LIBRARY_DIR}/centurion/centurion.hpp)
-add_header_only_lib(libRune ${LIBRARY_DIR}/rune ${LIBRARY_DIR}/rune/rune.hpp)
 add_header_only_lib(libNenya ${LIBRARY_DIR}/nenya ${LIBRARY_DIR}/nenya/nenya.hpp)
 add_header_only_lib(libJSON ${LIBRARY_DIR}/json ${LIBRARY_DIR}/json/json.hpp)
 add_header_only_lib(libENTT ${LIBRARY_DIR}/entt ${LIBRARY_DIR}/entt/entt.hpp)
@@ -385,7 +384,8 @@ target_include_directories(${WANDERER_LIB_TARGET}
     SYSTEM PUBLIC ${SDL2_IMAGE_INCLUDE_DIRS}
     SYSTEM PUBLIC ${SDL2_MIXER_INCLUDE_DIRS}
     SYSTEM PUBLIC ${SDL2_TTF_INCLUDE_DIRS}
-    SYSTEM PUBLIC ${LIBRARY_DIR}/cereal)
+    SYSTEM PUBLIC ${LIBRARY_DIR}/cereal
+    SYSTEM PUBLIC ${LIBRARY_DIR}/rune)
 
 # Wanderer directories
 target_include_directories(${WANDERER_LIB_TARGET} PUBLIC .)
@@ -396,7 +396,6 @@ target_link_libraries(${WANDERER_LIB_TARGET}
     PUBLIC ${SDL2_TTF_LIBRARIES}
     PUBLIC ${SDL2_LIBRARY}
     PUBLIC libCenturion
-    PUBLIC libRune
     PUBLIC libNenya
     PUBLIC libENTT
     PUBLIC libJSON)

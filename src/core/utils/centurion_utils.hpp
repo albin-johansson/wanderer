@@ -1,8 +1,8 @@
 #pragma once
 
-#include <centurion.hpp>  // basic_point, basic_area
-#include <concepts>       // floating_point
-#include <rune.hpp>       // basic_vector2
+#include <centurion.hpp>        // basic_point, basic_area
+#include <concepts>             // floating_point
+#include <rune/everything.hpp>  // basic_vector2
 
 namespace wanderer {
 

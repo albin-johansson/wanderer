@@ -1,7 +1,7 @@
 #pragma once
 
-#include <entt.hpp>  // entity
-#include <rune.hpp>  // aabb_tree
+#include <entt.hpp>             // entity
+#include <rune/everything.hpp>  // aabb_tree
 
 namespace wanderer {
 
