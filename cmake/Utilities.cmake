@@ -52,6 +52,7 @@ function(wanderer_set_compiler_options target)
         /MP
         /W3
         /Zc:__cplusplus
+        /Zc:preprocessor
         )
 
   elseif (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
