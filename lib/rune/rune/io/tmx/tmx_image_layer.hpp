@@ -3,9 +3,9 @@
 
 #include <string>  // string
 
-#include "../aliases/json_type.hpp"
-#include "../aliases/maybe.hpp"
-#include "../io/json_utils.hpp"
+#include "../../aliases/json_type.hpp"
+#include "../../aliases/maybe.hpp"
+#include "../json_utils.hpp"
 #include "tmx_color.hpp"
 
 namespace rune {

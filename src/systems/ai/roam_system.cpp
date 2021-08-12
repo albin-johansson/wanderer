@@ -62,7 +62,7 @@ void begin_cooldown(entt::registry& registry,
 
 }  // namespace
 
-void update_roaming(entt::registry& registry, const rune::delta_time dt)
+void update_roaming(entt::registry& registry, const float dt)
 {
   for (auto&& [entity, roam, movable] : registry.view<comp::roam, comp::movable>().each())
   {

@@ -10,8 +10,8 @@
 #include <variant>      // variant, get, get_if, holds_alternative
 #include <vector>       // vector
 
-#include "../aliases/json_type.hpp"
-#include "../core/rune_error.hpp"
+#include "../../aliases/json_type.hpp"
+#include "core/rune_error.hpp"
 #include "tmx_color.hpp"
 #include "tmx_property_type.hpp"
 

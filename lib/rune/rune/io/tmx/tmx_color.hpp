@@ -5,9 +5,9 @@
 #include <string>       // string
 #include <string_view>  // string_view
 
-#include "../aliases/integers.hpp"
-#include "../aliases/json_type.hpp"
-#include "../core/from_string.hpp"
+#include "../../aliases/integers.hpp"
+#include "../../aliases/json_type.hpp"
+#include "core/from_string.hpp"
 
 namespace rune {
 

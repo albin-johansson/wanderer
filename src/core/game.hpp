@@ -59,7 +59,7 @@ class game final : public rune::basic_game<graphics_context>
 
   void handle_input(const rune::input& input) override;
 
-  void tick(rune::delta_time dt) override;
+  void tick(float dt) override;
 
   void render(graphics_type& gfx) const override;
 

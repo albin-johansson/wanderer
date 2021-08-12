@@ -9,7 +9,7 @@
 
 namespace wanderer::sys {
 
-void update_fps(entt::registry& shared, const rune::delta_time dt)
+void update_fps(entt::registry& shared, const float dt)
 {
   for (auto&& [entity, data] : shared.view<comp::fps_data>().each())
   {

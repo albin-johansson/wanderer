@@ -48,7 +48,7 @@ auto start_reverse_only_bond_animation(entt::registry& registry) -> entt::entity
  */
 void update_custom_animations(entt::registry& registry,
                               entt::dispatcher& dispatcher,
-                              rune::delta_time dt);
+                              float dt);
 
 /**
  * \brief Renders all current custom animations.

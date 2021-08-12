@@ -4,7 +4,6 @@
 #include <centurion.hpp>  // ...
 #include <concepts>       // floating_point, derived_from
 
-#include "../aliases/delta_time.hpp"
 #include "../math/min.hpp"
 #include "game.hpp"
 #include "rune_error.hpp"
@@ -143,7 +142,7 @@ class semi_fixed_game_loop
       }
 
       const auto dt = rune::min(frameTime, m_delta);
-      m_engine->update_logic(static_cast<delta_time>(dt.count()));
+      m_engine->update_logic(static_cast<float>(dt.count()));
 
       frameTime -= dt;
 

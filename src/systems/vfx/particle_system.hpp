@@ -38,7 +38,7 @@ void spawn_particles(entt::registry& registry,
  * \param registry the current level registry.
  * \param dt the current delta time.
  */
-void update_particles(entt::registry& registry, rune::delta_time dt);
+void update_particles(entt::registry& registry, float dt);
 
 /**
  * \brief Renders all particles within the current viewport.

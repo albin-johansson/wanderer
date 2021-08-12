@@ -8,11 +8,10 @@
 
 namespace rune {
 
-/// \addtogroup io
-/// \{
-
 /**
  * \brief Parses a string of comma-separated values (CSV).
+ *
+ * \ingroup io
  *
  * \param csv the string that holds the comma separated values.
  *
@@ -35,8 +34,6 @@ namespace rune {
 
   return tokens;
 }
-
-/// \} End of group io
 
 }  // namespace rune
 

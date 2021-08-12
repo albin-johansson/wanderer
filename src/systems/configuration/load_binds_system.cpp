@@ -15,16 +15,16 @@ inline const auto binds_file = files_directory() / "binds.ini";
   CENTURION_LOG_INFO("Reading binds: \"%s\"", binds_file.string().c_str());
   ctx::binds binds;
 
-  const auto ini = rune::read_ini(binds_file);
+  const auto ini = rune::read_ini(binds_file).value();
 
   const auto& input = ini.at("Input");
-  binds.up = input.at("MoveUp").get<std::string>();
-  binds.down = input.at("MoveDown").get<std::string>();
-  binds.right = input.at("MoveRight").get<std::string>();
-  binds.left = input.at("MoveLeft").get<std::string>();
-  binds.attack = input.at("Attack").get<std::string>();
-  binds.interact = input.at("Interact").get<std::string>();
-  binds.inventory = input.at("Inventory").get<std::string>();
+  binds.up = input.at("MoveUp").as<std::string>();
+  binds.down = input.at("MoveDown").as<std::string>();
+  binds.right = input.at("MoveRight").as<std::string>();
+  binds.left = input.at("MoveLeft").as<std::string>();
+  binds.attack = input.at("Attack").as<std::string>();
+  binds.interact = input.at("Interact").as<std::string>();
+  binds.inventory = input.at("Inventory").as<std::string>();
 
   return binds;
 }

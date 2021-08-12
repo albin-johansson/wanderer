@@ -18,7 +18,7 @@ namespace wanderer::sys {
  * \param shared the shared data registry.
  * \param dt the current delta time.
  */
-void update_fps(entt::registry& shared, rune::delta_time dt);
+void update_fps(entt::registry& shared, float dt);
 
 /**
  * \brief Renders the current FPS and frame duration.

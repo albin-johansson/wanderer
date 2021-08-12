@@ -117,7 +117,7 @@ void game::handle_input(const rune::input& input)
   sys::update_input(level.registry, m_dispatcher, input, m_shared.ctx<ctx::binds>());
 }
 
-void game::tick(const rune::delta_time dt)
+void game::tick(const float dt)
 {
   m_dispatcher.update();
 

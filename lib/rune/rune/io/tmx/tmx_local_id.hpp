@@ -3,7 +3,7 @@
 
 #include <nenya.hpp>  // strong_type
 
-#include "../aliases/integers.hpp"
+#include "../../aliases/integers.hpp"
 
 namespace rune {
 

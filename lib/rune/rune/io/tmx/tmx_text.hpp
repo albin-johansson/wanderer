@@ -3,8 +3,8 @@
 
 #include <string>  // string
 
-#include "../aliases/json_type.hpp"
-#include "../io/json_utils.hpp"
+#include "../../aliases/json_type.hpp"
+#include "../json_utils.hpp"
 #include "tmx_color.hpp"
 #include "tmx_halign.hpp"
 #include "tmx_valign.hpp"

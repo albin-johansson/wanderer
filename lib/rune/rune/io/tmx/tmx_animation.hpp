@@ -4,8 +4,8 @@
 #include <chrono>  // milliseconds
 #include <vector>  // vector
 
-#include "../aliases/json_type.hpp"
-#include "../io/json_utils.hpp"
+#include "../../aliases/json_type.hpp"
+#include "../json_utils.hpp"
 #include "tmx_local_id.hpp"
 
 namespace rune {

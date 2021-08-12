@@ -5,8 +5,8 @@
 #include <filesystem>  // path
 #include <string>      // string
 
-#include "../aliases/integers.hpp"
-#include "../io/json_utils.hpp"
+#include "../../aliases/integers.hpp"
+#include "../json_utils.hpp"
 #include "parse_tileset.hpp"
 #include "tmx_global_id.hpp"
 #include "tmx_local_id.hpp"

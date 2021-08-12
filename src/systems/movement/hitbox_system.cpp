@@ -10,7 +10,7 @@ namespace {
 [[nodiscard]] auto next_vertical_hitbox(const comp::hitbox& hitbox,
                                         const float2& position,
                                         const float2& velocity,
-                                        const rune::delta_time dt) -> maybe<comp::hitbox>
+                                        const float dt) -> maybe<comp::hitbox>
 {
   if (velocity.y != 0)
   {
@@ -27,7 +27,7 @@ namespace {
 [[nodiscard]] auto next_horizontal_hitbox(const comp::hitbox& hitbox,
                                           const float2& position,
                                           const float2& velocity,
-                                          const rune::delta_time dt)
+                                          const float dt)
     -> maybe<comp::hitbox>
 {
   if (velocity.x != 0)
@@ -143,7 +143,7 @@ auto make_hitbox(const std::initializer_list<comp::subhitbox> boxes) -> comp::hi
 auto make_next_hitboxes(const comp::movable& movable,
                         const comp::hitbox& hitbox,
                         const float2 oldPosition,
-                        const rune::delta_time dt) -> next_hitboxes
+                        const float dt) -> next_hitboxes
 {
   return {next_horizontal_hitbox(hitbox, oldPosition, movable.velocity, dt),
           next_vertical_hitbox(hitbox, oldPosition, movable.velocity, dt)};

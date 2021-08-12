@@ -3,7 +3,6 @@
 
 #include <concepts>  // derived_from
 
-#include "aliases/delta_time.hpp"
 #include "core/graphics.hpp"
 #include "core/input.hpp"
 
@@ -44,7 +43,7 @@ namespace rune {
  *     // ...
  *   }
  *
- *   void tick(rune::delta_time dt) override
+ *   void tick(float dt) override
  *   {
  *     // ...
  *   }
@@ -142,7 +141,7 @@ class basic_game
    *
    * \since 0.1.0
    */
-  virtual void tick(delta_time dt)
+  virtual void tick(float dt)
   {}
 
   /**

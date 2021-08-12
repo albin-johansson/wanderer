@@ -4,8 +4,8 @@
 #include <string>  // string
 #include <vector>  // vector
 
-#include "../aliases/json_type.hpp"
-#include "../io/json_utils.hpp"
+#include "../../aliases/json_type.hpp"
+#include "../json_utils.hpp"
 #include "tmx_local_id.hpp"
 #include "tmx_property.hpp"
 #include "tmx_wang_color.hpp"

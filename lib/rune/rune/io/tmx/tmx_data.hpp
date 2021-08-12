@@ -6,8 +6,8 @@
 #include <variant>  // variant
 #include <vector>   // vector
 
-#include "../aliases/integers.hpp"
-#include "../aliases/json_type.hpp"
+#include "../../aliases/integers.hpp"
+#include "../../aliases/json_type.hpp"
 #include "tmx_global_id.hpp"
 
 namespace rune {

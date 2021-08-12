@@ -59,7 +59,7 @@ void spawn_particles(entt::registry& registry,
   }
 }
 
-void update_particles(entt::registry& registry, const rune::delta_time dt)
+void update_particles(entt::registry& registry, const float dt)
 {
   const auto now = cen::counter::ticks();
   for (auto&& [entity, particle] : registry.view<comp::particle>().each())

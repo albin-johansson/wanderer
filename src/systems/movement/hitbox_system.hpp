@@ -112,7 +112,7 @@ void set_position(comp::hitbox& hitbox, float2 position) noexcept;
 [[nodiscard]] auto make_next_hitboxes(const comp::movable& movable,
                                       const comp::hitbox& hitbox,
                                       float2 oldPosition,
-                                      rune::delta_time dt) -> next_hitboxes;
+                                      float dt) -> next_hitboxes;
 
 /**
  * \brief Computes the collisions for a pair of future hitboxes and an obstacle.

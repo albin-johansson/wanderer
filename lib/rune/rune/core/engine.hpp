@@ -224,7 +224,7 @@ class engine
   input m_input;             ///< The input state wrapper.
   maybe<game_type> m_game;   ///< The game instance, optional to delay construction.
 
-  void update_logic(const delta_time dt)
+  void update_logic(const float dt)
   {
     m_game->tick(dt);
   }

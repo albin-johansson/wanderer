@@ -93,7 +93,7 @@ void update_hitbox(entt::registry& registry,
                    aabb_tree& tree,
                    const entt::entity entity,
                    const float2 oldPosition,
-                   const rune::delta_time dt)
+                   const float dt)
 {
   const auto oldAabbPos = tree.at(entity).min;
 
@@ -143,7 +143,7 @@ void update_hitbox(entt::registry& registry,
 
 }  // namespace
 
-void update_movement(entt::registry& registry, aabb_tree& tree, const rune::delta_time dt)
+void update_movement(entt::registry& registry, aabb_tree& tree, const float dt)
 {
   for (auto&& [entity, movable] : registry.view<comp::movable>().each())
   {

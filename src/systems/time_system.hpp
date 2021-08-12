@@ -28,7 +28,7 @@ namespace wanderer::sys {
  */
 void update_time(entt::registry& shared,
                  entt::dispatcher& dispatcher,
-                 rune::delta_time dt);
+                 float dt);
 
 /**
  * \brief Changes the time to the next day.

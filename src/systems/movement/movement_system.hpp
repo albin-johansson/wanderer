@@ -25,7 +25,7 @@ namespace wanderer::sys {
  */
 void update_movement(entt::registry& registry,
                      aabb_tree& tree,
-                     const rune::delta_time dt);
+                     const float dt);
 
 /// \} End of movement
 

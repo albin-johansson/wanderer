@@ -40,7 +40,7 @@ void update_plant_drawable(entt::registry& registry,
 
 }  // namespace
 
-void update_plants(entt::registry& registry, const rune::delta_time dt)
+void update_plants(entt::registry& registry, const float dt)
 {
   for (auto&& [entity, plant] : registry.view<comp::plant>().each())
   {

@@ -1,9 +1,9 @@
 #ifndef RUNE_TMX_TILE_LAYER_HPP
 #define RUNE_TMX_TILE_LAYER_HPP
 
-#include "../aliases/json_type.hpp"
-#include "../aliases/maybe.hpp"
-#include "../io/json_utils.hpp"
+#include "../../aliases/json_type.hpp"
+#include "../../aliases/maybe.hpp"
+#include "../json_utils.hpp"
 #include "tmx_data.hpp"
 #include "tmx_tile_layer_compression.hpp"
 #include "tmx_tile_layer_encoding.hpp"

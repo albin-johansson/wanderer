@@ -146,7 +146,7 @@ inline const phase night_phase{.phase_start = night,
 
 void update_time(entt::registry& shared,
                  entt::dispatcher& dispatcher,
-                 const rune::delta_time dt)
+                 const float dt)
 {
   auto& time = shared.ctx<ctx::time_of_day>();
 

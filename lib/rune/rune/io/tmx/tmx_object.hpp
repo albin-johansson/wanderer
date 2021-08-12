@@ -6,10 +6,10 @@
 #include <variant>  // variant, monostate
 #include <vector>   // vector
 
-#include "../aliases/integers.hpp"
-#include "../aliases/json_type.hpp"
-#include "../aliases/maybe.hpp"
-#include "../io/json_utils.hpp"
+#include "../../aliases/integers.hpp"
+#include "../../aliases/json_type.hpp"
+#include "../../aliases/maybe.hpp"
+#include "../json_utils.hpp"
 #include "tmx_global_id.hpp"
 #include "tmx_point.hpp"
 #include "tmx_property.hpp"

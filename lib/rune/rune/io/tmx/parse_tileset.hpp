@@ -4,8 +4,8 @@
 #include <filesystem>  // path
 #include <string>      // string
 
-#include "../aliases/json_type.hpp"
-#include "../io/json_utils.hpp"
+#include "../../aliases/json_type.hpp"
+#include "../json_utils.hpp"
 #include "tmx_global_id.hpp"
 #include "tmx_tileset.hpp"
 

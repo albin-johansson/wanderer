@@ -229,7 +229,7 @@ class graphics
     return m_renderer;
   }
 
-  /// \copydoc renderer()
+  /// \copydoc get_renderer()
   [[nodiscard]] auto get_renderer() const noexcept -> const cen::renderer&
   {
     return m_renderer;

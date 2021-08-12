@@ -32,7 +32,7 @@ void log_settings(const ctx::settings& settings)
 {
   CENTURION_LOG_INFO("Reading settings: \"%s\"", path.string().c_str());
 
-  const auto ini = rune::read_ini(path);
+  const auto ini = rune::read_ini(path).value();
   auto settings = default_settings();
 
   const auto& graphics = ini.at("Graphics");

@@ -7,9 +7,13 @@
 
 namespace rune {
 
-/// \addtogroup core
-/// \{
-
+/**
+ * \brief The main exception thrown in the library.
+ *
+ * \ingroup core
+ *
+ * \since 0.1.0
+ */
 class rune_error final : public std::exception
 {
  public:
@@ -24,8 +28,6 @@ class rune_error final : public std::exception
  private:
   str m_what{"n/a"};
 };
-
-/// \} End of group core
 
 }  // namespace rune
 

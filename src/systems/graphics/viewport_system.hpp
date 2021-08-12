@@ -45,7 +45,7 @@ void center_viewport_on(entt::registry& registry, float2 position);
  */
 void update_viewport(entt::registry& registry,
                      comp::movable::entity target,
-                     rune::delta_time dt);
+                     float dt);
 
 /**
  * \brief Updates the translation viewport of a renderer based on the current viewport.

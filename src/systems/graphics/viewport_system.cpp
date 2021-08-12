@@ -10,7 +10,7 @@ inline constexpr float camera_speed = 10;
 
 [[nodiscard]] auto next_camera_position(const float2 target,
                                         const ctx::viewport& viewport,
-                                        const rune::delta_time dt) -> float2
+                                        const float dt) -> float2
 {
   const auto boundsX = viewport.bounds.x();
   const auto boundsY = viewport.bounds.y();
@@ -77,7 +77,7 @@ inline constexpr float camera_speed = 10;
   return {x, y};
 }
 
-void track(ctx::viewport& viewport, const float2 position, const rune::delta_time dt)
+void track(ctx::viewport& viewport, const float2 position, const float dt)
 {
   const auto next = next_camera_position(make_target(position, viewport), viewport, dt);
   viewport.bounds.set_x(next.x);
@@ -106,7 +106,7 @@ void center_viewport_on(entt::registry& registry, const float2 position)
 
 void update_viewport(entt::registry& registry,
                      const comp::movable::entity target,
-                     const rune::delta_time dt)
+                     const float dt)
 {
   const auto& movable = registry.get<const comp::movable>(target);
   track(registry.ctx<ctx::viewport>(), movable.position, dt);

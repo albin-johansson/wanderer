@@ -15,7 +15,7 @@ struct fps_data final
   ms_t interval{};
   ms_t next_update{};
 
-  rune::delta_time dt;
+  float dt;
 };
 
 }  // namespace wanderer::comp

@@ -1,7 +1,7 @@
 #ifndef RUNE_TMX_TILE_OFFSET_HPP
 #define RUNE_TMX_TILE_OFFSET_HPP
 
-#include "../aliases/json_type.hpp"
+#include "../../aliases/json_type.hpp"
 
 namespace rune {
 
