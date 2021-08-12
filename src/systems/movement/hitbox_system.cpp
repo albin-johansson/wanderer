@@ -27,8 +27,7 @@ namespace {
 [[nodiscard]] auto next_horizontal_hitbox(const comp::hitbox& hitbox,
                                           const float2& position,
                                           const float2& velocity,
-                                          const float dt)
-    -> maybe<comp::hitbox>
+                                          const float dt) -> maybe<comp::hitbox>
 {
   if (velocity.x != 0)
   {

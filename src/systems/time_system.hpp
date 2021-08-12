@@ -26,9 +26,7 @@ namespace wanderer::sys {
  *
  * \see `ctx::time_of_day`
  */
-void update_time(entt::registry& shared,
-                 entt::dispatcher& dispatcher,
-                 float dt);
+void update_time(entt::registry& shared, entt::dispatcher& dispatcher, float dt);
 
 /**
  * \brief Changes the time to the next day.

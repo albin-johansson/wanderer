@@ -144,9 +144,7 @@ inline const phase night_phase{.phase_start = night,
 
 }  // namespace
 
-void update_time(entt::registry& shared,
-                 entt::dispatcher& dispatcher,
-                 const float dt)
+void update_time(entt::registry& shared, entt::dispatcher& dispatcher, const float dt)
 {
   auto& time = shared.ctx<ctx::time_of_day>();
 
