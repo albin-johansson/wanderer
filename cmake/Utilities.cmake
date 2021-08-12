@@ -50,7 +50,9 @@ function(wanderer_set_compiler_options target)
     target_compile_options(${target} PRIVATE
         /EHsc
         /MP
-        /W3)
+        /W3
+        /Zc:__cplusplus
+        )
 
   elseif (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     target_compile_options(${target} PRIVATE
