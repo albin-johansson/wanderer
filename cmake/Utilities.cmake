@@ -53,6 +53,7 @@ function(wanderer_set_compiler_options target)
         /W3
         /Zc:__cplusplus
         /Zc:preprocessor
+        /wd5105  # Disable C5105: "macro expansion producing 'defined' has undefined behavior"
         )
 
   elseif (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
