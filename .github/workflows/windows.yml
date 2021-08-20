@@ -3,7 +3,7 @@ name: "CI: Windows"
 on: [ push, pull_request ]
 
 env:
-  SDL_VERSION: 2.0.14
+  SDL_VERSION: 2.0.16
   IMG_VERSION: 2.0.5
   MIX_VERSION: 2.0.4
   TTF_VERSION: 2.0.15
@@ -22,7 +22,7 @@ jobs:
         shell: cmd
 
       - name: Download SDL2
-        uses: albin-johansson/download-sdl2@v1
+        uses: albin-johansson/download-sdl2@latest
         with:
           version: ${{env.SDL_VERSION}}
           sources_destination: .
