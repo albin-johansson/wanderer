@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.15)
 project(wanderer-src CXX)
 
 set(SOURCE_FILES
+    profile.hpp
     wanderer_engine.cpp
     wanderer_engine.hpp
 

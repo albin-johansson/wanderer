@@ -22,6 +22,7 @@
 #include "load_tilemap.hpp"
 #include "load_tileset.hpp"
 #include "load_tileset_textures.hpp"
+#include "profile.hpp"
 #include "systems/graphics/depth_system.hpp"
 #include "systems/graphics/drawable_system.hpp"
 #include "systems/graphics/viewport_system.hpp"
@@ -48,9 +49,7 @@ void add_viewport(comp::level& level)
 
 auto make_level(const ir::level& data, graphics_context& graphics) -> comp::level
 {
-#ifndef NDEBUG
-  const auto begin = cen::counter::ticks();
-#endif  // NDEBUG
+  WANDERER_PROFILE_START
 
   load_tileset_textures(data, graphics);
 
@@ -84,10 +83,7 @@ auto make_level(const ir::level& data, graphics_context& graphics) -> comp::leve
     level.tree.rebuild();
   }
 
-#ifndef NDEBUG
-  const auto end = cen::counter::ticks();
-  cen::log::debug("Created level in %u milliseconds", (end - begin).count());
-#endif  // NDEBUG
+  WANDERER_PROFILE_END("sys::make_level()")
 
   return level;
 }
@@ -95,6 +91,8 @@ auto make_level(const ir::level& data, graphics_context& graphics) -> comp::leve
 auto restore_level(const std::filesystem::path& path, graphics_context& graphics)
     -> comp::level
 {
+  WANDERER_PROFILE_START
+
   comp::level level;
 
   std::ifstream stream{path, std::ios::binary};
@@ -114,6 +112,8 @@ auto restore_level(const std::filesystem::path& path, graphics_context& graphics
   const auto player = singleton_entity<comp::player>(level.registry);
   const auto& movable = level.registry.get<comp::movable>(player);
   center_viewport_on(level.registry, movable.position);
+
+  WANDERER_PROFILE_END("sys::restore_level()")
 
   return level;
 }

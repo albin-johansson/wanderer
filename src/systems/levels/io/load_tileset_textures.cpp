@@ -2,23 +2,20 @@
 
 #include <centurion.hpp>  // ticks, log
 
+#include "profile.hpp"
+
 namespace wanderer::sys {
 
 void load_tileset_textures(const ir::level& data, graphics_context& graphics)
 {
-#ifndef NDEBUG
-  const auto begin = cen::counter::ticks();
-#endif  // NDEBUG
+  WANDERER_PROFILE_START
 
   for (const auto& tileset : data.tilesets)
   {
     graphics.load(tileset.sheet.id, tileset.sheet.path);
   }
 
-#ifndef NDEBUG
-  const auto end = cen::counter::ticks();
-  cen::log::debug("Loaded tileset textures in %i ms", (end - begin).count());
-#endif  // NDEBUG
+  WANDERER_PROFILE_END("sys::load_tileset_textures()")
 }
 
 }  // namespace wanderer::sys
