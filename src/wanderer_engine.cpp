@@ -4,14 +4,8 @@
 
 namespace wanderer {
 
-wanderer_engine::wanderer_engine()
-    : engine_base{rune::configuration{
-          .renderer_flags = cen::renderer::accelerated | cen::renderer::target_textures,
-      }}
+wanderer_engine::wanderer_engine() : engine_base{}
 {
-  get_window().set_title("Wanderer");
-  get_input().mouse.set_logical_size(glob::logical_size<>);
-
   // clang-format off
   auto& game = get_game();
   game.sink<fullscreen_toggled_event>().connect<&wanderer_engine::on_fullscreen_toggled>(this);

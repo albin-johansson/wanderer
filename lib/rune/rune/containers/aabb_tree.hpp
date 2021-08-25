@@ -18,6 +18,7 @@
 
 #include "../aliases/integers.hpp"
 #include "../aliases/maybe.hpp"
+#include "../core/configuration.hpp"
 #include "../math/max.hpp"
 #include "../math/min.hpp"
 #include "../math/vector2.hpp"
@@ -29,38 +30,6 @@ namespace rune {
 
 /// \addtogroup containers
 /// \{
-
-/**
- * \def RUNE_AABB_TREE_DEFAULT_CAPACITY
- *
- * \brief The default capacity of entries in AABB trees.
- *
- * \note This macro should be expand to an integer value.
- *
- * \see `aabb_tree`
- */
-#ifndef RUNE_AABB_TREE_DEFAULT_CAPACITY
-#define RUNE_AABB_TREE_DEFAULT_CAPACITY 64
-#endif  // RUNE_AABB_TREE_DEFAULT_CAPACITY
-
-/**
- * \def RUNE_AABB_TREE_QUERY_BUFFER_SIZE
- *
- * \brief The default stack buffer size when looking for collision candidates (with
- * `aabb_tree::query()`), in bytes.
- *
- * \note This macro should be expand to an integer value.
- *
- * \see `aabb_tree`
- */
-#ifndef RUNE_AABB_TREE_QUERY_BUFFER_SIZE
-#define RUNE_AABB_TREE_QUERY_BUFFER_SIZE 256
-#endif  // RUNE_AABB_TREE_QUERY_BUFFER_SIZE
-
-// clang-format off
-inline constexpr usize aabb_tree_default_capacity = RUNE_AABB_TREE_DEFAULT_CAPACITY;
-inline constexpr usize aabb_tree_query_buffer_size = RUNE_AABB_TREE_QUERY_BUFFER_SIZE;
-// clang-format on
 
 /**
  * \class aabb_tree
@@ -95,8 +64,7 @@ inline constexpr usize aabb_tree_query_buffer_size = RUNE_AABB_TREE_QUERY_BUFFER
  * \tparam Key the type of the keys associated with tree entries.
  * \tparam Precision the floating-point type used, e.g. by stored vectors.
  *
- * \see `RUNE_AABB_TREE_DEFAULT_CAPACITY`
- * \see `RUNE_AABB_TREE_QUERY_BUFFER_SIZE`
+ * \since 0.1.0
  */
 template <typename Key, std::floating_point Precision = float>
 class aabb_tree final
@@ -115,8 +83,7 @@ class aabb_tree final
   /// \name Construction
   /// \{
 
-  explicit aabb_tree(const size_type capacity = aabb_tree_default_capacity)
-      : m_nodeCapacity{capacity}
+  explicit aabb_tree(const size_type capacity) : m_nodeCapacity{capacity}
   {
     assert(!m_root);
     assert(m_nodeCount == 0);
@@ -125,6 +92,9 @@ class aabb_tree final
     resize_to_match_node_capacity(0);
     assert(m_nextFreeIndex == 0);
   }
+
+  explicit aabb_tree() : aabb_tree{get_aabb_default_capacity()}
+  {}
 
   /// \} End of construction
 
@@ -482,8 +452,7 @@ class aabb_tree final
   /// \name Collision queries
   /// \{
 
-  template <size_type BufferSize = aabb_tree_query_buffer_size,
-            std::invocable<key_type> T>
+  template <size_type BufferSize = 256, std::invocable<key_type> T>
   void query(const key_type& key, T&& callable) const
   {
     if (const auto it = m_indices.find(key); it != m_indices.end())
@@ -534,8 +503,7 @@ class aabb_tree final
     }
   }
 
-  template <size_type BufferSize = aabb_tree_query_buffer_size,
-            std::output_iterator<key_type> T>
+  template <size_type BufferSize = 256, std::output_iterator<key_type> T>
   void query(const key_type& key, T iterator) const
   {
     query<BufferSize>(key, [&](const key_type& key) {

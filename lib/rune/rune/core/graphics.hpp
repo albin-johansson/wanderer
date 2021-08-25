@@ -13,6 +13,7 @@
 #include "../aliases/texture_id.hpp"
 #include "../aliases/texture_index.hpp"
 #include "compiler.hpp"
+#include "configuration.hpp"
 
 namespace rune {
 
@@ -46,15 +47,22 @@ class graphics
   /**
    * \brief Creates a graphics context.
    *
-   * \tparam T the ownership semantics of the window.
    * \param window the associated game window.
-   * \param flags the renderer flags supplied to the `cen::renderer` constructor.
    */
   template <typename T>
-  graphics(const cen::basic_window<T>& window, const uint32 flags)
-      : m_renderer{window, flags}
+  explicit graphics(const cen::basic_window<T>& window)
+      : m_renderer{window, get_renderer_flags()}
       , m_format{window.get_pixel_format()}
-  {}
+  {
+    m_renderer.set_logical_size(get_logical_size());
+
+    CENTURION_LOG_DEBUG("[rune::graphics] Renderer flags: %u", get_renderer_flags());
+    CENTURION_LOG_DEBUG("[rune::graphics] Pixel format: %s",
+                        cen::to_string(m_format).data());
+    CENTURION_LOG_DEBUG("[rune::graphics] Renderer logical size: {%i, %i}",
+                        m_renderer.logical_width(),
+                        m_renderer.logical_height());
+  }
 
   virtual ~graphics() noexcept = default;
 

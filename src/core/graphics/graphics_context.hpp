@@ -24,7 +24,7 @@ class graphics_context final : public rune::graphics
    * \param window the game window.
    * \param flags the renderer flags.
    */
-  explicit graphics_context(const cen::window& window, uint32 flags);
+  explicit graphics_context(const cen::window& window);
 
   /**
    * \brief Renders a texture.

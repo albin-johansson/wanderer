@@ -1,13 +1,7 @@
-// clang-format off
-#define RUNE_TEXTURE_ID_UNDERLYING_TYPE entt::id_type
-// clang-format on
-
-#include <SDL.h>
-
 #include <centurion.hpp>        // library
-#include <entt.hpp>             // id_type
-#include <rune/everything.hpp>  // ...
+#include <rune/everything.hpp>  // get_cfg
 
+#include "core/game_constants.hpp"
 #include "wanderer_engine.hpp"
 
 auto main(int, char**) -> int
@@ -19,6 +13,12 @@ auto main(int, char**) -> int
   {
     cen::log::set_priority(cen::log_priority::debug);
   }
+
+  auto& cfg = rune::get_cfg();
+  cfg.window_title = "Wanderer";
+  cfg.logical_size = wanderer::glob::logical_size<>;
+  cfg.renderer_flags = cen::renderer::accelerated | cen::renderer::target_textures;
+  cfg.engine_max_tick_rate = 240;
 
   wanderer::wanderer_engine engine;
   return engine.run();

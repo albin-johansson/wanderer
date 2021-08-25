@@ -36,6 +36,7 @@
 #include "containers/static_vector.hpp"
 #include "containers/vector_map.hpp"
 #include "core/compiler.hpp"
+#include "core/configuration.hpp"
 #include "core/engine.hpp"
 #include "core/from_string.hpp"
 #include "core/game.hpp"

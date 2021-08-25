@@ -9,8 +9,8 @@ namespace {
 inline const auto font_path = resources::font("type_writer.ttf");
 }  // namespace
 
-graphics_context::graphics_context(const cen::window& window, const uint32 flags)
-    : rune::graphics{window, flags}
+graphics_context::graphics_context(const cen::window& window)
+    : rune::graphics{window}
     , m_lightCanvas{get_renderer(),
                     format(),
                     cen::texture_access::target,

@@ -6,6 +6,7 @@
 #include <concepts>       // derived_from, constructible_from
 
 #include "../aliases/maybe.hpp"
+#include "configuration.hpp"
 #include "game.hpp"
 #include "graphics.hpp"
 #include "input.hpp"
@@ -15,35 +16,6 @@ namespace rune {
 
 /// \addtogroup core
 /// \{
-
-// clang-format off
-
-template <typename T>
-concept is_configuration_type = requires
-{
-  { T::renderer_flags } -> std::convertible_to<uint32>;
-  { T::window_size } -> std::convertible_to<cen::iarea>;
-};
-
-// clang-format on
-
-/**
- * \struct configuration
- *
- * \brief Provides configuration options for different engine aspects.
- *
- * \note Members are initialized to their default values, meaning that you do not have to
- * assign each member if you create custom configurations.
- *
- * \see `engine`
- */
-struct configuration
-{
-  uint32 renderer_flags = cen::renderer::default_flags();
-  cen::iarea window_size = cen::window::default_size();
-};
-
-static_assert(is_configuration_type<configuration>);
 
 /**
  * \class engine
@@ -91,15 +63,10 @@ class engine
                 "Game class must either be default constructible or provide a "
                 "constructor that accepts \"graphics_type&\"");
 
-  /**
-   * \brief Creates an engine instance.
-   *
-   * \param cfg optional custom configuration of the engine.
-   */
-  explicit engine(const configuration& cfg = default_cfg())
+  explicit engine()
       : m_loop{this}
-      , m_window{"Rune", cfg.window_size}
-      , m_graphics{m_window, cfg.renderer_flags}
+      , m_window{get_window_title(), get_window_size()}
+      , m_graphics{m_window}
   {
     if constexpr (std::constructible_from<game_type, graphics_type&>)
     {
@@ -204,17 +171,6 @@ class engine
   [[nodiscard]] auto get_input() const noexcept -> const input&
   {
     return m_input;
-  }
-
-  /**
-   * \brief Returns the default configuration used by the engine, if no custom
-   * configuration is requested.
-   *
-   * \return the default engine configuration.
-   */
-  [[nodiscard]] constexpr static auto default_cfg() -> configuration
-  {
-    return configuration{};
   }
 
  private:
