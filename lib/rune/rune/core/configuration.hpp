@@ -5,6 +5,7 @@
 #include <concepts>       // convertible_to
 #include <filesystem>     // path
 #include <string>         // string
+#include <utility>        // move
 
 #include "../aliases/integers.hpp"
 #include "../io/csv.hpp"
@@ -239,7 +240,39 @@ inline void save_configuration(const std::filesystem::path& path)
   const auto& cfg = get_cfg();
 
   ini_file ini;
-  ini["Graphics"]["RendererFlags"] = cfg.renderer_flags;
+
+  {
+    std::string str;
+    str.reserve(32);
+
+    int count = 0;
+    if (cfg.renderer_flags & cen::renderer::accelerated)
+    {
+      str += "accelerated";
+      ++count;
+    }
+
+    if (cfg.renderer_flags & cen::renderer::vsync)
+    {
+      str += (count == 0) ? "vsync" : ",vsync";
+      ++count;
+    }
+
+    if (cfg.renderer_flags & cen::renderer::software)
+    {
+      str += (count == 0) ? "software" : ",software";
+      ++count;
+    }
+
+    if (cfg.renderer_flags & cen::renderer::target_textures)
+    {
+      str += (count == 0) ? "target_textures" : ",target_textures";
+      ++count;
+    }
+
+    ini["Graphics"]["RendererFlags"] = std::move(str);
+  }
+
   ini["Graphics"]["LogicalWidth"] = cfg.logical_size.width;
   ini["Graphics"]["LogicalHeight"] = cfg.logical_size.height;
   ini["Window"]["WindowTitle"] = cfg.window_title;
