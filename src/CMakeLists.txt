@@ -137,6 +137,8 @@ set(SOURCE_FILES
 
     io/directories.cpp
     io/directories.hpp
+    io/rune_configuration.cpp
+    io/rune_configuration.hpp
 
     io/parsing/common.hpp
     io/parsing/common.cpp

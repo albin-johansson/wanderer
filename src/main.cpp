@@ -1,7 +1,6 @@
-#include <centurion.hpp>        // library
-#include <rune/everything.hpp>  // get_cfg
+#include <centurion.hpp>  // library, is_debug_build, use_preset_output_function, ...
 
-#include "core/game_constants.hpp"
+#include "io/rune_configuration.hpp"
 #include "wanderer_engine.hpp"
 
 auto main(int, char**) -> int
@@ -14,11 +13,7 @@ auto main(int, char**) -> int
     cen::log::set_priority(cen::log_priority::debug);
   }
 
-  auto& cfg = rune::get_cfg();
-  cfg.window_title = "Wanderer";
-  cfg.logical_size = wanderer::glob::logical_size<>;
-  cfg.renderer_flags = cen::renderer::accelerated | cen::renderer::target_textures;
-  cfg.engine_max_tick_rate = 240;
+  wanderer::prepare_rune_configuration();
 
   wanderer::wanderer_engine engine;
   return engine.run();
