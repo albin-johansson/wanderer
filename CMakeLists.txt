@@ -6,10 +6,7 @@ project(wanderer
     HOMEPAGE_URL "https://github.com/albin-johansson/wanderer")
 
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
-
-set(CMAKE_CXX_STANDARD 20)
-set(CXX_STANDARD_REQUIRED ON)
-set(CXX_EXTENSIONS OFF)
+set(CMAKE_CXX_STANDARD 23)
 
 include(Utilities)
 
