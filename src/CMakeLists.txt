@@ -388,7 +388,9 @@ target_include_directories(${WANDERER_LIB_TARGET}
     SYSTEM PUBLIC ${SDL2_MIXER_INCLUDE_DIRS}
     SYSTEM PUBLIC ${SDL2_TTF_INCLUDE_DIRS}
     SYSTEM PUBLIC ${LIBRARY_DIR}/cereal
-    SYSTEM PUBLIC ${LIBRARY_DIR}/rune)
+    SYSTEM PUBLIC ${LIBRARY_DIR}/rune
+    SYSTEM PUBLIC ${LIBRARY_DIR}/init
+    )
 
 # Wanderer directories
 target_include_directories(${WANDERER_LIB_TARGET} PUBLIC .)

@@ -1,8 +1,8 @@
 #include "settings_system.hpp"
 
-#include <centurion.hpp>        // ...
-#include <filesystem>           // path, exists, copy
-#include <rune/everything.hpp>  // ini_file
+#include <centurion.hpp>  // log, is_debug_build
+#include <filesystem>     // path, exists, copy
+#include <init/ini.hpp>   // ini, read_ini, write_ini
 
 #include "components/ctx/settings.hpp"
 #include "io/directories.hpp"
@@ -32,7 +32,7 @@ void log_settings(const ctx::settings& settings)
 {
   CENTURION_LOG_INFO("Reading settings: \"%s\"", path.string().c_str());
 
-  const auto ini = rune::read_ini(path).value();
+  const auto ini = init::read_ini(path);
   auto settings = default_settings();
 
   const auto& graphics = ini.at("Graphics");
@@ -82,11 +82,11 @@ void save_settings_before_exit(const entt::registry& registry)
 {
   const auto& settings = registry.ctx<ctx::settings>();
 
-  rune::ini_file ini;
+  init::ini ini;
   ini["Graphics"]["Fullscreen"] = settings.fullscreen;
   ini["Graphics"]["UseIntegerScaling"] = settings.integer_scaling;
 
-  rune::write_ini(ini, settings_file);
+  init::write_ini(ini, settings_file);
 
   if constexpr (cen::is_debug_build())
   {
