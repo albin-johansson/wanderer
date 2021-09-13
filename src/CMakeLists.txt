@@ -374,12 +374,31 @@ set(SOURCE_FILES
 
 add_library(${WANDERER_LIB_TARGET} ${SOURCE_FILES})
 
-wanderer_set_compiler_options(${WANDERER_LIB_TARGET})
+if (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+  target_compile_options(${WANDERER_LIB_TARGET} PUBLIC
+      /EHsc
+      /MP
+      /W3
+      /Zc:__cplusplus
+      /Zc:preprocessor
+      /wd5105  # Disable C5105: "macro expansion producing 'defined' has undefined behavior"
+      )
+endif ()
 
 add_header_only_lib(libCenturion ${LIBRARY_DIR}/centurion ${LIBRARY_DIR}/centurion/centurion.hpp)
 add_header_only_lib(libNenya ${LIBRARY_DIR}/nenya ${LIBRARY_DIR}/nenya/nenya.hpp)
 add_header_only_lib(libJSON ${LIBRARY_DIR}/json ${LIBRARY_DIR}/json/json.hpp)
 add_header_only_lib(libENTT ${LIBRARY_DIR}/entt ${LIBRARY_DIR}/entt/entt.hpp)
+
+target_precompile_headers(${WANDERER_LIB_TARGET}
+    PRIVATE
+    <entt.hpp>
+    <centurion.hpp>
+    <json.hpp>
+    <nenya.hpp>
+    <init/ini.hpp>
+    <rune/everything.hpp>
+    )
 
 # Library directories
 target_include_directories(${WANDERER_LIB_TARGET}

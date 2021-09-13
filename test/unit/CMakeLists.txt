@@ -13,6 +13,8 @@ set(TEST_FILES
 add_executable(${WANDERER_TEST_TARGET} ${TEST_FILES})
 add_dependencies(${WANDERER_TEST_TARGET} ${WANDERER_LIB_TARGET})
 
+target_precompile_headers(${WANDERER_TEST_TARGET} REUSE_FROM ${WANDERER_LIB_TARGET})
+
 target_include_directories(${WANDERER_TEST_TARGET} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
 target_include_directories(${WANDERER_TEST_TARGET}
