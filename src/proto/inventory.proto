@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+package wanderer.protobuf;
+
+message inventory {
+  repeated uint32 items = 1;
+  optional uint64 capacity = 2;
+}
