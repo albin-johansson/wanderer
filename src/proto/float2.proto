@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+package wanderer.protobuf;
+
+message float2 {
+  float x = 1;
+  float y = 2;
+}
