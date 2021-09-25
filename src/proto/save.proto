@@ -14,7 +14,7 @@ import "proto/rect.proto";
 package wanderer.protobuf;
 
 message level {
-  int32 id = 1;
+  optional int32 id = 1;
 
   repeated uint32 entities = 2;
 
@@ -25,12 +25,12 @@ message level {
   map<uint32, particle> particles = 11;
   map<uint32, point_light> lights = 12;
 
-  bool keep_viewport_in_bounds = 100;
-  bool is_outside_level = 101;
+  optional bool keep_viewport_in_bounds = 100;
+  optional bool is_outside_level = 101;
 }
 
 message save {
-  int32 current_level_id = 1;
+  optional int32 current_level_id = 1;
   repeated level levels = 2;
 }
 

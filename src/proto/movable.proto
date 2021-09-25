@@ -5,6 +5,6 @@ import "proto/float2.proto";
 package wanderer.protobuf;
 
 message movable {
-  float2 position = 1;
-  float2 velocity = 2;
+  optional float2 position = 1;
+  optional float2 velocity = 2;
 }

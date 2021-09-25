@@ -3,7 +3,7 @@ syntax = "proto3";
 package wanderer.protobuf;
 
 message chase {
-  uint32 target_entity = 1;
-  float range = 2;
-  bool is_active = 3;
+  optional uint32 target_entity = 1;
+  optional float range = 2;
+  optional bool is_active = 3;
 }

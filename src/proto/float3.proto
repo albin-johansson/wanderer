@@ -3,7 +3,7 @@ syntax = "proto3";
 package wanderer.protobuf;
 
 message float3 {
-  float x = 1;
-  float y = 2;
-  float z = 3;
+  optional float x = 1;
+  optional float y = 2;
+  optional float z = 3;
 }

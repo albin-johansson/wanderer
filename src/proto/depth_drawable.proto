@@ -5,9 +5,9 @@ import "proto/rect.proto";
 package wanderer.protobuf;
 
 message depth_drawable {
-  uint32 texture_index = 1;
-  irect src = 2;
-  frect dst = 3;
-  int32 layer_index = 4;
-  int32 depth_index = 5;
+  optional uint32 texture_index = 1;
+  optional irect src = 2;
+  optional frect dst = 3;
+  optional int32 layer_index = 4;
+  optional int32 depth_index = 5;
 }

@@ -6,9 +6,9 @@ package wanderer.protobuf;
 
 message point_light
 {
-  float2 position = 1;
-  float size = 2;
-  float fluctuation = 3;
-  float fluctuation_step = 4;
-  float fluctuation_limit = 5;
+  optional float2 position = 1;
+  optional float size = 2;
+  optional float fluctuation = 3;
+  optional float fluctuation_step = 4;
+  optional float fluctuation_limit = 5;
 }

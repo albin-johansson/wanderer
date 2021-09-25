@@ -3,15 +3,15 @@ syntax = "proto3";
 package wanderer.protobuf;
 
 message irect {
-  int32 x = 1;
-  int32 y = 2;
-  int32 width = 3;
-  int32 height = 4;
+  optional int32 x = 1;
+  optional int32 y = 2;
+  optional int32 width = 3;
+  optional int32 height = 4;
 }
 
 message frect {
-  float x = 1;
-  float y = 2;
-  float width = 3;
-  float height = 4;
+  optional float x = 1;
+  optional float y = 2;
+  optional float width = 3;
+  optional float height = 4;
 }

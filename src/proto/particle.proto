@@ -6,9 +6,9 @@ import "proto/float3.proto";
 package wanderer.protobuf;
 
 message particle {
-  float3 position = 1;
-  float3 acceleration = 2;
-  float now = 3;
-  float duration = 4;
-  color color = 5;
+  optional float3 position = 1;
+  optional float3 acceleration = 2;
+  optional float now = 3;
+  optional float duration = 4;
+  optional color color = 5;
 }
