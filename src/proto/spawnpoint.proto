@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+import "float2.proto";
+
+package wanderer.protobuf;
+
+enum spawnpoint_type {
+  PLAYER = 0,
+  SKELETON = 1
+}
+
+message spawnpoint {
+  optional spawnpoint_type type = 1;
+  optional float2 position = 2;
+}
