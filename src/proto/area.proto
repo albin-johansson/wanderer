@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package wanderer.protobuf;
+
+message iarea {
+  optional int32 width = 1;
+  optional int32 height = 2;
+}
+
+message farea {
+  optional float width = 1;
+  optional float height = 2;
+}
