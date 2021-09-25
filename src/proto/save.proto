@@ -1,15 +1,18 @@
 syntax = "proto3";
 
-import "proto/animated.proto";
-import "proto/color.proto";
-import "proto/chase.proto";
-import "proto/depth_drawable.proto";
-import "proto/float2.proto";
-import "proto/float3.proto";
-import "proto/movable.proto";
-import "proto/particle.proto";
-import "proto/point_light.proto";
-import "proto/rect.proto";
+import "animated.proto";
+import "color.proto";
+import "chase.proto";
+import "depth_drawable.proto";
+import "float2.proto";
+import "float3.proto";
+import "movable.proto";
+import "particle.proto";
+import "plant.proto";
+import "point_light.proto";
+import "rect.proto";
+import "tile.proto";
+import "tilemap.proto";
 
 package wanderer.protobuf;
 
