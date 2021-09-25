@@ -5,8 +5,8 @@ import "float2.proto";
 package wanderer.protobuf;
 
 enum spawnpoint_type {
-  PLAYER = 0,
-  SKELETON = 1
+  PLAYER = 0;
+  SKELETON = 1;
 }
 
 message spawnpoint {
