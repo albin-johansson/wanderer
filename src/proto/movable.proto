@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-import "proto/float2.proto";
+import "float2.proto";
 
 package wanderer.protobuf;
 
