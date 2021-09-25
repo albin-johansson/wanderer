@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+import "proto/float2.proto";
+
+package wanderer.protobuf;
+
+message point_light
+{
+  float2 position = 1;
+  float size = 2;
+  float fluctuation = 3;
+  float fluctuation_step = 4;
+  float fluctuation_limit = 5;
+}
