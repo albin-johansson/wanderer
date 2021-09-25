@@ -24,6 +24,10 @@ message level {
   map<uint32, movable> movables = 3;
   map<uint32, depth_drawable> drawables = 4;
   map<uint32, animated> animations = 5;
+  map<uint32, plant> plants = 6;
+  map<uint32, tile> tiles = 7;
+  map<uint32, tilemap> tilemaps = 8;
+
   map<uint32, chase> chases = 10;
   map<uint32, particle> particles = 11;
   map<uint32, point_light> lights = 12;
