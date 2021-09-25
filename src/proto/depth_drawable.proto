@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+import "proto/rect.proto";
+
+package wanderer.protobuf;
+
+message depth_drawable {
+  uint32 texture_index = 1;
+  irect src = 2;
+  frect dst = 3;
+  int32 layer_index = 4;
+  int32 depth_index = 5;
+}
