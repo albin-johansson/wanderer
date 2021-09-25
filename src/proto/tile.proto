@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+import "rect.proto";
+
+package wanderer.protobuf;
+
+message tile {
+  optional uint32 id = 1;
+  optional uint32 texture_index = 2;
+  optional irect src = 3;
+  optional int32 depth_index = 4;
+}
