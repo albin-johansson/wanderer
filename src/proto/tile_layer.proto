@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package wanderer.protobuf;
+
+message tile_row {
+  repeated uint32 tiles = 1;
+}
+
+message tile_matrix {
+  repeated tile_row rows = 2;
+}
+
+message tile_layer {
+  optional tile_matrix matrix = 1;
+  optional int32 z_index = 2;
+}
