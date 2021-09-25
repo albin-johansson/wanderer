@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+import "proto/animated.proto";
+import "proto/color.proto";
+import "proto/chase.proto";
+import "proto/depth_drawable.proto";
+import "proto/float2.proto";
+import "proto/float3.proto";
+import "proto/movable.proto";
+import "proto/particle.proto";
+import "proto/point_light.proto";
+import "proto/rect.proto";
+
+package wanderer.protobuf;
+
+message level {
+  int32 id = 1;
+
+  repeated uint32 entities = 2;
+
+  map<uint32, movable> movables = 3;
+  map<uint32, depth_drawable> drawables = 4;
+  map<uint32, animated> animations = 5;
+  map<uint32, chase> chases = 10;
+  map<uint32, particle> particles = 11;
+  map<uint32, point_light> lights = 12;
+
+  bool keep_viewport_in_bounds = 100;
+  bool is_outside_level = 101;
+}
+
+message save {
+  int32 current_level_id = 1;
+  repeated level levels = 2;
+}
+
