@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-import "proto/rect.proto";
+import "rect.proto";
 
 package wanderer.protobuf;
 
