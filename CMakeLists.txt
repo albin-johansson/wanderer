@@ -9,6 +9,7 @@ set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 set(CMAKE_CXX_STANDARD 23)
 
 include(Utilities)
+include(Dependencies)
 
 # Helper variables for directory paths
 set(WANDERER_ROOT_DIR ${PROJECT_SOURCE_DIR})

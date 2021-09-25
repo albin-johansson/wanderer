@@ -385,11 +385,6 @@ if (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
       )
 endif ()
 
-add_header_only_lib(libCenturion ${LIBRARY_DIR}/centurion ${LIBRARY_DIR}/centurion/centurion.hpp)
-add_header_only_lib(libNenya ${LIBRARY_DIR}/nenya ${LIBRARY_DIR}/nenya/nenya.hpp)
-add_header_only_lib(libJSON ${LIBRARY_DIR}/json ${LIBRARY_DIR}/json/json.hpp)
-add_header_only_lib(libENTT ${LIBRARY_DIR}/entt ${LIBRARY_DIR}/entt/entt.hpp)
-
 target_precompile_headers(${WANDERER_LIB_TARGET}
     PRIVATE
     <entt.hpp>
@@ -401,28 +396,29 @@ target_precompile_headers(${WANDERER_LIB_TARGET}
     )
 
 # Library directories
-target_include_directories(${WANDERER_LIB_TARGET}
-    SYSTEM PUBLIC ${SDL2_INCLUDE_DIR}
-    SYSTEM PUBLIC ${SDL2_IMAGE_INCLUDE_DIRS}
-    SYSTEM PUBLIC ${SDL2_MIXER_INCLUDE_DIRS}
-    SYSTEM PUBLIC ${SDL2_TTF_INCLUDE_DIRS}
-    SYSTEM PUBLIC ${LIBRARY_DIR}/cereal
-    SYSTEM PUBLIC ${LIBRARY_DIR}/rune
-    SYSTEM PUBLIC ${LIBRARY_DIR}/init
-    )
+target_include_directories(${WANDERER_LIB_TARGET} SYSTEM PUBLIC
+    ${SDL2_INCLUDE_DIR}
+    ${SDL2_IMAGE_INCLUDE_DIRS}
+    ${SDL2_MIXER_INCLUDE_DIRS}
+    ${SDL2_TTF_INCLUDE_DIRS}
+    ${PROTOBUF_INCLUDE_DIRS}
+    ${LIBRARY_DIR}/centurion
+    ${LIBRARY_DIR}/entt
+    ${LIBRARY_DIR}/json
+    ${LIBRARY_DIR}/cereal
+    ${LIBRARY_DIR}/rune
+    ${LIBRARY_DIR}/init
+    ${LIBRARY_DIR}/nenya)
 
 # Wanderer directories
 target_include_directories(${WANDERER_LIB_TARGET} PUBLIC .)
 
-target_link_libraries(${WANDERER_LIB_TARGET}
-    PUBLIC ${SDL2_IMAGE_LIBRARIES}
-    PUBLIC ${SDL2_MIXER_LIBRARIES}
-    PUBLIC ${SDL2_TTF_LIBRARIES}
-    PUBLIC ${SDL2_LIBRARY}
-    PUBLIC libCenturion
-    PUBLIC libNenya
-    PUBLIC libENTT
-    PUBLIC libJSON)
+target_link_libraries(${WANDERER_LIB_TARGET} PUBLIC
+    ${SDL2_IMAGE_LIBRARIES}
+    ${SDL2_MIXER_LIBRARIES}
+    ${SDL2_TTF_LIBRARIES}
+    ${SDL2_LIBRARY}
+    ${PROTOBUF_LIBRARIES})
 
 if (WIN32 AND CMAKE_BUILD_TYPE STREQUAL "Release")
   add_executable(${WANDERER_EXE_TARGET} WIN32 main.cpp)
