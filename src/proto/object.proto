@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+package wanderer.protobuf;
+
+message object {
+  optional int32 id = 1;
+}
