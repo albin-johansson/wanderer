@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package wanderer.protobuf;
+
+message chase {
+  uint32 target_entity = 1;
+  float range = 2;
+  bool is_active = 3;
+}
