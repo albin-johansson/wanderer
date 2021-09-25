@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package wanderer.protobuf;
+
+message animated {
+  uint64 frame = 1;
+  uint64 frame_count = 2;
+  uint32 then = 3;
+  uint32 delay = 4;
+}
