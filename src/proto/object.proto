@@ -2,6 +2,6 @@ syntax = "proto3";
 
 package wanderer.protobuf;
 
-message object {
+message map_object {
   optional int32 id = 1;
 }
