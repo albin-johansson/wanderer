@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+import "proto/color.proto";
+import "proto/float3.proto";
+
+package wanderer.protobuf;
+
+message particle {
+  float3 position = 1;
+  float3 acceleration = 2;
+  float now = 3;
+  float duration = 4;
+  color color = 5;
+}
