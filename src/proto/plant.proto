@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package wanderer.protobuf;
+
+message plant {
+  optional float current_growth = 1;
+  optional float rate = 2;
+
+  optional float base_y = 3;
+  optional int32 tile_height = 4;
+
+  optional uint64 index = 5;
+  repeated uint32 tiles = 6;
+  repeated uint32 tall_tiles = 7;
+}
