@@ -1,7 +1,7 @@
 syntax = "proto3";
 
-import "proto/color.proto";
-import "proto/float3.proto";
+import "color.proto";
+import "float3.proto";
 
 package wanderer.protobuf;
 
