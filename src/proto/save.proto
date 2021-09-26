@@ -1,24 +1,27 @@
 syntax = "proto3";
 
 import "animated.proto";
-import "color.proto";
 import "chase.proto";
 import "depth_drawable.proto";
-import "float2.proto";
-import "float3.proto";
+import "hitbox.proto";
+import "inventory.proto";
 import "movable.proto";
+import "object.proto";
 import "particle.proto";
 import "plant.proto";
 import "point_light.proto";
-import "rect.proto";
+import "portal.proto";
+import "spawnpoint.proto";
+import "tile_animation.proto";
+import "tile_layer.proto";
 import "tile.proto";
 import "tilemap.proto";
+import "tileset.proto";
 
 package wanderer.protobuf;
 
 message level {
   optional int32 id = 1;
-
   repeated uint32 entities = 2;
 
   map<uint32, movable> movables = 3;
@@ -27,10 +30,28 @@ message level {
   map<uint32, plant> plants = 6;
   map<uint32, tile> tiles = 7;
   map<uint32, tilemap> tilemaps = 8;
-
+  map<uint32, tile_animation> tile_animations = 9;
   map<uint32, chase> chases = 10;
   map<uint32, particle> particles = 11;
   map<uint32, point_light> lights = 12;
+  map<uint32, spawnpoint> spawnpoints = 13;
+  map<uint32, hitbox> hitboxes = 14;
+  map<uint32, map_object> objects = 15;
+  map<uint32, portal> portals = 16;
+  map<uint32, tile_layer> tile_layers = 17;
+  map<uint32, tileset> tilesets = 18;
+  map<uint32, inventory> inventory = 19;
+
+  optional uint32 player_entity = 50;
+  repeated uint32 tile_objects = 51;
+
+  // TODO comp::bed_trigger,
+  // TODO comp::container_trigger,
+  // TODO comp::humanoid,
+  // TODO comp::humanoid_idle,
+  // TODO comp::humanoid_move,
+  // TODO comp::humanoid_attack,
+  // TODO comp::humanoid_die,
 
   optional bool keep_viewport_in_bounds = 100;
   optional bool is_outside_level = 101;
