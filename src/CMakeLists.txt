@@ -16,7 +16,6 @@ set(SOURCE_FILES
     ${WANDERER_CORE_SOURCES}
     ${WANDERER_EVENT_SOURCES}
     ${WANDERER_IO_SOURCES}
-    ${WANDERER_GENERATED_PROTOBUF_SOURCES}
     ${WANDERER_SYSTEM_SOURCES}
     )
 
@@ -56,6 +55,7 @@ target_include_directories(${WANDERER_LIB_TARGET} SYSTEM PUBLIC
     ${LIBRARY_DIR}/rune
     ${LIBRARY_DIR}/init
     ${LIBRARY_DIR}/nenya
+    ${GENERATED_PROTOBUF_DIR}
     )
 
 # Wanderer directories
