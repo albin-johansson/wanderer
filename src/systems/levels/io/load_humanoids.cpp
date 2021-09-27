@@ -1,9 +1,9 @@
 #include "load_humanoids.hpp"
 
-#include "components/depth_drawable.hpp"
-#include "components/humanoid_state.hpp"
-#include "components/spawnpoint.hpp"
-#include "components/tilemap.hpp"
+#include "components/ai/humanoid_state.hpp"
+#include "components/gfx/depth_drawable.hpp"
+#include "components/lvl/spawnpoint.hpp"
+#include "components/tiles/tilemap.hpp"
 #include "systems/humanoid/humanoid_factory_system.hpp"
 
 namespace wanderer::sys {

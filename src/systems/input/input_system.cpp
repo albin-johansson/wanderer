@@ -1,6 +1,6 @@
 #include "input_system.hpp"
 
-#include "components/humanoid_state.hpp"
+#include "components/ai/humanoid_state.hpp"
 #include "core/ecs/registry_utils.hpp"
 #include "systems/input/idle_input_system.hpp"
 #include "systems/input/movement_input_system.hpp"

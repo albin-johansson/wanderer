@@ -2,8 +2,8 @@
 
 #include <cassert>  // assert
 
-#include "components/humanoid_state.hpp"
-#include "components/movable.hpp"
+#include "components/ai/humanoid_state.hpp"
+#include "components/physics/movable.hpp"
 #include "events/end_attack_event.hpp"
 #include "systems/humanoid/humanoid_animation_system.hpp"
 #include "systems/movement/direction_system.hpp"

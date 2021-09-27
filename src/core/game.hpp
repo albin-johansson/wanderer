@@ -18,7 +18,7 @@
 #include <centurion.hpp>        // ipoint
 #include <rune/everything.hpp>  // basic_game, input, delta_time
 
-#include "components/level.hpp"
+#include "components/lvl/level.hpp"
 #include "core/graphics/graphics_context.hpp"
 #include "events/button_pressed_event.hpp"
 #include "events/close_inventory_event.hpp"

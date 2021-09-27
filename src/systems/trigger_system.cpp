@@ -1,6 +1,6 @@
 #include "trigger_system.hpp"
 
-#include "components/hitbox.hpp"
+#include "components/physics/hitbox.hpp"
 #include "components/player.hpp"
 #include "components/trigger.hpp"
 #include "core/ecs/registry_utils.hpp"

@@ -1,6 +1,6 @@
 #include "viewport_system.hpp"
 
-#include "components/movable.hpp"
+#include "components/physics/movable.hpp"
 #include "core/game_constants.hpp"
 
 namespace wanderer::sys {

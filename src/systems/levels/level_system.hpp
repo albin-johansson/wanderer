@@ -2,7 +2,7 @@
 
 #include <entt.hpp>  // registry
 
-#include "components/level.hpp"
+#include "components/lvl/level.hpp"
 #include "core/aliases/map_id.hpp"
 #include "events/custom_animation_halfway_event.hpp"
 

@@ -2,8 +2,8 @@
 
 #include <rune/everything.hpp>  // index_to_matrix
 
-#include "components/inventory.hpp"
-#include "components/item.hpp"
+#include "components/items/inventory.hpp"
+#include "components/items/item.hpp"
 #include "core/aliases/maybe.hpp"
 #include "core/game_constants.hpp"
 #include "systems/ui/grid.hpp"

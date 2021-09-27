@@ -2,9 +2,9 @@
 
 #include <cassert>  // assert
 
+#include "components/ai/humanoid_state.hpp"
 #include "components/ctx/binds.hpp"
-#include "components/humanoid_state.hpp"
-#include "components/movable.hpp"
+#include "components/physics/movable.hpp"
 #include "components/player.hpp"
 #include "core/direction.hpp"
 #include "core/ecs/registry_utils.hpp"

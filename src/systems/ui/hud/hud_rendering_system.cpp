@@ -3,8 +3,8 @@
 #include <format>  // format
 
 #include "components/ctx/binds.hpp"
+#include "components/lvl/portal.hpp"
 #include "components/player.hpp"
-#include "components/portal.hpp"
 #include "components/trigger.hpp"
 #include "components/ui/fps_data.hpp"
 #include "core/ecs/registry_utils.hpp"

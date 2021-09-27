@@ -4,7 +4,7 @@
 #include <map>       // map
 #include <vector>    // vector
 
-#include "components/tileset.hpp"
+#include "components/tiles/tileset.hpp"
 #include "core/graphics/graphics_context.hpp"
 #include "io/parsing/parse_ir.hpp"
 

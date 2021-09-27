@@ -8,7 +8,7 @@
 
 #include "components/ctx/time_of_day.hpp"
 #include "components/ctx/viewport.hpp"
-#include "components/outside_level.hpp"
+#include "components/lvl/outside_level.hpp"
 #include "core/ecs/registry_utils.hpp"
 #include "core/serialization.hpp"
 #include "io/directories.hpp"

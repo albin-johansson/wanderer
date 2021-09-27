@@ -2,10 +2,10 @@
 
 #include <unordered_map>  // unordered_map
 
+#include "components/tiles/tile.hpp"
 #include "core/aliases/entity_type.hpp"
 #include "core/aliases/ints.hpp"
 #include "core/aliases/tile_id.hpp"
-#include "tile.hpp"
 
 namespace wanderer::comp {
 

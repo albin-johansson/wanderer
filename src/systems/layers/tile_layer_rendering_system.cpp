@@ -3,9 +3,9 @@
 #include <cassert>  // assert
 
 #include "components/ctx/render_bounds.hpp"
-#include "components/tile_animation.hpp"
-#include "components/tile_layer.hpp"
-#include "components/tilemap.hpp"
+#include "components/gfx/tile_animation.hpp"
+#include "components/tiles/tile_layer.hpp"
+#include "components/tiles/tilemap.hpp"
 #include "core/ecs/registry_utils.hpp"
 #include "systems/tiles/tile_rendering_system.hpp"
 

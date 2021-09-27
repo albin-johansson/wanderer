@@ -2,9 +2,9 @@
 
 #include <cassert>  // assert
 
-#include "components/level_switch_target.hpp"
-#include "components/movable.hpp"
-#include "components/outside_level.hpp"
+#include "components/lvl/level_switch_target.hpp"
+#include "components/lvl/outside_level.hpp"
+#include "components/physics/movable.hpp"
 #include "components/player.hpp"
 #include "core/ecs/registry_utils.hpp"
 #include "core/game_constants.hpp"

@@ -4,9 +4,9 @@
 #include <rune/everything.hpp>  // next_bool
 
 #include "components/ctx/viewport.hpp"
-#include "components/depth_drawable.hpp"
+#include "components/gfx/depth_drawable.hpp"
+#include "components/gfx/point_light.hpp"
 #include "components/player.hpp"
-#include "components/point_light.hpp"
 #include "core/ecs/registry_utils.hpp"
 #include "core/resources.hpp"
 #include "core/utils/centurion_utils.hpp"

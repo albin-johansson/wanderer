@@ -2,7 +2,7 @@
 
 #include <centurion.hpp>  // farea, frect
 
-#include "components/tile_animation.hpp"
+#include "components/gfx/tile_animation.hpp"
 #include "core/game_constants.hpp"
 
 namespace wanderer::sys {

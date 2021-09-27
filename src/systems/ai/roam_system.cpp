@@ -2,9 +2,9 @@
 
 #include <rune/everything.hpp>  // next_random
 
-#include "components/humanoid_state.hpp"
-#include "components/movable.hpp"
-#include "components/roam.hpp"
+#include "components/ai/humanoid_state.hpp"
+#include "components/ai/roam.hpp"
+#include "components/physics/movable.hpp"
 #include "core/game_constants.hpp"
 #include "systems/humanoid/humanoid_animation_system.hpp"
 #include "systems/movement/direction_system.hpp"

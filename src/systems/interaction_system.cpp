@@ -2,9 +2,9 @@
 
 #include <cassert>  // assert
 
-#include "components/container_ref.hpp"
+#include "components/items/container_ref.hpp"
+#include "components/lvl/portal.hpp"
 #include "components/player.hpp"
-#include "components/portal.hpp"
 #include "components/trigger.hpp"
 #include "core/ecs/null_entity.hpp"
 #include "core/ecs/registry_utils.hpp"

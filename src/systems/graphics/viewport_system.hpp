@@ -5,7 +5,7 @@
 #include <rune/everything.hpp>  // delta_time
 
 #include "components/ctx/viewport.hpp"
-#include "components/movable.hpp"
+#include "components/physics/movable.hpp"
 #include "core/aliases/float2.hpp"
 
 namespace wanderer::sys {

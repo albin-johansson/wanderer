@@ -3,7 +3,7 @@
 #include <rune/everything.hpp>  // next_random
 
 #include "components/ctx/viewport.hpp"
-#include "components/particle.hpp"
+#include "components/physics/particle.hpp"
 
 namespace wanderer::sys {
 namespace {

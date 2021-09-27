@@ -5,8 +5,8 @@
 #include <vector>               // vector
 
 #include "components/ctx/viewport.hpp"
-#include "components/hitbox.hpp"
-#include "components/movable.hpp"
+#include "components/physics/hitbox.hpp"
+#include "components/physics/movable.hpp"
 #include "core/utils/centurion_utils.hpp"
 #include "systems/movement/direction_system.hpp"
 #include "systems/movement/hitbox_system.hpp"

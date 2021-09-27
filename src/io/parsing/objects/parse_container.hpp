@@ -2,7 +2,7 @@
 
 #include <rune/everything.hpp>  // tmx_object
 
-#include "components/inventory.hpp"
+#include "components/items/inventory.hpp"
 
 namespace wanderer::io {
 

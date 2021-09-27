@@ -1,8 +1,8 @@
 #include "load_levels.hpp"
 
 #include "components/ctx/viewport.hpp"
-#include "components/level.hpp"
-#include "components/outside_level.hpp"
+#include "components/lvl/level.hpp"
+#include "components/lvl/outside_level.hpp"
 #include "core/resources.hpp"
 #include "io/parsing/parse_world.hpp"
 #include "level_factory_system.hpp"

@@ -1,8 +1,8 @@
 #include "drawable_system.hpp"
 
 #include "components/ctx/viewport.hpp"
-#include "components/depth_drawable.hpp"
-#include "components/movable.hpp"
+#include "components/gfx/depth_drawable.hpp"
+#include "components/physics/movable.hpp"
 #include "systems/graphics/render_bounds_system.hpp"
 
 namespace wanderer::sys {

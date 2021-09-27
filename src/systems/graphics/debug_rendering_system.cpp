@@ -2,13 +2,13 @@
 
 #include <cassert>  // assert
 
-#include "components/chase.hpp"
-#include "components/container_ref.hpp"
+#include "components/ai/chase.hpp"
 #include "components/ctx/active_menu.hpp"
-#include "components/depth_drawable.hpp"
-#include "components/hitbox.hpp"
+#include "components/gfx/depth_drawable.hpp"
+#include "components/items/container_ref.hpp"
+#include "components/lvl/portal.hpp"
+#include "components/physics/hitbox.hpp"
 #include "components/player.hpp"
-#include "components/portal.hpp"
 #include "components/trigger.hpp"
 #include "core/ecs/registry_utils.hpp"
 #include "core/game_constants.hpp"

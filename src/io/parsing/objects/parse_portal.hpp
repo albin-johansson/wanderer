@@ -2,7 +2,7 @@
 
 #include <rune/everything.hpp>  // tmx_object
 
-#include "components/portal.hpp"
+#include "components/lvl/portal.hpp"
 
 namespace wanderer::io {
 

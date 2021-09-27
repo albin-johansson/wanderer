@@ -2,7 +2,7 @@
 
 #include <rune/everything.hpp>  // tmx_object
 
-#include "components/hitbox.hpp"
+#include "components/physics/hitbox.hpp"
 
 namespace wanderer::io {
 

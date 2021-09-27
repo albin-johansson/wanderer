@@ -2,7 +2,7 @@
 
 #include <filesystem>  // path
 
-#include "components/level.hpp"
+#include "components/lvl/level.hpp"
 #include "core/graphics/graphics_context.hpp"
 #include "io/parsing/parse_ir.hpp"
 

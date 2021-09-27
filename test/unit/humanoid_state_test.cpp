@@ -1,4 +1,4 @@
-#include "components/humanoid_state.hpp"
+#include "components/ai/humanoid_state.hpp"
 
 #include <gtest/gtest.h>
 

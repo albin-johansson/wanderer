@@ -1,6 +1,6 @@
 #pragma once
 
-#include "components/tile_layer.hpp"
+#include "components/tiles/tile_layer.hpp"
 
 namespace wanderer::io {
 

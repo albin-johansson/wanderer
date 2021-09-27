@@ -1,6 +1,6 @@
 #include "add_humanoid_state_dependencies.hpp"
 
-#include "components/humanoid_state.hpp"
+#include "components/ai/humanoid_state.hpp"
 
 namespace wanderer {
 namespace {

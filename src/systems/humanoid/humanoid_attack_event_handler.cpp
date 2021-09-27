@@ -3,8 +3,8 @@
 #include <cassert>        // assert
 #include <centurion.hpp>  // colors
 
-#include "components/humanoid_state.hpp"
-#include "components/movable.hpp"
+#include "components/ai/humanoid_state.hpp"
+#include "components/physics/movable.hpp"
 #include "core/game_constants.hpp"
 #include "events/spawn_particles_event.hpp"
 #include "systems/humanoid/humanoid_animation_system.hpp"

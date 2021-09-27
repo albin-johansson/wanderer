@@ -4,13 +4,13 @@
 #include <fstream>        // ifstream
 #include <ios>            // ios
 
+#include "components/ai/humanoid_state.hpp"
 #include "components/ctx/level_size.hpp"
 #include "components/ctx/viewport.hpp"
-#include "components/humanoid_state.hpp"
-#include "components/movable.hpp"
+#include "components/physics/movable.hpp"
 #include "components/player.hpp"
-#include "components/tilemap.hpp"
-#include "components/tileset.hpp"
+#include "components/tiles/tilemap.hpp"
+#include "components/tiles/tileset.hpp"
 #include "core/ecs/add_humanoid_state_dependencies.hpp"
 #include "core/ecs/make_registry.hpp"
 #include "core/ecs/registry_utils.hpp"

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "components/level.hpp"
+#include "components/lvl/level.hpp"
 #include "core/graphics/graphics_context.hpp"
 
 namespace wanderer::sys {

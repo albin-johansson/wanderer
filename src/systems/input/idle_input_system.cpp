@@ -3,9 +3,9 @@
 #include <cassert>   // assert
 #include <optional>  // optional
 
+#include "components/ai/humanoid_state.hpp"
 #include "components/ctx/binds.hpp"
-#include "components/humanoid_state.hpp"
-#include "components/inventory.hpp"
+#include "components/items/inventory.hpp"
 #include "components/player.hpp"
 #include "core/direction.hpp"
 #include "core/ecs/registry_utils.hpp"
