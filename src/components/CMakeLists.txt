@@ -34,6 +34,7 @@ set(WANDERER_COMPONENT_SOURCES
     ${PROJECT_SOURCE_DIR}/tile_object.hpp
     ${PROJECT_SOURCE_DIR}/tilemap.hpp
     ${PROJECT_SOURCE_DIR}/tileset.hpp
+    ${PROJECT_SOURCE_DIR}/trigger.hpp
 
     ${PROJECT_SOURCE_DIR}/ctx/active_menu.hpp
     ${PROJECT_SOURCE_DIR}/ctx/binds.hpp

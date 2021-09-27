@@ -1,9 +1,11 @@
 #include "interaction_system.hpp"
 
-#include "components/bed_trigger.hpp"
-#include "components/container_trigger.hpp"
+#include <cassert>  // assert
+
+#include "components/container_ref.hpp"
 #include "components/player.hpp"
 #include "components/portal.hpp"
+#include "components/trigger.hpp"
 #include "core/ecs/null_entity.hpp"
 #include "core/ecs/registry_utils.hpp"
 #include "events/close_inventory_event.hpp"
@@ -12,35 +14,6 @@
 #include "events/switch_map_event.hpp"
 
 namespace wanderer::sys {
-namespace {
-
-void enqueue_switch_map_event(entt::registry& registry,
-                              entt::dispatcher& dispatcher,
-                              const entt::entity portalEntity)
-{
-  const auto& portal = registry.get<comp::portal>(portalEntity);
-  dispatcher.enqueue<switch_map_event>(portal.target.value());
-}
-
-void enqueue_inventory_event(entt::registry& registry,
-                             entt::dispatcher& dispatcher,
-                             const entt::entity triggerEntity)
-{
-  if (registry.empty<comp::active_inventory>()) {
-    const auto& trigger = registry.get<comp::container_trigger>(triggerEntity);
-    dispatcher.enqueue<show_inventory_event>(trigger.inventory_entity);
-  }
-  else {
-    dispatcher.enqueue<close_inventory_event>();
-  }
-}
-
-void enqueue_sleep_event(entt::registry& registry, entt::dispatcher& dispatcher)
-{
-  dispatcher.enqueue<sleep_event>();
-}
-
-}  // namespace
 
 void on_interact(const interact_event& event)
 {
@@ -48,14 +21,33 @@ void on_interact(const interact_event& event)
   auto& dispatcher = event.dispatcher.get();
   const auto player = singleton_entity<comp::player>(registry);
 
-  if (const auto* p = registry.try_get<comp::is_within_portal>(player)) {
-    enqueue_switch_map_event(registry, dispatcher, p->portal_entity);
-  }
-  else if (const auto* ct = registry.try_get<comp::is_within_container_trigger>(player)) {
-    enqueue_inventory_event(registry, dispatcher, ct->trigger_entity);
-  }
-  else if (const auto* bt = registry.try_get<comp::is_within_bed_trigger>(player)) {
-    enqueue_sleep_event(registry, dispatcher);
+  if (const auto* within = registry.try_get<comp::is_within_trigger>(player)) {
+    assert(within->trigger_entity != entt::null);
+
+    const auto& trigger = registry.get<comp::trigger>(within->trigger_entity);
+    switch (trigger.type) {
+      case comp::trigger_type::portal: {
+        const auto& portal = registry.get<comp::portal>(within->trigger_entity);
+        dispatcher.enqueue<switch_map_event>(portal.target.value());
+        break;
+      }
+      case comp::trigger_type::container: {
+        if (registry.empty<comp::active_inventory>()) {
+          const auto& ref = registry.get<comp::container_ref>(within->trigger_entity);
+          dispatcher.enqueue<show_inventory_event>(ref.inventory_entity);
+        }
+        else {
+          dispatcher.enqueue<close_inventory_event>();
+        }
+
+        break;
+      }
+
+      case comp::trigger_type::bed: {
+        dispatcher.enqueue<sleep_event>();
+        break;
+      }
+    }
   }
 }
 

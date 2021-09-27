@@ -1,9 +1,8 @@
 #include "registry_serialization_system.hpp"
 
 #include "components/animated.hpp"
-#include "components/bed_trigger.hpp"
 #include "components/chase.hpp"
-#include "components/container_trigger.hpp"
+#include "components/container_ref.hpp"
 #include "components/depth_drawable.hpp"
 #include "components/float3.hpp"
 #include "components/hitbox.hpp"
@@ -24,6 +23,7 @@
 #include "components/tile_object.hpp"
 #include "components/tilemap.hpp"
 #include "components/tileset.hpp"
+#include "components/trigger.hpp"
 
 namespace wanderer::sys {
 namespace {
@@ -33,10 +33,10 @@ void process(T& handle, Archive& archive)
 {
   handle.entities(archive)
       .template component<comp::animated,
-                          comp::bed_trigger,
+                          comp::trigger,
                           comp::tile_animation,
                           comp::chase,
-                          comp::container_trigger,
+                          comp::container_ref,
                           comp::depth_drawable,
                           comp::float3,
                           comp::hitbox,

@@ -10,6 +10,8 @@ set(WANDERER_SYSTEM_SOURCES
     ${PROJECT_SOURCE_DIR}/time_system.hpp
     ${PROJECT_SOURCE_DIR}/plant_system.cpp
     ${PROJECT_SOURCE_DIR}/plant_system.hpp
+    ${PROJECT_SOURCE_DIR}/trigger_system.cpp
+    ${PROJECT_SOURCE_DIR}/trigger_system.hpp
 
     ${PROJECT_SOURCE_DIR}/ai/chase_system.cpp
     ${PROJECT_SOURCE_DIR}/ai/chase_system.hpp
@@ -103,14 +105,6 @@ set(WANDERER_SYSTEM_SOURCES
     ${PROJECT_SOURCE_DIR}/tiles/tile_rendering_system.hpp
     ${PROJECT_SOURCE_DIR}/tiles/tile_system.cpp
     ${PROJECT_SOURCE_DIR}/tiles/tile_system.hpp
-
-    ${PROJECT_SOURCE_DIR}/triggers/bed_trigger_system.cpp
-    ${PROJECT_SOURCE_DIR}/triggers/bed_trigger_system.hpp
-    ${PROJECT_SOURCE_DIR}/triggers/container_trigger_system.cpp
-    ${PROJECT_SOURCE_DIR}/triggers/container_trigger_system.hpp
-    ${PROJECT_SOURCE_DIR}/triggers/portal_trigger_system.cpp
-    ${PROJECT_SOURCE_DIR}/triggers/portal_trigger_system.hpp
-    ${PROJECT_SOURCE_DIR}/triggers/update_triggers.hpp
 
     ${PROJECT_SOURCE_DIR}/ui/cursor_system.cpp
     ${PROJECT_SOURCE_DIR}/ui/cursor_system.hpp

@@ -33,15 +33,17 @@ void parse_object_layer(ir::level& data,
     }
     else if (type == "ContainerTrigger") {
       assert(rune::tmx::is_object(object.properties, "container"));
+      objectData.trigger_type = comp::trigger_type::container;
       objectData.inventory_ref =
           rune::tmx::get_object(object.properties, "container").get();
       objectData.hitbox = parse_hitbox(object, data.x_ratio, data.y_ratio);
     }
     else if (type == "BedTrigger") {
-      objectData.bed_trigger.emplace();
+      objectData.trigger_type = comp::trigger_type::bed;
       objectData.hitbox = parse_hitbox(object, data.x_ratio, data.y_ratio);
     }
     else if (type == "Portal") {
+      objectData.trigger_type = comp::trigger_type::portal;
       objectData.portal = parse_portal(object);
       objectData.hitbox = parse_hitbox(object, data.x_ratio, data.y_ratio);
     }

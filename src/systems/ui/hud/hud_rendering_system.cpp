@@ -2,11 +2,10 @@
 
 #include <format>  // format
 
-#include "components/bed_trigger.hpp"
-#include "components/container_trigger.hpp"
 #include "components/ctx/binds.hpp"
 #include "components/player.hpp"
 #include "components/portal.hpp"
+#include "components/trigger.hpp"
 #include "components/ui/fps_data.hpp"
 #include "core/ecs/registry_utils.hpp"
 #include "core/game_constants.hpp"
@@ -35,19 +34,28 @@ void render_hints(const entt::registry& shared, graphics_context& graphics)
   const auto& level = current_level(shared);
 
   const auto player = singleton_entity<comp::player>(level.registry);
-  if (level.registry.all_of<comp::is_within_portal>(player)) {
-    if (sys::is_current_level_outside(shared)) {
-      render_hint(graphics, std::format(enter_fmt, binds.interact.name()));
+
+  if (const auto* within = level.registry.try_get<comp::is_within_trigger>(player)) {
+    const auto& trigger = level.registry.get<comp::trigger>(within->trigger_entity);
+    switch (trigger.type) {
+      case comp::trigger_type::portal: {
+        if (sys::is_current_level_outside(shared)) {
+          render_hint(graphics, std::format(enter_fmt, binds.interact.name()));
+        }
+        else {
+          render_hint(graphics, std::format(exit_fmt, binds.interact.name()));
+        }
+        break;
+      }
+      case comp::trigger_type::container: {
+        render_hint(graphics, std::format(container_fmt, binds.interact.name()));
+        break;
+      }
+      case comp::trigger_type::bed: {
+        render_hint(graphics, std::format(sleep_fmt, binds.interact.name()));
+        break;
+      }
     }
-    else {
-      render_hint(graphics, std::format(exit_fmt, binds.interact.name()));
-    }
-  }
-  else if (level.registry.all_of<comp::is_within_container_trigger>(player)) {
-    render_hint(graphics, std::format(container_fmt, binds.interact.name()));
-  }
-  else if (level.registry.all_of<comp::is_within_bed_trigger>(player)) {
-    render_hint(graphics, std::format(sleep_fmt, binds.interact.name()));
   }
 }
 

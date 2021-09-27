@@ -1,13 +1,15 @@
 #include "debug_rendering_system.hpp"
 
-#include "components/bed_trigger.hpp"
+#include <cassert>  // assert
+
 #include "components/chase.hpp"
-#include "components/container_trigger.hpp"
+#include "components/container_ref.hpp"
 #include "components/ctx/active_menu.hpp"
 #include "components/depth_drawable.hpp"
 #include "components/hitbox.hpp"
 #include "components/player.hpp"
 #include "components/portal.hpp"
+#include "components/trigger.hpp"
 #include "core/ecs/registry_utils.hpp"
 #include "core/game_constants.hpp"
 #include "core/utils/centurion_utils.hpp"
@@ -19,8 +21,7 @@ namespace {
 void render_hitboxes(const entt::registry& registry, cen::renderer& renderer)
 {
   for (auto&& [entity, hitbox] : registry.view<comp::hitbox>().each()) {
-    if (registry.any_of<comp::portal, comp::container_trigger, comp::bed_trigger>(entity))
-    {
+    if (registry.all_of<comp::trigger>(entity)) {
       renderer.set_color(cen::colors::cyan);
     }
     else {
@@ -39,29 +40,15 @@ void render_hitboxes(const entt::registry& registry, cen::renderer& renderer)
   }
 }
 
-void render_enabled_trigger_indicator(const entt::registry& registry,
-                                      const entt::entity entity,
-                                      cen::renderer& renderer)
-{
-  assert(registry.all_of<comp::hitbox>(entity));
-  const auto& hitbox = registry.get<comp::hitbox>(entity);
-
-  renderer.set_color(cen::colors::cyan.with_alpha(100));
-  renderer.fill_rect_t(hitbox.bounds);
-}
-
 void render_trigger_indicators(const entt::registry& registry, cen::renderer& renderer)
 {
   const auto entity = singleton_entity<const comp::player>(registry);
-  if (const auto* iwp = registry.try_get<comp::is_within_portal>(entity)) {
-    render_enabled_trigger_indicator(registry, iwp->portal_entity, renderer);
-  }
-  else if (const auto* iwc = registry.try_get<comp::is_within_container_trigger>(entity))
-  {
-    render_enabled_trigger_indicator(registry, iwc->trigger_entity, renderer);
-  }
-  else if (const auto iwb = registry.try_get<comp::is_within_bed_trigger>(entity)) {
-    render_enabled_trigger_indicator(registry, iwb->trigger_entity, renderer);
+  if (const auto* within = registry.try_get<comp::is_within_trigger>(entity)) {
+    assert(registry.all_of<comp::hitbox>(within->trigger_entity));
+
+    const auto& hitbox = registry.get<comp::hitbox>(within->trigger_entity);
+    renderer.set_color(cen::colors::cyan.with_alpha(100));
+    renderer.fill_rect_t(hitbox.bounds);
   }
 }
 

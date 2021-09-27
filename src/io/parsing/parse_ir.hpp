@@ -5,8 +5,7 @@
 #include <string>         // string
 #include <vector>         // vector
 
-#include "components/bed_trigger.hpp"
-#include "components/container_trigger.hpp"
+#include "components/container_ref.hpp"
 #include "components/depth_drawable.hpp"
 #include "components/hitbox.hpp"
 #include "components/inventory.hpp"
@@ -18,6 +17,7 @@
 #include "components/tile_animation.hpp"
 #include "components/tile_layer.hpp"
 #include "components/tile_object.hpp"
+#include "components/trigger.hpp"
 #include "core/aliases/depth.hpp"
 #include "core/aliases/maybe.hpp"
 #include "core/aliases/texture_id.hpp"
@@ -71,15 +71,15 @@ struct depth_drawable final
 
 struct object final
 {
-  int id{};                              ///< Unique object ID.
-  maybe<comp::hitbox> hitbox;            ///< Optional hitbox.
-  maybe<depth_drawable> drawable;        ///< Optional drawable.
-  maybe<comp::spawnpoint> spawnpoint;    ///< Optional spawnpoint.
-  maybe<comp::inventory> inventory;      ///< Optional inventory.
-  maybe<comp::portal> portal;            ///< Optional portal.
-  maybe<comp::point_light> light;        ///< Optional light.
-  maybe<comp::bed_trigger> bed_trigger;  ///< Optional bed trigger.
-  maybe<comp::plant> plant;              ///< Optional plant.
+  int id{};                            ///< Unique object ID.
+  maybe<comp::hitbox> hitbox;          ///< Optional hitbox.
+  maybe<depth_drawable> drawable;      ///< Optional drawable.
+  maybe<comp::spawnpoint> spawnpoint;  ///< Optional spawnpoint.
+  maybe<comp::inventory> inventory;    ///< Optional inventory.
+  maybe<comp::portal> portal;          ///< Optional portal.
+  maybe<comp::point_light> light;      ///< Optional light.
+  maybe<comp::plant> plant;            ///< Optional plant.
+  maybe<comp::trigger_type> trigger_type;
   maybe<int> inventory_ref;  ///< Optional inventory ID, used by inv. triggers.
 };
 

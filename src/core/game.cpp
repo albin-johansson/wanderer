@@ -36,9 +36,7 @@
 #include "systems/tiles/tile_animation_system.hpp"
 #include "systems/tiles/tile_object_animation_system.hpp"
 #include "systems/time_system.hpp"
-#include "systems/triggers/bed_trigger_system.hpp"
-#include "systems/triggers/container_trigger_system.hpp"
-#include "systems/triggers/portal_trigger_system.hpp"
+#include "systems/trigger_system.hpp"
 #include "systems/ui/fps_system.hpp"
 #include "systems/ui/hud/hud_rendering_system.hpp"
 #include "systems/ui/hud/level_switch_animation_system.hpp"
@@ -142,10 +140,7 @@ void game::tick(const float dt)
   sys::update_plants(level.registry, dt);
   sys::update_lights(level.registry);
   sys::update_player_light_position(level.registry);
-
-  sys::update_portal_triggers(level.registry);
-  sys::update_container_triggers(level.registry);
-  sys::update_bed_triggers(level.registry);
+  sys::update_triggers(level.registry, m_dispatcher);
 
   {
     const auto player = singleton_entity<comp::player>(level.registry);

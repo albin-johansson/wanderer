@@ -23,9 +23,9 @@ namespace {
 
 void set_up_container_triggers(entt::registry& registry)
 {
-  for (auto&& [entity, trigger] : registry.view<comp::container_trigger>().each()) {
-    if (const auto result = find_inventory(registry, trigger.inventory_id)) {
-      trigger.inventory_entity = comp::inventory::entity{*result};
+  for (auto&& [entity, ref] : registry.view<comp::container_ref>().each()) {
+    if (const auto result = find_inventory(registry, ref.inventory_id)) {
+      ref.inventory_entity = comp::inventory::entity{*result};
     }
   }
 }
@@ -55,6 +55,11 @@ void load_objects(entt::registry& registry,
       registry.emplace<comp::hitbox>(entity, *data.hitbox);
     }
 
+    if (data.trigger_type) {
+      auto& trigger = registry.emplace<comp::trigger>(entity);
+      trigger.type = *data.trigger_type;
+    }
+
     if (data.portal) {
       registry.emplace<comp::portal>(entity, *data.portal);
     }
@@ -64,13 +69,8 @@ void load_objects(entt::registry& registry,
     }
 
     if (data.inventory_ref) {
-      auto& trigger = registry.emplace<comp::container_trigger>(entity);
-      trigger.inventory_id = *data.inventory_ref;
-      trigger.inventory_entity = null<comp::inventory>();  // Set up later
-    }
-
-    if (data.bed_trigger) {
-      registry.emplace<comp::bed_trigger>(entity, *data.bed_trigger);
+      auto& ref = registry.emplace<comp::container_ref>(entity);
+      ref.inventory_id = *data.inventory_ref;
     }
 
     if (data.spawnpoint) {
