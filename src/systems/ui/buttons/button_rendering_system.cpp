@@ -55,7 +55,7 @@ void render_text(const comp::button& button,
   }
 
   auto& texture = drawable.texture.value();
-  texture.set_alpha(button.enabled ? 255 : 100);
+  texture.set_alpha((button.state & comp::button::enable_bit) ? 255 : 100);
 
   renderer.render(texture, *drawable.text_pos);
   texture.set_alpha(255);
@@ -78,7 +78,7 @@ void render_button(const entt::registry& registry,
   const auto& button = registry.get<comp::button>(buttonEntity);
   const auto& drawable = registry.get<comp::button_drawable>(buttonEntity);
 
-  if (!button.visible)
+  if (!(button.state & comp::button::visible_bit))
   {
     return;
   }
@@ -89,7 +89,7 @@ void render_button(const entt::registry& registry,
     init_text(drawable, button.text, renderer);
   }
 
-  if (button.hover && button.enabled)
+  if (button.state & comp::button::hover_bit && button.state & comp::button::enable_bit)
   {
     render_outline(drawable, renderer);
   }

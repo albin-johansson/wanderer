@@ -74,8 +74,9 @@ void update_page_indicators(entt::registry& registry)
   const auto currentPage = group.current_page;
   const auto nPages = page_count(group);
 
-  registry.get<comp::button>(menu.decrement_button).enabled = currentPage != 0;
-  registry.get<comp::button>(menu.increment_button).enabled = currentPage != nPages - 1;
+  set_enabled(registry.get<comp::button>(menu.decrement_button), currentPage != 0);
+  set_enabled(registry.get<comp::button>(menu.increment_button),
+              currentPage != nPages - 1);
 }
 
 void refresh_save_entry_buttons(entt::registry& registry,
@@ -97,8 +98,7 @@ void refresh_save_entry_buttons(entt::registry& registry,
                                           menu_action::change_save_preview,
                                           grid_position{actualRow, save_entry_col});
 
-    auto& button = registry.get<comp::button>(buttonEntity);
-    button.visible = row < maxRow;
+    set_visible(registry.get<comp::button>(buttonEntity), row < maxRow);
 
     auto& associatedMenu = registry.emplace<comp::associated_menu>(buttonEntity);
     associatedMenu.entity = menuEntity;
@@ -143,9 +143,8 @@ void update_delete_button_enabled(entt::registry& registry,
   if (group.selected != entt::null)
   {
     const auto& button = registry.get<comp::button>(group.selected);
-
     auto& deleteButton = registry.get<comp::button>(deleteButtonEntity);
-    deleteButton.enabled = button.text != "exit_save";
+    set_enabled(deleteButton, button.text != "exit_save");
   }
 }
 
@@ -165,8 +164,9 @@ void refresh_saves_menu_contents(entt::registry& registry,
   refresh_page_indicator_label(registry, group, menuEntity);
 
   auto& savesMenu = registry.get<comp::saves_menu>(menuEntity);
-  registry.get<comp::button>(savesMenu.load_button).enabled = !group.buttons.empty();
-  registry.get<comp::button>(savesMenu.delete_button).enabled = !group.buttons.empty();
+  set_enabled(registry.get<comp::button>(savesMenu.load_button), !group.buttons.empty());
+  set_enabled(registry.get<comp::button>(savesMenu.delete_button),
+              !group.buttons.empty());
 
   update_delete_button_enabled(registry, group, savesMenu.delete_button);
   update_page_indicators(registry);
@@ -189,9 +189,10 @@ void change_saves_button_group_page(entt::registry& registry, const int incremen
       for (int row = 0; const auto buttonEntity : group->buttons)
       {
         auto& button = registry.get<comp::button>(buttonEntity);
-        button.visible = row >= firstRow && row <= firstRow + (group->items_per_page - 1);
+        set_visible(button,
+                    row >= firstRow && row <= firstRow + (group->items_per_page - 1));
 
-        if (button.visible && group->selected == entt::null)
+        if ((button.state & comp::button::visible_bit) && group->selected == entt::null)
         {
           group->selected = buttonEntity;
         }

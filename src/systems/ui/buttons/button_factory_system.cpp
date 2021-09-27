@@ -14,7 +14,6 @@ void add_button(entt::registry& registry,
   button.text = std::move(text);
   button.action = action;
   button.position = position;
-  button.hover = false;
 
   registry.emplace<comp::button_drawable>(entity);
 }
