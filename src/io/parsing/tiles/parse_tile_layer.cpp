@@ -8,7 +8,7 @@
 #include "io/parsing/common.hpp"
 #include "io/parsing/tiles/parse_ground_layer.hpp"
 #include "io/parsing/tiles/parse_tile_objects.hpp"
-#include "systems/movement/hitbox_system.hpp"
+#include "systems/physics/hitbox_system.hpp"
 
 namespace wanderer::io {
 

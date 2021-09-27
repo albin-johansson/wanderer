@@ -6,7 +6,7 @@
 #include <rune/everything.hpp>  // index_to_matrix
 
 #include "common/maybe.hpp"
-#include "systems/movement/hitbox_system.hpp"
+#include "systems/physics/hitbox_system.hpp"
 
 namespace wanderer::io {
 namespace {

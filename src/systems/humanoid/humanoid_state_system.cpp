@@ -6,7 +6,7 @@
 #include "components/physics/movable.hpp"
 #include "events/end_attack_event.hpp"
 #include "systems/humanoid/humanoid_animation_system.hpp"
-#include "systems/movement/direction_system.hpp"
+#include "systems/physics/direction_system.hpp"
 
 namespace wanderer::sys {
 namespace {

@@ -4,7 +4,7 @@
 
 #include "core/game_constants.hpp"
 #include "core/utils/centurion_utils.hpp"
-#include "systems/movement/hitbox_system.hpp"
+#include "systems/physics/hitbox_system.hpp"
 
 namespace wanderer::io {
 namespace {

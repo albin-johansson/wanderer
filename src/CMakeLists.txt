@@ -5,7 +5,6 @@ project(wanderer-src CXX)
 add_subdirectory(core)
 add_subdirectory(events)
 add_subdirectory(io)
-add_subdirectory(systems)
 
 set(SOURCE_FILES
     profile.hpp
@@ -84,6 +83,181 @@ set(SOURCE_FILES
     components/ui/line.hpp
     components/ui/menu.hpp
     components/ui/saves_menu.hpp
+
+    systems/interaction_system.cpp
+    systems/interaction_system.hpp
+    systems/time_system.cpp
+    systems/time_system.hpp
+    systems/plant_system.cpp
+    systems/plant_system.hpp
+    systems/trigger_system.cpp
+    systems/trigger_system.hpp
+
+    systems/ai/chase_system.cpp
+    systems/ai/chase_system.hpp
+    systems/ai/roam_system.cpp
+    systems/ai/roam_system.hpp
+
+    systems/configuration/load_binds_system.cpp
+    systems/configuration/load_binds_system.hpp
+    systems/configuration/settings_system.cpp
+    systems/configuration/settings_system.hpp
+
+    systems/gfx/animation_system.cpp
+    systems/gfx/animation_system.hpp
+    systems/gfx/custom_animation_system.cpp
+    systems/gfx/custom_animation_system.hpp
+    systems/gfx/debug_rendering_system.cpp
+    systems/gfx/debug_rendering_system.hpp
+    systems/gfx/depth_system.cpp
+    systems/gfx/depth_system.hpp
+    systems/gfx/drawable_system.cpp
+    systems/gfx/drawable_system.hpp
+    systems/gfx/light_system.cpp
+    systems/gfx/light_system.hpp
+    systems/gfx/render_bounds_system.cpp
+    systems/gfx/render_bounds_system.hpp
+    systems/gfx/viewport_system.cpp
+    systems/gfx/viewport_system.hpp
+
+    systems/humanoid/humanoid_animation_system.cpp
+    systems/humanoid/humanoid_animation_system.hpp
+    systems/humanoid/humanoid_attack_event_handler.cpp
+    systems/humanoid/humanoid_attack_event_handler.hpp
+    systems/humanoid/humanoid_factory_system.cpp
+    systems/humanoid/humanoid_factory_system.hpp
+    systems/humanoid/humanoid_move_event_handler.cpp
+    systems/humanoid/humanoid_move_event_handler.hpp
+    systems/humanoid/humanoid_state_system.cpp
+    systems/humanoid/humanoid_state_system.hpp
+
+    systems/input/idle_input_system.cpp
+    systems/input/idle_input_system.hpp
+    systems/input/input_system.cpp
+    systems/input/input_system.hpp
+    systems/input/key_bind_system.cpp
+    systems/input/key_bind_system.hpp
+    systems/input/movement_input_system.cpp
+    systems/input/movement_input_system.hpp
+
+    systems/layers/tile_layer_rendering_system.cpp
+    systems/layers/tile_layer_rendering_system.hpp
+    systems/levels/level_save_system.cpp
+    systems/levels/level_save_system.hpp
+    systems/levels/level_system.cpp
+    systems/levels/level_system.hpp
+
+    systems/physics/direction_system.cpp
+    systems/physics/direction_system.hpp
+    systems/physics/hitbox_system.cpp
+    systems/physics/hitbox_system.hpp
+    systems/physics/movement_system.cpp
+    systems/physics/movement_system.hpp
+    systems/physics/particle_system.cpp
+    systems/physics/particle_system.hpp
+
+    systems/levels/io/level_factory_system.cpp
+    systems/levels/io/level_factory_system.hpp
+    systems/levels/io/load_ground_layers.cpp
+    systems/levels/io/load_ground_layers.hpp
+    systems/levels/io/load_humanoids.cpp
+    systems/levels/io/load_humanoids.hpp
+    systems/levels/io/load_levels.cpp
+    systems/levels/io/load_levels.hpp
+    systems/levels/io/load_objects.cpp
+    systems/levels/io/load_objects.hpp
+    systems/levels/io/load_tile_objects.cpp
+    systems/levels/io/load_tile_objects.hpp
+    systems/levels/io/load_tilemap.cpp
+    systems/levels/io/load_tilemap.hpp
+    systems/levels/io/load_tileset.cpp
+    systems/levels/io/load_tileset.hpp
+    systems/levels/io/load_tileset_textures.cpp
+    systems/levels/io/load_tileset_textures.hpp
+
+    systems/registry/registry_serialization_system.cpp
+    systems/registry/registry_serialization_system.hpp
+    systems/registry/shared_registry_factory_system.cpp
+    systems/registry/shared_registry_factory_system.hpp
+
+    systems/tiles/tile_animation_system.cpp
+    systems/tiles/tile_animation_system.hpp
+    systems/tiles/tile_object_animation_system.cpp
+    systems/tiles/tile_object_animation_system.hpp
+    systems/tiles/tile_rendering_system.cpp
+    systems/tiles/tile_rendering_system.hpp
+    systems/tiles/tile_system.cpp
+    systems/tiles/tile_system.hpp
+
+    systems/ui/cursor_system.cpp
+    systems/ui/cursor_system.hpp
+    systems/ui/fps_system.cpp
+    systems/ui/fps_system.hpp
+    systems/ui/grid.hpp
+
+    systems/ui/buttons/button_factory_system.cpp
+    systems/ui/buttons/button_factory_system.hpp
+    systems/ui/buttons/button_rendering_system.cpp
+    systems/ui/buttons/button_rendering_system.hpp
+    systems/ui/buttons/button_system.cpp
+    systems/ui/buttons/button_system.hpp
+
+    systems/ui/checkboxes/checkbox_factory_system.cpp
+    systems/ui/checkboxes/checkbox_factory_system.hpp
+    systems/ui/checkboxes/checkbox_rendering_system.hpp
+    systems/ui/checkboxes/checkbox_rendering_system.cpp
+
+    systems/ui/hud/hud_rendering_system.cpp
+    systems/ui/hud/hud_rendering_system.hpp
+    systems/ui/hud/inventory_rendering_system.cpp
+    systems/ui/hud/inventory_rendering_system.hpp
+    systems/ui/hud/level_switch_animation_system.cpp
+    systems/ui/hud/level_switch_animation_system.hpp
+
+    systems/ui/labels/label_factory_system.cpp
+    systems/ui/labels/label_factory_system.hpp
+    systems/ui/labels/label_rendering_system.cpp
+    systems/ui/labels/label_rendering_system.hpp
+    systems/ui/labels/label_system.cpp
+    systems/ui/labels/label_system.hpp
+
+    systems/ui/lazy-textures/lazy_texture_factory_system.cpp
+    systems/ui/lazy-textures/lazy_texture_factory_system.hpp
+    systems/ui/lazy-textures/lazy_texture_rendering_system.cpp
+    systems/ui/lazy-textures/lazy_texture_rendering_system.hpp
+
+    systems/ui/lines/line_factory_system.cpp
+    systems/ui/lines/line_factory_system.hpp
+    systems/ui/lines/line_rendering_system.hpp
+    systems/ui/lines/line_rendering_system.cpp
+
+    systems/ui/menus/menu_factory_system.cpp
+    systems/ui/menus/menu_factory_system.hpp
+    systems/ui/menus/menu_rendering_system.cpp
+    systems/ui/menus/menu_rendering_system.hpp
+    systems/ui/menus/menu_system.cpp
+    systems/ui/menus/menu_system.hpp
+
+    systems/ui/menus/controls/controls_menu_factory_system.cpp
+    systems/ui/menus/controls/controls_menu_factory_system.hpp
+
+    systems/ui/menus/home/home_menu_factory_system.cpp
+    systems/ui/menus/home/home_menu_factory_system.hpp
+
+    systems/ui/menus/in-game/in_game_menu_factory_system.cpp
+    systems/ui/menus/in-game/in_game_menu_factory_system.hpp
+
+    systems/ui/menus/saves/saves_menu_entry_factory_system.cpp
+    systems/ui/menus/saves/saves_menu_entry_factory_system.hpp
+    systems/ui/menus/saves/saves_menu_factory_system.cpp
+    systems/ui/menus/saves/saves_menu_factory_system.hpp
+    systems/ui/menus/saves/saves_menu_system.cpp
+    systems/ui/menus/saves/saves_menu_system.hpp
+
+    systems/ui/menus/settings/settings_menu_factory_system.cpp
+    systems/ui/menus/settings/settings_menu_factory_system.hpp
+    systems/ui/menus/settings/settings_menu_system.cpp
+    systems/ui/menus/settings/settings_menu_system.hpp
 
     ${WANDERER_CORE_SOURCES}
     ${WANDERER_EVENT_SOURCES}

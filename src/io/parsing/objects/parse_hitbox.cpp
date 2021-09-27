@@ -1,7 +1,7 @@
 #include "parse_hitbox.hpp"
 
 #include "common/float2.hpp"
-#include "systems/movement/hitbox_system.hpp"
+#include "systems/physics/hitbox_system.hpp"
 
 namespace wanderer::io {
 

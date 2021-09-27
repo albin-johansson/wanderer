@@ -8,8 +8,8 @@
 #include "components/physics/hitbox.hpp"
 #include "components/physics/movable.hpp"
 #include "core/utils/centurion_utils.hpp"
-#include "systems/movement/direction_system.hpp"
-#include "systems/movement/hitbox_system.hpp"
+#include "systems/physics/direction_system.hpp"
+#include "systems/physics/hitbox_system.hpp"
 
 namespace wanderer::sys {
 namespace {

@@ -4,7 +4,7 @@
 #include "components/player.hpp"
 #include "components/trigger.hpp"
 #include "core/ecs/registry_utils.hpp"
-#include "systems/movement/hitbox_system.hpp"
+#include "systems/physics/hitbox_system.hpp"
 
 namespace wanderer::sys {
 

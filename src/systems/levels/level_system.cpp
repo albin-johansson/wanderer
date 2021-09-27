@@ -8,7 +8,7 @@
 #include "components/player.hpp"
 #include "core/ecs/registry_utils.hpp"
 #include "core/game_constants.hpp"
-#include "systems/graphics/viewport_system.hpp"
+#include "systems/gfx/viewport_system.hpp"
 
 namespace wanderer::sys {
 

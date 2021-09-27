@@ -3,7 +3,7 @@
 #include "components/ctx/viewport.hpp"
 #include "components/gfx/depth_drawable.hpp"
 #include "components/physics/movable.hpp"
-#include "systems/graphics/render_bounds_system.hpp"
+#include "systems/gfx/render_bounds_system.hpp"
 
 namespace wanderer::sys {
 

@@ -23,9 +23,9 @@
 #include "load_tileset.hpp"
 #include "load_tileset_textures.hpp"
 #include "profile.hpp"
-#include "systems/graphics/depth_system.hpp"
-#include "systems/graphics/drawable_system.hpp"
-#include "systems/graphics/viewport_system.hpp"
+#include "systems/gfx/depth_system.hpp"
+#include "systems/gfx/drawable_system.hpp"
+#include "systems/gfx/viewport_system.hpp"
 #include "systems/registry/registry_serialization_system.hpp"
 
 namespace wanderer::sys {

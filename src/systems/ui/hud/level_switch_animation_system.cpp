@@ -2,7 +2,7 @@
 
 #include "components/lvl/level_switch_target.hpp"
 #include "core/game_constants.hpp"
-#include "systems/graphics/custom_animation_system.hpp"
+#include "systems/gfx/custom_animation_system.hpp"
 
 namespace wanderer::sys {
 
