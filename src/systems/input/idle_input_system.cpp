@@ -9,8 +9,7 @@
 #include "components/player.hpp"
 #include "core/direction.hpp"
 #include "core/ecs/registry_utils.hpp"
-#include "events/begin_attack_event.hpp"
-#include "events/begin_humanoid_move_event.hpp"
+#include "events/humanoid_events.hpp"
 #include "events/interact_event.hpp"
 
 namespace wanderer::sys {

@@ -3,8 +3,7 @@
 #include "components/ctx/active_menu.hpp"
 #include "components/ctx/cursors.hpp"
 #include "components/ui/associated_menu.hpp"
-#include "events/button_pressed_event.hpp"
-#include "events/menu_switched_event.hpp"
+#include "events/menu_events.hpp"
 #include "systems/ui/buttons/button_system.hpp"
 #include "systems/ui/menus/saves/saves_menu_system.hpp"
 

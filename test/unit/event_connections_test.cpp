@@ -4,10 +4,7 @@
 
 #include <entt.hpp>
 
-#include "events/begin_attack_event.hpp"
-#include "events/begin_humanoid_move_event.hpp"
-#include "events/end_attack_event.hpp"
-#include "events/end_humanoid_move_event.hpp"
+#include "events/humanoid_events.hpp"
 #include "events/interact_event.hpp"
 
 using namespace wanderer;

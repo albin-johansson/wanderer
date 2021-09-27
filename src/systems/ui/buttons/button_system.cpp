@@ -4,7 +4,7 @@
 #include "components/ctx/cursors.hpp"
 #include "components/ui/associated_menu.hpp"
 #include "components/ui/checkbox.hpp"
-#include "events/button_pressed_event.hpp"
+#include "events/menu_events.hpp"
 #include "systems/ui/cursor_system.hpp"
 
 namespace wanderer::sys {

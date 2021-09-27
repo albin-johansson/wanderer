@@ -4,7 +4,7 @@
 
 #include "components/ai/humanoid_state.hpp"
 #include "components/physics/movable.hpp"
-#include "events/end_attack_event.hpp"
+#include "events/humanoid_events.hpp"
 #include "systems/humanoid/humanoid_animation_system.hpp"
 #include "systems/physics/direction_system.hpp"
 

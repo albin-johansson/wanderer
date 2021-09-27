@@ -4,7 +4,7 @@
 
 #include "components/physics/movable.hpp"
 #include "core/utils/centurion_utils.hpp"
-#include "systems/movement/hitbox_system.hpp"
+#include "systems/physics/hitbox_system.hpp"
 
 using namespace wanderer;
 

@@ -12,4 +12,9 @@ struct show_inventory_event final
   comp::inventory::entity inventory_entity{null<comp::inventory>()};
 };
 
+/// \brief Emitted when the inventory is closed.
+/// \ingroup events
+struct close_inventory_event final
+{};
+
 }  // namespace wanderer

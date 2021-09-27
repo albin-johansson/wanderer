@@ -8,8 +8,7 @@
 #include "components/trigger.hpp"
 #include "core/ecs/null_entity.hpp"
 #include "core/ecs/registry_utils.hpp"
-#include "events/close_inventory_event.hpp"
-#include "events/show_inventory_event.hpp"
+#include "events/inventory_events.hpp"
 #include "events/sleep_event.hpp"
 #include "events/switch_map_event.hpp"
 

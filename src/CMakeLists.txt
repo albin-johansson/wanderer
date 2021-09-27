@@ -2,10 +2,6 @@ cmake_minimum_required(VERSION 3.15)
 
 project(wanderer-src CXX)
 
-add_subdirectory(core)
-add_subdirectory(events)
-add_subdirectory(io)
-
 set(SOURCE_FILES
     profile.hpp
     wanderer_engine.cpp
@@ -83,6 +79,111 @@ set(SOURCE_FILES
     components/ui/line.hpp
     components/ui/menu.hpp
     components/ui/saves_menu.hpp
+
+    core/common_concepts.hpp
+    core/day_of_week.hpp
+    core/direction.hpp
+    core/game.cpp
+    core/game.hpp
+    core/game_constants.hpp
+    core/grid_position.hpp
+    core/menu_action.hpp
+    core/menu_id.hpp
+    core/resources.cpp
+    core/resources.hpp
+    core/serialization.hpp
+    core/text_size.hpp
+
+    core/algorithms/accumulate.hpp
+
+    core/ecs/add_humanoid_state_dependencies.cpp
+    core/ecs/add_humanoid_state_dependencies.hpp
+    core/ecs/event_connections.cpp
+    core/ecs/event_connections.hpp
+    core/ecs/make_dispatcher.cpp
+    core/ecs/make_dispatcher.hpp
+    core/ecs/make_registry.cpp
+    core/ecs/make_registry.hpp
+    core/ecs/null_entity.hpp
+    core/ecs/registry_utils.hpp
+
+    core/graphics/graphics_context.cpp
+    core/graphics/graphics_context.hpp
+    core/graphics/render_text.cpp
+    core/graphics/render_text.hpp
+
+    core/math/angles.hpp
+    core/math/floating.hpp
+
+    core/utils/centurion_utils.hpp
+    core/utils/file_utils.cpp
+    core/utils/file_utils.hpp
+    core/utils/time_utils.cpp
+    core/utils/time_utils.hpp
+
+    events/custom_animation_halfway_event.hpp
+    events/day_changed_event.hpp
+    events/humanoid_events.hpp
+    events/menu_events.hpp
+    events/interact_event.hpp
+    events/inventory_events.hpp
+    events/load_game_event.hpp
+    events/quit_event.hpp
+    events/sleep_event.hpp
+    events/spawn_particles_event.hpp
+    events/switch_map_event.hpp
+
+    io/directories.cpp
+    io/directories.hpp
+    io/rune_configuration.cpp
+    io/rune_configuration.hpp
+
+    io/parsing/common.hpp
+    io/parsing/common.cpp
+    io/parsing/csv.cpp
+    io/parsing/csv.hpp
+    io/parsing/parse_ir.hpp
+    io/parsing/parse_layers.cpp
+    io/parsing/parse_layers.hpp
+    io/parsing/parse_tilesets.cpp
+    io/parsing/parse_tilesets.hpp
+    io/parsing/parse_world.cpp
+    io/parsing/parse_world.hpp
+
+    io/parsing/objects/parse_container.cpp
+    io/parsing/objects/parse_container.hpp
+    io/parsing/objects/parse_hitbox.cpp
+    io/parsing/objects/parse_hitbox.hpp
+    io/parsing/objects/parse_light.cpp
+    io/parsing/objects/parse_light.hpp
+    io/parsing/objects/parse_object_layer.cpp
+    io/parsing/objects/parse_object_layer.hpp
+    io/parsing/objects/parse_plant.cpp
+    io/parsing/objects/parse_plant.hpp
+    io/parsing/objects/parse_portal.cpp
+    io/parsing/objects/parse_portal.hpp
+    io/parsing/objects/parse_spawnpoint.cpp
+    io/parsing/objects/parse_spawnpoint.hpp
+
+    io/parsing/tiles/make_tile_matrix.cpp
+    io/parsing/tiles/make_tile_matrix.hpp
+    io/parsing/tiles/parse_ground_layer.cpp
+    io/parsing/tiles/parse_ground_layer.hpp
+    io/parsing/tiles/parse_tile.cpp
+    io/parsing/tiles/parse_tile.hpp
+    io/parsing/tiles/parse_tile_layer.cpp
+    io/parsing/tiles/parse_tile_layer.hpp
+    io/parsing/tiles/parse_tile_objects.cpp
+    io/parsing/tiles/parse_tile_objects.hpp
+
+    io/saves/delete_save.cpp
+    io/saves/delete_save.hpp
+    io/saves/load_game.cpp
+    io/saves/load_game.hpp
+    io/saves/parse_save_file.cpp
+    io/saves/parse_save_file.hpp
+    io/saves/save_game.cpp
+    io/saves/save_game.hpp
 
     systems/interaction_system.cpp
     systems/interaction_system.hpp
@@ -258,11 +359,6 @@ set(SOURCE_FILES
     systems/ui/menus/settings/settings_menu_factory_system.hpp
     systems/ui/menus/settings/settings_menu_system.cpp
     systems/ui/menus/settings/settings_menu_system.hpp
-
-    ${WANDERER_CORE_SOURCES}
-    ${WANDERER_EVENT_SOURCES}
-    ${WANDERER_IO_SOURCES}
-    ${WANDERER_SYSTEM_SOURCES}
     )
 
 add_library(${WANDERER_LIB_TARGET} ${SOURCE_FILES})

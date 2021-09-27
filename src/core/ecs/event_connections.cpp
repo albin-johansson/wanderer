@@ -1,9 +1,6 @@
 #include "event_connections.hpp"
 
-#include "events/begin_attack_event.hpp"
-#include "events/begin_humanoid_move_event.hpp"
-#include "events/end_attack_event.hpp"
-#include "events/end_humanoid_move_event.hpp"
+#include "events/humanoid_events.hpp"
 #include "systems/humanoid/humanoid_attack_event_handler.hpp"
 #include "systems/humanoid/humanoid_move_event_handler.hpp"
 #include "systems/interaction_system.hpp"

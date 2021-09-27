@@ -20,17 +20,14 @@
 
 #include "components/lvl/level.hpp"
 #include "core/graphics/graphics_context.hpp"
-#include "events/button_pressed_event.hpp"
-#include "events/close_inventory_event.hpp"
 #include "events/custom_animation_halfway_event.hpp"
 #include "events/day_changed_event.hpp"
-#include "events/menu_switched_event.hpp"
+#include "events/inventory_events.hpp"
+#include "events/menu_events.hpp"
 #include "events/quit_event.hpp"
-#include "events/show_inventory_event.hpp"
 #include "events/sleep_event.hpp"
 #include "events/spawn_particles_event.hpp"
 #include "events/switch_map_event.hpp"
-#include "events/switch_menu_event.hpp"
 
 namespace wanderer {
 
