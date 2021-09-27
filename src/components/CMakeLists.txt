@@ -5,9 +5,8 @@ project(wanderer-src-components CXX)
 set(WANDERER_COMPONENT_SOURCES
 
     ${PROJECT_SOURCE_DIR}/animated.hpp
-    ${PROJECT_SOURCE_DIR}/bed_trigger.hpp
     ${PROJECT_SOURCE_DIR}/chase.hpp
-    ${PROJECT_SOURCE_DIR}/container_trigger.hpp
+    ${PROJECT_SOURCE_DIR}/container_ref.hpp
     ${PROJECT_SOURCE_DIR}/custom_animation.hpp
     ${PROJECT_SOURCE_DIR}/depth_drawable.hpp
     ${PROJECT_SOURCE_DIR}/float3.hpp
