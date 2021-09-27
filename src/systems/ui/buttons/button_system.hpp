@@ -4,10 +4,10 @@
 #include <entt.hpp>       // registry, dispatcher
 #include <ranges>         // any_of
 
+#include "common/maybe.hpp"
 #include "components/ui/button.hpp"
 #include "components/ui/button_group.hpp"
 #include "components/ui/menu.hpp"
-#include "core/aliases/maybe.hpp"
 #include "core/common_concepts.hpp"
 #include "core/grid_position.hpp"
 

@@ -3,9 +3,9 @@
 #include <centurion.hpp>  // texture, fpoint
 #include <string>         // string
 
-#include "core/aliases/entity_type.hpp"
-#include "core/aliases/ints.hpp"
-#include "core/aliases/maybe.hpp"
+#include "common/entity_type.hpp"
+#include "common/ints.hpp"
+#include "common/maybe.hpp"
 #include "core/grid_position.hpp"
 #include "core/menu_action.hpp"
 

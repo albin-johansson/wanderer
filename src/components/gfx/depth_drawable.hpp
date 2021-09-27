@@ -2,9 +2,9 @@
 
 #include <centurion.hpp>  // irect, frect
 
-#include "core/aliases/depth.hpp"
-#include "core/aliases/ints.hpp"
-#include "core/aliases/texture_index.hpp"
+#include "common/depth.hpp"
+#include "common/ints.hpp"
+#include "common/texture_index.hpp"
 
 namespace wanderer::comp {
 

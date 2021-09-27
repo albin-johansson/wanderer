@@ -3,7 +3,7 @@
 #include <entt.hpp>             // registry
 #include <rune/everything.hpp>  // delta_time
 
-#include "core/aliases/aabb_tree.hpp"
+#include "common/aabb_tree.hpp"
 
 namespace wanderer::sys {
 

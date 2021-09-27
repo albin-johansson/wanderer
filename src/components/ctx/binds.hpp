@@ -2,7 +2,7 @@
 
 #include <centurion.hpp>  // scan_code
 
-#include "core/aliases/ints.hpp"
+#include "common/ints.hpp"
 
 namespace wanderer::ctx {
 

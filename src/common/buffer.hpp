@@ -3,7 +3,7 @@
 #include <array>    // array
 #include <cstddef>  // byte
 
-#include "core/aliases/ints.hpp"
+#include "ints.hpp"
 
 namespace wanderer {
 

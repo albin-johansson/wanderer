@@ -20,21 +20,6 @@ set(WANDERER_CORE_SOURCES
 
     ${PROJECT_SOURCE_DIR}/algorithms/accumulate.hpp
 
-    ${PROJECT_SOURCE_DIR}/aliases/aabb_tree.hpp
-    ${PROJECT_SOURCE_DIR}/aliases/buffer.hpp
-    ${PROJECT_SOURCE_DIR}/aliases/depth.hpp
-    ${PROJECT_SOURCE_DIR}/aliases/entity_type.hpp
-    ${PROJECT_SOURCE_DIR}/aliases/float2.hpp
-    ${PROJECT_SOURCE_DIR}/aliases/ints.hpp
-    ${PROJECT_SOURCE_DIR}/aliases/map_id.hpp
-    ${PROJECT_SOURCE_DIR}/aliases/maybe.hpp
-    ${PROJECT_SOURCE_DIR}/aliases/milliseconds.hpp
-    ${PROJECT_SOURCE_DIR}/aliases/ref.hpp
-    ${PROJECT_SOURCE_DIR}/aliases/str.hpp
-    ${PROJECT_SOURCE_DIR}/aliases/texture_id.hpp
-    ${PROJECT_SOURCE_DIR}/aliases/texture_index.hpp
-    ${PROJECT_SOURCE_DIR}/aliases/tile_id.hpp
-
     ${PROJECT_SOURCE_DIR}/ecs/add_humanoid_state_dependencies.cpp
     ${PROJECT_SOURCE_DIR}/ecs/add_humanoid_state_dependencies.hpp
     ${PROJECT_SOURCE_DIR}/ecs/event_connections.cpp

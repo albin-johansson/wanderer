@@ -2,11 +2,11 @@
 
 #include <centurion.hpp>  // irect
 
-#include "core/aliases/depth.hpp"
-#include "core/aliases/entity_type.hpp"
-#include "core/aliases/ints.hpp"
-#include "core/aliases/texture_index.hpp"
-#include "core/aliases/tile_id.hpp"
+#include "common/depth.hpp"
+#include "common/entity_type.hpp"
+#include "common/ints.hpp"
+#include "common/texture_index.hpp"
+#include "common/tile_id.hpp"
 #include "core/game_constants.hpp"
 
 namespace wanderer::comp {

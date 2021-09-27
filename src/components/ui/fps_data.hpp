@@ -2,7 +2,7 @@
 
 #include <rune/everything.hpp>  // delta_time
 
-#include "core/aliases/milliseconds.hpp"
+#include "common/milliseconds.hpp"
 
 namespace wanderer::comp {
 

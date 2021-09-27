@@ -2,7 +2,7 @@
 
 #include <centurion.hpp>  // color
 
-#include "core/aliases/ints.hpp"
+#include "common/ints.hpp"
 #include "core/day_of_week.hpp"
 
 namespace wanderer::ctx {

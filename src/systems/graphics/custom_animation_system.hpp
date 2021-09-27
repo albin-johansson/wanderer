@@ -3,7 +3,7 @@
 #include <entt.hpp>             // registry, dispatcher, entity
 #include <rune/everything.hpp>  // delta_time
 
-#include "core/aliases/ints.hpp"
+#include "common/ints.hpp"
 #include "core/graphics/graphics_context.hpp"
 
 namespace wanderer::sys {

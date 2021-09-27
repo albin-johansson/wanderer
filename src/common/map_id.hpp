@@ -2,14 +2,14 @@
 
 #include <nenya.hpp>  // strong_type
 
-#include "core/aliases/ints.hpp"
+#include "ints.hpp"
 
 namespace wanderer {
 
 namespace tags {
-struct tile_id_tag;
+struct map_id_tag;
 }  // namespace tags
 
-using tile_id = nenya::strong_type<uint32, tags::tile_id_tag>;
+using map_id = nenya::strong_type<int32, tags::map_id_tag>;
 
 }  // namespace wanderer

@@ -2,7 +2,7 @@
 
 #include <entt.hpp>  // entity
 
-#include "core/aliases/ints.hpp"
+#include "common/ints.hpp"
 #include "core/direction.hpp"
 
 namespace wanderer::comp {

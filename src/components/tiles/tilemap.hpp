@@ -2,9 +2,9 @@
 
 #include <centurion.hpp>  // farea
 
-#include "core/aliases/entity_type.hpp"
-#include "core/aliases/ints.hpp"
-#include "core/aliases/map_id.hpp"
+#include "common/entity_type.hpp"
+#include "common/ints.hpp"
+#include "common/map_id.hpp"
 #include "core/ecs/null_entity.hpp"
 
 namespace wanderer::comp {

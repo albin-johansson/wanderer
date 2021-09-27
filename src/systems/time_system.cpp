@@ -8,8 +8,8 @@
 #include <string>               // string
 #include <string_view>          // string_view
 
+#include "common/ints.hpp"
 #include "components/ctx/time_of_day.hpp"
-#include "core/aliases/ints.hpp"
 #include "core/common_concepts.hpp"
 #include "core/game_constants.hpp"
 #include "events/day_changed_event.hpp"

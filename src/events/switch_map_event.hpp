@@ -1,6 +1,6 @@
 #pragma once
 
-#include "core/aliases/map_id.hpp"
+#include "common/map_id.hpp"
 
 namespace wanderer {
 

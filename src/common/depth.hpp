@@ -2,7 +2,7 @@
 
 #include <nenya.hpp>  // strong_type
 
-#include "core/aliases/ints.hpp"
+#include "ints.hpp"
 
 namespace wanderer {
 

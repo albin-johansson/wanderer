@@ -3,9 +3,9 @@
 #include <centurion.hpp>        // window, texture
 #include <rune/everything.hpp>  // graphics
 
-#include "core/aliases/ints.hpp"
-#include "core/aliases/texture_id.hpp"
-#include "core/aliases/texture_index.hpp"
+#include "common/ints.hpp"
+#include "common/texture_id.hpp"
+#include "common/texture_index.hpp"
 #include "core/game_constants.hpp"
 
 namespace wanderer {

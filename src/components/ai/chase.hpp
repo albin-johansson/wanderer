@@ -2,8 +2,8 @@
 
 #include <entt.hpp>  // entity, null
 
-#include "core/aliases/entity_type.hpp"
-#include "core/aliases/ints.hpp"
+#include "common/entity_type.hpp"
+#include "common/ints.hpp"
 
 namespace wanderer::comp {
 

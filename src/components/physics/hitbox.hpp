@@ -4,9 +4,9 @@
 #include <centurion.hpp>        // farea, frect
 #include <rune/everything.hpp>  // static_vector
 
-#include "core/aliases/entity_type.hpp"
-#include "core/aliases/float2.hpp"
-#include "core/aliases/ints.hpp"
+#include "common/entity_type.hpp"
+#include "common/float2.hpp"
+#include "common/ints.hpp"
 
 namespace wanderer::comp {
 

@@ -2,10 +2,10 @@
 
 #include <string>  // string
 
-#include "core/aliases/entity_type.hpp"
-#include "core/aliases/ints.hpp"
-#include "core/aliases/map_id.hpp"
-#include "core/aliases/maybe.hpp"
+#include "common/entity_type.hpp"
+#include "common/ints.hpp"
+#include "common/map_id.hpp"
+#include "common/maybe.hpp"
 
 namespace wanderer::comp {
 

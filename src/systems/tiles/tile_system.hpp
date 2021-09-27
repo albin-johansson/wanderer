@@ -2,8 +2,8 @@
 
 #include <entt.hpp>  // registry
 
+#include "common/tile_id.hpp"
 #include "components/tiles/tile.hpp"
-#include "core/aliases/tile_id.hpp"
 
 namespace wanderer::sys {
 

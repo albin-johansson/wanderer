@@ -3,7 +3,7 @@
 #include <filesystem>  // path
 #include <vector>      // vector
 
-#include "core/aliases/map_id.hpp"
+#include "common/map_id.hpp"
 
 namespace wanderer {
 

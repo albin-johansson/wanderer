@@ -4,7 +4,7 @@
 #include <entt.hpp>             // registry
 #include <rune/everything.hpp>  // delta_time
 
-#include "core/aliases/float2.hpp"
+#include "common/float2.hpp"
 #include "core/graphics/graphics_context.hpp"
 
 namespace wanderer::sys {

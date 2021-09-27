@@ -5,6 +5,10 @@
 #include <string>         // string
 #include <vector>         // vector
 
+#include "common/depth.hpp"
+#include "common/maybe.hpp"
+#include "common/texture_id.hpp"
+#include "common/tile_id.hpp"
 #include "components/gfx/depth_drawable.hpp"
 #include "components/gfx/point_light.hpp"
 #include "components/gfx/tile_animation.hpp"
@@ -18,10 +22,6 @@
 #include "components/tiles/tile_layer.hpp"
 #include "components/tiles/tile_object.hpp"
 #include "components/trigger.hpp"
-#include "core/aliases/depth.hpp"
-#include "core/aliases/maybe.hpp"
-#include "core/aliases/texture_id.hpp"
-#include "core/aliases/tile_id.hpp"
 
 namespace wanderer::ir {
 

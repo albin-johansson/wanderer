@@ -2,9 +2,9 @@
 
 #include <vector>  // vector
 
-#include "core/aliases/entity_type.hpp"
-#include "core/aliases/ints.hpp"
-#include "core/aliases/tile_id.hpp"
+#include "common/entity_type.hpp"
+#include "common/ints.hpp"
+#include "common/tile_id.hpp"
 
 namespace wanderer::comp {
 

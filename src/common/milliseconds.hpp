@@ -2,7 +2,7 @@
 
 #include <centurion.hpp>  // milliseconds
 
-#include "core/aliases/ints.hpp"
+#include "ints.hpp"
 
 namespace wanderer {
 

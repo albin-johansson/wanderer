@@ -4,9 +4,9 @@
 #include <string>         // string
 #include <vector>         // vector
 
+#include "common/entity_type.hpp"
+#include "common/maybe.hpp"
 #include "components/key_bind.hpp"
-#include "core/aliases/entity_type.hpp"
-#include "core/aliases/maybe.hpp"
 #include "core/ecs/null_entity.hpp"
 #include "core/menu_id.hpp"
 

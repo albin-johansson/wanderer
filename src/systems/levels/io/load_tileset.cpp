@@ -1,7 +1,7 @@
 #include "load_tileset.hpp"
 
+#include "common/tile_id.hpp"
 #include "core/algorithms/accumulate.hpp"
-#include "core/aliases/tile_id.hpp"
 
 namespace wanderer::sys {
 namespace {

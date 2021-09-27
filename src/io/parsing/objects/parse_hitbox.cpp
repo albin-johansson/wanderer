@@ -1,6 +1,6 @@
 #include "parse_hitbox.hpp"
 
-#include "core/aliases/float2.hpp"
+#include "common/float2.hpp"
 #include "systems/movement/hitbox_system.hpp"
 
 namespace wanderer::io {

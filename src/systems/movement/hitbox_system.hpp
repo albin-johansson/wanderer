@@ -3,10 +3,10 @@
 #include <initializer_list>     // initializer_list
 #include <rune/everything.hpp>  // delta_time
 
+#include "common/float2.hpp"
+#include "common/maybe.hpp"
 #include "components/physics/hitbox.hpp"
 #include "components/physics/movable.hpp"
-#include "core/aliases/float2.hpp"
-#include "core/aliases/maybe.hpp"
 
 namespace wanderer::sys {
 

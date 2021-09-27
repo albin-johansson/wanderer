@@ -2,7 +2,7 @@
 
 #include <entt.hpp>  // registry, entity
 
-#include "core/aliases/ref.hpp"
+#include "common/ref.hpp"
 #include "core/direction.hpp"
 
 namespace wanderer {

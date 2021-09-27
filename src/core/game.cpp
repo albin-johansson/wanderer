@@ -1,6 +1,6 @@
 #include "game.hpp"
 
-#include "aliases/milliseconds.hpp"
+#include "common/milliseconds.hpp"
 #include "components/ctx/renderer_snapshot.hpp"
 #include "components/ctx/settings.hpp"
 #include "components/ui/fps_data.hpp"

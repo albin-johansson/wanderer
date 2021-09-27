@@ -2,7 +2,7 @@
 
 #include <entt.hpp>  // entity, null
 
-#include "core/aliases/ints.hpp"
+#include "common/ints.hpp"
 
 namespace wanderer {
 

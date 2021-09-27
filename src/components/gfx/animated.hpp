@@ -1,7 +1,7 @@
 #pragma once
 
-#include "core/aliases/ints.hpp"
-#include "core/aliases/milliseconds.hpp"
+#include "common/ints.hpp"
+#include "common/milliseconds.hpp"
 
 namespace wanderer::comp {
 

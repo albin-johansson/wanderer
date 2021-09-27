@@ -4,9 +4,9 @@
 #include <entt.hpp>             // registry
 #include <rune/everything.hpp>  // delta_time
 
+#include "common/float2.hpp"
 #include "components/ctx/viewport.hpp"
 #include "components/physics/movable.hpp"
-#include "core/aliases/float2.hpp"
 
 namespace wanderer::sys {
 

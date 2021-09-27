@@ -5,7 +5,7 @@
 #include <cstddef>              // size_t
 #include <rune/everything.hpp>  // index_to_matrix
 
-#include "core/aliases/maybe.hpp"
+#include "common/maybe.hpp"
 #include "systems/movement/hitbox_system.hpp"
 
 namespace wanderer::io {

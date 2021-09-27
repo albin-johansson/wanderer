@@ -2,8 +2,8 @@
 
 #include <vector>  // vector
 
-#include "core/aliases/ints.hpp"
-#include "core/aliases/tile_id.hpp"
+#include "common/ints.hpp"
+#include "common/tile_id.hpp"
 
 namespace wanderer::comp {
 

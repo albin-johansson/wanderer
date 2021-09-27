@@ -3,8 +3,8 @@
 #include <centurion.hpp>  // color, texture
 #include <string>         // string
 
-#include "core/aliases/entity_type.hpp"
-#include "core/aliases/maybe.hpp"
+#include "common/entity_type.hpp"
+#include "common/maybe.hpp"
 #include "core/grid_position.hpp"
 #include "core/text_size.hpp"
 

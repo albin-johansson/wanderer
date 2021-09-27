@@ -2,8 +2,8 @@
 
 #include <vector>  // vector
 
-#include "core/aliases/entity_type.hpp"
-#include "core/aliases/ints.hpp"
+#include "common/entity_type.hpp"
+#include "common/ints.hpp"
 #include "item.hpp"
 
 namespace wanderer::comp {

@@ -3,9 +3,9 @@
 #include <centurion.hpp>  // iarea, farea, color
 #include <entt.hpp>       // hashed_string, id_type
 
-#include "core/aliases/float2.hpp"
-#include "core/aliases/ints.hpp"
-#include "core/aliases/tile_id.hpp"
+#include "common/float2.hpp"
+#include "common/ints.hpp"
+#include "common/tile_id.hpp"
 
 /// \namespace wanderer::glob
 /// \brief Contains various constants.

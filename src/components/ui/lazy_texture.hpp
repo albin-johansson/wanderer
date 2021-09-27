@@ -2,8 +2,8 @@
 
 #include <centurion.hpp>  // farea, surface, texture
 
-#include "core/aliases/entity_type.hpp"
-#include "core/aliases/maybe.hpp"
+#include "common/entity_type.hpp"
+#include "common/maybe.hpp"
 #include "core/grid_position.hpp"
 
 namespace wanderer::comp {

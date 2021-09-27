@@ -2,9 +2,9 @@
 
 #include <vector>  // vector
 
-#include "core/aliases/ints.hpp"
-#include "core/aliases/milliseconds.hpp"
-#include "core/aliases/tile_id.hpp"
+#include "common/ints.hpp"
+#include "common/milliseconds.hpp"
+#include "common/tile_id.hpp"
 #include "core/game_constants.hpp"
 
 namespace wanderer::comp {

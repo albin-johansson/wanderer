@@ -4,7 +4,7 @@
 #include <json.hpp>  // json
 #include <string>    // string
 
-#include "core/aliases/str.hpp"
+#include "common/str.hpp"
 
 namespace wanderer {
 namespace {

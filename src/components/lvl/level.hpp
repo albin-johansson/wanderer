@@ -2,12 +2,12 @@
 
 #include <entt.hpp>  // registry
 
+#include "common/aabb_tree.hpp"
+#include "common/entity_type.hpp"
+#include "common/float2.hpp"
+#include "common/maybe.hpp"
 #include "components/tiles/tilemap.hpp"
 #include "components/tiles/tileset.hpp"
-#include "core/aliases/aabb_tree.hpp"
-#include "core/aliases/entity_type.hpp"
-#include "core/aliases/float2.hpp"
-#include "core/aliases/maybe.hpp"
 #include "core/ecs/null_entity.hpp"
 
 namespace wanderer::comp {

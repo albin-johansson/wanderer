@@ -12,6 +12,21 @@ set(SOURCE_FILES
     wanderer_engine.cpp
     wanderer_engine.hpp
 
+    common/aabb_tree.hpp
+    common/buffer.hpp
+    common/depth.hpp
+    common/entity_type.hpp
+    common/float2.hpp
+    common/ints.hpp
+    common/map_id.hpp
+    common/maybe.hpp
+    common/milliseconds.hpp
+    common/ref.hpp
+    common/str.hpp
+    common/texture_id.hpp
+    common/texture_index.hpp
+    common/tile_id.hpp
+
     components/key_bind.hpp
     components/object.hpp
     components/plant.hpp

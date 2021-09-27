@@ -2,7 +2,7 @@
 
 #include <centurion.hpp>  // scan_code
 
-#include "core/aliases/entity_type.hpp"
+#include "common/entity_type.hpp"
 #include "core/menu_action.hpp"
 
 namespace wanderer::comp {

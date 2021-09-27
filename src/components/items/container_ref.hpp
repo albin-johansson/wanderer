@@ -1,6 +1,6 @@
 #pragma once
 
-#include "core/aliases/entity_type.hpp"
+#include "common/entity_type.hpp"
 #include "core/ecs/null_entity.hpp"
 #include "inventory.hpp"
 

@@ -4,8 +4,8 @@
 #include <string_view>    // string_view
 #include <vector>         // vector
 
-#include "core/aliases/maybe.hpp"
-#include "core/aliases/tile_id.hpp"
+#include "common/maybe.hpp"
+#include "common/tile_id.hpp"
 #include "io/parsing/parse_ir.hpp"
 
 namespace wanderer::io {

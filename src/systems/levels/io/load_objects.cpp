@@ -1,6 +1,6 @@
 #include "load_objects.hpp"
 
-#include "core/aliases/maybe.hpp"
+#include "common/maybe.hpp"
 
 namespace wanderer::sys {
 namespace {

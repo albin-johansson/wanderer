@@ -2,7 +2,7 @@
 
 #include <string>  // string
 
-#include "core/aliases/str.hpp"
+#include "common/str.hpp"
 
 /// \namespace wanderer::resources
 /// \brief Contains utilities for obtaining resource paths.
