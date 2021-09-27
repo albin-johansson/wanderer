@@ -13,12 +13,10 @@ namespace wanderer::sys {
 [[nodiscard]] constexpr auto column_to_x(const float column) noexcept -> float
 {
   // make centered if column index is -1
-  if (column == -1)
-  {
+  if (column == -1) {
     return (glob::logical_width<float> / 2.0f);
   }
-  else
-  {
+  else {
     return (column * glob::menu_col_size);
   }
 }

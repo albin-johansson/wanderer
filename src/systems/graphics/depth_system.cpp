@@ -21,12 +21,10 @@ namespace {
 
 void sort_depth_drawables(entt::registry& registry, const sort_strategy strategy)
 {
-  if (strategy == sort_strategy::insertion_sort)
-  {
+  if (strategy == sort_strategy::insertion_sort) {
     registry.sort<comp::depth_drawable>(sort, entt::insertion_sort{});
   }
-  else /*if (strategy == sort_strategy::std_sort)*/
-  {
+  else /*if (strategy == sort_strategy::std_sort)*/ {
     registry.sort<comp::depth_drawable>(sort);
   }
 }

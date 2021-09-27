@@ -14,8 +14,7 @@ auto parse_container(const rune::tmx_object& object) -> comp::inventory
   inventory.capacity = rune::tmx::get_int(object.properties, "capacity");
   inventory.items.reserve(inventory.capacity);
 
-  if (rune::tmx::get_bool(object.properties, "hasRandomLoot"))
-  {
+  if (rune::tmx::get_bool(object.properties, "hasRandomLoot")) {
     // TODO
   }
 

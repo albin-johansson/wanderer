@@ -53,8 +53,7 @@ void spawn_particles(entt::registry& registry,
                      const float duration,
                      const cen::color& color)
 {
-  for (auto i = 0; i < count; ++i)
-  {
+  for (auto i = 0; i < count; ++i) {
     spawn_particle(registry, origin, duration, color);
   }
 }
@@ -62,19 +61,15 @@ void spawn_particles(entt::registry& registry,
 void update_particles(entt::registry& registry, const float dt)
 {
   const auto now = cen::counter::ticks();
-  for (auto&& [entity, particle] : registry.view<comp::particle>().each())
-  {
+  for (auto&& [entity, particle] : registry.view<comp::particle>().each()) {
     particle.now += time_step * dt;
-    if (particle.now >= particle.duration)
-    {
+    if (particle.now >= particle.duration) {
       registry.destroy(entity);
     }
-    else
-    {
+    else {
       particle.position += particle.acceleration * dt;
 
-      if (particle.position.z < 0)
-      {
+      if (particle.position.z < 0) {
         particle.position.z = 0;
         particle.acceleration.x *= x_accel * dt;
         particle.acceleration.y *= y_accel * dt;
@@ -91,14 +86,12 @@ void render_particles(const entt::registry& registry, graphics_context& graphics
   const auto& viewport = registry.ctx<ctx::viewport>();
   auto& renderer = graphics.get_renderer();
 
-  for (auto&& [entity, particle] : registry.view<comp::particle>().each())
-  {
+  for (auto&& [entity, particle] : registry.view<comp::particle>().each()) {
     const auto rect = cen::rect(particle.position.x,
                                 particle.position.y - particle.position.z,
                                 2.0f,
                                 2.0f);
-    if (cen::intersects(viewport.bounds, rect))
-    {
+    if (cen::intersects(viewport.bounds, rect)) {
       renderer.set_color(particle.color);
       renderer.fill_rect_t(rect);
     }

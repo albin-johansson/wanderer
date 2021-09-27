@@ -29,11 +29,9 @@ void parse_tile_object(ir::level& data,
   tileObjectData.drawable =
       make_depth_drawable(tile, position, glob::tile_size<cen::farea>, layerIndex);
 
-  if (const auto& fancy = tile.fancy)
-  {
+  if (const auto& fancy = tile.fancy) {
     tileObjectData.drawable.depth = fancy->depth;
-    if (fancy->hitbox)
-    {
+    if (fancy->hitbox) {
       tileObjectData.hitbox = sys::with_position(*fancy->hitbox, to_vector(position));
     }
   }
@@ -44,12 +42,10 @@ void parse_tile_object(ir::level& data,
 void parse_tile_objects(ir::level& data, const tile_data& tiles, const int layerIndex)
 {
   int index = 0;
-  for (const auto gid : tiles)
-  {
+  for (const auto gid : tiles) {
     const auto id = tile_id{gid.get()};
 
-    if (!is_empty(id))
-    {
+    if (!is_empty(id)) {
       parse_tile_object(data, id, index, layerIndex);
     }
 

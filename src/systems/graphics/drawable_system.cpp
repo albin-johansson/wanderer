@@ -21,10 +21,8 @@ void render_drawables(const entt::registry& registry, graphics_context& graphics
 {
   const auto& viewport = registry.ctx<ctx::viewport>();
 
-  for (auto&& [entity, drawable] : registry.view<comp::depth_drawable>().each())
-  {
-    if (cen::intersects(viewport.bounds, drawable.dst))
-    {
+  for (auto&& [entity, drawable] : registry.view<comp::depth_drawable>().each()) {
+    if (cen::intersects(viewport.bounds, drawable.dst)) {
       graphics.render(drawable.texture, drawable.src, drawable.dst);
     }
   }

@@ -21,40 +21,32 @@ inline constexpr float camera_speed = 10;
 
   const auto getX = [&](const float x) noexcept -> float {
     const auto value = boundsX + (x - boundsX) * distance;
-    if (viewport.keep_in_bounds)
-    {
-      if (value < 0)
-      {
+    if (viewport.keep_in_bounds) {
+      if (value < 0) {
         return 0;
       }
-      else
-      {
+      else {
         const auto diff = viewport.level_size.width - boundsWidth;
         return (value > diff) ? diff : value;
       }
     }
-    else
-    {
+    else {
       return value;
     }
   };
 
   const auto getY = [&](const float y) noexcept -> float {
     const auto value = boundsY + (y - boundsY) * distance;
-    if (viewport.keep_in_bounds)
-    {
-      if (value < 0)
-      {
+    if (viewport.keep_in_bounds) {
+      if (value < 0) {
         return 0;
       }
-      else
-      {
+      else {
         const auto diff = viewport.level_size.height - boundsHeight;
         return (value > diff) ? diff : value;
       }
     }
-    else
-    {
+    else {
       return value;
     }
   };

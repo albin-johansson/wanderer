@@ -12,14 +12,12 @@ namespace {
                                         const float2& velocity,
                                         const float dt) -> maybe<comp::hitbox>
 {
-  if (velocity.y != 0)
-  {
+  if (velocity.y != 0) {
     auto next = position;
     next.y = position.y + (velocity.y * dt);
     return with_position(hitbox, next);
   }
-  else
-  {
+  else {
     return std::nullopt;
   }
 }
@@ -29,14 +27,12 @@ namespace {
                                           const float2& velocity,
                                           const float dt) -> maybe<comp::hitbox>
 {
-  if (velocity.x != 0)
-  {
+  if (velocity.x != 0) {
     auto next = position;
     next.x = position.x + (velocity.x * dt);
     return with_position(hitbox, next);
   }
-  else
-  {
+  else {
     return std::nullopt;
   }
 }
@@ -45,8 +41,7 @@ namespace {
 
 void update_bounds(comp::hitbox& hitbox) noexcept
 {
-  if (hitbox.boxes.empty())
-  {
+  if (hitbox.boxes.empty()) {
     return;
   }
 
@@ -56,10 +51,8 @@ void update_bounds(comp::hitbox& hitbox) noexcept
   float my{};
 
   bool first = true;
-  for (const auto& [offset, size] : hitbox.boxes)
-  {
-    if (first)
-    {
+  for (const auto& [offset, size] : hitbox.boxes) {
+    if (first) {
       x = offset.x;
       y = offset.y;
       mx = x + size.width;
@@ -107,16 +100,13 @@ auto intersects(const comp::hitbox& fst, const comp::hitbox& snd) noexcept -> bo
     return false;
   }
 
-  for (const auto& [fstOffset, fstSize] : fst.boxes)
-  {
+  for (const auto& [fstOffset, fstSize] : fst.boxes) {
     const auto fstRect = cen::frect{to_point(fst.origin + fstOffset), fstSize};
 
-    for (const auto& [sndOffset, sndSize] : snd.boxes)
-    {
+    for (const auto& [sndOffset, sndSize] : snd.boxes) {
       const auto sndRect = cen::frect{to_point(snd.origin + sndOffset), sndSize};
 
-      if (cen::collides(fstRect, sndRect))
-      {
+      if (cen::collides(fstRect, sndRect)) {
         return true;
       }
     }
@@ -129,8 +119,7 @@ auto make_hitbox(const std::initializer_list<comp::subhitbox> boxes) -> comp::hi
 {
   comp::hitbox hb;
 
-  for (const auto& box : boxes)
-  {
+  for (const auto& box : boxes) {
     hb.boxes.push_back(box);
   }
 

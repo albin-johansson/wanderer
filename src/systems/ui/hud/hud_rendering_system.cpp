@@ -35,23 +35,18 @@ void render_hints(const entt::registry& shared, graphics_context& graphics)
   const auto& level = current_level(shared);
 
   const auto player = singleton_entity<comp::player>(level.registry);
-  if (level.registry.all_of<comp::is_within_portal>(player))
-  {
-    if (sys::is_current_level_outside(shared))
-    {
+  if (level.registry.all_of<comp::is_within_portal>(player)) {
+    if (sys::is_current_level_outside(shared)) {
       render_hint(graphics, std::format(enter_fmt, binds.interact.name()));
     }
-    else
-    {
+    else {
       render_hint(graphics, std::format(exit_fmt, binds.interact.name()));
     }
   }
-  else if (level.registry.all_of<comp::is_within_container_trigger>(player))
-  {
+  else if (level.registry.all_of<comp::is_within_container_trigger>(player)) {
     render_hint(graphics, std::format(container_fmt, binds.interact.name()));
   }
-  else if (level.registry.all_of<comp::is_within_bed_trigger>(player))
-  {
+  else if (level.registry.all_of<comp::is_within_bed_trigger>(player)) {
     render_hint(graphics, std::format(sleep_fmt, binds.interact.name()));
   }
 }

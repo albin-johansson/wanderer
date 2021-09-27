@@ -127,8 +127,7 @@ void game::tick(const float dt)
   sys::update_render_bounds(level.registry);
   sys::update_custom_animations(level.registry, m_dispatcher, dt);
 
-  if (is_paused())
-  {
+  if (is_paused()) {
     return;
   }
 
@@ -174,8 +173,7 @@ void game::render(graphics_type& graphics) const
   sys::render_drawables(level.registry, graphics);
   sys::render_particles(level.registry, graphics);
 
-  if (sys::is_current_level_outside(m_shared))
-  {
+  if (sys::is_current_level_outside(m_shared)) {
     sys::render_lights(level.registry,
                        graphics,
                        m_shared.ctx<ctx::time_of_day>(),
@@ -184,14 +182,12 @@ void game::render(graphics_type& graphics) const
 
   sys::render_clock(m_shared, graphics);
 
-  if (m_updateSnapshot)
-  {
+  if (m_updateSnapshot) {
     m_shared.set<ctx::renderer_snapshot>(renderer.capture(graphics.format()));
     m_updateSnapshot = false;
   }
 
-  if constexpr (cen::is_debug_build())
-  {
+  if constexpr (cen::is_debug_build()) {
     sys::render_debug_info(level.registry, graphics);
   }
 
@@ -202,8 +198,7 @@ void game::render(graphics_type& graphics) const
 
   sys::render_fps(m_shared, graphics);
 
-  if constexpr (cen::is_debug_build())
-  {
+  if constexpr (cen::is_debug_build()) {
     sys::render_menu_debug_info(m_shared, graphics);
   }
 
@@ -225,8 +220,7 @@ auto game::is_paused() const -> bool
 
 void game::on_button_pressed(const button_pressed_event& event)
 {
-  switch (event.action)
-  {
+  switch (event.action) {
     default:
       [[fallthrough]];
     case menu_action::none:
@@ -255,8 +249,7 @@ void game::on_button_pressed(const button_pressed_event& event)
     }
     case menu_action::quick_save: {
       // FIXME don't allow quick saves before the in-game menu has been active once
-      if (const auto* snapshot = m_shared.try_ctx<ctx::renderer_snapshot>())
-      {
+      if (const auto* snapshot = m_shared.try_ctx<ctx::renderer_snapshot>()) {
         save_game("quick_save", m_shared, snapshot->surface);
       }
       m_dispatcher.enqueue<switch_menu_event>(menu_id::in_game);
@@ -314,16 +307,14 @@ void game::on_switch_menu(const switch_menu_event& event)
 void game::on_menu_switched(const menu_switched_event& event)
 {
   const auto& menu = m_shared.get<comp::menu>(event.entity);
-  if (menu.id == menu_id::saves)
-  {
+  if (menu.id == menu_id::saves) {
     sys::refresh_saves_menu(m_shared);
   }
 }
 
 void game::on_custom_animation_halfway(const custom_animation_halfway_event& event)
 {
-  switch (event.id)
-  {
+  switch (event.id) {
     case glob::sleep_id:
       sys::change_to_next_day(m_shared, m_dispatcher, glob::morning_hour);
       break;
@@ -377,8 +368,7 @@ void game::on_spawn_particles(const spawn_particles_event& event)
 
 void game::on_quit(const quit_event&)
 {
-  if (const auto* snapshot = m_shared.try_ctx<ctx::renderer_snapshot>())
-  {
+  if (const auto* snapshot = m_shared.try_ctx<ctx::renderer_snapshot>()) {
     create_exit_save(m_shared, snapshot->surface);
   }
 

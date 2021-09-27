@@ -17,47 +17,38 @@ void parse_object_layer(ir::level& data,
                         const rune::tmx_map& map,
                         const rune::tmx_object_layer& objectLayer)
 {
-  for (const auto& object : objectLayer.objects)
-  {
+  for (const auto& object : objectLayer.objects) {
     auto& objectData = data.objects.emplace_back();
     objectData.id = object.id;
 
     const auto type = object.type;
-    if (type == "Spawnpoint")
-    {
+    if (type == "Spawnpoint") {
       objectData.spawnpoint = parse_spawnpoint(object, data.x_ratio, data.y_ratio);
-      if (objectData.spawnpoint->type == comp::spawnpoint_type::player)
-      {
+      if (objectData.spawnpoint->type == comp::spawnpoint_type::player) {
         data.player_spawn_point = objectData.spawnpoint->position;
       }
     }
-    else if (type == "Container")
-    {
+    else if (type == "Container") {
       objectData.inventory = parse_container(object);
     }
-    else if (type == "ContainerTrigger")
-    {
+    else if (type == "ContainerTrigger") {
       assert(rune::tmx::is_object(object.properties, "container"));
       objectData.inventory_ref =
           rune::tmx::get_object(object.properties, "container").get();
       objectData.hitbox = parse_hitbox(object, data.x_ratio, data.y_ratio);
     }
-    else if (type == "BedTrigger")
-    {
+    else if (type == "BedTrigger") {
       objectData.bed_trigger.emplace();
       objectData.hitbox = parse_hitbox(object, data.x_ratio, data.y_ratio);
     }
-    else if (type == "Portal")
-    {
+    else if (type == "Portal") {
       objectData.portal = parse_portal(object);
       objectData.hitbox = parse_hitbox(object, data.x_ratio, data.y_ratio);
     }
-    else if (type == "Light")
-    {
+    else if (type == "Light") {
       objectData.light = parse_light(object, data.x_ratio, data.y_ratio);
     }
-    else if (type == "Plant")
-    {
+    else if (type == "Plant") {
       objectData.plant = parse_plant(data, object);
 
       const cen::fpoint pos{object.x * data.x_ratio, object.y * data.y_ratio};

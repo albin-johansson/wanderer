@@ -15,19 +15,15 @@ void update_triggers(entt::registry& registry, RemovalPredicate&& predicate)
   const auto player = singleton_entity<comp::player>(registry);
   const auto& playerHitbox = registry.get<comp::hitbox>(player);
 
-  for (auto&& [entity, trigger, hitbox] : registry.view<Trigger, comp::hitbox>().each())
-  {
+  for (auto&& [entity, trigger, hitbox] : registry.view<Trigger, comp::hitbox>().each()) {
     const auto triggerEntity = typename Trigger::entity{entity};
     hitbox.enabled = true;
 
-    if (sys::intersects(playerHitbox, hitbox))
-    {
+    if (sys::intersects(playerHitbox, hitbox)) {
       registry.emplace_or_replace<IsWithinTrigger>(player, triggerEntity);
     }
-    else if (const auto* ptr = registry.try_get<IsWithinTrigger>(player))
-    {
-      if (predicate(*ptr, triggerEntity))
-      {
+    else if (const auto* ptr = registry.try_get<IsWithinTrigger>(player)) {
+      if (predicate(*ptr, triggerEntity)) {
         registry.remove<IsWithinTrigger>(player);
       }
     }

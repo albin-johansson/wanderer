@@ -27,8 +27,7 @@ auto parse_light(const rune::tmx_object& object, const float xRatio, const float
     light.fluctuation_limit = *limit;
   }
 
-  if (const auto* step = rune::tmx::get_if_float(object.properties, "fluctuationStep"))
-  {
+  if (const auto* step = rune::tmx::get_if_float(object.properties, "fluctuationStep")) {
     light.fluctuation_step = *step;
   }
 

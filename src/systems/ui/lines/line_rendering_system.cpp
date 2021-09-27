@@ -17,8 +17,7 @@ void render_lines(const entt::registry& registry, graphics_context& graphics)
   for (auto&& [entity, line, associated] :
        registry.view<comp::line, comp::associated_menu>().each())
   {
-    if (associated.entity == menuEntity)
-    {
+    if (associated.entity == menuEntity) {
       renderer.draw_line(from_grid(line.start), from_grid(line.end));
     }
   }

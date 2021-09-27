@@ -77,8 +77,7 @@ auto make_level(const ir::level& data, graphics_context& graphics) -> comp::leve
   sys::update_drawables(level.registry);
   sys::sort_depth_drawables(level.registry, sys::sort_strategy::std_sort);
 
-  if constexpr (cen::is_release_build())
-  {
+  if constexpr (cen::is_release_build()) {
     // This is very slow in debug builds, which is why we avoid it
     level.tree.rebuild();
   }

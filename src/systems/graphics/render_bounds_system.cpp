@@ -11,12 +11,10 @@ namespace {
 [[nodiscard]] auto calculate_min_col(const float viewportX) noexcept -> int
 {
   const auto minCol = static_cast<int>(viewportX / glob::tile_width<>);
-  if (minCol > 0)
-  {
+  if (minCol > 0) {
     return minCol;
   }
-  else
-  {
+  else {
     return 0;
   }
 }
@@ -24,12 +22,10 @@ namespace {
 [[nodiscard]] auto calculate_min_row(const float viewportY) noexcept -> int
 {
   const auto minRow = static_cast<int>(viewportY / glob::tile_height<>);
-  if (minRow > 0)
-  {
+  if (minRow > 0) {
     return minRow;
   }
-  else
-  {
+  else {
     return 0;
   }
 }
@@ -38,12 +34,10 @@ namespace {
     -> int
 {
   const auto maxCol = static_cast<int>(viewportMaxX / glob::tile_width<>) + 1;
-  if (maxCol < numCols)
-  {
+  if (maxCol < numCols) {
     return maxCol;
   }
-  else
-  {
+  else {
     return numCols;
   }
 }
@@ -52,12 +46,10 @@ namespace {
     -> int
 {
   const auto maxRow = static_cast<int>(viewportMaxY / glob::tile_height<>) + 1;
-  if (maxRow < numRows)
-  {
+  if (maxRow < numRows) {
     return maxRow;
   }
-  else
-  {
+  else {
     return numRows;
   }
 }

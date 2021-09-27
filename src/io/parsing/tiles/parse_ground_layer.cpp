@@ -20,8 +20,7 @@ auto parse_ground_layer(const rune::tmx_tile_layer& tileLayer,
   layer.z = layerIndex;
 
   int index = 0;
-  for (const auto gid : std::get<tile_data>(tileLayer.data->tile_data))
-  {
+  for (const auto gid : std::get<tile_data>(tileLayer.data->tile_data)) {
     const auto [row, col] = rune::index_to_matrix<usize>(index, nCols);
 
     assert(row < layer.matrix.size());

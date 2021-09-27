@@ -18,19 +18,16 @@ namespace {
 
 void render_hitboxes(const entt::registry& registry, cen::renderer& renderer)
 {
-  for (auto&& [entity, hitbox] : registry.view<comp::hitbox>().each())
-  {
+  for (auto&& [entity, hitbox] : registry.view<comp::hitbox>().each()) {
     if (registry.any_of<comp::portal, comp::container_trigger, comp::bed_trigger>(entity))
     {
       renderer.set_color(cen::colors::cyan);
     }
-    else
-    {
+    else {
       renderer.set_color(cen::colors::lime);
     }
 
-    for (const auto& [offset, size] : hitbox.boxes)
-    {
+    for (const auto& [offset, size] : hitbox.boxes) {
       const cen::frect rect{to_point(hitbox.origin + offset), size};
 
       renderer.set_color(renderer.get_color().with_alpha(100));
@@ -56,16 +53,14 @@ void render_enabled_trigger_indicator(const entt::registry& registry,
 void render_trigger_indicators(const entt::registry& registry, cen::renderer& renderer)
 {
   const auto entity = singleton_entity<const comp::player>(registry);
-  if (const auto* iwp = registry.try_get<comp::is_within_portal>(entity))
-  {
+  if (const auto* iwp = registry.try_get<comp::is_within_portal>(entity)) {
     render_enabled_trigger_indicator(registry, iwp->portal_entity, renderer);
   }
   else if (const auto* iwc = registry.try_get<comp::is_within_container_trigger>(entity))
   {
     render_enabled_trigger_indicator(registry, iwc->trigger_entity, renderer);
   }
-  else if (const auto iwb = registry.try_get<comp::is_within_bed_trigger>(entity))
-  {
+  else if (const auto iwb = registry.try_get<comp::is_within_bed_trigger>(entity)) {
     render_enabled_trigger_indicator(registry, iwb->trigger_entity, renderer);
   }
 }
@@ -110,21 +105,18 @@ void render_menu_debug_info(const entt::registry& registry, graphics_context& gr
   const auto menuEntity = registry.ctx<ctx::active_menu>().entity;
   const auto& menu = registry.get<comp::menu>(menuEntity);
 
-  if (menu.id != menu_id::in_game)
-  {
+  if (menu.id != menu_id::in_game) {
     renderer.set_color(cen::colors::light_gray.with_alpha(50));
 
     const auto endX = glob::logical_width<>;
     const auto endY = glob::logical_height<>;
 
-    for (auto row = 0; row < glob::menu_rows; ++row)
-    {
+    for (auto row = 0; row < glob::menu_rows; ++row) {
       const auto y = row * glob::menu_row_size;
       renderer.draw_line<float>({0, y}, {endX, y});
     }
 
-    for (auto col = 0; col < glob::menu_columns; ++col)
-    {
+    for (auto col = 0; col < glob::menu_columns; ++col) {
       const auto x = col * glob::menu_col_size;
       renderer.draw_line<float>({x, 0}, {x, endY});
     }

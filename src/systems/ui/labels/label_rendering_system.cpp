@@ -11,8 +11,7 @@ namespace wanderer::sys {
 
 [[nodiscard]] auto menu_font(const text_size size)
 {
-  switch (size)
-  {
+  switch (size) {
     default:
       [[fallthrough]];
 
@@ -35,10 +34,8 @@ void render_labels(const entt::registry& registry, graphics_context& graphics)
   for (auto&& [entity, label, associated] :
        registry.view<comp::label, comp::associated_menu>().each())
   {
-    if (active.get() == associated.entity)
-    {
-      if (!label.texture)
-      {
+    if (active.get() == associated.entity) {
+      if (!label.texture) {
         renderer.set_color(label.color);
 
         const auto& font = renderer.get_font(menu_font(label.size));

@@ -54,10 +54,8 @@ void fetch_saves(entt::registry& registry, comp::saves_menu& savesMenu)
 {
   destroy_and_clear(registry, savesMenu.entries);
 
-  for (const auto& entry : std::filesystem::directory_iterator(saves_directory()))
-  {
-    if (entry.is_directory())
-    {
+  for (const auto& entry : std::filesystem::directory_iterator(saves_directory())) {
+    if (entry.is_directory()) {
       savesMenu.entries.push_back(make_saves_menu_entry(registry, entry.path()));
     }
   }
@@ -88,8 +86,7 @@ void refresh_save_entry_buttons(entt::registry& registry,
   destroy_and_clear(registry, group.buttons);
 
   const auto maxRow = static_cast<float>(group.items_per_page);
-  for (auto row = 0; const auto entryEntity : savesMenu.entries)
-  {
+  for (auto row = 0; const auto entryEntity : savesMenu.entries) {
     const auto& entry = registry.get<comp::saves_menu_entry>(entryEntity);
     const auto actualRow = save_entry_row + std::fmod(static_cast<float>(row), maxRow);
 
@@ -106,8 +103,7 @@ void refresh_save_entry_buttons(entt::registry& registry,
     auto& associatedEntry = registry.emplace<comp::associated_saves_entry>(buttonEntity);
     associatedEntry.entry = entryEntity;
 
-    if (group.selected == entt::null)
-    {
+    if (group.selected == entt::null) {
       group.selected = buttonEntity;
     }
 
@@ -120,8 +116,7 @@ void refresh_page_indicator_label(entt::registry& registry,
                                   comp::button_group& group,
                                   const comp::menu::entity menuEntity)
 {
-  if (group.indicator_label == entt::null)
-  {
+  if (group.indicator_label == entt::null) {
     group.indicator_label =
         sys::make_label(registry,
                         menuEntity,
@@ -129,8 +124,7 @@ void refresh_page_indicator_label(entt::registry& registry,
                         grid_position{page_indicator_row, page_indicator_col},
                         text_size::medium);
   }
-  else
-  {
+  else {
     auto& label = registry.get<comp::label>(group.indicator_label);
     set_text(label, get_page_indicator_text(group));
   }
@@ -140,8 +134,7 @@ void update_delete_button_enabled(entt::registry& registry,
                                   comp::button_group& group,
                                   const comp::button::entity deleteButtonEntity)
 {
-  if (group.selected != entt::null)
-  {
+  if (group.selected != entt::null) {
     const auto& button = registry.get<comp::button>(group.selected);
     auto& deleteButton = registry.get<comp::button>(deleteButtonEntity);
     set_enabled(deleteButton, button.text != "exit_save");
@@ -176,24 +169,20 @@ void refresh_saves_menu_contents(entt::registry& registry,
 void change_saves_button_group_page(entt::registry& registry, const int increment)
 {
   const auto menu = registry.ctx<ctx::active_menu>().entity;
-  if (auto* group = registry.try_get<comp::button_group>(menu))
-  {
+  if (auto* group = registry.try_get<comp::button_group>(menu)) {
     const auto nPages = page_count(*group);
     const auto nextPage = group->current_page + increment;
-    if (nextPage >= 0 && nextPage < nPages)
-    {
+    if (nextPage >= 0 && nextPage < nPages) {
       nullify(group->selected);
       group->current_page += increment;
 
       const auto firstRow = group->current_page * group->items_per_page;
-      for (int row = 0; const auto buttonEntity : group->buttons)
-      {
+      for (int row = 0; const auto buttonEntity : group->buttons) {
         auto& button = registry.get<comp::button>(buttonEntity);
         set_visible(button,
                     row >= firstRow && row <= firstRow + (group->items_per_page - 1));
 
-        if ((button.state & comp::button::visible_bit) && group->selected == entt::null)
-        {
+        if ((button.state & comp::button::visible_bit) && group->selected == entt::null) {
           group->selected = buttonEntity;
         }
 
@@ -237,8 +226,7 @@ void change_save_preview(entt::registry& registry)
   destroy_if_exists(registry, savesMenu.preview_texture);
 
   auto& group = registry.get<comp::button_group>(activeMenu);
-  if (group.selected != entt::null)
-  {
+  if (group.selected != entt::null) {
     const auto associatedEntry =
         registry.get<comp::associated_saves_entry>(group.selected).entry;
 
@@ -288,8 +276,7 @@ void remove_save_entry(entt::registry& registry, const std::string& name)
     return entry.name == name;
   });
 
-  for (const auto entity : range)
-  {
+  for (const auto entity : range) {
     registry.destroy(entity);
   }
 

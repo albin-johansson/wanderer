@@ -5,10 +5,8 @@ namespace wanderer::io {
 auto find_tile(const std::vector<ir::tileset>& tilesets, const tile_id id)
     -> maybe<ir::tile>
 {
-  for (const auto& tileset : tilesets)
-  {
-    if (const auto it = tileset.tiles.find(id); it != tileset.tiles.end())
-    {
+  for (const auto& tileset : tilesets) {
+    if (const auto it = tileset.tiles.find(id); it != tileset.tiles.end()) {
       return it->second;
     }
   }
@@ -20,14 +18,11 @@ auto get_tileset_offset(const ir::level& data, const std::string_view tileset) -
 {
   int offset = 0;
 
-  for (const auto& ts : data.tilesets)
-  {
-    if (ts.name == tileset)
-    {
+  for (const auto& ts : data.tilesets) {
+    if (ts.name == tileset) {
       break;
     }
-    else
-    {
+    else {
       offset += cen::isize(ts.tiles) + 1;
     }
   }
@@ -38,10 +33,8 @@ auto get_tileset_offset(const ir::level& data, const std::string_view tileset) -
 auto get_tileset_tile_size(const ir::level& data, const std::string_view tileset)
     -> maybe<cen::iarea>
 {
-  for (const auto& ts : data.tilesets)
-  {
-    if (ts.name == tileset)
-    {
+  for (const auto& ts : data.tilesets) {
+    if (ts.name == tileset) {
       return cen::iarea{ts.tile_width, ts.tile_height};
     }
   }

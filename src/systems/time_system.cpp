@@ -65,12 +65,10 @@ inline const phase night_phase{.phase_start = night,
 
 [[nodiscard]] auto get_color(const phase& current, const float hour) -> cen::color
 {
-  if (current.colors.size() == 1)
-  {
+  if (current.colors.size() == 1) {
     return current.colors.at(0);
   }
-  else
-  {
+  else {
     const auto now = hour - current.phase_start;
     const auto duration = current.phase_end - current.phase_start;
     const auto progression = now / duration;
@@ -89,20 +87,16 @@ inline const phase night_phase{.phase_start = night,
 
 [[nodiscard]] auto get_phase(const float hour) -> const phase&
 {
-  if (hour > sunrise && hour <= daytime)
-  {
+  if (hour > sunrise && hour <= daytime) {
     return sunrise_phase;
   }
-  else if (hour > daytime && hour <= sunset)
-  {
+  else if (hour > daytime && hour <= sunset) {
     return day_phase;
   }
-  else if (hour > sunset && hour <= night)
-  {
+  else if (hour > sunset && hour <= night) {
     return sunset_phase;
   }
-  else
-  {
+  else {
     return night_phase;
   }
 }
@@ -114,8 +108,7 @@ inline const phase night_phase{.phase_start = night,
 
 [[nodiscard]] constexpr auto to_string(const day_of_week day) -> std::string_view
 {
-  switch (day)
-  {
+  switch (day) {
     case day_of_week::monday:
       return "MON";
 
@@ -155,8 +148,7 @@ void update_time(entt::registry& shared, entt::dispatcher& dispatcher, const flo
   const auto& phase = get_phase(time.hour);
   time.tint = get_color(phase, time.hour);
 
-  if (time.hour >= 24)
-  {
+  if (time.hour >= 24) {
     change_to_next_day(shared, dispatcher);
   }
 }

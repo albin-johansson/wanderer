@@ -20,8 +20,7 @@ inline const auto texture_path = resources::texture("ardentryst/glow.png");
 
 void update_lights(entt::registry& registry)
 {
-  for (auto&& [entity, light] : registry.view<comp::point_light>().each())
-  {
+  for (auto&& [entity, light] : registry.view<comp::point_light>().each()) {
     light.fluctuation +=
         rune::next_bool() ? light.fluctuation_step : -light.fluctuation_step;
 
@@ -56,16 +55,14 @@ void render_lights(const entt::registry& registry,
   const auto& viewport = registry.ctx<ctx::viewport>();
   constexpr auto source = cen::rect(0, 0, 80, 80);
 
-  for (auto&& [entity, light] : registry.view<comp::point_light>().each())
-  {
+  for (auto&& [entity, light] : registry.view<comp::point_light>().each()) {
     const auto& pos = light.position;
 
     const auto size = light.size + light.fluctuation;
     const auto halfSize = size / 2.0f;
 
     const cen::frect dst{pos.x - halfSize, pos.y - halfSize, size, size};
-    if (cen::intersects(viewport.bounds, dst))
-    {
+    if (cen::intersects(viewport.bounds, dst)) {
       graphics.render(index, source, dst);
     }
   }

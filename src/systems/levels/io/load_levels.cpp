@@ -32,8 +32,7 @@ void load_levels(entt::registry& shared, graphics_context& graphics)
   const auto data = io::parse_world(resources::map("main.json"));
   const auto world = create_world(shared, graphics, data);
 
-  for (const auto& sublevel : data.levels)
-  {
+  for (const auto& sublevel : data.levels) {
     shared.emplace<comp::level>(shared.create(), make_level(sublevel, graphics));
   }
 

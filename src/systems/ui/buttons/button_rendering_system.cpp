@@ -41,13 +41,11 @@ void render_text(const comp::button& button,
                  const comp::button_drawable& drawable,
                  cen::renderer& renderer)
 {
-  if (button.text.empty())
-  {
+  if (button.text.empty()) {
     return;
   }
 
-  if (!drawable.text_pos)
-  {
+  if (!drawable.text_pos) {
     const auto& font = renderer.get_font(button_font);
     const auto [width, height] = font.string_size(button.text).value();
     drawable.text_pos = {drawable.bounds.center_x() - (width / 2.0f),
@@ -78,19 +76,16 @@ void render_button(const entt::registry& registry,
   const auto& button = registry.get<comp::button>(buttonEntity);
   const auto& drawable = registry.get<comp::button_drawable>(buttonEntity);
 
-  if (!(button.state & comp::button::visible_bit))
-  {
+  if (!(button.state & comp::button::visible_bit)) {
     return;
   }
 
-  if (!drawable.texture)
-  {
+  if (!drawable.texture) {
     update_bounds(button, drawable.bounds, renderer);
     init_text(drawable, button.text, renderer);
   }
 
-  if (button.state & comp::button::hover_bit && button.state & comp::button::enable_bit)
-  {
+  if (button.state & comp::button::hover_bit && button.state & comp::button::enable_bit) {
     render_outline(drawable, renderer);
   }
 
@@ -107,8 +102,7 @@ void render_buttons(const entt::registry& registry, graphics_context& graphics)
   for (auto&& [entity, button, associated] :
        registry.view<comp::button, comp::associated_menu>(filter).each())
   {
-    if (associated.entity == menuEntity)
-    {
+    if (associated.entity == menuEntity) {
       render_button(registry, graphics, comp::button::entity{entity});
     }
   }
@@ -122,8 +116,7 @@ void render_button_group_indicators(const entt::registry& registry,
   for (auto&& [entity, group, associated] :
        registry.view<comp::button_group, comp::associated_menu>().each())
   {
-    if (associated.entity == menuEntity && group.selected != entt::null)
-    {
+    if (associated.entity == menuEntity && group.selected != entt::null) {
       auto& renderer = graphics.get_renderer();
       const auto& button = registry.get<comp::button>(group.selected);
       const auto& drawable = registry.get<comp::button_drawable>(group.selected);

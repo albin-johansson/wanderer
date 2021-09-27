@@ -17,8 +17,7 @@ void render_checkbox(const entt::registry& registry,
   auto& renderer = graphics.get_renderer();
   const auto& drawable = registry.get<comp::button_drawable>(entity);
 
-  if (checkbox.checked)
-  {
+  if (checkbox.checked) {
     renderer.set_color(cen::colors::lime);
     renderer.fill_rect(drawable.bounds);
   }
@@ -26,8 +25,7 @@ void render_checkbox(const entt::registry& registry,
   renderer.set_color(cen::colors::white);
   renderer.draw_rect(drawable.bounds);
 
-  if (!drawable.texture)
-  {
+  if (!drawable.texture) {
     const auto& font = renderer.get_font(glob::menu_font_m);
     const auto& button = registry.get<comp::button>(entity);
 
@@ -47,8 +45,7 @@ void render_checkboxes(const entt::registry& registry, graphics_context& graphic
   for (auto&& [entity, checkbox, associated] :
        registry.view<comp::checkbox, comp::associated_menu>().each())
   {
-    if (associated.entity == menuEntity)
-    {
+    if (associated.entity == menuEntity) {
       render_checkbox(registry, graphics, comp::checkbox::entity{entity}, checkbox);
     }
   }

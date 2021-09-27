@@ -27,21 +27,18 @@ void render_title(const std::string& title,
                   const comp::menu_drawable& drawable,
                   cen::renderer& renderer)
 {
-  if (title.empty())
-  {
+  if (title.empty()) {
     return;
   }
 
-  if (!drawable.texture)
-  {
+  if (!drawable.texture) {
     renderer.set_color(cen::colors::white);
     drawable.texture = render_text(renderer, title, renderer.get_font(glob::menu_font_l));
   }
 
   const auto& texture = *drawable.texture;
 
-  if (!drawable.position)
-  {
+  if (!drawable.position) {
     const auto x = static_cast<float>(center_x(texture.width()));
     constexpr auto y = row_to_y(2);
     drawable.position = {x, y};
@@ -57,8 +54,7 @@ void render_author_label(graphics_context& graphics)
   auto& renderer = graphics.get_renderer();
   auto& cache = graphics.small_font_cache();
 
-  if (!cache.has_stored(id))
-  {
+  if (!cache.has_stored(id)) {
     renderer.set_color(cen::colors::white);
     cache.store_blended_utf8(id, "Developed by Albin Johansson", renderer);
   }
@@ -79,8 +75,7 @@ void render_active_menu(const entt::registry& registry, graphics_context& graphi
 
   auto& renderer = graphics.get_renderer();
 
-  if (menu.blocking)
-  {
+  if (menu.blocking) {
     const auto index = graphics.load(texture_id{"backdrop"_hs}, backdrop_path);
     renderer.render(graphics[index], cen::irect{{}, glob::logical_size<>});
     renderer.fill_with(glob::transparent_black);
@@ -95,8 +90,7 @@ void render_active_menu(const entt::registry& registry, graphics_context& graphi
 
   render_title(menu.title, drawable, renderer);
 
-  if (menu.blocking)
-  {
+  if (menu.blocking) {
     render_author_label(graphics);
   }
 }

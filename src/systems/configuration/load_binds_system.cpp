@@ -33,12 +33,10 @@ inline const auto binds_file = files_directory() / "binds.ini";
 
 auto load_binds() -> ctx::binds
 {
-  if (std::filesystem::exists(binds_file))
-  {
+  if (std::filesystem::exists(binds_file)) {
     return parse_binds();
   }
-  else
-  {
+  else {
     std::filesystem::copy("resources/binds.ini", binds_file);
     return ctx::binds{};
   }

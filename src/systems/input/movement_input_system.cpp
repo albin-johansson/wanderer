@@ -17,8 +17,7 @@ namespace {
 
 void move(comp::movable& movable, const direction dir) noexcept
 {
-  switch (dir)
-  {
+  switch (dir) {
     case direction::right: {
       movable.velocity.x = movable.speed;
       break;
@@ -42,8 +41,7 @@ void move(comp::movable& movable, const direction dir) noexcept
 
 void stop(comp::movable& movable, const direction dir) noexcept
 {
-  switch (dir)
-  {
+  switch (dir) {
     case direction::right:
       [[fallthrough]];
     case direction::left: {
@@ -70,31 +68,25 @@ void stop(comp::movable& movable, const direction dir) noexcept
   const auto up = keyboard.is_pressed(binds.up);
   const auto down = keyboard.is_pressed(binds.down);
 
-  if (left && right)
-  {
+  if (left && right) {
     stop(movable, direction::left);
     stop(movable, direction::right);
   }
-  else if (left)
-  {
+  else if (left) {
     move(movable, direction::left);
   }
-  else if (right)
-  {
+  else if (right) {
     move(movable, direction::right);
   }
 
-  if (up && down)
-  {
+  if (up && down) {
     stop(movable, direction::up);
     stop(movable, direction::down);
   }
-  else if (up)
-  {
+  else if (up) {
     move(movable, direction::up);
   }
-  else if (down)
-  {
+  else if (down) {
     move(movable, direction::down);
   }
 
@@ -105,23 +97,19 @@ void check_released(comp::movable& movable,
                     const cen::keyboard& keyboard,
                     const ctx::binds& binds) noexcept
 {
-  if (keyboard.just_released(binds.left))
-  {
+  if (keyboard.just_released(binds.left)) {
     stop(movable, direction::left);
   }
 
-  if (keyboard.just_released(binds.right))
-  {
+  if (keyboard.just_released(binds.right)) {
     stop(movable, direction::right);
   }
 
-  if (keyboard.just_released(binds.up))
-  {
+  if (keyboard.just_released(binds.up)) {
     stop(movable, direction::up);
   }
 
-  if (keyboard.just_released(binds.down))
-  {
+  if (keyboard.just_released(binds.down)) {
     stop(movable, direction::down);
   }
 }
@@ -142,19 +130,16 @@ void handle_move_input(entt::registry& registry,
   const auto areMoveKeysDown = check_pressed(movable, keyboard, binds);
   check_released(movable, keyboard, binds);
 
-  if (!areMoveKeysDown && movable.velocity.is_zero())
-  {
+  if (!areMoveKeysDown && movable.velocity.is_zero()) {
     dispatcher.enqueue<end_humanoid_move_event>(registry, player);
   }
-  else if (keyboard.is_pressed(binds.attack))
-  {
+  else if (keyboard.is_pressed(binds.attack)) {
     movable.velocity.reset();
 
     // FIXME null weapon
     dispatcher.enqueue<begin_attack_event>(registry, player, entt::null, movable.dir);
   }
-  else if (keyboard.just_released(binds.interact))
-  {
+  else if (keyboard.just_released(binds.interact)) {
     dispatcher.enqueue<interact_event>(registry, dispatcher);
   }
 }

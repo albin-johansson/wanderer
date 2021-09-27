@@ -27,12 +27,10 @@ void save_default_configuration()
 
 void prepare_rune_configuration()
 {
-  if (std::filesystem::exists(file))
-  {
+  if (std::filesystem::exists(file)) {
     rune::load_configuration(file);
   }
-  else
-  {
+  else {
     save_default_configuration();
   }
 }

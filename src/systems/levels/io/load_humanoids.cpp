@@ -27,10 +27,8 @@ void load_humanoids(comp::level& level, graphics_context& graphics)
   // The player has to be created before other humanoids!
   sys::make_player(level, graphics);
 
-  for (auto&& [entity, spawnpoint] : level.registry.view<comp::spawnpoint>().each())
-  {
-    switch (spawnpoint.type)
-    {
+  for (auto&& [entity, spawnpoint] : level.registry.view<comp::spawnpoint>().each()) {
+    switch (spawnpoint.type) {
       case comp::spawnpoint_type::player:
         break;
 

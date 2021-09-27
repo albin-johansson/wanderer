@@ -11,8 +11,7 @@ auto parse_csv(const std::string& str) -> std::vector<std::string>
 
   std::istringstream stream{str};
   std::string token;
-  while (std::getline(stream, token, ','))
-  {
+  while (std::getline(stream, token, ',')) {
     tokens.push_back(std::move(token));
     token.clear();
   }

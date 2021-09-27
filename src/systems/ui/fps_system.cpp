@@ -11,13 +11,11 @@ namespace wanderer::sys {
 
 void update_fps(entt::registry& shared, const float dt)
 {
-  for (auto&& [entity, data] : shared.view<comp::fps_data>().each())
-  {
+  for (auto&& [entity, data] : shared.view<comp::fps_data>().each()) {
     data.dt = dt;
     data.elapsed = cen::counter::ticks();
 
-    if (data.elapsed >= data.next_update)
-    {
+    if (data.elapsed >= data.next_update) {
       data.frame = data.elapsed - data.then;
       data.next_update = data.elapsed + data.interval;
     }
@@ -28,8 +26,7 @@ void update_fps(entt::registry& shared, const float dt)
 
 void render_fps(const entt::registry& shared, graphics_context& graphics)
 {
-  for (auto&& [entity, data] : shared.view<comp::fps_data>().each())
-  {
+  for (auto&& [entity, data] : shared.view<comp::fps_data>().each()) {
     const auto fps = round(1.0 / (static_cast<double>(data.frame.count()) / 1'000.0));
 
     graphics.render_outlined_text(std::format("Frame: {} ms", data.frame.count()),

@@ -35,10 +35,8 @@ void enable_level(entt::registry& shared, const map_id id)
 {
   shared.clear<comp::active_level>();
 
-  for (auto&& [entity, level] : shared.view<comp::level>().each())
-  {
-    if (level.id == id)
-    {
+  for (auto&& [entity, level] : shared.view<comp::level>().each()) {
+    if (level.id == id) {
       shared.emplace<comp::active_level>(entity);
       break;
     }

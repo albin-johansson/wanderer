@@ -48,20 +48,17 @@ void update_custom_animations(entt::registry& registry,
                               entt::dispatcher& dispatcher,
                               float dt)
 {
-  for (auto&& [entity, animation] : registry.view<comp::custom_animation>().each())
-  {
+  for (auto&& [entity, animation] : registry.view<comp::custom_animation>().each()) {
     animation.width += animation.x_step_size * animation.speed * dt;
     animation.height += animation.y_step_size * animation.speed * dt;
 
-    if (animation.fading_in && animation.width >= glob::logical_width<float> / 2.0f)
-    {
+    if (animation.fading_in && animation.width >= glob::logical_width<float> / 2.0f) {
       animation.x_step_size *= -1;
       animation.y_step_size *= -1;
       animation.fading_in = false;
       dispatcher.enqueue<custom_animation_halfway_event>(animation.id, entity);
     }
-    else if (animation.width <= 0)
-    {
+    else if (animation.width <= 0) {
       registry.destroy(entity);
     }
   }
@@ -73,8 +70,7 @@ void render_custom_animations(const entt::registry& registry, graphics_context& 
   constexpr auto height = glob::logical_height<float>;
 
   auto& renderer = graphics.get_renderer();
-  for (auto&& [entity, animation] : registry.view<comp::custom_animation>().each())
-  {
+  for (auto&& [entity, animation] : registry.view<comp::custom_animation>().each()) {
     const auto hSize = animation.width;
     const auto vSize = animation.height;
     renderer.set_color(gray);

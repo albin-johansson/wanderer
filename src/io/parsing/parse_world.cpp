@@ -49,10 +49,8 @@ auto parse_world(const std::filesystem::path& world) -> ir::world
   ir::world data;
   data.base = parse_map(tmx, directory);
 
-  for (const auto& object : data.base.objects)
-  {
-    if (object.portal)
-    {
+  for (const auto& object : data.base.objects) {
+    if (object.portal) {
       const auto levelPath = directory / object.portal->path;
       CENTURION_LOG_INFO("Parsing level: %s", levelPath.string().c_str());
 

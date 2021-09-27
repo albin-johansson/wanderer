@@ -50,8 +50,7 @@ void render_inventory_bar(const entt::registry& registry, graphics_context& grap
   constexpr auto y = glob::logical_height<int> - bar_cell_height - glob::default_margin;
 
   auto& renderer = graphics.get_renderer();
-  for (auto i = 0; i < bar_cell_count; ++i)
-  {
+  for (auto i = 0; i < bar_cell_count; ++i) {
     const auto cell = cen::rect(x + (i * (bar_cell_width + bar_cell_spacing)),
                                 y,
                                 bar_cell_width,
@@ -85,29 +84,24 @@ void render_inventory(const entt::registry& registry,
     maybe<int> hoverIndex;
     int index = 0;
 
-    for (auto row = 0; row < n_rows; ++row)
-    {
-      for (auto col = 0; col < n_cols; ++col, ++index)
-      {
+    for (auto row = 0; row < n_rows; ++row) {
+      for (auto col = 0; col < n_cols; ++col, ++index) {
         const cen::irect rect{getCellPos(row, col), cell_size};
 
-        if (rect.contains(mousePos))
-        {
+        if (rect.contains(mousePos)) {
           hoverIndex = index;
         }
 
         renderer.set_color(index >= inventory.capacity ? cen::colors::black : cell_color);
         renderer.fill_rect(rect);
 
-        if (index < nItems)
-        {
+        if (index < nItems) {
           // TODO render item preview
         }
       }
     }
 
-    if (hoverIndex)
-    {
+    if (hoverIndex) {
       const auto [row, col] = rune::index_to_matrix(*hoverIndex, n_cols);
       const cen::irect rect{getCellPos(row, col), cell_size};
 

@@ -13,8 +13,7 @@ void make_fancy(entt::registry& registry,
 {
   tile.depth = data.depth;
 
-  if (data.animation)
-  {
+  if (data.animation) {
     registry.emplace<comp::tile_animation>(entity, *data.animation);
   }
 }
@@ -31,8 +30,7 @@ void make_fancy(entt::registry& registry,
   tile.texture = graphics.to_index(data.texture);
   tile.src = data.source;
 
-  if (data.fancy)
-  {
+  if (data.fancy) {
     make_fancy(registry, entity, tile, *data.fancy);
   }
 
@@ -44,8 +42,7 @@ void load_tiles(entt::registry& registry,
                 const graphics_context& graphics,
                 const std::map<tile_id, ir::tile>& tiles)
 {
-  for (const auto& [id, data] : tiles)
-  {
+  for (const auto& [id, data] : tiles) {
     const auto entity = create_tile(registry, graphics, id, data);
     tileset.tiles.try_emplace(id, entity);
   }
@@ -63,8 +60,7 @@ void load_tileset(entt::registry& registry,
   tileset.tiles.reserve(
       accumulate(data, [](const ir::tileset& tileset) { return tileset.tiles.size(); }));
 
-  for (const auto& ts : data)
-  {
+  for (const auto& ts : data) {
     load_tiles(registry, tileset, graphics, ts.tiles);
   }
 }

@@ -13,8 +13,7 @@ namespace wanderer {
 template <container_type<entt::entity> T>
 void destroy_and_clear(entt::registry& registry, T& container)
 {
-  for (const auto entity : container)
-  {
+  for (const auto entity : container) {
     registry.destroy(entity);
   }
   container.clear();
@@ -23,8 +22,7 @@ void destroy_and_clear(entt::registry& registry, T& container)
 template <std::convertible_to<entt::entity> T>
 void destroy_if_exists(entt::registry& registry, const T entity)
 {
-  if (entity != entt::null)
-  {
+  if (entity != entt::null) {
     registry.destroy(entity);
   }
 }

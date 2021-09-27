@@ -43,8 +43,7 @@ inline constexpr ms_t attack_delay{70};
  */
 [[nodiscard]] constexpr auto source_y(const int y, const direction dir) noexcept -> int
 {
-  switch (dir)
-  {
+  switch (dir) {
     default:
       assert(false);
 
@@ -76,8 +75,7 @@ void update_move_animation(entt::registry& registry, const entt::entity entity)
 
   drawable.src.set_x(movable.velocity.is_zero() ? 0 : animated.frame * 64);
   const auto srcY = source_y(move_source_y, movable.dir);
-  if (drawable.src.y() != srcY)
-  {
+  if (drawable.src.y() != srcY) {
     animated.frame = 0;
     drawable.src.set_y(srcY);
   }
@@ -99,8 +97,7 @@ void update_attack_animation(entt::registry& registry, const entt::entity entity
   auto& drawable = registry.get<comp::depth_drawable>(entity);
 
   drawable.src.set_x(animated.frame * 64);
-  if (animated.frame == animated.frame_count - 1)
-  {
+  if (animated.frame == animated.frame_count - 1) {
     auto& attack = registry.get<comp::humanoid_attack>(entity);
     attack.done = true;
   }
@@ -194,14 +191,11 @@ void enter_spear_animation(entt::registry& registry, const entt::entity entity)
 
 void update_humanoid_animations(entt::registry& registry)
 {
-  for (auto&& [entity] : registry.view<comp::humanoid>().each())
-  {
-    if (registry.all_of<comp::humanoid_move>(entity))
-    {
+  for (auto&& [entity] : registry.view<comp::humanoid>().each()) {
+    if (registry.all_of<comp::humanoid_move>(entity)) {
       update_move_animation(registry, entity);
     }
-    else if (registry.all_of<comp::humanoid_attack>(entity))
-    {
+    else if (registry.all_of<comp::humanoid_attack>(entity)) {
       update_attack_animation(registry, entity);
     }
   }

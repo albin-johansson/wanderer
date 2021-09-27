@@ -36,21 +36,18 @@ void load_game(entt::registry& shared,
   shared.clear<comp::active_level>();
   restore_shared_data(saves_directory() / name / "shared_data.wanderer", shared);
 
-  for (const auto& data : contents.levels)
-  {
+  for (const auto& data : contents.levels) {
     const auto entity = comp::level::entity{shared.create()};
 
     auto& level =
         shared.emplace<comp::level>(entity, sys::restore_level(data.path, graphics));
     level.id = data.id;
 
-    if (level.id == contents.current)
-    {
+    if (level.id == contents.current) {
       shared.emplace<comp::active_level>(entity);
     }
 
-    if (data.outside_level)
-    {
+    if (data.outside_level) {
       shared.emplace<comp::outside_level>(entity);
     }
 

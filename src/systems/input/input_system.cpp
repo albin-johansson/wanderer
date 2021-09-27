@@ -13,12 +13,10 @@ void update_input(entt::registry& registry,
                   const ctx::binds& binds)
 {
   const auto player = singleton_entity<comp::player>(registry);
-  if (registry.all_of<comp::humanoid_idle>(player))
-  {
+  if (registry.all_of<comp::humanoid_idle>(player)) {
     handle_idle_input(registry, dispatcher, input, binds);
   }
-  else if (registry.all_of<comp::humanoid_move>(player))
-  {
+  else if (registry.all_of<comp::humanoid_move>(player)) {
     handle_move_input(registry, dispatcher, input, binds);
   }
 }

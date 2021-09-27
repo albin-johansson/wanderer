@@ -15,10 +15,8 @@ void render_lazy_textures(const entt::registry& registry, graphics_context& grap
   for (auto&& [entity, lazy, associated] :
        registry.view<comp::lazy_texture, comp::associated_menu>().each())
   {
-    if (active.get() == associated.entity)
-    {
-      if (!lazy.texture)
-      {
+    if (active.get() == associated.entity) {
+      if (!lazy.texture) {
         lazy.texture = cen::texture{renderer, lazy.surface};
       }
 

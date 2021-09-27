@@ -15,8 +15,7 @@ namespace {
 [[nodiscard]] auto get_particle_position(const float2 position,
                                          const direction dir) noexcept -> float2
 {
-  switch (dir)
-  {
+  switch (dir) {
     default:
       [[fallthrough]];
     case direction::up:
@@ -59,8 +58,7 @@ void on_attack_end(const end_attack_event& event)
 
   // TODO deal damage (need target area)
 
-  if (const auto* movable = registry.try_get<comp::movable>(event.source_entity))
-  {
+  if (const auto* movable = registry.try_get<comp::movable>(event.source_entity)) {
     const auto position = get_particle_position(movable->position, movable->dir);
     dispatcher.enqueue<spawn_particles_event>(position, 5, 25.0f, cen::colors::dark_gray);
   }

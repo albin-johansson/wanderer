@@ -22,8 +22,7 @@ void begin_chase(entt::registry& registry,
   movable.velocity = movable.position;
   movable.velocity.look_at(destination, movable.speed);
 
-  if (!registry.all_of<comp::humanoid_move>(entity))
-  {
+  if (!registry.all_of<comp::humanoid_move>(entity)) {
     make_humanoid_move(registry, entity);
   }
 
@@ -35,15 +34,12 @@ void end_chase(entt::registry& registry,
                comp::chase& chase,
                comp::movable& movable)
 {
-  if (chase.active)
-  {
-    if (!registry.all_of<comp::humanoid_idle>(entity))
-    {
+  if (chase.active) {
+    if (!registry.all_of<comp::humanoid_idle>(entity)) {
       make_humanoid_idle(registry, entity);
     }
 
-    if (!registry.all_of<comp::roam>(entity))
-    {
+    if (!registry.all_of<comp::roam>(entity)) {
       auto& roam = registry.emplace<comp::roam>(entity);
       roam.cooldown_duration = cooldown_duration;
       roam.cooldown = 0;
@@ -58,16 +54,13 @@ void end_chase(entt::registry& registry,
 void update_chase(entt::registry& registry, entt::dispatcher& dispatcher)
 {
   for (auto&& [entity, chase, movable] :
-       registry.view<comp::chase, comp::movable>().each())
-  {
+       registry.view<comp::chase, comp::movable>().each()) {
     const auto& targetMovable = registry.get<comp::movable>(chase.target);
 
-    if (distance(movable.position, targetMovable.position) <= chase.range)
-    {
+    if (distance(movable.position, targetMovable.position) <= chase.range) {
       begin_chase(registry, entity, chase, movable, targetMovable.position);
     }
-    else
-    {
+    else {
       end_chase(registry, entity, chase, movable);
     }
   }

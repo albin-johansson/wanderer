@@ -10,8 +10,7 @@ void load_tileset_textures(const ir::level& data, graphics_context& graphics)
 {
   WANDERER_PROFILE_START
 
-  for (const auto& tileset : data.tilesets)
-  {
+  for (const auto& tileset : data.tilesets) {
     graphics.load(tileset.sheet.id, tileset.sheet.path);
   }
 

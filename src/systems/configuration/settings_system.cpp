@@ -39,8 +39,7 @@ void log_settings(const ctx::settings& settings)
   graphics.at("Fullscreen").get_to(settings.fullscreen);
   graphics.at("UseIntegerScaling").get_to(settings.integer_scaling);
 
-  if constexpr (cen::is_debug_build())
-  {
+  if constexpr (cen::is_debug_build()) {
     cen::log::info("Finished reading settings...");
     log_settings(settings);
   }
@@ -52,12 +51,10 @@ void log_settings(const ctx::settings& settings)
 
 void load_settings(entt::registry& registry)
 {
-  if (std::filesystem::exists(settings_file))
-  {
+  if (std::filesystem::exists(settings_file)) {
     registry.set<ctx::settings>(read_settings(settings_file));
   }
-  else
-  {
+  else {
     CENTURION_LOG_INFO("Copying default settings to preferred path...");
     std::filesystem::copy("resources/settings.ini", settings_file);
     registry.set<ctx::settings>(default_settings());
@@ -88,8 +85,7 @@ void save_settings_before_exit(const entt::registry& registry)
 
   init::write_ini(ini, settings_file);
 
-  if constexpr (cen::is_debug_build())
-  {
+  if constexpr (cen::is_debug_build()) {
     cen::log::info("Saving settings...");
     log_settings(settings);
   }

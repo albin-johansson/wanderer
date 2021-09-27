@@ -34,8 +34,7 @@ void load_tile_objects(comp::level& level,
 {
   const auto& tileset = level.registry.get<comp::tileset>(level.tileset);
 
-  for (const auto& objectData : levelData.tile_objects)
-  {
+  for (const auto& objectData : levelData.tile_objects) {
     const auto entity = comp::tile_object::entity{level.registry.create()};
 
     auto& tileObject = level.registry.emplace<comp::tile_object>(entity);
@@ -44,8 +43,7 @@ void load_tile_objects(comp::level& level,
     level.registry.emplace<comp::depth_drawable>(entity,
                                                  convert(objectData.drawable, graphics));
 
-    if (objectData.hitbox)
-    {
+    if (objectData.hitbox) {
       const auto& hitbox =
           level.registry.emplace<comp::hitbox>(entity, *objectData.hitbox);
       insert_hitbox(level.tree, entity, hitbox);

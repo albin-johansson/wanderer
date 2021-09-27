@@ -25,14 +25,12 @@ inline constexpr int json_format_version = 1;
 
 [[nodiscard]] auto unique_path(std::filesystem::path path) -> std::filesystem::path
 {
-  if (std::filesystem::exists(path))
-  {
+  if (std::filesystem::exists(path)) {
     const auto prefix = path.filename().string() + " ";
     for (auto index = 0; index < 100; ++index)  // Give up after 100 tries
     {
       auto newPath = path.parent_path() / (prefix + std::to_string(index + 1));
-      if (!std::filesystem::exists(newPath))
-      {
+      if (!std::filesystem::exists(newPath)) {
         return newPath;
       }
     }
@@ -56,8 +54,7 @@ void save_shared_registry(const std::filesystem::path& directory,
 {
   auto levels = json_type::array();
 
-  for (auto&& [entity, level] : shared.view<comp::level>().each())
-  {
+  for (auto&& [entity, level] : shared.view<comp::level>().each()) {
     const auto name = std::format("level_{}.wanderer", level.id.get());
     sys::save_level(level, directory / name);
 

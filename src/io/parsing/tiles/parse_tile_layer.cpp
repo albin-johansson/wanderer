@@ -19,13 +19,11 @@ void parse_tile_layer(ir::level& data,
                       const int layerIndex)
 {
   assert(rune::tmx::is_bool(properties, "ground"));
-  if (rune::tmx::get_bool(properties, "ground"))
-  {
+  if (rune::tmx::get_bool(properties, "ground")) {
     data.ground_layers.push_back(
         parse_ground_layer(layer, map.height, map.width, layerIndex));
   }
-  else if (layer.data)
-  {
+  else if (layer.data) {
     parse_tile_objects(data, std::get<tile_data>(layer.data->tile_data), layerIndex);
   }
 }

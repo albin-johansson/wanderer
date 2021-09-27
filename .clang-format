@@ -4,6 +4,7 @@ IndentWidth: 2
 ---
 Language: Cpp
 Standard: c++20
+
 ColumnLimit: 90
 
 DerivePointerAlignment: false
@@ -22,19 +23,29 @@ BinPackArguments: false
 
 BreakBeforeBraces: Custom
 BraceWrapping:
-  AfterEnum: true
-  AfterStruct: true
   AfterClass: true
+  AfterStruct: true
+  AfterUnion: true
+  AfterEnum: true
   AfterFunction: true
+  AfterExternBlock: true
+  AfterControlStatement: MultiLine
+  AfterCaseLabel: false
+  BeforeElse: true
+  BeforeCatch: true
+  SplitEmptyNamespace: false
   SplitEmptyRecord: false
   SplitEmptyFunction: false
-  BeforeElse: true
-  AfterControlStatement: Always
-  BeforeCatch: true
 
-BreakConstructorInitializers: BeforeComma
-AllowAllConstructorInitializersOnNextLine: false
+BreakBeforeBinaryOperators: None
+
+EmptyLineBeforeAccessModifier: Always
+
+NamespaceIndentation: None
+FixNamespaceComments: true
 
 BreakInheritanceList: BeforeColon
+BreakConstructorInitializers: BeforeComma
+AllowAllConstructorInitializersOnNextLine: false
 
 IndentRequires: true

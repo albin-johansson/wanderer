@@ -18,8 +18,7 @@ namespace {
   std::vector<tile_id> tiles;
   tiles.reserve(tokens.size());
 
-  for (const auto& token : tokens)
-  {
+  for (const auto& token : tokens) {
     const tile_id tile{offset + rune::from_string<tile_id::value_type>(token).value()};
     tiles.push_back(tile);
   }
@@ -45,8 +44,7 @@ auto parse_plant(const ir::level& data, const rune::tmx_object& object) -> comp:
   plant.tile_height = tileSize->height;
   plant.tiles = parse_tiles(rune::tmx::get_string(object.properties, "tiles"), offset);
 
-  if (const auto* tallTiles = rune::tmx::get_if_string(object.properties, "tallTiles"))
-  {
+  if (const auto* tallTiles = rune::tmx::get_if_string(object.properties, "tallTiles")) {
     plant.tall = parse_tiles(*tallTiles, offset);
   }
 

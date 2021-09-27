@@ -12,16 +12,13 @@ namespace {
     -> comp::spawnpoint_type
 {
   const auto entity = rune::tmx::get_string(properties, "entity");
-  if (entity == "player")
-  {
+  if (entity == "player") {
     return comp::spawnpoint_type::player;
   }
-  else if (entity == "skeleton")
-  {
+  else if (entity == "skeleton") {
     return comp::spawnpoint_type::skeleton;
   }
-  else
-  {
+  else {
     throw std::runtime_error{"Did not recognize spawnpoint type!"};
   }
 }

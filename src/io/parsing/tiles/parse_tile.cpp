@@ -32,8 +32,7 @@ void add_animation(ir::fancy_tile& tileData,
   auto& frames = animation.frames;
   frames.reserve(animationData.frames.size());
 
-  for (const auto& frameData : animationData.frames)
-  {
+  for (const auto& frameData : animationData.frames) {
     auto& frame = frames.emplace_back();
     frame.tile = firstGid + static_cast<tile_id>(frameData.tile.get());
     frame.duration = std::chrono::duration_cast<ms_t>(frameData.duration);
@@ -76,27 +75,23 @@ auto parse_fancy_tile(ir::tileset& data,
 {
   ir::fancy_tile result;
 
-  if (tile.animation)
-  {
+  if (tile.animation) {
     add_animation(result, *tile.animation, firstGid);
   }
 
-  if (tile.object_layer)
-  {
+  if (tile.object_layer) {
     const auto& objectLayer = rune::tmx::get_object_layer(*tile.object_layer);
 
     // Only allow one object per tile for now
     assert(objectLayer.objects.size() == 1);
 
     const auto& object = objectLayer.objects.at(0);
-    if (object.type == "Hitbox")
-    {
+    if (object.type == "Hitbox") {
       add_hitbox(result, object, data.x_ratio, data.y_ratio);
     }
   }
 
-  if (const auto* depth = rune::tmx::get_if_int(tile.properties, "depth"))
-  {
+  if (const auto* depth = rune::tmx::get_if_int(tile.properties, "depth")) {
     result.depth = depth_t{*depth};
   }
 
