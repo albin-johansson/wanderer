@@ -32,13 +32,3 @@ function(find_env_var [envVar [name]])
     message("Couldn't find environment variable ${ARGV0}!")
   endif ()
 endfunction()
-
-# Creates an interface library target for a header-only library.
-#   name: the name of the library target.
-#   includeDirectory: the path of the directory that contains the headers of the library.
-#   sources: the headers associated with the library.
-function(add_header_only_lib [name [includeDirectory [sources]]])
-  add_library(${ARGV0} INTERFACE)
-  target_sources(${ARGV0} INTERFACE ${ARGV2})
-  target_include_directories(${ARGV0} SYSTEM INTERFACE ${ARGV1})
-endfunction()
