@@ -15,6 +15,7 @@ import "spawnpoint.proto";
 import "tile_animation.proto";
 import "tile_layer.proto";
 import "tile.proto";
+import "tile_object.proto";
 import "tilemap.proto";
 import "tileset.proto";
 import "time_of_day.proto";
@@ -42,12 +43,12 @@ message level {
   map<uint32, portal> portals = 16;
   map<uint32, tile_layer> tile_layers = 17;
   map<uint32, tileset> tilesets = 18;
-  map<uint32, inventory> inventory = 19;
-  map<uint32, trigger> triggers = 20;
+  map<uint32, inventory> inventories = 19;
+  map<uint32, tile_object> tile_objects = 20;
+  map<uint32, trigger> triggers = 21;
 
   optional uint32 player_entity = 50;
-  repeated uint32 tile_objects = 51 [packed = true];
-  repeated uint32 humanoids = 52 [packed = true];
+  repeated uint32 humanoids = 51 [packed = true];
 
   optional bool keep_viewport_in_bounds = 100;
   optional bool is_outside_level = 101;
