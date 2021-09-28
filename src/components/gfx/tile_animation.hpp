@@ -42,7 +42,7 @@ void serialize(auto& archive, frame& f, uint32 version)
  */
 struct tile_animation final
 {
-  int index{0};               ///< Current frame index.
+  uint64 index{0};            ///< Current frame index.
   ms_t then{};                ///< Time of the previous update.
   std::vector<frame> frames;  ///< The frames that constitute the animation.
 };
