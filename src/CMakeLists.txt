@@ -409,6 +409,7 @@ target_link_libraries(${WANDERER_LIB_TARGET} PUBLIC
     ${SDL2_TTF_LIBRARIES}
     ${SDL2_LIBRARY}
     ${PROTOBUF_LIBRARIES}
+    wandererproto
     )
 
 if (WIN32 AND CMAKE_BUILD_TYPE STREQUAL "Release")
