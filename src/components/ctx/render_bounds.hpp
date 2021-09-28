@@ -13,10 +13,10 @@ namespace wanderer::ctx {
  */
 struct render_bounds final
 {
-  int min_row{};  ///< The minimum row index of tiles that will be rendered.
-  int min_col{};  ///< The minimum column index of tiles that will be rendered.
-  int max_row{};  ///< The maximum row index of tiles that will be rendered.
-  int max_col{};  ///< The maximum column index of tiles that will be rendered.
+  uint64 min_row{};  ///< The minimum row index of tiles that will be rendered.
+  uint64 min_col{};  ///< The minimum column index of tiles that will be rendered.
+  uint64 max_row{};  ///< The maximum row index of tiles that will be rendered.
+  uint64 max_col{};  ///< The maximum column index of tiles that will be rendered.
 };
 
 void serialize(auto& archive, render_bounds& rb, uint32 version)

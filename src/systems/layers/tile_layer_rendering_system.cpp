@@ -20,9 +20,9 @@ void render_layer(const entt::registry& registry,
 {
   for (auto row = bounds.min_row; row < bounds.max_row; ++row) {
     for (auto col = bounds.min_col; col < bounds.max_col; ++col) {
-      assert(row >= 0);
+      assert(row >= 0u);
       assert(row < layer.matrix.size());
-      assert(col >= 0);
+      assert(col >= 0u);
       assert(col < layer.matrix.at(row).size());
 
       const auto id = layer.matrix[row][col];
