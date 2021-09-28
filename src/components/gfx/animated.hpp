@@ -16,10 +16,10 @@ namespace wanderer::comp {
  */
 struct animated final
 {
-  int32 frame{0};        ///< Current frame index.
-  int32 frame_count{1};  ///< Amount of frames in the animation.
-  ms_t then{0};          ///< Time of the previous update of the animation.
-  ms_t delay{100};       ///< Duration of each frame in the animation
+  uint64 frame{0};        ///< Current frame index.
+  uint64 frame_count{1};  ///< Amount of frames in the animation.
+  ms_t then{0};           ///< Time of the previous update of the animation.
+  ms_t delay{100};        ///< Duration of each frame in the animation
 };
 
 void serialize(auto& archive, animated& a, uint32 version)

@@ -73,10 +73,11 @@ void update_move_animation(entt::registry& registry, const entt::entity entity)
   auto& drawable = registry.get<comp::depth_drawable>(entity);
   const auto& movable = registry.get<comp::movable>(entity);
 
-  drawable.src.set_x(movable.velocity.is_zero() ? 0 : animated.frame * 64);
+  drawable.src.set_x(movable.velocity.is_zero() ? 0
+                                                : static_cast<int>(animated.frame) * 64);
   const auto srcY = source_y(move_source_y, movable.dir);
   if (drawable.src.y() != srcY) {
-    animated.frame = 0;
+    animated.frame = 0u;
     drawable.src.set_y(srcY);
   }
 }
@@ -96,8 +97,8 @@ void update_attack_animation(entt::registry& registry, const entt::entity entity
   auto& animated = registry.get<comp::animated>(entity);
   auto& drawable = registry.get<comp::depth_drawable>(entity);
 
-  drawable.src.set_x(animated.frame * 64);
-  if (animated.frame == animated.frame_count - 1) {
+  drawable.src.set_x(static_cast<int>(animated.frame) * 64);
+  if (animated.frame == animated.frame_count - 1u) {
     auto& attack = registry.get<comp::humanoid_attack>(entity);
     attack.done = true;
   }
