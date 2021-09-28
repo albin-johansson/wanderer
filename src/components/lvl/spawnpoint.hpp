@@ -7,8 +7,8 @@ namespace wanderer::comp {
 
 enum class spawnpoint_type
 {
-  player,
-  skeleton
+  player = 0,
+  skeleton = 1
 };
 
 struct spawnpoint final
