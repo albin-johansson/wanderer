@@ -5,10 +5,10 @@ import "area.proto";
 package wanderer.protobuf;
 
 message tilemap {
-  optional uint32 id = 1;
+  optional int32 id = 1;
   optional int32 humanoid_layer_index = 2;
 
   optional farea size = 3;
-  optional uint32 row_count = 4;
-  optional uint32 column_count = 5;
+  optional uint64 row_count = 4;
+  optional uint64 column_count = 5;
 }
