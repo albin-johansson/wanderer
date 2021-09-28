@@ -6,9 +6,9 @@ namespace wanderer::comp {
 
 enum class trigger_type
 {
-  portal,
-  container,
-  bed
+  portal = 0,
+  container = 1,
+  bed = 2
 };
 
 struct trigger final
