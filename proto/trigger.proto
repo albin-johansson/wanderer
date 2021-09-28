@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package wanderer.protobuf;
+
+enum trigger_type {
+  PORTAL = 0;
+  CONTAINER = 1;
+  BED = 2;
+}
+
+message trigger {
+  optional trigger_type type = 1;
+}

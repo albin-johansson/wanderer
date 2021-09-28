@@ -10,6 +10,6 @@ message plant {
   optional int32 tile_height = 4;
 
   optional uint64 index = 5;
-  repeated uint32 tiles = 6;
-  repeated uint32 tall_tiles = 7;
+  repeated uint32 tiles = 6 [packed = true];
+  repeated uint32 tall_tiles = 7 [packed = true];
 }

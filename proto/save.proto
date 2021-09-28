@@ -17,12 +17,14 @@ import "tile_layer.proto";
 import "tile.proto";
 import "tilemap.proto";
 import "tileset.proto";
+import "time_of_day.proto";
+import "trigger.proto";
 
 package wanderer.protobuf;
 
 message level {
   optional int32 id = 1;
-  repeated uint32 entities = 2;
+  repeated uint32 entities = 2 [packed = true];
 
   map<uint32, movable> movables = 3;
   map<uint32, depth_drawable> drawables = 4;
@@ -41,24 +43,23 @@ message level {
   map<uint32, tile_layer> tile_layers = 17;
   map<uint32, tileset> tilesets = 18;
   map<uint32, inventory> inventory = 19;
+  map<uint32, trigger> triggers = 20;
 
   optional uint32 player_entity = 50;
-  repeated uint32 tile_objects = 51;
-
-  // TODO comp::bed_trigger,
-  // TODO comp::container_trigger,
-  // TODO comp::humanoid,
-  // TODO comp::humanoid_idle,
-  // TODO comp::humanoid_move,
-  // TODO comp::humanoid_attack,
-  // TODO comp::humanoid_die,
+  repeated uint32 tile_objects = 51 [packed = true];
+  repeated uint32 humanoids = 52 [packed = true];
 
   optional bool keep_viewport_in_bounds = 100;
   optional bool is_outside_level = 101;
 }
 
+message shared_data {
+  optional time_of_day time = 1;
+}
+
 message save {
   optional int32 current_level_id = 1;
-  repeated level levels = 2;
+  optional shared_data shared = 2;
+  repeated level levels = 3;
 }
 

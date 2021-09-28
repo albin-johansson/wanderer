@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package wanderer.protobuf;
+
+enum day_of_week {
+  MONDAY = 0;
+  TUESDAY = 1;
+  WEDNESDAY = 2;
+  THURSDAY = 3;
+  FRIDAY = 4;
+  SATURDAY = 5;
+  SUNDAY = 6;
+}
+
+message time_of_day {
+  optional float hour = 1;
+  optional float minute = 2;
+  optional float seconds = 3;
+  optional int32 week = 4;
+  optional day_of_week day = 5;
+}
