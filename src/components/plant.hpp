@@ -12,8 +12,8 @@ struct plant final
   float current{};  ///< Current growth progress, in the range [0, rate].
   float rate{};     ///< Rate of growth.
 
-  float base_y{};     ///< Baseline y-coordinate.
-  int tile_height{};  ///< Tile height in associated tileset.
+  float base_y{};       ///< Baseline y-coordinate.
+  int32 tile_height{};  ///< Tile height in associated tileset.
 
   usize index{};  ///< Index of the associated tiles that is currently active.
   std::vector<tile_id> tiles;  ///< The associated plant tiles.
