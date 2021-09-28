@@ -1,6 +1,6 @@
 #include "load_humanoids.hpp"
 
-#include "components/ai/humanoid_state.hpp"
+#include "components/ai/humanoid.hpp"
 #include "components/gfx/depth_drawable.hpp"
 #include "components/lvl/spawnpoint.hpp"
 #include "components/tiles/tilemap.hpp"

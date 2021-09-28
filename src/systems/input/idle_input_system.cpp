@@ -3,7 +3,7 @@
 #include <cassert>   // assert
 #include <optional>  // optional
 
-#include "components/ai/humanoid_state.hpp"
+#include "components/ai/humanoid.hpp"
 #include "components/ctx/binds.hpp"
 #include "components/items/inventory.hpp"
 #include "components/player.hpp"

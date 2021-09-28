@@ -2,7 +2,7 @@
 
 #include <cassert>  // assert
 
-#include "components/ai/humanoid_state.hpp"
+#include "components/ai/humanoid.hpp"
 #include "components/physics/movable.hpp"
 #include "events/humanoid_events.hpp"
 #include "systems/humanoid/humanoid_animation_system.hpp"

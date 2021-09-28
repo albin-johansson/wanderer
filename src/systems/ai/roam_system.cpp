@@ -2,7 +2,7 @@
 
 #include <rune/everything.hpp>  // next_random
 
-#include "components/ai/humanoid_state.hpp"
+#include "components/ai/humanoid.hpp"
 #include "components/ai/roam.hpp"
 #include "components/physics/movable.hpp"
 #include "core/game_constants.hpp"

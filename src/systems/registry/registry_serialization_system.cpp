@@ -1,7 +1,7 @@
 #include "registry_serialization_system.hpp"
 
 #include "components/ai/chase.hpp"
-#include "components/ai/humanoid_state.hpp"
+#include "components/ai/humanoid.hpp"
 #include "components/gfx/animated.hpp"
 #include "components/gfx/depth_drawable.hpp"
 #include "components/gfx/point_light.hpp"

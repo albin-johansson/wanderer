@@ -4,7 +4,7 @@
 #include <fstream>        // ifstream
 #include <ios>            // ios
 
-#include "components/ai/humanoid_state.hpp"
+#include "components/ai/humanoid.hpp"
 #include "components/ctx/level_size.hpp"
 #include "components/ctx/viewport.hpp"
 #include "components/physics/movable.hpp"

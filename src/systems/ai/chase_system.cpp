@@ -1,7 +1,7 @@
 #include "chase_system.hpp"
 
 #include "components/ai/chase.hpp"
-#include "components/ai/humanoid_state.hpp"
+#include "components/ai/humanoid.hpp"
 #include "components/ai/roam.hpp"
 #include "components/physics/movable.hpp"
 #include "systems/humanoid/humanoid_state_system.hpp"

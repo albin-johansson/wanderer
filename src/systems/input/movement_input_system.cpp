@@ -2,7 +2,7 @@
 
 #include <cassert>  // assert
 
-#include "components/ai/humanoid_state.hpp"
+#include "components/ai/humanoid.hpp"
 #include "components/ctx/binds.hpp"
 #include "components/physics/movable.hpp"
 #include "components/player.hpp"

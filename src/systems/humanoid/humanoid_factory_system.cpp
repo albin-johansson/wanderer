@@ -5,7 +5,7 @@
 #include <utility>        // move
 
 #include "components/ai/chase.hpp"
-#include "components/ai/humanoid_state.hpp"
+#include "components/ai/humanoid.hpp"
 #include "components/ai/roam.hpp"
 #include "components/gfx/animated.hpp"
 #include "components/gfx/depth_drawable.hpp"
