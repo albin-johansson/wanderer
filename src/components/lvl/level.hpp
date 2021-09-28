@@ -20,6 +20,10 @@ struct level final
 {
   using entity = entity_type<tags::level_tag>;
 
+  level() = default;
+  level(level&&) noexcept = default;
+  level& operator=(level&&) noexcept = default;
+
   map_id id;
 
   entt::registry registry;
