@@ -7,4 +7,5 @@ package wanderer.protobuf;
 message movable {
   optional float2 position = 1;
   optional float2 velocity = 2;
+  optional float speed = 3;
 }
