@@ -29,11 +29,11 @@ struct tilemap final
 {
   using entity = entity_type<tags::tilemap_tag>;
 
-  map_id id{0};          ///< The ID associated with the tilemap
-  int humanoid_layer{};  ///< The layer that humanoids inhabit
-  cen::farea size;       ///< The size of the tilemap, in pixels.
-  int row_count{};       ///< The amount of rows in the tilemap
-  int col_count{};       ///< The amount of columns in the tilemap
+  map_id id{0};            ///< The ID associated with the tilemap
+  int32 humanoid_layer{};  ///< The layer that humanoids inhabit
+  cen::farea size;         ///< The size of the tilemap, in pixels.
+  uint64 row_count{};      ///< The amount of rows in the tilemap
+  uint64 col_count{};      ///< The amount of columns in the tilemap
 };
 
 void serialize(auto& archive, tilemap& tm, uint32 version)

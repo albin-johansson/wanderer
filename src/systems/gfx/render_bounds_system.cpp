@@ -8,32 +8,32 @@
 namespace wanderer::sys {
 namespace {
 
-[[nodiscard]] auto calculate_min_col(const float viewportX) noexcept -> int
+[[nodiscard]] auto calculate_min_col(const float viewportX) noexcept -> uint64
 {
-  const auto minCol = static_cast<int>(viewportX / glob::tile_width<>);
+  const auto minCol = viewportX / glob::tile_width<>;
   if (minCol > 0) {
-    return minCol;
+    return static_cast<uint64>(minCol);
   }
   else {
-    return 0;
+    return 0u;
   }
 }
 
-[[nodiscard]] auto calculate_min_row(const float viewportY) noexcept -> int
+[[nodiscard]] auto calculate_min_row(const float viewportY) noexcept -> uint64
 {
-  const auto minRow = static_cast<int>(viewportY / glob::tile_height<>);
+  const auto minRow = viewportY / glob::tile_height<>;
   if (minRow > 0) {
-    return minRow;
+    return static_cast<uint64>(minRow);
   }
   else {
-    return 0;
+    return 0u;
   }
 }
 
-[[nodiscard]] auto calculate_max_col(const float viewportMaxX, const int numCols) noexcept
-    -> int
+[[nodiscard]] auto calculate_max_col(const float viewportMaxX,
+                                     const uint64 numCols) noexcept -> uint64
 {
-  const auto maxCol = static_cast<int>(viewportMaxX / glob::tile_width<>) + 1;
+  const auto maxCol = static_cast<uint64>(viewportMaxX / glob::tile_width<>) + 1u;
   if (maxCol < numCols) {
     return maxCol;
   }
@@ -42,10 +42,10 @@ namespace {
   }
 }
 
-[[nodiscard]] auto calculate_max_row(const float viewportMaxY, const int numRows) noexcept
-    -> int
+[[nodiscard]] auto calculate_max_row(const float viewportMaxY,
+                                     const uint64 numRows) noexcept -> uint64
 {
-  const auto maxRow = static_cast<int>(viewportMaxY / glob::tile_height<>) + 1;
+  const auto maxRow = static_cast<uint64>(viewportMaxY / glob::tile_height<>) + 1u;
   if (maxRow < numRows) {
     return maxRow;
   }
