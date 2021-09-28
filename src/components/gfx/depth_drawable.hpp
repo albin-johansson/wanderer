@@ -32,7 +32,7 @@ struct depth_drawable final
   texture_index texture{};  ///< ID of associated texture.
   cen::irect src;           ///< Region of associated texture that will be rendered.
   cen::frect dst;           ///< Position and size of the rendered texture, in pixels.
-  int layer{};              ///< Layer index.
+  int32 layer{};            ///< Layer index.
   depth_t depth{5};         ///< Render order heuristic.
 };
 
