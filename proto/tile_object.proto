@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+package wanderer.protobuf;
+
+message tile_object {
+  optional uint32 tile_entity = 1;
+}
