@@ -1,6 +1,7 @@
 #pragma once
 
 #include "common/entity_type.hpp"
+#include "common/ints.hpp"
 #include "core/ecs/null_entity.hpp"
 #include "inventory.hpp"
 
@@ -15,7 +16,7 @@ struct [[deprecated]] container_ref final
   using entity = entity_type<tags::container_trigger_tag>;
 
   inventory::entity inventory_entity{null<inventory>()};
-  [[deprecated]] int inventory_id{};
+  [[deprecated]] int32 inventory_id{};
 };
 
 void serialize(auto& archive, container_ref& ref)
