@@ -30,7 +30,7 @@ set(SOURCE_FILES
     components/trigger.hpp
 
     components/ai/chase.hpp
-    components/ai/humanoid_state.hpp
+    components/ai/humanoid.hpp
     components/ai/roam.hpp
 
     components/ctx/active_menu.hpp
