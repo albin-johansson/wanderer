@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+package wanderer.protobuf;
+
+message associated_entity {
+  optional uint32 entity = 1;
+}
