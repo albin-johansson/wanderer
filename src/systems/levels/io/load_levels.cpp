@@ -2,7 +2,6 @@
 
 #include "components/ctx/viewport.hpp"
 #include "components/lvl/level.hpp"
-#include "components/lvl/outside_level.hpp"
 #include "core/resources.hpp"
 #include "io/tmx/parse_world.hpp"
 #include "level_factory_system.hpp"

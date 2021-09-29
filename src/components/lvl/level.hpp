@@ -35,6 +35,9 @@ struct level final
   maybe<float2> player_spawn_position;
 };
 
+struct outside_level final
+{};
+
 struct active_level final
 {};
 

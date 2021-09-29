@@ -7,7 +7,6 @@
 #include "components/ctx/time_of_day.hpp"
 #include "components/ctx/viewport.hpp"
 #include "components/lvl/level.hpp"
-#include "components/lvl/outside_level.hpp"
 #include "components/physics/hitbox.hpp"
 #include "components/player.hpp"
 #include "core/day_of_week.hpp"

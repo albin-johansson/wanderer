@@ -17,7 +17,7 @@
 #include "components/gfx/point_light.hpp"
 #include "components/gfx/tile_animation.hpp"
 #include "components/items/inventory.hpp"
-#include "components/lvl/outside_level.hpp"
+#include "components/lvl/level.hpp"
 #include "components/lvl/portal.hpp"
 #include "components/lvl/spawnpoint.hpp"
 #include "components/object.hpp"

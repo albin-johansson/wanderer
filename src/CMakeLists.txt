@@ -55,7 +55,6 @@ set(SOURCE_FILES
 
     components/lvl/level.hpp
     components/lvl/level_switch_target.hpp
-    components/lvl/outside_level.hpp
     components/lvl/portal.hpp
     components/lvl/spawnpoint.hpp
 
