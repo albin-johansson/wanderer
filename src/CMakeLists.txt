@@ -9,7 +9,6 @@ set(SOURCE_FILES
 
     common/aabb_tree.hpp
     common/buffer.hpp
-    common/depth.hpp
     common/float2.hpp
     common/ints.hpp
     common/map_id.hpp
