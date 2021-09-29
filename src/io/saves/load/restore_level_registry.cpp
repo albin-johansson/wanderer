@@ -467,7 +467,7 @@ auto restore_level_registry(const protobuf::level& data) -> entt::registry
     restore_association(data, registry, entity);
   }
 
-  /* We need to be ensure that all entities are created when restoring these components */
+  /* We need to ensure that all entities are created when restoring these components */
   for (const auto id : data.entities()) {
     restore_chase(data, registry, entt::entity{id});
   }
