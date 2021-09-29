@@ -4,7 +4,7 @@
 #include <utility>   // move
 
 #include "core/game_constants.hpp"
-#include "io/parsing/tiles/parse_tile.hpp"
+#include "io/tmx/tiles/parse_tile.hpp"
 
 namespace wanderer::io {
 namespace {

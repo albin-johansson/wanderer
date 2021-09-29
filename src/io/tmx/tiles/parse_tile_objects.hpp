@@ -1,7 +1,7 @@
 #pragma once
 
-#include "io/parsing/common.hpp"
-#include "io/parsing/parse_ir.hpp"
+#include "io/tmx/common.hpp"
+#include "io/tmx/parse_ir.hpp"
 
 namespace wanderer::io {
 

@@ -3,9 +3,9 @@
 #include <cassert>  // assert
 
 #include "components/ai/chase.hpp"
+#include "components/associated_entity.hpp"
 #include "components/ctx/active_menu.hpp"
 #include "components/gfx/depth_drawable.hpp"
-#include "components/items/container_ref.hpp"
 #include "components/lvl/portal.hpp"
 #include "components/physics/hitbox.hpp"
 #include "components/player.hpp"

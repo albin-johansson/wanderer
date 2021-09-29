@@ -6,15 +6,16 @@ namespace wanderer::sys {
 namespace {
 
 [[nodiscard]] auto find_inventory(entt::registry& registry, const int id)
-    -> maybe<comp::inventory::entity>
+    -> maybe<entt::entity>
 {
-  maybe<comp::inventory::entity> result;
+  maybe<entt::entity> result;
 
   for (auto&& [entity, inventory, object] :
        registry.view<comp::inventory, comp::object>().each())
   {
     if (object.id == id) {
-      result.emplace(entity);
+      result = entity;
+      break;
     }
   }
 
@@ -23,9 +24,9 @@ namespace {
 
 void set_up_container_triggers(entt::registry& registry)
 {
-  for (auto&& [entity, ref] : registry.view<comp::container_ref>().each()) {
+  for (auto&& [entity, ref] : registry.view<comp::associated_entity>().each()) {
     if (const auto result = find_inventory(registry, ref.inventory_id)) {
-      ref.inventory_entity = comp::inventory::entity{*result};
+      ref.entity = *result;
     }
   }
 }
@@ -69,7 +70,7 @@ void load_objects(entt::registry& registry,
     }
 
     if (data.inventory_ref) {
-      auto& ref = registry.emplace<comp::container_ref>(entity);
+      auto& ref = registry.emplace<comp::associated_entity>(entity);
       ref.inventory_id = *data.inventory_ref;
     }
 

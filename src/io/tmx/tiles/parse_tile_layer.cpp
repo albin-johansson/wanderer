@@ -5,9 +5,9 @@
 #include <variant>              // get
 
 #include "core/utils/centurion_utils.hpp"
-#include "io/parsing/common.hpp"
-#include "io/parsing/tiles/parse_ground_layer.hpp"
-#include "io/parsing/tiles/parse_tile_objects.hpp"
+#include "io/tmx/common.hpp"
+#include "io/tmx/tiles/parse_ground_layer.hpp"
+#include "io/tmx/tiles/parse_tile_objects.hpp"
 #include "systems/physics/hitbox_system.hpp"
 
 namespace wanderer::io {

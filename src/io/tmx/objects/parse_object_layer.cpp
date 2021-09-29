@@ -3,13 +3,13 @@
 #include <cassert>  // assert
 
 #include "core/utils/centurion_utils.hpp"
-#include "io/parsing/common.hpp"
-#include "io/parsing/objects/parse_container.hpp"
-#include "io/parsing/objects/parse_hitbox.hpp"
-#include "io/parsing/objects/parse_light.hpp"
-#include "io/parsing/objects/parse_plant.hpp"
-#include "io/parsing/objects/parse_portal.hpp"
-#include "io/parsing/objects/parse_spawnpoint.hpp"
+#include "io/tmx/common.hpp"
+#include "io/tmx/objects/parse_container.hpp"
+#include "io/tmx/objects/parse_hitbox.hpp"
+#include "io/tmx/objects/parse_light.hpp"
+#include "io/tmx/objects/parse_plant.hpp"
+#include "io/tmx/objects/parse_portal.hpp"
+#include "io/tmx/objects/parse_spawnpoint.hpp"
 
 namespace wanderer::io {
 

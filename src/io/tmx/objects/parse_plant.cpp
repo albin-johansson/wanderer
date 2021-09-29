@@ -4,8 +4,8 @@
 #include <string>   // string
 #include <vector>   // vector
 
-#include "io/parsing/common.hpp"
-#include "io/parsing/csv.hpp"
+#include "io/tmx/common.hpp"
+#include "io/tmx/csv.hpp"
 
 namespace wanderer::io {
 namespace {

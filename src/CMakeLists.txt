@@ -22,6 +22,7 @@ set(SOURCE_FILES
     common/texture_index.hpp
     common/tile_id.hpp
 
+    components/associated_entity.hpp
     components/key_bind.hpp
     components/object.hpp
     components/plant.hpp
@@ -49,7 +50,6 @@ set(SOURCE_FILES
     components/gfx/point_light.hpp
     components/gfx/tile_animation.hpp
 
-    components/items/container_ref.hpp
     components/items/inventory.hpp
     components/items/item.hpp
 
@@ -138,52 +138,58 @@ set(SOURCE_FILES
     io/rune_configuration.cpp
     io/rune_configuration.hpp
 
-    io/parsing/common.hpp
-    io/parsing/common.cpp
-    io/parsing/csv.cpp
-    io/parsing/csv.hpp
-    io/parsing/parse_ir.hpp
-    io/parsing/parse_layers.cpp
-    io/parsing/parse_layers.hpp
-    io/parsing/parse_tilesets.cpp
-    io/parsing/parse_tilesets.hpp
-    io/parsing/parse_world.cpp
-    io/parsing/parse_world.hpp
-
-    io/parsing/objects/parse_container.cpp
-    io/parsing/objects/parse_container.hpp
-    io/parsing/objects/parse_hitbox.cpp
-    io/parsing/objects/parse_hitbox.hpp
-    io/parsing/objects/parse_light.cpp
-    io/parsing/objects/parse_light.hpp
-    io/parsing/objects/parse_object_layer.cpp
-    io/parsing/objects/parse_object_layer.hpp
-    io/parsing/objects/parse_plant.cpp
-    io/parsing/objects/parse_plant.hpp
-    io/parsing/objects/parse_portal.cpp
-    io/parsing/objects/parse_portal.hpp
-    io/parsing/objects/parse_spawnpoint.cpp
-    io/parsing/objects/parse_spawnpoint.hpp
-
-    io/parsing/tiles/make_tile_matrix.cpp
-    io/parsing/tiles/make_tile_matrix.hpp
-    io/parsing/tiles/parse_ground_layer.cpp
-    io/parsing/tiles/parse_ground_layer.hpp
-    io/parsing/tiles/parse_tile.cpp
-    io/parsing/tiles/parse_tile.hpp
-    io/parsing/tiles/parse_tile_layer.cpp
-    io/parsing/tiles/parse_tile_layer.hpp
-    io/parsing/tiles/parse_tile_objects.cpp
-    io/parsing/tiles/parse_tile_objects.hpp
-
     io/saves/delete_save.cpp
     io/saves/delete_save.hpp
-    io/saves/load_game.cpp
-    io/saves/load_game.hpp
-    io/saves/parse_save_file.cpp
-    io/saves/parse_save_file.hpp
-    io/saves/save_game.cpp
-    io/saves/save_game.hpp
+
+    io/saves/load/load_game.cpp
+    io/saves/load/load_game.hpp
+    io/saves/load/restore_level_registry.cpp
+    io/saves/load/restore_level_registry.hpp
+    io/saves/load/restore_shared_registry.cpp
+    io/saves/load/restore_shared_registry.hpp
+
+    io/saves/save/save_game.cpp
+    io/saves/save/save_game.hpp
+    io/saves/save/save_shared_registry.cpp
+    io/saves/save/save_shared_registry.hpp
+
+    io/tmx/common.hpp
+    io/tmx/common.cpp
+    io/tmx/csv.cpp
+    io/tmx/csv.hpp
+    io/tmx/parse_ir.hpp
+    io/tmx/parse_layers.cpp
+    io/tmx/parse_layers.hpp
+    io/tmx/parse_tilesets.cpp
+    io/tmx/parse_tilesets.hpp
+    io/tmx/parse_world.cpp
+    io/tmx/parse_world.hpp
+
+    io/tmx/objects/parse_container.cpp
+    io/tmx/objects/parse_container.hpp
+    io/tmx/objects/parse_hitbox.cpp
+    io/tmx/objects/parse_hitbox.hpp
+    io/tmx/objects/parse_light.cpp
+    io/tmx/objects/parse_light.hpp
+    io/tmx/objects/parse_object_layer.cpp
+    io/tmx/objects/parse_object_layer.hpp
+    io/tmx/objects/parse_plant.cpp
+    io/tmx/objects/parse_plant.hpp
+    io/tmx/objects/parse_portal.cpp
+    io/tmx/objects/parse_portal.hpp
+    io/tmx/objects/parse_spawnpoint.cpp
+    io/tmx/objects/parse_spawnpoint.hpp
+
+    io/tmx/tiles/make_tile_matrix.cpp
+    io/tmx/tiles/make_tile_matrix.hpp
+    io/tmx/tiles/parse_ground_layer.cpp
+    io/tmx/tiles/parse_ground_layer.hpp
+    io/tmx/tiles/parse_tile.cpp
+    io/tmx/tiles/parse_tile.hpp
+    io/tmx/tiles/parse_tile_layer.cpp
+    io/tmx/tiles/parse_tile_layer.hpp
+    io/tmx/tiles/parse_tile_objects.cpp
+    io/tmx/tiles/parse_tile_objects.hpp
 
     systems/interaction_system.cpp
     systems/interaction_system.hpp
@@ -243,8 +249,6 @@ set(SOURCE_FILES
 
     systems/layers/tile_layer_rendering_system.cpp
     systems/layers/tile_layer_rendering_system.hpp
-    systems/levels/level_save_system.cpp
-    systems/levels/level_save_system.hpp
     systems/levels/level_system.cpp
     systems/levels/level_system.hpp
 
@@ -276,8 +280,6 @@ set(SOURCE_FILES
     systems/levels/io/load_tileset_textures.cpp
     systems/levels/io/load_tileset_textures.hpp
 
-    systems/registry/registry_serialization_system.cpp
-    systems/registry/registry_serialization_system.hpp
     systems/registry/shared_registry_factory_system.cpp
     systems/registry/shared_registry_factory_system.hpp
 

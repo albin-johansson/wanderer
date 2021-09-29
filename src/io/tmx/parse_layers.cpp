@@ -1,7 +1,7 @@
 #include "parse_layers.hpp"
 
-#include "io/parsing/objects/parse_object_layer.hpp"
-#include "io/parsing/tiles/parse_tile_layer.hpp"
+#include "io/tmx/objects/parse_object_layer.hpp"
+#include "io/tmx/tiles/parse_tile_layer.hpp"
 
 namespace wanderer::io {
 

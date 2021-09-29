@@ -1,7 +1,6 @@
 #pragma once
 
-#include "components/items/inventory.hpp"
-#include "core/ecs/null_entity.hpp"
+#include <entt.hpp>  // entity, null
 
 namespace wanderer {
 
@@ -9,7 +8,7 @@ namespace wanderer {
 /// \ingroup events
 struct show_inventory_event final
 {
-  comp::inventory::entity inventory_entity{null<comp::inventory>()};
+  entt::entity inventory_entity{entt::null};
 };
 
 /// \brief Emitted when the inventory is closed.

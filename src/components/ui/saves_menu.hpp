@@ -23,7 +23,6 @@ struct saves_menu_entry final
 
   std::string name;      ///< The name of the save file.
   cen::surface preview;  ///< The preview image for the save.
-  int data_version{};    ///< The serialized data version used by the save.
 
   // TODO total play time
 };
@@ -46,7 +45,6 @@ struct saves_menu final
 
   label::entity title_label{null<label>()};
   label::entity time_label{null<label>()};
-  label::entity data_version_label{null<label>()};
 
   lazy_texture::entity preview_texture{null<lazy_texture>()};
 };

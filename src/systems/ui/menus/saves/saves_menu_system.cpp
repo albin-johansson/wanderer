@@ -222,7 +222,6 @@ void change_save_preview(entt::registry& registry)
 
   destroy_if_exists(registry, savesMenu.title_label);
   destroy_if_exists(registry, savesMenu.time_label);
-  destroy_if_exists(registry, savesMenu.data_version_label);
   destroy_if_exists(registry, savesMenu.preview_texture);
 
   auto& group = registry.get<comp::button_group>(activeMenu);
@@ -246,11 +245,9 @@ void change_save_preview(entt::registry& registry)
     savesMenu.title_label = label(entry.name, 6, 11, text_size::large);
     savesMenu.time_label =
         label("Last played:  " +
-                  last_modified(saves_directory() / entry.name / (entry.name + ".json")),
+                  last_modified(saves_directory() / entry.name / "data.wanderer"),
               7.4f,
               11.0f);
-    savesMenu.data_version_label =
-        label(std::format("Data version: {}", entry.data_version), 8.4f, 11.0f);
 
     const auto width = glob::menu_col_size * 9.0f;
     const auto height = (width / 16.0f) * 9.0f;  // Assume 16:9 aspect ratio

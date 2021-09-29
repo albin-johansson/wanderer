@@ -3,8 +3,8 @@
 #include <cassert>  // assert
 #include <variant>  // get
 
-#include "io/parsing/common.hpp"
-#include "io/parsing/tiles/make_tile_matrix.hpp"
+#include "io/tmx/common.hpp"
+#include "io/tmx/tiles/make_tile_matrix.hpp"
 
 namespace wanderer::io {
 

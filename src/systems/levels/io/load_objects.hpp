@@ -3,7 +3,7 @@
 #include <entt.hpp>  // registry
 
 #include "core/graphics/graphics_context.hpp"
-#include "io/parsing/parse_ir.hpp"
+#include "io/tmx/parse_ir.hpp"
 
 namespace wanderer::sys {
 

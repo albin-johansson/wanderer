@@ -4,7 +4,7 @@
 
 #include "components/lvl/level.hpp"
 #include "core/graphics/graphics_context.hpp"
-#include "io/parsing/parse_ir.hpp"
+#include "io/tmx/parse_ir.hpp"
 
 namespace wanderer::sys {
 
@@ -23,19 +23,6 @@ namespace wanderer::sys {
  */
 [[nodiscard]] auto make_level(const ir::level& data, graphics_context& graphics)
     -> comp::level;
-
-/**
- * \brief Restores a level from a binary save file.
- *
- * \ingroup systems
- *
- * \param path the file path of the binary save file.
- * \param graphics the graphics context used when loading textures.
- *
- * \return the parsed level.
- */
-[[nodiscard]] auto restore_level(const std::filesystem::path& path,
-                                 graphics_context& graphics) -> comp::level;
 
 /// \} End of levels
 

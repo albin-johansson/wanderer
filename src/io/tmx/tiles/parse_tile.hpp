@@ -4,7 +4,7 @@
 
 #include "common/texture_id.hpp"
 #include "common/tile_id.hpp"
-#include "io/parsing/parse_ir.hpp"
+#include "io/tmx/parse_ir.hpp"
 
 namespace wanderer::io {
 

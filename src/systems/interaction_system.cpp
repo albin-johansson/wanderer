@@ -2,7 +2,8 @@
 
 #include <cassert>  // assert
 
-#include "components/items/container_ref.hpp"
+#include "components/associated_entity.hpp"
+#include "components/items/inventory.hpp"
 #include "components/lvl/portal.hpp"
 #include "components/player.hpp"
 #include "components/trigger.hpp"
@@ -32,8 +33,8 @@ void on_interact(const interact_event& event)
       }
       case comp::trigger_type::container: {
         if (registry.empty<comp::active_inventory>()) {
-          const auto& ref = registry.get<comp::container_ref>(within->trigger_entity);
-          dispatcher.enqueue<show_inventory_event>(ref.inventory_entity);
+          const auto& ref = registry.get<comp::associated_entity>(within->trigger_entity);
+          dispatcher.enqueue<show_inventory_event>(ref.entity);
         }
         else {
           dispatcher.enqueue<close_inventory_event>();

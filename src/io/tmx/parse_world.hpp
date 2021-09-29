@@ -2,7 +2,7 @@
 
 #include <filesystem>  // path
 
-#include "io/parsing/parse_ir.hpp"
+#include "io/tmx/parse_ir.hpp"
 
 namespace wanderer::io {
 

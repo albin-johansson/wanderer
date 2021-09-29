@@ -2,7 +2,7 @@
 
 #include "components/lvl/level.hpp"
 #include "core/graphics/graphics_context.hpp"
-#include "io/parsing/parse_ir.hpp"
+#include "io/tmx/parse_ir.hpp"
 
 namespace wanderer::sys {
 

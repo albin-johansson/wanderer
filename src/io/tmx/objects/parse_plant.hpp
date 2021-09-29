@@ -3,7 +3,7 @@
 #include <rune/everything.hpp>  // tmx_object
 
 #include "components/plant.hpp"
-#include "io/parsing/parse_ir.hpp"
+#include "io/tmx/parse_ir.hpp"
 
 namespace wanderer::io {
 
