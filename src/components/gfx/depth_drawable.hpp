@@ -2,7 +2,6 @@
 
 #include <centurion.hpp>  // irect, frect
 
-#include "common/depth.hpp"
 #include "common/ints.hpp"
 #include "common/texture_index.hpp"
 
@@ -33,7 +32,7 @@ struct depth_drawable final
   cen::irect src;           ///< Region of associated texture that will be rendered.
   cen::frect dst;           ///< Position and size of the rendered texture, in pixels.
   int32 layer{};            ///< Layer index.
-  depth_t depth{5};         ///< Render order heuristic.
+  int32 depth{5};           ///< Render order heuristic.
 };
 
 }  // namespace wanderer::comp

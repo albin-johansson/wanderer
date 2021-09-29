@@ -92,7 +92,7 @@ auto parse_fancy_tile(ir::tileset& data,
   }
 
   if (const auto* depth = rune::tmx::get_if_int(tile.properties, "depth")) {
-    result.depth = depth_t{*depth};
+    result.depth = *depth;
   }
 
   return result;

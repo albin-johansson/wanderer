@@ -5,7 +5,7 @@
 #include <string>         // string
 #include <vector>         // vector
 
-#include "common/depth.hpp"
+#include "common/ints.hpp"
 #include "common/maybe.hpp"
 #include "common/texture_id.hpp"
 #include "common/tile_id.hpp"
@@ -25,7 +25,7 @@
 
 namespace wanderer::ir {
 
-inline constexpr depth_t default_depth{5};
+inline constexpr int32 default_depth = 5;
 
 struct texture final
 {
@@ -35,7 +35,7 @@ struct texture final
 
 struct fancy_tile final
 {
-  depth_t depth = default_depth;          ///< Render depth index.
+  int32 depth = default_depth;            ///< Render depth index.
   maybe<comp::hitbox> hitbox;             ///< Optional hitbox "template".
   maybe<comp::tile_animation> animation;  ///< Optional tile animation.
 };
@@ -55,8 +55,8 @@ struct tileset final
   std::map<tile_id, tile> tiles;  ///< Tiles in the tileset.
   float x_ratio{};                ///< Logical tile width divided by tileset tile width.
   float y_ratio{};                ///< Logical tile height divided by tileset tile height.
-  int tile_width{};
-  int tile_height{};
+  int32 tile_width{};
+  int32 tile_height{};
 };
 
 struct depth_drawable final
@@ -64,14 +64,14 @@ struct depth_drawable final
   texture_id texture;
   cen::irect src;
   cen::frect dst;
-  int layer{};
-  depth_t depth = default_depth;
+  int32 layer{};
+  int32 depth = default_depth;
   float center_y{};
 };
 
 struct object final
 {
-  int id{};                            ///< Unique object ID.
+  int32 id{};                          ///< Unique object ID.
   maybe<comp::hitbox> hitbox;          ///< Optional hitbox.
   maybe<depth_drawable> drawable;      ///< Optional drawable.
   maybe<comp::spawnpoint> spawnpoint;  ///< Optional spawnpoint.
@@ -80,7 +80,7 @@ struct object final
   maybe<comp::point_light> light;      ///< Optional light.
   maybe<comp::plant> plant;            ///< Optional plant.
   maybe<comp::trigger_type> trigger_type;
-  maybe<int> inventory_ref;  ///< Optional inventory ID, used by inv. triggers.
+  maybe<int32> inventory_ref;  ///< Optional inventory ID, used by inv. triggers.
 };
 
 struct tile_object final
@@ -92,12 +92,12 @@ struct tile_object final
 
 struct level final
 {
-  int id{};                   ///< Unique ID associated with the level.
-  int humanoid_layer{};       ///< Layer index where humanoids are rendered.
-  int row_count{};            ///< The number of rows in the levels.
-  int col_count{};            ///< The number of columns in the levels.
-  int tile_width{};           ///< Width of a tile in the tilemap.
-  int tile_height{};          ///< Height of a tile in the tilemap.
+  int32 id{};                 ///< Unique ID associated with the level.
+  int32 humanoid_layer{};     ///< Layer index where humanoids are rendered.
+  int32 row_count{};          ///< The number of rows in the levels.
+  int32 col_count{};          ///< The number of columns in the levels.
+  int32 tile_width{};         ///< Width of a tile in the tilemap.
+  int32 tile_height{};        ///< Height of a tile in the tilemap.
   float x_ratio{};            ///< Logical tile width divided by tileset tile width.
   float y_ratio{};            ///< Logical tile height divided by tileset tile height.
   cen::farea size;            ///< The size of the level, in pixels.

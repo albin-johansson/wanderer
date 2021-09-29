@@ -115,7 +115,7 @@ void restore_drawable(const protobuf::level& level,
     auto& drawable = registry.emplace<comp::depth_drawable>(entity);
     drawable.texture = texture_index{data.texture_index()};
     drawable.layer = data.layer_index();
-    drawable.depth = depth_t{data.depth_index()};
+    drawable.depth = data.depth_index();
     drawable.src = restore(data.src());
     drawable.dst = restore(data.dst());
   }
@@ -174,7 +174,7 @@ void restore_tile(const protobuf::level& level,
     auto& tile = registry.emplace<comp::tile>(entity);
     tile.id = tile_id{data.id()};
     tile.texture = texture_index{data.texture_index()};
-    tile.depth = depth_t{data.depth_index()};
+    tile.depth = data.depth_index();
     tile.src = restore(data.src());
   }
 }

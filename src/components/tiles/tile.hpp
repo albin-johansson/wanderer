@@ -2,7 +2,6 @@
 
 #include <centurion.hpp>  // irect
 
-#include "common/depth.hpp"
 #include "common/ints.hpp"
 #include "common/texture_index.hpp"
 #include "common/tile_id.hpp"
@@ -26,7 +25,7 @@ struct tile final
   tile_id id{glob::empty_tile};  ///< Unique ID associated with the tile.
   texture_index texture{};       ///< Associated texture index.
   cen::irect src;                ///< Region in associated tileset.
-  depth_t depth{5};              ///< Rendering depth heuristic.
+  int32 depth{5};                ///< Rendering depth heuristic.
 };
 
 }  // namespace wanderer::comp
