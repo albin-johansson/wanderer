@@ -22,11 +22,6 @@ struct frame final
   ms_t duration{};                 ///< The duration that the frame is active.
 };
 
-void serialize(auto& archive, frame& f, uint32 version)
-{
-  archive(f.tile, f.duration);
-}
-
 /**
  * \struct tile_animation
  *
@@ -46,10 +41,5 @@ struct tile_animation final
   ms_t then{};                ///< Time of the previous update.
   std::vector<frame> frames;  ///< The frames that constitute the animation.
 };
-
-void serialize(auto& archive, tile_animation& a, uint32 version)
-{
-  archive(a.index, a.then, a.frames);
-}
 
 }  // namespace wanderer::comp

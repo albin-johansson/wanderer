@@ -21,9 +21,9 @@ void add_button(entt::registry& registry,
 auto make_button(entt::registry& registry,
                  std::string text,
                  const menu_action action,
-                 const grid_position position) -> comp::button::entity
+                 const grid_position position) -> entt::entity
 {
-  const auto entity = comp::button::entity{registry.create()};
+  const auto entity = registry.create();
 
   add_button(registry, entity, std::move(text), action, position);
 

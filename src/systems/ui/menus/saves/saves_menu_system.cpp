@@ -79,7 +79,7 @@ void update_page_indicators(entt::registry& registry)
 
 void refresh_save_entry_buttons(entt::registry& registry,
                                 comp::button_group& group,
-                                const comp::menu::entity menuEntity)
+                                const entt::entity menuEntity)
 {
   auto& savesMenu = registry.get<comp::saves_menu>(menuEntity);
 
@@ -114,7 +114,7 @@ void refresh_save_entry_buttons(entt::registry& registry,
 
 void refresh_page_indicator_label(entt::registry& registry,
                                   comp::button_group& group,
-                                  const comp::menu::entity menuEntity)
+                                  const entt::entity menuEntity)
 {
   if (group.indicator_label == entt::null) {
     group.indicator_label =
@@ -132,7 +132,7 @@ void refresh_page_indicator_label(entt::registry& registry,
 
 void update_delete_button_enabled(entt::registry& registry,
                                   comp::button_group& group,
-                                  const comp::button::entity deleteButtonEntity)
+                                  const entt::entity deleteButtonEntity)
 {
   if (group.selected != entt::null) {
     const auto& button = registry.get<comp::button>(group.selected);
@@ -141,11 +141,10 @@ void update_delete_button_enabled(entt::registry& registry,
   }
 }
 
-void refresh_saves_menu_contents(entt::registry& registry,
-                                 const comp::menu::entity menuEntity)
+void refresh_saves_menu_contents(entt::registry& registry, const entt::entity menuEntity)
 {
   auto& group = registry.get_or_emplace<comp::button_group>(menuEntity);
-  nullify(group.selected);
+  group.selected = entt::null;
   group.current_page = 0;
   group.items_per_page = buttons_per_page;
 
@@ -173,7 +172,7 @@ void change_saves_button_group_page(entt::registry& registry, const int incremen
     const auto nPages = page_count(*group);
     const auto nextPage = group->current_page + increment;
     if (nextPage >= 0 && nextPage < nPages) {
-      nullify(group->selected);
+      group->selected = entt::null;
       group->current_page += increment;
 
       const auto firstRow = group->current_page * group->items_per_page;

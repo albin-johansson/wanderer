@@ -1,7 +1,7 @@
 #pragma once
 
 #include <centurion.hpp>  // surface, farea
-#include <entt.hpp>       // registry
+#include <entt.hpp>       // registry, entity
 
 #include "components/ui/lazy_texture.hpp"
 #include "components/ui/menu.hpp"
@@ -29,10 +29,10 @@ namespace wanderer::sys {
  * \return the created lazy texture entity.
  */
 auto make_lazy_texture(entt::registry& registry,
-                       comp::menu::entity menu,
+                       entt::entity menu,
                        cen::surface surface,
                        grid_position position,
-                       cen::farea size) -> comp::lazy_texture::entity;
+                       cen::farea size) -> entt::entity;
 
 /// \} End of UI
 

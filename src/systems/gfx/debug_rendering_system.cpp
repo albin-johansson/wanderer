@@ -10,6 +10,7 @@
 #include "components/physics/hitbox.hpp"
 #include "components/player.hpp"
 #include "components/trigger.hpp"
+#include "components/ui/menu.hpp"
 #include "core/ecs/registry_utils.hpp"
 #include "core/game_constants.hpp"
 #include "core/utils/centurion_utils.hpp"

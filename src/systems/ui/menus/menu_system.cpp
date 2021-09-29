@@ -44,9 +44,8 @@ void switch_menu(entt::registry& registry, entt::dispatcher& dispatcher, const m
 
   for (auto&& [entity, menu] : registry.view<comp::menu>().each()) {
     if (menu.id == id) {
-      const auto menuEntity = comp::menu::entity{entity};
-      registry.set<ctx::active_menu>(menuEntity);
-      dispatcher.trigger<menu_switched_event>(menuEntity);
+      registry.set<ctx::active_menu>(entity);
+      dispatcher.trigger<menu_switched_event>(entity);
     }
   }
 }

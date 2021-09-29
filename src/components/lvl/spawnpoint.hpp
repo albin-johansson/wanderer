@@ -17,9 +17,4 @@ struct spawnpoint final
   float2 position;
 };
 
-void serialize(auto& archive, spawnpoint& s, uint32 version)
-{
-  archive(s.type, s.position);
-}
-
 }  // namespace wanderer::comp

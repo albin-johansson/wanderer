@@ -16,8 +16,7 @@ namespace wanderer::sys {
 /**
  * \brief Creates a label entity.
  *
- * \details The created entity will feature `comp::label` and `comp::associated_menu`
- * components.
+ * \details The created entity will feature `label` and `associated_menu` components.
  *
  * \ingroup systems
  *
@@ -30,10 +29,10 @@ namespace wanderer::sys {
  * \return the created entity.
  */
 auto make_label(entt::registry& registry,
-                comp::menu::entity menu,
+                entt::entity menu,
                 std::string text,
                 grid_position position,
-                text_size size = text_size::small) -> comp::label::entity;
+                text_size size = text_size::small) -> entt::entity;
 
 /// \} End of labels
 

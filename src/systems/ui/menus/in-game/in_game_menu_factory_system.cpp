@@ -7,7 +7,7 @@
 
 namespace wanderer::sys {
 
-auto make_in_game_menu(entt::registry& registry) -> comp::menu::entity
+auto make_in_game_menu(entt::registry& registry) -> entt::entity
 {
   const auto entity = make_menu(registry, std::string{}, menu_id::in_game, false);
   registry.set<comp::in_game_menu>(entity);

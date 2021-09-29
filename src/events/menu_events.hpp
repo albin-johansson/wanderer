@@ -1,7 +1,8 @@
 #pragma once
 
+#include <entt.hpp>  // entity, null
+
 #include "components/ui/menu.hpp"
-#include "core/ecs/null_entity.hpp"
 #include "core/menu_action.hpp"
 #include "core/menu_id.hpp"
 
@@ -23,7 +24,7 @@ struct switch_menu_event final
  */
 struct menu_switched_event final
 {
-  comp::menu::entity entity{null<comp::menu>()};  ///< The menu that is now active.
+  entt::entity entity{entt::null};  ///< The menu that is now active.
 };
 
 /// \brief Emitted when a button is pressed.

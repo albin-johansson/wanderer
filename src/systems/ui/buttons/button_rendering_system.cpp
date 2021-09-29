@@ -70,7 +70,7 @@ void render_outline(const comp::button_drawable& drawable, cen::renderer& render
 
 void render_button(const entt::registry& registry,
                    graphics_context& graphics,
-                   const comp::button::entity buttonEntity)
+                   const entt::entity buttonEntity)
 {
   auto& renderer = graphics.get_renderer();
   const auto& button = registry.get<comp::button>(buttonEntity);
@@ -103,7 +103,7 @@ void render_buttons(const entt::registry& registry, graphics_context& graphics)
        registry.view<comp::button, comp::associated_menu>(filter).each())
   {
     if (associated.entity == menuEntity) {
-      render_button(registry, graphics, comp::button::entity{entity});
+      render_button(registry, graphics, entity);
     }
   }
 }

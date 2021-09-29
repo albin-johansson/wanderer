@@ -17,9 +17,4 @@ struct time_of_day final
   cen::color tint;
 };
 
-void serialize(auto& archive, time_of_day& t)
-{
-  archive(t.hour, t.minute, t.seconds, t.week, t.day, t.tint);
-}
-
 }  // namespace wanderer::ctx

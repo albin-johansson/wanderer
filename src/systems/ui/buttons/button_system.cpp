@@ -1,5 +1,7 @@
 #include "button_system.hpp"
 
+#include <cassert>  // assert
+
 #include "components/ctx/active_menu.hpp"
 #include "components/ctx/cursors.hpp"
 #include "components/ui/associated_menu.hpp"
@@ -41,11 +43,13 @@ void set_enabled(comp::button& button, const bool enabled)
 
 auto query_button(entt::registry& registry,
                   entt::dispatcher& dispatcher,
-                  const comp::button::entity buttonEntity,
+                  const entt::entity buttonEntity,
                   const cen::mouse& mouse) -> bool
 {
+  assert(registry.all_of<comp::button>(buttonEntity));
   auto& button = registry.get<comp::button>(buttonEntity);
-  if (button.state & comp::button::hover_bit && button.state & comp::button::enable_bit) {
+  if ((button.state & comp::button::hover_bit) &&
+      (button.state & comp::button::enable_bit)) {
     enable_cursor(registry, cen::system_cursor::hand);
 
     if (mouse.was_left_button_released()) {
@@ -65,7 +69,7 @@ auto query_button(entt::registry& registry,
 }
 
 auto update_button_hover(entt::registry& registry, const cen::mouse& mouse)
-    -> maybe<comp::button::entity>
+    -> maybe<entt::entity>
 {
   const auto menuEntity = registry.ctx<ctx::active_menu>().entity;
   const auto mousePos = cen::cast<cen::fpoint>(mouse.position());
@@ -81,7 +85,7 @@ auto update_button_hover(entt::registry& registry, const cen::mouse& mouse)
         set_hovered(button, hovered);
 
         if (hovered) {
-          return comp::button::entity{entity};
+          return entity;
         }
       }
     }

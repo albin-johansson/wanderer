@@ -13,7 +13,7 @@
 namespace wanderer::sys {
 namespace {
 
-void add_buttons(entt::registry& registry, const comp::menu::entity menuEntity)
+void add_buttons(entt::registry& registry, const entt::entity menuEntity)
 {
   const auto button = [&](std::string text,
                           const menu_action action,
@@ -29,7 +29,7 @@ void add_buttons(entt::registry& registry, const comp::menu::entity menuEntity)
   button("Return", menu_action::goto_home, 4);
 }
 
-void add_checkboxes(entt::registry& registry, const comp::menu::entity menuEntity)
+void add_checkboxes(entt::registry& registry, const entt::entity menuEntity)
 {
   const auto checkbox =
       [&](std::string text, const float row, const float col, const menu_action action) {
@@ -46,7 +46,7 @@ void add_checkboxes(entt::registry& registry, const comp::menu::entity menuEntit
 
 }  // namespace
 
-auto make_settings_menu(entt::registry& registry) -> comp::menu::entity
+auto make_settings_menu(entt::registry& registry) -> entt::entity
 {
   const auto entity = make_menu(registry, "Settings", menu_id::settings);
   registry.set<comp::settings_menu>(entity);

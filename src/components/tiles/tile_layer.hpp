@@ -8,10 +8,6 @@
 
 namespace wanderer::comp {
 
-namespace tags {
-struct tile_layer_tag;
-}  // namespace tags
-
 /**
  * \struct tile_layer
  *
@@ -23,16 +19,10 @@ struct tile_layer_tag;
  */
 struct tile_layer final
 {
-  using entity = entity_type<tags::tile_layer_tag>;
   using tile_matrix = std::vector<std::vector<tile_id>>;
 
   tile_matrix matrix;  ///< Matrix of tile IDs that represent the layer.
   int32 z{};           ///< Index that indicates when the layer should be rendered.
 };
-
-void serialize(auto& archive, tile_layer& layer, uint32 version)
-{
-  archive(layer.matrix, layer.z);
-}
 
 }  // namespace wanderer::comp

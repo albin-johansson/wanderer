@@ -22,9 +22,4 @@ struct particle final
   cen::color color;     ///< The color of the particle.
 };
 
-void serialize(auto& archive, particle& p)
-{
-  archive(p.position, p.acceleration, p.now, p.duration, p.color);
-}
-
 }  // namespace wanderer::comp

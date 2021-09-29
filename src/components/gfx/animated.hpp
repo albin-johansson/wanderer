@@ -22,9 +22,4 @@ struct animated final
   ms_t delay{100};        ///< Duration of each frame in the animation
 };
 
-void serialize(auto& archive, animated& a, uint32 version)
-{
-  archive(a.frame, a.frame_count, a.then, a.delay);
-}
-
 }  // namespace wanderer::comp

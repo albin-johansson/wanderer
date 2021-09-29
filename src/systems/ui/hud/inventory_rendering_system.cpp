@@ -4,7 +4,6 @@
 
 #include "common/maybe.hpp"
 #include "components/items/inventory.hpp"
-#include "components/items/item.hpp"
 #include "core/game_constants.hpp"
 #include "systems/ui/grid.hpp"
 

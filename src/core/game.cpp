@@ -144,7 +144,7 @@ void game::tick(const float dt)
 
   {
     const auto player = singleton_entity<comp::player>(level.registry);
-    sys::update_viewport(level.registry, comp::movable::entity{player}, dt);
+    sys::update_viewport(level.registry, player, dt);
   }
   sys::sort_depth_drawables(level.registry);
 

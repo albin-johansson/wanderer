@@ -12,7 +12,7 @@
 namespace wanderer::sys {
 namespace {
 
-void add_buttons(entt::registry& registry, const comp::menu::entity entity)
+void add_buttons(entt::registry& registry, const entt::entity entity)
 {
   const auto button = [&](std::string text,
                           const menu_action action,
@@ -43,7 +43,7 @@ void add_buttons(entt::registry& registry, const comp::menu::entity entity)
 
 }  // namespace
 
-auto make_home_menu(entt::registry& registry) -> comp::menu::entity
+auto make_home_menu(entt::registry& registry) -> entt::entity
 {
   const auto entity = make_menu(registry, "Wanderer", menu_id::home);
   registry.set<comp::home_menu>(entity);

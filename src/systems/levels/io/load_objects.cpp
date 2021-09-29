@@ -38,7 +38,7 @@ void load_objects(entt::registry& registry,
                   const ir::level& level)
 {
   for (const auto& data : level.objects) {
-    const auto entity = comp::object::entity{registry.create()};
+    const auto entity = registry.create();
 
     auto& object = registry.emplace<comp::object>(entity);
     object.id = data.id;

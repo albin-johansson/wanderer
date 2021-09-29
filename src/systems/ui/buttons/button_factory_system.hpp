@@ -15,8 +15,8 @@ namespace wanderer::sys {
 /**
  * \brief Adds button components to an existing entity.
  *
- * \details The supplied entity will have `comp::button` and `comp::button_drawable`
- * components added to it.
+ * \details The supplied entity will have `button` and `button_drawable` components added
+ * to it.
  *
  * \ingroup systems
  *
@@ -35,7 +35,7 @@ void add_button(entt::registry& registry,
 /**
  * \brief Creates a button.
  *
- * \details The entity will feature `comp::button` and `comp::button_drawable` components.
+ * \details The entity will feature `button` and `button_drawable` components.
  *
  * \ingroup systems
  *
@@ -49,7 +49,7 @@ void add_button(entt::registry& registry,
 auto make_button(entt::registry& registry,
                  std::string text,
                  menu_action action,
-                 grid_position position) -> comp::button::entity;
+                 grid_position position) -> entt::entity;
 
 /// \} End of buttons
 

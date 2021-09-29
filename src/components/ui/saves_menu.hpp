@@ -1,26 +1,14 @@
 #pragma once
 
 #include <centurion.hpp>  // surface
+#include <entt.hpp>       // entity, null
 #include <string>         // string
 #include <vector>         // vector
 
-#include "common/entity_type.hpp"
-#include "components/ui/button.hpp"
-#include "components/ui/label.hpp"
-#include "components/ui/lazy_texture.hpp"
-#include "core/ecs/null_entity.hpp"
-
 namespace wanderer::comp {
-
-namespace tags {
-struct saves_menu_tag;
-struct saves_menu_entry_tag;
-}  // namespace tags
 
 struct saves_menu_entry final
 {
-  using entity = entity_type<tags::saves_menu_entry_tag>;
-
   std::string name;      ///< The name of the save file.
   cen::surface preview;  ///< The preview image for the save.
 
@@ -29,24 +17,22 @@ struct saves_menu_entry final
 
 struct associated_saves_entry final
 {
-  saves_menu_entry::entity entry{null<saves_menu_entry>()};
+  entt::entity entry{entt::null};  /// Associated saves menu entry entity.
 };
 
 struct saves_menu final
 {
-  using entity = entity_type<tags::saves_menu_tag>;
+  std::vector<entt::entity> entries;  /// Associated saves menu entries.
 
-  std::vector<saves_menu_entry::entity> entries;
+  entt::entity decrement_button{entt::null};
+  entt::entity increment_button{entt::null};
+  entt::entity delete_button{entt::null};
+  entt::entity load_button{entt::null};
 
-  button::entity decrement_button{null<button>()};
-  button::entity increment_button{null<button>()};
-  button::entity delete_button{null<button>()};
-  button::entity load_button{null<button>()};
+  entt::entity title_label{entt::null};
+  entt::entity time_label{entt::null};
 
-  label::entity title_label{null<label>()};
-  label::entity time_label{null<label>()};
-
-  lazy_texture::entity preview_texture{null<lazy_texture>()};
+  entt::entity preview_texture{entt::null};
 };
 
 }  // namespace wanderer::comp

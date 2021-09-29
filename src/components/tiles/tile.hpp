@@ -3,17 +3,12 @@
 #include <centurion.hpp>  // irect
 
 #include "common/depth.hpp"
-#include "common/entity_type.hpp"
 #include "common/ints.hpp"
 #include "common/texture_index.hpp"
 #include "common/tile_id.hpp"
 #include "core/game_constants.hpp"
 
 namespace wanderer::comp {
-
-namespace tags {
-struct tile_tag;
-}  // namespace tags
 
 /**
  * \struct tile
@@ -28,17 +23,10 @@ struct tile_tag;
  */
 struct tile final
 {
-  using entity = entity_type<tags::tile_tag>;
-
   tile_id id{glob::empty_tile};  ///< Unique ID associated with the tile.
   texture_index texture{};       ///< Associated texture index.
   cen::irect src;                ///< Region in associated tileset.
   depth_t depth{5};              ///< Rendering depth heuristic.
 };
-
-void serialize(auto& archive, tile& t, uint32 version)
-{
-  archive(t.id, t.texture, t.src, t.depth);
-}
 
 }  // namespace wanderer::comp

@@ -1,5 +1,6 @@
 #include "load_tile_objects.hpp"
 
+#include "components/tiles/tileset.hpp"
 #include "core/utils/centurion_utils.hpp"
 
 namespace wanderer::sys {
@@ -35,7 +36,7 @@ void load_tile_objects(comp::level& level,
   const auto& tileset = level.registry.get<comp::tileset>(level.tileset);
 
   for (const auto& objectData : levelData.tile_objects) {
-    const auto entity = comp::tile_object::entity{level.registry.create()};
+    const auto entity = level.registry.create();
 
     auto& tileObject = level.registry.emplace<comp::tile_object>(entity);
     tileObject.tile_entity = tileset.tiles.at(objectData.tile);

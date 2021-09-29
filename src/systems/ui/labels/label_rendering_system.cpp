@@ -34,7 +34,7 @@ void render_labels(const entt::registry& registry, graphics_context& graphics)
   for (auto&& [entity, label, associated] :
        registry.view<comp::label, comp::associated_menu>().each())
   {
-    if (active.get() == associated.entity) {
+    if (active == associated.entity) {
       if (!label.texture) {
         renderer.set_color(label.color);
 

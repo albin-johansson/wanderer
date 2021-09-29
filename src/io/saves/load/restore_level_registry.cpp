@@ -14,7 +14,6 @@
 #include "components/gfx/point_light.hpp"
 #include "components/gfx/tile_animation.hpp"
 #include "components/items/inventory.hpp"
-#include "components/items/item.hpp"
 #include "components/lvl/portal.hpp"
 #include "components/lvl/spawnpoint.hpp"
 #include "components/object.hpp"
@@ -396,7 +395,7 @@ void restore_tile_object(const protobuf::level& level,
     const auto& data = it->second;
 
     auto& object = registry.emplace<comp::tile_object>(entity);
-    object.tile_entity = comp::tile::entity{entt::entity{data.tile_entity()}};
+    object.tile_entity = entt::entity{data.tile_entity()};
   }
 }
 

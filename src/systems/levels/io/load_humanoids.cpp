@@ -9,10 +9,9 @@
 namespace wanderer::sys {
 namespace {
 
-void configure_humanoid_layer(entt::registry& registry,
-                              const comp::tilemap::entity entity)
+void configure_humanoid_layer(entt::registry& registry, const entt::entity tilemapEntity)
 {
-  const auto& tilemap = registry.get<comp::tilemap>(entity);
+  const auto& tilemap = registry.get<comp::tilemap>(tilemapEntity);
   for (auto&& [entity, drawable] :
        registry.view<comp::depth_drawable, comp::humanoid>().each())
   {

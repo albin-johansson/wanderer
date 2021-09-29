@@ -11,7 +11,7 @@
 namespace wanderer::sys {
 
 void load_tileset(entt::registry& registry,
-                  const comp::tileset::entity entity,
+                  const entt::entity tilesetEntity,
                   const graphics_context& graphics,
                   const std::vector<ir::tileset>& data);
 

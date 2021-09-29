@@ -4,15 +4,10 @@
 #include <centurion.hpp>        // farea, frect
 #include <rune/everything.hpp>  // static_vector
 
-#include "common/entity_type.hpp"
 #include "common/float2.hpp"
 #include "common/ints.hpp"
 
 namespace wanderer::comp {
-
-namespace tags {
-struct hitbox_tag;
-}  // namespace tags
 
 /// The maximum number of subhitboxes a single hitbox can contain.
 inline constexpr usize max_subhitbox_count = 5;
@@ -37,22 +32,10 @@ struct subhitbox final
  */
 struct hitbox final
 {
-  using entity = entity_type<tags::hitbox_tag>;
-
   float2 origin;      ///< Position of the hitbox
   cen::frect bounds;  ///< Bounding rectangle of all subhitboxes
   rune::static_vector<subhitbox, max_subhitbox_count> boxes;  ///< Associated subhitboxes
   bool enabled{true};  ///< Whether or not the hitbox can collide with other hitboxes
 };
-
-void serialize(auto& archive, subhitbox& sh)
-{
-  archive(sh.offset, sh.size);
-}
-
-void serialize(auto& archive, hitbox& h)
-{
-  archive(h.origin, h.bounds, h.boxes, h.enabled);
-}
 
 }  // namespace wanderer::comp

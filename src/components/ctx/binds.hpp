@@ -24,9 +24,4 @@ struct binds final
   cen::scan_code inventory{cen::scancodes::i};
 };
 
-void serialize(auto& archive, binds& b, uint32 version)
-{
-  archive(b.up, b.right, b.down, b.left, b.attack, b.interact, b.inventory);
-}
-
 }  // namespace wanderer::ctx

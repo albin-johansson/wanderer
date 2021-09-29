@@ -19,9 +19,4 @@ struct render_bounds final
   uint64 max_col{};  ///< The maximum column index of tiles that will be rendered.
 };
 
-void serialize(auto& archive, render_bounds& rb, uint32 version)
-{
-  archive(rb.min_row, rb.min_col, rb.max_row, rb.max_col);
-}
-
 }  // namespace wanderer::ctx

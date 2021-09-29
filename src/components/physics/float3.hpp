@@ -9,11 +9,6 @@ struct float3 final
   float z{};
 };
 
-void serialize(auto& archive, float3& f)
-{
-  archive(f.x, f.y, f.z);
-}
-
 [[nodiscard]] constexpr auto operator+(const float3& lhs, const float3& rhs) noexcept
     -> float3
 {

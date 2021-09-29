@@ -1,6 +1,6 @@
 #pragma once
 
-#include <entt.hpp>  // registry
+#include <entt.hpp>  // registry, entity
 #include <string>    // string
 
 #include "components/ui/checkbox.hpp"
@@ -32,7 +32,7 @@ auto make_checkbox(entt::registry& registry,
                    std::string text,
                    grid_position position,
                    menu_action action,
-                   const bool checked = false) -> comp::checkbox::entity;
+                   const bool checked = false) -> entt::entity;
 
 /// \} End of checkboxes
 

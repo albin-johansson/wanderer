@@ -1,6 +1,6 @@
 #pragma once
 
-#include <entt.hpp>  // registry
+#include <entt.hpp>  // registry, entity
 
 #include "components/ui/line.hpp"
 
@@ -21,7 +21,7 @@ namespace wanderer::sys {
  * \return the created entity.
  */
 auto make_line(entt::registry& registry, grid_position start, grid_position end)
-    -> comp::line::entity;
+    -> entt::entity;
 
 /// \} End of lines
 

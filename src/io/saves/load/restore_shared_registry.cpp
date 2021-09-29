@@ -9,6 +9,8 @@
 #include "components/lvl/level.hpp"
 #include "components/physics/hitbox.hpp"
 #include "components/player.hpp"
+#include "components/tiles/tilemap.hpp"
+#include "components/tiles/tileset.hpp"
 #include "core/day_of_week.hpp"
 #include "core/ecs/registry_utils.hpp"
 #include "core/utils/centurion_utils.hpp"
@@ -56,7 +58,7 @@ void restore_shared_registry(entt::registry& shared, const protobuf::save& save)
   restore_shared_data(shared, save.shared());
 
   for (const auto& levelData : save.levels()) {
-    const auto entity = comp::level::entity{shared.create()};
+    const auto entity = shared.create();
 
     auto& level = shared.emplace<comp::level>(entity);
     level.tree.disable_thickness_factor();
@@ -71,8 +73,8 @@ void restore_shared_registry(entt::registry& shared, const protobuf::save& save)
       shared.emplace<comp::outside_level>(entity);
     }
 
-    level.tilemap = comp::tilemap::entity{singleton_entity<comp::tilemap>(level.registry)};
-    level.tileset = comp::tileset::entity{singleton_entity<comp::tileset>(level.registry)};
+    level.tilemap = singleton_entity<comp::tilemap>(level.registry);
+    level.tileset = singleton_entity<comp::tileset>(level.registry);
 
     // TODO maybe<float2> player_spawn_position;
 

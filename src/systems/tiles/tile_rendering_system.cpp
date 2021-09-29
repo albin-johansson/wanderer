@@ -1,5 +1,6 @@
 #include "tile_rendering_system.hpp"
 
+#include <cassert>        // assert
 #include <centurion.hpp>  // farea, frect
 
 #include "components/gfx/tile_animation.hpp"
@@ -19,7 +20,7 @@ void render_tile(graphics_context& graphics,
 }
 
 auto get_animated_tile(const entt::registry& registry,
-                       const comp::tile::entity tile,
+                       const entt::entity tile,
                        const comp::tileset& tileset) -> const comp::tile&
 {
   assert(registry.all_of<comp::tile_animation>(tile));

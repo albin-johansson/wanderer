@@ -31,9 +31,4 @@ struct viewport final
   bool keep_in_bounds{};
 };
 
-void serialize(auto& archive, viewport& v, uint32 version)
-{
-  archive(v.bounds, v.level_size, v.keep_in_bounds);
-}
-
 }  // namespace wanderer::ctx

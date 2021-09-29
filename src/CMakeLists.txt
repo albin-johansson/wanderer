@@ -51,7 +51,6 @@ set(SOURCE_FILES
     components/gfx/tile_animation.hpp
 
     components/items/inventory.hpp
-    components/items/item.hpp
 
     components/lvl/level.hpp
     components/lvl/level_switch_target.hpp

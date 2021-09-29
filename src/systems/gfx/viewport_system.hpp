@@ -37,13 +37,15 @@ void center_viewport_on(entt::registry& registry, float2 position);
 /**
  * \brief Updates the position of the viewport by slowly tracking a movable entity.
  *
+ * \pre `target` must feature a `movable` component.
+ *
  * \ingroup systems
  *
  * \param registry the current level registry.
  * \param target the movable entity that will be tracked.
  * \param dt the current delta time.
  */
-void update_viewport(entt::registry& registry, comp::movable::entity target, float dt);
+void update_viewport(entt::registry& registry, entt::entity target, float dt);
 
 /**
  * \brief Updates the translation viewport of a renderer based on the current viewport.

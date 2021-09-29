@@ -236,7 +236,7 @@ void copy_to(const comp::tileset& src, protobuf::tileset& dst)
 {
   auto& map = *dst.mutable_tile_to_entity();
   for (const auto& [id, entity] : src.tiles) {
-    map[id] = entt::to_integral(entity.get());
+    map[id] = entt::to_integral(entity);
   }
 }
 
@@ -244,13 +244,13 @@ void copy_to(const comp::inventory& src, protobuf::inventory& dst)
 {
   dst.set_capacity(src.capacity);
   for (const auto entity : src.items) {
-    dst.add_items(entt::to_integral(entity.get()));
+    dst.add_items(entt::to_integral(entity));
   }
 }
 
 void copy_to(const comp::tile_object& src, protobuf::tile_object& dst)
 {
-  dst.set_tile_entity(entt::to_integral(src.tile_entity.get()));
+  dst.set_tile_entity(entt::to_integral(src.tile_entity));
 }
 
 void copy_to(const comp::trigger& src, protobuf::trigger& dst)

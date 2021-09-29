@@ -7,23 +7,23 @@ namespace wanderer::sys {
 namespace {
 
 void make_fancy(entt::registry& registry,
-                const comp::tile::entity entity,
+                const entt::entity tileEntity,
                 comp::tile& tile,
                 const ir::fancy_tile& data)
 {
   tile.depth = data.depth;
 
   if (data.animation) {
-    registry.emplace<comp::tile_animation>(entity, *data.animation);
+    registry.emplace<comp::tile_animation>(tileEntity, *data.animation);
   }
 }
 
 [[nodiscard]] auto create_tile(entt::registry& registry,
                                const graphics_context& graphics,
                                const tile_id id,
-                               const ir::tile& data) -> comp::tile::entity
+                               const ir::tile& data) -> entt::entity
 {
-  const auto entity = comp::tile::entity{registry.create()};
+  const auto entity = registry.create();
 
   auto& tile = registry.emplace<comp::tile>(entity);
   tile.id = id;
@@ -51,11 +51,11 @@ void load_tiles(entt::registry& registry,
 }  // namespace
 
 void load_tileset(entt::registry& registry,
-                  const comp::tileset::entity entity,
+                  const entt::entity tilesetEntity,
                   const graphics_context& graphics,
                   const std::vector<ir::tileset>& data)
 {
-  auto& tileset = registry.emplace<comp::tileset>(entity);
+  auto& tileset = registry.emplace<comp::tileset>(tilesetEntity);
 
   tileset.tiles.reserve(
       accumulate(data, [](const ir::tileset& tileset) { return tileset.tiles.size(); }));

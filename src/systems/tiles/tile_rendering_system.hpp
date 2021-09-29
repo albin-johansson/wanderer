@@ -28,7 +28,7 @@ void render_tile(graphics_context& graphics,
  *
  * \details This function is used to determine what tile to render in tile animations.
  *
- * \pre `tile` must feature a `comp::tile_animation` component.
+ * \pre `tile` must feature a `tile_animation` component.
  *
  * \ingroup systems
  *
@@ -39,7 +39,7 @@ void render_tile(graphics_context& graphics,
  * \return the tile that corresponds to the current frame of the animated tile.
  */
 [[nodiscard]] auto get_animated_tile(const entt::registry& registry,
-                                     comp::tile::entity tile,
+                                     entt::entity tile,
                                      const comp::tileset& tileset) -> const comp::tile&;
 
 /// \} End of tiles

@@ -58,8 +58,8 @@ auto make_level(const ir::level& data, graphics_context& graphics) -> comp::leve
   level.registry = make_registry();
   level.player_spawn_position = data.player_spawn_point;
 
-  level.tilemap = comp::tilemap::entity{level.registry.create()};
-  level.tileset = comp::tileset::entity{level.registry.create()};
+  level.tilemap = level.registry.create();
+  level.tileset = level.registry.create();
 
   load_tileset(level.registry, level.tileset, graphics, data.tilesets);
   level.id = load_tilemap(level.registry, level.tilemap, data);

@@ -11,9 +11,9 @@ auto make_checkbox(entt::registry& registry,
                    std::string text,
                    const grid_position position,
                    const menu_action action,
-                   const bool checked) -> comp::checkbox::entity
+                   const bool checked) -> entt::entity
 {
-  const auto entity = comp::checkbox::entity{registry.create()};
+  const auto entity = registry.create();
 
   add_button(registry, entity, std::move(text), action, position);
 

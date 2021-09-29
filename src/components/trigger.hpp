@@ -21,9 +21,4 @@ struct is_within_trigger final
   entt::entity trigger_entity{entt::null};
 };
 
-void serialize(auto& archive, trigger& t)
-{
-  archive(t.type);
-}
-
 }  // namespace wanderer::comp

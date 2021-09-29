@@ -4,9 +4,9 @@ namespace wanderer::sys {
 
 auto make_line(entt::registry& registry,
                const grid_position start,
-               const grid_position end) -> comp::line::entity
+               const grid_position end) -> entt::entity
 {
-  const auto entity = comp::line::entity{registry.create()};
+  const auto entity = registry.create();
 
   auto& line = registry.emplace<comp::line>(entity);
   line.start = start;

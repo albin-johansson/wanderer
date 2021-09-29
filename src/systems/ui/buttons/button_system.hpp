@@ -26,6 +26,8 @@ void set_enabled(comp::button& button, bool enabled);
  * \brief Checks whether or not a button was pressed, and if so, the associated action
  * will be triggered.
  *
+ * \pre `buttonEntity` must feature a `button` component.
+ *
  * \ingroup systems
  *
  * \param registry the menu registry.
@@ -37,7 +39,7 @@ void set_enabled(comp::button& button, bool enabled);
  */
 auto query_button(entt::registry& registry,
                   entt::dispatcher& dispatcher,
-                  comp::button::entity buttonEntity,
+                  entt::entity buttonEntity,
                   const cen::mouse& mouse) -> bool;
 
 // Updates the hover state of all buttons, returns the currently hovered button
@@ -53,7 +55,7 @@ auto query_button(entt::registry& registry,
  * \return the currently hovered button entity; `std::nullopt` if there is none.
  */
 [[nodiscard]] auto update_button_hover(entt::registry& registry, const cen::mouse& mouse)
-    -> maybe<comp::button::entity>;
+    -> maybe<entt::entity>;
 
 /**
  * \brief Indicates whether or not a button entity is in a button entity collection.
@@ -67,12 +69,11 @@ auto query_button(entt::registry& registry,
  *
  * \return `true` if the container contains the specified entity; `false` otherwise.
  */
-template <container_type<comp::button::entity> T>
-[[nodiscard]] auto in_button_group(const T& buttons, const comp::button::entity button)
-    -> bool
+template <container_type<entt::entity> T>
+[[nodiscard]] auto in_button_group(const T& buttons, const entt::entity button) -> bool
 {
-  return std::ranges::any_of(buttons, [button](const comp::button::entity entity) {
-    return entity.get() == button;
+  return std::ranges::any_of(buttons, [button](const entt::entity entity) {
+    return entity == button;
   });
 }
 

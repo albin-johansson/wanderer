@@ -14,7 +14,7 @@
 namespace wanderer::sys {
 namespace {
 
-void add_buttons(entt::registry& registry, const comp::menu::entity menuEntity)
+void add_buttons(entt::registry& registry, const entt::entity menuEntity)
 {
   const auto button = [&](std::string text,
                           const menu_action action,
@@ -30,7 +30,7 @@ void add_buttons(entt::registry& registry, const comp::menu::entity menuEntity)
   button("Return", menu_action::goto_home, 4);
 }
 
-void add_labels(entt::registry& registry, const comp::menu::entity entity)
+void add_labels(entt::registry& registry, const entt::entity entity)
 {
   const auto label = [&](std::string text, const float row, const float col) {
     sys::make_label(registry, entity, std::move(text), grid_position{row, col});
@@ -48,7 +48,7 @@ void add_labels(entt::registry& registry, const comp::menu::entity entity)
 
 }  // namespace
 
-auto make_controls_menu(entt::registry& registry) -> comp::menu::entity
+auto make_controls_menu(entt::registry& registry) -> entt::entity
 {
   const auto entity = make_menu(registry, "Controls", menu_id::controls);
   registry.set<comp::controls_menu>(entity);

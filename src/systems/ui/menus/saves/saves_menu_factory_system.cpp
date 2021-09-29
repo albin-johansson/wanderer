@@ -25,14 +25,14 @@ inline constexpr auto col_1 = glob::menu_columns - 2;
 inline constexpr auto row_0 = 5;
 inline constexpr auto row_1 = glob::menu_rows - 2;
 
-void make_binds(entt::registry& registry, const comp::menu::entity menu)
+void make_binds(entt::registry& registry, const entt::entity menu)
 {
   add_binds(registry,
             menu,
             comp::key_bind{cen::scancodes::escape, menu_action::goto_home});
 }
 
-void make_labels(entt::registry& registry, const comp::menu::entity menu)
+void make_labels(entt::registry& registry, const entt::entity menu)
 {
   const auto label = [&](std::string text,
                          const float row,
@@ -44,7 +44,7 @@ void make_labels(entt::registry& registry, const comp::menu::entity menu)
   label("Location:   " + saves_directory().string(), glob::menu_rows - 1.7f, 2);
 }
 
-void make_buttons(entt::registry& registry, const comp::menu::entity menuEntity)
+void make_buttons(entt::registry& registry, const entt::entity menuEntity)
 {
   const auto button = [&](std::string text,
                           const menu_action action,
@@ -70,7 +70,7 @@ void make_buttons(entt::registry& registry, const comp::menu::entity menuEntity)
   // clang-format on
 }
 
-void make_lines(entt::registry& registry, const comp::menu::entity menuEntity)
+void make_lines(entt::registry& registry, const entt::entity menuEntity)
 {
   const auto line = [&](const grid_position start, const grid_position end) {
     const auto entity = make_line(registry, start, end);
@@ -95,7 +95,7 @@ void make_lines(entt::registry& registry, const comp::menu::entity menuEntity)
 
 }  // namespace
 
-auto make_saves_menu(entt::registry& registry) -> comp::menu::entity
+auto make_saves_menu(entt::registry& registry) -> entt::entity
 {
   const auto menuEntity = make_menu(registry, "Saves", menu_id::saves);
   registry.emplace<comp::saves_menu>(menuEntity);

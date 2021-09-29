@@ -20,9 +20,4 @@ struct plant final
   std::vector<tile_id> tall;   ///< "Tall" tiles, i.e. tiles that are two tiles high.
 };
 
-void serialize(auto& archive, plant& p)
-{
-  archive(p.current, p.rate, p.base_y, p.tile_height, p.index, p.tiles, p.tall);
-}
-
 }  // namespace wanderer::comp

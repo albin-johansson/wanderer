@@ -21,7 +21,7 @@ namespace wanderer::sys {
  * \return
  */
 auto make_saves_menu_entry(entt::registry& registry, const std::filesystem::path& dir)
-    -> comp::saves_menu_entry::entity;
+    -> entt::entity;
 
 /// \} End of menus
 

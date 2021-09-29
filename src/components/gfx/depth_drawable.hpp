@@ -36,9 +36,4 @@ struct depth_drawable final
   depth_t depth{5};         ///< Render order heuristic.
 };
 
-void serialize(auto& archive, depth_drawable& drawable, uint32 version)
-{
-  archive(drawable.texture, drawable.src, drawable.dst, drawable.layer, drawable.depth);
-}
-
 }  // namespace wanderer::comp

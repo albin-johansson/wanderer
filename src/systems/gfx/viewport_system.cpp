@@ -1,5 +1,7 @@
 #include "viewport_system.hpp"
 
+#include <cassert>  // assert
+
 #include "components/physics/movable.hpp"
 #include "core/game_constants.hpp"
 
@@ -96,10 +98,9 @@ void center_viewport_on(entt::registry& registry, const float2 position)
   viewport.bounds.set_y(target.y);
 }
 
-void update_viewport(entt::registry& registry,
-                     const comp::movable::entity target,
-                     const float dt)
+void update_viewport(entt::registry& registry, const entt::entity target, const float dt)
 {
+  assert(registry.all_of<comp::movable>(target));
   const auto& movable = registry.get<const comp::movable>(target);
   track(registry.ctx<ctx::viewport>(), movable.position, dt);
 }

@@ -20,13 +20,4 @@ struct point_light final
   float fluctuation_limit{};  ///< Fluctuation size limit.
 };
 
-void serialize(auto& archive, point_light& pl)
-{
-  archive(pl.position,
-          pl.size,
-          pl.fluctuation,
-          pl.fluctuation_step,
-          pl.fluctuation_limit);
-}
-
 }  // namespace wanderer::comp
