@@ -2,7 +2,6 @@
 
 #include <vector>  // vector
 
-#include "common/entity_type.hpp"
 #include "common/ints.hpp"
 #include "common/tile_id.hpp"
 

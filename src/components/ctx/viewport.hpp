@@ -2,7 +2,6 @@
 
 #include <centurion.hpp>  // farea, frect
 
-#include "common/entity_type.hpp"
 #include "common/ints.hpp"
 
 namespace wanderer::ctx {
