@@ -40,8 +40,6 @@ void restore_shared_registry(entt::registry& shared, const protobuf::save& save)
   shared.clear<comp::level>();
   shared.clear<comp::active_level>();
 
-  const auto currentLevelId = save.current_level_id();
-
   if (save.has_shared()) {
     const auto& data = save.shared();
 
@@ -65,7 +63,7 @@ void restore_shared_registry(entt::registry& shared, const protobuf::save& save)
     level.id = map_id{levelData.id()};
     level.registry = restore_level_registry(levelData);
 
-    if (level.id == currentLevelId) {
+    if (level.id == save.current_level_id()) {
       shared.emplace<comp::active_level>(entity);
     }
 
