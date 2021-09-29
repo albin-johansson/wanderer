@@ -1,6 +1,8 @@
 #include "hud_rendering_system.hpp"
 
-#include <format>  // format
+#include <array>        // array
+#include <format>       // format_to_n
+#include <string_view>  // string_view
 
 #include "components/ctx/binds.hpp"
 #include "components/lvl/portal.hpp"
@@ -21,11 +23,17 @@ inline constexpr auto exit_fmt = "Press \" {}\" to exit";
 inline constexpr auto sleep_fmt = "Press \" {}\" to sleep";
 inline constexpr auto container_fmt = "Press \" {}\" to open container";
 
-void render_hint(graphics_context& graphics, const auto& text)
+void render_hint(graphics_context& graphics,
+                 const std::string_view fmt,
+                 const std::string& key)
 {
+  std::array<char, 64> buffer{};
+  std::format_to_n(buffer.data(), buffer.size(), fmt, key);
+  const std::string_view str{buffer.data(), buffer.size()};
+
   const auto& cache = graphics.small_font_cache();
-  const auto width = cache.get_font().string_width(text).value();
-  graphics.render_outlined_text(text, cen::point(center_x(width), 100));
+  const auto width = cache.get_font().string_width(str.data()).value();
+  graphics.render_outlined_text(str, cen::point(center_x(width), 100));
 }
 
 void render_hints(const entt::registry& shared, graphics_context& graphics)
@@ -40,19 +48,19 @@ void render_hints(const entt::registry& shared, graphics_context& graphics)
     switch (trigger.type) {
       case comp::trigger_type::portal: {
         if (sys::is_current_level_outside(shared)) {
-          render_hint(graphics, std::format(enter_fmt, binds.interact.name()));
+          render_hint(graphics, enter_fmt, binds.interact.name());
         }
         else {
-          render_hint(graphics, std::format(exit_fmt, binds.interact.name()));
+          render_hint(graphics, exit_fmt, binds.interact.name());
         }
         break;
       }
       case comp::trigger_type::container: {
-        render_hint(graphics, std::format(container_fmt, binds.interact.name()));
+        render_hint(graphics, container_fmt, binds.interact.name());
         break;
       }
       case comp::trigger_type::bed: {
-        render_hint(graphics, std::format(sleep_fmt, binds.interact.name()));
+        render_hint(graphics, sleep_fmt, binds.interact.name());
         break;
       }
     }

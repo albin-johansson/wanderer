@@ -1,11 +1,11 @@
 #include "time_system.hpp"
 
+#include <array>                // array
 #include <centurion.hpp>        // to_underlying, ...
 #include <cmath>                // floor, ceil, lerp
-#include <format>               // format
+#include <format>               // format_to_n
 #include <rune/everything.hpp>  // static_vector
 #include <stdexcept>            // runtime_error
-#include <string>               // string
 #include <string_view>          // string_view
 
 #include "common/ints.hpp"
@@ -175,14 +175,22 @@ void render_clock(const entt::registry& registry, graphics_context& graphics)
   const auto hour = static_cast<int>(time.hour) % 24;
   const auto minute = static_cast<int>(time.minute) % 60;
 
-  const auto prefix = [](const int value) {
-    return (value < 10) ? std::string{"0"} : std::string{};
+  const auto prefix = [](const int value) -> std::string_view {
+    return (value < 10) ? "0" : "";
   };
 
+  std::array<char, 64> buffer{};
+  std::format_to_n(buffer.data(),
+                   buffer.size(),
+                   "{}{}: {}{}",
+                   prefix(hour),
+                   hour,
+                   prefix(minute),
+                   minute);
+
   graphics.render_outlined_text(to_string(time.day), cen::point(6, 6));
-  graphics.render_outlined_text(
-      std::format("{}{}: {}{}", prefix(hour), hour, prefix(minute), minute),
-      cen::point(30, 6));
+  graphics.render_outlined_text(std::string_view{buffer.data(), buffer.size()},
+                                cen::point(30, 6));
 }
 
 }  // namespace wanderer::sys

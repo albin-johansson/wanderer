@@ -1,7 +1,9 @@
 #include "fps_system.hpp"
 
+#include <array>          // array
 #include <centurion.hpp>  // ticks
-#include <format>         // format
+#include <format>         // format_to_n
+#include <string_view>    // string_view
 
 #include "components/ui/fps_data.hpp"
 #include "core/game_constants.hpp"
@@ -29,10 +31,19 @@ void render_fps(const entt::registry& shared, graphics_context& graphics)
   for (auto&& [entity, data] : shared.view<comp::fps_data>().each()) {
     const auto fps = round(1.0 / (static_cast<double>(data.frame.count()) / 1'000.0));
 
-    graphics.render_outlined_text(std::format("Frame: {} ms", data.frame.count()),
-                                  cen::point(glob::logical_width<int> - 125, 6));
-    graphics.render_outlined_text(std::format("FPS: {}", fps),
-                                  cen::point(glob::logical_width<int> - 55, 6));
+    {
+      std::array<char, 64> buffer{};
+      std::format_to_n(buffer.data(), buffer.size(), "Frame: {} ms", data.frame.count());
+      graphics.render_outlined_text(std::string_view{buffer.data(), buffer.size()},
+                                    cen::point(glob::logical_width<int> - 125, 6));
+    }
+
+    {
+      std::array<char, 64> buffer{};
+      std::format_to_n(buffer.data(), buffer.size(), "FPS: {}", fps);
+      graphics.render_outlined_text(std::string_view{buffer.data(), buffer.size()},
+                                    cen::point(glob::logical_width<int> - 55, 6));
+    }
   }
 }
 
