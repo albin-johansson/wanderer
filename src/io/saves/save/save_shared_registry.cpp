@@ -13,7 +13,7 @@
 #include "components/ctx/time_of_day.hpp"
 #include "components/ctx/viewport.hpp"
 #include "components/gfx/animated.hpp"
-#include "components/gfx/depth_drawable.hpp"
+#include "components/gfx/drawable.hpp"
 #include "components/gfx/point_light.hpp"
 #include "components/gfx/tile_animation.hpp"
 #include "components/items/inventory.hpp"
@@ -97,7 +97,7 @@ void copy_to(const comp::movable& src, protobuf::movable& dst)
   dst.set_speed(src.speed);
 }
 
-void copy_to(const comp::depth_drawable& src, protobuf::depth_drawable& dst)
+void copy_to(const comp::drawable& src, protobuf::drawable& dst)
 {
   copy_to(src.src, dst.mutable_src());
   copy_to(src.dst, dst.mutable_dst());
@@ -282,7 +282,7 @@ void save_level(const entt::registry& registry, protobuf::level* data)  // NOLIN
       copy_to(*movable, (*data->mutable_movables())[value]);
     }
 
-    if (const auto* drawable = registry.try_get<comp::depth_drawable>(entity)) {
+    if (const auto* drawable = registry.try_get<comp::drawable>(entity)) {
       copy_to(*drawable, (*data->mutable_drawables())[value]);
     }
 

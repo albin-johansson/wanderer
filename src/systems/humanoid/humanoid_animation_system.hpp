@@ -14,7 +14,7 @@ namespace wanderer::sys {
  *
  * \ingroup systems
  *
- * \pre `entity` must have `comp::animated`, `comp::movable` and `comp::depth_drawable`
+ * \pre `entity` must have `comp::animated`, `comp::movable` and `comp::drawable`
  * components.
  *
  * \param registry the current level registry.
@@ -25,7 +25,7 @@ void enter_idle_animation(entt::registry& registry, entt::entity entity);
 /**
  * \brief Makes a humanoid enter its movement animation.
  *
- * \pre `entity` must have `comp::animated`, `comp::movable` and `comp::depth_drawable`
+ * \pre `entity` must have `comp::animated`, `comp::movable` and `comp::drawable`
  * components.
  *
  * \ingroup systems
@@ -39,7 +39,7 @@ void enter_move_animation(entt::registry& registry, entt::entity entity, directi
 /**
  * \brief Makes a humanoid enter the melee animation.
  *
- * \pre `entity` must have `comp::animated`, `comp::movable` and `comp::depth_drawable`
+ * \pre `entity` must have `comp::animated`, `comp::movable` and `comp::drawable`
  * components.
  *
  * \ingroup systems
@@ -52,7 +52,7 @@ void enter_melee_animation(entt::registry& registry, entt::entity entity);
 /**
  * \brief Makes a humanoid enter the spell animation.
  *
- * \pre `entity` must have `comp::animated`, `comp::movable` and `comp::depth_drawable`
+ * \pre `entity` must have `comp::animated`, `comp::movable` and `comp::drawable`
  * components.
  *
  * \ingroup systems
@@ -65,7 +65,7 @@ void enter_spell_animation(entt::registry& registry, entt::entity entity);
 /**
  * \brief Makes a humanoid enter the bow animation.
  *
- * \pre `entity` must have `comp::animated`, `comp::movable` and `comp::depth_drawable`
+ * \pre `entity` must have `comp::animated`, `comp::movable` and `comp::drawable`
  * components.
  *
  * \ingroup systems
@@ -78,7 +78,7 @@ void enter_bow_animation(entt::registry& registry, entt::entity entity);
 /**
  * \brief Makes a humanoid enter its spear animation.
  *
- * \pre `entity` must have `comp::animated`, `comp::movable` and `comp::depth_drawable`
+ * \pre `entity` must have `comp::animated`, `comp::movable` and `comp::drawable`
  * components.
  *
  * \ingroup systems

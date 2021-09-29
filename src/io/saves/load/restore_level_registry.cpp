@@ -10,7 +10,7 @@
 #include "components/ai/roam.hpp"
 #include "components/associated_entity.hpp"
 #include "components/gfx/animated.hpp"
-#include "components/gfx/depth_drawable.hpp"
+#include "components/gfx/drawable.hpp"
 #include "components/gfx/point_light.hpp"
 #include "components/gfx/tile_animation.hpp"
 #include "components/items/inventory.hpp"
@@ -112,7 +112,7 @@ void restore_drawable(const protobuf::level& level,
   if (const auto it = drawables.find(entt::to_integral(entity)); it != drawables.end()) {
     const auto& data = it->second;
 
-    auto& drawable = registry.emplace<comp::depth_drawable>(entity);
+    auto& drawable = registry.emplace<comp::drawable>(entity);
     drawable.texture = texture_index{data.texture_index()};
     drawable.layer = data.layer_index();
     drawable.depth = data.depth_index();

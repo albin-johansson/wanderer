@@ -4,7 +4,7 @@ import "rect.proto";
 
 package wanderer.protobuf;
 
-message depth_drawable {
+message drawable {
   optional uint64 texture_index = 1;
   optional irect src = 2;
   optional frect dst = 3;

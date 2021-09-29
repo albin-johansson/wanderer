@@ -4,7 +4,7 @@
 #include <rune/everything.hpp>  // next_bool
 
 #include "components/ctx/viewport.hpp"
-#include "components/gfx/depth_drawable.hpp"
+#include "components/gfx/drawable.hpp"
 #include "components/gfx/point_light.hpp"
 #include "components/player.hpp"
 #include "core/ecs/registry_utils.hpp"
@@ -34,7 +34,7 @@ void update_lights(entt::registry& registry)
 void update_player_light_position(entt::registry& registry)
 {
   const auto playerEntity = singleton_entity<comp::player>(registry);
-  const auto& drawable = registry.get<comp::depth_drawable>(playerEntity);
+  const auto& drawable = registry.get<comp::drawable>(playerEntity);
 
   auto& light = registry.get<comp::point_light>(playerEntity);
   light.position = to_vector(drawable.dst.center());

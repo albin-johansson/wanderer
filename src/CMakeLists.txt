@@ -44,7 +44,7 @@ set(SOURCE_FILES
 
     components/gfx/animated.hpp
     components/gfx/custom_animation.hpp
-    components/gfx/depth_drawable.hpp
+    components/gfx/drawable.hpp
     components/gfx/point_light.hpp
     components/gfx/tile_animation.hpp
 

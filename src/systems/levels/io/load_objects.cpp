@@ -44,7 +44,7 @@ void load_objects(entt::registry& registry,
     object.id = data.id;
 
     if (data.drawable) {
-      auto& drawable = registry.emplace<comp::depth_drawable>(entity);
+      auto& drawable = registry.emplace<comp::drawable>(entity);
       drawable.texture = graphics.to_index(data.drawable->texture);
       drawable.depth = data.drawable->depth;
       drawable.layer = data.drawable->layer;

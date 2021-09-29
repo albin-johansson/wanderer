@@ -2,7 +2,7 @@
 
 #include <algorithm>  // find
 
-#include "components/gfx/depth_drawable.hpp"
+#include "components/gfx/drawable.hpp"
 #include "components/plant.hpp"
 #include "core/game_constants.hpp"
 #include "systems/tiles/tile_system.hpp"
@@ -12,7 +12,7 @@ namespace {
 
 void update_plant_drawable(entt::registry& registry,
                            const comp::plant& plant,
-                           comp::depth_drawable& drawable)
+                           comp::drawable& drawable)
 {
   const auto id = plant.tiles.at(plant.index);
 
@@ -51,7 +51,7 @@ void update_plants(entt::registry& registry, const float dt)
       // TODO the plant is ripe here
     }
 
-    if (auto* drawable = registry.try_get<comp::depth_drawable>(entity)) {
+    if (auto* drawable = registry.try_get<comp::drawable>(entity)) {
       update_plant_drawable(registry, plant, *drawable);
     }
   }

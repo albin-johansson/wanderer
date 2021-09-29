@@ -13,10 +13,10 @@ void insert_hitbox(aabb_tree& tree, const entt::entity entity, const comp::hitbo
   tree.insert(entity, lower, upper);
 }
 
-[[nodiscard]] auto convert(const ir::depth_drawable& drawable,
-                           const graphics_context& graphics) -> comp::depth_drawable
+[[nodiscard]] auto convert(const ir::drawable& drawable, const graphics_context& graphics)
+    -> comp::drawable
 {
-  comp::depth_drawable result;
+  comp::drawable result;
 
   result.texture = graphics.to_index(drawable.texture);
   result.depth = drawable.depth;
@@ -41,8 +41,8 @@ void load_tile_objects(comp::level& level,
     auto& tileObject = level.registry.emplace<comp::tile_object>(entity);
     tileObject.tile_entity = tileset.tiles.at(objectData.tile);
 
-    level.registry.emplace<comp::depth_drawable>(entity,
-                                                 convert(objectData.drawable, graphics));
+    level.registry.emplace<comp::drawable>(entity,
+                                           convert(objectData.drawable, graphics));
 
     if (objectData.hitbox) {
       const auto& hitbox =

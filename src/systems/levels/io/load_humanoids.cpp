@@ -1,7 +1,7 @@
 #include "load_humanoids.hpp"
 
 #include "components/ai/humanoid.hpp"
-#include "components/gfx/depth_drawable.hpp"
+#include "components/gfx/drawable.hpp"
 #include "components/lvl/spawnpoint.hpp"
 #include "components/tiles/tilemap.hpp"
 #include "systems/humanoid/humanoid_factory_system.hpp"
@@ -12,8 +12,7 @@ namespace {
 void configure_humanoid_layer(entt::registry& registry, const entt::entity tilemapEntity)
 {
   const auto& tilemap = registry.get<comp::tilemap>(tilemapEntity);
-  for (auto&& [entity, drawable] :
-       registry.view<comp::depth_drawable, comp::humanoid>().each())
+  for (auto&& [entity, drawable] : registry.view<comp::drawable, comp::humanoid>().each())
   {
     drawable.layer = tilemap.humanoid_layer;
   }

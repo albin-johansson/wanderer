@@ -46,8 +46,8 @@ add_library(wandererproto
     ${GENERATED_PROTOBUF_DIR}/chase.pb.h
     ${GENERATED_PROTOBUF_DIR}/color.pb.cc
     ${GENERATED_PROTOBUF_DIR}/color.pb.h
-    ${GENERATED_PROTOBUF_DIR}/depth_drawable.pb.cc
-    ${GENERATED_PROTOBUF_DIR}/depth_drawable.pb.h
+    ${GENERATED_PROTOBUF_DIR}/drawable.pb.cc
+    ${GENERATED_PROTOBUF_DIR}/drawable.pb.h
     ${GENERATED_PROTOBUF_DIR}/float2.pb.cc
     ${GENERATED_PROTOBUF_DIR}/float2.pb.h
     ${GENERATED_PROTOBUF_DIR}/float3.pb.cc

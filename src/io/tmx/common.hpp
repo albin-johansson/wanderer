@@ -24,6 +24,6 @@ using tile_data = rune::tmx_data::gid_data;
 [[nodiscard]] auto make_depth_drawable(const ir::tile& tile,
                                        const cen::fpoint& pos,
                                        const cen::farea& size,
-                                       int layer) -> ir::depth_drawable;
+                                       int layer) -> ir::drawable;
 
 }  // namespace wanderer::io

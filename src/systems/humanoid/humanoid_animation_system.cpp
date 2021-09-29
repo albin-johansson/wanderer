@@ -5,7 +5,7 @@
 #include "common/milliseconds.hpp"
 #include "components/ai/humanoid.hpp"
 #include "components/gfx/animated.hpp"
-#include "components/gfx/depth_drawable.hpp"
+#include "components/gfx/drawable.hpp"
 #include "components/physics/movable.hpp"
 
 namespace wanderer::sys {
@@ -70,7 +70,7 @@ inline constexpr ms_t attack_delay{70};
 void update_move_animation(entt::registry& registry, const entt::entity entity)
 {
   auto& animated = registry.get<comp::animated>(entity);
-  auto& drawable = registry.get<comp::depth_drawable>(entity);
+  auto& drawable = registry.get<comp::drawable>(entity);
   const auto& movable = registry.get<comp::movable>(entity);
 
   drawable.src.set_x(movable.velocity.is_zero() ? 0
@@ -95,7 +95,7 @@ void update_attack_animation(entt::registry& registry, const entt::entity entity
   assert(registry.all_of<comp::humanoid_attack>(entity));
 
   auto& animated = registry.get<comp::animated>(entity);
-  auto& drawable = registry.get<comp::depth_drawable>(entity);
+  auto& drawable = registry.get<comp::drawable>(entity);
 
   drawable.src.set_x(static_cast<int>(animated.frame) * 64);
   if (animated.frame == animated.frame_count - 1u) {
@@ -128,7 +128,7 @@ void enter_animation(entt::registry& registry,
   animated.frame_count = nFrames;
   animated.delay = delay;
 
-  auto& drawable = registry.get<comp::depth_drawable>(entity);
+  auto& drawable = registry.get<comp::drawable>(entity);
   const auto& movable = registry.get<comp::movable>(entity);
   drawable.src.set_x(0);
   drawable.src.set_y(source_y(sourceY, movable.dir));
@@ -146,7 +146,7 @@ void enter_animation(entt::registry& registry,
   animated.frame_count = nFrames;
   animated.delay = delay;
 
-  auto& drawable = registry.get<comp::depth_drawable>(entity);
+  auto& drawable = registry.get<comp::drawable>(entity);
   drawable.src.set_x(0);
   drawable.src.set_y(source_y(sourceY, dir));
 }

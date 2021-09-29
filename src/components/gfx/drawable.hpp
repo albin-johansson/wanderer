@@ -8,8 +8,6 @@
 namespace wanderer::comp {
 
 /**
- * \struct depth_drawable
- *
  * \brief Represents a drawable entity that features a depth heuristic.
  *
  * \details Provides information required to be able to render entities in
@@ -24,9 +22,9 @@ namespace wanderer::comp {
  *
  * \ingroup components
  *
- * \headerfile depth_drawable.hpp
+ * \headerfile drawable.hpp
  */
-struct depth_drawable final
+struct drawable final
 {
   texture_index texture{};  ///< ID of associated texture.
   cen::irect src;           ///< Region of associated texture that will be rendered.

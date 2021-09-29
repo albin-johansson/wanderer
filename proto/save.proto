@@ -3,7 +3,7 @@ syntax = "proto3";
 import "animated.proto";
 import "associated_entity.proto";
 import "chase.proto";
-import "depth_drawable.proto";
+import "drawable.proto";
 import "hitbox.proto";
 import "inventory.proto";
 import "movable.proto";
@@ -29,7 +29,7 @@ message level {
   repeated uint32 entities = 2 [packed = true];
 
   map<uint32, movable> movables = 3;
-  map<uint32, depth_drawable> drawables = 4;
+  map<uint32, drawable> drawables = 4;
   map<uint32, animated> animations = 5;
   map<uint32, plant> plants = 6;
   map<uint32, tile> tiles = 7;

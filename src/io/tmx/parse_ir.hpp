@@ -10,7 +10,7 @@
 #include "common/texture_id.hpp"
 #include "common/tile_id.hpp"
 #include "components/associated_entity.hpp"
-#include "components/gfx/depth_drawable.hpp"
+#include "components/gfx/drawable.hpp"
 #include "components/gfx/point_light.hpp"
 #include "components/gfx/tile_animation.hpp"
 #include "components/items/inventory.hpp"
@@ -59,7 +59,7 @@ struct tileset final
   int32 tile_height{};
 };
 
-struct depth_drawable final
+struct drawable final
 {
   texture_id texture;
   cen::irect src;
@@ -73,7 +73,7 @@ struct object final
 {
   int32 id{};                          ///< Unique object ID.
   maybe<comp::hitbox> hitbox;          ///< Optional hitbox.
-  maybe<depth_drawable> drawable;      ///< Optional drawable.
+  maybe<drawable> drawable;            ///< Optional drawable.
   maybe<comp::spawnpoint> spawnpoint;  ///< Optional spawnpoint.
   maybe<comp::inventory> inventory;    ///< Optional inventory.
   maybe<comp::portal> portal;          ///< Optional portal.
@@ -86,7 +86,7 @@ struct object final
 struct tile_object final
 {
   tile_id tile{};              ///< The ID of the associated tile.
-  depth_drawable drawable;     ///< Drawable component for the tile object.
+  drawable drawable;           ///< Drawable component for the tile object.
   maybe<comp::hitbox> hitbox;  ///< Optional hitbox.
 };
 

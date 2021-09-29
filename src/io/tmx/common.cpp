@@ -45,9 +45,9 @@ auto get_tileset_tile_size(const ir::level& data, const std::string_view tileset
 auto make_depth_drawable(const ir::tile& tile,
                          const cen::fpoint& pos,
                          const cen::farea& size,
-                         const int layer) -> ir::depth_drawable
+                         const int layer) -> ir::drawable
 {
-  ir::depth_drawable drawable;
+  ir::drawable drawable;
 
   drawable.texture = tile.texture;
   drawable.src = tile.source;

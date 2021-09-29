@@ -37,7 +37,7 @@
 #include "animated.pb.h"
 #include "associated_entity.pb.h"
 #include "chase.pb.h"
-#include "depth_drawable.pb.h"
+#include "drawable.pb.h"
 #include "hitbox.pb.h"
 #include "inventory.pb.h"
 #include "movable.pb.h"
@@ -204,12 +204,12 @@ public:
 // -------------------------------------------------------------------
 
 class level_DrawablesEntry_DoNotUse : public ::PROTOBUF_NAMESPACE_ID::internal::MapEntry<level_DrawablesEntry_DoNotUse, 
-    ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::protobuf::depth_drawable,
+    ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::protobuf::drawable,
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_UINT32,
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_MESSAGE> {
 public:
   typedef ::PROTOBUF_NAMESPACE_ID::internal::MapEntry<level_DrawablesEntry_DoNotUse, 
-    ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::protobuf::depth_drawable,
+    ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::protobuf::drawable,
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_UINT32,
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_MESSAGE> SuperType;
   level_DrawablesEntry_DoNotUse();
@@ -826,21 +826,21 @@ class level final :
   ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::protobuf::movable >*
       mutable_movables();
 
-  // map<uint32, .wanderer.protobuf.depth_drawable> drawables = 4;
+  // map<uint32, .wanderer.protobuf.drawable> drawables = 4;
   int drawables_size() const;
   private:
   int _internal_drawables_size() const;
   public:
   void clear_drawables();
   private:
-  const ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::protobuf::depth_drawable >&
+  const ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::protobuf::drawable >&
       _internal_drawables() const;
-  ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::protobuf::depth_drawable >*
+  ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::protobuf::drawable >*
       _internal_mutable_drawables();
   public:
-  const ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::protobuf::depth_drawable >&
+  const ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::protobuf::drawable >&
       drawables() const;
-  ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::protobuf::depth_drawable >*
+  ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::protobuf::drawable >*
       mutable_drawables();
 
   // map<uint32, .wanderer.protobuf.animated> animations = 5;
@@ -1241,7 +1241,7 @@ class level final :
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_MESSAGE> movables_;
   ::PROTOBUF_NAMESPACE_ID::internal::MapField<
       level_DrawablesEntry_DoNotUse,
-      ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::protobuf::depth_drawable,
+      ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::protobuf::drawable,
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_UINT32,
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_MESSAGE> drawables_;
   ::PROTOBUF_NAMESPACE_ID::internal::MapField<
@@ -1835,27 +1835,27 @@ level::mutable_movables() {
   return _internal_mutable_movables();
 }
 
-// map<uint32, .wanderer.protobuf.depth_drawable> drawables = 4;
+// map<uint32, .wanderer.protobuf.drawable> drawables = 4;
 inline int level::_internal_drawables_size() const {
   return drawables_.size();
 }
 inline int level::drawables_size() const {
   return _internal_drawables_size();
 }
-inline const ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::protobuf::depth_drawable >&
+inline const ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::protobuf::drawable >&
 level::_internal_drawables() const {
   return drawables_.GetMap();
 }
-inline const ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::protobuf::depth_drawable >&
+inline const ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::protobuf::drawable >&
 level::drawables() const {
   // @@protoc_insertion_point(field_map:wanderer.protobuf.level.drawables)
   return _internal_drawables();
 }
-inline ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::protobuf::depth_drawable >*
+inline ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::protobuf::drawable >*
 level::_internal_mutable_drawables() {
   return drawables_.MutableMap();
 }
-inline ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::protobuf::depth_drawable >*
+inline ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::protobuf::drawable >*
 level::mutable_drawables() {
   // @@protoc_insertion_point(field_mutable_map:wanderer.protobuf.level.drawables)
   return _internal_mutable_drawables();

@@ -8,7 +8,7 @@
 #include "components/ai/humanoid.hpp"
 #include "components/ai/roam.hpp"
 #include "components/gfx/animated.hpp"
-#include "components/gfx/depth_drawable.hpp"
+#include "components/gfx/drawable.hpp"
 #include "components/gfx/point_light.hpp"
 #include "components/physics/hitbox.hpp"
 #include "components/physics/movable.hpp"
@@ -37,7 +37,7 @@ void add_depth_drawable(entt::registry& registry,
                         const entt::entity entity,
                         const texture_index texture)
 {
-  auto& drawable = registry.emplace<comp::depth_drawable>(entity);
+  auto& drawable = registry.emplace<comp::drawable>(entity);
   drawable.texture = texture;
   drawable.src = {{}, {humanoid_source_width, humanoid_source_height}};
   drawable.dst = {{}, glob::humanoid_draw_size};
