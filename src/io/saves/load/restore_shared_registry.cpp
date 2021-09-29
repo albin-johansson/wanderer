@@ -81,10 +81,10 @@ void restore_shared_registry(entt::registry& shared, const protobuf::save& save)
     add_level_size(level);
     add_viewport(level);
 
-    for (auto&& [movableEntity, hitbox] : level.registry.view<comp::hitbox>().each()) {
+    for (auto&& [hitboxEntity, hitbox] : level.registry.view<comp::hitbox>().each()) {
       const auto lower = to_vector(hitbox.bounds.position());
       const auto upper = lower + to_vector(hitbox.bounds.size());
-      level.tree.insert(movableEntity, lower, upper);
+      level.tree.insert(hitboxEntity, lower, upper);
     }
 
     if constexpr (cen::is_release_build()) {
