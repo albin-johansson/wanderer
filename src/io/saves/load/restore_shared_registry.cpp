@@ -33,6 +33,20 @@ void add_viewport(comp::level& level)
   level.registry.set<ctx::viewport>(sys::make_viewport(tilemap.size));
 }
 
+void restore(const protobuf::time_of_day& data, ctx::time_of_day& time)
+{
+  time.hour = data.hour();
+  time.minute = data.minute();
+  time.seconds = data.seconds();
+  time.week = data.week();
+  time.day = static_cast<day_of_week>(data.day());
+}
+
+void restore_shared_data(entt::registry& shared, const protobuf::shared_data& data)
+{
+  restore(data.time(), shared.set<ctx::time_of_day>());
+}
+
 }  // namespace
 
 void restore_shared_registry(entt::registry& shared, const protobuf::save& save)
@@ -40,20 +54,7 @@ void restore_shared_registry(entt::registry& shared, const protobuf::save& save)
   shared.clear<comp::level>();
   shared.clear<comp::active_level>();
 
-  if (save.has_shared()) {
-    const auto& data = save.shared();
-
-    auto& time = shared.set<ctx::time_of_day>();
-    if (data.has_time()) {
-      const auto& savedTime = data.time();
-
-      time.hour = savedTime.hour();
-      time.minute = savedTime.minute();
-      time.seconds = savedTime.seconds();
-      time.week = savedTime.week();
-      time.day = static_cast<day_of_week>(savedTime.day());
-    }
-  }
+  restore_shared_data(shared, save.shared());
 
   for (const auto& levelData : save.levels()) {
     const auto entity = comp::level::entity{shared.create()};
@@ -89,12 +90,16 @@ void restore_shared_registry(entt::registry& shared, const protobuf::save& save)
       level.tree.rebuild();
     }
 
-    auto& viewport = level.registry.ctx<ctx::viewport>();
-    viewport.keep_in_bounds = levelData.keep_viewport_in_bounds();
+    {
+      auto& viewport = level.registry.ctx<ctx::viewport>();
+      viewport.keep_in_bounds = levelData.keep_viewport_in_bounds();
+    }
 
-    const auto player = singleton_entity<comp::player>(level.registry);
-    const auto& movable = level.registry.get<comp::movable>(player);
-    sys::center_viewport_on(level.registry, movable.position);
+    {
+      const auto player = singleton_entity<comp::player>(level.registry);
+      const auto& movable = level.registry.get<comp::movable>(player);
+      sys::center_viewport_on(level.registry, movable.position);
+    }
   }
 }
 
