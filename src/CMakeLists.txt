@@ -108,7 +108,6 @@ set(SOURCE_FILES
     core/graphics/render_text.cpp
     core/graphics/render_text.hpp
 
-    core/math/angles.hpp
     core/math/floating.hpp
 
     core/utils/centurion_utils.hpp
