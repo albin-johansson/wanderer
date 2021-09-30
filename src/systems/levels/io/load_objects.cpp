@@ -1,34 +1,21 @@
 #include "load_objects.hpp"
 
-#include "common/maybe.hpp"
+#include <map>  // map
+
+#include "common/ints.hpp"
 
 namespace wanderer::sys {
 namespace {
 
-[[nodiscard]] auto find_inventory(entt::registry& registry, const int id)
-    -> maybe<entt::entity>
+[[nodiscard]] auto find_object(entt::registry& registry, const int32 id) -> entt::entity
 {
-  maybe<entt::entity> result;
-
-  for (auto&& [entity, inventory, object] :
-       registry.view<comp::inventory, comp::object>().each())
-  {
+  for (auto&& [entity, object] : registry.view<comp::object>().each()) {
     if (object.id == id) {
-      result = entity;
-      break;
+      return entity;
     }
   }
 
-  return result;
-}
-
-void set_up_container_triggers(entt::registry& registry)
-{
-  for (auto&& [entity, ref] : registry.view<comp::associated_entity>().each()) {
-    if (const auto result = find_inventory(registry, ref.inventory_id)) {
-      ref.entity = *result;
-    }
-  }
+  return entt::null;
 }
 
 }  // namespace
@@ -37,6 +24,8 @@ void load_objects(entt::registry& registry,
                   graphics_context& graphics,
                   const ir::level& level)
 {
+  std::map<entt::entity, int32> associations;
+
   for (const auto& data : level.objects) {
     const auto entity = registry.create();
 
@@ -69,9 +58,8 @@ void load_objects(entt::registry& registry,
       registry.emplace<comp::inventory>(entity, *data.inventory);
     }
 
-    if (data.inventory_ref) {
-      auto& ref = registry.emplace<comp::associated_entity>(entity);
-      ref.inventory_id = *data.inventory_ref;
+    if (data.object_ref) {
+      associations[entity] = *data.object_ref;
     }
 
     if (data.spawnpoint) {
@@ -87,7 +75,10 @@ void load_objects(entt::registry& registry,
     }
   }
 
-  set_up_container_triggers(registry);
+  for (const auto& [entity, id] : associations) {
+    auto& association = registry.emplace<comp::associated_entity>(entity);
+    association.entity = find_object(registry, id);
+  }
 }
 
 }  // namespace wanderer::sys

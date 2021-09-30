@@ -21,36 +21,34 @@ void parse_object_layer(ir::level& data,
     auto& objectData = data.objects.emplace_back();
     objectData.id = object.id;
 
-    const auto type = object.type;
-    if (type == "Spawnpoint") {
+    if (object.type == "Spawnpoint") {
       objectData.spawnpoint = parse_spawnpoint(object, data.x_ratio, data.y_ratio);
       if (objectData.spawnpoint->type == comp::spawnpoint_type::player) {
         data.player_spawn_point = objectData.spawnpoint->position;
       }
     }
-    else if (type == "Container") {
+    else if (object.type == "Container") {
       objectData.inventory = parse_container(object);
     }
-    else if (type == "ContainerTrigger") {
+    else if (object.type == "ContainerTrigger") {
       assert(rune::tmx::is_object(object.properties, "container"));
       objectData.trigger_type = comp::trigger_type::container;
-      objectData.inventory_ref =
-          rune::tmx::get_object(object.properties, "container").get();
+      objectData.object_ref = rune::tmx::get_object(object.properties, "container").get();
       objectData.hitbox = parse_hitbox(object, data.x_ratio, data.y_ratio);
     }
-    else if (type == "BedTrigger") {
+    else if (object.type == "BedTrigger") {
       objectData.trigger_type = comp::trigger_type::bed;
       objectData.hitbox = parse_hitbox(object, data.x_ratio, data.y_ratio);
     }
-    else if (type == "Portal") {
+    else if (object.type == "Portal") {
       objectData.trigger_type = comp::trigger_type::portal;
       objectData.portal = parse_portal(object);
       objectData.hitbox = parse_hitbox(object, data.x_ratio, data.y_ratio);
     }
-    else if (type == "Light") {
+    else if (object.type == "Light") {
       objectData.light = parse_light(object, data.x_ratio, data.y_ratio);
     }
-    else if (type == "Plant") {
+    else if (object.type == "Plant") {
       objectData.plant = parse_plant(data, object);
 
       const cen::fpoint pos{object.x * data.x_ratio, object.y * data.y_ratio};

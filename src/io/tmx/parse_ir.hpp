@@ -80,7 +80,7 @@ struct object final
   maybe<comp::point_light> light;      ///< Optional light.
   maybe<comp::plant> plant;            ///< Optional plant.
   maybe<comp::trigger_type> trigger_type;
-  maybe<int32> inventory_ref;  ///< Optional inventory ID, used by inv. triggers.
+  maybe<int32> object_ref;  ///< Optional associated object ID, used by inv. triggers.
 };
 
 struct tile_object final
