@@ -1,9 +1,7 @@
 #pragma once
 
-#include <centurion.hpp>  // czstring
-
 namespace wanderer {
 
-using cen::str;
+using cstr = const char*;
 
 }  // namespace wanderer
