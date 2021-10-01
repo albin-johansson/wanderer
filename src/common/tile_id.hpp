@@ -7,9 +7,9 @@
 namespace wanderer {
 
 namespace tags {
-struct tile_id_tag;
+struct tile_id;
 }  // namespace tags
 
-using tile_id = nenya::strong_type<uint32, tags::tile_id_tag>;
+using tile_id = nenya::strong_type<uint32, tags::tile_id>;
 
 }  // namespace wanderer
