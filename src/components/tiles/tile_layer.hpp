@@ -7,15 +7,8 @@
 
 namespace wanderer::comp {
 
-/**
- * \struct tile_layer
- *
- * \brief Represents a layer of tiles.
- *
- * \details Multiple tile layers are combined to create tilemaps.
- *
- * \headerfile tile_layer.hpp
- */
+/// \brief Represents a layer of tiles.
+/// \ingroup components
 struct tile_layer final
 {
   using tile_matrix = std::vector<std::vector<tile_id>>;
