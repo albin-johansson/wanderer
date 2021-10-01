@@ -206,8 +206,10 @@ void change_saves_button_group_page(entt::registry& registry, const int incremen
 void refresh_saves_menu(entt::registry& registry)
 {
   const auto menuEntity = registry.ctx<ctx::active_menu>().entity;
+  assert(registry.all_of<comp::saves_menu>(menuEntity));
 
-  fetch_saves(registry, registry.get<comp::saves_menu>(menuEntity));
+  auto& savesMenu = registry.get<comp::saves_menu>(menuEntity);
+  fetch_saves(registry, savesMenu);
   refresh_saves_menu_contents(registry, menuEntity);
   change_save_preview(registry);
 }
