@@ -4,6 +4,8 @@
 
 namespace wanderer::comp {
 
+/// \brief A component used by entities that can chase other entities.
+/// \ingroup components
 struct chase final
 {
   entt::entity target{entt::null};  ///< The entity that will be chased.
