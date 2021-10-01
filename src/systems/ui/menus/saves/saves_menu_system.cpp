@@ -53,6 +53,7 @@ inline constexpr int buttons_per_page = 8;
 void fetch_saves(entt::registry& registry, comp::saves_menu& savesMenu)
 {
   destroy_and_clear(registry, savesMenu.entries);
+  registry.clear<comp::saves_menu_entry>();
 
   for (const auto& entry : std::filesystem::directory_iterator(saves_directory())) {
     if (entry.is_directory()) {
@@ -204,8 +205,6 @@ void change_saves_button_group_page(entt::registry& registry, const int incremen
 
 void refresh_saves_menu(entt::registry& registry)
 {
-  registry.clear<comp::saves_menu_entry>();
-
   const auto menuEntity = registry.ctx<ctx::active_menu>().entity;
 
   fetch_saves(registry, registry.get<comp::saves_menu>(menuEntity));
