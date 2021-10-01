@@ -1,8 +1,8 @@
 #include "saves_menu_system.hpp"
 
-#include <algorithm>   // remove_if
+#include <algorithm>   // remove_if, max
 #include <cassert>     // assert
-#include <cmath>       // round, fmod
+#include <cmath>       // round, fmod, ceil
 #include <filesystem>  // directory_iterator
 #include <format>      // format
 #include <string>      // string, to_string
