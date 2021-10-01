@@ -6,10 +6,8 @@
 
 namespace wanderer::comp {
 
-/**
- * \brief Represents a general animation.
- * \ingroup components
- */
+/// \brief Represents a general animation.
+/// \ingroup components
 struct animation final
 {
   uint64 frame{0};        ///< Current frame index.
