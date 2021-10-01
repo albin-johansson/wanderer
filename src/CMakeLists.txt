@@ -137,6 +137,8 @@ set(SOURCE_FILES
 
     io/saves/load/load_game.cpp
     io/saves/load/load_game.hpp
+    io/saves/load/restore_data.cpp
+    io/saves/load/restore_data.hpp
     io/saves/load/restore_level_registry.cpp
     io/saves/load/restore_level_registry.hpp
     io/saves/load/restore_shared_registry.cpp

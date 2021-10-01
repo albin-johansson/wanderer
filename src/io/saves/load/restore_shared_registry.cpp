@@ -11,14 +11,22 @@
 #include "components/player.hpp"
 #include "components/tiles/tilemap.hpp"
 #include "components/tiles/tileset.hpp"
-#include "core/day_of_week.hpp"
 #include "core/ecs/registry_utils.hpp"
 #include "core/utils/centurion_utils.hpp"
+#include "restore_data.hpp"
 #include "restore_level_registry.hpp"
 #include "systems/gfx/viewport_system.hpp"
 
 namespace wanderer {
 namespace {
+
+void restore_shared_data(entt::registry& shared, const proto::shared_data& data)
+{
+  shared.clear<comp::level>();
+  shared.clear<comp::active_level>();
+
+  shared.set<ctx::time_of_day>(restore(data.time()));
+}
 
 void add_level_size(comp::level& level)
 {
@@ -34,51 +42,51 @@ void add_viewport(comp::level& level)
   level.registry.set<ctx::viewport>(sys::make_viewport(tilemap.size));
 }
 
-void restore(const proto::time_of_day& data, ctx::time_of_day& time)
+void restore_aabb_tree(entt::registry& registry, aabb_tree& tree)
 {
-  time.hour = data.hour();
-  time.minute = data.minute();
-  time.seconds = data.seconds();
-  time.week = data.week();
-  time.day = static_cast<day_of_week>(data.day());
+  for (auto&& [hitboxEntity, hitbox] : registry.view<comp::hitbox>().each()) {
+    const auto lower = to_vector(hitbox.bounds.position());
+    const auto upper = lower + to_vector(hitbox.bounds.size());
+    tree.insert(hitboxEntity, lower, upper);
+  }
 
-  // TODO restore color
-  time.tint.set_red(data.tint().red());
-  time.tint.set_green(data.tint().green());
-  time.tint.set_blue(data.tint().blue());
-  time.tint.set_alpha(data.tint().alpha());
+  if constexpr (cen::is_release_build()) {
+    tree.rebuild();
+  }
 }
 
-void restore_shared_data(entt::registry& shared, const proto::shared_data& data)
+void prepare_viewport(entt::registry& registry, const bool keepInBounds)
 {
-  restore(data.time(), shared.set<ctx::time_of_day>());
+  auto& viewport = registry.ctx<ctx::viewport>();
+  viewport.keep_in_bounds = keepInBounds;
+
+  const auto player = singleton_entity<comp::player>(registry);
+  const auto& movable = registry.get<comp::movable>(player);
+  sys::center_viewport_on(registry, movable.position);
 }
 
 }  // namespace
 
 void restore_shared_registry(entt::registry& shared, const proto::save& save)
 {
-  shared.clear<comp::level>();
-  shared.clear<comp::active_level>();
-
   restore_shared_data(shared, save.shared());
 
-  for (const auto& levelData : save.levels()) {
+  for (const auto& data : save.levels()) {
     const auto entity = shared.create();
 
     auto& level = shared.emplace<comp::level>(entity);
-    level.tree.disable_thickness_factor();
-    level.id = map_id{levelData.id()};
-    level.registry = restore_level_registry(levelData);
+    level.id = map_id{data.id()};
 
     if (level.id == save.current_level_id()) {
       shared.emplace<comp::active_level>(entity);
     }
 
-    if (levelData.is_outside_level()) {
+    if (data.is_outside_level()) {
       shared.emplace<comp::outside_level>(entity);
     }
 
+    level.tree.disable_thickness_factor();
+    level.registry = restore_level_registry(data);
     level.tilemap = singleton_entity<comp::tilemap>(level.registry);
     level.tileset = singleton_entity<comp::tileset>(level.registry);
 
@@ -87,26 +95,8 @@ void restore_shared_registry(entt::registry& shared, const proto::save& save)
     add_level_size(level);
     add_viewport(level);
 
-    for (auto&& [hitboxEntity, hitbox] : level.registry.view<comp::hitbox>().each()) {
-      const auto lower = to_vector(hitbox.bounds.position());
-      const auto upper = lower + to_vector(hitbox.bounds.size());
-      level.tree.insert(hitboxEntity, lower, upper);
-    }
-
-    if constexpr (cen::is_release_build()) {
-      level.tree.rebuild();
-    }
-
-    {
-      auto& viewport = level.registry.ctx<ctx::viewport>();
-      viewport.keep_in_bounds = levelData.keep_viewport_in_bounds();
-    }
-
-    {
-      const auto player = singleton_entity<comp::player>(level.registry);
-      const auto& movable = level.registry.get<comp::movable>(player);
-      sys::center_viewport_on(level.registry, movable.position);
-    }
+    restore_aabb_tree(level.registry, level.tree);
+    prepare_viewport(level.registry, data.keep_viewport_in_bounds());
   }
 }
 
