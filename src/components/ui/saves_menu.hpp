@@ -7,6 +7,9 @@
 
 namespace wanderer::comp {
 
+/// \addtogroup components
+/// \{
+
 struct saves_menu_entry final
 {
   std::string name;      ///< The name of the save file.
@@ -34,5 +37,7 @@ struct saves_menu final
 
   entt::entity preview_texture{entt::null};
 };
+
+/// \} End of group components
 
 }  // namespace wanderer::comp
