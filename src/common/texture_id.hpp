@@ -6,4 +6,4 @@ namespace wanderer {
 
 using rune::texture_id;
 
-}
+}  // namespace wanderer
