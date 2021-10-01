@@ -42,7 +42,7 @@ set(SOURCE_FILES
     components/ctx/time_of_day.hpp
     components/ctx/viewport.hpp
 
-    components/gfx/animated.hpp
+    components/gfx/animation.hpp
     components/gfx/custom_animation.hpp
     components/gfx/drawable.hpp
     components/gfx/point_light.hpp

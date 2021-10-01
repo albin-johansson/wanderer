@@ -1,20 +1,16 @@
 #pragma once
 
 #include "common/ints.hpp"
+#include "common/tile_id.hpp"
 #include "common/milliseconds.hpp"
 
 namespace wanderer::comp {
 
 /**
- * \struct animated
- *
  * \brief Represents a general animation.
- *
  * \ingroup components
- *
- * \headerfile animated.hpp
  */
-struct animated final
+struct animation final
 {
   uint64 frame{0};        ///< Current frame index.
   uint64 frame_count{1};  ///< Amount of frames in the animation.

@@ -3,8 +3,8 @@ cmake_minimum_required(VERSION 3.15)
 project(wanderer-proto CXX)
 
 set(GENERATED_FILES
-    generated/animated.pb.cc
-    generated/animated.pb.h
+    generated/animation.pb.cc
+    generated/animation.pb.h
     generated/area.pb.cc
     generated/area.pb.h
     generated/associated_entity.pb.cc

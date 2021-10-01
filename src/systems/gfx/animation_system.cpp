@@ -2,20 +2,20 @@
 
 #include <centurion.hpp>  // ticks
 
-#include "components/gfx/animated.hpp"
+#include "components/gfx/animation.hpp"
 
 namespace wanderer::sys {
 
 void update_animations(entt::registry& registry)
 {
-  for (auto&& [entity, animated] : registry.view<comp::animated>().each()) {
+  for (auto&& [entity, animation] : registry.view<comp::animation>().each()) {
     const auto now = cen::counter::ticks();
-    const auto elapsed = now - animated.then;
-    if (elapsed >= animated.delay) {
-      animated.then = now;
-      ++animated.frame;
-      if (animated.frame >= animated.frame_count) {
-        animated.frame = 0;
+    const auto elapsed = now - animation.then;
+    if (elapsed >= animation.delay) {
+      animation.then = now;
+      ++animation.frame;
+      if (animation.frame >= animation.frame_count) {
+        animation.frame = 0;
       }
     }
   }

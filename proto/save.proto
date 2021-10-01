@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-import "animated.proto";
+import "animation.proto";
 import "associated_entity.proto";
 import "chase.proto";
 import "drawable.proto";
@@ -30,7 +30,7 @@ message level {
 
   map<uint32, movable> movables = 3;
   map<uint32, drawable> drawables = 4;
-  map<uint32, animated> animations = 5;
+  map<uint32, animation> animations = 5;
   map<uint32, plant> plants = 6;
   map<uint32, tile> tiles = 7;
   map<uint32, tilemap> tilemaps = 8;

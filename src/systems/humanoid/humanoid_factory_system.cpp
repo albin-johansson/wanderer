@@ -7,7 +7,7 @@
 #include "components/ai/chase.hpp"
 #include "components/ai/humanoid.hpp"
 #include "components/ai/roam.hpp"
-#include "components/gfx/animated.hpp"
+#include "components/gfx/animation.hpp"
 #include "components/gfx/drawable.hpp"
 #include "components/gfx/point_light.hpp"
 #include "components/physics/hitbox.hpp"
@@ -47,11 +47,11 @@ void add_animated(entt::registry& registry, const entt::entity entity)
 {
   using namespace cen::literals;
 
-  auto& animated = registry.emplace<comp::animated>(entity);
-  animated.frame = 0;
-  animated.delay = 65_ms;
-  animated.then = cen::counter::ticks();
-  animated.frame_count = 1;
+  auto& animation = registry.emplace<comp::animation>(entity);
+  animation.frame = 0;
+  animation.delay = 65_ms;
+  animation.then = cen::counter::ticks();
+  animation.frame_count = 1;
 }
 
 void add_hitbox(comp::level& level, const entt::entity entity, const float2 position)

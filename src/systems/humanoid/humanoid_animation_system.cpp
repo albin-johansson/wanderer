@@ -4,7 +4,7 @@
 
 #include "common/milliseconds.hpp"
 #include "components/ai/humanoid.hpp"
-#include "components/gfx/animated.hpp"
+#include "components/gfx/animation.hpp"
 #include "components/gfx/drawable.hpp"
 #include "components/physics/movable.hpp"
 
@@ -69,15 +69,15 @@ inline constexpr ms_t attack_delay{70};
  */
 void update_move_animation(entt::registry& registry, const entt::entity entity)
 {
-  auto& animated = registry.get<comp::animated>(entity);
+  auto& animation = registry.get<comp::animation>(entity);
   auto& drawable = registry.get<comp::drawable>(entity);
   const auto& movable = registry.get<comp::movable>(entity);
 
   drawable.src.set_x(movable.velocity.is_zero() ? 0
-                                                : static_cast<int>(animated.frame) * 64);
+                                                : static_cast<int>(animation.frame) * 64);
   const auto srcY = source_y(move_source_y, movable.dir);
   if (drawable.src.y() != srcY) {
-    animated.frame = 0u;
+    animation.frame = 0u;
     drawable.src.set_y(srcY);
   }
 }
@@ -94,11 +94,11 @@ void update_attack_animation(entt::registry& registry, const entt::entity entity
 {
   assert(registry.all_of<comp::humanoid_attack>(entity));
 
-  auto& animated = registry.get<comp::animated>(entity);
+  auto& animation = registry.get<comp::animation>(entity);
   auto& drawable = registry.get<comp::drawable>(entity);
 
-  drawable.src.set_x(static_cast<int>(animated.frame) * 64);
-  if (animated.frame == animated.frame_count - 1u) {
+  drawable.src.set_x(static_cast<int>(animation.frame) * 64);
+  if (animation.frame == animation.frame_count - 1u) {
     auto& attack = registry.get<comp::humanoid_attack>(entity);
     attack.done = true;
   }
@@ -123,10 +123,10 @@ void enter_animation(entt::registry& registry,
                      const ms_t delay,
                      const int sourceY)
 {
-  auto& animated = registry.get<comp::animated>(entity);
-  animated.frame = 0;
-  animated.frame_count = nFrames;
-  animated.delay = delay;
+  auto& animation = registry.get<comp::animation>(entity);
+  animation.frame = 0;
+  animation.frame_count = nFrames;
+  animation.delay = delay;
 
   auto& drawable = registry.get<comp::drawable>(entity);
   const auto& movable = registry.get<comp::movable>(entity);
@@ -141,10 +141,10 @@ void enter_animation(entt::registry& registry,
                      const int sourceY,
                      const direction dir)
 {
-  auto& animated = registry.get<comp::animated>(entity);
-  animated.frame = 0;
-  animated.frame_count = nFrames;
-  animated.delay = delay;
+  auto& animation = registry.get<comp::animation>(entity);
+  animation.frame = 0;
+  animation.frame_count = nFrames;
+  animation.delay = delay;
 
   auto& drawable = registry.get<comp::drawable>(entity);
   drawable.src.set_x(0);

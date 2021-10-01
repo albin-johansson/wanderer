@@ -12,7 +12,7 @@
 #include "components/associated_entity.hpp"
 #include "components/ctx/time_of_day.hpp"
 #include "components/ctx/viewport.hpp"
-#include "components/gfx/animated.hpp"
+#include "components/gfx/animation.hpp"
 #include "components/gfx/drawable.hpp"
 #include "components/gfx/point_light.hpp"
 #include "components/gfx/tile_animation.hpp"
@@ -106,7 +106,7 @@ void copy_to(const comp::drawable& src, proto::drawable& dst)
   dst.set_depth_index(src.depth);
 }
 
-void copy_to(const comp::animated& src, proto::animated& dst)
+void copy_to(const comp::animation& src, proto::animation& dst)
 {
   dst.set_frame(src.frame);
   dst.set_frame_count(src.frame_count);
@@ -286,8 +286,8 @@ void save_level(const entt::registry& registry, proto::level* data)  // NOLINT
       copy_to(*drawable, (*data->mutable_drawables())[value]);
     }
 
-    if (const auto* animated = registry.try_get<comp::animated>(entity)) {
-      copy_to(*animated, (*data->mutable_animations())[value]);
+    if (const auto* animation = registry.try_get<comp::animation>(entity)) {
+      copy_to(*animation, (*data->mutable_animations())[value]);
     }
 
     if (const auto* plant = registry.try_get<comp::plant>(entity)) {

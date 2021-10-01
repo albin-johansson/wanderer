@@ -642,97 +642,97 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
 };
 
 const char descriptor_table_protodef_save_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\nsave.proto\022\016wanderer.proto\032\016animated.p"
-  "roto\032\027associated_entity.proto\032\013chase.pro"
-  "to\032\016drawable.proto\032\014hitbox.proto\032\017invent"
-  "ory.proto\032\rmovable.proto\032\014object.proto\032\016"
-  "particle.proto\032\013plant.proto\032\021point_light"
-  ".proto\032\014portal.proto\032\020spawnpoint.proto\032\024"
-  "tile_animation.proto\032\020tile_layer.proto\032\n"
-  "tile.proto\032\021tile_object.proto\032\rtilemap.p"
-  "roto\032\rtileset.proto\032\021time_of_day.proto\032\r"
-  "trigger.proto\"\317\026\n\005level\022\017\n\002id\030\001 \001(\005H\000\210\001\001"
-  "\022\024\n\010entities\030\002 \003(\rB\002\020\001\0225\n\010movables\030\003 \003(\013"
-  "2#.wanderer.proto.level.MovablesEntry\0227\n"
-  "\tdrawables\030\004 \003(\0132$.wanderer.proto.level."
-  "DrawablesEntry\0229\n\nanimations\030\005 \003(\0132%.wan"
-  "derer.proto.level.AnimationsEntry\0221\n\006pla"
-  "nts\030\006 \003(\0132!.wanderer.proto.level.PlantsE"
-  "ntry\022/\n\005tiles\030\007 \003(\0132 .wanderer.proto.lev"
-  "el.TilesEntry\0225\n\010tilemaps\030\010 \003(\0132#.wander"
-  "er.proto.level.TilemapsEntry\022B\n\017tile_ani"
-  "mations\030\t \003(\0132).wanderer.proto.level.Til"
-  "eAnimationsEntry\0221\n\006chases\030\n \003(\0132!.wande"
-  "rer.proto.level.ChasesEntry\0227\n\tparticles"
-  "\030\013 \003(\0132$.wanderer.proto.level.ParticlesE"
-  "ntry\0221\n\006lights\030\014 \003(\0132!.wanderer.proto.le"
-  "vel.LightsEntry\022;\n\013spawnpoints\030\r \003(\0132&.w"
-  "anderer.proto.level.SpawnpointsEntry\0225\n\010"
-  "hitboxes\030\016 \003(\0132#.wanderer.proto.level.Hi"
-  "tboxesEntry\0223\n\007objects\030\017 \003(\0132\".wanderer."
-  "proto.level.ObjectsEntry\0223\n\007portals\030\020 \003("
-  "\0132\".wanderer.proto.level.PortalsEntry\022:\n"
-  "\013tile_layers\030\021 \003(\0132%.wanderer.proto.leve"
-  "l.TileLayersEntry\0225\n\010tilesets\030\022 \003(\0132#.wa"
-  "nderer.proto.level.TilesetsEntry\022;\n\013inve"
-  "ntories\030\023 \003(\0132&.wanderer.proto.level.Inv"
-  "entoriesEntry\022<\n\014tile_objects\030\024 \003(\0132&.wa"
-  "nderer.proto.level.TileObjectsEntry\0225\n\010t"
-  "riggers\030\025 \003(\0132#.wanderer.proto.level.Tri"
-  "ggersEntry\022=\n\014associations\030\026 \003(\0132\'.wande"
-  "rer.proto.level.AssociationsEntry\022\032\n\rpla"
-  "yer_entity\0302 \001(\rH\001\210\001\001\022\025\n\thumanoids\0303 \003(\r"
-  "B\002\020\001\022$\n\027keep_viewport_in_bounds\030d \001(\010H\002\210"
-  "\001\001\022\035\n\020is_outside_level\030e \001(\010H\003\210\001\001\032H\n\rMov"
-  "ablesEntry\022\013\n\003key\030\001 \001(\r\022&\n\005value\030\002 \001(\0132\027"
-  ".wanderer.proto.movable:\0028\001\032J\n\016Drawables"
-  "Entry\022\013\n\003key\030\001 \001(\r\022\'\n\005value\030\002 \001(\0132\030.wand"
-  "erer.proto.drawable:\0028\001\032K\n\017AnimationsEnt"
-  "ry\022\013\n\003key\030\001 \001(\r\022\'\n\005value\030\002 \001(\0132\030.wandere"
-  "r.proto.animated:\0028\001\032D\n\013PlantsEntry\022\013\n\003k"
-  "ey\030\001 \001(\r\022$\n\005value\030\002 \001(\0132\025.wanderer.proto"
-  ".plant:\0028\001\032B\n\nTilesEntry\022\013\n\003key\030\001 \001(\r\022#\n"
-  "\005value\030\002 \001(\0132\024.wanderer.proto.tile:\0028\001\032H"
-  "\n\rTilemapsEntry\022\013\n\003key\030\001 \001(\r\022&\n\005value\030\002 "
-  "\001(\0132\027.wanderer.proto.tilemap:\0028\001\032U\n\023Tile"
-  "AnimationsEntry\022\013\n\003key\030\001 \001(\r\022-\n\005value\030\002 "
-  "\001(\0132\036.wanderer.proto.tile_animation:\0028\001\032"
-  "D\n\013ChasesEntry\022\013\n\003key\030\001 \001(\r\022$\n\005value\030\002 \001"
-  "(\0132\025.wanderer.proto.chase:\0028\001\032J\n\016Particl"
-  "esEntry\022\013\n\003key\030\001 \001(\r\022\'\n\005value\030\002 \001(\0132\030.wa"
-  "nderer.proto.particle:\0028\001\032J\n\013LightsEntry"
-  "\022\013\n\003key\030\001 \001(\r\022*\n\005value\030\002 \001(\0132\033.wanderer."
-  "proto.point_light:\0028\001\032N\n\020SpawnpointsEntr"
-  "y\022\013\n\003key\030\001 \001(\r\022)\n\005value\030\002 \001(\0132\032.wanderer"
-  ".proto.spawnpoint:\0028\001\032G\n\rHitboxesEntry\022\013"
-  "\n\003key\030\001 \001(\r\022%\n\005value\030\002 \001(\0132\026.wanderer.pr"
-  "oto.hitbox:\0028\001\032J\n\014ObjectsEntry\022\013\n\003key\030\001 "
-  "\001(\r\022)\n\005value\030\002 \001(\0132\032.wanderer.proto.map_"
-  "object:\0028\001\032F\n\014PortalsEntry\022\013\n\003key\030\001 \001(\r\022"
-  "%\n\005value\030\002 \001(\0132\026.wanderer.proto.portal:\002"
-  "8\001\032M\n\017TileLayersEntry\022\013\n\003key\030\001 \001(\r\022)\n\005va"
-  "lue\030\002 \001(\0132\032.wanderer.proto.tile_layer:\0028"
-  "\001\032H\n\rTilesetsEntry\022\013\n\003key\030\001 \001(\r\022&\n\005value"
-  "\030\002 \001(\0132\027.wanderer.proto.tileset:\0028\001\032M\n\020I"
-  "nventoriesEntry\022\013\n\003key\030\001 \001(\r\022(\n\005value\030\002 "
-  "\001(\0132\031.wanderer.proto.inventory:\0028\001\032O\n\020Ti"
-  "leObjectsEntry\022\013\n\003key\030\001 \001(\r\022*\n\005value\030\002 \001"
-  "(\0132\033.wanderer.proto.tile_object:\0028\001\032H\n\rT"
-  "riggersEntry\022\013\n\003key\030\001 \001(\r\022&\n\005value\030\002 \001(\013"
-  "2\027.wanderer.proto.trigger:\0028\001\032V\n\021Associa"
-  "tionsEntry\022\013\n\003key\030\001 \001(\r\0220\n\005value\030\002 \001(\0132!"
-  ".wanderer.proto.associated_entity:\0028\001B\005\n"
-  "\003_idB\020\n\016_player_entityB\032\n\030_keep_viewport"
-  "_in_boundsB\023\n\021_is_outside_level\"F\n\013share"
-  "d_data\022.\n\004time\030\001 \001(\0132\033.wanderer.proto.ti"
-  "me_of_dayH\000\210\001\001B\007\n\005_time\"\236\001\n\004save\022\035\n\020curr"
-  "ent_level_id\030\001 \001(\005H\000\210\001\001\0220\n\006shared\030\002 \001(\0132"
-  "\033.wanderer.proto.shared_dataH\001\210\001\001\022%\n\006lev"
-  "els\030\003 \003(\0132\025.wanderer.proto.levelB\023\n\021_cur"
-  "rent_level_idB\t\n\007_sharedb\006proto3"
+  "\n\nsave.proto\022\016wanderer.proto\032\017animation."
+  "proto\032\027associated_entity.proto\032\013chase.pr"
+  "oto\032\016drawable.proto\032\014hitbox.proto\032\017inven"
+  "tory.proto\032\rmovable.proto\032\014object.proto\032"
+  "\016particle.proto\032\013plant.proto\032\021point_ligh"
+  "t.proto\032\014portal.proto\032\020spawnpoint.proto\032"
+  "\024tile_animation.proto\032\020tile_layer.proto\032"
+  "\ntile.proto\032\021tile_object.proto\032\rtilemap."
+  "proto\032\rtileset.proto\032\021time_of_day.proto\032"
+  "\rtrigger.proto\"\320\026\n\005level\022\017\n\002id\030\001 \001(\005H\000\210\001"
+  "\001\022\024\n\010entities\030\002 \003(\rB\002\020\001\0225\n\010movables\030\003 \003("
+  "\0132#.wanderer.proto.level.MovablesEntry\0227"
+  "\n\tdrawables\030\004 \003(\0132$.wanderer.proto.level"
+  ".DrawablesEntry\0229\n\nanimations\030\005 \003(\0132%.wa"
+  "nderer.proto.level.AnimationsEntry\0221\n\006pl"
+  "ants\030\006 \003(\0132!.wanderer.proto.level.Plants"
+  "Entry\022/\n\005tiles\030\007 \003(\0132 .wanderer.proto.le"
+  "vel.TilesEntry\0225\n\010tilemaps\030\010 \003(\0132#.wande"
+  "rer.proto.level.TilemapsEntry\022B\n\017tile_an"
+  "imations\030\t \003(\0132).wanderer.proto.level.Ti"
+  "leAnimationsEntry\0221\n\006chases\030\n \003(\0132!.wand"
+  "erer.proto.level.ChasesEntry\0227\n\tparticle"
+  "s\030\013 \003(\0132$.wanderer.proto.level.Particles"
+  "Entry\0221\n\006lights\030\014 \003(\0132!.wanderer.proto.l"
+  "evel.LightsEntry\022;\n\013spawnpoints\030\r \003(\0132&."
+  "wanderer.proto.level.SpawnpointsEntry\0225\n"
+  "\010hitboxes\030\016 \003(\0132#.wanderer.proto.level.H"
+  "itboxesEntry\0223\n\007objects\030\017 \003(\0132\".wanderer"
+  ".proto.level.ObjectsEntry\0223\n\007portals\030\020 \003"
+  "(\0132\".wanderer.proto.level.PortalsEntry\022:"
+  "\n\013tile_layers\030\021 \003(\0132%.wanderer.proto.lev"
+  "el.TileLayersEntry\0225\n\010tilesets\030\022 \003(\0132#.w"
+  "anderer.proto.level.TilesetsEntry\022;\n\013inv"
+  "entories\030\023 \003(\0132&.wanderer.proto.level.In"
+  "ventoriesEntry\022<\n\014tile_objects\030\024 \003(\0132&.w"
+  "anderer.proto.level.TileObjectsEntry\0225\n\010"
+  "triggers\030\025 \003(\0132#.wanderer.proto.level.Tr"
+  "iggersEntry\022=\n\014associations\030\026 \003(\0132\'.wand"
+  "erer.proto.level.AssociationsEntry\022\032\n\rpl"
+  "ayer_entity\0302 \001(\rH\001\210\001\001\022\025\n\thumanoids\0303 \003("
+  "\rB\002\020\001\022$\n\027keep_viewport_in_bounds\030d \001(\010H\002"
+  "\210\001\001\022\035\n\020is_outside_level\030e \001(\010H\003\210\001\001\032H\n\rMo"
+  "vablesEntry\022\013\n\003key\030\001 \001(\r\022&\n\005value\030\002 \001(\0132"
+  "\027.wanderer.proto.movable:\0028\001\032J\n\016Drawable"
+  "sEntry\022\013\n\003key\030\001 \001(\r\022\'\n\005value\030\002 \001(\0132\030.wan"
+  "derer.proto.drawable:\0028\001\032L\n\017AnimationsEn"
+  "try\022\013\n\003key\030\001 \001(\r\022(\n\005value\030\002 \001(\0132\031.wander"
+  "er.proto.animation:\0028\001\032D\n\013PlantsEntry\022\013\n"
+  "\003key\030\001 \001(\r\022$\n\005value\030\002 \001(\0132\025.wanderer.pro"
+  "to.plant:\0028\001\032B\n\nTilesEntry\022\013\n\003key\030\001 \001(\r\022"
+  "#\n\005value\030\002 \001(\0132\024.wanderer.proto.tile:\0028\001"
+  "\032H\n\rTilemapsEntry\022\013\n\003key\030\001 \001(\r\022&\n\005value\030"
+  "\002 \001(\0132\027.wanderer.proto.tilemap:\0028\001\032U\n\023Ti"
+  "leAnimationsEntry\022\013\n\003key\030\001 \001(\r\022-\n\005value\030"
+  "\002 \001(\0132\036.wanderer.proto.tile_animation:\0028"
+  "\001\032D\n\013ChasesEntry\022\013\n\003key\030\001 \001(\r\022$\n\005value\030\002"
+  " \001(\0132\025.wanderer.proto.chase:\0028\001\032J\n\016Parti"
+  "clesEntry\022\013\n\003key\030\001 \001(\r\022\'\n\005value\030\002 \001(\0132\030."
+  "wanderer.proto.particle:\0028\001\032J\n\013LightsEnt"
+  "ry\022\013\n\003key\030\001 \001(\r\022*\n\005value\030\002 \001(\0132\033.wandere"
+  "r.proto.point_light:\0028\001\032N\n\020SpawnpointsEn"
+  "try\022\013\n\003key\030\001 \001(\r\022)\n\005value\030\002 \001(\0132\032.wander"
+  "er.proto.spawnpoint:\0028\001\032G\n\rHitboxesEntry"
+  "\022\013\n\003key\030\001 \001(\r\022%\n\005value\030\002 \001(\0132\026.wanderer."
+  "proto.hitbox:\0028\001\032J\n\014ObjectsEntry\022\013\n\003key\030"
+  "\001 \001(\r\022)\n\005value\030\002 \001(\0132\032.wanderer.proto.ma"
+  "p_object:\0028\001\032F\n\014PortalsEntry\022\013\n\003key\030\001 \001("
+  "\r\022%\n\005value\030\002 \001(\0132\026.wanderer.proto.portal"
+  ":\0028\001\032M\n\017TileLayersEntry\022\013\n\003key\030\001 \001(\r\022)\n\005"
+  "value\030\002 \001(\0132\032.wanderer.proto.tile_layer:"
+  "\0028\001\032H\n\rTilesetsEntry\022\013\n\003key\030\001 \001(\r\022&\n\005val"
+  "ue\030\002 \001(\0132\027.wanderer.proto.tileset:\0028\001\032M\n"
+  "\020InventoriesEntry\022\013\n\003key\030\001 \001(\r\022(\n\005value\030"
+  "\002 \001(\0132\031.wanderer.proto.inventory:\0028\001\032O\n\020"
+  "TileObjectsEntry\022\013\n\003key\030\001 \001(\r\022*\n\005value\030\002"
+  " \001(\0132\033.wanderer.proto.tile_object:\0028\001\032H\n"
+  "\rTriggersEntry\022\013\n\003key\030\001 \001(\r\022&\n\005value\030\002 \001"
+  "(\0132\027.wanderer.proto.trigger:\0028\001\032V\n\021Assoc"
+  "iationsEntry\022\013\n\003key\030\001 \001(\r\0220\n\005value\030\002 \001(\013"
+  "2!.wanderer.proto.associated_entity:\0028\001B"
+  "\005\n\003_idB\020\n\016_player_entityB\032\n\030_keep_viewpo"
+  "rt_in_boundsB\023\n\021_is_outside_level\"F\n\013sha"
+  "red_data\022.\n\004time\030\001 \001(\0132\033.wanderer.proto."
+  "time_of_dayH\000\210\001\001B\007\n\005_time\"\236\001\n\004save\022\035\n\020cu"
+  "rrent_level_id\030\001 \001(\005H\000\210\001\001\0220\n\006shared\030\002 \001("
+  "\0132\033.wanderer.proto.shared_dataH\001\210\001\001\022%\n\006l"
+  "evels\030\003 \003(\0132\025.wanderer.proto.levelB\023\n\021_c"
+  "urrent_level_idB\t\n\007_sharedb\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_save_2eproto_deps[21] = {
-  &::descriptor_table_animated_2eproto,
+  &::descriptor_table_animation_2eproto,
   &::descriptor_table_associated_5fentity_2eproto,
   &::descriptor_table_chase_2eproto,
   &::descriptor_table_drawable_2eproto,
@@ -756,7 +756,7 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_save_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_save_2eproto = {
-  false, false, 3512, descriptor_table_protodef_save_2eproto, "save.proto", 
+  false, false, 3514, descriptor_table_protodef_save_2eproto, "save.proto", 
   &descriptor_table_save_2eproto_once, descriptor_table_save_2eproto_deps, 21, 23,
   schemas, file_default_instances, TableStruct_save_2eproto::offsets,
   file_level_metadata_save_2eproto, file_level_enum_descriptors_save_2eproto, file_level_service_descriptors_save_2eproto,
@@ -1334,7 +1334,7 @@ const char* level::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::inte
         } else
           goto handle_unusual;
         continue;
-      // map<uint32, .wanderer.proto.animated> animations = 5;
+      // map<uint32, .wanderer.proto.animation> animations = 5;
       case 5:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 42)) {
           ptr -= 1;
@@ -1713,9 +1713,9 @@ failure:
     }
   }
 
-  // map<uint32, .wanderer.proto.animated> animations = 5;
+  // map<uint32, .wanderer.proto.animation> animations = 5;
   if (!this->_internal_animations().empty()) {
-    typedef ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::animated >::const_pointer
+    typedef ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::animation >::const_pointer
         ConstPtr;
     typedef ::PROTOBUF_NAMESPACE_ID::internal::SortItem< ::PROTOBUF_NAMESPACE_ID::uint32, ConstPtr > SortItem;
     typedef ::PROTOBUF_NAMESPACE_ID::internal::CompareByFirstField<SortItem> Less;
@@ -1724,9 +1724,9 @@ failure:
         this->_internal_animations().size() > 1) {
       ::std::unique_ptr<SortItem[]> items(
           new SortItem[this->_internal_animations().size()]);
-      typedef ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::animated >::size_type size_type;
+      typedef ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::animation >::size_type size_type;
       size_type n = 0;
-      for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::animated >::const_iterator
+      for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::animation >::const_iterator
           it = this->_internal_animations().begin();
           it != this->_internal_animations().end(); ++it, ++n) {
         items[static_cast<ptrdiff_t>(n)] = SortItem(&*it);
@@ -1736,7 +1736,7 @@ failure:
         target = level_AnimationsEntry_DoNotUse::Funcs::InternalSerialize(5, items[static_cast<ptrdiff_t>(i)].second->first, items[static_cast<ptrdiff_t>(i)].second->second, target, stream);
       }
     } else {
-      for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::animated >::const_iterator
+      for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::animation >::const_iterator
           it = this->_internal_animations().begin();
           it != this->_internal_animations().end(); ++it) {
         target = level_AnimationsEntry_DoNotUse::Funcs::InternalSerialize(5, it->first, it->second, target, stream);
@@ -2347,10 +2347,10 @@ size_t level::ByteSizeLong() const {
     total_size += level_DrawablesEntry_DoNotUse::Funcs::ByteSizeLong(it->first, it->second);
   }
 
-  // map<uint32, .wanderer.proto.animated> animations = 5;
+  // map<uint32, .wanderer.proto.animation> animations = 5;
   total_size += 1 *
       ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(this->_internal_animations_size());
-  for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::animated >::const_iterator
+  for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::animation >::const_iterator
       it = this->_internal_animations().begin();
       it != this->_internal_animations().end(); ++it) {
     total_size += level_AnimationsEntry_DoNotUse::Funcs::ByteSizeLong(it->first, it->second);

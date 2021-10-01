@@ -9,7 +9,7 @@
 #include "components/ai/humanoid.hpp"
 #include "components/ai/roam.hpp"
 #include "components/associated_entity.hpp"
-#include "components/gfx/animated.hpp"
+#include "components/gfx/animation.hpp"
 #include "components/gfx/drawable.hpp"
 #include "components/gfx/point_light.hpp"
 #include "components/gfx/tile_animation.hpp"
@@ -130,7 +130,7 @@ void restore_animation(const proto::level& level,
   {
     const auto& data = it->second;
 
-    auto& animation = registry.emplace<comp::animated>(entity);
+    auto& animation = registry.emplace<comp::animation>(entity);
     animation.frame = data.frame();
     animation.frame_count = data.frame_count();
     animation.delay = ms_t{data.delay()};

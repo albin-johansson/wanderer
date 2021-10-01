@@ -8,7 +8,7 @@ namespace wanderer::sys {
 /// \{
 
 /**
- * \brief Updates all `animated` components in a registry.
+ * \brief Updates all `animation` components in a registry.
  *
  * \ingroup systems
  *
