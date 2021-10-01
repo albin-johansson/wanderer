@@ -8,7 +8,6 @@ set(SOURCE_FILES
     wanderer_engine.hpp
 
     common/aabb_tree.hpp
-    common/buffer.hpp
     common/cstr.hpp
     common/float2.hpp
     common/ints.hpp
