@@ -9,13 +9,8 @@
 
 namespace wanderer::comp {
 
-/**
- * \struct frame
- *
- * \brief Represents a frame in a tile animation.
- *
- * \headerfile tile_animation.hpp
- */
+/// \brief Represents a frame in a tile animation.
+/// \ingroup components
 struct frame final
 {
   tile_id tile{glob::empty_tile};  ///< ID of the tile that should be rendered.
@@ -23,17 +18,14 @@ struct frame final
 };
 
 /**
- * \struct tile_animation
- *
  * \brief Represents animations used by tiles.
  *
- * \details An animated tile is different than a normal animated entity,
- * since animated tiles can have different durations for each frame.
- * Furthermore, the frames in the animation aren't necessarily "linear", which
- * means that an arbitrary set of tiles in a tileset can make up a tile
- * animation.
+ * \details An animated tile is different than a normal animated entity, since animated
+ * tiles can have different durations for each frame. Furthermore, the frames in the
+ * animation aren't necessarily "linear", which means that an arbitrary set of tiles in
+ * a tileset can make up a tile animation.
  *
- * \headerfile tile_animation.hpp
+ * \ingroup components
  */
 struct tile_animation final
 {
