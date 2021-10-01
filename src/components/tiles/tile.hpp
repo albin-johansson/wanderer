@@ -9,17 +9,8 @@
 
 namespace wanderer::comp {
 
-/**
- * \struct tile
- *
- * \brief Represents a tile in a tileset.
- *
- * \details The `tile` struct represents a tile in a tileset. However, this
- * struct does not represent an actual tile object though, for efficiency
- * reasons.
- *
- * \headerfile tile.hpp
- */
+/// \brief Represents a tile in a tileset.
+/// \ingroup components
 struct tile final
 {
   tile_id id{glob::empty_tile};  ///< Unique ID associated with the tile.
