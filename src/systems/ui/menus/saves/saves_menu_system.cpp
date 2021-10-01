@@ -95,7 +95,8 @@ void refresh_save_entry_buttons(entt::registry& registry,
                                           menu_action::change_save_preview,
                                           grid_position{actualRow, save_entry_col});
 
-    set_visible(registry.get<comp::button>(buttonEntity), row < maxRow);
+    set_visible(registry.get<comp::button>(buttonEntity),
+                static_cast<float>(row) < maxRow);
 
     auto& associatedMenu = registry.emplace<comp::associated_menu>(buttonEntity);
     associatedMenu.entity = menuEntity;
