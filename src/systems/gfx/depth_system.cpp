@@ -19,7 +19,7 @@ namespace {
 
 }  // namespace
 
-void sort_depth_drawables(entt::registry& registry, const sort_strategy strategy)
+void update_depth(entt::registry& registry, sort_strategy strategy)
 {
   if (strategy == sort_strategy::insertion_sort) {
     registry.sort<comp::drawable>(sort, entt::insertion_sort{});

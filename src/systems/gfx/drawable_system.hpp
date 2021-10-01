@@ -23,7 +23,7 @@ void update_drawables(entt::registry& registry);
  *
  * \ingroup systems
  *
- * \note Make sure to call `sys::sort_depth_drawables()` before calling this function.
+ * \note Make sure to call `sys::update_depth()` before calling this function.
  *
  * \param registry the current level registry.
  * \param graphics the graphics context that will be used.

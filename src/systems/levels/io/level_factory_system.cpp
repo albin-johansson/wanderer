@@ -74,7 +74,7 @@ auto make_level(const ir::level& data, graphics_context& graphics) -> comp::leve
 
   sys::center_viewport_on(level.registry, level.player_spawn_position.value());
   sys::update_drawables(level.registry);
-  sys::sort_depth_drawables(level.registry, sys::sort_strategy::std_sort);
+  sys::update_depth(level.registry, sys::sort_strategy::std_sort);
 
   if constexpr (cen::is_release_build()) {
     // This is very slow in debug builds, which is why we avoid it

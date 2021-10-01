@@ -23,8 +23,8 @@ enum class sort_strategy
  *
  * \since 0.1.0
  */
-void sort_depth_drawables(entt::registry& registry,
-                          sort_strategy strategy = sort_strategy::insertion_sort);
+void update_depth(entt::registry& registry,
+                  sort_strategy strategy = sort_strategy::insertion_sort);
 
 /// \} End of depth
 
