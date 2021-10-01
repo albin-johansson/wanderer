@@ -6,13 +6,8 @@
 
 namespace wanderer::comp {
 
-/**
- * \struct particle
- *
- * \brief Represents a particle, intended to be used for visual effects.
- *
- * \ingroup components
- */
+/// \brief Represents a particle, intended to be used for visual effects.
+/// \ingroup components
 struct particle final
 {
   float3 position;      ///< The world position of the particle.
