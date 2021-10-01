@@ -1,8 +1,8 @@
 #include "event_connections.hpp"
 
 #include "events/humanoid_events.hpp"
-#include "systems/humanoid/humanoid_attack_event_handler.hpp"
-#include "systems/humanoid/humanoid_move_event_handler.hpp"
+#include "systems/ai/humanoid/humanoid_attack_event_handler.hpp"
+#include "systems/ai/humanoid/humanoid_move_event_handler.hpp"
 #include "systems/interaction_system.hpp"
 
 namespace wanderer {

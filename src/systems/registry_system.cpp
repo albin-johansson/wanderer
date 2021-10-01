@@ -1,4 +1,4 @@
-#include "shared_registry_factory_system.hpp"
+#include "registry_system.hpp"
 
 #include <centurion.hpp>  // system_cursor
 

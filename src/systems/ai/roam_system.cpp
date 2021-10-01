@@ -6,7 +6,7 @@
 #include "components/ai/roam.hpp"
 #include "components/physics/movable.hpp"
 #include "core/game_constants.hpp"
-#include "systems/humanoid/humanoid_animation_system.hpp"
+#include "systems/ai/humanoid/humanoid_animation_system.hpp"
 #include "systems/physics/direction_system.hpp"
 
 namespace wanderer::sys {

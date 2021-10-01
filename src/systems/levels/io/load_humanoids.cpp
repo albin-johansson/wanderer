@@ -4,7 +4,7 @@
 #include "components/gfx/drawable.hpp"
 #include "components/lvl/spawnpoint.hpp"
 #include "components/tiles/tilemap.hpp"
-#include "systems/humanoid/humanoid_factory_system.hpp"
+#include "systems/ai/humanoid/humanoid_factory_system.hpp"
 
 namespace wanderer::sys {
 namespace {

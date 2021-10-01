@@ -5,7 +5,7 @@
 #include "components/gfx/drawable.hpp"
 #include "components/plant.hpp"
 #include "core/game_constants.hpp"
-#include "systems/tiles/tile_system.hpp"
+#include "tile_system.hpp"
 
 namespace wanderer::sys {
 namespace {

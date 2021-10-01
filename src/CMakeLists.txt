@@ -188,10 +188,14 @@ set(SOURCE_FILES
 
     systems/interaction_system.cpp
     systems/interaction_system.hpp
-    systems/time_system.cpp
-    systems/time_system.hpp
     systems/plant_system.cpp
     systems/plant_system.hpp
+    systems/registry_system.cpp
+    systems/registry_system.hpp
+    systems/tile_system.cpp
+    systems/tile_system.hpp
+    systems/time_system.cpp
+    systems/time_system.hpp
     systems/trigger_system.cpp
     systems/trigger_system.hpp
 
@@ -199,6 +203,17 @@ set(SOURCE_FILES
     systems/ai/chase_system.hpp
     systems/ai/roam_system.cpp
     systems/ai/roam_system.hpp
+
+    systems/ai/humanoid/humanoid_animation_system.cpp
+    systems/ai/humanoid/humanoid_animation_system.hpp
+    systems/ai/humanoid/humanoid_attack_event_handler.cpp
+    systems/ai/humanoid/humanoid_attack_event_handler.hpp
+    systems/ai/humanoid/humanoid_factory_system.cpp
+    systems/ai/humanoid/humanoid_factory_system.hpp
+    systems/ai/humanoid/humanoid_move_event_handler.cpp
+    systems/ai/humanoid/humanoid_move_event_handler.hpp
+    systems/ai/humanoid/humanoid_state_system.cpp
+    systems/ai/humanoid/humanoid_state_system.hpp
 
     systems/configuration/load_binds_system.cpp
     systems/configuration/load_binds_system.hpp
@@ -219,19 +234,16 @@ set(SOURCE_FILES
     systems/gfx/light_system.hpp
     systems/gfx/render_bounds_system.cpp
     systems/gfx/render_bounds_system.hpp
+    systems/gfx/tile_animation_system.cpp
+    systems/gfx/tile_animation_system.hpp
+    systems/gfx/tile_layer_rendering_system.cpp
+    systems/gfx/tile_layer_rendering_system.hpp
+    systems/gfx/tile_object_animation_system.cpp
+    systems/gfx/tile_object_animation_system.hpp
+    systems/gfx/tile_rendering_system.cpp
+    systems/gfx/tile_rendering_system.hpp
     systems/gfx/viewport_system.cpp
     systems/gfx/viewport_system.hpp
-
-    systems/humanoid/humanoid_animation_system.cpp
-    systems/humanoid/humanoid_animation_system.hpp
-    systems/humanoid/humanoid_attack_event_handler.cpp
-    systems/humanoid/humanoid_attack_event_handler.hpp
-    systems/humanoid/humanoid_factory_system.cpp
-    systems/humanoid/humanoid_factory_system.hpp
-    systems/humanoid/humanoid_move_event_handler.cpp
-    systems/humanoid/humanoid_move_event_handler.hpp
-    systems/humanoid/humanoid_state_system.cpp
-    systems/humanoid/humanoid_state_system.hpp
 
     systems/input/idle_input_system.cpp
     systems/input/idle_input_system.hpp
@@ -242,8 +254,6 @@ set(SOURCE_FILES
     systems/input/movement_input_system.cpp
     systems/input/movement_input_system.hpp
 
-    systems/layers/tile_layer_rendering_system.cpp
-    systems/layers/tile_layer_rendering_system.hpp
     systems/levels/level_system.cpp
     systems/levels/level_system.hpp
 
@@ -274,18 +284,6 @@ set(SOURCE_FILES
     systems/levels/io/load_tileset.hpp
     systems/levels/io/load_tileset_textures.cpp
     systems/levels/io/load_tileset_textures.hpp
-
-    systems/registry/shared_registry_factory_system.cpp
-    systems/registry/shared_registry_factory_system.hpp
-
-    systems/tiles/tile_animation_system.cpp
-    systems/tiles/tile_animation_system.hpp
-    systems/tiles/tile_object_animation_system.cpp
-    systems/tiles/tile_object_animation_system.hpp
-    systems/tiles/tile_rendering_system.cpp
-    systems/tiles/tile_rendering_system.hpp
-    systems/tiles/tile_system.cpp
-    systems/tiles/tile_system.hpp
 
     systems/ui/cursor_system.cpp
     systems/ui/cursor_system.hpp

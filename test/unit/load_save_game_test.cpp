@@ -7,7 +7,7 @@
 #include "io/saves/save/save_game.hpp"
 #include "profile.hpp"
 #include "systems/levels/io/load_levels.hpp"
-#include "systems/registry/shared_registry_factory_system.hpp"
+#include "systems/registry_system.hpp"
 
 using namespace wanderer;
 

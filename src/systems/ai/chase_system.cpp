@@ -4,7 +4,7 @@
 #include "components/ai/humanoid.hpp"
 #include "components/ai/roam.hpp"
 #include "components/physics/movable.hpp"
-#include "systems/humanoid/humanoid_state_system.hpp"
+#include "systems/ai/humanoid/humanoid_state_system.hpp"
 
 namespace wanderer::sys {
 namespace {
