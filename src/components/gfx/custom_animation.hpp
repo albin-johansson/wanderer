@@ -4,6 +4,8 @@
 
 namespace wanderer::comp {
 
+/// \brief Represents UI animations intended to be used for transitions.
+/// \ingroup components
 struct custom_animation final
 {
   uint32 id{};          ///< Optional ID used to assign meaning to the animation.
