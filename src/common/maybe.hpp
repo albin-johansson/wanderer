@@ -7,4 +7,4 @@ namespace wanderer {
 template <typename T>
 using maybe = std::optional<T>;
 
-}
+}  // namespace wanderer
