@@ -1,18 +1,12 @@
 #pragma once
 
 #include "common/float2.hpp"
-#include "common/ints.hpp"
 #include "core/direction.hpp"
 
 namespace wanderer::comp {
 
-/**
- * \struct movable
- *
- * \brief Represents an entity that is movable.
- *
- * \headerfile movable.hpp
- */
+/// \brief Represents an entity that is movable.
+/// \ingroup components
 struct movable final
 {
   float2 velocity;                 ///< Current x- and y-axis speed.
