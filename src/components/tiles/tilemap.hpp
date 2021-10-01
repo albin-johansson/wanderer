@@ -8,16 +8,12 @@
 namespace wanderer::comp {
 
 /**
- * \struct tilemap
- *
  * \brief Represents a tilemap.
  *
- * \note An important assumption in the game is that every level has *one*
- * associated tilemap, and each level features its own registry.
+ * \note An important assumption in the game is that every level has *one* associated
+ * tilemap, and each level features its own registry.
  *
- * \see level
- *
- * \headerfile tilemap.hpp
+ * \ingroup components
  */
 struct tilemap final
 {
