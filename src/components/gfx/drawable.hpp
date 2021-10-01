@@ -8,7 +8,7 @@
 namespace wanderer::comp {
 
 /**
- * \brief Represents a drawable entity that features a depth heuristic.
+ * \brief A component used by all drawable entities.
  *
  * \details Provides information required to be able to render entities in
  * such a way that they are arranged in relation to their depth heuristic *and*
@@ -21,8 +21,6 @@ namespace wanderer::comp {
  * a higher value.
  *
  * \ingroup components
- *
- * \headerfile drawable.hpp
  */
 struct drawable final
 {
