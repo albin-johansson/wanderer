@@ -215,15 +215,20 @@ set(SOURCE_FILES
     systems/ai/humanoid/humanoid_state_system.cpp
     systems/ai/humanoid/humanoid_state_system.hpp
 
+    systems/animation/animation_system.cpp
+    systems/animation/animation_system.hpp
+    systems/animation/custom_animation_system.cpp
+    systems/animation/custom_animation_system.hpp
+    systems/animation/tile_animation_system.cpp
+    systems/animation/tile_animation_system.hpp
+    systems/animation/tile_object_animation_system.cpp
+    systems/animation/tile_object_animation_system.hpp
+
     systems/configuration/load_binds_system.cpp
     systems/configuration/load_binds_system.hpp
     systems/configuration/settings_system.cpp
     systems/configuration/settings_system.hpp
 
-    systems/gfx/animation_system.cpp
-    systems/gfx/animation_system.hpp
-    systems/gfx/custom_animation_system.cpp
-    systems/gfx/custom_animation_system.hpp
     systems/gfx/debug_rendering_system.cpp
     systems/gfx/debug_rendering_system.hpp
     systems/gfx/depth_system.cpp
@@ -234,12 +239,8 @@ set(SOURCE_FILES
     systems/gfx/light_system.hpp
     systems/gfx/render_bounds_system.cpp
     systems/gfx/render_bounds_system.hpp
-    systems/gfx/tile_animation_system.cpp
-    systems/gfx/tile_animation_system.hpp
     systems/gfx/tile_layer_rendering_system.cpp
     systems/gfx/tile_layer_rendering_system.hpp
-    systems/gfx/tile_object_animation_system.cpp
-    systems/gfx/tile_object_animation_system.hpp
     systems/gfx/tile_rendering_system.cpp
     systems/gfx/tile_rendering_system.hpp
     systems/gfx/viewport_system.cpp

@@ -1,8 +1,8 @@
 #pragma once
 
 #include "common/ints.hpp"
-#include "common/tile_id.hpp"
 #include "common/milliseconds.hpp"
+#include "common/tile_id.hpp"
 
 namespace wanderer::comp {
 
