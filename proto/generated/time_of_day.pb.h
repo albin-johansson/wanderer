@@ -32,6 +32,7 @@
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
 #include <google/protobuf/generated_enum_reflection.h>
 #include <google/protobuf/unknown_field_set.h>
+#include "color.pb.h"
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
 #define PROTOBUF_INTERNAL_EXPORT_time_5fof_5fday_2eproto
@@ -218,12 +219,31 @@ class time_of_day final :
   // accessors -------------------------------------------------------
 
   enum : int {
+    kTintFieldNumber = 6,
     kHourFieldNumber = 1,
     kMinuteFieldNumber = 2,
     kSecondsFieldNumber = 3,
     kWeekFieldNumber = 4,
     kDayFieldNumber = 5,
   };
+  // optional .wanderer.proto.color tint = 6;
+  bool has_tint() const;
+  private:
+  bool _internal_has_tint() const;
+  public:
+  void clear_tint();
+  const ::wanderer::proto::color& tint() const;
+  PROTOBUF_MUST_USE_RESULT ::wanderer::proto::color* release_tint();
+  ::wanderer::proto::color* mutable_tint();
+  void set_allocated_tint(::wanderer::proto::color* tint);
+  private:
+  const ::wanderer::proto::color& _internal_tint() const;
+  ::wanderer::proto::color* _internal_mutable_tint();
+  public:
+  void unsafe_arena_set_allocated_tint(
+      ::wanderer::proto::color* tint);
+  ::wanderer::proto::color* unsafe_arena_release_tint();
+
   // optional float hour = 1;
   bool has_hour() const;
   private:
@@ -298,6 +318,7 @@ class time_of_day final :
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::wanderer::proto::color* tint_;
   float hour_;
   float minute_;
   float seconds_;
@@ -318,7 +339,7 @@ class time_of_day final :
 
 // optional float hour = 1;
 inline bool time_of_day::_internal_has_hour() const {
-  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
   return value;
 }
 inline bool time_of_day::has_hour() const {
@@ -326,7 +347,7 @@ inline bool time_of_day::has_hour() const {
 }
 inline void time_of_day::clear_hour() {
   hour_ = 0;
-  _has_bits_[0] &= ~0x00000001u;
+  _has_bits_[0] &= ~0x00000002u;
 }
 inline float time_of_day::_internal_hour() const {
   return hour_;
@@ -336,7 +357,7 @@ inline float time_of_day::hour() const {
   return _internal_hour();
 }
 inline void time_of_day::_internal_set_hour(float value) {
-  _has_bits_[0] |= 0x00000001u;
+  _has_bits_[0] |= 0x00000002u;
   hour_ = value;
 }
 inline void time_of_day::set_hour(float value) {
@@ -346,7 +367,7 @@ inline void time_of_day::set_hour(float value) {
 
 // optional float minute = 2;
 inline bool time_of_day::_internal_has_minute() const {
-  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  bool value = (_has_bits_[0] & 0x00000004u) != 0;
   return value;
 }
 inline bool time_of_day::has_minute() const {
@@ -354,7 +375,7 @@ inline bool time_of_day::has_minute() const {
 }
 inline void time_of_day::clear_minute() {
   minute_ = 0;
-  _has_bits_[0] &= ~0x00000002u;
+  _has_bits_[0] &= ~0x00000004u;
 }
 inline float time_of_day::_internal_minute() const {
   return minute_;
@@ -364,7 +385,7 @@ inline float time_of_day::minute() const {
   return _internal_minute();
 }
 inline void time_of_day::_internal_set_minute(float value) {
-  _has_bits_[0] |= 0x00000002u;
+  _has_bits_[0] |= 0x00000004u;
   minute_ = value;
 }
 inline void time_of_day::set_minute(float value) {
@@ -374,7 +395,7 @@ inline void time_of_day::set_minute(float value) {
 
 // optional float seconds = 3;
 inline bool time_of_day::_internal_has_seconds() const {
-  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  bool value = (_has_bits_[0] & 0x00000008u) != 0;
   return value;
 }
 inline bool time_of_day::has_seconds() const {
@@ -382,7 +403,7 @@ inline bool time_of_day::has_seconds() const {
 }
 inline void time_of_day::clear_seconds() {
   seconds_ = 0;
-  _has_bits_[0] &= ~0x00000004u;
+  _has_bits_[0] &= ~0x00000008u;
 }
 inline float time_of_day::_internal_seconds() const {
   return seconds_;
@@ -392,7 +413,7 @@ inline float time_of_day::seconds() const {
   return _internal_seconds();
 }
 inline void time_of_day::_internal_set_seconds(float value) {
-  _has_bits_[0] |= 0x00000004u;
+  _has_bits_[0] |= 0x00000008u;
   seconds_ = value;
 }
 inline void time_of_day::set_seconds(float value) {
@@ -402,7 +423,7 @@ inline void time_of_day::set_seconds(float value) {
 
 // optional int32 week = 4;
 inline bool time_of_day::_internal_has_week() const {
-  bool value = (_has_bits_[0] & 0x00000008u) != 0;
+  bool value = (_has_bits_[0] & 0x00000010u) != 0;
   return value;
 }
 inline bool time_of_day::has_week() const {
@@ -410,7 +431,7 @@ inline bool time_of_day::has_week() const {
 }
 inline void time_of_day::clear_week() {
   week_ = 0;
-  _has_bits_[0] &= ~0x00000008u;
+  _has_bits_[0] &= ~0x00000010u;
 }
 inline ::PROTOBUF_NAMESPACE_ID::int32 time_of_day::_internal_week() const {
   return week_;
@@ -420,7 +441,7 @@ inline ::PROTOBUF_NAMESPACE_ID::int32 time_of_day::week() const {
   return _internal_week();
 }
 inline void time_of_day::_internal_set_week(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _has_bits_[0] |= 0x00000008u;
+  _has_bits_[0] |= 0x00000010u;
   week_ = value;
 }
 inline void time_of_day::set_week(::PROTOBUF_NAMESPACE_ID::int32 value) {
@@ -430,7 +451,7 @@ inline void time_of_day::set_week(::PROTOBUF_NAMESPACE_ID::int32 value) {
 
 // optional .wanderer.proto.day_of_week day = 5;
 inline bool time_of_day::_internal_has_day() const {
-  bool value = (_has_bits_[0] & 0x00000010u) != 0;
+  bool value = (_has_bits_[0] & 0x00000020u) != 0;
   return value;
 }
 inline bool time_of_day::has_day() const {
@@ -438,7 +459,7 @@ inline bool time_of_day::has_day() const {
 }
 inline void time_of_day::clear_day() {
   day_ = 0;
-  _has_bits_[0] &= ~0x00000010u;
+  _has_bits_[0] &= ~0x00000020u;
 }
 inline ::wanderer::proto::day_of_week time_of_day::_internal_day() const {
   return static_cast< ::wanderer::proto::day_of_week >(day_);
@@ -448,12 +469,100 @@ inline ::wanderer::proto::day_of_week time_of_day::day() const {
   return _internal_day();
 }
 inline void time_of_day::_internal_set_day(::wanderer::proto::day_of_week value) {
-  _has_bits_[0] |= 0x00000010u;
+  _has_bits_[0] |= 0x00000020u;
   day_ = value;
 }
 inline void time_of_day::set_day(::wanderer::proto::day_of_week value) {
   _internal_set_day(value);
   // @@protoc_insertion_point(field_set:wanderer.proto.time_of_day.day)
+}
+
+// optional .wanderer.proto.color tint = 6;
+inline bool time_of_day::_internal_has_tint() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  PROTOBUF_ASSUME(!value || tint_ != nullptr);
+  return value;
+}
+inline bool time_of_day::has_tint() const {
+  return _internal_has_tint();
+}
+inline const ::wanderer::proto::color& time_of_day::_internal_tint() const {
+  const ::wanderer::proto::color* p = tint_;
+  return p != nullptr ? *p : reinterpret_cast<const ::wanderer::proto::color&>(
+      ::wanderer::proto::_color_default_instance_);
+}
+inline const ::wanderer::proto::color& time_of_day::tint() const {
+  // @@protoc_insertion_point(field_get:wanderer.proto.time_of_day.tint)
+  return _internal_tint();
+}
+inline void time_of_day::unsafe_arena_set_allocated_tint(
+    ::wanderer::proto::color* tint) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(tint_);
+  }
+  tint_ = tint;
+  if (tint) {
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:wanderer.proto.time_of_day.tint)
+}
+inline ::wanderer::proto::color* time_of_day::release_tint() {
+  _has_bits_[0] &= ~0x00000001u;
+  ::wanderer::proto::color* temp = tint_;
+  tint_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::wanderer::proto::color* time_of_day::unsafe_arena_release_tint() {
+  // @@protoc_insertion_point(field_release:wanderer.proto.time_of_day.tint)
+  _has_bits_[0] &= ~0x00000001u;
+  ::wanderer::proto::color* temp = tint_;
+  tint_ = nullptr;
+  return temp;
+}
+inline ::wanderer::proto::color* time_of_day::_internal_mutable_tint() {
+  _has_bits_[0] |= 0x00000001u;
+  if (tint_ == nullptr) {
+    auto* p = CreateMaybeMessage<::wanderer::proto::color>(GetArenaForAllocation());
+    tint_ = p;
+  }
+  return tint_;
+}
+inline ::wanderer::proto::color* time_of_day::mutable_tint() {
+  ::wanderer::proto::color* _msg = _internal_mutable_tint();
+  // @@protoc_insertion_point(field_mutable:wanderer.proto.time_of_day.tint)
+  return _msg;
+}
+inline void time_of_day::set_allocated_tint(::wanderer::proto::color* tint) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(tint_);
+  }
+  if (tint) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<
+            ::PROTOBUF_NAMESPACE_ID::MessageLite>::GetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(tint));
+    if (message_arena != submessage_arena) {
+      tint = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, tint, submessage_arena);
+    }
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  tint_ = tint;
+  // @@protoc_insertion_point(field_set_allocated:wanderer.proto.time_of_day.tint)
 }
 
 #ifdef __GNUC__

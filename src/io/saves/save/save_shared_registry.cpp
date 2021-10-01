@@ -88,6 +88,7 @@ void copy_to(const ctx::time_of_day& src, proto::time_of_day* dst)
   dst->set_seconds(src.seconds);
   dst->set_week(src.week);
   dst->set_day(static_cast<proto::day_of_week>(src.day));
+  copy_to(src.tint, dst->mutable_tint());
 }
 
 void copy_to(const comp::movable& src, proto::movable& dst)

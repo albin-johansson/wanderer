@@ -1,5 +1,7 @@
 syntax = "proto3";
 
+import "color.proto";
+
 package wanderer.proto;
 
 enum day_of_week {
@@ -18,4 +20,5 @@ message time_of_day {
   optional float seconds = 3;
   optional int32 week = 4;
   optional day_of_week day = 5;
+  optional color tint = 6;
 }

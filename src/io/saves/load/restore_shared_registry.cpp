@@ -41,6 +41,12 @@ void restore(const proto::time_of_day& data, ctx::time_of_day& time)
   time.seconds = data.seconds();
   time.week = data.week();
   time.day = static_cast<day_of_week>(data.day());
+
+  // TODO restore color
+  time.tint.set_red(data.tint().red());
+  time.tint.set_green(data.tint().green());
+  time.tint.set_blue(data.tint().blue());
+  time.tint.set_alpha(data.tint().alpha());
 }
 
 void restore_shared_data(entt::registry& shared, const proto::shared_data& data)
