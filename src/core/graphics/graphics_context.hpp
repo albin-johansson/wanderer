@@ -22,7 +22,6 @@ class graphics_context final : public rune::graphics
    * \brief Initializes the graphics context.
    *
    * \param window the game window.
-   * \param flags the renderer flags.
    */
   explicit graphics_context(const cen::window& window);
 
