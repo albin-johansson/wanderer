@@ -9,6 +9,9 @@
 
 namespace wanderer::comp {
 
+/// \addtogroup components
+/// \{
+
 struct menu final
 {
   menu_id id{};
@@ -41,5 +44,7 @@ struct menu_drawable final
   mutable maybe<cen::texture> texture;  ///< Title text texture.
   mutable maybe<cen::fpoint> position;  ///< The position of the title text.
 };
+
+/// \} End of group components
 
 }  // namespace wanderer::comp
