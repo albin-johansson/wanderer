@@ -17,7 +17,7 @@
 
 PROTOBUF_PRAGMA_INIT_SEG
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 constexpr chase::chase(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : target_entity_(0u)
@@ -32,44 +32,43 @@ struct chaseDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT chaseDefaultTypeInternal _chase_default_instance_;
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_chase_2eproto[1];
 static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_chase_2eproto = nullptr;
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_chase_2eproto = nullptr;
 
 const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_chase_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::chase, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::chase, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::chase, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::chase, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::chase, target_entity_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::chase, range_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::chase, is_active_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::chase, target_entity_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::chase, range_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::chase, is_active_),
   0,
   1,
   2,
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, 9, -1, sizeof(::wanderer::protobuf::chase)},
+  { 0, 9, -1, sizeof(::wanderer::proto::chase)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::protobuf::_chase_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_chase_default_instance_),
 };
 
 const char descriptor_table_protodef_chase_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\013chase.proto\022\021wanderer.protobuf\"y\n\005chas"
-  "e\022\032\n\rtarget_entity\030\001 \001(\rH\000\210\001\001\022\022\n\005range\030\002"
-  " \001(\002H\001\210\001\001\022\026\n\tis_active\030\003 \001(\010H\002\210\001\001B\020\n\016_ta"
-  "rget_entityB\010\n\006_rangeB\014\n\n_is_activeb\006pro"
-  "to3"
+  "\n\013chase.proto\022\016wanderer.proto\"y\n\005chase\022\032"
+  "\n\rtarget_entity\030\001 \001(\rH\000\210\001\001\022\022\n\005range\030\002 \001("
+  "\002H\001\210\001\001\022\026\n\tis_active\030\003 \001(\010H\002\210\001\001B\020\n\016_targe"
+  "t_entityB\010\n\006_rangeB\014\n\n_is_activeb\006proto3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_chase_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_chase_2eproto = {
-  false, false, 163, descriptor_table_protodef_chase_2eproto, "chase.proto", 
+  false, false, 160, descriptor_table_protodef_chase_2eproto, "chase.proto", 
   &descriptor_table_chase_2eproto_once, nullptr, 0, 1,
   schemas, file_default_instances, TableStruct_chase_2eproto::offsets,
   file_level_metadata_chase_2eproto, file_level_enum_descriptors_chase_2eproto, file_level_service_descriptors_chase_2eproto,
@@ -81,7 +80,7 @@ PROTOBUF_ATTRIBUTE_WEAK const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable
 // Force running AddDescriptors() at dynamic initialization time.
 PROTOBUF_ATTRIBUTE_INIT_PRIORITY static ::PROTOBUF_NAMESPACE_ID::internal::AddDescriptorsRunner dynamic_init_dummy_chase_2eproto(&descriptor_table_chase_2eproto);
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 
 // ===================================================================
 
@@ -106,7 +105,7 @@ chase::chase(::PROTOBUF_NAMESPACE_ID::Arena* arena,
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
   }
-  // @@protoc_insertion_point(arena_constructor:wanderer.protobuf.chase)
+  // @@protoc_insertion_point(arena_constructor:wanderer.proto.chase)
 }
 chase::chase(const chase& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
@@ -115,7 +114,7 @@ chase::chase(const chase& from)
   ::memcpy(&target_entity_, &from.target_entity_,
     static_cast<size_t>(reinterpret_cast<char*>(&is_active_) -
     reinterpret_cast<char*>(&target_entity_)) + sizeof(is_active_));
-  // @@protoc_insertion_point(copy_constructor:wanderer.protobuf.chase)
+  // @@protoc_insertion_point(copy_constructor:wanderer.proto.chase)
 }
 
 void chase::SharedCtor() {
@@ -126,7 +125,7 @@ void chase::SharedCtor() {
 }
 
 chase::~chase() {
-  // @@protoc_insertion_point(destructor:wanderer.protobuf.chase)
+  // @@protoc_insertion_point(destructor:wanderer.proto.chase)
   if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
@@ -147,7 +146,7 @@ void chase::SetCachedSize(int size) const {
 }
 
 void chase::Clear() {
-// @@protoc_insertion_point(message_clear_start:wanderer.protobuf.chase)
+// @@protoc_insertion_point(message_clear_start:wanderer.proto.chase)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -222,7 +221,7 @@ failure:
 
 ::PROTOBUF_NAMESPACE_ID::uint8* chase::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:wanderer.protobuf.chase)
+  // @@protoc_insertion_point(serialize_to_array_start:wanderer.proto.chase)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -248,12 +247,12 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:wanderer.protobuf.chase)
+  // @@protoc_insertion_point(serialize_to_array_end:wanderer.proto.chase)
   return target;
 }
 
 size_t chase::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:wanderer.protobuf.chase)
+// @@protoc_insertion_point(message_byte_size_start:wanderer.proto.chase)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -295,7 +294,7 @@ void chase::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
 
 
 void chase::MergeFrom(const chase& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:wanderer.protobuf.chase)
+// @@protoc_insertion_point(class_specific_merge_from_start:wanderer.proto.chase)
   GOOGLE_DCHECK_NE(&from, this);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
@@ -317,7 +316,7 @@ void chase::MergeFrom(const chase& from) {
 }
 
 void chase::CopyFrom(const chase& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:wanderer.protobuf.chase)
+// @@protoc_insertion_point(class_specific_copy_from_start:wanderer.proto.chase)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -346,11 +345,11 @@ void chase::InternalSwap(chase* other) {
 }
 
 // @@protoc_insertion_point(namespace_scope)
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::wanderer::protobuf::chase* Arena::CreateMaybeMessage< ::wanderer::protobuf::chase >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::wanderer::protobuf::chase >(arena);
+template<> PROTOBUF_NOINLINE ::wanderer::proto::chase* Arena::CreateMaybeMessage< ::wanderer::proto::chase >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::wanderer::proto::chase >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

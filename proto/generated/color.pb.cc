@@ -17,7 +17,7 @@
 
 PROTOBUF_PRAGMA_INIT_SEG
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 constexpr color::color(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : red_(0u)
@@ -33,46 +33,45 @@ struct colorDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT colorDefaultTypeInternal _color_default_instance_;
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_color_2eproto[1];
 static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_color_2eproto = nullptr;
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_color_2eproto = nullptr;
 
 const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_color_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::color, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::color, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::color, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::color, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::color, red_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::color, green_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::color, blue_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::color, alpha_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::color, red_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::color, green_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::color, blue_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::color, alpha_),
   0,
   1,
   2,
   3,
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, 10, -1, sizeof(::wanderer::protobuf::color)},
+  { 0, 10, -1, sizeof(::wanderer::proto::color)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::protobuf::_color_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_color_default_instance_),
 };
 
 const char descriptor_table_protodef_color_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\013color.proto\022\021wanderer.protobuf\"y\n\005colo"
-  "r\022\020\n\003red\030\001 \001(\rH\000\210\001\001\022\022\n\005green\030\002 \001(\rH\001\210\001\001\022"
-  "\021\n\004blue\030\003 \001(\rH\002\210\001\001\022\022\n\005alpha\030\004 \001(\rH\003\210\001\001B\006"
-  "\n\004_redB\010\n\006_greenB\007\n\005_blueB\010\n\006_alphab\006pro"
-  "to3"
+  "\n\013color.proto\022\016wanderer.proto\"y\n\005color\022\020"
+  "\n\003red\030\001 \001(\rH\000\210\001\001\022\022\n\005green\030\002 \001(\rH\001\210\001\001\022\021\n\004"
+  "blue\030\003 \001(\rH\002\210\001\001\022\022\n\005alpha\030\004 \001(\rH\003\210\001\001B\006\n\004_"
+  "redB\010\n\006_greenB\007\n\005_blueB\010\n\006_alphab\006proto3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_color_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_color_2eproto = {
-  false, false, 163, descriptor_table_protodef_color_2eproto, "color.proto", 
+  false, false, 160, descriptor_table_protodef_color_2eproto, "color.proto", 
   &descriptor_table_color_2eproto_once, nullptr, 0, 1,
   schemas, file_default_instances, TableStruct_color_2eproto::offsets,
   file_level_metadata_color_2eproto, file_level_enum_descriptors_color_2eproto, file_level_service_descriptors_color_2eproto,
@@ -84,7 +83,7 @@ PROTOBUF_ATTRIBUTE_WEAK const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable
 // Force running AddDescriptors() at dynamic initialization time.
 PROTOBUF_ATTRIBUTE_INIT_PRIORITY static ::PROTOBUF_NAMESPACE_ID::internal::AddDescriptorsRunner dynamic_init_dummy_color_2eproto(&descriptor_table_color_2eproto);
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 
 // ===================================================================
 
@@ -112,7 +111,7 @@ color::color(::PROTOBUF_NAMESPACE_ID::Arena* arena,
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
   }
-  // @@protoc_insertion_point(arena_constructor:wanderer.protobuf.color)
+  // @@protoc_insertion_point(arena_constructor:wanderer.proto.color)
 }
 color::color(const color& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
@@ -121,7 +120,7 @@ color::color(const color& from)
   ::memcpy(&red_, &from.red_,
     static_cast<size_t>(reinterpret_cast<char*>(&alpha_) -
     reinterpret_cast<char*>(&red_)) + sizeof(alpha_));
-  // @@protoc_insertion_point(copy_constructor:wanderer.protobuf.color)
+  // @@protoc_insertion_point(copy_constructor:wanderer.proto.color)
 }
 
 void color::SharedCtor() {
@@ -132,7 +131,7 @@ void color::SharedCtor() {
 }
 
 color::~color() {
-  // @@protoc_insertion_point(destructor:wanderer.protobuf.color)
+  // @@protoc_insertion_point(destructor:wanderer.proto.color)
   if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
@@ -153,7 +152,7 @@ void color::SetCachedSize(int size) const {
 }
 
 void color::Clear() {
-// @@protoc_insertion_point(message_clear_start:wanderer.protobuf.color)
+// @@protoc_insertion_point(message_clear_start:wanderer.proto.color)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -237,7 +236,7 @@ failure:
 
 ::PROTOBUF_NAMESPACE_ID::uint8* color::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:wanderer.protobuf.color)
+  // @@protoc_insertion_point(serialize_to_array_start:wanderer.proto.color)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -269,12 +268,12 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:wanderer.protobuf.color)
+  // @@protoc_insertion_point(serialize_to_array_end:wanderer.proto.color)
   return target;
 }
 
 size_t color::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:wanderer.protobuf.color)
+// @@protoc_insertion_point(message_byte_size_start:wanderer.proto.color)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -321,7 +320,7 @@ void color::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
 
 
 void color::MergeFrom(const color& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:wanderer.protobuf.color)
+// @@protoc_insertion_point(class_specific_merge_from_start:wanderer.proto.color)
   GOOGLE_DCHECK_NE(&from, this);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
@@ -346,7 +345,7 @@ void color::MergeFrom(const color& from) {
 }
 
 void color::CopyFrom(const color& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:wanderer.protobuf.color)
+// @@protoc_insertion_point(class_specific_copy_from_start:wanderer.proto.color)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -375,11 +374,11 @@ void color::InternalSwap(color* other) {
 }
 
 // @@protoc_insertion_point(namespace_scope)
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::wanderer::protobuf::color* Arena::CreateMaybeMessage< ::wanderer::protobuf::color >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::wanderer::protobuf::color >(arena);
+template<> PROTOBUF_NOINLINE ::wanderer::proto::color* Arena::CreateMaybeMessage< ::wanderer::proto::color >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::wanderer::proto::color >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

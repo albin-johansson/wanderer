@@ -54,7 +54,7 @@ struct TableStruct_tile_5flayer_2eproto {
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_tile_5flayer_2eproto;
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 class tile_layer;
 struct tile_layerDefaultTypeInternal;
 extern tile_layerDefaultTypeInternal _tile_layer_default_instance_;
@@ -64,20 +64,20 @@ extern tile_matrixDefaultTypeInternal _tile_matrix_default_instance_;
 class tile_row;
 struct tile_rowDefaultTypeInternal;
 extern tile_rowDefaultTypeInternal _tile_row_default_instance_;
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 PROTOBUF_NAMESPACE_OPEN
-template<> ::wanderer::protobuf::tile_layer* Arena::CreateMaybeMessage<::wanderer::protobuf::tile_layer>(Arena*);
-template<> ::wanderer::protobuf::tile_matrix* Arena::CreateMaybeMessage<::wanderer::protobuf::tile_matrix>(Arena*);
-template<> ::wanderer::protobuf::tile_row* Arena::CreateMaybeMessage<::wanderer::protobuf::tile_row>(Arena*);
+template<> ::wanderer::proto::tile_layer* Arena::CreateMaybeMessage<::wanderer::proto::tile_layer>(Arena*);
+template<> ::wanderer::proto::tile_matrix* Arena::CreateMaybeMessage<::wanderer::proto::tile_matrix>(Arena*);
+template<> ::wanderer::proto::tile_row* Arena::CreateMaybeMessage<::wanderer::proto::tile_row>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 
 // ===================================================================
 
 class tile_row final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.protobuf.tile_row) */ {
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.proto.tile_row) */ {
  public:
   inline tile_row() : tile_row(nullptr) {}
   ~tile_row() override;
@@ -175,7 +175,7 @@ class tile_row final :
   void InternalSwap(tile_row* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "wanderer.protobuf.tile_row";
+    return "wanderer.proto.tile_row";
   }
   protected:
   explicit tile_row(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -219,7 +219,7 @@ class tile_row final :
   ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
       mutable_tiles();
 
-  // @@protoc_insertion_point(class_scope:wanderer.protobuf.tile_row)
+  // @@protoc_insertion_point(class_scope:wanderer.proto.tile_row)
  private:
   class _Internal;
 
@@ -234,7 +234,7 @@ class tile_row final :
 // -------------------------------------------------------------------
 
 class tile_matrix final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.protobuf.tile_matrix) */ {
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.proto.tile_matrix) */ {
  public:
   inline tile_matrix() : tile_matrix(nullptr) {}
   ~tile_matrix() override;
@@ -332,7 +332,7 @@ class tile_matrix final :
   void InternalSwap(tile_matrix* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "wanderer.protobuf.tile_matrix";
+    return "wanderer.proto.tile_matrix";
   }
   protected:
   explicit tile_matrix(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -354,39 +354,39 @@ class tile_matrix final :
   enum : int {
     kRowsFieldNumber = 2,
   };
-  // repeated .wanderer.protobuf.tile_row rows = 2;
+  // repeated .wanderer.proto.tile_row rows = 2;
   int rows_size() const;
   private:
   int _internal_rows_size() const;
   public:
   void clear_rows();
-  ::wanderer::protobuf::tile_row* mutable_rows(int index);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::wanderer::protobuf::tile_row >*
+  ::wanderer::proto::tile_row* mutable_rows(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::wanderer::proto::tile_row >*
       mutable_rows();
   private:
-  const ::wanderer::protobuf::tile_row& _internal_rows(int index) const;
-  ::wanderer::protobuf::tile_row* _internal_add_rows();
+  const ::wanderer::proto::tile_row& _internal_rows(int index) const;
+  ::wanderer::proto::tile_row* _internal_add_rows();
   public:
-  const ::wanderer::protobuf::tile_row& rows(int index) const;
-  ::wanderer::protobuf::tile_row* add_rows();
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::wanderer::protobuf::tile_row >&
+  const ::wanderer::proto::tile_row& rows(int index) const;
+  ::wanderer::proto::tile_row* add_rows();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::wanderer::proto::tile_row >&
       rows() const;
 
-  // @@protoc_insertion_point(class_scope:wanderer.protobuf.tile_matrix)
+  // @@protoc_insertion_point(class_scope:wanderer.proto.tile_matrix)
  private:
   class _Internal;
 
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::wanderer::protobuf::tile_row > rows_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::wanderer::proto::tile_row > rows_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_tile_5flayer_2eproto;
 };
 // -------------------------------------------------------------------
 
 class tile_layer final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.protobuf.tile_layer) */ {
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.proto.tile_layer) */ {
  public:
   inline tile_layer() : tile_layer(nullptr) {}
   ~tile_layer() override;
@@ -484,7 +484,7 @@ class tile_layer final :
   void InternalSwap(tile_layer* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "wanderer.protobuf.tile_layer";
+    return "wanderer.proto.tile_layer";
   }
   protected:
   explicit tile_layer(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -507,23 +507,23 @@ class tile_layer final :
     kMatrixFieldNumber = 1,
     kZIndexFieldNumber = 2,
   };
-  // optional .wanderer.protobuf.tile_matrix matrix = 1;
+  // optional .wanderer.proto.tile_matrix matrix = 1;
   bool has_matrix() const;
   private:
   bool _internal_has_matrix() const;
   public:
   void clear_matrix();
-  const ::wanderer::protobuf::tile_matrix& matrix() const;
-  PROTOBUF_MUST_USE_RESULT ::wanderer::protobuf::tile_matrix* release_matrix();
-  ::wanderer::protobuf::tile_matrix* mutable_matrix();
-  void set_allocated_matrix(::wanderer::protobuf::tile_matrix* matrix);
+  const ::wanderer::proto::tile_matrix& matrix() const;
+  PROTOBUF_MUST_USE_RESULT ::wanderer::proto::tile_matrix* release_matrix();
+  ::wanderer::proto::tile_matrix* mutable_matrix();
+  void set_allocated_matrix(::wanderer::proto::tile_matrix* matrix);
   private:
-  const ::wanderer::protobuf::tile_matrix& _internal_matrix() const;
-  ::wanderer::protobuf::tile_matrix* _internal_mutable_matrix();
+  const ::wanderer::proto::tile_matrix& _internal_matrix() const;
+  ::wanderer::proto::tile_matrix* _internal_mutable_matrix();
   public:
   void unsafe_arena_set_allocated_matrix(
-      ::wanderer::protobuf::tile_matrix* matrix);
-  ::wanderer::protobuf::tile_matrix* unsafe_arena_release_matrix();
+      ::wanderer::proto::tile_matrix* matrix);
+  ::wanderer::proto::tile_matrix* unsafe_arena_release_matrix();
 
   // optional int32 z_index = 2;
   bool has_z_index() const;
@@ -538,7 +538,7 @@ class tile_layer final :
   void _internal_set_z_index(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // @@protoc_insertion_point(class_scope:wanderer.protobuf.tile_layer)
+  // @@protoc_insertion_point(class_scope:wanderer.proto.tile_layer)
  private:
   class _Internal;
 
@@ -547,7 +547,7 @@ class tile_layer final :
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  ::wanderer::protobuf::tile_matrix* matrix_;
+  ::wanderer::proto::tile_matrix* matrix_;
   ::PROTOBUF_NAMESPACE_ID::int32 z_index_;
   friend struct ::TableStruct_tile_5flayer_2eproto;
 };
@@ -576,19 +576,19 @@ inline ::PROTOBUF_NAMESPACE_ID::uint32 tile_row::_internal_tiles(int index) cons
   return tiles_.Get(index);
 }
 inline ::PROTOBUF_NAMESPACE_ID::uint32 tile_row::tiles(int index) const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.tile_row.tiles)
+  // @@protoc_insertion_point(field_get:wanderer.proto.tile_row.tiles)
   return _internal_tiles(index);
 }
 inline void tile_row::set_tiles(int index, ::PROTOBUF_NAMESPACE_ID::uint32 value) {
   tiles_.Set(index, value);
-  // @@protoc_insertion_point(field_set:wanderer.protobuf.tile_row.tiles)
+  // @@protoc_insertion_point(field_set:wanderer.proto.tile_row.tiles)
 }
 inline void tile_row::_internal_add_tiles(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   tiles_.Add(value);
 }
 inline void tile_row::add_tiles(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _internal_add_tiles(value);
-  // @@protoc_insertion_point(field_add:wanderer.protobuf.tile_row.tiles)
+  // @@protoc_insertion_point(field_add:wanderer.proto.tile_row.tiles)
 }
 inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
 tile_row::_internal_tiles() const {
@@ -596,7 +596,7 @@ tile_row::_internal_tiles() const {
 }
 inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
 tile_row::tiles() const {
-  // @@protoc_insertion_point(field_list:wanderer.protobuf.tile_row.tiles)
+  // @@protoc_insertion_point(field_list:wanderer.proto.tile_row.tiles)
   return _internal_tiles();
 }
 inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
@@ -605,7 +605,7 @@ tile_row::_internal_mutable_tiles() {
 }
 inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
 tile_row::mutable_tiles() {
-  // @@protoc_insertion_point(field_mutable_list:wanderer.protobuf.tile_row.tiles)
+  // @@protoc_insertion_point(field_mutable_list:wanderer.proto.tile_row.tiles)
   return _internal_mutable_tiles();
 }
 
@@ -613,7 +613,7 @@ tile_row::mutable_tiles() {
 
 // tile_matrix
 
-// repeated .wanderer.protobuf.tile_row rows = 2;
+// repeated .wanderer.proto.tile_row rows = 2;
 inline int tile_matrix::_internal_rows_size() const {
   return rows_.size();
 }
@@ -623,33 +623,33 @@ inline int tile_matrix::rows_size() const {
 inline void tile_matrix::clear_rows() {
   rows_.Clear();
 }
-inline ::wanderer::protobuf::tile_row* tile_matrix::mutable_rows(int index) {
-  // @@protoc_insertion_point(field_mutable:wanderer.protobuf.tile_matrix.rows)
+inline ::wanderer::proto::tile_row* tile_matrix::mutable_rows(int index) {
+  // @@protoc_insertion_point(field_mutable:wanderer.proto.tile_matrix.rows)
   return rows_.Mutable(index);
 }
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::wanderer::protobuf::tile_row >*
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::wanderer::proto::tile_row >*
 tile_matrix::mutable_rows() {
-  // @@protoc_insertion_point(field_mutable_list:wanderer.protobuf.tile_matrix.rows)
+  // @@protoc_insertion_point(field_mutable_list:wanderer.proto.tile_matrix.rows)
   return &rows_;
 }
-inline const ::wanderer::protobuf::tile_row& tile_matrix::_internal_rows(int index) const {
+inline const ::wanderer::proto::tile_row& tile_matrix::_internal_rows(int index) const {
   return rows_.Get(index);
 }
-inline const ::wanderer::protobuf::tile_row& tile_matrix::rows(int index) const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.tile_matrix.rows)
+inline const ::wanderer::proto::tile_row& tile_matrix::rows(int index) const {
+  // @@protoc_insertion_point(field_get:wanderer.proto.tile_matrix.rows)
   return _internal_rows(index);
 }
-inline ::wanderer::protobuf::tile_row* tile_matrix::_internal_add_rows() {
+inline ::wanderer::proto::tile_row* tile_matrix::_internal_add_rows() {
   return rows_.Add();
 }
-inline ::wanderer::protobuf::tile_row* tile_matrix::add_rows() {
-  ::wanderer::protobuf::tile_row* _add = _internal_add_rows();
-  // @@protoc_insertion_point(field_add:wanderer.protobuf.tile_matrix.rows)
+inline ::wanderer::proto::tile_row* tile_matrix::add_rows() {
+  ::wanderer::proto::tile_row* _add = _internal_add_rows();
+  // @@protoc_insertion_point(field_add:wanderer.proto.tile_matrix.rows)
   return _add;
 }
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::wanderer::protobuf::tile_row >&
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::wanderer::proto::tile_row >&
 tile_matrix::rows() const {
-  // @@protoc_insertion_point(field_list:wanderer.protobuf.tile_matrix.rows)
+  // @@protoc_insertion_point(field_list:wanderer.proto.tile_matrix.rows)
   return rows_;
 }
 
@@ -657,7 +657,7 @@ tile_matrix::rows() const {
 
 // tile_layer
 
-// optional .wanderer.protobuf.tile_matrix matrix = 1;
+// optional .wanderer.proto.tile_matrix matrix = 1;
 inline bool tile_layer::_internal_has_matrix() const {
   bool value = (_has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || matrix_ != nullptr);
@@ -670,17 +670,17 @@ inline void tile_layer::clear_matrix() {
   if (matrix_ != nullptr) matrix_->Clear();
   _has_bits_[0] &= ~0x00000001u;
 }
-inline const ::wanderer::protobuf::tile_matrix& tile_layer::_internal_matrix() const {
-  const ::wanderer::protobuf::tile_matrix* p = matrix_;
-  return p != nullptr ? *p : reinterpret_cast<const ::wanderer::protobuf::tile_matrix&>(
-      ::wanderer::protobuf::_tile_matrix_default_instance_);
+inline const ::wanderer::proto::tile_matrix& tile_layer::_internal_matrix() const {
+  const ::wanderer::proto::tile_matrix* p = matrix_;
+  return p != nullptr ? *p : reinterpret_cast<const ::wanderer::proto::tile_matrix&>(
+      ::wanderer::proto::_tile_matrix_default_instance_);
 }
-inline const ::wanderer::protobuf::tile_matrix& tile_layer::matrix() const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.tile_layer.matrix)
+inline const ::wanderer::proto::tile_matrix& tile_layer::matrix() const {
+  // @@protoc_insertion_point(field_get:wanderer.proto.tile_layer.matrix)
   return _internal_matrix();
 }
 inline void tile_layer::unsafe_arena_set_allocated_matrix(
-    ::wanderer::protobuf::tile_matrix* matrix) {
+    ::wanderer::proto::tile_matrix* matrix) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(matrix_);
   }
@@ -690,11 +690,11 @@ inline void tile_layer::unsafe_arena_set_allocated_matrix(
   } else {
     _has_bits_[0] &= ~0x00000001u;
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:wanderer.protobuf.tile_layer.matrix)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:wanderer.proto.tile_layer.matrix)
 }
-inline ::wanderer::protobuf::tile_matrix* tile_layer::release_matrix() {
+inline ::wanderer::proto::tile_matrix* tile_layer::release_matrix() {
   _has_bits_[0] &= ~0x00000001u;
-  ::wanderer::protobuf::tile_matrix* temp = matrix_;
+  ::wanderer::proto::tile_matrix* temp = matrix_;
   matrix_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -707,34 +707,34 @@ inline ::wanderer::protobuf::tile_matrix* tile_layer::release_matrix() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::wanderer::protobuf::tile_matrix* tile_layer::unsafe_arena_release_matrix() {
-  // @@protoc_insertion_point(field_release:wanderer.protobuf.tile_layer.matrix)
+inline ::wanderer::proto::tile_matrix* tile_layer::unsafe_arena_release_matrix() {
+  // @@protoc_insertion_point(field_release:wanderer.proto.tile_layer.matrix)
   _has_bits_[0] &= ~0x00000001u;
-  ::wanderer::protobuf::tile_matrix* temp = matrix_;
+  ::wanderer::proto::tile_matrix* temp = matrix_;
   matrix_ = nullptr;
   return temp;
 }
-inline ::wanderer::protobuf::tile_matrix* tile_layer::_internal_mutable_matrix() {
+inline ::wanderer::proto::tile_matrix* tile_layer::_internal_mutable_matrix() {
   _has_bits_[0] |= 0x00000001u;
   if (matrix_ == nullptr) {
-    auto* p = CreateMaybeMessage<::wanderer::protobuf::tile_matrix>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::wanderer::proto::tile_matrix>(GetArenaForAllocation());
     matrix_ = p;
   }
   return matrix_;
 }
-inline ::wanderer::protobuf::tile_matrix* tile_layer::mutable_matrix() {
-  ::wanderer::protobuf::tile_matrix* _msg = _internal_mutable_matrix();
-  // @@protoc_insertion_point(field_mutable:wanderer.protobuf.tile_layer.matrix)
+inline ::wanderer::proto::tile_matrix* tile_layer::mutable_matrix() {
+  ::wanderer::proto::tile_matrix* _msg = _internal_mutable_matrix();
+  // @@protoc_insertion_point(field_mutable:wanderer.proto.tile_layer.matrix)
   return _msg;
 }
-inline void tile_layer::set_allocated_matrix(::wanderer::protobuf::tile_matrix* matrix) {
+inline void tile_layer::set_allocated_matrix(::wanderer::proto::tile_matrix* matrix) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete matrix_;
   }
   if (matrix) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::wanderer::protobuf::tile_matrix>::GetOwningArena(matrix);
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::wanderer::proto::tile_matrix>::GetOwningArena(matrix);
     if (message_arena != submessage_arena) {
       matrix = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, matrix, submessage_arena);
@@ -744,7 +744,7 @@ inline void tile_layer::set_allocated_matrix(::wanderer::protobuf::tile_matrix* 
     _has_bits_[0] &= ~0x00000001u;
   }
   matrix_ = matrix;
-  // @@protoc_insertion_point(field_set_allocated:wanderer.protobuf.tile_layer.matrix)
+  // @@protoc_insertion_point(field_set_allocated:wanderer.proto.tile_layer.matrix)
 }
 
 // optional int32 z_index = 2;
@@ -763,7 +763,7 @@ inline ::PROTOBUF_NAMESPACE_ID::int32 tile_layer::_internal_z_index() const {
   return z_index_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::int32 tile_layer::z_index() const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.tile_layer.z_index)
+  // @@protoc_insertion_point(field_get:wanderer.proto.tile_layer.z_index)
   return _internal_z_index();
 }
 inline void tile_layer::_internal_set_z_index(::PROTOBUF_NAMESPACE_ID::int32 value) {
@@ -772,7 +772,7 @@ inline void tile_layer::_internal_set_z_index(::PROTOBUF_NAMESPACE_ID::int32 val
 }
 inline void tile_layer::set_z_index(::PROTOBUF_NAMESPACE_ID::int32 value) {
   _internal_set_z_index(value);
-  // @@protoc_insertion_point(field_set:wanderer.protobuf.tile_layer.z_index)
+  // @@protoc_insertion_point(field_set:wanderer.proto.tile_layer.z_index)
 }
 
 #ifdef __GNUC__
@@ -785,7 +785,7 @@ inline void tile_layer::set_z_index(::PROTOBUF_NAMESPACE_ID::int32 value) {
 
 // @@protoc_insertion_point(namespace_scope)
 
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 
 // @@protoc_insertion_point(global_scope)

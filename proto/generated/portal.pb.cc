@@ -17,7 +17,7 @@
 
 PROTOBUF_PRAGMA_INIT_SEG
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 constexpr portal::portal(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : path_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
@@ -31,40 +31,40 @@ struct portalDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT portalDefaultTypeInternal _portal_default_instance_;
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_portal_2eproto[1];
 static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_portal_2eproto = nullptr;
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_portal_2eproto = nullptr;
 
 const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_portal_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::portal, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::portal, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::portal, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::portal, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::portal, map_id_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::portal, path_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::portal, map_id_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::portal, path_),
   1,
   0,
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, 8, -1, sizeof(::wanderer::protobuf::portal)},
+  { 0, 8, -1, sizeof(::wanderer::proto::portal)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::protobuf::_portal_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_portal_default_instance_),
 };
 
 const char descriptor_table_protodef_portal_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\014portal.proto\022\021wanderer.protobuf\"D\n\006por"
-  "tal\022\023\n\006map_id\030\001 \001(\005H\000\210\001\001\022\021\n\004path\030\002 \001(\tH\001"
-  "\210\001\001B\t\n\007_map_idB\007\n\005_pathb\006proto3"
+  "\n\014portal.proto\022\016wanderer.proto\"D\n\006portal"
+  "\022\023\n\006map_id\030\001 \001(\005H\000\210\001\001\022\021\n\004path\030\002 \001(\tH\001\210\001\001"
+  "B\t\n\007_map_idB\007\n\005_pathb\006proto3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_portal_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_portal_2eproto = {
-  false, false, 111, descriptor_table_protodef_portal_2eproto, "portal.proto", 
+  false, false, 108, descriptor_table_protodef_portal_2eproto, "portal.proto", 
   &descriptor_table_portal_2eproto_once, nullptr, 0, 1,
   schemas, file_default_instances, TableStruct_portal_2eproto::offsets,
   file_level_metadata_portal_2eproto, file_level_enum_descriptors_portal_2eproto, file_level_service_descriptors_portal_2eproto,
@@ -76,7 +76,7 @@ PROTOBUF_ATTRIBUTE_WEAK const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable
 // Force running AddDescriptors() at dynamic initialization time.
 PROTOBUF_ATTRIBUTE_INIT_PRIORITY static ::PROTOBUF_NAMESPACE_ID::internal::AddDescriptorsRunner dynamic_init_dummy_portal_2eproto(&descriptor_table_portal_2eproto);
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 
 // ===================================================================
 
@@ -98,7 +98,7 @@ portal::portal(::PROTOBUF_NAMESPACE_ID::Arena* arena,
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
   }
-  // @@protoc_insertion_point(arena_constructor:wanderer.protobuf.portal)
+  // @@protoc_insertion_point(arena_constructor:wanderer.proto.portal)
 }
 portal::portal(const portal& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
@@ -110,7 +110,7 @@ portal::portal(const portal& from)
       GetArenaForAllocation());
   }
   map_id_ = from.map_id_;
-  // @@protoc_insertion_point(copy_constructor:wanderer.protobuf.portal)
+  // @@protoc_insertion_point(copy_constructor:wanderer.proto.portal)
 }
 
 void portal::SharedCtor() {
@@ -119,7 +119,7 @@ map_id_ = 0;
 }
 
 portal::~portal() {
-  // @@protoc_insertion_point(destructor:wanderer.protobuf.portal)
+  // @@protoc_insertion_point(destructor:wanderer.proto.portal)
   if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
@@ -141,7 +141,7 @@ void portal::SetCachedSize(int size) const {
 }
 
 void portal::Clear() {
-// @@protoc_insertion_point(message_clear_start:wanderer.protobuf.portal)
+// @@protoc_insertion_point(message_clear_start:wanderer.proto.portal)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -176,7 +176,7 @@ const char* portal::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::int
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
           auto str = _internal_mutable_path();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "wanderer.protobuf.portal.path"));
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "wanderer.proto.portal.path"));
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -207,7 +207,7 @@ failure:
 
 ::PROTOBUF_NAMESPACE_ID::uint8* portal::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:wanderer.protobuf.portal)
+  // @@protoc_insertion_point(serialize_to_array_start:wanderer.proto.portal)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -222,7 +222,7 @@ failure:
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_path().data(), static_cast<int>(this->_internal_path().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "wanderer.protobuf.portal.path");
+      "wanderer.proto.portal.path");
     target = stream->WriteStringMaybeAliased(
         2, this->_internal_path(), target);
   }
@@ -231,12 +231,12 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:wanderer.protobuf.portal)
+  // @@protoc_insertion_point(serialize_to_array_end:wanderer.proto.portal)
   return target;
 }
 
 size_t portal::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:wanderer.protobuf.portal)
+// @@protoc_insertion_point(message_byte_size_start:wanderer.proto.portal)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -275,7 +275,7 @@ void portal::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
 
 
 void portal::MergeFrom(const portal& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:wanderer.protobuf.portal)
+// @@protoc_insertion_point(class_specific_merge_from_start:wanderer.proto.portal)
   GOOGLE_DCHECK_NE(&from, this);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
@@ -294,7 +294,7 @@ void portal::MergeFrom(const portal& from) {
 }
 
 void portal::CopyFrom(const portal& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:wanderer.protobuf.portal)
+// @@protoc_insertion_point(class_specific_copy_from_start:wanderer.proto.portal)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -325,11 +325,11 @@ void portal::InternalSwap(portal* other) {
 }
 
 // @@protoc_insertion_point(namespace_scope)
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::wanderer::protobuf::portal* Arena::CreateMaybeMessage< ::wanderer::protobuf::portal >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::wanderer::protobuf::portal >(arena);
+template<> PROTOBUF_NOINLINE ::wanderer::proto::portal* Arena::CreateMaybeMessage< ::wanderer::proto::portal >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::wanderer::proto::portal >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

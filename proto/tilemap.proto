@@ -2,7 +2,7 @@ syntax = "proto3";
 
 import "area.proto";
 
-package wanderer.protobuf;
+package wanderer.proto;
 
 message tilemap {
   optional int32 id = 1;

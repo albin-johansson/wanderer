@@ -17,7 +17,7 @@
 
 PROTOBUF_PRAGMA_INIT_SEG
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 constexpr particle::particle(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : position_(nullptr)
@@ -34,24 +34,24 @@ struct particleDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT particleDefaultTypeInternal _particle_default_instance_;
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_particle_2eproto[1];
 static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_particle_2eproto = nullptr;
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_particle_2eproto = nullptr;
 
 const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_particle_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::particle, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::particle, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::particle, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::particle, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::particle, position_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::particle, acceleration_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::particle, now_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::particle, duration_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::particle, color_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::particle, position_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::particle, acceleration_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::particle, now_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::particle, duration_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::particle, color_),
   0,
   1,
   3,
@@ -59,23 +59,23 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_particle_2eproto::offsets[] PR
   2,
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, 11, -1, sizeof(::wanderer::protobuf::particle)},
+  { 0, 11, -1, sizeof(::wanderer::proto::particle)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::protobuf::_particle_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_particle_default_instance_),
 };
 
 const char descriptor_table_protodef_particle_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\016particle.proto\022\021wanderer.protobuf\032\013col"
-  "or.proto\032\014float3.proto\"\206\002\n\010particle\0220\n\010p"
-  "osition\030\001 \001(\0132\031.wanderer.protobuf.float3"
-  "H\000\210\001\001\0224\n\014acceleration\030\002 \001(\0132\031.wanderer.p"
-  "rotobuf.float3H\001\210\001\001\022\020\n\003now\030\003 \001(\002H\002\210\001\001\022\025\n"
-  "\010duration\030\004 \001(\002H\003\210\001\001\022,\n\005color\030\005 \001(\0132\030.wa"
-  "nderer.protobuf.colorH\004\210\001\001B\013\n\t_positionB"
-  "\017\n\r_accelerationB\006\n\004_nowB\013\n\t_durationB\010\n"
-  "\006_colorb\006proto3"
+  "\n\016particle.proto\022\016wanderer.proto\032\013color."
+  "proto\032\014float3.proto\"\375\001\n\010particle\022-\n\010posi"
+  "tion\030\001 \001(\0132\026.wanderer.proto.float3H\000\210\001\001\022"
+  "1\n\014acceleration\030\002 \001(\0132\026.wanderer.proto.f"
+  "loat3H\001\210\001\001\022\020\n\003now\030\003 \001(\002H\002\210\001\001\022\025\n\010duration"
+  "\030\004 \001(\002H\003\210\001\001\022)\n\005color\030\005 \001(\0132\025.wanderer.pr"
+  "oto.colorH\004\210\001\001B\013\n\t_positionB\017\n\r_accelera"
+  "tionB\006\n\004_nowB\013\n\t_durationB\010\n\006_colorb\006pro"
+  "to3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_particle_2eproto_deps[2] = {
   &::descriptor_table_color_2eproto,
@@ -83,7 +83,7 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_particle_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_particle_2eproto = {
-  false, false, 335, descriptor_table_protodef_particle_2eproto, "particle.proto", 
+  false, false, 323, descriptor_table_protodef_particle_2eproto, "particle.proto", 
   &descriptor_table_particle_2eproto_once, descriptor_table_particle_2eproto_deps, 2, 1,
   schemas, file_default_instances, TableStruct_particle_2eproto::offsets,
   file_level_metadata_particle_2eproto, file_level_enum_descriptors_particle_2eproto, file_level_service_descriptors_particle_2eproto,
@@ -95,18 +95,18 @@ PROTOBUF_ATTRIBUTE_WEAK const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable
 // Force running AddDescriptors() at dynamic initialization time.
 PROTOBUF_ATTRIBUTE_INIT_PRIORITY static ::PROTOBUF_NAMESPACE_ID::internal::AddDescriptorsRunner dynamic_init_dummy_particle_2eproto(&descriptor_table_particle_2eproto);
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 
 // ===================================================================
 
 class particle::_Internal {
  public:
   using HasBits = decltype(std::declval<particle>()._has_bits_);
-  static const ::wanderer::protobuf::float3& position(const particle* msg);
+  static const ::wanderer::proto::float3& position(const particle* msg);
   static void set_has_position(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
-  static const ::wanderer::protobuf::float3& acceleration(const particle* msg);
+  static const ::wanderer::proto::float3& acceleration(const particle* msg);
   static void set_has_acceleration(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
@@ -116,21 +116,21 @@ class particle::_Internal {
   static void set_has_duration(HasBits* has_bits) {
     (*has_bits)[0] |= 16u;
   }
-  static const ::wanderer::protobuf::color& color(const particle* msg);
+  static const ::wanderer::proto::color& color(const particle* msg);
   static void set_has_color(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
   }
 };
 
-const ::wanderer::protobuf::float3&
+const ::wanderer::proto::float3&
 particle::_Internal::position(const particle* msg) {
   return *msg->position_;
 }
-const ::wanderer::protobuf::float3&
+const ::wanderer::proto::float3&
 particle::_Internal::acceleration(const particle* msg) {
   return *msg->acceleration_;
 }
-const ::wanderer::protobuf::color&
+const ::wanderer::proto::color&
 particle::_Internal::color(const particle* msg) {
   return *msg->color_;
 }
@@ -153,31 +153,31 @@ particle::particle(::PROTOBUF_NAMESPACE_ID::Arena* arena,
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
   }
-  // @@protoc_insertion_point(arena_constructor:wanderer.protobuf.particle)
+  // @@protoc_insertion_point(arena_constructor:wanderer.proto.particle)
 }
 particle::particle(const particle& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
       _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   if (from._internal_has_position()) {
-    position_ = new ::wanderer::protobuf::float3(*from.position_);
+    position_ = new ::wanderer::proto::float3(*from.position_);
   } else {
     position_ = nullptr;
   }
   if (from._internal_has_acceleration()) {
-    acceleration_ = new ::wanderer::protobuf::float3(*from.acceleration_);
+    acceleration_ = new ::wanderer::proto::float3(*from.acceleration_);
   } else {
     acceleration_ = nullptr;
   }
   if (from._internal_has_color()) {
-    color_ = new ::wanderer::protobuf::color(*from.color_);
+    color_ = new ::wanderer::proto::color(*from.color_);
   } else {
     color_ = nullptr;
   }
   ::memcpy(&now_, &from.now_,
     static_cast<size_t>(reinterpret_cast<char*>(&duration_) -
     reinterpret_cast<char*>(&now_)) + sizeof(duration_));
-  // @@protoc_insertion_point(copy_constructor:wanderer.protobuf.particle)
+  // @@protoc_insertion_point(copy_constructor:wanderer.proto.particle)
 }
 
 void particle::SharedCtor() {
@@ -188,7 +188,7 @@ void particle::SharedCtor() {
 }
 
 particle::~particle() {
-  // @@protoc_insertion_point(destructor:wanderer.protobuf.particle)
+  // @@protoc_insertion_point(destructor:wanderer.proto.particle)
   if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
@@ -212,7 +212,7 @@ void particle::SetCachedSize(int size) const {
 }
 
 void particle::Clear() {
-// @@protoc_insertion_point(message_clear_start:wanderer.protobuf.particle)
+// @@protoc_insertion_point(message_clear_start:wanderer.proto.particle)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -248,7 +248,7 @@ const char* particle::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::i
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // optional .wanderer.protobuf.float3 position = 1;
+      // optional .wanderer.proto.float3 position = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_position(), ptr);
@@ -256,7 +256,7 @@ const char* particle::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::i
         } else
           goto handle_unusual;
         continue;
-      // optional .wanderer.protobuf.float3 acceleration = 2;
+      // optional .wanderer.proto.float3 acceleration = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_acceleration(), ptr);
@@ -282,7 +282,7 @@ const char* particle::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::i
         } else
           goto handle_unusual;
         continue;
-      // optional .wanderer.protobuf.color color = 5;
+      // optional .wanderer.proto.color color = 5;
       case 5:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 42)) {
           ptr = ctx->ParseMessage(_internal_mutable_color(), ptr);
@@ -316,11 +316,11 @@ failure:
 
 ::PROTOBUF_NAMESPACE_ID::uint8* particle::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:wanderer.protobuf.particle)
+  // @@protoc_insertion_point(serialize_to_array_start:wanderer.proto.particle)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // optional .wanderer.protobuf.float3 position = 1;
+  // optional .wanderer.proto.float3 position = 1;
   if (_internal_has_position()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
@@ -328,7 +328,7 @@ failure:
         1, _Internal::position(this), target, stream);
   }
 
-  // optional .wanderer.protobuf.float3 acceleration = 2;
+  // optional .wanderer.proto.float3 acceleration = 2;
   if (_internal_has_acceleration()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
@@ -348,7 +348,7 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(4, this->_internal_duration(), target);
   }
 
-  // optional .wanderer.protobuf.color color = 5;
+  // optional .wanderer.proto.color color = 5;
   if (_internal_has_color()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
@@ -360,12 +360,12 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:wanderer.protobuf.particle)
+  // @@protoc_insertion_point(serialize_to_array_end:wanderer.proto.particle)
   return target;
 }
 
 size_t particle::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:wanderer.protobuf.particle)
+// @@protoc_insertion_point(message_byte_size_start:wanderer.proto.particle)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -374,21 +374,21 @@ size_t particle::ByteSizeLong() const {
 
   cached_has_bits = _has_bits_[0];
   if (cached_has_bits & 0x0000001fu) {
-    // optional .wanderer.protobuf.float3 position = 1;
+    // optional .wanderer.proto.float3 position = 1;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *position_);
     }
 
-    // optional .wanderer.protobuf.float3 acceleration = 2;
+    // optional .wanderer.proto.float3 acceleration = 2;
     if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *acceleration_);
     }
 
-    // optional .wanderer.protobuf.color color = 5;
+    // optional .wanderer.proto.color color = 5;
     if (cached_has_bits & 0x00000004u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
@@ -423,7 +423,7 @@ void particle::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
 
 
 void particle::MergeFrom(const particle& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:wanderer.protobuf.particle)
+// @@protoc_insertion_point(class_specific_merge_from_start:wanderer.proto.particle)
   GOOGLE_DCHECK_NE(&from, this);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
@@ -431,13 +431,13 @@ void particle::MergeFrom(const particle& from) {
   cached_has_bits = from._has_bits_[0];
   if (cached_has_bits & 0x0000001fu) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_mutable_position()->::wanderer::protobuf::float3::MergeFrom(from._internal_position());
+      _internal_mutable_position()->::wanderer::proto::float3::MergeFrom(from._internal_position());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_mutable_acceleration()->::wanderer::protobuf::float3::MergeFrom(from._internal_acceleration());
+      _internal_mutable_acceleration()->::wanderer::proto::float3::MergeFrom(from._internal_acceleration());
     }
     if (cached_has_bits & 0x00000004u) {
-      _internal_mutable_color()->::wanderer::protobuf::color::MergeFrom(from._internal_color());
+      _internal_mutable_color()->::wanderer::proto::color::MergeFrom(from._internal_color());
     }
     if (cached_has_bits & 0x00000008u) {
       now_ = from.now_;
@@ -451,7 +451,7 @@ void particle::MergeFrom(const particle& from) {
 }
 
 void particle::CopyFrom(const particle& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:wanderer.protobuf.particle)
+// @@protoc_insertion_point(class_specific_copy_from_start:wanderer.proto.particle)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -480,11 +480,11 @@ void particle::InternalSwap(particle* other) {
 }
 
 // @@protoc_insertion_point(namespace_scope)
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::wanderer::protobuf::particle* Arena::CreateMaybeMessage< ::wanderer::protobuf::particle >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::wanderer::protobuf::particle >(arena);
+template<> PROTOBUF_NOINLINE ::wanderer::proto::particle* Arena::CreateMaybeMessage< ::wanderer::proto::particle >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::wanderer::proto::particle >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

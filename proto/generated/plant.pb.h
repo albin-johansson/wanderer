@@ -54,22 +54,22 @@ struct TableStruct_plant_2eproto {
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_plant_2eproto;
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 class plant;
 struct plantDefaultTypeInternal;
 extern plantDefaultTypeInternal _plant_default_instance_;
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 PROTOBUF_NAMESPACE_OPEN
-template<> ::wanderer::protobuf::plant* Arena::CreateMaybeMessage<::wanderer::protobuf::plant>(Arena*);
+template<> ::wanderer::proto::plant* Arena::CreateMaybeMessage<::wanderer::proto::plant>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 
 // ===================================================================
 
 class plant final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.protobuf.plant) */ {
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.proto.plant) */ {
  public:
   inline plant() : plant(nullptr) {}
   ~plant() override;
@@ -167,7 +167,7 @@ class plant final :
   void InternalSwap(plant* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "wanderer.protobuf.plant";
+    return "wanderer.proto.plant";
   }
   protected:
   explicit plant(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -304,7 +304,7 @@ class plant final :
   void _internal_set_index(::PROTOBUF_NAMESPACE_ID::uint64 value);
   public:
 
-  // @@protoc_insertion_point(class_scope:wanderer.protobuf.plant)
+  // @@protoc_insertion_point(class_scope:wanderer.proto.plant)
  private:
   class _Internal;
 
@@ -351,7 +351,7 @@ inline float plant::_internal_current_growth() const {
   return current_growth_;
 }
 inline float plant::current_growth() const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.plant.current_growth)
+  // @@protoc_insertion_point(field_get:wanderer.proto.plant.current_growth)
   return _internal_current_growth();
 }
 inline void plant::_internal_set_current_growth(float value) {
@@ -360,7 +360,7 @@ inline void plant::_internal_set_current_growth(float value) {
 }
 inline void plant::set_current_growth(float value) {
   _internal_set_current_growth(value);
-  // @@protoc_insertion_point(field_set:wanderer.protobuf.plant.current_growth)
+  // @@protoc_insertion_point(field_set:wanderer.proto.plant.current_growth)
 }
 
 // optional float rate = 2;
@@ -379,7 +379,7 @@ inline float plant::_internal_rate() const {
   return rate_;
 }
 inline float plant::rate() const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.plant.rate)
+  // @@protoc_insertion_point(field_get:wanderer.proto.plant.rate)
   return _internal_rate();
 }
 inline void plant::_internal_set_rate(float value) {
@@ -388,7 +388,7 @@ inline void plant::_internal_set_rate(float value) {
 }
 inline void plant::set_rate(float value) {
   _internal_set_rate(value);
-  // @@protoc_insertion_point(field_set:wanderer.protobuf.plant.rate)
+  // @@protoc_insertion_point(field_set:wanderer.proto.plant.rate)
 }
 
 // optional float base_y = 3;
@@ -407,7 +407,7 @@ inline float plant::_internal_base_y() const {
   return base_y_;
 }
 inline float plant::base_y() const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.plant.base_y)
+  // @@protoc_insertion_point(field_get:wanderer.proto.plant.base_y)
   return _internal_base_y();
 }
 inline void plant::_internal_set_base_y(float value) {
@@ -416,7 +416,7 @@ inline void plant::_internal_set_base_y(float value) {
 }
 inline void plant::set_base_y(float value) {
   _internal_set_base_y(value);
-  // @@protoc_insertion_point(field_set:wanderer.protobuf.plant.base_y)
+  // @@protoc_insertion_point(field_set:wanderer.proto.plant.base_y)
 }
 
 // optional int32 tile_height = 4;
@@ -435,7 +435,7 @@ inline ::PROTOBUF_NAMESPACE_ID::int32 plant::_internal_tile_height() const {
   return tile_height_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::int32 plant::tile_height() const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.plant.tile_height)
+  // @@protoc_insertion_point(field_get:wanderer.proto.plant.tile_height)
   return _internal_tile_height();
 }
 inline void plant::_internal_set_tile_height(::PROTOBUF_NAMESPACE_ID::int32 value) {
@@ -444,7 +444,7 @@ inline void plant::_internal_set_tile_height(::PROTOBUF_NAMESPACE_ID::int32 valu
 }
 inline void plant::set_tile_height(::PROTOBUF_NAMESPACE_ID::int32 value) {
   _internal_set_tile_height(value);
-  // @@protoc_insertion_point(field_set:wanderer.protobuf.plant.tile_height)
+  // @@protoc_insertion_point(field_set:wanderer.proto.plant.tile_height)
 }
 
 // optional uint64 index = 5;
@@ -463,7 +463,7 @@ inline ::PROTOBUF_NAMESPACE_ID::uint64 plant::_internal_index() const {
   return index_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::uint64 plant::index() const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.plant.index)
+  // @@protoc_insertion_point(field_get:wanderer.proto.plant.index)
   return _internal_index();
 }
 inline void plant::_internal_set_index(::PROTOBUF_NAMESPACE_ID::uint64 value) {
@@ -472,7 +472,7 @@ inline void plant::_internal_set_index(::PROTOBUF_NAMESPACE_ID::uint64 value) {
 }
 inline void plant::set_index(::PROTOBUF_NAMESPACE_ID::uint64 value) {
   _internal_set_index(value);
-  // @@protoc_insertion_point(field_set:wanderer.protobuf.plant.index)
+  // @@protoc_insertion_point(field_set:wanderer.proto.plant.index)
 }
 
 // repeated uint32 tiles = 6 [packed = true];
@@ -489,19 +489,19 @@ inline ::PROTOBUF_NAMESPACE_ID::uint32 plant::_internal_tiles(int index) const {
   return tiles_.Get(index);
 }
 inline ::PROTOBUF_NAMESPACE_ID::uint32 plant::tiles(int index) const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.plant.tiles)
+  // @@protoc_insertion_point(field_get:wanderer.proto.plant.tiles)
   return _internal_tiles(index);
 }
 inline void plant::set_tiles(int index, ::PROTOBUF_NAMESPACE_ID::uint32 value) {
   tiles_.Set(index, value);
-  // @@protoc_insertion_point(field_set:wanderer.protobuf.plant.tiles)
+  // @@protoc_insertion_point(field_set:wanderer.proto.plant.tiles)
 }
 inline void plant::_internal_add_tiles(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   tiles_.Add(value);
 }
 inline void plant::add_tiles(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _internal_add_tiles(value);
-  // @@protoc_insertion_point(field_add:wanderer.protobuf.plant.tiles)
+  // @@protoc_insertion_point(field_add:wanderer.proto.plant.tiles)
 }
 inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
 plant::_internal_tiles() const {
@@ -509,7 +509,7 @@ plant::_internal_tiles() const {
 }
 inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
 plant::tiles() const {
-  // @@protoc_insertion_point(field_list:wanderer.protobuf.plant.tiles)
+  // @@protoc_insertion_point(field_list:wanderer.proto.plant.tiles)
   return _internal_tiles();
 }
 inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
@@ -518,7 +518,7 @@ plant::_internal_mutable_tiles() {
 }
 inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
 plant::mutable_tiles() {
-  // @@protoc_insertion_point(field_mutable_list:wanderer.protobuf.plant.tiles)
+  // @@protoc_insertion_point(field_mutable_list:wanderer.proto.plant.tiles)
   return _internal_mutable_tiles();
 }
 
@@ -536,19 +536,19 @@ inline ::PROTOBUF_NAMESPACE_ID::uint32 plant::_internal_tall_tiles(int index) co
   return tall_tiles_.Get(index);
 }
 inline ::PROTOBUF_NAMESPACE_ID::uint32 plant::tall_tiles(int index) const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.plant.tall_tiles)
+  // @@protoc_insertion_point(field_get:wanderer.proto.plant.tall_tiles)
   return _internal_tall_tiles(index);
 }
 inline void plant::set_tall_tiles(int index, ::PROTOBUF_NAMESPACE_ID::uint32 value) {
   tall_tiles_.Set(index, value);
-  // @@protoc_insertion_point(field_set:wanderer.protobuf.plant.tall_tiles)
+  // @@protoc_insertion_point(field_set:wanderer.proto.plant.tall_tiles)
 }
 inline void plant::_internal_add_tall_tiles(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   tall_tiles_.Add(value);
 }
 inline void plant::add_tall_tiles(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _internal_add_tall_tiles(value);
-  // @@protoc_insertion_point(field_add:wanderer.protobuf.plant.tall_tiles)
+  // @@protoc_insertion_point(field_add:wanderer.proto.plant.tall_tiles)
 }
 inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
 plant::_internal_tall_tiles() const {
@@ -556,7 +556,7 @@ plant::_internal_tall_tiles() const {
 }
 inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
 plant::tall_tiles() const {
-  // @@protoc_insertion_point(field_list:wanderer.protobuf.plant.tall_tiles)
+  // @@protoc_insertion_point(field_list:wanderer.proto.plant.tall_tiles)
   return _internal_tall_tiles();
 }
 inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
@@ -565,7 +565,7 @@ plant::_internal_mutable_tall_tiles() {
 }
 inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
 plant::mutable_tall_tiles() {
-  // @@protoc_insertion_point(field_mutable_list:wanderer.protobuf.plant.tall_tiles)
+  // @@protoc_insertion_point(field_mutable_list:wanderer.proto.plant.tall_tiles)
   return _internal_mutable_tall_tiles();
 }
 
@@ -575,7 +575,7 @@ plant::mutable_tall_tiles() {
 
 // @@protoc_insertion_point(namespace_scope)
 
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 
 // @@protoc_insertion_point(global_scope)

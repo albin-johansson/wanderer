@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package wanderer.protobuf;
+package wanderer.proto;
 
 message portal {
   optional int32 map_id = 1;

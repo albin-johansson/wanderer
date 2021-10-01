@@ -54,26 +54,26 @@ struct TableStruct_area_2eproto {
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_area_2eproto;
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 class farea;
 struct fareaDefaultTypeInternal;
 extern fareaDefaultTypeInternal _farea_default_instance_;
 class iarea;
 struct iareaDefaultTypeInternal;
 extern iareaDefaultTypeInternal _iarea_default_instance_;
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 PROTOBUF_NAMESPACE_OPEN
-template<> ::wanderer::protobuf::farea* Arena::CreateMaybeMessage<::wanderer::protobuf::farea>(Arena*);
-template<> ::wanderer::protobuf::iarea* Arena::CreateMaybeMessage<::wanderer::protobuf::iarea>(Arena*);
+template<> ::wanderer::proto::farea* Arena::CreateMaybeMessage<::wanderer::proto::farea>(Arena*);
+template<> ::wanderer::proto::iarea* Arena::CreateMaybeMessage<::wanderer::proto::iarea>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 
 // ===================================================================
 
 class iarea final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.protobuf.iarea) */ {
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.proto.iarea) */ {
  public:
   inline iarea() : iarea(nullptr) {}
   ~iarea() override;
@@ -171,7 +171,7 @@ class iarea final :
   void InternalSwap(iarea* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "wanderer.protobuf.iarea";
+    return "wanderer.proto.iarea";
   }
   protected:
   explicit iarea(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -220,7 +220,7 @@ class iarea final :
   void _internal_set_height(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // @@protoc_insertion_point(class_scope:wanderer.protobuf.iarea)
+  // @@protoc_insertion_point(class_scope:wanderer.proto.iarea)
  private:
   class _Internal;
 
@@ -236,7 +236,7 @@ class iarea final :
 // -------------------------------------------------------------------
 
 class farea final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.protobuf.farea) */ {
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.proto.farea) */ {
  public:
   inline farea() : farea(nullptr) {}
   ~farea() override;
@@ -334,7 +334,7 @@ class farea final :
   void InternalSwap(farea* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "wanderer.protobuf.farea";
+    return "wanderer.proto.farea";
   }
   protected:
   explicit farea(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -383,7 +383,7 @@ class farea final :
   void _internal_set_height(float value);
   public:
 
-  // @@protoc_insertion_point(class_scope:wanderer.protobuf.farea)
+  // @@protoc_insertion_point(class_scope:wanderer.proto.farea)
  private:
   class _Internal;
 
@@ -423,7 +423,7 @@ inline ::PROTOBUF_NAMESPACE_ID::int32 iarea::_internal_width() const {
   return width_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::int32 iarea::width() const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.iarea.width)
+  // @@protoc_insertion_point(field_get:wanderer.proto.iarea.width)
   return _internal_width();
 }
 inline void iarea::_internal_set_width(::PROTOBUF_NAMESPACE_ID::int32 value) {
@@ -432,7 +432,7 @@ inline void iarea::_internal_set_width(::PROTOBUF_NAMESPACE_ID::int32 value) {
 }
 inline void iarea::set_width(::PROTOBUF_NAMESPACE_ID::int32 value) {
   _internal_set_width(value);
-  // @@protoc_insertion_point(field_set:wanderer.protobuf.iarea.width)
+  // @@protoc_insertion_point(field_set:wanderer.proto.iarea.width)
 }
 
 // optional int32 height = 2;
@@ -451,7 +451,7 @@ inline ::PROTOBUF_NAMESPACE_ID::int32 iarea::_internal_height() const {
   return height_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::int32 iarea::height() const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.iarea.height)
+  // @@protoc_insertion_point(field_get:wanderer.proto.iarea.height)
   return _internal_height();
 }
 inline void iarea::_internal_set_height(::PROTOBUF_NAMESPACE_ID::int32 value) {
@@ -460,7 +460,7 @@ inline void iarea::_internal_set_height(::PROTOBUF_NAMESPACE_ID::int32 value) {
 }
 inline void iarea::set_height(::PROTOBUF_NAMESPACE_ID::int32 value) {
   _internal_set_height(value);
-  // @@protoc_insertion_point(field_set:wanderer.protobuf.iarea.height)
+  // @@protoc_insertion_point(field_set:wanderer.proto.iarea.height)
 }
 
 // -------------------------------------------------------------------
@@ -483,7 +483,7 @@ inline float farea::_internal_width() const {
   return width_;
 }
 inline float farea::width() const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.farea.width)
+  // @@protoc_insertion_point(field_get:wanderer.proto.farea.width)
   return _internal_width();
 }
 inline void farea::_internal_set_width(float value) {
@@ -492,7 +492,7 @@ inline void farea::_internal_set_width(float value) {
 }
 inline void farea::set_width(float value) {
   _internal_set_width(value);
-  // @@protoc_insertion_point(field_set:wanderer.protobuf.farea.width)
+  // @@protoc_insertion_point(field_set:wanderer.proto.farea.width)
 }
 
 // optional float height = 2;
@@ -511,7 +511,7 @@ inline float farea::_internal_height() const {
   return height_;
 }
 inline float farea::height() const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.farea.height)
+  // @@protoc_insertion_point(field_get:wanderer.proto.farea.height)
   return _internal_height();
 }
 inline void farea::_internal_set_height(float value) {
@@ -520,7 +520,7 @@ inline void farea::_internal_set_height(float value) {
 }
 inline void farea::set_height(float value) {
   _internal_set_height(value);
-  // @@protoc_insertion_point(field_set:wanderer.protobuf.farea.height)
+  // @@protoc_insertion_point(field_set:wanderer.proto.farea.height)
 }
 
 #ifdef __GNUC__
@@ -531,7 +531,7 @@ inline void farea::set_height(float value) {
 
 // @@protoc_insertion_point(namespace_scope)
 
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 
 // @@protoc_insertion_point(global_scope)

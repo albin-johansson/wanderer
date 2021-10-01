@@ -55,17 +55,17 @@ struct TableStruct_time_5fof_5fday_2eproto {
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_time_5fof_5fday_2eproto;
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 class time_of_day;
 struct time_of_dayDefaultTypeInternal;
 extern time_of_dayDefaultTypeInternal _time_of_day_default_instance_;
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 PROTOBUF_NAMESPACE_OPEN
-template<> ::wanderer::protobuf::time_of_day* Arena::CreateMaybeMessage<::wanderer::protobuf::time_of_day>(Arena*);
+template<> ::wanderer::proto::time_of_day* Arena::CreateMaybeMessage<::wanderer::proto::time_of_day>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 
 enum day_of_week : int {
   MONDAY = 0,
@@ -100,7 +100,7 @@ inline bool day_of_week_Parse(
 // ===================================================================
 
 class time_of_day final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.protobuf.time_of_day) */ {
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.proto.time_of_day) */ {
  public:
   inline time_of_day() : time_of_day(nullptr) {}
   ~time_of_day() override;
@@ -198,7 +198,7 @@ class time_of_day final :
   void InternalSwap(time_of_day* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "wanderer.protobuf.time_of_day";
+    return "wanderer.proto.time_of_day";
   }
   protected:
   explicit time_of_day(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -276,20 +276,20 @@ class time_of_day final :
   void _internal_set_week(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // optional .wanderer.protobuf.day_of_week day = 5;
+  // optional .wanderer.proto.day_of_week day = 5;
   bool has_day() const;
   private:
   bool _internal_has_day() const;
   public:
   void clear_day();
-  ::wanderer::protobuf::day_of_week day() const;
-  void set_day(::wanderer::protobuf::day_of_week value);
+  ::wanderer::proto::day_of_week day() const;
+  void set_day(::wanderer::proto::day_of_week value);
   private:
-  ::wanderer::protobuf::day_of_week _internal_day() const;
-  void _internal_set_day(::wanderer::protobuf::day_of_week value);
+  ::wanderer::proto::day_of_week _internal_day() const;
+  void _internal_set_day(::wanderer::proto::day_of_week value);
   public:
 
-  // @@protoc_insertion_point(class_scope:wanderer.protobuf.time_of_day)
+  // @@protoc_insertion_point(class_scope:wanderer.proto.time_of_day)
  private:
   class _Internal;
 
@@ -332,7 +332,7 @@ inline float time_of_day::_internal_hour() const {
   return hour_;
 }
 inline float time_of_day::hour() const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.time_of_day.hour)
+  // @@protoc_insertion_point(field_get:wanderer.proto.time_of_day.hour)
   return _internal_hour();
 }
 inline void time_of_day::_internal_set_hour(float value) {
@@ -341,7 +341,7 @@ inline void time_of_day::_internal_set_hour(float value) {
 }
 inline void time_of_day::set_hour(float value) {
   _internal_set_hour(value);
-  // @@protoc_insertion_point(field_set:wanderer.protobuf.time_of_day.hour)
+  // @@protoc_insertion_point(field_set:wanderer.proto.time_of_day.hour)
 }
 
 // optional float minute = 2;
@@ -360,7 +360,7 @@ inline float time_of_day::_internal_minute() const {
   return minute_;
 }
 inline float time_of_day::minute() const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.time_of_day.minute)
+  // @@protoc_insertion_point(field_get:wanderer.proto.time_of_day.minute)
   return _internal_minute();
 }
 inline void time_of_day::_internal_set_minute(float value) {
@@ -369,7 +369,7 @@ inline void time_of_day::_internal_set_minute(float value) {
 }
 inline void time_of_day::set_minute(float value) {
   _internal_set_minute(value);
-  // @@protoc_insertion_point(field_set:wanderer.protobuf.time_of_day.minute)
+  // @@protoc_insertion_point(field_set:wanderer.proto.time_of_day.minute)
 }
 
 // optional float seconds = 3;
@@ -388,7 +388,7 @@ inline float time_of_day::_internal_seconds() const {
   return seconds_;
 }
 inline float time_of_day::seconds() const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.time_of_day.seconds)
+  // @@protoc_insertion_point(field_get:wanderer.proto.time_of_day.seconds)
   return _internal_seconds();
 }
 inline void time_of_day::_internal_set_seconds(float value) {
@@ -397,7 +397,7 @@ inline void time_of_day::_internal_set_seconds(float value) {
 }
 inline void time_of_day::set_seconds(float value) {
   _internal_set_seconds(value);
-  // @@protoc_insertion_point(field_set:wanderer.protobuf.time_of_day.seconds)
+  // @@protoc_insertion_point(field_set:wanderer.proto.time_of_day.seconds)
 }
 
 // optional int32 week = 4;
@@ -416,7 +416,7 @@ inline ::PROTOBUF_NAMESPACE_ID::int32 time_of_day::_internal_week() const {
   return week_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::int32 time_of_day::week() const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.time_of_day.week)
+  // @@protoc_insertion_point(field_get:wanderer.proto.time_of_day.week)
   return _internal_week();
 }
 inline void time_of_day::_internal_set_week(::PROTOBUF_NAMESPACE_ID::int32 value) {
@@ -425,10 +425,10 @@ inline void time_of_day::_internal_set_week(::PROTOBUF_NAMESPACE_ID::int32 value
 }
 inline void time_of_day::set_week(::PROTOBUF_NAMESPACE_ID::int32 value) {
   _internal_set_week(value);
-  // @@protoc_insertion_point(field_set:wanderer.protobuf.time_of_day.week)
+  // @@protoc_insertion_point(field_set:wanderer.proto.time_of_day.week)
 }
 
-// optional .wanderer.protobuf.day_of_week day = 5;
+// optional .wanderer.proto.day_of_week day = 5;
 inline bool time_of_day::_internal_has_day() const {
   bool value = (_has_bits_[0] & 0x00000010u) != 0;
   return value;
@@ -440,20 +440,20 @@ inline void time_of_day::clear_day() {
   day_ = 0;
   _has_bits_[0] &= ~0x00000010u;
 }
-inline ::wanderer::protobuf::day_of_week time_of_day::_internal_day() const {
-  return static_cast< ::wanderer::protobuf::day_of_week >(day_);
+inline ::wanderer::proto::day_of_week time_of_day::_internal_day() const {
+  return static_cast< ::wanderer::proto::day_of_week >(day_);
 }
-inline ::wanderer::protobuf::day_of_week time_of_day::day() const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.time_of_day.day)
+inline ::wanderer::proto::day_of_week time_of_day::day() const {
+  // @@protoc_insertion_point(field_get:wanderer.proto.time_of_day.day)
   return _internal_day();
 }
-inline void time_of_day::_internal_set_day(::wanderer::protobuf::day_of_week value) {
+inline void time_of_day::_internal_set_day(::wanderer::proto::day_of_week value) {
   _has_bits_[0] |= 0x00000010u;
   day_ = value;
 }
-inline void time_of_day::set_day(::wanderer::protobuf::day_of_week value) {
+inline void time_of_day::set_day(::wanderer::proto::day_of_week value) {
   _internal_set_day(value);
-  // @@protoc_insertion_point(field_set:wanderer.protobuf.time_of_day.day)
+  // @@protoc_insertion_point(field_set:wanderer.proto.time_of_day.day)
 }
 
 #ifdef __GNUC__
@@ -462,15 +462,15 @@ inline void time_of_day::set_day(::wanderer::protobuf::day_of_week value) {
 
 // @@protoc_insertion_point(namespace_scope)
 
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 
 PROTOBUF_NAMESPACE_OPEN
 
-template <> struct is_proto_enum< ::wanderer::protobuf::day_of_week> : ::std::true_type {};
+template <> struct is_proto_enum< ::wanderer::proto::day_of_week> : ::std::true_type {};
 template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::wanderer::protobuf::day_of_week>() {
-  return ::wanderer::protobuf::day_of_week_descriptor();
+inline const EnumDescriptor* GetEnumDescriptor< ::wanderer::proto::day_of_week>() {
+  return ::wanderer::proto::day_of_week_descriptor();
 }
 
 PROTOBUF_NAMESPACE_CLOSE

@@ -17,7 +17,7 @@
 
 PROTOBUF_PRAGMA_INIT_SEG
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 constexpr point_light::point_light(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : position_(nullptr)
@@ -34,24 +34,24 @@ struct point_lightDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT point_lightDefaultTypeInternal _point_light_default_instance_;
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_point_5flight_2eproto[1];
 static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_point_5flight_2eproto = nullptr;
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_point_5flight_2eproto = nullptr;
 
 const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_point_5flight_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::point_light, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::point_light, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::point_light, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::point_light, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::point_light, position_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::point_light, size_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::point_light, fluctuation_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::point_light, fluctuation_step_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::point_light, fluctuation_limit_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::point_light, position_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::point_light, size_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::point_light, fluctuation_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::point_light, fluctuation_step_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::point_light, fluctuation_limit_),
   0,
   1,
   2,
@@ -59,29 +59,29 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_point_5flight_2eproto::offsets
   4,
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, 11, -1, sizeof(::wanderer::protobuf::point_light)},
+  { 0, 11, -1, sizeof(::wanderer::proto::point_light)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::protobuf::_point_light_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_point_light_default_instance_),
 };
 
 const char descriptor_table_protodef_point_5flight_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\021point_light.proto\022\021wanderer.protobuf\032\014"
-  "float2.proto\"\374\001\n\013point_light\0220\n\010position"
-  "\030\001 \001(\0132\031.wanderer.protobuf.float2H\000\210\001\001\022\021"
-  "\n\004size\030\002 \001(\002H\001\210\001\001\022\030\n\013fluctuation\030\003 \001(\002H\002"
-  "\210\001\001\022\035\n\020fluctuation_step\030\004 \001(\002H\003\210\001\001\022\036\n\021fl"
-  "uctuation_limit\030\005 \001(\002H\004\210\001\001B\013\n\t_positionB"
-  "\007\n\005_sizeB\016\n\014_fluctuationB\023\n\021_fluctuation"
-  "_stepB\024\n\022_fluctuation_limitb\006proto3"
+  "\n\021point_light.proto\022\016wanderer.proto\032\014flo"
+  "at2.proto\"\371\001\n\013point_light\022-\n\010position\030\001 "
+  "\001(\0132\026.wanderer.proto.float2H\000\210\001\001\022\021\n\004size"
+  "\030\002 \001(\002H\001\210\001\001\022\030\n\013fluctuation\030\003 \001(\002H\002\210\001\001\022\035\n"
+  "\020fluctuation_step\030\004 \001(\002H\003\210\001\001\022\036\n\021fluctuat"
+  "ion_limit\030\005 \001(\002H\004\210\001\001B\013\n\t_positionB\007\n\005_si"
+  "zeB\016\n\014_fluctuationB\023\n\021_fluctuation_stepB"
+  "\024\n\022_fluctuation_limitb\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_point_5flight_2eproto_deps[1] = {
   &::descriptor_table_float2_2eproto,
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_point_5flight_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_point_5flight_2eproto = {
-  false, false, 315, descriptor_table_protodef_point_5flight_2eproto, "point_light.proto", 
+  false, false, 309, descriptor_table_protodef_point_5flight_2eproto, "point_light.proto", 
   &descriptor_table_point_5flight_2eproto_once, descriptor_table_point_5flight_2eproto_deps, 1, 1,
   schemas, file_default_instances, TableStruct_point_5flight_2eproto::offsets,
   file_level_metadata_point_5flight_2eproto, file_level_enum_descriptors_point_5flight_2eproto, file_level_service_descriptors_point_5flight_2eproto,
@@ -93,14 +93,14 @@ PROTOBUF_ATTRIBUTE_WEAK const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable
 // Force running AddDescriptors() at dynamic initialization time.
 PROTOBUF_ATTRIBUTE_INIT_PRIORITY static ::PROTOBUF_NAMESPACE_ID::internal::AddDescriptorsRunner dynamic_init_dummy_point_5flight_2eproto(&descriptor_table_point_5flight_2eproto);
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 
 // ===================================================================
 
 class point_light::_Internal {
  public:
   using HasBits = decltype(std::declval<point_light>()._has_bits_);
-  static const ::wanderer::protobuf::float2& position(const point_light* msg);
+  static const ::wanderer::proto::float2& position(const point_light* msg);
   static void set_has_position(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -118,7 +118,7 @@ class point_light::_Internal {
   }
 };
 
-const ::wanderer::protobuf::float2&
+const ::wanderer::proto::float2&
 point_light::_Internal::position(const point_light* msg) {
   return *msg->position_;
 }
@@ -133,21 +133,21 @@ point_light::point_light(::PROTOBUF_NAMESPACE_ID::Arena* arena,
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
   }
-  // @@protoc_insertion_point(arena_constructor:wanderer.protobuf.point_light)
+  // @@protoc_insertion_point(arena_constructor:wanderer.proto.point_light)
 }
 point_light::point_light(const point_light& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
       _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   if (from._internal_has_position()) {
-    position_ = new ::wanderer::protobuf::float2(*from.position_);
+    position_ = new ::wanderer::proto::float2(*from.position_);
   } else {
     position_ = nullptr;
   }
   ::memcpy(&size_, &from.size_,
     static_cast<size_t>(reinterpret_cast<char*>(&fluctuation_limit_) -
     reinterpret_cast<char*>(&size_)) + sizeof(fluctuation_limit_));
-  // @@protoc_insertion_point(copy_constructor:wanderer.protobuf.point_light)
+  // @@protoc_insertion_point(copy_constructor:wanderer.proto.point_light)
 }
 
 void point_light::SharedCtor() {
@@ -158,7 +158,7 @@ void point_light::SharedCtor() {
 }
 
 point_light::~point_light() {
-  // @@protoc_insertion_point(destructor:wanderer.protobuf.point_light)
+  // @@protoc_insertion_point(destructor:wanderer.proto.point_light)
   if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
@@ -180,7 +180,7 @@ void point_light::SetCachedSize(int size) const {
 }
 
 void point_light::Clear() {
-// @@protoc_insertion_point(message_clear_start:wanderer.protobuf.point_light)
+// @@protoc_insertion_point(message_clear_start:wanderer.proto.point_light)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -206,7 +206,7 @@ const char* point_light::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // optional .wanderer.protobuf.float2 position = 1;
+      // optional .wanderer.proto.float2 position = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_position(), ptr);
@@ -276,11 +276,11 @@ failure:
 
 ::PROTOBUF_NAMESPACE_ID::uint8* point_light::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:wanderer.protobuf.point_light)
+  // @@protoc_insertion_point(serialize_to_array_start:wanderer.proto.point_light)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // optional .wanderer.protobuf.float2 position = 1;
+  // optional .wanderer.proto.float2 position = 1;
   if (_internal_has_position()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
@@ -316,12 +316,12 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:wanderer.protobuf.point_light)
+  // @@protoc_insertion_point(serialize_to_array_end:wanderer.proto.point_light)
   return target;
 }
 
 size_t point_light::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:wanderer.protobuf.point_light)
+// @@protoc_insertion_point(message_byte_size_start:wanderer.proto.point_light)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -330,7 +330,7 @@ size_t point_light::ByteSizeLong() const {
 
   cached_has_bits = _has_bits_[0];
   if (cached_has_bits & 0x0000001fu) {
-    // optional .wanderer.protobuf.float2 position = 1;
+    // optional .wanderer.proto.float2 position = 1;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
@@ -375,7 +375,7 @@ void point_light::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
 
 
 void point_light::MergeFrom(const point_light& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:wanderer.protobuf.point_light)
+// @@protoc_insertion_point(class_specific_merge_from_start:wanderer.proto.point_light)
   GOOGLE_DCHECK_NE(&from, this);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
@@ -383,7 +383,7 @@ void point_light::MergeFrom(const point_light& from) {
   cached_has_bits = from._has_bits_[0];
   if (cached_has_bits & 0x0000001fu) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_mutable_position()->::wanderer::protobuf::float2::MergeFrom(from._internal_position());
+      _internal_mutable_position()->::wanderer::proto::float2::MergeFrom(from._internal_position());
     }
     if (cached_has_bits & 0x00000002u) {
       size_ = from.size_;
@@ -403,7 +403,7 @@ void point_light::MergeFrom(const point_light& from) {
 }
 
 void point_light::CopyFrom(const point_light& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:wanderer.protobuf.point_light)
+// @@protoc_insertion_point(class_specific_copy_from_start:wanderer.proto.point_light)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -432,11 +432,11 @@ void point_light::InternalSwap(point_light* other) {
 }
 
 // @@protoc_insertion_point(namespace_scope)
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::wanderer::protobuf::point_light* Arena::CreateMaybeMessage< ::wanderer::protobuf::point_light >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::wanderer::protobuf::point_light >(arena);
+template<> PROTOBUF_NOINLINE ::wanderer::proto::point_light* Arena::CreateMaybeMessage< ::wanderer::proto::point_light >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::wanderer::proto::point_light >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

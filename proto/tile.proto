@@ -2,7 +2,7 @@ syntax = "proto3";
 
 import "rect.proto";
 
-package wanderer.protobuf;
+package wanderer.proto;
 
 message tile {
   optional uint32 id = 1;

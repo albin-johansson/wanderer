@@ -56,17 +56,17 @@ struct TableStruct_spawnpoint_2eproto {
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_spawnpoint_2eproto;
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 class spawnpoint;
 struct spawnpointDefaultTypeInternal;
 extern spawnpointDefaultTypeInternal _spawnpoint_default_instance_;
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 PROTOBUF_NAMESPACE_OPEN
-template<> ::wanderer::protobuf::spawnpoint* Arena::CreateMaybeMessage<::wanderer::protobuf::spawnpoint>(Arena*);
+template<> ::wanderer::proto::spawnpoint* Arena::CreateMaybeMessage<::wanderer::proto::spawnpoint>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 
 enum spawnpoint_type : int {
   PLAYER = 0,
@@ -96,7 +96,7 @@ inline bool spawnpoint_type_Parse(
 // ===================================================================
 
 class spawnpoint final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.protobuf.spawnpoint) */ {
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.proto.spawnpoint) */ {
  public:
   inline spawnpoint() : spawnpoint(nullptr) {}
   ~spawnpoint() override;
@@ -194,7 +194,7 @@ class spawnpoint final :
   void InternalSwap(spawnpoint* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "wanderer.protobuf.spawnpoint";
+    return "wanderer.proto.spawnpoint";
   }
   protected:
   explicit spawnpoint(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -217,38 +217,38 @@ class spawnpoint final :
     kPositionFieldNumber = 2,
     kTypeFieldNumber = 1,
   };
-  // optional .wanderer.protobuf.float2 position = 2;
+  // optional .wanderer.proto.float2 position = 2;
   bool has_position() const;
   private:
   bool _internal_has_position() const;
   public:
   void clear_position();
-  const ::wanderer::protobuf::float2& position() const;
-  PROTOBUF_MUST_USE_RESULT ::wanderer::protobuf::float2* release_position();
-  ::wanderer::protobuf::float2* mutable_position();
-  void set_allocated_position(::wanderer::protobuf::float2* position);
+  const ::wanderer::proto::float2& position() const;
+  PROTOBUF_MUST_USE_RESULT ::wanderer::proto::float2* release_position();
+  ::wanderer::proto::float2* mutable_position();
+  void set_allocated_position(::wanderer::proto::float2* position);
   private:
-  const ::wanderer::protobuf::float2& _internal_position() const;
-  ::wanderer::protobuf::float2* _internal_mutable_position();
+  const ::wanderer::proto::float2& _internal_position() const;
+  ::wanderer::proto::float2* _internal_mutable_position();
   public:
   void unsafe_arena_set_allocated_position(
-      ::wanderer::protobuf::float2* position);
-  ::wanderer::protobuf::float2* unsafe_arena_release_position();
+      ::wanderer::proto::float2* position);
+  ::wanderer::proto::float2* unsafe_arena_release_position();
 
-  // optional .wanderer.protobuf.spawnpoint_type type = 1;
+  // optional .wanderer.proto.spawnpoint_type type = 1;
   bool has_type() const;
   private:
   bool _internal_has_type() const;
   public:
   void clear_type();
-  ::wanderer::protobuf::spawnpoint_type type() const;
-  void set_type(::wanderer::protobuf::spawnpoint_type value);
+  ::wanderer::proto::spawnpoint_type type() const;
+  void set_type(::wanderer::proto::spawnpoint_type value);
   private:
-  ::wanderer::protobuf::spawnpoint_type _internal_type() const;
-  void _internal_set_type(::wanderer::protobuf::spawnpoint_type value);
+  ::wanderer::proto::spawnpoint_type _internal_type() const;
+  void _internal_set_type(::wanderer::proto::spawnpoint_type value);
   public:
 
-  // @@protoc_insertion_point(class_scope:wanderer.protobuf.spawnpoint)
+  // @@protoc_insertion_point(class_scope:wanderer.proto.spawnpoint)
  private:
   class _Internal;
 
@@ -257,7 +257,7 @@ class spawnpoint final :
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  ::wanderer::protobuf::float2* position_;
+  ::wanderer::proto::float2* position_;
   int type_;
   friend struct ::TableStruct_spawnpoint_2eproto;
 };
@@ -272,7 +272,7 @@ class spawnpoint final :
 #endif  // __GNUC__
 // spawnpoint
 
-// optional .wanderer.protobuf.spawnpoint_type type = 1;
+// optional .wanderer.proto.spawnpoint_type type = 1;
 inline bool spawnpoint::_internal_has_type() const {
   bool value = (_has_bits_[0] & 0x00000002u) != 0;
   return value;
@@ -284,23 +284,23 @@ inline void spawnpoint::clear_type() {
   type_ = 0;
   _has_bits_[0] &= ~0x00000002u;
 }
-inline ::wanderer::protobuf::spawnpoint_type spawnpoint::_internal_type() const {
-  return static_cast< ::wanderer::protobuf::spawnpoint_type >(type_);
+inline ::wanderer::proto::spawnpoint_type spawnpoint::_internal_type() const {
+  return static_cast< ::wanderer::proto::spawnpoint_type >(type_);
 }
-inline ::wanderer::protobuf::spawnpoint_type spawnpoint::type() const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.spawnpoint.type)
+inline ::wanderer::proto::spawnpoint_type spawnpoint::type() const {
+  // @@protoc_insertion_point(field_get:wanderer.proto.spawnpoint.type)
   return _internal_type();
 }
-inline void spawnpoint::_internal_set_type(::wanderer::protobuf::spawnpoint_type value) {
+inline void spawnpoint::_internal_set_type(::wanderer::proto::spawnpoint_type value) {
   _has_bits_[0] |= 0x00000002u;
   type_ = value;
 }
-inline void spawnpoint::set_type(::wanderer::protobuf::spawnpoint_type value) {
+inline void spawnpoint::set_type(::wanderer::proto::spawnpoint_type value) {
   _internal_set_type(value);
-  // @@protoc_insertion_point(field_set:wanderer.protobuf.spawnpoint.type)
+  // @@protoc_insertion_point(field_set:wanderer.proto.spawnpoint.type)
 }
 
-// optional .wanderer.protobuf.float2 position = 2;
+// optional .wanderer.proto.float2 position = 2;
 inline bool spawnpoint::_internal_has_position() const {
   bool value = (_has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || position_ != nullptr);
@@ -309,17 +309,17 @@ inline bool spawnpoint::_internal_has_position() const {
 inline bool spawnpoint::has_position() const {
   return _internal_has_position();
 }
-inline const ::wanderer::protobuf::float2& spawnpoint::_internal_position() const {
-  const ::wanderer::protobuf::float2* p = position_;
-  return p != nullptr ? *p : reinterpret_cast<const ::wanderer::protobuf::float2&>(
-      ::wanderer::protobuf::_float2_default_instance_);
+inline const ::wanderer::proto::float2& spawnpoint::_internal_position() const {
+  const ::wanderer::proto::float2* p = position_;
+  return p != nullptr ? *p : reinterpret_cast<const ::wanderer::proto::float2&>(
+      ::wanderer::proto::_float2_default_instance_);
 }
-inline const ::wanderer::protobuf::float2& spawnpoint::position() const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.spawnpoint.position)
+inline const ::wanderer::proto::float2& spawnpoint::position() const {
+  // @@protoc_insertion_point(field_get:wanderer.proto.spawnpoint.position)
   return _internal_position();
 }
 inline void spawnpoint::unsafe_arena_set_allocated_position(
-    ::wanderer::protobuf::float2* position) {
+    ::wanderer::proto::float2* position) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(position_);
   }
@@ -329,11 +329,11 @@ inline void spawnpoint::unsafe_arena_set_allocated_position(
   } else {
     _has_bits_[0] &= ~0x00000001u;
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:wanderer.protobuf.spawnpoint.position)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:wanderer.proto.spawnpoint.position)
 }
-inline ::wanderer::protobuf::float2* spawnpoint::release_position() {
+inline ::wanderer::proto::float2* spawnpoint::release_position() {
   _has_bits_[0] &= ~0x00000001u;
-  ::wanderer::protobuf::float2* temp = position_;
+  ::wanderer::proto::float2* temp = position_;
   position_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -346,27 +346,27 @@ inline ::wanderer::protobuf::float2* spawnpoint::release_position() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::wanderer::protobuf::float2* spawnpoint::unsafe_arena_release_position() {
-  // @@protoc_insertion_point(field_release:wanderer.protobuf.spawnpoint.position)
+inline ::wanderer::proto::float2* spawnpoint::unsafe_arena_release_position() {
+  // @@protoc_insertion_point(field_release:wanderer.proto.spawnpoint.position)
   _has_bits_[0] &= ~0x00000001u;
-  ::wanderer::protobuf::float2* temp = position_;
+  ::wanderer::proto::float2* temp = position_;
   position_ = nullptr;
   return temp;
 }
-inline ::wanderer::protobuf::float2* spawnpoint::_internal_mutable_position() {
+inline ::wanderer::proto::float2* spawnpoint::_internal_mutable_position() {
   _has_bits_[0] |= 0x00000001u;
   if (position_ == nullptr) {
-    auto* p = CreateMaybeMessage<::wanderer::protobuf::float2>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::wanderer::proto::float2>(GetArenaForAllocation());
     position_ = p;
   }
   return position_;
 }
-inline ::wanderer::protobuf::float2* spawnpoint::mutable_position() {
-  ::wanderer::protobuf::float2* _msg = _internal_mutable_position();
-  // @@protoc_insertion_point(field_mutable:wanderer.protobuf.spawnpoint.position)
+inline ::wanderer::proto::float2* spawnpoint::mutable_position() {
+  ::wanderer::proto::float2* _msg = _internal_mutable_position();
+  // @@protoc_insertion_point(field_mutable:wanderer.proto.spawnpoint.position)
   return _msg;
 }
-inline void spawnpoint::set_allocated_position(::wanderer::protobuf::float2* position) {
+inline void spawnpoint::set_allocated_position(::wanderer::proto::float2* position) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(position_);
@@ -385,7 +385,7 @@ inline void spawnpoint::set_allocated_position(::wanderer::protobuf::float2* pos
     _has_bits_[0] &= ~0x00000001u;
   }
   position_ = position;
-  // @@protoc_insertion_point(field_set_allocated:wanderer.protobuf.spawnpoint.position)
+  // @@protoc_insertion_point(field_set_allocated:wanderer.proto.spawnpoint.position)
 }
 
 #ifdef __GNUC__
@@ -394,15 +394,15 @@ inline void spawnpoint::set_allocated_position(::wanderer::protobuf::float2* pos
 
 // @@protoc_insertion_point(namespace_scope)
 
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 
 PROTOBUF_NAMESPACE_OPEN
 
-template <> struct is_proto_enum< ::wanderer::protobuf::spawnpoint_type> : ::std::true_type {};
+template <> struct is_proto_enum< ::wanderer::proto::spawnpoint_type> : ::std::true_type {};
 template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::wanderer::protobuf::spawnpoint_type>() {
-  return ::wanderer::protobuf::spawnpoint_type_descriptor();
+inline const EnumDescriptor* GetEnumDescriptor< ::wanderer::proto::spawnpoint_type>() {
+  return ::wanderer::proto::spawnpoint_type_descriptor();
 }
 
 PROTOBUF_NAMESPACE_CLOSE

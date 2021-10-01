@@ -17,7 +17,7 @@
 
 PROTOBUF_PRAGMA_INIT_SEG
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 constexpr tilemap::tilemap(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : size_(nullptr)
@@ -34,24 +34,24 @@ struct tilemapDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT tilemapDefaultTypeInternal _tilemap_default_instance_;
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_tilemap_2eproto[1];
 static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_tilemap_2eproto = nullptr;
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_tilemap_2eproto = nullptr;
 
 const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_tilemap_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::tilemap, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::tilemap, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::tilemap, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::tilemap, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::tilemap, id_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::tilemap, humanoid_layer_index_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::tilemap, size_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::tilemap, row_count_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::tilemap, column_count_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::tilemap, id_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::tilemap, humanoid_layer_index_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::tilemap, size_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::tilemap, row_count_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::tilemap, column_count_),
   1,
   2,
   0,
@@ -59,29 +59,28 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_tilemap_2eproto::offsets[] PRO
   4,
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, 11, -1, sizeof(::wanderer::protobuf::tilemap)},
+  { 0, 11, -1, sizeof(::wanderer::proto::tilemap)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::protobuf::_tilemap_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_tilemap_default_instance_),
 };
 
 const char descriptor_table_protodef_tilemap_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\rtilemap.proto\022\021wanderer.protobuf\032\narea"
-  ".proto\"\345\001\n\007tilemap\022\017\n\002id\030\001 \001(\005H\000\210\001\001\022!\n\024h"
-  "umanoid_layer_index\030\002 \001(\005H\001\210\001\001\022+\n\004size\030\003"
-  " \001(\0132\030.wanderer.protobuf.fareaH\002\210\001\001\022\026\n\tr"
-  "ow_count\030\004 \001(\004H\003\210\001\001\022\031\n\014column_count\030\005 \001("
-  "\004H\004\210\001\001B\005\n\003_idB\027\n\025_humanoid_layer_indexB\007"
-  "\n\005_sizeB\014\n\n_row_countB\017\n\r_column_countb\006"
-  "proto3"
+  "\n\rtilemap.proto\022\016wanderer.proto\032\narea.pr"
+  "oto\"\342\001\n\007tilemap\022\017\n\002id\030\001 \001(\005H\000\210\001\001\022!\n\024huma"
+  "noid_layer_index\030\002 \001(\005H\001\210\001\001\022(\n\004size\030\003 \001("
+  "\0132\025.wanderer.proto.fareaH\002\210\001\001\022\026\n\trow_cou"
+  "nt\030\004 \001(\004H\003\210\001\001\022\031\n\014column_count\030\005 \001(\004H\004\210\001\001"
+  "B\005\n\003_idB\027\n\025_humanoid_layer_indexB\007\n\005_siz"
+  "eB\014\n\n_row_countB\017\n\r_column_countb\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_tilemap_2eproto_deps[1] = {
   &::descriptor_table_area_2eproto,
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_tilemap_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_tilemap_2eproto = {
-  false, false, 286, descriptor_table_protodef_tilemap_2eproto, "tilemap.proto", 
+  false, false, 280, descriptor_table_protodef_tilemap_2eproto, "tilemap.proto", 
   &descriptor_table_tilemap_2eproto_once, descriptor_table_tilemap_2eproto_deps, 1, 1,
   schemas, file_default_instances, TableStruct_tilemap_2eproto::offsets,
   file_level_metadata_tilemap_2eproto, file_level_enum_descriptors_tilemap_2eproto, file_level_service_descriptors_tilemap_2eproto,
@@ -93,7 +92,7 @@ PROTOBUF_ATTRIBUTE_WEAK const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable
 // Force running AddDescriptors() at dynamic initialization time.
 PROTOBUF_ATTRIBUTE_INIT_PRIORITY static ::PROTOBUF_NAMESPACE_ID::internal::AddDescriptorsRunner dynamic_init_dummy_tilemap_2eproto(&descriptor_table_tilemap_2eproto);
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 
 // ===================================================================
 
@@ -106,7 +105,7 @@ class tilemap::_Internal {
   static void set_has_humanoid_layer_index(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
   }
-  static const ::wanderer::protobuf::farea& size(const tilemap* msg);
+  static const ::wanderer::proto::farea& size(const tilemap* msg);
   static void set_has_size(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -118,7 +117,7 @@ class tilemap::_Internal {
   }
 };
 
-const ::wanderer::protobuf::farea&
+const ::wanderer::proto::farea&
 tilemap::_Internal::size(const tilemap* msg) {
   return *msg->size_;
 }
@@ -133,21 +132,21 @@ tilemap::tilemap(::PROTOBUF_NAMESPACE_ID::Arena* arena,
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
   }
-  // @@protoc_insertion_point(arena_constructor:wanderer.protobuf.tilemap)
+  // @@protoc_insertion_point(arena_constructor:wanderer.proto.tilemap)
 }
 tilemap::tilemap(const tilemap& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
       _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   if (from._internal_has_size()) {
-    size_ = new ::wanderer::protobuf::farea(*from.size_);
+    size_ = new ::wanderer::proto::farea(*from.size_);
   } else {
     size_ = nullptr;
   }
   ::memcpy(&id_, &from.id_,
     static_cast<size_t>(reinterpret_cast<char*>(&column_count_) -
     reinterpret_cast<char*>(&id_)) + sizeof(column_count_));
-  // @@protoc_insertion_point(copy_constructor:wanderer.protobuf.tilemap)
+  // @@protoc_insertion_point(copy_constructor:wanderer.proto.tilemap)
 }
 
 void tilemap::SharedCtor() {
@@ -158,7 +157,7 @@ void tilemap::SharedCtor() {
 }
 
 tilemap::~tilemap() {
-  // @@protoc_insertion_point(destructor:wanderer.protobuf.tilemap)
+  // @@protoc_insertion_point(destructor:wanderer.proto.tilemap)
   if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
@@ -180,7 +179,7 @@ void tilemap::SetCachedSize(int size) const {
 }
 
 void tilemap::Clear() {
-// @@protoc_insertion_point(message_clear_start:wanderer.protobuf.tilemap)
+// @@protoc_insertion_point(message_clear_start:wanderer.proto.tilemap)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -224,7 +223,7 @@ const char* tilemap::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
         } else
           goto handle_unusual;
         continue;
-      // optional .wanderer.protobuf.farea size = 3;
+      // optional .wanderer.proto.farea size = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
           ptr = ctx->ParseMessage(_internal_mutable_size(), ptr);
@@ -276,7 +275,7 @@ failure:
 
 ::PROTOBUF_NAMESPACE_ID::uint8* tilemap::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:wanderer.protobuf.tilemap)
+  // @@protoc_insertion_point(serialize_to_array_start:wanderer.proto.tilemap)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -292,7 +291,7 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(2, this->_internal_humanoid_layer_index(), target);
   }
 
-  // optional .wanderer.protobuf.farea size = 3;
+  // optional .wanderer.proto.farea size = 3;
   if (_internal_has_size()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
@@ -316,12 +315,12 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:wanderer.protobuf.tilemap)
+  // @@protoc_insertion_point(serialize_to_array_end:wanderer.proto.tilemap)
   return target;
 }
 
 size_t tilemap::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:wanderer.protobuf.tilemap)
+// @@protoc_insertion_point(message_byte_size_start:wanderer.proto.tilemap)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -330,7 +329,7 @@ size_t tilemap::ByteSizeLong() const {
 
   cached_has_bits = _has_bits_[0];
   if (cached_has_bits & 0x0000001fu) {
-    // optional .wanderer.protobuf.farea size = 3;
+    // optional .wanderer.proto.farea size = 3;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
@@ -375,7 +374,7 @@ void tilemap::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
 
 
 void tilemap::MergeFrom(const tilemap& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:wanderer.protobuf.tilemap)
+// @@protoc_insertion_point(class_specific_merge_from_start:wanderer.proto.tilemap)
   GOOGLE_DCHECK_NE(&from, this);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
@@ -383,7 +382,7 @@ void tilemap::MergeFrom(const tilemap& from) {
   cached_has_bits = from._has_bits_[0];
   if (cached_has_bits & 0x0000001fu) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_mutable_size()->::wanderer::protobuf::farea::MergeFrom(from._internal_size());
+      _internal_mutable_size()->::wanderer::proto::farea::MergeFrom(from._internal_size());
     }
     if (cached_has_bits & 0x00000002u) {
       id_ = from.id_;
@@ -403,7 +402,7 @@ void tilemap::MergeFrom(const tilemap& from) {
 }
 
 void tilemap::CopyFrom(const tilemap& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:wanderer.protobuf.tilemap)
+// @@protoc_insertion_point(class_specific_copy_from_start:wanderer.proto.tilemap)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -432,11 +431,11 @@ void tilemap::InternalSwap(tilemap* other) {
 }
 
 // @@protoc_insertion_point(namespace_scope)
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::wanderer::protobuf::tilemap* Arena::CreateMaybeMessage< ::wanderer::protobuf::tilemap >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::wanderer::protobuf::tilemap >(arena);
+template<> PROTOBUF_NOINLINE ::wanderer::proto::tilemap* Arena::CreateMaybeMessage< ::wanderer::proto::tilemap >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::wanderer::proto::tilemap >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

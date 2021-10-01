@@ -17,7 +17,7 @@
 
 PROTOBUF_PRAGMA_INIT_SEG
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 constexpr float3::float3(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : x_(0)
@@ -32,42 +32,42 @@ struct float3DefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT float3DefaultTypeInternal _float3_default_instance_;
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_float3_2eproto[1];
 static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_float3_2eproto = nullptr;
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_float3_2eproto = nullptr;
 
 const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_float3_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::float3, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::float3, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::float3, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::float3, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::float3, x_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::float3, y_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::float3, z_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::float3, x_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::float3, y_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::float3, z_),
   0,
   1,
   2,
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, 9, -1, sizeof(::wanderer::protobuf::float3)},
+  { 0, 9, -1, sizeof(::wanderer::proto::float3)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::protobuf::_float3_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_float3_default_instance_),
 };
 
 const char descriptor_table_protodef_float3_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\014float3.proto\022\021wanderer.protobuf\"J\n\006flo"
-  "at3\022\016\n\001x\030\001 \001(\002H\000\210\001\001\022\016\n\001y\030\002 \001(\002H\001\210\001\001\022\016\n\001z"
-  "\030\003 \001(\002H\002\210\001\001B\004\n\002_xB\004\n\002_yB\004\n\002_zb\006proto3"
+  "\n\014float3.proto\022\016wanderer.proto\"J\n\006float3"
+  "\022\016\n\001x\030\001 \001(\002H\000\210\001\001\022\016\n\001y\030\002 \001(\002H\001\210\001\001\022\016\n\001z\030\003 "
+  "\001(\002H\002\210\001\001B\004\n\002_xB\004\n\002_yB\004\n\002_zb\006proto3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_float3_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_float3_2eproto = {
-  false, false, 117, descriptor_table_protodef_float3_2eproto, "float3.proto", 
+  false, false, 114, descriptor_table_protodef_float3_2eproto, "float3.proto", 
   &descriptor_table_float3_2eproto_once, nullptr, 0, 1,
   schemas, file_default_instances, TableStruct_float3_2eproto::offsets,
   file_level_metadata_float3_2eproto, file_level_enum_descriptors_float3_2eproto, file_level_service_descriptors_float3_2eproto,
@@ -79,7 +79,7 @@ PROTOBUF_ATTRIBUTE_WEAK const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable
 // Force running AddDescriptors() at dynamic initialization time.
 PROTOBUF_ATTRIBUTE_INIT_PRIORITY static ::PROTOBUF_NAMESPACE_ID::internal::AddDescriptorsRunner dynamic_init_dummy_float3_2eproto(&descriptor_table_float3_2eproto);
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 
 // ===================================================================
 
@@ -104,7 +104,7 @@ float3::float3(::PROTOBUF_NAMESPACE_ID::Arena* arena,
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
   }
-  // @@protoc_insertion_point(arena_constructor:wanderer.protobuf.float3)
+  // @@protoc_insertion_point(arena_constructor:wanderer.proto.float3)
 }
 float3::float3(const float3& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
@@ -113,7 +113,7 @@ float3::float3(const float3& from)
   ::memcpy(&x_, &from.x_,
     static_cast<size_t>(reinterpret_cast<char*>(&z_) -
     reinterpret_cast<char*>(&x_)) + sizeof(z_));
-  // @@protoc_insertion_point(copy_constructor:wanderer.protobuf.float3)
+  // @@protoc_insertion_point(copy_constructor:wanderer.proto.float3)
 }
 
 void float3::SharedCtor() {
@@ -124,7 +124,7 @@ void float3::SharedCtor() {
 }
 
 float3::~float3() {
-  // @@protoc_insertion_point(destructor:wanderer.protobuf.float3)
+  // @@protoc_insertion_point(destructor:wanderer.proto.float3)
   if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
@@ -145,7 +145,7 @@ void float3::SetCachedSize(int size) const {
 }
 
 void float3::Clear() {
-// @@protoc_insertion_point(message_clear_start:wanderer.protobuf.float3)
+// @@protoc_insertion_point(message_clear_start:wanderer.proto.float3)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -220,7 +220,7 @@ failure:
 
 ::PROTOBUF_NAMESPACE_ID::uint8* float3::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:wanderer.protobuf.float3)
+  // @@protoc_insertion_point(serialize_to_array_start:wanderer.proto.float3)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -246,12 +246,12 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:wanderer.protobuf.float3)
+  // @@protoc_insertion_point(serialize_to_array_end:wanderer.proto.float3)
   return target;
 }
 
 size_t float3::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:wanderer.protobuf.float3)
+// @@protoc_insertion_point(message_byte_size_start:wanderer.proto.float3)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -293,7 +293,7 @@ void float3::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
 
 
 void float3::MergeFrom(const float3& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:wanderer.protobuf.float3)
+// @@protoc_insertion_point(class_specific_merge_from_start:wanderer.proto.float3)
   GOOGLE_DCHECK_NE(&from, this);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
@@ -315,7 +315,7 @@ void float3::MergeFrom(const float3& from) {
 }
 
 void float3::CopyFrom(const float3& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:wanderer.protobuf.float3)
+// @@protoc_insertion_point(class_specific_copy_from_start:wanderer.proto.float3)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -344,11 +344,11 @@ void float3::InternalSwap(float3* other) {
 }
 
 // @@protoc_insertion_point(namespace_scope)
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::wanderer::protobuf::float3* Arena::CreateMaybeMessage< ::wanderer::protobuf::float3 >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::wanderer::protobuf::float3 >(arena);
+template<> PROTOBUF_NOINLINE ::wanderer::proto::float3* Arena::CreateMaybeMessage< ::wanderer::proto::float3 >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::wanderer::proto::float3 >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

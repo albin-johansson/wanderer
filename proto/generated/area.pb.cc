@@ -17,7 +17,7 @@
 
 PROTOBUF_PRAGMA_INIT_SEG
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 constexpr iarea::iarea(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : width_(0)
@@ -44,54 +44,54 @@ struct fareaDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT fareaDefaultTypeInternal _farea_default_instance_;
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_area_2eproto[2];
 static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_area_2eproto = nullptr;
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_area_2eproto = nullptr;
 
 const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_area_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::iarea, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::iarea, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::iarea, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::iarea, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::iarea, width_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::iarea, height_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::iarea, width_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::iarea, height_),
   0,
   1,
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::farea, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::farea, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::farea, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::farea, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::farea, width_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::farea, height_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::farea, width_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::farea, height_),
   0,
   1,
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, 8, -1, sizeof(::wanderer::protobuf::iarea)},
-  { 10, 18, -1, sizeof(::wanderer::protobuf::farea)},
+  { 0, 8, -1, sizeof(::wanderer::proto::iarea)},
+  { 10, 18, -1, sizeof(::wanderer::proto::farea)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::protobuf::_iarea_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::protobuf::_farea_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_iarea_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_farea_default_instance_),
 };
 
 const char descriptor_table_protodef_area_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\narea.proto\022\021wanderer.protobuf\"E\n\005iarea"
-  "\022\022\n\005width\030\001 \001(\005H\000\210\001\001\022\023\n\006height\030\002 \001(\005H\001\210\001"
-  "\001B\010\n\006_widthB\t\n\007_height\"E\n\005farea\022\022\n\005width"
-  "\030\001 \001(\002H\000\210\001\001\022\023\n\006height\030\002 \001(\002H\001\210\001\001B\010\n\006_wid"
-  "thB\t\n\007_heightb\006proto3"
+  "\n\narea.proto\022\016wanderer.proto\"E\n\005iarea\022\022\n"
+  "\005width\030\001 \001(\005H\000\210\001\001\022\023\n\006height\030\002 \001(\005H\001\210\001\001B\010"
+  "\n\006_widthB\t\n\007_height\"E\n\005farea\022\022\n\005width\030\001 "
+  "\001(\002H\000\210\001\001\022\023\n\006height\030\002 \001(\002H\001\210\001\001B\010\n\006_widthB"
+  "\t\n\007_heightb\006proto3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_area_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_area_2eproto = {
-  false, false, 181, descriptor_table_protodef_area_2eproto, "area.proto", 
+  false, false, 178, descriptor_table_protodef_area_2eproto, "area.proto", 
   &descriptor_table_area_2eproto_once, nullptr, 0, 2,
   schemas, file_default_instances, TableStruct_area_2eproto::offsets,
   file_level_metadata_area_2eproto, file_level_enum_descriptors_area_2eproto, file_level_service_descriptors_area_2eproto,
@@ -103,7 +103,7 @@ PROTOBUF_ATTRIBUTE_WEAK const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable
 // Force running AddDescriptors() at dynamic initialization time.
 PROTOBUF_ATTRIBUTE_INIT_PRIORITY static ::PROTOBUF_NAMESPACE_ID::internal::AddDescriptorsRunner dynamic_init_dummy_area_2eproto(&descriptor_table_area_2eproto);
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 
 // ===================================================================
 
@@ -125,7 +125,7 @@ iarea::iarea(::PROTOBUF_NAMESPACE_ID::Arena* arena,
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
   }
-  // @@protoc_insertion_point(arena_constructor:wanderer.protobuf.iarea)
+  // @@protoc_insertion_point(arena_constructor:wanderer.proto.iarea)
 }
 iarea::iarea(const iarea& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
@@ -134,7 +134,7 @@ iarea::iarea(const iarea& from)
   ::memcpy(&width_, &from.width_,
     static_cast<size_t>(reinterpret_cast<char*>(&height_) -
     reinterpret_cast<char*>(&width_)) + sizeof(height_));
-  // @@protoc_insertion_point(copy_constructor:wanderer.protobuf.iarea)
+  // @@protoc_insertion_point(copy_constructor:wanderer.proto.iarea)
 }
 
 void iarea::SharedCtor() {
@@ -145,7 +145,7 @@ void iarea::SharedCtor() {
 }
 
 iarea::~iarea() {
-  // @@protoc_insertion_point(destructor:wanderer.protobuf.iarea)
+  // @@protoc_insertion_point(destructor:wanderer.proto.iarea)
   if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
@@ -166,7 +166,7 @@ void iarea::SetCachedSize(int size) const {
 }
 
 void iarea::Clear() {
-// @@protoc_insertion_point(message_clear_start:wanderer.protobuf.iarea)
+// @@protoc_insertion_point(message_clear_start:wanderer.proto.iarea)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -232,7 +232,7 @@ failure:
 
 ::PROTOBUF_NAMESPACE_ID::uint8* iarea::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:wanderer.protobuf.iarea)
+  // @@protoc_insertion_point(serialize_to_array_start:wanderer.proto.iarea)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -252,12 +252,12 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:wanderer.protobuf.iarea)
+  // @@protoc_insertion_point(serialize_to_array_end:wanderer.proto.iarea)
   return target;
 }
 
 size_t iarea::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:wanderer.protobuf.iarea)
+// @@protoc_insertion_point(message_byte_size_start:wanderer.proto.iarea)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -294,7 +294,7 @@ void iarea::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
 
 
 void iarea::MergeFrom(const iarea& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:wanderer.protobuf.iarea)
+// @@protoc_insertion_point(class_specific_merge_from_start:wanderer.proto.iarea)
   GOOGLE_DCHECK_NE(&from, this);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
@@ -313,7 +313,7 @@ void iarea::MergeFrom(const iarea& from) {
 }
 
 void iarea::CopyFrom(const iarea& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:wanderer.protobuf.iarea)
+// @@protoc_insertion_point(class_specific_copy_from_start:wanderer.proto.iarea)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -361,7 +361,7 @@ farea::farea(::PROTOBUF_NAMESPACE_ID::Arena* arena,
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
   }
-  // @@protoc_insertion_point(arena_constructor:wanderer.protobuf.farea)
+  // @@protoc_insertion_point(arena_constructor:wanderer.proto.farea)
 }
 farea::farea(const farea& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
@@ -370,7 +370,7 @@ farea::farea(const farea& from)
   ::memcpy(&width_, &from.width_,
     static_cast<size_t>(reinterpret_cast<char*>(&height_) -
     reinterpret_cast<char*>(&width_)) + sizeof(height_));
-  // @@protoc_insertion_point(copy_constructor:wanderer.protobuf.farea)
+  // @@protoc_insertion_point(copy_constructor:wanderer.proto.farea)
 }
 
 void farea::SharedCtor() {
@@ -381,7 +381,7 @@ void farea::SharedCtor() {
 }
 
 farea::~farea() {
-  // @@protoc_insertion_point(destructor:wanderer.protobuf.farea)
+  // @@protoc_insertion_point(destructor:wanderer.proto.farea)
   if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
@@ -402,7 +402,7 @@ void farea::SetCachedSize(int size) const {
 }
 
 void farea::Clear() {
-// @@protoc_insertion_point(message_clear_start:wanderer.protobuf.farea)
+// @@protoc_insertion_point(message_clear_start:wanderer.proto.farea)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -468,7 +468,7 @@ failure:
 
 ::PROTOBUF_NAMESPACE_ID::uint8* farea::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:wanderer.protobuf.farea)
+  // @@protoc_insertion_point(serialize_to_array_start:wanderer.proto.farea)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -488,12 +488,12 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:wanderer.protobuf.farea)
+  // @@protoc_insertion_point(serialize_to_array_end:wanderer.proto.farea)
   return target;
 }
 
 size_t farea::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:wanderer.protobuf.farea)
+// @@protoc_insertion_point(message_byte_size_start:wanderer.proto.farea)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -530,7 +530,7 @@ void farea::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
 
 
 void farea::MergeFrom(const farea& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:wanderer.protobuf.farea)
+// @@protoc_insertion_point(class_specific_merge_from_start:wanderer.proto.farea)
   GOOGLE_DCHECK_NE(&from, this);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
@@ -549,7 +549,7 @@ void farea::MergeFrom(const farea& from) {
 }
 
 void farea::CopyFrom(const farea& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:wanderer.protobuf.farea)
+// @@protoc_insertion_point(class_specific_copy_from_start:wanderer.proto.farea)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -578,14 +578,14 @@ void farea::InternalSwap(farea* other) {
 }
 
 // @@protoc_insertion_point(namespace_scope)
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::wanderer::protobuf::iarea* Arena::CreateMaybeMessage< ::wanderer::protobuf::iarea >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::wanderer::protobuf::iarea >(arena);
+template<> PROTOBUF_NOINLINE ::wanderer::proto::iarea* Arena::CreateMaybeMessage< ::wanderer::proto::iarea >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::wanderer::proto::iarea >(arena);
 }
-template<> PROTOBUF_NOINLINE ::wanderer::protobuf::farea* Arena::CreateMaybeMessage< ::wanderer::protobuf::farea >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::wanderer::protobuf::farea >(arena);
+template<> PROTOBUF_NOINLINE ::wanderer::proto::farea* Arena::CreateMaybeMessage< ::wanderer::proto::farea >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::wanderer::proto::farea >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

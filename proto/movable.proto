@@ -2,7 +2,7 @@ syntax = "proto3";
 
 import "float2.proto";
 
-package wanderer.protobuf;
+package wanderer.proto;
 
 message movable {
   optional float2 position = 1;

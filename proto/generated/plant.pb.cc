@@ -17,7 +17,7 @@
 
 PROTOBUF_PRAGMA_INIT_SEG
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 constexpr plant::plant(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : tiles_()
@@ -38,26 +38,26 @@ struct plantDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT plantDefaultTypeInternal _plant_default_instance_;
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_plant_2eproto[1];
 static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_plant_2eproto = nullptr;
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_plant_2eproto = nullptr;
 
 const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_plant_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::plant, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::plant, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::plant, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::plant, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::plant, current_growth_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::plant, rate_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::plant, base_y_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::plant, tile_height_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::plant, index_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::plant, tiles_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::plant, tall_tiles_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::plant, current_growth_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::plant, rate_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::plant, base_y_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::plant, tile_height_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::plant, index_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::plant, tiles_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::plant, tall_tiles_),
   0,
   1,
   2,
@@ -67,25 +67,25 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_plant_2eproto::offsets[] PROTO
   ~0u,
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, 13, -1, sizeof(::wanderer::protobuf::plant)},
+  { 0, 13, -1, sizeof(::wanderer::proto::plant)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::protobuf::_plant_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_plant_default_instance_),
 };
 
 const char descriptor_table_protodef_plant_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\013plant.proto\022\021wanderer.protobuf\"\346\001\n\005pla"
-  "nt\022\033\n\016current_growth\030\001 \001(\002H\000\210\001\001\022\021\n\004rate\030"
-  "\002 \001(\002H\001\210\001\001\022\023\n\006base_y\030\003 \001(\002H\002\210\001\001\022\030\n\013tile_"
-  "height\030\004 \001(\005H\003\210\001\001\022\022\n\005index\030\005 \001(\004H\004\210\001\001\022\021\n"
-  "\005tiles\030\006 \003(\rB\002\020\001\022\026\n\ntall_tiles\030\007 \003(\rB\002\020\001"
-  "B\021\n\017_current_growthB\007\n\005_rateB\t\n\007_base_yB"
-  "\016\n\014_tile_heightB\010\n\006_indexb\006proto3"
+  "\n\013plant.proto\022\016wanderer.proto\"\346\001\n\005plant\022"
+  "\033\n\016current_growth\030\001 \001(\002H\000\210\001\001\022\021\n\004rate\030\002 \001"
+  "(\002H\001\210\001\001\022\023\n\006base_y\030\003 \001(\002H\002\210\001\001\022\030\n\013tile_hei"
+  "ght\030\004 \001(\005H\003\210\001\001\022\022\n\005index\030\005 \001(\004H\004\210\001\001\022\021\n\005ti"
+  "les\030\006 \003(\rB\002\020\001\022\026\n\ntall_tiles\030\007 \003(\rB\002\020\001B\021\n"
+  "\017_current_growthB\007\n\005_rateB\t\n\007_base_yB\016\n\014"
+  "_tile_heightB\010\n\006_indexb\006proto3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_plant_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_plant_2eproto = {
-  false, false, 273, descriptor_table_protodef_plant_2eproto, "plant.proto", 
+  false, false, 270, descriptor_table_protodef_plant_2eproto, "plant.proto", 
   &descriptor_table_plant_2eproto_once, nullptr, 0, 1,
   schemas, file_default_instances, TableStruct_plant_2eproto::offsets,
   file_level_metadata_plant_2eproto, file_level_enum_descriptors_plant_2eproto, file_level_service_descriptors_plant_2eproto,
@@ -97,7 +97,7 @@ PROTOBUF_ATTRIBUTE_WEAK const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable
 // Force running AddDescriptors() at dynamic initialization time.
 PROTOBUF_ATTRIBUTE_INIT_PRIORITY static ::PROTOBUF_NAMESPACE_ID::internal::AddDescriptorsRunner dynamic_init_dummy_plant_2eproto(&descriptor_table_plant_2eproto);
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 
 // ===================================================================
 
@@ -130,7 +130,7 @@ plant::plant(::PROTOBUF_NAMESPACE_ID::Arena* arena,
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
   }
-  // @@protoc_insertion_point(arena_constructor:wanderer.protobuf.plant)
+  // @@protoc_insertion_point(arena_constructor:wanderer.proto.plant)
 }
 plant::plant(const plant& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
@@ -141,7 +141,7 @@ plant::plant(const plant& from)
   ::memcpy(&current_growth_, &from.current_growth_,
     static_cast<size_t>(reinterpret_cast<char*>(&index_) -
     reinterpret_cast<char*>(&current_growth_)) + sizeof(index_));
-  // @@protoc_insertion_point(copy_constructor:wanderer.protobuf.plant)
+  // @@protoc_insertion_point(copy_constructor:wanderer.proto.plant)
 }
 
 void plant::SharedCtor() {
@@ -152,7 +152,7 @@ void plant::SharedCtor() {
 }
 
 plant::~plant() {
-  // @@protoc_insertion_point(destructor:wanderer.protobuf.plant)
+  // @@protoc_insertion_point(destructor:wanderer.proto.plant)
   if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
@@ -173,7 +173,7 @@ void plant::SetCachedSize(int size) const {
 }
 
 void plant::Clear() {
-// @@protoc_insertion_point(message_clear_start:wanderer.protobuf.plant)
+// @@protoc_insertion_point(message_clear_start:wanderer.proto.plant)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -290,7 +290,7 @@ failure:
 
 ::PROTOBUF_NAMESPACE_ID::uint8* plant::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:wanderer.protobuf.plant)
+  // @@protoc_insertion_point(serialize_to_array_start:wanderer.proto.plant)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -346,12 +346,12 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:wanderer.protobuf.plant)
+  // @@protoc_insertion_point(serialize_to_array_end:wanderer.proto.plant)
   return target;
 }
 
 size_t plant::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:wanderer.protobuf.plant)
+// @@protoc_insertion_point(message_byte_size_start:wanderer.proto.plant)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -433,7 +433,7 @@ void plant::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
 
 
 void plant::MergeFrom(const plant& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:wanderer.protobuf.plant)
+// @@protoc_insertion_point(class_specific_merge_from_start:wanderer.proto.plant)
   GOOGLE_DCHECK_NE(&from, this);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
@@ -463,7 +463,7 @@ void plant::MergeFrom(const plant& from) {
 }
 
 void plant::CopyFrom(const plant& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:wanderer.protobuf.plant)
+// @@protoc_insertion_point(class_specific_copy_from_start:wanderer.proto.plant)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -494,11 +494,11 @@ void plant::InternalSwap(plant* other) {
 }
 
 // @@protoc_insertion_point(namespace_scope)
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::wanderer::protobuf::plant* Arena::CreateMaybeMessage< ::wanderer::protobuf::plant >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::wanderer::protobuf::plant >(arena);
+template<> PROTOBUF_NOINLINE ::wanderer::proto::plant* Arena::CreateMaybeMessage< ::wanderer::proto::plant >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::wanderer::proto::plant >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

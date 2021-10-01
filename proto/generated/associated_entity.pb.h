@@ -54,22 +54,22 @@ struct TableStruct_associated_5fentity_2eproto {
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_associated_5fentity_2eproto;
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 class associated_entity;
 struct associated_entityDefaultTypeInternal;
 extern associated_entityDefaultTypeInternal _associated_entity_default_instance_;
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 PROTOBUF_NAMESPACE_OPEN
-template<> ::wanderer::protobuf::associated_entity* Arena::CreateMaybeMessage<::wanderer::protobuf::associated_entity>(Arena*);
+template<> ::wanderer::proto::associated_entity* Arena::CreateMaybeMessage<::wanderer::proto::associated_entity>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 
 // ===================================================================
 
 class associated_entity final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.protobuf.associated_entity) */ {
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.proto.associated_entity) */ {
  public:
   inline associated_entity() : associated_entity(nullptr) {}
   ~associated_entity() override;
@@ -167,7 +167,7 @@ class associated_entity final :
   void InternalSwap(associated_entity* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "wanderer.protobuf.associated_entity";
+    return "wanderer.proto.associated_entity";
   }
   protected:
   explicit associated_entity(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -202,7 +202,7 @@ class associated_entity final :
   void _internal_set_entity(::PROTOBUF_NAMESPACE_ID::uint32 value);
   public:
 
-  // @@protoc_insertion_point(class_scope:wanderer.protobuf.associated_entity)
+  // @@protoc_insertion_point(class_scope:wanderer.proto.associated_entity)
  private:
   class _Internal;
 
@@ -241,7 +241,7 @@ inline ::PROTOBUF_NAMESPACE_ID::uint32 associated_entity::_internal_entity() con
   return entity_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::uint32 associated_entity::entity() const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.associated_entity.entity)
+  // @@protoc_insertion_point(field_get:wanderer.proto.associated_entity.entity)
   return _internal_entity();
 }
 inline void associated_entity::_internal_set_entity(::PROTOBUF_NAMESPACE_ID::uint32 value) {
@@ -250,7 +250,7 @@ inline void associated_entity::_internal_set_entity(::PROTOBUF_NAMESPACE_ID::uin
 }
 inline void associated_entity::set_entity(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _internal_set_entity(value);
-  // @@protoc_insertion_point(field_set:wanderer.protobuf.associated_entity.entity)
+  // @@protoc_insertion_point(field_set:wanderer.proto.associated_entity.entity)
 }
 
 #ifdef __GNUC__
@@ -259,7 +259,7 @@ inline void associated_entity::set_entity(::PROTOBUF_NAMESPACE_ID::uint32 value)
 
 // @@protoc_insertion_point(namespace_scope)
 
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 
 // @@protoc_insertion_point(global_scope)

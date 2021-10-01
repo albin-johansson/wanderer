@@ -57,21 +57,21 @@ struct TableStruct_tileset_2eproto {
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_tileset_2eproto;
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 class tileset;
 struct tilesetDefaultTypeInternal;
 extern tilesetDefaultTypeInternal _tileset_default_instance_;
 class tileset_TileToEntityEntry_DoNotUse;
 struct tileset_TileToEntityEntry_DoNotUseDefaultTypeInternal;
 extern tileset_TileToEntityEntry_DoNotUseDefaultTypeInternal _tileset_TileToEntityEntry_DoNotUse_default_instance_;
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 PROTOBUF_NAMESPACE_OPEN
-template<> ::wanderer::protobuf::tileset* Arena::CreateMaybeMessage<::wanderer::protobuf::tileset>(Arena*);
-template<> ::wanderer::protobuf::tileset_TileToEntityEntry_DoNotUse* Arena::CreateMaybeMessage<::wanderer::protobuf::tileset_TileToEntityEntry_DoNotUse>(Arena*);
+template<> ::wanderer::proto::tileset* Arena::CreateMaybeMessage<::wanderer::proto::tileset>(Arena*);
+template<> ::wanderer::proto::tileset_TileToEntityEntry_DoNotUse* Arena::CreateMaybeMessage<::wanderer::proto::tileset_TileToEntityEntry_DoNotUse>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 
 // ===================================================================
 
@@ -99,7 +99,7 @@ public:
 // -------------------------------------------------------------------
 
 class tileset final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.protobuf.tileset) */ {
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.proto.tileset) */ {
  public:
   inline tileset() : tileset(nullptr) {}
   ~tileset() override;
@@ -197,7 +197,7 @@ class tileset final :
   void InternalSwap(tileset* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "wanderer.protobuf.tileset";
+    return "wanderer.proto.tileset";
   }
   protected:
   explicit tileset(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -237,7 +237,7 @@ class tileset final :
   ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::PROTOBUF_NAMESPACE_ID::uint32 >*
       mutable_tile_to_entity();
 
-  // @@protoc_insertion_point(class_scope:wanderer.protobuf.tileset)
+  // @@protoc_insertion_point(class_scope:wanderer.proto.tileset)
  private:
   class _Internal;
 
@@ -281,7 +281,7 @@ tileset::_internal_tile_to_entity() const {
 }
 inline const ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::PROTOBUF_NAMESPACE_ID::uint32 >&
 tileset::tile_to_entity() const {
-  // @@protoc_insertion_point(field_map:wanderer.protobuf.tileset.tile_to_entity)
+  // @@protoc_insertion_point(field_map:wanderer.proto.tileset.tile_to_entity)
   return _internal_tile_to_entity();
 }
 inline ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::PROTOBUF_NAMESPACE_ID::uint32 >*
@@ -290,7 +290,7 @@ tileset::_internal_mutable_tile_to_entity() {
 }
 inline ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::PROTOBUF_NAMESPACE_ID::uint32 >*
 tileset::mutable_tile_to_entity() {
-  // @@protoc_insertion_point(field_mutable_map:wanderer.protobuf.tileset.tile_to_entity)
+  // @@protoc_insertion_point(field_mutable_map:wanderer.proto.tileset.tile_to_entity)
   return _internal_mutable_tile_to_entity();
 }
 
@@ -302,7 +302,7 @@ tileset::mutable_tile_to_entity() {
 
 // @@protoc_insertion_point(namespace_scope)
 
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 
 // @@protoc_insertion_point(global_scope)

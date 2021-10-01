@@ -2,7 +2,7 @@ syntax = "proto3";
 
 import "float2.proto";
 
-package wanderer.protobuf;
+package wanderer.proto;
 
 enum spawnpoint_type {
   PLAYER = 0;

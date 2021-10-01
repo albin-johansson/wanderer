@@ -55,17 +55,17 @@ struct TableStruct_trigger_2eproto {
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_trigger_2eproto;
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 class trigger;
 struct triggerDefaultTypeInternal;
 extern triggerDefaultTypeInternal _trigger_default_instance_;
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 PROTOBUF_NAMESPACE_OPEN
-template<> ::wanderer::protobuf::trigger* Arena::CreateMaybeMessage<::wanderer::protobuf::trigger>(Arena*);
+template<> ::wanderer::proto::trigger* Arena::CreateMaybeMessage<::wanderer::proto::trigger>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 
 enum trigger_type : int {
   PORTAL = 0,
@@ -96,7 +96,7 @@ inline bool trigger_type_Parse(
 // ===================================================================
 
 class trigger final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.protobuf.trigger) */ {
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.proto.trigger) */ {
  public:
   inline trigger() : trigger(nullptr) {}
   ~trigger() override;
@@ -194,7 +194,7 @@ class trigger final :
   void InternalSwap(trigger* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "wanderer.protobuf.trigger";
+    return "wanderer.proto.trigger";
   }
   protected:
   explicit trigger(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -216,20 +216,20 @@ class trigger final :
   enum : int {
     kTypeFieldNumber = 1,
   };
-  // optional .wanderer.protobuf.trigger_type type = 1;
+  // optional .wanderer.proto.trigger_type type = 1;
   bool has_type() const;
   private:
   bool _internal_has_type() const;
   public:
   void clear_type();
-  ::wanderer::protobuf::trigger_type type() const;
-  void set_type(::wanderer::protobuf::trigger_type value);
+  ::wanderer::proto::trigger_type type() const;
+  void set_type(::wanderer::proto::trigger_type value);
   private:
-  ::wanderer::protobuf::trigger_type _internal_type() const;
-  void _internal_set_type(::wanderer::protobuf::trigger_type value);
+  ::wanderer::proto::trigger_type _internal_type() const;
+  void _internal_set_type(::wanderer::proto::trigger_type value);
   public:
 
-  // @@protoc_insertion_point(class_scope:wanderer.protobuf.trigger)
+  // @@protoc_insertion_point(class_scope:wanderer.proto.trigger)
  private:
   class _Internal;
 
@@ -252,7 +252,7 @@ class trigger final :
 #endif  // __GNUC__
 // trigger
 
-// optional .wanderer.protobuf.trigger_type type = 1;
+// optional .wanderer.proto.trigger_type type = 1;
 inline bool trigger::_internal_has_type() const {
   bool value = (_has_bits_[0] & 0x00000001u) != 0;
   return value;
@@ -264,20 +264,20 @@ inline void trigger::clear_type() {
   type_ = 0;
   _has_bits_[0] &= ~0x00000001u;
 }
-inline ::wanderer::protobuf::trigger_type trigger::_internal_type() const {
-  return static_cast< ::wanderer::protobuf::trigger_type >(type_);
+inline ::wanderer::proto::trigger_type trigger::_internal_type() const {
+  return static_cast< ::wanderer::proto::trigger_type >(type_);
 }
-inline ::wanderer::protobuf::trigger_type trigger::type() const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.trigger.type)
+inline ::wanderer::proto::trigger_type trigger::type() const {
+  // @@protoc_insertion_point(field_get:wanderer.proto.trigger.type)
   return _internal_type();
 }
-inline void trigger::_internal_set_type(::wanderer::protobuf::trigger_type value) {
+inline void trigger::_internal_set_type(::wanderer::proto::trigger_type value) {
   _has_bits_[0] |= 0x00000001u;
   type_ = value;
 }
-inline void trigger::set_type(::wanderer::protobuf::trigger_type value) {
+inline void trigger::set_type(::wanderer::proto::trigger_type value) {
   _internal_set_type(value);
-  // @@protoc_insertion_point(field_set:wanderer.protobuf.trigger.type)
+  // @@protoc_insertion_point(field_set:wanderer.proto.trigger.type)
 }
 
 #ifdef __GNUC__
@@ -286,15 +286,15 @@ inline void trigger::set_type(::wanderer::protobuf::trigger_type value) {
 
 // @@protoc_insertion_point(namespace_scope)
 
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 
 PROTOBUF_NAMESPACE_OPEN
 
-template <> struct is_proto_enum< ::wanderer::protobuf::trigger_type> : ::std::true_type {};
+template <> struct is_proto_enum< ::wanderer::proto::trigger_type> : ::std::true_type {};
 template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::wanderer::protobuf::trigger_type>() {
-  return ::wanderer::protobuf::trigger_type_descriptor();
+inline const EnumDescriptor* GetEnumDescriptor< ::wanderer::proto::trigger_type>() {
+  return ::wanderer::proto::trigger_type_descriptor();
 }
 
 PROTOBUF_NAMESPACE_CLOSE

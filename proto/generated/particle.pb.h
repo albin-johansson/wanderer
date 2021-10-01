@@ -56,22 +56,22 @@ struct TableStruct_particle_2eproto {
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_particle_2eproto;
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 class particle;
 struct particleDefaultTypeInternal;
 extern particleDefaultTypeInternal _particle_default_instance_;
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 PROTOBUF_NAMESPACE_OPEN
-template<> ::wanderer::protobuf::particle* Arena::CreateMaybeMessage<::wanderer::protobuf::particle>(Arena*);
+template<> ::wanderer::proto::particle* Arena::CreateMaybeMessage<::wanderer::proto::particle>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 
 // ===================================================================
 
 class particle final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.protobuf.particle) */ {
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.proto.particle) */ {
  public:
   inline particle() : particle(nullptr) {}
   ~particle() override;
@@ -169,7 +169,7 @@ class particle final :
   void InternalSwap(particle* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "wanderer.protobuf.particle";
+    return "wanderer.proto.particle";
   }
   protected:
   explicit particle(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -195,59 +195,59 @@ class particle final :
     kNowFieldNumber = 3,
     kDurationFieldNumber = 4,
   };
-  // optional .wanderer.protobuf.float3 position = 1;
+  // optional .wanderer.proto.float3 position = 1;
   bool has_position() const;
   private:
   bool _internal_has_position() const;
   public:
   void clear_position();
-  const ::wanderer::protobuf::float3& position() const;
-  PROTOBUF_MUST_USE_RESULT ::wanderer::protobuf::float3* release_position();
-  ::wanderer::protobuf::float3* mutable_position();
-  void set_allocated_position(::wanderer::protobuf::float3* position);
+  const ::wanderer::proto::float3& position() const;
+  PROTOBUF_MUST_USE_RESULT ::wanderer::proto::float3* release_position();
+  ::wanderer::proto::float3* mutable_position();
+  void set_allocated_position(::wanderer::proto::float3* position);
   private:
-  const ::wanderer::protobuf::float3& _internal_position() const;
-  ::wanderer::protobuf::float3* _internal_mutable_position();
+  const ::wanderer::proto::float3& _internal_position() const;
+  ::wanderer::proto::float3* _internal_mutable_position();
   public:
   void unsafe_arena_set_allocated_position(
-      ::wanderer::protobuf::float3* position);
-  ::wanderer::protobuf::float3* unsafe_arena_release_position();
+      ::wanderer::proto::float3* position);
+  ::wanderer::proto::float3* unsafe_arena_release_position();
 
-  // optional .wanderer.protobuf.float3 acceleration = 2;
+  // optional .wanderer.proto.float3 acceleration = 2;
   bool has_acceleration() const;
   private:
   bool _internal_has_acceleration() const;
   public:
   void clear_acceleration();
-  const ::wanderer::protobuf::float3& acceleration() const;
-  PROTOBUF_MUST_USE_RESULT ::wanderer::protobuf::float3* release_acceleration();
-  ::wanderer::protobuf::float3* mutable_acceleration();
-  void set_allocated_acceleration(::wanderer::protobuf::float3* acceleration);
+  const ::wanderer::proto::float3& acceleration() const;
+  PROTOBUF_MUST_USE_RESULT ::wanderer::proto::float3* release_acceleration();
+  ::wanderer::proto::float3* mutable_acceleration();
+  void set_allocated_acceleration(::wanderer::proto::float3* acceleration);
   private:
-  const ::wanderer::protobuf::float3& _internal_acceleration() const;
-  ::wanderer::protobuf::float3* _internal_mutable_acceleration();
+  const ::wanderer::proto::float3& _internal_acceleration() const;
+  ::wanderer::proto::float3* _internal_mutable_acceleration();
   public:
   void unsafe_arena_set_allocated_acceleration(
-      ::wanderer::protobuf::float3* acceleration);
-  ::wanderer::protobuf::float3* unsafe_arena_release_acceleration();
+      ::wanderer::proto::float3* acceleration);
+  ::wanderer::proto::float3* unsafe_arena_release_acceleration();
 
-  // optional .wanderer.protobuf.color color = 5;
+  // optional .wanderer.proto.color color = 5;
   bool has_color() const;
   private:
   bool _internal_has_color() const;
   public:
   void clear_color();
-  const ::wanderer::protobuf::color& color() const;
-  PROTOBUF_MUST_USE_RESULT ::wanderer::protobuf::color* release_color();
-  ::wanderer::protobuf::color* mutable_color();
-  void set_allocated_color(::wanderer::protobuf::color* color);
+  const ::wanderer::proto::color& color() const;
+  PROTOBUF_MUST_USE_RESULT ::wanderer::proto::color* release_color();
+  ::wanderer::proto::color* mutable_color();
+  void set_allocated_color(::wanderer::proto::color* color);
   private:
-  const ::wanderer::protobuf::color& _internal_color() const;
-  ::wanderer::protobuf::color* _internal_mutable_color();
+  const ::wanderer::proto::color& _internal_color() const;
+  ::wanderer::proto::color* _internal_mutable_color();
   public:
   void unsafe_arena_set_allocated_color(
-      ::wanderer::protobuf::color* color);
-  ::wanderer::protobuf::color* unsafe_arena_release_color();
+      ::wanderer::proto::color* color);
+  ::wanderer::proto::color* unsafe_arena_release_color();
 
   // optional float now = 3;
   bool has_now() const;
@@ -275,7 +275,7 @@ class particle final :
   void _internal_set_duration(float value);
   public:
 
-  // @@protoc_insertion_point(class_scope:wanderer.protobuf.particle)
+  // @@protoc_insertion_point(class_scope:wanderer.proto.particle)
  private:
   class _Internal;
 
@@ -284,9 +284,9 @@ class particle final :
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  ::wanderer::protobuf::float3* position_;
-  ::wanderer::protobuf::float3* acceleration_;
-  ::wanderer::protobuf::color* color_;
+  ::wanderer::proto::float3* position_;
+  ::wanderer::proto::float3* acceleration_;
+  ::wanderer::proto::color* color_;
   float now_;
   float duration_;
   friend struct ::TableStruct_particle_2eproto;
@@ -302,7 +302,7 @@ class particle final :
 #endif  // __GNUC__
 // particle
 
-// optional .wanderer.protobuf.float3 position = 1;
+// optional .wanderer.proto.float3 position = 1;
 inline bool particle::_internal_has_position() const {
   bool value = (_has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || position_ != nullptr);
@@ -311,17 +311,17 @@ inline bool particle::_internal_has_position() const {
 inline bool particle::has_position() const {
   return _internal_has_position();
 }
-inline const ::wanderer::protobuf::float3& particle::_internal_position() const {
-  const ::wanderer::protobuf::float3* p = position_;
-  return p != nullptr ? *p : reinterpret_cast<const ::wanderer::protobuf::float3&>(
-      ::wanderer::protobuf::_float3_default_instance_);
+inline const ::wanderer::proto::float3& particle::_internal_position() const {
+  const ::wanderer::proto::float3* p = position_;
+  return p != nullptr ? *p : reinterpret_cast<const ::wanderer::proto::float3&>(
+      ::wanderer::proto::_float3_default_instance_);
 }
-inline const ::wanderer::protobuf::float3& particle::position() const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.particle.position)
+inline const ::wanderer::proto::float3& particle::position() const {
+  // @@protoc_insertion_point(field_get:wanderer.proto.particle.position)
   return _internal_position();
 }
 inline void particle::unsafe_arena_set_allocated_position(
-    ::wanderer::protobuf::float3* position) {
+    ::wanderer::proto::float3* position) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(position_);
   }
@@ -331,11 +331,11 @@ inline void particle::unsafe_arena_set_allocated_position(
   } else {
     _has_bits_[0] &= ~0x00000001u;
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:wanderer.protobuf.particle.position)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:wanderer.proto.particle.position)
 }
-inline ::wanderer::protobuf::float3* particle::release_position() {
+inline ::wanderer::proto::float3* particle::release_position() {
   _has_bits_[0] &= ~0x00000001u;
-  ::wanderer::protobuf::float3* temp = position_;
+  ::wanderer::proto::float3* temp = position_;
   position_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -348,27 +348,27 @@ inline ::wanderer::protobuf::float3* particle::release_position() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::wanderer::protobuf::float3* particle::unsafe_arena_release_position() {
-  // @@protoc_insertion_point(field_release:wanderer.protobuf.particle.position)
+inline ::wanderer::proto::float3* particle::unsafe_arena_release_position() {
+  // @@protoc_insertion_point(field_release:wanderer.proto.particle.position)
   _has_bits_[0] &= ~0x00000001u;
-  ::wanderer::protobuf::float3* temp = position_;
+  ::wanderer::proto::float3* temp = position_;
   position_ = nullptr;
   return temp;
 }
-inline ::wanderer::protobuf::float3* particle::_internal_mutable_position() {
+inline ::wanderer::proto::float3* particle::_internal_mutable_position() {
   _has_bits_[0] |= 0x00000001u;
   if (position_ == nullptr) {
-    auto* p = CreateMaybeMessage<::wanderer::protobuf::float3>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::wanderer::proto::float3>(GetArenaForAllocation());
     position_ = p;
   }
   return position_;
 }
-inline ::wanderer::protobuf::float3* particle::mutable_position() {
-  ::wanderer::protobuf::float3* _msg = _internal_mutable_position();
-  // @@protoc_insertion_point(field_mutable:wanderer.protobuf.particle.position)
+inline ::wanderer::proto::float3* particle::mutable_position() {
+  ::wanderer::proto::float3* _msg = _internal_mutable_position();
+  // @@protoc_insertion_point(field_mutable:wanderer.proto.particle.position)
   return _msg;
 }
-inline void particle::set_allocated_position(::wanderer::protobuf::float3* position) {
+inline void particle::set_allocated_position(::wanderer::proto::float3* position) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(position_);
@@ -387,10 +387,10 @@ inline void particle::set_allocated_position(::wanderer::protobuf::float3* posit
     _has_bits_[0] &= ~0x00000001u;
   }
   position_ = position;
-  // @@protoc_insertion_point(field_set_allocated:wanderer.protobuf.particle.position)
+  // @@protoc_insertion_point(field_set_allocated:wanderer.proto.particle.position)
 }
 
-// optional .wanderer.protobuf.float3 acceleration = 2;
+// optional .wanderer.proto.float3 acceleration = 2;
 inline bool particle::_internal_has_acceleration() const {
   bool value = (_has_bits_[0] & 0x00000002u) != 0;
   PROTOBUF_ASSUME(!value || acceleration_ != nullptr);
@@ -399,17 +399,17 @@ inline bool particle::_internal_has_acceleration() const {
 inline bool particle::has_acceleration() const {
   return _internal_has_acceleration();
 }
-inline const ::wanderer::protobuf::float3& particle::_internal_acceleration() const {
-  const ::wanderer::protobuf::float3* p = acceleration_;
-  return p != nullptr ? *p : reinterpret_cast<const ::wanderer::protobuf::float3&>(
-      ::wanderer::protobuf::_float3_default_instance_);
+inline const ::wanderer::proto::float3& particle::_internal_acceleration() const {
+  const ::wanderer::proto::float3* p = acceleration_;
+  return p != nullptr ? *p : reinterpret_cast<const ::wanderer::proto::float3&>(
+      ::wanderer::proto::_float3_default_instance_);
 }
-inline const ::wanderer::protobuf::float3& particle::acceleration() const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.particle.acceleration)
+inline const ::wanderer::proto::float3& particle::acceleration() const {
+  // @@protoc_insertion_point(field_get:wanderer.proto.particle.acceleration)
   return _internal_acceleration();
 }
 inline void particle::unsafe_arena_set_allocated_acceleration(
-    ::wanderer::protobuf::float3* acceleration) {
+    ::wanderer::proto::float3* acceleration) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(acceleration_);
   }
@@ -419,11 +419,11 @@ inline void particle::unsafe_arena_set_allocated_acceleration(
   } else {
     _has_bits_[0] &= ~0x00000002u;
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:wanderer.protobuf.particle.acceleration)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:wanderer.proto.particle.acceleration)
 }
-inline ::wanderer::protobuf::float3* particle::release_acceleration() {
+inline ::wanderer::proto::float3* particle::release_acceleration() {
   _has_bits_[0] &= ~0x00000002u;
-  ::wanderer::protobuf::float3* temp = acceleration_;
+  ::wanderer::proto::float3* temp = acceleration_;
   acceleration_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -436,27 +436,27 @@ inline ::wanderer::protobuf::float3* particle::release_acceleration() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::wanderer::protobuf::float3* particle::unsafe_arena_release_acceleration() {
-  // @@protoc_insertion_point(field_release:wanderer.protobuf.particle.acceleration)
+inline ::wanderer::proto::float3* particle::unsafe_arena_release_acceleration() {
+  // @@protoc_insertion_point(field_release:wanderer.proto.particle.acceleration)
   _has_bits_[0] &= ~0x00000002u;
-  ::wanderer::protobuf::float3* temp = acceleration_;
+  ::wanderer::proto::float3* temp = acceleration_;
   acceleration_ = nullptr;
   return temp;
 }
-inline ::wanderer::protobuf::float3* particle::_internal_mutable_acceleration() {
+inline ::wanderer::proto::float3* particle::_internal_mutable_acceleration() {
   _has_bits_[0] |= 0x00000002u;
   if (acceleration_ == nullptr) {
-    auto* p = CreateMaybeMessage<::wanderer::protobuf::float3>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::wanderer::proto::float3>(GetArenaForAllocation());
     acceleration_ = p;
   }
   return acceleration_;
 }
-inline ::wanderer::protobuf::float3* particle::mutable_acceleration() {
-  ::wanderer::protobuf::float3* _msg = _internal_mutable_acceleration();
-  // @@protoc_insertion_point(field_mutable:wanderer.protobuf.particle.acceleration)
+inline ::wanderer::proto::float3* particle::mutable_acceleration() {
+  ::wanderer::proto::float3* _msg = _internal_mutable_acceleration();
+  // @@protoc_insertion_point(field_mutable:wanderer.proto.particle.acceleration)
   return _msg;
 }
-inline void particle::set_allocated_acceleration(::wanderer::protobuf::float3* acceleration) {
+inline void particle::set_allocated_acceleration(::wanderer::proto::float3* acceleration) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(acceleration_);
@@ -475,7 +475,7 @@ inline void particle::set_allocated_acceleration(::wanderer::protobuf::float3* a
     _has_bits_[0] &= ~0x00000002u;
   }
   acceleration_ = acceleration;
-  // @@protoc_insertion_point(field_set_allocated:wanderer.protobuf.particle.acceleration)
+  // @@protoc_insertion_point(field_set_allocated:wanderer.proto.particle.acceleration)
 }
 
 // optional float now = 3;
@@ -494,7 +494,7 @@ inline float particle::_internal_now() const {
   return now_;
 }
 inline float particle::now() const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.particle.now)
+  // @@protoc_insertion_point(field_get:wanderer.proto.particle.now)
   return _internal_now();
 }
 inline void particle::_internal_set_now(float value) {
@@ -503,7 +503,7 @@ inline void particle::_internal_set_now(float value) {
 }
 inline void particle::set_now(float value) {
   _internal_set_now(value);
-  // @@protoc_insertion_point(field_set:wanderer.protobuf.particle.now)
+  // @@protoc_insertion_point(field_set:wanderer.proto.particle.now)
 }
 
 // optional float duration = 4;
@@ -522,7 +522,7 @@ inline float particle::_internal_duration() const {
   return duration_;
 }
 inline float particle::duration() const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.particle.duration)
+  // @@protoc_insertion_point(field_get:wanderer.proto.particle.duration)
   return _internal_duration();
 }
 inline void particle::_internal_set_duration(float value) {
@@ -531,10 +531,10 @@ inline void particle::_internal_set_duration(float value) {
 }
 inline void particle::set_duration(float value) {
   _internal_set_duration(value);
-  // @@protoc_insertion_point(field_set:wanderer.protobuf.particle.duration)
+  // @@protoc_insertion_point(field_set:wanderer.proto.particle.duration)
 }
 
-// optional .wanderer.protobuf.color color = 5;
+// optional .wanderer.proto.color color = 5;
 inline bool particle::_internal_has_color() const {
   bool value = (_has_bits_[0] & 0x00000004u) != 0;
   PROTOBUF_ASSUME(!value || color_ != nullptr);
@@ -543,17 +543,17 @@ inline bool particle::_internal_has_color() const {
 inline bool particle::has_color() const {
   return _internal_has_color();
 }
-inline const ::wanderer::protobuf::color& particle::_internal_color() const {
-  const ::wanderer::protobuf::color* p = color_;
-  return p != nullptr ? *p : reinterpret_cast<const ::wanderer::protobuf::color&>(
-      ::wanderer::protobuf::_color_default_instance_);
+inline const ::wanderer::proto::color& particle::_internal_color() const {
+  const ::wanderer::proto::color* p = color_;
+  return p != nullptr ? *p : reinterpret_cast<const ::wanderer::proto::color&>(
+      ::wanderer::proto::_color_default_instance_);
 }
-inline const ::wanderer::protobuf::color& particle::color() const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.particle.color)
+inline const ::wanderer::proto::color& particle::color() const {
+  // @@protoc_insertion_point(field_get:wanderer.proto.particle.color)
   return _internal_color();
 }
 inline void particle::unsafe_arena_set_allocated_color(
-    ::wanderer::protobuf::color* color) {
+    ::wanderer::proto::color* color) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(color_);
   }
@@ -563,11 +563,11 @@ inline void particle::unsafe_arena_set_allocated_color(
   } else {
     _has_bits_[0] &= ~0x00000004u;
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:wanderer.protobuf.particle.color)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:wanderer.proto.particle.color)
 }
-inline ::wanderer::protobuf::color* particle::release_color() {
+inline ::wanderer::proto::color* particle::release_color() {
   _has_bits_[0] &= ~0x00000004u;
-  ::wanderer::protobuf::color* temp = color_;
+  ::wanderer::proto::color* temp = color_;
   color_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -580,27 +580,27 @@ inline ::wanderer::protobuf::color* particle::release_color() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::wanderer::protobuf::color* particle::unsafe_arena_release_color() {
-  // @@protoc_insertion_point(field_release:wanderer.protobuf.particle.color)
+inline ::wanderer::proto::color* particle::unsafe_arena_release_color() {
+  // @@protoc_insertion_point(field_release:wanderer.proto.particle.color)
   _has_bits_[0] &= ~0x00000004u;
-  ::wanderer::protobuf::color* temp = color_;
+  ::wanderer::proto::color* temp = color_;
   color_ = nullptr;
   return temp;
 }
-inline ::wanderer::protobuf::color* particle::_internal_mutable_color() {
+inline ::wanderer::proto::color* particle::_internal_mutable_color() {
   _has_bits_[0] |= 0x00000004u;
   if (color_ == nullptr) {
-    auto* p = CreateMaybeMessage<::wanderer::protobuf::color>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::wanderer::proto::color>(GetArenaForAllocation());
     color_ = p;
   }
   return color_;
 }
-inline ::wanderer::protobuf::color* particle::mutable_color() {
-  ::wanderer::protobuf::color* _msg = _internal_mutable_color();
-  // @@protoc_insertion_point(field_mutable:wanderer.protobuf.particle.color)
+inline ::wanderer::proto::color* particle::mutable_color() {
+  ::wanderer::proto::color* _msg = _internal_mutable_color();
+  // @@protoc_insertion_point(field_mutable:wanderer.proto.particle.color)
   return _msg;
 }
-inline void particle::set_allocated_color(::wanderer::protobuf::color* color) {
+inline void particle::set_allocated_color(::wanderer::proto::color* color) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(color_);
@@ -619,7 +619,7 @@ inline void particle::set_allocated_color(::wanderer::protobuf::color* color) {
     _has_bits_[0] &= ~0x00000004u;
   }
   color_ = color;
-  // @@protoc_insertion_point(field_set_allocated:wanderer.protobuf.particle.color)
+  // @@protoc_insertion_point(field_set_allocated:wanderer.proto.particle.color)
 }
 
 #ifdef __GNUC__
@@ -628,7 +628,7 @@ inline void particle::set_allocated_color(::wanderer::protobuf::color* color) {
 
 // @@protoc_insertion_point(namespace_scope)
 
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 
 // @@protoc_insertion_point(global_scope)

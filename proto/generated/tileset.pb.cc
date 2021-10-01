@@ -17,7 +17,7 @@
 
 PROTOBUF_PRAGMA_INIT_SEG
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 constexpr tileset_TileToEntityEntry_DoNotUse::tileset_TileToEntityEntry_DoNotUse(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized){}
 struct tileset_TileToEntityEntry_DoNotUseDefaultTypeInternal {
@@ -41,51 +41,51 @@ struct tilesetDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT tilesetDefaultTypeInternal _tileset_default_instance_;
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_tileset_2eproto[2];
 static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_tileset_2eproto = nullptr;
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_tileset_2eproto = nullptr;
 
 const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_tileset_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::tileset_TileToEntityEntry_DoNotUse, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::tileset_TileToEntityEntry_DoNotUse, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::tileset_TileToEntityEntry_DoNotUse, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::tileset_TileToEntityEntry_DoNotUse, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::tileset_TileToEntityEntry_DoNotUse, key_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::tileset_TileToEntityEntry_DoNotUse, value_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::tileset_TileToEntityEntry_DoNotUse, key_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::tileset_TileToEntityEntry_DoNotUse, value_),
   0,
   1,
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::tileset, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::tileset, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::tileset, tile_to_entity_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::tileset, tile_to_entity_),
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, 8, -1, sizeof(::wanderer::protobuf::tileset_TileToEntityEntry_DoNotUse)},
-  { 10, -1, -1, sizeof(::wanderer::protobuf::tileset)},
+  { 0, 8, -1, sizeof(::wanderer::proto::tileset_TileToEntityEntry_DoNotUse)},
+  { 10, -1, -1, sizeof(::wanderer::proto::tileset)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::protobuf::_tileset_TileToEntityEntry_DoNotUse_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::protobuf::_tileset_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_tileset_TileToEntityEntry_DoNotUse_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_tileset_default_instance_),
 };
 
 const char descriptor_table_protodef_tileset_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\rtileset.proto\022\021wanderer.protobuf\"\204\001\n\007t"
-  "ileset\022D\n\016tile_to_entity\030\001 \003(\0132,.wandere"
-  "r.protobuf.tileset.TileToEntityEntry\0323\n\021"
-  "TileToEntityEntry\022\013\n\003key\030\001 \001(\r\022\r\n\005value\030"
-  "\002 \001(\r:\0028\001b\006proto3"
+  "\n\rtileset.proto\022\016wanderer.proto\"\201\001\n\007tile"
+  "set\022A\n\016tile_to_entity\030\001 \003(\0132).wanderer.p"
+  "roto.tileset.TileToEntityEntry\0323\n\021TileTo"
+  "EntityEntry\022\013\n\003key\030\001 \001(\r\022\r\n\005value\030\002 \001(\r:"
+  "\0028\001b\006proto3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_tileset_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_tileset_2eproto = {
-  false, false, 177, descriptor_table_protodef_tileset_2eproto, "tileset.proto", 
+  false, false, 171, descriptor_table_protodef_tileset_2eproto, "tileset.proto", 
   &descriptor_table_tileset_2eproto_once, nullptr, 0, 2,
   schemas, file_default_instances, TableStruct_tileset_2eproto::offsets,
   file_level_metadata_tileset_2eproto, file_level_enum_descriptors_tileset_2eproto, file_level_service_descriptors_tileset_2eproto,
@@ -97,7 +97,7 @@ PROTOBUF_ATTRIBUTE_WEAK const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable
 // Force running AddDescriptors() at dynamic initialization time.
 PROTOBUF_ATTRIBUTE_INIT_PRIORITY static ::PROTOBUF_NAMESPACE_ID::internal::AddDescriptorsRunner dynamic_init_dummy_tileset_2eproto(&descriptor_table_tileset_2eproto);
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 
 // ===================================================================
 
@@ -127,20 +127,20 @@ tileset::tileset(::PROTOBUF_NAMESPACE_ID::Arena* arena,
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
   }
-  // @@protoc_insertion_point(arena_constructor:wanderer.protobuf.tileset)
+  // @@protoc_insertion_point(arena_constructor:wanderer.proto.tileset)
 }
 tileset::tileset(const tileset& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   tile_to_entity_.MergeFrom(from.tile_to_entity_);
-  // @@protoc_insertion_point(copy_constructor:wanderer.protobuf.tileset)
+  // @@protoc_insertion_point(copy_constructor:wanderer.proto.tileset)
 }
 
 void tileset::SharedCtor() {
 }
 
 tileset::~tileset() {
-  // @@protoc_insertion_point(destructor:wanderer.protobuf.tileset)
+  // @@protoc_insertion_point(destructor:wanderer.proto.tileset)
   if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
@@ -165,7 +165,7 @@ void tileset::SetCachedSize(int size) const {
 }
 
 void tileset::Clear() {
-// @@protoc_insertion_point(message_clear_start:wanderer.protobuf.tileset)
+// @@protoc_insertion_point(message_clear_start:wanderer.proto.tileset)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -218,7 +218,7 @@ failure:
 
 ::PROTOBUF_NAMESPACE_ID::uint8* tileset::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:wanderer.protobuf.tileset)
+  // @@protoc_insertion_point(serialize_to_array_start:wanderer.proto.tileset)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -257,12 +257,12 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:wanderer.protobuf.tileset)
+  // @@protoc_insertion_point(serialize_to_array_end:wanderer.proto.tileset)
   return target;
 }
 
 size_t tileset::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:wanderer.protobuf.tileset)
+// @@protoc_insertion_point(message_byte_size_start:wanderer.proto.tileset)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -295,7 +295,7 @@ void tileset::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
 
 
 void tileset::MergeFrom(const tileset& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:wanderer.protobuf.tileset)
+// @@protoc_insertion_point(class_specific_merge_from_start:wanderer.proto.tileset)
   GOOGLE_DCHECK_NE(&from, this);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
@@ -305,7 +305,7 @@ void tileset::MergeFrom(const tileset& from) {
 }
 
 void tileset::CopyFrom(const tileset& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:wanderer.protobuf.tileset)
+// @@protoc_insertion_point(class_specific_copy_from_start:wanderer.proto.tileset)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -328,14 +328,14 @@ void tileset::InternalSwap(tileset* other) {
 }
 
 // @@protoc_insertion_point(namespace_scope)
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::wanderer::protobuf::tileset_TileToEntityEntry_DoNotUse* Arena::CreateMaybeMessage< ::wanderer::protobuf::tileset_TileToEntityEntry_DoNotUse >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::wanderer::protobuf::tileset_TileToEntityEntry_DoNotUse >(arena);
+template<> PROTOBUF_NOINLINE ::wanderer::proto::tileset_TileToEntityEntry_DoNotUse* Arena::CreateMaybeMessage< ::wanderer::proto::tileset_TileToEntityEntry_DoNotUse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::wanderer::proto::tileset_TileToEntityEntry_DoNotUse >(arena);
 }
-template<> PROTOBUF_NOINLINE ::wanderer::protobuf::tileset* Arena::CreateMaybeMessage< ::wanderer::protobuf::tileset >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::wanderer::protobuf::tileset >(arena);
+template<> PROTOBUF_NOINLINE ::wanderer::proto::tileset* Arena::CreateMaybeMessage< ::wanderer::proto::tileset >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::wanderer::proto::tileset >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

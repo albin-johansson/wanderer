@@ -17,7 +17,7 @@ void load_game(entt::registry& shared,
   const auto path = saves_directory() / name / "data.wanderer";
   std::ifstream stream{path, std::ios::in | std::ios::binary};
 
-  protobuf::save save;
+  proto::save save;
   if (save.ParseFromIstream(&stream)) {
     restore_shared_registry(shared, save);
   }

@@ -3,7 +3,7 @@ syntax = "proto3";
 import "color.proto";
 import "float3.proto";
 
-package wanderer.protobuf;
+package wanderer.proto;
 
 message particle {
   optional float3 position = 1;

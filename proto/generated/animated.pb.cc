@@ -17,7 +17,7 @@
 
 PROTOBUF_PRAGMA_INIT_SEG
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 constexpr animated::animated(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : frame_(uint64_t{0u})
@@ -33,46 +33,46 @@ struct animatedDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT animatedDefaultTypeInternal _animated_default_instance_;
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_animated_2eproto[1];
 static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_animated_2eproto = nullptr;
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_animated_2eproto = nullptr;
 
 const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_animated_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::animated, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::animated, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::animated, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::animated, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::animated, frame_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::animated, frame_count_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::animated, then_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::animated, delay_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::animated, frame_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::animated, frame_count_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::animated, then_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::animated, delay_),
   0,
   1,
   2,
   3,
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, 10, -1, sizeof(::wanderer::protobuf::animated)},
+  { 0, 10, -1, sizeof(::wanderer::proto::animated)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::protobuf::_animated_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_animated_default_instance_),
 };
 
 const char descriptor_table_protodef_animated_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\016animated.proto\022\021wanderer.protobuf\"\214\001\n\010"
-  "animated\022\022\n\005frame\030\001 \001(\004H\000\210\001\001\022\030\n\013frame_co"
-  "unt\030\002 \001(\004H\001\210\001\001\022\021\n\004then\030\003 \001(\rH\002\210\001\001\022\022\n\005del"
-  "ay\030\004 \001(\rH\003\210\001\001B\010\n\006_frameB\016\n\014_frame_countB"
-  "\007\n\005_thenB\010\n\006_delayb\006proto3"
+  "\n\016animated.proto\022\016wanderer.proto\"\214\001\n\010ani"
+  "mated\022\022\n\005frame\030\001 \001(\004H\000\210\001\001\022\030\n\013frame_count"
+  "\030\002 \001(\004H\001\210\001\001\022\021\n\004then\030\003 \001(\rH\002\210\001\001\022\022\n\005delay\030"
+  "\004 \001(\rH\003\210\001\001B\010\n\006_frameB\016\n\014_frame_countB\007\n\005"
+  "_thenB\010\n\006_delayb\006proto3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_animated_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_animated_2eproto = {
-  false, false, 186, descriptor_table_protodef_animated_2eproto, "animated.proto", 
+  false, false, 183, descriptor_table_protodef_animated_2eproto, "animated.proto", 
   &descriptor_table_animated_2eproto_once, nullptr, 0, 1,
   schemas, file_default_instances, TableStruct_animated_2eproto::offsets,
   file_level_metadata_animated_2eproto, file_level_enum_descriptors_animated_2eproto, file_level_service_descriptors_animated_2eproto,
@@ -84,7 +84,7 @@ PROTOBUF_ATTRIBUTE_WEAK const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable
 // Force running AddDescriptors() at dynamic initialization time.
 PROTOBUF_ATTRIBUTE_INIT_PRIORITY static ::PROTOBUF_NAMESPACE_ID::internal::AddDescriptorsRunner dynamic_init_dummy_animated_2eproto(&descriptor_table_animated_2eproto);
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 
 // ===================================================================
 
@@ -112,7 +112,7 @@ animated::animated(::PROTOBUF_NAMESPACE_ID::Arena* arena,
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
   }
-  // @@protoc_insertion_point(arena_constructor:wanderer.protobuf.animated)
+  // @@protoc_insertion_point(arena_constructor:wanderer.proto.animated)
 }
 animated::animated(const animated& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
@@ -121,7 +121,7 @@ animated::animated(const animated& from)
   ::memcpy(&frame_, &from.frame_,
     static_cast<size_t>(reinterpret_cast<char*>(&delay_) -
     reinterpret_cast<char*>(&frame_)) + sizeof(delay_));
-  // @@protoc_insertion_point(copy_constructor:wanderer.protobuf.animated)
+  // @@protoc_insertion_point(copy_constructor:wanderer.proto.animated)
 }
 
 void animated::SharedCtor() {
@@ -132,7 +132,7 @@ void animated::SharedCtor() {
 }
 
 animated::~animated() {
-  // @@protoc_insertion_point(destructor:wanderer.protobuf.animated)
+  // @@protoc_insertion_point(destructor:wanderer.proto.animated)
   if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
@@ -153,7 +153,7 @@ void animated::SetCachedSize(int size) const {
 }
 
 void animated::Clear() {
-// @@protoc_insertion_point(message_clear_start:wanderer.protobuf.animated)
+// @@protoc_insertion_point(message_clear_start:wanderer.proto.animated)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -237,7 +237,7 @@ failure:
 
 ::PROTOBUF_NAMESPACE_ID::uint8* animated::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:wanderer.protobuf.animated)
+  // @@protoc_insertion_point(serialize_to_array_start:wanderer.proto.animated)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -269,12 +269,12 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:wanderer.protobuf.animated)
+  // @@protoc_insertion_point(serialize_to_array_end:wanderer.proto.animated)
   return target;
 }
 
 size_t animated::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:wanderer.protobuf.animated)
+// @@protoc_insertion_point(message_byte_size_start:wanderer.proto.animated)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -321,7 +321,7 @@ void animated::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
 
 
 void animated::MergeFrom(const animated& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:wanderer.protobuf.animated)
+// @@protoc_insertion_point(class_specific_merge_from_start:wanderer.proto.animated)
   GOOGLE_DCHECK_NE(&from, this);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
@@ -346,7 +346,7 @@ void animated::MergeFrom(const animated& from) {
 }
 
 void animated::CopyFrom(const animated& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:wanderer.protobuf.animated)
+// @@protoc_insertion_point(class_specific_copy_from_start:wanderer.proto.animated)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -375,11 +375,11 @@ void animated::InternalSwap(animated* other) {
 }
 
 // @@protoc_insertion_point(namespace_scope)
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::wanderer::protobuf::animated* Arena::CreateMaybeMessage< ::wanderer::protobuf::animated >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::wanderer::protobuf::animated >(arena);
+template<> PROTOBUF_NOINLINE ::wanderer::proto::animated* Arena::CreateMaybeMessage< ::wanderer::proto::animated >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::wanderer::proto::animated >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

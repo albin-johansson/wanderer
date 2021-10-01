@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package wanderer.protobuf;
+package wanderer.proto;
 
 enum day_of_week {
   MONDAY = 0;

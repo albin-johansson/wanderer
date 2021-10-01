@@ -54,26 +54,26 @@ struct TableStruct_rect_2eproto {
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_rect_2eproto;
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 class frect;
 struct frectDefaultTypeInternal;
 extern frectDefaultTypeInternal _frect_default_instance_;
 class irect;
 struct irectDefaultTypeInternal;
 extern irectDefaultTypeInternal _irect_default_instance_;
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 PROTOBUF_NAMESPACE_OPEN
-template<> ::wanderer::protobuf::frect* Arena::CreateMaybeMessage<::wanderer::protobuf::frect>(Arena*);
-template<> ::wanderer::protobuf::irect* Arena::CreateMaybeMessage<::wanderer::protobuf::irect>(Arena*);
+template<> ::wanderer::proto::frect* Arena::CreateMaybeMessage<::wanderer::proto::frect>(Arena*);
+template<> ::wanderer::proto::irect* Arena::CreateMaybeMessage<::wanderer::proto::irect>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 
 // ===================================================================
 
 class irect final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.protobuf.irect) */ {
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.proto.irect) */ {
  public:
   inline irect() : irect(nullptr) {}
   ~irect() override;
@@ -171,7 +171,7 @@ class irect final :
   void InternalSwap(irect* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "wanderer.protobuf.irect";
+    return "wanderer.proto.irect";
   }
   protected:
   explicit irect(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -248,7 +248,7 @@ class irect final :
   void _internal_set_height(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // @@protoc_insertion_point(class_scope:wanderer.protobuf.irect)
+  // @@protoc_insertion_point(class_scope:wanderer.proto.irect)
  private:
   class _Internal;
 
@@ -266,7 +266,7 @@ class irect final :
 // -------------------------------------------------------------------
 
 class frect final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.protobuf.frect) */ {
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.proto.frect) */ {
  public:
   inline frect() : frect(nullptr) {}
   ~frect() override;
@@ -364,7 +364,7 @@ class frect final :
   void InternalSwap(frect* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "wanderer.protobuf.frect";
+    return "wanderer.proto.frect";
   }
   protected:
   explicit frect(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -441,7 +441,7 @@ class frect final :
   void _internal_set_height(float value);
   public:
 
-  // @@protoc_insertion_point(class_scope:wanderer.protobuf.frect)
+  // @@protoc_insertion_point(class_scope:wanderer.proto.frect)
  private:
   class _Internal;
 
@@ -483,7 +483,7 @@ inline ::PROTOBUF_NAMESPACE_ID::int32 irect::_internal_x() const {
   return x_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::int32 irect::x() const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.irect.x)
+  // @@protoc_insertion_point(field_get:wanderer.proto.irect.x)
   return _internal_x();
 }
 inline void irect::_internal_set_x(::PROTOBUF_NAMESPACE_ID::int32 value) {
@@ -492,7 +492,7 @@ inline void irect::_internal_set_x(::PROTOBUF_NAMESPACE_ID::int32 value) {
 }
 inline void irect::set_x(::PROTOBUF_NAMESPACE_ID::int32 value) {
   _internal_set_x(value);
-  // @@protoc_insertion_point(field_set:wanderer.protobuf.irect.x)
+  // @@protoc_insertion_point(field_set:wanderer.proto.irect.x)
 }
 
 // optional int32 y = 2;
@@ -511,7 +511,7 @@ inline ::PROTOBUF_NAMESPACE_ID::int32 irect::_internal_y() const {
   return y_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::int32 irect::y() const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.irect.y)
+  // @@protoc_insertion_point(field_get:wanderer.proto.irect.y)
   return _internal_y();
 }
 inline void irect::_internal_set_y(::PROTOBUF_NAMESPACE_ID::int32 value) {
@@ -520,7 +520,7 @@ inline void irect::_internal_set_y(::PROTOBUF_NAMESPACE_ID::int32 value) {
 }
 inline void irect::set_y(::PROTOBUF_NAMESPACE_ID::int32 value) {
   _internal_set_y(value);
-  // @@protoc_insertion_point(field_set:wanderer.protobuf.irect.y)
+  // @@protoc_insertion_point(field_set:wanderer.proto.irect.y)
 }
 
 // optional int32 width = 3;
@@ -539,7 +539,7 @@ inline ::PROTOBUF_NAMESPACE_ID::int32 irect::_internal_width() const {
   return width_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::int32 irect::width() const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.irect.width)
+  // @@protoc_insertion_point(field_get:wanderer.proto.irect.width)
   return _internal_width();
 }
 inline void irect::_internal_set_width(::PROTOBUF_NAMESPACE_ID::int32 value) {
@@ -548,7 +548,7 @@ inline void irect::_internal_set_width(::PROTOBUF_NAMESPACE_ID::int32 value) {
 }
 inline void irect::set_width(::PROTOBUF_NAMESPACE_ID::int32 value) {
   _internal_set_width(value);
-  // @@protoc_insertion_point(field_set:wanderer.protobuf.irect.width)
+  // @@protoc_insertion_point(field_set:wanderer.proto.irect.width)
 }
 
 // optional int32 height = 4;
@@ -567,7 +567,7 @@ inline ::PROTOBUF_NAMESPACE_ID::int32 irect::_internal_height() const {
   return height_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::int32 irect::height() const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.irect.height)
+  // @@protoc_insertion_point(field_get:wanderer.proto.irect.height)
   return _internal_height();
 }
 inline void irect::_internal_set_height(::PROTOBUF_NAMESPACE_ID::int32 value) {
@@ -576,7 +576,7 @@ inline void irect::_internal_set_height(::PROTOBUF_NAMESPACE_ID::int32 value) {
 }
 inline void irect::set_height(::PROTOBUF_NAMESPACE_ID::int32 value) {
   _internal_set_height(value);
-  // @@protoc_insertion_point(field_set:wanderer.protobuf.irect.height)
+  // @@protoc_insertion_point(field_set:wanderer.proto.irect.height)
 }
 
 // -------------------------------------------------------------------
@@ -599,7 +599,7 @@ inline float frect::_internal_x() const {
   return x_;
 }
 inline float frect::x() const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.frect.x)
+  // @@protoc_insertion_point(field_get:wanderer.proto.frect.x)
   return _internal_x();
 }
 inline void frect::_internal_set_x(float value) {
@@ -608,7 +608,7 @@ inline void frect::_internal_set_x(float value) {
 }
 inline void frect::set_x(float value) {
   _internal_set_x(value);
-  // @@protoc_insertion_point(field_set:wanderer.protobuf.frect.x)
+  // @@protoc_insertion_point(field_set:wanderer.proto.frect.x)
 }
 
 // optional float y = 2;
@@ -627,7 +627,7 @@ inline float frect::_internal_y() const {
   return y_;
 }
 inline float frect::y() const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.frect.y)
+  // @@protoc_insertion_point(field_get:wanderer.proto.frect.y)
   return _internal_y();
 }
 inline void frect::_internal_set_y(float value) {
@@ -636,7 +636,7 @@ inline void frect::_internal_set_y(float value) {
 }
 inline void frect::set_y(float value) {
   _internal_set_y(value);
-  // @@protoc_insertion_point(field_set:wanderer.protobuf.frect.y)
+  // @@protoc_insertion_point(field_set:wanderer.proto.frect.y)
 }
 
 // optional float width = 3;
@@ -655,7 +655,7 @@ inline float frect::_internal_width() const {
   return width_;
 }
 inline float frect::width() const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.frect.width)
+  // @@protoc_insertion_point(field_get:wanderer.proto.frect.width)
   return _internal_width();
 }
 inline void frect::_internal_set_width(float value) {
@@ -664,7 +664,7 @@ inline void frect::_internal_set_width(float value) {
 }
 inline void frect::set_width(float value) {
   _internal_set_width(value);
-  // @@protoc_insertion_point(field_set:wanderer.protobuf.frect.width)
+  // @@protoc_insertion_point(field_set:wanderer.proto.frect.width)
 }
 
 // optional float height = 4;
@@ -683,7 +683,7 @@ inline float frect::_internal_height() const {
   return height_;
 }
 inline float frect::height() const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.frect.height)
+  // @@protoc_insertion_point(field_get:wanderer.proto.frect.height)
   return _internal_height();
 }
 inline void frect::_internal_set_height(float value) {
@@ -692,7 +692,7 @@ inline void frect::_internal_set_height(float value) {
 }
 inline void frect::set_height(float value) {
   _internal_set_height(value);
-  // @@protoc_insertion_point(field_set:wanderer.protobuf.frect.height)
+  // @@protoc_insertion_point(field_set:wanderer.proto.frect.height)
 }
 
 #ifdef __GNUC__
@@ -703,7 +703,7 @@ inline void frect::set_height(float value) {
 
 // @@protoc_insertion_point(namespace_scope)
 
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 
 // @@protoc_insertion_point(global_scope)

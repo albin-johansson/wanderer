@@ -3,10 +3,10 @@
 #include <entt.hpp>  // registry
 
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 class save;
-}  // namespace protobuf
+}  // namespace proto
 
-void restore_shared_registry(entt::registry& shared, const protobuf::save& save);
+void restore_shared_registry(entt::registry& shared, const proto::save& save);
 
 }  // namespace wanderer

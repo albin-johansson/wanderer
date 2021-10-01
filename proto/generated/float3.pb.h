@@ -54,22 +54,22 @@ struct TableStruct_float3_2eproto {
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_float3_2eproto;
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 class float3;
 struct float3DefaultTypeInternal;
 extern float3DefaultTypeInternal _float3_default_instance_;
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 PROTOBUF_NAMESPACE_OPEN
-template<> ::wanderer::protobuf::float3* Arena::CreateMaybeMessage<::wanderer::protobuf::float3>(Arena*);
+template<> ::wanderer::proto::float3* Arena::CreateMaybeMessage<::wanderer::proto::float3>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 
 // ===================================================================
 
 class float3 final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.protobuf.float3) */ {
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.proto.float3) */ {
  public:
   inline float3() : float3(nullptr) {}
   ~float3() override;
@@ -167,7 +167,7 @@ class float3 final :
   void InternalSwap(float3* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "wanderer.protobuf.float3";
+    return "wanderer.proto.float3";
   }
   protected:
   explicit float3(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -230,7 +230,7 @@ class float3 final :
   void _internal_set_z(float value);
   public:
 
-  // @@protoc_insertion_point(class_scope:wanderer.protobuf.float3)
+  // @@protoc_insertion_point(class_scope:wanderer.proto.float3)
  private:
   class _Internal;
 
@@ -271,7 +271,7 @@ inline float float3::_internal_x() const {
   return x_;
 }
 inline float float3::x() const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.float3.x)
+  // @@protoc_insertion_point(field_get:wanderer.proto.float3.x)
   return _internal_x();
 }
 inline void float3::_internal_set_x(float value) {
@@ -280,7 +280,7 @@ inline void float3::_internal_set_x(float value) {
 }
 inline void float3::set_x(float value) {
   _internal_set_x(value);
-  // @@protoc_insertion_point(field_set:wanderer.protobuf.float3.x)
+  // @@protoc_insertion_point(field_set:wanderer.proto.float3.x)
 }
 
 // optional float y = 2;
@@ -299,7 +299,7 @@ inline float float3::_internal_y() const {
   return y_;
 }
 inline float float3::y() const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.float3.y)
+  // @@protoc_insertion_point(field_get:wanderer.proto.float3.y)
   return _internal_y();
 }
 inline void float3::_internal_set_y(float value) {
@@ -308,7 +308,7 @@ inline void float3::_internal_set_y(float value) {
 }
 inline void float3::set_y(float value) {
   _internal_set_y(value);
-  // @@protoc_insertion_point(field_set:wanderer.protobuf.float3.y)
+  // @@protoc_insertion_point(field_set:wanderer.proto.float3.y)
 }
 
 // optional float z = 3;
@@ -327,7 +327,7 @@ inline float float3::_internal_z() const {
   return z_;
 }
 inline float float3::z() const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.float3.z)
+  // @@protoc_insertion_point(field_get:wanderer.proto.float3.z)
   return _internal_z();
 }
 inline void float3::_internal_set_z(float value) {
@@ -336,7 +336,7 @@ inline void float3::_internal_set_z(float value) {
 }
 inline void float3::set_z(float value) {
   _internal_set_z(value);
-  // @@protoc_insertion_point(field_set:wanderer.protobuf.float3.z)
+  // @@protoc_insertion_point(field_set:wanderer.proto.float3.z)
 }
 
 #ifdef __GNUC__
@@ -345,7 +345,7 @@ inline void float3::set_z(float value) {
 
 // @@protoc_insertion_point(namespace_scope)
 
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 
 // @@protoc_insertion_point(global_scope)

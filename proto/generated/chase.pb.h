@@ -54,22 +54,22 @@ struct TableStruct_chase_2eproto {
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_chase_2eproto;
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 class chase;
 struct chaseDefaultTypeInternal;
 extern chaseDefaultTypeInternal _chase_default_instance_;
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 PROTOBUF_NAMESPACE_OPEN
-template<> ::wanderer::protobuf::chase* Arena::CreateMaybeMessage<::wanderer::protobuf::chase>(Arena*);
+template<> ::wanderer::proto::chase* Arena::CreateMaybeMessage<::wanderer::proto::chase>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 
 // ===================================================================
 
 class chase final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.protobuf.chase) */ {
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.proto.chase) */ {
  public:
   inline chase() : chase(nullptr) {}
   ~chase() override;
@@ -167,7 +167,7 @@ class chase final :
   void InternalSwap(chase* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "wanderer.protobuf.chase";
+    return "wanderer.proto.chase";
   }
   protected:
   explicit chase(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -230,7 +230,7 @@ class chase final :
   void _internal_set_is_active(bool value);
   public:
 
-  // @@protoc_insertion_point(class_scope:wanderer.protobuf.chase)
+  // @@protoc_insertion_point(class_scope:wanderer.proto.chase)
  private:
   class _Internal;
 
@@ -271,7 +271,7 @@ inline ::PROTOBUF_NAMESPACE_ID::uint32 chase::_internal_target_entity() const {
   return target_entity_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::uint32 chase::target_entity() const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.chase.target_entity)
+  // @@protoc_insertion_point(field_get:wanderer.proto.chase.target_entity)
   return _internal_target_entity();
 }
 inline void chase::_internal_set_target_entity(::PROTOBUF_NAMESPACE_ID::uint32 value) {
@@ -280,7 +280,7 @@ inline void chase::_internal_set_target_entity(::PROTOBUF_NAMESPACE_ID::uint32 v
 }
 inline void chase::set_target_entity(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _internal_set_target_entity(value);
-  // @@protoc_insertion_point(field_set:wanderer.protobuf.chase.target_entity)
+  // @@protoc_insertion_point(field_set:wanderer.proto.chase.target_entity)
 }
 
 // optional float range = 2;
@@ -299,7 +299,7 @@ inline float chase::_internal_range() const {
   return range_;
 }
 inline float chase::range() const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.chase.range)
+  // @@protoc_insertion_point(field_get:wanderer.proto.chase.range)
   return _internal_range();
 }
 inline void chase::_internal_set_range(float value) {
@@ -308,7 +308,7 @@ inline void chase::_internal_set_range(float value) {
 }
 inline void chase::set_range(float value) {
   _internal_set_range(value);
-  // @@protoc_insertion_point(field_set:wanderer.protobuf.chase.range)
+  // @@protoc_insertion_point(field_set:wanderer.proto.chase.range)
 }
 
 // optional bool is_active = 3;
@@ -327,7 +327,7 @@ inline bool chase::_internal_is_active() const {
   return is_active_;
 }
 inline bool chase::is_active() const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.chase.is_active)
+  // @@protoc_insertion_point(field_get:wanderer.proto.chase.is_active)
   return _internal_is_active();
 }
 inline void chase::_internal_set_is_active(bool value) {
@@ -336,7 +336,7 @@ inline void chase::_internal_set_is_active(bool value) {
 }
 inline void chase::set_is_active(bool value) {
   _internal_set_is_active(value);
-  // @@protoc_insertion_point(field_set:wanderer.protobuf.chase.is_active)
+  // @@protoc_insertion_point(field_set:wanderer.proto.chase.is_active)
 }
 
 #ifdef __GNUC__
@@ -345,7 +345,7 @@ inline void chase::set_is_active(bool value) {
 
 // @@protoc_insertion_point(namespace_scope)
 
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 
 // @@protoc_insertion_point(global_scope)

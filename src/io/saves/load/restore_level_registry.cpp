@@ -34,7 +34,7 @@
 namespace wanderer {
 namespace {
 
-[[nodiscard]] auto restore(const protobuf::float2& data) -> float2
+[[nodiscard]] auto restore(const proto::float2& data) -> float2
 {
   float2 result;
   result.x = data.x();
@@ -42,7 +42,7 @@ namespace {
   return result;
 }
 
-[[nodiscard]] auto restore(const protobuf::float3& data) -> comp::float3
+[[nodiscard]] auto restore(const proto::float3& data) -> comp::float3
 {
   comp::float3 result;
   result.x = data.x();
@@ -51,7 +51,7 @@ namespace {
   return result;
 }
 
-[[nodiscard]] auto restore(const protobuf::irect& data) -> cen::irect
+[[nodiscard]] auto restore(const proto::irect& data) -> cen::irect
 {
   cen::irect result;
   result.set_x(data.x());
@@ -61,7 +61,7 @@ namespace {
   return result;
 }
 
-[[nodiscard]] auto restore(const protobuf::frect& data) -> cen::frect
+[[nodiscard]] auto restore(const proto::frect& data) -> cen::frect
 {
   cen::frect result;
   result.set_x(data.x());
@@ -71,7 +71,7 @@ namespace {
   return result;
 }
 
-[[nodiscard]] auto restore(const protobuf::farea& data) -> cen::farea
+[[nodiscard]] auto restore(const proto::farea& data) -> cen::farea
 {
   cen::farea result;
   result.width = data.width();
@@ -79,7 +79,7 @@ namespace {
   return result;
 }
 
-[[nodiscard]] auto restore(const protobuf::color& data) -> cen::color
+[[nodiscard]] auto restore(const proto::color& data) -> cen::color
 {
   cen::color result;
   result.set_red(static_cast<uint8>(data.red()));
@@ -89,7 +89,7 @@ namespace {
   return result;
 }
 
-void restore_movable(const protobuf::level& level,
+void restore_movable(const proto::level& level,
                      entt::registry& registry,
                      const entt::entity entity)
 {
@@ -104,7 +104,7 @@ void restore_movable(const protobuf::level& level,
   }
 }
 
-void restore_drawable(const protobuf::level& level,
+void restore_drawable(const proto::level& level,
                       entt::registry& registry,
                       const entt::entity entity)
 {
@@ -121,7 +121,7 @@ void restore_drawable(const protobuf::level& level,
   }
 }
 
-void restore_animation(const protobuf::level& level,
+void restore_animation(const proto::level& level,
                        entt::registry& registry,
                        const entt::entity entity)
 {
@@ -138,7 +138,7 @@ void restore_animation(const protobuf::level& level,
   }
 }
 
-void restore_plant(const protobuf::level& level,
+void restore_plant(const proto::level& level,
                    entt::registry& registry,
                    const entt::entity entity)
 {
@@ -163,7 +163,7 @@ void restore_plant(const protobuf::level& level,
   }
 }
 
-void restore_tile(const protobuf::level& level,
+void restore_tile(const proto::level& level,
                   entt::registry& registry,
                   const entt::entity entity)
 {
@@ -179,7 +179,7 @@ void restore_tile(const protobuf::level& level,
   }
 }
 
-void restore_tilemap(const protobuf::level& level,
+void restore_tilemap(const proto::level& level,
                      entt::registry& registry,
                      const entt::entity entity)
 {
@@ -196,7 +196,7 @@ void restore_tilemap(const protobuf::level& level,
   }
 }
 
-void restore_tile_animations(const protobuf::level& level,
+void restore_tile_animations(const proto::level& level,
                              entt::registry& registry,
                              const entt::entity entity)
 {
@@ -217,7 +217,7 @@ void restore_tile_animations(const protobuf::level& level,
   }
 }
 
-void restore_chase(const protobuf::level& level,
+void restore_chase(const proto::level& level,
                    entt::registry& registry,
                    const entt::entity entity)
 {
@@ -233,7 +233,7 @@ void restore_chase(const protobuf::level& level,
   }
 }
 
-void restore_particle(const protobuf::level& level,
+void restore_particle(const proto::level& level,
                       entt::registry& registry,
                       const entt::entity entity)
 {
@@ -250,7 +250,7 @@ void restore_particle(const protobuf::level& level,
   }
 }
 
-void restore_light(const protobuf::level& level,
+void restore_light(const proto::level& level,
                    entt::registry& registry,
                    const entt::entity entity)
 {
@@ -267,7 +267,7 @@ void restore_light(const protobuf::level& level,
   }
 }
 
-void restore_spawnpoint(const protobuf::level& level,
+void restore_spawnpoint(const proto::level& level,
                         entt::registry& registry,
                         const entt::entity entity)
 {
@@ -282,7 +282,7 @@ void restore_spawnpoint(const protobuf::level& level,
   }
 }
 
-void restore_hitbox(const protobuf::level& level,
+void restore_hitbox(const proto::level& level,
                     entt::registry& registry,
                     const entt::entity entity)
 {
@@ -303,7 +303,7 @@ void restore_hitbox(const protobuf::level& level,
   }
 }
 
-void restore_object(const protobuf::level& level,
+void restore_object(const proto::level& level,
                     entt::registry& registry,
                     const entt::entity entity)
 {
@@ -316,7 +316,7 @@ void restore_object(const protobuf::level& level,
   }
 }
 
-void restore_portal(const protobuf::level& level,
+void restore_portal(const proto::level& level,
                     entt::registry& registry,
                     const entt::entity entity)
 {
@@ -332,7 +332,7 @@ void restore_portal(const protobuf::level& level,
   }
 }
 
-void restore_tile_layer(const protobuf::level& level,
+void restore_tile_layer(const proto::level& level,
                         entt::registry& registry,
                         const entt::entity entity)
 {
@@ -353,7 +353,7 @@ void restore_tile_layer(const protobuf::level& level,
   }
 }
 
-void restore_tileset(const protobuf::level& level,
+void restore_tileset(const proto::level& level,
                      entt::registry& registry,
                      const entt::entity entity)
 {
@@ -368,7 +368,7 @@ void restore_tileset(const protobuf::level& level,
   }
 }
 
-void restore_inventory(const protobuf::level& level,
+void restore_inventory(const proto::level& level,
                        entt::registry& registry,
                        const entt::entity entity)
 {
@@ -386,7 +386,7 @@ void restore_inventory(const protobuf::level& level,
   }
 }
 
-void restore_tile_object(const protobuf::level& level,
+void restore_tile_object(const proto::level& level,
                          entt::registry& registry,
                          const entt::entity entity)
 {
@@ -399,7 +399,7 @@ void restore_tile_object(const protobuf::level& level,
   }
 }
 
-void restore_trigger(const protobuf::level& level,
+void restore_trigger(const proto::level& level,
                      entt::registry& registry,
                      const entt::entity entity)
 {
@@ -412,7 +412,7 @@ void restore_trigger(const protobuf::level& level,
   }
 }
 
-void restore_association(const protobuf::level& level,
+void restore_association(const proto::level& level,
                          entt::registry& registry,
                          const entt::entity entity)
 {
@@ -429,7 +429,7 @@ void restore_association(const protobuf::level& level,
 
 }  // namespace
 
-auto restore_level_registry(const protobuf::level& data) -> entt::registry
+auto restore_level_registry(const proto::level& data) -> entt::registry
 {
   auto registry = make_registry();
 

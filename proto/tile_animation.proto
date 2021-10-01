@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package wanderer.protobuf;
+package wanderer.proto;
 
 message tile_animation {
 

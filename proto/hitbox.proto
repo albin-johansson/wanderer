@@ -4,7 +4,7 @@ import "area.proto";
 import "float2.proto";
 import "rect.proto";
 
-package wanderer.protobuf;
+package wanderer.proto;
 
 message subhitbox {
   optional float2 offset = 1;

@@ -54,22 +54,22 @@ struct TableStruct_inventory_2eproto {
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_inventory_2eproto;
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 class inventory;
 struct inventoryDefaultTypeInternal;
 extern inventoryDefaultTypeInternal _inventory_default_instance_;
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 PROTOBUF_NAMESPACE_OPEN
-template<> ::wanderer::protobuf::inventory* Arena::CreateMaybeMessage<::wanderer::protobuf::inventory>(Arena*);
+template<> ::wanderer::proto::inventory* Arena::CreateMaybeMessage<::wanderer::proto::inventory>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 
 // ===================================================================
 
 class inventory final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.protobuf.inventory) */ {
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.proto.inventory) */ {
  public:
   inline inventory() : inventory(nullptr) {}
   ~inventory() override;
@@ -167,7 +167,7 @@ class inventory final :
   void InternalSwap(inventory* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "wanderer.protobuf.inventory";
+    return "wanderer.proto.inventory";
   }
   protected:
   explicit inventory(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -225,7 +225,7 @@ class inventory final :
   void _internal_set_capacity(::PROTOBUF_NAMESPACE_ID::uint64 value);
   public:
 
-  // @@protoc_insertion_point(class_scope:wanderer.protobuf.inventory)
+  // @@protoc_insertion_point(class_scope:wanderer.proto.inventory)
  private:
   class _Internal;
 
@@ -264,19 +264,19 @@ inline ::PROTOBUF_NAMESPACE_ID::uint32 inventory::_internal_items(int index) con
   return items_.Get(index);
 }
 inline ::PROTOBUF_NAMESPACE_ID::uint32 inventory::items(int index) const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.inventory.items)
+  // @@protoc_insertion_point(field_get:wanderer.proto.inventory.items)
   return _internal_items(index);
 }
 inline void inventory::set_items(int index, ::PROTOBUF_NAMESPACE_ID::uint32 value) {
   items_.Set(index, value);
-  // @@protoc_insertion_point(field_set:wanderer.protobuf.inventory.items)
+  // @@protoc_insertion_point(field_set:wanderer.proto.inventory.items)
 }
 inline void inventory::_internal_add_items(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   items_.Add(value);
 }
 inline void inventory::add_items(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _internal_add_items(value);
-  // @@protoc_insertion_point(field_add:wanderer.protobuf.inventory.items)
+  // @@protoc_insertion_point(field_add:wanderer.proto.inventory.items)
 }
 inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
 inventory::_internal_items() const {
@@ -284,7 +284,7 @@ inventory::_internal_items() const {
 }
 inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
 inventory::items() const {
-  // @@protoc_insertion_point(field_list:wanderer.protobuf.inventory.items)
+  // @@protoc_insertion_point(field_list:wanderer.proto.inventory.items)
   return _internal_items();
 }
 inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
@@ -293,7 +293,7 @@ inventory::_internal_mutable_items() {
 }
 inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
 inventory::mutable_items() {
-  // @@protoc_insertion_point(field_mutable_list:wanderer.protobuf.inventory.items)
+  // @@protoc_insertion_point(field_mutable_list:wanderer.proto.inventory.items)
   return _internal_mutable_items();
 }
 
@@ -313,7 +313,7 @@ inline ::PROTOBUF_NAMESPACE_ID::uint64 inventory::_internal_capacity() const {
   return capacity_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::uint64 inventory::capacity() const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.inventory.capacity)
+  // @@protoc_insertion_point(field_get:wanderer.proto.inventory.capacity)
   return _internal_capacity();
 }
 inline void inventory::_internal_set_capacity(::PROTOBUF_NAMESPACE_ID::uint64 value) {
@@ -322,7 +322,7 @@ inline void inventory::_internal_set_capacity(::PROTOBUF_NAMESPACE_ID::uint64 va
 }
 inline void inventory::set_capacity(::PROTOBUF_NAMESPACE_ID::uint64 value) {
   _internal_set_capacity(value);
-  // @@protoc_insertion_point(field_set:wanderer.protobuf.inventory.capacity)
+  // @@protoc_insertion_point(field_set:wanderer.proto.inventory.capacity)
 }
 
 #ifdef __GNUC__
@@ -331,7 +331,7 @@ inline void inventory::set_capacity(::PROTOBUF_NAMESPACE_ID::uint64 value) {
 
 // @@protoc_insertion_point(namespace_scope)
 
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 
 // @@protoc_insertion_point(global_scope)

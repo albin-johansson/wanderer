@@ -54,22 +54,22 @@ struct TableStruct_animated_2eproto {
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_animated_2eproto;
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 class animated;
 struct animatedDefaultTypeInternal;
 extern animatedDefaultTypeInternal _animated_default_instance_;
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 PROTOBUF_NAMESPACE_OPEN
-template<> ::wanderer::protobuf::animated* Arena::CreateMaybeMessage<::wanderer::protobuf::animated>(Arena*);
+template<> ::wanderer::proto::animated* Arena::CreateMaybeMessage<::wanderer::proto::animated>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 
 // ===================================================================
 
 class animated final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.protobuf.animated) */ {
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.proto.animated) */ {
  public:
   inline animated() : animated(nullptr) {}
   ~animated() override;
@@ -167,7 +167,7 @@ class animated final :
   void InternalSwap(animated* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "wanderer.protobuf.animated";
+    return "wanderer.proto.animated";
   }
   protected:
   explicit animated(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -244,7 +244,7 @@ class animated final :
   void _internal_set_delay(::PROTOBUF_NAMESPACE_ID::uint32 value);
   public:
 
-  // @@protoc_insertion_point(class_scope:wanderer.protobuf.animated)
+  // @@protoc_insertion_point(class_scope:wanderer.proto.animated)
  private:
   class _Internal;
 
@@ -286,7 +286,7 @@ inline ::PROTOBUF_NAMESPACE_ID::uint64 animated::_internal_frame() const {
   return frame_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::uint64 animated::frame() const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.animated.frame)
+  // @@protoc_insertion_point(field_get:wanderer.proto.animated.frame)
   return _internal_frame();
 }
 inline void animated::_internal_set_frame(::PROTOBUF_NAMESPACE_ID::uint64 value) {
@@ -295,7 +295,7 @@ inline void animated::_internal_set_frame(::PROTOBUF_NAMESPACE_ID::uint64 value)
 }
 inline void animated::set_frame(::PROTOBUF_NAMESPACE_ID::uint64 value) {
   _internal_set_frame(value);
-  // @@protoc_insertion_point(field_set:wanderer.protobuf.animated.frame)
+  // @@protoc_insertion_point(field_set:wanderer.proto.animated.frame)
 }
 
 // optional uint64 frame_count = 2;
@@ -314,7 +314,7 @@ inline ::PROTOBUF_NAMESPACE_ID::uint64 animated::_internal_frame_count() const {
   return frame_count_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::uint64 animated::frame_count() const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.animated.frame_count)
+  // @@protoc_insertion_point(field_get:wanderer.proto.animated.frame_count)
   return _internal_frame_count();
 }
 inline void animated::_internal_set_frame_count(::PROTOBUF_NAMESPACE_ID::uint64 value) {
@@ -323,7 +323,7 @@ inline void animated::_internal_set_frame_count(::PROTOBUF_NAMESPACE_ID::uint64 
 }
 inline void animated::set_frame_count(::PROTOBUF_NAMESPACE_ID::uint64 value) {
   _internal_set_frame_count(value);
-  // @@protoc_insertion_point(field_set:wanderer.protobuf.animated.frame_count)
+  // @@protoc_insertion_point(field_set:wanderer.proto.animated.frame_count)
 }
 
 // optional uint32 then = 3;
@@ -342,7 +342,7 @@ inline ::PROTOBUF_NAMESPACE_ID::uint32 animated::_internal_then() const {
   return then_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::uint32 animated::then() const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.animated.then)
+  // @@protoc_insertion_point(field_get:wanderer.proto.animated.then)
   return _internal_then();
 }
 inline void animated::_internal_set_then(::PROTOBUF_NAMESPACE_ID::uint32 value) {
@@ -351,7 +351,7 @@ inline void animated::_internal_set_then(::PROTOBUF_NAMESPACE_ID::uint32 value) 
 }
 inline void animated::set_then(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _internal_set_then(value);
-  // @@protoc_insertion_point(field_set:wanderer.protobuf.animated.then)
+  // @@protoc_insertion_point(field_set:wanderer.proto.animated.then)
 }
 
 // optional uint32 delay = 4;
@@ -370,7 +370,7 @@ inline ::PROTOBUF_NAMESPACE_ID::uint32 animated::_internal_delay() const {
   return delay_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::uint32 animated::delay() const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.animated.delay)
+  // @@protoc_insertion_point(field_get:wanderer.proto.animated.delay)
   return _internal_delay();
 }
 inline void animated::_internal_set_delay(::PROTOBUF_NAMESPACE_ID::uint32 value) {
@@ -379,7 +379,7 @@ inline void animated::_internal_set_delay(::PROTOBUF_NAMESPACE_ID::uint32 value)
 }
 inline void animated::set_delay(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _internal_set_delay(value);
-  // @@protoc_insertion_point(field_set:wanderer.protobuf.animated.delay)
+  // @@protoc_insertion_point(field_set:wanderer.proto.animated.delay)
 }
 
 #ifdef __GNUC__
@@ -388,7 +388,7 @@ inline void animated::set_delay(::PROTOBUF_NAMESPACE_ID::uint32 value) {
 
 // @@protoc_insertion_point(namespace_scope)
 
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 
 // @@protoc_insertion_point(global_scope)

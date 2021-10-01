@@ -54,22 +54,22 @@ struct TableStruct_portal_2eproto {
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_portal_2eproto;
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 class portal;
 struct portalDefaultTypeInternal;
 extern portalDefaultTypeInternal _portal_default_instance_;
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 PROTOBUF_NAMESPACE_OPEN
-template<> ::wanderer::protobuf::portal* Arena::CreateMaybeMessage<::wanderer::protobuf::portal>(Arena*);
+template<> ::wanderer::proto::portal* Arena::CreateMaybeMessage<::wanderer::proto::portal>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 
 // ===================================================================
 
 class portal final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.protobuf.portal) */ {
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.proto.portal) */ {
  public:
   inline portal() : portal(nullptr) {}
   ~portal() override;
@@ -167,7 +167,7 @@ class portal final :
   void InternalSwap(portal* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "wanderer.protobuf.portal";
+    return "wanderer.proto.portal";
   }
   protected:
   explicit portal(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -221,7 +221,7 @@ class portal final :
   void _internal_set_map_id(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // @@protoc_insertion_point(class_scope:wanderer.protobuf.portal)
+  // @@protoc_insertion_point(class_scope:wanderer.proto.portal)
  private:
   class _Internal;
 
@@ -261,7 +261,7 @@ inline ::PROTOBUF_NAMESPACE_ID::int32 portal::_internal_map_id() const {
   return map_id_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::int32 portal::map_id() const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.portal.map_id)
+  // @@protoc_insertion_point(field_get:wanderer.proto.portal.map_id)
   return _internal_map_id();
 }
 inline void portal::_internal_set_map_id(::PROTOBUF_NAMESPACE_ID::int32 value) {
@@ -270,7 +270,7 @@ inline void portal::_internal_set_map_id(::PROTOBUF_NAMESPACE_ID::int32 value) {
 }
 inline void portal::set_map_id(::PROTOBUF_NAMESPACE_ID::int32 value) {
   _internal_set_map_id(value);
-  // @@protoc_insertion_point(field_set:wanderer.protobuf.portal.map_id)
+  // @@protoc_insertion_point(field_set:wanderer.proto.portal.map_id)
 }
 
 // optional string path = 2;
@@ -286,7 +286,7 @@ inline void portal::clear_path() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline const std::string& portal::path() const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.portal.path)
+  // @@protoc_insertion_point(field_get:wanderer.proto.portal.path)
   return _internal_path();
 }
 template <typename ArgT0, typename... ArgT>
@@ -294,11 +294,11 @@ inline PROTOBUF_ALWAYS_INLINE
 void portal::set_path(ArgT0&& arg0, ArgT... args) {
  _has_bits_[0] |= 0x00000001u;
  path_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:wanderer.protobuf.portal.path)
+  // @@protoc_insertion_point(field_set:wanderer.proto.portal.path)
 }
 inline std::string* portal::mutable_path() {
   std::string* _s = _internal_mutable_path();
-  // @@protoc_insertion_point(field_mutable:wanderer.protobuf.portal.path)
+  // @@protoc_insertion_point(field_mutable:wanderer.proto.portal.path)
   return _s;
 }
 inline const std::string& portal::_internal_path() const {
@@ -313,7 +313,7 @@ inline std::string* portal::_internal_mutable_path() {
   return path_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
 }
 inline std::string* portal::release_path() {
-  // @@protoc_insertion_point(field_release:wanderer.protobuf.portal.path)
+  // @@protoc_insertion_point(field_release:wanderer.proto.portal.path)
   if (!_internal_has_path()) {
     return nullptr;
   }
@@ -328,7 +328,7 @@ inline void portal::set_allocated_path(std::string* path) {
   }
   path_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), path,
       GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set_allocated:wanderer.protobuf.portal.path)
+  // @@protoc_insertion_point(field_set_allocated:wanderer.proto.portal.path)
 }
 
 #ifdef __GNUC__
@@ -337,7 +337,7 @@ inline void portal::set_allocated_path(std::string* path) {
 
 // @@protoc_insertion_point(namespace_scope)
 
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 
 // @@protoc_insertion_point(global_scope)

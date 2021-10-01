@@ -17,7 +17,7 @@
 
 PROTOBUF_PRAGMA_INIT_SEG
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 constexpr subhitbox::subhitbox(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : offset_(nullptr)
@@ -46,60 +46,59 @@ struct hitboxDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT hitboxDefaultTypeInternal _hitbox_default_instance_;
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_hitbox_2eproto[2];
 static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_hitbox_2eproto = nullptr;
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_hitbox_2eproto = nullptr;
 
 const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_hitbox_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::subhitbox, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::subhitbox, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::subhitbox, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::subhitbox, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::subhitbox, offset_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::subhitbox, size_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::subhitbox, offset_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::subhitbox, size_),
   0,
   1,
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::hitbox, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::hitbox, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::hitbox, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::hitbox, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::hitbox, origin_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::hitbox, bounds_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::hitbox, boxes_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::hitbox, enabled_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::hitbox, origin_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::hitbox, bounds_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::hitbox, boxes_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::hitbox, enabled_),
   0,
   1,
   ~0u,
   2,
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, 8, -1, sizeof(::wanderer::protobuf::subhitbox)},
-  { 10, 20, -1, sizeof(::wanderer::protobuf::hitbox)},
+  { 0, 8, -1, sizeof(::wanderer::proto::subhitbox)},
+  { 10, 20, -1, sizeof(::wanderer::proto::hitbox)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::protobuf::_subhitbox_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::protobuf::_hitbox_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_subhitbox_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_hitbox_default_instance_),
 };
 
 const char descriptor_table_protodef_hitbox_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\014hitbox.proto\022\021wanderer.protobuf\032\narea."
-  "proto\032\014float2.proto\032\nrect.proto\"|\n\tsubhi"
-  "tbox\022.\n\006offset\030\001 \001(\0132\031.wanderer.protobuf"
-  ".float2H\000\210\001\001\022+\n\004size\030\002 \001(\0132\030.wanderer.pr"
-  "otobuf.fareaH\001\210\001\001B\t\n\007_offsetB\007\n\005_size\"\314\001"
-  "\n\006hitbox\022.\n\006origin\030\001 \001(\0132\031.wanderer.prot"
-  "obuf.float2H\000\210\001\001\022-\n\006bounds\030\002 \001(\0132\030.wande"
-  "rer.protobuf.frectH\001\210\001\001\022+\n\005boxes\030\003 \003(\0132\034"
-  ".wanderer.protobuf.subhitbox\022\024\n\007enabled\030"
-  "\004 \001(\010H\002\210\001\001B\t\n\007_originB\t\n\007_boundsB\n\n\010_ena"
-  "bledb\006proto3"
+  "\n\014hitbox.proto\022\016wanderer.proto\032\narea.pro"
+  "to\032\014float2.proto\032\nrect.proto\"v\n\tsubhitbo"
+  "x\022+\n\006offset\030\001 \001(\0132\026.wanderer.proto.float"
+  "2H\000\210\001\001\022(\n\004size\030\002 \001(\0132\025.wanderer.proto.fa"
+  "reaH\001\210\001\001B\t\n\007_offsetB\007\n\005_size\"\303\001\n\006hitbox\022"
+  "+\n\006origin\030\001 \001(\0132\026.wanderer.proto.float2H"
+  "\000\210\001\001\022*\n\006bounds\030\002 \001(\0132\025.wanderer.proto.fr"
+  "ectH\001\210\001\001\022(\n\005boxes\030\003 \003(\0132\031.wanderer.proto"
+  ".subhitbox\022\024\n\007enabled\030\004 \001(\010H\002\210\001\001B\t\n\007_ori"
+  "ginB\t\n\007_boundsB\n\n\010_enabledb\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_hitbox_2eproto_deps[3] = {
   &::descriptor_table_area_2eproto,
@@ -108,7 +107,7 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_hitbox_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_hitbox_2eproto = {
-  false, false, 412, descriptor_table_protodef_hitbox_2eproto, "hitbox.proto", 
+  false, false, 394, descriptor_table_protodef_hitbox_2eproto, "hitbox.proto", 
   &descriptor_table_hitbox_2eproto_once, descriptor_table_hitbox_2eproto_deps, 3, 2,
   schemas, file_default_instances, TableStruct_hitbox_2eproto::offsets,
   file_level_metadata_hitbox_2eproto, file_level_enum_descriptors_hitbox_2eproto, file_level_service_descriptors_hitbox_2eproto,
@@ -120,28 +119,28 @@ PROTOBUF_ATTRIBUTE_WEAK const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable
 // Force running AddDescriptors() at dynamic initialization time.
 PROTOBUF_ATTRIBUTE_INIT_PRIORITY static ::PROTOBUF_NAMESPACE_ID::internal::AddDescriptorsRunner dynamic_init_dummy_hitbox_2eproto(&descriptor_table_hitbox_2eproto);
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 
 // ===================================================================
 
 class subhitbox::_Internal {
  public:
   using HasBits = decltype(std::declval<subhitbox>()._has_bits_);
-  static const ::wanderer::protobuf::float2& offset(const subhitbox* msg);
+  static const ::wanderer::proto::float2& offset(const subhitbox* msg);
   static void set_has_offset(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
-  static const ::wanderer::protobuf::farea& size(const subhitbox* msg);
+  static const ::wanderer::proto::farea& size(const subhitbox* msg);
   static void set_has_size(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
 };
 
-const ::wanderer::protobuf::float2&
+const ::wanderer::proto::float2&
 subhitbox::_Internal::offset(const subhitbox* msg) {
   return *msg->offset_;
 }
-const ::wanderer::protobuf::farea&
+const ::wanderer::proto::farea&
 subhitbox::_Internal::size(const subhitbox* msg) {
   return *msg->size_;
 }
@@ -160,23 +159,23 @@ subhitbox::subhitbox(::PROTOBUF_NAMESPACE_ID::Arena* arena,
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
   }
-  // @@protoc_insertion_point(arena_constructor:wanderer.protobuf.subhitbox)
+  // @@protoc_insertion_point(arena_constructor:wanderer.proto.subhitbox)
 }
 subhitbox::subhitbox(const subhitbox& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
       _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   if (from._internal_has_offset()) {
-    offset_ = new ::wanderer::protobuf::float2(*from.offset_);
+    offset_ = new ::wanderer::proto::float2(*from.offset_);
   } else {
     offset_ = nullptr;
   }
   if (from._internal_has_size()) {
-    size_ = new ::wanderer::protobuf::farea(*from.size_);
+    size_ = new ::wanderer::proto::farea(*from.size_);
   } else {
     size_ = nullptr;
   }
-  // @@protoc_insertion_point(copy_constructor:wanderer.protobuf.subhitbox)
+  // @@protoc_insertion_point(copy_constructor:wanderer.proto.subhitbox)
 }
 
 void subhitbox::SharedCtor() {
@@ -187,7 +186,7 @@ void subhitbox::SharedCtor() {
 }
 
 subhitbox::~subhitbox() {
-  // @@protoc_insertion_point(destructor:wanderer.protobuf.subhitbox)
+  // @@protoc_insertion_point(destructor:wanderer.proto.subhitbox)
   if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
@@ -210,7 +209,7 @@ void subhitbox::SetCachedSize(int size) const {
 }
 
 void subhitbox::Clear() {
-// @@protoc_insertion_point(message_clear_start:wanderer.protobuf.subhitbox)
+// @@protoc_insertion_point(message_clear_start:wanderer.proto.subhitbox)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -237,7 +236,7 @@ const char* subhitbox::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // optional .wanderer.protobuf.float2 offset = 1;
+      // optional .wanderer.proto.float2 offset = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_offset(), ptr);
@@ -245,7 +244,7 @@ const char* subhitbox::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::
         } else
           goto handle_unusual;
         continue;
-      // optional .wanderer.protobuf.farea size = 2;
+      // optional .wanderer.proto.farea size = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_size(), ptr);
@@ -279,11 +278,11 @@ failure:
 
 ::PROTOBUF_NAMESPACE_ID::uint8* subhitbox::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:wanderer.protobuf.subhitbox)
+  // @@protoc_insertion_point(serialize_to_array_start:wanderer.proto.subhitbox)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // optional .wanderer.protobuf.float2 offset = 1;
+  // optional .wanderer.proto.float2 offset = 1;
   if (_internal_has_offset()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
@@ -291,7 +290,7 @@ failure:
         1, _Internal::offset(this), target, stream);
   }
 
-  // optional .wanderer.protobuf.farea size = 2;
+  // optional .wanderer.proto.farea size = 2;
   if (_internal_has_size()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
@@ -303,12 +302,12 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:wanderer.protobuf.subhitbox)
+  // @@protoc_insertion_point(serialize_to_array_end:wanderer.proto.subhitbox)
   return target;
 }
 
 size_t subhitbox::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:wanderer.protobuf.subhitbox)
+// @@protoc_insertion_point(message_byte_size_start:wanderer.proto.subhitbox)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -317,14 +316,14 @@ size_t subhitbox::ByteSizeLong() const {
 
   cached_has_bits = _has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
-    // optional .wanderer.protobuf.float2 offset = 1;
+    // optional .wanderer.proto.float2 offset = 1;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *offset_);
     }
 
-    // optional .wanderer.protobuf.farea size = 2;
+    // optional .wanderer.proto.farea size = 2;
     if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
@@ -349,7 +348,7 @@ void subhitbox::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
 
 
 void subhitbox::MergeFrom(const subhitbox& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:wanderer.protobuf.subhitbox)
+// @@protoc_insertion_point(class_specific_merge_from_start:wanderer.proto.subhitbox)
   GOOGLE_DCHECK_NE(&from, this);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
@@ -357,17 +356,17 @@ void subhitbox::MergeFrom(const subhitbox& from) {
   cached_has_bits = from._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_mutable_offset()->::wanderer::protobuf::float2::MergeFrom(from._internal_offset());
+      _internal_mutable_offset()->::wanderer::proto::float2::MergeFrom(from._internal_offset());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_mutable_size()->::wanderer::protobuf::farea::MergeFrom(from._internal_size());
+      _internal_mutable_size()->::wanderer::proto::farea::MergeFrom(from._internal_size());
     }
   }
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void subhitbox::CopyFrom(const subhitbox& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:wanderer.protobuf.subhitbox)
+// @@protoc_insertion_point(class_specific_copy_from_start:wanderer.proto.subhitbox)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -400,11 +399,11 @@ void subhitbox::InternalSwap(subhitbox* other) {
 class hitbox::_Internal {
  public:
   using HasBits = decltype(std::declval<hitbox>()._has_bits_);
-  static const ::wanderer::protobuf::float2& origin(const hitbox* msg);
+  static const ::wanderer::proto::float2& origin(const hitbox* msg);
   static void set_has_origin(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
-  static const ::wanderer::protobuf::frect& bounds(const hitbox* msg);
+  static const ::wanderer::proto::frect& bounds(const hitbox* msg);
   static void set_has_bounds(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
@@ -413,11 +412,11 @@ class hitbox::_Internal {
   }
 };
 
-const ::wanderer::protobuf::float2&
+const ::wanderer::proto::float2&
 hitbox::_Internal::origin(const hitbox* msg) {
   return *msg->origin_;
 }
-const ::wanderer::protobuf::frect&
+const ::wanderer::proto::frect&
 hitbox::_Internal::bounds(const hitbox* msg) {
   return *msg->bounds_;
 }
@@ -437,7 +436,7 @@ hitbox::hitbox(::PROTOBUF_NAMESPACE_ID::Arena* arena,
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
   }
-  // @@protoc_insertion_point(arena_constructor:wanderer.protobuf.hitbox)
+  // @@protoc_insertion_point(arena_constructor:wanderer.proto.hitbox)
 }
 hitbox::hitbox(const hitbox& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
@@ -445,17 +444,17 @@ hitbox::hitbox(const hitbox& from)
       boxes_(from.boxes_) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   if (from._internal_has_origin()) {
-    origin_ = new ::wanderer::protobuf::float2(*from.origin_);
+    origin_ = new ::wanderer::proto::float2(*from.origin_);
   } else {
     origin_ = nullptr;
   }
   if (from._internal_has_bounds()) {
-    bounds_ = new ::wanderer::protobuf::frect(*from.bounds_);
+    bounds_ = new ::wanderer::proto::frect(*from.bounds_);
   } else {
     bounds_ = nullptr;
   }
   enabled_ = from.enabled_;
-  // @@protoc_insertion_point(copy_constructor:wanderer.protobuf.hitbox)
+  // @@protoc_insertion_point(copy_constructor:wanderer.proto.hitbox)
 }
 
 void hitbox::SharedCtor() {
@@ -466,7 +465,7 @@ void hitbox::SharedCtor() {
 }
 
 hitbox::~hitbox() {
-  // @@protoc_insertion_point(destructor:wanderer.protobuf.hitbox)
+  // @@protoc_insertion_point(destructor:wanderer.proto.hitbox)
   if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
@@ -489,7 +488,7 @@ void hitbox::SetCachedSize(int size) const {
 }
 
 void hitbox::Clear() {
-// @@protoc_insertion_point(message_clear_start:wanderer.protobuf.hitbox)
+// @@protoc_insertion_point(message_clear_start:wanderer.proto.hitbox)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -518,7 +517,7 @@ const char* hitbox::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::int
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // optional .wanderer.protobuf.float2 origin = 1;
+      // optional .wanderer.proto.float2 origin = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_origin(), ptr);
@@ -526,7 +525,7 @@ const char* hitbox::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::int
         } else
           goto handle_unusual;
         continue;
-      // optional .wanderer.protobuf.frect bounds = 2;
+      // optional .wanderer.proto.frect bounds = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_bounds(), ptr);
@@ -534,7 +533,7 @@ const char* hitbox::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::int
         } else
           goto handle_unusual;
         continue;
-      // repeated .wanderer.protobuf.subhitbox boxes = 3;
+      // repeated .wanderer.proto.subhitbox boxes = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
           ptr -= 1;
@@ -582,11 +581,11 @@ failure:
 
 ::PROTOBUF_NAMESPACE_ID::uint8* hitbox::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:wanderer.protobuf.hitbox)
+  // @@protoc_insertion_point(serialize_to_array_start:wanderer.proto.hitbox)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // optional .wanderer.protobuf.float2 origin = 1;
+  // optional .wanderer.proto.float2 origin = 1;
   if (_internal_has_origin()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
@@ -594,7 +593,7 @@ failure:
         1, _Internal::origin(this), target, stream);
   }
 
-  // optional .wanderer.protobuf.frect bounds = 2;
+  // optional .wanderer.proto.frect bounds = 2;
   if (_internal_has_bounds()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
@@ -602,7 +601,7 @@ failure:
         2, _Internal::bounds(this), target, stream);
   }
 
-  // repeated .wanderer.protobuf.subhitbox boxes = 3;
+  // repeated .wanderer.proto.subhitbox boxes = 3;
   for (unsigned int i = 0,
       n = static_cast<unsigned int>(this->_internal_boxes_size()); i < n; i++) {
     target = stream->EnsureSpace(target);
@@ -620,19 +619,19 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:wanderer.protobuf.hitbox)
+  // @@protoc_insertion_point(serialize_to_array_end:wanderer.proto.hitbox)
   return target;
 }
 
 size_t hitbox::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:wanderer.protobuf.hitbox)
+// @@protoc_insertion_point(message_byte_size_start:wanderer.proto.hitbox)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // repeated .wanderer.protobuf.subhitbox boxes = 3;
+  // repeated .wanderer.proto.subhitbox boxes = 3;
   total_size += 1UL * this->_internal_boxes_size();
   for (const auto& msg : this->boxes_) {
     total_size +=
@@ -641,14 +640,14 @@ size_t hitbox::ByteSizeLong() const {
 
   cached_has_bits = _has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
-    // optional .wanderer.protobuf.float2 origin = 1;
+    // optional .wanderer.proto.float2 origin = 1;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *origin_);
     }
 
-    // optional .wanderer.protobuf.frect bounds = 2;
+    // optional .wanderer.proto.frect bounds = 2;
     if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
@@ -678,7 +677,7 @@ void hitbox::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
 
 
 void hitbox::MergeFrom(const hitbox& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:wanderer.protobuf.hitbox)
+// @@protoc_insertion_point(class_specific_merge_from_start:wanderer.proto.hitbox)
   GOOGLE_DCHECK_NE(&from, this);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
@@ -687,10 +686,10 @@ void hitbox::MergeFrom(const hitbox& from) {
   cached_has_bits = from._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_mutable_origin()->::wanderer::protobuf::float2::MergeFrom(from._internal_origin());
+      _internal_mutable_origin()->::wanderer::proto::float2::MergeFrom(from._internal_origin());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_mutable_bounds()->::wanderer::protobuf::frect::MergeFrom(from._internal_bounds());
+      _internal_mutable_bounds()->::wanderer::proto::frect::MergeFrom(from._internal_bounds());
     }
     if (cached_has_bits & 0x00000004u) {
       enabled_ = from.enabled_;
@@ -701,7 +700,7 @@ void hitbox::MergeFrom(const hitbox& from) {
 }
 
 void hitbox::CopyFrom(const hitbox& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:wanderer.protobuf.hitbox)
+// @@protoc_insertion_point(class_specific_copy_from_start:wanderer.proto.hitbox)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -731,14 +730,14 @@ void hitbox::InternalSwap(hitbox* other) {
 }
 
 // @@protoc_insertion_point(namespace_scope)
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::wanderer::protobuf::subhitbox* Arena::CreateMaybeMessage< ::wanderer::protobuf::subhitbox >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::wanderer::protobuf::subhitbox >(arena);
+template<> PROTOBUF_NOINLINE ::wanderer::proto::subhitbox* Arena::CreateMaybeMessage< ::wanderer::proto::subhitbox >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::wanderer::proto::subhitbox >(arena);
 }
-template<> PROTOBUF_NOINLINE ::wanderer::protobuf::hitbox* Arena::CreateMaybeMessage< ::wanderer::protobuf::hitbox >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::wanderer::protobuf::hitbox >(arena);
+template<> PROTOBUF_NOINLINE ::wanderer::proto::hitbox* Arena::CreateMaybeMessage< ::wanderer::proto::hitbox >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::wanderer::proto::hitbox >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

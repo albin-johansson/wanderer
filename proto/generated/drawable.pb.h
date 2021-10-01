@@ -55,22 +55,22 @@ struct TableStruct_drawable_2eproto {
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_drawable_2eproto;
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 class drawable;
 struct drawableDefaultTypeInternal;
 extern drawableDefaultTypeInternal _drawable_default_instance_;
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 PROTOBUF_NAMESPACE_OPEN
-template<> ::wanderer::protobuf::drawable* Arena::CreateMaybeMessage<::wanderer::protobuf::drawable>(Arena*);
+template<> ::wanderer::proto::drawable* Arena::CreateMaybeMessage<::wanderer::proto::drawable>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 
 // ===================================================================
 
 class drawable final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.protobuf.drawable) */ {
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.proto.drawable) */ {
  public:
   inline drawable() : drawable(nullptr) {}
   ~drawable() override;
@@ -168,7 +168,7 @@ class drawable final :
   void InternalSwap(drawable* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "wanderer.protobuf.drawable";
+    return "wanderer.proto.drawable";
   }
   protected:
   explicit drawable(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -194,41 +194,41 @@ class drawable final :
     kLayerIndexFieldNumber = 4,
     kDepthIndexFieldNumber = 5,
   };
-  // optional .wanderer.protobuf.irect src = 2;
+  // optional .wanderer.proto.irect src = 2;
   bool has_src() const;
   private:
   bool _internal_has_src() const;
   public:
   void clear_src();
-  const ::wanderer::protobuf::irect& src() const;
-  PROTOBUF_MUST_USE_RESULT ::wanderer::protobuf::irect* release_src();
-  ::wanderer::protobuf::irect* mutable_src();
-  void set_allocated_src(::wanderer::protobuf::irect* src);
+  const ::wanderer::proto::irect& src() const;
+  PROTOBUF_MUST_USE_RESULT ::wanderer::proto::irect* release_src();
+  ::wanderer::proto::irect* mutable_src();
+  void set_allocated_src(::wanderer::proto::irect* src);
   private:
-  const ::wanderer::protobuf::irect& _internal_src() const;
-  ::wanderer::protobuf::irect* _internal_mutable_src();
+  const ::wanderer::proto::irect& _internal_src() const;
+  ::wanderer::proto::irect* _internal_mutable_src();
   public:
   void unsafe_arena_set_allocated_src(
-      ::wanderer::protobuf::irect* src);
-  ::wanderer::protobuf::irect* unsafe_arena_release_src();
+      ::wanderer::proto::irect* src);
+  ::wanderer::proto::irect* unsafe_arena_release_src();
 
-  // optional .wanderer.protobuf.frect dst = 3;
+  // optional .wanderer.proto.frect dst = 3;
   bool has_dst() const;
   private:
   bool _internal_has_dst() const;
   public:
   void clear_dst();
-  const ::wanderer::protobuf::frect& dst() const;
-  PROTOBUF_MUST_USE_RESULT ::wanderer::protobuf::frect* release_dst();
-  ::wanderer::protobuf::frect* mutable_dst();
-  void set_allocated_dst(::wanderer::protobuf::frect* dst);
+  const ::wanderer::proto::frect& dst() const;
+  PROTOBUF_MUST_USE_RESULT ::wanderer::proto::frect* release_dst();
+  ::wanderer::proto::frect* mutable_dst();
+  void set_allocated_dst(::wanderer::proto::frect* dst);
   private:
-  const ::wanderer::protobuf::frect& _internal_dst() const;
-  ::wanderer::protobuf::frect* _internal_mutable_dst();
+  const ::wanderer::proto::frect& _internal_dst() const;
+  ::wanderer::proto::frect* _internal_mutable_dst();
   public:
   void unsafe_arena_set_allocated_dst(
-      ::wanderer::protobuf::frect* dst);
-  ::wanderer::protobuf::frect* unsafe_arena_release_dst();
+      ::wanderer::proto::frect* dst);
+  ::wanderer::proto::frect* unsafe_arena_release_dst();
 
   // optional uint64 texture_index = 1;
   bool has_texture_index() const;
@@ -269,7 +269,7 @@ class drawable final :
   void _internal_set_depth_index(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // @@protoc_insertion_point(class_scope:wanderer.protobuf.drawable)
+  // @@protoc_insertion_point(class_scope:wanderer.proto.drawable)
  private:
   class _Internal;
 
@@ -278,8 +278,8 @@ class drawable final :
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  ::wanderer::protobuf::irect* src_;
-  ::wanderer::protobuf::frect* dst_;
+  ::wanderer::proto::irect* src_;
+  ::wanderer::proto::frect* dst_;
   ::PROTOBUF_NAMESPACE_ID::uint64 texture_index_;
   ::PROTOBUF_NAMESPACE_ID::int32 layer_index_;
   ::PROTOBUF_NAMESPACE_ID::int32 depth_index_;
@@ -312,7 +312,7 @@ inline ::PROTOBUF_NAMESPACE_ID::uint64 drawable::_internal_texture_index() const
   return texture_index_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::uint64 drawable::texture_index() const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.drawable.texture_index)
+  // @@protoc_insertion_point(field_get:wanderer.proto.drawable.texture_index)
   return _internal_texture_index();
 }
 inline void drawable::_internal_set_texture_index(::PROTOBUF_NAMESPACE_ID::uint64 value) {
@@ -321,10 +321,10 @@ inline void drawable::_internal_set_texture_index(::PROTOBUF_NAMESPACE_ID::uint6
 }
 inline void drawable::set_texture_index(::PROTOBUF_NAMESPACE_ID::uint64 value) {
   _internal_set_texture_index(value);
-  // @@protoc_insertion_point(field_set:wanderer.protobuf.drawable.texture_index)
+  // @@protoc_insertion_point(field_set:wanderer.proto.drawable.texture_index)
 }
 
-// optional .wanderer.protobuf.irect src = 2;
+// optional .wanderer.proto.irect src = 2;
 inline bool drawable::_internal_has_src() const {
   bool value = (_has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || src_ != nullptr);
@@ -333,17 +333,17 @@ inline bool drawable::_internal_has_src() const {
 inline bool drawable::has_src() const {
   return _internal_has_src();
 }
-inline const ::wanderer::protobuf::irect& drawable::_internal_src() const {
-  const ::wanderer::protobuf::irect* p = src_;
-  return p != nullptr ? *p : reinterpret_cast<const ::wanderer::protobuf::irect&>(
-      ::wanderer::protobuf::_irect_default_instance_);
+inline const ::wanderer::proto::irect& drawable::_internal_src() const {
+  const ::wanderer::proto::irect* p = src_;
+  return p != nullptr ? *p : reinterpret_cast<const ::wanderer::proto::irect&>(
+      ::wanderer::proto::_irect_default_instance_);
 }
-inline const ::wanderer::protobuf::irect& drawable::src() const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.drawable.src)
+inline const ::wanderer::proto::irect& drawable::src() const {
+  // @@protoc_insertion_point(field_get:wanderer.proto.drawable.src)
   return _internal_src();
 }
 inline void drawable::unsafe_arena_set_allocated_src(
-    ::wanderer::protobuf::irect* src) {
+    ::wanderer::proto::irect* src) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(src_);
   }
@@ -353,11 +353,11 @@ inline void drawable::unsafe_arena_set_allocated_src(
   } else {
     _has_bits_[0] &= ~0x00000001u;
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:wanderer.protobuf.drawable.src)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:wanderer.proto.drawable.src)
 }
-inline ::wanderer::protobuf::irect* drawable::release_src() {
+inline ::wanderer::proto::irect* drawable::release_src() {
   _has_bits_[0] &= ~0x00000001u;
-  ::wanderer::protobuf::irect* temp = src_;
+  ::wanderer::proto::irect* temp = src_;
   src_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -370,27 +370,27 @@ inline ::wanderer::protobuf::irect* drawable::release_src() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::wanderer::protobuf::irect* drawable::unsafe_arena_release_src() {
-  // @@protoc_insertion_point(field_release:wanderer.protobuf.drawable.src)
+inline ::wanderer::proto::irect* drawable::unsafe_arena_release_src() {
+  // @@protoc_insertion_point(field_release:wanderer.proto.drawable.src)
   _has_bits_[0] &= ~0x00000001u;
-  ::wanderer::protobuf::irect* temp = src_;
+  ::wanderer::proto::irect* temp = src_;
   src_ = nullptr;
   return temp;
 }
-inline ::wanderer::protobuf::irect* drawable::_internal_mutable_src() {
+inline ::wanderer::proto::irect* drawable::_internal_mutable_src() {
   _has_bits_[0] |= 0x00000001u;
   if (src_ == nullptr) {
-    auto* p = CreateMaybeMessage<::wanderer::protobuf::irect>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::wanderer::proto::irect>(GetArenaForAllocation());
     src_ = p;
   }
   return src_;
 }
-inline ::wanderer::protobuf::irect* drawable::mutable_src() {
-  ::wanderer::protobuf::irect* _msg = _internal_mutable_src();
-  // @@protoc_insertion_point(field_mutable:wanderer.protobuf.drawable.src)
+inline ::wanderer::proto::irect* drawable::mutable_src() {
+  ::wanderer::proto::irect* _msg = _internal_mutable_src();
+  // @@protoc_insertion_point(field_mutable:wanderer.proto.drawable.src)
   return _msg;
 }
-inline void drawable::set_allocated_src(::wanderer::protobuf::irect* src) {
+inline void drawable::set_allocated_src(::wanderer::proto::irect* src) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(src_);
@@ -409,10 +409,10 @@ inline void drawable::set_allocated_src(::wanderer::protobuf::irect* src) {
     _has_bits_[0] &= ~0x00000001u;
   }
   src_ = src;
-  // @@protoc_insertion_point(field_set_allocated:wanderer.protobuf.drawable.src)
+  // @@protoc_insertion_point(field_set_allocated:wanderer.proto.drawable.src)
 }
 
-// optional .wanderer.protobuf.frect dst = 3;
+// optional .wanderer.proto.frect dst = 3;
 inline bool drawable::_internal_has_dst() const {
   bool value = (_has_bits_[0] & 0x00000002u) != 0;
   PROTOBUF_ASSUME(!value || dst_ != nullptr);
@@ -421,17 +421,17 @@ inline bool drawable::_internal_has_dst() const {
 inline bool drawable::has_dst() const {
   return _internal_has_dst();
 }
-inline const ::wanderer::protobuf::frect& drawable::_internal_dst() const {
-  const ::wanderer::protobuf::frect* p = dst_;
-  return p != nullptr ? *p : reinterpret_cast<const ::wanderer::protobuf::frect&>(
-      ::wanderer::protobuf::_frect_default_instance_);
+inline const ::wanderer::proto::frect& drawable::_internal_dst() const {
+  const ::wanderer::proto::frect* p = dst_;
+  return p != nullptr ? *p : reinterpret_cast<const ::wanderer::proto::frect&>(
+      ::wanderer::proto::_frect_default_instance_);
 }
-inline const ::wanderer::protobuf::frect& drawable::dst() const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.drawable.dst)
+inline const ::wanderer::proto::frect& drawable::dst() const {
+  // @@protoc_insertion_point(field_get:wanderer.proto.drawable.dst)
   return _internal_dst();
 }
 inline void drawable::unsafe_arena_set_allocated_dst(
-    ::wanderer::protobuf::frect* dst) {
+    ::wanderer::proto::frect* dst) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(dst_);
   }
@@ -441,11 +441,11 @@ inline void drawable::unsafe_arena_set_allocated_dst(
   } else {
     _has_bits_[0] &= ~0x00000002u;
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:wanderer.protobuf.drawable.dst)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:wanderer.proto.drawable.dst)
 }
-inline ::wanderer::protobuf::frect* drawable::release_dst() {
+inline ::wanderer::proto::frect* drawable::release_dst() {
   _has_bits_[0] &= ~0x00000002u;
-  ::wanderer::protobuf::frect* temp = dst_;
+  ::wanderer::proto::frect* temp = dst_;
   dst_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -458,27 +458,27 @@ inline ::wanderer::protobuf::frect* drawable::release_dst() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::wanderer::protobuf::frect* drawable::unsafe_arena_release_dst() {
-  // @@protoc_insertion_point(field_release:wanderer.protobuf.drawable.dst)
+inline ::wanderer::proto::frect* drawable::unsafe_arena_release_dst() {
+  // @@protoc_insertion_point(field_release:wanderer.proto.drawable.dst)
   _has_bits_[0] &= ~0x00000002u;
-  ::wanderer::protobuf::frect* temp = dst_;
+  ::wanderer::proto::frect* temp = dst_;
   dst_ = nullptr;
   return temp;
 }
-inline ::wanderer::protobuf::frect* drawable::_internal_mutable_dst() {
+inline ::wanderer::proto::frect* drawable::_internal_mutable_dst() {
   _has_bits_[0] |= 0x00000002u;
   if (dst_ == nullptr) {
-    auto* p = CreateMaybeMessage<::wanderer::protobuf::frect>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::wanderer::proto::frect>(GetArenaForAllocation());
     dst_ = p;
   }
   return dst_;
 }
-inline ::wanderer::protobuf::frect* drawable::mutable_dst() {
-  ::wanderer::protobuf::frect* _msg = _internal_mutable_dst();
-  // @@protoc_insertion_point(field_mutable:wanderer.protobuf.drawable.dst)
+inline ::wanderer::proto::frect* drawable::mutable_dst() {
+  ::wanderer::proto::frect* _msg = _internal_mutable_dst();
+  // @@protoc_insertion_point(field_mutable:wanderer.proto.drawable.dst)
   return _msg;
 }
-inline void drawable::set_allocated_dst(::wanderer::protobuf::frect* dst) {
+inline void drawable::set_allocated_dst(::wanderer::proto::frect* dst) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(dst_);
@@ -497,7 +497,7 @@ inline void drawable::set_allocated_dst(::wanderer::protobuf::frect* dst) {
     _has_bits_[0] &= ~0x00000002u;
   }
   dst_ = dst;
-  // @@protoc_insertion_point(field_set_allocated:wanderer.protobuf.drawable.dst)
+  // @@protoc_insertion_point(field_set_allocated:wanderer.proto.drawable.dst)
 }
 
 // optional int32 layer_index = 4;
@@ -516,7 +516,7 @@ inline ::PROTOBUF_NAMESPACE_ID::int32 drawable::_internal_layer_index() const {
   return layer_index_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::int32 drawable::layer_index() const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.drawable.layer_index)
+  // @@protoc_insertion_point(field_get:wanderer.proto.drawable.layer_index)
   return _internal_layer_index();
 }
 inline void drawable::_internal_set_layer_index(::PROTOBUF_NAMESPACE_ID::int32 value) {
@@ -525,7 +525,7 @@ inline void drawable::_internal_set_layer_index(::PROTOBUF_NAMESPACE_ID::int32 v
 }
 inline void drawable::set_layer_index(::PROTOBUF_NAMESPACE_ID::int32 value) {
   _internal_set_layer_index(value);
-  // @@protoc_insertion_point(field_set:wanderer.protobuf.drawable.layer_index)
+  // @@protoc_insertion_point(field_set:wanderer.proto.drawable.layer_index)
 }
 
 // optional int32 depth_index = 5;
@@ -544,7 +544,7 @@ inline ::PROTOBUF_NAMESPACE_ID::int32 drawable::_internal_depth_index() const {
   return depth_index_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::int32 drawable::depth_index() const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.drawable.depth_index)
+  // @@protoc_insertion_point(field_get:wanderer.proto.drawable.depth_index)
   return _internal_depth_index();
 }
 inline void drawable::_internal_set_depth_index(::PROTOBUF_NAMESPACE_ID::int32 value) {
@@ -553,7 +553,7 @@ inline void drawable::_internal_set_depth_index(::PROTOBUF_NAMESPACE_ID::int32 v
 }
 inline void drawable::set_depth_index(::PROTOBUF_NAMESPACE_ID::int32 value) {
   _internal_set_depth_index(value);
-  // @@protoc_insertion_point(field_set:wanderer.protobuf.drawable.depth_index)
+  // @@protoc_insertion_point(field_set:wanderer.proto.drawable.depth_index)
 }
 
 #ifdef __GNUC__
@@ -562,7 +562,7 @@ inline void drawable::set_depth_index(::PROTOBUF_NAMESPACE_ID::int32 value) {
 
 // @@protoc_insertion_point(namespace_scope)
 
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 
 // @@protoc_insertion_point(global_scope)

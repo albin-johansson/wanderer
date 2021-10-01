@@ -2,7 +2,7 @@ syntax = "proto3";
 
 import "rect.proto";
 
-package wanderer.protobuf;
+package wanderer.proto;
 
 message drawable {
   optional uint64 texture_index = 1;

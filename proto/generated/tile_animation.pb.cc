@@ -17,7 +17,7 @@
 
 PROTOBUF_PRAGMA_INIT_SEG
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 constexpr tile_animation_frame::tile_animation_frame(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : tile_id_(0u)
@@ -45,58 +45,58 @@ struct tile_animationDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT tile_animationDefaultTypeInternal _tile_animation_default_instance_;
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_tile_5fanimation_2eproto[2];
 static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_tile_5fanimation_2eproto = nullptr;
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_tile_5fanimation_2eproto = nullptr;
 
 const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_tile_5fanimation_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::tile_animation_frame, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::tile_animation_frame, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::tile_animation_frame, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::tile_animation_frame, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::tile_animation_frame, tile_id_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::tile_animation_frame, duration_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::tile_animation_frame, tile_id_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::tile_animation_frame, duration_),
   0,
   1,
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::tile_animation, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::tile_animation, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::tile_animation, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::tile_animation, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::tile_animation, index_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::tile_animation, then_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::tile_animation, frames_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::tile_animation, index_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::tile_animation, then_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::tile_animation, frames_),
   0,
   1,
   ~0u,
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, 8, -1, sizeof(::wanderer::protobuf::tile_animation_frame)},
-  { 10, 19, -1, sizeof(::wanderer::protobuf::tile_animation)},
+  { 0, 8, -1, sizeof(::wanderer::proto::tile_animation_frame)},
+  { 10, 19, -1, sizeof(::wanderer::proto::tile_animation)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::protobuf::_tile_animation_frame_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::protobuf::_tile_animation_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_tile_animation_frame_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_tile_animation_default_instance_),
 };
 
 const char descriptor_table_protodef_tile_5fanimation_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\024tile_animation.proto\022\021wanderer.protobu"
-  "f\"\322\001\n\016tile_animation\022\022\n\005index\030\001 \001(\004H\000\210\001\001"
-  "\022\021\n\004then\030\002 \001(\rH\001\210\001\001\0227\n\006frames\030\003 \003(\0132\'.wa"
-  "nderer.protobuf.tile_animation.frame\032M\n\005"
-  "frame\022\024\n\007tile_id\030\001 \001(\rH\000\210\001\001\022\025\n\010duration\030"
-  "\002 \001(\rH\001\210\001\001B\n\n\010_tile_idB\013\n\t_durationB\010\n\006_"
-  "indexB\007\n\005_thenb\006proto3"
+  "\n\024tile_animation.proto\022\016wanderer.proto\"\317"
+  "\001\n\016tile_animation\022\022\n\005index\030\001 \001(\004H\000\210\001\001\022\021\n"
+  "\004then\030\002 \001(\rH\001\210\001\001\0224\n\006frames\030\003 \003(\0132$.wande"
+  "rer.proto.tile_animation.frame\032M\n\005frame\022"
+  "\024\n\007tile_id\030\001 \001(\rH\000\210\001\001\022\025\n\010duration\030\002 \001(\rH"
+  "\001\210\001\001B\n\n\010_tile_idB\013\n\t_durationB\010\n\006_indexB"
+  "\007\n\005_thenb\006proto3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_tile_5fanimation_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_tile_5fanimation_2eproto = {
-  false, false, 262, descriptor_table_protodef_tile_5fanimation_2eproto, "tile_animation.proto", 
+  false, false, 256, descriptor_table_protodef_tile_5fanimation_2eproto, "tile_animation.proto", 
   &descriptor_table_tile_5fanimation_2eproto_once, nullptr, 0, 2,
   schemas, file_default_instances, TableStruct_tile_5fanimation_2eproto::offsets,
   file_level_metadata_tile_5fanimation_2eproto, file_level_enum_descriptors_tile_5fanimation_2eproto, file_level_service_descriptors_tile_5fanimation_2eproto,
@@ -108,7 +108,7 @@ PROTOBUF_ATTRIBUTE_WEAK const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable
 // Force running AddDescriptors() at dynamic initialization time.
 PROTOBUF_ATTRIBUTE_INIT_PRIORITY static ::PROTOBUF_NAMESPACE_ID::internal::AddDescriptorsRunner dynamic_init_dummy_tile_5fanimation_2eproto(&descriptor_table_tile_5fanimation_2eproto);
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 
 // ===================================================================
 
@@ -130,7 +130,7 @@ tile_animation_frame::tile_animation_frame(::PROTOBUF_NAMESPACE_ID::Arena* arena
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
   }
-  // @@protoc_insertion_point(arena_constructor:wanderer.protobuf.tile_animation.frame)
+  // @@protoc_insertion_point(arena_constructor:wanderer.proto.tile_animation.frame)
 }
 tile_animation_frame::tile_animation_frame(const tile_animation_frame& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
@@ -139,7 +139,7 @@ tile_animation_frame::tile_animation_frame(const tile_animation_frame& from)
   ::memcpy(&tile_id_, &from.tile_id_,
     static_cast<size_t>(reinterpret_cast<char*>(&duration_) -
     reinterpret_cast<char*>(&tile_id_)) + sizeof(duration_));
-  // @@protoc_insertion_point(copy_constructor:wanderer.protobuf.tile_animation.frame)
+  // @@protoc_insertion_point(copy_constructor:wanderer.proto.tile_animation.frame)
 }
 
 void tile_animation_frame::SharedCtor() {
@@ -150,7 +150,7 @@ void tile_animation_frame::SharedCtor() {
 }
 
 tile_animation_frame::~tile_animation_frame() {
-  // @@protoc_insertion_point(destructor:wanderer.protobuf.tile_animation.frame)
+  // @@protoc_insertion_point(destructor:wanderer.proto.tile_animation.frame)
   if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
@@ -171,7 +171,7 @@ void tile_animation_frame::SetCachedSize(int size) const {
 }
 
 void tile_animation_frame::Clear() {
-// @@protoc_insertion_point(message_clear_start:wanderer.protobuf.tile_animation.frame)
+// @@protoc_insertion_point(message_clear_start:wanderer.proto.tile_animation.frame)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -237,7 +237,7 @@ failure:
 
 ::PROTOBUF_NAMESPACE_ID::uint8* tile_animation_frame::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:wanderer.protobuf.tile_animation.frame)
+  // @@protoc_insertion_point(serialize_to_array_start:wanderer.proto.tile_animation.frame)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -257,12 +257,12 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:wanderer.protobuf.tile_animation.frame)
+  // @@protoc_insertion_point(serialize_to_array_end:wanderer.proto.tile_animation.frame)
   return target;
 }
 
 size_t tile_animation_frame::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:wanderer.protobuf.tile_animation.frame)
+// @@protoc_insertion_point(message_byte_size_start:wanderer.proto.tile_animation.frame)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -299,7 +299,7 @@ void tile_animation_frame::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
 
 
 void tile_animation_frame::MergeFrom(const tile_animation_frame& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:wanderer.protobuf.tile_animation.frame)
+// @@protoc_insertion_point(class_specific_merge_from_start:wanderer.proto.tile_animation.frame)
   GOOGLE_DCHECK_NE(&from, this);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
@@ -318,7 +318,7 @@ void tile_animation_frame::MergeFrom(const tile_animation_frame& from) {
 }
 
 void tile_animation_frame::CopyFrom(const tile_animation_frame& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:wanderer.protobuf.tile_animation.frame)
+// @@protoc_insertion_point(class_specific_copy_from_start:wanderer.proto.tile_animation.frame)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -367,7 +367,7 @@ tile_animation::tile_animation(::PROTOBUF_NAMESPACE_ID::Arena* arena,
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
   }
-  // @@protoc_insertion_point(arena_constructor:wanderer.protobuf.tile_animation)
+  // @@protoc_insertion_point(arena_constructor:wanderer.proto.tile_animation)
 }
 tile_animation::tile_animation(const tile_animation& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
@@ -377,7 +377,7 @@ tile_animation::tile_animation(const tile_animation& from)
   ::memcpy(&index_, &from.index_,
     static_cast<size_t>(reinterpret_cast<char*>(&then_) -
     reinterpret_cast<char*>(&index_)) + sizeof(then_));
-  // @@protoc_insertion_point(copy_constructor:wanderer.protobuf.tile_animation)
+  // @@protoc_insertion_point(copy_constructor:wanderer.proto.tile_animation)
 }
 
 void tile_animation::SharedCtor() {
@@ -388,7 +388,7 @@ void tile_animation::SharedCtor() {
 }
 
 tile_animation::~tile_animation() {
-  // @@protoc_insertion_point(destructor:wanderer.protobuf.tile_animation)
+  // @@protoc_insertion_point(destructor:wanderer.proto.tile_animation)
   if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
@@ -409,7 +409,7 @@ void tile_animation::SetCachedSize(int size) const {
 }
 
 void tile_animation::Clear() {
-// @@protoc_insertion_point(message_clear_start:wanderer.protobuf.tile_animation)
+// @@protoc_insertion_point(message_clear_start:wanderer.proto.tile_animation)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -450,7 +450,7 @@ const char* tile_animation::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         } else
           goto handle_unusual;
         continue;
-      // repeated .wanderer.protobuf.tile_animation.frame frames = 3;
+      // repeated .wanderer.proto.tile_animation.frame frames = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
           ptr -= 1;
@@ -489,7 +489,7 @@ failure:
 
 ::PROTOBUF_NAMESPACE_ID::uint8* tile_animation::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:wanderer.protobuf.tile_animation)
+  // @@protoc_insertion_point(serialize_to_array_start:wanderer.proto.tile_animation)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -505,7 +505,7 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(2, this->_internal_then(), target);
   }
 
-  // repeated .wanderer.protobuf.tile_animation.frame frames = 3;
+  // repeated .wanderer.proto.tile_animation.frame frames = 3;
   for (unsigned int i = 0,
       n = static_cast<unsigned int>(this->_internal_frames_size()); i < n; i++) {
     target = stream->EnsureSpace(target);
@@ -517,19 +517,19 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:wanderer.protobuf.tile_animation)
+  // @@protoc_insertion_point(serialize_to_array_end:wanderer.proto.tile_animation)
   return target;
 }
 
 size_t tile_animation::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:wanderer.protobuf.tile_animation)
+// @@protoc_insertion_point(message_byte_size_start:wanderer.proto.tile_animation)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // repeated .wanderer.protobuf.tile_animation.frame frames = 3;
+  // repeated .wanderer.proto.tile_animation.frame frames = 3;
   total_size += 1UL * this->_internal_frames_size();
   for (const auto& msg : this->frames_) {
     total_size +=
@@ -566,7 +566,7 @@ void tile_animation::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
 
 
 void tile_animation::MergeFrom(const tile_animation& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:wanderer.protobuf.tile_animation)
+// @@protoc_insertion_point(class_specific_merge_from_start:wanderer.proto.tile_animation)
   GOOGLE_DCHECK_NE(&from, this);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
@@ -586,7 +586,7 @@ void tile_animation::MergeFrom(const tile_animation& from) {
 }
 
 void tile_animation::CopyFrom(const tile_animation& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:wanderer.protobuf.tile_animation)
+// @@protoc_insertion_point(class_specific_copy_from_start:wanderer.proto.tile_animation)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -616,14 +616,14 @@ void tile_animation::InternalSwap(tile_animation* other) {
 }
 
 // @@protoc_insertion_point(namespace_scope)
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::wanderer::protobuf::tile_animation_frame* Arena::CreateMaybeMessage< ::wanderer::protobuf::tile_animation_frame >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::wanderer::protobuf::tile_animation_frame >(arena);
+template<> PROTOBUF_NOINLINE ::wanderer::proto::tile_animation_frame* Arena::CreateMaybeMessage< ::wanderer::proto::tile_animation_frame >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::wanderer::proto::tile_animation_frame >(arena);
 }
-template<> PROTOBUF_NOINLINE ::wanderer::protobuf::tile_animation* Arena::CreateMaybeMessage< ::wanderer::protobuf::tile_animation >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::wanderer::protobuf::tile_animation >(arena);
+template<> PROTOBUF_NOINLINE ::wanderer::proto::tile_animation* Arena::CreateMaybeMessage< ::wanderer::proto::tile_animation >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::wanderer::proto::tile_animation >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

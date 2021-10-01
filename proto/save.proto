@@ -22,7 +22,7 @@ import "tileset.proto";
 import "time_of_day.proto";
 import "trigger.proto";
 
-package wanderer.protobuf;
+package wanderer.proto;
 
 message level {
   optional int32 id = 1;

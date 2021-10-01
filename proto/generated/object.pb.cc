@@ -17,7 +17,7 @@
 
 PROTOBUF_PRAGMA_INIT_SEG
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 constexpr map_object::map_object(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : id_(0){}
@@ -30,37 +30,37 @@ struct map_objectDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT map_objectDefaultTypeInternal _map_object_default_instance_;
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_object_2eproto[1];
 static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_object_2eproto = nullptr;
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_object_2eproto = nullptr;
 
 const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_object_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::map_object, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::map_object, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::map_object, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::map_object, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::map_object, id_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::map_object, id_),
   0,
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, 7, -1, sizeof(::wanderer::protobuf::map_object)},
+  { 0, 7, -1, sizeof(::wanderer::proto::map_object)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::protobuf::_map_object_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_map_object_default_instance_),
 };
 
 const char descriptor_table_protodef_object_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\014object.proto\022\021wanderer.protobuf\"$\n\nmap"
-  "_object\022\017\n\002id\030\001 \001(\005H\000\210\001\001B\005\n\003_idb\006proto3"
+  "\n\014object.proto\022\016wanderer.proto\"$\n\nmap_ob"
+  "ject\022\017\n\002id\030\001 \001(\005H\000\210\001\001B\005\n\003_idb\006proto3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_object_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_object_2eproto = {
-  false, false, 79, descriptor_table_protodef_object_2eproto, "object.proto", 
+  false, false, 76, descriptor_table_protodef_object_2eproto, "object.proto", 
   &descriptor_table_object_2eproto_once, nullptr, 0, 1,
   schemas, file_default_instances, TableStruct_object_2eproto::offsets,
   file_level_metadata_object_2eproto, file_level_enum_descriptors_object_2eproto, file_level_service_descriptors_object_2eproto,
@@ -72,7 +72,7 @@ PROTOBUF_ATTRIBUTE_WEAK const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable
 // Force running AddDescriptors() at dynamic initialization time.
 PROTOBUF_ATTRIBUTE_INIT_PRIORITY static ::PROTOBUF_NAMESPACE_ID::internal::AddDescriptorsRunner dynamic_init_dummy_object_2eproto(&descriptor_table_object_2eproto);
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 
 // ===================================================================
 
@@ -91,14 +91,14 @@ map_object::map_object(::PROTOBUF_NAMESPACE_ID::Arena* arena,
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
   }
-  // @@protoc_insertion_point(arena_constructor:wanderer.protobuf.map_object)
+  // @@protoc_insertion_point(arena_constructor:wanderer.proto.map_object)
 }
 map_object::map_object(const map_object& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
       _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   id_ = from.id_;
-  // @@protoc_insertion_point(copy_constructor:wanderer.protobuf.map_object)
+  // @@protoc_insertion_point(copy_constructor:wanderer.proto.map_object)
 }
 
 void map_object::SharedCtor() {
@@ -106,7 +106,7 @@ id_ = 0;
 }
 
 map_object::~map_object() {
-  // @@protoc_insertion_point(destructor:wanderer.protobuf.map_object)
+  // @@protoc_insertion_point(destructor:wanderer.proto.map_object)
   if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
@@ -127,7 +127,7 @@ void map_object::SetCachedSize(int size) const {
 }
 
 void map_object::Clear() {
-// @@protoc_insertion_point(message_clear_start:wanderer.protobuf.map_object)
+// @@protoc_insertion_point(message_clear_start:wanderer.proto.map_object)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -179,7 +179,7 @@ failure:
 
 ::PROTOBUF_NAMESPACE_ID::uint8* map_object::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:wanderer.protobuf.map_object)
+  // @@protoc_insertion_point(serialize_to_array_start:wanderer.proto.map_object)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -193,12 +193,12 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:wanderer.protobuf.map_object)
+  // @@protoc_insertion_point(serialize_to_array_end:wanderer.proto.map_object)
   return target;
 }
 
 size_t map_object::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:wanderer.protobuf.map_object)
+// @@protoc_insertion_point(message_byte_size_start:wanderer.proto.map_object)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -228,7 +228,7 @@ void map_object::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
 
 
 void map_object::MergeFrom(const map_object& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:wanderer.protobuf.map_object)
+// @@protoc_insertion_point(class_specific_merge_from_start:wanderer.proto.map_object)
   GOOGLE_DCHECK_NE(&from, this);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
@@ -240,7 +240,7 @@ void map_object::MergeFrom(const map_object& from) {
 }
 
 void map_object::CopyFrom(const map_object& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:wanderer.protobuf.map_object)
+// @@protoc_insertion_point(class_specific_copy_from_start:wanderer.proto.map_object)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -264,11 +264,11 @@ void map_object::InternalSwap(map_object* other) {
 }
 
 // @@protoc_insertion_point(namespace_scope)
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::wanderer::protobuf::map_object* Arena::CreateMaybeMessage< ::wanderer::protobuf::map_object >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::wanderer::protobuf::map_object >(arena);
+template<> PROTOBUF_NOINLINE ::wanderer::proto::map_object* Arena::CreateMaybeMessage< ::wanderer::proto::map_object >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::wanderer::proto::map_object >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

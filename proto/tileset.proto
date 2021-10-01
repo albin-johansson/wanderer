@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package wanderer.protobuf;
+package wanderer.proto;
 
 message tileset {
   map<uint32, uint32> tile_to_entity = 1;

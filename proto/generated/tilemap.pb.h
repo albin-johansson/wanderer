@@ -55,22 +55,22 @@ struct TableStruct_tilemap_2eproto {
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_tilemap_2eproto;
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 class tilemap;
 struct tilemapDefaultTypeInternal;
 extern tilemapDefaultTypeInternal _tilemap_default_instance_;
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 PROTOBUF_NAMESPACE_OPEN
-template<> ::wanderer::protobuf::tilemap* Arena::CreateMaybeMessage<::wanderer::protobuf::tilemap>(Arena*);
+template<> ::wanderer::proto::tilemap* Arena::CreateMaybeMessage<::wanderer::proto::tilemap>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 
 // ===================================================================
 
 class tilemap final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.protobuf.tilemap) */ {
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.proto.tilemap) */ {
  public:
   inline tilemap() : tilemap(nullptr) {}
   ~tilemap() override;
@@ -168,7 +168,7 @@ class tilemap final :
   void InternalSwap(tilemap* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "wanderer.protobuf.tilemap";
+    return "wanderer.proto.tilemap";
   }
   protected:
   explicit tilemap(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -194,23 +194,23 @@ class tilemap final :
     kRowCountFieldNumber = 4,
     kColumnCountFieldNumber = 5,
   };
-  // optional .wanderer.protobuf.farea size = 3;
+  // optional .wanderer.proto.farea size = 3;
   bool has_size() const;
   private:
   bool _internal_has_size() const;
   public:
   void clear_size();
-  const ::wanderer::protobuf::farea& size() const;
-  PROTOBUF_MUST_USE_RESULT ::wanderer::protobuf::farea* release_size();
-  ::wanderer::protobuf::farea* mutable_size();
-  void set_allocated_size(::wanderer::protobuf::farea* size);
+  const ::wanderer::proto::farea& size() const;
+  PROTOBUF_MUST_USE_RESULT ::wanderer::proto::farea* release_size();
+  ::wanderer::proto::farea* mutable_size();
+  void set_allocated_size(::wanderer::proto::farea* size);
   private:
-  const ::wanderer::protobuf::farea& _internal_size() const;
-  ::wanderer::protobuf::farea* _internal_mutable_size();
+  const ::wanderer::proto::farea& _internal_size() const;
+  ::wanderer::proto::farea* _internal_mutable_size();
   public:
   void unsafe_arena_set_allocated_size(
-      ::wanderer::protobuf::farea* size);
-  ::wanderer::protobuf::farea* unsafe_arena_release_size();
+      ::wanderer::proto::farea* size);
+  ::wanderer::proto::farea* unsafe_arena_release_size();
 
   // optional int32 id = 1;
   bool has_id() const;
@@ -264,7 +264,7 @@ class tilemap final :
   void _internal_set_column_count(::PROTOBUF_NAMESPACE_ID::uint64 value);
   public:
 
-  // @@protoc_insertion_point(class_scope:wanderer.protobuf.tilemap)
+  // @@protoc_insertion_point(class_scope:wanderer.proto.tilemap)
  private:
   class _Internal;
 
@@ -273,7 +273,7 @@ class tilemap final :
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  ::wanderer::protobuf::farea* size_;
+  ::wanderer::proto::farea* size_;
   ::PROTOBUF_NAMESPACE_ID::int32 id_;
   ::PROTOBUF_NAMESPACE_ID::int32 humanoid_layer_index_;
   ::PROTOBUF_NAMESPACE_ID::uint64 row_count_;
@@ -307,7 +307,7 @@ inline ::PROTOBUF_NAMESPACE_ID::int32 tilemap::_internal_id() const {
   return id_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::int32 tilemap::id() const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.tilemap.id)
+  // @@protoc_insertion_point(field_get:wanderer.proto.tilemap.id)
   return _internal_id();
 }
 inline void tilemap::_internal_set_id(::PROTOBUF_NAMESPACE_ID::int32 value) {
@@ -316,7 +316,7 @@ inline void tilemap::_internal_set_id(::PROTOBUF_NAMESPACE_ID::int32 value) {
 }
 inline void tilemap::set_id(::PROTOBUF_NAMESPACE_ID::int32 value) {
   _internal_set_id(value);
-  // @@protoc_insertion_point(field_set:wanderer.protobuf.tilemap.id)
+  // @@protoc_insertion_point(field_set:wanderer.proto.tilemap.id)
 }
 
 // optional int32 humanoid_layer_index = 2;
@@ -335,7 +335,7 @@ inline ::PROTOBUF_NAMESPACE_ID::int32 tilemap::_internal_humanoid_layer_index() 
   return humanoid_layer_index_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::int32 tilemap::humanoid_layer_index() const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.tilemap.humanoid_layer_index)
+  // @@protoc_insertion_point(field_get:wanderer.proto.tilemap.humanoid_layer_index)
   return _internal_humanoid_layer_index();
 }
 inline void tilemap::_internal_set_humanoid_layer_index(::PROTOBUF_NAMESPACE_ID::int32 value) {
@@ -344,10 +344,10 @@ inline void tilemap::_internal_set_humanoid_layer_index(::PROTOBUF_NAMESPACE_ID:
 }
 inline void tilemap::set_humanoid_layer_index(::PROTOBUF_NAMESPACE_ID::int32 value) {
   _internal_set_humanoid_layer_index(value);
-  // @@protoc_insertion_point(field_set:wanderer.protobuf.tilemap.humanoid_layer_index)
+  // @@protoc_insertion_point(field_set:wanderer.proto.tilemap.humanoid_layer_index)
 }
 
-// optional .wanderer.protobuf.farea size = 3;
+// optional .wanderer.proto.farea size = 3;
 inline bool tilemap::_internal_has_size() const {
   bool value = (_has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || size_ != nullptr);
@@ -356,17 +356,17 @@ inline bool tilemap::_internal_has_size() const {
 inline bool tilemap::has_size() const {
   return _internal_has_size();
 }
-inline const ::wanderer::protobuf::farea& tilemap::_internal_size() const {
-  const ::wanderer::protobuf::farea* p = size_;
-  return p != nullptr ? *p : reinterpret_cast<const ::wanderer::protobuf::farea&>(
-      ::wanderer::protobuf::_farea_default_instance_);
+inline const ::wanderer::proto::farea& tilemap::_internal_size() const {
+  const ::wanderer::proto::farea* p = size_;
+  return p != nullptr ? *p : reinterpret_cast<const ::wanderer::proto::farea&>(
+      ::wanderer::proto::_farea_default_instance_);
 }
-inline const ::wanderer::protobuf::farea& tilemap::size() const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.tilemap.size)
+inline const ::wanderer::proto::farea& tilemap::size() const {
+  // @@protoc_insertion_point(field_get:wanderer.proto.tilemap.size)
   return _internal_size();
 }
 inline void tilemap::unsafe_arena_set_allocated_size(
-    ::wanderer::protobuf::farea* size) {
+    ::wanderer::proto::farea* size) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(size_);
   }
@@ -376,11 +376,11 @@ inline void tilemap::unsafe_arena_set_allocated_size(
   } else {
     _has_bits_[0] &= ~0x00000001u;
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:wanderer.protobuf.tilemap.size)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:wanderer.proto.tilemap.size)
 }
-inline ::wanderer::protobuf::farea* tilemap::release_size() {
+inline ::wanderer::proto::farea* tilemap::release_size() {
   _has_bits_[0] &= ~0x00000001u;
-  ::wanderer::protobuf::farea* temp = size_;
+  ::wanderer::proto::farea* temp = size_;
   size_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -393,27 +393,27 @@ inline ::wanderer::protobuf::farea* tilemap::release_size() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::wanderer::protobuf::farea* tilemap::unsafe_arena_release_size() {
-  // @@protoc_insertion_point(field_release:wanderer.protobuf.tilemap.size)
+inline ::wanderer::proto::farea* tilemap::unsafe_arena_release_size() {
+  // @@protoc_insertion_point(field_release:wanderer.proto.tilemap.size)
   _has_bits_[0] &= ~0x00000001u;
-  ::wanderer::protobuf::farea* temp = size_;
+  ::wanderer::proto::farea* temp = size_;
   size_ = nullptr;
   return temp;
 }
-inline ::wanderer::protobuf::farea* tilemap::_internal_mutable_size() {
+inline ::wanderer::proto::farea* tilemap::_internal_mutable_size() {
   _has_bits_[0] |= 0x00000001u;
   if (size_ == nullptr) {
-    auto* p = CreateMaybeMessage<::wanderer::protobuf::farea>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::wanderer::proto::farea>(GetArenaForAllocation());
     size_ = p;
   }
   return size_;
 }
-inline ::wanderer::protobuf::farea* tilemap::mutable_size() {
-  ::wanderer::protobuf::farea* _msg = _internal_mutable_size();
-  // @@protoc_insertion_point(field_mutable:wanderer.protobuf.tilemap.size)
+inline ::wanderer::proto::farea* tilemap::mutable_size() {
+  ::wanderer::proto::farea* _msg = _internal_mutable_size();
+  // @@protoc_insertion_point(field_mutable:wanderer.proto.tilemap.size)
   return _msg;
 }
-inline void tilemap::set_allocated_size(::wanderer::protobuf::farea* size) {
+inline void tilemap::set_allocated_size(::wanderer::proto::farea* size) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(size_);
@@ -432,7 +432,7 @@ inline void tilemap::set_allocated_size(::wanderer::protobuf::farea* size) {
     _has_bits_[0] &= ~0x00000001u;
   }
   size_ = size;
-  // @@protoc_insertion_point(field_set_allocated:wanderer.protobuf.tilemap.size)
+  // @@protoc_insertion_point(field_set_allocated:wanderer.proto.tilemap.size)
 }
 
 // optional uint64 row_count = 4;
@@ -451,7 +451,7 @@ inline ::PROTOBUF_NAMESPACE_ID::uint64 tilemap::_internal_row_count() const {
   return row_count_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::uint64 tilemap::row_count() const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.tilemap.row_count)
+  // @@protoc_insertion_point(field_get:wanderer.proto.tilemap.row_count)
   return _internal_row_count();
 }
 inline void tilemap::_internal_set_row_count(::PROTOBUF_NAMESPACE_ID::uint64 value) {
@@ -460,7 +460,7 @@ inline void tilemap::_internal_set_row_count(::PROTOBUF_NAMESPACE_ID::uint64 val
 }
 inline void tilemap::set_row_count(::PROTOBUF_NAMESPACE_ID::uint64 value) {
   _internal_set_row_count(value);
-  // @@protoc_insertion_point(field_set:wanderer.protobuf.tilemap.row_count)
+  // @@protoc_insertion_point(field_set:wanderer.proto.tilemap.row_count)
 }
 
 // optional uint64 column_count = 5;
@@ -479,7 +479,7 @@ inline ::PROTOBUF_NAMESPACE_ID::uint64 tilemap::_internal_column_count() const {
   return column_count_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::uint64 tilemap::column_count() const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.tilemap.column_count)
+  // @@protoc_insertion_point(field_get:wanderer.proto.tilemap.column_count)
   return _internal_column_count();
 }
 inline void tilemap::_internal_set_column_count(::PROTOBUF_NAMESPACE_ID::uint64 value) {
@@ -488,7 +488,7 @@ inline void tilemap::_internal_set_column_count(::PROTOBUF_NAMESPACE_ID::uint64 
 }
 inline void tilemap::set_column_count(::PROTOBUF_NAMESPACE_ID::uint64 value) {
   _internal_set_column_count(value);
-  // @@protoc_insertion_point(field_set:wanderer.protobuf.tilemap.column_count)
+  // @@protoc_insertion_point(field_set:wanderer.proto.tilemap.column_count)
 }
 
 #ifdef __GNUC__
@@ -497,7 +497,7 @@ inline void tilemap::set_column_count(::PROTOBUF_NAMESPACE_ID::uint64 value) {
 
 // @@protoc_insertion_point(namespace_scope)
 
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 
 // @@protoc_insertion_point(global_scope)

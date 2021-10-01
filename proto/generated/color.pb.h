@@ -54,22 +54,22 @@ struct TableStruct_color_2eproto {
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_color_2eproto;
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 class color;
 struct colorDefaultTypeInternal;
 extern colorDefaultTypeInternal _color_default_instance_;
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 PROTOBUF_NAMESPACE_OPEN
-template<> ::wanderer::protobuf::color* Arena::CreateMaybeMessage<::wanderer::protobuf::color>(Arena*);
+template<> ::wanderer::proto::color* Arena::CreateMaybeMessage<::wanderer::proto::color>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 
 // ===================================================================
 
 class color final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.protobuf.color) */ {
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.proto.color) */ {
  public:
   inline color() : color(nullptr) {}
   ~color() override;
@@ -167,7 +167,7 @@ class color final :
   void InternalSwap(color* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "wanderer.protobuf.color";
+    return "wanderer.proto.color";
   }
   protected:
   explicit color(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -244,7 +244,7 @@ class color final :
   void _internal_set_alpha(::PROTOBUF_NAMESPACE_ID::uint32 value);
   public:
 
-  // @@protoc_insertion_point(class_scope:wanderer.protobuf.color)
+  // @@protoc_insertion_point(class_scope:wanderer.proto.color)
  private:
   class _Internal;
 
@@ -286,7 +286,7 @@ inline ::PROTOBUF_NAMESPACE_ID::uint32 color::_internal_red() const {
   return red_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::uint32 color::red() const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.color.red)
+  // @@protoc_insertion_point(field_get:wanderer.proto.color.red)
   return _internal_red();
 }
 inline void color::_internal_set_red(::PROTOBUF_NAMESPACE_ID::uint32 value) {
@@ -295,7 +295,7 @@ inline void color::_internal_set_red(::PROTOBUF_NAMESPACE_ID::uint32 value) {
 }
 inline void color::set_red(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _internal_set_red(value);
-  // @@protoc_insertion_point(field_set:wanderer.protobuf.color.red)
+  // @@protoc_insertion_point(field_set:wanderer.proto.color.red)
 }
 
 // optional uint32 green = 2;
@@ -314,7 +314,7 @@ inline ::PROTOBUF_NAMESPACE_ID::uint32 color::_internal_green() const {
   return green_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::uint32 color::green() const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.color.green)
+  // @@protoc_insertion_point(field_get:wanderer.proto.color.green)
   return _internal_green();
 }
 inline void color::_internal_set_green(::PROTOBUF_NAMESPACE_ID::uint32 value) {
@@ -323,7 +323,7 @@ inline void color::_internal_set_green(::PROTOBUF_NAMESPACE_ID::uint32 value) {
 }
 inline void color::set_green(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _internal_set_green(value);
-  // @@protoc_insertion_point(field_set:wanderer.protobuf.color.green)
+  // @@protoc_insertion_point(field_set:wanderer.proto.color.green)
 }
 
 // optional uint32 blue = 3;
@@ -342,7 +342,7 @@ inline ::PROTOBUF_NAMESPACE_ID::uint32 color::_internal_blue() const {
   return blue_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::uint32 color::blue() const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.color.blue)
+  // @@protoc_insertion_point(field_get:wanderer.proto.color.blue)
   return _internal_blue();
 }
 inline void color::_internal_set_blue(::PROTOBUF_NAMESPACE_ID::uint32 value) {
@@ -351,7 +351,7 @@ inline void color::_internal_set_blue(::PROTOBUF_NAMESPACE_ID::uint32 value) {
 }
 inline void color::set_blue(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _internal_set_blue(value);
-  // @@protoc_insertion_point(field_set:wanderer.protobuf.color.blue)
+  // @@protoc_insertion_point(field_set:wanderer.proto.color.blue)
 }
 
 // optional uint32 alpha = 4;
@@ -370,7 +370,7 @@ inline ::PROTOBUF_NAMESPACE_ID::uint32 color::_internal_alpha() const {
   return alpha_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::uint32 color::alpha() const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.color.alpha)
+  // @@protoc_insertion_point(field_get:wanderer.proto.color.alpha)
   return _internal_alpha();
 }
 inline void color::_internal_set_alpha(::PROTOBUF_NAMESPACE_ID::uint32 value) {
@@ -379,7 +379,7 @@ inline void color::_internal_set_alpha(::PROTOBUF_NAMESPACE_ID::uint32 value) {
 }
 inline void color::set_alpha(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _internal_set_alpha(value);
-  // @@protoc_insertion_point(field_set:wanderer.protobuf.color.alpha)
+  // @@protoc_insertion_point(field_set:wanderer.proto.color.alpha)
 }
 
 #ifdef __GNUC__
@@ -388,7 +388,7 @@ inline void color::set_alpha(::PROTOBUF_NAMESPACE_ID::uint32 value) {
 
 // @@protoc_insertion_point(namespace_scope)
 
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 
 // @@protoc_insertion_point(global_scope)

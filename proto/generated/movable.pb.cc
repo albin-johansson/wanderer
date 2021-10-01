@@ -17,7 +17,7 @@
 
 PROTOBUF_PRAGMA_INIT_SEG
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 constexpr movable::movable(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : position_(nullptr)
@@ -32,48 +32,48 @@ struct movableDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT movableDefaultTypeInternal _movable_default_instance_;
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_movable_2eproto[1];
 static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_movable_2eproto = nullptr;
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_movable_2eproto = nullptr;
 
 const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_movable_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::movable, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::movable, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::movable, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::movable, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::movable, position_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::movable, velocity_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::protobuf::movable, speed_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::movable, position_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::movable, velocity_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::movable, speed_),
   0,
   1,
   2,
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, 9, -1, sizeof(::wanderer::protobuf::movable)},
+  { 0, 9, -1, sizeof(::wanderer::proto::movable)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::protobuf::_movable_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_movable_default_instance_),
 };
 
 const char descriptor_table_protodef_movable_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\rmovable.proto\022\021wanderer.protobuf\032\014floa"
-  "t2.proto\"\245\001\n\007movable\0220\n\010position\030\001 \001(\0132\031"
-  ".wanderer.protobuf.float2H\000\210\001\001\0220\n\010veloci"
-  "ty\030\002 \001(\0132\031.wanderer.protobuf.float2H\001\210\001\001"
-  "\022\022\n\005speed\030\003 \001(\002H\002\210\001\001B\013\n\t_positionB\013\n\t_ve"
-  "locityB\010\n\006_speedb\006proto3"
+  "\n\rmovable.proto\022\016wanderer.proto\032\014float2."
+  "proto\"\237\001\n\007movable\022-\n\010position\030\001 \001(\0132\026.wa"
+  "nderer.proto.float2H\000\210\001\001\022-\n\010velocity\030\002 \001"
+  "(\0132\026.wanderer.proto.float2H\001\210\001\001\022\022\n\005speed"
+  "\030\003 \001(\002H\002\210\001\001B\013\n\t_positionB\013\n\t_velocityB\010\n"
+  "\006_speedb\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_movable_2eproto_deps[1] = {
   &::descriptor_table_float2_2eproto,
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_movable_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_movable_2eproto = {
-  false, false, 224, descriptor_table_protodef_movable_2eproto, "movable.proto", 
+  false, false, 215, descriptor_table_protodef_movable_2eproto, "movable.proto", 
   &descriptor_table_movable_2eproto_once, descriptor_table_movable_2eproto_deps, 1, 1,
   schemas, file_default_instances, TableStruct_movable_2eproto::offsets,
   file_level_metadata_movable_2eproto, file_level_enum_descriptors_movable_2eproto, file_level_service_descriptors_movable_2eproto,
@@ -85,18 +85,18 @@ PROTOBUF_ATTRIBUTE_WEAK const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable
 // Force running AddDescriptors() at dynamic initialization time.
 PROTOBUF_ATTRIBUTE_INIT_PRIORITY static ::PROTOBUF_NAMESPACE_ID::internal::AddDescriptorsRunner dynamic_init_dummy_movable_2eproto(&descriptor_table_movable_2eproto);
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 
 // ===================================================================
 
 class movable::_Internal {
  public:
   using HasBits = decltype(std::declval<movable>()._has_bits_);
-  static const ::wanderer::protobuf::float2& position(const movable* msg);
+  static const ::wanderer::proto::float2& position(const movable* msg);
   static void set_has_position(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
-  static const ::wanderer::protobuf::float2& velocity(const movable* msg);
+  static const ::wanderer::proto::float2& velocity(const movable* msg);
   static void set_has_velocity(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
@@ -105,11 +105,11 @@ class movable::_Internal {
   }
 };
 
-const ::wanderer::protobuf::float2&
+const ::wanderer::proto::float2&
 movable::_Internal::position(const movable* msg) {
   return *msg->position_;
 }
-const ::wanderer::protobuf::float2&
+const ::wanderer::proto::float2&
 movable::_Internal::velocity(const movable* msg) {
   return *msg->velocity_;
 }
@@ -128,24 +128,24 @@ movable::movable(::PROTOBUF_NAMESPACE_ID::Arena* arena,
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
   }
-  // @@protoc_insertion_point(arena_constructor:wanderer.protobuf.movable)
+  // @@protoc_insertion_point(arena_constructor:wanderer.proto.movable)
 }
 movable::movable(const movable& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
       _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   if (from._internal_has_position()) {
-    position_ = new ::wanderer::protobuf::float2(*from.position_);
+    position_ = new ::wanderer::proto::float2(*from.position_);
   } else {
     position_ = nullptr;
   }
   if (from._internal_has_velocity()) {
-    velocity_ = new ::wanderer::protobuf::float2(*from.velocity_);
+    velocity_ = new ::wanderer::proto::float2(*from.velocity_);
   } else {
     velocity_ = nullptr;
   }
   speed_ = from.speed_;
-  // @@protoc_insertion_point(copy_constructor:wanderer.protobuf.movable)
+  // @@protoc_insertion_point(copy_constructor:wanderer.proto.movable)
 }
 
 void movable::SharedCtor() {
@@ -156,7 +156,7 @@ void movable::SharedCtor() {
 }
 
 movable::~movable() {
-  // @@protoc_insertion_point(destructor:wanderer.protobuf.movable)
+  // @@protoc_insertion_point(destructor:wanderer.proto.movable)
   if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
@@ -179,7 +179,7 @@ void movable::SetCachedSize(int size) const {
 }
 
 void movable::Clear() {
-// @@protoc_insertion_point(message_clear_start:wanderer.protobuf.movable)
+// @@protoc_insertion_point(message_clear_start:wanderer.proto.movable)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -207,7 +207,7 @@ const char* movable::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // optional .wanderer.protobuf.float2 position = 1;
+      // optional .wanderer.proto.float2 position = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_position(), ptr);
@@ -215,7 +215,7 @@ const char* movable::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
         } else
           goto handle_unusual;
         continue;
-      // optional .wanderer.protobuf.float2 velocity = 2;
+      // optional .wanderer.proto.float2 velocity = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_velocity(), ptr);
@@ -258,11 +258,11 @@ failure:
 
 ::PROTOBUF_NAMESPACE_ID::uint8* movable::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:wanderer.protobuf.movable)
+  // @@protoc_insertion_point(serialize_to_array_start:wanderer.proto.movable)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // optional .wanderer.protobuf.float2 position = 1;
+  // optional .wanderer.proto.float2 position = 1;
   if (_internal_has_position()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
@@ -270,7 +270,7 @@ failure:
         1, _Internal::position(this), target, stream);
   }
 
-  // optional .wanderer.protobuf.float2 velocity = 2;
+  // optional .wanderer.proto.float2 velocity = 2;
   if (_internal_has_velocity()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
@@ -288,12 +288,12 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:wanderer.protobuf.movable)
+  // @@protoc_insertion_point(serialize_to_array_end:wanderer.proto.movable)
   return target;
 }
 
 size_t movable::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:wanderer.protobuf.movable)
+// @@protoc_insertion_point(message_byte_size_start:wanderer.proto.movable)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -302,14 +302,14 @@ size_t movable::ByteSizeLong() const {
 
   cached_has_bits = _has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
-    // optional .wanderer.protobuf.float2 position = 1;
+    // optional .wanderer.proto.float2 position = 1;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *position_);
     }
 
-    // optional .wanderer.protobuf.float2 velocity = 2;
+    // optional .wanderer.proto.float2 velocity = 2;
     if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
@@ -339,7 +339,7 @@ void movable::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
 
 
 void movable::MergeFrom(const movable& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:wanderer.protobuf.movable)
+// @@protoc_insertion_point(class_specific_merge_from_start:wanderer.proto.movable)
   GOOGLE_DCHECK_NE(&from, this);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
@@ -347,10 +347,10 @@ void movable::MergeFrom(const movable& from) {
   cached_has_bits = from._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_mutable_position()->::wanderer::protobuf::float2::MergeFrom(from._internal_position());
+      _internal_mutable_position()->::wanderer::proto::float2::MergeFrom(from._internal_position());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_mutable_velocity()->::wanderer::protobuf::float2::MergeFrom(from._internal_velocity());
+      _internal_mutable_velocity()->::wanderer::proto::float2::MergeFrom(from._internal_velocity());
     }
     if (cached_has_bits & 0x00000004u) {
       speed_ = from.speed_;
@@ -361,7 +361,7 @@ void movable::MergeFrom(const movable& from) {
 }
 
 void movable::CopyFrom(const movable& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:wanderer.protobuf.movable)
+// @@protoc_insertion_point(class_specific_copy_from_start:wanderer.proto.movable)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -390,11 +390,11 @@ void movable::InternalSwap(movable* other) {
 }
 
 // @@protoc_insertion_point(namespace_scope)
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::wanderer::protobuf::movable* Arena::CreateMaybeMessage< ::wanderer::protobuf::movable >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::wanderer::protobuf::movable >(arena);
+template<> PROTOBUF_NOINLINE ::wanderer::proto::movable* Arena::CreateMaybeMessage< ::wanderer::proto::movable >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::wanderer::proto::movable >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

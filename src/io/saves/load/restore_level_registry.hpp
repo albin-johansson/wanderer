@@ -3,10 +3,10 @@
 #include <entt.hpp>  // registry
 
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 class level;
-}  // namespace protobuf
+}  // namespace proto
 
-[[nodiscard]] auto restore_level_registry(const protobuf::level& data) -> entt::registry;
+[[nodiscard]] auto restore_level_registry(const proto::level& data) -> entt::registry;
 
 }  // namespace wanderer

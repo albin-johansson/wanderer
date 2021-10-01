@@ -55,22 +55,22 @@ struct TableStruct_movable_2eproto {
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_movable_2eproto;
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 class movable;
 struct movableDefaultTypeInternal;
 extern movableDefaultTypeInternal _movable_default_instance_;
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 PROTOBUF_NAMESPACE_OPEN
-template<> ::wanderer::protobuf::movable* Arena::CreateMaybeMessage<::wanderer::protobuf::movable>(Arena*);
+template<> ::wanderer::proto::movable* Arena::CreateMaybeMessage<::wanderer::proto::movable>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 
 // ===================================================================
 
 class movable final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.protobuf.movable) */ {
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.proto.movable) */ {
  public:
   inline movable() : movable(nullptr) {}
   ~movable() override;
@@ -168,7 +168,7 @@ class movable final :
   void InternalSwap(movable* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "wanderer.protobuf.movable";
+    return "wanderer.proto.movable";
   }
   protected:
   explicit movable(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -192,41 +192,41 @@ class movable final :
     kVelocityFieldNumber = 2,
     kSpeedFieldNumber = 3,
   };
-  // optional .wanderer.protobuf.float2 position = 1;
+  // optional .wanderer.proto.float2 position = 1;
   bool has_position() const;
   private:
   bool _internal_has_position() const;
   public:
   void clear_position();
-  const ::wanderer::protobuf::float2& position() const;
-  PROTOBUF_MUST_USE_RESULT ::wanderer::protobuf::float2* release_position();
-  ::wanderer::protobuf::float2* mutable_position();
-  void set_allocated_position(::wanderer::protobuf::float2* position);
+  const ::wanderer::proto::float2& position() const;
+  PROTOBUF_MUST_USE_RESULT ::wanderer::proto::float2* release_position();
+  ::wanderer::proto::float2* mutable_position();
+  void set_allocated_position(::wanderer::proto::float2* position);
   private:
-  const ::wanderer::protobuf::float2& _internal_position() const;
-  ::wanderer::protobuf::float2* _internal_mutable_position();
+  const ::wanderer::proto::float2& _internal_position() const;
+  ::wanderer::proto::float2* _internal_mutable_position();
   public:
   void unsafe_arena_set_allocated_position(
-      ::wanderer::protobuf::float2* position);
-  ::wanderer::protobuf::float2* unsafe_arena_release_position();
+      ::wanderer::proto::float2* position);
+  ::wanderer::proto::float2* unsafe_arena_release_position();
 
-  // optional .wanderer.protobuf.float2 velocity = 2;
+  // optional .wanderer.proto.float2 velocity = 2;
   bool has_velocity() const;
   private:
   bool _internal_has_velocity() const;
   public:
   void clear_velocity();
-  const ::wanderer::protobuf::float2& velocity() const;
-  PROTOBUF_MUST_USE_RESULT ::wanderer::protobuf::float2* release_velocity();
-  ::wanderer::protobuf::float2* mutable_velocity();
-  void set_allocated_velocity(::wanderer::protobuf::float2* velocity);
+  const ::wanderer::proto::float2& velocity() const;
+  PROTOBUF_MUST_USE_RESULT ::wanderer::proto::float2* release_velocity();
+  ::wanderer::proto::float2* mutable_velocity();
+  void set_allocated_velocity(::wanderer::proto::float2* velocity);
   private:
-  const ::wanderer::protobuf::float2& _internal_velocity() const;
-  ::wanderer::protobuf::float2* _internal_mutable_velocity();
+  const ::wanderer::proto::float2& _internal_velocity() const;
+  ::wanderer::proto::float2* _internal_mutable_velocity();
   public:
   void unsafe_arena_set_allocated_velocity(
-      ::wanderer::protobuf::float2* velocity);
-  ::wanderer::protobuf::float2* unsafe_arena_release_velocity();
+      ::wanderer::proto::float2* velocity);
+  ::wanderer::proto::float2* unsafe_arena_release_velocity();
 
   // optional float speed = 3;
   bool has_speed() const;
@@ -241,7 +241,7 @@ class movable final :
   void _internal_set_speed(float value);
   public:
 
-  // @@protoc_insertion_point(class_scope:wanderer.protobuf.movable)
+  // @@protoc_insertion_point(class_scope:wanderer.proto.movable)
  private:
   class _Internal;
 
@@ -250,8 +250,8 @@ class movable final :
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  ::wanderer::protobuf::float2* position_;
-  ::wanderer::protobuf::float2* velocity_;
+  ::wanderer::proto::float2* position_;
+  ::wanderer::proto::float2* velocity_;
   float speed_;
   friend struct ::TableStruct_movable_2eproto;
 };
@@ -266,7 +266,7 @@ class movable final :
 #endif  // __GNUC__
 // movable
 
-// optional .wanderer.protobuf.float2 position = 1;
+// optional .wanderer.proto.float2 position = 1;
 inline bool movable::_internal_has_position() const {
   bool value = (_has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || position_ != nullptr);
@@ -275,17 +275,17 @@ inline bool movable::_internal_has_position() const {
 inline bool movable::has_position() const {
   return _internal_has_position();
 }
-inline const ::wanderer::protobuf::float2& movable::_internal_position() const {
-  const ::wanderer::protobuf::float2* p = position_;
-  return p != nullptr ? *p : reinterpret_cast<const ::wanderer::protobuf::float2&>(
-      ::wanderer::protobuf::_float2_default_instance_);
+inline const ::wanderer::proto::float2& movable::_internal_position() const {
+  const ::wanderer::proto::float2* p = position_;
+  return p != nullptr ? *p : reinterpret_cast<const ::wanderer::proto::float2&>(
+      ::wanderer::proto::_float2_default_instance_);
 }
-inline const ::wanderer::protobuf::float2& movable::position() const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.movable.position)
+inline const ::wanderer::proto::float2& movable::position() const {
+  // @@protoc_insertion_point(field_get:wanderer.proto.movable.position)
   return _internal_position();
 }
 inline void movable::unsafe_arena_set_allocated_position(
-    ::wanderer::protobuf::float2* position) {
+    ::wanderer::proto::float2* position) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(position_);
   }
@@ -295,11 +295,11 @@ inline void movable::unsafe_arena_set_allocated_position(
   } else {
     _has_bits_[0] &= ~0x00000001u;
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:wanderer.protobuf.movable.position)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:wanderer.proto.movable.position)
 }
-inline ::wanderer::protobuf::float2* movable::release_position() {
+inline ::wanderer::proto::float2* movable::release_position() {
   _has_bits_[0] &= ~0x00000001u;
-  ::wanderer::protobuf::float2* temp = position_;
+  ::wanderer::proto::float2* temp = position_;
   position_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -312,27 +312,27 @@ inline ::wanderer::protobuf::float2* movable::release_position() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::wanderer::protobuf::float2* movable::unsafe_arena_release_position() {
-  // @@protoc_insertion_point(field_release:wanderer.protobuf.movable.position)
+inline ::wanderer::proto::float2* movable::unsafe_arena_release_position() {
+  // @@protoc_insertion_point(field_release:wanderer.proto.movable.position)
   _has_bits_[0] &= ~0x00000001u;
-  ::wanderer::protobuf::float2* temp = position_;
+  ::wanderer::proto::float2* temp = position_;
   position_ = nullptr;
   return temp;
 }
-inline ::wanderer::protobuf::float2* movable::_internal_mutable_position() {
+inline ::wanderer::proto::float2* movable::_internal_mutable_position() {
   _has_bits_[0] |= 0x00000001u;
   if (position_ == nullptr) {
-    auto* p = CreateMaybeMessage<::wanderer::protobuf::float2>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::wanderer::proto::float2>(GetArenaForAllocation());
     position_ = p;
   }
   return position_;
 }
-inline ::wanderer::protobuf::float2* movable::mutable_position() {
-  ::wanderer::protobuf::float2* _msg = _internal_mutable_position();
-  // @@protoc_insertion_point(field_mutable:wanderer.protobuf.movable.position)
+inline ::wanderer::proto::float2* movable::mutable_position() {
+  ::wanderer::proto::float2* _msg = _internal_mutable_position();
+  // @@protoc_insertion_point(field_mutable:wanderer.proto.movable.position)
   return _msg;
 }
-inline void movable::set_allocated_position(::wanderer::protobuf::float2* position) {
+inline void movable::set_allocated_position(::wanderer::proto::float2* position) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(position_);
@@ -351,10 +351,10 @@ inline void movable::set_allocated_position(::wanderer::protobuf::float2* positi
     _has_bits_[0] &= ~0x00000001u;
   }
   position_ = position;
-  // @@protoc_insertion_point(field_set_allocated:wanderer.protobuf.movable.position)
+  // @@protoc_insertion_point(field_set_allocated:wanderer.proto.movable.position)
 }
 
-// optional .wanderer.protobuf.float2 velocity = 2;
+// optional .wanderer.proto.float2 velocity = 2;
 inline bool movable::_internal_has_velocity() const {
   bool value = (_has_bits_[0] & 0x00000002u) != 0;
   PROTOBUF_ASSUME(!value || velocity_ != nullptr);
@@ -363,17 +363,17 @@ inline bool movable::_internal_has_velocity() const {
 inline bool movable::has_velocity() const {
   return _internal_has_velocity();
 }
-inline const ::wanderer::protobuf::float2& movable::_internal_velocity() const {
-  const ::wanderer::protobuf::float2* p = velocity_;
-  return p != nullptr ? *p : reinterpret_cast<const ::wanderer::protobuf::float2&>(
-      ::wanderer::protobuf::_float2_default_instance_);
+inline const ::wanderer::proto::float2& movable::_internal_velocity() const {
+  const ::wanderer::proto::float2* p = velocity_;
+  return p != nullptr ? *p : reinterpret_cast<const ::wanderer::proto::float2&>(
+      ::wanderer::proto::_float2_default_instance_);
 }
-inline const ::wanderer::protobuf::float2& movable::velocity() const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.movable.velocity)
+inline const ::wanderer::proto::float2& movable::velocity() const {
+  // @@protoc_insertion_point(field_get:wanderer.proto.movable.velocity)
   return _internal_velocity();
 }
 inline void movable::unsafe_arena_set_allocated_velocity(
-    ::wanderer::protobuf::float2* velocity) {
+    ::wanderer::proto::float2* velocity) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(velocity_);
   }
@@ -383,11 +383,11 @@ inline void movable::unsafe_arena_set_allocated_velocity(
   } else {
     _has_bits_[0] &= ~0x00000002u;
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:wanderer.protobuf.movable.velocity)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:wanderer.proto.movable.velocity)
 }
-inline ::wanderer::protobuf::float2* movable::release_velocity() {
+inline ::wanderer::proto::float2* movable::release_velocity() {
   _has_bits_[0] &= ~0x00000002u;
-  ::wanderer::protobuf::float2* temp = velocity_;
+  ::wanderer::proto::float2* temp = velocity_;
   velocity_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -400,27 +400,27 @@ inline ::wanderer::protobuf::float2* movable::release_velocity() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::wanderer::protobuf::float2* movable::unsafe_arena_release_velocity() {
-  // @@protoc_insertion_point(field_release:wanderer.protobuf.movable.velocity)
+inline ::wanderer::proto::float2* movable::unsafe_arena_release_velocity() {
+  // @@protoc_insertion_point(field_release:wanderer.proto.movable.velocity)
   _has_bits_[0] &= ~0x00000002u;
-  ::wanderer::protobuf::float2* temp = velocity_;
+  ::wanderer::proto::float2* temp = velocity_;
   velocity_ = nullptr;
   return temp;
 }
-inline ::wanderer::protobuf::float2* movable::_internal_mutable_velocity() {
+inline ::wanderer::proto::float2* movable::_internal_mutable_velocity() {
   _has_bits_[0] |= 0x00000002u;
   if (velocity_ == nullptr) {
-    auto* p = CreateMaybeMessage<::wanderer::protobuf::float2>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::wanderer::proto::float2>(GetArenaForAllocation());
     velocity_ = p;
   }
   return velocity_;
 }
-inline ::wanderer::protobuf::float2* movable::mutable_velocity() {
-  ::wanderer::protobuf::float2* _msg = _internal_mutable_velocity();
-  // @@protoc_insertion_point(field_mutable:wanderer.protobuf.movable.velocity)
+inline ::wanderer::proto::float2* movable::mutable_velocity() {
+  ::wanderer::proto::float2* _msg = _internal_mutable_velocity();
+  // @@protoc_insertion_point(field_mutable:wanderer.proto.movable.velocity)
   return _msg;
 }
-inline void movable::set_allocated_velocity(::wanderer::protobuf::float2* velocity) {
+inline void movable::set_allocated_velocity(::wanderer::proto::float2* velocity) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(velocity_);
@@ -439,7 +439,7 @@ inline void movable::set_allocated_velocity(::wanderer::protobuf::float2* veloci
     _has_bits_[0] &= ~0x00000002u;
   }
   velocity_ = velocity;
-  // @@protoc_insertion_point(field_set_allocated:wanderer.protobuf.movable.velocity)
+  // @@protoc_insertion_point(field_set_allocated:wanderer.proto.movable.velocity)
 }
 
 // optional float speed = 3;
@@ -458,7 +458,7 @@ inline float movable::_internal_speed() const {
   return speed_;
 }
 inline float movable::speed() const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.movable.speed)
+  // @@protoc_insertion_point(field_get:wanderer.proto.movable.speed)
   return _internal_speed();
 }
 inline void movable::_internal_set_speed(float value) {
@@ -467,7 +467,7 @@ inline void movable::_internal_set_speed(float value) {
 }
 inline void movable::set_speed(float value) {
   _internal_set_speed(value);
-  // @@protoc_insertion_point(field_set:wanderer.protobuf.movable.speed)
+  // @@protoc_insertion_point(field_set:wanderer.proto.movable.speed)
 }
 
 #ifdef __GNUC__
@@ -476,7 +476,7 @@ inline void movable::set_speed(float value) {
 
 // @@protoc_insertion_point(namespace_scope)
 
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 
 // @@protoc_insertion_point(global_scope)

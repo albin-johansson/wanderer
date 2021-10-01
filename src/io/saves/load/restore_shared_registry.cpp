@@ -34,7 +34,7 @@ void add_viewport(comp::level& level)
   level.registry.set<ctx::viewport>(sys::make_viewport(tilemap.size));
 }
 
-void restore(const protobuf::time_of_day& data, ctx::time_of_day& time)
+void restore(const proto::time_of_day& data, ctx::time_of_day& time)
 {
   time.hour = data.hour();
   time.minute = data.minute();
@@ -43,14 +43,14 @@ void restore(const protobuf::time_of_day& data, ctx::time_of_day& time)
   time.day = static_cast<day_of_week>(data.day());
 }
 
-void restore_shared_data(entt::registry& shared, const protobuf::shared_data& data)
+void restore_shared_data(entt::registry& shared, const proto::shared_data& data)
 {
   restore(data.time(), shared.set<ctx::time_of_day>());
 }
 
 }  // namespace
 
-void restore_shared_registry(entt::registry& shared, const protobuf::save& save)
+void restore_shared_registry(entt::registry& shared, const proto::save& save)
 {
   shared.clear<comp::level>();
   shared.clear<comp::active_level>();

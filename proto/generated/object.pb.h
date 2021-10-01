@@ -54,22 +54,22 @@ struct TableStruct_object_2eproto {
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_object_2eproto;
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 class map_object;
 struct map_objectDefaultTypeInternal;
 extern map_objectDefaultTypeInternal _map_object_default_instance_;
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 PROTOBUF_NAMESPACE_OPEN
-template<> ::wanderer::protobuf::map_object* Arena::CreateMaybeMessage<::wanderer::protobuf::map_object>(Arena*);
+template<> ::wanderer::proto::map_object* Arena::CreateMaybeMessage<::wanderer::proto::map_object>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace wanderer {
-namespace protobuf {
+namespace proto {
 
 // ===================================================================
 
 class map_object final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.protobuf.map_object) */ {
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.proto.map_object) */ {
  public:
   inline map_object() : map_object(nullptr) {}
   ~map_object() override;
@@ -167,7 +167,7 @@ class map_object final :
   void InternalSwap(map_object* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "wanderer.protobuf.map_object";
+    return "wanderer.proto.map_object";
   }
   protected:
   explicit map_object(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -202,7 +202,7 @@ class map_object final :
   void _internal_set_id(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // @@protoc_insertion_point(class_scope:wanderer.protobuf.map_object)
+  // @@protoc_insertion_point(class_scope:wanderer.proto.map_object)
  private:
   class _Internal;
 
@@ -241,7 +241,7 @@ inline ::PROTOBUF_NAMESPACE_ID::int32 map_object::_internal_id() const {
   return id_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::int32 map_object::id() const {
-  // @@protoc_insertion_point(field_get:wanderer.protobuf.map_object.id)
+  // @@protoc_insertion_point(field_get:wanderer.proto.map_object.id)
   return _internal_id();
 }
 inline void map_object::_internal_set_id(::PROTOBUF_NAMESPACE_ID::int32 value) {
@@ -250,7 +250,7 @@ inline void map_object::_internal_set_id(::PROTOBUF_NAMESPACE_ID::int32 value) {
 }
 inline void map_object::set_id(::PROTOBUF_NAMESPACE_ID::int32 value) {
   _internal_set_id(value);
-  // @@protoc_insertion_point(field_set:wanderer.protobuf.map_object.id)
+  // @@protoc_insertion_point(field_set:wanderer.proto.map_object.id)
 }
 
 #ifdef __GNUC__
@@ -259,7 +259,7 @@ inline void map_object::set_id(::PROTOBUF_NAMESPACE_ID::int32 value) {
 
 // @@protoc_insertion_point(namespace_scope)
 
-}  // namespace protobuf
+}  // namespace proto
 }  // namespace wanderer
 
 // @@protoc_insertion_point(global_scope)
