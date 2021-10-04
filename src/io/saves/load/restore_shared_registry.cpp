@@ -8,6 +8,7 @@
 #include "components/ctx/viewport.hpp"
 #include "components/lvl/level.hpp"
 #include "components/physics/hitbox.hpp"
+#include "components/physics/movable.hpp"
 #include "components/player.hpp"
 #include "components/tiles/tilemap.hpp"
 #include "components/tiles/tileset.hpp"
