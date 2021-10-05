@@ -9,6 +9,7 @@
 
 namespace wanderer::comp {
 
+// TODO consider removing this component and using context variables for the rest
 struct level final
 {
   level() = default;
