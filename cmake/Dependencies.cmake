@@ -14,16 +14,10 @@ set(JSON_LIBRARIES nlohmann_json CACHE INTERNAL "")
 # Centurion
 FetchContent_Declare(centurion
      GIT_REPOSITORY "https://github.com/albin-johansson/centurion.git"
-     GIT_TAG "cmake-package"
-     )
-
-set(CEN_TESTS OFF)
-set(CEN_EXAMPLES OFF)
-set(CEN_MOCK_FRIENDLY_MODE OFF)
+     GIT_TAG "cmake-package")
 
 FetchContent_MakeAvailable(centurion)
 
-message("Centurion source dir: ${centurion_SOURCE_DIR}")
 set(CENTURION_INCLUDE_DIRS "${centurion_SOURCE_DIR}/src" CACHE INTERNAL "")
 set(CENTURION_LIBRARIES libcenturion CACHE INTERNAL "")
 
