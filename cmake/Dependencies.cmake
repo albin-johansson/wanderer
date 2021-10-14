@@ -1,5 +1,33 @@
 include(FetchContent)
 
+# JSON
+FetchContent_Declare(json
+    GIT_REPOSITORY "https://github.com/nlohmann/json"
+    GIT_TAG "v3.10.3"
+    )
+
+FetchContent_MakeAvailable(json)
+
+message("JSON source dir: ${json_SOURCE_DIR}")
+set(JSON_INCLUDE_DIRS "${json_SOURCE_DIR}/single_include/nlohmann" CACHE INTERNAL "")
+set(JSON_LIBRARIES nlohmann_json CACHE INTERNAL "")
+
+# Centurion
+FetchContent_Declare(centurion
+     GIT_REPOSITORY "https://github.com/albin-johansson/centurion.git"
+     GIT_TAG "cmake-package"
+     )
+
+set(CEN_TESTS OFF)
+set(CEN_EXAMPLES OFF)
+set(CEN_MOCK_FRIENDLY_MODE OFF)
+
+FetchContent_MakeAvailable(centurion)
+
+message("Centurion source dir: ${centurion_SOURCE_DIR}")
+set(CENTURION_INCLUDE_DIRS "${centurion_SOURCE_DIR}/src" CACHE INTERNAL "")
+set(CENTURION_LIBRARIES libcenturion CACHE INTERNAL "")
+
 # Google Protocol Buffers
 FetchContent_Declare(protobuf
     GIT_REPOSITORY "https://github.com/protocolbuffers/protobuf.git"
