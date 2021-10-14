@@ -2,14 +2,13 @@ include(FetchContent)
 
 # JSON
 FetchContent_Declare(json
-    GIT_REPOSITORY "https://github.com/nlohmann/json"
+    GIT_REPOSITORY "https://github.com/ArthurSonzogni/nlohmann_json_cmake_fetchcontent"
     GIT_TAG "v3.10.3"
     )
 
 FetchContent_MakeAvailable(json)
 
-message("JSON source dir: ${json_SOURCE_DIR}")
-set(JSON_INCLUDE_DIRS "${json_SOURCE_DIR}/single_include/nlohmann" CACHE INTERNAL "")
+set(JSON_INCLUDE_DIRS "${json_SOURCE_DIR}/include/nlohmann" CACHE INTERNAL "")
 set(JSON_LIBRARIES nlohmann_json CACHE INTERNAL "")
 
 # Centurion
