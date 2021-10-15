@@ -19,7 +19,7 @@ FetchContent_Declare(centurion
 FetchContent_MakeAvailable(centurion)
 
 set(CENTURION_INCLUDE_DIRS "${centurion_SOURCE_DIR}/src" CACHE INTERNAL "")
-set(CENTURION_LIBRARIES libcenturion CACHE INTERNAL "")
+set(CENTURION_LIBRARIES centurion CACHE INTERNAL "")
 
 # Google Protocol Buffers
 FetchContent_Declare(protobuf
