@@ -1,9 +1,6 @@
 #pragma once
 
-#include <entt.hpp>             // registry
-#include <rune/everything.hpp>  // delta_time
-
-#include "core/graphics/graphics_context.hpp"
+#include <entt.hpp>  // registry, dispatcher
 
 namespace wanderer::sys {
 
@@ -48,9 +45,8 @@ void change_to_next_day(entt::registry& shared,
  * \ingroup systems
  *
  * \param registry the shared data registry, since levels share their time data.
- * \param graphics the graphics context that will be used.
  */
-void render_clock(const entt::registry& registry, graphics_context& graphics);
+void render_clock(const entt::registry& registry);
 
 /// \} End of time
 

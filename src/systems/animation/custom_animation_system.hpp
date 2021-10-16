@@ -4,7 +4,6 @@
 #include <rune/everything.hpp>  // delta_time
 
 #include "common/ints.hpp"
-#include "core/graphics/graphics_context.hpp"
 
 namespace wanderer::sys {
 
@@ -56,9 +55,8 @@ void update_custom_animations(entt::registry& registry,
  * \ingroup systems
  *
  * \param registry the current level registry.
- * \param graphics the graphics context that will be used.
  */
-void render_custom_animations(const entt::registry& registry, graphics_context& graphics);
+void render_custom_animations(const entt::registry& registry);
 
 /// \} End of animation
 

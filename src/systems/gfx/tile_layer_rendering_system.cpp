@@ -2,11 +2,12 @@
 
 #include <cassert>  // assert
 
+#include "common/ref.hpp"
 #include "components/ctx/render_bounds.hpp"
 #include "components/gfx/tile_animation.hpp"
 #include "components/tiles/tile_layer.hpp"
-#include "components/tiles/tilemap.hpp"
 #include "core/ecs/registry_utils.hpp"
+#include "core/graphics/graphics_context.hpp"
 #include "systems/gfx/tile_rendering_system.hpp"
 
 namespace wanderer::sys {
@@ -42,11 +43,12 @@ void render_layer(const entt::registry& registry,
 
 }  // namespace
 
-void render_tile_layers(const entt::registry& registry, graphics_context& graphics)
+void render_tile_layers(const entt::registry& registry)
 {
   const auto& [tilesetEntity, tileset] = singleton<const comp::tileset>(registry);
   const auto& bounds = registry.ctx<ctx::render_bounds>();
 
+  auto& graphics = registry.ctx<ref<graphics_context>>().get();
   for (auto&& [entity, layer] : registry.view<comp::tile_layer>().each()) {
     render_layer(registry, graphics, bounds, layer, tileset);
   }

@@ -2,8 +2,10 @@
 
 #include <cassert>  // assert
 
+#include "common/ref.hpp"
 #include "components/physics/movable.hpp"
 #include "core/game_constants.hpp"
+#include "core/graphics/graphics_context.hpp"
 
 namespace wanderer::sys {
 namespace {
@@ -105,9 +107,13 @@ void update_viewport(entt::registry& registry, const entt::entity target, const 
   track(registry.ctx<ctx::viewport>(), movable.position, dt);
 }
 
-void translate_viewport(const entt::registry& registry, cen::renderer& renderer)
+void translate_viewport(const entt::registry& registry)
 {
   const auto& viewport = registry.ctx<ctx::viewport>();
+
+  auto& gfx = registry.ctx<ref<graphics_context>>().get();
+  auto& renderer = gfx.get_renderer();
+
   renderer.set_translation_viewport(viewport.bounds);
 }
 

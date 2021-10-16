@@ -2,8 +2,10 @@
 
 #include <rune/everything.hpp>  // next_random
 
+#include "common/ref.hpp"
 #include "components/ctx/viewport.hpp"
 #include "components/physics/particle.hpp"
+#include "core/graphics/graphics_context.hpp"
 
 namespace wanderer::sys {
 namespace {
@@ -81,9 +83,11 @@ void update_particles(entt::registry& registry, const float dt)
   }
 }
 
-void render_particles(const entt::registry& registry, graphics_context& graphics)
+void render_particles(const entt::registry& registry)
 {
   const auto& viewport = registry.ctx<ctx::viewport>();
+
+  auto& graphics = registry.ctx<ref<graphics_context>>().get();
   auto& renderer = graphics.get_renderer();
 
   for (auto&& [entity, particle] : registry.view<comp::particle>().each()) {

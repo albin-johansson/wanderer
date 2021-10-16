@@ -1,8 +1,10 @@
 #include "drawable_system.hpp"
 
+#include "common/ref.hpp"
 #include "components/ctx/viewport.hpp"
 #include "components/gfx/drawable.hpp"
 #include "components/physics/movable.hpp"
+#include "core/graphics/graphics_context.hpp"
 #include "systems/gfx/render_bounds_system.hpp"
 
 namespace wanderer::sys {
@@ -17,9 +19,10 @@ void update_drawables(entt::registry& registry)
   }
 }
 
-void render_drawables(const entt::registry& registry, graphics_context& graphics)
+void render_drawables(const entt::registry& registry)
 {
   const auto& viewport = registry.ctx<ctx::viewport>();
+  auto& graphics = registry.ctx<ref<graphics_context>>().get();
 
   for (auto&& [entity, drawable] : registry.view<comp::drawable>().each()) {
     if (cen::intersects(viewport.bounds, drawable.dst)) {

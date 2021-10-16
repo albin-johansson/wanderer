@@ -1,10 +1,12 @@
 #include "menu_rendering_system.hpp"
 
+#include "common/ref.hpp"
 #include "components/ctx/active_menu.hpp"
 #include "components/ui/button_group.hpp"
 #include "components/ui/checkbox.hpp"
 #include "components/ui/menu.hpp"
 #include "core/game_constants.hpp"
+#include "core/graphics/graphics_context.hpp"
 #include "core/graphics/render_text.hpp"
 #include "core/resources.hpp"
 #include "systems/ui/buttons/button_rendering_system.hpp"
@@ -66,13 +68,14 @@ void render_author_label(graphics_context& graphics)
 
 }  // namespace
 
-void render_active_menu(const entt::registry& registry, graphics_context& graphics)
+void render_active_menu(const entt::registry& shared)
 {
-  const auto menuEntity = registry.ctx<ctx::active_menu>().entity;
+  const auto menuEntity = shared.ctx<ctx::active_menu>().entity;
 
-  const auto& menu = registry.get<comp::menu>(menuEntity);
-  const auto& drawable = registry.get<comp::menu_drawable>(menuEntity);
+  const auto& menu = shared.get<comp::menu>(menuEntity);
+  const auto& drawable = shared.get<comp::menu_drawable>(menuEntity);
 
+  auto& graphics = shared.ctx<ref<graphics_context>>().get();
   auto& renderer = graphics.get_renderer();
 
   if (menu.blocking) {
@@ -81,12 +84,12 @@ void render_active_menu(const entt::registry& registry, graphics_context& graphi
     renderer.fill_with(glob::transparent_black);
   }
 
-  render_lines(registry, graphics);
-  render_lazy_textures(registry, graphics);
-  render_button_group_indicators(registry, graphics);
-  render_buttons(registry, graphics);
-  render_checkboxes(registry, graphics);
-  render_labels(registry, graphics);
+  render_lines(shared, graphics);
+  render_lazy_textures(shared, graphics);
+  render_button_group_indicators(shared, graphics);
+  render_buttons(shared, graphics);
+  render_checkboxes(shared, graphics);
+  render_labels(shared, graphics);
 
   render_title(menu.title, drawable, renderer);
 

@@ -1,5 +1,4 @@
 #include <centurion.hpp>  // library, is_debug_build, use_preset_output_function, ...
-
 #include "io/rune_configuration.hpp"
 #include "wanderer_engine.hpp"
 

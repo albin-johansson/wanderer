@@ -3,11 +3,13 @@
 #include <cmath>                // clamp
 #include <rune/everything.hpp>  // next_bool
 
+#include "common/ref.hpp"
 #include "components/ctx/viewport.hpp"
 #include "components/gfx/drawable.hpp"
 #include "components/gfx/point_light.hpp"
 #include "components/player.hpp"
 #include "core/ecs/registry_utils.hpp"
+#include "core/graphics/graphics_context.hpp"
 #include "core/resources.hpp"
 #include "core/utils/centurion_utils.hpp"
 
@@ -41,10 +43,10 @@ void update_player_light_position(entt::registry& registry)
 }
 
 void render_lights(const entt::registry& registry,
-                   graphics_context& graphics,
                    const ctx::time_of_day& time,
                    const ctx::settings& settings)
 {
+  auto& graphics = registry.ctx<ref<graphics_context>>().get();
   auto& renderer = graphics.get_renderer();
   auto& texture = graphics.light_canvas();
 

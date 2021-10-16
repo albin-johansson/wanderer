@@ -2,8 +2,6 @@
 
 #include <entt.hpp>  // registry
 
-#include "core/graphics/graphics_context.hpp"
-
 namespace wanderer::sys {
 
 /// \name Menus
@@ -14,10 +12,9 @@ namespace wanderer::sys {
  *
  * \ingroup systems
  *
- * \param registry the menu registry.
- * \param graphics the graphics context that will be used.
+ * \param shared the menu registry.
  */
-void render_active_menu(const entt::registry& registry, graphics_context& graphics);
+void render_active_menu(const entt::registry& shared);
 
 /// \} End of menus
 

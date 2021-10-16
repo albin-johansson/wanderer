@@ -5,8 +5,10 @@
 #include <format>         // format_to_n
 #include <string_view>    // string_view
 
+#include "common/ref.hpp"
 #include "components/ui/fps_data.hpp"
 #include "core/game_constants.hpp"
+#include "core/graphics/graphics_context.hpp"
 #include "core/math/floating.hpp"
 
 namespace wanderer::sys {
@@ -26,8 +28,10 @@ void update_fps(entt::registry& shared, const float dt)
   }
 }
 
-void render_fps(const entt::registry& shared, graphics_context& graphics)
+void render_fps(const entt::registry& shared)
 {
+  auto& graphics = shared.ctx<ref<graphics_context>>().get();
+
   for (auto&& [entity, data] : shared.view<comp::fps_data>().each()) {
     const auto fps = round(1.0 / (static_cast<double>(data.frame.count()) / 1'000.0));
 

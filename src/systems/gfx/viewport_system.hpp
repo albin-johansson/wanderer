@@ -1,12 +1,10 @@
 #pragma once
 
-#include <centurion.hpp>        // renderer, farea
+#include <centurion.hpp>        // farea
 #include <entt.hpp>             // registry
-#include <rune/everything.hpp>  // delta_time
 
 #include "common/float2.hpp"
 #include "components/ctx/viewport.hpp"
-#include "components/physics/movable.hpp"
 
 namespace wanderer::sys {
 
@@ -53,9 +51,8 @@ void update_viewport(entt::registry& registry, entt::entity target, float dt);
  * \ingroup systems
  *
  * \param registry the current level registry.
- * \param renderer the renderer which will have its translation viewport updated.
  */
-void translate_viewport(const entt::registry& registry, cen::renderer& renderer);
+void translate_viewport(const entt::registry& registry);
 
 /// \} End of viewport
 

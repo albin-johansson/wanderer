@@ -1,11 +1,9 @@
 #pragma once
 
-#include <centurion.hpp>        // color
-#include <entt.hpp>             // registry
-#include <rune/everything.hpp>  // delta_time
+#include <centurion.hpp>  // color
+#include <entt.hpp>       // registry
 
 #include "common/float2.hpp"
-#include "core/graphics/graphics_context.hpp"
 
 namespace wanderer::sys {
 
@@ -46,9 +44,8 @@ void update_particles(entt::registry& registry, float dt);
  * \ingroup systems
  *
  * \param registry the current level registry.
- * \param graphics the graphics context that will be used.
  */
-void render_particles(const entt::registry& registry, graphics_context& graphics);
+void render_particles(const entt::registry& registry);
 
 /// } End of particles
 

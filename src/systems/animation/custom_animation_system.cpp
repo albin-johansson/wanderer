@@ -1,7 +1,9 @@
 #include "custom_animation_system.hpp"
 
+#include "common/ref.hpp"
 #include "components/gfx/custom_animation.hpp"
 #include "core/game_constants.hpp"
+#include "core/graphics/graphics_context.hpp"
 #include "events/custom_animation_halfway_event.hpp"
 
 namespace wanderer::sys {
@@ -64,11 +66,12 @@ void update_custom_animations(entt::registry& registry,
   }
 }
 
-void render_custom_animations(const entt::registry& registry, graphics_context& graphics)
+void render_custom_animations(const entt::registry& registry)
 {
   constexpr auto width = glob::logical_width<float>;
   constexpr auto height = glob::logical_height<float>;
 
+  auto& graphics = registry.ctx<ref<graphics_context>>().get();
   auto& renderer = graphics.get_renderer();
   for (auto&& [entity, animation] : registry.view<comp::custom_animation>().each()) {
     const auto hSize = animation.width;

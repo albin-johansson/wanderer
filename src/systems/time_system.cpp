@@ -9,9 +9,11 @@
 #include <string_view>          // string_view
 
 #include "common/ints.hpp"
+#include "common/ref.hpp"
 #include "components/ctx/time_of_day.hpp"
 #include "core/common_concepts.hpp"
 #include "core/game_constants.hpp"
+#include "core/graphics/graphics_context.hpp"
 #include "events/day_changed_event.hpp"
 
 namespace wanderer::sys {
@@ -168,7 +170,7 @@ void change_to_next_day(entt::registry& shared,
   dispatcher.enqueue<day_changed_event>(time.day);
 }
 
-void render_clock(const entt::registry& registry, graphics_context& graphics)
+void render_clock(const entt::registry& registry)
 {
   const auto& time = registry.ctx<ctx::time_of_day>();
 
@@ -188,6 +190,7 @@ void render_clock(const entt::registry& registry, graphics_context& graphics)
                    prefix(minute),
                    minute);
 
+  auto& graphics = registry.ctx<ref<graphics_context>>().get();
   graphics.render_outlined_text(to_string(time.day), cen::point(6, 6));
   graphics.render_outlined_text(std::string_view{buffer.data(), buffer.size()},
                                 cen::point(30, 6));

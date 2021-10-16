@@ -2,6 +2,7 @@
 
 #include <cassert>  // assert
 
+#include "common/ref.hpp"
 #include "components/ai/chase.hpp"
 #include "components/associated_entity.hpp"
 #include "components/ctx/active_menu.hpp"
@@ -13,6 +14,7 @@
 #include "components/ui/menu.hpp"
 #include "core/ecs/registry_utils.hpp"
 #include "core/game_constants.hpp"
+#include "core/graphics/graphics_context.hpp"
 #include "core/utils/centurion_utils.hpp"
 #include "systems/ui/menus/menu_system.hpp"
 
@@ -78,16 +80,18 @@ void render_development_build_label(graphics_context& graphics)
 
 }  // namespace
 
-void render_debug_info(const entt::registry& registry, graphics_context& graphics)
+void render_debug_info(const entt::registry& registry)
 {
+  auto& graphics = registry.ctx<ref<graphics_context>>().get();
   auto& renderer = graphics.get_renderer();
   render_hitboxes(registry, renderer);
   render_trigger_indicators(registry, renderer);
   render_chase_ranges(registry, renderer);
 }
 
-void render_menu_debug_info(const entt::registry& registry, graphics_context& graphics)
+void render_menu_debug_info(const entt::registry& registry)
 {
+  auto& graphics = registry.ctx<ref<graphics_context>>().get();
   auto& renderer = graphics.get_renderer();
 
   const auto menuEntity = registry.ctx<ctx::active_menu>().entity;

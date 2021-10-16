@@ -1,9 +1,6 @@
 #pragma once
 
-#include <entt.hpp>             // registry
-#include <rune/everything.hpp>  // delta_time
-
-#include "core/graphics/graphics_context.hpp"
+#include <entt.hpp>  // registry
 
 namespace wanderer::sys {
 
@@ -26,9 +23,8 @@ void update_fps(entt::registry& shared, float dt);
  * \ingroup systems
  *
  * \param shared the shared data registry.
- * \param graphics the graphics context that will be used.
  */
-void render_fps(const entt::registry& shared, graphics_context& graphics);
+void render_fps(const entt::registry& shared);
 
 /// \} End of UI
 

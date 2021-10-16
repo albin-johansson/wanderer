@@ -1,6 +1,7 @@
 #include "game.hpp"
 
 #include "common/milliseconds.hpp"
+#include "common/ref.hpp"
 #include "components/ctx/renderer_snapshot.hpp"
 #include "components/ctx/settings.hpp"
 #include "components/items/inventory.hpp"
@@ -156,26 +157,27 @@ void game::tick(const float dt)
 
 void game::render(graphics_type& graphics) const
 {
-  auto& renderer = graphics.get_renderer();
-  auto& level = sys::current_level(m_shared);
+  m_shared.set<ref<graphics_context>>(graphics);
 
+  auto& level = sys::current_level(m_shared);
+  level.registry.set<ref<graphics_context>>(graphics);
+
+  auto& renderer = graphics.get_renderer();
   renderer.clear_with(cen::colors::black);
 
-  sys::translate_viewport(level.registry, renderer);
-  // sys::update_render_bounds(level.registry);
+  sys::translate_viewport(level.registry);
 
-  sys::render_tile_layers(level.registry, graphics);
-  sys::render_drawables(level.registry, graphics);
-  sys::render_particles(level.registry, graphics);
+  sys::render_tile_layers(level.registry);
+  sys::render_drawables(level.registry);
+  sys::render_particles(level.registry);
 
   if (sys::is_current_level_outside(m_shared)) {
     sys::render_lights(level.registry,
-                       graphics,
                        m_shared.ctx<ctx::time_of_day>(),
                        m_shared.ctx<ctx::settings>());
   }
 
-  sys::render_clock(m_shared, graphics);
+  sys::render_clock(m_shared);
 
   if (m_updateSnapshot) {
     m_shared.set<ctx::renderer_snapshot>(renderer.capture(graphics.format()));
@@ -183,21 +185,25 @@ void game::render(graphics_type& graphics) const
   }
 
   if constexpr (cen::is_debug_build()) {
-    sys::render_debug_info(level.registry, graphics);
+    sys::render_debug_info(level.registry);
   }
 
-  sys::render_hud(m_shared, graphics, m_mousePos);
+  sys::render_hud(m_shared, m_mousePos);
 
-  sys::render_active_menu(m_shared, graphics);
-  sys::render_custom_animations(level.registry, graphics);
+  sys::render_active_menu(m_shared);
+  sys::render_custom_animations(level.registry);
 
-  sys::render_fps(m_shared, graphics);
+  sys::render_fps(m_shared);
 
   if constexpr (cen::is_debug_build()) {
-    sys::render_menu_debug_info(m_shared, graphics);
+    sys::render_menu_debug_info(m_shared);
   }
 
   renderer.present();
+
+  /* Let's embrace our paranoia and unset the renderer context variables! */
+  level.registry.unset<ref<graphics_context>>();
+  m_shared.unset<ref<graphics_context>>();
 }
 
 void game::load_save(const std::string& name, graphics_type& graphics)

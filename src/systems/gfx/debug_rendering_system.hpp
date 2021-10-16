@@ -2,8 +2,6 @@
 
 #include <entt.hpp>  // registry
 
-#include "core/graphics/graphics_context.hpp"
-
 namespace wanderer::sys {
 
 /// \name Debug
@@ -15,9 +13,8 @@ namespace wanderer::sys {
  * \ingroup systems
  *
  * \param registry the level registry.
- * \param graphics the graphics context that will be used.
  */
-void render_debug_info(const entt::registry& registry, graphics_context& graphics);
+void render_debug_info(const entt::registry& registry);
 
 /**
  * \brief Renders debug information for menus, such as the UI grid.
@@ -25,9 +22,8 @@ void render_debug_info(const entt::registry& registry, graphics_context& graphic
  * \ingroup systems
  *
  * \param registry the menu registry.
- * \param graphics the graphics context that will be used.
  */
-void render_menu_debug_info(const entt::registry& registry, graphics_context& graphics);
+void render_menu_debug_info(const entt::registry& registry);
 
 /// \} End of debug
 

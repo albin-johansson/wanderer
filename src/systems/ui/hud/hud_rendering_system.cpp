@@ -4,6 +4,7 @@
 #include <format>       // format_to_n
 #include <string_view>  // string_view
 
+#include "common/ref.hpp"
 #include "components/ctx/binds.hpp"
 #include "components/lvl/portal.hpp"
 #include "components/player.hpp"
@@ -11,6 +12,7 @@
 #include "components/ui/fps_data.hpp"
 #include "core/ecs/registry_utils.hpp"
 #include "core/game_constants.hpp"
+#include "core/graphics/graphics_context.hpp"
 #include "inventory_rendering_system.hpp"
 #include "systems/levels/level_system.hpp"
 #include "systems/ui/grid.hpp"
@@ -70,9 +72,9 @@ void render_hints(const entt::registry& shared, graphics_context& graphics)
 }  // namespace
 
 void render_hud(const entt::registry& shared,
-                graphics_context& graphics,
                 const cen::ipoint mousePos)
 {
+  auto& graphics = shared.ctx<ref<graphics_context>>().get();
   render_hints(shared, graphics);
 
   const auto& level = current_level(shared);
