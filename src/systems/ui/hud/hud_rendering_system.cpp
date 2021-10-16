@@ -1,8 +1,9 @@
 #include "hud_rendering_system.hpp"
 
-#include <array>        // array
-#include <format>       // format_to_n
-#include <string_view>  // string_view
+#include <array>                // array
+#include <format>               // format_to_n
+#include <rune/everything.hpp>  // formatted_string
+#include <string_view>          // string_view
 
 #include "common/ref.hpp"
 #include "components/ctx/binds.hpp"
@@ -29,13 +30,10 @@ void render_hint(graphics_context& graphics,
                  const std::string_view fmt,
                  const std::string& key)
 {
-  std::array<char, 64> buffer{};
-  std::format_to_n(buffer.data(), buffer.size(), fmt, key);
-  const std::string_view str{buffer.data(), buffer.size()};
-
+  const rune::formatted_string<64> hint{fmt, key};
   const auto& cache = graphics.small_font_cache();
-  const auto width = cache.get_font().string_width(str.data()).value();
-  graphics.render_outlined_text(str, cen::point(center_x(width), 100));
+  const auto width = cache.get_font().string_width(hint.data()).value();
+  graphics.render_outlined_text(hint.view(), cen::point(center_x(width), 100));
 }
 
 void render_hints(const entt::registry& shared, graphics_context& graphics)

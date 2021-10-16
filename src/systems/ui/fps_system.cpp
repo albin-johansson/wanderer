@@ -1,9 +1,10 @@
 #include "fps_system.hpp"
 
-#include <array>          // array
-#include <centurion.hpp>  // ticks
-#include <format>         // format_to_n
-#include <string_view>    // string_view
+#include <array>                // array
+#include <centurion.hpp>        // ticks
+#include <format>               // format_to_n
+#include <rune/everything.hpp>  // formatted_string
+#include <string_view>          // string_view
 
 #include "common/ref.hpp"
 #include "components/ui/fps_data.hpp"
@@ -36,16 +37,14 @@ void render_fps(const entt::registry& shared)
     const auto fps = round(1.0 / (static_cast<double>(data.frame.count()) / 1'000.0));
 
     {
-      std::array<char, 64> buffer{};
-      std::format_to_n(buffer.data(), buffer.size(), "Frame: {} ms", data.frame.count());
-      graphics.render_outlined_text(std::string_view{buffer.data(), buffer.size()},
+      const rune::formatted_string<64> str{"Frame: {} ms", data.frame.count()};
+      graphics.render_outlined_text(str.view(),
                                     cen::point(glob::logical_width<int> - 125, 6));
     }
 
     {
-      std::array<char, 64> buffer{};
-      std::format_to_n(buffer.data(), buffer.size(), "FPS: {}", fps);
-      graphics.render_outlined_text(std::string_view{buffer.data(), buffer.size()},
+      const rune::formatted_string<64> str{"FPS: {}", fps};
+      graphics.render_outlined_text(str.view(),
                                     cen::point(glob::logical_width<int> - 55, 6));
     }
   }

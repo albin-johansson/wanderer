@@ -3,8 +3,7 @@
 #include <array>                // array
 #include <centurion.hpp>        // to_underlying, ...
 #include <cmath>                // floor, ceil, lerp
-#include <format>               // format_to_n
-#include <rune/everything.hpp>  // static_vector
+#include <rune/everything.hpp>  // static_vector, formatted_string
 #include <stdexcept>            // runtime_error
 #include <string_view>          // string_view
 
@@ -181,19 +180,15 @@ void render_clock(const entt::registry& registry)
     return (value < 10) ? "0" : "";
   };
 
-  std::array<char, 64> buffer{};
-  std::format_to_n(buffer.data(),
-                   buffer.size(),
-                   "{}{}: {}{}",
-                   prefix(hour),
-                   hour,
-                   prefix(minute),
-                   minute);
+  const rune::formatted_string<64> str{"{}{}: {}{}",
+                                       prefix(hour),
+                                       hour,
+                                       prefix(minute),
+                                       minute};
 
   auto& graphics = registry.ctx<ref<graphics_context>>().get();
   graphics.render_outlined_text(to_string(time.day), cen::point(6, 6));
-  graphics.render_outlined_text(std::string_view{buffer.data(), buffer.size()},
-                                cen::point(30, 6));
+  graphics.render_outlined_text(str.view(), cen::point(30, 6));
 }
 
 }  // namespace wanderer::sys

@@ -38,6 +38,7 @@
 #include "core/compiler.hpp"
 #include "core/configuration.hpp"
 #include "core/engine.hpp"
+#include "core/formatted_string.hpp"
 #include "core/from_string.hpp"
 #include "core/game.hpp"
 #include "core/iterable.hpp"
