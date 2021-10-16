@@ -4,7 +4,7 @@
 
 namespace wanderer::comp {
 
-struct object final
+struct Object final
 {
   int32 id{};
 };

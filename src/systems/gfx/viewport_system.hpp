@@ -20,7 +20,7 @@ namespace wanderer::sys {
  *
  * \return the created viewport.
  */
-[[nodiscard]] auto make_viewport(cen::farea levelSize) noexcept -> ctx::viewport;
+[[nodiscard]] auto make_viewport(cen::farea levelSize) noexcept -> ctx::Viewport;
 
 /**
  * \brief Centers the viewport on the specified position.

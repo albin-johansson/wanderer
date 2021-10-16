@@ -9,7 +9,7 @@
 namespace wanderer::sys {
 
 void render_tile(graphics_context& graphics,
-                 const comp::tile& tile,
+                 const comp::Tile& tile,
                  const grid_position position) noexcept
 {
   const auto dst = cen::rect(position.col * glob::tile_width<float>,
@@ -21,14 +21,14 @@ void render_tile(graphics_context& graphics,
 
 auto get_animated_tile(const entt::registry& registry,
                        const entt::entity tile,
-                       const comp::tileset& tileset) -> const comp::tile&
+                       const comp::Tileset& tileset) -> const comp::Tile&
 {
-  assert(registry.all_of<comp::tile_animation>(tile));
+  assert(registry.all_of<comp::TileAnimation>(tile));
 
-  const auto& animation = registry.get<comp::tile_animation>(tile);
+  const auto& animation = registry.get<comp::TileAnimation>(tile);
   const auto id = animation.frames.at(animation.index).tile;
 
-  return registry.get<comp::tile>(tileset.tiles.at(id));
+  return registry.get<comp::Tile>(tileset.tiles.at(id));
 }
 
 }  // namespace wanderer::sys

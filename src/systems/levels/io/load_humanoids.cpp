@@ -11,8 +11,8 @@ namespace {
 
 void configure_humanoid_layer(entt::registry& registry, const entt::entity tilemapEntity)
 {
-  const auto& tilemap = registry.get<comp::tilemap>(tilemapEntity);
-  for (auto&& [entity, drawable] : registry.view<comp::drawable, comp::humanoid>().each())
+  const auto& tilemap = registry.get<comp::Tilemap>(tilemapEntity);
+  for (auto&& [entity, drawable] : registry.view<comp::Drawable, comp::Humanoid>().each())
   {
     drawable.layer = tilemap.humanoid_layer;
   }
@@ -20,17 +20,17 @@ void configure_humanoid_layer(entt::registry& registry, const entt::entity tilem
 
 }  // namespace
 
-void load_humanoids(comp::level& level, graphics_context& graphics)
+void load_humanoids(comp::Level& level, graphics_context& graphics)
 {
   // The player has to be created before other humanoids!
   sys::make_player(level, graphics);
 
-  for (auto&& [entity, spawnpoint] : level.registry.view<comp::spawnpoint>().each()) {
+  for (auto&& [entity, spawnpoint] : level.registry.view<comp::Spawnpoint>().each()) {
     switch (spawnpoint.type) {
-      case comp::spawnpoint_type::player:
+      case comp::SpawnpointType::player:
         break;
 
-      case comp::spawnpoint_type::skeleton: {
+      case comp::SpawnpointType::skeleton: {
         sys::make_skeleton(level, spawnpoint.position, graphics);
         break;
       }

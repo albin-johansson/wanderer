@@ -23,8 +23,8 @@ auto restore_level_registry(const proto::level& data) -> entt::registry
     assert(entity == hint);
 
     if (entity == playerEntity) {
-      assert(registry.empty<comp::player>());
-      registry.emplace<comp::player>(entity);
+      assert(registry.empty<comp::Player>());
+      registry.emplace<comp::Player>(entity);
     }
 
     restore_movable(data, registry, entity);
@@ -57,8 +57,8 @@ auto restore_level_registry(const proto::level& data) -> entt::registry
     const auto entity = entt::entity{id};
     assert(registry.valid(entity));
 
-    registry.emplace<comp::humanoid_idle>(entity);
-    registry.emplace<comp::humanoid>(entity);
+    registry.emplace<comp::HumanoidIdle>(entity);
+    registry.emplace<comp::Humanoid>(entity);
   }
 
   return registry;

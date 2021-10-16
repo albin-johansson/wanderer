@@ -84,17 +84,17 @@ game::~game()
 void game::on_start()
 {
   sys::load_settings(m_shared);
-  m_shared.set<ctx::binds>(sys::load_binds());
-  m_shared.ctx<ctx::time_of_day>().seconds = sys::hour_to_seconds(12);
+  m_shared.set<ctx::Binds>(sys::load_binds());
+  m_shared.ctx<ctx::TimeOfDay>().seconds = sys::hour_to_seconds(12);
 
   {
-    auto& data = m_shared.emplace<comp::fps_data>(m_shared.create());
+    auto& data = m_shared.emplace<comp::FpsData>(m_shared.create());
     data.then = cen::counter::ticks();
     data.interval = ms_t{500};
     data.next_update = data.then + data.interval;
   }
 
-  const auto& settings = m_shared.ctx<ctx::settings>();
+  const auto& settings = m_shared.ctx<ctx::Settings>();
   m_dispatcher.enqueue<fullscreen_toggled_event>(settings.fullscreen);
   m_dispatcher.enqueue<integer_scaling_toggled_event>(settings.integer_scaling);
 
@@ -113,7 +113,7 @@ void game::handle_input(const rune::input& input)
   sys::update_menu(m_shared, m_dispatcher, input);
 
   auto& level = sys::current_level(m_shared);
-  sys::update_input(level.registry, m_dispatcher, input, m_shared.ctx<ctx::binds>());
+  sys::update_input(level.registry, m_dispatcher, input, m_shared.ctx<ctx::Binds>());
 }
 
 void game::tick(const float dt)
@@ -133,7 +133,7 @@ void game::tick(const float dt)
   sys::update_time(m_shared, m_dispatcher, dt);
   sys::update_humanoid_states(level.registry, m_dispatcher);
 
-  sys::update_chase(level.registry, m_dispatcher);
+  sys::update_chase(level.registry);
   sys::update_roaming(level.registry, dt);
   sys::update_movement(level.registry, level.tree, dt);
   sys::update_drawables(level.registry);
@@ -144,7 +144,7 @@ void game::tick(const float dt)
   sys::update_triggers(level.registry, m_dispatcher);
 
   {
-    const auto player = singleton_entity<comp::player>(level.registry);
+    const auto player = singleton_entity<comp::Player>(level.registry);
     sys::update_viewport(level.registry, player, dt);
   }
   sys::update_depth(level.registry);
@@ -172,15 +172,13 @@ void game::render(graphics_type& graphics) const
   sys::render_particles(level.registry);
 
   if (sys::is_current_level_outside(m_shared)) {
-    sys::render_lights(level.registry,
-                       m_shared.ctx<ctx::time_of_day>(),
-                       m_shared.ctx<ctx::settings>());
+    sys::render_lights(level.registry, m_shared.ctx<ctx::TimeOfDay>());
   }
 
   sys::render_clock(m_shared);
 
   if (m_updateSnapshot) {
-    m_shared.set<ctx::renderer_snapshot>(renderer.capture(graphics.format()));
+    m_shared.set<ctx::RendererSnapshot>(renderer.capture(graphics.format()));
     m_updateSnapshot = false;
   }
 
@@ -250,7 +248,7 @@ void game::on_button_pressed(const button_pressed_event& event)
     }
     case menu_action::quick_save: {
       // FIXME don't allow quick saves before the in-game menu has been active once
-      if (const auto* snapshot = m_shared.try_ctx<ctx::renderer_snapshot>()) {
+      if (const auto* snapshot = m_shared.try_ctx<ctx::RendererSnapshot>()) {
         save_game("quick_save", m_shared, snapshot->surface);
       }
       m_dispatcher.enqueue<switch_menu_event>(menu_id::in_game);
@@ -307,7 +305,7 @@ void game::on_switch_menu(const switch_menu_event& event)
 
 void game::on_menu_switched(const menu_switched_event& event)
 {
-  const auto& menu = m_shared.get<comp::menu>(event.entity);
+  const auto& menu = m_shared.get<comp::Menu>(event.entity);
   if (menu.id == menu_id::saves) {
     sys::refresh_saves_menu(m_shared);
   }
@@ -338,12 +336,12 @@ void game::on_custom_animation_halfway(const custom_animation_halfway_event& eve
 void game::on_show_inventory(const show_inventory_event& event)
 {
   auto& level = sys::current_level(m_shared);
-  level.registry.emplace<comp::active_inventory>(event.inventory_entity);
+  level.registry.emplace<comp::ActiveInventory>(event.inventory_entity);
 }
 
 void game::on_close_inventory(const close_inventory_event&)
 {
-  sys::current_level(m_shared).registry.clear<comp::active_inventory>();
+  sys::current_level(m_shared).registry.clear<comp::ActiveInventory>();
 }
 
 void game::on_sleep(const sleep_event&)
@@ -369,7 +367,7 @@ void game::on_spawn_particles(const spawn_particles_event& event)
 
 void game::on_quit(const quit_event&)
 {
-  if (const auto* snapshot = m_shared.try_ctx<ctx::renderer_snapshot>()) {
+  if (const auto* snapshot = m_shared.try_ctx<ctx::RendererSnapshot>()) {
     create_exit_save(m_shared, snapshot->surface);
   }
 

@@ -7,7 +7,6 @@
 namespace wanderer::ctx {
 
 /**
- * \struct viewport
  * \brief Represents an area that is visible for the player.
  *
  * \var viewport::bounds
@@ -20,10 +19,8 @@ namespace wanderer::ctx {
  * Indicates whether or not the viewport is allowed to be positioned in a way
  * so that the area outside of the level is displayed. This is usually
  * disabled for small levels (e.g. houses) and enabled for the world levels.
- *
- * \headerfile viewport.hpp
  */
-struct viewport final
+struct Viewport final
 {
   cen::frect bounds;
   cen::farea level_size;

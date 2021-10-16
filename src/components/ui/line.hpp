@@ -4,7 +4,7 @@
 
 namespace wanderer::comp {
 
-struct line final
+struct Line final
 {
   grid_position start;
   grid_position end;

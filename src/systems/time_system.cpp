@@ -140,7 +140,7 @@ inline const phase night_phase{.phase_start = night,
 
 void update_time(entt::registry& shared, entt::dispatcher& dispatcher, const float dt)
 {
-  auto& time = shared.ctx<ctx::time_of_day>();
+  auto& time = shared.ctx<ctx::TimeOfDay>();
 
   time.seconds += rate * dt;
   time.minute = time.seconds / 60.0f;
@@ -158,7 +158,7 @@ void change_to_next_day(entt::registry& shared,
                         entt::dispatcher& dispatcher,
                         const float hour)
 {
-  auto& time = shared.ctx<ctx::time_of_day>();
+  auto& time = shared.ctx<ctx::TimeOfDay>();
   time.seconds = hour * seconds_per_hour;
   time.day = next_day(time.day);
 
@@ -171,7 +171,7 @@ void change_to_next_day(entt::registry& shared,
 
 void render_clock(const entt::registry& registry)
 {
-  const auto& time = registry.ctx<ctx::time_of_day>();
+  const auto& time = registry.ctx<ctx::TimeOfDay>();
 
   const auto hour = static_cast<int>(time.hour) % 24;
   const auto minute = static_cast<int>(time.minute) % 60;

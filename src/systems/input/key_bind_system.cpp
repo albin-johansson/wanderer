@@ -8,7 +8,7 @@ auto make_bind(entt::registry& registry,
 {
   const auto entity = registry.create();
 
-  auto& bind = registry.emplace<comp::key_bind>(entity);
+  auto& bind = registry.emplace<comp::KeyBind>(entity);
   bind.key = key;
   bind.action = action;
 

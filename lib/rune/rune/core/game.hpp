@@ -126,7 +126,7 @@ class basic_game
    *
    * \since 0.1.0
    */
-  virtual void handle_input(const input& input)
+  virtual void handle_input([[maybe_unused]] const input& input)
   {}
 
   /**
@@ -141,7 +141,7 @@ class basic_game
    *
    * \since 0.1.0
    */
-  virtual void tick(float dt)
+  virtual void tick([[maybe_unused]] float dt)
   {}
 
   /**
@@ -162,7 +162,7 @@ class basic_game
    *
    * \since 0.1.0
    */
-  virtual void render(graphics_type& gfx) const
+  virtual void render([[maybe_unused]] graphics_type& gfx) const
   {}
 
   /**

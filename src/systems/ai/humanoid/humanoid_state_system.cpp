@@ -13,7 +13,7 @@ namespace {
 
 void update_attacking_humanoids(entt::registry& registry, entt::dispatcher& dispatcher)
 {
-  for (auto&& [entity, attack] : registry.view<comp::humanoid_attack>().each()) {
+  for (auto&& [entity, attack] : registry.view<comp::HumanoidAttack>().each()) {
     if (attack.done) {
       dispatcher.enqueue<end_attack_event>(registry,
                                            dispatcher,
@@ -28,24 +28,24 @@ void update_attacking_humanoids(entt::registry& registry, entt::dispatcher& disp
 
 void make_humanoid_idle(entt::registry& registry, const entt::entity entity)
 {
-  assert(registry.all_of<comp::humanoid>(entity));
-  assert(!registry.all_of<comp::humanoid_idle>(entity));
+  assert(registry.all_of<comp::Humanoid>(entity));
+  assert(!registry.all_of<comp::HumanoidIdle>(entity));
 
-  auto& movable = registry.get<comp::movable>(entity);
+  auto& movable = registry.get<comp::Movable>(entity);
   movable.velocity.reset();
 
-  registry.emplace<comp::humanoid_idle>(entity);
+  registry.emplace<comp::HumanoidIdle>(entity);
   enter_idle_animation(registry, entity);
 }
 
 void make_humanoid_move(entt::registry& registry, entt::entity entity)
 {
-  assert(registry.all_of<comp::humanoid>(entity));
-  assert(!registry.all_of<comp::humanoid_move>(entity));
+  assert(registry.all_of<comp::Humanoid>(entity));
+  assert(!registry.all_of<comp::HumanoidMove>(entity));
 
-  auto& movable = registry.get<comp::movable>(entity);
+  auto& movable = registry.get<comp::Movable>(entity);
 
-  registry.emplace<comp::humanoid_move>(entity);
+  registry.emplace<comp::HumanoidMove>(entity);
   enter_move_animation(registry, entity, dominant_direction(movable));
 }
 

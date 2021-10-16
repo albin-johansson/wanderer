@@ -14,7 +14,6 @@ namespace wanderer::io {
                              const rune::tmx_tileset& tileset) -> ir::tile;
 
 [[nodiscard]] auto parse_fancy_tile(ir::tileset& data,
-                                    const ir::tile& tileData,
                                     const rune::tmx_tile& tile,
                                     tile_id firstGid) -> ir::fancy_tile;
 

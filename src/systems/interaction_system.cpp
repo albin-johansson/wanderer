@@ -19,21 +19,21 @@ void on_interact(const interact_event& event)
 {
   auto& registry = event.registry.get();
   auto& dispatcher = event.dispatcher.get();
-  const auto player = singleton_entity<comp::player>(registry);
+  const auto player = singleton_entity<comp::Player>(registry);
 
-  if (const auto* within = registry.try_get<comp::is_within_trigger>(player)) {
+  if (const auto* within = registry.try_get<comp::IsWithinTrigger>(player)) {
     assert(within->trigger_entity != entt::null);
 
-    const auto& trigger = registry.get<comp::trigger>(within->trigger_entity);
+    const auto& trigger = registry.get<comp::Trigger>(within->trigger_entity);
     switch (trigger.type) {
-      case comp::trigger_type::portal: {
-        const auto& portal = registry.get<comp::portal>(within->trigger_entity);
+      case comp::TriggerType::portal: {
+        const auto& portal = registry.get<comp::Portal>(within->trigger_entity);
         dispatcher.enqueue<switch_map_event>(portal.target.value());
         break;
       }
-      case comp::trigger_type::container: {
-        if (registry.empty<comp::active_inventory>()) {
-          const auto& ref = registry.get<comp::associated_entity>(within->trigger_entity);
+      case comp::TriggerType::container: {
+        if (registry.empty<comp::ActiveInventory>()) {
+          const auto& ref = registry.get<comp::AssociatedEntity>(within->trigger_entity);
           dispatcher.enqueue<show_inventory_event>(ref.entity);
         }
         else {
@@ -43,7 +43,7 @@ void on_interact(const interact_event& event)
         break;
       }
 
-      case comp::trigger_type::bed: {
+      case comp::TriggerType::bed: {
         dispatcher.enqueue<sleep_event>();
         break;
       }

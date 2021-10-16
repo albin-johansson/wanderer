@@ -11,12 +11,12 @@ auto make_menu(entt::registry& registry,
 {
   const auto entity = registry.create();
 
-  auto& menu = registry.emplace<comp::menu>(entity);
+  auto& menu = registry.emplace<comp::Menu>(entity);
   menu.title = std::move(title);
   menu.id = id;
   menu.blocking = blocking;
 
-  registry.emplace<comp::menu_drawable>(entity);
+  registry.emplace<comp::MenuDrawable>(entity);
 
   return entity;
 }

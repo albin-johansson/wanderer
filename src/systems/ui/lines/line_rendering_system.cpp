@@ -9,13 +9,13 @@ namespace wanderer::sys {
 
 void render_lines(const entt::registry& registry, graphics_context& graphics)
 {
-  const auto menuEntity = registry.ctx<ctx::active_menu>().entity;
+  const auto menuEntity = registry.ctx<ctx::ActiveMenu>().entity;
 
   auto& renderer = graphics.get_renderer();
   renderer.set_color(cen::colors::white);
 
   for (auto&& [entity, line, associated] :
-       registry.view<comp::line, comp::associated_menu>().each())
+       registry.view<comp::Line, comp::AssociatedMenu>().each())
   {
     if (associated.entity == menuEntity) {
       renderer.draw_line(from_grid(line.start), from_grid(line.end));

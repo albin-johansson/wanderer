@@ -27,8 +27,8 @@ inline constexpr float target_error_margin = 1;
 
 void target_nearby_position(entt::registry& registry,
                             const entt::entity entity,
-                            comp::roam& roam,
-                            comp::movable& movable)
+                            comp::Roam& roam,
+                            comp::Movable& movable)
 {
   roam.cooldown = 0;
   roam.destination = nearby_position(movable.position);
@@ -36,24 +36,24 @@ void target_nearby_position(entt::registry& registry,
   movable.velocity = movable.position;
   movable.velocity.look_at(*roam.destination, movable.speed);
 
-  if (registry.all_of<comp::humanoid>(entity)) {
-    registry.emplace<comp::humanoid_move>(entity);
+  if (registry.all_of<comp::Humanoid>(entity)) {
+    registry.emplace<comp::HumanoidMove>(entity);
     enter_move_animation(registry, entity, dominant_direction(movable));
   }
 }
 
 void begin_cooldown(entt::registry& registry,
                     const entt::entity entity,
-                    comp::roam& roam,
-                    comp::movable& movable)
+                    comp::Roam& roam,
+                    comp::Movable& movable)
 {
   // Reached destination, begin cooldown
   roam.cooldown = 0;
   roam.destination.reset();
   movable.velocity.reset();
 
-  if (registry.all_of<comp::humanoid>(entity)) {
-    registry.emplace<comp::humanoid_idle>(entity);
+  if (registry.all_of<comp::Humanoid>(entity)) {
+    registry.emplace<comp::HumanoidIdle>(entity);
     enter_idle_animation(registry, entity);
   }
 }
@@ -62,7 +62,7 @@ void begin_cooldown(entt::registry& registry,
 
 void update_roaming(entt::registry& registry, const float dt)
 {
-  for (auto&& [entity, roam, movable] : registry.view<comp::roam, comp::movable>().each())
+  for (auto&& [entity, roam, movable] : registry.view<comp::Roam, comp::Movable>().each())
   {
     if (!roam.destination) {
       roam.cooldown += cooldown_rate * dt;

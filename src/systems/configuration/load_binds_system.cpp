@@ -10,10 +10,10 @@ namespace {
 
 inline const auto binds_file = files_directory() / "binds.ini";
 
-[[nodiscard]] auto parse_binds() -> ctx::binds
+[[nodiscard]] auto parse_binds() -> ctx::Binds
 {
   CENTURION_LOG_INFO("Reading binds: \"%s\"", binds_file.string().c_str());
-  ctx::binds binds;
+  ctx::Binds binds;
 
   const auto ini = rune::read_ini(binds_file).value();
 
@@ -31,14 +31,14 @@ inline const auto binds_file = files_directory() / "binds.ini";
 
 }  // namespace
 
-auto load_binds() -> ctx::binds
+auto load_binds() -> ctx::Binds
 {
   if (std::filesystem::exists(binds_file)) {
     return parse_binds();
   }
   else {
     std::filesystem::copy("resources/binds.ini", binds_file);
-    return ctx::binds{};
+    return ctx::Binds{};
   }
 }
 

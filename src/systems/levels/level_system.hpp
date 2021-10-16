@@ -46,10 +46,10 @@ void enable_level(entt::registry& shared, map_id id);
  *
  * \return the currently active level.
  */
-[[nodiscard]] auto current_level(entt::registry& shared) -> comp::level&;
+[[nodiscard]] auto current_level(entt::registry& shared) -> comp::Level&;
 
 /// \copydoc current_level()
-[[nodiscard]] auto current_level(const entt::registry& shared) -> const comp::level&;
+[[nodiscard]] auto current_level(const entt::registry& shared) -> const comp::Level&;
 
 /**
  * \brief Indicates whether or not the active level is an outside level.

@@ -15,13 +15,13 @@ auto make_label(entt::registry& registry,
 {
   const auto entity = registry.create();
 
-  auto& label = registry.emplace<comp::label>(entity);
+  auto& label = registry.emplace<comp::Label>(entity);
   label.text = std::move(text);
   label.position = position;
   label.color = cen::colors::white;
   label.size = size;
 
-  auto& associated = registry.emplace<comp::associated_menu>(entity);
+  auto& associated = registry.emplace<comp::AssociatedMenu>(entity);
   associated.entity = menu;
 
   return entity;

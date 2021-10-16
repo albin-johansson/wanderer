@@ -7,7 +7,7 @@ namespace wanderer::comp {
 
 /// \brief Represents an entity that is movable.
 /// \ingroup components
-struct movable final
+struct Movable final
 {
   float2 velocity;                 ///< Current x- and y-axis speed.
   float2 position;                 ///< Current position.

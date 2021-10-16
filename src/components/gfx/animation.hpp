@@ -8,7 +8,7 @@ namespace wanderer::comp {
 
 /// \brief Represents a general animation.
 /// \ingroup components
-struct animation final
+struct Animation final
 {
   uint64 frame{0};        ///< Current frame index.
   uint64 frame_count{1};  ///< Amount of frames in the animation.

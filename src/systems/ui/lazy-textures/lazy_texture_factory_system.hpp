@@ -15,8 +15,8 @@ namespace wanderer::sys {
 /**
  * \brief Creates and returns a lazy texture entity.
  *
- * \details The created entity will feature `comp::lazy_texture` and
- * `comp::associated_menu` components.
+ * \details The created entity will feature `comp::LazyTexture` and
+ * `comp::AssociatedMenu` components.
  *
  * \ingroup systems
  *

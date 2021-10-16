@@ -19,7 +19,7 @@ namespace wanderer::sys {
  *
  * \since 0.1.0
  */
-[[nodiscard]] auto dominant_direction(const comp::movable& movable) noexcept -> direction;
+[[nodiscard]] auto dominant_direction(const comp::Movable& movable) noexcept -> direction;
 
 /// \} End of movement
 

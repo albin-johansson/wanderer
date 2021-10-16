@@ -4,7 +4,7 @@
 
 namespace wanderer::comp {
 
-struct fps_data final
+struct FpsData final
 {
   ms_t then{};
   ms_t frame{};

@@ -38,15 +38,15 @@ void render_hint(graphics_context& graphics,
 
 void render_hints(const entt::registry& shared, graphics_context& graphics)
 {
-  const auto& binds = shared.ctx<ctx::binds>();
+  const auto& binds = shared.ctx<ctx::Binds>();
   const auto& level = current_level(shared);
 
-  const auto player = singleton_entity<comp::player>(level.registry);
+  const auto player = singleton_entity<comp::Player>(level.registry);
 
-  if (const auto* within = level.registry.try_get<comp::is_within_trigger>(player)) {
-    const auto& trigger = level.registry.get<comp::trigger>(within->trigger_entity);
+  if (const auto* within = level.registry.try_get<comp::IsWithinTrigger>(player)) {
+    const auto& trigger = level.registry.get<comp::Trigger>(within->trigger_entity);
     switch (trigger.type) {
-      case comp::trigger_type::portal: {
+      case comp::TriggerType::portal: {
         if (sys::is_current_level_outside(shared)) {
           render_hint(graphics, enter_fmt, binds.interact.name());
         }
@@ -55,11 +55,11 @@ void render_hints(const entt::registry& shared, graphics_context& graphics)
         }
         break;
       }
-      case comp::trigger_type::container: {
+      case comp::TriggerType::container: {
         render_hint(graphics, container_fmt, binds.interact.name());
         break;
       }
-      case comp::trigger_type::bed: {
+      case comp::TriggerType::bed: {
         render_hint(graphics, sleep_fmt, binds.interact.name());
         break;
       }

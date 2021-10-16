@@ -11,7 +11,7 @@ namespace wanderer::comp {
 
 /// \brief Represents a frame in a tile animation.
 /// \ingroup components
-struct frame final
+struct Frame final
 {
   tile_id tile{glob::empty_tile};  ///< ID of the tile that should be rendered.
   ms_t duration{};                 ///< The duration that the frame is active.
@@ -27,11 +27,11 @@ struct frame final
  *
  * \ingroup components
  */
-struct tile_animation final
+struct TileAnimation final
 {
   uint64 index{0};            ///< Current frame index.
   ms_t then{};                ///< Time of the previous update.
-  std::vector<frame> frames;  ///< The frames that constitute the animation.
+  std::vector<Frame> frames;  ///< The frames that constitute the animation.
 };
 
 }  // namespace wanderer::comp

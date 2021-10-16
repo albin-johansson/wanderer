@@ -23,7 +23,7 @@ void parse_layers(const rune::tmx_map& map, ir::level& data)
 
   for (const auto& layer : map.layers) {
     if (const auto* objectLayer = rune::tmx::try_get_object_layer(layer)) {
-      parse_object_layer(data, map, *objectLayer);
+      parse_object_layer(data, *objectLayer);
     }
 
     ++index;

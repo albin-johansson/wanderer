@@ -23,7 +23,7 @@ void add_buttons(entt::registry& registry, const entt::entity menuEntity)
     const auto entity =
         make_button(registry, std::move(text), action, grid_position{row, col});
 
-    auto& associated = registry.emplace<comp::associated_menu>(entity);
+    auto& associated = registry.emplace<comp::AssociatedMenu>(entity);
     associated.entity = menuEntity;
   };
 
@@ -51,13 +51,13 @@ void add_labels(entt::registry& registry, const entt::entity entity)
 auto make_controls_menu(entt::registry& registry) -> entt::entity
 {
   const auto entity = make_menu(registry, "Controls", menu_id::controls);
-  registry.set<comp::controls_menu>(entity);
+  registry.set<comp::ControlsMenu>(entity);
 
   add_buttons(registry, entity);
   add_labels(registry, entity);
   add_binds(registry,
             entity,
-            comp::key_bind{cen::scancodes::escape, menu_action::goto_home});
+            comp::KeyBind{cen::scancodes::escape, menu_action::goto_home});
 
   return entity;
 }

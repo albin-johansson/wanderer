@@ -7,13 +7,13 @@
 
 namespace wanderer::comp {
 
-struct inventory final
+struct Inventory final
 {
   std::vector<entt::entity> items;  ///< List of items in the inventory.
   uint64 capacity{};                ///< Maximum capacity of inventory.
 };
 
-struct active_inventory final
+struct ActiveInventory final
 {};
 
 }  // namespace wanderer::comp

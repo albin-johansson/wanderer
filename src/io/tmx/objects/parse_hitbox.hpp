@@ -8,6 +8,6 @@ namespace wanderer::io {
 
 [[nodiscard]] auto parse_hitbox(const rune::tmx_object& object,
                                 float xRatio,
-                                float yRatio) -> comp::hitbox;
+                                float yRatio) -> comp::Hitbox;
 
 }  // namespace wanderer::io

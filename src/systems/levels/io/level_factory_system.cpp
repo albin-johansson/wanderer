@@ -30,29 +30,29 @@
 namespace wanderer::sys {
 namespace {
 
-void add_level_size(comp::level& level)
+void add_level_size(comp::Level& level)
 {
-  const auto& tilemap = level.registry.get<comp::tilemap>(level.tilemap);
-  auto& size = level.registry.set<ctx::level_size>();
+  const auto& tilemap = level.registry.get<comp::Tilemap>(level.tilemap);
+  auto& size = level.registry.set<ctx::LevelSize>();
   size.row_count = tilemap.row_count;
   size.col_count = tilemap.col_count;
 }
 
-void add_viewport(comp::level& level)
+void add_viewport(comp::Level& level)
 {
-  const auto& tilemap = level.registry.get<comp::tilemap>(level.tilemap);
-  level.registry.set<ctx::viewport>(sys::make_viewport(tilemap.size));
+  const auto& tilemap = level.registry.get<comp::Tilemap>(level.tilemap);
+  level.registry.set<ctx::Viewport>(sys::make_viewport(tilemap.size));
 }
 
 }  // namespace
 
-auto make_level(const ir::level& data, graphics_context& graphics) -> comp::level
+auto make_level(const ir::level& data, graphics_context& graphics) -> comp::Level
 {
   WANDERER_PROFILE_START
 
   load_tileset_textures(data, graphics);
 
-  comp::level level;
+  comp::Level level;
 
   level.tree.disable_thickness_factor();
   level.registry = make_registry();

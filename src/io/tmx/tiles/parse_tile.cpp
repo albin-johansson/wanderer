@@ -69,7 +69,6 @@ auto make_tile(const tile_id id,
 }
 
 auto parse_fancy_tile(ir::tileset& data,
-                      const ir::tile& tileData,
                       const rune::tmx_tile& tile,
                       const tile_id firstGid) -> ir::fancy_tile
 {

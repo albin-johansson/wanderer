@@ -13,9 +13,8 @@ namespace wanderer::sys {
  * \ingroup systems
  *
  * \param registry the current level registry.
- * \param dispatcher the dispatcher that will be used.
  */
-void update_chase(entt::registry& registry, entt::dispatcher& dispatcher);
+void update_chase(entt::registry& registry);
 
 /// \} End of AI
 

@@ -5,6 +5,6 @@
 
 namespace wanderer::sys {
 
-void load_humanoids(comp::level& level, graphics_context& graphics);
+void load_humanoids(comp::Level& level, graphics_context& graphics);
 
 }  // namespace wanderer::sys

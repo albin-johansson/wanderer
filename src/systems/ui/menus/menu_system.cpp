@@ -13,12 +13,11 @@ void update_menu(entt::registry& registry,
                  entt::dispatcher& dispatcher,
                  const rune::input& input)
 {
-  const auto menuEntity = registry.ctx<ctx::active_menu>().entity;
-  const auto& menu = registry.get<comp::menu>(menuEntity);
+  const auto menuEntity = registry.ctx<ctx::ActiveMenu>().entity;
 
   if (const auto button = update_button_hover(registry, input.mouse)) {
     if (query_button(registry, dispatcher, *button, input.mouse)) {
-      if (auto* group = registry.try_get<comp::button_group>(menuEntity)) {
+      if (auto* group = registry.try_get<comp::ButtonGroup>(menuEntity)) {
         if (sys::in_button_group(group->buttons, *button)) {
           group->selected = *button;
         }
@@ -30,7 +29,7 @@ void update_menu(entt::registry& registry,
   }
 
   for (auto&& [entity, bind, associated] :
-       registry.view<comp::key_bind, comp::associated_menu>().each())
+       registry.view<comp::KeyBind, comp::AssociatedMenu>().each())
   {
     if (associated.entity == menuEntity && input.keyboard.just_released(bind.key)) {
       dispatcher.enqueue<button_pressed_event>(bind.action);
@@ -40,11 +39,11 @@ void update_menu(entt::registry& registry,
 
 void switch_menu(entt::registry& registry, entt::dispatcher& dispatcher, const menu_id id)
 {
-  registry.unset<ctx::active_menu>();
+  registry.unset<ctx::ActiveMenu>();
 
-  for (auto&& [entity, menu] : registry.view<comp::menu>().each()) {
+  for (auto&& [entity, menu] : registry.view<comp::Menu>().each()) {
     if (menu.id == id) {
-      registry.set<ctx::active_menu>(entity);
+      registry.set<ctx::ActiveMenu>(entity);
       dispatcher.trigger<menu_switched_event>(entity);
     }
   }
@@ -52,8 +51,8 @@ void switch_menu(entt::registry& registry, entt::dispatcher& dispatcher, const m
 
 auto is_current_menu_blocking(const entt::registry& registry) -> bool
 {
-  const auto menuEntity = registry.ctx<ctx::active_menu>().entity;
-  return registry.get<comp::menu>(menuEntity).blocking;
+  const auto menuEntity = registry.ctx<ctx::ActiveMenu>().entity;
+  return registry.get<comp::Menu>(menuEntity).blocking;
 }
 
 }  // namespace wanderer::sys

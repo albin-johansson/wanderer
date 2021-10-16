@@ -5,15 +5,15 @@
 
 namespace wanderer::comp {
 
-enum class spawnpoint_type
+enum class SpawnpointType
 {
   player = 0,
   skeleton = 1
 };
 
-struct spawnpoint final
+struct Spawnpoint final
 {
-  spawnpoint_type type{};
+  SpawnpointType type{};
   float2 position;
 };
 

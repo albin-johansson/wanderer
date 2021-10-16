@@ -7,7 +7,7 @@
 namespace wanderer::sys {
 namespace {
 
-[[nodiscard]] auto sort(const comp::drawable& lhs, const comp::drawable& rhs) noexcept
+[[nodiscard]] auto sort(const comp::Drawable& lhs, const comp::Drawable& rhs) noexcept
     -> bool
 {
   const auto lhsCenterY = lhs.dst.center_y();
@@ -22,10 +22,10 @@ namespace {
 void update_depth(entt::registry& registry, sort_strategy strategy)
 {
   if (strategy == sort_strategy::insertion_sort) {
-    registry.sort<comp::drawable>(sort, entt::insertion_sort{});
+    registry.sort<comp::Drawable>(sort, entt::insertion_sort{});
   }
   else /*if (strategy == sort_strategy::std_sort)*/ {
-    registry.sort<comp::drawable>(sort);
+    registry.sort<comp::Drawable>(sort);
   }
 }
 

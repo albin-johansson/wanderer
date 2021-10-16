@@ -21,7 +21,7 @@ namespace wanderer::sys {
  * \param dispatcher the event dispatcher that will be used.
  * \param dt the current delta time.
  *
- * \see `ctx::time_of_day`
+ * \see `ctx::TimeOfDay`
  */
 void update_time(entt::registry& shared, entt::dispatcher& dispatcher, float dt);
 

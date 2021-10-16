@@ -4,7 +4,7 @@
 
 namespace wanderer::ctx {
 
-struct active_menu final
+struct ActiveMenu final
 {
   entt::entity entity{entt::null};
 };

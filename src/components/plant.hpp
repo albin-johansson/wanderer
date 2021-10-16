@@ -7,7 +7,7 @@
 
 namespace wanderer::comp {
 
-struct plant final
+struct Plant final
 {
   float current{};  ///< Current growth progress, in the range [0, rate].
   float rate{};     ///< Rate of growth.

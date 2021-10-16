@@ -34,7 +34,7 @@ void add_fancy_tiles(ir::tileset& data, const rune::tmx_tileset& tileset)
   for (const auto& tsTile : tileset.tiles) {
     const auto gid = first + static_cast<tile_id>(tsTile.id.get());
     auto& tile = data.tiles.at(gid);
-    tile.fancy = parse_fancy_tile(data, tile, tsTile, first);
+    tile.fancy = parse_fancy_tile(data, tsTile, first);
   }
 }
 

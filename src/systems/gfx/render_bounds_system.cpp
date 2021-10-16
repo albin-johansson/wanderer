@@ -58,10 +58,10 @@ namespace {
 
 void update_render_bounds(entt::registry& registry)
 {
-  const auto& viewport = registry.ctx<ctx::viewport>();
-  const auto& size = registry.ctx<ctx::level_size>();
+  const auto& viewport = registry.ctx<ctx::Viewport>();
+  const auto& size = registry.ctx<ctx::LevelSize>();
 
-  auto& bounds = registry.set<ctx::render_bounds>();
+  auto& bounds = registry.set<ctx::RenderBounds>();
   bounds.min_col = calculate_min_col(viewport.bounds.x());
   bounds.min_row = calculate_min_row(viewport.bounds.y());
   bounds.max_col = calculate_max_col(viewport.bounds.max_x(), size.col_count);

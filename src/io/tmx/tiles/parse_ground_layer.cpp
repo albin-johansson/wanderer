@@ -11,11 +11,11 @@ namespace wanderer::io {
 auto parse_ground_layer(const rune::tmx_tile_layer& tileLayer,
                         const int nRows,
                         const int nCols,
-                        const int layerIndex) -> comp::tile_layer
+                        const int layerIndex) -> comp::TileLayer
 {
   assert(tileLayer.data);
 
-  comp::tile_layer layer;
+  comp::TileLayer layer;
   layer.matrix = make_tile_matrix(nRows, nCols);
   layer.z = layerIndex;
 

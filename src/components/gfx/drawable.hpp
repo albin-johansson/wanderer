@@ -22,7 +22,7 @@ namespace wanderer::comp {
  *
  * \ingroup components
  */
-struct drawable final
+struct Drawable final
 {
   texture_index texture{};  ///< ID of associated texture.
   cen::irect src;           ///< Region of associated texture that will be rendered.

@@ -9,7 +9,7 @@
 
 namespace wanderer::comp {
 
-struct label final
+struct Label final
 {
   grid_position position;
   std::string text;

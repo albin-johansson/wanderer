@@ -13,34 +13,31 @@ inline constexpr float cooldown_duration = 100;
 
 void begin_chase(entt::registry& registry,
                  const entt::entity entity,
-                 comp::chase& chase,
-                 comp::movable& movable,
+                 comp::Chase& chase,
+                 comp::Movable& movable,
                  const float2 destination)
 {
-  registry.remove<comp::roam>(entity);
+  registry.remove<comp::Roam>(entity);
 
   movable.velocity = movable.position;
   movable.velocity.look_at(destination, movable.speed);
 
-  if (!registry.all_of<comp::humanoid_move>(entity)) {
+  if (!registry.all_of<comp::HumanoidMove>(entity)) {
     make_humanoid_move(registry, entity);
   }
 
   chase.active = true;
 }
 
-void end_chase(entt::registry& registry,
-               const entt::entity entity,
-               comp::chase& chase,
-               comp::movable& movable)
+void end_chase(entt::registry& registry, const entt::entity entity, comp::Chase& chase)
 {
   if (chase.active) {
-    if (!registry.all_of<comp::humanoid_idle>(entity)) {
+    if (!registry.all_of<comp::HumanoidIdle>(entity)) {
       make_humanoid_idle(registry, entity);
     }
 
-    if (!registry.all_of<comp::roam>(entity)) {
-      auto& roam = registry.emplace<comp::roam>(entity);
+    if (!registry.all_of<comp::Roam>(entity)) {
+      auto& roam = registry.emplace<comp::Roam>(entity);
       roam.cooldown_duration = cooldown_duration;
       roam.cooldown = 0;
     }
@@ -51,17 +48,17 @@ void end_chase(entt::registry& registry,
 
 }  // namespace
 
-void update_chase(entt::registry& registry, entt::dispatcher& dispatcher)
+void update_chase(entt::registry& registry)
 {
   for (auto&& [entity, chase, movable] :
-       registry.view<comp::chase, comp::movable>().each()) {
-    const auto& targetMovable = registry.get<comp::movable>(chase.target);
+       registry.view<comp::Chase, comp::Movable>().each()) {
+    const auto& targetMovable = registry.get<comp::Movable>(chase.target);
 
     if (distance(movable.position, targetMovable.position) <= chase.range) {
       begin_chase(registry, entity, chase, movable, targetMovable.position);
     }
     else {
-      end_chase(registry, entity, chase, movable);
+      end_chase(registry, entity, chase);
     }
   }
 }

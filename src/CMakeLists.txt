@@ -54,7 +54,7 @@ set(SOURCE_FILES
     components/lvl/portal.hpp
     components/lvl/spawnpoint.hpp
 
-    components/physics/float3.hpp
+    components/physics/vector3.hpp
     components/physics/hitbox.hpp
     components/physics/movable.hpp
     components/physics/particle.hpp

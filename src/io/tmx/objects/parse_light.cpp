@@ -5,11 +5,11 @@
 namespace wanderer::io {
 
 auto parse_light(const rune::tmx_object& object, const float xRatio, const float yRatio)
-    -> comp::point_light
+    -> comp::PointLight
 {
   assert(object.is_ellipse);
 
-  comp::point_light light;
+  comp::PointLight light;
   light.size = object.width * xRatio;
 
   const auto x = object.x * xRatio;

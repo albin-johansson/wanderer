@@ -9,6 +9,6 @@ namespace wanderer::io {
 [[nodiscard]] auto parse_ground_layer(const rune::tmx_tile_layer& tileLayer,
                                       int nRows,
                                       int nCols,
-                                      int layerIndex) -> comp::tile_layer;
+                                      int layerIndex) -> comp::TileLayer;
 
 }  // namespace wanderer::io

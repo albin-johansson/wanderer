@@ -6,6 +6,6 @@
 
 namespace wanderer::io {
 
-[[nodiscard]] auto parse_container(const rune::tmx_object& object) -> comp::inventory;
+[[nodiscard]] auto parse_container(const rune::tmx_object& object) -> comp::Inventory;
 
 }  // namespace wanderer::io

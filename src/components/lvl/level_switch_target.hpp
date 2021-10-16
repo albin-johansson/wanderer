@@ -4,7 +4,7 @@
 
 namespace wanderer::comp {
 
-struct level_switch_target final
+struct LevelSwitchTarget final
 {
   map_id id;
 };

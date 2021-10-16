@@ -9,7 +9,7 @@ namespace wanderer::comp {
 
 /// \brief Represents a layer of tiles.
 /// \ingroup components
-struct tile_layer final
+struct TileLayer final
 {
   using tile_matrix = std::vector<std::vector<tile_id>>;
 

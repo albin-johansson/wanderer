@@ -35,11 +35,8 @@ void update_player_light_position(entt::registry& registry);
  *
  * \param registry the current level registry.
  * \param time the current time state.
- * \param settings the current settings.
  */
-void render_lights(const entt::registry& registry,
-                   const ctx::time_of_day& time,
-                   const ctx::settings& settings);
+void render_lights(const entt::registry& registry, const ctx::TimeOfDay& time);
 
 /// \} End of lights
 

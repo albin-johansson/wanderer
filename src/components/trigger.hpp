@@ -4,19 +4,19 @@
 
 namespace wanderer::comp {
 
-enum class trigger_type
+enum class TriggerType
 {
   portal = 0,
   container = 1,
   bed = 2
 };
 
-struct trigger final
+struct Trigger final
 {
-  trigger_type type{};
+  TriggerType type{};
 };
 
-struct is_within_trigger final
+struct IsWithinTrigger final
 {
   entt::entity trigger_entity{entt::null};
 };

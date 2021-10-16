@@ -10,12 +10,12 @@ void add_button(entt::registry& registry,
                 const menu_action action,
                 const grid_position position)
 {
-  auto& button = registry.emplace<comp::button>(entity);
+  auto& button = registry.emplace<comp::Button>(entity);
   button.text = std::move(text);
   button.action = action;
   button.position = position;
 
-  registry.emplace<comp::button_drawable>(entity);
+  registry.emplace<comp::ButtonDrawable>(entity);
 }
 
 auto make_button(entt::registry& registry,

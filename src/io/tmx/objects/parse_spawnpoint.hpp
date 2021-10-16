@@ -8,6 +8,6 @@ namespace wanderer::io {
 
 [[nodiscard]] auto parse_spawnpoint(const rune::tmx_object& object,
                                     float xRatio,
-                                    float yRatio) -> comp::spawnpoint;
+                                    float yRatio) -> comp::Spawnpoint;
 
 }  // namespace wanderer::io

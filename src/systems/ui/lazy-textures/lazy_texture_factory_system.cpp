@@ -14,12 +14,12 @@ auto make_lazy_texture(entt::registry& registry,
 {
   const auto entity = registry.create();
 
-  registry.emplace<comp::lazy_texture>(entity,
-                                       position.row,
-                                       position.col,
-                                       size,
-                                       std::move(surface));
-  registry.emplace<comp::associated_menu>(entity, menu);
+  registry.emplace<comp::LazyTexture>(entity,
+                                      position.row,
+                                      position.col,
+                                      size,
+                                      std::move(surface));
+  registry.emplace<comp::AssociatedMenu>(entity, menu);
 
   return entity;
 }

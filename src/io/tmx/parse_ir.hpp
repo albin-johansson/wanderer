@@ -35,9 +35,9 @@ struct texture final
 
 struct fancy_tile final
 {
-  int32 depth = default_depth;            ///< Render depth index.
-  maybe<comp::hitbox> hitbox;             ///< Optional hitbox "template".
-  maybe<comp::tile_animation> animation;  ///< Optional tile animation.
+  int32 depth = default_depth;           ///< Render depth index.
+  maybe<comp::Hitbox> hitbox;            ///< Optional hitbox "template".
+  maybe<comp::TileAnimation> animation;  ///< Optional tile animation.
 };
 
 struct tile final
@@ -72,14 +72,14 @@ struct drawable final
 struct object final
 {
   int32 id{};                          ///< Unique object ID.
-  maybe<comp::hitbox> hitbox;          ///< Optional hitbox.
+  maybe<comp::Hitbox> hitbox;          ///< Optional hitbox.
   maybe<drawable> drawable;            ///< Optional drawable.
-  maybe<comp::spawnpoint> spawnpoint;  ///< Optional spawnpoint.
-  maybe<comp::inventory> inventory;    ///< Optional inventory.
-  maybe<comp::portal> portal;          ///< Optional portal.
-  maybe<comp::point_light> light;      ///< Optional light.
-  maybe<comp::plant> plant;            ///< Optional plant.
-  maybe<comp::trigger_type> trigger_type;
+  maybe<comp::Spawnpoint> spawnpoint;  ///< Optional spawnpoint.
+  maybe<comp::Inventory> inventory;    ///< Optional inventory.
+  maybe<comp::Portal> portal;          ///< Optional portal.
+  maybe<comp::PointLight> light;       ///< Optional light.
+  maybe<comp::Plant> plant;            ///< Optional plant.
+  maybe<comp::TriggerType> trigger_type;
   maybe<int32> object_ref;  ///< Optional associated object ID, used by inv. triggers.
 };
 
@@ -87,7 +87,7 @@ struct tile_object final
 {
   tile_id tile{};              ///< The ID of the associated tile.
   drawable drawable;           ///< Drawable component for the tile object.
-  maybe<comp::hitbox> hitbox;  ///< Optional hitbox.
+  maybe<comp::Hitbox> hitbox;  ///< Optional hitbox.
 };
 
 struct level final
@@ -102,10 +102,10 @@ struct level final
   float y_ratio{};            ///< Logical tile height divided by tileset tile height.
   cen::farea size;            ///< The size of the level, in pixels.
   float2 player_spawn_point;  ///< The initial position of the player.
-  std::vector<ir::tileset> tilesets;            ///< Tilesets used by the level.
-  std::vector<comp::tile_layer> ground_layers;  ///< List of "ground" layers.
-  std::vector<tile_object> tile_objects;        ///< List of tile objects.
-  std::vector<object> objects;                  ///< List of ordinary objects.
+  std::vector<ir::tileset> tilesets;           ///< Tilesets used by the level.
+  std::vector<comp::TileLayer> ground_layers;  ///< List of "ground" layers.
+  std::vector<tile_object> tile_objects;       ///< List of tile objects.
+  std::vector<object> objects;                 ///< List of ordinary objects.
 };
 
 struct world final

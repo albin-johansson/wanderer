@@ -31,9 +31,9 @@ namespace {
 }
 
 // Checks for collisions, stops the movable if there are collisions
-[[nodiscard]] auto update_movable(comp::movable& movable,
+[[nodiscard]] auto update_movable(comp::Movable& movable,
                                   const float2 oldPosition,
-                                  const comp::hitbox& other,
+                                  const comp::Hitbox& other,
                                   const next_hitboxes& next) -> collision_result
 {
   const auto collisions = query_collisions(next, other);
@@ -53,12 +53,12 @@ namespace {
 
 [[nodiscard]] auto check_out_of_bounds(entt::registry& registry,
                                        const next_hitboxes& next,
-                                       comp::movable& movable,
+                                       comp::Movable& movable,
                                        const float2 oldPosition) -> collision_result
 {
   collision_result collisions;
 
-  const auto& viewport = registry.ctx<ctx::viewport>();
+  const auto& viewport = registry.ctx<ctx::Viewport>();
   if (next.horizontal) {
     if ((next.horizontal->bounds.x() <= 0) ||
         (next.horizontal->bounds.max_x() >= viewport.level_size.width))
@@ -90,8 +90,8 @@ void update_hitbox(entt::registry& registry,
 {
   const auto oldAabbPos = tree.at(entity).min;
 
-  auto& hitbox = registry.get<comp::hitbox>(entity);
-  auto& movable = registry.get<comp::movable>(entity);
+  auto& hitbox = registry.get<comp::Hitbox>(entity);
+  auto& movable = registry.get<comp::Movable>(entity);
 
   set_position(hitbox, movable.position);
   tree.set_position(entity, to_vector(hitbox.bounds.position()));
@@ -123,7 +123,7 @@ void update_hitbox(entt::registry& registry,
 
   for (const auto candidate : candidates) {
     const auto collisions =
-        update_movable(movable, oldPosition, registry.get<comp::hitbox>(candidate), next);
+        update_movable(movable, oldPosition, registry.get<comp::Hitbox>(candidate), next);
     if (collisions.vertical || collisions.horizontal) {
       restorePosition(collisions);
     }
@@ -134,13 +134,13 @@ void update_hitbox(entt::registry& registry,
 
 void update_movement(entt::registry& registry, aabb_tree& tree, const float dt)
 {
-  for (auto&& [entity, movable] : registry.view<comp::movable>().each()) {
+  for (auto&& [entity, movable] : registry.view<comp::Movable>().each()) {
     const auto oldPosition = movable.position;
 
     movable.position += (movable.velocity * dt);
     movable.dir = dominant_direction(movable);
 
-    if (registry.all_of<comp::hitbox>(entity)) {
+    if (registry.all_of<comp::Hitbox>(entity)) {
       update_hitbox(registry, tree, entity, oldPosition, dt);
     }
   }

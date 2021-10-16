@@ -10,7 +10,7 @@
 
 namespace wanderer::comp {
 
-struct button final
+struct Button final
 {
   inline static constexpr uint8 enable_bit = 1u << 0u;
   inline static constexpr uint8 hover_bit = 1u << 1u;
@@ -22,7 +22,7 @@ struct button final
   uint8 state{enable_bit | visible_bit};
 };
 
-struct button_drawable final
+struct ButtonDrawable final
 {
   mutable cen::frect bounds;
   mutable maybe<cen::texture> texture;

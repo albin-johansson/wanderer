@@ -21,10 +21,10 @@
 #include "components/lvl/portal.hpp"
 #include "components/lvl/spawnpoint.hpp"
 #include "components/object.hpp"
-#include "components/physics/float3.hpp"
 #include "components/physics/hitbox.hpp"
 #include "components/physics/movable.hpp"
 #include "components/physics/particle.hpp"
+#include "components/physics/vector3.hpp"
 #include "components/plant.hpp"
 #include "components/player.hpp"
 #include "components/tiles/tile.hpp"
@@ -44,7 +44,7 @@ void copy_to(const float2& src, proto::float2* dst)
   dst->set_y(src.y);
 }
 
-void copy_to(const comp::float3& src, proto::float3* dst)
+void copy_to(const comp::Vector3& src, proto::float3* dst)
 {
   dst->set_x(src.x);
   dst->set_y(src.y);
@@ -81,7 +81,7 @@ void copy_to(const cen::color& src, proto::color* dst)
   dst->set_alpha(src.alpha());
 }
 
-void copy_to(const ctx::time_of_day& src, proto::time_of_day* dst)
+void copy_to(const ctx::TimeOfDay& src, proto::time_of_day* dst)
 {
   dst->set_hour(src.hour);
   dst->set_minute(src.minute);
@@ -91,14 +91,14 @@ void copy_to(const ctx::time_of_day& src, proto::time_of_day* dst)
   copy_to(src.tint, dst->mutable_tint());
 }
 
-void copy_to(const comp::movable& src, proto::movable& dst)
+void copy_to(const comp::Movable& src, proto::movable& dst)
 {
   copy_to(src.position, dst.mutable_position());
   copy_to(src.velocity, dst.mutable_velocity());
   dst.set_speed(src.speed);
 }
 
-void copy_to(const comp::drawable& src, proto::drawable& dst)
+void copy_to(const comp::Drawable& src, proto::drawable& dst)
 {
   copy_to(src.src, dst.mutable_src());
   copy_to(src.dst, dst.mutable_dst());
@@ -107,7 +107,7 @@ void copy_to(const comp::drawable& src, proto::drawable& dst)
   dst.set_depth_index(src.depth);
 }
 
-void copy_to(const comp::animation& src, proto::animation& dst)
+void copy_to(const comp::Animation& src, proto::animation& dst)
 {
   dst.set_frame(src.frame);
   dst.set_frame_count(src.frame_count);
@@ -115,7 +115,7 @@ void copy_to(const comp::animation& src, proto::animation& dst)
   dst.set_delay(src.delay.count());
 }
 
-void copy_to(const comp::plant& src, proto::plant& dst)
+void copy_to(const comp::Plant& src, proto::plant& dst)
 {
   dst.set_current_growth(src.current);
   dst.set_rate(src.rate);
@@ -134,7 +134,7 @@ void copy_to(const comp::plant& src, proto::plant& dst)
   }
 }
 
-void copy_to(const comp::tile& src, proto::tile& dst)
+void copy_to(const comp::Tile& src, proto::tile& dst)
 {
   copy_to(src.src, dst.mutable_src());
   dst.set_id(src.id);
@@ -142,7 +142,7 @@ void copy_to(const comp::tile& src, proto::tile& dst)
   dst.set_depth_index(src.depth);
 }
 
-void copy_to(const comp::tilemap& src, proto::tilemap& dst)
+void copy_to(const comp::Tilemap& src, proto::tilemap& dst)
 {
   copy_to(src.size, dst.mutable_size());
   dst.set_id(src.id);
@@ -151,7 +151,7 @@ void copy_to(const comp::tilemap& src, proto::tilemap& dst)
   dst.set_column_count(src.col_count);
 }
 
-void copy_to(const comp::tile_animation& src, proto::tile_animation& dst)
+void copy_to(const comp::TileAnimation& src, proto::tile_animation& dst)
 {
   dst.set_index(src.index);
   dst.set_then(src.then.count());
@@ -163,7 +163,7 @@ void copy_to(const comp::tile_animation& src, proto::tile_animation& dst)
   }
 }
 
-void copy_to(const comp::chase& src, proto::chase& dst)
+void copy_to(const comp::Chase& src, proto::chase& dst)
 {
   dst.set_target_entity(entt::to_integral(src.target));
   dst.set_range(src.range);
@@ -179,7 +179,7 @@ void copy_to(const comp::particle& src, proto::particle& dst)
   dst.set_duration(src.duration);
 }
 
-void copy_to(const comp::point_light& src, proto::point_light& dst)
+void copy_to(const comp::PointLight& src, proto::point_light& dst)
 {
   copy_to(src.position, dst.mutable_position());
   dst.set_size(src.size);
@@ -188,13 +188,13 @@ void copy_to(const comp::point_light& src, proto::point_light& dst)
   dst.set_fluctuation_limit(src.fluctuation_limit);
 }
 
-void copy_to(const comp::spawnpoint& src, proto::spawnpoint& dst)
+void copy_to(const comp::Spawnpoint& src, proto::spawnpoint& dst)
 {
   copy_to(src.position, dst.mutable_position());
   dst.set_type(static_cast<proto::spawnpoint_type>(src.type));
 }
 
-void copy_to(const comp::hitbox& src, proto::hitbox& dst)
+void copy_to(const comp::Hitbox& src, proto::hitbox& dst)
 {
   copy_to(src.origin, dst.mutable_origin());
   copy_to(src.bounds, dst.mutable_bounds());
@@ -207,12 +207,12 @@ void copy_to(const comp::hitbox& src, proto::hitbox& dst)
   }
 }
 
-void copy_to(const comp::object& src, proto::map_object& dst)
+void copy_to(const comp::Object& src, proto::map_object& dst)
 {
   dst.set_id(src.id);
 }
 
-void copy_to(const comp::portal& src, proto::portal& dst)
+void copy_to(const comp::Portal& src, proto::portal& dst)
 {
   if (src.target) {
     dst.set_map_id(*src.target);
@@ -220,7 +220,7 @@ void copy_to(const comp::portal& src, proto::portal& dst)
   dst.set_path(src.path);
 }
 
-void copy_to(const comp::tile_layer& src, proto::tile_layer& dst)
+void copy_to(const comp::TileLayer& src, proto::tile_layer& dst)
 {
   dst.set_z_index(src.z);
 
@@ -233,7 +233,7 @@ void copy_to(const comp::tile_layer& src, proto::tile_layer& dst)
   }
 }
 
-void copy_to(const comp::tileset& src, proto::tileset& dst)
+void copy_to(const comp::Tileset& src, proto::tileset& dst)
 {
   auto& map = *dst.mutable_tile_to_entity();
   for (const auto& [id, entity] : src.tiles) {
@@ -241,7 +241,7 @@ void copy_to(const comp::tileset& src, proto::tileset& dst)
   }
 }
 
-void copy_to(const comp::inventory& src, proto::inventory& dst)
+void copy_to(const comp::Inventory& src, proto::inventory& dst)
 {
   dst.set_capacity(src.capacity);
   for (const auto entity : src.items) {
@@ -249,17 +249,17 @@ void copy_to(const comp::inventory& src, proto::inventory& dst)
   }
 }
 
-void copy_to(const comp::tile_object& src, proto::tile_object& dst)
+void copy_to(const comp::TileObject& src, proto::tile_object& dst)
 {
   dst.set_tile_entity(entt::to_integral(src.tile_entity));
 }
 
-void copy_to(const comp::trigger& src, proto::trigger& dst)
+void copy_to(const comp::Trigger& src, proto::trigger& dst)
 {
   dst.set_type(static_cast<proto::trigger_type>(src.type));
 }
 
-void copy_to(const comp::associated_entity& src, proto::associated_entity& dst)
+void copy_to(const comp::AssociatedEntity& src, proto::associated_entity& dst)
 {
   dst.set_entity(entt::to_integral(src.entity));
 }
@@ -270,44 +270,44 @@ void save_level(const entt::registry& registry, proto::level* data)  // NOLINT
     const auto value = entt::to_integral(entity);
     data->add_entities(value);
 
-    if (registry.all_of<comp::player>(entity)) {
+    if (registry.all_of<comp::Player>(entity)) {
       assert(!data->has_player_entity());
       data->set_player_entity(value);
     }
 
-    if (registry.all_of<comp::humanoid>(entity)) {
+    if (registry.all_of<comp::Humanoid>(entity)) {
       data->add_humanoids(value);
     }
 
-    if (const auto* movable = registry.try_get<comp::movable>(entity)) {
+    if (const auto* movable = registry.try_get<comp::Movable>(entity)) {
       copy_to(*movable, (*data->mutable_movables())[value]);
     }
 
-    if (const auto* drawable = registry.try_get<comp::drawable>(entity)) {
+    if (const auto* drawable = registry.try_get<comp::Drawable>(entity)) {
       copy_to(*drawable, (*data->mutable_drawables())[value]);
     }
 
-    if (const auto* animation = registry.try_get<comp::animation>(entity)) {
+    if (const auto* animation = registry.try_get<comp::Animation>(entity)) {
       copy_to(*animation, (*data->mutable_animations())[value]);
     }
 
-    if (const auto* plant = registry.try_get<comp::plant>(entity)) {
+    if (const auto* plant = registry.try_get<comp::Plant>(entity)) {
       copy_to(*plant, (*data->mutable_plants())[value]);
     }
 
-    if (const auto* tile = registry.try_get<comp::tile>(entity)) {
+    if (const auto* tile = registry.try_get<comp::Tile>(entity)) {
       copy_to(*tile, (*data->mutable_tiles())[value]);
     }
 
-    if (const auto* tilemap = registry.try_get<comp::tilemap>(entity)) {
+    if (const auto* tilemap = registry.try_get<comp::Tilemap>(entity)) {
       copy_to(*tilemap, (*data->mutable_tilemaps())[value]);
     }
 
-    if (const auto* animation = registry.try_get<comp::tile_animation>(entity)) {
+    if (const auto* animation = registry.try_get<comp::TileAnimation>(entity)) {
       copy_to(*animation, (*data->mutable_tile_animations())[value]);
     }
 
-    if (const auto* chase = registry.try_get<comp::chase>(entity)) {
+    if (const auto* chase = registry.try_get<comp::Chase>(entity)) {
       copy_to(*chase, (*data->mutable_chases())[value]);
     }
 
@@ -315,58 +315,58 @@ void save_level(const entt::registry& registry, proto::level* data)  // NOLINT
       copy_to(*particle, (*data->mutable_particles())[value]);
     }
 
-    if (const auto* light = registry.try_get<comp::point_light>(entity)) {
+    if (const auto* light = registry.try_get<comp::PointLight>(entity)) {
       copy_to(*light, (*data->mutable_lights())[value]);
     }
 
-    if (const auto* spawnpoint = registry.try_get<comp::spawnpoint>(entity)) {
+    if (const auto* spawnpoint = registry.try_get<comp::Spawnpoint>(entity)) {
       copy_to(*spawnpoint, (*data->mutable_spawnpoints())[value]);
     }
 
-    if (const auto* hitbox = registry.try_get<comp::hitbox>(entity)) {
+    if (const auto* hitbox = registry.try_get<comp::Hitbox>(entity)) {
       copy_to(*hitbox, (*data->mutable_hitboxes())[value]);
     }
 
-    if (const auto* object = registry.try_get<comp::object>(entity)) {
+    if (const auto* object = registry.try_get<comp::Object>(entity)) {
       copy_to(*object, (*data->mutable_objects())[value]);
     }
 
-    if (const auto* portal = registry.try_get<comp::portal>(entity)) {
+    if (const auto* portal = registry.try_get<comp::Portal>(entity)) {
       copy_to(*portal, (*data->mutable_portals())[value]);
     }
 
-    if (const auto* layer = registry.try_get<comp::tile_layer>(entity)) {
+    if (const auto* layer = registry.try_get<comp::TileLayer>(entity)) {
       copy_to(*layer, (*data->mutable_tile_layers())[value]);
     }
 
-    if (const auto* tileset = registry.try_get<comp::tileset>(entity)) {
+    if (const auto* tileset = registry.try_get<comp::Tileset>(entity)) {
       copy_to(*tileset, (*data->mutable_tilesets())[value]);
     }
 
-    if (const auto* inventory = registry.try_get<comp::inventory>(entity)) {
+    if (const auto* inventory = registry.try_get<comp::Inventory>(entity)) {
       copy_to(*inventory, (*data->mutable_inventories())[value]);
     }
 
-    if (const auto* object = registry.try_get<comp::tile_object>(entity)) {
+    if (const auto* object = registry.try_get<comp::TileObject>(entity)) {
       copy_to(*object, (*data->mutable_tile_objects())[value]);
     }
 
-    if (const auto* trigger = registry.try_get<comp::trigger>(entity)) {
+    if (const auto* trigger = registry.try_get<comp::Trigger>(entity)) {
       copy_to(*trigger, (*data->mutable_triggers())[value]);
     }
 
-    if (const auto* association = registry.try_get<comp::associated_entity>(entity)) {
+    if (const auto* association = registry.try_get<comp::AssociatedEntity>(entity)) {
       copy_to(*association, (*data->mutable_associations())[value]);
     }
   });
 
-  const auto& viewport = registry.ctx<ctx::viewport>();
+  const auto& viewport = registry.ctx<ctx::Viewport>();
   data->set_is_outside_level(viewport.keep_in_bounds);
 }
 
 void save_shared_data(const entt::registry& shared, proto::shared_data* data)
 {
-  copy_to(shared.ctx<ctx::time_of_day>(), data->mutable_time());
+  copy_to(shared.ctx<ctx::TimeOfDay>(), data->mutable_time());
 }
 
 void save_data(const entt::registry& shared, proto::save& save)
@@ -374,10 +374,10 @@ void save_data(const entt::registry& shared, proto::save& save)
   save.set_current_level_id(sys::current_level(shared).id);
   save_shared_data(shared, save.mutable_shared());
 
-  for (auto&& [entity, level] : shared.view<comp::level>().each()) {
+  for (auto&& [entity, level] : shared.view<comp::Level>().each()) {
     auto* data = save.add_levels();
     data->set_id(level.id);
-    data->set_is_outside_level(shared.all_of<comp::outside_level>(entity));
+    data->set_is_outside_level(shared.all_of<comp::OutsideLevel>(entity));
     save_level(level.registry, data);
   }
 }

@@ -6,7 +6,7 @@
 namespace wanderer::sys {
 namespace {
 
-void insert_hitbox(aabb_tree& tree, const entt::entity entity, const comp::hitbox& hitbox)
+void insert_hitbox(aabb_tree& tree, const entt::entity entity, const comp::Hitbox& hitbox)
 {
   const auto lower = to_vector(hitbox.bounds.position());
   const auto upper = lower + to_vector(hitbox.bounds.size());
@@ -14,9 +14,9 @@ void insert_hitbox(aabb_tree& tree, const entt::entity entity, const comp::hitbo
 }
 
 [[nodiscard]] auto convert(const ir::drawable& drawable, const graphics_context& graphics)
-    -> comp::drawable
+    -> comp::Drawable
 {
-  comp::drawable result;
+  comp::Drawable result;
 
   result.texture = graphics.to_index(drawable.texture);
   result.depth = drawable.depth;
@@ -29,31 +29,31 @@ void insert_hitbox(aabb_tree& tree, const entt::entity entity, const comp::hitbo
 
 }  // namespace
 
-void load_tile_objects(comp::level& level,
+void load_tile_objects(comp::Level& level,
                        const graphics_context& graphics,
                        const ir::level& levelData)
 {
-  const auto& tileset = level.registry.get<comp::tileset>(level.tileset);
+  const auto& tileset = level.registry.get<comp::Tileset>(level.tileset);
 
   for (const auto& objectData : levelData.tile_objects) {
     const auto entity = level.registry.create();
 
-    auto& tileObject = level.registry.emplace<comp::tile_object>(entity);
+    auto& tileObject = level.registry.emplace<comp::TileObject>(entity);
     tileObject.tile_entity = tileset.tiles.at(objectData.tile);
 
-    level.registry.emplace<comp::drawable>(entity,
+    level.registry.emplace<comp::Drawable>(entity,
                                            convert(objectData.drawable, graphics));
 
     if (objectData.hitbox) {
       const auto& hitbox =
-          level.registry.emplace<comp::hitbox>(entity, *objectData.hitbox);
+          level.registry.emplace<comp::Hitbox>(entity, *objectData.hitbox);
       insert_hitbox(level.tree, entity, hitbox);
     }
 
     if (const auto* animation =
-            level.registry.try_get<comp::tile_animation>(tileObject.tile_entity))
+            level.registry.try_get<comp::TileAnimation>(tileObject.tile_entity))
     {
-      level.registry.emplace<comp::tile_animation>(entity, *animation);
+      level.registry.emplace<comp::TileAnimation>(entity, *animation);
     }
   }
 }

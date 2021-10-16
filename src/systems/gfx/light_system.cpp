@@ -22,7 +22,7 @@ inline const auto texture_path = resources::texture("ardentryst/glow.png");
 
 void update_lights(entt::registry& registry)
 {
-  for (auto&& [entity, light] : registry.view<comp::point_light>().each()) {
+  for (auto&& [entity, light] : registry.view<comp::PointLight>().each()) {
     light.fluctuation +=
         rune::next_bool() ? light.fluctuation_step : -light.fluctuation_step;
 
@@ -35,16 +35,14 @@ void update_lights(entt::registry& registry)
 
 void update_player_light_position(entt::registry& registry)
 {
-  const auto playerEntity = singleton_entity<comp::player>(registry);
-  const auto& drawable = registry.get<comp::drawable>(playerEntity);
+  const auto playerEntity = singleton_entity<comp::Player>(registry);
+  const auto& drawable = registry.get<comp::Drawable>(playerEntity);
 
-  auto& light = registry.get<comp::point_light>(playerEntity);
+  auto& light = registry.get<comp::PointLight>(playerEntity);
   light.position = to_vector(drawable.dst.center());
 }
 
-void render_lights(const entt::registry& registry,
-                   const ctx::time_of_day& time,
-                   const ctx::settings& settings)
+void render_lights(const entt::registry& registry, const ctx::TimeOfDay& time)
 {
   auto& graphics = registry.ctx<ref<graphics_context>>().get();
   auto& renderer = graphics.get_renderer();
@@ -54,10 +52,10 @@ void render_lights(const entt::registry& registry,
   renderer.clear_with(time.tint);
 
   const auto index = graphics.load(texture_id{"point_light"_hs}, texture_path);
-  const auto& viewport = registry.ctx<ctx::viewport>();
+  const auto& viewport = registry.ctx<ctx::Viewport>();
   constexpr auto source = cen::rect(0, 0, 80, 80);
 
-  for (auto&& [entity, light] : registry.view<comp::point_light>().each()) {
+  for (auto&& [entity, light] : registry.view<comp::PointLight>().each()) {
     const auto& pos = light.position;
 
     const auto size = light.size + light.fluctuation;

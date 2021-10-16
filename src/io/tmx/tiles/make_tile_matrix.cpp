@@ -6,7 +6,7 @@
 
 namespace wanderer::io {
 
-auto make_tile_matrix(const int nRows, const int nCols) -> comp::tile_layer::tile_matrix
+auto make_tile_matrix(const int nRows, const int nCols) -> comp::TileLayer::tile_matrix
 {
   const auto rows = static_cast<usize>(nRows);
   const auto cols = static_cast<usize>(nCols);

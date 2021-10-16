@@ -10,11 +10,11 @@
 namespace wanderer::comp {
 
 // TODO consider removing this component and using context variables for the rest
-struct level final
+struct Level final
 {
-  level() = default;
-  level(level&&) noexcept = default;
-  level& operator=(level&&) noexcept = default;
+  Level() = default;
+  Level(Level&&) noexcept = default;
+  Level& operator=(Level&&) noexcept = default;
 
   map_id id;
 
@@ -27,10 +27,10 @@ struct level final
   maybe<float2> player_spawn_position;
 };
 
-struct outside_level final
+struct OutsideLevel final
 {};
 
-struct active_level final
+struct ActiveLevel final
 {};
 
 }  // namespace wanderer::comp

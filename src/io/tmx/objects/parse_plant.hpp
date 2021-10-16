@@ -8,6 +8,6 @@
 namespace wanderer::io {
 
 [[nodiscard]] auto parse_plant(const ir::level& data, const rune::tmx_object& object)
-    -> comp::plant;
+    -> comp::Plant;
 
 }  // namespace wanderer::io

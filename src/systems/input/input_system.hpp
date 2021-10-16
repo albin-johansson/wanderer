@@ -24,7 +24,7 @@ namespace wanderer::sys {
 void update_input(entt::registry& registry,
                   entt::dispatcher& dispatcher,
                   const rune::input& input,
-                  const ctx::binds& binds);
+                  const ctx::Binds& binds);
 
 /// \} End of input
 

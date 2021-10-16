@@ -16,11 +16,11 @@ namespace wanderer::sys {
 /// \name Buttons
 /// \{
 
-void set_visible(comp::button& button, bool visible);
+void set_visible(comp::Button& button, bool visible);
 
-void set_hovered(comp::button& button, bool hovered);
+void set_hovered(comp::Button& button, bool hovered);
 
-void set_enabled(comp::button& button, bool enabled);
+void set_enabled(comp::Button& button, bool enabled);
 
 /**
  * \brief Checks whether or not a button was pressed, and if so, the associated action

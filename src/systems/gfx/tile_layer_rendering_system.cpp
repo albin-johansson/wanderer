@@ -15,9 +15,9 @@ namespace {
 
 void render_layer(const entt::registry& registry,
                   graphics_context& graphics,
-                  const ctx::render_bounds& bounds,
-                  const comp::tile_layer& layer,
-                  const comp::tileset& tileset)
+                  const ctx::RenderBounds& bounds,
+                  const comp::TileLayer& layer,
+                  const comp::Tileset& tileset)
 {
   for (auto row = bounds.min_row; row < bounds.max_row; ++row) {
     for (auto col = bounds.min_col; col < bounds.max_col; ++col) {
@@ -30,11 +30,11 @@ void render_layer(const entt::registry& registry,
       if (!is_empty(id)) {
         const grid_position position{static_cast<float>(row), static_cast<float>(col)};
         const auto entity = tileset.tiles.at(id);
-        if (registry.all_of<comp::tile_animation>(entity)) {
+        if (registry.all_of<comp::TileAnimation>(entity)) {
           render_tile(graphics, get_animated_tile(registry, entity, tileset), position);
         }
         else {
-          render_tile(graphics, registry.get<comp::tile>(entity), position);
+          render_tile(graphics, registry.get<comp::Tile>(entity), position);
         }
       }
     }
@@ -45,11 +45,11 @@ void render_layer(const entt::registry& registry,
 
 void render_tile_layers(const entt::registry& registry)
 {
-  const auto& [tilesetEntity, tileset] = singleton<const comp::tileset>(registry);
-  const auto& bounds = registry.ctx<ctx::render_bounds>();
+  const auto& [tilesetEntity, tileset] = singleton<const comp::Tileset>(registry);
+  const auto& bounds = registry.ctx<ctx::RenderBounds>();
 
   auto& graphics = registry.ctx<ref<graphics_context>>().get();
-  for (auto&& [entity, layer] : registry.view<comp::tile_layer>().each()) {
+  for (auto&& [entity, layer] : registry.view<comp::TileLayer>().each()) {
     render_layer(registry, graphics, bounds, layer, tileset);
   }
 }

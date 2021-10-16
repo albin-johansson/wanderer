@@ -29,7 +29,6 @@ namespace {
 }
 
 void save_common(const entt::registry& shared,
-                 const std::string& name,
                  const std::filesystem::path& dir,
                  const cen::surface& snapshot)
 {
@@ -45,14 +44,12 @@ void save_game(const std::string& name,
                const cen::surface& snapshot)
 {
   const auto dir = unique_path(saves_directory() / name);
-  const auto saveName = dir.filename().string();
-  save_common(shared, saveName, dir, snapshot);
+  save_common(shared, dir, snapshot);
 }
 
 void create_exit_save(const entt::registry& shared, const cen::surface& snapshot)
 {
-  const std::string name{"exit_save"};
-  save_common(shared, name, saves_directory() / name, snapshot);
+  save_common(shared, saves_directory() / "exit_save", snapshot);
 }
 
 }  // namespace wanderer

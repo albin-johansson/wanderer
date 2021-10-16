@@ -28,11 +28,11 @@ namespace wanderer::sys {
 
 void render_labels(const entt::registry& registry, graphics_context& graphics)
 {
-  const auto active = registry.ctx<ctx::active_menu>().entity;
+  const auto active = registry.ctx<ctx::ActiveMenu>().entity;
   auto& renderer = graphics.get_renderer();
 
   for (auto&& [entity, label, associated] :
-       registry.view<comp::label, comp::associated_menu>().each())
+       registry.view<comp::Label, comp::AssociatedMenu>().each())
   {
     if (active == associated.entity) {
       if (!label.texture) {

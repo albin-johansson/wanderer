@@ -15,10 +15,10 @@ namespace {
 {
   const auto entity = shared.create();
 
-  auto& world = shared.emplace<comp::level>(entity, make_level(data.base, graphics));
-  world.registry.ctx<ctx::viewport>().keep_in_bounds = true;
+  auto& world = shared.emplace<comp::Level>(entity, make_level(data.base, graphics));
+  world.registry.ctx<ctx::Viewport>().keep_in_bounds = true;
 
-  shared.emplace<comp::outside_level>(entity);
+  shared.emplace<comp::OutsideLevel>(entity);
 
   return entity;
 }
@@ -32,10 +32,10 @@ void load_levels(entt::registry& shared, graphics_context& graphics)
   const auto world = create_world(shared, graphics, data);
 
   for (const auto& sublevel : data.levels) {
-    shared.emplace<comp::level>(shared.create(), make_level(sublevel, graphics));
+    shared.emplace<comp::Level>(shared.create(), make_level(sublevel, graphics));
   }
 
-  shared.emplace<comp::active_level>(world);
+  shared.emplace<comp::ActiveLevel>(world);
 }
 
 }  // namespace wanderer::sys

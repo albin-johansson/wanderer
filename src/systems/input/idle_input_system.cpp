@@ -16,7 +16,7 @@ namespace wanderer::sys {
 namespace {
 
 [[nodiscard]] auto get_direction(const cen::keyboard& keyboard,
-                                 const ctx::binds& binds) noexcept
+                                 const ctx::Binds& binds) noexcept
     -> std::optional<direction>
 {
   const auto left = keyboard.is_pressed(binds.left);
@@ -44,10 +44,10 @@ namespace {
 void check_for_movement(entt::registry& registry,
                         entt::dispatcher& dispatcher,
                         const cen::keyboard& keyboard,
-                        const ctx::binds& binds)
+                        const ctx::Binds& binds)
 {
   if (const auto dir = get_direction(keyboard, binds)) {
-    const auto player = singleton_entity<comp::player>(registry);
+    const auto player = singleton_entity<comp::Player>(registry);
     dispatcher.enqueue<begin_humanoid_move_event>(registry, player, *dir);
   }
 }
@@ -57,17 +57,17 @@ void check_for_movement(entt::registry& registry,
 void handle_idle_input(entt::registry& registry,
                        entt::dispatcher& dispatcher,
                        const rune::input& input,
-                       const ctx::binds& binds)
+                       const ctx::Binds& binds)
 {
-  const auto player = singleton_entity<comp::player>(registry);
+  const auto player = singleton_entity<comp::Player>(registry);
 
-  assert(registry.all_of<comp::humanoid_idle>(player));
+  assert(registry.all_of<comp::HumanoidIdle>(player));
   const auto& keyboard = input.keyboard;
 
   if (keyboard.just_released(binds.interact)) {
     dispatcher.enqueue<interact_event>(registry, dispatcher);
   }
-  else if (registry.empty<comp::active_inventory>()) {
+  else if (registry.empty<comp::ActiveInventory>()) {
     if (keyboard.is_pressed(binds.attack)) {
       // FIXME
       dispatcher.enqueue<begin_attack_event>(registry,

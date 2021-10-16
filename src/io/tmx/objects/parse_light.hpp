@@ -7,6 +7,6 @@
 namespace wanderer::io {
 
 [[nodiscard]] auto parse_light(const rune::tmx_object& object, float xRatio, float yRatio)
-    -> comp::point_light;
+    -> comp::PointLight;
 
 }  // namespace wanderer::io

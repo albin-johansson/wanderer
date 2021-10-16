@@ -21,7 +21,7 @@ void add_buttons(entt::registry& registry, const entt::entity entity)
     const auto button =
         make_button(registry, std::move(text), action, grid_position{row, col});
 
-    auto& associated = registry.emplace<comp::associated_menu>(button);
+    auto& associated = registry.emplace<comp::AssociatedMenu>(button);
     associated.entity = entity;
   };
 
@@ -46,12 +46,12 @@ void add_buttons(entt::registry& registry, const entt::entity entity)
 auto make_home_menu(entt::registry& registry) -> entt::entity
 {
   const auto entity = make_menu(registry, "Wanderer", menu_id::home);
-  registry.set<comp::home_menu>(entity);
+  registry.set<comp::HomeMenu>(entity);
 
   add_buttons(registry, entity);
   add_binds(registry,
             entity,
-            comp::key_bind{cen::scancodes::escape, menu_action::goto_in_game});
+            comp::KeyBind{cen::scancodes::escape, menu_action::goto_in_game});
 
   return entity;
 }

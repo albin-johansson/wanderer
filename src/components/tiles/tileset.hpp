@@ -9,7 +9,7 @@
 
 namespace wanderer::comp {
 
-struct tileset final
+struct Tileset final
 {
   std::unordered_map<tile_id, entt::entity> tiles;  // All available tiles entities.
 };

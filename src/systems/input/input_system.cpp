@@ -10,13 +10,13 @@ namespace wanderer::sys {
 void update_input(entt::registry& registry,
                   entt::dispatcher& dispatcher,
                   const rune::input& input,
-                  const ctx::binds& binds)
+                  const ctx::Binds& binds)
 {
-  const auto player = singleton_entity<comp::player>(registry);
-  if (registry.all_of<comp::humanoid_idle>(player)) {
+  const auto player = singleton_entity<comp::Player>(registry);
+  if (registry.all_of<comp::HumanoidIdle>(player)) {
     handle_idle_input(registry, dispatcher, input, binds);
   }
-  else if (registry.all_of<comp::humanoid_move>(player)) {
+  else if (registry.all_of<comp::HumanoidMove>(player)) {
     handle_move_input(registry, dispatcher, input, binds);
   }
 }

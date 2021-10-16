@@ -4,14 +4,8 @@
 
 namespace wanderer::ctx {
 
-/**
- * \struct render_bounds
- *
- * \brief Represents the bounds of a map that will be rendered.
- *
- * \headerfile render_bounds.hpp
- */
-struct render_bounds final
+/// \brief Represents the bounds of a map that will be rendered.
+struct RenderBounds final
 {
   uint64 min_row{};  ///< The minimum row index of tiles that will be rendered.
   uint64 min_col{};  ///< The minimum column index of tiles that will be rendered.

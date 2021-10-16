@@ -10,7 +10,7 @@ void start_level_change_animation(entt::registry& registry, map_id map)
 {
   const auto entity = start_bond_animation(registry, glob::switch_level_id);
 
-  auto& target = registry.emplace<comp::level_switch_target>(entity);
+  auto& target = registry.emplace<comp::LevelSwitchTarget>(entity);
   target.id = map;
 }
 

@@ -5,7 +5,7 @@
 
 #include "common/float2.hpp"
 #include "components/ctx/time_of_day.hpp"
-#include "components/physics/float3.hpp"
+#include "components/physics/vector3.hpp"
 
 namespace wanderer {
 namespace proto {
@@ -23,7 +23,7 @@ class level;
 
 [[nodiscard]] auto restore(const proto::float2& data) -> float2;
 
-[[nodiscard]] auto restore(const proto::float3& data) -> comp::float3;
+[[nodiscard]] auto restore(const proto::float3& data) -> comp::Vector3;
 
 [[nodiscard]] auto restore(const proto::irect& data) -> cen::irect;
 
@@ -33,7 +33,7 @@ class level;
 
 [[nodiscard]] auto restore(const proto::color& data) -> cen::color;
 
-[[nodiscard]] auto restore(const proto::time_of_day& data) -> ctx::time_of_day;
+[[nodiscard]] auto restore(const proto::time_of_day& data) -> ctx::TimeOfDay;
 
 void restore_movable(const proto::level& level,
                      entt::registry& registry,

@@ -29,7 +29,7 @@ void make_binds(entt::registry& registry, const entt::entity menu)
 {
   add_binds(registry,
             menu,
-            comp::key_bind{cen::scancodes::escape, menu_action::goto_home});
+            comp::KeyBind{cen::scancodes::escape, menu_action::goto_home});
 }
 
 void make_labels(entt::registry& registry, const entt::entity menu)
@@ -53,7 +53,7 @@ void make_buttons(entt::registry& registry, const entt::entity menuEntity)
     const auto entity =
         make_button(registry, std::move(text), action, grid_position{row, col});
 
-    auto& associated = registry.emplace<comp::associated_menu>(entity);
+    auto& associated = registry.emplace<comp::AssociatedMenu>(entity);
     associated.entity = menuEntity;
 
     return entity;
@@ -62,7 +62,7 @@ void make_buttons(entt::registry& registry, const entt::entity menuEntity)
   button("Return", menu_action::goto_home, 3.5f);
 
   // clang-format off
-  auto& savesMenu = registry.get<comp::saves_menu>(menuEntity);
+  auto& savesMenu = registry.get<comp::SavesMenu>(menuEntity);
   savesMenu.load_button = button("Load", menu_action::load_game, 15, 12);
   savesMenu.delete_button = button("Delete", menu_action::delete_game, 15, 27.5f);
   savesMenu.decrement_button = button("<", menu_action::decrement_saves_button_group_page, 15, 4);
@@ -75,7 +75,7 @@ void make_lines(entt::registry& registry, const entt::entity menuEntity)
   const auto line = [&](const grid_position start, const grid_position end) {
     const auto entity = make_line(registry, start, end);
 
-    auto& associated = registry.emplace<comp::associated_menu>(entity);
+    auto& associated = registry.emplace<comp::AssociatedMenu>(entity);
     associated.entity = menuEntity;
   };
 
@@ -98,7 +98,7 @@ void make_lines(entt::registry& registry, const entt::entity menuEntity)
 auto make_saves_menu(entt::registry& registry) -> entt::entity
 {
   const auto menuEntity = make_menu(registry, "Saves", menu_id::saves);
-  registry.emplace<comp::saves_menu>(menuEntity);
+  registry.emplace<comp::SavesMenu>(menuEntity);
 
   make_binds(registry, menuEntity);
   make_buttons(registry, menuEntity);

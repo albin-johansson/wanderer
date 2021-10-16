@@ -21,7 +21,7 @@ namespace wanderer::sys {
  *
  * \ingroup systems
  *
- * \tparam T the pack of `comp::key_bind` instances.
+ * \tparam T the pack of `comp::KeyBind` instances.
  *
  * \param registry the registry that contains the menus.
  * \param menuEntity the menu entity that will feature the binds.
@@ -30,13 +30,13 @@ namespace wanderer::sys {
 template <typename... T>
 void add_binds(entt::registry& registry, const entt::entity menuEntity, T... binds)
 {
-  static_assert((std::is_same_v<T, comp::key_bind>, ...));
+  static_assert((std::is_same_v<T, comp::KeyBind>, ...));
 
-  const auto addBind = [&](const comp::key_bind bind) {
+  const auto addBind = [&](const comp::KeyBind bind) {
     const auto entity = registry.create();
-    registry.emplace<comp::key_bind>(entity, bind);
+    registry.emplace<comp::KeyBind>(entity, bind);
 
-    auto& associated = registry.emplace<comp::associated_menu>(entity);
+    auto& associated = registry.emplace<comp::AssociatedMenu>(entity);
     associated.entity = menuEntity;
   };
 

@@ -12,9 +12,9 @@ namespace {
 
 inline const auto settings_file = files_directory() / "settings.ini";
 
-[[nodiscard]] constexpr auto default_settings() noexcept -> ctx::settings
+[[nodiscard]] constexpr auto default_settings() noexcept -> ctx::Settings
 {
-  ctx::settings settings;
+  ctx::Settings settings;
 
   settings.fullscreen = true;
   settings.integer_scaling = true;
@@ -22,13 +22,13 @@ inline const auto settings_file = files_directory() / "settings.ini";
   return settings;
 }
 
-void log_settings(const ctx::settings& settings)
+void log_settings(const ctx::Settings& settings)
 {
   cen::log::info("  [bool] fullscreen = %i", settings.fullscreen);
   cen::log::info("  [bool] integerScaling = %i", settings.integer_scaling);
 }
 
-[[nodiscard]] auto read_settings(const std::filesystem::path& path) -> ctx::settings
+[[nodiscard]] auto read_settings(const std::filesystem::path& path) -> ctx::Settings
 {
   CENTURION_LOG_INFO("Reading settings: \"%s\"", path.string().c_str());
 
@@ -52,32 +52,32 @@ void log_settings(const ctx::settings& settings)
 void load_settings(entt::registry& registry)
 {
   if (std::filesystem::exists(settings_file)) {
-    registry.set<ctx::settings>(read_settings(settings_file));
+    registry.set<ctx::Settings>(read_settings(settings_file));
   }
   else {
     CENTURION_LOG_INFO("Copying default settings to preferred path...");
     std::filesystem::copy("resources/settings.ini", settings_file);
-    registry.set<ctx::settings>(default_settings());
+    registry.set<ctx::Settings>(default_settings());
   }
 }
 
 auto toggle_fullscreen(entt::registry& registry) -> bool
 {
-  auto& settings = registry.ctx<ctx::settings>();
+  auto& settings = registry.ctx<ctx::Settings>();
   settings.fullscreen = !settings.fullscreen;
   return settings.fullscreen;
 }
 
 auto toggle_integer_scaling(entt::registry& registry) -> bool
 {
-  auto& settings = registry.ctx<ctx::settings>();
+  auto& settings = registry.ctx<ctx::Settings>();
   settings.integer_scaling = !settings.integer_scaling;
   return settings.integer_scaling;
 }
 
 void save_settings_before_exit(const entt::registry& registry)
 {
-  const auto& settings = registry.ctx<ctx::settings>();
+  const auto& settings = registry.ctx<ctx::Settings>();
 
   init::ini ini;
   ini["Graphics"]["Fullscreen"] = settings.fullscreen;

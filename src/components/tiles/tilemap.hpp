@@ -15,7 +15,7 @@ namespace wanderer::comp {
  *
  * \ingroup components
  */
-struct tilemap final
+struct Tilemap final
 {
   map_id id{0};            ///< The ID associated with the tilemap
   int32 humanoid_layer{};  ///< The layer that humanoids inhabit

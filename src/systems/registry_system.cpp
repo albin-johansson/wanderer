@@ -23,10 +23,10 @@ auto make_shared_registry() -> entt::registry
   make_settings_menu(registry);
   make_saves_menu(registry);
 
-  registry.set<ctx::active_menu>(home);
-  registry.set<ctx::time_of_day>();
+  registry.set<ctx::ActiveMenu>(home);
+  registry.set<ctx::TimeOfDay>();
 
-  auto& cursors = registry.set<ctx::cursors>();
+  auto& cursors = registry.set<ctx::Cursors>();
   cursors.data.try_emplace(cen::system_cursor::hand, cen::system_cursor::hand);
 
   return registry;

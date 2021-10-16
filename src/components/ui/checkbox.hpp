@@ -2,7 +2,7 @@
 
 namespace wanderer::comp {
 
-struct checkbox final
+struct Checkbox final
 {
   bool checked{};
 };

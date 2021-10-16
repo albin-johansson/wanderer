@@ -85,7 +85,7 @@ void update_particles(entt::registry& registry, const float dt)
 
 void render_particles(const entt::registry& registry)
 {
-  const auto& viewport = registry.ctx<ctx::viewport>();
+  const auto& viewport = registry.ctx<ctx::Viewport>();
 
   auto& graphics = registry.ctx<ref<graphics_context>>().get();
   auto& renderer = graphics.get_renderer();

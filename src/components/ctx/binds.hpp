@@ -6,14 +6,8 @@
 
 namespace wanderer::ctx {
 
-/**
- * \struct binds
- *
- * \brief Represents all of the key binds used by the player.
- *
- * \headerfile binds.hpp
- */
-struct binds final
+/// \brief Represents all of the key binds used by the player.
+struct Binds final
 {
   cen::scan_code up{cen::scancodes::w};
   cen::scan_code right{cen::scancodes::d};

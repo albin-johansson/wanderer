@@ -94,7 +94,6 @@ class engine
 
     m_game->on_start();
 
-    auto& renderer = m_graphics.get_renderer();
     while (m_loop.is_running())
     {
       m_loop.tick();

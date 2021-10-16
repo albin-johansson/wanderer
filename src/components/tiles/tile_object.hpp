@@ -4,7 +4,7 @@
 
 namespace wanderer::comp {
 
-struct tile_object final
+struct TileObject final
 {
   entt::entity tile_entity{entt::null};
 };

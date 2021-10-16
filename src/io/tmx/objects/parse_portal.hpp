@@ -6,6 +6,6 @@
 
 namespace wanderer::io {
 
-[[nodiscard]] auto parse_portal(const rune::tmx_object& object) -> comp::portal;
+[[nodiscard]] auto parse_portal(const rune::tmx_object& object) -> comp::Portal;
 
 }  // namespace wanderer::io

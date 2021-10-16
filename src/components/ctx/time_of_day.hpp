@@ -7,7 +7,7 @@
 
 namespace wanderer::ctx {
 
-struct time_of_day final
+struct TimeOfDay final
 {
   float hour{};     ///< [0, 24)
   float minute{};   ///< [0, 60)

@@ -9,14 +9,14 @@ namespace wanderer::io {
 namespace {
 
 [[nodiscard]] auto get_spawnpoint_entity(const rune::tmx_properties& properties)
-    -> comp::spawnpoint_type
+    -> comp::SpawnpointType
 {
   const auto entity = rune::tmx::get_string(properties, "entity");
   if (entity == "player") {
-    return comp::spawnpoint_type::player;
+    return comp::SpawnpointType::player;
   }
   else if (entity == "skeleton") {
-    return comp::spawnpoint_type::skeleton;
+    return comp::SpawnpointType::skeleton;
   }
   else {
     throw std::runtime_error{"Did not recognize spawnpoint type!"};
@@ -27,10 +27,10 @@ namespace {
 
 auto parse_spawnpoint(const rune::tmx_object& object,
                       const float xRatio,
-                      const float yRatio) -> comp::spawnpoint
+                      const float yRatio) -> comp::Spawnpoint
 {
   assert(rune::tmx::is_string(object.properties, "entity"));
-  comp::spawnpoint spawnpoint;
+  comp::Spawnpoint spawnpoint;
 
   spawnpoint.position = float2{object.x * xRatio, object.y * yRatio};
   spawnpoint.type = get_spawnpoint_entity(object.properties);

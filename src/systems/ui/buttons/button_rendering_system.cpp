@@ -14,7 +14,7 @@ inline constexpr auto button_outline_fg_color = cen::colors::ghost_white;
 inline constexpr auto button_outline_bg_color = button_outline_fg_color.with_alpha(0x22);
 inline constexpr auto button_font = glob::menu_font_m;
 
-void update_bounds(const comp::button& button,
+void update_bounds(const comp::Button& button,
                    cen::frect& bounds,
                    cen::renderer& renderer)
 {
@@ -27,7 +27,7 @@ void update_bounds(const comp::button& button,
   bounds.set_y(pos.y() + ((glob::menu_row_size - bounds.height()) / 2.0f));
 }
 
-void init_text(const comp::button_drawable& drawable,
+void init_text(const comp::ButtonDrawable& drawable,
                const std::string& text,
                cen::renderer& renderer)
 {
@@ -37,8 +37,8 @@ void init_text(const comp::button_drawable& drawable,
   drawable.texture.emplace(render_text(renderer, text, font));
 }
 
-void render_text(const comp::button& button,
-                 const comp::button_drawable& drawable,
+void render_text(const comp::Button& button,
+                 const comp::ButtonDrawable& drawable,
                  cen::renderer& renderer)
 {
   if (button.text.empty()) {
@@ -53,13 +53,13 @@ void render_text(const comp::button& button,
   }
 
   auto& texture = drawable.texture.value();
-  texture.set_alpha((button.state & comp::button::enable_bit) ? 255 : 100);
+  texture.set_alpha((button.state & comp::Button::enable_bit) ? 255 : 100);
 
   renderer.render(texture, *drawable.text_pos);
   texture.set_alpha(255);
 }
 
-void render_outline(const comp::button_drawable& drawable, cen::renderer& renderer)
+void render_outline(const comp::ButtonDrawable& drawable, cen::renderer& renderer)
 {
   renderer.set_color(button_outline_bg_color);
   renderer.fill_rect(drawable.bounds);
@@ -73,10 +73,10 @@ void render_button(const entt::registry& registry,
                    const entt::entity buttonEntity)
 {
   auto& renderer = graphics.get_renderer();
-  const auto& button = registry.get<comp::button>(buttonEntity);
-  const auto& drawable = registry.get<comp::button_drawable>(buttonEntity);
+  const auto& button = registry.get<comp::Button>(buttonEntity);
+  const auto& drawable = registry.get<comp::ButtonDrawable>(buttonEntity);
 
-  if (!(button.state & comp::button::visible_bit)) {
+  if (!(button.state & comp::Button::visible_bit)) {
     return;
   }
 
@@ -85,7 +85,7 @@ void render_button(const entt::registry& registry,
     init_text(drawable, button.text, renderer);
   }
 
-  if (button.state & comp::button::hover_bit && button.state & comp::button::enable_bit) {
+  if (button.state & comp::Button::hover_bit && button.state & comp::Button::enable_bit) {
     render_outline(drawable, renderer);
   }
 
@@ -96,11 +96,11 @@ void render_button(const entt::registry& registry,
 
 void render_buttons(const entt::registry& registry, graphics_context& graphics)
 {
-  const auto menuEntity = registry.ctx<ctx::active_menu>().entity;
+  const auto menuEntity = registry.ctx<ctx::ActiveMenu>().entity;
 
-  constexpr auto filter = entt::exclude<comp::checkbox>;
+  constexpr auto filter = entt::exclude<comp::Checkbox>;
   for (auto&& [entity, button, associated] :
-       registry.view<comp::button, comp::associated_menu>(filter).each())
+       registry.view<comp::Button, comp::AssociatedMenu>(filter).each())
   {
     if (associated.entity == menuEntity) {
       render_button(registry, graphics, entity);
@@ -111,15 +111,14 @@ void render_buttons(const entt::registry& registry, graphics_context& graphics)
 void render_button_group_indicators(const entt::registry& registry,
                                     graphics_context& graphics)
 {
-  const auto menuEntity = registry.ctx<ctx::active_menu>().entity;
+  const auto menuEntity = registry.ctx<ctx::ActiveMenu>().entity;
 
   for (auto&& [entity, group, associated] :
-       registry.view<comp::button_group, comp::associated_menu>().each())
+       registry.view<comp::ButtonGroup, comp::AssociatedMenu>().each())
   {
     if (associated.entity == menuEntity && group.selected != entt::null) {
       auto& renderer = graphics.get_renderer();
-      const auto& button = registry.get<comp::button>(group.selected);
-      const auto& drawable = registry.get<comp::button_drawable>(group.selected);
+      const auto& drawable = registry.get<comp::ButtonDrawable>(group.selected);
       renderer.set_color(cen::colors::dark_green);
       renderer.fill_rect(drawable.bounds);
     }

@@ -8,7 +8,7 @@ auto make_line(entt::registry& registry,
 {
   const auto entity = registry.create();
 
-  auto& line = registry.emplace<comp::line>(entity);
+  auto& line = registry.emplace<comp::Line>(entity);
   line.start = start;
   line.end = end;
 

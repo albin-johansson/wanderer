@@ -75,7 +75,7 @@ void render_inventory(const entt::registry& registry,
   };
 
   for (auto&& [entity, inventory] :
-       registry.view<comp::inventory, comp::active_inventory>().each())
+       registry.view<comp::Inventory, comp::ActiveInventory>().each())
   {
     renderer.fill_with(glob::transparent_black);
 

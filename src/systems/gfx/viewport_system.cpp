@@ -13,7 +13,7 @@ namespace {
 inline constexpr float camera_speed = 10;
 
 [[nodiscard]] auto next_camera_position(const float2 target,
-                                        const ctx::viewport& viewport,
+                                        const ctx::Viewport& viewport,
                                         const float dt) -> float2
 {
   const auto boundsX = viewport.bounds.x();
@@ -59,7 +59,7 @@ inline constexpr float camera_speed = 10;
 }
 
 [[nodiscard]] auto make_target(const float2 position,
-                               const ctx::viewport& viewport) noexcept -> float2
+                               const ctx::Viewport& viewport) noexcept -> float2
 {
   constexpr auto halfWidth = glob::humanoid_draw_width / 2.0f;
   constexpr auto halfHeight = glob::humanoid_draw_height / 2.0f;
@@ -73,7 +73,7 @@ inline constexpr float camera_speed = 10;
   return {x, y};
 }
 
-void track(ctx::viewport& viewport, const float2 position, const float dt)
+void track(ctx::Viewport& viewport, const float2 position, const float dt)
 {
   const auto next = next_camera_position(make_target(position, viewport), viewport, dt);
   viewport.bounds.set_x(next.x);
@@ -82,9 +82,9 @@ void track(ctx::viewport& viewport, const float2 position, const float dt)
 
 }  // namespace
 
-auto make_viewport(const cen::farea levelSize) noexcept -> ctx::viewport
+auto make_viewport(const cen::farea levelSize) noexcept -> ctx::Viewport
 {
-  ctx::viewport viewport;
+  ctx::Viewport viewport;
 
   viewport.bounds.set_size(glob::logical_size<cen::farea>);
   viewport.level_size = levelSize;
@@ -94,7 +94,7 @@ auto make_viewport(const cen::farea levelSize) noexcept -> ctx::viewport
 
 void center_viewport_on(entt::registry& registry, const float2 position)
 {
-  auto& viewport = registry.ctx<ctx::viewport>();
+  auto& viewport = registry.ctx<ctx::Viewport>();
   const auto target = make_target(position, viewport);
   viewport.bounds.set_x(target.x);
   viewport.bounds.set_y(target.y);
@@ -102,14 +102,14 @@ void center_viewport_on(entt::registry& registry, const float2 position)
 
 void update_viewport(entt::registry& registry, const entt::entity target, const float dt)
 {
-  assert(registry.all_of<comp::movable>(target));
-  const auto& movable = registry.get<const comp::movable>(target);
-  track(registry.ctx<ctx::viewport>(), movable.position, dt);
+  assert(registry.all_of<comp::Movable>(target));
+  const auto& movable = registry.get<const comp::Movable>(target);
+  track(registry.ctx<ctx::Viewport>(), movable.position, dt);
 }
 
 void translate_viewport(const entt::registry& registry)
 {
-  const auto& viewport = registry.ctx<ctx::viewport>();
+  const auto& viewport = registry.ctx<ctx::Viewport>();
 
   auto& gfx = registry.ctx<ref<graphics_context>>().get();
   auto& renderer = gfx.get_renderer();

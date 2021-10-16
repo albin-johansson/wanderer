@@ -10,10 +10,10 @@ namespace wanderer::sys {
 void render_lazy_textures(const entt::registry& registry, graphics_context& graphics)
 {
   auto& renderer = graphics.get_renderer();
-  const auto active = registry.ctx<ctx::active_menu>().entity;
+  const auto active = registry.ctx<ctx::ActiveMenu>().entity;
 
   for (auto&& [entity, lazy, associated] :
-       registry.view<comp::lazy_texture, comp::associated_menu>().each())
+       registry.view<comp::LazyTexture, comp::AssociatedMenu>().each())
   {
     if (active == associated.entity) {
       if (!lazy.texture) {

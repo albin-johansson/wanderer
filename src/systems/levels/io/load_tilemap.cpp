@@ -6,7 +6,7 @@ auto load_tilemap(entt::registry& registry,
                   const entt::entity entity,
                   const ir::level& level) -> map_id
 {
-  auto& tilemap = registry.emplace<comp::tilemap>(entity);
+  auto& tilemap = registry.emplace<comp::Tilemap>(entity);
 
   tilemap.id = map_id{level.id};
   tilemap.row_count = level.row_count;

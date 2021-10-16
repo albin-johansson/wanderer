@@ -4,7 +4,7 @@
 
 namespace wanderer::comp {
 
-struct associated_entity final
+struct AssociatedEntity final
 {
   entt::entity entity{entt::null};
 };

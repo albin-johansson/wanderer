@@ -5,16 +5,16 @@
 
 namespace wanderer::ctx {
 
-struct cursors final
+struct Cursors final
 {
   /* Unfortunately, we have to explicitly tell the compiler that this type
      isn't copyable, due to the fact the type trait for checking the
      "copyable-ness" of the unordered map is misleading */
-  cursors() = default;
-  cursors(const cursors&) = delete;
-  cursors(cursors&&) = default;
-  cursors& operator=(const cursors&) = delete;
-  cursors& operator=(cursors&&) = default;
+  Cursors() = default;
+  Cursors(const Cursors&) = delete;
+  Cursors(Cursors&&) = default;
+  Cursors& operator=(const Cursors&) = delete;
+  Cursors& operator=(Cursors&&) = default;
 
   std::unordered_map<cen::system_cursor, cen::cursor> data;
 };

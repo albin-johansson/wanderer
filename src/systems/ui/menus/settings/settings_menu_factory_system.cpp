@@ -22,7 +22,7 @@ void add_buttons(entt::registry& registry, const entt::entity menuEntity)
     const auto entity =
         make_button(registry, std::move(text), action, grid_position{row, col});
 
-    auto& associated = registry.emplace<comp::associated_menu>(entity);
+    auto& associated = registry.emplace<comp::AssociatedMenu>(entity);
     associated.entity = menuEntity;
   };
 
@@ -36,7 +36,7 @@ void add_checkboxes(entt::registry& registry, const entt::entity menuEntity)
         const auto entity =
             make_checkbox(registry, std::move(text), grid_position{row, col}, action);
 
-        auto& associated = registry.emplace<comp::associated_menu>(entity);
+        auto& associated = registry.emplace<comp::AssociatedMenu>(entity);
         associated.entity = menuEntity;
       };
 
@@ -49,14 +49,14 @@ void add_checkboxes(entt::registry& registry, const entt::entity menuEntity)
 auto make_settings_menu(entt::registry& registry) -> entt::entity
 {
   const auto entity = make_menu(registry, "Settings", menu_id::settings);
-  registry.set<comp::settings_menu>(entity);
+  registry.set<comp::SettingsMenu>(entity);
 
   add_buttons(registry, entity);
   add_checkboxes(registry, entity);
 
   add_binds(registry,
             entity,
-            comp::key_bind{cen::scancodes::escape, menu_action::goto_home});
+            comp::KeyBind{cen::scancodes::escape, menu_action::goto_home});
 
   return entity;
 }

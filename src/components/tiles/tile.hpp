@@ -11,7 +11,7 @@ namespace wanderer::comp {
 
 /// \brief Represents a tile in a tileset.
 /// \ingroup components
-struct tile final
+struct Tile final
 {
   tile_id id{glob::empty_tile};  ///< Unique ID associated with the tile.
   texture_index texture{};       ///< Associated texture index.

@@ -2,7 +2,7 @@
 
 namespace wanderer::ctx {
 
-struct settings final
+struct Settings final
 {
   bool integer_scaling{};
   bool fullscreen{};

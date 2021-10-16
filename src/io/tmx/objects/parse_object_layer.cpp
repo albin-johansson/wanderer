@@ -14,7 +14,6 @@
 namespace wanderer::io {
 
 void parse_object_layer(ir::level& data,
-                        const rune::tmx_map& map,
                         const rune::tmx_object_layer& objectLayer)
 {
   for (const auto& object : objectLayer.objects) {
@@ -23,7 +22,7 @@ void parse_object_layer(ir::level& data,
 
     if (object.type == "Spawnpoint") {
       objectData.spawnpoint = parse_spawnpoint(object, data.x_ratio, data.y_ratio);
-      if (objectData.spawnpoint->type == comp::spawnpoint_type::player) {
+      if (objectData.spawnpoint->type == comp::SpawnpointType::player) {
         data.player_spawn_point = objectData.spawnpoint->position;
       }
     }
@@ -32,16 +31,16 @@ void parse_object_layer(ir::level& data,
     }
     else if (object.type == "ContainerTrigger") {
       assert(rune::tmx::is_object(object.properties, "container"));
-      objectData.trigger_type = comp::trigger_type::container;
+      objectData.trigger_type = comp::TriggerType::container;
       objectData.object_ref = rune::tmx::get_object(object.properties, "container").get();
       objectData.hitbox = parse_hitbox(object, data.x_ratio, data.y_ratio);
     }
     else if (object.type == "BedTrigger") {
-      objectData.trigger_type = comp::trigger_type::bed;
+      objectData.trigger_type = comp::TriggerType::bed;
       objectData.hitbox = parse_hitbox(object, data.x_ratio, data.y_ratio);
     }
     else if (object.type == "Portal") {
-      objectData.trigger_type = comp::trigger_type::portal;
+      objectData.trigger_type = comp::TriggerType::portal;
       objectData.portal = parse_portal(object);
       objectData.hitbox = parse_hitbox(object, data.x_ratio, data.y_ratio);
     }

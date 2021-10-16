@@ -14,7 +14,7 @@
 namespace wanderer::sys {
 namespace {
 
-void move(comp::movable& movable, const direction dir) noexcept
+void move(comp::Movable& movable, const direction dir) noexcept
 {
   switch (dir) {
     case direction::right: {
@@ -38,7 +38,7 @@ void move(comp::movable& movable, const direction dir) noexcept
   movable.velocity.scale(movable.speed);
 }
 
-void stop(comp::movable& movable, const direction dir) noexcept
+void stop(comp::Movable& movable, const direction dir) noexcept
 {
   switch (dir) {
     case direction::right:
@@ -58,9 +58,9 @@ void stop(comp::movable& movable, const direction dir) noexcept
   movable.velocity.scale(movable.speed);
 }
 
-[[nodiscard]] auto check_pressed(comp::movable& movable,
+[[nodiscard]] auto check_pressed(comp::Movable& movable,
                                  const cen::keyboard& keyboard,
-                                 const ctx::binds& binds) noexcept -> bool
+                                 const ctx::Binds& binds) noexcept -> bool
 {
   const auto left = keyboard.is_pressed(binds.left);
   const auto right = keyboard.is_pressed(binds.right);
@@ -92,9 +92,9 @@ void stop(comp::movable& movable, const direction dir) noexcept
   return up || down || right || left;
 }
 
-void check_released(comp::movable& movable,
+void check_released(comp::Movable& movable,
                     const cen::keyboard& keyboard,
-                    const ctx::binds& binds) noexcept
+                    const ctx::Binds& binds) noexcept
 {
   if (keyboard.just_released(binds.left)) {
     stop(movable, direction::left);
@@ -118,12 +118,12 @@ void check_released(comp::movable& movable,
 void handle_move_input(entt::registry& registry,
                        entt::dispatcher& dispatcher,
                        const rune::input& input,
-                       const ctx::binds& binds)
+                       const ctx::Binds& binds)
 {
-  const auto player = singleton_entity<comp::player>(registry);
-  assert(registry.all_of<comp::humanoid_move>(player));
+  const auto player = singleton_entity<comp::Player>(registry);
+  assert(registry.all_of<comp::HumanoidMove>(player));
 
-  auto& movable = registry.get<comp::movable>(player);
+  auto& movable = registry.get<comp::Movable>(player);
   const auto& keyboard = input.keyboard;
 
   const auto areMoveKeysDown = check_pressed(movable, keyboard, binds);

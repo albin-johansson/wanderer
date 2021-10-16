@@ -8,13 +8,13 @@ namespace {
 
 void make_fancy(entt::registry& registry,
                 const entt::entity tileEntity,
-                comp::tile& tile,
+                comp::Tile& tile,
                 const ir::fancy_tile& data)
 {
   tile.depth = data.depth;
 
   if (data.animation) {
-    registry.emplace<comp::tile_animation>(tileEntity, *data.animation);
+    registry.emplace<comp::TileAnimation>(tileEntity, *data.animation);
   }
 }
 
@@ -25,7 +25,7 @@ void make_fancy(entt::registry& registry,
 {
   const auto entity = registry.create();
 
-  auto& tile = registry.emplace<comp::tile>(entity);
+  auto& tile = registry.emplace<comp::Tile>(entity);
   tile.id = id;
   tile.texture = graphics.to_index(data.texture);
   tile.src = data.source;
@@ -38,7 +38,7 @@ void make_fancy(entt::registry& registry,
 }
 
 void load_tiles(entt::registry& registry,
-                comp::tileset& tileset,
+                comp::Tileset& tileset,
                 const graphics_context& graphics,
                 const std::map<tile_id, ir::tile>& tiles)
 {
@@ -55,7 +55,7 @@ void load_tileset(entt::registry& registry,
                   const graphics_context& graphics,
                   const std::vector<ir::tileset>& data)
 {
-  auto& tileset = registry.emplace<comp::tileset>(tilesetEntity);
+  auto& tileset = registry.emplace<comp::Tileset>(tilesetEntity);
 
   tileset.tiles.reserve(
       accumulate(data, [](const ir::tileset& tileset) { return tileset.tiles.size(); }));

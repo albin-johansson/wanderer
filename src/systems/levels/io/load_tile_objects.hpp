@@ -6,7 +6,7 @@
 
 namespace wanderer::sys {
 
-void load_tile_objects(comp::level& level,
+void load_tile_objects(comp::Level& level,
                        const graphics_context& graphics,
                        const ir::level& levelData);
 

@@ -7,7 +7,7 @@
 
 namespace wanderer::comp {
 
-struct button_group final
+struct ButtonGroup final
 {
   std::vector<entt::entity> buttons;         ///< The associated button entities.
   entt::entity selected{entt::null};         ///< The currently selected button.

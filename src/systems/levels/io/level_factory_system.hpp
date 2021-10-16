@@ -22,7 +22,7 @@ namespace wanderer::sys {
  * \return the created level.
  */
 [[nodiscard]] auto make_level(const ir::level& data, graphics_context& graphics)
-    -> comp::level;
+    -> comp::Level;
 
 /// \} End of levels
 

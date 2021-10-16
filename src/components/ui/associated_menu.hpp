@@ -5,7 +5,7 @@
 namespace wanderer::comp {
 
 // TODO replace with associated_entity?
-struct associated_menu final
+struct AssociatedMenu final
 {
   entt::entity entity{entt::null};
 };

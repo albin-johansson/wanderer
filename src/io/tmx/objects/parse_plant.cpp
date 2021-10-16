@@ -28,13 +28,13 @@ namespace {
 
 }  // namespace
 
-auto parse_plant(const ir::level& data, const rune::tmx_object& object) -> comp::plant
+auto parse_plant(const ir::level& data, const rune::tmx_object& object) -> comp::Plant
 {
   assert(rune::tmx::is_float(object.properties, "rate"));
   assert(rune::tmx::is_string(object.properties, "tiles"));
   assert(rune::tmx::is_string(object.properties, "tileset"));
 
-  comp::plant plant;
+  comp::Plant plant;
   plant.rate = rune::tmx::get_float(object.properties, "rate");
 
   const auto tileset = rune::tmx::get_string(object.properties, "tileset");
