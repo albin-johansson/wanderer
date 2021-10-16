@@ -7,6 +7,7 @@ project(wanderer
 
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
 include(Utilities)
 include(Dependencies)
