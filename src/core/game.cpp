@@ -352,7 +352,7 @@ void game::on_sleep(const sleep_event&)
   sys::start_bond_animation(level.registry, glob::sleep_id);
 }
 
-void game::on_day_changed(const day_changed_event& event)
+void game::on_day_changed(const day_changed_event&)
 {
   // TODO update the state of plants, etc.
 }
