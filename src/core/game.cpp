@@ -50,38 +50,38 @@
 
 namespace wanderer {
 
-game::game(graphics_type& graphics)
+Game::Game(graphics_type& graphics)
     : m_shared{sys::make_shared_registry()}
     , m_dispatcher{make_dispatcher()}
 {
   sys::load_levels(m_shared, graphics);
 
   // clang-format off
-  m_dispatcher.sink<switch_map_event>().connect<&game::on_switch_map>(this);
-  m_dispatcher.sink<switch_menu_event>().connect<&game::on_switch_menu>(this);
-  m_dispatcher.sink<menu_switched_event>().connect<&game::on_menu_switched>(this);
-  m_dispatcher.sink<button_pressed_event>().connect<&game::on_button_pressed>(this);
+  m_dispatcher.sink<switch_map_event>().connect<&Game::on_switch_map>(this);
+  m_dispatcher.sink<switch_menu_event>().connect<&Game::on_switch_menu>(this);
+  m_dispatcher.sink<menu_switched_event>().connect<&Game::on_menu_switched>(this);
+  m_dispatcher.sink<button_pressed_event>().connect<&Game::on_button_pressed>(this);
 
-  m_dispatcher.sink<show_inventory_event>().connect<&game::on_show_inventory>(this);
-  m_dispatcher.sink<close_inventory_event>().connect<&game::on_close_inventory>(this);
+  m_dispatcher.sink<show_inventory_event>().connect<&Game::on_show_inventory>(this);
+  m_dispatcher.sink<close_inventory_event>().connect<&Game::on_close_inventory>(this);
 
-  m_dispatcher.sink<sleep_event>().connect<&game::on_sleep>(this);
-  m_dispatcher.sink<day_changed_event>().connect<&game::on_day_changed>(this);
+  m_dispatcher.sink<sleep_event>().connect<&Game::on_sleep>(this);
+  m_dispatcher.sink<day_changed_event>().connect<&Game::on_day_changed>(this);
 
-  m_dispatcher.sink<custom_animation_halfway_event>().connect<&game::on_custom_animation_halfway>(this);
+  m_dispatcher.sink<custom_animation_halfway_event>().connect<&Game::on_custom_animation_halfway>(this);
 
-  m_dispatcher.sink<spawn_particles_event>().connect<&game::on_spawn_particles>(this);
-  m_dispatcher.sink<quit_event>().connect<&game::on_quit>(this);
+  m_dispatcher.sink<spawn_particles_event>().connect<&Game::on_spawn_particles>(this);
+  m_dispatcher.sink<quit_event>().connect<&Game::on_quit>(this);
   // clang-format on
 }
 
-game::~game()
+Game::~Game()
 {
   disconnect_events(m_dispatcher);
   m_dispatcher.disconnect(this);
 }
 
-void game::on_start()
+void Game::on_start()
 {
   sys::load_settings(m_shared);
   m_shared.set<ctx::Binds>(sys::load_binds());
@@ -102,12 +102,12 @@ void game::on_start()
   m_dispatcher.update();
 }
 
-void game::on_exit()
+void Game::on_exit()
 {
   sys::save_settings_before_exit(m_shared);
 }
 
-void game::handle_input(const rune::input& input)
+void Game::handle_input(const rune::input& input)
 {
   m_mousePos = input.mouse.position();
   sys::update_menu(m_shared, m_dispatcher, input);
@@ -116,7 +116,7 @@ void game::handle_input(const rune::input& input)
   sys::update_input(level.registry, m_dispatcher, input, m_shared.ctx<ctx::Binds>());
 }
 
-void game::tick(const float dt)
+void Game::tick(const float dt)
 {
   m_dispatcher.update();
 
@@ -141,7 +141,7 @@ void game::tick(const float dt)
   sys::update_plants(level.registry, dt);
   sys::update_lights(level.registry);
   sys::update_player_light_position(level.registry);
-  sys::update_triggers(level.registry, m_dispatcher);
+  sys::update_triggers(level.registry);
 
   {
     const auto player = singleton_entity<comp::Player>(level.registry);
@@ -155,7 +155,7 @@ void game::tick(const float dt)
   sys::update_tile_object_animations(level.registry);
 }
 
-void game::render(graphics_type& graphics) const
+void Game::render(graphics_type& graphics) const
 {
   m_shared.set<ref<graphics_context>>(graphics);
 
@@ -204,7 +204,7 @@ void game::render(graphics_type& graphics) const
   m_shared.unset<ref<graphics_context>>();
 }
 
-void game::load_save(const std::string& name, graphics_type& graphics)
+void Game::load_save(const std::string& name, graphics_type& graphics)
 {
   load_game(m_shared, graphics, name);
 
@@ -212,12 +212,12 @@ void game::load_save(const std::string& name, graphics_type& graphics)
   sys::start_bond_animation(level.registry, glob::load_game_id);
 }
 
-auto game::is_paused() const -> bool
+auto Game::is_paused() const -> bool
 {
   return sys::is_current_menu_blocking(m_shared);
 }
 
-void game::on_button_pressed(const button_pressed_event& event)
+void Game::on_button_pressed(const button_pressed_event& event)
 {
   switch (event.action) {
     default:
@@ -292,18 +292,18 @@ void game::on_button_pressed(const button_pressed_event& event)
   }
 }
 
-void game::on_switch_map(const switch_map_event& event)
+void Game::on_switch_map(const switch_map_event& event)
 {
   auto& level = sys::current_level(m_shared);
   sys::start_level_change_animation(level.registry, event.map);
 }
 
-void game::on_switch_menu(const switch_menu_event& event)
+void Game::on_switch_menu(const switch_menu_event& event)
 {
   sys::switch_menu(m_shared, m_dispatcher, event.id);
 }
 
-void game::on_menu_switched(const menu_switched_event& event)
+void Game::on_menu_switched(const menu_switched_event& event)
 {
   const auto& menu = m_shared.get<comp::Menu>(event.entity);
   if (menu.id == menu_id::saves) {
@@ -311,7 +311,7 @@ void game::on_menu_switched(const menu_switched_event& event)
   }
 }
 
-void game::on_custom_animation_halfway(const custom_animation_halfway_event& event)
+void Game::on_custom_animation_halfway(const custom_animation_halfway_event& event)
 {
   switch (event.id) {
     case glob::sleep_id:
@@ -333,29 +333,29 @@ void game::on_custom_animation_halfway(const custom_animation_halfway_event& eve
   }
 }
 
-void game::on_show_inventory(const show_inventory_event& event)
+void Game::on_show_inventory(const show_inventory_event& event)
 {
   auto& level = sys::current_level(m_shared);
   level.registry.emplace<comp::ActiveInventory>(event.inventory_entity);
 }
 
-void game::on_close_inventory(const close_inventory_event&)
+void Game::on_close_inventory(const close_inventory_event&)
 {
   sys::current_level(m_shared).registry.clear<comp::ActiveInventory>();
 }
 
-void game::on_sleep(const sleep_event&)
+void Game::on_sleep(const sleep_event&)
 {
   auto& level = sys::current_level(m_shared);
   sys::start_bond_animation(level.registry, glob::sleep_id);
 }
 
-void game::on_day_changed(const day_changed_event&)
+void Game::on_day_changed(const day_changed_event&)
 {
   // TODO update the state of plants, etc.
 }
 
-void game::on_spawn_particles(const spawn_particles_event& event)
+void Game::on_spawn_particles(const spawn_particles_event& event)
 {
   auto& level = sys::current_level(m_shared);
   sys::spawn_particles(level.registry,
@@ -365,7 +365,7 @@ void game::on_spawn_particles(const spawn_particles_event& event)
                        event.color);
 }
 
-void game::on_quit(const quit_event&)
+void Game::on_quit(const quit_event&)
 {
   if (const auto* snapshot = m_shared.try_ctx<ctx::RendererSnapshot>()) {
     create_exit_save(m_shared, snapshot->surface);

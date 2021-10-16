@@ -90,7 +90,7 @@ class basic_game
    *
    * \since 0.1.0
    */
-  virtual void init(graphics_type& gfx)
+  virtual void init([[maybe_unused]] graphics_type& gfx)
   {}
 
   /**

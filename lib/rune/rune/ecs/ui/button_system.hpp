@@ -189,7 +189,6 @@ namespace detail {
 
 inline void update_button_bounds(const entt::registry& registry, graphics& gfx)
 {
-  auto& renderer = gfx.get_renderer();
   for (auto&& [entity, button, label] : registry.view<ui_button, ui_label>().each())
   {
     if (!button.size)

@@ -32,23 +32,19 @@
 namespace wanderer {
 
 /**
- * \class game
- *
- * \ingroup core
- *
  * \brief Represents the Wanderer game.
  *
- * \details This class is responsible for managing the game state and
- * updating the systems. This class is the core of the entire game.
+ * \details This class is responsible for managing the game state and updating the
+ * systems. This class is the core of the entire game.
  *
- * \headerfile game.hpp
+ * \ingroup core
  */
-class game final : public rune::basic_game<graphics_context>
+class Game final : public rune::basic_game<graphics_context>
 {
  public:
-  explicit game(graphics_type& graphics);
+  explicit Game(graphics_type& graphics);
 
-  ~game();
+  ~Game();
 
   void on_start() override;
 

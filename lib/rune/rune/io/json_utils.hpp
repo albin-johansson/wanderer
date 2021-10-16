@@ -113,7 +113,7 @@ void get_to(const json_type& json, const std::string_view key, std::vector<T>& c
 
   assert(it->is_array());
   container.reserve(it->size());
-  for (const auto& [key, value] : it->items())
+  for (const auto& [_, value] : it->items())
   {
     container.push_back(value.template get<T>());
   }
@@ -177,7 +177,7 @@ void try_get_to(const json_type& json,
   {
     assert(it->is_array());
     container.reserve(it->size());
-    for (const auto& [key, value] : it->items())
+    for (const auto& [_, value] : it->items())
     {
       container.push_back(value.template get<T>());
     }

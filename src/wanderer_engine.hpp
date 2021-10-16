@@ -9,7 +9,7 @@
 
 namespace wanderer {
 
-using engine_base = rune::engine<game, graphics_context>;
+using engine_base = rune::engine<Game, graphics_context>;
 
 class wanderer_engine final : public engine_base
 {

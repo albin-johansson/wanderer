@@ -1,9 +1,9 @@
 #pragma once
 
-#include <entt.hpp>  // registry, dispatcher
+#include <entt.hpp>  // registry
 
 namespace wanderer::sys {
 
-void update_triggers(entt::registry& registry, entt::dispatcher& dispatcher);
+void update_triggers(entt::registry& registry);
 
 }  // namespace wanderer::sys

@@ -8,7 +8,7 @@
 
 namespace wanderer::sys {
 
-void update_triggers(entt::registry& registry, entt::dispatcher& dispatcher)
+void update_triggers(entt::registry& registry)
 {
   const auto player = singleton_entity<comp::Player>(registry);
   const auto& playerHitbox = registry.get<comp::Hitbox>(player);

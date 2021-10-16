@@ -175,7 +175,6 @@ inline void render_shadow(graphics& gfx,
 inline void render_labels(const entt::registry& registry, graphics& gfx)
 {
   const auto menuEntity = registry.ctx<active_menu>().menu_entity;
-  auto& renderer = gfx.get_renderer();
 
   const auto filter = entt::exclude<ui_button>;
   for (auto&& [entity, label, position, fg, inMenu] :
@@ -196,7 +195,6 @@ inline void render_labels(const entt::registry& registry, graphics& gfx)
 inline void render_button_labels(const entt::registry& registry, graphics& gfx)
 {
   const auto menuEntity = registry.ctx<active_menu>().menu_entity;
-  auto& renderer = gfx.get_renderer();
 
   for (auto&& [entity, button, label, position, fg, inMenu] :
        registry.view<ui_button, ui_label, ui_position, ui_foreground, in_menu>().each())
