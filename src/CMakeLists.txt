@@ -395,7 +395,7 @@ if (MSVC)
   target_compile_options(${WANDERER_LIB} PUBLIC
       /EHsc
       /MP
-      /W3
+      /W4
       /Zc:__cplusplus
       /Zc:preprocessor
       /wd5105  # Disable C5105: "macro expansion producing 'defined' has undefined behavior"
