@@ -5,10 +5,10 @@
 
 using namespace wanderer;
 
-using idle = comp::humanoid_idle;
-using move = comp::humanoid_move;
-using attack = comp::humanoid_attack;
-using die = comp::humanoid_die;
+using Idle = comp::HumanoidIdle;
+using Move = comp::HumanoidMove;
+using Attack = comp::HumanoidAttack;
+using Die = comp::HumanoidDie;
 
 TEST(HumanoidState, Dependencies)
 {
@@ -16,49 +16,49 @@ TEST(HumanoidState, Dependencies)
   add_humanoid_state_dependencies(registry);
 
   const auto entity = registry.create();
-  registry.emplace<comp::humanoid>(entity);
+  registry.emplace<comp::Humanoid>(entity);
 
   {  // Idle
     ASSERT_TRUE(registry.valid(entity));
-    ASSERT_FALSE(registry.all_of<idle>(entity));
+    ASSERT_FALSE(registry.all_of<Idle>(entity));
 
-    registry.emplace<idle>(entity);
-    EXPECT_TRUE(registry.all_of<idle>(entity));
-    EXPECT_FALSE(registry.all_of<move>(entity));
-    EXPECT_FALSE(registry.all_of<attack>(entity));
-    EXPECT_FALSE(registry.all_of<die>(entity));
+    registry.emplace<Idle>(entity);
+    EXPECT_TRUE(registry.all_of<Idle>(entity));
+    EXPECT_FALSE(registry.all_of<Move>(entity));
+    EXPECT_FALSE(registry.all_of<Attack>(entity));
+    EXPECT_FALSE(registry.all_of<Die>(entity));
   }
 
   {  // Move
     ASSERT_TRUE(registry.valid(entity));
-    ASSERT_FALSE(registry.all_of<move>(entity));
+    ASSERT_FALSE(registry.all_of<Move>(entity));
 
-    registry.emplace<move>(entity);
-    EXPECT_TRUE(registry.all_of<move>(entity));
-    EXPECT_FALSE(registry.all_of<idle>(entity));
-    EXPECT_FALSE(registry.all_of<attack>(entity));
-    EXPECT_FALSE(registry.all_of<die>(entity));
+    registry.emplace<Move>(entity);
+    EXPECT_TRUE(registry.all_of<Move>(entity));
+    EXPECT_FALSE(registry.all_of<Idle>(entity));
+    EXPECT_FALSE(registry.all_of<Attack>(entity));
+    EXPECT_FALSE(registry.all_of<Die>(entity));
   }
 
   {  // Attack
     ASSERT_TRUE(registry.valid(entity));
-    ASSERT_FALSE(registry.all_of<attack>(entity));
+    ASSERT_FALSE(registry.all_of<Attack>(entity));
 
-    registry.emplace<attack>(entity);
-    EXPECT_TRUE(registry.all_of<attack>(entity));
-    EXPECT_FALSE(registry.all_of<move>(entity));
-    EXPECT_FALSE(registry.all_of<idle>(entity));
-    EXPECT_FALSE(registry.all_of<die>(entity));
+    registry.emplace<Attack>(entity);
+    EXPECT_TRUE(registry.all_of<Attack>(entity));
+    EXPECT_FALSE(registry.all_of<Move>(entity));
+    EXPECT_FALSE(registry.all_of<Idle>(entity));
+    EXPECT_FALSE(registry.all_of<Die>(entity));
   }
 
   {  // Die
     ASSERT_TRUE(registry.valid(entity));
-    ASSERT_FALSE(registry.all_of<die>(entity));
+    ASSERT_FALSE(registry.all_of<Die>(entity));
 
-    registry.emplace<die>(entity);
-    EXPECT_TRUE(registry.all_of<die>(entity));
-    EXPECT_FALSE(registry.all_of<attack>(entity));
-    EXPECT_FALSE(registry.all_of<move>(entity));
-    EXPECT_FALSE(registry.all_of<idle>(entity));
+    registry.emplace<Die>(entity);
+    EXPECT_TRUE(registry.all_of<Die>(entity));
+    EXPECT_FALSE(registry.all_of<Attack>(entity));
+    EXPECT_FALSE(registry.all_of<Move>(entity));
+    EXPECT_FALSE(registry.all_of<Idle>(entity));
   }
 }
