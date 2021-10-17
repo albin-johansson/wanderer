@@ -10,11 +10,11 @@ namespace wanderer::sys {
 /// \name Inventory
 /// \{
 
-void render_inventory_bar(const entt::registry& registry, graphics_context& graphics);
+void RenderInventoryBar(const entt::registry& registry, GraphicsContext& graphics);
 
-void render_inventory(const entt::registry& registry,
-                      graphics_context& graphics,
-                      const cen::ipoint& mousePos);
+void RenderInventory(const entt::registry& registry,
+                     GraphicsContext& graphics,
+                     const cen::ipoint& mousePos);
 
 /// \} End of inventory
 

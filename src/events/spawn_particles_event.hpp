@@ -8,7 +8,7 @@ namespace wanderer {
 
 /// \brief Emitted when a group of particles should be spawned.
 /// \ingroup events
-struct spawn_particles_event final
+struct SpawnParticlesEvent final
 {
   float2 position;     ///< The initial position of the particles.
   int count{};         ///< The amount of particles to spawn.

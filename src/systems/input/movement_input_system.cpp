@@ -14,22 +14,22 @@
 namespace wanderer::sys {
 namespace {
 
-void move(comp::Movable& movable, const direction dir) noexcept
+void Move(comp::Movable& movable, const Direction dir) noexcept
 {
   switch (dir) {
-    case direction::right: {
+    case Direction::Right: {
       movable.velocity.x = movable.speed;
       break;
     }
-    case direction::left: {
+    case Direction::Left: {
       movable.velocity.x = -movable.speed;
       break;
     }
-    case direction::up: {
+    case Direction::Up: {
       movable.velocity.y = -movable.speed;
       break;
     }
-    case direction::down: {
+    case Direction::Down: {
       movable.velocity.y = movable.speed;
       break;
     }
@@ -38,18 +38,18 @@ void move(comp::Movable& movable, const direction dir) noexcept
   movable.velocity.scale(movable.speed);
 }
 
-void stop(comp::Movable& movable, const direction dir) noexcept
+void Stop(comp::Movable& movable, const Direction dir) noexcept
 {
   switch (dir) {
-    case direction::right:
+    case Direction::Right:
       [[fallthrough]];
-    case direction::left: {
+    case Direction::Left: {
       movable.velocity.x = 0;
       break;
     }
-    case direction::up:
+    case Direction::Up:
       [[fallthrough]];
-    case direction::down: {
+    case Direction::Down: {
       movable.velocity.y = 0;
       break;
     }
@@ -58,9 +58,9 @@ void stop(comp::Movable& movable, const direction dir) noexcept
   movable.velocity.scale(movable.speed);
 }
 
-[[nodiscard]] auto check_pressed(comp::Movable& movable,
-                                 const cen::keyboard& keyboard,
-                                 const ctx::Binds& binds) noexcept -> bool
+[[nodiscard]] auto CheckPressed(comp::Movable& movable,
+                                const cen::keyboard& keyboard,
+                                const ctx::Binds& binds) noexcept -> bool
 {
   const auto left = keyboard.is_pressed(binds.left);
   const auto right = keyboard.is_pressed(binds.right);
@@ -68,57 +68,57 @@ void stop(comp::Movable& movable, const direction dir) noexcept
   const auto down = keyboard.is_pressed(binds.down);
 
   if (left && right) {
-    stop(movable, direction::left);
-    stop(movable, direction::right);
+    Stop(movable, Direction::Left);
+    Stop(movable, Direction::Right);
   }
   else if (left) {
-    move(movable, direction::left);
+    Move(movable, Direction::Left);
   }
   else if (right) {
-    move(movable, direction::right);
+    Move(movable, Direction::Right);
   }
 
   if (up && down) {
-    stop(movable, direction::up);
-    stop(movable, direction::down);
+    Stop(movable, Direction::Up);
+    Stop(movable, Direction::Down);
   }
   else if (up) {
-    move(movable, direction::up);
+    Move(movable, Direction::Up);
   }
   else if (down) {
-    move(movable, direction::down);
+    Move(movable, Direction::Down);
   }
 
   return up || down || right || left;
 }
 
-void check_released(comp::Movable& movable,
-                    const cen::keyboard& keyboard,
-                    const ctx::Binds& binds) noexcept
+void CheckReleased(comp::Movable& movable,
+                   const cen::keyboard& keyboard,
+                   const ctx::Binds& binds) noexcept
 {
   if (keyboard.just_released(binds.left)) {
-    stop(movable, direction::left);
+    Stop(movable, Direction::Left);
   }
 
   if (keyboard.just_released(binds.right)) {
-    stop(movable, direction::right);
+    Stop(movable, Direction::Right);
   }
 
   if (keyboard.just_released(binds.up)) {
-    stop(movable, direction::up);
+    Stop(movable, Direction::Up);
   }
 
   if (keyboard.just_released(binds.down)) {
-    stop(movable, direction::down);
+    Stop(movable, Direction::Down);
   }
 }
 
 }  // namespace
 
-void handle_move_input(entt::registry& registry,
-                       entt::dispatcher& dispatcher,
-                       const rune::input& input,
-                       const ctx::Binds& binds)
+void HandleMoveInput(entt::registry& registry,
+                     entt::dispatcher& dispatcher,
+                     const rune::input& input,
+                     const ctx::Binds& binds)
 {
   const auto player = singleton_entity<comp::Player>(registry);
   assert(registry.all_of<comp::HumanoidMove>(player));
@@ -126,20 +126,20 @@ void handle_move_input(entt::registry& registry,
   auto& movable = registry.get<comp::Movable>(player);
   const auto& keyboard = input.keyboard;
 
-  const auto areMoveKeysDown = check_pressed(movable, keyboard, binds);
-  check_released(movable, keyboard, binds);
+  const auto areMoveKeysDown = CheckPressed(movable, keyboard, binds);
+  CheckReleased(movable, keyboard, binds);
 
   if (!areMoveKeysDown && movable.velocity.is_zero()) {
-    dispatcher.enqueue<end_humanoid_move_event>(registry, player);
+    dispatcher.enqueue<EndHumanoidMoveEvent>(registry, player);
   }
   else if (keyboard.is_pressed(binds.attack)) {
     movable.velocity.reset();
 
     // FIXME null weapon
-    dispatcher.enqueue<begin_attack_event>(registry, player, entt::null, movable.dir);
+    dispatcher.enqueue<BeginAttackEvent>(registry, player, entt::null, movable.dir);
   }
   else if (keyboard.just_released(binds.interact)) {
-    dispatcher.enqueue<interact_event>(registry, dispatcher);
+    dispatcher.enqueue<InteractEvent>(registry, dispatcher);
   }
 }
 

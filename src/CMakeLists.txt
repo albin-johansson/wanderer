@@ -86,7 +86,6 @@ set(SOURCE_FILES
     core/menu_id.hpp
     core/resources.cpp
     core/resources.hpp
-    core/serialization.hpp
     core/text_size.hpp
 
     core/algorithms/accumulate.hpp

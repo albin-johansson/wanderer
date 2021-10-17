@@ -9,7 +9,7 @@ namespace wanderer::comp {
 struct KeyBind final
 {
   cen::scan_code key;
-  menu_action action{menu_action::none};
+  MenuAction action{MenuAction::None};
 };
 
 }  // namespace wanderer::comp

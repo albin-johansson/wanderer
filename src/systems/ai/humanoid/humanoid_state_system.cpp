@@ -11,22 +11,22 @@
 namespace wanderer::sys {
 namespace {
 
-void update_attacking_humanoids(entt::registry& registry, entt::dispatcher& dispatcher)
+void UpdateAttackingHumanoids(entt::registry& registry, entt::dispatcher& dispatcher)
 {
   for (auto&& [entity, attack] : registry.view<comp::HumanoidAttack>().each()) {
     if (attack.done) {
-      dispatcher.enqueue<end_attack_event>(registry,
+      dispatcher.enqueue<EndAttackEvent>(registry,
                                            dispatcher,
                                            entity,
                                            attack.weapon,
-                                           direction::down);
+                                           Direction::Down);
     }
   }
 }
 
 }  // namespace
 
-void make_humanoid_idle(entt::registry& registry, const entt::entity entity)
+void MakeHumanoidIdle(entt::registry& registry, entt::entity entity)
 {
   assert(registry.all_of<comp::Humanoid>(entity));
   assert(!registry.all_of<comp::HumanoidIdle>(entity));
@@ -35,10 +35,10 @@ void make_humanoid_idle(entt::registry& registry, const entt::entity entity)
   movable.velocity.reset();
 
   registry.emplace<comp::HumanoidIdle>(entity);
-  enter_idle_animation(registry, entity);
+  EnterIdleAnimation(registry, entity);
 }
 
-void make_humanoid_move(entt::registry& registry, entt::entity entity)
+void MakeHumanoidMove(entt::registry& registry, entt::entity entity)
 {
   assert(registry.all_of<comp::Humanoid>(entity));
   assert(!registry.all_of<comp::HumanoidMove>(entity));
@@ -46,12 +46,12 @@ void make_humanoid_move(entt::registry& registry, entt::entity entity)
   auto& movable = registry.get<comp::Movable>(entity);
 
   registry.emplace<comp::HumanoidMove>(entity);
-  enter_move_animation(registry, entity, dominant_direction(movable));
+  EnterMoveAnimation(registry, entity, GetDominantDirection(movable));
 }
 
-void update_humanoid_states(entt::registry& registry, entt::dispatcher& dispatcher)
+void UpdateHumanoidStates(entt::registry& registry, entt::dispatcher& dispatcher)
 {
-  update_attacking_humanoids(registry, dispatcher);
+  UpdateAttackingHumanoids(registry, dispatcher);
 }
 
 }  // namespace wanderer::sys

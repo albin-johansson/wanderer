@@ -19,7 +19,7 @@ namespace wanderer::sys {
  * \param registry the menu registry.
  * \param graphics the graphics context that will be used.
  */
-void render_buttons(const entt::registry& registry, graphics_context& graphics);
+void render_buttons(const entt::registry& registry, GraphicsContext& graphics);
 
 /**
  * \brief Renders visual cues for the enabled buttons in button groups in the currently
@@ -31,7 +31,7 @@ void render_buttons(const entt::registry& registry, graphics_context& graphics);
  * \param graphics the graphics context that will be used.
  */
 void render_button_group_indicators(const entt::registry& registry,
-                                    graphics_context& graphics);
+                                    GraphicsContext& graphics);
 
 /// \} End of buttons
 

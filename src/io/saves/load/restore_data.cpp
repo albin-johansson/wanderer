@@ -133,7 +133,7 @@ auto restore(const proto::time_of_day& data) -> ctx::TimeOfDay
   time.minute = data.minute();
   time.seconds = data.seconds();
   time.week = data.week();
-  time.day = static_cast<day_of_week>(data.day());
+  time.day = static_cast<DayOfWeek>(data.day());
   time.tint = restore(data.tint());
 
   return time;

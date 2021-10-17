@@ -10,9 +10,9 @@
 
 namespace wanderer::sys {
 
-void load_tileset(entt::registry& registry,
-                  const entt::entity tilesetEntity,
-                  const graphics_context& graphics,
-                  const std::vector<ir::tileset>& data);
+void LoadTileset(entt::registry& registry,
+                 const entt::entity tilesetEntity,
+                 const GraphicsContext& graphics,
+                 const std::vector<ir::tileset>& data);
 
 }  // namespace wanderer::sys

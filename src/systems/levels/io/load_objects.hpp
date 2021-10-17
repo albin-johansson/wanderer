@@ -7,8 +7,8 @@
 
 namespace wanderer::sys {
 
-void load_objects(entt::registry& registry,
-                  graphics_context& graphics,
-                  const ir::level& level);
+void LoadObjects(entt::registry& registry,
+                 GraphicsContext& graphics,
+                 const ir::level& level);
 
 }  // namespace wanderer::sys

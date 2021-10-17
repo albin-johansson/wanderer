@@ -40,7 +40,7 @@ void add_level_size(comp::Level& level)
 void add_viewport(comp::Level& level)
 {
   const auto& tilemap = level.registry.get<comp::Tilemap>(level.tilemap);
-  level.registry.set<ctx::Viewport>(sys::make_viewport(tilemap.size));
+  level.registry.set<ctx::Viewport>(sys::MakeViewport(tilemap.size));
 }
 
 void restore_aabb_tree(entt::registry& registry, aabb_tree& tree)
@@ -63,7 +63,7 @@ void prepare_viewport(entt::registry& registry, const bool keepInBounds)
 
   const auto player = singleton_entity<comp::Player>(registry);
   const auto& movable = registry.get<comp::Movable>(player);
-  sys::center_viewport_on(registry, movable.position);
+  sys::CenterViewportOn(registry, movable.position);
 }
 
 }  // namespace

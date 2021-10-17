@@ -2,12 +2,9 @@
 
 namespace wanderer {
 
-/**
- * \brief Simply represents a row/column pair.
- *
- * \ingroup core
- */
-struct grid_position final
+/// \brief Simply represents a row/column pair.
+/// \ingroup core
+struct GridPosition final
 {
   float row{};  ///< The row index.
   float col{};  ///< The column index.

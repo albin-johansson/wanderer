@@ -26,7 +26,7 @@ inline constexpr auto exit_fmt = "Press \" {}\" to exit";
 inline constexpr auto sleep_fmt = "Press \" {}\" to sleep";
 inline constexpr auto container_fmt = "Press \" {}\" to open container";
 
-void render_hint(graphics_context& graphics,
+void render_hint(GraphicsContext& graphics,
                  const std::string_view fmt,
                  const std::string& key)
 {
@@ -36,10 +36,10 @@ void render_hint(graphics_context& graphics,
   graphics.render_outlined_text(hint.view(), cen::point(center_x(width), 100));
 }
 
-void render_hints(const entt::registry& shared, graphics_context& graphics)
+void render_hints(const entt::registry& shared, GraphicsContext& graphics)
 {
   const auto& binds = shared.ctx<ctx::Binds>();
-  const auto& level = current_level(shared);
+  const auto& level = CurrentLevel(shared);
 
   const auto player = singleton_entity<comp::Player>(level.registry);
 
@@ -47,7 +47,7 @@ void render_hints(const entt::registry& shared, graphics_context& graphics)
     const auto& trigger = level.registry.get<comp::Trigger>(within->trigger_entity);
     switch (trigger.type) {
       case comp::TriggerType::portal: {
-        if (sys::is_current_level_outside(shared)) {
+        if (sys::IsCurrentLevelOutside(shared)) {
           render_hint(graphics, enter_fmt, binds.interact.name());
         }
         else {
@@ -72,12 +72,12 @@ void render_hints(const entt::registry& shared, graphics_context& graphics)
 void render_hud(const entt::registry& shared,
                 const cen::ipoint mousePos)
 {
-  auto& graphics = shared.ctx<ref<graphics_context>>().get();
+  auto& graphics = shared.ctx<ref<GraphicsContext>>().get();
   render_hints(shared, graphics);
 
-  const auto& level = current_level(shared);
-  render_inventory_bar(level.registry, graphics);
-  render_inventory(level.registry, graphics, mousePos);
+  const auto& level = CurrentLevel(shared);
+  RenderInventoryBar(level.registry, graphics);
+  RenderInventory(level.registry, graphics, mousePos);
 }
 
 }  // namespace wanderer::sys

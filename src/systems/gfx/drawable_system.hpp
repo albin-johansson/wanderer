@@ -14,20 +14,20 @@ namespace wanderer::sys {
  *
  * \param registry the current level registry.
  */
-void update_drawables(entt::registry& registry);
+void UpdateDrawables(entt::registry& registry);
 
 /**
  * \brief Renders all drawable objects.
  *
  * \ingroup systems
  *
- * \note Make sure to call `sys::update_depth()` before calling this function.
+ * \note Make sure to call `sys::UpdateDepth()` before calling this function.
  *
  * \param registry the current level registry.
  *
  * \since 0.1.0
  */
-void render_drawables(const entt::registry& registry);
+void RenderDrawables(const entt::registry& registry);
 
 /// \} End of drawables
 

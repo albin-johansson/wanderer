@@ -7,6 +7,6 @@
 
 namespace wanderer::sys {
 
-[[nodiscard]] auto get_tile(entt::registry& registry, tile_id id) -> comp::Tile&;
+[[nodiscard]] auto GetTile(entt::registry& registry, tile_id id) -> comp::Tile&;
 
 }  // namespace wanderer::sys

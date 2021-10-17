@@ -2,6 +2,6 @@
 
 namespace wanderer {
 
-void prepare_rune_configuration();
+void PrepareRuneConfiguration();
 
 }  // namespace wanderer

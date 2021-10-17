@@ -20,7 +20,7 @@ namespace wanderer::sys {
  * \param registry the current level registry.
  * \param entity the entity that will enter the idle animation.
  */
-void enter_idle_animation(entt::registry& registry, entt::entity entity);
+void EnterIdleAnimation(entt::registry& registry, entt::entity entity);
 
 /**
  * \brief Makes a humanoid enter its movement animation.
@@ -34,7 +34,7 @@ void enter_idle_animation(entt::registry& registry, entt::entity entity);
  * \param entity the entity that will enter the movement animation.
  * \param dir the direction that the humanoid is facing.
  */
-void enter_move_animation(entt::registry& registry, entt::entity entity, direction dir);
+void EnterMoveAnimation(entt::registry& registry, entt::entity entity, Direction dir);
 
 /**
  * \brief Makes a humanoid enter the melee animation.
@@ -47,7 +47,7 @@ void enter_move_animation(entt::registry& registry, entt::entity entity, directi
  * \param registry the associated registry.
  * \param entity the entity that will enter the melee animation.
  */
-void enter_melee_animation(entt::registry& registry, entt::entity entity);
+void EnterMeleeAnimation(entt::registry& registry, entt::entity entity);
 
 /**
  * \brief Makes a humanoid enter the spell animation.
@@ -60,7 +60,7 @@ void enter_melee_animation(entt::registry& registry, entt::entity entity);
  * \param registry the associated registry.
  * \param entity the entity that will enter the spell animation.
  */
-void enter_spell_animation(entt::registry& registry, entt::entity entity);
+void EnterSpellAnimation(entt::registry& registry, entt::entity entity);
 
 /**
  * \brief Makes a humanoid enter the bow animation.
@@ -73,7 +73,7 @@ void enter_spell_animation(entt::registry& registry, entt::entity entity);
  * \param registry the current level registry.
  * \param entity the entity that will enter the bow animation.
  */
-void enter_bow_animation(entt::registry& registry, entt::entity entity);
+void EnterBowAnimation(entt::registry& registry, entt::entity entity);
 
 /**
  * \brief Makes a humanoid enter its spear animation.
@@ -86,7 +86,7 @@ void enter_bow_animation(entt::registry& registry, entt::entity entity);
  * \param registry the current level registry.
  * \param entity the entity that will enter the spear animation.
  */
-void enter_spear_animation(entt::registry& registry, entt::entity entity);
+void EnterSpearAnimation(entt::registry& registry, entt::entity entity);
 
 /**
  * \brief Updates all humanoids animations.
@@ -95,7 +95,7 @@ void enter_spear_animation(entt::registry& registry, entt::entity entity);
  *
  * \param registry the current level registry.
  */
-void update_humanoid_animations(entt::registry& registry);
+void UpdateHumanoidAnimations(entt::registry& registry);
 
 /// \} End of humanoids
 

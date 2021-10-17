@@ -17,7 +17,7 @@ namespace wanderer::sys {
  *
  * \param event the event data.
  */
-void on_interact(const interact_event& event);
+void OnInteract(const InteractEvent& event);
 
 /// \} End of event handlers
 

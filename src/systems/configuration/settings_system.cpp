@@ -10,9 +10,9 @@
 namespace wanderer::sys {
 namespace {
 
-inline const auto settings_file = files_directory() / "settings.ini";
+inline const auto settings_file = GetFilesDirectory() / "settings.ini";
 
-[[nodiscard]] constexpr auto default_settings() noexcept -> ctx::Settings
+[[nodiscard]] constexpr auto GetDefaultSettings() noexcept -> ctx::Settings
 {
   ctx::Settings settings;
 
@@ -22,18 +22,18 @@ inline const auto settings_file = files_directory() / "settings.ini";
   return settings;
 }
 
-void log_settings(const ctx::Settings& settings)
+void LogSettings(const ctx::Settings& settings)
 {
   cen::log::info("  [bool] fullscreen = %i", settings.fullscreen);
   cen::log::info("  [bool] integerScaling = %i", settings.integer_scaling);
 }
 
-[[nodiscard]] auto read_settings(const std::filesystem::path& path) -> ctx::Settings
+[[nodiscard]] auto ReadSettings(const std::filesystem::path& path) -> ctx::Settings
 {
   CENTURION_LOG_INFO("Reading settings: \"%s\"", path.string().c_str());
 
   const auto ini = init::read_ini(path);
-  auto settings = default_settings();
+  auto settings = GetDefaultSettings();
 
   const auto& graphics = ini.at("Graphics");
   graphics.at("Fullscreen").get_to(settings.fullscreen);
@@ -41,7 +41,7 @@ void log_settings(const ctx::Settings& settings)
 
   if constexpr (cen::is_debug_build()) {
     cen::log::info("Finished reading settings...");
-    log_settings(settings);
+    LogSettings(settings);
   }
 
   return settings;
@@ -49,33 +49,33 @@ void log_settings(const ctx::Settings& settings)
 
 }  // namespace
 
-void load_settings(entt::registry& registry)
+void LoadSettings(entt::registry& registry)
 {
   if (std::filesystem::exists(settings_file)) {
-    registry.set<ctx::Settings>(read_settings(settings_file));
+    registry.set<ctx::Settings>(ReadSettings(settings_file));
   }
   else {
     CENTURION_LOG_INFO("Copying default settings to preferred path...");
     std::filesystem::copy("resources/settings.ini", settings_file);
-    registry.set<ctx::Settings>(default_settings());
+    registry.set<ctx::Settings>(GetDefaultSettings());
   }
 }
 
-auto toggle_fullscreen(entt::registry& registry) -> bool
+auto ToggleFullscreen(entt::registry& registry) -> bool
 {
   auto& settings = registry.ctx<ctx::Settings>();
   settings.fullscreen = !settings.fullscreen;
   return settings.fullscreen;
 }
 
-auto toggle_integer_scaling(entt::registry& registry) -> bool
+auto ToggleIntegerScaling(entt::registry& registry) -> bool
 {
   auto& settings = registry.ctx<ctx::Settings>();
   settings.integer_scaling = !settings.integer_scaling;
   return settings.integer_scaling;
 }
 
-void save_settings_before_exit(const entt::registry& registry)
+void SaveSettingsBeforeExit(const entt::registry& registry)
 {
   const auto& settings = registry.ctx<ctx::Settings>();
 
@@ -87,7 +87,7 @@ void save_settings_before_exit(const entt::registry& registry)
 
   if constexpr (cen::is_debug_build()) {
     cen::log::info("Saving settings...");
-    log_settings(settings);
+    LogSettings(settings);
   }
 }
 

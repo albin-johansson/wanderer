@@ -10,9 +10,9 @@
 namespace wanderer::sys {
 namespace {
 
-void update_plant_drawable(entt::registry& registry,
-                           const comp::Plant& plant,
-                           comp::Drawable& drawable)
+void UpdatePlantDrawable(entt::registry& registry,
+                         const comp::Plant& plant,
+                         comp::Drawable& drawable)
 {
   const auto id = plant.tiles.at(plant.index);
 
@@ -26,7 +26,7 @@ void update_plant_drawable(entt::registry& registry,
     drawable.dst.set_height(glob::tile_height<float>);
   }
 
-  const auto& tile = get_tile(registry, id);
+  const auto& tile = GetTile(registry, id);
   drawable.src = tile.src;
 
   if (drawable.dst.y() != plant.base_y) {
@@ -37,7 +37,7 @@ void update_plant_drawable(entt::registry& registry,
 
 }  // namespace
 
-void update_plants(entt::registry& registry, const float dt)
+void UpdatePlants(entt::registry& registry, float dt)
 {
   for (auto&& [entity, plant] : registry.view<comp::Plant>().each()) {
     if (plant.index < plant.tiles.size() - 1) {
@@ -52,7 +52,7 @@ void update_plants(entt::registry& registry, const float dt)
     }
 
     if (auto* drawable = registry.try_get<comp::Drawable>(entity)) {
-      update_plant_drawable(registry, plant, *drawable);
+      UpdatePlantDrawable(registry, plant, *drawable);
     }
   }
 }

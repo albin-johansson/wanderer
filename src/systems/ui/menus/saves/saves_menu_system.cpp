@@ -55,7 +55,7 @@ void fetch_saves(entt::registry& registry, comp::SavesMenu& savesMenu)
   destroy_and_clear(registry, savesMenu.entries);
   registry.clear<comp::SavesMenuEntry>();
 
-  for (const auto& entry : std::filesystem::directory_iterator(saves_directory())) {
+  for (const auto& entry : std::filesystem::directory_iterator(GetSavesDirectory())) {
     if (entry.is_directory()) {
       savesMenu.entries.push_back(make_saves_menu_entry(registry, entry.path()));
     }
@@ -93,8 +93,8 @@ void refresh_save_entry_buttons(entt::registry& registry,
 
     const auto buttonEntity = make_button(registry,
                                           entry.name,
-                                          menu_action::change_save_preview,
-                                          grid_position{actualRow, save_entry_col});
+                                          MenuAction::ChangeSavePreview,
+                                          GridPosition{actualRow, save_entry_col});
 
     set_visible(registry.get<comp::Button>(buttonEntity),
                 static_cast<float>(row) < maxRow);
@@ -123,7 +123,7 @@ void refresh_page_indicator_label(entt::registry& registry,
         sys::make_label(registry,
                         menuEntity,
                         get_page_indicator_text(group),
-                        grid_position{page_indicator_row, page_indicator_col},
+                        GridPosition{page_indicator_row, page_indicator_col},
                         text_size::medium);
   }
   else {
@@ -217,7 +217,7 @@ void refresh_saves_menu(entt::registry& registry)
 void change_save_preview(entt::registry& registry)
 {
   const auto activeMenu = registry.ctx<ctx::ActiveMenu>().entity;
-  assert(registry.get<comp::Menu>(activeMenu).id == menu_id::saves);
+  assert(registry.get<comp::Menu>(activeMenu).id == MenuId::Saves);
 
   auto& savesMenu = registry.get<comp::SavesMenu>(activeMenu);
 
@@ -239,14 +239,14 @@ void change_save_preview(entt::registry& registry)
       return make_label(registry,
                         activeMenu,
                         std::move(text),
-                        grid_position{row, col},
+                        GridPosition{row, col},
                         size);
     };
 
     savesMenu.title_label = label(entry.name, 6, 11, text_size::large);
     savesMenu.time_label =
         label("Last played:  " +
-                  last_modified(saves_directory() / entry.name / "data.wanderer"),
+                  GetLastModified(GetSavesDirectory() / entry.name / "data.wanderer"),
               7.4f,
               11.0f);
 
@@ -255,7 +255,7 @@ void change_save_preview(entt::registry& registry)
     savesMenu.preview_texture = make_lazy_texture(registry,
                                                   activeMenu,
                                                   entry.preview,
-                                                  grid_position{7.0f, 20.0f},
+                                                  GridPosition{7.0f, 20.0f},
                                                   cen::area(width, height));
 
     update_delete_button_enabled(registry, group, savesMenu.delete_button);
@@ -265,7 +265,7 @@ void change_save_preview(entt::registry& registry)
 void remove_save_entry(entt::registry& registry, const std::string& name)
 {
   const auto activeMenu = registry.ctx<ctx::ActiveMenu>().entity;
-  assert(registry.get<comp::Menu>(activeMenu).id == menu_id::saves);
+  assert(registry.get<comp::Menu>(activeMenu).id == MenuId::Saves);
 
   auto& savesMenu = registry.get<comp::SavesMenu>(activeMenu);
 
@@ -297,7 +297,7 @@ void decrement_saves_button_group_page(entt::registry& registry)
 auto get_selected_save_name(entt::registry& shared) -> std::string
 {
   const auto activeMenu = shared.ctx<ctx::ActiveMenu>().entity;
-  assert(shared.get<comp::Menu>(activeMenu).id == menu_id::saves);
+  assert(shared.get<comp::Menu>(activeMenu).id == MenuId::Saves);
 
   auto& group = shared.get<comp::ButtonGroup>(activeMenu);
   assert(group.selected != entt::null);

@@ -6,10 +6,10 @@
 namespace wanderer::sys {
 namespace {
 
-void make_fancy(entt::registry& registry,
-                const entt::entity tileEntity,
-                comp::Tile& tile,
-                const ir::fancy_tile& data)
+void MakeFancy(entt::registry& registry,
+               const entt::entity tileEntity,
+               comp::Tile& tile,
+               const ir::fancy_tile& data)
 {
   tile.depth = data.depth;
 
@@ -18,10 +18,10 @@ void make_fancy(entt::registry& registry,
   }
 }
 
-[[nodiscard]] auto create_tile(entt::registry& registry,
-                               const graphics_context& graphics,
-                               const tile_id id,
-                               const ir::tile& data) -> entt::entity
+[[nodiscard]] auto CreateTile(entt::registry& registry,
+                              const GraphicsContext& graphics,
+                              const tile_id id,
+                              const ir::tile& data) -> entt::entity
 {
   const auto entity = registry.create();
 
@@ -31,37 +31,37 @@ void make_fancy(entt::registry& registry,
   tile.src = data.source;
 
   if (data.fancy) {
-    make_fancy(registry, entity, tile, *data.fancy);
+    MakeFancy(registry, entity, tile, *data.fancy);
   }
 
   return entity;
 }
 
-void load_tiles(entt::registry& registry,
-                comp::Tileset& tileset,
-                const graphics_context& graphics,
-                const std::map<tile_id, ir::tile>& tiles)
+void LoadTiles(entt::registry& registry,
+               comp::Tileset& tileset,
+               const GraphicsContext& graphics,
+               const std::map<tile_id, ir::tile>& tiles)
 {
   for (const auto& [id, data] : tiles) {
-    const auto entity = create_tile(registry, graphics, id, data);
+    const auto entity = CreateTile(registry, graphics, id, data);
     tileset.tiles.try_emplace(id, entity);
   }
 }
 
 }  // namespace
 
-void load_tileset(entt::registry& registry,
-                  const entt::entity tilesetEntity,
-                  const graphics_context& graphics,
-                  const std::vector<ir::tileset>& data)
+void LoadTileset(entt::registry& registry,
+                 const entt::entity tilesetEntity,
+                 const GraphicsContext& graphics,
+                 const std::vector<ir::tileset>& data)
 {
   auto& tileset = registry.emplace<comp::Tileset>(tilesetEntity);
 
   tileset.tiles.reserve(
-      accumulate(data, [](const ir::tileset& tileset) { return tileset.tiles.size(); }));
+      Accumulate(data, [](const ir::tileset& tileset) { return tileset.tiles.size(); }));
 
   for (const auto& ts : data) {
-    load_tiles(registry, tileset, graphics, ts.tiles);
+    LoadTiles(registry, tileset, graphics, ts.tiles);
   }
 }
 

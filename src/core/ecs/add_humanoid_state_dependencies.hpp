@@ -12,6 +12,6 @@ namespace wanderer {
  *
  * \param registry the registry to add the dependencies to.
  */
-void add_humanoid_state_dependencies(entt::registry& registry);
+void AddHumanoidStateDependencies(entt::registry& registry);
 
 }  // namespace wanderer

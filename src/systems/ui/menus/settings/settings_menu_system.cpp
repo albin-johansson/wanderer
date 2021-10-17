@@ -13,10 +13,10 @@ void sync_settings_menu(entt::registry& registry)
   for (auto&& [entity, button, checkbox] :
        registry.view<const comp::Button, comp::Checkbox>().each())
   {
-    if (button.action == menu_action::toggle_fullscreen) {
+    if (button.action == MenuAction::ToggleFullscreen) {
       checkbox.checked = settings.fullscreen;
     }
-    else if (button.action == menu_action::toggle_integer_scaling) {
+    else if (button.action == MenuAction::ToggleIntegerScaling) {
       checkbox.checked = settings.integer_scaling;
     }
   }

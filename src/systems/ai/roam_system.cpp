@@ -15,7 +15,7 @@ namespace {
 inline constexpr float cooldown_rate = 50;
 inline constexpr float target_error_margin = 1;
 
-[[nodiscard]] auto nearby_position(const float2 position) -> float2
+[[nodiscard]] auto GetNearbyPosition(const float2 position) -> float2
 {
   constexpr auto range = glob::tile_width<float> * 5.0f;
 
@@ -25,27 +25,27 @@ inline constexpr float target_error_margin = 1;
   return float2{x, y};
 }
 
-void target_nearby_position(entt::registry& registry,
-                            const entt::entity entity,
-                            comp::Roam& roam,
-                            comp::Movable& movable)
+void TargetNearbyPosition(entt::registry& registry,
+                          const entt::entity entity,
+                          comp::Roam& roam,
+                          comp::Movable& movable)
 {
   roam.cooldown = 0;
-  roam.destination = nearby_position(movable.position);
+  roam.destination = GetNearbyPosition(movable.position);
 
   movable.velocity = movable.position;
   movable.velocity.look_at(*roam.destination, movable.speed);
 
   if (registry.all_of<comp::Humanoid>(entity)) {
     registry.emplace<comp::HumanoidMove>(entity);
-    enter_move_animation(registry, entity, dominant_direction(movable));
+    EnterMoveAnimation(registry, entity, GetDominantDirection(movable));
   }
 }
 
-void begin_cooldown(entt::registry& registry,
-                    const entt::entity entity,
-                    comp::Roam& roam,
-                    comp::Movable& movable)
+void BeginCooldown(entt::registry& registry,
+                   const entt::entity entity,
+                   comp::Roam& roam,
+                   comp::Movable& movable)
 {
   // Reached destination, begin cooldown
   roam.cooldown = 0;
@@ -54,24 +54,24 @@ void begin_cooldown(entt::registry& registry,
 
   if (registry.all_of<comp::Humanoid>(entity)) {
     registry.emplace<comp::HumanoidIdle>(entity);
-    enter_idle_animation(registry, entity);
+    EnterIdleAnimation(registry, entity);
   }
 }
 
 }  // namespace
 
-void update_roaming(entt::registry& registry, const float dt)
+void UpdateRoaming(entt::registry& registry, float dt)
 {
   for (auto&& [entity, roam, movable] : registry.view<comp::Roam, comp::Movable>().each())
   {
     if (!roam.destination) {
       roam.cooldown += cooldown_rate * dt;
       if (roam.cooldown >= roam.cooldown_duration) {
-        target_nearby_position(registry, entity, roam, movable);
+        TargetNearbyPosition(registry, entity, roam, movable);
       }
     }
     else if (distance(movable.position, *roam.destination) < target_error_margin) {
-      begin_cooldown(registry, entity, roam, movable);
+      BeginCooldown(registry, entity, roam, movable);
     }
   }
 }

@@ -15,9 +15,9 @@
 namespace wanderer::sys {
 namespace {
 
-[[nodiscard]] auto get_direction(const cen::keyboard& keyboard,
-                                 const ctx::Binds& binds) noexcept
-    -> std::optional<direction>
+[[nodiscard]] auto GetDirection(const cen::keyboard& keyboard,
+                                const ctx::Binds& binds) noexcept
+    -> std::optional<Direction>
 {
   const auto left = keyboard.is_pressed(binds.left);
   const auto right = keyboard.is_pressed(binds.right);
@@ -25,39 +25,39 @@ namespace {
   const auto down = keyboard.is_pressed(binds.down);
 
   if (left) {
-    return direction::left;
+    return Direction::Left;
   }
   else if (right) {
-    return direction::right;
+    return Direction::Right;
   }
   else if (up) {
-    return direction::up;
+    return Direction::Up;
   }
   else if (down) {
-    return direction::down;
+    return Direction::Down;
   }
   else {
     return std::nullopt;
   }
 }
 
-void check_for_movement(entt::registry& registry,
-                        entt::dispatcher& dispatcher,
-                        const cen::keyboard& keyboard,
-                        const ctx::Binds& binds)
+void CheckForMovement(entt::registry& registry,
+                      entt::dispatcher& dispatcher,
+                      const cen::keyboard& keyboard,
+                      const ctx::Binds& binds)
 {
-  if (const auto dir = get_direction(keyboard, binds)) {
+  if (const auto dir = GetDirection(keyboard, binds)) {
     const auto player = singleton_entity<comp::Player>(registry);
-    dispatcher.enqueue<begin_humanoid_move_event>(registry, player, *dir);
+    dispatcher.enqueue<BeginHumanoidMoveEvent>(registry, player, *dir);
   }
 }
 
 }  // namespace
 
-void handle_idle_input(entt::registry& registry,
-                       entt::dispatcher& dispatcher,
-                       const rune::input& input,
-                       const ctx::Binds& binds)
+void HandleIdleInput(entt::registry& registry,
+                     entt::dispatcher& dispatcher,
+                     const rune::input& input,
+                     const ctx::Binds& binds)
 {
   const auto player = singleton_entity<comp::Player>(registry);
 
@@ -65,18 +65,15 @@ void handle_idle_input(entt::registry& registry,
   const auto& keyboard = input.keyboard;
 
   if (keyboard.just_released(binds.interact)) {
-    dispatcher.enqueue<interact_event>(registry, dispatcher);
+    dispatcher.enqueue<InteractEvent>(registry, dispatcher);
   }
   else if (registry.empty<comp::ActiveInventory>()) {
     if (keyboard.is_pressed(binds.attack)) {
       // FIXME
-      dispatcher.enqueue<begin_attack_event>(registry,
-                                             player,
-                                             entt::null,
-                                             direction::down);
+      dispatcher.enqueue<BeginAttackEvent>(registry, player, entt::null, Direction::Down);
     }
     else {
-      check_for_movement(registry, dispatcher, input.keyboard, binds);
+      CheckForMovement(registry, dispatcher, input.keyboard, binds);
     }
   }
 }

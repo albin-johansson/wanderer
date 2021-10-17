@@ -4,6 +4,6 @@
 
 namespace wanderer {
 
-[[nodiscard]] auto make_registry() -> entt::registry;
+[[nodiscard]] auto MakeRegistry() -> entt::registry;
 
 }  // namespace wanderer

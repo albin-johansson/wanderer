@@ -7,24 +7,24 @@
 
 namespace wanderer {
 
-void connect_events(entt::dispatcher& dispatcher)
+void ConnectEvents(entt::dispatcher& dispatcher)
 {
   using namespace sys;
-  dispatcher.sink<begin_attack_event>().connect<&on_attack_begin>();
-  dispatcher.sink<end_attack_event>().connect<&on_attack_end>();
-  dispatcher.sink<begin_humanoid_move_event>().connect<&on_move_begin>();
-  dispatcher.sink<end_humanoid_move_event>().connect<&on_move_end>();
-  dispatcher.sink<interact_event>().connect<&on_interact>();
+  dispatcher.sink<BeginAttackEvent>().connect<&OnAttackBegin>();
+  dispatcher.sink<EndAttackEvent>().connect<&OnAttackEnd>();
+  dispatcher.sink<BeginHumanoidMoveEvent>().connect<&OnMoveBegin>();
+  dispatcher.sink<EndHumanoidMoveEvent>().connect<&OnMoveEnd>();
+  dispatcher.sink<InteractEvent>().connect<&OnInteract>();
 }
 
-void disconnect_events(entt::dispatcher& dispatcher)
+void DisconnectEvents(entt::dispatcher& dispatcher)
 {
   dispatcher.clear();
-  dispatcher.sink<end_humanoid_move_event>().disconnect();
-  dispatcher.sink<begin_humanoid_move_event>().disconnect();
-  dispatcher.sink<end_attack_event>().disconnect();
-  dispatcher.sink<begin_attack_event>().disconnect();
-  dispatcher.sink<interact_event>().disconnect();
+  dispatcher.sink<EndHumanoidMoveEvent>().disconnect();
+  dispatcher.sink<BeginHumanoidMoveEvent>().disconnect();
+  dispatcher.sink<EndAttackEvent>().disconnect();
+  dispatcher.sink<BeginAttackEvent>().disconnect();
+  dispatcher.sink<InteractEvent>().disconnect();
 }
 
 }  // namespace wanderer

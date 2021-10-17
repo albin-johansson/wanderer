@@ -371,7 +371,7 @@ void save_shared_data(const entt::registry& shared, proto::shared_data* data)
 
 void save_data(const entt::registry& shared, proto::save& save)
 {
-  save.set_current_level_id(sys::current_level(shared).id);
+  save.set_current_level_id(sys::CurrentLevel(shared).id);
   save_shared_data(shared, save.mutable_shared());
 
   for (auto&& [entity, level] : shared.view<comp::Level>().each()) {

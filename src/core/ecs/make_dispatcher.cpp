@@ -4,10 +4,10 @@
 
 namespace wanderer {
 
-auto make_dispatcher() -> entt::dispatcher
+auto MakeDispatcher() -> entt::dispatcher
 {
   entt::dispatcher dispatcher;
-  connect_events(dispatcher);
+  ConnectEvents(dispatcher);
   return dispatcher;
 }
 

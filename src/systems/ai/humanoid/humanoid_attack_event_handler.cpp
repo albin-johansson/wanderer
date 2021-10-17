@@ -13,28 +13,28 @@ namespace wanderer::sys {
 namespace {
 
 [[nodiscard]] auto get_particle_position(const float2 position,
-                                         const direction dir) noexcept -> float2
+                                         const Direction dir) noexcept -> float2
 {
   switch (dir) {
     default:
       [[fallthrough]];
-    case direction::up:
+    case Direction::Up:
       return {position.x + glob::tile_width<>, position.y};
 
-    case direction::right:
+    case Direction::Right:
       return {position.x + (glob::tile_width<> * 2.0f), position.y + glob::tile_height<>};
 
-    case direction::down:
+    case Direction::Down:
       return {position.x + glob::tile_width<>, position.y + (glob::tile_height<> * 2.0f)};
 
-    case direction::left:
+    case Direction::Left:
       return {position.x, position.y + glob::tile_height<>};
   }
 }
 
 }  // namespace
 
-void on_attack_begin(const begin_attack_event& event)
+void OnAttackBegin(const BeginAttackEvent& event)
 {
   auto& registry = event.registry.get();
   assert(!registry.all_of<comp::HumanoidAttack>(event.source_entity));
@@ -43,24 +43,24 @@ void on_attack_begin(const begin_attack_event& event)
   attack.weapon = event.weapon;
 
   // TODO enter correct animation according to weapon
-  enter_melee_animation(event.registry, event.source_entity);
+  EnterMeleeAnimation(event.registry, event.source_entity);
 }
 
-void on_attack_end(const end_attack_event& event)
+void OnAttackEnd(const EndAttackEvent& event)
 {
   auto& registry = event.registry.get();
   auto& dispatcher = event.dispatcher.get();
   assert(registry.all_of<comp::HumanoidAttack>(event.source_entity));
 
   registry.emplace<comp::HumanoidIdle>(event.source_entity);
-  enter_idle_animation(event.registry, event.source_entity);
+  EnterIdleAnimation(event.registry, event.source_entity);
   assert(!registry.all_of<comp::HumanoidAttack>(event.source_entity));
 
   // TODO deal damage (need target area)
 
   if (const auto* movable = registry.try_get<comp::Movable>(event.source_entity)) {
     const auto position = get_particle_position(movable->position, movable->dir);
-    dispatcher.enqueue<spawn_particles_event>(position, 5, 25.0f, cen::colors::dark_gray);
+    dispatcher.enqueue<SpawnParticlesEvent>(position, 5, 25.0f, cen::colors::dark_gray);
   }
 }
 

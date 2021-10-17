@@ -102,33 +102,33 @@ inline const phase night_phase{.phase_start = night,
   }
 }
 
-[[nodiscard]] constexpr auto next_day(const day_of_week day) noexcept -> day_of_week
+[[nodiscard]] constexpr auto next_day(const DayOfWeek day) noexcept -> DayOfWeek
 {
-  return static_cast<day_of_week>((cen::to_underlying(day) + 1) % 7);
+  return static_cast<DayOfWeek>((cen::to_underlying(day) + 1) % 7);
 }
 
-[[nodiscard]] constexpr auto to_string(const day_of_week day) -> std::string_view
+[[nodiscard]] constexpr auto to_string(const DayOfWeek day) -> std::string_view
 {
   switch (day) {
-    case day_of_week::monday:
+    case DayOfWeek::Monday:
       return "MON";
 
-    case day_of_week::tuesday:
+    case DayOfWeek::Tuesday:
       return "TUE";
 
-    case day_of_week::wednesday:
+    case DayOfWeek::Wednesday:
       return "WED";
 
-    case day_of_week::thursday:
+    case DayOfWeek::Thursday:
       return "THU";
 
-    case day_of_week::friday:
+    case DayOfWeek::Friday:
       return "FRI";
 
-    case day_of_week::saturday:
+    case DayOfWeek::Saturday:
       return "SAT";
 
-    case day_of_week::sunday:
+    case DayOfWeek::Sunday:
       return "SUN";
 
     default:
@@ -138,7 +138,7 @@ inline const phase night_phase{.phase_start = night,
 
 }  // namespace
 
-void update_time(entt::registry& shared, entt::dispatcher& dispatcher, const float dt)
+void UpdateTime(entt::registry& shared, entt::dispatcher& dispatcher, float dt)
 {
   auto& time = shared.ctx<ctx::TimeOfDay>();
 
@@ -150,13 +150,13 @@ void update_time(entt::registry& shared, entt::dispatcher& dispatcher, const flo
   time.tint = get_color(phase, time.hour);
 
   if (time.hour >= 24) {
-    change_to_next_day(shared, dispatcher);
+    ChangeToNextDay(shared, dispatcher);
   }
 }
 
-void change_to_next_day(entt::registry& shared,
+void ChangeToNextDay(entt::registry& shared,
                         entt::dispatcher& dispatcher,
-                        const float hour)
+                        float hour)
 {
   auto& time = shared.ctx<ctx::TimeOfDay>();
   time.seconds = hour * seconds_per_hour;
@@ -166,10 +166,10 @@ void change_to_next_day(entt::registry& shared,
      we know it is here. */
   CENTURION_LOG_INFO("Changed day to %s", to_string(time.day).data());
 
-  dispatcher.enqueue<day_changed_event>(time.day);
+  dispatcher.enqueue<DayChangedEvent>(time.day);
 }
 
-void render_clock(const entt::registry& registry)
+void RenderClock(const entt::registry& registry)
 {
   const auto& time = registry.ctx<ctx::TimeOfDay>();
 
@@ -186,7 +186,7 @@ void render_clock(const entt::registry& registry)
                                        prefix(minute),
                                        minute};
 
-  auto& graphics = registry.ctx<ref<graphics_context>>().get();
+  auto& graphics = registry.ctx<ref<GraphicsContext>>().get();
   graphics.render_outlined_text(to_string(time.day), cen::point(6, 6));
   graphics.render_outlined_text(str.view(), cen::point(30, 6));
 }

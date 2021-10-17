@@ -12,18 +12,17 @@
 
 namespace wanderer::sys {
 
-auto prepare_current_level_before_switch(entt::registry& shared,
-                                         const custom_animation_halfway_event& event)
-    -> map_id
+auto PrepareCurrentLevelBeforeSwitch(entt::registry& shared,
+                                     const CustomAnimationHalfwayEvent& event) -> map_id
 {
   assert(event.id == glob::switch_level_id);
-  auto& level = sys::current_level(shared);
+  auto& level = sys::CurrentLevel(shared);
 
   const auto player = singleton_entity<comp::Player>(level.registry);
   auto& movable = level.registry.get<comp::Movable>(player);
   movable.velocity.reset();
 
-  sys::center_viewport_on(level.registry, movable.position);
+  sys::CenterViewportOn(level.registry, movable.position);
 
   const auto next = level.registry.get<comp::LevelSwitchTarget>(event.entity).id;
   level.registry.destroy(event.entity);
@@ -31,7 +30,7 @@ auto prepare_current_level_before_switch(entt::registry& shared,
   return next;
 }
 
-void enable_level(entt::registry& shared, const map_id id)
+void EnableLevel(entt::registry& shared, map_id id)
 {
   shared.clear<comp::ActiveLevel>();
 
@@ -45,17 +44,17 @@ void enable_level(entt::registry& shared, const map_id id)
   assert(shared.size<comp::ActiveLevel>() == 1);
 }
 
-auto current_level(entt::registry& shared) -> comp::Level&
+auto CurrentLevel(entt::registry& shared) -> comp::Level&
 {
   return shared.get<comp::Level>(singleton_entity<const comp::ActiveLevel>(shared));
 }
 
-auto current_level(const entt::registry& shared) -> const comp::Level&
+auto CurrentLevel(const entt::registry& shared) -> const comp::Level&
 {
   return shared.get<comp::Level>(singleton_entity<const comp::ActiveLevel>(shared));
 }
 
-auto is_current_level_outside(const entt::registry& shared) -> bool
+auto IsCurrentLevelOutside(const entt::registry& shared) -> bool
 {
   const auto level = singleton_entity<const comp::ActiveLevel>(shared);
   return shared.all_of<comp::OutsideLevel>(level);

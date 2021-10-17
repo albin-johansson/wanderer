@@ -13,7 +13,7 @@ struct TimeOfDay final
   float minute{};   ///< [0, 60)
   float seconds{};  ///< This has no predefined range, it is reset once per in-game day
   int32 week{};     ///< The week index.
-  day_of_week day{day_of_week::monday};  ///< The current day.
+  DayOfWeek day{DayOfWeek::Monday};  ///< The current day.
   cen::color tint;
 };
 

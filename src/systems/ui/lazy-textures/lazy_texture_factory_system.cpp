@@ -9,7 +9,7 @@ namespace wanderer::sys {
 auto make_lazy_texture(entt::registry& registry,
                        const entt::entity menu,
                        cen::surface surface,
-                       const grid_position position,
+                       const GridPosition position,
                        const cen::farea size) -> entt::entity
 {
   const auto entity = registry.create();

@@ -4,6 +4,6 @@
 
 namespace wanderer {
 
-[[nodiscard]] auto make_dispatcher() -> entt::dispatcher;
+[[nodiscard]] auto MakeDispatcher() -> entt::dispatcher;
 
-}
+}  // namespace wanderer

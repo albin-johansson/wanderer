@@ -15,7 +15,7 @@ namespace wanderer::sys {
 
 /// \brief Represents a pair of two hypothetical future hitboxes.
 /// \ingroup systems
-struct next_hitboxes final
+struct NextHitboxes final
 {
   maybe<comp::Hitbox> horizontal;  ///< The next hitbox with only a horizontal offset.
   maybe<comp::Hitbox> vertical;    ///< The next hitbox with only a vertical offset.
@@ -23,7 +23,7 @@ struct next_hitboxes final
 
 /// \brief Represents a collision result in two axes.
 /// \ingroup systems
-struct collision_result final
+struct CollisionResult final
 {
   bool horizontal{};  ///< Indicates whether or not there was a horizontal collision.
   bool vertical{};    ///< Indicates whether or not there was a vertical collision.
@@ -39,7 +39,7 @@ struct collision_result final
  *
  * \param hitbox the hitbox that will be updated.
  */
-void update_bounds(comp::Hitbox& hitbox) noexcept;
+void UpdateBounds(comp::Hitbox& hitbox) noexcept;
 
 /**
  * \brief Sets the position of a hitbox and updates its bounds.
@@ -49,7 +49,7 @@ void update_bounds(comp::Hitbox& hitbox) noexcept;
  * \param hitbox the hitbox that will be moved.
  * \param position the new position of the hitbox.
  */
-void set_position(comp::Hitbox& hitbox, float2 position) noexcept;
+void SetPosition(comp::Hitbox& hitbox, float2 position) noexcept;
 
 /**
  * \brief Creates a copy of the supplied hitbox with the specified position.
@@ -61,7 +61,7 @@ void set_position(comp::Hitbox& hitbox, float2 position) noexcept;
  *
  * \return a hitbox that is a copy of the supplied hitbox with the specified position.
  */
-[[nodiscard]] auto with_position(const comp::Hitbox& hitbox, float2 position) noexcept
+[[nodiscard]] auto WithPosition(const comp::Hitbox& hitbox, float2 position) noexcept
     -> comp::Hitbox;
 
 /**
@@ -76,7 +76,7 @@ void set_position(comp::Hitbox& hitbox, float2 position) noexcept;
  *
  * \return `true` if the hitboxes intersect; `false` otherwise.
  */
-[[nodiscard]] auto intersects(const comp::Hitbox& fst, const comp::Hitbox& snd) noexcept
+[[nodiscard]] auto Intersects(const comp::Hitbox& fst, const comp::Hitbox& snd) noexcept
     -> bool;
 
 /**
@@ -90,7 +90,7 @@ void set_position(comp::Hitbox& hitbox, float2 position) noexcept;
  *
  * \since 0.1.0
  */
-[[nodiscard]] auto make_hitbox(std::initializer_list<comp::Subhitbox> boxes)
+[[nodiscard]] auto MakeHitbox(std::initializer_list<comp::Subhitbox> boxes)
     -> comp::Hitbox;
 
 /**
@@ -109,10 +109,10 @@ void set_position(comp::Hitbox& hitbox, float2 position) noexcept;
  *
  * \return the next theoretical vertical and horizontal hitboxes.
  */
-[[nodiscard]] auto make_next_hitboxes(const comp::Movable& movable,
-                                      const comp::Hitbox& hitbox,
-                                      float2 oldPosition,
-                                      float dt) -> next_hitboxes;
+[[nodiscard]] auto MakeNextHitboxes(const comp::Movable& movable,
+                                    const comp::Hitbox& hitbox,
+                                    float2 oldPosition,
+                                    float dt) -> NextHitboxes;
 
 /**
  * \brief Computes the collisions for a pair of future hitboxes and an obstacle.
@@ -125,13 +125,13 @@ void set_position(comp::Hitbox& hitbox, float2 position) noexcept;
  *
  * \ingroup systems
  *
- * \param next the theoretical hitboxes, probably obtained through `make_next_hitboxes()`.
+ * \param next the theoretical hitboxes, probably obtained through `MakeNextHitboxes()`.
  * \param obstacle the hitbox of the obstacle.
  *
  * \return the vertical and horizontal collision results.
  */
-[[nodiscard]] auto query_collisions(const next_hitboxes& next,
-                                    const comp::Hitbox& obstacle) -> collision_result;
+[[nodiscard]] auto QueryCollisions(const NextHitboxes& next, const comp::Hitbox& obstacle)
+    -> CollisionResult;
 
 /// \} End of movement
 

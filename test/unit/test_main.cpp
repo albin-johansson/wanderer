@@ -10,7 +10,7 @@ int main(int argc, char** argv)
   cen::log::use_preset_output_function();
   cen::log::set_priority(cen::log_priority::debug);
 
-  wanderer::prepare_rune_configuration();
+  wanderer::PrepareRuneConfiguration();
 
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

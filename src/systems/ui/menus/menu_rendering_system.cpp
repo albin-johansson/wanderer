@@ -35,7 +35,7 @@ void render_title(const std::string& title,
 
   if (!drawable.texture) {
     renderer.set_color(cen::colors::white);
-    drawable.texture = render_text(renderer, title, renderer.get_font(glob::menu_font_l));
+    drawable.texture = RenderText(renderer, title, renderer.get_font(glob::menu_font_l));
   }
 
   const auto& texture = *drawable.texture;
@@ -49,7 +49,7 @@ void render_title(const std::string& title,
   renderer.render(texture, *drawable.position);
 }
 
-void render_author_label(graphics_context& graphics)
+void render_author_label(GraphicsContext& graphics)
 {
   constexpr auto id = "developed_by_albin_johansson"_hs;
 
@@ -75,7 +75,7 @@ void render_active_menu(const entt::registry& shared)
   const auto& menu = shared.get<comp::Menu>(menuEntity);
   const auto& drawable = shared.get<comp::MenuDrawable>(menuEntity);
 
-  auto& graphics = shared.ctx<ref<graphics_context>>().get();
+  auto& graphics = shared.ctx<ref<GraphicsContext>>().get();
   auto& renderer = graphics.get_renderer();
 
   if (menu.blocking) {

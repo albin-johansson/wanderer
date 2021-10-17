@@ -7,7 +7,7 @@
 
 namespace wanderer::sys {
 
-void render_lines(const entt::registry& registry, graphics_context& graphics)
+void render_lines(const entt::registry& registry, GraphicsContext& graphics)
 {
   const auto menuEntity = registry.ctx<ctx::ActiveMenu>().entity;
 

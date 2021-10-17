@@ -11,7 +11,7 @@ auto main(int, char**) -> int
     cen::log::set_priority(cen::log_priority::debug);
   }
 
-  wanderer::prepare_rune_configuration();
+  wanderer::PrepareRuneConfiguration();
 
   wanderer::wanderer_engine engine;
   return engine.run();

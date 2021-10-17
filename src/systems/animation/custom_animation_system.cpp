@@ -15,7 +15,7 @@ inline constexpr cen::color gray{0x11, 0x11, 0x11};
 
 }  // namespace
 
-auto start_bond_animation(entt::registry& registry, const uint32 id) -> entt::entity
+auto StartBondAnimation(entt::registry& registry, uint32 id) -> entt::entity
 {
   const auto entity = registry.create();
 
@@ -31,7 +31,7 @@ auto start_bond_animation(entt::registry& registry, const uint32 id) -> entt::en
   return entity;
 }
 
-auto start_reverse_only_bond_animation(entt::registry& registry) -> entt::entity
+auto StartReverseOnlyBondAnimation(entt::registry& registry) -> entt::entity
 {
   const auto entity = registry.create();
 
@@ -46,9 +46,9 @@ auto start_reverse_only_bond_animation(entt::registry& registry) -> entt::entity
   return entity;
 }
 
-void update_custom_animations(entt::registry& registry,
-                              entt::dispatcher& dispatcher,
-                              float dt)
+void UpdateCustomAnimations(entt::registry& registry,
+                            entt::dispatcher& dispatcher,
+                            float dt)
 {
   for (auto&& [entity, animation] : registry.view<comp::CustomAnimation>().each()) {
     animation.width += animation.x_step_size * animation.speed * dt;
@@ -58,7 +58,7 @@ void update_custom_animations(entt::registry& registry,
       animation.x_step_size *= -1;
       animation.y_step_size *= -1;
       animation.fading_in = false;
-      dispatcher.enqueue<custom_animation_halfway_event>(animation.id, entity);
+      dispatcher.enqueue<CustomAnimationHalfwayEvent>(animation.id, entity);
     }
     else if (animation.width <= 0) {
       registry.destroy(entity);
@@ -66,12 +66,12 @@ void update_custom_animations(entt::registry& registry,
   }
 }
 
-void render_custom_animations(const entt::registry& registry)
+void RenderCustomAnimations(const entt::registry& registry)
 {
   constexpr auto width = glob::logical_width<float>;
   constexpr auto height = glob::logical_height<float>;
 
-  auto& graphics = registry.ctx<ref<graphics_context>>().get();
+  auto& graphics = registry.ctx<ref<GraphicsContext>>().get();
   auto& renderer = graphics.get_renderer();
   for (auto&& [entity, animation] : registry.view<comp::CustomAnimation>().each()) {
     const auto hSize = animation.width;

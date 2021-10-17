@@ -4,6 +4,6 @@
 
 namespace wanderer::sys {
 
-void update_triggers(entt::registry& registry);
+void UpdateTriggers(entt::registry& registry);
 
 }  // namespace wanderer::sys

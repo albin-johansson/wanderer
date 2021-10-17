@@ -19,9 +19,9 @@ namespace wanderer::sys {
  * \param tile the tile that will be rendered.
  * \param position the grid position of the tile.
  */
-void render_tile(graphics_context& graphics,
-                 const comp::Tile& tile,
-                 grid_position position) noexcept;
+void RenderTile(GraphicsContext& graphics,
+                const comp::Tile& tile,
+                GridPosition position) noexcept;
 
 /**
  * \brief Returns the tile that corresponds to the current frame of an animated tile.
@@ -38,9 +38,9 @@ void render_tile(graphics_context& graphics,
  *
  * \return the tile that corresponds to the current frame of the animated tile.
  */
-[[nodiscard]] auto get_animated_tile(const entt::registry& registry,
-                                     entt::entity tile,
-                                     const comp::Tileset& tileset) -> const comp::Tile&;
+[[nodiscard]] auto GetAnimatedTile(const entt::registry& registry,
+                                   entt::entity tile,
+                                   const comp::Tileset& tileset) -> const comp::Tile&;
 
 /// \} End of tiles
 

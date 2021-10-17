@@ -15,6 +15,6 @@ namespace wanderer {
  *
  * \return a textual representation of the last write time of the specified file.
  */
-[[nodiscard]] auto last_modified(const std::filesystem::path& path) -> std::string;
+[[nodiscard]] auto GetLastModified(const std::filesystem::path& path) -> std::string;
 
 }  // namespace wanderer

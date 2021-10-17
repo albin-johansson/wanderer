@@ -9,7 +9,7 @@
 namespace wanderer::sys {
 namespace {
 
-void configure_humanoid_layer(entt::registry& registry, const entt::entity tilemapEntity)
+void ConfigureHumanoidLayer(entt::registry& registry, const entt::entity tilemapEntity)
 {
   const auto& tilemap = registry.get<comp::Tilemap>(tilemapEntity);
   for (auto&& [entity, drawable] : registry.view<comp::Drawable, comp::Humanoid>().each())
@@ -20,10 +20,10 @@ void configure_humanoid_layer(entt::registry& registry, const entt::entity tilem
 
 }  // namespace
 
-void load_humanoids(comp::Level& level, graphics_context& graphics)
+void LoadHumanoids(comp::Level& level, GraphicsContext& graphics)
 {
   // The player has to be created before other humanoids!
-  sys::make_player(level, graphics);
+  sys::MakePlayer(level, graphics);
 
   for (auto&& [entity, spawnpoint] : level.registry.view<comp::Spawnpoint>().each()) {
     switch (spawnpoint.type) {
@@ -31,13 +31,13 @@ void load_humanoids(comp::Level& level, graphics_context& graphics)
         break;
 
       case comp::SpawnpointType::skeleton: {
-        sys::make_skeleton(level, spawnpoint.position, graphics);
+        sys::MakeSkeleton(level, spawnpoint.position, graphics);
         break;
       }
     }
   }
 
-  configure_humanoid_layer(level.registry, level.tilemap);
+  ConfigureHumanoidLayer(level.registry, level.tilemap);
 }
 
 }  // namespace wanderer::sys

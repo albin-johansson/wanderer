@@ -10,11 +10,10 @@
 
 namespace wanderer {
 
-void load_game(entt::registry& shared,
-               graphics_context& graphics,
+void load_game(entt::registry& shared, GraphicsContext& graphics,
                const std::string& name)
 {
-  const auto path = saves_directory() / name / "data.wanderer";
+  const auto path = GetSavesDirectory() / name / "data.wanderer";
   std::ifstream stream{path, std::ios::in | std::ios::binary};
 
   proto::save save;

@@ -9,8 +9,8 @@ namespace wanderer::sys {
 
 auto make_checkbox(entt::registry& registry,
                    std::string text,
-                   const grid_position position,
-                   const menu_action action,
+                   const GridPosition position,
+                   const MenuAction action,
                    const bool checked) -> entt::entity
 {
   const auto entity = registry.create();

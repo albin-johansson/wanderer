@@ -6,7 +6,7 @@
 
 namespace wanderer {
 
-struct custom_animation_halfway_event final
+struct CustomAnimationHalfwayEvent final
 {
   uint32 id{};
   entt::entity entity{entt::null};

@@ -10,7 +10,7 @@
 namespace wanderer {
 namespace {
 
-inline const auto file = files_directory() / "rune.ini";
+inline const auto file = GetFilesDirectory() / "rune.ini";
 
 void save_default_configuration()
 {
@@ -25,7 +25,7 @@ void save_default_configuration()
 
 }  // namespace
 
-void prepare_rune_configuration()
+void PrepareRuneConfiguration()
 {
   if (std::filesystem::exists(file)) {
     rune::load_configuration(file);

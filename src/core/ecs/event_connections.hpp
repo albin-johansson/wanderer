@@ -9,7 +9,7 @@ namespace wanderer {
  *
  * \param dispatcher the dispatcher that will be connected to the events.
  */
-void connect_events(entt::dispatcher& dispatcher);
+void ConnectEvents(entt::dispatcher& dispatcher);
 
 /**
  * \brief Disconnects a dispatcher from the game events.
@@ -20,6 +20,6 @@ void connect_events(entt::dispatcher& dispatcher);
  * \param dispatcher the dispatcher that will be cleared and disconnected
  * from events.
  */
-void disconnect_events(entt::dispatcher& dispatcher);
+void DisconnectEvents(entt::dispatcher& dispatcher);
 
 }  // namespace wanderer

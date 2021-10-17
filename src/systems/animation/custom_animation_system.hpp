@@ -21,7 +21,7 @@ namespace wanderer::sys {
  *
  * \return the created animation entity.
  */
-auto start_bond_animation(entt::registry& registry, uint32 id) -> entt::entity;
+auto StartBondAnimation(entt::registry& registry, uint32 id) -> entt::entity;
 
 /**
  * \brief Starts a reversed "Bond" animation.
@@ -32,9 +32,9 @@ auto start_bond_animation(entt::registry& registry, uint32 id) -> entt::entity;
  *
  * \return the created animation entity.
  *
- * \see `start_bond_animation()`
+ * \see `StartBondAnimation()`
  */
-auto start_reverse_only_bond_animation(entt::registry& registry) -> entt::entity;
+auto StartReverseOnlyBondAnimation(entt::registry& registry) -> entt::entity;
 
 /**
  * \brief Updates the state of all custom animations.
@@ -45,9 +45,9 @@ auto start_reverse_only_bond_animation(entt::registry& registry) -> entt::entity
  * \param dispatcher the event dispatcher that will be used.
  * \param dt the current delta time.
  */
-void update_custom_animations(entt::registry& registry,
-                              entt::dispatcher& dispatcher,
-                              float dt);
+void UpdateCustomAnimations(entt::registry& registry,
+                            entt::dispatcher& dispatcher,
+                            float dt);
 
 /**
  * \brief Renders all current custom animations.
@@ -56,7 +56,7 @@ void update_custom_animations(entt::registry& registry,
  *
  * \param registry the current level registry.
  */
-void render_custom_animations(const entt::registry& registry);
+void RenderCustomAnimations(const entt::registry& registry);
 
 /// \} End of animation
 

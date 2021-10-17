@@ -32,7 +32,7 @@ void parse_tile_object(ir::level& data,
   if (const auto& fancy = tile.fancy) {
     tileObjectData.drawable.depth = fancy->depth;
     if (fancy->hitbox) {
-      tileObjectData.hitbox = sys::with_position(*fancy->hitbox, to_vector(position));
+      tileObjectData.hitbox = sys::WithPosition(*fancy->hitbox, to_vector(position));
     }
   }
 }

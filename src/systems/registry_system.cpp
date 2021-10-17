@@ -13,7 +13,7 @@
 
 namespace wanderer::sys {
 
-auto make_shared_registry() -> entt::registry
+auto MakeSharedRegistry() -> entt::registry
 {
   entt::registry registry;
 

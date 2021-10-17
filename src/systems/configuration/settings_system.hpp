@@ -17,7 +17,7 @@ namespace wanderer::sys {
  *
  * \param registry the shared data registry to add the loaded settings to.
  */
-void load_settings(entt::registry& registry);
+void LoadSettings(entt::registry& registry);
 
 /**
  * \brief Toggles the value of the "fullscreen" setting.
@@ -28,7 +28,7 @@ void load_settings(entt::registry& registry);
  *
  * \return the new value of the setting.
  */
-auto toggle_fullscreen(entt::registry& registry) -> bool;
+auto ToggleFullscreen(entt::registry& registry) -> bool;
 
 /**
  * \brief Toggles the value of the "integer scaling" setting.
@@ -39,7 +39,7 @@ auto toggle_fullscreen(entt::registry& registry) -> bool;
  *
  * \return the new value of the setting.
  */
-auto toggle_integer_scaling(entt::registry& registry) -> bool;
+auto ToggleIntegerScaling(entt::registry& registry) -> bool;
 
 /**
  * \brief Updates the settings file in the preferred file directory.
@@ -52,7 +52,7 @@ auto toggle_integer_scaling(entt::registry& registry) -> bool;
  *
  * \param registry the shared data registry that contains the settings.
  */
-void save_settings_before_exit(const entt::registry& registry);
+void SaveSettingsBeforeExit(const entt::registry& registry);
 
 /// \} End of settings
 

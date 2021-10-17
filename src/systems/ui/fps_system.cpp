@@ -31,7 +31,7 @@ void update_fps(entt::registry& shared, const float dt)
 
 void render_fps(const entt::registry& shared)
 {
-  auto& graphics = shared.ctx<ref<graphics_context>>().get();
+  auto& graphics = shared.ctx<ref<GraphicsContext>>().get();
 
   for (auto&& [entity, data] : shared.view<comp::FpsData>().each()) {
     const auto fps = round(1.0 / (static_cast<double>(data.frame.count()) / 1'000.0));

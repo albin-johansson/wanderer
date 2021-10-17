@@ -11,7 +11,7 @@ namespace wanderer::comp {
 
 struct Label final
 {
-  grid_position position;
+  GridPosition position;
   std::string text;
   cen::color color;
   text_size size{};

@@ -51,41 +51,41 @@
 namespace wanderer {
 
 Game::Game(graphics_type& graphics)
-    : m_shared{sys::make_shared_registry()}
-    , m_dispatcher{make_dispatcher()}
+    : m_shared{sys::MakeSharedRegistry()}
+    , m_dispatcher{MakeDispatcher()}
 {
-  sys::load_levels(m_shared, graphics);
+  sys::LoadLevels(m_shared, graphics);
 
   // clang-format off
-  m_dispatcher.sink<switch_map_event>().connect<&Game::on_switch_map>(this);
+  m_dispatcher.sink<SwitchMapEvent>().connect<&Game::on_switch_map>(this);
   m_dispatcher.sink<switch_menu_event>().connect<&Game::on_switch_menu>(this);
   m_dispatcher.sink<menu_switched_event>().connect<&Game::on_menu_switched>(this);
   m_dispatcher.sink<button_pressed_event>().connect<&Game::on_button_pressed>(this);
 
-  m_dispatcher.sink<show_inventory_event>().connect<&Game::on_show_inventory>(this);
-  m_dispatcher.sink<close_inventory_event>().connect<&Game::on_close_inventory>(this);
+  m_dispatcher.sink<ShowInventoryEvent>().connect<&Game::on_show_inventory>(this);
+  m_dispatcher.sink<CloseInventoryEvent>().connect<&Game::on_close_inventory>(this);
 
-  m_dispatcher.sink<sleep_event>().connect<&Game::on_sleep>(this);
-  m_dispatcher.sink<day_changed_event>().connect<&Game::on_day_changed>(this);
+  m_dispatcher.sink<SleepEvent>().connect<&Game::on_sleep>(this);
+  m_dispatcher.sink<DayChangedEvent>().connect<&Game::on_day_changed>(this);
 
-  m_dispatcher.sink<custom_animation_halfway_event>().connect<&Game::on_custom_animation_halfway>(this);
+  m_dispatcher.sink<CustomAnimationHalfwayEvent>().connect<&Game::on_custom_animation_halfway>(this);
 
-  m_dispatcher.sink<spawn_particles_event>().connect<&Game::on_spawn_particles>(this);
-  m_dispatcher.sink<quit_event>().connect<&Game::on_quit>(this);
+  m_dispatcher.sink<SpawnParticlesEvent>().connect<&Game::on_spawn_particles>(this);
+  m_dispatcher.sink<QuitEvent>().connect<&Game::on_quit>(this);
   // clang-format on
 }
 
 Game::~Game()
 {
-  disconnect_events(m_dispatcher);
+  DisconnectEvents(m_dispatcher);
   m_dispatcher.disconnect(this);
 }
 
 void Game::on_start()
 {
-  sys::load_settings(m_shared);
-  m_shared.set<ctx::Binds>(sys::load_binds());
-  m_shared.ctx<ctx::TimeOfDay>().seconds = sys::hour_to_seconds(12);
+  sys::LoadSettings(m_shared);
+  m_shared.set<ctx::Binds>(sys::LoadBinds());
+  m_shared.ctx<ctx::TimeOfDay>().seconds = sys::HourToSeconds(12);
 
   {
     auto& data = m_shared.emplace<comp::FpsData>(m_shared.create());
@@ -104,7 +104,7 @@ void Game::on_start()
 
 void Game::on_exit()
 {
-  sys::save_settings_before_exit(m_shared);
+  sys::SaveSettingsBeforeExit(m_shared);
 }
 
 void Game::handle_input(const rune::input& input)
@@ -112,70 +112,70 @@ void Game::handle_input(const rune::input& input)
   m_mousePos = input.mouse.position();
   sys::update_menu(m_shared, m_dispatcher, input);
 
-  auto& level = sys::current_level(m_shared);
-  sys::update_input(level.registry, m_dispatcher, input, m_shared.ctx<ctx::Binds>());
+  auto& level = sys::CurrentLevel(m_shared);
+  sys::UpdateInput(level.registry, m_dispatcher, input, m_shared.ctx<ctx::Binds>());
 }
 
 void Game::tick(const float dt)
 {
   m_dispatcher.update();
 
-  auto& level = sys::current_level(m_shared);
+  auto& level = sys::CurrentLevel(m_shared);
   sys::update_fps(m_shared, dt);
 
-  sys::update_render_bounds(level.registry);
-  sys::update_custom_animations(level.registry, m_dispatcher, dt);
+  sys::UpdateRenderBounds(level.registry);
+  sys::UpdateCustomAnimations(level.registry, m_dispatcher, dt);
 
   if (is_paused()) {
     return;
   }
 
-  sys::update_time(m_shared, m_dispatcher, dt);
-  sys::update_humanoid_states(level.registry, m_dispatcher);
+  sys::UpdateTime(m_shared, m_dispatcher, dt);
+  sys::UpdateHumanoidStates(level.registry, m_dispatcher);
 
-  sys::update_chase(level.registry);
-  sys::update_roaming(level.registry, dt);
-  sys::update_movement(level.registry, level.tree, dt);
-  sys::update_drawables(level.registry);
-  sys::update_particles(level.registry, dt);
-  sys::update_plants(level.registry, dt);
-  sys::update_lights(level.registry);
-  sys::update_player_light_position(level.registry);
-  sys::update_triggers(level.registry);
+  sys::UpdateChase(level.registry);
+  sys::UpdateRoaming(level.registry, dt);
+  sys::UpdateMovement(level.registry, level.tree, dt);
+  sys::UpdateDrawables(level.registry);
+  sys::UpdateParticles(level.registry, dt);
+  sys::UpdatePlants(level.registry, dt);
+  sys::UpdateLights(level.registry);
+  sys::UpdatePlayerLightPosition(level.registry);
+  sys::UpdateTriggers(level.registry);
 
   {
     const auto player = singleton_entity<comp::Player>(level.registry);
-    sys::update_viewport(level.registry, player, dt);
+    sys::UpdateViewport(level.registry, player, dt);
   }
-  sys::update_depth(level.registry);
+  sys::UpdateDepth(level.registry);
 
-  sys::update_animations(level.registry);
-  sys::update_humanoid_animations(level.registry);
-  sys::update_tile_animations(level.registry);
-  sys::update_tile_object_animations(level.registry);
+  sys::UpdateAnimations(level.registry);
+  sys::UpdateHumanoidAnimations(level.registry);
+  sys::UpdateTileAnimations(level.registry);
+  sys::UpdateTileObjectAnimations(level.registry);
 }
 
 void Game::render(graphics_type& graphics) const
 {
-  m_shared.set<ref<graphics_context>>(graphics);
+  m_shared.set<ref<GraphicsContext>>(graphics);
 
-  auto& level = sys::current_level(m_shared);
-  level.registry.set<ref<graphics_context>>(graphics);
+  auto& level = sys::CurrentLevel(m_shared);
+  level.registry.set<ref<GraphicsContext>>(graphics);
 
   auto& renderer = graphics.get_renderer();
   renderer.clear_with(cen::colors::black);
 
-  sys::translate_viewport(level.registry);
+  sys::TranslateViewport(level.registry);
 
-  sys::render_tile_layers(level.registry);
-  sys::render_drawables(level.registry);
-  sys::render_particles(level.registry);
+  sys::RenderTileLayers(level.registry);
+  sys::RenderDrawables(level.registry);
+  sys::RenderParticles(level.registry);
 
-  if (sys::is_current_level_outside(m_shared)) {
-    sys::render_lights(level.registry, m_shared.ctx<ctx::TimeOfDay>());
+  if (sys::IsCurrentLevelOutside(m_shared)) {
+    sys::RenderLights(level.registry, m_shared.ctx<ctx::TimeOfDay>());
   }
 
-  sys::render_clock(m_shared);
+  sys::RenderClock(m_shared);
 
   if (m_updateSnapshot) {
     m_shared.set<ctx::RendererSnapshot>(renderer.capture(graphics.format()));
@@ -183,33 +183,33 @@ void Game::render(graphics_type& graphics) const
   }
 
   if constexpr (cen::is_debug_build()) {
-    sys::render_debug_info(level.registry);
+    sys::RenderDebugInfo(level.registry);
   }
 
   sys::render_hud(m_shared, m_mousePos);
 
   sys::render_active_menu(m_shared);
-  sys::render_custom_animations(level.registry);
+  sys::RenderCustomAnimations(level.registry);
 
   sys::render_fps(m_shared);
 
   if constexpr (cen::is_debug_build()) {
-    sys::render_menu_debug_info(m_shared);
+    sys::RenderMenuDebugInfo(m_shared);
   }
 
   renderer.present();
 
   /* Let's embrace our paranoia and unset the renderer context variables! */
-  level.registry.unset<ref<graphics_context>>();
-  m_shared.unset<ref<graphics_context>>();
+  level.registry.unset<ref<GraphicsContext>>();
+  m_shared.unset<ref<GraphicsContext>>();
 }
 
 void Game::load_save(const std::string& name, graphics_type& graphics)
 {
   load_game(m_shared, graphics, name);
 
-  auto& level = sys::current_level(m_shared);
-  sys::start_bond_animation(level.registry, glob::load_game_id);
+  auto& level = sys::CurrentLevel(m_shared);
+  sys::StartBondAnimation(level.registry, glob::load_game_id);
 }
 
 auto Game::is_paused() const -> bool
@@ -222,79 +222,79 @@ void Game::on_button_pressed(const button_pressed_event& event)
   switch (event.action) {
     default:
       [[fallthrough]];
-    case menu_action::none:
+    case MenuAction::None:
       break;
 
-    case menu_action::goto_in_game: {
-      m_dispatcher.enqueue<switch_menu_event>(menu_id::in_game);
+    case MenuAction::GotoInGame: {
+      m_dispatcher.enqueue<switch_menu_event>(MenuId::InGame);
       break;
     }
-    case menu_action::goto_home: {
+    case MenuAction::GotoHome: {
       m_updateSnapshot = true;
-      m_dispatcher.enqueue<switch_menu_event>(menu_id::home);
+      m_dispatcher.enqueue<switch_menu_event>(MenuId::Home);
       break;
     }
-    case menu_action::goto_controls: {
-      m_dispatcher.enqueue<switch_menu_event>(menu_id::controls);
+    case MenuAction::GotoControls: {
+      m_dispatcher.enqueue<switch_menu_event>(MenuId::Controls);
       break;
     }
-    case menu_action::goto_settings: {
-      m_dispatcher.enqueue<switch_menu_event>(menu_id::settings);
+    case MenuAction::GotoSettings: {
+      m_dispatcher.enqueue<switch_menu_event>(MenuId::Settings);
       break;
     }
-    case menu_action::goto_saves: {
-      m_dispatcher.enqueue<switch_menu_event>(menu_id::saves);
+    case MenuAction::GotoSaves: {
+      m_dispatcher.enqueue<switch_menu_event>(MenuId::Saves);
       break;
     }
-    case menu_action::quick_save: {
+    case MenuAction::QuickSave: {
       // FIXME don't allow quick saves before the in-game menu has been active once
       if (const auto* snapshot = m_shared.try_ctx<ctx::RendererSnapshot>()) {
         save_game("quick_save", m_shared, snapshot->surface);
       }
-      m_dispatcher.enqueue<switch_menu_event>(menu_id::in_game);
+      m_dispatcher.enqueue<switch_menu_event>(MenuId::InGame);
       break;
     }
-    case menu_action::load_game: {
-      m_dispatcher.enqueue<load_game_event>(sys::get_selected_save_name(m_shared));
+    case MenuAction::LoadGame: {
+      m_dispatcher.enqueue<LoadGameEvent>(sys::get_selected_save_name(m_shared));
       break;
     }
-    case menu_action::delete_game: {
+    case MenuAction::DeleteGame: {
       const auto name = sys::get_selected_save_name(m_shared);
       sys::remove_save_entry(m_shared, name);
       break;
     }
-    case menu_action::change_save_preview: {
+    case MenuAction::ChangeSavePreview: {
       sys::change_save_preview(m_shared);
       break;
     }
-    case menu_action::decrement_saves_button_group_page: {
+    case MenuAction::DecrementSavesButtonGroupPage: {
       sys::decrement_saves_button_group_page(m_shared);
       break;
     }
-    case menu_action::increment_saves_button_group_page: {
+    case MenuAction::IncrementSavesButtonGroupPage: {
       sys::increment_saves_button_group_page(m_shared);
       break;
     }
-    case menu_action::toggle_fullscreen: {
-      const auto enabled = sys::toggle_fullscreen(m_shared);
+    case MenuAction::ToggleFullscreen: {
+      const auto enabled = sys::ToggleFullscreen(m_shared);
       m_dispatcher.enqueue<fullscreen_toggled_event>(enabled);
       break;
     }
-    case menu_action::toggle_integer_scaling: {
-      const auto enabled = sys::toggle_integer_scaling(m_shared);
+    case MenuAction::ToggleIntegerScaling: {
+      const auto enabled = sys::ToggleIntegerScaling(m_shared);
       m_dispatcher.enqueue<integer_scaling_toggled_event>(enabled);
       break;
     }
-    case menu_action::quit: {
-      m_dispatcher.enqueue<quit_event>();
+    case MenuAction::Quit: {
+      m_dispatcher.enqueue<QuitEvent>();
       break;
     }
   }
 }
 
-void Game::on_switch_map(const switch_map_event& event)
+void Game::on_switch_map(const SwitchMapEvent& event)
 {
-  auto& level = sys::current_level(m_shared);
+  auto& level = sys::CurrentLevel(m_shared);
   sys::start_level_change_animation(level.registry, event.map);
 }
 
@@ -306,66 +306,66 @@ void Game::on_switch_menu(const switch_menu_event& event)
 void Game::on_menu_switched(const menu_switched_event& event)
 {
   const auto& menu = m_shared.get<comp::Menu>(event.entity);
-  if (menu.id == menu_id::saves) {
+  if (menu.id == MenuId::Saves) {
     sys::refresh_saves_menu(m_shared);
   }
 }
 
-void Game::on_custom_animation_halfway(const custom_animation_halfway_event& event)
+void Game::on_custom_animation_halfway(const CustomAnimationHalfwayEvent& event)
 {
   switch (event.id) {
     case glob::sleep_id:
-      sys::change_to_next_day(m_shared, m_dispatcher, glob::morning_hour);
+      sys::ChangeToNextDay(m_shared, m_dispatcher, glob::morning_hour);
       break;
 
     case glob::load_game_id:
-      m_dispatcher.enqueue<switch_menu_event>(menu_id::in_game);
+      m_dispatcher.enqueue<switch_menu_event>(MenuId::InGame);
       break;
 
     case glob::switch_level_id:
-      const auto next = sys::prepare_current_level_before_switch(m_shared, event);
-      sys::enable_level(m_shared, next);
+      const auto next = sys::PrepareCurrentLevelBeforeSwitch(m_shared, event);
+      sys::EnableLevel(m_shared, next);
 
-      auto& level = sys::current_level(m_shared);
-      sys::start_reverse_only_bond_animation(level.registry);
+      auto& level = sys::CurrentLevel(m_shared);
+      sys::StartReverseOnlyBondAnimation(level.registry);
 
       break;
   }
 }
 
-void Game::on_show_inventory(const show_inventory_event& event)
+void Game::on_show_inventory(const ShowInventoryEvent& event)
 {
-  auto& level = sys::current_level(m_shared);
+  auto& level = sys::CurrentLevel(m_shared);
   level.registry.emplace<comp::ActiveInventory>(event.inventory_entity);
 }
 
-void Game::on_close_inventory(const close_inventory_event&)
+void Game::on_close_inventory(const CloseInventoryEvent&)
 {
-  sys::current_level(m_shared).registry.clear<comp::ActiveInventory>();
+  sys::CurrentLevel(m_shared).registry.clear<comp::ActiveInventory>();
 }
 
-void Game::on_sleep(const sleep_event&)
+void Game::on_sleep(const SleepEvent&)
 {
-  auto& level = sys::current_level(m_shared);
-  sys::start_bond_animation(level.registry, glob::sleep_id);
+  auto& level = sys::CurrentLevel(m_shared);
+  sys::StartBondAnimation(level.registry, glob::sleep_id);
 }
 
-void Game::on_day_changed(const day_changed_event&)
+void Game::on_day_changed(const DayChangedEvent&)
 {
   // TODO update the state of plants, etc.
 }
 
-void Game::on_spawn_particles(const spawn_particles_event& event)
+void Game::on_spawn_particles(const SpawnParticlesEvent& event)
 {
-  auto& level = sys::current_level(m_shared);
-  sys::spawn_particles(level.registry,
-                       event.position,
-                       event.count,
-                       event.duration,
-                       event.color);
+  auto& level = sys::CurrentLevel(m_shared);
+  sys::SpawnParticles(level.registry,
+                      event.position,
+                      event.count,
+                      event.duration,
+                      event.color);
 }
 
-void Game::on_quit(const quit_event&)
+void Game::on_quit(const QuitEvent&)
 {
   if (const auto* snapshot = m_shared.try_ctx<ctx::RendererSnapshot>()) {
     create_exit_save(m_shared, snapshot->surface);

@@ -19,7 +19,7 @@ namespace wanderer::sys {
  *
  * \param registry the current level registry.
  */
-void update_tile_object_animations(entt::registry& registry);
+void UpdateTileObjectAnimations(entt::registry& registry);
 
 /// \} End of tile objects
 

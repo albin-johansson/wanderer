@@ -32,7 +32,7 @@ namespace wanderer::sys {
   return {column_to_x(column), row_to_y(row)};
 }
 
-[[nodiscard]] constexpr auto from_grid(const grid_position position) noexcept
+[[nodiscard]] constexpr auto from_grid(const GridPosition position) noexcept
     -> cen::fpoint
 {
   return {column_to_x(position.col), row_to_y(position.row)};

@@ -23,7 +23,7 @@ namespace wanderer::sys {
  *
  * \return the created player entity.
  */
-auto make_player(comp::Level& level, graphics_context& graphics) -> entt::entity;
+auto MakePlayer(comp::Level& level, GraphicsContext& graphics) -> entt::entity;
 
 /**
  * \brief Creates a skeleton entity.
@@ -38,7 +38,7 @@ auto make_player(comp::Level& level, graphics_context& graphics) -> entt::entity
  *
  * \return the created skeleton entity.
  */
-auto make_skeleton(comp::Level& level, float2 position, graphics_context& graphics)
+auto MakeSkeleton(comp::Level& level, float2 position, GraphicsContext& graphics)
     -> entt::entity;
 
 /// \} End of humanoid

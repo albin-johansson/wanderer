@@ -6,7 +6,7 @@
 
 namespace wanderer::sys {
 
-void update_animations(entt::registry& registry)
+void UpdateAnimations(entt::registry& registry)
 {
   for (auto&& [entity, animation] : registry.view<comp::Animation>().each()) {
     const auto now = cen::counter::ticks();

@@ -41,7 +41,7 @@ inline constexpr cen::ipoint origin = get_render_origin();
 
 }  // namespace
 
-void render_inventory_bar(const entt::registry& registry, graphics_context& graphics)
+void RenderInventoryBar(const entt::registry& registry, GraphicsContext& graphics)
 {
   constexpr auto totalWidth =
       bar_cell_count * bar_cell_width + (bar_cell_count * bar_cell_spacing);
@@ -63,9 +63,9 @@ void render_inventory_bar(const entt::registry& registry, graphics_context& grap
   }
 }
 
-void render_inventory(const entt::registry& registry,
-                      graphics_context& graphics,
-                      const cen::ipoint& mousePos)
+void RenderInventory(const entt::registry& registry,
+                     GraphicsContext& graphics,
+                     const cen::ipoint& mousePos)
 {
   auto& renderer = graphics.get_renderer();
 

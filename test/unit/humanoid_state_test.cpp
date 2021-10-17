@@ -13,7 +13,7 @@ using Die = comp::HumanoidDie;
 TEST(HumanoidState, Dependencies)
 {
   entt::registry registry;
-  add_humanoid_state_dependencies(registry);
+  AddHumanoidStateDependencies(registry);
 
   const auto entity = registry.create();
   registry.emplace<comp::Humanoid>(entity);

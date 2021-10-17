@@ -8,9 +8,9 @@
 
 namespace wanderer::sys {
 
-void render_tile(graphics_context& graphics,
-                 const comp::Tile& tile,
-                 const grid_position position) noexcept
+void RenderTile(GraphicsContext& graphics,
+                const comp::Tile& tile,
+                GridPosition position) noexcept
 {
   const auto dst = cen::rect(position.col * glob::tile_width<float>,
                              position.row * glob::tile_height<float>,
@@ -19,9 +19,9 @@ void render_tile(graphics_context& graphics,
   graphics.render(tile.texture, tile.src, dst);
 }
 
-auto get_animated_tile(const entt::registry& registry,
-                       const entt::entity tile,
-                       const comp::Tileset& tileset) -> const comp::Tile&
+auto GetAnimatedTile(const entt::registry& registry,
+                     entt::entity tile,
+                     const comp::Tileset& tileset) -> const comp::Tile&
 {
   assert(registry.all_of<comp::TileAnimation>(tile));
 

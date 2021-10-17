@@ -5,8 +5,8 @@
 
 namespace wanderer {
 
-[[nodiscard]] auto render_text(cen::renderer& renderer,
-                               const std::string& text,
-                               const cen::font& font) -> cen::texture;
+[[nodiscard]] auto RenderText(cen::renderer& renderer,
+                              const std::string& text,
+                              const cen::font& font) -> cen::texture;
 
 }  // namespace wanderer

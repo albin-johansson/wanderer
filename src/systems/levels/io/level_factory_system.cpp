@@ -14,7 +14,6 @@
 #include "core/ecs/add_humanoid_state_dependencies.hpp"
 #include "core/ecs/make_registry.hpp"
 #include "core/ecs/registry_utils.hpp"
-#include "core/serialization.hpp"
 #include "load_ground_layers.hpp"
 #include "load_humanoids.hpp"
 #include "load_objects.hpp"
@@ -30,7 +29,7 @@
 namespace wanderer::sys {
 namespace {
 
-void add_level_size(comp::Level& level)
+void AddLevelSize(comp::Level& level)
 {
   const auto& tilemap = level.registry.get<comp::Tilemap>(level.tilemap);
   auto& size = level.registry.set<ctx::LevelSize>();
@@ -38,50 +37,50 @@ void add_level_size(comp::Level& level)
   size.col_count = tilemap.col_count;
 }
 
-void add_viewport(comp::Level& level)
+void AddViewport(comp::Level& level)
 {
   const auto& tilemap = level.registry.get<comp::Tilemap>(level.tilemap);
-  level.registry.set<ctx::Viewport>(sys::make_viewport(tilemap.size));
+  level.registry.set<ctx::Viewport>(sys::MakeViewport(tilemap.size));
 }
 
 }  // namespace
 
-auto make_level(const ir::level& data, graphics_context& graphics) -> comp::Level
+auto MakeLevel(const ir::level& data, GraphicsContext& graphics) -> comp::Level
 {
   WANDERER_PROFILE_START
 
-  load_tileset_textures(data, graphics);
+  LoadTilesetTextures(data, graphics);
 
   comp::Level level;
 
   level.tree.disable_thickness_factor();
-  level.registry = make_registry();
+  level.registry = MakeRegistry();
   level.player_spawn_position = data.player_spawn_point;
 
   level.tilemap = level.registry.create();
   level.tileset = level.registry.create();
 
-  load_tileset(level.registry, level.tileset, graphics, data.tilesets);
-  level.id = load_tilemap(level.registry, level.tilemap, data);
+  LoadTileset(level.registry, level.tileset, graphics, data.tilesets);
+  level.id = LoadTilemap(level.registry, level.tilemap, data);
 
-  add_level_size(level);
-  add_viewport(level);
-  add_ground_layers(level.registry, data);
+  AddLevelSize(level);
+  AddViewport(level);
+  AddGroundLayers(level.registry, data);
 
-  load_tile_objects(level, graphics, data);
-  load_objects(level.registry, graphics, data);
-  load_humanoids(level, graphics);
+  LoadTileObjects(level, graphics, data);
+  LoadObjects(level.registry, graphics, data);
+  LoadHumanoids(level, graphics);
 
-  sys::center_viewport_on(level.registry, level.player_spawn_position.value());
-  sys::update_drawables(level.registry);
-  sys::update_depth(level.registry, sys::sort_strategy::std_sort);
+  sys::CenterViewportOn(level.registry, level.player_spawn_position.value());
+  sys::UpdateDrawables(level.registry);
+  sys::UpdateDepth(level.registry, sys::SortStrategy::StdSort);
 
   if constexpr (cen::is_release_build()) {
     // This is very slow in debug builds, which is why we avoid it
     level.tree.rebuild();
   }
 
-  WANDERER_PROFILE_END("sys::make_level()")
+  WANDERER_PROFILE_END("sys::MakeLevel()")
 
   return level;
 }

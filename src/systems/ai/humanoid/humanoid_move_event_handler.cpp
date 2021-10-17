@@ -5,17 +5,17 @@
 
 namespace wanderer::sys {
 
-void on_move_begin(const begin_humanoid_move_event& event)
+void OnMoveBegin(const BeginHumanoidMoveEvent& event)
 {
   auto& registry = event.registry.get();
   assert(!registry.all_of<comp::HumanoidMove>(event.entity));
 
   const auto entity = event.entity;
   registry.emplace<comp::HumanoidMove>(entity);
-  enter_move_animation(event.registry, entity, event.dir);
+  EnterMoveAnimation(event.registry, entity, event.dir);
 }
 
-void on_move_end(const end_humanoid_move_event& event)
+void OnMoveEnd(const EndHumanoidMoveEvent& event)
 {
   auto& registry = event.registry.get();
   assert(registry.all_of<comp::HumanoidMove>(event.entity));
@@ -24,7 +24,7 @@ void on_move_end(const end_humanoid_move_event& event)
   registry.emplace<comp::HumanoidIdle>(entity);
   assert(!registry.all_of<comp::HumanoidMove>(entity));
 
-  enter_idle_animation(event.registry, entity);
+  EnterIdleAnimation(event.registry, entity);
 }
 
 }  // namespace wanderer::sys

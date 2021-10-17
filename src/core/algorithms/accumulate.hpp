@@ -10,7 +10,7 @@ namespace wanderer {
 
 /// Returns a value accumulated from visiting each element in a range
 template <std::ranges::range T, std::invocable<const typename T::value_type&> Callable>
-[[nodiscard]] constexpr auto accumulate(const T& range, Callable&& callable)
+[[nodiscard]] constexpr auto Accumulate(const T& range, Callable&& callable)
 {
   std::invoke_result_t<Callable, typename T::value_type> value{};
 

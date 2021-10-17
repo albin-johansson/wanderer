@@ -13,10 +13,10 @@ auto parse_hitbox(const rune::tmx_object& object, const float xRatio, const floa
 
   const comp::Subhitbox subhitbox{{}, size};
 
-  auto hitbox = sys::make_hitbox({subhitbox});
+  auto hitbox = sys::MakeHitbox({subhitbox});
   hitbox.enabled = false;
 
-  sys::set_position(hitbox, pos);
+  sys::SetPosition(hitbox, pos);
 
   return hitbox;
 }

@@ -2,7 +2,7 @@
 
 namespace wanderer {
 
-struct sleep_event final
+struct SleepEvent final
 {};
 
 }  // namespace wanderer

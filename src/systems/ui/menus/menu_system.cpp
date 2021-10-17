@@ -37,7 +37,7 @@ void update_menu(entt::registry& registry,
   }
 }
 
-void switch_menu(entt::registry& registry, entt::dispatcher& dispatcher, const menu_id id)
+void switch_menu(entt::registry& registry, entt::dispatcher& dispatcher, const MenuId id)
 {
   registry.unset<ctx::ActiveMenu>();
 

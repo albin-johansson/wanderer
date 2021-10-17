@@ -6,7 +6,7 @@
 
 namespace wanderer::sys {
 
-void load_tileset_textures(const ir::level& data, graphics_context& graphics)
+void LoadTilesetTextures(const ir::level& data, GraphicsContext& graphics)
 {
   WANDERER_PROFILE_START
 
@@ -14,7 +14,7 @@ void load_tileset_textures(const ir::level& data, graphics_context& graphics)
     graphics.load(tileset.sheet.id, tileset.sheet.path);
   }
 
-  WANDERER_PROFILE_END("sys::load_tileset_textures()")
+  WANDERER_PROFILE_END("sys::LoadTilesetTextures()")
 }
 
 }  // namespace wanderer::sys

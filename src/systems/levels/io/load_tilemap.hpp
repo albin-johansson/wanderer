@@ -7,7 +7,7 @@
 
 namespace wanderer::sys {
 
-[[nodiscard]] auto load_tilemap(entt::registry& registry,
-                                const entt::entity entity,
-                                const ir::level& level) -> map_id;
+[[nodiscard]] auto LoadTilemap(entt::registry& registry,
+                               const entt::entity entity,
+                               const ir::level& level) -> map_id;
 }  // namespace wanderer::sys

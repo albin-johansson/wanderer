@@ -15,7 +15,7 @@
 
 namespace wanderer::sys {
 
-void on_interact(const interact_event& event)
+void OnInteract(const InteractEvent& event)
 {
   auto& registry = event.registry.get();
   auto& dispatcher = event.dispatcher.get();
@@ -28,23 +28,23 @@ void on_interact(const interact_event& event)
     switch (trigger.type) {
       case comp::TriggerType::portal: {
         const auto& portal = registry.get<comp::Portal>(within->trigger_entity);
-        dispatcher.enqueue<switch_map_event>(portal.target.value());
+        dispatcher.enqueue<SwitchMapEvent>(portal.target.value());
         break;
       }
       case comp::TriggerType::container: {
         if (registry.empty<comp::ActiveInventory>()) {
           const auto& ref = registry.get<comp::AssociatedEntity>(within->trigger_entity);
-          dispatcher.enqueue<show_inventory_event>(ref.entity);
+          dispatcher.enqueue<ShowInventoryEvent>(ref.entity);
         }
         else {
-          dispatcher.enqueue<close_inventory_event>();
+          dispatcher.enqueue<CloseInventoryEvent>();
         }
 
         break;
       }
 
       case comp::TriggerType::bed: {
-        dispatcher.enqueue<sleep_event>();
+        dispatcher.enqueue<SleepEvent>();
         break;
       }
     }

@@ -39,7 +39,7 @@ namespace wanderer {
  *
  * \ingroup core
  */
-class Game final : public rune::basic_game<graphics_context>
+class Game final : public rune::basic_game<GraphicsContext>
 {
  public:
   explicit Game(graphics_type& graphics);
@@ -80,25 +80,25 @@ class Game final : public rune::basic_game<graphics_context>
 
   void on_button_pressed(const button_pressed_event& event);
 
-  void on_switch_map(const switch_map_event& event);
+  void on_switch_map(const SwitchMapEvent& event);
 
   void on_switch_menu(const switch_menu_event& event);
 
   void on_menu_switched(const menu_switched_event& event);
 
-  void on_custom_animation_halfway(const custom_animation_halfway_event& event);
+  void on_custom_animation_halfway(const CustomAnimationHalfwayEvent& event);
 
-  void on_show_inventory(const show_inventory_event& event);
+  void on_show_inventory(const ShowInventoryEvent& event);
 
-  void on_close_inventory(const close_inventory_event&);
+  void on_close_inventory(const CloseInventoryEvent&);
 
-  void on_sleep(const sleep_event&);
+  void on_sleep(const SleepEvent&);
 
-  void on_day_changed(const day_changed_event& event);
+  void on_day_changed(const DayChangedEvent& event);
 
-  void on_spawn_particles(const spawn_particles_event& event);
+  void on_spawn_particles(const SpawnParticlesEvent& event);
 
-  void on_quit(const quit_event&);
+  void on_quit(const QuitEvent&);
 };
 
 }  // namespace wanderer

@@ -2,9 +2,9 @@
 
 namespace wanderer::sys {
 
-auto load_tilemap(entt::registry& registry,
-                  const entt::entity entity,
-                  const ir::level& level) -> map_id
+auto LoadTilemap(entt::registry& registry,
+                 const entt::entity entity,
+                 const ir::level& level) -> map_id
 {
   auto& tilemap = registry.emplace<comp::Tilemap>(entity);
 

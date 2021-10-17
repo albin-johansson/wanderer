@@ -27,9 +27,7 @@ inline constexpr auto row_1 = glob::menu_rows - 2;
 
 void make_binds(entt::registry& registry, const entt::entity menu)
 {
-  add_binds(registry,
-            menu,
-            comp::KeyBind{cen::scancodes::escape, menu_action::goto_home});
+  AddBinds(registry, menu, comp::KeyBind{cen::scancodes::escape, MenuAction::GotoHome});
 }
 
 void make_labels(entt::registry& registry, const entt::entity menu)
@@ -38,20 +36,20 @@ void make_labels(entt::registry& registry, const entt::entity menu)
                          const float row,
                          const float col,
                          const text_size size = text_size::small) {
-    make_label(registry, menu, std::move(text), grid_position{row, col}, size);
+    make_label(registry, menu, std::move(text), GridPosition{row, col}, size);
   };
 
-  label("Location:   " + saves_directory().string(), glob::menu_rows - 1.7f, 2);
+  label("Location:   " + GetSavesDirectory().string(), glob::menu_rows - 1.7f, 2);
 }
 
 void make_buttons(entt::registry& registry, const entt::entity menuEntity)
 {
   const auto button = [&](std::string text,
-                          const menu_action action,
+                          const MenuAction action,
                           const float row,
                           const float col = -1) {
     const auto entity =
-        make_button(registry, std::move(text), action, grid_position{row, col});
+        make_button(registry, std::move(text), action, GridPosition{row, col});
 
     auto& associated = registry.emplace<comp::AssociatedMenu>(entity);
     associated.entity = menuEntity;
@@ -59,20 +57,20 @@ void make_buttons(entt::registry& registry, const entt::entity menuEntity)
     return entity;
   };
 
-  button("Return", menu_action::goto_home, 3.5f);
+  button("Return", MenuAction::GotoHome, 3.5f);
 
   // clang-format off
   auto& savesMenu = registry.get<comp::SavesMenu>(menuEntity);
-  savesMenu.load_button = button("Load", menu_action::load_game, 15, 12);
-  savesMenu.delete_button = button("Delete", menu_action::delete_game, 15, 27.5f);
-  savesMenu.decrement_button = button("<", menu_action::decrement_saves_button_group_page, 15, 4);
-  savesMenu.increment_button = button(">", menu_action::increment_saves_button_group_page, 15, 8);
+  savesMenu.load_button = button("Load", MenuAction::LoadGame, 15, 12);
+  savesMenu.delete_button = button("Delete", MenuAction::DeleteGame, 15, 27.5f);
+  savesMenu.decrement_button = button("<", MenuAction::DecrementSavesButtonGroupPage, 15, 4);
+  savesMenu.increment_button = button(">", MenuAction::IncrementSavesButtonGroupPage, 15, 8);
   // clang-format on
 }
 
 void make_lines(entt::registry& registry, const entt::entity menuEntity)
 {
-  const auto line = [&](const grid_position start, const grid_position end) {
+  const auto line = [&](const GridPosition start, const GridPosition end) {
     const auto entity = make_line(registry, start, end);
 
     auto& associated = registry.emplace<comp::AssociatedMenu>(entity);
@@ -97,7 +95,7 @@ void make_lines(entt::registry& registry, const entt::entity menuEntity)
 
 auto make_saves_menu(entt::registry& registry) -> entt::entity
 {
-  const auto menuEntity = make_menu(registry, "Saves", menu_id::saves);
+  const auto menuEntity = make_menu(registry, "Saves", MenuId::Saves);
   registry.emplace<comp::SavesMenu>(menuEntity);
 
   make_binds(registry, menuEntity);

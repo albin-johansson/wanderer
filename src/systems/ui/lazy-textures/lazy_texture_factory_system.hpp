@@ -31,7 +31,7 @@ namespace wanderer::sys {
 auto make_lazy_texture(entt::registry& registry,
                        entt::entity menu,
                        cen::surface surface,
-                       grid_position position,
+                       GridPosition position,
                        cen::farea size) -> entt::entity;
 
 /// \} End of UI

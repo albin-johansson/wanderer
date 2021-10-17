@@ -14,7 +14,7 @@ namespace wanderer::sys {
 /// Creates a menu entity
 auto make_menu(entt::registry& registry,
                std::string title,
-               menu_id id,
+               MenuId id,
                bool blocking = true) -> entt::entity;
 
 /// \} End of menus

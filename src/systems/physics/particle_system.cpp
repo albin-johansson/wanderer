@@ -30,10 +30,10 @@ inline constexpr float x_accel = 36;
 inline constexpr float y_accel = 36;
 inline constexpr float z_accel = -30;
 
-void spawn_particle(entt::registry& registry,
-                    const float2 position,
-                    const float duration,
-                    const cen::color& color)
+void SpawnParticle(entt::registry& registry,
+                   const float2 position,
+                   const float duration,
+                   const cen::color& color)
 {
   auto& particle = registry.emplace<comp::particle>(registry.create());
   particle.position = {position.x, position.y, initial_z_pos};
@@ -49,18 +49,18 @@ void spawn_particle(entt::registry& registry,
 
 }  // namespace
 
-void spawn_particles(entt::registry& registry,
-                     const float2 origin,
-                     const int count,
-                     const float duration,
-                     const cen::color& color)
+void SpawnParticles(entt::registry& registry,
+                    float2 origin,
+                    int count,
+                    float duration,
+                    const cen::color& color)
 {
   for (auto i = 0; i < count; ++i) {
-    spawn_particle(registry, origin, duration, color);
+    SpawnParticle(registry, origin, duration, color);
   }
 }
 
-void update_particles(entt::registry& registry, const float dt)
+void UpdateParticles(entt::registry& registry, float dt)
 {
   const auto now = cen::counter::ticks();
   for (auto&& [entity, particle] : registry.view<comp::particle>().each()) {
@@ -83,11 +83,11 @@ void update_particles(entt::registry& registry, const float dt)
   }
 }
 
-void render_particles(const entt::registry& registry)
+void RenderParticles(const entt::registry& registry)
 {
   const auto& viewport = registry.ctx<ctx::Viewport>();
 
-  auto& graphics = registry.ctx<ref<graphics_context>>().get();
+  auto& graphics = registry.ctx<ref<GraphicsContext>>().get();
   auto& renderer = graphics.get_renderer();
 
   for (auto&& [entity, particle] : registry.view<comp::particle>().each()) {

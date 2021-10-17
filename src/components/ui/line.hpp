@@ -6,8 +6,8 @@ namespace wanderer::comp {
 
 struct Line final
 {
-  grid_position start;
-  grid_position end;
+  GridPosition start;
+  GridPosition end;
 };
 
 }  // namespace wanderer::comp

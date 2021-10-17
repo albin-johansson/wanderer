@@ -23,9 +23,9 @@ namespace wanderer::sys {
  *
  * \return the ID associated with the next level.
  */
-[[nodiscard]] auto prepare_current_level_before_switch(
+[[nodiscard]] auto PrepareCurrentLevelBeforeSwitch(
     entt::registry& shared,
-    const custom_animation_halfway_event& event) -> map_id;
+    const CustomAnimationHalfwayEvent& event) -> map_id;
 
 /**
  * \brief Enables the level associated with the specified ID.
@@ -35,7 +35,7 @@ namespace wanderer::sys {
  * \param shared the shared data registry.
  * \param id the ID associated with the level that will be enabled.
  */
-void enable_level(entt::registry& shared, map_id id);
+void EnableLevel(entt::registry& shared, map_id id);
 
 /**
  * \brief Returns the currently active level.
@@ -46,10 +46,10 @@ void enable_level(entt::registry& shared, map_id id);
  *
  * \return the currently active level.
  */
-[[nodiscard]] auto current_level(entt::registry& shared) -> comp::Level&;
+[[nodiscard]] auto CurrentLevel(entt::registry& shared) -> comp::Level&;
 
-/// \copydoc current_level()
-[[nodiscard]] auto current_level(const entt::registry& shared) -> const comp::Level&;
+/// \copydoc CurrentLevel()
+[[nodiscard]] auto CurrentLevel(const entt::registry& shared) -> const comp::Level&;
 
 /**
  * \brief Indicates whether or not the active level is an outside level.
@@ -58,7 +58,7 @@ void enable_level(entt::registry& shared, map_id id);
  *
  * \return `true` if the currently active level is outside; `false` otherwise.
  */
-[[nodiscard]] auto is_current_level_outside(const entt::registry& shared) -> bool;
+[[nodiscard]] auto IsCurrentLevelOutside(const entt::registry& shared) -> bool;
 
 /// \} End of levels
 

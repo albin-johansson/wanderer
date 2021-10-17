@@ -20,10 +20,10 @@ namespace wanderer::sys {
  * \param input the current input state.
  * \param binds the current input binds.
  */
-void handle_move_input(entt::registry& registry,
-                       entt::dispatcher& dispatcher,
-                       const rune::input& input,
-                       const ctx::Binds& binds);
+void HandleMoveInput(entt::registry& registry,
+                     entt::dispatcher& dispatcher,
+                     const rune::input& input,
+                     const ctx::Binds& binds);
 
 /// \} End of input
 

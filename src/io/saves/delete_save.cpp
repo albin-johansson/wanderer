@@ -8,7 +8,7 @@ namespace wanderer {
 
 void delete_save(const std::string& name)
 {
-  const auto dir = saves_directory() / name;
+  const auto dir = GetSavesDirectory() / name;
   std::filesystem::remove_all(dir);
 }
 

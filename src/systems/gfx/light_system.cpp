@@ -18,9 +18,9 @@ using namespace entt::literals;
 namespace wanderer::sys {
 namespace {
 inline const auto texture_path = resources::texture("ardentryst/glow.png");
-}
+}  // namespace
 
-void update_lights(entt::registry& registry)
+void UpdateLights(entt::registry& registry)
 {
   for (auto&& [entity, light] : registry.view<comp::PointLight>().each()) {
     light.fluctuation +=
@@ -33,7 +33,7 @@ void update_lights(entt::registry& registry)
   }
 }
 
-void update_player_light_position(entt::registry& registry)
+void UpdatePlayerLightPosition(entt::registry& registry)
 {
   const auto playerEntity = singleton_entity<comp::Player>(registry);
   const auto& drawable = registry.get<comp::Drawable>(playerEntity);
@@ -42,9 +42,9 @@ void update_player_light_position(entt::registry& registry)
   light.position = to_vector(drawable.dst.center());
 }
 
-void render_lights(const entt::registry& registry, const ctx::TimeOfDay& time)
+void RenderLights(const entt::registry& registry, const ctx::TimeOfDay& time)
 {
-  auto& graphics = registry.ctx<ref<graphics_context>>().get();
+  auto& graphics = registry.ctx<ref<GraphicsContext>>().get();
   auto& renderer = graphics.get_renderer();
   auto& texture = graphics.light_canvas();
 

@@ -17,7 +17,7 @@ namespace wanderer::sys {
  *
  * \return the parsed binds.
  */
-[[nodiscard]] auto load_binds() -> ctx::Binds;
+[[nodiscard]] auto LoadBinds() -> ctx::Binds;
 
 /// \} End of configuration
 

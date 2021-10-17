@@ -7,7 +7,7 @@ namespace wanderer::sys {
 /// \name Time
 /// \{
 
-[[nodiscard]] constexpr auto hour_to_seconds(const float hour) noexcept -> float
+[[nodiscard]] constexpr auto HourToSeconds(const float hour) noexcept -> float
 {
   return hour * 3'600.0f;
 }
@@ -23,7 +23,7 @@ namespace wanderer::sys {
  *
  * \see `ctx::TimeOfDay`
  */
-void update_time(entt::registry& shared, entt::dispatcher& dispatcher, float dt);
+void UpdateTime(entt::registry& shared, entt::dispatcher& dispatcher, float dt);
 
 /**
  * \brief Changes the time to the next day.
@@ -34,9 +34,9 @@ void update_time(entt::registry& shared, entt::dispatcher& dispatcher, float dt)
  * \param dispatcher the event dispatcher that will be used.
  * \param hour the hour to start the next day at.
  */
-void change_to_next_day(entt::registry& shared,
-                        entt::dispatcher& dispatcher,
-                        float hour = 0);
+void ChangeToNextDay(entt::registry& shared,
+                     entt::dispatcher& dispatcher,
+                     float hour = 0);
 
 /**
  * \brief Renders a digital clock in the upper left corner of the screen with the current
@@ -46,7 +46,7 @@ void change_to_next_day(entt::registry& shared,
  *
  * \param registry the shared data registry, since levels share their time data.
  */
-void render_clock(const entt::registry& registry);
+void RenderClock(const entt::registry& registry);
 
 /// \} End of time
 

@@ -30,7 +30,7 @@ inline constexpr int humanoid_source_height = 64;
 void add_movable(entt::registry& registry, const entt::entity entity)
 {
   auto& movable = registry.emplace<comp::Movable>(entity);
-  movable.dir = direction::down;
+  movable.dir = Direction::Down;
 }
 
 void add_depth_drawable(entt::registry& registry,
@@ -61,8 +61,8 @@ void add_hitbox(comp::Level& level, const entt::entity entity, const float2 posi
   constexpr auto y0 = glob::tile_height<>;
   constexpr auto y1 = 0.75f * glob::tile_height<>;
 
-  auto hitbox = make_hitbox({{{x0, y0}, {x1, y1}}});
-  sys::set_position(hitbox, position);
+  auto hitbox = MakeHitbox({{{x0, y0}, {x1, y1}}});
+  sys::SetPosition(hitbox, position);
 
   const auto lower = to_vector(hitbox.bounds.position());
   const auto upper = lower + to_vector(hitbox.bounds.size());
@@ -99,7 +99,7 @@ void add_light(entt::registry& registry, const entt::entity entity, const float2
 
 }  // namespace
 
-auto make_player(comp::Level& level, graphics_context& graphics) -> entt::entity
+auto MakePlayer(comp::Level& level, GraphicsContext& graphics) -> entt::entity
 {
   constexpr auto id = texture_id{"player"_hs};
   static const auto path = resources::texture("player.png");
@@ -118,7 +118,7 @@ auto make_player(comp::Level& level, graphics_context& graphics) -> entt::entity
   return player;
 }
 
-auto make_skeleton(comp::Level& level, const float2 position, graphics_context& graphics)
+auto MakeSkeleton(comp::Level& level, float2 position, GraphicsContext& graphics)
     -> entt::entity
 {
   constexpr auto id = texture_id{"skeleton"_hs};

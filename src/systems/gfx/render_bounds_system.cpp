@@ -8,7 +8,7 @@
 namespace wanderer::sys {
 namespace {
 
-[[nodiscard]] auto calculate_min_col(const float viewportX) noexcept -> uint64
+[[nodiscard]] auto CalculateMinCol(const float viewportX) noexcept -> uint64
 {
   const auto minCol = viewportX / glob::tile_width<>;
   if (minCol > 0) {
@@ -19,7 +19,7 @@ namespace {
   }
 }
 
-[[nodiscard]] auto calculate_min_row(const float viewportY) noexcept -> uint64
+[[nodiscard]] auto CalculateMinRow(const float viewportY) noexcept -> uint64
 {
   const auto minRow = viewportY / glob::tile_height<>;
   if (minRow > 0) {
@@ -30,8 +30,8 @@ namespace {
   }
 }
 
-[[nodiscard]] auto calculate_max_col(const float viewportMaxX,
-                                     const uint64 numCols) noexcept -> uint64
+[[nodiscard]] auto CalculateMaxCol(const float viewportMaxX,
+                                   const uint64 numCols) noexcept -> uint64
 {
   const auto maxCol = static_cast<uint64>(viewportMaxX / glob::tile_width<>) + 1u;
   if (maxCol < numCols) {
@@ -42,8 +42,8 @@ namespace {
   }
 }
 
-[[nodiscard]] auto calculate_max_row(const float viewportMaxY,
-                                     const uint64 numRows) noexcept -> uint64
+[[nodiscard]] auto CalculateMaxRow(const float viewportMaxY,
+                                   const uint64 numRows) noexcept -> uint64
 {
   const auto maxRow = static_cast<uint64>(viewportMaxY / glob::tile_height<>) + 1u;
   if (maxRow < numRows) {
@@ -56,16 +56,16 @@ namespace {
 
 }  // namespace
 
-void update_render_bounds(entt::registry& registry)
+void UpdateRenderBounds(entt::registry& registry)
 {
   const auto& viewport = registry.ctx<ctx::Viewport>();
   const auto& size = registry.ctx<ctx::LevelSize>();
 
   auto& bounds = registry.set<ctx::RenderBounds>();
-  bounds.min_col = calculate_min_col(viewport.bounds.x());
-  bounds.min_row = calculate_min_row(viewport.bounds.y());
-  bounds.max_col = calculate_max_col(viewport.bounds.max_x(), size.col_count);
-  bounds.max_row = calculate_max_row(viewport.bounds.max_y(), size.row_count);
+  bounds.min_col = CalculateMinCol(viewport.bounds.x());
+  bounds.min_row = CalculateMinRow(viewport.bounds.y());
+  bounds.max_col = CalculateMaxCol(viewport.bounds.max_x(), size.col_count);
+  bounds.max_row = CalculateMaxRow(viewport.bounds.max_y(), size.row_count);
 }
 
 }  // namespace wanderer::sys

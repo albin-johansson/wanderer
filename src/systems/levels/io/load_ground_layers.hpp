@@ -6,6 +6,6 @@
 
 namespace wanderer::sys {
 
-void add_ground_layers(entt::registry& registry, const ir::level& data);
+void AddGroundLayers(entt::registry& registry, const ir::level& data);
 
 }  // namespace wanderer::sys

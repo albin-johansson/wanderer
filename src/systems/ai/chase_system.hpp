@@ -14,7 +14,7 @@ namespace wanderer::sys {
  *
  * \param registry the current level registry.
  */
-void update_chase(entt::registry& registry);
+void UpdateChase(entt::registry& registry);
 
 /// \} End of AI
 

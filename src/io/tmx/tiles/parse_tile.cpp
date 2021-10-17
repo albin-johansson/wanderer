@@ -46,7 +46,7 @@ void add_hitbox(ir::fancy_tile& tileData,
 {
   const auto offset = float2{object.x * xRatio, object.y * yRatio};
   const auto size = cen::farea{object.width * xRatio, object.height * yRatio};
-  tileData.hitbox = sys::make_hitbox({{offset, size}});
+  tileData.hitbox = sys::MakeHitbox({{offset, size}});
 }
 
 }  // namespace

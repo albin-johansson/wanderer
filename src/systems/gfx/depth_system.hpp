@@ -7,10 +7,10 @@ namespace wanderer::sys {
 /// \name Depth
 /// \{
 
-enum class sort_strategy
+enum class SortStrategy
 {
-  insertion_sort,  ///< Better choice when most elements are already sorted.
-  std_sort         ///< Performs well with unsorted collections.
+  InsertionSort,  ///< Better choice when most elements are already sorted.
+  StdSort         ///< Performs well with unsorted collections.
 };
 
 /**
@@ -23,8 +23,8 @@ enum class sort_strategy
  *
  * \since 0.1.0
  */
-void update_depth(entt::registry& registry,
-                  sort_strategy strategy = sort_strategy::insertion_sort);
+void UpdateDepth(entt::registry& registry,
+                 SortStrategy strategy = SortStrategy::InsertionSort);
 
 /// \} End of depth
 

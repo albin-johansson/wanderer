@@ -10,7 +10,7 @@ using std::chrono::time_point_cast;
 
 namespace wanderer {
 
-auto last_modified(const std::filesystem::path& path) -> std::string
+auto GetLastModified(const std::filesystem::path& path) -> std::string
 {
   const auto writeTime = std::filesystem::last_write_time(path);
 

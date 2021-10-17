@@ -9,7 +9,7 @@
 
 namespace wanderer {
 
-using engine_base = rune::engine<Game, graphics_context>;
+using engine_base = rune::engine<Game, GraphicsContext>;
 
 class wanderer_engine final : public engine_base
 {
@@ -21,7 +21,7 @@ class wanderer_engine final : public engine_base
 
   void on_integer_scaling_toggled(const integer_scaling_toggled_event& event);
 
-  void on_load_game_event(const load_game_event& event);
+  void on_load_game_event(const LoadGameEvent& event);
 };
 
 }  // namespace wanderer

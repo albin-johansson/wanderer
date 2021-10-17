@@ -20,7 +20,7 @@ namespace wanderer::sys {
  *
  * \return the created viewport.
  */
-[[nodiscard]] auto make_viewport(cen::farea levelSize) noexcept -> ctx::Viewport;
+[[nodiscard]] auto MakeViewport(cen::farea levelSize) noexcept -> ctx::Viewport;
 
 /**
  * \brief Centers the viewport on the specified position.
@@ -30,7 +30,7 @@ namespace wanderer::sys {
  * \param registry the current level registry.
  * \param position the world position to center the viewport on.
  */
-void center_viewport_on(entt::registry& registry, float2 position);
+void CenterViewportOn(entt::registry& registry, float2 position);
 
 /**
  * \brief Updates the position of the viewport by slowly tracking a movable entity.
@@ -43,7 +43,7 @@ void center_viewport_on(entt::registry& registry, float2 position);
  * \param target the movable entity that will be tracked.
  * \param dt the current delta time.
  */
-void update_viewport(entt::registry& registry, entt::entity target, float dt);
+void UpdateViewport(entt::registry& registry, entt::entity target, float dt);
 
 /**
  * \brief Updates the translation viewport of a renderer based on the current viewport.
@@ -52,7 +52,7 @@ void update_viewport(entt::registry& registry, entt::entity target, float dt);
  *
  * \param registry the current level registry.
  */
-void translate_viewport(const entt::registry& registry);
+void TranslateViewport(const entt::registry& registry);
 
 /// \} End of viewport
 

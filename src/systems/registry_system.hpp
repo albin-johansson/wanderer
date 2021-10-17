@@ -14,6 +14,6 @@ namespace wanderer::sys {
  *
  * \return the created registry.
  */
-[[nodiscard]] auto make_shared_registry() -> entt::registry;
+[[nodiscard]] auto MakeSharedRegistry() -> entt::registry;
 
 }  // namespace wanderer::sys

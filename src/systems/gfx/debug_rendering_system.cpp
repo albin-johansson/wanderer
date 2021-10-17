@@ -21,7 +21,7 @@
 namespace wanderer::sys {
 namespace {
 
-void render_hitboxes(const entt::registry& registry, cen::renderer& renderer)
+void RenderHitboxes(const entt::registry& registry, cen::renderer& renderer)
 {
   for (auto&& [entity, hitbox] : registry.view<comp::Hitbox>().each()) {
     if (registry.all_of<comp::Trigger>(entity)) {
@@ -43,7 +43,7 @@ void render_hitboxes(const entt::registry& registry, cen::renderer& renderer)
   }
 }
 
-void render_trigger_indicators(const entt::registry& registry, cen::renderer& renderer)
+void RenderTriggerIndicators(const entt::registry& registry, cen::renderer& renderer)
 {
   const auto entity = singleton_entity<const comp::Player>(registry);
   if (const auto* within = registry.try_get<comp::IsWithinTrigger>(entity)) {
@@ -55,7 +55,7 @@ void render_trigger_indicators(const entt::registry& registry, cen::renderer& re
   }
 }
 
-void render_chase_ranges(const entt::registry& registry, cen::renderer& renderer)
+void RenderChaseRanges(const entt::registry& registry, cen::renderer& renderer)
 {
   renderer.set_color(cen::colors::red);
 
@@ -66,7 +66,7 @@ void render_chase_ranges(const entt::registry& registry, cen::renderer& renderer
   }
 }
 
-void render_development_build_label(graphics_context& graphics)
+void RenderDevelopmentBuildLabel(GraphicsContext& graphics)
 {
   auto& renderer = graphics.get_renderer();
   const auto& cache = graphics.small_font_cache();
@@ -80,24 +80,24 @@ void render_development_build_label(graphics_context& graphics)
 
 }  // namespace
 
-void render_debug_info(const entt::registry& registry)
+void RenderDebugInfo(const entt::registry& registry)
 {
-  auto& graphics = registry.ctx<ref<graphics_context>>().get();
+  auto& graphics = registry.ctx<ref<GraphicsContext>>().get();
   auto& renderer = graphics.get_renderer();
-  render_hitboxes(registry, renderer);
-  render_trigger_indicators(registry, renderer);
-  render_chase_ranges(registry, renderer);
+  RenderHitboxes(registry, renderer);
+  RenderTriggerIndicators(registry, renderer);
+  RenderChaseRanges(registry, renderer);
 }
 
-void render_menu_debug_info(const entt::registry& registry)
+void RenderMenuDebugInfo(const entt::registry& registry)
 {
-  auto& graphics = registry.ctx<ref<graphics_context>>().get();
+  auto& graphics = registry.ctx<ref<GraphicsContext>>().get();
   auto& renderer = graphics.get_renderer();
 
   const auto menuEntity = registry.ctx<ctx::ActiveMenu>().entity;
   const auto& menu = registry.get<comp::Menu>(menuEntity);
 
-  if (menu.id != menu_id::in_game) {
+  if (menu.id != MenuId::InGame) {
     renderer.set_color(cen::colors::light_gray.with_alpha(50));
 
     const auto endX = glob::logical_width<>;
@@ -117,7 +117,7 @@ void render_menu_debug_info(const entt::registry& registry)
     renderer.draw_line<float>({endX - 1, 0}, {endX - 1, endY});
   }
 
-  render_development_build_label(graphics);
+  RenderDevelopmentBuildLabel(graphics);
 }
 
 }  // namespace wanderer::sys

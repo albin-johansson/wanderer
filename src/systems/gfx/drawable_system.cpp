@@ -9,7 +9,7 @@
 
 namespace wanderer::sys {
 
-void update_drawables(entt::registry& registry)
+void UpdateDrawables(entt::registry& registry)
 {
   for (auto&& [entity, movable, drawable] :
        registry.view<const comp::Movable, comp::Drawable>().each())
@@ -19,10 +19,10 @@ void update_drawables(entt::registry& registry)
   }
 }
 
-void render_drawables(const entt::registry& registry)
+void RenderDrawables(const entt::registry& registry)
 {
   const auto& viewport = registry.ctx<ctx::Viewport>();
-  auto& graphics = registry.ctx<ref<graphics_context>>().get();
+  auto& graphics = registry.ctx<ref<GraphicsContext>>().get();
 
   for (auto&& [entity, drawable] : registry.view<comp::Drawable>().each()) {
     if (cen::intersects(viewport.bounds, drawable.dst)) {

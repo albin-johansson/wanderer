@@ -2,7 +2,7 @@
 
 namespace wanderer::sys {
 
-void add_ground_layers(entt::registry& registry, const ir::level& data)
+void AddGroundLayers(entt::registry& registry, const ir::level& data)
 {
   for (const auto& groundLayer : data.ground_layers) {
     auto& layer = registry.emplace<comp::TileLayer>(registry.create(), groundLayer);

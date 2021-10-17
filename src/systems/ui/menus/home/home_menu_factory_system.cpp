@@ -15,11 +15,11 @@ namespace {
 void add_buttons(entt::registry& registry, const entt::entity entity)
 {
   const auto button = [&](std::string text,
-                          const menu_action action,
+                          const MenuAction action,
                           const float row,
                           const float col = -1) {
     const auto button =
-        make_button(registry, std::move(text), action, grid_position{row, col});
+        make_button(registry, std::move(text), action, GridPosition{row, col});
 
     auto& associated = registry.emplace<comp::AssociatedMenu>(button);
     associated.entity = entity;
@@ -27,31 +27,31 @@ void add_buttons(entt::registry& registry, const entt::entity entity)
 
   float row = 5;
 
-  button("Play", menu_action::goto_in_game, row++);
+  button("Play", MenuAction::GotoInGame, row++);
 
   ++row;
 
-  button("Quick Save", menu_action::quick_save, row++);
-  button("Saves", menu_action::goto_saves, row++);
-  button("Settings", menu_action::goto_settings, row++);
-  button("Controls", menu_action::goto_controls, row++);
+  button("Quick Save", MenuAction::QuickSave, row++);
+  button("Saves", MenuAction::GotoSaves, row++);
+  button("Settings", MenuAction::GotoSettings, row++);
+  button("Controls", MenuAction::GotoControls, row++);
 
   row += 2;
 
-  button("Quit", menu_action::quit, row);
+  button("Quit", MenuAction::Quit, row);
 }
 
 }  // namespace
 
 auto make_home_menu(entt::registry& registry) -> entt::entity
 {
-  const auto entity = make_menu(registry, "Wanderer", menu_id::home);
+  const auto entity = make_menu(registry, "Wanderer", MenuId::Home);
   registry.set<comp::HomeMenu>(entity);
 
   add_buttons(registry, entity);
-  add_binds(registry,
-            entity,
-            comp::KeyBind{cen::scancodes::escape, menu_action::goto_in_game});
+  AddBinds(registry,
+           entity,
+           comp::KeyBind{cen::scancodes::escape, MenuAction::GotoInGame});
 
   return entity;
 }

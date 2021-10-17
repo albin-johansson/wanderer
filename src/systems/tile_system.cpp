@@ -5,7 +5,7 @@
 
 namespace wanderer::sys {
 
-auto get_tile(entt::registry& registry, const tile_id id) -> comp::Tile&
+auto GetTile(entt::registry& registry, tile_id id) -> comp::Tile&
 {
   const auto& [tsEntity, tileset] = singleton<const comp::Tileset>(registry);
   const auto tileEntity = tileset.tiles.at(id);

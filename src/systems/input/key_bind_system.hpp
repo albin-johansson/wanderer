@@ -28,7 +28,7 @@ namespace wanderer::sys {
  * \param binds the pack of key binds.
  */
 template <typename... T>
-void add_binds(entt::registry& registry, const entt::entity menuEntity, T... binds)
+void AddBinds(entt::registry& registry, const entt::entity menuEntity, T... binds)
 {
   static_assert((std::is_same_v<T, comp::KeyBind>, ...));
 
@@ -54,7 +54,7 @@ void add_binds(entt::registry& registry, const entt::entity menuEntity, T... bin
  *
  * \return the created key bind entity.
  */
-auto make_bind(entt::registry& registry, cen::scan_code key, menu_action action)
+auto MakeBind(entt::registry& registry, cen::scan_code key, MenuAction action)
     -> entt::entity;
 
 /// \} End of input

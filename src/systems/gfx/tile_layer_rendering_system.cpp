@@ -13,11 +13,11 @@
 namespace wanderer::sys {
 namespace {
 
-void render_layer(const entt::registry& registry,
-                  graphics_context& graphics,
-                  const ctx::RenderBounds& bounds,
-                  const comp::TileLayer& layer,
-                  const comp::Tileset& tileset)
+void RenderLayer(const entt::registry& registry,
+                 GraphicsContext& graphics,
+                 const ctx::RenderBounds& bounds,
+                 const comp::TileLayer& layer,
+                 const comp::Tileset& tileset)
 {
   for (auto row = bounds.min_row; row < bounds.max_row; ++row) {
     for (auto col = bounds.min_col; col < bounds.max_col; ++col) {
@@ -28,13 +28,13 @@ void render_layer(const entt::registry& registry,
 
       const auto id = layer.matrix[row][col];
       if (!is_empty(id)) {
-        const grid_position position{static_cast<float>(row), static_cast<float>(col)};
+        const GridPosition position{static_cast<float>(row), static_cast<float>(col)};
         const auto entity = tileset.tiles.at(id);
         if (registry.all_of<comp::TileAnimation>(entity)) {
-          render_tile(graphics, get_animated_tile(registry, entity, tileset), position);
+          RenderTile(graphics, GetAnimatedTile(registry, entity, tileset), position);
         }
         else {
-          render_tile(graphics, registry.get<comp::Tile>(entity), position);
+          RenderTile(graphics, registry.get<comp::Tile>(entity), position);
         }
       }
     }
@@ -43,14 +43,14 @@ void render_layer(const entt::registry& registry,
 
 }  // namespace
 
-void render_tile_layers(const entt::registry& registry)
+void RenderTileLayers(const entt::registry& registry)
 {
   const auto& [tilesetEntity, tileset] = singleton<const comp::Tileset>(registry);
   const auto& bounds = registry.ctx<ctx::RenderBounds>();
 
-  auto& graphics = registry.ctx<ref<graphics_context>>().get();
+  auto& graphics = registry.ctx<ref<GraphicsContext>>().get();
   for (auto&& [entity, layer] : registry.view<comp::TileLayer>().each()) {
-    render_layer(registry, graphics, bounds, layer, tileset);
+    RenderLayer(registry, graphics, bounds, layer, tileset);
   }
 }
 

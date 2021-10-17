@@ -21,10 +21,10 @@ namespace wanderer::sys {
  * \param input the current input state.
  * \param binds the current input binds.
  */
-void update_input(entt::registry& registry,
-                  entt::dispatcher& dispatcher,
-                  const rune::input& input,
-                  const ctx::Binds& binds);
+void UpdateInput(entt::registry& registry,
+                 entt::dispatcher& dispatcher,
+                 const rune::input& input,
+                 const ctx::Binds& binds);
 
 /// \} End of input
 

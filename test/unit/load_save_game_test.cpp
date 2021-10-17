@@ -14,12 +14,12 @@ using namespace wanderer;
 TEST(LoadSaveGame, Usage)
 {
   cen::window window;
-  graphics_context graphics{window};
+  GraphicsContext graphics{window};
 
-  auto shared = sys::make_shared_registry();
+  auto shared = sys::MakeSharedRegistry();
 
   {
-    sys::load_levels(shared, graphics);
+    sys::LoadLevels(shared, graphics);
     cen::surface snapshot{"resources/snapshot.png"};
 
     WANDERER_PROFILE_START;
@@ -33,5 +33,5 @@ TEST(LoadSaveGame, Usage)
     WANDERER_PROFILE_END("load_game()");
   }
 
-  std::filesystem::remove_all(saves_directory() / "test");
+  std::filesystem::remove_all(GetSavesDirectory() / "test");
 }

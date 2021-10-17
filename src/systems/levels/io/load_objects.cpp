@@ -7,7 +7,7 @@
 namespace wanderer::sys {
 namespace {
 
-[[nodiscard]] auto find_object(entt::registry& registry, const int32 id) -> entt::entity
+[[nodiscard]] auto FindObject(entt::registry& registry, const int32 id) -> entt::entity
 {
   for (auto&& [entity, object] : registry.view<comp::Object>().each()) {
     if (object.id == id) {
@@ -20,9 +20,9 @@ namespace {
 
 }  // namespace
 
-void load_objects(entt::registry& registry,
-                  graphics_context& graphics,
-                  const ir::level& level)
+void LoadObjects(entt::registry& registry,
+                 GraphicsContext& graphics,
+                 const ir::level& level)
 {
   std::map<entt::entity, int32> associations;
 
@@ -77,7 +77,7 @@ void load_objects(entt::registry& registry,
 
   for (const auto& [entity, id] : associations) {
     auto& association = registry.emplace<comp::AssociatedEntity>(entity);
-    association.entity = find_object(registry, id);
+    association.entity = FindObject(registry, id);
   }
 }
 

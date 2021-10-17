@@ -17,7 +17,7 @@ namespace wanderer::sys {
  *
  * \param registry the current level registry.
  */
-void update_lights(entt::registry& registry);
+void UpdateLights(entt::registry& registry);
 
 /**
  * \brief Updates the position of the light attached to the player entity.
@@ -26,7 +26,7 @@ void update_lights(entt::registry& registry);
  *
  * \param registry the current level registry.
  */
-void update_player_light_position(entt::registry& registry);
+void UpdatePlayerLightPosition(entt::registry& registry);
 
 /**
  * \brief Renders all lights currently in the viewport bounds.
@@ -36,7 +36,7 @@ void update_player_light_position(entt::registry& registry);
  * \param registry the current level registry.
  * \param time the current time state.
  */
-void render_lights(const entt::registry& registry, const ctx::TimeOfDay& time);
+void RenderLights(const entt::registry& registry, const ctx::TimeOfDay& time);
 
 /// \} End of lights
 

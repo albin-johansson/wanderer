@@ -20,7 +20,7 @@ TEST(Hitbox, UpdateBounds)
     hb.origin = origin;
     hb.boxes.push_back(comp::Subhitbox{offset, size});
 
-    sys::update_bounds(hb);
+    sys::UpdateBounds(hb);
     EXPECT_EQ(cen::frect(to_point(origin + offset), size), hb.bounds);
   }
 
@@ -49,7 +49,7 @@ TEST(Hitbox, UpdateBounds)
     hb.boxes.push_back(fst);
     hb.boxes.push_back(snd);
 
-    sys::update_bounds(hb);
+    sys::UpdateBounds(hb);
 
     EXPECT_EQ(offsetA, hb.boxes.at(0).offset);
     EXPECT_EQ(sizeA, hb.boxes.at(0).size);
@@ -75,11 +75,11 @@ TEST(Hitbox, Intersects)
      *
      */
 
-    const auto fst = sys::make_hitbox({{{100, 100}, {100, 100}}});
-    const auto snd = sys::make_hitbox({{{150, 150}, {100, 100}}});
+    const auto fst = sys::MakeHitbox({{{100, 100}, {100, 100}}});
+    const auto snd = sys::MakeHitbox({{{150, 150}, {100, 100}}});
 
-    EXPECT_TRUE(sys::intersects(fst, snd));
-    EXPECT_TRUE(sys::intersects(snd, fst));
+    EXPECT_TRUE(sys::Intersects(fst, snd));
+    EXPECT_TRUE(sys::Intersects(snd, fst));
 
     EXPECT_TRUE(cen::intersects(fst.bounds, snd.bounds));
     EXPECT_TRUE(cen::intersects(snd.bounds, fst.bounds));
@@ -97,15 +97,15 @@ TEST(Hitbox, Intersects)
      *
      */
 
-    const auto fst = sys::make_hitbox({{{100, 100}, {75, 100}}, {{175, 100}, {25, 25}}});
+    const auto fst = sys::MakeHitbox({{{100, 100}, {75, 100}}, {{175, 100}, {25, 25}}});
 
-    const auto snd = sys::make_hitbox({{{210, 150}, {100, 100}}, {{150, 210}, {25, 25}}});
+    const auto snd = sys::MakeHitbox({{{210, 150}, {100, 100}}, {{150, 210}, {25, 25}}});
 
     ASSERT_TRUE(cen::intersects(fst.bounds, snd.bounds));
     ASSERT_TRUE(cen::intersects(snd.bounds, fst.bounds));
 
-    EXPECT_FALSE(sys::intersects(fst, snd));
-    EXPECT_FALSE(sys::intersects(snd, fst));
+    EXPECT_FALSE(sys::Intersects(fst, snd));
+    EXPECT_FALSE(sys::Intersects(snd, fst));
   }
 }
 
@@ -114,7 +114,7 @@ TEST(Hitbox, MakeHitbox)
   {  // One hitbox
     const float2 offset{12, 34};
     const cen::farea size{150, 100};
-    const auto hb = sys::make_hitbox({{offset, size}});
+    const auto hb = sys::MakeHitbox({{offset, size}});
 
     EXPECT_FLOAT_EQ(offset.x, hb.bounds.x());
     EXPECT_FLOAT_EQ(offset.y, hb.bounds.y());
@@ -123,7 +123,7 @@ TEST(Hitbox, MakeHitbox)
   }
 
   {  // One hitbox with two subhitboxes
-    const auto hb = sys::make_hitbox({{{2, 0}, {32, 28}}, {{16, 22}, {36, 32}}});
+    const auto hb = sys::MakeHitbox({{{2, 0}, {32, 28}}, {{16, 22}, {36, 32}}});
 
     EXPECT_FLOAT_EQ(2, hb.bounds.x());
     EXPECT_FLOAT_EQ(0, hb.bounds.y());
@@ -138,7 +138,7 @@ TEST(Hitbox, MakeHitbox)
     const cen::farea size1{25, 40};
     const cen::farea size2{40, 60};
 
-    const auto hb = sys::make_hitbox({{offset1, size1}, {offset2, size2}});
+    const auto hb = sys::MakeHitbox({{offset1, size1}, {offset2, size2}});
 
     EXPECT_FLOAT_EQ(5, hb.bounds.x());
     EXPECT_FLOAT_EQ(10, hb.bounds.y());

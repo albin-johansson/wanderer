@@ -43,13 +43,13 @@ void save_game(const std::string& name,
                const entt::registry& shared,
                const cen::surface& snapshot)
 {
-  const auto dir = unique_path(saves_directory() / name);
+  const auto dir = unique_path(GetSavesDirectory() / name);
   save_common(shared, dir, snapshot);
 }
 
 void create_exit_save(const entt::registry& shared, const cen::surface& snapshot)
 {
-  save_common(shared, saves_directory() / "exit_save", snapshot);
+  save_common(shared, GetSavesDirectory() / "exit_save", snapshot);
 }
 
 }  // namespace wanderer

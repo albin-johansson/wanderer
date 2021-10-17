@@ -10,7 +10,7 @@
 
 namespace wanderer {
 
-class graphics_context final : public rune::graphics
+class GraphicsContext final : public rune::graphics
 {
   inline static constexpr rune::font_id small_font = 0;
   inline static constexpr rune::font_id medium_font = 1;
@@ -23,7 +23,7 @@ class graphics_context final : public rune::graphics
    *
    * \param window the game window.
    */
-  explicit graphics_context(const cen::window& window);
+  explicit GraphicsContext(const cen::window& window);
 
   /**
    * \brief Renders a texture.
@@ -49,7 +49,7 @@ class graphics_context final : public rune::graphics
   /**
    * \brief Renders small white text with a black outline.
    *
-   * \note The text parameter is generic due to funky overloads of `render_text`.
+   * \note The text parameter is generic due to funky overloads of `RenderText`.
    *
    * \param text the string that will be rendered.
    * \param position the position of the rendered string.

@@ -20,9 +20,9 @@ namespace wanderer::sys {
  * \param[in,out] shared the shared data registry that will store the loaded levels.
  * \param graphics the graphics context used when loading textures.
  *
- * \see `sys::make_level()`
+ * \see `sys::MakeLevel()`
  */
-void load_levels(entt::registry& shared, graphics_context& graphics);
+void LoadLevels(entt::registry& shared, GraphicsContext& graphics);
 
 /// \} End of levels
 

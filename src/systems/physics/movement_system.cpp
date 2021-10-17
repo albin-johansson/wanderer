@@ -14,9 +14,9 @@
 namespace wanderer::sys {
 namespace {
 
-[[nodiscard]] auto restore_aabb_position(const float2 prev,
-                                         const float2 curr,
-                                         const collision_result& collisions) noexcept
+[[nodiscard]] auto RestoreAabbPosition(const float2& prev,
+                                       const float2& curr,
+                                       const CollisionResult& collisions) noexcept
     -> float2
 {
   if (collisions.horizontal && collisions.vertical) {
@@ -31,12 +31,12 @@ namespace {
 }
 
 // Checks for collisions, stops the movable if there are collisions
-[[nodiscard]] auto update_movable(comp::Movable& movable,
-                                  const float2 oldPosition,
-                                  const comp::Hitbox& other,
-                                  const next_hitboxes& next) -> collision_result
+[[nodiscard]] auto UpdateMovable(comp::Movable& movable,
+                                 const float2& oldPosition,
+                                 const comp::Hitbox& other,
+                                 const NextHitboxes& next) -> CollisionResult
 {
-  const auto collisions = query_collisions(next, other);
+  const auto collisions = QueryCollisions(next, other);
 
   if (collisions.horizontal) {
     movable.position.x = oldPosition.x;
@@ -51,12 +51,12 @@ namespace {
   return collisions;
 }
 
-[[nodiscard]] auto check_out_of_bounds(entt::registry& registry,
-                                       const next_hitboxes& next,
-                                       comp::Movable& movable,
-                                       const float2 oldPosition) -> collision_result
+[[nodiscard]] auto CheckOutOfBounds(entt::registry& registry,
+                                    const NextHitboxes& next,
+                                    comp::Movable& movable,
+                                    const float2& oldPosition) -> CollisionResult
 {
-  collision_result collisions;
+  CollisionResult collisions;
 
   const auto& viewport = registry.ctx<ctx::Viewport>();
   if (next.horizontal) {
@@ -82,18 +82,18 @@ namespace {
   return collisions;
 }
 
-void update_hitbox(entt::registry& registry,
-                   aabb_tree& tree,
-                   const entt::entity entity,
-                   const float2 oldPosition,
-                   const float dt)
+void UpdateHitbox(entt::registry& registry,
+                  aabb_tree& tree,
+                  const entt::entity entity,
+                  const float2& oldPosition,
+                  const float dt)
 {
   const auto oldAabbPos = tree.at(entity).min;
 
   auto& hitbox = registry.get<comp::Hitbox>(entity);
   auto& movable = registry.get<comp::Movable>(entity);
 
-  set_position(hitbox, movable.position);
+  SetPosition(hitbox, movable.position);
   tree.set_position(entity, to_vector(hitbox.bounds.position()));
 
   if (movable.velocity.is_zero()) {
@@ -104,18 +104,17 @@ void update_hitbox(entt::registry& registry,
   std::pmr::vector<entt::entity> candidates{resource.get()};
   tree.query(entity, std::back_inserter(candidates));
 
-  const auto next = make_next_hitboxes(movable, hitbox, oldPosition, dt);
+  const auto next = MakeNextHitboxes(movable, hitbox, oldPosition, dt);
 
-  const auto restorePosition = [&](const collision_result& collisions) {
-    set_position(hitbox, movable.position);
-    const auto pos = restore_aabb_position(oldAabbPos,
-                                           to_vector(hitbox.bounds.position()),
-                                           collisions);
+  const auto restorePosition = [&](const CollisionResult& collisions) {
+    SetPosition(hitbox, movable.position);
+    const auto pos =
+        RestoreAabbPosition(oldAabbPos, to_vector(hitbox.bounds.position()), collisions);
     tree.set_position(entity, pos);
   };
 
   {
-    const auto collisions = check_out_of_bounds(registry, next, movable, oldPosition);
+    const auto collisions = CheckOutOfBounds(registry, next, movable, oldPosition);
     if (collisions.vertical || collisions.horizontal) {
       restorePosition(collisions);
     }
@@ -123,7 +122,7 @@ void update_hitbox(entt::registry& registry,
 
   for (const auto candidate : candidates) {
     const auto collisions =
-        update_movable(movable, oldPosition, registry.get<comp::Hitbox>(candidate), next);
+        UpdateMovable(movable, oldPosition, registry.get<comp::Hitbox>(candidate), next);
     if (collisions.vertical || collisions.horizontal) {
       restorePosition(collisions);
     }
@@ -132,16 +131,16 @@ void update_hitbox(entt::registry& registry,
 
 }  // namespace
 
-void update_movement(entt::registry& registry, aabb_tree& tree, const float dt)
+void UpdateMovement(entt::registry& registry, aabb_tree& tree, const float dt)
 {
   for (auto&& [entity, movable] : registry.view<comp::Movable>().each()) {
     const auto oldPosition = movable.position;
 
     movable.position += (movable.velocity * dt);
-    movable.dir = dominant_direction(movable);
+    movable.dir = GetDominantDirection(movable);
 
     if (registry.all_of<comp::Hitbox>(entity)) {
-      update_hitbox(registry, tree, entity, oldPosition, dt);
+      UpdateHitbox(registry, tree, entity, oldPosition, dt);
     }
   }
 }

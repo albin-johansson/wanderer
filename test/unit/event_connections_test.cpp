@@ -14,22 +14,22 @@ TEST(EventConnections, Correctness)
   entt::dispatcher dispatcher;
 
   {  // Connect the events
-    connect_events(dispatcher);
+    ConnectEvents(dispatcher);
 
-    EXPECT_FALSE(dispatcher.sink<begin_attack_event>().empty());
-    EXPECT_FALSE(dispatcher.sink<end_attack_event>().empty());
-    EXPECT_FALSE(dispatcher.sink<begin_humanoid_move_event>().empty());
-    EXPECT_FALSE(dispatcher.sink<end_humanoid_move_event>().empty());
-    EXPECT_FALSE(dispatcher.sink<interact_event>().empty());
+    EXPECT_FALSE(dispatcher.sink<BeginAttackEvent>().empty());
+    EXPECT_FALSE(dispatcher.sink<EndAttackEvent>().empty());
+    EXPECT_FALSE(dispatcher.sink<BeginHumanoidMoveEvent>().empty());
+    EXPECT_FALSE(dispatcher.sink<EndHumanoidMoveEvent>().empty());
+    EXPECT_FALSE(dispatcher.sink<InteractEvent>().empty());
   }
 
   {  // Disconnect the events
-    disconnect_events(dispatcher);
+    DisconnectEvents(dispatcher);
 
-    EXPECT_TRUE(dispatcher.sink<begin_attack_event>().empty());
-    EXPECT_TRUE(dispatcher.sink<end_attack_event>().empty());
-    EXPECT_TRUE(dispatcher.sink<begin_humanoid_move_event>().empty());
-    EXPECT_TRUE(dispatcher.sink<end_humanoid_move_event>().empty());
-    EXPECT_TRUE(dispatcher.sink<interact_event>().empty());
+    EXPECT_TRUE(dispatcher.sink<BeginAttackEvent>().empty());
+    EXPECT_TRUE(dispatcher.sink<EndAttackEvent>().empty());
+    EXPECT_TRUE(dispatcher.sink<BeginHumanoidMoveEvent>().empty());
+    EXPECT_TRUE(dispatcher.sink<EndHumanoidMoveEvent>().empty());
+    EXPECT_TRUE(dispatcher.sink<InteractEvent>().empty());
   }
 }

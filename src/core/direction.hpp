@@ -2,21 +2,14 @@
 
 namespace wanderer {
 
-/**
- * \enum direction
- *
- * \ingroup core
- *
- * \brief Represents four different directions.
- *
- * \headerfile direction.hpp
- */
-enum class direction
+/// \brief Represents four different directions.
+/// \ingroup core
+enum class Direction
 {
-  up,     ///< Represents the direction "up", or north.
-  right,  ///< Represents the direction "right", or east.
-  down,   ///< Represents the direction "down", or south.
-  left    ///< Represents the direction "left", or west.
+  Up,     ///< Represents the direction "up", or north.
+  Right,  ///< Represents the direction "right", or east.
+  Down,   ///< Represents the direction "down", or south.
+  Left    ///< Represents the direction "left", or west.
 };
 
 }  // namespace wanderer

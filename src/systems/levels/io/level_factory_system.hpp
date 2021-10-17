@@ -21,7 +21,7 @@ namespace wanderer::sys {
  *
  * \return the created level.
  */
-[[nodiscard]] auto make_level(const ir::level& data, graphics_context& graphics)
+[[nodiscard]] auto MakeLevel(const ir::level& data, GraphicsContext& graphics)
     -> comp::Level;
 
 /// \} End of levels

@@ -17,23 +17,23 @@ namespace {
 void add_buttons(entt::registry& registry, const entt::entity menuEntity)
 {
   const auto button = [&](std::string text,
-                          const menu_action action,
+                          const MenuAction action,
                           const float row,
                           const float col = -1) {
     const auto entity =
-        make_button(registry, std::move(text), action, grid_position{row, col});
+        make_button(registry, std::move(text), action, GridPosition{row, col});
 
     auto& associated = registry.emplace<comp::AssociatedMenu>(entity);
     associated.entity = menuEntity;
   };
 
-  button("Return", menu_action::goto_home, 4);
+  button("Return", MenuAction::GotoHome, 4);
 }
 
 void add_labels(entt::registry& registry, const entt::entity entity)
 {
   const auto label = [&](std::string text, const float row, const float col) {
-    sys::make_label(registry, entity, std::move(text), grid_position{row, col});
+    sys::make_label(registry, entity, std::move(text), GridPosition{row, col});
   };
 
   float row = 6;
@@ -50,14 +50,12 @@ void add_labels(entt::registry& registry, const entt::entity entity)
 
 auto make_controls_menu(entt::registry& registry) -> entt::entity
 {
-  const auto entity = make_menu(registry, "Controls", menu_id::controls);
+  const auto entity = make_menu(registry, "Controls", MenuId::Controls);
   registry.set<comp::ControlsMenu>(entity);
 
   add_buttons(registry, entity);
   add_labels(registry, entity);
-  add_binds(registry,
-            entity,
-            comp::KeyBind{cen::scancodes::escape, menu_action::goto_home});
+  AddBinds(registry, entity, comp::KeyBind{cen::scancodes::escape, MenuAction::GotoHome});
 
   return entity;
 }

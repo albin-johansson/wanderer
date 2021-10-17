@@ -16,7 +16,7 @@ namespace wanderer::sys {
  *
  * \since 0.1.0
  */
-void update_animations(entt::registry& registry);
+void UpdateAnimations(entt::registry& registry);
 
 /// \} End of animation
 

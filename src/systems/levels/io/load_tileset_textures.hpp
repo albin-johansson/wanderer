@@ -5,6 +5,6 @@
 
 namespace wanderer::sys {
 
-void load_tileset_textures(const ir::level& data, graphics_context& graphics);
+void LoadTilesetTextures(const ir::level& data, GraphicsContext& graphics);
 
 }  // namespace wanderer::sys

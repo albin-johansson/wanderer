@@ -10,7 +10,7 @@ namespace wanderer::sys {
 auto make_label(entt::registry& registry,
                 const entt::entity menu,
                 std::string text,
-                const grid_position position,
+                const GridPosition position,
                 const text_size size) -> entt::entity
 {
   const auto entity = registry.create();

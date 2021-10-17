@@ -14,7 +14,7 @@ namespace wanderer::sys {
  *
  * \param event the associated event data.
  */
-void on_attack_begin(const begin_attack_event& event);
+void OnAttackBegin(const BeginAttackEvent& event);
 
 /**
  * \brief Handles the event of beginning a humanoid attack sequence.
@@ -23,7 +23,7 @@ void on_attack_begin(const begin_attack_event& event);
  *
  * \param event the associated event data.
  */
-void on_attack_end(const end_attack_event& event);
+void OnAttackEnd(const EndAttackEvent& event);
 
 /// \} End of event handlers
 

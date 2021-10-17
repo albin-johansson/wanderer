@@ -26,7 +26,7 @@ namespace wanderer::sys {
   }
 }
 
-void render_labels(const entt::registry& registry, graphics_context& graphics)
+void render_labels(const entt::registry& registry, GraphicsContext& graphics)
 {
   const auto active = registry.ctx<ctx::ActiveMenu>().entity;
   auto& renderer = graphics.get_renderer();
@@ -39,7 +39,7 @@ void render_labels(const entt::registry& registry, graphics_context& graphics)
         renderer.set_color(label.color);
 
         const auto& font = renderer.get_font(menu_font(label.size));
-        label.texture = render_text(renderer, label.text, font);
+        label.texture = RenderText(renderer, label.text, font);
       }
 
       renderer.render(*label.texture, from_grid(label.position));

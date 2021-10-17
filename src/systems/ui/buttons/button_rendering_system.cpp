@@ -34,7 +34,7 @@ void init_text(const comp::ButtonDrawable& drawable,
   const auto& font = renderer.get_font(button_font);
 
   renderer.set_color(cen::colors::white);
-  drawable.texture.emplace(render_text(renderer, text, font));
+  drawable.texture.emplace(RenderText(renderer, text, font));
 }
 
 void render_text(const comp::Button& button,
@@ -69,7 +69,7 @@ void render_outline(const comp::ButtonDrawable& drawable, cen::renderer& rendere
 }
 
 void render_button(const entt::registry& registry,
-                   graphics_context& graphics,
+                   GraphicsContext& graphics,
                    const entt::entity buttonEntity)
 {
   auto& renderer = graphics.get_renderer();
@@ -94,7 +94,7 @@ void render_button(const entt::registry& registry,
 
 }  // namespace
 
-void render_buttons(const entt::registry& registry, graphics_context& graphics)
+void render_buttons(const entt::registry& registry, GraphicsContext& graphics)
 {
   const auto menuEntity = registry.ctx<ctx::ActiveMenu>().entity;
 
@@ -109,7 +109,7 @@ void render_buttons(const entt::registry& registry, graphics_context& graphics)
 }
 
 void render_button_group_indicators(const entt::registry& registry,
-                                    graphics_context& graphics)
+                                    GraphicsContext& graphics)
 {
   const auto menuEntity = registry.ctx<ctx::ActiveMenu>().entity;
 

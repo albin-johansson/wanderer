@@ -23,7 +23,7 @@ namespace wanderer::sys {
  * \param tree the AABB tree used by the level.
  * \param dt the current delta time.
  */
-void update_movement(entt::registry& registry, aabb_tree& tree, const float dt);
+void UpdateMovement(entt::registry& registry, aabb_tree& tree, const float dt);
 
 /// \} End of movement
 

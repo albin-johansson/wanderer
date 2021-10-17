@@ -14,7 +14,7 @@ namespace wanderer::sys {
  *
  * \param registry the current level registry.
  */
-void render_tile_layers(const entt::registry& registry);
+void RenderTileLayers(const entt::registry& registry);
 
 /// \} End of tile layers
 

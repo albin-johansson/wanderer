@@ -10,7 +10,7 @@ namespace wanderer::sys {
 namespace {
 
 void render_checkbox(const entt::registry& registry,
-                     graphics_context& graphics,
+                     GraphicsContext& graphics,
                      const entt::entity checkboxEntity,
                      const comp::Checkbox& checkbox)
 {
@@ -30,7 +30,7 @@ void render_checkbox(const entt::registry& registry,
     const auto& button = registry.get<comp::Button>(checkboxEntity);
 
     renderer.set_color(cen::colors::white);
-    drawable.texture.emplace(render_text(renderer, button.text, font));
+    drawable.texture.emplace(RenderText(renderer, button.text, font));
   }
 
   renderer.render(*drawable.texture, drawable.text_pos.value());
@@ -38,7 +38,7 @@ void render_checkbox(const entt::registry& registry,
 
 }  // namespace
 
-void render_checkboxes(const entt::registry& registry, graphics_context& graphics)
+void render_checkboxes(const entt::registry& registry, GraphicsContext& graphics)
 {
   const auto menuEntity = registry.ctx<ctx::ActiveMenu>().entity;
 

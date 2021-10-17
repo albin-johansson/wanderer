@@ -14,7 +14,7 @@ namespace wanderer::comp {
 
 struct Menu final
 {
-  menu_id id{};
+  MenuId id{};
   std::string title;
   bool blocking{};
 };

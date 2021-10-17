@@ -11,7 +11,7 @@ struct Movable final
 {
   float2 velocity;                 ///< Current x- and y-axis speed.
   float2 position;                 ///< Current position.
-  direction dir{direction::down};  ///< Current dominant direction.
+  Direction dir{Direction::Down};  ///< Current dominant direction.
   float speed{};                   ///< Current maximum total speed of the movable.
 };
 

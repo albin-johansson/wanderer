@@ -22,11 +22,11 @@ namespace wanderer::sys {
  * has no unit.
  * \param color the color of the particles.
  */
-void spawn_particles(entt::registry& registry,
-                     float2 origin,
-                     int count,
-                     float duration,
-                     const cen::color& color);
+void SpawnParticles(entt::registry& registry,
+                    float2 origin,
+                    int count,
+                    float duration,
+                    const cen::color& color);
 
 /**
  * \brief Updates all particles in the current level.
@@ -36,7 +36,7 @@ void spawn_particles(entt::registry& registry,
  * \param registry the current level registry.
  * \param dt the current delta time.
  */
-void update_particles(entt::registry& registry, float dt);
+void UpdateParticles(entt::registry& registry, float dt);
 
 /**
  * \brief Renders all particles within the current viewport.
@@ -45,7 +45,7 @@ void update_particles(entt::registry& registry, float dt);
  *
  * \param registry the current level registry.
  */
-void render_particles(const entt::registry& registry);
+void RenderParticles(const entt::registry& registry);
 
 /// } End of particles
 

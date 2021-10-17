@@ -13,7 +13,7 @@ namespace wanderer {
 
 auto restore_level_registry(const proto::level& data) -> entt::registry
 {
-  auto registry = make_registry();
+  auto registry = MakeRegistry();
 
   const auto playerEntity = entt::entity{data.player_entity()};
 

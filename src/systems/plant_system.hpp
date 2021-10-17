@@ -5,6 +5,6 @@
 
 namespace wanderer::sys {
 
-void update_plants(entt::registry& registry, float dt);
+void UpdatePlants(entt::registry& registry, float dt);
 
 }  // namespace wanderer::sys

@@ -9,13 +9,13 @@
 namespace wanderer::sys {
 namespace {
 
-[[nodiscard]] auto create_world(entt::registry& shared,
-                                graphics_context& graphics,
-                                const ir::world& data) -> entt::entity
+[[nodiscard]] auto CreateWorld(entt::registry& shared,
+                               GraphicsContext& graphics,
+                               const ir::world& data) -> entt::entity
 {
   const auto entity = shared.create();
 
-  auto& world = shared.emplace<comp::Level>(entity, make_level(data.base, graphics));
+  auto& world = shared.emplace<comp::Level>(entity, MakeLevel(data.base, graphics));
   world.registry.ctx<ctx::Viewport>().keep_in_bounds = true;
 
   shared.emplace<comp::OutsideLevel>(entity);
@@ -25,14 +25,14 @@ namespace {
 
 }  // namespace
 
-void load_levels(entt::registry& shared, graphics_context& graphics)
+void LoadLevels(entt::registry& shared, GraphicsContext& graphics)
 {
   CENTURION_LOG_INFO("Loading levels...");
   const auto data = io::parse_world(resources::map("main.json"));
-  const auto world = create_world(shared, graphics, data);
+  const auto world = CreateWorld(shared, graphics, data);
 
   for (const auto& sublevel : data.levels) {
-    shared.emplace<comp::Level>(shared.create(), make_level(sublevel, graphics));
+    shared.emplace<comp::Level>(shared.create(), MakeLevel(sublevel, graphics));
   }
 
   shared.emplace<comp::ActiveLevel>(world);

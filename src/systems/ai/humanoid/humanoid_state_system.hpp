@@ -19,7 +19,7 @@ namespace wanderer::sys {
  * \param registry the current level registry.
  * \param entity the humanoid entity that will become idle.
  */
-void make_humanoid_idle(entt::registry& registry, entt::entity entity);
+void MakeHumanoidIdle(entt::registry& registry, entt::entity entity);
 
 /**
  * \brief Makes a humanoid entity enter its movement state.
@@ -32,7 +32,7 @@ void make_humanoid_idle(entt::registry& registry, entt::entity entity);
  * \param registry the current level registry.
  * \param entity the humanoid entity that will enter its movement state.
  */
-void make_humanoid_move(entt::registry& registry, entt::entity entity);
+void MakeHumanoidMove(entt::registry& registry, entt::entity entity);
 
 /**
  * \brief Updates the state of all humanoids.
@@ -42,7 +42,7 @@ void make_humanoid_move(entt::registry& registry, entt::entity entity);
  * \param registry the current level registry.
  * \param dispatcher the dispatcher that will be used.
  */
-void update_humanoid_states(entt::registry& registry, entt::dispatcher& dispatcher);
+void UpdateHumanoidStates(entt::registry& registry, entt::dispatcher& dispatcher);
 
 /// \} End of humanoid
 

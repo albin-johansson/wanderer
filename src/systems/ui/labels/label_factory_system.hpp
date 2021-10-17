@@ -31,7 +31,7 @@ namespace wanderer::sys {
 auto make_label(entt::registry& registry,
                 entt::entity menu,
                 std::string text,
-                grid_position position,
+                GridPosition position,
                 text_size size = text_size::small) -> entt::entity;
 
 /// \} End of labels

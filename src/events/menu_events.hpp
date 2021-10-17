@@ -12,7 +12,7 @@ namespace wanderer {
 /// \ingroup events
 struct switch_menu_event final
 {
-  menu_id id;  ///< The ID of the new menu.
+  MenuId id;  ///< The ID of the new menu.
 };
 
 /**
@@ -31,7 +31,7 @@ struct menu_switched_event final
 /// \ingroup events
 struct button_pressed_event final
 {
-  menu_action action;
+  MenuAction action;
 };
 
 /// \brief Emitted when the fullscreen option is toggled.

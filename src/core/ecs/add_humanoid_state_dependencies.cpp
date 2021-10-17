@@ -13,7 +13,7 @@ void mutually_exclusive(entt::registry& registry)
 
 }  // namespace
 
-void add_humanoid_state_dependencies(entt::registry& registry)
+void AddHumanoidStateDependencies(entt::registry& registry)
 {
   using idle = comp::HumanoidIdle;
   using move = comp::HumanoidMove;

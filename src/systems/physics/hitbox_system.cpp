@@ -7,30 +7,30 @@
 namespace wanderer::sys {
 namespace {
 
-[[nodiscard]] auto next_vertical_hitbox(const comp::Hitbox& hitbox,
-                                        const float2& position,
-                                        const float2& velocity,
-                                        const float dt) -> maybe<comp::Hitbox>
+[[nodiscard]] auto NextVerticalHitbox(const comp::Hitbox& hitbox,
+                                      const float2& position,
+                                      const float2& velocity,
+                                      const float dt) -> maybe<comp::Hitbox>
 {
   if (velocity.y != 0) {
     auto next = position;
     next.y = position.y + (velocity.y * dt);
-    return with_position(hitbox, next);
+    return WithPosition(hitbox, next);
   }
   else {
     return std::nullopt;
   }
 }
 
-[[nodiscard]] auto next_horizontal_hitbox(const comp::Hitbox& hitbox,
-                                          const float2& position,
-                                          const float2& velocity,
-                                          const float dt) -> maybe<comp::Hitbox>
+[[nodiscard]] auto NextHorizontalHitbox(const comp::Hitbox& hitbox,
+                                        const float2& position,
+                                        const float2& velocity,
+                                        const float dt) -> maybe<comp::Hitbox>
 {
   if (velocity.x != 0) {
     auto next = position;
     next.x = position.x + (velocity.x * dt);
-    return with_position(hitbox, next);
+    return WithPosition(hitbox, next);
   }
   else {
     return std::nullopt;
@@ -39,7 +39,7 @@ namespace {
 
 }  // namespace
 
-void update_bounds(comp::Hitbox& hitbox) noexcept
+void UpdateBounds(comp::Hitbox& hitbox) noexcept
 {
   if (hitbox.boxes.empty()) {
     return;
@@ -75,21 +75,20 @@ void update_bounds(comp::Hitbox& hitbox) noexcept
   hitbox.bounds.set_height(my - y);
 }
 
-void set_position(comp::Hitbox& hitbox, const float2 position) noexcept
+void SetPosition(comp::Hitbox& hitbox, float2 position) noexcept
 {
   hitbox.origin = position;
-  update_bounds(hitbox);
+  UpdateBounds(hitbox);
 }
 
-auto with_position(const comp::Hitbox& hitbox, const float2 position) noexcept
-    -> comp::Hitbox
+auto WithPosition(const comp::Hitbox& hitbox, float2 position) noexcept -> comp::Hitbox
 {
   auto result = hitbox;
-  set_position(result, position);
+  SetPosition(result, position);
   return result;
 }
 
-auto intersects(const comp::Hitbox& fst, const comp::Hitbox& snd) noexcept -> bool
+auto Intersects(const comp::Hitbox& fst, const comp::Hitbox& snd) noexcept -> bool
 {
   // 1. A hitbox doesn't intersect itself
   // 2. The hitboxes can't intersect if their bounding rectangles don't intersect
@@ -115,7 +114,7 @@ auto intersects(const comp::Hitbox& fst, const comp::Hitbox& snd) noexcept -> bo
   return false;
 }
 
-auto make_hitbox(const std::initializer_list<comp::Subhitbox> boxes) -> comp::Hitbox
+auto MakeHitbox(std::initializer_list<comp::Subhitbox> boxes) -> comp::Hitbox
 {
   comp::Hitbox hb;
 
@@ -123,27 +122,27 @@ auto make_hitbox(const std::initializer_list<comp::Subhitbox> boxes) -> comp::Hi
     hb.boxes.push_back(box);
   }
 
-  set_position(hb, {});
+  SetPosition(hb, {});
 
   return hb;
 }
 
-auto make_next_hitboxes(const comp::Movable& movable,
-                        const comp::Hitbox& hitbox,
-                        const float2 oldPosition,
-                        const float dt) -> next_hitboxes
+auto MakeNextHitboxes(const comp::Movable& movable,
+                      const comp::Hitbox& hitbox,
+                      float2 oldPosition,
+                      float dt) -> NextHitboxes
 {
-  return {next_horizontal_hitbox(hitbox, oldPosition, movable.velocity, dt),
-          next_vertical_hitbox(hitbox, oldPosition, movable.velocity, dt)};
+  return {NextHorizontalHitbox(hitbox, oldPosition, movable.velocity, dt),
+          NextVerticalHitbox(hitbox, oldPosition, movable.velocity, dt)};
 }
 
-auto query_collisions(const next_hitboxes& next, const comp::Hitbox& obstacle)
-    -> collision_result
+auto QueryCollisions(const NextHitboxes& next, const comp::Hitbox& obstacle)
+    -> CollisionResult
 {
-  collision_result result;
+  CollisionResult result;
 
-  result.horizontal = next.horizontal && intersects(*next.horizontal, obstacle);
-  result.vertical = next.vertical && intersects(*next.vertical, obstacle);
+  result.horizontal = next.horizontal && Intersects(*next.horizontal, obstacle);
+  result.vertical = next.vertical && Intersects(*next.vertical, obstacle);
 
   return result;
 }

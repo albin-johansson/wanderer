@@ -4,13 +4,13 @@ namespace wanderer {
 
 /// \brief Provides identifiers for all of the different game menus.
 /// \ingroup core
-enum class menu_id
+enum class MenuId
 {
-  in_game,   ///< The in-game "menu", i.e. the menu active when the game is played.
-  home,      ///< The home (or start) menu.
-  settings,  ///< The settings menu.
-  saves,     ///< The saves management menu.
-  controls   ///< The controls configuration menu.
+  InGame,    ///< The in-game "menu", i.e. the menu active when the game is played.
+  Home,      ///< The home (or start) menu.
+  Settings,  ///< The settings menu.
+  Saves,     ///< The saves management menu.
+  Controls   ///< The controls configuration menu.
 };
 
 }  // namespace wanderer

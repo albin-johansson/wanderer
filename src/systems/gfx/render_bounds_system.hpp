@@ -18,7 +18,7 @@ namespace wanderer::sys {
  *
  * \param registry the current level registry.
  */
-void update_render_bounds(entt::registry& registry);
+void UpdateRenderBounds(entt::registry& registry);
 
 /// \} End of render bounds
 

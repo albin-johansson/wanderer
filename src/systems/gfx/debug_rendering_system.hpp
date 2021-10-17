@@ -14,7 +14,7 @@ namespace wanderer::sys {
  *
  * \param registry the level registry.
  */
-void render_debug_info(const entt::registry& registry);
+void RenderDebugInfo(const entt::registry& registry);
 
 /**
  * \brief Renders debug information for menus, such as the UI grid.
@@ -23,7 +23,7 @@ void render_debug_info(const entt::registry& registry);
  *
  * \param registry the menu registry.
  */
-void render_menu_debug_info(const entt::registry& registry);
+void RenderMenuDebugInfo(const entt::registry& registry);
 
 /// \} End of debug
 

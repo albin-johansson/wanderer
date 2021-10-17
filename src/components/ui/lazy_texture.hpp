@@ -10,7 +10,7 @@ namespace wanderer::comp {
 /// Represents a texture that is lazily initialized.
 struct LazyTexture final
 {
-  grid_position position;               ///< The position of the texture.
+  GridPosition position;               ///< The position of the texture.
   cen::farea size;                      ///< The size of the rendered texture.
   cen::surface surface;                 ///< Source image data.
   mutable maybe<cen::texture> texture;  ///< The lazily initialized texture.

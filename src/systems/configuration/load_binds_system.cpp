@@ -8,9 +8,9 @@
 namespace wanderer::sys {
 namespace {
 
-inline const auto binds_file = files_directory() / "binds.ini";
+inline const auto binds_file = GetFilesDirectory() / "binds.ini";
 
-[[nodiscard]] auto parse_binds() -> ctx::Binds
+[[nodiscard]] auto ParseBinds() -> ctx::Binds
 {
   CENTURION_LOG_INFO("Reading binds: \"%s\"", binds_file.string().c_str());
   ctx::Binds binds;
@@ -31,10 +31,10 @@ inline const auto binds_file = files_directory() / "binds.ini";
 
 }  // namespace
 
-auto load_binds() -> ctx::Binds
+auto LoadBinds() -> ctx::Binds
 {
   if (std::filesystem::exists(binds_file)) {
-    return parse_binds();
+    return ParseBinds();
   }
   else {
     std::filesystem::copy("resources/binds.ini", binds_file);

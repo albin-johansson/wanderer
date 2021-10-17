@@ -6,7 +6,7 @@ namespace wanderer::sys {
 
 auto make_menu(entt::registry& registry,
                std::string title,
-               const menu_id id,
+               const MenuId id,
                const bool blocking) -> entt::entity
 {
   const auto entity = registry.create();
