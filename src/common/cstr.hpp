@@ -2,6 +2,6 @@
 
 namespace wanderer {
 
-using cstr = const char*;
+using CStr = const char*;
 
 }  // namespace wanderer

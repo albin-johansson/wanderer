@@ -13,6 +13,6 @@ auto main(int, char**) -> int
 
   wanderer::PrepareRuneConfiguration();
 
-  wanderer::wanderer_engine engine;
+  wanderer::WandererEngine engine;
   return engine.run();
 }

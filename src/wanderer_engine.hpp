@@ -11,17 +11,17 @@ namespace wanderer {
 
 using engine_base = rune::engine<Game, GraphicsContext>;
 
-class wanderer_engine final : public engine_base
+class WandererEngine final : public engine_base
 {
  public:
-  wanderer_engine();
+  WandererEngine();
 
  private:
-  void on_fullscreen_toggled(const fullscreen_toggled_event& event);
+  void OnFullscreenToggled(const fullscreen_toggled_event& event);
 
-  void on_integer_scaling_toggled(const integer_scaling_toggled_event& event);
+  void OnIntegerScalingToggled(const integer_scaling_toggled_event& event);
 
-  void on_load_game_event(const LoadGameEvent& event);
+  void OnLoadGameEvent(const LoadGameEvent& event);
 };
 
 }  // namespace wanderer

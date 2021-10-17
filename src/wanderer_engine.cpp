@@ -4,17 +4,17 @@
 
 namespace wanderer {
 
-wanderer_engine::wanderer_engine() : engine_base{}
+WandererEngine::WandererEngine() : engine_base{}
 {
   // clang-format off
   auto& game = get_game();
-  game.sink<fullscreen_toggled_event>().connect<&wanderer_engine::on_fullscreen_toggled>(this);
-  game.sink<integer_scaling_toggled_event>().connect<&wanderer_engine::on_integer_scaling_toggled>(this);
-  game.sink<LoadGameEvent>().connect<&wanderer_engine::on_load_game_event>(this);
+  game.sink<fullscreen_toggled_event>().connect<&WandererEngine::OnFullscreenToggled>(this);
+  game.sink<integer_scaling_toggled_event>().connect<&WandererEngine::OnIntegerScalingToggled>(this);
+  game.sink<LoadGameEvent>().connect<&WandererEngine::OnLoadGameEvent>(this);
   // clang-format on
 }
 
-void wanderer_engine::on_fullscreen_toggled(const fullscreen_toggled_event& event)
+void WandererEngine::OnFullscreenToggled(const fullscreen_toggled_event& event)
 {
   auto& window = get_window();
 
@@ -30,13 +30,12 @@ void wanderer_engine::on_fullscreen_toggled(const fullscreen_toggled_event& even
   }
 }
 
-void wanderer_engine::on_integer_scaling_toggled(
-    const integer_scaling_toggled_event& event)
+void WandererEngine::OnIntegerScalingToggled(const integer_scaling_toggled_event& event)
 {
   get_graphics().get_renderer().set_logical_integer_scaling(event.enabled);
 }
 
-void wanderer_engine::on_load_game_event(const LoadGameEvent& event)
+void WandererEngine::OnLoadGameEvent(const LoadGameEvent& event)
 {
   get_game().load_save(event.name, get_graphics());
 }

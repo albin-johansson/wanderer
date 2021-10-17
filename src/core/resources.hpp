@@ -18,7 +18,7 @@ namespace wanderer::resources {
  *
  * \return the path of the texture.
  */
-[[nodiscard]] auto texture(cstr resource) -> std::string;
+[[nodiscard]] auto texture(CStr resource) -> std::string;
 
 /**
  * \brief Returns the file path for a font with the specified name.
@@ -29,7 +29,7 @@ namespace wanderer::resources {
  *
  * \return the path of the font.
  */
-[[nodiscard]] auto font(cstr resource) -> std::string;
+[[nodiscard]] auto font(CStr resource) -> std::string;
 
 /**
  * \brief Returns the file path for a sound with the specified name.
@@ -40,7 +40,7 @@ namespace wanderer::resources {
  *
  * \return the path of the sound.
  */
-[[nodiscard]] auto sound(cstr resource) -> std::string;
+[[nodiscard]] auto sound(CStr resource) -> std::string;
 
 /**
  * \brief Returns the file path for a map with the specified name.
@@ -51,6 +51,6 @@ namespace wanderer::resources {
  *
  * \return the path of the map.
  */
-[[nodiscard]] auto map(cstr resource) -> std::string;
+[[nodiscard]] auto map(CStr resource) -> std::string;
 
 }  // namespace wanderer::resources
