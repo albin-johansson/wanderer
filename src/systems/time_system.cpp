@@ -154,9 +154,7 @@ void UpdateTime(entt::registry& shared, entt::dispatcher& dispatcher, float dt)
   }
 }
 
-void ChangeToNextDay(entt::registry& shared,
-                        entt::dispatcher& dispatcher,
-                        float hour)
+void ChangeToNextDay(entt::registry& shared, entt::dispatcher& dispatcher, float hour)
 {
   auto& time = shared.ctx<ctx::TimeOfDay>();
   time.seconds = hour * seconds_per_hour;
