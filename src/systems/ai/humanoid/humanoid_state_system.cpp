@@ -16,10 +16,10 @@ void UpdateAttackingHumanoids(entt::registry& registry, entt::dispatcher& dispat
   for (auto&& [entity, attack] : registry.view<comp::HumanoidAttack>().each()) {
     if (attack.done) {
       dispatcher.enqueue<EndAttackEvent>(registry,
-                                           dispatcher,
-                                           entity,
-                                           attack.weapon,
-                                           Direction::Down);
+                                         dispatcher,
+                                         entity,
+                                         attack.weapon,
+                                         Direction::Down);
     }
   }
 }
