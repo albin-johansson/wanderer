@@ -377,6 +377,7 @@ target_include_directories(${WANDERER_LIB}
     ${LIBRARY_DIR}/rune
     ${LIBRARY_DIR}/init
     ${LIBRARY_DIR}/nenya
+    ${LIBRARY_DIR}/glm
     )
 
 target_link_libraries(${WANDERER_LIB} PUBLIC
@@ -408,6 +409,7 @@ target_precompile_headers(${WANDERER_LIB} PRIVATE
     <nenya.hpp>
     <init/ini.hpp>
     <rune/everything.hpp>
+    <glm/glm.hpp>
     )
 
 if (WIN32 AND CMAKE_BUILD_TYPE STREQUAL "Release")
