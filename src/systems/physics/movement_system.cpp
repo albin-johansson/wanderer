@@ -14,10 +14,10 @@
 namespace wanderer::sys {
 namespace {
 
-[[nodiscard]] auto RestoreAabbPosition(const float2& prev,
-                                       const float2& curr,
+[[nodiscard]] auto RestoreAabbPosition(const rune::float2& prev,
+                                       const rune::float2& curr,
                                        const CollisionResult& collisions) noexcept
-    -> float2
+    -> rune::float2
 {
   if (collisions.horizontal && collisions.vertical) {
     return prev;
@@ -94,9 +94,9 @@ void UpdateHitbox(entt::registry& registry,
   auto& movable = registry.get<comp::Movable>(entity);
 
   SetPosition(hitbox, movable.position);
-  tree.set_position(entity, to_vector(hitbox.bounds.position()));
+  tree.set_position(entity, to_rune_vector(hitbox.bounds.position()));
 
-  if (movable.velocity.is_zero()) {
+  if (is_zero(movable.velocity)) {
     return;
   }
 
@@ -108,8 +108,9 @@ void UpdateHitbox(entt::registry& registry,
 
   const auto restorePosition = [&](const CollisionResult& collisions) {
     SetPosition(hitbox, movable.position);
-    const auto pos =
-        RestoreAabbPosition(oldAabbPos, to_vector(hitbox.bounds.position()), collisions);
+    const auto pos = RestoreAabbPosition(oldAabbPos,
+                                         to_rune_vector(hitbox.bounds.position()),
+                                         collisions);
     tree.set_position(entity, pos);
   };
 

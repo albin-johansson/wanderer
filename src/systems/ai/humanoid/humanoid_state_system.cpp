@@ -32,7 +32,8 @@ void MakeHumanoidIdle(entt::registry& registry, entt::entity entity)
   assert(!registry.all_of<comp::HumanoidIdle>(entity));
 
   auto& movable = registry.get<comp::Movable>(entity);
-  movable.velocity.reset();
+  movable.velocity.x = 0;
+  movable.velocity.y = 0;
 
   registry.emplace<comp::HumanoidIdle>(entity);
   EnterIdleAnimation(registry, entity);

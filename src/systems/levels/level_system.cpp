@@ -20,7 +20,8 @@ auto PrepareCurrentLevelBeforeSwitch(entt::registry& shared,
 
   const auto player = singleton_entity<comp::Player>(level.registry);
   auto& movable = level.registry.get<comp::Movable>(player);
-  movable.velocity.reset();
+  movable.velocity.x = 0;
+  movable.velocity.y = 0;
 
   sys::CenterViewportOn(level.registry, movable.position);
 

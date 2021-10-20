@@ -34,7 +34,7 @@ void TargetNearbyPosition(entt::registry& registry,
   roam.destination = GetNearbyPosition(movable.position);
 
   movable.velocity = movable.position;
-  movable.velocity.look_at(*roam.destination, movable.speed);
+  LookAt(movable.velocity, *roam.destination, movable.speed);
 
   if (registry.all_of<comp::Humanoid>(entity)) {
     registry.emplace<comp::HumanoidMove>(entity);
@@ -50,7 +50,8 @@ void BeginCooldown(entt::registry& registry,
   // Reached destination, begin cooldown
   roam.cooldown = 0;
   roam.destination.reset();
-  movable.velocity.reset();
+  movable.velocity.x = 0;
+  movable.velocity.y = 0;
 
   if (registry.all_of<comp::Humanoid>(entity)) {
     registry.emplace<comp::HumanoidIdle>(entity);

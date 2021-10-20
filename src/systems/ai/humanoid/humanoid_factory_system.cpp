@@ -64,8 +64,8 @@ void add_hitbox(comp::Level& level, const entt::entity entity, const float2 posi
   auto hitbox = MakeHitbox({{{x0, y0}, {x1, y1}}});
   sys::SetPosition(hitbox, position);
 
-  const auto lower = to_vector(hitbox.bounds.position());
-  const auto upper = lower + to_vector(hitbox.bounds.size());
+  const auto lower = to_rune_vector(hitbox.bounds.position());
+  const auto upper = lower + to_rune_vector(hitbox.bounds.size());
   level.tree.insert(entity, lower, upper);
 
   level.registry.emplace<comp::Hitbox>(entity, hitbox);

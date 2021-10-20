@@ -8,8 +8,8 @@ namespace {
 
 void InsertHitbox(aabb_tree& tree, const entt::entity entity, const comp::Hitbox& hitbox)
 {
-  const auto lower = to_vector(hitbox.bounds.position());
-  const auto upper = lower + to_vector(hitbox.bounds.size());
+  const auto lower = to_rune_vector(hitbox.bounds.position());
+  const auto upper = lower + to_rune_vector(hitbox.bounds.size());
   tree.insert(entity, lower, upper);
 }
 

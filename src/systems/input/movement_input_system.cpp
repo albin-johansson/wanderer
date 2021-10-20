@@ -14,7 +14,7 @@
 namespace wanderer::sys {
 namespace {
 
-void Move(comp::Movable& movable, const Direction dir) noexcept
+void Move(comp::Movable& movable, const Direction dir)
 {
   switch (dir) {
     case Direction::Right: {
@@ -34,11 +34,12 @@ void Move(comp::Movable& movable, const Direction dir) noexcept
       break;
     }
   }
-  movable.velocity.normalize();
-  movable.velocity.scale(movable.speed);
+
+  movable.velocity = glm::normalize(movable.velocity);
+  movable.velocity *= movable.speed;
 }
 
-void Stop(comp::Movable& movable, const Direction dir) noexcept
+void Stop(comp::Movable& movable, const Direction dir)
 {
   switch (dir) {
     case Direction::Right:
@@ -54,8 +55,11 @@ void Stop(comp::Movable& movable, const Direction dir) noexcept
       break;
     }
   }
-  movable.velocity.normalize();
-  movable.velocity.scale(movable.speed);
+
+  if (!is_zero(movable.velocity)) {
+    movable.velocity = glm::normalize(movable.velocity);
+    movable.velocity *= movable.speed;
+  }
 }
 
 [[nodiscard]] auto CheckPressed(comp::Movable& movable,
@@ -129,11 +133,12 @@ void HandleMoveInput(entt::registry& registry,
   const auto areMoveKeysDown = CheckPressed(movable, keyboard, binds);
   CheckReleased(movable, keyboard, binds);
 
-  if (!areMoveKeysDown && movable.velocity.is_zero()) {
+  if (!areMoveKeysDown && is_zero(movable.velocity)) {
     dispatcher.enqueue<EndHumanoidMoveEvent>(registry, player);
   }
   else if (keyboard.is_pressed(binds.attack)) {
-    movable.velocity.reset();
+    movable.velocity.x = 0;
+    movable.velocity.y = 0;
 
     // FIXME null weapon
     dispatcher.enqueue<BeginAttackEvent>(registry, player, entt::null, movable.dir);
