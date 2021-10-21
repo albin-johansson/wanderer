@@ -2,10 +2,14 @@
 
 #include <utility>  // move
 
+#include "components/ui/saves_menu.hpp"
+#include "core/game_constants.hpp"
+#include "io/directories.hpp"
 #include "systems/input/key_bind_system.hpp"
 #include "systems/ui/buttons/button_factory_system.hpp"
 #include "systems/ui/checkboxes/checkbox_factory_system.hpp"
 #include "systems/ui/labels/label_factory_system.hpp"
+#include "systems/ui/lines/line_factory_system.hpp"
 
 namespace wanderer::sys {
 
@@ -60,6 +64,50 @@ auto MakeSettingsMenu(entt::registry& registry) -> entt::entity
                {7, 13});
 
   AddBinds(registry, entity, comp::KeyBind{cen::scancodes::escape, MenuAction::GotoHome});
+
+  return entity;
+}
+
+auto MakeSavesMenu(entt::registry& registry) -> entt::entity
+{
+  const auto entity = MakeMenu(registry, "Saves", MenuId::Saves);
+  registry.emplace<comp::SavesMenu>(entity);
+
+  MakeButton(registry, entity, "Return", MenuAction::GotoHome, {3.5f, -1});
+
+  // clang-format off
+  auto& menu = registry.get<comp::SavesMenu>(entity);
+  menu.load_button = MakeButton(registry, entity, "Load", MenuAction::LoadGame, {15, 12});
+  menu.delete_button = MakeButton(registry, entity, "Delete", MenuAction::DeleteGame, {15.0f, 27.5f});
+  menu.decrement_button = MakeButton(registry, entity, "<", MenuAction::DecrementSavesButtonGroupPage, {15, 4});
+  menu.increment_button = MakeButton(registry, entity, ">", MenuAction::IncrementSavesButtonGroupPage, {15, 8});
+  // clang-format on
+
+  MakeLabel(registry,
+            entity,
+            "Location:   " + GetSavesDirectory().string(),
+            {glob::menu_rows - 1.7f, 2});
+
+  AddBinds(registry, entity, comp::KeyBind{cen::scancodes::escape, MenuAction::GotoHome});
+
+  constexpr auto col_0 = 2;
+  constexpr auto col_1 = glob::menu_columns - 2;
+
+  constexpr auto row_0 = 5;
+  constexpr auto row_1 = glob::menu_rows - 2;
+
+  // Surrounding box
+  MakeLine(registry, entity, {row_0, col_0}, {row_1, col_0});
+  MakeLine(registry, entity, {row_0, col_1}, {row_1, col_1});
+  MakeLine(registry, entity, {row_0, col_0}, {row_0, col_1});
+  MakeLine(registry, entity, {row_1, col_0}, {row_1, col_1});
+
+  // Vertical save entry separator
+  MakeLine(registry, entity, {row_0 + 0.5f, 10}, {row_1 - 0.5f, 10});
+
+  // Horizontal bottom button separator
+  MakeLine(registry, entity, {15, 11}, {15, 29});
+  MakeLine(registry, entity, {15, col_0 + 1}, {15, 9});
 
   return entity;
 }

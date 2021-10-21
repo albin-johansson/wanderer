@@ -6,7 +6,6 @@
 #include "components/ctx/cursors.hpp"
 #include "components/ctx/time_of_day.hpp"
 #include "systems/ui/menus/menu_factory_system.hpp"
-#include "systems/ui/menus/saves/saves_menu_factory_system.hpp"
 
 namespace wanderer::sys {
 

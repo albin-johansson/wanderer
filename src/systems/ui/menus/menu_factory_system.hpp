@@ -40,6 +40,17 @@ auto MakeHomeMenu(entt::registry& registry) -> entt::entity;
 auto MakeSettingsMenu(entt::registry& registry) -> entt::entity;
 
 /**
+ * \brief Creates and returns a saves menu entity.
+ *
+ * \ingroup systems
+ *
+ * \param registry the menu registry.
+ *
+ * \return the created entity.
+ */
+auto MakeSavesMenu(entt::registry& registry) -> entt::entity;
+
+/**
  * \brief Creates the controls menu.
  *
  * \ingroup systems
