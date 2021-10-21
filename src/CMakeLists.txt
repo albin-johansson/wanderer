@@ -350,6 +350,9 @@ target_include_directories(${WANDERER_LIB}
     ${LIBRARY_DIR}/init
     ${LIBRARY_DIR}/nenya
     ${LIBRARY_DIR}/glm
+    ${LIBRARY_DIR}/magic-enum
+    ${LIBRARY_DIR}/tactile/tactile-base/include
+    ${LIBRARY_DIR}/tactile/tactile-io/include
     )
 
 target_link_libraries(${WANDERER_LIB} PUBLIC
@@ -361,6 +364,7 @@ target_link_libraries(${WANDERER_LIB} PUBLIC
     ${SDL2_MIXER_LIBRARIES}
     ${SDL2_TTF_LIBRARIES}
     ${SDL2_LIBRARY}
+    ${BINARY_DIR}/TactileIO.lib
     )
 
 if (MSVC)
