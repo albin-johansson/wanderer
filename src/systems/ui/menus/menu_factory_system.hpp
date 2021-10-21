@@ -18,6 +18,17 @@ auto MakeMenu(entt::registry& registry,
               bool blocking = true) -> entt::entity;
 
 /**
+ * \brief Creates the home menu.
+ *
+ * \ingroup systems
+ *
+ * \param registry the menu registry.
+ *
+ * \return the created entity.
+ */
+auto MakeHomeMenu(entt::registry& registry) -> entt::entity;
+
+/**
  * \brief Creates the controls menu.
  *
  * \ingroup systems

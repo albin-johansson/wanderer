@@ -25,6 +25,25 @@ auto MakeMenu(entt::registry& registry,
   return entity;
 }
 
+auto MakeHomeMenu(entt::registry& registry) -> entt::entity
+{
+  const auto entity = MakeMenu(registry, "Wanderer", MenuId::Home);
+  registry.set<comp::HomeMenu>(entity);
+
+  MakeButton(registry, entity, "Play", MenuAction::GotoInGame, {5, -1});
+  MakeButton(registry, entity, "Quick Save", MenuAction::QuickSave, {7, -1});
+  MakeButton(registry, entity, "Saves", MenuAction::GotoSaves, {8, -1});
+  MakeButton(registry, entity, "Settings", MenuAction::GotoSettings, {9, -1});
+  MakeButton(registry, entity, "Controls", MenuAction::GotoControls, {10, -1});
+  MakeButton(registry, entity, "Quit", MenuAction::Quit, {12, -1});
+
+  AddBinds(registry,
+           entity,
+           comp::KeyBind{cen::scancodes::escape, MenuAction::GotoInGame});
+
+  return entity;
+}
+
 auto MakeControlsMenu(entt::registry& registry) -> entt::entity
 {
   const auto entity = MakeMenu(registry, "Controls", MenuId::Controls);
