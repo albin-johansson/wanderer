@@ -7,9 +7,6 @@ set(SOURCE_FILES
     wanderer_engine.cpp
     wanderer_engine.hpp
 
-    common/texture_id.hpp
-    common/texture_index.hpp
-
     components/associated_entity.hpp
     components/key_bind.hpp
     components/object.hpp

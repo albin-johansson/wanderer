@@ -15,7 +15,7 @@ namespace {
   ir::texture texture;
 
   auto str = path.string();
-  texture.id = texture_id{entt::hashed_string{str.c_str()}};
+  texture.id = rune::texture_id{entt::hashed_string{str.c_str()}};
   texture.path = std::move(str);
 
   return texture;

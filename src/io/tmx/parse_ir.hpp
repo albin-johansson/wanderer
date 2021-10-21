@@ -5,8 +5,8 @@
 #include <vector>  // vector
 
 #include <centurion.hpp>  // irect, frect
+#include <rune/everything.hpp>
 
-#include "common/texture_id.hpp"
 #include "components/associated_entity.hpp"
 #include "components/gfx/drawable.hpp"
 #include "components/gfx/point_light.hpp"
@@ -28,7 +28,7 @@ inline constexpr int32 default_depth = 5;
 
 struct texture final
 {
-  texture_id id;
+  rune::texture_id id;
   std::string path;  // String because it's easier to serialize
 };
 
@@ -41,10 +41,10 @@ struct fancy_tile final
 
 struct tile final
 {
-  TileID id{};              ///< Unique ID.
-  texture_id texture;       ///< ID of the associated texture.
-  cen::irect source;        ///< Source rectangle in the tileset texture.
-  maybe<fancy_tile> fancy;  ///< Optional fancy features.
+  TileID id{};               ///< Unique ID.
+  rune::texture_id texture;  ///< ID of the associated texture.
+  cen::irect source;         ///< Source rectangle in the tileset texture.
+  maybe<fancy_tile> fancy;   ///< Optional fancy features.
 };
 
 struct tileset final
@@ -60,7 +60,7 @@ struct tileset final
 
 struct drawable final
 {
-  texture_id texture;
+  rune::texture_id texture;
   cen::irect src;
   cen::frect dst;
   int32 layer{};

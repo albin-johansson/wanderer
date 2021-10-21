@@ -54,7 +54,7 @@ void add_hitbox(ir::fancy_tile& tileData,
 
 auto make_tile(const TileID id,
                const int index,
-               const texture_id texture,
+               const rune::texture_id texture,
                const rune::tmx_tileset& tileset) -> ir::tile
 {
   ir::tile data;

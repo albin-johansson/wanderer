@@ -2,9 +2,9 @@
 
 #include <cassert>  // assert
 
+#include <rune/everything.hpp>
 #include <save.pb.h>
 
-#include "common/texture_index.hpp"
 #include "components/ai/chase.hpp"
 #include "components/associated_entity.hpp"
 #include "components/gfx/animation.hpp"
@@ -170,7 +170,7 @@ void restore_drawable(const proto::level& level,
     assert(data.has_dst());
 
     auto& drawable = registry.emplace<comp::Drawable>(entity);
-    drawable.texture = texture_index{data.texture_index()};
+    drawable.texture = rune::texture_index{data.texture_index()};
     drawable.layer = data.layer_index();
     drawable.depth = data.depth_index();
     drawable.src = restore(data.src());
@@ -243,7 +243,7 @@ void restore_tile(const proto::level& level,
 
     auto& tile = registry.emplace<comp::Tile>(entity);
     tile.id = TileID{data.id()};
-    tile.texture = texture_index{data.texture_index()};
+    tile.texture = rune::texture_index{data.texture_index()};
     tile.depth = data.depth_index();
     tile.src = restore(data.src());
   }

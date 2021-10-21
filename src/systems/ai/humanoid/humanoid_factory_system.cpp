@@ -36,7 +36,7 @@ void add_movable(entt::registry& registry, const entt::entity entity)
 
 void add_depth_drawable(entt::registry& registry,
                         const entt::entity entity,
-                        const texture_index texture)
+                        const rune::texture_index texture)
 {
   auto& drawable = registry.emplace<comp::Drawable>(entity);
   drawable.texture = texture;
@@ -72,7 +72,7 @@ void add_hitbox(comp::Level& level, const entt::entity entity, const float2 posi
   level.registry.emplace<comp::Hitbox>(entity, hitbox);
 }
 
-[[nodiscard]] auto make_humanoid(comp::Level& level, const texture_index texture)
+[[nodiscard]] auto make_humanoid(comp::Level& level, const rune::texture_index texture)
     -> entt::entity
 {
   const auto entity = level.registry.create();
@@ -102,7 +102,7 @@ void add_light(entt::registry& registry, const entt::entity entity, const float2
 
 auto MakePlayer(comp::Level& level, GraphicsContext& graphics) -> entt::entity
 {
-  constexpr auto id = texture_id{"player"_hs};
+  constexpr auto id = rune::texture_id{"player"_hs};
   static const auto path = resources::texture("player.png");
 
   const auto texture = graphics.load(id, path);
@@ -122,7 +122,7 @@ auto MakePlayer(comp::Level& level, GraphicsContext& graphics) -> entt::entity
 auto MakeSkeleton(comp::Level& level, float2 position, GraphicsContext& graphics)
     -> entt::entity
 {
-  constexpr auto id = texture_id{"skeleton"_hs};
+  constexpr auto id = rune::texture_id{"skeleton"_hs};
   static const auto path = resources::texture("skeleton.png");
 
   const auto texture = graphics.load(id, path);

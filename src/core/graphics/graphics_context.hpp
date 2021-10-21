@@ -3,8 +3,6 @@
 #include <centurion.hpp>        // window, texture
 #include <rune/everything.hpp>  // graphics
 
-#include "common/texture_id.hpp"
-#include "common/texture_index.hpp"
 #include "core/game_constants.hpp"
 #include "wanderer_std.hpp"
 
@@ -39,7 +37,7 @@ class GraphicsContext final : public rune::graphics
    * \param src the region of the texture that will be rendered.
    * \param dst the destination rectangle.
    */
-  void render(const texture_index index,
+  void render(const rune::texture_index index,
               const cen::irect& src,
               const cen::frect& dst) noexcept
   {
