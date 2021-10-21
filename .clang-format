@@ -53,13 +53,13 @@ IndentRequires: true
 SortIncludes: CaseSensitive
 IncludeBlocks: Regroup
 IncludeCategories:
-  # Headers in <> without extension.
-  - Regex: '<([A-Za-z0-9\Q/-_\E])+>'
+  # Standard headers, located in <> with no extension.
+  - Regex: '<([A-Za-z0-9\_\-]+)>'
     Priority: 10
 
-  # Headers in <> with extension.
-  - Regex: '<([A-Za-z0-9.\Q/-_\E])+>'
-    Priority: 20
+  # Headers in <> with extension and optional prefix.
+  - Regex: '<([A-Za-z0-9\_\-]+\/)*(\.\.)*([A-Za-z0-9\_\-]+)\.([A-Za-z0-9\_\-]+)>'
+    Priority: 15
 
   # Headers in "" with extension.
   - Regex: '"([A-Za-z0-9.\Q/-_\E])+"'
