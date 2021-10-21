@@ -36,7 +36,7 @@ auto MakeMenu(entt::registry& registry,
 
 auto MakeHomeMenu(entt::registry& registry) -> entt::entity
 {
-  const auto entity = MakeMenu(registry, "Wanderer", MenuId::Home);
+  const auto entity = MakeMenu(registry, "Wanderer", MenuId::Home, true);
   registry.set<comp::HomeMenu>(entity);
 
   MakeButton(registry, entity, "Play", MenuAction::GotoInGame, {5, -1});
