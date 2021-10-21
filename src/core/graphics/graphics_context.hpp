@@ -3,10 +3,10 @@
 #include <centurion.hpp>        // window, texture
 #include <rune/everything.hpp>  // graphics
 
-#include "common/ints.hpp"
 #include "common/texture_id.hpp"
 #include "common/texture_index.hpp"
 #include "core/game_constants.hpp"
+#include "wanderer_std.hpp"
 
 namespace wanderer {
 

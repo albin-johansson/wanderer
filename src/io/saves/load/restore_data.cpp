@@ -4,8 +4,6 @@
 
 #include <save.pb.h>
 
-#include "common/ints.hpp"
-#include "common/milliseconds.hpp"
 #include "common/texture_index.hpp"
 #include "components/ai/chase.hpp"
 #include "components/associated_entity.hpp"
@@ -27,6 +25,7 @@
 #include "components/tiles/tilemap.hpp"
 #include "components/tiles/tileset.hpp"
 #include "components/trigger.hpp"
+#include "wanderer_std.hpp"
 
 namespace wanderer {
 

@@ -3,9 +3,9 @@
 #include <centurion.hpp>
 #include <entt.hpp>  // registry, entity
 
-#include "common/float2.hpp"
 #include "components/ctx/time_of_day.hpp"
 #include "components/physics/vector3.hpp"
+#include "wanderer_std.hpp"
 
 namespace wanderer {
 namespace proto {

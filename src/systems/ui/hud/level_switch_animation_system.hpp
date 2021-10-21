@@ -4,7 +4,7 @@
 #include <entt.hpp>             // registry, dispatcher
 #include <rune/everything.hpp>  // delta_time
 
-#include "common/map_id.hpp"
+#include "wanderer_std.hpp"
 
 namespace wanderer::sys {
 

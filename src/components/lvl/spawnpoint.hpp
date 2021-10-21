@@ -1,7 +1,6 @@
 #pragma once
 
-#include "common/float2.hpp"
-#include "common/ints.hpp"
+#include "wanderer_std.hpp"
 
 namespace wanderer::comp {
 

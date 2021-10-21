@@ -2,9 +2,9 @@
 
 #include <entt.hpp>  // registry
 
-#include "common/map_id.hpp"
 #include "components/lvl/level.hpp"
 #include "events/custom_animation_halfway_event.hpp"
+#include "wanderer_std.hpp"
 
 namespace wanderer::sys {
 

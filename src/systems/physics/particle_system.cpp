@@ -2,10 +2,10 @@
 
 #include <rune/everything.hpp>  // next_random
 
-#include "common/ref.hpp"
 #include "components/ctx/viewport.hpp"
 #include "components/physics/particle.hpp"
 #include "core/graphics/graphics_context.hpp"
+#include "wanderer_std.hpp"
 
 namespace wanderer::sys {
 namespace {

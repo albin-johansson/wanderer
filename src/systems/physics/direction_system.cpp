@@ -1,6 +1,6 @@
 #include "direction_system.hpp"
 
-#include "common/maybe.hpp"
+#include "wanderer_std.hpp"
 
 namespace wanderer::sys {
 namespace {

@@ -4,9 +4,9 @@
 
 #include <centurion.hpp>  // color, texture
 
-#include "common/maybe.hpp"
 #include "core/grid_position.hpp"
 #include "core/text_size.hpp"
+#include "wanderer_std.hpp"
 
 namespace wanderer::comp {
 

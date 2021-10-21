@@ -2,7 +2,6 @@
 
 #include <cassert>  // assert
 
-#include "common/ref.hpp"
 #include "components/ai/chase.hpp"
 #include "components/associated_entity.hpp"
 #include "components/ctx/active_menu.hpp"
@@ -17,6 +16,7 @@
 #include "core/graphics/graphics_context.hpp"
 #include "core/utils/centurion_utils.hpp"
 #include "systems/ui/menus/menu_system.hpp"
+#include "wanderer_std.hpp"
 
 namespace wanderer::sys {
 namespace {

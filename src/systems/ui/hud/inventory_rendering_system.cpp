@@ -2,10 +2,10 @@
 
 #include <rune/everything.hpp>  // index_to_matrix
 
-#include "common/maybe.hpp"
 #include "components/items/inventory.hpp"
 #include "core/game_constants.hpp"
 #include "systems/ui/grid.hpp"
+#include "wanderer_std.hpp"
 
 namespace wanderer::sys {
 namespace {

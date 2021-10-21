@@ -2,8 +2,7 @@
 
 #include <centurion.hpp>  // farea
 
-#include "common/ints.hpp"
-#include "common/map_id.hpp"
+#include "wanderer_std.hpp"
 
 namespace wanderer::comp {
 

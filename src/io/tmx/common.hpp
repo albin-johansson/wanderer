@@ -5,9 +5,9 @@
 
 #include <centurion.hpp>  // fpoint
 
-#include "common/maybe.hpp"
 #include "common/tile_id.hpp"
 #include "io/tmx/parse_ir.hpp"
+#include "wanderer_std.hpp"
 
 namespace wanderer::io {
 

@@ -8,13 +8,12 @@
 #include <centurion.hpp>        // to_underlying, ...
 #include <rune/everything.hpp>  // static_vector, formatted_string
 
-#include "common/ints.hpp"
-#include "common/ref.hpp"
 #include "components/ctx/time_of_day.hpp"
 #include "core/common_concepts.hpp"
 #include "core/game_constants.hpp"
 #include "core/graphics/graphics_context.hpp"
 #include "events/day_changed_event.hpp"
+#include "wanderer_std.hpp"
 
 namespace wanderer::sys {
 namespace {

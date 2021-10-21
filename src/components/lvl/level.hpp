@@ -2,10 +2,7 @@
 
 #include <entt.hpp>  // registry, entity, null
 
-#include "common/aabb_tree.hpp"
-#include "common/float2.hpp"
-#include "common/map_id.hpp"
-#include "common/maybe.hpp"
+#include "wanderer_std.hpp"
 
 namespace wanderer::comp {
 

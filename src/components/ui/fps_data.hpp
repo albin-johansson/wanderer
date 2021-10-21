@@ -1,6 +1,6 @@
 #pragma once
 
-#include "common/milliseconds.hpp"
+#include "wanderer_std.hpp"
 
 namespace wanderer::comp {
 

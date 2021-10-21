@@ -3,8 +3,8 @@
 #include <centurion.hpp>  // farea
 #include <entt.hpp>       // registry
 
-#include "common/float2.hpp"
 #include "components/ctx/viewport.hpp"
+#include "wanderer_std.hpp"
 
 namespace wanderer::sys {
 

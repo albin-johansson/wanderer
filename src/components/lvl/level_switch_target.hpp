@@ -1,6 +1,6 @@
 #pragma once
 
-#include "common/map_id.hpp"
+#include "wanderer_std.hpp"
 
 namespace wanderer::comp {
 

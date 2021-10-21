@@ -2,7 +2,7 @@
 
 #include <entt.hpp>  // registry, dispatcher
 
-#include "common/ref.hpp"
+#include "wanderer_std.hpp"
 
 namespace wanderer {
 

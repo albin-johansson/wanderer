@@ -4,7 +4,6 @@
 
 #include <rune/everything.hpp>  // next_bool
 
-#include "common/ref.hpp"
 #include "components/ctx/viewport.hpp"
 #include "components/gfx/drawable.hpp"
 #include "components/gfx/point_light.hpp"
@@ -13,6 +12,7 @@
 #include "core/graphics/graphics_context.hpp"
 #include "core/resources.hpp"
 #include "core/utils/centurion_utils.hpp"
+#include "wanderer_std.hpp"
 
 using namespace entt::literals;
 

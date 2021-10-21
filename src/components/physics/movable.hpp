@@ -1,7 +1,7 @@
 #pragma once
 
-#include "common/float2.hpp"
 #include "core/direction.hpp"
+#include "wanderer_std.hpp"
 
 namespace wanderer::comp {
 

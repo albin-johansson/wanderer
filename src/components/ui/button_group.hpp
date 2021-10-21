@@ -4,7 +4,7 @@
 
 #include <entt.hpp>  // entity, null
 
-#include "common/ints.hpp"
+#include "wanderer_std.hpp"
 
 namespace wanderer::comp {
 

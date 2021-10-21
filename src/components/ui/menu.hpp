@@ -4,9 +4,9 @@
 
 #include <centurion.hpp>  // texture, fpoint
 
-#include "common/maybe.hpp"
 #include "components/key_bind.hpp"
 #include "core/menu_id.hpp"
+#include "wanderer_std.hpp"
 
 namespace wanderer::comp {
 

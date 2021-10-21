@@ -2,10 +2,10 @@
 
 #include <cassert>  // assert
 
-#include "common/ref.hpp"
 #include "components/physics/movable.hpp"
 #include "core/game_constants.hpp"
 #include "core/graphics/graphics_context.hpp"
+#include "wanderer_std.hpp"
 
 namespace wanderer::sys {
 namespace {

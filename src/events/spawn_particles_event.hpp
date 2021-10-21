@@ -2,7 +2,7 @@
 
 #include <centurion.hpp>  // color
 
-#include "common/float2.hpp"
+#include "wanderer_std.hpp"
 
 namespace wanderer {
 

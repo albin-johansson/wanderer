@@ -6,8 +6,6 @@
 
 #include <centurion.hpp>  // irect, frect
 
-#include "common/ints.hpp"
-#include "common/maybe.hpp"
 #include "common/texture_id.hpp"
 #include "common/tile_id.hpp"
 #include "components/associated_entity.hpp"
@@ -23,6 +21,7 @@
 #include "components/tiles/tile_layer.hpp"
 #include "components/tiles/tile_object.hpp"
 #include "components/trigger.hpp"
+#include "wanderer_std.hpp"
 
 namespace wanderer::ir {
 

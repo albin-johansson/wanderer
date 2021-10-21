@@ -7,14 +7,7 @@ set(SOURCE_FILES
     wanderer_engine.cpp
     wanderer_engine.hpp
 
-    common/aabb_tree.hpp
-    common/cstr.hpp
-    common/float2.hpp
-    common/ints.hpp
     common/map_id.hpp
-    common/maybe.hpp
-    common/milliseconds.hpp
-    common/ref.hpp
     common/texture_id.hpp
     common/texture_index.hpp
     common/tile_id.hpp
@@ -339,7 +332,7 @@ set(SOURCE_FILES
     systems/ui/menus/saves/saves_menu_entry_factory_system.hpp
     systems/ui/menus/saves/saves_menu_system.cpp
     systems/ui/menus/saves/saves_menu_system.hpp
-    )
+    wanderer_std.hpp)
 
 add_library(${WANDERER_LIB} ${SOURCE_FILES})
 

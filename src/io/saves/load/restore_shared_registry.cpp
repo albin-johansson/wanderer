@@ -2,7 +2,6 @@
 
 #include <save.pb.h>
 
-#include "common/map_id.hpp"
 #include "components/ctx/level_size.hpp"
 #include "components/ctx/time_of_day.hpp"
 #include "components/ctx/viewport.hpp"
@@ -17,6 +16,7 @@
 #include "restore_data.hpp"
 #include "restore_level_registry.hpp"
 #include "systems/gfx/viewport_system.hpp"
+#include "wanderer_std.hpp"
 
 namespace wanderer {
 namespace {

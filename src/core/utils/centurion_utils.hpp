@@ -5,7 +5,7 @@
 #include <centurion.hpp>        // basic_point, basic_area
 #include <rune/everything.hpp>  // basic_vector2
 
-#include "common/float2.hpp"
+#include "wanderer_std.hpp"
 
 namespace wanderer {
 

@@ -2,7 +2,7 @@
 
 #include <map>  // map
 
-#include "common/ints.hpp"
+#include "wanderer_std.hpp"
 
 namespace wanderer::sys {
 namespace {

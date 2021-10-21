@@ -1,9 +1,8 @@
 #pragma once
 
-#include <entt.hpp>             // registry
-#include <rune/everything.hpp>  // delta_time
+#include <entt.hpp>  // registry
 
-#include "common/aabb_tree.hpp"
+#include "wanderer_std.hpp"
 
 namespace wanderer::sys {
 

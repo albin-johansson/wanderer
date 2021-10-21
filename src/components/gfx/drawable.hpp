@@ -2,8 +2,8 @@
 
 #include <centurion.hpp>  // irect, frect
 
-#include "common/ints.hpp"
 #include "common/texture_index.hpp"
+#include "wanderer_std.hpp"
 
 namespace wanderer::comp {
 

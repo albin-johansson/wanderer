@@ -2,8 +2,8 @@
 
 #include <entt.hpp>  // registry, entity, null
 
-#include "common/ref.hpp"
 #include "core/direction.hpp"
+#include "wanderer_std.hpp"
 
 namespace wanderer {
 

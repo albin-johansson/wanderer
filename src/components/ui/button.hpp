@@ -4,10 +4,9 @@
 
 #include <centurion.hpp>  // texture, fpoint
 
-#include "common/ints.hpp"
-#include "common/maybe.hpp"
 #include "core/grid_position.hpp"
 #include "core/menu_action.hpp"
+#include "wanderer_std.hpp"
 
 namespace wanderer::comp {
 

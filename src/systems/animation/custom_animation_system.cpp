@@ -1,10 +1,10 @@
 #include "custom_animation_system.hpp"
 
-#include "common/ref.hpp"
 #include "components/gfx/custom_animation.hpp"
 #include "core/game_constants.hpp"
 #include "core/graphics/graphics_context.hpp"
 #include "events/custom_animation_halfway_event.hpp"
+#include "wanderer_std.hpp"
 
 namespace wanderer::sys {
 namespace {

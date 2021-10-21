@@ -6,7 +6,6 @@
 
 #include <save.pb.h>
 
-#include "common/float2.hpp"
 #include "components/ai/chase.hpp"
 #include "components/ai/humanoid.hpp"
 #include "components/associated_entity.hpp"
@@ -34,6 +33,7 @@
 #include "components/tiles/tileset.hpp"
 #include "components/trigger.hpp"
 #include "systems/levels/level_system.hpp"
+#include "wanderer_std.hpp"
 
 namespace wanderer {
 namespace {
