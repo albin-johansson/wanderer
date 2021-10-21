@@ -1,15 +1,13 @@
 #pragma once
 
+#include <algorithm>  // any_of
+
 #include <centurion.hpp>  // mouse, renderer
 #include <entt.hpp>       // registry, dispatcher
-#include <ranges>         // any_of
 
 #include "common/maybe.hpp"
 #include "components/ui/button.hpp"
-#include "components/ui/button_group.hpp"
-#include "components/ui/menu.hpp"
 #include "core/common_concepts.hpp"
-#include "core/grid_position.hpp"
 
 namespace wanderer::sys {
 
