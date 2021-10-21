@@ -32,11 +32,11 @@ auto MakeButton(entt::registry& registry,
   return entity;
 }
 
-auto sys::MakeButton(entt::registry& registry,
-                     const entt::entity menuEntity,
-                     std::string text,
-                     const MenuAction action,
-                     const GridPosition position) -> entt::entity
+auto MakeButton(entt::registry& registry,
+                const entt::entity menuEntity,
+                std::string text,
+                const MenuAction action,
+                const GridPosition position) -> entt::entity
 {
   const auto entity = registry.create();
 

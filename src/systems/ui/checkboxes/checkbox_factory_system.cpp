@@ -2,6 +2,7 @@
 
 #include <utility>  // move
 
+#include "components/ui/associated_menu.hpp"
 #include "systems/ui/buttons/button_factory_system.hpp"
 #include "systems/ui/grid.hpp"
 
@@ -30,6 +31,21 @@ auto MakeCheckbox(entt::registry& registry,
 
   auto& checkbox = registry.emplace<comp::Checkbox>(entity);
   checkbox.checked = checked;
+
+  return entity;
+}
+
+auto MakeCheckbox(entt::registry& registry,
+                  const entt::entity menuEntity,
+                  std::string text,
+                  const MenuAction action,
+                  const GridPosition position,
+                  const bool checked) -> entt::entity
+{
+  const auto entity = MakeCheckbox(registry, std::move(text), position, action, checked);
+
+  auto& associated = registry.emplace<comp::AssociatedMenu>(entity);
+  associated.entity = menuEntity;
 
   return entity;
 }

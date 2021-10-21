@@ -34,6 +34,13 @@ auto MakeCheckbox(entt::registry& registry,
                   MenuAction action,
                   const bool checked = false) -> entt::entity;
 
+auto MakeCheckbox(entt::registry& registry,
+                  entt::entity menuEntity,
+                  std::string text,
+                  MenuAction action,
+                  GridPosition position,
+                  const bool checked = false) -> entt::entity;
+
 /// \} End of checkboxes
 
 }  // namespace wanderer::sys

@@ -342,8 +342,6 @@ set(SOURCE_FILES
     systems/ui/menus/saves/saves_menu_system.cpp
     systems/ui/menus/saves/saves_menu_system.hpp
 
-    systems/ui/menus/settings/settings_menu_factory_system.cpp
-    systems/ui/menus/settings/settings_menu_factory_system.hpp
     systems/ui/menus/settings/settings_menu_system.cpp
     systems/ui/menus/settings/settings_menu_system.hpp
     )

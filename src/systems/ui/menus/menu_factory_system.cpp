@@ -4,6 +4,7 @@
 
 #include "systems/input/key_bind_system.hpp"
 #include "systems/ui/buttons/button_factory_system.hpp"
+#include "systems/ui/checkboxes/checkbox_factory_system.hpp"
 #include "systems/ui/labels/label_factory_system.hpp"
 
 namespace wanderer::sys {
@@ -40,6 +41,25 @@ auto MakeHomeMenu(entt::registry& registry) -> entt::entity
   AddBinds(registry,
            entity,
            comp::KeyBind{cen::scancodes::escape, MenuAction::GotoInGame});
+
+  return entity;
+}
+
+auto MakeSettingsMenu(entt::registry& registry) -> entt::entity
+{
+  const auto entity = MakeMenu(registry, "Settings", MenuId::Settings);
+  registry.set<comp::SettingsMenu>(entity);
+
+  MakeButton(registry, entity, "Return", MenuAction::GotoHome, {4, -1});
+
+  MakeCheckbox(registry, entity, "Fullscreen", MenuAction::ToggleFullscreen, {6, 13});
+  MakeCheckbox(registry,
+               entity,
+               "Integer scaling",
+               MenuAction::ToggleIntegerScaling,
+               {7, 13});
+
+  AddBinds(registry, entity, comp::KeyBind{cen::scancodes::escape, MenuAction::GotoHome});
 
   return entity;
 }
