@@ -18,7 +18,7 @@ namespace {
 auto MakeMenu(entt::registry& registry,
               std::string title,
               const MenuId id,
-              const bool blocking = false) -> entt::entity
+              const bool blocking = true) -> entt::entity
 {
   const auto entity = registry.create();
 
@@ -36,7 +36,7 @@ auto MakeMenu(entt::registry& registry,
 
 auto MakeHomeMenu(entt::registry& registry) -> entt::entity
 {
-  const auto entity = MakeMenu(registry, "Wanderer", MenuId::Home, true);
+  const auto entity = MakeMenu(registry, "Wanderer", MenuId::Home);
   registry.set<comp::HomeMenu>(entity);
 
   MakeButton(registry, entity, "Play", MenuAction::GotoInGame, {5, -1});
@@ -118,7 +118,7 @@ auto MakeSavesMenu(entt::registry& registry) -> entt::entity
 
 auto MakeControlsMenu(entt::registry& registry) -> entt::entity
 {
-  const auto entity = MakeMenu(registry, "Controls", MenuId::Controls);
+  const auto entity = MakeMenu(registry, "Controls", MenuId::Controls, true);
   registry.set<comp::ControlsMenu>(entity);
 
   MakeButton(registry, entity, "Return", MenuAction::GotoHome, {4, -1});
