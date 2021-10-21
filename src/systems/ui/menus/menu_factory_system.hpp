@@ -1,22 +1,11 @@
 #pragma once
 
-#include <string>  // string
-
 #include <entt.hpp>  // registry, entity
-
-#include "components/ui/menu.hpp"
-#include "core/menu_id.hpp"
 
 namespace wanderer::sys {
 
 /// \name Menus
 /// \{
-
-/// Creates a menu entity
-auto MakeMenu(entt::registry& registry,
-              std::string title,
-              MenuId id,
-              bool blocking = true) -> entt::entity;
 
 /**
  * \brief Creates the home menu.

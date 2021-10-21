@@ -1,5 +1,6 @@
 #include "menu_factory_system.hpp"
 
+#include <string>   // string
 #include <utility>  // move
 
 #include "components/ui/saves_menu.hpp"
@@ -12,11 +13,12 @@
 #include "systems/ui/lines/line_factory_system.hpp"
 
 namespace wanderer::sys {
+namespace {
 
 auto MakeMenu(entt::registry& registry,
               std::string title,
               const MenuId id,
-              const bool blocking) -> entt::entity
+              const bool blocking = false) -> entt::entity
 {
   const auto entity = registry.create();
 
@@ -29,6 +31,8 @@ auto MakeMenu(entt::registry& registry,
 
   return entity;
 }
+
+}  // namespace
 
 auto MakeHomeMenu(entt::registry& registry) -> entt::entity
 {
