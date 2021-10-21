@@ -51,6 +51,12 @@ auto MakeButton(entt::registry& registry,
                 MenuAction action,
                 GridPosition position) -> entt::entity;
 
+auto MakeButton(entt::registry& registry,
+                entt::entity menuEntity,
+                std::string text,
+                MenuAction action,
+                GridPosition position) -> entt::entity;
+
 /// \} End of buttons
 
 }  // namespace wanderer::sys

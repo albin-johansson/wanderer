@@ -2,6 +2,8 @@
 
 #include <utility>  // move
 
+#include "components/ui/associated_menu.hpp"
+
 namespace wanderer::sys {
 
 void AddButton(entt::registry& registry,
@@ -26,6 +28,22 @@ auto MakeButton(entt::registry& registry,
   const auto entity = registry.create();
 
   AddButton(registry, entity, std::move(text), action, position);
+
+  return entity;
+}
+
+auto sys::MakeButton(entt::registry& registry,
+                     const entt::entity menuEntity,
+                     std::string text,
+                     const MenuAction action,
+                     const GridPosition position) -> entt::entity
+{
+  const auto entity = registry.create();
+
+  AddButton(registry, entity, std::move(text), action, position);
+
+  auto& associated = registry.emplace<comp::AssociatedMenu>(entity);
+  associated.entity = menuEntity;
 
   return entity;
 }

@@ -335,9 +335,6 @@ set(SOURCE_FILES
     systems/ui/menus/menu_system.cpp
     systems/ui/menus/menu_system.hpp
 
-    systems/ui/menus/controls/controls_menu_factory_system.cpp
-    systems/ui/menus/controls/controls_menu_factory_system.hpp
-
     systems/ui/menus/home/home_menu_factory_system.cpp
     systems/ui/menus/home/home_menu_factory_system.hpp
 
