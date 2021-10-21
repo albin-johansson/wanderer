@@ -26,11 +26,11 @@ namespace wanderer::sys {
  * \param action the action that will be associated with the button.
  * \param position the position of the button.
  */
-void add_button(entt::registry& registry,
-                entt::entity entity,
-                std::string text,
-                MenuAction action,
-                GridPosition position);
+void AddButton(entt::registry& registry,
+               entt::entity entity,
+               std::string text,
+               MenuAction action,
+               GridPosition position);
 
 /**
  * \brief Creates a button.
@@ -46,10 +46,10 @@ void add_button(entt::registry& registry,
  *
  * \return the created entity.
  */
-auto make_button(entt::registry& registry,
-                 std::string text,
-                 MenuAction action,
-                 GridPosition position) -> entt::entity;
+auto MakeButton(entt::registry& registry,
+                std::string text,
+                MenuAction action,
+                GridPosition position) -> entt::entity;
 
 /// \} End of buttons
 

@@ -121,7 +121,7 @@ void Game::tick(const float dt)
   m_dispatcher.update();
 
   auto& level = sys::CurrentLevel(m_shared);
-  sys::update_fps(m_shared, dt);
+  sys::UpdateFps(m_shared, dt);
 
   sys::UpdateRenderBounds(level.registry);
   sys::UpdateCustomAnimations(level.registry, m_dispatcher, dt);
@@ -186,12 +186,12 @@ void Game::render(graphics_type& graphics) const
     sys::RenderDebugInfo(level.registry);
   }
 
-  sys::render_hud(m_shared, m_mousePos);
+  sys::RenderHud(m_shared, m_mousePos);
 
   sys::render_active_menu(m_shared);
   sys::RenderCustomAnimations(level.registry);
 
-  sys::render_fps(m_shared);
+  sys::RenderFps(m_shared);
 
   if constexpr (cen::is_debug_build()) {
     sys::RenderMenuDebugInfo(m_shared);
@@ -295,7 +295,7 @@ void Game::on_button_pressed(const button_pressed_event& event)
 void Game::on_switch_map(const SwitchMapEvent& event)
 {
   auto& level = sys::CurrentLevel(m_shared);
-  sys::start_level_change_animation(level.registry, event.map);
+  sys::StartLevelChangeAnimation(level.registry, event.map);
 }
 
 void Game::on_switch_menu(const switch_menu_event& event)

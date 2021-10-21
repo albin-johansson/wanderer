@@ -17,7 +17,7 @@ namespace wanderer::sys {
  * \param registry the menu registry.
  * \param graphics the graphics context that will be used.
  */
-void render_lazy_textures(const entt::registry& registry, GraphicsContext& graphics);
+void RenderLazyTextures(const entt::registry& registry, GraphicsContext& graphics);
 
 /// \} End of UI
 

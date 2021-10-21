@@ -11,7 +11,7 @@
 
 namespace wanderer::sys {
 
-void set_visible(comp::Button& button, const bool visible)
+void SetVisible(comp::Button& button, const bool visible)
 {
   if (visible) {
     button.state |= comp::Button::visible_bit;
@@ -21,7 +21,7 @@ void set_visible(comp::Button& button, const bool visible)
   }
 }
 
-void set_hovered(comp::Button& button, const bool hovered)
+void SetHovered(comp::Button& button, const bool hovered)
 {
   if (hovered) {
     button.state |= comp::Button::hover_bit;
@@ -31,7 +31,7 @@ void set_hovered(comp::Button& button, const bool hovered)
   }
 }
 
-void set_enabled(comp::Button& button, const bool enabled)
+void SetEnabled(comp::Button& button, const bool enabled)
 {
   if (enabled) {
     button.state |= comp::Button::enable_bit;
@@ -41,20 +41,20 @@ void set_enabled(comp::Button& button, const bool enabled)
   }
 }
 
-auto query_button(entt::registry& registry,
-                  entt::dispatcher& dispatcher,
-                  const entt::entity buttonEntity,
-                  const cen::mouse& mouse) -> bool
+auto QueryButton(entt::registry& registry,
+                 entt::dispatcher& dispatcher,
+                 const entt::entity buttonEntity,
+                 const cen::mouse& mouse) -> bool
 {
   assert(registry.all_of<comp::Button>(buttonEntity));
   auto& button = registry.get<comp::Button>(buttonEntity);
   if ((button.state & comp::Button::hover_bit) &&
       (button.state & comp::Button::enable_bit)) {
-    enable_cursor(registry, cen::system_cursor::hand);
+    EnableCursor(registry, cen::system_cursor::hand);
 
     if (mouse.was_left_button_released()) {
       dispatcher.enqueue<button_pressed_event>(button.action);
-      set_hovered(button, false);
+      SetHovered(button, false);
 
       if (auto* checkbox = registry.try_get<comp::Checkbox>(buttonEntity)) {
         checkbox->checked = !checkbox->checked;
@@ -68,7 +68,7 @@ auto query_button(entt::registry& registry,
   return false;
 }
 
-auto update_button_hover(entt::registry& registry, const cen::mouse& mouse)
+auto UpdateButtonHover(entt::registry& registry, const cen::mouse& mouse)
     -> maybe<entt::entity>
 {
   const auto menuEntity = registry.ctx<ctx::ActiveMenu>().entity;
@@ -82,7 +82,7 @@ auto update_button_hover(entt::registry& registry, const cen::mouse& mouse)
         const auto& drawable = registry.get<comp::ButtonDrawable>(entity);
 
         const auto hovered = drawable.bounds.contains(mousePos);
-        set_hovered(button, hovered);
+        SetHovered(button, hovered);
 
         if (hovered) {
           return entity;

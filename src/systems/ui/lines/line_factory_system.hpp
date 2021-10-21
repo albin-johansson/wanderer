@@ -20,7 +20,7 @@ namespace wanderer::sys {
  *
  * \return the created entity.
  */
-auto make_line(entt::registry& registry, GridPosition start, GridPosition end)
+auto MakeLine(entt::registry& registry, GridPosition start, GridPosition end)
     -> entt::entity;
 
 /// \} End of lines

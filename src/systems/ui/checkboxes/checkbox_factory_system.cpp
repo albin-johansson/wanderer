@@ -7,19 +7,19 @@
 
 namespace wanderer::sys {
 
-auto make_checkbox(entt::registry& registry,
-                   std::string text,
-                   const GridPosition position,
-                   const MenuAction action,
-                   const bool checked) -> entt::entity
+auto MakeCheckbox(entt::registry& registry,
+                  std::string text,
+                  const GridPosition position,
+                  const MenuAction action,
+                  const bool checked) -> entt::entity
 {
   const auto entity = registry.create();
 
-  add_button(registry, entity, std::move(text), action, position);
+  AddButton(registry, entity, std::move(text), action, position);
 
   const auto& button = registry.get<comp::Button>(entity);
 
-  const auto pos = from_grid(button.position);
+  const auto pos = FromGrid(button.position);
   const cen::frect rect{pos.x(), pos.y(), 10, 10};
 
   auto& drawable = registry.get<comp::ButtonDrawable>(entity);

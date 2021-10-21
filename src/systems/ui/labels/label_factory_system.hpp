@@ -28,11 +28,11 @@ namespace wanderer::sys {
  *
  * \return the created entity.
  */
-auto make_label(entt::registry& registry,
-                entt::entity menu,
-                std::string text,
-                GridPosition position,
-                text_size size = text_size::small) -> entt::entity;
+auto MakeLabel(entt::registry& registry,
+               entt::entity menu,
+               std::string text,
+               GridPosition position,
+               text_size size = text_size::small) -> entt::entity;
 
 /// \} End of labels
 

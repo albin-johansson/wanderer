@@ -14,7 +14,7 @@
 
 namespace wanderer::sys {
 
-void update_fps(entt::registry& shared, const float dt)
+void UpdateFps(entt::registry& shared, const float dt)
 {
   for (auto&& [entity, data] : shared.view<comp::FpsData>().each()) {
     data.dt = dt;
@@ -29,7 +29,7 @@ void update_fps(entt::registry& shared, const float dt)
   }
 }
 
-void render_fps(const entt::registry& shared)
+void RenderFps(const entt::registry& shared)
 {
   auto& graphics = shared.ctx<ref<GraphicsContext>>().get();
 

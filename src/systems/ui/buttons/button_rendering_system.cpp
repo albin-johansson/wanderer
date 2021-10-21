@@ -14,22 +14,20 @@ inline constexpr auto button_outline_fg_color = cen::colors::ghost_white;
 inline constexpr auto button_outline_bg_color = button_outline_fg_color.with_alpha(0x22);
 inline constexpr auto button_font = glob::menu_font_m;
 
-void update_bounds(const comp::Button& button,
-                   cen::frect& bounds,
-                   cen::renderer& renderer)
+void UpdateBounds(const comp::Button& button, cen::frect& bounds, cen::renderer& renderer)
 {
   const auto& font = renderer.get_font(button_font);
   const auto [width, height] = font.string_size(button.text).value();
 
-  const auto pos = from_grid(button.position);
+  const auto pos = FromGrid(button.position);
   bounds.set_size({width * 1.25f, height * 1.5f});
   bounds.set_x(pos.x() - (bounds.width() / 2.0f));
   bounds.set_y(pos.y() + ((glob::menu_row_size - bounds.height()) / 2.0f));
 }
 
-void init_text(const comp::ButtonDrawable& drawable,
-               const std::string& text,
-               cen::renderer& renderer)
+void InitText(const comp::ButtonDrawable& drawable,
+              const std::string& text,
+              cen::renderer& renderer)
 {
   const auto& font = renderer.get_font(button_font);
 
@@ -37,9 +35,9 @@ void init_text(const comp::ButtonDrawable& drawable,
   drawable.texture.emplace(RenderText(renderer, text, font));
 }
 
-void render_text(const comp::Button& button,
-                 const comp::ButtonDrawable& drawable,
-                 cen::renderer& renderer)
+void RenderText(const comp::Button& button,
+                const comp::ButtonDrawable& drawable,
+                cen::renderer& renderer)
 {
   if (button.text.empty()) {
     return;
@@ -59,7 +57,7 @@ void render_text(const comp::Button& button,
   texture.set_alpha(255);
 }
 
-void render_outline(const comp::ButtonDrawable& drawable, cen::renderer& renderer)
+void RenderOutline(const comp::ButtonDrawable& drawable, cen::renderer& renderer)
 {
   renderer.set_color(button_outline_bg_color);
   renderer.fill_rect(drawable.bounds);
@@ -68,9 +66,9 @@ void render_outline(const comp::ButtonDrawable& drawable, cen::renderer& rendere
   renderer.draw_rect(drawable.bounds);
 }
 
-void render_button(const entt::registry& registry,
-                   GraphicsContext& graphics,
-                   const entt::entity buttonEntity)
+void RenderButton(const entt::registry& registry,
+                  GraphicsContext& graphics,
+                  const entt::entity buttonEntity)
 {
   auto& renderer = graphics.get_renderer();
   const auto& button = registry.get<comp::Button>(buttonEntity);
@@ -81,20 +79,20 @@ void render_button(const entt::registry& registry,
   }
 
   if (!drawable.texture) {
-    update_bounds(button, drawable.bounds, renderer);
-    init_text(drawable, button.text, renderer);
+    UpdateBounds(button, drawable.bounds, renderer);
+    InitText(drawable, button.text, renderer);
   }
 
   if (button.state & comp::Button::hover_bit && button.state & comp::Button::enable_bit) {
-    render_outline(drawable, renderer);
+    RenderOutline(drawable, renderer);
   }
 
-  render_text(button, drawable, renderer);
+  RenderText(button, drawable, renderer);
 }
 
 }  // namespace
 
-void render_buttons(const entt::registry& registry, GraphicsContext& graphics)
+void RenderButtons(const entt::registry& registry, GraphicsContext& graphics)
 {
   const auto menuEntity = registry.ctx<ctx::ActiveMenu>().entity;
 
@@ -103,13 +101,13 @@ void render_buttons(const entt::registry& registry, GraphicsContext& graphics)
        registry.view<comp::Button, comp::AssociatedMenu>(filter).each())
   {
     if (associated.entity == menuEntity) {
-      render_button(registry, graphics, entity);
+      RenderButton(registry, graphics, entity);
     }
   }
 }
 
-void render_button_group_indicators(const entt::registry& registry,
-                                    GraphicsContext& graphics)
+void RenderButtonGroupIndicators(const entt::registry& registry,
+                                 GraphicsContext& graphics)
 {
   const auto menuEntity = registry.ctx<ctx::ActiveMenu>().entity;
 

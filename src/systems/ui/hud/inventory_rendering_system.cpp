@@ -25,7 +25,7 @@ inline constexpr int bar_cell_width = 30;
 inline constexpr int bar_cell_height = 30;
 inline constexpr int bar_cell_spacing = 2;
 
-[[nodiscard]] consteval auto get_render_origin() -> cen::ipoint
+[[nodiscard]] consteval auto GetRenderOrigin() -> cen::ipoint
 {
   constexpr cen::iarea area{(cell_width + spacing) * n_cols,
                             (cell_height + spacing) * n_rows};
@@ -37,7 +37,7 @@ inline constexpr int bar_cell_spacing = 2;
   return {x, y};
 }
 
-inline constexpr cen::ipoint origin = get_render_origin();
+inline constexpr cen::ipoint origin = GetRenderOrigin();
 
 }  // namespace
 
@@ -45,7 +45,7 @@ void RenderInventoryBar(const entt::registry& registry, GraphicsContext& graphic
 {
   constexpr auto totalWidth =
       bar_cell_count * bar_cell_width + (bar_cell_count * bar_cell_spacing);
-  constexpr auto x = center_x(totalWidth);
+  constexpr auto x = CenterX(totalWidth);
   constexpr auto y = glob::logical_height<int> - bar_cell_height - glob::default_margin;
 
   auto& renderer = graphics.get_renderer();

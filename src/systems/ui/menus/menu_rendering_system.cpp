@@ -41,8 +41,8 @@ void render_title(const std::string& title,
   const auto& texture = *drawable.texture;
 
   if (!drawable.position) {
-    const auto x = static_cast<float>(center_x(texture.width()));
-    constexpr auto y = row_to_y(2);
+    const auto x = static_cast<float>(CenterX(texture.width()));
+    constexpr auto y = RowToY(2);
     drawable.position = {x, y};
   }
 
@@ -84,12 +84,12 @@ void render_active_menu(const entt::registry& shared)
     renderer.fill_with(glob::transparent_black);
   }
 
-  render_lines(shared, graphics);
-  render_lazy_textures(shared, graphics);
-  render_button_group_indicators(shared, graphics);
-  render_buttons(shared, graphics);
-  render_checkboxes(shared, graphics);
-  render_labels(shared, graphics);
+  RenderLines(shared, graphics);
+  RenderLazyTextures(shared, graphics);
+  RenderButtonGroupIndicators(shared, graphics);
+  RenderButtons(shared, graphics);
+  RenderCheckboxes(shared, graphics);
+  RenderLabels(shared, graphics);
 
   render_title(menu.title, drawable, renderer);
 

@@ -7,7 +7,7 @@
 
 namespace wanderer::sys {
 
-void render_lazy_textures(const entt::registry& registry, GraphicsContext& graphics)
+void RenderLazyTextures(const entt::registry& registry, GraphicsContext& graphics)
 {
   auto& renderer = graphics.get_renderer();
   const auto active = registry.ctx<ctx::ActiveMenu>().entity;
@@ -20,7 +20,7 @@ void render_lazy_textures(const entt::registry& registry, GraphicsContext& graph
         lazy.texture = cen::texture{renderer, lazy.surface};
       }
 
-      const auto position = from_grid(lazy.position);
+      const auto position = FromGrid(lazy.position);
       const auto& size = lazy.size;
       const auto rect = cen::rect(position.x(), position.y(), size.width, size.height);
 

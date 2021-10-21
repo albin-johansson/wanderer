@@ -16,8 +16,7 @@ namespace wanderer::sys {
  * \param shared the shared data registry.
  * \param mousePos the current position of the mouse.
  */
-void render_hud(const entt::registry& shared,
-                cen::ipoint mousePos);
+void RenderHud(const entt::registry& shared, cen::ipoint mousePos);
 
 /// \} End of HUD
 

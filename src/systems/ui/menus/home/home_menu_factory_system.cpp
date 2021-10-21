@@ -19,7 +19,7 @@ void add_buttons(entt::registry& registry, const entt::entity entity)
                           const float row,
                           const float col = -1) {
     const auto button =
-        make_button(registry, std::move(text), action, GridPosition{row, col});
+        MakeButton(registry, std::move(text), action, GridPosition{row, col});
 
     auto& associated = registry.emplace<comp::AssociatedMenu>(button);
     associated.entity = entity;

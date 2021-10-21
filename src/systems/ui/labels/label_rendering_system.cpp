@@ -8,6 +8,7 @@
 #include "systems/ui/grid.hpp"
 
 namespace wanderer::sys {
+namespace {
 
 [[nodiscard]] auto menu_font(const text_size size)
 {
@@ -26,7 +27,9 @@ namespace wanderer::sys {
   }
 }
 
-void render_labels(const entt::registry& registry, GraphicsContext& graphics)
+}  // namespace
+
+void RenderLabels(const entt::registry& registry, GraphicsContext& graphics)
 {
   const auto active = registry.ctx<ctx::ActiveMenu>().entity;
   auto& renderer = graphics.get_renderer();
@@ -42,7 +45,7 @@ void render_labels(const entt::registry& registry, GraphicsContext& graphics)
         label.texture = RenderText(renderer, label.text, font);
       }
 
-      renderer.render(*label.texture, from_grid(label.position));
+      renderer.render(*label.texture, FromGrid(label.position));
     }
   }
 }

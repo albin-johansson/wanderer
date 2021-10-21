@@ -28,11 +28,11 @@ namespace wanderer::sys {
  *
  * \return the created lazy texture entity.
  */
-auto make_lazy_texture(entt::registry& registry,
-                       entt::entity menu,
-                       cen::surface surface,
-                       GridPosition position,
-                       cen::farea size) -> entt::entity;
+auto MakeLazyTexture(entt::registry& registry,
+                     entt::entity menu,
+                     cen::surface surface,
+                     GridPosition position,
+                     cen::farea size) -> entt::entity;
 
 /// \} End of UI
 

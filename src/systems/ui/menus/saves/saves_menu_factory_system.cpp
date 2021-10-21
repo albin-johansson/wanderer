@@ -36,7 +36,7 @@ void make_labels(entt::registry& registry, const entt::entity menu)
                          const float row,
                          const float col,
                          const text_size size = text_size::small) {
-    make_label(registry, menu, std::move(text), GridPosition{row, col}, size);
+    MakeLabel(registry, menu, std::move(text), GridPosition{row, col}, size);
   };
 
   label("Location:   " + GetSavesDirectory().string(), glob::menu_rows - 1.7f, 2);
@@ -49,7 +49,7 @@ void make_buttons(entt::registry& registry, const entt::entity menuEntity)
                           const float row,
                           const float col = -1) {
     const auto entity =
-        make_button(registry, std::move(text), action, GridPosition{row, col});
+        MakeButton(registry, std::move(text), action, GridPosition{row, col});
 
     auto& associated = registry.emplace<comp::AssociatedMenu>(entity);
     associated.entity = menuEntity;
@@ -71,7 +71,7 @@ void make_buttons(entt::registry& registry, const entt::entity menuEntity)
 void make_lines(entt::registry& registry, const entt::entity menuEntity)
 {
   const auto line = [&](const GridPosition start, const GridPosition end) {
-    const auto entity = make_line(registry, start, end);
+    const auto entity = MakeLine(registry, start, end);
 
     auto& associated = registry.emplace<comp::AssociatedMenu>(entity);
     associated.entity = menuEntity;

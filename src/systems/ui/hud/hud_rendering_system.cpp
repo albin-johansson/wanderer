@@ -26,17 +26,17 @@ inline constexpr auto exit_fmt = "Press \" {}\" to exit";
 inline constexpr auto sleep_fmt = "Press \" {}\" to sleep";
 inline constexpr auto container_fmt = "Press \" {}\" to open container";
 
-void render_hint(GraphicsContext& graphics,
-                 const std::string_view fmt,
-                 const std::string& key)
+void RenderHint(GraphicsContext& graphics,
+                const std::string_view fmt,
+                const std::string& key)
 {
   const rune::formatted_string<64> hint{fmt, key};
   const auto& cache = graphics.small_font_cache();
   const auto width = cache.get_font().string_width(hint.data()).value();
-  graphics.render_outlined_text(hint.view(), cen::point(center_x(width), 100));
+  graphics.render_outlined_text(hint.view(), cen::point(CenterX(width), 100));
 }
 
-void render_hints(const entt::registry& shared, GraphicsContext& graphics)
+void RenderHints(const entt::registry& shared, GraphicsContext& graphics)
 {
   const auto& binds = shared.ctx<ctx::Binds>();
   const auto& level = CurrentLevel(shared);
@@ -48,19 +48,19 @@ void render_hints(const entt::registry& shared, GraphicsContext& graphics)
     switch (trigger.type) {
       case comp::TriggerType::portal: {
         if (sys::IsCurrentLevelOutside(shared)) {
-          render_hint(graphics, enter_fmt, binds.interact.name());
+          RenderHint(graphics, enter_fmt, binds.interact.name());
         }
         else {
-          render_hint(graphics, exit_fmt, binds.interact.name());
+          RenderHint(graphics, exit_fmt, binds.interact.name());
         }
         break;
       }
       case comp::TriggerType::container: {
-        render_hint(graphics, container_fmt, binds.interact.name());
+        RenderHint(graphics, container_fmt, binds.interact.name());
         break;
       }
       case comp::TriggerType::bed: {
-        render_hint(graphics, sleep_fmt, binds.interact.name());
+        RenderHint(graphics, sleep_fmt, binds.interact.name());
         break;
       }
     }
@@ -69,11 +69,10 @@ void render_hints(const entt::registry& shared, GraphicsContext& graphics)
 
 }  // namespace
 
-void render_hud(const entt::registry& shared,
-                const cen::ipoint mousePos)
+void RenderHud(const entt::registry& shared, cen::ipoint mousePos)
 {
   auto& graphics = shared.ctx<ref<GraphicsContext>>().get();
-  render_hints(shared, graphics);
+  RenderHints(shared, graphics);
 
   const auto& level = CurrentLevel(shared);
   RenderInventoryBar(level.registry, graphics);

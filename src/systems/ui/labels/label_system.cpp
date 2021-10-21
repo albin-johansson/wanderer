@@ -4,7 +4,7 @@
 
 namespace wanderer::sys {
 
-void set_text(comp::Label& label, std::string text)
+void SetText(comp::Label& label, std::string text)
 {
   label.text = std::move(text);
   label.texture.reset();

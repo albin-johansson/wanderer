@@ -2,7 +2,7 @@
 
 namespace wanderer::sys {
 
-auto make_line(entt::registry& registry, const GridPosition start, const GridPosition end)
+auto MakeLine(entt::registry& registry, const GridPosition start, const GridPosition end)
     -> entt::entity
 {
   const auto entity = registry.create();

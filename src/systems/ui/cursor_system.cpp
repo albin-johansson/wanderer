@@ -4,7 +4,7 @@
 
 namespace wanderer::sys {
 
-void enable_cursor(entt::registry& registry, const cen::system_cursor cursor)
+void EnableCursor(entt::registry& registry, const cen::system_cursor cursor)
 {
   auto& cursors = registry.ctx<ctx::Cursors>();
   cursors.data.at(cursor).enable();

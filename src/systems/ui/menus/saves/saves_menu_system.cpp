@@ -73,9 +73,9 @@ void update_page_indicators(entt::registry& registry)
   const auto currentPage = group.current_page;
   const auto nPages = page_count(group);
 
-  set_enabled(registry.get<comp::Button>(menu.decrement_button), currentPage != 0);
-  set_enabled(registry.get<comp::Button>(menu.increment_button),
-              currentPage != nPages - 1);
+  SetEnabled(registry.get<comp::Button>(menu.decrement_button), currentPage != 0);
+  SetEnabled(registry.get<comp::Button>(menu.increment_button),
+             currentPage != nPages - 1);
 }
 
 void refresh_save_entry_buttons(entt::registry& registry,
@@ -91,13 +91,13 @@ void refresh_save_entry_buttons(entt::registry& registry,
     const auto& entry = registry.get<comp::SavesMenuEntry>(entryEntity);
     const auto actualRow = save_entry_row + std::fmod(static_cast<float>(row), maxRow);
 
-    const auto buttonEntity = make_button(registry,
-                                          entry.name,
-                                          MenuAction::ChangeSavePreview,
-                                          GridPosition{actualRow, save_entry_col});
+    const auto buttonEntity = MakeButton(registry,
+                                         entry.name,
+                                         MenuAction::ChangeSavePreview,
+                                         GridPosition{actualRow, save_entry_col});
 
-    set_visible(registry.get<comp::Button>(buttonEntity),
-                static_cast<float>(row) < maxRow);
+    SetVisible(registry.get<comp::Button>(buttonEntity),
+               static_cast<float>(row) < maxRow);
 
     auto& associatedMenu = registry.emplace<comp::AssociatedMenu>(buttonEntity);
     associatedMenu.entity = menuEntity;
@@ -120,15 +120,15 @@ void refresh_page_indicator_label(entt::registry& registry,
 {
   if (group.indicator_label == entt::null) {
     group.indicator_label =
-        sys::make_label(registry,
-                        menuEntity,
-                        get_page_indicator_text(group),
-                        GridPosition{page_indicator_row, page_indicator_col},
-                        text_size::medium);
+        sys::MakeLabel(registry,
+                       menuEntity,
+                       get_page_indicator_text(group),
+                       GridPosition{page_indicator_row, page_indicator_col},
+                       text_size::medium);
   }
   else {
     auto& label = registry.get<comp::Label>(group.indicator_label);
-    set_text(label, get_page_indicator_text(group));
+    SetText(label, get_page_indicator_text(group));
   }
 }
 
@@ -139,7 +139,7 @@ void update_delete_button_enabled(entt::registry& registry,
   if (group.selected != entt::null) {
     const auto& button = registry.get<comp::Button>(group.selected);
     auto& deleteButton = registry.get<comp::Button>(deleteButtonEntity);
-    set_enabled(deleteButton, button.text != "exit_save");
+    SetEnabled(deleteButton, button.text != "exit_save");
   }
 }
 
@@ -158,9 +158,8 @@ void refresh_saves_menu_contents(entt::registry& registry, const entt::entity me
   refresh_page_indicator_label(registry, group, menuEntity);
 
   auto& savesMenu = registry.get<comp::SavesMenu>(menuEntity);
-  set_enabled(registry.get<comp::Button>(savesMenu.load_button), !group.buttons.empty());
-  set_enabled(registry.get<comp::Button>(savesMenu.delete_button),
-              !group.buttons.empty());
+  SetEnabled(registry.get<comp::Button>(savesMenu.load_button), !group.buttons.empty());
+  SetEnabled(registry.get<comp::Button>(savesMenu.delete_button), !group.buttons.empty());
 
   update_delete_button_enabled(registry, group, savesMenu.delete_button);
   update_page_indicators(registry);
@@ -180,8 +179,8 @@ void change_saves_button_group_page(entt::registry& registry, const int incremen
       const auto firstRow = group->current_page * group->items_per_page;
       for (int row = 0; const auto buttonEntity : group->buttons) {
         auto& button = registry.get<comp::Button>(buttonEntity);
-        set_visible(button,
-                    row >= firstRow && row <= firstRow + (group->items_per_page - 1));
+        SetVisible(button,
+                   row >= firstRow && row <= firstRow + (group->items_per_page - 1));
 
         if ((button.state & comp::Button::visible_bit) && group->selected == entt::null) {
           group->selected = buttonEntity;
@@ -191,7 +190,7 @@ void change_saves_button_group_page(entt::registry& registry, const int incremen
       }
 
       auto& label = registry.get<comp::Label>(group->indicator_label);
-      set_text(label, get_page_indicator_text(*group));
+      SetText(label, get_page_indicator_text(*group));
 
       update_page_indicators(registry);
       update_delete_button_enabled(registry,
@@ -236,11 +235,11 @@ void change_save_preview(entt::registry& registry)
                            const float row,
                            const float col,
                            const text_size size = text_size::small) {
-      return make_label(registry,
-                        activeMenu,
-                        std::move(text),
-                        GridPosition{row, col},
-                        size);
+      return MakeLabel(registry,
+                       activeMenu,
+                       std::move(text),
+                       GridPosition{row, col},
+                       size);
     };
 
     savesMenu.title_label = label(entry.name, 6, 11, text_size::large);
@@ -252,11 +251,11 @@ void change_save_preview(entt::registry& registry)
 
     const auto width = glob::menu_col_size * 9.0f;
     const auto height = (width / 16.0f) * 9.0f;  // Assume 16:9 aspect ratio
-    savesMenu.preview_texture = make_lazy_texture(registry,
-                                                  activeMenu,
-                                                  entry.preview,
-                                                  GridPosition{7.0f, 20.0f},
-                                                  cen::area(width, height));
+    savesMenu.preview_texture = MakeLazyTexture(registry,
+                                                activeMenu,
+                                                entry.preview,
+                                                GridPosition{7.0f, 20.0f},
+                                                cen::area(width, height));
 
     update_delete_button_enabled(registry, group, savesMenu.delete_button);
   }

@@ -15,7 +15,7 @@ namespace wanderer::sys {
  * \param shared the shared data registry.
  * \param dt the current delta time.
  */
-void update_fps(entt::registry& shared, float dt);
+void UpdateFps(entt::registry& shared, float dt);
 
 /**
  * \brief Renders the current FPS and frame duration.
@@ -24,7 +24,7 @@ void update_fps(entt::registry& shared, float dt);
  *
  * \param shared the shared data registry.
  */
-void render_fps(const entt::registry& shared);
+void RenderFps(const entt::registry& shared);
 
 /// \} End of UI
 

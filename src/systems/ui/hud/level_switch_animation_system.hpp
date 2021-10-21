@@ -21,7 +21,7 @@ namespace wanderer::sys {
  *
  * \since 0.1.0
  */
-void start_level_change_animation(entt::registry& registry, map_id map);
+void StartLevelChangeAnimation(entt::registry& registry, map_id map);
 
 /// \} End of UI
 

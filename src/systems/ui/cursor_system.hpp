@@ -16,7 +16,7 @@ namespace wanderer::sys {
  * \param registry the menu registry.
  * \param cursor the cursor that will be enabled.
  */
-void enable_cursor(entt::registry& registry, cen::system_cursor cursor);
+void EnableCursor(entt::registry& registry, cen::system_cursor cursor);
 
 /// \} End of UI
 

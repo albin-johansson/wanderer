@@ -9,10 +9,10 @@
 namespace wanderer::sys {
 namespace {
 
-void render_checkbox(const entt::registry& registry,
-                     GraphicsContext& graphics,
-                     const entt::entity checkboxEntity,
-                     const comp::Checkbox& checkbox)
+void RenderCheckbox(const entt::registry& registry,
+                    GraphicsContext& graphics,
+                    const entt::entity checkboxEntity,
+                    const comp::Checkbox& checkbox)
 {
   auto& renderer = graphics.get_renderer();
   const auto& drawable = registry.get<comp::ButtonDrawable>(checkboxEntity);
@@ -38,7 +38,7 @@ void render_checkbox(const entt::registry& registry,
 
 }  // namespace
 
-void render_checkboxes(const entt::registry& registry, GraphicsContext& graphics)
+void RenderCheckboxes(const entt::registry& registry, GraphicsContext& graphics)
 {
   const auto menuEntity = registry.ctx<ctx::ActiveMenu>().entity;
 
@@ -46,7 +46,7 @@ void render_checkboxes(const entt::registry& registry, GraphicsContext& graphics
        registry.view<comp::Checkbox, comp::AssociatedMenu>().each())
   {
     if (associated.entity == menuEntity) {
-      render_checkbox(registry, graphics, entity, checkbox);
+      RenderCheckbox(registry, graphics, entity, checkbox);
     }
   }
 }

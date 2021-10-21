@@ -21,7 +21,7 @@ void add_buttons(entt::registry& registry, const entt::entity menuEntity)
                           const float row,
                           const float col = -1) {
     const auto entity =
-        make_button(registry, std::move(text), action, GridPosition{row, col});
+        MakeButton(registry, std::move(text), action, GridPosition{row, col});
 
     auto& associated = registry.emplace<comp::AssociatedMenu>(entity);
     associated.entity = menuEntity;
@@ -33,7 +33,7 @@ void add_buttons(entt::registry& registry, const entt::entity menuEntity)
 void add_labels(entt::registry& registry, const entt::entity entity)
 {
   const auto label = [&](std::string text, const float row, const float col) {
-    sys::make_label(registry, entity, std::move(text), GridPosition{row, col});
+    sys::MakeLabel(registry, entity, std::move(text), GridPosition{row, col});
   };
 
   float row = 6;

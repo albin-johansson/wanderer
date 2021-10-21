@@ -16,11 +16,11 @@ namespace wanderer::sys {
 /// \name Buttons
 /// \{
 
-void set_visible(comp::Button& button, bool visible);
+void SetVisible(comp::Button& button, bool visible);
 
-void set_hovered(comp::Button& button, bool hovered);
+void SetHovered(comp::Button& button, bool hovered);
 
-void set_enabled(comp::Button& button, bool enabled);
+void SetEnabled(comp::Button& button, bool enabled);
 
 /**
  * \brief Checks whether or not a button was pressed, and if so, the associated action
@@ -37,10 +37,10 @@ void set_enabled(comp::Button& button, bool enabled);
  *
  * \return `true` if the button was pressed; `false` otherwise.
  */
-auto query_button(entt::registry& registry,
-                  entt::dispatcher& dispatcher,
-                  entt::entity buttonEntity,
-                  const cen::mouse& mouse) -> bool;
+auto QueryButton(entt::registry& registry,
+                 entt::dispatcher& dispatcher,
+                 entt::entity buttonEntity,
+                 const cen::mouse& mouse) -> bool;
 
 // Updates the hover state of all buttons, returns the currently hovered button
 
@@ -54,7 +54,7 @@ auto query_button(entt::registry& registry,
  *
  * \return the currently hovered button entity; `std::nullopt` if there is none.
  */
-[[nodiscard]] auto update_button_hover(entt::registry& registry, const cen::mouse& mouse)
+[[nodiscard]] auto UpdateButtonHover(entt::registry& registry, const cen::mouse& mouse)
     -> maybe<entt::entity>;
 
 /**
@@ -70,7 +70,7 @@ auto query_button(entt::registry& registry,
  * \return `true` if the container contains the specified entity; `false` otherwise.
  */
 template <container_type<entt::entity> T>
-[[nodiscard]] auto in_button_group(const T& buttons, const entt::entity button) -> bool
+[[nodiscard]] auto InButtonGroup(const T& buttons, const entt::entity button) -> bool
 {
   return std::ranges::any_of(buttons, [button](const entt::entity entity) {
     return entity == button;

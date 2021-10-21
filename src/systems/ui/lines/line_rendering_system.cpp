@@ -7,7 +7,7 @@
 
 namespace wanderer::sys {
 
-void render_lines(const entt::registry& registry, GraphicsContext& graphics)
+void RenderLines(const entt::registry& registry, GraphicsContext& graphics)
 {
   const auto menuEntity = registry.ctx<ctx::ActiveMenu>().entity;
 
@@ -18,7 +18,7 @@ void render_lines(const entt::registry& registry, GraphicsContext& graphics)
        registry.view<comp::Line, comp::AssociatedMenu>().each())
   {
     if (associated.entity == menuEntity) {
-      renderer.draw_line(from_grid(line.start), from_grid(line.end));
+      renderer.draw_line(FromGrid(line.start), FromGrid(line.end));
     }
   }
 }
