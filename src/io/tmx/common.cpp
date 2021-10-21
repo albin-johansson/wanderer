@@ -2,7 +2,7 @@
 
 namespace wanderer::io {
 
-auto find_tile(const std::vector<ir::tileset>& tilesets, const tile_id id)
+auto find_tile(const std::vector<ir::tileset>& tilesets, const TileID id)
     -> maybe<ir::tile>
 {
   for (const auto& tileset : tilesets) {

@@ -62,11 +62,11 @@ inline void LookAt(glm::vec2& source, const glm::vec2 target, const float length
 }
 
 namespace tags {
-struct map_id;
-struct tile_id;
+struct MapID;
+struct TileID;
 }  // namespace tags
 
-using map_id = nenya::strong_type<int32, tags::map_id>;
-using tile_id = nenya::strong_type<uint32, tags::tile_id>;
+using MapID = nenya::strong_type<int32, tags::MapID>;
+using TileID = nenya::strong_type<uint32, tags::TileID>;
 
 }  // namespace wanderer

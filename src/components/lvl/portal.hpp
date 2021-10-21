@@ -8,8 +8,8 @@ namespace wanderer::comp {
 
 struct Portal final
 {
-  std::string path;      ///< Path to target map file.
-  maybe<map_id> target;  ///< Identifier associated with target map.
+  std::string path;     ///< Path to target map file.
+  maybe<MapID> target;  ///< Identifier associated with target map.
 };
 
 }  // namespace wanderer::comp

@@ -9,5 +9,5 @@ namespace wanderer::sys {
 
 [[nodiscard]] auto LoadTilemap(entt::registry& registry,
                                const entt::entity entity,
-                               const ir::level& level) -> map_id;
+                               const ir::level& level) -> MapID;
 }  // namespace wanderer::sys

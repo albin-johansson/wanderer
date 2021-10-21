@@ -11,15 +11,15 @@ namespace wanderer::io {
 namespace {
 
 [[nodiscard]] auto parse_tiles(const std::string& csv, const int offset)
-    -> std::vector<tile_id>
+    -> std::vector<TileID>
 {
   const auto tokens = parse_csv(csv);
 
-  std::vector<tile_id> tiles;
+  std::vector<TileID> tiles;
   tiles.reserve(tokens.size());
 
   for (const auto& token : tokens) {
-    const tile_id tile{offset + rune::from_string<tile_id::value_type>(token).value()};
+    const TileID tile{offset + rune::from_string<TileID::value_type>(token).value()};
     tiles.push_back(tile);
   }
 

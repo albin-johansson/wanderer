@@ -8,13 +8,13 @@
 
 namespace wanderer::io {
 
-[[nodiscard]] auto make_tile(tile_id id,
+[[nodiscard]] auto make_tile(TileID id,
                              int index,
                              texture_id texture,
                              const rune::tmx_tileset& tileset) -> ir::tile;
 
 [[nodiscard]] auto parse_fancy_tile(ir::tileset& data,
                                     const rune::tmx_tile& tile,
-                                    tile_id firstGid) -> ir::fancy_tile;
+                                    TileID firstGid) -> ir::fancy_tile;
 
 }  // namespace wanderer::io

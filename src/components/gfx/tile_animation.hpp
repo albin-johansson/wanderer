@@ -11,8 +11,8 @@ namespace wanderer::comp {
 /// \ingroup components
 struct Frame final
 {
-  tile_id tile{glob::empty_tile};  ///< ID of the tile that should be rendered.
-  ms_t duration{};                 ///< The duration that the frame is active.
+  TileID tile{glob::empty_tile};  ///< ID of the tile that should be rendered.
+  ms_t duration{};                ///< The duration that the frame is active.
 };
 
 /**

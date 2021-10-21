@@ -8,7 +8,7 @@ namespace wanderer {
 /// \ingroup events
 struct SwitchMapEvent final
 {
-  map_id map;  ///< The ID associated with new map.
+  MapID map;  ///< The ID associated with new map.
 };
 
 }  // namespace wanderer

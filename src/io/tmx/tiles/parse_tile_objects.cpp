@@ -10,7 +10,7 @@ namespace wanderer::io {
 namespace {
 
 void parse_tile_object(ir::level& data,
-                       const tile_id tileId,
+                       const TileID tileId,
                        const int tileIndex,
                        const int layerIndex)
 {
@@ -43,7 +43,7 @@ void parse_tile_objects(ir::level& data, const tile_data& tiles, const int layer
 {
   int index = 0;
   for (const auto gid : tiles) {
-    const auto id = tile_id{gid.get()};
+    const auto id = TileID{gid.get()};
 
     if (!is_empty(id)) {
       parse_tile_object(data, id, index, layerIndex);

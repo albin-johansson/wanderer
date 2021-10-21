@@ -25,7 +25,7 @@ namespace wanderer::sys {
  */
 [[nodiscard]] auto PrepareCurrentLevelBeforeSwitch(
     entt::registry& shared,
-    const CustomAnimationHalfwayEvent& event) -> map_id;
+    const CustomAnimationHalfwayEvent& event) -> MapID;
 
 /**
  * \brief Enables the level associated with the specified ID.
@@ -35,7 +35,7 @@ namespace wanderer::sys {
  * \param shared the shared data registry.
  * \param id the ID associated with the level that will be enabled.
  */
-void EnableLevel(entt::registry& shared, map_id id);
+void EnableLevel(entt::registry& shared, MapID id);
 
 /**
  * \brief Returns the currently active level.

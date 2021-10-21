@@ -16,7 +16,7 @@ namespace wanderer::comp {
  */
 struct Tilemap final
 {
-  map_id id{0};            ///< The ID associated with the tilemap
+  MapID id{0};             ///< The ID associated with the tilemap
   int32 humanoid_layer{};  ///< The layer that humanoids inhabit
   cen::farea size;         ///< The size of the tilemap, in pixels.
   uint64 row_count{};      ///< The amount of rows in the tilemap

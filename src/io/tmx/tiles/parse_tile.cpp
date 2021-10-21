@@ -23,7 +23,7 @@ namespace {
 
 void add_animation(ir::fancy_tile& tileData,
                    const rune::tmx_animation& animationData,
-                   const tile_id firstGid)
+                   const TileID firstGid)
 {
   auto& animation = tileData.animation.emplace();
 
@@ -35,7 +35,7 @@ void add_animation(ir::fancy_tile& tileData,
 
   for (const auto& frameData : animationData.frames) {
     auto& frame = frames.emplace_back();
-    frame.tile = firstGid + static_cast<tile_id>(frameData.tile.get());
+    frame.tile = firstGid + static_cast<TileID>(frameData.tile.get());
     frame.duration = std::chrono::duration_cast<ms_t>(frameData.duration);
   }
 }
@@ -52,7 +52,7 @@ void add_hitbox(ir::fancy_tile& tileData,
 
 }  // namespace
 
-auto make_tile(const tile_id id,
+auto make_tile(const TileID id,
                const int index,
                const texture_id texture,
                const rune::tmx_tileset& tileset) -> ir::tile
@@ -71,7 +71,7 @@ auto make_tile(const tile_id id,
 
 auto parse_fancy_tile(ir::tileset& data,
                       const rune::tmx_tile& tile,
-                      const tile_id firstGid) -> ir::fancy_tile
+                      const TileID firstGid) -> ir::fancy_tile
 {
   ir::fancy_tile result;
 

@@ -13,7 +13,7 @@
 namespace wanderer::sys {
 
 auto PrepareCurrentLevelBeforeSwitch(entt::registry& shared,
-                                     const CustomAnimationHalfwayEvent& event) -> map_id
+                                     const CustomAnimationHalfwayEvent& event) -> MapID
 {
   assert(event.id == glob::switch_level_id);
   auto& level = sys::CurrentLevel(shared);
@@ -31,7 +31,7 @@ auto PrepareCurrentLevelBeforeSwitch(entt::registry& shared,
   return next;
 }
 
-void EnableLevel(entt::registry& shared, map_id id)
+void EnableLevel(entt::registry& shared, MapID id)
 {
   shared.clear<comp::ActiveLevel>();
 

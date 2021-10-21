@@ -242,7 +242,7 @@ void restore_tile(const proto::level& level,
     assert(data.has_src());
 
     auto& tile = registry.emplace<comp::Tile>(entity);
-    tile.id = tile_id{data.id()};
+    tile.id = TileID{data.id()};
     tile.texture = texture_index{data.texture_index()};
     tile.depth = data.depth_index();
     tile.src = restore(data.src());
@@ -263,7 +263,7 @@ void restore_tilemap(const proto::level& level,
     assert(data.has_column_count());
 
     auto& tilemap = registry.emplace<comp::Tilemap>(entity);
-    tilemap.id = map_id{data.id()};
+    tilemap.id = MapID{data.id()};
     tilemap.humanoid_layer = data.humanoid_layer_index();
     tilemap.size = restore(data.size());
     tilemap.row_count = data.row_count();
@@ -291,7 +291,7 @@ void restore_tile_animations(const proto::level& level,
       assert(frameData.has_duration());
 
       auto& frame = animation.frames.emplace_back();
-      frame.tile = tile_id{frameData.tile_id()};
+      frame.tile = TileID{frameData.tile_id()};
       frame.duration = ms_t{frameData.duration()};
     }
   }
@@ -432,7 +432,7 @@ void restore_portal(const proto::level& level,
     auto& portal = registry.emplace<comp::Portal>(entity);
     portal.path = data.path();
     if (data.has_map_id()) {
-      portal.target = map_id{data.map_id()};
+      portal.target = MapID{data.map_id()};
     }
   }
 }
@@ -470,7 +470,7 @@ void restore_tileset(const proto::level& level,
 
     auto& tileset = registry.emplace<comp::Tileset>(entity);
     for (const auto& [id, tileEntity] : data.tile_to_entity()) {
-      tileset.tiles.try_emplace(tile_id{id}, entt::entity{tileEntity});
+      tileset.tiles.try_emplace(TileID{id}, entt::entity{tileEntity});
     }
   }
 }

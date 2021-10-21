@@ -12,7 +12,7 @@ namespace wanderer::io {
 
 using tile_data = rune::tmx_data::gid_data;
 
-[[nodiscard]] auto find_tile(const std::vector<ir::tileset>& tilesets, tile_id id)
+[[nodiscard]] auto find_tile(const std::vector<ir::tileset>& tilesets, TileID id)
     -> maybe<ir::tile>;
 
 [[nodiscard]] auto get_tileset_offset(const ir::level& data, std::string_view tileset)

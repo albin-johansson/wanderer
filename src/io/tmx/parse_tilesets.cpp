@@ -23,7 +23,7 @@ namespace {
 
 void add_tiles(ir::tileset& data, const rune::tmx_tileset& tileset)
 {
-  auto id = static_cast<tile_id>(tileset.first_id.get());
+  auto id = static_cast<TileID>(tileset.first_id.get());
   for (auto index = 0; index < tileset.tile_count; ++index, ++id) {
     data.tiles.emplace(id, make_tile(id, index, data.sheet.id, tileset));
   }
@@ -31,9 +31,9 @@ void add_tiles(ir::tileset& data, const rune::tmx_tileset& tileset)
 
 void add_fancy_tiles(ir::tileset& data, const rune::tmx_tileset& tileset)
 {
-  const auto first = static_cast<tile_id>(tileset.first_id.get());
+  const auto first = static_cast<TileID>(tileset.first_id.get());
   for (const auto& tsTile : tileset.tiles) {
-    const auto gid = first + static_cast<tile_id>(tsTile.id.get());
+    const auto gid = first + static_cast<TileID>(tsTile.id.get());
     auto& tile = data.tiles.at(gid);
     tile.fancy = parse_fancy_tile(data, tsTile, first);
   }

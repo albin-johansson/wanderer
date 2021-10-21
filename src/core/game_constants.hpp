@@ -32,7 +32,7 @@ inline constexpr T logical_size{logical_width<typename T::value_type>,
 /// \name Tiles
 /// \{
 
-inline constexpr tile_id empty_tile{0};
+inline constexpr TileID empty_tile{0};
 
 template <typename T = float>
 inline constexpr T tile_width = 64;
@@ -99,7 +99,7 @@ inline constexpr int default_margin = 6;
 
 }  // namespace glob
 
-[[nodiscard]] inline auto is_empty(const tile_id id) noexcept -> bool
+[[nodiscard]] inline auto is_empty(const TileID id) noexcept -> bool
 {
   return id == glob::empty_tile;
 }

@@ -12,7 +12,7 @@ auto parse_portal(const rune::tmx_object& object) -> comp::Portal
   comp::Portal portal;
 
   portal.path = rune::tmx::get_file(object.properties, "path").get();
-  portal.target = map_id{rune::tmx::get_int(object.properties, "target")};
+  portal.target = MapID{rune::tmx::get_int(object.properties, "target")};
 
   return portal;
 }

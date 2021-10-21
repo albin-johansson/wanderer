@@ -41,7 +41,7 @@ struct fancy_tile final
 
 struct tile final
 {
-  tile_id id{};             ///< Unique ID.
+  TileID id{};              ///< Unique ID.
   texture_id texture;       ///< ID of the associated texture.
   cen::irect source;        ///< Source rectangle in the tileset texture.
   maybe<fancy_tile> fancy;  ///< Optional fancy features.
@@ -51,9 +51,9 @@ struct tileset final
 {
   std::string name;
   texture sheet;
-  std::map<tile_id, tile> tiles;  ///< Tiles in the tileset.
-  float x_ratio{};                ///< Logical tile width divided by tileset tile width.
-  float y_ratio{};                ///< Logical tile height divided by tileset tile height.
+  std::map<TileID, tile> tiles;  ///< Tiles in the tileset.
+  float x_ratio{};               ///< Logical tile width divided by tileset tile width.
+  float y_ratio{};               ///< Logical tile height divided by tileset tile height.
   int32 tile_width{};
   int32 tile_height{};
 };
@@ -84,7 +84,7 @@ struct object final
 
 struct tile_object final
 {
-  tile_id tile{};              ///< The ID of the associated tile.
+  TileID tile{};               ///< The ID of the associated tile.
   drawable drawable;           ///< Drawable component for the tile object.
   maybe<comp::Hitbox> hitbox;  ///< Optional hitbox.
 };

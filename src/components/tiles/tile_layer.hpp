@@ -10,7 +10,7 @@ namespace wanderer::comp {
 /// \ingroup components
 struct TileLayer final
 {
-  using tile_matrix = std::vector<std::vector<tile_id>>;
+  using tile_matrix = std::vector<std::vector<TileID>>;
 
   tile_matrix matrix;  ///< Matrix of tile IDs that represent the layer.
   int32 z{};           ///< Index that indicates when the layer should be rendered.

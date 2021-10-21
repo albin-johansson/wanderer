@@ -6,7 +6,7 @@
 
 namespace wanderer::sys {
 
-void StartLevelChangeAnimation(entt::registry& registry, const map_id map)
+void StartLevelChangeAnimation(entt::registry& registry, const MapID map)
 {
   const auto entity = StartBondAnimation(registry, glob::switch_level_id);
 

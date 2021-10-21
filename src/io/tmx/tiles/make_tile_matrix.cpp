@@ -10,7 +10,7 @@ auto make_tile_matrix(const int nRows, const int nCols) -> comp::TileLayer::tile
 {
   const auto rows = static_cast<usize>(nRows);
   const auto cols = static_cast<usize>(nCols);
-  return {rows, std::vector<tile_id>(cols, glob::empty_tile)};
+  return {rows, std::vector<TileID>(cols, glob::empty_tile)};
 }
 
 }  // namespace wanderer::io

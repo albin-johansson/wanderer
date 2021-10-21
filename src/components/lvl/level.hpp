@@ -13,7 +13,7 @@ struct Level final
   Level(Level&&) noexcept = default;
   Level& operator=(Level&&) noexcept = default;
 
-  map_id id;
+  MapID id;
 
   entt::registry registry;
   aabb_tree tree;

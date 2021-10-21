@@ -20,7 +20,7 @@ void MakeFancy(entt::registry& registry,
 
 [[nodiscard]] auto CreateTile(entt::registry& registry,
                               const GraphicsContext& graphics,
-                              const tile_id id,
+                              const TileID id,
                               const ir::tile& data) -> entt::entity
 {
   const auto entity = registry.create();
@@ -40,7 +40,7 @@ void MakeFancy(entt::registry& registry,
 void LoadTiles(entt::registry& registry,
                comp::Tileset& tileset,
                const GraphicsContext& graphics,
-               const std::map<tile_id, ir::tile>& tiles)
+               const std::map<TileID, ir::tile>& tiles)
 {
   for (const auto& [id, data] : tiles) {
     const auto entity = CreateTile(registry, graphics, id, data);

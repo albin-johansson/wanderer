@@ -25,7 +25,7 @@ auto parse_ground_layer(const rune::tmx_tile_layer& tileLayer,
 
     assert(row < layer.matrix.size());
     assert(col < layer.matrix.at(0).size());
-    layer.matrix[row][col] = tile_id{gid.get()};
+    layer.matrix[row][col] = TileID{gid.get()};
 
     ++index;
   }
