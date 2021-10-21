@@ -7,9 +7,9 @@
 
 namespace wanderer::sys {
 
-auto make_in_game_menu(entt::registry& registry) -> entt::entity
+auto MakeInGameMenu(entt::registry& registry) -> entt::entity
 {
-  const auto entity = make_menu(registry, std::string{}, MenuId::InGame, false);
+  const auto entity = MakeMenu(registry, std::string{}, MenuId::InGame, false);
   registry.set<comp::InGameMenu>(entity);
 
   AddBinds(registry, entity, comp::KeyBind{cen::scancodes::escape, MenuAction::GotoHome});

@@ -12,7 +12,7 @@
 namespace wanderer::sys {
 namespace {
 
-void add_buttons(entt::registry& registry, const entt::entity entity)
+void AddButtons(entt::registry& registry, const entt::entity entity)
 {
   const auto button = [&](std::string text,
                           const MenuAction action,
@@ -43,12 +43,12 @@ void add_buttons(entt::registry& registry, const entt::entity entity)
 
 }  // namespace
 
-auto make_home_menu(entt::registry& registry) -> entt::entity
+auto MakeHomeMenu(entt::registry& registry) -> entt::entity
 {
-  const auto entity = make_menu(registry, "Wanderer", MenuId::Home);
+  const auto entity = MakeMenu(registry, "Wanderer", MenuId::Home);
   registry.set<comp::HomeMenu>(entity);
 
-  add_buttons(registry, entity);
+  AddButtons(registry, entity);
   AddBinds(registry,
            entity,
            comp::KeyBind{cen::scancodes::escape, MenuAction::GotoInGame});

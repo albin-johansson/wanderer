@@ -14,7 +14,7 @@
 namespace wanderer::sys {
 namespace {
 
-void add_buttons(entt::registry& registry, const entt::entity menuEntity)
+void AddButtons(entt::registry& registry, const entt::entity menuEntity)
 {
   const auto button = [&](std::string text,
                           const MenuAction action,
@@ -30,7 +30,7 @@ void add_buttons(entt::registry& registry, const entt::entity menuEntity)
   button("Return", MenuAction::GotoHome, 4);
 }
 
-void add_labels(entt::registry& registry, const entt::entity entity)
+void AddLabels(entt::registry& registry, const entt::entity entity)
 {
   const auto label = [&](std::string text, const float row, const float col) {
     sys::MakeLabel(registry, entity, std::move(text), GridPosition{row, col});
@@ -48,13 +48,13 @@ void add_labels(entt::registry& registry, const entt::entity entity)
 
 }  // namespace
 
-auto make_controls_menu(entt::registry& registry) -> entt::entity
+auto MakeControlsMenu(entt::registry& registry) -> entt::entity
 {
-  const auto entity = make_menu(registry, "Controls", MenuId::Controls);
+  const auto entity = MakeMenu(registry, "Controls", MenuId::Controls);
   registry.set<comp::ControlsMenu>(entity);
 
-  add_buttons(registry, entity);
-  add_labels(registry, entity);
+  AddButtons(registry, entity);
+  AddLabels(registry, entity);
   AddBinds(registry, entity, comp::KeyBind{cen::scancodes::escape, MenuAction::GotoHome});
 
   return entity;

@@ -98,7 +98,7 @@ void Game::on_start()
   m_dispatcher.enqueue<fullscreen_toggled_event>(settings.fullscreen);
   m_dispatcher.enqueue<integer_scaling_toggled_event>(settings.integer_scaling);
 
-  sys::sync_settings_menu(m_shared);
+  sys::SyncSettingsMenu(m_shared);
   m_dispatcher.update();
 }
 
@@ -110,7 +110,7 @@ void Game::on_exit()
 void Game::handle_input(const rune::input& input)
 {
   m_mousePos = input.mouse.position();
-  sys::update_menu(m_shared, m_dispatcher, input);
+  sys::UpdateMenu(m_shared, m_dispatcher, input);
 
   auto& level = sys::CurrentLevel(m_shared);
   sys::UpdateInput(level.registry, m_dispatcher, input, m_shared.ctx<ctx::Binds>());
@@ -188,7 +188,7 @@ void Game::render(graphics_type& graphics) const
 
   sys::RenderHud(m_shared, m_mousePos);
 
-  sys::render_active_menu(m_shared);
+  sys::RenderActiveMenu(m_shared);
   sys::RenderCustomAnimations(level.registry);
 
   sys::RenderFps(m_shared);
@@ -214,7 +214,7 @@ void Game::load_save(const std::string& name, graphics_type& graphics)
 
 auto Game::is_paused() const -> bool
 {
-  return sys::is_current_menu_blocking(m_shared);
+  return sys::IsCurrentMenuBlocking(m_shared);
 }
 
 void Game::on_button_pressed(const button_pressed_event& event)
@@ -255,24 +255,24 @@ void Game::on_button_pressed(const button_pressed_event& event)
       break;
     }
     case MenuAction::LoadGame: {
-      m_dispatcher.enqueue<LoadGameEvent>(sys::get_selected_save_name(m_shared));
+      m_dispatcher.enqueue<LoadGameEvent>(sys::GetSelectedSaveName(m_shared));
       break;
     }
     case MenuAction::DeleteGame: {
-      const auto name = sys::get_selected_save_name(m_shared);
-      sys::remove_save_entry(m_shared, name);
+      const auto name = sys::GetSelectedSaveName(m_shared);
+      sys::RemoveSaveEntry(m_shared, name);
       break;
     }
     case MenuAction::ChangeSavePreview: {
-      sys::change_save_preview(m_shared);
+      sys::ChangeSavePreview(m_shared);
       break;
     }
     case MenuAction::DecrementSavesButtonGroupPage: {
-      sys::decrement_saves_button_group_page(m_shared);
+      sys::DecrementSavesButtonGroupPage(m_shared);
       break;
     }
     case MenuAction::IncrementSavesButtonGroupPage: {
-      sys::increment_saves_button_group_page(m_shared);
+      sys::IncrementSavesButtonGroupPage(m_shared);
       break;
     }
     case MenuAction::ToggleFullscreen: {
@@ -300,14 +300,14 @@ void Game::on_switch_map(const SwitchMapEvent& event)
 
 void Game::on_switch_menu(const switch_menu_event& event)
 {
-  sys::switch_menu(m_shared, m_dispatcher, event.id);
+  sys::SwitchMenu(m_shared, m_dispatcher, event.id);
 }
 
 void Game::on_menu_switched(const menu_switched_event& event)
 {
   const auto& menu = m_shared.get<comp::Menu>(event.entity);
   if (menu.id == MenuId::Saves) {
-    sys::refresh_saves_menu(m_shared);
+    sys::RefreshSavesMenu(m_shared);
   }
 }
 

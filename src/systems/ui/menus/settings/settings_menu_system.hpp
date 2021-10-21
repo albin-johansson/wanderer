@@ -14,7 +14,7 @@ namespace wanderer::sys {
  *
  * \param registry the menu registry.
  */
-void sync_settings_menu(entt::registry& registry);
+void SyncSettingsMenu(entt::registry& registry);
 
 /// \} End of menus
 

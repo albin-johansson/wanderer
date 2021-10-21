@@ -18,7 +18,7 @@ namespace wanderer::sys {
  *
  * \param registry the menu registry.
  */
-void refresh_saves_menu(entt::registry& registry);
+void RefreshSavesMenu(entt::registry& registry);
 
 /**
  * \brief Updates the save file preview.
@@ -32,7 +32,7 @@ void refresh_saves_menu(entt::registry& registry);
  *
  * \param registry the menu registry.
  */
-void change_save_preview(entt::registry& registry);
+void ChangeSavePreview(entt::registry& registry);
 
 /**
  * \brief Removes a save file entry and deletes the associated save file.
@@ -42,7 +42,7 @@ void change_save_preview(entt::registry& registry);
  * \param registry the menu registry.
  * \param name the name of the save file.
  */
-void remove_save_entry(entt::registry& registry, const std::string& name);
+void RemoveSaveEntry(entt::registry& registry, const std::string& name);
 
 /**
  * \brief Changes the current save file page to the next one.
@@ -51,7 +51,7 @@ void remove_save_entry(entt::registry& registry, const std::string& name);
  *
  * \param registry the menu registry.
  */
-void increment_saves_button_group_page(entt::registry& registry);
+void IncrementSavesButtonGroupPage(entt::registry& registry);
 
 /**
  * \brief Changes the current save file page to the previous one.
@@ -60,7 +60,7 @@ void increment_saves_button_group_page(entt::registry& registry);
  *
  * \param registry the menu registry.
  */
-void decrement_saves_button_group_page(entt::registry& registry);
+void DecrementSavesButtonGroupPage(entt::registry& registry);
 
 /**
  * \brief Returns the name of the currently selected save file.
@@ -73,7 +73,7 @@ void decrement_saves_button_group_page(entt::registry& registry);
  *
  * \return the name of the currently selected save name.
  */
-[[nodiscard]] auto get_selected_save_name(entt::registry& shared) -> std::string;
+[[nodiscard]] auto GetSelectedSaveName(entt::registry& shared) -> std::string;
 
 /// \} End of menus
 

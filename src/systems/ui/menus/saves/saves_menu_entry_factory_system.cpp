@@ -5,7 +5,7 @@
 
 namespace wanderer::sys {
 
-auto make_saves_menu_entry(entt::registry& registry, const std::filesystem::path& dir)
+auto MakeSavesMenuEntry(entt::registry& registry, const std::filesystem::path& dir)
     -> entt::entity
 {
   const auto entity = registry.create();

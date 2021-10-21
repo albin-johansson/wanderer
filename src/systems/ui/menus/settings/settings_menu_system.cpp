@@ -6,7 +6,7 @@
 
 namespace wanderer::sys {
 
-void sync_settings_menu(entt::registry& registry)
+void SyncSettingsMenu(entt::registry& registry)
 {
   const auto& settings = registry.ctx<ctx::Settings>();
 

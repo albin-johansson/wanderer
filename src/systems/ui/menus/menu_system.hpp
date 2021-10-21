@@ -19,9 +19,9 @@ namespace wanderer::sys {
  * \param dispatcher the event dispatcher that will be used.
  * \param input the current input state.
  */
-void update_menu(entt::registry& registry,
-                 entt::dispatcher& dispatcher,
-                 const rune::input& input);
+void UpdateMenu(entt::registry& registry,
+                entt::dispatcher& dispatcher,
+                const rune::input& input);
 
 /**
  * \brief Changes the currently active menu.
@@ -32,7 +32,7 @@ void update_menu(entt::registry& registry,
  * \param dispatcher the event dispatcher that will be used.
  * \param id the ID associated with the menu that will be selected.
  */
-void switch_menu(entt::registry& registry, entt::dispatcher& dispatcher, MenuId id);
+void SwitchMenu(entt::registry& registry, entt::dispatcher& dispatcher, MenuId id);
 
 /**
  * \brief Indicates whether or not the current menu is blocking.
@@ -43,7 +43,7 @@ void switch_menu(entt::registry& registry, entt::dispatcher& dispatcher, MenuId 
  *
  * \return `true` if the current menu is blocking; `false` otherwise
  */
-[[nodiscard]] auto is_current_menu_blocking(const entt::registry& registry) -> bool;
+[[nodiscard]] auto IsCurrentMenuBlocking(const entt::registry& registry) -> bool;
 
 /// \} End of menus
 

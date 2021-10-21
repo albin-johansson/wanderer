@@ -14,7 +14,7 @@ namespace wanderer::sys {
  *
  * \param shared the menu registry.
  */
-void render_active_menu(const entt::registry& shared);
+void RenderActiveMenu(const entt::registry& shared);
 
 /// \} End of menus
 

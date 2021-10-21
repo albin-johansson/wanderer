@@ -25,12 +25,12 @@ inline constexpr auto col_1 = glob::menu_columns - 2;
 inline constexpr auto row_0 = 5;
 inline constexpr auto row_1 = glob::menu_rows - 2;
 
-void make_binds(entt::registry& registry, const entt::entity menu)
+void MakeBinds(entt::registry& registry, const entt::entity menu)
 {
   AddBinds(registry, menu, comp::KeyBind{cen::scancodes::escape, MenuAction::GotoHome});
 }
 
-void make_labels(entt::registry& registry, const entt::entity menu)
+void MakeLabels(entt::registry& registry, const entt::entity menu)
 {
   const auto label = [&](std::string text,
                          const float row,
@@ -42,7 +42,7 @@ void make_labels(entt::registry& registry, const entt::entity menu)
   label("Location:   " + GetSavesDirectory().string(), glob::menu_rows - 1.7f, 2);
 }
 
-void make_buttons(entt::registry& registry, const entt::entity menuEntity)
+void MakeButtons(entt::registry& registry, const entt::entity menuEntity)
 {
   const auto button = [&](std::string text,
                           const MenuAction action,
@@ -68,7 +68,7 @@ void make_buttons(entt::registry& registry, const entt::entity menuEntity)
   // clang-format on
 }
 
-void make_lines(entt::registry& registry, const entt::entity menuEntity)
+void MakeLines(entt::registry& registry, const entt::entity menuEntity)
 {
   const auto line = [&](const GridPosition start, const GridPosition end) {
     const auto entity = MakeLine(registry, start, end);
@@ -93,15 +93,15 @@ void make_lines(entt::registry& registry, const entt::entity menuEntity)
 
 }  // namespace
 
-auto make_saves_menu(entt::registry& registry) -> entt::entity
+auto MakeSavesMenu(entt::registry& registry) -> entt::entity
 {
-  const auto menuEntity = make_menu(registry, "Saves", MenuId::Saves);
+  const auto menuEntity = MakeMenu(registry, "Saves", MenuId::Saves);
   registry.emplace<comp::SavesMenu>(menuEntity);
 
-  make_binds(registry, menuEntity);
-  make_buttons(registry, menuEntity);
-  make_labels(registry, menuEntity);
-  make_lines(registry, menuEntity);
+  MakeBinds(registry, menuEntity);
+  MakeButtons(registry, menuEntity);
+  MakeLabels(registry, menuEntity);
+  MakeLines(registry, menuEntity);
 
   return menuEntity;
 }

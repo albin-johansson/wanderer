@@ -17,11 +17,11 @@ auto MakeSharedRegistry() -> entt::registry
 {
   entt::registry registry;
 
-  const auto home = make_home_menu(registry);
-  make_in_game_menu(registry);
-  make_controls_menu(registry);
-  make_settings_menu(registry);
-  make_saves_menu(registry);
+  const auto home = MakeHomeMenu(registry);
+  MakeInGameMenu(registry);
+  MakeControlsMenu(registry);
+  MakeSettingsMenu(registry);
+  MakeSavesMenu(registry);
 
   registry.set<ctx::ActiveMenu>(home);
   registry.set<ctx::TimeOfDay>();

@@ -25,9 +25,9 @@ namespace {
 
 inline const auto backdrop_path = resources::texture("backdrop.png");
 
-void render_title(const std::string& title,
-                  const comp::MenuDrawable& drawable,
-                  cen::renderer& renderer)
+void RenderTitle(const std::string& title,
+                 const comp::MenuDrawable& drawable,
+                 cen::renderer& renderer)
 {
   if (title.empty()) {
     return;
@@ -49,7 +49,7 @@ void render_title(const std::string& title,
   renderer.render(texture, *drawable.position);
 }
 
-void render_author_label(GraphicsContext& graphics)
+void RenderAuthorLabel(GraphicsContext& graphics)
 {
   constexpr auto id = "developed_by_albin_johansson"_hs;
 
@@ -68,7 +68,7 @@ void render_author_label(GraphicsContext& graphics)
 
 }  // namespace
 
-void render_active_menu(const entt::registry& shared)
+void RenderActiveMenu(const entt::registry& shared)
 {
   const auto menuEntity = shared.ctx<ctx::ActiveMenu>().entity;
 
@@ -91,10 +91,10 @@ void render_active_menu(const entt::registry& shared)
   RenderCheckboxes(shared, graphics);
   RenderLabels(shared, graphics);
 
-  render_title(menu.title, drawable, renderer);
+  RenderTitle(menu.title, drawable, renderer);
 
   if (menu.blocking) {
-    render_author_label(graphics);
+    RenderAuthorLabel(graphics);
   }
 }
 

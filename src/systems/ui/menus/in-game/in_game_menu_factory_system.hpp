@@ -18,7 +18,7 @@ namespace wanderer::sys {
  *
  * \return the created entity.
  */
-auto make_in_game_menu(entt::registry& registry) -> entt::entity;
+auto MakeInGameMenu(entt::registry& registry) -> entt::entity;
 
 /// \} End of menus
 

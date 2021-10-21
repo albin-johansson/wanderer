@@ -9,9 +9,9 @@
 
 namespace wanderer::sys {
 
-void update_menu(entt::registry& registry,
-                 entt::dispatcher& dispatcher,
-                 const rune::input& input)
+void UpdateMenu(entt::registry& registry,
+                entt::dispatcher& dispatcher,
+                const rune::input& input)
 {
   const auto menuEntity = registry.ctx<ctx::ActiveMenu>().entity;
 
@@ -37,7 +37,7 @@ void update_menu(entt::registry& registry,
   }
 }
 
-void switch_menu(entt::registry& registry, entt::dispatcher& dispatcher, const MenuId id)
+void SwitchMenu(entt::registry& registry, entt::dispatcher& dispatcher, MenuId id)
 {
   registry.unset<ctx::ActiveMenu>();
 
@@ -49,7 +49,7 @@ void switch_menu(entt::registry& registry, entt::dispatcher& dispatcher, const M
   }
 }
 
-auto is_current_menu_blocking(const entt::registry& registry) -> bool
+auto IsCurrentMenuBlocking(const entt::registry& registry) -> bool
 {
   const auto menuEntity = registry.ctx<ctx::ActiveMenu>().entity;
   return registry.get<comp::Menu>(menuEntity).blocking;

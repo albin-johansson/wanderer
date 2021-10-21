@@ -36,7 +36,7 @@ inline constexpr float page_indicator_col = 5.2f;
 inline constexpr int buttons_per_page = 8;
 
 /// Returns the number of pages necessary for a button group
-[[nodiscard]] auto page_count(const comp::ButtonGroup& group) -> int
+[[nodiscard]] auto GetPageCount(const comp::ButtonGroup& group) -> int
 {
   return std::max(1,
                   round(std::ceil(static_cast<float>(group.buttons.size()) /
@@ -44,26 +44,26 @@ inline constexpr int buttons_per_page = 8;
 }
 
 /// Returns the appropriate text for the page indicator label
-[[nodiscard]] auto get_page_indicator_text(const comp::ButtonGroup& group) -> std::string
+[[nodiscard]] auto GetPageIndicatorText(const comp::ButtonGroup& group) -> std::string
 {
-  return std::format("{} / {}", group.current_page + 1, page_count(group));
+  return std::format("{} / {}", group.current_page + 1, GetPageCount(group));
 }
 
 /// Clears and refreshes the save menu entries for a saves menu
-void fetch_saves(entt::registry& registry, comp::SavesMenu& savesMenu)
+void FetchSaves(entt::registry& registry, comp::SavesMenu& savesMenu)
 {
   destroy_and_clear(registry, savesMenu.entries);
   registry.clear<comp::SavesMenuEntry>();
 
   for (const auto& entry : std::filesystem::directory_iterator(GetSavesDirectory())) {
     if (entry.is_directory()) {
-      savesMenu.entries.push_back(make_saves_menu_entry(registry, entry.path()));
+      savesMenu.entries.push_back(MakeSavesMenuEntry(registry, entry.path()));
     }
   }
 }
 
 /// Updates whether or not the increment/decrement buttons are enabled
-void update_page_indicators(entt::registry& registry)
+void UpdatePageIndicators(entt::registry& registry)
 {
   const auto entity = registry.ctx<ctx::ActiveMenu>().entity;
 
@@ -71,16 +71,16 @@ void update_page_indicators(entt::registry& registry)
   const auto& group = registry.get<comp::ButtonGroup>(entity);
 
   const auto currentPage = group.current_page;
-  const auto nPages = page_count(group);
+  const auto nPages = GetPageCount(group);
 
   SetEnabled(registry.get<comp::Button>(menu.decrement_button), currentPage != 0);
   SetEnabled(registry.get<comp::Button>(menu.increment_button),
              currentPage != nPages - 1);
 }
 
-void refresh_save_entry_buttons(entt::registry& registry,
-                                comp::ButtonGroup& group,
-                                const entt::entity menuEntity)
+void RefreshSaveEntryButtons(entt::registry& registry,
+                             comp::ButtonGroup& group,
+                             const entt::entity menuEntity)
 {
   auto& savesMenu = registry.get<comp::SavesMenu>(menuEntity);
 
@@ -114,27 +114,27 @@ void refresh_save_entry_buttons(entt::registry& registry,
   }
 }
 
-void refresh_page_indicator_label(entt::registry& registry,
-                                  comp::ButtonGroup& group,
-                                  const entt::entity menuEntity)
+void RefreshPageIndicatorLabel(entt::registry& registry,
+                               comp::ButtonGroup& group,
+                               const entt::entity menuEntity)
 {
   if (group.indicator_label == entt::null) {
     group.indicator_label =
         sys::MakeLabel(registry,
                        menuEntity,
-                       get_page_indicator_text(group),
+                       GetPageIndicatorText(group),
                        GridPosition{page_indicator_row, page_indicator_col},
                        text_size::medium);
   }
   else {
     auto& label = registry.get<comp::Label>(group.indicator_label);
-    SetText(label, get_page_indicator_text(group));
+    SetText(label, GetPageIndicatorText(group));
   }
 }
 
-void update_delete_button_enabled(entt::registry& registry,
-                                  comp::ButtonGroup& group,
-                                  const entt::entity deleteButtonEntity)
+void UpdateDeleteButtonEnabled(entt::registry& registry,
+                               comp::ButtonGroup& group,
+                               const entt::entity deleteButtonEntity)
 {
   if (group.selected != entt::null) {
     const auto& button = registry.get<comp::Button>(group.selected);
@@ -143,7 +143,7 @@ void update_delete_button_enabled(entt::registry& registry,
   }
 }
 
-void refresh_saves_menu_contents(entt::registry& registry, const entt::entity menuEntity)
+void RefreshSavesMenuContents(entt::registry& registry, const entt::entity menuEntity)
 {
   auto& group = registry.get_or_emplace<comp::ButtonGroup>(menuEntity);
   group.selected = entt::null;
@@ -154,23 +154,23 @@ void refresh_saves_menu_contents(entt::registry& registry, const entt::entity me
   auto& associated = registry.get_or_emplace<comp::AssociatedMenu>(menuEntity);
   associated.entity = menuEntity;
 
-  refresh_save_entry_buttons(registry, group, menuEntity);
-  refresh_page_indicator_label(registry, group, menuEntity);
+  RefreshSaveEntryButtons(registry, group, menuEntity);
+  RefreshPageIndicatorLabel(registry, group, menuEntity);
 
   auto& savesMenu = registry.get<comp::SavesMenu>(menuEntity);
   SetEnabled(registry.get<comp::Button>(savesMenu.load_button), !group.buttons.empty());
   SetEnabled(registry.get<comp::Button>(savesMenu.delete_button), !group.buttons.empty());
 
-  update_delete_button_enabled(registry, group, savesMenu.delete_button);
-  update_page_indicators(registry);
+  UpdateDeleteButtonEnabled(registry, group, savesMenu.delete_button);
+  UpdatePageIndicators(registry);
 }
 
 /// Changes the currently selected saves button group page
-void change_saves_button_group_page(entt::registry& registry, const int increment)
+void ChangeSavesButtonGroupPage(entt::registry& registry, const int increment)
 {
   const auto menu = registry.ctx<ctx::ActiveMenu>().entity;
   if (auto* group = registry.try_get<comp::ButtonGroup>(menu)) {
-    const auto nPages = page_count(*group);
+    const auto nPages = GetPageCount(*group);
     const auto nextPage = group->current_page + increment;
     if (nextPage >= 0 && nextPage < nPages) {
       group->selected = entt::null;
@@ -190,30 +190,30 @@ void change_saves_button_group_page(entt::registry& registry, const int incremen
       }
 
       auto& label = registry.get<comp::Label>(group->indicator_label);
-      SetText(label, get_page_indicator_text(*group));
+      SetText(label, GetPageIndicatorText(*group));
 
-      update_page_indicators(registry);
-      update_delete_button_enabled(registry,
-                                   *group,
-                                   registry.get<comp::SavesMenu>(menu).delete_button);
+      UpdatePageIndicators(registry);
+      UpdateDeleteButtonEnabled(registry,
+                                *group,
+                                registry.get<comp::SavesMenu>(menu).delete_button);
     }
   }
 }
 
 }  // namespace
 
-void refresh_saves_menu(entt::registry& registry)
+void RefreshSavesMenu(entt::registry& registry)
 {
   const auto menuEntity = registry.ctx<ctx::ActiveMenu>().entity;
   assert(registry.all_of<comp::SavesMenu>(menuEntity));
 
   auto& savesMenu = registry.get<comp::SavesMenu>(menuEntity);
-  fetch_saves(registry, savesMenu);
-  refresh_saves_menu_contents(registry, menuEntity);
-  change_save_preview(registry);
+  FetchSaves(registry, savesMenu);
+  RefreshSavesMenuContents(registry, menuEntity);
+  ChangeSavePreview(registry);
 }
 
-void change_save_preview(entt::registry& registry)
+void ChangeSavePreview(entt::registry& registry)
 {
   const auto activeMenu = registry.ctx<ctx::ActiveMenu>().entity;
   assert(registry.get<comp::Menu>(activeMenu).id == MenuId::Saves);
@@ -257,11 +257,11 @@ void change_save_preview(entt::registry& registry)
                                                 GridPosition{7.0f, 20.0f},
                                                 cen::area(width, height));
 
-    update_delete_button_enabled(registry, group, savesMenu.delete_button);
+    UpdateDeleteButtonEnabled(registry, group, savesMenu.delete_button);
   }
 }
 
-void remove_save_entry(entt::registry& registry, const std::string& name)
+void RemoveSaveEntry(entt::registry& registry, const std::string& name)
 {
   const auto activeMenu = registry.ctx<ctx::ActiveMenu>().entity;
   assert(registry.get<comp::Menu>(activeMenu).id == MenuId::Saves);
@@ -280,20 +280,20 @@ void remove_save_entry(entt::registry& registry, const std::string& name)
   savesMenu.entries.erase(range.begin(), range.end());
 
   delete_save(name);
-  refresh_saves_menu(registry);
+  RefreshSavesMenu(registry);
 }
 
-void increment_saves_button_group_page(entt::registry& registry)
+void IncrementSavesButtonGroupPage(entt::registry& registry)
 {
-  change_saves_button_group_page(registry, 1);
+  ChangeSavesButtonGroupPage(registry, 1);
 }
 
-void decrement_saves_button_group_page(entt::registry& registry)
+void DecrementSavesButtonGroupPage(entt::registry& registry)
 {
-  change_saves_button_group_page(registry, -1);
+  ChangeSavesButtonGroupPage(registry, -1);
 }
 
-auto get_selected_save_name(entt::registry& shared) -> std::string
+auto GetSelectedSaveName(entt::registry& shared) -> std::string
 {
   const auto activeMenu = shared.ctx<ctx::ActiveMenu>().entity;
   assert(shared.get<comp::Menu>(activeMenu).id == MenuId::Saves);

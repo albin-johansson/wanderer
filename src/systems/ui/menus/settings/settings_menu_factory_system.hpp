@@ -18,7 +18,7 @@ namespace wanderer::sys {
  *
  * \return the created entity.
  */
-auto make_settings_menu(entt::registry& registry) -> entt::entity;
+auto MakeSettingsMenu(entt::registry& registry) -> entt::entity;
 
 /// \} End of menus
 
