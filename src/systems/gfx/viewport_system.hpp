@@ -1,7 +1,7 @@
 #pragma once
 
-#include <centurion.hpp>        // farea
-#include <entt.hpp>             // registry
+#include <centurion.hpp>  // farea
+#include <entt.hpp>       // registry
 
 #include "common/float2.hpp"
 #include "components/ctx/viewport.hpp"

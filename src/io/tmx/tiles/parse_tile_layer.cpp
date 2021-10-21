@@ -1,8 +1,9 @@
 #include "parse_tile_layer.hpp"
 
-#include <cassert>              // assert
+#include <cassert>  // assert
+#include <variant>  // get
+
 #include <rune/everything.hpp>  // index_to_matrix
-#include <variant>              // get
 
 #include "core/utils/centurion_utils.hpp"
 #include "io/tmx/common.hpp"

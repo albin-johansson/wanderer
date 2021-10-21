@@ -6,7 +6,6 @@
 
 namespace wanderer::io {
 
-void parse_object_layer(ir::level& data,
-                        const rune::tmx_object_layer& objectLayer);
+void parse_object_layer(ir::level& data, const rune::tmx_object_layer& objectLayer);
 
 }  // namespace wanderer::io

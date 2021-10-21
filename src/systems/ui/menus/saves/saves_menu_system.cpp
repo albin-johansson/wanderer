@@ -1,5 +1,7 @@
 #include "saves_menu_system.hpp"
 
+#include "systems/ui/lazy-textures/lazy_texture_factory_system.hpp"
+
 #include <algorithm>   // remove_if, max
 #include <cassert>     // assert
 #include <cmath>       // round, fmod, ceil
@@ -23,7 +25,6 @@
 #include "systems/ui/buttons/button_system.hpp"
 #include "systems/ui/labels/label_factory_system.hpp"
 #include "systems/ui/labels/label_system.hpp"
-#include "systems/ui/lazy-textures/lazy_texture_factory_system.hpp"
 #include "systems/ui/menus/saves/saves_menu_entry_factory_system.hpp"
 
 namespace wanderer::sys {

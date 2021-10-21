@@ -1,6 +1,7 @@
 #pragma once
 
-#include <initializer_list>     // initializer_list
+#include <initializer_list>  // initializer_list
+
 #include <rune/everything.hpp>  // delta_time
 
 #include "common/float2.hpp"

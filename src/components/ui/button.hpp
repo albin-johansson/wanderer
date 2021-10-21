@@ -1,7 +1,8 @@
 #pragma once
 
+#include <string>  // string
+
 #include <centurion.hpp>  // texture, fpoint
-#include <string>         // string
 
 #include "common/ints.hpp"
 #include "common/maybe.hpp"

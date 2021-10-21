@@ -1,9 +1,10 @@
 #pragma once
 
+#include <string>  // string
+#include <vector>  // vector
+
 #include <centurion.hpp>  // surface
 #include <entt.hpp>       // entity, null
-#include <string>         // string
-#include <vector>         // vector
 
 namespace wanderer::comp {
 

@@ -1,7 +1,8 @@
 #pragma once
 
+#include <string>  // string
+
 #include <entt.hpp>  // registry, entity
-#include <string>    // string
 
 #include "components/ui/checkbox.hpp"
 #include "core/grid_position.hpp"

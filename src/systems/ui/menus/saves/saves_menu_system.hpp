@@ -1,7 +1,8 @@
 #pragma once
 
+#include <string>  // string
+
 #include <entt.hpp>  // registry
-#include <string>    // string
 
 namespace wanderer::sys {
 

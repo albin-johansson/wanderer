@@ -13,8 +13,7 @@
 
 namespace wanderer::io {
 
-void parse_object_layer(ir::level& data,
-                        const rune::tmx_object_layer& objectLayer)
+void parse_object_layer(ir::level& data, const rune::tmx_object_layer& objectLayer)
 {
   for (const auto& object : objectLayer.objects) {
     auto& objectData = data.objects.emplace_back();

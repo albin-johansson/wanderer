@@ -1,10 +1,10 @@
 #include "save_shared_registry.hpp"
 
-#include <save.pb.h>
-
 #include <cassert>  // assert
 #include <fstream>  // ofstream
 #include <ios>      // ios
+
+#include <save.pb.h>
 
 #include "common/float2.hpp"
 #include "components/ai/chase.hpp"

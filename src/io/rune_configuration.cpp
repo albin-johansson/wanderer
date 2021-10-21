@@ -1,7 +1,8 @@
 #include "rune_configuration.hpp"
 
+#include <filesystem>  // exists
+
 #include <centurion.hpp>        // renderer
-#include <filesystem>           // exists
 #include <rune/everything.hpp>  // get_cfg, save_configuration, load_configuration
 
 #include "core/game_constants.hpp"

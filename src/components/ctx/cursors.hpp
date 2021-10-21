@@ -1,7 +1,8 @@
 #pragma once
 
-#include <centurion.hpp>  // system_cursor, cursor
 #include <unordered_map>  // unordered_map
+
+#include <centurion.hpp>  // system_cursor, cursor
 
 namespace wanderer::ctx {
 

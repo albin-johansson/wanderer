@@ -1,7 +1,8 @@
 #pragma once
 
+#include <string>  // string
+
 #include <centurion.hpp>  // texture, fpoint
-#include <string>         // string
 
 #include "common/maybe.hpp"
 #include "components/key_bind.hpp"

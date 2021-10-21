@@ -1,7 +1,8 @@
 #include "parse_tilesets.hpp"
 
+#include <utility>  // move
+
 #include <entt.hpp>  // hashed_string
-#include <utility>   // move
 
 #include "core/game_constants.hpp"
 #include "io/tmx/tiles/parse_tile.hpp"

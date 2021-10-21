@@ -1,8 +1,9 @@
 #pragma once
 
+#include <map>     // map
+#include <vector>  // vector
+
 #include <entt.hpp>  // registry
-#include <map>       // map
-#include <vector>    // vector
 
 #include "components/tiles/tileset.hpp"
 #include "core/graphics/graphics_context.hpp"

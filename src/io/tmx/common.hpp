@@ -1,8 +1,9 @@
 #pragma once
 
+#include <string_view>  // string_view
+#include <vector>       // vector
+
 #include <centurion.hpp>  // fpoint
-#include <string_view>    // string_view
-#include <vector>         // vector
 
 #include "common/maybe.hpp"
 #include "common/tile_id.hpp"

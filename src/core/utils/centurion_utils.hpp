@@ -1,7 +1,8 @@
 #pragma once
 
+#include <concepts>  // floating_point
+
 #include <centurion.hpp>        // basic_point, basic_area
-#include <concepts>             // floating_point
 #include <rune/everything.hpp>  // basic_vector2
 
 #include "common/float2.hpp"

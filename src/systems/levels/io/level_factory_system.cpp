@@ -1,8 +1,9 @@
 #include "level_factory_system.hpp"
 
+#include <fstream>  // ifstream
+#include <ios>      // ios
+
 #include <centurion.hpp>  // ticks, log
-#include <fstream>        // ifstream
-#include <ios>            // ios
 
 #include "components/ai/humanoid.hpp"
 #include "components/ctx/level_size.hpp"

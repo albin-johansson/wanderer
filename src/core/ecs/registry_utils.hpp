@@ -2,8 +2,9 @@
 
 #include <cassert>   // assert
 #include <concepts>  // convertible_to
-#include <entt.hpp>  // registry, entity
 #include <utility>   // pair
+
+#include <entt.hpp>  // registry, entity
 
 #include "core/common_concepts.hpp"
 

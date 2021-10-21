@@ -1,8 +1,9 @@
 #pragma once
 
-#include <filesystem>           // path
+#include <filesystem>  // path
+#include <vector>      // vector
+
 #include <rune/everything.hpp>  // tmx_tilesets
-#include <vector>               // vector
 
 #include "io/tmx/parse_ir.hpp"
 

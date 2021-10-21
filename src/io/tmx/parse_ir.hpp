@@ -1,9 +1,10 @@
 #pragma once
 
+#include <map>     // map
+#include <string>  // string
+#include <vector>  // vector
+
 #include <centurion.hpp>  // irect, frect
-#include <map>            // map
-#include <string>         // string
-#include <vector>         // vector
 
 #include "common/ints.hpp"
 #include "common/maybe.hpp"

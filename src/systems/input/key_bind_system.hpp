@@ -1,8 +1,9 @@
 #pragma once
 
+#include <type_traits>  // is_same_v
+
 #include <centurion.hpp>  // scan_code
 #include <entt.hpp>       // registry
-#include <type_traits>    // is_same_v
 
 #include "components/key_bind.hpp"
 #include "components/ui/associated_menu.hpp"

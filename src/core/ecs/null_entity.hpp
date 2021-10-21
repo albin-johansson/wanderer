@@ -1,6 +1,7 @@
 #pragma once
 
 #include <concepts>  // convertible_to, constructible_from
+
 #include <entt.hpp>  // entity, null
 
 namespace wanderer {

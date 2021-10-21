@@ -1,7 +1,8 @@
 #pragma once
 
+#include <string>  // string
+
 #include <entt.hpp>  // registry, entity
-#include <string>    // string
 
 #include "components/ui/menu.hpp"
 #include "core/menu_id.hpp"

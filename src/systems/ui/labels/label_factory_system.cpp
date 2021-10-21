@@ -1,7 +1,8 @@
 #include "label_factory_system.hpp"
 
+#include <utility>  // move
+
 #include <centurion.hpp>  // colors
-#include <utility>        // move
 
 #include "components/ui/associated_menu.hpp"
 

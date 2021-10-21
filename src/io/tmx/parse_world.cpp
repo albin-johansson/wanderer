@@ -1,6 +1,7 @@
 #include "parse_world.hpp"
 
-#include <cassert>              // assert
+#include <cassert>  // assert
+
 #include <centurion.hpp>        // CENTURION_LOG_INFO
 #include <rune/everything.hpp>  // tmx_map, ...
 

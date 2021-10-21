@@ -1,7 +1,8 @@
 #pragma once
 
+#include <cstddef>  // size_t
+
 #include <centurion.hpp>  // ...
-#include <cstddef>        // size_t
 
 namespace wanderer {
 

@@ -1,8 +1,9 @@
 #pragma once
 
+#include <string>  // string
+
 #include <centurion.hpp>  // renderer
 #include <entt.hpp>       // registry
-#include <string>         // string
 
 #include "components/ui/label.hpp"
 #include "components/ui/menu.hpp"

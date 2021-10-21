@@ -1,7 +1,8 @@
 #pragma once
 
+#include <string>  // string
+
 #include <centurion.hpp>  // renderer, texture, font
-#include <string>         // string
 
 namespace wanderer {
 

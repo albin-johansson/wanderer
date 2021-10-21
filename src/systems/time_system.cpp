@@ -1,11 +1,12 @@
 #include "time_system.hpp"
 
-#include <array>                // array
+#include <array>        // array
+#include <cmath>        // floor, ceil, lerp
+#include <stdexcept>    // runtime_error
+#include <string_view>  // string_view
+
 #include <centurion.hpp>        // to_underlying, ...
-#include <cmath>                // floor, ceil, lerp
 #include <rune/everything.hpp>  // static_vector, formatted_string
-#include <stdexcept>            // runtime_error
-#include <string_view>          // string_view
 
 #include "common/ints.hpp"
 #include "common/ref.hpp"

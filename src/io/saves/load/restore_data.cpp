@@ -1,8 +1,8 @@
 #include "restore_data.hpp"
 
-#include <save.pb.h>
-
 #include <cassert>  // assert
+
+#include <save.pb.h>
 
 #include "common/ints.hpp"
 #include "common/milliseconds.hpp"

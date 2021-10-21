@@ -1,7 +1,8 @@
 #include "saves_menu_entry_factory_system.hpp"
 
+#include <utility>  // move
+
 #include <centurion.hpp>  // surface
-#include <utility>        // move
 
 namespace wanderer::sys {
 

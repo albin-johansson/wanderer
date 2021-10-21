@@ -1,8 +1,9 @@
 #include "parse_tile.hpp"
 
-#include <cassert>              // assert
+#include <cassert>  // assert
+#include <cstddef>  // size_t
+
 #include <centurion.hpp>        // irect, farea, ticks
-#include <cstddef>              // size_t
 #include <rune/everything.hpp>  // index_to_matrix
 
 #include "common/maybe.hpp"

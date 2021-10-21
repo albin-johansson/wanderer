@@ -1,7 +1,8 @@
 #pragma once
 
-#include <entt.hpp>       // entity
 #include <unordered_map>  // unordered_map
+
+#include <entt.hpp>  // entity
 
 #include "common/ints.hpp"
 #include "common/tile_id.hpp"

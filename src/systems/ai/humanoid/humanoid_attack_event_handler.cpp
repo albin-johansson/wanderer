@@ -1,6 +1,7 @@
 #include "humanoid_attack_event_handler.hpp"
 
-#include <cassert>        // assert
+#include <cassert>  // assert
+
 #include <centurion.hpp>  // colors
 
 #include "components/ai/humanoid.hpp"

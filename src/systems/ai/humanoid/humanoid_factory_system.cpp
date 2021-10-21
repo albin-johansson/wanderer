@@ -1,8 +1,9 @@
 #include "humanoid_factory_system.hpp"
 
-#include <cassert>        // assert
+#include <cassert>  // assert
+#include <utility>  // move
+
 #include <centurion.hpp>  // ticks
-#include <utility>        // move
 
 #include "components/ai/chase.hpp"
 #include "components/ai/humanoid.hpp"

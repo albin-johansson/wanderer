@@ -1,9 +1,10 @@
 #include "hud_rendering_system.hpp"
 
-#include <array>                // array
-#include <format>               // format_to_n
+#include <array>        // array
+#include <format>       // format_to_n
+#include <string_view>  // string_view
+
 #include <rune/everything.hpp>  // formatted_string
-#include <string_view>          // string_view
 
 #include "common/ref.hpp"
 #include "components/ctx/binds.hpp"

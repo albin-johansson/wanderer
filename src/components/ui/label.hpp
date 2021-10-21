@@ -1,7 +1,8 @@
 #pragma once
 
+#include <string>  // string
+
 #include <centurion.hpp>  // color, texture
-#include <string>         // string
 
 #include "common/maybe.hpp"
 #include "core/grid_position.hpp"

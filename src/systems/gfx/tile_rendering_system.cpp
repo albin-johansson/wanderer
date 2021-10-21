@@ -1,6 +1,7 @@
 #include "tile_rendering_system.hpp"
 
-#include <cassert>        // assert
+#include <cassert>  // assert
+
 #include <centurion.hpp>  // farea, frect
 
 #include "components/gfx/tile_animation.hpp"

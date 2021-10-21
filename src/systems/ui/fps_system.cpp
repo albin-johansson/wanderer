@@ -1,10 +1,11 @@
 #include "fps_system.hpp"
 
-#include <array>                // array
+#include <array>        // array
+#include <format>       // format_to_n
+#include <string_view>  // string_view
+
 #include <centurion.hpp>        // ticks
-#include <format>               // format_to_n
 #include <rune/everything.hpp>  // formatted_string
-#include <string_view>          // string_view
 
 #include "common/ref.hpp"
 #include "components/ui/fps_data.hpp"

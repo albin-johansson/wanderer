@@ -1,6 +1,7 @@
 #include "light_system.hpp"
 
-#include <cmath>                // clamp
+#include <cmath>  // clamp
+
 #include <rune/everything.hpp>  // next_bool
 
 #include "common/ref.hpp"
