@@ -5,7 +5,6 @@
 
 #include <centurion.hpp>  // fpoint
 
-#include "common/tile_id.hpp"
 #include "io/tmx/parse_ir.hpp"
 #include "wanderer_std.hpp"
 

@@ -3,8 +3,8 @@
 #include <rune/everything.hpp>  // tmx_tile, tmx_tileset
 
 #include "common/texture_id.hpp"
-#include "common/tile_id.hpp"
 #include "io/tmx/parse_ir.hpp"
+#include "wanderer_std.hpp"
 
 namespace wanderer::io {
 

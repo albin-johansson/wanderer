@@ -4,7 +4,6 @@
 
 #include <entt.hpp>  // entity
 
-#include "common/tile_id.hpp"
 #include "components/tiles/tile.hpp"
 #include "wanderer_std.hpp"
 

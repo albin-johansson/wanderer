@@ -3,7 +3,6 @@
 #include <centurion.hpp>  // irect
 
 #include "common/texture_index.hpp"
-#include "common/tile_id.hpp"
 #include "core/game_constants.hpp"
 #include "wanderer_std.hpp"
 

@@ -3,7 +3,6 @@
 #include <centurion.hpp>  // iarea, farea, color
 #include <entt.hpp>       // hashed_string, id_type
 
-#include "common/tile_id.hpp"
 #include "wanderer_std.hpp"
 
 /// \namespace wanderer::glob

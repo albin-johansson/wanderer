@@ -7,7 +7,6 @@
 #include <centurion.hpp>  // irect, frect
 
 #include "common/texture_id.hpp"
-#include "common/tile_id.hpp"
 #include "components/associated_entity.hpp"
 #include "components/gfx/drawable.hpp"
 #include "components/gfx/point_light.hpp"
