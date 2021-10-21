@@ -204,7 +204,7 @@ void Game::render(graphics_type& graphics) const
 
 void Game::load_save(const std::string& name, graphics_type& graphics)
 {
-  load_game(m_shared, graphics, name);
+  LoadGame(m_shared, graphics, name);
 
   auto& level = sys::CurrentLevel(m_shared);
   sys::StartBondAnimation(level.registry, glob::load_game_id);
@@ -247,7 +247,7 @@ void Game::on_button_pressed(const button_pressed_event& event)
     case MenuAction::QuickSave: {
       // FIXME don't allow quick saves before the in-game menu has been active once
       if (const auto* snapshot = m_shared.try_ctx<ctx::RendererSnapshot>()) {
-        save_game("quick_save", m_shared, snapshot->surface);
+        SaveGame("quick_save", m_shared, snapshot->surface);
       }
       m_dispatcher.enqueue<switch_menu_event>(MenuId::InGame);
       break;

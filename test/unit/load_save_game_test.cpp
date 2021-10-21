@@ -23,14 +23,14 @@ TEST(LoadSaveGame, Usage)
     cen::surface snapshot{"resources/snapshot.png"};
 
     WANDERER_PROFILE_START;
-    save_game("test", shared, snapshot);
-    WANDERER_PROFILE_END("save_game()");
+    SaveGame("test", shared, snapshot);
+    WANDERER_PROFILE_END("SaveGame()");
   }
 
   {
     WANDERER_PROFILE_START;
-    load_game(shared, graphics, "test");
-    WANDERER_PROFILE_END("load_game()");
+    LoadGame(shared, graphics, "test");
+    WANDERER_PROFILE_END("LoadGame()");
   }
 
   std::filesystem::remove_all(GetSavesDirectory() / "test");

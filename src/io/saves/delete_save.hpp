@@ -4,6 +4,6 @@
 
 namespace wanderer {
 
-void delete_save(const std::string& name);
+void DeleteSave(const std::string& name);
 
 }  // namespace wanderer

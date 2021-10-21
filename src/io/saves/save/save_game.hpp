@@ -8,7 +8,7 @@
 namespace wanderer {
 
 /// Saves a game in the preferred path, using the specified name
-void save_game(const std::string& name,
+void SaveGame(const std::string& name,
                const entt::registry& shared,
                const cen::surface& snapshot);
 

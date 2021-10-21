@@ -29,7 +29,7 @@
 
 namespace wanderer {
 
-auto restore(const proto::float2& data) -> float2
+auto Restore(const proto::float2& data) -> float2
 {
   assert(data.has_x());
   assert(data.has_y());
@@ -40,7 +40,7 @@ auto restore(const proto::float2& data) -> float2
   return result;
 }
 
-auto restore(const proto::float3& data) -> comp::Vector3
+auto Restore(const proto::float3& data) -> comp::Vector3
 {
   assert(data.has_x());
   assert(data.has_y());
@@ -53,7 +53,7 @@ auto restore(const proto::float3& data) -> comp::Vector3
   return result;
 }
 
-auto restore(const proto::irect& data) -> cen::irect
+auto Restore(const proto::irect& data) -> cen::irect
 {
   assert(data.has_x());
   assert(data.has_y());
@@ -70,7 +70,7 @@ auto restore(const proto::irect& data) -> cen::irect
   return result;
 }
 
-auto restore(const proto::frect& data) -> cen::frect
+auto Restore(const proto::frect& data) -> cen::frect
 {
   assert(data.has_x());
   assert(data.has_y());
@@ -87,7 +87,7 @@ auto restore(const proto::frect& data) -> cen::frect
   return result;
 }
 
-auto restore(const proto::farea& data) -> cen::farea
+auto Restore(const proto::farea& data) -> cen::farea
 {
   assert(data.has_width());
   assert(data.has_height());
@@ -100,7 +100,7 @@ auto restore(const proto::farea& data) -> cen::farea
   return result;
 }
 
-auto restore(const proto::color& data) -> cen::color
+auto Restore(const proto::color& data) -> cen::color
 {
   assert(data.has_red());
   assert(data.has_green());
@@ -117,7 +117,7 @@ auto restore(const proto::color& data) -> cen::color
   return result;
 }
 
-auto restore(const proto::time_of_day& data) -> ctx::TimeOfDay
+auto Restore(const proto::time_of_day& data) -> ctx::TimeOfDay
 {
   assert(data.has_hour());
   assert(data.has_minute());
@@ -133,14 +133,14 @@ auto restore(const proto::time_of_day& data) -> ctx::TimeOfDay
   time.seconds = data.seconds();
   time.week = data.week();
   time.day = static_cast<DayOfWeek>(data.day());
-  time.tint = restore(data.tint());
+  time.tint = Restore(data.tint());
 
   return time;
 }
 
-void restore_movable(const proto::level& level,
-                     entt::registry& registry,
-                     const entt::entity entity)
+void RestoreMovable(const proto::level& level,
+                    entt::registry& registry,
+                    const entt::entity entity)
 {
   const auto& movables = level.movables();
   if (const auto it = movables.find(entt::to_integral(entity)); it != movables.end()) {
@@ -150,15 +150,15 @@ void restore_movable(const proto::level& level,
     assert(data.has_speed());
 
     auto& movable = registry.emplace<comp::Movable>(entity);
-    movable.position = restore(data.position());
-    movable.velocity = restore(data.velocity());
+    movable.position = Restore(data.position());
+    movable.velocity = Restore(data.velocity());
     movable.speed = data.speed();
   }
 }
 
-void restore_drawable(const proto::level& level,
-                      entt::registry& registry,
-                      const entt::entity entity)
+void RestoreDrawable(const proto::level& level,
+                     entt::registry& registry,
+                     const entt::entity entity)
 {
   const auto& drawables = level.drawables();
   if (const auto it = drawables.find(entt::to_integral(entity)); it != drawables.end()) {
@@ -173,14 +173,14 @@ void restore_drawable(const proto::level& level,
     drawable.texture = rune::texture_index{data.texture_index()};
     drawable.layer = data.layer_index();
     drawable.depth = data.depth_index();
-    drawable.src = restore(data.src());
-    drawable.dst = restore(data.dst());
+    drawable.src = Restore(data.src());
+    drawable.dst = Restore(data.dst());
   }
 }
 
-void restore_animation(const proto::level& level,
-                       entt::registry& registry,
-                       const entt::entity entity)
+void RestoreAnimation(const proto::level& level,
+                      entt::registry& registry,
+                      const entt::entity entity)
 {
   const auto& animations = level.animations();
   if (const auto it = animations.find(entt::to_integral(entity)); it != animations.end())
@@ -199,9 +199,9 @@ void restore_animation(const proto::level& level,
   }
 }
 
-void restore_plant(const proto::level& level,
-                   entt::registry& registry,
-                   const entt::entity entity)
+void RestorePlant(const proto::level& level,
+                  entt::registry& registry,
+                  entt::entity entity)
 {
   const auto& plants = level.plants();
   if (const auto it = plants.find(entt::to_integral(entity)); it != plants.end()) {
@@ -229,9 +229,7 @@ void restore_plant(const proto::level& level,
   }
 }
 
-void restore_tile(const proto::level& level,
-                  entt::registry& registry,
-                  const entt::entity entity)
+void RestoreTile(const proto::level& level, entt::registry& registry, entt::entity entity)
 {
   const auto& tiles = level.tiles();
   if (const auto it = tiles.find(entt::to_integral(entity)); it != tiles.end()) {
@@ -245,13 +243,13 @@ void restore_tile(const proto::level& level,
     tile.id = TileID{data.id()};
     tile.texture = rune::texture_index{data.texture_index()};
     tile.depth = data.depth_index();
-    tile.src = restore(data.src());
+    tile.src = Restore(data.src());
   }
 }
 
-void restore_tilemap(const proto::level& level,
-                     entt::registry& registry,
-                     const entt::entity entity)
+void RestoreTilemap(const proto::level& level,
+                    entt::registry& registry,
+                    entt::entity entity)
 {
   const auto& tilemaps = level.tilemaps();
   if (const auto it = tilemaps.find(entt::to_integral(entity)); it != tilemaps.end()) {
@@ -265,15 +263,15 @@ void restore_tilemap(const proto::level& level,
     auto& tilemap = registry.emplace<comp::Tilemap>(entity);
     tilemap.id = MapID{data.id()};
     tilemap.humanoid_layer = data.humanoid_layer_index();
-    tilemap.size = restore(data.size());
+    tilemap.size = Restore(data.size());
     tilemap.row_count = data.row_count();
     tilemap.col_count = data.column_count();
   }
 }
 
-void restore_tile_animations(const proto::level& level,
-                             entt::registry& registry,
-                             const entt::entity entity)
+void RestoreTileAnimations(const proto::level& level,
+                           entt::registry& registry,
+                           entt::entity entity)
 {
   const auto& animations = level.tile_animations();
   if (const auto it = animations.find(entt::to_integral(entity)); it != animations.end())
@@ -297,9 +295,9 @@ void restore_tile_animations(const proto::level& level,
   }
 }
 
-void restore_chase(const proto::level& level,
-                   entt::registry& registry,
-                   const entt::entity entity)
+void RestoreChase(const proto::level& level,
+                  entt::registry& registry,
+                  entt::entity entity)
 {
   const auto& chases = level.chases();
   if (const auto it = chases.find(entt::to_integral(entity)); it != chases.end()) {
@@ -318,9 +316,9 @@ void restore_chase(const proto::level& level,
   }
 }
 
-void restore_particle(const proto::level& level,
-                      entt::registry& registry,
-                      const entt::entity entity)
+void RestoreParticle(const proto::level& level,
+                     entt::registry& registry,
+                     entt::entity entity)
 {
   const auto& particles = level.particles();
   if (const auto it = particles.find(entt::to_integral(entity)); it != particles.end()) {
@@ -332,17 +330,17 @@ void restore_particle(const proto::level& level,
     assert(data.has_color());
 
     auto& particle = registry.emplace<comp::particle>(entity);
-    particle.position = restore(data.position());
-    particle.acceleration = restore(data.acceleration());
+    particle.position = Restore(data.position());
+    particle.acceleration = Restore(data.acceleration());
     particle.now = data.now();
     particle.duration = data.duration();
-    particle.color = restore(data.color());
+    particle.color = Restore(data.color());
   }
 }
 
-void restore_light(const proto::level& level,
-                   entt::registry& registry,
-                   const entt::entity entity)
+void RestoreLight(const proto::level& level,
+                  entt::registry& registry,
+                  entt::entity entity)
 {
   const auto& lights = level.lights();
   if (const auto it = lights.find(entt::to_integral(entity)); it != lights.end()) {
@@ -354,7 +352,7 @@ void restore_light(const proto::level& level,
     assert(data.has_fluctuation_limit());
 
     auto& light = registry.emplace<comp::PointLight>(entity);
-    light.position = restore(data.position());
+    light.position = Restore(data.position());
     light.size = data.size();
     light.fluctuation = data.fluctuation();
     light.fluctuation_step = data.fluctuation_step();
@@ -362,9 +360,9 @@ void restore_light(const proto::level& level,
   }
 }
 
-void restore_spawnpoint(const proto::level& level,
-                        entt::registry& registry,
-                        const entt::entity entity)
+void RestoreSpawnpoint(const proto::level& level,
+                       entt::registry& registry,
+                       entt::entity entity)
 {
   const auto& spawnpoints = level.spawnpoints();
   if (const auto it = spawnpoints.find(entt::to_integral(entity));
@@ -375,13 +373,13 @@ void restore_spawnpoint(const proto::level& level,
 
     auto& spawnpoint = registry.emplace<comp::Spawnpoint>(entity);
     spawnpoint.type = static_cast<comp::SpawnpointType>(data.type());
-    spawnpoint.position = restore(data.position());
+    spawnpoint.position = Restore(data.position());
   }
 }
 
-void restore_hitbox(const proto::level& level,
-                    entt::registry& registry,
-                    const entt::entity entity)
+void RestoreHitbox(const proto::level& level,
+                   entt::registry& registry,
+                   entt::entity entity)
 {
   const auto& hitboxes = level.hitboxes();
   if (const auto it = hitboxes.find(entt::to_integral(entity)); it != hitboxes.end()) {
@@ -391,8 +389,8 @@ void restore_hitbox(const proto::level& level,
     assert(data.has_enabled());
 
     auto& hitbox = registry.emplace<comp::Hitbox>(entity);
-    hitbox.origin = restore(data.origin());
-    hitbox.bounds = restore(data.bounds());
+    hitbox.origin = Restore(data.origin());
+    hitbox.bounds = Restore(data.bounds());
     hitbox.enabled = data.enabled();
 
     for (const auto& boxData : data.boxes()) {
@@ -400,15 +398,15 @@ void restore_hitbox(const proto::level& level,
       assert(boxData.has_size());
 
       auto& box = hitbox.boxes.emplace_back();
-      box.offset = restore(boxData.offset());
-      box.size = restore(boxData.size());
+      box.offset = Restore(boxData.offset());
+      box.size = Restore(boxData.size());
     }
   }
 }
 
-void restore_object(const proto::level& level,
-                    entt::registry& registry,
-                    const entt::entity entity)
+void RestoreObject(const proto::level& level,
+                   entt::registry& registry,
+                   entt::entity entity)
 {
   const auto& objects = level.objects();
   if (const auto it = objects.find(entt::to_integral(entity)); it != objects.end()) {
@@ -420,9 +418,9 @@ void restore_object(const proto::level& level,
   }
 }
 
-void restore_portal(const proto::level& level,
-                    entt::registry& registry,
-                    const entt::entity entity)
+void RestorePortal(const proto::level& level,
+                   entt::registry& registry,
+                   entt::entity entity)
 {
   const auto& portals = level.portals();
   if (const auto it = portals.find(entt::to_integral(entity)); it != portals.end()) {
@@ -437,9 +435,9 @@ void restore_portal(const proto::level& level,
   }
 }
 
-void restore_tile_layer(const proto::level& level,
-                        entt::registry& registry,
-                        const entt::entity entity)
+void RestoreTileLayer(const proto::level& level,
+                      entt::registry& registry,
+                      entt::entity entity)
 {
   const auto& layers = level.tile_layers();
   if (const auto it = layers.find(entt::to_integral(entity)); it != layers.end()) {
@@ -460,9 +458,9 @@ void restore_tile_layer(const proto::level& level,
   }
 }
 
-void restore_tileset(const proto::level& level,
-                     entt::registry& registry,
-                     const entt::entity entity)
+void RestoreTileset(const proto::level& level,
+                    entt::registry& registry,
+                    entt::entity entity)
 {
   const auto& tilesets = level.tilesets();
   if (const auto it = tilesets.find(entt::to_integral(entity)); it != tilesets.end()) {
@@ -475,9 +473,9 @@ void restore_tileset(const proto::level& level,
   }
 }
 
-void restore_inventory(const proto::level& level,
-                       entt::registry& registry,
-                       const entt::entity entity)
+void RestoreInventory(const proto::level& level,
+                      entt::registry& registry,
+                      entt::entity entity)
 {
   const auto& inventories = level.inventories();
   if (const auto it = inventories.find(entt::to_integral(entity));
@@ -494,9 +492,9 @@ void restore_inventory(const proto::level& level,
   }
 }
 
-void restore_tile_object(const proto::level& level,
-                         entt::registry& registry,
-                         const entt::entity entity)
+void RestoreTileObject(const proto::level& level,
+                       entt::registry& registry,
+                       entt::entity entity)
 {
   const auto& objects = level.tile_objects();
   if (const auto it = objects.find(entt::to_integral(entity)); it != objects.end()) {
@@ -508,9 +506,9 @@ void restore_tile_object(const proto::level& level,
   }
 }
 
-void restore_trigger(const proto::level& level,
-                     entt::registry& registry,
-                     const entt::entity entity)
+void RestoreTrigger(const proto::level& level,
+                    entt::registry& registry,
+                    entt::entity entity)
 {
   const auto& triggers = level.triggers();
   if (const auto it = triggers.find(entt::to_integral(entity)); it != triggers.end()) {
@@ -522,9 +520,9 @@ void restore_trigger(const proto::level& level,
   }
 }
 
-void restore_association(const proto::level& level,
-                         entt::registry& registry,
-                         const entt::entity entity)
+void RestoreAssociation(const proto::level& level,
+                        entt::registry& registry,
+                        entt::entity entity)
 {
   const auto& associations = level.associations();
   if (const auto it = associations.find(entt::to_integral(entity));

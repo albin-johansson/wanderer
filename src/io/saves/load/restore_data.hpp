@@ -21,98 +21,98 @@ class level;
 
 }  // namespace proto
 
-[[nodiscard]] auto restore(const proto::float2& data) -> float2;
+[[nodiscard]] auto Restore(const proto::float2& data) -> float2;
 
-[[nodiscard]] auto restore(const proto::float3& data) -> comp::Vector3;
+[[nodiscard]] auto Restore(const proto::float3& data) -> comp::Vector3;
 
-[[nodiscard]] auto restore(const proto::irect& data) -> cen::irect;
+[[nodiscard]] auto Restore(const proto::irect& data) -> cen::irect;
 
-[[nodiscard]] auto restore(const proto::frect& data) -> cen::frect;
+[[nodiscard]] auto Restore(const proto::frect& data) -> cen::frect;
 
-[[nodiscard]] auto restore(const proto::farea& data) -> cen::farea;
+[[nodiscard]] auto Restore(const proto::farea& data) -> cen::farea;
 
-[[nodiscard]] auto restore(const proto::color& data) -> cen::color;
+[[nodiscard]] auto Restore(const proto::color& data) -> cen::color;
 
-[[nodiscard]] auto restore(const proto::time_of_day& data) -> ctx::TimeOfDay;
+[[nodiscard]] auto Restore(const proto::time_of_day& data) -> ctx::TimeOfDay;
 
-void restore_movable(const proto::level& level,
+void RestoreMovable(const proto::level& level,
+                    entt::registry& registry,
+                    entt::entity entity);
+
+void RestoreDrawable(const proto::level& level,
                      entt::registry& registry,
                      entt::entity entity);
 
-void restore_drawable(const proto::level& level,
+void RestoreAnimation(const proto::level& level,
                       entt::registry& registry,
                       entt::entity entity);
 
-void restore_animation(const proto::level& level,
-                       entt::registry& registry,
-                       entt::entity entity);
-
-void restore_plant(const proto::level& level,
-                   entt::registry& registry,
-                   entt::entity entity);
-
-void restore_tile(const proto::level& level,
+void RestorePlant(const proto::level& level,
                   entt::registry& registry,
                   entt::entity entity);
 
-void restore_tilemap(const proto::level& level,
+void RestoreTile(const proto::level& level,
+                 entt::registry& registry,
+                 entt::entity entity);
+
+void RestoreTilemap(const proto::level& level,
+                    entt::registry& registry,
+                    entt::entity entity);
+
+void RestoreTileAnimations(const proto::level& level,
+                           entt::registry& registry,
+                           entt::entity entity);
+
+void RestoreChase(const proto::level& level,
+                  entt::registry& registry,
+                  entt::entity entity);
+
+void RestoreParticle(const proto::level& level,
                      entt::registry& registry,
                      entt::entity entity);
 
-void restore_tile_animations(const proto::level& level,
-                             entt::registry& registry,
-                             entt::entity entity);
+void RestoreLight(const proto::level& level,
+                  entt::registry& registry,
+                  entt::entity entity);
 
-void restore_chase(const proto::level& level,
-                   entt::registry& registry,
-                   entt::entity entity);
-
-void restore_particle(const proto::level& level,
-                      entt::registry& registry,
-                      entt::entity entity);
-
-void restore_light(const proto::level& level,
-                   entt::registry& registry,
-                   entt::entity entity);
-
-void restore_spawnpoint(const proto::level& level,
-                        entt::registry& registry,
-                        entt::entity entity);
-
-void restore_hitbox(const proto::level& level,
-                    entt::registry& registry,
-                    entt::entity entity);
-
-void restore_object(const proto::level& level,
-                    entt::registry& registry,
-                    entt::entity entity);
-
-void restore_portal(const proto::level& level,
-                    entt::registry& registry,
-                    entt::entity entity);
-
-void restore_tile_layer(const proto::level& level,
-                        entt::registry& registry,
-                        entt::entity entity);
-
-void restore_tileset(const proto::level& level,
-                     entt::registry& registry,
-                     entt::entity entity);
-
-void restore_inventory(const proto::level& level,
+void RestoreSpawnpoint(const proto::level& level,
                        entt::registry& registry,
                        entt::entity entity);
 
-void restore_tile_object(const proto::level& level,
-                         entt::registry& registry,
-                         entt::entity entity);
+void RestoreHitbox(const proto::level& level,
+                   entt::registry& registry,
+                   entt::entity entity);
 
-void restore_trigger(const proto::level& level,
-                     entt::registry& registry,
-                     entt::entity entity);
+void RestoreObject(const proto::level& level,
+                   entt::registry& registry,
+                   entt::entity entity);
 
-void restore_association(const proto::level& level,
-                         entt::registry& registry,
-                         entt::entity entity);
+void RestorePortal(const proto::level& level,
+                   entt::registry& registry,
+                   entt::entity entity);
+
+void RestoreTileLayer(const proto::level& level,
+                      entt::registry& registry,
+                      entt::entity entity);
+
+void RestoreTileset(const proto::level& level,
+                    entt::registry& registry,
+                    entt::entity entity);
+
+void RestoreInventory(const proto::level& level,
+                      entt::registry& registry,
+                      entt::entity entity);
+
+void RestoreTileObject(const proto::level& level,
+                       entt::registry& registry,
+                       entt::entity entity);
+
+void RestoreTrigger(const proto::level& level,
+                    entt::registry& registry,
+                    entt::entity entity);
+
+void RestoreAssociation(const proto::level& level,
+                        entt::registry& registry,
+                        entt::entity entity);
 
 }  // namespace wanderer

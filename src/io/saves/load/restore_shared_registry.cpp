@@ -21,15 +21,15 @@
 namespace wanderer {
 namespace {
 
-void restore_shared_data(entt::registry& shared, const proto::shared_data& data)
+void RestoreSharedData(entt::registry& shared, const proto::shared_data& data)
 {
   shared.clear<comp::Level>();
   shared.clear<comp::ActiveLevel>();
 
-  shared.set<ctx::TimeOfDay>(restore(data.time()));
+  shared.set<ctx::TimeOfDay>(Restore(data.time()));
 }
 
-void add_level_size(comp::Level& level)
+void AddLevelSize(comp::Level& level)
 {
   const auto& tilemap = level.registry.get<comp::Tilemap>(level.tilemap);
   auto& size = level.registry.set<ctx::LevelSize>();
@@ -37,13 +37,13 @@ void add_level_size(comp::Level& level)
   size.col_count = tilemap.col_count;
 }
 
-void add_viewport(comp::Level& level)
+void AddViewport(comp::Level& level)
 {
   const auto& tilemap = level.registry.get<comp::Tilemap>(level.tilemap);
   level.registry.set<ctx::Viewport>(sys::MakeViewport(tilemap.size));
 }
 
-void restore_aabb_tree(entt::registry& registry, aabb_tree& tree)
+void RestoreAabbTree(entt::registry& registry, aabb_tree& tree)
 {
   for (auto&& [hitboxEntity, hitbox] : registry.view<comp::Hitbox>().each()) {
     const auto lower = to_rune_vector(hitbox.bounds.position());
@@ -56,7 +56,7 @@ void restore_aabb_tree(entt::registry& registry, aabb_tree& tree)
   }
 }
 
-void prepare_viewport(entt::registry& registry, const bool keepInBounds)
+void PrepareViewport(entt::registry& registry, const bool keepInBounds)
 {
   auto& viewport = registry.ctx<ctx::Viewport>();
   viewport.keep_in_bounds = keepInBounds;
@@ -68,9 +68,9 @@ void prepare_viewport(entt::registry& registry, const bool keepInBounds)
 
 }  // namespace
 
-void restore_shared_registry(entt::registry& shared, const proto::save& save)
+void RestoreSharedRegistry(entt::registry& shared, const proto::save& save)
 {
-  restore_shared_data(shared, save.shared());
+  RestoreSharedData(shared, save.shared());
 
   for (const auto& data : save.levels()) {
     const auto entity = shared.create();
@@ -87,17 +87,17 @@ void restore_shared_registry(entt::registry& shared, const proto::save& save)
     }
 
     level.tree.disable_thickness_factor();
-    level.registry = restore_level_registry(data);
+    level.registry = RestoreLevelRegistry(data);
     level.tilemap = singleton_entity<comp::Tilemap>(level.registry);
     level.tileset = singleton_entity<comp::Tileset>(level.registry);
 
     // TODO maybe<float2> player_spawn_position;
 
-    add_level_size(level);
-    add_viewport(level);
+    AddLevelSize(level);
+    AddViewport(level);
 
-    restore_aabb_tree(level.registry, level.tree);
-    prepare_viewport(level.registry, data.keep_viewport_in_bounds());
+    RestoreAabbTree(level.registry, level.tree);
+    PrepareViewport(level.registry, data.keep_viewport_in_bounds());
   }
 }
 

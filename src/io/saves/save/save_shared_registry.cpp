@@ -38,20 +38,20 @@
 namespace wanderer {
 namespace {
 
-void copy_to(const float2& src, proto::float2* dst)
+void CopyTo(const float2& src, proto::float2* dst)
 {
   dst->set_x(src.x);
   dst->set_y(src.y);
 }
 
-void copy_to(const comp::Vector3& src, proto::float3* dst)
+void CopyTo(const comp::Vector3& src, proto::float3* dst)
 {
   dst->set_x(src.x);
   dst->set_y(src.y);
   dst->set_z(src.z);
 }
 
-void copy_to(const cen::irect& src, proto::irect* dst)
+void CopyTo(const cen::irect& src, proto::irect* dst)
 {
   dst->set_x(src.x());
   dst->set_y(src.y());
@@ -59,7 +59,7 @@ void copy_to(const cen::irect& src, proto::irect* dst)
   dst->set_height(src.height());
 }
 
-void copy_to(const cen::frect& src, proto::frect* dst)
+void CopyTo(const cen::frect& src, proto::frect* dst)
 {
   dst->set_x(src.x());
   dst->set_y(src.y());
@@ -67,13 +67,13 @@ void copy_to(const cen::frect& src, proto::frect* dst)
   dst->set_height(src.height());
 }
 
-void copy_to(const cen::farea& src, proto::farea* dst)
+void CopyTo(const cen::farea& src, proto::farea* dst)
 {
   dst->set_width(src.width);
   dst->set_height(src.height);
 }
 
-void copy_to(const cen::color& src, proto::color* dst)
+void CopyTo(const cen::color& src, proto::color* dst)
 {
   dst->set_red(src.red());
   dst->set_green(src.green());
@@ -81,33 +81,33 @@ void copy_to(const cen::color& src, proto::color* dst)
   dst->set_alpha(src.alpha());
 }
 
-void copy_to(const ctx::TimeOfDay& src, proto::time_of_day* dst)
+void CopyTo(const ctx::TimeOfDay& src, proto::time_of_day* dst)
 {
   dst->set_hour(src.hour);
   dst->set_minute(src.minute);
   dst->set_seconds(src.seconds);
   dst->set_week(src.week);
   dst->set_day(static_cast<proto::day_of_week>(src.day));
-  copy_to(src.tint, dst->mutable_tint());
+  CopyTo(src.tint, dst->mutable_tint());
 }
 
-void copy_to(const comp::Movable& src, proto::movable& dst)
+void CopyTo(const comp::Movable& src, proto::movable& dst)
 {
-  copy_to(src.position, dst.mutable_position());
-  copy_to(src.velocity, dst.mutable_velocity());
+  CopyTo(src.position, dst.mutable_position());
+  CopyTo(src.velocity, dst.mutable_velocity());
   dst.set_speed(src.speed);
 }
 
-void copy_to(const comp::Drawable& src, proto::drawable& dst)
+void CopyTo(const comp::Drawable& src, proto::drawable& dst)
 {
-  copy_to(src.src, dst.mutable_src());
-  copy_to(src.dst, dst.mutable_dst());
+  CopyTo(src.src, dst.mutable_src());
+  CopyTo(src.dst, dst.mutable_dst());
   dst.set_texture_index(src.texture);
   dst.set_layer_index(src.layer);
   dst.set_depth_index(src.depth);
 }
 
-void copy_to(const comp::Animation& src, proto::animation& dst)
+void CopyTo(const comp::Animation& src, proto::animation& dst)
 {
   dst.set_frame(src.frame);
   dst.set_frame_count(src.frame_count);
@@ -115,7 +115,7 @@ void copy_to(const comp::Animation& src, proto::animation& dst)
   dst.set_delay(src.delay.count());
 }
 
-void copy_to(const comp::Plant& src, proto::plant& dst)
+void CopyTo(const comp::Plant& src, proto::plant& dst)
 {
   dst.set_current_growth(src.current);
   dst.set_rate(src.rate);
@@ -134,24 +134,24 @@ void copy_to(const comp::Plant& src, proto::plant& dst)
   }
 }
 
-void copy_to(const comp::Tile& src, proto::tile& dst)
+void CopyTo(const comp::Tile& src, proto::tile& dst)
 {
-  copy_to(src.src, dst.mutable_src());
+  CopyTo(src.src, dst.mutable_src());
   dst.set_id(src.id);
   dst.set_texture_index(src.texture);
   dst.set_depth_index(src.depth);
 }
 
-void copy_to(const comp::Tilemap& src, proto::tilemap& dst)
+void CopyTo(const comp::Tilemap& src, proto::tilemap& dst)
 {
-  copy_to(src.size, dst.mutable_size());
+  CopyTo(src.size, dst.mutable_size());
   dst.set_id(src.id);
   dst.set_humanoid_layer_index(src.humanoid_layer);
   dst.set_row_count(src.row_count);
   dst.set_column_count(src.col_count);
 }
 
-void copy_to(const comp::TileAnimation& src, proto::tile_animation& dst)
+void CopyTo(const comp::TileAnimation& src, proto::tile_animation& dst)
 {
   dst.set_index(src.index);
   dst.set_then(src.then.count());
@@ -163,56 +163,56 @@ void copy_to(const comp::TileAnimation& src, proto::tile_animation& dst)
   }
 }
 
-void copy_to(const comp::Chase& src, proto::chase& dst)
+void CopyTo(const comp::Chase& src, proto::chase& dst)
 {
   dst.set_target_entity(entt::to_integral(src.target));
   dst.set_range(src.range);
   dst.set_is_active(src.active);
 }
 
-void copy_to(const comp::particle& src, proto::particle& dst)
+void CopyTo(const comp::particle& src, proto::particle& dst)
 {
-  copy_to(src.position, dst.mutable_position());
-  copy_to(src.acceleration, dst.mutable_acceleration());
-  copy_to(src.color, dst.mutable_color());
+  CopyTo(src.position, dst.mutable_position());
+  CopyTo(src.acceleration, dst.mutable_acceleration());
+  CopyTo(src.color, dst.mutable_color());
   dst.set_now(src.now);
   dst.set_duration(src.duration);
 }
 
-void copy_to(const comp::PointLight& src, proto::point_light& dst)
+void CopyTo(const comp::PointLight& src, proto::point_light& dst)
 {
-  copy_to(src.position, dst.mutable_position());
+  CopyTo(src.position, dst.mutable_position());
   dst.set_size(src.size);
   dst.set_fluctuation(src.fluctuation);
   dst.set_fluctuation_step(src.fluctuation_step);
   dst.set_fluctuation_limit(src.fluctuation_limit);
 }
 
-void copy_to(const comp::Spawnpoint& src, proto::spawnpoint& dst)
+void CopyTo(const comp::Spawnpoint& src, proto::spawnpoint& dst)
 {
-  copy_to(src.position, dst.mutable_position());
+  CopyTo(src.position, dst.mutable_position());
   dst.set_type(static_cast<proto::spawnpoint_type>(src.type));
 }
 
-void copy_to(const comp::Hitbox& src, proto::hitbox& dst)
+void CopyTo(const comp::Hitbox& src, proto::hitbox& dst)
 {
-  copy_to(src.origin, dst.mutable_origin());
-  copy_to(src.bounds, dst.mutable_bounds());
+  CopyTo(src.origin, dst.mutable_origin());
+  CopyTo(src.bounds, dst.mutable_bounds());
   dst.set_enabled(src.enabled);
 
   for (const auto& box : src.boxes) {
     auto* boxData = dst.add_boxes();
-    copy_to(box.offset, boxData->mutable_offset());
-    copy_to(box.size, boxData->mutable_size());
+    CopyTo(box.offset, boxData->mutable_offset());
+    CopyTo(box.size, boxData->mutable_size());
   }
 }
 
-void copy_to(const comp::Object& src, proto::map_object& dst)
+void CopyTo(const comp::Object& src, proto::map_object& dst)
 {
   dst.set_id(src.id);
 }
 
-void copy_to(const comp::Portal& src, proto::portal& dst)
+void CopyTo(const comp::Portal& src, proto::portal& dst)
 {
   if (src.target) {
     dst.set_map_id(*src.target);
@@ -220,7 +220,7 @@ void copy_to(const comp::Portal& src, proto::portal& dst)
   dst.set_path(src.path);
 }
 
-void copy_to(const comp::TileLayer& src, proto::tile_layer& dst)
+void CopyTo(const comp::TileLayer& src, proto::tile_layer& dst)
 {
   dst.set_z_index(src.z);
 
@@ -233,7 +233,7 @@ void copy_to(const comp::TileLayer& src, proto::tile_layer& dst)
   }
 }
 
-void copy_to(const comp::Tileset& src, proto::tileset& dst)
+void CopyTo(const comp::Tileset& src, proto::tileset& dst)
 {
   auto& map = *dst.mutable_tile_to_entity();
   for (const auto& [id, entity] : src.tiles) {
@@ -241,7 +241,7 @@ void copy_to(const comp::Tileset& src, proto::tileset& dst)
   }
 }
 
-void copy_to(const comp::Inventory& src, proto::inventory& dst)
+void CopyTo(const comp::Inventory& src, proto::inventory& dst)
 {
   dst.set_capacity(src.capacity);
   for (const auto entity : src.items) {
@@ -249,17 +249,17 @@ void copy_to(const comp::Inventory& src, proto::inventory& dst)
   }
 }
 
-void copy_to(const comp::TileObject& src, proto::tile_object& dst)
+void CopyTo(const comp::TileObject& src, proto::tile_object& dst)
 {
   dst.set_tile_entity(entt::to_integral(src.tile_entity));
 }
 
-void copy_to(const comp::Trigger& src, proto::trigger& dst)
+void CopyTo(const comp::Trigger& src, proto::trigger& dst)
 {
   dst.set_type(static_cast<proto::trigger_type>(src.type));
 }
 
-void copy_to(const comp::AssociatedEntity& src, proto::associated_entity& dst)
+void CopyTo(const comp::AssociatedEntity& src, proto::associated_entity& dst)
 {
   dst.set_entity(entt::to_integral(src.entity));
 }
@@ -280,83 +280,83 @@ void save_level(const entt::registry& registry, proto::level* data)  // NOLINT
     }
 
     if (const auto* movable = registry.try_get<comp::Movable>(entity)) {
-      copy_to(*movable, (*data->mutable_movables())[value]);
+      CopyTo(*movable, (*data->mutable_movables())[value]);
     }
 
     if (const auto* drawable = registry.try_get<comp::Drawable>(entity)) {
-      copy_to(*drawable, (*data->mutable_drawables())[value]);
+      CopyTo(*drawable, (*data->mutable_drawables())[value]);
     }
 
     if (const auto* animation = registry.try_get<comp::Animation>(entity)) {
-      copy_to(*animation, (*data->mutable_animations())[value]);
+      CopyTo(*animation, (*data->mutable_animations())[value]);
     }
 
     if (const auto* plant = registry.try_get<comp::Plant>(entity)) {
-      copy_to(*plant, (*data->mutable_plants())[value]);
+      CopyTo(*plant, (*data->mutable_plants())[value]);
     }
 
     if (const auto* tile = registry.try_get<comp::Tile>(entity)) {
-      copy_to(*tile, (*data->mutable_tiles())[value]);
+      CopyTo(*tile, (*data->mutable_tiles())[value]);
     }
 
     if (const auto* tilemap = registry.try_get<comp::Tilemap>(entity)) {
-      copy_to(*tilemap, (*data->mutable_tilemaps())[value]);
+      CopyTo(*tilemap, (*data->mutable_tilemaps())[value]);
     }
 
     if (const auto* animation = registry.try_get<comp::TileAnimation>(entity)) {
-      copy_to(*animation, (*data->mutable_tile_animations())[value]);
+      CopyTo(*animation, (*data->mutable_tile_animations())[value]);
     }
 
     if (const auto* chase = registry.try_get<comp::Chase>(entity)) {
-      copy_to(*chase, (*data->mutable_chases())[value]);
+      CopyTo(*chase, (*data->mutable_chases())[value]);
     }
 
     if (const auto* particle = registry.try_get<comp::particle>(entity)) {
-      copy_to(*particle, (*data->mutable_particles())[value]);
+      CopyTo(*particle, (*data->mutable_particles())[value]);
     }
 
     if (const auto* light = registry.try_get<comp::PointLight>(entity)) {
-      copy_to(*light, (*data->mutable_lights())[value]);
+      CopyTo(*light, (*data->mutable_lights())[value]);
     }
 
     if (const auto* spawnpoint = registry.try_get<comp::Spawnpoint>(entity)) {
-      copy_to(*spawnpoint, (*data->mutable_spawnpoints())[value]);
+      CopyTo(*spawnpoint, (*data->mutable_spawnpoints())[value]);
     }
 
     if (const auto* hitbox = registry.try_get<comp::Hitbox>(entity)) {
-      copy_to(*hitbox, (*data->mutable_hitboxes())[value]);
+      CopyTo(*hitbox, (*data->mutable_hitboxes())[value]);
     }
 
     if (const auto* object = registry.try_get<comp::Object>(entity)) {
-      copy_to(*object, (*data->mutable_objects())[value]);
+      CopyTo(*object, (*data->mutable_objects())[value]);
     }
 
     if (const auto* portal = registry.try_get<comp::Portal>(entity)) {
-      copy_to(*portal, (*data->mutable_portals())[value]);
+      CopyTo(*portal, (*data->mutable_portals())[value]);
     }
 
     if (const auto* layer = registry.try_get<comp::TileLayer>(entity)) {
-      copy_to(*layer, (*data->mutable_tile_layers())[value]);
+      CopyTo(*layer, (*data->mutable_tile_layers())[value]);
     }
 
     if (const auto* tileset = registry.try_get<comp::Tileset>(entity)) {
-      copy_to(*tileset, (*data->mutable_tilesets())[value]);
+      CopyTo(*tileset, (*data->mutable_tilesets())[value]);
     }
 
     if (const auto* inventory = registry.try_get<comp::Inventory>(entity)) {
-      copy_to(*inventory, (*data->mutable_inventories())[value]);
+      CopyTo(*inventory, (*data->mutable_inventories())[value]);
     }
 
     if (const auto* object = registry.try_get<comp::TileObject>(entity)) {
-      copy_to(*object, (*data->mutable_tile_objects())[value]);
+      CopyTo(*object, (*data->mutable_tile_objects())[value]);
     }
 
     if (const auto* trigger = registry.try_get<comp::Trigger>(entity)) {
-      copy_to(*trigger, (*data->mutable_triggers())[value]);
+      CopyTo(*trigger, (*data->mutable_triggers())[value]);
     }
 
     if (const auto* association = registry.try_get<comp::AssociatedEntity>(entity)) {
-      copy_to(*association, (*data->mutable_associations())[value]);
+      CopyTo(*association, (*data->mutable_associations())[value]);
     }
   });
 
@@ -364,15 +364,15 @@ void save_level(const entt::registry& registry, proto::level* data)  // NOLINT
   data->set_is_outside_level(viewport.keep_in_bounds);
 }
 
-void save_shared_data(const entt::registry& shared, proto::shared_data* data)
+void SaveSharedData(const entt::registry& shared, proto::shared_data* data)
 {
-  copy_to(shared.ctx<ctx::TimeOfDay>(), data->mutable_time());
+  CopyTo(shared.ctx<ctx::TimeOfDay>(), data->mutable_time());
 }
 
-void save_data(const entt::registry& shared, proto::save& save)
+void SaveData(const entt::registry& shared, proto::save& save)
 {
   save.set_current_level_id(sys::CurrentLevel(shared).id);
-  save_shared_data(shared, save.mutable_shared());
+  SaveSharedData(shared, save.mutable_shared());
 
   for (auto&& [entity, level] : shared.view<comp::Level>().each()) {
     auto* data = save.add_levels();
@@ -384,12 +384,12 @@ void save_data(const entt::registry& shared, proto::save& save)
 
 }  // namespace
 
-void save_shared_registry(const entt::registry& shared, const std::filesystem::path& path)
+void SaveSharedRegistry(const entt::registry& shared, const std::filesystem::path& path)
 {
   std::ofstream stream{path, std::ios::out | std::ios::trunc | std::ios::binary};
 
   proto::save save;
-  save_data(shared, save);
+  SaveData(shared, save);
 
   if (!save.SerializeToOstream(&stream)) {
     CENTURION_LOG_ERROR("Something went wrong when trying to create a save file!");

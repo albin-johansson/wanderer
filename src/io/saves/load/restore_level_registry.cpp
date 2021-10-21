@@ -11,7 +11,7 @@
 
 namespace wanderer {
 
-auto restore_level_registry(const proto::level& data) -> entt::registry
+auto RestoreLevelRegistry(const proto::level& data) -> entt::registry
 {
   auto registry = MakeRegistry();
 
@@ -27,30 +27,30 @@ auto restore_level_registry(const proto::level& data) -> entt::registry
       registry.emplace<comp::Player>(entity);
     }
 
-    restore_movable(data, registry, entity);
-    restore_drawable(data, registry, entity);
-    restore_animation(data, registry, entity);
-    restore_plant(data, registry, entity);
-    restore_tile(data, registry, entity);
-    restore_tilemap(data, registry, entity);
-    restore_tile_animations(data, registry, entity);
-    restore_particle(data, registry, entity);
-    restore_light(data, registry, entity);
-    restore_spawnpoint(data, registry, entity);
-    restore_hitbox(data, registry, entity);
-    restore_object(data, registry, entity);
-    restore_portal(data, registry, entity);
-    restore_tile_layer(data, registry, entity);
-    restore_tileset(data, registry, entity);
-    restore_inventory(data, registry, entity);
-    restore_tile_object(data, registry, entity);
-    restore_trigger(data, registry, entity);
-    restore_association(data, registry, entity);
+    RestoreMovable(data, registry, entity);
+    RestoreDrawable(data, registry, entity);
+    RestoreAnimation(data, registry, entity);
+    RestorePlant(data, registry, entity);
+    RestoreTile(data, registry, entity);
+    RestoreTilemap(data, registry, entity);
+    RestoreTileAnimations(data, registry, entity);
+    RestoreParticle(data, registry, entity);
+    RestoreLight(data, registry, entity);
+    RestoreSpawnpoint(data, registry, entity);
+    RestoreHitbox(data, registry, entity);
+    RestoreObject(data, registry, entity);
+    RestorePortal(data, registry, entity);
+    RestoreTileLayer(data, registry, entity);
+    RestoreTileset(data, registry, entity);
+    RestoreInventory(data, registry, entity);
+    RestoreTileObject(data, registry, entity);
+    RestoreTrigger(data, registry, entity);
+    RestoreAssociation(data, registry, entity);
   }
 
   /* We need to ensure that all entities are created when restoring these components */
   for (const auto id : data.entities()) {
-    restore_chase(data, registry, entt::entity{id});
+    RestoreChase(data, registry, entt::entity{id});
   }
 
   for (const auto id : data.humanoids()) {

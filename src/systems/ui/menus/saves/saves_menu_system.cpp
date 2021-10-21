@@ -280,7 +280,7 @@ void RemoveSaveEntry(entt::registry& registry, const std::string& name)
 
   savesMenu.entries.erase(range.begin(), range.end());
 
-  delete_save(name);
+  DeleteSave(name);
   RefreshSavesMenu(registry);
 }
 

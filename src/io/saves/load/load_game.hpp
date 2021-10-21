@@ -8,8 +8,6 @@
 
 namespace wanderer {
 
-void load_game(entt::registry& shared,
-               GraphicsContext& graphics,
-               const std::string& name);
+void LoadGame(entt::registry& shared, GraphicsContext& graphics, const std::string& name);
 
 }  // namespace wanderer
