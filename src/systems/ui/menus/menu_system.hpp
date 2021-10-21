@@ -35,6 +35,15 @@ void UpdateMenu(entt::registry& registry,
 void SwitchMenu(entt::registry& registry, entt::dispatcher& dispatcher, MenuId id);
 
 /**
+ * \brief Synchronizes the state of settings UI components with the actual settings.
+ *
+ * \ingroup systems
+ *
+ * \param registry the menu registry.
+ */
+void SyncSettingsMenu(entt::registry& registry);
+
+/**
  * \brief Indicates whether or not the current menu is blocking.
  *
  * \details A blocking menu is meant to prevent the game from updating.

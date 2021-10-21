@@ -339,9 +339,6 @@ set(SOURCE_FILES
     systems/ui/menus/saves/saves_menu_entry_factory_system.hpp
     systems/ui/menus/saves/saves_menu_system.cpp
     systems/ui/menus/saves/saves_menu_system.hpp
-
-    systems/ui/menus/settings/settings_menu_system.cpp
-    systems/ui/menus/settings/settings_menu_system.hpp
     )
 
 add_library(${WANDERER_LIB} ${SOURCE_FILES})

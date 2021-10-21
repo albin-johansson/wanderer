@@ -2,7 +2,10 @@
 
 #include "components/ctx/active_menu.hpp"
 #include "components/ctx/cursors.hpp"
+#include "components/ctx/settings.hpp"
 #include "components/ui/associated_menu.hpp"
+#include "components/ui/button.hpp"
+#include "components/ui/checkbox.hpp"
 #include "events/menu_events.hpp"
 #include "systems/ui/buttons/button_system.hpp"
 #include "systems/ui/menus/saves/saves_menu_system.hpp"
@@ -45,6 +48,22 @@ void SwitchMenu(entt::registry& registry, entt::dispatcher& dispatcher, MenuId i
     if (menu.id == id) {
       registry.set<ctx::ActiveMenu>(entity);
       dispatcher.trigger<menu_switched_event>(entity);
+    }
+  }
+}
+
+void SyncSettingsMenu(entt::registry& registry)
+{
+  const auto& settings = registry.ctx<ctx::Settings>();
+
+  for (auto&& [entity, button, checkbox] :
+       registry.view<const comp::Button, comp::Checkbox>().each())
+  {
+    if (button.action == MenuAction::ToggleFullscreen) {
+      checkbox.checked = settings.fullscreen;
+    }
+    else if (button.action == MenuAction::ToggleIntegerScaling) {
+      checkbox.checked = settings.integer_scaling;
     }
   }
 }
