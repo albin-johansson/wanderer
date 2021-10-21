@@ -39,6 +39,17 @@ auto MakeHomeMenu(entt::registry& registry) -> entt::entity;
  */
 auto MakeControlsMenu(entt::registry& registry) -> entt::entity;
 
+/**
+ * \brief Creates the in-game menu.
+ *
+ * \ingroup systems
+ *
+ * \param registry the menu registry.
+ *
+ * \return the created entity.
+ */
+auto MakeInGameMenu(entt::registry& registry) -> entt::entity;
+
 /// \} End of menus
 
 }  // namespace wanderer::sys

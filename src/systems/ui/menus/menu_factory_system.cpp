@@ -63,4 +63,14 @@ auto MakeControlsMenu(entt::registry& registry) -> entt::entity
   return entity;
 }
 
+auto MakeInGameMenu(entt::registry& registry) -> entt::entity
+{
+  const auto entity = MakeMenu(registry, std::string{}, MenuId::InGame, false);
+  registry.set<comp::InGameMenu>(entity);
+
+  AddBinds(registry, entity, comp::KeyBind{cen::scancodes::escape, MenuAction::GotoHome});
+
+  return entity;
+}
+
 }  // namespace wanderer::sys
