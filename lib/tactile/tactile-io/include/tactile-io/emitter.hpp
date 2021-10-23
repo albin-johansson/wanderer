@@ -13,10 +13,10 @@ struct EmitterOptions final
   bool human_readable_output{true};  ///< JSON only
 };
 
-TACTILE_IO_API void EmitJsonMap(const MapData& data, const EmitterOptions& options);
+TACTILE_IO_API void EmitJsonMap(const Map& map, const EmitterOptions& options);
 
-TACTILE_IO_API void EmitXmlMap(const MapData& data, const EmitterOptions& options);
+TACTILE_IO_API void EmitXmlMap(const Map& map, const EmitterOptions& options);
 
-TACTILE_IO_API void EmitYamlMap(const MapData& data, const EmitterOptions& options);
+TACTILE_IO_API void EmitYamlMap(const Map& map, const EmitterOptions& options);
 
 }  // namespace Tactile::IO
