@@ -3,6 +3,7 @@
 #include <chrono>      // duration
 #include <cstddef>     // size_t
 #include <cstdint>     // int{}_t, uint{}_t
+#include <exception>   // exception
 #include <functional>  // reference_wrapper
 #include <optional>    // optional
 #include <ratio>       // milli
@@ -68,5 +69,20 @@ struct TileID;
 
 using MapID = nenya::strong_type<int32, tags::MapID>;
 using TileID = nenya::strong_type<uint32, tags::TileID>;
+
+class WandererError final : public std::exception
+{
+ public:
+  explicit WandererError(const CStr msg) : mMsg{msg}
+  {}
+
+  [[nodiscard]] auto what() const -> CStr override
+  {
+    return mMsg;
+  }
+
+ private:
+  CStr mMsg{"n/a"};
+};
 
 }  // namespace wanderer
