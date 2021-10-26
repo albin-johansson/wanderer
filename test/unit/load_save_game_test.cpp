@@ -1,12 +1,12 @@
-#include <gtest/gtest.h>
-
 #include <filesystem>  // remove_all
 
+#include <gtest/gtest.h>
+
 #include "io/directories.hpp"
+#include "io/maps/load_levels.hpp"
 #include "io/saves/load/load_game.hpp"
 #include "io/saves/save/save_game.hpp"
 #include "profile.hpp"
-#include "systems/levels/io/load_levels.hpp"
 #include "systems/registry_system.hpp"
 
 using namespace wanderer;
@@ -19,7 +19,7 @@ TEST(LoadSaveGame, Usage)
   auto shared = sys::MakeSharedRegistry();
 
   {
-    sys::LoadLevels(shared, graphics);
+    LoadLevels(shared, graphics);
     cen::surface snapshot{"resources/snapshot.png"};
 
     WANDERER_PROFILE_START;
