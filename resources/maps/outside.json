@@ -4,6 +4,12 @@
  "imagewidth":1024,
  "margin":0,
  "name":"outside",
+ "properties":[
+        {
+         "name":"id",
+         "type":"int",
+         "value":2
+        }],
  "spacing":0,
  "tilecount":1024,
  "tiledversion":"1.7.0",

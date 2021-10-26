@@ -4,6 +4,12 @@
  "imagewidth":1024,
  "margin":0,
  "name":"interior",
+ "properties":[
+        {
+         "name":"id",
+         "type":"int",
+         "value":3
+        }],
  "spacing":0,
  "tilecount":1024,
  "tiledversion":"1.7.0",
