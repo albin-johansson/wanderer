@@ -9,6 +9,7 @@
 #include "components/lvl/portal.hpp"
 #include "components/physics/hitbox.hpp"
 #include "components/player.hpp"
+#include "components/tiles/tile.hpp"
 #include "components/trigger.hpp"
 #include "components/ui/menu.hpp"
 #include "core/ecs/registry_utils.hpp"
@@ -23,7 +24,8 @@ namespace {
 
 void RenderHitboxes(const entt::registry& registry, cen::renderer& renderer)
 {
-  for (auto&& [entity, hitbox] : registry.view<comp::Hitbox>().each()) {
+  constexpr auto filter = entt::exclude_t<comp::Tile>();
+  for (auto&& [entity, hitbox] : registry.view<comp::Hitbox>(filter).each()) {
     if (registry.all_of<comp::Trigger>(entity)) {
       renderer.set_color(cen::colors::cyan);
     }

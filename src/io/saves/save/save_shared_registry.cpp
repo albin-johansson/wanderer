@@ -217,7 +217,7 @@ void CopyTo(const comp::Portal& src, proto::portal& dst)
   if (src.target) {
     dst.set_map_id(*src.target);
   }
-  dst.set_path(src.path);
+  dst.set_path(src.path.string());
 }
 
 void CopyTo(const comp::TileLayer& src, proto::tile_layer& dst)

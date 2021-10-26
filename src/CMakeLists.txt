@@ -6,8 +6,10 @@ set(SOURCE_FILES
     profile.hpp
     wanderer_engine.cpp
     wanderer_engine.hpp
+    wanderer_std.hpp
 
     components/associated_entity.hpp
+    components/associated_object.hpp
     components/key_bind.hpp
     components/object.hpp
     components/plant.hpp
@@ -136,43 +138,10 @@ set(SOURCE_FILES
     io/saves/save/save_shared_registry.cpp
     io/saves/save/save_shared_registry.hpp
 
-    io/tmx/common.hpp
-    io/tmx/common.cpp
-    io/tmx/csv.cpp
-    io/tmx/csv.hpp
-    io/tmx/parse_ir.hpp
-    io/tmx/parse_layers.cpp
-    io/tmx/parse_layers.hpp
-    io/tmx/parse_tilesets.cpp
-    io/tmx/parse_tilesets.hpp
-    io/tmx/parse_world.cpp
-    io/tmx/parse_world.hpp
-
-    io/tmx/objects/parse_container.cpp
-    io/tmx/objects/parse_container.hpp
-    io/tmx/objects/parse_hitbox.cpp
-    io/tmx/objects/parse_hitbox.hpp
-    io/tmx/objects/parse_light.cpp
-    io/tmx/objects/parse_light.hpp
-    io/tmx/objects/parse_object_layer.cpp
-    io/tmx/objects/parse_object_layer.hpp
-    io/tmx/objects/parse_plant.cpp
-    io/tmx/objects/parse_plant.hpp
-    io/tmx/objects/parse_portal.cpp
-    io/tmx/objects/parse_portal.hpp
-    io/tmx/objects/parse_spawnpoint.cpp
-    io/tmx/objects/parse_spawnpoint.hpp
-
-    io/tmx/tiles/make_tile_matrix.cpp
-    io/tmx/tiles/make_tile_matrix.hpp
-    io/tmx/tiles/parse_ground_layer.cpp
-    io/tmx/tiles/parse_ground_layer.hpp
-    io/tmx/tiles/parse_tile.cpp
-    io/tmx/tiles/parse_tile.hpp
-    io/tmx/tiles/parse_tile_layer.cpp
-    io/tmx/tiles/parse_tile_layer.hpp
-    io/tmx/tiles/parse_tile_objects.cpp
-    io/tmx/tiles/parse_tile_objects.hpp
+    io/maps/load_levels.cpp
+    io/maps/load_levels.hpp
+    io/maps/tactile_io_utils.hpp
+    io/maps/tactile_io_utils.cpp
 
     systems/interaction_system.cpp
     systems/interaction_system.hpp
@@ -255,25 +224,6 @@ set(SOURCE_FILES
     systems/physics/particle_system.cpp
     systems/physics/particle_system.hpp
 
-    systems/levels/io/level_factory_system.cpp
-    systems/levels/io/level_factory_system.hpp
-    systems/levels/io/load_ground_layers.cpp
-    systems/levels/io/load_ground_layers.hpp
-    systems/levels/io/load_humanoids.cpp
-    systems/levels/io/load_humanoids.hpp
-    systems/levels/io/load_levels.cpp
-    systems/levels/io/load_levels.hpp
-    systems/levels/io/load_objects.cpp
-    systems/levels/io/load_objects.hpp
-    systems/levels/io/load_tile_objects.cpp
-    systems/levels/io/load_tile_objects.hpp
-    systems/levels/io/load_tilemap.cpp
-    systems/levels/io/load_tilemap.hpp
-    systems/levels/io/load_tileset.cpp
-    systems/levels/io/load_tileset.hpp
-    systems/levels/io/load_tileset_textures.cpp
-    systems/levels/io/load_tileset_textures.hpp
-
     systems/ui/cursor_system.cpp
     systems/ui/cursor_system.hpp
     systems/ui/fps_system.cpp
@@ -327,7 +277,7 @@ set(SOURCE_FILES
     systems/ui/menus/saves/saves_menu_entry_factory_system.hpp
     systems/ui/menus/saves/saves_menu_system.cpp
     systems/ui/menus/saves/saves_menu_system.hpp
-    wanderer_std.hpp)
+    )
 
 add_library(${WANDERER_LIB} ${SOURCE_FILES})
 

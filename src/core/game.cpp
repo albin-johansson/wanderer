@@ -9,6 +9,7 @@
 #include "core/ecs/registry_utils.hpp"
 #include "events/load_game_event.hpp"
 #include "events/menu_events.hpp"
+#include "io/maps/load_levels.hpp"
 #include "io/saves/delete_save.hpp"
 #include "io/saves/load/load_game.hpp"
 #include "io/saves/save/save_game.hpp"
@@ -30,7 +31,6 @@
 #include "systems/gfx/tile_layer_rendering_system.hpp"
 #include "systems/gfx/viewport_system.hpp"
 #include "systems/input/input_system.hpp"
-#include "systems/levels/io/load_levels.hpp"
 #include "systems/levels/level_system.hpp"
 #include "systems/physics/movement_system.hpp"
 #include "systems/physics/particle_system.hpp"
@@ -52,7 +52,7 @@ Game::Game(graphics_type& graphics)
     : m_shared{sys::MakeSharedRegistry()}
     , m_dispatcher{MakeDispatcher()}
 {
-  sys::LoadLevels(m_shared, graphics);
+  LoadLevels(m_shared, graphics);
 
   // clang-format off
   m_dispatcher.sink<SwitchMapEvent>().connect<&Game::on_switch_map>(this);
