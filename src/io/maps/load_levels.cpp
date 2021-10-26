@@ -612,7 +612,7 @@ auto LoadLevel(entt::registry& shared,
     WANDERER_PROFILE_END("Loaded level")
 
     for (auto&& [entity, portal] : level.registry.view<comp::Portal>().each()) {
-      if (!portal.path.empty()) {
+      if (!portal.path.empty() && portal.path != ".") {
         LoadLevel(shared, graphics, path.parent_path() / portal.path);
       }
     }
