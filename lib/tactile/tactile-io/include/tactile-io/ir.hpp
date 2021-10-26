@@ -1,5 +1,6 @@
 #pragma once
 
+#include <concepts>    // invocable
 #include <filesystem>  // path::value_type
 #include <memory>      // unique_ptr
 
@@ -15,8 +16,10 @@ namespace Tactile::IO {
 /// \addtogroup io
 /// \{
 
+/// \brief Alias for a C-style string using the native preferred path `char` type.
 using CPathStr = const std::filesystem::path::value_type*;
 
+/// \brief A simple representation of an 8-bit RGBA color.
 struct Color final
 {
   uint8 red{};
@@ -25,6 +28,7 @@ struct Color final
   uint8 alpha{};
 };
 
+/* Forward declarations of IR types, which are not defined in client code. */
 struct Property;
 struct AnimationFrame;
 struct Object;
@@ -40,6 +44,7 @@ struct Map;
 TACTILE_IO_API_QUERY auto NewMap() -> Map*;
 TACTILE_IO_API void DeleteMap(Map* map) noexcept;
 
+/// \brief `Map` deleter for use with `std::unique_ptr`.
 struct TACTILE_IO_API MapDeleter final
 {
   void operator()(Map* map) noexcept
@@ -48,11 +53,24 @@ struct TACTILE_IO_API MapDeleter final
   }
 };
 
+/// \brief Alias for a unique pointer to a `Map` instance.
 using MapPtr = std::unique_ptr<Map, MapDeleter>;
 
 /// \name Map API
 /// \{
 
+/**
+ * \brief Creates and returns a unique pointer to an empty `Map` instance.
+ *
+ * \details This function is the recommended way to construct `Map` instances, since you
+ * don't have to worry about managing the allocated memory (which is not the case with
+ * `NewMap()`).
+ *
+ * \note This function cannot simply be replaced by a call to `std::make_unique()`, since
+ * you need to use a custom deleter for the incomplete `Map` type.
+ *
+ * \return a unique pointer to a `Map`.
+ */
 inline auto CreateMap() -> MapPtr
 {
   return MapPtr{NewMap()};
@@ -298,6 +316,112 @@ TACTILE_IO_API_QUERY auto GetObject(const Property& property) -> int32;
 TACTILE_IO_API_QUERY auto GetColor(const Property& property) -> Color;
 
 /// \} End of property API
+
+/**
+ * \brief Calls the supplied callable for each tileset provided by the map.
+ *
+ * \tparam U the type of the function object.
+ *
+ * \param map the map that provides the layers to be visited.
+ * \param callable the function object that is invoked for each layer.
+ */
+template <std::invocable<const Tileset&> U>
+void EachTileset(const Map& map, U&& callable)
+{
+  const auto count = GetTilesetCount(map);
+  for (usize index = 0; index < count; ++index) {
+    const auto& tileset = GetTileset(map, index);
+    callable(tileset);
+  }
+}
+
+/**
+ * \brief Calls the supplied callable for each tile info object provided by the tileset.
+ *
+ * \note Do not confuse the notion of tile info objects and the individual tiles
+ * associated with a tileset.
+ *
+ * \tparam U the type of the function object.
+ *
+ * \param tileset the tileset that provides the tile info objects to be visited.
+ * \param callable the function object that is invoked for each tile info.
+ */
+template <std::invocable<const Tile&> U>
+void EachTileInfo(const Tileset& tileset, U&& callable)
+{
+  const auto count = GetTileInfoCount(tileset);
+  for (usize index = 0; index < count; ++index) {
+    const auto& tile = GetTileInfo(tileset, index);
+    callable(tile);
+  }
+}
+
+template <std::invocable<const AnimationFrame&> U>
+void EachAnimationFrame(const Tile& tile, U&& callable)
+{
+  const auto count = GetAnimationFrameCount(tile);
+  for (usize index = 0; index < count; ++index) {
+    const auto& frame = GetAnimationFrame(tile, index);
+    callable(frame);
+  }
+}
+
+/**
+ * \brief Calls the supplied callable for each layer provided by the source object.
+ *
+ * \tparam T the type of the source object.
+ * \tparam U the type of the function object.
+ *
+ * \param source the source object that provides the layers to be visited.
+ * \param callable the function object that is invoked for each layer.
+ */
+template <typename T, std::invocable<const Layer&> U>
+void EachLayer(const T& source, U&& callable)
+{
+  const auto count = GetLayerCount(source);
+  for (usize index = 0; index < count; ++index) {
+    const auto& layer = GetLayer(source, index);
+    callable(layer);
+  }
+}
+
+/**
+ * \brief Calls the supplied callable for each map object provided by the source object.
+ *
+ * \tparam T the type of the source object.
+ * \tparam U the type of the function object.
+ *
+ * \param source the source object that provides the map objects to be visited.
+ * \param callable the function object that is invoked for each map object.
+ */
+template <typename T, std::invocable<const Object&> U>
+void EachObject(const T& source, U&& callable)
+{
+  const auto count = GetObjectCount(source);
+  for (usize index = 0; index < count; ++index) {
+    const auto& object = GetObject(source, index);
+    callable(object);
+  }
+}
+
+/**
+ * \brief Calls the supplied callable for each property provided by the source object.
+ *
+ * \tparam T the type of the source object.
+ * \tparam U the type of the function object.
+ *
+ * \param source the source object that provides the properties to be visited.
+ * \param callable the function object that is invoked for each property.
+ */
+template <typename T, std::invocable<const Property&> U>
+void EachProperty(const T& source, U&& callable)
+{
+  const auto count = GetPropertyCount(source);
+  for (usize index = 0; index < count; ++index) {
+    const auto& property = GetProperty(source, index);
+    callable(property);
+  }
+}
 
 /// \} End of group io
 
