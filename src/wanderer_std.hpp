@@ -32,15 +32,26 @@ using uint64 = std::uint64_t;
 using CStr = const char*;
 
 using aabb_tree = rune::aabb_tree<entt::entity>;
-using AabbTree = aabb_tree;
+
+using float32 = glm::float32;
+using float64 = glm::float64;
 
 using float2 = glm::vec2;
+using float3 = glm::vec3;
+using glm::vec2;
+using glm::vec3;
 
 template <typename T>
 using maybe = std::optional<T>;
 
 template <typename T>
+using Maybe = std::optional<T>;
+
+template <typename T>
 using ref = std::reference_wrapper<T>;
+
+template <typename T>
+using Ref = std::reference_wrapper<T>;
 
 using ms_t = std::chrono::duration<uint32, std::milli>;
 
