@@ -18,18 +18,18 @@
 PROTOBUF_PRAGMA_INIT_SEG
 namespace wanderer {
 namespace proto {
-constexpr associated_entity::associated_entity(
+constexpr AssociatedEntity::AssociatedEntity(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : entity_(0u){}
-struct associated_entityDefaultTypeInternal {
-  constexpr associated_entityDefaultTypeInternal()
+struct AssociatedEntityDefaultTypeInternal {
+  constexpr AssociatedEntityDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~associated_entityDefaultTypeInternal() {}
+  ~AssociatedEntityDefaultTypeInternal() {}
   union {
-    associated_entity _instance;
+    AssociatedEntity _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT associated_entityDefaultTypeInternal _associated_entity_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT AssociatedEntityDefaultTypeInternal _AssociatedEntity_default_instance_;
 }  // namespace proto
 }  // namespace wanderer
 static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_associated_5fentity_2eproto[1];
@@ -37,31 +37,31 @@ static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_associated_5fentity_2eproto = nullptr;
 
 const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_associated_5fentity_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::associated_entity, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::associated_entity, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::AssociatedEntity, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::AssociatedEntity, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::associated_entity, entity_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::AssociatedEntity, entity_),
   0,
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, 7, -1, sizeof(::wanderer::proto::associated_entity)},
+  { 0, 7, -1, sizeof(::wanderer::proto::AssociatedEntity)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_associated_entity_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_AssociatedEntity_default_instance_),
 };
 
 const char descriptor_table_protodef_associated_5fentity_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\027associated_entity.proto\022\016wanderer.prot"
-  "o\"3\n\021associated_entity\022\023\n\006entity\030\001 \001(\rH\000"
-  "\210\001\001B\t\n\007_entityb\006proto3"
+  "o\"2\n\020AssociatedEntity\022\023\n\006entity\030\001 \001(\rH\000\210"
+  "\001\001B\t\n\007_entityb\006proto3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_associated_5fentity_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_associated_5fentity_2eproto = {
-  false, false, 102, descriptor_table_protodef_associated_5fentity_2eproto, "associated_entity.proto", 
+  false, false, 101, descriptor_table_protodef_associated_5fentity_2eproto, "associated_entity.proto", 
   &descriptor_table_associated_5fentity_2eproto_once, nullptr, 0, 1,
   schemas, file_default_instances, TableStruct_associated_5fentity_2eproto::offsets,
   file_level_metadata_associated_5fentity_2eproto, file_level_enum_descriptors_associated_5fentity_2eproto, file_level_service_descriptors_associated_5fentity_2eproto,
@@ -77,58 +77,58 @@ namespace proto {
 
 // ===================================================================
 
-class associated_entity::_Internal {
+class AssociatedEntity::_Internal {
  public:
-  using HasBits = decltype(std::declval<associated_entity>()._has_bits_);
+  using HasBits = decltype(std::declval<AssociatedEntity>()._has_bits_);
   static void set_has_entity(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
 
-associated_entity::associated_entity(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+AssociatedEntity::AssociatedEntity(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor();
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
   }
-  // @@protoc_insertion_point(arena_constructor:wanderer.proto.associated_entity)
+  // @@protoc_insertion_point(arena_constructor:wanderer.proto.AssociatedEntity)
 }
-associated_entity::associated_entity(const associated_entity& from)
+AssociatedEntity::AssociatedEntity(const AssociatedEntity& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
       _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   entity_ = from.entity_;
-  // @@protoc_insertion_point(copy_constructor:wanderer.proto.associated_entity)
+  // @@protoc_insertion_point(copy_constructor:wanderer.proto.AssociatedEntity)
 }
 
-void associated_entity::SharedCtor() {
+void AssociatedEntity::SharedCtor() {
 entity_ = 0u;
 }
 
-associated_entity::~associated_entity() {
-  // @@protoc_insertion_point(destructor:wanderer.proto.associated_entity)
+AssociatedEntity::~AssociatedEntity() {
+  // @@protoc_insertion_point(destructor:wanderer.proto.AssociatedEntity)
   if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-inline void associated_entity::SharedDtor() {
+inline void AssociatedEntity::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void associated_entity::ArenaDtor(void* object) {
-  associated_entity* _this = reinterpret_cast< associated_entity* >(object);
+void AssociatedEntity::ArenaDtor(void* object) {
+  AssociatedEntity* _this = reinterpret_cast< AssociatedEntity* >(object);
   (void)_this;
 }
-void associated_entity::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+void AssociatedEntity::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 }
-void associated_entity::SetCachedSize(int size) const {
+void AssociatedEntity::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
 
-void associated_entity::Clear() {
-// @@protoc_insertion_point(message_clear_start:wanderer.proto.associated_entity)
+void AssociatedEntity::Clear() {
+// @@protoc_insertion_point(message_clear_start:wanderer.proto.AssociatedEntity)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -138,7 +138,7 @@ void associated_entity::Clear() {
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* associated_entity::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* AssociatedEntity::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
@@ -178,9 +178,9 @@ failure:
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* associated_entity::_InternalSerialize(
+::PROTOBUF_NAMESPACE_ID::uint8* AssociatedEntity::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:wanderer.proto.associated_entity)
+  // @@protoc_insertion_point(serialize_to_array_start:wanderer.proto.AssociatedEntity)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -194,12 +194,12 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:wanderer.proto.associated_entity)
+  // @@protoc_insertion_point(serialize_to_array_end:wanderer.proto.AssociatedEntity)
   return target;
 }
 
-size_t associated_entity::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:wanderer.proto.associated_entity)
+size_t AssociatedEntity::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:wanderer.proto.AssociatedEntity)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -215,21 +215,21 @@ size_t associated_entity::ByteSizeLong() const {
   return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData associated_entity::_class_data_ = {
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData AssociatedEntity::_class_data_ = {
     ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    associated_entity::MergeImpl
+    AssociatedEntity::MergeImpl
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*associated_entity::GetClassData() const { return &_class_data_; }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*AssociatedEntity::GetClassData() const { return &_class_data_; }
 
-void associated_entity::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
+void AssociatedEntity::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
                       const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<associated_entity *>(to)->MergeFrom(
-      static_cast<const associated_entity &>(from));
+  static_cast<AssociatedEntity *>(to)->MergeFrom(
+      static_cast<const AssociatedEntity &>(from));
 }
 
 
-void associated_entity::MergeFrom(const associated_entity& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:wanderer.proto.associated_entity)
+void AssociatedEntity::MergeFrom(const AssociatedEntity& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:wanderer.proto.AssociatedEntity)
   GOOGLE_DCHECK_NE(&from, this);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
@@ -240,25 +240,25 @@ void associated_entity::MergeFrom(const associated_entity& from) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void associated_entity::CopyFrom(const associated_entity& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:wanderer.proto.associated_entity)
+void AssociatedEntity::CopyFrom(const AssociatedEntity& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:wanderer.proto.AssociatedEntity)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool associated_entity::IsInitialized() const {
+bool AssociatedEntity::IsInitialized() const {
   return true;
 }
 
-void associated_entity::InternalSwap(associated_entity* other) {
+void AssociatedEntity::InternalSwap(AssociatedEntity* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
   swap(entity_, other->entity_);
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata associated_entity::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata AssociatedEntity::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_associated_5fentity_2eproto_getter, &descriptor_table_associated_5fentity_2eproto_once,
       file_level_metadata_associated_5fentity_2eproto[0]);
@@ -268,8 +268,8 @@ void associated_entity::InternalSwap(associated_entity* other) {
 }  // namespace proto
 }  // namespace wanderer
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::wanderer::proto::associated_entity* Arena::CreateMaybeMessage< ::wanderer::proto::associated_entity >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::wanderer::proto::associated_entity >(arena);
+template<> PROTOBUF_NOINLINE ::wanderer::proto::AssociatedEntity* Arena::CreateMaybeMessage< ::wanderer::proto::AssociatedEntity >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::wanderer::proto::AssociatedEntity >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

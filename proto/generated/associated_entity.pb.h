@@ -55,37 +55,37 @@ struct TableStruct_associated_5fentity_2eproto {
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_associated_5fentity_2eproto;
 namespace wanderer {
 namespace proto {
-class associated_entity;
-struct associated_entityDefaultTypeInternal;
-extern associated_entityDefaultTypeInternal _associated_entity_default_instance_;
+class AssociatedEntity;
+struct AssociatedEntityDefaultTypeInternal;
+extern AssociatedEntityDefaultTypeInternal _AssociatedEntity_default_instance_;
 }  // namespace proto
 }  // namespace wanderer
 PROTOBUF_NAMESPACE_OPEN
-template<> ::wanderer::proto::associated_entity* Arena::CreateMaybeMessage<::wanderer::proto::associated_entity>(Arena*);
+template<> ::wanderer::proto::AssociatedEntity* Arena::CreateMaybeMessage<::wanderer::proto::AssociatedEntity>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace wanderer {
 namespace proto {
 
 // ===================================================================
 
-class associated_entity final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.proto.associated_entity) */ {
+class AssociatedEntity final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.proto.AssociatedEntity) */ {
  public:
-  inline associated_entity() : associated_entity(nullptr) {}
-  ~associated_entity() override;
-  explicit constexpr associated_entity(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline AssociatedEntity() : AssociatedEntity(nullptr) {}
+  ~AssociatedEntity() override;
+  explicit constexpr AssociatedEntity(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  associated_entity(const associated_entity& from);
-  associated_entity(associated_entity&& from) noexcept
-    : associated_entity() {
+  AssociatedEntity(const AssociatedEntity& from);
+  AssociatedEntity(AssociatedEntity&& from) noexcept
+    : AssociatedEntity() {
     *this = ::std::move(from);
   }
 
-  inline associated_entity& operator=(const associated_entity& from) {
+  inline AssociatedEntity& operator=(const AssociatedEntity& from) {
     CopyFrom(from);
     return *this;
   }
-  inline associated_entity& operator=(associated_entity&& from) noexcept {
+  inline AssociatedEntity& operator=(AssociatedEntity&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -108,20 +108,20 @@ class associated_entity final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const associated_entity& default_instance() {
+  static const AssociatedEntity& default_instance() {
     return *internal_default_instance();
   }
-  static inline const associated_entity* internal_default_instance() {
-    return reinterpret_cast<const associated_entity*>(
-               &_associated_entity_default_instance_);
+  static inline const AssociatedEntity* internal_default_instance() {
+    return reinterpret_cast<const AssociatedEntity*>(
+               &_AssociatedEntity_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     0;
 
-  friend void swap(associated_entity& a, associated_entity& b) {
+  friend void swap(AssociatedEntity& a, AssociatedEntity& b) {
     a.Swap(&b);
   }
-  inline void Swap(associated_entity* other) {
+  inline void Swap(AssociatedEntity* other) {
     if (other == this) return;
     if (GetOwningArena() == other->GetOwningArena()) {
       InternalSwap(other);
@@ -129,7 +129,7 @@ class associated_entity final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(associated_entity* other) {
+  void UnsafeArenaSwap(AssociatedEntity* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -137,17 +137,17 @@ class associated_entity final :
 
   // implements Message ----------------------------------------------
 
-  inline associated_entity* New() const final {
-    return new associated_entity();
+  inline AssociatedEntity* New() const final {
+    return new AssociatedEntity();
   }
 
-  associated_entity* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<associated_entity>(arena);
+  AssociatedEntity* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<AssociatedEntity>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const associated_entity& from);
+  void CopyFrom(const AssociatedEntity& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom(const associated_entity& from);
+  void MergeFrom(const AssociatedEntity& from);
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to, const ::PROTOBUF_NAMESPACE_ID::Message& from);
   public:
@@ -164,13 +164,13 @@ class associated_entity final :
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(associated_entity* other);
+  void InternalSwap(AssociatedEntity* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "wanderer.proto.associated_entity";
+    return "wanderer.proto.AssociatedEntity";
   }
   protected:
-  explicit associated_entity(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit AssociatedEntity(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   private:
   static void ArenaDtor(void* object);
@@ -202,7 +202,7 @@ class associated_entity final :
   void _internal_set_entity(::PROTOBUF_NAMESPACE_ID::uint32 value);
   public:
 
-  // @@protoc_insertion_point(class_scope:wanderer.proto.associated_entity)
+  // @@protoc_insertion_point(class_scope:wanderer.proto.AssociatedEntity)
  private:
   class _Internal;
 
@@ -223,34 +223,34 @@ class associated_entity final :
   #pragma GCC diagnostic push
   #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
-// associated_entity
+// AssociatedEntity
 
 // optional uint32 entity = 1;
-inline bool associated_entity::_internal_has_entity() const {
+inline bool AssociatedEntity::_internal_has_entity() const {
   bool value = (_has_bits_[0] & 0x00000001u) != 0;
   return value;
 }
-inline bool associated_entity::has_entity() const {
+inline bool AssociatedEntity::has_entity() const {
   return _internal_has_entity();
 }
-inline void associated_entity::clear_entity() {
+inline void AssociatedEntity::clear_entity() {
   entity_ = 0u;
   _has_bits_[0] &= ~0x00000001u;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 associated_entity::_internal_entity() const {
+inline ::PROTOBUF_NAMESPACE_ID::uint32 AssociatedEntity::_internal_entity() const {
   return entity_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 associated_entity::entity() const {
-  // @@protoc_insertion_point(field_get:wanderer.proto.associated_entity.entity)
+inline ::PROTOBUF_NAMESPACE_ID::uint32 AssociatedEntity::entity() const {
+  // @@protoc_insertion_point(field_get:wanderer.proto.AssociatedEntity.entity)
   return _internal_entity();
 }
-inline void associated_entity::_internal_set_entity(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void AssociatedEntity::_internal_set_entity(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _has_bits_[0] |= 0x00000001u;
   entity_ = value;
 }
-inline void associated_entity::set_entity(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void AssociatedEntity::set_entity(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _internal_set_entity(value);
-  // @@protoc_insertion_point(field_set:wanderer.proto.associated_entity.entity)
+  // @@protoc_insertion_point(field_set:wanderer.proto.AssociatedEntity.entity)
 }
 
 #ifdef __GNUC__

@@ -18,22 +18,22 @@
 PROTOBUF_PRAGMA_INIT_SEG
 namespace wanderer {
 namespace proto {
-constexpr drawable::drawable(
+constexpr Drawable::Drawable(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : src_(nullptr)
   , dst_(nullptr)
   , texture_index_(uint64_t{0u})
   , layer_index_(0)
   , depth_index_(0){}
-struct drawableDefaultTypeInternal {
-  constexpr drawableDefaultTypeInternal()
+struct DrawableDefaultTypeInternal {
+  constexpr DrawableDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~drawableDefaultTypeInternal() {}
+  ~DrawableDefaultTypeInternal() {}
   union {
-    drawable _instance;
+    Drawable _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT drawableDefaultTypeInternal _drawable_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT DrawableDefaultTypeInternal _Drawable_default_instance_;
 }  // namespace proto
 }  // namespace wanderer
 static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_drawable_2eproto[1];
@@ -41,17 +41,17 @@ static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_drawable_2eproto = nullptr;
 
 const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_drawable_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::drawable, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::drawable, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::Drawable, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::Drawable, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::drawable, texture_index_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::drawable, src_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::drawable, dst_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::drawable, layer_index_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::drawable, depth_index_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::Drawable, texture_index_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::Drawable, src_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::Drawable, dst_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::Drawable, layer_index_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::Drawable, depth_index_),
   2,
   0,
   1,
@@ -59,16 +59,16 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_drawable_2eproto::offsets[] PR
   4,
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, 11, -1, sizeof(::wanderer::proto::drawable)},
+  { 0, 11, -1, sizeof(::wanderer::proto::Drawable)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_drawable_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_Drawable_default_instance_),
 };
 
 const char descriptor_table_protodef_drawable_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\016drawable.proto\022\016wanderer.proto\032\nrect.p"
-  "roto\"\356\001\n\010drawable\022\032\n\rtexture_index\030\001 \001(\004"
+  "roto\"\356\001\n\010Drawable\022\032\n\rtexture_index\030\001 \001(\004"
   "H\000\210\001\001\022\'\n\003src\030\002 \001(\0132\025.wanderer.proto.irec"
   "tH\001\210\001\001\022\'\n\003dst\030\003 \001(\0132\025.wanderer.proto.fre"
   "ctH\002\210\001\001\022\030\n\013layer_index\030\004 \001(\005H\003\210\001\001\022\030\n\013dep"
@@ -97,17 +97,17 @@ namespace proto {
 
 // ===================================================================
 
-class drawable::_Internal {
+class Drawable::_Internal {
  public:
-  using HasBits = decltype(std::declval<drawable>()._has_bits_);
+  using HasBits = decltype(std::declval<Drawable>()._has_bits_);
   static void set_has_texture_index(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
   }
-  static const ::wanderer::proto::irect& src(const drawable* msg);
+  static const ::wanderer::proto::irect& src(const Drawable* msg);
   static void set_has_src(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
-  static const ::wanderer::proto::frect& dst(const drawable* msg);
+  static const ::wanderer::proto::frect& dst(const Drawable* msg);
   static void set_has_dst(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
@@ -120,31 +120,31 @@ class drawable::_Internal {
 };
 
 const ::wanderer::proto::irect&
-drawable::_Internal::src(const drawable* msg) {
+Drawable::_Internal::src(const Drawable* msg) {
   return *msg->src_;
 }
 const ::wanderer::proto::frect&
-drawable::_Internal::dst(const drawable* msg) {
+Drawable::_Internal::dst(const Drawable* msg) {
   return *msg->dst_;
 }
-void drawable::clear_src() {
+void Drawable::clear_src() {
   if (src_ != nullptr) src_->Clear();
   _has_bits_[0] &= ~0x00000001u;
 }
-void drawable::clear_dst() {
+void Drawable::clear_dst() {
   if (dst_ != nullptr) dst_->Clear();
   _has_bits_[0] &= ~0x00000002u;
 }
-drawable::drawable(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+Drawable::Drawable(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor();
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
   }
-  // @@protoc_insertion_point(arena_constructor:wanderer.proto.drawable)
+  // @@protoc_insertion_point(arena_constructor:wanderer.proto.Drawable)
 }
-drawable::drawable(const drawable& from)
+Drawable::Drawable(const Drawable& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
       _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
@@ -161,41 +161,41 @@ drawable::drawable(const drawable& from)
   ::memcpy(&texture_index_, &from.texture_index_,
     static_cast<size_t>(reinterpret_cast<char*>(&depth_index_) -
     reinterpret_cast<char*>(&texture_index_)) + sizeof(depth_index_));
-  // @@protoc_insertion_point(copy_constructor:wanderer.proto.drawable)
+  // @@protoc_insertion_point(copy_constructor:wanderer.proto.Drawable)
 }
 
-void drawable::SharedCtor() {
+void Drawable::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&src_) - reinterpret_cast<char*>(this)),
     0, static_cast<size_t>(reinterpret_cast<char*>(&depth_index_) -
     reinterpret_cast<char*>(&src_)) + sizeof(depth_index_));
 }
 
-drawable::~drawable() {
-  // @@protoc_insertion_point(destructor:wanderer.proto.drawable)
+Drawable::~Drawable() {
+  // @@protoc_insertion_point(destructor:wanderer.proto.Drawable)
   if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-inline void drawable::SharedDtor() {
+inline void Drawable::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete src_;
   if (this != internal_default_instance()) delete dst_;
 }
 
-void drawable::ArenaDtor(void* object) {
-  drawable* _this = reinterpret_cast< drawable* >(object);
+void Drawable::ArenaDtor(void* object) {
+  Drawable* _this = reinterpret_cast< Drawable* >(object);
   (void)_this;
 }
-void drawable::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+void Drawable::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 }
-void drawable::SetCachedSize(int size) const {
+void Drawable::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
 
-void drawable::Clear() {
-// @@protoc_insertion_point(message_clear_start:wanderer.proto.drawable)
+void Drawable::Clear() {
+// @@protoc_insertion_point(message_clear_start:wanderer.proto.Drawable)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -220,7 +220,7 @@ void drawable::Clear() {
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* drawable::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* Drawable::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
@@ -294,9 +294,9 @@ failure:
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* drawable::_InternalSerialize(
+::PROTOBUF_NAMESPACE_ID::uint8* Drawable::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:wanderer.proto.drawable)
+  // @@protoc_insertion_point(serialize_to_array_start:wanderer.proto.Drawable)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -338,12 +338,12 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:wanderer.proto.drawable)
+  // @@protoc_insertion_point(serialize_to_array_end:wanderer.proto.Drawable)
   return target;
 }
 
-size_t drawable::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:wanderer.proto.drawable)
+size_t Drawable::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:wanderer.proto.Drawable)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -385,21 +385,21 @@ size_t drawable::ByteSizeLong() const {
   return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData drawable::_class_data_ = {
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData Drawable::_class_data_ = {
     ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    drawable::MergeImpl
+    Drawable::MergeImpl
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*drawable::GetClassData() const { return &_class_data_; }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Drawable::GetClassData() const { return &_class_data_; }
 
-void drawable::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
+void Drawable::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
                       const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<drawable *>(to)->MergeFrom(
-      static_cast<const drawable &>(from));
+  static_cast<Drawable *>(to)->MergeFrom(
+      static_cast<const Drawable &>(from));
 }
 
 
-void drawable::MergeFrom(const drawable& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:wanderer.proto.drawable)
+void Drawable::MergeFrom(const Drawable& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:wanderer.proto.Drawable)
   GOOGLE_DCHECK_NE(&from, this);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
@@ -426,30 +426,30 @@ void drawable::MergeFrom(const drawable& from) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void drawable::CopyFrom(const drawable& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:wanderer.proto.drawable)
+void Drawable::CopyFrom(const Drawable& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:wanderer.proto.Drawable)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool drawable::IsInitialized() const {
+bool Drawable::IsInitialized() const {
   return true;
 }
 
-void drawable::InternalSwap(drawable* other) {
+void Drawable::InternalSwap(Drawable* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(drawable, depth_index_)
-      + sizeof(drawable::depth_index_)
-      - PROTOBUF_FIELD_OFFSET(drawable, src_)>(
+      PROTOBUF_FIELD_OFFSET(Drawable, depth_index_)
+      + sizeof(Drawable::depth_index_)
+      - PROTOBUF_FIELD_OFFSET(Drawable, src_)>(
           reinterpret_cast<char*>(&src_),
           reinterpret_cast<char*>(&other->src_));
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata drawable::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata Drawable::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_drawable_2eproto_getter, &descriptor_table_drawable_2eproto_once,
       file_level_metadata_drawable_2eproto[0]);
@@ -459,8 +459,8 @@ void drawable::InternalSwap(drawable* other) {
 }  // namespace proto
 }  // namespace wanderer
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::wanderer::proto::drawable* Arena::CreateMaybeMessage< ::wanderer::proto::drawable >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::wanderer::proto::drawable >(arena);
+template<> PROTOBUF_NOINLINE ::wanderer::proto::Drawable* Arena::CreateMaybeMessage< ::wanderer::proto::Drawable >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::wanderer::proto::Drawable >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

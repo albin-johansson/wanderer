@@ -1,78 +1,17 @@
 syntax = "proto3";
 
-import "animation.proto";
-import "associated_entity.proto";
-import "chase.proto";
-import "drawable.proto";
-import "hitbox.proto";
-import "inventory.proto";
-import "movable.proto";
-import "object.proto";
-import "particle.proto";
-import "plant.proto";
-import "point_light.proto";
-import "portal.proto";
-import "spawnpoint.proto";
-import "tile_animation.proto";
-import "tile_layer.proto";
-import "tile.proto";
-import "tile_object.proto";
-import "tileset.proto";
+import "level.proto";
 import "time_of_day.proto";
-import "trigger.proto";
 
 package wanderer.proto;
 
-message level {
-
-  optional int32 id = 1;
-  repeated uint32 entities = 2 [packed = true];
-
-  map<uint32, movable> movables = 3;
-  map<uint32, drawable> drawables = 4;
-  map<uint32, animation> animations = 5;
-  map<uint32, plant> plants = 6;
-  map<uint32, tile> tiles = 7;
-  map<uint32, tile_animation> tile_animations = 9;
-
-  // 8 is available
-
-  map<uint32, chase> chases = 10;
-  map<uint32, particle> particles = 11;
-  map<uint32, point_light> lights = 12;
-  map<uint32, spawnpoint> spawnpoints = 13;
-  map<uint32, hitbox> hitboxes = 14;
-  map<uint32, map_object> objects = 15;
-  map<uint32, portal> portals = 16;
-  map<uint32, tile_layer> tile_layers = 17;
-  map<uint32, tileset> tilesets = 18;
-  map<uint32, inventory> inventories = 19;
-  map<uint32, tile_object> tile_objects = 20;
-  map<uint32, trigger> triggers = 21;
-  map<uint32, associated_entity> associations = 22;
-
-  optional uint32 player_entity = 50;
-  repeated uint32 humanoids = 51 [packed = true];
-
-  optional int32 humanoid_layer_index = 52;
-  optional uint64 row_count = 53;
-  optional uint64 column_count = 54;
-  optional float width = 55;
-  optional float height = 56;
-
-  optional bool keep_viewport_in_bounds = 100;
-  optional bool is_outside_level = 101;
-
-  // TODO player spawn position?
+message SharedData {
+  optional TimeOfDay time = 1;
 }
 
-message shared_data {
-  optional time_of_day time = 1;
-}
-
-message save {
+message Save {
   optional int32 current_level_id = 1;
-  optional shared_data shared = 2;
-  repeated level levels = 3;
+  optional SharedData shared = 2;
+  repeated Level levels = 3;
 }
 

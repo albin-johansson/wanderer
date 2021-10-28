@@ -4,7 +4,7 @@ import "float2.proto";
 
 package wanderer.proto;
 
-message point_light
+message PointLight
 {
   optional float2 position = 1;
   optional float size = 2;

@@ -18,21 +18,21 @@
 PROTOBUF_PRAGMA_INIT_SEG
 namespace wanderer {
 namespace proto {
-constexpr color::color(
+constexpr Color::Color(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : red_(0u)
   , green_(0u)
   , blue_(0u)
   , alpha_(0u){}
-struct colorDefaultTypeInternal {
-  constexpr colorDefaultTypeInternal()
+struct ColorDefaultTypeInternal {
+  constexpr ColorDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~colorDefaultTypeInternal() {}
+  ~ColorDefaultTypeInternal() {}
   union {
-    color _instance;
+    Color _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT colorDefaultTypeInternal _color_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ColorDefaultTypeInternal _Color_default_instance_;
 }  // namespace proto
 }  // namespace wanderer
 static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_color_2eproto[1];
@@ -40,31 +40,31 @@ static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_color_2eproto = nullptr;
 
 const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_color_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::color, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::color, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::Color, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::Color, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::color, red_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::color, green_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::color, blue_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::color, alpha_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::Color, red_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::Color, green_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::Color, blue_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::Color, alpha_),
   0,
   1,
   2,
   3,
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, 10, -1, sizeof(::wanderer::proto::color)},
+  { 0, 10, -1, sizeof(::wanderer::proto::Color)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_color_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_Color_default_instance_),
 };
 
 const char descriptor_table_protodef_color_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\013color.proto\022\016wanderer.proto\"y\n\005color\022\020"
+  "\n\013color.proto\022\016wanderer.proto\"y\n\005Color\022\020"
   "\n\003red\030\001 \001(\rH\000\210\001\001\022\022\n\005green\030\002 \001(\rH\001\210\001\001\022\021\n\004"
   "blue\030\003 \001(\rH\002\210\001\001\022\022\n\005alpha\030\004 \001(\rH\003\210\001\001B\006\n\004_"
   "redB\010\n\006_greenB\007\n\005_blueB\010\n\006_alphab\006proto3"
@@ -87,9 +87,9 @@ namespace proto {
 
 // ===================================================================
 
-class color::_Internal {
+class Color::_Internal {
  public:
-  using HasBits = decltype(std::declval<color>()._has_bits_);
+  using HasBits = decltype(std::declval<Color>()._has_bits_);
   static void set_has_red(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -104,55 +104,55 @@ class color::_Internal {
   }
 };
 
-color::color(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+Color::Color(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor();
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
   }
-  // @@protoc_insertion_point(arena_constructor:wanderer.proto.color)
+  // @@protoc_insertion_point(arena_constructor:wanderer.proto.Color)
 }
-color::color(const color& from)
+Color::Color(const Color& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
       _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::memcpy(&red_, &from.red_,
     static_cast<size_t>(reinterpret_cast<char*>(&alpha_) -
     reinterpret_cast<char*>(&red_)) + sizeof(alpha_));
-  // @@protoc_insertion_point(copy_constructor:wanderer.proto.color)
+  // @@protoc_insertion_point(copy_constructor:wanderer.proto.Color)
 }
 
-void color::SharedCtor() {
+void Color::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&red_) - reinterpret_cast<char*>(this)),
     0, static_cast<size_t>(reinterpret_cast<char*>(&alpha_) -
     reinterpret_cast<char*>(&red_)) + sizeof(alpha_));
 }
 
-color::~color() {
-  // @@protoc_insertion_point(destructor:wanderer.proto.color)
+Color::~Color() {
+  // @@protoc_insertion_point(destructor:wanderer.proto.Color)
   if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-inline void color::SharedDtor() {
+inline void Color::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void color::ArenaDtor(void* object) {
-  color* _this = reinterpret_cast< color* >(object);
+void Color::ArenaDtor(void* object) {
+  Color* _this = reinterpret_cast< Color* >(object);
   (void)_this;
 }
-void color::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+void Color::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 }
-void color::SetCachedSize(int size) const {
+void Color::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
 
-void color::Clear() {
-// @@protoc_insertion_point(message_clear_start:wanderer.proto.color)
+void Color::Clear() {
+// @@protoc_insertion_point(message_clear_start:wanderer.proto.Color)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -167,7 +167,7 @@ void color::Clear() {
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* color::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* Color::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
@@ -234,9 +234,9 @@ failure:
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* color::_InternalSerialize(
+::PROTOBUF_NAMESPACE_ID::uint8* Color::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:wanderer.proto.color)
+  // @@protoc_insertion_point(serialize_to_array_start:wanderer.proto.Color)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -268,12 +268,12 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:wanderer.proto.color)
+  // @@protoc_insertion_point(serialize_to_array_end:wanderer.proto.Color)
   return target;
 }
 
-size_t color::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:wanderer.proto.color)
+size_t Color::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:wanderer.proto.Color)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -306,21 +306,21 @@ size_t color::ByteSizeLong() const {
   return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData color::_class_data_ = {
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData Color::_class_data_ = {
     ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    color::MergeImpl
+    Color::MergeImpl
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*color::GetClassData() const { return &_class_data_; }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Color::GetClassData() const { return &_class_data_; }
 
-void color::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
+void Color::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
                       const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<color *>(to)->MergeFrom(
-      static_cast<const color &>(from));
+  static_cast<Color *>(to)->MergeFrom(
+      static_cast<const Color &>(from));
 }
 
 
-void color::MergeFrom(const color& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:wanderer.proto.color)
+void Color::MergeFrom(const Color& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:wanderer.proto.Color)
   GOOGLE_DCHECK_NE(&from, this);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
@@ -344,30 +344,30 @@ void color::MergeFrom(const color& from) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void color::CopyFrom(const color& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:wanderer.proto.color)
+void Color::CopyFrom(const Color& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:wanderer.proto.Color)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool color::IsInitialized() const {
+bool Color::IsInitialized() const {
   return true;
 }
 
-void color::InternalSwap(color* other) {
+void Color::InternalSwap(Color* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(color, alpha_)
-      + sizeof(color::alpha_)
-      - PROTOBUF_FIELD_OFFSET(color, red_)>(
+      PROTOBUF_FIELD_OFFSET(Color, alpha_)
+      + sizeof(Color::alpha_)
+      - PROTOBUF_FIELD_OFFSET(Color, red_)>(
           reinterpret_cast<char*>(&red_),
           reinterpret_cast<char*>(&other->red_));
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata color::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata Color::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_color_2eproto_getter, &descriptor_table_color_2eproto_once,
       file_level_metadata_color_2eproto[0]);
@@ -377,8 +377,8 @@ void color::InternalSwap(color* other) {
 }  // namespace proto
 }  // namespace wanderer
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::wanderer::proto::color* Arena::CreateMaybeMessage< ::wanderer::proto::color >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::wanderer::proto::color >(arena);
+template<> PROTOBUF_NOINLINE ::wanderer::proto::Color* Arena::CreateMaybeMessage< ::wanderer::proto::Color >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::wanderer::proto::Color >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

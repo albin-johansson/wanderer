@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package wanderer.proto;
 
-message plant {
+message Plant {
   optional float current_growth = 1;
   optional float rate = 2;
 

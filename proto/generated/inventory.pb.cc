@@ -18,20 +18,20 @@
 PROTOBUF_PRAGMA_INIT_SEG
 namespace wanderer {
 namespace proto {
-constexpr inventory::inventory(
+constexpr Inventory::Inventory(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : items_()
   , _items_cached_byte_size_(0)
   , capacity_(uint64_t{0u}){}
-struct inventoryDefaultTypeInternal {
-  constexpr inventoryDefaultTypeInternal()
+struct InventoryDefaultTypeInternal {
+  constexpr InventoryDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~inventoryDefaultTypeInternal() {}
+  ~InventoryDefaultTypeInternal() {}
   union {
-    inventory _instance;
+    Inventory _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT inventoryDefaultTypeInternal _inventory_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT InventoryDefaultTypeInternal _Inventory_default_instance_;
 }  // namespace proto
 }  // namespace wanderer
 static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_inventory_2eproto[1];
@@ -39,27 +39,27 @@ static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_inventory_2eproto = nullptr;
 
 const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_inventory_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::inventory, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::inventory, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::Inventory, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::Inventory, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::inventory, items_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::inventory, capacity_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::Inventory, items_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::Inventory, capacity_),
   ~0u,
   0,
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, 8, -1, sizeof(::wanderer::proto::inventory)},
+  { 0, 8, -1, sizeof(::wanderer::proto::Inventory)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_inventory_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_Inventory_default_instance_),
 };
 
 const char descriptor_table_protodef_inventory_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\017inventory.proto\022\016wanderer.proto\"B\n\tinv"
+  "\n\017inventory.proto\022\016wanderer.proto\"B\n\tInv"
   "entory\022\021\n\005items\030\001 \003(\rB\002\020\001\022\025\n\010capacity\030\002 "
   "\001(\004H\000\210\001\001B\013\n\t_capacityb\006proto3"
   ;
@@ -81,15 +81,15 @@ namespace proto {
 
 // ===================================================================
 
-class inventory::_Internal {
+class Inventory::_Internal {
  public:
-  using HasBits = decltype(std::declval<inventory>()._has_bits_);
+  using HasBits = decltype(std::declval<Inventory>()._has_bits_);
   static void set_has_capacity(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
 
-inventory::inventory(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+Inventory::Inventory(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
   items_(arena) {
@@ -97,44 +97,44 @@ inventory::inventory(::PROTOBUF_NAMESPACE_ID::Arena* arena,
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
   }
-  // @@protoc_insertion_point(arena_constructor:wanderer.proto.inventory)
+  // @@protoc_insertion_point(arena_constructor:wanderer.proto.Inventory)
 }
-inventory::inventory(const inventory& from)
+Inventory::Inventory(const Inventory& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
       _has_bits_(from._has_bits_),
       items_(from.items_) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   capacity_ = from.capacity_;
-  // @@protoc_insertion_point(copy_constructor:wanderer.proto.inventory)
+  // @@protoc_insertion_point(copy_constructor:wanderer.proto.Inventory)
 }
 
-void inventory::SharedCtor() {
+void Inventory::SharedCtor() {
 capacity_ = uint64_t{0u};
 }
 
-inventory::~inventory() {
-  // @@protoc_insertion_point(destructor:wanderer.proto.inventory)
+Inventory::~Inventory() {
+  // @@protoc_insertion_point(destructor:wanderer.proto.Inventory)
   if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-inline void inventory::SharedDtor() {
+inline void Inventory::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void inventory::ArenaDtor(void* object) {
-  inventory* _this = reinterpret_cast< inventory* >(object);
+void Inventory::ArenaDtor(void* object) {
+  Inventory* _this = reinterpret_cast< Inventory* >(object);
   (void)_this;
 }
-void inventory::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+void Inventory::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 }
-void inventory::SetCachedSize(int size) const {
+void Inventory::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
 
-void inventory::Clear() {
-// @@protoc_insertion_point(message_clear_start:wanderer.proto.inventory)
+void Inventory::Clear() {
+// @@protoc_insertion_point(message_clear_start:wanderer.proto.Inventory)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -145,7 +145,7 @@ void inventory::Clear() {
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* inventory::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* Inventory::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
@@ -196,9 +196,9 @@ failure:
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* inventory::_InternalSerialize(
+::PROTOBUF_NAMESPACE_ID::uint8* Inventory::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:wanderer.proto.inventory)
+  // @@protoc_insertion_point(serialize_to_array_start:wanderer.proto.Inventory)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -221,12 +221,12 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:wanderer.proto.inventory)
+  // @@protoc_insertion_point(serialize_to_array_end:wanderer.proto.Inventory)
   return target;
 }
 
-size_t inventory::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:wanderer.proto.inventory)
+size_t Inventory::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:wanderer.proto.Inventory)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -257,21 +257,21 @@ size_t inventory::ByteSizeLong() const {
   return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData inventory::_class_data_ = {
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData Inventory::_class_data_ = {
     ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    inventory::MergeImpl
+    Inventory::MergeImpl
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*inventory::GetClassData() const { return &_class_data_; }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Inventory::GetClassData() const { return &_class_data_; }
 
-void inventory::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
+void Inventory::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
                       const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<inventory *>(to)->MergeFrom(
-      static_cast<const inventory &>(from));
+  static_cast<Inventory *>(to)->MergeFrom(
+      static_cast<const Inventory &>(from));
 }
 
 
-void inventory::MergeFrom(const inventory& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:wanderer.proto.inventory)
+void Inventory::MergeFrom(const Inventory& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:wanderer.proto.Inventory)
   GOOGLE_DCHECK_NE(&from, this);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
@@ -283,18 +283,18 @@ void inventory::MergeFrom(const inventory& from) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void inventory::CopyFrom(const inventory& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:wanderer.proto.inventory)
+void Inventory::CopyFrom(const Inventory& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:wanderer.proto.Inventory)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool inventory::IsInitialized() const {
+bool Inventory::IsInitialized() const {
   return true;
 }
 
-void inventory::InternalSwap(inventory* other) {
+void Inventory::InternalSwap(Inventory* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
@@ -302,7 +302,7 @@ void inventory::InternalSwap(inventory* other) {
   swap(capacity_, other->capacity_);
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata inventory::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata Inventory::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_inventory_2eproto_getter, &descriptor_table_inventory_2eproto_once,
       file_level_metadata_inventory_2eproto[0]);
@@ -312,8 +312,8 @@ void inventory::InternalSwap(inventory* other) {
 }  // namespace proto
 }  // namespace wanderer
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::wanderer::proto::inventory* Arena::CreateMaybeMessage< ::wanderer::proto::inventory >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::wanderer::proto::inventory >(arena);
+template<> PROTOBUF_NOINLINE ::wanderer::proto::Inventory* Arena::CreateMaybeMessage< ::wanderer::proto::Inventory >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::wanderer::proto::Inventory >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

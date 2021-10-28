@@ -4,7 +4,7 @@ import "rect.proto";
 
 package wanderer.proto;
 
-message drawable {
+message Drawable {
   optional uint64 texture_index = 1;
   optional irect src = 2;
   optional frect dst = 3;

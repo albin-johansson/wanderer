@@ -55,37 +55,37 @@ struct TableStruct_animation_2eproto {
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_animation_2eproto;
 namespace wanderer {
 namespace proto {
-class animation;
-struct animationDefaultTypeInternal;
-extern animationDefaultTypeInternal _animation_default_instance_;
+class Animation;
+struct AnimationDefaultTypeInternal;
+extern AnimationDefaultTypeInternal _Animation_default_instance_;
 }  // namespace proto
 }  // namespace wanderer
 PROTOBUF_NAMESPACE_OPEN
-template<> ::wanderer::proto::animation* Arena::CreateMaybeMessage<::wanderer::proto::animation>(Arena*);
+template<> ::wanderer::proto::Animation* Arena::CreateMaybeMessage<::wanderer::proto::Animation>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace wanderer {
 namespace proto {
 
 // ===================================================================
 
-class animation final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.proto.animation) */ {
+class Animation final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.proto.Animation) */ {
  public:
-  inline animation() : animation(nullptr) {}
-  ~animation() override;
-  explicit constexpr animation(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline Animation() : Animation(nullptr) {}
+  ~Animation() override;
+  explicit constexpr Animation(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  animation(const animation& from);
-  animation(animation&& from) noexcept
-    : animation() {
+  Animation(const Animation& from);
+  Animation(Animation&& from) noexcept
+    : Animation() {
     *this = ::std::move(from);
   }
 
-  inline animation& operator=(const animation& from) {
+  inline Animation& operator=(const Animation& from) {
     CopyFrom(from);
     return *this;
   }
-  inline animation& operator=(animation&& from) noexcept {
+  inline Animation& operator=(Animation&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -108,20 +108,20 @@ class animation final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const animation& default_instance() {
+  static const Animation& default_instance() {
     return *internal_default_instance();
   }
-  static inline const animation* internal_default_instance() {
-    return reinterpret_cast<const animation*>(
-               &_animation_default_instance_);
+  static inline const Animation* internal_default_instance() {
+    return reinterpret_cast<const Animation*>(
+               &_Animation_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     0;
 
-  friend void swap(animation& a, animation& b) {
+  friend void swap(Animation& a, Animation& b) {
     a.Swap(&b);
   }
-  inline void Swap(animation* other) {
+  inline void Swap(Animation* other) {
     if (other == this) return;
     if (GetOwningArena() == other->GetOwningArena()) {
       InternalSwap(other);
@@ -129,7 +129,7 @@ class animation final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(animation* other) {
+  void UnsafeArenaSwap(Animation* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -137,17 +137,17 @@ class animation final :
 
   // implements Message ----------------------------------------------
 
-  inline animation* New() const final {
-    return new animation();
+  inline Animation* New() const final {
+    return new Animation();
   }
 
-  animation* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<animation>(arena);
+  Animation* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<Animation>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const animation& from);
+  void CopyFrom(const Animation& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom(const animation& from);
+  void MergeFrom(const Animation& from);
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to, const ::PROTOBUF_NAMESPACE_ID::Message& from);
   public:
@@ -164,13 +164,13 @@ class animation final :
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(animation* other);
+  void InternalSwap(Animation* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "wanderer.proto.animation";
+    return "wanderer.proto.Animation";
   }
   protected:
-  explicit animation(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit Animation(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   private:
   static void ArenaDtor(void* object);
@@ -244,7 +244,7 @@ class animation final :
   void _internal_set_delay(::PROTOBUF_NAMESPACE_ID::uint32 value);
   public:
 
-  // @@protoc_insertion_point(class_scope:wanderer.proto.animation)
+  // @@protoc_insertion_point(class_scope:wanderer.proto.Animation)
  private:
   class _Internal;
 
@@ -268,118 +268,118 @@ class animation final :
   #pragma GCC diagnostic push
   #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
-// animation
+// Animation
 
 // optional uint64 frame = 1;
-inline bool animation::_internal_has_frame() const {
+inline bool Animation::_internal_has_frame() const {
   bool value = (_has_bits_[0] & 0x00000001u) != 0;
   return value;
 }
-inline bool animation::has_frame() const {
+inline bool Animation::has_frame() const {
   return _internal_has_frame();
 }
-inline void animation::clear_frame() {
+inline void Animation::clear_frame() {
   frame_ = uint64_t{0u};
   _has_bits_[0] &= ~0x00000001u;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint64 animation::_internal_frame() const {
+inline ::PROTOBUF_NAMESPACE_ID::uint64 Animation::_internal_frame() const {
   return frame_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint64 animation::frame() const {
-  // @@protoc_insertion_point(field_get:wanderer.proto.animation.frame)
+inline ::PROTOBUF_NAMESPACE_ID::uint64 Animation::frame() const {
+  // @@protoc_insertion_point(field_get:wanderer.proto.Animation.frame)
   return _internal_frame();
 }
-inline void animation::_internal_set_frame(::PROTOBUF_NAMESPACE_ID::uint64 value) {
+inline void Animation::_internal_set_frame(::PROTOBUF_NAMESPACE_ID::uint64 value) {
   _has_bits_[0] |= 0x00000001u;
   frame_ = value;
 }
-inline void animation::set_frame(::PROTOBUF_NAMESPACE_ID::uint64 value) {
+inline void Animation::set_frame(::PROTOBUF_NAMESPACE_ID::uint64 value) {
   _internal_set_frame(value);
-  // @@protoc_insertion_point(field_set:wanderer.proto.animation.frame)
+  // @@protoc_insertion_point(field_set:wanderer.proto.Animation.frame)
 }
 
 // optional uint64 frame_count = 2;
-inline bool animation::_internal_has_frame_count() const {
+inline bool Animation::_internal_has_frame_count() const {
   bool value = (_has_bits_[0] & 0x00000002u) != 0;
   return value;
 }
-inline bool animation::has_frame_count() const {
+inline bool Animation::has_frame_count() const {
   return _internal_has_frame_count();
 }
-inline void animation::clear_frame_count() {
+inline void Animation::clear_frame_count() {
   frame_count_ = uint64_t{0u};
   _has_bits_[0] &= ~0x00000002u;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint64 animation::_internal_frame_count() const {
+inline ::PROTOBUF_NAMESPACE_ID::uint64 Animation::_internal_frame_count() const {
   return frame_count_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint64 animation::frame_count() const {
-  // @@protoc_insertion_point(field_get:wanderer.proto.animation.frame_count)
+inline ::PROTOBUF_NAMESPACE_ID::uint64 Animation::frame_count() const {
+  // @@protoc_insertion_point(field_get:wanderer.proto.Animation.frame_count)
   return _internal_frame_count();
 }
-inline void animation::_internal_set_frame_count(::PROTOBUF_NAMESPACE_ID::uint64 value) {
+inline void Animation::_internal_set_frame_count(::PROTOBUF_NAMESPACE_ID::uint64 value) {
   _has_bits_[0] |= 0x00000002u;
   frame_count_ = value;
 }
-inline void animation::set_frame_count(::PROTOBUF_NAMESPACE_ID::uint64 value) {
+inline void Animation::set_frame_count(::PROTOBUF_NAMESPACE_ID::uint64 value) {
   _internal_set_frame_count(value);
-  // @@protoc_insertion_point(field_set:wanderer.proto.animation.frame_count)
+  // @@protoc_insertion_point(field_set:wanderer.proto.Animation.frame_count)
 }
 
 // optional uint32 then = 3;
-inline bool animation::_internal_has_then() const {
+inline bool Animation::_internal_has_then() const {
   bool value = (_has_bits_[0] & 0x00000004u) != 0;
   return value;
 }
-inline bool animation::has_then() const {
+inline bool Animation::has_then() const {
   return _internal_has_then();
 }
-inline void animation::clear_then() {
+inline void Animation::clear_then() {
   then_ = 0u;
   _has_bits_[0] &= ~0x00000004u;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 animation::_internal_then() const {
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Animation::_internal_then() const {
   return then_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 animation::then() const {
-  // @@protoc_insertion_point(field_get:wanderer.proto.animation.then)
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Animation::then() const {
+  // @@protoc_insertion_point(field_get:wanderer.proto.Animation.then)
   return _internal_then();
 }
-inline void animation::_internal_set_then(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void Animation::_internal_set_then(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _has_bits_[0] |= 0x00000004u;
   then_ = value;
 }
-inline void animation::set_then(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void Animation::set_then(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _internal_set_then(value);
-  // @@protoc_insertion_point(field_set:wanderer.proto.animation.then)
+  // @@protoc_insertion_point(field_set:wanderer.proto.Animation.then)
 }
 
 // optional uint32 delay = 4;
-inline bool animation::_internal_has_delay() const {
+inline bool Animation::_internal_has_delay() const {
   bool value = (_has_bits_[0] & 0x00000008u) != 0;
   return value;
 }
-inline bool animation::has_delay() const {
+inline bool Animation::has_delay() const {
   return _internal_has_delay();
 }
-inline void animation::clear_delay() {
+inline void Animation::clear_delay() {
   delay_ = 0u;
   _has_bits_[0] &= ~0x00000008u;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 animation::_internal_delay() const {
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Animation::_internal_delay() const {
   return delay_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 animation::delay() const {
-  // @@protoc_insertion_point(field_get:wanderer.proto.animation.delay)
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Animation::delay() const {
+  // @@protoc_insertion_point(field_get:wanderer.proto.Animation.delay)
   return _internal_delay();
 }
-inline void animation::_internal_set_delay(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void Animation::_internal_set_delay(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _has_bits_[0] |= 0x00000008u;
   delay_ = value;
 }
-inline void animation::set_delay(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void Animation::set_delay(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _internal_set_delay(value);
-  // @@protoc_insertion_point(field_set:wanderer.proto.animation.delay)
+  // @@protoc_insertion_point(field_set:wanderer.proto.Animation.delay)
 }
 
 #ifdef __GNUC__

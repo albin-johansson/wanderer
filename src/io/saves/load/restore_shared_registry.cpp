@@ -21,7 +21,7 @@
 namespace wanderer {
 namespace {
 
-void RestoreSharedData(entt::registry& shared, const proto::shared_data& data)
+void RestoreSharedData(entt::registry& shared, const proto::SharedData& data)
 {
   shared.clear<comp::Level>();
   shared.clear<comp::ActiveLevel>();
@@ -68,7 +68,7 @@ void PrepareViewport(entt::registry& registry, const bool keepInBounds)
 
 }  // namespace
 
-void RestoreSharedRegistry(entt::registry& shared, const proto::save& save)
+void RestoreSharedRegistry(entt::registry& shared, const proto::Save& save)
 {
   RestoreSharedData(shared, save.shared());
 

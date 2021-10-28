@@ -56,37 +56,37 @@ struct TableStruct_point_5flight_2eproto {
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_point_5flight_2eproto;
 namespace wanderer {
 namespace proto {
-class point_light;
-struct point_lightDefaultTypeInternal;
-extern point_lightDefaultTypeInternal _point_light_default_instance_;
+class PointLight;
+struct PointLightDefaultTypeInternal;
+extern PointLightDefaultTypeInternal _PointLight_default_instance_;
 }  // namespace proto
 }  // namespace wanderer
 PROTOBUF_NAMESPACE_OPEN
-template<> ::wanderer::proto::point_light* Arena::CreateMaybeMessage<::wanderer::proto::point_light>(Arena*);
+template<> ::wanderer::proto::PointLight* Arena::CreateMaybeMessage<::wanderer::proto::PointLight>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace wanderer {
 namespace proto {
 
 // ===================================================================
 
-class point_light final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.proto.point_light) */ {
+class PointLight final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.proto.PointLight) */ {
  public:
-  inline point_light() : point_light(nullptr) {}
-  ~point_light() override;
-  explicit constexpr point_light(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline PointLight() : PointLight(nullptr) {}
+  ~PointLight() override;
+  explicit constexpr PointLight(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  point_light(const point_light& from);
-  point_light(point_light&& from) noexcept
-    : point_light() {
+  PointLight(const PointLight& from);
+  PointLight(PointLight&& from) noexcept
+    : PointLight() {
     *this = ::std::move(from);
   }
 
-  inline point_light& operator=(const point_light& from) {
+  inline PointLight& operator=(const PointLight& from) {
     CopyFrom(from);
     return *this;
   }
-  inline point_light& operator=(point_light&& from) noexcept {
+  inline PointLight& operator=(PointLight&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -109,20 +109,20 @@ class point_light final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const point_light& default_instance() {
+  static const PointLight& default_instance() {
     return *internal_default_instance();
   }
-  static inline const point_light* internal_default_instance() {
-    return reinterpret_cast<const point_light*>(
-               &_point_light_default_instance_);
+  static inline const PointLight* internal_default_instance() {
+    return reinterpret_cast<const PointLight*>(
+               &_PointLight_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     0;
 
-  friend void swap(point_light& a, point_light& b) {
+  friend void swap(PointLight& a, PointLight& b) {
     a.Swap(&b);
   }
-  inline void Swap(point_light* other) {
+  inline void Swap(PointLight* other) {
     if (other == this) return;
     if (GetOwningArena() == other->GetOwningArena()) {
       InternalSwap(other);
@@ -130,7 +130,7 @@ class point_light final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(point_light* other) {
+  void UnsafeArenaSwap(PointLight* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -138,17 +138,17 @@ class point_light final :
 
   // implements Message ----------------------------------------------
 
-  inline point_light* New() const final {
-    return new point_light();
+  inline PointLight* New() const final {
+    return new PointLight();
   }
 
-  point_light* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<point_light>(arena);
+  PointLight* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<PointLight>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const point_light& from);
+  void CopyFrom(const PointLight& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom(const point_light& from);
+  void MergeFrom(const PointLight& from);
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to, const ::PROTOBUF_NAMESPACE_ID::Message& from);
   public:
@@ -165,13 +165,13 @@ class point_light final :
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(point_light* other);
+  void InternalSwap(PointLight* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "wanderer.proto.point_light";
+    return "wanderer.proto.PointLight";
   }
   protected:
-  explicit point_light(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit PointLight(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   private:
   static void ArenaDtor(void* object);
@@ -264,7 +264,7 @@ class point_light final :
   void _internal_set_fluctuation_limit(float value);
   public:
 
-  // @@protoc_insertion_point(class_scope:wanderer.proto.point_light)
+  // @@protoc_insertion_point(class_scope:wanderer.proto.PointLight)
  private:
   class _Internal;
 
@@ -289,27 +289,27 @@ class point_light final :
   #pragma GCC diagnostic push
   #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
-// point_light
+// PointLight
 
 // optional .wanderer.proto.float2 position = 1;
-inline bool point_light::_internal_has_position() const {
+inline bool PointLight::_internal_has_position() const {
   bool value = (_has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || position_ != nullptr);
   return value;
 }
-inline bool point_light::has_position() const {
+inline bool PointLight::has_position() const {
   return _internal_has_position();
 }
-inline const ::wanderer::proto::float2& point_light::_internal_position() const {
+inline const ::wanderer::proto::float2& PointLight::_internal_position() const {
   const ::wanderer::proto::float2* p = position_;
   return p != nullptr ? *p : reinterpret_cast<const ::wanderer::proto::float2&>(
       ::wanderer::proto::_float2_default_instance_);
 }
-inline const ::wanderer::proto::float2& point_light::position() const {
-  // @@protoc_insertion_point(field_get:wanderer.proto.point_light.position)
+inline const ::wanderer::proto::float2& PointLight::position() const {
+  // @@protoc_insertion_point(field_get:wanderer.proto.PointLight.position)
   return _internal_position();
 }
-inline void point_light::unsafe_arena_set_allocated_position(
+inline void PointLight::unsafe_arena_set_allocated_position(
     ::wanderer::proto::float2* position) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(position_);
@@ -320,9 +320,9 @@ inline void point_light::unsafe_arena_set_allocated_position(
   } else {
     _has_bits_[0] &= ~0x00000001u;
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:wanderer.proto.point_light.position)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:wanderer.proto.PointLight.position)
 }
-inline ::wanderer::proto::float2* point_light::release_position() {
+inline ::wanderer::proto::float2* PointLight::release_position() {
   _has_bits_[0] &= ~0x00000001u;
   ::wanderer::proto::float2* temp = position_;
   position_ = nullptr;
@@ -337,14 +337,14 @@ inline ::wanderer::proto::float2* point_light::release_position() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::wanderer::proto::float2* point_light::unsafe_arena_release_position() {
-  // @@protoc_insertion_point(field_release:wanderer.proto.point_light.position)
+inline ::wanderer::proto::float2* PointLight::unsafe_arena_release_position() {
+  // @@protoc_insertion_point(field_release:wanderer.proto.PointLight.position)
   _has_bits_[0] &= ~0x00000001u;
   ::wanderer::proto::float2* temp = position_;
   position_ = nullptr;
   return temp;
 }
-inline ::wanderer::proto::float2* point_light::_internal_mutable_position() {
+inline ::wanderer::proto::float2* PointLight::_internal_mutable_position() {
   _has_bits_[0] |= 0x00000001u;
   if (position_ == nullptr) {
     auto* p = CreateMaybeMessage<::wanderer::proto::float2>(GetArenaForAllocation());
@@ -352,12 +352,12 @@ inline ::wanderer::proto::float2* point_light::_internal_mutable_position() {
   }
   return position_;
 }
-inline ::wanderer::proto::float2* point_light::mutable_position() {
+inline ::wanderer::proto::float2* PointLight::mutable_position() {
   ::wanderer::proto::float2* _msg = _internal_mutable_position();
-  // @@protoc_insertion_point(field_mutable:wanderer.proto.point_light.position)
+  // @@protoc_insertion_point(field_mutable:wanderer.proto.PointLight.position)
   return _msg;
 }
-inline void point_light::set_allocated_position(::wanderer::proto::float2* position) {
+inline void PointLight::set_allocated_position(::wanderer::proto::float2* position) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(position_);
@@ -376,119 +376,119 @@ inline void point_light::set_allocated_position(::wanderer::proto::float2* posit
     _has_bits_[0] &= ~0x00000001u;
   }
   position_ = position;
-  // @@protoc_insertion_point(field_set_allocated:wanderer.proto.point_light.position)
+  // @@protoc_insertion_point(field_set_allocated:wanderer.proto.PointLight.position)
 }
 
 // optional float size = 2;
-inline bool point_light::_internal_has_size() const {
+inline bool PointLight::_internal_has_size() const {
   bool value = (_has_bits_[0] & 0x00000002u) != 0;
   return value;
 }
-inline bool point_light::has_size() const {
+inline bool PointLight::has_size() const {
   return _internal_has_size();
 }
-inline void point_light::clear_size() {
+inline void PointLight::clear_size() {
   size_ = 0;
   _has_bits_[0] &= ~0x00000002u;
 }
-inline float point_light::_internal_size() const {
+inline float PointLight::_internal_size() const {
   return size_;
 }
-inline float point_light::size() const {
-  // @@protoc_insertion_point(field_get:wanderer.proto.point_light.size)
+inline float PointLight::size() const {
+  // @@protoc_insertion_point(field_get:wanderer.proto.PointLight.size)
   return _internal_size();
 }
-inline void point_light::_internal_set_size(float value) {
+inline void PointLight::_internal_set_size(float value) {
   _has_bits_[0] |= 0x00000002u;
   size_ = value;
 }
-inline void point_light::set_size(float value) {
+inline void PointLight::set_size(float value) {
   _internal_set_size(value);
-  // @@protoc_insertion_point(field_set:wanderer.proto.point_light.size)
+  // @@protoc_insertion_point(field_set:wanderer.proto.PointLight.size)
 }
 
 // optional float fluctuation = 3;
-inline bool point_light::_internal_has_fluctuation() const {
+inline bool PointLight::_internal_has_fluctuation() const {
   bool value = (_has_bits_[0] & 0x00000004u) != 0;
   return value;
 }
-inline bool point_light::has_fluctuation() const {
+inline bool PointLight::has_fluctuation() const {
   return _internal_has_fluctuation();
 }
-inline void point_light::clear_fluctuation() {
+inline void PointLight::clear_fluctuation() {
   fluctuation_ = 0;
   _has_bits_[0] &= ~0x00000004u;
 }
-inline float point_light::_internal_fluctuation() const {
+inline float PointLight::_internal_fluctuation() const {
   return fluctuation_;
 }
-inline float point_light::fluctuation() const {
-  // @@protoc_insertion_point(field_get:wanderer.proto.point_light.fluctuation)
+inline float PointLight::fluctuation() const {
+  // @@protoc_insertion_point(field_get:wanderer.proto.PointLight.fluctuation)
   return _internal_fluctuation();
 }
-inline void point_light::_internal_set_fluctuation(float value) {
+inline void PointLight::_internal_set_fluctuation(float value) {
   _has_bits_[0] |= 0x00000004u;
   fluctuation_ = value;
 }
-inline void point_light::set_fluctuation(float value) {
+inline void PointLight::set_fluctuation(float value) {
   _internal_set_fluctuation(value);
-  // @@protoc_insertion_point(field_set:wanderer.proto.point_light.fluctuation)
+  // @@protoc_insertion_point(field_set:wanderer.proto.PointLight.fluctuation)
 }
 
 // optional float fluctuation_step = 4;
-inline bool point_light::_internal_has_fluctuation_step() const {
+inline bool PointLight::_internal_has_fluctuation_step() const {
   bool value = (_has_bits_[0] & 0x00000008u) != 0;
   return value;
 }
-inline bool point_light::has_fluctuation_step() const {
+inline bool PointLight::has_fluctuation_step() const {
   return _internal_has_fluctuation_step();
 }
-inline void point_light::clear_fluctuation_step() {
+inline void PointLight::clear_fluctuation_step() {
   fluctuation_step_ = 0;
   _has_bits_[0] &= ~0x00000008u;
 }
-inline float point_light::_internal_fluctuation_step() const {
+inline float PointLight::_internal_fluctuation_step() const {
   return fluctuation_step_;
 }
-inline float point_light::fluctuation_step() const {
-  // @@protoc_insertion_point(field_get:wanderer.proto.point_light.fluctuation_step)
+inline float PointLight::fluctuation_step() const {
+  // @@protoc_insertion_point(field_get:wanderer.proto.PointLight.fluctuation_step)
   return _internal_fluctuation_step();
 }
-inline void point_light::_internal_set_fluctuation_step(float value) {
+inline void PointLight::_internal_set_fluctuation_step(float value) {
   _has_bits_[0] |= 0x00000008u;
   fluctuation_step_ = value;
 }
-inline void point_light::set_fluctuation_step(float value) {
+inline void PointLight::set_fluctuation_step(float value) {
   _internal_set_fluctuation_step(value);
-  // @@protoc_insertion_point(field_set:wanderer.proto.point_light.fluctuation_step)
+  // @@protoc_insertion_point(field_set:wanderer.proto.PointLight.fluctuation_step)
 }
 
 // optional float fluctuation_limit = 5;
-inline bool point_light::_internal_has_fluctuation_limit() const {
+inline bool PointLight::_internal_has_fluctuation_limit() const {
   bool value = (_has_bits_[0] & 0x00000010u) != 0;
   return value;
 }
-inline bool point_light::has_fluctuation_limit() const {
+inline bool PointLight::has_fluctuation_limit() const {
   return _internal_has_fluctuation_limit();
 }
-inline void point_light::clear_fluctuation_limit() {
+inline void PointLight::clear_fluctuation_limit() {
   fluctuation_limit_ = 0;
   _has_bits_[0] &= ~0x00000010u;
 }
-inline float point_light::_internal_fluctuation_limit() const {
+inline float PointLight::_internal_fluctuation_limit() const {
   return fluctuation_limit_;
 }
-inline float point_light::fluctuation_limit() const {
-  // @@protoc_insertion_point(field_get:wanderer.proto.point_light.fluctuation_limit)
+inline float PointLight::fluctuation_limit() const {
+  // @@protoc_insertion_point(field_get:wanderer.proto.PointLight.fluctuation_limit)
   return _internal_fluctuation_limit();
 }
-inline void point_light::_internal_set_fluctuation_limit(float value) {
+inline void PointLight::_internal_set_fluctuation_limit(float value) {
   _has_bits_[0] |= 0x00000010u;
   fluctuation_limit_ = value;
 }
-inline void point_light::set_fluctuation_limit(float value) {
+inline void PointLight::set_fluctuation_limit(float value) {
   _internal_set_fluctuation_limit(value);
-  // @@protoc_insertion_point(field_set:wanderer.proto.point_light.fluctuation_limit)
+  // @@protoc_insertion_point(field_set:wanderer.proto.PointLight.fluctuation_limit)
 }
 
 #ifdef __GNUC__

@@ -55,37 +55,37 @@ struct TableStruct_color_2eproto {
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_color_2eproto;
 namespace wanderer {
 namespace proto {
-class color;
-struct colorDefaultTypeInternal;
-extern colorDefaultTypeInternal _color_default_instance_;
+class Color;
+struct ColorDefaultTypeInternal;
+extern ColorDefaultTypeInternal _Color_default_instance_;
 }  // namespace proto
 }  // namespace wanderer
 PROTOBUF_NAMESPACE_OPEN
-template<> ::wanderer::proto::color* Arena::CreateMaybeMessage<::wanderer::proto::color>(Arena*);
+template<> ::wanderer::proto::Color* Arena::CreateMaybeMessage<::wanderer::proto::Color>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace wanderer {
 namespace proto {
 
 // ===================================================================
 
-class color final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.proto.color) */ {
+class Color final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.proto.Color) */ {
  public:
-  inline color() : color(nullptr) {}
-  ~color() override;
-  explicit constexpr color(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline Color() : Color(nullptr) {}
+  ~Color() override;
+  explicit constexpr Color(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  color(const color& from);
-  color(color&& from) noexcept
-    : color() {
+  Color(const Color& from);
+  Color(Color&& from) noexcept
+    : Color() {
     *this = ::std::move(from);
   }
 
-  inline color& operator=(const color& from) {
+  inline Color& operator=(const Color& from) {
     CopyFrom(from);
     return *this;
   }
-  inline color& operator=(color&& from) noexcept {
+  inline Color& operator=(Color&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -108,20 +108,20 @@ class color final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const color& default_instance() {
+  static const Color& default_instance() {
     return *internal_default_instance();
   }
-  static inline const color* internal_default_instance() {
-    return reinterpret_cast<const color*>(
-               &_color_default_instance_);
+  static inline const Color* internal_default_instance() {
+    return reinterpret_cast<const Color*>(
+               &_Color_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     0;
 
-  friend void swap(color& a, color& b) {
+  friend void swap(Color& a, Color& b) {
     a.Swap(&b);
   }
-  inline void Swap(color* other) {
+  inline void Swap(Color* other) {
     if (other == this) return;
     if (GetOwningArena() == other->GetOwningArena()) {
       InternalSwap(other);
@@ -129,7 +129,7 @@ class color final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(color* other) {
+  void UnsafeArenaSwap(Color* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -137,17 +137,17 @@ class color final :
 
   // implements Message ----------------------------------------------
 
-  inline color* New() const final {
-    return new color();
+  inline Color* New() const final {
+    return new Color();
   }
 
-  color* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<color>(arena);
+  Color* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<Color>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const color& from);
+  void CopyFrom(const Color& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom(const color& from);
+  void MergeFrom(const Color& from);
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to, const ::PROTOBUF_NAMESPACE_ID::Message& from);
   public:
@@ -164,13 +164,13 @@ class color final :
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(color* other);
+  void InternalSwap(Color* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "wanderer.proto.color";
+    return "wanderer.proto.Color";
   }
   protected:
-  explicit color(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit Color(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   private:
   static void ArenaDtor(void* object);
@@ -244,7 +244,7 @@ class color final :
   void _internal_set_alpha(::PROTOBUF_NAMESPACE_ID::uint32 value);
   public:
 
-  // @@protoc_insertion_point(class_scope:wanderer.proto.color)
+  // @@protoc_insertion_point(class_scope:wanderer.proto.Color)
  private:
   class _Internal;
 
@@ -268,118 +268,118 @@ class color final :
   #pragma GCC diagnostic push
   #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
-// color
+// Color
 
 // optional uint32 red = 1;
-inline bool color::_internal_has_red() const {
+inline bool Color::_internal_has_red() const {
   bool value = (_has_bits_[0] & 0x00000001u) != 0;
   return value;
 }
-inline bool color::has_red() const {
+inline bool Color::has_red() const {
   return _internal_has_red();
 }
-inline void color::clear_red() {
+inline void Color::clear_red() {
   red_ = 0u;
   _has_bits_[0] &= ~0x00000001u;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 color::_internal_red() const {
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Color::_internal_red() const {
   return red_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 color::red() const {
-  // @@protoc_insertion_point(field_get:wanderer.proto.color.red)
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Color::red() const {
+  // @@protoc_insertion_point(field_get:wanderer.proto.Color.red)
   return _internal_red();
 }
-inline void color::_internal_set_red(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void Color::_internal_set_red(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _has_bits_[0] |= 0x00000001u;
   red_ = value;
 }
-inline void color::set_red(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void Color::set_red(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _internal_set_red(value);
-  // @@protoc_insertion_point(field_set:wanderer.proto.color.red)
+  // @@protoc_insertion_point(field_set:wanderer.proto.Color.red)
 }
 
 // optional uint32 green = 2;
-inline bool color::_internal_has_green() const {
+inline bool Color::_internal_has_green() const {
   bool value = (_has_bits_[0] & 0x00000002u) != 0;
   return value;
 }
-inline bool color::has_green() const {
+inline bool Color::has_green() const {
   return _internal_has_green();
 }
-inline void color::clear_green() {
+inline void Color::clear_green() {
   green_ = 0u;
   _has_bits_[0] &= ~0x00000002u;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 color::_internal_green() const {
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Color::_internal_green() const {
   return green_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 color::green() const {
-  // @@protoc_insertion_point(field_get:wanderer.proto.color.green)
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Color::green() const {
+  // @@protoc_insertion_point(field_get:wanderer.proto.Color.green)
   return _internal_green();
 }
-inline void color::_internal_set_green(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void Color::_internal_set_green(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _has_bits_[0] |= 0x00000002u;
   green_ = value;
 }
-inline void color::set_green(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void Color::set_green(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _internal_set_green(value);
-  // @@protoc_insertion_point(field_set:wanderer.proto.color.green)
+  // @@protoc_insertion_point(field_set:wanderer.proto.Color.green)
 }
 
 // optional uint32 blue = 3;
-inline bool color::_internal_has_blue() const {
+inline bool Color::_internal_has_blue() const {
   bool value = (_has_bits_[0] & 0x00000004u) != 0;
   return value;
 }
-inline bool color::has_blue() const {
+inline bool Color::has_blue() const {
   return _internal_has_blue();
 }
-inline void color::clear_blue() {
+inline void Color::clear_blue() {
   blue_ = 0u;
   _has_bits_[0] &= ~0x00000004u;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 color::_internal_blue() const {
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Color::_internal_blue() const {
   return blue_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 color::blue() const {
-  // @@protoc_insertion_point(field_get:wanderer.proto.color.blue)
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Color::blue() const {
+  // @@protoc_insertion_point(field_get:wanderer.proto.Color.blue)
   return _internal_blue();
 }
-inline void color::_internal_set_blue(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void Color::_internal_set_blue(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _has_bits_[0] |= 0x00000004u;
   blue_ = value;
 }
-inline void color::set_blue(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void Color::set_blue(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _internal_set_blue(value);
-  // @@protoc_insertion_point(field_set:wanderer.proto.color.blue)
+  // @@protoc_insertion_point(field_set:wanderer.proto.Color.blue)
 }
 
 // optional uint32 alpha = 4;
-inline bool color::_internal_has_alpha() const {
+inline bool Color::_internal_has_alpha() const {
   bool value = (_has_bits_[0] & 0x00000008u) != 0;
   return value;
 }
-inline bool color::has_alpha() const {
+inline bool Color::has_alpha() const {
   return _internal_has_alpha();
 }
-inline void color::clear_alpha() {
+inline void Color::clear_alpha() {
   alpha_ = 0u;
   _has_bits_[0] &= ~0x00000008u;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 color::_internal_alpha() const {
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Color::_internal_alpha() const {
   return alpha_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 color::alpha() const {
-  // @@protoc_insertion_point(field_get:wanderer.proto.color.alpha)
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Color::alpha() const {
+  // @@protoc_insertion_point(field_get:wanderer.proto.Color.alpha)
   return _internal_alpha();
 }
-inline void color::_internal_set_alpha(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void Color::_internal_set_alpha(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _has_bits_[0] |= 0x00000008u;
   alpha_ = value;
 }
-inline void color::set_alpha(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void Color::set_alpha(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _internal_set_alpha(value);
-  // @@protoc_insertion_point(field_set:wanderer.proto.color.alpha)
+  // @@protoc_insertion_point(field_set:wanderer.proto.Color.alpha)
 }
 
 #ifdef __GNUC__

@@ -2,15 +2,15 @@ syntax = "proto3";
 
 package wanderer.proto;
 
-message tile_row {
+message TileRow {
   repeated uint32 tiles = 1 [packed = true];
 }
 
-message tile_matrix {
-  repeated tile_row rows = 2;
+message TileMatrix {
+  repeated TileRow rows = 2;
 }
 
-message tile_layer {
-  optional tile_matrix matrix = 1;
+message TileLayer {
+  optional TileMatrix matrix = 1;
   optional int32 z_index = 2;
 }

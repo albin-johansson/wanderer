@@ -2,6 +2,6 @@ syntax = "proto3";
 
 package wanderer.proto;
 
-message tileset {
+message Tileset {
   map<uint32, uint32> tile_to_entity = 1;
 }

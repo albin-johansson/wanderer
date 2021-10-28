@@ -4,7 +4,7 @@ import "float2.proto";
 
 package wanderer.proto;
 
-message movable {
+message Movable {
   optional float2 position = 1;
   optional float2 velocity = 2;
   optional float speed = 3;

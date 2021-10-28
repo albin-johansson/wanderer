@@ -1,19 +1,18 @@
 syntax = "proto3";
 
-import "area.proto";
 import "float2.proto";
 import "rect.proto";
 
 package wanderer.proto;
 
-message subhitbox {
+message Subhitbox {
   optional float2 offset = 1;
-  optional farea size = 2;
+  optional float2 size = 2;
 }
 
-message hitbox {
+message Hitbox {
   optional float2 origin = 1;
   optional frect bounds = 2;
-  repeated subhitbox boxes = 3;
+  repeated Subhitbox boxes = 3;
   optional bool enabled = 4;
 }

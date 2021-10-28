@@ -20,10 +20,10 @@
 #include "components/physics/movable.hpp"
 #include "components/physics/particle.hpp"
 #include "components/plant.hpp"
+#include "components/tilemap.hpp"
 #include "components/tiles/tile.hpp"
 #include "components/tiles/tile_layer.hpp"
 #include "components/tiles/tile_object.hpp"
-#include "components/tilemap.hpp"
 #include "components/tiles/tileset.hpp"
 #include "components/trigger.hpp"
 #include "wanderer_std.hpp"
@@ -88,20 +88,7 @@ auto Restore(const proto::frect& data) -> cen::frect
   return result;
 }
 
-auto Restore(const proto::farea& data) -> cen::farea
-{
-  assert(data.has_width());
-  assert(data.has_height());
-
-  cen::farea result;
-
-  result.width = data.width();
-  result.height = data.height();
-
-  return result;
-}
-
-auto Restore(const proto::color& data) -> cen::color
+auto Restore(const proto::Color& data) -> cen::color
 {
   assert(data.has_red());
   assert(data.has_green());
@@ -118,7 +105,7 @@ auto Restore(const proto::color& data) -> cen::color
   return result;
 }
 
-auto Restore(const proto::time_of_day& data) -> ctx::TimeOfDay
+auto Restore(const proto::TimeOfDay& data) -> ctx::TimeOfDay
 {
   assert(data.has_hour());
   assert(data.has_minute());
@@ -139,7 +126,7 @@ auto Restore(const proto::time_of_day& data) -> ctx::TimeOfDay
   return time;
 }
 
-void RestoreMovable(const proto::level& level,
+void RestoreMovable(const proto::Level& level,
                     entt::registry& registry,
                     const entt::entity entity)
 {
@@ -157,7 +144,7 @@ void RestoreMovable(const proto::level& level,
   }
 }
 
-void RestoreDrawable(const proto::level& level,
+void RestoreDrawable(const proto::Level& level,
                      entt::registry& registry,
                      const entt::entity entity)
 {
@@ -179,7 +166,7 @@ void RestoreDrawable(const proto::level& level,
   }
 }
 
-void RestoreAnimation(const proto::level& level,
+void RestoreAnimation(const proto::Level& level,
                       entt::registry& registry,
                       const entt::entity entity)
 {
@@ -200,7 +187,7 @@ void RestoreAnimation(const proto::level& level,
   }
 }
 
-void RestorePlant(const proto::level& level,
+void RestorePlant(const proto::Level& level,
                   entt::registry& registry,
                   entt::entity entity)
 {
@@ -230,7 +217,7 @@ void RestorePlant(const proto::level& level,
   }
 }
 
-void RestoreTile(const proto::level& level, entt::registry& registry, entt::entity entity)
+void RestoreTile(const proto::Level& level, entt::registry& registry, entt::entity entity)
 {
   const auto& tiles = level.tiles();
   if (const auto it = tiles.find(entt::to_integral(entity)); it != tiles.end()) {
@@ -248,7 +235,7 @@ void RestoreTile(const proto::level& level, entt::registry& registry, entt::enti
   }
 }
 
-void RestoreTileAnimations(const proto::level& level,
+void RestoreTileAnimations(const proto::Level& level,
                            entt::registry& registry,
                            entt::entity entity)
 {
@@ -274,7 +261,7 @@ void RestoreTileAnimations(const proto::level& level,
   }
 }
 
-void RestoreChase(const proto::level& level,
+void RestoreChase(const proto::Level& level,
                   entt::registry& registry,
                   entt::entity entity)
 {
@@ -295,7 +282,7 @@ void RestoreChase(const proto::level& level,
   }
 }
 
-void RestoreParticle(const proto::level& level,
+void RestoreParticle(const proto::Level& level,
                      entt::registry& registry,
                      entt::entity entity)
 {
@@ -317,7 +304,7 @@ void RestoreParticle(const proto::level& level,
   }
 }
 
-void RestoreLight(const proto::level& level,
+void RestoreLight(const proto::Level& level,
                   entt::registry& registry,
                   entt::entity entity)
 {
@@ -339,7 +326,7 @@ void RestoreLight(const proto::level& level,
   }
 }
 
-void RestoreSpawnpoint(const proto::level& level,
+void RestoreSpawnpoint(const proto::Level& level,
                        entt::registry& registry,
                        entt::entity entity)
 {
@@ -356,7 +343,7 @@ void RestoreSpawnpoint(const proto::level& level,
   }
 }
 
-void RestoreHitbox(const proto::level& level,
+void RestoreHitbox(const proto::Level& level,
                    entt::registry& registry,
                    entt::entity entity)
 {
@@ -380,12 +367,13 @@ void RestoreHitbox(const proto::level& level,
 
       auto& box = hitbox.boxes.emplace_back();
       box.offset = Restore(boxData.offset());
-      box.size = Restore(boxData.size());
+      box.size.width = boxData.size().x();
+      box.size.height = boxData.size().y();
     }
   }
 }
 
-void RestoreObject(const proto::level& level,
+void RestoreObject(const proto::Level& level,
                    entt::registry& registry,
                    entt::entity entity)
 {
@@ -399,7 +387,7 @@ void RestoreObject(const proto::level& level,
   }
 }
 
-void RestorePortal(const proto::level& level,
+void RestorePortal(const proto::Level& level,
                    entt::registry& registry,
                    entt::entity entity)
 {
@@ -416,7 +404,7 @@ void RestorePortal(const proto::level& level,
   }
 }
 
-void RestoreTileLayer(const proto::level& level,
+void RestoreTileLayer(const proto::Level& level,
                       entt::registry& registry,
                       entt::entity entity)
 {
@@ -439,7 +427,7 @@ void RestoreTileLayer(const proto::level& level,
   }
 }
 
-void RestoreTileset(const proto::level& level,
+void RestoreTileset(const proto::Level& level,
                     entt::registry& registry,
                     entt::entity entity)
 {
@@ -454,7 +442,7 @@ void RestoreTileset(const proto::level& level,
   }
 }
 
-void RestoreInventory(const proto::level& level,
+void RestoreInventory(const proto::Level& level,
                       entt::registry& registry,
                       entt::entity entity)
 {
@@ -473,7 +461,7 @@ void RestoreInventory(const proto::level& level,
   }
 }
 
-void RestoreTileObject(const proto::level& level,
+void RestoreTileObject(const proto::Level& level,
                        entt::registry& registry,
                        entt::entity entity)
 {
@@ -487,7 +475,7 @@ void RestoreTileObject(const proto::level& level,
   }
 }
 
-void RestoreTrigger(const proto::level& level,
+void RestoreTrigger(const proto::Level& level,
                     entt::registry& registry,
                     entt::entity entity)
 {
@@ -501,7 +489,7 @@ void RestoreTrigger(const proto::level& level,
   }
 }
 
-void RestoreAssociation(const proto::level& level,
+void RestoreAssociation(const proto::Level& level,
                         entt::registry& registry,
                         entt::entity entity)
 {

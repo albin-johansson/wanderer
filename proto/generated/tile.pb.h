@@ -56,37 +56,37 @@ struct TableStruct_tile_2eproto {
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_tile_2eproto;
 namespace wanderer {
 namespace proto {
-class tile;
-struct tileDefaultTypeInternal;
-extern tileDefaultTypeInternal _tile_default_instance_;
+class Tile;
+struct TileDefaultTypeInternal;
+extern TileDefaultTypeInternal _Tile_default_instance_;
 }  // namespace proto
 }  // namespace wanderer
 PROTOBUF_NAMESPACE_OPEN
-template<> ::wanderer::proto::tile* Arena::CreateMaybeMessage<::wanderer::proto::tile>(Arena*);
+template<> ::wanderer::proto::Tile* Arena::CreateMaybeMessage<::wanderer::proto::Tile>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace wanderer {
 namespace proto {
 
 // ===================================================================
 
-class tile final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.proto.tile) */ {
+class Tile final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.proto.Tile) */ {
  public:
-  inline tile() : tile(nullptr) {}
-  ~tile() override;
-  explicit constexpr tile(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline Tile() : Tile(nullptr) {}
+  ~Tile() override;
+  explicit constexpr Tile(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  tile(const tile& from);
-  tile(tile&& from) noexcept
-    : tile() {
+  Tile(const Tile& from);
+  Tile(Tile&& from) noexcept
+    : Tile() {
     *this = ::std::move(from);
   }
 
-  inline tile& operator=(const tile& from) {
+  inline Tile& operator=(const Tile& from) {
     CopyFrom(from);
     return *this;
   }
-  inline tile& operator=(tile&& from) noexcept {
+  inline Tile& operator=(Tile&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -109,20 +109,20 @@ class tile final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const tile& default_instance() {
+  static const Tile& default_instance() {
     return *internal_default_instance();
   }
-  static inline const tile* internal_default_instance() {
-    return reinterpret_cast<const tile*>(
-               &_tile_default_instance_);
+  static inline const Tile* internal_default_instance() {
+    return reinterpret_cast<const Tile*>(
+               &_Tile_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     0;
 
-  friend void swap(tile& a, tile& b) {
+  friend void swap(Tile& a, Tile& b) {
     a.Swap(&b);
   }
-  inline void Swap(tile* other) {
+  inline void Swap(Tile* other) {
     if (other == this) return;
     if (GetOwningArena() == other->GetOwningArena()) {
       InternalSwap(other);
@@ -130,7 +130,7 @@ class tile final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(tile* other) {
+  void UnsafeArenaSwap(Tile* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -138,17 +138,17 @@ class tile final :
 
   // implements Message ----------------------------------------------
 
-  inline tile* New() const final {
-    return new tile();
+  inline Tile* New() const final {
+    return new Tile();
   }
 
-  tile* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<tile>(arena);
+  Tile* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<Tile>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const tile& from);
+  void CopyFrom(const Tile& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom(const tile& from);
+  void MergeFrom(const Tile& from);
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to, const ::PROTOBUF_NAMESPACE_ID::Message& from);
   public:
@@ -165,13 +165,13 @@ class tile final :
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(tile* other);
+  void InternalSwap(Tile* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "wanderer.proto.tile";
+    return "wanderer.proto.Tile";
   }
   protected:
-  explicit tile(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit Tile(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   private:
   static void ArenaDtor(void* object);
@@ -250,7 +250,7 @@ class tile final :
   void _internal_set_depth_index(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // @@protoc_insertion_point(class_scope:wanderer.proto.tile)
+  // @@protoc_insertion_point(class_scope:wanderer.proto.Tile)
  private:
   class _Internal;
 
@@ -274,83 +274,83 @@ class tile final :
   #pragma GCC diagnostic push
   #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
-// tile
+// Tile
 
 // optional uint32 id = 1;
-inline bool tile::_internal_has_id() const {
+inline bool Tile::_internal_has_id() const {
   bool value = (_has_bits_[0] & 0x00000004u) != 0;
   return value;
 }
-inline bool tile::has_id() const {
+inline bool Tile::has_id() const {
   return _internal_has_id();
 }
-inline void tile::clear_id() {
+inline void Tile::clear_id() {
   id_ = 0u;
   _has_bits_[0] &= ~0x00000004u;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 tile::_internal_id() const {
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Tile::_internal_id() const {
   return id_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 tile::id() const {
-  // @@protoc_insertion_point(field_get:wanderer.proto.tile.id)
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Tile::id() const {
+  // @@protoc_insertion_point(field_get:wanderer.proto.Tile.id)
   return _internal_id();
 }
-inline void tile::_internal_set_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void Tile::_internal_set_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _has_bits_[0] |= 0x00000004u;
   id_ = value;
 }
-inline void tile::set_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void Tile::set_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _internal_set_id(value);
-  // @@protoc_insertion_point(field_set:wanderer.proto.tile.id)
+  // @@protoc_insertion_point(field_set:wanderer.proto.Tile.id)
 }
 
 // optional uint64 texture_index = 2;
-inline bool tile::_internal_has_texture_index() const {
+inline bool Tile::_internal_has_texture_index() const {
   bool value = (_has_bits_[0] & 0x00000002u) != 0;
   return value;
 }
-inline bool tile::has_texture_index() const {
+inline bool Tile::has_texture_index() const {
   return _internal_has_texture_index();
 }
-inline void tile::clear_texture_index() {
+inline void Tile::clear_texture_index() {
   texture_index_ = uint64_t{0u};
   _has_bits_[0] &= ~0x00000002u;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint64 tile::_internal_texture_index() const {
+inline ::PROTOBUF_NAMESPACE_ID::uint64 Tile::_internal_texture_index() const {
   return texture_index_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint64 tile::texture_index() const {
-  // @@protoc_insertion_point(field_get:wanderer.proto.tile.texture_index)
+inline ::PROTOBUF_NAMESPACE_ID::uint64 Tile::texture_index() const {
+  // @@protoc_insertion_point(field_get:wanderer.proto.Tile.texture_index)
   return _internal_texture_index();
 }
-inline void tile::_internal_set_texture_index(::PROTOBUF_NAMESPACE_ID::uint64 value) {
+inline void Tile::_internal_set_texture_index(::PROTOBUF_NAMESPACE_ID::uint64 value) {
   _has_bits_[0] |= 0x00000002u;
   texture_index_ = value;
 }
-inline void tile::set_texture_index(::PROTOBUF_NAMESPACE_ID::uint64 value) {
+inline void Tile::set_texture_index(::PROTOBUF_NAMESPACE_ID::uint64 value) {
   _internal_set_texture_index(value);
-  // @@protoc_insertion_point(field_set:wanderer.proto.tile.texture_index)
+  // @@protoc_insertion_point(field_set:wanderer.proto.Tile.texture_index)
 }
 
 // optional .wanderer.proto.irect src = 3;
-inline bool tile::_internal_has_src() const {
+inline bool Tile::_internal_has_src() const {
   bool value = (_has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || src_ != nullptr);
   return value;
 }
-inline bool tile::has_src() const {
+inline bool Tile::has_src() const {
   return _internal_has_src();
 }
-inline const ::wanderer::proto::irect& tile::_internal_src() const {
+inline const ::wanderer::proto::irect& Tile::_internal_src() const {
   const ::wanderer::proto::irect* p = src_;
   return p != nullptr ? *p : reinterpret_cast<const ::wanderer::proto::irect&>(
       ::wanderer::proto::_irect_default_instance_);
 }
-inline const ::wanderer::proto::irect& tile::src() const {
-  // @@protoc_insertion_point(field_get:wanderer.proto.tile.src)
+inline const ::wanderer::proto::irect& Tile::src() const {
+  // @@protoc_insertion_point(field_get:wanderer.proto.Tile.src)
   return _internal_src();
 }
-inline void tile::unsafe_arena_set_allocated_src(
+inline void Tile::unsafe_arena_set_allocated_src(
     ::wanderer::proto::irect* src) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(src_);
@@ -361,9 +361,9 @@ inline void tile::unsafe_arena_set_allocated_src(
   } else {
     _has_bits_[0] &= ~0x00000001u;
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:wanderer.proto.tile.src)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:wanderer.proto.Tile.src)
 }
-inline ::wanderer::proto::irect* tile::release_src() {
+inline ::wanderer::proto::irect* Tile::release_src() {
   _has_bits_[0] &= ~0x00000001u;
   ::wanderer::proto::irect* temp = src_;
   src_ = nullptr;
@@ -378,14 +378,14 @@ inline ::wanderer::proto::irect* tile::release_src() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::wanderer::proto::irect* tile::unsafe_arena_release_src() {
-  // @@protoc_insertion_point(field_release:wanderer.proto.tile.src)
+inline ::wanderer::proto::irect* Tile::unsafe_arena_release_src() {
+  // @@protoc_insertion_point(field_release:wanderer.proto.Tile.src)
   _has_bits_[0] &= ~0x00000001u;
   ::wanderer::proto::irect* temp = src_;
   src_ = nullptr;
   return temp;
 }
-inline ::wanderer::proto::irect* tile::_internal_mutable_src() {
+inline ::wanderer::proto::irect* Tile::_internal_mutable_src() {
   _has_bits_[0] |= 0x00000001u;
   if (src_ == nullptr) {
     auto* p = CreateMaybeMessage<::wanderer::proto::irect>(GetArenaForAllocation());
@@ -393,12 +393,12 @@ inline ::wanderer::proto::irect* tile::_internal_mutable_src() {
   }
   return src_;
 }
-inline ::wanderer::proto::irect* tile::mutable_src() {
+inline ::wanderer::proto::irect* Tile::mutable_src() {
   ::wanderer::proto::irect* _msg = _internal_mutable_src();
-  // @@protoc_insertion_point(field_mutable:wanderer.proto.tile.src)
+  // @@protoc_insertion_point(field_mutable:wanderer.proto.Tile.src)
   return _msg;
 }
-inline void tile::set_allocated_src(::wanderer::proto::irect* src) {
+inline void Tile::set_allocated_src(::wanderer::proto::irect* src) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(src_);
@@ -417,35 +417,35 @@ inline void tile::set_allocated_src(::wanderer::proto::irect* src) {
     _has_bits_[0] &= ~0x00000001u;
   }
   src_ = src;
-  // @@protoc_insertion_point(field_set_allocated:wanderer.proto.tile.src)
+  // @@protoc_insertion_point(field_set_allocated:wanderer.proto.Tile.src)
 }
 
 // optional int32 depth_index = 4;
-inline bool tile::_internal_has_depth_index() const {
+inline bool Tile::_internal_has_depth_index() const {
   bool value = (_has_bits_[0] & 0x00000008u) != 0;
   return value;
 }
-inline bool tile::has_depth_index() const {
+inline bool Tile::has_depth_index() const {
   return _internal_has_depth_index();
 }
-inline void tile::clear_depth_index() {
+inline void Tile::clear_depth_index() {
   depth_index_ = 0;
   _has_bits_[0] &= ~0x00000008u;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 tile::_internal_depth_index() const {
+inline ::PROTOBUF_NAMESPACE_ID::int32 Tile::_internal_depth_index() const {
   return depth_index_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 tile::depth_index() const {
-  // @@protoc_insertion_point(field_get:wanderer.proto.tile.depth_index)
+inline ::PROTOBUF_NAMESPACE_ID::int32 Tile::depth_index() const {
+  // @@protoc_insertion_point(field_get:wanderer.proto.Tile.depth_index)
   return _internal_depth_index();
 }
-inline void tile::_internal_set_depth_index(::PROTOBUF_NAMESPACE_ID::int32 value) {
+inline void Tile::_internal_set_depth_index(::PROTOBUF_NAMESPACE_ID::int32 value) {
   _has_bits_[0] |= 0x00000008u;
   depth_index_ = value;
 }
-inline void tile::set_depth_index(::PROTOBUF_NAMESPACE_ID::int32 value) {
+inline void Tile::set_depth_index(::PROTOBUF_NAMESPACE_ID::int32 value) {
   _internal_set_depth_index(value);
-  // @@protoc_insertion_point(field_set:wanderer.proto.tile.depth_index)
+  // @@protoc_insertion_point(field_set:wanderer.proto.Tile.depth_index)
 }
 
 #ifdef __GNUC__

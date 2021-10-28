@@ -2,12 +2,12 @@ syntax = "proto3";
 
 package wanderer.proto;
 
-enum trigger_type {
+enum TriggerType {
   PORTAL = 0;
   CONTAINER = 1;
   BED = 2;
 }
 
-message trigger {
-  optional trigger_type type = 1;
+message Trigger {
+  optional TriggerType type = 1;
 }

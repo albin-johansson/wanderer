@@ -18,736 +18,88 @@
 PROTOBUF_PRAGMA_INIT_SEG
 namespace wanderer {
 namespace proto {
-constexpr level_MovablesEntry_DoNotUse::level_MovablesEntry_DoNotUse(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized){}
-struct level_MovablesEntry_DoNotUseDefaultTypeInternal {
-  constexpr level_MovablesEntry_DoNotUseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~level_MovablesEntry_DoNotUseDefaultTypeInternal() {}
-  union {
-    level_MovablesEntry_DoNotUse _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT level_MovablesEntry_DoNotUseDefaultTypeInternal _level_MovablesEntry_DoNotUse_default_instance_;
-constexpr level_DrawablesEntry_DoNotUse::level_DrawablesEntry_DoNotUse(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized){}
-struct level_DrawablesEntry_DoNotUseDefaultTypeInternal {
-  constexpr level_DrawablesEntry_DoNotUseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~level_DrawablesEntry_DoNotUseDefaultTypeInternal() {}
-  union {
-    level_DrawablesEntry_DoNotUse _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT level_DrawablesEntry_DoNotUseDefaultTypeInternal _level_DrawablesEntry_DoNotUse_default_instance_;
-constexpr level_AnimationsEntry_DoNotUse::level_AnimationsEntry_DoNotUse(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized){}
-struct level_AnimationsEntry_DoNotUseDefaultTypeInternal {
-  constexpr level_AnimationsEntry_DoNotUseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~level_AnimationsEntry_DoNotUseDefaultTypeInternal() {}
-  union {
-    level_AnimationsEntry_DoNotUse _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT level_AnimationsEntry_DoNotUseDefaultTypeInternal _level_AnimationsEntry_DoNotUse_default_instance_;
-constexpr level_PlantsEntry_DoNotUse::level_PlantsEntry_DoNotUse(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized){}
-struct level_PlantsEntry_DoNotUseDefaultTypeInternal {
-  constexpr level_PlantsEntry_DoNotUseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~level_PlantsEntry_DoNotUseDefaultTypeInternal() {}
-  union {
-    level_PlantsEntry_DoNotUse _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT level_PlantsEntry_DoNotUseDefaultTypeInternal _level_PlantsEntry_DoNotUse_default_instance_;
-constexpr level_TilesEntry_DoNotUse::level_TilesEntry_DoNotUse(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized){}
-struct level_TilesEntry_DoNotUseDefaultTypeInternal {
-  constexpr level_TilesEntry_DoNotUseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~level_TilesEntry_DoNotUseDefaultTypeInternal() {}
-  union {
-    level_TilesEntry_DoNotUse _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT level_TilesEntry_DoNotUseDefaultTypeInternal _level_TilesEntry_DoNotUse_default_instance_;
-constexpr level_TileAnimationsEntry_DoNotUse::level_TileAnimationsEntry_DoNotUse(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized){}
-struct level_TileAnimationsEntry_DoNotUseDefaultTypeInternal {
-  constexpr level_TileAnimationsEntry_DoNotUseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~level_TileAnimationsEntry_DoNotUseDefaultTypeInternal() {}
-  union {
-    level_TileAnimationsEntry_DoNotUse _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT level_TileAnimationsEntry_DoNotUseDefaultTypeInternal _level_TileAnimationsEntry_DoNotUse_default_instance_;
-constexpr level_ChasesEntry_DoNotUse::level_ChasesEntry_DoNotUse(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized){}
-struct level_ChasesEntry_DoNotUseDefaultTypeInternal {
-  constexpr level_ChasesEntry_DoNotUseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~level_ChasesEntry_DoNotUseDefaultTypeInternal() {}
-  union {
-    level_ChasesEntry_DoNotUse _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT level_ChasesEntry_DoNotUseDefaultTypeInternal _level_ChasesEntry_DoNotUse_default_instance_;
-constexpr level_ParticlesEntry_DoNotUse::level_ParticlesEntry_DoNotUse(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized){}
-struct level_ParticlesEntry_DoNotUseDefaultTypeInternal {
-  constexpr level_ParticlesEntry_DoNotUseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~level_ParticlesEntry_DoNotUseDefaultTypeInternal() {}
-  union {
-    level_ParticlesEntry_DoNotUse _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT level_ParticlesEntry_DoNotUseDefaultTypeInternal _level_ParticlesEntry_DoNotUse_default_instance_;
-constexpr level_LightsEntry_DoNotUse::level_LightsEntry_DoNotUse(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized){}
-struct level_LightsEntry_DoNotUseDefaultTypeInternal {
-  constexpr level_LightsEntry_DoNotUseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~level_LightsEntry_DoNotUseDefaultTypeInternal() {}
-  union {
-    level_LightsEntry_DoNotUse _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT level_LightsEntry_DoNotUseDefaultTypeInternal _level_LightsEntry_DoNotUse_default_instance_;
-constexpr level_SpawnpointsEntry_DoNotUse::level_SpawnpointsEntry_DoNotUse(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized){}
-struct level_SpawnpointsEntry_DoNotUseDefaultTypeInternal {
-  constexpr level_SpawnpointsEntry_DoNotUseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~level_SpawnpointsEntry_DoNotUseDefaultTypeInternal() {}
-  union {
-    level_SpawnpointsEntry_DoNotUse _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT level_SpawnpointsEntry_DoNotUseDefaultTypeInternal _level_SpawnpointsEntry_DoNotUse_default_instance_;
-constexpr level_HitboxesEntry_DoNotUse::level_HitboxesEntry_DoNotUse(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized){}
-struct level_HitboxesEntry_DoNotUseDefaultTypeInternal {
-  constexpr level_HitboxesEntry_DoNotUseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~level_HitboxesEntry_DoNotUseDefaultTypeInternal() {}
-  union {
-    level_HitboxesEntry_DoNotUse _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT level_HitboxesEntry_DoNotUseDefaultTypeInternal _level_HitboxesEntry_DoNotUse_default_instance_;
-constexpr level_ObjectsEntry_DoNotUse::level_ObjectsEntry_DoNotUse(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized){}
-struct level_ObjectsEntry_DoNotUseDefaultTypeInternal {
-  constexpr level_ObjectsEntry_DoNotUseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~level_ObjectsEntry_DoNotUseDefaultTypeInternal() {}
-  union {
-    level_ObjectsEntry_DoNotUse _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT level_ObjectsEntry_DoNotUseDefaultTypeInternal _level_ObjectsEntry_DoNotUse_default_instance_;
-constexpr level_PortalsEntry_DoNotUse::level_PortalsEntry_DoNotUse(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized){}
-struct level_PortalsEntry_DoNotUseDefaultTypeInternal {
-  constexpr level_PortalsEntry_DoNotUseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~level_PortalsEntry_DoNotUseDefaultTypeInternal() {}
-  union {
-    level_PortalsEntry_DoNotUse _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT level_PortalsEntry_DoNotUseDefaultTypeInternal _level_PortalsEntry_DoNotUse_default_instance_;
-constexpr level_TileLayersEntry_DoNotUse::level_TileLayersEntry_DoNotUse(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized){}
-struct level_TileLayersEntry_DoNotUseDefaultTypeInternal {
-  constexpr level_TileLayersEntry_DoNotUseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~level_TileLayersEntry_DoNotUseDefaultTypeInternal() {}
-  union {
-    level_TileLayersEntry_DoNotUse _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT level_TileLayersEntry_DoNotUseDefaultTypeInternal _level_TileLayersEntry_DoNotUse_default_instance_;
-constexpr level_TilesetsEntry_DoNotUse::level_TilesetsEntry_DoNotUse(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized){}
-struct level_TilesetsEntry_DoNotUseDefaultTypeInternal {
-  constexpr level_TilesetsEntry_DoNotUseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~level_TilesetsEntry_DoNotUseDefaultTypeInternal() {}
-  union {
-    level_TilesetsEntry_DoNotUse _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT level_TilesetsEntry_DoNotUseDefaultTypeInternal _level_TilesetsEntry_DoNotUse_default_instance_;
-constexpr level_InventoriesEntry_DoNotUse::level_InventoriesEntry_DoNotUse(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized){}
-struct level_InventoriesEntry_DoNotUseDefaultTypeInternal {
-  constexpr level_InventoriesEntry_DoNotUseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~level_InventoriesEntry_DoNotUseDefaultTypeInternal() {}
-  union {
-    level_InventoriesEntry_DoNotUse _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT level_InventoriesEntry_DoNotUseDefaultTypeInternal _level_InventoriesEntry_DoNotUse_default_instance_;
-constexpr level_TileObjectsEntry_DoNotUse::level_TileObjectsEntry_DoNotUse(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized){}
-struct level_TileObjectsEntry_DoNotUseDefaultTypeInternal {
-  constexpr level_TileObjectsEntry_DoNotUseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~level_TileObjectsEntry_DoNotUseDefaultTypeInternal() {}
-  union {
-    level_TileObjectsEntry_DoNotUse _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT level_TileObjectsEntry_DoNotUseDefaultTypeInternal _level_TileObjectsEntry_DoNotUse_default_instance_;
-constexpr level_TriggersEntry_DoNotUse::level_TriggersEntry_DoNotUse(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized){}
-struct level_TriggersEntry_DoNotUseDefaultTypeInternal {
-  constexpr level_TriggersEntry_DoNotUseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~level_TriggersEntry_DoNotUseDefaultTypeInternal() {}
-  union {
-    level_TriggersEntry_DoNotUse _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT level_TriggersEntry_DoNotUseDefaultTypeInternal _level_TriggersEntry_DoNotUse_default_instance_;
-constexpr level_AssociationsEntry_DoNotUse::level_AssociationsEntry_DoNotUse(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized){}
-struct level_AssociationsEntry_DoNotUseDefaultTypeInternal {
-  constexpr level_AssociationsEntry_DoNotUseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~level_AssociationsEntry_DoNotUseDefaultTypeInternal() {}
-  union {
-    level_AssociationsEntry_DoNotUse _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT level_AssociationsEntry_DoNotUseDefaultTypeInternal _level_AssociationsEntry_DoNotUse_default_instance_;
-constexpr level::level(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : entities_()
-  , _entities_cached_byte_size_(0)
-  , movables_(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{})
-  , drawables_(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{})
-  , animations_(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{})
-  , plants_(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{})
-  , tiles_(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{})
-  , tile_animations_(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{})
-  , chases_(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{})
-  , particles_(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{})
-  , lights_(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{})
-  , spawnpoints_(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{})
-  , hitboxes_(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{})
-  , objects_(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{})
-  , portals_(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{})
-  , tile_layers_(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{})
-  , tilesets_(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{})
-  , inventories_(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{})
-  , tile_objects_(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{})
-  , triggers_(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{})
-  , associations_(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{})
-  , humanoids_()
-  , _humanoids_cached_byte_size_(0)
-  , id_(0)
-  , player_entity_(0u)
-  , row_count_(uint64_t{0u})
-  , humanoid_layer_index_(0)
-  , width_(0)
-  , column_count_(uint64_t{0u})
-  , height_(0)
-  , keep_viewport_in_bounds_(false)
-  , is_outside_level_(false){}
-struct levelDefaultTypeInternal {
-  constexpr levelDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~levelDefaultTypeInternal() {}
-  union {
-    level _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT levelDefaultTypeInternal _level_default_instance_;
-constexpr shared_data::shared_data(
+constexpr SharedData::SharedData(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : time_(nullptr){}
-struct shared_dataDefaultTypeInternal {
-  constexpr shared_dataDefaultTypeInternal()
+struct SharedDataDefaultTypeInternal {
+  constexpr SharedDataDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~shared_dataDefaultTypeInternal() {}
+  ~SharedDataDefaultTypeInternal() {}
   union {
-    shared_data _instance;
+    SharedData _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT shared_dataDefaultTypeInternal _shared_data_default_instance_;
-constexpr save::save(
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT SharedDataDefaultTypeInternal _SharedData_default_instance_;
+constexpr Save::Save(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : levels_()
   , shared_(nullptr)
   , current_level_id_(0){}
-struct saveDefaultTypeInternal {
-  constexpr saveDefaultTypeInternal()
+struct SaveDefaultTypeInternal {
+  constexpr SaveDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~saveDefaultTypeInternal() {}
+  ~SaveDefaultTypeInternal() {}
   union {
-    save _instance;
+    Save _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT saveDefaultTypeInternal _save_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT SaveDefaultTypeInternal _Save_default_instance_;
 }  // namespace proto
 }  // namespace wanderer
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_save_2eproto[22];
+static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_save_2eproto[2];
 static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_save_2eproto = nullptr;
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_save_2eproto = nullptr;
 
 const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_save_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_MovablesEntry_DoNotUse, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_MovablesEntry_DoNotUse, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::SharedData, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::SharedData, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_MovablesEntry_DoNotUse, key_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_MovablesEntry_DoNotUse, value_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::SharedData, time_),
   0,
-  1,
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_DrawablesEntry_DoNotUse, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_DrawablesEntry_DoNotUse, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::Save, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::Save, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_DrawablesEntry_DoNotUse, key_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_DrawablesEntry_DoNotUse, value_),
-  0,
-  1,
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_AnimationsEntry_DoNotUse, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_AnimationsEntry_DoNotUse, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_AnimationsEntry_DoNotUse, key_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_AnimationsEntry_DoNotUse, value_),
-  0,
-  1,
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_PlantsEntry_DoNotUse, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_PlantsEntry_DoNotUse, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_PlantsEntry_DoNotUse, key_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_PlantsEntry_DoNotUse, value_),
-  0,
-  1,
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_TilesEntry_DoNotUse, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_TilesEntry_DoNotUse, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_TilesEntry_DoNotUse, key_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_TilesEntry_DoNotUse, value_),
-  0,
-  1,
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_TileAnimationsEntry_DoNotUse, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_TileAnimationsEntry_DoNotUse, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_TileAnimationsEntry_DoNotUse, key_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_TileAnimationsEntry_DoNotUse, value_),
-  0,
-  1,
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_ChasesEntry_DoNotUse, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_ChasesEntry_DoNotUse, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_ChasesEntry_DoNotUse, key_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_ChasesEntry_DoNotUse, value_),
-  0,
-  1,
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_ParticlesEntry_DoNotUse, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_ParticlesEntry_DoNotUse, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_ParticlesEntry_DoNotUse, key_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_ParticlesEntry_DoNotUse, value_),
-  0,
-  1,
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_LightsEntry_DoNotUse, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_LightsEntry_DoNotUse, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_LightsEntry_DoNotUse, key_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_LightsEntry_DoNotUse, value_),
-  0,
-  1,
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_SpawnpointsEntry_DoNotUse, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_SpawnpointsEntry_DoNotUse, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_SpawnpointsEntry_DoNotUse, key_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_SpawnpointsEntry_DoNotUse, value_),
-  0,
-  1,
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_HitboxesEntry_DoNotUse, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_HitboxesEntry_DoNotUse, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_HitboxesEntry_DoNotUse, key_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_HitboxesEntry_DoNotUse, value_),
-  0,
-  1,
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_ObjectsEntry_DoNotUse, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_ObjectsEntry_DoNotUse, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_ObjectsEntry_DoNotUse, key_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_ObjectsEntry_DoNotUse, value_),
-  0,
-  1,
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_PortalsEntry_DoNotUse, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_PortalsEntry_DoNotUse, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_PortalsEntry_DoNotUse, key_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_PortalsEntry_DoNotUse, value_),
-  0,
-  1,
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_TileLayersEntry_DoNotUse, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_TileLayersEntry_DoNotUse, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_TileLayersEntry_DoNotUse, key_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_TileLayersEntry_DoNotUse, value_),
-  0,
-  1,
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_TilesetsEntry_DoNotUse, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_TilesetsEntry_DoNotUse, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_TilesetsEntry_DoNotUse, key_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_TilesetsEntry_DoNotUse, value_),
-  0,
-  1,
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_InventoriesEntry_DoNotUse, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_InventoriesEntry_DoNotUse, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_InventoriesEntry_DoNotUse, key_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_InventoriesEntry_DoNotUse, value_),
-  0,
-  1,
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_TileObjectsEntry_DoNotUse, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_TileObjectsEntry_DoNotUse, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_TileObjectsEntry_DoNotUse, key_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_TileObjectsEntry_DoNotUse, value_),
-  0,
-  1,
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_TriggersEntry_DoNotUse, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_TriggersEntry_DoNotUse, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_TriggersEntry_DoNotUse, key_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_TriggersEntry_DoNotUse, value_),
-  0,
-  1,
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_AssociationsEntry_DoNotUse, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_AssociationsEntry_DoNotUse, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_AssociationsEntry_DoNotUse, key_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_AssociationsEntry_DoNotUse, value_),
-  0,
-  1,
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level, id_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level, entities_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level, movables_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level, drawables_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level, animations_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level, plants_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level, tiles_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level, tile_animations_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level, chases_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level, particles_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level, lights_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level, spawnpoints_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level, hitboxes_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level, objects_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level, portals_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level, tile_layers_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level, tilesets_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level, inventories_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level, tile_objects_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level, triggers_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level, associations_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level, player_entity_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level, humanoids_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level, humanoid_layer_index_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level, row_count_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level, column_count_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level, width_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level, height_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level, keep_viewport_in_bounds_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level, is_outside_level_),
-  0,
-  ~0u,
-  ~0u,
-  ~0u,
-  ~0u,
-  ~0u,
-  ~0u,
-  ~0u,
-  ~0u,
-  ~0u,
-  ~0u,
-  ~0u,
-  ~0u,
-  ~0u,
-  ~0u,
-  ~0u,
-  ~0u,
-  ~0u,
-  ~0u,
-  ~0u,
-  ~0u,
-  1,
-  ~0u,
-  3,
-  2,
-  5,
-  4,
-  6,
-  7,
-  8,
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::shared_data, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::shared_data, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::shared_data, time_),
-  0,
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::save, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::save, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::save, current_level_id_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::save, shared_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::save, levels_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::Save, current_level_id_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::Save, shared_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::Save, levels_),
   1,
   0,
   ~0u,
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, 8, -1, sizeof(::wanderer::proto::level_MovablesEntry_DoNotUse)},
-  { 10, 18, -1, sizeof(::wanderer::proto::level_DrawablesEntry_DoNotUse)},
-  { 20, 28, -1, sizeof(::wanderer::proto::level_AnimationsEntry_DoNotUse)},
-  { 30, 38, -1, sizeof(::wanderer::proto::level_PlantsEntry_DoNotUse)},
-  { 40, 48, -1, sizeof(::wanderer::proto::level_TilesEntry_DoNotUse)},
-  { 50, 58, -1, sizeof(::wanderer::proto::level_TileAnimationsEntry_DoNotUse)},
-  { 60, 68, -1, sizeof(::wanderer::proto::level_ChasesEntry_DoNotUse)},
-  { 70, 78, -1, sizeof(::wanderer::proto::level_ParticlesEntry_DoNotUse)},
-  { 80, 88, -1, sizeof(::wanderer::proto::level_LightsEntry_DoNotUse)},
-  { 90, 98, -1, sizeof(::wanderer::proto::level_SpawnpointsEntry_DoNotUse)},
-  { 100, 108, -1, sizeof(::wanderer::proto::level_HitboxesEntry_DoNotUse)},
-  { 110, 118, -1, sizeof(::wanderer::proto::level_ObjectsEntry_DoNotUse)},
-  { 120, 128, -1, sizeof(::wanderer::proto::level_PortalsEntry_DoNotUse)},
-  { 130, 138, -1, sizeof(::wanderer::proto::level_TileLayersEntry_DoNotUse)},
-  { 140, 148, -1, sizeof(::wanderer::proto::level_TilesetsEntry_DoNotUse)},
-  { 150, 158, -1, sizeof(::wanderer::proto::level_InventoriesEntry_DoNotUse)},
-  { 160, 168, -1, sizeof(::wanderer::proto::level_TileObjectsEntry_DoNotUse)},
-  { 170, 178, -1, sizeof(::wanderer::proto::level_TriggersEntry_DoNotUse)},
-  { 180, 188, -1, sizeof(::wanderer::proto::level_AssociationsEntry_DoNotUse)},
-  { 190, 226, -1, sizeof(::wanderer::proto::level)},
-  { 256, 263, -1, sizeof(::wanderer::proto::shared_data)},
-  { 264, 273, -1, sizeof(::wanderer::proto::save)},
+  { 0, 7, -1, sizeof(::wanderer::proto::SharedData)},
+  { 8, 17, -1, sizeof(::wanderer::proto::Save)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_level_MovablesEntry_DoNotUse_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_level_DrawablesEntry_DoNotUse_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_level_AnimationsEntry_DoNotUse_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_level_PlantsEntry_DoNotUse_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_level_TilesEntry_DoNotUse_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_level_TileAnimationsEntry_DoNotUse_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_level_ChasesEntry_DoNotUse_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_level_ParticlesEntry_DoNotUse_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_level_LightsEntry_DoNotUse_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_level_SpawnpointsEntry_DoNotUse_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_level_HitboxesEntry_DoNotUse_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_level_ObjectsEntry_DoNotUse_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_level_PortalsEntry_DoNotUse_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_level_TileLayersEntry_DoNotUse_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_level_TilesetsEntry_DoNotUse_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_level_InventoriesEntry_DoNotUse_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_level_TileObjectsEntry_DoNotUse_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_level_TriggersEntry_DoNotUse_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_level_AssociationsEntry_DoNotUse_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_level_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_shared_data_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_save_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_SharedData_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_Save_default_instance_),
 };
 
 const char descriptor_table_protodef_save_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\nsave.proto\022\016wanderer.proto\032\017animation."
-  "proto\032\027associated_entity.proto\032\013chase.pr"
-  "oto\032\016drawable.proto\032\014hitbox.proto\032\017inven"
-  "tory.proto\032\rmovable.proto\032\014object.proto\032"
-  "\016particle.proto\032\013plant.proto\032\021point_ligh"
-  "t.proto\032\014portal.proto\032\020spawnpoint.proto\032"
-  "\024tile_animation.proto\032\020tile_layer.proto\032"
-  "\ntile.proto\032\021tile_object.proto\032\rtileset."
-  "proto\032\021time_of_day.proto\032\rtrigger.proto\""
-  "\241\027\n\005level\022\017\n\002id\030\001 \001(\005H\000\210\001\001\022\024\n\010entities\030\002"
-  " \003(\rB\002\020\001\0225\n\010movables\030\003 \003(\0132#.wanderer.pr"
-  "oto.level.MovablesEntry\0227\n\tdrawables\030\004 \003"
-  "(\0132$.wanderer.proto.level.DrawablesEntry"
-  "\0229\n\nanimations\030\005 \003(\0132%.wanderer.proto.le"
-  "vel.AnimationsEntry\0221\n\006plants\030\006 \003(\0132!.wa"
-  "nderer.proto.level.PlantsEntry\022/\n\005tiles\030"
-  "\007 \003(\0132 .wanderer.proto.level.TilesEntry\022"
-  "B\n\017tile_animations\030\t \003(\0132).wanderer.prot"
-  "o.level.TileAnimationsEntry\0221\n\006chases\030\n "
-  "\003(\0132!.wanderer.proto.level.ChasesEntry\0227"
-  "\n\tparticles\030\013 \003(\0132$.wanderer.proto.level"
-  ".ParticlesEntry\0221\n\006lights\030\014 \003(\0132!.wander"
-  "er.proto.level.LightsEntry\022;\n\013spawnpoint"
-  "s\030\r \003(\0132&.wanderer.proto.level.Spawnpoin"
-  "tsEntry\0225\n\010hitboxes\030\016 \003(\0132#.wanderer.pro"
-  "to.level.HitboxesEntry\0223\n\007objects\030\017 \003(\0132"
-  "\".wanderer.proto.level.ObjectsEntry\0223\n\007p"
-  "ortals\030\020 \003(\0132\".wanderer.proto.level.Port"
-  "alsEntry\022:\n\013tile_layers\030\021 \003(\0132%.wanderer"
-  ".proto.level.TileLayersEntry\0225\n\010tilesets"
-  "\030\022 \003(\0132#.wanderer.proto.level.TilesetsEn"
-  "try\022;\n\013inventories\030\023 \003(\0132&.wanderer.prot"
-  "o.level.InventoriesEntry\022<\n\014tile_objects"
-  "\030\024 \003(\0132&.wanderer.proto.level.TileObject"
-  "sEntry\0225\n\010triggers\030\025 \003(\0132#.wanderer.prot"
-  "o.level.TriggersEntry\022=\n\014associations\030\026 "
-  "\003(\0132\'.wanderer.proto.level.AssociationsE"
-  "ntry\022\032\n\rplayer_entity\0302 \001(\rH\001\210\001\001\022\025\n\thuma"
-  "noids\0303 \003(\rB\002\020\001\022!\n\024humanoid_layer_index\030"
-  "4 \001(\005H\002\210\001\001\022\026\n\trow_count\0305 \001(\004H\003\210\001\001\022\031\n\014co"
-  "lumn_count\0306 \001(\004H\004\210\001\001\022\022\n\005width\0307 \001(\002H\005\210\001"
-  "\001\022\023\n\006height\0308 \001(\002H\006\210\001\001\022$\n\027keep_viewport_"
-  "in_bounds\030d \001(\010H\007\210\001\001\022\035\n\020is_outside_level"
-  "\030e \001(\010H\010\210\001\001\032H\n\rMovablesEntry\022\013\n\003key\030\001 \001("
-  "\r\022&\n\005value\030\002 \001(\0132\027.wanderer.proto.movabl"
-  "e:\0028\001\032J\n\016DrawablesEntry\022\013\n\003key\030\001 \001(\r\022\'\n\005"
-  "value\030\002 \001(\0132\030.wanderer.proto.drawable:\0028"
-  "\001\032L\n\017AnimationsEntry\022\013\n\003key\030\001 \001(\r\022(\n\005val"
-  "ue\030\002 \001(\0132\031.wanderer.proto.animation:\0028\001\032"
-  "D\n\013PlantsEntry\022\013\n\003key\030\001 \001(\r\022$\n\005value\030\002 \001"
-  "(\0132\025.wanderer.proto.plant:\0028\001\032B\n\nTilesEn"
-  "try\022\013\n\003key\030\001 \001(\r\022#\n\005value\030\002 \001(\0132\024.wander"
-  "er.proto.tile:\0028\001\032U\n\023TileAnimationsEntry"
-  "\022\013\n\003key\030\001 \001(\r\022-\n\005value\030\002 \001(\0132\036.wanderer."
-  "proto.tile_animation:\0028\001\032D\n\013ChasesEntry\022"
-  "\013\n\003key\030\001 \001(\r\022$\n\005value\030\002 \001(\0132\025.wanderer.p"
-  "roto.chase:\0028\001\032J\n\016ParticlesEntry\022\013\n\003key\030"
-  "\001 \001(\r\022\'\n\005value\030\002 \001(\0132\030.wanderer.proto.pa"
-  "rticle:\0028\001\032J\n\013LightsEntry\022\013\n\003key\030\001 \001(\r\022*"
-  "\n\005value\030\002 \001(\0132\033.wanderer.proto.point_lig"
-  "ht:\0028\001\032N\n\020SpawnpointsEntry\022\013\n\003key\030\001 \001(\r\022"
-  ")\n\005value\030\002 \001(\0132\032.wanderer.proto.spawnpoi"
-  "nt:\0028\001\032G\n\rHitboxesEntry\022\013\n\003key\030\001 \001(\r\022%\n\005"
-  "value\030\002 \001(\0132\026.wanderer.proto.hitbox:\0028\001\032"
-  "J\n\014ObjectsEntry\022\013\n\003key\030\001 \001(\r\022)\n\005value\030\002 "
-  "\001(\0132\032.wanderer.proto.map_object:\0028\001\032F\n\014P"
-  "ortalsEntry\022\013\n\003key\030\001 \001(\r\022%\n\005value\030\002 \001(\0132"
-  "\026.wanderer.proto.portal:\0028\001\032M\n\017TileLayer"
-  "sEntry\022\013\n\003key\030\001 \001(\r\022)\n\005value\030\002 \001(\0132\032.wan"
-  "derer.proto.tile_layer:\0028\001\032H\n\rTilesetsEn"
-  "try\022\013\n\003key\030\001 \001(\r\022&\n\005value\030\002 \001(\0132\027.wander"
-  "er.proto.tileset:\0028\001\032M\n\020InventoriesEntry"
-  "\022\013\n\003key\030\001 \001(\r\022(\n\005value\030\002 \001(\0132\031.wanderer."
-  "proto.inventory:\0028\001\032O\n\020TileObjectsEntry\022"
-  "\013\n\003key\030\001 \001(\r\022*\n\005value\030\002 \001(\0132\033.wanderer.p"
-  "roto.tile_object:\0028\001\032H\n\rTriggersEntry\022\013\n"
-  "\003key\030\001 \001(\r\022&\n\005value\030\002 \001(\0132\027.wanderer.pro"
-  "to.trigger:\0028\001\032V\n\021AssociationsEntry\022\013\n\003k"
-  "ey\030\001 \001(\r\0220\n\005value\030\002 \001(\0132!.wanderer.proto"
-  ".associated_entity:\0028\001B\005\n\003_idB\020\n\016_player"
-  "_entityB\027\n\025_humanoid_layer_indexB\014\n\n_row"
-  "_countB\017\n\r_column_countB\010\n\006_widthB\t\n\007_he"
-  "ightB\032\n\030_keep_viewport_in_boundsB\023\n\021_is_"
-  "outside_levelJ\004\010\010\020\t\"F\n\013shared_data\022.\n\004ti"
-  "me\030\001 \001(\0132\033.wanderer.proto.time_of_dayH\000\210"
-  "\001\001B\007\n\005_time\"\236\001\n\004save\022\035\n\020current_level_id"
-  "\030\001 \001(\005H\000\210\001\001\0220\n\006shared\030\002 \001(\0132\033.wanderer.p"
-  "roto.shared_dataH\001\210\001\001\022%\n\006levels\030\003 \003(\0132\025."
-  "wanderer.proto.levelB\023\n\021_current_level_i"
-  "dB\t\n\007_sharedb\006proto3"
+  "\n\nsave.proto\022\016wanderer.proto\032\013level.prot"
+  "o\032\021time_of_day.proto\"C\n\nSharedData\022,\n\004ti"
+  "me\030\001 \001(\0132\031.wanderer.proto.TimeOfDayH\000\210\001\001"
+  "B\007\n\005_time\"\235\001\n\004Save\022\035\n\020current_level_id\030\001"
+  " \001(\005H\000\210\001\001\022/\n\006shared\030\002 \001(\0132\032.wanderer.pro"
+  "to.SharedDataH\001\210\001\001\022%\n\006levels\030\003 \003(\0132\025.wan"
+  "derer.proto.LevelB\023\n\021_current_level_idB\t"
+  "\n\007_sharedb\006proto3"
   ;
-static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_save_2eproto_deps[20] = {
-  &::descriptor_table_animation_2eproto,
-  &::descriptor_table_associated_5fentity_2eproto,
-  &::descriptor_table_chase_2eproto,
-  &::descriptor_table_drawable_2eproto,
-  &::descriptor_table_hitbox_2eproto,
-  &::descriptor_table_inventory_2eproto,
-  &::descriptor_table_movable_2eproto,
-  &::descriptor_table_object_2eproto,
-  &::descriptor_table_particle_2eproto,
-  &::descriptor_table_plant_2eproto,
-  &::descriptor_table_point_5flight_2eproto,
-  &::descriptor_table_portal_2eproto,
-  &::descriptor_table_spawnpoint_2eproto,
-  &::descriptor_table_tile_2eproto,
-  &::descriptor_table_tile_5fanimation_2eproto,
-  &::descriptor_table_tile_5flayer_2eproto,
-  &::descriptor_table_tile_5fobject_2eproto,
-  &::descriptor_table_tileset_2eproto,
+static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_save_2eproto_deps[2] = {
+  &::descriptor_table_level_2eproto,
   &::descriptor_table_time_5fof_5fday_2eproto,
-  &::descriptor_table_trigger_2eproto,
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_save_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_save_2eproto = {
-  false, false, 3580, descriptor_table_protodef_save_2eproto, "save.proto", 
-  &descriptor_table_save_2eproto_once, descriptor_table_save_2eproto_deps, 20, 22,
+  false, false, 297, descriptor_table_protodef_save_2eproto, "save.proto", 
+  &descriptor_table_save_2eproto_once, descriptor_table_save_2eproto_deps, 2, 2,
   schemas, file_default_instances, TableStruct_save_2eproto::offsets,
   file_level_metadata_save_2eproto, file_level_enum_descriptors_save_2eproto, file_level_service_descriptors_save_2eproto,
 };
@@ -762,2026 +114,72 @@ namespace proto {
 
 // ===================================================================
 
-level_MovablesEntry_DoNotUse::level_MovablesEntry_DoNotUse() {}
-level_MovablesEntry_DoNotUse::level_MovablesEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-    : SuperType(arena) {}
-void level_MovablesEntry_DoNotUse::MergeFrom(const level_MovablesEntry_DoNotUse& other) {
-  MergeFromInternal(other);
-}
-::PROTOBUF_NAMESPACE_ID::Metadata level_MovablesEntry_DoNotUse::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-      &descriptor_table_save_2eproto_getter, &descriptor_table_save_2eproto_once,
-      file_level_metadata_save_2eproto[0]);
-}
-
-// ===================================================================
-
-level_DrawablesEntry_DoNotUse::level_DrawablesEntry_DoNotUse() {}
-level_DrawablesEntry_DoNotUse::level_DrawablesEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-    : SuperType(arena) {}
-void level_DrawablesEntry_DoNotUse::MergeFrom(const level_DrawablesEntry_DoNotUse& other) {
-  MergeFromInternal(other);
-}
-::PROTOBUF_NAMESPACE_ID::Metadata level_DrawablesEntry_DoNotUse::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-      &descriptor_table_save_2eproto_getter, &descriptor_table_save_2eproto_once,
-      file_level_metadata_save_2eproto[1]);
-}
-
-// ===================================================================
-
-level_AnimationsEntry_DoNotUse::level_AnimationsEntry_DoNotUse() {}
-level_AnimationsEntry_DoNotUse::level_AnimationsEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-    : SuperType(arena) {}
-void level_AnimationsEntry_DoNotUse::MergeFrom(const level_AnimationsEntry_DoNotUse& other) {
-  MergeFromInternal(other);
-}
-::PROTOBUF_NAMESPACE_ID::Metadata level_AnimationsEntry_DoNotUse::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-      &descriptor_table_save_2eproto_getter, &descriptor_table_save_2eproto_once,
-      file_level_metadata_save_2eproto[2]);
-}
-
-// ===================================================================
-
-level_PlantsEntry_DoNotUse::level_PlantsEntry_DoNotUse() {}
-level_PlantsEntry_DoNotUse::level_PlantsEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-    : SuperType(arena) {}
-void level_PlantsEntry_DoNotUse::MergeFrom(const level_PlantsEntry_DoNotUse& other) {
-  MergeFromInternal(other);
-}
-::PROTOBUF_NAMESPACE_ID::Metadata level_PlantsEntry_DoNotUse::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-      &descriptor_table_save_2eproto_getter, &descriptor_table_save_2eproto_once,
-      file_level_metadata_save_2eproto[3]);
-}
-
-// ===================================================================
-
-level_TilesEntry_DoNotUse::level_TilesEntry_DoNotUse() {}
-level_TilesEntry_DoNotUse::level_TilesEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-    : SuperType(arena) {}
-void level_TilesEntry_DoNotUse::MergeFrom(const level_TilesEntry_DoNotUse& other) {
-  MergeFromInternal(other);
-}
-::PROTOBUF_NAMESPACE_ID::Metadata level_TilesEntry_DoNotUse::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-      &descriptor_table_save_2eproto_getter, &descriptor_table_save_2eproto_once,
-      file_level_metadata_save_2eproto[4]);
-}
-
-// ===================================================================
-
-level_TileAnimationsEntry_DoNotUse::level_TileAnimationsEntry_DoNotUse() {}
-level_TileAnimationsEntry_DoNotUse::level_TileAnimationsEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-    : SuperType(arena) {}
-void level_TileAnimationsEntry_DoNotUse::MergeFrom(const level_TileAnimationsEntry_DoNotUse& other) {
-  MergeFromInternal(other);
-}
-::PROTOBUF_NAMESPACE_ID::Metadata level_TileAnimationsEntry_DoNotUse::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-      &descriptor_table_save_2eproto_getter, &descriptor_table_save_2eproto_once,
-      file_level_metadata_save_2eproto[5]);
-}
-
-// ===================================================================
-
-level_ChasesEntry_DoNotUse::level_ChasesEntry_DoNotUse() {}
-level_ChasesEntry_DoNotUse::level_ChasesEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-    : SuperType(arena) {}
-void level_ChasesEntry_DoNotUse::MergeFrom(const level_ChasesEntry_DoNotUse& other) {
-  MergeFromInternal(other);
-}
-::PROTOBUF_NAMESPACE_ID::Metadata level_ChasesEntry_DoNotUse::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-      &descriptor_table_save_2eproto_getter, &descriptor_table_save_2eproto_once,
-      file_level_metadata_save_2eproto[6]);
-}
-
-// ===================================================================
-
-level_ParticlesEntry_DoNotUse::level_ParticlesEntry_DoNotUse() {}
-level_ParticlesEntry_DoNotUse::level_ParticlesEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-    : SuperType(arena) {}
-void level_ParticlesEntry_DoNotUse::MergeFrom(const level_ParticlesEntry_DoNotUse& other) {
-  MergeFromInternal(other);
-}
-::PROTOBUF_NAMESPACE_ID::Metadata level_ParticlesEntry_DoNotUse::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-      &descriptor_table_save_2eproto_getter, &descriptor_table_save_2eproto_once,
-      file_level_metadata_save_2eproto[7]);
-}
-
-// ===================================================================
-
-level_LightsEntry_DoNotUse::level_LightsEntry_DoNotUse() {}
-level_LightsEntry_DoNotUse::level_LightsEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-    : SuperType(arena) {}
-void level_LightsEntry_DoNotUse::MergeFrom(const level_LightsEntry_DoNotUse& other) {
-  MergeFromInternal(other);
-}
-::PROTOBUF_NAMESPACE_ID::Metadata level_LightsEntry_DoNotUse::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-      &descriptor_table_save_2eproto_getter, &descriptor_table_save_2eproto_once,
-      file_level_metadata_save_2eproto[8]);
-}
-
-// ===================================================================
-
-level_SpawnpointsEntry_DoNotUse::level_SpawnpointsEntry_DoNotUse() {}
-level_SpawnpointsEntry_DoNotUse::level_SpawnpointsEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-    : SuperType(arena) {}
-void level_SpawnpointsEntry_DoNotUse::MergeFrom(const level_SpawnpointsEntry_DoNotUse& other) {
-  MergeFromInternal(other);
-}
-::PROTOBUF_NAMESPACE_ID::Metadata level_SpawnpointsEntry_DoNotUse::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-      &descriptor_table_save_2eproto_getter, &descriptor_table_save_2eproto_once,
-      file_level_metadata_save_2eproto[9]);
-}
-
-// ===================================================================
-
-level_HitboxesEntry_DoNotUse::level_HitboxesEntry_DoNotUse() {}
-level_HitboxesEntry_DoNotUse::level_HitboxesEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-    : SuperType(arena) {}
-void level_HitboxesEntry_DoNotUse::MergeFrom(const level_HitboxesEntry_DoNotUse& other) {
-  MergeFromInternal(other);
-}
-::PROTOBUF_NAMESPACE_ID::Metadata level_HitboxesEntry_DoNotUse::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-      &descriptor_table_save_2eproto_getter, &descriptor_table_save_2eproto_once,
-      file_level_metadata_save_2eproto[10]);
-}
-
-// ===================================================================
-
-level_ObjectsEntry_DoNotUse::level_ObjectsEntry_DoNotUse() {}
-level_ObjectsEntry_DoNotUse::level_ObjectsEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-    : SuperType(arena) {}
-void level_ObjectsEntry_DoNotUse::MergeFrom(const level_ObjectsEntry_DoNotUse& other) {
-  MergeFromInternal(other);
-}
-::PROTOBUF_NAMESPACE_ID::Metadata level_ObjectsEntry_DoNotUse::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-      &descriptor_table_save_2eproto_getter, &descriptor_table_save_2eproto_once,
-      file_level_metadata_save_2eproto[11]);
-}
-
-// ===================================================================
-
-level_PortalsEntry_DoNotUse::level_PortalsEntry_DoNotUse() {}
-level_PortalsEntry_DoNotUse::level_PortalsEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-    : SuperType(arena) {}
-void level_PortalsEntry_DoNotUse::MergeFrom(const level_PortalsEntry_DoNotUse& other) {
-  MergeFromInternal(other);
-}
-::PROTOBUF_NAMESPACE_ID::Metadata level_PortalsEntry_DoNotUse::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-      &descriptor_table_save_2eproto_getter, &descriptor_table_save_2eproto_once,
-      file_level_metadata_save_2eproto[12]);
-}
-
-// ===================================================================
-
-level_TileLayersEntry_DoNotUse::level_TileLayersEntry_DoNotUse() {}
-level_TileLayersEntry_DoNotUse::level_TileLayersEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-    : SuperType(arena) {}
-void level_TileLayersEntry_DoNotUse::MergeFrom(const level_TileLayersEntry_DoNotUse& other) {
-  MergeFromInternal(other);
-}
-::PROTOBUF_NAMESPACE_ID::Metadata level_TileLayersEntry_DoNotUse::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-      &descriptor_table_save_2eproto_getter, &descriptor_table_save_2eproto_once,
-      file_level_metadata_save_2eproto[13]);
-}
-
-// ===================================================================
-
-level_TilesetsEntry_DoNotUse::level_TilesetsEntry_DoNotUse() {}
-level_TilesetsEntry_DoNotUse::level_TilesetsEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-    : SuperType(arena) {}
-void level_TilesetsEntry_DoNotUse::MergeFrom(const level_TilesetsEntry_DoNotUse& other) {
-  MergeFromInternal(other);
-}
-::PROTOBUF_NAMESPACE_ID::Metadata level_TilesetsEntry_DoNotUse::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-      &descriptor_table_save_2eproto_getter, &descriptor_table_save_2eproto_once,
-      file_level_metadata_save_2eproto[14]);
-}
-
-// ===================================================================
-
-level_InventoriesEntry_DoNotUse::level_InventoriesEntry_DoNotUse() {}
-level_InventoriesEntry_DoNotUse::level_InventoriesEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-    : SuperType(arena) {}
-void level_InventoriesEntry_DoNotUse::MergeFrom(const level_InventoriesEntry_DoNotUse& other) {
-  MergeFromInternal(other);
-}
-::PROTOBUF_NAMESPACE_ID::Metadata level_InventoriesEntry_DoNotUse::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-      &descriptor_table_save_2eproto_getter, &descriptor_table_save_2eproto_once,
-      file_level_metadata_save_2eproto[15]);
-}
-
-// ===================================================================
-
-level_TileObjectsEntry_DoNotUse::level_TileObjectsEntry_DoNotUse() {}
-level_TileObjectsEntry_DoNotUse::level_TileObjectsEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-    : SuperType(arena) {}
-void level_TileObjectsEntry_DoNotUse::MergeFrom(const level_TileObjectsEntry_DoNotUse& other) {
-  MergeFromInternal(other);
-}
-::PROTOBUF_NAMESPACE_ID::Metadata level_TileObjectsEntry_DoNotUse::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-      &descriptor_table_save_2eproto_getter, &descriptor_table_save_2eproto_once,
-      file_level_metadata_save_2eproto[16]);
-}
-
-// ===================================================================
-
-level_TriggersEntry_DoNotUse::level_TriggersEntry_DoNotUse() {}
-level_TriggersEntry_DoNotUse::level_TriggersEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-    : SuperType(arena) {}
-void level_TriggersEntry_DoNotUse::MergeFrom(const level_TriggersEntry_DoNotUse& other) {
-  MergeFromInternal(other);
-}
-::PROTOBUF_NAMESPACE_ID::Metadata level_TriggersEntry_DoNotUse::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-      &descriptor_table_save_2eproto_getter, &descriptor_table_save_2eproto_once,
-      file_level_metadata_save_2eproto[17]);
-}
-
-// ===================================================================
-
-level_AssociationsEntry_DoNotUse::level_AssociationsEntry_DoNotUse() {}
-level_AssociationsEntry_DoNotUse::level_AssociationsEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-    : SuperType(arena) {}
-void level_AssociationsEntry_DoNotUse::MergeFrom(const level_AssociationsEntry_DoNotUse& other) {
-  MergeFromInternal(other);
-}
-::PROTOBUF_NAMESPACE_ID::Metadata level_AssociationsEntry_DoNotUse::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-      &descriptor_table_save_2eproto_getter, &descriptor_table_save_2eproto_once,
-      file_level_metadata_save_2eproto[18]);
-}
-
-// ===================================================================
-
-class level::_Internal {
+class SharedData::_Internal {
  public:
-  using HasBits = decltype(std::declval<level>()._has_bits_);
-  static void set_has_id(HasBits* has_bits) {
-    (*has_bits)[0] |= 1u;
-  }
-  static void set_has_player_entity(HasBits* has_bits) {
-    (*has_bits)[0] |= 2u;
-  }
-  static void set_has_humanoid_layer_index(HasBits* has_bits) {
-    (*has_bits)[0] |= 8u;
-  }
-  static void set_has_row_count(HasBits* has_bits) {
-    (*has_bits)[0] |= 4u;
-  }
-  static void set_has_column_count(HasBits* has_bits) {
-    (*has_bits)[0] |= 32u;
-  }
-  static void set_has_width(HasBits* has_bits) {
-    (*has_bits)[0] |= 16u;
-  }
-  static void set_has_height(HasBits* has_bits) {
-    (*has_bits)[0] |= 64u;
-  }
-  static void set_has_keep_viewport_in_bounds(HasBits* has_bits) {
-    (*has_bits)[0] |= 128u;
-  }
-  static void set_has_is_outside_level(HasBits* has_bits) {
-    (*has_bits)[0] |= 256u;
-  }
-};
-
-void level::clear_movables() {
-  movables_.Clear();
-}
-void level::clear_drawables() {
-  drawables_.Clear();
-}
-void level::clear_animations() {
-  animations_.Clear();
-}
-void level::clear_plants() {
-  plants_.Clear();
-}
-void level::clear_tiles() {
-  tiles_.Clear();
-}
-void level::clear_tile_animations() {
-  tile_animations_.Clear();
-}
-void level::clear_chases() {
-  chases_.Clear();
-}
-void level::clear_particles() {
-  particles_.Clear();
-}
-void level::clear_lights() {
-  lights_.Clear();
-}
-void level::clear_spawnpoints() {
-  spawnpoints_.Clear();
-}
-void level::clear_hitboxes() {
-  hitboxes_.Clear();
-}
-void level::clear_objects() {
-  objects_.Clear();
-}
-void level::clear_portals() {
-  portals_.Clear();
-}
-void level::clear_tile_layers() {
-  tile_layers_.Clear();
-}
-void level::clear_tilesets() {
-  tilesets_.Clear();
-}
-void level::clear_inventories() {
-  inventories_.Clear();
-}
-void level::clear_tile_objects() {
-  tile_objects_.Clear();
-}
-void level::clear_triggers() {
-  triggers_.Clear();
-}
-void level::clear_associations() {
-  associations_.Clear();
-}
-level::level(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
-  entities_(arena),
-  movables_(arena),
-  drawables_(arena),
-  animations_(arena),
-  plants_(arena),
-  tiles_(arena),
-  tile_animations_(arena),
-  chases_(arena),
-  particles_(arena),
-  lights_(arena),
-  spawnpoints_(arena),
-  hitboxes_(arena),
-  objects_(arena),
-  portals_(arena),
-  tile_layers_(arena),
-  tilesets_(arena),
-  inventories_(arena),
-  tile_objects_(arena),
-  triggers_(arena),
-  associations_(arena),
-  humanoids_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
-  // @@protoc_insertion_point(arena_constructor:wanderer.proto.level)
-}
-level::level(const level& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _has_bits_(from._has_bits_),
-      entities_(from.entities_),
-      humanoids_(from.humanoids_) {
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  movables_.MergeFrom(from.movables_);
-  drawables_.MergeFrom(from.drawables_);
-  animations_.MergeFrom(from.animations_);
-  plants_.MergeFrom(from.plants_);
-  tiles_.MergeFrom(from.tiles_);
-  tile_animations_.MergeFrom(from.tile_animations_);
-  chases_.MergeFrom(from.chases_);
-  particles_.MergeFrom(from.particles_);
-  lights_.MergeFrom(from.lights_);
-  spawnpoints_.MergeFrom(from.spawnpoints_);
-  hitboxes_.MergeFrom(from.hitboxes_);
-  objects_.MergeFrom(from.objects_);
-  portals_.MergeFrom(from.portals_);
-  tile_layers_.MergeFrom(from.tile_layers_);
-  tilesets_.MergeFrom(from.tilesets_);
-  inventories_.MergeFrom(from.inventories_);
-  tile_objects_.MergeFrom(from.tile_objects_);
-  triggers_.MergeFrom(from.triggers_);
-  associations_.MergeFrom(from.associations_);
-  ::memcpy(&id_, &from.id_,
-    static_cast<size_t>(reinterpret_cast<char*>(&is_outside_level_) -
-    reinterpret_cast<char*>(&id_)) + sizeof(is_outside_level_));
-  // @@protoc_insertion_point(copy_constructor:wanderer.proto.level)
-}
-
-void level::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&id_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&is_outside_level_) -
-    reinterpret_cast<char*>(&id_)) + sizeof(is_outside_level_));
-}
-
-level::~level() {
-  // @@protoc_insertion_point(destructor:wanderer.proto.level)
-  if (GetArenaForAllocation() != nullptr) return;
-  SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
-}
-
-inline void level::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-}
-
-void level::ArenaDtor(void* object) {
-  level* _this = reinterpret_cast< level* >(object);
-  (void)_this;
-  _this->movables_. ~MapField();
-  _this->drawables_. ~MapField();
-  _this->animations_. ~MapField();
-  _this->plants_. ~MapField();
-  _this->tiles_. ~MapField();
-  _this->tile_animations_. ~MapField();
-  _this->chases_. ~MapField();
-  _this->particles_. ~MapField();
-  _this->lights_. ~MapField();
-  _this->spawnpoints_. ~MapField();
-  _this->hitboxes_. ~MapField();
-  _this->objects_. ~MapField();
-  _this->portals_. ~MapField();
-  _this->tile_layers_. ~MapField();
-  _this->tilesets_. ~MapField();
-  _this->inventories_. ~MapField();
-  _this->tile_objects_. ~MapField();
-  _this->triggers_. ~MapField();
-  _this->associations_. ~MapField();
-}
-inline void level::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena) {
-  if (arena != nullptr) {
-    arena->OwnCustomDestructor(this, &level::ArenaDtor);
-  }
-}
-void level::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-
-void level::Clear() {
-// @@protoc_insertion_point(message_clear_start:wanderer.proto.level)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  entities_.Clear();
-  movables_.Clear();
-  drawables_.Clear();
-  animations_.Clear();
-  plants_.Clear();
-  tiles_.Clear();
-  tile_animations_.Clear();
-  chases_.Clear();
-  particles_.Clear();
-  lights_.Clear();
-  spawnpoints_.Clear();
-  hitboxes_.Clear();
-  objects_.Clear();
-  portals_.Clear();
-  tile_layers_.Clear();
-  tilesets_.Clear();
-  inventories_.Clear();
-  tile_objects_.Clear();
-  triggers_.Clear();
-  associations_.Clear();
-  humanoids_.Clear();
-  cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x000000ffu) {
-    ::memset(&id_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&keep_viewport_in_bounds_) -
-        reinterpret_cast<char*>(&id_)) + sizeof(keep_viewport_in_bounds_));
-  }
-  is_outside_level_ = false;
-  _has_bits_.Clear();
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
-}
-
-const char* level::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  _Internal::HasBits has_bits{};
-  while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // optional int32 id = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
-          _Internal::set_has_id(&has_bits);
-          id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // repeated uint32 entities = 2 [packed = true];
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedUInt32Parser(_internal_mutable_entities(), ptr, ctx);
-          CHK_(ptr);
-        } else if (static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16) {
-          _internal_add_entities(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr));
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // map<uint32, .wanderer.proto.movable> movables = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            ptr = ctx->ParseMessage(&movables_, ptr);
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<26>(ptr));
-        } else
-          goto handle_unusual;
-        continue;
-      // map<uint32, .wanderer.proto.drawable> drawables = 4;
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            ptr = ctx->ParseMessage(&drawables_, ptr);
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<34>(ptr));
-        } else
-          goto handle_unusual;
-        continue;
-      // map<uint32, .wanderer.proto.animation> animations = 5;
-      case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 42)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            ptr = ctx->ParseMessage(&animations_, ptr);
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<42>(ptr));
-        } else
-          goto handle_unusual;
-        continue;
-      // map<uint32, .wanderer.proto.plant> plants = 6;
-      case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 50)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            ptr = ctx->ParseMessage(&plants_, ptr);
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<50>(ptr));
-        } else
-          goto handle_unusual;
-        continue;
-      // map<uint32, .wanderer.proto.tile> tiles = 7;
-      case 7:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 58)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            ptr = ctx->ParseMessage(&tiles_, ptr);
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<58>(ptr));
-        } else
-          goto handle_unusual;
-        continue;
-      // map<uint32, .wanderer.proto.tile_animation> tile_animations = 9;
-      case 9:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 74)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            ptr = ctx->ParseMessage(&tile_animations_, ptr);
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<74>(ptr));
-        } else
-          goto handle_unusual;
-        continue;
-      // map<uint32, .wanderer.proto.chase> chases = 10;
-      case 10:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 82)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            ptr = ctx->ParseMessage(&chases_, ptr);
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<82>(ptr));
-        } else
-          goto handle_unusual;
-        continue;
-      // map<uint32, .wanderer.proto.particle> particles = 11;
-      case 11:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 90)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            ptr = ctx->ParseMessage(&particles_, ptr);
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<90>(ptr));
-        } else
-          goto handle_unusual;
-        continue;
-      // map<uint32, .wanderer.proto.point_light> lights = 12;
-      case 12:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 98)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            ptr = ctx->ParseMessage(&lights_, ptr);
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<98>(ptr));
-        } else
-          goto handle_unusual;
-        continue;
-      // map<uint32, .wanderer.proto.spawnpoint> spawnpoints = 13;
-      case 13:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 106)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            ptr = ctx->ParseMessage(&spawnpoints_, ptr);
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<106>(ptr));
-        } else
-          goto handle_unusual;
-        continue;
-      // map<uint32, .wanderer.proto.hitbox> hitboxes = 14;
-      case 14:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 114)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            ptr = ctx->ParseMessage(&hitboxes_, ptr);
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<114>(ptr));
-        } else
-          goto handle_unusual;
-        continue;
-      // map<uint32, .wanderer.proto.map_object> objects = 15;
-      case 15:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 122)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            ptr = ctx->ParseMessage(&objects_, ptr);
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<122>(ptr));
-        } else
-          goto handle_unusual;
-        continue;
-      // map<uint32, .wanderer.proto.portal> portals = 16;
-      case 16:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 130)) {
-          ptr -= 2;
-          do {
-            ptr += 2;
-            ptr = ctx->ParseMessage(&portals_, ptr);
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<130>(ptr));
-        } else
-          goto handle_unusual;
-        continue;
-      // map<uint32, .wanderer.proto.tile_layer> tile_layers = 17;
-      case 17:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 138)) {
-          ptr -= 2;
-          do {
-            ptr += 2;
-            ptr = ctx->ParseMessage(&tile_layers_, ptr);
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<138>(ptr));
-        } else
-          goto handle_unusual;
-        continue;
-      // map<uint32, .wanderer.proto.tileset> tilesets = 18;
-      case 18:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 146)) {
-          ptr -= 2;
-          do {
-            ptr += 2;
-            ptr = ctx->ParseMessage(&tilesets_, ptr);
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<146>(ptr));
-        } else
-          goto handle_unusual;
-        continue;
-      // map<uint32, .wanderer.proto.inventory> inventories = 19;
-      case 19:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 154)) {
-          ptr -= 2;
-          do {
-            ptr += 2;
-            ptr = ctx->ParseMessage(&inventories_, ptr);
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<154>(ptr));
-        } else
-          goto handle_unusual;
-        continue;
-      // map<uint32, .wanderer.proto.tile_object> tile_objects = 20;
-      case 20:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 162)) {
-          ptr -= 2;
-          do {
-            ptr += 2;
-            ptr = ctx->ParseMessage(&tile_objects_, ptr);
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<162>(ptr));
-        } else
-          goto handle_unusual;
-        continue;
-      // map<uint32, .wanderer.proto.trigger> triggers = 21;
-      case 21:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 170)) {
-          ptr -= 2;
-          do {
-            ptr += 2;
-            ptr = ctx->ParseMessage(&triggers_, ptr);
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<170>(ptr));
-        } else
-          goto handle_unusual;
-        continue;
-      // map<uint32, .wanderer.proto.associated_entity> associations = 22;
-      case 22:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 178)) {
-          ptr -= 2;
-          do {
-            ptr += 2;
-            ptr = ctx->ParseMessage(&associations_, ptr);
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<178>(ptr));
-        } else
-          goto handle_unusual;
-        continue;
-      // optional uint32 player_entity = 50;
-      case 50:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 144)) {
-          _Internal::set_has_player_entity(&has_bits);
-          player_entity_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // repeated uint32 humanoids = 51 [packed = true];
-      case 51:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 154)) {
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedUInt32Parser(_internal_mutable_humanoids(), ptr, ctx);
-          CHK_(ptr);
-        } else if (static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 152) {
-          _internal_add_humanoids(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr));
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // optional int32 humanoid_layer_index = 52;
-      case 52:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 160)) {
-          _Internal::set_has_humanoid_layer_index(&has_bits);
-          humanoid_layer_index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // optional uint64 row_count = 53;
-      case 53:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 168)) {
-          _Internal::set_has_row_count(&has_bits);
-          row_count_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // optional uint64 column_count = 54;
-      case 54:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 176)) {
-          _Internal::set_has_column_count(&has_bits);
-          column_count_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // optional float width = 55;
-      case 55:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 189)) {
-          _Internal::set_has_width(&has_bits);
-          width_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
-          ptr += sizeof(float);
-        } else
-          goto handle_unusual;
-        continue;
-      // optional float height = 56;
-      case 56:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 197)) {
-          _Internal::set_has_height(&has_bits);
-          height_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
-          ptr += sizeof(float);
-        } else
-          goto handle_unusual;
-        continue;
-      // optional bool keep_viewport_in_bounds = 100;
-      case 100:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 32)) {
-          _Internal::set_has_keep_viewport_in_bounds(&has_bits);
-          keep_viewport_in_bounds_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // optional bool is_outside_level = 101;
-      case 101:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 40)) {
-          _Internal::set_has_is_outside_level(&has_bits);
-          is_outside_level_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      default:
-        goto handle_unusual;
-    }  // switch
-  handle_unusual:
-    if ((tag == 0) || ((tag & 7) == 4)) {
-      CHK_(ptr);
-      ctx->SetLastTag(tag);
-      goto message_done;
-    }
-    ptr = UnknownFieldParse(
-        tag,
-        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-        ptr, ctx);
-    CHK_(ptr != nullptr);
-  }  // while
-message_done:
-  _has_bits_.Or(has_bits);
-  return ptr;
-failure:
-  ptr = nullptr;
-  goto message_done;
-#undef CHK_
-}
-
-::PROTOBUF_NAMESPACE_ID::uint8* level::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:wanderer.proto.level)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  // optional int32 id = 1;
-  if (_internal_has_id()) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(1, this->_internal_id(), target);
-  }
-
-  // repeated uint32 entities = 2 [packed = true];
-  {
-    int byte_size = _entities_cached_byte_size_.load(std::memory_order_relaxed);
-    if (byte_size > 0) {
-      target = stream->WriteUInt32Packed(
-          2, _internal_entities(), byte_size, target);
-    }
-  }
-
-  // map<uint32, .wanderer.proto.movable> movables = 3;
-  if (!this->_internal_movables().empty()) {
-    typedef ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::movable >::const_pointer
-        ConstPtr;
-    typedef ::PROTOBUF_NAMESPACE_ID::internal::SortItem< ::PROTOBUF_NAMESPACE_ID::uint32, ConstPtr > SortItem;
-    typedef ::PROTOBUF_NAMESPACE_ID::internal::CompareByFirstField<SortItem> Less;
-
-    if (stream->IsSerializationDeterministic() &&
-        this->_internal_movables().size() > 1) {
-      ::std::unique_ptr<SortItem[]> items(
-          new SortItem[this->_internal_movables().size()]);
-      typedef ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::movable >::size_type size_type;
-      size_type n = 0;
-      for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::movable >::const_iterator
-          it = this->_internal_movables().begin();
-          it != this->_internal_movables().end(); ++it, ++n) {
-        items[static_cast<ptrdiff_t>(n)] = SortItem(&*it);
-      }
-      ::std::sort(&items[0], &items[static_cast<ptrdiff_t>(n)], Less());
-      for (size_type i = 0; i < n; i++) {
-        target = level_MovablesEntry_DoNotUse::Funcs::InternalSerialize(3, items[static_cast<ptrdiff_t>(i)].second->first, items[static_cast<ptrdiff_t>(i)].second->second, target, stream);
-      }
-    } else {
-      for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::movable >::const_iterator
-          it = this->_internal_movables().begin();
-          it != this->_internal_movables().end(); ++it) {
-        target = level_MovablesEntry_DoNotUse::Funcs::InternalSerialize(3, it->first, it->second, target, stream);
-      }
-    }
-  }
-
-  // map<uint32, .wanderer.proto.drawable> drawables = 4;
-  if (!this->_internal_drawables().empty()) {
-    typedef ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::drawable >::const_pointer
-        ConstPtr;
-    typedef ::PROTOBUF_NAMESPACE_ID::internal::SortItem< ::PROTOBUF_NAMESPACE_ID::uint32, ConstPtr > SortItem;
-    typedef ::PROTOBUF_NAMESPACE_ID::internal::CompareByFirstField<SortItem> Less;
-
-    if (stream->IsSerializationDeterministic() &&
-        this->_internal_drawables().size() > 1) {
-      ::std::unique_ptr<SortItem[]> items(
-          new SortItem[this->_internal_drawables().size()]);
-      typedef ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::drawable >::size_type size_type;
-      size_type n = 0;
-      for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::drawable >::const_iterator
-          it = this->_internal_drawables().begin();
-          it != this->_internal_drawables().end(); ++it, ++n) {
-        items[static_cast<ptrdiff_t>(n)] = SortItem(&*it);
-      }
-      ::std::sort(&items[0], &items[static_cast<ptrdiff_t>(n)], Less());
-      for (size_type i = 0; i < n; i++) {
-        target = level_DrawablesEntry_DoNotUse::Funcs::InternalSerialize(4, items[static_cast<ptrdiff_t>(i)].second->first, items[static_cast<ptrdiff_t>(i)].second->second, target, stream);
-      }
-    } else {
-      for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::drawable >::const_iterator
-          it = this->_internal_drawables().begin();
-          it != this->_internal_drawables().end(); ++it) {
-        target = level_DrawablesEntry_DoNotUse::Funcs::InternalSerialize(4, it->first, it->second, target, stream);
-      }
-    }
-  }
-
-  // map<uint32, .wanderer.proto.animation> animations = 5;
-  if (!this->_internal_animations().empty()) {
-    typedef ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::animation >::const_pointer
-        ConstPtr;
-    typedef ::PROTOBUF_NAMESPACE_ID::internal::SortItem< ::PROTOBUF_NAMESPACE_ID::uint32, ConstPtr > SortItem;
-    typedef ::PROTOBUF_NAMESPACE_ID::internal::CompareByFirstField<SortItem> Less;
-
-    if (stream->IsSerializationDeterministic() &&
-        this->_internal_animations().size() > 1) {
-      ::std::unique_ptr<SortItem[]> items(
-          new SortItem[this->_internal_animations().size()]);
-      typedef ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::animation >::size_type size_type;
-      size_type n = 0;
-      for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::animation >::const_iterator
-          it = this->_internal_animations().begin();
-          it != this->_internal_animations().end(); ++it, ++n) {
-        items[static_cast<ptrdiff_t>(n)] = SortItem(&*it);
-      }
-      ::std::sort(&items[0], &items[static_cast<ptrdiff_t>(n)], Less());
-      for (size_type i = 0; i < n; i++) {
-        target = level_AnimationsEntry_DoNotUse::Funcs::InternalSerialize(5, items[static_cast<ptrdiff_t>(i)].second->first, items[static_cast<ptrdiff_t>(i)].second->second, target, stream);
-      }
-    } else {
-      for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::animation >::const_iterator
-          it = this->_internal_animations().begin();
-          it != this->_internal_animations().end(); ++it) {
-        target = level_AnimationsEntry_DoNotUse::Funcs::InternalSerialize(5, it->first, it->second, target, stream);
-      }
-    }
-  }
-
-  // map<uint32, .wanderer.proto.plant> plants = 6;
-  if (!this->_internal_plants().empty()) {
-    typedef ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::plant >::const_pointer
-        ConstPtr;
-    typedef ::PROTOBUF_NAMESPACE_ID::internal::SortItem< ::PROTOBUF_NAMESPACE_ID::uint32, ConstPtr > SortItem;
-    typedef ::PROTOBUF_NAMESPACE_ID::internal::CompareByFirstField<SortItem> Less;
-
-    if (stream->IsSerializationDeterministic() &&
-        this->_internal_plants().size() > 1) {
-      ::std::unique_ptr<SortItem[]> items(
-          new SortItem[this->_internal_plants().size()]);
-      typedef ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::plant >::size_type size_type;
-      size_type n = 0;
-      for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::plant >::const_iterator
-          it = this->_internal_plants().begin();
-          it != this->_internal_plants().end(); ++it, ++n) {
-        items[static_cast<ptrdiff_t>(n)] = SortItem(&*it);
-      }
-      ::std::sort(&items[0], &items[static_cast<ptrdiff_t>(n)], Less());
-      for (size_type i = 0; i < n; i++) {
-        target = level_PlantsEntry_DoNotUse::Funcs::InternalSerialize(6, items[static_cast<ptrdiff_t>(i)].second->first, items[static_cast<ptrdiff_t>(i)].second->second, target, stream);
-      }
-    } else {
-      for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::plant >::const_iterator
-          it = this->_internal_plants().begin();
-          it != this->_internal_plants().end(); ++it) {
-        target = level_PlantsEntry_DoNotUse::Funcs::InternalSerialize(6, it->first, it->second, target, stream);
-      }
-    }
-  }
-
-  // map<uint32, .wanderer.proto.tile> tiles = 7;
-  if (!this->_internal_tiles().empty()) {
-    typedef ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::tile >::const_pointer
-        ConstPtr;
-    typedef ::PROTOBUF_NAMESPACE_ID::internal::SortItem< ::PROTOBUF_NAMESPACE_ID::uint32, ConstPtr > SortItem;
-    typedef ::PROTOBUF_NAMESPACE_ID::internal::CompareByFirstField<SortItem> Less;
-
-    if (stream->IsSerializationDeterministic() &&
-        this->_internal_tiles().size() > 1) {
-      ::std::unique_ptr<SortItem[]> items(
-          new SortItem[this->_internal_tiles().size()]);
-      typedef ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::tile >::size_type size_type;
-      size_type n = 0;
-      for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::tile >::const_iterator
-          it = this->_internal_tiles().begin();
-          it != this->_internal_tiles().end(); ++it, ++n) {
-        items[static_cast<ptrdiff_t>(n)] = SortItem(&*it);
-      }
-      ::std::sort(&items[0], &items[static_cast<ptrdiff_t>(n)], Less());
-      for (size_type i = 0; i < n; i++) {
-        target = level_TilesEntry_DoNotUse::Funcs::InternalSerialize(7, items[static_cast<ptrdiff_t>(i)].second->first, items[static_cast<ptrdiff_t>(i)].second->second, target, stream);
-      }
-    } else {
-      for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::tile >::const_iterator
-          it = this->_internal_tiles().begin();
-          it != this->_internal_tiles().end(); ++it) {
-        target = level_TilesEntry_DoNotUse::Funcs::InternalSerialize(7, it->first, it->second, target, stream);
-      }
-    }
-  }
-
-  // map<uint32, .wanderer.proto.tile_animation> tile_animations = 9;
-  if (!this->_internal_tile_animations().empty()) {
-    typedef ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::tile_animation >::const_pointer
-        ConstPtr;
-    typedef ::PROTOBUF_NAMESPACE_ID::internal::SortItem< ::PROTOBUF_NAMESPACE_ID::uint32, ConstPtr > SortItem;
-    typedef ::PROTOBUF_NAMESPACE_ID::internal::CompareByFirstField<SortItem> Less;
-
-    if (stream->IsSerializationDeterministic() &&
-        this->_internal_tile_animations().size() > 1) {
-      ::std::unique_ptr<SortItem[]> items(
-          new SortItem[this->_internal_tile_animations().size()]);
-      typedef ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::tile_animation >::size_type size_type;
-      size_type n = 0;
-      for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::tile_animation >::const_iterator
-          it = this->_internal_tile_animations().begin();
-          it != this->_internal_tile_animations().end(); ++it, ++n) {
-        items[static_cast<ptrdiff_t>(n)] = SortItem(&*it);
-      }
-      ::std::sort(&items[0], &items[static_cast<ptrdiff_t>(n)], Less());
-      for (size_type i = 0; i < n; i++) {
-        target = level_TileAnimationsEntry_DoNotUse::Funcs::InternalSerialize(9, items[static_cast<ptrdiff_t>(i)].second->first, items[static_cast<ptrdiff_t>(i)].second->second, target, stream);
-      }
-    } else {
-      for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::tile_animation >::const_iterator
-          it = this->_internal_tile_animations().begin();
-          it != this->_internal_tile_animations().end(); ++it) {
-        target = level_TileAnimationsEntry_DoNotUse::Funcs::InternalSerialize(9, it->first, it->second, target, stream);
-      }
-    }
-  }
-
-  // map<uint32, .wanderer.proto.chase> chases = 10;
-  if (!this->_internal_chases().empty()) {
-    typedef ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::chase >::const_pointer
-        ConstPtr;
-    typedef ::PROTOBUF_NAMESPACE_ID::internal::SortItem< ::PROTOBUF_NAMESPACE_ID::uint32, ConstPtr > SortItem;
-    typedef ::PROTOBUF_NAMESPACE_ID::internal::CompareByFirstField<SortItem> Less;
-
-    if (stream->IsSerializationDeterministic() &&
-        this->_internal_chases().size() > 1) {
-      ::std::unique_ptr<SortItem[]> items(
-          new SortItem[this->_internal_chases().size()]);
-      typedef ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::chase >::size_type size_type;
-      size_type n = 0;
-      for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::chase >::const_iterator
-          it = this->_internal_chases().begin();
-          it != this->_internal_chases().end(); ++it, ++n) {
-        items[static_cast<ptrdiff_t>(n)] = SortItem(&*it);
-      }
-      ::std::sort(&items[0], &items[static_cast<ptrdiff_t>(n)], Less());
-      for (size_type i = 0; i < n; i++) {
-        target = level_ChasesEntry_DoNotUse::Funcs::InternalSerialize(10, items[static_cast<ptrdiff_t>(i)].second->first, items[static_cast<ptrdiff_t>(i)].second->second, target, stream);
-      }
-    } else {
-      for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::chase >::const_iterator
-          it = this->_internal_chases().begin();
-          it != this->_internal_chases().end(); ++it) {
-        target = level_ChasesEntry_DoNotUse::Funcs::InternalSerialize(10, it->first, it->second, target, stream);
-      }
-    }
-  }
-
-  // map<uint32, .wanderer.proto.particle> particles = 11;
-  if (!this->_internal_particles().empty()) {
-    typedef ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::particle >::const_pointer
-        ConstPtr;
-    typedef ::PROTOBUF_NAMESPACE_ID::internal::SortItem< ::PROTOBUF_NAMESPACE_ID::uint32, ConstPtr > SortItem;
-    typedef ::PROTOBUF_NAMESPACE_ID::internal::CompareByFirstField<SortItem> Less;
-
-    if (stream->IsSerializationDeterministic() &&
-        this->_internal_particles().size() > 1) {
-      ::std::unique_ptr<SortItem[]> items(
-          new SortItem[this->_internal_particles().size()]);
-      typedef ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::particle >::size_type size_type;
-      size_type n = 0;
-      for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::particle >::const_iterator
-          it = this->_internal_particles().begin();
-          it != this->_internal_particles().end(); ++it, ++n) {
-        items[static_cast<ptrdiff_t>(n)] = SortItem(&*it);
-      }
-      ::std::sort(&items[0], &items[static_cast<ptrdiff_t>(n)], Less());
-      for (size_type i = 0; i < n; i++) {
-        target = level_ParticlesEntry_DoNotUse::Funcs::InternalSerialize(11, items[static_cast<ptrdiff_t>(i)].second->first, items[static_cast<ptrdiff_t>(i)].second->second, target, stream);
-      }
-    } else {
-      for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::particle >::const_iterator
-          it = this->_internal_particles().begin();
-          it != this->_internal_particles().end(); ++it) {
-        target = level_ParticlesEntry_DoNotUse::Funcs::InternalSerialize(11, it->first, it->second, target, stream);
-      }
-    }
-  }
-
-  // map<uint32, .wanderer.proto.point_light> lights = 12;
-  if (!this->_internal_lights().empty()) {
-    typedef ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::point_light >::const_pointer
-        ConstPtr;
-    typedef ::PROTOBUF_NAMESPACE_ID::internal::SortItem< ::PROTOBUF_NAMESPACE_ID::uint32, ConstPtr > SortItem;
-    typedef ::PROTOBUF_NAMESPACE_ID::internal::CompareByFirstField<SortItem> Less;
-
-    if (stream->IsSerializationDeterministic() &&
-        this->_internal_lights().size() > 1) {
-      ::std::unique_ptr<SortItem[]> items(
-          new SortItem[this->_internal_lights().size()]);
-      typedef ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::point_light >::size_type size_type;
-      size_type n = 0;
-      for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::point_light >::const_iterator
-          it = this->_internal_lights().begin();
-          it != this->_internal_lights().end(); ++it, ++n) {
-        items[static_cast<ptrdiff_t>(n)] = SortItem(&*it);
-      }
-      ::std::sort(&items[0], &items[static_cast<ptrdiff_t>(n)], Less());
-      for (size_type i = 0; i < n; i++) {
-        target = level_LightsEntry_DoNotUse::Funcs::InternalSerialize(12, items[static_cast<ptrdiff_t>(i)].second->first, items[static_cast<ptrdiff_t>(i)].second->second, target, stream);
-      }
-    } else {
-      for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::point_light >::const_iterator
-          it = this->_internal_lights().begin();
-          it != this->_internal_lights().end(); ++it) {
-        target = level_LightsEntry_DoNotUse::Funcs::InternalSerialize(12, it->first, it->second, target, stream);
-      }
-    }
-  }
-
-  // map<uint32, .wanderer.proto.spawnpoint> spawnpoints = 13;
-  if (!this->_internal_spawnpoints().empty()) {
-    typedef ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::spawnpoint >::const_pointer
-        ConstPtr;
-    typedef ::PROTOBUF_NAMESPACE_ID::internal::SortItem< ::PROTOBUF_NAMESPACE_ID::uint32, ConstPtr > SortItem;
-    typedef ::PROTOBUF_NAMESPACE_ID::internal::CompareByFirstField<SortItem> Less;
-
-    if (stream->IsSerializationDeterministic() &&
-        this->_internal_spawnpoints().size() > 1) {
-      ::std::unique_ptr<SortItem[]> items(
-          new SortItem[this->_internal_spawnpoints().size()]);
-      typedef ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::spawnpoint >::size_type size_type;
-      size_type n = 0;
-      for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::spawnpoint >::const_iterator
-          it = this->_internal_spawnpoints().begin();
-          it != this->_internal_spawnpoints().end(); ++it, ++n) {
-        items[static_cast<ptrdiff_t>(n)] = SortItem(&*it);
-      }
-      ::std::sort(&items[0], &items[static_cast<ptrdiff_t>(n)], Less());
-      for (size_type i = 0; i < n; i++) {
-        target = level_SpawnpointsEntry_DoNotUse::Funcs::InternalSerialize(13, items[static_cast<ptrdiff_t>(i)].second->first, items[static_cast<ptrdiff_t>(i)].second->second, target, stream);
-      }
-    } else {
-      for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::spawnpoint >::const_iterator
-          it = this->_internal_spawnpoints().begin();
-          it != this->_internal_spawnpoints().end(); ++it) {
-        target = level_SpawnpointsEntry_DoNotUse::Funcs::InternalSerialize(13, it->first, it->second, target, stream);
-      }
-    }
-  }
-
-  // map<uint32, .wanderer.proto.hitbox> hitboxes = 14;
-  if (!this->_internal_hitboxes().empty()) {
-    typedef ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::hitbox >::const_pointer
-        ConstPtr;
-    typedef ::PROTOBUF_NAMESPACE_ID::internal::SortItem< ::PROTOBUF_NAMESPACE_ID::uint32, ConstPtr > SortItem;
-    typedef ::PROTOBUF_NAMESPACE_ID::internal::CompareByFirstField<SortItem> Less;
-
-    if (stream->IsSerializationDeterministic() &&
-        this->_internal_hitboxes().size() > 1) {
-      ::std::unique_ptr<SortItem[]> items(
-          new SortItem[this->_internal_hitboxes().size()]);
-      typedef ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::hitbox >::size_type size_type;
-      size_type n = 0;
-      for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::hitbox >::const_iterator
-          it = this->_internal_hitboxes().begin();
-          it != this->_internal_hitboxes().end(); ++it, ++n) {
-        items[static_cast<ptrdiff_t>(n)] = SortItem(&*it);
-      }
-      ::std::sort(&items[0], &items[static_cast<ptrdiff_t>(n)], Less());
-      for (size_type i = 0; i < n; i++) {
-        target = level_HitboxesEntry_DoNotUse::Funcs::InternalSerialize(14, items[static_cast<ptrdiff_t>(i)].second->first, items[static_cast<ptrdiff_t>(i)].second->second, target, stream);
-      }
-    } else {
-      for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::hitbox >::const_iterator
-          it = this->_internal_hitboxes().begin();
-          it != this->_internal_hitboxes().end(); ++it) {
-        target = level_HitboxesEntry_DoNotUse::Funcs::InternalSerialize(14, it->first, it->second, target, stream);
-      }
-    }
-  }
-
-  // map<uint32, .wanderer.proto.map_object> objects = 15;
-  if (!this->_internal_objects().empty()) {
-    typedef ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::map_object >::const_pointer
-        ConstPtr;
-    typedef ::PROTOBUF_NAMESPACE_ID::internal::SortItem< ::PROTOBUF_NAMESPACE_ID::uint32, ConstPtr > SortItem;
-    typedef ::PROTOBUF_NAMESPACE_ID::internal::CompareByFirstField<SortItem> Less;
-
-    if (stream->IsSerializationDeterministic() &&
-        this->_internal_objects().size() > 1) {
-      ::std::unique_ptr<SortItem[]> items(
-          new SortItem[this->_internal_objects().size()]);
-      typedef ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::map_object >::size_type size_type;
-      size_type n = 0;
-      for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::map_object >::const_iterator
-          it = this->_internal_objects().begin();
-          it != this->_internal_objects().end(); ++it, ++n) {
-        items[static_cast<ptrdiff_t>(n)] = SortItem(&*it);
-      }
-      ::std::sort(&items[0], &items[static_cast<ptrdiff_t>(n)], Less());
-      for (size_type i = 0; i < n; i++) {
-        target = level_ObjectsEntry_DoNotUse::Funcs::InternalSerialize(15, items[static_cast<ptrdiff_t>(i)].second->first, items[static_cast<ptrdiff_t>(i)].second->second, target, stream);
-      }
-    } else {
-      for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::map_object >::const_iterator
-          it = this->_internal_objects().begin();
-          it != this->_internal_objects().end(); ++it) {
-        target = level_ObjectsEntry_DoNotUse::Funcs::InternalSerialize(15, it->first, it->second, target, stream);
-      }
-    }
-  }
-
-  // map<uint32, .wanderer.proto.portal> portals = 16;
-  if (!this->_internal_portals().empty()) {
-    typedef ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::portal >::const_pointer
-        ConstPtr;
-    typedef ::PROTOBUF_NAMESPACE_ID::internal::SortItem< ::PROTOBUF_NAMESPACE_ID::uint32, ConstPtr > SortItem;
-    typedef ::PROTOBUF_NAMESPACE_ID::internal::CompareByFirstField<SortItem> Less;
-
-    if (stream->IsSerializationDeterministic() &&
-        this->_internal_portals().size() > 1) {
-      ::std::unique_ptr<SortItem[]> items(
-          new SortItem[this->_internal_portals().size()]);
-      typedef ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::portal >::size_type size_type;
-      size_type n = 0;
-      for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::portal >::const_iterator
-          it = this->_internal_portals().begin();
-          it != this->_internal_portals().end(); ++it, ++n) {
-        items[static_cast<ptrdiff_t>(n)] = SortItem(&*it);
-      }
-      ::std::sort(&items[0], &items[static_cast<ptrdiff_t>(n)], Less());
-      for (size_type i = 0; i < n; i++) {
-        target = level_PortalsEntry_DoNotUse::Funcs::InternalSerialize(16, items[static_cast<ptrdiff_t>(i)].second->first, items[static_cast<ptrdiff_t>(i)].second->second, target, stream);
-      }
-    } else {
-      for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::portal >::const_iterator
-          it = this->_internal_portals().begin();
-          it != this->_internal_portals().end(); ++it) {
-        target = level_PortalsEntry_DoNotUse::Funcs::InternalSerialize(16, it->first, it->second, target, stream);
-      }
-    }
-  }
-
-  // map<uint32, .wanderer.proto.tile_layer> tile_layers = 17;
-  if (!this->_internal_tile_layers().empty()) {
-    typedef ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::tile_layer >::const_pointer
-        ConstPtr;
-    typedef ::PROTOBUF_NAMESPACE_ID::internal::SortItem< ::PROTOBUF_NAMESPACE_ID::uint32, ConstPtr > SortItem;
-    typedef ::PROTOBUF_NAMESPACE_ID::internal::CompareByFirstField<SortItem> Less;
-
-    if (stream->IsSerializationDeterministic() &&
-        this->_internal_tile_layers().size() > 1) {
-      ::std::unique_ptr<SortItem[]> items(
-          new SortItem[this->_internal_tile_layers().size()]);
-      typedef ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::tile_layer >::size_type size_type;
-      size_type n = 0;
-      for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::tile_layer >::const_iterator
-          it = this->_internal_tile_layers().begin();
-          it != this->_internal_tile_layers().end(); ++it, ++n) {
-        items[static_cast<ptrdiff_t>(n)] = SortItem(&*it);
-      }
-      ::std::sort(&items[0], &items[static_cast<ptrdiff_t>(n)], Less());
-      for (size_type i = 0; i < n; i++) {
-        target = level_TileLayersEntry_DoNotUse::Funcs::InternalSerialize(17, items[static_cast<ptrdiff_t>(i)].second->first, items[static_cast<ptrdiff_t>(i)].second->second, target, stream);
-      }
-    } else {
-      for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::tile_layer >::const_iterator
-          it = this->_internal_tile_layers().begin();
-          it != this->_internal_tile_layers().end(); ++it) {
-        target = level_TileLayersEntry_DoNotUse::Funcs::InternalSerialize(17, it->first, it->second, target, stream);
-      }
-    }
-  }
-
-  // map<uint32, .wanderer.proto.tileset> tilesets = 18;
-  if (!this->_internal_tilesets().empty()) {
-    typedef ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::tileset >::const_pointer
-        ConstPtr;
-    typedef ::PROTOBUF_NAMESPACE_ID::internal::SortItem< ::PROTOBUF_NAMESPACE_ID::uint32, ConstPtr > SortItem;
-    typedef ::PROTOBUF_NAMESPACE_ID::internal::CompareByFirstField<SortItem> Less;
-
-    if (stream->IsSerializationDeterministic() &&
-        this->_internal_tilesets().size() > 1) {
-      ::std::unique_ptr<SortItem[]> items(
-          new SortItem[this->_internal_tilesets().size()]);
-      typedef ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::tileset >::size_type size_type;
-      size_type n = 0;
-      for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::tileset >::const_iterator
-          it = this->_internal_tilesets().begin();
-          it != this->_internal_tilesets().end(); ++it, ++n) {
-        items[static_cast<ptrdiff_t>(n)] = SortItem(&*it);
-      }
-      ::std::sort(&items[0], &items[static_cast<ptrdiff_t>(n)], Less());
-      for (size_type i = 0; i < n; i++) {
-        target = level_TilesetsEntry_DoNotUse::Funcs::InternalSerialize(18, items[static_cast<ptrdiff_t>(i)].second->first, items[static_cast<ptrdiff_t>(i)].second->second, target, stream);
-      }
-    } else {
-      for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::tileset >::const_iterator
-          it = this->_internal_tilesets().begin();
-          it != this->_internal_tilesets().end(); ++it) {
-        target = level_TilesetsEntry_DoNotUse::Funcs::InternalSerialize(18, it->first, it->second, target, stream);
-      }
-    }
-  }
-
-  // map<uint32, .wanderer.proto.inventory> inventories = 19;
-  if (!this->_internal_inventories().empty()) {
-    typedef ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::inventory >::const_pointer
-        ConstPtr;
-    typedef ::PROTOBUF_NAMESPACE_ID::internal::SortItem< ::PROTOBUF_NAMESPACE_ID::uint32, ConstPtr > SortItem;
-    typedef ::PROTOBUF_NAMESPACE_ID::internal::CompareByFirstField<SortItem> Less;
-
-    if (stream->IsSerializationDeterministic() &&
-        this->_internal_inventories().size() > 1) {
-      ::std::unique_ptr<SortItem[]> items(
-          new SortItem[this->_internal_inventories().size()]);
-      typedef ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::inventory >::size_type size_type;
-      size_type n = 0;
-      for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::inventory >::const_iterator
-          it = this->_internal_inventories().begin();
-          it != this->_internal_inventories().end(); ++it, ++n) {
-        items[static_cast<ptrdiff_t>(n)] = SortItem(&*it);
-      }
-      ::std::sort(&items[0], &items[static_cast<ptrdiff_t>(n)], Less());
-      for (size_type i = 0; i < n; i++) {
-        target = level_InventoriesEntry_DoNotUse::Funcs::InternalSerialize(19, items[static_cast<ptrdiff_t>(i)].second->first, items[static_cast<ptrdiff_t>(i)].second->second, target, stream);
-      }
-    } else {
-      for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::inventory >::const_iterator
-          it = this->_internal_inventories().begin();
-          it != this->_internal_inventories().end(); ++it) {
-        target = level_InventoriesEntry_DoNotUse::Funcs::InternalSerialize(19, it->first, it->second, target, stream);
-      }
-    }
-  }
-
-  // map<uint32, .wanderer.proto.tile_object> tile_objects = 20;
-  if (!this->_internal_tile_objects().empty()) {
-    typedef ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::tile_object >::const_pointer
-        ConstPtr;
-    typedef ::PROTOBUF_NAMESPACE_ID::internal::SortItem< ::PROTOBUF_NAMESPACE_ID::uint32, ConstPtr > SortItem;
-    typedef ::PROTOBUF_NAMESPACE_ID::internal::CompareByFirstField<SortItem> Less;
-
-    if (stream->IsSerializationDeterministic() &&
-        this->_internal_tile_objects().size() > 1) {
-      ::std::unique_ptr<SortItem[]> items(
-          new SortItem[this->_internal_tile_objects().size()]);
-      typedef ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::tile_object >::size_type size_type;
-      size_type n = 0;
-      for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::tile_object >::const_iterator
-          it = this->_internal_tile_objects().begin();
-          it != this->_internal_tile_objects().end(); ++it, ++n) {
-        items[static_cast<ptrdiff_t>(n)] = SortItem(&*it);
-      }
-      ::std::sort(&items[0], &items[static_cast<ptrdiff_t>(n)], Less());
-      for (size_type i = 0; i < n; i++) {
-        target = level_TileObjectsEntry_DoNotUse::Funcs::InternalSerialize(20, items[static_cast<ptrdiff_t>(i)].second->first, items[static_cast<ptrdiff_t>(i)].second->second, target, stream);
-      }
-    } else {
-      for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::tile_object >::const_iterator
-          it = this->_internal_tile_objects().begin();
-          it != this->_internal_tile_objects().end(); ++it) {
-        target = level_TileObjectsEntry_DoNotUse::Funcs::InternalSerialize(20, it->first, it->second, target, stream);
-      }
-    }
-  }
-
-  // map<uint32, .wanderer.proto.trigger> triggers = 21;
-  if (!this->_internal_triggers().empty()) {
-    typedef ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::trigger >::const_pointer
-        ConstPtr;
-    typedef ::PROTOBUF_NAMESPACE_ID::internal::SortItem< ::PROTOBUF_NAMESPACE_ID::uint32, ConstPtr > SortItem;
-    typedef ::PROTOBUF_NAMESPACE_ID::internal::CompareByFirstField<SortItem> Less;
-
-    if (stream->IsSerializationDeterministic() &&
-        this->_internal_triggers().size() > 1) {
-      ::std::unique_ptr<SortItem[]> items(
-          new SortItem[this->_internal_triggers().size()]);
-      typedef ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::trigger >::size_type size_type;
-      size_type n = 0;
-      for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::trigger >::const_iterator
-          it = this->_internal_triggers().begin();
-          it != this->_internal_triggers().end(); ++it, ++n) {
-        items[static_cast<ptrdiff_t>(n)] = SortItem(&*it);
-      }
-      ::std::sort(&items[0], &items[static_cast<ptrdiff_t>(n)], Less());
-      for (size_type i = 0; i < n; i++) {
-        target = level_TriggersEntry_DoNotUse::Funcs::InternalSerialize(21, items[static_cast<ptrdiff_t>(i)].second->first, items[static_cast<ptrdiff_t>(i)].second->second, target, stream);
-      }
-    } else {
-      for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::trigger >::const_iterator
-          it = this->_internal_triggers().begin();
-          it != this->_internal_triggers().end(); ++it) {
-        target = level_TriggersEntry_DoNotUse::Funcs::InternalSerialize(21, it->first, it->second, target, stream);
-      }
-    }
-  }
-
-  // map<uint32, .wanderer.proto.associated_entity> associations = 22;
-  if (!this->_internal_associations().empty()) {
-    typedef ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::associated_entity >::const_pointer
-        ConstPtr;
-    typedef ::PROTOBUF_NAMESPACE_ID::internal::SortItem< ::PROTOBUF_NAMESPACE_ID::uint32, ConstPtr > SortItem;
-    typedef ::PROTOBUF_NAMESPACE_ID::internal::CompareByFirstField<SortItem> Less;
-
-    if (stream->IsSerializationDeterministic() &&
-        this->_internal_associations().size() > 1) {
-      ::std::unique_ptr<SortItem[]> items(
-          new SortItem[this->_internal_associations().size()]);
-      typedef ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::associated_entity >::size_type size_type;
-      size_type n = 0;
-      for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::associated_entity >::const_iterator
-          it = this->_internal_associations().begin();
-          it != this->_internal_associations().end(); ++it, ++n) {
-        items[static_cast<ptrdiff_t>(n)] = SortItem(&*it);
-      }
-      ::std::sort(&items[0], &items[static_cast<ptrdiff_t>(n)], Less());
-      for (size_type i = 0; i < n; i++) {
-        target = level_AssociationsEntry_DoNotUse::Funcs::InternalSerialize(22, items[static_cast<ptrdiff_t>(i)].second->first, items[static_cast<ptrdiff_t>(i)].second->second, target, stream);
-      }
-    } else {
-      for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::associated_entity >::const_iterator
-          it = this->_internal_associations().begin();
-          it != this->_internal_associations().end(); ++it) {
-        target = level_AssociationsEntry_DoNotUse::Funcs::InternalSerialize(22, it->first, it->second, target, stream);
-      }
-    }
-  }
-
-  // optional uint32 player_entity = 50;
-  if (_internal_has_player_entity()) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(50, this->_internal_player_entity(), target);
-  }
-
-  // repeated uint32 humanoids = 51 [packed = true];
-  {
-    int byte_size = _humanoids_cached_byte_size_.load(std::memory_order_relaxed);
-    if (byte_size > 0) {
-      target = stream->WriteUInt32Packed(
-          51, _internal_humanoids(), byte_size, target);
-    }
-  }
-
-  // optional int32 humanoid_layer_index = 52;
-  if (_internal_has_humanoid_layer_index()) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(52, this->_internal_humanoid_layer_index(), target);
-  }
-
-  // optional uint64 row_count = 53;
-  if (_internal_has_row_count()) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(53, this->_internal_row_count(), target);
-  }
-
-  // optional uint64 column_count = 54;
-  if (_internal_has_column_count()) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(54, this->_internal_column_count(), target);
-  }
-
-  // optional float width = 55;
-  if (_internal_has_width()) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(55, this->_internal_width(), target);
-  }
-
-  // optional float height = 56;
-  if (_internal_has_height()) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(56, this->_internal_height(), target);
-  }
-
-  // optional bool keep_viewport_in_bounds = 100;
-  if (_internal_has_keep_viewport_in_bounds()) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(100, this->_internal_keep_viewport_in_bounds(), target);
-  }
-
-  // optional bool is_outside_level = 101;
-  if (_internal_has_is_outside_level()) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(101, this->_internal_is_outside_level(), target);
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
-  }
-  // @@protoc_insertion_point(serialize_to_array_end:wanderer.proto.level)
-  return target;
-}
-
-size_t level::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:wanderer.proto.level)
-  size_t total_size = 0;
-
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  // repeated uint32 entities = 2 [packed = true];
-  {
-    size_t data_size = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      UInt32Size(this->entities_);
-    if (data_size > 0) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
-            static_cast<::PROTOBUF_NAMESPACE_ID::int32>(data_size));
-    }
-    int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(data_size);
-    _entities_cached_byte_size_.store(cached_size,
-                                    std::memory_order_relaxed);
-    total_size += data_size;
-  }
-
-  // map<uint32, .wanderer.proto.movable> movables = 3;
-  total_size += 1 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(this->_internal_movables_size());
-  for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::movable >::const_iterator
-      it = this->_internal_movables().begin();
-      it != this->_internal_movables().end(); ++it) {
-    total_size += level_MovablesEntry_DoNotUse::Funcs::ByteSizeLong(it->first, it->second);
-  }
-
-  // map<uint32, .wanderer.proto.drawable> drawables = 4;
-  total_size += 1 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(this->_internal_drawables_size());
-  for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::drawable >::const_iterator
-      it = this->_internal_drawables().begin();
-      it != this->_internal_drawables().end(); ++it) {
-    total_size += level_DrawablesEntry_DoNotUse::Funcs::ByteSizeLong(it->first, it->second);
-  }
-
-  // map<uint32, .wanderer.proto.animation> animations = 5;
-  total_size += 1 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(this->_internal_animations_size());
-  for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::animation >::const_iterator
-      it = this->_internal_animations().begin();
-      it != this->_internal_animations().end(); ++it) {
-    total_size += level_AnimationsEntry_DoNotUse::Funcs::ByteSizeLong(it->first, it->second);
-  }
-
-  // map<uint32, .wanderer.proto.plant> plants = 6;
-  total_size += 1 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(this->_internal_plants_size());
-  for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::plant >::const_iterator
-      it = this->_internal_plants().begin();
-      it != this->_internal_plants().end(); ++it) {
-    total_size += level_PlantsEntry_DoNotUse::Funcs::ByteSizeLong(it->first, it->second);
-  }
-
-  // map<uint32, .wanderer.proto.tile> tiles = 7;
-  total_size += 1 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(this->_internal_tiles_size());
-  for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::tile >::const_iterator
-      it = this->_internal_tiles().begin();
-      it != this->_internal_tiles().end(); ++it) {
-    total_size += level_TilesEntry_DoNotUse::Funcs::ByteSizeLong(it->first, it->second);
-  }
-
-  // map<uint32, .wanderer.proto.tile_animation> tile_animations = 9;
-  total_size += 1 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(this->_internal_tile_animations_size());
-  for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::tile_animation >::const_iterator
-      it = this->_internal_tile_animations().begin();
-      it != this->_internal_tile_animations().end(); ++it) {
-    total_size += level_TileAnimationsEntry_DoNotUse::Funcs::ByteSizeLong(it->first, it->second);
-  }
-
-  // map<uint32, .wanderer.proto.chase> chases = 10;
-  total_size += 1 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(this->_internal_chases_size());
-  for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::chase >::const_iterator
-      it = this->_internal_chases().begin();
-      it != this->_internal_chases().end(); ++it) {
-    total_size += level_ChasesEntry_DoNotUse::Funcs::ByteSizeLong(it->first, it->second);
-  }
-
-  // map<uint32, .wanderer.proto.particle> particles = 11;
-  total_size += 1 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(this->_internal_particles_size());
-  for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::particle >::const_iterator
-      it = this->_internal_particles().begin();
-      it != this->_internal_particles().end(); ++it) {
-    total_size += level_ParticlesEntry_DoNotUse::Funcs::ByteSizeLong(it->first, it->second);
-  }
-
-  // map<uint32, .wanderer.proto.point_light> lights = 12;
-  total_size += 1 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(this->_internal_lights_size());
-  for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::point_light >::const_iterator
-      it = this->_internal_lights().begin();
-      it != this->_internal_lights().end(); ++it) {
-    total_size += level_LightsEntry_DoNotUse::Funcs::ByteSizeLong(it->first, it->second);
-  }
-
-  // map<uint32, .wanderer.proto.spawnpoint> spawnpoints = 13;
-  total_size += 1 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(this->_internal_spawnpoints_size());
-  for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::spawnpoint >::const_iterator
-      it = this->_internal_spawnpoints().begin();
-      it != this->_internal_spawnpoints().end(); ++it) {
-    total_size += level_SpawnpointsEntry_DoNotUse::Funcs::ByteSizeLong(it->first, it->second);
-  }
-
-  // map<uint32, .wanderer.proto.hitbox> hitboxes = 14;
-  total_size += 1 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(this->_internal_hitboxes_size());
-  for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::hitbox >::const_iterator
-      it = this->_internal_hitboxes().begin();
-      it != this->_internal_hitboxes().end(); ++it) {
-    total_size += level_HitboxesEntry_DoNotUse::Funcs::ByteSizeLong(it->first, it->second);
-  }
-
-  // map<uint32, .wanderer.proto.map_object> objects = 15;
-  total_size += 1 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(this->_internal_objects_size());
-  for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::map_object >::const_iterator
-      it = this->_internal_objects().begin();
-      it != this->_internal_objects().end(); ++it) {
-    total_size += level_ObjectsEntry_DoNotUse::Funcs::ByteSizeLong(it->first, it->second);
-  }
-
-  // map<uint32, .wanderer.proto.portal> portals = 16;
-  total_size += 2 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(this->_internal_portals_size());
-  for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::portal >::const_iterator
-      it = this->_internal_portals().begin();
-      it != this->_internal_portals().end(); ++it) {
-    total_size += level_PortalsEntry_DoNotUse::Funcs::ByteSizeLong(it->first, it->second);
-  }
-
-  // map<uint32, .wanderer.proto.tile_layer> tile_layers = 17;
-  total_size += 2 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(this->_internal_tile_layers_size());
-  for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::tile_layer >::const_iterator
-      it = this->_internal_tile_layers().begin();
-      it != this->_internal_tile_layers().end(); ++it) {
-    total_size += level_TileLayersEntry_DoNotUse::Funcs::ByteSizeLong(it->first, it->second);
-  }
-
-  // map<uint32, .wanderer.proto.tileset> tilesets = 18;
-  total_size += 2 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(this->_internal_tilesets_size());
-  for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::tileset >::const_iterator
-      it = this->_internal_tilesets().begin();
-      it != this->_internal_tilesets().end(); ++it) {
-    total_size += level_TilesetsEntry_DoNotUse::Funcs::ByteSizeLong(it->first, it->second);
-  }
-
-  // map<uint32, .wanderer.proto.inventory> inventories = 19;
-  total_size += 2 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(this->_internal_inventories_size());
-  for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::inventory >::const_iterator
-      it = this->_internal_inventories().begin();
-      it != this->_internal_inventories().end(); ++it) {
-    total_size += level_InventoriesEntry_DoNotUse::Funcs::ByteSizeLong(it->first, it->second);
-  }
-
-  // map<uint32, .wanderer.proto.tile_object> tile_objects = 20;
-  total_size += 2 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(this->_internal_tile_objects_size());
-  for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::tile_object >::const_iterator
-      it = this->_internal_tile_objects().begin();
-      it != this->_internal_tile_objects().end(); ++it) {
-    total_size += level_TileObjectsEntry_DoNotUse::Funcs::ByteSizeLong(it->first, it->second);
-  }
-
-  // map<uint32, .wanderer.proto.trigger> triggers = 21;
-  total_size += 2 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(this->_internal_triggers_size());
-  for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::trigger >::const_iterator
-      it = this->_internal_triggers().begin();
-      it != this->_internal_triggers().end(); ++it) {
-    total_size += level_TriggersEntry_DoNotUse::Funcs::ByteSizeLong(it->first, it->second);
-  }
-
-  // map<uint32, .wanderer.proto.associated_entity> associations = 22;
-  total_size += 2 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(this->_internal_associations_size());
-  for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::associated_entity >::const_iterator
-      it = this->_internal_associations().begin();
-      it != this->_internal_associations().end(); ++it) {
-    total_size += level_AssociationsEntry_DoNotUse::Funcs::ByteSizeLong(it->first, it->second);
-  }
-
-  // repeated uint32 humanoids = 51 [packed = true];
-  {
-    size_t data_size = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      UInt32Size(this->humanoids_);
-    if (data_size > 0) {
-      total_size += 2 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
-            static_cast<::PROTOBUF_NAMESPACE_ID::int32>(data_size));
-    }
-    int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(data_size);
-    _humanoids_cached_byte_size_.store(cached_size,
-                                    std::memory_order_relaxed);
-    total_size += data_size;
-  }
-
-  cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x000000ffu) {
-    // optional int32 id = 1;
-    if (cached_has_bits & 0x00000001u) {
-      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_id());
-    }
-
-    // optional uint32 player_entity = 50;
-    if (cached_has_bits & 0x00000002u) {
-      total_size += 2 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
-          this->_internal_player_entity());
-    }
-
-    // optional uint64 row_count = 53;
-    if (cached_has_bits & 0x00000004u) {
-      total_size += 2 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64Size(
-          this->_internal_row_count());
-    }
-
-    // optional int32 humanoid_layer_index = 52;
-    if (cached_has_bits & 0x00000008u) {
-      total_size += 2 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
-          this->_internal_humanoid_layer_index());
-    }
-
-    // optional float width = 55;
-    if (cached_has_bits & 0x00000010u) {
-      total_size += 2 + 4;
-    }
-
-    // optional uint64 column_count = 54;
-    if (cached_has_bits & 0x00000020u) {
-      total_size += 2 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64Size(
-          this->_internal_column_count());
-    }
-
-    // optional float height = 56;
-    if (cached_has_bits & 0x00000040u) {
-      total_size += 2 + 4;
-    }
-
-    // optional bool keep_viewport_in_bounds = 100;
-    if (cached_has_bits & 0x00000080u) {
-      total_size += 2 + 1;
-    }
-
-  }
-  // optional bool is_outside_level = 101;
-  if (cached_has_bits & 0x00000100u) {
-    total_size += 2 + 1;
-  }
-
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
-}
-
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData level::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    level::MergeImpl
-};
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*level::GetClassData() const { return &_class_data_; }
-
-void level::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<level *>(to)->MergeFrom(
-      static_cast<const level &>(from));
-}
-
-
-void level::MergeFrom(const level& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:wanderer.proto.level)
-  GOOGLE_DCHECK_NE(&from, this);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  entities_.MergeFrom(from.entities_);
-  movables_.MergeFrom(from.movables_);
-  drawables_.MergeFrom(from.drawables_);
-  animations_.MergeFrom(from.animations_);
-  plants_.MergeFrom(from.plants_);
-  tiles_.MergeFrom(from.tiles_);
-  tile_animations_.MergeFrom(from.tile_animations_);
-  chases_.MergeFrom(from.chases_);
-  particles_.MergeFrom(from.particles_);
-  lights_.MergeFrom(from.lights_);
-  spawnpoints_.MergeFrom(from.spawnpoints_);
-  hitboxes_.MergeFrom(from.hitboxes_);
-  objects_.MergeFrom(from.objects_);
-  portals_.MergeFrom(from.portals_);
-  tile_layers_.MergeFrom(from.tile_layers_);
-  tilesets_.MergeFrom(from.tilesets_);
-  inventories_.MergeFrom(from.inventories_);
-  tile_objects_.MergeFrom(from.tile_objects_);
-  triggers_.MergeFrom(from.triggers_);
-  associations_.MergeFrom(from.associations_);
-  humanoids_.MergeFrom(from.humanoids_);
-  cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x000000ffu) {
-    if (cached_has_bits & 0x00000001u) {
-      id_ = from.id_;
-    }
-    if (cached_has_bits & 0x00000002u) {
-      player_entity_ = from.player_entity_;
-    }
-    if (cached_has_bits & 0x00000004u) {
-      row_count_ = from.row_count_;
-    }
-    if (cached_has_bits & 0x00000008u) {
-      humanoid_layer_index_ = from.humanoid_layer_index_;
-    }
-    if (cached_has_bits & 0x00000010u) {
-      width_ = from.width_;
-    }
-    if (cached_has_bits & 0x00000020u) {
-      column_count_ = from.column_count_;
-    }
-    if (cached_has_bits & 0x00000040u) {
-      height_ = from.height_;
-    }
-    if (cached_has_bits & 0x00000080u) {
-      keep_viewport_in_bounds_ = from.keep_viewport_in_bounds_;
-    }
-    _has_bits_[0] |= cached_has_bits;
-  }
-  if (cached_has_bits & 0x00000100u) {
-    _internal_set_is_outside_level(from._internal_is_outside_level());
-  }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-}
-
-void level::CopyFrom(const level& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:wanderer.proto.level)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool level::IsInitialized() const {
-  return true;
-}
-
-void level::InternalSwap(level* other) {
-  using std::swap;
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  entities_.InternalSwap(&other->entities_);
-  movables_.InternalSwap(&other->movables_);
-  drawables_.InternalSwap(&other->drawables_);
-  animations_.InternalSwap(&other->animations_);
-  plants_.InternalSwap(&other->plants_);
-  tiles_.InternalSwap(&other->tiles_);
-  tile_animations_.InternalSwap(&other->tile_animations_);
-  chases_.InternalSwap(&other->chases_);
-  particles_.InternalSwap(&other->particles_);
-  lights_.InternalSwap(&other->lights_);
-  spawnpoints_.InternalSwap(&other->spawnpoints_);
-  hitboxes_.InternalSwap(&other->hitboxes_);
-  objects_.InternalSwap(&other->objects_);
-  portals_.InternalSwap(&other->portals_);
-  tile_layers_.InternalSwap(&other->tile_layers_);
-  tilesets_.InternalSwap(&other->tilesets_);
-  inventories_.InternalSwap(&other->inventories_);
-  tile_objects_.InternalSwap(&other->tile_objects_);
-  triggers_.InternalSwap(&other->triggers_);
-  associations_.InternalSwap(&other->associations_);
-  humanoids_.InternalSwap(&other->humanoids_);
-  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(level, is_outside_level_)
-      + sizeof(level::is_outside_level_)
-      - PROTOBUF_FIELD_OFFSET(level, id_)>(
-          reinterpret_cast<char*>(&id_),
-          reinterpret_cast<char*>(&other->id_));
-}
-
-::PROTOBUF_NAMESPACE_ID::Metadata level::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-      &descriptor_table_save_2eproto_getter, &descriptor_table_save_2eproto_once,
-      file_level_metadata_save_2eproto[19]);
-}
-
-// ===================================================================
-
-class shared_data::_Internal {
- public:
-  using HasBits = decltype(std::declval<shared_data>()._has_bits_);
-  static const ::wanderer::proto::time_of_day& time(const shared_data* msg);
+  using HasBits = decltype(std::declval<SharedData>()._has_bits_);
+  static const ::wanderer::proto::TimeOfDay& time(const SharedData* msg);
   static void set_has_time(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
 
-const ::wanderer::proto::time_of_day&
-shared_data::_Internal::time(const shared_data* msg) {
+const ::wanderer::proto::TimeOfDay&
+SharedData::_Internal::time(const SharedData* msg) {
   return *msg->time_;
 }
-void shared_data::clear_time() {
+void SharedData::clear_time() {
   if (time_ != nullptr) time_->Clear();
   _has_bits_[0] &= ~0x00000001u;
 }
-shared_data::shared_data(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+SharedData::SharedData(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor();
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
   }
-  // @@protoc_insertion_point(arena_constructor:wanderer.proto.shared_data)
+  // @@protoc_insertion_point(arena_constructor:wanderer.proto.SharedData)
 }
-shared_data::shared_data(const shared_data& from)
+SharedData::SharedData(const SharedData& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
       _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   if (from._internal_has_time()) {
-    time_ = new ::wanderer::proto::time_of_day(*from.time_);
+    time_ = new ::wanderer::proto::TimeOfDay(*from.time_);
   } else {
     time_ = nullptr;
   }
-  // @@protoc_insertion_point(copy_constructor:wanderer.proto.shared_data)
+  // @@protoc_insertion_point(copy_constructor:wanderer.proto.SharedData)
 }
 
-void shared_data::SharedCtor() {
+void SharedData::SharedCtor() {
 time_ = nullptr;
 }
 
-shared_data::~shared_data() {
-  // @@protoc_insertion_point(destructor:wanderer.proto.shared_data)
+SharedData::~SharedData() {
+  // @@protoc_insertion_point(destructor:wanderer.proto.SharedData)
   if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-inline void shared_data::SharedDtor() {
+inline void SharedData::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete time_;
 }
 
-void shared_data::ArenaDtor(void* object) {
-  shared_data* _this = reinterpret_cast< shared_data* >(object);
+void SharedData::ArenaDtor(void* object) {
+  SharedData* _this = reinterpret_cast< SharedData* >(object);
   (void)_this;
 }
-void shared_data::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+void SharedData::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 }
-void shared_data::SetCachedSize(int size) const {
+void SharedData::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
 
-void shared_data::Clear() {
-// @@protoc_insertion_point(message_clear_start:wanderer.proto.shared_data)
+void SharedData::Clear() {
+// @@protoc_insertion_point(message_clear_start:wanderer.proto.SharedData)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -2795,14 +193,14 @@ void shared_data::Clear() {
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* shared_data::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* SharedData::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // optional .wanderer.proto.time_of_day time = 1;
+      // optional .wanderer.proto.TimeOfDay time = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
           ptr = ctx->ParseMessage(_internal_mutable_time(), ptr);
@@ -2834,13 +232,13 @@ failure:
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* shared_data::_InternalSerialize(
+::PROTOBUF_NAMESPACE_ID::uint8* SharedData::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:wanderer.proto.shared_data)
+  // @@protoc_insertion_point(serialize_to_array_start:wanderer.proto.SharedData)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // optional .wanderer.proto.time_of_day time = 1;
+  // optional .wanderer.proto.TimeOfDay time = 1;
   if (_internal_has_time()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
@@ -2852,19 +250,19 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:wanderer.proto.shared_data)
+  // @@protoc_insertion_point(serialize_to_array_end:wanderer.proto.SharedData)
   return target;
 }
 
-size_t shared_data::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:wanderer.proto.shared_data)
+size_t SharedData::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:wanderer.proto.SharedData)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // optional .wanderer.proto.time_of_day time = 1;
+  // optional .wanderer.proto.TimeOfDay time = 1;
   cached_has_bits = _has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
@@ -2875,74 +273,77 @@ size_t shared_data::ByteSizeLong() const {
   return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData shared_data::_class_data_ = {
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData SharedData::_class_data_ = {
     ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    shared_data::MergeImpl
+    SharedData::MergeImpl
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*shared_data::GetClassData() const { return &_class_data_; }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*SharedData::GetClassData() const { return &_class_data_; }
 
-void shared_data::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
+void SharedData::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
                       const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<shared_data *>(to)->MergeFrom(
-      static_cast<const shared_data &>(from));
+  static_cast<SharedData *>(to)->MergeFrom(
+      static_cast<const SharedData &>(from));
 }
 
 
-void shared_data::MergeFrom(const shared_data& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:wanderer.proto.shared_data)
+void SharedData::MergeFrom(const SharedData& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:wanderer.proto.SharedData)
   GOOGLE_DCHECK_NE(&from, this);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_has_time()) {
-    _internal_mutable_time()->::wanderer::proto::time_of_day::MergeFrom(from._internal_time());
+    _internal_mutable_time()->::wanderer::proto::TimeOfDay::MergeFrom(from._internal_time());
   }
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void shared_data::CopyFrom(const shared_data& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:wanderer.proto.shared_data)
+void SharedData::CopyFrom(const SharedData& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:wanderer.proto.SharedData)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool shared_data::IsInitialized() const {
+bool SharedData::IsInitialized() const {
   return true;
 }
 
-void shared_data::InternalSwap(shared_data* other) {
+void SharedData::InternalSwap(SharedData* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
   swap(time_, other->time_);
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata shared_data::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata SharedData::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_save_2eproto_getter, &descriptor_table_save_2eproto_once,
-      file_level_metadata_save_2eproto[20]);
+      file_level_metadata_save_2eproto[0]);
 }
 
 // ===================================================================
 
-class save::_Internal {
+class Save::_Internal {
  public:
-  using HasBits = decltype(std::declval<save>()._has_bits_);
+  using HasBits = decltype(std::declval<Save>()._has_bits_);
   static void set_has_current_level_id(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
-  static const ::wanderer::proto::shared_data& shared(const save* msg);
+  static const ::wanderer::proto::SharedData& shared(const Save* msg);
   static void set_has_shared(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
 
-const ::wanderer::proto::shared_data&
-save::_Internal::shared(const save* msg) {
+const ::wanderer::proto::SharedData&
+Save::_Internal::shared(const Save* msg) {
   return *msg->shared_;
 }
-save::save(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+void Save::clear_levels() {
+  levels_.Clear();
+}
+Save::Save(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
   levels_(arena) {
@@ -2950,53 +351,53 @@ save::save(::PROTOBUF_NAMESPACE_ID::Arena* arena,
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
   }
-  // @@protoc_insertion_point(arena_constructor:wanderer.proto.save)
+  // @@protoc_insertion_point(arena_constructor:wanderer.proto.Save)
 }
-save::save(const save& from)
+Save::Save(const Save& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
       _has_bits_(from._has_bits_),
       levels_(from.levels_) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   if (from._internal_has_shared()) {
-    shared_ = new ::wanderer::proto::shared_data(*from.shared_);
+    shared_ = new ::wanderer::proto::SharedData(*from.shared_);
   } else {
     shared_ = nullptr;
   }
   current_level_id_ = from.current_level_id_;
-  // @@protoc_insertion_point(copy_constructor:wanderer.proto.save)
+  // @@protoc_insertion_point(copy_constructor:wanderer.proto.Save)
 }
 
-void save::SharedCtor() {
+void Save::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&shared_) - reinterpret_cast<char*>(this)),
     0, static_cast<size_t>(reinterpret_cast<char*>(&current_level_id_) -
     reinterpret_cast<char*>(&shared_)) + sizeof(current_level_id_));
 }
 
-save::~save() {
-  // @@protoc_insertion_point(destructor:wanderer.proto.save)
+Save::~Save() {
+  // @@protoc_insertion_point(destructor:wanderer.proto.Save)
   if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-inline void save::SharedDtor() {
+inline void Save::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete shared_;
 }
 
-void save::ArenaDtor(void* object) {
-  save* _this = reinterpret_cast< save* >(object);
+void Save::ArenaDtor(void* object) {
+  Save* _this = reinterpret_cast< Save* >(object);
   (void)_this;
 }
-void save::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+void Save::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 }
-void save::SetCachedSize(int size) const {
+void Save::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
 
-void save::Clear() {
-// @@protoc_insertion_point(message_clear_start:wanderer.proto.save)
+void Save::Clear() {
+// @@protoc_insertion_point(message_clear_start:wanderer.proto.Save)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -3012,7 +413,7 @@ void save::Clear() {
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* save::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* Save::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
@@ -3028,7 +429,7 @@ const char* save::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::inter
         } else
           goto handle_unusual;
         continue;
-      // optional .wanderer.proto.shared_data shared = 2;
+      // optional .wanderer.proto.SharedData shared = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_shared(), ptr);
@@ -3036,7 +437,7 @@ const char* save::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::inter
         } else
           goto handle_unusual;
         continue;
-      // repeated .wanderer.proto.level levels = 3;
+      // repeated .wanderer.proto.Level levels = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
           ptr -= 1;
@@ -3073,9 +474,9 @@ failure:
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* save::_InternalSerialize(
+::PROTOBUF_NAMESPACE_ID::uint8* Save::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:wanderer.proto.save)
+  // @@protoc_insertion_point(serialize_to_array_start:wanderer.proto.Save)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -3085,7 +486,7 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(1, this->_internal_current_level_id(), target);
   }
 
-  // optional .wanderer.proto.shared_data shared = 2;
+  // optional .wanderer.proto.SharedData shared = 2;
   if (_internal_has_shared()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
@@ -3093,7 +494,7 @@ failure:
         2, _Internal::shared(this), target, stream);
   }
 
-  // repeated .wanderer.proto.level levels = 3;
+  // repeated .wanderer.proto.Level levels = 3;
   for (unsigned int i = 0,
       n = static_cast<unsigned int>(this->_internal_levels_size()); i < n; i++) {
     target = stream->EnsureSpace(target);
@@ -3105,19 +506,19 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:wanderer.proto.save)
+  // @@protoc_insertion_point(serialize_to_array_end:wanderer.proto.Save)
   return target;
 }
 
-size_t save::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:wanderer.proto.save)
+size_t Save::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:wanderer.proto.Save)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // repeated .wanderer.proto.level levels = 3;
+  // repeated .wanderer.proto.Level levels = 3;
   total_size += 1UL * this->_internal_levels_size();
   for (const auto& msg : this->levels_) {
     total_size +=
@@ -3126,7 +527,7 @@ size_t save::ByteSizeLong() const {
 
   cached_has_bits = _has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
-    // optional .wanderer.proto.shared_data shared = 2;
+    // optional .wanderer.proto.SharedData shared = 2;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
@@ -3142,21 +543,21 @@ size_t save::ByteSizeLong() const {
   return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData save::_class_data_ = {
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData Save::_class_data_ = {
     ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    save::MergeImpl
+    Save::MergeImpl
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*save::GetClassData() const { return &_class_data_; }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Save::GetClassData() const { return &_class_data_; }
 
-void save::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
+void Save::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
                       const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<save *>(to)->MergeFrom(
-      static_cast<const save &>(from));
+  static_cast<Save *>(to)->MergeFrom(
+      static_cast<const Save &>(from));
 }
 
 
-void save::MergeFrom(const save& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:wanderer.proto.save)
+void Save::MergeFrom(const Save& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:wanderer.proto.Save)
   GOOGLE_DCHECK_NE(&from, this);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
@@ -3165,7 +566,7 @@ void save::MergeFrom(const save& from) {
   cached_has_bits = from._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_mutable_shared()->::wanderer::proto::shared_data::MergeFrom(from._internal_shared());
+      _internal_mutable_shared()->::wanderer::proto::SharedData::MergeFrom(from._internal_shared());
     }
     if (cached_has_bits & 0x00000002u) {
       current_level_id_ = from.current_level_id_;
@@ -3175,105 +576,45 @@ void save::MergeFrom(const save& from) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void save::CopyFrom(const save& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:wanderer.proto.save)
+void Save::CopyFrom(const Save& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:wanderer.proto.Save)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool save::IsInitialized() const {
+bool Save::IsInitialized() const {
   return true;
 }
 
-void save::InternalSwap(save* other) {
+void Save::InternalSwap(Save* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
   levels_.InternalSwap(&other->levels_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(save, current_level_id_)
-      + sizeof(save::current_level_id_)
-      - PROTOBUF_FIELD_OFFSET(save, shared_)>(
+      PROTOBUF_FIELD_OFFSET(Save, current_level_id_)
+      + sizeof(Save::current_level_id_)
+      - PROTOBUF_FIELD_OFFSET(Save, shared_)>(
           reinterpret_cast<char*>(&shared_),
           reinterpret_cast<char*>(&other->shared_));
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata save::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata Save::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_save_2eproto_getter, &descriptor_table_save_2eproto_once,
-      file_level_metadata_save_2eproto[21]);
+      file_level_metadata_save_2eproto[1]);
 }
 
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace proto
 }  // namespace wanderer
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::wanderer::proto::level_MovablesEntry_DoNotUse* Arena::CreateMaybeMessage< ::wanderer::proto::level_MovablesEntry_DoNotUse >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::wanderer::proto::level_MovablesEntry_DoNotUse >(arena);
+template<> PROTOBUF_NOINLINE ::wanderer::proto::SharedData* Arena::CreateMaybeMessage< ::wanderer::proto::SharedData >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::wanderer::proto::SharedData >(arena);
 }
-template<> PROTOBUF_NOINLINE ::wanderer::proto::level_DrawablesEntry_DoNotUse* Arena::CreateMaybeMessage< ::wanderer::proto::level_DrawablesEntry_DoNotUse >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::wanderer::proto::level_DrawablesEntry_DoNotUse >(arena);
-}
-template<> PROTOBUF_NOINLINE ::wanderer::proto::level_AnimationsEntry_DoNotUse* Arena::CreateMaybeMessage< ::wanderer::proto::level_AnimationsEntry_DoNotUse >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::wanderer::proto::level_AnimationsEntry_DoNotUse >(arena);
-}
-template<> PROTOBUF_NOINLINE ::wanderer::proto::level_PlantsEntry_DoNotUse* Arena::CreateMaybeMessage< ::wanderer::proto::level_PlantsEntry_DoNotUse >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::wanderer::proto::level_PlantsEntry_DoNotUse >(arena);
-}
-template<> PROTOBUF_NOINLINE ::wanderer::proto::level_TilesEntry_DoNotUse* Arena::CreateMaybeMessage< ::wanderer::proto::level_TilesEntry_DoNotUse >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::wanderer::proto::level_TilesEntry_DoNotUse >(arena);
-}
-template<> PROTOBUF_NOINLINE ::wanderer::proto::level_TileAnimationsEntry_DoNotUse* Arena::CreateMaybeMessage< ::wanderer::proto::level_TileAnimationsEntry_DoNotUse >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::wanderer::proto::level_TileAnimationsEntry_DoNotUse >(arena);
-}
-template<> PROTOBUF_NOINLINE ::wanderer::proto::level_ChasesEntry_DoNotUse* Arena::CreateMaybeMessage< ::wanderer::proto::level_ChasesEntry_DoNotUse >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::wanderer::proto::level_ChasesEntry_DoNotUse >(arena);
-}
-template<> PROTOBUF_NOINLINE ::wanderer::proto::level_ParticlesEntry_DoNotUse* Arena::CreateMaybeMessage< ::wanderer::proto::level_ParticlesEntry_DoNotUse >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::wanderer::proto::level_ParticlesEntry_DoNotUse >(arena);
-}
-template<> PROTOBUF_NOINLINE ::wanderer::proto::level_LightsEntry_DoNotUse* Arena::CreateMaybeMessage< ::wanderer::proto::level_LightsEntry_DoNotUse >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::wanderer::proto::level_LightsEntry_DoNotUse >(arena);
-}
-template<> PROTOBUF_NOINLINE ::wanderer::proto::level_SpawnpointsEntry_DoNotUse* Arena::CreateMaybeMessage< ::wanderer::proto::level_SpawnpointsEntry_DoNotUse >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::wanderer::proto::level_SpawnpointsEntry_DoNotUse >(arena);
-}
-template<> PROTOBUF_NOINLINE ::wanderer::proto::level_HitboxesEntry_DoNotUse* Arena::CreateMaybeMessage< ::wanderer::proto::level_HitboxesEntry_DoNotUse >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::wanderer::proto::level_HitboxesEntry_DoNotUse >(arena);
-}
-template<> PROTOBUF_NOINLINE ::wanderer::proto::level_ObjectsEntry_DoNotUse* Arena::CreateMaybeMessage< ::wanderer::proto::level_ObjectsEntry_DoNotUse >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::wanderer::proto::level_ObjectsEntry_DoNotUse >(arena);
-}
-template<> PROTOBUF_NOINLINE ::wanderer::proto::level_PortalsEntry_DoNotUse* Arena::CreateMaybeMessage< ::wanderer::proto::level_PortalsEntry_DoNotUse >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::wanderer::proto::level_PortalsEntry_DoNotUse >(arena);
-}
-template<> PROTOBUF_NOINLINE ::wanderer::proto::level_TileLayersEntry_DoNotUse* Arena::CreateMaybeMessage< ::wanderer::proto::level_TileLayersEntry_DoNotUse >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::wanderer::proto::level_TileLayersEntry_DoNotUse >(arena);
-}
-template<> PROTOBUF_NOINLINE ::wanderer::proto::level_TilesetsEntry_DoNotUse* Arena::CreateMaybeMessage< ::wanderer::proto::level_TilesetsEntry_DoNotUse >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::wanderer::proto::level_TilesetsEntry_DoNotUse >(arena);
-}
-template<> PROTOBUF_NOINLINE ::wanderer::proto::level_InventoriesEntry_DoNotUse* Arena::CreateMaybeMessage< ::wanderer::proto::level_InventoriesEntry_DoNotUse >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::wanderer::proto::level_InventoriesEntry_DoNotUse >(arena);
-}
-template<> PROTOBUF_NOINLINE ::wanderer::proto::level_TileObjectsEntry_DoNotUse* Arena::CreateMaybeMessage< ::wanderer::proto::level_TileObjectsEntry_DoNotUse >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::wanderer::proto::level_TileObjectsEntry_DoNotUse >(arena);
-}
-template<> PROTOBUF_NOINLINE ::wanderer::proto::level_TriggersEntry_DoNotUse* Arena::CreateMaybeMessage< ::wanderer::proto::level_TriggersEntry_DoNotUse >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::wanderer::proto::level_TriggersEntry_DoNotUse >(arena);
-}
-template<> PROTOBUF_NOINLINE ::wanderer::proto::level_AssociationsEntry_DoNotUse* Arena::CreateMaybeMessage< ::wanderer::proto::level_AssociationsEntry_DoNotUse >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::wanderer::proto::level_AssociationsEntry_DoNotUse >(arena);
-}
-template<> PROTOBUF_NOINLINE ::wanderer::proto::level* Arena::CreateMaybeMessage< ::wanderer::proto::level >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::wanderer::proto::level >(arena);
-}
-template<> PROTOBUF_NOINLINE ::wanderer::proto::shared_data* Arena::CreateMaybeMessage< ::wanderer::proto::shared_data >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::wanderer::proto::shared_data >(arena);
-}
-template<> PROTOBUF_NOINLINE ::wanderer::proto::save* Arena::CreateMaybeMessage< ::wanderer::proto::save >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::wanderer::proto::save >(arena);
+template<> PROTOBUF_NOINLINE ::wanderer::proto::Save* Arena::CreateMaybeMessage< ::wanderer::proto::Save >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::wanderer::proto::Save >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

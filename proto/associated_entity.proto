@@ -2,6 +2,6 @@ syntax = "proto3";
 
 package wanderer.proto;
 
-message associated_entity {
+message AssociatedEntity {
   optional uint32 entity = 1;
 }

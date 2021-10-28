@@ -5,8 +5,6 @@ project(wanderer-proto CXX)
 set(GENERATED_FILES
     generated/animation.pb.cc
     generated/animation.pb.h
-    generated/area.pb.cc
-    generated/area.pb.h
     generated/associated_entity.pb.cc
     generated/associated_entity.pb.h
     generated/chase.pb.cc
@@ -23,10 +21,12 @@ set(GENERATED_FILES
     generated/hitbox.pb.h
     generated/inventory.pb.cc
     generated/inventory.pb.h
+    generated/level.pb.cc
+    generated/level.pb.h
+    generated/map_object.pb.cc
+    generated/map_object.pb.h
     generated/movable.pb.cc
     generated/movable.pb.h
-    generated/object.pb.cc
-    generated/object.pb.h
     generated/particle.pb.cc
     generated/particle.pb.h
     generated/plant.pb.cc

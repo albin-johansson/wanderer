@@ -58,38 +58,38 @@ struct TableStruct_tileset_2eproto {
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_tileset_2eproto;
 namespace wanderer {
 namespace proto {
-class tileset;
-struct tilesetDefaultTypeInternal;
-extern tilesetDefaultTypeInternal _tileset_default_instance_;
-class tileset_TileToEntityEntry_DoNotUse;
-struct tileset_TileToEntityEntry_DoNotUseDefaultTypeInternal;
-extern tileset_TileToEntityEntry_DoNotUseDefaultTypeInternal _tileset_TileToEntityEntry_DoNotUse_default_instance_;
+class Tileset;
+struct TilesetDefaultTypeInternal;
+extern TilesetDefaultTypeInternal _Tileset_default_instance_;
+class Tileset_TileToEntityEntry_DoNotUse;
+struct Tileset_TileToEntityEntry_DoNotUseDefaultTypeInternal;
+extern Tileset_TileToEntityEntry_DoNotUseDefaultTypeInternal _Tileset_TileToEntityEntry_DoNotUse_default_instance_;
 }  // namespace proto
 }  // namespace wanderer
 PROTOBUF_NAMESPACE_OPEN
-template<> ::wanderer::proto::tileset* Arena::CreateMaybeMessage<::wanderer::proto::tileset>(Arena*);
-template<> ::wanderer::proto::tileset_TileToEntityEntry_DoNotUse* Arena::CreateMaybeMessage<::wanderer::proto::tileset_TileToEntityEntry_DoNotUse>(Arena*);
+template<> ::wanderer::proto::Tileset* Arena::CreateMaybeMessage<::wanderer::proto::Tileset>(Arena*);
+template<> ::wanderer::proto::Tileset_TileToEntityEntry_DoNotUse* Arena::CreateMaybeMessage<::wanderer::proto::Tileset_TileToEntityEntry_DoNotUse>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace wanderer {
 namespace proto {
 
 // ===================================================================
 
-class tileset_TileToEntityEntry_DoNotUse : public ::PROTOBUF_NAMESPACE_ID::internal::MapEntry<tileset_TileToEntityEntry_DoNotUse, 
+class Tileset_TileToEntityEntry_DoNotUse : public ::PROTOBUF_NAMESPACE_ID::internal::MapEntry<Tileset_TileToEntityEntry_DoNotUse, 
     ::PROTOBUF_NAMESPACE_ID::uint32, ::PROTOBUF_NAMESPACE_ID::uint32,
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_UINT32,
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_UINT32> {
 public:
-  typedef ::PROTOBUF_NAMESPACE_ID::internal::MapEntry<tileset_TileToEntityEntry_DoNotUse, 
+  typedef ::PROTOBUF_NAMESPACE_ID::internal::MapEntry<Tileset_TileToEntityEntry_DoNotUse, 
     ::PROTOBUF_NAMESPACE_ID::uint32, ::PROTOBUF_NAMESPACE_ID::uint32,
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_UINT32,
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_UINT32> SuperType;
-  tileset_TileToEntityEntry_DoNotUse();
-  explicit constexpr tileset_TileToEntityEntry_DoNotUse(
+  Tileset_TileToEntityEntry_DoNotUse();
+  explicit constexpr Tileset_TileToEntityEntry_DoNotUse(
       ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-  explicit tileset_TileToEntityEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
-  void MergeFrom(const tileset_TileToEntityEntry_DoNotUse& other);
-  static const tileset_TileToEntityEntry_DoNotUse* internal_default_instance() { return reinterpret_cast<const tileset_TileToEntityEntry_DoNotUse*>(&_tileset_TileToEntityEntry_DoNotUse_default_instance_); }
+  explicit Tileset_TileToEntityEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  void MergeFrom(const Tileset_TileToEntityEntry_DoNotUse& other);
+  static const Tileset_TileToEntityEntry_DoNotUse* internal_default_instance() { return reinterpret_cast<const Tileset_TileToEntityEntry_DoNotUse*>(&_Tileset_TileToEntityEntry_DoNotUse_default_instance_); }
   static bool ValidateKey(void*) { return true; }
   static bool ValidateValue(void*) { return true; }
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
@@ -98,24 +98,24 @@ public:
 
 // -------------------------------------------------------------------
 
-class tileset final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.proto.tileset) */ {
+class Tileset final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.proto.Tileset) */ {
  public:
-  inline tileset() : tileset(nullptr) {}
-  ~tileset() override;
-  explicit constexpr tileset(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline Tileset() : Tileset(nullptr) {}
+  ~Tileset() override;
+  explicit constexpr Tileset(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  tileset(const tileset& from);
-  tileset(tileset&& from) noexcept
-    : tileset() {
+  Tileset(const Tileset& from);
+  Tileset(Tileset&& from) noexcept
+    : Tileset() {
     *this = ::std::move(from);
   }
 
-  inline tileset& operator=(const tileset& from) {
+  inline Tileset& operator=(const Tileset& from) {
     CopyFrom(from);
     return *this;
   }
-  inline tileset& operator=(tileset&& from) noexcept {
+  inline Tileset& operator=(Tileset&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -138,20 +138,20 @@ class tileset final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const tileset& default_instance() {
+  static const Tileset& default_instance() {
     return *internal_default_instance();
   }
-  static inline const tileset* internal_default_instance() {
-    return reinterpret_cast<const tileset*>(
-               &_tileset_default_instance_);
+  static inline const Tileset* internal_default_instance() {
+    return reinterpret_cast<const Tileset*>(
+               &_Tileset_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     1;
 
-  friend void swap(tileset& a, tileset& b) {
+  friend void swap(Tileset& a, Tileset& b) {
     a.Swap(&b);
   }
-  inline void Swap(tileset* other) {
+  inline void Swap(Tileset* other) {
     if (other == this) return;
     if (GetOwningArena() == other->GetOwningArena()) {
       InternalSwap(other);
@@ -159,7 +159,7 @@ class tileset final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(tileset* other) {
+  void UnsafeArenaSwap(Tileset* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -167,17 +167,17 @@ class tileset final :
 
   // implements Message ----------------------------------------------
 
-  inline tileset* New() const final {
-    return new tileset();
+  inline Tileset* New() const final {
+    return new Tileset();
   }
 
-  tileset* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<tileset>(arena);
+  Tileset* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<Tileset>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const tileset& from);
+  void CopyFrom(const Tileset& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom(const tileset& from);
+  void MergeFrom(const Tileset& from);
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to, const ::PROTOBUF_NAMESPACE_ID::Message& from);
   public:
@@ -194,13 +194,13 @@ class tileset final :
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(tileset* other);
+  void InternalSwap(Tileset* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "wanderer.proto.tileset";
+    return "wanderer.proto.Tileset";
   }
   protected:
-  explicit tileset(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit Tileset(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   private:
   static void ArenaDtor(void* object);
@@ -237,7 +237,7 @@ class tileset final :
   ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::PROTOBUF_NAMESPACE_ID::uint32 >*
       mutable_tile_to_entity();
 
-  // @@protoc_insertion_point(class_scope:wanderer.proto.tileset)
+  // @@protoc_insertion_point(class_scope:wanderer.proto.Tileset)
  private:
   class _Internal;
 
@@ -245,7 +245,7 @@ class tileset final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::MapField<
-      tileset_TileToEntityEntry_DoNotUse,
+      Tileset_TileToEntityEntry_DoNotUse,
       ::PROTOBUF_NAMESPACE_ID::uint32, ::PROTOBUF_NAMESPACE_ID::uint32,
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_UINT32,
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_UINT32> tile_to_entity_;
@@ -263,34 +263,34 @@ class tileset final :
 #endif  // __GNUC__
 // -------------------------------------------------------------------
 
-// tileset
+// Tileset
 
 // map<uint32, uint32> tile_to_entity = 1;
-inline int tileset::_internal_tile_to_entity_size() const {
+inline int Tileset::_internal_tile_to_entity_size() const {
   return tile_to_entity_.size();
 }
-inline int tileset::tile_to_entity_size() const {
+inline int Tileset::tile_to_entity_size() const {
   return _internal_tile_to_entity_size();
 }
-inline void tileset::clear_tile_to_entity() {
+inline void Tileset::clear_tile_to_entity() {
   tile_to_entity_.Clear();
 }
 inline const ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::PROTOBUF_NAMESPACE_ID::uint32 >&
-tileset::_internal_tile_to_entity() const {
+Tileset::_internal_tile_to_entity() const {
   return tile_to_entity_.GetMap();
 }
 inline const ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::PROTOBUF_NAMESPACE_ID::uint32 >&
-tileset::tile_to_entity() const {
-  // @@protoc_insertion_point(field_map:wanderer.proto.tileset.tile_to_entity)
+Tileset::tile_to_entity() const {
+  // @@protoc_insertion_point(field_map:wanderer.proto.Tileset.tile_to_entity)
   return _internal_tile_to_entity();
 }
 inline ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::PROTOBUF_NAMESPACE_ID::uint32 >*
-tileset::_internal_mutable_tile_to_entity() {
+Tileset::_internal_mutable_tile_to_entity() {
   return tile_to_entity_.MutableMap();
 }
 inline ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::PROTOBUF_NAMESPACE_ID::uint32 >*
-tileset::mutable_tile_to_entity() {
-  // @@protoc_insertion_point(field_mutable_map:wanderer.proto.tileset.tile_to_entity)
+Tileset::mutable_tile_to_entity() {
+  // @@protoc_insertion_point(field_mutable_map:wanderer.proto.Tileset.tile_to_entity)
   return _internal_mutable_tile_to_entity();
 }
 

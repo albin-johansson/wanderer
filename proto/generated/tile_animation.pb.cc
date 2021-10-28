@@ -18,33 +18,33 @@
 PROTOBUF_PRAGMA_INIT_SEG
 namespace wanderer {
 namespace proto {
-constexpr tile_animation_frame::tile_animation_frame(
+constexpr TileAnimation_Frame::TileAnimation_Frame(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : tile_id_(0u)
   , duration_(0u){}
-struct tile_animation_frameDefaultTypeInternal {
-  constexpr tile_animation_frameDefaultTypeInternal()
+struct TileAnimation_FrameDefaultTypeInternal {
+  constexpr TileAnimation_FrameDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~tile_animation_frameDefaultTypeInternal() {}
+  ~TileAnimation_FrameDefaultTypeInternal() {}
   union {
-    tile_animation_frame _instance;
+    TileAnimation_Frame _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT tile_animation_frameDefaultTypeInternal _tile_animation_frame_default_instance_;
-constexpr tile_animation::tile_animation(
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT TileAnimation_FrameDefaultTypeInternal _TileAnimation_Frame_default_instance_;
+constexpr TileAnimation::TileAnimation(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : frames_()
   , index_(uint64_t{0u})
   , then_(0u){}
-struct tile_animationDefaultTypeInternal {
-  constexpr tile_animationDefaultTypeInternal()
+struct TileAnimationDefaultTypeInternal {
+  constexpr TileAnimationDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~tile_animationDefaultTypeInternal() {}
+  ~TileAnimationDefaultTypeInternal() {}
   union {
-    tile_animation _instance;
+    TileAnimation _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT tile_animationDefaultTypeInternal _tile_animation_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT TileAnimationDefaultTypeInternal _TileAnimation_default_instance_;
 }  // namespace proto
 }  // namespace wanderer
 static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_tile_5fanimation_2eproto[2];
@@ -52,51 +52,51 @@ static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_tile_5fanimation_2eproto = nullptr;
 
 const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_tile_5fanimation_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::tile_animation_frame, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::tile_animation_frame, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::TileAnimation_Frame, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::TileAnimation_Frame, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::tile_animation_frame, tile_id_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::tile_animation_frame, duration_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::TileAnimation_Frame, tile_id_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::TileAnimation_Frame, duration_),
   0,
   1,
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::tile_animation, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::tile_animation, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::TileAnimation, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::TileAnimation, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::tile_animation, index_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::tile_animation, then_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::tile_animation, frames_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::TileAnimation, index_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::TileAnimation, then_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::TileAnimation, frames_),
   0,
   1,
   ~0u,
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, 8, -1, sizeof(::wanderer::proto::tile_animation_frame)},
-  { 10, 19, -1, sizeof(::wanderer::proto::tile_animation)},
+  { 0, 8, -1, sizeof(::wanderer::proto::TileAnimation_Frame)},
+  { 10, 19, -1, sizeof(::wanderer::proto::TileAnimation)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_tile_animation_frame_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_tile_animation_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_TileAnimation_Frame_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_TileAnimation_default_instance_),
 };
 
 const char descriptor_table_protodef_tile_5fanimation_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\024tile_animation.proto\022\016wanderer.proto\"\317"
-  "\001\n\016tile_animation\022\022\n\005index\030\001 \001(\004H\000\210\001\001\022\021\n"
-  "\004then\030\002 \001(\rH\001\210\001\001\0224\n\006frames\030\003 \003(\0132$.wande"
-  "rer.proto.tile_animation.frame\032M\n\005frame\022"
-  "\024\n\007tile_id\030\001 \001(\rH\000\210\001\001\022\025\n\010duration\030\002 \001(\rH"
-  "\001\210\001\001B\n\n\010_tile_idB\013\n\t_durationB\010\n\006_indexB"
-  "\007\n\005_thenb\006proto3"
+  "\n\024tile_animation.proto\022\016wanderer.proto\"\315"
+  "\001\n\rTileAnimation\022\022\n\005index\030\001 \001(\004H\000\210\001\001\022\021\n\004"
+  "then\030\002 \001(\rH\001\210\001\001\0223\n\006frames\030\003 \003(\0132#.wander"
+  "er.proto.TileAnimation.Frame\032M\n\005Frame\022\024\n"
+  "\007tile_id\030\001 \001(\rH\000\210\001\001\022\025\n\010duration\030\002 \001(\rH\001\210"
+  "\001\001B\n\n\010_tile_idB\013\n\t_durationB\010\n\006_indexB\007\n"
+  "\005_thenb\006proto3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_tile_5fanimation_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_tile_5fanimation_2eproto = {
-  false, false, 256, descriptor_table_protodef_tile_5fanimation_2eproto, "tile_animation.proto", 
+  false, false, 254, descriptor_table_protodef_tile_5fanimation_2eproto, "tile_animation.proto", 
   &descriptor_table_tile_5fanimation_2eproto_once, nullptr, 0, 2,
   schemas, file_default_instances, TableStruct_tile_5fanimation_2eproto::offsets,
   file_level_metadata_tile_5fanimation_2eproto, file_level_enum_descriptors_tile_5fanimation_2eproto, file_level_service_descriptors_tile_5fanimation_2eproto,
@@ -112,9 +112,9 @@ namespace proto {
 
 // ===================================================================
 
-class tile_animation_frame::_Internal {
+class TileAnimation_Frame::_Internal {
  public:
-  using HasBits = decltype(std::declval<tile_animation_frame>()._has_bits_);
+  using HasBits = decltype(std::declval<TileAnimation_Frame>()._has_bits_);
   static void set_has_tile_id(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -123,55 +123,55 @@ class tile_animation_frame::_Internal {
   }
 };
 
-tile_animation_frame::tile_animation_frame(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+TileAnimation_Frame::TileAnimation_Frame(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor();
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
   }
-  // @@protoc_insertion_point(arena_constructor:wanderer.proto.tile_animation.frame)
+  // @@protoc_insertion_point(arena_constructor:wanderer.proto.TileAnimation.Frame)
 }
-tile_animation_frame::tile_animation_frame(const tile_animation_frame& from)
+TileAnimation_Frame::TileAnimation_Frame(const TileAnimation_Frame& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
       _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::memcpy(&tile_id_, &from.tile_id_,
     static_cast<size_t>(reinterpret_cast<char*>(&duration_) -
     reinterpret_cast<char*>(&tile_id_)) + sizeof(duration_));
-  // @@protoc_insertion_point(copy_constructor:wanderer.proto.tile_animation.frame)
+  // @@protoc_insertion_point(copy_constructor:wanderer.proto.TileAnimation.Frame)
 }
 
-void tile_animation_frame::SharedCtor() {
+void TileAnimation_Frame::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&tile_id_) - reinterpret_cast<char*>(this)),
     0, static_cast<size_t>(reinterpret_cast<char*>(&duration_) -
     reinterpret_cast<char*>(&tile_id_)) + sizeof(duration_));
 }
 
-tile_animation_frame::~tile_animation_frame() {
-  // @@protoc_insertion_point(destructor:wanderer.proto.tile_animation.frame)
+TileAnimation_Frame::~TileAnimation_Frame() {
+  // @@protoc_insertion_point(destructor:wanderer.proto.TileAnimation.Frame)
   if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-inline void tile_animation_frame::SharedDtor() {
+inline void TileAnimation_Frame::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void tile_animation_frame::ArenaDtor(void* object) {
-  tile_animation_frame* _this = reinterpret_cast< tile_animation_frame* >(object);
+void TileAnimation_Frame::ArenaDtor(void* object) {
+  TileAnimation_Frame* _this = reinterpret_cast< TileAnimation_Frame* >(object);
   (void)_this;
 }
-void tile_animation_frame::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+void TileAnimation_Frame::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 }
-void tile_animation_frame::SetCachedSize(int size) const {
+void TileAnimation_Frame::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
 
-void tile_animation_frame::Clear() {
-// @@protoc_insertion_point(message_clear_start:wanderer.proto.tile_animation.frame)
+void TileAnimation_Frame::Clear() {
+// @@protoc_insertion_point(message_clear_start:wanderer.proto.TileAnimation.Frame)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -186,7 +186,7 @@ void tile_animation_frame::Clear() {
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* tile_animation_frame::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* TileAnimation_Frame::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
@@ -235,9 +235,9 @@ failure:
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* tile_animation_frame::_InternalSerialize(
+::PROTOBUF_NAMESPACE_ID::uint8* TileAnimation_Frame::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:wanderer.proto.tile_animation.frame)
+  // @@protoc_insertion_point(serialize_to_array_start:wanderer.proto.TileAnimation.Frame)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -257,12 +257,12 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:wanderer.proto.tile_animation.frame)
+  // @@protoc_insertion_point(serialize_to_array_end:wanderer.proto.TileAnimation.Frame)
   return target;
 }
 
-size_t tile_animation_frame::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:wanderer.proto.tile_animation.frame)
+size_t TileAnimation_Frame::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:wanderer.proto.TileAnimation.Frame)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -285,21 +285,21 @@ size_t tile_animation_frame::ByteSizeLong() const {
   return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData tile_animation_frame::_class_data_ = {
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData TileAnimation_Frame::_class_data_ = {
     ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    tile_animation_frame::MergeImpl
+    TileAnimation_Frame::MergeImpl
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*tile_animation_frame::GetClassData() const { return &_class_data_; }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*TileAnimation_Frame::GetClassData() const { return &_class_data_; }
 
-void tile_animation_frame::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
+void TileAnimation_Frame::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
                       const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<tile_animation_frame *>(to)->MergeFrom(
-      static_cast<const tile_animation_frame &>(from));
+  static_cast<TileAnimation_Frame *>(to)->MergeFrom(
+      static_cast<const TileAnimation_Frame &>(from));
 }
 
 
-void tile_animation_frame::MergeFrom(const tile_animation_frame& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:wanderer.proto.tile_animation.frame)
+void TileAnimation_Frame::MergeFrom(const TileAnimation_Frame& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:wanderer.proto.TileAnimation.Frame)
   GOOGLE_DCHECK_NE(&from, this);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
@@ -317,30 +317,30 @@ void tile_animation_frame::MergeFrom(const tile_animation_frame& from) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void tile_animation_frame::CopyFrom(const tile_animation_frame& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:wanderer.proto.tile_animation.frame)
+void TileAnimation_Frame::CopyFrom(const TileAnimation_Frame& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:wanderer.proto.TileAnimation.Frame)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool tile_animation_frame::IsInitialized() const {
+bool TileAnimation_Frame::IsInitialized() const {
   return true;
 }
 
-void tile_animation_frame::InternalSwap(tile_animation_frame* other) {
+void TileAnimation_Frame::InternalSwap(TileAnimation_Frame* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(tile_animation_frame, duration_)
-      + sizeof(tile_animation_frame::duration_)
-      - PROTOBUF_FIELD_OFFSET(tile_animation_frame, tile_id_)>(
+      PROTOBUF_FIELD_OFFSET(TileAnimation_Frame, duration_)
+      + sizeof(TileAnimation_Frame::duration_)
+      - PROTOBUF_FIELD_OFFSET(TileAnimation_Frame, tile_id_)>(
           reinterpret_cast<char*>(&tile_id_),
           reinterpret_cast<char*>(&other->tile_id_));
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata tile_animation_frame::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata TileAnimation_Frame::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_tile_5fanimation_2eproto_getter, &descriptor_table_tile_5fanimation_2eproto_once,
       file_level_metadata_tile_5fanimation_2eproto[0]);
@@ -348,9 +348,9 @@ void tile_animation_frame::InternalSwap(tile_animation_frame* other) {
 
 // ===================================================================
 
-class tile_animation::_Internal {
+class TileAnimation::_Internal {
  public:
-  using HasBits = decltype(std::declval<tile_animation>()._has_bits_);
+  using HasBits = decltype(std::declval<TileAnimation>()._has_bits_);
   static void set_has_index(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -359,7 +359,7 @@ class tile_animation::_Internal {
   }
 };
 
-tile_animation::tile_animation(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+TileAnimation::TileAnimation(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
   frames_(arena) {
@@ -367,9 +367,9 @@ tile_animation::tile_animation(::PROTOBUF_NAMESPACE_ID::Arena* arena,
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
   }
-  // @@protoc_insertion_point(arena_constructor:wanderer.proto.tile_animation)
+  // @@protoc_insertion_point(arena_constructor:wanderer.proto.TileAnimation)
 }
-tile_animation::tile_animation(const tile_animation& from)
+TileAnimation::TileAnimation(const TileAnimation& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
       _has_bits_(from._has_bits_),
       frames_(from.frames_) {
@@ -377,39 +377,39 @@ tile_animation::tile_animation(const tile_animation& from)
   ::memcpy(&index_, &from.index_,
     static_cast<size_t>(reinterpret_cast<char*>(&then_) -
     reinterpret_cast<char*>(&index_)) + sizeof(then_));
-  // @@protoc_insertion_point(copy_constructor:wanderer.proto.tile_animation)
+  // @@protoc_insertion_point(copy_constructor:wanderer.proto.TileAnimation)
 }
 
-void tile_animation::SharedCtor() {
+void TileAnimation::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&index_) - reinterpret_cast<char*>(this)),
     0, static_cast<size_t>(reinterpret_cast<char*>(&then_) -
     reinterpret_cast<char*>(&index_)) + sizeof(then_));
 }
 
-tile_animation::~tile_animation() {
-  // @@protoc_insertion_point(destructor:wanderer.proto.tile_animation)
+TileAnimation::~TileAnimation() {
+  // @@protoc_insertion_point(destructor:wanderer.proto.TileAnimation)
   if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-inline void tile_animation::SharedDtor() {
+inline void TileAnimation::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void tile_animation::ArenaDtor(void* object) {
-  tile_animation* _this = reinterpret_cast< tile_animation* >(object);
+void TileAnimation::ArenaDtor(void* object) {
+  TileAnimation* _this = reinterpret_cast< TileAnimation* >(object);
   (void)_this;
 }
-void tile_animation::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+void TileAnimation::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 }
-void tile_animation::SetCachedSize(int size) const {
+void TileAnimation::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
 
-void tile_animation::Clear() {
-// @@protoc_insertion_point(message_clear_start:wanderer.proto.tile_animation)
+void TileAnimation::Clear() {
+// @@protoc_insertion_point(message_clear_start:wanderer.proto.TileAnimation)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -425,7 +425,7 @@ void tile_animation::Clear() {
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* tile_animation::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* TileAnimation::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
@@ -450,7 +450,7 @@ const char* tile_animation::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         } else
           goto handle_unusual;
         continue;
-      // repeated .wanderer.proto.tile_animation.frame frames = 3;
+      // repeated .wanderer.proto.TileAnimation.Frame frames = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
           ptr -= 1;
@@ -487,9 +487,9 @@ failure:
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* tile_animation::_InternalSerialize(
+::PROTOBUF_NAMESPACE_ID::uint8* TileAnimation::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:wanderer.proto.tile_animation)
+  // @@protoc_insertion_point(serialize_to_array_start:wanderer.proto.TileAnimation)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -505,7 +505,7 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(2, this->_internal_then(), target);
   }
 
-  // repeated .wanderer.proto.tile_animation.frame frames = 3;
+  // repeated .wanderer.proto.TileAnimation.Frame frames = 3;
   for (unsigned int i = 0,
       n = static_cast<unsigned int>(this->_internal_frames_size()); i < n; i++) {
     target = stream->EnsureSpace(target);
@@ -517,19 +517,19 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:wanderer.proto.tile_animation)
+  // @@protoc_insertion_point(serialize_to_array_end:wanderer.proto.TileAnimation)
   return target;
 }
 
-size_t tile_animation::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:wanderer.proto.tile_animation)
+size_t TileAnimation::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:wanderer.proto.TileAnimation)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // repeated .wanderer.proto.tile_animation.frame frames = 3;
+  // repeated .wanderer.proto.TileAnimation.Frame frames = 3;
   total_size += 1UL * this->_internal_frames_size();
   for (const auto& msg : this->frames_) {
     total_size +=
@@ -552,21 +552,21 @@ size_t tile_animation::ByteSizeLong() const {
   return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData tile_animation::_class_data_ = {
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData TileAnimation::_class_data_ = {
     ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    tile_animation::MergeImpl
+    TileAnimation::MergeImpl
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*tile_animation::GetClassData() const { return &_class_data_; }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*TileAnimation::GetClassData() const { return &_class_data_; }
 
-void tile_animation::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
+void TileAnimation::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
                       const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<tile_animation *>(to)->MergeFrom(
-      static_cast<const tile_animation &>(from));
+  static_cast<TileAnimation *>(to)->MergeFrom(
+      static_cast<const TileAnimation &>(from));
 }
 
 
-void tile_animation::MergeFrom(const tile_animation& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:wanderer.proto.tile_animation)
+void TileAnimation::MergeFrom(const TileAnimation& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:wanderer.proto.TileAnimation)
   GOOGLE_DCHECK_NE(&from, this);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
@@ -585,31 +585,31 @@ void tile_animation::MergeFrom(const tile_animation& from) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void tile_animation::CopyFrom(const tile_animation& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:wanderer.proto.tile_animation)
+void TileAnimation::CopyFrom(const TileAnimation& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:wanderer.proto.TileAnimation)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool tile_animation::IsInitialized() const {
+bool TileAnimation::IsInitialized() const {
   return true;
 }
 
-void tile_animation::InternalSwap(tile_animation* other) {
+void TileAnimation::InternalSwap(TileAnimation* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
   frames_.InternalSwap(&other->frames_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(tile_animation, then_)
-      + sizeof(tile_animation::then_)
-      - PROTOBUF_FIELD_OFFSET(tile_animation, index_)>(
+      PROTOBUF_FIELD_OFFSET(TileAnimation, then_)
+      + sizeof(TileAnimation::then_)
+      - PROTOBUF_FIELD_OFFSET(TileAnimation, index_)>(
           reinterpret_cast<char*>(&index_),
           reinterpret_cast<char*>(&other->index_));
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata tile_animation::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata TileAnimation::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_tile_5fanimation_2eproto_getter, &descriptor_table_tile_5fanimation_2eproto_once,
       file_level_metadata_tile_5fanimation_2eproto[1]);
@@ -619,11 +619,11 @@ void tile_animation::InternalSwap(tile_animation* other) {
 }  // namespace proto
 }  // namespace wanderer
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::wanderer::proto::tile_animation_frame* Arena::CreateMaybeMessage< ::wanderer::proto::tile_animation_frame >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::wanderer::proto::tile_animation_frame >(arena);
+template<> PROTOBUF_NOINLINE ::wanderer::proto::TileAnimation_Frame* Arena::CreateMaybeMessage< ::wanderer::proto::TileAnimation_Frame >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::wanderer::proto::TileAnimation_Frame >(arena);
 }
-template<> PROTOBUF_NOINLINE ::wanderer::proto::tile_animation* Arena::CreateMaybeMessage< ::wanderer::proto::tile_animation >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::wanderer::proto::tile_animation >(arena);
+template<> PROTOBUF_NOINLINE ::wanderer::proto::TileAnimation* Arena::CreateMaybeMessage< ::wanderer::proto::TileAnimation >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::wanderer::proto::TileAnimation >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

@@ -31,7 +31,6 @@
 #include <google/protobuf/repeated_field.h>  // IWYU pragma: export
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
 #include <google/protobuf/unknown_field_set.h>
-#include "area.pb.h"
 #include "float2.pb.h"
 #include "rect.pb.h"
 // @@protoc_insertion_point(includes)
@@ -58,41 +57,41 @@ struct TableStruct_hitbox_2eproto {
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_hitbox_2eproto;
 namespace wanderer {
 namespace proto {
-class hitbox;
-struct hitboxDefaultTypeInternal;
-extern hitboxDefaultTypeInternal _hitbox_default_instance_;
-class subhitbox;
-struct subhitboxDefaultTypeInternal;
-extern subhitboxDefaultTypeInternal _subhitbox_default_instance_;
+class Hitbox;
+struct HitboxDefaultTypeInternal;
+extern HitboxDefaultTypeInternal _Hitbox_default_instance_;
+class Subhitbox;
+struct SubhitboxDefaultTypeInternal;
+extern SubhitboxDefaultTypeInternal _Subhitbox_default_instance_;
 }  // namespace proto
 }  // namespace wanderer
 PROTOBUF_NAMESPACE_OPEN
-template<> ::wanderer::proto::hitbox* Arena::CreateMaybeMessage<::wanderer::proto::hitbox>(Arena*);
-template<> ::wanderer::proto::subhitbox* Arena::CreateMaybeMessage<::wanderer::proto::subhitbox>(Arena*);
+template<> ::wanderer::proto::Hitbox* Arena::CreateMaybeMessage<::wanderer::proto::Hitbox>(Arena*);
+template<> ::wanderer::proto::Subhitbox* Arena::CreateMaybeMessage<::wanderer::proto::Subhitbox>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace wanderer {
 namespace proto {
 
 // ===================================================================
 
-class subhitbox final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.proto.subhitbox) */ {
+class Subhitbox final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.proto.Subhitbox) */ {
  public:
-  inline subhitbox() : subhitbox(nullptr) {}
-  ~subhitbox() override;
-  explicit constexpr subhitbox(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline Subhitbox() : Subhitbox(nullptr) {}
+  ~Subhitbox() override;
+  explicit constexpr Subhitbox(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  subhitbox(const subhitbox& from);
-  subhitbox(subhitbox&& from) noexcept
-    : subhitbox() {
+  Subhitbox(const Subhitbox& from);
+  Subhitbox(Subhitbox&& from) noexcept
+    : Subhitbox() {
     *this = ::std::move(from);
   }
 
-  inline subhitbox& operator=(const subhitbox& from) {
+  inline Subhitbox& operator=(const Subhitbox& from) {
     CopyFrom(from);
     return *this;
   }
-  inline subhitbox& operator=(subhitbox&& from) noexcept {
+  inline Subhitbox& operator=(Subhitbox&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -115,20 +114,20 @@ class subhitbox final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const subhitbox& default_instance() {
+  static const Subhitbox& default_instance() {
     return *internal_default_instance();
   }
-  static inline const subhitbox* internal_default_instance() {
-    return reinterpret_cast<const subhitbox*>(
-               &_subhitbox_default_instance_);
+  static inline const Subhitbox* internal_default_instance() {
+    return reinterpret_cast<const Subhitbox*>(
+               &_Subhitbox_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     0;
 
-  friend void swap(subhitbox& a, subhitbox& b) {
+  friend void swap(Subhitbox& a, Subhitbox& b) {
     a.Swap(&b);
   }
-  inline void Swap(subhitbox* other) {
+  inline void Swap(Subhitbox* other) {
     if (other == this) return;
     if (GetOwningArena() == other->GetOwningArena()) {
       InternalSwap(other);
@@ -136,7 +135,7 @@ class subhitbox final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(subhitbox* other) {
+  void UnsafeArenaSwap(Subhitbox* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -144,17 +143,17 @@ class subhitbox final :
 
   // implements Message ----------------------------------------------
 
-  inline subhitbox* New() const final {
-    return new subhitbox();
+  inline Subhitbox* New() const final {
+    return new Subhitbox();
   }
 
-  subhitbox* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<subhitbox>(arena);
+  Subhitbox* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<Subhitbox>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const subhitbox& from);
+  void CopyFrom(const Subhitbox& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom(const subhitbox& from);
+  void MergeFrom(const Subhitbox& from);
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to, const ::PROTOBUF_NAMESPACE_ID::Message& from);
   public:
@@ -171,13 +170,13 @@ class subhitbox final :
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(subhitbox* other);
+  void InternalSwap(Subhitbox* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "wanderer.proto.subhitbox";
+    return "wanderer.proto.Subhitbox";
   }
   protected:
-  explicit subhitbox(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit Subhitbox(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   private:
   static void ArenaDtor(void* object);
@@ -215,25 +214,25 @@ class subhitbox final :
       ::wanderer::proto::float2* offset);
   ::wanderer::proto::float2* unsafe_arena_release_offset();
 
-  // optional .wanderer.proto.farea size = 2;
+  // optional .wanderer.proto.float2 size = 2;
   bool has_size() const;
   private:
   bool _internal_has_size() const;
   public:
   void clear_size();
-  const ::wanderer::proto::farea& size() const;
-  PROTOBUF_MUST_USE_RESULT ::wanderer::proto::farea* release_size();
-  ::wanderer::proto::farea* mutable_size();
-  void set_allocated_size(::wanderer::proto::farea* size);
+  const ::wanderer::proto::float2& size() const;
+  PROTOBUF_MUST_USE_RESULT ::wanderer::proto::float2* release_size();
+  ::wanderer::proto::float2* mutable_size();
+  void set_allocated_size(::wanderer::proto::float2* size);
   private:
-  const ::wanderer::proto::farea& _internal_size() const;
-  ::wanderer::proto::farea* _internal_mutable_size();
+  const ::wanderer::proto::float2& _internal_size() const;
+  ::wanderer::proto::float2* _internal_mutable_size();
   public:
   void unsafe_arena_set_allocated_size(
-      ::wanderer::proto::farea* size);
-  ::wanderer::proto::farea* unsafe_arena_release_size();
+      ::wanderer::proto::float2* size);
+  ::wanderer::proto::float2* unsafe_arena_release_size();
 
-  // @@protoc_insertion_point(class_scope:wanderer.proto.subhitbox)
+  // @@protoc_insertion_point(class_scope:wanderer.proto.Subhitbox)
  private:
   class _Internal;
 
@@ -243,29 +242,29 @@ class subhitbox final :
   ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   ::wanderer::proto::float2* offset_;
-  ::wanderer::proto::farea* size_;
+  ::wanderer::proto::float2* size_;
   friend struct ::TableStruct_hitbox_2eproto;
 };
 // -------------------------------------------------------------------
 
-class hitbox final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.proto.hitbox) */ {
+class Hitbox final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.proto.Hitbox) */ {
  public:
-  inline hitbox() : hitbox(nullptr) {}
-  ~hitbox() override;
-  explicit constexpr hitbox(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline Hitbox() : Hitbox(nullptr) {}
+  ~Hitbox() override;
+  explicit constexpr Hitbox(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  hitbox(const hitbox& from);
-  hitbox(hitbox&& from) noexcept
-    : hitbox() {
+  Hitbox(const Hitbox& from);
+  Hitbox(Hitbox&& from) noexcept
+    : Hitbox() {
     *this = ::std::move(from);
   }
 
-  inline hitbox& operator=(const hitbox& from) {
+  inline Hitbox& operator=(const Hitbox& from) {
     CopyFrom(from);
     return *this;
   }
-  inline hitbox& operator=(hitbox&& from) noexcept {
+  inline Hitbox& operator=(Hitbox&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -288,20 +287,20 @@ class hitbox final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const hitbox& default_instance() {
+  static const Hitbox& default_instance() {
     return *internal_default_instance();
   }
-  static inline const hitbox* internal_default_instance() {
-    return reinterpret_cast<const hitbox*>(
-               &_hitbox_default_instance_);
+  static inline const Hitbox* internal_default_instance() {
+    return reinterpret_cast<const Hitbox*>(
+               &_Hitbox_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     1;
 
-  friend void swap(hitbox& a, hitbox& b) {
+  friend void swap(Hitbox& a, Hitbox& b) {
     a.Swap(&b);
   }
-  inline void Swap(hitbox* other) {
+  inline void Swap(Hitbox* other) {
     if (other == this) return;
     if (GetOwningArena() == other->GetOwningArena()) {
       InternalSwap(other);
@@ -309,7 +308,7 @@ class hitbox final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(hitbox* other) {
+  void UnsafeArenaSwap(Hitbox* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -317,17 +316,17 @@ class hitbox final :
 
   // implements Message ----------------------------------------------
 
-  inline hitbox* New() const final {
-    return new hitbox();
+  inline Hitbox* New() const final {
+    return new Hitbox();
   }
 
-  hitbox* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<hitbox>(arena);
+  Hitbox* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<Hitbox>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const hitbox& from);
+  void CopyFrom(const Hitbox& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom(const hitbox& from);
+  void MergeFrom(const Hitbox& from);
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to, const ::PROTOBUF_NAMESPACE_ID::Message& from);
   public:
@@ -344,13 +343,13 @@ class hitbox final :
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(hitbox* other);
+  void InternalSwap(Hitbox* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "wanderer.proto.hitbox";
+    return "wanderer.proto.Hitbox";
   }
   protected:
-  explicit hitbox(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit Hitbox(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   private:
   static void ArenaDtor(void* object);
@@ -372,22 +371,22 @@ class hitbox final :
     kBoundsFieldNumber = 2,
     kEnabledFieldNumber = 4,
   };
-  // repeated .wanderer.proto.subhitbox boxes = 3;
+  // repeated .wanderer.proto.Subhitbox boxes = 3;
   int boxes_size() const;
   private:
   int _internal_boxes_size() const;
   public:
   void clear_boxes();
-  ::wanderer::proto::subhitbox* mutable_boxes(int index);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::wanderer::proto::subhitbox >*
+  ::wanderer::proto::Subhitbox* mutable_boxes(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::wanderer::proto::Subhitbox >*
       mutable_boxes();
   private:
-  const ::wanderer::proto::subhitbox& _internal_boxes(int index) const;
-  ::wanderer::proto::subhitbox* _internal_add_boxes();
+  const ::wanderer::proto::Subhitbox& _internal_boxes(int index) const;
+  ::wanderer::proto::Subhitbox* _internal_add_boxes();
   public:
-  const ::wanderer::proto::subhitbox& boxes(int index) const;
-  ::wanderer::proto::subhitbox* add_boxes();
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::wanderer::proto::subhitbox >&
+  const ::wanderer::proto::Subhitbox& boxes(int index) const;
+  ::wanderer::proto::Subhitbox* add_boxes();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::wanderer::proto::Subhitbox >&
       boxes() const;
 
   // optional .wanderer.proto.float2 origin = 1;
@@ -439,7 +438,7 @@ class hitbox final :
   void _internal_set_enabled(bool value);
   public:
 
-  // @@protoc_insertion_point(class_scope:wanderer.proto.hitbox)
+  // @@protoc_insertion_point(class_scope:wanderer.proto.Hitbox)
  private:
   class _Internal;
 
@@ -448,7 +447,7 @@ class hitbox final :
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::wanderer::proto::subhitbox > boxes_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::wanderer::proto::Subhitbox > boxes_;
   ::wanderer::proto::float2* origin_;
   ::wanderer::proto::frect* bounds_;
   bool enabled_;
@@ -463,27 +462,27 @@ class hitbox final :
   #pragma GCC diagnostic push
   #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
-// subhitbox
+// Subhitbox
 
 // optional .wanderer.proto.float2 offset = 1;
-inline bool subhitbox::_internal_has_offset() const {
+inline bool Subhitbox::_internal_has_offset() const {
   bool value = (_has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || offset_ != nullptr);
   return value;
 }
-inline bool subhitbox::has_offset() const {
+inline bool Subhitbox::has_offset() const {
   return _internal_has_offset();
 }
-inline const ::wanderer::proto::float2& subhitbox::_internal_offset() const {
+inline const ::wanderer::proto::float2& Subhitbox::_internal_offset() const {
   const ::wanderer::proto::float2* p = offset_;
   return p != nullptr ? *p : reinterpret_cast<const ::wanderer::proto::float2&>(
       ::wanderer::proto::_float2_default_instance_);
 }
-inline const ::wanderer::proto::float2& subhitbox::offset() const {
-  // @@protoc_insertion_point(field_get:wanderer.proto.subhitbox.offset)
+inline const ::wanderer::proto::float2& Subhitbox::offset() const {
+  // @@protoc_insertion_point(field_get:wanderer.proto.Subhitbox.offset)
   return _internal_offset();
 }
-inline void subhitbox::unsafe_arena_set_allocated_offset(
+inline void Subhitbox::unsafe_arena_set_allocated_offset(
     ::wanderer::proto::float2* offset) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(offset_);
@@ -494,9 +493,9 @@ inline void subhitbox::unsafe_arena_set_allocated_offset(
   } else {
     _has_bits_[0] &= ~0x00000001u;
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:wanderer.proto.subhitbox.offset)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:wanderer.proto.Subhitbox.offset)
 }
-inline ::wanderer::proto::float2* subhitbox::release_offset() {
+inline ::wanderer::proto::float2* Subhitbox::release_offset() {
   _has_bits_[0] &= ~0x00000001u;
   ::wanderer::proto::float2* temp = offset_;
   offset_ = nullptr;
@@ -511,14 +510,14 @@ inline ::wanderer::proto::float2* subhitbox::release_offset() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::wanderer::proto::float2* subhitbox::unsafe_arena_release_offset() {
-  // @@protoc_insertion_point(field_release:wanderer.proto.subhitbox.offset)
+inline ::wanderer::proto::float2* Subhitbox::unsafe_arena_release_offset() {
+  // @@protoc_insertion_point(field_release:wanderer.proto.Subhitbox.offset)
   _has_bits_[0] &= ~0x00000001u;
   ::wanderer::proto::float2* temp = offset_;
   offset_ = nullptr;
   return temp;
 }
-inline ::wanderer::proto::float2* subhitbox::_internal_mutable_offset() {
+inline ::wanderer::proto::float2* Subhitbox::_internal_mutable_offset() {
   _has_bits_[0] |= 0x00000001u;
   if (offset_ == nullptr) {
     auto* p = CreateMaybeMessage<::wanderer::proto::float2>(GetArenaForAllocation());
@@ -526,12 +525,12 @@ inline ::wanderer::proto::float2* subhitbox::_internal_mutable_offset() {
   }
   return offset_;
 }
-inline ::wanderer::proto::float2* subhitbox::mutable_offset() {
+inline ::wanderer::proto::float2* Subhitbox::mutable_offset() {
   ::wanderer::proto::float2* _msg = _internal_mutable_offset();
-  // @@protoc_insertion_point(field_mutable:wanderer.proto.subhitbox.offset)
+  // @@protoc_insertion_point(field_mutable:wanderer.proto.Subhitbox.offset)
   return _msg;
 }
-inline void subhitbox::set_allocated_offset(::wanderer::proto::float2* offset) {
+inline void Subhitbox::set_allocated_offset(::wanderer::proto::float2* offset) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(offset_);
@@ -550,29 +549,29 @@ inline void subhitbox::set_allocated_offset(::wanderer::proto::float2* offset) {
     _has_bits_[0] &= ~0x00000001u;
   }
   offset_ = offset;
-  // @@protoc_insertion_point(field_set_allocated:wanderer.proto.subhitbox.offset)
+  // @@protoc_insertion_point(field_set_allocated:wanderer.proto.Subhitbox.offset)
 }
 
-// optional .wanderer.proto.farea size = 2;
-inline bool subhitbox::_internal_has_size() const {
+// optional .wanderer.proto.float2 size = 2;
+inline bool Subhitbox::_internal_has_size() const {
   bool value = (_has_bits_[0] & 0x00000002u) != 0;
   PROTOBUF_ASSUME(!value || size_ != nullptr);
   return value;
 }
-inline bool subhitbox::has_size() const {
+inline bool Subhitbox::has_size() const {
   return _internal_has_size();
 }
-inline const ::wanderer::proto::farea& subhitbox::_internal_size() const {
-  const ::wanderer::proto::farea* p = size_;
-  return p != nullptr ? *p : reinterpret_cast<const ::wanderer::proto::farea&>(
-      ::wanderer::proto::_farea_default_instance_);
+inline const ::wanderer::proto::float2& Subhitbox::_internal_size() const {
+  const ::wanderer::proto::float2* p = size_;
+  return p != nullptr ? *p : reinterpret_cast<const ::wanderer::proto::float2&>(
+      ::wanderer::proto::_float2_default_instance_);
 }
-inline const ::wanderer::proto::farea& subhitbox::size() const {
-  // @@protoc_insertion_point(field_get:wanderer.proto.subhitbox.size)
+inline const ::wanderer::proto::float2& Subhitbox::size() const {
+  // @@protoc_insertion_point(field_get:wanderer.proto.Subhitbox.size)
   return _internal_size();
 }
-inline void subhitbox::unsafe_arena_set_allocated_size(
-    ::wanderer::proto::farea* size) {
+inline void Subhitbox::unsafe_arena_set_allocated_size(
+    ::wanderer::proto::float2* size) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(size_);
   }
@@ -582,11 +581,11 @@ inline void subhitbox::unsafe_arena_set_allocated_size(
   } else {
     _has_bits_[0] &= ~0x00000002u;
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:wanderer.proto.subhitbox.size)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:wanderer.proto.Subhitbox.size)
 }
-inline ::wanderer::proto::farea* subhitbox::release_size() {
+inline ::wanderer::proto::float2* Subhitbox::release_size() {
   _has_bits_[0] &= ~0x00000002u;
-  ::wanderer::proto::farea* temp = size_;
+  ::wanderer::proto::float2* temp = size_;
   size_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -599,27 +598,27 @@ inline ::wanderer::proto::farea* subhitbox::release_size() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::wanderer::proto::farea* subhitbox::unsafe_arena_release_size() {
-  // @@protoc_insertion_point(field_release:wanderer.proto.subhitbox.size)
+inline ::wanderer::proto::float2* Subhitbox::unsafe_arena_release_size() {
+  // @@protoc_insertion_point(field_release:wanderer.proto.Subhitbox.size)
   _has_bits_[0] &= ~0x00000002u;
-  ::wanderer::proto::farea* temp = size_;
+  ::wanderer::proto::float2* temp = size_;
   size_ = nullptr;
   return temp;
 }
-inline ::wanderer::proto::farea* subhitbox::_internal_mutable_size() {
+inline ::wanderer::proto::float2* Subhitbox::_internal_mutable_size() {
   _has_bits_[0] |= 0x00000002u;
   if (size_ == nullptr) {
-    auto* p = CreateMaybeMessage<::wanderer::proto::farea>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::wanderer::proto::float2>(GetArenaForAllocation());
     size_ = p;
   }
   return size_;
 }
-inline ::wanderer::proto::farea* subhitbox::mutable_size() {
-  ::wanderer::proto::farea* _msg = _internal_mutable_size();
-  // @@protoc_insertion_point(field_mutable:wanderer.proto.subhitbox.size)
+inline ::wanderer::proto::float2* Subhitbox::mutable_size() {
+  ::wanderer::proto::float2* _msg = _internal_mutable_size();
+  // @@protoc_insertion_point(field_mutable:wanderer.proto.Subhitbox.size)
   return _msg;
 }
-inline void subhitbox::set_allocated_size(::wanderer::proto::farea* size) {
+inline void Subhitbox::set_allocated_size(::wanderer::proto::float2* size) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(size_);
@@ -638,32 +637,32 @@ inline void subhitbox::set_allocated_size(::wanderer::proto::farea* size) {
     _has_bits_[0] &= ~0x00000002u;
   }
   size_ = size;
-  // @@protoc_insertion_point(field_set_allocated:wanderer.proto.subhitbox.size)
+  // @@protoc_insertion_point(field_set_allocated:wanderer.proto.Subhitbox.size)
 }
 
 // -------------------------------------------------------------------
 
-// hitbox
+// Hitbox
 
 // optional .wanderer.proto.float2 origin = 1;
-inline bool hitbox::_internal_has_origin() const {
+inline bool Hitbox::_internal_has_origin() const {
   bool value = (_has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || origin_ != nullptr);
   return value;
 }
-inline bool hitbox::has_origin() const {
+inline bool Hitbox::has_origin() const {
   return _internal_has_origin();
 }
-inline const ::wanderer::proto::float2& hitbox::_internal_origin() const {
+inline const ::wanderer::proto::float2& Hitbox::_internal_origin() const {
   const ::wanderer::proto::float2* p = origin_;
   return p != nullptr ? *p : reinterpret_cast<const ::wanderer::proto::float2&>(
       ::wanderer::proto::_float2_default_instance_);
 }
-inline const ::wanderer::proto::float2& hitbox::origin() const {
-  // @@protoc_insertion_point(field_get:wanderer.proto.hitbox.origin)
+inline const ::wanderer::proto::float2& Hitbox::origin() const {
+  // @@protoc_insertion_point(field_get:wanderer.proto.Hitbox.origin)
   return _internal_origin();
 }
-inline void hitbox::unsafe_arena_set_allocated_origin(
+inline void Hitbox::unsafe_arena_set_allocated_origin(
     ::wanderer::proto::float2* origin) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(origin_);
@@ -674,9 +673,9 @@ inline void hitbox::unsafe_arena_set_allocated_origin(
   } else {
     _has_bits_[0] &= ~0x00000001u;
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:wanderer.proto.hitbox.origin)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:wanderer.proto.Hitbox.origin)
 }
-inline ::wanderer::proto::float2* hitbox::release_origin() {
+inline ::wanderer::proto::float2* Hitbox::release_origin() {
   _has_bits_[0] &= ~0x00000001u;
   ::wanderer::proto::float2* temp = origin_;
   origin_ = nullptr;
@@ -691,14 +690,14 @@ inline ::wanderer::proto::float2* hitbox::release_origin() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::wanderer::proto::float2* hitbox::unsafe_arena_release_origin() {
-  // @@protoc_insertion_point(field_release:wanderer.proto.hitbox.origin)
+inline ::wanderer::proto::float2* Hitbox::unsafe_arena_release_origin() {
+  // @@protoc_insertion_point(field_release:wanderer.proto.Hitbox.origin)
   _has_bits_[0] &= ~0x00000001u;
   ::wanderer::proto::float2* temp = origin_;
   origin_ = nullptr;
   return temp;
 }
-inline ::wanderer::proto::float2* hitbox::_internal_mutable_origin() {
+inline ::wanderer::proto::float2* Hitbox::_internal_mutable_origin() {
   _has_bits_[0] |= 0x00000001u;
   if (origin_ == nullptr) {
     auto* p = CreateMaybeMessage<::wanderer::proto::float2>(GetArenaForAllocation());
@@ -706,12 +705,12 @@ inline ::wanderer::proto::float2* hitbox::_internal_mutable_origin() {
   }
   return origin_;
 }
-inline ::wanderer::proto::float2* hitbox::mutable_origin() {
+inline ::wanderer::proto::float2* Hitbox::mutable_origin() {
   ::wanderer::proto::float2* _msg = _internal_mutable_origin();
-  // @@protoc_insertion_point(field_mutable:wanderer.proto.hitbox.origin)
+  // @@protoc_insertion_point(field_mutable:wanderer.proto.Hitbox.origin)
   return _msg;
 }
-inline void hitbox::set_allocated_origin(::wanderer::proto::float2* origin) {
+inline void Hitbox::set_allocated_origin(::wanderer::proto::float2* origin) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(origin_);
@@ -730,28 +729,28 @@ inline void hitbox::set_allocated_origin(::wanderer::proto::float2* origin) {
     _has_bits_[0] &= ~0x00000001u;
   }
   origin_ = origin;
-  // @@protoc_insertion_point(field_set_allocated:wanderer.proto.hitbox.origin)
+  // @@protoc_insertion_point(field_set_allocated:wanderer.proto.Hitbox.origin)
 }
 
 // optional .wanderer.proto.frect bounds = 2;
-inline bool hitbox::_internal_has_bounds() const {
+inline bool Hitbox::_internal_has_bounds() const {
   bool value = (_has_bits_[0] & 0x00000002u) != 0;
   PROTOBUF_ASSUME(!value || bounds_ != nullptr);
   return value;
 }
-inline bool hitbox::has_bounds() const {
+inline bool Hitbox::has_bounds() const {
   return _internal_has_bounds();
 }
-inline const ::wanderer::proto::frect& hitbox::_internal_bounds() const {
+inline const ::wanderer::proto::frect& Hitbox::_internal_bounds() const {
   const ::wanderer::proto::frect* p = bounds_;
   return p != nullptr ? *p : reinterpret_cast<const ::wanderer::proto::frect&>(
       ::wanderer::proto::_frect_default_instance_);
 }
-inline const ::wanderer::proto::frect& hitbox::bounds() const {
-  // @@protoc_insertion_point(field_get:wanderer.proto.hitbox.bounds)
+inline const ::wanderer::proto::frect& Hitbox::bounds() const {
+  // @@protoc_insertion_point(field_get:wanderer.proto.Hitbox.bounds)
   return _internal_bounds();
 }
-inline void hitbox::unsafe_arena_set_allocated_bounds(
+inline void Hitbox::unsafe_arena_set_allocated_bounds(
     ::wanderer::proto::frect* bounds) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(bounds_);
@@ -762,9 +761,9 @@ inline void hitbox::unsafe_arena_set_allocated_bounds(
   } else {
     _has_bits_[0] &= ~0x00000002u;
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:wanderer.proto.hitbox.bounds)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:wanderer.proto.Hitbox.bounds)
 }
-inline ::wanderer::proto::frect* hitbox::release_bounds() {
+inline ::wanderer::proto::frect* Hitbox::release_bounds() {
   _has_bits_[0] &= ~0x00000002u;
   ::wanderer::proto::frect* temp = bounds_;
   bounds_ = nullptr;
@@ -779,14 +778,14 @@ inline ::wanderer::proto::frect* hitbox::release_bounds() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::wanderer::proto::frect* hitbox::unsafe_arena_release_bounds() {
-  // @@protoc_insertion_point(field_release:wanderer.proto.hitbox.bounds)
+inline ::wanderer::proto::frect* Hitbox::unsafe_arena_release_bounds() {
+  // @@protoc_insertion_point(field_release:wanderer.proto.Hitbox.bounds)
   _has_bits_[0] &= ~0x00000002u;
   ::wanderer::proto::frect* temp = bounds_;
   bounds_ = nullptr;
   return temp;
 }
-inline ::wanderer::proto::frect* hitbox::_internal_mutable_bounds() {
+inline ::wanderer::proto::frect* Hitbox::_internal_mutable_bounds() {
   _has_bits_[0] |= 0x00000002u;
   if (bounds_ == nullptr) {
     auto* p = CreateMaybeMessage<::wanderer::proto::frect>(GetArenaForAllocation());
@@ -794,12 +793,12 @@ inline ::wanderer::proto::frect* hitbox::_internal_mutable_bounds() {
   }
   return bounds_;
 }
-inline ::wanderer::proto::frect* hitbox::mutable_bounds() {
+inline ::wanderer::proto::frect* Hitbox::mutable_bounds() {
   ::wanderer::proto::frect* _msg = _internal_mutable_bounds();
-  // @@protoc_insertion_point(field_mutable:wanderer.proto.hitbox.bounds)
+  // @@protoc_insertion_point(field_mutable:wanderer.proto.Hitbox.bounds)
   return _msg;
 }
-inline void hitbox::set_allocated_bounds(::wanderer::proto::frect* bounds) {
+inline void Hitbox::set_allocated_bounds(::wanderer::proto::frect* bounds) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(bounds_);
@@ -818,75 +817,75 @@ inline void hitbox::set_allocated_bounds(::wanderer::proto::frect* bounds) {
     _has_bits_[0] &= ~0x00000002u;
   }
   bounds_ = bounds;
-  // @@protoc_insertion_point(field_set_allocated:wanderer.proto.hitbox.bounds)
+  // @@protoc_insertion_point(field_set_allocated:wanderer.proto.Hitbox.bounds)
 }
 
-// repeated .wanderer.proto.subhitbox boxes = 3;
-inline int hitbox::_internal_boxes_size() const {
+// repeated .wanderer.proto.Subhitbox boxes = 3;
+inline int Hitbox::_internal_boxes_size() const {
   return boxes_.size();
 }
-inline int hitbox::boxes_size() const {
+inline int Hitbox::boxes_size() const {
   return _internal_boxes_size();
 }
-inline void hitbox::clear_boxes() {
+inline void Hitbox::clear_boxes() {
   boxes_.Clear();
 }
-inline ::wanderer::proto::subhitbox* hitbox::mutable_boxes(int index) {
-  // @@protoc_insertion_point(field_mutable:wanderer.proto.hitbox.boxes)
+inline ::wanderer::proto::Subhitbox* Hitbox::mutable_boxes(int index) {
+  // @@protoc_insertion_point(field_mutable:wanderer.proto.Hitbox.boxes)
   return boxes_.Mutable(index);
 }
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::wanderer::proto::subhitbox >*
-hitbox::mutable_boxes() {
-  // @@protoc_insertion_point(field_mutable_list:wanderer.proto.hitbox.boxes)
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::wanderer::proto::Subhitbox >*
+Hitbox::mutable_boxes() {
+  // @@protoc_insertion_point(field_mutable_list:wanderer.proto.Hitbox.boxes)
   return &boxes_;
 }
-inline const ::wanderer::proto::subhitbox& hitbox::_internal_boxes(int index) const {
+inline const ::wanderer::proto::Subhitbox& Hitbox::_internal_boxes(int index) const {
   return boxes_.Get(index);
 }
-inline const ::wanderer::proto::subhitbox& hitbox::boxes(int index) const {
-  // @@protoc_insertion_point(field_get:wanderer.proto.hitbox.boxes)
+inline const ::wanderer::proto::Subhitbox& Hitbox::boxes(int index) const {
+  // @@protoc_insertion_point(field_get:wanderer.proto.Hitbox.boxes)
   return _internal_boxes(index);
 }
-inline ::wanderer::proto::subhitbox* hitbox::_internal_add_boxes() {
+inline ::wanderer::proto::Subhitbox* Hitbox::_internal_add_boxes() {
   return boxes_.Add();
 }
-inline ::wanderer::proto::subhitbox* hitbox::add_boxes() {
-  ::wanderer::proto::subhitbox* _add = _internal_add_boxes();
-  // @@protoc_insertion_point(field_add:wanderer.proto.hitbox.boxes)
+inline ::wanderer::proto::Subhitbox* Hitbox::add_boxes() {
+  ::wanderer::proto::Subhitbox* _add = _internal_add_boxes();
+  // @@protoc_insertion_point(field_add:wanderer.proto.Hitbox.boxes)
   return _add;
 }
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::wanderer::proto::subhitbox >&
-hitbox::boxes() const {
-  // @@protoc_insertion_point(field_list:wanderer.proto.hitbox.boxes)
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::wanderer::proto::Subhitbox >&
+Hitbox::boxes() const {
+  // @@protoc_insertion_point(field_list:wanderer.proto.Hitbox.boxes)
   return boxes_;
 }
 
 // optional bool enabled = 4;
-inline bool hitbox::_internal_has_enabled() const {
+inline bool Hitbox::_internal_has_enabled() const {
   bool value = (_has_bits_[0] & 0x00000004u) != 0;
   return value;
 }
-inline bool hitbox::has_enabled() const {
+inline bool Hitbox::has_enabled() const {
   return _internal_has_enabled();
 }
-inline void hitbox::clear_enabled() {
+inline void Hitbox::clear_enabled() {
   enabled_ = false;
   _has_bits_[0] &= ~0x00000004u;
 }
-inline bool hitbox::_internal_enabled() const {
+inline bool Hitbox::_internal_enabled() const {
   return enabled_;
 }
-inline bool hitbox::enabled() const {
-  // @@protoc_insertion_point(field_get:wanderer.proto.hitbox.enabled)
+inline bool Hitbox::enabled() const {
+  // @@protoc_insertion_point(field_get:wanderer.proto.Hitbox.enabled)
   return _internal_enabled();
 }
-inline void hitbox::_internal_set_enabled(bool value) {
+inline void Hitbox::_internal_set_enabled(bool value) {
   _has_bits_[0] |= 0x00000004u;
   enabled_ = value;
 }
-inline void hitbox::set_enabled(bool value) {
+inline void Hitbox::set_enabled(bool value) {
   _internal_set_enabled(value);
-  // @@protoc_insertion_point(field_set:wanderer.proto.hitbox.enabled)
+  // @@protoc_insertion_point(field_set:wanderer.proto.Hitbox.enabled)
 }
 
 #ifdef __GNUC__

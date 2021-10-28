@@ -10,32 +10,31 @@
 #include "components/tiles/tileset.hpp"
 #include "core/ecs/make_registry.hpp"
 #include "core/ecs/registry_utils.hpp"
+#include "core/game_constants.hpp"
 #include "restore_data.hpp"
 
 namespace wanderer {
 namespace {
 
-void RestoreTilemap(const proto::level& data, entt::registry& registry)
+void RestoreTilemap(const proto::Level& data, entt::registry& registry)
 {
   assert(data.has_id());
   assert(data.has_humanoid_layer_index());
   assert(data.has_row_count());
   assert(data.has_column_count());
-  assert(data.has_width());
-  assert(data.has_height());
 
   auto& tilemap = registry.set<comp::Tilemap>();
   tilemap.id = MapID{data.id()};
   tilemap.humanoid_layer = data.humanoid_layer_index();
   tilemap.row_count = data.row_count();
   tilemap.col_count = data.column_count();
-  tilemap.size.width = data.width();
-  tilemap.size.height = data.height();
+  tilemap.size = {static_cast<float>(tilemap.col_count) * glob::tile_width<float>,
+                  static_cast<float>(tilemap.row_count) * glob::tile_height<float>};
 }
 
 }  // namespace
 
-auto RestoreLevelRegistry(const proto::level& data) -> entt::registry
+auto RestoreLevelRegistry(const proto::Level& data) -> entt::registry
 {
   auto registry = MakeRegistry();
 

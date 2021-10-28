@@ -4,9 +4,9 @@
 
 namespace wanderer {
 namespace proto {
-class level;
+class Level;
 }  // namespace proto
 
-[[nodiscard]] auto RestoreLevelRegistry(const proto::level& data) -> entt::registry;
+[[nodiscard]] auto RestoreLevelRegistry(const proto::Level& data) -> entt::registry;
 
 }  // namespace wanderer

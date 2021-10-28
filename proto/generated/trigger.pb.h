@@ -56,63 +56,63 @@ struct TableStruct_trigger_2eproto {
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_trigger_2eproto;
 namespace wanderer {
 namespace proto {
-class trigger;
-struct triggerDefaultTypeInternal;
-extern triggerDefaultTypeInternal _trigger_default_instance_;
+class Trigger;
+struct TriggerDefaultTypeInternal;
+extern TriggerDefaultTypeInternal _Trigger_default_instance_;
 }  // namespace proto
 }  // namespace wanderer
 PROTOBUF_NAMESPACE_OPEN
-template<> ::wanderer::proto::trigger* Arena::CreateMaybeMessage<::wanderer::proto::trigger>(Arena*);
+template<> ::wanderer::proto::Trigger* Arena::CreateMaybeMessage<::wanderer::proto::Trigger>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace wanderer {
 namespace proto {
 
-enum trigger_type : int {
+enum TriggerType : int {
   PORTAL = 0,
   CONTAINER = 1,
   BED = 2,
-  trigger_type_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
-  trigger_type_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
+  TriggerType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
+  TriggerType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
 };
-bool trigger_type_IsValid(int value);
-constexpr trigger_type trigger_type_MIN = PORTAL;
-constexpr trigger_type trigger_type_MAX = BED;
-constexpr int trigger_type_ARRAYSIZE = trigger_type_MAX + 1;
+bool TriggerType_IsValid(int value);
+constexpr TriggerType TriggerType_MIN = PORTAL;
+constexpr TriggerType TriggerType_MAX = BED;
+constexpr int TriggerType_ARRAYSIZE = TriggerType_MAX + 1;
 
-const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* trigger_type_descriptor();
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* TriggerType_descriptor();
 template<typename T>
-inline const std::string& trigger_type_Name(T enum_t_value) {
-  static_assert(::std::is_same<T, trigger_type>::value ||
+inline const std::string& TriggerType_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, TriggerType>::value ||
     ::std::is_integral<T>::value,
-    "Incorrect type passed to function trigger_type_Name.");
+    "Incorrect type passed to function TriggerType_Name.");
   return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
-    trigger_type_descriptor(), enum_t_value);
+    TriggerType_descriptor(), enum_t_value);
 }
-inline bool trigger_type_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, trigger_type* value) {
-  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<trigger_type>(
-    trigger_type_descriptor(), name, value);
+inline bool TriggerType_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, TriggerType* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<TriggerType>(
+    TriggerType_descriptor(), name, value);
 }
 // ===================================================================
 
-class trigger final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.proto.trigger) */ {
+class Trigger final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.proto.Trigger) */ {
  public:
-  inline trigger() : trigger(nullptr) {}
-  ~trigger() override;
-  explicit constexpr trigger(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline Trigger() : Trigger(nullptr) {}
+  ~Trigger() override;
+  explicit constexpr Trigger(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  trigger(const trigger& from);
-  trigger(trigger&& from) noexcept
-    : trigger() {
+  Trigger(const Trigger& from);
+  Trigger(Trigger&& from) noexcept
+    : Trigger() {
     *this = ::std::move(from);
   }
 
-  inline trigger& operator=(const trigger& from) {
+  inline Trigger& operator=(const Trigger& from) {
     CopyFrom(from);
     return *this;
   }
-  inline trigger& operator=(trigger&& from) noexcept {
+  inline Trigger& operator=(Trigger&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -135,20 +135,20 @@ class trigger final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const trigger& default_instance() {
+  static const Trigger& default_instance() {
     return *internal_default_instance();
   }
-  static inline const trigger* internal_default_instance() {
-    return reinterpret_cast<const trigger*>(
-               &_trigger_default_instance_);
+  static inline const Trigger* internal_default_instance() {
+    return reinterpret_cast<const Trigger*>(
+               &_Trigger_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     0;
 
-  friend void swap(trigger& a, trigger& b) {
+  friend void swap(Trigger& a, Trigger& b) {
     a.Swap(&b);
   }
-  inline void Swap(trigger* other) {
+  inline void Swap(Trigger* other) {
     if (other == this) return;
     if (GetOwningArena() == other->GetOwningArena()) {
       InternalSwap(other);
@@ -156,7 +156,7 @@ class trigger final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(trigger* other) {
+  void UnsafeArenaSwap(Trigger* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -164,17 +164,17 @@ class trigger final :
 
   // implements Message ----------------------------------------------
 
-  inline trigger* New() const final {
-    return new trigger();
+  inline Trigger* New() const final {
+    return new Trigger();
   }
 
-  trigger* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<trigger>(arena);
+  Trigger* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<Trigger>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const trigger& from);
+  void CopyFrom(const Trigger& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom(const trigger& from);
+  void MergeFrom(const Trigger& from);
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to, const ::PROTOBUF_NAMESPACE_ID::Message& from);
   public:
@@ -191,13 +191,13 @@ class trigger final :
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(trigger* other);
+  void InternalSwap(Trigger* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "wanderer.proto.trigger";
+    return "wanderer.proto.Trigger";
   }
   protected:
-  explicit trigger(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit Trigger(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   private:
   static void ArenaDtor(void* object);
@@ -216,20 +216,20 @@ class trigger final :
   enum : int {
     kTypeFieldNumber = 1,
   };
-  // optional .wanderer.proto.trigger_type type = 1;
+  // optional .wanderer.proto.TriggerType type = 1;
   bool has_type() const;
   private:
   bool _internal_has_type() const;
   public:
   void clear_type();
-  ::wanderer::proto::trigger_type type() const;
-  void set_type(::wanderer::proto::trigger_type value);
+  ::wanderer::proto::TriggerType type() const;
+  void set_type(::wanderer::proto::TriggerType value);
   private:
-  ::wanderer::proto::trigger_type _internal_type() const;
-  void _internal_set_type(::wanderer::proto::trigger_type value);
+  ::wanderer::proto::TriggerType _internal_type() const;
+  void _internal_set_type(::wanderer::proto::TriggerType value);
   public:
 
-  // @@protoc_insertion_point(class_scope:wanderer.proto.trigger)
+  // @@protoc_insertion_point(class_scope:wanderer.proto.Trigger)
  private:
   class _Internal;
 
@@ -250,34 +250,34 @@ class trigger final :
   #pragma GCC diagnostic push
   #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
-// trigger
+// Trigger
 
-// optional .wanderer.proto.trigger_type type = 1;
-inline bool trigger::_internal_has_type() const {
+// optional .wanderer.proto.TriggerType type = 1;
+inline bool Trigger::_internal_has_type() const {
   bool value = (_has_bits_[0] & 0x00000001u) != 0;
   return value;
 }
-inline bool trigger::has_type() const {
+inline bool Trigger::has_type() const {
   return _internal_has_type();
 }
-inline void trigger::clear_type() {
+inline void Trigger::clear_type() {
   type_ = 0;
   _has_bits_[0] &= ~0x00000001u;
 }
-inline ::wanderer::proto::trigger_type trigger::_internal_type() const {
-  return static_cast< ::wanderer::proto::trigger_type >(type_);
+inline ::wanderer::proto::TriggerType Trigger::_internal_type() const {
+  return static_cast< ::wanderer::proto::TriggerType >(type_);
 }
-inline ::wanderer::proto::trigger_type trigger::type() const {
-  // @@protoc_insertion_point(field_get:wanderer.proto.trigger.type)
+inline ::wanderer::proto::TriggerType Trigger::type() const {
+  // @@protoc_insertion_point(field_get:wanderer.proto.Trigger.type)
   return _internal_type();
 }
-inline void trigger::_internal_set_type(::wanderer::proto::trigger_type value) {
+inline void Trigger::_internal_set_type(::wanderer::proto::TriggerType value) {
   _has_bits_[0] |= 0x00000001u;
   type_ = value;
 }
-inline void trigger::set_type(::wanderer::proto::trigger_type value) {
+inline void Trigger::set_type(::wanderer::proto::TriggerType value) {
   _internal_set_type(value);
-  // @@protoc_insertion_point(field_set:wanderer.proto.trigger.type)
+  // @@protoc_insertion_point(field_set:wanderer.proto.Trigger.type)
 }
 
 #ifdef __GNUC__
@@ -291,10 +291,10 @@ inline void trigger::set_type(::wanderer::proto::trigger_type value) {
 
 PROTOBUF_NAMESPACE_OPEN
 
-template <> struct is_proto_enum< ::wanderer::proto::trigger_type> : ::std::true_type {};
+template <> struct is_proto_enum< ::wanderer::proto::TriggerType> : ::std::true_type {};
 template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::wanderer::proto::trigger_type>() {
-  return ::wanderer::proto::trigger_type_descriptor();
+inline const EnumDescriptor* GetEnumDescriptor< ::wanderer::proto::TriggerType>() {
+  return ::wanderer::proto::TriggerType_descriptor();
 }
 
 PROTOBUF_NAMESPACE_CLOSE

@@ -4,12 +4,12 @@ import "float2.proto";
 
 package wanderer.proto;
 
-enum spawnpoint_type {
+enum SpawnpointType {
   PLAYER = 0;
   SKELETON = 1;
 }
 
-message spawnpoint {
-  optional spawnpoint_type type = 1;
+message Spawnpoint {
+  optional SpawnpointType type = 1;
   optional float2 position = 2;
 }

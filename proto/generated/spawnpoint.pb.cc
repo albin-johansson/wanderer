@@ -18,20 +18,20 @@
 PROTOBUF_PRAGMA_INIT_SEG
 namespace wanderer {
 namespace proto {
-constexpr spawnpoint::spawnpoint(
+constexpr Spawnpoint::Spawnpoint(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : position_(nullptr)
   , type_(0)
 {}
-struct spawnpointDefaultTypeInternal {
-  constexpr spawnpointDefaultTypeInternal()
+struct SpawnpointDefaultTypeInternal {
+  constexpr SpawnpointDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~spawnpointDefaultTypeInternal() {}
+  ~SpawnpointDefaultTypeInternal() {}
   union {
-    spawnpoint _instance;
+    Spawnpoint _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT spawnpointDefaultTypeInternal _spawnpoint_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT SpawnpointDefaultTypeInternal _Spawnpoint_default_instance_;
 }  // namespace proto
 }  // namespace wanderer
 static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_spawnpoint_2eproto[1];
@@ -39,39 +39,39 @@ static const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* file_level_enum_descriptor
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_spawnpoint_2eproto = nullptr;
 
 const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_spawnpoint_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::spawnpoint, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::spawnpoint, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::Spawnpoint, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::Spawnpoint, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::spawnpoint, type_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::spawnpoint, position_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::Spawnpoint, type_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::Spawnpoint, position_),
   1,
   0,
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, 8, -1, sizeof(::wanderer::proto::spawnpoint)},
+  { 0, 8, -1, sizeof(::wanderer::proto::Spawnpoint)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_spawnpoint_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_Spawnpoint_default_instance_),
 };
 
 const char descriptor_table_protodef_spawnpoint_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\020spawnpoint.proto\022\016wanderer.proto\032\014floa"
-  "t2.proto\"\205\001\n\nspawnpoint\0222\n\004type\030\001 \001(\0162\037."
-  "wanderer.proto.spawnpoint_typeH\000\210\001\001\022-\n\010p"
-  "osition\030\002 \001(\0132\026.wanderer.proto.float2H\001\210"
-  "\001\001B\007\n\005_typeB\013\n\t_position*+\n\017spawnpoint_t"
-  "ype\022\n\n\006PLAYER\020\000\022\014\n\010SKELETON\020\001b\006proto3"
+  "t2.proto\"\204\001\n\nSpawnpoint\0221\n\004type\030\001 \001(\0162\036."
+  "wanderer.proto.SpawnpointTypeH\000\210\001\001\022-\n\010po"
+  "sition\030\002 \001(\0132\026.wanderer.proto.float2H\001\210\001"
+  "\001B\007\n\005_typeB\013\n\t_position**\n\016SpawnpointTyp"
+  "e\022\n\n\006PLAYER\020\000\022\014\n\010SKELETON\020\001b\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_spawnpoint_2eproto_deps[1] = {
   &::descriptor_table_float2_2eproto,
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_spawnpoint_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_spawnpoint_2eproto = {
-  false, false, 237, descriptor_table_protodef_spawnpoint_2eproto, "spawnpoint.proto", 
+  false, false, 235, descriptor_table_protodef_spawnpoint_2eproto, "spawnpoint.proto", 
   &descriptor_table_spawnpoint_2eproto_once, descriptor_table_spawnpoint_2eproto_deps, 1, 1,
   schemas, file_default_instances, TableStruct_spawnpoint_2eproto::offsets,
   file_level_metadata_spawnpoint_2eproto, file_level_enum_descriptors_spawnpoint_2eproto, file_level_service_descriptors_spawnpoint_2eproto,
@@ -84,11 +84,11 @@ PROTOBUF_ATTRIBUTE_WEAK const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable
 PROTOBUF_ATTRIBUTE_INIT_PRIORITY static ::PROTOBUF_NAMESPACE_ID::internal::AddDescriptorsRunner dynamic_init_dummy_spawnpoint_2eproto(&descriptor_table_spawnpoint_2eproto);
 namespace wanderer {
 namespace proto {
-const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* spawnpoint_type_descriptor() {
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* SpawnpointType_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_spawnpoint_2eproto);
   return file_level_enum_descriptors_spawnpoint_2eproto[0];
 }
-bool spawnpoint_type_IsValid(int value) {
+bool SpawnpointType_IsValid(int value) {
   switch (value) {
     case 0:
     case 1:
@@ -101,36 +101,36 @@ bool spawnpoint_type_IsValid(int value) {
 
 // ===================================================================
 
-class spawnpoint::_Internal {
+class Spawnpoint::_Internal {
  public:
-  using HasBits = decltype(std::declval<spawnpoint>()._has_bits_);
+  using HasBits = decltype(std::declval<Spawnpoint>()._has_bits_);
   static void set_has_type(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
-  static const ::wanderer::proto::float2& position(const spawnpoint* msg);
+  static const ::wanderer::proto::float2& position(const Spawnpoint* msg);
   static void set_has_position(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
 
 const ::wanderer::proto::float2&
-spawnpoint::_Internal::position(const spawnpoint* msg) {
+Spawnpoint::_Internal::position(const Spawnpoint* msg) {
   return *msg->position_;
 }
-void spawnpoint::clear_position() {
+void Spawnpoint::clear_position() {
   if (position_ != nullptr) position_->Clear();
   _has_bits_[0] &= ~0x00000001u;
 }
-spawnpoint::spawnpoint(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+Spawnpoint::Spawnpoint(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor();
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
   }
-  // @@protoc_insertion_point(arena_constructor:wanderer.proto.spawnpoint)
+  // @@protoc_insertion_point(arena_constructor:wanderer.proto.Spawnpoint)
 }
-spawnpoint::spawnpoint(const spawnpoint& from)
+Spawnpoint::Spawnpoint(const Spawnpoint& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
       _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
@@ -140,40 +140,40 @@ spawnpoint::spawnpoint(const spawnpoint& from)
     position_ = nullptr;
   }
   type_ = from.type_;
-  // @@protoc_insertion_point(copy_constructor:wanderer.proto.spawnpoint)
+  // @@protoc_insertion_point(copy_constructor:wanderer.proto.Spawnpoint)
 }
 
-void spawnpoint::SharedCtor() {
+void Spawnpoint::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&position_) - reinterpret_cast<char*>(this)),
     0, static_cast<size_t>(reinterpret_cast<char*>(&type_) -
     reinterpret_cast<char*>(&position_)) + sizeof(type_));
 }
 
-spawnpoint::~spawnpoint() {
-  // @@protoc_insertion_point(destructor:wanderer.proto.spawnpoint)
+Spawnpoint::~Spawnpoint() {
+  // @@protoc_insertion_point(destructor:wanderer.proto.Spawnpoint)
   if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-inline void spawnpoint::SharedDtor() {
+inline void Spawnpoint::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete position_;
 }
 
-void spawnpoint::ArenaDtor(void* object) {
-  spawnpoint* _this = reinterpret_cast< spawnpoint* >(object);
+void Spawnpoint::ArenaDtor(void* object) {
+  Spawnpoint* _this = reinterpret_cast< Spawnpoint* >(object);
   (void)_this;
 }
-void spawnpoint::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+void Spawnpoint::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 }
-void spawnpoint::SetCachedSize(int size) const {
+void Spawnpoint::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
 
-void spawnpoint::Clear() {
-// @@protoc_insertion_point(message_clear_start:wanderer.proto.spawnpoint)
+void Spawnpoint::Clear() {
+// @@protoc_insertion_point(message_clear_start:wanderer.proto.Spawnpoint)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -188,19 +188,19 @@ void spawnpoint::Clear() {
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* spawnpoint::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* Spawnpoint::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // optional .wanderer.proto.spawnpoint_type type = 1;
+      // optional .wanderer.proto.SpawnpointType type = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
           ::PROTOBUF_NAMESPACE_ID::uint64 val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-          _internal_set_type(static_cast<::wanderer::proto::spawnpoint_type>(val));
+          _internal_set_type(static_cast<::wanderer::proto::SpawnpointType>(val));
         } else
           goto handle_unusual;
         continue;
@@ -236,13 +236,13 @@ failure:
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* spawnpoint::_InternalSerialize(
+::PROTOBUF_NAMESPACE_ID::uint8* Spawnpoint::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:wanderer.proto.spawnpoint)
+  // @@protoc_insertion_point(serialize_to_array_start:wanderer.proto.Spawnpoint)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // optional .wanderer.proto.spawnpoint_type type = 1;
+  // optional .wanderer.proto.SpawnpointType type = 1;
   if (_internal_has_type()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
@@ -261,12 +261,12 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:wanderer.proto.spawnpoint)
+  // @@protoc_insertion_point(serialize_to_array_end:wanderer.proto.Spawnpoint)
   return target;
 }
 
-size_t spawnpoint::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:wanderer.proto.spawnpoint)
+size_t Spawnpoint::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:wanderer.proto.Spawnpoint)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -282,7 +282,7 @@ size_t spawnpoint::ByteSizeLong() const {
           *position_);
     }
 
-    // optional .wanderer.proto.spawnpoint_type type = 1;
+    // optional .wanderer.proto.SpawnpointType type = 1;
     if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_type());
@@ -292,21 +292,21 @@ size_t spawnpoint::ByteSizeLong() const {
   return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData spawnpoint::_class_data_ = {
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData Spawnpoint::_class_data_ = {
     ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    spawnpoint::MergeImpl
+    Spawnpoint::MergeImpl
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*spawnpoint::GetClassData() const { return &_class_data_; }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Spawnpoint::GetClassData() const { return &_class_data_; }
 
-void spawnpoint::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
+void Spawnpoint::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
                       const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<spawnpoint *>(to)->MergeFrom(
-      static_cast<const spawnpoint &>(from));
+  static_cast<Spawnpoint *>(to)->MergeFrom(
+      static_cast<const Spawnpoint &>(from));
 }
 
 
-void spawnpoint::MergeFrom(const spawnpoint& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:wanderer.proto.spawnpoint)
+void Spawnpoint::MergeFrom(const Spawnpoint& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:wanderer.proto.Spawnpoint)
   GOOGLE_DCHECK_NE(&from, this);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
@@ -324,30 +324,30 @@ void spawnpoint::MergeFrom(const spawnpoint& from) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void spawnpoint::CopyFrom(const spawnpoint& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:wanderer.proto.spawnpoint)
+void Spawnpoint::CopyFrom(const Spawnpoint& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:wanderer.proto.Spawnpoint)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool spawnpoint::IsInitialized() const {
+bool Spawnpoint::IsInitialized() const {
   return true;
 }
 
-void spawnpoint::InternalSwap(spawnpoint* other) {
+void Spawnpoint::InternalSwap(Spawnpoint* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(spawnpoint, type_)
-      + sizeof(spawnpoint::type_)
-      - PROTOBUF_FIELD_OFFSET(spawnpoint, position_)>(
+      PROTOBUF_FIELD_OFFSET(Spawnpoint, type_)
+      + sizeof(Spawnpoint::type_)
+      - PROTOBUF_FIELD_OFFSET(Spawnpoint, position_)>(
           reinterpret_cast<char*>(&position_),
           reinterpret_cast<char*>(&other->position_));
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata spawnpoint::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata Spawnpoint::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_spawnpoint_2eproto_getter, &descriptor_table_spawnpoint_2eproto_once,
       file_level_metadata_spawnpoint_2eproto[0]);
@@ -357,8 +357,8 @@ void spawnpoint::InternalSwap(spawnpoint* other) {
 }  // namespace proto
 }  // namespace wanderer
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::wanderer::proto::spawnpoint* Arena::CreateMaybeMessage< ::wanderer::proto::spawnpoint >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::wanderer::proto::spawnpoint >(arena);
+template<> PROTOBUF_NOINLINE ::wanderer::proto::Spawnpoint* Arena::CreateMaybeMessage< ::wanderer::proto::Spawnpoint >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::wanderer::proto::Spawnpoint >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

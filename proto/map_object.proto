@@ -2,6 +2,6 @@ syntax = "proto3";
 
 package wanderer.proto;
 
-message map_object {
+message MapObject {
   optional int32 id = 1;
 }

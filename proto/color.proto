@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package wanderer.proto;
 
-message color {
+message Color {
   optional uint32 red = 1;
   optional uint32 green = 2;
   optional uint32 blue = 3;

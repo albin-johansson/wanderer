@@ -18,20 +18,20 @@
 PROTOBUF_PRAGMA_INIT_SEG
 namespace wanderer {
 namespace proto {
-constexpr chase::chase(
+constexpr Chase::Chase(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : target_entity_(0u)
   , range_(0)
   , is_active_(false){}
-struct chaseDefaultTypeInternal {
-  constexpr chaseDefaultTypeInternal()
+struct ChaseDefaultTypeInternal {
+  constexpr ChaseDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~chaseDefaultTypeInternal() {}
+  ~ChaseDefaultTypeInternal() {}
   union {
-    chase _instance;
+    Chase _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT chaseDefaultTypeInternal _chase_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ChaseDefaultTypeInternal _Chase_default_instance_;
 }  // namespace proto
 }  // namespace wanderer
 static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_chase_2eproto[1];
@@ -39,29 +39,29 @@ static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_chase_2eproto = nullptr;
 
 const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_chase_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::chase, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::chase, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::Chase, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::Chase, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::chase, target_entity_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::chase, range_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::chase, is_active_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::Chase, target_entity_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::Chase, range_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::Chase, is_active_),
   0,
   1,
   2,
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, 9, -1, sizeof(::wanderer::proto::chase)},
+  { 0, 9, -1, sizeof(::wanderer::proto::Chase)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_chase_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_Chase_default_instance_),
 };
 
 const char descriptor_table_protodef_chase_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\013chase.proto\022\016wanderer.proto\"y\n\005chase\022\032"
+  "\n\013chase.proto\022\016wanderer.proto\"y\n\005Chase\022\032"
   "\n\rtarget_entity\030\001 \001(\rH\000\210\001\001\022\022\n\005range\030\002 \001("
   "\002H\001\210\001\001\022\026\n\tis_active\030\003 \001(\010H\002\210\001\001B\020\n\016_targe"
   "t_entityB\010\n\006_rangeB\014\n\n_is_activeb\006proto3"
@@ -84,9 +84,9 @@ namespace proto {
 
 // ===================================================================
 
-class chase::_Internal {
+class Chase::_Internal {
  public:
-  using HasBits = decltype(std::declval<chase>()._has_bits_);
+  using HasBits = decltype(std::declval<Chase>()._has_bits_);
   static void set_has_target_entity(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -98,55 +98,55 @@ class chase::_Internal {
   }
 };
 
-chase::chase(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+Chase::Chase(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor();
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
   }
-  // @@protoc_insertion_point(arena_constructor:wanderer.proto.chase)
+  // @@protoc_insertion_point(arena_constructor:wanderer.proto.Chase)
 }
-chase::chase(const chase& from)
+Chase::Chase(const Chase& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
       _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::memcpy(&target_entity_, &from.target_entity_,
     static_cast<size_t>(reinterpret_cast<char*>(&is_active_) -
     reinterpret_cast<char*>(&target_entity_)) + sizeof(is_active_));
-  // @@protoc_insertion_point(copy_constructor:wanderer.proto.chase)
+  // @@protoc_insertion_point(copy_constructor:wanderer.proto.Chase)
 }
 
-void chase::SharedCtor() {
+void Chase::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&target_entity_) - reinterpret_cast<char*>(this)),
     0, static_cast<size_t>(reinterpret_cast<char*>(&is_active_) -
     reinterpret_cast<char*>(&target_entity_)) + sizeof(is_active_));
 }
 
-chase::~chase() {
-  // @@protoc_insertion_point(destructor:wanderer.proto.chase)
+Chase::~Chase() {
+  // @@protoc_insertion_point(destructor:wanderer.proto.Chase)
   if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-inline void chase::SharedDtor() {
+inline void Chase::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void chase::ArenaDtor(void* object) {
-  chase* _this = reinterpret_cast< chase* >(object);
+void Chase::ArenaDtor(void* object) {
+  Chase* _this = reinterpret_cast< Chase* >(object);
   (void)_this;
 }
-void chase::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+void Chase::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 }
-void chase::SetCachedSize(int size) const {
+void Chase::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
 
-void chase::Clear() {
-// @@protoc_insertion_point(message_clear_start:wanderer.proto.chase)
+void Chase::Clear() {
+// @@protoc_insertion_point(message_clear_start:wanderer.proto.Chase)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -161,7 +161,7 @@ void chase::Clear() {
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* chase::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* Chase::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
@@ -219,9 +219,9 @@ failure:
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* chase::_InternalSerialize(
+::PROTOBUF_NAMESPACE_ID::uint8* Chase::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:wanderer.proto.chase)
+  // @@protoc_insertion_point(serialize_to_array_start:wanderer.proto.Chase)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -247,12 +247,12 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:wanderer.proto.chase)
+  // @@protoc_insertion_point(serialize_to_array_end:wanderer.proto.Chase)
   return target;
 }
 
-size_t chase::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:wanderer.proto.chase)
+size_t Chase::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:wanderer.proto.Chase)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -280,21 +280,21 @@ size_t chase::ByteSizeLong() const {
   return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData chase::_class_data_ = {
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData Chase::_class_data_ = {
     ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    chase::MergeImpl
+    Chase::MergeImpl
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*chase::GetClassData() const { return &_class_data_; }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Chase::GetClassData() const { return &_class_data_; }
 
-void chase::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
+void Chase::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
                       const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<chase *>(to)->MergeFrom(
-      static_cast<const chase &>(from));
+  static_cast<Chase *>(to)->MergeFrom(
+      static_cast<const Chase &>(from));
 }
 
 
-void chase::MergeFrom(const chase& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:wanderer.proto.chase)
+void Chase::MergeFrom(const Chase& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:wanderer.proto.Chase)
   GOOGLE_DCHECK_NE(&from, this);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
@@ -315,30 +315,30 @@ void chase::MergeFrom(const chase& from) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void chase::CopyFrom(const chase& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:wanderer.proto.chase)
+void Chase::CopyFrom(const Chase& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:wanderer.proto.Chase)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool chase::IsInitialized() const {
+bool Chase::IsInitialized() const {
   return true;
 }
 
-void chase::InternalSwap(chase* other) {
+void Chase::InternalSwap(Chase* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(chase, is_active_)
-      + sizeof(chase::is_active_)
-      - PROTOBUF_FIELD_OFFSET(chase, target_entity_)>(
+      PROTOBUF_FIELD_OFFSET(Chase, is_active_)
+      + sizeof(Chase::is_active_)
+      - PROTOBUF_FIELD_OFFSET(Chase, target_entity_)>(
           reinterpret_cast<char*>(&target_entity_),
           reinterpret_cast<char*>(&other->target_entity_));
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata chase::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata Chase::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_chase_2eproto_getter, &descriptor_table_chase_2eproto_once,
       file_level_metadata_chase_2eproto[0]);
@@ -348,8 +348,8 @@ void chase::InternalSwap(chase* other) {
 }  // namespace proto
 }  // namespace wanderer
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::wanderer::proto::chase* Arena::CreateMaybeMessage< ::wanderer::proto::chase >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::wanderer::proto::chase >(arena);
+template<> PROTOBUF_NOINLINE ::wanderer::proto::Chase* Arena::CreateMaybeMessage< ::wanderer::proto::Chase >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::wanderer::proto::Chase >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

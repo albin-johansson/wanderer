@@ -55,41 +55,41 @@ struct TableStruct_tile_5fanimation_2eproto {
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_tile_5fanimation_2eproto;
 namespace wanderer {
 namespace proto {
-class tile_animation;
-struct tile_animationDefaultTypeInternal;
-extern tile_animationDefaultTypeInternal _tile_animation_default_instance_;
-class tile_animation_frame;
-struct tile_animation_frameDefaultTypeInternal;
-extern tile_animation_frameDefaultTypeInternal _tile_animation_frame_default_instance_;
+class TileAnimation;
+struct TileAnimationDefaultTypeInternal;
+extern TileAnimationDefaultTypeInternal _TileAnimation_default_instance_;
+class TileAnimation_Frame;
+struct TileAnimation_FrameDefaultTypeInternal;
+extern TileAnimation_FrameDefaultTypeInternal _TileAnimation_Frame_default_instance_;
 }  // namespace proto
 }  // namespace wanderer
 PROTOBUF_NAMESPACE_OPEN
-template<> ::wanderer::proto::tile_animation* Arena::CreateMaybeMessage<::wanderer::proto::tile_animation>(Arena*);
-template<> ::wanderer::proto::tile_animation_frame* Arena::CreateMaybeMessage<::wanderer::proto::tile_animation_frame>(Arena*);
+template<> ::wanderer::proto::TileAnimation* Arena::CreateMaybeMessage<::wanderer::proto::TileAnimation>(Arena*);
+template<> ::wanderer::proto::TileAnimation_Frame* Arena::CreateMaybeMessage<::wanderer::proto::TileAnimation_Frame>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace wanderer {
 namespace proto {
 
 // ===================================================================
 
-class tile_animation_frame final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.proto.tile_animation.frame) */ {
+class TileAnimation_Frame final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.proto.TileAnimation.Frame) */ {
  public:
-  inline tile_animation_frame() : tile_animation_frame(nullptr) {}
-  ~tile_animation_frame() override;
-  explicit constexpr tile_animation_frame(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline TileAnimation_Frame() : TileAnimation_Frame(nullptr) {}
+  ~TileAnimation_Frame() override;
+  explicit constexpr TileAnimation_Frame(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  tile_animation_frame(const tile_animation_frame& from);
-  tile_animation_frame(tile_animation_frame&& from) noexcept
-    : tile_animation_frame() {
+  TileAnimation_Frame(const TileAnimation_Frame& from);
+  TileAnimation_Frame(TileAnimation_Frame&& from) noexcept
+    : TileAnimation_Frame() {
     *this = ::std::move(from);
   }
 
-  inline tile_animation_frame& operator=(const tile_animation_frame& from) {
+  inline TileAnimation_Frame& operator=(const TileAnimation_Frame& from) {
     CopyFrom(from);
     return *this;
   }
-  inline tile_animation_frame& operator=(tile_animation_frame&& from) noexcept {
+  inline TileAnimation_Frame& operator=(TileAnimation_Frame&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -112,20 +112,20 @@ class tile_animation_frame final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const tile_animation_frame& default_instance() {
+  static const TileAnimation_Frame& default_instance() {
     return *internal_default_instance();
   }
-  static inline const tile_animation_frame* internal_default_instance() {
-    return reinterpret_cast<const tile_animation_frame*>(
-               &_tile_animation_frame_default_instance_);
+  static inline const TileAnimation_Frame* internal_default_instance() {
+    return reinterpret_cast<const TileAnimation_Frame*>(
+               &_TileAnimation_Frame_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     0;
 
-  friend void swap(tile_animation_frame& a, tile_animation_frame& b) {
+  friend void swap(TileAnimation_Frame& a, TileAnimation_Frame& b) {
     a.Swap(&b);
   }
-  inline void Swap(tile_animation_frame* other) {
+  inline void Swap(TileAnimation_Frame* other) {
     if (other == this) return;
     if (GetOwningArena() == other->GetOwningArena()) {
       InternalSwap(other);
@@ -133,7 +133,7 @@ class tile_animation_frame final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(tile_animation_frame* other) {
+  void UnsafeArenaSwap(TileAnimation_Frame* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -141,17 +141,17 @@ class tile_animation_frame final :
 
   // implements Message ----------------------------------------------
 
-  inline tile_animation_frame* New() const final {
-    return new tile_animation_frame();
+  inline TileAnimation_Frame* New() const final {
+    return new TileAnimation_Frame();
   }
 
-  tile_animation_frame* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<tile_animation_frame>(arena);
+  TileAnimation_Frame* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<TileAnimation_Frame>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const tile_animation_frame& from);
+  void CopyFrom(const TileAnimation_Frame& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom(const tile_animation_frame& from);
+  void MergeFrom(const TileAnimation_Frame& from);
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to, const ::PROTOBUF_NAMESPACE_ID::Message& from);
   public:
@@ -168,13 +168,13 @@ class tile_animation_frame final :
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(tile_animation_frame* other);
+  void InternalSwap(TileAnimation_Frame* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "wanderer.proto.tile_animation.frame";
+    return "wanderer.proto.TileAnimation.Frame";
   }
   protected:
-  explicit tile_animation_frame(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit TileAnimation_Frame(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   private:
   static void ArenaDtor(void* object);
@@ -220,7 +220,7 @@ class tile_animation_frame final :
   void _internal_set_duration(::PROTOBUF_NAMESPACE_ID::uint32 value);
   public:
 
-  // @@protoc_insertion_point(class_scope:wanderer.proto.tile_animation.frame)
+  // @@protoc_insertion_point(class_scope:wanderer.proto.TileAnimation.Frame)
  private:
   class _Internal;
 
@@ -235,24 +235,24 @@ class tile_animation_frame final :
 };
 // -------------------------------------------------------------------
 
-class tile_animation final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.proto.tile_animation) */ {
+class TileAnimation final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.proto.TileAnimation) */ {
  public:
-  inline tile_animation() : tile_animation(nullptr) {}
-  ~tile_animation() override;
-  explicit constexpr tile_animation(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline TileAnimation() : TileAnimation(nullptr) {}
+  ~TileAnimation() override;
+  explicit constexpr TileAnimation(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  tile_animation(const tile_animation& from);
-  tile_animation(tile_animation&& from) noexcept
-    : tile_animation() {
+  TileAnimation(const TileAnimation& from);
+  TileAnimation(TileAnimation&& from) noexcept
+    : TileAnimation() {
     *this = ::std::move(from);
   }
 
-  inline tile_animation& operator=(const tile_animation& from) {
+  inline TileAnimation& operator=(const TileAnimation& from) {
     CopyFrom(from);
     return *this;
   }
-  inline tile_animation& operator=(tile_animation&& from) noexcept {
+  inline TileAnimation& operator=(TileAnimation&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -275,20 +275,20 @@ class tile_animation final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const tile_animation& default_instance() {
+  static const TileAnimation& default_instance() {
     return *internal_default_instance();
   }
-  static inline const tile_animation* internal_default_instance() {
-    return reinterpret_cast<const tile_animation*>(
-               &_tile_animation_default_instance_);
+  static inline const TileAnimation* internal_default_instance() {
+    return reinterpret_cast<const TileAnimation*>(
+               &_TileAnimation_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     1;
 
-  friend void swap(tile_animation& a, tile_animation& b) {
+  friend void swap(TileAnimation& a, TileAnimation& b) {
     a.Swap(&b);
   }
-  inline void Swap(tile_animation* other) {
+  inline void Swap(TileAnimation* other) {
     if (other == this) return;
     if (GetOwningArena() == other->GetOwningArena()) {
       InternalSwap(other);
@@ -296,7 +296,7 @@ class tile_animation final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(tile_animation* other) {
+  void UnsafeArenaSwap(TileAnimation* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -304,17 +304,17 @@ class tile_animation final :
 
   // implements Message ----------------------------------------------
 
-  inline tile_animation* New() const final {
-    return new tile_animation();
+  inline TileAnimation* New() const final {
+    return new TileAnimation();
   }
 
-  tile_animation* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<tile_animation>(arena);
+  TileAnimation* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<TileAnimation>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const tile_animation& from);
+  void CopyFrom(const TileAnimation& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom(const tile_animation& from);
+  void MergeFrom(const TileAnimation& from);
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to, const ::PROTOBUF_NAMESPACE_ID::Message& from);
   public:
@@ -331,13 +331,13 @@ class tile_animation final :
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(tile_animation* other);
+  void InternalSwap(TileAnimation* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "wanderer.proto.tile_animation";
+    return "wanderer.proto.TileAnimation";
   }
   protected:
-  explicit tile_animation(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit TileAnimation(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   private:
   static void ArenaDtor(void* object);
@@ -351,7 +351,7 @@ class tile_animation final :
 
   // nested types ----------------------------------------------------
 
-  typedef tile_animation_frame frame;
+  typedef TileAnimation_Frame Frame;
 
   // accessors -------------------------------------------------------
 
@@ -360,22 +360,22 @@ class tile_animation final :
     kIndexFieldNumber = 1,
     kThenFieldNumber = 2,
   };
-  // repeated .wanderer.proto.tile_animation.frame frames = 3;
+  // repeated .wanderer.proto.TileAnimation.Frame frames = 3;
   int frames_size() const;
   private:
   int _internal_frames_size() const;
   public:
   void clear_frames();
-  ::wanderer::proto::tile_animation_frame* mutable_frames(int index);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::wanderer::proto::tile_animation_frame >*
+  ::wanderer::proto::TileAnimation_Frame* mutable_frames(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::wanderer::proto::TileAnimation_Frame >*
       mutable_frames();
   private:
-  const ::wanderer::proto::tile_animation_frame& _internal_frames(int index) const;
-  ::wanderer::proto::tile_animation_frame* _internal_add_frames();
+  const ::wanderer::proto::TileAnimation_Frame& _internal_frames(int index) const;
+  ::wanderer::proto::TileAnimation_Frame* _internal_add_frames();
   public:
-  const ::wanderer::proto::tile_animation_frame& frames(int index) const;
-  ::wanderer::proto::tile_animation_frame* add_frames();
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::wanderer::proto::tile_animation_frame >&
+  const ::wanderer::proto::TileAnimation_Frame& frames(int index) const;
+  ::wanderer::proto::TileAnimation_Frame* add_frames();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::wanderer::proto::TileAnimation_Frame >&
       frames() const;
 
   // optional uint64 index = 1;
@@ -404,7 +404,7 @@ class tile_animation final :
   void _internal_set_then(::PROTOBUF_NAMESPACE_ID::uint32 value);
   public:
 
-  // @@protoc_insertion_point(class_scope:wanderer.proto.tile_animation)
+  // @@protoc_insertion_point(class_scope:wanderer.proto.TileAnimation)
  private:
   class _Internal;
 
@@ -413,7 +413,7 @@ class tile_animation final :
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::wanderer::proto::tile_animation_frame > frames_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::wanderer::proto::TileAnimation_Frame > frames_;
   ::PROTOBUF_NAMESPACE_ID::uint64 index_;
   ::PROTOBUF_NAMESPACE_ID::uint32 then_;
   friend struct ::TableStruct_tile_5fanimation_2eproto;
@@ -427,161 +427,161 @@ class tile_animation final :
   #pragma GCC diagnostic push
   #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
-// tile_animation_frame
+// TileAnimation_Frame
 
 // optional uint32 tile_id = 1;
-inline bool tile_animation_frame::_internal_has_tile_id() const {
+inline bool TileAnimation_Frame::_internal_has_tile_id() const {
   bool value = (_has_bits_[0] & 0x00000001u) != 0;
   return value;
 }
-inline bool tile_animation_frame::has_tile_id() const {
+inline bool TileAnimation_Frame::has_tile_id() const {
   return _internal_has_tile_id();
 }
-inline void tile_animation_frame::clear_tile_id() {
+inline void TileAnimation_Frame::clear_tile_id() {
   tile_id_ = 0u;
   _has_bits_[0] &= ~0x00000001u;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 tile_animation_frame::_internal_tile_id() const {
+inline ::PROTOBUF_NAMESPACE_ID::uint32 TileAnimation_Frame::_internal_tile_id() const {
   return tile_id_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 tile_animation_frame::tile_id() const {
-  // @@protoc_insertion_point(field_get:wanderer.proto.tile_animation.frame.tile_id)
+inline ::PROTOBUF_NAMESPACE_ID::uint32 TileAnimation_Frame::tile_id() const {
+  // @@protoc_insertion_point(field_get:wanderer.proto.TileAnimation.Frame.tile_id)
   return _internal_tile_id();
 }
-inline void tile_animation_frame::_internal_set_tile_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void TileAnimation_Frame::_internal_set_tile_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _has_bits_[0] |= 0x00000001u;
   tile_id_ = value;
 }
-inline void tile_animation_frame::set_tile_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void TileAnimation_Frame::set_tile_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _internal_set_tile_id(value);
-  // @@protoc_insertion_point(field_set:wanderer.proto.tile_animation.frame.tile_id)
+  // @@protoc_insertion_point(field_set:wanderer.proto.TileAnimation.Frame.tile_id)
 }
 
 // optional uint32 duration = 2;
-inline bool tile_animation_frame::_internal_has_duration() const {
+inline bool TileAnimation_Frame::_internal_has_duration() const {
   bool value = (_has_bits_[0] & 0x00000002u) != 0;
   return value;
 }
-inline bool tile_animation_frame::has_duration() const {
+inline bool TileAnimation_Frame::has_duration() const {
   return _internal_has_duration();
 }
-inline void tile_animation_frame::clear_duration() {
+inline void TileAnimation_Frame::clear_duration() {
   duration_ = 0u;
   _has_bits_[0] &= ~0x00000002u;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 tile_animation_frame::_internal_duration() const {
+inline ::PROTOBUF_NAMESPACE_ID::uint32 TileAnimation_Frame::_internal_duration() const {
   return duration_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 tile_animation_frame::duration() const {
-  // @@protoc_insertion_point(field_get:wanderer.proto.tile_animation.frame.duration)
+inline ::PROTOBUF_NAMESPACE_ID::uint32 TileAnimation_Frame::duration() const {
+  // @@protoc_insertion_point(field_get:wanderer.proto.TileAnimation.Frame.duration)
   return _internal_duration();
 }
-inline void tile_animation_frame::_internal_set_duration(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void TileAnimation_Frame::_internal_set_duration(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _has_bits_[0] |= 0x00000002u;
   duration_ = value;
 }
-inline void tile_animation_frame::set_duration(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void TileAnimation_Frame::set_duration(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _internal_set_duration(value);
-  // @@protoc_insertion_point(field_set:wanderer.proto.tile_animation.frame.duration)
+  // @@protoc_insertion_point(field_set:wanderer.proto.TileAnimation.Frame.duration)
 }
 
 // -------------------------------------------------------------------
 
-// tile_animation
+// TileAnimation
 
 // optional uint64 index = 1;
-inline bool tile_animation::_internal_has_index() const {
+inline bool TileAnimation::_internal_has_index() const {
   bool value = (_has_bits_[0] & 0x00000001u) != 0;
   return value;
 }
-inline bool tile_animation::has_index() const {
+inline bool TileAnimation::has_index() const {
   return _internal_has_index();
 }
-inline void tile_animation::clear_index() {
+inline void TileAnimation::clear_index() {
   index_ = uint64_t{0u};
   _has_bits_[0] &= ~0x00000001u;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint64 tile_animation::_internal_index() const {
+inline ::PROTOBUF_NAMESPACE_ID::uint64 TileAnimation::_internal_index() const {
   return index_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint64 tile_animation::index() const {
-  // @@protoc_insertion_point(field_get:wanderer.proto.tile_animation.index)
+inline ::PROTOBUF_NAMESPACE_ID::uint64 TileAnimation::index() const {
+  // @@protoc_insertion_point(field_get:wanderer.proto.TileAnimation.index)
   return _internal_index();
 }
-inline void tile_animation::_internal_set_index(::PROTOBUF_NAMESPACE_ID::uint64 value) {
+inline void TileAnimation::_internal_set_index(::PROTOBUF_NAMESPACE_ID::uint64 value) {
   _has_bits_[0] |= 0x00000001u;
   index_ = value;
 }
-inline void tile_animation::set_index(::PROTOBUF_NAMESPACE_ID::uint64 value) {
+inline void TileAnimation::set_index(::PROTOBUF_NAMESPACE_ID::uint64 value) {
   _internal_set_index(value);
-  // @@protoc_insertion_point(field_set:wanderer.proto.tile_animation.index)
+  // @@protoc_insertion_point(field_set:wanderer.proto.TileAnimation.index)
 }
 
 // optional uint32 then = 2;
-inline bool tile_animation::_internal_has_then() const {
+inline bool TileAnimation::_internal_has_then() const {
   bool value = (_has_bits_[0] & 0x00000002u) != 0;
   return value;
 }
-inline bool tile_animation::has_then() const {
+inline bool TileAnimation::has_then() const {
   return _internal_has_then();
 }
-inline void tile_animation::clear_then() {
+inline void TileAnimation::clear_then() {
   then_ = 0u;
   _has_bits_[0] &= ~0x00000002u;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 tile_animation::_internal_then() const {
+inline ::PROTOBUF_NAMESPACE_ID::uint32 TileAnimation::_internal_then() const {
   return then_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 tile_animation::then() const {
-  // @@protoc_insertion_point(field_get:wanderer.proto.tile_animation.then)
+inline ::PROTOBUF_NAMESPACE_ID::uint32 TileAnimation::then() const {
+  // @@protoc_insertion_point(field_get:wanderer.proto.TileAnimation.then)
   return _internal_then();
 }
-inline void tile_animation::_internal_set_then(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void TileAnimation::_internal_set_then(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _has_bits_[0] |= 0x00000002u;
   then_ = value;
 }
-inline void tile_animation::set_then(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void TileAnimation::set_then(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _internal_set_then(value);
-  // @@protoc_insertion_point(field_set:wanderer.proto.tile_animation.then)
+  // @@protoc_insertion_point(field_set:wanderer.proto.TileAnimation.then)
 }
 
-// repeated .wanderer.proto.tile_animation.frame frames = 3;
-inline int tile_animation::_internal_frames_size() const {
+// repeated .wanderer.proto.TileAnimation.Frame frames = 3;
+inline int TileAnimation::_internal_frames_size() const {
   return frames_.size();
 }
-inline int tile_animation::frames_size() const {
+inline int TileAnimation::frames_size() const {
   return _internal_frames_size();
 }
-inline void tile_animation::clear_frames() {
+inline void TileAnimation::clear_frames() {
   frames_.Clear();
 }
-inline ::wanderer::proto::tile_animation_frame* tile_animation::mutable_frames(int index) {
-  // @@protoc_insertion_point(field_mutable:wanderer.proto.tile_animation.frames)
+inline ::wanderer::proto::TileAnimation_Frame* TileAnimation::mutable_frames(int index) {
+  // @@protoc_insertion_point(field_mutable:wanderer.proto.TileAnimation.frames)
   return frames_.Mutable(index);
 }
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::wanderer::proto::tile_animation_frame >*
-tile_animation::mutable_frames() {
-  // @@protoc_insertion_point(field_mutable_list:wanderer.proto.tile_animation.frames)
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::wanderer::proto::TileAnimation_Frame >*
+TileAnimation::mutable_frames() {
+  // @@protoc_insertion_point(field_mutable_list:wanderer.proto.TileAnimation.frames)
   return &frames_;
 }
-inline const ::wanderer::proto::tile_animation_frame& tile_animation::_internal_frames(int index) const {
+inline const ::wanderer::proto::TileAnimation_Frame& TileAnimation::_internal_frames(int index) const {
   return frames_.Get(index);
 }
-inline const ::wanderer::proto::tile_animation_frame& tile_animation::frames(int index) const {
-  // @@protoc_insertion_point(field_get:wanderer.proto.tile_animation.frames)
+inline const ::wanderer::proto::TileAnimation_Frame& TileAnimation::frames(int index) const {
+  // @@protoc_insertion_point(field_get:wanderer.proto.TileAnimation.frames)
   return _internal_frames(index);
 }
-inline ::wanderer::proto::tile_animation_frame* tile_animation::_internal_add_frames() {
+inline ::wanderer::proto::TileAnimation_Frame* TileAnimation::_internal_add_frames() {
   return frames_.Add();
 }
-inline ::wanderer::proto::tile_animation_frame* tile_animation::add_frames() {
-  ::wanderer::proto::tile_animation_frame* _add = _internal_add_frames();
-  // @@protoc_insertion_point(field_add:wanderer.proto.tile_animation.frames)
+inline ::wanderer::proto::TileAnimation_Frame* TileAnimation::add_frames() {
+  ::wanderer::proto::TileAnimation_Frame* _add = _internal_add_frames();
+  // @@protoc_insertion_point(field_add:wanderer.proto.TileAnimation.frames)
   return _add;
 }
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::wanderer::proto::tile_animation_frame >&
-tile_animation::frames() const {
-  // @@protoc_insertion_point(field_list:wanderer.proto.tile_animation.frames)
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::wanderer::proto::TileAnimation_Frame >&
+TileAnimation::frames() const {
+  // @@protoc_insertion_point(field_list:wanderer.proto.TileAnimation.frames)
   return frames_;
 }
 

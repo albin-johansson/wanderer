@@ -55,37 +55,37 @@ struct TableStruct_plant_2eproto {
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_plant_2eproto;
 namespace wanderer {
 namespace proto {
-class plant;
-struct plantDefaultTypeInternal;
-extern plantDefaultTypeInternal _plant_default_instance_;
+class Plant;
+struct PlantDefaultTypeInternal;
+extern PlantDefaultTypeInternal _Plant_default_instance_;
 }  // namespace proto
 }  // namespace wanderer
 PROTOBUF_NAMESPACE_OPEN
-template<> ::wanderer::proto::plant* Arena::CreateMaybeMessage<::wanderer::proto::plant>(Arena*);
+template<> ::wanderer::proto::Plant* Arena::CreateMaybeMessage<::wanderer::proto::Plant>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace wanderer {
 namespace proto {
 
 // ===================================================================
 
-class plant final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.proto.plant) */ {
+class Plant final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.proto.Plant) */ {
  public:
-  inline plant() : plant(nullptr) {}
-  ~plant() override;
-  explicit constexpr plant(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline Plant() : Plant(nullptr) {}
+  ~Plant() override;
+  explicit constexpr Plant(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  plant(const plant& from);
-  plant(plant&& from) noexcept
-    : plant() {
+  Plant(const Plant& from);
+  Plant(Plant&& from) noexcept
+    : Plant() {
     *this = ::std::move(from);
   }
 
-  inline plant& operator=(const plant& from) {
+  inline Plant& operator=(const Plant& from) {
     CopyFrom(from);
     return *this;
   }
-  inline plant& operator=(plant&& from) noexcept {
+  inline Plant& operator=(Plant&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -108,20 +108,20 @@ class plant final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const plant& default_instance() {
+  static const Plant& default_instance() {
     return *internal_default_instance();
   }
-  static inline const plant* internal_default_instance() {
-    return reinterpret_cast<const plant*>(
-               &_plant_default_instance_);
+  static inline const Plant* internal_default_instance() {
+    return reinterpret_cast<const Plant*>(
+               &_Plant_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     0;
 
-  friend void swap(plant& a, plant& b) {
+  friend void swap(Plant& a, Plant& b) {
     a.Swap(&b);
   }
-  inline void Swap(plant* other) {
+  inline void Swap(Plant* other) {
     if (other == this) return;
     if (GetOwningArena() == other->GetOwningArena()) {
       InternalSwap(other);
@@ -129,7 +129,7 @@ class plant final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(plant* other) {
+  void UnsafeArenaSwap(Plant* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -137,17 +137,17 @@ class plant final :
 
   // implements Message ----------------------------------------------
 
-  inline plant* New() const final {
-    return new plant();
+  inline Plant* New() const final {
+    return new Plant();
   }
 
-  plant* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<plant>(arena);
+  Plant* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<Plant>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const plant& from);
+  void CopyFrom(const Plant& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom(const plant& from);
+  void MergeFrom(const Plant& from);
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to, const ::PROTOBUF_NAMESPACE_ID::Message& from);
   public:
@@ -164,13 +164,13 @@ class plant final :
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(plant* other);
+  void InternalSwap(Plant* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "wanderer.proto.plant";
+    return "wanderer.proto.Plant";
   }
   protected:
-  explicit plant(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit Plant(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   private:
   static void ArenaDtor(void* object);
@@ -304,7 +304,7 @@ class plant final :
   void _internal_set_index(::PROTOBUF_NAMESPACE_ID::uint64 value);
   public:
 
-  // @@protoc_insertion_point(class_scope:wanderer.proto.plant)
+  // @@protoc_insertion_point(class_scope:wanderer.proto.Plant)
  private:
   class _Internal;
 
@@ -333,239 +333,239 @@ class plant final :
   #pragma GCC diagnostic push
   #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
-// plant
+// Plant
 
 // optional float current_growth = 1;
-inline bool plant::_internal_has_current_growth() const {
+inline bool Plant::_internal_has_current_growth() const {
   bool value = (_has_bits_[0] & 0x00000001u) != 0;
   return value;
 }
-inline bool plant::has_current_growth() const {
+inline bool Plant::has_current_growth() const {
   return _internal_has_current_growth();
 }
-inline void plant::clear_current_growth() {
+inline void Plant::clear_current_growth() {
   current_growth_ = 0;
   _has_bits_[0] &= ~0x00000001u;
 }
-inline float plant::_internal_current_growth() const {
+inline float Plant::_internal_current_growth() const {
   return current_growth_;
 }
-inline float plant::current_growth() const {
-  // @@protoc_insertion_point(field_get:wanderer.proto.plant.current_growth)
+inline float Plant::current_growth() const {
+  // @@protoc_insertion_point(field_get:wanderer.proto.Plant.current_growth)
   return _internal_current_growth();
 }
-inline void plant::_internal_set_current_growth(float value) {
+inline void Plant::_internal_set_current_growth(float value) {
   _has_bits_[0] |= 0x00000001u;
   current_growth_ = value;
 }
-inline void plant::set_current_growth(float value) {
+inline void Plant::set_current_growth(float value) {
   _internal_set_current_growth(value);
-  // @@protoc_insertion_point(field_set:wanderer.proto.plant.current_growth)
+  // @@protoc_insertion_point(field_set:wanderer.proto.Plant.current_growth)
 }
 
 // optional float rate = 2;
-inline bool plant::_internal_has_rate() const {
+inline bool Plant::_internal_has_rate() const {
   bool value = (_has_bits_[0] & 0x00000002u) != 0;
   return value;
 }
-inline bool plant::has_rate() const {
+inline bool Plant::has_rate() const {
   return _internal_has_rate();
 }
-inline void plant::clear_rate() {
+inline void Plant::clear_rate() {
   rate_ = 0;
   _has_bits_[0] &= ~0x00000002u;
 }
-inline float plant::_internal_rate() const {
+inline float Plant::_internal_rate() const {
   return rate_;
 }
-inline float plant::rate() const {
-  // @@protoc_insertion_point(field_get:wanderer.proto.plant.rate)
+inline float Plant::rate() const {
+  // @@protoc_insertion_point(field_get:wanderer.proto.Plant.rate)
   return _internal_rate();
 }
-inline void plant::_internal_set_rate(float value) {
+inline void Plant::_internal_set_rate(float value) {
   _has_bits_[0] |= 0x00000002u;
   rate_ = value;
 }
-inline void plant::set_rate(float value) {
+inline void Plant::set_rate(float value) {
   _internal_set_rate(value);
-  // @@protoc_insertion_point(field_set:wanderer.proto.plant.rate)
+  // @@protoc_insertion_point(field_set:wanderer.proto.Plant.rate)
 }
 
 // optional float base_y = 3;
-inline bool plant::_internal_has_base_y() const {
+inline bool Plant::_internal_has_base_y() const {
   bool value = (_has_bits_[0] & 0x00000004u) != 0;
   return value;
 }
-inline bool plant::has_base_y() const {
+inline bool Plant::has_base_y() const {
   return _internal_has_base_y();
 }
-inline void plant::clear_base_y() {
+inline void Plant::clear_base_y() {
   base_y_ = 0;
   _has_bits_[0] &= ~0x00000004u;
 }
-inline float plant::_internal_base_y() const {
+inline float Plant::_internal_base_y() const {
   return base_y_;
 }
-inline float plant::base_y() const {
-  // @@protoc_insertion_point(field_get:wanderer.proto.plant.base_y)
+inline float Plant::base_y() const {
+  // @@protoc_insertion_point(field_get:wanderer.proto.Plant.base_y)
   return _internal_base_y();
 }
-inline void plant::_internal_set_base_y(float value) {
+inline void Plant::_internal_set_base_y(float value) {
   _has_bits_[0] |= 0x00000004u;
   base_y_ = value;
 }
-inline void plant::set_base_y(float value) {
+inline void Plant::set_base_y(float value) {
   _internal_set_base_y(value);
-  // @@protoc_insertion_point(field_set:wanderer.proto.plant.base_y)
+  // @@protoc_insertion_point(field_set:wanderer.proto.Plant.base_y)
 }
 
 // optional int32 tile_height = 4;
-inline bool plant::_internal_has_tile_height() const {
+inline bool Plant::_internal_has_tile_height() const {
   bool value = (_has_bits_[0] & 0x00000008u) != 0;
   return value;
 }
-inline bool plant::has_tile_height() const {
+inline bool Plant::has_tile_height() const {
   return _internal_has_tile_height();
 }
-inline void plant::clear_tile_height() {
+inline void Plant::clear_tile_height() {
   tile_height_ = 0;
   _has_bits_[0] &= ~0x00000008u;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 plant::_internal_tile_height() const {
+inline ::PROTOBUF_NAMESPACE_ID::int32 Plant::_internal_tile_height() const {
   return tile_height_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 plant::tile_height() const {
-  // @@protoc_insertion_point(field_get:wanderer.proto.plant.tile_height)
+inline ::PROTOBUF_NAMESPACE_ID::int32 Plant::tile_height() const {
+  // @@protoc_insertion_point(field_get:wanderer.proto.Plant.tile_height)
   return _internal_tile_height();
 }
-inline void plant::_internal_set_tile_height(::PROTOBUF_NAMESPACE_ID::int32 value) {
+inline void Plant::_internal_set_tile_height(::PROTOBUF_NAMESPACE_ID::int32 value) {
   _has_bits_[0] |= 0x00000008u;
   tile_height_ = value;
 }
-inline void plant::set_tile_height(::PROTOBUF_NAMESPACE_ID::int32 value) {
+inline void Plant::set_tile_height(::PROTOBUF_NAMESPACE_ID::int32 value) {
   _internal_set_tile_height(value);
-  // @@protoc_insertion_point(field_set:wanderer.proto.plant.tile_height)
+  // @@protoc_insertion_point(field_set:wanderer.proto.Plant.tile_height)
 }
 
 // optional uint64 index = 5;
-inline bool plant::_internal_has_index() const {
+inline bool Plant::_internal_has_index() const {
   bool value = (_has_bits_[0] & 0x00000010u) != 0;
   return value;
 }
-inline bool plant::has_index() const {
+inline bool Plant::has_index() const {
   return _internal_has_index();
 }
-inline void plant::clear_index() {
+inline void Plant::clear_index() {
   index_ = uint64_t{0u};
   _has_bits_[0] &= ~0x00000010u;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint64 plant::_internal_index() const {
+inline ::PROTOBUF_NAMESPACE_ID::uint64 Plant::_internal_index() const {
   return index_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint64 plant::index() const {
-  // @@protoc_insertion_point(field_get:wanderer.proto.plant.index)
+inline ::PROTOBUF_NAMESPACE_ID::uint64 Plant::index() const {
+  // @@protoc_insertion_point(field_get:wanderer.proto.Plant.index)
   return _internal_index();
 }
-inline void plant::_internal_set_index(::PROTOBUF_NAMESPACE_ID::uint64 value) {
+inline void Plant::_internal_set_index(::PROTOBUF_NAMESPACE_ID::uint64 value) {
   _has_bits_[0] |= 0x00000010u;
   index_ = value;
 }
-inline void plant::set_index(::PROTOBUF_NAMESPACE_ID::uint64 value) {
+inline void Plant::set_index(::PROTOBUF_NAMESPACE_ID::uint64 value) {
   _internal_set_index(value);
-  // @@protoc_insertion_point(field_set:wanderer.proto.plant.index)
+  // @@protoc_insertion_point(field_set:wanderer.proto.Plant.index)
 }
 
 // repeated uint32 tiles = 6 [packed = true];
-inline int plant::_internal_tiles_size() const {
+inline int Plant::_internal_tiles_size() const {
   return tiles_.size();
 }
-inline int plant::tiles_size() const {
+inline int Plant::tiles_size() const {
   return _internal_tiles_size();
 }
-inline void plant::clear_tiles() {
+inline void Plant::clear_tiles() {
   tiles_.Clear();
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 plant::_internal_tiles(int index) const {
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Plant::_internal_tiles(int index) const {
   return tiles_.Get(index);
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 plant::tiles(int index) const {
-  // @@protoc_insertion_point(field_get:wanderer.proto.plant.tiles)
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Plant::tiles(int index) const {
+  // @@protoc_insertion_point(field_get:wanderer.proto.Plant.tiles)
   return _internal_tiles(index);
 }
-inline void plant::set_tiles(int index, ::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void Plant::set_tiles(int index, ::PROTOBUF_NAMESPACE_ID::uint32 value) {
   tiles_.Set(index, value);
-  // @@protoc_insertion_point(field_set:wanderer.proto.plant.tiles)
+  // @@protoc_insertion_point(field_set:wanderer.proto.Plant.tiles)
 }
-inline void plant::_internal_add_tiles(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void Plant::_internal_add_tiles(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   tiles_.Add(value);
 }
-inline void plant::add_tiles(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void Plant::add_tiles(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _internal_add_tiles(value);
-  // @@protoc_insertion_point(field_add:wanderer.proto.plant.tiles)
+  // @@protoc_insertion_point(field_add:wanderer.proto.Plant.tiles)
 }
 inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
-plant::_internal_tiles() const {
+Plant::_internal_tiles() const {
   return tiles_;
 }
 inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
-plant::tiles() const {
-  // @@protoc_insertion_point(field_list:wanderer.proto.plant.tiles)
+Plant::tiles() const {
+  // @@protoc_insertion_point(field_list:wanderer.proto.Plant.tiles)
   return _internal_tiles();
 }
 inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
-plant::_internal_mutable_tiles() {
+Plant::_internal_mutable_tiles() {
   return &tiles_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
-plant::mutable_tiles() {
-  // @@protoc_insertion_point(field_mutable_list:wanderer.proto.plant.tiles)
+Plant::mutable_tiles() {
+  // @@protoc_insertion_point(field_mutable_list:wanderer.proto.Plant.tiles)
   return _internal_mutable_tiles();
 }
 
 // repeated uint32 tall_tiles = 7 [packed = true];
-inline int plant::_internal_tall_tiles_size() const {
+inline int Plant::_internal_tall_tiles_size() const {
   return tall_tiles_.size();
 }
-inline int plant::tall_tiles_size() const {
+inline int Plant::tall_tiles_size() const {
   return _internal_tall_tiles_size();
 }
-inline void plant::clear_tall_tiles() {
+inline void Plant::clear_tall_tiles() {
   tall_tiles_.Clear();
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 plant::_internal_tall_tiles(int index) const {
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Plant::_internal_tall_tiles(int index) const {
   return tall_tiles_.Get(index);
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 plant::tall_tiles(int index) const {
-  // @@protoc_insertion_point(field_get:wanderer.proto.plant.tall_tiles)
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Plant::tall_tiles(int index) const {
+  // @@protoc_insertion_point(field_get:wanderer.proto.Plant.tall_tiles)
   return _internal_tall_tiles(index);
 }
-inline void plant::set_tall_tiles(int index, ::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void Plant::set_tall_tiles(int index, ::PROTOBUF_NAMESPACE_ID::uint32 value) {
   tall_tiles_.Set(index, value);
-  // @@protoc_insertion_point(field_set:wanderer.proto.plant.tall_tiles)
+  // @@protoc_insertion_point(field_set:wanderer.proto.Plant.tall_tiles)
 }
-inline void plant::_internal_add_tall_tiles(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void Plant::_internal_add_tall_tiles(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   tall_tiles_.Add(value);
 }
-inline void plant::add_tall_tiles(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void Plant::add_tall_tiles(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   _internal_add_tall_tiles(value);
-  // @@protoc_insertion_point(field_add:wanderer.proto.plant.tall_tiles)
+  // @@protoc_insertion_point(field_add:wanderer.proto.Plant.tall_tiles)
 }
 inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
-plant::_internal_tall_tiles() const {
+Plant::_internal_tall_tiles() const {
   return tall_tiles_;
 }
 inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
-plant::tall_tiles() const {
-  // @@protoc_insertion_point(field_list:wanderer.proto.plant.tall_tiles)
+Plant::tall_tiles() const {
+  // @@protoc_insertion_point(field_list:wanderer.proto.Plant.tall_tiles)
   return _internal_tall_tiles();
 }
 inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
-plant::_internal_mutable_tall_tiles() {
+Plant::_internal_mutable_tall_tiles() {
   return &tall_tiles_;
 }
 inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
-plant::mutable_tall_tiles() {
-  // @@protoc_insertion_point(field_mutable_list:wanderer.proto.plant.tall_tiles)
+Plant::mutable_tall_tiles() {
+  // @@protoc_insertion_point(field_mutable_list:wanderer.proto.Plant.tall_tiles)
   return _internal_mutable_tall_tiles();
 }
 

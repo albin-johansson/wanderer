@@ -1,0 +1,61 @@
+syntax = "proto3";
+
+import "animation.proto";
+import "associated_entity.proto";
+import "chase.proto";
+import "drawable.proto";
+import "hitbox.proto";
+import "inventory.proto";
+import "map_object.proto";
+import "movable.proto";
+import "particle.proto";
+import "plant.proto";
+import "point_light.proto";
+import "portal.proto";
+import "spawnpoint.proto";
+import "tile_animation.proto";
+import "tile_layer.proto";
+import "tile.proto";
+import "tile_object.proto";
+import "tileset.proto";
+import "trigger.proto";
+
+package wanderer.proto;
+
+message Level {
+  optional int32 id = 1;
+  optional int32 humanoid_layer_index = 2;
+
+  optional uint64 row_count = 3;
+  optional uint64 column_count = 4;
+
+  optional bool keep_viewport_in_bounds = 5;
+  optional bool is_outside_level = 6;
+
+  /* Entities */
+  optional uint32 player_entity = 30;
+  repeated uint32 entities = 31 [packed = true];
+  repeated uint32 humanoids = 32 [packed = true];
+
+  map<uint32, Tileset> tilesets = 100; // TODO remove
+
+  /* Components */
+  map<uint32, Movable> movables = 40;
+  map<uint32, Drawable> drawables = 41;
+  map<uint32, Animation> animations = 42;
+  map<uint32, Plant> plants = 43;
+  map<uint32, Tile> tiles = 44;
+  map<uint32, TileAnimation> tile_animations = 45;
+  map<uint32, Chase> chases = 46;
+  map<uint32, Particle> particles = 47;
+  map<uint32, PointLight> lights = 48;
+  map<uint32, Spawnpoint> spawnpoints = 49;
+  map<uint32, Hitbox> hitboxes = 50;
+  map<uint32, MapObject> objects = 51;
+  map<uint32, Portal> portals = 52;
+  map<uint32, TileLayer> tile_layers = 53;
+  map<uint32, Inventory> inventories = 54;
+  map<uint32, TileObject> tile_objects = 55;
+  map<uint32, Trigger> triggers = 56;
+  map<uint32, AssociatedEntity> associations = 57;
+}

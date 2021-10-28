@@ -44,6 +44,12 @@ void CopyTo(const float2& src, proto::float2* dst)
   dst->set_y(src.y);
 }
 
+void CopyTo(const cen::farea& src, proto::float2* dst)
+{
+  dst->set_x(src.width);
+  dst->set_y(src.height);
+}
+
 void CopyTo(const comp::Vector3& src, proto::float3* dst)
 {
   dst->set_x(src.x);
@@ -67,13 +73,7 @@ void CopyTo(const cen::frect& src, proto::frect* dst)
   dst->set_height(src.height());
 }
 
-void CopyTo(const cen::farea& src, proto::farea* dst)
-{
-  dst->set_width(src.width);
-  dst->set_height(src.height);
-}
-
-void CopyTo(const cen::color& src, proto::color* dst)
+void CopyTo(const cen::color& src, proto::Color* dst)
 {
   dst->set_red(src.red());
   dst->set_green(src.green());
@@ -81,24 +81,24 @@ void CopyTo(const cen::color& src, proto::color* dst)
   dst->set_alpha(src.alpha());
 }
 
-void CopyTo(const ctx::TimeOfDay& src, proto::time_of_day* dst)
+void CopyTo(const ctx::TimeOfDay& src, proto::TimeOfDay* dst)
 {
   dst->set_hour(src.hour);
   dst->set_minute(src.minute);
   dst->set_seconds(src.seconds);
   dst->set_week(src.week);
-  dst->set_day(static_cast<proto::day_of_week>(src.day));
+  dst->set_day(static_cast<proto::DayOfWeek>(src.day));
   CopyTo(src.tint, dst->mutable_tint());
 }
 
-void CopyTo(const comp::Movable& src, proto::movable& dst)
+void CopyTo(const comp::Movable& src, proto::Movable& dst)
 {
   CopyTo(src.position, dst.mutable_position());
   CopyTo(src.velocity, dst.mutable_velocity());
   dst.set_speed(src.speed);
 }
 
-void CopyTo(const comp::Drawable& src, proto::drawable& dst)
+void CopyTo(const comp::Drawable& src, proto::Drawable& dst)
 {
   CopyTo(src.src, dst.mutable_src());
   CopyTo(src.dst, dst.mutable_dst());
@@ -107,7 +107,7 @@ void CopyTo(const comp::Drawable& src, proto::drawable& dst)
   dst.set_depth_index(src.depth);
 }
 
-void CopyTo(const comp::Animation& src, proto::animation& dst)
+void CopyTo(const comp::Animation& src, proto::Animation& dst)
 {
   dst.set_frame(src.frame);
   dst.set_frame_count(src.frame_count);
@@ -115,7 +115,7 @@ void CopyTo(const comp::Animation& src, proto::animation& dst)
   dst.set_delay(src.delay.count());
 }
 
-void CopyTo(const comp::Plant& src, proto::plant& dst)
+void CopyTo(const comp::Plant& src, proto::Plant& dst)
 {
   dst.set_current_growth(src.current);
   dst.set_rate(src.rate);
@@ -134,7 +134,7 @@ void CopyTo(const comp::Plant& src, proto::plant& dst)
   }
 }
 
-void CopyTo(const comp::Tile& src, proto::tile& dst)
+void CopyTo(const comp::Tile& src, proto::Tile& dst)
 {
   CopyTo(src.src, dst.mutable_src());
   dst.set_id(src.id);
@@ -142,7 +142,7 @@ void CopyTo(const comp::Tile& src, proto::tile& dst)
   dst.set_depth_index(src.depth);
 }
 
-void CopyTo(const comp::TileAnimation& src, proto::tile_animation& dst)
+void CopyTo(const comp::TileAnimation& src, proto::TileAnimation& dst)
 {
   dst.set_index(src.index);
   dst.set_then(src.then.count());
@@ -154,14 +154,14 @@ void CopyTo(const comp::TileAnimation& src, proto::tile_animation& dst)
   }
 }
 
-void CopyTo(const comp::Chase& src, proto::chase& dst)
+void CopyTo(const comp::Chase& src, proto::Chase& dst)
 {
   dst.set_target_entity(entt::to_integral(src.target));
   dst.set_range(src.range);
   dst.set_is_active(src.active);
 }
 
-void CopyTo(const comp::particle& src, proto::particle& dst)
+void CopyTo(const comp::particle& src, proto::Particle& dst)
 {
   CopyTo(src.position, dst.mutable_position());
   CopyTo(src.acceleration, dst.mutable_acceleration());
@@ -170,7 +170,7 @@ void CopyTo(const comp::particle& src, proto::particle& dst)
   dst.set_duration(src.duration);
 }
 
-void CopyTo(const comp::PointLight& src, proto::point_light& dst)
+void CopyTo(const comp::PointLight& src, proto::PointLight& dst)
 {
   CopyTo(src.position, dst.mutable_position());
   dst.set_size(src.size);
@@ -179,13 +179,13 @@ void CopyTo(const comp::PointLight& src, proto::point_light& dst)
   dst.set_fluctuation_limit(src.fluctuation_limit);
 }
 
-void CopyTo(const comp::Spawnpoint& src, proto::spawnpoint& dst)
+void CopyTo(const comp::Spawnpoint& src, proto::Spawnpoint& dst)
 {
   CopyTo(src.position, dst.mutable_position());
-  dst.set_type(static_cast<proto::spawnpoint_type>(src.type));
+  dst.set_type(static_cast<proto::SpawnpointType>(src.type));
 }
 
-void CopyTo(const comp::Hitbox& src, proto::hitbox& dst)
+void CopyTo(const comp::Hitbox& src, proto::Hitbox& dst)
 {
   CopyTo(src.origin, dst.mutable_origin());
   CopyTo(src.bounds, dst.mutable_bounds());
@@ -198,12 +198,12 @@ void CopyTo(const comp::Hitbox& src, proto::hitbox& dst)
   }
 }
 
-void CopyTo(const comp::Object& src, proto::map_object& dst)
+void CopyTo(const comp::Object& src, proto::MapObject& dst)
 {
   dst.set_id(src.id);
 }
 
-void CopyTo(const comp::Portal& src, proto::portal& dst)
+void CopyTo(const comp::Portal& src, proto::Portal& dst)
 {
   if (src.target) {
     dst.set_map_id(*src.target);
@@ -211,7 +211,7 @@ void CopyTo(const comp::Portal& src, proto::portal& dst)
   dst.set_path(src.path.string());
 }
 
-void CopyTo(const comp::TileLayer& src, proto::tile_layer& dst)
+void CopyTo(const comp::TileLayer& src, proto::TileLayer& dst)
 {
   dst.set_z_index(src.z);
 
@@ -224,7 +224,7 @@ void CopyTo(const comp::TileLayer& src, proto::tile_layer& dst)
   }
 }
 
-void CopyTo(const comp::Tileset& src, proto::tileset& dst)
+void CopyTo(const comp::Tileset& src, proto::Tileset& dst)
 {
   auto& map = *dst.mutable_tile_to_entity();
   for (const auto& [id, entity] : src.tiles) {
@@ -232,7 +232,7 @@ void CopyTo(const comp::Tileset& src, proto::tileset& dst)
   }
 }
 
-void CopyTo(const comp::Inventory& src, proto::inventory& dst)
+void CopyTo(const comp::Inventory& src, proto::Inventory& dst)
 {
   dst.set_capacity(src.capacity);
   for (const auto entity : src.items) {
@@ -240,29 +240,27 @@ void CopyTo(const comp::Inventory& src, proto::inventory& dst)
   }
 }
 
-void CopyTo(const comp::TileObject& src, proto::tile_object& dst)
+void CopyTo(const comp::TileObject& src, proto::TileObject& dst)
 {
   dst.set_tile_entity(entt::to_integral(src.tile_entity));
 }
 
-void CopyTo(const comp::Trigger& src, proto::trigger& dst)
+void CopyTo(const comp::Trigger& src, proto::Trigger& dst)
 {
-  dst.set_type(static_cast<proto::trigger_type>(src.type));
+  dst.set_type(static_cast<proto::TriggerType>(src.type));
 }
 
-void CopyTo(const comp::AssociatedEntity& src, proto::associated_entity& dst)
+void CopyTo(const comp::AssociatedEntity& src, proto::AssociatedEntity& dst)
 {
   dst.set_entity(entt::to_integral(src.entity));
 }
 
-void SaveLevel(const entt::registry& registry, proto::level* data)  // NOLINT complexity
+void SaveLevel(const entt::registry& registry, proto::Level* data)  // NOLINT complexity
 {
   const auto& tilemap = registry.ctx<comp::Tilemap>();
   data->set_humanoid_layer_index(tilemap.humanoid_layer);
   data->set_row_count(tilemap.row_count);
   data->set_column_count(tilemap.col_count);
-  data->set_width(tilemap.size.width);
-  data->set_height(tilemap.size.height);
 
   registry.each([&](const entt::entity entity) {
     const auto value = entt::to_integral(entity);
@@ -358,12 +356,12 @@ void SaveLevel(const entt::registry& registry, proto::level* data)  // NOLINT co
   data->set_is_outside_level(viewport.keep_in_bounds);
 }
 
-void SaveSharedData(const entt::registry& shared, proto::shared_data* data)
+void SaveSharedData(const entt::registry& shared, proto::SharedData* data)
 {
   CopyTo(shared.ctx<ctx::TimeOfDay>(), data->mutable_time());
 }
 
-void SaveData(const entt::registry& shared, proto::save& save)
+void SaveData(const entt::registry& shared, proto::Save& save)
 {
   save.set_current_level_id(sys::CurrentLevel(shared).id);
   SaveSharedData(shared, save.mutable_shared());
@@ -382,7 +380,7 @@ void SaveSharedRegistry(const entt::registry& shared, const std::filesystem::pat
 {
   std::ofstream stream{path, std::ios::out | std::ios::trunc | std::ios::binary};
 
-  proto::save save;
+  proto::Save save;
   SaveData(shared, save);
 
   if (!save.SerializeToOstream(&stream)) {

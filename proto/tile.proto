@@ -4,7 +4,7 @@ import "rect.proto";
 
 package wanderer.proto;
 
-message tile {
+message Tile {
   optional uint32 id = 1;
   optional uint64 texture_index = 2;
   optional irect src = 3;

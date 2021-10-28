@@ -57,62 +57,62 @@ struct TableStruct_spawnpoint_2eproto {
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_spawnpoint_2eproto;
 namespace wanderer {
 namespace proto {
-class spawnpoint;
-struct spawnpointDefaultTypeInternal;
-extern spawnpointDefaultTypeInternal _spawnpoint_default_instance_;
+class Spawnpoint;
+struct SpawnpointDefaultTypeInternal;
+extern SpawnpointDefaultTypeInternal _Spawnpoint_default_instance_;
 }  // namespace proto
 }  // namespace wanderer
 PROTOBUF_NAMESPACE_OPEN
-template<> ::wanderer::proto::spawnpoint* Arena::CreateMaybeMessage<::wanderer::proto::spawnpoint>(Arena*);
+template<> ::wanderer::proto::Spawnpoint* Arena::CreateMaybeMessage<::wanderer::proto::Spawnpoint>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace wanderer {
 namespace proto {
 
-enum spawnpoint_type : int {
+enum SpawnpointType : int {
   PLAYER = 0,
   SKELETON = 1,
-  spawnpoint_type_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
-  spawnpoint_type_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
+  SpawnpointType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
+  SpawnpointType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
 };
-bool spawnpoint_type_IsValid(int value);
-constexpr spawnpoint_type spawnpoint_type_MIN = PLAYER;
-constexpr spawnpoint_type spawnpoint_type_MAX = SKELETON;
-constexpr int spawnpoint_type_ARRAYSIZE = spawnpoint_type_MAX + 1;
+bool SpawnpointType_IsValid(int value);
+constexpr SpawnpointType SpawnpointType_MIN = PLAYER;
+constexpr SpawnpointType SpawnpointType_MAX = SKELETON;
+constexpr int SpawnpointType_ARRAYSIZE = SpawnpointType_MAX + 1;
 
-const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* spawnpoint_type_descriptor();
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* SpawnpointType_descriptor();
 template<typename T>
-inline const std::string& spawnpoint_type_Name(T enum_t_value) {
-  static_assert(::std::is_same<T, spawnpoint_type>::value ||
+inline const std::string& SpawnpointType_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, SpawnpointType>::value ||
     ::std::is_integral<T>::value,
-    "Incorrect type passed to function spawnpoint_type_Name.");
+    "Incorrect type passed to function SpawnpointType_Name.");
   return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
-    spawnpoint_type_descriptor(), enum_t_value);
+    SpawnpointType_descriptor(), enum_t_value);
 }
-inline bool spawnpoint_type_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, spawnpoint_type* value) {
-  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<spawnpoint_type>(
-    spawnpoint_type_descriptor(), name, value);
+inline bool SpawnpointType_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, SpawnpointType* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<SpawnpointType>(
+    SpawnpointType_descriptor(), name, value);
 }
 // ===================================================================
 
-class spawnpoint final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.proto.spawnpoint) */ {
+class Spawnpoint final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.proto.Spawnpoint) */ {
  public:
-  inline spawnpoint() : spawnpoint(nullptr) {}
-  ~spawnpoint() override;
-  explicit constexpr spawnpoint(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline Spawnpoint() : Spawnpoint(nullptr) {}
+  ~Spawnpoint() override;
+  explicit constexpr Spawnpoint(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  spawnpoint(const spawnpoint& from);
-  spawnpoint(spawnpoint&& from) noexcept
-    : spawnpoint() {
+  Spawnpoint(const Spawnpoint& from);
+  Spawnpoint(Spawnpoint&& from) noexcept
+    : Spawnpoint() {
     *this = ::std::move(from);
   }
 
-  inline spawnpoint& operator=(const spawnpoint& from) {
+  inline Spawnpoint& operator=(const Spawnpoint& from) {
     CopyFrom(from);
     return *this;
   }
-  inline spawnpoint& operator=(spawnpoint&& from) noexcept {
+  inline Spawnpoint& operator=(Spawnpoint&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -135,20 +135,20 @@ class spawnpoint final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const spawnpoint& default_instance() {
+  static const Spawnpoint& default_instance() {
     return *internal_default_instance();
   }
-  static inline const spawnpoint* internal_default_instance() {
-    return reinterpret_cast<const spawnpoint*>(
-               &_spawnpoint_default_instance_);
+  static inline const Spawnpoint* internal_default_instance() {
+    return reinterpret_cast<const Spawnpoint*>(
+               &_Spawnpoint_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     0;
 
-  friend void swap(spawnpoint& a, spawnpoint& b) {
+  friend void swap(Spawnpoint& a, Spawnpoint& b) {
     a.Swap(&b);
   }
-  inline void Swap(spawnpoint* other) {
+  inline void Swap(Spawnpoint* other) {
     if (other == this) return;
     if (GetOwningArena() == other->GetOwningArena()) {
       InternalSwap(other);
@@ -156,7 +156,7 @@ class spawnpoint final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(spawnpoint* other) {
+  void UnsafeArenaSwap(Spawnpoint* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -164,17 +164,17 @@ class spawnpoint final :
 
   // implements Message ----------------------------------------------
 
-  inline spawnpoint* New() const final {
-    return new spawnpoint();
+  inline Spawnpoint* New() const final {
+    return new Spawnpoint();
   }
 
-  spawnpoint* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<spawnpoint>(arena);
+  Spawnpoint* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<Spawnpoint>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const spawnpoint& from);
+  void CopyFrom(const Spawnpoint& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom(const spawnpoint& from);
+  void MergeFrom(const Spawnpoint& from);
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to, const ::PROTOBUF_NAMESPACE_ID::Message& from);
   public:
@@ -191,13 +191,13 @@ class spawnpoint final :
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(spawnpoint* other);
+  void InternalSwap(Spawnpoint* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "wanderer.proto.spawnpoint";
+    return "wanderer.proto.Spawnpoint";
   }
   protected:
-  explicit spawnpoint(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit Spawnpoint(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   private:
   static void ArenaDtor(void* object);
@@ -235,20 +235,20 @@ class spawnpoint final :
       ::wanderer::proto::float2* position);
   ::wanderer::proto::float2* unsafe_arena_release_position();
 
-  // optional .wanderer.proto.spawnpoint_type type = 1;
+  // optional .wanderer.proto.SpawnpointType type = 1;
   bool has_type() const;
   private:
   bool _internal_has_type() const;
   public:
   void clear_type();
-  ::wanderer::proto::spawnpoint_type type() const;
-  void set_type(::wanderer::proto::spawnpoint_type value);
+  ::wanderer::proto::SpawnpointType type() const;
+  void set_type(::wanderer::proto::SpawnpointType value);
   private:
-  ::wanderer::proto::spawnpoint_type _internal_type() const;
-  void _internal_set_type(::wanderer::proto::spawnpoint_type value);
+  ::wanderer::proto::SpawnpointType _internal_type() const;
+  void _internal_set_type(::wanderer::proto::SpawnpointType value);
   public:
 
-  // @@protoc_insertion_point(class_scope:wanderer.proto.spawnpoint)
+  // @@protoc_insertion_point(class_scope:wanderer.proto.Spawnpoint)
  private:
   class _Internal;
 
@@ -270,55 +270,55 @@ class spawnpoint final :
   #pragma GCC diagnostic push
   #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
-// spawnpoint
+// Spawnpoint
 
-// optional .wanderer.proto.spawnpoint_type type = 1;
-inline bool spawnpoint::_internal_has_type() const {
+// optional .wanderer.proto.SpawnpointType type = 1;
+inline bool Spawnpoint::_internal_has_type() const {
   bool value = (_has_bits_[0] & 0x00000002u) != 0;
   return value;
 }
-inline bool spawnpoint::has_type() const {
+inline bool Spawnpoint::has_type() const {
   return _internal_has_type();
 }
-inline void spawnpoint::clear_type() {
+inline void Spawnpoint::clear_type() {
   type_ = 0;
   _has_bits_[0] &= ~0x00000002u;
 }
-inline ::wanderer::proto::spawnpoint_type spawnpoint::_internal_type() const {
-  return static_cast< ::wanderer::proto::spawnpoint_type >(type_);
+inline ::wanderer::proto::SpawnpointType Spawnpoint::_internal_type() const {
+  return static_cast< ::wanderer::proto::SpawnpointType >(type_);
 }
-inline ::wanderer::proto::spawnpoint_type spawnpoint::type() const {
-  // @@protoc_insertion_point(field_get:wanderer.proto.spawnpoint.type)
+inline ::wanderer::proto::SpawnpointType Spawnpoint::type() const {
+  // @@protoc_insertion_point(field_get:wanderer.proto.Spawnpoint.type)
   return _internal_type();
 }
-inline void spawnpoint::_internal_set_type(::wanderer::proto::spawnpoint_type value) {
+inline void Spawnpoint::_internal_set_type(::wanderer::proto::SpawnpointType value) {
   _has_bits_[0] |= 0x00000002u;
   type_ = value;
 }
-inline void spawnpoint::set_type(::wanderer::proto::spawnpoint_type value) {
+inline void Spawnpoint::set_type(::wanderer::proto::SpawnpointType value) {
   _internal_set_type(value);
-  // @@protoc_insertion_point(field_set:wanderer.proto.spawnpoint.type)
+  // @@protoc_insertion_point(field_set:wanderer.proto.Spawnpoint.type)
 }
 
 // optional .wanderer.proto.float2 position = 2;
-inline bool spawnpoint::_internal_has_position() const {
+inline bool Spawnpoint::_internal_has_position() const {
   bool value = (_has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || position_ != nullptr);
   return value;
 }
-inline bool spawnpoint::has_position() const {
+inline bool Spawnpoint::has_position() const {
   return _internal_has_position();
 }
-inline const ::wanderer::proto::float2& spawnpoint::_internal_position() const {
+inline const ::wanderer::proto::float2& Spawnpoint::_internal_position() const {
   const ::wanderer::proto::float2* p = position_;
   return p != nullptr ? *p : reinterpret_cast<const ::wanderer::proto::float2&>(
       ::wanderer::proto::_float2_default_instance_);
 }
-inline const ::wanderer::proto::float2& spawnpoint::position() const {
-  // @@protoc_insertion_point(field_get:wanderer.proto.spawnpoint.position)
+inline const ::wanderer::proto::float2& Spawnpoint::position() const {
+  // @@protoc_insertion_point(field_get:wanderer.proto.Spawnpoint.position)
   return _internal_position();
 }
-inline void spawnpoint::unsafe_arena_set_allocated_position(
+inline void Spawnpoint::unsafe_arena_set_allocated_position(
     ::wanderer::proto::float2* position) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(position_);
@@ -329,9 +329,9 @@ inline void spawnpoint::unsafe_arena_set_allocated_position(
   } else {
     _has_bits_[0] &= ~0x00000001u;
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:wanderer.proto.spawnpoint.position)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:wanderer.proto.Spawnpoint.position)
 }
-inline ::wanderer::proto::float2* spawnpoint::release_position() {
+inline ::wanderer::proto::float2* Spawnpoint::release_position() {
   _has_bits_[0] &= ~0x00000001u;
   ::wanderer::proto::float2* temp = position_;
   position_ = nullptr;
@@ -346,14 +346,14 @@ inline ::wanderer::proto::float2* spawnpoint::release_position() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::wanderer::proto::float2* spawnpoint::unsafe_arena_release_position() {
-  // @@protoc_insertion_point(field_release:wanderer.proto.spawnpoint.position)
+inline ::wanderer::proto::float2* Spawnpoint::unsafe_arena_release_position() {
+  // @@protoc_insertion_point(field_release:wanderer.proto.Spawnpoint.position)
   _has_bits_[0] &= ~0x00000001u;
   ::wanderer::proto::float2* temp = position_;
   position_ = nullptr;
   return temp;
 }
-inline ::wanderer::proto::float2* spawnpoint::_internal_mutable_position() {
+inline ::wanderer::proto::float2* Spawnpoint::_internal_mutable_position() {
   _has_bits_[0] |= 0x00000001u;
   if (position_ == nullptr) {
     auto* p = CreateMaybeMessage<::wanderer::proto::float2>(GetArenaForAllocation());
@@ -361,12 +361,12 @@ inline ::wanderer::proto::float2* spawnpoint::_internal_mutable_position() {
   }
   return position_;
 }
-inline ::wanderer::proto::float2* spawnpoint::mutable_position() {
+inline ::wanderer::proto::float2* Spawnpoint::mutable_position() {
   ::wanderer::proto::float2* _msg = _internal_mutable_position();
-  // @@protoc_insertion_point(field_mutable:wanderer.proto.spawnpoint.position)
+  // @@protoc_insertion_point(field_mutable:wanderer.proto.Spawnpoint.position)
   return _msg;
 }
-inline void spawnpoint::set_allocated_position(::wanderer::proto::float2* position) {
+inline void Spawnpoint::set_allocated_position(::wanderer::proto::float2* position) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(position_);
@@ -385,7 +385,7 @@ inline void spawnpoint::set_allocated_position(::wanderer::proto::float2* positi
     _has_bits_[0] &= ~0x00000001u;
   }
   position_ = position;
-  // @@protoc_insertion_point(field_set_allocated:wanderer.proto.spawnpoint.position)
+  // @@protoc_insertion_point(field_set_allocated:wanderer.proto.Spawnpoint.position)
 }
 
 #ifdef __GNUC__
@@ -399,10 +399,10 @@ inline void spawnpoint::set_allocated_position(::wanderer::proto::float2* positi
 
 PROTOBUF_NAMESPACE_OPEN
 
-template <> struct is_proto_enum< ::wanderer::proto::spawnpoint_type> : ::std::true_type {};
+template <> struct is_proto_enum< ::wanderer::proto::SpawnpointType> : ::std::true_type {};
 template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::wanderer::proto::spawnpoint_type>() {
-  return ::wanderer::proto::spawnpoint_type_descriptor();
+inline const EnumDescriptor* GetEnumDescriptor< ::wanderer::proto::SpawnpointType>() {
+  return ::wanderer::proto::SpawnpointType_descriptor();
 }
 
 PROTOBUF_NAMESPACE_CLOSE

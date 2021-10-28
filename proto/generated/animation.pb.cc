@@ -18,21 +18,21 @@
 PROTOBUF_PRAGMA_INIT_SEG
 namespace wanderer {
 namespace proto {
-constexpr animation::animation(
+constexpr Animation::Animation(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : frame_(uint64_t{0u})
   , frame_count_(uint64_t{0u})
   , then_(0u)
   , delay_(0u){}
-struct animationDefaultTypeInternal {
-  constexpr animationDefaultTypeInternal()
+struct AnimationDefaultTypeInternal {
+  constexpr AnimationDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~animationDefaultTypeInternal() {}
+  ~AnimationDefaultTypeInternal() {}
   union {
-    animation _instance;
+    Animation _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT animationDefaultTypeInternal _animation_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT AnimationDefaultTypeInternal _Animation_default_instance_;
 }  // namespace proto
 }  // namespace wanderer
 static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_animation_2eproto[1];
@@ -40,31 +40,31 @@ static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_animation_2eproto = nullptr;
 
 const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_animation_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::animation, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::animation, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::Animation, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::Animation, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::animation, frame_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::animation, frame_count_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::animation, then_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::animation, delay_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::Animation, frame_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::Animation, frame_count_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::Animation, then_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::Animation, delay_),
   0,
   1,
   2,
   3,
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, 10, -1, sizeof(::wanderer::proto::animation)},
+  { 0, 10, -1, sizeof(::wanderer::proto::Animation)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_animation_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_Animation_default_instance_),
 };
 
 const char descriptor_table_protodef_animation_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\017animation.proto\022\016wanderer.proto\"\215\001\n\tan"
+  "\n\017animation.proto\022\016wanderer.proto\"\215\001\n\tAn"
   "imation\022\022\n\005frame\030\001 \001(\004H\000\210\001\001\022\030\n\013frame_cou"
   "nt\030\002 \001(\004H\001\210\001\001\022\021\n\004then\030\003 \001(\rH\002\210\001\001\022\022\n\005dela"
   "y\030\004 \001(\rH\003\210\001\001B\010\n\006_frameB\016\n\014_frame_countB\007"
@@ -88,9 +88,9 @@ namespace proto {
 
 // ===================================================================
 
-class animation::_Internal {
+class Animation::_Internal {
  public:
-  using HasBits = decltype(std::declval<animation>()._has_bits_);
+  using HasBits = decltype(std::declval<Animation>()._has_bits_);
   static void set_has_frame(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -105,55 +105,55 @@ class animation::_Internal {
   }
 };
 
-animation::animation(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+Animation::Animation(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor();
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
   }
-  // @@protoc_insertion_point(arena_constructor:wanderer.proto.animation)
+  // @@protoc_insertion_point(arena_constructor:wanderer.proto.Animation)
 }
-animation::animation(const animation& from)
+Animation::Animation(const Animation& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
       _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::memcpy(&frame_, &from.frame_,
     static_cast<size_t>(reinterpret_cast<char*>(&delay_) -
     reinterpret_cast<char*>(&frame_)) + sizeof(delay_));
-  // @@protoc_insertion_point(copy_constructor:wanderer.proto.animation)
+  // @@protoc_insertion_point(copy_constructor:wanderer.proto.Animation)
 }
 
-void animation::SharedCtor() {
+void Animation::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&frame_) - reinterpret_cast<char*>(this)),
     0, static_cast<size_t>(reinterpret_cast<char*>(&delay_) -
     reinterpret_cast<char*>(&frame_)) + sizeof(delay_));
 }
 
-animation::~animation() {
-  // @@protoc_insertion_point(destructor:wanderer.proto.animation)
+Animation::~Animation() {
+  // @@protoc_insertion_point(destructor:wanderer.proto.Animation)
   if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-inline void animation::SharedDtor() {
+inline void Animation::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void animation::ArenaDtor(void* object) {
-  animation* _this = reinterpret_cast< animation* >(object);
+void Animation::ArenaDtor(void* object) {
+  Animation* _this = reinterpret_cast< Animation* >(object);
   (void)_this;
 }
-void animation::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+void Animation::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 }
-void animation::SetCachedSize(int size) const {
+void Animation::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
 
-void animation::Clear() {
-// @@protoc_insertion_point(message_clear_start:wanderer.proto.animation)
+void Animation::Clear() {
+// @@protoc_insertion_point(message_clear_start:wanderer.proto.Animation)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -168,7 +168,7 @@ void animation::Clear() {
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* animation::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* Animation::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
@@ -235,9 +235,9 @@ failure:
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* animation::_InternalSerialize(
+::PROTOBUF_NAMESPACE_ID::uint8* Animation::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:wanderer.proto.animation)
+  // @@protoc_insertion_point(serialize_to_array_start:wanderer.proto.Animation)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -269,12 +269,12 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:wanderer.proto.animation)
+  // @@protoc_insertion_point(serialize_to_array_end:wanderer.proto.Animation)
   return target;
 }
 
-size_t animation::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:wanderer.proto.animation)
+size_t Animation::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:wanderer.proto.Animation)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -307,21 +307,21 @@ size_t animation::ByteSizeLong() const {
   return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData animation::_class_data_ = {
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData Animation::_class_data_ = {
     ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    animation::MergeImpl
+    Animation::MergeImpl
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*animation::GetClassData() const { return &_class_data_; }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Animation::GetClassData() const { return &_class_data_; }
 
-void animation::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
+void Animation::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
                       const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<animation *>(to)->MergeFrom(
-      static_cast<const animation &>(from));
+  static_cast<Animation *>(to)->MergeFrom(
+      static_cast<const Animation &>(from));
 }
 
 
-void animation::MergeFrom(const animation& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:wanderer.proto.animation)
+void Animation::MergeFrom(const Animation& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:wanderer.proto.Animation)
   GOOGLE_DCHECK_NE(&from, this);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
@@ -345,30 +345,30 @@ void animation::MergeFrom(const animation& from) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void animation::CopyFrom(const animation& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:wanderer.proto.animation)
+void Animation::CopyFrom(const Animation& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:wanderer.proto.Animation)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool animation::IsInitialized() const {
+bool Animation::IsInitialized() const {
   return true;
 }
 
-void animation::InternalSwap(animation* other) {
+void Animation::InternalSwap(Animation* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(animation, delay_)
-      + sizeof(animation::delay_)
-      - PROTOBUF_FIELD_OFFSET(animation, frame_)>(
+      PROTOBUF_FIELD_OFFSET(Animation, delay_)
+      + sizeof(Animation::delay_)
+      - PROTOBUF_FIELD_OFFSET(Animation, frame_)>(
           reinterpret_cast<char*>(&frame_),
           reinterpret_cast<char*>(&other->frame_));
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata animation::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata Animation::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_animation_2eproto_getter, &descriptor_table_animation_2eproto_once,
       file_level_metadata_animation_2eproto[0]);
@@ -378,8 +378,8 @@ void animation::InternalSwap(animation* other) {
 }  // namespace proto
 }  // namespace wanderer
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::wanderer::proto::animation* Arena::CreateMaybeMessage< ::wanderer::proto::animation >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::wanderer::proto::animation >(arena);
+template<> PROTOBUF_NOINLINE ::wanderer::proto::Animation* Arena::CreateMaybeMessage< ::wanderer::proto::Animation >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::wanderer::proto::Animation >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

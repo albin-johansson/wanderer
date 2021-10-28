@@ -55,37 +55,37 @@ struct TableStruct_portal_2eproto {
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_portal_2eproto;
 namespace wanderer {
 namespace proto {
-class portal;
-struct portalDefaultTypeInternal;
-extern portalDefaultTypeInternal _portal_default_instance_;
+class Portal;
+struct PortalDefaultTypeInternal;
+extern PortalDefaultTypeInternal _Portal_default_instance_;
 }  // namespace proto
 }  // namespace wanderer
 PROTOBUF_NAMESPACE_OPEN
-template<> ::wanderer::proto::portal* Arena::CreateMaybeMessage<::wanderer::proto::portal>(Arena*);
+template<> ::wanderer::proto::Portal* Arena::CreateMaybeMessage<::wanderer::proto::Portal>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace wanderer {
 namespace proto {
 
 // ===================================================================
 
-class portal final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.proto.portal) */ {
+class Portal final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:wanderer.proto.Portal) */ {
  public:
-  inline portal() : portal(nullptr) {}
-  ~portal() override;
-  explicit constexpr portal(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline Portal() : Portal(nullptr) {}
+  ~Portal() override;
+  explicit constexpr Portal(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  portal(const portal& from);
-  portal(portal&& from) noexcept
-    : portal() {
+  Portal(const Portal& from);
+  Portal(Portal&& from) noexcept
+    : Portal() {
     *this = ::std::move(from);
   }
 
-  inline portal& operator=(const portal& from) {
+  inline Portal& operator=(const Portal& from) {
     CopyFrom(from);
     return *this;
   }
-  inline portal& operator=(portal&& from) noexcept {
+  inline Portal& operator=(Portal&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -108,20 +108,20 @@ class portal final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const portal& default_instance() {
+  static const Portal& default_instance() {
     return *internal_default_instance();
   }
-  static inline const portal* internal_default_instance() {
-    return reinterpret_cast<const portal*>(
-               &_portal_default_instance_);
+  static inline const Portal* internal_default_instance() {
+    return reinterpret_cast<const Portal*>(
+               &_Portal_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     0;
 
-  friend void swap(portal& a, portal& b) {
+  friend void swap(Portal& a, Portal& b) {
     a.Swap(&b);
   }
-  inline void Swap(portal* other) {
+  inline void Swap(Portal* other) {
     if (other == this) return;
     if (GetOwningArena() == other->GetOwningArena()) {
       InternalSwap(other);
@@ -129,7 +129,7 @@ class portal final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(portal* other) {
+  void UnsafeArenaSwap(Portal* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -137,17 +137,17 @@ class portal final :
 
   // implements Message ----------------------------------------------
 
-  inline portal* New() const final {
-    return new portal();
+  inline Portal* New() const final {
+    return new Portal();
   }
 
-  portal* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<portal>(arena);
+  Portal* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<Portal>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const portal& from);
+  void CopyFrom(const Portal& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom(const portal& from);
+  void MergeFrom(const Portal& from);
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to, const ::PROTOBUF_NAMESPACE_ID::Message& from);
   public:
@@ -164,13 +164,13 @@ class portal final :
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(portal* other);
+  void InternalSwap(Portal* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "wanderer.proto.portal";
+    return "wanderer.proto.Portal";
   }
   protected:
-  explicit portal(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit Portal(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   private:
   static void ArenaDtor(void* object);
@@ -221,7 +221,7 @@ class portal final :
   void _internal_set_map_id(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
-  // @@protoc_insertion_point(class_scope:wanderer.proto.portal)
+  // @@protoc_insertion_point(class_scope:wanderer.proto.Portal)
  private:
   class _Internal;
 
@@ -243,84 +243,84 @@ class portal final :
   #pragma GCC diagnostic push
   #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
-// portal
+// Portal
 
 // optional int32 map_id = 1;
-inline bool portal::_internal_has_map_id() const {
+inline bool Portal::_internal_has_map_id() const {
   bool value = (_has_bits_[0] & 0x00000002u) != 0;
   return value;
 }
-inline bool portal::has_map_id() const {
+inline bool Portal::has_map_id() const {
   return _internal_has_map_id();
 }
-inline void portal::clear_map_id() {
+inline void Portal::clear_map_id() {
   map_id_ = 0;
   _has_bits_[0] &= ~0x00000002u;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 portal::_internal_map_id() const {
+inline ::PROTOBUF_NAMESPACE_ID::int32 Portal::_internal_map_id() const {
   return map_id_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 portal::map_id() const {
-  // @@protoc_insertion_point(field_get:wanderer.proto.portal.map_id)
+inline ::PROTOBUF_NAMESPACE_ID::int32 Portal::map_id() const {
+  // @@protoc_insertion_point(field_get:wanderer.proto.Portal.map_id)
   return _internal_map_id();
 }
-inline void portal::_internal_set_map_id(::PROTOBUF_NAMESPACE_ID::int32 value) {
+inline void Portal::_internal_set_map_id(::PROTOBUF_NAMESPACE_ID::int32 value) {
   _has_bits_[0] |= 0x00000002u;
   map_id_ = value;
 }
-inline void portal::set_map_id(::PROTOBUF_NAMESPACE_ID::int32 value) {
+inline void Portal::set_map_id(::PROTOBUF_NAMESPACE_ID::int32 value) {
   _internal_set_map_id(value);
-  // @@protoc_insertion_point(field_set:wanderer.proto.portal.map_id)
+  // @@protoc_insertion_point(field_set:wanderer.proto.Portal.map_id)
 }
 
 // optional string path = 2;
-inline bool portal::_internal_has_path() const {
+inline bool Portal::_internal_has_path() const {
   bool value = (_has_bits_[0] & 0x00000001u) != 0;
   return value;
 }
-inline bool portal::has_path() const {
+inline bool Portal::has_path() const {
   return _internal_has_path();
 }
-inline void portal::clear_path() {
+inline void Portal::clear_path() {
   path_.ClearToEmpty();
   _has_bits_[0] &= ~0x00000001u;
 }
-inline const std::string& portal::path() const {
-  // @@protoc_insertion_point(field_get:wanderer.proto.portal.path)
+inline const std::string& Portal::path() const {
+  // @@protoc_insertion_point(field_get:wanderer.proto.Portal.path)
   return _internal_path();
 }
 template <typename ArgT0, typename... ArgT>
 inline PROTOBUF_ALWAYS_INLINE
-void portal::set_path(ArgT0&& arg0, ArgT... args) {
+void Portal::set_path(ArgT0&& arg0, ArgT... args) {
  _has_bits_[0] |= 0x00000001u;
  path_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:wanderer.proto.portal.path)
+  // @@protoc_insertion_point(field_set:wanderer.proto.Portal.path)
 }
-inline std::string* portal::mutable_path() {
+inline std::string* Portal::mutable_path() {
   std::string* _s = _internal_mutable_path();
-  // @@protoc_insertion_point(field_mutable:wanderer.proto.portal.path)
+  // @@protoc_insertion_point(field_mutable:wanderer.proto.Portal.path)
   return _s;
 }
-inline const std::string& portal::_internal_path() const {
+inline const std::string& Portal::_internal_path() const {
   return path_.Get();
 }
-inline void portal::_internal_set_path(const std::string& value) {
+inline void Portal::_internal_set_path(const std::string& value) {
   _has_bits_[0] |= 0x00000001u;
   path_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
 }
-inline std::string* portal::_internal_mutable_path() {
+inline std::string* Portal::_internal_mutable_path() {
   _has_bits_[0] |= 0x00000001u;
   return path_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
 }
-inline std::string* portal::release_path() {
-  // @@protoc_insertion_point(field_release:wanderer.proto.portal.path)
+inline std::string* Portal::release_path() {
+  // @@protoc_insertion_point(field_release:wanderer.proto.Portal.path)
   if (!_internal_has_path()) {
     return nullptr;
   }
   _has_bits_[0] &= ~0x00000001u;
   return path_.ReleaseNonDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
 }
-inline void portal::set_allocated_path(std::string* path) {
+inline void Portal::set_allocated_path(std::string* path) {
   if (path != nullptr) {
     _has_bits_[0] |= 0x00000001u;
   } else {
@@ -328,7 +328,7 @@ inline void portal::set_allocated_path(std::string* path) {
   }
   path_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), path,
       GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set_allocated:wanderer.proto.portal.path)
+  // @@protoc_insertion_point(field_set_allocated:wanderer.proto.Portal.path)
 }
 
 #ifdef __GNUC__

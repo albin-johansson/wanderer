@@ -18,22 +18,22 @@
 PROTOBUF_PRAGMA_INIT_SEG
 namespace wanderer {
 namespace proto {
-constexpr particle::particle(
+constexpr Particle::Particle(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : position_(nullptr)
   , acceleration_(nullptr)
   , color_(nullptr)
   , now_(0)
   , duration_(0){}
-struct particleDefaultTypeInternal {
-  constexpr particleDefaultTypeInternal()
+struct ParticleDefaultTypeInternal {
+  constexpr ParticleDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~particleDefaultTypeInternal() {}
+  ~ParticleDefaultTypeInternal() {}
   union {
-    particle _instance;
+    Particle _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT particleDefaultTypeInternal _particle_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ParticleDefaultTypeInternal _Particle_default_instance_;
 }  // namespace proto
 }  // namespace wanderer
 static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_particle_2eproto[1];
@@ -41,17 +41,17 @@ static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_particle_2eproto = nullptr;
 
 const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_particle_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::particle, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::particle, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::Particle, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::Particle, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::particle, position_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::particle, acceleration_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::particle, now_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::particle, duration_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::particle, color_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::Particle, position_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::Particle, acceleration_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::Particle, now_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::Particle, duration_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::Particle, color_),
   0,
   1,
   3,
@@ -59,21 +59,21 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_particle_2eproto::offsets[] PR
   2,
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, 11, -1, sizeof(::wanderer::proto::particle)},
+  { 0, 11, -1, sizeof(::wanderer::proto::Particle)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_particle_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_Particle_default_instance_),
 };
 
 const char descriptor_table_protodef_particle_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\016particle.proto\022\016wanderer.proto\032\013color."
-  "proto\032\014float3.proto\"\375\001\n\010particle\022-\n\010posi"
+  "proto\032\014float3.proto\"\375\001\n\010Particle\022-\n\010posi"
   "tion\030\001 \001(\0132\026.wanderer.proto.float3H\000\210\001\001\022"
   "1\n\014acceleration\030\002 \001(\0132\026.wanderer.proto.f"
   "loat3H\001\210\001\001\022\020\n\003now\030\003 \001(\002H\002\210\001\001\022\025\n\010duration"
   "\030\004 \001(\002H\003\210\001\001\022)\n\005color\030\005 \001(\0132\025.wanderer.pr"
-  "oto.colorH\004\210\001\001B\013\n\t_positionB\017\n\r_accelera"
+  "oto.ColorH\004\210\001\001B\013\n\t_positionB\017\n\r_accelera"
   "tionB\006\n\004_nowB\013\n\t_durationB\010\n\006_colorb\006pro"
   "to3"
   ;
@@ -99,14 +99,14 @@ namespace proto {
 
 // ===================================================================
 
-class particle::_Internal {
+class Particle::_Internal {
  public:
-  using HasBits = decltype(std::declval<particle>()._has_bits_);
-  static const ::wanderer::proto::float3& position(const particle* msg);
+  using HasBits = decltype(std::declval<Particle>()._has_bits_);
+  static const ::wanderer::proto::float3& position(const Particle* msg);
   static void set_has_position(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
-  static const ::wanderer::proto::float3& acceleration(const particle* msg);
+  static const ::wanderer::proto::float3& acceleration(const Particle* msg);
   static void set_has_acceleration(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
@@ -116,46 +116,46 @@ class particle::_Internal {
   static void set_has_duration(HasBits* has_bits) {
     (*has_bits)[0] |= 16u;
   }
-  static const ::wanderer::proto::color& color(const particle* msg);
+  static const ::wanderer::proto::Color& color(const Particle* msg);
   static void set_has_color(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
   }
 };
 
 const ::wanderer::proto::float3&
-particle::_Internal::position(const particle* msg) {
+Particle::_Internal::position(const Particle* msg) {
   return *msg->position_;
 }
 const ::wanderer::proto::float3&
-particle::_Internal::acceleration(const particle* msg) {
+Particle::_Internal::acceleration(const Particle* msg) {
   return *msg->acceleration_;
 }
-const ::wanderer::proto::color&
-particle::_Internal::color(const particle* msg) {
+const ::wanderer::proto::Color&
+Particle::_Internal::color(const Particle* msg) {
   return *msg->color_;
 }
-void particle::clear_position() {
+void Particle::clear_position() {
   if (position_ != nullptr) position_->Clear();
   _has_bits_[0] &= ~0x00000001u;
 }
-void particle::clear_acceleration() {
+void Particle::clear_acceleration() {
   if (acceleration_ != nullptr) acceleration_->Clear();
   _has_bits_[0] &= ~0x00000002u;
 }
-void particle::clear_color() {
+void Particle::clear_color() {
   if (color_ != nullptr) color_->Clear();
   _has_bits_[0] &= ~0x00000004u;
 }
-particle::particle(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+Particle::Particle(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor();
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
   }
-  // @@protoc_insertion_point(arena_constructor:wanderer.proto.particle)
+  // @@protoc_insertion_point(arena_constructor:wanderer.proto.Particle)
 }
-particle::particle(const particle& from)
+Particle::Particle(const Particle& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
       _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
@@ -170,49 +170,49 @@ particle::particle(const particle& from)
     acceleration_ = nullptr;
   }
   if (from._internal_has_color()) {
-    color_ = new ::wanderer::proto::color(*from.color_);
+    color_ = new ::wanderer::proto::Color(*from.color_);
   } else {
     color_ = nullptr;
   }
   ::memcpy(&now_, &from.now_,
     static_cast<size_t>(reinterpret_cast<char*>(&duration_) -
     reinterpret_cast<char*>(&now_)) + sizeof(duration_));
-  // @@protoc_insertion_point(copy_constructor:wanderer.proto.particle)
+  // @@protoc_insertion_point(copy_constructor:wanderer.proto.Particle)
 }
 
-void particle::SharedCtor() {
+void Particle::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&position_) - reinterpret_cast<char*>(this)),
     0, static_cast<size_t>(reinterpret_cast<char*>(&duration_) -
     reinterpret_cast<char*>(&position_)) + sizeof(duration_));
 }
 
-particle::~particle() {
-  // @@protoc_insertion_point(destructor:wanderer.proto.particle)
+Particle::~Particle() {
+  // @@protoc_insertion_point(destructor:wanderer.proto.Particle)
   if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-inline void particle::SharedDtor() {
+inline void Particle::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete position_;
   if (this != internal_default_instance()) delete acceleration_;
   if (this != internal_default_instance()) delete color_;
 }
 
-void particle::ArenaDtor(void* object) {
-  particle* _this = reinterpret_cast< particle* >(object);
+void Particle::ArenaDtor(void* object) {
+  Particle* _this = reinterpret_cast< Particle* >(object);
   (void)_this;
 }
-void particle::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+void Particle::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 }
-void particle::SetCachedSize(int size) const {
+void Particle::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
 
-void particle::Clear() {
-// @@protoc_insertion_point(message_clear_start:wanderer.proto.particle)
+void Particle::Clear() {
+// @@protoc_insertion_point(message_clear_start:wanderer.proto.Particle)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -241,7 +241,7 @@ void particle::Clear() {
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* particle::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* Particle::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
@@ -282,7 +282,7 @@ const char* particle::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::i
         } else
           goto handle_unusual;
         continue;
-      // optional .wanderer.proto.color color = 5;
+      // optional .wanderer.proto.Color color = 5;
       case 5:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 42)) {
           ptr = ctx->ParseMessage(_internal_mutable_color(), ptr);
@@ -314,9 +314,9 @@ failure:
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* particle::_InternalSerialize(
+::PROTOBUF_NAMESPACE_ID::uint8* Particle::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:wanderer.proto.particle)
+  // @@protoc_insertion_point(serialize_to_array_start:wanderer.proto.Particle)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -348,7 +348,7 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(4, this->_internal_duration(), target);
   }
 
-  // optional .wanderer.proto.color color = 5;
+  // optional .wanderer.proto.Color color = 5;
   if (_internal_has_color()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
@@ -360,12 +360,12 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:wanderer.proto.particle)
+  // @@protoc_insertion_point(serialize_to_array_end:wanderer.proto.Particle)
   return target;
 }
 
-size_t particle::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:wanderer.proto.particle)
+size_t Particle::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:wanderer.proto.Particle)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -388,7 +388,7 @@ size_t particle::ByteSizeLong() const {
           *acceleration_);
     }
 
-    // optional .wanderer.proto.color color = 5;
+    // optional .wanderer.proto.Color color = 5;
     if (cached_has_bits & 0x00000004u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
@@ -409,21 +409,21 @@ size_t particle::ByteSizeLong() const {
   return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData particle::_class_data_ = {
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData Particle::_class_data_ = {
     ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    particle::MergeImpl
+    Particle::MergeImpl
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*particle::GetClassData() const { return &_class_data_; }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Particle::GetClassData() const { return &_class_data_; }
 
-void particle::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
+void Particle::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
                       const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<particle *>(to)->MergeFrom(
-      static_cast<const particle &>(from));
+  static_cast<Particle *>(to)->MergeFrom(
+      static_cast<const Particle &>(from));
 }
 
 
-void particle::MergeFrom(const particle& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:wanderer.proto.particle)
+void Particle::MergeFrom(const Particle& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:wanderer.proto.Particle)
   GOOGLE_DCHECK_NE(&from, this);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
@@ -437,7 +437,7 @@ void particle::MergeFrom(const particle& from) {
       _internal_mutable_acceleration()->::wanderer::proto::float3::MergeFrom(from._internal_acceleration());
     }
     if (cached_has_bits & 0x00000004u) {
-      _internal_mutable_color()->::wanderer::proto::color::MergeFrom(from._internal_color());
+      _internal_mutable_color()->::wanderer::proto::Color::MergeFrom(from._internal_color());
     }
     if (cached_has_bits & 0x00000008u) {
       now_ = from.now_;
@@ -450,30 +450,30 @@ void particle::MergeFrom(const particle& from) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void particle::CopyFrom(const particle& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:wanderer.proto.particle)
+void Particle::CopyFrom(const Particle& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:wanderer.proto.Particle)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool particle::IsInitialized() const {
+bool Particle::IsInitialized() const {
   return true;
 }
 
-void particle::InternalSwap(particle* other) {
+void Particle::InternalSwap(Particle* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(particle, duration_)
-      + sizeof(particle::duration_)
-      - PROTOBUF_FIELD_OFFSET(particle, position_)>(
+      PROTOBUF_FIELD_OFFSET(Particle, duration_)
+      + sizeof(Particle::duration_)
+      - PROTOBUF_FIELD_OFFSET(Particle, position_)>(
           reinterpret_cast<char*>(&position_),
           reinterpret_cast<char*>(&other->position_));
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata particle::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata Particle::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_particle_2eproto_getter, &descriptor_table_particle_2eproto_once,
       file_level_metadata_particle_2eproto[0]);
@@ -483,8 +483,8 @@ void particle::InternalSwap(particle* other) {
 }  // namespace proto
 }  // namespace wanderer
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::wanderer::proto::particle* Arena::CreateMaybeMessage< ::wanderer::proto::particle >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::wanderer::proto::particle >(arena);
+template<> PROTOBUF_NOINLINE ::wanderer::proto::Particle* Arena::CreateMaybeMessage< ::wanderer::proto::Particle >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::wanderer::proto::Particle >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

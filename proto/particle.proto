@@ -5,10 +5,10 @@ import "float3.proto";
 
 package wanderer.proto;
 
-message particle {
+message Particle {
   optional float3 position = 1;
   optional float3 acceleration = 2;
   optional float now = 3;
   optional float duration = 4;
-  optional color color = 5;
+  optional Color color = 5;
 }

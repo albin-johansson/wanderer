@@ -15,7 +15,7 @@ void LoadGame(entt::registry& shared, GraphicsContext& graphics, const std::stri
   const auto path = GetSavesDirectory() / name / "data.wanderer";
   std::ifstream stream{path, std::ios::in | std::ios::binary};
 
-  proto::save save;
+  proto::Save save;
   if (save.ParseFromIstream(&stream)) {
     RestoreSharedRegistry(shared, save);
   }

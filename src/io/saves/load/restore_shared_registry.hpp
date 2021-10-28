@@ -4,9 +4,9 @@
 
 namespace wanderer {
 namespace proto {
-class save;
+class Save;
 }  // namespace proto
 
-void RestoreSharedRegistry(entt::registry& shared, const proto::save& save);
+void RestoreSharedRegistry(entt::registry& shared, const proto::Save& save);
 
 }  // namespace wanderer

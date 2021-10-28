@@ -18,18 +18,18 @@
 PROTOBUF_PRAGMA_INIT_SEG
 namespace wanderer {
 namespace proto {
-constexpr tile_object::tile_object(
+constexpr TileObject::TileObject(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : tile_entity_(0u){}
-struct tile_objectDefaultTypeInternal {
-  constexpr tile_objectDefaultTypeInternal()
+struct TileObjectDefaultTypeInternal {
+  constexpr TileObjectDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~tile_objectDefaultTypeInternal() {}
+  ~TileObjectDefaultTypeInternal() {}
   union {
-    tile_object _instance;
+    TileObject _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT tile_objectDefaultTypeInternal _tile_object_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT TileObjectDefaultTypeInternal _TileObject_default_instance_;
 }  // namespace proto
 }  // namespace wanderer
 static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_tile_5fobject_2eproto[1];
@@ -37,31 +37,31 @@ static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_tile_5fobject_2eproto = nullptr;
 
 const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_tile_5fobject_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::tile_object, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::tile_object, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::TileObject, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::TileObject, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::tile_object, tile_entity_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::TileObject, tile_entity_),
   0,
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, 7, -1, sizeof(::wanderer::proto::tile_object)},
+  { 0, 7, -1, sizeof(::wanderer::proto::TileObject)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_tile_object_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_TileObject_default_instance_),
 };
 
 const char descriptor_table_protodef_tile_5fobject_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\021tile_object.proto\022\016wanderer.proto\"7\n\013t"
-  "ile_object\022\030\n\013tile_entity\030\001 \001(\rH\000\210\001\001B\016\n\014"
-  "_tile_entityb\006proto3"
+  "\n\021tile_object.proto\022\016wanderer.proto\"6\n\nT"
+  "ileObject\022\030\n\013tile_entity\030\001 \001(\rH\000\210\001\001B\016\n\014_"
+  "tile_entityb\006proto3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_tile_5fobject_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_tile_5fobject_2eproto = {
-  false, false, 100, descriptor_table_protodef_tile_5fobject_2eproto, "tile_object.proto", 
+  false, false, 99, descriptor_table_protodef_tile_5fobject_2eproto, "tile_object.proto", 
   &descriptor_table_tile_5fobject_2eproto_once, nullptr, 0, 1,
   schemas, file_default_instances, TableStruct_tile_5fobject_2eproto::offsets,
   file_level_metadata_tile_5fobject_2eproto, file_level_enum_descriptors_tile_5fobject_2eproto, file_level_service_descriptors_tile_5fobject_2eproto,
@@ -77,58 +77,58 @@ namespace proto {
 
 // ===================================================================
 
-class tile_object::_Internal {
+class TileObject::_Internal {
  public:
-  using HasBits = decltype(std::declval<tile_object>()._has_bits_);
+  using HasBits = decltype(std::declval<TileObject>()._has_bits_);
   static void set_has_tile_entity(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
 
-tile_object::tile_object(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+TileObject::TileObject(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor();
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
   }
-  // @@protoc_insertion_point(arena_constructor:wanderer.proto.tile_object)
+  // @@protoc_insertion_point(arena_constructor:wanderer.proto.TileObject)
 }
-tile_object::tile_object(const tile_object& from)
+TileObject::TileObject(const TileObject& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
       _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   tile_entity_ = from.tile_entity_;
-  // @@protoc_insertion_point(copy_constructor:wanderer.proto.tile_object)
+  // @@protoc_insertion_point(copy_constructor:wanderer.proto.TileObject)
 }
 
-void tile_object::SharedCtor() {
+void TileObject::SharedCtor() {
 tile_entity_ = 0u;
 }
 
-tile_object::~tile_object() {
-  // @@protoc_insertion_point(destructor:wanderer.proto.tile_object)
+TileObject::~TileObject() {
+  // @@protoc_insertion_point(destructor:wanderer.proto.TileObject)
   if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-inline void tile_object::SharedDtor() {
+inline void TileObject::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void tile_object::ArenaDtor(void* object) {
-  tile_object* _this = reinterpret_cast< tile_object* >(object);
+void TileObject::ArenaDtor(void* object) {
+  TileObject* _this = reinterpret_cast< TileObject* >(object);
   (void)_this;
 }
-void tile_object::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+void TileObject::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 }
-void tile_object::SetCachedSize(int size) const {
+void TileObject::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
 
-void tile_object::Clear() {
-// @@protoc_insertion_point(message_clear_start:wanderer.proto.tile_object)
+void TileObject::Clear() {
+// @@protoc_insertion_point(message_clear_start:wanderer.proto.TileObject)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -138,7 +138,7 @@ void tile_object::Clear() {
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* tile_object::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* TileObject::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
@@ -178,9 +178,9 @@ failure:
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* tile_object::_InternalSerialize(
+::PROTOBUF_NAMESPACE_ID::uint8* TileObject::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:wanderer.proto.tile_object)
+  // @@protoc_insertion_point(serialize_to_array_start:wanderer.proto.TileObject)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -194,12 +194,12 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:wanderer.proto.tile_object)
+  // @@protoc_insertion_point(serialize_to_array_end:wanderer.proto.TileObject)
   return target;
 }
 
-size_t tile_object::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:wanderer.proto.tile_object)
+size_t TileObject::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:wanderer.proto.TileObject)
   size_t total_size = 0;
 
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
@@ -215,21 +215,21 @@ size_t tile_object::ByteSizeLong() const {
   return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData tile_object::_class_data_ = {
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData TileObject::_class_data_ = {
     ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    tile_object::MergeImpl
+    TileObject::MergeImpl
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*tile_object::GetClassData() const { return &_class_data_; }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*TileObject::GetClassData() const { return &_class_data_; }
 
-void tile_object::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
+void TileObject::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
                       const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<tile_object *>(to)->MergeFrom(
-      static_cast<const tile_object &>(from));
+  static_cast<TileObject *>(to)->MergeFrom(
+      static_cast<const TileObject &>(from));
 }
 
 
-void tile_object::MergeFrom(const tile_object& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:wanderer.proto.tile_object)
+void TileObject::MergeFrom(const TileObject& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:wanderer.proto.TileObject)
   GOOGLE_DCHECK_NE(&from, this);
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
@@ -240,25 +240,25 @@ void tile_object::MergeFrom(const tile_object& from) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void tile_object::CopyFrom(const tile_object& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:wanderer.proto.tile_object)
+void TileObject::CopyFrom(const TileObject& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:wanderer.proto.TileObject)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool tile_object::IsInitialized() const {
+bool TileObject::IsInitialized() const {
   return true;
 }
 
-void tile_object::InternalSwap(tile_object* other) {
+void TileObject::InternalSwap(TileObject* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
   swap(tile_entity_, other->tile_entity_);
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata tile_object::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata TileObject::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_tile_5fobject_2eproto_getter, &descriptor_table_tile_5fobject_2eproto_once,
       file_level_metadata_tile_5fobject_2eproto[0]);
@@ -268,8 +268,8 @@ void tile_object::InternalSwap(tile_object* other) {
 }  // namespace proto
 }  // namespace wanderer
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::wanderer::proto::tile_object* Arena::CreateMaybeMessage< ::wanderer::proto::tile_object >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::wanderer::proto::tile_object >(arena);
+template<> PROTOBUF_NOINLINE ::wanderer::proto::TileObject* Arena::CreateMaybeMessage< ::wanderer::proto::TileObject >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::wanderer::proto::TileObject >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 
