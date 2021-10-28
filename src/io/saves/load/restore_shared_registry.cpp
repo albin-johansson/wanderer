@@ -7,7 +7,7 @@
 #include "components/physics/hitbox.hpp"
 #include "components/physics/movable.hpp"
 #include "components/player.hpp"
-#include "components/tiles/tilemap.hpp"
+#include "components/tilemap.hpp"
 #include "components/tiles/tileset.hpp"
 #include "components/time_of_day.hpp"
 #include "components/viewport.hpp"
@@ -31,7 +31,7 @@ void RestoreSharedData(entt::registry& shared, const proto::shared_data& data)
 
 void AddLevelSize(comp::Level& level)
 {
-  const auto& tilemap = level.registry.get<comp::Tilemap>(level.tilemap);
+  const auto& tilemap = level.registry.ctx<comp::Tilemap>();
   auto& size = level.registry.set<ctx::LevelSize>();
   size.row_count = tilemap.row_count;
   size.col_count = tilemap.col_count;
@@ -39,7 +39,7 @@ void AddLevelSize(comp::Level& level)
 
 void AddViewport(comp::Level& level)
 {
-  const auto& tilemap = level.registry.get<comp::Tilemap>(level.tilemap);
+  const auto& tilemap = level.registry.ctx<comp::Tilemap>();
   level.registry.set<ctx::Viewport>(sys::MakeViewport(tilemap.size));
 }
 
@@ -88,7 +88,6 @@ void RestoreSharedRegistry(entt::registry& shared, const proto::save& save)
 
     level.tree.disable_thickness_factor();
     level.registry = RestoreLevelRegistry(data);
-    level.tilemap = singleton_entity<comp::Tilemap>(level.registry);
     level.tileset = singleton_entity<comp::Tileset>(level.registry);
 
     // TODO maybe<float2> player_spawn_position;

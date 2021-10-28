@@ -51,7 +51,6 @@
 #include "tile_layer.pb.h"
 #include "tile.pb.h"
 #include "tile_object.pb.h"
-#include "tilemap.pb.h"
 #include "tileset.pb.h"
 #include "time_of_day.pb.h"
 #include "trigger.pb.h"
@@ -70,7 +69,7 @@ struct TableStruct_save_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[23]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[22]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -130,9 +129,6 @@ extern level_TileLayersEntry_DoNotUseDefaultTypeInternal _level_TileLayersEntry_
 class level_TileObjectsEntry_DoNotUse;
 struct level_TileObjectsEntry_DoNotUseDefaultTypeInternal;
 extern level_TileObjectsEntry_DoNotUseDefaultTypeInternal _level_TileObjectsEntry_DoNotUse_default_instance_;
-class level_TilemapsEntry_DoNotUse;
-struct level_TilemapsEntry_DoNotUseDefaultTypeInternal;
-extern level_TilemapsEntry_DoNotUseDefaultTypeInternal _level_TilemapsEntry_DoNotUse_default_instance_;
 class level_TilesEntry_DoNotUse;
 struct level_TilesEntry_DoNotUseDefaultTypeInternal;
 extern level_TilesEntry_DoNotUseDefaultTypeInternal _level_TilesEntry_DoNotUse_default_instance_;
@@ -168,7 +164,6 @@ template<> ::wanderer::proto::level_SpawnpointsEntry_DoNotUse* Arena::CreateMayb
 template<> ::wanderer::proto::level_TileAnimationsEntry_DoNotUse* Arena::CreateMaybeMessage<::wanderer::proto::level_TileAnimationsEntry_DoNotUse>(Arena*);
 template<> ::wanderer::proto::level_TileLayersEntry_DoNotUse* Arena::CreateMaybeMessage<::wanderer::proto::level_TileLayersEntry_DoNotUse>(Arena*);
 template<> ::wanderer::proto::level_TileObjectsEntry_DoNotUse* Arena::CreateMaybeMessage<::wanderer::proto::level_TileObjectsEntry_DoNotUse>(Arena*);
-template<> ::wanderer::proto::level_TilemapsEntry_DoNotUse* Arena::CreateMaybeMessage<::wanderer::proto::level_TilemapsEntry_DoNotUse>(Arena*);
 template<> ::wanderer::proto::level_TilesEntry_DoNotUse* Arena::CreateMaybeMessage<::wanderer::proto::level_TilesEntry_DoNotUse>(Arena*);
 template<> ::wanderer::proto::level_TilesetsEntry_DoNotUse* Arena::CreateMaybeMessage<::wanderer::proto::level_TilesetsEntry_DoNotUse>(Arena*);
 template<> ::wanderer::proto::level_TriggersEntry_DoNotUse* Arena::CreateMaybeMessage<::wanderer::proto::level_TriggersEntry_DoNotUse>(Arena*);
@@ -287,29 +282,6 @@ public:
   explicit level_TilesEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   void MergeFrom(const level_TilesEntry_DoNotUse& other);
   static const level_TilesEntry_DoNotUse* internal_default_instance() { return reinterpret_cast<const level_TilesEntry_DoNotUse*>(&_level_TilesEntry_DoNotUse_default_instance_); }
-  static bool ValidateKey(void*) { return true; }
-  static bool ValidateValue(void*) { return true; }
-  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-};
-
-// -------------------------------------------------------------------
-
-class level_TilemapsEntry_DoNotUse : public ::PROTOBUF_NAMESPACE_ID::internal::MapEntry<level_TilemapsEntry_DoNotUse, 
-    ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::tilemap,
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_UINT32,
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_MESSAGE> {
-public:
-  typedef ::PROTOBUF_NAMESPACE_ID::internal::MapEntry<level_TilemapsEntry_DoNotUse, 
-    ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::tilemap,
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_UINT32,
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_MESSAGE> SuperType;
-  level_TilemapsEntry_DoNotUse();
-  explicit constexpr level_TilemapsEntry_DoNotUse(
-      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-  explicit level_TilemapsEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
-  void MergeFrom(const level_TilemapsEntry_DoNotUse& other);
-  static const level_TilemapsEntry_DoNotUse* internal_default_instance() { return reinterpret_cast<const level_TilemapsEntry_DoNotUse*>(&_level_TilemapsEntry_DoNotUse_default_instance_); }
   static bool ValidateKey(void*) { return true; }
   static bool ValidateValue(void*) { return true; }
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
@@ -688,7 +660,7 @@ class level final :
                &_level_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    20;
+    19;
 
   friend void swap(level& a, level& b) {
     a.Swap(&b);
@@ -766,7 +738,6 @@ class level final :
     kAnimationsFieldNumber = 5,
     kPlantsFieldNumber = 6,
     kTilesFieldNumber = 7,
-    kTilemapsFieldNumber = 8,
     kTileAnimationsFieldNumber = 9,
     kChasesFieldNumber = 10,
     kParticlesFieldNumber = 11,
@@ -784,6 +755,11 @@ class level final :
     kHumanoidsFieldNumber = 51,
     kIdFieldNumber = 1,
     kPlayerEntityFieldNumber = 50,
+    kRowCountFieldNumber = 53,
+    kHumanoidLayerIndexFieldNumber = 52,
+    kWidthFieldNumber = 55,
+    kColumnCountFieldNumber = 54,
+    kHeightFieldNumber = 56,
     kKeepViewportInBoundsFieldNumber = 100,
     kIsOutsideLevelFieldNumber = 101,
   };
@@ -893,23 +869,6 @@ class level final :
       tiles() const;
   ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::tile >*
       mutable_tiles();
-
-  // map<uint32, .wanderer.proto.tilemap> tilemaps = 8;
-  int tilemaps_size() const;
-  private:
-  int _internal_tilemaps_size() const;
-  public:
-  void clear_tilemaps();
-  private:
-  const ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::tilemap >&
-      _internal_tilemaps() const;
-  ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::tilemap >*
-      _internal_mutable_tilemaps();
-  public:
-  const ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::tilemap >&
-      tilemaps() const;
-  ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::tilemap >*
-      mutable_tilemaps();
 
   // map<uint32, .wanderer.proto.tile_animation> tile_animations = 9;
   int tile_animations_size() const;
@@ -1197,6 +1156,71 @@ class level final :
   void _internal_set_player_entity(::PROTOBUF_NAMESPACE_ID::uint32 value);
   public:
 
+  // optional uint64 row_count = 53;
+  bool has_row_count() const;
+  private:
+  bool _internal_has_row_count() const;
+  public:
+  void clear_row_count();
+  ::PROTOBUF_NAMESPACE_ID::uint64 row_count() const;
+  void set_row_count(::PROTOBUF_NAMESPACE_ID::uint64 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint64 _internal_row_count() const;
+  void _internal_set_row_count(::PROTOBUF_NAMESPACE_ID::uint64 value);
+  public:
+
+  // optional int32 humanoid_layer_index = 52;
+  bool has_humanoid_layer_index() const;
+  private:
+  bool _internal_has_humanoid_layer_index() const;
+  public:
+  void clear_humanoid_layer_index();
+  ::PROTOBUF_NAMESPACE_ID::int32 humanoid_layer_index() const;
+  void set_humanoid_layer_index(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_humanoid_layer_index() const;
+  void _internal_set_humanoid_layer_index(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // optional float width = 55;
+  bool has_width() const;
+  private:
+  bool _internal_has_width() const;
+  public:
+  void clear_width();
+  float width() const;
+  void set_width(float value);
+  private:
+  float _internal_width() const;
+  void _internal_set_width(float value);
+  public:
+
+  // optional uint64 column_count = 54;
+  bool has_column_count() const;
+  private:
+  bool _internal_has_column_count() const;
+  public:
+  void clear_column_count();
+  ::PROTOBUF_NAMESPACE_ID::uint64 column_count() const;
+  void set_column_count(::PROTOBUF_NAMESPACE_ID::uint64 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint64 _internal_column_count() const;
+  void _internal_set_column_count(::PROTOBUF_NAMESPACE_ID::uint64 value);
+  public:
+
+  // optional float height = 56;
+  bool has_height() const;
+  private:
+  bool _internal_has_height() const;
+  public:
+  void clear_height();
+  float height() const;
+  void set_height(float value);
+  private:
+  float _internal_height() const;
+  void _internal_set_height(float value);
+  public:
+
   // optional bool keep_viewport_in_bounds = 100;
   bool has_keep_viewport_in_bounds() const;
   private:
@@ -1259,11 +1283,6 @@ class level final :
       ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::tile,
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_UINT32,
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_MESSAGE> tiles_;
-  ::PROTOBUF_NAMESPACE_ID::internal::MapField<
-      level_TilemapsEntry_DoNotUse,
-      ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::tilemap,
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_UINT32,
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_MESSAGE> tilemaps_;
   ::PROTOBUF_NAMESPACE_ID::internal::MapField<
       level_TileAnimationsEntry_DoNotUse,
       ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::tile_animation,
@@ -1338,6 +1357,11 @@ class level final :
   mutable std::atomic<int> _humanoids_cached_byte_size_;
   ::PROTOBUF_NAMESPACE_ID::int32 id_;
   ::PROTOBUF_NAMESPACE_ID::uint32 player_entity_;
+  ::PROTOBUF_NAMESPACE_ID::uint64 row_count_;
+  ::PROTOBUF_NAMESPACE_ID::int32 humanoid_layer_index_;
+  float width_;
+  ::PROTOBUF_NAMESPACE_ID::uint64 column_count_;
+  float height_;
   bool keep_viewport_in_bounds_;
   bool is_outside_level_;
   friend struct ::TableStruct_save_2eproto;
@@ -1392,7 +1416,7 @@ class shared_data final :
                &_shared_data_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    21;
+    20;
 
   friend void swap(shared_data& a, shared_data& b) {
     a.Swap(&b);
@@ -1545,7 +1569,7 @@ class save final :
                &_save_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    22;
+    21;
 
   friend void swap(save& a, save& b) {
     a.Swap(&b);
@@ -1692,8 +1716,6 @@ class save final :
   #pragma GCC diagnostic push
   #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
-// -------------------------------------------------------------------
-
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
@@ -1937,32 +1959,6 @@ inline ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer
 level::mutable_tiles() {
   // @@protoc_insertion_point(field_mutable_map:wanderer.proto.level.tiles)
   return _internal_mutable_tiles();
-}
-
-// map<uint32, .wanderer.proto.tilemap> tilemaps = 8;
-inline int level::_internal_tilemaps_size() const {
-  return tilemaps_.size();
-}
-inline int level::tilemaps_size() const {
-  return _internal_tilemaps_size();
-}
-inline const ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::tilemap >&
-level::_internal_tilemaps() const {
-  return tilemaps_.GetMap();
-}
-inline const ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::tilemap >&
-level::tilemaps() const {
-  // @@protoc_insertion_point(field_map:wanderer.proto.level.tilemaps)
-  return _internal_tilemaps();
-}
-inline ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::tilemap >*
-level::_internal_mutable_tilemaps() {
-  return tilemaps_.MutableMap();
-}
-inline ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::tilemap >*
-level::mutable_tilemaps() {
-  // @@protoc_insertion_point(field_mutable_map:wanderer.proto.level.tilemaps)
-  return _internal_mutable_tilemaps();
 }
 
 // map<uint32, .wanderer.proto.tile_animation> tile_animations = 9;
@@ -2404,9 +2400,149 @@ level::mutable_humanoids() {
   return _internal_mutable_humanoids();
 }
 
+// optional int32 humanoid_layer_index = 52;
+inline bool level::_internal_has_humanoid_layer_index() const {
+  bool value = (_has_bits_[0] & 0x00000008u) != 0;
+  return value;
+}
+inline bool level::has_humanoid_layer_index() const {
+  return _internal_has_humanoid_layer_index();
+}
+inline void level::clear_humanoid_layer_index() {
+  humanoid_layer_index_ = 0;
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 level::_internal_humanoid_layer_index() const {
+  return humanoid_layer_index_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 level::humanoid_layer_index() const {
+  // @@protoc_insertion_point(field_get:wanderer.proto.level.humanoid_layer_index)
+  return _internal_humanoid_layer_index();
+}
+inline void level::_internal_set_humanoid_layer_index(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _has_bits_[0] |= 0x00000008u;
+  humanoid_layer_index_ = value;
+}
+inline void level::set_humanoid_layer_index(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_humanoid_layer_index(value);
+  // @@protoc_insertion_point(field_set:wanderer.proto.level.humanoid_layer_index)
+}
+
+// optional uint64 row_count = 53;
+inline bool level::_internal_has_row_count() const {
+  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  return value;
+}
+inline bool level::has_row_count() const {
+  return _internal_has_row_count();
+}
+inline void level::clear_row_count() {
+  row_count_ = uint64_t{0u};
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint64 level::_internal_row_count() const {
+  return row_count_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint64 level::row_count() const {
+  // @@protoc_insertion_point(field_get:wanderer.proto.level.row_count)
+  return _internal_row_count();
+}
+inline void level::_internal_set_row_count(::PROTOBUF_NAMESPACE_ID::uint64 value) {
+  _has_bits_[0] |= 0x00000004u;
+  row_count_ = value;
+}
+inline void level::set_row_count(::PROTOBUF_NAMESPACE_ID::uint64 value) {
+  _internal_set_row_count(value);
+  // @@protoc_insertion_point(field_set:wanderer.proto.level.row_count)
+}
+
+// optional uint64 column_count = 54;
+inline bool level::_internal_has_column_count() const {
+  bool value = (_has_bits_[0] & 0x00000020u) != 0;
+  return value;
+}
+inline bool level::has_column_count() const {
+  return _internal_has_column_count();
+}
+inline void level::clear_column_count() {
+  column_count_ = uint64_t{0u};
+  _has_bits_[0] &= ~0x00000020u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint64 level::_internal_column_count() const {
+  return column_count_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint64 level::column_count() const {
+  // @@protoc_insertion_point(field_get:wanderer.proto.level.column_count)
+  return _internal_column_count();
+}
+inline void level::_internal_set_column_count(::PROTOBUF_NAMESPACE_ID::uint64 value) {
+  _has_bits_[0] |= 0x00000020u;
+  column_count_ = value;
+}
+inline void level::set_column_count(::PROTOBUF_NAMESPACE_ID::uint64 value) {
+  _internal_set_column_count(value);
+  // @@protoc_insertion_point(field_set:wanderer.proto.level.column_count)
+}
+
+// optional float width = 55;
+inline bool level::_internal_has_width() const {
+  bool value = (_has_bits_[0] & 0x00000010u) != 0;
+  return value;
+}
+inline bool level::has_width() const {
+  return _internal_has_width();
+}
+inline void level::clear_width() {
+  width_ = 0;
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline float level::_internal_width() const {
+  return width_;
+}
+inline float level::width() const {
+  // @@protoc_insertion_point(field_get:wanderer.proto.level.width)
+  return _internal_width();
+}
+inline void level::_internal_set_width(float value) {
+  _has_bits_[0] |= 0x00000010u;
+  width_ = value;
+}
+inline void level::set_width(float value) {
+  _internal_set_width(value);
+  // @@protoc_insertion_point(field_set:wanderer.proto.level.width)
+}
+
+// optional float height = 56;
+inline bool level::_internal_has_height() const {
+  bool value = (_has_bits_[0] & 0x00000040u) != 0;
+  return value;
+}
+inline bool level::has_height() const {
+  return _internal_has_height();
+}
+inline void level::clear_height() {
+  height_ = 0;
+  _has_bits_[0] &= ~0x00000040u;
+}
+inline float level::_internal_height() const {
+  return height_;
+}
+inline float level::height() const {
+  // @@protoc_insertion_point(field_get:wanderer.proto.level.height)
+  return _internal_height();
+}
+inline void level::_internal_set_height(float value) {
+  _has_bits_[0] |= 0x00000040u;
+  height_ = value;
+}
+inline void level::set_height(float value) {
+  _internal_set_height(value);
+  // @@protoc_insertion_point(field_set:wanderer.proto.level.height)
+}
+
 // optional bool keep_viewport_in_bounds = 100;
 inline bool level::_internal_has_keep_viewport_in_bounds() const {
-  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  bool value = (_has_bits_[0] & 0x00000080u) != 0;
   return value;
 }
 inline bool level::has_keep_viewport_in_bounds() const {
@@ -2414,7 +2550,7 @@ inline bool level::has_keep_viewport_in_bounds() const {
 }
 inline void level::clear_keep_viewport_in_bounds() {
   keep_viewport_in_bounds_ = false;
-  _has_bits_[0] &= ~0x00000004u;
+  _has_bits_[0] &= ~0x00000080u;
 }
 inline bool level::_internal_keep_viewport_in_bounds() const {
   return keep_viewport_in_bounds_;
@@ -2424,7 +2560,7 @@ inline bool level::keep_viewport_in_bounds() const {
   return _internal_keep_viewport_in_bounds();
 }
 inline void level::_internal_set_keep_viewport_in_bounds(bool value) {
-  _has_bits_[0] |= 0x00000004u;
+  _has_bits_[0] |= 0x00000080u;
   keep_viewport_in_bounds_ = value;
 }
 inline void level::set_keep_viewport_in_bounds(bool value) {
@@ -2434,7 +2570,7 @@ inline void level::set_keep_viewport_in_bounds(bool value) {
 
 // optional bool is_outside_level = 101;
 inline bool level::_internal_has_is_outside_level() const {
-  bool value = (_has_bits_[0] & 0x00000008u) != 0;
+  bool value = (_has_bits_[0] & 0x00000100u) != 0;
   return value;
 }
 inline bool level::has_is_outside_level() const {
@@ -2442,7 +2578,7 @@ inline bool level::has_is_outside_level() const {
 }
 inline void level::clear_is_outside_level() {
   is_outside_level_ = false;
-  _has_bits_[0] &= ~0x00000008u;
+  _has_bits_[0] &= ~0x00000100u;
 }
 inline bool level::_internal_is_outside_level() const {
   return is_outside_level_;
@@ -2452,7 +2588,7 @@ inline bool level::is_outside_level() const {
   return _internal_is_outside_level();
 }
 inline void level::_internal_set_is_outside_level(bool value) {
-  _has_bits_[0] |= 0x00000008u;
+  _has_bits_[0] |= 0x00000100u;
   is_outside_level_ = value;
 }
 inline void level::set_is_outside_level(bool value) {
@@ -2717,8 +2853,6 @@ save::levels() const {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
-// -------------------------------------------------------------------
-
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

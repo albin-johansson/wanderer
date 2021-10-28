@@ -23,7 +23,7 @@
 #include "components/tiles/tile.hpp"
 #include "components/tiles/tile_layer.hpp"
 #include "components/tiles/tile_object.hpp"
-#include "components/tiles/tilemap.hpp"
+#include "components/tilemap.hpp"
 #include "components/tiles/tileset.hpp"
 #include "components/trigger.hpp"
 #include "wanderer_std.hpp"
@@ -248,28 +248,6 @@ void RestoreTile(const proto::level& level, entt::registry& registry, entt::enti
   }
 }
 
-void RestoreTilemap(const proto::level& level,
-                    entt::registry& registry,
-                    entt::entity entity)
-{
-  const auto& tilemaps = level.tilemaps();
-  if (const auto it = tilemaps.find(entt::to_integral(entity)); it != tilemaps.end()) {
-    const auto& data = it->second;
-    assert(data.has_id());
-    assert(data.has_humanoid_layer_index());
-    assert(data.has_size());
-    assert(data.has_row_count());
-    assert(data.has_column_count());
-
-    auto& tilemap = registry.emplace<comp::Tilemap>(entity);
-    tilemap.id = MapID{data.id()};
-    tilemap.humanoid_layer = data.humanoid_layer_index();
-    tilemap.size = Restore(data.size());
-    tilemap.row_count = data.row_count();
-    tilemap.col_count = data.column_count();
-  }
-}
-
 void RestoreTileAnimations(const proto::level& level,
                            entt::registry& registry,
                            entt::entity entity)
@@ -382,6 +360,8 @@ void RestoreHitbox(const proto::level& level,
                    entt::registry& registry,
                    entt::entity entity)
 {
+  // TODO investigate restored hitboxes, e.g. cauldron
+
   const auto& hitboxes = level.hitboxes();
   if (const auto it = hitboxes.find(entt::to_integral(entity)); it != hitboxes.end()) {
     const auto& data = it->second;

@@ -17,7 +17,6 @@ import "tile_animation.proto";
 import "tile_layer.proto";
 import "tile.proto";
 import "tile_object.proto";
-import "tilemap.proto";
 import "tileset.proto";
 import "time_of_day.proto";
 import "trigger.proto";
@@ -25,6 +24,7 @@ import "trigger.proto";
 package wanderer.proto;
 
 message level {
+
   optional int32 id = 1;
   repeated uint32 entities = 2 [packed = true];
 
@@ -33,8 +33,10 @@ message level {
   map<uint32, animation> animations = 5;
   map<uint32, plant> plants = 6;
   map<uint32, tile> tiles = 7;
-  map<uint32, tilemap> tilemaps = 8;
   map<uint32, tile_animation> tile_animations = 9;
+
+  // 8 is available
+
   map<uint32, chase> chases = 10;
   map<uint32, particle> particles = 11;
   map<uint32, point_light> lights = 12;
@@ -51,6 +53,12 @@ message level {
 
   optional uint32 player_entity = 50;
   repeated uint32 humanoids = 51 [packed = true];
+
+  optional int32 humanoid_layer_index = 52;
+  optional uint64 row_count = 53;
+  optional uint64 column_count = 54;
+  optional float width = 55;
+  optional float height = 56;
 
   optional bool keep_viewport_in_bounds = 100;
   optional bool is_outside_level = 101;

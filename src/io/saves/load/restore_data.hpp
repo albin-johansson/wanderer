@@ -55,10 +55,6 @@ void RestoreTile(const proto::level& level,
                  entt::registry& registry,
                  entt::entity entity);
 
-void RestoreTilemap(const proto::level& level,
-                    entt::registry& registry,
-                    entt::entity entity);
-
 void RestoreTileAnimations(const proto::level& level,
                            entt::registry& registry,
                            entt::entity entity);

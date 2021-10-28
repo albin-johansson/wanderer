@@ -14,7 +14,7 @@
 #include "components/object.hpp"
 #include "components/physics/hitbox.hpp"
 #include "components/plant.hpp"
-#include "components/tiles/tilemap.hpp"
+#include "components/tilemap.hpp"
 #include "components/trigger.hpp"
 #include "create_tileset.hpp"
 #include "hitboxes.hpp"
@@ -219,7 +219,7 @@ void LoadPlant(const Tactile::IO::Map& irMap,
   const auto y = Tactile::IO::GetY(irObject) * ratio.y;
   const auto width = Tactile::IO::GetWidth(irObject) * ratio.x;
   const auto height = Tactile::IO::GetHeight(irObject) * ratio.y;
-  const auto& tilemap = registry.get<comp::Tilemap>(level.tilemap);
+  const auto& tilemap = registry.ctx<comp::Tilemap>();
 
   plant.base_y = y;
 

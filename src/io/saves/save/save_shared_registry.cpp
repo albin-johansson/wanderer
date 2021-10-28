@@ -24,10 +24,10 @@
 #include "components/physics/vector3.hpp"
 #include "components/plant.hpp"
 #include "components/player.hpp"
+#include "components/tilemap.hpp"
 #include "components/tiles/tile.hpp"
 #include "components/tiles/tile_layer.hpp"
 #include "components/tiles/tile_object.hpp"
-#include "components/tiles/tilemap.hpp"
 #include "components/tiles/tileset.hpp"
 #include "components/time_of_day.hpp"
 #include "components/trigger.hpp"
@@ -140,15 +140,6 @@ void CopyTo(const comp::Tile& src, proto::tile& dst)
   dst.set_id(src.id);
   dst.set_texture_index(src.texture);
   dst.set_depth_index(src.depth);
-}
-
-void CopyTo(const comp::Tilemap& src, proto::tilemap& dst)
-{
-  CopyTo(src.size, dst.mutable_size());
-  dst.set_id(src.id);
-  dst.set_humanoid_layer_index(src.humanoid_layer);
-  dst.set_row_count(src.row_count);
-  dst.set_column_count(src.col_count);
 }
 
 void CopyTo(const comp::TileAnimation& src, proto::tile_animation& dst)
@@ -264,8 +255,15 @@ void CopyTo(const comp::AssociatedEntity& src, proto::associated_entity& dst)
   dst.set_entity(entt::to_integral(src.entity));
 }
 
-void save_level(const entt::registry& registry, proto::level* data)  // NOLINT
+void SaveLevel(const entt::registry& registry, proto::level* data)  // NOLINT complexity
 {
+  const auto& tilemap = registry.ctx<comp::Tilemap>();
+  data->set_humanoid_layer_index(tilemap.humanoid_layer);
+  data->set_row_count(tilemap.row_count);
+  data->set_column_count(tilemap.col_count);
+  data->set_width(tilemap.size.width);
+  data->set_height(tilemap.size.height);
+
   registry.each([&](const entt::entity entity) {
     const auto value = entt::to_integral(entity);
     data->add_entities(value);
@@ -297,10 +295,6 @@ void save_level(const entt::registry& registry, proto::level* data)  // NOLINT
 
     if (const auto* tile = registry.try_get<comp::Tile>(entity)) {
       CopyTo(*tile, (*data->mutable_tiles())[value]);
-    }
-
-    if (const auto* tilemap = registry.try_get<comp::Tilemap>(entity)) {
-      CopyTo(*tilemap, (*data->mutable_tilemaps())[value]);
     }
 
     if (const auto* animation = registry.try_get<comp::TileAnimation>(entity)) {
@@ -378,7 +372,7 @@ void SaveData(const entt::registry& shared, proto::save& save)
     auto* data = save.add_levels();
     data->set_id(level.id);
     data->set_is_outside_level(shared.all_of<comp::OutsideLevel>(entity));
-    save_level(level.registry, data);
+    SaveLevel(level.registry, data);
   }
 }
 

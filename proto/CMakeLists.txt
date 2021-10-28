@@ -49,8 +49,6 @@ set(GENERATED_FILES
     generated/tile_layer.pb.h
     generated/tile_object.pb.cc
     generated/tile_object.pb.h
-    generated/tilemap.pb.cc
-    generated/tilemap.pb.h
     generated/tileset.pb.cc
     generated/tileset.pb.h
     generated/time_of_day.pb.cc

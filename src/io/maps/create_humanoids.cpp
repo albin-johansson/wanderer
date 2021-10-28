@@ -3,7 +3,7 @@
 #include "components/ai/humanoid.hpp"
 #include "components/gfx/drawable.hpp"
 #include "components/lvl/spawnpoint.hpp"
-#include "components/tiles/tilemap.hpp"
+#include "components/tilemap.hpp"
 #include "systems/ai/humanoid/humanoid_factory_system.hpp"
 
 namespace wanderer {
@@ -28,7 +28,7 @@ void CreateHumanoids(const Tactile::IO::Map& irMap,
     }
   }
 
-  const auto& tilemap = level.registry.get<comp::Tilemap>(level.tilemap);
+  const auto& tilemap = level.registry.ctx<comp::Tilemap>();
   for (auto&& [entity, drawable] :
        level.registry.view<comp::Drawable, comp::Humanoid>().each())
   {

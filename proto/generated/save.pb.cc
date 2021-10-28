@@ -73,17 +73,6 @@ struct level_TilesEntry_DoNotUseDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT level_TilesEntry_DoNotUseDefaultTypeInternal _level_TilesEntry_DoNotUse_default_instance_;
-constexpr level_TilemapsEntry_DoNotUse::level_TilemapsEntry_DoNotUse(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized){}
-struct level_TilemapsEntry_DoNotUseDefaultTypeInternal {
-  constexpr level_TilemapsEntry_DoNotUseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~level_TilemapsEntry_DoNotUseDefaultTypeInternal() {}
-  union {
-    level_TilemapsEntry_DoNotUse _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT level_TilemapsEntry_DoNotUseDefaultTypeInternal _level_TilemapsEntry_DoNotUse_default_instance_;
 constexpr level_TileAnimationsEntry_DoNotUse::level_TileAnimationsEntry_DoNotUse(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized){}
 struct level_TileAnimationsEntry_DoNotUseDefaultTypeInternal {
@@ -247,7 +236,6 @@ constexpr level::level(
   , animations_(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{})
   , plants_(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{})
   , tiles_(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{})
-  , tilemaps_(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{})
   , tile_animations_(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{})
   , chases_(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{})
   , particles_(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{})
@@ -266,6 +254,11 @@ constexpr level::level(
   , _humanoids_cached_byte_size_(0)
   , id_(0)
   , player_entity_(0u)
+  , row_count_(uint64_t{0u})
+  , humanoid_layer_index_(0)
+  , width_(0)
+  , column_count_(uint64_t{0u})
+  , height_(0)
   , keep_viewport_in_bounds_(false)
   , is_outside_level_(false){}
 struct levelDefaultTypeInternal {
@@ -305,7 +298,7 @@ struct saveDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT saveDefaultTypeInternal _save_default_instance_;
 }  // namespace proto
 }  // namespace wanderer
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_save_2eproto[23];
+static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_save_2eproto[22];
 static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_save_2eproto = nullptr;
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_save_2eproto = nullptr;
 
@@ -358,16 +351,6 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_save_2eproto::offsets[] PROTOB
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_TilesEntry_DoNotUse, key_),
   PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_TilesEntry_DoNotUse, value_),
-  0,
-  1,
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_TilemapsEntry_DoNotUse, _has_bits_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_TilemapsEntry_DoNotUse, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_TilemapsEntry_DoNotUse, key_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_TilemapsEntry_DoNotUse, value_),
   0,
   1,
   PROTOBUF_FIELD_OFFSET(::wanderer::proto::level_TileAnimationsEntry_DoNotUse, _has_bits_),
@@ -523,7 +506,6 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_save_2eproto::offsets[] PROTOB
   PROTOBUF_FIELD_OFFSET(::wanderer::proto::level, animations_),
   PROTOBUF_FIELD_OFFSET(::wanderer::proto::level, plants_),
   PROTOBUF_FIELD_OFFSET(::wanderer::proto::level, tiles_),
-  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level, tilemaps_),
   PROTOBUF_FIELD_OFFSET(::wanderer::proto::level, tile_animations_),
   PROTOBUF_FIELD_OFFSET(::wanderer::proto::level, chases_),
   PROTOBUF_FIELD_OFFSET(::wanderer::proto::level, particles_),
@@ -540,6 +522,11 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_save_2eproto::offsets[] PROTOB
   PROTOBUF_FIELD_OFFSET(::wanderer::proto::level, associations_),
   PROTOBUF_FIELD_OFFSET(::wanderer::proto::level, player_entity_),
   PROTOBUF_FIELD_OFFSET(::wanderer::proto::level, humanoids_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level, humanoid_layer_index_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level, row_count_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level, column_count_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level, width_),
+  PROTOBUF_FIELD_OFFSET(::wanderer::proto::level, height_),
   PROTOBUF_FIELD_OFFSET(::wanderer::proto::level, keep_viewport_in_bounds_),
   PROTOBUF_FIELD_OFFSET(::wanderer::proto::level, is_outside_level_),
   0,
@@ -563,11 +550,15 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_save_2eproto::offsets[] PROTOB
   ~0u,
   ~0u,
   ~0u,
-  ~0u,
   1,
   ~0u,
-  2,
   3,
+  2,
+  5,
+  4,
+  6,
+  7,
+  8,
   PROTOBUF_FIELD_OFFSET(::wanderer::proto::shared_data, _has_bits_),
   PROTOBUF_FIELD_OFFSET(::wanderer::proto::shared_data, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -595,24 +586,23 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 20, 28, -1, sizeof(::wanderer::proto::level_AnimationsEntry_DoNotUse)},
   { 30, 38, -1, sizeof(::wanderer::proto::level_PlantsEntry_DoNotUse)},
   { 40, 48, -1, sizeof(::wanderer::proto::level_TilesEntry_DoNotUse)},
-  { 50, 58, -1, sizeof(::wanderer::proto::level_TilemapsEntry_DoNotUse)},
-  { 60, 68, -1, sizeof(::wanderer::proto::level_TileAnimationsEntry_DoNotUse)},
-  { 70, 78, -1, sizeof(::wanderer::proto::level_ChasesEntry_DoNotUse)},
-  { 80, 88, -1, sizeof(::wanderer::proto::level_ParticlesEntry_DoNotUse)},
-  { 90, 98, -1, sizeof(::wanderer::proto::level_LightsEntry_DoNotUse)},
-  { 100, 108, -1, sizeof(::wanderer::proto::level_SpawnpointsEntry_DoNotUse)},
-  { 110, 118, -1, sizeof(::wanderer::proto::level_HitboxesEntry_DoNotUse)},
-  { 120, 128, -1, sizeof(::wanderer::proto::level_ObjectsEntry_DoNotUse)},
-  { 130, 138, -1, sizeof(::wanderer::proto::level_PortalsEntry_DoNotUse)},
-  { 140, 148, -1, sizeof(::wanderer::proto::level_TileLayersEntry_DoNotUse)},
-  { 150, 158, -1, sizeof(::wanderer::proto::level_TilesetsEntry_DoNotUse)},
-  { 160, 168, -1, sizeof(::wanderer::proto::level_InventoriesEntry_DoNotUse)},
-  { 170, 178, -1, sizeof(::wanderer::proto::level_TileObjectsEntry_DoNotUse)},
-  { 180, 188, -1, sizeof(::wanderer::proto::level_TriggersEntry_DoNotUse)},
-  { 190, 198, -1, sizeof(::wanderer::proto::level_AssociationsEntry_DoNotUse)},
-  { 200, 232, -1, sizeof(::wanderer::proto::level)},
-  { 258, 265, -1, sizeof(::wanderer::proto::shared_data)},
-  { 266, 275, -1, sizeof(::wanderer::proto::save)},
+  { 50, 58, -1, sizeof(::wanderer::proto::level_TileAnimationsEntry_DoNotUse)},
+  { 60, 68, -1, sizeof(::wanderer::proto::level_ChasesEntry_DoNotUse)},
+  { 70, 78, -1, sizeof(::wanderer::proto::level_ParticlesEntry_DoNotUse)},
+  { 80, 88, -1, sizeof(::wanderer::proto::level_LightsEntry_DoNotUse)},
+  { 90, 98, -1, sizeof(::wanderer::proto::level_SpawnpointsEntry_DoNotUse)},
+  { 100, 108, -1, sizeof(::wanderer::proto::level_HitboxesEntry_DoNotUse)},
+  { 110, 118, -1, sizeof(::wanderer::proto::level_ObjectsEntry_DoNotUse)},
+  { 120, 128, -1, sizeof(::wanderer::proto::level_PortalsEntry_DoNotUse)},
+  { 130, 138, -1, sizeof(::wanderer::proto::level_TileLayersEntry_DoNotUse)},
+  { 140, 148, -1, sizeof(::wanderer::proto::level_TilesetsEntry_DoNotUse)},
+  { 150, 158, -1, sizeof(::wanderer::proto::level_InventoriesEntry_DoNotUse)},
+  { 160, 168, -1, sizeof(::wanderer::proto::level_TileObjectsEntry_DoNotUse)},
+  { 170, 178, -1, sizeof(::wanderer::proto::level_TriggersEntry_DoNotUse)},
+  { 180, 188, -1, sizeof(::wanderer::proto::level_AssociationsEntry_DoNotUse)},
+  { 190, 226, -1, sizeof(::wanderer::proto::level)},
+  { 256, 263, -1, sizeof(::wanderer::proto::shared_data)},
+  { 264, 273, -1, sizeof(::wanderer::proto::save)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -621,7 +611,6 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_level_AnimationsEntry_DoNotUse_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_level_PlantsEntry_DoNotUse_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_level_TilesEntry_DoNotUse_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_level_TilemapsEntry_DoNotUse_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_level_TileAnimationsEntry_DoNotUse_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_level_ChasesEntry_DoNotUse_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::wanderer::proto::_level_ParticlesEntry_DoNotUse_default_instance_),
@@ -649,89 +638,91 @@ const char descriptor_table_protodef_save_2eproto[] PROTOBUF_SECTION_VARIABLE(pr
   "\016particle.proto\032\013plant.proto\032\021point_ligh"
   "t.proto\032\014portal.proto\032\020spawnpoint.proto\032"
   "\024tile_animation.proto\032\020tile_layer.proto\032"
-  "\ntile.proto\032\021tile_object.proto\032\rtilemap."
-  "proto\032\rtileset.proto\032\021time_of_day.proto\032"
-  "\rtrigger.proto\"\320\026\n\005level\022\017\n\002id\030\001 \001(\005H\000\210\001"
-  "\001\022\024\n\010entities\030\002 \003(\rB\002\020\001\0225\n\010movables\030\003 \003("
-  "\0132#.wanderer.proto.level.MovablesEntry\0227"
-  "\n\tdrawables\030\004 \003(\0132$.wanderer.proto.level"
-  ".DrawablesEntry\0229\n\nanimations\030\005 \003(\0132%.wa"
-  "nderer.proto.level.AnimationsEntry\0221\n\006pl"
-  "ants\030\006 \003(\0132!.wanderer.proto.level.Plants"
-  "Entry\022/\n\005tiles\030\007 \003(\0132 .wanderer.proto.le"
-  "vel.TilesEntry\0225\n\010tilemaps\030\010 \003(\0132#.wande"
-  "rer.proto.level.TilemapsEntry\022B\n\017tile_an"
-  "imations\030\t \003(\0132).wanderer.proto.level.Ti"
-  "leAnimationsEntry\0221\n\006chases\030\n \003(\0132!.wand"
-  "erer.proto.level.ChasesEntry\0227\n\tparticle"
-  "s\030\013 \003(\0132$.wanderer.proto.level.Particles"
-  "Entry\0221\n\006lights\030\014 \003(\0132!.wanderer.proto.l"
-  "evel.LightsEntry\022;\n\013spawnpoints\030\r \003(\0132&."
-  "wanderer.proto.level.SpawnpointsEntry\0225\n"
-  "\010hitboxes\030\016 \003(\0132#.wanderer.proto.level.H"
-  "itboxesEntry\0223\n\007objects\030\017 \003(\0132\".wanderer"
-  ".proto.level.ObjectsEntry\0223\n\007portals\030\020 \003"
-  "(\0132\".wanderer.proto.level.PortalsEntry\022:"
-  "\n\013tile_layers\030\021 \003(\0132%.wanderer.proto.lev"
-  "el.TileLayersEntry\0225\n\010tilesets\030\022 \003(\0132#.w"
-  "anderer.proto.level.TilesetsEntry\022;\n\013inv"
-  "entories\030\023 \003(\0132&.wanderer.proto.level.In"
-  "ventoriesEntry\022<\n\014tile_objects\030\024 \003(\0132&.w"
-  "anderer.proto.level.TileObjectsEntry\0225\n\010"
-  "triggers\030\025 \003(\0132#.wanderer.proto.level.Tr"
-  "iggersEntry\022=\n\014associations\030\026 \003(\0132\'.wand"
-  "erer.proto.level.AssociationsEntry\022\032\n\rpl"
-  "ayer_entity\0302 \001(\rH\001\210\001\001\022\025\n\thumanoids\0303 \003("
-  "\rB\002\020\001\022$\n\027keep_viewport_in_bounds\030d \001(\010H\002"
-  "\210\001\001\022\035\n\020is_outside_level\030e \001(\010H\003\210\001\001\032H\n\rMo"
-  "vablesEntry\022\013\n\003key\030\001 \001(\r\022&\n\005value\030\002 \001(\0132"
-  "\027.wanderer.proto.movable:\0028\001\032J\n\016Drawable"
-  "sEntry\022\013\n\003key\030\001 \001(\r\022\'\n\005value\030\002 \001(\0132\030.wan"
-  "derer.proto.drawable:\0028\001\032L\n\017AnimationsEn"
-  "try\022\013\n\003key\030\001 \001(\r\022(\n\005value\030\002 \001(\0132\031.wander"
-  "er.proto.animation:\0028\001\032D\n\013PlantsEntry\022\013\n"
-  "\003key\030\001 \001(\r\022$\n\005value\030\002 \001(\0132\025.wanderer.pro"
-  "to.plant:\0028\001\032B\n\nTilesEntry\022\013\n\003key\030\001 \001(\r\022"
-  "#\n\005value\030\002 \001(\0132\024.wanderer.proto.tile:\0028\001"
-  "\032H\n\rTilemapsEntry\022\013\n\003key\030\001 \001(\r\022&\n\005value\030"
-  "\002 \001(\0132\027.wanderer.proto.tilemap:\0028\001\032U\n\023Ti"
-  "leAnimationsEntry\022\013\n\003key\030\001 \001(\r\022-\n\005value\030"
-  "\002 \001(\0132\036.wanderer.proto.tile_animation:\0028"
-  "\001\032D\n\013ChasesEntry\022\013\n\003key\030\001 \001(\r\022$\n\005value\030\002"
-  " \001(\0132\025.wanderer.proto.chase:\0028\001\032J\n\016Parti"
-  "clesEntry\022\013\n\003key\030\001 \001(\r\022\'\n\005value\030\002 \001(\0132\030."
-  "wanderer.proto.particle:\0028\001\032J\n\013LightsEnt"
-  "ry\022\013\n\003key\030\001 \001(\r\022*\n\005value\030\002 \001(\0132\033.wandere"
-  "r.proto.point_light:\0028\001\032N\n\020SpawnpointsEn"
-  "try\022\013\n\003key\030\001 \001(\r\022)\n\005value\030\002 \001(\0132\032.wander"
-  "er.proto.spawnpoint:\0028\001\032G\n\rHitboxesEntry"
-  "\022\013\n\003key\030\001 \001(\r\022%\n\005value\030\002 \001(\0132\026.wanderer."
-  "proto.hitbox:\0028\001\032J\n\014ObjectsEntry\022\013\n\003key\030"
-  "\001 \001(\r\022)\n\005value\030\002 \001(\0132\032.wanderer.proto.ma"
-  "p_object:\0028\001\032F\n\014PortalsEntry\022\013\n\003key\030\001 \001("
-  "\r\022%\n\005value\030\002 \001(\0132\026.wanderer.proto.portal"
-  ":\0028\001\032M\n\017TileLayersEntry\022\013\n\003key\030\001 \001(\r\022)\n\005"
-  "value\030\002 \001(\0132\032.wanderer.proto.tile_layer:"
-  "\0028\001\032H\n\rTilesetsEntry\022\013\n\003key\030\001 \001(\r\022&\n\005val"
-  "ue\030\002 \001(\0132\027.wanderer.proto.tileset:\0028\001\032M\n"
-  "\020InventoriesEntry\022\013\n\003key\030\001 \001(\r\022(\n\005value\030"
-  "\002 \001(\0132\031.wanderer.proto.inventory:\0028\001\032O\n\020"
-  "TileObjectsEntry\022\013\n\003key\030\001 \001(\r\022*\n\005value\030\002"
-  " \001(\0132\033.wanderer.proto.tile_object:\0028\001\032H\n"
-  "\rTriggersEntry\022\013\n\003key\030\001 \001(\r\022&\n\005value\030\002 \001"
-  "(\0132\027.wanderer.proto.trigger:\0028\001\032V\n\021Assoc"
-  "iationsEntry\022\013\n\003key\030\001 \001(\r\0220\n\005value\030\002 \001(\013"
-  "2!.wanderer.proto.associated_entity:\0028\001B"
-  "\005\n\003_idB\020\n\016_player_entityB\032\n\030_keep_viewpo"
-  "rt_in_boundsB\023\n\021_is_outside_level\"F\n\013sha"
-  "red_data\022.\n\004time\030\001 \001(\0132\033.wanderer.proto."
-  "time_of_dayH\000\210\001\001B\007\n\005_time\"\236\001\n\004save\022\035\n\020cu"
-  "rrent_level_id\030\001 \001(\005H\000\210\001\001\0220\n\006shared\030\002 \001("
-  "\0132\033.wanderer.proto.shared_dataH\001\210\001\001\022%\n\006l"
-  "evels\030\003 \003(\0132\025.wanderer.proto.levelB\023\n\021_c"
-  "urrent_level_idB\t\n\007_sharedb\006proto3"
+  "\ntile.proto\032\021tile_object.proto\032\rtileset."
+  "proto\032\021time_of_day.proto\032\rtrigger.proto\""
+  "\241\027\n\005level\022\017\n\002id\030\001 \001(\005H\000\210\001\001\022\024\n\010entities\030\002"
+  " \003(\rB\002\020\001\0225\n\010movables\030\003 \003(\0132#.wanderer.pr"
+  "oto.level.MovablesEntry\0227\n\tdrawables\030\004 \003"
+  "(\0132$.wanderer.proto.level.DrawablesEntry"
+  "\0229\n\nanimations\030\005 \003(\0132%.wanderer.proto.le"
+  "vel.AnimationsEntry\0221\n\006plants\030\006 \003(\0132!.wa"
+  "nderer.proto.level.PlantsEntry\022/\n\005tiles\030"
+  "\007 \003(\0132 .wanderer.proto.level.TilesEntry\022"
+  "B\n\017tile_animations\030\t \003(\0132).wanderer.prot"
+  "o.level.TileAnimationsEntry\0221\n\006chases\030\n "
+  "\003(\0132!.wanderer.proto.level.ChasesEntry\0227"
+  "\n\tparticles\030\013 \003(\0132$.wanderer.proto.level"
+  ".ParticlesEntry\0221\n\006lights\030\014 \003(\0132!.wander"
+  "er.proto.level.LightsEntry\022;\n\013spawnpoint"
+  "s\030\r \003(\0132&.wanderer.proto.level.Spawnpoin"
+  "tsEntry\0225\n\010hitboxes\030\016 \003(\0132#.wanderer.pro"
+  "to.level.HitboxesEntry\0223\n\007objects\030\017 \003(\0132"
+  "\".wanderer.proto.level.ObjectsEntry\0223\n\007p"
+  "ortals\030\020 \003(\0132\".wanderer.proto.level.Port"
+  "alsEntry\022:\n\013tile_layers\030\021 \003(\0132%.wanderer"
+  ".proto.level.TileLayersEntry\0225\n\010tilesets"
+  "\030\022 \003(\0132#.wanderer.proto.level.TilesetsEn"
+  "try\022;\n\013inventories\030\023 \003(\0132&.wanderer.prot"
+  "o.level.InventoriesEntry\022<\n\014tile_objects"
+  "\030\024 \003(\0132&.wanderer.proto.level.TileObject"
+  "sEntry\0225\n\010triggers\030\025 \003(\0132#.wanderer.prot"
+  "o.level.TriggersEntry\022=\n\014associations\030\026 "
+  "\003(\0132\'.wanderer.proto.level.AssociationsE"
+  "ntry\022\032\n\rplayer_entity\0302 \001(\rH\001\210\001\001\022\025\n\thuma"
+  "noids\0303 \003(\rB\002\020\001\022!\n\024humanoid_layer_index\030"
+  "4 \001(\005H\002\210\001\001\022\026\n\trow_count\0305 \001(\004H\003\210\001\001\022\031\n\014co"
+  "lumn_count\0306 \001(\004H\004\210\001\001\022\022\n\005width\0307 \001(\002H\005\210\001"
+  "\001\022\023\n\006height\0308 \001(\002H\006\210\001\001\022$\n\027keep_viewport_"
+  "in_bounds\030d \001(\010H\007\210\001\001\022\035\n\020is_outside_level"
+  "\030e \001(\010H\010\210\001\001\032H\n\rMovablesEntry\022\013\n\003key\030\001 \001("
+  "\r\022&\n\005value\030\002 \001(\0132\027.wanderer.proto.movabl"
+  "e:\0028\001\032J\n\016DrawablesEntry\022\013\n\003key\030\001 \001(\r\022\'\n\005"
+  "value\030\002 \001(\0132\030.wanderer.proto.drawable:\0028"
+  "\001\032L\n\017AnimationsEntry\022\013\n\003key\030\001 \001(\r\022(\n\005val"
+  "ue\030\002 \001(\0132\031.wanderer.proto.animation:\0028\001\032"
+  "D\n\013PlantsEntry\022\013\n\003key\030\001 \001(\r\022$\n\005value\030\002 \001"
+  "(\0132\025.wanderer.proto.plant:\0028\001\032B\n\nTilesEn"
+  "try\022\013\n\003key\030\001 \001(\r\022#\n\005value\030\002 \001(\0132\024.wander"
+  "er.proto.tile:\0028\001\032U\n\023TileAnimationsEntry"
+  "\022\013\n\003key\030\001 \001(\r\022-\n\005value\030\002 \001(\0132\036.wanderer."
+  "proto.tile_animation:\0028\001\032D\n\013ChasesEntry\022"
+  "\013\n\003key\030\001 \001(\r\022$\n\005value\030\002 \001(\0132\025.wanderer.p"
+  "roto.chase:\0028\001\032J\n\016ParticlesEntry\022\013\n\003key\030"
+  "\001 \001(\r\022\'\n\005value\030\002 \001(\0132\030.wanderer.proto.pa"
+  "rticle:\0028\001\032J\n\013LightsEntry\022\013\n\003key\030\001 \001(\r\022*"
+  "\n\005value\030\002 \001(\0132\033.wanderer.proto.point_lig"
+  "ht:\0028\001\032N\n\020SpawnpointsEntry\022\013\n\003key\030\001 \001(\r\022"
+  ")\n\005value\030\002 \001(\0132\032.wanderer.proto.spawnpoi"
+  "nt:\0028\001\032G\n\rHitboxesEntry\022\013\n\003key\030\001 \001(\r\022%\n\005"
+  "value\030\002 \001(\0132\026.wanderer.proto.hitbox:\0028\001\032"
+  "J\n\014ObjectsEntry\022\013\n\003key\030\001 \001(\r\022)\n\005value\030\002 "
+  "\001(\0132\032.wanderer.proto.map_object:\0028\001\032F\n\014P"
+  "ortalsEntry\022\013\n\003key\030\001 \001(\r\022%\n\005value\030\002 \001(\0132"
+  "\026.wanderer.proto.portal:\0028\001\032M\n\017TileLayer"
+  "sEntry\022\013\n\003key\030\001 \001(\r\022)\n\005value\030\002 \001(\0132\032.wan"
+  "derer.proto.tile_layer:\0028\001\032H\n\rTilesetsEn"
+  "try\022\013\n\003key\030\001 \001(\r\022&\n\005value\030\002 \001(\0132\027.wander"
+  "er.proto.tileset:\0028\001\032M\n\020InventoriesEntry"
+  "\022\013\n\003key\030\001 \001(\r\022(\n\005value\030\002 \001(\0132\031.wanderer."
+  "proto.inventory:\0028\001\032O\n\020TileObjectsEntry\022"
+  "\013\n\003key\030\001 \001(\r\022*\n\005value\030\002 \001(\0132\033.wanderer.p"
+  "roto.tile_object:\0028\001\032H\n\rTriggersEntry\022\013\n"
+  "\003key\030\001 \001(\r\022&\n\005value\030\002 \001(\0132\027.wanderer.pro"
+  "to.trigger:\0028\001\032V\n\021AssociationsEntry\022\013\n\003k"
+  "ey\030\001 \001(\r\0220\n\005value\030\002 \001(\0132!.wanderer.proto"
+  ".associated_entity:\0028\001B\005\n\003_idB\020\n\016_player"
+  "_entityB\027\n\025_humanoid_layer_indexB\014\n\n_row"
+  "_countB\017\n\r_column_countB\010\n\006_widthB\t\n\007_he"
+  "ightB\032\n\030_keep_viewport_in_boundsB\023\n\021_is_"
+  "outside_levelJ\004\010\010\020\t\"F\n\013shared_data\022.\n\004ti"
+  "me\030\001 \001(\0132\033.wanderer.proto.time_of_dayH\000\210"
+  "\001\001B\007\n\005_time\"\236\001\n\004save\022\035\n\020current_level_id"
+  "\030\001 \001(\005H\000\210\001\001\0220\n\006shared\030\002 \001(\0132\033.wanderer.p"
+  "roto.shared_dataH\001\210\001\001\022%\n\006levels\030\003 \003(\0132\025."
+  "wanderer.proto.levelB\023\n\021_current_level_i"
+  "dB\t\n\007_sharedb\006proto3"
   ;
-static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_save_2eproto_deps[21] = {
+static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_save_2eproto_deps[20] = {
   &::descriptor_table_animation_2eproto,
   &::descriptor_table_associated_5fentity_2eproto,
   &::descriptor_table_chase_2eproto,
@@ -749,15 +740,14 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor
   &::descriptor_table_tile_5fanimation_2eproto,
   &::descriptor_table_tile_5flayer_2eproto,
   &::descriptor_table_tile_5fobject_2eproto,
-  &::descriptor_table_tilemap_2eproto,
   &::descriptor_table_tileset_2eproto,
   &::descriptor_table_time_5fof_5fday_2eproto,
   &::descriptor_table_trigger_2eproto,
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_save_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_save_2eproto = {
-  false, false, 3514, descriptor_table_protodef_save_2eproto, "save.proto", 
-  &descriptor_table_save_2eproto_once, descriptor_table_save_2eproto_deps, 21, 23,
+  false, false, 3580, descriptor_table_protodef_save_2eproto, "save.proto", 
+  &descriptor_table_save_2eproto_once, descriptor_table_save_2eproto_deps, 20, 22,
   schemas, file_default_instances, TableStruct_save_2eproto::offsets,
   file_level_metadata_save_2eproto, file_level_enum_descriptors_save_2eproto, file_level_service_descriptors_save_2eproto,
 };
@@ -842,20 +832,6 @@ void level_TilesEntry_DoNotUse::MergeFrom(const level_TilesEntry_DoNotUse& other
 
 // ===================================================================
 
-level_TilemapsEntry_DoNotUse::level_TilemapsEntry_DoNotUse() {}
-level_TilemapsEntry_DoNotUse::level_TilemapsEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-    : SuperType(arena) {}
-void level_TilemapsEntry_DoNotUse::MergeFrom(const level_TilemapsEntry_DoNotUse& other) {
-  MergeFromInternal(other);
-}
-::PROTOBUF_NAMESPACE_ID::Metadata level_TilemapsEntry_DoNotUse::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-      &descriptor_table_save_2eproto_getter, &descriptor_table_save_2eproto_once,
-      file_level_metadata_save_2eproto[5]);
-}
-
-// ===================================================================
-
 level_TileAnimationsEntry_DoNotUse::level_TileAnimationsEntry_DoNotUse() {}
 level_TileAnimationsEntry_DoNotUse::level_TileAnimationsEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
     : SuperType(arena) {}
@@ -865,7 +841,7 @@ void level_TileAnimationsEntry_DoNotUse::MergeFrom(const level_TileAnimationsEnt
 ::PROTOBUF_NAMESPACE_ID::Metadata level_TileAnimationsEntry_DoNotUse::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_save_2eproto_getter, &descriptor_table_save_2eproto_once,
-      file_level_metadata_save_2eproto[6]);
+      file_level_metadata_save_2eproto[5]);
 }
 
 // ===================================================================
@@ -879,7 +855,7 @@ void level_ChasesEntry_DoNotUse::MergeFrom(const level_ChasesEntry_DoNotUse& oth
 ::PROTOBUF_NAMESPACE_ID::Metadata level_ChasesEntry_DoNotUse::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_save_2eproto_getter, &descriptor_table_save_2eproto_once,
-      file_level_metadata_save_2eproto[7]);
+      file_level_metadata_save_2eproto[6]);
 }
 
 // ===================================================================
@@ -893,7 +869,7 @@ void level_ParticlesEntry_DoNotUse::MergeFrom(const level_ParticlesEntry_DoNotUs
 ::PROTOBUF_NAMESPACE_ID::Metadata level_ParticlesEntry_DoNotUse::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_save_2eproto_getter, &descriptor_table_save_2eproto_once,
-      file_level_metadata_save_2eproto[8]);
+      file_level_metadata_save_2eproto[7]);
 }
 
 // ===================================================================
@@ -907,7 +883,7 @@ void level_LightsEntry_DoNotUse::MergeFrom(const level_LightsEntry_DoNotUse& oth
 ::PROTOBUF_NAMESPACE_ID::Metadata level_LightsEntry_DoNotUse::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_save_2eproto_getter, &descriptor_table_save_2eproto_once,
-      file_level_metadata_save_2eproto[9]);
+      file_level_metadata_save_2eproto[8]);
 }
 
 // ===================================================================
@@ -921,7 +897,7 @@ void level_SpawnpointsEntry_DoNotUse::MergeFrom(const level_SpawnpointsEntry_DoN
 ::PROTOBUF_NAMESPACE_ID::Metadata level_SpawnpointsEntry_DoNotUse::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_save_2eproto_getter, &descriptor_table_save_2eproto_once,
-      file_level_metadata_save_2eproto[10]);
+      file_level_metadata_save_2eproto[9]);
 }
 
 // ===================================================================
@@ -935,7 +911,7 @@ void level_HitboxesEntry_DoNotUse::MergeFrom(const level_HitboxesEntry_DoNotUse&
 ::PROTOBUF_NAMESPACE_ID::Metadata level_HitboxesEntry_DoNotUse::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_save_2eproto_getter, &descriptor_table_save_2eproto_once,
-      file_level_metadata_save_2eproto[11]);
+      file_level_metadata_save_2eproto[10]);
 }
 
 // ===================================================================
@@ -949,7 +925,7 @@ void level_ObjectsEntry_DoNotUse::MergeFrom(const level_ObjectsEntry_DoNotUse& o
 ::PROTOBUF_NAMESPACE_ID::Metadata level_ObjectsEntry_DoNotUse::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_save_2eproto_getter, &descriptor_table_save_2eproto_once,
-      file_level_metadata_save_2eproto[12]);
+      file_level_metadata_save_2eproto[11]);
 }
 
 // ===================================================================
@@ -963,7 +939,7 @@ void level_PortalsEntry_DoNotUse::MergeFrom(const level_PortalsEntry_DoNotUse& o
 ::PROTOBUF_NAMESPACE_ID::Metadata level_PortalsEntry_DoNotUse::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_save_2eproto_getter, &descriptor_table_save_2eproto_once,
-      file_level_metadata_save_2eproto[13]);
+      file_level_metadata_save_2eproto[12]);
 }
 
 // ===================================================================
@@ -977,7 +953,7 @@ void level_TileLayersEntry_DoNotUse::MergeFrom(const level_TileLayersEntry_DoNot
 ::PROTOBUF_NAMESPACE_ID::Metadata level_TileLayersEntry_DoNotUse::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_save_2eproto_getter, &descriptor_table_save_2eproto_once,
-      file_level_metadata_save_2eproto[14]);
+      file_level_metadata_save_2eproto[13]);
 }
 
 // ===================================================================
@@ -991,7 +967,7 @@ void level_TilesetsEntry_DoNotUse::MergeFrom(const level_TilesetsEntry_DoNotUse&
 ::PROTOBUF_NAMESPACE_ID::Metadata level_TilesetsEntry_DoNotUse::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_save_2eproto_getter, &descriptor_table_save_2eproto_once,
-      file_level_metadata_save_2eproto[15]);
+      file_level_metadata_save_2eproto[14]);
 }
 
 // ===================================================================
@@ -1005,7 +981,7 @@ void level_InventoriesEntry_DoNotUse::MergeFrom(const level_InventoriesEntry_DoN
 ::PROTOBUF_NAMESPACE_ID::Metadata level_InventoriesEntry_DoNotUse::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_save_2eproto_getter, &descriptor_table_save_2eproto_once,
-      file_level_metadata_save_2eproto[16]);
+      file_level_metadata_save_2eproto[15]);
 }
 
 // ===================================================================
@@ -1019,7 +995,7 @@ void level_TileObjectsEntry_DoNotUse::MergeFrom(const level_TileObjectsEntry_DoN
 ::PROTOBUF_NAMESPACE_ID::Metadata level_TileObjectsEntry_DoNotUse::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_save_2eproto_getter, &descriptor_table_save_2eproto_once,
-      file_level_metadata_save_2eproto[17]);
+      file_level_metadata_save_2eproto[16]);
 }
 
 // ===================================================================
@@ -1033,7 +1009,7 @@ void level_TriggersEntry_DoNotUse::MergeFrom(const level_TriggersEntry_DoNotUse&
 ::PROTOBUF_NAMESPACE_ID::Metadata level_TriggersEntry_DoNotUse::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_save_2eproto_getter, &descriptor_table_save_2eproto_once,
-      file_level_metadata_save_2eproto[18]);
+      file_level_metadata_save_2eproto[17]);
 }
 
 // ===================================================================
@@ -1047,7 +1023,7 @@ void level_AssociationsEntry_DoNotUse::MergeFrom(const level_AssociationsEntry_D
 ::PROTOBUF_NAMESPACE_ID::Metadata level_AssociationsEntry_DoNotUse::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_save_2eproto_getter, &descriptor_table_save_2eproto_once,
-      file_level_metadata_save_2eproto[19]);
+      file_level_metadata_save_2eproto[18]);
 }
 
 // ===================================================================
@@ -1061,11 +1037,26 @@ class level::_Internal {
   static void set_has_player_entity(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
-  static void set_has_keep_viewport_in_bounds(HasBits* has_bits) {
+  static void set_has_humanoid_layer_index(HasBits* has_bits) {
+    (*has_bits)[0] |= 8u;
+  }
+  static void set_has_row_count(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
   }
+  static void set_has_column_count(HasBits* has_bits) {
+    (*has_bits)[0] |= 32u;
+  }
+  static void set_has_width(HasBits* has_bits) {
+    (*has_bits)[0] |= 16u;
+  }
+  static void set_has_height(HasBits* has_bits) {
+    (*has_bits)[0] |= 64u;
+  }
+  static void set_has_keep_viewport_in_bounds(HasBits* has_bits) {
+    (*has_bits)[0] |= 128u;
+  }
   static void set_has_is_outside_level(HasBits* has_bits) {
-    (*has_bits)[0] |= 8u;
+    (*has_bits)[0] |= 256u;
   }
 };
 
@@ -1083,9 +1074,6 @@ void level::clear_plants() {
 }
 void level::clear_tiles() {
   tiles_.Clear();
-}
-void level::clear_tilemaps() {
-  tilemaps_.Clear();
 }
 void level::clear_tile_animations() {
   tile_animations_.Clear();
@@ -1138,7 +1126,6 @@ level::level(::PROTOBUF_NAMESPACE_ID::Arena* arena,
   animations_(arena),
   plants_(arena),
   tiles_(arena),
-  tilemaps_(arena),
   tile_animations_(arena),
   chases_(arena),
   particles_(arena),
@@ -1171,7 +1158,6 @@ level::level(const level& from)
   animations_.MergeFrom(from.animations_);
   plants_.MergeFrom(from.plants_);
   tiles_.MergeFrom(from.tiles_);
-  tilemaps_.MergeFrom(from.tilemaps_);
   tile_animations_.MergeFrom(from.tile_animations_);
   chases_.MergeFrom(from.chases_);
   particles_.MergeFrom(from.particles_);
@@ -1218,7 +1204,6 @@ void level::ArenaDtor(void* object) {
   _this->animations_. ~MapField();
   _this->plants_. ~MapField();
   _this->tiles_. ~MapField();
-  _this->tilemaps_. ~MapField();
   _this->tile_animations_. ~MapField();
   _this->chases_. ~MapField();
   _this->particles_. ~MapField();
@@ -1255,7 +1240,6 @@ void level::Clear() {
   animations_.Clear();
   plants_.Clear();
   tiles_.Clear();
-  tilemaps_.Clear();
   tile_animations_.Clear();
   chases_.Clear();
   particles_.Clear();
@@ -1272,11 +1256,12 @@ void level::Clear() {
   associations_.Clear();
   humanoids_.Clear();
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x0000000fu) {
+  if (cached_has_bits & 0x000000ffu) {
     ::memset(&id_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&is_outside_level_) -
-        reinterpret_cast<char*>(&id_)) + sizeof(is_outside_level_));
+        reinterpret_cast<char*>(&keep_viewport_in_bounds_) -
+        reinterpret_cast<char*>(&id_)) + sizeof(keep_viewport_in_bounds_));
   }
+  is_outside_level_ = false;
   _has_bits_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
@@ -1370,19 +1355,6 @@ const char* level::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::inte
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<58>(ptr));
-        } else
-          goto handle_unusual;
-        continue;
-      // map<uint32, .wanderer.proto.tilemap> tilemaps = 8;
-      case 8:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 66)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            ptr = ctx->ParseMessage(&tilemaps_, ptr);
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<66>(ptr));
         } else
           goto handle_unusual;
         continue;
@@ -1585,6 +1557,51 @@ const char* level::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::inte
         } else if (static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 152) {
           _internal_add_humanoids(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr));
           CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional int32 humanoid_layer_index = 52;
+      case 52:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 160)) {
+          _Internal::set_has_humanoid_layer_index(&has_bits);
+          humanoid_layer_index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional uint64 row_count = 53;
+      case 53:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 168)) {
+          _Internal::set_has_row_count(&has_bits);
+          row_count_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional uint64 column_count = 54;
+      case 54:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 176)) {
+          _Internal::set_has_column_count(&has_bits);
+          column_count_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional float width = 55;
+      case 55:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 189)) {
+          _Internal::set_has_width(&has_bits);
+          width_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          ptr += sizeof(float);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional float height = 56;
+      case 56:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 197)) {
+          _Internal::set_has_height(&has_bits);
+          height_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          ptr += sizeof(float);
         } else
           goto handle_unusual;
         continue;
@@ -1802,37 +1819,6 @@ failure:
           it = this->_internal_tiles().begin();
           it != this->_internal_tiles().end(); ++it) {
         target = level_TilesEntry_DoNotUse::Funcs::InternalSerialize(7, it->first, it->second, target, stream);
-      }
-    }
-  }
-
-  // map<uint32, .wanderer.proto.tilemap> tilemaps = 8;
-  if (!this->_internal_tilemaps().empty()) {
-    typedef ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::tilemap >::const_pointer
-        ConstPtr;
-    typedef ::PROTOBUF_NAMESPACE_ID::internal::SortItem< ::PROTOBUF_NAMESPACE_ID::uint32, ConstPtr > SortItem;
-    typedef ::PROTOBUF_NAMESPACE_ID::internal::CompareByFirstField<SortItem> Less;
-
-    if (stream->IsSerializationDeterministic() &&
-        this->_internal_tilemaps().size() > 1) {
-      ::std::unique_ptr<SortItem[]> items(
-          new SortItem[this->_internal_tilemaps().size()]);
-      typedef ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::tilemap >::size_type size_type;
-      size_type n = 0;
-      for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::tilemap >::const_iterator
-          it = this->_internal_tilemaps().begin();
-          it != this->_internal_tilemaps().end(); ++it, ++n) {
-        items[static_cast<ptrdiff_t>(n)] = SortItem(&*it);
-      }
-      ::std::sort(&items[0], &items[static_cast<ptrdiff_t>(n)], Less());
-      for (size_type i = 0; i < n; i++) {
-        target = level_TilemapsEntry_DoNotUse::Funcs::InternalSerialize(8, items[static_cast<ptrdiff_t>(i)].second->first, items[static_cast<ptrdiff_t>(i)].second->second, target, stream);
-      }
-    } else {
-      for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::tilemap >::const_iterator
-          it = this->_internal_tilemaps().begin();
-          it != this->_internal_tilemaps().end(); ++it) {
-        target = level_TilemapsEntry_DoNotUse::Funcs::InternalSerialize(8, it->first, it->second, target, stream);
       }
     }
   }
@@ -2286,6 +2272,36 @@ failure:
     }
   }
 
+  // optional int32 humanoid_layer_index = 52;
+  if (_internal_has_humanoid_layer_index()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(52, this->_internal_humanoid_layer_index(), target);
+  }
+
+  // optional uint64 row_count = 53;
+  if (_internal_has_row_count()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(53, this->_internal_row_count(), target);
+  }
+
+  // optional uint64 column_count = 54;
+  if (_internal_has_column_count()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(54, this->_internal_column_count(), target);
+  }
+
+  // optional float width = 55;
+  if (_internal_has_width()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(55, this->_internal_width(), target);
+  }
+
+  // optional float height = 56;
+  if (_internal_has_height()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(56, this->_internal_height(), target);
+  }
+
   // optional bool keep_viewport_in_bounds = 100;
   if (_internal_has_keep_viewport_in_bounds()) {
     target = stream->EnsureSpace(target);
@@ -2372,15 +2388,6 @@ size_t level::ByteSizeLong() const {
       it = this->_internal_tiles().begin();
       it != this->_internal_tiles().end(); ++it) {
     total_size += level_TilesEntry_DoNotUse::Funcs::ByteSizeLong(it->first, it->second);
-  }
-
-  // map<uint32, .wanderer.proto.tilemap> tilemaps = 8;
-  total_size += 1 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(this->_internal_tilemaps_size());
-  for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::wanderer::proto::tilemap >::const_iterator
-      it = this->_internal_tilemaps().begin();
-      it != this->_internal_tilemaps().end(); ++it) {
-    total_size += level_TilemapsEntry_DoNotUse::Funcs::ByteSizeLong(it->first, it->second);
   }
 
   // map<uint32, .wanderer.proto.tile_animation> tile_animations = 9;
@@ -2525,7 +2532,7 @@ size_t level::ByteSizeLong() const {
   }
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x0000000fu) {
+  if (cached_has_bits & 0x000000ffu) {
     // optional int32 id = 1;
     if (cached_has_bits & 0x00000001u) {
       total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_id());
@@ -2538,17 +2545,48 @@ size_t level::ByteSizeLong() const {
           this->_internal_player_entity());
     }
 
-    // optional bool keep_viewport_in_bounds = 100;
+    // optional uint64 row_count = 53;
     if (cached_has_bits & 0x00000004u) {
-      total_size += 2 + 1;
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64Size(
+          this->_internal_row_count());
     }
 
-    // optional bool is_outside_level = 101;
+    // optional int32 humanoid_layer_index = 52;
     if (cached_has_bits & 0x00000008u) {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+          this->_internal_humanoid_layer_index());
+    }
+
+    // optional float width = 55;
+    if (cached_has_bits & 0x00000010u) {
+      total_size += 2 + 4;
+    }
+
+    // optional uint64 column_count = 54;
+    if (cached_has_bits & 0x00000020u) {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64Size(
+          this->_internal_column_count());
+    }
+
+    // optional float height = 56;
+    if (cached_has_bits & 0x00000040u) {
+      total_size += 2 + 4;
+    }
+
+    // optional bool keep_viewport_in_bounds = 100;
+    if (cached_has_bits & 0x00000080u) {
       total_size += 2 + 1;
     }
 
   }
+  // optional bool is_outside_level = 101;
+  if (cached_has_bits & 0x00000100u) {
+    total_size += 2 + 1;
+  }
+
   return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
 }
 
@@ -2577,7 +2615,6 @@ void level::MergeFrom(const level& from) {
   animations_.MergeFrom(from.animations_);
   plants_.MergeFrom(from.plants_);
   tiles_.MergeFrom(from.tiles_);
-  tilemaps_.MergeFrom(from.tilemaps_);
   tile_animations_.MergeFrom(from.tile_animations_);
   chases_.MergeFrom(from.chases_);
   particles_.MergeFrom(from.particles_);
@@ -2594,7 +2631,7 @@ void level::MergeFrom(const level& from) {
   associations_.MergeFrom(from.associations_);
   humanoids_.MergeFrom(from.humanoids_);
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x0000000fu) {
+  if (cached_has_bits & 0x000000ffu) {
     if (cached_has_bits & 0x00000001u) {
       id_ = from.id_;
     }
@@ -2602,12 +2639,27 @@ void level::MergeFrom(const level& from) {
       player_entity_ = from.player_entity_;
     }
     if (cached_has_bits & 0x00000004u) {
-      keep_viewport_in_bounds_ = from.keep_viewport_in_bounds_;
+      row_count_ = from.row_count_;
     }
     if (cached_has_bits & 0x00000008u) {
-      is_outside_level_ = from.is_outside_level_;
+      humanoid_layer_index_ = from.humanoid_layer_index_;
+    }
+    if (cached_has_bits & 0x00000010u) {
+      width_ = from.width_;
+    }
+    if (cached_has_bits & 0x00000020u) {
+      column_count_ = from.column_count_;
+    }
+    if (cached_has_bits & 0x00000040u) {
+      height_ = from.height_;
+    }
+    if (cached_has_bits & 0x00000080u) {
+      keep_viewport_in_bounds_ = from.keep_viewport_in_bounds_;
     }
     _has_bits_[0] |= cached_has_bits;
+  }
+  if (cached_has_bits & 0x00000100u) {
+    _internal_set_is_outside_level(from._internal_is_outside_level());
   }
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
@@ -2633,7 +2685,6 @@ void level::InternalSwap(level* other) {
   animations_.InternalSwap(&other->animations_);
   plants_.InternalSwap(&other->plants_);
   tiles_.InternalSwap(&other->tiles_);
-  tilemaps_.InternalSwap(&other->tilemaps_);
   tile_animations_.InternalSwap(&other->tile_animations_);
   chases_.InternalSwap(&other->chases_);
   particles_.InternalSwap(&other->particles_);
@@ -2660,7 +2711,7 @@ void level::InternalSwap(level* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata level::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_save_2eproto_getter, &descriptor_table_save_2eproto_once,
-      file_level_metadata_save_2eproto[20]);
+      file_level_metadata_save_2eproto[19]);
 }
 
 // ===================================================================
@@ -2870,7 +2921,7 @@ void shared_data::InternalSwap(shared_data* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata shared_data::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_save_2eproto_getter, &descriptor_table_save_2eproto_once,
-      file_level_metadata_save_2eproto[21]);
+      file_level_metadata_save_2eproto[20]);
 }
 
 // ===================================================================
@@ -3151,7 +3202,7 @@ void save::InternalSwap(save* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata save::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_save_2eproto_getter, &descriptor_table_save_2eproto_once,
-      file_level_metadata_save_2eproto[22]);
+      file_level_metadata_save_2eproto[21]);
 }
 
 // @@protoc_insertion_point(namespace_scope)
@@ -3172,9 +3223,6 @@ template<> PROTOBUF_NOINLINE ::wanderer::proto::level_PlantsEntry_DoNotUse* Aren
 }
 template<> PROTOBUF_NOINLINE ::wanderer::proto::level_TilesEntry_DoNotUse* Arena::CreateMaybeMessage< ::wanderer::proto::level_TilesEntry_DoNotUse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::wanderer::proto::level_TilesEntry_DoNotUse >(arena);
-}
-template<> PROTOBUF_NOINLINE ::wanderer::proto::level_TilemapsEntry_DoNotUse* Arena::CreateMaybeMessage< ::wanderer::proto::level_TilemapsEntry_DoNotUse >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::wanderer::proto::level_TilemapsEntry_DoNotUse >(arena);
 }
 template<> PROTOBUF_NOINLINE ::wanderer::proto::level_TileAnimationsEntry_DoNotUse* Arena::CreateMaybeMessage< ::wanderer::proto::level_TileAnimationsEntry_DoNotUse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::wanderer::proto::level_TileAnimationsEntry_DoNotUse >(arena);

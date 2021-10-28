@@ -21,6 +21,7 @@ set(SOURCE_FILES
     components/render_bounds.hpp
     components/renderer_snapshot.hpp
     components/settings.hpp
+    components/tilemap.hpp
     components/time_of_day.hpp
     components/trigger.hpp
     components/viewport.hpp
@@ -50,7 +51,6 @@ set(SOURCE_FILES
     components/tiles/tile.hpp
     components/tiles/tile_layer.hpp
     components/tiles/tile_object.hpp
-    components/tiles/tilemap.hpp
     components/tiles/tileset.hpp
 
     components/ui/associated_menu.hpp

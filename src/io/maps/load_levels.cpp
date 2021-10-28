@@ -8,7 +8,7 @@
 #include "components/level_size.hpp"
 #include "components/lvl/level.hpp"
 #include "components/lvl/portal.hpp"
-#include "components/tiles/tilemap.hpp"
+#include "components/tilemap.hpp"
 #include "components/viewport.hpp"
 #include "core/ecs/make_registry.hpp"
 #include "core/resources.hpp"
@@ -29,9 +29,7 @@ void AddLevelMetaInformation(const Tactile::IO::Map& irMap, comp::Level& level)
 {
   auto& registry = level.registry;
 
-  // TODO make Tilemap component a context variable
-  level.tilemap = registry.create();
-  auto& tilemap = registry.emplace<comp::Tilemap>(level.tilemap);
+  auto& tilemap = registry.set<comp::Tilemap>();
   tilemap.id = MapID{level.id};
   tilemap.row_count = Tactile::IO::GetRowCount(irMap);
   tilemap.col_count = Tactile::IO::GetColumnCount(irMap);

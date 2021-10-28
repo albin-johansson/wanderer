@@ -6,14 +6,40 @@
 
 #include "components/ai/humanoid.hpp"
 #include "components/player.hpp"
+#include "components/tilemap.hpp"
+#include "components/tiles/tileset.hpp"
 #include "core/ecs/make_registry.hpp"
+#include "core/ecs/registry_utils.hpp"
 #include "restore_data.hpp"
 
 namespace wanderer {
+namespace {
+
+void RestoreTilemap(const proto::level& data, entt::registry& registry)
+{
+  assert(data.has_id());
+  assert(data.has_humanoid_layer_index());
+  assert(data.has_row_count());
+  assert(data.has_column_count());
+  assert(data.has_width());
+  assert(data.has_height());
+
+  auto& tilemap = registry.set<comp::Tilemap>();
+  tilemap.id = MapID{data.id()};
+  tilemap.humanoid_layer = data.humanoid_layer_index();
+  tilemap.row_count = data.row_count();
+  tilemap.col_count = data.column_count();
+  tilemap.size.width = data.width();
+  tilemap.size.height = data.height();
+}
+
+}  // namespace
 
 auto RestoreLevelRegistry(const proto::level& data) -> entt::registry
 {
   auto registry = MakeRegistry();
+
+  RestoreTilemap(data, registry);
 
   const auto playerEntity = entt::entity{data.player_entity()};
 
@@ -32,7 +58,6 @@ auto RestoreLevelRegistry(const proto::level& data) -> entt::registry
     RestoreAnimation(data, registry, entity);
     RestorePlant(data, registry, entity);
     RestoreTile(data, registry, entity);
-    RestoreTilemap(data, registry, entity);
     RestoreTileAnimations(data, registry, entity);
     RestoreParticle(data, registry, entity);
     RestoreLight(data, registry, entity);

@@ -6,7 +6,6 @@
 
 namespace wanderer::comp {
 
-// TODO consider removing this component and using context variables for the rest
 struct Level final
 {
   Level() = default;
@@ -18,7 +17,6 @@ struct Level final
   entt::registry registry;
   aabb_tree tree;
 
-  entt::entity tilemap{entt::null};
   entt::entity tileset{entt::null};
 
   maybe<float2> player_spawn_position;
