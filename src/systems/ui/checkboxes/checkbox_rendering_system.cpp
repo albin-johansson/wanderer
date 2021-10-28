@@ -14,7 +14,7 @@ void RenderCheckbox(const entt::registry& registry,
                     const entt::entity checkboxEntity,
                     const comp::Checkbox& checkbox)
 {
-  auto& renderer = graphics.get_renderer();
+  auto& renderer = graphics.GetRenderer();
   const auto& drawable = registry.get<comp::ButtonDrawable>(checkboxEntity);
 
   if (checkbox.checked) {

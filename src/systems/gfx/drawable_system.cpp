@@ -26,7 +26,7 @@ void RenderDrawables(const entt::registry& registry)
 
   for (auto&& [entity, drawable] : registry.view<comp::Drawable>().each()) {
     if (cen::intersects(viewport.bounds, drawable.dst)) {
-      graphics.render(drawable.texture, drawable.src, drawable.dst);
+      graphics.Render(drawable.texture, drawable.src, drawable.dst);
     }
   }
 }

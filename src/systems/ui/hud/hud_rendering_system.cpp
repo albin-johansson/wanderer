@@ -32,9 +32,9 @@ void RenderHint(GraphicsContext& graphics,
                 const std::string& key)
 {
   const rune::formatted_string<64> hint{fmt, key};
-  const auto& cache = graphics.small_font_cache();
+  const auto& cache = graphics.GetSmallFontCacheWhite();
   const auto width = cache.get_font().string_width(hint.data()).value();
-  graphics.render_outlined_text(hint.view(), cen::point(CenterX(width), 100));
+  graphics.RenderOutlinedText(hint.view(), cen::point(CenterX(width), 100));
 }
 
 void RenderHints(const entt::registry& shared, GraphicsContext& graphics)

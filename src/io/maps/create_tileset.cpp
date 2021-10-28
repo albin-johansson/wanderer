@@ -127,8 +127,9 @@ void LoadTilesetTextures(const Tactile::IO::Map& irMap, GraphicsContext& graphic
   WANDERER_PROFILE_START
 
   Tactile::IO::EachTileset(irMap, [&](const Tactile::IO::Tileset& irTileset) {
-    graphics.load(GetTextureId(irTileset),
-                  std::filesystem::path{Tactile::IO::GetImagePath(irTileset)}.string());
+    graphics.LoadTexture(
+        GetTextureId(irTileset),
+        std::filesystem::path{Tactile::IO::GetImagePath(irTileset)}.string());
   });
 
   WANDERER_PROFILE_END("Loaded tileset textures")
@@ -144,7 +145,7 @@ void CreateTileset(const Tactile::IO::Map& irMap,
   auto& tileset = registry.emplace<comp::Tileset>(level.tileset);
 
   Tactile::IO::EachTileset(irMap, [&](const Tactile::IO::Tileset& irTileset) {
-    const auto texture = graphics.to_index(GetTextureId(irTileset));
+    const auto texture = graphics.ToIndex(GetTextureId(irTileset));
     const auto first = Tactile::IO::GetFirstGlobalId(irTileset);
     const auto ratio = GetTilesetTileSizeRatio(irTileset);
 

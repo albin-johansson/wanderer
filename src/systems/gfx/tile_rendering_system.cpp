@@ -17,7 +17,7 @@ void RenderTile(GraphicsContext& graphics,
                              position.row * glob::tile_height<float>,
                              glob::tile_width<float>,
                              glob::tile_height<float>);
-  graphics.render(tile.texture, tile.src, dst);
+  graphics.Render(tile.texture, tile.src, dst);
 }
 
 auto GetAnimatedTile(const entt::registry& registry,

@@ -104,7 +104,7 @@ auto MakePlayer(comp::Level& level, GraphicsContext& graphics) -> entt::entity
   constexpr uint32 id = "player"_hs;
   static const auto path = resources::texture("player.png");
 
-  const auto texture = graphics.load(id, path);
+  const auto texture = graphics.LoadTexture(id, path);
   const auto player = MakeHumanoid(level, texture);
 
   auto& movable = level.registry.get<comp::Movable>(player);
@@ -124,7 +124,7 @@ auto MakeSkeleton(comp::Level& level, float2 position, GraphicsContext& graphics
   constexpr uint32 id = "skeleton"_hs;
   static const auto path = resources::texture("skeleton.png");
 
-  const auto texture = graphics.load(id, path);
+  const auto texture = graphics.LoadTexture(id, path);
   const auto skeleton = MakeHumanoid(level, texture);
 
   auto& movable = level.registry.get<comp::Movable>(skeleton);

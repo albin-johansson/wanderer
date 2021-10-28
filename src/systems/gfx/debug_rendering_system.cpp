@@ -70,8 +70,8 @@ void RenderChaseRanges(const entt::registry& registry, cen::renderer& renderer)
 
 void RenderDevelopmentBuildLabel(GraphicsContext& graphics)
 {
-  auto& renderer = graphics.get_renderer();
-  const auto& cache = graphics.small_font_cache();
+  auto& renderer = graphics.GetRenderer();
+  const auto& cache = graphics.GetSmallFontCacheWhite();
 
   constexpr char str[] = "Development build";
   const auto [width, height] = cache.get_font().string_size(str).value();
@@ -85,7 +85,7 @@ void RenderDevelopmentBuildLabel(GraphicsContext& graphics)
 void RenderDebugInfo(const entt::registry& registry)
 {
   auto& graphics = registry.ctx<ref<GraphicsContext>>().get();
-  auto& renderer = graphics.get_renderer();
+  auto& renderer = graphics.GetRenderer();
   RenderHitboxes(registry, renderer);
   RenderTriggerIndicators(registry, renderer);
   RenderChaseRanges(registry, renderer);
@@ -94,7 +94,7 @@ void RenderDebugInfo(const entt::registry& registry)
 void RenderMenuDebugInfo(const entt::registry& registry)
 {
   auto& graphics = registry.ctx<ref<GraphicsContext>>().get();
-  auto& renderer = graphics.get_renderer();
+  auto& renderer = graphics.GetRenderer();
 
   const auto menuEntity = registry.ctx<ctx::ActiveMenu>().entity;
   const auto& menu = registry.get<comp::Menu>(menuEntity);

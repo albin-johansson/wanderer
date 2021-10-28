@@ -46,13 +46,13 @@ void UpdatePlayerLightPosition(entt::registry& registry)
 void RenderLights(const entt::registry& registry, const ctx::TimeOfDay& time)
 {
   auto& graphics = registry.ctx<ref<GraphicsContext>>().get();
-  auto& renderer = graphics.get_renderer();
-  auto& texture = graphics.light_canvas();
+  auto& renderer = graphics.GetRenderer();
+  auto& texture = graphics.GetLightCanvasTexture();
 
   renderer.set_target(texture);
   renderer.clear_with(time.tint);
 
-  const auto index = graphics.load("point_light"_hs, texture_path);
+  const auto index = graphics.LoadTexture("point_light"_hs, texture_path);
   const auto& viewport = registry.ctx<ctx::Viewport>();
   constexpr auto source = cen::rect(0, 0, 80, 80);
 
@@ -64,7 +64,7 @@ void RenderLights(const entt::registry& registry, const ctx::TimeOfDay& time)
 
     const cen::frect dst{pos.x - halfSize, pos.y - halfSize, size, size};
     if (cen::intersects(viewport.bounds, dst)) {
-      graphics.render(index, source, dst);
+      graphics.Render(index, source, dst);
     }
   }
 

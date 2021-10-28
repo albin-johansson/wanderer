@@ -185,8 +185,8 @@ void RenderClock(const entt::registry& registry)
                                        minute};
 
   auto& graphics = registry.ctx<ref<GraphicsContext>>().get();
-  graphics.render_outlined_text(to_string(time.day), cen::point(6, 6));
-  graphics.render_outlined_text(str.view(), cen::point(30, 6));
+  graphics.RenderOutlinedText(to_string(time.day), cen::point(6, 6));
+  graphics.RenderOutlinedText(str.view(), cen::point(30, 6));
 }
 
 }  // namespace wanderer::sys

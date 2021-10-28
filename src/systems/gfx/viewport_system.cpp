@@ -112,7 +112,7 @@ void TranslateViewport(const entt::registry& registry)
   const auto& viewport = registry.ctx<ctx::Viewport>();
 
   auto& gfx = registry.ctx<ref<GraphicsContext>>().get();
-  auto& renderer = gfx.get_renderer();
+  auto& renderer = gfx.GetRenderer();
 
   renderer.set_translation_viewport(viewport.bounds);
 }

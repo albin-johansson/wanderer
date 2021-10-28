@@ -184,7 +184,7 @@ void Game::Render(entt::registry& shared)
   auto& level = sys::CurrentLevel(shared);
   level.registry.set<ref<GraphicsContext>>(mGraphics);
 
-  auto& renderer = mGraphics.get_renderer();
+  auto& renderer = mGraphics.GetRenderer();
   renderer.clear_with(cen::colors::black);
 
   sys::TranslateViewport(level.registry);
@@ -200,7 +200,7 @@ void Game::Render(entt::registry& shared)
   sys::RenderClock(shared);
 
   if (mUpdateSnapshot) {
-    shared.set<ctx::RendererSnapshot>(renderer.capture(mGraphics.format()));
+    shared.set<ctx::RendererSnapshot>(renderer.capture(mGraphics.GetFormat()));
     mUpdateSnapshot = false;
   }
 
@@ -249,7 +249,7 @@ void Game::OnFullscreenToggled(const fullscreen_toggled_event& event)
 
 void Game::OnIntegerScalingToggled(const integer_scaling_toggled_event& event)
 {
-  mGraphics.get_renderer().set_logical_integer_scaling(event.enabled);
+  mGraphics.GetRenderer().set_logical_integer_scaling(event.enabled);
 }
 
 void Game::OnLoadGameEvent(const LoadGameEvent& event)
@@ -402,7 +402,7 @@ void Game::OnSleep(const SleepEvent&)
   sys::StartBondAnimation(level.registry, glob::sleep_id);
 }
 
-void Game::OnDayChanged(const DayChangedEvent& event)
+void Game::OnDayChanged([[maybe_unused]] const DayChangedEvent& event)
 {
   // TODO update the state of plants, etc.
 }

@@ -88,7 +88,7 @@ void RenderParticles(const entt::registry& registry)
   const auto& viewport = registry.ctx<ctx::Viewport>();
 
   auto& graphics = registry.ctx<ref<GraphicsContext>>().get();
-  auto& renderer = graphics.get_renderer();
+  auto& renderer = graphics.GetRenderer();
 
   for (auto&& [entity, particle] : registry.view<comp::particle>().each()) {
     const auto rect = cen::rect(particle.position.x,

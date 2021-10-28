@@ -32,7 +32,7 @@ namespace {
 void RenderLabels(const entt::registry& registry, GraphicsContext& graphics)
 {
   const auto active = registry.ctx<ctx::ActiveMenu>().entity;
-  auto& renderer = graphics.get_renderer();
+  auto& renderer = graphics.GetRenderer();
 
   for (auto&& [entity, label, associated] :
        registry.view<comp::Label, comp::AssociatedMenu>().each())

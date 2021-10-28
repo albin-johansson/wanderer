@@ -70,7 +70,7 @@ void RenderButton(const entt::registry& registry,
                   GraphicsContext& graphics,
                   const entt::entity buttonEntity)
 {
-  auto& renderer = graphics.get_renderer();
+  auto& renderer = graphics.GetRenderer();
   const auto& button = registry.get<comp::Button>(buttonEntity);
   const auto& drawable = registry.get<comp::ButtonDrawable>(buttonEntity);
 
@@ -115,7 +115,7 @@ void RenderButtonGroupIndicators(const entt::registry& registry,
        registry.view<comp::ButtonGroup, comp::AssociatedMenu>().each())
   {
     if (associated.entity == menuEntity && group.selected != entt::null) {
-      auto& renderer = graphics.get_renderer();
+      auto& renderer = graphics.GetRenderer();
       const auto& drawable = registry.get<comp::ButtonDrawable>(group.selected);
       renderer.set_color(cen::colors::dark_green);
       renderer.fill_rect(drawable.bounds);

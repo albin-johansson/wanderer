@@ -54,8 +54,8 @@ void RenderAuthorLabel(GraphicsContext& graphics)
 {
   constexpr auto id = "developed_by_albin_johansson"_hs;
 
-  auto& renderer = graphics.get_renderer();
-  auto& cache = graphics.small_font_cache();
+  auto& renderer = graphics.GetRenderer();
+  auto& cache = graphics.GetSmallFontCacheWhite();
 
   if (!cache.has_stored(id)) {
     renderer.set_color(cen::colors::white);
@@ -77,10 +77,10 @@ void RenderActiveMenu(const entt::registry& shared)
   const auto& drawable = shared.get<comp::MenuDrawable>(menuEntity);
 
   auto& graphics = shared.ctx<ref<GraphicsContext>>().get();
-  auto& renderer = graphics.get_renderer();
+  auto& renderer = graphics.GetRenderer();
 
   if (menu.blocking) {
-    const auto index = graphics.load("backdrop"_hs, backdrop_path);
+    const auto index = graphics.LoadTexture("backdrop"_hs, backdrop_path);
     renderer.render(graphics[index], cen::irect{{}, glob::logical_size<>});
     renderer.fill_with(glob::transparent_black);
   }

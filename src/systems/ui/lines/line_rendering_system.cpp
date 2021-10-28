@@ -11,7 +11,7 @@ void RenderLines(const entt::registry& registry, GraphicsContext& graphics)
 {
   const auto menuEntity = registry.ctx<ctx::ActiveMenu>().entity;
 
-  auto& renderer = graphics.get_renderer();
+  auto& renderer = graphics.GetRenderer();
   renderer.set_color(cen::colors::white);
 
   for (auto&& [entity, line, associated] :

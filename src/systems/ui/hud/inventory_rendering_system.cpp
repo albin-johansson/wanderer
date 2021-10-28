@@ -48,7 +48,7 @@ void RenderInventoryBar(const entt::registry& registry, GraphicsContext& graphic
   constexpr auto x = CenterX(totalWidth);
   constexpr auto y = glob::logical_height<int> - bar_cell_height - glob::default_margin;
 
-  auto& renderer = graphics.get_renderer();
+  auto& renderer = graphics.GetRenderer();
   for (int32 i = 0; i < bar_cell_count; ++i) {
     const auto cell = cen::rect(x + (i * (bar_cell_width + bar_cell_spacing)),
                                 y,
@@ -67,7 +67,7 @@ void RenderInventory(const entt::registry& registry,
                      GraphicsContext& graphics,
                      const cen::ipoint& mousePos)
 {
-  auto& renderer = graphics.get_renderer();
+  auto& renderer = graphics.GetRenderer();
 
   const auto getCellPos = [](const int row, const int col) noexcept {
     return cen::ipoint{origin.x() + (col * (cell_width + spacing)),

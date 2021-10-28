@@ -245,7 +245,7 @@ void LoadPlant(const Tactile::IO::Map& irMap,
   const auto& tile = sys::GetTile(registry, first);
 
   auto& drawable = registry.emplace<comp::Drawable>(entity);
-  drawable.texture = graphics.to_index(GetTextureId(irTileset));
+  drawable.texture = graphics.ToIndex(GetTextureId(irTileset));
   drawable.dst.set_position({x, y});
   drawable.dst.set_size({width, height});
   drawable.src = tile.src;

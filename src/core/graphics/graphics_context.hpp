@@ -46,7 +46,7 @@ class GraphicsContext final
    *
    * \return the index of the loaded texture.
    */
-  auto load(uint32 id, const std::string& path) -> usize;
+  auto LoadTexture(uint32 id, const std::string& path) -> usize;
 
   /**
    * \brief Renders a texture.
@@ -62,9 +62,9 @@ class GraphicsContext final
    * \param src the region of the texture that will be rendered.
    * \param dst the destination rectangle.
    */
-  void render(const usize index, const cen::irect& src, const cen::frect& dst) noexcept
+  void Render(const usize index, const cen::irect& src, const cen::frect& dst) noexcept
   {
-    mRenderer.render_t(at(index), src, dst);
+    mRenderer.render_t(GetTexture(index), src, dst);
   }
 
   /**
@@ -75,44 +75,44 @@ class GraphicsContext final
    * \param text the string that will be rendered.
    * \param position the position of the rendered string.
    */
-  void render_outlined_text(const auto& text, const cen::ipoint& position)
+  void RenderOutlinedText(const auto& text, const cen::ipoint& position)
   {
-    const auto& black = small_black_font_cache();
-    const auto& white = small_font_cache();
+    const auto& black = GetSmallFontCacheBlack();
+    const auto& white = GetSmallFontCacheWhite();
 
-    auto& renderer = get_renderer();
+    auto& renderer = GetRenderer();
     renderer.render_text(black, text, position + cen::point(1, 1));
     renderer.render_text(white, text, position);
   }
 
-  [[nodiscard]] auto small_black_font_cache() noexcept -> cen::font_cache&
+  [[nodiscard]] auto GetSmallFontCacheBlack() noexcept -> cen::font_cache&
   {
-    return get_cache(small_black_font);
+    return GetCache(small_black_font);
   }
 
-  [[nodiscard]] auto small_font_cache() noexcept -> cen::font_cache&
+  [[nodiscard]] auto GetSmallFontCacheWhite() noexcept -> cen::font_cache&
   {
-    return get_cache(small_font);
+    return GetCache(small_font);
   }
 
-  [[nodiscard]] auto medium_font_cache() noexcept -> cen::font_cache&
+  [[nodiscard]] auto GetMediumFontCacheWhite() noexcept -> cen::font_cache&
   {
-    return get_cache(medium_font);
+    return GetCache(medium_font);
   }
 
-  [[nodiscard]] auto large_font_cache() noexcept -> cen::font_cache&
+  [[nodiscard]] auto GetLargeFontCacheWhite() noexcept -> cen::font_cache&
   {
-    return get_cache(large_font);
+    return GetCache(large_font);
   }
 
   /// \brief Returns the texture used as a canvas "overlay" for rendering lights.
-  [[nodiscard]] auto light_canvas() noexcept -> cen::texture&
+  [[nodiscard]] auto GetLightCanvasTexture() noexcept -> cen::texture&
   {
     return mLightCanvas;
   }
 
   /// \brief Returns the texture associated with the specified index.
-  [[nodiscard]] auto at(const usize index) const -> const cen::texture&
+  [[nodiscard]] auto GetTexture(const usize index) const -> const cen::texture&
   {
     assert(index < mTextures.size());  // texture_index is unsigned
     return mTextures[index];
@@ -121,7 +121,7 @@ class GraphicsContext final
   /// \copydoc at()
   [[nodiscard]] auto operator[](const usize index) const -> const cen::texture&
   {
-    return at(index);
+    return GetTexture(index);
   }
 
   /**
@@ -131,7 +131,7 @@ class GraphicsContext final
    *
    * \return `true` if the texture index is associated with a texture; `false` otherwise.
    */
-  [[nodiscard]] auto contains(const usize index) const noexcept -> bool
+  [[nodiscard]] auto Contains(const usize index) const noexcept -> bool
   {
     return index < mTextures.size();
   }
@@ -145,7 +145,7 @@ class GraphicsContext final
    *
    * \throws std::out_of_range if the supplied ID isn't associated with an index.
    */
-  [[nodiscard]] auto to_index(const uint32 id) const -> usize
+  [[nodiscard]] auto ToIndex(const uint32 id) const -> usize
   {
     return mIndices.at(id);
   }
@@ -162,7 +162,7 @@ class GraphicsContext final
    * constructor.
    */
   template <typename... Args>
-  void emplace_cache(const uint32 id, Args&&... args)
+  void EmplaceCache(const uint32 id, Args&&... args)
   {
     mCaches.insert_or_assign(id, cen::font_cache{std::forward<Args>(args)...});
   }
@@ -176,44 +176,44 @@ class GraphicsContext final
    *
    * \throws std::out_of_range if there is no font cache associated with the ID.
    */
-  [[nodiscard]] auto get_cache(const uint32 id) -> cen::font_cache&
+  [[nodiscard]] auto GetCache(const uint32 id) -> cen::font_cache&
   {
     return mCaches.at(id);
   }
 
   /// \copydoc get_cache()
-  [[nodiscard]] auto get_cache(const uint32 id) const -> const cen::font_cache&
+  [[nodiscard]] auto GetCache(const uint32 id) const -> const cen::font_cache&
   {
     return mCaches.at(id);
   }
 
-  [[nodiscard]] auto get_font(const uint32 id) -> cen::font&
+  [[nodiscard]] auto GetFont(const uint32 id) -> cen::font&
   {
-    return get_cache(id).get_font();
+    return GetCache(id).get_font();
   }
 
-  [[nodiscard]] auto get_font(const uint32 id) const -> const cen::font&
+  [[nodiscard]] auto GetFont(const uint32 id) const -> const cen::font&
   {
-    return get_cache(id).get_font();
+    return GetCache(id).get_font();
   }
 
   /// \brief Indicates whether or not there is a font cache associated with an ID.
-  [[nodiscard]] auto contains_cache(const uint32 id) const -> bool
+  [[nodiscard]] auto ContainsCache(const uint32 id) const -> bool
   {
     return mCaches.contains(id);
   }
 
-  [[nodiscard]] auto get_renderer() noexcept -> cen::renderer&
+  [[nodiscard]] auto GetRenderer() noexcept -> cen::renderer&
   {
     return mRenderer;
   }
 
-  [[nodiscard]] auto get_renderer() const noexcept -> const cen::renderer&
+  [[nodiscard]] auto GetRenderer() const noexcept -> const cen::renderer&
   {
     return mRenderer;
   }
 
-  [[nodiscard]] auto format() const noexcept -> cen::pixel_format
+  [[nodiscard]] auto GetFormat() const noexcept -> cen::pixel_format
   {
     return mFormat;
   }
