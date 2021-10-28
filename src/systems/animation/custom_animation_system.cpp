@@ -9,9 +9,9 @@
 namespace wanderer::sys {
 namespace {
 
-inline constexpr float speed = 150;
-inline constexpr float n_steps = 120;
-inline constexpr cen::color gray{0x11, 0x11, 0x11};
+constexpr float speed = 150;
+constexpr float n_steps = 120;
+constexpr cen::color gray{0x11, 0x11, 0x11};
 
 }  // namespace
 

@@ -10,25 +10,25 @@
 namespace wanderer::sys {
 namespace {
 
-inline constexpr float time_step = 10;     // How much time passes each frame
-inline constexpr float initial_z_pos = 2;  // The initial theoretical Z-coordinate
+constexpr float time_step = 10;     // How much time passes each frame
+constexpr float initial_z_pos = 2;  // The initial theoretical Z-coordinate
 
-inline constexpr float min_initial_x_accel = -20;
-inline constexpr float max_initial_x_accel = 20;
+constexpr float min_initial_x_accel = -20;
+constexpr float max_initial_x_accel = 20;
 
-inline constexpr float min_initial_y_accel = -10;
-inline constexpr float max_initial_y_accel = 10;
+constexpr float min_initial_y_accel = -10;
+constexpr float max_initial_y_accel = 10;
 
-inline constexpr float min_initial_z_accel = 3;
-inline constexpr float max_initial_z_accel = 6;
+constexpr float min_initial_z_accel = 3;
+constexpr float max_initial_z_accel = 6;
 
 // Z-acceleration is decremented with this each frame
-inline constexpr float z_accel_decrement = 30;
+constexpr float z_accel_decrement = 30;
 
 // These are used to scale the acceleration once a particle has a negative Z-coordinate
-inline constexpr float x_accel = 36;
-inline constexpr float y_accel = 36;
-inline constexpr float z_accel = -30;
+constexpr float x_accel = 36;
+constexpr float y_accel = 36;
+constexpr float z_accel = -30;
 
 void SpawnParticle(entt::registry& registry,
                    const float2 position,
@@ -50,9 +50,9 @@ void SpawnParticle(entt::registry& registry,
 }  // namespace
 
 void SpawnParticles(entt::registry& registry,
-                    float2 origin,
-                    int count,
-                    float duration,
+                    const float2 origin,
+                    const int32 count,
+                    const float duration,
                     const cen::color& color)
 {
   for (auto i = 0; i < count; ++i) {
@@ -60,7 +60,7 @@ void SpawnParticles(entt::registry& registry,
   }
 }
 
-void UpdateParticles(entt::registry& registry, float dt)
+void UpdateParticles(entt::registry& registry, const float dt)
 {
   const auto now = cen::counter::ticks();
   for (auto&& [entity, particle] : registry.view<comp::particle>().each()) {

@@ -10,9 +10,9 @@
 namespace wanderer::sys {
 namespace {
 
-inline constexpr auto button_outline_fg_color = cen::colors::ghost_white;
-inline constexpr auto button_outline_bg_color = button_outline_fg_color.with_alpha(0x22);
-inline constexpr auto button_font = glob::menu_font_m;
+constexpr auto button_outline_fg_color = cen::colors::ghost_white;
+constexpr auto button_outline_bg_color = button_outline_fg_color.with_alpha(0x22);
+constexpr auto button_font = glob::menu_font_m;
 
 void UpdateBounds(const comp::Button& button, cen::frect& bounds, cen::renderer& renderer)
 {

@@ -18,13 +18,13 @@
 namespace wanderer::sys {
 namespace {
 
-inline constexpr float seconds_per_hour = 3'600;
-inline constexpr float rate = 100;
+constexpr float seconds_per_hour = 3'600;
+constexpr float rate = 100;
 
-inline constexpr float sunrise = glob::morning_hour;
-inline constexpr float daytime = 8;
-inline constexpr float sunset = 20;
-inline constexpr float night = 22;
+constexpr float sunrise = glob::morning_hour;
+constexpr float daytime = 8;
+constexpr float sunset = 20;
+constexpr float night = 22;
 
 struct phase final
 {
@@ -33,9 +33,9 @@ struct phase final
   rune::static_vector<cen::color, 5> colors;
 };
 
-inline constexpr auto black = cen::colors::black;
-inline constexpr auto orange = cen::colors::orange;
-inline constexpr auto navy = cen::colors::navy;
+constexpr auto black = cen::colors::black;
+constexpr auto orange = cen::colors::orange;
+constexpr auto navy = cen::colors::navy;
 
 inline const auto sunrise_color = cen::blend(black, orange, 0.5f).with_alpha(0x20);
 inline const auto sunrise_end_color = cen::blend(black, orange, 0.25f).with_alpha(0x20);
@@ -171,10 +171,10 @@ void RenderClock(const entt::registry& registry)
 {
   const auto& time = registry.ctx<ctx::TimeOfDay>();
 
-  const auto hour = static_cast<int>(time.hour) % 24;
-  const auto minute = static_cast<int>(time.minute) % 60;
+  const auto hour = static_cast<int32>(time.hour) % 24;
+  const auto minute = static_cast<int32>(time.minute) % 60;
 
-  const auto prefix = [](const int value) -> std::string_view {
+  const auto prefix = [](const int32 value) -> std::string_view {
     return (value < 10) ? "0" : "";
   };
 

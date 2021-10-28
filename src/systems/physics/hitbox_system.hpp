@@ -39,7 +39,7 @@ struct CollisionResult final
  *
  * \param hitbox the hitbox that will be updated.
  */
-void UpdateBounds(comp::Hitbox& hitbox) noexcept;
+void UpdateBounds(comp::Hitbox& hitbox);
 
 /**
  * \brief Sets the position of a hitbox and updates its bounds.
@@ -49,7 +49,7 @@ void UpdateBounds(comp::Hitbox& hitbox) noexcept;
  * \param hitbox the hitbox that will be moved.
  * \param position the new position of the hitbox.
  */
-void SetPosition(comp::Hitbox& hitbox, float2 position) noexcept;
+void SetPosition(comp::Hitbox& hitbox, float2 position);
 
 /**
  * \brief Creates a copy of the supplied hitbox with the specified position.
@@ -61,7 +61,7 @@ void SetPosition(comp::Hitbox& hitbox, float2 position) noexcept;
  *
  * \return a hitbox that is a copy of the supplied hitbox with the specified position.
  */
-[[nodiscard]] auto WithPosition(const comp::Hitbox& hitbox, float2 position) noexcept
+[[nodiscard]] auto WithPosition(const comp::Hitbox& hitbox, float2 position)
     -> comp::Hitbox;
 
 /**
@@ -76,8 +76,7 @@ void SetPosition(comp::Hitbox& hitbox, float2 position) noexcept;
  *
  * \return `true` if the hitboxes intersect; `false` otherwise.
  */
-[[nodiscard]] auto Intersects(const comp::Hitbox& fst, const comp::Hitbox& snd) noexcept
-    -> bool;
+[[nodiscard]] auto Intersects(const comp::Hitbox& fst, const comp::Hitbox& snd) -> bool;
 
 /**
  * \brief Creates a hitbox.

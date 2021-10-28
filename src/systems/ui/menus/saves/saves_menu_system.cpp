@@ -30,11 +30,11 @@
 namespace wanderer::sys {
 namespace {
 
-inline constexpr float save_entry_row = 6;
-inline constexpr float save_entry_col = 6;
-inline constexpr float page_indicator_row = 15.25f;
-inline constexpr float page_indicator_col = 5.2f;
-inline constexpr int buttons_per_page = 8;
+constexpr float save_entry_row = 6;
+constexpr float save_entry_col = 6;
+constexpr float page_indicator_row = 15.25f;
+constexpr float page_indicator_col = 5.2f;
+constexpr int32 buttons_per_page = 8;
 
 /// Returns the number of pages necessary for a button group
 [[nodiscard]] auto GetPageCount(const comp::ButtonGroup& group) -> int
@@ -178,7 +178,7 @@ void ChangeSavesButtonGroupPage(entt::registry& registry, const int increment)
       group->current_page += increment;
 
       const auto firstRow = group->current_page * group->items_per_page;
-      for (int row = 0; const auto buttonEntity : group->buttons) {
+      for (int32 row = 0; const auto buttonEntity : group->buttons) {
         auto& button = registry.get<comp::Button>(buttonEntity);
         SetVisible(button,
                    row >= firstRow && row <= firstRow + (group->items_per_page - 1));

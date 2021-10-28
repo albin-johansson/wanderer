@@ -11,37 +11,37 @@
 namespace wanderer::sys {
 namespace {
 
-inline constexpr int n_idle_frames{1};
-inline constexpr int n_move_frames{9};
-inline constexpr int n_melee_frames{6};
-inline constexpr int n_magic_frames{7};
-inline constexpr int n_spear_frames{8};
-inline constexpr int n_bow_frames{13};
+constexpr int32 n_idle_frames{1};
+constexpr int32 n_move_frames{9};
+constexpr int32 n_melee_frames{6};
+constexpr int32 n_magic_frames{7};
+constexpr int32 n_spear_frames{8};
+constexpr int32 n_bow_frames{13};
 
-inline constexpr int magic_source_y{0};
-inline constexpr int spear_source_y{256};
-inline constexpr int idle_source_y{512};  // yes these are the same
-inline constexpr int move_source_y{512};
-inline constexpr int melee_source_y{768};
-inline constexpr int bow_source_y{1024};
+constexpr int32 magic_source_y{0};
+constexpr int32 spear_source_y{256};
+constexpr int32 idle_source_y{512};  // yes these are the same
+constexpr int32 move_source_y{512};
+constexpr int32 melee_source_y{768};
+constexpr int32 bow_source_y{1024};
 
-inline constexpr ms_t idle_delay{90};
-inline constexpr ms_t move_delay{55};
-inline constexpr ms_t attack_delay{70};
+constexpr ms_t idle_delay{90};
+constexpr ms_t move_delay{55};
+constexpr ms_t attack_delay{70};
 
 /**
- * \brief Returns the y-coordinate with the appropriate offset in relation to
- * the dir.
+ * \brief Returns the y-coordinate with the appropriate offset in relation to the
+ * direction.
  *
  * \note This function assumes that all humanoids use an LPC tilesheet.
  *
  * \param y the base y-coordinate for the type of animation.
- * \param dir the dir of the humanoid used to determine the
- * appropriate offset.
+ * \param dir the direction of the humanoid used to determine the appropriate offset.
  *
  * \return the source y-coordinate to use for rendering a humanoid.
  */
-[[nodiscard]] constexpr auto GetSourceY(const int y, const Direction dir) noexcept -> int
+[[nodiscard]] constexpr auto GetSourceY(const int32 y, const Direction dir) noexcept
+    -> int32
 {
   switch (dir) {
     default:
@@ -73,8 +73,8 @@ void UpdateMoveAnimation(entt::registry& registry, const entt::entity entity)
   auto& drawable = registry.get<comp::Drawable>(entity);
   const auto& movable = registry.get<comp::Movable>(entity);
 
-  drawable.src.set_x(is_zero(movable.velocity) ? 0
-                                               : static_cast<int>(animation.frame) * 64);
+  drawable.src.set_x(
+      is_zero(movable.velocity) ? 0 : static_cast<int32>(animation.frame) * 64);
   const auto srcY = GetSourceY(move_source_y, movable.dir);
   if (drawable.src.y() != srcY) {
     animation.frame = 0u;
@@ -97,7 +97,7 @@ void UpdateAttackAnimation(entt::registry& registry, const entt::entity entity)
   auto& animation = registry.get<comp::Animation>(entity);
   auto& drawable = registry.get<comp::Drawable>(entity);
 
-  drawable.src.set_x(static_cast<int>(animation.frame) * 64);
+  drawable.src.set_x(static_cast<int32>(animation.frame) * 64);
   if (animation.frame == animation.frame_count - 1u) {
     auto& attack = registry.get<comp::HumanoidAttack>(entity);
     attack.done = true;
@@ -121,7 +121,7 @@ void EnterAnimation(entt::registry& registry,
                     const entt::entity entity,
                     const uint32 nFrames,
                     const ms_t delay,
-                    const int sourceY)
+                    const int32 sourceY)
 {
   auto& animation = registry.get<comp::Animation>(entity);
   animation.frame = 0;
@@ -138,7 +138,7 @@ void EnterAnimation(entt::registry& registry,
                     const entt::entity entity,
                     const uint32 nFrames,
                     const ms_t delay,
-                    const int sourceY,
+                    const int32 sourceY,
                     const Direction dir)
 {
   auto& animation = registry.get<comp::Animation>(entity);

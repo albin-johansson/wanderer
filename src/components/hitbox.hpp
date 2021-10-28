@@ -8,7 +8,7 @@
 namespace wanderer::comp {
 
 /// The maximum number of subhitboxes a single hitbox can contain.
-inline constexpr usize max_subhitbox_count = 5;
+constexpr usize max_subhitbox_count = 5;
 
 /// \brief Represents a "subhitbox", a member of a `hitbox` instance.
 /// \ingroup components

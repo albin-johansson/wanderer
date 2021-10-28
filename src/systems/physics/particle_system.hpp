@@ -24,7 +24,7 @@ namespace wanderer::sys {
  */
 void SpawnParticles(entt::registry& registry,
                     float2 origin,
-                    int count,
+                    int32 count,
                     float duration,
                     const cen::color& color);
 

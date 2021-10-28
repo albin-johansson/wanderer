@@ -13,8 +13,8 @@
 namespace wanderer::sys {
 namespace {
 
-[[nodiscard]] auto get_particle_position(const float2 position,
-                                         const Direction dir) noexcept -> float2
+[[nodiscard]] auto GetParticlePosition(const float2 position, const Direction dir)
+    -> float2
 {
   switch (dir) {
     default:
@@ -60,7 +60,7 @@ void OnAttackEnd(const EndAttackEvent& event)
   // TODO deal damage (need target area)
 
   if (const auto* movable = registry.try_get<comp::Movable>(event.source_entity)) {
-    const auto position = get_particle_position(movable->position, movable->dir);
+    const auto position = GetParticlePosition(movable->position, movable->dir);
     dispatcher.enqueue<SpawnParticlesEvent>(position, 5, 25.0f, cen::colors::dark_gray);
   }
 }

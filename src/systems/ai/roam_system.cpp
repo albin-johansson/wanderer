@@ -12,8 +12,8 @@
 namespace wanderer::sys {
 namespace {
 
-inline constexpr float cooldown_rate = 50;
-inline constexpr float target_error_margin = 1;
+constexpr float cooldown_rate = 50;
+constexpr float target_error_margin = 1;
 
 [[nodiscard]] auto GetNearbyPosition(const float2 position) -> float2
 {

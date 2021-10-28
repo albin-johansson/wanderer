@@ -10,20 +10,20 @@
 namespace wanderer::sys {
 namespace {
 
-inline constexpr cen::color cell_color{0xAA, 0xAA, 0xAA, 0xCC};
+constexpr cen::color cell_color{0xAA, 0xAA, 0xAA, 0xCC};
 
-inline constexpr int n_rows = 4;        ///< Amount of inventory cell rows.
-inline constexpr int n_cols = 5;        ///< Amount of inventory cell columns.
-inline constexpr int cell_width = 48;   ///< Width of inventory cells.
-inline constexpr int cell_height = 48;  ///< Height of inventory cells.
-inline constexpr int spacing = 4;       ///< Space in between inventory cells.
+constexpr int32 n_rows = 4;        ///< Amount of inventory cell rows.
+constexpr int32 n_cols = 5;        ///< Amount of inventory cell columns.
+constexpr int32 cell_width = 48;   ///< Width of inventory cells.
+constexpr int32 cell_height = 48;  ///< Height of inventory cells.
+constexpr int32 spacing = 4;       ///< Space in between inventory cells.
 
-inline constexpr cen::iarea cell_size{cell_width, cell_height};
+constexpr cen::iarea cell_size{cell_width, cell_height};
 
-inline constexpr int bar_cell_count = 10;
-inline constexpr int bar_cell_width = 30;
-inline constexpr int bar_cell_height = 30;
-inline constexpr int bar_cell_spacing = 2;
+constexpr int32 bar_cell_count = 10;
+constexpr int32 bar_cell_width = 30;
+constexpr int32 bar_cell_height = 30;
+constexpr int32 bar_cell_spacing = 2;
 
 [[nodiscard]] consteval auto GetRenderOrigin() -> cen::ipoint
 {
@@ -37,7 +37,7 @@ inline constexpr int bar_cell_spacing = 2;
   return {x, y};
 }
 
-inline constexpr cen::ipoint origin = GetRenderOrigin();
+constexpr cen::ipoint origin = GetRenderOrigin();
 
 }  // namespace
 
@@ -49,7 +49,7 @@ void RenderInventoryBar(const entt::registry& registry, GraphicsContext& graphic
   constexpr auto y = glob::logical_height<int> - bar_cell_height - glob::default_margin;
 
   auto& renderer = graphics.get_renderer();
-  for (auto i = 0; i < bar_cell_count; ++i) {
+  for (int32 i = 0; i < bar_cell_count; ++i) {
     const auto cell = cen::rect(x + (i * (bar_cell_width + bar_cell_spacing)),
                                 y,
                                 bar_cell_width,
@@ -80,8 +80,8 @@ void RenderInventory(const entt::registry& registry,
     renderer.fill_with(glob::transparent_black);
 
     const auto nItems = inventory.items.size();
-    maybe<int> hoverIndex;
-    int index = 0;
+    maybe<int32> hoverIndex;
+    int32 index = 0;
 
     for (auto row = 0; row < n_rows; ++row) {
       for (auto col = 0; col < n_cols; ++col, ++index) {

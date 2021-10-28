@@ -39,7 +39,7 @@ namespace {
 
 }  // namespace
 
-void UpdateBounds(comp::Hitbox& hitbox) noexcept
+void UpdateBounds(comp::Hitbox& hitbox)
 {
   if (hitbox.boxes.empty()) {
     return;
@@ -75,20 +75,20 @@ void UpdateBounds(comp::Hitbox& hitbox) noexcept
   hitbox.bounds.set_height(my - y);
 }
 
-void SetPosition(comp::Hitbox& hitbox, float2 position) noexcept
+void SetPosition(comp::Hitbox& hitbox, float2 position)
 {
   hitbox.origin = position;
   UpdateBounds(hitbox);
 }
 
-auto WithPosition(const comp::Hitbox& hitbox, float2 position) noexcept -> comp::Hitbox
+auto WithPosition(const comp::Hitbox& hitbox, float2 position) -> comp::Hitbox
 {
   auto result = hitbox;
   SetPosition(result, position);
   return result;
 }
 
-auto Intersects(const comp::Hitbox& fst, const comp::Hitbox& snd) noexcept -> bool
+auto Intersects(const comp::Hitbox& fst, const comp::Hitbox& snd) -> bool
 {
   // 1. A hitbox doesn't intersect itself
   // 2. The hitboxes can't intersect if their bounding rectangles don't intersect

@@ -9,7 +9,7 @@
 namespace wanderer::sys {
 namespace {
 
-inline constexpr float cooldown_duration = 100;
+constexpr float cooldown_duration = 100;
 
 void BeginChase(entt::registry& registry,
                 const entt::entity entity,
