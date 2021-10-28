@@ -222,8 +222,8 @@ set(SOURCE_FILES
     systems/input/movement_input_system.cpp
     systems/input/movement_input_system.hpp
 
-    systems/levels/level_system.cpp
-    systems/levels/level_system.hpp
+    systems/level_system.cpp
+    systems/level_system.hpp
 
     systems/physics/direction_system.cpp
     systems/physics/direction_system.hpp

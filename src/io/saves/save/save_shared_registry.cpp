@@ -32,7 +32,7 @@
 #include "components/trigger.hpp"
 #include "components/vector3.hpp"
 #include "components/viewport.hpp"
-#include "systems/levels/level_system.hpp"
+#include "systems/level_system.hpp"
 #include "wanderer_std.hpp"
 
 namespace wanderer {

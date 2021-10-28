@@ -15,7 +15,7 @@
 #include "core/game_constants.hpp"
 #include "core/graphics/graphics_context.hpp"
 #include "inventory_rendering_system.hpp"
-#include "systems/levels/level_system.hpp"
+#include "systems/level_system.hpp"
 #include "systems/ui/grid.hpp"
 #include "wanderer_std.hpp"
 

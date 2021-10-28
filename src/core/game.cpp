@@ -31,7 +31,7 @@
 #include "systems/gfx/tile_layer_rendering_system.hpp"
 #include "systems/gfx/viewport_system.hpp"
 #include "systems/input/input_system.hpp"
-#include "systems/levels/level_system.hpp"
+#include "systems/level_system.hpp"
 #include "systems/physics/movement_system.hpp"
 #include "systems/physics/particle_system.hpp"
 #include "systems/plant_system.hpp"
