@@ -29,6 +29,20 @@ void EachObject(const T& source, U&& callable)
 }
 
 template <typename T>
+[[nodiscard]] auto HasProperty(const T& source, const std::string_view name) -> bool
+{
+  const auto count = Tactile::IO::GetPropertyCount(source);
+  for (usize index = 0; index < count; ++index) {
+    const auto& property = Tactile::IO::GetProperty(source, index);
+    if (Tactile::IO::GetName(property) == name) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+template <typename T>
 [[nodiscard]] auto GetProperty(const T& source, const std::string_view name)
     -> const Tactile::IO::Property&
 {

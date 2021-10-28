@@ -138,10 +138,21 @@ set(SOURCE_FILES
     io/saves/save/save_shared_registry.cpp
     io/saves/save/save_shared_registry.hpp
 
+    io/maps/create_humanoids.cpp
+    io/maps/create_humanoids.hpp
+    io/maps/create_layers.cpp
+    io/maps/create_layers.hpp
+    io/maps/create_object_layer.cpp
+    io/maps/create_object_layer.hpp
+    io/maps/create_tile_layer.cpp
+    io/maps/create_tile_layer.hpp
+    io/maps/create_tileset.cpp
+    io/maps/create_tileset.hpp
+    io/maps/hitboxes.cpp
+    io/maps/hitboxes.hpp
     io/maps/load_levels.cpp
     io/maps/load_levels.hpp
     io/maps/tactile_io_utils.hpp
-    io/maps/tactile_io_utils.cpp
 
     systems/interaction_system.cpp
     systems/interaction_system.hpp
