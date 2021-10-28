@@ -6,7 +6,7 @@ namespace wanderer {
 namespace {
 
 template <typename T, typename... Args>
-void mutually_exclusive(entt::registry& registry)
+void MutuallyExclusive(entt::registry& registry)
 {
   registry.on_construct<T>().template connect<&entt::registry::remove<Args...>>();
 }
@@ -20,10 +20,10 @@ void AddHumanoidStateDependencies(entt::registry& registry)
   using attack = comp::HumanoidAttack;
   using die = comp::HumanoidDie;
 
-  mutually_exclusive<idle, move, attack, die>(registry);
-  mutually_exclusive<move, attack, die, idle>(registry);
-  mutually_exclusive<attack, die, idle, move>(registry);
-  mutually_exclusive<die, idle, move, attack>(registry);
+  MutuallyExclusive<idle, move, attack, die>(registry);
+  MutuallyExclusive<move, attack, die, idle>(registry);
+  MutuallyExclusive<attack, die, idle, move>(registry);
+  MutuallyExclusive<die, idle, move, attack>(registry);
 }
 
 }  // namespace wanderer
