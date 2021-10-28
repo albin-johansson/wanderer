@@ -4,8 +4,8 @@
 
 #include <centurion.hpp>  // colors
 
-#include "components/ai/humanoid.hpp"
-#include "components/physics/movable.hpp"
+#include "components/humanoid.hpp"
+#include "components/movable.hpp"
 #include "core/game_constants.hpp"
 #include "events/spawn_particles_event.hpp"
 #include "humanoid_animation_system.hpp"

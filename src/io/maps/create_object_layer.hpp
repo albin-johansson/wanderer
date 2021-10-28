@@ -2,7 +2,7 @@
 
 #include <tactile-io/ir.hpp>
 
-#include "components/lvl/level.hpp"
+#include "components/level.hpp"
 #include "core/graphics/graphics_context.hpp"
 #include "wanderer_std.hpp"
 

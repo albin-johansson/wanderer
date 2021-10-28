@@ -1,8 +1,8 @@
 #include "create_humanoids.hpp"
 
-#include "components/ai/humanoid.hpp"
-#include "components/gfx/drawable.hpp"
-#include "components/lvl/spawnpoint.hpp"
+#include "components/drawable.hpp"
+#include "components/humanoid.hpp"
+#include "components/spawnpoint.hpp"
 #include "components/tilemap.hpp"
 #include "systems/ai/humanoid/humanoid_factory_system.hpp"
 

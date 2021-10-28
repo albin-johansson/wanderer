@@ -2,13 +2,13 @@
 
 #include <save.pb.h>
 
+#include "components/hitbox.hpp"
+#include "components/level.hpp"
 #include "components/level_size.hpp"
-#include "components/lvl/level.hpp"
-#include "components/physics/hitbox.hpp"
-#include "components/physics/movable.hpp"
+#include "components/movable.hpp"
 #include "components/player.hpp"
 #include "components/tilemap.hpp"
-#include "components/tiles/tileset.hpp"
+#include "components/tileset.hpp"
 #include "components/time_of_day.hpp"
 #include "components/viewport.hpp"
 #include "core/ecs/registry_utils.hpp"

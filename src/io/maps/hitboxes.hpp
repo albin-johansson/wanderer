@@ -2,7 +2,7 @@
 
 #include <entt.hpp>  // registry, entity
 
-#include "components/physics/hitbox.hpp"
+#include "components/hitbox.hpp"
 #include "wanderer_std.hpp"
 
 namespace wanderer {

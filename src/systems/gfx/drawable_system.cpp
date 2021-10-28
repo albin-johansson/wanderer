@@ -1,7 +1,7 @@
 #include "drawable_system.hpp"
 
-#include "components/gfx/drawable.hpp"
-#include "components/physics/movable.hpp"
+#include "components/drawable.hpp"
+#include "components/movable.hpp"
 #include "components/viewport.hpp"
 #include "core/graphics/graphics_context.hpp"
 #include "systems/gfx/render_bounds_system.hpp"

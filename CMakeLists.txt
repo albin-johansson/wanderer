@@ -9,9 +9,6 @@ set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-include(Utilities)
-include(Dependencies)
-
 # Helper variables for directory paths
 set(ROOT_DIR ${PROJECT_SOURCE_DIR})
 set(BINARY_DIR ${ROOT_DIR}/bin)
@@ -25,12 +22,16 @@ set(WANDERER_LIB libWanderer)
 set(WANDERER_TEST testWanderer)
 set(WANDERER_EXE Wanderer)
 
+include(Utilities)
+
 if (WIN32)
   find_env_var(SDL2DIR SDL2)
   find_env_var(SDL2IMAGEDIR SDL2_image)
   find_env_var(SDL2MIXERDIR SDL2_mixer)
   find_env_var(SDL2TTFDIR SDL2_ttf)
 endif ()
+
+include(Dependencies)
 
 find_package(SDL2 REQUIRED)
 find_package(SDL2_image REQUIRED)

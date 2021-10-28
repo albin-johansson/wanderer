@@ -4,10 +4,10 @@
 
 #include <tactile-io/parser.hpp>
 
-#include "components/ai/humanoid.hpp"
+#include "components/humanoid.hpp"
+#include "components/level.hpp"
 #include "components/level_size.hpp"
-#include "components/lvl/level.hpp"
-#include "components/lvl/portal.hpp"
+#include "components/portal.hpp"
 #include "components/tilemap.hpp"
 #include "components/viewport.hpp"
 #include "core/ecs/make_registry.hpp"

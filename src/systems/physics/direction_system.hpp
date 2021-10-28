@@ -1,6 +1,6 @@
 #pragma once
 
-#include "components/physics/movable.hpp"
+#include "components/movable.hpp"
 #include "core/direction.hpp"
 
 namespace wanderer::sys {

@@ -4,7 +4,7 @@
 
 #include <entt.hpp>  // entity
 
-#include "components/tiles/tile.hpp"
+#include "tile.hpp"
 #include "wanderer_std.hpp"
 
 namespace wanderer::comp {

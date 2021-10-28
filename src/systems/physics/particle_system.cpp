@@ -2,7 +2,7 @@
 
 #include <rune/everything.hpp>  // next_random
 
-#include "components/physics/particle.hpp"
+#include "components/particle.hpp"
 #include "components/viewport.hpp"
 #include "core/graphics/graphics_context.hpp"
 #include "wanderer_std.hpp"

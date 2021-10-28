@@ -3,8 +3,8 @@
 #include <cassert>   // assert
 #include <optional>  // optional
 
-#include "components/ai/humanoid.hpp"
 #include "components/binds.hpp"
+#include "components/humanoid.hpp"
 #include "components/items/inventory.hpp"
 #include "components/player.hpp"
 #include "core/direction.hpp"

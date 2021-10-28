@@ -4,8 +4,8 @@
 
 #include <rune/everything.hpp>  // delta_time
 
-#include "components/physics/hitbox.hpp"
-#include "components/physics/movable.hpp"
+#include "components/hitbox.hpp"
+#include "components/movable.hpp"
 #include "wanderer_std.hpp"
 
 namespace wanderer::sys {

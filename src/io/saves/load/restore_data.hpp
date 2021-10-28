@@ -3,8 +3,8 @@
 #include <centurion.hpp>
 #include <entt.hpp>  // registry, entity
 
-#include "components/physics/vector3.hpp"
 #include "components/time_of_day.hpp"
+#include "components/vector3.hpp"
 #include "wanderer_std.hpp"
 
 namespace wanderer {

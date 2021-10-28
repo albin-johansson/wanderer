@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "components/ai/humanoid.hpp"
+#include "components/humanoid.hpp"
 #include "core/ecs/add_humanoid_state_dependencies.hpp"
 
 using namespace wanderer;

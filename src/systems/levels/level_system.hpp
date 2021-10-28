@@ -2,7 +2,7 @@
 
 #include <entt.hpp>  // registry
 
-#include "components/lvl/level.hpp"
+#include "components/level.hpp"
 #include "events/custom_animation_halfway_event.hpp"
 #include "wanderer_std.hpp"
 

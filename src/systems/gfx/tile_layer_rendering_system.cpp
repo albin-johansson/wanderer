@@ -2,9 +2,9 @@
 
 #include <cassert>  // assert
 
-#include "components/gfx/tile_animation.hpp"
 #include "components/render_bounds.hpp"
-#include "components/tiles/tile_layer.hpp"
+#include "components/tile_animation.hpp"
+#include "components/tile_layer.hpp"
 #include "core/ecs/registry_utils.hpp"
 #include "core/graphics/graphics_context.hpp"
 #include "systems/gfx/tile_rendering_system.hpp"

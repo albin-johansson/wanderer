@@ -1,6 +1,6 @@
 #include "level_switch_animation_system.hpp"
 
-#include "components/lvl/level_switch_target.hpp"
+#include "components/level_switch_target.hpp"
 #include "core/game_constants.hpp"
 #include "systems/animation/custom_animation_system.hpp"
 

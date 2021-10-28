@@ -3,13 +3,13 @@
 #include <cassert>  // assert
 
 #include "components/active_menu.hpp"
-#include "components/ai/chase.hpp"
 #include "components/associated_entity.hpp"
-#include "components/gfx/drawable.hpp"
-#include "components/lvl/portal.hpp"
-#include "components/physics/hitbox.hpp"
+#include "components/chase.hpp"
+#include "components/drawable.hpp"
+#include "components/hitbox.hpp"
 #include "components/player.hpp"
-#include "components/tiles/tile.hpp"
+#include "components/portal.hpp"
+#include "components/tile.hpp"
 #include "components/trigger.hpp"
 #include "components/ui/menu.hpp"
 #include "core/ecs/registry_utils.hpp"

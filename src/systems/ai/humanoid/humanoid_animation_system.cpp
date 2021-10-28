@@ -2,10 +2,10 @@
 
 #include <cassert>  // assert
 
-#include "components/ai/humanoid.hpp"
-#include "components/gfx/animation.hpp"
-#include "components/gfx/drawable.hpp"
-#include "components/physics/movable.hpp"
+#include "components/animation.hpp"
+#include "components/drawable.hpp"
+#include "components/humanoid.hpp"
+#include "components/movable.hpp"
 #include "wanderer_std.hpp"
 
 namespace wanderer::sys {

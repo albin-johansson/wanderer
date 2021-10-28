@@ -2,12 +2,12 @@
 
 #include <vector>  // vector
 
-#include "components/gfx/drawable.hpp"
-#include "components/gfx/tile_animation.hpp"
-#include "components/physics/hitbox.hpp"
-#include "components/tiles/tile_layer.hpp"
-#include "components/tiles/tile_object.hpp"
-#include "components/tiles/tileset.hpp"
+#include "components/drawable.hpp"
+#include "components/hitbox.hpp"
+#include "components/tile_animation.hpp"
+#include "components/tile_layer.hpp"
+#include "components/tile_object.hpp"
+#include "components/tileset.hpp"
 #include "core/game_constants.hpp"
 #include "core/utils/centurion_utils.hpp"
 #include "hitboxes.hpp"

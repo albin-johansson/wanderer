@@ -1,8 +1,8 @@
-#include "components/physics/hitbox.hpp"
+#include "components/hitbox.hpp"
 
 #include <gtest/gtest.h>
 
-#include "components/physics/movable.hpp"
+#include "components/movable.hpp"
 #include "core/utils/centurion_utils.hpp"
 #include "systems/physics/hitbox_system.hpp"
 

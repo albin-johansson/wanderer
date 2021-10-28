@@ -2,7 +2,7 @@
 
 #include <tuple>  // tie
 
-#include "components/gfx/drawable.hpp"
+#include "components/drawable.hpp"
 
 namespace wanderer::sys {
 namespace {

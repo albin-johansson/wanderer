@@ -5,14 +5,14 @@
 
 #include <centurion.hpp>  // ticks
 
-#include "components/ai/chase.hpp"
-#include "components/ai/humanoid.hpp"
-#include "components/ai/roam.hpp"
-#include "components/gfx/animation.hpp"
-#include "components/gfx/drawable.hpp"
-#include "components/gfx/point_light.hpp"
-#include "components/physics/hitbox.hpp"
-#include "components/physics/movable.hpp"
+#include "components/animation.hpp"
+#include "components/chase.hpp"
+#include "components/drawable.hpp"
+#include "components/hitbox.hpp"
+#include "components/humanoid.hpp"
+#include "components/movable.hpp"
+#include "components/point_light.hpp"
+#include "components/roam.hpp"
 #include "core/direction.hpp"
 #include "core/ecs/registry_utils.hpp"
 #include "core/game_constants.hpp"

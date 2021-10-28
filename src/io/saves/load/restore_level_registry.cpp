@@ -4,10 +4,10 @@
 
 #include <cassert>  // assert
 
-#include "components/ai/humanoid.hpp"
+#include "components/humanoid.hpp"
 #include "components/player.hpp"
 #include "components/tilemap.hpp"
-#include "components/tiles/tileset.hpp"
+#include "components/tileset.hpp"
 #include "core/ecs/make_registry.hpp"
 #include "core/ecs/registry_utils.hpp"
 #include "core/game_constants.hpp"

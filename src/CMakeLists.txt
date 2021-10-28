@@ -26,32 +26,32 @@ set(SOURCE_FILES
     components/trigger.hpp
     components/viewport.hpp
 
-    components/ai/chase.hpp
-    components/ai/humanoid.hpp
-    components/ai/roam.hpp
+    components/chase.hpp
+    components/humanoid.hpp
+    components/roam.hpp
 
-    components/gfx/animation.hpp
-    components/gfx/custom_animation.hpp
-    components/gfx/drawable.hpp
-    components/gfx/point_light.hpp
-    components/gfx/tile_animation.hpp
+    components/animation.hpp
+    components/custom_animation.hpp
+    components/drawable.hpp
+    components/point_light.hpp
+    components/tile_animation.hpp
 
     components/items/inventory.hpp
 
-    components/lvl/level.hpp
-    components/lvl/level_switch_target.hpp
-    components/lvl/portal.hpp
-    components/lvl/spawnpoint.hpp
+    components/level.hpp
+    components/level_switch_target.hpp
+    components/portal.hpp
+    components/spawnpoint.hpp
 
-    components/physics/vector3.hpp
-    components/physics/hitbox.hpp
-    components/physics/movable.hpp
-    components/physics/particle.hpp
+    components/vector3.hpp
+    components/hitbox.hpp
+    components/movable.hpp
+    components/particle.hpp
 
-    components/tiles/tile.hpp
-    components/tiles/tile_layer.hpp
-    components/tiles/tile_object.hpp
-    components/tiles/tileset.hpp
+    components/tile.hpp
+    components/tile_layer.hpp
+    components/tile_object.hpp
+    components/tileset.hpp
 
     components/ui/associated_menu.hpp
     components/ui/button.hpp
@@ -317,7 +317,6 @@ target_include_directories(${WANDERER_LIB}
 
 target_link_libraries(${WANDERER_LIB} PUBLIC
     ${WANDERER_PROTO}
-    ${JSON_LIBRARIES}
     ${CENTURION_LIBRARIES}
     ${PROTOBUF_LIBRARIES}
     ${SDL2_IMAGE_LIBRARIES}

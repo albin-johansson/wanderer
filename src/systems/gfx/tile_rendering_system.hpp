@@ -1,7 +1,7 @@
 #pragma once
 
-#include "components/tiles/tile.hpp"
-#include "components/tiles/tileset.hpp"
+#include "components/tile.hpp"
+#include "components/tileset.hpp"
 #include "core/graphics/graphics_context.hpp"
 #include "core/grid_position.hpp"
 

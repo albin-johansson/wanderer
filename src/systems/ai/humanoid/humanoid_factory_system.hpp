@@ -2,7 +2,7 @@
 
 #include <entt.hpp>  // registry, entity
 
-#include "components/lvl/level.hpp"
+#include "components/level.hpp"
 #include "components/player.hpp"
 #include "core/graphics/graphics_context.hpp"
 #include "wanderer_std.hpp"

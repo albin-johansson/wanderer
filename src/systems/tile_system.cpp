@@ -1,6 +1,6 @@
 #include "tile_system.hpp"
 
-#include "components/tiles/tileset.hpp"
+#include "components/tileset.hpp"
 #include "core/ecs/registry_utils.hpp"
 
 namespace wanderer::sys {

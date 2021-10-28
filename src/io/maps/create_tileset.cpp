@@ -3,9 +3,9 @@
 #include <filesystem>   // path
 #include <string_view>  // sv
 
-#include "components/gfx/tile_animation.hpp"
-#include "components/physics/hitbox.hpp"
-#include "components/tiles/tileset.hpp"
+#include "components/hitbox.hpp"
+#include "components/tile_animation.hpp"
+#include "components/tileset.hpp"
 #include "core/game_constants.hpp"
 #include "profile.hpp"
 #include "systems/physics/hitbox_system.hpp"
