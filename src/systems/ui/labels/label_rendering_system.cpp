@@ -10,19 +10,19 @@
 namespace wanderer::sys {
 namespace {
 
-[[nodiscard]] auto menu_font(const text_size size)
+[[nodiscard]] auto menu_font(const TextSize size)
 {
   switch (size) {
     default:
       [[fallthrough]];
 
-    case text_size::small:
+    case TextSize::Small:
       return glob::menu_font_s;
 
-    case text_size::medium:
+    case TextSize::Medium:
       return glob::menu_font_m;
 
-    case text_size::large:
+    case TextSize::Large:
       return glob::menu_font_l;
   }
 }

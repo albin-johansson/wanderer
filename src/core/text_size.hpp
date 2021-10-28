@@ -4,11 +4,11 @@ namespace wanderer {
 
 /// \brief Represents different text label sizes.
 /// \ingroup core
-enum class text_size
+enum class TextSize
 {
-  small,
-  medium,
-  large
+  Small,
+  Medium,
+  Large
 };
 
 }  // namespace wanderer

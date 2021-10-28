@@ -12,7 +12,7 @@ auto MakeLabel(entt::registry& registry,
                const entt::entity menu,
                std::string text,
                const GridPosition position,
-               const text_size size) -> entt::entity
+               const TextSize size) -> entt::entity
 {
   const auto entity = registry.create();
 

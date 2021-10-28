@@ -33,7 +33,7 @@ auto MakeLabel(entt::registry& registry,
                entt::entity menu,
                std::string text,
                GridPosition position,
-               text_size size = text_size::small) -> entt::entity;
+               TextSize size = TextSize::Small) -> entt::entity;
 
 /// \} End of labels
 

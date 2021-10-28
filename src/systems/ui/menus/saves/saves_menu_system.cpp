@@ -125,7 +125,7 @@ void RefreshPageIndicatorLabel(entt::registry& registry,
                        menuEntity,
                        GetPageIndicatorText(group),
                        GridPosition{page_indicator_row, page_indicator_col},
-                       text_size::medium);
+                       TextSize::Medium);
   }
   else {
     auto& label = registry.get<comp::Label>(group.indicator_label);
@@ -235,7 +235,7 @@ void ChangeSavePreview(entt::registry& registry)
     const auto label = [&](std::string text,
                            const float row,
                            const float col,
-                           const text_size size = text_size::small) {
+                           const TextSize size = TextSize::Small) {
       return MakeLabel(registry,
                        activeMenu,
                        std::move(text),
@@ -243,7 +243,7 @@ void ChangeSavePreview(entt::registry& registry)
                        size);
     };
 
-    savesMenu.title_label = label(entry.name, 6, 11, text_size::large);
+    savesMenu.title_label = label(entry.name, 6, 11, TextSize::Large);
     savesMenu.time_label =
         label("Last played:  " +
                   GetLastModified(GetSavesDirectory() / entry.name / "data.wanderer"),
