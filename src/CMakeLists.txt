@@ -155,6 +155,8 @@ set(SOURCE_FILES
 
     systems/interaction_system.cpp
     systems/interaction_system.hpp
+    systems/level_system.cpp
+    systems/level_system.hpp
     systems/plant_system.cpp
     systems/plant_system.hpp
     systems/registry_system.cpp
@@ -221,9 +223,6 @@ set(SOURCE_FILES
     systems/input/key_bind_system.hpp
     systems/input/movement_input_system.cpp
     systems/input/movement_input_system.hpp
-
-    systems/level_system.cpp
-    systems/level_system.hpp
 
     systems/physics/direction_system.cpp
     systems/physics/direction_system.hpp
