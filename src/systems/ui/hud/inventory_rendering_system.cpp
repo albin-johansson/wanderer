@@ -1,6 +1,6 @@
 #include "inventory_rendering_system.hpp"
 
-#include <rune/everything.hpp>  // index_to_matrix
+#include <rune/rune.hpp>  // index_to_matrix
 
 #include "components/items/inventory.hpp"
 #include "core/game_constants.hpp"

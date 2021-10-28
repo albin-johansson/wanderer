@@ -2,7 +2,7 @@
 
 #include <cmath>  // clamp
 
-#include <rune/everything.hpp>  // next_bool
+#include <rune/rune.hpp>  // next_bool
 
 #include "components/drawable.hpp"
 #include "components/player.hpp"
@@ -52,7 +52,7 @@ void RenderLights(const entt::registry& registry, const ctx::TimeOfDay& time)
   renderer.set_target(texture);
   renderer.clear_with(time.tint);
 
-  const auto index = graphics.load(rune::texture_id{"point_light"_hs}, texture_path);
+  const auto index = graphics.load("point_light"_hs, texture_path);
   const auto& viewport = registry.ctx<ctx::Viewport>();
   constexpr auto source = cen::rect(0, 0, 80, 80);
 

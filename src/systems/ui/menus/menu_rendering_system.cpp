@@ -80,7 +80,7 @@ void RenderActiveMenu(const entt::registry& shared)
   auto& renderer = graphics.get_renderer();
 
   if (menu.blocking) {
-    const auto index = graphics.load(rune::texture_id{"backdrop"_hs}, backdrop_path);
+    const auto index = graphics.load("backdrop"_hs, backdrop_path);
     renderer.render(graphics[index], cen::irect{{}, glob::logical_size<>});
     renderer.fill_with(glob::transparent_black);
   }

@@ -2,7 +2,7 @@
 
 #include <initializer_list>  // initializer_list
 
-#include <rune/everything.hpp>  // delta_time
+#include <rune/rune.hpp>  // delta_time
 
 #include "components/hitbox.hpp"
 #include "components/movable.hpp"

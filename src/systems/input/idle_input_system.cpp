@@ -56,13 +56,11 @@ void CheckForMovement(entt::registry& registry,
 
 void HandleIdleInput(entt::registry& registry,
                      entt::dispatcher& dispatcher,
-                     const rune::input& input,
+                     const cen::keyboard& keyboard,
                      const ctx::Binds& binds)
 {
   const auto player = singleton_entity<comp::Player>(registry);
-
   assert(registry.all_of<comp::HumanoidIdle>(player));
-  const auto& keyboard = input.keyboard;
 
   if (keyboard.just_released(binds.interact)) {
     dispatcher.enqueue<InteractEvent>(registry, dispatcher);
@@ -73,7 +71,7 @@ void HandleIdleInput(entt::registry& registry,
       dispatcher.enqueue<BeginAttackEvent>(registry, player, entt::null, Direction::Down);
     }
     else {
-      CheckForMovement(registry, dispatcher, input.keyboard, binds);
+      CheckForMovement(registry, dispatcher, keyboard, binds);
     }
   }
 }

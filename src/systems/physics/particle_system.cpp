@@ -1,6 +1,6 @@
 #include "particle_system.hpp"
 
-#include <rune/everything.hpp>  // next_random
+#include <rune/rune.hpp>  // next_random
 
 #include "components/particle.hpp"
 #include "components/viewport.hpp"

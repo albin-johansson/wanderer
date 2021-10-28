@@ -14,12 +14,13 @@ namespace wanderer::sys {
 
 void UpdateMenu(entt::registry& registry,
                 entt::dispatcher& dispatcher,
-                const rune::input& input)
+                const cen::keyboard& keyboard,
+                const cen::mouse& mouse)
 {
   const auto menuEntity = registry.ctx<ctx::ActiveMenu>().entity;
 
-  if (const auto button = UpdateButtonHover(registry, input.mouse)) {
-    if (QueryButton(registry, dispatcher, *button, input.mouse)) {
+  if (const auto button = UpdateButtonHover(registry, mouse)) {
+    if (QueryButton(registry, dispatcher, *button, mouse)) {
       if (auto* group = registry.try_get<comp::ButtonGroup>(menuEntity)) {
         if (sys::InButtonGroup(group->buttons, *button)) {
           group->selected = *button;
@@ -34,7 +35,7 @@ void UpdateMenu(entt::registry& registry,
   for (auto&& [entity, bind, associated] :
        registry.view<comp::KeyBind, comp::AssociatedMenu>().each())
   {
-    if (associated.entity == menuEntity && input.keyboard.just_released(bind.key)) {
+    if (associated.entity == menuEntity && keyboard.just_released(bind.key)) {
       dispatcher.enqueue<button_pressed_event>(bind.action);
     }
   }

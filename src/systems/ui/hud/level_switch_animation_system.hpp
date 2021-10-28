@@ -1,8 +1,8 @@
 #pragma once
 
-#include <centurion.hpp>        // renderer
-#include <entt.hpp>             // registry, dispatcher
-#include <rune/everything.hpp>  // delta_time
+#include <centurion.hpp>  // renderer
+#include <entt.hpp>       // registry, dispatcher
+#include <rune/rune.hpp>  // delta_time
 
 #include "wanderer_std.hpp"
 

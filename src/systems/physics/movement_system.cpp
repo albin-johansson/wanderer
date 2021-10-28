@@ -3,7 +3,7 @@
 #include <iterator>  // back_inserter
 #include <vector>    // vector
 
-#include <rune/everything.hpp>  // stack_resource
+#include <rune/rune.hpp>  // stack_resource
 
 #include "components/hitbox.hpp"
 #include "components/movable.hpp"

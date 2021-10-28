@@ -1,7 +1,7 @@
 #pragma once
 
-#include <entt.hpp>             // registry, dispatcher
-#include <rune/everything.hpp>  // input
+#include <centurion.hpp>  // keyboard
+#include <entt.hpp>       // registry, dispatcher
 
 #include "components/binds.hpp"
 
@@ -10,19 +10,11 @@ namespace wanderer::sys {
 /// \name Input
 /// \{
 
-/**
- * \brief Handles the player input if the player is idle.
- *
- * \ingroup systems
- *
- * \param registry the associated registry.
- * \param dispatcher the dispatcher used for events.
- * \param input the current input state.
- * \param binds the current input binds.
- */
+/// \brief Handles the player input if the player is idle.
+/// \ingroup systems
 void HandleIdleInput(entt::registry& registry,
                      entt::dispatcher& dispatcher,
-                     const rune::input& input,
+                     const cen::keyboard& keyboard,
                      const ctx::Binds& binds);
 
 /// \} End of input

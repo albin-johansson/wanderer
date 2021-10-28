@@ -5,8 +5,8 @@
 #include <stdexcept>    // runtime_error
 #include <string_view>  // string_view
 
-#include <centurion.hpp>        // to_underlying, ...
-#include <rune/everything.hpp>  // static_vector, formatted_string
+#include <centurion.hpp>  // to_underlying, ...
+#include <rune/rune.hpp>  // static_vector, formatted_string
 
 #include "components/time_of_day.hpp"
 #include "core/common_concepts.hpp"

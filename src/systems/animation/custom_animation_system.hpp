@@ -1,7 +1,7 @@
 #pragma once
 
-#include <entt.hpp>             // registry, dispatcher, entity
-#include <rune/everything.hpp>  // delta_time
+#include <entt.hpp>       // registry, dispatcher, entity
+#include <rune/rune.hpp>  // delta_time
 
 #include "wanderer_std.hpp"
 

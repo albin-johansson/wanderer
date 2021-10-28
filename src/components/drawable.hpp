@@ -1,7 +1,6 @@
 #pragma once
 
 #include <centurion.hpp>  // irect, frect
-#include <rune/everything.hpp>
 
 #include "wanderer_std.hpp"
 
@@ -24,11 +23,11 @@ namespace wanderer::comp {
  */
 struct Drawable final
 {
-  rune::texture_index texture{};  ///< ID of associated texture.
-  cen::irect src;                 ///< Region of associated texture that will be rendered.
-  cen::frect dst;  ///< Position and size of the rendered texture, in pixels.
-  int32 layer{};   ///< Layer index.
-  int32 depth{5};  ///< Render order heuristic.
+  uint64 texture{};  ///< Index of associated texture.
+  cen::irect src;    ///< Region of associated texture that will be rendered.
+  cen::frect dst;    ///< Position and size of the rendered texture, in pixels.
+  int32 layer{};     ///< Layer index.
+  int32 depth{5};    ///< Render order heuristic.
 };
 
 }  // namespace wanderer::comp

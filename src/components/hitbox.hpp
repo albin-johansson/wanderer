@@ -1,7 +1,7 @@
 #pragma once
 
-#include <centurion.hpp>        // farea, frect
-#include <rune/everything.hpp>  // static_vector
+#include <centurion.hpp>  // farea, frect
+#include <rune/rune.hpp>  // static_vector
 
 #include "wanderer_std.hpp"
 

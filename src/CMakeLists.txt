@@ -4,8 +4,6 @@ project(wanderer-src CXX)
 
 set(SOURCE_FILES
     profile.hpp
-    wanderer_engine.cpp
-    wanderer_engine.hpp
     wanderer_std.hpp
 
     components/active_menu.hpp
@@ -67,8 +65,8 @@ set(SOURCE_FILES
     core/common_concepts.hpp
     core/day_of_week.hpp
     core/direction.hpp
-    core/game.cpp
-    core/game.hpp
+    game.cpp
+    game.hpp
     core/game_constants.hpp
     core/grid_position.hpp
     core/menu_action.hpp
@@ -117,8 +115,6 @@ set(SOURCE_FILES
 
     io/directories.cpp
     io/directories.hpp
-    io/rune_configuration.cpp
-    io/rune_configuration.hpp
 
     io/saves/delete_save.cpp
     io/saves/delete_save.hpp
@@ -342,7 +338,7 @@ target_precompile_headers(${WANDERER_LIB} PRIVATE
     <json.hpp>
     <nenya.hpp>
     <init/ini.hpp>
-    <rune/everything.hpp>
+    <rune/rune.hpp>
     <glm/glm.hpp>
     )
 

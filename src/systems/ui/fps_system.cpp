@@ -4,8 +4,8 @@
 #include <format>       // format_to_n
 #include <string_view>  // string_view
 
-#include <centurion.hpp>        // ticks
-#include <rune/everything.hpp>  // formatted_string
+#include <centurion.hpp>  // ticks
+#include <rune/rune.hpp>  // formatted_string
 
 #include "components/ui/fps_data.hpp"
 #include "core/game_constants.hpp"

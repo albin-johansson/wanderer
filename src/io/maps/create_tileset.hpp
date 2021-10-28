@@ -1,6 +1,6 @@
 #pragma once
 
-#include <rune/everything.hpp>
+#include <rune/rune.hpp>
 #include <tactile-io/ir.hpp>
 
 #include "components/level.hpp"
@@ -9,8 +9,7 @@
 
 namespace wanderer {
 
-[[nodiscard]] auto GetTextureId(const Tactile::IO::Tileset& irTileset)
-    -> rune::texture_id;
+[[nodiscard]] auto GetTextureId(const Tactile::IO::Tileset& irTileset) -> uint32;
 
 [[nodiscard]] auto GetTilesetTileSizeRatio(const Tactile::IO::Tileset& irTileset)
     -> float2;

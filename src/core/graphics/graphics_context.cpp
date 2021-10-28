@@ -10,13 +10,14 @@ inline const auto font_path = resources::font("type_writer.ttf");
 }  // namespace
 
 GraphicsContext::GraphicsContext(const cen::window& window)
-    : rune::graphics{window}
-    , m_lightCanvas{get_renderer(),
-                    format(),
-                    cen::texture_access::target,
-                    glob::logical_size<>}
+    : mRenderer{window, cen::renderer::accelerated | cen::renderer::target_textures}
+    , mFormat{window.get_pixel_format()}
+    , mLightCanvas{get_renderer(),
+                   mFormat,
+                   cen::texture_access::target,
+                   glob::logical_size<>}
 {
-  reserve(10);
+  mTextures.reserve(10);
 
   auto& renderer = get_renderer();
   renderer.set_blend_mode(cen::blend_mode::blend);
@@ -42,7 +43,22 @@ GraphicsContext::GraphicsContext(const cen::window& window)
   get_cache(medium_font).add_latin1(renderer);
   get_cache(large_font).add_latin1(renderer);
 
-  m_lightCanvas.set_blend_mode(cen::blend_mode::mul);
+  mLightCanvas.set_blend_mode(cen::blend_mode::mul);
+}
+
+auto GraphicsContext::load(const uint32 id, const std::string& path) -> usize
+{
+  if (const auto it = mIndices.find(id); it != mIndices.end()) {
+    return it->second;
+  }
+  else {
+    const auto index = mTextures.size();
+
+    mTextures.emplace_back(mRenderer, path);
+    mIndices.try_emplace(id, index);
+
+    return index;
+  }
 }
 
 }  // namespace wanderer

@@ -1,7 +1,9 @@
 #include "create_object_layer.hpp"
 
-#include <string>       // string
+#include <sstream>      // stringstream
+#include <string>       // string, getline
 #include <string_view>  // string_view, sv
+#include <utility>      // move
 #include <vector>       // vector
 
 #include "components/associated_entity.hpp"
@@ -176,10 +178,26 @@ void LoadLight(const Tactile::IO::Object& irObject,
   return offset;
 }
 
+// TODO move
+[[nodiscard]] auto ParseCSV(const std::string& csv) -> std::vector<std::string>
+{
+  std::vector<std::string> tokens;
+
+  std::stringstream stream{csv};
+  std::string token;
+
+  while (std::getline(stream, token, ',')) {
+    tokens.push_back(std::move(token));
+    token.clear();
+  }
+
+  return tokens;
+}
+
 [[nodiscard]] auto ParseTileCSV(const std::string& csv, const int32 offset)
     -> std::vector<TileID>
 {
-  const auto tokens = rune::parse_csv(csv);
+  const auto tokens = ParseCSV(csv);
 
   std::vector<TileID> tiles;
   tiles.reserve(tokens.size());

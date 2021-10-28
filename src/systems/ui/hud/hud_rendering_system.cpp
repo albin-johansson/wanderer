@@ -4,7 +4,7 @@
 #include <format>       // format_to_n
 #include <string_view>  // string_view
 
-#include <rune/everything.hpp>  // formatted_string
+#include <rune/rune.hpp>  // formatted_string
 
 #include "components/binds.hpp"
 #include "components/player.hpp"

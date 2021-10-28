@@ -17,7 +17,7 @@ namespace {
 void CreateTiles(const Tactile::IO::Tileset& irTileset,
                  entt::registry& registry,
                  comp::Tileset& tileset,
-                 const rune::texture_index texture)
+                 const uint32 texture)
 {
   const auto first = Tactile::IO::GetFirstGlobalId(irTileset);
 
@@ -105,10 +105,10 @@ void AddTileMetaInfo(const Tactile::IO::Tileset& irTileset,
 
 }  // namespace
 
-auto GetTextureId(const Tactile::IO::Tileset& irTileset) -> rune::texture_id
+auto GetTextureId(const Tactile::IO::Tileset& irTileset) -> uint32
 {
   const auto id = 1'000 + GetInt(irTileset, "id"); /* Offset ID to avoid clashes */
-  return rune::texture_id(id);
+  return static_cast<uint32>(id);
 }
 
 auto GetTilesetTileSizeRatio(const Tactile::IO::Tileset& irTileset) -> float2

@@ -121,14 +121,13 @@ void CheckReleased(comp::Movable& movable,
 
 void HandleMoveInput(entt::registry& registry,
                      entt::dispatcher& dispatcher,
-                     const rune::input& input,
+                     const cen::keyboard& keyboard,
                      const ctx::Binds& binds)
 {
   const auto player = singleton_entity<comp::Player>(registry);
   assert(registry.all_of<comp::HumanoidMove>(player));
 
   auto& movable = registry.get<comp::Movable>(player);
-  const auto& keyboard = input.keyboard;
 
   const auto areMoveKeysDown = CheckPressed(movable, keyboard, binds);
   CheckReleased(movable, keyboard, binds);

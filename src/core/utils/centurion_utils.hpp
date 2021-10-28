@@ -2,8 +2,8 @@
 
 #include <concepts>  // floating_point
 
-#include <centurion.hpp>        // basic_point, basic_area
-#include <rune/everything.hpp>  // basic_vector2
+#include <centurion.hpp>  // basic_point, basic_area
+#include <rune/rune.hpp>  // basic_vector2
 
 #include "wanderer_std.hpp"
 

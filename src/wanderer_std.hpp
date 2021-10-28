@@ -8,10 +8,10 @@
 #include <optional>    // optional
 #include <ratio>       // milli
 
-#include <entt.hpp>             // entity
-#include <glm/glm.hpp>          // vec2
-#include <nenya.hpp>            // strong_type
-#include <rune/everything.hpp>  // aabb_tree
+#include <entt.hpp>       // entity
+#include <glm/glm.hpp>    // vec2
+#include <nenya.hpp>      // strong_type
+#include <rune/rune.hpp>  // aabb_tree
 
 namespace wanderer {
 

@@ -4,7 +4,7 @@
 
 #include <cassert>  // assert
 
-#include <rune/everything.hpp>
+#include <rune/rune.hpp>
 
 #include "components/animation.hpp"
 #include "components/associated_entity.hpp"
@@ -158,7 +158,7 @@ void RestoreDrawable(const proto::Level& level,
     assert(data.has_dst());
 
     auto& drawable = registry.emplace<comp::Drawable>(entity);
-    drawable.texture = rune::texture_index{data.texture_index()};
+    drawable.texture = data.texture_index();
     drawable.layer = data.layer_index();
     drawable.depth = data.depth_index();
     drawable.src = Restore(data.src());
@@ -229,7 +229,7 @@ void RestoreTile(const proto::Level& level, entt::registry& registry, entt::enti
 
     auto& tile = registry.emplace<comp::Tile>(entity);
     tile.id = TileID{data.id()};
-    tile.texture = rune::texture_index{data.texture_index()};
+    tile.texture = data.texture_index();
     tile.depth = data.depth_index();
     tile.src = Restore(data.src());
   }

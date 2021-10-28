@@ -1,7 +1,7 @@
 #pragma once
 
-#include <entt.hpp>             // registry, dispatcher
-#include <rune/everything.hpp>  // input
+#include <entt.hpp>       // registry, dispatcher
+#include <rune/rune.hpp>  // input
 
 #include "core/menu_id.hpp"
 
@@ -21,7 +21,8 @@ namespace wanderer::sys {
  */
 void UpdateMenu(entt::registry& registry,
                 entt::dispatcher& dispatcher,
-                const rune::input& input);
+                const cen::keyboard& keyboard,
+                const cen::mouse& mouse);
 
 /**
  * \brief Changes the currently active menu.

@@ -1,7 +1,6 @@
-#include <centurion.hpp>  // library, is_debug_build, use_preset_output_function, ...
+#include <centurion.hpp>
 
-#include "io/rune_configuration.hpp"
-#include "wanderer_engine.hpp"
+#include "game.hpp"
 
 auto main(int, char**) -> int
 {
@@ -12,8 +11,6 @@ auto main(int, char**) -> int
     cen::log::set_priority(cen::log_priority::debug);
   }
 
-  wanderer::PrepareRuneConfiguration();
-
-  wanderer::WandererEngine engine;
-  return engine.run();
+  wanderer::Game game;
+  return game.Run();
 }
