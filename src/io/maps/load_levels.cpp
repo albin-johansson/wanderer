@@ -70,6 +70,10 @@ auto LoadLevel(entt::registry& shared,
     level.registry = MakeRegistry();
     level.tree.disable_thickness_factor();
 
+    if (GetBool(*irMap, "is-outside")) {
+      shared.emplace<comp::OutsideLevel>(levelEntity);
+    }
+
     AddLevelMetaInformation(*irMap, level);
     CreateTileset(*irMap, level, graphics);
     CreateLayers(*irMap, level, graphics);
