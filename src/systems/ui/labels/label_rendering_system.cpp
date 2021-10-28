@@ -10,7 +10,7 @@
 namespace wanderer::sys {
 namespace {
 
-[[nodiscard]] auto menu_font(const TextSize size)
+[[nodiscard]] auto GetMenuFont(const TextSize size)
 {
   switch (size) {
     default:
@@ -41,7 +41,7 @@ void RenderLabels(const entt::registry& registry, GraphicsContext& graphics)
       if (!label.texture) {
         renderer.set_color(label.color);
 
-        const auto& font = renderer.get_font(menu_font(label.size));
+        const auto& font = renderer.get_font(GetMenuFont(label.size));
         label.texture = RenderText(renderer, label.text, font);
       }
 
