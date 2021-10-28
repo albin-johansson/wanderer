@@ -1,9 +1,10 @@
 #include "restore_data.hpp"
 
+#include <save.pb.h>
+
 #include <cassert>  // assert
 
 #include <rune/everything.hpp>
-#include <save.pb.h>
 
 #include "components/ai/chase.hpp"
 #include "components/associated_entity.hpp"

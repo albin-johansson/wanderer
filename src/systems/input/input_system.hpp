@@ -3,7 +3,7 @@
 #include <entt.hpp>             // registry, dispatcher
 #include <rune/everything.hpp>  // input
 
-#include "components/ctx/binds.hpp"
+#include "components/binds.hpp"
 #include "components/player.hpp"
 
 namespace wanderer::sys {

@@ -1,9 +1,9 @@
 #include "load_game.hpp"
 
+#include <save.pb.h>
+
 #include <fstream>  // ifstream
 #include <ios>      // ios
-
-#include <save.pb.h>
 
 #include "io/directories.hpp"
 #include "restore_shared_registry.hpp"

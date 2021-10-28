@@ -2,7 +2,7 @@
 
 #include "systems/ui/lazy-textures/lazy_texture_rendering_system.hpp"
 
-#include "components/ctx/active_menu.hpp"
+#include "components/active_menu.hpp"
 #include "components/ui/button_group.hpp"
 #include "components/ui/checkbox.hpp"
 #include "components/ui/menu.hpp"

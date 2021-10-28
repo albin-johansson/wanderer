@@ -1,6 +1,6 @@
 #pragma once
 
-#include "components/ctx/binds.hpp"
+#include "components/binds.hpp"
 
 namespace wanderer::sys {
 

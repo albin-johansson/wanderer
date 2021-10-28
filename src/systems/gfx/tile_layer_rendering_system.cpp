@@ -2,8 +2,8 @@
 
 #include <cassert>  // assert
 
-#include "components/ctx/render_bounds.hpp"
 #include "components/gfx/tile_animation.hpp"
+#include "components/render_bounds.hpp"
 #include "components/tiles/tile_layer.hpp"
 #include "core/ecs/registry_utils.hpp"
 #include "core/graphics/graphics_context.hpp"

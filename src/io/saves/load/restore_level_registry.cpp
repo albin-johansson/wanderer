@@ -1,8 +1,8 @@
 #include "restore_level_registry.hpp"
 
-#include <cassert>  // assert
-
 #include <save.pb.h>
+
+#include <cassert>  // assert
 
 #include "components/ai/humanoid.hpp"
 #include "components/player.hpp"

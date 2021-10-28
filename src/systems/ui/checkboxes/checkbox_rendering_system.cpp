@@ -1,6 +1,6 @@
 #include "checkbox_rendering_system.hpp"
 
-#include "components/ctx/active_menu.hpp"
+#include "components/active_menu.hpp"
 #include "components/ui/associated_menu.hpp"
 #include "core/graphics/render_text.hpp"
 #include "systems/ui/buttons/button_system.hpp"

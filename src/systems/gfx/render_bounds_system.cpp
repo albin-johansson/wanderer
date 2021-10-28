@@ -1,8 +1,8 @@
 #include "render_bounds_system.hpp"
 
-#include "components/ctx/level_size.hpp"
-#include "components/ctx/render_bounds.hpp"
-#include "components/ctx/viewport.hpp"
+#include "components/level_size.hpp"
+#include "components/render_bounds.hpp"
+#include "components/viewport.hpp"
 #include "core/game_constants.hpp"
 
 namespace wanderer::sys {

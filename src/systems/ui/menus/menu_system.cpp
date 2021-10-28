@@ -1,8 +1,8 @@
 #include "menu_system.hpp"
 
-#include "components/ctx/active_menu.hpp"
-#include "components/ctx/cursors.hpp"
-#include "components/ctx/settings.hpp"
+#include "components/active_menu.hpp"
+#include "components/cursors.hpp"
+#include "components/settings.hpp"
 #include "components/ui/associated_menu.hpp"
 #include "components/ui/button.hpp"
 #include "components/ui/button_group.hpp"

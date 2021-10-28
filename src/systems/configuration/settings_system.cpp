@@ -5,7 +5,7 @@
 #include <centurion.hpp>  // log, is_debug_build
 #include <init/ini.hpp>   // ini, read_ini, write_ini
 
-#include "components/ctx/settings.hpp"
+#include "components/settings.hpp"
 #include "io/directories.hpp"
 
 namespace wanderer::sys {

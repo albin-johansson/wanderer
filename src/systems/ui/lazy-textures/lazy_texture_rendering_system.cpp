@@ -1,6 +1,6 @@
 #include "lazy_texture_rendering_system.hpp"
 
-#include "components/ctx/active_menu.hpp"
+#include "components/active_menu.hpp"
 #include "components/ui/associated_menu.hpp"
 #include "components/ui/lazy_texture.hpp"
 #include "systems/ui/grid.hpp"

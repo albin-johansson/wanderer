@@ -5,9 +5,9 @@
 
 #include <rune/everything.hpp>  // stack_resource
 
-#include "components/ctx/viewport.hpp"
 #include "components/physics/hitbox.hpp"
 #include "components/physics/movable.hpp"
+#include "components/viewport.hpp"
 #include "core/utils/centurion_utils.hpp"
 #include "systems/physics/direction_system.hpp"
 #include "systems/physics/hitbox_system.hpp"

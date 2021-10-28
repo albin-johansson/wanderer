@@ -1,16 +1,14 @@
 #include "save_shared_registry.hpp"
 
+#include <save.pb.h>
+
 #include <cassert>  // assert
 #include <fstream>  // ofstream
 #include <ios>      // ios
 
-#include <save.pb.h>
-
 #include "components/ai/chase.hpp"
 #include "components/ai/humanoid.hpp"
 #include "components/associated_entity.hpp"
-#include "components/ctx/time_of_day.hpp"
-#include "components/ctx/viewport.hpp"
 #include "components/gfx/animation.hpp"
 #include "components/gfx/drawable.hpp"
 #include "components/gfx/point_light.hpp"
@@ -31,7 +29,9 @@
 #include "components/tiles/tile_object.hpp"
 #include "components/tiles/tilemap.hpp"
 #include "components/tiles/tileset.hpp"
+#include "components/time_of_day.hpp"
 #include "components/trigger.hpp"
+#include "components/viewport.hpp"
 #include "systems/levels/level_system.hpp"
 #include "wanderer_std.hpp"
 

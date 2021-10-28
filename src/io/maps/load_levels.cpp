@@ -5,11 +5,11 @@
 #include <tactile-io/parser.hpp>
 
 #include "components/ai/humanoid.hpp"
-#include "components/ctx/level_size.hpp"
-#include "components/ctx/viewport.hpp"
+#include "components/level_size.hpp"
 #include "components/lvl/level.hpp"
 #include "components/lvl/portal.hpp"
 #include "components/tiles/tilemap.hpp"
+#include "components/viewport.hpp"
 #include "core/ecs/make_registry.hpp"
 #include "core/resources.hpp"
 #include "create_humanoids.hpp"

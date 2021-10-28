@@ -2,9 +2,9 @@
 
 #include <centurion.hpp>  // system_cursor
 
-#include "components/ctx/active_menu.hpp"
-#include "components/ctx/cursors.hpp"
-#include "components/ctx/time_of_day.hpp"
+#include "components/active_menu.hpp"
+#include "components/cursors.hpp"
+#include "components/time_of_day.hpp"
 #include "systems/ui/menus/menu_factory_system.hpp"
 
 namespace wanderer::sys {

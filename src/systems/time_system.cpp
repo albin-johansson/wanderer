@@ -8,7 +8,7 @@
 #include <centurion.hpp>        // to_underlying, ...
 #include <rune/everything.hpp>  // static_vector, formatted_string
 
-#include "components/ctx/time_of_day.hpp"
+#include "components/time_of_day.hpp"
 #include "core/common_concepts.hpp"
 #include "core/game_constants.hpp"
 #include "core/graphics/graphics_context.hpp"

@@ -3,7 +3,7 @@
 #include <cassert>  // assert
 
 #include "components/ai/humanoid.hpp"
-#include "components/ctx/binds.hpp"
+#include "components/binds.hpp"
 #include "components/physics/movable.hpp"
 #include "components/player.hpp"
 #include "core/direction.hpp"

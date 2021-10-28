@@ -2,9 +2,9 @@
 
 #include <cassert>  // assert
 
+#include "components/active_menu.hpp"
 #include "components/ai/chase.hpp"
 #include "components/associated_entity.hpp"
-#include "components/ctx/active_menu.hpp"
 #include "components/gfx/drawable.hpp"
 #include "components/lvl/portal.hpp"
 #include "components/physics/hitbox.hpp"

@@ -3,7 +3,7 @@
 #include <centurion.hpp>  // farea
 #include <entt.hpp>       // registry
 
-#include "components/ctx/viewport.hpp"
+#include "components/viewport.hpp"
 #include "wanderer_std.hpp"
 
 namespace wanderer::sys {

@@ -8,28 +8,26 @@ set(SOURCE_FILES
     wanderer_engine.hpp
     wanderer_std.hpp
 
+    components/active_menu.hpp
     components/associated_entity.hpp
     components/associated_object.hpp
+    components/binds.hpp
+    components/cursors.hpp
     components/key_bind.hpp
+    components/level_size.hpp
     components/object.hpp
     components/plant.hpp
     components/player.hpp
-    components/tiles/tileset.hpp
+    components/render_bounds.hpp
+    components/renderer_snapshot.hpp
+    components/settings.hpp
+    components/time_of_day.hpp
     components/trigger.hpp
+    components/viewport.hpp
 
     components/ai/chase.hpp
     components/ai/humanoid.hpp
     components/ai/roam.hpp
-
-    components/ctx/active_menu.hpp
-    components/ctx/binds.hpp
-    components/ctx/cursors.hpp
-    components/ctx/level_size.hpp
-    components/ctx/render_bounds.hpp
-    components/ctx/renderer_snapshot.hpp
-    components/ctx/settings.hpp
-    components/ctx/time_of_day.hpp
-    components/ctx/viewport.hpp
 
     components/gfx/animation.hpp
     components/gfx/custom_animation.hpp
@@ -53,6 +51,7 @@ set(SOURCE_FILES
     components/tiles/tile_layer.hpp
     components/tiles/tile_object.hpp
     components/tiles/tilemap.hpp
+    components/tiles/tileset.hpp
 
     components/ui/associated_menu.hpp
     components/ui/button.hpp

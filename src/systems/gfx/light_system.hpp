@@ -2,8 +2,8 @@
 
 #include <entt.hpp>  // registry
 
-#include "components/ctx/settings.hpp"
-#include "components/ctx/time_of_day.hpp"
+#include "components/settings.hpp"
+#include "components/time_of_day.hpp"
 
 namespace wanderer::sys {
 

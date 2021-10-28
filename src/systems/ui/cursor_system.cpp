@@ -1,6 +1,6 @@
 #include "cursor_system.hpp"
 
-#include "components/ctx/cursors.hpp"
+#include "components/cursors.hpp"
 
 namespace wanderer::sys {
 

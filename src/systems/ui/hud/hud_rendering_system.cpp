@@ -6,7 +6,7 @@
 
 #include <rune/everything.hpp>  // formatted_string
 
-#include "components/ctx/binds.hpp"
+#include "components/binds.hpp"
 #include "components/lvl/portal.hpp"
 #include "components/player.hpp"
 #include "components/trigger.hpp"

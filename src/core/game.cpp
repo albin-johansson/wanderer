@@ -1,8 +1,8 @@
 #include "game.hpp"
 
-#include "components/ctx/renderer_snapshot.hpp"
-#include "components/ctx/settings.hpp"
 #include "components/items/inventory.hpp"
+#include "components/renderer_snapshot.hpp"
+#include "components/settings.hpp"
 #include "components/ui/fps_data.hpp"
 #include "core/ecs/event_connections.hpp"
 #include "core/ecs/make_dispatcher.hpp"
