@@ -65,19 +65,19 @@ class Game final
 
   [[nodiscard]] auto IsPaused() const -> bool;
 
-  void OnFullscreenToggled(const fullscreen_toggled_event& event);
+  void OnFullscreenToggled(const FullscreenToggledEvent& event);
 
-  void OnIntegerScalingToggled(const integer_scaling_toggled_event& event);
+  void OnIntegerScalingToggled(const IntegerScalingToggledEvent& event);
 
   void OnLoadGameEvent(const LoadGameEvent& event);
 
-  void OnButtonPressed(const button_pressed_event& event);
+  void OnButtonPressed(const ButtonPressedEvent& event);
 
   void OnSwitchMap(const SwitchMapEvent& event);
 
-  void OnSwitchMenu(const switch_menu_event& event);
+  void OnSwitchMenu(const SwitchMenuEvent& event);
 
-  void OnMenuSwitched(const menu_switched_event& event);
+  void OnMenuSwitched(const MenuSwitchedEvent& event);
 
   void OnCustomAnimationHalfway(const CustomAnimationHalfwayEvent& event);
 

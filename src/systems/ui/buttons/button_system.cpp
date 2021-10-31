@@ -53,7 +53,7 @@ auto QueryButton(entt::registry& registry,
     EnableCursor(registry, cen::system_cursor::hand);
 
     if (mouse.was_left_button_released()) {
-      dispatcher.enqueue<button_pressed_event>(button.action);
+      dispatcher.enqueue<ButtonPressedEvent>(button.action);
       SetHovered(button, false);
 
       if (auto* checkbox = registry.try_get<comp::Checkbox>(buttonEntity)) {

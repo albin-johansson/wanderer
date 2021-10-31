@@ -63,13 +63,13 @@ Game::Game()
   mEngine.add_render_system<&Game::Render>(this);
 
   auto& d = mEngine.dispatcher();
-  d.sink<fullscreen_toggled_event>().connect<&Game::OnFullscreenToggled>(this);
-  d.sink<integer_scaling_toggled_event>().connect<&Game::OnIntegerScalingToggled>(this);
+  d.sink<FullscreenToggledEvent>().connect<&Game::OnFullscreenToggled>(this);
+  d.sink<IntegerScalingToggledEvent>().connect<&Game::OnIntegerScalingToggled>(this);
   d.sink<LoadGameEvent>().connect<&Game::OnLoadGameEvent>(this);
   d.sink<SwitchMapEvent>().connect<&Game::OnSwitchMap>(this);
-  d.sink<switch_menu_event>().connect<&Game::OnSwitchMenu>(this);
-  d.sink<menu_switched_event>().connect<&Game::OnMenuSwitched>(this);
-  d.sink<button_pressed_event>().connect<&Game::OnButtonPressed>(this);
+  d.sink<SwitchMenuEvent>().connect<&Game::OnSwitchMenu>(this);
+  d.sink<MenuSwitchedEvent>().connect<&Game::OnMenuSwitched>(this);
+  d.sink<ButtonPressedEvent>().connect<&Game::OnButtonPressed>(this);
   d.sink<ShowInventoryEvent>().connect<&Game::OnShowInventory>(this);
   d.sink<CloseInventoryEvent>().connect<&Game::OnCloseInventory>(this);
   d.sink<SleepEvent>().connect<&Game::OnSleep>(this);
@@ -103,8 +103,8 @@ void Game::OnStart()
   }
 
   const auto& settings = shared.ctx<ctx::Settings>();
-  dispatcher.enqueue<fullscreen_toggled_event>(settings.fullscreen);
-  dispatcher.enqueue<integer_scaling_toggled_event>(settings.integer_scaling);
+  dispatcher.enqueue<FullscreenToggledEvent>(settings.fullscreen);
+  dispatcher.enqueue<IntegerScalingToggledEvent>(settings.integer_scaling);
 
   sys::SyncSettingsMenu(shared);
   dispatcher.update();
@@ -231,7 +231,7 @@ auto Game::IsPaused() const -> bool
   return sys::IsCurrentMenuBlocking(mEngine.registry());
 }
 
-void Game::OnFullscreenToggled(const fullscreen_toggled_event& event)
+void Game::OnFullscreenToggled(const FullscreenToggledEvent& event)
 {
   auto& window = mEngine.window();
 
@@ -247,7 +247,7 @@ void Game::OnFullscreenToggled(const fullscreen_toggled_event& event)
   }
 }
 
-void Game::OnIntegerScalingToggled(const integer_scaling_toggled_event& event)
+void Game::OnIntegerScalingToggled(const IntegerScalingToggledEvent& event)
 {
   mGraphics.GetRenderer().set_logical_integer_scaling(event.enabled);
 }
@@ -261,7 +261,7 @@ void Game::OnLoadGameEvent(const LoadGameEvent& event)
   sys::StartBondAnimation(level.registry, glob::load_game_id);
 }
 
-void Game::OnButtonPressed(const button_pressed_event& event)
+void Game::OnButtonPressed(const ButtonPressedEvent& event)
 {
   auto& shared = mEngine.registry();
   auto& dispatcher = mEngine.dispatcher();
@@ -272,24 +272,24 @@ void Game::OnButtonPressed(const button_pressed_event& event)
       break;
 
     case MenuAction::GotoInGame: {
-      dispatcher.enqueue<switch_menu_event>(MenuId::InGame);
+      dispatcher.enqueue<SwitchMenuEvent>(MenuId::InGame);
       break;
     }
     case MenuAction::GotoHome: {
       mUpdateSnapshot = true;
-      dispatcher.enqueue<switch_menu_event>(MenuId::Home);
+      dispatcher.enqueue<SwitchMenuEvent>(MenuId::Home);
       break;
     }
     case MenuAction::GotoControls: {
-      dispatcher.enqueue<switch_menu_event>(MenuId::Controls);
+      dispatcher.enqueue<SwitchMenuEvent>(MenuId::Controls);
       break;
     }
     case MenuAction::GotoSettings: {
-      dispatcher.enqueue<switch_menu_event>(MenuId::Settings);
+      dispatcher.enqueue<SwitchMenuEvent>(MenuId::Settings);
       break;
     }
     case MenuAction::GotoSaves: {
-      dispatcher.enqueue<switch_menu_event>(MenuId::Saves);
+      dispatcher.enqueue<SwitchMenuEvent>(MenuId::Saves);
       break;
     }
     case MenuAction::QuickSave: {
@@ -297,7 +297,7 @@ void Game::OnButtonPressed(const button_pressed_event& event)
       if (const auto* snapshot = shared.try_ctx<ctx::RendererSnapshot>()) {
         SaveGame("quick_save", shared, snapshot->surface);
       }
-      dispatcher.enqueue<switch_menu_event>(MenuId::InGame);
+      dispatcher.enqueue<SwitchMenuEvent>(MenuId::InGame);
       break;
     }
     case MenuAction::LoadGame: {
@@ -323,12 +323,12 @@ void Game::OnButtonPressed(const button_pressed_event& event)
     }
     case MenuAction::ToggleFullscreen: {
       const auto enabled = sys::ToggleFullscreen(shared);
-      dispatcher.enqueue<fullscreen_toggled_event>(enabled);
+      dispatcher.enqueue<FullscreenToggledEvent>(enabled);
       break;
     }
     case MenuAction::ToggleIntegerScaling: {
       const auto enabled = sys::ToggleIntegerScaling(shared);
-      dispatcher.enqueue<integer_scaling_toggled_event>(enabled);
+      dispatcher.enqueue<IntegerScalingToggledEvent>(enabled);
       break;
     }
     case MenuAction::Quit: {
@@ -344,12 +344,12 @@ void Game::OnSwitchMap(const SwitchMapEvent& event)
   sys::StartLevelChangeAnimation(level.registry, event.map);
 }
 
-void Game::OnSwitchMenu(const switch_menu_event& event)
+void Game::OnSwitchMenu(const SwitchMenuEvent& event)
 {
   sys::SwitchMenu(mEngine.registry(), mEngine.dispatcher(), event.id);
 }
 
-void Game::OnMenuSwitched(const menu_switched_event& event)
+void Game::OnMenuSwitched(const MenuSwitchedEvent& event)
 {
   auto& shared = mEngine.registry();
   const auto& menu = shared.get<comp::Menu>(event.entity);
@@ -368,7 +368,7 @@ void Game::OnCustomAnimationHalfway(const CustomAnimationHalfwayEvent& event)
       break;
 
     case glob::load_game_id:
-      dispatcher.enqueue<switch_menu_event>(MenuId::InGame);
+      dispatcher.enqueue<SwitchMenuEvent>(MenuId::InGame);
       break;
 
     case glob::switch_level_id:

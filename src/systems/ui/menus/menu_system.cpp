@@ -36,7 +36,7 @@ void UpdateMenu(entt::registry& registry,
        registry.view<comp::KeyBind, comp::AssociatedMenu>().each())
   {
     if (associated.entity == menuEntity && keyboard.just_released(bind.key)) {
-      dispatcher.enqueue<button_pressed_event>(bind.action);
+      dispatcher.enqueue<ButtonPressedEvent>(bind.action);
     }
   }
 }
@@ -48,7 +48,7 @@ void SwitchMenu(entt::registry& registry, entt::dispatcher& dispatcher, MenuId i
   for (auto&& [entity, menu] : registry.view<comp::Menu>().each()) {
     if (menu.id == id) {
       registry.set<ctx::ActiveMenu>(entity);
-      dispatcher.trigger<menu_switched_event>(entity);
+      dispatcher.trigger<MenuSwitchedEvent>(entity);
     }
   }
 }
