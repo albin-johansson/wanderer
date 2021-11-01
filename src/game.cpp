@@ -117,10 +117,8 @@ void Game::OnExit()
   sys::SaveSettingsBeforeExit(shared);
 }
 
-void Game::HandleInput()
+void Game::HandleInput(entt::registry& shared, entt::dispatcher& dispatcher)
 {
-  auto& shared = mEngine.registry();
-  auto& dispatcher = mEngine.dispatcher();
   mCenDispatcher.poll();
 
   const auto& keyboard = mEngine.keyboard();

@@ -61,7 +61,7 @@ class Game final
 
   void OnExit();
 
-  void HandleInput();
+  void HandleInput(entt::registry& shared, entt::dispatcher& dispatcher);
 
   void Tick(entt::registry& shared, entt::dispatcher& dispatcher, float dt);
 
