@@ -2,7 +2,6 @@
 
 #include "systems/ui/lazy-textures/lazy_texture_rendering_system.hpp"
 
-#include "components/active_menu.hpp"
 #include "components/ui/button_group.hpp"
 #include "components/ui/checkbox.hpp"
 #include "components/ui/menu.hpp"
@@ -71,7 +70,7 @@ void RenderAuthorLabel(GraphicsContext& graphics)
 
 void RenderActiveMenu(const entt::registry& shared)
 {
-  const auto menuEntity = shared.ctx<ctx::ActiveMenu>().entity;
+  const auto menuEntity = shared.ctx<ActiveMenu>().entity;
 
   const auto& menu = shared.get<comp::Menu>(menuEntity);
   const auto& drawable = shared.get<comp::MenuDrawable>(menuEntity);

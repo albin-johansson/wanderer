@@ -2,9 +2,9 @@
 
 #include <centurion.hpp>  // system_cursor
 
-#include "components/active_menu.hpp"
 #include "components/cursors.hpp"
 #include "components/time_of_day.hpp"
+#include "components/ui/menu.hpp"
 #include "systems/ui/menus/menu_factory_system.hpp"
 
 namespace wanderer::sys {
@@ -19,7 +19,7 @@ auto MakeSharedRegistry() -> entt::registry
   MakeSettingsMenu(registry);
   MakeSavesMenu(registry);
 
-  registry.set<ctx::ActiveMenu>(home);
+  registry.set<ActiveMenu>(home);
   registry.set<ctx::TimeOfDay>();
 
   auto& cursors = registry.set<ctx::Cursors>();

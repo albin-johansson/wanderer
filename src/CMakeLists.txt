@@ -6,7 +6,6 @@ set(SOURCE_FILES
     profile.hpp
     wanderer_std.hpp
 
-    components/active_menu.hpp
     components/associated_entity.hpp
     components/associated_object.hpp
     components/binds.hpp

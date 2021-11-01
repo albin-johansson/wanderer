@@ -1,7 +1,7 @@
 #include "checkbox_rendering_system.hpp"
 
-#include "components/active_menu.hpp"
 #include "components/ui/associated_menu.hpp"
+#include "components/ui/menu.hpp"
 #include "core/graphics/render_text.hpp"
 #include "systems/ui/buttons/button_system.hpp"
 #include "systems/ui/grid.hpp"
@@ -40,7 +40,7 @@ void RenderCheckbox(const entt::registry& registry,
 
 void RenderCheckboxes(const entt::registry& registry, GraphicsContext& graphics)
 {
-  const auto menuEntity = registry.ctx<ctx::ActiveMenu>().entity;
+  const auto menuEntity = registry.ctx<ActiveMenu>().entity;
 
   for (auto&& [entity, checkbox, associated] :
        registry.view<comp::Checkbox, comp::AssociatedMenu>().each())

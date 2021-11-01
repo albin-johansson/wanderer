@@ -1,8 +1,8 @@
 #include "button_rendering_system.hpp"
 
-#include "components/active_menu.hpp"
 #include "components/ui/associated_menu.hpp"
 #include "components/ui/checkbox.hpp"
+#include "components/ui/menu.hpp"
 #include "core/game_constants.hpp"
 #include "core/graphics/render_text.hpp"
 #include "systems/ui/grid.hpp"
@@ -94,7 +94,7 @@ void RenderButton(const entt::registry& registry,
 
 void RenderButtons(const entt::registry& registry, GraphicsContext& graphics)
 {
-  const auto menuEntity = registry.ctx<ctx::ActiveMenu>().entity;
+  const auto menuEntity = registry.ctx<ActiveMenu>().entity;
 
   constexpr auto filter = entt::exclude<comp::Checkbox>;
   for (auto&& [entity, button, associated] :
@@ -109,7 +109,7 @@ void RenderButtons(const entt::registry& registry, GraphicsContext& graphics)
 void RenderButtonGroupIndicators(const entt::registry& registry,
                                  GraphicsContext& graphics)
 {
-  const auto menuEntity = registry.ctx<ctx::ActiveMenu>().entity;
+  const auto menuEntity = registry.ctx<ActiveMenu>().entity;
 
   for (auto&& [entity, group, associated] :
        registry.view<comp::ButtonGroup, comp::AssociatedMenu>().each())

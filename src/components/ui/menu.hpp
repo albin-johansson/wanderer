@@ -3,6 +3,7 @@
 #include <string>  // string
 
 #include <centurion.hpp>  // texture, fpoint
+#include <entt.hpp>       // entity, null
 
 #include "components/key_bind.hpp"
 #include "core/menu_id.hpp"
@@ -18,6 +19,11 @@ struct Menu final
   MenuId id{};
   std::string title;
   bool blocking{};
+};
+
+struct ActiveMenu final
+{
+  entt::entity entity{entt::null};
 };
 
 struct HomeMenu final

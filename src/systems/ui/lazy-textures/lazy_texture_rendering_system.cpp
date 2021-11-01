@@ -1,8 +1,8 @@
 #include "lazy_texture_rendering_system.hpp"
 
-#include "components/active_menu.hpp"
 #include "components/ui/associated_menu.hpp"
 #include "components/ui/lazy_texture.hpp"
+#include "components/ui/menu.hpp"
 #include "systems/ui/grid.hpp"
 
 namespace wanderer::sys {
@@ -10,7 +10,7 @@ namespace wanderer::sys {
 void RenderLazyTextures(const entt::registry& registry, GraphicsContext& graphics)
 {
   auto& renderer = graphics.GetRenderer();
-  const auto active = registry.ctx<ctx::ActiveMenu>().entity;
+  const auto active = registry.ctx<ActiveMenu>().entity;
 
   for (auto&& [entity, lazy, associated] :
        registry.view<comp::LazyTexture, comp::AssociatedMenu>().each())

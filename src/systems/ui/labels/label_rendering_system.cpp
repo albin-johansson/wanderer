@@ -1,8 +1,8 @@
 #include "label_rendering_system.hpp"
 
-#include "components/active_menu.hpp"
 #include "components/ui/associated_menu.hpp"
 #include "components/ui/label.hpp"
+#include "components/ui/menu.hpp"
 #include "core/game_constants.hpp"
 #include "core/graphics/render_text.hpp"
 #include "systems/ui/grid.hpp"
@@ -31,7 +31,7 @@ namespace {
 
 void RenderLabels(const entt::registry& registry, GraphicsContext& graphics)
 {
-  const auto active = registry.ctx<ctx::ActiveMenu>().entity;
+  const auto active = registry.ctx<ActiveMenu>().entity;
   auto& renderer = graphics.GetRenderer();
 
   for (auto&& [entity, label, associated] :

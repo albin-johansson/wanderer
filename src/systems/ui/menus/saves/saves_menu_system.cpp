@@ -10,10 +10,10 @@
 #include <string>      // string, to_string
 #include <utility>     // move
 
-#include "components/active_menu.hpp"
 #include "components/ui/associated_menu.hpp"
 #include "components/ui/button_group.hpp"
 #include "components/ui/lazy_texture.hpp"
+#include "components/ui/menu.hpp"
 #include "components/ui/saves_menu.hpp"
 #include "core/ecs/registry_utils.hpp"
 #include "core/game_constants.hpp"
@@ -66,7 +66,7 @@ void FetchSaves(entt::registry& registry, comp::SavesMenu& savesMenu)
 /// Updates whether or not the increment/decrement buttons are enabled
 void UpdatePageIndicators(entt::registry& registry)
 {
-  const auto entity = registry.ctx<ctx::ActiveMenu>().entity;
+  const auto entity = registry.ctx<ActiveMenu>().entity;
 
   auto& menu = registry.get<comp::SavesMenu>(entity);
   const auto& group = registry.get<comp::ButtonGroup>(entity);
@@ -169,7 +169,7 @@ void RefreshSavesMenuContents(entt::registry& registry, const entt::entity menuE
 /// Changes the currently selected saves button group page
 void ChangeSavesButtonGroupPage(entt::registry& registry, const int increment)
 {
-  const auto menu = registry.ctx<ctx::ActiveMenu>().entity;
+  const auto menu = registry.ctx<ActiveMenu>().entity;
   if (auto* group = registry.try_get<comp::ButtonGroup>(menu)) {
     const auto nPages = GetPageCount(*group);
     const auto nextPage = group->current_page + increment;
@@ -205,7 +205,7 @@ void ChangeSavesButtonGroupPage(entt::registry& registry, const int increment)
 
 void RefreshSavesMenu(entt::registry& registry)
 {
-  const auto menuEntity = registry.ctx<ctx::ActiveMenu>().entity;
+  const auto menuEntity = registry.ctx<ActiveMenu>().entity;
   assert(registry.all_of<comp::SavesMenu>(menuEntity));
 
   auto& savesMenu = registry.get<comp::SavesMenu>(menuEntity);
@@ -216,7 +216,7 @@ void RefreshSavesMenu(entt::registry& registry)
 
 void ChangeSavePreview(entt::registry& registry)
 {
-  const auto activeMenu = registry.ctx<ctx::ActiveMenu>().entity;
+  const auto activeMenu = registry.ctx<ActiveMenu>().entity;
   assert(registry.get<comp::Menu>(activeMenu).id == MenuId::Saves);
 
   auto& savesMenu = registry.get<comp::SavesMenu>(activeMenu);
@@ -264,7 +264,7 @@ void ChangeSavePreview(entt::registry& registry)
 
 void RemoveSaveEntry(entt::registry& registry, const std::string& name)
 {
-  const auto activeMenu = registry.ctx<ctx::ActiveMenu>().entity;
+  const auto activeMenu = registry.ctx<ActiveMenu>().entity;
   assert(registry.get<comp::Menu>(activeMenu).id == MenuId::Saves);
 
   auto& savesMenu = registry.get<comp::SavesMenu>(activeMenu);
@@ -296,7 +296,7 @@ void DecrementSavesButtonGroupPage(entt::registry& registry)
 
 auto GetSelectedSaveName(entt::registry& shared) -> std::string
 {
-  const auto activeMenu = shared.ctx<ctx::ActiveMenu>().entity;
+  const auto activeMenu = shared.ctx<ActiveMenu>().entity;
   assert(shared.get<comp::Menu>(activeMenu).id == MenuId::Saves);
 
   auto& group = shared.get<comp::ButtonGroup>(activeMenu);

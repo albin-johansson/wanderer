@@ -2,10 +2,10 @@
 
 #include <cassert>  // assert
 
-#include "components/active_menu.hpp"
 #include "components/cursors.hpp"
 #include "components/ui/associated_menu.hpp"
 #include "components/ui/checkbox.hpp"
+#include "components/ui/menu.hpp"
 #include "events/menu_events.hpp"
 #include "systems/ui/cursor_system.hpp"
 
@@ -71,7 +71,7 @@ auto QueryButton(entt::registry& registry,
 auto UpdateButtonHover(entt::registry& registry, const cen::mouse& mouse)
     -> maybe<entt::entity>
 {
-  const auto menuEntity = registry.ctx<ctx::ActiveMenu>().entity;
+  const auto menuEntity = registry.ctx<ActiveMenu>().entity;
   const auto mousePos = cen::cast<cen::fpoint>(mouse.position());
 
   for (auto&& [entity, button, associated] :

@@ -2,7 +2,6 @@
 
 #include <cassert>  // assert
 
-#include "components/active_menu.hpp"
 #include "components/associated_entity.hpp"
 #include "components/chase.hpp"
 #include "components/drawable.hpp"
@@ -96,7 +95,7 @@ void RenderMenuDebugInfo(const entt::registry& registry)
   auto& graphics = registry.ctx<ref<GraphicsContext>>().get();
   auto& renderer = graphics.GetRenderer();
 
-  const auto menuEntity = registry.ctx<ctx::ActiveMenu>().entity;
+  const auto menuEntity = registry.ctx<ActiveMenu>().entity;
   const auto& menu = registry.get<comp::Menu>(menuEntity);
 
   if (menu.id != MenuId::InGame) {
