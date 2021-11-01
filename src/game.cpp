@@ -52,6 +52,7 @@ Game::Game()
     : mEngine{rune::configuration{.window_title = "Wanderer", .max_tick_rate = 240}}
     , mGraphics{mEngine.window()}
 {
+  mCenDispatcher.bind<cen::quit_event>().to<&Game::OnWindowClose>(this);
   mEngine.set_registry(sys::MakeSharedRegistry());
   mEngine.set_dispatcher(MakeDispatcher());
   mEngine.mouse().set_logical_size(glob::logical_size<>);
@@ -418,7 +419,7 @@ void Game::OnSpawnParticles(const SpawnParticlesEvent& event)
                       event.color);
 }
 
-void Game::OnQuit(const QuitEvent&)
+void Game::OnQuit()
 {
   auto& shared = mEngine.registry();
   if (const auto* snapshot = shared.try_ctx<ctx::RendererSnapshot>()) {
@@ -426,6 +427,11 @@ void Game::OnQuit(const QuitEvent&)
   }
 
   mQuit = true;
+}
+
+void Game::OnWindowClose(const cen::quit_event&)
+{
+  OnQuit();
 }
 
 }  // namespace wanderer

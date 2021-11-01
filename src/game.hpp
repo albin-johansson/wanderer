@@ -15,8 +15,8 @@
 /// \defgroup events Events
 /// \brief Contains all events emitted in the game.
 
-#include <centurion.hpp>  // ipoint
-#include <rune/rune.hpp>  // engine
+#include <centurion.hpp>
+#include <rune/rune.hpp>
 
 #include "core/graphics/graphics_context.hpp"
 #include "events/custom_animation_halfway_event.hpp"
@@ -41,12 +41,16 @@ namespace wanderer {
  */
 class Game final
 {
+  using CenDispatcher =
+      cen::event_dispatcher<cen::quit_event, cen::keyboard_event, cen::text_input_event>;
+
  public:
   Game();
 
   auto Run() -> int;
 
  private:
+  CenDispatcher mCenDispatcher;
   rune::engine mEngine;
   GraphicsContext mGraphics;
   cen::ipoint mMousePos;  // TODO remove
@@ -91,7 +95,9 @@ class Game final
 
   void OnSpawnParticles(const SpawnParticlesEvent& event);
 
-  void OnQuit(const QuitEvent&);
+  void OnQuit();
+
+  void OnWindowClose(const cen::quit_event&);
 };
 
 }  // namespace wanderer
