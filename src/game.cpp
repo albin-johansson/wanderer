@@ -121,6 +121,7 @@ void Game::HandleInput()
 {
   auto& shared = mEngine.registry();
   auto& dispatcher = mEngine.dispatcher();
+  mCenDispatcher.poll();
 
   const auto& keyboard = mEngine.keyboard();
   const auto& mouse = mEngine.mouse();
