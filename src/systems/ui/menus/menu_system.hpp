@@ -44,6 +44,8 @@ void SwitchMenu(entt::registry& registry, entt::dispatcher& dispatcher, MenuId i
  */
 void SyncSettingsMenu(entt::registry& registry);
 
+[[nodiscard]] auto IsMenuActive(const entt::registry& shared, MenuId id) -> bool;
+
 /**
  * \brief Indicates whether or not the current menu is blocking.
  *

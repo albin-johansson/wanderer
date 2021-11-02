@@ -98,7 +98,7 @@ void RenderMenuDebugInfo(const entt::registry& registry)
   const auto menuEntity = registry.ctx<ActiveMenu>().entity;
   const auto& menu = registry.get<comp::Menu>(menuEntity);
 
-  if (menu.id != MenuId::InGame) {
+  if (menu.render_background) {
     renderer.set_color(cen::colors::light_gray.with_alpha(50));
 
     const auto endX = glob::logical_width<>;

@@ -18,7 +18,8 @@ namespace {
 auto MakeMenu(entt::registry& registry,
               std::string title,
               const MenuId id,
-              const bool blocking = true) -> entt::entity
+              const bool blocking,
+              const bool renderBackground) -> entt::entity
 {
   const auto entity = registry.create();
 
@@ -26,6 +27,7 @@ auto MakeMenu(entt::registry& registry,
   menu.title = std::move(title);
   menu.id = id;
   menu.blocking = blocking;
+  menu.render_background = renderBackground;
 
   registry.emplace<comp::MenuDrawable>(entity);
 
@@ -36,7 +38,7 @@ auto MakeMenu(entt::registry& registry,
 
 auto MakeHomeMenu(entt::registry& registry) -> entt::entity
 {
-  const auto entity = MakeMenu(registry, "Wanderer", MenuId::Home);
+  const auto entity = MakeMenu(registry, "Wanderer", MenuId::Home, true, true);
   registry.set<comp::HomeMenu>(entity);
 
   MakeButton(registry, entity, "Play", MenuAction::GotoInGame, {5, -1});
@@ -55,7 +57,7 @@ auto MakeHomeMenu(entt::registry& registry) -> entt::entity
 
 auto MakeSettingsMenu(entt::registry& registry) -> entt::entity
 {
-  const auto entity = MakeMenu(registry, "Settings", MenuId::Settings);
+  const auto entity = MakeMenu(registry, "Settings", MenuId::Settings, true, true);
   registry.set<comp::SettingsMenu>(entity);
 
   MakeButton(registry, entity, "Return", MenuAction::GotoHome, {4, -1});
@@ -74,7 +76,7 @@ auto MakeSettingsMenu(entt::registry& registry) -> entt::entity
 
 auto MakeSavesMenu(entt::registry& registry) -> entt::entity
 {
-  const auto entity = MakeMenu(registry, "Saves", MenuId::Saves);
+  const auto entity = MakeMenu(registry, "Saves", MenuId::Saves, true, true);
   registry.emplace<comp::SavesMenu>(entity);
 
   MakeButton(registry, entity, "Return", MenuAction::GotoHome, {3.5f, -1});
@@ -118,7 +120,7 @@ auto MakeSavesMenu(entt::registry& registry) -> entt::entity
 
 auto MakeControlsMenu(entt::registry& registry) -> entt::entity
 {
-  const auto entity = MakeMenu(registry, "Controls", MenuId::Controls, true);
+  const auto entity = MakeMenu(registry, "Controls", MenuId::Controls, true, true);
   registry.set<comp::ControlsMenu>(entity);
 
   MakeButton(registry, entity, "Return", MenuAction::GotoHome, {4, -1});
@@ -137,7 +139,7 @@ auto MakeControlsMenu(entt::registry& registry) -> entt::entity
 
 auto MakeInGameMenu(entt::registry& registry) -> entt::entity
 {
-  const auto entity = MakeMenu(registry, std::string{}, MenuId::InGame, false);
+  const auto entity = MakeMenu(registry, std::string{}, MenuId::InGame, false, false);
   registry.set<comp::InGameMenu>(entity);
 
   AddBinds(registry, entity, comp::KeyBind{cen::scancodes::escape, MenuAction::GotoHome});

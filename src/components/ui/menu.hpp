@@ -9,6 +9,15 @@
 #include "core/menu_id.hpp"
 #include "wanderer_std.hpp"
 
+namespace wanderer {
+
+struct ActiveMenu final
+{
+  entt::entity entity{entt::null};
+};
+
+}  // namespace wanderer
+
 namespace wanderer::comp {
 
 /// \addtogroup components
@@ -19,11 +28,7 @@ struct Menu final
   MenuId id{};
   std::string title;
   bool blocking{};
-};
-
-struct ActiveMenu final
-{
-  entt::entity entity{entt::null};
+  bool render_background{};
 };
 
 struct HomeMenu final

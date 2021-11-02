@@ -69,6 +69,12 @@ void SyncSettingsMenu(entt::registry& registry)
   }
 }
 
+auto IsMenuActive(const entt::registry& shared, const MenuId id) -> bool
+{
+  const auto menuEntity = shared.ctx<ActiveMenu>().entity;
+  return shared.get<comp::Menu>(menuEntity).id == id;
+}
+
 auto IsCurrentMenuBlocking(const entt::registry& registry) -> bool
 {
   const auto menuEntity = registry.ctx<ActiveMenu>().entity;

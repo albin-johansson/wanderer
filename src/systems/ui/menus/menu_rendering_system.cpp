@@ -78,7 +78,7 @@ void RenderActiveMenu(const entt::registry& shared)
   auto& graphics = shared.ctx<ref<GraphicsContext>>().get();
   auto& renderer = graphics.GetRenderer();
 
-  if (menu.blocking) {
+  if (menu.render_background) {
     const auto index = graphics.LoadTexture("backdrop"_hs, backdrop_path);
     renderer.render(graphics[index], cen::irect{{}, glob::logical_size<>});
     renderer.fill_with(glob::transparent_black);
@@ -93,7 +93,7 @@ void RenderActiveMenu(const entt::registry& shared)
 
   RenderTitle(menu.title, drawable, renderer);
 
-  if (menu.blocking) {
+  if (menu.render_background) {
     RenderAuthorLabel(graphics);
   }
 }
