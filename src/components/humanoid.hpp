@@ -2,7 +2,7 @@
 
 #include <entt.hpp>  // entity, null
 
-namespace wanderer::comp {
+namespace wanderer {
 
 /// \addtogroup components
 /// \{
@@ -32,4 +32,4 @@ struct HumanoidDie final
 
 /// \} End of group components
 
-}  // namespace wanderer::comp
+}  // namespace wanderer

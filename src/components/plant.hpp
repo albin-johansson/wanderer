@@ -4,7 +4,7 @@
 
 #include "wanderer_std.hpp"
 
-namespace wanderer::comp {
+namespace wanderer {
 
 struct Plant final
 {
@@ -19,4 +19,4 @@ struct Plant final
   std::vector<TileID> tall;   ///< "Tall" tiles, i.e. tiles that are two tiles high.
 };
 
-}  // namespace wanderer::comp
+}  // namespace wanderer

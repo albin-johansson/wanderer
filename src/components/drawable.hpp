@@ -4,7 +4,7 @@
 
 #include "wanderer_std.hpp"
 
-namespace wanderer::comp {
+namespace wanderer {
 
 /**
  * \brief A component used by all drawable entities.
@@ -30,4 +30,4 @@ struct Drawable final
   int32 depth{5};    ///< Render order heuristic.
 };
 
-}  // namespace wanderer::comp
+}  // namespace wanderer

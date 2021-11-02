@@ -27,8 +27,8 @@ constexpr float target_error_margin = 1;
 
 void TargetNearbyPosition(entt::registry& registry,
                           const entt::entity entity,
-                          comp::Roam& roam,
-                          comp::Movable& movable)
+                          Roam& roam,
+                          Movable& movable)
 {
   roam.cooldown = 0;
   roam.destination = GetNearbyPosition(movable.position);
@@ -36,16 +36,16 @@ void TargetNearbyPosition(entt::registry& registry,
   movable.velocity = movable.position;
   LookAt(movable.velocity, *roam.destination, movable.speed);
 
-  if (registry.all_of<comp::Humanoid>(entity)) {
-    registry.emplace<comp::HumanoidMove>(entity);
+  if (registry.all_of<Humanoid>(entity)) {
+    registry.emplace<HumanoidMove>(entity);
     EnterMoveAnimation(registry, entity, GetDominantDirection(movable));
   }
 }
 
 void BeginCooldown(entt::registry& registry,
                    const entt::entity entity,
-                   comp::Roam& roam,
-                   comp::Movable& movable)
+                   Roam& roam,
+                   Movable& movable)
 {
   // Reached destination, begin cooldown
   roam.cooldown = 0;
@@ -53,8 +53,8 @@ void BeginCooldown(entt::registry& registry,
   movable.velocity.x = 0;
   movable.velocity.y = 0;
 
-  if (registry.all_of<comp::Humanoid>(entity)) {
-    registry.emplace<comp::HumanoidIdle>(entity);
+  if (registry.all_of<Humanoid>(entity)) {
+    registry.emplace<HumanoidIdle>(entity);
     EnterIdleAnimation(registry, entity);
   }
 }
@@ -63,8 +63,7 @@ void BeginCooldown(entt::registry& registry,
 
 void UpdateRoaming(entt::registry& registry, float dt)
 {
-  for (auto&& [entity, roam, movable] : registry.view<comp::Roam, comp::Movable>().each())
-  {
+  for (auto&& [entity, roam, movable] : registry.view<Roam, Movable>().each()) {
     if (!roam.destination) {
       roam.cooldown += cooldown_rate * dt;
       if (roam.cooldown >= roam.cooldown_duration) {

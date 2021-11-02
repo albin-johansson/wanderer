@@ -41,13 +41,13 @@ auto Restore(const proto::float2& data) -> float2
   return result;
 }
 
-auto Restore(const proto::float3& data) -> comp::Vector3
+auto Restore(const proto::float3& data) -> Vector3
 {
   assert(data.has_x());
   assert(data.has_y());
   assert(data.has_z());
 
-  comp::Vector3 result;
+  Vector3 result;
   result.x = data.x();
   result.y = data.y();
   result.z = data.z();
@@ -137,7 +137,7 @@ void RestoreMovable(const proto::Level& level,
     assert(data.has_velocity());
     assert(data.has_speed());
 
-    auto& movable = registry.emplace<comp::Movable>(entity);
+    auto& movable = registry.emplace<Movable>(entity);
     movable.position = Restore(data.position());
     movable.velocity = Restore(data.velocity());
     movable.speed = data.speed();
@@ -157,7 +157,7 @@ void RestoreDrawable(const proto::Level& level,
     assert(data.has_src());
     assert(data.has_dst());
 
-    auto& drawable = registry.emplace<comp::Drawable>(entity);
+    auto& drawable = registry.emplace<Drawable>(entity);
     drawable.texture = data.texture_index();
     drawable.layer = data.layer_index();
     drawable.depth = data.depth_index();
@@ -179,7 +179,7 @@ void RestoreAnimation(const proto::Level& level,
     assert(data.has_delay());
     assert(data.has_then());
 
-    auto& animation = registry.emplace<comp::Animation>(entity);
+    auto& animation = registry.emplace<Animation>(entity);
     animation.frame = data.frame();
     animation.frame_count = data.frame_count();
     animation.delay = ms_t{data.delay()};
@@ -200,7 +200,7 @@ void RestorePlant(const proto::Level& level,
     assert(data.has_tile_height());
     assert(data.has_index());
 
-    auto& plant = registry.emplace<comp::Plant>(entity);
+    auto& plant = registry.emplace<Plant>(entity);
     plant.current = data.current_growth();
     plant.rate = data.rate();
     plant.base_y = data.base_y();
@@ -227,7 +227,7 @@ void RestoreTile(const proto::Level& level, entt::registry& registry, entt::enti
     assert(data.has_depth_index());
     assert(data.has_src());
 
-    auto& tile = registry.emplace<comp::Tile>(entity);
+    auto& tile = registry.emplace<Tile>(entity);
     tile.id = TileID{data.id()};
     tile.texture = data.texture_index();
     tile.depth = data.depth_index();
@@ -246,7 +246,7 @@ void RestoreTileAnimations(const proto::Level& level,
     assert(data.has_index());
     assert(data.has_then());
 
-    auto& animation = registry.emplace<comp::TileAnimation>(entity);
+    auto& animation = registry.emplace<TileAnimation>(entity);
     animation.index = data.index();
     animation.then = ms_t{data.then()};
 
@@ -275,7 +275,7 @@ void RestoreChase(const proto::Level& level,
     const auto targetEntity = entt::entity{data.target_entity()};
     assert(registry.valid(targetEntity));
 
-    auto& chase = registry.emplace<comp::Chase>(entity);
+    auto& chase = registry.emplace<Chase>(entity);
     chase.target = targetEntity;
     chase.range = data.range();
     chase.active = data.is_active();
@@ -295,7 +295,7 @@ void RestoreParticle(const proto::Level& level,
     assert(data.has_duration());
     assert(data.has_color());
 
-    auto& particle = registry.emplace<comp::particle>(entity);
+    auto& particle = registry.emplace<Particle>(entity);
     particle.position = Restore(data.position());
     particle.acceleration = Restore(data.acceleration());
     particle.now = data.now();
@@ -317,7 +317,7 @@ void RestoreLight(const proto::Level& level,
     assert(data.has_fluctuation_step());
     assert(data.has_fluctuation_limit());
 
-    auto& light = registry.emplace<comp::PointLight>(entity);
+    auto& light = registry.emplace<PointLight>(entity);
     light.position = Restore(data.position());
     light.size = data.size();
     light.fluctuation = data.fluctuation();
@@ -337,8 +337,8 @@ void RestoreSpawnpoint(const proto::Level& level,
     assert(data.has_type());
     assert(data.has_position());
 
-    auto& spawnpoint = registry.emplace<comp::Spawnpoint>(entity);
-    spawnpoint.type = static_cast<comp::SpawnpointType>(data.type());
+    auto& spawnpoint = registry.emplace<Spawnpoint>(entity);
+    spawnpoint.type = static_cast<SpawnpointType>(data.type());
     spawnpoint.position = Restore(data.position());
   }
 }
@@ -356,7 +356,7 @@ void RestoreHitbox(const proto::Level& level,
     assert(data.has_bounds());
     assert(data.has_enabled());
 
-    auto& hitbox = registry.emplace<comp::Hitbox>(entity);
+    auto& hitbox = registry.emplace<Hitbox>(entity);
     hitbox.origin = Restore(data.origin());
     hitbox.bounds = Restore(data.bounds());
     hitbox.enabled = data.enabled();
@@ -382,7 +382,7 @@ void RestoreObject(const proto::Level& level,
     const auto& data = it->second;
     assert(data.has_id());
 
-    auto& object = registry.emplace<comp::Object>(entity);
+    auto& object = registry.emplace<Object>(entity);
     object.id = data.id();
   }
 }
@@ -396,7 +396,7 @@ void RestorePortal(const proto::Level& level,
     const auto& data = it->second;
     assert(data.has_path());
 
-    auto& portal = registry.emplace<comp::Portal>(entity);
+    auto& portal = registry.emplace<Portal>(entity);
     portal.path = data.path();
     if (data.has_map_id()) {
       portal.target = MapID{data.map_id()};
@@ -414,7 +414,7 @@ void RestoreTileLayer(const proto::Level& level,
     assert(data.has_z_index());
     assert(data.has_matrix());
 
-    auto& layer = registry.emplace<comp::TileLayer>(entity);
+    auto& layer = registry.emplace<TileLayer>(entity);
     layer.z = data.z_index();
 
     const auto& matrix = data.matrix();
@@ -435,7 +435,7 @@ void RestoreTileset(const proto::Level& level,
   if (const auto it = tilesets.find(entt::to_integral(entity)); it != tilesets.end()) {
     const auto& data = it->second;
 
-    auto& tileset = registry.emplace<comp::Tileset>(entity);
+    auto& tileset = registry.emplace<Tileset>(entity);
     for (const auto& [id, tileEntity] : data.tile_to_entity()) {
       tileset.tiles.try_emplace(TileID{id}, entt::entity{tileEntity});
     }
@@ -452,7 +452,7 @@ void RestoreInventory(const proto::Level& level,
     const auto& data = it->second;
     assert(data.has_capacity());
 
-    auto& inventory = registry.emplace<comp::Inventory>(entity);
+    auto& inventory = registry.emplace<Inventory>(entity);
     inventory.capacity = data.capacity();
 
     for (const auto itemEntity : data.items()) {
@@ -470,7 +470,7 @@ void RestoreTileObject(const proto::Level& level,
     const auto& data = it->second;
     assert(data.has_tile_entity());
 
-    auto& object = registry.emplace<comp::TileObject>(entity);
+    auto& object = registry.emplace<TileObject>(entity);
     object.tile_entity = entt::entity{data.tile_entity()};
   }
 }
@@ -484,8 +484,8 @@ void RestoreTrigger(const proto::Level& level,
     const auto& data = it->second;
     assert(data.has_type());
 
-    auto& trigger = registry.emplace<comp::Trigger>(entity);
-    trigger.type = static_cast<comp::TriggerType>(data.type());
+    auto& trigger = registry.emplace<Trigger>(entity);
+    trigger.type = static_cast<TriggerType>(data.type());
   }
 }
 
@@ -500,7 +500,7 @@ void RestoreAssociation(const proto::Level& level,
     const auto& data = it->second;
     assert(data.has_entity());
 
-    auto& association = registry.emplace<comp::AssociatedEntity>(entity);
+    auto& association = registry.emplace<AssociatedEntity>(entity);
     association.entity = entt::entity{data.entity()};
   }
 }

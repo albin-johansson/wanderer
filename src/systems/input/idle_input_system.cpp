@@ -47,7 +47,7 @@ void CheckForMovement(entt::registry& registry,
                       const ctx::Binds& binds)
 {
   if (const auto dir = GetDirection(keyboard, binds)) {
-    const auto player = singleton_entity<comp::Player>(registry);
+    const auto player = singleton_entity<Player>(registry);
     dispatcher.enqueue<BeginHumanoidMoveEvent>(registry, player, *dir);
   }
 }
@@ -59,13 +59,13 @@ void HandleIdleInput(entt::registry& registry,
                      const cen::keyboard& keyboard,
                      const ctx::Binds& binds)
 {
-  const auto player = singleton_entity<comp::Player>(registry);
-  assert(registry.all_of<comp::HumanoidIdle>(player));
+  const auto player = singleton_entity<Player>(registry);
+  assert(registry.all_of<HumanoidIdle>(player));
 
   if (keyboard.just_released(binds.interact)) {
     dispatcher.enqueue<InteractEvent>(registry, dispatcher);
   }
-  else if (registry.empty<comp::ActiveInventory>()) {
+  else if (registry.empty<ActiveInventory>()) {
     if (keyboard.is_pressed(binds.attack)) {
       // FIXME
       dispatcher.enqueue<BeginAttackEvent>(registry, player, entt::null, Direction::Down);

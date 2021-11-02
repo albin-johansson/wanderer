@@ -10,7 +10,7 @@ namespace wanderer {
 
 void CreateObjectLayer(const Tactile::IO::Map& irMap,
                        const Tactile::IO::Layer& irLayer,
-                       comp::Level& level,
+                       Level& level,
                        GraphicsContext& graphics,
                        float2 ratio);
 

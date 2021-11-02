@@ -35,7 +35,7 @@ void SpawnParticle(entt::registry& registry,
                    const float duration,
                    const cen::color& color)
 {
-  auto& particle = registry.emplace<comp::particle>(registry.create());
+  auto& particle = registry.emplace<Particle>(registry.create());
   particle.position = {position.x, position.y, initial_z_pos};
 
   particle.acceleration.x = rune::next_random(min_initial_x_accel, max_initial_x_accel);
@@ -63,7 +63,7 @@ void SpawnParticles(entt::registry& registry,
 void UpdateParticles(entt::registry& registry, const float dt)
 {
   const auto now = cen::counter::ticks();
-  for (auto&& [entity, particle] : registry.view<comp::particle>().each()) {
+  for (auto&& [entity, particle] : registry.view<Particle>().each()) {
     particle.now += time_step * dt;
     if (particle.now >= particle.duration) {
       registry.destroy(entity);
@@ -90,7 +90,7 @@ void RenderParticles(const entt::registry& registry)
   auto& graphics = registry.ctx<ref<GraphicsContext>>().get();
   auto& renderer = graphics.GetRenderer();
 
-  for (auto&& [entity, particle] : registry.view<comp::particle>().each()) {
+  for (auto&& [entity, particle] : registry.view<Particle>().each()) {
     const auto rect = cen::rect(particle.position.x,
                                 particle.position.y - particle.position.z,
                                 2.0f,

@@ -12,12 +12,12 @@ void AddButton(entt::registry& registry,
                const MenuAction action,
                const GridPosition position)
 {
-  auto& button = registry.emplace<comp::Button>(entity);
+  auto& button = registry.emplace<Button>(entity);
   button.text = std::move(text);
   button.action = action;
   button.position = position;
 
-  registry.emplace<comp::ButtonDrawable>(entity);
+  registry.emplace<ButtonDrawable>(entity);
 }
 
 auto MakeButton(entt::registry& registry,
@@ -42,7 +42,7 @@ auto MakeButton(entt::registry& registry,
 
   AddButton(registry, entity, std::move(text), action, position);
 
-  auto& associated = registry.emplace<comp::AssociatedMenu>(entity);
+  auto& associated = registry.emplace<AssociatedMenu>(entity);
   associated.entity = menuEntity;
 
   return entity;

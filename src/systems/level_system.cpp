@@ -18,14 +18,14 @@ auto PrepareCurrentLevelBeforeSwitch(entt::registry& shared,
   assert(event.id == glob::switch_level_id);
   auto& level = sys::CurrentLevel(shared);
 
-  const auto player = singleton_entity<comp::Player>(level.registry);
-  auto& movable = level.registry.get<comp::Movable>(player);
+  const auto player = singleton_entity<Player>(level.registry);
+  auto& movable = level.registry.get<Movable>(player);
   movable.velocity.x = 0;
   movable.velocity.y = 0;
 
   sys::CenterViewportOn(level.registry, movable.position);
 
-  const auto next = level.registry.get<comp::LevelSwitchTarget>(event.entity).id;
+  const auto next = level.registry.get<LevelSwitchTarget>(event.entity).id;
   level.registry.destroy(event.entity);
 
   return next;
@@ -33,32 +33,32 @@ auto PrepareCurrentLevelBeforeSwitch(entt::registry& shared,
 
 void EnableLevel(entt::registry& shared, MapID id)
 {
-  shared.clear<comp::ActiveLevel>();
+  shared.clear<ActiveLevel>();
 
-  for (auto&& [entity, level] : shared.view<comp::Level>().each()) {
+  for (auto&& [entity, level] : shared.view<Level>().each()) {
     if (level.id == id) {
-      shared.emplace<comp::ActiveLevel>(entity);
+      shared.emplace<ActiveLevel>(entity);
       break;
     }
   }
 
-  assert(shared.size<comp::ActiveLevel>() == 1);
+  assert(shared.size<ActiveLevel>() == 1);
 }
 
-auto CurrentLevel(entt::registry& shared) -> comp::Level&
+auto CurrentLevel(entt::registry& shared) -> Level&
 {
-  return shared.get<comp::Level>(singleton_entity<const comp::ActiveLevel>(shared));
+  return shared.get<Level>(singleton_entity<const ActiveLevel>(shared));
 }
 
-auto CurrentLevel(const entt::registry& shared) -> const comp::Level&
+auto CurrentLevel(const entt::registry& shared) -> const Level&
 {
-  return shared.get<comp::Level>(singleton_entity<const comp::ActiveLevel>(shared));
+  return shared.get<Level>(singleton_entity<const ActiveLevel>(shared));
 }
 
 auto IsCurrentLevelOutside(const entt::registry& shared) -> bool
 {
-  const auto level = singleton_entity<const comp::ActiveLevel>(shared);
-  return shared.all_of<comp::OutsideLevel>(level);
+  const auto level = singleton_entity<const ActiveLevel>(shared);
+  return shared.all_of<OutsideLevel>(level);
 }
 
 }  // namespace wanderer::sys

@@ -23,7 +23,7 @@ inline const auto texture_path = resources::texture("ardentryst/glow.png");
 
 void UpdateLights(entt::registry& registry)
 {
-  for (auto&& [entity, light] : registry.view<comp::PointLight>().each()) {
+  for (auto&& [entity, light] : registry.view<PointLight>().each()) {
     light.fluctuation +=
         rune::next_bool() ? light.fluctuation_step : -light.fluctuation_step;
 
@@ -36,10 +36,10 @@ void UpdateLights(entt::registry& registry)
 
 void UpdatePlayerLightPosition(entt::registry& registry)
 {
-  const auto playerEntity = singleton_entity<comp::Player>(registry);
-  const auto& drawable = registry.get<comp::Drawable>(playerEntity);
+  const auto playerEntity = singleton_entity<Player>(registry);
+  const auto& drawable = registry.get<Drawable>(playerEntity);
 
-  auto& light = registry.get<comp::PointLight>(playerEntity);
+  auto& light = registry.get<PointLight>(playerEntity);
   light.position = to_vector(drawable.dst.center());
 }
 
@@ -56,7 +56,7 @@ void RenderLights(const entt::registry& registry, const ctx::TimeOfDay& time)
   const auto& viewport = registry.ctx<ctx::Viewport>();
   constexpr auto source = cen::rect(0, 0, 80, 80);
 
-  for (auto&& [entity, light] : registry.view<comp::PointLight>().each()) {
+  for (auto&& [entity, light] : registry.view<PointLight>().each()) {
     const auto& pos = light.position;
 
     const auto size = light.size + light.fluctuation;

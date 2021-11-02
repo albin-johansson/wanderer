@@ -10,20 +10,19 @@ namespace wanderer::sys {
 
 void UpdateTriggers(entt::registry& registry)
 {
-  const auto player = singleton_entity<comp::Player>(registry);
-  const auto& playerHitbox = registry.get<comp::Hitbox>(player);
+  const auto player = singleton_entity<Player>(registry);
+  const auto& playerHitbox = registry.get<Hitbox>(player);
 
-  for (auto&& [triggerEntity, trigger, hitbox] :
-       registry.view<comp::Trigger, comp::Hitbox>().each())
+  for (auto&& [triggerEntity, trigger, hitbox] : registry.view<Trigger, Hitbox>().each())
   {
     hitbox.enabled = true;
 
     if (sys::Intersects(playerHitbox, hitbox)) {
-      registry.emplace_or_replace<comp::IsWithinTrigger>(player, triggerEntity);
+      registry.emplace_or_replace<IsWithinTrigger>(player, triggerEntity);
     }
-    else if (const auto* within = registry.try_get<comp::IsWithinTrigger>(player)) {
+    else if (const auto* within = registry.try_get<IsWithinTrigger>(player)) {
       if (within->trigger_entity == triggerEntity) {
-        registry.remove<comp::IsWithinTrigger>(player);
+        registry.remove<IsWithinTrigger>(player);
       }
     }
 

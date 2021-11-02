@@ -38,9 +38,9 @@ namespace {
 void OnAttackBegin(const BeginAttackEvent& event)
 {
   auto& registry = event.registry.get();
-  assert(!registry.all_of<comp::HumanoidAttack>(event.source_entity));
+  assert(!registry.all_of<HumanoidAttack>(event.source_entity));
 
-  auto& attack = registry.emplace<comp::HumanoidAttack>(event.source_entity);
+  auto& attack = registry.emplace<HumanoidAttack>(event.source_entity);
   attack.weapon = event.weapon;
 
   // TODO enter correct animation according to weapon
@@ -51,15 +51,15 @@ void OnAttackEnd(const EndAttackEvent& event)
 {
   auto& registry = event.registry.get();
   auto& dispatcher = event.dispatcher.get();
-  assert(registry.all_of<comp::HumanoidAttack>(event.source_entity));
+  assert(registry.all_of<HumanoidAttack>(event.source_entity));
 
-  registry.emplace<comp::HumanoidIdle>(event.source_entity);
+  registry.emplace<HumanoidIdle>(event.source_entity);
   EnterIdleAnimation(event.registry, event.source_entity);
-  assert(!registry.all_of<comp::HumanoidAttack>(event.source_entity));
+  assert(!registry.all_of<HumanoidAttack>(event.source_entity));
 
   // TODO deal damage (need target area)
 
-  if (const auto* movable = registry.try_get<comp::Movable>(event.source_entity)) {
+  if (const auto* movable = registry.try_get<Movable>(event.source_entity)) {
     const auto position = GetParticlePosition(movable->position, movable->dir);
     dispatcher.enqueue<SpawnParticlesEvent>(position, 5, 25.0f, cen::colors::dark_gray);
   }

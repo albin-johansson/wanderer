@@ -2,7 +2,7 @@
 
 #include "wanderer_std.hpp"
 
-namespace wanderer::comp {
+namespace wanderer {
 
 /// \brief Represents light sources focused at specific points.
 /// \ingroup components
@@ -15,4 +15,4 @@ struct PointLight final
   float fluctuation_limit{};  ///< Fluctuation size limit.
 };
 
-}  // namespace wanderer::comp
+}  // namespace wanderer

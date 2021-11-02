@@ -13,9 +13,9 @@ auto MakeSavesMenuEntry(entt::registry& registry, const std::filesystem::path& d
 
   auto name = dir.filename().string();
   const auto snapshot = dir / "snapshot.png";
-  registry.emplace<comp::SavesMenuEntry>(entity,
-                                         std::move(name),
-                                         cen::surface{snapshot.string()});
+  registry.emplace<SavesMenuEntry>(entity,
+                                   std::move(name),
+                                   cen::surface{snapshot.string()});
 
   return entity;
 }

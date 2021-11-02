@@ -4,7 +4,7 @@
 
 #include "core/menu_action.hpp"
 
-namespace wanderer::comp {
+namespace wanderer {
 
 struct KeyBind final
 {
@@ -12,4 +12,4 @@ struct KeyBind final
   MenuAction action{MenuAction::None};
 };
 
-}  // namespace wanderer::comp
+}  // namespace wanderer

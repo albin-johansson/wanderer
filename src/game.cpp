@@ -97,7 +97,7 @@ void Game::OnStart()
   shared.ctx<ctx::TimeOfDay>().seconds = sys::HourToSeconds(12);
 
   {
-    auto& data = shared.emplace<comp::FpsData>(shared.create());
+    auto& data = shared.emplace<FpsData>(shared.create());
     data.then = cen::counter::ticks();
     data.interval = ms_t{500};
     data.next_update = data.then + data.interval;
@@ -162,7 +162,7 @@ void Game::Tick(entt::registry& shared, entt::dispatcher& dispatcher, const floa
   sys::UpdateTriggers(level.registry);
 
   {
-    const auto player = singleton_entity<comp::Player>(level.registry);
+    const auto player = singleton_entity<Player>(level.registry);
     sys::UpdateViewport(level.registry, player, dt);
   }
   sys::UpdateDepth(level.registry);
@@ -352,7 +352,7 @@ void Game::OnSwitchMenu(const SwitchMenuEvent& event)
 void Game::OnMenuSwitched(const MenuSwitchedEvent& event)
 {
   auto& shared = mEngine.registry();
-  const auto& menu = shared.get<comp::Menu>(event.entity);
+  const auto& menu = shared.get<Menu>(event.entity);
   if (menu.id == MenuId::Saves) {
     sys::RefreshSavesMenu(shared);
   }
@@ -386,13 +386,13 @@ void Game::OnShowInventory(const ShowInventoryEvent& event)
 {
   auto& shared = mEngine.registry();
   auto& level = sys::CurrentLevel(shared);
-  level.registry.emplace<comp::ActiveInventory>(event.inventory_entity);
+  level.registry.emplace<ActiveInventory>(event.inventory_entity);
 }
 
 void Game::OnCloseInventory(const CloseInventoryEvent&)
 {
   auto& shared = mEngine.registry();
-  sys::CurrentLevel(shared).registry.clear<comp::ActiveInventory>();
+  sys::CurrentLevel(shared).registry.clear<ActiveInventory>();
 }
 
 void Game::OnSleep(const SleepEvent&)

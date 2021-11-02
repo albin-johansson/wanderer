@@ -16,8 +16,8 @@ namespace wanderer::sys {
 /**
  * \brief Creates a checkbox.
  *
- * \details The created entity will feature `comp::Button`, `comp::ButtonDrawable` and
- * `comp::Checkbox` components.
+ * \details The created entity will feature `Button`, `ButtonDrawable` and
+ * `Checkbox` components.
  *
  * \ingroup systems
  *

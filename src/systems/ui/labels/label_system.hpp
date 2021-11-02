@@ -23,7 +23,7 @@ namespace wanderer::sys {
  * \param label the label that will be modified.
  * \param text the new label text.
  */
-void SetText(comp::Label& label, std::string text);
+void SetText(Label& label, std::string text);
 
 /// \} End of labels
 

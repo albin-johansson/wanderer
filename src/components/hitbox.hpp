@@ -5,7 +5,7 @@
 
 #include "wanderer_std.hpp"
 
-namespace wanderer::comp {
+namespace wanderer {
 
 /// The maximum number of subhitboxes a single hitbox can contain.
 constexpr usize max_subhitbox_count = 5;
@@ -30,4 +30,4 @@ struct Hitbox final
   bool enabled{true};   ///< Whether or not the hitbox can collide with other hitboxes.
 };
 
-}  // namespace wanderer::comp
+}  // namespace wanderer

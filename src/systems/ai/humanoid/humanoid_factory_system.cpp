@@ -30,7 +30,7 @@ constexpr int32 humanoid_source_height = 64;
 
 void AddMovable(entt::registry& registry, const entt::entity entity)
 {
-  auto& movable = registry.emplace<comp::Movable>(entity);
+  auto& movable = registry.emplace<Movable>(entity);
   movable.dir = Direction::Down;
 }
 
@@ -38,7 +38,7 @@ void AddDepthDrawable(entt::registry& registry,
                       const entt::entity entity,
                       const usize texture)
 {
-  auto& drawable = registry.emplace<comp::Drawable>(entity);
+  auto& drawable = registry.emplace<Drawable>(entity);
   drawable.texture = texture;
   drawable.src = {{}, {humanoid_source_width, humanoid_source_height}};
   drawable.dst = {{}, glob::humanoid_draw_size};
@@ -48,14 +48,14 @@ void AddAnimated(entt::registry& registry, const entt::entity entity)
 {
   using namespace cen::literals;
 
-  auto& animation = registry.emplace<comp::Animation>(entity);
+  auto& animation = registry.emplace<Animation>(entity);
   animation.frame = 0;
   animation.delay = 65_ms;
   animation.then = cen::counter::ticks();
   animation.frame_count = 1;
 }
 
-void AddHitbox(comp::Level& level, const entt::entity entity, const float2 position)
+void AddHitbox(Level& level, const entt::entity entity, const float2 position)
 {
   constexpr auto x0 = 0.5625f * glob::tile_width<>;
   constexpr auto x1 = 0.875f * glob::tile_width<>;
@@ -69,15 +69,15 @@ void AddHitbox(comp::Level& level, const entt::entity entity, const float2 posit
   const auto upper = lower + to_rune_vector(hitbox.bounds.size());
   level.tree.insert(entity, lower, upper);
 
-  level.registry.emplace<comp::Hitbox>(entity, hitbox);
+  level.registry.emplace<Hitbox>(entity, hitbox);
 }
 
-[[nodiscard]] auto MakeHumanoid(comp::Level& level, const usize texture) -> entt::entity
+[[nodiscard]] auto MakeHumanoid(Level& level, const usize texture) -> entt::entity
 {
   const auto entity = level.registry.create();
 
-  level.registry.emplace<comp::Humanoid>(entity);
-  level.registry.emplace<comp::HumanoidIdle>(entity);
+  level.registry.emplace<Humanoid>(entity);
+  level.registry.emplace<HumanoidIdle>(entity);
 
   AddMovable(level.registry, entity);
   AddDepthDrawable(level.registry, entity, texture);
@@ -89,7 +89,7 @@ void AddHitbox(comp::Level& level, const entt::entity entity, const float2 posit
 
 void AddLight(entt::registry& registry, const entt::entity entity, const float2 position)
 {
-  auto& light = registry.emplace<comp::PointLight>(entity);
+  auto& light = registry.emplace<PointLight>(entity);
   light.size = 160;
   light.position = position;
   light.fluctuation = 0;
@@ -99,7 +99,7 @@ void AddLight(entt::registry& registry, const entt::entity entity, const float2 
 
 }  // namespace
 
-auto MakePlayer(comp::Level& level, GraphicsContext& graphics) -> entt::entity
+auto MakePlayer(Level& level, GraphicsContext& graphics) -> entt::entity
 {
   constexpr uint32 id = "player"_hs;
   static const auto path = resources::texture("player.png");
@@ -107,18 +107,18 @@ auto MakePlayer(comp::Level& level, GraphicsContext& graphics) -> entt::entity
   const auto texture = graphics.LoadTexture(id, path);
   const auto player = MakeHumanoid(level, texture);
 
-  auto& movable = level.registry.get<comp::Movable>(player);
+  auto& movable = level.registry.get<Movable>(player);
   movable.speed = glob::player_speed;
   movable.position = level.player_spawn_position.value();
 
   AddLight(level.registry, player, movable.position);
 
-  level.registry.emplace<comp::Player>(player);
+  level.registry.emplace<Player>(player);
 
   return player;
 }
 
-auto MakeSkeleton(comp::Level& level, float2 position, GraphicsContext& graphics)
+auto MakeSkeleton(Level& level, float2 position, GraphicsContext& graphics)
     -> entt::entity
 {
   constexpr uint32 id = "skeleton"_hs;
@@ -127,15 +127,15 @@ auto MakeSkeleton(comp::Level& level, float2 position, GraphicsContext& graphics
   const auto texture = graphics.LoadTexture(id, path);
   const auto skeleton = MakeHumanoid(level, texture);
 
-  auto& movable = level.registry.get<comp::Movable>(skeleton);
+  auto& movable = level.registry.get<Movable>(skeleton);
   movable.speed = glob::monster_speed;
   movable.position = position;
 
-  auto& chase = level.registry.emplace<comp::Chase>(skeleton);
-  chase.target = singleton_entity<comp::Player>(level.registry);
+  auto& chase = level.registry.emplace<Chase>(skeleton);
+  chase.target = singleton_entity<Player>(level.registry);
   chase.range = 150;
 
-  auto& roam = level.registry.emplace<comp::Roam>(skeleton);
+  auto& roam = level.registry.emplace<Roam>(skeleton);
   roam.cooldown_duration = 100;
 
   return skeleton;

@@ -2,7 +2,7 @@
 
 #include <entt.hpp>  // entity, null
 
-namespace wanderer::comp {
+namespace wanderer {
 
 enum class TriggerType
 {
@@ -21,4 +21,4 @@ struct IsWithinTrigger final
   entt::entity trigger_entity{entt::null};
 };
 
-}  // namespace wanderer::comp
+}  // namespace wanderer

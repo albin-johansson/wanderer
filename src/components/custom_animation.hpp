@@ -2,7 +2,7 @@
 
 #include "wanderer_std.hpp"
 
-namespace wanderer::comp {
+namespace wanderer {
 
 /// \brief Represents UI animations intended to be used for transitions.
 /// \ingroup components
@@ -17,4 +17,4 @@ struct CustomAnimation final
   bool fading_in{};     ///< Indicates whether or not the animation is "fading" inwards.
 };
 
-}  // namespace wanderer::comp
+}  // namespace wanderer

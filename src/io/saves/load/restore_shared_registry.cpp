@@ -23,29 +23,29 @@ namespace {
 
 void RestoreSharedData(entt::registry& shared, const proto::SharedData& data)
 {
-  shared.clear<comp::Level>();
-  shared.clear<comp::ActiveLevel>();
+  shared.clear<Level>();
+  shared.clear<ActiveLevel>();
 
   shared.set<ctx::TimeOfDay>(Restore(data.time()));
 }
 
-void AddLevelSize(comp::Level& level)
+void AddLevelSize(Level& level)
 {
-  const auto& tilemap = level.registry.ctx<comp::Tilemap>();
+  const auto& tilemap = level.registry.ctx<Tilemap>();
   auto& size = level.registry.set<ctx::LevelSize>();
   size.row_count = tilemap.row_count;
   size.col_count = tilemap.col_count;
 }
 
-void AddViewport(comp::Level& level)
+void AddViewport(Level& level)
 {
-  const auto& tilemap = level.registry.ctx<comp::Tilemap>();
+  const auto& tilemap = level.registry.ctx<Tilemap>();
   level.registry.set<ctx::Viewport>(sys::MakeViewport(tilemap.size));
 }
 
 void RestoreAabbTree(entt::registry& registry, aabb_tree& tree)
 {
-  for (auto&& [hitboxEntity, hitbox] : registry.view<comp::Hitbox>().each()) {
+  for (auto&& [hitboxEntity, hitbox] : registry.view<Hitbox>().each()) {
     const auto lower = to_rune_vector(hitbox.bounds.position());
     const auto upper = lower + to_rune_vector(hitbox.bounds.size());
     tree.insert(hitboxEntity, lower, upper);
@@ -61,8 +61,8 @@ void PrepareViewport(entt::registry& registry, const bool keepInBounds)
   auto& viewport = registry.ctx<ctx::Viewport>();
   viewport.keep_in_bounds = keepInBounds;
 
-  const auto player = singleton_entity<comp::Player>(registry);
-  const auto& movable = registry.get<comp::Movable>(player);
+  const auto player = singleton_entity<Player>(registry);
+  const auto& movable = registry.get<Movable>(player);
   sys::CenterViewportOn(registry, movable.position);
 }
 
@@ -75,20 +75,20 @@ void RestoreSharedRegistry(entt::registry& shared, const proto::Save& save)
   for (const auto& data : save.levels()) {
     const auto entity = shared.create();
 
-    auto& level = shared.emplace<comp::Level>(entity);
+    auto& level = shared.emplace<Level>(entity);
     level.id = MapID{data.id()};
 
     if (level.id == save.current_level_id()) {
-      shared.emplace<comp::ActiveLevel>(entity);
+      shared.emplace<ActiveLevel>(entity);
     }
 
     if (data.is_outside_level()) {
-      shared.emplace<comp::OutsideLevel>(entity);
+      shared.emplace<OutsideLevel>(entity);
     }
 
     level.tree.disable_thickness_factor();
     level.registry = RestoreLevelRegistry(data);
-    level.tileset = singleton_entity<comp::Tileset>(level.registry);
+    level.tileset = singleton_entity<Tileset>(level.registry);
 
     // TODO maybe<float2> player_spawn_position;
 

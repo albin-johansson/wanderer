@@ -5,7 +5,7 @@
 #include "core/grid_position.hpp"
 #include "wanderer_std.hpp"
 
-namespace wanderer::comp {
+namespace wanderer {
 
 /// Represents a texture that is lazily initialized.
 struct LazyTexture final
@@ -16,4 +16,4 @@ struct LazyTexture final
   mutable maybe<cen::texture> texture;  ///< The lazily initialized texture.
 };
 
-}  // namespace wanderer::comp
+}  // namespace wanderer

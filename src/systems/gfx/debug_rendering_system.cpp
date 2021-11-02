@@ -23,9 +23,9 @@ namespace {
 
 void RenderHitboxes(const entt::registry& registry, cen::renderer& renderer)
 {
-  constexpr auto filter = entt::exclude_t<comp::Tile>();
-  for (auto&& [entity, hitbox] : registry.view<comp::Hitbox>(filter).each()) {
-    if (registry.all_of<comp::Trigger>(entity)) {
+  constexpr auto filter = entt::exclude_t<Tile>();
+  for (auto&& [entity, hitbox] : registry.view<Hitbox>(filter).each()) {
+    if (registry.all_of<Trigger>(entity)) {
       renderer.set_color(cen::colors::cyan);
     }
     else {
@@ -46,11 +46,11 @@ void RenderHitboxes(const entt::registry& registry, cen::renderer& renderer)
 
 void RenderTriggerIndicators(const entt::registry& registry, cen::renderer& renderer)
 {
-  const auto entity = singleton_entity<const comp::Player>(registry);
-  if (const auto* within = registry.try_get<comp::IsWithinTrigger>(entity)) {
-    assert(registry.all_of<comp::Hitbox>(within->trigger_entity));
+  const auto entity = singleton_entity<const Player>(registry);
+  if (const auto* within = registry.try_get<IsWithinTrigger>(entity)) {
+    assert(registry.all_of<Hitbox>(within->trigger_entity));
 
-    const auto& hitbox = registry.get<comp::Hitbox>(within->trigger_entity);
+    const auto& hitbox = registry.get<Hitbox>(within->trigger_entity);
     renderer.set_color(cen::colors::cyan.with_alpha(100));
     renderer.fill_rect_t(hitbox.bounds);
   }
@@ -60,9 +60,7 @@ void RenderChaseRanges(const entt::registry& registry, cen::renderer& renderer)
 {
   renderer.set_color(cen::colors::red);
 
-  for (auto&& [entity, drawable, chase] :
-       registry.view<comp::Drawable, comp::Chase>().each())
-  {
+  for (auto&& [entity, drawable, chase] : registry.view<Drawable, Chase>().each()) {
     renderer.draw_circle_t(drawable.dst.center(), chase.range);
   }
 }
@@ -96,7 +94,7 @@ void RenderMenuDebugInfo(const entt::registry& registry)
   auto& renderer = graphics.GetRenderer();
 
   const auto menuEntity = registry.ctx<ActiveMenu>().entity;
-  const auto& menu = registry.get<comp::Menu>(menuEntity);
+  const auto& menu = registry.get<Menu>(menuEntity);
 
   if (menu.render_background) {
     renderer.set_color(cen::colors::light_gray.with_alpha(50));

@@ -10,12 +10,12 @@ namespace wanderer::sys {
 
 void UpdateTileObjectAnimations(entt::registry& registry)
 {
-  const auto& [tilesetEntity, tileset] = singleton<const comp::Tileset>(registry);
+  const auto& [tilesetEntity, tileset] = singleton<const Tileset>(registry);
 
   for (auto&& [entity, object, drawable] :
-       registry.view<const comp::TileObject, comp::Drawable>().each())
+       registry.view<const TileObject, Drawable>().each())
   {
-    if (registry.all_of<comp::TileAnimation>(object.tile_entity)) {
+    if (registry.all_of<TileAnimation>(object.tile_entity)) {
       const auto& tile = GetAnimatedTile(registry, object.tile_entity, tileset);
       drawable.src = tile.src;
     }

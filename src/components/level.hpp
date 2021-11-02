@@ -4,7 +4,7 @@
 
 #include "wanderer_std.hpp"
 
-namespace wanderer::comp {
+namespace wanderer {
 
 struct Level final
 {
@@ -28,4 +28,4 @@ struct OutsideLevel final
 struct ActiveLevel final
 {};
 
-}  // namespace wanderer::comp
+}  // namespace wanderer

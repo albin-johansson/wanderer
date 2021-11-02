@@ -5,10 +5,10 @@
 
 using namespace wanderer;
 
-using Idle = comp::HumanoidIdle;
-using Move = comp::HumanoidMove;
-using Attack = comp::HumanoidAttack;
-using Die = comp::HumanoidDie;
+using Idle = HumanoidIdle;
+using Move = HumanoidMove;
+using Attack = HumanoidAttack;
+using Die = HumanoidDie;
 
 TEST(HumanoidState, Dependencies)
 {
@@ -16,7 +16,7 @@ TEST(HumanoidState, Dependencies)
   AddHumanoidStateDependencies(registry);
 
   const auto entity = registry.create();
-  registry.emplace<comp::Humanoid>(entity);
+  registry.emplace<Humanoid>(entity);
 
   {  // Idle
     ASSERT_TRUE(registry.valid(entity));

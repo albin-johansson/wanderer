@@ -26,7 +26,7 @@ namespace {
 inline const auto backdrop_path = resources::texture("backdrop.png");
 
 void RenderTitle(const std::string& title,
-                 const comp::MenuDrawable& drawable,
+                 const MenuDrawable& drawable,
                  cen::renderer& renderer)
 {
   if (title.empty()) {
@@ -72,8 +72,8 @@ void RenderActiveMenu(const entt::registry& shared)
 {
   const auto menuEntity = shared.ctx<ActiveMenu>().entity;
 
-  const auto& menu = shared.get<comp::Menu>(menuEntity);
-  const auto& drawable = shared.get<comp::MenuDrawable>(menuEntity);
+  const auto& menu = shared.get<Menu>(menuEntity);
+  const auto& drawable = shared.get<MenuDrawable>(menuEntity);
 
   auto& graphics = shared.ctx<ref<GraphicsContext>>().get();
   auto& renderer = graphics.GetRenderer();

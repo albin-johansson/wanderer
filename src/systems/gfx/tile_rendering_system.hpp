@@ -20,7 +20,7 @@ namespace wanderer::sys {
  * \param position the grid position of the tile.
  */
 void RenderTile(GraphicsContext& graphics,
-                const comp::Tile& tile,
+                const Tile& tile,
                 GridPosition position) noexcept;
 
 /**
@@ -40,7 +40,7 @@ void RenderTile(GraphicsContext& graphics,
  */
 [[nodiscard]] auto GetAnimatedTile(const entt::registry& registry,
                                    entt::entity tile,
-                                   const comp::Tileset& tileset) -> const comp::Tile&;
+                                   const Tileset& tileset) -> const Tile&;
 
 /// \} End of tiles
 

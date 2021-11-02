@@ -2,7 +2,7 @@
 
 #include <entt.hpp>  // entity, null
 
-namespace wanderer::comp {
+namespace wanderer {
 
 /// \brief A component used by entities that can chase other entities.
 /// \ingroup components
@@ -13,4 +13,4 @@ struct Chase final
   bool active{};  ///< Whether or not the target is within range.
 };
 
-}  // namespace wanderer::comp
+}  // namespace wanderer

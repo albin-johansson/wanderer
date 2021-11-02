@@ -5,7 +5,7 @@
 #include "core/game_constants.hpp"
 #include "wanderer_std.hpp"
 
-namespace wanderer::comp {
+namespace wanderer {
 
 /// \brief Represents a tile in a tileset.
 /// \ingroup components
@@ -17,4 +17,4 @@ struct Tile final
   int32 depth{5};               ///< Rendering depth heuristic.
 };
 
-}  // namespace wanderer::comp
+}  // namespace wanderer

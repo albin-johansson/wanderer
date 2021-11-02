@@ -2,7 +2,7 @@
 
 #include "wanderer_std.hpp"
 
-namespace wanderer::comp {
+namespace wanderer {
 
 struct FpsData final
 {
@@ -16,4 +16,4 @@ struct FpsData final
   float dt{};
 };
 
-}  // namespace wanderer::comp
+}  // namespace wanderer

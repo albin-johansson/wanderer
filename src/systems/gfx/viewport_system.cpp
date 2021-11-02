@@ -102,8 +102,8 @@ void CenterViewportOn(entt::registry& registry, float2 position)
 
 void UpdateViewport(entt::registry& registry, entt::entity target, float dt)
 {
-  assert(registry.all_of<comp::Movable>(target));
-  const auto& movable = registry.get<const comp::Movable>(target);
+  assert(registry.all_of<Movable>(target));
+  const auto& movable = registry.get<const Movable>(target);
   Track(registry.ctx<ctx::Viewport>(), movable.position, dt);
 }
 

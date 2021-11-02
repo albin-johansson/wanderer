@@ -8,7 +8,7 @@
 #include "core/text_size.hpp"
 #include "wanderer_std.hpp"
 
-namespace wanderer::comp {
+namespace wanderer {
 
 struct Label final
 {
@@ -19,4 +19,4 @@ struct Label final
   mutable maybe<cen::texture> texture;
 };
 
-}  // namespace wanderer::comp
+}  // namespace wanderer

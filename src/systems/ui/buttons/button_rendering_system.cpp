@@ -14,7 +14,7 @@ constexpr auto button_outline_fg_color = cen::colors::ghost_white;
 constexpr auto button_outline_bg_color = button_outline_fg_color.with_alpha(0x22);
 constexpr auto button_font = glob::menu_font_m;
 
-void UpdateBounds(const comp::Button& button, cen::frect& bounds, cen::renderer& renderer)
+void UpdateBounds(const Button& button, cen::frect& bounds, cen::renderer& renderer)
 {
   const auto& font = renderer.get_font(button_font);
   const auto [width, height] = font.string_size(button.text).value();
@@ -25,7 +25,7 @@ void UpdateBounds(const comp::Button& button, cen::frect& bounds, cen::renderer&
   bounds.set_y(pos.y() + ((glob::menu_row_size - bounds.height()) / 2.0f));
 }
 
-void InitText(const comp::ButtonDrawable& drawable,
+void InitText(const ButtonDrawable& drawable,
               const std::string& text,
               cen::renderer& renderer)
 {
@@ -35,8 +35,8 @@ void InitText(const comp::ButtonDrawable& drawable,
   drawable.texture.emplace(RenderText(renderer, text, font));
 }
 
-void RenderText(const comp::Button& button,
-                const comp::ButtonDrawable& drawable,
+void RenderText(const Button& button,
+                const ButtonDrawable& drawable,
                 cen::renderer& renderer)
 {
   if (button.text.empty()) {
@@ -51,13 +51,13 @@ void RenderText(const comp::Button& button,
   }
 
   auto& texture = drawable.texture.value();
-  texture.set_alpha((button.state & comp::Button::enable_bit) ? 255 : 100);
+  texture.set_alpha((button.state & Button::enable_bit) ? 255 : 100);
 
   renderer.render(texture, *drawable.text_pos);
   texture.set_alpha(255);
 }
 
-void RenderOutline(const comp::ButtonDrawable& drawable, cen::renderer& renderer)
+void RenderOutline(const ButtonDrawable& drawable, cen::renderer& renderer)
 {
   renderer.set_color(button_outline_bg_color);
   renderer.fill_rect(drawable.bounds);
@@ -71,10 +71,10 @@ void RenderButton(const entt::registry& registry,
                   const entt::entity buttonEntity)
 {
   auto& renderer = graphics.GetRenderer();
-  const auto& button = registry.get<comp::Button>(buttonEntity);
-  const auto& drawable = registry.get<comp::ButtonDrawable>(buttonEntity);
+  const auto& button = registry.get<Button>(buttonEntity);
+  const auto& drawable = registry.get<ButtonDrawable>(buttonEntity);
 
-  if (!(button.state & comp::Button::visible_bit)) {
+  if (!(button.state & Button::visible_bit)) {
     return;
   }
 
@@ -83,7 +83,7 @@ void RenderButton(const entt::registry& registry,
     InitText(drawable, button.text, renderer);
   }
 
-  if (button.state & comp::Button::hover_bit && button.state & comp::Button::enable_bit) {
+  if (button.state & Button::hover_bit && button.state & Button::enable_bit) {
     RenderOutline(drawable, renderer);
   }
 
@@ -96,9 +96,9 @@ void RenderButtons(const entt::registry& registry, GraphicsContext& graphics)
 {
   const auto menuEntity = registry.ctx<ActiveMenu>().entity;
 
-  constexpr auto filter = entt::exclude<comp::Checkbox>;
+  constexpr auto filter = entt::exclude<Checkbox>;
   for (auto&& [entity, button, associated] :
-       registry.view<comp::Button, comp::AssociatedMenu>(filter).each())
+       registry.view<Button, AssociatedMenu>(filter).each())
   {
     if (associated.entity == menuEntity) {
       RenderButton(registry, graphics, entity);
@@ -112,11 +112,11 @@ void RenderButtonGroupIndicators(const entt::registry& registry,
   const auto menuEntity = registry.ctx<ActiveMenu>().entity;
 
   for (auto&& [entity, group, associated] :
-       registry.view<comp::ButtonGroup, comp::AssociatedMenu>().each())
+       registry.view<ButtonGroup, AssociatedMenu>().each())
   {
     if (associated.entity == menuEntity && group.selected != entt::null) {
       auto& renderer = graphics.GetRenderer();
-      const auto& drawable = registry.get<comp::ButtonDrawable>(group.selected);
+      const auto& drawable = registry.get<ButtonDrawable>(group.selected);
       renderer.set_color(cen::colors::dark_green);
       renderer.fill_rect(drawable.bounds);
     }

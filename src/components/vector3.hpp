@@ -1,6 +1,6 @@
 #pragma once
 
-namespace wanderer::comp {
+namespace wanderer {
 
 struct Vector3 final
 {
@@ -47,4 +47,4 @@ constexpr void operator-=(Vector3& lhs, const Vector3& rhs) noexcept
   return rhs * lhs;
 }
 
-}  // namespace wanderer::comp
+}  // namespace wanderer

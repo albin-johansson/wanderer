@@ -8,7 +8,7 @@ namespace wanderer::sys {
 
 void UpdateAnimations(entt::registry& registry)
 {
-  for (auto&& [entity, animation] : registry.view<comp::Animation>().each()) {
+  for (auto&& [entity, animation] : registry.view<Animation>().each()) {
     const auto now = cen::counter::ticks();
     const auto elapsed = now - animation.then;
     if (elapsed >= animation.delay) {

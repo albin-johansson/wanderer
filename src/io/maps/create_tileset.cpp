@@ -16,7 +16,7 @@ namespace {
 
 void CreateTiles(const Tactile::IO::Tileset& irTileset,
                  entt::registry& registry,
-                 comp::Tileset& tileset,
+                 Tileset& tileset,
                  const uint32 texture)
 {
   const auto first = Tactile::IO::GetFirstGlobalId(irTileset);
@@ -30,7 +30,7 @@ void CreateTiles(const Tactile::IO::Tileset& irTileset,
   int32 id = first;
   for (int32 index = 0; index < count; ++index, ++id) {
     const auto tileEntity = registry.create();
-    auto& tile = registry.emplace<comp::Tile>(tileEntity);
+    auto& tile = registry.emplace<Tile>(tileEntity);
     tile.id = TileID(id);
     tile.texture = texture;
     tile.depth = 5;
@@ -50,7 +50,7 @@ void AddAnimation(const Tactile::IO::Tile& irTile,
                   const entt::entity tileEntity,
                   const int32 firstId)
 {
-  auto& animation = registry.emplace<comp::TileAnimation>(tileEntity);
+  auto& animation = registry.emplace<TileAnimation>(tileEntity);
   animation.index = 0;
   animation.then = cen::counter::ticks();
 
@@ -73,12 +73,12 @@ void AddHitbox(const Tactile::IO::Object& irObject,
   const cen::farea size{Tactile::IO::GetWidth(irObject) * ratio.x,
                         Tactile::IO::GetHeight(irObject) * ratio.y};
 
-  registry.emplace<comp::Hitbox>(tileEntity, sys::MakeHitbox({{offset, size}}));
+  registry.emplace<Hitbox>(tileEntity, sys::MakeHitbox({{offset, size}}));
 }
 
 void AddTileMetaInfo(const Tactile::IO::Tileset& irTileset,
                      entt::registry& registry,
-                     comp::Tileset& tileset,
+                     Tileset& tileset,
                      const int32 firstId)
 {
   const auto ratio = GetTilesetTileSizeRatio(irTileset);
@@ -86,7 +86,7 @@ void AddTileMetaInfo(const Tactile::IO::Tileset& irTileset,
     const auto id = firstId + Tactile::IO::GetId(irTile);
     const auto tileEntity = tileset.tiles.at(TileID(id));
 
-    registry.get<comp::Tile>(tileEntity).depth = GetInt(irTile, "depth", 5);
+    registry.get<Tile>(tileEntity).depth = GetInt(irTile, "depth", 5);
 
     if (Tactile::IO::GetAnimationFrameCount(irTile) != 0) {
       AddAnimation(irTile, registry, tileEntity, firstId);
@@ -135,14 +135,12 @@ void LoadTilesetTextures(const Tactile::IO::Map& irMap, GraphicsContext& graphic
   WANDERER_PROFILE_END("Loaded tileset textures")
 }
 
-void CreateTileset(const Tactile::IO::Map& irMap,
-                   comp::Level& level,
-                   GraphicsContext& graphics)
+void CreateTileset(const Tactile::IO::Map& irMap, Level& level, GraphicsContext& graphics)
 {
   auto& registry = level.registry;
 
   level.tileset = registry.create();
-  auto& tileset = registry.emplace<comp::Tileset>(level.tileset);
+  auto& tileset = registry.emplace<Tileset>(level.tileset);
 
   Tactile::IO::EachTileset(irMap, [&](const Tactile::IO::Tileset& irTileset) {
     const auto texture = graphics.ToIndex(GetTextureId(irTileset));

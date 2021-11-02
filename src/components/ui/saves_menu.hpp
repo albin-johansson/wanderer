@@ -6,7 +6,7 @@
 #include <centurion.hpp>  // surface
 #include <entt.hpp>       // entity, null
 
-namespace wanderer::comp {
+namespace wanderer {
 
 /// \addtogroup components
 /// \{
@@ -41,4 +41,4 @@ struct SavesMenu final
 
 /// \} End of group components
 
-}  // namespace wanderer::comp
+}  // namespace wanderer

@@ -4,7 +4,7 @@
 
 #include "wanderer_std.hpp"
 
-namespace wanderer::comp {
+namespace wanderer {
 
 /**
  * \brief Represents a tilemap.
@@ -23,4 +23,4 @@ struct Tilemap final
   uint64 col_count{};      ///< The amount of columns in the tilemap
 };
 
-}  // namespace wanderer::comp
+}  // namespace wanderer

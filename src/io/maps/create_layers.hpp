@@ -7,8 +7,6 @@
 
 namespace wanderer {
 
-void CreateLayers(const Tactile::IO::Map& irMap,
-                  comp::Level& level,
-                  GraphicsContext& graphics);
+void CreateLayers(const Tactile::IO::Map& irMap, Level& level, GraphicsContext& graphics);
 
 }  // namespace wanderer

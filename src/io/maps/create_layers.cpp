@@ -5,9 +5,7 @@
 
 namespace wanderer {
 
-void CreateLayers(const Tactile::IO::Map& irMap,
-                  comp::Level& level,
-                  GraphicsContext& graphics)
+void CreateLayers(const Tactile::IO::Map& irMap, Level& level, GraphicsContext& graphics)
 {
   /* We parse tile layers and objects layers separately in order to guarantee that the
      tile data is available once the objects are parsed, since that makes our lives a

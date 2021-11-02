@@ -13,7 +13,7 @@ void RenderLazyTextures(const entt::registry& registry, GraphicsContext& graphic
   const auto active = registry.ctx<ActiveMenu>().entity;
 
   for (auto&& [entity, lazy, associated] :
-       registry.view<comp::LazyTexture, comp::AssociatedMenu>().each())
+       registry.view<LazyTexture, AssociatedMenu>().each())
   {
     if (active == associated.entity) {
       if (!lazy.texture) {

@@ -8,7 +8,7 @@
 namespace wanderer {
 
 void CreateHumanoids(const Tactile::IO::Map& irMap,
-                     comp::Level& level,
+                     Level& level,
                      GraphicsContext& graphics);
 
 }  // namespace wanderer

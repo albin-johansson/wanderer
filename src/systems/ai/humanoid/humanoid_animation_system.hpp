@@ -14,7 +14,7 @@ namespace wanderer::sys {
  *
  * \ingroup systems
  *
- * \pre `entity` must have `comp::Animation`, `comp::Movable` and `comp::Drawable`
+ * \pre `entity` must have `Animation`, `Movable` and `Drawable`
  * components.
  *
  * \param registry the current level registry.
@@ -25,7 +25,7 @@ void EnterIdleAnimation(entt::registry& registry, entt::entity entity);
 /**
  * \brief Makes a humanoid enter its movement animation.
  *
- * \pre `entity` must have `comp::Animation`, `comp::Movable` and `comp::Drawable`
+ * \pre `entity` must have `Animation`, `Movable` and `Drawable`
  * components.
  *
  * \ingroup systems
@@ -39,7 +39,7 @@ void EnterMoveAnimation(entt::registry& registry, entt::entity entity, Direction
 /**
  * \brief Makes a humanoid enter the melee animation.
  *
- * \pre `entity` must have `comp::Animation`, `comp::Movable` and `comp::Drawable`
+ * \pre `entity` must have `Animation`, `Movable` and `Drawable`
  * components.
  *
  * \ingroup systems
@@ -52,7 +52,7 @@ void EnterMeleeAnimation(entt::registry& registry, entt::entity entity);
 /**
  * \brief Makes a humanoid enter the spell animation.
  *
- * \pre `entity` must have `comp::Animation`, `comp::Movable` and `comp::Drawable`
+ * \pre `entity` must have `Animation`, `Movable` and `Drawable`
  * components.
  *
  * \ingroup systems
@@ -65,7 +65,7 @@ void EnterSpellAnimation(entt::registry& registry, entt::entity entity);
 /**
  * \brief Makes a humanoid enter the bow animation.
  *
- * \pre `entity` must have `comp::Animation`, `comp::Movable` and `comp::Drawable`
+ * \pre `entity` must have `Animation`, `Movable` and `Drawable`
  * components.
  *
  * \ingroup systems
@@ -78,7 +78,7 @@ void EnterBowAnimation(entt::registry& registry, entt::entity entity);
 /**
  * \brief Makes a humanoid enter its spear animation.
  *
- * \pre `entity` must have `comp::Animation`, `comp::Movable` and `comp::Drawable`
+ * \pre `entity` must have `Animation`, `Movable` and `Drawable`
  * components.
  *
  * \ingroup systems

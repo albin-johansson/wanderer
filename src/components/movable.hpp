@@ -3,7 +3,7 @@
 #include "core/direction.hpp"
 #include "wanderer_std.hpp"
 
-namespace wanderer::comp {
+namespace wanderer {
 
 /// \brief Represents an entity that is movable.
 /// \ingroup components
@@ -15,4 +15,4 @@ struct Movable final
   float speed{};                   ///< Current maximum total speed of the movable.
 };
 
-}  // namespace wanderer::comp
+}  // namespace wanderer

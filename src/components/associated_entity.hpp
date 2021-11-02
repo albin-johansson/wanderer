@@ -2,11 +2,11 @@
 
 #include <entt.hpp>  // entity, null
 
-namespace wanderer::comp {
+namespace wanderer {
 
 struct AssociatedEntity final
 {
   entt::entity entity{entt::null};
 };
 
-}  // namespace wanderer::comp
+}  // namespace wanderer

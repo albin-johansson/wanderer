@@ -4,11 +4,11 @@
 
 #include "vector3.hpp"
 
-namespace wanderer::comp {
+namespace wanderer {
 
 /// \brief Represents a particle, intended to be used for visual effects.
 /// \ingroup components
-struct particle final
+struct Particle final
 {
   Vector3 position;      ///< The world position of the particle.
   Vector3 acceleration;  ///< The acceleration of the particle.
@@ -17,4 +17,4 @@ struct particle final
   cen::color color;      ///< The color of the particle.
 };
 
-}  // namespace wanderer::comp
+}  // namespace wanderer

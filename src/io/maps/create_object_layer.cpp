@@ -39,17 +39,17 @@ void AddHitbox(const Tactile::IO::Object& irObject,
                         Tactile::IO::GetHeight(irObject) * yRatio};
 
   /* We use no offset for object hitboxes */
-  auto& hitbox = registry.emplace<comp::Hitbox>(entity, sys::MakeHitbox({{{}, size}}));
+  auto& hitbox = registry.emplace<Hitbox>(entity, sys::MakeHitbox({{{}, size}}));
 
   sys::SetPosition(hitbox, position);
 }
 
 void LoadSpawnpoint(const Tactile::IO::Object& irObject,
-                    comp::Level& level,
+                    Level& level,
                     const entt::entity entity,
                     const float2 ratio)
 {
-  auto& spawnpoint = level.registry.emplace<comp::Spawnpoint>(entity);
+  auto& spawnpoint = level.registry.emplace<Spawnpoint>(entity);
   spawnpoint.position = float2{Tactile::IO::GetX(irObject) * ratio.x,
                                Tactile::IO::GetY(irObject) * ratio.y};
 
@@ -61,11 +61,11 @@ void LoadSpawnpoint(const Tactile::IO::Object& irObject,
 
   using namespace std::string_view_literals;
   if (type == "player"sv) {
-    spawnpoint.type = comp::SpawnpointType::player;
+    spawnpoint.type = SpawnpointType::player;
     level.player_spawn_position = spawnpoint.position;
   }
   else if (type == "skeleton"sv) {
-    spawnpoint.type = comp::SpawnpointType::skeleton;
+    spawnpoint.type = SpawnpointType::skeleton;
   }
   else {
     throw WandererError{"Did not recognize spawnpoint type!"};
@@ -73,10 +73,10 @@ void LoadSpawnpoint(const Tactile::IO::Object& irObject,
 }
 
 void LoadInventory(const Tactile::IO::Object& irObject,
-                   comp::Level& level,
+                   Level& level,
                    const entt::entity entity)
 {
-  auto& inventory = level.registry.emplace<comp::Inventory>(entity);
+  auto& inventory = level.registry.emplace<Inventory>(entity);
 
   inventory.capacity = GetInt(irObject, "capacity");
   inventory.items.reserve(inventory.capacity);
@@ -87,35 +87,35 @@ void LoadInventory(const Tactile::IO::Object& irObject,
 }
 
 void LoadContainerTrigger(const Tactile::IO::Object& irObject,
-                          comp::Level& level,
+                          Level& level,
                           const entt::entity entity,
                           const float2 ratio)
 {
-  level.registry.emplace<comp::Trigger>(entity, comp::TriggerType::container);
+  level.registry.emplace<Trigger>(entity, TriggerType::container);
 
   const auto id = GetObject(irObject, "container");
-  level.registry.emplace<comp::AssociatedObject>(entity, id);
+  level.registry.emplace<AssociatedObject>(entity, id);
 
   AddHitbox(irObject, level.registry, entity, ratio.x, ratio.y);
 }
 
 void LoadBedTrigger(const Tactile::IO::Object& irObject,
-                    comp::Level& level,
+                    Level& level,
                     const entt::entity entity,
                     const float2 ratio)
 {
-  level.registry.emplace<comp::Trigger>(entity, comp::TriggerType::bed);
+  level.registry.emplace<Trigger>(entity, TriggerType::bed);
   AddHitbox(irObject, level.registry, entity, ratio.x, ratio.y);
 }
 
 void LoadPortal(const Tactile::IO::Object& irObject,
-                comp::Level& level,
+                Level& level,
                 const entt::entity entity,
                 const float2 ratio)
 {
-  level.registry.emplace<comp::Trigger>(entity, comp::TriggerType::portal);
+  level.registry.emplace<Trigger>(entity, TriggerType::portal);
 
-  auto& portal = level.registry.emplace<comp::Portal>(entity);
+  auto& portal = level.registry.emplace<Portal>(entity);
   portal.path = GetFile(irObject, "path");
   portal.target = MapID{GetInt(irObject, "target")};
 
@@ -123,11 +123,11 @@ void LoadPortal(const Tactile::IO::Object& irObject,
 }
 
 void LoadLight(const Tactile::IO::Object& irObject,
-               comp::Level& level,
+               Level& level,
                const entt::entity entity,
                const float2 ratio)
 {
-  auto& light = level.registry.emplace<comp::PointLight>(entity);
+  auto& light = level.registry.emplace<PointLight>(entity);
   light.size = Tactile::IO::GetWidth(irObject) * ratio.x;
 
   const auto x = Tactile::IO::GetX(irObject) * ratio.x;
@@ -212,14 +212,14 @@ void LoadLight(const Tactile::IO::Object& irObject,
 
 void LoadPlant(const Tactile::IO::Map& irMap,
                const Tactile::IO::Object& irObject,
-               comp::Level& level,
+               Level& level,
                GraphicsContext& graphics,
                const entt::entity entity,
                const float2 ratio)
 {
   auto& registry = level.registry;
 
-  auto& plant = registry.emplace<comp::Plant>(entity);
+  auto& plant = registry.emplace<Plant>(entity);
   plant.rate = GetFloat(irObject, "rate");
 
   const auto* name = GetString(irObject, "tileset");
@@ -237,14 +237,14 @@ void LoadPlant(const Tactile::IO::Map& irMap,
   const auto y = Tactile::IO::GetY(irObject) * ratio.y;
   const auto width = Tactile::IO::GetWidth(irObject) * ratio.x;
   const auto height = Tactile::IO::GetHeight(irObject) * ratio.y;
-  const auto& tilemap = registry.ctx<comp::Tilemap>();
+  const auto& tilemap = registry.ctx<Tilemap>();
 
   plant.base_y = y;
 
   const auto first = plant.tiles.front();
   const auto& tile = sys::GetTile(registry, first);
 
-  auto& drawable = registry.emplace<comp::Drawable>(entity);
+  auto& drawable = registry.emplace<Drawable>(entity);
   drawable.texture = graphics.ToIndex(GetTextureId(irTileset));
   drawable.dst.set_position({x, y});
   drawable.dst.set_size({width, height});
@@ -256,7 +256,7 @@ void LoadPlant(const Tactile::IO::Map& irMap,
 [[nodiscard]] auto FindObject(const entt::registry& registry, const int32 id)
     -> entt::entity
 {
-  for (auto&& [entity, object] : registry.view<comp::Object>().each()) {
+  for (auto&& [entity, object] : registry.view<Object>().each()) {
     if (object.id == id) {
       return entity;
     }
@@ -267,13 +267,13 @@ void LoadPlant(const Tactile::IO::Map& irMap,
 
 void CreateObject(const Tactile::IO::Map& irMap,
                   const Tactile::IO::Object& irObject,
-                  comp::Level& level,
+                  Level& level,
                   GraphicsContext& graphics,
                   const float2 ratio)
 {
   const auto entity = level.registry.create();
 
-  auto& object = level.registry.emplace<comp::Object>(entity);
+  auto& object = level.registry.emplace<Object>(entity);
   object.id = Tactile::IO::GetId(irObject);
 
   const auto* tag = Tactile::IO::GetTag(irObject);
@@ -306,7 +306,7 @@ void CreateObject(const Tactile::IO::Map& irMap,
 
 void CreateObjectLayer(const Tactile::IO::Map& irMap,
                        const Tactile::IO::Layer& irLayer,
-                       comp::Level& level,
+                       Level& level,
                        GraphicsContext& graphics,
                        const float2 ratio)
 {
@@ -316,10 +316,9 @@ void CreateObjectLayer(const Tactile::IO::Map& irMap,
     CreateObject(irMap, irObject, level, graphics, ratio);
   });
 
-  for (auto&& [entity, associatedObject] :
-       level.registry.view<comp::AssociatedObject>().each())
+  for (auto&& [entity, associatedObject] : level.registry.view<AssociatedObject>().each())
   {
-    auto& association = level.registry.emplace<comp::AssociatedEntity>(entity);
+    auto& association = level.registry.emplace<AssociatedEntity>(entity);
     association.entity = FindObject(level.registry, associatedObject.object_id);
   }
 }

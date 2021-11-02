@@ -7,11 +7,11 @@
 #include "tile.hpp"
 #include "wanderer_std.hpp"
 
-namespace wanderer::comp {
+namespace wanderer {
 
 struct Tileset final
 {
   std::unordered_map<TileID, entt::entity> tiles;  // All available tiles entities.
 };
 
-}  // namespace wanderer::comp
+}  // namespace wanderer

@@ -17,7 +17,7 @@ namespace wanderer {
 void LoadTilesetTextures(const Tactile::IO::Map& irMap, GraphicsContext& graphics);
 
 void CreateTileset(const Tactile::IO::Map& irMap,
-                   comp::Level& level,
+                   Level& level,
                    GraphicsContext& graphics);
 
 }  // namespace wanderer

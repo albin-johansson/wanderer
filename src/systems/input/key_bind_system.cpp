@@ -7,7 +7,7 @@ auto MakeBind(entt::registry& registry, cen::scan_code key, MenuAction action)
 {
   const auto entity = registry.create();
 
-  auto& bind = registry.emplace<comp::KeyBind>(entity);
+  auto& bind = registry.emplace<KeyBind>(entity);
   bind.key = key;
   bind.action = action;
 

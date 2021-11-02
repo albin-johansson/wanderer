@@ -2,7 +2,7 @@
 
 #include "wanderer_std.hpp"
 
-namespace wanderer::comp {
+namespace wanderer {
 
 enum class SpawnpointType
 {
@@ -16,4 +16,4 @@ struct Spawnpoint final
   float2 position;
 };
 
-}  // namespace wanderer::comp
+}  // namespace wanderer

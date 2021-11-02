@@ -6,7 +6,7 @@
 
 #include "wanderer_std.hpp"
 
-namespace wanderer::comp {
+namespace wanderer {
 
 struct Inventory final
 {
@@ -17,4 +17,4 @@ struct Inventory final
 struct ActiveInventory final
 {};
 
-}  // namespace wanderer::comp
+}  // namespace wanderer

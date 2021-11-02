@@ -34,8 +34,7 @@ void RenderLabels(const entt::registry& registry, GraphicsContext& graphics)
   const auto active = registry.ctx<ActiveMenu>().entity;
   auto& renderer = graphics.GetRenderer();
 
-  for (auto&& [entity, label, associated] :
-       registry.view<comp::Label, comp::AssociatedMenu>().each())
+  for (auto&& [entity, label, associated] : registry.view<Label, AssociatedMenu>().each())
   {
     if (active == associated.entity) {
       if (!label.texture) {

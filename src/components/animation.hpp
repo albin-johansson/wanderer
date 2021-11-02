@@ -2,7 +2,7 @@
 
 #include "wanderer_std.hpp"
 
-namespace wanderer::comp {
+namespace wanderer {
 
 /// \brief Represents a general animation.
 /// \ingroup components
@@ -14,4 +14,4 @@ struct Animation final
   ms_t delay{100};        ///< Duration of each frame in the animation
 };
 
-}  // namespace wanderer::comp
+}  // namespace wanderer

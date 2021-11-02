@@ -21,7 +21,7 @@ void UpdateMenu(entt::registry& registry,
 
   if (const auto button = UpdateButtonHover(registry, mouse)) {
     if (QueryButton(registry, dispatcher, *button, mouse)) {
-      if (auto* group = registry.try_get<comp::ButtonGroup>(menuEntity)) {
+      if (auto* group = registry.try_get<ButtonGroup>(menuEntity)) {
         if (sys::InButtonGroup(group->buttons, *button)) {
           group->selected = *button;
         }
@@ -33,8 +33,7 @@ void UpdateMenu(entt::registry& registry,
   }
 
   for (auto&& [entity, bind, associated] :
-       registry.view<comp::KeyBind, comp::AssociatedMenu>().each())
-  {
+       registry.view<KeyBind, AssociatedMenu>().each()) {
     if (associated.entity == menuEntity && keyboard.just_released(bind.key)) {
       dispatcher.enqueue<ButtonPressedEvent>(bind.action);
     }
@@ -45,7 +44,7 @@ void SwitchMenu(entt::registry& registry, entt::dispatcher& dispatcher, MenuId i
 {
   registry.unset<ActiveMenu>();
 
-  for (auto&& [entity, menu] : registry.view<comp::Menu>().each()) {
+  for (auto&& [entity, menu] : registry.view<Menu>().each()) {
     if (menu.id == id) {
       registry.set<ActiveMenu>(entity);
       dispatcher.trigger<MenuSwitchedEvent>(entity);
@@ -57,8 +56,7 @@ void SyncSettingsMenu(entt::registry& registry)
 {
   const auto& settings = registry.ctx<ctx::Settings>();
 
-  for (auto&& [entity, button, checkbox] :
-       registry.view<const comp::Button, comp::Checkbox>().each())
+  for (auto&& [entity, button, checkbox] : registry.view<const Button, Checkbox>().each())
   {
     if (button.action == MenuAction::ToggleFullscreen) {
       checkbox.checked = settings.fullscreen;
@@ -72,13 +70,13 @@ void SyncSettingsMenu(entt::registry& registry)
 auto IsMenuActive(const entt::registry& shared, const MenuId id) -> bool
 {
   const auto menuEntity = shared.ctx<ActiveMenu>().entity;
-  return shared.get<comp::Menu>(menuEntity).id == id;
+  return shared.get<Menu>(menuEntity).id == id;
 }
 
 auto IsCurrentMenuBlocking(const entt::registry& registry) -> bool
 {
   const auto menuEntity = registry.ctx<ActiveMenu>().entity;
-  return registry.get<comp::Menu>(menuEntity).blocking;
+  return registry.get<Menu>(menuEntity).blocking;
 }
 
 }  // namespace wanderer::sys

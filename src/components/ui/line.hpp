@@ -2,7 +2,7 @@
 
 #include "core/grid_position.hpp"
 
-namespace wanderer::comp {
+namespace wanderer {
 
 struct Line final
 {
@@ -10,4 +10,4 @@ struct Line final
   GridPosition end;
 };
 
-}  // namespace wanderer::comp
+}  // namespace wanderer

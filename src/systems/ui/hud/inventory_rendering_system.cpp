@@ -74,9 +74,7 @@ void RenderInventory(const entt::registry& registry,
                        origin.y() + (row * (cell_height + spacing))};
   };
 
-  for (auto&& [entity, inventory] :
-       registry.view<comp::Inventory, comp::ActiveInventory>().each())
-  {
+  for (auto&& [entity, inventory] : registry.view<Inventory, ActiveInventory>().each()) {
     renderer.fill_with(glob::transparent_black);
 
     const auto nItems = inventory.items.size();

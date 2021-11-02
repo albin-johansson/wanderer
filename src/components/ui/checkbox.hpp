@@ -1,10 +1,10 @@
 #pragma once
 
-namespace wanderer::comp {
+namespace wanderer {
 
 struct Checkbox final
 {
   bool checked{};
 };
 
-}  // namespace wanderer::comp
+}  // namespace wanderer

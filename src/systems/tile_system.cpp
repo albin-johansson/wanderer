@@ -5,11 +5,11 @@
 
 namespace wanderer::sys {
 
-auto GetTile(entt::registry& registry, TileID id) -> comp::Tile&
+auto GetTile(entt::registry& registry, TileID id) -> Tile&
 {
-  const auto& [tsEntity, tileset] = singleton<const comp::Tileset>(registry);
+  const auto& [tsEntity, tileset] = singleton<const Tileset>(registry);
   const auto tileEntity = tileset.tiles.at(id);
-  return registry.get<comp::Tile>(tileEntity);
+  return registry.get<Tile>(tileEntity);
 }
 
 }  // namespace wanderer::sys

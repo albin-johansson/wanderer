@@ -8,7 +8,7 @@
 #include "core/menu_action.hpp"
 #include "wanderer_std.hpp"
 
-namespace wanderer::comp {
+namespace wanderer {
 
 struct Button final
 {
@@ -29,4 +29,4 @@ struct ButtonDrawable final
   mutable maybe<cen::fpoint> text_pos;
 };
 
-}  // namespace wanderer::comp
+}  // namespace wanderer

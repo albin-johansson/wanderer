@@ -12,7 +12,7 @@ auto MakeRegistry() -> entt::registry
   AddHumanoidStateDependencies(registry);
 
   // Reserve pools with components that are likely to feature many entities
-  registry.reserve<comp::particle>(200);
+  registry.reserve<Particle>(200);
 
   return registry;
 }

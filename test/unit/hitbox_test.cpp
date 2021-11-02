@@ -11,14 +11,14 @@ using namespace wanderer;
 TEST(Hitbox, UpdateBounds)
 {
   {  // One hitbox
-    comp::Hitbox hb;
+    Hitbox hb;
 
     const float2 origin{25, 17};
     const float2 offset{10, 12};
     const cen::farea size{90, 85};
 
     hb.origin = origin;
-    hb.boxes.push_back(comp::Subhitbox{offset, size});
+    hb.boxes.push_back(Subhitbox{offset, size});
 
     sys::UpdateBounds(hb);
     EXPECT_EQ(cen::frect(to_point(origin + offset), size), hb.bounds);
@@ -35,7 +35,7 @@ TEST(Hitbox, UpdateBounds)
      * |_ _ _ |_____|
      *
      */
-    comp::Hitbox hb;
+    Hitbox hb;
 
     const float2 offsetA{10, 12};
     const float2 offsetB{120, 120};
@@ -43,8 +43,8 @@ TEST(Hitbox, UpdateBounds)
     const cen::farea sizeA{90, 85};
     const cen::farea sizeB{105, 109};
 
-    const comp::Subhitbox fst{offsetA, sizeA};
-    const comp::Subhitbox snd{offsetB, sizeB};
+    const Subhitbox fst{offsetA, sizeA};
+    const Subhitbox snd{offsetB, sizeB};
 
     hb.boxes.push_back(fst);
     hb.boxes.push_back(snd);

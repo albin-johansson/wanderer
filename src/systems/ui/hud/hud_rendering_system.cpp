@@ -42,12 +42,12 @@ void RenderHints(const entt::registry& shared, GraphicsContext& graphics)
   const auto& binds = shared.ctx<ctx::Binds>();
   const auto& level = CurrentLevel(shared);
 
-  const auto player = singleton_entity<comp::Player>(level.registry);
+  const auto player = singleton_entity<Player>(level.registry);
 
-  if (const auto* within = level.registry.try_get<comp::IsWithinTrigger>(player)) {
-    const auto& trigger = level.registry.get<comp::Trigger>(within->trigger_entity);
+  if (const auto* within = level.registry.try_get<IsWithinTrigger>(player)) {
+    const auto& trigger = level.registry.get<Trigger>(within->trigger_entity);
     switch (trigger.type) {
-      case comp::TriggerType::portal: {
+      case TriggerType::portal: {
         if (sys::IsCurrentLevelOutside(shared)) {
           RenderHint(graphics, enter_fmt, binds.interact.name());
         }
@@ -56,11 +56,11 @@ void RenderHints(const entt::registry& shared, GraphicsContext& graphics)
         }
         break;
       }
-      case comp::TriggerType::container: {
+      case TriggerType::container: {
         RenderHint(graphics, container_fmt, binds.interact.name());
         break;
       }
-      case comp::TriggerType::bed: {
+      case TriggerType::bed: {
         RenderHint(graphics, sleep_fmt, binds.interact.name());
         break;
       }

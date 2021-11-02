@@ -9,7 +9,7 @@ auto MakeLine(entt::registry& registry, const GridPosition start, const GridPosi
 {
   const auto entity = registry.create();
 
-  auto& line = registry.emplace<comp::Line>(entity);
+  auto& line = registry.emplace<Line>(entity);
   line.start = start;
   line.end = end;
 
@@ -23,7 +23,7 @@ auto MakeLine(entt::registry& registry,
 {
   const auto entity = MakeLine(registry, start, end);
 
-  auto& associated = registry.emplace<comp::AssociatedMenu>(entity);
+  auto& associated = registry.emplace<AssociatedMenu>(entity);
   associated.entity = menuEntity;
 
   return entity;

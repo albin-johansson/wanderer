@@ -32,9 +32,9 @@ namespace {
 }
 
 // Checks for collisions, stops the movable if there are collisions
-[[nodiscard]] auto UpdateMovable(comp::Movable& movable,
+[[nodiscard]] auto UpdateMovable(Movable& movable,
                                  const float2& oldPosition,
-                                 const comp::Hitbox& other,
+                                 const Hitbox& other,
                                  const NextHitboxes& next) -> CollisionResult
 {
   const auto collisions = QueryCollisions(next, other);
@@ -54,7 +54,7 @@ namespace {
 
 [[nodiscard]] auto CheckOutOfBounds(entt::registry& registry,
                                     const NextHitboxes& next,
-                                    comp::Movable& movable,
+                                    Movable& movable,
                                     const float2& oldPosition) -> CollisionResult
 {
   CollisionResult collisions;
@@ -91,8 +91,8 @@ void UpdateHitbox(entt::registry& registry,
 {
   const auto oldAabbPos = tree.at(entity).min;
 
-  auto& hitbox = registry.get<comp::Hitbox>(entity);
-  auto& movable = registry.get<comp::Movable>(entity);
+  auto& hitbox = registry.get<Hitbox>(entity);
+  auto& movable = registry.get<Movable>(entity);
 
   SetPosition(hitbox, movable.position);
   tree.set_position(entity, to_rune_vector(hitbox.bounds.position()));
@@ -124,7 +124,7 @@ void UpdateHitbox(entt::registry& registry,
 
   for (const auto candidate : candidates) {
     const auto collisions =
-        UpdateMovable(movable, oldPosition, registry.get<comp::Hitbox>(candidate), next);
+        UpdateMovable(movable, oldPosition, registry.get<Hitbox>(candidate), next);
     if (collisions.vertical || collisions.horizontal) {
       restorePosition(collisions);
     }
@@ -135,13 +135,13 @@ void UpdateHitbox(entt::registry& registry,
 
 void UpdateMovement(entt::registry& registry, aabb_tree& tree, const float dt)
 {
-  for (auto&& [entity, movable] : registry.view<comp::Movable>().each()) {
+  for (auto&& [entity, movable] : registry.view<Movable>().each()) {
     const auto oldPosition = movable.position;
 
     movable.position += (movable.velocity * dt);
     movable.dir = GetDominantDirection(movable);
 
-    if (registry.all_of<comp::Hitbox>(entity)) {
+    if (registry.all_of<Hitbox>(entity)) {
       UpdateHitbox(registry, tree, entity, oldPosition, dt);
     }
   }

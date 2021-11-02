@@ -23,7 +23,7 @@ void RestoreTilemap(const proto::Level& data, entt::registry& registry)
   assert(data.has_row_count());
   assert(data.has_column_count());
 
-  auto& tilemap = registry.set<comp::Tilemap>();
+  auto& tilemap = registry.set<Tilemap>();
   tilemap.id = MapID{data.id()};
   tilemap.humanoid_layer = data.humanoid_layer_index();
   tilemap.row_count = data.row_count();
@@ -48,8 +48,8 @@ auto RestoreLevelRegistry(const proto::Level& data) -> entt::registry
     assert(entity == hint);
 
     if (entity == playerEntity) {
-      assert(registry.empty<comp::Player>());
-      registry.emplace<comp::Player>(entity);
+      assert(registry.empty<Player>());
+      registry.emplace<Player>(entity);
     }
 
     RestoreMovable(data, registry, entity);
@@ -81,8 +81,8 @@ auto RestoreLevelRegistry(const proto::Level& data) -> entt::registry
     const auto entity = entt::entity{id};
     assert(registry.valid(entity));
 
-    registry.emplace<comp::HumanoidIdle>(entity);
-    registry.emplace<comp::Humanoid>(entity);
+    registry.emplace<HumanoidIdle>(entity);
+    registry.emplace<Humanoid>(entity);
   }
 
   return registry;

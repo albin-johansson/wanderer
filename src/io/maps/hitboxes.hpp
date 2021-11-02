@@ -7,7 +7,7 @@
 
 namespace wanderer {
 
-void AddHitboxToTree(aabb_tree& tree, entt::entity entity, const comp::Hitbox& hitbox);
+void AddHitboxToTree(aabb_tree& tree, entt::entity entity, const Hitbox& hitbox);
 
 void AddHitboxToTree(aabb_tree& tree,
                      const entt::registry& registry,

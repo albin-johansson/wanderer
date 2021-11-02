@@ -12,11 +12,11 @@ void UpdateInput(entt::registry& registry,
                  const cen::keyboard& keyboard,
                  const ctx::Binds& binds)
 {
-  const auto player = singleton_entity<comp::Player>(registry);
-  if (registry.all_of<comp::HumanoidIdle>(player)) {
+  const auto player = singleton_entity<Player>(registry);
+  if (registry.all_of<HumanoidIdle>(player)) {
     HandleIdleInput(registry, dispatcher, keyboard, binds);
   }
-  else if (registry.all_of<comp::HumanoidMove>(player)) {
+  else if (registry.all_of<HumanoidMove>(player)) {
     HandleMoveInput(registry, dispatcher, keyboard, binds);
   }
 }

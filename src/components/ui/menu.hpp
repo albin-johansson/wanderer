@@ -18,7 +18,7 @@ struct ActiveMenu final
 
 }  // namespace wanderer
 
-namespace wanderer::comp {
+namespace wanderer {
 
 /// \addtogroup components
 /// \{
@@ -59,4 +59,4 @@ struct MenuDrawable final
 
 /// \} End of group components
 
-}  // namespace wanderer::comp
+}  // namespace wanderer

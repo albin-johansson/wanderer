@@ -4,7 +4,7 @@
 
 #include "wanderer_std.hpp"
 
-namespace wanderer::comp {
+namespace wanderer {
 
 struct Portal final
 {
@@ -12,4 +12,4 @@ struct Portal final
   maybe<MapID> target;         ///< Identifier associated with target map.
 };
 
-}  // namespace wanderer::comp
+}  // namespace wanderer

@@ -19,7 +19,7 @@ auto StartBondAnimation(entt::registry& registry, uint32 id) -> entt::entity
 {
   const auto entity = registry.create();
 
-  auto& animation = registry.emplace<comp::CustomAnimation>(entity);
+  auto& animation = registry.emplace<CustomAnimation>(entity);
   animation.id = id;
   animation.speed = speed;
   animation.width = 0;
@@ -35,7 +35,7 @@ auto StartReverseOnlyBondAnimation(entt::registry& registry) -> entt::entity
 {
   const auto entity = registry.create();
 
-  auto& animation = registry.emplace<comp::CustomAnimation>(entity);
+  auto& animation = registry.emplace<CustomAnimation>(entity);
   animation.speed = speed;
   animation.width = glob::logical_width<float> / 2.0f;
   animation.height = glob::logical_height<float> / 2.0f;
@@ -50,7 +50,7 @@ void UpdateCustomAnimations(entt::registry& registry,
                             entt::dispatcher& dispatcher,
                             float dt)
 {
-  for (auto&& [entity, animation] : registry.view<comp::CustomAnimation>().each()) {
+  for (auto&& [entity, animation] : registry.view<CustomAnimation>().each()) {
     animation.width += animation.x_step_size * animation.speed * dt;
     animation.height += animation.y_step_size * animation.speed * dt;
 
@@ -73,7 +73,7 @@ void RenderCustomAnimations(const entt::registry& registry)
 
   auto& graphics = registry.ctx<ref<GraphicsContext>>().get();
   auto& renderer = graphics.GetRenderer();
-  for (auto&& [entity, animation] : registry.view<comp::CustomAnimation>().each()) {
+  for (auto&& [entity, animation] : registry.view<CustomAnimation>().each()) {
     const auto hSize = animation.width;
     const auto vSize = animation.height;
     renderer.set_color(gray);

@@ -2,7 +2,7 @@
 
 #include "wanderer_std.hpp"
 
-namespace wanderer::comp {
+namespace wanderer {
 
 /// \brief A component used by NPC entities that can roam randomly.
 /// \ingroup components
@@ -13,4 +13,4 @@ struct Roam final
   float cooldown_duration{};  ///< The total duration of the cooldown.
 };
 
-}  // namespace wanderer::comp
+}  // namespace wanderer

@@ -5,7 +5,7 @@
 #include "core/game_constants.hpp"
 #include "wanderer_std.hpp"
 
-namespace wanderer::comp {
+namespace wanderer {
 
 /// \brief Represents a frame in a tile animation.
 /// \ingroup components
@@ -32,4 +32,4 @@ struct TileAnimation final
   std::vector<Frame> frames;  ///< The frames that constitute the animation.
 };
 
-}  // namespace wanderer::comp
+}  // namespace wanderer

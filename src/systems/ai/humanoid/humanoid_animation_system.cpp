@@ -69,9 +69,9 @@ constexpr ms_t attack_delay{70};
  */
 void UpdateMoveAnimation(entt::registry& registry, const entt::entity entity)
 {
-  auto& animation = registry.get<comp::Animation>(entity);
-  auto& drawable = registry.get<comp::Drawable>(entity);
-  const auto& movable = registry.get<comp::Movable>(entity);
+  auto& animation = registry.get<Animation>(entity);
+  auto& drawable = registry.get<Drawable>(entity);
+  const auto& movable = registry.get<Movable>(entity);
 
   drawable.src.set_x(
       is_zero(movable.velocity) ? 0 : static_cast<int32>(animation.frame) * 64);
@@ -92,14 +92,14 @@ void UpdateMoveAnimation(entt::registry& registry, const entt::entity entity)
  */
 void UpdateAttackAnimation(entt::registry& registry, const entt::entity entity)
 {
-  assert(registry.all_of<comp::HumanoidAttack>(entity));
+  assert(registry.all_of<HumanoidAttack>(entity));
 
-  auto& animation = registry.get<comp::Animation>(entity);
-  auto& drawable = registry.get<comp::Drawable>(entity);
+  auto& animation = registry.get<Animation>(entity);
+  auto& drawable = registry.get<Drawable>(entity);
 
   drawable.src.set_x(static_cast<int32>(animation.frame) * 64);
   if (animation.frame == animation.frame_count - 1u) {
-    auto& attack = registry.get<comp::HumanoidAttack>(entity);
+    auto& attack = registry.get<HumanoidAttack>(entity);
     attack.done = true;
   }
 }
@@ -123,13 +123,13 @@ void EnterAnimation(entt::registry& registry,
                     const ms_t delay,
                     const int32 sourceY)
 {
-  auto& animation = registry.get<comp::Animation>(entity);
+  auto& animation = registry.get<Animation>(entity);
   animation.frame = 0;
   animation.frame_count = nFrames;
   animation.delay = delay;
 
-  auto& drawable = registry.get<comp::Drawable>(entity);
-  const auto& movable = registry.get<comp::Movable>(entity);
+  auto& drawable = registry.get<Drawable>(entity);
+  const auto& movable = registry.get<Movable>(entity);
   drawable.src.set_x(0);
   drawable.src.set_y(GetSourceY(sourceY, movable.dir));
 }
@@ -141,12 +141,12 @@ void EnterAnimation(entt::registry& registry,
                     const int32 sourceY,
                     const Direction dir)
 {
-  auto& animation = registry.get<comp::Animation>(entity);
+  auto& animation = registry.get<Animation>(entity);
   animation.frame = 0;
   animation.frame_count = nFrames;
   animation.delay = delay;
 
-  auto& drawable = registry.get<comp::Drawable>(entity);
+  auto& drawable = registry.get<Drawable>(entity);
   drawable.src.set_x(0);
   drawable.src.set_y(GetSourceY(sourceY, dir));
 }
@@ -190,11 +190,11 @@ void EnterSpearAnimation(entt::registry& registry, entt::entity entity)
 
 void UpdateHumanoidAnimations(entt::registry& registry)
 {
-  for (auto&& [entity] : registry.view<comp::Humanoid>().each()) {
-    if (registry.all_of<comp::HumanoidMove>(entity)) {
+  for (auto&& [entity] : registry.view<Humanoid>().each()) {
+    if (registry.all_of<HumanoidMove>(entity)) {
       UpdateMoveAnimation(registry, entity);
     }
-    else if (registry.all_of<comp::HumanoidAttack>(entity)) {
+    else if (registry.all_of<HumanoidAttack>(entity)) {
       UpdateAttackAnimation(registry, entity);
     }
   }

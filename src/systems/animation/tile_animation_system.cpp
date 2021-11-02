@@ -8,7 +8,7 @@ namespace wanderer::sys {
 
 void UpdateTileAnimations(entt::registry& registry)
 {
-  for (auto&& [entity, animation] : registry.view<comp::TileAnimation>().each()) {
+  for (auto&& [entity, animation] : registry.view<TileAnimation>().each()) {
     const auto now = cen::counter::ticks();
     const auto elapsed = now - animation.then;
     if (elapsed >= animation.frames.at(animation.index).duration) {

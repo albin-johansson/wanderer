@@ -9,7 +9,7 @@ namespace wanderer {
 
 void CreateTileLayer(const Tactile::IO::Map& irMap,
                      const Tactile::IO::Layer& irLayer,
-                     comp::Level& level,
+                     Level& level,
                      int32 layerIndex);
 
 }  // namespace wanderer

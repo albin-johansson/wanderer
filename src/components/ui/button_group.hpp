@@ -6,7 +6,7 @@
 
 #include "wanderer_std.hpp"
 
-namespace wanderer::comp {
+namespace wanderer {
 
 struct ButtonGroup final
 {
@@ -17,4 +17,4 @@ struct ButtonGroup final
   int32 items_per_page{};                    ///< Maximum amount of buttons per page.
 };
 
-}  // namespace wanderer::comp
+}  // namespace wanderer

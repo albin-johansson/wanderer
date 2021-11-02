@@ -10,9 +10,7 @@
 namespace wanderer::sys {
 namespace {
 
-void UpdatePlantDrawable(entt::registry& registry,
-                         const comp::Plant& plant,
-                         comp::Drawable& drawable)
+void UpdatePlantDrawable(entt::registry& registry, const Plant& plant, Drawable& drawable)
 {
   const auto id = plant.tiles.at(plant.index);
 
@@ -39,7 +37,7 @@ void UpdatePlantDrawable(entt::registry& registry,
 
 void UpdatePlants(entt::registry& registry, float dt)
 {
-  for (auto&& [entity, plant] : registry.view<comp::Plant>().each()) {
+  for (auto&& [entity, plant] : registry.view<Plant>().each()) {
     if (plant.index < plant.tiles.size() - 1) {
       plant.current += plant.rate * dt;
       if (plant.current >= plant.rate) {
@@ -51,7 +49,7 @@ void UpdatePlants(entt::registry& registry, float dt)
       // TODO the plant is ripe here
     }
 
-    if (auto* drawable = registry.try_get<comp::Drawable>(entity)) {
+    if (auto* drawable = registry.try_get<Drawable>(entity)) {
       UpdatePlantDrawable(registry, plant, *drawable);
     }
   }

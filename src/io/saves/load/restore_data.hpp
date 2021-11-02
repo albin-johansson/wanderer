@@ -22,7 +22,7 @@ class Level;
 
 [[nodiscard]] auto Restore(const proto::float2& data) -> float2;
 
-[[nodiscard]] auto Restore(const proto::float3& data) -> comp::Vector3;
+[[nodiscard]] auto Restore(const proto::float3& data) -> Vector3;
 
 [[nodiscard]] auto Restore(const proto::irect& data) -> cen::irect;
 

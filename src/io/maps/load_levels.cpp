@@ -25,11 +25,11 @@
 namespace wanderer {
 namespace {
 
-void AddLevelMetaInformation(const Tactile::IO::Map& irMap, comp::Level& level)
+void AddLevelMetaInformation(const Tactile::IO::Map& irMap, Level& level)
 {
   auto& registry = level.registry;
 
-  auto& tilemap = registry.set<comp::Tilemap>();
+  auto& tilemap = registry.set<Tilemap>();
   tilemap.id = MapID{level.id};
   tilemap.row_count = Tactile::IO::GetRowCount(irMap);
   tilemap.col_count = Tactile::IO::GetColumnCount(irMap);
@@ -54,7 +54,7 @@ auto LoadLevel(entt::registry& shared,
   if (const auto irMap = Tactile::IO::ParseMap(path, &error)) {
     const auto id = MapID(GetInt(*irMap, "id"));
 
-    for (auto&& [entity, level] : shared.view<comp::Level>().each()) {
+    for (auto&& [entity, level] : shared.view<Level>().each()) {
       if (level.id == id) {
         return entity;
       }
@@ -65,13 +65,13 @@ auto LoadLevel(entt::registry& shared,
     LoadTilesetTextures(*irMap, graphics);
 
     const auto levelEntity = shared.create();
-    auto& level = shared.emplace<comp::Level>(levelEntity);
+    auto& level = shared.emplace<Level>(levelEntity);
     level.id = id;
     level.registry = MakeRegistry();
     level.tree.disable_thickness_factor();
 
     if (GetBool(*irMap, "is-outside")) {
-      shared.emplace<comp::OutsideLevel>(levelEntity);
+      shared.emplace<OutsideLevel>(levelEntity);
     }
 
     AddLevelMetaInformation(*irMap, level);
@@ -90,7 +90,7 @@ auto LoadLevel(entt::registry& shared,
 
     WANDERER_PROFILE_END("Loaded level")
 
-    for (auto&& [entity, portal] : level.registry.view<comp::Portal>().each()) {
+    for (auto&& [entity, portal] : level.registry.view<Portal>().each()) {
       if (!portal.path.empty() && portal.path != ".") {
         LoadLevel(shared, graphics, path.parent_path() / portal.path);
       }
@@ -111,9 +111,9 @@ void LoadLevels(entt::registry& shared, GraphicsContext& graphics)
 {
   const auto path = std::filesystem::absolute(resources::map("main.json"));
   const auto root = LoadLevel(shared, graphics, path);
-  shared.emplace<comp::ActiveLevel>(root);
+  shared.emplace<ActiveLevel>(root);
 
-  auto& rootLevel = shared.get<comp::Level>(root);
+  auto& rootLevel = shared.get<Level>(root);
   rootLevel.registry.ctx<ctx::Viewport>().keep_in_bounds = true;
 }
 

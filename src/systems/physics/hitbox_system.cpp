@@ -7,10 +7,10 @@
 namespace wanderer::sys {
 namespace {
 
-[[nodiscard]] auto NextVerticalHitbox(const comp::Hitbox& hitbox,
+[[nodiscard]] auto NextVerticalHitbox(const Hitbox& hitbox,
                                       const float2& position,
                                       const float2& velocity,
-                                      const float dt) -> maybe<comp::Hitbox>
+                                      const float dt) -> maybe<Hitbox>
 {
   if (velocity.y != 0) {
     auto next = position;
@@ -22,10 +22,10 @@ namespace {
   }
 }
 
-[[nodiscard]] auto NextHorizontalHitbox(const comp::Hitbox& hitbox,
+[[nodiscard]] auto NextHorizontalHitbox(const Hitbox& hitbox,
                                         const float2& position,
                                         const float2& velocity,
-                                        const float dt) -> maybe<comp::Hitbox>
+                                        const float dt) -> maybe<Hitbox>
 {
   if (velocity.x != 0) {
     auto next = position;
@@ -39,7 +39,7 @@ namespace {
 
 }  // namespace
 
-void UpdateBounds(comp::Hitbox& hitbox)
+void UpdateBounds(Hitbox& hitbox)
 {
   if (hitbox.boxes.empty()) {
     return;
@@ -75,20 +75,20 @@ void UpdateBounds(comp::Hitbox& hitbox)
   hitbox.bounds.set_height(my - y);
 }
 
-void SetPosition(comp::Hitbox& hitbox, float2 position)
+void SetPosition(Hitbox& hitbox, float2 position)
 {
   hitbox.origin = position;
   UpdateBounds(hitbox);
 }
 
-auto WithPosition(const comp::Hitbox& hitbox, float2 position) -> comp::Hitbox
+auto WithPosition(const Hitbox& hitbox, float2 position) -> Hitbox
 {
   auto result = hitbox;
   SetPosition(result, position);
   return result;
 }
 
-auto Intersects(const comp::Hitbox& fst, const comp::Hitbox& snd) -> bool
+auto Intersects(const Hitbox& fst, const Hitbox& snd) -> bool
 {
   // 1. A hitbox doesn't intersect itself
   // 2. The hitboxes can't intersect if their bounding rectangles don't intersect
@@ -114,9 +114,9 @@ auto Intersects(const comp::Hitbox& fst, const comp::Hitbox& snd) -> bool
   return false;
 }
 
-auto MakeHitbox(std::initializer_list<comp::Subhitbox> boxes) -> comp::Hitbox
+auto MakeHitbox(std::initializer_list<Subhitbox> boxes) -> Hitbox
 {
-  comp::Hitbox hb;
+  Hitbox hb;
 
   for (const auto& box : boxes) {
     hb.boxes.push_back(box);
@@ -127,8 +127,8 @@ auto MakeHitbox(std::initializer_list<comp::Subhitbox> boxes) -> comp::Hitbox
   return hb;
 }
 
-auto MakeNextHitboxes(const comp::Movable& movable,
-                      const comp::Hitbox& hitbox,
+auto MakeNextHitboxes(const Movable& movable,
+                      const Hitbox& hitbox,
                       float2 oldPosition,
                       float dt) -> NextHitboxes
 {
@@ -136,8 +136,7 @@ auto MakeNextHitboxes(const comp::Movable& movable,
           NextVerticalHitbox(hitbox, oldPosition, movable.velocity, dt)};
 }
 
-auto QueryCollisions(const NextHitboxes& next, const comp::Hitbox& obstacle)
-    -> CollisionResult
+auto QueryCollisions(const NextHitboxes& next, const Hitbox& obstacle) -> CollisionResult
 {
   CollisionResult result;
 

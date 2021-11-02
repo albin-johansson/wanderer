@@ -12,10 +12,10 @@ namespace {
 void RenderCheckbox(const entt::registry& registry,
                     GraphicsContext& graphics,
                     const entt::entity checkboxEntity,
-                    const comp::Checkbox& checkbox)
+                    const Checkbox& checkbox)
 {
   auto& renderer = graphics.GetRenderer();
-  const auto& drawable = registry.get<comp::ButtonDrawable>(checkboxEntity);
+  const auto& drawable = registry.get<ButtonDrawable>(checkboxEntity);
 
   if (checkbox.checked) {
     renderer.set_color(cen::colors::lime);
@@ -27,7 +27,7 @@ void RenderCheckbox(const entt::registry& registry,
 
   if (!drawable.texture) {
     const auto& font = renderer.get_font(glob::menu_font_m);
-    const auto& button = registry.get<comp::Button>(checkboxEntity);
+    const auto& button = registry.get<Button>(checkboxEntity);
 
     renderer.set_color(cen::colors::white);
     drawable.texture.emplace(RenderText(renderer, button.text, font));
@@ -43,7 +43,7 @@ void RenderCheckboxes(const entt::registry& registry, GraphicsContext& graphics)
   const auto menuEntity = registry.ctx<ActiveMenu>().entity;
 
   for (auto&& [entity, checkbox, associated] :
-       registry.view<comp::Checkbox, comp::AssociatedMenu>().each())
+       registry.view<Checkbox, AssociatedMenu>().each())
   {
     if (associated.entity == menuEntity) {
       RenderCheckbox(registry, graphics, entity, checkbox);

@@ -2,7 +2,7 @@
 
 #include <entt.hpp>  // entity, null
 
-namespace wanderer::comp {
+namespace wanderer {
 
 // TODO replace with associated_entity?
 struct AssociatedMenu final
@@ -10,4 +10,4 @@ struct AssociatedMenu final
   entt::entity entity{entt::null};
 };
 
-}  // namespace wanderer::comp
+}  // namespace wanderer

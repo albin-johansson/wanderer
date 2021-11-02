@@ -14,9 +14,7 @@ void RenderLines(const entt::registry& registry, GraphicsContext& graphics)
   auto& renderer = graphics.GetRenderer();
   renderer.set_color(cen::colors::white);
 
-  for (auto&& [entity, line, associated] :
-       registry.view<comp::Line, comp::AssociatedMenu>().each())
-  {
+  for (auto&& [entity, line, associated] : registry.view<Line, AssociatedMenu>().each()) {
     if (associated.entity == menuEntity) {
       renderer.draw_line(FromGrid(line.start), FromGrid(line.end));
     }
