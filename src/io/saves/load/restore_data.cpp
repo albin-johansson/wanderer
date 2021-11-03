@@ -11,7 +11,7 @@
 #include "components/chase.hpp"
 #include "components/drawable.hpp"
 #include "components/hitbox.hpp"
-#include "components/items/inventory.hpp"
+#include "components/inventory.hpp"
 #include "components/movable.hpp"
 #include "components/object.hpp"
 #include "components/particle.hpp"

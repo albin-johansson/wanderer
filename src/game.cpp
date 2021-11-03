@@ -1,6 +1,6 @@
 #include "game.hpp"
 
-#include "components/items/inventory.hpp"
+#include "components/inventory.hpp"
 #include "components/renderer_snapshot.hpp"
 #include "components/settings.hpp"
 #include "components/ui/fps_data.hpp"

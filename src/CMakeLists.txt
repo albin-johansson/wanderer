@@ -3,52 +3,48 @@ cmake_minimum_required(VERSION 3.15)
 project(wanderer-src CXX)
 
 set(SOURCE_FILES
+    game.cpp
+    game.hpp
     profile.hpp
     wanderer_std.hpp
 
+    components/animation.hpp
     components/associated_entity.hpp
     components/associated_object.hpp
     components/binds.hpp
-    components/cursors.hpp
-    components/key_bind.hpp
-    components/level_size.hpp
-    components/object.hpp
-    components/plant.hpp
-    components/player.hpp
-    components/render_bounds.hpp
-    components/renderer_snapshot.hpp
-    components/settings.hpp
-    components/tilemap.hpp
-    components/time_of_day.hpp
-    components/trigger.hpp
-    components/viewport.hpp
-
     components/chase.hpp
-    components/humanoid.hpp
-    components/roam.hpp
-
-    components/animation.hpp
+    components/cursors.hpp
     components/custom_animation.hpp
     components/drawable.hpp
-    components/point_light.hpp
-    components/tile_animation.hpp
-
-    components/items/inventory.hpp
-
-    components/level.hpp
-    components/level_switch_target.hpp
-    components/portal.hpp
-    components/spawnpoint.hpp
-
-    components/vector3.hpp
     components/hitbox.hpp
+    components/humanoid.hpp
+    components/inventory.hpp
+    components/key_bind.hpp
+    components/level.hpp
+    components/level_size.hpp
+    components/level_switch_target.hpp
     components/movable.hpp
+    components/object.hpp
     components/particle.hpp
-
+    components/plant.hpp
+    components/player.hpp
+    components/point_light.hpp
+    components/portal.hpp
+    components/render_bounds.hpp
+    components/renderer_snapshot.hpp
+    components/roam.hpp
+    components/settings.hpp
+    components/spawnpoint.hpp
     components/tile.hpp
+    components/tile_animation.hpp
     components/tile_layer.hpp
     components/tile_object.hpp
+    components/tilemap.hpp
     components/tileset.hpp
+    components/time_of_day.hpp
+    components/trigger.hpp
+    components/vector3.hpp
+    components/viewport.hpp
 
     components/ui/associated_menu.hpp
     components/ui/button.hpp
@@ -64,8 +60,6 @@ set(SOURCE_FILES
     core/common_concepts.hpp
     core/day_of_week.hpp
     core/direction.hpp
-    game.cpp
-    game.hpp
     core/game_constants.hpp
     core/grid_position.hpp
     core/menu_action.hpp
@@ -115,6 +109,22 @@ set(SOURCE_FILES
     io/directories.cpp
     io/directories.hpp
 
+    io/maps/create_humanoids.cpp
+    io/maps/create_humanoids.hpp
+    io/maps/create_layers.cpp
+    io/maps/create_layers.hpp
+    io/maps/create_object_layer.cpp
+    io/maps/create_object_layer.hpp
+    io/maps/create_tile_layer.cpp
+    io/maps/create_tile_layer.hpp
+    io/maps/create_tileset.cpp
+    io/maps/create_tileset.hpp
+    io/maps/hitboxes.cpp
+    io/maps/hitboxes.hpp
+    io/maps/load_levels.cpp
+    io/maps/load_levels.hpp
+    io/maps/tactile_io_utils.hpp
+
     io/saves/delete_save.cpp
     io/saves/delete_save.hpp
 
@@ -131,22 +141,6 @@ set(SOURCE_FILES
     io/saves/save/save_game.hpp
     io/saves/save/save_shared_registry.cpp
     io/saves/save/save_shared_registry.hpp
-
-    io/maps/create_humanoids.cpp
-    io/maps/create_humanoids.hpp
-    io/maps/create_layers.cpp
-    io/maps/create_layers.hpp
-    io/maps/create_object_layer.cpp
-    io/maps/create_object_layer.hpp
-    io/maps/create_tile_layer.cpp
-    io/maps/create_tile_layer.hpp
-    io/maps/create_tileset.cpp
-    io/maps/create_tileset.hpp
-    io/maps/hitboxes.cpp
-    io/maps/hitboxes.hpp
-    io/maps/load_levels.cpp
-    io/maps/load_levels.hpp
-    io/maps/tactile_io_utils.hpp
 
     systems/interaction_system.cpp
     systems/interaction_system.hpp

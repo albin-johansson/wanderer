@@ -10,7 +10,7 @@
 #include "components/associated_object.hpp"
 #include "components/drawable.hpp"
 #include "components/hitbox.hpp"
-#include "components/items/inventory.hpp"
+#include "components/inventory.hpp"
 #include "components/object.hpp"
 #include "components/plant.hpp"
 #include "components/point_light.hpp"

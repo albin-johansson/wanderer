@@ -3,7 +3,7 @@
 #include <cassert>  // assert
 
 #include "components/associated_entity.hpp"
-#include "components/items/inventory.hpp"
+#include "components/inventory.hpp"
 #include "components/player.hpp"
 #include "components/portal.hpp"
 #include "components/trigger.hpp"

@@ -2,7 +2,7 @@
 
 #include <rune/rune.hpp>  // index_to_matrix
 
-#include "components/items/inventory.hpp"
+#include "components/inventory.hpp"
 #include "core/game_constants.hpp"
 #include "systems/ui/grid.hpp"
 #include "wanderer_std.hpp"

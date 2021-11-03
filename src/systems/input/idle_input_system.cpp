@@ -5,7 +5,7 @@
 
 #include "components/binds.hpp"
 #include "components/humanoid.hpp"
-#include "components/items/inventory.hpp"
+#include "components/inventory.hpp"
 #include "components/player.hpp"
 #include "core/direction.hpp"
 #include "core/ecs/registry_utils.hpp"

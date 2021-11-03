@@ -12,7 +12,7 @@
 #include "components/drawable.hpp"
 #include "components/hitbox.hpp"
 #include "components/humanoid.hpp"
-#include "components/items/inventory.hpp"
+#include "components/inventory.hpp"
 #include "components/level.hpp"
 #include "components/movable.hpp"
 #include "components/object.hpp"
