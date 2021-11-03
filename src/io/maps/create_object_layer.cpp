@@ -203,7 +203,7 @@ void LoadLight(const Tactile::IO::Object& irObject,
   tiles.reserve(tokens.size());
 
   for (const auto& token : tokens) {
-    const TileID tile{offset + rune::from_string<TileID::value_type>(token).value()};
+    const TileID tile{offset + rune::from_string<TileID>(token).value()};
     tiles.push_back(tile);
   }
 

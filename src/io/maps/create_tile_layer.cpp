@@ -38,7 +38,7 @@ void AddGroundLayer(const Tactile::IO::TileLayer& irTileLayer,
 
   for (int32 row = 0; row < nRows; ++row) {
     for (int32 col = 0; col < nCols; ++col) {
-      layer.matrix[row][col] = TileID(Tactile::IO::GetTile(irTileLayer, row, col));
+      layer.matrix[row][col] = Tactile::IO::GetTile(irTileLayer, row, col);
     }
   }
 
@@ -99,7 +99,7 @@ void AddTileObjects(const Tactile::IO::Map& irMap,
 
   for (int32 row = 0; row < nRows; ++row) {
     for (int32 col = 0; col < nCols; ++col) {
-      const auto id = TileID(Tactile::IO::GetTile(irTileLayer, row, col));
+      const auto id = Tactile::IO::GetTile(irTileLayer, row, col);
       if (!is_empty(id)) {
         const auto x = static_cast<float>(col) * tw;
         const auto y = static_cast<float>(row) * th;

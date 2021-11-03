@@ -3,7 +3,7 @@ syntax = "proto3";
 package wanderer.proto;
 
 message TileRow {
-  repeated uint32 tiles = 1 [packed = true];
+  repeated int32 tiles = 1 [packed = true];
 }
 
 message TileMatrix {

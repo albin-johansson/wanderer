@@ -224,17 +224,17 @@ class Tile final :
   void _internal_set_texture_index(::PROTOBUF_NAMESPACE_ID::uint64 value);
   public:
 
-  // optional uint32 id = 1;
+  // optional int32 id = 1;
   bool has_id() const;
   private:
   bool _internal_has_id() const;
   public:
   void clear_id();
-  ::PROTOBUF_NAMESPACE_ID::uint32 id() const;
-  void set_id(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  ::PROTOBUF_NAMESPACE_ID::int32 id() const;
+  void set_id(::PROTOBUF_NAMESPACE_ID::int32 value);
   private:
-  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_id() const;
-  void _internal_set_id(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_id() const;
+  void _internal_set_id(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
   // optional int32 depth_index = 4;
@@ -261,7 +261,7 @@ class Tile final :
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   ::wanderer::proto::irect* src_;
   ::PROTOBUF_NAMESPACE_ID::uint64 texture_index_;
-  ::PROTOBUF_NAMESPACE_ID::uint32 id_;
+  ::PROTOBUF_NAMESPACE_ID::int32 id_;
   ::PROTOBUF_NAMESPACE_ID::int32 depth_index_;
   friend struct ::TableStruct_tile_2eproto;
 };
@@ -276,7 +276,7 @@ class Tile final :
 #endif  // __GNUC__
 // Tile
 
-// optional uint32 id = 1;
+// optional int32 id = 1;
 inline bool Tile::_internal_has_id() const {
   bool value = (_has_bits_[0] & 0x00000004u) != 0;
   return value;
@@ -285,21 +285,21 @@ inline bool Tile::has_id() const {
   return _internal_has_id();
 }
 inline void Tile::clear_id() {
-  id_ = 0u;
+  id_ = 0;
   _has_bits_[0] &= ~0x00000004u;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 Tile::_internal_id() const {
+inline ::PROTOBUF_NAMESPACE_ID::int32 Tile::_internal_id() const {
   return id_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 Tile::id() const {
+inline ::PROTOBUF_NAMESPACE_ID::int32 Tile::id() const {
   // @@protoc_insertion_point(field_get:wanderer.proto.Tile.id)
   return _internal_id();
 }
-inline void Tile::_internal_set_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void Tile::_internal_set_id(::PROTOBUF_NAMESPACE_ID::int32 value) {
   _has_bits_[0] |= 0x00000004u;
   id_ = value;
 }
-inline void Tile::set_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void Tile::set_id(::PROTOBUF_NAMESPACE_ID::int32 value) {
   _internal_set_id(value);
   // @@protoc_insertion_point(field_set:wanderer.proto.Tile.id)
 }

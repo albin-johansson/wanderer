@@ -20,7 +20,7 @@ namespace wanderer {
 namespace proto {
 constexpr TileAnimation_Frame::TileAnimation_Frame(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : tile_id_(0u)
+  : tile_id_(0)
   , duration_(0u){}
 struct TileAnimation_FrameDefaultTypeInternal {
   constexpr TileAnimation_FrameDefaultTypeInternal()
@@ -90,7 +90,7 @@ const char descriptor_table_protodef_tile_5fanimation_2eproto[] PROTOBUF_SECTION
   "\001\n\rTileAnimation\022\022\n\005index\030\001 \001(\004H\000\210\001\001\022\021\n\004"
   "then\030\002 \001(\rH\001\210\001\001\0223\n\006frames\030\003 \003(\0132#.wander"
   "er.proto.TileAnimation.Frame\032M\n\005Frame\022\024\n"
-  "\007tile_id\030\001 \001(\rH\000\210\001\001\022\025\n\010duration\030\002 \001(\rH\001\210"
+  "\007tile_id\030\001 \001(\005H\000\210\001\001\022\025\n\010duration\030\002 \001(\rH\001\210"
   "\001\001B\n\n\010_tile_idB\013\n\t_durationB\010\n\006_indexB\007\n"
   "\005_thenb\006proto3"
   ;
@@ -193,11 +193,11 @@ const char* TileAnimation_Frame::_InternalParse(const char* ptr, ::PROTOBUF_NAME
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // optional uint32 tile_id = 1;
+      // optional int32 tile_id = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
           _Internal::set_has_tile_id(&has_bits);
-          tile_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          tile_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -241,10 +241,10 @@ failure:
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // optional uint32 tile_id = 1;
+  // optional int32 tile_id = 1;
   if (_internal_has_tile_id()) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(1, this->_internal_tile_id(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(1, this->_internal_tile_id(), target);
   }
 
   // optional uint32 duration = 2;
@@ -271,9 +271,9 @@ size_t TileAnimation_Frame::ByteSizeLong() const {
 
   cached_has_bits = _has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
-    // optional uint32 tile_id = 1;
+    // optional int32 tile_id = 1;
     if (cached_has_bits & 0x00000001u) {
-      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32SizePlusOne(this->_internal_tile_id());
+      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_tile_id());
     }
 
     // optional uint32 duration = 2;

@@ -73,12 +73,8 @@ inline void LookAt(glm::vec2& source, const glm::vec2 target, const float length
   }
 }
 
-namespace tags {
-struct TileID;
-}  // namespace tags
-
 using MapID = int32;
-using TileID = nenya::strong_type<uint32, tags::TileID>;
+using TileID = int32;
 
 class WandererError final : public std::exception
 {

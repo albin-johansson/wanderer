@@ -22,7 +22,7 @@ constexpr Tile::Tile(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : src_(nullptr)
   , texture_index_(uint64_t{0u})
-  , id_(0u)
+  , id_(0)
   , depth_index_(0){}
 struct TileDefaultTypeInternal {
   constexpr TileDefaultTypeInternal()
@@ -65,7 +65,7 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
 
 const char descriptor_table_protodef_tile_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\ntile.proto\022\016wanderer.proto\032\nrect.proto"
-  "\"\247\001\n\004Tile\022\017\n\002id\030\001 \001(\rH\000\210\001\001\022\032\n\rtexture_in"
+  "\"\247\001\n\004Tile\022\017\n\002id\030\001 \001(\005H\000\210\001\001\022\032\n\rtexture_in"
   "dex\030\002 \001(\004H\001\210\001\001\022\'\n\003src\030\003 \001(\0132\025.wanderer.p"
   "roto.irectH\002\210\001\001\022\030\n\013depth_index\030\004 \001(\005H\003\210\001"
   "\001B\005\n\003_idB\020\n\016_texture_indexB\006\n\004_srcB\016\n\014_d"
@@ -198,11 +198,11 @@ const char* Tile::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::inter
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // optional uint32 id = 1;
+      // optional int32 id = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
           _Internal::set_has_id(&has_bits);
-          id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -263,10 +263,10 @@ failure:
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // optional uint32 id = 1;
+  // optional int32 id = 1;
   if (_internal_has_id()) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(1, this->_internal_id(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(1, this->_internal_id(), target);
   }
 
   // optional uint64 texture_index = 2;
@@ -319,9 +319,9 @@ size_t Tile::ByteSizeLong() const {
       total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64SizePlusOne(this->_internal_texture_index());
     }
 
-    // optional uint32 id = 1;
+    // optional int32 id = 1;
     if (cached_has_bits & 0x00000004u) {
-      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32SizePlusOne(this->_internal_id());
+      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_id());
     }
 
     // optional int32 depth_index = 4;

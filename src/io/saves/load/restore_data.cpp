@@ -228,7 +228,7 @@ void RestoreTile(const proto::Level& level, entt::registry& registry, entt::enti
     assert(data.has_src());
 
     auto& tile = registry.emplace<Tile>(entity);
-    tile.id = TileID{data.id()};
+    tile.id = data.id();
     tile.texture = data.texture_index();
     tile.depth = data.depth_index();
     tile.src = Restore(data.src());
@@ -255,7 +255,7 @@ void RestoreTileAnimations(const proto::Level& level,
       assert(frameData.has_duration());
 
       auto& frame = animation.frames.emplace_back();
-      frame.tile = TileID{frameData.tile_id()};
+      frame.tile = frameData.tile_id();
       frame.duration = ms_t{frameData.duration()};
     }
   }
@@ -437,7 +437,7 @@ void RestoreTileset(const proto::Level& level,
 
     auto& tileset = registry.emplace<Tileset>(entity);
     for (const auto& [id, tileEntity] : data.tile_to_entity()) {
-      tileset.tiles.try_emplace(TileID{id}, entt::entity{tileEntity});
+      tileset.tiles.try_emplace(id, entt::entity{tileEntity});
     }
   }
 }

@@ -195,48 +195,48 @@ class Plant final :
     kTileHeightFieldNumber = 4,
     kIndexFieldNumber = 5,
   };
-  // repeated uint32 tiles = 6 [packed = true];
+  // repeated int32 tiles = 6 [packed = true];
   int tiles_size() const;
   private:
   int _internal_tiles_size() const;
   public:
   void clear_tiles();
   private:
-  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_tiles(int index) const;
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_tiles(int index) const;
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::int32 >&
       _internal_tiles() const;
-  void _internal_add_tiles(::PROTOBUF_NAMESPACE_ID::uint32 value);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
+  void _internal_add_tiles(::PROTOBUF_NAMESPACE_ID::int32 value);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::int32 >*
       _internal_mutable_tiles();
   public:
-  ::PROTOBUF_NAMESPACE_ID::uint32 tiles(int index) const;
-  void set_tiles(int index, ::PROTOBUF_NAMESPACE_ID::uint32 value);
-  void add_tiles(::PROTOBUF_NAMESPACE_ID::uint32 value);
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
+  ::PROTOBUF_NAMESPACE_ID::int32 tiles(int index) const;
+  void set_tiles(int index, ::PROTOBUF_NAMESPACE_ID::int32 value);
+  void add_tiles(::PROTOBUF_NAMESPACE_ID::int32 value);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::int32 >&
       tiles() const;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::int32 >*
       mutable_tiles();
 
-  // repeated uint32 tall_tiles = 7 [packed = true];
+  // repeated int32 tall_tiles = 7 [packed = true];
   int tall_tiles_size() const;
   private:
   int _internal_tall_tiles_size() const;
   public:
   void clear_tall_tiles();
   private:
-  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_tall_tiles(int index) const;
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_tall_tiles(int index) const;
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::int32 >&
       _internal_tall_tiles() const;
-  void _internal_add_tall_tiles(::PROTOBUF_NAMESPACE_ID::uint32 value);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
+  void _internal_add_tall_tiles(::PROTOBUF_NAMESPACE_ID::int32 value);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::int32 >*
       _internal_mutable_tall_tiles();
   public:
-  ::PROTOBUF_NAMESPACE_ID::uint32 tall_tiles(int index) const;
-  void set_tall_tiles(int index, ::PROTOBUF_NAMESPACE_ID::uint32 value);
-  void add_tall_tiles(::PROTOBUF_NAMESPACE_ID::uint32 value);
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
+  ::PROTOBUF_NAMESPACE_ID::int32 tall_tiles(int index) const;
+  void set_tall_tiles(int index, ::PROTOBUF_NAMESPACE_ID::int32 value);
+  void add_tall_tiles(::PROTOBUF_NAMESPACE_ID::int32 value);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::int32 >&
       tall_tiles() const;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::int32 >*
       mutable_tall_tiles();
 
   // optional float current_growth = 1;
@@ -313,9 +313,9 @@ class Plant final :
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 > tiles_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::int32 > tiles_;
   mutable std::atomic<int> _tiles_cached_byte_size_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 > tall_tiles_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::int32 > tall_tiles_;
   mutable std::atomic<int> _tall_tiles_cached_byte_size_;
   float current_growth_;
   float rate_;
@@ -475,7 +475,7 @@ inline void Plant::set_index(::PROTOBUF_NAMESPACE_ID::uint64 value) {
   // @@protoc_insertion_point(field_set:wanderer.proto.Plant.index)
 }
 
-// repeated uint32 tiles = 6 [packed = true];
+// repeated int32 tiles = 6 [packed = true];
 inline int Plant::_internal_tiles_size() const {
   return tiles_.size();
 }
@@ -485,44 +485,44 @@ inline int Plant::tiles_size() const {
 inline void Plant::clear_tiles() {
   tiles_.Clear();
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 Plant::_internal_tiles(int index) const {
+inline ::PROTOBUF_NAMESPACE_ID::int32 Plant::_internal_tiles(int index) const {
   return tiles_.Get(index);
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 Plant::tiles(int index) const {
+inline ::PROTOBUF_NAMESPACE_ID::int32 Plant::tiles(int index) const {
   // @@protoc_insertion_point(field_get:wanderer.proto.Plant.tiles)
   return _internal_tiles(index);
 }
-inline void Plant::set_tiles(int index, ::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void Plant::set_tiles(int index, ::PROTOBUF_NAMESPACE_ID::int32 value) {
   tiles_.Set(index, value);
   // @@protoc_insertion_point(field_set:wanderer.proto.Plant.tiles)
 }
-inline void Plant::_internal_add_tiles(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void Plant::_internal_add_tiles(::PROTOBUF_NAMESPACE_ID::int32 value) {
   tiles_.Add(value);
 }
-inline void Plant::add_tiles(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void Plant::add_tiles(::PROTOBUF_NAMESPACE_ID::int32 value) {
   _internal_add_tiles(value);
   // @@protoc_insertion_point(field_add:wanderer.proto.Plant.tiles)
 }
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::int32 >&
 Plant::_internal_tiles() const {
   return tiles_;
 }
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::int32 >&
 Plant::tiles() const {
   // @@protoc_insertion_point(field_list:wanderer.proto.Plant.tiles)
   return _internal_tiles();
 }
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::int32 >*
 Plant::_internal_mutable_tiles() {
   return &tiles_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::int32 >*
 Plant::mutable_tiles() {
   // @@protoc_insertion_point(field_mutable_list:wanderer.proto.Plant.tiles)
   return _internal_mutable_tiles();
 }
 
-// repeated uint32 tall_tiles = 7 [packed = true];
+// repeated int32 tall_tiles = 7 [packed = true];
 inline int Plant::_internal_tall_tiles_size() const {
   return tall_tiles_.size();
 }
@@ -532,38 +532,38 @@ inline int Plant::tall_tiles_size() const {
 inline void Plant::clear_tall_tiles() {
   tall_tiles_.Clear();
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 Plant::_internal_tall_tiles(int index) const {
+inline ::PROTOBUF_NAMESPACE_ID::int32 Plant::_internal_tall_tiles(int index) const {
   return tall_tiles_.Get(index);
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 Plant::tall_tiles(int index) const {
+inline ::PROTOBUF_NAMESPACE_ID::int32 Plant::tall_tiles(int index) const {
   // @@protoc_insertion_point(field_get:wanderer.proto.Plant.tall_tiles)
   return _internal_tall_tiles(index);
 }
-inline void Plant::set_tall_tiles(int index, ::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void Plant::set_tall_tiles(int index, ::PROTOBUF_NAMESPACE_ID::int32 value) {
   tall_tiles_.Set(index, value);
   // @@protoc_insertion_point(field_set:wanderer.proto.Plant.tall_tiles)
 }
-inline void Plant::_internal_add_tall_tiles(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void Plant::_internal_add_tall_tiles(::PROTOBUF_NAMESPACE_ID::int32 value) {
   tall_tiles_.Add(value);
 }
-inline void Plant::add_tall_tiles(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void Plant::add_tall_tiles(::PROTOBUF_NAMESPACE_ID::int32 value) {
   _internal_add_tall_tiles(value);
   // @@protoc_insertion_point(field_add:wanderer.proto.Plant.tall_tiles)
 }
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::int32 >&
 Plant::_internal_tall_tiles() const {
   return tall_tiles_;
 }
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::int32 >&
 Plant::tall_tiles() const {
   // @@protoc_insertion_point(field_list:wanderer.proto.Plant.tall_tiles)
   return _internal_tall_tiles();
 }
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::int32 >*
 Plant::_internal_mutable_tall_tiles() {
   return &tall_tiles_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::int32 >*
 Plant::mutable_tall_tiles() {
   // @@protoc_insertion_point(field_mutable_list:wanderer.proto.Plant.tall_tiles)
   return _internal_mutable_tall_tiles();

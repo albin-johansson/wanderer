@@ -102,7 +102,7 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
 
 const char descriptor_table_protodef_tile_5flayer_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\020tile_layer.proto\022\016wanderer.proto\"\034\n\007Ti"
-  "leRow\022\021\n\005tiles\030\001 \003(\rB\002\020\001\"3\n\nTileMatrix\022%"
+  "leRow\022\021\n\005tiles\030\001 \003(\005B\002\020\001\"3\n\nTileMatrix\022%"
   "\n\004rows\030\002 \003(\0132\027.wanderer.proto.TileRow\"i\n"
   "\tTileLayer\022/\n\006matrix\030\001 \001(\0132\032.wanderer.pr"
   "oto.TileMatrixH\000\210\001\001\022\024\n\007z_index\030\002 \001(\005H\001\210\001"
@@ -187,13 +187,13 @@ const char* TileRow::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // repeated uint32 tiles = 1 [packed = true];
+      // repeated int32 tiles = 1 [packed = true];
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedUInt32Parser(_internal_mutable_tiles(), ptr, ctx);
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedInt32Parser(_internal_mutable_tiles(), ptr, ctx);
           CHK_(ptr);
         } else if (static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8) {
-          _internal_add_tiles(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr));
+          _internal_add_tiles(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr));
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -227,11 +227,11 @@ failure:
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // repeated uint32 tiles = 1 [packed = true];
+  // repeated int32 tiles = 1 [packed = true];
   {
     int byte_size = _tiles_cached_byte_size_.load(std::memory_order_relaxed);
     if (byte_size > 0) {
-      target = stream->WriteUInt32Packed(
+      target = stream->WriteInt32Packed(
           1, _internal_tiles(), byte_size, target);
     }
   }
@@ -252,10 +252,10 @@ size_t TileRow::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // repeated uint32 tiles = 1 [packed = true];
+  // repeated int32 tiles = 1 [packed = true];
   {
     size_t data_size = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      UInt32Size(this->tiles_);
+      Int32Size(this->tiles_);
     if (data_size > 0) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(

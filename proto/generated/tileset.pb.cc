@@ -80,7 +80,7 @@ const char descriptor_table_protodef_tileset_2eproto[] PROTOBUF_SECTION_VARIABLE
   "\n\rtileset.proto\022\016wanderer.proto\"\201\001\n\007Tile"
   "set\022A\n\016tile_to_entity\030\001 \003(\0132).wanderer.p"
   "roto.Tileset.TileToEntityEntry\0323\n\021TileTo"
-  "EntityEntry\022\013\n\003key\030\001 \001(\r\022\r\n\005value\030\002 \001(\r:"
+  "EntityEntry\022\013\n\003key\030\001 \001(\005\022\r\n\005value\030\002 \001(\r:"
   "\0028\001b\006proto3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_tileset_2eproto_once;
@@ -180,7 +180,7 @@ const char* Tileset::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // map<uint32, uint32> tile_to_entity = 1;
+      // map<int32, uint32> tile_to_entity = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
           ptr -= 1;
@@ -222,20 +222,20 @@ failure:
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // map<uint32, uint32> tile_to_entity = 1;
+  // map<int32, uint32> tile_to_entity = 1;
   if (!this->_internal_tile_to_entity().empty()) {
-    typedef ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::PROTOBUF_NAMESPACE_ID::uint32 >::const_pointer
+    typedef ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::int32, ::PROTOBUF_NAMESPACE_ID::uint32 >::const_pointer
         ConstPtr;
-    typedef ::PROTOBUF_NAMESPACE_ID::internal::SortItem< ::PROTOBUF_NAMESPACE_ID::uint32, ConstPtr > SortItem;
+    typedef ::PROTOBUF_NAMESPACE_ID::internal::SortItem< ::PROTOBUF_NAMESPACE_ID::int32, ConstPtr > SortItem;
     typedef ::PROTOBUF_NAMESPACE_ID::internal::CompareByFirstField<SortItem> Less;
 
     if (stream->IsSerializationDeterministic() &&
         this->_internal_tile_to_entity().size() > 1) {
       ::std::unique_ptr<SortItem[]> items(
           new SortItem[this->_internal_tile_to_entity().size()]);
-      typedef ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::PROTOBUF_NAMESPACE_ID::uint32 >::size_type size_type;
+      typedef ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::int32, ::PROTOBUF_NAMESPACE_ID::uint32 >::size_type size_type;
       size_type n = 0;
-      for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::PROTOBUF_NAMESPACE_ID::uint32 >::const_iterator
+      for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::int32, ::PROTOBUF_NAMESPACE_ID::uint32 >::const_iterator
           it = this->_internal_tile_to_entity().begin();
           it != this->_internal_tile_to_entity().end(); ++it, ++n) {
         items[static_cast<ptrdiff_t>(n)] = SortItem(&*it);
@@ -245,7 +245,7 @@ failure:
         target = Tileset_TileToEntityEntry_DoNotUse::Funcs::InternalSerialize(1, items[static_cast<ptrdiff_t>(i)].second->first, items[static_cast<ptrdiff_t>(i)].second->second, target, stream);
       }
     } else {
-      for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::PROTOBUF_NAMESPACE_ID::uint32 >::const_iterator
+      for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::int32, ::PROTOBUF_NAMESPACE_ID::uint32 >::const_iterator
           it = this->_internal_tile_to_entity().begin();
           it != this->_internal_tile_to_entity().end(); ++it) {
         target = Tileset_TileToEntityEntry_DoNotUse::Funcs::InternalSerialize(1, it->first, it->second, target, stream);
@@ -269,10 +269,10 @@ size_t Tileset::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // map<uint32, uint32> tile_to_entity = 1;
+  // map<int32, uint32> tile_to_entity = 1;
   total_size += 1 *
       ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(this->_internal_tile_to_entity_size());
-  for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::PROTOBUF_NAMESPACE_ID::uint32 >::const_iterator
+  for (::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::int32, ::PROTOBUF_NAMESPACE_ID::uint32 >::const_iterator
       it = this->_internal_tile_to_entity().begin();
       it != this->_internal_tile_to_entity().end(); ++it) {
     total_size += Tileset_TileToEntityEntry_DoNotUse::Funcs::ByteSizeLong(it->first, it->second);

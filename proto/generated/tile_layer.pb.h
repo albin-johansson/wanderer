@@ -197,26 +197,26 @@ class TileRow final :
   enum : int {
     kTilesFieldNumber = 1,
   };
-  // repeated uint32 tiles = 1 [packed = true];
+  // repeated int32 tiles = 1 [packed = true];
   int tiles_size() const;
   private:
   int _internal_tiles_size() const;
   public:
   void clear_tiles();
   private:
-  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_tiles(int index) const;
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_tiles(int index) const;
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::int32 >&
       _internal_tiles() const;
-  void _internal_add_tiles(::PROTOBUF_NAMESPACE_ID::uint32 value);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
+  void _internal_add_tiles(::PROTOBUF_NAMESPACE_ID::int32 value);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::int32 >*
       _internal_mutable_tiles();
   public:
-  ::PROTOBUF_NAMESPACE_ID::uint32 tiles(int index) const;
-  void set_tiles(int index, ::PROTOBUF_NAMESPACE_ID::uint32 value);
-  void add_tiles(::PROTOBUF_NAMESPACE_ID::uint32 value);
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
+  ::PROTOBUF_NAMESPACE_ID::int32 tiles(int index) const;
+  void set_tiles(int index, ::PROTOBUF_NAMESPACE_ID::int32 value);
+  void add_tiles(::PROTOBUF_NAMESPACE_ID::int32 value);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::int32 >&
       tiles() const;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::int32 >*
       mutable_tiles();
 
   // @@protoc_insertion_point(class_scope:wanderer.proto.TileRow)
@@ -226,7 +226,7 @@ class TileRow final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 > tiles_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::int32 > tiles_;
   mutable std::atomic<int> _tiles_cached_byte_size_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_tile_5flayer_2eproto;
@@ -562,7 +562,7 @@ class TileLayer final :
 #endif  // __GNUC__
 // TileRow
 
-// repeated uint32 tiles = 1 [packed = true];
+// repeated int32 tiles = 1 [packed = true];
 inline int TileRow::_internal_tiles_size() const {
   return tiles_.size();
 }
@@ -572,38 +572,38 @@ inline int TileRow::tiles_size() const {
 inline void TileRow::clear_tiles() {
   tiles_.Clear();
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 TileRow::_internal_tiles(int index) const {
+inline ::PROTOBUF_NAMESPACE_ID::int32 TileRow::_internal_tiles(int index) const {
   return tiles_.Get(index);
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 TileRow::tiles(int index) const {
+inline ::PROTOBUF_NAMESPACE_ID::int32 TileRow::tiles(int index) const {
   // @@protoc_insertion_point(field_get:wanderer.proto.TileRow.tiles)
   return _internal_tiles(index);
 }
-inline void TileRow::set_tiles(int index, ::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void TileRow::set_tiles(int index, ::PROTOBUF_NAMESPACE_ID::int32 value) {
   tiles_.Set(index, value);
   // @@protoc_insertion_point(field_set:wanderer.proto.TileRow.tiles)
 }
-inline void TileRow::_internal_add_tiles(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void TileRow::_internal_add_tiles(::PROTOBUF_NAMESPACE_ID::int32 value) {
   tiles_.Add(value);
 }
-inline void TileRow::add_tiles(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void TileRow::add_tiles(::PROTOBUF_NAMESPACE_ID::int32 value) {
   _internal_add_tiles(value);
   // @@protoc_insertion_point(field_add:wanderer.proto.TileRow.tiles)
 }
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::int32 >&
 TileRow::_internal_tiles() const {
   return tiles_;
 }
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >&
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::int32 >&
 TileRow::tiles() const {
   // @@protoc_insertion_point(field_list:wanderer.proto.TileRow.tiles)
   return _internal_tiles();
 }
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::int32 >*
 TileRow::_internal_mutable_tiles() {
   return &tiles_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::uint32 >*
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::int32 >*
 TileRow::mutable_tiles() {
   // @@protoc_insertion_point(field_mutable_list:wanderer.proto.TileRow.tiles)
   return _internal_mutable_tiles();

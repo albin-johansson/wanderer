@@ -194,17 +194,17 @@ class TileAnimation_Frame final :
     kTileIdFieldNumber = 1,
     kDurationFieldNumber = 2,
   };
-  // optional uint32 tile_id = 1;
+  // optional int32 tile_id = 1;
   bool has_tile_id() const;
   private:
   bool _internal_has_tile_id() const;
   public:
   void clear_tile_id();
-  ::PROTOBUF_NAMESPACE_ID::uint32 tile_id() const;
-  void set_tile_id(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  ::PROTOBUF_NAMESPACE_ID::int32 tile_id() const;
+  void set_tile_id(::PROTOBUF_NAMESPACE_ID::int32 value);
   private:
-  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_tile_id() const;
-  void _internal_set_tile_id(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_tile_id() const;
+  void _internal_set_tile_id(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
   // optional uint32 duration = 2;
@@ -229,7 +229,7 @@ class TileAnimation_Frame final :
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  ::PROTOBUF_NAMESPACE_ID::uint32 tile_id_;
+  ::PROTOBUF_NAMESPACE_ID::int32 tile_id_;
   ::PROTOBUF_NAMESPACE_ID::uint32 duration_;
   friend struct ::TableStruct_tile_5fanimation_2eproto;
 };
@@ -429,7 +429,7 @@ class TileAnimation final :
 #endif  // __GNUC__
 // TileAnimation_Frame
 
-// optional uint32 tile_id = 1;
+// optional int32 tile_id = 1;
 inline bool TileAnimation_Frame::_internal_has_tile_id() const {
   bool value = (_has_bits_[0] & 0x00000001u) != 0;
   return value;
@@ -438,21 +438,21 @@ inline bool TileAnimation_Frame::has_tile_id() const {
   return _internal_has_tile_id();
 }
 inline void TileAnimation_Frame::clear_tile_id() {
-  tile_id_ = 0u;
+  tile_id_ = 0;
   _has_bits_[0] &= ~0x00000001u;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 TileAnimation_Frame::_internal_tile_id() const {
+inline ::PROTOBUF_NAMESPACE_ID::int32 TileAnimation_Frame::_internal_tile_id() const {
   return tile_id_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::uint32 TileAnimation_Frame::tile_id() const {
+inline ::PROTOBUF_NAMESPACE_ID::int32 TileAnimation_Frame::tile_id() const {
   // @@protoc_insertion_point(field_get:wanderer.proto.TileAnimation.Frame.tile_id)
   return _internal_tile_id();
 }
-inline void TileAnimation_Frame::_internal_set_tile_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void TileAnimation_Frame::_internal_set_tile_id(::PROTOBUF_NAMESPACE_ID::int32 value) {
   _has_bits_[0] |= 0x00000001u;
   tile_id_ = value;
 }
-inline void TileAnimation_Frame::set_tile_id(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+inline void TileAnimation_Frame::set_tile_id(::PROTOBUF_NAMESPACE_ID::int32 value) {
   _internal_set_tile_id(value);
   // @@protoc_insertion_point(field_set:wanderer.proto.TileAnimation.Frame.tile_id)
 }

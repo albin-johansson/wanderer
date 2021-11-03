@@ -31,7 +31,7 @@ void CreateTiles(const Tactile::IO::Tileset& irTileset,
   for (int32 index = 0; index < count; ++index, ++id) {
     const auto tileEntity = registry.create();
     auto& tile = registry.emplace<Tile>(tileEntity);
-    tile.id = TileID(id);
+    tile.id = id;
     tile.texture = texture;
     tile.depth = 5;
 
@@ -54,13 +54,13 @@ void AddAnimation(const Tactile::IO::Tile& irTile,
   animation.index = 0;
   animation.then = cen::counter::ticks();
 
-  Tactile::IO::EachAnimationFrame(
-      irTile,
-      [&](const Tactile::IO::AnimationFrame& irFrame) {
-        auto& frame = animation.frames.emplace_back();
-        frame.tile = TileID(firstId) + TileID(Tactile::IO::GetTile(irFrame));
-        frame.duration = ms_t{Tactile::IO::GetDuration(irFrame)};
-      });
+  Tactile::IO::EachAnimationFrame(irTile,
+                                  [&](const Tactile::IO::AnimationFrame& irFrame) {
+                                    auto& frame = animation.frames.emplace_back();
+                                    frame.tile = firstId + Tactile::IO::GetTile(irFrame);
+                                    frame.duration =
+                                        ms_t{Tactile::IO::GetDuration(irFrame)};
+                                  });
 }
 
 void AddHitbox(const Tactile::IO::Object& irObject,
@@ -84,7 +84,7 @@ void AddTileMetaInfo(const Tactile::IO::Tileset& irTileset,
   const auto ratio = GetTilesetTileSizeRatio(irTileset);
   Tactile::IO::EachTileInfo(irTileset, [&](const Tactile::IO::Tile& irTile) {
     const auto id = firstId + Tactile::IO::GetId(irTile);
-    const auto tileEntity = tileset.tiles.at(TileID(id));
+    const auto tileEntity = tileset.tiles.at(id);
 
     registry.get<Tile>(tileEntity).depth = GetInt(irTile, "depth", 5);
 

@@ -79,7 +79,7 @@ const char descriptor_table_protodef_plant_2eproto[] PROTOBUF_SECTION_VARIABLE(p
   "\033\n\016current_growth\030\001 \001(\002H\000\210\001\001\022\021\n\004rate\030\002 \001"
   "(\002H\001\210\001\001\022\023\n\006base_y\030\003 \001(\002H\002\210\001\001\022\030\n\013tile_hei"
   "ght\030\004 \001(\005H\003\210\001\001\022\022\n\005index\030\005 \001(\004H\004\210\001\001\022\021\n\005ti"
-  "les\030\006 \003(\rB\002\020\001\022\026\n\ntall_tiles\030\007 \003(\rB\002\020\001B\021\n"
+  "les\030\006 \003(\005B\002\020\001\022\026\n\ntall_tiles\030\007 \003(\005B\002\020\001B\021\n"
   "\017_current_growthB\007\n\005_rateB\t\n\007_base_yB\016\n\014"
   "_tile_heightB\010\n\006_indexb\006proto3"
   ;
@@ -242,24 +242,24 @@ const char* Plant::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::inte
         } else
           goto handle_unusual;
         continue;
-      // repeated uint32 tiles = 6 [packed = true];
+      // repeated int32 tiles = 6 [packed = true];
       case 6:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 50)) {
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedUInt32Parser(_internal_mutable_tiles(), ptr, ctx);
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedInt32Parser(_internal_mutable_tiles(), ptr, ctx);
           CHK_(ptr);
         } else if (static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 48) {
-          _internal_add_tiles(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr));
+          _internal_add_tiles(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr));
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // repeated uint32 tall_tiles = 7 [packed = true];
+      // repeated int32 tall_tiles = 7 [packed = true];
       case 7:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 58)) {
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedUInt32Parser(_internal_mutable_tall_tiles(), ptr, ctx);
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedInt32Parser(_internal_mutable_tall_tiles(), ptr, ctx);
           CHK_(ptr);
         } else if (static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 56) {
-          _internal_add_tall_tiles(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr));
+          _internal_add_tall_tiles(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr));
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -324,20 +324,20 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(5, this->_internal_index(), target);
   }
 
-  // repeated uint32 tiles = 6 [packed = true];
+  // repeated int32 tiles = 6 [packed = true];
   {
     int byte_size = _tiles_cached_byte_size_.load(std::memory_order_relaxed);
     if (byte_size > 0) {
-      target = stream->WriteUInt32Packed(
+      target = stream->WriteInt32Packed(
           6, _internal_tiles(), byte_size, target);
     }
   }
 
-  // repeated uint32 tall_tiles = 7 [packed = true];
+  // repeated int32 tall_tiles = 7 [packed = true];
   {
     int byte_size = _tall_tiles_cached_byte_size_.load(std::memory_order_relaxed);
     if (byte_size > 0) {
-      target = stream->WriteUInt32Packed(
+      target = stream->WriteInt32Packed(
           7, _internal_tall_tiles(), byte_size, target);
     }
   }
@@ -358,10 +358,10 @@ size_t Plant::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // repeated uint32 tiles = 6 [packed = true];
+  // repeated int32 tiles = 6 [packed = true];
   {
     size_t data_size = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      UInt32Size(this->tiles_);
+      Int32Size(this->tiles_);
     if (data_size > 0) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
@@ -373,10 +373,10 @@ size_t Plant::ByteSizeLong() const {
     total_size += data_size;
   }
 
-  // repeated uint32 tall_tiles = 7 [packed = true];
+  // repeated int32 tall_tiles = 7 [packed = true];
   {
     size_t data_size = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      UInt32Size(this->tall_tiles_);
+      Int32Size(this->tall_tiles_);
     if (data_size > 0) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(

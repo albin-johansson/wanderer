@@ -5,7 +5,7 @@ package wanderer.proto;
 message TileAnimation {
 
   message Frame {
-    optional uint32 tile_id = 1;
+    optional int32 tile_id = 1;
     optional uint32 duration = 2;
   }
 

@@ -76,13 +76,13 @@ namespace proto {
 // ===================================================================
 
 class Tileset_TileToEntityEntry_DoNotUse : public ::PROTOBUF_NAMESPACE_ID::internal::MapEntry<Tileset_TileToEntityEntry_DoNotUse, 
-    ::PROTOBUF_NAMESPACE_ID::uint32, ::PROTOBUF_NAMESPACE_ID::uint32,
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_UINT32,
+    ::PROTOBUF_NAMESPACE_ID::int32, ::PROTOBUF_NAMESPACE_ID::uint32,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT32,
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_UINT32> {
 public:
   typedef ::PROTOBUF_NAMESPACE_ID::internal::MapEntry<Tileset_TileToEntityEntry_DoNotUse, 
-    ::PROTOBUF_NAMESPACE_ID::uint32, ::PROTOBUF_NAMESPACE_ID::uint32,
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_UINT32,
+    ::PROTOBUF_NAMESPACE_ID::int32, ::PROTOBUF_NAMESPACE_ID::uint32,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT32,
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_UINT32> SuperType;
   Tileset_TileToEntityEntry_DoNotUse();
   explicit constexpr Tileset_TileToEntityEntry_DoNotUse(
@@ -220,21 +220,21 @@ class Tileset final :
   enum : int {
     kTileToEntityFieldNumber = 1,
   };
-  // map<uint32, uint32> tile_to_entity = 1;
+  // map<int32, uint32> tile_to_entity = 1;
   int tile_to_entity_size() const;
   private:
   int _internal_tile_to_entity_size() const;
   public:
   void clear_tile_to_entity();
   private:
-  const ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::PROTOBUF_NAMESPACE_ID::uint32 >&
+  const ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::int32, ::PROTOBUF_NAMESPACE_ID::uint32 >&
       _internal_tile_to_entity() const;
-  ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::PROTOBUF_NAMESPACE_ID::uint32 >*
+  ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::int32, ::PROTOBUF_NAMESPACE_ID::uint32 >*
       _internal_mutable_tile_to_entity();
   public:
-  const ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::PROTOBUF_NAMESPACE_ID::uint32 >&
+  const ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::int32, ::PROTOBUF_NAMESPACE_ID::uint32 >&
       tile_to_entity() const;
-  ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::PROTOBUF_NAMESPACE_ID::uint32 >*
+  ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::int32, ::PROTOBUF_NAMESPACE_ID::uint32 >*
       mutable_tile_to_entity();
 
   // @@protoc_insertion_point(class_scope:wanderer.proto.Tileset)
@@ -246,8 +246,8 @@ class Tileset final :
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::MapField<
       Tileset_TileToEntityEntry_DoNotUse,
-      ::PROTOBUF_NAMESPACE_ID::uint32, ::PROTOBUF_NAMESPACE_ID::uint32,
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_UINT32,
+      ::PROTOBUF_NAMESPACE_ID::int32, ::PROTOBUF_NAMESPACE_ID::uint32,
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT32,
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_UINT32> tile_to_entity_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_tileset_2eproto;
@@ -265,7 +265,7 @@ class Tileset final :
 
 // Tileset
 
-// map<uint32, uint32> tile_to_entity = 1;
+// map<int32, uint32> tile_to_entity = 1;
 inline int Tileset::_internal_tile_to_entity_size() const {
   return tile_to_entity_.size();
 }
@@ -275,20 +275,20 @@ inline int Tileset::tile_to_entity_size() const {
 inline void Tileset::clear_tile_to_entity() {
   tile_to_entity_.Clear();
 }
-inline const ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::PROTOBUF_NAMESPACE_ID::uint32 >&
+inline const ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::int32, ::PROTOBUF_NAMESPACE_ID::uint32 >&
 Tileset::_internal_tile_to_entity() const {
   return tile_to_entity_.GetMap();
 }
-inline const ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::PROTOBUF_NAMESPACE_ID::uint32 >&
+inline const ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::int32, ::PROTOBUF_NAMESPACE_ID::uint32 >&
 Tileset::tile_to_entity() const {
   // @@protoc_insertion_point(field_map:wanderer.proto.Tileset.tile_to_entity)
   return _internal_tile_to_entity();
 }
-inline ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::PROTOBUF_NAMESPACE_ID::uint32 >*
+inline ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::int32, ::PROTOBUF_NAMESPACE_ID::uint32 >*
 Tileset::_internal_mutable_tile_to_entity() {
   return tile_to_entity_.MutableMap();
 }
-inline ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::PROTOBUF_NAMESPACE_ID::uint32 >*
+inline ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::int32, ::PROTOBUF_NAMESPACE_ID::uint32 >*
 Tileset::mutable_tile_to_entity() {
   // @@protoc_insertion_point(field_mutable_map:wanderer.proto.Tileset.tile_to_entity)
   return _internal_mutable_tile_to_entity();
