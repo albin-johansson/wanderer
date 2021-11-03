@@ -117,7 +117,7 @@ void LoadPortal(const Tactile::IO::Object& irObject,
 
   auto& portal = level.registry.emplace<Portal>(entity);
   portal.path = GetFile(irObject, "path");
-  portal.target = MapID{GetInt(irObject, "target")};
+  portal.target = GetInt(irObject, "target");
 
   AddHitbox(irObject, level.registry, entity, ratio.x, ratio.y);
 }

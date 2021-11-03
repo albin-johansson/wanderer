@@ -30,7 +30,7 @@ void AddLevelMetaInformation(const Tactile::IO::Map& irMap, Level& level)
   auto& registry = level.registry;
 
   auto& tilemap = registry.set<Tilemap>();
-  tilemap.id = MapID{level.id};
+  tilemap.id = level.id;
   tilemap.row_count = Tactile::IO::GetRowCount(irMap);
   tilemap.col_count = Tactile::IO::GetColumnCount(irMap);
   tilemap.size = {static_cast<float>(tilemap.col_count) * glob::tile_width<float>,
@@ -52,7 +52,7 @@ auto LoadLevel(entt::registry& shared,
 
   Tactile::IO::ParseError error{};
   if (const auto irMap = Tactile::IO::ParseMap(path, &error)) {
-    const auto id = MapID(GetInt(*irMap, "id"));
+    const auto id = GetInt(*irMap, "id");
 
     for (auto&& [entity, level] : shared.view<Level>().each()) {
       if (level.id == id) {

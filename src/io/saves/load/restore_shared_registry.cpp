@@ -76,7 +76,7 @@ void RestoreSharedRegistry(entt::registry& shared, const proto::Save& save)
     const auto entity = shared.create();
 
     auto& level = shared.emplace<Level>(entity);
-    level.id = MapID{data.id()};
+    level.id = data.id();
 
     if (level.id == save.current_level_id()) {
       shared.emplace<ActiveLevel>(entity);

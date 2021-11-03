@@ -24,7 +24,7 @@ void RestoreTilemap(const proto::Level& data, entt::registry& registry)
   assert(data.has_column_count());
 
   auto& tilemap = registry.set<Tilemap>();
-  tilemap.id = MapID{data.id()};
+  tilemap.id = data.id();
   tilemap.humanoid_layer = data.humanoid_layer_index();
   tilemap.row_count = data.row_count();
   tilemap.col_count = data.column_count();

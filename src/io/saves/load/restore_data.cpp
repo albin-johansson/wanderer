@@ -399,7 +399,7 @@ void RestorePortal(const proto::Level& level,
     auto& portal = registry.emplace<Portal>(entity);
     portal.path = data.path();
     if (data.has_map_id()) {
-      portal.target = MapID{data.map_id()};
+      portal.target = data.map_id();
     }
   }
 }
