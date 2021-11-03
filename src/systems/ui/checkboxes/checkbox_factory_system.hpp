@@ -5,8 +5,8 @@
 #include <entt.hpp>  // registry, entity
 
 #include "components/ui/checkbox.hpp"
+#include "core/action.hpp"
 #include "core/grid_position.hpp"
-#include "core/menu_action.hpp"
 
 namespace wanderer::sys {
 
@@ -32,13 +32,13 @@ namespace wanderer::sys {
 auto MakeCheckbox(entt::registry& registry,
                   std::string text,
                   GridPosition position,
-                  MenuAction action,
+                  Action action,
                   const bool checked = false) -> entt::entity;
 
 auto MakeCheckbox(entt::registry& registry,
                   entt::entity menuEntity,
                   std::string text,
-                  MenuAction action,
+                  Action action,
                   GridPosition position,
                   const bool checked = false) -> entt::entity;
 

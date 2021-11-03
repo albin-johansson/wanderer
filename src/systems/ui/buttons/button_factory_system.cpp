@@ -9,7 +9,7 @@ namespace wanderer::sys {
 void AddButton(entt::registry& registry,
                const entt::entity entity,
                std::string text,
-               const MenuAction action,
+               const Action action,
                const GridPosition position)
 {
   auto& button = registry.emplace<Button>(entity);
@@ -22,7 +22,7 @@ void AddButton(entt::registry& registry,
 
 auto MakeButton(entt::registry& registry,
                 std::string text,
-                const MenuAction action,
+                const Action action,
                 const GridPosition position) -> entt::entity
 {
   const auto entity = registry.create();
@@ -35,7 +35,7 @@ auto MakeButton(entt::registry& registry,
 auto MakeButton(entt::registry& registry,
                 const entt::entity menuEntity,
                 std::string text,
-                const MenuAction action,
+                const Action action,
                 const GridPosition position) -> entt::entity
 {
   const auto entity = registry.create();

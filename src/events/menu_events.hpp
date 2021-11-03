@@ -3,7 +3,7 @@
 #include <entt.hpp>  // entity, null
 
 #include "components/ui/menu.hpp"
-#include "core/menu_action.hpp"
+#include "core/action.hpp"
 #include "core/menu_id.hpp"
 
 namespace wanderer {
@@ -27,7 +27,7 @@ struct MenuSwitchedEvent final
 /// \ingroup events
 struct ButtonPressedEvent final
 {
-  MenuAction action;
+  Action action;
 };
 
 /// \brief Emitted when the fullscreen option is toggled.

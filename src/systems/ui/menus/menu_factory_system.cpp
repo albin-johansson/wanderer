@@ -41,14 +41,14 @@ auto MakeHomeMenu(entt::registry& registry) -> entt::entity
   const auto entity = MakeMenu(registry, "Wanderer", MenuId::Home, true, true);
   registry.set<HomeMenu>(entity);
 
-  MakeButton(registry, entity, "Play", MenuAction::GotoInGame, {5, -1});
-  MakeButton(registry, entity, "Quick Save", MenuAction::QuickSave, {7, -1});
-  MakeButton(registry, entity, "Saves", MenuAction::GotoSaves, {8, -1});
-  MakeButton(registry, entity, "Settings", MenuAction::GotoSettings, {9, -1});
-  MakeButton(registry, entity, "Controls", MenuAction::GotoControls, {10, -1});
-  MakeButton(registry, entity, "Quit", MenuAction::Quit, {12, -1});
+  MakeButton(registry, entity, "Play", Action::GotoInGame, {5, -1});
+  MakeButton(registry, entity, "Quick Save", Action::QuickSave, {7, -1});
+  MakeButton(registry, entity, "Saves", Action::GotoSaves, {8, -1});
+  MakeButton(registry, entity, "Settings", Action::GotoSettings, {9, -1});
+  MakeButton(registry, entity, "Controls", Action::GotoControls, {10, -1});
+  MakeButton(registry, entity, "Quit", Action::Quit, {12, -1});
 
-  AddBinds(registry, entity, KeyBind{cen::scancodes::escape, MenuAction::GotoInGame});
+  AddBinds(registry, entity, KeyBind{cen::scancodes::escape, Action::GotoInGame});
 
   return entity;
 }
@@ -58,16 +58,16 @@ auto MakeSettingsMenu(entt::registry& registry) -> entt::entity
   const auto entity = MakeMenu(registry, "Settings", MenuId::Settings, true, true);
   registry.set<SettingsMenu>(entity);
 
-  MakeButton(registry, entity, "Return", MenuAction::GotoHome, {4, -1});
+  MakeButton(registry, entity, "Return", Action::GotoHome, {4, -1});
 
-  MakeCheckbox(registry, entity, "Fullscreen", MenuAction::ToggleFullscreen, {6, 13});
+  MakeCheckbox(registry, entity, "Fullscreen", Action::ToggleFullscreen, {6, 13});
   MakeCheckbox(registry,
                entity,
                "Integer scaling",
-               MenuAction::ToggleIntegerScaling,
+               Action::ToggleIntegerScaling,
                {7, 13});
 
-  AddBinds(registry, entity, KeyBind{cen::scancodes::escape, MenuAction::GotoHome});
+  AddBinds(registry, entity, KeyBind{cen::scancodes::escape, Action::GotoHome});
 
   return entity;
 }
@@ -77,14 +77,14 @@ auto MakeSavesMenu(entt::registry& registry) -> entt::entity
   const auto entity = MakeMenu(registry, "Saves", MenuId::Saves, true, true);
   registry.emplace<SavesMenu>(entity);
 
-  MakeButton(registry, entity, "Return", MenuAction::GotoHome, {3.5f, -1});
+  MakeButton(registry, entity, "Return", Action::GotoHome, {3.5f, -1});
 
   // clang-format off
   auto& menu = registry.get<SavesMenu>(entity);
-  menu.load_button = MakeButton(registry, entity, "Load", MenuAction::LoadGame, {15, 12});
-  menu.delete_button = MakeButton(registry, entity, "Delete", MenuAction::DeleteGame, {15.0f, 27.5f});
-  menu.decrement_button = MakeButton(registry, entity, "<", MenuAction::DecrementSavesButtonGroupPage, {15, 4});
-  menu.increment_button = MakeButton(registry, entity, ">", MenuAction::IncrementSavesButtonGroupPage, {15, 8});
+  menu.load_button = MakeButton(registry, entity, "Load", Action::LoadGame, {15, 12});
+  menu.delete_button = MakeButton(registry, entity, "Delete", Action::DeleteGame, {15.0f, 27.5f});
+  menu.decrement_button = MakeButton(registry, entity, "<", Action::DecrementSavesButtonGroupPage, {15, 4});
+  menu.increment_button = MakeButton(registry, entity, ">", Action::IncrementSavesButtonGroupPage, {15, 8});
   // clang-format on
 
   MakeLabel(registry,
@@ -92,7 +92,7 @@ auto MakeSavesMenu(entt::registry& registry) -> entt::entity
             "Location:   " + GetSavesDirectory().string(),
             {glob::menu_rows - 1.7f, 2});
 
-  AddBinds(registry, entity, KeyBind{cen::scancodes::escape, MenuAction::GotoHome});
+  AddBinds(registry, entity, KeyBind{cen::scancodes::escape, Action::GotoHome});
 
   constexpr auto col_0 = 2;
   constexpr auto col_1 = glob::menu_columns - 2;
@@ -121,7 +121,7 @@ auto MakeControlsMenu(entt::registry& registry) -> entt::entity
   const auto entity = MakeMenu(registry, "Controls", MenuId::Controls, true, true);
   registry.set<ControlsMenu>(entity);
 
-  MakeButton(registry, entity, "Return", MenuAction::GotoHome, {4, -1});
+  MakeButton(registry, entity, "Return", Action::GotoHome, {4, -1});
 
   MakeLabel(registry, entity, "Move Up", {6, 13});
   MakeLabel(registry, entity, "Move Down", {7, 13});
@@ -130,7 +130,7 @@ auto MakeControlsMenu(entt::registry& registry) -> entt::entity
   MakeLabel(registry, entity, "Attack", {10, 13});
   MakeLabel(registry, entity, "Interact", {11, 13});
 
-  AddBinds(registry, entity, KeyBind{cen::scancodes::escape, MenuAction::GotoHome});
+  AddBinds(registry, entity, KeyBind{cen::scancodes::escape, Action::GotoHome});
 
   return entity;
 }
@@ -140,7 +140,7 @@ auto MakeInGameMenu(entt::registry& registry) -> entt::entity
   const auto entity = MakeMenu(registry, std::string{}, MenuId::InGame, false, false);
   registry.set<InGameMenu>(entity);
 
-  AddBinds(registry, entity, KeyBind{cen::scancodes::escape, MenuAction::GotoHome});
+  AddBinds(registry, entity, KeyBind{cen::scancodes::escape, Action::GotoHome});
 
   return entity;
 }

@@ -2,14 +2,14 @@
 
 #include <centurion.hpp>  // scan_code
 
-#include "core/menu_action.hpp"
+#include "core/action.hpp"
 
 namespace wanderer {
 
 struct KeyBind final
 {
   cen::scan_code key;
-  MenuAction action{MenuAction::None};
+  Action action{Action::None};
 };
 
 }  // namespace wanderer

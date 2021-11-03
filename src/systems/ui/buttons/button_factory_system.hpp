@@ -5,8 +5,8 @@
 #include <entt.hpp>  // registry, entity
 
 #include "components/ui/button.hpp"
+#include "core/action.hpp"
 #include "core/grid_position.hpp"
-#include "core/menu_action.hpp"
 
 namespace wanderer::sys {
 
@@ -30,7 +30,7 @@ namespace wanderer::sys {
 void AddButton(entt::registry& registry,
                entt::entity entity,
                std::string text,
-               MenuAction action,
+               Action action,
                GridPosition position);
 
 /**
@@ -49,13 +49,13 @@ void AddButton(entt::registry& registry,
  */
 auto MakeButton(entt::registry& registry,
                 std::string text,
-                MenuAction action,
+                Action action,
                 GridPosition position) -> entt::entity;
 
 auto MakeButton(entt::registry& registry,
                 entt::entity menuEntity,
                 std::string text,
-                MenuAction action,
+                Action action,
                 GridPosition position) -> entt::entity;
 
 /// \} End of buttons

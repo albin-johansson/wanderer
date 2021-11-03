@@ -2,8 +2,7 @@
 
 namespace wanderer::sys {
 
-auto MakeBind(entt::registry& registry, cen::scan_code key, MenuAction action)
-    -> entt::entity
+auto MakeBind(entt::registry& registry, cen::scan_code key, Action action) -> entt::entity
 {
   const auto entity = registry.create();
 

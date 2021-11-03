@@ -8,7 +8,7 @@
 #include "components/key_bind.hpp"
 #include "components/ui/associated_menu.hpp"
 #include "components/ui/menu.hpp"
-#include "core/menu_action.hpp"
+#include "core/action.hpp"
 
 namespace wanderer::sys {
 
@@ -55,7 +55,7 @@ void AddBinds(entt::registry& registry, const entt::entity menuEntity, T... bind
  *
  * \return the created key bind entity.
  */
-auto MakeBind(entt::registry& registry, cen::scan_code key, MenuAction action)
+auto MakeBind(entt::registry& registry, cen::scan_code key, Action action)
     -> entt::entity;
 
 /// \} End of input

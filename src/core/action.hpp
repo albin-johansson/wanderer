@@ -4,7 +4,7 @@ namespace wanderer {
 
 /// \brief Provides identifiers for all of the possible menu actions.
 /// \ingroup core
-enum class MenuAction
+enum class Action
 {
   None,
   GotoInGame,

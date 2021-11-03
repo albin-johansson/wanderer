@@ -57,12 +57,12 @@ set(SOURCE_FILES
     components/ui/menu.hpp
     components/ui/saves_menu.hpp
 
+    core/action.hpp
     core/common_concepts.hpp
     core/day_of_week.hpp
     core/direction.hpp
     core/game_constants.hpp
     core/grid_position.hpp
-    core/menu_action.hpp
     core/menu_id.hpp
     core/resources.cpp
     core/resources.hpp

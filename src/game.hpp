@@ -69,6 +69,8 @@ class Game final
 
   [[nodiscard]] auto IsPaused() const -> bool;
 
+  void Execute(Action action);
+
   void OnFullscreenToggled(const FullscreenToggledEvent& event);
 
   void OnIntegerScalingToggled(const IntegerScalingToggledEvent& event);

@@ -93,7 +93,7 @@ void RefreshSaveEntryButtons(entt::registry& registry,
 
     const auto buttonEntity = MakeButton(registry,
                                          entry.name,
-                                         MenuAction::ChangeSavePreview,
+                                         Action::ChangeSavePreview,
                                          GridPosition{actualRow, save_entry_col});
 
     SetVisible(registry.get<Button>(buttonEntity), static_cast<float>(row) < maxRow);
