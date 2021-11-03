@@ -7,20 +7,25 @@ namespace wanderer {
 enum class Action
 {
   None,
+
   GotoInGame,
   GotoHome,
   GotoSettings,
   GotoSaves,
   GotoControls,
+
   QuickSave,
-  LoadGame,
-  DeleteGame,
+  LoadSelectedSave,
+  DeleteSelectedSave,
+
   ChangeSavePreview,
   IncrementSavesButtonGroupPage,
   DecrementSavesButtonGroupPage,
-  Quit,
+
   ToggleFullscreen,
-  ToggleIntegerScaling
+  ToggleIntegerScaling,
+
+  Quit
 };
 
 }  // namespace wanderer

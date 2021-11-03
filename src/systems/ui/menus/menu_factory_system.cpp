@@ -81,8 +81,8 @@ auto MakeSavesMenu(entt::registry& registry) -> entt::entity
 
   // clang-format off
   auto& menu = registry.get<SavesMenu>(entity);
-  menu.load_button = MakeButton(registry, entity, "Load", Action::LoadGame, {15, 12});
-  menu.delete_button = MakeButton(registry, entity, "Delete", Action::DeleteGame, {15.0f, 27.5f});
+  menu.load_button = MakeButton(registry, entity, "Load", Action::LoadSelectedSave, {15, 12});
+  menu.delete_button = MakeButton(registry, entity, "Delete", Action::DeleteSelectedSave, {15.0f, 27.5f});
   menu.decrement_button = MakeButton(registry, entity, "<", Action::DecrementSavesButtonGroupPage, {15, 4});
   menu.increment_button = MakeButton(registry, entity, ">", Action::IncrementSavesButtonGroupPage, {15, 8});
   // clang-format on

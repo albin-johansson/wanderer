@@ -75,7 +75,7 @@ class Game final
 
   void OnIntegerScalingToggled(const IntegerScalingToggledEvent& event);
 
-  void OnLoadGameEvent(const LoadGameEvent& event);
+  void OnLoadSaveEvent(const LoadSaveEvent& event);
 
   void OnButtonPressed(const ButtonPressedEvent& event);
 

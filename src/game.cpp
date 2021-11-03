@@ -66,7 +66,7 @@ Game::Game()
   auto& d = mEngine.dispatcher();
   d.sink<FullscreenToggledEvent>().connect<&Game::OnFullscreenToggled>(this);
   d.sink<IntegerScalingToggledEvent>().connect<&Game::OnIntegerScalingToggled>(this);
-  d.sink<LoadGameEvent>().connect<&Game::OnLoadGameEvent>(this);
+  d.sink<LoadSaveEvent>().connect<&Game::OnLoadSaveEvent>(this);
   d.sink<SwitchMapEvent>().connect<&Game::OnSwitchMap>(this);
   d.sink<SwitchMenuEvent>().connect<&Game::OnSwitchMenu>(this);
   d.sink<MenuSwitchedEvent>().connect<&Game::OnMenuSwitched>(this);
@@ -243,27 +243,27 @@ void Game::Execute(const Action action)
     case Action::None:
       break;
 
-    case Action::GotoInGame: {
+    case Action::GotoInGame:
       dispatcher.enqueue<SwitchMenuEvent>(MenuId::InGame);
       break;
-    }
+
     case Action::GotoHome: {
       mUpdateSnapshot = true;
       dispatcher.enqueue<SwitchMenuEvent>(MenuId::Home);
       break;
     }
-    case Action::GotoControls: {
+    case Action::GotoControls:
       dispatcher.enqueue<SwitchMenuEvent>(MenuId::Controls);
       break;
-    }
-    case Action::GotoSettings: {
+
+    case Action::GotoSettings:
       dispatcher.enqueue<SwitchMenuEvent>(MenuId::Settings);
       break;
-    }
-    case Action::GotoSaves: {
+
+    case Action::GotoSaves:
       dispatcher.enqueue<SwitchMenuEvent>(MenuId::Saves);
       break;
-    }
+
     case Action::QuickSave: {
       // FIXME don't allow quick saves before the in-game menu has been active once
       if (const auto* snapshot = shared.try_ctx<ctx::RendererSnapshot>()) {
@@ -272,27 +272,26 @@ void Game::Execute(const Action action)
       dispatcher.enqueue<SwitchMenuEvent>(MenuId::InGame);
       break;
     }
-    case Action::LoadGame: {
-      dispatcher.enqueue<LoadGameEvent>(sys::GetSelectedSaveName(shared));
+    case Action::LoadSelectedSave:
+      dispatcher.enqueue<LoadSaveEvent>(sys::GetSelectedSaveName(shared));
       break;
-    }
-    case Action::DeleteGame: {
-      const auto name = sys::GetSelectedSaveName(shared);
-      sys::RemoveSaveEntry(shared, name);
+
+    case Action::DeleteSelectedSave:
+      sys::RemoveSaveEntry(shared, sys::GetSelectedSaveName(shared));
       break;
-    }
-    case Action::ChangeSavePreview: {
+
+    case Action::ChangeSavePreview:
       sys::ChangeSavePreview(shared);
       break;
-    }
-    case Action::DecrementSavesButtonGroupPage: {
+
+    case Action::DecrementSavesButtonGroupPage:
       sys::DecrementSavesButtonGroupPage(shared);
       break;
-    }
-    case Action::IncrementSavesButtonGroupPage: {
+
+    case Action::IncrementSavesButtonGroupPage:
       sys::IncrementSavesButtonGroupPage(shared);
       break;
-    }
+
     case Action::ToggleFullscreen: {
       const auto enabled = sys::ToggleFullscreen(shared);
       dispatcher.enqueue<FullscreenToggledEvent>(enabled);
@@ -303,10 +302,9 @@ void Game::Execute(const Action action)
       dispatcher.enqueue<IntegerScalingToggledEvent>(enabled);
       break;
     }
-    case Action::Quit: {
+    case Action::Quit:
       dispatcher.enqueue<QuitEvent>();
       break;
-    }
   }
 }
 
@@ -331,7 +329,7 @@ void Game::OnIntegerScalingToggled(const IntegerScalingToggledEvent& event)
   mGraphics.GetRenderer().set_logical_integer_scaling(event.enabled);
 }
 
-void Game::OnLoadGameEvent(const LoadGameEvent& event)
+void Game::OnLoadSaveEvent(const LoadSaveEvent& event)
 {
   auto& shared = mEngine.registry();
   LoadGame(shared, mGraphics, event.name);
