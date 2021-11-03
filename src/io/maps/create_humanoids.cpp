@@ -8,9 +8,7 @@
 
 namespace wanderer {
 
-void CreateHumanoids(const Tactile::IO::Map& irMap,
-                     Level& level,
-                     GraphicsContext& graphics)
+void CreateHumanoids(Level& level, GraphicsContext& graphics)
 
 {
   /* The player has to be created before other humanoids! */

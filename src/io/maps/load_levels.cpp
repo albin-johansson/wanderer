@@ -77,7 +77,7 @@ auto LoadLevel(entt::registry& shared,
     AddLevelMetaInformation(*irMap, level);
     CreateTileset(*irMap, level, graphics);
     CreateLayers(*irMap, level, graphics);
-    CreateHumanoids(*irMap, level, graphics);
+    CreateHumanoids(level, graphics);
 
     sys::CenterViewportOn(level.registry, level.player_spawn_position.value());
     sys::UpdateDrawables(level.registry);
