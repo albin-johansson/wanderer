@@ -59,6 +59,7 @@ set(SOURCE_FILES
 
     core/action.hpp
     core/common_concepts.hpp
+    core/day_of_week.cpp
     core/day_of_week.hpp
     core/direction.hpp
     core/game_constants.hpp
