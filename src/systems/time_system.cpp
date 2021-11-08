@@ -149,15 +149,15 @@ void RenderClock(const entt::registry& registry)
     return (value < 10) ? "0" : "";
   };
 
-  const rune::formatted_string<64> str{"{}{}: {}{}",
+  const rune::formatted_string<64> str{"{} {}{}:{}{}",
+                                       Stringify(time.day),
                                        prefix(hour),
                                        hour,
                                        prefix(minute),
                                        minute};
 
   auto& graphics = registry.ctx<Ref<GraphicsContext>>().get();
-  graphics.RenderOutlinedText(Stringify(time.day), cen::point(6, 6));
-  graphics.RenderOutlinedText(str.view(), cen::point(30, 6));
+  graphics.RenderOutlinedText(str.view(), cen::point(6, 6));
 }
 
 }  // namespace wanderer::sys

@@ -79,13 +79,9 @@ constexpr uint32 switch_level_id = 3;
 
 constexpr cen::color transparent_black = cen::colors::black.with_alpha(0xBB);
 
-constexpr int32 small_font_size = 8;
-constexpr int32 medium_font_size = 16;
-constexpr int32 large_font_size = 24;
-
-constexpr entt::id_type menu_font_s = entt::hashed_string{"typewriter_s"};
-constexpr entt::id_type menu_font_m = entt::hashed_string{"typewriter_m"};
-constexpr entt::id_type menu_font_l = entt::hashed_string{"typewriter_l"};
+constexpr entt::id_type menu_font_s = entt::hashed_string{"menu_font_s"};
+constexpr entt::id_type menu_font_m = entt::hashed_string{"menu_font_m"};
+constexpr entt::id_type menu_font_l = entt::hashed_string{"menu_font_l"};
 
 constexpr float menu_row_size = 30;
 constexpr float menu_col_size = 30;

@@ -9,6 +9,14 @@
 
 namespace wanderer {
 
+enum class Anchor
+{
+  NorthWest,
+  NorthEast,
+  SouthEast,
+  SouthWest
+};
+
 /**
  * \brief Provides the main graphics API.
  *
@@ -67,6 +75,16 @@ class GraphicsContext final
     mRenderer.render_t(GetTexture(index), src, dst);
   }
 
+  void RenderOutlinedText(const auto& text,
+                          const cen::ipoint& position,
+                          const cen::font_cache& fg,
+                          const cen::font_cache& bg)
+  {
+    auto& renderer = GetRenderer();
+    renderer.render_text(bg, text, position + cen::point(1, 1));
+    renderer.render_text(fg, text, position);
+  }
+
   /**
    * \brief Renders small white text with a black outline.
    *
@@ -79,10 +97,41 @@ class GraphicsContext final
   {
     const auto& black = GetSmallFontCacheBlack();
     const auto& white = GetSmallFontCacheWhite();
+    RenderOutlinedText(text, position, white, black);
+  }
 
-    auto& renderer = GetRenderer();
-    renderer.render_text(black, text, position + cen::point(1, 1));
-    renderer.render_text(white, text, position);
+  // Useful helper for rendering outlined labels
+  void RenderLabel(const CStr text,
+                   const int xOffset,
+                   const int yOffset,
+                   const Anchor anchor = Anchor::NorthWest)
+  {
+    const auto& cache = GetSmallFontCacheBlack();
+    const auto [width, height] = cache.get_font().string_size(text).value();
+
+    switch (anchor) {
+      case Anchor::NorthWest:
+        RenderOutlinedText(std::string_view{text}, cen::point(xOffset, yOffset));
+        break;
+
+      case Anchor::NorthEast:
+        RenderOutlinedText(
+            std::string_view{text},
+            cen::point(glob::logical_width<int> - (width + xOffset), yOffset));
+        break;
+
+      case Anchor::SouthEast:
+        RenderOutlinedText(std::string_view{text},
+                           cen::point(glob::logical_width<int> - (width + xOffset),
+                                      glob::logical_height<int> - (height + yOffset)));
+        break;
+
+      case Anchor::SouthWest:
+        RenderOutlinedText(
+            std::string_view{text},
+            cen::point(xOffset, glob::logical_height<int> - (height + yOffset)));
+        break;
+    }
   }
 
   [[nodiscard]] auto GetSmallFontCacheBlack() noexcept -> cen::font_cache&

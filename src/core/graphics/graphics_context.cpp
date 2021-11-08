@@ -6,7 +6,7 @@
 
 namespace wanderer {
 namespace {
-inline const auto font_path = GetFontResource("type_writer.ttf");
+inline const auto font_path = GetFontResource("dogica/dogicapixel.ttf");
 }  // namespace
 
 GraphicsContext::GraphicsContext(const cen::window& window)
@@ -20,19 +20,15 @@ GraphicsContext::GraphicsContext(const cen::window& window)
   mTextures.reserve(10);
 
   auto& renderer = GetRenderer();
-  renderer.set_blend_mode(cen::blend_mode::blend);
 
-  renderer.emplace_font(glob::menu_font_s, font_path, glob::small_font_size);
-  renderer.emplace_font(glob::menu_font_m, font_path, glob::medium_font_size);
-  renderer.emplace_font(glob::menu_font_l, font_path, glob::large_font_size);
+  renderer.emplace_font(glob::menu_font_s, font_path, 8);
+  renderer.emplace_font(glob::menu_font_m, font_path, 16);
+  renderer.emplace_font(glob::menu_font_l, font_path, 32);
 
-  renderer.set_logical_size(glob::logical_size<>);
-  renderer.set_logical_integer_scaling(true);
-
-  EmplaceCache(small_black_font, font_path, glob::small_font_size);
-  EmplaceCache(small_font, font_path, glob::small_font_size);
-  EmplaceCache(medium_font, font_path, glob::medium_font_size);
-  EmplaceCache(large_font, font_path, glob::large_font_size);
+  EmplaceCache(small_black_font, font_path, 8);
+  EmplaceCache(small_font, font_path, 8);
+  EmplaceCache(medium_font, font_path, 16);
+  EmplaceCache(large_font, font_path, 32);
 
   renderer.set_color(cen::colors::black);
   GetCache(small_black_font).add_latin1(renderer);
@@ -41,6 +37,10 @@ GraphicsContext::GraphicsContext(const cen::window& window)
   GetCache(small_font).add_latin1(renderer);
   GetCache(medium_font).add_latin1(renderer);
   GetCache(large_font).add_latin1(renderer);
+
+  renderer.set_blend_mode(cen::blend_mode::blend);
+  renderer.set_logical_size(glob::logical_size<>);
+  renderer.set_logical_integer_scaling(true);
 
   mLightCanvas.set_blend_mode(cen::blend_mode::mul);
 }

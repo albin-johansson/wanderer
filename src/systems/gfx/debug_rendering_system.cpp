@@ -65,18 +65,6 @@ void RenderChaseRanges(const entt::registry& registry, cen::renderer& renderer)
   }
 }
 
-void RenderDevelopmentBuildLabel(GraphicsContext& graphics)
-{
-  auto& renderer = graphics.GetRenderer();
-  const auto& cache = graphics.GetSmallFontCacheWhite();
-
-  constexpr char str[] = "Development build";
-  const auto [width, height] = cache.get_font().string_size(str).value();
-  const auto x = glob::logical_width<int> - width - 6;
-  const auto y = glob::logical_height<int> - height - 6;
-  renderer.render_text(cache, str, {x, y});
-}
-
 }  // namespace
 
 void RenderDebugInfo(const entt::registry& registry)
@@ -116,7 +104,7 @@ void RenderMenuDebugInfo(const entt::registry& registry)
     renderer.draw_line<float>({endX - 1, 0}, {endX - 1, endY});
   }
 
-  RenderDevelopmentBuildLabel(graphics);
+  graphics.RenderLabel("Development build", 24, 6, Anchor::SouthEast);
 }
 
 }  // namespace wanderer::sys

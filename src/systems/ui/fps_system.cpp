@@ -39,14 +39,12 @@ void RenderFps(const entt::registry& shared)
 
     {
       const rune::formatted_string<64> str{"Frame: {} ms", data.frame.count()};
-      graphics.RenderOutlinedText(str.view(),
-                                  cen::point(glob::logical_width<int> - 125, 6));
+      graphics.RenderLabel(str.data(), 12, 6, Anchor::NorthEast);
     }
 
     {
       const rune::formatted_string<64> str{"FPS: {}", fps};
-      graphics.RenderOutlinedText(str.view(),
-                                  cen::point(glob::logical_width<int> - 55, 6));
+      graphics.RenderLabel(str.data(), 12, 24, Anchor::NorthEast);
     }
   }
 }
